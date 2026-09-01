@@ -1,201 +1,333 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-253.mta0.migadu.com [91.218.175.253])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F33946A5EB
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:46:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8997136D51F
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:46:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.253
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248802; cv=none; b=YSbo+hSGHOhiFOkAtvA8wenFewtIuj/hJcVZLDRw2NHbFLda7VEeiyH+tUkyqR9ljZBj/B++7WF7+HNIi4NycwqNFaZGg/Gfx588M3r5WVajZnY/ptiXimaUKLWQ2trL6wJWtiUDKElWOWhPdfqi8Ld41ulRO68Z8B+MCIMiYbQ=
+	t=1788248801; cv=none; b=Z7xBfBEOTS4QJpS12Uyvn78JwNQtIFK7TnmICkRoDQW7pp0PVs9xVvk2Qv7dGn+kQONhqsft1Esi2Y/pQMJE42fk+DKWsmAsUesZHCuJd4zldqZKOlR+HcqIkcaZX+AZ6zx29uOZBEGQufNq74qVqj+09RgSWbc3jHJLHsu9ocw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248802; c=relaxed/simple;
-	bh=v/An2BC5S8oN8RkfExWXcae0xF52oIum1YsykNv7Tb0=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=aexywJ5cFJYLEFlUYUkpsSzRFESGaQq3HGCv6zUiT5uTtFtpZP9IxC0tWg6cctFnqZxdZssLUeOhnzR1m6YXpyYr5YB2NLnUijTLwwUI2O/HTNIl3RhmZYPieiYs8E/kPWAdHDx8p7dmDb6xURQbkk8l28M64vf6PtuOIQTjvAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YET+oJJL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788248801; c=relaxed/simple;
+	bh=46/XfvU4UUxnGFLvYengC/Ov+6x7Xx2+ZA9VWoRfrDc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZO1Ze+5Px/F7/djUGV4G+ViyUokVgImAqVkvPhfneptAvn3talk/w7LH5ailj0gF0UU0Y2hH5tuzZInGwiqY+k5T4cF5QzBjaCHZXv6cii9h4p95dNjaut2IEyjhyD/ks8ieIGBZOP2ecQ0hxl1+vnQw31EaLrcFfgkEfZzUqyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LkWtflY0; arc=none smtp.client-ip=91.218.175.253
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YET+oJJL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A0571F01559;
-	Tue,  1 Sep 2026 07:46:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788248801;
-	bh=tycthEubAVEPDTzKZ89ZW92uoSczdcYfRgozoAn/gcg=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=YET+oJJLGPRpStiP62Lpl739NcEbpZE8JTOR2hNUDCDMJKAnE3a0vfHD/iaseCXnU
-	 37IdJfk6AziIIYSzTbq9T1BE33cjKueAPC1h6L50xI9EFwCZqjmfv9PuuzlrPl52pP
-	 6/MKIOps1usBeRKEGvzXsFFVozSGFAje7SKOeGAQeKfoqu/r1Dj3zbGFVBDHwd3hQN
-	 r1lrVnX88swf0iVkr0NPagvKxw5T4j3Db3GHDoFOcMDMn7xYNWCh0GhuYhNadrpASb
-	 Hp65KYhHLt7qMqcnV5tC4VBJjyLQ9F21VxkfjB3iswPKHzg+gursLCamx72uEdPt70
-	 65JHqnau86C9w==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id C77A41980047;
-	Tue,  1 Sep 2026 03:46:38 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Tue, 01 Sep 2026 03:46:38 -0400
-X-ME-Sender: <xms:3IKWas-USWresrMBg_PjOEdBx_HUyglt4r0LEguzDwkhzlJL5mk5cw>
-    <xme:3IKWavgpaenlWlDWVB7O1hAtAeuS5clTy_HBc-Bi1ah2PIoL5BE7-Tfod_Bh1AJfB
-    LS2UzSGJCW5NA8wzHBvvmJScLm0dI8kwttwvEZ5ygS-BMEX_m2rLHk>
-X-ME-Proxy-Cause: dmFkZTGdeAAZd7nm8BQbk45gyvcsKSuHH3+WyvCBBHysyzB+JWpO7OakyersasOOFw5t9S
-    aUuVlHng9R84S/5OCYhOO+wfvnnhXcJJ2p5Bh2Tn82X5ZmruMpgQwj9Z6sGjYym0dcHLGh
-    KkrItYKblSDXQKbIGDMSBAR1y5Z8K249b4ohzJ2NptXTpNoY+Mi7hpBO7OFSlGEN44hl8l
-    mxcatjydrVncNWw+WyqcBYlvMtJdgrItIRcqNEzlsuoZ2LrsE25YHuwFhpwDDan4I/p23M
-    nLI1GMzO48M7MR5Xo0d2eGNqdUboHxsgiku6fLWrA+eNiced+pk8sLoNGl+BjZxalBC0cr
-    iXWZr8nwxqpZulxZgtxL2kAXoH7P7JUspKC1qtDYFclVQKwoJBkVZTWi6oF5bNekU4bRx4
-    oMDm0fjSUmMt1g1qOFB+1b8wtWsrsO9J/CbZiQD3+RP2nY7087Zs9PUa72EHtizQah1zui
-    YiKomU2yCxxtYkJuXa1y7NtX6MJ9yhX2e1lsxF0XF3hpU6gwMuVBMBZsxNOz7AV6F1e/xb
-    LVCmE7rSGLMA2M94inPldXnoQ82R2U5GddkAFd2qxopGjlqtyIgXNQyb7jUv6vctnU/cUR
-    vBI4pR/uyEgg1HKqSb/PcHJnGnbg/Baio9fgZ0v53f3NeuKjLP0W+5vz2UQg
-X-ME-Proxy: <xmx:3oKWau-0p-UJxzfC5c-r2Qqga0PdhDyGngIJneCSWmj_wvlMjw_bFg>
-    <xmx:3oKWarSqFvssmjfZoaI-v0VElUd_zgMIiA35rxPjMni7SnUYXdAKZQ>
-    <xmx:3oKWaoefmi8dxYmF7h8P9eBr7JF0wEvzkoFNMApWr8legZpvkEQvYQ>
-    <xmx:3oKWatQ3EoNlMekDdaFJPAeqlwoxk2tQxv54eeVPiBgXJxvvtOTpcQ>
-    <xmx:3oKWakIVeNiheVTKvvPgoEn1xPBydzwLR5OVd2TYMBk_tP7TOsflqk-Z>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id AC032F8007A; Tue,  1 Sep 2026 03:46:36 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LkWtflY0"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=46/XfvU4UUxnGFLvYengC/Ov+6x7Xx2+ZA9VWoRfrDc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788248797; v=1; x=1788853597;
+ b=LkWtflY0JKFI/R1r2igg+UURVPTfnM6xo4IuK8FFsOYJckWkjHE1WQvxSt8DkBdM04bi3b5w
+ PJkAxCjEre+Xb4f0HLeQmFJNwQAGMuQX3DYi2YCSFIMiERiXXzBQoRW2TQ2vR4EEcrAT7F3xT6y
+ qPwv/6ObaMLDs/sPLmyzWeb8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e3b2645d8df456f9;
+	Tue, 01 Sep 2026 07:46:37 +0000
+X-Mizu-Trace-ID: e3b2645d8df456f9
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b2a8173142so3275e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:46:33 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwOtH/FQKfDP+2HkF6Txlf3WoMZDcGyIctOzSqxp62PU3MmpPBHr4i/N2AFdGUzVZfZylTBA9GhGy4HWY8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPasgu5OHCMAqkm/V+862gdEe3t7Yej/h6NuLuepgRVTRgTzzz
+	QVaIZdauTRmJSQrx8F561EfMctZG0EMKMIrmUh4jzHpF2vrAkrDLoYcwk04621UZCFI3oPbq57W
+	ddmlOgyJDGzNY2KOMKqsgXfKE8fdiUvWWn+vWiz2E
+X-Received: by 2002:a05:6512:b8d:b0:5b2:8963:e5d4 with SMTP id
+ 2adb3069b0e04-5b600a42bd7mr91617e87.5.1788248790675; Tue, 01 Sep 2026
+ 00:46:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Tue, 01 Sep 2026 09:46:16 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Jasmeet (Jazz) Bhatia" <jasmeet.bhatia.us@gmail.com>,
- "Rafael J . Wysocki" <rafael@kernel.org>
-Cc: "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
- "Pavel Machek" <pavel@kernel.org>, linux-efi@vger.kernel.org,
- linux-pm@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org,
- "Breno Leitao" <leitao@debian.org>
-Message-Id: <52b1567c-522a-4e93-a5c4-0a37af688d76@app.fastmail.com>
-In-Reply-To: <DL3MNWW4VEBR.K3K6A92WMHUY@gmail.com>
-References: <DL3MNWW4VEBR.K3K6A92WMHUY@gmail.com>
-Subject: Re: [RFC] efi/tpm: ACPI reclaim event log allocation breaks x86 hibernation
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com> <20260830-gmem-inplace-conversion-v12-15-85e5fd25252a@google.com>
+In-Reply-To: <20260830-gmem-inplace-conversion-v12-15-85e5fd25252a@google.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 1 Sep 2026 08:45:54 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTzJbC=ZvB3Mopw-TLf=13-iqxGw5RfTp6Gt5S1hi8WRRA@mail.gmail.com>
+X-Gm-Features: AcwNN1W8nZTxVvoFPBYtI3aVIovLXAurzaZOGm0KyMs0U_MOniIbd1ibspvycU0
+Message-ID: <CA+EHjTzJbC=ZvB3Mopw-TLf=13-iqxGw5RfTp6Gt5S1hi8WRRA@mail.gmail.com>
+Subject: Re: [PATCH v12 15/45] KVM: guest_memfd: Ensure pages are not in use
+ before conversion
+To: ackerleytng@google.com
+Cc: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
+	brauner@kernel.org, chao.p.peng@linux.intel.com, david@kernel.org, 
+	jmattson@google.com, jthoughton@google.com, michael.roth@amd.com, 
+	oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
+	rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
+	steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
+	yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org, 
+	suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
+	Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-mm@kvack.org, linux-coco@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-(cc Breno)
+Hi Ackerley,
 
-Hi Jazz,
+On Mon, 31 Aug 2026 at 01:25, Ackerley Tng via B4 Relay
+<devnull+ackerleytng.google.com@kernel.org> wrote:
+>
+> From: Ackerley Tng <ackerleytng@google.com>
+>
+> When converting memory to private in guest_memfd, it is necessary to ensure
+> that the pages are not currently being accessed by any other part of the
+> kernel or userspace to avoid any current user writing to guest private
+> memory.
+>
+> guest_memfd checks for any outstanding references to determine whether a
+> page is still in use. The only expected references after unmapping the
+> range requested for conversion are those that are held by guest_memfd
+> itself.
+>
+> Update the kvm_memory_attributes2 structure to include an error_offset
+> field. This allows KVM to report the exact offset where a conversion
+> failed. If the safety check fails, return -EAGAIN and copy the error_offset
+> back to userspace so that it can potentially retry the operation or handle
+> the failure gracefully.
+>
+> Update documentation to document the error_offset field and the possible
+> -EAGAIN error.
+>
+> Suggested-by: David Hildenbrand <david@kernel.org>
+> Co-developed-by: Vishal Annapurve <vannapurve@google.com>
+> Signed-off-by: Vishal Annapurve <vannapurve@google.com>
+> Reviewed-by: Fuad Tabba <tabba@google.com>
+> Tested-by: Shivank Garg <shivankg@amd.com>
+> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+> ---
+>  Documentation/virt/kvm/api.rst | 19 +++++++++--
+>  include/uapi/linux/kvm.h       |  3 +-
+>  virt/kvm/guest_memfd.c         | 77 +++++++++++++++++++++++++++++++++++++++---
+>  3 files changed, 91 insertions(+), 8 deletions(-)
+>
+> diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
+> index 4dbf452f6e809..25cb15970f1ae 100644
+> --- a/Documentation/virt/kvm/api.rst
+> +++ b/Documentation/virt/kvm/api.rst
+> @@ -6613,7 +6613,7 @@ KVM_S390_KEYOP_SSKE
+>  :Capability: KVM_CAP_GUEST_MEMFD_MEMORY_ATTRIBUTES
+>  :Architectures: all
+>  :Type: guest_memfd ioctl
+> -:Parameters: struct kvm_memory_attributes2 (in)
+> +:Parameters: struct kvm_memory_attributes2 (in/out)
+>  :Returns: 0 on success, <0 on error
+>
+>  Errors:
+> @@ -6622,6 +6622,8 @@ Errors:
+>    EINVAL     The specified `offset` or `size` was invalid (e.g. not
+>               page aligned, causes an overflow, or size is zero).
+>    EFAULT     The parameter address was invalid.
+> +  EAGAIN     Some page within requested range had unexpected refcounts. The
+> +             offset of the page will be returned in `error_offset`.
+>    ENOMEM     Ran out of memory trying to track private/shared state
+>    ========== ===============================================================
+>
+> @@ -6635,6 +6637,7 @@ Attribute values are shared with KVM_SET_MEMORY_ATTRIBUTES.
+>  ::
+>
+>    struct kvm_memory_attributes2 {
+> +       /* in */
+>         union {
+>                 __u64 address;
+>                 __u64 offset;
+> @@ -6642,7 +6645,9 @@ Attribute values are shared with KVM_SET_MEMORY_ATTRIBUTES.
+>         __u64 size;
+>         __u64 attributes;
+>         __u64 flags;
+> -       __u64 reserved[12];
+> +       /* out */
+> +       __u64 error_offset;
+> +       __u64 reserved[11];
+>    };
+>
+>    #define KVM_MEMORY_ATTRIBUTE_PRIVATE           (1ULL << 3)
+> @@ -6664,6 +6669,16 @@ which includes operations such as unmapping pages from the host or
+>  stage-2 page tables, may result in side effects on memory contents
+>  that vary across different trusted firmware implementations.
+>
+> +If this ioctl returns -EAGAIN, the offset of the page with unexpected
+> +refcounts will be returned in ``error_offset``. This can occur if
+> +there are transient refcounts on the pages, taken by other parts of
+> +the kernel.
+> +
+> +Userspace is expected to figure out how to remove all known refcounts
+> +on the shared pages, such as refcounts taken by get_user_pages(), and
+> +try the ioctl again. A possible source of these long term refcounts is
+> +if the guest_memfd memory was pinned in IOMMU page tables.
+> +
+>  See also: :ref:`KVM_SET_MEMORY_ATTRIBUTES`.
+>
+>  4.145 KVM_PPC_GET_COMPAT_CAPS
+> diff --git a/include/uapi/linux/kvm.h b/include/uapi/linux/kvm.h
+> index ac371a50041c9..8dff2fc1972e9 100644
+> --- a/include/uapi/linux/kvm.h
+> +++ b/include/uapi/linux/kvm.h
+> @@ -1665,7 +1665,8 @@ struct kvm_memory_attributes2 {
+>         __u64 size;
+>         __u64 attributes;
+>         __u64 flags;
+> -       __u64 reserved[12];
+> +       __u64 error_offset;
+> +       __u64 reserved[11];
+>  };
+>
+>  #define KVM_MEMORY_ATTRIBUTE_PRIVATE           (1ULL << 3)
+> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
+> index 803c7cdbbe0f6..fe02c47c85fb5 100644
+> --- a/virt/kvm/guest_memfd.c
+> +++ b/virt/kvm/guest_memfd.c
+> @@ -538,8 +538,46 @@ static int kvm_gmem_mas_preallocate(struct ma_state *mas, u64 attributes,
+>         return mas_preallocate(mas, xa_mk_value(attributes), GFP_KERNEL);
+>  }
+>
+> +static bool kvm_gmem_has_outstanding_references(struct inode *inode,
+> +                                               pgoff_t start, size_t nr_pages,
+> +                                               pgoff_t *err_index)
+> +{
+> +       struct address_space *mapping = inode->i_mapping;
+> +       pgoff_t last = start + nr_pages - 1;
+> +       bool has_outstanding = false;
+> +       struct folio_batch fbatch;
+> +       pgoff_t next;
+> +       int i;
+> +
+> +       folio_batch_init(&fbatch);
+> +
+> +       next = start;
+> +       while (has_outstanding && filemap_get_folios(mapping, &next, last, &fbatch)) {
 
-On Tue, 1 Sep 2026, at 04:34, Jasmeet (Jazz) Bhatia wrote:
-> Hello,
->
-> This is my first mail to the Linux mailing lists, so apologies
-> if I've missed any conventions.
->
-> I have been investigating a reproducible x86 hibernation resume
-> failure and have traced it to the EFI stub's TPM event log allocation.
->
-> The system is a Framework Laptop 16 (AMD Ryzen AI 300 Series), using
-> Insyde UEFI 2.9 / Framework BIOS 04.01.
->
-> On resume, the hibernation image is found, but x86 eventually rejects
-> it because the firmware E820 map does not match:
->
->     PM: Image signature found, resuming
->     PM: hibernation: resume from hibernation
->     ...
->     PM: Loading and decompressing image data (4198398 pages)...
->     Hibernate inconsistent memory map detected!
->     PM: hibernation: Image mismatch: architecture specific data
->     PM: Error -1 resuming
->     PM: hibernation: Failed to load image, recovering.
->     PM: hibernation: resume failed (-1)
->
-> I compared the E820 map across repeated ordinary boots and found a
-> 48 KiB ACPI data region whose address changes from boot to boot. Its
-> base always corresponds to the TPMEventLog EFI configuration table
-> address (the table pointer is base + 0x18).
->
-> For example, across five ordinary boots:
->
->     E820 ACPI data region          TPMEventLog
->     678da000-678e5fff              678da018
->     678db000-678e6fff              678db018
->     678d1000-678dcfff              678d1018
->     678d6000-678e1fff              678d6018
->     678d8000-678e3fff              678d8018
->
-> This occurs on normal reboots as well, so it doesn't seem to be
-> specific to an S4 firmware path.
->
-> drivers/firmware/efi/libstub/tpm.c currently allocates the copied TPM
-> event log using EFI_ACPI_RECLAIM_MEMORY:
->
->     status = efi_bs_call(allocate_pool, EFI_ACPI_RECLAIM_MEMORY,
->                          sizeof(*log_tbl) + log_size,
->                          (void **)&log_tbl);
->
-> As a diagnostic experiment, I changed only the memory type back to
-> EFI_LOADER_DATA:
->
-> -   status = efi_bs_call(allocate_pool, EFI_ACPI_RECLAIM_MEMORY,
-> +   status = efi_bs_call(allocate_pool, EFI_LOADER_DATA,
->                          sizeof(*log_tbl) + log_size,
->                          (void **)&log_tbl);
->
-> With that change, TPMEventLog continues to move between boots, e.g.
->
->     boot 1: TPMEventLog=0x678d8018
->     boot 2: TPMEventLog=0x678d5018
->
-> but the BIOS-e820 entries are identical across those boots. The
-> 48 KiB ACPI data island around TPMEventLog is no longer present.
->
-> Most importantly, Linux 7.2.0 with only this one-line diagnostic
-> change successfully hibernates and resumes, whereas the unmodified
-> 7.2.0 kernel fails to resume.
->
-> Despite that, I don't think simply reverting to EFI_LOADER_DATA is a
-> good fix. Looking back, I noticed commit 77d48d39e991
-> ("efistub/tpm: Use ACPI reclaim memory for event log to avoid
-> corruption") intentionally moved away from this allocation to prevent
-> the TPM event log from appearing as unreserved RAM to an incoming
-> kexec kernel.
->
+has_outstanding starts as false, so the loop never runs and the function
+always returns false. The outstanding-reference check is dead at this
+patch, so a to-private conversion would not be rejected even when a page
+still has an outstanding reference.
 
-There might be other ways to protect this memory from being clobbered
-by kexec.
+It's fixed later in "KVM: guest_memfd: Handle lru_add fbatch refcounts
+during conversion safety check", which changes the condition to
+!has_outstanding. I think that fix belongs in this patch, so the check
+works when it is introduced and the series bisects cleanly.
 
-Or even better, given that both hibernate and kexec invalidate the
-TPM attestation trail anyway, perhaps it would be better to simply
-find a way for kexec to ignore this table altogether. That way, we
-could use EFI_LOADER_DATA for the region, and your issue goes away.
+Missed it on the previous review, but with this fixed it still holds.
 
--- 
-Ard.
+Cheers,
+/fuad
 
 
-(leaving untrimmed below)
 
-> I tried retaining EFI_LOADER_DATA while registering the TPM log with
-> efi_mem_reserve_persistent(). The ordinary memblock reservation
-> protects it in the running kernel, and I hoped the persistent EFI
-> reservation could provide the kexec protection without changing E820.
+> +               for (i = 0; i < folio_batch_count(&fbatch); ++i) {
+> +                       struct folio *folio = fbatch.folios[i];
+> +
+> +                       /*
+> +                        * Outstanding references are anything other than those
+> +                        * from the page cache, plus 1 temporary reference held
+> +                        * by filemap_get_folios() in the folio batch.
+> +                        */
+> +                       if (folio_ref_count(folio) != folio_nr_pages(folio) + 1) {
+> +                               has_outstanding = true;
+> +                               *err_index = max(start, folio->index);
+> +                               break;
+> +                       }
+> +               }
+> +
+> +               folio_batch_release(&fbatch);
+> +               cond_resched();
+> +       }
+> +
+> +       return has_outstanding;
+> +}
+> +
+>  static int __kvm_gmem_set_attributes(struct inode *inode, pgoff_t start,
+> -                                    size_t nr_pages, uint64_t attrs)
+> +                                    size_t nr_pages, uint64_t attrs,
+> +                                    pgoff_t *err_index)
+>  {
+>         bool to_private = attrs & KVM_MEMORY_ATTRIBUTE_PRIVATE;
+>         struct address_space *mapping = inode->i_mapping;
+> @@ -556,8 +594,28 @@ static int __kvm_gmem_set_attributes(struct inode *inode, pgoff_t start,
 >
-> On x86, however, efi_mem_reserve_persistent() returned -ENODEV:
+>         mas_init(&mas, mt, start);
+>         r = kvm_gmem_mas_preallocate(&mas, attrs, start, nr_pages);
+> -       if (r)
+> +       if (r) {
+> +               *err_index = start;
+>                 goto out;
+> +       }
+> +
+> +       if (to_private) {
+> +               /*
+> +                * Forcefully unmap the pages from all userspace page tables,
+> +                * and then verify there are no outstanding references, e.g.
+> +                * acquired via GUP or similar.  Tell userspace to try again if
+> +                * there are outstanding references and hope that whatever has
+> +                * pinned the page will put its reference "soon".
+> +                */
+> +               unmap_mapping_pages(mapping, start, nr_pages, false);
+> +
+> +               if (kvm_gmem_has_outstanding_references(inode, start, nr_pages,
+> +                                                       err_index)) {
+> +                       mas_destroy(&mas);
+> +                       r = -EAGAIN;
+> +                       goto out;
+> +               }
+> +       }
 >
->     Failed to persistently reserve TPM Event Log: -19
+>         /*
+>          * From this point on guest_memfd has performed necessary
+> @@ -578,9 +636,10 @@ static long kvm_gmem_set_attributes(struct file *file, void __user *argp)
+>         struct gmem_file *f = file->private_data;
+>         struct inode *inode = file_inode(file);
+>         struct kvm_memory_attributes2 attrs;
+> +       pgoff_t err_index;
+>         size_t nr_pages;
+>         pgoff_t index;
+> -       int i;
+> +       int i, r;
 >
-> Looking at current mainline, the Linux EFI MEMRESERVE root is installed
-> by install_memreserve_table() via efi_stub_common(), while x86 uses its
-> own stub path. Current master (abdf623dd) also still allocates the TPM
-> event log as EFI_ACPI_RECLAIM_MEMORY.
+>         if (copy_from_user(&attrs, argp, sizeof(attrs)))
+>                 return -EFAULT;
+> @@ -606,8 +665,16 @@ static long kvm_gmem_set_attributes(struct file *file, void __user *argp)
 >
-> At this point I'm a little unsure what the correct approach to fixing
-> this is, so I would appreciate guidance on where the fix should live.
+>         nr_pages = attrs.size >> PAGE_SHIFT;
+>         index = attrs.offset >> PAGE_SHIFT;
+> -       return __kvm_gmem_set_attributes(inode, index, nr_pages,
+> -                                        attrs.attributes);
+> +       r = __kvm_gmem_set_attributes(inode, index, nr_pages, attrs.attributes,
+> +                                     &err_index);
+> +       if (r) {
+> +               attrs.error_offset = ((uint64_t)err_index) << PAGE_SHIFT;
+> +
+> +               if (copy_to_user(argp, &attrs, sizeof(attrs)))
+> +                       return -EFAULT;
+> +       }
+> +
+> +       return r;
+>  }
 >
-> Should the TPM event log remain EFI_ACPI_RECLAIM_MEMORY and x86
-> hibernation account for this Linux-created, boot-dependent E820 entry?
+>  static long kvm_gmem_ioctl(struct file *file, unsigned int ioctl,
 >
-> Or is there an existing/preferred x86 mechanism for preserving an
-> EFI_LOADER_DATA TPM event log across kexec without making the transient
-> allocation part of the firmware E820 topology?
+> --
+> 2.55.0.897.gb25b4bd76c-goog
 >
-> I have the full failed-resume dmesg, before/after E820 maps, five
-> ordinary-boot maps, and the successful diagnostic hibernation logs,
-> and I can provide any additional testing that would be useful.
 >
-> Thanks,
-> Jasmeet Bhatia
