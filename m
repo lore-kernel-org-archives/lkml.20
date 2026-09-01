@@ -1,184 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED5648167D;
-	Tue,  1 Sep 2026 17:27:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0372488755
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:28:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788283660; cv=none; b=pid/ZlftMaAvPgb38yRrGafAEmCERnuhCKLOHFp7ipqniN4n1c4ZYvZZZzSQ2iSrTcXNnGJqODs8D6Pz3EgizRGogXIEQJ64HPepx0BlchpNW2xY0JpXHUDItX+MV3eqdi7BfZpZiNYXaOXRQ6EDGrGVoWOwPXsfynSwEiVnzMA=
+	t=1788283711; cv=none; b=GxVfkfXsf6uA7xBM9dekOizNFQsdYaRAaMh1QKc/tIGTrFKiJHjVrL3TB0fySa63oukQmjKohaP65dAHE/Wnfiq3pT2JY/OyXfdW5B31NWouv9ceev20Hou4wP+5QJ6eO/WjtcUK9ulDM2+8vALtIyUgHifJou4KrlwpWJqfb1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788283660; c=relaxed/simple;
-	bh=FFHHj/YnUJLGo0Scwhc9K5J4z7594gwESBENnUwUhhw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=l+LfKlNSQFdcJgtTHa5Kh/WBzF7RYxgPwfEuV3VzrVRRnuEKX+fh/iq4idxV1NcwbsvEvikE/DZhOUNs69pJ7V0pfZDD3vi8G4pAAcdfOvXrcVidPkzHwK9NvXlFUN0yI9O/+xAczEryVE2QhYsIuDEpopVcbR4CMgpcaI3+OQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EP24nTD4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788283711; c=relaxed/simple;
+	bh=/8akLwfs1o3i5XMdCX3/5Zu0HCQoB5fVGW3Pkg2xb8g=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=V9GUS7sCeQsVWeNpV6Ax5xNpTA4uybqoYjUOAgveeruEPQcc97nqitB/Q76f4mYm75nQ9bG/o+UEJbVWGYiWPDodIkQMMgTkOesMb5a5kHAbGoIZpVCGMywabC4NI62mJcS4eRxWrOnevOECY4L06+jdwzIbEUjnymduyPzqlco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VklgPQxN; arc=none smtp.client-ip=209.85.214.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EP24nTD4"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id B60691F000E9;
-	Tue,  1 Sep 2026 17:27:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788283658;
-	bh=aTwlpmOvAQ71IYhnTYCnrg//vc3S/rTawhFOMue/47U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EP24nTD4OYgRIf1TCjf9G76oyYixMuoypjy4T/v/WyFNkEYqCCTBCsVH8TA16ts2m
-	 qoaLsb3xxHvIG5+yn+jqViRenY1VHLVFcZ+5YMrDF6pc4S2OsRqChb4YFkFLmXTTAz
-	 CnxdlZ1YCuvYH1KHRE0HlDMOto8bEjXoGV81tVf9aXCIDEyBfu1hXs/tjlrStIRAcy
-	 7pcqDbIZRuc7lHHSOMzdHAQSCIRJy6A4YYLou+D8hAKMvcieNrR5cpiePDnoTcr4tG
-	 FXzUnrm1un6h3m8ZG1VxUnDjA+GiI+4yDv4zR8IV/B+iCfCA3X3TeBjEYbtr6II05I
-	 pJA5iHCyknRCw==
-Date: Tue, 1 Sep 2026 20:27:34 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] keys: finalize persistent keyring timeout after link
- attempt
-Message-ID: <apcK6bcJfGED53a3@kernel.org>
-References: <20260901164323.35785-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VklgPQxN"
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cfca8558d2so279205ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 10:28:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788283709; x=1788888509; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pee9EJDo0yrD1zKrHbFb5B2Qg/13RIff1y5Ve46Cj+8=;
+        b=VklgPQxN1CCYtaNNxKMPvJb/zGAbVZeI0uPkNo0gwIhxFYWCEnZEuSOnuN+Uxr6eP1
+         QBkBQeXJki953L2CPfJuos3o9NaOzvT/F8lb2G8HInu0PYgYET9wg6ZYRmFd9vxh7kij
+         Bli/e06iUUbzJMlbojHoo0+EHhpftEORdkGLrvCAoPs2MM+17OJz5D4SAYGlCHWD12Fc
+         SrZ+IA+tHF8QYiq6877neqDvJtK2hFYNJs3CIuUxdZZ8EPJfU25C+oV+kdKqDh99S++u
+         8XnkSQH22PVRBSMo/C6KHlMbGQfnltMOq8EF8a9zMV4lYrHPqJA6mPRwQNBpNo+heoRb
+         cPJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788283709; x=1788888509;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pee9EJDo0yrD1zKrHbFb5B2Qg/13RIff1y5Ve46Cj+8=;
+        b=KHGbj5dW3VYiZJv+QEjEVFbdH1Ra46d3JMv+nMgGX/pCLTmgKWOJNpJZ7vABr4M/57
+         HhtCrfmkp1TFi5BJ1NLQTu9saAIgWFwpPYzoJTtC+f0NlWUEuwoCYDU61hn7ULRB/xcz
+         afl3OXT+91RCkZO28V8M+J3SFhzYGM0shJFBJeGdPEcj2hqlB5ueEtbeUkyRtggLWIda
+         AVdz1t/wyaXlU0emF2PD0oqkXycjFGuluf2rH5IKKL1/lQqW4vOp0T9rjf18ropEl28H
+         reOqbOfY/WYcXAMG6kuxzaadz6gs7DKgXNcKVZEYlYtS816TzoQYgAgBKnusiYpMLunk
+         Ug8A==
+X-Forwarded-Encrypted: i=1; AKwUvByqRyiOoj0LeyyaIw+JMJdOUthk7uDjucpyVtpPtCLLvN6PPen1ROxTQCfPyIU+IE9bkdBx/zifd+MxA5U=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0hUfrg/dBDs7f+M71VCRLOO9n68x9V9wgK0nRqj/v3YeRo/b4
+	o81f3kGhtmOVVFG+3HqfuVYd7WCa5KkDOAZ27IjgVjWHaQcrHtDhXbhwso/0rEIDecmX/ZxHRqZ
+	i697Rlw==
+X-Received: from plgf1.prod.google.com ([2002:a17:902:ce81:b0:2bf:8db:4516])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:cf0d:b0:2cf:ca89:499d
+ with SMTP id d9443c01a7336-2d74def3ffcmr583168435ad.7.1788283708888; Tue, 01
+ Sep 2026 10:28:28 -0700 (PDT)
+Date: Tue, 1 Sep 2026 10:28:28 -0700
+In-Reply-To: <20260901-gmem-selftests-fix-v2-4-5a273153354c@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901164323.35785-1-kmehltretter@gmail.com>
+Mime-Version: 1.0
+References: <20260901-gmem-selftests-fix-v2-0-5a273153354c@amd.com> <20260901-gmem-selftests-fix-v2-4-5a273153354c@amd.com>
+Message-ID: <apcLPJerTWENV6iD@google.com>
+Subject: Re: [PATCH v2 4/4] KVM: selftests: use allowed NUMA nodes in guest_memfd_test
+From: Sean Christopherson <seanjc@google.com>
+To: Shivank Garg <shivankg@amd.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	Jim Mattson <jmattson@google.com>, Peter Shier <pshier@google.com>, 
+	Ricardo Koller <ricarkol@google.com>, Ackerley Tng <ackerleytng@google.com>, kvm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On Tue, Sep 01, 2026 at 06:43:23PM +0200, Karl Mehltretter wrote:
-> When no keyring exists for the requested UID, KEYCTL_GET_PERSISTENT
-> creates and registers one before linking it to the requested destination.
-> The configured timeout is set only after the destination link succeeds.
+On Tue, Sep 01, 2026, Shivank Garg wrote:
+> guest_memfd_test assumes that nodes 0 and 1 exist and have memory.
+> is_multi_numa_node_system() only checks that the maximum node ID is
+> nonzero, which is not enough for sparse or memoryless nodes.
 > 
-> A destination restricted with KEYCTL_RESTRICT_KEYRING makes that link fail
-> with -EPERM. With persistent_keyring_expiry set to 60 seconds, /proc/keys
-> still reports the registered keyring's expiry as "perm".
-> The failed call therefore leaves a quota-exempt keyring in the namespace's
-> hidden register, where it may remain until namespace teardown.
-> 
-> Have key_create_persistent() report whether it allocated a new keyring.
-> Another caller may create one between the initial read-locked lookup and
-> the retry under the write lock. Set the timeout after permission checking
-> and linking. Do this on success, or on failure if the call allocated the
-> keyring.
-> 
-> This leaves a new keyring collectible after failure without starting its
-> timeout while linking is still in progress.
-> 
-> Fixes: f36f8c75ae2e ("KEYS: Add per-user_namespace registers for persistent per-UID kerberos caches")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+> Select the required nodes from MPOL_F_MEMS_ALLOWED instead. Use the full
+> nodemask width plus one to mbind(), and let test_mbind() run when only
+> one memory node is available.
+
+Please split this into at least three patches.
+
+  1. Refactor guest_memfd_test.c to prepare for using nodes other than 0 and 1.
+  2. Fix test_mbind().
+  3. Fix test_numa_allocation().
+  4. If necessary, do additional cleanups in numaif.h
+
+As is, this is extremely difficult to review, e.g. without staring intently, I
+can't tell what's refactoring and what's actually a functional change.
+
+Actually, looking at the xAPIC IPI test more, what you proposed in patch 3 is in
+the general direction of what we want, but needs to be more than just a wrapper
+for get_mempolicy() to be useful.  Specificaly, if it fills the mask *and* returns
+the number of nodes found, then it's more generically useful.  And if we also add
+an API to get the next (exclusive) node, then we can cut down on the amount of
+copy+paste without forcing tests to use the "array of one-bit nodemasks" approach
+that the xAPIC test uses.
+
+E.g. the below get_numa_node_ids() is basically just copy+paste from the xAPIC
+test, except that it returns an array of nodes instead of an array of nodemasks.
+The fact that you felt compelled to copy+paste instead of adding an API is quite
+telling: using an array of nodemasks/nodes is inflexible and really only works if
+a test wants to target exactly one node.  It's also annoying to extract to a generic
+API without ending up with a brittle API.  E.g. if the API where to take the a mask
+and an array, it would either have to be a macro or take a struct to ensure the
+array can hold all possible masks.
+
+I'm planning on adding these in the series to also add MAXNODE_FOR_MASK().
+
+static inline int kvm_get_numa_memory_nodes(unsigned long *nodemask)
+{
+	int r;
+
+	*nodemask = 0;
+
+	r = get_mempolicy(NULL, nodemask, MAXNODE_FOR_MASK(*nodemask), 0,
+			  MPOL_F_MEMS_ALLOWED);
+	TEST_ASSERT(!r || errno == ENOSYS || errno == EPERM,
+		    "Unexpected get_mempolicy() failure");
+	return __builtin_popcountl(*nodemask);
+}
+
+/*
+ * Return the node ID of the next NUMA node in the mask, starting at @from+1.
+ * Guarantees a node is found, and that the found node is not @from.  Pass -1
+ * to find the first node in the mask.
+ */
+static inline int kvm_get_next_numa_node(unsigned long nodemask, int from)
+{
+	const unsigned long nr_bits = BITS_PER_TYPE(nodemask);
+	int to;
+
+	to = find_next_bit(&nodemask, nr_bits, from + 1);
+	if (to == nr_bits)
+		to = find_next_bit(&nodemask, nr_bits, 0);
+
+	TEST_ASSERT(to != nr_bits && to != from,
+		    "Unabled to find second NUMA node (from = %d, to = %d)", from, to);
+	return to;
+}
+
+> The sysfs helpers for finding maxnode are no longer needed.
+
+This is an observation, not a proper changelog sentence.
+
+> Signed-off-by: Shivank Garg <shivankg@amd.com>
 > ---
-> Changes in v2:
-> - Rewrite the commit message around the restricted-destination reproducer
->   and trim the explanation (Jarkko).
-> - Track whether the persistent keyring was newly allocated and finalize its
->   timeout after the permission and link checks. This preserves an existing
->   keyring's timeout on failure and avoids expiry during linking.
+>  tools/testing/selftests/kvm/guest_memfd_test.c | 86 +++++++++++++++++---------
+>  tools/testing/selftests/kvm/include/numaif.h   | 52 ----------------
+>  2 files changed, 58 insertions(+), 80 deletions(-)
 > 
-> Tested with QEMU 10.2.1 TCG on i386 and x86_64. With
-> persistent_keyring_expiry set to 60 seconds, KEYCTL_GET_PERSISTENT returned
-> -EPERM and /proc/keys reported "perm" before the fix and "1m" after it on
-> both architectures.
-> 
-> Also tested on x86_64 with persistent_keyring_expiry set to 1 second and
-> gc_delay set to 0. Successful calls reused the same serial, a newly created
-> keyring from a failed call expired, and a failed call using an existing
-> keyring left its timeout unchanged. A test-only two-second delay before
-> timeout finalization did not allow the keyring to be collected before link.
-> 
->  security/keys/persistent.c | 23 ++++++++++++++---------
->  1 file changed, 14 insertions(+), 9 deletions(-)
-> 
-> diff --git a/security/keys/persistent.c b/security/keys/persistent.c
-> index 97af230aa4b22..f356df8f3c973 100644
-> --- a/security/keys/persistent.c
-> +++ b/security/keys/persistent.c
-> @@ -38,7 +38,8 @@ static int key_create_persistent_register(struct user_namespace *ns)
->   * Called with the namespace's sem locked for writing.
->   */
->  static key_ref_t key_create_persistent(struct user_namespace *ns, kuid_t uid,
-> -				       struct keyring_index_key *index_key)
-> +				       struct keyring_index_key *index_key,
-> +				       bool *created)
-
-I'd instead convert the interface to have a result parameter:
-
-static int key_create_persistent(struct user_namespace *ns, kuid_t uid,
-				 struct keyring_index_key *index_key,
-				 key_ref_t *persistent_ref)
-
-And then return -ENOENT here:
-
-	} else {
-		reg_ref = make_key_ref(ns->persistent_keyring_register, true);
-		*persistent_ref = find_key_to_update(reg_ref, index_key);
-		if (*persistent_ref)
-			return -ENOENT;
-	}
-
-Then deal with that errno at the call sites.
-
-I think this make intuitively much more sense.
-
->  {
->  	struct key *persistent;
->  	key_ref_t reg_ref, persistent_ref;
-> @@ -63,6 +64,8 @@ static key_ref_t key_create_persistent(struct user_namespace *ns, kuid_t uid,
->  	if (IS_ERR(persistent))
->  		return ERR_CAST(persistent);
->  
-> +	*created = true;
-> +
->  	return make_key_ref(persistent, true);
+> diff --git a/tools/testing/selftests/kvm/guest_memfd_test.c b/tools/testing/selftests/kvm/guest_memfd_test.c
+> index 2233d871a38f..aee80dda6229 100644
+> --- a/tools/testing/selftests/kvm/guest_memfd_test.c
+> +++ b/tools/testing/selftests/kvm/guest_memfd_test.c
+> @@ -76,33 +76,53 @@ static void test_mmap_supported(int fd, size_t total_size)
+>  	kvm_munmap(mem, total_size);
 >  }
 >  
-> @@ -78,6 +81,7 @@ static long key_get_persistent(struct user_namespace *ns, kuid_t uid,
->  	key_ref_t reg_ref, persistent_ref;
->  	char buf[32];
->  	long ret;
-> +	bool created = false;
->  
->  	/* Look in the register if it exists */
->  	memset(&index_key, 0, sizeof(index_key));
-> @@ -100,7 +104,7 @@ static long key_get_persistent(struct user_namespace *ns, kuid_t uid,
->  	 * also need to create the register.
->  	 */
->  	down_write(&ns->keyring_sem);
-> -	persistent_ref = key_create_persistent(ns, uid, &index_key);
-> +	persistent_ref = key_create_persistent(ns, uid, &index_key, &created);
->  	up_write(&ns->keyring_sem);
->  	if (!IS_ERR(persistent_ref))
->  		goto found;
-> @@ -108,15 +112,16 @@ static long key_get_persistent(struct user_namespace *ns, kuid_t uid,
->  	return PTR_ERR(persistent_ref);
->  
->  found:
-> +	persistent = key_ref_to_ptr(persistent_ref);
->  	ret = key_task_permission(persistent_ref, current_cred(), KEY_NEED_LINK);
-> -	if (ret == 0) {
-> -		persistent = key_ref_to_ptr(persistent_ref);
-> +	if (ret == 0)
->  		ret = key_link(key_ref_to_ptr(dest_ref), persistent);
-> -		if (ret == 0) {
-> -			key_set_timeout(persistent, persistent_keyring_expiry);
-> -			ret = persistent->serial;
-> -		}
-> -	}
+> +/*
+> + * Fill @nids with the first @nr_nids nodes in the allowed mask.
+> + * Return false if the mask contains fewer than @nr_nids nodes.
+> + */
+> +static bool get_numa_node_ids(int *nids, int nr_nids)
+> +{
+> +	unsigned long nodemask = get_numa_mem_nodes();
+> +	unsigned long nid;
+> +	int nr_found = 0;
 > +
-> +	if (ret == 0 || created)
-> +		key_set_timeout(persistent, persistent_keyring_expiry);
+> +	for_each_set_bit(nid, &nodemask, BITS_PER_TYPE(nodemask)) {
+> +		nids[nr_found++] = nid;
+> +		if (nr_found == nr_nids)
+> +			return true;
+> +	}
 > +
-> +	if (ret == 0)
-> +		ret = persistent->serial;
+> +	return false;
+> +}
+> +
+>  static void test_mbind(int fd, size_t total_size)
+>  {
+> -	const unsigned long nodemask_0 = 1; /* nid: 0 */
+> -	unsigned long nodemask = 0;
+> -	unsigned long maxnode = BITS_PER_TYPE(nodemask);
+> +	unsigned long nodemask, bind_nodemask;
+> +	unsigned long maxnode = BITS_PER_TYPE(nodemask) + 1;
+>  	int policy;
+>  	char *mem;
+> +	int nid;
+>  	int ret;
 >  
->  	key_ref_put(persistent_ref);
->  	return ret;
-> 
-> base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
-> -- 
-> 2.53.0
+> -	if (!is_multi_numa_node_system())
+> +	if (!get_numa_node_ids(&nid, 1))
 
-BR, Jarkko
+This is not functionally equivalent.  The existing test requires multiple NUMA
+nodes, whereas this will now succeed if there's exactly one node.  That could be
+totally fine, but it needs to be isolated and explained in its own patch.
