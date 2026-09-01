@@ -1,414 +1,283 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F7B37B014
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:04:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A277F31A55B;
+	Tue,  1 Sep 2026 11:05:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788260691; cv=none; b=C9kP6z9LlxblEbqdOUzw3ZZzHocEfCltzVDl04oqqVMRrC7QxE58YlEet4W60PY9CQvHsjiEE/YPSf1EV5v1dhUDb8a8c1TmC09aJEMYJaT0ZSV9RzvKk05cGnZJj43YMnxaaoRN1zZBlc6HXJYFlFsMakyj8h9AR+vAV5tnEe4=
+	t=1788260713; cv=none; b=K7zv/w7EQBoBLu1zMhAo1s6sCTQDSTG8wOPe8nb6aus3v9oQ4RVwsMWAQSxudnbuoJnC3PGKGaBiQ91vdmZqhUkVDX5hZQpPTc2Q4XI2LRlMWZu7dQorPrgetJUgyfAsQDac4HMA4CCplWQL/29/jlpO4F7OQoYoCVbLQmlchwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788260691; c=relaxed/simple;
-	bh=I8M6O40zF2FqQBTEIIg1qxA/Ns7PDdWoqhU12y9YI0Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I2YY7rFCUTGI9rUDqb4Ojnn7lxdZsfGaXMeZQ33feCQtjVXKQJ0nCRjumTIXnkhSTa5Vt5U/dOCo1hdxNccpRqtMVgR7ogR1rLL+QMdNz2yje2qxUteB/2Dy6nTf1443u6NhTB38ny8In/N1W39NrHoL3AqQPmDBaEwvChtwzdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=i2AfmOxo; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Nc2ruhjM; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788260713; c=relaxed/simple;
+	bh=nOobssw3s2ybzz17WgTPwcFF0UlLF/ay3MomYWqGLy4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=GHPvCWvShmHMdx1EWwn6nzvJsPH2nDvbDr3wPVGKF8BdmsPs5mXyZsDeejJqQcfJrlij2AWtCIYbYQghyeo7b+/7EXrj4Fb+Ttyq95Qes01Lpu6HeKdA4kezTOEoX/mIKJ05o4/v9oVzBipgSj801ApQ2OL7EBuMZRmH/nJMQ/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aocYUNqM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="i2AfmOxo";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Nc2ruhjM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788260688;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=dpalFsc50tyK4pf8E+Xa5el9aZ7WXkhDyVSpKjl/dAo=;
-	b=i2AfmOxoq+9h2aTtd5ilH5uktpQfPiar5hLU4xf0iBACjtd9y2h8g/+Ya41Ybxw7kxor3N
-	zihBfcxSKMd8U9E20qlcXRD5fegILCDP6UejEXVTuP3KFK4V1DHrAfcjyrsJZhiVWqY0O8
-	q4Tk2ykypgexq1O6rB700fcDKaoeHOA=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-649-hOTbfT6ZNEu-oSVCuA047Q-1; Tue, 01 Sept 2026 07:04:47 -0400
-X-MC-Unique: hOTbfT6ZNEu-oSVCuA047Q-1
-X-Mimecast-MFC-AGG-ID: hOTbfT6ZNEu-oSVCuA047Q_1788260686
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-47d81cf0c4cso2822492f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 04:04:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788260686; x=1788865486; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dpalFsc50tyK4pf8E+Xa5el9aZ7WXkhDyVSpKjl/dAo=;
-        b=Nc2ruhjMYdHQbWuX+mTahshVwQtgS6KESee7LFT5jDEPcOPRk0pEYlLkMlt9CB+VU7
-         Wa6QtvvQzpV9UkqiXIV0mf5mShyQ9/fRyAnDKRkSKw9wzRP6ecRTafHZ2tuDOjijaO9/
-         URn0YOVUZbO7Y96yalSkN8sNsklQnRrxsbcy7RTLxt2hvZCB4r7Q6T6Pqd/rCW0vL3S5
-         pp5bZp9rVhVNgY4RX7Fp4jLayJEfNEmM4tV6U0D5hIHofyQN68vpbk8OLHEgsjR7kWmk
-         2YbMEJAA8eXqBC3pNIasCvMRUERhGuZ+A6v/ncbnlxKas8nsEQJFhV1S/CRUlvjqyw6C
-         zudg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788260686; x=1788865486;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dpalFsc50tyK4pf8E+Xa5el9aZ7WXkhDyVSpKjl/dAo=;
-        b=mNNWNcOa+xzGY7c7ABZqUeSP3e1gpIdnDxUgplBqWV2b7QPHFe6b/vGcKsN1b9gJI2
-         A4oG0/jTe75Bf/51tTry7wUttJUepro//iyalyX2dkW0mLbfKev5vGNsc1DcugGbrjae
-         YzNvflJe6602lnxTyo+E5HB9GOMRbmiwNjL3NikXbbDBH/hN2iH4JTAlGwhu4oDwd/sH
-         PXJtk+6v3957LlB+3DrGQVACbcIqofLiGO6vnq4Zvo3VsRj9yjJj3mRJhL7waU2iO2rU
-         xt5oth4A45LzuANYyuzWRS+GX9lPZAJtAPe/gmK2Uj6YO/yCUttG7HDIH/sd3P3DUT6Y
-         btgg==
-X-Forwarded-Encrypted: i=1; AHgh+RoAb7tbTwKfqwVjEd0Xr/ukm7gfLAdLNNAFgOQKf4D/ScyYhwbfPmJgbm9LzNY32QiEMpxRPNMV1hDClVM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nU42eHl7PXgMOQp1C5kRFyydHEyiCGbxUqWytnclvywzdh+eg8
-	H71Ynd9kfHA/0+WdotzrImBSKHCe4doo8LeHKe8rx4efCtM9lQhcQ/UDjow2b8EAdKrXXjkGP3O
-	gMzvKRYHROUU90XooQMJA2FDzBUqCrw5wfVp5KxwSLw1R6svueQmJKytplYykIYberQ==
-X-Gm-Gg: AR+sD13ScdyXt7NbVoOqIN0hh87fhfMwrcB+5pjEXvGsVlb1+tQe67eujjLxSDQ7jPg
-	d25xPgLFBOkKanEMDc01APnpydGawjBxua23sxAwLZyxbXl4QhhQBR0eZGrZjogC3MjWWMWQfEB
-	DxE8jgRFB9a75jZBw5+hqPO4MthWz+s2CRfP30Nes8VUnqFGGD4lP8FEFxHE2Fa95ErNuZ2Lpo8
-	yV+fHs7Ya9C623nj1EbPsYnXjPoAKDC2eJhTL9IOR/BVVuDZTu8ZH8LOD8RbHQwiRFevG1yeHZk
-	ln/bXoRiUHPotZQjBCsDHeNf8w0s2qgHABT+jUS8SYAeoQBduK1BXLzpb+RdyV4PQNun+tu/+0O
-	a+aICDSdNtcV2TN1GsfkqFOI=
-X-Received: by 2002:a05:600c:c11c:b0:499:b65d:1250 with SMTP id 5b1f17b1804b1-49cdc422c5bmr130324335e9.2.1788260686125;
-        Tue, 01 Sep 2026 04:04:46 -0700 (PDT)
-X-Received: by 2002:a05:600c:c11c:b0:499:b65d:1250 with SMTP id 5b1f17b1804b1-49cdc422c5bmr130323085e9.2.1788260685595;
-        Tue, 01 Sep 2026 04:04:45 -0700 (PDT)
-Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b91c5790csm298330355e9.0.2026.09.01.04.04.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 04:04:45 -0700 (PDT)
-Date: Tue, 1 Sep 2026 07:04:41 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: alistair23@gmail.com
-Cc: eperezma@redhat.com, linux-kernel@vger.kernel.org,
-	xuanzhuo@linux.alibaba.com, jasowangio@gmail.com,
-	linux-scsi@vger.kernel.org, mkp@kernel.org,
-	virtualization@lists.linux.dev,
-	James.Bottomley@hansenpartnership.com, alistair@alistair23.me,
-	Alistair Francis <alistair.francis@wdc.com>, graf@amazon.com
-Subject: Re: [PATCH 2/2] scsi: Initial commit of VirtIO PCIe Endpoint Driver
-Message-ID: <20260901044553-mutt-send-email-mst@kernel.org>
-References: <20260901014650.2728658-1-alistair.francis@wdc.com>
- <20260901014650.2728658-3-alistair.francis@wdc.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aocYUNqM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 188E71F000E9;
+	Tue,  1 Sep 2026 11:04:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788260711;
+	bh=gRmiVdG7zWf/GvbotLfM+46aH1AfJWGnO1OGWRPxU9E=;
+	h=From:Subject:Date:To:Cc;
+	b=aocYUNqMRbNIbR6s7Rg9UHR1UN1/ebvPynn8GpuDG2QdVDakyem/wqr3PXG73lTrw
+	 LRwJV+WxkKceCXprisvIxR3VWfUEANDIb29r9bo9cxnwu1RT88h7/r2oNGO6i4DLfA
+	 /1H00YbDEOwscD5LsRcrichbczg0w+PRJI3ol5M4Acd/RMmHVJ82SDlNk7qRSKQ6fv
+	 yZgIP4l8yq1hjJzoNIjNVErJih9+CIYXFkubFhrXJBYOwhfyQUHWcWiVYCHurHrUdp
+	 5I376A6qXa8usdLRXcRLGYqkpNqZlPMrocSBYL9TMfz13c76O+Hpawt3iY9CtV9EP1
+	 gw7MT7SmcXBiA==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: [PATCH 00/12] mm: make userland page table freeing RCU-safe
+Date: Tue, 01 Sep 2026 12:01:20 +0100
+Message-Id: <20260901-rcu-pagetable-freeing-v1-0-5456a81c8212@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901014650.2728658-3-alistair.francis@wdc.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAICwlmoC/yXMQQqDMBBG4avIrDsQY5HQq0gXSfobR0qUiZaCe
+ Pem7fJbvHdQgQoK3ZqDFC8psuSK9tJQnHxOYHlUkzW2N65rWePOq0/YfHiCRwUkJ3bX0Ae4zsA
+ aqu2qGOX9+w73v8seZsTtO6Pz/AAWVW4teQAAAA==
+X-Change-ID: 20260831-rcu-pagetable-freeing-84b6be830e20
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Guo Ren <guoren@kernel.org>, Brian Cain <bcain@kernel.org>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Dinh Nguyen <dinguyen@kernel.org>, 
+ Simon Schuster <schuster.simon@siemens-energy.com>, 
+ Jonas Bonn <jonas@southpole.se>, 
+ Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
+ Stafford Horne <shorne@gmail.com>, 
+ Yoshinori Sato <ysato@users.sourceforge.jp>, Rich Felker <dalias@libc.org>, 
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Russell King <linux@armlinux.org.uk>, Vineet Gupta <vgupta@kernel.org>, 
+ Michal Simek <monstr@monstr.eu>, Chris Zankel <chris@zankel.net>, 
+ Max Filippov <jcmvbkbc@gmail.com>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Andreas Larsson <andreas@gaisler.com>, 
+ Richard Henderson <richard.henderson@linaro.org>, 
+ Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, 
+ Mark Rutland <mark.rutland@arm.com>, Huacai Chen <chenhuacai@kernel.org>, 
+ WANG Xuerui <kernel@xen0n.name>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Helge Deller <deller@gmx.de>, Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Michael Ellerman <mpe@ellerman.id.au>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Richard Weinberger <richard@nod.at>, 
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, 
+ Johannes Berg <johannes@sipsolutions.net>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org, 
+ linux-m68k@lists.linux-m68k.org, linux-openrisc@vger.kernel.org, 
+ linux-sh@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-snps-arc@lists.infradead.org, 
+ linux-arch@vger.kernel.org, sparclinux@vger.kernel.org, 
+ linux-alpha@vger.kernel.org, loongarch@lists.linux.dev, 
+ linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, linux-s390@vger.kernel.org, 
+ linux-um@lists.infradead.org, Hugh Dickins <hughd@google.com>, 
+ Qi Zheng <qi.zheng@linux.dev>, "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7724; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=nOobssw3s2ybzz17WgTPwcFF0UlLF/ay3MomYWqGLy4=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLKmbXRPzZlRe2dXWOSN5VOqw0LTPl0Mv/7n0cOKu9vTL
+ j4St330uqOUhUGMi0FWTJHl+Rfx/UEiYfM6L/i7wcxhZQIZwsDFKQATOfiUkWFF16YP/Tyvz6vt
+ NXmiVXQwt/+G8BbtXWvMJyYvqkt1jd7ByLDI/qRK5V1pmT/yjf2L/kXdcliok3bDpfT2pNb26wH
+ 9TxkB
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-On Tue, Sep 01, 2026 at 11:46:50AM +1000, alistair23@gmail.com wrote:
-> From: Alistair Francis <alistair.francis@wdc.com>
-> 
-> This patch adds a VirtIO SCSI endpoint build on top of the VirtIO PCIe
-> endpoint. This is a similar approach to the NVMe PCIe Endpoint
-> (drivers/nvme/target/pci-epf.c) but for SCSI.
-> 
-> This does end up being somewhat similar to the pci-epf.c code, but
-> re-written for SCSI.
-> 
-> This approach allows a PCIe Endpoint device (tested on a
-> radxa-rock5b) to setup what appears to be a SCSI device, using an
-> existing SCSI backend (tested using scsi_debug).
-> 
-> At this point a host can connect over PCIe, ensure virtio_pci and
-> virtio_scsi is loaded and on PCIe rescan will see a scsi device.
-> 
-> There are two main pain points with this approach though:
->  1. We have to use the Legacy SCSI VirtIO driver. This is because the
->     Raxda Rock5b (and AFAIK all PCIe Endpoint hardware) can't add
->     capabilities. So we can't advertise the VirtIO Common configuration
->     capability, which means we can't be a modern VirtIO SCSI device.
-> 
->     This is unfortunate, but there doesn't seem to be any way around
->     this, at least with the current hardware.
+The majority of architectures in the kernel defer page table freeing until
+an RCU grace period has elapsed, this series converts all remaining
+architectures to do so too and eliminates CONFIG_MMU_GATHER_RCU_TABLE_FREE
+altogether.
 
-This was discussed on the virtio list. The way around this is
-to change virtio spec to allow common configuration
-in memory. I don't think a patch like this was ever posted -
-want to try?
+This is important because it enables safe lockless page table walking under
+RCU alone.
 
+Doing so allows for reduced lock contention, avoids lock ordering concerns
+and enables fast, efficient and correct page table walking as a result.
 
-....
+Additionally it removes a bunch of code and architecture-specific behaviour
+which is always a beneficial thing to do.
 
+There has been much recent work on this:
 
+* In 2023 Hugh Dickins RCU-deferred khugepaged page table retraction in
+  commit 13cf577e6b66 ("mm/pgtable: add pte_free_defer() for pgtable as
+  page").
 
-> +
-> +static int scsit_pci_epf_read_desc(struct scsit_pci_epf_vq *vq,
-> +				   u16 idx, struct vring_desc *desc)
-> +{
-> +	void __iomem *p;
-> +
-> +	if (idx >= vq->depth)
-> +		return -EINVAL;
-> +
-> +	p = vq->desc_map.virt_addr + (size_t)idx * sizeof(struct vring_desc);
-> +	desc->addr = cpu_to_le64(readq(p + offsetof(struct vring_desc, addr)));
-> +	desc->len = cpu_to_le32(readl(p + offsetof(struct vring_desc, len)));
-> +	desc->flags = cpu_to_le16(readw(p + offsetof(struct vring_desc, flags)));
-> +	desc->next = cpu_to_le16(readw(p + offsetof(struct vring_desc, next)));
-> +
-> +	return 0;
-> +}
-> +
-> +static int scsit_pci_epf_read_indirect(struct scsit_pci_epf_ctrl *ctrl,
-> +				       const struct vring_desc *parent,
-> +				       struct vring_desc **out_descs,
-> +				       unsigned int *out_n)
-> +{
-> +	struct vring_desc *descs;
-> +	u32 len = le32_to_cpu(parent->len);
-> +	unsigned int n;
-> +	int ret;
-> +
-> +	if (len % sizeof(struct vring_desc) || !len)
-> +		return -EINVAL;
-> +
-> +	n = len / sizeof(struct vring_desc);
-> +	descs = kmalloc_array(n, sizeof(*descs), GFP_KERNEL);
-> +	if (!descs)
-> +		return -ENOMEM;
-> +
-> +	ret = scsit_pci_epf_transfer(ctrl, descs, le64_to_cpu(parent->addr),
-> +				     len, DMA_FROM_DEVICE);
-> +	if (ret) {
-> +		kfree(descs);
-> +		return ret;
-> +	}
-> +
-> +	*out_descs = descs;
-> +	*out_n = n;
-> +	return 0;
-> +}
-> +
-> +struct scsit_pci_epf_chain {
-> +	struct vring_desc	*ro;
-> +	unsigned int		nr_ro;
-> +	u32			ro_len;
-> +	struct vring_desc	*wo;
-> +	unsigned int		nr_wo;
-> +	u32			wo_len;
-> +
-> +	struct vring_desc	*indirect;
-> +};
-> +
-> +static void scsit_pci_epf_chain_free(struct scsit_pci_epf_chain *c)
-> +{
-> +	kfree(c->ro);
-> +	c->ro = NULL;
-> +	kfree(c->wo);
-> +	c->wo = NULL;
-> +	kfree(c->indirect);
-> +	c->indirect = NULL;
-> +}
-> +
-> +static int scsit_pci_epf_walk_chain(struct scsit_pci_epf_ctrl *ctrl,
-> +				    struct scsit_pci_epf_vq *vq,
-> +				    u16 head_idx,
-> +				    struct scsit_pci_epf_chain *out)
-> +{
-> +	struct vring_desc desc, *descs = NULL;
-> +	unsigned int n = 0, i = 0, cap_ro = 8, cap_wo = 8;
-> +	bool in_indirect = false;
-> +	int ret;
-> +
-> +	memset(out, 0, sizeof(*out));
-> +
-> +	out->ro = kmalloc_array(cap_ro, sizeof(*out->ro), GFP_KERNEL);
-> +	out->wo = kmalloc_array(cap_wo, sizeof(*out->wo), GFP_KERNEL);
-> +	if (!out->ro || !out->wo) {
-> +		ret = -ENOMEM;
-> +		goto err;
-> +	}
-> +
-> +	ret = scsit_pci_epf_read_desc(vq, head_idx, &desc);
-> +	if (ret)
-> +		goto err;
-> +
-> +	/* Reject obviously-invalid head descriptors */
-> +	if (!le64_to_cpu(desc.addr) && !le32_to_cpu(desc.len) &&
-> +	    !le16_to_cpu(desc.flags)) {
-> +		ret = -EINVAL;
-> +		goto err;
-> +	}
-> +
-> +	for (;;) {
-> +		u16 flags = le16_to_cpu(desc.flags);
-> +
-> +		if (!in_indirect && (flags & VRING_DESC_F_INDIRECT)) {
-> +			ret = scsit_pci_epf_read_indirect(ctrl, &desc,
-> +							  &descs, &n);
-> +			if (ret)
-> +				goto err;
-> +			out->indirect = descs;
-> +			in_indirect = true;
-> +			i = 0;
-> +			desc = descs[0];
-> +			continue;
-> +		}
-> +
-> +		if (flags & VRING_DESC_F_WRITE) {
-> +			if (out->nr_wo == cap_wo) {
-> +				cap_wo *= 2;
-> +				out->wo = krealloc_array(out->wo, cap_wo,
-> +						sizeof(*out->wo), GFP_KERNEL);
-> +				if (!out->wo) {
-> +					ret = -ENOMEM;
-> +					goto err;
-> +				}
-> +			}
-> +			out->wo[out->nr_wo++] = desc;
-> +			out->wo_len += le32_to_cpu(desc.len);
-> +		} else {
-> +			/* Read-only descriptors must precede write-only. */
-> +			if (out->nr_wo) {
-> +				ret = -EINVAL;
-> +				goto err;
-> +			}
-> +			if (out->nr_ro == cap_ro) {
-> +				cap_ro *= 2;
-> +				out->ro = krealloc_array(out->ro, cap_ro,
-> +						sizeof(*out->ro), GFP_KERNEL);
-> +				if (!out->ro) {
-> +					ret = -ENOMEM;
-> +					goto err;
-> +				}
-> +			}
-> +			out->ro[out->nr_ro++] = desc;
-> +			out->ro_len += le32_to_cpu(desc.len);
-> +		}
-> +
-> +		if (!(flags & VRING_DESC_F_NEXT))
-> +			break;
-> +
-> +		if (in_indirect) {
-> +			i = le16_to_cpu(desc.next);
-> +			if (i >= n) {
-> +				ret = -EINVAL;
-> +				goto err;
-> +			}
-> +			desc = descs[i];
-> +		} else {
-> +			u16 next = le16_to_cpu(desc.next);
-> +
-> +			ret = scsit_pci_epf_read_desc(vq, next, &desc);
-> +			if (ret)
-> +				goto err;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +
-> +err:
-> +	scsit_pci_epf_chain_free(out);
-> +	return ret;
-> +}
-> +
+* Qi Zheng has done most of the work that made this possible starting with
+  the critical commit 718b13861d22 ("x86: mm: free page table pages by RCU
+  instead of semi RCU").
 
+* Qi then went on to convert a large number of architectures in commit
+  e3ecf7c7d082 ("mm: pgtable: convert some architectures to use
+  tlb_remove_ptdesc()"), commit 44b079583f7d ("alpha: mm: enable
+  MMU_GATHER_RCU_TABLE_FREE") and the series to which it belongs.
 
+* Qi then introduced the important CONFIG_HAVE_ARCH_TLB_REMOVE_TABLE
+  option in commit 086498aed3f6 ("mm: convert __HAVE_ARCH_TLB_REMOVE_TABLE
+  to CONFIG_HAVE_ARCH_TLB_REMOVE_TABLE config").
 
+* Finally, and critically, Lance Yang then converted the batch allocation
+  fallback case to be RCU-safe in commit 1fb3d8c20bfa ("mm/mmu_gather:
+  replace IPI with synchronize_rcu() when batch allocation fails").
 
+The work I do here is only possible due to the work Hugh, Qi, Lance and
+others have done previously.
 
-> +static int scsit_pci_epf_chain_to_segs(struct scsit_pci_epf_cmd *cmd,
-> +				       const struct vring_desc *descs,
-> +				       unsigned int n)
-> +{
-> +	struct scsit_pci_epf_segment *seg;
-> +	unsigned int i;
-> +	int ret;
-> +
-> +	if (n == 0)
-> +		return 0;
-> +
-> +	if (n == 1) {
-> +		cmd->nr_data_segs = 1;
-> +		cmd->data_segs = &cmd->data_seg;
-> +		seg = &cmd->data_segs[0];
-> +		seg->pci_addr = le64_to_cpu(descs[0].addr);
-> +		seg->length = le32_to_cpu(descs[0].len);
-> +		return 0;
-> +	}
-> +
-> +	ret = scsit_pci_epf_alloc_cmd_data_segs(cmd, n);
-> +	if (ret)
-> +		return ret;
-> +
-> +	for (i = 0; i < n; i++) {
-> +		seg = &cmd->data_segs[i];
-> +		seg->pci_addr = le64_to_cpu(descs[i].addr);
-> +		seg->length = le32_to_cpu(descs[i].len);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int scsit_pci_epf_alloc_cmd_data_buf(struct scsit_pci_epf_cmd *cmd)
-> +{
-> +	struct scsit_pci_epf_ctrl *ctrl = cmd->ctrl;
-> +	struct scsit_pci_epf_segment *seg;
-> +	struct scatterlist *sg;
-> +	int ret, i;
-> +
-> +	if (cmd->se_cmd.data_length > ctrl->mdts)
-> +		return -EINVAL;
-> +
-> +	if (cmd->nr_data_segs == 1) {
-> +		sg_init_table(&cmd->data_sgl, 1);
-> +		cmd->data_sgt.sgl = &cmd->data_sgl;
-> +		cmd->data_sgt.nents = 1;
-> +		cmd->data_sgt.orig_nents = 1;
-> +	} else {
-> +		ret = sg_alloc_table(&cmd->data_sgt, cmd->nr_data_segs,
-> +				     GFP_KERNEL);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	for_each_sgtable_sg(&cmd->data_sgt, sg, i) {
-> +		seg = &cmd->data_segs[i];
-> +		seg->buf = kmalloc(seg->length, GFP_KERNEL);
-> +		if (!seg->buf)
-> +			return -ENOMEM;
-> +		sg_set_buf(sg, seg->buf, seg->length);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void scsit_pci_epf_post_used(struct scsit_pci_epf_vq *vq,
-> +				    u16 head_idx, u32 len)
-> +{
-> +	void __iomem *ring = vq->used_map.virt_addr +
-> +			     offsetof(struct vring_used, ring) +
-> +			     (size_t)(vq->next_used_idx & (vq->depth - 1)) *
-> +			     sizeof(struct vring_used_elem);
-> +
-> +	writel(head_idx, ring + offsetof(struct vring_used_elem, id));
-> +	writel(len, ring + offsetof(struct vring_used_elem, len));
-> +
-> +	vq->next_used_idx++;
-> +	writew(vq->next_used_idx,
-> +	       vq->used_map.virt_addr + offsetof(struct vring_used, idx));
-> +}
+An initial task this series addresses is to zap deposited page tables after
+an RCU grace period. Not doing so is currently safe, but for page table
+walkers relying on RCU alone, it would not be.
 
+The changes are largely mechanical - the majority of arches already have
+the machinery required to support CONFIG_MMU_GATHER_RCU_TABLE_FREE and
+simply needed configuration changes or small implementation changes to
+switch over.
 
+However some arches required extra attention - sh-X2, m68k-motorola and
+sparc32.
 
-So this is a reimplementation of virtio, and a weird one, for example
-features are legacy but format is LE like modern. Packed ring is
-not implemented.  Uses strongly ordered ops for everything.
+sh-X2 allocates PMDs from the slab allocator and PTEs as normal. Therefore
+CONFIG_HAVE_ARCH_TLB_REMOVE_TABLE is set to customise page table freeing
+and the LSB is used to encode which page table level is used, with
+__tlb_remove_table() doing the right thing depending on this.
 
-I don't have specific advice but there is some similarity here
-to what Alex Graf is doing.
+This pattern is repeated for m68k-motorola and sparc32 to account for
+different page table levels. In each case, the page tables are aligned such
+that sufficient bits are available in each case for encoding this
+information.
 
+m68k-motorola required the biggest change - since RCU page table freeing
+uses call_rcu(), this means page table freeing can arise from softirq
+context.
 
-And I want to see a spec decumenting how all this is supposed
-to work, please, and not just an ad hoc implementation.
+This was fixed with an IRQ-safe spin lock used in both get_pointer_table()
+and free_pointer_table().
 
+As part of this change, the logic for allocation of a new pointer table was
+separated out into add_pointer_table() to make the locking more obviously
+correct.
 
+Finally, sparc32 was similar to m68k-motorola in that locking was required,
+however this was already implemented via a spinlock, and only had to be
+updated to be IRQ-safe.
 
+Additionally, the nocache pool's bit_map lock was updated to be IRQ-safe
+for softirq frees.
+
+Separately, the PTE path can't take mm->page_table_lock from softirq (no mm
+there), which is fine because the page reference count transitions are
+atomic and fully ordered.
+
+The series finally removes CONFIG_MMU_GATHER_RCU_TABLE_FREE and all related
+configurations and code that supported !CONFIG_MMU_GATHER_RCU_TABLE_FREE.
+
+As a result, page table walks can now be performed safely under RCU without
+any risk of page tables being freed underneath a walker.
+
+However, this is the only guarantee that this work provides - page table
+walkers must still ensure that page table entries are as expected
+throughout.
+
+All changes have been build tested. As most of the conversions are simply
+utilising existing mechanics that are known to work, this suffices for most
+cases.
+
+However those arches where significant changes have been made -
+m68k-motorola, sparc32 and sh-X2 - have been tested further.
+
+For each of these a boot test and stress test has been performed - fork 400
+children, each mmap()'ing 2 MiB and touching every page then partially
+munmap()'ing then exiting to trigger as much page table freeing as
+possible.
+
+All were found to be working correctly.
+
+Note that sparc32 LEON SMP is not emulated, Andreas - do you have a means
+of testing this?
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+Lorenzo Stoakes (ARM) (12):
+      mm/huge_memory: zap deposited page tables after an RCU grace period
+      mm: enable MMU_GATHER_RCU_TABLE_FREE for most 2-level architectures
+      mm: enable MMU_GATHER_RCU_TABLE_FREE for MMU riscv
+      mm: enable MMU_GATHER_RCU_TABLE_FREE for MMU arm
+      mm: enable MMU_GATHER_RCU_TABLE_FREE for arc, microblaze, xtensa
+      mm: enable MMU_GATHER_RCU_TABLE_FREE for sparc64
+      mm: enable MMU_GATHER_RCU_TABLE_FREE for m68k-coldfire
+      mm: enable MMU_GATHER_RCU_TABLE_FREE for sh-X2
+      mm: enable MMU_GATHER_RCU_TABLE_FREE for m68k-motorola
+      mm: enable MMU_GATHER_RCU_TABLE_FREE for sparc32
+      mm: make userland page table freeing RCU-safe
+      mm: change the contract for free_pgtables(), update docs
+
+ Documentation/mm/process_addrs.rst       |   6 ++
+ arch/Kconfig                             |   8 --
+ arch/alpha/Kconfig                       |   1 -
+ arch/arc/include/asm/pgalloc.h           |   6 +-
+ arch/arm/Kconfig                         |   1 -
+ arch/arm64/Kconfig                       |   1 -
+ arch/loongarch/Kconfig                   |   1 -
+ arch/m68k/Kconfig                        |   1 +
+ arch/m68k/include/asm/mcf_pgalloc.h      |   5 +-
+ arch/m68k/include/asm/motorola_pgalloc.h |   9 ++-
+ arch/m68k/mm/motorola.c                  | 121 ++++++++++++++++++++-----------
+ arch/microblaze/include/asm/pgalloc.h    |   2 +-
+ arch/mips/Kconfig                        |   1 -
+ arch/parisc/Kconfig                      |   1 -
+ arch/powerpc/Kconfig                     |   1 -
+ arch/riscv/Kconfig                       |   1 -
+ arch/s390/Kconfig                        |   1 -
+ arch/sh/Kconfig                          |   1 +
+ arch/sh/include/asm/pgalloc.h            |   6 +-
+ arch/sh/mm/pgtable.c                     |  20 +++++
+ arch/sparc/Kconfig                       |   4 +-
+ arch/sparc/include/asm/pgalloc_32.h      |   7 +-
+ arch/sparc/include/asm/pgalloc_64.h      |   8 --
+ arch/sparc/include/asm/tlb_64.h          |   2 -
+ arch/sparc/lib/bitext.c                  |  14 ++--
+ arch/sparc/mm/srmmu.c                    |  26 ++++++-
+ arch/um/Kconfig                          |   1 -
+ arch/x86/Kconfig                         |   1 -
+ arch/xtensa/include/asm/tlb.h            |   2 +-
+ include/asm-generic/tlb.h                |  66 +++--------------
+ mm/Kconfig                               |   2 +-
+ mm/gup.c                                 |   5 +-
+ mm/huge_memory.c                         |   2 +-
+ mm/mmu_gather.c                          |  30 ++------
+ mm/pgtable-generic.c                     |  18 ++++-
+ 35 files changed, 194 insertions(+), 188 deletions(-)
+---
+base-commit: 88297631d4d42f6004cb39c0ba3da7d2d10a616f
+change-id: 20260831-rcu-pagetable-freeing-84b6be830e20
+
+Cheers,
 -- 
-MST
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
