@@ -1,54 +1,54 @@
 Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020105.outbound.protection.outlook.com [52.101.195.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9934848CD57;
-	Tue,  1 Sep 2026 16:50:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A03F448F831;
+	Tue,  1 Sep 2026 16:50:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.195.105
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788281459; cv=fail; b=dO+z4VbjGPXnVrennIcJ/2QqdIFA0m1jkxEn/XmZqj1Ycs3RP8kTnxKEfl8Qr0kMCUXaUAN34CnBQl3Kp7/nasQ+ttdelusIogVfHcu2OSosoMak1JPKxwX1KVyD/DbR6BzlYujzpmF9ilMHgsVad0EpHG2EgYrYkOt1uPciqBM=
+	t=1788281461; cv=fail; b=SRHqJlVGfC4VVvHv6yAyJB/6sfhTY3EDeXYKNTm1tcWP7N93LzqHIOw7GrKantm//LpQ7Yet2+Nwye9dmV9nvOCy6OwBM2i4TWuKyMf1Qa7CuRkYZ01cK1JvllmOcq62Lte3uL7c5gHgAWL/two8Avt0231A0HLEIEl5Xo/G+SA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788281459; c=relaxed/simple;
-	bh=WYaIyKcKO7QIC+sRD6g+xJ/UsiWjwb+9Ba3XtN9t9SA=;
+	s=arc-20240116; t=1788281461; c=relaxed/simple;
+	bh=Xb4DD4uN8tS4xE64OPyY1srq63t2yRPPUCby23Jigzo=;
 	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=qJDGP95YEecJDfSx99S1S3ntpA25rjCtagVl0JhBtxzANKOcLcENP5SULHwTnCxK6Kx/dx5mB038Padxbw//37ynTSQ6EjBAQLT5swM8aDkhQl7CeVBt1HqLbgzGdi9ZV7Ze8xXTh7jA1AZcOXXt36p2xak+uHrj1p4SjY1z1HM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=DDSRe6hF; arc=fail smtp.client-ip=52.101.195.105
+	 To:Cc:MIME-Version; b=H7mnuDVm5/kw79dTI/sB1e9x9bA9qDm8q540a0ZybHEIqqhUSB1Lp1OctDyZh7tQE1uBofRR99DVzLhHNiBllhHmafB8Nxx1Rt7ors3Y3bXCnlY64S9LwRFy4wApqn6loa8GTilgV2UAkTOaWoxU0deLchIWDDGTUY1zKAcvWcM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=m4dTYEfR; arc=fail smtp.client-ip=52.101.195.105
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="DDSRe6hF"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="m4dTYEfR"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ci+4wYXnK7YWsGF+WFBeF2HrzlkTxy/XoncFzOX0saPdS+jXm7+/+W6W6lj8WMxotO+z7pm+zuAZkOpxlc/8Otgg4+2H0QUF9RV8qXejhdnYJwHufxuRN29Wj9R1Jf0EgIwZGsoL/8bld2/efxImoE4AzaWYevc6uw/B7XQkQJekOY0IVpo/Cp0jpIYlfXtEr7sdCl+ys7FyEJuami1oH/c4rZO5engBD8jqPChqu++m02V0SWu9ErN1s9TDLuvUQ7xJvmjy5ztyiQMWBvj2QN7lQAkBBJK0WzliIgDscGlCMRS4zJL/EhtHAwZqB1o/TUz5OIR7wk4h+vi41DZpJw==
+ b=BWBp2sWdRPYZgKbR8lf1gaRiP8ioxOR9ay/JNkbPSSA3FZ0aHvJMuFKj2zSLBZ39akVVI7MaVkETKOdxhGKha7NUO2atNtZqhAT5MpX+SKRQuEwFeHMPlJWU35gP1YNbmQg2X/x0XHbPrxuMcmvu0mDYQ0O8/E5N2RDpDDII/VZ7np9Rgit3kO+J+mvAnLSS2Mj96lgrkLAMQzpgW1XuSuioMg/oDf29cxNNpP1VUB/sC3u2q4bhnXJibAH7iiH/iZq7NLKijOq6he3gtS3fEmDKyN4x6ThlASygmcOSlwZERLsuzqF2JcxNuof2Ok6+ARhnzX+9MSUyB4rDMXy+gQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y5e3CEs1asxsaI1dtRmvhvQTfPV88eNjosHxKRSKS2c=;
- b=U1asrZq19OxchenynooGAXKnlhdBN/7tLlXTBWuYg6MictZ8e0GZpeq2SGeAEMNb35N098wwLz/faMy924F0ByjgJiB3HRm1wbGGYObZPKhR9qhrvZ3n98F3/qDm+nXmXloDIQzy5ntUVnDTEZNsSLFMsPhVqeUcp5YjqxQicXcUZ5j61dT1rHk//lI2x091CL/ytIprjIDbn+DqOZAreoXOFfY9RqcBD1mtlJaWYNWmn7ED+YSMlk/n3w49W3BM9NahxzoUxWyF6vqblNPzMq3S4RIub7Sp9fnP1sdlobFhF1cDZrqERQaNGmY8zLdjQtocSZY+xXPfbtltnk5tJA==
+ bh=QgNTWozGwZ/yHO7i+BJQmmZm1y8Oef8BDGqKEaOWIno=;
+ b=k5EWXvDzi0pOeVlEOYb3V6hNSC5spPNS4cOW5ajh9TArParwE7WyH2FATW7jRtxpYuuU9lOpg2lWX74gHwQx9wYwtSrWQeEnMug/5kBIn/k26DbPn/GJICUC/KVx7fgbzepS3tiBb745ZiW5zzFRc4lGlSvOFq4v3hSwM8qiu6+TAp8h25plCNssOXJpgBkid2zxbFssMeDXWkwGuOS+J3zjq+fX0I4OsFbOXt8g8bWWf715BjDr3dgoo9HsxxrRg4StX6A7AUbuqca1Vj4pFs6Tp+6Txzpcz+uEpjRrnxxkmcpuAwsMBBaDAZA4mU5iGK8yycKRCATp9uO7uw4Fng==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y5e3CEs1asxsaI1dtRmvhvQTfPV88eNjosHxKRSKS2c=;
- b=DDSRe6hFyY6gnulNm4+fLrDuaVTLrXfyi9ZGm98sYhOM2MJncZiy9zcieVcQCVTV5QI0CH41uYJx4HRS8+VEP64IMzu3Bve1eBpYuQFdw9kclU4acnw2J/eqUp0mTLmElwdEXLXF5fXgKSFTocNfJ3ya+HOzcRFbGRPWI4keUrs=
+ bh=QgNTWozGwZ/yHO7i+BJQmmZm1y8Oef8BDGqKEaOWIno=;
+ b=m4dTYEfRUVq28QfQdgRucZuvoLlpJLrVLMODuhvzViSFRuGFvi0ev//4AP0lAm7KP753yNaFYyPZ32CgGkzXzH4ra0DqnTWwOEK27WWvmVMULKWLFQxj+choAouAKg4+ivPn2dqMedxg6Uq5dN8Oyk/BFT8nPkY1HkAvqkFAcsU=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
  by CW1P265MB9199.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:272::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 16:50:45 +0000
+ 2026 16:50:46 +0000
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 16:50:45 +0000
+ 16:50:46 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Tue, 01 Sep 2026 17:50:39 +0100
-Subject: [PATCH v4 15/16] rust: io: register: remove `Register` trait and
- cleanup macro
+Date: Tue, 01 Sep 2026 17:50:40 +0100
+Subject: [PATCH v4 16/16] rust: io: register: unify handling of register
+ with/without bitfields
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-typed_register-v4-15-5552b1d59525@garyguo.net>
+Message-Id: <20260901-typed_register-v4-16-5552b1d59525@garyguo.net>
 References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
 In-Reply-To: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -67,11 +67,11 @@ Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org, 
  Gary Guo <gary@garyguo.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788281431; l=4357;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788281431; l=10728;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=WYaIyKcKO7QIC+sRD6g+xJ/UsiWjwb+9Ba3XtN9t9SA=;
- b=kQ1Ppeib3fjkA+kvY3Yh93wcYlMXX6Hu6J3xokdF8eyxYx1xvwXCaMpVBCG69W4fKhKNCnAbB
- 3Cl66orN8enD1SnFWXqtWzXdSGlwshOGyT2CtHd1NiYEoc8f/mBJs/1
+ bh=Xb4DD4uN8tS4xE64OPyY1srq63t2yRPPUCby23Jigzo=;
+ b=NLIFSh0h4XvoG2uzJTeMnm/v6lFM4wgLIaHXPmrNyj/y3WHl8uaqEmxaRDsHLEyVImrkEB4g3
+ wonaBr4v2CqD9iQ6NPZ4NiMT6f4QEpvR+f4WB06er8Df7PD417rg8bj
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: PAZP264CA0173.FRAP264.PROD.OUTLOOK.COM
@@ -85,177 +85,368 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CW1P265MB9199:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5708527c-148e-4ece-12a3-08df08492af6
+X-MS-Office365-Filtering-Correlation-Id: 3530b8f8-7158-4fe2-0024-08df08492b78
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|10070799003|376014|23010399003|366016|921020|3023799007|10067099003|56012099006|5023799004|22082099003|18002099003;
+	BCL:0;ARA:13230040|1800799024|7416014|10070799003|376014|23010399003|366016|921020|6133799003|3023799007|10067099003|56012099006|5023799004|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	bzcs8I6o8nzyCxAzCCYJwrYnpTncf/gYht+PPdfN9a0lBWTqaNJYq423zyu2yr0KdnrF7pupQdBESvCxjhaHO7zHoDUncjkzNLIFdmLSpbZKRMToFIfcOo3OdwCS7wP4Z0Jr0wlFXKgLlp+nghey5u7DFfP6sWVS50X6XIXyLptev9jgbdAlQOwOhXHCUUtPSMcIVX9glMiCPTuKDiFmzssfmPSpcuZ+BnHChA5JKBXcjV9M/2VXgD0IqvapUqWnR6wi9EsJx0HaHBHzovNtHBTdeyVkfmNBjj9ZVE/cAjArwXGF/YzCeqdIxeKjEuqgYORi+Y9Diq11hSB0uWWOcli+m6ZJ2kyfK5DDEdCGJQR17ZcPb/RAVcgEnNH9A/fcOAicacO+/Y2F+q6jmt2lGB9x9p7V1nl7IgmSd8dyggA5449cKMXOuKi5+14uNtDm8pC+fjUJxXWpPlCxPiaeCZqa81fwHBYTZLPX1caH7DBFq7fnBlJMGgwhFpDMCFC9uJ1rZZOnVJn5/VF377BF3XUwLeuQwPui5TedmSXltGPE83S+npmD/iUb5MpruVC6/UOmnAz0FxHhbzWlepdIUGQLqeuXsjj4Ffe9eAgb+oSUTCu37VXhuI0Aa1v95+7wVI1FuIndq95I/jZlb3wWu+H94qrpcWdCG8OfRGx4dkUBeF0u1hkK8OeYe/skUsedKI/WPry1JbCZpQV731fKzQ==
+	mWpfFP5PWkUzzSvgGbqUt155oTNY6yjCA6HphaUAMDsy1DTfV1re5zU5FJowo5tJtMFRng903OwUSOUhlyyAwUID0BLBhG5V3fKPQa1V8ZrI9jvycbWrW38g7rJQ0506z8qDbPuU83vvY/V4Ue9mlYmV3P2VS1D3ceukHLTGif86rCRcTtPjTf5Nxh+D8DgnMP8XH0ItgAQmDwlXocOb0veo93czoQz32RO5lBl6GxjM51N8GmfxCmmdqtgW8l0xZQjOYz2ywcMNVNqI+IVn6kFtzJ638Wz253GKVggiiKVdxRQHlkTVqBC8D709kKZP6GFhvDn41pF0hcesgNIqmtsVZADM9SoMrXP8s9BCRwyERJ48AzcPCGFvZef+rcy945udVXrPjH76wtrHk09/6RmvsLx8pVStYwC4Q1cecLyOsAr1Yat0SweWOaxUPlDF9zmezKCb1JXSyYmgFiG6wHVgw7kGsB2LH+zXMKmlMaWVN778E+ED2RPa1Os4psvGoKe2W7ySFVHClfhd3/OAf1DTAU6JNsiOfF1jdCAti40CrZYAwQcxudYYGSgJzB6sf0w1d6Fku9o9xfGTAqNM8yLMRWtgPvUDyTrkmACmQkdX2LMr7LUgqPdD4ro30Kr1rHSEieJwFvK9kEfFtR6BITy6X9B4qvkuO7ufe4PqEmViWgKXXxjUh9INsEqt1uDST8rwR3A7JDPaqF5XbXnwLg==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(10070799003)(376014)(23010399003)(366016)(921020)(3023799007)(10067099003)(56012099006)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(10070799003)(376014)(23010399003)(366016)(921020)(6133799003)(3023799007)(10067099003)(56012099006)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?amx6YVBPWWp6SmFjUjNTT1FaTlV2Uit1dnVZNlpjTnBvMlNvZENOcG95aUxk?=
- =?utf-8?B?YkpwUytHS0RSeGR6U0Q3anhOZDZRV1Vjd0ZOaWhrZXNZOXlJMDFVTURpcEZJ?=
- =?utf-8?B?cGpEWllTYzM4SmJmNWVBT2M0d01vNExneXQzZXB3QUFSc0p2RG51WGVOR0Ft?=
- =?utf-8?B?WU8vaFp1VVpzUExjTitXZzY5elBRYmJqOTNkbzU2Wk5FTXBaRFBPdmZuTHhs?=
- =?utf-8?B?cE1jWkVJeTg1SjAyaURGSDQ2WldJUEUwT005dVBDTmFLUytFdUd6aU1QQ0dD?=
- =?utf-8?B?bER2S2lIbStYeDZhTm1VOWUxYmlqR21mUG0xY2RCUkJVQ0N5MXpqN1IzWkJ4?=
- =?utf-8?B?MFh0Vmdpd2hSQjB0UzdXOVM3Qzlpa29hQUttZzZzRWRVWEFUaWgyWDUxUnpP?=
- =?utf-8?B?V1Y1dFpPYktrUHg1NlE5RmFWOWhxU3czbEpFUDN2dW12Tldoa2tBNzVhYTVo?=
- =?utf-8?B?SWFhc1EydFRSQlpZVUt6c0dtVXNwc1ZLSmdkaFZUUkliOHBUVGFiOXZTUGFU?=
- =?utf-8?B?WkJxc08yM3hUR1N6VEEzVGZxQVJBSXpnempvTHBYd3orYjNUQWVTdlBnakhs?=
- =?utf-8?B?MDhXV0cwOGpySm5zQktTZXZ2K2ZaUVVXekhjMGxINFhBemovRTJRTlZWdEJa?=
- =?utf-8?B?M1Z1S1lTQlQydzgzdEdTVHpPbk5BbS9ZU1gvb1IxRDlPaFNUSUVRZlBiYlpn?=
- =?utf-8?B?c1c0bVB4eVFIbGlwSWxPZDNMQWtzOUdybUpYQ0JjRi9FU3kyaTNRMVpNbzFm?=
- =?utf-8?B?Sm5QQW1vSkVib2dWWGdXMnJuWUlpYmp5UW5iN3FwKzdIU2RoN1dyOHhvQys2?=
- =?utf-8?B?MjVMT1gwN0tqSU9NV3ZwSVg1S281aERBcXA2NkQrWUErYmtuY09EUTZSamVk?=
- =?utf-8?B?SlJ1MjMwMjJSenpGdVhNQlR3U3JURlRrdGo1SDBkY3hzTGNRT000aTNtalgr?=
- =?utf-8?B?VlVTb1BGUDVwZEJkc2hpbDdKUnV2YUxsYmF1d0pDNzI1b3JpR3lrTHcxT0Vi?=
- =?utf-8?B?dVUwVStZOWFTNmQxb1ladlBQZXQydGQxUFBvSjhiaEVVb0ZOYkcxeFUwYXFE?=
- =?utf-8?B?bE01K3F3VnMxRnpkT25yR1hMQm12YUZicTJ2Y3Y0SWlnR1BVN3pnS0ljL1Zk?=
- =?utf-8?B?clAyTUZWK3ZURTZWZ3RQdm83Q21EeWJrUlhXNTNiN0hmT3N3bldLcUVNcWJJ?=
- =?utf-8?B?SzNOZndndlg5RjdTL0F4dVhTVVBZQ1NpaHptOGVJcGNTZTJUYURyRjVyU3RZ?=
- =?utf-8?B?enV2emdjMXZRVnk4Q3JVOEVzQkNkdkgrUFM0NnhNZ2Q4QkN6YU9iVkdBdHly?=
- =?utf-8?B?S0FtRW9MSlljR0YycmNyRGZ2c3d6RWVrUzF4MGxubUx4T0RHNVZPT0k0SU1F?=
- =?utf-8?B?UUVwSzJ0QmJnaCtTZnl2WFNRK1dxZWpsY0FGUGtUcHhDL1dSK2pvb2JBdDVy?=
- =?utf-8?B?YStESEFWNWtJckZXa1ZDaHhGRkhicVo2Z1A1RUw3alZncHU3aEhiSkFvbklt?=
- =?utf-8?B?cFN4TUpmRUJ2TitUY0NPR2lodGRtRWJRSFF6dWptMTJGQVdneE9xUzhEc21L?=
- =?utf-8?B?Slp6cnlyMy9IYkhvd1lJWVZ3eXByZXdxa3VBWkhvbjZwRlExODNIcEJzOUV6?=
- =?utf-8?B?TzVrWmp3QzVTMVZYcGFIRnRLaU9TeS9EM05xbzMrdm5KcUJoVlcyTHB6NFpt?=
- =?utf-8?B?SWJrSVVkRkdScm9RRGE2eEttZEp4enFPVzc5MEF5TmpRSzhNd05CYkZQSW54?=
- =?utf-8?B?TmcvMG5Mc3BVeVJ0QzRUN3ZheDNhUnl4YUxyN2NxM0ZEd3RUazVrYkJrdDRa?=
- =?utf-8?B?YzRlWHA2ZEFoVGxOQ0t1aXBKVktCYWlPOENzVWplNko0M2lTMC93THNKeFJz?=
- =?utf-8?B?TVZYWjE1a2k4UHhaLzhVbElEL2VjakhJL3VrM2FMNmdobHMzaEovcnc4MUhr?=
- =?utf-8?B?bHlNQzU5c3lVSHBEa3BhMVprMW85Zkg2NEN0bFo0NTJlRFpMMXpQU0cvdlNT?=
- =?utf-8?B?R3hrQnF6REhwUlVEMmNkL082WmlUNnEvRGlYRllQNXBXWnQzNVduc0xJeDhp?=
- =?utf-8?B?ZFZCTE0vWGJ5S1ZVNStTN1NKakxjSlZnODI0Wk5EN25OMEtySzAzWnJYamI5?=
- =?utf-8?B?OTdoNEkrUEZZUzZmeVlpUVFLeDBkNDJBQ2lOT1NkcTJiWk1QNThCa1dlaHl1?=
- =?utf-8?B?d0NSdjdLbUJWSWtRU2pGb2szM05iUkpXZk1MemxBVTBFbzE0aWNvTlExLzJr?=
- =?utf-8?B?K0h0RnFwQzRrZi8wWW5uV0JUNlVoeGQ3czg5N1I2OG94NEFNYU9LZmI5emtS?=
- =?utf-8?B?bVZVeVkzby9VWXZYbzlmTGVBY05XL1p1NTVDNDlPNDNaYWtZZE9PZz09?=
+	=?utf-8?B?dVJMb0drQVRaNVd1cW1xRkdHWitqY3R3Q1k5MHNoTU9sSmpsczQ1LzRRMzY1?=
+ =?utf-8?B?RjJEVWxHc0hTYTFmaGlEUzFFdWNiSUxtZzlIajI1YzBqV1pabk9YWlB5UXlD?=
+ =?utf-8?B?b3FTZTIvdW42Wmh2UHJSa0Y2UlBtRjR0QjRxUXMxR1Erak5QcXhSMllhTm56?=
+ =?utf-8?B?cGtzRHFQcjRrcElZR1NrNitwY2orMVkreDZHbGIyQ1hiaXY5bjJqOVZDUjhI?=
+ =?utf-8?B?YjIyN2UwMExqNk42QXhaeTNLUm5ZTlUzQUpwQWV0a2UrTVdsZ2ZiMW1SVVI5?=
+ =?utf-8?B?Q016M1kwQkZxaFZaNW5tdm94TTZNZ3VhRi9JUW54eE4waG9ndjhXOW4xTkhm?=
+ =?utf-8?B?ZDhHVWdnOXcwUFVtamZKQStMaVc2OVdVUjFnYS9ySG12QUNhZWJ6S2lsT1FN?=
+ =?utf-8?B?M09xRXIzUkIvU1FLY2FTck93ZTRtN00vUm5hUEJVa2duNXhPTE04NWs3M1R3?=
+ =?utf-8?B?RjJwajhlV3NXUm1nalF6T2ZvQzhtc3VCeXdraHgyMk9hUDNWK0g4Wkh5UlJo?=
+ =?utf-8?B?SEkxL1lFblFGSkJKeWJtdS9DUXRaazlUcXlSRVZuYjF6U3g2MkpocDFya2R3?=
+ =?utf-8?B?bndyaENWN2Q4ZVNSZ1hESmQwbFRwb1FKczVLU0ZRK2VqUUkvRDN2V2FpV1lV?=
+ =?utf-8?B?Rlh2SHppMFIzWnVUa1BERzRtVHpQNXdUNkFLRjg3TFdmRkRweStzbWZ0SnVi?=
+ =?utf-8?B?ZTVGN3VUUm9QNnI0K3lUNWMydS9sYys5SnhZOElTNWtrcEdWT3VuSlRuSm02?=
+ =?utf-8?B?aW9HRDVNWjQ2NmQ4V2xjMlRmcW9yMUM3MFlNMFJ4N2RTOUdnemFRSjJiYVdT?=
+ =?utf-8?B?TFhFaEpYS045bHQyL0l3N3FEbUt1MjFaVm9UQ3lGS05KMU8xTkQxSUJFeUtx?=
+ =?utf-8?B?eWtSV2ttdER1bW8rS052dnFMeHU3RXorMTJzemQzYVhWQnd5M0pkQVVZZVJW?=
+ =?utf-8?B?VGhZbG9tNGdoV3VSbGE3K0R5TkVpWWFDTyt5cjF4a0toSnp5Sy93b1RxeFN1?=
+ =?utf-8?B?UDEvd0grRjJTR1pRWnVaSTBVaHppSHRSb3B3c2lkbmhtZTRYcStRRDNVcTV6?=
+ =?utf-8?B?NGFDT2c4bGUrMGNETXVHdzNYeHdpWlAwenRNQTlGOW15WXB5b05aVDV0WlJK?=
+ =?utf-8?B?TStHb29GbzdCeHZTSHFTamw4Vys4Y1FrQ1NoNDFwbER2c0ZyVUJIaE9CaWk0?=
+ =?utf-8?B?cEE0bU0wQTQ2Q0liYmwzbUNlSnFXNkdyQ3hZYlFiTGkrSDl1emkxeHdjSjZh?=
+ =?utf-8?B?MWpTbm8xM2dUWlFLZXZPZG9QU3llVEh0cWNqd3ZRUzIzU2YwanpsNGlKamE4?=
+ =?utf-8?B?SXljZitIdERiNkhIVG9IcnFnbDR2L1R0cnViMVA1elVnOENCbzJDNHYxOER4?=
+ =?utf-8?B?aUdxRXhkUi9nejI4dGs1amFBVStxRXFyQ29qK2IyTmpVSjBTd2RDNGpRdW9i?=
+ =?utf-8?B?OGhKdUtyTkowYzROTDNpNlEvMTNzeTRNc3NWb3RRRWZkaUdZVVVJOWhyWlJW?=
+ =?utf-8?B?TS9ZakpGM0MzT3dram5VS1pEalVjRVpXSVZoVldEZWN0Y3hjU05qeUxYV1hW?=
+ =?utf-8?B?VmN1U1NwNTVRYVJEQTVuc1lxVitha1FiSnZaZDgrWTMvcFQyL3VPbXYwN2Mw?=
+ =?utf-8?B?V3pPUDdGVVN6SmVsVk5LWkF0OGZRWmt0VXhRVWdycmplVlJDQWxYSVNaZ0xS?=
+ =?utf-8?B?SVpPVXJXSldvcUN4cEhBRmxsRExmdEw4dGplZittZ0dHeXJXR0pvNkxJVE96?=
+ =?utf-8?B?bDRXb24wc1dvNjBjTUZaSnlmeGlzcVU3Qjc0d2xLZVQyTFdSaDRUZFdsLzJO?=
+ =?utf-8?B?dVI3YTZub3pLYkxxNlZkaWJ6alZ4YThhRXJOVjRFbUdKSkdGTjVBYTVpQnhz?=
+ =?utf-8?B?VlNkU2ZLTWJTY2doSkdkcmI0QzJ0MU40QzV4T0N6WWs1TnA2MktaRk91S3ZJ?=
+ =?utf-8?B?SGlid1F6Mmdtc0V0aXVRL0cvcWJLN3htS0I1L25LUFBkblkxR3dTL1BWd2w4?=
+ =?utf-8?B?VVNIVkF5elZhb1lDTXlwQnNFdHo3RExma2t1TEJqOVkycDFLSlRLZlFIZGRQ?=
+ =?utf-8?B?MFhMcDNqOStWc2ZsajZkRmZJQWw4YXJzRCtaTHBreFYxbEc3Znl6N01BYjhT?=
+ =?utf-8?B?YWtlN1V0LzBqNStOci91SGEyeGlDUm9Ic1JWR3MyMDErTSsyOWNFcmxPOWhG?=
+ =?utf-8?B?ZFdZaEhxYy80OTYzZENYZDBEY2V4c0hxdUVMM0VpWTg4bGZxQ1J1eUZCUUZp?=
+ =?utf-8?B?d1pGNUVNOHNqdTV3TFczWFd3Y09LeVIzODFQUjFoQkl2dWh1Zk95OUxsL2cr?=
+ =?utf-8?B?eUpRNGt5SGMyZkhXV3RqTkJGVHBCbVJpSjQ2TlE2dTdPWm9rc3paQT09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5708527c-148e-4ece-12a3-08df08492af6
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3530b8f8-7158-4fe2-0024-08df08492b78
 X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 16:50:45.7172
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 16:50:46.5532
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: q0UMo1RlVeCLesUeR7NTmlPwbDPOKHn/e6O2bwvmiCUvkhMQqZYOBdKF9W1Hof32UPZA8FDUETbY6Gcgt9BPaQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: YEFY7iXfzIF53/I+w2/yUEcnSn71Jvqc8/nm3VTLG1vmx3dItL9780/ZDdwZoKKgEiUQC5tOJIzCyDh2ymlm1w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB9199
 
-With the removal of relative registers, there are only two type of
-registers left, fixed register and register arrays. There is not much
-benefit in having a common super trait for them anymore, thus remove it,
-and cleanup the macro rules associated with it.
+Move the `FixedRegister` from a property of register to become a property
+of type. Name the new trait `FixedIoLoc` indicating if I/O location of a
+type is unique for a specific base. Thus, bitfields become just a special
+case of this (where type is unique because we're generating it in the
+register macro), and expose feature to registers without inline bitfield
+definition with the `#[unique]` attribute.
 
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- rust/kernel/io/register.rs | 22 +++++++++++++---------
- rust/macros/io/register.rs | 12 ++++++------
- 2 files changed, 19 insertions(+), 15 deletions(-)
+Changes since v3:
+- Add a note that discourage `#[unique]` on primitives (Sashiko).
+- Fix array's bitfield check to check `bitfield.is_none()` instead of
+  `!unique` (Sashiko).
+---
+ rust/kernel/io/register.rs | 114 +++++++++++++++++++++------------------------
+ rust/macros/io/register.rs |  58 ++++++++++++++---------
+ 2 files changed, 89 insertions(+), 83 deletions(-)
 
 diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
-index 187f28f16614..9df7572aee9d 100644
+index 9df7572aee9d..b6513fa0f412 100644
 --- a/rust/kernel/io/register.rs
 +++ b/rust/kernel/io/register.rs
-@@ -121,8 +121,8 @@
+@@ -121,61 +121,15 @@
      io::IoLoc, //
  };
  
--/// Trait implemented by all registers.
--pub trait Register: Sized {
-+/// Trait implemented by registers with a fixed offset.
-+pub trait FixedRegister: Sized {
-     /// Base type for this register.
-     type Base: ?Sized;
- 
-@@ -132,9 +132,6 @@ pub trait Register: Sized {
-     const OFFSET: usize;
- }
- 
 -/// Trait implemented by registers with a fixed offset.
--pub trait FixedRegister: Register {}
+-pub trait FixedRegister: Sized {
+-    /// Base type for this register.
+-    type Base: ?Sized;
+-
+-    /// Start offset of the register.
+-    ///
+-    /// The interpretation of this offset depends on the type of the register.
+-    const OFFSET: usize;
+-}
 -
  /// Allows `()` to be used as the `location` parameter of [`Io::write`](super::Io::write) when
- /// passing a [`FixedRegister`] value.
+-/// passing a [`FixedRegister`] value.
++/// passing a [`FixedIoLoc`] value.
  impl<Base: ?Sized, T> IoLoc<Base, T> for ()
-@@ -201,7 +198,14 @@ fn offset(self) -> usize {
+ where
+-    T: FixedRegister<Base = Base>,
++    T: FixedIoLoc<Base>,
+ {
+     #[inline(always)]
+     fn offset(self) -> usize {
+-        T::OFFSET
+-    }
+-}
+-
+-/// A [`FixedRegister`] carries its location in its type. Thus `FixedRegister` values can be used
+-/// as an [`IoLoc`].
+-impl<Base: ?Sized, T> IoLoc<Base, T> for T
+-where
+-    T: FixedRegister<Base = Base>,
+-{
+-    #[inline(always)]
+-    fn offset(self) -> usize {
+-        T::OFFSET
+-    }
+-}
+-
+-/// Location of a fixed register.
+-pub struct FixedRegisterLoc<T: FixedRegister>(PhantomData<T>);
+-
+-impl<T: FixedRegister> FixedRegisterLoc<T> {
+-    /// Returns the location of `T`.
+-    #[inline(always)]
+-    // We do not implement `Default` so we can be const.
+-    #[expect(clippy::new_without_default)]
+-    pub const fn new() -> Self {
+-        Self(PhantomData)
+-    }
+-}
+-
+-impl<Base: ?Sized, T> IoLoc<Base, T> for FixedRegisterLoc<T>
+-where
+-    T: FixedRegister<Base = Base>,
+-{
+-    #[inline(always)]
+-    fn offset(self) -> usize {
+-        T::OFFSET
++        T::LOCATION.offset()
+     }
  }
  
- /// Trait implemented by arrays of registers.
--pub trait RegisterArray: Register {
-+pub trait RegisterArray: Sized {
-+    /// Base type for this register.
-+    type Base: ?Sized;
+@@ -188,6 +142,11 @@ impl<Base: ?Sized, T> OffsetLoc<Base, T> {
+     pub const fn new(offset: usize) -> Self {
+         Self(offset, PhantomData)
+     }
 +
-+    /// Start offset of the register.
-+    ///
-+    /// The interpretation of this offset depends on the type of the register.
-+    const OFFSET: usize;
-     /// Number of elements in the registers array.
-     const SIZE: usize;
-     /// Number of bytes between the start of elements in the registers array.
-@@ -267,8 +271,8 @@ fn try_at(idx: usize) -> Option<RegisterArrayLoc<Self>>
- ///
- /// Implementors can be used with [`Io::write_reg`](super::Io::write_reg).
- pub trait LocatedRegister<Base: ?Sized> {
--    /// Register value to write.
--    type Value: Register;
-+    /// Value to write.
-+    type Value;
-     /// Full location information at which to write the value.
-     type Location: IoLoc<Base, Self::Value>;
- 
-@@ -295,7 +299,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- /// This is used to enforce base matching.
- #[doc(hidden)]
- #[inline(always)] // for const eval only
--pub const fn alias_offset<Base: ?Sized, Alias: Register<Base = Base>>() -> usize {
-+pub const fn alias_offset<Base: ?Sized, Alias: FixedRegister<Base = Base>>() -> usize {
-     Alias::OFFSET
++    #[inline]
++    pub const fn const_offset(self) -> usize {
++        self.0
++    }
  }
  
+ impl<Base: ?Sized, T> IoLoc<Base, T> for OffsetLoc<Base, T> {
+@@ -266,6 +225,17 @@ fn try_at(idx: usize) -> Option<RegisterArrayLoc<Self>>
+     }
+ }
+ 
++/// Trait implemented by types that indicate there is a fixed I/O location for this given type.
++///
++/// Implementors can be used with [`Io::write_reg`](super::Io::write_reg).
++pub trait FixedIoLoc<Base: ?Sized>: Sized {
++    /// Type of [`FixedIoLoc::LOCATION`].
++    type Location: IoLoc<Base, Self>;
++
++    /// Location of this type within given base.
++    const LOCATION: Self::Location;
++}
++
+ /// Trait implemented by items that contain both a register value and the absolute I/O location at
+ /// which to write it.
+ ///
+@@ -283,26 +253,17 @@ pub trait LocatedRegister<Base: ?Sized> {
+ 
+ impl<Base: ?Sized, T> LocatedRegister<Base> for T
+ where
+-    T: FixedRegister<Base = Base>,
++    T: FixedIoLoc<Base>,
+ {
+-    type Location = FixedRegisterLoc<Self::Value>;
++    type Location = T::Location;
+     type Value = T;
+ 
+     #[inline(always)]
+-    fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
+-        (FixedRegisterLoc::new(), self)
++    fn into_io_op(self) -> (T::Location, T) {
++        (T::LOCATION, self)
+     }
+ }
+ 
+-/// Helper function for register alias implementation.
+-///
+-/// This is used to enforce base matching.
+-#[doc(hidden)]
+-#[inline(always)] // for const eval only
+-pub const fn alias_offset<Base: ?Sized, Alias: FixedRegister<Base = Base>>() -> usize {
+-    Alias::OFFSET
+-}
+-
+ /// Helper function for register element alias implementation.
+ ///
+ /// This is used to enforce base matching and provide bounds checking.
+@@ -419,6 +380,35 @@ pub const fn element_alias_offset<Base: ?Sized, Alias: RegisterArray<Base = Base
+ /// }
+ /// ```
+ ///
++/// In case there is a fixed register associated with a specific type in the base, you can apply
++/// `#[unique]` attribute which enables `write_reg` shorthand. This is automatically applied to
++/// bitfields instantiated via the `register!` macro.
++///
++/// This should only be used when types meaningfully represent a register. For example, in the
++/// previous `UART_RX` example, even if only a single register is defined with `u8` type, it is a
++/// bad idea to annotate it with `#[unique]`.
++///
++/// ```no_run
++/// # use kernel::{bitfield, io::*};
++///
++/// bitfield! {
++///     pub struct Reset(u32) {
++///         0:0 reset;
++///     }
++/// }
++///
++/// register! {
++///     base: Region<0x1000>;
++///
++///     pub RESET: #[unique] Reset @ 0x100;
++/// }
++///
++/// # fn test(mmio: Mmio<'_, Region<0x1000>>) {
++/// // let mmio: Mmio<'_, Region<0x1000>>;
++/// mmio.write_reg(Reset::zeroed().with_const_reset::<1>());
++/// # }
++/// ```
++///
+ /// ## Arrays of registers
+ ///
+ /// Some I/O areas contain consecutive registers that share the same field layout. These areas can
 diff --git a/rust/macros/io/register.rs b/rust/macros/io/register.rs
-index 6da8ba760ab3..7d3160c4873a 100644
+index 7d3160c4873a..6a89e4b60735 100644
 --- a/rust/macros/io/register.rs
 +++ b/rust/macros/io/register.rs
-@@ -225,11 +225,6 @@ pub(crate) fn register(def: RegDef) -> Result<TokenStream> {
-                     #[allow(non_camel_case_types)]
-                     #(#attrs)* #vis struct #name(#storage) #args
-                 );
--
--                impl ::kernel::io::register::Register for #name {
--                    type Base = #base;
--                    const OFFSET: usize = #offset;
--                }
-             ));
+@@ -63,6 +63,7 @@ struct Reg {
+     attrs: Vec<Attribute>,
+     vis: Visibility,
+     name: Ident,
++    unique: bool,
+     ty: Type,
+     array: Option<RegArrayDef>,
+     offset: RegOffset,
+@@ -76,16 +77,26 @@ fn parse(input: syn::parse::ParseStream<'_>) -> Result<Self> {
+         let name = input.parse()?;
+ 
+         let lh = input.lookahead1();
+-        let (ty, bitfield_storage) = if lh.peek(Token![:]) {
++        let (unique, ty, bitfield_storage) = if lh.peek(Token![:]) {
+             let _: Token![:] = input.parse()?;
+-            (input.parse()?, None)
++
++            let mut attrs = input.call(Attribute::parse_outer)?;
++            let unique = attrs
++                .extract_if(.., |attr| attr.path().is_ident("unique"))
++                .count()
++                != 0;
++            if !attrs.is_empty() {
++                Err(Error::new_spanned(&attrs[0], "unexpected attributes"))?
++            }
++
++            (unique, input.parse()?, None)
+         } else if lh.peek(token::Paren) {
+             let content;
+             parenthesized!(content in input);
+             let bitfield_storage = Some(content.parse()?);
+ 
+             // For bitfields, bitfield macro will generate a type with the same name as `name`.
+-            (parse_quote!(#name), bitfield_storage)
++            (true, parse_quote!(#name), bitfield_storage)
+         } else {
+             Err(lh.error())?
+         };
+@@ -150,6 +161,7 @@ fn parse(input: syn::parse::ParseStream<'_>) -> Result<Self> {
+             attrs,
+             vis,
+             name,
++            unique,
+             ty,
+             array,
+             offset,
+@@ -193,6 +205,7 @@ pub(crate) fn register(def: RegDef) -> Result<TokenStream> {
+             attrs,
+             vis,
+             name,
++            unique,
+             ty,
+             array,
+             offset,
+@@ -207,7 +220,7 @@ pub(crate) fn register(def: RegDef) -> Result<TokenStream> {
+             RegOffset::Fixed { offset } => quote!(#offset),
+             RegOffset::Alias { alias } => {
+                 quote_spanned!(alias.span().resolved_at(span) =>
+-                    ::kernel::io::register::alias_offset::<#base, #alias>()
++                    ::kernel::io::register::OffsetLoc::<#base, _>::const_offset(#alias)
+                 )
+             }
+             RegOffset::ElementAlias { alias, idx } => {
+@@ -229,27 +242,30 @@ pub(crate) fn register(def: RegDef) -> Result<TokenStream> {
          }
  
-@@ -245,7 +240,10 @@ impl ::kernel::io::register::Register for #name {
-             ))?,
+         match array {
+-            None if bitfield.is_none() => outputs.extend(quote!(
+-                #(#attrs)* #vis const #name: ::kernel::io::register::OffsetLoc<#base, #ty> =
+-                    ::kernel::io::register::OffsetLoc::new(#offset);
+-            )),
+-
+-            _ if bitfield.is_none() => Err(Error::new_spanned(
+-                ty,
+-                "defining without bitfield is not yet supported for this type of register",
+-            ))?,
+-
+-            None => outputs.extend(quote_spanned!(span =>
+-                impl ::kernel::io::register::FixedRegister for #name {
+-                    type Base = #base;
+-                    const OFFSET: usize = #offset;
++            None => {
++                if unique {
++                    outputs.extend(quote!(
++                        impl ::kernel::io::register::FixedIoLoc<#base> for #ty {
++                            type Location = ::kernel::io::register::OffsetLoc<#base, #ty>;
++                            const LOCATION: Self::Location = #name;
++                        }
++                    ))
+                 }
  
-             None => outputs.extend(quote_spanned!(span =>
--                impl ::kernel::io::register::FixedRegister for #name {}
-+                impl ::kernel::io::register::FixedRegister for #name {
-+                    type Base = #base;
-+                    const OFFSET: usize = #offset;
+-                #(#attrs)* #vis const #name: ::kernel::io::register::FixedRegisterLoc<#name> =
+-                    ::kernel::io::register::FixedRegisterLoc::<#name>::new();
+-            )),
++                outputs.extend(quote_spanned!(span =>
++                    #(#attrs)* #vis const #name: ::kernel::io::register::OffsetLoc<#base, #ty> =
++                        ::kernel::io::register::OffsetLoc::new(#offset);
++                ));
++            }
+ 
+             Some(def) => {
++                if bitfield.is_none() {
++                    Err(Error::new_spanned(
++                        &ty,
++                        "defining without bitfield is not yet supported for this type of register",
++                    ))?
 +                }
- 
-                 #(#attrs)* #vis const #name: ::kernel::io::register::FixedRegisterLoc<#name> =
-                     ::kernel::io::register::FixedRegisterLoc::<#name>::new();
-@@ -268,6 +266,8 @@ impl ::kernel::io::register::FixedRegister for #name {}
-                     impl ::kernel::io::register::Array for #name {}
- 
-                     impl ::kernel::io::register::RegisterArray for #name {
-+                        type Base = #base;
-+                        const OFFSET: usize = #offset;
-                         const SIZE: usize = #size;
-                         const STRIDE: usize = #stride;
-                     }
++
+                 let size = &def.size;
+                 let stride = if let Some(stride) = &def.stride {
+                     outputs.extend(quote_spanned!(stride.span().resolved_at(span) =>
 
 -- 
 2.54.0
