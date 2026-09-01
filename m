@@ -1,83 +1,120 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4512B47A875;
-	Tue,  1 Sep 2026 10:56:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5955E39AD51
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 10:56:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788260212; cv=none; b=IbrPLfxR44j8+JxwGI67gowwbcc/u9AMdsVN463mmXX4DOeW5TukOB3aC9RUxKJk1CJ42gmZe38+bESh62tdfHPJ66laFa5Y8dR7v4nXVSKP8Z/AGN0X5jotbWAoOXqcaWdNKRymq/6YQq3P++7OB51fr4ghIfxsNghdS+2cXHQ=
+	t=1788260214; cv=none; b=B2x+SLdQptycy/NHydvi5/3wwflbwzSPhobScf/10P1+BjAV5C5qyoc4H+8GKAmi0ZU8S42QXuznQlHN29Cznd8+UriftlP5q6iRwqxrkRrF40z2RcVYv1RISCdH5Sqms0odDGi48BRfajd5BVk5eHSzUkqMgObA8JiA8qAm71U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788260212; c=relaxed/simple;
-	bh=CtqazdC+ygL2SFHTHMPJX7tAVfA0wmPae+FwESe4ZPw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YWL1hZI5LxS3zF+oDRhYZsjtq1UqXDQpLdg5u+t4E1BXv8/ysRBVaeAW31HlkFhMXDyM46XKgRQvXl9+32ja+mYnZJHuhkg/pQ+LcDgx0BnTE7pHUMlzYsmrdFPdbtNAtaSIvlo7wYak+J/tRYvtc79yeqZkl7ImuMxpDg++JR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SK2f0Npk; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788260214; c=relaxed/simple;
+	bh=Ko6vUTqGj5K3GB4rTAKDIeTwpnYNzLmH29khSvV861A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=STOuXsAVZ4FmJkcurIe5aeVXWJIahmXgXHaR6915MwQmud+TzIs/3xycAyuRUiK/Xp4yjrahUZFjBMIlkDGaFCzAfIi7My19StaFJ8jsfgp0kRzJLRgUsLGIKAIZagfZPhyxIavwns3py4bKQF6JImd1WN1tUWkg7l2X+tcUjV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=0YsgmOUc; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=AkRy82ij; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SK2f0Npk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788260209; x=1819796209;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=CtqazdC+ygL2SFHTHMPJX7tAVfA0wmPae+FwESe4ZPw=;
-  b=SK2f0NpkhPLiUk+k3y4IrAyKK+JDiYWWOZX3Vbyk8SGoudEQwmbmQWP5
-   VjUxO3LolCDNt07TKRBzF8cGq5Xjy4pb2lDsKfjIl5ipsdYYKH27uATVn
-   aam0uOy1teGoNXJ49fooELYNuw+7KJ37/pPP93ukhLtTilh8YcSowTxxX
-   SsASWeVZCcrCTpZiU4iBjy2QmGspTnjJwAmDs5jX7PmTEEU9LBTMpunpG
-   DL3kHNXJdFHkn67RJ05WLNW1aLIOOgICwMGR3RGNrEY2cDSyBX+WEgqOl
-   SVBQfD7b2nEuArfLu9rIf4RB+93P6nF6ihvA2TdXut5m3bA9NcpLfRMnI
-   Q==;
-X-CSE-ConnectionGUID: H9+VFcs0T3a9kV6kx57IfQ==
-X-CSE-MsgGUID: Tid2gAc6QuyvBIeBoG61jA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="91199122"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="91199122"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 03:56:47 -0700
-X-CSE-ConnectionGUID: YTTAVOg0T+KcwkE5DLmVuA==
-X-CSE-MsgGUID: iB/Sy/vTRAuryUIucn74qQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="272579942"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.222])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 03:56:42 -0700
-Date: Tue, 1 Sep 2026 13:56:41 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Thierry Chatard <tchatard@gmail.com>
-Cc: linux-kernel@vger.kernel.org, hansg@kernel.org, lee@kernel.org,
-	platform-driver-x86@vger.kernel.org, ilpo.jarvinen@linux.intel.com,
-	djrscally@gmail.com, linux-media@vger.kernel.org,
-	mchehab@kernel.org, sakari.ailus@linux.intel.com,
-	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
-	v.vitovt@gmail.com
-Subject: Re: [PATCH v10 8/8] media: ov8858: add ACPI device ID INT3477
-Message-ID: <apavaVrfxk3mRkTh@ashevche-desk.local>
-References: <20260831160754.9857-1-tchatard@gmail.com>
- <20260831160754.9857-9-tchatard@gmail.com>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="0YsgmOUc";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="AkRy82ij"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id F3DD221CB7;
+	Tue,  1 Sep 2026 10:56:45 +0000 (UTC)
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788260206; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WcAJPgihOEDmv1nHcIKnWxG+FM4RrbB/EjKcaO2mNjo=;
+	b=0YsgmOUcqyAtGVpAffnoa8U4hqbaC8oh7Xdgbr7FBZK7TvcH5Mr418N76KGedYBhz6uJjj
+	+DbGbXdvQ2tGEEl5M4l9RFbAq+rR+ThwhhxCAzkEAsuHb1gG/cH7U09gRJldZUbdT7A7fK
+	EnGjtpRyie7ICtOVE6SuUOCU2qf/38M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788260206;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WcAJPgihOEDmv1nHcIKnWxG+FM4RrbB/EjKcaO2mNjo=;
+	b=AkRy82ijjMDUuGjyLxmUldyFjngLoPJm97AkoFqOpYRMqb+nuEte0jQ5/vM8hTO6aB1Orr
+	l3M3eNYvX3haS2AA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7C875136B2;
+	Tue,  1 Sep 2026 10:56:45 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ALotHW2vlmrRGwAAD6G6ig
+	(envelope-from <pvorel@suse.cz>); Tue, 01 Sep 2026 10:56:45 +0000
+From: Petr Vorel <pvorel@suse.cz>
+To: linux-kernel@vger.kernel.org
+Cc: Petr Vorel <pvorel@suse.cz>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Andy Whitcroft <apw@canonical.com>,
+	Joe Perches <joe@perches.com>,
+	Dwaipayan Ray <dwaipayanray1@gmail.com>,
+	Lukas Bulwahn <lukas.bulwahn@gmail.com>,
+	Cryolitia PukNgae <cryolitia@uniontech.com>
+Subject: [PATCH v5 2/5] checkpatch: Ignore <inttypes.h> format macros for userspace tools
+Date: Tue,  1 Sep 2026 12:56:39 +0200
+Message-ID: <20260901105642.851234-3-pvorel@suse.cz>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260901105642.851234-1-pvorel@suse.cz>
+References: <20260901105642.851234-1-pvorel@suse.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831160754.9857-9-tchatard@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: F3DD221CB7
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -4.00
+X-Spam-Level: 
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[];
+	TAGGED_RCPT(0.00)[]
 
-On Mon, Aug 31, 2026 at 06:07:54PM +0200, Thierry Chatard wrote:
-> The Omnivision OV8858 appears in ACPI firmware under the HID INT3477 on
-> Intel IPU3-based platforms such as the Dell Latitude 5285 2-in-1. Add
-> INT3477 to the ACPI match table so the driver binds when instantiated by
-> ipu_bridge.
+Constants from <inttypes.h> are used only in userspace tools, they are
+from ISO C99, let's don't report it:
 
-Sakari wants you to add ACPI_PTR().
+    arch/mips/boot/tools/relocs.c:572: CHECK: Avoid CamelCase: <PRIx32>
+    arch/s390/tools/relocs.c:52: CHECK: Avoid CamelCase: <PRIu64>
+    tools/testing/selftests/mm/vm_util.c:244: CHECK: Avoid CamelCase: <SCNu64>
 
+Signed-off-by: Petr Vorel <pvorel@suse.cz>
+---
+The same as in v4.
+
+ scripts/checkpatch.pl | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
+index b8702f6bc9b5..b458c7f22684 100755
+--- a/scripts/checkpatch.pl
++++ b/scripts/checkpatch.pl
+@@ -5950,6 +5950,8 @@ sub process {
+ #Ignore SI style variants like nS, mV and dB
+ #(ie: max_uV, regulator_min_uA_show, RANGE_mA_VALUE)
+ 			    $var !~ /^(?:[a-z0-9_]*|[A-Z0-9_]*)?_?[a-z][A-Z](?:_[a-z0-9_]+|_[A-Z0-9_]+)?$/ &&
++#Ignore <inttypes.h> format macros (e.g. PRIu64, SCNu64)
++			    (is_userspace($realfile) ? $var !~ /^(?:PRI|SCN)[dioux][A-Z0-9]+$/ : 1) &&
+ #Ignore some three character SI units explicitly, like MiB and KHz
+ 			    $var !~ /^(?:[a-z_]*?)_?(?:[KMGT]iB|[KMGT]?Hz)(?:_[a-z_]+)?$/) {
+ 				while ($var =~ m{\b($Ident)}g) {
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.55.0
 
