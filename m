@@ -1,56 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F8853793A5;
-	Tue,  1 Sep 2026 05:26:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0995372B2B
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 05:28:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788240396; cv=none; b=h9CZCY88qTEHvYYUgxxDr7MBrl0lY15qkD9F7nkQQ55z21R7JdmuuI7oE1cqQ5GAu/RU6zEfscieaSRSEPihUsGeyHgvjhdE1b2G6YN3ij/QOxEBkiojUShL8gQlitRxHXaegWGtcpYUfZDEEjM59tj+rKTnC3wtcbMdfEUezuY=
+	t=1788240509; cv=none; b=jysE55j/FBIXPE1MH3axAps5t5qTsAw4v48LgWJg5Sm5Z9ri/SZud/kkXBhPpagNzJwyqPh2Qq35B9P18T10qU9mFawBBwSMLBmQWDZL4Rt7p2cDYMmcNAVsFF2EaR0QxsJovrYfCDhZyfz+hxg/Ix/timoe5MuUrl6Pmo5eyEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788240396; c=relaxed/simple;
-	bh=V3m/tZGM7F8SH6VyH2dGeW7md8ZBrLPodTFdfZqvaWI=;
+	s=arc-20240116; t=1788240509; c=relaxed/simple;
+	bh=W7Q8xg8BSAYA2tpHUW+AynBJ9lC5DWh80C8PRS4kSR0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=g7aNU+kCfDmC2c3SYBktG9L2F+iSgRQXFATIXWUPXeyTyyl53lVz8hUxQntON/T0KxXLA93gv2Rjs7PyDY5BVIasxV2u47Ws7QSZoEmqHbVnve1liDHs3xlbOVt6i3T9BpglLu7OJP/AqAPA6aiPP4kGzcg76RWjuOnYxj+Rm5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nyr59aCU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=a0QFBz7o07X6TH+yBC0xSOf/DgBmZOVBdEWfgqBS+v3Faw7rUxbD/T+9d3ZxSguH1htaGtOdHKRdj0xf6wSUM6DttgtyVEdxqfUgtf+B91ZpsF9DXx+d9magcpZ80iR8nJ5HZRqebzkFOI8F5/Tr9i/1E2wg61HvWZCAmMS04Zg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mw/5LzLC; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nyr59aCU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C11B1F000E9;
-	Tue,  1 Sep 2026 05:26:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788240394;
-	bh=i0d6uoxX59JE6CAN12/4QKhpNFVtXkpS8bIPHrIcY1g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Nyr59aCUsrbXnN7xieacuiygyswVayN/35mPUGEaTYtflBfgXvg/AxzCVuwthR+RT
-	 PldsjGvKuMechm69pCYLvgh6QB3NkIWNN0bMifNTEpPYjRwbrUg8Z7vTzj3al1CLqK
-	 W2NItwsCAZCRC99LTtuAxx0lEnVExhA0dhQqlFa5X3GARo60iABAUiLkj2fGqLoU8/
-	 VvWS05k7OvEUAPbfnhzcEWOXAydz8BGQPyjTYog/mN4LtjyqVnIHmDv2QTEhpJXE36
-	 UiPMFLQfkGiexUsiRQ5+zX4XAR3FnN4w+tH6+/hgARbI1pwt/+8jf972udeYiaInKI
-	 /Y3dOh0ARMmcg==
-From: SJ Park <sj@kernel.org>
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	David Hildenbrand <david@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	damon@lists.linux.dev,
-	linux-doc@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mw/5LzLC"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso60903845e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 22:28:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788240506; x=1788845306; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=W7Q8xg8BSAYA2tpHUW+AynBJ9lC5DWh80C8PRS4kSR0=;
+        b=Mw/5LzLCzbYfkO9cFPvCiEqpRFxM9o0QArFK+sAPSbBonMM4mGhvT5+QrE4N5GerAZ
+         5mkg/qPAl6C5gYKmIrYFV4eKFr+7aJYMy6Eh+X+8/ma/G+4GbKKfWDy6HCJGLeF4aO+M
+         5VCbtcope+RPL4XfvwZ9xeCdDkyakwIKzTWF7v6EUanez8v6YKt9PJ+dikMHU6z5e92O
+         AVPh671sq+hYHpK474d2daYWRMcEaohSquAQTsmJ/G7aQwhCwp1K0/SdE6w1SQXWsI6G
+         yT8l4k69nLhJ3TBK+Sj1AN/+3d3Dzg7Y3zzsLwR5JNHb5RYVzLmpD7QeCLNP+lxSzAWI
+         vXBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788240506; x=1788845306;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W7Q8xg8BSAYA2tpHUW+AynBJ9lC5DWh80C8PRS4kSR0=;
+        b=rbAkqn+v2txuL0uLzvN9DPJz8GpDPgsTg+8bKkFUHGMEkNN2H0j4x5rlqnfmpWROUl
+         gR1FwdNmdAs2Hid8+4PKXckO6Oyri8+YPdgnLYnLZ519Td714zVXxRbGqE00US1kO5RA
+         J0LBp9II/0eA1BZB6zvFcMp+lR5XS3SjOv8X2LeIh9nK/sLSxRZzfADQ+kv37mueFi4T
+         0gfBL+NTC4Wsyfnq2qVCcC3q9NMTHTDKZ1qtzy1sQ8r/rnQEtPUnpNMGJh5iwlPpR9w/
+         CR5xiLV8tVZgulAMIUzQoTwUmFJf/IYaEVld7j+hoDK83RmKO/90sHDNgIiCKriOZMIY
+         +NIQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq6n04sbFNIkY9UEgtskmR/WIJOh1uII2i0Obn0oPyZTx22O6oGsotSq8Qo1OHdW9k80mPa183ESYwUmzA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nejiWMZvmq6SnPwmMgwL6D41W/GYDASV6KzVHhuiKvBxT85TSE
+	xRPn2vFkCFR7Cqd5udtq7ICg3UgfS4tj0RAW8axJS05yjJ5Avze6H/hU
+X-Gm-Gg: AR+sD10IhFCG06KtyitV+IwbgDSvi9MaN0aYu1mOoforRTqUyZ+LSKhfglisSHRNPye
+	mw8GdORHjnvPodLV7LlOwJ1r9DvUUQQmSCeAzO4pEWdd1mCPAmYcpCHiaZ5+mMH4SMtEvB4EF6l
+	3JlcSSDjlzt5pYlYvdFgQ4NfvN05rbqJpn6BB9pAU9eYIsLk/CqpC1wBLQbvn6hnstzmzP1C/sx
+	mobYROLQm5gY3JdC7Nh7x733bjJTi0EitVBbWvEj9lkka9F782L3OZYhy56MNWrKWf9wnu8y843
+	GrJwqCgN3W+TLBjzHIBuO2zGLky4ZPWy9TrHJF+e/Qn5xP+0A+/f6JTwiBvo/JvlqVc8cRrqcWR
+	qNTIz+8B/QDjmLDExZC7sRg6hToC894AiEUvYgjKT8qVjJ75RDTXYS/StLV822OGzJULdvZTHgf
+	U2/dv0gMAXsfwXg7VtvUmm/yJKMael/41hXcUHHnTk15pCIzLpOKxKdBCOOdYt8roPIrykHb1ut
+	7BUCTEAkuIzyDHj5bV81VHvucdkpnfMzeEuMbv4QW5JnGi2h2tMiC6WqZ3KitnL
+X-Received: by 2002:a05:600c:3e18:b0:49a:77c1:d246 with SMTP id 5b1f17b1804b1-49b91c4e073mr525091595e9.15.1788240505850;
+        Mon, 31 Aug 2026 22:28:25 -0700 (PDT)
+Received: from localhost.localdomain (ip-89-176-136-191.bb.vodafone.cz. [89.176.136.191])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cd8b9a2efsm140752035e9.3.2026.08.31.22.28.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 22:28:24 -0700 (PDT)
+From: Petr Wozniak <petr.wozniak@gmail.com>
+To: sashal@kernel.org
+Cc: patches@lists.linux.dev,
+	stable@vger.kernel.org,
+	maxime.chevallier@bootlin.com,
+	kuba@kernel.org,
+	andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	linux@armlinux.org.uk,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH 00/17] mm/damon: introduce data access-as-a-data attribute
-Date: Mon, 31 Aug 2026 22:26:26 -0700
-Message-ID: <20260901052627.6526-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260901043417.2165-1-sj@kernel.org>
-References: 
+	Petr Wozniak <petr.wozniak@gmail.com>
+Subject: Re: [PATCH AUTOSEL 6.18-6.1] net: phy: sfp: probe for RollBall I2C-to-MDIO bridge in mdio-i2c
+Date: Tue,  1 Sep 2026 07:28:16 +0200
+Message-ID: <20260901052816.3815-1-petr.wozniak@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260831133314.4125787-466-sashal@kernel.org>
+References: <20260831133314.4125787-466-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -59,18 +88,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Mon, 31 Aug 2026 21:33:56 -0700 SJ Park <sj@kernel.org> wrote:
+Please drop this one from AUTOSEL.
 
-> TL;DR: extend DAMON's data attributes monitoring system to support page
-> table accessed bit and PG_idle based access monitoring.
+8fe125892f40 was reverted upstream on 2026-06-29 in b521003c27eb
+("Revert "net: phy: sfp: probe for RollBall I2C-to-MDIO bridge in
+mdio-i2c""), so it is no longer in mainline.
 
-Sashiko found [1] a possible race that is introduced by this series.  I will
-fix it in the next revision.
+The probe it added runs in SFP_S_INIT, before genuine RollBall modules
+have finished initialising their bridge, so the bridge does not answer
+CMD_READ/CMD_DONE within the 200 ms window. mdio_protocol is then set
+to MDIO_I2C_NONE and PHY detection is skipped for modules that worked
+before the commit. Maxime Chevallier and Aleksander Bajkowski both
+confirmed that on hardware.
 
-[1] https://lore.kernel.org/20260901052446.4122-1-sj@kernel.org
+The timing is per-module rather than per-PHY: the FLYPRO
+SFP-10GT-CS-30M they tested carries the same AQR113C as a module here
+that answers within 200 ms, but needs seconds to load its PHY firmware
+from SPI. A fixed probe window cannot cover both, which is why the
+commit was reverted rather than adjusted. A proper fix needs per-module
+init timing, and per SFF-8472 the host must wait at least 300 ms after
+insertion in any case.
 
+Backporting this to stable would reintroduce that regression on
+hardware that works there today.
 
 Thanks,
-SJ
-
-[...]
+Petr
