@@ -1,107 +1,79 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 481CF39B4AE;
-	Tue,  1 Sep 2026 02:04:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CC8A3A785C;
+	Tue,  1 Sep 2026 02:06:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788228307; cv=none; b=tMHTuNzppJ3OCR8+eyQmxL26IYLAObb+ijf3rNDba3s17xAv1DEpMdi5sSpxZy148eGwatYOmbGML+cG+KFiXl+7dI1XCRhtCCvuQJycgmSSQPBWhGBQRuPnXGZIjzhVgwSYSeY2AR7bMQW8k1QwqfZVPnM+1e53QZiQY9ZWXzU=
+	t=1788228377; cv=none; b=t7Uw+Zwd153oOJDp3VvIXkYm2DT+MS5DVk5Ig1kFwejP0d+3KWRvEDLi6HZwd7b4FMl4k0/VkT7qcK4fKXeHp5d8VctY4RnVkNznsMOlcrfkPo4P9GPDFzc0HEBhwrY1zmjTe8x57dJKOdmGCuoJEfONPo73EsdDOayoNlh5dy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788228307; c=relaxed/simple;
-	bh=GJkv0KF9EJJYzhj5G3y3cOyBlUvjSK7/fTYN1p2HQcY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=jgi909MTHLXmvVqfDXdW9tgfyQHMwoD8MOilqDSmKxqBdQoQfbx3f+qRjQa7WTC0frjJpmVaozzybOeaUP1z4QwsTTW9Xrk1rsIRt047An+7Hu0hU5e1YwnAu6aIGsokOTUU0K5eQbc2Vqh3C0zXqU5ZHsLg343+MmqvdLaImn0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=aCPVfzKE; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788228377; c=relaxed/simple;
+	bh=y//G2hfrQusFIRZMpStTygTDFgIXFnHvdvwsiKyfwsQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lv9Uo+Vggq1rX/j2ihcWS6JPdgPhqVCTxujalC/uPCm0pfqKpszzTk1ApQTT4NAkyIqsqWQOquEdjiniOTMPr2JetuIpS0ik2mvsrbmwIEOmXifP/zpl7zJgBskGe1pPnYuo3brZQ0zD23s4N1HHMElkpqayyz/vPEK2w2yFMFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=pixYcPIp; arc=none smtp.client-ip=115.124.30.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="aCPVfzKE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Rk
-	I040s/UcDuypkKQtOsqL0mxZcgriN1x2lBhMZKc2E=; b=aCPVfzKEdARONP/5I+
-	FGk/N6FsYzuRtlPL+r6SHKbV7luFyDhBv4/NpsveWo5eROEe1QfNbQWA4xKYfH1n
-	vOIabQjTPhQrDgUlhY3vM51Egp1qGlwkFbr8z13wmEFVUikWgMwV/7BvjXFhXcHH
-	wZxOuPEihT+GJZt27aN7lYxGc=
-Received: from thinkpadx13gen2i.. (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wAHdNGoMpZqYzcpSw--.41204S2;
-	Tue, 01 Sep 2026 10:04:25 +0800 (CST)
-From: Zongmin Zhou <min_halo@163.com>
-To: nikolayof23@gmail.com,
-	david-b@pacbell.net,
-	gregkh@linuxfoundation.org,
-	kees@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	Zongmin Zhou <zhouzongmin@kylinos.cn>
-Subject: [PATCH v2] usb: host: sl811_cs: fix memory leak on probe failure
-Date: Tue,  1 Sep 2026 10:03:52 +0800
-Message-Id: <20260901020352.20252-1-min_halo@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <apWWnyGbVFJ8SbiG@archlinux>
-References: <apWWnyGbVFJ8SbiG@archlinux>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="pixYcPIp"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788228360; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=ky50rSgY5tzco+q1f2XF8OoC/+HTORaE9naTNqUCG6g=;
+	b=pixYcPIpGLwwBAEq+DOnsRyJRjlASLs0wn6aqBNv/PdoPQ2RIW6htjKBFt0CXr+gsJtPJnSRggP6vsGlgQeLFC20s9y96AQyEnbi4AcLqSIpPk9/mHZCEvTYPjgieCLPlM28+bv6qYQ3iwnFl4qe48dOCaWBdLypFOdJwmkoiII=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=26;SR=0;TI=SMTPD_---0XA0imgg_1788228356;
+Received: from 30.74.144.116(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XA0imgg_1788228356 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 01 Sep 2026 10:05:58 +0800
+Message-ID: <07013ca0-a7bf-40ac-837d-e60e6b6b82d2@linux.alibaba.com>
+Date: Tue, 1 Sep 2026 10:05:56 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wAHdNGoMpZqYzcpSw--.41204S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Kr43uF1xWw18WF4kuF47XFb_yoW8XFWxpF
-	s8W398ArZ5Ka43uFZrGFyxuw1Sgan7JayUGrZrK3y2vrnxAr98XF92v3WYgr4DZrWDKF15
-	tryktrWUAF9ay37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07joKZJUUUUU=
-X-CM-SenderInfo: pplqsxxdorqiywtou0bp/xtbC8wn2omqWMqlkNQAA3Y
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/6] mm/mglru: introduce helpers for manipulating gen
+ and refs flags
+To: kasong@tencent.com, linux-mm@kvack.org
+Cc: Andrew Morton <akpm@linux-foundation.org>, Barry Song
+ <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Muchun Song <muchun.song@linux.dev>, Chris Li <chrisl@kernel.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Ridong Chen <ridong.chen@linux.dev>, Lian Wang <lianux.mm@gmail.com>,
+ Yu Zhao <yuzhao@google.com>, Zi Yan <ziy@nvidia.com>,
+ Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Kairui Song <ryncsn@gmail.com>
+References: <20260831-mglru-flags-cleanup-v4-0-2d15dde0d7ee@tencent.com>
+ <20260831-mglru-flags-cleanup-v4-2-2d15dde0d7ee@tencent.com>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20260831-mglru-flags-cleanup-v4-2-2d15dde0d7ee@tencent.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Zongmin Zhou <zhouzongmin@kylinos.cn>
 
-sl811_cs_probe() leaks the local_info_t allocated into link->priv when
-sl811_cs_config() fails: the only kfree() lives in the remove callback
-sl811_cs_detach(), which the PCMCIA core never calls for a device whose
-probe failed.
 
-Free the private data when sl811_cs_config() fails.
+On 8/31/26 2:43 AM, Kairui Song via B4 Relay wrote:
+> From: Kairui Song <kasong@tencent.com>
+> 
+> Instead of doing bit ops on folio->flags.f, introduce helpers for
+> adjusting a folio's refs and generation info, making the code easier
+> to debug and understand.
+> 
+> No functional change is intended: some combined atomic operations are
+> split into two, which only creates harmless transient states. There is
+> no measurable performance impact, and some paths even look slightly
+> better in the generated assembly.
+> 
+> Acked-by: Qi Zheng <qi.zheng@linux.dev>
+> Signed-off-by: Kairui Song <kasong@tencent.com>
+> ---
 
-Fixes: 15b99ac17295 ("[PATCH] pcmcia: add return value to _config() functions")
-Reviewed-by: Nikolay Kulikov <nikolayof23@gmail.com>
-Signed-off-by: Zongmin Zhou <zhouzongmin@kylinos.cn>
----
-Changes in v2:
-- Fix the Fixes tag to 15b99ac17295, the commit that made
-  sl811_cs_config() failures observable as probe failures.
-- Add Reviewed-by from Nikolay Kulikov.
-
- drivers/usb/host/sl811_cs.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/usb/host/sl811_cs.c b/drivers/usb/host/sl811_cs.c
-index ada91ca33f65..fd0cd541bf53 100644
---- a/drivers/usb/host/sl811_cs.c
-+++ b/drivers/usb/host/sl811_cs.c
-@@ -177,6 +177,7 @@ failed:
- static int sl811_cs_probe(struct pcmcia_device *link)
- {
- 	local_info_t *local;
-+	int ret;
-
- 	local = kzalloc_obj(local_info_t);
- 	if (!local)
-@@ -184,7 +185,11 @@ static int sl811_cs_probe(struct pcmcia_device *link)
- 	local->p_dev = link;
- 	link->priv = local;
-
--	return sl811_cs_config(link);
-+	ret = sl811_cs_config(link);
-+	if (ret)
-+		kfree(local);
-+
-+	return ret;
- }
-
- static const struct pcmcia_device_id sl811_ids[] = {
---
-2.34.1
-
-No virus found
-		Checked by Hillstone Network AntiVirus
-
+LGTM.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
