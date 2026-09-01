@@ -1,75 +1,75 @@
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D81E34A1E09
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:36:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB92149B1EA
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:37:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788294999; cv=none; b=gWe+vpRYHqFL38UtWmcEvv90HXwBz1d29gZujN8EfFa/yqbQ6FGqCQd8UMiAHyMSYK4NEkWx347aYnwE4IQt6pDrma6+RbNE0oi6POo4BvF3ukS8rxtEHdZaMz/K1PSCZz9bXawufZnqi9IxwNMyeSMOg5zJp+dyHOe5PpAWRpc=
+	t=1788295062; cv=none; b=qopPH5MoOVMunrz25rzCOR+fywDJ6kShL9PGNoIo6yLv5gP/N33u39+jqyxnbFWQZewgUdJFXvMbtqo9yzX5hZSiq+e5H88LU7Ils3blik57KleyvX8iOeaVF9VatBGhzmA/i9ZA2+ppa+yCfMb4bkKe9q3QhcVTbTug4/2oyRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788294999; c=relaxed/simple;
-	bh=1s2purVvURdIaMiIDBI5QnErnVqsaNEI1HbyFX4Uo08=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l/3wnsqFE9b4txAh6ngsy2GJ586ofU7OjdDPHALnWqZbtEtWrdRhC8U3sGpkGRxmWMAEdW3Ol5jeHyWNkF2gDVCw31/Cp7NWcmQ8WfGtHael2EnMb8mG125Uix3kGFOoIecSWPkF1IX4m2Q9SbB8ChTZqAV4EKnkiCDhS+y3nJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca; spf=pass smtp.mailfrom=metarealtyinc.ca; dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b=dQlsXO0Z; arc=none smtp.client-ip=209.85.222.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=metarealtyinc.ca
+	s=arc-20240116; t=1788295062; c=relaxed/simple;
+	bh=7kWtNHnkgon39160jWf0bk9sq15XmJRpmJ8WMiYmKjE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=adfcn6aEo9BM6zFX4IQGe0yp2OchxQ+uHHBkVFbyGMnyjV9uUgs24pjcEYi6fi2IlRU3LXsAuKfZwhnCs5XZK9sJzPtUDgDCSmiwr6ijTTrNAQLDQxnYdX0GOFqEEKzMmy0yzbcNSY9RxX4+tI3rr26tahVWwdeD69xiBB9cTnQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=keTKunij; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="dQlsXO0Z"
-Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-936dfd009d1so188890385a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:36:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="keTKunij"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38e041ea211so303285a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:37:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1788294997; x=1788899797; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788295059; x=1788899859; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EyAYuLXXzVtKL+Vc2WL6tPFoU1yZSAFLWXRw34l4tAk=;
-        b=dQlsXO0ZwGIvW0SGEccYNyBSG/Pnbojb+suvidrW9w01nA19yDWXv8hALEIsQgKz7f
-         BtuqSiynHX+BShNsbo9INz1FXFBo/gZgbQNVYNp3oCjlRTF4qfod+uYXNxe7tO6sYvWX
-         aeibhf2J+EoYLnKaLHPYyo6WycpC+dKnh7eO91cyfBSMLnmEcY9+N3/LhyN4ewAyzw03
-         wkSqwSxf20tU1ypH7Uvh/KQOOV6BUeG0PvFwT1jnxRxnttCtDu0GKBii0WnqBzFFSIgB
-         pXWcGO5AKgKgixQuKzC1a5Z+FhkdxDjepLBh7wER3d4co9RUhMrtWKCCGH7AqUQjgA/V
-         LhgQ==
+        bh=trO+aYhWZ0cKdRoRTUvzCd7Am7CExDkHP+dQWJTMJHc=;
+        b=keTKunij1gq8rW6ly4tNjmer4Lpi6FLtJdZcPkfaGDxG4ycwFKU2IKrNSqVpLEJ97c
+         SbL9YhOW388SLnvrxfPDmthP+dwvjHJKbA+ms5Hrrv9Zy/upzwCzT8ERi3c9BBVkUUTh
+         YC6BLpBVf3apNn6pq2EWMGYa5wYqVsXJHhF1nWypqz/KYhMX92dQEXiptM3B5GHoBYaN
+         0/ttTlu+24HK7aIHcRiYZrmdT2XfOJ7by7CakPrJ+XrUBx2/MayRsk0b1ihnRpBZsfb1
+         qHhXaLB8LRYN5Xq+SQwIV3zoZnS47k2vnhJuxI/TUP4hJ8zEwSm873WT9iDS6ajktaDs
+         sSiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788294997; x=1788899797;
+        d=1e100.net; s=20251104; t=1788295059; x=1788899859;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EyAYuLXXzVtKL+Vc2WL6tPFoU1yZSAFLWXRw34l4tAk=;
-        b=grn7qFklClJpFldgSXdN0julh+LVNsPDVxjfkKIdGE+r+uqerzJPXOB4K+GgOlWilw
-         xN7W3Rvjgl09f2kPVk8Z9L8Na0u2kNnOn75JbqgIUBPBmgXOLo5aWlb/8ZlHJa8X0CP3
-         iCjlJvPM1cPg/g1jaMm/nKhNB7dD9rh5LUPN8Nh2lj4HxEHexRHr8gSRLPFu/ySE4p78
-         eKuR7JOMb+glpJDJiIInKNmjIcFQ5XPq+xihLlUZafCYe4CfKO1t+3uXKeB0gjJo1gVZ
-         JHUNMrZ34QmVmekfU2HFFYAWlb6Lx10Di2rzAxx2Xh3QElSPPLtYLT/KhTRP6EiifbAq
-         l+OA==
-X-Forwarded-Encrypted: i=1; AHgh+RrZqqAFskGTJArKYDp4N5QQ3MLomexIftfdDvbhGN8v37Tu0hRTdgwH6IObB+NdMKQz+GJpgvqmBckXK5U=@vger.kernel.org
-X-Gm-Message-State: AFuF++lhsaP9cilU42Q5MC1kITaLVhS8dA1szqH8HxkVks9spVNA/+6s
-	FKbOrCuiaHHLymzE2WBePgIEnzBgBP9gDXCQP4oh2mJlroIdLlFLky2RPOV7Kyp7/bs=
-X-Gm-Gg: AR+sD13Cpc/tDoEqF8+Wq+4yKVSpEZsQwVgBmFbH3zDHYULeiDl2Xn2tiJfpE1ayxUp
-	nN/imniEcCdznKlU14UAI+GE9NDY3oe4WPmEjvURLg2d+nn7AJ6OP6BrpqoXz/zTY8zaMuD2vrH
-	jnVABl235x9jRqg5yZ/AUVcCSlRC1ikK7pquJ1x7VwzrJCDw/2oRpDBnhH9i4BwT/qMI92VcdPE
-	nk41YQLwAK+DnCipj8tnfsiQwwjyldCUC1pS7E3MFBfJEtkp9AHD5jdpZKG8EbQ+S6RTmdgbgWz
-	1LNNFjoBjANVq9TpTKcEYFc27CNAKLagsyxhj3z53r+4rhd/o9mS9HnsPRaWHUtQk3sixvz6Smy
-	W1qjvZKk+ie/z1+993h7umurn/ukxAyiHyduturXcGdt+zItAtg8dtjs005HJOGdSnZcfsKuCkZ
-	mL8hNWBcI6UQpbNf3li6GODUnCdNn8/nHY8mUCDWyJDMGYjhLIiirjN1bxfV5Q8n/wdTjqyVLmH
-	ASQl4bg6iUc2ke4b6aFvEAuQminjJf+AeDE6LopRS9nh/Prxonvwqoxma7v/3Delh7eidZ9hnnJ
-	wZMio6YQFnNRYoMwpxYnX7d82wZ1xkQRaK3U87ylyrE2AGodb+R31+/znA==
-X-Received: by 2002:a05:620a:a411:10b0:936:ce17:7792 with SMTP id af79cd13be357-9394bbfcd67mr879893085a.8.1788294996544;
-        Tue, 01 Sep 2026 13:36:36 -0700 (PDT)
-Received: from jake-laptop ([153.67.1.208])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9395f35a3f3sm27146285a.27.2026.09.01.13.36.35
+        bh=trO+aYhWZ0cKdRoRTUvzCd7Am7CExDkHP+dQWJTMJHc=;
+        b=QeSOI30AFarseIrCRmLptI3ETc6ab405gRUF6O6+lNoX+gVBLQnMtPKbq6UB9SY8CC
+         DZcgR0liolRjt/p4wPsCPnpo7HcV/k+KWs8cnbpLw+bXe8Hua0SuBF5ezQyF4LTzo9O5
+         urE1p22F/E2RY4D4epb7EEGS3np264znSkgfKbBQYVeflSUECVFjzbDdpdZgqVZEnyZ/
+         QGy14WyPxpfBCQvaE8G96cuVgncgfP7pkb2qW9XM7STEiB1Iluw+3EbtfaimqxBokf7J
+         BjVOk/aT3mBEa979sWk2hpS1lLJRYjHlD2ymW57UQd+2QpJ1ov4h52c18420TmVVkLAL
+         pADA==
+X-Forwarded-Encrypted: i=1; AKwUvBwXIuKrrZWq4ayVkpFfzaUCTvtc6TTsTTKnIWW88AGQWe3CNHyvxRvU0oZ6RYoHHKtexR3kJROTbC26iPw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbIDKt3omXWlM3uXM36tcnYTa5odmqN05nEhAtWiU/HHROS6R4
+	a2ZwQE+iKa0gwdxoCKCkUIeKpz3EBUumPDS5E6WwKEcna22PxicLH/A2
+X-Gm-Gg: AYBFou02eufvlbQwY37xVJGGS4175ui/Z+5+hfLURreoboKdEUoiXI7YAi78gDrC7Th
+	uIuGuj0+bhj3Z1jHNZgMQmYbTGwp8R7AhyUDuZ8YHNQlE4Yswjd0VjdWplD19OO4uzBYkqo5XQN
+	I7dFU+yx8ZgLlsjXSL10FmK9xCuYbrIN7Pcz5A0n60uHUOw4H3iK8yk9fAcuGhi8hO6D8N03bW0
+	Ot1q9gxjUgC5FZTaqmMkLDu+nAgcccRRY4sycYC2aeR8TQMCQj6QvgUMFFTCyYW81cp8oHK3GaS
+	fWEPoj7BbyP+npl0SGN4pYI3s9FiTLoFnEtF9Xnez40UujWmq3skvtZreThLHn8WDJCPWVVD6q2
+	/noOgS6a6cbWiIiXBz6ehWKZCz/Zt6RHo+IJxJxZFJqX8sq3Zjn3a39V0mAR5dDjWnShFXaMSTe
+	Wrj2a89Cju+2Zm9HKpsl0W6Kplz6m//CcKyTMBCtsl//IwbFz4sisn/3ZeURDugQd6qCUOKheb2
+	NuctUyxKAIwfgGop/13lgIkEUYYVUqvN3RaLt5ZjcdBUvA0tgbo+lsx1beb8iZljMpLqSaH5KaV
+	GAi43uoix07wcxGEDZf4EApk2BSBpp4/mXlHjw==
+X-Received: by 2002:a17:90b:380c:b0:37d:f206:a2ac with SMTP id 98e67ed59e1d1-39907b170f8mr15313233a91.7.1788295058594;
+        Tue, 01 Sep 2026 13:37:38 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d75fc49sm7430467a91.12.2026.09.01.13.37.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 13:36:36 -0700 (PDT)
-From: Jake Steinman <j@metarealtyinc.ca>
-To: jani.nikula@linux.intel.com,
-	rodrigo.vivi@intel.com
-Cc: jouni.hogander@intel.com,
-	mika.kahola@intel.com,
-	intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/i915/psr: clear the Panel Replay error status register
-Date: Tue,  1 Sep 2026 16:36:33 -0400
-Message-ID: <20260901203633.92628-1-j@metarealtyinc.ca>
+        Tue, 01 Sep 2026 13:37:38 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-crypto@vger.kernel.org
+Cc: =?UTF-8?q?Horia=20Geant=C4=83?= <horia.geanta@nxp.com>,
+	Pankaj Gupta <pankaj.gupta@nxp.com>,
+	Gaurav Jain <gaurav.jain@nxp.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Rosen Penev <rosenp@gmail.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] crypto: caam: map job ring registers without claiming region
+Date: Tue,  1 Sep 2026 13:37:36 -0700
+Message-ID: <20260901203736.13248-1-rosenp@gmail.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,58 +79,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-psr_get_status_and_error_status() selects the DPCD offset to read the error
-status from based on whether Panel Replay is enabled:
+devm_platform_ioremap_resource() ends up calling request_mem_region(),
+which fails with -EBUSY on i.MX SoCs:
 
-	offset = intel_dp->psr.panel_replay_enabled ?
-		 DP_PANEL_REPLAY_ERROR_STATUS : DP_PSR_ERROR_STATUS;
+There the job rings are modelled as sub-regions of their parent
+fsl,sec-v4.0 register window, and caam_probe() already reserves the
+whole window exclusively via devm_of_iomap() before the children are
+populated.  Every job ring therefore collides with its own parent and
+fails to probe, taking the hardware RNG offline (seen on i.MX6, i.MX7
+and i.MX8 boards such as colibri-imx7 and verdin-imx8mp).
 
-but intel_psr_short_pulse() acknowledges it unconditionally to the PSR
-register:
+Map the job ring registers with devm_ioremap() instead, which does not
+claim the (already owned) region.
 
-	drm_dp_dpcd_writeb(&intel_dp->aux, DP_PSR_ERROR_STATUS, error_status);
-
-Under Panel Replay the error is therefore read from DP_PANEL_REPLAY_ERROR_STATUS
-(0x2020) and the acknowledgement written to DP_PSR_ERROR_STATUS (0x2006).
-DP_PANEL_REPLAY_ERROR_STATUS is never written anywhere in the tree; it appears
-only in the read above and in its own #define.
-
-The sink's Panel Replay error latch can consequently never be cleared. Once it
-latches, every subsequent short pulse re-reads the same errors, so PSR is
-disabled with sink_not_reliable set permanently, and until a short pulse
-arrives the driver keeps Panel Replay enabled while the sink is reporting
-errors it cannot see.
-
-Observed on a Dell XPS 16 DA16260 (Panther Lake, Arc B390, display version
-30.00) with the eDP Panel Replay quirk from commit cb8d155b0806 removed
-locally so the feature could be exercised. The sink reports a persistently
-latched error:
-
-	Sink PANEL-REPLAY status: 0x2 [active, display from RFB]
-	Sink PANEL-REPLAY error status: 0x1:
-		PANEL-REPLAY Link CRC error
-
-which survives across reads indefinitely, while dmesg stays silent and Panel
-Replay Selective Update remains enabled.
-
-Use the same conditional offset when clearing.
-
-Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
+Fixes: 9a955c0a7d11 ("crypto: caam - simplify probe resource and IRQ handling")
+Assisted-by: opencode:big-pickle
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- drivers/gpu/drm/i915/display/intel_psr.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/crypto/caam/jr.c | 23 ++++++++++++++++++++---
+ 1 file changed, 20 insertions(+), 3 deletions(-)
 
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -3885,7 +3885,10 @@ void intel_psr_short_pulse(struct intel_dp *intel_dp)
- 			"PSR_ERROR_STATUS unhandled errors %x\n",
- 			error_status & ~errors);
- 	/* clear status register */
--	drm_dp_dpcd_writeb(&intel_dp->aux, DP_PSR_ERROR_STATUS, error_status);
-+	drm_dp_dpcd_writeb(&intel_dp->aux,
-+			   psr->panel_replay_enabled ?
-+			   DP_PANEL_REPLAY_ERROR_STATUS : DP_PSR_ERROR_STATUS,
-+			   error_status);
+diff --git a/drivers/crypto/caam/jr.c b/drivers/crypto/caam/jr.c
+index f9e029945b51..2ed8229d4733 100644
+--- a/drivers/crypto/caam/jr.c
++++ b/drivers/crypto/caam/jr.c
+@@ -583,12 +583,29 @@ static int caam_jr_probe(struct platform_device *pdev)
+ 	struct caam_drv_private_jr *jrpriv;
+ 	static int total_jobrs;
+ 	void __iomem *ctrl;
++	struct resource *r;
+ 	int error;
+ 	int irq;
  
- 	if (!psr->panel_replay_enabled) {
- 		psr_alpm_check(intel_dp);
+-	ctrl = devm_platform_ioremap_resource(pdev, 0);
+-	if (IS_ERR(ctrl))
+-		return PTR_ERR(ctrl);
++	/*
++	 * The job rings live inside the register window of their parent
++	 * fsl,sec-v4.0 node, which caam_probe() already reserves (and maps)
++	 * via devm_of_iomap().  A requested region that overlaps that
++	 * reservation, e.g. from devm_platform_ioremap_resource(), would
++	 * therefore fail with -EBUSY, so map the registers without claiming
++	 * the region here.
++	 */
++	r = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	if (!r) {
++		dev_err(&pdev->dev, "platform_get_resource() failed\n");
++		return -EINVAL;
++	}
++
++	ctrl = devm_ioremap(&pdev->dev, r->start, resource_size(r));
++	if (!ctrl) {
++		dev_err(&pdev->dev, "devm_ioremap() failed\n");
++		return -ENOMEM;
++	}
+ 
+ 	irq = platform_get_irq(pdev, 0);
+ 	if (irq < 0)
+-- 
+2.55.0
+
