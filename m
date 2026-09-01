@@ -1,56 +1,56 @@
 Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8D843E9DF
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:54:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2353A47255C
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:54:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788278095; cv=none; b=SrgypgGnWrn4cPySrXWaGPFrqV9/TH0d5IO0bbtJYFns6toz0nfj/MHkeYA35txvuT0pDqJdZDpq2/kJ6Zj9P61KFIyRiNx7VrezDtEAEYX3Cp1Y/noSLNSzrd5n8emv7RyQvDKrlnvZpAJBHdKWzDLL7BAM+ZgEcP18MEfX+hA=
+	t=1788278097; cv=none; b=I6iK7XL5Qm43QeYQMKP5TJopL/dC9PN/F2zFFfOFdrpmjxiLaWPT0m4sz1Xb/cWjfn58TcAGJBrdTa+ejiuEU2dKDDRHJoKcKKnyffkmqfoulg0VAx4o7+apIhlORJCyAdGaffGpPUigKz1bZOcfu7ngknFfgl89GQSCgMkqOd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788278095; c=relaxed/simple;
-	bh=zuja3xdGtmWolyyOp5Lht4+r4a2fV671B1BwSQW5ZG4=;
+	s=arc-20240116; t=1788278097; c=relaxed/simple;
+	bh=eCijVtsZgcpRsQc0B1yK8vF1aLr7q+Wb3A8QSVFsXf4=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=RXaGQyjR7Joen9mYjaYY68pfxojQOy7/CdqQuI0dvaD875Ico0hQtIzwbPKw06vzupxflZkvnk88m66tIFHZfvs4+eMtrDQKSv/UREjOZ8TYi6GuRC+fA+CuFNwv4QHpWhZ+5gaSMYcq+xxqJcHIHwyg8naoCsS43pxqg1BL8Z0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=aEK5aUYL; arc=none smtp.client-ip=209.85.128.70
+	 To:Cc:Content-Type; b=uhgXb5qptLH4ukDn4QoyL32+ideBIZVYCGqt9ttsROlfuPQpIMx35YBis7jYOucKqRpmua+Uzfo9K2/1To4KKlsr43FxAe6TZ1eRaPlfQuiILw009brnvmsWHcjkVEkMJ0KzJT6ELmtad/NZa7MrTFeHj6H5gLTLxoo35YNjaY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=JcuDtybu; arc=none smtp.client-ip=209.85.128.70
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="aEK5aUYL"
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49b8c651ac0so12936175e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:54:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="JcuDtybu"
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49cc9f5bee2so38429385e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:54:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788278092; x=1788882892; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788278094; x=1788882894; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=FsJpjMap89L3xg0Jo/p/SVRBiaT1jMUIMpNMGOQC0kY=;
-        b=aEK5aUYLWMKa7kwbs2b7Lg2IrzwsslTxgWzR2sV7876ACHoCVt9kEi/Zf55klxsbf0
-         zzApXEIZ01BJKclGms/gLl/9hBTwro6axxqtVhSoyoAk0uQamQeunUxyaLJmwPN2ckWe
-         EjZGcZcH8TNBWgzJNmhV1utDavhlQQVIUFBDrp4tBscbyv743lQKPMDacywvq/4WQt31
-         6Xa+3yXfrR/rOiFaIBa4RmUU0dFrOmyQzf9PhiHh3bdr6Am2mJo6uxFc+W2hTcH2truF
-         3eMKC+4hfl5RfRnPI3FIEug5RcpMfcGj2fOYAfv9C4tKOwPn8aD8pQyd/a6Hwdbe5LQQ
-         9vCA==
+        bh=+cEeKicgVWXDi4JHgbduzXqGD43TsssX08z/lbVKR9c=;
+        b=JcuDtybuyEdpyUzmFE5ep7hWA0JlnfjeP9ESGGTAdLW/UlERl9K9TVBuEJUFkYI6BQ
+         JEMtvgxXjPcIRppsFwY2Zw0m+18osTDDuhQWTsA61O7AF4kvxjydeVplzezKca0gfTVu
+         6gdx5pkLPBYjztaNB3J1dKAxzprVs5rgH7tA9gvOhENTGc1vG+cC18GySlIQ9K8Lg8ao
+         E1mbHFmR1+cDfKhBr/hvEBkt4zRipQ4mjm+bMpYBr7mGZAU1l2I2ID8XMsdKTD9VgvX1
+         MIkaocALF6dKYpkgIEekvP3FAzdUXWgXrwiuTVLB6H7XEI9gDlWUyA4LYaT3RXBb/NzG
+         eQug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788278092; x=1788882892;
+        d=1e100.net; s=20251104; t=1788278094; x=1788882894;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FsJpjMap89L3xg0Jo/p/SVRBiaT1jMUIMpNMGOQC0kY=;
-        b=sOuW2blBJcraNmFh+wqjEiM/zEZJGUsF6S07ZZLoA0TLF/9cDvPzhFplNtt9pduusb
-         78VaG7ciAvcd4JI9cpuB2hlpbZ4c15OihO2E5JFAE6wW6I61Jwx13nji5q6Oku5VEkzv
-         Zk12qp1e755xW5sSjBCNAvZuiZZ+sLDfaJKv8o/MT0GJfoJonx5Kui6FBNTPH6JaFYaN
-         o81/2KKnamYDhYpPsSIsqa0rdKvuDtRSpJq0SJGRHkLr1mkCWYi2qSaWAuxuKfjI9WIu
-         zZr6JscrWpM2bgrr2ThE5tLrcMTURNkeqIA9WRGMiM/cwA8UmeSJd8GyGgoIqHaJEtV8
-         2kVg==
-X-Forwarded-Encrypted: i=1; AHgh+Rrq8sd+t3Rx+hZ9jDtnJ17hVNpb8AjzKp6pXndVpvUmvu5BSgRRhuMCXVAXLWrQ21w71ePuTKdLBJgcHC0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvZ//r7ccTi0TEMsF/CQ5dSRZTfPpWy7OJMnf0zvwWjwTkF2/L
-	vp7wck9rdO5vNuikAnR87DdJpSSuDEKlXaIje7vBpRzilrvSafgy0BdZQuwCw7Y1fQGLIYK0EWL
-	wDj+sWOc65hGPOCl2cXkstQ==
-X-Received: from wmbhj9.prod.google.com ([2002:a05:600c:5289:b0:49b:6a4f:11f8])
+        bh=+cEeKicgVWXDi4JHgbduzXqGD43TsssX08z/lbVKR9c=;
+        b=kWr1TmL3bv1WLBXKv9l7VPU7/Kgn6x7t/Jkv8l5zBHfShfp7SzH7B3UdBNqQSaUClu
+         g7Z/kFR9Y+Su/C77PuHohjh3c8l90z0KL3mSIcG/xI91Ol4mjkNPpy8IReqNBWq+akcw
+         zLgtMZrkDhyilNXf3oU3AZYNZ15HXanQq7odM3gnWLd6i0tUwBB31ZnX6HzOjpEa9dYI
+         lnLGw4zLISGkAdTASMFeN1v5xCnPpXfie3oXxfD+X3pmql9noKjJtPH6NmoyqqD5oo8S
+         EDiVG4XuwfyqaJJdGrOx0pbcQaL9SuFYlpCdhWzu8NetCz4r2v7wswg+gczQNKeeL3eY
+         Es0A==
+X-Forwarded-Encrypted: i=1; AHgh+RqhAe8nolhvRt3iQoqJG2zguH+8FCkVqz6djRnS45BLgLq/zE6odyGELRrQUy6TcxELdnzt9Xzo5J9s7CI=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0O8nLvdTWvmLtpxUylGboiEszxOQa6XgSNfnfOzUApWwslX4r
+	IKLwl6ibhKDksUtEM333r+FJDmpxsMggnPvrXEBNV3ir6yGZDR9NUcEdaphEGDI2FgTy/ZNyIOn
+	E/2dkOW4AxkeaywSlhkIhqQ==
+X-Received: from wmbz8.prod.google.com ([2002:a05:600c:c088:b0:493:c531:facd])
  (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600d:10f:b0:49c:e3b1:d826 with SMTP id 5b1f17b1804b1-49ce3b1dacdmr20137095e9.13.1788278091873;
- Tue, 01 Sep 2026 08:54:51 -0700 (PDT)
-Date: Tue,  1 Sep 2026 16:54:42 +0100
+ 2002:a05:600c:a012:b0:49c:d818:8764 with SMTP id 5b1f17b1804b1-49cd81887aemr239798875e9.11.1788278094045;
+ Tue, 01 Sep 2026 08:54:54 -0700 (PDT)
+Date: Tue,  1 Sep 2026 16:54:44 +0100
 In-Reply-To: <20260901155445.1475405-1-vdonnefort@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260901155445.1475405-1-vdonnefort@google.com>
 X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
-Message-ID: <20260901155445.1475405-2-vdonnefort@google.com>
-Subject: [PATCH v9 1/4] ring-buffer: Allow splice reads on static buffers
+Message-ID: <20260901155445.1475405-4-vdonnefort@google.com>
+Subject: [PATCH v9 3/4] ring-buffer: Cap static ring buffer nr_pages
 From: Vincent Donnefort <vdonnefort@google.com>
 To: rostedt@goodmis.org, mhiramat@kernel.org, 
 	linux-trace-kernel@vger.kernel.org
@@ -69,39 +69,78 @@ Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com,
 	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-ring_buffer_read_page() rejects splice (full=1) reads on static buffers
-(that is user-mapped, persistent or remote) because !read check assumes
-unread pages must be swapped. However for those buffers we have no other
-choice than memcpy the data.
+Static ring buffers (i.e. persistent, user-mapped and remote) rely on
+the bpage::id field. The number of pages for those ring buffers must fit
+into that variable. Enforce this limit on ring buffer creation or
+user-mapping.
 
-For the memcpy case, only return an error when the writer is still on
-the reader page for the splice interface to wait.
+While at it, make buffer_page::id 31 bits. This does not change the
+struct buffer_page size.
 
-Fixes: 117c39200d9d ("ring-buffer: Introducing ring-buffer mapping functions")
+Fixes: be68d63a139b ("ring-buffer: Add ring_buffer_alloc_range()")
 Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 
 diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index b0963ac6fd16..84fd4cdd486f 100644
+index 28dd76edfecf..c4260d6ecdfc 100644
 --- a/kernel/trace/ring_buffer.c
 +++ b/kernel/trace/ring_buffer.c
-@@ -7193,15 +7193,8 @@ int ring_buffer_read_page(struct trace_buffer *buffer,
- 		unsigned int event_size;
- 		unsigned int flags = 0;
+@@ -350,7 +350,7 @@ struct buffer_page {
+ 	local_t		 entries;	/* entries on this page */
+ 	unsigned long	 real_end;	/* real end of data */
+ 	unsigned	 order;		/* order of the page */
+-	u32		 id:30;		/* ID for external mapping */
++	u32		 id:31;		/* ID for external mapping */
+ 	u32		 range:1;	/* Mapped via a range */
+ 	struct buffer_data_page *page;	/* Actual data page */
+ };
+@@ -657,6 +657,15 @@ static bool rb_is_static(struct ring_buffer_per_cpu *cpu_buffer)
+ 	return cpu_buffer->user_mapped || cpu_buffer->remote || cpu_buffer->ring_meta;
+ }
  
--		/*
--		 * If a full page is expected, this can still be returned
--		 * if there's been a previous partial read and the
--		 * rest of the page can be read and the commit page is off
--		 * the reader page.
--		 */
--		if (full &&
--		    (!read || (len < (size - read)) ||
--		     cpu_buffer->reader_page == cpu_buffer->commit_page))
-+		/* If a full page is requested, it cannot be the commit page */
-+		if (full && cpu_buffer->reader_page == cpu_buffer->commit_page)
- 			return -1;
++static unsigned long rb_static_max_pages(void)
++{
++	/*
++	 * Static ring buffers are using bpage::id and must account for the
++	 * reader page.
++	 */
++	return (1UL << 31) - 1;
++}
++
+ struct ring_buffer_iter {
+ 	struct ring_buffer_per_cpu	*cpu_buffer;
+ 	unsigned long			head;
+@@ -2842,6 +2851,10 @@ static struct trace_buffer *alloc_buffer(unsigned long size, unsigned flags,
+ 		 */
+ 		nr_pages = (size - sizeof(struct ring_buffer_cpu_meta)) /
+ 			(subbuf_size + sizeof(int));
++
++		if (nr_pages > rb_static_max_pages())
++			goto fail_free_buffers;
++
+ 		/* Need at least two pages plus the reader page */
+ 		if (nr_pages < 3)
+ 			goto fail_free_buffers;
+@@ -2874,6 +2887,10 @@ static struct trace_buffer *alloc_buffer(unsigned long size, unsigned flags,
+ 		/* The writer is remote. This ring-buffer is read-only */
+ 		atomic_inc(&buffer->record_disabled);
+ 		nr_pages = desc->nr_page_va - 1;
++
++		if (nr_pages > rb_static_max_pages())
++			goto fail_free_buffers;
++
+ 		if (nr_pages < 2)
+ 			goto fail_free_buffers;
+ 	} else {
+@@ -7836,6 +7853,9 @@ int ring_buffer_map(struct trace_buffer *buffer, int cpu,
+ 	/* prevent another thread from changing buffer/sub-buffer sizes */
+ 	guard(mutex)(&buffer->mutex);
  
- 		if (len > (size - read))
++	if (cpu_buffer->nr_pages > rb_static_max_pages())
++		return -E2BIG;
++
+ 	err = rb_alloc_meta_page(cpu_buffer);
+ 	if (err)
+ 		return err;
 -- 
 2.55.0.897.gb25b4bd76c-goog
 
