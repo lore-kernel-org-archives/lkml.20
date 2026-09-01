@@ -1,140 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 282D2485519;
-	Tue,  1 Sep 2026 17:38:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EF8C2BEFF5;
+	Tue,  1 Sep 2026 17:39:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788284285; cv=none; b=ZBBLwauqKv54h8k3yF9Is4aYaF4x8DdHAeAmwucIcTf+qZeHp+Cpky+5AdsW9cPlmOkLdifLraiCxDVGyS6uQcQTG3/Y/rcDxv+qunRurzh6Qv8n45Pz5av2sy8VKcJQ5WpoCU8E5ivaiZXXrzFC0JXTsu2T3Uf3SHAFsKLPyLE=
+	t=1788284345; cv=none; b=DwX7E9JzBkgfwmgQjWKWfhQueGCWDf9717DziKUGkDQg8DUufM/SbQj5s4c64tbdLmSa6RsySiHcmokpQkBj9ZNdcB0g4qW57zGe+Lb7EBQxv7MaTo2kF5/itJ/ypOLhFxAmla+Ho6/IR0fAdo6/HS11DyO8Sdpor4IGh/Cq5p4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788284285; c=relaxed/simple;
-	bh=ubf1OxEe06uyzGEC/cOjl7d/Do0ud50R7/4dta55KQY=;
+	s=arc-20240116; t=1788284345; c=relaxed/simple;
+	bh=LlF8QlYeHciUuUQzE1d/esXOQXeZNbku/VivTNVfMkE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JJQRUBydJLrDe3ZTFdV5/ct+V9UhR7ClzgY3OS5LuTvoAvew1gZjvdyXxJBjRfuhzt1mKvsKHN9QfJ/ewUQDEoiGRcpzXwZZ6poHMsFKWcbLjnn53FY32KZnIwilHgBFxfQDRLSbNqgXzsqTgcRTNiIWsWIo51BlZGeoE2gwEOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a+fwOVPJ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=SeLpavZZXzd9VTf/yKhKuwGNyYcu639Z00KYZCNyJpUSfUsErI6IuNy9Bb27dMDdWYdoUYHB6i3xTF2HbzfBPWVWLmA9i0MGRSpPCngVWua+37wEHwmWCB0elvkiIsFLVmeL8GogW8G6zdIifOyQVndWyejP4Upc9iTH6GlVnSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eJo3Lg+T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a+fwOVPJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15EBF1F00A3A;
-	Tue,  1 Sep 2026 17:38:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eJo3Lg+T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84B221F000E9;
+	Tue,  1 Sep 2026 17:39:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788284284;
-	bh=vCYhuXOz7zaCGF4EZ/ixTSz3zqWOEhxCIlP+os0E6Uo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a+fwOVPJjIfkv1huM/c/4YYoFwB8QR/ecoIX0KUj+FtDKfNQozr+Csva/pvKojs3u
-	 voPaS64uTx4t1OArXmd6AcsrWnorunogJwNWw2Qs6U3+ZATGvtIxeg1fA+1Q9Xzny5
-	 f+dWW3cYeJbQ/7LuTQ3PNeAG3sW7KUxxnDLw17s9zTOgrEQvfTkKYEUTlc/VcgUCR7
-	 oTd+GemTWoxT0fuj7iY73mriMN8G6MZSzHMD4Kjf0KbqmRJkzZCiW2vvG/y8F0tXG8
-	 7k/hBITaovOzRXsVoQiOh5jQk3AFpLEBuzdPJBWorWOzU7/YcgJ3p64yQc490YvL75
-	 /hAvg428dn/Kw==
-Date: Tue, 1 Sep 2026 18:37:59 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Marek Vasut <marex@nabladev.com>
-Cc: linux-pm@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	Flaviu Nistor <flaviu.nistor@gmail.com>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: hwmon: tmp102: Document TMP113
-Message-ID: <20260901-untimely-wake-578b1a86b9fe@spud>
-References: <20260901161008.46948-1-marex@nabladev.com>
+	s=k20260515; t=1788284344;
+	bh=YNDgEdHXvcnDa008oy0P0vrmdKE+BwtoGrUWAusGpmg=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=eJo3Lg+T9EboUXHufZ6eTIHXqDz/LW3nV6g3PwSNa/z7DcS7K12XLyOx/hsmpxqP8
+	 NqKDZhYNa6FgT5AiXwTt3j4T7TnJIV5YV1Gd1um4N67gB8e7Pc9GcpHdqj8fRkkco9
+	 HAgaknb0k2fKh48UiESHTQ2a9Cq5ZbKg0K7KVoK2ouDhyrPpHQIdjJ9BW3eb2A4yCA
+	 uof46PHTz2OtOk3J/SO048GVuHShXsa3va3L/ZHIdfiRgx/5wBtwpCB8Vl/dofzZ5u
+	 h81hH5zRh7aw72srF52HB8zg0SztFCiARzUvDEP8ofApFxeFrZmoPQxUp5405XbOkE
+	 /YiiOG0rkUrqg==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id 44470CE09F8; Tue,  1 Sep 2026 10:39:04 -0700 (PDT)
+Date: Tue, 1 Sep 2026 10:39:04 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Sunho Park <shpark061104@gmail.com>
+Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, work@onurozkan.dev,
+	rostedt@goodmis.org, mathieu.desnoyers@efficios.com,
+	qiang.zhang@linux.dev, frederic@kernel.org, rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+d4faf7db59e11f6fd1ab@syzkaller.appspotmail.com
+Subject: Re: [PATCH v2] srcu: Fix WARN_ON() for rcu_segcblist_n_cbs() in
+ cleanup_srcu_struct()
+Message-ID: <9df008d8-631a-4a45-b10d-80999d005185@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260830095605.3560267-1-shpark061104@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/nSXeNTLuhB53XBA"
-Content-Disposition: inline
-In-Reply-To: <20260901161008.46948-1-marex@nabladev.com>
-
---/nSXeNTLuhB53XBA
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260830095605.3560267-1-shpark061104@gmail.com>
 
-On Tue, Sep 01, 2026 at 06:09:20PM +0200, Marek Vasut wrote:
-> The TMP113 temperature sensor part is register compatible with TMP102,
-> document it using a fallback compatible. Unlike TMP102 and TMP110, the
-> TMP113 does have additional unique ID registers, it is up to the driver
-> to handle those.
->=20
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
+On Sun, Aug 30, 2026 at 06:56:05PM +0900, Sunho Park wrote:
+> The WARN_ON() added by commit 78a38cbf6f20 ("srcu: Queue sdp->work
+> when the delay timer is successfully deleted") uses rcu_segcblist_n_cbs()
+> to detect callbacks that srcu_barrier() failed to wait for. However, the
+> ->len counter is decremented only at the end of srcu_invoke_callbacks(),
+> after the invoking loop has finished. Since srcu_barrier() can return
+> right after the barrier callback is invoked, cleanup_srcu_struct() can see
+> a non-zero n_cbs even though the cblist is already physically empty,
+> falsely triggering the WARN_ON() together with a still-pending delay_work
+> timer.
+> 
+> This can be triggered as follows, as seen in the syzbot report against
+> kvm_destroy_vm() -> cleanup_srcu_struct(&kvm->srcu):
+> 
+> 1. call_srcu(&kvm->srcu, &bus->rcu, __free_bus) starts SRCU grace
+>    period GP1.
+> 
+> 2. GP1 ends: a delay timer is armed and sdp->work is queued, but
+>    sdp->work has not run yet.
+> 
+> 3. Another call_srcu(&kvm->srcu, &bus->rcu, __free_bus) call invokes
+>    srcu_segcblist_advance(), which moves the GP1 callback to
+>    RCU_DONE_TAIL, and starts SRCU grace period GP2.
+> 
+> 4. srcu_barrier() is called. It queues its barrier callback after the
+>    GP2 callback and waits for srcu_invoke_callbacks() to invoke it.
+> 
+> 5. GP2 ends: another delay timer is armed, and the sdp->work queued in
+>    step 2 begins to run. Its srcu_invoke_callbacks() call invokes
+>    srcu_segcblist_advance() again, moving the GP2 and barrier callbacks
+>    to RCU_DONE_TAIL as well, and then invokes all of them. However,
+>    rcu_segcblist_add_len(), which updates srcu_cblist's ->len, has not
+>    run yet at this point.
+> 
+> 6. srcu_barrier() returns once its callback has been invoked, and
+>    cleanup_srcu_struct() starts running. It finds the delay timer
+>    armed in step 5 still pending and srcu_cblist's ->len still
+>    non-zero (because step 5 has not reached rcu_segcblist_add_len()
+>    yet), and WARN_ON() fires even though every callback has actually
+>    been invoked.
+> 
+> Use rcu_segcblist_empty(), which checks the actual head of the cblist,
+> instead of rcu_segcblist_n_cbs(), which checks the racy ->len counter.
+> Callbacks that have genuinely not been invoked yet still leave the list
+> non-empty, so the WARN_ON() still catches callers that skip srcu_barrier()
+> or queue callbacks after it.
+> 
+> Link: https://lore.kernel.org/rcu/e6350377085ddd85d6ef00d8e9a67bd50c762d3c@linux.dev/T/#t
+> Reported-by: syzbot+d4faf7db59e11f6fd1ab@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=d4faf7db59e11f6fd1ab
+> Fixes: 78a38cbf6f20 ("srcu: Queue sdp->work when the delay timer is successfully deleted")
+> Suggested-by: Zqiang <qiang.zhang@linux.dev>
+> Signed-off-by: Sunho Park <shpark061104@gmail.com>
+
+Queued for further review and testing, thank you!!!
+
+							Thanx, Paul
+
 > ---
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Flaviu Nistor <flaviu.nistor@gmail.com>
-> Cc: Guenter Roeck <linux@roeck-us.net>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-hwmon@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
+> v2: Describe the exact interleaving of call_srcu()/srcu_barrier()/
+>     srcu_invoke_callbacks() that triggers the false-positive WARN_ON(),
+>     per Zqiang. No code change from v1.
+> Link: https://lore.kernel.org/rcu/1b9d3ddaa26ba6a8ac2ad4c586c2d19a5c1f927e@linux.dev/T/#t
 > ---
-> V2: Rebase on current next and resend, resolve a conflict with commit
->     d67ec24d3f07 ("dt-bindings: hwmon: tmp102: move ti,tmp103 out of triv=
-ial-devices.yaml")
->     Note that the TMP102,110,113 are backward compatible, therefore the
->     valid compatible strings are:
->     - "ti,tmp110", "ti,tmp102"
->     - "ti,tmp113", "ti,tmp102"
->     - "ti,tmp102"
->     The TMP103 is not backward compatible, it only shares bindings now,
->     therefore the only valid compatible string for the TMP103 should be:
->     - "ti,tmp103"
->     And that is all, no other compatible strings are acceptable here.
-> ---
->  .../devicetree/bindings/hwmon/ti,tmp102.yaml          | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml b/Doc=
-umentation/devicetree/bindings/hwmon/ti,tmp102.yaml
-> index 55d9f106465d7..c0b747a9ce0de 100644
-> --- a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
-> +++ b/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
-> @@ -4,7 +4,7 @@
->  $id: http://devicetree.org/schemas/hwmon/ti,tmp102.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> =20
-> -title: TMP102/TMP103/TMP110 temperature sensor
-> +title: TMP102/TMP103/TMP110/TMP113 temperature sensor
-> =20
->  maintainers:
->    - Krzysztof Kozlowski <krzk@kernel.org>
-> @@ -13,11 +13,12 @@ properties:
->    compatible:
->      oneOf:
->        - items:
-> +          - enum:
-> +              - ti,tmp110
-> +              - ti,tmp113
->            - const: ti,tmp102
-> -          - const: ti,tmp103
-> -          - const: ti,tmp110
-> -      - enum:
-> -          - ti,tmp102
-> +      - const: ti,tmp102
-> +      - const: ti,tmp103
-
-Should this not be two patches, one fixing the existing stuff and one
-adding the 113?
-
-> =20
->    interrupts:
->      maxItems: 1
-> --=20
-> 2.53.0
->=20
-
---/nSXeNTLuhB53XBA
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapcNdwAKCRB4tDGHoIJi
-0oODAQCVZ0/6ac4473ygypFVJUWZG398AaFYO7YxHbouyDOBuAEA9p76IL/7Tjnn
-C8jcrdckOMnfbrFsfsB2dqMCtwJyEAg=
-=zi4w
------END PGP SIGNATURE-----
-
---/nSXeNTLuhB53XBA--
+> 
+>  kernel/rcu/srcutree.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/kernel/rcu/srcutree.c b/kernel/rcu/srcutree.c
+> index ed204b3f4b84..ad27880dd690 100644
+> --- a/kernel/rcu/srcutree.c
+> +++ b/kernel/rcu/srcutree.c
+> @@ -704,7 +704,7 @@ void cleanup_srcu_struct(struct srcu_struct *ssp)
+>  		// Call srcu_barrier() before this cleanup_srcu_struct()
+>  		// to avoid triggering this WARN_ON().
+>  		if (WARN_ON(timer_delete_sync(&sdp->delay_work) &&
+> -			    rcu_segcblist_n_cbs(&sdp->srcu_cblist)) &&
+> +			    !rcu_segcblist_empty(&sdp->srcu_cblist)) &&
+>  		    rcu_cpu_beenfullyonline(sdp->cpu))
+>  			queue_work_on(sdp->cpu, rcu_gp_wq, &sdp->work);
+>  		flush_work(&sdp->work);
+> -- 
+> 2.43.0
+> 
