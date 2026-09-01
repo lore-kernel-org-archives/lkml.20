@@ -1,99 +1,99 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D97EF220687;
-	Tue,  1 Sep 2026 12:20:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22AB247CC75;
+	Tue,  1 Sep 2026 12:20:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788265205; cv=none; b=u8RkcO7Yd4jwNFL3X4VjSu6eH8nhHAsZhXWPNFjlJWgwgjI0VmtRzWHYcX3Dt/2XQ569q/p7MJm2Y0mUt61Iv1odcUcljk4BxKlH7CSESAyhxjRhxvz3uOlajlf2+wrxuD2/skfjRTLGn4oADKSMjXdmvILpMD6hPVq7nDrWNW8=
+	t=1788265235; cv=none; b=otc9MLVv7Onba48/AHKcQTCbHHeAqnZ6nsCXewGtqm2BnUXbMN3476+QDhffNpQqO+CKnIeWT8LGQ0ikdqiSgoWN235/wij6SCC2/kNcIqDEXF1gf8z4naFA0ZkirVfdoWUnKScnj5dqJeu7+ZrhUC0NPskndoL+4JOcjBw1Ris=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788265205; c=relaxed/simple;
-	bh=M17vO7AFGVry5Sknf9jU79Up078a8AwEuDAbHXlkgrM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=G7qSlCnrY0nqOcfovf660uF304haToaLXXL0HeDvLrBIKUks/GcWlfDHMySgukCBFC5cQvJT2X7HU60wVmnmpZJyv2zeXQZoY+Dkbzn8UEZoZVu4XwAWxGZ1g/BC3KTywmJDGyxk91toAI95d4n1dWcQal5ISg4qoSsPd7HjwW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=MvIqRahn; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1788265235; c=relaxed/simple;
+	bh=Ms5yUYYVIUCMr7+Dx214kheiE7jKpBdWV1rFqMcG+C0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BB78j5yoe0zeIy8lEXyA3SXddm03SINcKNt7hOqwkpkPHAOc8Ms68jUL476Ur6L5nbE3t+egElockKeak40cg1tEB00WXlSVBCOOEJJdyKkO1+mMUU8X+rAg30c/Mp0dO3SxYM+nvyrJ6v2KRuTRuWudXVlBvrnWKvlpyy/3EEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XzVCDtES; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="MvIqRahn"
-Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4c1e3810b;
-	Tue, 1 Sep 2026 20:19:57 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: "Rafael J . Wysocki" <rafael@kernel.org>
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
-	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH v2] cpufreq: initialize policy rwsem before sysfs publication
-Date: Tue,  1 Sep 2026 20:19:50 +0800
-Message-Id: <20260901121950.3279176-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260830155301.2713780-1-runyu.xiao@seu.edu.cn>
-References: <20260830155301.2713780-1-runyu.xiao@seu.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XzVCDtES"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD52B1F000E9;
+	Tue,  1 Sep 2026 12:20:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788265234;
+	bh=knqgEaQ3Nt/j1kgI3GiULCfkTBJyPDx6YekcweuXbC0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XzVCDtES9FvYRwTEGc9GrdSsXkl6cVu5UXSDTum7lXO3LWqCLtN+EXaqrgdN6hcuP
+	 3OrxkBXK3RjdrJeeLI/0bMQBaJ+ENpefSMLaVjuocWSFwmZ6GMfxx7oDYWyv8N0zBE
+	 G45G+qxb1zudvuGlCeaVk39PiCS9L2W1Wcgfl5qkR8CtuoJXn906kmVLfHXv1XLXyq
+	 tCGGUrHonlTdH81NrBePv0pYG0mZO3XmPN42ul1VU0dzC8Y8ut+6TaO4jfz0wI1G9a
+	 1Hm3Q4YEeZnZ0BA7vHLJ6seqCgz4sMz34z4XDxfvDIEy5PrHcznAPOfFcyS+RhwLuR
+	 8Lmr/WfajOQFw==
+Date: Tue, 1 Sep 2026 14:20:21 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Peter Hunt <peter.hunt@opengear.com>
+Cc: loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com, 
+	johannes@sipsolutions.net, netdev@vger.kernel.org, mhi@lists.linux.dev, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v5 0/3] net: wwan: support DTR/RTS on AT ports
+ via MHI IP_CTRL
+Message-ID: <zjafvc6ndpkmavogxwmqj5gpefpj4ymefn5obed6cvjot7wnwa@pmrfl5tixa72>
+References: <20260819224927.2274790-1-peter.hunt@opengear.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa05ce9700503a1kunme032913116d054
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTh1OVhlNGUxDSB0YTx1DSVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=MvIqRahngp4Zyn2FdQrpNs2+59kkmwrUKS5HgLEowOjz5F98r+1O8h0/LonyZoT6Er7hs/gYttHjmgSGFGOy3kj8382RzEsp1mRxWV1XKM0rwgkGv5dNr3MlF7iS4ZGWHBCjm3EjieFTOoW3Jd5W08rFfwL4/+pQmK9iSqNygN8=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=YpZRmLswTmoGl6mUHCr2/I50lcY6GVVwevcgNvscOHo=;
-	h=date:mime-version:subject:message-id:from;
+In-Reply-To: <20260819224927.2274790-1-peter.hunt@opengear.com>
 
-cpufreq_policy_alloc() initializes policy->rwsem after
-kobject_init_and_add() has created the policy sysfs directory and its
-default attributes. A sysfs access can therefore reach a policy callback
-before the semaphore has been initialized.
+On Thu, Aug 20, 2026 at 08:49:24AM +1000, Peter Hunt wrote:
+> Qualcomm/Sierra SDX55/SDX65 modems (e.g. EM9291) withhold unsolicited AT
+> result codes until the host asserts DTR.  The in-tree mhi_wwan_ctrl driver
+> exposed AT ports but never signalled DTR, so URCs never reached userspace.
+> 
+> Patch 1 extends the wwan core with an optional ->dtr_rts(port, mdmbits) port
+> op.  The TIOCM bitmask state is tracked entirely in the wwan core; drivers
+> receive the full bitmask so they can drive DTR and RTS independently.  The
+> core raises DTR/RTS on first open of any AT port whose driver implements
+> ->dtr_rts and drops them on last close, mirroring TTY semantics.  In the
+> ioctl path mdmbits is re-read under data_lock inside ops_lock so the value
+> passed always reflects the committed state and concurrent ioctls are
+> correctly ordered.  wwan_remove_port() also de-asserts on hot-unplug.
+> 
+> Patch 2 enables the IP_CTRL MHI channel in the Sierra PCI table so that
+> the IP_CTRL driver (patch 3) is actually bound on those controllers.
+> 
+> Patch 3 adds a second mhi_driver that binds the IP_CTRL channel and
+> registers a ->dtr_rts op so that the wwan core's open/close DTR raise/drop
+> and userspace TIOCMSET calls both reach the modem.  A single recycled sink
+> buffer keeps the IP_CTRL DL ring live so the modem's transmit path does not
+> stall.  The existing AT/QMI/MBIM data path is untouched.
+> 
+> v4: https://lore.kernel.org/netdev/20260816121705.858013-1-peter.hunt@opengear.com/
+> 
+> v5:
+> - Change ->dtr_rts from bool to unsigned int mdmbits (patch 1 + 3): DTR and
+>   RTS are now driven independently; fixes RTS inversion when TIOCMBIS/BIC
+>   changed RTS with DTR in the opposite state
+> - Re-read mdmbits inside ops_lock in the ioctl path (patch 1): closes a
+>   concurrent-ioctl ordering race where two racing TIOCM ioctls could leave
+>   the modem line state inconsistent with TIOCMGET
+> - Add ->dtr_rts(port, 0) call in wwan_remove_port() (patch 1): ensures
+>   DTR/RTS are de-asserted when a port is removed while an fd is still open
+> - Update kernel-doc to note ->dtr_rts is AT-only and describe mdmbits (patch 1)
+> - Pre-queue RX sink buffer in mhi_wwan_dtr_probe(), requeue in dl_xfer_cb
+>   (patch 3): prevents IP_CTRL DL ring from running empty and stalling the
+>   modem MHI transmit path
+> 
+> Peter Hunt (3):
+>   net: wwan: core: propagate modem control signals to port drivers
+>   bus: mhi: host: pci_generic: enumerate IP_CTRL channel for Sierra
+>     EM919x/EM929x
 
-Initialize policy->rwsem before publishing the policy kobject so sysfs
-callbacks always see an initialized semaphore.
+FYI, this patch got applied to MHI tree.
 
-Fixes: 2fc3384dc75b ("cpufreq: Initialize policy->kobj while allocating policy")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/20260830155301.2713780-1-runyu.xiao@seu.edu.cn/
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Assisted-by: Codex:GPT-5
+- Mani
 
----
-v2:
-- Correct the Fixes tag to the commit that introduced policy kobject publication.
----
- drivers/cpufreq/cpufreq.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index 0d0df986f..9efbf5b17 100644
---- a/drivers/cpufreq/cpufreq.c
-+++ b/drivers/cpufreq/cpufreq.c
-@@ -1258,6 +1258,8 @@ static struct cpufreq_policy *cpufreq_policy_alloc(unsigned int cpu)
- 	if (!zalloc_cpumask_var(&policy->real_cpus, GFP_KERNEL))
- 		goto err_free_rcpumask;
- 
-+	init_rwsem(&policy->rwsem);
-+
- 	init_completion(&policy->kobj_unregister);
- 	ret = kobject_init_and_add(&policy->kobj, &ktype_cpufreq,
- 				   cpufreq_global_kobject, "policy%u", cpu);
-@@ -1272,8 +1274,6 @@ static struct cpufreq_policy *cpufreq_policy_alloc(unsigned int cpu)
- 		goto err_free_real_cpus;
- 	}
- 
--	init_rwsem(&policy->rwsem);
--
- 	freq_constraints_init(&policy->constraints);
- 
- 	policy->nb_min.notifier_call = cpufreq_notifier_min;
 -- 
-2.34.1
+மணிவண்ணன் சதாசிவம்
