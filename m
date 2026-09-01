@@ -1,286 +1,163 @@
-Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9285247ACEB;
-	Tue,  1 Sep 2026 13:21:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788268898; cv=pass; b=jiPaTfz97vEA/xOY7HgLsR5mS4wLoxA4zaQ36D31jzwJ99K/dUcICBJZp6xXDEhfK+v6G45jLeUSR7uzqhqgQYi5aQ07x0ELBPKw5zAKOhzlNWR6X3qeZ7mZgRccbDweDBx0gMKDUdwLtZQDNnLRoKfD5UlFgbHRY7P39uVKHw0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788268898; c=relaxed/simple;
-	bh=QY1A8D3fH5Ocg0eZmlF5oy360Of+P5EZpl0ZY75wxxc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=fgTPGADhSakiK0Pwi1wnIX/Y4GHb8O2+B0yTXT49N0O3PBNMJeXhgR1vPzLBwD6oQSlM4l4y1tFJ6cca4E52XEa87rm6/grxaF5lP4ngZEOFArx+507Q+U4Ke8HkdmGjzaE/6WHDBDRrn3Kl7Y+QNJXi3+fBJMyXkCy3EAnWRX0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=ny2k5K6I; arc=pass smtp.client-ip=185.185.170.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 965A0480359
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:21:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788268903; cv=none; b=fwSgU2FS0jsfMGN3AfzYLHabo0ky4vpEbsWjNwWuAwcZByNGU6Mtw7KyPymoE1fNadTGvsyMBACeYrqhTNTSpd0im8KRTiyqVPkr+k6ksYUPlDRXGOU3WZuWpLLliNIONg2/nPOh6d0NRxNhbcexInKX3nPxPlA0JHD6lgMVowg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788268903; c=relaxed/simple;
+	bh=qJfVo8NaWUV3he8g/jBVBQ24fD8jjxPCQ2QJcjp93xs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bi/rKULHTEdvU+ej1dtncfRYIPrLp3xZCmwrtGsuRTzZoL232Pp3GijUR8nTFZkI6UvTg25rrbNvtIrxLgkL0aCHbsiOj29lw/kuyjoL7rZ+Uw3lwPSbhdNkATBgIgJA/BzHivXSYvI8dprnuYDrog66sHhKr9sVICooZlO8y38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HC5Iec2w; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fqeRDBqG; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="ny2k5K6I"
-Received: from mandelbrot.. (xdsl-83-150-90-33.nebulazone.fi [83.150.90.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: jmtilli)
-	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hZ62L4YKVz49QNC;
-	Tue, 01 Sep 2026 16:21:30 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
-	t=1788268890;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LAv/+3HXe4Wk5FPqWwSHvR9+eMlqhJUTF/4hhmmGEYo=;
-	b=ny2k5K6IZlZwNnLUOSQ7kr6uu3bc8x2auRaysFsxg1uTAtxUxI8ijBUDFHNeFh4x/lidi6
-	b3TL4bQNBP7/XIm4qM626BACSRy69ykUwHa7X6CqJeo4bsfDegV4bMAYxvgGURwVaIej+b
-	OmXKR2gI9siifxnelmlMFxSsnBCU6HU+uuxXFeiGf3Dj9VkXeoCgXj7FQlqEVWilJUm81f
-	CIYZ/IR8zBOgpAWQQLCCDF1Qrd8dAy6h+Ls8Hbqx9DVmSBLFpa6Nkor4SoxOZ/IoJgNox0
-	gZw4xjqVkqE9XWCTylpmq1BTpIFSEKSBziOGU8dpAGr+gYIKh6M3EHVyoyCYOA==
-ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1788268890;
-	b=SV97+SH80+8/H9DpiiFhIYeNqmslZAfXnXut01MZHzTUbwkN2VXzE/6yLFbmsXAw653kbS
-	RrhCc89XA6djrj0FZ2afzbB1JKwELBWwKWsjIq4aqKOO/aBgvCpr4rYwL4ZJBEhPkF05tv
-	enzBlLwsElnmK+x5SC7qOnc8my/KIJo8VXZCWkaVz8+40PAQP/+0tT5zTeiWwZnZNvWGBK
-	OyfvaYrj7Pp4VS6TNIjFo5RCDhMgHBA15a775l1v+CreJBOdjmAnamyiumb6hC8PdrL3SB
-	5VadtlWg4lfPztQ5/H3jUyJAnH9J1ayZmQtbBx0doVgj+f2c1OwgfN4aEnsCTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
-	s=lahtoruutu; t=1788268890;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=LAv/+3HXe4Wk5FPqWwSHvR9+eMlqhJUTF/4hhmmGEYo=;
-	b=sLM2JSmWztX45pxU8z1tlQ3ZFTcxxiLvmT9Ae+QdMceeH9KvYbolT227jKamaw9a/+N2CW
-	jRnpCziVwEDwIy5G7f4t8TKZZ7IQgcEPMm7SC2U//9sx4yPRVq9aYI5XvAo0aywwlL9C3/
-	4ve/4CdSDXmDDrTTWy5nkYkg9/11PKOJVI1S+tPOWzDKGopHLGJ41wuGJH8B+5tJuH9y3n
-	sIjhoDnwFzzc1r+v2SY0Kuyx2oxUD55GiJh/BnPzr2zvdmWj5NO0L2xyrG3cMUPzJtzrkm
-	koF6x8XmuLTbkFa6dPu3t8DQID0KBTTdogkOSruDxgkTl4sFmxhb47tBVF5rwQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=jmtilli smtp.mailfrom=juha-matti.tilli@iki.fi
-From: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
-To: linux-arm-msm@vger.kernel.org,
-	Manivannan Sadhasivam <mani@kernel.org>
-Cc: Eric Dumazet <edumazet@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Willem de Bruijn <willemb@google.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Simon Horman <horms@kernel.org>,
-	Marcel Holtmann <marcel@holtmann.org>,
-	Andy Gross <agross@kernel.org>,
-	Mihai Moldovan <ionic@ionic.de>,
-	Denis Kenzior <denkenz@gmail.com>,
-	Juha-Matti Tilli <juha-matti.tilli@iki.fi>,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Subject: [PATCH v6 08/15] net: qrtr: Allow sendmsg to target an endpoint
-Date: Tue,  1 Sep 2026 16:19:27 +0300
-Message-Id: <20260901131934.225991-9-juha-matti.tilli@iki.fi>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260901131934.225991-1-juha-matti.tilli@iki.fi>
-References: <20260901131934.225991-1-juha-matti.tilli@iki.fi>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HC5Iec2w";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fqeRDBqG"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681AJcSI2141615
+	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 13:21:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	jSiZjk2rYPgMxkc/Mk6oF6H/vSiu5oWVsT6MYw51UtA=; b=HC5Iec2w8Q0r8o2A
+	gfZcfMA9VCQ25Uo/i7Hq+YU/CARRMRIHDaWAE6sGzILPk0zqOr2cDoUK9dMVF1eB
+	/YbwY02vuOH3zSeyfuarRA8HACvFGdQ9ZinhFNLZ/BnPkjA0jk3IHlmdOo5DYMnL
+	DrljuhRUt8Dsd+0H9kIflADs+CrOjees55BopLaJLEJyMlJT6ok//edN4L3224L5
+	VFXNeaEmRI29Oh3LsyJW99LNoep1dIr6NyOVrgx7rpOBhXXd5OcukWY5soXnbyr+
+	Q3NPRYh3A22ah6fqKIYFDV6sDKImu0VZiXh2uetRTv9gYY3b0qM6ryopeTCXFMc0
+	DMap9Q==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdp8ftea9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:21:41 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5c39b4f3229so121091e0c.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 06:21:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788268901; x=1788873701; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jSiZjk2rYPgMxkc/Mk6oF6H/vSiu5oWVsT6MYw51UtA=;
+        b=fqeRDBqGCgzZFU800J+yoe9S/QQGT1rq+KFBxAbJJp0VPDCVBGj95WdH+UQD3Abwv0
+         1aa2Jh9pIJD4bI6JEHveMCQ7wqA5AoBet9QUFpgIsl9gZS/cXqvwTqA+fw7tOIyt5aHs
+         +Pnb9UVw/dh1E3IbztyUbmqCmpI4vw3Kt1+qs6gL4u7ORCBGbbzB1UgWHnCUDvpomN42
+         KZHVOfHIy8M4cxwqwqRqT4BR4cgfbk4G6uVlJkKZ6HgG0VDhpBfkMg0AhJRrsobw6DhR
+         ccJUMal0eH8MI3KkH1YUpmZl7jlakU24CMY2htIbGCwgAn2SC8YJpKb2NDctF920FFUj
+         Kynw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788268901; x=1788873701;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jSiZjk2rYPgMxkc/Mk6oF6H/vSiu5oWVsT6MYw51UtA=;
+        b=L6IJsAb1uJJMOy1pMh8pPS9Lf58Ce+9Bi+mcP75BX7RhalLhVhbeu984Ll2J0Vc574
+         oe1tz4Dukjav4EXqKSDwRQqb5qgCZwbtEyG/Y6yneAIiBQwBnSmEXNZkGIPH4IvSoQRW
+         e4Aa5w5kvjWmZ2ZXTYIvSvp1/kSfGxVmmA54ERUV1h21GFbO0t9TxbmlvZSqaqTU3umU
+         ytCLxZx4sBItuzF2QMrfcobzs4wWESaLsCH6KS+DZgMXFHGAXlIWnOtLbDTwjEjjeO3b
+         ArB185SIJTdKb9W38762iznFgyxiqPnbuRoRcPlBxc4nP5EyeLonRNs7oDVTF5o3/Gjn
+         UDyw==
+X-Forwarded-Encrypted: i=1; AHgh+RqC6BgQ4e2c/NYBOK62R7DZB6K36JRy7fftiEZIVuxWnqJ+k/a2my9NUOdPYUaLqo0m4xPN4ApOeo/d+04=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAFtvAXvWgidWE6f4MLvOF7ecigv/+TK152L4uwn8H+tNUUvEE
+	fKmXinvS+D6BFZjbC/f0Fq4EzzIpZ3afQyN2D8wuo4z0A9aAPZRmKVlld3lq3MPXcAM0lbVdx50
+	fdW1kIwI4cpmNpjQmBm1yVsmSU4OUdA+lNJDTxfBIul1dpY2gnKlA8ZgsGI0R7j53tF0=
+X-Gm-Gg: AR+sD128D39CK9Ivv06Ws4j1PU1BwdWl7n4mlGLB5OfcJ5CAXpbwQQmRZ4Sro3nL820
+	fmurDSJBb4yxUKsmampDWdYRjHy1JB9/F+GjkriXkb5eNCEvBJyjww5VeuoVS1uBTRC3LGo2WLe
+	355t0TCN+QmCiW1ZQNCNxdAHqzFXl8La3PfWB/dekxQeYqmPIeriVWC09+VmXQI9P0GJaPhq58u
+	SkcrQZGZZgew4oJi2iY/GVfmEjkeYgIaPN/GE/FJ3UlG8t5VBEIP2f3nZVimyjNYg1n/bFk+twq
+	wh4RaUCXVvTNPW2tiOBFU7FSZql4lx+uk6ctYWZkXQUIML+H4ef6dsZMg5N00jwfhiaBa2Buuzo
+	I6E6yPRVaz5rVO+SMyJxyGA==
+X-Received: by 2002:a05:6102:6a84:b0:786:8d84:5aca with SMTP id ada2fe7eead31-7868d845f20mr2441016137.2.1788268900712;
+        Tue, 01 Sep 2026 06:21:40 -0700 (PDT)
+X-Received: by 2002:a05:6102:6a84:b0:786:8d84:5aca with SMTP id ada2fe7eead31-7868d845f20mr2440992137.2.1788268900215;
+        Tue, 01 Sep 2026 06:21:40 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b605b17582sm57141e87.69.2026.09.01.06.21.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 06:21:39 -0700 (PDT)
+Message-ID: <773d4d11-dedb-4630-bdaf-ed9bf5dedc5d@oss.qualcomm.com>
+Date: Tue, 1 Sep 2026 15:21:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 07/12] phy: qualcomm: qcom-uniphy-pcie-usb3-28lp: Add
+ support for USB3 PHY on IPQ5018
+To: george.moussalem@outlook.com, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Praveenkumar I <praveenkumar.i@oss.qualcomm.com>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
+        Nitheesh Sekar <quic_nsekar@quicinc.com>,
+        Wesley Cheng <quic_wcheng@quicinc.com>,
+        Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-usb@vger.kernel.org
+References: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
+ <20260825-ipq5018-usb3-v3-7-39be0955a6aa@outlook.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260825-ipq5018-usb3-v3-7-39be0955a6aa@outlook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: CeUL9zyyBdsnh8HELIbe7ts2h6-1Kkzz
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDExNyBTYWx0ZWRfXyY/DgwRMwd/m
+ 3jkHXwkMc0QtbsEHH6RMxlJZ3Aq37YOXVZT00fzmTGp8JdMCM0qHqSRxaVItZmc4DgQmtzPmJUt
+ WmUFFJE20mtexZ8TXjpz/AuncLpRH3g=
+X-Proofpoint-ORIG-GUID: CeUL9zyyBdsnh8HELIbe7ts2h6-1Kkzz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDExNyBTYWx0ZWRfXx0cYpSj9J/mf
+ igOoCjgO8ZSB7TQsG1Yhuw+Rv8EUv/PvubGCCRETy5FUOdVHLEUy0CmO4PopibHNi9wZskDd4KO
+ xppM/dLNRlSJCPrUFHWRRGgIx12LNejXmJHk92QIgwg/wdUpoTFPQRU/zp/1nCUz2jMtue9Cg2y
+ LkdMeX52pdTSpBzETFfI8fXN6X//yWTAzzywOXSSPYItM2z6zEnKmMYAems+KMxwSs30OICgCo2
+ NuyAP5wdOprQPlj9b7/8O3SQkAaj4fwC8T/h8xy2DU+N9tr3i6eQeI0DhUXgLvQ8ZVB3fuBA/dg
+ 25ZpIjQx3cDXUXX54WJHUDbrEDaMnCWl/m9O2vkeYDmU9DvYzlouDh24468SkAaOnWWdyqsJNK0
+ vfVHgp5EP6y8yMn5CFctcUXciILMYxrFZCh+BnjmdTU1M6e8J3uFDa0cWezSvocRUYYXkFmvlBj
+ ym21nMjLJYukIWQHmhQ==
+X-Authority-Analysis: v=2.4 cv=BPWDalQG c=1 sm=1 tr=0 ts=6a96d165 cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=UqCG9HQmAAAA:8 a=xr6W56IWL_GKtPyFExwA:9 a=QEXdDO2ut3YA:10
+ a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_03,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 phishscore=0 adultscore=0 spamscore=0
+ lowpriorityscore=0 clxscore=1015 priorityscore=1501 malwarescore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609010117
 
-From: Denis Kenzior <denkenz@gmail.com>
+On 8/25/26 2:37 PM, George Moussalem via B4 Relay wrote:
+> From: George Moussalem <george.moussalem@outlook.com>
+> 
+> Add support for the USB3 PHY on IPQ5018 chipsets.
 
-Allow QIPCRTR family sockets to include QRTR_ENDPOINT auxiliary data
-as part of the sendmsg system call.  By including this parameter, the
-client can ask the kernel to route the message to a given endpoint, in
-situations where multiple endpoints with conflicting node identifier
-sets exist in the system.
+[...]
 
-For legacy clients, or clients that do not include QRTR_ENDPOINT data,
-the endpoint is looked up, as before, by only using the node identifier
-of the destination qrtr socket address.
+> +static int qcom_uniphy_usb_mux_select(struct qcom_uniphy *phy, bool enable)
+> +{
+> +	return regmap_update_bits(phy->tcsr, phy->mux_offset,
+> +				  TCSR_USB_MUX_SEL,
+> +				  enable ? TCSR_USB_MUX_SEL : 0);
 
-Signed-off-by: Denis Kenzior <denkenz@gmail.com>
-Reviewed-by: Marcel Holtmann <marcel@holtmann.org>
-Reviewed-by: Andy Gross <agross@kernel.org>
-Signed-off-by: Mihai Moldovan <ionic@ionic.de>
-Signed-off-by: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
----
- net/qrtr/af_qrtr.c | 89 ++++++++++++++++++++++++++++++++++------------
- net/qrtr/qrtr.h    |  2 ++
- 2 files changed, 68 insertions(+), 23 deletions(-)
+regmap_assign_bits()
 
-diff --git a/net/qrtr/af_qrtr.c b/net/qrtr/af_qrtr.c
-index da7ccf19c6851..d4a472f0ac4d1 100644
---- a/net/qrtr/af_qrtr.c
-+++ b/net/qrtr/af_qrtr.c
-@@ -106,6 +106,36 @@ static inline struct qrtr_sock *qrtr_sk(struct sock *sk)
- 	return container_of(sk, struct qrtr_sock, sk);
- }
- 
-+int qrtr_msg_get_endpoint(struct msghdr *msg, u32 *out_endpoint_id)
-+{
-+	struct cmsghdr *cmsg;
-+	u32 endpoint_id = 0;
-+
-+	for_each_cmsghdr(cmsg, msg) {
-+		if (!CMSG_OK(msg, cmsg))
-+			return -EINVAL;
-+
-+		if (cmsg->cmsg_level != SOL_QRTR)
-+			continue;
-+
-+		if (cmsg->cmsg_type != QRTR_ENDPOINT)
-+			return -EINVAL;
-+
-+		if (cmsg->cmsg_len < CMSG_LEN(sizeof(u32)))
-+			return -EINVAL;
-+
-+		/* Endpoint ids start at 1 */
-+		endpoint_id = *(u32 *)CMSG_DATA(cmsg);
-+		if (!endpoint_id)
-+			return -EINVAL;
-+	}
-+
-+	if (out_endpoint_id)
-+		*out_endpoint_id = endpoint_id;
-+
-+	return 0;
-+}
-+
- static unsigned int qrtr_local_nid = 1;
- 
- /* for node ids */
-@@ -448,14 +478,23 @@ static int qrtr_node_enqueue(struct qrtr_node *node, struct sk_buff *skb,
-  *
-  * callers must release with qrtr_node_release()
-  */
--static struct qrtr_node *qrtr_node_lookup(unsigned int nid)
-+static struct qrtr_node *qrtr_node_lookup(unsigned int endpoint_id,
-+					  unsigned int nid)
- {
--	struct qrtr_node *node;
-+	struct qrtr_node *node = NULL;
- 	unsigned long flags;
-+	unsigned long key = 0;
-+
-+	if (endpoint_id > QRTR_INDEX_HALF_UNSIGNED_MAX ||
-+	    nid > QRTR_INDEX_HALF_UNSIGNED_MAX)
-+		return node;
-+
-+	key = ((unsigned long)(endpoint_id) << QRTR_INDEX_HALF_BITS) |
-+	      ((unsigned long)(nid) & QRTR_INDEX_HALF_UNSIGNED_MAX);
- 
- 	mutex_lock(&qrtr_node_lock);
- 	spin_lock_irqsave(&qrtr_nodes_lock, flags);
--	node = radix_tree_lookup(&qrtr_nodes, nid);
-+	node = radix_tree_lookup(&qrtr_nodes, key);
- 	node = qrtr_node_acquire(node);
- 	spin_unlock_irqrestore(&qrtr_nodes_lock, flags);
- 	mutex_unlock(&qrtr_node_lock);
-@@ -1019,6 +1058,7 @@ static int qrtr_sendmsg(struct socket *sock, struct msghdr *msg, size_t len)
- 	struct qrtr_sock *ipc = qrtr_sk(sock->sk);
- 	struct sock *sk = sock->sk;
- 	struct qrtr_node *node;
-+	u32 msg_endpoint_id;
- 	u32 endpoint_id = qrtr_local_nid;
- 	struct sk_buff *skb;
- 	size_t plen;
-@@ -1031,46 +1071,48 @@ static int qrtr_sendmsg(struct socket *sock, struct msghdr *msg, size_t len)
- 	if (len > 65535)
- 		return -EMSGSIZE;
- 
-+	rc = qrtr_msg_get_endpoint(msg, &msg_endpoint_id);
-+	if (rc < 0)
-+		return rc;
-+
- 	lock_sock(sk);
- 
- 	if (addr) {
--		if (msg->msg_namelen < sizeof(*addr)) {
--			release_sock(sk);
--			return -EINVAL;
--		}
-+		rc = -EINVAL;
- 
--		if (addr->sq_family != AF_QIPCRTR) {
--			release_sock(sk);
--			return -EINVAL;
--		}
-+		if (msg->msg_namelen < sizeof(*addr))
-+			goto release_sock;
-+
-+		if (addr->sq_family != AF_QIPCRTR)
-+			goto release_sock;
- 
- 		rc = qrtr_autobind(sock);
--		if (rc) {
--			release_sock(sk);
--			return rc;
--		}
-+		if (rc)
-+			goto release_sock;
- 	} else if (sk->sk_state == TCP_ESTABLISHED) {
- 		addr = &ipc->peer;
- 	} else {
--		release_sock(sk);
--		return -ENOTCONN;
-+		rc = -ENOTCONN;
-+		goto release_sock;
- 	}
- 
- 	node = NULL;
- 	if (addr->sq_node == QRTR_NODE_BCAST) {
- 		if (addr->sq_port != QRTR_PORT_CTRL &&
- 		    qrtr_local_nid != QRTR_NODE_BCAST) {
--			release_sock(sk);
--			return -ENOTCONN;
-+			rc = -ENOTCONN;
-+			goto release_sock;
- 		}
- 		enqueue_fn = qrtr_bcast_enqueue;
- 	} else if (addr->sq_node == ipc->us.sq_node) {
- 		enqueue_fn = qrtr_local_enqueue;
- 	} else {
--		node = qrtr_node_lookup(addr->sq_node);
-+		endpoint_id = msg_endpoint_id;
-+
-+		node = qrtr_node_lookup(endpoint_id, addr->sq_node);
- 		if (!node) {
--			release_sock(sk);
--			return -ECONNRESET;
-+			rc = endpoint_id ? -ENXIO : -ECONNRESET;
-+			goto release_sock;
- 		}
- 		enqueue_fn = qrtr_node_enqueue;
- 	}
-@@ -1109,6 +1151,7 @@ static int qrtr_sendmsg(struct socket *sock, struct msghdr *msg, size_t len)
- 
- out_node:
- 	qrtr_node_release(node);
-+release_sock:
- 	release_sock(sk);
- 
- 	return rc;
-@@ -1123,7 +1166,7 @@ static int qrtr_send_resume_tx(struct qrtr_cb *cb)
- 	struct sk_buff *skb;
- 	int ret;
- 
--	node = qrtr_node_lookup(remote.sq_node);
-+	node = qrtr_node_lookup(cb->endpoint_id, remote.sq_node);
- 	if (!node)
- 		return -EINVAL;
- 
-diff --git a/net/qrtr/qrtr.h b/net/qrtr/qrtr.h
-index 11b897af05e67..22fcecbf8de23 100644
---- a/net/qrtr/qrtr.h
-+++ b/net/qrtr/qrtr.h
-@@ -34,4 +34,6 @@ int qrtr_ns_init(void);
- 
- void qrtr_ns_remove(void);
- 
-+int qrtr_msg_get_endpoint(struct msghdr *msg, u32 *out_endpoint_id);
-+
- #endif
--- 
-2.34.1
-
+Konrad
