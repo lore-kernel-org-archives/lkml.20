@@ -1,35 +1,44 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E13B47FAF8;
-	Tue,  1 Sep 2026 13:40:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788270020; cv=none; b=AG0joMtIbycICvuCIkOCh/umpODleYs/xlv1dyEfyC1N0GBCvWM12BNu/9FaLq8riYtilDUBnnp19ZmCjWD/wwsbCsULPzhl3pmvv5xe/PIv8nK4LsfqLv9QmAwjyGHeKuSpiINwjGDWlbJjTot+RYBgbQrjkH7eRcPZw1E3FvM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9099147FAF9
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:40:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788270020; cv=pass; b=KNN9D2zPnS7b3SJYPzdBc6kHuuJosItfjoCi9Jxz1U+D2tB+dEGCyULlqd2GqI5DW7qisaRO9naVnqwZ4NGCjCj/uqGfJq9U+XD17cjKngN2I4kC1E40anHNc6dRjKNXR/QD3s0RcsuRHfNUEI2LuSIGjJ8C6jG/3PeXh9jhJSM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788270020; c=relaxed/simple;
-	bh=1r/MeTdtTiqjG/QVDbFc0lfCvcqVv7N3LlY8u4zmC44=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Q+ciqZMqO/0MbR+/uN157N5YJvp5V/+InDLm8LA4o58+ci5u3bHm3XNJp03Dc1WtdO4r5FywCQ82QylmGfq7OiK2PB9Afxr5KkCNkbMto8LMocY8Dv9pGGVmAnAr+kahFlBj3VXpq6LWuPg8EXmHesmjsYNgpJrAfyG+yGBBC7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FCh/UC7/; arc=none smtp.client-ip=100.103.45.18
+	bh=nECeWSE7tXlAvZyStBxd9zP2MSwAj5+14hAdtWzUArs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=VPWxEfVsCWlwOkiq/DyHKhRA/Z914P6YEX0V2066AG9IeIO2STGiQ9s2eVgz/vUYkiSXNpxx21qpV0gPX6zLNorYPhTlCcDP16zTPpJxwZyF8KlvSg3NTV5WpzmXXN4nv/wOnUq7DDj6OArmmLZdTepo9B1Gw+1cP3iR1d7FP/c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b=PXbAy1Ni; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FCh/UC7/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0B6A1F000E9;
-	Tue,  1 Sep 2026 13:40:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788270018;
-	bh=YExOASgIJ2/l4OeTeYY2Iv2oz+KB5P8laUEbMe5fIZ8=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=FCh/UC7/2h1H+CtPmF1Mv0qiK/frtgAXu80yYVOuc7UVpXk5GEeJJFd2qfm62L1Yc
-	 j1vUVv+acaV31vH3e1Sq78JFMlntUphWrgwdGFf0/pozUgeSq8Vt9vROFIw+AuAGYZ
-	 8ff39acWFgCal3f7rc7yDPnzkII9y7MS7/B/L/B00V4pKVFEnsKRbXJXp1ZGu5X4La
-	 UwkdAyvBAjhyqWjVviXvtGmY+LqKkYBQfhbOfBQxtnV/xhujuhQxlUM6veM5ny6UOM
-	 VpJNSbquAukG+xNm53Vfnqv7OJlb50h+LXIWeFkdD+ijFE3H1lLomEGRLQbmjSfssH
-	 C2hroMJwtZwoA==
-From: Jeff Layton <jlayton@kernel.org>
-Date: Tue, 01 Sep 2026 09:39:47 -0400
-Subject: [PATCH v5 09/15] SUNRPC: stop unregistering listeners once rpcbind
- stops answering
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="PXbAy1Ni"
+ARC-Seal: i=1; a=rsa-sha256; t=1788269992; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=nry4ugQOl/Iu/E673t76DZXpR0nhQujHqDzcSOCFgv9O6ay9n4UMKegSg/zbZlIqMUxqOCB9DwyuhfMjrUr1pCo3ZMG+O+KOTyMj4N+AyaF518TVL9/Evl/VqlGaAjFXkdmkZrzflOQ8wwphv8sgyOpg+0zeFf57tjVpGubfhJY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788269992; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=UuLBKWOVqpuqjOy5jkxqd2Ih1GKAPwy4tleGufy6v/o=; 
+	b=dzIMoZCDyW2KYaYk8Ei7a8DN1wnDIMwNRyDG5DBGf5vEarZxdebrJ3qjlsHvtNc34AksVy8MF5RkwnFMtkAMTrghT4++7w4nwJ/ZIo8b+z0vDYS77dPkUbSohjLqgDfWxrsi7/QMxgsmQYEpIISVnSUegEjqWwNLRB4UNTfTHGA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788269992;
+	s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
+	bh=UuLBKWOVqpuqjOy5jkxqd2Ih1GKAPwy4tleGufy6v/o=;
+	b=PXbAy1NiGOaiMI/0E8brgr/lVSX77r4o2IxcjtUYCagrkqDIdUczP233hY6XJ1kW
+	FnCbI9T2Q5iCMlJCv/k2Gt7zvG3NSBX/2Mgn5F/2E4OpbAQuvObfyDodMTbAk8x+KTr
+	lBm9rVEZpxXAnU2W935EFqDoA9Eryg1iBeeDj+rE=
+Received: by mx.zohomail.com with SMTPS id 178826998951974.78285142484401;
+	Tue, 1 Sep 2026 06:39:49 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Tue, 01 Sep 2026 15:39:27 +0200
+Subject: [PATCH] drm/panfrost: Rename "panthor" prefixes in debugfs
+ identifiers
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,98 +47,83 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-nfsd-nl-hang-v5-9-a540d86668b0@kernel.org>
-References: <20260901-nfsd-nl-hang-v5-0-a540d86668b0@kernel.org>
-In-Reply-To: <20260901-nfsd-nl-hang-v5-0-a540d86668b0@kernel.org>
-To: Chuck Lever <cel@kernel.org>, NeilBrown <neil@brown.name>, 
- Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
- Tom Talpey <tom@talpey.com>, Trond Myklebust <trondmy@kernel.org>, 
- Anna Schumaker <anna@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Shuah Khan <shuah@kernel.org>
-Cc: Slawomir Stepien <sst@poczta.fm>, linux-nfs@vger.kernel.org, 
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- Trond Myklebust <trondmy@gmail.com>, linux-kselftest@vger.kernel.org, 
- Jeff Layton <jlayton@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2139; i=jlayton@kernel.org;
- h=from:subject:message-id; bh=1r/MeTdtTiqjG/QVDbFc0lfCvcqVv7N3LlY8u4zmC44=;
- b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBqltWwBa2RAcJW2//7w0sglDAH2WRSAt6iNc94Z
- wcZ0yOjIbyJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCapbVsAAKCRAADmhBGVaC
- FW5RD/9dznm9oX5bdKYnqQe4Vh7DQ2sVrf9MrQesZ9HWu45xG3iqXtThMd4zfaSKyDR+cR6ySnt
- TLzMJ3kr5A9CpGIcxR1Rhz3gSL96WU/OJg4P7PyExS6E6UCQPoIT1bW7NxZGPzaBs8nFnmzcOr5
- q8cmYGeYLRYEE6SJi1GqJ7QG/UUgK6fjtgPWPBWCYb56LqAmd88v1saZc6ZPpr0qgWJKj2gqmIx
- nw2WRam0tvauBwPMCJllBIkNNYS7+3dB7nGf5211wB0pZF6qffixVReIsLpW3Fb0MXLFfRKOV2U
- +kTREUH0tjFF4hGWg4n5fSQNZs4+awdFTzKdsnRvA4w+VE5UWzW16CqRApfpfFNeGwysBt9Td+7
- ERYuFXm6+9l7vDeRPRQHWwEfzyDWYgcBhdlgjPgeviIenRbFj+/USxDVXQ2UDCI5n9uopMvH+9G
- 3dyUSbBKIa15gqxRVOiO6ClXqwcsKxYsFBFQhpd97FPvsMQMPSzinwSmqcXvRyc2yzudPtxMA4N
- okKvl1DqAbrib1JVPkvwwhvOKSsBbFhLgjocQLHZzWIt4atw2oOsur/HMuhGLDAn6QYuC/sBP4y
- Ip30srxyo7bFcaS8wfrNUM13/rlMWlO927q+i0+bL4hwHR8h3PmlbXpCyGdE/t49WpTyliR9ioE
- 52ejg7KIoLdXQ4A==
-X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
- fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
+Message-Id: <20260901-panfrost-prefix-whoopsie-v1-1-138fb4c5a9f4@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWNyw6CMBBFf4XM2omlJiTwK4YFlEHGpA87RUkI/
+ 261ursn97WDUGQS6KodIj1Z2LsM9akCswzuRshTZtBKN6pVNYbBzdFLwhBp5g1fi/dBmFA3F6X
+ GWU+GWsj14n+nr31hWcc7mfTZ+yUiPdb8mUoMxkEIjbeWU1dN0aJlMee/QEdbgv443shdrGq2A
+ AAA
+X-Change-ID: 20260901-panfrost-prefix-whoopsie-26300bf2dce9
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.2
 
-svc_delete_xprt() unregisters each listener it destroys. One
-NFSD_CMD_LISTENER_SET that removes listeners therefore pays one local
-rpcbind timeout for each of them, under nfsd_mutex, on top of the one the
-create loop already bounds.
+When gems debugfs support was copied over from panthor to panfrost, the
+function and struct names were not adjusted to carry the panfrost
+prefix instead of the panthor prefix.
 
-One failure is enough to know that the rest of the teardown will not fare
-better. When the call gets no answer, clear XPT_RPCB_UNREG on every
-remaining transport in the same net.
+Rectify this by renaming them. No functional change.
 
-Assisted-by: LLM
-Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Fixes: e48ade5e23ba ("drm/panfrost: show device-wide list of DRM GEM objects over DebugFS")
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- net/sunrpc/svc_xprt.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ drivers/gpu/drm/panfrost/panfrost_drv.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/net/sunrpc/svc_xprt.c b/net/sunrpc/svc_xprt.c
-index 40040af588fb..ef35a09b74d7 100644
---- a/net/sunrpc/svc_xprt.c
-+++ b/net/sunrpc/svc_xprt.c
-@@ -1101,6 +1101,23 @@ static void call_xpt_users(struct svc_xprt *xprt)
- 	spin_unlock(&xprt->xpt_lock);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index 96a66d673ba6..f5f11ad5f9b3 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -794,7 +794,7 @@ static const struct file_operations panfrost_drm_driver_fops = {
+ };
+ 
+ #ifdef CONFIG_DEBUG_FS
+-static int panthor_gems_show(struct seq_file *m, void *data)
++static int panfrost_gems_show(struct seq_file *m, void *data)
+ {
+ 	struct drm_info_node *node = m->private;
+ 	struct panfrost_device *pfdev = to_panfrost_device(node->minor->dev);
+@@ -845,15 +845,15 @@ static int show_file_jm_ctxs(struct panfrost_file_priv *pfile,
+ 	return 0;
  }
  
-+/*
-+ * If rpcbind stops answering, every listener still to be destroyed would
-+ * only wait out the same timeout again. Drop the flag on the rest of this
-+ * teardown, which is every listener already marked for close.
-+ */
-+static void svc_xprt_clear_rpcb_unreg(struct svc_serv *serv, struct net *net)
-+{
-+	struct svc_xprt *xprt;
-+
-+	spin_lock_bh(&serv->sv_lock);
-+	list_for_each_entry(xprt, &serv->sv_permsocks, xpt_list)
-+		if (xprt->xpt_net == net &&
-+		    test_bit(XPT_CLOSE, &xprt->xpt_flags))
-+			clear_bit(XPT_RPCB_UNREG, &xprt->xpt_flags);
-+	spin_unlock_bh(&serv->sv_lock);
-+}
-+
- /*
-  * Remove a dead transport
-  */
-@@ -1115,11 +1132,15 @@ static void svc_delete_xprt(struct svc_xprt *xprt)
- 		struct svc_sock *svsk = container_of(xprt, struct svc_sock,
- 						     sk_xprt);
- 		struct socket *sock = svsk->sk_sock;
-+		unsigned int failures = svc_rpcb_failure_count(serv);
+-static struct drm_info_list panthor_debugfs_list[] = {
++static struct drm_info_list panfrost_debugfs_list[] = {
+ 	{"gems",
+-	 panthor_gems_show, 0, NULL},
++	 panfrost_gems_show, 0, NULL},
+ };
  
- 		if (svc_register(serv, xprt->xpt_net, sock->sk->sk_family,
- 				 sock->sk->sk_protocol, 0) < 0)
- 			pr_warn("failed to unregister %s with rpcbind\n",
- 				xprt->xpt_class->xcl_name);
-+
-+		if (svc_rpcb_failure_count(serv) != failures)
-+			svc_xprt_clear_rpcb_unreg(serv, xprt->xpt_net);
- 	}
+-static int panthor_gems_debugfs_init(struct drm_minor *minor)
++static int panfrost_gems_debugfs_init(struct drm_minor *minor)
+ {
+-	drm_debugfs_create_files(panthor_debugfs_list,
+-				 ARRAY_SIZE(panthor_debugfs_list),
++	drm_debugfs_create_files(panfrost_debugfs_list,
++				 ARRAY_SIZE(panfrost_debugfs_list),
+ 				 minor->debugfs_root, minor);
  
- 	if (test_and_set_bit(XPT_DEAD, &xprt->xpt_flags))
+ 	return 0;
+@@ -915,7 +915,7 @@ static void panfrost_sched_debugfs_init(struct drm_minor *minor)
+ 
+ static void panfrost_debugfs_init(struct drm_minor *minor)
+ {
+-	panthor_gems_debugfs_init(minor);
++	panfrost_gems_debugfs_init(minor);
+ 	panfrost_sched_debugfs_init(minor);
+ }
+ #endif
 
--- 
-2.55.0
+---
+base-commit: 0116f19db5931348c937eafa1f76a9a19bf82c81
+change-id: 20260901-panfrost-prefix-whoopsie-26300bf2dce9
+
+Best regards,
+--  
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
