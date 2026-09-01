@@ -1,144 +1,124 @@
-Received: from mta1.migadu.com (out-209.mta1.migadu.com [95.215.58.209])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A62B6306B3D
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:23:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.209
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7089331194C
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:24:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788243831; cv=none; b=oPfuzrkVJOMtVX2pdg9zzTGyY86ePDwVSd8OSPDiZw+5X00qUxKkUIEPiLQzmWeG+t/Tub4APlPoTJj52fkU0aLjQ9uI/D4lEUJts8LSAQSVzb7v4LspFlcLVS0veElgYCcLafjXqzj7xqn+rkN7v3HawWngrWuMTK9h9frn1Vk=
+	t=1788243869; cv=none; b=XJ5itAE0JfilE4Ol0LZK1z+b6lvv1n+Nu6JouKnjFxv1HH6sLmm0BpOpxTLo12LicxuYnVMzUlzeTECWwUK3LHwarR52f5up8hkaW/rWRnLu09Us2MDD8M739AG82O+NwIZcLODaHieaMywC0/4HntySK+ZE2o5P8Gu3/U+DUb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788243831; c=relaxed/simple;
-	bh=JYWgi8laE2xRmYqAktJ5/SY0SxkpUmzm3vsS4saBqCs=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 In-Reply-To:References; b=uvzKyp38O50s6CBEoMbRgqR/DiT37lMg8NnCdY63ZFl4/3T6gi1sN8hV8EgfDRvZy2QAH4L4EDhv9SnQeT40itvBYVdF5FBkHpnJnV01QrJlJMJ4FgVhZITLhE/aGZ/Q0B4IlOuYt6n/4WWMk7uh3QkXvUU0+LiEbEY7bf909J4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=tvZJo/lO; arc=none smtp.client-ip=95.215.58.209
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788243869; c=relaxed/simple;
+	bh=yGLpijKUnjl1pokicm77fJ/NhLlkoUbwE3wNND1awVA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=krSww/gyC2mG3u5SuU+peNqhQEFZXx4Ipn22oWpRpXfRQux/921PS43+6u3a6DrjxbIbsCLN5QORJrhkjGk/z8dNVQSxXqfD2jY49RHCTjmQaKwdcvMEuVHZAkzftN08a0sw5jUzlPdT8tivQPnsJt4I3+lf+HRAM5qtxM/uOZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bH/tFopJ; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="tvZJo/lO"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=JYWgi8laE2xRmYqAktJ5/SY0SxkpUmzm3vsS4saBqCs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788243827; v=1; x=1788848627;
- b=tvZJo/lONEGG33RxIAI2uh4WeJpN8rDLDnOe1iyzX6NjrztypfMyq0QXvRzmk1xta8zfPdaz
- BOVmEewBVrrKENqDk0K0EKH+4jRl86fvdem/AV7JFLL2hKgh8uw3W9cGGs2OH/JoRkAN7cJC+So
- biHGz89sN9qpjOcvNDQn/elA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 8f859e5041177fe5;
-	Tue, 01 Sep 2026 06:23:47 +0000
-X-Mizu-Trace-ID: 8f859e5041177fe5
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bH/tFopJ"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EA2811756;
+	Mon, 31 Aug 2026 23:24:22 -0700 (PDT)
+Received: from [10.164.19.53] (unknown [10.164.19.53])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 40DCF3F85F;
+	Mon, 31 Aug 2026 23:24:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788243866; bh=yGLpijKUnjl1pokicm77fJ/NhLlkoUbwE3wNND1awVA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=bH/tFopJqfTyFZdaC2O5krSp6aX3s4cOqW1YfXSVEx7FdoXaPlQDAuMXyICg02PKP
+	 o0Nm7zjaLI95sCxwUqMzNrvLVC961DwPDaKG5yy/XqXZFrLCCihKnmxI1PdpBd9XYJ
+	 c1SJppfR2ExblfSqCMlH/X3uQuTDi5m4qZGeA/NA=
+Message-ID: <55e7bc2a-dfdd-4cbb-9bf6-ea3bf4b03cce@arm.com>
+Date: Tue, 1 Sep 2026 11:54:17 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=f5ad3a7a520e0675d3a1ee0e96ded0c415497e37ee75d1d57e33fbe0b954;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Tue, 01 Sep 2026 14:23:42 +0800
-Message-Id: <DL3RJ2VF605G.2L1HBQB1CUEGA@linux.dev>
-Cc: "Troy Mitchell" <troy.mitchell@linux.dev>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <linux-hwmon@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <spacemit@lists.linux.dev>,
- <linux-doc@vger.kernel.org>, "Jean Delvare" <jdelvare@suse.de>
-Subject: Re: [PATCH v4 4/6] hwmon: (lm63) Add Sensylink CTF2301 support
-From: "Troy Mitchell" <troy.mitchell@linux.dev>
-To: <sashiko-reviews@lists.linux.dev>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Guenter Roeck" <linux@roeck-us.net>, "Paul
- Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
- Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Yixun Lan"
- <dlan@kernel.org>, "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan"
- <skhan@linuxfoundation.org>, "Randy Dunlap" <rdunlap@infradead.org>
-In-Reply-To: <20260831163256.784771F000E9@smtp.kernel.org>
-References: <20260831-ctl2301-v4-0-b335d52a0570@linux.dev>
-	<20260831-ctl2301-v4-4-b335d52a0570@linux.dev>
-	<20260831163256.784771F000E9@smtp.kernel.org>
-
---f5ad3a7a520e0675d3a1ee0e96ded0c415497e37ee75d1d57e33fbe0b954
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/8] mm: move anon-exclusive batch helper to mm.h
+To: Barry Song <baohua@kernel.org>
+Cc: akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
+ hughd@google.com, chrisl@kernel.org, kasong@tencent.com, riel@surriel.com,
+ liam@infradead.org, vbabka@kernel.org, harry@kernel.org, jannh@google.com,
+ lance.yang@linux.dev, baolin.wang@linux.alibaba.com,
+ shikemeng@huaweicloud.com, nphamcs@gmail.com, baoquan.he@linux.dev,
+ youngjun.park@lge.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ rppt@kernel.org, surenb@google.com, mhocko@suse.com, pfalcato@suse.de,
+ ryan.roberts@arm.com, anshuman.khandual@arm.com
+References: <20260901054358.4049095-1-dev.jain@arm.com>
+ <20260901054358.4049095-4-dev.jain@arm.com>
+ <CAGsJ_4yGFBRv-C3UV-G1tB0HUmhVvJL6ac5x_Dtu9NSGk9BGzw@mail.gmail.com>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <CAGsJ_4yGFBRv-C3UV-G1tB0HUmhVvJL6ac5x_Dtu9NSGk9BGzw@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 04:32:56PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider:
-> - [Medium] TEMP12_TO_REG and software caching logic fail to align with
-> 12-bit hardware truncation, causing sysfs cache inconsistency.
->
-> [...]
->
-> @@ -121,6 +126,9 @@ static const unsigned short normal_i2c[] =3D { 0x18, =
-0x4c, 0x4e, I2C_CLIENT_END };
->  							    127000), 1000)
->  #define TEMP8U_TO_REG(val)	DIV_ROUND_CLOSEST(clamp_val((val), 0, \
->  							    255000), 1000)
-> +#define TEMP12_FROM_REG(reg)	DIV_ROUND_CLOSEST((s16)(reg) * 1000, 256)
-> +#define TEMP12_TO_REG(val)	DIV_ROUND_CLOSEST(clamp_val((val), -128000, \
-> +							     127937) * 256, 1000)
->  #define TEMP11_FROM_REG(reg)	((reg) / 32 * 125)
->  #define TEMP11_TO_REG(val)	(DIV_ROUND_CLOSEST(clamp_val((val), -128000, =
-\
->  							     127875), 125) * 32)
->
-> [...]
->
-> @@ -594,6 +692,21 @@ static ssize_t set_temp8(struct device *dev, struct =
-device_attribute *devattr,
->  		return err;
-> =20
->  	mutex_lock(&data->update_lock);
-> +	if (data->kind =3D=3D ctf2301 && nr =3D=3D 1) {
-> +		temp =3D TEMP12_TO_REG(val);
-> +		err =3D i2c_smbus_write_byte_data(client, LM63_REG_LOCAL_HIGH,
-> +						temp >> 8);
-> +		if (!err)
-> +			err =3D i2c_smbus_write_byte_data(client,
-> +							CTF2301_REG_LOCAL_HIGH_LSB,
-> +							temp & 0xf0);
-> +		if (!err)
-> +			data->temp1_max =3D temp;
->
-> [Severity: Medium]
-> Does this sequence cause the sysfs cache to become inconsistent with the
-> hardware state?
->
-> The TEMP12_TO_REG macro scales the value but does not align or quantize i=
-t
-> to a 12-bit hardware boundary, leaving fractional bits present in the
-> lowest 4 bits. Here in set_temp8, those lowest 4 bits of temp are masked
-> out with 0xf0 when writing to the hardware register, but the unmasked tem=
-p
-> is saved in data->temp1_max.
->
-> If a user writes a temperature limit that is not a perfect multiple of
-> 0.0625 degrees Celsius, will this cause the sysfs interface to return the
-> un-truncated value immediately after the write, but later shift to the
-> truncated value upon the next device poll?
 
-This is a bug. TEMP12_TO_REG() currently produces an unaligned 8.8
-fixed-point value. The register write discards bits 3:0, while the cache
-retains them, so an immediate sysfs read can differ from the value read
-back from the device after the next update.
 
-I will fix this in the next version by quantizing the converted value to
-the CTF2301's 0.0625 degree C resolution before using it for both the
-register writes and the cache update.
+On 01/09/26 11:19 am, Barry Song wrote:
+> On Tue, Sep 1, 2026 at 1:44 PM Dev Jain <dev.jain@arm.com> wrote:
+>>
+>> In preparation for optimizing large folio unmapping, we need to reuse
+>> the page_anon_exclusive_batch helper in rmap.c and rmap.h and obey the
+>> existing use in mprotect.c .
+>>
+>> Therefore, move it from mprotect.c to mm.h. Gate with CONFIG_MMU since
+>> both rmap and mprotect users are built only for CONFIG_MMU.
+>>
+>> While at it, change start_idx and max_len to unsigned long type for
+>> future proofing against THP support at >= PUD level. Also shorten
+>> expected_anon_exclusive -> anon_exclusive.
+>>
+>> Signed-off-by: Dev Jain <dev.jain@arm.com>
+>> ---
+>>  include/linux/mm.h | 19 +++++++++++++++++++
+>>  mm/mprotect.c      | 17 -----------------
+>>  2 files changed, 19 insertions(+), 17 deletions(-)
+>>
+>> diff --git a/include/linux/mm.h b/include/linux/mm.h
+>> index dd09c438fa23e..63da8813bc5df 100644
+>> --- a/include/linux/mm.h
+>> +++ b/include/linux/mm.h
+>> @@ -244,6 +244,25 @@ static inline unsigned long folio_page_idx(const struct folio *folio,
+>>         return page - &folio->page;
+>>  }
+>>
+>> +#ifdef CONFIG_MMU
+>> +/*
+>> + * Get max length of consecutive PTEs pointing to PageAnonExclusive() pages or
+>> + * !PageAnonExclusive() pages, starting from start_idx. Caller must enforce
+>> + * that the PTEs point to consecutive pages of the same anon large folio.
+>> + */
+>> +static __always_inline int page_anon_exclusive_batch(unsigned long start_idx,
+>> +               unsigned long max_len, struct page *first_page, bool anon_exclusive)
+>> +{
+>> +       int idx;
+>> +
+>> +       for (idx = start_idx + 1; idx < start_idx + max_len; ++idx) {
+>> +               if (anon_exclusive != PageAnonExclusive(first_page + idx))
+>> +                       break;
+>> +       }
+>> +       return idx - start_idx;
+>> +}
+>> +#endif
+>> +
+> 
+> Hi Dev,
+> 
+> I really don't want everything to become a top-level header
+> file. If these are only mm-internal things, could we move them
+> to mm/internal.h or another more appropriate header?
 
-                                            - Troy
+What do you suggest? I had it in mm/internal.h initially, but
+because I had to use the helper this time in patch 4, I couldn't
+do that. The helper will now be used by mprotect.c, rmap.c and
+rmap.h.
 
---f5ad3a7a520e0675d3a1ee0e96ded0c415497e37ee75d1d57e33fbe0b954
-Content-Type: application/pgp-signature; name="signature.asc"
+I can keep it in rmap.h and make mprotect.c include rmap.h too.
 
------BEGIN PGP SIGNATURE-----
 
-iJcEABYKAD8WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCapZvbiEcdHJveS5taXRj
-aGVsbEBsaW51eC5zcGFjZW1pdC5jb20ACgkQmAnvgPkzNC/UBQD/Y06tRaTFNMju
-NM/etVWC7V4lTIYgMiT04x1oaUoz20cA+gOu2r4waOeMxc0picDYJZruXgDd4WEC
-8kbzz6TfWb8A
-=zcf8
------END PGP SIGNATURE-----
+> 
+> Best Regards
+> Barry
 
---f5ad3a7a520e0675d3a1ee0e96ded0c415497e37ee75d1d57e33fbe0b954--
