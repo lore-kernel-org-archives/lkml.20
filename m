@@ -1,147 +1,359 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012024.outbound.protection.outlook.com [40.107.209.24])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BDFD36D51F;
-	Tue,  1 Sep 2026 10:23:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788258231; cv=fail; b=pHcNTZI3iNM6yU7cjEaiRrPVQKPiuZD8ezYnrkaqwSFsR3ngRx7v57TeRot/XM8Pn3CgNexK6u5HCR8kEMA9QS3Sowvg/xuv1VGKiB0ZxxgR18/Dy+CZD4c1GhleadSennX7pcN+E9wPZTVOAcceKRMO2THmNnTEWQbWM5UunB0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788258231; c=relaxed/simple;
-	bh=8qdCKpSYEqyK3CR4mlD1IKDbMPyFGCq9QQGWvL2vR1s=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=WVl4glBL3GsjvRcvQYmKecP6tjSbc5aqeD4/WpSokHONWQ0o6PXaRGeHxA25xNpa21Qss5T5KM5xn+3RrX4JpaSzz4soBMksnSLiJhqWtwmH2BFYAyQ8sgEMOuWixMXaxZdIJcPS8/r9aco+bbLDaya8yve3Ri/UesTxO79mz+o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=hkAs5N7j; arc=fail smtp.client-ip=40.107.209.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EBAE3CF200;
+	Tue,  1 Sep 2026 10:24:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788258262; cv=none; b=uw0yQbIjSRvyoK5KlozZn98V979zkCTDjAeHfIaqdIvjtI9Eyhf5a0tco1oDvsliMnc3N1hmUYf+wZDzVgtu7ewuyqCGb5/LbFn6ye0RF+LF/py8A+5U06QtRYkAp6vM0NqnlpzBaUbAGv3PXqSrmHO2BEN6Y8kFBJqUK/Axxvk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788258262; c=relaxed/simple;
+	bh=cGW1WXJrvVzJ/S1ck1iQRsXFKZYSE8rJYD1Iqr5ZDF8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=m0Ju3KZAlZggTDjg7ixk1umaZtAMS0csjQn1HHBMj6ly8gxneT97eF7NHhhzKejqCOnDpDebqrPs3ETT2vBvQTfUhMNAjwgz5Hct9/hD55C9mmECnTZrEE7S9Em6SFsY6kqP46/1I7pyMMqnOZptm5Gt53rkKjfy4xtQQ0Py3RI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YGNhqOhC; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="hkAs5N7j"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mqUss/bX1ZSclo3x5P+rwX5lGKGSHmGE2KkJO+bJ/MD0xlY4I5TCXw/ihVXS3Upoor0YqcxcSs0243S5ZxzLRAR+dPlqZxdpGcpP6f1JzJSYNI/6E2XvjeppAaT09XS6zurR6RHOFYe30Hnjmcrf5o8OO+fAiFU9um+OVipCUCaMbxESD5qC9mOgpR6ZPC3UNmSii9KDcl5IlAXCLuSqsNzDJfsTus892tTHTFbvqwzgiKWur4crR336jTOeJSbcfN8h1NGPuLDaxbxRGROHJ6UaqILpgB4rNfXerVtjw/vqhy/pxyXL8R4dMmembD99aCw8pgO+2s9lyVawTP5AVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8wAvgHvAsFSGMmCOH4Y6I42T3RK48q+2JbibJ/wTpOk=;
- b=LKHV6mjAqu1/pdfUFSJS/qnla8gAzVGRDv7sDlKsKttZpyvBwr2Wa+lDXRwn0NrJgFbBJ6aO6wUuit+Yq4EaPZUODtz4WPW1ontKXSPrTaPpRglU1lAwLscGHRoXjzeg8UuRVbwqmfpZpheJtcadrhM30Q4Y+WYbW8ZxyerqGodj71KcB6Msr3uHZltTsUGeEO8TP5EIKfAr+dN3Aif6lxg2jIvfTsht6GC3PITmXW3ZNgHjTAbOGsvxrnhXit/omYJi9N9YvOZRbPBWpbIYTvdMh45WXMQv/RaD9uBNQRF6qeKpDnV4NCxIbRkC+5KVtXLFCMb3zlmUd4wEVmde0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8wAvgHvAsFSGMmCOH4Y6I42T3RK48q+2JbibJ/wTpOk=;
- b=hkAs5N7jTskER8I6vCO6DGJCCeZVEEIJWkbxjhC7vdtE9Wve28LAkWBRAs/MCfAzk2QNC2wkZ9NtFrJgjZoyjWt5be9UNtTR+tOLhAomh8R+pdjB8wrufEbn0s7N2KjDEkPa5pPNNKX1XYqQjxmf7BhnRTkUy1qhRh0C2+wKdCM=
-Received: from SA0PR12CA0030.namprd12.prod.outlook.com (2603:10b6:806:6f::35)
- by DS2PR12MB108293.namprd12.prod.outlook.com (2603:10b6:8:404::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 10:23:44 +0000
-Received: from SN1PEPF00036F3D.namprd05.prod.outlook.com
- (2603:10b6:806:6f:cafe::3b) by SA0PR12CA0030.outlook.office365.com
- (2603:10b6:806:6f::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Tue, 1
- Sep 2026 10:23:44 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SN1PEPF00036F3D.mail.protection.outlook.com (10.167.248.21) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 10:23:43 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 1 Sep
- 2026 05:23:43 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 1 Sep
- 2026 05:23:42 -0500
-Received: from amd-B550M-DS3H.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Tue, 1 Sep 2026 05:23:39 -0500
-From: Syed Saba Kareem <syed.sabakareem@amd.com>
-To: Mark Brown <broonie@kernel.org>, <alsa-devel@alsa-project.org>
-CC: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Sunil-kumar Dommati
-	<Sunil-kumar.Dommati@amd.com>, Syed Saba Kareem <Syed.SabaKareem@amd.com>,
-	<eraleexxx@gmail.com>, Venkata Prasad Potturu
-	<venkataprasad.potturu@amd.com>, Liam Girdwood <lgirdwood@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Zhang Heng
-	<zhangheng@kylinos.cn>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Tommaso Soncin <soncintommaso@gmail.com>, Gustavo Salvini
-	<guspatagonico@gmail.com>, "open list:AMD ASoC DRIVERS"
-	<linux-sound@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
-Subject: [PATCH] ASoC: amd: yc: Add DMI entry for HP 255R G10 laptop
-Date: Tue, 1 Sep 2026 15:53:26 +0530
-Message-ID: <20260901102338.26403-1-syed.sabakareem@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YGNhqOhC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788258260; x=1819794260;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=cGW1WXJrvVzJ/S1ck1iQRsXFKZYSE8rJYD1Iqr5ZDF8=;
+  b=YGNhqOhCzhRjqgBblvQSmA/R+W5Bl19KEYYRxmyGl5QdAm5IZ7ZrbXyt
+   chc73y+V1DvSsfS2E0SSnq2644oiNilrAICq4eRf2j7ZCtCHjXwfIcyH4
+   iB+ljB5bNjbCNk34q/o74RFyftFW1J9g29udHe8gZ5jNhjwLMkE65l+Sq
+   Wh3rm/1M3ewHmEBTyBSkiNXoh+nTh1P7I2joT9iIRl/koJLC7as5nNPnx
+   ECIhdJ+YSDgGeF4ooDYQXTd+71aKmboAoXuGniB7XtIzUxZDPOct+wlS/
+   4vNdeILAOz5M2PhT9dFVCIxzM+SOo9vTZZ7wXlLVEtmEhdCCxk8s+Ofdo
+   w==;
+X-CSE-ConnectionGUID: ZlDi+bLIQj2pDEEEkkJRPQ==
+X-CSE-MsgGUID: RFgIzWTgSYyBYVd6MwPOpQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="99283105"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="99283105"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 03:24:20 -0700
+X-CSE-ConnectionGUID: +2Jv+uXXS1yHS5Ny15/jrQ==
+X-CSE-MsgGUID: mYFy3lSqQZCabYSgKUTGUg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="270997919"
+Received: from slindbla-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.216])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 03:24:18 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id C851A121BD8;
+	Tue, 01 Sep 2026 13:24:14 +0300 (EEST)
+Date: Tue, 1 Sep 2026 13:24:14 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Sahan Nissanka <adee.sahan@gmail.com>
+Cc: platform-driver-x86@vger.kernel.org, dan.scally@ideasonboard.com,
+	hansg@kernel.org, ilpo.jarvinen@linux.intel.com, linux@cdrolet.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] platform/x86: int3472: Add TPS68470 board data for
+ Dell 7320 Detachable
+Message-ID: <apanzqDR-4UbJZ5F@kekkonen.localdomain>
+References: <20260816070108.9308-1-adee.sahan@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00036F3D:EE_|DS2PR12MB108293:EE_
-X-MS-Office365-Filtering-Correlation-Id: 48070c1a-42b0-46b8-3c46-08df081319ad
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|23010399003|7416014|376014|18002099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	opM7CyA8zwzAQdEV09548PQGb9WaKEpw9kmK4QHpu0N2wSlIysOLtk3pYY9Pw+NlICNbueQJGtwaDp5aSmFYUYZhwitzECNpUFisMVFMhjThzO27BEZ413eTGmUtRETclp4Coj3PWZhefeJy98hr8GfVs8jDpqAAA+GkvwVAAEnJB5HvLr1xuxsn37uEFQks5hys/KyMwhphl3dYhieb9RX73skTpRvev79jERhHyzUttR27mDayF6bNfpYZkXwxfOe0RoE7Bu+q9V/4lFA1e0PKDLfpSzVfWsdU1zjqnp6kMSLuAk8y0aDOJNf9rkIH9R2c/rFL6ic3Y7E1YmaE18bexY7f/Z68vuMMU4kHOgEx/crfwXCseptwo2ouAR9cIlvZFNxETO9wiemcJeri5Kt/ssENi6VLj9B+aODD/wE7N1yEFkdfiJ3JxATXRSnjs4QRuKBGzqQD4TYZUbil7TupFaMAfxO5+wyFUrJxNVjGfFsrhKa6r4TV0NmfbBSS5h7QDItWM5uaf92EiaVl33oUxfczz/v8svaV84i1q9Iu1B98A59x1Bm6Pd2XjcE8kqc6Ms+JdcB1TXncpaDZRvwzcvLHPmiDnj+nmYY3xtTo22IoQYtTt69pzCEypRGRG4eeBgrsuc2irJQrJnFybqB7EtZsHHre4oNa0W6eJdZ1Fxf1fAn7/jjIvq4hFM8nlGIe1BOHIUkP0k3/S3ih8Q==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(7416014)(376014)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	HZyujoVh8eL18W5jG35rFF6mzN2XdI4G/Y9sMCZr/Xd+adQJ4zer1C1Ho/CY/YMYXbxCUyxhM2h3EVuPH+JWwRv4tT5FkYbrNlrQcvO67RxHjSkKwI+6uIXFmqYGym5yHDGvfF+0JkGfU4Z7gZskvgUIOU/E/DNhqwZemUOozYufWJnv9LBsKaGHJW2lY9X32A2SGMzJlCM9dwo3TcpvVK6YDHlTEBH2WoX3lfRNC/X+tPcQJf9y3aFQFA9nDP0ao8hfP7af3ZmTpuHmfDxfHmrMOArm4bKSlr3Y7/2PfBG7+x7dcVgWCbgSjl8pM39nYI1o5n5EuIXZ2cacBF6PZRMxN3yyNk8/3PikTeDpH+UvUI9K+2OUTWXFMz9nK0gpiyFBFIDylpdu5erNMPsAzV2HO+khRmLti1VzbUgFg3L4PWs9vnz5Tse4i7CIKO8Q
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 10:23:43.7422
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 48070c1a-42b0-46b8-3c46-08df081319ad
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SN1PEPF00036F3D.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB108293
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260816070108.9308-1-adee.sahan@gmail.com>
 
-From: Syed Saba Kareem <Syed.SabaKareem@amd.com>
+Hi Sahan,
 
-The HP 255R G10 laptop has an internal DMIC connected
-to the AMD ACP6x audio coprocessor.
-Add a DMI quirk entry so the internal microphone is
-properly detected on this model.
+Thanks for the patch.
 
-Reported-by: eraleexxx@gmail.com
-Signed-off-by: Syed Saba Kareem <Syed.SabaKareem@amd.com>
----
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+On Sun, Aug 16, 2026 at 05:01:03PM +1000, Sahan Nissanka wrote:
+> The Dell Latitude 7320 Detachable has two MIPI cameras behind an Intel
+> IPU6, both powered by a TPS68470 PMIC. Without board data the PMIC
+> driver fails:
+> 
+>   int3472-tps68470 i2c-INT3472:07: error -ENODEV: No board-data found
+>   for this model
+> 
+> and because the sensors declare an ACPI _DEP on the control logic they
+> are never enumerated at all - no i2c client is created for either of
+> them, so nothing can bind them.
+> 
+> Add board data for the front sensor, which ACPI describes as OVTI5678.
+> Reset is on tps68470-gpio 5, active low. There is no powerdown pin.
+> 
+> On its own this patch clears the -ENODEV, registers the seven rails and
+> the reset lookup, and lets the two i2c clients be created. No sensor
+> driver binds yet: ov5675 does not recognise the OVTI5678 ACPI id, and
+> that is a separate change to a different subsystem which this patch does
+> not depend on.
+> 
+> The reset line was established by making the probe fail rather than by
+> observing that the camera works: held physically low the sensor does not
+> identify, held high it does, and driving tps68470-gpio 3 has no effect
+> either way. That distinction matters here, because the sensor probes
+> with no pin assignment at all - the line sits released by default - so a
+> wrong mapping is invisible in normal operation. Charles Drolet found
+> this and ran the control test; it has since been reproduced on a second
+> Latitude 7320 Detachable, three trials per condition, which also
+> confirms the board data describes the model rather than one machine.
+> 
+> The individual supply assignment could not be determined. The sensor's
+> i2c bus only responds when VSIO, AUX1 and AUX2 are all enabled together,
+> so no experiment here distinguishes which rail feeds avdd, dvdd or
+> dovdd, and the voltages suggest these rails act as enables for
+> regulators further down rather than as the supplies themselves. What is
+> established is that this set of rails must be enabled: with the
+> conventional ANA/CORE/VSIO mapping the sensor does not respond at all.
+> 
+> The rails that have no consumers are given their own regulator_init_data
+> rather than borrowing the Dell 7212's. They hold identical values today,
+> but sharing them couples two unrelated machines: the 7212 has a second
+> camera that is not registered yet, and adding it would mean giving those
+> structures consumer supplies, which this board would then silently
+> inherit.
+> 
+> Note the control logic here enumerates as INT3472:07, not :05 as on the
+> other Dell models in this file. The board data lookup matches on DMI and
+> device name, so this has to be exact. Note also that a Dell Latitude
+> 7320 laptop exists which is a different machine without an IPU6, hence
+> "detachable" throughout.
+> 
+> The rear OVTI8856 sensor shares this PMIC. It is left out deliberately:
+> it needs changes to ov8856 beyond board data, and it exhibits a suspend
+> regression that the front sensor does not, so it belongs in its own
+> patch.
 
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index 3f852393fc99..e4456249958a 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -878,6 +878,13 @@ static const struct dmi_system_id yc_acp_quirk_table[] = {
- 			DMI_MATCH(DMI_BOARD_NAME, "TM2423"),
- 		}
- 	},
-+	{
-+		.driver_data = &acp6x_card,
-+		.matches = {
-+			DMI_MATCH(DMI_BOARD_VENDOR, "Hewlett-Packard"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "HP 255R 15.6 inch G10 Notebook PC"),
-+		}
-+	},
- 	{}
- };
- 
+The commit message is too big, please keep only the essentials.
+
+We'll also need a driver for the ov5678 and I believe that requires the
+Common Raw Sensor Model patches so it'll still take a while.
+
+> 
+> Co-developed-by: Charles Drolet <linux@cdrolet.dev>
+> Signed-off-by: Charles Drolet <linux@cdrolet.dev>
+> Signed-off-by: Sahan Nissanka <adee.sahan@gmail.com>
+> ---
+> Rebased onto v7.2-rc7; v1 was generated against v7.0, before the MSI
+> Prestige AI+ Evo and Intel NVL entries landed in this file.
+> 
+> Changes since v1 [1]:
+>  - Reset is on tps68470-gpio 5, not 3. Established by holding the line low
+>    and making the probe fail, with gpio 3 driven as a control; reproduced
+>    on a second Latitude 7320 Detachable, three trials per condition, which
+>    also shows the board data describes the model and not one machine.
+>  - Dropped the powerdown lookup rather than correcting it. ov5675.c only
+>    ever requests "reset", so no "powerdown" con_id was ever looked up.
+>  - Dropped the CLDB C0W4=3 corroboration from the commit message. It
+>    agreed with the wrong pin.
+>  - Rewrote the supply paragraph. v1 claimed the rail assignment was
+>    confirmed on hardware; it is not determinable here, because the
+>    sensor's i2c bus only responds when VSIO, AUX1 and AUX2 are all
+>    enabled together. What is established is that this set of rails must
+>    be enabled, not which one feeds which supply.
+>  - Gave the consumerless rails their own regulator_init_data instead of
+>    sharing the Dell 7212's. The values are identical today, but the 7212
+>    has a second camera that is not registered yet; adding it would mean
+>    giving those structures consumer supplies, which this board would then
+>    silently inherit. Suggested by Charles Drolet.
+>  - Declared VIO always_on at VSIO's voltage, as the Surface Go entry does,
+>    rather than valid_ops_mask = REGULATOR_CHANGE_STATUS as inherited from
+>    the 7212 in v1. This corrects the description, not the behaviour: VIO
+>    is registered with tps68470_always_on_reg_ops, which implements neither
+>    .enable nor .disable, so v1 declared a capability the ops do not
+>    provide and the rail is on either way. Confirmed on hardware - VIO
+>    comes up with use_count 1 and no sysfs "state" attribute, which is the
+>    always_on signature and not seen on the other six rails.
+>  - Named everything dell_7320_detachable_* rather than after the sensor.
+>    A product may carry several sensors, the same sensor may be wired
+>    differently elsewhere, and a Dell Latitude 7320 laptop exists which is
+>    a different machine without an IPU6. Also suggested by Charles Drolet.
+>  - Added Co-developed-by/Signed-off-by for Charles Drolet, who found the
+>    reset line and ran the control test. He also booted an earlier draft of
+>    this patch on v7.2-rc7, applied by hand, and confirmed the -ENODEV is
+>    gone with no other effect; the VIO change below postdates that test.
+>  - Sent standalone. Patches 2/3 and 3/3 of the v1 series are held pending
+>    the discussion on 2/3 [2] about non-Bayer output and the metadata
+>    series; this patch does not depend on them.
+> 
+> No tps68470_gpio_swnode: the daisy-chain-enable property exists to put
+> GPIOs 1 and 2 into input mode for the PMIC's i2c pass-through, which this
+> machine does not use - both sensors are direct ACPI i2c clients.
+> 
+> [1] https://lore.kernel.org/all/20260809042540.15849-1-adee.sahan@gmail.com/
+> [2] https://lore.kernel.org/all/anmHRjxruBaYQRaC@kekkonen.localdomain/
+> 
+>  .../x86/intel/int3472/tps68470_board_data.c   | 120 ++++++++++++++++++
+>  1 file changed, 120 insertions(+)
+> 
+> diff --git a/drivers/platform/x86/intel/int3472/tps68470_board_data.c b/drivers/platform/x86/intel/int3472/tps68470_board_data.c
+> index c535424..2312c26 100644
+> --- a/drivers/platform/x86/intel/int3472/tps68470_board_data.c
+> +++ b/drivers/platform/x86/intel/int3472/tps68470_board_data.c
+> @@ -369,6 +369,102 @@ static const struct tps68470_regulator_platform_data intel_nvl_tps68470_pdata =
+>  	},
+>  };
+>  
+> +/* Settings for Dell Latitude 7320 Detachable */
+> +
+> +static struct regulator_consumer_supply dell_7320_detachable_vsio_consumer_supplies[] = {
+> +	REGULATOR_SUPPLY("avdd", "i2c-OVTI5678:00"),
+> +};
+> +
+> +static struct regulator_consumer_supply dell_7320_detachable_aux1_consumer_supplies[] = {
+> +	REGULATOR_SUPPLY("dvdd", "i2c-OVTI5678:00"),
+> +};
+> +
+> +static struct regulator_consumer_supply dell_7320_detachable_aux2_consumer_supplies[] = {
+> +	REGULATOR_SUPPLY("dovdd", "i2c-OVTI5678:00"),
+> +};
+> +
+> +static const struct regulator_init_data dell_7320_detachable_core_reg_init_data = {
+> +	.constraints = {
+> +		.min_uV = 1200000,
+> +		.max_uV = 1200000,
+> +		.apply_uV = 1,
+> +		.valid_ops_mask = REGULATOR_CHANGE_STATUS,
+> +	},
+> +};
+> +
+> +static const struct regulator_init_data dell_7320_detachable_ana_reg_init_data = {
+> +	.constraints = {
+> +		.min_uV = 2815200,
+> +		.max_uV = 2815200,
+> +		.apply_uV = 1,
+> +		.valid_ops_mask = REGULATOR_CHANGE_STATUS,
+> +	},
+> +};
+> +
+> +static const struct regulator_init_data dell_7320_detachable_vcm_reg_init_data = {
+> +	.constraints = {
+> +		.min_uV = 2815200,
+> +		.max_uV = 2815200,
+> +		.apply_uV = 1,
+> +		.valid_ops_mask = REGULATOR_CHANGE_STATUS,
+> +	},
+
+There are no consumers for these three. Are they needed?
+
+> +};
+> +
+> +/* Ensure the always-on VIO regulator has the same voltage as VSIO */
+> +static const struct regulator_init_data dell_7320_detachable_vio_reg_init_data = {
+
+See
+<URL:https://lore.kernel.org/linux-media/20260831160754.9857-6-tchatard@gmail.com/>.
+
+> +	.constraints = {
+> +		.min_uV = 1800600,
+> +		.max_uV = 1800600,
+> +		.apply_uV = 1,
+> +		.always_on = 1,
+> +	},
+> +};
+> +
+> +static const struct regulator_init_data dell_7320_detachable_vsio_reg_init_data = {
+> +	.constraints = {
+> +		.min_uV = 1800600,
+> +		.max_uV = 1800600,
+> +		.apply_uV = 1,
+> +		.valid_ops_mask = REGULATOR_CHANGE_STATUS,
+> +	},
+> +	.num_consumer_supplies = ARRAY_SIZE(dell_7320_detachable_vsio_consumer_supplies),
+> +	.consumer_supplies = dell_7320_detachable_vsio_consumer_supplies,
+> +};
+> +
+> +static const struct regulator_init_data dell_7320_detachable_aux1_reg_init_data = {
+> +	.constraints = {
+> +		.min_uV = 1213200,
+> +		.max_uV = 1213200,
+> +		.apply_uV = 1,
+> +		.valid_ops_mask = REGULATOR_CHANGE_STATUS,
+> +	},
+> +	.num_consumer_supplies = ARRAY_SIZE(dell_7320_detachable_aux1_consumer_supplies),
+> +	.consumer_supplies = dell_7320_detachable_aux1_consumer_supplies,
+> +};
+> +
+> +static const struct regulator_init_data dell_7320_detachable_aux2_reg_init_data = {
+> +	.constraints = {
+> +		.min_uV = 1800600,
+> +		.max_uV = 1800600,
+> +		.apply_uV = 1,
+> +		.valid_ops_mask = REGULATOR_CHANGE_STATUS,
+> +	},
+> +	.num_consumer_supplies = ARRAY_SIZE(dell_7320_detachable_aux2_consumer_supplies),
+> +	.consumer_supplies = dell_7320_detachable_aux2_consumer_supplies,
+> +};
+> +
+> +static const struct tps68470_regulator_platform_data dell_7320_detachable_tps68470_pdata = {
+> +	.reg_init_data = {
+> +		[TPS68470_CORE] = &dell_7320_detachable_core_reg_init_data,
+> +		[TPS68470_ANA]  = &dell_7320_detachable_ana_reg_init_data,
+> +		[TPS68470_VCM]  = &dell_7320_detachable_vcm_reg_init_data,
+> +		[TPS68470_VIO]  = &dell_7320_detachable_vio_reg_init_data,
+> +		[TPS68470_VSIO] = &dell_7320_detachable_vsio_reg_init_data,
+> +		[TPS68470_AUX1] = &dell_7320_detachable_aux1_reg_init_data,
+> +		[TPS68470_AUX2] = &dell_7320_detachable_aux2_reg_init_data,
+> +	},
+> +};
+> +
+>  static struct gpiod_lookup_table surface_go_int347a_gpios = {
+>  	.dev_id = "i2c-INT347A:00",
+>  	.table = {
+> @@ -411,6 +507,14 @@ static struct gpiod_lookup_table intel_nvl_tps68470_gpios = {
+>  	}
+>  };
+>  
+> +static struct gpiod_lookup_table dell_7320_detachable_gpios = {
+> +	.dev_id = "i2c-OVTI5678:00",
+> +	.table = {
+> +		GPIO_LOOKUP("tps68470-gpio", 5, "reset", GPIO_ACTIVE_LOW),
+> +		{ }
+> +	}
+> +};
+> +
+>  static const struct property_entry int3472_tps68470_daisy_chain_gpio_props[] = {
+>  	PROPERTY_ENTRY_BOOL("daisy-chain-enable"),
+>  	{ }
+> @@ -469,6 +573,15 @@ static const struct int3472_tps68470_board_data intel_nvl_tps68470_board_data =
+>  	},
+>  };
+>  
+> +static const struct int3472_tps68470_board_data dell_7320_detachable_tps68470_board_data = {
+> +	.dev_name = "i2c-INT3472:07",
+> +	.tps68470_regulator_pdata = &dell_7320_detachable_tps68470_pdata,
+> +	.n_gpiod_lookups = 1,
+> +	.tps68470_gpio_lookup_tables = {
+> +		&dell_7320_detachable_gpios,
+> +	},
+> +};
+> +
+>  static const struct dmi_system_id int3472_tps68470_board_data_table[] = {
+>  	{
+>  		.matches = {
+> @@ -529,6 +642,13 @@ static const struct dmi_system_id int3472_tps68470_board_data_table[] = {
+>  		},
+>  		.driver_data = (void *)&intel_nvl_tps68470_board_data,
+>  	},
+> +	{
+> +		.matches = {
+> +			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
+> +			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Latitude 7320 Detachable"),
+> +		},
+> +		.driver_data = (void *)&dell_7320_detachable_tps68470_board_data,
+> +	},
+>  	{ }
+>  };
+>  
+> 
+> base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+> -- 
+> 2.53.0
+> 
+
 -- 
-2.43.0
-
+Sakari Ailus
