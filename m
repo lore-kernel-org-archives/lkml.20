@@ -1,93 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00E4472084;
-	Tue,  1 Sep 2026 13:31:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 955092D5C7A;
+	Tue,  1 Sep 2026 13:31:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788269470; cv=none; b=C/nwjwNUO/4+PW0smwYXnUyNUrKvKAa0VaDkpFxVY8getajV6pcGxzZuYQ8S9HdKqW6l6s+5NaDw/otNGAiSbiwwngthucquZAN278xrK6oCV92+yjx6MN04eUMQYkXfy0CcsS/7JwEdRvZDO4bWJvfKCIyUxZ0MZGT58Z+2CBQ=
+	t=1788269514; cv=none; b=auVUzeXwGSc5EGmmIS1b+d4fvN6ZdgGe5SmdnHGDga4yEjVnjxuyEjxm+6sPxWD7NhA0QPmT5m43izR3GUNLVCLYuDIprdmXcyI0DhkspjisaT9XobSntwHTiUV8JEi7srtZo29iwism3w1RYc8WEOl60bk5vWPs4RNL+DrBPAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788269470; c=relaxed/simple;
-	bh=fSWLmEM+qUKvuvXBfZA/dIZDxpUvtz6idNCD9qf/v+c=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=uHcuGRQQg3glr9kUwswRHTuN1TWLNx7d5oUs46C4XLpWRtdd8NDAvinDkX6sHAYaO4VCuVuLBB6OFKsOFxyMxi8b+isHGrxGL1ndNfe1FyEl0zscGWzEOqTn6ychXmgyzGl9YAOU0e7O0dhj578wfpb72/ZV6l1A1fVZrKg/qHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZjNyuvUU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788269514; c=relaxed/simple;
+	bh=YEEfDWcVQSOt8i+UkQ9KrXw4s9RdNf6QPRcsBXOUzRg=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=vGm4jmYwwClDkSI/JoZuQBgJHLjlcRTAzUd6RhfTWoOZJS3KG9NruLJIv+hjF8ZQ/dhrDPKEttRG1v3jF66jVD+VdY62g3PjRlgGRi9TOUr/axKkkOfQ5kZ/vAZLWFI0rguJ/gdL06DbhUbHoBkar+31inKGFR28MBQOgYwW4vM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=locj2gEd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZjNyuvUU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83BAF1F000E9;
-	Tue,  1 Sep 2026 13:31:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="locj2gEd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4786B1F000E9;
+	Tue,  1 Sep 2026 13:31:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788269469;
-	bh=pY3Mevs5Q+7bXSl27PgPi8DZPEJ4oPIVYsmCCQIuEP8=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=ZjNyuvUUl4lJrerjX/MBp0tAcJ34HSJ262VzhSvfllK+j+/vGnaLoGlDZb5Dkyl2j
-	 3ojZOGB1Qfjvhm8KQEJos4CypJFqEnj/FNSfCvLMgt2CX5c1M20Ia5XTUhjGzhJVme
-	 YL4DfMh/zBHQEvFXO/UCz61CCU4hi98rtspftnkEO5ecq1R5NR+jSo3fcwUhve6cDt
-	 FXzW316h6FbCOGMSH37DR5yYUQRfx4Wv4g0hPVSVnx9aNfqs/UqVdl4Wvw8Gyk3FLo
-	 QXrtIvTFCBoxHCPLzRrzBOt227hUIpLhVVVSWu8qAgMeLEuQSZtKRp2fbAREqLhyiF
-	 UcZJWw9CQiRHQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 568E43924FF0;
-	Tue,  1 Sep 2026 13:30:13 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1788269513;
+	bh=9G3JvIjUOuywtO0FoKWwJSNlg8jMIMjHfgK7s4gduAQ=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=locj2gEdIeJlVn8Cf5Ksncp1iv4q6IbuGIaLHEKXHRYE/RuLK2HsJ1vd0Dj4m5SZ9
+	 qG3teN4/n5BYnGkugnLX5N558umJMX+GNoGZWhXAAVgo4PTiSZxJnlBG91EIrw6jMj
+	 bb247KfWNPPuw6Z7qDOgGHuzUTzQgIhxlWHT0e3Qa/NbZC+pS+RAQtHS8cX1VhSHRo
+	 RGJ4/BF870L4uwyRmpcIC85J1fUzaBmZjHnwkJkg6K44llz9nwvnbAYAip8YvoIQC8
+	 AD+KNdomhMwlCIwdC2/AqjMejMPA5gxOdUp7LTIb7V4IH9X/cRfBX1uI8IgvHjMx4k
+	 SkL8as1956xXQ==
+Content-Type: multipart/mixed; boundary="===============5494999732548298953=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v2 0/3] netlink: specs: rt-link: ipv6 devconf
- updates
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178826941214.1182020.17205509719306465886.git-patchwork-notify@kernel.org>
-Date: Tue, 01 Sep 2026 13:30:12 +0000
-References: <20260831093458.472180-1-ast@fiberby.net>
-In-Reply-To: <20260831093458.472180-1-ast@fiberby.net>
-To: =?utf-8?b?QXNiasO4cm4gU2xvdGggVMO4bm5lc2VuIDxhc3RAZmliZXJieS5uZXQ+?=@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org
-Cc: donald.hunter@gmail.com, kuba@kernel.org, davem@davemloft.net,
- edumazet@google.com, pabeni@redhat.com, horms@kernel.org, fmaurer@redhat.com,
- danieller@nvidia.com, fmancera@suse.de, g.goller@proxmox.com,
- prohr@google.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Message-Id: <46b7038550e5d5ed680c36ee4e9bd96429b9bd85b600c257a254fe73b17d6e19@mail.kernel.org>
+In-Reply-To: <20260901120013.16104-1-cp0613@linux.alibaba.com>
+References: <20260901120013.16104-1-cp0613@linux.alibaba.com>
+Subject: Re: [PATCH bpf-next] bpf, riscv: Register extable entries at probe insn call sites
+From: bot+bpf-ci@kernel.org
+To: cp0613@linux.alibaba.com,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,memxor@gmail.com,bjorn@kernel.org,puranjay@kernel.org
+Cc: ihor.solodrai@linux.dev,eddyz87@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,pulehui@huawei.com,pjw@kernel.org,palmer@dabbelt.com,shuah@kernel.org,guoren@kernel.org,bpf@vger.kernel.org,linux-riscv@lists.infradead.org,linux-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue,  1 Sep 2026 13:31:52 +0000 (UTC)
 
-Hello:
+--===============5494999732548298953==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-This series was applied to netdev/net-next.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+> bpf, riscv: Register extable entries at probe insn call sites
+>
+> add_exception_handler() filters insns by matching BPF_MODE() against
+> the probe mode values. These values occupy unused opcode slots and
+> collide with legitimate encodings: BPF_PROBE_MEM32SX (0xc0) shares
+> its mode value with BPF_ATOMIC. Relying on the mode alone therefore
+> risks registering exception table entries for the wrong instructions,
+> as would happen for plain atomics without the LDX class check.
+>
+> Make the decision explicit at the call sites instead: register an
+> entry only when emitting a probe load, a PROBE_MEM32 store, or a
+> PROBE_ATOMIC atomic, and drop the fragile mode gate from
+> add_exception_handler() along with the now unused insn argument. No
+> functional change intended.
+>
+> Signed-off-by: Chen Pei <cp0613@linux.alibaba.com>
 
-On Mon, 31 Aug 2026 09:34:52 +0000 you wrote:
-> This series updates the doc-string for ifla-inet6-conf, and adds
-> two missing ipv6-devconf enum values as identified by Sashiko
-> during review of v1.
-> 
-> Changes:
-> v2:
->  - Update commit message for net-next, and renamed from
->    "netlink: specs: rt-link: fix ipv6 devconf doc"
->  - Add Reviewed-by from Fernando (Thanks).
->  - Sashiko comments:
->    - Added missing enum members accept-ra-min-lft and force-forwarding
->      as patch #2 and #3.
->    - Re: data types: as Jakub wrote in the original commit 720447bd0b24
->      ("netlink: specs: rt-link: remove implicit structs from devconf"):
->      "u32 is probably best we can do right now", as the reality is that
->      the sub-type varies per value.
-> v1: https://lore.kernel.org/20260824103816.40040-1-ast@fiberby.net
-> 
-> [...]
+This looks like a bug fix for the fragile mode-based filtering in
+add_exception_handler(). Should this include:
 
-Here is the summary with links:
-  - [net-next,v2,1/3] netlink: specs: rt-link: update ipv6 devconf doc
-    https://git.kernel.org/netdev/net-next/c/5e63ade19044
-  - [net-next,v2,2/3] netlink: specs: rt-link: add accept-ra-min-lft
-    https://git.kernel.org/netdev/net-next/c/2b0aecb7b2b1
-  - [net-next,v2,3/3] netlink: specs: rt-link: add force-forwarding
-    https://git.kernel.org/netdev/net-next/c/f952040d7016
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+  Fixes: b4757714cc63 ("bpf, riscv: Add support for signed arena loads")
 
 
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33510775602
+--===============5494999732548298953==--
