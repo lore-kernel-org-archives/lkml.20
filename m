@@ -1,245 +1,610 @@
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B986947F779
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:46:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BCC247F774;
+	Tue,  1 Sep 2026 13:46:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788270384; cv=none; b=CcPtlL5EcQ0Z3jZnJ7IbLgdxMYQWNqfFbZ4pCKmVzs8jdmbeBWbfUlf9YbxjtzyEa/BcQYg8fk5dWdFwIr+A0CpAwTaCP79RMBXqGzaLwIHP0qkIsSPUAVv4jx1/4iO+eFLxN2CVONmPKd3IrQ5VRxK+yn0+i6ANHBvv34yVwLw=
+	t=1788270384; cv=none; b=sZevVK7IMBJ4J/nNB8q8OIh7n2lT8DpO77f52qH51gl6dA4YRPtTkFspSx6ScdUdVClkFTx0v+qGsY9BARNhy9dPvqaaMeLsjln3mr4eLoXhjuKZJj/q6/yenISC2h42MnjfTzk6L85cL36KUVom57asKErso7C9vYUiMYjmVZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788270384; c=relaxed/simple;
-	bh=Dr1eFYf0KAOq3d4noAOFx4h+3dYSj5kdLG8+hPm06U4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=qLQohgThTZFx3STB3KYUl2sAlC+IaetyEzBlMxpD02u4j50R9S2XeaWK+2Y3c2v326vrcBF5eJaR50T6/SWpRS/3MtQKX19mrnZTwuP37KBzvcyCFJlX9DHSfFvfE7WLqFKIgkaNkofmnlMdqxpS0iuSG+0TKQ/vj8y2uE+9QyA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rNP3qjVj; arc=none smtp.client-ip=209.85.215.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=Kfs4IGINgfMoEqeRrskcjInH/FLuetnfbTVttMMzGaU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NnZcn1P5QvxGeFiEYnEWx+ShWtinIfmy9z7PDJCiS8+wkjDiwdmAYOeYQoF85X9YH/NT6McbFNrg7QVbDxwm6rl1Gm8U7RqnAykd7B1HLYHzdCPNyepaOzvJ0NJ5jlmADNLF3uCz8e6zwTOXQOQyr2NdoNTQgHb1wuZ0Xw+zE+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jiueAZgL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rNP3qjVj"
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-ca766c1c9ccso3323947a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 06:46:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788270382; x=1788875182; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FDTK3zfJKeOHQ/kUEowX8lWsllkazH/BKZLeMUQjwCQ=;
-        b=rNP3qjVjLYOmqhDyaNIy/7xn/adqumZXSEO+ADZBeYMudNITt6O03VwC3/tBMzbbf0
-         p5LZk7C4FT4ldgFToRNVJ4MN+oHtUROn8sFeiUJwtX4lhkyGFb4c73jdnzP4oowMN2aO
-         v451jIGSaUmC/vm970rx5SiXO7LicpyPKaE0xOCFZ5ei46prjq9anxt9ehBKPv539/kD
-         iqADRlPMF8OE8gYLRzN4ROuDgrBO4iBR0h0ESgHQzytJwitUl1vKSTKvMHDkdLIN0D50
-         kR0bDLKJsxlhieIgJBB99Fnp9S/+pdgSvcc/AsyXcl1CIWwvLs3fbwVn6FnEVJ1rnPd7
-         0I3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788270382; x=1788875182;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FDTK3zfJKeOHQ/kUEowX8lWsllkazH/BKZLeMUQjwCQ=;
-        b=pp+SfbLePnJ6REo7whkaZK13r8yv7qrRAU8rZeHxLebU//WYbYZqDh2SWoFq4WoQSd
-         1Rdvedkr2IsPoQ3LkaS2LtfMv7LZ7xgOK/KcHYKILzs46UjSjh5A3WC6tI41LH5c52sm
-         K669AEPxToMZLaCpO7QNZ2kgI4flMMgi5cWSlcr728k2mg8O928+jSS6u8pmRNNEy1lG
-         MkiYsFOkqPx4pouKIpNGYzdrNnqvc39gKM8bWFNosVhbfPnCkngKGY9u8BBBV1+MRB8k
-         W4R3X3wwqHQetado0/4/uiRyvpeO9h+EwqW6F6nad9Upkgv6HK8RFfUnGeBnlBCee/Xy
-         MWMg==
-X-Forwarded-Encrypted: i=1; AHgh+RpgrqZCyBSS2SWZN/JxaMQZJvBPgfjDQboAcKHa3/Ly/7anE+QbsDOkusSOvDc+q4oXLlH5MDeBVVMMn50=@vger.kernel.org
-X-Gm-Message-State: AFuF++nYeToFU9p+JsE994Pz+Ux8snqU91gTmKlLER++9JR0ZrJ4Urf6
-	DTxuVwnuCdUFdsXOvXLWhtKmn1+KrMylPdGfi7QCuPomGfftxJZb4N0G
-X-Gm-Gg: AR+sD115Bkly26NHHXINIl2qR2IDIV1tfWcTZ9tJdKhsYf3tiNFBwAyksRec+f61nUk
-	MsLotngngoZF+ViwLiYP5nD4NBvK4+gDuhYXVVlqt6++QFATnBYsXU1zGQGFPvBd96jHQuOyVZx
-	j43anmLIggWHHPQXFkItovqOc6Clp4yP0J+HPGkrTz1DyL3rnP0aues6f5J+rtCEM3re0Gk9+Lx
-	otZTUdQ90kZbwwsgkbnV2KekHpj93T9ehsnMVw1XyMd3AM1c23aNZfVygqD7Uwx6I0rjs3eOMBh
-	BCe+H7zle1TDWwwz9wfNipzi3sarM8qsEzYObrc4EX1V3M7CJL7hYY33Q6pIbwrHQYxNzh+2IX4
-	2lwyiEH3XFZ7EyL2koiKUn9BMZ8U8UxY52SZ+JzQAR3vDyYJClaxfRGCoIz8s+ybNHc6LBRxc2b
-	wSLr6y1mtWnGSBuglbMtWMzqLYzHGSAhHwGs4y6W+oo2uED35MdyuAH70ykM4V/wQ9cGf6Mdg2h
-	8IkltF4S+N4sOc=
-X-Received: by 2002:a05:6a00:8015:b0:842:2419:6c0b with SMTP id d2e1a72fcca58-8562b499a0dmr53844448b3a.10.1788270381890;
-        Tue, 01 Sep 2026 06:46:21 -0700 (PDT)
-Received: from pengdl-pc.mioffice.cn ([43.224.245.249])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85be8f52cb4sm1132502b3a.39.2026.09.01.06.46.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 06:46:21 -0700 (PDT)
-From: Donglin Peng <dolinux.peng@gmail.com>
-To: rostedt@goodmis.org
-Cc: mhiramat@kernel.org,
-	dolinux.peng@gmai.com,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	pengdonglin <pengdonglin@xiaomi.com>,
-	Xiaoqin Zhang <zhangxiaoqin@xiaomi.com>
-Subject: [PATCH v5 3/3] tracing: Update funcgraph-retval documentation
-Date: Tue,  1 Sep 2026 21:46:04 +0800
-Message-Id: <20260901134604.4052265-4-dolinux.peng@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260901134604.4052265-1-dolinux.peng@gmail.com>
-References: <20260901134604.4052265-1-dolinux.peng@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jiueAZgL"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 328C91F000E9;
+	Tue,  1 Sep 2026 13:46:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788270381;
+	bh=YNqzvMfecN/wUhv7JKOMy+7NSH0F2db1v55mL1/kjQc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jiueAZgLw8JY7Et8PDBQux6uFIA6fErBJzTnnkVIdot6J2fDLYX8gUgt7oCb55p7k
+	 htCXaV3Phk/tGc1YQjhbeESV8D6bhYAV+QtJmBUg6w7zFuY5OQwuG4cEwDRM546l2v
+	 DLJVJBpUk6Hw98cbC95r35EriA/mipiw2xBYCziI5g5dLvc4qGAQ8ebmT1jOB5Tf3B
+	 K25Mbg+jazzTrhw+AJvyawbkJc+AO65MmSSYJFVCGfoQ2TsZcxYZS2nhGiBV7uDDEW
+	 N1WXHsi4K67dQcDSfPGS6U/Oq+IYKTlhzo7iq2mPcE/R5+bumDKsyEPp+kwLT9lc8C
+	 iqUjfxGZAcM+w==
+Date: Tue, 1 Sep 2026 16:46:17 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Cc: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
+	Jens Wiklander <jenswi@kernel.org>,
+	Sumit Garg <sumit.garg@kernel.org>, Peter Huewe <peterhuewe@gmx.de>,
+	Jason Gunthorpe <jgg@ziepe.ca>, linux-arm-msm@vger.kernel.org,
+	op-tee@lists.trustedfirmware.org, linux-kernel@vger.kernel.org,
+	linux-integrity@vger.kernel.org
+Subject: Re: [PATCH 2/2] firmware: tpm: Introduce tpm-qcom driver
+Message-ID: <apbXKZrjFdK1vrny@kernel.org>
+References: <20260831-tpm_qcom_driver-v1-0-6f16fa6924fa@oss.qualcomm.com>
+ <20260831-tpm_qcom_driver-v1-2-6f16fa6924fa@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831-tpm_qcom_driver-v1-2-6f16fa6924fa@oss.qualcomm.com>
 
-From: pengdonglin <pengdonglin@xiaomi.com>
+Short summary has a different driver name that is implemented i.e.,
+it should has "tpm_qcom", not "tpm-qcom".
 
-The existing documentation for funcgraph-retval is outdated and partially
-incorrect, as it describes limitations that have now been resolved.
+On Mon, Aug 31, 2026 at 03:13:01PM +0530, Kuldeep Singh wrote:
+> Add a TPM chip driver for platforms where a TPM 2.0 instance is
+> implemented by a Trusted Application (TA) running in Qualcomm's Trusted
+> Execution Environment (QTEE), reachable over the QCOMTEE object-IPC
+> transport.
+> 
+> The driver discovers the qcom.tz.tpm TEE-bus device, opens a session
+> with the TPM TA, and register with tpm interface. This exposes the TA
+> through the standard /dev/tpm interface and the existing tpm2 command
+> layer. OS need not be aware underlying TPM instance is dTPM or fTPM.
+> 
+> Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+> ---
+>  MAINTAINERS                 |   7 +
+>  drivers/char/tpm/Kconfig    |   9 ++
+>  drivers/char/tpm/Makefile   |   1 +
+>  drivers/char/tpm/tpm_qcom.c | 371 ++++++++++++++++++++++++++++++++++++++++++++
+>  drivers/char/tpm/tpm_qcom.h |  82 ++++++++++
 
-Recent changes (e.g., using BTF to obtain function return types) have
-addressed key issues:
-1. Return values are now printed only for non-void functions.
-2. Values are trimmed to the correct width of the return type, avoiding
-   garbage data from high bits.
+Rename it as tpm_qcom_tee just to be aligned on how Microsoft's fTPM
+driver is named.
 
-Cc: Steven Rostedt (Google) <rostedt@goodmis.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Xiaoqin Zhang <zhangxiaoqin@xiaomi.com>
-Signed-off-by: pengdonglin <pengdonglin@xiaomi.com>
----
- Documentation/trace/ftrace.rst | 88 +++++++++++++++++++---------------
- 1 file changed, 50 insertions(+), 38 deletions(-)
+>  5 files changed, 470 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 47b04968e79a..cfa5b66823c7 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -22636,6 +22636,13 @@ S:	Maintained
+>  F:	Documentation/tee/qtee.rst
+>  F:	drivers/tee/qcomtee/
+>  
+> +QUALCOMM TPM DRIVER
+> +M:	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+> +L:	linux-arm-msm@vger.kernel.org
+> +S:	Maintained
+> +F:	drivers/char/tpm/tpm_qcom.c
+> +F:	drivers/char/tpm/tpm_qcom.h
+> +
+>  QUALCOMM TRUST ZONE MEMORY ALLOCATOR
+>  M:	Bartosz Golaszewski <brgl@kernel.org>
+>  L:	linux-arm-msm@vger.kernel.org
 
-diff --git a/Documentation/trace/ftrace.rst b/Documentation/trace/ftrace.rst
-index 7261f25f8b4b..696bfbede590 100644
---- a/Documentation/trace/ftrace.rst
-+++ b/Documentation/trace/ftrace.rst
-@@ -1483,6 +1483,10 @@ Options for function_graph tracer:
- 	printed in hexadecimal format. By default, this option
- 	is off.
- 
-+  funcgraph-retaddr
-+	When set, the return address will always be printed.
-+	By default, this option is off.
-+
-   sleep-time
- 	When running function graph tracer, to include
- 	the time a task schedules out in its function.
-@@ -2829,7 +2833,7 @@ It is default disabled.
-     0)   2.861 us    |      } /* putname() */
- 
- The return value of each traced function can be displayed after
--an equal sign "=". When encountering system call failures, it
-+an equal sign "ret=". When encountering system call failures, it
- can be very helpful to quickly locate the function that first
- returns an error code.
- 
-@@ -2839,16 +2843,16 @@ returns an error code.
-   Example with funcgraph-retval::
- 
-     1)               |    cgroup_migrate() {
--    1)   0.651 us    |      cgroup_migrate_add_task(); /* = 0xffff93fcfd346c00 */
-+    1)   0.651 us    |      cgroup_migrate_add_task(); /* ret=0xffff93fcfd346c00 */
-     1)               |      cgroup_migrate_execute() {
-     1)               |        cpu_cgroup_can_attach() {
-     1)               |          cgroup_taskset_first() {
--    1)   0.732 us    |            cgroup_taskset_next(); /* = 0xffff93fc8fb20000 */
--    1)   1.232 us    |          } /* cgroup_taskset_first = 0xffff93fc8fb20000 */
--    1)   0.380 us    |          sched_rt_can_attach(); /* = 0x0 */
--    1)   2.335 us    |        } /* cpu_cgroup_can_attach = -22 */
--    1)   4.369 us    |      } /* cgroup_migrate_execute = -22 */
--    1)   7.143 us    |    } /* cgroup_migrate = -22 */
-+    1)   0.732 us    |            cgroup_taskset_next(); /* ret=0xffff93fc8fb20000 */
-+    1)   1.232 us    |          } /* cgroup_taskset_first ret=0xffff93fc8fb20000 */
-+    1)   0.380 us    |          sched_rt_can_attach(); /* ret=0x0 */
-+    1)   2.335 us    |        } /* cpu_cgroup_can_attach ret=-22 */
-+    1)   4.369 us    |      } /* cgroup_migrate_execute ret=-22 */
-+    1)   7.143 us    |    } /* cgroup_migrate ret=-22 */
- 
- The above example shows that the function cpu_cgroup_can_attach
- returned the error code -22 firstly, then we can read the code
-@@ -2865,37 +2869,41 @@ printed in hexadecimal format.
-   Example with funcgraph-retval-hex::
- 
-     1)               |      cgroup_migrate() {
--    1)   0.651 us    |        cgroup_migrate_add_task(); /* = 0xffff93fcfd346c00 */
-+    1)   0.651 us    |        cgroup_migrate_add_task(); /* ret=0xffff93fcfd346c00 */
-     1)               |        cgroup_migrate_execute() {
-     1)               |          cpu_cgroup_can_attach() {
-     1)               |            cgroup_taskset_first() {
--    1)   0.732 us    |              cgroup_taskset_next(); /* = 0xffff93fc8fb20000 */
--    1)   1.232 us    |            } /* cgroup_taskset_first = 0xffff93fc8fb20000 */
--    1)   0.380 us    |            sched_rt_can_attach(); /* = 0x0 */
--    1)   2.335 us    |          } /* cpu_cgroup_can_attach = 0xffffffea */
--    1)   4.369 us    |        } /* cgroup_migrate_execute = 0xffffffea */
--    1)   7.143 us    |      } /* cgroup_migrate = 0xffffffea */
--
--At present, there are some limitations when using the funcgraph-retval
--option, and these limitations will be eliminated in the future:
--
--- Even if the function return type is void, a return value will still
--  be printed, and you can just ignore it.
--
--- Even if return values are stored in multiple registers, only the
--  value contained in the first register will be recorded and printed.
--  To illustrate, in the x86 architecture, eax and edx are used to store
--  a 64-bit return value, with the lower 32 bits saved in eax and the
--  upper 32 bits saved in edx. However, only the value stored in eax
--  will be recorded and printed.
--
--- In certain procedure call standards, such as arm64's AAPCS64, when a
--  type is smaller than a GPR, it is the responsibility of the consumer
--  to perform the narrowing, and the upper bits may contain UNKNOWN values.
--  Therefore, it is advisable to check the code for such cases. For instance,
--  when using a u8 in a 64-bit GPR, bits [63:8] may contain arbitrary values,
--  especially when larger types are truncated, whether explicitly or implicitly.
--  Here are some specific cases to illustrate this point:
-+    1)   0.732 us    |              cgroup_taskset_next(); /* ret=0xffff93fc8fb20000 */
-+    1)   1.232 us    |            } /* cgroup_taskset_first ret=0xffff93fc8fb20000 */
-+    1)   0.380 us    |            sched_rt_can_attach(); /* ret=0x0 */
-+    1)   2.335 us    |          } /* cpu_cgroup_can_attach ret=0xffffffea */
-+    1)   4.369 us    |        } /* cgroup_migrate_execute ret=0xffffffea */
-+    1)   7.143 us    |      } /* cgroup_migrate ret=0xffffffea */
-+
-+Note that there are some limitations when using the funcgraph-retval
-+option:
-+
-+- If CONFIG_DEBUG_INFO_BTF is disabled (n), a return value is printed even for
-+  functions with a void return type. When CONFIG_DEBUG_INFO_BTF is enabled (y),
-+  the return value is printed only for non-void functions.
-+
-+- If a return value occupies multiple registers, only the value in the first
-+  register is recorded and printed. For example, on the x86 architecture, a
-+  64-bit return value is stored across eax (lower 32 bits) and edx (upper 32 bits),
-+  but only the contents of eax are captured. If CONFIG_DEBUG_INFO_BTF is enabled,
-+  the suffix "(trunc)" is appended to the printed value to indicate that the
-+  output may be truncated because high-order register contents are omitted.
-+
-+- Under certain procedure-call standards (e.g., arm64's AAPCS64), when the return
-+  type is smaller than a general-purpose register (GPR), the caller is responsible
-+  for narrowing the value; the upper bits of the register may contain undefined data.
-+  For instance, when a u8 is returned in 64-bit GPR, bits [63:8] can hold arbitrary
-+  values, especially when larger types are truncated (explicitly or implicitly). It
-+  is therefore advisable to inspect the code in such cases. If CONFIG_DEBUG_INFO_BTF
-+  is enabled (y), the return value is automatically trimmed to the width of the return
-+  type.
-+
-+  The following examples illustrate the behavior:
- 
-   **Case One**:
- 
-@@ -2914,7 +2922,9 @@ option, and these limitations will be eliminated in the future:
- 		RET
- 
-   If you pass 0x123456789abcdef to this function and want to narrow it,
--  it may be recorded as 0x123456789abcdef instead of 0xef.
-+  it may be recorded as 0x123456789abcdef instead of 0xef. When
-+  CONFIG_DEBUG_INFO_BTF is enabled, the value will be correctly truncated
-+  to 0xef based on the size constraints of the u8 type.
- 
-   **Case Two**:
- 
-@@ -2939,7 +2949,9 @@ option, and these limitations will be eliminated in the future:
- 		RET
- 
-   When passing 0x2_0000_0000 to it, the return value may be recorded as
--  0x2_0000_0000 instead of 0.
-+  0x2_0000_0000 instead of 0. When CONFIG_DEBUG_INFO_BTF is enabled, the
-+  value will be correctly truncated to 0 based on the size constraints of
-+  the int type.
- 
- You can put some comments on specific functions by using
- trace_printk() For example, if you want to put a comment inside
--- 
-2.34.1
+this change should be a separate patch.
 
+> diff --git a/drivers/char/tpm/Kconfig b/drivers/char/tpm/Kconfig
+> index 5f672f2c01b0..05d704ed3632 100644
+> --- a/drivers/char/tpm/Kconfig
+> +++ b/drivers/char/tpm/Kconfig
+> @@ -243,6 +243,15 @@ config TCG_FTPM_TEE
+>  	help
+>  	  This driver proxies for firmware TPM running in TEE.
+>  
+> +config TCG_QCOM
+> +	tristate "Qualcomm TEE based TPM Interface"
+> +	depends on QCOMTEE
+> +	help
+> +	  This driver provides interface to run TPM instances with Trustzone
+> +	  having Qualcomm TPM TA running in Qualcomm TEE.
+> +	  The mechanism uses the object-IPC based transport provided by
+> +	  QCOMTEE.
+> +
+>  config TCG_SVSM
+>  	tristate "SNP SVSM vTPM interface"
+>  	depends on AMD_MEM_ENCRYPT
+> diff --git a/drivers/char/tpm/Makefile b/drivers/char/tpm/Makefile
+> index 5b5cdc0d32e4..471cbf49afd2 100644
+> --- a/drivers/char/tpm/Makefile
+> +++ b/drivers/char/tpm/Makefile
+> @@ -45,5 +45,6 @@ obj-$(CONFIG_TCG_CRB) += tpm_crb.o
+>  obj-$(CONFIG_TCG_ARM_CRB_FFA) += tpm_crb_ffa.o
+>  obj-$(CONFIG_TCG_VTPM_PROXY) += tpm_vtpm_proxy.o
+>  obj-$(CONFIG_TCG_FTPM_TEE) += tpm_ftpm_tee.o
+> +obj-$(CONFIG_TCG_QCOM) += tpm_qcom.o
+>  obj-$(CONFIG_TCG_SVSM) += tpm_svsm.o
+>  obj-$(CONFIG_TCG_LOONGSON) += tpm_loongson.o
+> diff --git a/drivers/char/tpm/tpm_qcom.c b/drivers/char/tpm/tpm_qcom.c
+> new file mode 100644
+> index 000000000000..00ee61204056
+> --- /dev/null
+> +++ b/drivers/char/tpm/tpm_qcom.c
+> @@ -0,0 +1,371 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + *
+> + */
+> +
+> +#include <linux/mm.h>
+> +#include <linux/slab.h>
+> +#include <linux/tee.h>
+> +#include <linux/tee_drv.h>
+> +#include <linux/tpm.h>
+> +#include <linux/uuid.h>
+> +
+> +#include "tpm.h"
+> +#include "tpm_qcom.h"
+> +
+> +/* UUID of the QTEE-bus device representing the TPM TA. */
+> +static const uuid_t tpm_qcom_uuid =
+> +	UUID_INIT(0xaabcb593, 0x7083, 0x5536,
+> +		  0xac, 0x27, 0x3d, 0x2d, 0x89, 0x41, 0x9d, 0xdb);
+> +
+> +static void tpm_qcom_release_object(struct tee_context *ctx,
+> +				    struct tee_param_objref object)
+> +{
+> +	struct tee_ioctl_object_invoke_arg inv_arg;
+> +
+> +	memset(&inv_arg, 0, sizeof(inv_arg));
+> +	inv_arg.id = object.id;
+> +	inv_arg.op = QCOMTEE_MSG_OBJECT_OP_RELEASE;
+> +	inv_arg.num_params = 0;
+> +
+> +	tee_client_object_invoke_func(ctx, &inv_arg, NULL);
+> +}
+> +
+> +static int tpm_qcom_get_client_env_obj(struct tee_context *ctx,
+> +				       struct tee_param_objref *client_env_obj)
+> +{
+> +	int ret;
+> +	struct tee_ioctl_object_invoke_arg inv_arg;
+> +	struct tee_param param[2];
+> +
+> +	memset(&inv_arg, 0, sizeof(inv_arg));
+> +	memset(&param, 0, sizeof(param));
+> +
+> +	inv_arg.id = TEE_OBJREF_NULL;
+> +	inv_arg.op = QCOMTEE_ROOT_OP_REG_WITH_CREDENTIALS;
+> +	inv_arg.num_params = 2;
+> +
+> +	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_OBJREF_INPUT;
+> +	param[0].u.objref.id = TEE_OBJREF_NULL;
+> +	param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_OBJREF_OUTPUT;
+> +
+> +	ret = tee_client_object_invoke_func(ctx, &inv_arg, param);
+> +	if (ret < 0 || inv_arg.ret != 0)
+> +		return ret ?: inv_arg.ret;
+> +
+> +	*client_env_obj = param[1].u.objref;
+> +	return ret;
+> +}
+> +
+> +static int tpm_qcom_get_svc_obj(struct tee_context *ctx,
+> +				struct tee_param_objref client_env_obj,
+> +				struct tee_param_objref *tpm_svc_obj)
+> +{
+> +	int ret;
+> +	struct tee_ioctl_object_invoke_arg inv_arg;
+> +	struct tee_param param[2];
+> +	u32 tpm_uid = QCOMTEE_TPM_UID;
+> +
+> +	memset(&inv_arg, 0, sizeof(inv_arg));
+> +	memset(&param, 0, sizeof(param));
+> +
+> +	inv_arg.id = client_env_obj.id;
+> +	inv_arg.op = QCOMTEE_OP_CLIENT_ENV_OPEN;
+> +	inv_arg.num_params = 2;
+> +
+> +	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_UBUF_INPUT;
+> +	param[0].u.ubuf = (struct tee_param_ubuf){ .addr = &tpm_uid,
+> +						    .size = sizeof(tpm_uid) };
+> +	param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_OBJREF_OUTPUT;
+> +
+> +	ret = tee_client_object_invoke_func(ctx, &inv_arg, param);
+> +	if (ret < 0 || inv_arg.ret != 0)
+> +		return ret ?: inv_arg.ret;
+> +
+> +	*tpm_svc_obj = param[1].u.objref;
+> +	return ret;
+> +}
+> +
+> +static int tpm_qcom_send_command(struct tpm_qcom_private *pvt_data,
+> +				 void *req, size_t req_len,
+> +				 void *rsp, size_t *rsp_len)
+> +{
+> +	int ret;
+> +	struct tee_ioctl_object_invoke_arg inv_arg;
+> +	struct tee_param param[2];
+> +
+> +	memset(&inv_arg, 0, sizeof(inv_arg));
+> +	memset(&param, 0, sizeof(param));
+> +
+> +	inv_arg.id = pvt_data->tpm_svc_obj.id;
+> +	inv_arg.op = QCOMTEE_TPM_OP_SEND_COMMAND;
+> +	inv_arg.num_params = 2;
+> +
+> +	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_UBUF_INPUT;
+> +	param[0].u.ubuf = (struct tee_param_ubuf){ .addr = req, .size = req_len };
+> +	param[1].attr = TEE_IOCTL_PARAM_ATTR_TYPE_UBUF_OUTPUT;
+> +	param[1].u.ubuf = (struct tee_param_ubuf){ .addr = rsp, .size = *rsp_len };
+> +
+> +	print_hex_dump_debug("tpm_qcom req: ", DUMP_PREFIX_OFFSET,
+> +			     16, 1, req, req_len, true);
+
+Please don't do this. It can put production systems at risk.
+
+> +
+> +	ret = tee_client_object_invoke_func(pvt_data->ctx, &inv_arg, param);
+> +	if (ret < 0 || inv_arg.ret != 0) {
+> +		dev_err(pvt_data->dev,
+> +			"send_command invoke ret: %d, err: 0x%x\n",
+> +			ret, inv_arg.ret);
+> +		return ret ?: inv_arg.ret;
+> +	}
+> +
+> +	*rsp_len = param[1].u.ubuf.size;
+> +
+> +	print_hex_dump_debug("tpm_qcom rsp: ", DUMP_PREFIX_OFFSET,
+> +			     16, 1, rsp, *rsp_len, true);
+> +
+> +	return ret;
+> +}
+> +
+> +static int tpm_qcom_get_ta_details(struct tpm_qcom_private *pvt_data)
+> +{
+> +	struct tpm_qcom_ta_version_req ver_req = {
+> +		.command_id = QCOMTEE_TPM_GET_TA_VERSION_ID,
+> +	};
+> +	struct tpm_qcom_ta_version_rsp ver_rsp;
+> +	size_t ver_rsp_len = sizeof(ver_rsp);
+> +	struct tpm_qcom_type_req type_req = {
+> +		.command_id = QCOMTEE_TPM_TYPE_ID,
+> +	};
+> +	struct tpm_qcom_type_rsp type_rsp;
+> +	size_t type_rsp_len = sizeof(type_rsp);
+> +	int ret;
+> +
+> +	ret = tpm_qcom_send_command(pvt_data, &ver_req, sizeof(ver_req),
+> +				    &ver_rsp, &ver_rsp_len);
+> +	if (ret || ver_rsp_len < sizeof(ver_rsp) || ver_rsp.status != 0) {
+> +		dev_err(pvt_data->dev,
+> +			"failed to query TA version: ret=%d, status=%u\n",
+> +			ret, ret ? 0 : ver_rsp.status);
+> +		return ret ?: -EIO;
+> +	}
+> +
+> +	dev_info(pvt_data->dev, "TPM TA version %u.%u\n",
+> +		 QCOMTEE_TPM_TA_VERSION_GET_MAJOR(ver_rsp.version_num),
+> +		 QCOMTEE_TPM_TA_VERSION_GET_MINOR(ver_rsp.version_num));
+> +
+> +	ret = tpm_qcom_send_command(pvt_data, &type_req, sizeof(type_req),
+> +				    &type_rsp, &type_rsp_len);
+> +	if (ret || type_rsp_len < sizeof(type_rsp) || type_rsp.status != 0) {
+> +		dev_err(pvt_data->dev,
+> +			"failed to query TPM type: ret=%d, status=%u\n",
+> +			ret, ret ? 0 : type_rsp.status);
+> +		return ret ?: -EIO;
+> +	}
+> +
+> +	switch (type_rsp.tpm_type) {
+> +	case QCOMTEE_TPM_TYPE_FTPM:
+> +		dev_info(pvt_data->dev, "TPM type: fTPM\n");
+> +		pvt_data->is_dtpm = false;
+> +		break;
+> +	case QCOMTEE_TPM_TYPE_DTPM:
+> +		dev_info(pvt_data->dev, "TPM type: dTPM\n");
+> +		pvt_data->is_dtpm = true;
+> +		break;
+> +	default:
+> +		dev_err(pvt_data->dev, "unsupported TPM type: 0x%08x\n",
+> +			type_rsp.tpm_type);
+> +		return -EIO;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * fTPM does not implement this command, so this is only ever called in case of
+> + * dtpm only.
+> + */
+> +static void tpm_qcom_transfer(struct tpm_qcom_private *pvt_data,
+> +			      u32 transfer_state)
+> +{
+> +	struct tpm_qcom_transfer_req req = {
+> +		.command_id = QCOMTEE_TPM_TRANSFER_ID,
+> +		.transfer_state = transfer_state,
+> +	};
+> +	struct tpm_qcom_transfer_rsp rsp;
+> +	size_t rsp_len = sizeof(rsp);
+> +	int ret;
+> +
+> +	ret = tpm_qcom_send_command(pvt_data, &req, sizeof(req), &rsp, &rsp_len);
+> +	if (ret || rsp_len < sizeof(rsp) || rsp.status != 0)
+> +		dev_warn(pvt_data->dev,
+> +			 "transfer state=%u hint failed: ret=%d, status=%u\n",
+> +			 transfer_state, ret, ret ? 0 : rsp.status);
+> +}
+> +
+> +static int tpm_qcom_cmd_ready(struct tpm_chip *chip)
+> +{
+> +	struct tpm_qcom_private *pvt_data = dev_get_drvdata(chip->dev.parent);
+> +
+> +	if (pvt_data->is_dtpm)
+> +		tpm_qcom_transfer(pvt_data, QCOMTEE_TPM_TRANSFER_START);
+> +
+> +	return 0;
+> +}
+> +
+> +static int tpm_qcom_go_idle(struct tpm_chip *chip)
+> +{
+> +	struct tpm_qcom_private *pvt_data = dev_get_drvdata(chip->dev.parent);
+> +
+> +	if (pvt_data->is_dtpm)
+> +		tpm_qcom_transfer(pvt_data, QCOMTEE_TPM_TRANSFER_END);
+> +
+> +	return 0;
+> +}
+> +
+> +/*
+> + * The raw TPM2 command in @buf is sent directly as send_command's UBUF-in
+> + * param and the raw TPM2 response is read back from its UBUF-out param.
+> + */
+> +static int tpm_qcom_send(struct tpm_chip *chip, u8 *buf, size_t bufsiz,
+> +			 size_t cmd_len)
+> +{
+> +	struct tpm_qcom_private *pvt_data = dev_get_drvdata(chip->dev.parent);
+> +	size_t rsp_len = PAGE_ALIGN(MAX_RESPONSE_SIZE);
+> +	size_t copy_len;
+> +	int ret;
+> +
+> +	if (cmd_len > MAX_COMMAND_SIZE) {
+> +		dev_err(&chip->dev,
+> +			"%s: len=%zd exceeds MAX_COMMAND_SIZE\n",
+> +			__func__, cmd_len);
+> +		return -EIO;
+> +	}
+> +
+> +	u8 *response __free(kfree) = kzalloc(rsp_len, GFP_KERNEL);
+> +	if (!response)
+> +		return -ENOMEM;
+> +
+> +	ret = tpm_qcom_send_command(pvt_data, buf, cmd_len, response, &rsp_len);
+> +	if (ret < 0) {
+> +		dev_err(&chip->dev, "%s: failed: ret=%d\n", __func__, ret);
+> +		return ret;
+> +	}
+> +
+> +	copy_len = min_t(size_t, bufsiz, rsp_len);
+> +	memcpy(buf, response, copy_len);
+> +
+> +	return copy_len;
+> +}
+> +
+> +static const struct tpm_class_ops tpm_qcom_ops = {
+> +	.flags = TPM_OPS_AUTO_STARTUP,
+> +	.send = tpm_qcom_send,
+> +	.cmd_ready = tpm_qcom_cmd_ready,
+> +	.go_idle = tpm_qcom_go_idle,
+> +};
+> +
+> +static int tpm_qcom_ctx_match(struct tee_ioctl_version_data *ver,
+> +			      const void *data)
+> +{
+> +	return (ver->impl_id == TEE_IMPL_ID_QTEE);
+> +}
+> +
+> +static int tpm_qcom_probe(struct tee_client_device *tee_dev)
+> +{
+> +	struct device *dev = &tee_dev->dev;
+> +	struct tpm_qcom_private *pvt_data;
+> +	struct tee_param_objref client_env_obj;
+> +	struct tee_param_objref tpm_svc_obj;
+> +	struct tpm_chip *chip;
+> +	int rc, err;
+> +
+> +	pvt_data = devm_kzalloc(dev, sizeof(*pvt_data), GFP_KERNEL);
+> +	if (!pvt_data)
+> +		return -ENOMEM;
+> +
+> +	dev_set_drvdata(dev, pvt_data);
+> +
+> +	pvt_data->ctx = tee_client_open_context(NULL, tpm_qcom_ctx_match, NULL,
+> +						NULL);
+> +	if (IS_ERR(pvt_data->ctx))
+> +		return -ENODEV;
+> +
+> +	rc = tpm_qcom_get_client_env_obj(pvt_data->ctx, &client_env_obj);
+> +	if (rc) {
+> +		err = -EINVAL;
+> +		goto out_ctx;
+> +	}
+> +
+> +	rc = tpm_qcom_get_svc_obj(pvt_data->ctx, client_env_obj, &tpm_svc_obj);
+> +	if (rc) {
+> +		err = -EINVAL;
+> +		goto out_client_env;
+> +	}
+> +	pvt_data->tpm_svc_obj = tpm_svc_obj;
+> +	pvt_data->dev = dev;
+> +
+> +	err = tpm_qcom_get_ta_details(pvt_data);
+> +	if (err)
+> +		goto out_svc_obj;
+> +
+> +	chip = tpm_chip_alloc(dev, &tpm_qcom_ops);
+> +	if (IS_ERR(chip)) {
+> +		dev_err(dev, "%s: tpm_chip_alloc failed\n", __func__);
+> +		err = PTR_ERR(chip);
+> +		goto out_svc_obj;
+> +	}
+> +
+> +	pvt_data->chip = chip;
+> +	pvt_data->chip->flags |= TPM_CHIP_FLAG_TPM2 | TPM_CHIP_FLAG_SYNC;
+> +
+> +	err = tpm_chip_register(pvt_data->chip);
+> +	if (err) {
+> +		dev_err(dev, "%s: tpm_chip_register failed with rc=%d\n",
+> +			__func__, err);
+> +		goto out_chip;
+> +	}
+> +
+> +	tpm_qcom_release_object(pvt_data->ctx, client_env_obj);
+> +	return 0;
+> +
+> +out_chip:
+> +	put_device(&pvt_data->chip->dev);
+> +out_svc_obj:
+> +	tpm_qcom_release_object(pvt_data->ctx, tpm_svc_obj);
+> +out_client_env:
+> +	tpm_qcom_release_object(pvt_data->ctx, client_env_obj);
+> +out_ctx:
+> +	tee_client_close_context(pvt_data->ctx);
+> +	return err;
+> +}
+> +
+> +static void tpm_qcom_remove(struct tee_client_device *tee_dev)
+> +{
+> +	struct tpm_qcom_private *pvt_data = dev_get_drvdata(&tee_dev->dev);
+> +
+> +	tpm_chip_unregister(pvt_data->chip);
+> +	put_device(&pvt_data->chip->dev);
+> +	tpm_qcom_release_object(pvt_data->ctx, pvt_data->tpm_svc_obj);
+> +	tee_client_close_context(pvt_data->ctx);
+> +}
+> +
+> +static const struct tee_client_device_id tpm_qcom_id_table[] = {
+> +	{ tpm_qcom_uuid },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(tee, tpm_qcom_id_table);
+> +
+> +static struct tee_client_driver tpm_qcom_driver = {
+> +	.id_table	= tpm_qcom_id_table,
+> +	.probe		= tpm_qcom_probe,
+> +	.remove		= tpm_qcom_remove,
+> +	.driver		= {
+> +		.name	= "tpm-qcom",
+> +	},
+> +};
+> +
+> +module_tee_client_driver(tpm_qcom_driver);
+> +
+> +MODULE_DESCRIPTION("TPM driver for Qualcomm TPM TA");
+> +MODULE_AUTHOR("Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>");
+> +MODULE_LICENSE("GPL");
+> diff --git a/drivers/char/tpm/tpm_qcom.h b/drivers/char/tpm/tpm_qcom.h
+> new file mode 100644
+> index 000000000000..0f3756944768
+> --- /dev/null
+> +++ b/drivers/char/tpm/tpm_qcom.h
+> @@ -0,0 +1,82 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +
+> +#ifndef __TPM_QCOM_H__
+> +#define __TPM_QCOM_H__
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/tee_drv.h>
+> +#include <linux/tpm.h>
+> +#include <linux/uuid.h>
+> +
+> +#define QCOMTEE_ROOT_OP_REG_WITH_CREDENTIALS	5
+> +#define QCOMTEE_OP_CLIENT_ENV_OPEN		0
+> +#define QCOMTEE_MSG_OBJECT_OP_MASK		GENMASK(15, 0)
+> +#define QCOMTEE_MSG_OBJECT_OP_RELEASE		(QCOMTEE_MSG_OBJECT_OP_MASK - 0)
+> +
+> +#define QCOMTEE_TPM_OP_SEND_COMMAND		0
+> +
+> +/* UID of the "qcom.tz.tpm" service */
+> +#define QCOMTEE_TPM_UID			489
+> +
+> +/* Max buffer size supported by TPM TA */
+> +#define MAX_COMMAND_SIZE	SZ_4K
+> +#define MAX_RESPONSE_SIZE	SZ_4K
+> +
+> +#define QCOMTEE_TPM_GET_TA_VERSION_ID		0x0001000
+> +#define QCOMTEE_TPM_TA_VERSION_GET_MAJOR(ver)	((u32)(ver) >> 16)
+> +#define QCOMTEE_TPM_TA_VERSION_GET_MINOR(ver)	((u32)(ver) & 0x0000ffffU)
+> +
+> +struct tpm_qcom_ta_version_req {
+> +	u32 command_id;
+> +} __packed;
+> +
+> +struct tpm_qcom_ta_version_rsp {
+> +	u32 status;
+> +	u32 command_id;
+> +	u32 version_num;
+> +} __packed;
+> +
+> +#define QCOMTEE_TPM_TYPE_ID		0x0080000
+> +#define QCOMTEE_TPM_TYPE_DTPM		0x6454504dU
+> +#define QCOMTEE_TPM_TYPE_FTPM		0x6654504dU
+> +#define QCOMTEE_TPM_TYPE_NONE		0x4e6f6e65U
+> +
+> +struct tpm_qcom_type_req {
+> +	u32 command_id;
+> +} __packed;
+> +
+> +struct tpm_qcom_type_rsp {
+> +	u32 command_id;
+> +	u32 status;
+> +	u32 tpm_type;
+> +} __packed;
+> +
+> +/* dTPM SPI transfer optimization:
+
+Block comments AFAIK should be
+
+/*
+ * <TEXT>
+
+> + * TRANSFER_START before a burst of commands, TRANSFER_END once done.
+> + */
+> +#define QCOMTEE_TPM_TRANSFER_ID		0x0000002
+> +#define QCOMTEE_TPM_TRANSFER_END	0
+> +#define QCOMTEE_TPM_TRANSFER_START	1
+> +
+> +struct tpm_qcom_transfer_req {
+> +	u32 command_id;
+> +	u32 transfer_state;
+> +} __packed;
+> +
+> +struct tpm_qcom_transfer_rsp {
+> +	u32 command_id;
+> +	u32 status;
+> +} __packed;
+> +
+> +struct tpm_qcom_private {
+> +	struct tpm_chip *chip;
+> +	struct device *dev;
+> +	struct tee_context *ctx;
+> +	struct tee_param_objref tpm_svc_obj;
+> +	bool is_dtpm;
+> +};
+> +
+> +#endif /* __TPM_QCOM_H__ */
+> 
+> -- 
+> 2.34.1
+> 
+
+BR, Jarkko
