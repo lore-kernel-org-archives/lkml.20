@@ -1,160 +1,127 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1CA1336886
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:19:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 247363563FB
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:21:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788225602; cv=none; b=sJkxgEqPb2XQ/aIEeSL7vcxcukGpbXpJnLUbBIp2ybQkZQM+l2HV1nmr2RHMnu2fwqqi9NFro6CgLEtd5VovK4TU9p7CxBSPoje7aYzglwF9Xjuix/Ld7Ffr7kc9U7xRPkBaHVMKHkf7uNRYPdqot9MZcxAf+i88o/ngwNRAL5w=
+	t=1788225665; cv=none; b=r9I8/lxtxzcekBIY9FePGMoPGG0+UU4D6HEa8bDadSKMQu7ExcRr8aC6qfgSjJT3nCYDHkXltWiI64cDLBwLkKGjKmb23w0gYXvD9zB5kvixE2pmRXBBHQl+q7bmx+zGrYRNGCq2PLxTnKdfZ02gp4zzh12Ax3czMB7WO9RV8Cg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788225602; c=relaxed/simple;
-	bh=sS6SZ8FbkzchoyF7CtaI0vqqdIUT+xPtvrX9xH/SqWk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qceQaUdwPK89k+xXmqqarfGQsPE/ZibgF4lgDDhxZcaSDGu2SBso11doQa4GaPXnzX+mJ2ceufNoFcgEd6FVTxPGGjn0MQmwDa/fneOg77k1dAzqXYsL1NZdEcz10ptwoFp+FGejF7gruQCZzCMBaDzvts+uA4LwIZ9zZ3Qty1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=cXP2AI6j; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1788225665; c=relaxed/simple;
+	bh=3M73LwHlIbAmdAX55ek9s3qJdStgcANbGSEpJiIZbG4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=il21b7cOm7lwi2f2kzbN6wErTFEfCWc65taWKPn1AbgLkIPqglEm29hHe6Rq3Yd629Zv3W2srDzZkXVw/wvBUEVDjIerYJjKic0DIKXPwSKp9LLInT1cI/7e/kj/11OlFQCKAYTylQ/0zLl5f2gk0vGZOecaFba1nFnGf0/GXeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TPUgTwJi; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="cXP2AI6j"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id F27C640E01ED;
-	Tue,  1 Sep 2026 01:19:55 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id TVAX1s4Te-Ok; Tue,  1 Sep 2026 01:19:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1788225585; bh=ixKs/tdPJBE2+jdpG2nGdi0XRZUDpK3NPI2pK8nxRSk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=cXP2AI6jNQIiOW1gubLTv+Wzt+bSKwRtDCsI3x2POcUETpBK4rKKQceMLBrlcyROE
-	 VTpZNbEl2KbJejDB0mWRofR7+Yrhqw0phd81+8Fw3TIBB3hWhIvPeCrX2QoFJmCtOW
-	 mG/XV3VCkwtqukL0/JiEyKwtHF4mZR0l5AWLCMxe4wApcg4v8tad5Of+W4KgxKeAFe
-	 HwBe7iFXbA9kOnu+Ekt40qYDLRP4bGDE3X+YkfjO7ZUeD8c2y6vglzauQ1rgyP8aRb
-	 vmMuJYbEgPGXD+RUdQgsqsxnIDPEM0qZziv4OxF7iHu7VmeROYQ3JYvOR3uW1k9jde
-	 FTBZP4z4Hz8RKJyPcVeSiThFJYG+iPF9dkfqlfiJF42GOc07u+gMrtSa3GM4tudlck
-	 u4a7WXCu/ejK5YALa2E9ybRCZgwdjbuXqEOIFYoO42nzsKP4ZHYDo6nscjE7cXNtiw
-	 HgcDvKOFDMza2blD4cMDEtRyCv9+oqvu8+L0/EZOc/dv1FeKqYEmXsfz01aaiw9P2K
-	 b0W0DpgioYAq+fdrT2f0oBC5l88G5cD9irRiW/xs+n16cnvihT4g8yioZERT6B5yhU
-	 I1+qhQsMxxQC7Yti+2Luzm96/0CQOxCyBhDJQYQjrGr+0/NFEHiO0Nor+H8P5C3UQ8
-	 NnboWW0L0X7IA4heUJQNijw0=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::1a])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 5CFEB40E01E1;
-	Tue,  1 Sep 2026 01:19:37 +0000 (UTC)
-Date: Mon, 31 Aug 2026 18:19:34 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Melody Wang <huibo.wang@amd.com>
-Cc: x86@kernel.org, LKML <linux-kernel@vger.kernel.org>,
-	Tom Lendacky <thomas.lendacky@amd.com>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Claudio Carvalho <cclaudio@linux.ibm.com>
-Subject: Re: [PATCH v1 1/8] x86/sev: Make SVSM calls preemption-safe
-Message-ID: <20260901011934.GGapYoJvmhws1D7iAL@fat_crate.local>
-References: <cover.1787973545.git.huibo.wang@amd.com>
- <8e6e89b87e34a8eb2a20d52b0d92c26e7a61ac42.1787973545.git.huibo.wang@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TPUgTwJi"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3966791a6eeso5075175a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:21:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788225663; x=1788830463; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JTmlGIyIWbMG/g0r7aBMDjsD8OZ6wSBjrj4mI5wQmow=;
+        b=TPUgTwJi3bWdLkKULcLNCunFDsOQzm+6hiYkC6XayDASJZ6Q9cYZbiYgsqggy/cNP+
+         lV7pcvnNg5aXQA4CV2jD+ITUhX+z6ZYZaNACp/uhI4F3inEM3vECLpmGRBbcL0TThq5P
+         rqpZFLgUqPbwDNlksI1rcQ0K0VT3EbP+WuG3wGBgjoxOVM4CHQcGsHfyRIZ7kMxVnVq2
+         NX+OUjoIh9x6pE54lsRBpVfd+Vqt+mhlVQVqtNLHg40F/lvd38wLn37FdUaYMXnI93nZ
+         55DQAGDHH34gfXVQu3Aa7ke+NPnpD9WEEXzdbM+M9RuhzTnlVwabgGR34SfmEAfhewzP
+         R3mQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788225663; x=1788830463;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JTmlGIyIWbMG/g0r7aBMDjsD8OZ6wSBjrj4mI5wQmow=;
+        b=Q5fW0hzw0kjK3wprRTq5w7Tun2s8ylEukm9v9tVWGIokTSawRUk9UbZWZQUo6JytDF
+         QXvySNjl2lEVQEl0/OvPFf40HVv+7nAz9jLAoDjWWGTIZHptiwVnywwytKPbVcoto+4D
+         U/4O4SbbC6M1Q/jT4aKBJ5ypYxjyZcdceNYC2KXcor027bip8Sg+cx9+4bLiNwyHeq/V
+         DUEIjIyekKJ7o//rasqUvD9e8xxCs52y7XIt+iK2iSFmJJq8sitmOJx8rjrIcKOPOeF2
+         wVKELcbgYPaUlJXs0i0oITm4KOPBZJT6ai1wh0udl71GmL+Wbgzwc7xKguA6elWQBtoc
+         5+mw==
+X-Forwarded-Encrypted: i=1; AKwUvBwMWYzwifrjlk927t2vrxwzPyF/KDPGWdHRkiCHSDw9O45feLZYvBUDRnhVAumlsm0TaYSYtdbY+mlHBz8=@vger.kernel.org
+X-Gm-Message-State: AFuF++k9qZgJz6IeAxrKL26wc8m8kcbYrmh4WTUIef6RqhRlc+gXsSV1
+	l+MbEcs73ByZTdjMFnpvd5Ng1aQT9LDJUYtmlPEIMlvy5hjp/HX5supo
+X-Gm-Gg: AYBFou06UV8TmJlLRptuDEaOynZ8bylkAsfDMMBim3+Cio07MTg0Aq+BdQQ6mwQgtkO
+	as79c2DyGvXul0VwChMgkySdjd5JoNUlbrwwF/8o1GRz30rptrwgTSl66wjzqsxn2/UU4LonUHj
+	Pf+pz9LkehjQ4uudIm0HSITiGUsU8oTZjLwuGe3uIUtsAvrzta5BGs5XfPHfmB6bfhhWgTwk96p
+	T9l17AnleEbSHtpBxr8RmPy76HlO+81W07Za1CfwRCFyAk7BeMmvbPuKdtVnF3xTemXq3DKKPzj
+	AKOQH5oa4JIxB0KZs1QEE50xQ7tT7u+pNsFqMty7cOOPh8cAAmFpxrdBfHjimV0rkG/1hJNm1XL
+	QOhV8yabS3vuAOWi70qgX3tk1g3qDKMltIDQ5IH70f2jVtMwUJ9TwdkPd7cuzcjdmSIrfoHr8u+
+	7SajVVrrt6MUwxKtXvYWFVHxkwMahILlrFrICKHbwgRrhZqUqNMtxueFhD6CbN+63GlQ==
+X-Received: by 2002:a17:90b:3c48:b0:398:9bd4:d1a with SMTP id 98e67ed59e1d1-39907ed3bcdmr6440498a91.25.1788225663180;
+        Mon, 31 Aug 2026 18:21:03 -0700 (PDT)
+Received: from [127.0.1.1] ([2601:647:4184:b3f0:91a4:c2d8:1d54:21ad])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f9595bbsm38316713eec.14.2026.08.31.18.21.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 18:21:02 -0700 (PDT)
+From: Kelvin Zhang <zhangxp1998@gmail.com>
+To: linux-f2fs-devel@lists.sourceforge.net
+Cc: jaegeuk@kernel.org,
+	chao@kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@kernel.org
+Subject: [PATCH v2] f2fs: avoid underflow when counting free NIDs
+Date: Mon, 31 Aug 2026 18:21:01 -0700
+Message-ID: <20260901012101.242104-1-zhangxp1998@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <9134210e-8ce6-4b74-bc25-af024aabeb75@kernel.org>
+References: <9134210e-8ce6-4b74-bc25-af024aabeb75@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <8e6e89b87e34a8eb2a20d52b0d92c26e7a61ac42.1787973545.git.huibo.wang@amd.com>
+Content-Transfer-Encoding: 8bit
 
-+ folks who added the vtpm stuff.
+__count_free_nids() subtracts the retention threshold before checking
+whether the cached count exceeds it. The operands are unsigned, so a
+smaller cache wraps before the result is assigned to long.
 
-On Sat, Aug 29, 2026 at 03:39:39AM +0000, Melody Wang wrote:
-> Two functions in the the SVSM vTPM guest implementation do not disable
-> preemption when fetching CAA.
+The PAGE_SIZE-derived threshold happens to make this an unsigned long
+subtraction, whose wrapped result becomes negative when converted to
+long by supported toolchains. Do not rely on operand width or
+unsigned-to-signed conversion. Compare values before subtracting.
 
-"	... when fetching the SVSM Calling Area Address (CAA).
+Fixes: 1b38dc8e74a3 ("f2fs: shrink nat_cache entries")
+Fixes: 02110a4fd531 ("f2fs: avoid casted negative value as shrink count")
+Cc: stable@kernel.org
+Reviewed-by: Chao Yu <chao@kernel.org>
+Signed-off-by: Kelvin Zhang <zhangxp1998@gmail.com>
+---
+Changes since v1:
+- add the Fixes and stable Cc trailers suggested by Chao
+- carry Chao's Reviewed-by
+- resend as a standalone patch through direct SMTP because the v1 list copy
+  was corrupted by mail transport line wrapping
 
-The SVSM CAA..."
+v1: https://lore.kernel.org/linux-f2fs-devel/CAH=xXfG2Hzc-kNAPqEUsTJ4hwrQ-gYEnFrXHGxL7qpYpggkLUQ@mail.gmail.com/
+---
+ fs/f2fs/shrinker.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-This way, you introduce what CAA means and then use the abbreviation.
+diff --git a/fs/f2fs/shrinker.c b/fs/f2fs/shrinker.c
+index 4f6bf5926de4..1fd0ee4f89a9 100644
+--- a/fs/f2fs/shrinker.c
++++ b/fs/f2fs/shrinker.c
+@@ -23,9 +23,10 @@ static unsigned long __count_nat_entries(struct f2fs_sb_info *sbi)
+ 
+ static unsigned long __count_free_nids(struct f2fs_sb_info *sbi)
+ {
+-	long count = NM_I(sbi)->nid_cnt[FREE_NID] - MAX_FREE_NIDS;
++	unsigned long count = NM_I(sbi)->nid_cnt[FREE_NID];
++	unsigned long max = MAX_FREE_NIDS;
+ 
+-	return count > 0 ? count : 0;
++	return count > max ? count - max : 0;
+ }
+ 
+ static unsigned long __count_extent_cache(struct f2fs_sb_info *sbi,
 
-> The SVSM calling area is a per-CPU structure. When a thread is preempted
-> and migrated to a different CPU after fetching the per-CPU Calling Area
-> Address (CAA), the SVSM call will execute on the new CPU with the
-
-and here you can use "CAA" directly because you've explained it above.
-
-> original CPU's CAA. Which is wrong.
-> 
-> Move the CAA fetching operation inside svsm_perform_call_protocol()
-> which disables interrupts around the SVSM call and thus runs
-> preemption-safe.
-> 
-> Signed-off-by: Melody Wang <huibo.wang@amd.com>
-
-Should this be CC:stable so that it gets backported?
-
-I think we want to do that and mark it with
-
-Fixes: 770de678bc28 ("x86/sev: Add SVSM vTPM probe/send_command functions")
-
-> ---
->  arch/x86/coco/sev/svsm.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/x86/coco/sev/svsm.c b/arch/x86/coco/sev/svsm.c
-> index 916d62cd17dc..92ea93f506c0 100644
-> --- a/arch/x86/coco/sev/svsm.c
-> +++ b/arch/x86/coco/sev/svsm.c
-> @@ -74,6 +74,15 @@ int svsm_perform_call_protocol(struct svsm_call *call)
->  
->  	flags = native_local_irq_save();
->  
-> +	/*
-> +	 * 'caa' is a per-CPU variable. To avoid using a stale or incorrect
-> +	 * 'caa' if the task is preempted or migrates to another CPU after it
-
-"... or migrated to another CPU after the CAA has been fetched..."
-
-> +	 * is fetched, always fetch 'caa' and then issue the SVSM call with
-> +	 * interrupts disabled. This ensures the correct 'caa' is used even
-> +	 * under preemption or CPU migration.
-
-s/even under preemption or CPU migration//
-
-That's kinda clear.
-
-Leaving in the rest for the newly CCed.
-
-> +	 */
-> +	call->caa = svsm_get_caa();
-> +
->  	ghcb = __sev_get_ghcb(&state);
->  
->  	do {
-> @@ -321,7 +330,6 @@ int snp_svsm_vtpm_send_command(u8 *buffer)
->  {
->  	struct svsm_call call = {};
->  
-> -	call.caa = svsm_get_caa();
->  	call.rax = SVSM_VTPM_CALL(SVSM_VTPM_CMD);
->  	call.rcx = __pa(buffer);
->  
-> @@ -345,7 +353,6 @@ bool snp_svsm_vtpm_probe(void)
->  	if (!snp_vmpl)
->  		return false;
->  
-> -	call.caa = svsm_get_caa();
->  	call.rax = SVSM_VTPM_CALL(SVSM_VTPM_QUERY);
->  
->  	if (svsm_perform_call_protocol(&call))
-> -- 
-> 2.43.0
-> 
-
+base-commit: c966d29e01bbf829f8bb4a39a49811c56cdb49c3
 -- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+2.53.0
