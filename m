@@ -1,187 +1,142 @@
-Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B6AD3DDDB1
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:52:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788267156; cv=none; b=a5LIgqIRHILt+6VtvZm1F1KvwQp8mTN081KPXZCob0OjjScERQD/DJUGKDGNVexJ/W+ZKwYMz2f8cri4CcURAOxkDz7iJnLWjLrCmcn2GlnDvPywshl+5PfrO7LnInxsjAei9sOxx89eKHhspsnQJYGkzeFjPtrbpwU2u3xImNg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788267156; c=relaxed/simple;
-	bh=VwqZK90dxuLVjGg6rgDcQEloreeN/ku+546Mw+4DdCI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=b0V1vxDOeBg/0NrckGpkYPn6s63Dh6POimM3Oxq4zfrnICrUTB6I8L4kRR3ksSZyzHHm7i+EMwQnig6WVcYAnmusRS18c6oMEQTIfemVXODM6fwmsusaIQNrDmaC8ULcuPHxQsU4J2AlcJCAwIq/rkUYoqP7PjB8vStaGCNWvo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=rCR2Fphx; arc=none smtp.client-ip=115.124.30.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94A83CB571
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:52:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788267173; cv=pass; b=Im9iAxbIRShIr/gmAGq7TCDy/nugpYakA0dRYEr5+52auNyHIfvwq0nIlK0NWNSfzENoHTOwROmdue/eYiwvguaB58VgpHErDkgzT2mzSMVAkeMs1D7IcI4sO4d6fhbmzBoPkJ7oG3/m5syVPpXoD0aeg1/3HDDI8JFUrD7P9mU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788267173; c=relaxed/simple;
+	bh=VG0JGy9V9Ess42oO7HJ1M9+yUlNIwa8iKwJ+GuLfhQ4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=j1FgNAR2GjLFFtKWa8/r65wobrDSxsLmntA7kyxIoKpPVmVV5RCXmutX6mfp4XUfzOkAspIam3rZFaIqFJ5e/RtvuahDkE1MHMbazensTtsfNZPyVGZwsBjZhy94S1uPX5KTXOTiDsGaIKzdiweCg4e0aeQlaMyXFSNJn7UUC9c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=APws7sjm; arc=pass smtp.client-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="rCR2Fphx"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788267146; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=lO05Xg2Ij7GojObgHIN9IulfmzcQf0TBixu99pXyXZ0=;
-	b=rCR2FphxkqQRYdRP8SptrDv/R4sf5SDClFpBQZvSVetbHOHAR70m3PespsDXZVdGepYHsSqJohRPFK+QHXxpJnb69Bn9JK+CMiICG/M5jaTZDFqT0aQNWpTu5JliL8q4qk3/ZdkuRCVC3C8InF0sreOtAW6/QB2GlW0WtUFAkcQ=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R391e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XA8SdjK_1788267145;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XA8SdjK_1788267145 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 01 Sep 2026 20:52:25 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Heming Zhao <heming.zhao@suse.com>
-Cc: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 4/4] ocfs2: validate suballoc slot and bit of extent and refcount blocks
-Date: Tue,  1 Sep 2026 20:52:21 +0800
-Message-Id: <20260901125221.1634686-5-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
-In-Reply-To: <20260901125221.1634686-1-joseph.qi@linux.alibaba.com>
-References: <20260901125221.1634686-1-joseph.qi@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="APws7sjm"
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a6143cca69so1401685a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 05:52:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788267168; cv=none;
+        d=google.com; s=arc-20260327;
+        b=si2gMjaec27qRPu+JT9RLQx4qX0rDflmJCG8eQR5wvwbqBBc8vIIH6H/BVreYBmsLB
+         qvj4wBoz2wFIRK6TJU0dH63y7BffI9RUrFO5ONE4nrzNTdW5FvTDsVOQVqUcoPec+lly
+         0GKXYhlX46B3TLN79Xj/BqYPGn2uJU9kkvk96EVBhPJzJSvwmp0HW3A/szhhxudOm34D
+         NwQ9nFVXKJtyV1KNL1995/aMYF+gKWseGJcGKspfhmZf6hFJ7j0bP1OqNFlNrFoYfeK8
+         wD6kFZt1/xiuNC4xarWsOYUKZj3QKS4jKXsd7PcxmvQWIVdSJJJCBiE0PysSzYuxxdSb
+         vgNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=ssbA7eNLUxksYHjRqY8p3X4V4mfnV6KUS7EHrqUvZgc=;
+        fh=gZLg2bouWwhk2CaGVf7Rb2ZjtrbxB8SoU+A6zUXmE4s=;
+        b=biyYtZoUWOQUHJm09/p4kpGAnQKvghAERry9rcpqDsehA7aAkZAMPdVVWQH8J7WVSs
+         7+HRC5bvdwuN3Dxb01ULHvI7xhZwdkqrcFSoQ4mR5/7vX0EciSltGPVGeVVBywYCZqo7
+         AN1gqy+e40tZY6SknPC/j+czEisIkh1+jWrJNfrdo8ZmvTUpgVsLIAKUtDCH/oeXLXvz
+         hmI7g3JNUTp1fVntgyzRSTFfklw8/lMF11fjyJunMhM73/dZxzN3in+v6eF1WovnCtnm
+         UjPJGemG5nZmcLPRuNvuncGAv2YWq3oWO+x7xWHXVJS8nqynp+Hp0vhr+ctCYyVf7ab9
+         pMiw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788267168; x=1788871968; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ssbA7eNLUxksYHjRqY8p3X4V4mfnV6KUS7EHrqUvZgc=;
+        b=APws7sjm7FGRX6eDqzMDTJ6cLbEvx5rf0JczDmKeh6lwitsuvAm68EWNBoHlcj9TZQ
+         ryXUqotI5ZY1D783wL43Eqz9xwj2S9Ho3jCdeo2in8E+GMEDFdRa69LUAnc5UA2KwjzO
+         HahJHGS0h7NSTdJ4fTQJ4AikeQWZihGAZwL7nEDnrjQNo0/3+OGPHFPoKh/R6H8v2k79
+         YnnjDF3ZMrcQ9gfRiTmtODyPPoNCMiEcaDb/1ZIhjPr9an0sNK5/TgYfz8BsTOleITAt
+         VAzFDN8mZUuUIqK6xijgMDpq5UXwiKPesyLA1o2p9BmtRoaZQ6OtUiOMcDt2p5o5Q7GA
+         cDzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788267168; x=1788871968;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ssbA7eNLUxksYHjRqY8p3X4V4mfnV6KUS7EHrqUvZgc=;
+        b=SC3z7e8PK0HP9KY2CjOPt8jNYjk80gOI9R4J9+bZfVuqUt6j+iGuFCRYXJtfc7bvn0
+         ddmUGQTtv6HzFPX3ayWSVfeAlPtEDMioVdQHlFSV54M1q4Ze7KoNnz/xV3l2e5gtjk6C
+         3kwOuPysHYgOitOAh1Vy5FBHAJ+gF3C6t8va/lYom7SxhWQh2yXi1BU4u1HUBdJpUDf5
+         qX2yONbDOio+j9uGDHVU1pzpkliuKaQDjCHSruVIfthH2rOfOpXp5EyK5RK3calZmSRr
+         nuhLofiEgukQvz4RuDrQXRJiKo1s11qJPHFuXVII08LBdptAW/QdXz8ekQXmJyalvCw6
+         COaQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzwY/UjkYx52sAYW0HkVjQgV7T5FYp2bHcli7fhga/uzAVVNHoaIv2jlU8TE/H+3b4vf1qz5F1G2efT0Tg=@vger.kernel.org
+X-Gm-Message-State: AFuF++niBp9rjif41Rt7JfFSmQuMgzvs8RsFTEJJk8t1LTKwjdA/X3v8
+	NHvpU0kYt88sxhFSZMf4fQDnBdm9566g6mgh1l50aRWJhkeNjXnAhgm5b/wzZD8ThTqGsgV2Kih
+	3TF1wA6t9ND4VfR9mwlFDu+di/sDFfYk=
+X-Gm-Gg: AYBFou0DVFeD68meVEhJeXvAkFXLsrnd0ZoYoVxuP60YqptMwZ8vu3NhgGv/z2rbRh5
+	usQfWxdaZzI8xi2M0rQnGCJuOz5qVGWuzIXol4CXyVPNkm9dSwHspAFdfWxQwpg2kD7QuFNRowZ
+	U21RrjM3WTUzCRZa7a3xYvURuQpfUTt/VSgzw/Tbl01skWPRLH5teT28beHNW28njudAEkFHrO0
+	5+callBNUhL3cFuPCZBTz3IRLkXTFEwqCOrjXZpuBFlfaj/nHQCXhL3aNKFklCk513H+R93CqA+
+	SWz4GP5p9xyVXLN/lcp1/4ii6aviTZfVt7NE+EXYVtceKvI/EpZM23b3usbkWAE94QO/HMJTol1
+	5xKU=
+X-Received: by 2002:a05:6402:44c2:b0:6a6:32f6:c with SMTP id
+ 4fb4d7f45d1cf-6a632f6013amr11282461a12.18.1788267168126; Tue, 01 Sep 2026
+ 05:52:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260901092447.3028-1-sreeshankar0910@gmail.com> <prxk6xpxeoebz5da52a6bjgmaaop6mj55eemxdm5cjxm276tyi@jfeziqcrxtfv>
+In-Reply-To: <prxk6xpxeoebz5da52a6bjgmaaop6mj55eemxdm5cjxm276tyi@jfeziqcrxtfv>
+From: Sreeshankar K <sreeshankar0910@gmail.com>
+Date: Tue, 1 Sep 2026 18:22:34 +0530
+X-Gm-Features: AcwNN1U55mxl5Buv8KaT17jt0XFpq4P8gD6bW6R2dqKayvNk2vS1r-azwArTaqc
+Message-ID: <CAA-+ukJWFm1YOoWTO5TmuF8ymNuRGtsvOm4zruwUUEGpcmKNjA@mail.gmail.com>
+Subject: Re: [PATCH v9 00/12] Add initial support for Qualcomm SM7250 SoC
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: andersson@kernel.org, sboyd@kernel.org, bmasney+clk@redhat.com, 
+	jbrunet+clk@baylibre.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, rafael@kernel.org, viresh.kumar@linaro.org, 
+	konradybcio@kernel.org, tglx@kernel.org, ulfh@kernel.org, radu@rendec.net, 
+	taniya.das@oss.qualcomm.com, danila@mainlining.org, davidwronek@gmail.com, 
+	mani@kernel.org, robimarko@gmail.com, linux@gurudas.dev, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-ocfs2_validate_extent_block() and ocfs2_validate_refcount_block() do
-not validate h_suballoc_slot, h_suballoc_bit, rf_suballoc_slot and
-rf_suballoc_bit at all.  Since extent blocks and refcount blocks are
-allocated from a per-slot suballocator at runtime, their suballoc
-slots must be within range and their suballoc bits must fit in a block
-group bitmap.
+On Tue, 1 Sept 2026 at 17:32, Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
+>
+> On 26-09-01 09:24:35, Sreeshankar K wrote:
+> > This patchset introduces foundational upstream support for the Qualcomm SM7250
+> > SoC (internally codenamed Lito).
+> >
+> > SM7250 is an ARMv8.2-A platform manufactured on a 7nm process, featuring an
+> > octa-core Kryo 475 CPU configuration (1x Prime Cortex-A76, 1x Gold Cortex-A76,
+> > and 6x Silver Cortex-A55) and Adreno 620 GPU.
+> >
+> > This patchset is organized as follows:
+> > > Document relevant device tree bindings (SoC ID, Kryo 475 CPUs, SCM, PDC,
+> > RPMh clocks/power domains, GCC and cpufreq hardware).
+> > > Add driver support for SM7250 in socinfo, rpmh-clk, rpmhpd, and GCC.
+> > > Add the base SoC DTSI (sm7250.dtsi) defining the cpus, PSCI,
+> > interrupt controllers, clock providers, power domains, and reserved memory.
+> >
+> > Dependencies:
+> > This patchset depends on the following patch:
+> > > [PATCH] dt-bindings: clock: qcom,sm6375-gcc: Merge SM7150 into SM6375
+> >   Link: https://lore.kernel.org/linux-arm-msm/20260817082457.64797-2-krzysztof.kozlowski@oss.qualcomm.com/T/#t
+> >
+> > Changelog [v9]:
+> > > [PATCH v9 04/13]: clk: qcom: Add Global Clock Controller (GCC) driver for SM7250
+> >   Make all clk_init_data instances const across the driver.
+>
+> You sent 3 versions in less than 24 hours. Please slow down.
+>
+> Give a chance to the reviewers to have a look at each version before
+> sending a new one.
 
-Otherwise a corrupted image can carry an out-of-range slot.  When the
-extent block is freed, ocfs2_cache_extent_block_free() caches it and
-ocfs2_free_cached_blocks() later passes the unvalidated slot to
-ocfs2_get_system_file_inode(); when the refcount block is freed,
-ocfs2_remove_refcount_extent() passes it via ocfs2_cache_block_dealloc().
-get_local_system_inode() will then either hit
-BUG_ON(slot == OCFS2_INVALID_SLOT) or compute an out-of-bounds index
-into the local_system_inodes array.  Similarly an oversized suballoc
-bit will error out the filesystem in _ocfs2_free_suballoc_bits().
 
-Furthermore group descriptor validation only guarantees bg_bits within
-the physical bitmap size, so a corrupted image can still carry a
-suballoc bit beyond bg_bits, which would let
-ocfs2_block_group_clear_bits() clear bits beyond bg_bitmap.  Convert
-the remaining BUG_ON against group->bg_bits in
-_ocfs2_free_suballoc_bits() to ocfs2_error() as well.
+I apologize for my actions. v7 was the intended new patchset. Unfortunately
+there was an interruption during submission of patches, only 08/12
+patches submitted.
+That's why I submitted the v8 patchset.
 
-Reject out-of-range suballoc slots and oversized suballoc bits during
-validation.
-
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
----
- fs/ocfs2/alloc.c        | 27 +++++++++++++++++++++++++++
- fs/ocfs2/refcounttree.c | 27 +++++++++++++++++++++++++++
- fs/ocfs2/suballoc.c     | 15 ++++++++++++++-
- 3 files changed, 68 insertions(+), 1 deletion(-)
-
-diff --git a/fs/ocfs2/alloc.c b/fs/ocfs2/alloc.c
-index be09e766ac1f..2fdc5403b10b 100644
---- a/fs/ocfs2/alloc.c
-+++ b/fs/ocfs2/alloc.c
-@@ -925,6 +925,33 @@ static int ocfs2_validate_extent_block(struct super_block *sb,
- 		goto bail;
- 	}
- 
-+	/*
-+	 * Extent blocks are allocated from a per-slot suballocator, so the
-+	 * slot must be in range.  Otherwise freeing the block passes it to
-+	 * get_local_system_inode(), which hits BUG_ON() for
-+	 * OCFS2_INVALID_SLOT or computes an out-of-bounds index otherwise.
-+	 */
-+	if ((u32)le16_to_cpu(eb->h_suballoc_slot) >= OCFS2_SB(sb)->max_slots) {
-+		rc = ocfs2_error(sb,
-+				 "Extent block #%llu has an invalid h_suballoc_slot of %u\n",
-+				 (unsigned long long)bh->b_blocknr,
-+				 le16_to_cpu(eb->h_suballoc_slot));
-+		goto bail;
-+	}
-+
-+	/*
-+	 * Similarly the suballoc bit must fit in a block group bitmap.
-+	 * Otherwise freeing the block will pass the oversized bit to
-+	 * _ocfs2_free_suballoc_bits() and trigger ocfs2_error() there.
-+	 */
-+	if (le16_to_cpu(eb->h_suballoc_bit) >= ocfs2_suballoc_bits_per_block(sb)) {
-+		rc = ocfs2_error(sb,
-+				 "Extent block #%llu has an invalid h_suballoc_bit of %u\n",
-+				 (unsigned long long)bh->b_blocknr,
-+				 le16_to_cpu(eb->h_suballoc_bit));
-+		goto bail;
-+	}
-+
- 	if (le16_to_cpu(eb->h_list.l_count) != ocfs2_extent_recs_per_eb(sb)) {
- 		rc = ocfs2_error(sb,
- 				 "Extent block #%llu has invalid l_count %u (expected %u)\n",
-diff --git a/fs/ocfs2/refcounttree.c b/fs/ocfs2/refcounttree.c
-index d9f22b4a2654..3e9cccf06e48 100644
---- a/fs/ocfs2/refcounttree.c
-+++ b/fs/ocfs2/refcounttree.c
-@@ -117,6 +117,33 @@ static int ocfs2_validate_refcount_block(struct super_block *sb,
- 		goto out;
- 	}
- 
-+	/*
-+	 * Refcount blocks are allocated from a per-slot suballocator, so the
-+	 * slot must be in range.  Otherwise freeing the block passes it to
-+	 * get_local_system_inode(), which hits BUG_ON() for
-+	 * OCFS2_INVALID_SLOT or computes an out-of-bounds index otherwise.
-+	 */
-+	if ((u32)le16_to_cpu(rb->rf_suballoc_slot) >= OCFS2_SB(sb)->max_slots) {
-+		rc = ocfs2_error(sb,
-+				 "Refcount block #%llu has an invalid rf_suballoc_slot of %u\n",
-+				 (unsigned long long)bh->b_blocknr,
-+				 le16_to_cpu(rb->rf_suballoc_slot));
-+		goto out;
-+	}
-+
-+	/*
-+	 * Similarly the suballoc bit must fit in a block group bitmap.
-+	 * Otherwise freeing the block will pass the oversized bit to
-+	 * _ocfs2_free_suballoc_bits() and trigger ocfs2_error() there.
-+	 */
-+	if (le16_to_cpu(rb->rf_suballoc_bit) >= ocfs2_suballoc_bits_per_block(sb)) {
-+		rc = ocfs2_error(sb,
-+				 "Refcount block #%llu has an invalid rf_suballoc_bit of %u\n",
-+				 (unsigned long long)bh->b_blocknr,
-+				 le16_to_cpu(rb->rf_suballoc_bit));
-+		goto out;
-+	}
-+
- 	/*
- 	 * rf_records (rl_count/rl_used/rl_recs[]) is only meaningful when
- 	 * this block is not an interior tree block (OCFS2_REFCOUNT_TREE_FL);
-diff --git a/fs/ocfs2/suballoc.c b/fs/ocfs2/suballoc.c
-index ce22d0c3d287..624152e4f7fe 100644
---- a/fs/ocfs2/suballoc.c
-+++ b/fs/ocfs2/suballoc.c
-@@ -3070,7 +3070,20 @@ static int _ocfs2_free_suballoc_bits(handle_t *handle,
- 	}
- 	group = (struct ocfs2_group_desc *) group_bh->b_data;
- 
--	BUG_ON((count + start_bit) > le16_to_cpu(group->bg_bits));
-+	/*
-+	 * Group descriptor validation only guarantees bg_bits within the
-+	 * physical bitmap size, so double check the freeing range here.
-+	 * Otherwise ocfs2_block_group_clear_bits() would clear bits beyond
-+	 * bg_bitmap.
-+	 */
-+	if ((count + start_bit) > le16_to_cpu(group->bg_bits)) {
-+		status = ocfs2_error(alloc_inode->i_sb,
-+				     "Group descriptor #%llu has %u bits, cannot free bits %u+%u\n",
-+				     (unsigned long long)le64_to_cpu(group->bg_blkno),
-+				     le16_to_cpu(group->bg_bits),
-+				     count, start_bit);
-+		goto bail;
-+	}
- 
- 	if (ocfs2_is_cluster_bitmap(alloc_inode))
- 		old_bg_contig_free_bits = group->bg_contig_free_bits;
--- 
-2.39.3
-
+Regards,
+Sreeshankar K
