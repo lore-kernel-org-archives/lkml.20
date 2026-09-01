@@ -1,50 +1,35 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4425348A8C7;
-	Tue,  1 Sep 2026 17:47:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBAE42BEAA;
+	Tue,  1 Sep 2026 17:47:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788284844; cv=none; b=lVEl4n5QSIoYFh8rV/E6vnr7Hy9KQfLUm98QbnyJ96lXG6ntYbTKug6rWvOs4hWH7TGphfpDFPYmenrrLsfjXb9Kj2pJmm5oh3gTUtd+D2hm+8aKzA7rpPhuOAipFM5zAhrGBsxSd9N3IFCaI8ArYAqfYr0BBxd5R37cctfm3ZQ=
+	t=1788284859; cv=none; b=O5ywm/eLmVZQoqVHQIymOP/QCNIY43n1sFXQeinswuaOlz5CsVc/CuPvDEl58IC5mnZa/GXUVOCZPpJU/Juj6p6n1l0YHIYzDBEoT0UM+FXA02T/kNIM05EHqSGBOe11N2O9cciuEBXakUXRccbtcWnttzqULK5VkJXvYxUpUSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788284844; c=relaxed/simple;
-	bh=2656E0RmlVbRzn5xZ0Ho+djh6YbWPtwm0sPiiaIFvJg=;
+	s=arc-20240116; t=1788284859; c=relaxed/simple;
+	bh=wIRXo+W1Y5nbg+WXe/4P+PdfNFVyerjk7vcydHkYvEA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lUXjg1MVhV/vY5b7wF36BB7Xmwe5UGD4rmNGYE5lhUDrTnZY2Ef2PG90nK6jz0bxLNwOeaeI7icLUbWCynXrJZTAcx9rGdSU6aNJCJhlGfQWCg2a154A+ZHFo94PCSbE/ILefv0z0ZM4tISXKoBtALkBm4i0xnKq3SRhXMZdlhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=K8nBvWJL; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 In-Reply-To:Content-Type; b=rKj4bjcL3dKUYV57a/C+7b76cCciy/lGTixAZKG286O4t6NQJrwnEyorrynHA7PmANw7IA6Z75IrT4Sy6acapnpg/TRVZOssYMKr2ceB3WMRzJl3f9X8VWDvmwrxXdGPrLY/Am0lrDysQydy2MiFietwpD47H0XDZjeA6Qp/R/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=AseZTlST; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="K8nBvWJL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788284843; x=1819820843;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=2656E0RmlVbRzn5xZ0Ho+djh6YbWPtwm0sPiiaIFvJg=;
-  b=K8nBvWJLz0Inje/p4Xd+tf3ei7BM2c/HeThzm402+Qz6gSKxGPOQWVjy
-   CBLQoTGmK8+gK06/aMt7mlTUHU9K8ilnorZiiwPpPHNMI6G1gdC+RGRQl
-   V16YVL33N+0TjpnabPGbG3MfMIrzNgMZKxBCoye3/l8Bq0B8GTlssKGBJ
-   bmxrcV/5lbu56cLUkFnHvjY1l6FwlFsk/SzxVIH2HqHczBrVZ4l3hZB1p
-   WRp6pbtZ9mq5IvZrd7ll3qFxrcre2WuFnXde0fpGACyhByvRYihbYw1tC
-   5PecY1jSElM7c2YIPB9k1Klyc6Bpu5eO9fMHl1NJxTNHtcAcqpaZn7QaZ
-   w==;
-X-CSE-ConnectionGUID: 6Womi0XRSL6sxiD/w6qZ3Q==
-X-CSE-MsgGUID: lMmbZlhoRh6HwW/jOd2DCQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="100235327"
-X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
-   d="scan'208";a="100235327"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 10:47:22 -0700
-X-CSE-ConnectionGUID: SI3Bqgj9ScmiLxx/9r8pfA==
-X-CSE-MsgGUID: fpmQqBVuT3WUNdP2HNf9MA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
-   d="scan'208";a="274437175"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.110.72]) ([10.125.110.72])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 10:47:20 -0700
-Message-ID: <a0d7da35-d119-4627-9e2a-9594611a8a24@intel.com>
-Date: Tue, 1 Sep 2026 10:47:19 -0700
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="AseZTlST"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6EDF411D491;
+	Tue, 01 Sep 2026 19:47:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1788284851;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=4+8PgNgJ5Ij4UdhznqcIK9s6t0P6PpU4tqKqhOgaAiE=;
+	b=AseZTlSTc3JnZGWkciXYws+sV3jij1LDXgBqHRViuZE5kBrrkaPcMm6GiXtGGZjnXdpcgx
+	Id7rsXqHUfYFJk7TJmAG1TeCE1H3Q3HnwD5DlvPAaxl36LX5JYzcOdFMuGi7wS3l5tSvtA
+	OochtTRM0+ujE0DeGsyfQr+79Om4Kt72NbDQ1EEj08Z2UmMX2PQkg+WX6HFibxSGLG++bM
+	nidMwL5+e6a4TTdgFjLNmmj10BcvI/huLOP57Rgn+uxdG383sund6Om/WnObeMivAKZ784
+	67CHy5X+Pc5TZdKhXJrljjbSf6txnwgEVd/c6XvjKSsjp2GCGNX0Mtp4xSKGDg==
+Message-ID: <f86a6a8a-6f38-4082-abb2-7ab6c91b269d@nabladev.com>
+Date: Tue, 1 Sep 2026 19:47:29 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -52,77 +37,83 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] tools/testing/cxl: Don't wrap cxl_core's own exported
- symbols
-To: Richard Cheng <icheng@nvidia.com>, dave@stgolabs.net, jic23@kernel.org,
- alison.schofield@intel.com, vishal.l.verma@intel.com, djbw@kernel.org,
- danwilliams@nvidia.com
-Cc: iweiny@kernel.org, ming.li@zohomail.com, linux-cxl@vger.kernel.org,
- linux-kernel@vger.kernel.org, newtonl@nvidia.com, kristinc@nvidia.com,
- kaihengf@nvidia.com, kobak@nvidia.com
-References: <20260721084009.38100-1-icheng@nvidia.com>
-From: Dave Jiang <dave.jiang@intel.com>
+Subject: Re: [PATCH v2] dt-bindings: hwmon: tmp102: Document TMP113
+To: Conor Dooley <conor@kernel.org>
+Cc: linux-pm@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Flaviu Nistor <flaviu.nistor@gmail.com>, Guenter Roeck <linux@roeck-us.net>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260901161008.46948-1-marex@nabladev.com>
+ <20260901-untimely-wake-578b1a86b9fe@spud>
 Content-Language: en-US
-In-Reply-To: <20260721084009.38100-1-icheng@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <20260901-untimely-wake-578b1a86b9fe@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-
-
-On 7/21/26 1:40 AM, Richard Cheng wrote:
-> Building cxl_test with LLVM=1 (ld.lld) fails in modpost:
+On 9/1/26 7:37 PM, Conor Dooley wrote:
+> On Tue, Sep 01, 2026 at 06:09:20PM +0200, Marek Vasut wrote:
+>> The TMP113 temperature sensor part is register compatible with TMP102,
+>> document it using a fallback compatible. Unlike TMP102 and TMP110, the
+>> TMP113 does have additional unique ID registers, it is up to the driver
+>> to handle those.
+>>
+>> Signed-off-by: Marek Vasut <marex@nabladev.com>
+>> ---
+>> Cc: Conor Dooley <conor+dt@kernel.org>
+>> Cc: Flaviu Nistor <flaviu.nistor@gmail.com>
+>> Cc: Guenter Roeck <linux@roeck-us.net>
+>> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+>> Cc: Rob Herring <robh@kernel.org>
+>> Cc: devicetree@vger.kernel.org
+>> Cc: linux-hwmon@vger.kernel.org
+>> Cc: linux-kernel@vger.kernel.org
+>> ---
+>> V2: Rebase on current next and resend, resolve a conflict with commit
+>>      d67ec24d3f07 ("dt-bindings: hwmon: tmp102: move ti,tmp103 out of trivial-devices.yaml")
+>>      Note that the TMP102,110,113 are backward compatible, therefore the
+>>      valid compatible strings are:
+>>      - "ti,tmp110", "ti,tmp102"
+>>      - "ti,tmp113", "ti,tmp102"
+>>      - "ti,tmp102"
+>>      The TMP103 is not backward compatible, it only shares bindings now,
+>>      therefore the only valid compatible string for the TMP103 should be:
+>>      - "ti,tmp103"
+>>      And that is all, no other compatible strings are acceptable here.
+>> ---
+>>   .../devicetree/bindings/hwmon/ti,tmp102.yaml          | 11 ++++++-----
+>>   1 file changed, 6 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml b/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+>> index 55d9f106465d7..c0b747a9ce0de 100644
+>> --- a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+>> +++ b/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+>> @@ -4,7 +4,7 @@
+>>   $id: http://devicetree.org/schemas/hwmon/ti,tmp102.yaml#
+>>   $schema: http://devicetree.org/meta-schemas/core.yaml#
+>>   
+>> -title: TMP102/TMP103/TMP110 temperature sensor
+>> +title: TMP102/TMP103/TMP110/TMP113 temperature sensor
+>>   
+>>   maintainers:
+>>     - Krzysztof Kozlowski <krzk@kernel.org>
+>> @@ -13,11 +13,12 @@ properties:
+>>     compatible:
+>>       oneOf:
+>>         - items:
+>> +          - enum:
+>> +              - ti,tmp110
+>> +              - ti,tmp113
+>>             - const: ti,tmp102
+>> -          - const: ti,tmp103
+>> -          - const: ti,tmp110
+>> -      - enum:
+>> -          - ti,tmp102
+>> +      - const: ti,tmp102
+>> +      - const: ti,tmp103
 > 
-> """
->   cxl_core: .export_symbol section references '__wrap_...', but it
->   does not seem to be an export symbol
-> """
-> 
-> cxl_test --wraps 6 symbols that cxl_core both defines and exports.
-> GNU ld only wraps undefined references, but ld.lld also redirects
-> references to defined symbols, so cxl_core's own EXPORT_SYMBOL entries
-> get rewritten to __wrap_* and modpost rejects them.
-> 
-> cxl_core never calls these symbols, so wrap them only in the caller
-> modules via LDFLAGS_<module>.o instead of the global ldflags-y.
-> 
-> Signed-off-by: Richard Cheng <icheng@nvidia.com>
-
-Applied to cxl/next
-2c73cda8908f
-
-> ---
->  tools/testing/cxl/Kbuild | 16 ++++++++++------
->  1 file changed, 10 insertions(+), 6 deletions(-)
-> 
-> diff --git a/tools/testing/cxl/Kbuild b/tools/testing/cxl/Kbuild
-> index 2be1df80fcc9..e49ce644b4b1 100644
-> --- a/tools/testing/cxl/Kbuild
-> +++ b/tools/testing/cxl/Kbuild
-> @@ -4,16 +4,20 @@ ldflags-y += --wrap=is_acpi_device_node
->  ldflags-y += --wrap=acpi_evaluate_integer
->  ldflags-y += --wrap=acpi_pci_find_root
->  ldflags-y += --wrap=nvdimm_bus_register
-> -ldflags-y += --wrap=cxl_await_media_ready
-> -ldflags-y += --wrap=devm_cxl_add_rch_dport
-> -ldflags-y += --wrap=cxl_endpoint_parse_cdat
-> -ldflags-y += --wrap=devm_cxl_endpoint_decoders_setup
->  ldflags-y += --wrap=hmat_get_extended_linear_cache_size
-> -ldflags-y += --wrap=devm_cxl_add_dport_by_dev
-> -ldflags-y += --wrap=devm_cxl_switch_port_decoders_setup
->  ldflags-y += --wrap=walk_hmem_resources
->  ldflags-y += --wrap=region_intersects
->  ldflags-y += --wrap=region_intersects_soft_reserve
-> +wrap_cxl_core := --wrap=cxl_await_media_ready
-> +wrap_cxl_core += --wrap=devm_cxl_add_rch_dport
-> +wrap_cxl_core += --wrap=devm_cxl_add_dport_by_dev
-> +wrap_cxl_core += --wrap=devm_cxl_switch_port_decoders_setup
-> +wrap_cxl_core += --wrap=devm_cxl_endpoint_decoders_setup
-> +wrap_cxl_core += --wrap=cxl_endpoint_parse_cdat
-> +LDFLAGS_cxl_acpi.o += $(wrap_cxl_core)
-> +LDFLAGS_cxl_pmem.o += $(wrap_cxl_core)
-> +LDFLAGS_cxl_port.o += $(wrap_cxl_core)
-> +LDFLAGS_cxl_mem.o  += $(wrap_cxl_core)
->  
->  DRIVERS := ../../../drivers
->  DAX_HMEM_SRC := $(DRIVERS)/dax/hmem
-
+> Should this not be two patches, one fixing the existing stuff and one
+> adding the 113?
+I can send this as two, sure, will do in v3.
