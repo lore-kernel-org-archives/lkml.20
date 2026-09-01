@@ -1,143 +1,146 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8CEDB37C900
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:13:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mail-qk1-f177.google.com (mail-qk1-f177.google.com [209.85.222.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AABF626738C
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:13:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788225216; cv=none; b=HyJA9C8uioydZlRuByggbcbZBemEtXmPNzxoMZzP7Jd7UF4e30wHKeDiOt2YSyA2D0uL90hhesYTjq64u2c9VrgbOAEkJ5a0+8GFJw1ZSN/UAeGrlg6Pb10wkHSGEatTrL2MwgkF0HvoVzhAztj6XTAG3NB/pRh2ljZCtJ68+Y0=
+	t=1788225227; cv=none; b=VvxV3nYpWtOTp2Lr+mCVroY3ldE/D6KSZvASaIQqkmjVnh1SBMQnioE7SxJ6dyQ4P3FYunKSeYW6FGtYeekkIz8jftbbHG439iDekPvm1asAAQLFgLAUVDww2Z0JAz7nAdNnkT+VJa155OLJ4YF0+h+Uizc+0MK0hCAzX296IWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788225216; c=relaxed/simple;
-	bh=HE4mCDn6ofnArcRxya5qMIpUJ3FWRE49JTxy3bpHbOA=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=kuOkT1PpFFbVIhsrBwY8jVo4Gc1FpAkiOQ/aKIkQ4A9vvQV3kYt0jFDb8PaX+ehNUyEVYlkCJ9r6z/E4+cBWp/GlVZudIZ1nYmhnLW6JyRn8aKLQ6hfWVnrb4fBLom7AYwtQGHdF9aF9uf2/EBreGPN/H1t6sE7G/VIf+qBAycM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8DxjdK6JpZq9zYHAA--.20123S3;
-	Tue, 01 Sep 2026 09:13:30 +0800 (CST)
-Received: from [10.130.40.83] (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJDxBc25JpZqbJQYAA--.24104S2;
-	Tue, 01 Sep 2026 09:13:30 +0800 (CST)
-Subject: Re: [PATCH v1 4/6] LoongArch: Only send SIGTRAP signal if necessary
- in do_watch()
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260826110306.6847-1-yangtiezhu@loongson.cn>
- <20260826110306.6847-5-yangtiezhu@loongson.cn>
- <CAAhV-H40Zu0zTLQ7-S0tzqMNJ8KRB4iF+rzzrZG_Nd4ETveDDA@mail.gmail.com>
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-Message-ID: <5bae6d0d-c159-00c2-1660-d0dd3d0ce875@loongson.cn>
-Date: Tue, 1 Sep 2026 09:13:29 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1788225227; c=relaxed/simple;
+	bh=6MU93lD7oPCvVgWA1NeStXtYPktufCBo3mj6HDbyAGg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=afF7GeJtEnQUT88w/BjlZh54YCL2afa2cx7Mz34RlCeIlthhLKdOwYnrooqUbuAquc+D1ND42GygnWDxGvux4Mx/9RGFxVrYG06OoWDusx9r2ifU5YOAt+G1nFo1q2dQik05usknJvDXoPPpxvctOIZZmn4At82nqjuMNAsHN3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=xavhA7YA; arc=none smtp.client-ip=209.85.222.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="xavhA7YA"
+Received: by mail-qk1-f177.google.com with SMTP id af79cd13be357-930f618435cso362701285a.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:13:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788225224; x=1788830024; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=y08cvUPAERT8DtacgubgZYXObs4Ve5NXsThRcrzdsK4=;
+        b=xavhA7YADyS0y7zPAa/fYaLchuSN1gH/eSjP4m9qT/go9icu306dzxGooqf6+jyjV8
+         9SYrEFNK1GeSDKiafUERFvPEoqfSpXorrckVa4nyu5qOto+mspMpb2oq5sTK6xgAYtX0
+         dRnUNjM4tGGWrbK+jvZ24NDNlTMIigWt11/pKQear/A962//jLUqDc6NQ89ErOpQ/6WN
+         4KEbG9336UVO3657LS2/C4N8CZuiJE5uFCgcrO3UaKRy/FSCu4xkWKp/7n/vcq1/+cTN
+         gYwUlVReVCl5iKhgK5y4muNboGcf+CzpeKKiHzhx8EFvCzaWS96HGmHp6W9V8sLVUpoE
+         +nlA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788225224; x=1788830024;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=y08cvUPAERT8DtacgubgZYXObs4Ve5NXsThRcrzdsK4=;
+        b=Ggy60K25tqMGNhjWH3vmAusRNOTsQLSEBnR7tgMjX2SuoL7JhujNOSURTl6OF6qio/
+         82oVg08O9WWap891aXtcnF9sSgbHw0goZKdblJ+d+oudCplL6o2+tpPmmgdxOJtzwYfw
+         UTNqemdlBzZW+aLgBXA1oNxoIhW90lLPFe3FZETnqV5JcpMvuoMj00d9lAFEySU7VPxy
+         8EuSpR1lGQPAudDra1GXEgSV8vvCxhouCjU7YqMkRWld/KcupLYb7XJWf+/3JOQxxu4z
+         KXFeCd+9+8JkswSoAD8gF+nxhJe6sMEgtpMmpjg1IWoQ22BGpCYj5GQHZe8W0hTbBSiY
+         JLNw==
+X-Forwarded-Encrypted: i=1; AHgh+Rr4Ub0g7tvH79k8SYsk+xaIUX1/WpBSuct8URq2ggIBWmDoCdqsHnp6tDSJIFMRS29sfAoXZ6Le/qd5a9s=@vger.kernel.org
+X-Gm-Message-State: AFuF++kdbPoIWNDqaTqs7mxyCHM7+PUn8sDVxCUObYN4LS/qwKs2sCmO
+	gs7pQGSvDktKbY93pkY5zF3jhsMowpo6Yir+EGxjn+KCLux00NAWlCt/sC6U/7zUsVQ=
+X-Gm-Gg: AR+sD11qMMEiN9OaI2+yATh7kq7GFselhI6Hfnmyyf4ARVQ246oOniZFmFyCZiBBS4Y
+	8AEElUNrd1g03hntYrEDxJuK12sANH7uR7YtZ32I20rHNJh7vwHJkoGNnF5c31PX3II7yNNZ75F
+	Q/K1T6hrnLI0YadywaiSTq8XenSlIkkQiWy47BJ44b9v6i+tqQY9CsJOYE+62FZkKL591dB2/Tw
+	xtSBEBb9ol2G34dmwEp5cR9Zaz2nvY5HDOR1T1Cax2N+oy49rJLNI2YR61acQnTcbZM4Giy4R2k
+	P8pfw9lz36LwUHD36PtuVIcQXZ84qOCeJrsCfvugF0m40eOUY5QztfOh9Zhnj4keUy2gaKLoNRx
+	a0duDbs+PYPnrUXNilaEeHAcrZNl9rXOKgu7r2BdqRcrX4f5KCwXF/PQWxc2ip6NlUIVSr2B4gl
+	IejRW941Z+r/r8Hgs/GhLSViPDmPWPPCAPG7RyoAz67F6vqUaorb6l0tDXMAXyPAH8
+X-Received: by 2002:a05:620a:2991:b0:939:36f3:fea8 with SMTP id af79cd13be357-93936f400d5mr1392214385a.25.1788225224521;
+        Mon, 31 Aug 2026 18:13:44 -0700 (PDT)
+Received: from zippy.localdomain ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9391740a307sm581347285a.42.2026.08.31.18.13.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 18:13:44 -0700 (PDT)
+From: Alex Elder <elder@riscstar.com>
+To: bhelgaas@google.com,
+	robh@kernel.org,
+	saravanak@kernel.org
+Cc: herve.codina@bootlin.com,
+	daniel@riscstar.com,
+	mohd.anwar@oss.qualcomm.com,
+	lorenzo.bianconi@oss.qualcomm.com,
+	linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/4] PCI: of: drop the reg_num argument to of_pci_set_address()
+Date: Mon, 31 Aug 2026 20:13:34 -0500
+Message-ID: <20260901011338.1323243-2-elder@riscstar.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260901011338.1323243-1-elder@riscstar.com>
+References: <20260901011338.1323243-1-elder@riscstar.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <CAAhV-H40Zu0zTLQ7-S0tzqMNJ8KRB4iF+rzzrZG_Nd4ETveDDA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxBc25JpZqbJQYAA--.24104S2
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxJFyUJr4xWF13WryrZF1rKrX_yoW5Gr18pF
-	ZrAF1xKFWkGr18Xa17Ca1DuF47CrsYqF4xu3ySy34ruFZIg3sYgr1vyr4avr47A34DXa40
-	qr1jva1fuF1rJrbCm3ZEXasCq-sJn29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUv0b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
-	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AK
-	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0VAS07AlzV
-	AYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
-	14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jrv_JF1lIx
-	kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAF
-	wI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r
-	4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU1EksDUU
-	UUU==
 
-On 2026/8/31 下午10:02, Huacai Chen wrote:
-> Hi, Tiezhu,
-> 
-> On Wed, Aug 26, 2026 at 7:03 PM Tiezhu Yang <yangtiezhu@loongson.cn> wrote:
->>
->> In do_watch(), the kernel unconditionally forces a SIGTRAP signal at the
->> end of the handler via force_sig(SIGTRAP). This is essential for ptrace
->> operations, but it severely disrupts standard perf_event usage.
+The reg_num argument passed to of_pci_set_address() is always zero,
+so get rid of it.
 
-...
+Reviewed-by: Herve Codina <herve.codina@bootlin.com>
+Signed-off-by: Alex Elder <elder@riscstar.com>
+---
+ drivers/pci/of_property.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
->> @@ -811,6 +811,7 @@ asmlinkage void noinstr do_bp(struct pt_regs *regs)
->>   asmlinkage void noinstr do_watch(struct pt_regs *regs)
->>   {
->>          irqentry_state_t state = irqentry_enter(regs);
->> +       bool perf_sigtrap = false;
-> This is not for perf only, so need_sigtrap is better.
-> 
->>
->>   #ifndef CONFIG_HAVE_HW_BREAKPOINT
->>          pr_warn("Hardware watch point handler not implemented!\n");
->> @@ -851,11 +852,12 @@ asmlinkage void noinstr do_watch(struct pt_regs *regs)
->>                          }
->>                  }
->>          } else {
->> -               breakpoint_handler(regs);
->> -               watchpoint_handler(regs);
->> +               perf_sigtrap |= breakpoint_handler(regs);
->> +               perf_sigtrap |= watchpoint_handler(regs);
-> Let breakpoint_handler() and watchpoint_handler() return "int", then
-> see below...
-> 
->>          }
->>
->> -       force_sig(SIGTRAP);
->> +       if (current->ptrace || perf_sigtrap)
-> Define need_sigtrap as "int" and initialize it as current->ptrace,
-> then we can only use "if (need_sigtrap)" here.
-
-Thanks for your suggestion, it looks better.
-
-But I think the type can be bool since it is either true or false.
-
-Here is the incremental diff based on this v1 patch:
-
-```
-diff --git a/arch/loongarch/kernel/traps.c b/arch/loongarch/kernel/traps.c
-index de0c9b03d551..4cbf84b148cd 100644
---- a/arch/loongarch/kernel/traps.c
-+++ b/arch/loongarch/kernel/traps.c
-@@ -811,7 +811,7 @@ asmlinkage void noinstr do_bp(struct pt_regs *regs)
-  asmlinkage void noinstr do_watch(struct pt_regs *regs)
-  {
-         irqentry_state_t state = irqentry_enter(regs);
--       bool perf_sigtrap = false;
-+       bool need_sigtrap = !!current->ptrace;
-
-  #ifndef CONFIG_HAVE_HW_BREAKPOINT
-         pr_warn("Hardware watch point handler not implemented!\n");
-@@ -852,11 +852,11 @@ asmlinkage void noinstr do_watch(struct pt_regs *regs)
-                         }
-                 }
-         } else {
--               perf_sigtrap |= breakpoint_handler(regs);
--               perf_sigtrap |= watchpoint_handler(regs);
-+               need_sigtrap |= breakpoint_handler(regs);
-+               need_sigtrap |= watchpoint_handler(regs);
-         }
-
--       if (current->ptrace || perf_sigtrap)
-+       if (need_sigtrap)
-                 force_sig(SIGTRAP);
-  out:
-  #endif
-```
-
-If you are OK with the above changes, I will send out v2 later.
-
-Thanks,
-Tiezhu
+diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
+index 75a358f73e694..505226b876c56 100644
+--- a/drivers/pci/of_property.c
++++ b/drivers/pci/of_property.c
+@@ -52,7 +52,7 @@ enum of_pci_prop_compatible {
+ };
+ 
+ static void of_pci_set_address(struct pci_dev *pdev, u32 *prop, u64 addr,
+-			       u32 reg_num, u32 flags, bool reloc)
++			       u32 flags, bool reloc)
+ {
+ 	if (pdev) {
+ 		prop[0] = FIELD_PREP(OF_PCI_ADDR_FIELD_BUS, pdev->bus->number) |
+@@ -61,7 +61,7 @@ static void of_pci_set_address(struct pci_dev *pdev, u32 *prop, u64 addr,
+ 	} else
+ 		prop[0] = 0;
+ 
+-	prop[0] |= flags | reg_num;
++	prop[0] |= flags;
+ 	if (!reloc) {
+ 		prop[0] |= OF_PCI_ADDR_FIELD_NONRELOC;
+ 		prop[1] = upper_32_bits(addr);
+@@ -131,7 +131,7 @@ static int of_pci_prop_ranges(struct pci_dev *pdev, struct of_changeset *ocs,
+ 			continue;
+ 
+ 		val64 = pci_bus_address(pdev, &res[j] - pdev->resource);
+-		of_pci_set_address(pdev, rp[i].parent_addr, val64, 0, flags,
++		of_pci_set_address(pdev, rp[i].parent_addr, val64, flags,
+ 				   false);
+ 		if (pci_is_bridge(pdev)) {
+ 			memcpy(rp[i].child_addr, rp[i].parent_addr,
+@@ -164,7 +164,7 @@ static int of_pci_prop_reg(struct pci_dev *pdev, struct of_changeset *ocs,
+ 	struct of_pci_addr_pair reg = { 0 };
+ 
+ 	/* configuration space */
+-	of_pci_set_address(pdev, reg.phys_addr, 0, 0, 0, true);
++	of_pci_set_address(pdev, reg.phys_addr, 0, 0, true);
+ 
+ 	return of_changeset_add_prop_u32_array(ocs, np, "reg", (u32 *)&reg,
+ 					       sizeof(reg) / sizeof(u32));
+@@ -458,7 +458,7 @@ static int of_pci_host_bridge_prop_ranges(struct pci_host_bridge *bridge,
+ 		/* PCI bus address */
+ 		val64 = res->start;
+ 		of_pci_set_address(NULL, &ranges[ranges_sz],
+-				   val64 - window->offset, 0, flags, false);
++				   val64 - window->offset, flags, false);
+ 		ranges_sz += OF_PCI_ADDRESS_CELLS;
+ 
+ 		/* Host bus address */
+-- 
+2.53.0
 
