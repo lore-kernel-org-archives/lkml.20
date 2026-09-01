@@ -1,166 +1,134 @@
-Received: from relay.hostedemail.com (smtprelay0014.hostedemail.com [216.40.44.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15418477E37;
-	Tue,  1 Sep 2026 20:35:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.14
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788294933; cv=none; b=QWO3B/CuoxWQ2bDDRh9J/DL5UasqltsDArN/S7DnMS6na+QJtHxPXUjX1pcaRBrMynnWrwnBD3Y6QsBy5MZXk4FI78bO/KhZ7KvYjltsbekqo5s46M5ucO8AvinjKk5uptusx2DjzDeHhiN0QtL/GVHcSdPi62wadVD60GJ4yH4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788294933; c=relaxed/simple;
-	bh=pHIsrFSNvLWC/4DPdUY0rtzW7sSfm7EwgWqWklgBjiQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=mJARv51xiRPZ7zQdEkXbSqojF1KXneZLwxkq8zTjHNRONltJGm1SSsZ0p5bX/UZjr462z8S4Khs1wiS+w/vSaBrMrcOFtjunv+mwmvb+1x8ZnPDmLPYKdD7DxfxGhFhZiBAyTIxcNBp7pC8EuRBcwXpS9jKy2gDl5BM1r18xCqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=Ll5Rr+oi; arc=none smtp.client-ip=216.40.44.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E97AD4A386A
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:36:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788294991; cv=pass; b=BjsUqeYWAesiHXhhXoQxtTMDoPWA67YH5lj/9Vqv/2UGSagdY6QsTOnDrnloapwLz/rjvK8+xJWTszS8GyAInkvfoYQfqMoTrhWQtpaNcZq2AWfLIBpStMkB5ASIAjfwLBsfXdx67FKhXqU1Bo4x6GqkoboP02YxyF+1X8ovCww=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788294991; c=relaxed/simple;
+	bh=HdDGW1g39cCl6eGOp/7kmX7YZgzSXGwniWQDRTw+uXI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=jyXsc9JV5v1nFTA08Sgv6JATxaDypSmbWtL2SSXP3I4qJJ/ExPd5XdKNTs04ra13OoeO2ZZIe6+EHdQbeYkAv1grXLuW5z193Z8G8gV2HRdKzfbOP6oEHZt4XsbEr4at1oDSmHgzU1PaSZwDVpgop7GyJx+IBVDa0LHEEpLL9Lo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=LcgLPumx; arc=pass smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="Ll5Rr+oi"
-Received: from omf06.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay08.hostedemail.com (Postfix) with ESMTP id 6D9931404CC;
-	Tue,  1 Sep 2026 20:35:23 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf06.hostedemail.com (Postfix) with ESMTPA id B7B2B20010;
-	Tue,  1 Sep 2026 20:35:21 +0000 (UTC)
-Date: Tue, 1 Sep 2026 16:36:20 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: LKML <linux-kernel@vger.kernel.org>, Linux Trace Kernel
- <linux-trace-kernel@vger.kernel.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>
-Subject: [PATCH] tracing: Take trace_array reference when opening options
- file
-Message-ID: <20260901163620.6cbe0ada@gandalf.local.home>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="LcgLPumx"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-484362f5c4aso307807f8f.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:36:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788294988; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sQkmvOWimqM09XdKUA0AAHMQIV1KGo/GuOpbIa29b3zXqb2iZnUam8Xo7Q3t8D0nxw
+         jyTgQZfwhkeEB/m6lFley9eGLSG4e4tzTOgOpwaxX3o/XIF9BE0CRwPae+QOHQkcgyFF
+         qNqUofuz27lROQeTxDnWrkHtfU1zG6FFhiFon9zRMlYyOzi/FdSDFw3tGI6q5mEqJqgT
+         05OSsjGhGQ8mi9LJMWKRMWuyQO85f5FtvebrxeED1zYOwmVkSGfzHv2SawmYCQXnGFM5
+         mzTcij0R8GVPxBh1lAyd6Pm/A+RL9QbUmDNvMdnF9+ShB6bd1UW/h5xuPvSnKXj7FQri
+         nH8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=HdDGW1g39cCl6eGOp/7kmX7YZgzSXGwniWQDRTw+uXI=;
+        fh=4eC0dL5kp77aB0CJReAJHvEXkT8Ea70RY3cln90/t5I=;
+        b=dji8c2anat0lFOs02corj6epQtAiw0SPO8zH73GrduRQ47Eevma+esLmulMjSH5EPx
+         XpYWtr7FcF1Co852FXx2hbBUF26bL2T3MCJgt05/q72idOFNLva5DZC4ypoQPfqfHpp8
+         JlAZnyMJPpFRX2wcpnM6YPwz2lFadXFoj9xMAtS61Www9upyENkoz+uHvDh9//7DRgKU
+         xIIFHGNZB3FtDuhPgdF7Hs2hy40cBVAtfhIopHQM3LAbbizftdgOBEDSZzVPEjcPObhf
+         QKwgigRCM/ozNAgps+hnUiG27Tfxhoi7cVHz0NSb4DlLrDcZTGGYOuv0PSZdsd23t+g9
+         DdIw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788294988; x=1788899788; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HdDGW1g39cCl6eGOp/7kmX7YZgzSXGwniWQDRTw+uXI=;
+        b=LcgLPumxXUCU3LWs4oRI2gkX95yDO9pKpGigrUnGgcxWrh/9hnc496ZzNZZmPdt+WA
+         BMwQgMBuN97GIWU1WAnp44Hl5Tcg9WrwBh5cSUcozA8/kko8FnJJ9e7EKlz9MWW0UAMB
+         CItw7E2GKzqhi3DE9MFfmxAOeHFR4yKI/6VX54hVg4dXwlCnW5TEMyS1z0w7uhgzyKye
+         RcbCG8oh0qhqiuBUXd7nO1+q9EKI5+qO8IhBeYIO0beidmNlpEUBnZ4ynrVBm8q3TYTe
+         WNILaGmBLjRxINRQ3cU5yZgVOJkx6d1To/TX0iz59cXw/oddxeU4oZhNtWRBVM/bLNKT
+         l71g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788294988; x=1788899788;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HdDGW1g39cCl6eGOp/7kmX7YZgzSXGwniWQDRTw+uXI=;
+        b=hlCSMc9zgs02iElalecPXla/Hm5aa7FlX6cwWki8K3NHAWiWDtcQCZDJJxWsUiNGLB
+         rHDvipbDJyAJMDuv2ti0ann795s05kzkpXlLrJtszKUHQnhkUj5gZmPHX2dNhkcnfrBd
+         Hckcq8RzTJtMPVWzHb/2bxH2v/LGOnIyQWlqR7Juh6jZYIsxfeDUEYCg8otvcbLm+OvB
+         59lJeeMLuHleN3HR0ka8ZRzrOiftBFF2NiUDljypvMSP0Qd4vUywSxUNJqQWx8uSXFTy
+         F/KMCaAcR2pFusmbywFE0edCihhwU97awGcjd9+IWoB6vhmx1Zr4DokPrAhOUi02r+Wu
+         Ev7g==
+X-Forwarded-Encrypted: i=1; AKwUvBxmG+pbkJizi3I9F8Lde1+pWQc1e5dB7WGWa39ZlR2SAZ4kqhHvv3YQcez5X/ewZguU5aukJ358xbGrZy8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mwqHKz5U2kt9OXmL6qxNVhDDafgXH2YNpYojCBRu/XrGn3y1lZ
+	U0fivBRnqlAqr2BX4YTgHFJjTNWn8eEBH7R1PeXtCrC1Wa7JT1OtbBUeqEtA4MlllwOOKymIyPq
+	VYMjhQoHvpcKJlZbMZEO3nWcN0UxLAZ/xP52mbQk/
+X-Gm-Gg: AYBFou3zTqm7PxQlxg2kZEfmcayvAvOQsRZp9hqUSOeNMrwHRtsJSrY6uXP3jpxBVrW
+	CqCm9oMThXof0Hnx6CYS16b7sMTAS5Ng+PhFjeVjdjQJlw7+s1dGkGnHSNmbpuUn92fBMRKxt9v
+	nV10V7jbi+DYiPrjwyuROTq4QMH0Kq0gGQESjdJd76KZyWIIj29PYB3g6+ZZxYJZRRLXTfl8GYO
+	wHL+RwsRO0rMdQNOzqnOEZ1zTxdkhDe3MVA1pAQN81x9Nkqy5H+J5c5hKrfuFKFCOmte4pPOe/h
+	xdOHAGqkOHACJqPb9raOeaqClHyBHfYl4Ctf4HyLnrnV+Bwqvx8T/zg6XXNKrSKtsdGyCgDJs/o
+	bKwSo3FAo71kcQfQFVyBS6K3gFCkSjQtIucLNvm8AfN+E1taTORnjWyQ=
+X-Received: by 2002:a05:6000:4910:b0:482:f61c:7cdd with SMTP id
+ ffacd0b85a97d-48488df9e0dmr42483f8f.4.1788294987371; Tue, 01 Sep 2026
+ 13:36:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Stat-Signature: bafzbjascqatj1zqasq768c4ikudgkcd
-X-Rspamd-Server: rspamout06
-X-Rspamd-Queue-Id: B7B2B20010
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/l1ba6B717nU07kq57QxxIl85zG+MopOU=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=h+HW9juB6WRMvybig35oZxUCTIigBs56Ot//5krdEtM=; b=Ll5Rr+oiRXGQkOwM/KPuwkC2OFnoDgD91vu+7tzXZfZ34+qV7Pdfm2ctKzdEIohRCz6Cv53dlVz8tbBOQMneQerkYGcqvzzHsVCecTGFW8yriXjNk8jQSS9RsIgGNkH/3J0RS7X2O/XF2LwxMSdhQpPMlri8xEoSdWJDUcx5mQc=
-X-HE-Tag: 1788294921-337226
-X-HE-Meta: U2FsdGVkX1+zsVntxLsV5cZzCQNt5WENt6tpS4rNNQH1dCUqgWgStDqVxaLJT2Ix1UZin+Lf48mCDX+SUjhOD147+0FiIjPNRRCTv+E/1hwfBCgMUKxTrxXPZHHdbZ1kn8KB1YK1td/YO3PhM19s+SaPHmSfCSz2roYqzsrw316a6lFlfUx629p8WGwYa+yeRTn/T4vjb0mO1GXkZTgJwSCbHNK3or0LG8CAnoC712Z6zZVmEGx9rwBhimouCwWgHWskMnve/d+UAMSfe4JWfNcF0z+7XPrjizduI2yYfgSoa1ccL+qrr6cJKd9w2IYIatDuyNHq5lo1IpgmmNvSPMII3vbGy4LofGayS8B/xRcfNpmuovT/4JUCtpmYGLtbbZ2uASIl2VzGxcZUGpSl5A==
+References: <20260718111340.159896-1-linux@yoavmoshe.com> <20260827194508.446733-1-linux@yoavmoshe.com>
+ <CAKwvOdkSZBbq=e916=efx8G-CTzZ5b31AhyUytO6eJjjkEdMow@mail.gmail.com>
+ <CABCJKuc0cWWdkA7zrCcuze4AE-qTSETuUi-eRewPnn_ivHEADQ@mail.gmail.com>
+ <CAKwvOdnA7Ej_uppSL7U2xwxyUQoDMvO+RArj4HCUSOziH0rCqA@mail.gmail.com>
+ <CABCJKuezb0HtOcMBsObczS=HBaRvMszagkOZGHyOVbXBqtJi5g@mail.gmail.com>
+ <2bd0c842-d0cb-4ad7-b3a3-fed2000dea83@yoavmoshe.com> <CABCJKudb5RegHcNPkXG5p1TcCFAe5_8+hqBP-2GyHVK19oB94g@mail.gmail.com>
+In-Reply-To: <CABCJKudb5RegHcNPkXG5p1TcCFAe5_8+hqBP-2GyHVK19oB94g@mail.gmail.com>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Tue, 1 Sep 2026 13:36:15 -0700
+X-Gm-Features: AcwNN1XLVY2qNNwpmvPqR9vii35HawK0FLdCW7a8C92cPutToPYaUpHoOUGoDJI
+Message-ID: <CAKwvOd=OLLO5AXiR54o0nU16e_pTDt_yiEPQ0GgnX8DRGJXYmw@mail.gmail.com>
+Subject: Re: [PATCH v4] ARM: imx: Fix suspend/resume crash with Clang CFI
+To: Sami Tolvanen <samitolvanen@google.com>, "Yo'av Moshe" <linux@yoavmoshe.com>
+Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Russell King <linux@armlinux.org.uk>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Nathan Chancellor <nathan@kernel.org>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, llvm@lists.linux.dev, 
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Steven Rostedt <rostedt@goodmis.org>
+On Tue, Sep 1, 2026 at 12:46=E2=80=AFPM Sami Tolvanen <samitolvanen@google.=
+com> wrote:
+>
+> On Sun, Aug 30, 2026 at 9:24=E2=80=AFAM Yo'av Moshe <linux@yoavmoshe.com>=
+ wrote:
+> >
+> > The sashiko-bot's comment on v5 indeed pointed out that imx5, at91 and
+> > omap1 might suffer from the same bug: their suspend routines are also
+> > fncpy()'d into SRAM without a type hash and called indirectly. They're
+> > all ARM, so asm/linkage.h still seems like the right place for the
+> > macro.
+> >
+> > Do you think these need to be fixed as part of this patch, or as
+> > follow-ups? I only have my one imx6 device (a Kobo Clara HD), so I'm no=
+t
+> > sure how to test the fixes for the others.
+>
+> I think separate patches for the others should be fine.
 
-The options files do not take the trace_array reference for the options
-they represent. This could cause a use-after-free kernel crash if one of
-these files is opened by one task and another task removes the instance
-that the option is for. Because it doesn't take a reference upon opening,
-it will not stop the removal which will free the options descriptor that
-is being used.
+Without devices in hand to test on, I'd be hesitant to claim 100%
+confidence. Maybe reach out to the MAINTAINERS of those, and see if
+they have cycles to help test potential patches, before
+writing/sending patches that potentially don't get tested?
 
-As the options are somewhat dynamic in their creation at boot up, each
-file represents a flag in the trace_array. The trace_array has an array of
-indexes to represent each of these flags that is stored in the
-trace_flags_index array. The address of the index array element is used to
-pass to the inode->i_private pointer. Then that element is read which
-holds the index (which represents the flag) and then the index is used to
-calculate the trace_array descriptor from its trace_flags_index array.
-
-One issue is that the index element can not be referenced until the
-trace_array's reference is taken. To handle this, create a new helper
-function called: trace_array_options_get() that will iterate all the
-existing trace_arrays in the ftrace_trace_arrays list (under the
-trace_types_lock), and compare the passed in address of the index element
-with the entire array of the trace_array's trace_flags_index array.
-If it matches, then up the corresponding trace_array's reference and
-return.
-
-Cc: stable@vger.kernel.org
-Fixes: 577b785f55168 ("tracing: add tracer dependent options to options directory")
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/linux-trace-kernel/20260828135858.2AC501F000E9@smtp.kernel.org/
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
----
- kernel/trace/trace.c | 67 +++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 63 insertions(+), 4 deletions(-)
-
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index a946e0183fd1..61ca05ee991d 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -7842,11 +7842,70 @@ trace_options_core_write(struct file *filp, const char __user *ubuf, size_t cnt,
- 	return cnt;
- }
- 
-+/*
-+ * The tr_index is the address of a trace_array->trace_flags_index[]
-+ * element that holds the index of the trace flag. But since the
-+ * trace_array reference has not been taken yet, it cannot be referenced
-+ * as it could have been freed by a rmdir of the instance the trace_array
-+ * represents.
-+ *
-+ * Search the list of trace_arrays and compare the tr_index to the
-+ * address of the entire trace_array trace_flags_index array for each
-+ * trace_array in the list. If one is matched, then take the reference
-+ * and return it. If not, the trace_array no longer exits.
-+ */
-+static int trace_array_options_get(void *tr_index)
-+{
-+	struct trace_array *tr;
-+	int ret;
-+
-+	ret = security_locked_down(LOCKDOWN_TRACEFS);
-+	if (ret)
-+		return ret;
-+
-+	if (tracing_disabled)
-+		return -ENODEV;
-+
-+	guard(mutex)(&trace_types_lock);
-+	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
-+		if (tr_index >= &tr->trace_flags_index[0] &&
-+		    tr_index < &tr->trace_flags_index[TRACE_FLAGS_MAX_SIZE])
-+			return __trace_array_get(tr);
-+	}
-+	return -ENODEV;
-+}
-+
-+static int trace_options_open(struct inode *inode, struct file *filp)
-+{
-+	void *tr_index = inode->i_private;
-+
-+	if (trace_array_options_get(tr_index) < 0)
-+		return -ENODEV;
-+
-+	filp->private_data = tr_index;
-+
-+	return 0;
-+}
-+
-+static int trace_options_release(struct inode *inode, struct file *filp)
-+{
-+	void *tr_index = filp->private_data;
-+	struct trace_array *tr;
-+	unsigned int index;
-+
-+	get_tr_index(tr_index, &tr, &index);
-+
-+	trace_array_put(tr);
-+
-+	return 0;
-+}
-+
- static const struct file_operations trace_options_core_fops = {
--	.open = tracing_open_generic,
--	.read = trace_options_core_read,
--	.write = trace_options_core_write,
--	.llseek = generic_file_llseek,
-+	.open		= trace_options_open,
-+	.read		= trace_options_core_read,
-+	.write		= trace_options_core_write,
-+	.llseek		= generic_file_llseek,
-+	.release	= trace_options_release,
- };
- 
- struct dentry *trace_create_file(const char *name,
--- 
-2.53.0
-
+--=20
+Thanks,
+~Nick Desaulniers
