@@ -1,130 +1,164 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E361470EA8
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:57:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2375C36B937;
+	Tue,  1 Sep 2026 09:58:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788256652; cv=none; b=Cph7XvNKytkKJk+Txj3C06sSPTk7Gdk4BfAcdlywHTYddgmlthiiK/eS13hTg+f2PCzSWBp+FuaQMzTEzimfYHoL33QAsId0Xbz/BMuq27a1GQW4fk+4GCvVEqskGSzKkZj8u2r28Ht6J8TKZST5OewpTQ5mWvuTBYBN0uNdSI0=
+	t=1788256695; cv=none; b=rnvNb6Ej4bvi8TcamBfhQ0HxDbLw7ErDqWMuX9JPFeF5vIKzAEMShWD7nMm/AcnjVepgUAYgvI57JUtRoshA2MCj5AfkM1YDNpua/UclhiP8r+pd6TmWOAnZSvZ7bRaaxtke/TqNBoY5OI92n3AgQ8eh2nkID0YYaYh/tAFo4JI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788256652; c=relaxed/simple;
-	bh=11jjKfUY9KFzwZxUWk/NgcNwLRgWeMnxQMKfWVaoYGc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YC2xqop6t7iyoDxuQm4CX59ynP80L/2Bfr8f+0aLXKkpsD6/sdsEtXH/BK39Sllhp6VGCsAULFDsko6A3C/xUZR6Xzab5WWJQAnGD1MMWOgH7Dn3d5W3EHNq64F0qMemPCisYz2uq+A5BF5oMRhWT95NepfHHlDPvmAH5fNohR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ceaiPkqY; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788256695; c=relaxed/simple;
+	bh=XYMbeXBfOEyRxC0i3CmUy2DlQ0vfDIFt9a2avoP6ZX0=;
+	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
+	 In-Reply-To:Content-Type; b=aFRnH6jQ9Btt5h0DkIOERVRdhiCg8MUxu5CAiLkPYdxNS5/HV9VpTyJf69P7d9UuaEW2GmXGyqAfYz7b0ZZuzEbitaH3g3xTS6oZxcoPaqkuRze3YHU0b4Upime9il51xZrsMxEtH72C+Z54rD2OdKKKHqvkIX78dkDavzHgpjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=MIcHzRaw; arc=none smtp.client-ip=220.197.31.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ceaiPkqY"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47de0093c42so696422f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:57:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788256649; x=1788861449; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uOoFj1fnBYzWP1dEYsJ9SaTJjzi1C6FqQt+UOHHWVdw=;
-        b=ceaiPkqYvAfGp1kO5pTt6BpnYCubF+fRNWGepwp1YFw4IY17Y/vVxbLgH5BH0qhrw3
-         ag5x9GyUhqeW9maZYar2c+HNKlWkUyP4Zr4bb3LFbrvv+QR1944JNlKNMtYqk10ON2un
-         sy0uFfjlM8P9bZuF2lq0ouHtdiO/En+pt5w+fv/EQO5cZRyIbG4ooqb36aLQKT/EgX6q
-         /smt/xb1FGo58lMQZN4/mQ+qLjt705GZJPGwg0icf7hKJs6dM5MNZ6pvJvT/HnSAvd71
-         TukzautT7qBX1yvHplDM7rMrn0USdaI3NSE6b4CSHSeurB3jotlNuYznB1pYr2KoRFTg
-         xoOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788256649; x=1788861449;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uOoFj1fnBYzWP1dEYsJ9SaTJjzi1C6FqQt+UOHHWVdw=;
-        b=Ld8WZWbO8lh2JkxQb9pE/h7pOQKvQPa2cSaE/kBXos/KDfmKzVxX+8S8fY+jjk8Xq1
-         1cEH4MDMlCo64+UoeT1O2nAvIctm358hgaEdQFvDIgI+hEi8ymF2b+FgaYigLJq2BNMV
-         I6uVdATF8OMNBwIi0N7PUBsHJB1T1CifmbohK1WRGndPJqyXPGebMDKdofUqE+NQSqP/
-         BZIzluA2cVOTPuKPM2PQZpjByrxlNWzOeYi+WAf39MAkacl+pPWhGgjpAmiuRzBNkKLd
-         QxYsqwSblJbGe0+sa3CMBCB6OwlEEiZPoVUxypPiddWHPvI26BaTXT54U01bHxVjg5Fz
-         HyFA==
-X-Forwarded-Encrypted: i=1; AHgh+RpO7f0Gmg5HsYR9Hyqe0l1Pn4wLmh6SbMUsVI+Wl5N2oxb2Ui5+xsmYz6+0TWRONTXrkmBv+suN8AiAKq0=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPhkl6y33PezoH/aFb/4W9vM4m3XSOUcAHE3uNURCxkVj3N7kx
-	4jgNBPTI1GUdjj5I93gpqbNVZZW+y+EQEbimoYqQm9UKqXaYQsYEJWgcE0m4mQ==
-X-Gm-Gg: AR+sD12yIwQHiBfnV1mqmF0dpyIqnx+weyePx+A2IlxCPcklLYIh9808grqwXmKEE72
-	0shvtykda+IXrRYN/eP/uHfcF2GQQ7dGT4Ujq90UBOLNB2CenbGiq0yuWSmaLcuTy+Et0ebqjxJ
-	VaSwW3bWUlzyemWpEeQCaFDey2orV28V4OsmL61+6wf2zXLcgl88lFZGwuMYVznRFUd2W2SuXeP
-	3i80lq+IS4Z2ItHC3CvTyrjRDIylT8OT0K5aItdRjKefhuoz+Nwp3p0apsmlhZAtIg9gTEjbSsQ
-	KvJFBzZnER8SfAkUBBJyemT0x8dzP01OooYq/4RNdyr5ENSNpsd25IxZrsr3n28Mbfl97KB9UAV
-	zI+kl8uCVFJHVYZ1l3x/J8apXbSXMGWEtbA6GO/ojDKJaLRYbQRfG5OUYGMkz6P3WLonKM5UKZk
-	BXJpghcnA5tsvm6F0POMwgSO0xdlwZVttx37Dy1qHD15XhA4GB5binGZyyP21D9j9YRDoHeVOZd
-	yWomtC43sdbs/p6YUYh+GlNpA==
-X-Received: by 2002:a05:600c:1393:b0:49b:12c2:104f with SMTP id 5b1f17b1804b1-49b91c2660amr461459995e9.1.1788256648521;
-        Tue, 01 Sep 2026 02:57:28 -0700 (PDT)
-Received: from raviolimobile.tail5f26fd.ts.net ([2001:b07:5d3a:fe75:6bf6:388b:455d:27bc])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442c192bbsm3711478f8f.0.2026.09.01.02.57.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 02:57:28 -0700 (PDT)
-From: Fernando Rimoli <fernandorimoli11@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	linux-media@vger.kernel.org
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Arsalan Naeem <naeemarsalan@gmail.com>,
-	Jakob Berg Jespersen <dev@berg.pm>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 5/6] media: ipu-bridge: Match sensor configs per IPU and add config flags
-Date: Tue,  1 Sep 2026 11:57:21 +0200
-Message-ID: <20260901095721.45129-1-fernandorimoli11@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831181858.325109-6-fernandorimoli11@gmail.com>
-References: <20260720163819.104130-1-fernandorimoli11@gmail.com> <20260831181858.325109-1-fernandorimoli11@gmail.com> <20260831181858.325109-6-fernandorimoli11@gmail.com>
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="MIcHzRaw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:From:MIME-Version:To:Subject:
+	Content-Type; bh=KLhdG1AqRzKa01vbe6PNzPfrnJzkqfVznwo/f7/UnT4=;
+	b=MIcHzRawpTqSO9KHRv0uQFEDdDbxyc/nJ+kZSJcP4J7SBp0rTnR19KvFd1cn/l
+	HpG7fUrTnORyxoPNPfBE4h7JTXbsTaA9BE0C1GNNyMGahAyKPK9PkBY1zLHGyJnx
+	drC23U4Lb6ofteW3iVjXoLmNtXFXP4IMv/0gGlRHhsBcE=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDnz7aSoZZqmGXeHQ--.58331S2;
+	Tue, 01 Sep 2026 17:57:38 +0800 (CST)
+Message-ID: <6A96A175.1090700@126.com>
+Date: Tue, 01 Sep 2026 17:57:09 +0800
+From: Hongling Zeng <zhongling0719@126.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:31.0) Gecko/20100101 Thunderbird/31.2.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+To: Carlos Maiolino <cem@kernel.org>
+CC: Hongling Zeng <zenghongling@kylinos.cn>, darrick.wong@oracle.com, 
+ chandanrlinux@gmail.com, linux-xfs@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] xfs: fix array bounds checking in log recovery
+References: <20260824094535.219503-1-zenghongling@kylinos.cn> <apZ5UptiKsVGgPHZ@andromeda.toxiclabs.cc> <6A969D6D.6060808@126.com> <apafftcOk6XIDYTQ@andromeda.toxiclabs.cc>
+In-Reply-To: <apafftcOk6XIDYTQ@andromeda.toxiclabs.cc>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnz7aSoZZqmGXeHQ--.58331S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXr15GFyfJw1fKF18Jr4xJFb_yoWrAF4fpr
+	s3ta1DCw4DJr1xtrn2q3W5Was3K348Jr4Uur43Gw17ur9xKr17urWYqFyjg3s7Ar4qva1j
+	9r45ZrWfurW5ZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j-TmfUUUUU=
+X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBrhPMnWqWoZM2DAAA3Y
 
-Sakari, Dan,
 
-The semantic I asked you both to check in this patch, where a PCI-specific
-entry wins and the generic entry for the same HID is skipped, now has
-hardware confirmation rather than only my reasoning, so you may not need to
-spend thought on it.
+在 2026年09月01日 17:49, Carlos Maiolino 写道:
+> On Tue, Sep 01, 2026 at 05:39:57PM +0800, Hongling Zeng wrote:
+>> 在 2026年09月01日 15:06, Carlos Maiolino 写道:
+>>> On Mon, Aug 24, 2026 at 05:45:35PM +0800, Hongling Zeng wrote:
+>>>> The log recovery code increments array indices based on bits set in
+>>>> blf_data_map without verifying that the indices stay within the bounds
+>>>> of the item->ri_buf array.
+>>>>
+>>>> Since blf_data_map is from untrusted log data, a malicious log could set
+>>>> many bits while ri_total is small, causing array index overflow.
+>>>>
+>>>> This can result in an out-of-bounds access during log recovery, causing
+>>>> a kernel crash or memory corruption.
+>>>>
+>>>> This patch adds array bounds checking for ri_buf access in
+>>>> xlog_recover_do_reg_buffer() and xlog_recover_do_inode_buffer().
+>>>>
+>>>> The check in xlog_recover_do_inode_buffer() is placed right before the
+>>>> actual array access, not after incrementing the index, to avoid false
+>>>> positives when processing the last valid region.
+>>>>
+>>>> Fixes: 1094d3f12363 ("xfs: refactor log recovery buffer item dispatch for pass2 commit functions")
+>>>> Cc: stable@vger.kernel.org
+>>>> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+>>> Hi,
+>>>
+>>> is this a re-send? A v2? Please specify why you are sending the same
+>>> patche again. This saves a lot of time trying to understand why there
+>>> are two patches with the same subject in the list.
+>> Hi ,
+>> This is the same patch version, but the previous submission failed to
+>> apply because my local repository was out of date. I updated my tree and
+>> resubmitted the patch with the same fix.
+>>
+>> Sorry for the confusion.
+> So this is not the same version, it's a rebase against top of the tree
+> and that should be properly described.
+>
+> I'll be updating for-next soon this week, please rebase it again on top
+> of for-next once I publish it and re-send it.
+>
+> Cheers,
+> Carlos
+> |
+> |
+|Thanks for the clarification.
 
-A linux-surface user tested the series on a Surface Pro 8 (Tiger Lake IPU6,
-0x9a19, ov5693 as INT33BE) on a machine that has INT33BE in the table
-twice, the generic entry plus the flagged one this patch adds, alongside
-two other sensors on other ports. The bridge connects each sensor exactly
-once:
+Got it — this is a rebase, not a new version. I’ll wait for your updated
+for-next tree, rebase the fix on top of it, and resend it with an
+appropriate changelog.
 
-  intel-ipu6 0000:00:05.0: Found supported sensor INT33BE:00
-  intel-ipu6 0000:00:05.0: Found supported sensor OVTID858:00
-  intel-ipu6 0000:00:05.0: Found supported sensor SMO55F0:00
-  intel-ipu6 0000:00:05.0: Connected 3 cameras
-
-Three sensors, three connections, no double-connect and no port consumed
-twice, which is the failure I was trying to avoid. The other two sensors
-take no flags and came up normally afterwards, including an IR sensor that
-still streams and still serves face authentication on that machine, so the
-filter does not perturb entries it should not touch.
-
-He also read MIPI_CTRL00 back over I2C during a live capture and got 0x20,
-which means the flagged INT33BE plus PCI_DEVICE_ID_INTEL_IPU6 entry is what
-matched and the property reached the sensor endpoint. So the path from the
-table through to the register is exercised, not only the end result. That
-is a second Tiger Lake confirmation independent of Jakob's on a Surface Pro
-7+ elsewhere in this thread.
-
-Two caveats on how much this carries. His tree is 7.2.2 with the
-linux-surface patches rather than the v7.3-rc1 base this series declares,
-and that tree carries its own duplicate OVTI5693 entry which he had to drop
-for patch 6 to apply, since patch 2 adds it properly. Jakob's test was on
-the declared base. Both are good, but they are not the same tree so I just
-wanted to have that on record.
-
-He intends to send his own Tested-by, and has offered to run the negative
-control, the same build with the PCI_DEVICE_ID_INTEL_IPU6 entry removed,
-expecting no frames. I have asked him to do it. That would show the table
-entry is what makes this work rather than something incidental, which is
-the one thing none of the positive results establish. I will report the
-outcome either way.
+Sorry for the confusion.
 
 Thanks,
-Fernando
+Hongling|
+>> Thanks,
+>> Hongling
+>>>> ---
+>>>>    fs/xfs/xfs_buf_item_recover.c | 26 ++++++++++++++++++++++++++
+>>>>    1 file changed, 26 insertions(+)
+>>>>
+>>>> diff --git a/fs/xfs/xfs_buf_item_recover.c b/fs/xfs/xfs_buf_item_recover.c
+>>>> index 57929f115055..7148716366ba 100644
+>>>> --- a/fs/xfs/xfs_buf_item_recover.c
+>>>> +++ b/fs/xfs/xfs_buf_item_recover.c
+>>>> @@ -485,6 +485,19 @@ xlog_recover_do_reg_buffer(
+>>>>    			break;
+>>>>    		nbits = xfs_contig_bits(buf_f->blf_data_map,
+>>>>    					buf_f->blf_map_size, bit);
+>>>> +
+>>>> +		/*
+>>>> +		 * The bitmap can have more bits set than there are regions
+>>>> +		 * in ri_buf, so we must check array bounds before using the
+>>>> +		 * index to access ri_buf[i].
+>>>> +		 */
+>>>> +		if (XFS_IS_CORRUPT(mp, i >= item->ri_total)) {
+>>>> +			xfs_alert(mp,
+>>>> +		"Buffer log item index (%d) exceeds allocated regions (%d).",
+>>>> +					i, item->ri_total);
+>>>> +			return -EFSCORRUPTED;
+>>>> +		}
+>>>> +
+>>>>    		ASSERT(nbits > 0);
+>>>>    		ASSERT(item->ri_buf[i].iov_base != NULL);
+>>>>    		ASSERT(item->ri_buf[i].iov_len % XFS_BLF_CHUNK == 0);
+>>>> @@ -688,6 +701,19 @@ xlog_recover_do_inode_buffer(
+>>>>    		if (next_unlinked_offset < reg_buf_offset)
+>>>>    			continue;
+>>>> +		/*
+>>>> +		 * Check array bounds here (right before accessing ri_buf)
+>>>> +		 * rather than after incrementing item_index. This avoids
+>>>> +		 * incorrectly rejecting logs when item_index reaches
+>>>> +		 * ri_total after processing the final valid region.
+>>>> +		 */
+>>>> +		if (XFS_IS_CORRUPT(mp, item_index >= item->ri_total)) {
+>>>> +			xfs_alert(mp,
+>>>> +		"Inode buffer log item index (%d) exceeds allocated regions (%d).",
+>>>> +				item_index, item->ri_total);
+>>>> +			return -EFSCORRUPTED;
+>>>> +		}
+>>>> +
+>>>>    		ASSERT(item->ri_buf[item_index].iov_base != NULL);
+>>>>    		ASSERT((item->ri_buf[item_index].iov_len % XFS_BLF_CHUNK) == 0);
+>>>>    		ASSERT((reg_buf_offset + reg_buf_bytes) <= BBTOB(bp->b_length));
+>>>> -- 
+>>>> 2.25.1
+>>>>
+>>>>
+>>
+
