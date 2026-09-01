@@ -1,90 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DED72C027F;
-	Tue,  1 Sep 2026 11:25:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 212E0345ECC
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:25:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788261905; cv=none; b=Cdane+/5FQzkiNm6EOQ89aT/NV9091PYI5imkTbIuXzVcyH7riDWWnhfhCDN3DX2B88WBoBZg0zYhpSr8fiVbLZLUG2Xg8VMcWNV0hrk/c/1++AjQu8qJFnjWPxUSLrSN1DZz6fI3NcBcsGceFHFDex8V/VSMlZ1i29F50A8oXg=
+	t=1788261927; cv=none; b=CfjXO/pnsLUk5V/v7vvZac9TCgDTpq1PBCAPewSkffEH3g0BQqmwxgjw1xDwgegTH3MxndCQbVZ6bPEgrtYSwyGW8iCecIkrz3OgnjnMmLUvfCZ6jAQjRoYUKSLrGZ4LekyjoV62MyrHcmVXgQvk26fssjbRnbDwV1sB3heDTjs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788261905; c=relaxed/simple;
-	bh=yWfNKdz7HAVroXMHN7/2NOMoTKz5E9piBvjTaavTBd4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=jcq1lLfvK2izZ2tvgCnuqoqRwNDZ545420KD2beKqvdFyslodlxBPTSwGIdj6ZAzoGXwbRntHebWDaSSCzHJIq86fBO97J8q5xhg5HOyVdysgoSn2B+qgy5sDhuH3cumlGje4+BNY8wNzL3E4ELWxBPtjXeeIoNe2thoeghBhW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YX14xIXF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788261927; c=relaxed/simple;
+	bh=uok0MoqZQPoFbTAAAWwjQIJ1Pp75nsT1CW6Y3GJ0UEE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=i9f5/swO+9E7/PZII/g+dwUmzm1F6WK125DrVQG/PnHFu42ZCln4qofAvolOfTIergBbOEw0UKVCBCwn36G0/ou3MM0Nta8xGAGI0koGfSc855tT5owCYs2x6dhME4sh7Whm7KzNMe9uAZ5DgR9QZFjNmeu3BJN9ea3af+eqOAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TeuPPisl; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YX14xIXF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 042CE1F000E9;
-	Tue,  1 Sep 2026 11:25:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788261903;
-	bh=9/pgRNnN1oUPIt1S0++4gkkUojIODOUZLdqpUMSg968=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=YX14xIXFOcAMoFwwHcrzk6CuhG0+T5zXW4lJFg2lV+EKBCfbc2X3hZH8YKpnq0dlS
-	 HWpJ1RcLHKZDIweBxjy2rqg2LYINR2ahOSYvfNemL0nA1qNF/gZ7oo6Wz0O79aPr0v
-	 0GkuEqTyidlRbLrUGJydkERPy+k23OL9sS6YfFM0fiJmsP9nYlL/Fb3L/tc5rQu5dh
-	 ylD+5vtFc6v5lmHWqyOswxkfUc9oU3LIRQH3w6/wUNmT0ZyFtoFp9LQVjSTFe8W/ym
-	 6oMlv+7HHNMvwSl2LJ7vJYUI6O9C4Vf4EdBJ2QfW9mZa0kg73bYg97ObdYyM6TQkoe
-	 Pgqab0O+vXEoA==
-From: Mark Brown <broonie@kernel.org>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- patches@opensource.cirrus.com
-In-Reply-To: <20260831094506.57467-1-rf@opensource.cirrus.com>
-References: <20260831094506.57467-1-rf@opensource.cirrus.com>
-Subject: Re: [PATCH] ASoC: cs35l56: Fix pm_runtime imbalance if suspending
- before first attach
-Message-Id: <178818236777.141190.622965646011500936.b4-ty@b4>
-Date: Mon, 31 Aug 2026 14:19:27 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TeuPPisl"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49b965570d7so8507685e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 04:25:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788261924; x=1788866724; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hdI9C6kN8wC8gmw+WY4M3xPolKT4MPWcUpVuGixC+QM=;
+        b=TeuPPislioY2D3GI9nfPjA+W9nqM4HDNo0+wWYmnAXhlnWIbFBpbG14vO9VCoxdtLQ
+         IgBMzwECeJVBQ+97he04fblYab+HyH6LRj9YQhjoPThrQsbt8WUbCF6umc5glWZNUyn2
+         rMayexTqJ4NtsELBTR2Ey/U4njxa+aYEuOQ31gh4FXGCaInQIhiupWoRGu7ba8Db3ohy
+         cJD4dX+mVFDP8BOQ6n90aMqVh1sNm+dp2D7AuzmLBEbNu9zjD3X0oQ+XkyS+eU88Cxzo
+         AqDxidKOxiEt8V2fUDS5J07TW5AXeBF4hXl22x/6HoRVqsEZFHk/cdVjgSsMpKMZXh8S
+         U6OQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788261924; x=1788866724;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hdI9C6kN8wC8gmw+WY4M3xPolKT4MPWcUpVuGixC+QM=;
+        b=LUS45znnT8uG8n8sIIq9aUWA/gpiua3nmx1UYvYleiYhPgw6JIWpQ63U3tI8KNg2f/
+         xWy/OjKMbFxZIwiIADBvOiKPajI4JGw1vhiw0nVFyV2YFjETMveLNjjyxyMIWrO7X/cw
+         sRy4w4kzr8CZGxMNFrignCB7Bw3Zqem4ncnPNp2fcHiUoBNauMMJw6rqQDHT3h4s9Qkb
+         DC1AkyoMzj3jV7Q/UeSNcTp7JJOZuhOoVxjEJkyh0XXeR8P6/5k+vq0gcJxmH43zwSuW
+         HvtIuQ5uywg3uFaDe+J2exdx7KepobPr0nctNK/iM7kKa8UIJDieTxhG4w3r7H0/w7bA
+         ++Xg==
+X-Forwarded-Encrypted: i=1; AHgh+RoasO7U3GFMfC5IdJh4doY56n9fVvBpitIL4uxlc3plefXMHNpdBMflY+G8WY5swILa8fM7pjudNspRzvA=@vger.kernel.org
+X-Gm-Message-State: AFuF++k1OSLgPkROuUk6/sy9PR1EliVYwEyVZthXqlKfx95c66slgh3d
+	ZhxOmvrxNDkloNLI+m3uuKAu4iehWfuDAb0BggBtkNtg73BkZxI0i98=
+X-Gm-Gg: AR+sD12p+YSjR432qrWvQDEH68QdHGrnsFZP1Km102M2uc8L/ReXPKZGPwgj/lCJX4z
+	V7z8oloRfi6Pin1aqTdY6i9uQ3IOODO+Jo7Tg1Z+ensXGGz8sA6I7DzJl4vZOsa17JurfZM+nIc
+	d5jK3XzRMb2kGNy2xwo4TB6hrrzmi3eEYgySY2rxFYhFmEZvifMXRfvYq4WZXpkiCQLwx2i+inP
+	N4TEyor6q+CApNsilPVNsHUY9BPt+cfu33H7wL0vIVVsiNyrqXJorskwob63y3ubBylL0Mo04Fk
+	LqqljchDApqsqSGlvzQhsEopR+uRkzZuzrqWYgVvHb79b+nKKgcV14JpEuU3asMnl8Sd30XYN0B
+	FK/v7v5161ILtz3u5etxCkWRbgKeCaLrfJc5aMRGBunjzX/AK6XmiYs6l2EG/1Ku/WldzfNtZ97
+	8oOhkj//UH1E7tSJa2PlZAhtHB26p+yjg5ZmH9fMBMyysq8hEEWwTopwYZMDNlniAPldXO9njhP
+	+ZbyySXPg80nQBU8xww03dMGMEeJOSSssCMdO0E/Qo2
+X-Received: by 2002:a05:600c:a01:b0:499:cd34:100d with SMTP id 5b1f17b1804b1-49b91c33792mr458680795e9.7.1788261924007;
+        Tue, 01 Sep 2026 04:25:24 -0700 (PDT)
+Received: from surface.. (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce08b8esm55661925e9.3.2026.09.01.04.25.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 04:25:23 -0700 (PDT)
+From: "D. Manresa" <dmanresa@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"D . Manresa" <dmanresa@gmail.com>
+Subject: Re: [PATCH v2 2/2] media: ipu-bridge: reuse the software nodes on rebind
+Date: Tue,  1 Sep 2026 13:25:21 +0200
+Message-ID: <20260901112521.84037-1-dmanresa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <apatSYqXbqVSGBo3@kekkonen.localdomain>
+References: <20260831094257.29398-1-dmanresa@gmail.com> <20260831140304.45940-1-dmanresa@gmail.com> <20260831140304.45940-3-dmanresa@gmail.com> <apatSYqXbqVSGBo3@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1170; i=broonie@kernel.org;
- h=from:subject:message-id; bh=yWfNKdz7HAVroXMHN7/2NOMoTKz5E9piBvjTaavTBd4=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqlrYKE7MlZTUpnCzFFRWnw9bTnHjWC6DwlJ3aF
- vzY47VH6fqJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCapa2CgAKCRAk1otyXVSH
- 0PCyB/4wKYS5aCIbrvaf7GIglQw1tBVSPsXIT4d7FHCPNgpShdxj/l26Av1O8ctaFDn1/005dT6
- rQyNyvyfzi0BrnblBDW1ik3OhLn2O7b/Saz2h52awHxDDpYEGM9z+vGZ4y57+72EcnNtFXT+8nY
- yzKS/BP8UlY+M6E0cmnZfmH608L6jbpskhJs8UftIuWxKpm4wb7y/WyietUiGtG/mpy0QyIBiqP
- GI/Bl8WBAJ8G0/BmyLCTQCAFeRfmNwPiIiC7BQ7Dy6L13ZE64luml3qxJ7BCHOQaRq3qLCjTzTa
- plsk7x1oGhFauUal7yrHsSDZc4Ii++gwtZ6zt6nTNiKUuf5x
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Mon, 31 Aug 2026 10:45:06 +0100, Richard Fitzgerald wrote:
-> ASoC: cs35l56: Fix pm_runtime imbalance if suspending before first attach
+On Mon, 1 Sep 2026, Sakari Ailus wrote:
+> > Assisted-by: LLM
+>
+> Which one?
 
-Applied to
+Anthropic Claude (model: Fable 5), for both patches in the series - it did
+the code, the commit messages and the failure analysis, directed and
+verified on hardware by me. So:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.3
+  Assisted-by: LLM (Anthropic Claude, Fable 5)
 
-Thanks!
+if that form works for you - coding-assistants.rst only shows the generic
+"Assisted-by: LLM [tools]" shape, so happy to adjust to whatever spelling
+you prefer.
 
-[1/1] ASoC: cs35l56: Fix pm_runtime imbalance if suspending before first attach
-      https://git.kernel.org/broonie/sound/c/fbf2c660bac8
+> There's also an extra newline here. (No need to resend if you just provide
+> the info.)
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+An editing artifact - the trailer block should be contiguous, no blank line
+between Assisted-by and Fixes. If you can fix both up when applying, great;
+otherwise say the word and I will send a v3 with the corrected trailers.
 
 Thanks,
-Mark
-
+D. Manresa <dmanresa@gmail.com>
