@@ -1,181 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f49.google.com (mail-yx1-f49.google.com [74.125.224.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 064D3286D56
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:55:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788256526; cv=none; b=cKeaM+Bh31qIw08jORShytcM+m8lvPZR8p67HiPlDDUveglHMsaxgv8/GRI7M6lfP0szKs10Wi+lxj9ceSccbWzo8iOSmsVSIDzw5fmrUGlr5qofLQTllX2Mbtnbe2yR39yglQ4HOR3mWE7bLoMLJ7Y6uzvshu3vxslia4sPmJA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788256526; c=relaxed/simple;
-	bh=VKK2FKU6ga5dMkaUkFpuPEJ4LQvPAltaxJYOizCcDWI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q9AM5oX+Pu/oPue7BlP59D4HP67eYxElWcDx0ubpGdr2wkasBrxwLTs81v11e/Co34L3X4GFnd9FGdWwHcAYO+CRkEJ37olgHzKQxiQvUschM+GK9wx2oYnef9bZhEqaLpvtApIUlrnBTkkfbP2my3euiGqgV24lVO2zNCbR5Dc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JEjvUnVj; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD663AAF55
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:56:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788256568; cv=pass; b=aiIBGGEQDtQ9LRRxonPVF1DOTR4mdG/y3QSvNp6vwrADjNq8IDVAp7O0xOklm6DzohmOa03PQvDFmwyEyz0YcTvz58BFtmE7iCmR7jReh0TbCIsj1LdY/Mz0ObBR0gbW0Ejy82bnaIWk8oUzlJoDM4OJMKklNfhQH9YCMHINzVI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788256568; c=relaxed/simple;
+	bh=xA/wfYKsRa1xzjBEfvEgJmKrwA2BaFT91E7WZjD+/I4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Ki660C6WwIKNenp6KNzOkI2FIsV7guHIR5n81db2JRSk0FqTWVx1FgCI36e/79SD4un6WDTE7MY1XroIcQc31OMFix+K9dR0831o6gMAqhdyw8KNAmj872NUz8t9c0GK2wIGL8S64+ShgifDnZTcTi0Ylo15S0fdgIDhjiOVoGA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=BwlBpzzc; arc=pass smtp.client-ip=74.125.224.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JEjvUnVj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CC7A1F000E9;
-	Tue,  1 Sep 2026 09:55:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788256524;
-	bh=VKK2FKU6ga5dMkaUkFpuPEJ4LQvPAltaxJYOizCcDWI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JEjvUnVjlrC1+x//uhaFrgAkPGR7RagUCMde9lL/pt4tOL5YRVgkMvFnuaogJqRkR
-	 uO2DpAm6+8ipbSsRa0ZEWC2+nXghTH9IPkwlTiyR42iOrONr+BlRH9k+neerbVdDNH
-	 yHx8k27aarKUgJr2fMPeWJTJeLjPI6pwHrg10iNav99OQmXOewgQKzXUdeILGFuM1J
-	 W8Z/PJ1B/yxPWfwYIUgnDnQtJBSu4JUqUZDtGm+EcGtiIYPWMV/gnGhny/SP2/txv4
-	 fIllJ8UP5Mg1U9SN0raE7R6eaGOJVWeuLbd4trRIoHVVumXtJHSJPwmLAzmQCJ7cnm
-	 VnH7zTybw/oDw==
-Date: Tue, 1 Sep 2026 10:55:21 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/3] riscv: introduce cap framework and use it to
- optimize pgtable_l4|l5_enabled
-Message-ID: <20260901-mountable-engraved-f47c899ed194@spud>
-References: <20260830170414.4505-1-jszhang@kernel.org>
- <20260830170414.4505-4-jszhang@kernel.org>
- <20260831-falsify-arrogance-6917870b8596@spud>
- <apYafAJvKqz_hRzR@xhacker>
- <apZa3EnjGjpaydGm@xhacker>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="BwlBpzzc"
+Received: by mail-yx1-f49.google.com with SMTP id 956f58d0204a3-66c70cff944so964648d50.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:56:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788256566; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VdSEz3nGmVUYcSsjjP6VCZLAIBLwCxGDqbCaFSbcdLS03xgPL+31z3l9K+Ojw4Phct
+         6/Mf4/cpKfy+6MfG8c1K+JErcSfeRgqJ3dw1nGikXXRaFGJ/44nClELilVZPwWkxateg
+         erDmcd7QGpXyp99rlI+J4pKP5PQOxVegdPAVqL7C1d+cb+DCM/EArBTsp15ktGsNOZaV
+         0goaguRl+WNSk3lwtaLR4OjhLW/1G86r6z0uho/5N6Z4dgd4I8/JTC/3RmCHAtO1i5IO
+         AYYIIELGEoPxSoSbZNPLkUK1uq8nuPiaIfbr7rGrXWMYUYdL0vlPIdGwSY3fAQmK0pgm
+         iTVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=xA/wfYKsRa1xzjBEfvEgJmKrwA2BaFT91E7WZjD+/I4=;
+        fh=sVL9GBg2tRuaTSYwFXwjmycDT0ItDZraYBy4ywZravM=;
+        b=FcI3x5a1ZP+Rk6qVHLsaEvkEiCwdJr/ui2mCkv9MoHsfsk2vi4pKtq95tAYMrWJ1pl
+         buU4/76V768GuXvtvlIH4CCOEMZx9T04t+ArxkEK4RbzSgsWArhxSRIuXrZqgwcSrHEN
+         Y7uLuv0o8VTDTMim3idGF96hDXOPzMHyW8eLoxlwXW+VppqDylKJcPWHnLq+SgwOvm7n
+         TQ3FTjFASQ3mgQBmELKkogz5NV9v7WImnwYSFseOIuWpCjfDTp4Fj4R2KOT0OFJDwdVM
+         fV7ShdeKLzAb+A1MRCRD+p9piT02k+ctzz1Plt18OtepEyemYvZ4y/9VoMeaE2qX+xyX
+         Sw2A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788256566; x=1788861366; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xA/wfYKsRa1xzjBEfvEgJmKrwA2BaFT91E7WZjD+/I4=;
+        b=BwlBpzzcEAZxEfOmU/20jzlIgfRQ66dfzeCLeXNqTjVUu7wWUwDuWYbrtFKF+fSfHU
+         QvtS/2EWCHaFE0fVFtY6XvOp+rM1qZIFzAbaaRm2pNs0D64c8E6S2tpRads5ekUeexl6
+         6r5MF0VvyEzAIy0+tZMvMaseE5C6Ug+merxkynhLL/IZQB0mMlFh9DZil3OgsUXRqKkS
+         TvHak0w52Eo6cuUjnOYwhcFPW+Zqb3gBjdookgyFN/Uyow9fQsLdjyLp8WmifrqLqJiV
+         XBQshag7hnRBDdqHzN9GqlIKbuYlodalpe9AUdvcLoWbFnvakwN8j5Jd2KiS1/w0TR53
+         +AQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788256566; x=1788861366;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xA/wfYKsRa1xzjBEfvEgJmKrwA2BaFT91E7WZjD+/I4=;
+        b=SCT7ZBnOjPBbYfEwCpbRkW2WTQO2T3b2ypJfpyHO9R+AgDL0uw/JQjkRX8ojzkgujg
+         vmmMPC+bGmg/Av/Ze6juFNNx6lKcBLX/kRH1cgHRsrOpHuDM0+CwJ8vajMvF4W6Om3OO
+         lHKaU82pYYmBSsyP3YzC7b3Qabzn03UfMLW92ThX7i/tSisYlqf0qy2X77RGhEIs/4s2
+         z8qDN8zMyRPJIeEGh/7jzMr75yImVafL/d8WnEsT8pvWbeqH8PP/WqqUnaXiFPjdilQf
+         0FQ2sdb8UO8++upNOvMJ2aXTL80k8cZhxpKsMg7RZ680XhGipkdNeBwvuIPoA8yhL8pJ
+         Hp3A==
+X-Forwarded-Encrypted: i=1; AKwUvByZJo4r2aCbhrOdKrlyoRfnlmwOca+iRq0NPwTl7WTP5IFs7+R2OsQS+p869vByOTNgQq/02wTcFJyfNp4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nGHy8A90oJZD4HnTTxgqHRT4XyPD8qfe1/wqw3QvfOpeCBcxfU
+	dl1rDd+cvZSoNs5/HHl36iHQemMJrmRYnuYEbuXRFzTAvkmiIHr3I7TM/t9nFEwGE+D+gD2VUZw
+	ryDC5vQEgzWeCLiAuP96rQ6EozAd56yTj4nMeYjFqAg==
+X-Gm-Gg: AYBFou3er5c+cGsMIvVN6FVhAGLvhIS1QH5a/nRcQg/oGP8BC6rdIkKLJkDYAOuEG82
+	kXeDqJnIdJWeMfLB5PLi6FtaRf4Xj/L7Qyi/I5cqCtDs4pR4tz4UY0iFG6vc5/3MKFHYaEoJbX/
+	FZUFK3G/gb1okcZYERAoJlZ0/TsXhmcNMXJCQS6rWQx8+KEVcR7Fw60Ah81AinBZa1nzNENpAzy
+	bfBDx8xUso5WP5XDhwxVcOq+vcJDOKrT6XvHUjmMFYfHNh0jAlXc2xlVWiiTUzyJazntjDcRKhO
+	HjUNnaRaI6ewfyCphY7dJk1sF7T7dmE2gt4qJIwtuFG5EdTaAhBQ/wpO2Fq+a+KIpt2o
+X-Received: by 2002:a05:690e:1206:b0:66d:7f5:37cf with SMTP id
+ 956f58d0204a3-66e4c755e16mr8690675d50.32.1788256565703; Tue, 01 Sep 2026
+ 02:56:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="m86E7V2/eBf8L2Q6"
-Content-Disposition: inline
-In-Reply-To: <apZa3EnjGjpaydGm@xhacker>
+References: <20260824094512.2436628-1-hemanth.selam@gmail.com>
+In-Reply-To: <20260824094512.2436628-1-hemanth.selam@gmail.com>
+From: Jun Nie <jun.nie@linaro.org>
+Date: Tue, 1 Sep 2026 17:55:51 +0800
+X-Gm-Features: AcwNN1W2zp26Au4wUZxrRdhIs2mCY-JPtDHdCakR9MIKevemfj3T-NfrAOEcuZw
+Message-ID: <CABymUCONb8y891EFW5p9v44ofRKvVKeGve9SKSfjuwjTpSAYmw@mail.gmail.com>
+Subject: Re: [PATCH] ext4: skip extra isize expansion while unmounting
+To: Hemanth Selam <hemanth.selam@gmail.com>
+Cc: tytso@mit.edu, adilger.kernel@dilger.ca, jack@suse.cz, 
+	libaokun@linux.alibaba.com, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	yi.zhang@huawei.com, linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzbot+4b03894b6ec5753ddf24@syzkaller.appspotmail.com
+Content-Type: text/plain; charset="UTF-8"
 
---m86E7V2/eBf8L2Q6
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Reviewed-by: Jun Nie <jun.nie@linaro.org>
 
-On Tue, Sep 01, 2026 at 12:55:56PM +0800, Jisheng Zhang wrote:
-> On Tue, Sep 01, 2026 at 08:21:16AM +0800, Jisheng Zhang wrote:
-> > On Mon, Aug 31, 2026 at 11:04:12PM +0100, Conor Dooley wrote:
-> > > On Mon, Aug 31, 2026 at 01:04:01AM +0800, Jisheng Zhang wrote:
-> > > > The pgtable_l4|[l5]_enabled check sits at hot code path, performance
-> > > > is impacted a lot. Since pgtable_l4|[l5]_enabled isn't changed after
-> > > > boot, we can use alternative mechanism to optimize them.
-> > > >=20
-> > > > So the question is whether we can add RISCV_ISA_EXT_SV48/SV5 and use
-> > > > riscv_has_extension_*() or not. Although, per [1] and [2], SV48 and
-> > > > SV57 are ISA exensions too, RISCV_ISA_EXT_SV48/SV57 are to describe=
- hw
-> > > > supported extensions, while this doesn't mean the pgtable_l4|l5 is
-> > > > enabled, for example, we may pass no5lvl/no4lvl kernel boot args or
-> > > > explicitly ask for SV39 by setting dt mmu-type property as
-> > > > "riscv,sv39". If we clear RISCV_ISA_EXT_SV48|SV57, then internal
-> > > > extension queries and potentially userspace reporting can no longer
-> > > > distinguish =E2=80=9Cunsupported=E2=80=9D from =E2=80=9Csupported b=
-ut disabled.=E2=80=9D
-> > >=20
-> > > That's the case for all extensions that the kernel does not support,
-> > > like if the fpu is disabled because the kernel doesn't have the
-> > > configuration option set. In fact, I think the CFI extensions are very
-> >=20
-> > To be honest, before introduce the cap framework, I did think about FPU,
-> > ZACAS, ZABHA etc. ISA extensions' cases. Finally I came to a conclusion
-> > that the SV48/57 is a different case: Let me take FPU for an example.
-> > FPU once probed, the ISA support is never disabled, IOW, the
-> > riscv_has_extension_likely(FPU) is always true no matter the CONFIG_FPU
-> > is enabled or not. There's "no supported but disabled" case for FPU.
-> > But for SV48 case, that's different. The underlying HW may support SV48
-> > or SV57, but the "no5lvl and no4lvl" may explicitly force SV39, thus
-> > if we go with exisiting riscv_has_extension_*() API, we need to
-> > explicitly disable it by clear the isa bitmap. IOW, riscv_has_extension=
-_likely(SV48)
-> > is false even the underlying HW supports SV48, thus the user can't
-> > distinguish between =E2=80=9Cunsupported=E2=80=9D from =E2=80=9Csupport=
-ed but disabled.=E2=80=9D
-> > What do you think?
-
-(moving things around a little bit)
-
-> and change its meaning a
-> bit from "the underlying HW supports the feature" to "the underlying HW
-> enables the feature".
->=20
-> or keep it only for ISA extensions only.
->=20
-> X86's X86_FEATURE_* take the first path, I.E it only means the feature
-> is enabled or disabled on current platform, but doesn't mean the current
-> platform HW supports the feature or not.
->=20
-> Any comments is appreciated.
-
-On this particular point, this is already how it works.
-riscv_has_extension_[un]likely() and other related functions report
-whether the extension is supported and enabled on the platform, not just
-whether the underlying hardware can support it. As I mentioned
-yesterday, the F and D extensions depend on CONFIG_FPU being enabled. If
-CONFIG_FPU is disabled, but F and D appear in the DT or ACPI, we clear
-the relevant bits in the bitmap. In turn, if there are extensions that
-depend on F and D being enabled, they'll get turned off too.
-
->=20
-> Other thoughts:
->=20
-> performance PoV: usually, an ISA extension improves the performance, so
-> there's no case where we clear the ISA bit map. But SV48/SV57 is
-> different, e.g on a board w/ only 4GB DDR but the cpu supports SV57,
-> there's no reason to enable SV57 which impacts performance a bit. This
-> is the reason why no4lvl/no5lvl are introduced, AIUI.
-
-Again, I think this applies to CFI, I don't think what's being done here
-is fundamentally different to that.
-
-> > > similar here, because they also have riscv_nousercfi command line
-> >=20
-> > This is another story, neither CPU ISA extension nor CPU capbility.
-
-They are extensions though, riscv_nousercfi disables the cfilp and cfiss
-extensions. You can see that in cpufeature.c. Maybe there's some
-semantic argument about whether they're /CPU/ extensions, but there's
-other stuff that aren't really CPU extensions and we treat them all the
-same. I guess the difference for sv48/sv57 is that we'd just be setting
-the bitmap bits rather than parsing it from DT/ACPI - but there's prior art
-for that already.
-
-> >=20
-> > > options that can disable them.
-> > > If that's the reason for making a new-but-similar mechanism, I think =
-you
-> > > should just introduce RISCV_ISA_EXT_SV{48,57} and use that.
-
-> other cap usage PoV: the cap can be used to replace various static
-> branch usage in arch/riscv, for example the fast_unaligned_access_speed_k=
-ey
-> As is known, the static branch has some drawbacks.
->=20
-> So no matter which direction this series goes to, we need similar cap
-> framework. The key question is whether we can extend the
-> riscv_has_extension_*() to cover cpu/HW cap,
-
-It'd be nice to see if we could reuse the functions, if we don't
-want to invent a bunch of XLINUXFOO for them. The vendor extension stuff
-that Charlie added reuses it, but since there's no Linux Foundation
-JEDEC ID (AFAIK anyway) perhaps there's just no easy way to do it and
-duplicating the functions with a different name is required.
-
-This particular case is an extension, so I think we should try to make
-it work using that framework though.
-
---m86E7V2/eBf8L2Q6
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapahCAAKCRB4tDGHoIJi
-0qnHAP90+sOs6LO8ojMJfAhCXNMGFc8ojLDBve6pxw5OBElYagEAgj/2EkQMe9ls
-QBsNhEVXYz6xhSecB0B/IsCh2SNbHgY=
-=Fvnc
------END PGP SIGNATURE-----
-
---m86E7V2/eBf8L2Q6--
+- Jun
