@@ -1,93 +1,96 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B5052D9484;
-	Tue,  1 Sep 2026 03:03:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C47F5280318
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 03:04:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788231809; cv=none; b=Q2wpKtb4IGeP/k3NjBRNwLJn+elskJmJkH6V705y01dlG33OufIkkJOjrfKqV1VzMSEzJTmwhkmZHQhROwIEuvlHN5OMA6B4jwOvwjQfM/T3ly7/ARnsWHgZNkOGqjg2cjJoExShOIXu1H4GIIrXSdA5XqLexfplwcW7RtA7YN4=
+	t=1788231864; cv=none; b=TwM0sYr5ZqLHumA7RtNN047XrrGKkXTboUKLln42iSGk1vcrtOP2xUrUja8tk3j8/Utrl2L7KbFFwdDC+E4YxttCQUq5ZdoBTORrsT8mp7fJtpsmhJqvDbi3cveplgmXsFGrwny0d4zof8sI8+iGSganQYESqCp+5P+HDg1oESM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788231809; c=relaxed/simple;
-	bh=7hOKgSc7OBhDCCtt1l/cMiHEQp/E4TG8CaEkZHnFT0o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tAOmxWk4pwfEPgShQe7kQDBsXBzJv769NfF+WtSxZPnG941+zWTIB7EpPJUnp4dqt97dmYcCqYxqDdHJct8OdfVW8URXzlkDB+DYfUxfQ8dkyBsxRgkO6+tnTIQ0SsGnNEMIyMLq0lD9fm8iZ2iGL/Y6bZwN7tUtsdLZRBUjE58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dbi9JQi9; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788231864; c=relaxed/simple;
+	bh=8Gpm8z+8NhGYa7LC6lMhnMuNA8pFZHPvWUgJKBCZ/uQ=;
+	h=Date:Mime-Version:Message-ID:Subject:From:Cc:Content-Type; b=Zn4sZpbR3WwxEbvMXFTUlC/zxFXl0XObjc0EgwY7pfOd6aThmhf41sjqKixxbYr24S2H/vPpy7IbxoPteOvxzJYIW/reI5Ec8OIgKrBETN2PHOP32wOOM3Yhl/xZYw3968ggEIwlETAyE6+xAQZP1+fOWviJ8Ttoe/JC/0u5nXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ILgsEgrM; arc=none smtp.client-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dbi9JQi9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788231809; x=1819767809;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=7hOKgSc7OBhDCCtt1l/cMiHEQp/E4TG8CaEkZHnFT0o=;
-  b=dbi9JQi9M4p0biZhJt6KH7zYGk8/drqGc0UlOLd4Ey6NtVOnbLv5jLOE
-   PNnP0Fhaluyzk66AzuFamGOoXjIDF+o8x0f50zmgKyesaMIAgj3silXyb
-   39kvGrBj4DnvSnsLczNt+kmnZh07zghGUzD088Y5zL2rEMtPEo7lGUY4B
-   VVuHsvAUZpcmByUrL5JrHjRuBMbHF7cO25ncKjSTU4EqYO1XoLZFpjjfk
-   V6nriaEKDsPJy3z1G+19YiEqgAhLENzZCQJU/mvak2XUe1Ply6hCEl+vd
-   a7CUWSJbbznEQBwBPWr/6Ad+pa2UR7oYSr4ycn6k8aemHXC6+4F8oT/2S
-   w==;
-X-CSE-ConnectionGUID: pzkkX93ETBuS0llatlMZmg==
-X-CSE-MsgGUID: gft1zBfLQh+PGPlJIa6kEA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="87785649"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="87785649"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 20:03:28 -0700
-X-CSE-ConnectionGUID: NIGc9hV2QOKoFHnM5CAxDg==
-X-CSE-MsgGUID: eUXr/QqhTzSeza3wLYTibA==
-X-ExtLoop1: 1
-Received: from yungchua-desk.itwn.intel.com ([10.227.8.136])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 20:03:26 -0700
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-To: linux-sound@vger.kernel.org,
-	vkoul@kernel.org
-Cc: vinod.koul@linaro.org,
-	linux-kernel@vger.kernel.org,
-	pierre-louis.bossart@linux.dev,
-	peter.ujfalusi@linux.intel.com,
-	bard.liao@intel.com
-Subject: [PATCH v2 3/3] soundwire: Intel: stop sdw clock in system suspend
-Date: Tue,  1 Sep 2026 11:03:11 +0800
-Message-ID: <20260901030311.232823-4-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260901030311.232823-1-yung-chuan.liao@linux.intel.com>
-References: <20260901030311.232823-1-yung-chuan.liao@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ILgsEgrM"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb835525b10so5785533a12.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 20:04:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788231862; x=1788836662; darn=vger.kernel.org;
+        h=content-type:cc:from:subject:message-id:mime-version:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=EA63V7b38uhqbNEZXXddjk8npZBIzm9EJsPF2DR/LRY=;
+        b=ILgsEgrMt6dV8IXTB9n3x97G0T0QQcDcX0Vhm/7DkVqBMG7MJrAizY/f15A9DKShc6
+         el50yyyo+fjzzbXSM7790dbXfMFKvjmrHk1jH0zeYUo9lhrkrFFGg8qzsen+bU0+H9hk
+         paVvc24hc3SawAfX46dz3t4AQKms/N10w7UclIhfjil3ao1CgKj+SsbZgpRpvc6ZirJ9
+         zz4HB/ttcB2EWMgCjrfs/+WLmJDN8Wjer9CKVnwUG/sMnCRxfsWW9g0slVZJ6ijJKfkv
+         60PIC+sYk+aj3D4Rg2Ylgw8Q+VyLOoDdVjRKCxpPraNZ1QsewlUxA/q26wt9fx6FORg3
+         rlRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788231862; x=1788836662;
+        h=content-type:cc:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EA63V7b38uhqbNEZXXddjk8npZBIzm9EJsPF2DR/LRY=;
+        b=bX5bJUOk4PYd9jwmtuZYYLWoow5+nbtX2AM2YH9TNEUW8ooiaFPKoyicXu450kLsLp
+         iPNpkrQwXDVQvoVS6NMyU1B1A6VR6Jbs21EkTwutwZ1udgNeuoRjX0eVmSwarYQ20a+v
+         tz6unr5E77vrUkOcm7uaG3VGVDZGMf/4uz5nDyLuEH1RU5y9sKFrpoiwORcwT9SkvJ5C
+         DKQ3KtKgm4T5rQFyt/iR4MjWO0Lq3hEab+BitRKOEjQz7XaWOGYurmzxyP28r9iDtvOw
+         zVUzprO0Q7tN8bPoRK9Cxm2pL9UJmwtWxDlCUALGcuOtaqr99jPAp5VIPl5CvT6FDNm5
+         TM0g==
+X-Forwarded-Encrypted: i=1; AKwUvByGgpWdMpadwYyhECjd8dtmjAhCz27taGsE84TnkFmlIunkA1RCmY8tvQ1mYK/LJRMGpuMZUFFVwD6j/kI=@vger.kernel.org
+X-Gm-Message-State: AFuF++llVcsRAXI1Mkp8jS7piUIbLJ+PDNJJaKC6eAsaecwwe397VM2M
+	vBkaTFNlZ81hchHs5CAk2HMXDBg+nn76p94azPV/3MvzyTjQRlivwmc07gCfUVp8tWqS0R78Ycx
+	QCDsLfE9G2dTwQA==
+X-Received: from dykp12.prod.google.com ([2002:a05:7300:c8c:b0:314:9c4b:f8eb])
+ (user=cmllamas job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:2249:b0:398:cb56:e92 with SMTP id 98e67ed59e1d1-398cb561618mr17391422a91.11.1788231861729;
+ Mon, 31 Aug 2026 20:04:21 -0700 (PDT)
+Date: Tue,  1 Sep 2026 03:04:11 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
+Message-ID: <20260901030419.470246-1-cmllamas@google.com>
+Subject: [PATCH v2 0/5] binder: fix issues with mremap()
+From: Carlos Llamas <cmllamas@google.com>
+Cc: kernel-team@android.com, linux-kernel@vger.kernel.org, 
+	Suren Baghdasaryan <surenb@google.com>, Carlos Llamas <cmllamas@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Perform clock stop with proper mode so that the Peripherals can enter
-the deserved power state. And keep the bus unwakeable because there is
-no need to wake up the bus in system suspend.
+This is a follow up series fixing some pre-existing issues found by
+sashiko during a review of an unrelated patchset here:
+https://sashiko.dev/#/patchset/20260813193433.3318288-1-surenb@google.com
 
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Reviewed-by: Péter Ujfalusi <peter.ujfalusi@linux.intel.com>
----
- drivers/soundwire/intel_auxdevice.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+The goal is to safely reject mremap() requests on binder's vma to
+prevent pages from temporary leaking and accidental IPC tear-down.
 
-diff --git a/drivers/soundwire/intel_auxdevice.c b/drivers/soundwire/intel_auxdevice.c
-index 77e09e0e9953..dfff44a30c7c 100644
---- a/drivers/soundwire/intel_auxdevice.c
-+++ b/drivers/soundwire/intel_auxdevice.c
-@@ -670,7 +670,8 @@ static int __maybe_unused intel_suspend(struct device *dev)
- 		return 0;
- 	}
- 
--	ret = sdw_intel_stop_bus(sdw, false, false);
-+	/* Perform clock stop with proper mode and keep the bus unwakeable in system suspend. */
-+	ret = sdw_intel_stop_bus(sdw, true, false);
- 	if (ret < 0) {
- 		dev_err(dev, "%s: cannot stop bus: %d\n", __func__, ret);
- 		return ret;
+--
+v2:
+ - Set VM_DONTEXPAND in [1/5] and [2/5] per Sashiko's feedback.
+ - Check vma->vm_start to prevent incorrect ->close() in [3/5] per
+   Sashiko's feedback.
+
+v1:
+https://lore.kernel.org/all/20260831224145.169403-1-cmllamas@google.com/
+
+Carlos Llamas (5):
+  binder: set VM_DONTEXPAND
+  rust_binder: set VM_DONTEXPAND
+  binder: check vma->vm_start in binder_vma_close()
+  binder: reject mremap()
+  rust_binder: reject mremap()
+
+ drivers/android/binder.c             | 12 +++++++++++-
+ drivers/android/binder/page_range.rs | 15 ++++++++++++---
+ drivers/android/binder/process.rs    |  1 +
+ 3 files changed, 24 insertions(+), 4 deletions(-)
+
 -- 
-2.43.0
+2.55.0.897.gb25b4bd76c-goog
 
