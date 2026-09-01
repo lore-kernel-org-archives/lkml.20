@@ -1,212 +1,234 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 667F02F3C18
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:35:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8804736B06A;
+	Tue,  1 Sep 2026 13:36:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788269757; cv=none; b=JT81B22vi9I+VI/s9/0a3lrL5eVMGBGwMlEOQBLkJX6TY/wv03qFJzNNBHfE4Q11886Pfh8ZK1lx+8AL1DmRXfXb2E7CLsrK7TY731mbe5Z9exh/9kY7tcEM/2p3B20WylcnuFBw4KmV2UlIs235EPoSnBRDd0jvM6B9lKZ2dCs=
+	t=1788269807; cv=none; b=psos+MeEuA8PbjClbE7WqjY7Ei63K/YLJ1elwmmJIDt/yNYZ7MjjKnyhtxfRj4IR9LvcqC8UoSDAHwiVm6NSSH6gdnuO+nfgqKYpZZ1ekrb+qoOTtv5QbnfJkKHKKDeYBCJMTyvkWaryClf24Xb2cbQdAN7ZTBGnUXSoRznRUrM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788269757; c=relaxed/simple;
-	bh=dONpJz9pDD2pBmEcpY6gUuPfKWQcAsbKCf8Sn1/zKMY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=CLRiJRwHbY3+AKcU19/wW51hU7mtItOejRzzDgYZgHUd3WAhP8zDFu/cTgDzi6TDWRGIwbRb/DJG8fE8KHUvVYFjO4CwY/RzFhecaP2AJBGYxuROipfaW8Nd5ewO5gSlhyOuPEcKKwLBSPGHBQUq4QN0UnSQOyeKPYcN+fCqK1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SN2Zbp4k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788269807; c=relaxed/simple;
+	bh=bCa/+ioSd391ansot8wasyv5SfvIWPFZ8hB1i2B1cEg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=csJlOPn+TdEdnT1mUQIb1vdUk1ujPAWmFj42OlM6kW2yyn2H/sCtbQvA9O+dj4s/8y53KJkUghk2YTJ3TXgY1uUHzAejXvkzRidm/J/sQiUA/nzy+ARmN2uC2TQ0IeKyMTDSvK2ffuj0LGfsGdJw5tAc4B9Hq+U//AN+MygUkKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Hk68tnfl; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SN2Zbp4k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DEB01F000E9;
-	Tue,  1 Sep 2026 13:35:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788269755;
-	bh=At4u3yl4MiljIZoOYQR5cpNbzb/KVSL5oMn+ZrYRePU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=SN2Zbp4kU53RVw8zOIwVp3+/MTZG7r6d8O2H/5zkKbT9DRmMdo0VdbQgZ3sMQmuSd
-	 B0+5ssgb80S99F47Fg4AMp4RoikX8hJ17P2rJ5GxSkHwoZwrPdF96T/QABO5I7hb0A
-	 8AGdAZ1obMYYoL0fgU4BPQzZPp8lQr6BJYkfd3UOQQpo31eCsgDsd0KV3Agw7SJ7bk
-	 TZFADWCl1mn297/HsNP+ITw/QYqNddJbSq1bNVLI/z0SmKthxDstBr2HDedoogrocW
-	 uOEkqXU0HB+bi24IN3ljDpZPEj9pxO8KRFgKkVLinJ5tFbOQnXveIBl9692MdU/JAe
-	 wxVy6l+FAJmHg==
-From: Thomas Gleixner <tglx@kernel.org>
-To: "Eric W. Biederman" <ebiederm@xmission.com>
-Cc: Oleg Nesterov <oleg@redhat.com>, Frederic Weisbecker
- <frederic@kernel.org>, Hyunwoo Kim <imv4bel@gmail.com>,
- brauner@kernel.org, peterz@infradead.org, anna-maria@linutronix.de,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] signal: Prevent exec() race
-In-Reply-To: <87bjaie2gc.fsf@email.froward.int.ebiederm.org>
-References: <875x10hrkt.ffs@fw13> <8733w3j1i1.ffs@fw13>
- <aowkvvxg8cPP5V0X@redhat.com> <aoww8qi_ce_8ECA9@redhat.com>
- <aoxOVAd8ooqHFW12@localhost.localdomain> <87pkz6gms6.ffs@fw13>
- <ao3kt-eRxw4agOj7@redhat.com> <87fr02gegn.ffs@fw13>
- <ao6zmDB9EjsqPIVN@redhat.com> <87zey8g05g.ffs@fw13>
- <ao8_NUo0ACPAA4QB@redhat.com>
- <87ecfki6l5.fsf@email.froward.int.ebiederm.org> <87se3zgb3m.ffs@fw13>
- <87mru7h09e.fsf@email.froward.int.ebiederm.org> <87tsofdvf2.ffs@fw13>
- <871pbfeaiv.ffs@fw13> <87zey3fep2.fsf@email.froward.int.ebiederm.org>
- <87pkyyd39l.ffs@fw13> <87h5kad0mx.ffs@fw13>
- <87bjaie2gc.fsf@email.froward.int.ebiederm.org>
-Date: Tue, 01 Sep 2026 15:35:52 +0200
-Message-ID: <87wlt5aybr.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Hk68tnfl"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id A95561A18FE;
+	Tue,  1 Sep 2026 13:36:41 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 7041A6053C;
+	Tue,  1 Sep 2026 13:36:41 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BBD1411C79281;
+	Tue,  1 Sep 2026 15:36:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788269796; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=ebsqMy2EnVHY9plN/hZxJMwt48+kiHKpI9Ca6hUAEeQ=;
+	b=Hk68tnflvw1ZZQ6K/uKMjvMzk4RU+XfRXIYQhvZO2IcC+rhCrEd/D9hbnhKptQVnkZRV8Q
+	ntBPALWbYubzYp10NjU2ModBchlDLN+uIe3BDWwufWUvGpMFRO1iua7/zoMjb4Ld4HPPr3
+	kripHYEFzY0OlsEi+mUdVIxOnc9nZn/6rQvfCQwtk/5hqiMyGyB6pgilCaXdFRs81n784K
+	ZaD6R7uZHHACHnU8HpEXE38y0n0vIMi2NX7ukpTlpnVIoUvY55XfjTf6TyU02SEeiU4GOA
+	SO16em9npMcOjpj6FF+I3IVD3Q1IRr0uJIJxBovyFuGxPdV3b1WZCKvtUfYQEg==
+Date: Tue, 1 Sep 2026 15:36:26 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v3 03/15] tests: Don't assume the root node is available
+ at offset 0
+Message-ID: <20260901153626.7f0e0813@bootlin.com>
+In-Reply-To: <apaGr_i-s4DAZ-Ul@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+	<20260826083146.304291-4-herve.codina@bootlin.com>
+	<apaGr_i-s4DAZ-Ul@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Aug 31 2026 at 10:26, Eric W. Biederman wrote:
->
-> This changes partially fixes another bug.  Recursive
-> UCOUNT_RLIMIT_SIGPENDING should be decremented when the process exits
-> and not when the process is reaped.
->
-> Others have noticed possible races flushing the siqueue not
-> holding siglock.
+Hi David,
 
-Yes. I doesn't work.
+On Tue, 1 Sep 2026 18:03:09 +1000
+David Gibson <david@gibson.dropbear.id.au> wrote:
 
-> If I read the history correctly in flush_sigqueue with irqs
-> disabled can trigger the NMI lock-up detector.  So flush_sigqueue
-> was moved outside of siglock_irq.
->
-> Apparently it took KASAN to make kmem_cache_free slow enough
-> to trigger the lock-up detector.
->
-> The fix to avoid the lock-up detector was not comprehensive and
-> flush_sigqueue is still called in many places with irqs disabled.
-> So if necessary the code can probably just take siglock.
+> On Wed, Aug 26, 2026 at 10:31:34AM +0200, Herve Codina wrote:
+> > Several tests uses offset 0 as the offset of the root node. Either to
+> > check the offset returned by tested functions or to directly manipulate
+> > the root node retrieved using fdt_offset_ptr(fdt, 0, ...).
+> > 
+> > The root node is not always at offset 0. Indeed, a FDT_NOP tag can be
+> > present at offset 0. fdt_root_offset() returns the offset of the root
+> > node taking care of possible FDT_NOP tag.
+> > 
+> > Use fdt_root_offset() to get the offset of the root node and use this
+> > value whenever the offset of the root node is expected.
+> > 
+> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> > ---
+> >  tests/node_offset_by_compatible.c |  4 +++-
+> >  tests/node_offset_by_prop_value.c | 11 +++++++----
+> >  tests/path_offset.c               | 13 +++++++++----
+> >  tests/root_node.c                 |  6 +++++-
+> >  4 files changed, 24 insertions(+), 10 deletions(-)
+> > 
+> > diff --git a/tests/node_offset_by_compatible.c b/tests/node_offset_by_compatible.c
+> > index a9e67835..1278a562 100644
+> > --- a/tests/node_offset_by_compatible.c
+> > +++ b/tests/node_offset_by_compatible.c
+> > @@ -39,12 +39,14 @@ static void check_search(void *fdt, const char *compat, ...)
+> >  int main(int argc, char *argv[])
+> >  {
+> >  	void *fdt;
+> > +	int root_offset;
+> >  	int subnode1_offset, subnode2_offset;
+> >  	int subsubnode1_offset, subsubnode2_offset;
+> >  
+> >  	test_init(argc, argv);
+> >  	fdt = load_blob_arg(argc, argv);
+> >  
+> > +	root_offset = fdt_root_offset(fdt);
+> >  	subnode1_offset = fdt_path_offset(fdt, "/subnode@1");
+> >  	subnode2_offset = fdt_path_offset(fdt, "/subnode@2");
+> >  	subsubnode1_offset = fdt_path_offset(fdt, "/subnode@1/subsubnode");
+> > @@ -54,7 +56,7 @@ int main(int argc, char *argv[])
+> >  	    || (subsubnode1_offset < 0) || (subsubnode2_offset < 0))
+> >  		FAIL("Can't find required nodes");
+> >  
+> > -	check_search(fdt, "test_tree1", 0, -FDT_ERR_NOTFOUND);
+> > +	check_search(fdt, "test_tree1", root_offset, -FDT_ERR_NOTFOUND);  
+> 
+> This does highlight that even with the compatibility changes
+> introduced here, allowing NOPs before the root node can potentially
+> break things.  We now handle _passing_ 0 to any of the functions as a
+> node offset, but anything that expects a _returned_ offset to be 0 if
+> it's the root node will break.
+> 
+> I think that's probably an acceptable breakage, but it's something to
+> be aware of.
 
-Right, invoke flush_sigqueue() right after setting PF_EXITING.
+Yes, I know but I wouldn't say it is a breakage. NOPs are allowed by the
+specification. In current version dtc/libfdt, having a NOP before the root
+node is already broken.
 
-But we can be smarter than that. See below.
+I agree with you we need to be aware of.
 
-> We can also avoid problems by updating the loops that go:
-> for_each_thread(p, q)
-> 	flush_sigqueue_mask(p, &flush, &t->pending)
->
-> To include
-> 	if (t->flags & PF_EXITING)
->         	continue;
->
-> Or perhaps better tweak flush_sigqueue_mask to take t (and not p) and
-> perform the test of PF_EXITING there.  The only current uses I see of
-> the passed in task is to get a reference to signal_struct.
+...
 
-Correct. Though that check would have to be limited to flushing
-tsk::pending not signal::shared_pending.
+> > diff --git a/tests/root_node.c b/tests/root_node.c
+> > index 37e6f059..30903f2b 100644
+> > --- a/tests/root_node.c
+> > +++ b/tests/root_node.c
+> > @@ -19,12 +19,16 @@ int main(int argc, char *argv[])
+> >  {
+> >  	void *fdt;
+> >  	const struct fdt_node_header *nh;
+> > +	int root_offset;
+> >  
+> >  	test_init(argc, argv);
+> >  	fdt = load_blob_arg(argc, argv);
+> >  
+> > -	nh = fdt_offset_ptr(fdt, 0, sizeof(*nh));
+> > +	root_offset = fdt_root_offset(fdt);
+> > +	if (root_offset < 0)
+> > +		FAIL("fdt_root_offset() returns %d", root_offset);  
+> 
+> Hm.  It's been a long time, but I suspect the purpose of this testcase
+> was to be super low-level, checking the contents of the root node
+> _without_ relying on iteration or lookup functions first.  Putting the
+> lookup call here arguably defeats that purpose: certainly the test
+> that nh->tag == FDT_BEGIN_NODE is no longer meaningful, since
+> fdt_root_offset() will explicitly look for a location where that's
+> true.
+> 
+> Or perhaps another way to look at it is that this test is explicitly
+> verifying that the root node is at offset 0, so does it make snese for
+> this test to even exist any more.  I guess the test for the name of
+> the root node is still meaningful, if minor.
+> 
+> Nonetheless, to maintain as best we can this test's goal as working
+> independent of lookup functions, I think it might be worth open coding
+> something to skip FDT_NOP tags (not using fdt_next_tag(), even), then
+> construct nh immediately after that.
 
-Thanks,
+Well "structured tags" are going to be introduced and so the open coding
+here will need to take care of that. Later some new tags could be introduced
+and could also have impacts on the test.
 
-        tglx
----
---- a/kernel/signal.c
-+++ b/kernel/signal.c
-@@ -457,30 +457,44 @@ static void __sigqueue_free(struct sigqu
- 	kmem_cache_free(sigqueue_cachep, q);
- }
- 
--void flush_sigqueue(struct sigpending *queue)
-+static void flush_sigqueue_list(struct list_head *head)
- {
--	struct sigqueue *q;
-+	struct sigqueue *q, *tmp;
- 
--	sigemptyset(&queue->signal);
--	while (!list_empty(&queue->list)) {
--		q = list_entry(queue->list.next, struct sigqueue , list);
-+	list_for_each_entry_safe(q, tmp, head, list) {
- 		list_del_init(&q->list);
- 		__sigqueue_free(q);
- 	}
- }
- 
-+void flush_sigqueue(struct sigpending *queue)
-+{
-+	sigemptyset(&queue->signal);
-+	flush_sigqueue_list(&queue->list);
-+}
-+
-+static void sigqueue_splice_pending(struct sigpending *queue, struct list_head *head)
-+{
-+	sigemptyset(&queue->signal);
-+	list_splice_init(&queue->list, head);
-+}
-+
- /*
-  * Flush all pending signals for this kthread.
-  */
- void flush_signals(struct task_struct *t)
- {
--	unsigned long flags;
-+	LIST_HEAD(pending);
-+	LIST_HEAD(shared);
- 
--	spin_lock_irqsave(&t->sighand->siglock, flags);
--	clear_tsk_thread_flag(t, TIF_SIGPENDING);
--	flush_sigqueue(&t->pending);
--	flush_sigqueue(&t->signal->shared_pending);
--	spin_unlock_irqrestore(&t->sighand->siglock, flags);
-+	scoped_guard(spinlock_irqsave, &t->sighand->siglock) {
-+		clear_tsk_thread_flag(t, TIF_SIGPENDING);
-+		sigqueue_splice_pending(&t->pending, &pending);
-+		sigqueue_splice_pending(&t->signal->shared_pending, &shared);
-+	}
-+
-+	flush_sigqueue_list(&pending);
-+	flush_sigqueue_list(&shared);
- }
- EXPORT_SYMBOL(flush_signals);
- 
-@@ -3125,18 +3139,9 @@ static void retarget_shared_pending(stru
- 	}
- }
- 
--/*
-- * tsk::flags has PF_EXITING set which prevents signals to be queued on
-- * tsk::pending. Nothing else can touch tsk::pending anymore so it can be
-- * flushed lockless.
-- */
--static inline void flush_pending_unlocked(struct task_struct *tsk)
--{
--	flush_sigqueue(&tsk->pending);
--}
--
- void exit_signals(struct task_struct *tsk)
- {
-+	LIST_HEAD(sigq_list);
- 	int group_stop = 0;
- 	sigset_t unblocked;
- 
-@@ -3147,10 +3152,12 @@ void exit_signals(struct task_struct *ts
- 	cgroup_threadgroup_change_begin(tsk);
- 
- 	if (thread_group_empty(tsk) || (tsk->signal->flags & SIGNAL_GROUP_EXIT)) {
--		scoped_guard(spinlock_irq, &tsk->sighand->siglock)
-+		scoped_guard(spinlock_irq, &tsk->sighand->siglock) {
- 			tsk->flags |= PF_EXITING;
-+			sigqueue_splice_pending(&tsk->pending, &sigq_list);
-+		}
- 		cgroup_threadgroup_change_end(tsk);
--		flush_pending_unlocked(tsk);
-+		flush_sigqueue_list(&sigq_list);
- 		return;
- 	}
- 
-@@ -3160,6 +3167,7 @@ void exit_signals(struct task_struct *ts
- 	 * see wants_signal(), do_signal_stop().
- 	 */
- 	tsk->flags |= PF_EXITING;
-+	sigqueue_splice_pending(&tsk->pending, &sigq_list);
- 
- 	cgroup_threadgroup_change_end(tsk);
- 
-@@ -3176,7 +3184,7 @@ void exit_signals(struct task_struct *ts
- out:
- 	spin_unlock_irq(&tsk->sighand->siglock);
- 
--	flush_pending_unlocked(tsk);
-+	flush_sigqueue_list(&sigq_list);
- 
- 	/*
- 	 * If group stop has completed, deliver the notification.  This
+To be honest, I hesitated to just remove this root_node test.
+
+I kept it because at least it checks that the offset returned by 
+fdt_root_offset() looks like a root node (i.e tag BEGIN_NODE and empty name).
+
+Adding an open coded loop here without fdt_next_tag() call will looks like
+a copy/paste of the loop available in fdtdump.c. I am not sure that this is
+what we want to see here.
+
+The question is: How to be sure that the offset returned by fdt_root_offset()
+is really the root node offset without having an open code loop here?
+
+Maybe we can add a new test, root_offset, and build dtbs where we exactly
+know where the root is (2 dtbs, with and without FDT_NOP). treegen could
+build those dtbs.
+---- 8< ----
+/ {
+    offset = <real_root_node_offset>;
+};
+---- 8< ----
+
+The treegen tool should be able to add a property where the value is the offset
+of the root node.
+
+The new test could get the root node offset thanks to fdt_root_offset(), read the
+'offset' property available at this root node offset and check that the property
+value matches the root node offset returned by fdt_root_offset().
+
+The root_node is kept as it is with this current patch applied:
+- use fdt_root_offset()
+- Check BEGIN_NODE
+- Check empty name
+
+What do you think about this solution ?
+
+Should the 'root_offset' test need to be implemented or does it look over-engineered ?
+
+Best regards,
+Hervé
+     
+> 
+> 
+> >  
+> > +	nh = fdt_offset_ptr(fdt, root_offset, sizeof(*nh));
+> >  	if (! nh)
+> >  		FAIL("NULL retrieving root node");
+> >  
+
+> > -- 
+> > 2.55.0
+> > 
+> >   
+> 
+
+
+
+-- 
+Hervé Codina, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
