@@ -1,29 +1,29 @@
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DDFCD485509;
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DDEA6485507;
 	Tue,  1 Sep 2026 16:57:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788281855; cv=none; b=rbMMO2zFMP+2WmrtpJFHCcFq15iyqCwGiXQMIKk/Jjgbhuq99qf09qAq+CNuY2ybDMsb4TIGTpkcp6Ty2fEr8WoffEuHAG0zSNSDIbvWgwLGujrSFpbPxCiBI3BtYyzGwYcVlp7T+TeAFkGFhI+9xTNEan5UngCKzJbbSFexNoM=
+	t=1788281855; cv=none; b=aJlFz4aMjdlRmwzuUmUZ3dc1Yii1xIUFKWBjTRd15/vg0vO5vTowyFerPs3EnFDfYq/LbJuKeBrfWrA6fXI3/udGrZ5kYtAkPgAw+I5lKXY1amQfemN9aOVJPS9aJ5vc4dDmfX1FFeQCpf7kiHC93eGWMAvtTGZq2WN5e5igKUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788281855; c=relaxed/simple;
-	bh=6ACAmfuXfuayPo9P9g+Tv5LmBGEjhYAQa2wbUFO4lTE=;
+	bh=lnl15zYdbgw4AvbUTmF/UF1u8SAdM/W5i85Ngfz8ptw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kdPNF4RLwjoJy9FqrubRIY4MjFriZxhA46/0qvj6TkWsZsFG6u4A22l7ak0RTB1FtKicvm/wU1RWGN2XRd0ar53jpPrnt3rBgB7BGwJa7sCmTYbu+3FNXrEtaL7Jax2SGAEUSAqOMoCwEfxRO+vyge21Sh0+/l+UOm6LmABNiSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=McJBLdbI; arc=none smtp.client-ip=13.77.154.182
+	 MIME-Version; b=KlyNDXu3eaIEAr6hgX38Oy4AzTOZjpaba2XQ4IQ3iOiw0WW6CrY71nzqq+wDjU20On7aHBV7UfuFmOIIj2jo+wsh67cuX6jMY+ufNSQ0wnQYJOgUH+bCWIAAD54FmXUfGO78HSfzWCSkpswSw4oBX+WmpqJqH4kE9rMoA47fk8o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=Vlr3xV28; arc=none smtp.client-ip=13.77.154.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="McJBLdbI"
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="Vlr3xV28"
 Received: by linux.microsoft.com (Postfix, from userid 1130)
-	id 33CB820B700D; Tue,  1 Sep 2026 09:56:54 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 33CB820B700D
+	id 264AA20B7007; Tue,  1 Sep 2026 09:56:54 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 264AA20B7007
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
 	s=default; t=1788281815;
-	bh=hQRN4nwUQeOBU7mz2RGA5hRCIuLQcM69ucNk/JxMyq8=;
+	bh=ygiqmv+6eR1BISHHzIGNvCEf/BCpb358EIHFzlwQ96M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=McJBLdbIW34shC6NMxxZowCBbWf/pha9V9i+9tjZkpTT0ieqmUv5i8DdSqK5u6KXH
-	 9tzHtrXxmw5I4AC/gdYenlH8uhNSfdfX5QFy4IcA4WNTiYvhJNe9O8+HnNY4RferGx
-	 UyOxDVK2MZxmT8ShmihDRUfuoUlXMegLoWSzIKgk=
+	b=Vlr3xV28NUa6ZW9/NIYzNFnpSsRvFTD7/ZN41fm61hlBAIwZRM4okCLvLFjRG4FJ/
+	 MAFD7Xs/KFTkASBrn5x0KXYDN9bLJ0OqO73dSF/twKPJn8WQlrOf6TvY7B2/eVor7x
+	 9PZpk4bQVSlQ8iHCgUrsJXxdU2NMcwxrfowTMmV0=
 From: Thara Gopinath <tgopinath@linux.microsoft.com>
 To: kys@microsoft.com,
 	haiyangz@microsoft.com,
@@ -42,10 +42,11 @@ Cc: James.Bottomley@HansenPartnership.com,
 	tgopinath@microsoft.com, x86@kernel.org,
 	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
 	linux-efi@vger.kernel.org,
-	Thara Gopinath <tgopinath@linux.microsoft.com>
-Subject: [RFC PATCH 10/12] arch: x86: hyperv: hv_vtl_vsm: Introduce vtlcall
-Date: Tue,  1 Sep 2026 09:55:24 -0700
-Message-ID: <20260901165647.3160413-11-tgopinath@linux.microsoft.com>
+	Thara Gopinath <tgopinath@linux.microsoft.com>,
+	Stanislav Kinsburskii <stanislav.kinsburskii@gmail.com>
+Subject: [RFC PATCH 09/12] drivers: hv: hv_vsm_boot: Enable VTL1 on the boot processor
+Date: Tue,  1 Sep 2026 09:55:23 -0700
+Message-ID: <20260901165647.3160413-10-tgopinath@linux.microsoft.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20260901165647.3160413-1-tgopinath@linux.microsoft.com>
 References: <20260901165647.3160413-1-tgopinath@linux.microsoft.com>
@@ -57,248 +58,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A vtlcall is the mechanism by which a lower VTL (VTL0) transitions
-into a higher VTL (VTL1) on Microsoft Hyper-V. It is issued as a
-call to a fixed offset within the hypercall page; the hypervisor
-saves the lower-VTL context, restores the upper-VTL context, and
-resumes execution at the upper VTL. Control returns to VTL0 when
-the upper VTL executes a vtlreturn.
+With the partition-level VTL1 enabled and the secure kernel image loaded
+into the reserved region, the next step is to enable VTL1 on the boot
+virtual processor so that the hypervisor can dispatch it into the secure
+kernel entry point.
 
-Introduce the x86 VTL0-side vtlcall infrastructure:
+Introduce two helpers in hv_vsm_boot.c:
 
-  - hv_vsm_vtlcall(): runtime entry point. Preserves state VTL1 can
-    clobber (IRQs, FPU, CR2) and invokes the assembly trampoline.
-    Returns the signed 64-bit status the secure kernel places in a3.
+  - hv_vsm_get_vp_status() reads HV_REGISTER_VSM_VP_STATUS.
+  - hv_vsm_enable_vp_vtl() issues HVCALL_ENABLE_VP_VTL with an initial
+    vCPU context built via hv_vsm_arch_init_vp().
 
-  - hv_vsm_init_vtlcall(u64 vtl_call_offset): one-shot initializer
-    that installs the vtlcall target into a static_call. The offset
-    is passed in by the caller so the register read stays outside
-    arch code, mirroring mshv_vtl_return_call_init().
+Extend hv_vsm_bootstrap_vtl() to enable VTL1 on the boot VP if it is
+not already enabled, and re-query the status to confirm the transition.
 
-  - struct hv_vtlcall_param and CONFIG_HYPERV_VSM API in
-    include/hyperv/vsm.h, with no-op stubs when VSM is disabled.
-
-  - __hv_vsm_vtlcall assembly trampoline in mshv_vtl_asm.S, plus
-    asm-offsets for the argument block.
-
+Signed-off-by: Stanislav Kinsburskii <stanislav.kinsburskii@gmail.com>
 Signed-off-by: Thara Gopinath <tgopinath@linux.microsoft.com>
 ---
- arch/x86/hyperv/Makefile           |  2 +-
- arch/x86/hyperv/hv_vtl_vsm.c       | 29 ++++++++++++
- arch/x86/hyperv/mshv-asm-offsets.c |  8 ++++
- arch/x86/hyperv/mshv_vtl_asm.S     | 75 ++++++++++++++++++++++++++++++
- include/hyperv/vsm.h               | 22 +++++++++
- 5 files changed, 135 insertions(+), 1 deletion(-)
+ drivers/hv/hv_vsm_boot.c | 73 ++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 71 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/hyperv/Makefile b/arch/x86/hyperv/Makefile
-index 1fdc20e239243..430f5f2bca40a 100644
---- a/arch/x86/hyperv/Makefile
-+++ b/arch/x86/hyperv/Makefile
-@@ -2,7 +2,7 @@
- obj-y			:= hv_init.o mmu.o nested.o irqdomain.o ivm.o
- obj-$(CONFIG_X86_64)	+= hv_apic.o
- obj-$(CONFIG_HYPERV_VTL_MODE)	+= hv_vtl.o mshv_vtl_asm.o
--obj-$(CONFIG_HYPERV_VSM)	+= hv_vtl_vsm.o
-+obj-$(CONFIG_HYPERV_VSM)	+= hv_vtl_vsm.o mshv_vtl_asm.o
- 
- $(obj)/mshv_vtl_asm.o: $(obj)/mshv-asm-offsets.h
- 
-diff --git a/arch/x86/hyperv/hv_vtl_vsm.c b/arch/x86/hyperv/hv_vtl_vsm.c
-index edc55264c4d87..d533a8e113935 100644
---- a/arch/x86/hyperv/hv_vtl_vsm.c
-+++ b/arch/x86/hyperv/hv_vtl_vsm.c
-@@ -15,6 +15,7 @@
- #include <hyperv/vsm.h>
- #include <asm/msr-index.h>
- #include <asm/processor-flags.h>
-+#include <hyperv/hvgdk_mini.h>
- #include <asm/mshyperv.h>
- 
- /* Define PAGE size and related variables for initial secure kernel pages */
-@@ -256,3 +257,31 @@ void __init hv_vsm_arch_init_vp(struct hv_init_vp_context *vp_ctx, Elf64_Addr sk
- 	hv_vsm_init_gdt(vp_ctx, sk_pa);
- 	hv_vsm_init_page_tables(vp_ctx, sk_pa);
+diff --git a/drivers/hv/hv_vsm_boot.c b/drivers/hv/hv_vsm_boot.c
+index dc20f935da5b2..abe82e03e1897 100644
+--- a/drivers/hv/hv_vsm_boot.c
++++ b/drivers/hv/hv_vsm_boot.c
+@@ -216,6 +216,47 @@ static int __init hv_vsm_load_secure_kernel(Elf64_Addr *sk_entry_pa)
+ 	return ret;
  }
-+
-+/* Implemented in mshv_vtl_asm.S */
-+void __hv_vsm_vtlcall(struct hv_vtlcall_param *args);
-+
-+DEFINE_STATIC_CALL_NULL(__hv_vsm_vtlcall_hypercall, void (*)(void));
-+
-+void __init hv_vsm_init_vtlcall(u64 vtl_call_offset)
+ 
++static int __init hv_vsm_enable_vp_vtl(Elf64_Addr sk_entry_pa)
 +{
-+	static_call_update(__hv_vsm_vtlcall_hypercall,
-+			   (void *)((u8 *)hv_hypercall_pg + vtl_call_offset));
-+}
-+
-+s64 hv_vsm_vtlcall(struct hv_vtlcall_param *args)
-+{
++	u64 status = 0;
 +	unsigned long flags;
-+	u64 cr2;
++	struct hv_enable_vp_vtl *hvin;
 +
 +	local_irq_save(flags);
-+	kernel_fpu_begin_mask(0);
-+	cr2 = native_read_cr2();
-+	__hv_vsm_vtlcall(args);
-+	native_write_cr2(cr2);
-+	kernel_fpu_end();
++
++	hvin = *this_cpu_ptr(hyperv_pcpu_input_arg);
++	memset(hvin, 0, sizeof(*hvin));
++
++	hvin->partition_id = HV_PARTITION_ID_SELF;
++	hvin->vp_index = HV_VP_INDEX_SELF;
++	hvin->target_vtl.target_vtl = HV_VTL_SECURE;
++
++	hv_vsm_arch_init_vp(&hvin->vp_context, sk_entry_pa, sk_res.start);
++
++	status = hv_do_hypercall(HVCALL_ENABLE_VP_VTL, hvin, NULL);
++
 +	local_irq_restore(flags);
 +
-+	/* The secure kernel returns a signed 64-bit status in a3. */
-+	return (s64)args->a3;
++	return hv_result(status);
 +}
-diff --git a/arch/x86/hyperv/mshv-asm-offsets.c b/arch/x86/hyperv/mshv-asm-offsets.c
-index 882c1db6df16c..0f0470ddaee59 100644
---- a/arch/x86/hyperv/mshv-asm-offsets.c
-+++ b/arch/x86/hyperv/mshv-asm-offsets.c
-@@ -12,6 +12,7 @@
- #define COMPILE_OFFSETS
++
++static int __init hv_vsm_get_vp_status(u16 *enabled_vtl_set, u8 *active_mbec_enabled)
++{
++	u64 result;
++	int ret;
++	union hv_register_vsm_vp_status vsm_vp_status = { 0 };
++
++	ret = hv_vsm_get_register(HV_REGISTER_VSM_VP_STATUS, &result);
++	if (ret)
++		return ret;
++
++	vsm_vp_status = (union hv_register_vsm_vp_status)result;
++	*enabled_vtl_set = vsm_vp_status.enabled_vtl_set;
++	*active_mbec_enabled = vsm_vp_status.active_mbec_enabled;
++
++	return 0;
++}
++
+ static int __init hv_vsm_enable_partition_vtl(void)
+ {
+ 	u64 status = 0;
+@@ -262,7 +303,8 @@ static int __init hv_vsm_get_partition_status(u16 *enabled_vtl_set, u8 *max_vtl,
+ static int __init hv_vsm_bootstrap_vtl(void)
+ {
+ 	u16 partition_enabled_vtl_set = 0, partition_mbec_enabled_vtl_set = 0;
+-	u8 partition_max_vtl;
++	u16 vp_enabled_vtl_set = 0;
++	u8 partition_max_vtl, active_mbec_enabled = 0;
+ 	Elf64_Addr sk_entry_pa;
+ 	int ret;
  
- #include <linux/kbuild.h>
-+#include <hyperv/vsm.h>
- #include <asm/mshyperv.h>
- 
- static void __used common(void)
-@@ -34,4 +35,11 @@ static void __used common(void)
- 		OFFSET(MSHV_VTL_CPU_CONTEXT_r15, mshv_vtl_cpu_context, r15);
- 		OFFSET(MSHV_VTL_CPU_CONTEXT_cr2, mshv_vtl_cpu_context, cr2);
+@@ -300,7 +342,34 @@ static int __init hv_vsm_bootstrap_vtl(void)
+ 		}
  	}
+ 
+-	return hv_vsm_load_secure_kernel(&sk_entry_pa);
++	ret = hv_vsm_load_secure_kernel(&sk_entry_pa);
++	if (ret)
++		return ret;
 +
-+	if (IS_ENABLED(CONFIG_HYPERV_VSM)) {
-+		OFFSET(HV_VTLCALL_PARAM_a0, hv_vtlcall_param, a0);
-+		OFFSET(HV_VTLCALL_PARAM_a1, hv_vtlcall_param, a1);
-+		OFFSET(HV_VTLCALL_PARAM_a2, hv_vtlcall_param, a2);
-+		OFFSET(HV_VTLCALL_PARAM_a3, hv_vtlcall_param, a3);
++	/* Check and enable VTL1 for the primary virtual processor */
++	ret = hv_vsm_get_vp_status(&vp_enabled_vtl_set, &active_mbec_enabled);
++	if (ret)
++		return ret;
++
++	if (vp_enabled_vtl_set & HV_VTL1_ENABLE_BIT) {
++		pr_info("VP VTL1 is already enabled\n");
++	} else {
++		ret = hv_vsm_enable_vp_vtl(sk_entry_pa);
++		if (ret) {
++			pr_err("Enabling VP VTL1 failed with status 0x%x\n", ret);
++			/* TODO: Should we disable VTL1 at partition level in this case? */
++			return -EINVAL;
++		}
++		ret = hv_vsm_get_vp_status(&vp_enabled_vtl_set, &active_mbec_enabled);
++		if (ret)
++			return ret;
++
++		if (!(vp_enabled_vtl_set & HV_VTL1_ENABLE_BIT)) {
++			pr_err("Tried Enabling VP VTL1 and still failed\n");
++			return -EINVAL;
++		}
 +	}
++	return 0;
  }
-diff --git a/arch/x86/hyperv/mshv_vtl_asm.S b/arch/x86/hyperv/mshv_vtl_asm.S
-index f595eefad9abf..4d7007848ecd4 100644
---- a/arch/x86/hyperv/mshv_vtl_asm.S
-+++ b/arch/x86/hyperv/mshv_vtl_asm.S
-@@ -15,6 +15,8 @@
- #include <asm/frame.h>
- #include "mshv-asm-offsets.h"
  
-+#ifdef CONFIG_HYPERV_VTL_MODE
-+
- 	.text
- 	.section .noinstr.text, "ax"
- /*
-@@ -114,3 +116,76 @@ SYM_FUNC_END(__mshv_vtl_return_call)
- 	.size	mshv_vtl_return_sym, 8
- mshv_vtl_return_sym:
- 	.quad	__SCK____mshv_vtl_return_hypercall
-+
-+#endif /* CONFIG_HYPERV_VTL_MODE */
-+
-+#ifdef CONFIG_HYPERV_VSM
-+	.text
-+/*
-+ * void __hv_vsm_vtlcall(struct hv_vtlcall_param *args)
-+ *
-+ * Perform a VTL call to switch to the upper VTL.
-+ *
-+ * The %rcx register is zeroed before the call and is clobbered by the
-+ * hypercall. %rax is not restored by the upper VTL (passed via the assist
-+ * page) but is unused and can be ignored.
-+ *
-+ * The args pointer is preserved on the stack across the VTL call since all
-+ * argument registers are repurposed during the VTL call.
-+ *
-+ * Microsoft Hypervisor preserves %rsp during VTL switches.
-+ */
-+SYM_FUNC_START(__hv_vsm_vtlcall)
-+	/* Save callee-saved registers */
-+	pushq %rbp
-+	mov %rsp, %rbp
-+	pushq %r12
-+	pushq %r13
-+	pushq %r14
-+	pushq %r15
-+	pushq %rbx
-+	pushq %rdi
-+
-+	/* Load struct fields into VTL calling convention registers */
-+	mov HV_VTLCALL_PARAM_a3(%rdi), %r8
-+	mov HV_VTLCALL_PARAM_a2(%rdi), %rdx
-+	mov HV_VTLCALL_PARAM_a1(%rdi), %rsi
-+	mov HV_VTLCALL_PARAM_a0(%rdi), %rdi
-+
-+	/* Zero %rcx */
-+	xorl %ecx, %ecx
-+
-+	/* VTL call */
-+	call STATIC_CALL_TRAMP_STR(__hv_vsm_vtlcall_hypercall)
-+
-+	/* Restore args pointer from stack */
-+	popq %rax
-+
-+	/* Store results back to struct */
-+	mov %rdi, HV_VTLCALL_PARAM_a0(%rax)
-+	mov %rsi, HV_VTLCALL_PARAM_a1(%rax)
-+	mov %rdx, HV_VTLCALL_PARAM_a2(%rax)
-+	mov %r8,  HV_VTLCALL_PARAM_a3(%rax)
-+
-+	/* Restore callee-saved registers */
-+	popq %rbx
-+	popq %r15
-+	popq %r14
-+	popq %r13
-+	popq %r12
-+
-+	popq %rbp
-+	RET
-+SYM_FUNC_END(__hv_vsm_vtlcall)
-+
-+/*
-+ * Ensure static_call_key symbol __SCK____hv_vsm_vtlcall_hypercall is
-+ * accessible. Inspired by __ADDRESSABLE(sym) macro.
-+ */
-+	.section	.discard.addressable,"aw"
-+	.align 8
-+	.type	hv_vsm_vtlcall_sym, @object
-+	.size	hv_vsm_vtlcall_sym, 8
-+hv_vsm_vtlcall_sym:
-+	.quad	__SCK____hv_vsm_vtlcall_hypercall
-+#endif /* CONFIG_HYPERV_VSM */
-diff --git a/include/hyperv/vsm.h b/include/hyperv/vsm.h
-index 51555c09413d5..c1fa4ef3bccde 100644
---- a/include/hyperv/vsm.h
-+++ b/include/hyperv/vsm.h
-@@ -11,6 +11,8 @@
- #ifndef _HYPERV_VSM_H
- #define _HYPERV_VSM_H
- 
-+#include <linux/types.h>
-+
- /*
-  * Size of memory that is initially mapped for the secure kernel by the
-  * VTL0-side loader. The secure kernel image itself may be larger than
-@@ -18,4 +20,24 @@
-  */
- #define VSM_SK_INITIAL_MAP_SIZE		(16 * 1024 * 1024)
- 
-+/*
-+ * Argument block passed from VTL0 to VTL1 across a vtlcall. Layout is
-+ * shared with the arch-specific assembly trampoline that marshals these
-+ * into registers.
-+ */
-+struct hv_vtlcall_param {
-+	u64	a0;
-+	u64	a1;
-+	u64	a2;
-+	u64	a3;
-+} __packed;
-+
-+#ifdef CONFIG_HYPERV_VSM
-+s64 hv_vsm_vtlcall(struct hv_vtlcall_param *args);
-+void hv_vsm_init_vtlcall(u64 vtl_call_offset);
-+#else
-+static inline s64 hv_vsm_vtlcall(struct hv_vtlcall_param *args) { return 0; }
-+static inline void hv_vsm_init_vtlcall(u64 vtl_call_offset) {}
-+#endif
-+
- #endif /* _HYPERV_VSM_H */
+ static void __init hv_vsm_get_sk_mem(void)
 -- 
 2.34.1
 
