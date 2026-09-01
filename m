@@ -1,130 +1,324 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C23BA348C75;
-	Tue,  1 Sep 2026 08:05:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E07630E82B;
+	Tue,  1 Sep 2026 08:06:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788249957; cv=none; b=dpRF+ueWpYePQo1g+fifo1c6ZFp+8EqxACmlPT1VK+tbBCiKmM+LrA1Z0tD+gZ4UbHk2ZP0BwBJN1kG1SRHx3cpSCs4VYHqTmReojgVdL68382G7NxqHa4stNQCT/LYzLg2EJya73gz593RZGNN8rn60eeW3dws+wU/sQLPsQnA=
+	t=1788249973; cv=none; b=ClETSopUCsAFuNqmfIGlD+kgqaSzC8qBmIXJv3bv4vlYArGraxjRDw+MbCuW+XmQnZM2mq1ifo/8MsQL7SEfU+05tx0sw/O8NSZ8VP/KWJXYCtSUcpvBY4jI9z6bXPoI6VW2siPmDf7TjIByqul1IHicngyEE/MO6G+QFW8J2sQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788249957; c=relaxed/simple;
-	bh=ExPnDUzTDLVMgGc21rYFTFGXJnS3cVzqEDJbNJJZVoo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PneQXcxBVzrEuIgZRt7yZ+zJTxtUpS4qNAaGRLBufco0vR22GghXXB3h4EAWovxha6t6YcVcRrtPyGENrnuFIW3kQ+yxqk/e/PtSL8i2nGpOesGG1CCDV1jQgDmGVsqJOLH3YKIpWkp10OJOS02G0mA3nvkOEUk9yJR7vOWy3Go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=V/PMwb/s; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	s=arc-20240116; t=1788249973; c=relaxed/simple;
+	bh=L66LmKWKT83H/QtEA2FlO0DENr0/WBTXh6GVOhukFmM=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cXfjFSUqesq2qzLze7EYNgMBZ6NnAbrI2wJkpxMNXzztdPECxMPj+F31BDKSmDZAqTlZtvt/J4ez05jQFnxPofPCwbPzUjOOAxr2GCdcy60XRqqlW7pyNU2yYDvLBiABAGZUc921VZJ1SgQnyPdJjbvo+dGaFyDLoPJF929o+Tw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yww9opiD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="V/PMwb/s"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202608; t=1788249952;
-	bh=ZqX0HihvPlM/ubj3zj+A/sf2EJU05yIHJuZ4nx80q70=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=V/PMwb/sXdlIOnTMOvsbdSnpu3m1iD0LsIxe3a3RL66wNIsM4QIlO8FUeOyRQP6aa
-	 xnEXyR2xQYGECUNApzq7aFZVIm8kRV1L9fMczMAB9BeD+ub6oG27fgodAjC3fKk8BV
-	 VUe1cqIat2atExIEHw1LSNr2Ml5rWI47a5e7kX3+mnVVW/+fR4hqOoZ8hXnVpyyaJ+
-	 BZ7Bsp8FpVTR9jedC4yyxBabuSD/uAWTafB4cbH+NIOzs1hwIzIHsnR+oWxx37IrUU
-	 BOCYA4R2OiFOLM+5mG9abmKW3McXyTYnVDdllYEr8TYPkhfhrya3PKO/XUynqPF4L/
-	 8v0MhZR5SkBfQ==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4hYz286cKCz4wJq; Tue, 01 Sep 2026 18:05:52 +1000 (AEST)
-Date: Tue, 1 Sep 2026 18:05:44 +1000
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v3 04/15] tests/nopulate: Add a FDT_NOP before the root
- node
-Message-ID: <apaHV3UOsmUygRr6@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
- <20260826083146.304291-5-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yww9opiD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7187D1F000E9;
+	Tue,  1 Sep 2026 08:06:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788249971;
+	bh=sLYYR1Q3UHqS1LNM5yZKokLJjleeLqn68LSKKJwz7Z4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Yww9opiDEtAb0FOh1SffRy21uR0A1iM451Jd8FZ6mGqW7t8SIcQZhFekFugF5EHGj
+	 FVMHCr4EJSWenZm5cRMxXVKUo45rYQNf5KNChd3vVXD+QkRzNjoi8mDy5Z+Xcux8yA
+	 q6sffr3VWGX7qOYSq4JatW5OslJMZcN/3NPHpgfKRfmZn5n8jD04JQ6vCM6ufeqLVy
+	 uePs1QBhi4kEe1JKZ2fk9ocFEETuCrApKFqa4wboDLKF0/jXd9OGLlihXaCJ10F1lW
+	 JkT7aiPzIY+IuqfbmotsUpwELnBLPgmiDyFFw/ioDQUkNGF2i2emvq1HUOh4m1ziQQ
+	 btAndgH9o5S9g==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x1JVR-00000003Bso-0fIi;
+	Tue, 01 Sep 2026 08:06:09 +0000
+Date: Tue, 01 Sep 2026 09:08:41 +0100
+Message-ID: <87tso9mm0m.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Steffen Eiden <seiden@linux.ibm.com>
+Cc: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Andreas Grapentin <gra@linux.ibm.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Friedrich Welter <fritz@linux.ibm.com>,
+	Fuad Tabba <tabba@google.com>,
+	Gautam Gala <ggala@linux.ibm.com>,
+	Hariharan Mari <hari55@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Hendrik Brueckner <brueckner@linux.ibm.com>,
+	Ilya Leoshkevich <iii@linux.ibm.com>,
+	Janosch Frank <frankja@linux.ibm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Nico Boehr <nrb@linux.ibm.com>,
+	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+	Oliver Upton <oupton@kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Will Deacon <will@kernel.org>,
+	Zenghui Yu <yuzenghui@huawei.com>
+Subject: Re: [PATCH v2 04/20] arm64: Share more arm64 headers with s390
+In-Reply-To: <20260831145536.913567-5-seiden@linux.ibm.com>
+References: <20260831145536.913567-1-seiden@linux.ibm.com>
+	<20260831145536.913567-5-seiden@linux.ibm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tER3Rb5WdtAKqEsI"
-Content-Disposition: inline
-In-Reply-To: <20260826083146.304291-5-herve.codina@bootlin.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: seiden@linux.ibm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org, agordeev@linux.ibm.com, gra@linux.ibm.com, arnd@arndb.de, catalin.marinas@arm.com, borntraeger@linux.ibm.com, imbrenda@linux.ibm.com, david@kernel.org, fritz@linux.ibm.com, tabba@google.com, ggala@linux.ibm.com, hari55@linux.ibm.com, hca@linux.ibm.com, brueckner@linux.ibm.com, iii@linux.ibm.com, frankja@linux.ibm.com, joey.gouly@arm.com, nrb@linux.ibm.com, oss@nina.schoetterlglausch.eu, oupton@kernel.org, pbonzini@redhat.com, suzuki.poulose@arm.com, svens@linux.ibm.com, Ulrich.Weigand@de.ibm.com, gor@linux.ibm.com, will@kernel.org, yuzenghui@huawei.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
---tER3Rb5WdtAKqEsI
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Aug 26, 2026 at 10:31:35AM +0200, Herve Codina wrote:
-> A FDT_NOP tag can be present at the offset 0 and so before the root
-> node. This is a legit case.
->=20
-> The nopulate tool adds FDT_NOP tag after each tag encountered but it
-> doesn't add a FDT_NOP tag at offset 0.
->=20
-> Improve nopulate to fix this lack and add a FDT_NOP tag at offset 0.
->=20
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-
-Reviewed-by: David Gibson <david@gibson.dropbear.id.au>
-
+On Mon, 31 Aug 2026 15:55:19 +0100,
+Steffen Eiden <seiden@linux.ibm.com> wrote:
+> 
+> Mark more headers as shared or move definitions to an already shared
+> location if the context is similar. Most of them are required to
+> implement system register handling for the host.
+> 
+> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
 > ---
->  tests/nopulate.c | 3 +++
->  1 file changed, 3 insertions(+)
->=20
-> diff --git a/tests/nopulate.c b/tests/nopulate.c
-> index 06f8369a..050e69fb 100644
-> --- a/tests/nopulate.c
-> +++ b/tests/nopulate.c
-> @@ -22,7 +22,10 @@ static int nopulate_struct(char *buf, const char *fdt)
->  	uint32_t tag;
->  	char *p;
-> =20
-> +	/* Add a FDT_NOP before the root node (first node) */
->  	p =3D buf;
-> +	*((fdt32_t *)p) =3D cpu_to_fdt32(FDT_NOP);
-> +	p +=3D FDT_TAGSIZE;
-> =20
->  	do {
->  		offset =3D nextoffset;
-> --=20
-> 2.55.0
->=20
->=20
+>  arch/arm64/include/asm/cache.h       |  3 +++
+>  arch/arm64/include/asm/cputype.h     |  3 +++
+>  arch/arm64/include/asm/kvm_emulate.h |  5 ++++-
+>  arch/arm64/include/asm/kvm_host.h    | 18 +++++++++++++-----
+>  arch/arm64/include/asm/spectre.h     |  7 +++++++
+>  arch/arm64/kvm/sys_regs.h            |  1 +
+>  6 files changed, 31 insertions(+), 6 deletions(-)
+> 
+> diff --git a/arch/arm64/include/asm/cache.h b/arch/arm64/include/asm/cache.h
+> index 10a7ffadee3d..f9dbc8143dc9 100644
+> --- a/arch/arm64/include/asm/cache.h
+> +++ b/arch/arm64/include/asm/cache.h
+> @@ -8,6 +8,7 @@
+>  #define L1_CACHE_SHIFT		(6)
+>  #define L1_CACHE_BYTES		(1 << L1_CACHE_SHIFT)
+>  
+> +#ifdef ARM64_S390_COMMON
+>  #define CLIDR_LOUU_SHIFT	27
+>  #define CLIDR_LOC_SHIFT		24
+>  #define CLIDR_LOUIS_SHIFT	21
+> @@ -25,6 +26,8 @@
+>  /* Ttypen, bits [2(n - 1) + 34 : 2(n - 1) + 33], for n = 1 to 7 */
+>  #define CLIDR_TTYPE_SHIFT(level)	(2 * ((level) - 1) + CLIDR_EL1_Ttypen_SHIFT)
+>  
+> +#endif /* ARM64_S390_COMMON */
+> +
+>  /*
+>   * Memory returned by kmalloc() may be used for DMA, so we must make
+>   * sure that all such allocations are cache aligned. Otherwise,
+> diff --git a/arch/arm64/include/asm/cputype.h b/arch/arm64/include/asm/cputype.h
+> index 1fa29616e586..a5fd2b749b3b 100644
+> --- a/arch/arm64/include/asm/cputype.h
+> +++ b/arch/arm64/include/asm/cputype.h
+> @@ -5,6 +5,7 @@
+>  #ifndef __ASM_CPUTYPE_H
+>  #define __ASM_CPUTYPE_H
+>  
+> +#ifdef ARM64_S390_COMMON
+>  #define INVALID_HWID		ULONG_MAX
+>  
+>  #define MPIDR_UP_BITMASK	(0x1 << 30)
+> @@ -259,6 +260,8 @@
+>  #define MIDR_FUJITSU_ERRATUM_010001_MASK	(~MIDR_CPU_VAR_REV(1, 0))
+>  #define TCR_CLEAR_FUJITSU_ERRATUM_010001	(TCR_EL1_NFD1 | TCR_EL1_NFD0)
+>  
+> +#endif /* ARM64_S390_COMMON */
+> +
+>  #ifndef __ASSEMBLER__
+>  
+>  #include <asm/sysreg.h>
+> diff --git a/arch/arm64/include/asm/kvm_emulate.h b/arch/arm64/include/asm/kvm_emulate.h
+> index 09f04a5686a1..6cd9b244d82e 100644
+> --- a/arch/arm64/include/asm/kvm_emulate.h
+> +++ b/arch/arm64/include/asm/kvm_emulate.h
+> @@ -23,6 +23,7 @@
+>  #include <asm/cputype.h>
+>  #include <asm/virt.h>
+>  
+> +#ifdef ARM64_S390_COMMON
+>  #define CURRENT_EL_SP_EL0_VECTOR	0x0
+>  #define CURRENT_EL_SP_ELx_VECTOR	0x200
+>  #define LOWER_EL_AArch64_VECTOR		0x400
+> @@ -35,6 +36,8 @@ enum exception_type {
+>  	except_type_serror	= 0x180,
+>  };
+>  
+> +#endif /* ARM64_S390_COMMON */
+> +
+>  #define kvm_exception_type_names		\
+>  	{ except_type_sync,	"SYNC"   },	\
+>  	{ except_type_irq,	"IRQ"    },	\
+> @@ -525,13 +528,13 @@ static __always_inline bool kvm_vcpu_abt_issea(const struct kvm_vcpu *vcpu)
+>  	}
+>  }
+>  
+> +#ifdef ARM64_S390_COMMON
+>  static __always_inline int kvm_vcpu_sys_get_rt(struct kvm_vcpu *vcpu)
+>  {
+>  	u64 esr = kvm_vcpu_get_esr(vcpu);
+>  	return ESR_ELx_SYS64_ISS_RT(esr);
+>  }
+>  
+> -#ifdef ARM64_S390_COMMON
 
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
+This could have been done from the beginning, in the previous series.
+I keep asking you to reduce the churn...
 
---tER3Rb5WdtAKqEsI
-Content-Type: application/pgp-signature; name=signature.asc
+>  static inline bool kvm_is_write_fault(struct kvm_vcpu *vcpu)
+>  {
+>  	if (kvm_vcpu_abt_iss1tw(vcpu)) {
+> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
+> index f9e90ef9ee4b..2ca5fbc39f15 100644
+> --- a/arch/arm64/include/asm/kvm_host.h
+> +++ b/arch/arm64/include/asm/kvm_host.h
+> @@ -349,6 +349,7 @@ enum fgt_group_id {
+>  	__NR_FGT_GROUP_IDS__
+>  };
+>  
+> +#ifdef ARM64_S390_COMMON
+>  struct kvm_vm_id_regs {
+>  	/*
+>  	 * Emulated CPU ID registers per VM
+> @@ -368,6 +369,8 @@ struct kvm_vm_id_regs {
+>  	u64 ctr_el0;
+>  };
+>  
+> +#endif /* ARM64_S390_COMMON */
+> +
 
------BEGIN PGP SIGNATURE-----
+That's another example of pointless churn. You could have added this
+structure at a convenient spot, where you already have S390 markers.
 
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqWh1cACgkQzQJF27ox
-2GdqdA/8Chhkn4LwkpbPO03kMqhpXpRggor2B9KNK7OQr76RV9JegwQ8ttXiAA2i
-Gi3mKaZgFDBXLn9rgHgYgSedtHQtDgbB35YfFi2qbc0aNuhfCwy1xSwGAT6RBL0w
-c06cBt7CPmQaXyBrKJnNBE7AQLRZ1aEyKPAYPODT0l7ApiW9mvkO9XXG7rKKQvbh
-2/1VAjpq3Z4GuIXYC2IMqKrySZoNZc61KPVwjy+5nKFpeD0onshN4WgcS8CCyAsR
-05iQ/wgklWPDH7K9O+0ODU4NYC1NCK/QUM7NA0pO8FrVuqQ26hgmcxfcOFbMA6rV
-qvmK4WWG5xFbrlliUj57RAWMEeiI8/qEplFCF65AjjgFtn5MFO4YrtMsc+AD77IR
-xkU8w2FVh8GKKJPyLEMU0nQZv9pV5Bw+8gUqpKVSIAJQ+h7jF2amK/VUIY71/JjD
-x1AryTBj4fjdaurM93oTuui5iyR6dc4KozUe4ZG0kRUg9jKZqXNffGcgidZuH2ae
-7e7lpvFpFRE8EjFTglUb+/e3bXlFNN2uKbCVF4k4fHrfW3NTzFMxmqfzLubuKVbl
-vDO7l5A+BlNUD0iWzY3ste2EhrlAhlq/cVOvPNf7UezQ/Wqh90RLadVDkGiBgSyB
-0OhonDeQ73IbQ70FgWgLKtQnyDx1c+Kex07VhMRIRRBMw3/aMnk=
-=V+/H
------END PGP SIGNATURE-----
+>  struct kvm_arch {
+>  	struct kvm_s2_mmu mmu;
+>  
+> @@ -1240,9 +1243,6 @@ u64 kvm_vcpu_apply_reg_masks(const struct kvm_vcpu *, enum vcpu_sysreg, u64);
+>  		__v;							\
+>  	})
+>  
+> -u64 vcpu_read_sys_reg(const struct kvm_vcpu *, enum vcpu_sysreg);
+> -void vcpu_write_sys_reg(struct kvm_vcpu *, u64, enum vcpu_sysreg);
+> -
+>  struct kvm_vm_stat {
+>  	struct kvm_vm_stat_generic generic;
+>  };
+> @@ -1322,11 +1322,9 @@ int kvm_handle_cp14_32(struct kvm_vcpu *vcpu);
+>  int kvm_handle_cp14_64(struct kvm_vcpu *vcpu);
+>  int kvm_handle_cp15_32(struct kvm_vcpu *vcpu);
+>  int kvm_handle_cp15_64(struct kvm_vcpu *vcpu);
+> -int kvm_handle_sys_reg(struct kvm_vcpu *vcpu);
+>  int kvm_handle_cp10_id(struct kvm_vcpu *vcpu);
+>  
+>  void kvm_sys_regs_create_debugfs(struct kvm *kvm);
+> -void kvm_reset_sys_regs(struct kvm_vcpu *vcpu);
+>  
+>  int __init kvm_sys_reg_table_init(void);
+>  struct sys_reg_desc;
+> @@ -1337,6 +1335,11 @@ int __init populate_nv_trap_config(void);
+>  void kvm_calculate_traps(struct kvm_vcpu *vcpu);
+>  
+>  #ifdef ARM64_S390_COMMON
+> +u64 vcpu_read_sys_reg(const struct kvm_vcpu *, enum vcpu_sysreg);
+> +void vcpu_write_sys_reg(struct kvm_vcpu *, u64, enum vcpu_sysreg);
+> +int kvm_handle_sys_reg(struct kvm_vcpu *vcpu);
+> +void kvm_reset_sys_regs(struct kvm_vcpu *vcpu);
+> +
+>  unsigned long kvm_arm_num_regs(struct kvm_vcpu *vcpu);
+>  int kvm_arm_copy_reg_indices(struct kvm_vcpu *vcpu, u64 __user *indices);
+>  int kvm_arm_get_reg(struct kvm_vcpu *vcpu, const struct kvm_one_reg *reg);
+> @@ -1538,8 +1541,10 @@ struct kvm *kvm_arch_alloc_vm(void);
+>  	(system_supports_32bit_el0() &&				\
+>  	 !static_branch_unlikely(&arm64_mismatched_32bit_el0))
+>  
+> +#ifdef ARM64_S390_COMMON
+>  #define kvm_vm_has_ran_once(kvm)					\
+>  	(test_bit(KVM_ARCH_FLAG_HAS_RAN_ONCE, &(kvm)->arch.flags))
+> +#endif /* ARM64_S390_COMMON */
+>  
+>  static inline bool __vcpu_has_feature(const struct kvm_arch *ka, int feature)
+>  {
+> @@ -1567,6 +1572,7 @@ static inline void kvm_hyp_reserve(void) { }
+>  void kvm_arm_vcpu_power_off(struct kvm_vcpu *vcpu);
+>  bool kvm_arm_vcpu_stopped(struct kvm_vcpu *vcpu);
+>  
+> +#ifdef ARM64_S390_COMMON
+>  static inline u64 *__vm_id_reg(struct kvm_vm_id_regs *id_regs, u32 reg)
+>  {
+>  	switch (reg) {
+> @@ -1640,6 +1646,8 @@ void kvm_set_vm_id_reg(struct kvm *kvm, u32 reg, u64 val);
+>  	(kvm_cmp_feat(kvm, id, fld, >=, min) &&				\
+>  	kvm_cmp_feat(kvm, id, fld, <=, max))
+>  
+> +#endif /* ARM64_S390_COMMON */
+> +
+>  /* Check for a given level of PAuth support */
+>  #define kvm_has_pauth(k, l)						\
+>  	({								\
+> diff --git a/arch/arm64/include/asm/spectre.h b/arch/arm64/include/asm/spectre.h
+> index 296ae3420bfd..e1c13797ea7c 100644
+> --- a/arch/arm64/include/asm/spectre.h
+> +++ b/arch/arm64/include/asm/spectre.h
+> @@ -19,6 +19,7 @@
+>  #include <asm/cpufeature.h>
+>  #include <asm/virt.h>
+>  
+> +#ifdef ARM64_S390_COMMON
+>  /* Watch out, ordering is important here. */
+>  enum mitigation_state {
+>  	SPECTRE_UNAFFECTED,
+> @@ -26,6 +27,8 @@ enum mitigation_state {
+>  	SPECTRE_VULNERABLE,
+>  };
+>  
+> +#endif /* ARM64_S390_COMMON */
+> +
+>  struct pt_regs;
+>  struct task_struct;
+>  
+> @@ -81,7 +84,9 @@ static __always_inline void arm64_apply_bp_hardening(void)
+>  		d->fn();
+>  }
+>  
+> +#ifdef ARM64_S390_COMMON
+>  enum mitigation_state arm64_get_spectre_v2_state(void);
+> +#endif /* ARM64_S390_COMMON */
+>  bool has_spectre_v2(const struct arm64_cpu_capabilities *cap, int scope);
+>  void spectre_v2_enable_mitigation(const struct arm64_cpu_capabilities *__unused);
+>  
+> @@ -93,7 +98,9 @@ bool has_spectre_v4(const struct arm64_cpu_capabilities *cap, int scope);
+>  void spectre_v4_enable_mitigation(const struct arm64_cpu_capabilities *__unused);
+>  void spectre_v4_enable_task_mitigation(struct task_struct *tsk);
+>  
+> +#ifdef ARM64_S390_COMMON
+>  enum mitigation_state arm64_get_meltdown_state(void);
+> +#endif /* ARM64_S390_COMMON */
 
---tER3Rb5WdtAKqEsI--
+Again: how about grouping things in a logical way so that you can
+minimise the number of annotations? The two prototypes you single out
+are clearly related to the enum at the beginning of the file, and
+don't depend on anything else.
+
+Thanks,
+
+	M.
+
+-- 
+Jazz isn't dead. It just smells funny.
