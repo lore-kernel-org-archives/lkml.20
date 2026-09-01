@@ -1,64 +1,64 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE9D92D5C7A
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:18:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2A142AFAA
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:18:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788275929; cv=none; b=gV22Ef3xCqww9E3DlyzX3Af9MZcX7HnoMI7Rz0LyD+F+uxNfBuTgxZ6NtAkC70mdyu9awkFGAoTE3jnCcgRj+dcsSDppaQrdgxJkQm1amk/4ANzxuV+g1A/CZ8iNxlN2dopQV9uC0Y7UwycHpxwMFlvXUjcC6uBkq6jGgZrB7F8=
+	t=1788275936; cv=none; b=V22/5OthMHZ8CfL6sDRJdlguOPK6sJtab0E/Y2yPhZ2O+5ZU8mRDQjwY88BRD7u6ArWYa3/6sqKRbOx4ysACTT2VnKQb/TlQe2kyxUh3QSjjyPiUrGtPvSQ0mO0HcFkFKbOHIqxGEXOZYIoIgR24z5a0AH6xB3j71LIEEiOEOCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788275929; c=relaxed/simple;
-	bh=D/TP/LZxtJPkZc+5BDyxSzlqA6ZsrYhTjJdzoacrF2o=;
+	s=arc-20240116; t=1788275936; c=relaxed/simple;
+	bh=oG2REDKA3C1eCPzXTldXuJDSA0ErSirz4TBnnkb4vNQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M382oU4oNG/yn7H7uzTHdGOSdZybL6sSVyRVRfjiTonPFk4OzDEb+kiBfmHXdkswiXabanDefGLFFYR7dU0t6HbyPfulEXC4LR7IKm1ecbn6bP3EwBnchIGySAgeXy3T224P2cDM4yxS0PPL6oF7TCSjG+aucZZhavtc5wcsf0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=agP5aPUo; arc=none smtp.client-ip=209.85.210.171
+	 MIME-Version; b=TrjVhJcRT9nr/gHFTIjH+4JoYLTVYMNhCeTMFIfEAOrnvcFhc4/yJqhHzhPKxmp8QzXNZrIIsdIU7khn3XjoO7DsfFuyxaqWd+yesRYzWK4E9OLCzfwq3NL0iQ/F5mGb1URa/+S+qJiGY5uhUXRajo7deMpcLbnqkM3t/SySpuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sNQ3qqBd; arc=none smtp.client-ip=209.85.210.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="agP5aPUo"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84a3e5ca66eso545545b3a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:18:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sNQ3qqBd"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84a6f026675so537677b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:18:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788275927; x=1788880727; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788275934; x=1788880734; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hqt0DA3rHMBC2JGEPtQ8G6D8wkEO9isBswK4tBDKvpo=;
-        b=agP5aPUoU9WTkyBcRwhrMGOES7ZS7353PzuKo3ScR//6hiG8/FjyClBZc5FlRjPE/O
-         e2BaZRu68P6+TUFT+IALfQb9Bo8Dl30y9PjFAT7oSovMZRvKR1LmrkM6BN1+71BTSzsY
-         BzIXeg0fYEOyMcJ8L5yA3qHRsPgxBmRdAy42mzcl0fYNP7D+KELhhrpTmjwp0JTSsBfy
-         GLIJhE++DbdfDMo5BcSAbTpULVlnFNYkF25DfBvOi1oIs1Us8QEM/1EVkvqmOOzz0LdV
-         e+/5fXNmo9tn9wGF2/xFHZMqFMEkHTnT5zzDvmTlgFPT/SvexHSqOQlpOOZ2EGrT70Ap
-         bgYg==
+        bh=dzuzRQWzKhh9d8u5tb9B8Xmk/6ykx/rwaytUEdjFAyo=;
+        b=sNQ3qqBd8qCWLCcm3cjVu5ETwyaX1gKEWw1xCYtzLqLVXJ7/sbhrPJTZvuaV19gwO4
+         rCY48Bj0mSdpgrEjkvesCoWYURxx/P83UsOSbdCRMij/9gppK7Zb5XiFwCZMTGL3CoaH
+         0/lnHtsN26r3S4wmpZu0/UrDkQoIejA/t1qEyqpFhk5nIK5l1rswcBibvb9K/1i+0X/M
+         r78GnuLo4TAkGeU27D/FdbmXqlqBakOIOMRlL2fJryC+67hlFnVQi5+ChuA2eLpJtiVG
+         ioTWWFS/EXVCweQYVO8mtHZ5rNSkWMx4DnWNC+INT3dbzWg5/kLidWZJsx1NO0tGsmIN
+         KAEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788275927; x=1788880727;
+        d=1e100.net; s=20251104; t=1788275934; x=1788880734;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hqt0DA3rHMBC2JGEPtQ8G6D8wkEO9isBswK4tBDKvpo=;
-        b=m8TSCwN0YY6VczW9GDc/D0UJ3QtmTKaJPnIx+8smvFnMrx8NMmNfOC6mQoTXjFU6Mg
-         wbFGlIpyzd57DaMnsc0VOgIb9m31pnoE6JN0Ocyf4YozyIhGUGgWYyfJSI/Vlz4HNcb6
-         3FBav0Uz0vyp/i4i+mbEegi1A97js2SJ/DBRYRmd/oecG5+kWpeuNHR+A/9OyTieyrL5
-         UHLdF/xJbJw0oWUfOPo7Y3MkDkjEF90v7WTpK3g0gi+FM5W8iDuaEW9wWhYx1cQgcyz/
-         pRsiuN1mT0Vb08iJjC4DgCSfG6QYTyyJzwjpTcfcTC2lD+6F9aAul6iWcnzgRWV3C4Zw
-         yXvQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrDeIeTkHCDubDSuV2Es9BwKZ7LWQtwMMLK1Ek1ti9CdTdwDnmLorqmAqp5Pp21qg1PaaRsks6uRwWg2Ns=@vger.kernel.org
-X-Gm-Message-State: AFuF++mKzdl/pQkT5yBrm4G/H7C5gtUw/hA9zIIi9PXgSvlLwAbqCoU3
-	aEc5hzccIZmVfF1sTBV4yyrzIUZFBpFjOlX4cd8oTANSlcANkep3/F5f
-X-Gm-Gg: AR+sD11ozGvoRiUrL5pPzJ+9KXUOfxHc48CuHYuc3nGLjYiDzZPiJxXm5chHc4xIO0r
-	UpZK9kgv4BLiozJz+zmLYOisVAwetFVOiMoeiHc1Ag9b/vVpM1Z89yoQkqkuUJkXnFAATqhuAZW
-	GsuXzP0rzwT+vdeFmgqp6bev5t1aTnHGQUUzzD6odVogxPSDtXvukqMLNmCVQJGCGwAEtxtDsFq
-	bh4IT0zUhdhu6nZGw4TDsSl/pxLfo7egE4xyXp8aSb5i3ZbJTPk6nvuBAKsw/SZ8Mw+thArYZ1u
-	HqRbuavf8RnQlkDb/M7vdk1/D+DZ9/OYpv3g2+oRV+A0abQkNh6WeUCugfWV6ISA3vjcmeYo1uW
-	qw5JUGnxbNMzDwkvDyeLpHqDNFe6WqXOhM1zCdmIKQ1U0/Sa5utY1/fe0GWuVOR9oxpN0jwMOhI
-	NtkgnjUatoFfiYm1OVdTzdFhILHOGxQ+n/Q+a0FrlXia2Z15KpUCaFsN+nSQBCXU3cwTKaJgBrl
-	YTKiznho4IWUYpDkovNvkqxPg==
-X-Received: by 2002:a05:6a00:4903:b0:84e:b5a9:ca3b with SMTP id d2e1a72fcca58-85625f2c0c9mr21548292b3a.0.1788275926871;
-        Tue, 01 Sep 2026 08:18:46 -0700 (PDT)
+        bh=dzuzRQWzKhh9d8u5tb9B8Xmk/6ykx/rwaytUEdjFAyo=;
+        b=meKyMRY6M7hs79+d9e1utlqhOi4aPL/ahrZTa8XBZ8XC+nBNVXlH9ytV7uECTJwP/F
+         49fI/j72rloyL4CRULgIxOaaaN2cffL9DYxtPKSYoP3NMu8rCYjAMU/hbabu8T3dluTp
+         9bdMMHW8ZBbvELzNSPY9u4VFl0LJ/UUW+D3qhoHJAMltr7IUDCVZNdpq5LF0lD9yeQrN
+         x758rcc1BtREf+vRTH8RbNNw1KhDa2FX41Zyt6GbUFd5k8QSTcHc37tz5wft65HvE6P0
+         AXgariEQc3MHpfdajakEzwOHNSM6ITOJMLL+/JVmLPr5W9k2zFwRxyJEO8OCyWI9ubTH
+         mgNQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoxW73PqC4QebybFeoF3uBPV55Pu1SKQ/sqgex2j3hA8weghKtIxzxM6LUp3Kwph4BkYpxkEOLLD09lq5M=@vger.kernel.org
+X-Gm-Message-State: AFuF++lykT3H+I0AAelkuYQQZJ8tvfxVB69eA6AhIMuNfuc72SdmmMvA
+	w0/8lGBV1sKMNYiAOs8qzeujFx1wtWfU0sWZgSM/RIlqlU+KMGzQEktv
+X-Gm-Gg: AR+sD13YUSdVDdvKJ0fO3OQz030Fs5uphaXWlP9UC8Cpl3CFwQZ9kxfJEuIVMxV9ehL
+	RE7woBRwxinKSdDqRpWDZhJXdWY7P7IfhWdNV+p0dMr8GH9yFJFNdayILBToU/T3kS/o5QNs1vW
+	vRHXw3icpcLz7ROrqFpNtEkj2E9GDrsjlfjKpjw/YjHBkQUDHuxnLo/eV9BRT1RtDA371A5Znqx
+	Znn6YKWaObyM329dH4ZCEtxU3jQZL9Zp3fIUaM8a63gignR+uLdUcL15Q1asxaW66JY7YVfA6mH
+	zhFfJcezNHGBWqTxoTtpKKcWucvsXKwnYP/YbHHbKjHC5FM9UPj0b/3olpfAK3R7DWqKDxNBCyV
+	gunnRoGS26BmXuBxkGcO3CvHIjKgjuE6p6aDJxy58/pyZV3UuMKWYlV7NsKfyrhlnc5DpMXr2rK
+	jusSWejTO2CqarV9UAkAJVCi826L/buspRzH/Xegr/rx0s9O9AjEo9da9lT1j1N4FyPT3z11D9y
+	h8nl5NUNBHopl0zI9oTMWeRPQ==
+X-Received: by 2002:a05:6a00:4a89:b0:845:cf73:5bd8 with SMTP id d2e1a72fcca58-856271fc239mr22836969b3a.1.1788275934457;
+        Tue, 01 Sep 2026 08:18:54 -0700 (PDT)
 Received: from o6.lan ([240e:391:ed0:47d0::1])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db24f33a0sm89911b3a.9.2026.09.01.08.18.38
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db24f33a0sm89911b3a.9.2026.09.01.08.18.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 08:18:46 -0700 (PDT)
+        Tue, 01 Sep 2026 08:18:53 -0700 (PDT)
 From: Xueyuan Chen <xueyuan.chen21@gmail.com>
 To: akpm@linux-foundation.org
 Cc: david@kernel.org,
@@ -88,9 +88,9 @@ Cc: david@kernel.org,
 	peterz@infradead.org,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 2/3] arm64/mm: add set_direct_map_ro()
-Date: Tue,  1 Sep 2026 23:18:17 +0800
-Message-ID: <20260901151818.3191443-3-xueyuan.chen21@gmail.com>
+Subject: [PATCH v7 3/3] x86/mm: add set_direct_map_ro()
+Date: Tue,  1 Sep 2026 23:18:18 +0800
+Message-ID: <20260901151818.3191443-4-xueyuan.chen21@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260901151818.3191443-1-xueyuan.chen21@gmail.com>
 References: <20260901151818.3191443-1-xueyuan.chen21@gmail.com>
@@ -102,47 +102,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Implement set_direct_map_ro() for arm64 and flush the TLB internally.
+Implement set_direct_map_ro() for x86 with a page-based interface. Clear
+_PAGE_RW and _PAGE_DIRTY through the CPA path and let the common CPA
+wrapper invalidate stale writable translations before returning.
 
 Co-developed-by: Lance Yang <lance.yang@linux.dev>
 Signed-off-by: Lance Yang <lance.yang@linux.dev>
 Signed-off-by: Xueyuan Chen <xueyuan.chen21@gmail.com>
 ---
- arch/arm64/include/asm/set_memory.h |  2 ++
- arch/arm64/mm/pageattr.c            | 12 ++++++++++++
- 2 files changed, 14 insertions(+)
+ arch/x86/include/asm/set_memory.h |  2 ++
+ arch/x86/mm/pat/set_memory.c      | 10 ++++++++++
+ 2 files changed, 12 insertions(+)
 
-diff --git a/arch/arm64/include/asm/set_memory.h b/arch/arm64/include/asm/set_memory.h
-index 0091ba12200e..1be86dc11543 100644
---- a/arch/arm64/include/asm/set_memory.h
-+++ b/arch/arm64/include/asm/set_memory.h
-@@ -13,6 +13,8 @@ int set_memory_valid(unsigned long addr, int numpages, int enable);
+diff --git a/arch/x86/include/asm/set_memory.h b/arch/x86/include/asm/set_memory.h
+index 39271a5ea925..710164ea8258 100644
+--- a/arch/x86/include/asm/set_memory.h
++++ b/arch/x86/include/asm/set_memory.h
+@@ -88,6 +88,8 @@ int set_pages_rw(struct page *page, int numpages);
  
- int set_direct_map_invalid_noflush(struct page *page, unsigned int numpages);
- int set_direct_map_default_noflush(struct page *page, unsigned int numpages);
+ int set_direct_map_invalid_noflush(struct page *page, unsigned int nr);
+ int set_direct_map_default_noflush(struct page *page, unsigned int nr);
 +int set_direct_map_ro(struct page *page, unsigned int nr);
 +#define set_direct_map_ro set_direct_map_ro
  bool kernel_page_present(struct page *page);
  
- int set_memory_encrypted(unsigned long addr, int numpages);
-diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
-index 132938b32eb1..0e95cd904ccb 100644
---- a/arch/arm64/mm/pageattr.c
-+++ b/arch/arm64/mm/pageattr.c
-@@ -355,6 +355,18 @@ int realm_register_memory_enc_ops(void)
- 	return arm64_mem_crypt_ops_register(&realm_crypt_ops);
+ extern int kernel_set_to_readonly;
+diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+index a1a061d995b3..7c0cfa7acd17 100644
+--- a/arch/x86/mm/pat/set_memory.c
++++ b/arch/x86/mm/pat/set_memory.c
+@@ -2666,6 +2666,16 @@ int set_direct_map_default_noflush(struct page *page, unsigned int nr)
+ 	return __set_pages_p(page, nr, 0);
  }
  
 +int set_direct_map_ro(struct page *page, unsigned int nr)
 +{
 +	unsigned long addr = (unsigned long)page_address(page);
 +
-+	if (!can_set_direct_map())
-+		return 0;
-+
-+	return __change_memory_common(addr, PAGE_SIZE * nr,
-+				      __pgprot(PTE_RDONLY),
-+				      __pgprot(PTE_WRITE));
++	/* Direct-map callers are expected to pass pages without aliases. */
++	return change_page_attr_set_clr(&addr, nr, __pgprot(0),
++					__pgprot(_PAGE_RW | _PAGE_DIRTY), 0,
++					CPA_NO_CHECK_ALIAS, NULL);
 +}
 +
  #ifdef CONFIG_DEBUG_PAGEALLOC
