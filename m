@@ -1,109 +1,101 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AABE476076;
-	Tue,  1 Sep 2026 23:22:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A77E30C617;
+	Tue,  1 Sep 2026 23:23:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788304939; cv=none; b=Pp+61EFPlDj26KU/65CnhxPGrTBzsWW2DcdOCSmjTY3cBRt101c63Qcyk5siyjzG0OziJPDpACdEw3adK2ntKDMrJrOppklKbKOPdgArZZoaAchKDc2uhflQzlzqb/dHSWNGn8ZkgmTnXpbo4HrMn+evdk/8wt/Y1If+MyzjVnU=
+	t=1788305020; cv=none; b=JXgp0+IaowR3rtHIkA3FmjlIRMOvDfHJpyIURM/xobKmpAM07ce/dOv2KXgZfxxsqnLKxRugIcME19ojL5mUH15jtWF0VZT6Eb9WpRffiylEHqIcpRdooz1stsLp/Q+pFAOlN9z+zNqon+0Hr5/TgSikbjGisxuHg7xx3rgiz08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788304939; c=relaxed/simple;
-	bh=scK+kptJkNr6W7MX96O7NPZI3nTU+LU+7fmHevKf1Ok=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gcDt6fSJ/uZgnHfhMbpXj0W3uRZIzE+1ROMnJDEPzAdFdt5VJYlOjbA/znYdxk68D9rrSwAsqHl0YX64DVGtS+dP8c5q+czjmkg96qq4rUlLyCP7kJfmJAgw4eKYKQwteYaXzJ5h39iRSUbqUVEEPffDYP6u4Dplv2gHdDGytzc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=Mkm6k+FK; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1788305020; c=relaxed/simple;
+	bh=fc/L5vrioavvnwfpbHYZffAEMQ7zxGRaz75RZilOFxA=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=Ue6rH5Pj/zHCt2fCKRXdSDgqkAWAYa2QfSxElSoyFYgAiztdVBDQK2gSu3OPpqGfZhZah6U+EDxMUDpVFuuBWzyedHNSdsmfS0SbB7GfeUISLpapEEK7iRq3CtW5YxG3nzbxu4xGrD4ukj5zqFZscGtbqJFUWgOWCg49TD00GIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nk5MPcXG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="Mkm6k+FK"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id CF27940E02C2;
-	Tue,  1 Sep 2026 23:22:10 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id gO4gW60X3RF1; Tue,  1 Sep 2026 23:22:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1788304920; bh=OaTycWBx2t67XjEtvYVwpUli/s3apDRKpXj/az5pMFY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=Mkm6k+FKHtu+tSDkqr+tXyxHkBUxE9J7l9FCog4yYS2l1SaLYrUGooQu3dJw498E2
-	 73svyrPDyXGy1EGG8DpF/K5e4Ny2KvfUvLZ2sdC9v82dMVktwBfa64rgWMgk8KHPfT
-	 oumTyluzlHXPRrPcKd48UKO+UvudF1hCVhylvAAKb27cb05oTQiNd9y5a7RPMhQ+hX
-	 g8FvXXufUwnJS0cG5IFA89UKaGiTLme8xLXdezKrM6DlE1LDVgcNQVuyX75GOGHr2C
-	 em4u/+mjwvIsrf5X7j6YmBNDaRM0KQIHe0blQQZJxcsLWL9Gaft07KsAzoCZVR08Z5
-	 vjPBzTq+HiJ5M9ogezIDicSYTk+Fv+FBrLMorGhDwWioDJti+Nz7geURUjqN4RyoG0
-	 jiC34dYB4J3nNLDoGB4jsguvLJA/nuW5UknX1PCnR5CviHOEeUPIiCY/zNRr3+iuB9
-	 g4Du9dus3vKQ85NxbppX3t+UfvfgkWxzoE2+fmfNjJY3czMeihXuCGHv74pteYisfQ
-	 PwpMPNMIOc1XauRufFC3Ac3/27bEfMcYfAaCcJX72ue05XL6wXn1pX02DyJD3kzHrJ
-	 aaUojZkefYXpk5YVqFcFh/pwh26Y3IEvI4KGPlnvzUH/pYHiVH4nK0MI3zIT+GPxI/
-	 wLpr2RIAxhHj9MHDUJZifs/g=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 0D9D140E01E1;
-	Tue,  1 Sep 2026 23:21:42 +0000 (UTC)
-Date: Tue, 1 Sep 2026 16:21:39 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Reinette Chatre <reinette.chatre@intel.com>
-Cc: Babu Moger <babu.moger@amd.com>, "Moger, Babu" <bmoger@amd.com>,
-	"Luck, Tony" <tony.luck@intel.com>,
-	"x86@kernel.org" <x86@kernel.org>,
-	"Dave.Martin@arm.com" <Dave.Martin@arm.com>,
-	"james.morse@arm.com" <james.morse@arm.com>,
-	"corbet@lwn.net" <corbet@lwn.net>,
-	"skhan@linuxfoundation.org" <skhan@linuxfoundation.org>,
-	"tglx@kernel.org" <tglx@kernel.org>,
-	"mingo@redhat.com" <mingo@redhat.com>,
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
-	"hpa@zytor.com" <hpa@zytor.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"Eranian, Stephane" <eranian@google.com>,
-	"peternewman@google.com" <peternewman@google.com>
-Subject: Re: [PATCH 1/2] x86/resctrl, Documentation: Keep mbm_assign_mode
- "default" on boot
-Message-ID: <20260901232139.GBapdeA0fj1XjLsjAM@fat_crate.local>
-References: <4bfafa1e-a7da-4c37-8da9-9fbba14106fd@intel.com>
- <20260801012227.GEam1KUyMz601QOzrT@fat_crate.local>
- <5f10ceab-5569-409b-8e78-c4a4f232489f@intel.com>
- <20260804191608.GDanI6eK2Q07w6pNcb@fat_crate.local>
- <98be93cc-f2d8-4bad-bbb0-f309e912054c@intel.com>
- <20260804224703.GFanJr52UbKBrCOTij@fat_crate.local>
- <112cebea-d455-4b75-847b-bb7d4aa4847d@intel.com>
- <1fe5cb09-aa2e-4b3d-9fbd-293d8e9f33d7@amd.com>
- <ad90a776-7be2-4d5d-88b4-280bc46b7387@amd.com>
- <d476ea5e-340b-4d65-8207-cc1a0055b4aa@intel.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nk5MPcXG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D410D1F000E9;
+	Tue,  1 Sep 2026 23:23:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788305018;
+	bh=Fhr+9NI7Byya+hvnanRJCc+7UsoeZAsVIqoSoylHTao=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=nk5MPcXG76BlmXVNyecivr2iaX6aYZQ4vURG0sw1apocPk3Iwq06FmmyA1ECTZjqs
+	 Eatz6Vac4TSR9NpVMfh2WrQxXxuVqn7NtTlutq1t/bn00QXolctSkTh5eL1Z+rjxiF
+	 9wAR7mWIDZRSgVTZneSGobtiEzbf5wWAtg/HXoHy1EkOP5KUwdo/ppvNfGMDyjPdVJ
+	 8cSX/xBKr4hZPOG6pyEgilKVONSICUc83nBs3Rrw/iD+goj1x9wgSWCqKc1ER8B+rr
+	 jSfMNABYEe2KMCKR/AP1E+xkz7l2oqEW9SBl5Yrrzt5/GXhndQ0wb1VzXQTabHar+G
+	 fSItJQ/MB8ShA==
+Date: Wed, 2 Sep 2026 08:23:32 +0900
+From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>,
+ x86@kernel.org, Jinchao Wang <wangjinchao600@gmail.com>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H . Peter Anvin" <hpa@zytor.com>, Alexander Shishkin
+ <alexander.shishkin@linux.intel.com>, Ian Rogers <irogers@google.com>,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] tracing/probes: Fix BTF kflag check for
+ anonymous struct member access
+Message-Id: <20260902082332.921e8a1d0ae8a3da6f167d2a@kernel.org>
+In-Reply-To: <20260901103725.7ca9629f@gandalf.local.home>
+References: <178827248631.123716.2627172171811720261.stgit@devnote2>
+	<178827250904.123716.17452648791331881284.stgit@devnote2>
+	<20260901103725.7ca9629f@gandalf.local.home>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <d476ea5e-340b-4d65-8207-cc1a0055b4aa@intel.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 01, 2026 at 12:26:16PM -0700, Reinette Chatre wrote:
-> From my side I provide a very high level summary of my view below as we await
-> guidance per [1]:
+On Tue, 1 Sep 2026 10:37:25 -0400
+Steven Rostedt <rostedt@goodmis.org> wrote:
 
-I thought we agreed on that:
+> On Tue,  1 Sep 2026 23:21:49 +0900
+> "Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
+> 
+> > From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> > 
+> > btf_find_struct_member() traverses into nested anonymous structures and
+> > unions to find a struct member. However, get_bitoffset_of_field() in
+> > trace_probe.c checked btf_type_kflag(type) using the outer parent type
+> > instead of the actual anonymous structure/union that directly contains
+> > the found member.
+> > 
+> > If the parent structure and anonymous structure have mismatched kflags
+> > (e.g., the parent has kflag=0 while the anonymous structure has kflag=1
+> > because it contains bitfields), the bitfield size encoded in the upper
+> > 8 bits of member->offset is erroneously treated as part of the byte/bit
+> > offset, corrupting the resolved offset and failing to set last_bitsize.
+> > Similarly, btf_find_struct_member() pushed anonymous member offsets
+> > onto anon_stack without masking BTF_MEMBER_BIT_OFFSET() when kflag is set.
+> > 
+> > To fix this problem, update btf_find_struct_member() to return actual
+> > containing structure/union type via member_type, use appropriate
+> > __btf_member_bit_offset() to get bit offset, and use member_type for
+> > btf_type_kflag() in get_bitoffset_of_field().
+> > 
+> > Fixes: c440adfbe302 ("tracing/probes: Support BTF based data structure field access")
+> > Cc: stable@vger.kernel.org
+> > Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > Closes: https://lore.kernel.org/all/20260822095110.0772E1F000E9@smtp.kernel.org/
+> > Assisted-by: Antigravity:gemini-3.7-flash
+> > Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> 
+> Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
 
-https://lore.kernel.org/r/20260804191608.GDanI6eK2Q07w6pNcb@fat_crate.local
+Thanks! Let me pick those to probes/fixes.
 
-and
 
-https://lore.kernel.org/lkml/98be93cc-f2d8-4bad-bbb0-f309e912054c@intel.com/
+> 
+> -- Steve
 
-I am reading your reply as you're agreeing with me.
-
-Or?
 
 -- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
