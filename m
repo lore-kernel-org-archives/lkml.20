@@ -1,162 +1,128 @@
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010057.outbound.protection.outlook.com [52.101.229.57])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E8B3596E1;
-	Tue,  1 Sep 2026 02:26:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.57
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788229570; cv=fail; b=LdhZFA9dzhN5ci2xIWCzY4ptrzYaFE1jnIHa+F9Jc8yvGH+K+u1NeIlTE0ulSkXnhUbluNDYea7mLNA/G6EOJHl715SMiBeQecAUy2haP5n/HYw3EuM5RFmJUCL80yFlFXUmprlWzdXMf7pB5mNPmwXWybZV+Tpj+Vys8zyWv4I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788229570; c=relaxed/simple;
-	bh=powneQBNLarRa/cd4489IYWFXMYku2ff6TRDhDTzKh4=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 Date:MIME-Version; b=E3NrA5s0wpHOHTODsD5RB8TjEpjAUvv2+OaM2NbJt7ESe/3pU1DL9mGckgbY25IUX+SK6yJ6CNa3ym18rZ5PQeKYR/nbarNONZlpoArZ2w/7HDiiUS8scwQjJtMnxrAwMgbF96tXc5y2fFYYJxbhL/+Ys/fshU269FxISU95rW4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=HaJAv5fW; arc=fail smtp.client-ip=52.101.229.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A523D9DC0
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:26:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788229610; cv=none; b=efXlgM/R9wIRXoRlSK5zB84S2aEFEnqEQldy/Pbk/drBCrdYXm0RAJNUUvKgAKf1m9DDFg4YcA9D8jUOMFQDVFG988PQrZpIcAGRcsdCc6L3KWW4C8oHNPfDsKYGq+shbvrtOeth/EI1mtzT8wdgjq6eoohQYnxI7J4w6/h0ZWg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788229610; c=relaxed/simple;
+	bh=1ivU+b0VUEHSpmznsrcD2siFu4zCj1n7MJ79jTDXJQw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NTwcDxJZ4C1O3CZhnMBL0jcsdcdsbgD0EnZs4CCYG12IZRMr6G0tLt5Nk82lQ9yDddAS+HmxvybyRG4fdVRxmDOQR37xe+J0wqJ0EHcQ75wN48Vfz3+aRgHUwRKrhtKTjMkGHmg8yaokh6qml5lI+TUd2zmsTu5G69RnpnHlckY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q9RlQtVH; arc=none smtp.client-ip=209.85.128.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="HaJAv5fW"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d5vCTfrMeU7j3ZHxvgP16UeivSmMcX5ymvO6CaJmfNrs88a6GOjhjHRF70NDE0a2/9ZMOhuIlMd398ELv58uKFnkRM3v/Esj//XOVY6naGClsT4HpknrlOEAIhkSYFOQeGN8e72VWW3PnC4ccpfwgc/tmMy4cqxYk1iXKJFGZHgn27P32JXF/nsKf9hOV0yvU1nmIsgl9zDugLFo1QF4glt1iaphcRdm/J89xPqenqtMH5cht+ZKEiGDK0NciVei1EDycF3yVqz42M2ErTd7ucyhP2xnO95G8bLGfT6AXunDe5Opoa83g79IaXcVafpc2eLmXMvtdZH507+hMGgdDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EGZENCgr0LWjH0uqO+22AVGWypNl5Msxj5g5ER7e6N0=;
- b=MlrKGrLojY07NF3uNGE3czN+Z/cmUk90bfIul1jVVmi/C+GEkvKQs8alGKPyhrY695Sk8WgcvTRNo3gbWIsqupLS9/xPt3GO2ClW6RLv2UiEihWyYrbgqWNb9KMjQgeYrp0QbaqG3RcxlQkKqOa3LQkNj9TAEHEex2kuejlS6SbEXxejxery9/3brcqGLhXOeAwFlU6ts9wAIoewn4NyTeRh0RoXRtxRygGzkbp1OfW8j8IivnHNahzRr4PwoBkSvjxilGWn6D3E5EVijq3llNyMLBBX2KJRJP0de5WJP96/VCoWkl/DKBvHoUaFGgT9Po0rSRryBbNHcu78eSAPuQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EGZENCgr0LWjH0uqO+22AVGWypNl5Msxj5g5ER7e6N0=;
- b=HaJAv5fWa2r82iP36+TC9Wp8iQOSevAoxNaEEzOQ+q3tMpHjmCSCE5O8K3V8ZtnmoAzRef5Mm6VMQcyn95WfVdz4UssxlMe+KGMAsJTQ+PLwnrHD9Q9YDzxQrbtdvaw+y+w6ehzUt8xx6yzE7KPk6xImAQd5wu+zvzxnQk0CXOQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-Received: from TYRPR01MB16474.jpnprd01.prod.outlook.com
- (2603:1096:405:2ee::10) by OSOPR01MB12344.jpnprd01.prod.outlook.com
- (2603:1096:604:2db::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 02:26:06 +0000
-Received: from TYRPR01MB16474.jpnprd01.prod.outlook.com
- ([fe80::2a39:9988:dbe9:894b]) by TYRPR01MB16474.jpnprd01.prod.outlook.com
- ([fe80::2a39:9988:dbe9:894b%6]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 02:26:06 +0000
-Message-ID: <87mru17lmq.wl-kuninori.morimoto.gx@renesas.com>
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Cc: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2] ASoC: report component resume callback errors
-In-Reply-To: <20260825085239.82282-1-pengpeng@iscas.ac.cn>
-References: <20260825085239.82282-1-pengpeng@iscas.ac.cn>
-User-Agent: Wanderlust/2.15.9 Emacs/30.2 Mule/6.0
-Content-Type: text/plain; charset=US-ASCII
-Date: Tue, 1 Sep 2026 02:26:05 +0000
-X-ClientProxiedBy: TYWPR01CA0027.jpnprd01.prod.outlook.com
- (2603:1096:400:aa::14) To TYRPR01MB16474.jpnprd01.prod.outlook.com
- (2603:1096:405:2ee::10)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q9RlQtVH"
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-855de2d0d4dso8506757b3.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:26:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788229608; x=1788834408; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jDt+CxLSf4w3iJAIBpJcXGUG31tyCk7fy3CEY8EdRVs=;
+        b=Q9RlQtVHp5uxy5UiwvwkX/lENyhAiUiKmAP+55IA6lvoguQaBJamzC1Wm+0fatIdXN
+         8/RKdSSrAvdlxfOh5f9lgqtnbf90UEsEeqzjwsZaUMTUD8hGXW2WDOZLAffm7TV3UClR
+         0WikKPLraBpwlLqFFDazf4bhIknTU1xCuBjKl5u3lF53i2W2LXBtQ74OHw4dS747E1i5
+         ZCcw6lOdXF2FfsFz60LSLtVg4ij466oF78w9DmVBoTa2BtJcjPi2fzw8KbsAfp2jc906
+         bJCMHcbG6l5S/KcV6SJWIJbqY2Kh6rkK73EbLYmCcz+HNAcuxNUdwEiRYbtPzCBl4nNj
+         4QbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788229608; x=1788834408;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jDt+CxLSf4w3iJAIBpJcXGUG31tyCk7fy3CEY8EdRVs=;
+        b=lTG25/X6f2vwmNQKO5n1/KhWALK+j18rxyCgbQv1ru1YAH0XGHx7wChH86B2VfWUYl
+         5lgwT1Eee6umHzVD4spmLqcunBx4OhKbU2ZBKL5wZixYcwmsh64WzzH0Dr6KOIXSGfPc
+         /ZS8RiPTd1LnC7iwG67MlQKhdzDONXl03f0dfETsTtiVRL9yAuHivP8iZbTRkUS+bWo0
+         GJwWDngNzb3f20Q1oFCSqrCuyvAmrRmlko2ZgOwsMlVSelJfKaJCsA47KgDl9nbrVUr6
+         QmmNEoSSqArdm/ju7qHSQgRl/grlEgOHjilnv13OkyOnwtlBXr3cA/tH/fE8pU0F722U
+         E9Ig==
+X-Forwarded-Encrypted: i=1; AKwUvBxFYET8hWIDFw12m+F7SCZ95JGpI4H5yBP7Hy4E4Lb1RfdXbTVouH7itTis7SItW4HA/87a0l9a6VSunRg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mWVXbRXEWLc+cc8f3zJAil3s/q+c0sFDD6U8KpccrCioiLi5fI
+	vD5ayoH1MbtCoO4Q4zlMp86FbTpK0rgoM7IYOl2LlOKdK9LcFp7QCpuE
+X-Gm-Gg: AYBFou3eIaLeGKd6dZr9a8zd8IzDHaxLCjv3j0UisYazT96qo6yABQWv15jxTjIAGMJ
+	0JaXhrMzCcEtYskCD96q+IAxgShFMFSW9lW9OGTSOMz1WmP6ipZ20s0XEL823LcSu/Nj7428NBA
+	2tGfVIVsrmSftH4XJ66ZJItVvmVhpTTjRFAKR+NJzwsHdE2DO4fJjPRVylgBhZU6UjWizSvgZZN
+	/bz7IqbTy6qiKrvMt3Jy6NZniZD5CFBdM5bE/8bLw3E5FFVj9WCuxcJlvzmVppBMPrZ5SnHsOyb
+	N4hC8ERtTw8mWCBSqB3UGdWyYv4oa4Yx4KCC4G+TEk0ZcqhjoQ0lW+XzwbzA41uYXdg6+1Vk1xN
+	YpvAP6qjX/52qT7r0/lhTaIjijRJx04KcSq/CE1vff/5hETYm8mPacgyWJ2Pe6vH/a3NLypkDBw
+	WmpSbj+YUxu0Ft4+dq4v6c642xWlH666FOUPqpMwwWtW24/jh9lFhiz9D8yVsUYmR/x0ZVqQYUM
+	bt4jHc=
+X-Received: by 2002:a05:690c:a65a:b0:834:fadf:603c with SMTP id 00721157ae682-86948ae2315mr9271507b3.2.1788229608300;
+        Mon, 31 Aug 2026 19:26:48 -0700 (PDT)
+Received: from localhost ([2804:30c:94d:7300:da0f:c2c1:1aa6:43da])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e66abc938sm64653947b3.37.2026.08.31.19.26.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 19:26:46 -0700 (PDT)
+Date: Mon, 31 Aug 2026 23:27:37 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: mdshahid03@gmail.com
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	bcm-kernel-feedback-list@broadcom.com, linux-iio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/5] iio: adc: bcm_iproc_adc: fix include dependencies
+Message-ID: <apY4GY-0_XMSfE9B@debian-BULLSEYE-live-builder-AMD64>
+References: <20260830170919.470974-1-mdshahid03@gmail.com>
+ <20260830170919.470974-3-mdshahid03@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYRPR01MB16474:EE_|OSOPR01MB12344:EE_
-X-MS-Office365-Filtering-Correlation-Id: b04f6624-b701-4bdb-dbf4-08df07d0603b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|52116014|1800799024|23010399003|366016|376014|18002099003|22082099003|56012099006|6133799003|5023799004|11063799006|10067099003|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	lg4eUxs+82SYBBJfdVtSZvUX52ouYcCZFxyx/dDjf7J7OaxYgTkpYG1+uICYQEZMKd2ecaEP5LOTxEFluqW3F0GcZxmLR6ZrpVOnBkcCn7da8aGIFmCwB+GshIax8B6ThEqMHh3PlIYPPQaolve3pSDqRowMMjfZ25qEUgj6Imu9kZxk6ndkWgNwVGG7BNQWxyuBD3cOvatZZGRi8y/zIGLdlZB1PDZky9lCi0lpermr9W8WKzuwB9sCI2rPzhghkrKpwh/xHqooa1t4cTQUspFZuMLb5ttRKzMd1LTz/o38PkCGxbw7wLbshq9hI8JRhnQZqHRu5oYEaLMXTPuFuxqT6BWn9XSon+hOnloUYTj1cHtSzjrurMJBiBRjs5KqNGtlN8o334QIk/chqfL/+eTwOHZqj9jhzJoyqw67h9h63znODBO8+vot/5ZFJWMP43GolYRkJPL9OOC4hbjK6sEAV1OBF/3D69Uit2aCZpmcGR4Q07/J5d8qbplvTt+ZB503vYK2+jnsvWl0kVbFVkIwBn1Ih0O5Ui6hUHbgA+0Gil06GslyGpn2JeZz4Z8/iHGms7roXZa7+iUkYKsBZ3nZw4ON1fMX9ck3RqTsnb9lQCIGQvTV6XPVjygLeaG2CAhD12bqlQIf9cWGM5Uhy+7s5XaNcDu7TGyKPyarHrNEeedZVSsZQZ49lEyjjSOgJTi41gqJ/QQt4zAWcFDWIA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB16474.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(1800799024)(23010399003)(366016)(376014)(18002099003)(22082099003)(56012099006)(6133799003)(5023799004)(11063799006)(10067099003)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?I2+gvkq7H8gkv1aByBzjNpAZ6mPgh04TF1IXna56RzyZmRqeYg7aY7RXVDDR?=
- =?us-ascii?Q?SnZxH4f89d9iM6i3+IA+oYB1Uoa7isnsas7g8CsKluH3jjSYifUjutYZl1vo?=
- =?us-ascii?Q?lbHzE8geIdgpYuYRp8BLuLkPZ9xzZ/+nIm/EaU9vb1zjY9veA/5xUzGvyhU0?=
- =?us-ascii?Q?t2ec1MEc4HbLyaN5+CMUmSpeHQ/0FQ+5DcN/sHkc+iq9wJgJVSyGT4TTCk0u?=
- =?us-ascii?Q?+txPXz1HPhDjsSZK7SCFs5NeS3J6hEhpNPAEV7GeaifSJ3QaoEp4E1BzRotg?=
- =?us-ascii?Q?ApiwG455cnL+u9wx3w4KwPIe0YtO39rJU/NPlNqr6vsllnrzC6BYwP7ZNecC?=
- =?us-ascii?Q?dtYvZv5gZQbzW+PX6kv1nDFqyFXxce/56e7ZUvyT9/dD6yQfDb5uf2VjUbNc?=
- =?us-ascii?Q?DRUvrhU+QjYin6u8WiDFRdgfA06AuV7JQnprIh/z7vpATEn623DqHnww5q6/?=
- =?us-ascii?Q?HVMsZa1zuIMZi6x4Xj+kUByHruJksGt3SYEC/VuzlYzlLJwXu4QoY18biHpI?=
- =?us-ascii?Q?5fwp8depxe8EaGNd1j/oUxi08e8zzo1JvDUA6AfaHmIjbGMQ8qU3NVJFdYjW?=
- =?us-ascii?Q?RAFpO67pX1/IRF+dEKzXytqkjcRmoJ8BTlJuV2ljM7rQxn3ola3pJ0awiaId?=
- =?us-ascii?Q?NWzer9OTi4hmNRV0/Cz/J0ThfAYHxZsuTs1+bR/zHR3tHsKZO7Vd7UzUeJ8A?=
- =?us-ascii?Q?T5QVbls+yi2xy46xfZ/fXDU3ZNRdoX319vRvue/aufKWwAGlZOI9Jf7Cweie?=
- =?us-ascii?Q?59YBdFuGqHDAGFNhVDwWR6B7PxB7vAoVkCeSviYRdbqTuzFGhPjjqolzNivl?=
- =?us-ascii?Q?OqpOTuR6Wg1EFD7O7XzLFDk6AvzULIcVASnOti1StUAp1d9gpy9n05NAcLKS?=
- =?us-ascii?Q?gfFnCKJbGekQlxh20tQmKxi5jLsnSL8KjVXHlp0FA0yOUyItkcE9KZZz/7PA?=
- =?us-ascii?Q?r0H+SG6a5zb98J8eT+pKCJWa1S7G+v61w8/t40Dp/TrGF2vsrQfRhXrUdZw2?=
- =?us-ascii?Q?b7vGNmNYOvtnNWYGIe98d+UNlYEt3z18d09BqFzilVIgMjQz/Hcry8i1CLjZ?=
- =?us-ascii?Q?qJE2YaCNP2NDMGLw1Wu1CHWXckCxLdnkNdm94/GUacl+NgAJewTs/l9zpTiJ?=
- =?us-ascii?Q?v8oaGIf15Su506Hois0zfFrkAuTgn4pX68mU9I6OwcZAhZalIr0Igw3Wdqlm?=
- =?us-ascii?Q?oiGjXeaGxEQpLylSuJYzAz/vSxn4ZRWo3iHqKitnd9HKy3sAkwcIYq84pcIB?=
- =?us-ascii?Q?I5cCqIwdekEwsTgOmDOAjDI4Uyg0KniA72pvojAKHIsiyH+IwuJCOE3Jdp4k?=
- =?us-ascii?Q?8F90mI6k5VO8UH/Vf2hEwY5prpNb8gWCymUYr5Py9m8fCpXHJ8E5e3qfPlnp?=
- =?us-ascii?Q?7ifBW2JLYTXcLzOvvqwyVo8APtEsAWICsSHfR9iQo1dBIn1evLDQzd5FJiUz?=
- =?us-ascii?Q?cRL/bGXZinnmOodVoGuCQE6Gn3J8e5IJuv5PmfI0gi2VOH510qRQvCPE5Bli?=
- =?us-ascii?Q?DqjlsjwFFMcXLxMCt9kxHZ8r4OuDlCW4HFywJGd2/cXkKw+3UuQ2wQyHRVt0?=
- =?us-ascii?Q?eFNKKT//152IJ4QBeHVgMGK/55A6ImxFeGsJ8bu5BbbY3eAiVxeYXUNK3puY?=
- =?us-ascii?Q?O33+xls80nwNI3/fWrknln4F1PellPZKNNokq2Y1afZ2GGhUyFaGeNXNNKHu?=
- =?us-ascii?Q?n/+ikBooWanbo62ADjOuj8PPMfZKYCf1hPZfZyyzKeQLA1UglucSG/X5jHhb?=
- =?us-ascii?Q?Z+Hq1Z6IwADCgEpWH3G24m4s73JcVejbZ4B+7IjZGyQQnIHhyImC?=
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b04f6624-b701-4bdb-dbf4-08df07d0603b
-X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB16474.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 02:26:06.0278
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Bl9GJx5asMuVZGb0D3lyzqVdzX6IuaAtNfIKOnlJIUvCND53o+bDqLNipvpxm4dqlVJWNDo/Xw+kR3g12xqPQEEOSkTKNBgL8vQ5mWaZGbE1iCqASkI6TkK0RS9QwH7r
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSOPR01MB12344
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260830170919.470974-3-mdshahid03@gmail.com>
 
-
-Hi
-
-> snd_soc_component_driver::resume() returns an int, but
-> snd_soc_component_resume() discards it. In the deferred resume path,
-> snd_soc_resume() has already returned success to the PM core, so an error
-> cannot be propagated back to that caller.
+On 08/30, mdshahid03@gmail.com wrote:
+> From: Mohammad Shahid <mdshahid03@gmail.com>
 > 
-> Pass the callback result through the existing ASoC component error helper.
-> This reports negative results with component context while preserving the
-> established best-effort behavior: the component is still marked resumed
-> and the worker continues DAPM resume, digital unmute and card power
-> publication.
+> Add the headers required directly by the driver for completion and
+> mutex APIs.
 > 
-> There are existing callbacks, including tas2562_resume() and
-> atmel_classd_component_resume(), which directly return regcache_sync()
-> errors. Those errors currently disappear at the component wrapper.
+> Remove the unused `linux/io.h` header now that register access is
+> handled through regmap APIs.
 > 
-> This only makes errors already returned by component callbacks observable.
-> It does not expose operations that individual callbacks ignore, and it
-> does not add rollback or retry semantics. Callbacks which already report
-> an error may retain their driver-specific message in addition to the
-> common ASoC component context, as with other ASoC component wrappers.
-> 
-> This is an RFC to confirm that reporting and continuing is the intended
-> contract for deferred component resume failures.
-> 
-> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+> Signed-off-by: Mohammad Shahid <mdshahid03@gmail.com>
 > ---
+>  drivers/iio/adc/bcm_iproc_adc.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iio/adc/bcm_iproc_adc.c b/drivers/iio/adc/bcm_iproc_adc.c
+> index e46e3761993a..2b59819c4ca4 100644
+> --- a/drivers/iio/adc/bcm_iproc_adc.c
+> +++ b/drivers/iio/adc/bcm_iproc_adc.c
+> @@ -4,11 +4,12 @@
+>   */
+>  
+>  #include <linux/clk.h>
+> +#include <linux/completion.h>
+>  #include <linux/delay.h>
+>  #include <linux/interrupt.h>
+> -#include <linux/io.h>
+>  #include <linux/mfd/syscon.h>
+>  #include <linux/module.h>
+> +#include <linux/mutex.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/regmap.h>
 
-Indeed we can do nothing for resume case error.
+I think that's okay. Though, if you go for a v3, you may also add 
+#include <linux/bits.h>
+#include <linux/types.h>
+#include <linux/array_size.h>
+#include <linux/device-id/of.h>
+#include <linux/iio/types.h>
+which mostly completes the list of includes iwyu tool reports to be missing.
 
-Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-
-Thank you for your help !!
-
-Best regards
----
-Kuninori Morimoto
+With best regards,
+Marcelo
