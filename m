@@ -1,73 +1,81 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86378488228
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:21:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B84488762
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:21:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788283291; cv=none; b=OGnAndA/cjATvq2tvwcS5HWKdmGtm6OM0KBuIOIvPnxKPVcrpJggYTEujNnXvuBY3DjZysykGNj2gWQ6ybE4W7stsEBoGSnXbkp79akFAqdG1JKQbS82A82F8znU5bEIeXvGqtlRO3sL/WxHv0FHcI5F0cgPzgUbw0AA3C0xSI4=
+	t=1788283310; cv=none; b=O2gKnJ7GfGqRw2T7FQPdgJYkYg8MEuOpodTbmevdUQdv/vGE0KgjFRnC7oYirbAj4u497NV0BdJx9Or7D8oU74ViXKqxlrOEDjyKJ20G51Uuj+lBKD/yKNzzNsnvPO6Hij9JnlCXZOLfDsUyUscZfLay4ppMb/DFjwivTZ2N1+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788283291; c=relaxed/simple;
-	bh=LeGDvC3l27Wo7zRvl7F/A9X2MyhBj7RXCYXvGI4LZpM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JL2ixj8OGDHME/EmM7JvBpkRD8WQaid7nyYV/d5JjUTYjbtYbOZ/fXhOJIiOhfRrCpUtQTDKhZLKZyT1gnBoPOcODw/DA4uHFpLcqzqtiJ1thzgVtFV/q5DAjtQylBpW3jTgQzyGX/QSj5MWbJpuEEsdVrVNSZlBqtavtcTS/Lg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BXudvyTt; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788283310; c=relaxed/simple;
+	bh=Bf3DldYJPkEl5wDXkPPwE+qQIpcMuluvTmCJXkBa3ZE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FLqfkJiSx+e6/KWBHqsydA144qjEhZmTQnX7Enf2dgZjfdkFfygWCFXodMmTeeIjSD3xKK2/b3gFRtQ9EvNo59u2dmMnvb0wou/VOtcdY57lBcBpNVOsblKf7NDcrg+AfI/cgb8R7stxo/3xw4sTr+5D1gXFnAwOp6LGydXKgFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=w1PVg66y; arc=none smtp.client-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BXudvyTt"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49cd9add88aso90885e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 10:21:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="w1PVg66y"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5218927884fso298701cf.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 10:21:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788283289; x=1788888089; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yxn9qM2Ppo5iTTsOVfzJ7uBe3gU3KpqKhhkdUu2Nv7M=;
-        b=BXudvyTtpXxhtGPQoB8C1zIpokgHsWg/+L+eMhWipeTbqcIHkUsalzxF+WVnAVe03f
-         JuWzH5kUyLi0C4b9A+F/fRyYwt/bOldpwE/5LNwJ8JM2c/U2Lot6GsjcE51bzG91QIYg
-         MNc4nxIlaiGsh675ehRTqdedmQfYSkOu0c2nHpAeyngLM1WxqaYZeOl5PfS/LSX2J1zE
-         v9nvZ3tLs7tgP5Uvbgwvs3dwqSgsOU3QUadK1ghM7ZQofHAlie3VUwha9vgdKuOxX5kn
-         tshbO2jrtS/iQMgTiuI4bug49y0aT8eeXxHOmbNF4qWDW/0SFPA9Kr7zZacjaG513oXq
-         rlyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788283289; x=1788888089;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788283308; x=1788888108; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yxn9qM2Ppo5iTTsOVfzJ7uBe3gU3KpqKhhkdUu2Nv7M=;
-        b=rRGTj8JO0OPMt+kcs3PCVa2VQX4FQTYO+sYfJq+8Ht9YJQ02rGfSwccEUdFG6HXVtY
-         c3amgDaTVQ/Ze0SV9SUfyzX1zFoU+mVKbSNvP2igB0vrtVjZNU/JEe5GdvIQW5fKMGY6
-         fpkfGPtenjB3N1EOHbu5fsenfGC5VYA2VvchFJHxQAfaBv7aTb52P1RsC5OZoUGJkwH0
-         KjWe1GvuP+dfdiu7VpqRsWSUZtVYbsJGw9EI9VSfO3sxrBglNPQRBAACV5PeS/gHKAAJ
-         2apzf5k1UbL3GWOYQ07Fdlsb2uBD8ffUB9BqgIil87Demg6HgFX3jit8A7mReYlvFRGh
-         EYhA==
-X-Forwarded-Encrypted: i=1; AHgh+RradowoGZbrJW6VzsW0vmtPT7+xA/atv3jK4V15xBTGHJk62mnm3huDpieb3pm8u9ILAQY8yfbyEChTZKo=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8y8TYnwlqi5nFxWwk08Vlhe73G7nFROGjKESXWqZdHYxx+Loj
-	MH0Zhrv5fdkUgZDdY9gtv4UeEoajpFYcD7cUxq+MRH1uQ9qfP8BgQny+yWlmzw/dRGjPtA==
-X-Gm-Gg: AR+sD12gzfxn8cwfSFNGhQJRk9+V945JZyyMCeLSbhNgZYqKnEMZl1aOYL6E5+ZS3C1
-	MtM5o//JGC9+MXhV8my7WBr9opwuD9GJ4sIPUL4zVeS8GbgO41HS4QjGgmRwYQNGUPBNXRwfu4Y
-	e5aQXUv1zuIDWb7UZvO9T/hPAg+y4zZ7hrsZPxgDUxnisoeQhDaDlTSvlwLNBXnB/Ez0SBLwjEp
-	A2z4l1aXwLhpUt3c3LIlV7RH4VKF+Kc//S5CMEUFO5khPqAqcdQ5HXYhFEVxOXBrdpdPQZtz9Il
-	uh67Lc3Jzwuo4rtZI52jBTTlMoaQvHGNu5L0dKyg3moraXD62vWshdnKHswd87/QYq43vytj4Sv
-	hNE8pR03M6v4qWCqA06s/6nojl3pVRTMK0mQC4SVNp+XhAamgp5PXFopdLGMOIIajXmCodMN+u+
-	2yPhSY9mHDuUG42VIdXd75+TKrl+yjxw9KRyIRc3nzSyvHenVx6EFq2oNOPHMv3lNXhuYmMDDQ8
-	vP88qxKsFPHydpGSSeiwS2jkyCzm1UmGRKpCwoXHo8=
-X-Received: by 2002:a05:600c:4704:b0:493:cefc:d113 with SMTP id 5b1f17b1804b1-49b91c2d8femr548275525e9.5.1788283288657;
-        Tue, 01 Sep 2026 10:21:28 -0700 (PDT)
-Received: from DESKTOP-EHH7ATM.localdomain ([102.209.109.149])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e72c28sm508846f8f.6.2026.09.01.10.21.23
+        bh=oFhnWYzUZYC/wvAq/4Lo1J9s4tj77sgPBLg2juwGlsE=;
+        b=w1PVg66yReSX5yg83+AUMHYBJbdEiIxIva72R+qUDOld7CwiDAxGrH92f3G6Fvu8Me
+         oxkrUV0baAy+WiDw7UGF4dohAsK0xkHHoSgJHJYMuGIcfWyAt/68PlIAm/0PaIw+SLzq
+         DJx4IK0MoQuGxT7Rkqde14G1XohjhJv0I1Zr80tVqFQsBfOWH1MobEtfr9MEfjIhOtsj
+         rba9WpXdH3n7Yfxb4b0VgeuOUaOanASIde97c01veIypNlcp8y6uW0y83Q7G92ali9nJ
+         qdaM6QRyW1dvIvtxUkoGG7nBIH4K3gPMd3pOMalIfHKcibmTc8IZaM4OK06e3v/iCbc7
+         K6jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788283308; x=1788888108;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oFhnWYzUZYC/wvAq/4Lo1J9s4tj77sgPBLg2juwGlsE=;
+        b=Rcf5ipDv2DH9mXGjEc0VygN2H4u7bOHY+lPTvwaL1a5ymYu2x1o680obCbzHwo4LdX
+         G5z9THePoApfatFW7zAggMzvh4bwNpfaFAw0NoP+2i2lS2vbOPnQsvZQ54fMd88aXE1t
+         bdrQLNV2OeF3q8v3pIn0UgmYRU4++enmEuEPfloNjSnOXVbwuUuhk5p0xJ+FQTdlWZ46
+         1ky1OUuqO4NuSLzsosvjxnmruxBF+bWxpbYut/pNjyazee+0AGjCbbJMvkNs5lLVfY5A
+         G2HdQchMeVJOH9Zppg9BhPuuE6/jXuoqyQVcHkwxfpRMH1gMXLnHHFZ3G+i94//mt1SZ
+         dYlg==
+X-Forwarded-Encrypted: i=1; AHgh+Rpgpq/lMyxfhOJUOYdMf6eLVTJgz+Px6EYW3xs9qO9FKp54CthUjs5Sq3BKoJLNLhkzmXr1x/xbVIqpkAc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mQgVgSzu2dYJCKRWm7fNbswqUsaPCcl4EIrIgmdu1fO3HQGF4z
+	BGAHhIi4BpDcahhdg3MBmyc6i6hWgw/yPkgz7kLzgxxx+7adIiwyNjqGCAmMx87GB4k=
+X-Gm-Gg: AR+sD10DOlcPpqsOetJLPfbdGBCllAKW0BU57G8jSbbDI5eV03h6VD57KyX83nOGso2
+	tvMmJ8ZnldRZkDByL3O3zFIxg7DNWz8xNzpdpA1wB17dwuRmJ+RAcSQ4rpaD6psuIG1TLzdgqmi
+	4sAj1obYyer3x/MooEiJ0R3OPxvAaWIjQPY9nHcnBo9Sq1/3OA/26dwBFUy6YN0UR2WzgzFuPmc
+	okenwqaQliR+GYbytVy2f1OMyJX++lp3Lrq9V3aH7lZG1fZi92xJ3/y/f8ijhOuwpfBD3A2o4Oq
+	8epuVaVwnT7Pfrys7yuVq3SEpplE0vXjbfDcMhOHZvxZI/zeateoeuF2P12GR0B0tyCsuAU9VDe
+	srfJ3bR+TA8m6aihZoXRGcjxRCbY3R/zdIUDXA0BAjIzqtkJ7rSu/f7h+twr5QZTt+6p3178iuX
+	FSGi9t9ZCh6KoZkcEGrdEKT+HIg6+cp0nnqAq8QANCx06CTEm3Yrz/baVOS1tBSlBoZQ==
+X-Received: by 2002:a05:622a:2586:b0:51a:8bc9:2915 with SMTP id d75a77b69052e-52fb93d5098mr461094611cf.8.1788283267690;
+        Tue, 01 Sep 2026 10:21:07 -0700 (PDT)
+Received: from zippy.localdomain ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530331d9cbcsm1423661cf.16.2026.09.01.10.21.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 10:21:28 -0700 (PDT)
-From: Godana Emiru <godanaemiru@gmail.com>
-To: parthiban.veerasooran@microchip.com,
-	christian.gromm@microchip.com,
-	gregkh@linuxfoundation.org
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Godana Emiru <godanaemiru@gmail.com>
-Subject: [PATCH] staging: most: video: document the locks in struct most_video_dev
-Date: Tue,  1 Sep 2026 20:20:55 +0300
-Message-ID: <20260901172055.53889-1-godanaemiru@gmail.com>
+        Tue, 01 Sep 2026 10:21:07 -0700 (PDT)
+From: Alex Elder <elder@riscstar.com>
+To: andersson@kernel.org,
+	konradybcio@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: daniel@riscstar.com,
+	mohd.anwar@oss.qualcomm.com,
+	lorenzo.bianconi@oss.qualcomm.com,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 5/5] arm64: dts: qcom: qcs6490-thundercomm-minipc-g1iot: use dev for device nodes
+Date: Tue,  1 Sep 2026 12:20:57 -0500
+Message-ID: <20260901172058.1512508-6-elder@riscstar.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260901172058.1512508-1-elder@riscstar.com>
+References: <20260901172058.1512508-1-elder@riscstar.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,47 +84,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Neither lock in struct most_video_dev carries a comment describing what
-it protects.
+A recent change caused the embedded PCIe endpoints on TC9564 SoCs to
+be treated by the devicetree code as PCI buses, which is incorrect.
 
-list_lock protects the pending_mbos list. Buffers are added by the
-component's rx_completion callback, comp_rx_data(), which is invoked
-from the interface driver's completion path (a URB completion handler
-in the case of the USB HDM), and are removed from process context by
-comp_vdev_read() and comp_vdev_close(). Note that in the comment, since
-it is what makes the irq-safe spinlock variants necessary here.
+The Thundercomm AI Mini PC G1 IoT defines a TC956x SoC, which includes
+a PCIe switch with one upstream port and two downstream (external)
+ports, plus a third downstream port.  The third port has an embedded
+PCIe endpoint with two functions, each providing access to a 10 Gbps
+capable Ethernet interface.
 
-lock is never acquired by this driver directly. comp_register_videodev()
-installs it as struct video_device::lock, where v4l2_ioctl_get_lock()
-returns it and video_ioctl2() holds it across ioctl dispatch.
+The devicetree nodes representing these functions were previously
+named "pci@" but were renamed in the interest of consistency in
+commit e806c63ba51a7 ("arm64: dts: qcom: Rename pci@ nodes to pcie@").
 
-No functional change.
+Unfortunately, of_node_is_pcie() causes nodes named "pcie@" to be
+treated as PCI bridges, which PCI endpoints are not.  The previous
+name "pci" matched such nodes as "default-flags" bus type, defined
+in the of_busses[] array.
 
-Signed-off-by: Godana Emiru <godanaemiru@gmail.com>
+Rename the PCIe endpoint nodes "pci@" so they are not mistaken for
+bridge nodes by the devicetree parsing code.  This restores the
+previous behavior, and allows them to be used for PCI endpoint bus.
+
+Fixes: e806c63ba51a7 ("arm64: dts: qcom: Rename pci@ nodes to pcie@")
+Signed-off-by: Alex Elder <elder@riscstar.com>
 ---
- drivers/staging/most/video/video.c | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/staging/most/video/video.c b/drivers/staging/most/video/video.c
-index 88892b5db..c354d1820 100644
---- a/drivers/staging/most/video/video.c
-+++ b/drivers/staging/most/video/video.c
-@@ -33,6 +33,7 @@ struct most_video_dev {
- 	bool mute;
+diff --git a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
+index 31bafa2cf51db..183ac59ca7d49 100644
+--- a/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
++++ b/arch/arm64/boot/dts/qcom/qcs6490-thundercomm-minipc-g1iot.dts
+@@ -790,7 +790,7 @@ pcie@3,0 {
+ 			ranges;
+ 			bus-range = <0x5 0xff>;
  
- 	struct list_head pending_mbos;
-+	/* protects pending_mbos; taken from rx completion (softirq) */
- 	spinlock_t list_lock;
+-			pcie@0,0 {
++			pci@0,0 {
+ 				reg = <0x50000 0x0 0x0 0x0 0x0>;
+ 				#address-cells = <3>;
+ 				#size-cells = <2>;
+@@ -798,7 +798,7 @@ pcie@0,0 {
+ 				ranges;
+ 			};
  
- 	struct v4l2_device v4l2_dev;
-@@ -40,6 +41,7 @@ struct most_video_dev {
- 	struct video_device *vdev;
- 	unsigned int ctrl_input;
- 
-+	/* serializes V4L2 ioctls; used as struct video_device::lock */
- 	struct mutex lock;
- 
- 	wait_queue_head_t wait_data;
+-			pcie@0,1 {
++			pci@0,1 {
+ 				reg = <0x50100 0x0 0x0 0x0 0x0>;
+ 				#address-cells = <3>;
+ 				#size-cells = <2>;
 -- 
 2.53.0
 
