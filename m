@@ -1,119 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED6B7459AD7;
-	Tue,  1 Sep 2026 07:23:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A57742C4F0
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:23:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788247401; cv=none; b=VDg8Awpf1eEAII7lycnJJ778P99FTXjeuHR0EXncVNDdad/fWgkni2QMQx8bHFO/qkLcnfcaK61z020skKuixxHS+gNEBPuxAAjytBRDurcpwhlgFbI/2RzLK1rNWb14iErOJUrUxx7ZFO1otTu6x0upkQaOO2twCnY7w4oQLdI=
+	t=1788247427; cv=none; b=ZBk6fQBeDUAG2LVcEKPRxkWVEo0NhDTBkps68L/ZQX3C3iwMaVIRoc/Q0TaNVe54vZMkMogE45TnH3+VrbsEKbAL6Tyi+4fXoJsaXDj6PTlWssL9IZWNNyIkbwVckUfQkSMp4Oi+1Jm2B/ZtTCy0RIbelxqLK/Srfr/w9xY8XnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788247401; c=relaxed/simple;
-	bh=gTgX58qAN6qPdqTkSvME9HJO52ewwtzUWAj44mkJg2w=;
+	s=arc-20240116; t=1788247427; c=relaxed/simple;
+	bh=mp7eLHaZfmsO81+U9L/zIi9lOQ3CvFosn62SO4Eqx6I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XyTIY/faIeREn/idHpaU4rXS4BfhG5dxtPhv7GOVUJn3l/1AQIvfr/FWCabWtXxKbvkkHVFt6hOfLxG/cr3thDNnM+r1cIvXvTruE5D5GvQtqUsm57Y99s9D/kxJQ48Zr23pP1AxWblDmgBZEiazTYlIdKRXTyyXZtaHmhJdv0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Utv80bzu; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=TFNrHURabP9IdEkAGC7uOYEGzBVhvt5up5G16T6067BmxSiYhsePr7q2651Ki6XOfFWZlfvxmY1LenIccv447eXHhVQs5V9UxB8SlMh2RkX4iKfxmEnNZeSoSNzokdVSu2uZAQ3ykEUP0MjrRq28hYbc6AzLle5PO72JLcTiHJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=BV0YDgs7; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Utv80bzu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BA791F000E9;
-	Tue,  1 Sep 2026 07:23:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788247394;
-	bh=qCWCwhm5CYxFm5odxTdtkxLiQAyCBWHpnskP5L4+v2M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Utv80bzuMK0AJAjsG5eYLCc1gVmsJqVyUsZ3lAcLPta8DxQxhLUh1JQ50ZWyG7Oqd
-	 elS3XtUkgbqz9vLtwUdgssbvf35teoGgTuBFPPPLs1LDAicf6rErM64xfs/+0vn+1e
-	 0tbUiaaen9FvDZkzN6QcSs6jcVhnQ46S1Zu4icdMzTIFttRkhbtXOGV8IejiVK7pdM
-	 6bXTiSD48lWewI9IttU2NlTghcbKJFxy+7Ck1Xdr2VOVDwYPzJqeH1QqedA6VZ/JIr
-	 g3Fnb6SV2JFtwBVRl3a+hbfCAQeo7ym7MsFzylVlm8BBn4iSEIwNfzds3QL57mP9EZ
-	 fTQiu80XXe56A==
-Date: Tue, 1 Sep 2026 09:23:11 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Vitaliy Sochnev <sochnev.v.74@gmail.com>
-Cc: netdev@vger.kernel.org, upstream@airoha.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2 3/3] net: airoha: grow the small RX rings
-Message-ID: <apZ9XxGHbyDBzSW_@lore-desk>
-References: <20260830095717.37218-1-sochnev.v.74@gmail.com>
- <20260831234701.206021-1-sochnev.v.74@gmail.com>
- <20260831234701.206021-4-sochnev.v.74@gmail.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="BV0YDgs7"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so44049055e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:23:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788247424; x=1788852224; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0niSXQECJMFZw0+rxqv4zMkA2WGEXmXqxfDeDBlDBZ4=;
+        b=BV0YDgs7HFXKsJNwwfMWLV0KQDEQ+fQz8xt9/chXybd87/a9nclqSH1Rb7yhF6tKYu
+         +QVuU/UzTo1UzvNXYkvtzUgkMelOnCa3NXBNR43UhgiLdBHW+rrbqp+RnsoSq1/2E+mi
+         0pLhwhm64rmHFvR+zyZFflrEjqm/uSWeDF2rwPptj53rJFbDLXRsXWfY8YrAGDnvH/dI
+         1cdSHoxMmupaz8I9Pd/RzxF3b2vXmu89XY4NYDD63PQHQnu7i3rH6U6a+0gue5/bCyj3
+         0ow4YUvyri+4k1w4JXBzpPJxF64xhN6pxuQ/EvuGhqUXzDLHeCsf5L0RkfFYDw+OKwxr
+         xdZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788247424; x=1788852224;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0niSXQECJMFZw0+rxqv4zMkA2WGEXmXqxfDeDBlDBZ4=;
+        b=LOgrSBotP8kCIm3+LkiAP7p2MnjbV/KYWz0HA5htle8AvAkL4pllRqJXGvfArCUDzr
+         rhWFeOKX7TAqMwbqkU2l5BMoOuchU10+IGmDXomnHRlzQedHLkKl+MTcKCYLkoBYiXwH
+         WrbE70jvNMMr9u+o4fPAjn//yz/lFbh8bUEQlSAhx7YIA2dyY4VqNUFIvWaL4n1H3740
+         Qjm1loe3A8le5GU+yOogFi44MhcZ+QG7a/U7Wnw+RMZvm58dsvwgRuaWhmhcnrzal1GF
+         T3JlEl00rTHUYeg6EOcmFp627jTdM0NQPKCq3e5FKsqT4ikv+0gFZyrABG2byTM5PDGO
+         JE5Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rrbr7OMSVY6kxhwhTRAvRBM0SeNcTPLAOcSj5XKv8cxQ7MMg5OPAuhlOvu1E9VnQJfsZwVLHJgbBsu2BOs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mmzOFXp3zElAjQnlHTPnXpTzBcLEXVv67k3G6DDi9ItV8WR004
+	BGBIA6PoH1YXBjQqwU9OfXBrzXNMu/NmxLPPa0TsFy55epYL1d7vpJpXxLdCIHTzc9w=
+X-Gm-Gg: AR+sD12fxHJZ2I6Q/vDP2/2I4/kA7a34mOaGh4uN3dj4T46plH637+YvHt1ZiAYPH0i
+	UZk0X/e5kh5h+hg39HubDdYolF+zVdxMfWecO0RWY05xR/zvrr2XIGUW98BB6ns+wRJwT99uPuM
+	NM2bcriyWnAr9G4tgY34lx1fy9qGHFuy7GoQIXKVwLbpTjobLjm3hkbbSzwwHzAWHTb5Y8SAlDR
+	/n1w7qlCxkWWFRj2VGfVNvQbYl15evaANjJ6sX8LnJ8qiXfJWgMDZVTFfbxtL0DYUCg/IL/QodC
+	Kn5TeZfYE7AUXxwZ22uhPeuxSPPiGnyYVKkRgYsom6LAZjfpsXysIMJkblpfPvQOVsviI3NQ8kt
+	7q9es82uGT0Or3HXgv49FhgJYC+HacGNfpiGmWS/gm1YdUmUA+XMAvrlY+uMbTObVh6J7fq1ZJH
+	c/YnDPvT03ezfGo+ZVk0ug961yRnitzP9mk4DeCzWvfxf9jTB4e0gE5vVkhEypUw==
+X-Received: by 2002:a05:600c:45d4:b0:499:7219:122f with SMTP id 5b1f17b1804b1-49b91c1ebd7mr438451325e9.4.1788247423615;
+        Tue, 01 Sep 2026 00:23:43 -0700 (PDT)
+Received: from pathway.suse.cz ([176.114.240.130])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b91c52fdbsm254947765e9.0.2026.09.01.00.23.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 00:23:41 -0700 (PDT)
+Date: Tue, 1 Sep 2026 09:23:37 +0200
+From: Petr Mladek <pmladek@suse.com>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Kees Cook <kees@kernel.org>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tycho Andersen <tycho@tycho.pizza>,
+	Linus Torvalds <torvalds@linuxfoundation.org>
+Subject: Re: [PATCH v2 2/2] kallsyms: Document why unresolved symbols are
+ revealed
+Message-ID: <apZ9ea1on8A7o6kk@pathway.suse.cz>
+References: <20260821152614.2202196-1-bigeasy@linutronix.de>
+ <20260821152614.2202196-3-bigeasy@linutronix.de>
+ <ao8SeCCG65uwH-Tk@pathway.suse.cz>
+ <20260827102411.NsziRXyJ@linutronix.de>
+ <20260831133729.p5ylO7O6@linutronix.de>
+ <20260831124928.22e163ab@gandalf.local.home>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="iSgGtsf6CDto9yfb"
-Content-Disposition: inline
-In-Reply-To: <20260831234701.206021-4-sochnev.v.74@gmail.com>
-
---iSgGtsf6CDto9yfb
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260831124928.22e163ab@gandalf.local.home>
 
-> Raise the RX_DSCP_NUM() fallback from 16 to 32, the vendor SDK default,
-> and give ring 4 the 128 descriptors already used for rings 2/11/15.
->=20
-> Ring 4 is the shared "force to CPU" ring that airoha_fe_vip_setup()
-> routes BOOTP, PPPoE Discovery, PPP LCP/IPCP/CHAP/PAP/IPv6CP, ISAKMP,
-> DHCPv6, SIP and LLDP onto, so it sees the same bursty non-hashed traffic
-> as the rings already on 128 while sitting on the smallest allowance.
->=20
-> At 16 descriptors the completion stall handled by the previous patch is
-> readily reachable: on a Nokia XG-040G-MF the recovery fires roughly every
-> 35 s under repeated PPPoE dial-up, and negotiation never completes. At
-> 128 it did not trigger once across 500 forced PPPoE reconnects over 20 h.
->=20
-> Ring 4 and the VIP classification feeding it are shared driver-wide, with
-> no DT or hardware property distinguishing one variant's ring 4 from
-> another's, so this is not scoped to a particular SoC.
->=20
-> Fixes: 23020f049327 ("net: airoha: Introduce ethernet support for EN7581 =
-SoC")
-> Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
+On Mon 2026-08-31 12:49:28, Steven Rostedt wrote:
+> On Mon, 31 Aug 2026 15:37:29 +0200
+> Sebastian Andrzej Siewior <bigeasy@linutronix.de> wrote:
+> 
+> > Could someone yell here, please? I convinced myself that hiding
+> > unresolved pointers is the good thing to do here since a "wrong" pointer
+> > would be seen in backtrace anyway.
+> > 
+> > Thread starts at
+> > 	https://lore.kernel.org/all/20260821152614.2202196-1-bigeasy@linutronix.de/
+> 
+> I wonder if we should just tagged hash values as such:
+> 
+> | [    1.498171]  <TASK>
+> | [    1.498172]  00000000cb9bc262 [hash]
+> | [    1.498174]  ? 00000000eb5021dd [hash]
+> | [    1.498176]  00000000ed1a9938 [hash]
+> | [    1.498178]  </TASK>
+> 
+> So that people will know that the value is just some random hash value and
+> not a real address.
+> 
+> Although rather useless in call stacks, I like hash values because the same
+> address will show up the same.
+> 
+> Having '[unknown]' may also be confusing because it doesn't really say
+> "why" it was unknown. But having a number goes back to what it always did.
+> Hashing it with a "[hash]" marker will also let people know the value was
+> hashed.
 
-Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
+I like this idea. I just wonder whether it might confuse some parsers
+who expect that symbol name is one string. %ps, %pS, %pB are used
+in various context.
 
-> ---
->  drivers/net/ethernet/airoha/airoha_eth.h | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/net/ethernet/airoha/airoha_eth.h b/drivers/net/ether=
-net/airoha/airoha_eth.h
-> index c195dad5ed58..0b7c90940272 100644
-> --- a/drivers/net/ethernet/airoha/airoha_eth.h
-> +++ b/drivers/net/ethernet/airoha/airoha_eth.h
-> @@ -41,9 +41,10 @@
->  #define TX_DSCP_NUM			1024
->  #define RX_DSCP_NUM(_n)			\
->  	((_n) =3D=3D  2 ? 128 :		\
-> +	 (_n) =3D=3D  4 ? 128 :		\
->  	 (_n) =3D=3D 11 ? 128 :		\
->  	 (_n) =3D=3D 15 ? 128 :		\
-> -	 (_n) =3D=3D  0 ? 1024 : 16)
-> +	 (_n) =3D=3D  0 ? 1024 : 32)
-> =20
->  #define PSE_RSV_PAGES			128
->  #define PSE_QUEUE_RSV_PAGES		64
-> --=20
-> 2.55.0
->=20
+I think about adding the hint into the hashed value, e.g. by using
+'h' instead of the highest number, something like:
 
---iSgGtsf6CDto9yfb
-Content-Type: application/pgp-signature; name=signature.asc
+ [    1.498171]  <TASK>
+ [    1.498172]  h0000000cb9bc262
+ [    1.498174]  ? h0000000eb5021dd
+ [    1.498176]  h0000000ed1a9938
+ [    1.498178]  </TASK>
 
------BEGIN PGP SIGNATURE-----
+But 'h' is not a valid number number so it might confuse parsers as
+well. And it is not that user friedly either.
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCapZ9XwAKCRA6cBh0uS2t
-rBTsAQC54xl85XXvmJfDDGnSxh3t76bdMZM9J3/7nroYJroTBgEAwWGjnbVtxJcr
-V2ZoukEPId4WHAPImjFYCIq4MGWgjA0=
-=FILA
------END PGP SIGNATURE-----
+So, I still like more Steven's variant with [hash].
 
---iSgGtsf6CDto9yfb--
+Best Regards,
+Petr
