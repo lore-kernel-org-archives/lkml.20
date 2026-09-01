@@ -1,142 +1,99 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCA536B90A;
-	Tue,  1 Sep 2026 06:45:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27BF36E498
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:46:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788245159; cv=none; b=YI2MizmFlKP/ltCAqvG0zwSybdWnfpZbZhJjZbjlKhHcKKeR14SIKNtuNhKitEq0mtWTlug2EMysje3K9lb9t1VwH/1ygE0uhYEkm/7pXhQT0SblwoVYa6CwXLPcXCAXMOAKig6lMwb9y9UZ0hnOknOBdyQ0qvZKDvSODoGjtHM=
+	t=1788245187; cv=none; b=f0VTP5vobTadz0Nal6v/ZxneQPvxDm1ZX4+D2JOvNLK+1Of3u1HP3Yr+wEZyzqY28QgmxcBsvaNRllMDNR2nBjieOTTIpkyfPzPeCzONZExsQJ4Y0nRKyougvUptXThkCVbUxfCpWRCL//RWDS5Uz8BJj8TPhzohHlQFWxcrZZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788245159; c=relaxed/simple;
-	bh=W/nwyhnsYv/268Axgt633KDCI9dPa5FEesZko/5uCDE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ciOqigfRWXGLv5sO0q/FWhx4HIETNF8HYNicKyKKUWt5dfqrDrzfigu1nflYSxX3QAB9WE2VXNsrJWxmkpMOusiMGJXxTzvsFzdZdob9VoWIG0775AEoBrOhNNIfByBe8aGXnaIvZwY+j4gBu+cwwd62qvJX6z/ovNAcqOqi9II=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=g39Qc0Hh; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788245187; c=relaxed/simple;
+	bh=OFcEzgCk9UlnjW2LULSWXEChap30WBhqiCcSNByzP8M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GaC+5KGwvs+N0fpNPnliKf7cMotvl+dAfJ6uS91HdA/8QrgftB+Tr31wWl3KerHnVGVGdUKIqTEdkiFsdeDbqt9llj02AN9IZ6rZMzhz9ihb/UZjSlvgI738iFVKwxv7fRVkVffDkGcwByqR14RGqRR42il7YHmn2tz0LaRx08Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KY4f1MKd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="g39Qc0Hh"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 8F3891A192B;
-	Tue,  1 Sep 2026 06:45:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5D5E66053C;
-	Tue,  1 Sep 2026 06:45:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CFBE211C7923C;
-	Tue,  1 Sep 2026 08:45:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788245149; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=UaE3AUwBFLv/HV5738IQzS7QClGRaDYytvnf8R7BOZw=;
-	b=g39Qc0Hh8RF/fXRwcqE57liEKzLtqtjL9mQ0IQxupxbRily1EN5mYlOIr9v4ScgYnDyWBf
-	WsmZezMEUj9L+Fu7+Cd2H0khiRlgy0ntlkonsYLomh9d908+TTOa7iAlAEJ8aSlkCAisCn
-	3eA9d3VR/W/9Q+KNtXZM2vdEa/69hx7TC955v16LlyzOc2qIqOd1ougSXCf5o0PmI/neWv
-	dWU+SKWrbL+ga4LlC+gfe/jbm5g8nr9l2O46sPWbGXwQOp+AAYJJX3CKc1tOVSOQxMByOn
-	6iEm+OruRJeJTqAFf4hiR4R45n5+zHc2QMVrVC4HiBXtc5WlmZ7aucsgoaw2Sg==
-Date: Tue, 1 Sep 2026 08:45:46 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Alex Elder <elder@riscstar.com>
-Cc: bhelgaas@google.com, robh@kernel.org, saravanak@kernel.org,
- daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, linux-pci@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] of: address: kill of_node_is_pcie()
-Message-ID: <20260901084546.424c6ef2@bootlin.com>
-In-Reply-To: <20260901011338.1323243-5-elder@riscstar.com>
-References: <20260901011338.1323243-1-elder@riscstar.com>
-	<20260901011338.1323243-5-elder@riscstar.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KY4f1MKd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5272C1F00ADE
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:46:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788245186;
+	bh=/uB+oZnXdP3HiDF1gQ9WGpTRmCtUS3KddOyf3RwpAdA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=KY4f1MKdsZt+7vwMU/K+wbQcEkm73E4Mfs1O8vB3Ky6D5vXiEN4h90qQqqc5CbJkV
+	 P9A60PCWDNw7Bk3n0u3c9FEMnpWuQtYxaDVQEpqGzvpsbMD5H1vdCy+qyK3otar51i
+	 iPZMpiUlaZ6HgJafSIL0sORdYfy5d6NXFmdStHhg7UNWOUncOPGieddSlAC56eccHk
+	 NYLqIhlujzPbAqEU97HL0XGQcXtgKLOxvu36/K4fq+NNiUCTGf28INsh2JlixKW9fN
+	 zeCj9uAJIMlkOyc7eDTbc05ZhYU1NES0FMQt5Uts9EbPMnbmL980x2tlC6dMyZHY8V
+	 xllNrtWAm8y3A==
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c1712a04ddaso718212366b.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 23:46:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpAAgscvETsmj9ZwYFADlc5a7BSSTX3Z3ihG07Lt3VWT6WtpaBugx4Ac6pOFspW+4BEN4tOGeCYvtlSH1c=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZ9Dx3FGXerPPOSkY664kX1hHTD/FtU5wPWZ6Kj6IVne4TVNye
+	WMtrDOI1syjuSUQcI5We1/YQ8uFZ46zsb/jR1wQuPzsM7zLWGxBTrDFkxqFZL9SdyzSfC/l5Bxa
+	cnQuzcMJWby84Jo5Ec8UHNA5W98HzDkc=
+X-Received: by 2002:a17:907:9344:b0:c21:8a0f:56dc with SMTP id
+ a640c23a62f3a-c2556c19c3bmr2035182566b.4.1788245184817; Mon, 31 Aug 2026
+ 23:46:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260831105330.10449-1-linkinjeon@kernel.org> <20260831144929.1597433-1-zhanxusheng@xiaomi.com>
+In-Reply-To: <20260831144929.1597433-1-zhanxusheng@xiaomi.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Tue, 1 Sep 2026 15:46:12 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd971E05QF4dPiS1YNcOSQpgQUVrd8dU=PmsHmk_XX+-oQ@mail.gmail.com>
+X-Gm-Features: AcwNN1VvEeVJhuX84xSKEi1AfAoYU99AW8E1D9N7hW-2DXejrMz3S62amHDcX5Q
+Message-ID: <CAKYAXd971E05QF4dPiS1YNcOSQpgQUVrd8dU=PmsHmk_XX+-oQ@mail.gmail.com>
+Subject: Re: [PATCH] exfat: doc: add documentation
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: sj1557.seo@samsung.com, yuezhang.mo@sony.com, exfat@lists.linux.dev, 
+	anmuxixixi@gmail.com, dxdt@dev.snart.me, chizhiling@kylinos.cn, 
+	linux-kernel@vger.kernel.org, zhanxusheng@xiaomi.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Alex,
-
-On Mon, 31 Aug 2026 20:13:37 -0500
-Alex Elder <elder@riscstar.com> wrote:
-
-> The of_bus->match function for the "PCI" bus type is fairly liberal
-> in what it accepts as a PCI bus devicetree node.  If a node has no
-> device_type property, it even allows a node named "pcie@" to be
-> accepted as represnting a devicetree bus, though it issues a warning
-> in that case.
-> 
-> A recent PCI commit introduced of_pci_verify_node().  When a PCI
-> device is added, if it has a devicetree node, that function checks
-> its device_type property.  For PCI bridge devices, if there is no
-> device_type property (value "pci"), a warning is issued.
-> 
-> That warning duplicates the warning made by of_node_is_pcie(), and
-> there's no point in that.  Avoid the second (OF) warning by just
-> checking the node name directly in of_bus_pci_match().
-> 
-> That leaves of_node_is_pcie() unused, so get rid of it.
-> 
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> ---
-> v3: - Added (new) in this version of the series
-> 
->  drivers/of/address.c | 12 +-----------
->  1 file changed, 1 insertion(+), 11 deletions(-)
-> 
-> diff --git a/drivers/of/address.c b/drivers/of/address.c
-> index 499d37ceae210..ee2eb44884d85 100644
-> --- a/drivers/of/address.c
-> +++ b/drivers/of/address.c
-> @@ -134,16 +134,6 @@ static unsigned int of_bus_pci_get_flags(const __be32 *addr)
->   * PCI bus specific translator
->   */
->  
-> -static bool of_node_is_pcie(const struct device_node *np)
-> -{
-> -	bool is_pcie = of_node_name_eq(np, "pcie");
-> -
-> -	if (is_pcie)
-> -		pr_warn_once("%pOF: Missing device_type\n", np);
-> -
-> -	return is_pcie;
-> -}
-> -
->  static int of_bus_pci_match(struct device_node *np)
->  {
->  	/*
-> @@ -156,7 +146,7 @@ static int of_bus_pci_match(struct device_node *np)
->  	 */
->  	return of_node_is_type(np, "pci") || of_node_is_type(np, "pciex") ||
->  		of_node_is_type(np, "vci") || of_node_is_type(np, "ht") ||
-> -		of_node_is_pcie(np);
-> +		of_node_name_eq(np, "pcie");
->  }
->  
->  static void of_bus_pci_count_cells(struct device_node *np,
-
-The warning here was printed based on the node name whereas of_node_is_pcie()
-prints the message based on the 'device_type' property of a pci_dev node.
-
-For PCI to PCI bridges, no problem the warning is indeed duplicated but what
-happens for the PCI host controller?
-
-PCI host controller drivers calls pci_host_probe() and are seen by the PCI core
-as a struct pci_host_bridge.
-
-of_node_is_pcie() is called for children of the PCI host controller (i.e. PCI
-devices scanned on the PCI bus handled by the host controller) but not for the
-PCI host controller itself.
-
-The OF node of the host controller must have the 'device_type' property set
-to "pci".
-
-I am not so sure that this warning was duplicated when we consider the PCI
-host controller node.
-
-Can you double check on your side?
-
-Best regards,
-Hervé
+On Mon, Aug 31, 2026 at 11:49=E2=80=AFPM Zhan Xusheng <zhanxusheng1024@gmai=
+l.com> wrote:
+>
+> The option list and the defaults match fs/exfat/, including the allow_uti=
+me
+> derivation and the time_offset range.  Three things the table leaves out =
+or
+> implies.
+>
+> Most of the options cannot be changed on remount.  exfat_reconfigure()
+> fails with -EINVAL if iocharset, keep_last_dots, sys_tz, time_offset, uid=
+,
+> gid, fmask, dmask or allow_utime differ from the current values
+> (super.c:789), leaving only errors, discard and zero_size_dir.  Nothing i=
+s
+> logged on that path, so "mount -o remount,uid=3D1000" returns a bare EINV=
+AL.
+> The reason sits in the code right above the test: the old values are cach=
+ed
+> in inodes and dentries.
+>
+> umask=3D sets both masks, and the options take effect in the order they a=
+re
+> written.  Opt_umask assigns fs_fmask and fs_dmask (super.c:289), so
+> "-o umask=3D0022,dmask=3D0077" ends up with dmask 0077, while
+> "-o dmask=3D0077,umask=3D0022" silently puts dmask back to 0022.  The dma=
+sk=3D
+> and fmask=3D entries also do not give their default, which is the same
+> current umask that umask=3D defaults to.
+>
+> utf8 is ignored rather than an old spelling of iocharset=3Dutf8.  It shar=
+es a
+> fallthrough with debug, namecase=3D and codepage=3D (super.c:331), so
+> "mount -o utf8" selects nothing.  exfat_show_options() prints
+> iocharset=3Dutf8 only when opts->utf8 is set (super.c:132), and nothing s=
+ets
+> that but iocharset=3Dutf8.  Listing utf8 apart from the group described a=
+s
+> "Deprecated and ignored" reads as if it still has an effect.
+I will update them on the v2 version.
+Thanks for the review!
