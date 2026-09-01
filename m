@@ -1,76 +1,79 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11DE33DAAAE
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 23:04:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 519ED388E55
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 23:05:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788303849; cv=none; b=VYMaTLel60qUXduQZuK3zP5D02bqCr6j7c1TlFriqgx3nk+pBeORs1C8ey1sV1JvFQvHV5LY3V0EWbGUgvfchHkHKe9o/v8Umm1UD+5OWQTfvlf7HmpsmYn9A1avTosKzva5REVQofvA9uGpNg/BgWoAjGmNXjBCVMeASV45QQA=
+	t=1788303902; cv=none; b=V0b5yHGIT561NYTgWI3X22FuGGxyd4JTKsq7lHgpFy5/ln9TPGGA2Bl5umkSxafvoG1Aik/ROvGhVexTBnr61BWcRaKpjo2mVOREbvg0CLjPQt2zPYttv2FwG7erWoKuynbpJO4USmLrbS3A2qi0O5MQqBpQQnnZFsh0O6OQ9Uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788303849; c=relaxed/simple;
-	bh=NrgEfLLLs86SYcFbRusP2j20eQNadGH9mCddnX8FlMc=;
+	s=arc-20240116; t=1788303902; c=relaxed/simple;
+	bh=ZYAobeaBlJleat+5l5nceo/cdwNEYU0y8usfyhJ/c64=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cIFrIwM2GPLDS5mupZCCOh58AYbxXdwaRvGHZqPSrbKkkDi5BXvZWbjX95PT79QgSOxJUGL6FHsSs1TFGYOAWHvU2nf9/o4oRFQRDG8myyYz//qiRk7KH4m2Pe4aBXfWzVPrgyHYpzwCWh1umqvyhVldtYpiIEOjuhvj3m5v2r8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MjXQZd7l; arc=none smtp.client-ip=209.85.210.173
+	 Content-Type:Content-Disposition:In-Reply-To; b=BXOprUhoIAdPsf8y2wYwOOH8RTuxwO1+zCJr1U2+fLGJfJiw4G5NcaNXEtJBwwZRQtAk/zkwhy/gu8RV2QxnYQJnyG246ln2YkU9MsByLRHwz2iYrjb4VPYj/RxFl5WExxdG1p56Ke3Akg6PsKMd49Xn9O6YThk7fiQ2BHs9Sn4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X2Npax0P; arc=none smtp.client-ip=209.85.216.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MjXQZd7l"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-84f3ab8750cso335530b3a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 16:04:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X2Npax0P"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38a0c7e841fso613674a91.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 16:05:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788303847; x=1788908647; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788303901; x=1788908701; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:sender:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=tH/J1WzaA/WseOsHRQAfR0s8ObxokYagjZKCtRr3PoU=;
-        b=MjXQZd7lmaTha9N+bobO9UblmmF209c1spdRT6X/yk1OfbAyZAs70pn3BCZN1OLqv/
-         saDH/VvR5YDsRobK0lSkWXtTSbSsSTeMjYMDZnp1ta0whCLB3q3HAHg+KojBzHwHtK6S
-         HKwPKdVFxGgGzpvvSu53EEh7mJYV/4IFzunPE/I3Qbv9qVxw5z9PUouexQAW7SmuqdRC
-         NkHQ1SjlJLA/8Or0rNaPBJSwkyHN0eD8/ppz6lmkr1X/S7qBhiIRm8K/Xu1cZGtWS9n/
-         A4tgjyJ85nYlrE4xowWorYmI1Ndsb/XPxu+TYapguR8/qapkIsBjqaRs207uZ5uT34kC
-         /l/Q==
+        bh=tmOCGEePW4HCHBy9intmcc0xfKUaVb9xCHFv+Cs6LwY=;
+        b=X2Npax0PRoi6XRK0cQa1Y6yqGK8RELCUaefRYNR+zdJbMcvLPiRji7OvCburefm5iw
+         /bfpH413LZzN4Y67ssW0N0epWupx9/pDWE1pTX3vDyrIZHQbM/TcKhL5+aka3eYhaRKI
+         xw31JjC3sYpbSRMgH3CyqRHW/VLdRkFA/hzbQHB1jAGvExPTIji/md+qoi2ARTqo2Oei
+         JTyYQKGYV/gJSyBQRFsJ8oMzwkAAmaNBtQM/hEAGl+86H+JsGrJzPuW8+DPWxFNic6wR
+         tpu8NOzMUHf4rZt92XwI16X42b7lhx8FIhX3t9yWaEA91BgJ8nxxILWGj41+HDhNX4Tq
+         GkWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788303847; x=1788908647;
+        d=1e100.net; s=20251104; t=1788303901; x=1788908701;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tH/J1WzaA/WseOsHRQAfR0s8ObxokYagjZKCtRr3PoU=;
-        b=mx0tNW3Advwtm2W3zPgCoqiM5fZF1WVVDCQjZtvp1fbw8dpAShqRNEyQ0+F1PkxIu/
-         58Jyiv3AqmW7Vk9ExbsJOfTbeCAEy6645loTFEgcZRAPQ13JoYxPSqWFj9vziLJaey4T
-         zcSd0Zb14trtYpT1bHqEWQtn88UtJPxlnMYPW23ILYaXPbJmFtfkEYwRAEkI9F++XT9L
-         UY4+fPKxCGnG6M0/8m760BJkmDfhuTGGivG49EaBxdH/P7iOq/OJNpmJtsOZbHWGacYn
-         XGgAjSwIkovOlhAUsK7I7cfL0yMlCtEwTKcyy47wMCbra+0c1EBrWPrBU2KIL9YskzE8
-         y86Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx2aomBQwBbhaK+kxfT9gCRrsBQM9KaAFb6IPAf8nSuoJ3QClQDdVu8I2/p/kR63VwGMnAgUun0wg8ONxo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nU1IY6mpqk4h2P3AcRQlTORf3n5vaLbGQi9LrpRN3BIj9HpZWl
-	ADNcv58pQD9wZy3morCZ+1lDE1a4/+6tnFjF4rlccIgzuX6nUR8rNaKH
-X-Gm-Gg: AYBFou10a8QcH+gXcoRKRKUs44VH9hNlIQqJ0kOHxcJZFqILrcaSgec0ASVCFemR9oL
-	GIu3qmfZ+01+rMZOcsnoXq1Nz1sa2sqeI/eoPn+KubXaJhh8r3HF5E6HAZVRXHOYoI4Y0+XMIIf
-	ZRKgQ8Yd1eXoM53Hr1xeY8Y744Kry6cUp+VXJRo3RGwMk/4jfS4/mJl4TKAbf65KUtyQmcWm6fP
-	FbOrN1eJ4HCt0FAsHp/YxJuhuQWmkMqrV7/SK6FUMtldakI6oqRb3/zvCkBkztJWyKf32lSG9Lo
-	w0FvNZRnuQ6zCksJ6j6thEb1VoXJrQFRpy8jH4cXGaum0nF+BkfoX6EUAm2PA9WC/r1lLmR+xua
-	N8aU4FaBwvAls26XzNKkVTnFvgycyuXVmZs3dYHWOnWI+DD+xc6x+2cceMEyGXLEFfLcgpZbGfI
-	iUDm0IsFjwEK/lww/KM/j80mP71cVx1uhR+S0yo39OZ+hLBK0fHpgC7rX17JdklUKhW3Func13q
-	Q==
-X-Received: by 2002:a17:90b:164d:b0:398:c16e:69d3 with SMTP id 98e67ed59e1d1-39aedeb9aecmr518948a91.1.1788303847194;
-        Tue, 01 Sep 2026 16:04:07 -0700 (PDT)
+        bh=tmOCGEePW4HCHBy9intmcc0xfKUaVb9xCHFv+Cs6LwY=;
+        b=Z21h07/im8IVtvgVwkQfCrS4A5pyd5cZOtTeVhx/aQVakAYhNjzQQqr5qQqB+7ffdw
+         16pi+OukE2TCTVKVi30kJqiPoVZAiVadVT1U12nHaMhytqi1suvMygkZ1fDu/HgMFrvT
+         exDH25+KsRcu9FgOGGXuRajV67241iqLsD2zWhnneM3yKjNL5UenEyOJ+SVg6EiOzZ3t
+         QtyrLQLQP+WePsVeeGwfkuT9+1+2hmS++4nDfidyTKP+dEfipIV9bUgWsr960OWBbP5X
+         Sj1qxSaDQubyZVrUyWrDxorcAfoxXhg+czyTQv4cvYYWazBVVpo6dREdp41aoOJvnFhz
+         vPoA==
+X-Forwarded-Encrypted: i=1; AKwUvBzqL1T+16icAxegIWU2j4ewJxDaw/UhGZ93HmshJpeosNe9K/788GL572/H5/pfpRUghpWWKgFI5DbWhws=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDTv4RRP74HCALpWt91Pi0YoL/RaRjAc6R4H9m9BGQyK3X4VH6
+	QO81P45v9PL87uZRZDITiN/aUxdMwWpxlq4ZQ07Se3pL4NP/MTzFOmy8
+X-Gm-Gg: AYBFou3zFKK3wJ0wiaRMpZkbh+1sWdpTfJOfriOI/0cmi8lQ/KXi0cwLM0XFl3VnpMo
+	uuyrEFRU8tfBedFsCBl9KAdEEgZRBVFU6WuSIiiAY1f0VbP2GwYnXpQDow4542CacJ8yZpYmLFe
+	SJ4tUCaWrqpgQYyzguIfYCnG5ul1+UquOQafrMEs3etW+lFfMHLMeylCzyRt6AgCvdikVVMydnZ
+	EBYnhzg6fyJuA8qN4A+CasdOzlV35HBMJ8PesR1f2Z5HRwlqD3yW94hGlM6owjAtRxZmbv+gs+u
+	uWVMHoc8W+QvMLs9BLfRQLqpRS/BDRAkEUz96ZPnybr3sEGJZHeQaRN6hfBB//wH2gjyLR2R47e
+	8ra9K8F14kvgtkilTP+er8iYtZCXxszLZ6R3X0s+n3XItd2Vqs2WFTAp/z36n0Gx6QmMLTzblkB
+	pd+12V7M0cfGFpku3h1W3QhpRhCc2CGpYdyl8UsmrDXIKHzfcZ+P8jF357P7qNrBVCklaYweX5/
+	A==
+X-Received: by 2002:a17:90b:3d89:b0:36d:b424:4f17 with SMTP id 98e67ed59e1d1-39aedf89b82mr567737a91.1.1788303900563;
+        Tue, 01 Sep 2026 16:05:00 -0700 (PDT)
 Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f079f0eecsm1137385eec.9.2026.09.01.16.04.06
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f07bdb15bsm1138117eec.26.2026.09.01.16.04.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 16:04:06 -0700 (PDT)
+        Tue, 01 Sep 2026 16:05:00 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Tue, 1 Sep 2026 16:04:05 -0700
+Date: Tue, 1 Sep 2026 16:04:59 -0700
 From: Guenter Roeck <linux@roeck-us.net>
-To: Armin Wolf <W_Armin@gmx.de>
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
-	ggirouard@bungeetaco.com
-Subject: Re: [PATCH v4 2/2] hwmon: (spd5118) Avoid probing when 16-bit
- addressing is enabled
-Message-ID: <b2174e73-79ad-4462-93d0-2e69582636b1@roeck-us.net>
-References: <20260901200142.495319-1-W_Armin@gmx.de>
- <20260901200142.495319-2-W_Armin@gmx.de>
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Cc: Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-hwmon@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] hwmon: aspeed-pwm-tacho: propagate reset deassert errors
+Message-ID: <e3e4ba55-9b54-41a6-9130-52981f83f106@roeck-us.net>
+References: <20260830125044.97718-1-pengpeng@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,15 +82,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260901200142.495319-2-W_Armin@gmx.de>
+In-Reply-To: <20260830125044.97718-1-pengpeng@iscas.ac.cn>
 
-On Tue, Sep 01, 2026 at 10:01:42PM +0200, Armin Wolf wrote:
-> Support for 16-bit addressing was removed when support for i3c
-> was added to the driver. Switching between 8-bit and 16-bit addressing
-> might confuse the system firmware, so we are forced to bail out if
-> 16-bit addressing was configured during boot.
+On Sun, Aug 30, 2026 at 08:50:44PM +0800, Pengpeng Hou wrote:
+> aspeed_pwm_tacho_probe() installs its reset cleanup action and configures
+> the
+> controller after an unchecked reset deassertion.
 > 
-> Signed-off-by: Armin Wolf <W_Armin@gmx.de>
+> Stop probing when the reset controller rejects the transition, before the
+> hwmon device becomes visible.
+> 
+> Fixes: 18c514cc0e02 ("hwmon: (aspeed-pwm-tacho) Deassert reset in probe")
+> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
 Applied.
 
