@@ -1,96 +1,118 @@
-Received: from mta1.migadu.com (out-214.mta1.migadu.com [95.215.58.214])
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBA113A5430
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 04:38:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.214
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 388DA3A16A1
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 04:41:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788237496; cv=none; b=nfu0+SydLHpElRXVIU+xZBzWvs9j225ql3jIpK1WNtZtl1zQswDcQXELn8YPFlNGxhvCJzCMxAKANTNFfsCZAfw2Eo35QZjok80wV9lZ9xIbomqah7i13U2s23Vxkaw5bkloc2ChXYDjBax4w4rZRfkeY5UFHqbABIRjjC8RDNg=
+	t=1788237662; cv=none; b=bSwQOJQnh8DOR71ZKhB9WD4dVzswuOILbIX6l4UA60P87aHLBAHeJ8oxVdQGEmBNw3AnAlxK3K40ysc9xO3fHtG2Rdm4kbTf/ELVCyTjK8mu3sJ5VeYn0KAW8FC3iwdQoiyKt6c73qnKMbeUZ9rhZX7WhEVKGjrBWk5p3uratSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788237496; c=relaxed/simple;
-	bh=TJG98YKiXILgUM5yXGikDrQSHVcylHnt0O0nBzmY7eQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SLnQk/k6CRZQ0RVE4wsl+OmYQ3xG11ZjlJ18EMK6eAZFBMWpRadqTPDu9dUAeTCfRk6eXSIkKz3SSO/f3VY56EYwd+HxwARLqpfWsWfUcWElo4le4I28tjecj9YzNiKp3Wk5Re92SiK9WI6eILijFw9NTcaoPmycjpqOvLqpcio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kLD7F0a0; arc=none smtp.client-ip=95.215.58.214
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788237662; c=relaxed/simple;
+	bh=fogOGiECK46KlKG6A90Hn/KlqqibbAb1EYawhy5Q3e8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AUWCldYo9Pz+eU10svHoEtmrj2qe+YvvL/+WQ7YJjOyK+9sOfyXB912+J5JC/9Ia2j/1gg+mxVXWHIz8Hv5Mef6a7+nSdOqn9Rik72P+2rDw94+d4Mv+1G4HUnpOXyGN8EIKGgLG8FdrolKEyx5+oxlba4BUt9JO5jPDP80nJ1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U1Ki526U; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kLD7F0a0"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=TJG98YKiXILgUM5yXGikDrQSHVcylHnt0O0nBzmY7eQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788237491; v=1; x=1788842291;
- b=kLD7F0a0QGTb7I+CbdUUzo4q9cGsV7xb3XktvjRyCsc71MdWym+MmWs95MAAqj9JidlMxWoZ
- DqR8KvBhbBkYDwX8ufxhK9LMp+29++KE8ZtmVZpF2z/EVAVSQ2b++aEWZDvJF3QApthaQWdD6zL
- jIbArI6/TSxEf896kNoCLU+o=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 8dd80eb52778aac0;
-	Tue, 01 Sep 2026 04:38:11 +0000
-X-Mizu-Trace-ID: 8dd80eb52778aac0
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 31 Aug 2026 21:38:09 -0700
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: kasong@tencent.com
-Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
-	Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Chris Li <chrisl@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Ridong Chen <ridong.chen@linux.dev>, Lian Wang <lianux.mm@gmail.com>, Yu Zhao <yuzhao@google.com>, 
-	Zi Yan <ziy@nvidia.com>, Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Kairui Song <ryncsn@gmail.com>
-Subject: Re: [PATCH v4 1/6] mm/memcontrol: make lru_zone_size atomic and
- simplify sanity check
-Message-ID: <apZVe8UHZ1CNo4r1@linux.dev>
-References: <20260831-mglru-flags-cleanup-v4-0-2d15dde0d7ee@tencent.com>
- <20260831-mglru-flags-cleanup-v4-1-2d15dde0d7ee@tencent.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U1Ki526U"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-398c1101c1bso2559799a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:41:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788237660; x=1788842460; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z+IXFWSB63JkB5NPYaCMrM5Ux3r1uuXw5+BbmZrpfR4=;
+        b=U1Ki526UzcU7HSRfP0dbKkJq4UBNwubEWklY6ykphDoDHG5PTa3gNpMn+dVBWCCuzS
+         ZQ+8vFHxmF3OiTGfut2jG4uJDjaujVCyw/mjxiop17oFdjtMIKbhXKgV1EV/YsaamLl6
+         rQwflboxTyBDWgVUyRCxM5UtCtwraBs8/IQR2borP6/YfbL3w59cz2BDbpIol+rzzPZV
+         /BgLK+q/JL2rVpQ50Jwt/B0heYTIoKxk06DeCiwqoBWDXRPU0PRRCyBE58EK8fu4RztD
+         2is1Kc0spBKmeZhp/qygY+cNk9a9zt59j5U4hqHhOuGrm55ThMRn6eK0gDXP6bTIdb5/
+         40xQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788237660; x=1788842460;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Z+IXFWSB63JkB5NPYaCMrM5Ux3r1uuXw5+BbmZrpfR4=;
+        b=pe8f/hhCZUIDBKo6QldcJnK+uRXzZsktDSBLUTO1bDEEoNgOTcAOcpNQ3jYsVjr/6d
+         9FKos2m1O6rqjoLyS1gtl1LJyMWflWB4mIr1yrIAzsjLNcmSzZH5R8bCbR9AOu1+5/Ng
+         CxEK2OXkSkZD8ksi2Rnlwi93z+ew4aNWOjqlvxRa8hy07vfod2I2EpQUidZkN6KIklgo
+         CGZC9TDrFhbdoJ49ZwFoj54As1/aDI/K7KFU5Zi2FDOcX49N4LLa8BuDwXJd3efRzTh1
+         520Y2ieJAVS32cw7wao2XT9ge1mhyHzvAMew7hJP8sotSaClEyVGd9zgwq8FKefynjou
+         OYpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxKdYGN0ITtln80BcKXzbSsfCMlrkWQzaPFm+gFfDyNuDhkfzXeKY/UQ/g984gWsjTW6gCNpH2hJvmdSiM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kDj3r5FoSTHmYAUhi6H89UFu+R7xg1a2Dkq13LfwRskXiHz9HZ
+	A3tB54jPekZiUSLzg2nQ3RMTZBuiuF80VoXa/qWP4kLK9lvy2/yCCZ2G7c820w==
+X-Gm-Gg: AYBFou3U8VXSC1/kYBEMy7mWksCahvFuRwf84A6E4VlKQ+wDnpmH03E0O2ew9ARaf5X
+	+fFLBO1xsw426hXnqMpMxdL4q0c2iIRNTnlbpRjv40krkGFsPqVjh1gdwmRPUZfvJW1oC78a4Gw
+	5intgTCOv7J9V8nZXwvzZib9StoB20fV3hkyNXM+Y3RiSdHkoAx56YOmKjGWpT8eaJ7gftFf6CL
+	+cv+J1tiLE5omBqZLvtgbiKFcWG4rxcSwHxXAKe6+SugmEPRrQWKtYm4NrNVuOUP988hP8tinuK
+	Tg+IYPTFXMOhU4AgIE1n14xV9F4gs3dwjU2Jf4DQnbS+uMDeCthEbWkEbmdhIYOrtxh48g80oGB
+	xjTUE7kzuwC9MAga+fiDK8ZnIzeB7toukYj5pmmrqIXULd+8lraBoELjLGSUD8c1BdlJxJqbiCT
+	kgpnmonLj4vneYf6UA0iB/MY0MQ8sMH0t6kktAeALcJdjm1Kf707iX84GazD+R/9Butd3q
+X-Received: by 2002:a17:90b:2b4b:b0:398:9beb:5c18 with SMTP id 98e67ed59e1d1-3989beb635dmr33964438a91.19.1788237660571;
+        Mon, 31 Aug 2026 21:41:00 -0700 (PDT)
+Received: from i386.168.1.127 ([2402:a00:163:2ce9:6882:91b7:8e79:7958])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0de4de3sm45447647c88.12.2026.08.31.21.40.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 21:41:00 -0700 (PDT)
+From: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+To: ulfh@kernel.org
+Cc: linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hrushiraj Gandhi <hrushirajg23@gmail.com>
+Subject: [PATCH] mmc: sdio_cis: use strscpy() instead of strcpy() in cistpl_vers_1()
+Date: Tue,  1 Sep 2026 10:10:54 +0530
+Message-ID: <20260901044054.346524-1-hrushirajg23@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831-mglru-flags-cleanup-v4-1-2d15dde0d7ee@tencent.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 02:43:31AM +0800, Kairui Song via B4 Relay wrote:
-> From: Kairui Song <kasong@tencent.com>
-> 
-> commit ca707239e8a7 ("mm: update_lru_size warn and reset bad lru_size")
-> introduced a sanity check to catch memcg counter underflow, which was
-> more of a workaround for another bug: lru_zone_size is unsigned, so
-> underflow wraps it around and returns an enormously large number, then
-> the memcg shrinker loops almost forever as the calculated number of
-> folios to shrink is huge. That commit also checked if a zero value
-> matches the empty LRU list, so we have to hold the LRU lock, and
-> handle the positive and negative deltas separately.
-> 
-> But later commit b4536f0c829c ("mm, memcg: fix the active list aging
-> for lowmem requests when memcg is enabled") already removed the LRU
-> emptiness check, so handling the deltas separately is no longer
-> needed. And if we just turn it into an atomic long, underflow isn't a
-> big issue either,
+cistpl_vers_1() copies each NUL-terminated string out of the raw CIS
+TPLLV1_INFO data into a single kzalloc()'d blob shared by all of the
+strings, using strcpy() with no bound. The strings are already known
+to be well-formed within `size` bytes by the counting loop above, so
+this isn't currently exploitable, but strcpy()'s lack of any bound is
+still worth removing on general principle.
 
-Why atomic long and not just long?
+Track the end of the allocated string storage and use strscpy() with
+the remaining space as an explicit, always-safe bound instead.
 
-> and can be checked at the reader side, which is
-> called much less frequently than the updater.
-> 
-> So let's turn the counter into an atomic long and check at the reader
-> side instead, which has a smaller overhead. The underflow correction
-> is removed: a massive leak of the LRU size counter would indicate
-> that something else has gone very wrong, and one should fix that
-> leaking site instead. Besides, the updater-side sanity check is
-> unlikely to catch the leaking site anyway: if a folio was removed
-> without updating the counter while other folios remain on the LRU,
-> the WARN only triggers much later, from a likely innocent callsite.
+No functional change.
 
-Do you have any data to support your claim that updater-side sanity check is not
-that useful? Also can you explain the motivation to move the check from the
-update side to reader side?
+Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+---
+ drivers/mmc/core/sdio_cis.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/mmc/core/sdio_cis.c b/drivers/mmc/core/sdio_cis.c
+index afaa6cab1adc..24f670a798e2 100644
+--- a/drivers/mmc/core/sdio_cis.c
++++ b/drivers/mmc/core/sdio_cis.c
+@@ -27,7 +27,7 @@ static int cistpl_vers_1(struct mmc_card *card, struct sdio_func *func,
+ {
+ 	u8 major_rev, minor_rev;
+ 	unsigned i, nr_strings;
+-	char **buffer, *string;
++	char **buffer, *string, *string_end;
+ 
+ 	if (size < 2)
+ 		return 0;
+@@ -57,10 +57,11 @@ static int cistpl_vers_1(struct mmc_card *card, struct sdio_func *func,
+ 		return -ENOMEM;
+ 
+ 	string = (char*)(buffer + nr_strings);
++	string_end = string + size;
+ 
+ 	for (i = 0; i < nr_strings; i++) {
+ 		buffer[i] = string;
+-		strcpy(string, buf);
++		strscpy(string, buf, string_end - string);
+ 		string += strlen(string) + 1;
+ 		buf += strlen(buf) + 1;
+ 	}
