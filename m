@@ -1,123 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE0C38F258
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:32:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF6C33F5B6
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:32:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788251570; cv=none; b=GmXBVNgWd7AFjC2abU/gEATD8O9ejRaA2IJ1SyxDLNO3jEXNQKNMnukg06xQBMAdzgd6ua9TyPIqnOjIAFoEnUfFyPtio6nLC3onf7w2Ih7BaxcDRfkif49SL/kgiqfaaHrkI54kPYWnok4AXtxgzNuwQmNddU6BAUaKmBEGBaE=
+	t=1788251571; cv=none; b=W/1j4VB1QLL578pwocz6Dl7+EbEYX7yH38GQCXI+51x2MIxeY2MMMD1q3Kr9Dojb2jLeGXSSOfpycPUm44iT2t8o/27eiQOorCTogyQUS5r9rp/hrkRVaItKad6+tcnK5M/4VLH8MQW5copvNi5/eSt743JxBlKK54zfgWePz4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788251570; c=relaxed/simple;
-	bh=RrPl7dCiUycOLp0LCBLAk3hdLlVcoJ1t5j40j8XlpjU=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rAUlWMVbBHCu9fXKbOOBP8NmueFsem0riwmJHDWL83tLmBMeL5xeDpg7HKBJ8Sth4pxMPV1Cz3wM6Y5NA9hThG8ExR0V0gwT/B2AT2q3dgkS75M4NbibpEB1M6pyHU8KCqgJwIIhMZNMmHBKU1Dr6hi8LUV9glVhJnLdsASp8Jk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OVa6z28r; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788251571; c=relaxed/simple;
+	bh=QrArlJOpnn1l0C5EPuae51xLAMvuL3hdqe1yfReQiL8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pIjFNM8qa9wM1ZTzTWrivgg6e9TnS02Rdhr4cp6JzRtjYGp6jPGYOS5U+g+RTXFEuF2M+eO51wAksdKq4igyZiSZB/KKgK3BljhzZBDM2ygnDRO8KeZe2QLI2NkKYVNv1O9FUWcgA/gbgM6gOOA4pntDWWqpybR9nStkNXfkyGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=gdhCKrKT; arc=none smtp.client-ip=115.124.30.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OVa6z28r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE30F1F01563
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:32:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788251568;
-	bh=qq1rmE8lsmjr0A6aGD2+pkRtPOpgod01PD4Er9pyYaw=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=OVa6z28rOk+qjfhctieU+3yNFjF/Fn9NEB5Q+gSDjf0BTtZUs4jiwikcxsY9mg+UQ
-	 1Rk3Pr5icQi0gDkVggSHQBf7NEPGnx7Iwh101xOPQXR9yRT5P75lPKk2Lfft4kb9HV
-	 G6nD+nr9l/lRFDxG6DITtQ3l1GmxhBYBXmVhvogYZGm/FO3bC3FBiO8wJL03zoMDOH
-	 97KyJekKlkwa+LT9dFo5PyHpZ/THvJ7hyEI+h53Jw9gy3HJxl+EUWAkwoNtsEB3k4s
-	 MMVfzbN+RFkhcXwx9IGDZAvIqVkkPYIN87A/zkSThRq9L1puG1cUJJnBkp5pNB5PAG
-	 djDrx5ozpcpoQ==
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b4af730f8aso4797796e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 01:32:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByV4wyf/QDpM59GxAEv2FoC1+eXvBAmouKmB/ctrnUQ6KvlBIvS3QSE1ST2ywosvrazUzzKWyqvKoHy4/g=@vger.kernel.org
-X-Gm-Message-State: AFuF++lCJgdmJK7raYEwDeE2uYiDSeia/5HJerlI+U3loif7hAjUAJMa
-	iMOgEePcaFRhxZDe6HbAkuj7OR8xd+EOy65HoFFFNMsJXTOWH48/IYM3UodMvtxJ5vDAuRG/qwb
-	pI02WN1sBmIF8StID3sAjGx1PWhTumbdP82xStTmmPA==
-X-Received: by 2002:a05:6512:4053:b0:5b5:e71a:d333 with SMTP id
- 2adb3069b0e04-5b5e71ad482mr10315062e87.7.1788251567281; Tue, 01 Sep 2026
- 01:32:47 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 1 Sep 2026 01:32:45 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 1 Sep 2026 01:32:45 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260828-ad7768-driver-v5-0-e33ca6f841a2@analog.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="gdhCKrKT"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788251567; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=dmsGvnFPGiJMko6TrciY1hQhSYuIL5q33C55EfI8xTo=;
+	b=gdhCKrKTlLn8XpACMffzxzykaazJTdOXfyopQYG0ZFH1K/Gk13koFSpRRTQZd0lKH5mAEBOeC4NLGazbHwVcta98tP8bDlFK5DsHYPX03lx6aKRNtvg9zSw2XDC1bbKDd4tt1FvfV3f8jpsvubKLwLj4awygpzD44giKvvWuIMo=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0XA5o3sc_1788251565;
+Received: from banye.tbsite.net(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XA5o3sc_1788251565 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 01 Sep 2026 16:32:46 +0800
+From: Qinyun Tan <qinyuntan@linux.alibaba.com>
+To: dri-devel@lists.freedesktop.org
+Cc: tzimmermann@suse.de,
+	airlied@redhat.com,
+	jfalempe@redhat.com,
+	kraxel@redhat.com,
+	dmitry.osipenko@collabora.com,
+	hansg@kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	simona@ffwll.ch,
+	leandro.ribeiro@collabora.com,
+	daniels@collabora.com,
+	pekka.paalanen@collabora.com,
+	virtualization@lists.linux.dev,
+	spice-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Qinyun Tan <qinyuntan@linux.alibaba.com>
+Subject: [PATCH v2 1/4] drm/ast: create blend mode property on cursor plane
+Date: Tue,  1 Sep 2026 16:32:31 +0800
+Message-ID: <20260901083234.1828755-2-qinyuntan@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20260901083234.1828755-1-qinyuntan@linux.alibaba.com>
+References: <20260901083234.1828755-1-qinyuntan@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260828-ad7768-driver-v5-0-e33ca6f841a2@analog.com>
-Date: Tue, 1 Sep 2026 01:32:45 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MdLmCqSfxtwQcv+gHVpAUV7hJB8UQRF_aE8i60wf6mVbg@mail.gmail.com>
-X-Gm-Features: AcwNN1WxhcfpA1hDYJT3FEtguPkonETgggJq0ObhDUrF0j3KDbgm0FudVVOrJLM
-Message-ID: <CAMRc=MdLmCqSfxtwQcv+gHVpAUV7hJB8UQRF_aE8i60wf6mVbg@mail.gmail.com>
-Subject: Re: [PATCH v5 00/20] iio: adc: Add AD7768/AD7768-4 ADC driver support
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
-	Andy Shevchenko <andriy.shevchenko@intel.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Olivier Moysan <olivier.moysan@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Michael Walle <mwalle@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Fri, 28 Aug 2026 17:30:23 +0200, Janani Sunil <janani.sunil@analog.com> said:
-> Add support for Analog Devices AD7768 and AD7768-4, 24-bit simultaneous
-> sampling Sigma-Delta ADCs with automatic power mode selection.
->
-> Datasheet:
-> https://www.analog.com/media/en/technical-documentation/data-sheets/ad7768-ad7768-4.pdf
->
-> **Device Overview:**
-> The AD7768 is an 8-channel, 24-bit simultaneous sampling ADC. The
-> AD7768-4 is a 4-channel variant. Both support configurable power modes,
-> programmable decimation filters, and a high-speed serial interface with
-> 1, 2, 4, or 8 data output lines. Per-channel offset, gain, and phase
-> calibration registers are available.
->
-> **Features Implemented:**
-> - Support for AD7768 (8-channel) and AD7768-4 (4-channel) via device
->   match data.
-> - Automatic low-noise power mode selection (fast, median, low power)
->   with associated decimation rate and output data rate tables.
-> - Per-channel offset, gain, and conversion delay via IIO attributes.
-> - SPI communication with custom regmap bus for the device's protocol.
-> - IIO backend integration with adi-axi-adc for high-speed data capture.
-> - CRC data integrity verification over the serial interface.
-> - GPIO auxiliary driver to expose the 5 on-chip GPIO pins.
-> - VCM common-mode output exposed through the regulator framework, with
->   runtime PM management while the output is enabled.
->
-> **Patch Summary:**
-> 1. Initialize the AXI ADC state mutex.
-> 2. Add the AD7768 and AD7768-4 devicetree binding.
-> 3. Add the IIO backend CRC operation.
-> 4. Implement CRC control in the AXI ADC backend.
-> 5. Add core AD7768 and AD7768-4 capture support.
-> 6. Validate the master clock rate.
-> 7. Add the power-mode configuration helper.
-> 8. Derive output data rates and the data-clock divider.
-> 9. Configure enabled channels across two sampling profiles.
-> 10. Expose per-channel sampling-frequency controls.
-> 11. Expose per-channel filter controls.
-> 12. Wait for active digital filters to settle.
-> 13. Add per-channel offset and gain calibration controls.
-> 14. Add per-channel conversion delay.
-> 15. Expose the VCM output through the regulator framework.
-> 16. Register the GPIO auxiliary device from the parent driver.
-> 17. Use regmap_test_bits() for single-bit gpio-regmap reads.
-> 18. Add optional runtime PM support to gpio-regmap.
-> 19. Add the AD7768 GPIO auxiliary driver.
-> 20. Add driver documentation.
+Since commit 860e748bddcc ("drm: ensure blend mode supported if pixel
+format with alpha exposed"), drm_mode_config_validate() warns when a
+plane exposes an alpha pixel format but not the "pixel blend mode"
+property. The ast cursor plane (ARGB4444, ARGB8888) trips this on
+driver load:
 
-What is the merge strategy here between iio and GPIO trees? Can patches
-17-18 go through an immutable branch in the GPIO tree that would be merged
-into the iio tree?
+  [PLANE:37:plane-1] pixel format with alpha exposed but blend mode not setup
+  WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate+0x48f/0x510 [drm]
+  ...
+  Call Trace:
+   drm_dev_register+0x1ce/0x290 [drm]
+   ast_pci_probe+0x19d/0x3f0 [ast]
+   local_pci_probe+0x41/0x90
 
-Bart
+Per Thomas Zimmermann's review, the ASPEED documentation describes the
+hardware cursor as blending with straight (non-pre-multiplied) alpha,
+which corresponds to DRM_MODE_BLEND_COVERAGE. Expose a "pixel blend
+mode" property advertising only DRM_MODE_BLEND_COVERAGE to make the
+hardware semantics explicit and silence the warning.
+
+Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
+Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
+---
+v2: advertise DRM_MODE_BLEND_COVERAGE instead of PREMULTI, per Thomas
+Zimmermann's review and the ASPEED documentation.
+
+ drivers/gpu/drm/ast/ast_cursor.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/ast/ast_cursor.c b/drivers/gpu/drm/ast/ast_cursor.c
+index fd19c45f2abe2..690d4cd1db5ee 100644
+--- a/drivers/gpu/drm/ast/ast_cursor.c
++++ b/drivers/gpu/drm/ast/ast_cursor.c
+@@ -25,6 +25,7 @@
+ #include <linux/sizes.h>
+ 
+ #include <drm/drm_atomic.h>
++#include <drm/drm_blend.h>
+ #include <drm/drm_damage_helper.h>
+ #include <drm/drm_format_helper.h>
+ #include <drm/drm_gem_atomic_helper.h>
+@@ -355,6 +356,8 @@ int ast_cursor_plane_init(struct ast_device *ast)
+ 	}
+ 	drm_plane_helper_add(cursor_plane, &ast_cursor_plane_helper_funcs);
+ 	drm_plane_enable_fb_damage_clips(cursor_plane);
++	drm_plane_create_blend_mode_property(cursor_plane,
++					     BIT(DRM_MODE_BLEND_COVERAGE));
+ 
+ 	return 0;
+ }
+-- 
+2.43.7
+
