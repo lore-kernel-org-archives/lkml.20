@@ -1,159 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A0E456297
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:05:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CF29456297
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:05:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788293101; cv=none; b=H8cOSXC0tsTXLoqqjg+aMYeD97O3pJHo2iXLdKSFM55+bdEvGQkqRgpT0TXBcQee3N42FVccD6SMVvDjmHh4hPoJaTpC1wBXmLZ2NGq9tA3DzYAMBeB+FEVbzs6IZEFna+aFw+IAQzRIetIvdPEE0uT7ERGLwboWIcPtOanxlHw=
+	t=1788293127; cv=none; b=InrwG1PwYlHTXF37PktFZPlMVndLjlUmmPOrE0cj3Zc0Yazm4wXCyVdm6aTrZn/yse2CjM3orEdEYPcgAfDrEhARJcCEv7/RURhZaURBMJD50UgdW9sIKQMvn2T++lvr3jyhCSn3RXqKUYdyPrRTjJ4+NQxvHvRHEyHtPotiMT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788293101; c=relaxed/simple;
-	bh=Qvg96r1uqRi7ZsIahTd0vxEuEUAxLGPkPnDx+jmOuQs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=lKeKvTuTLaGBeiLW01To3iVYIahtvnFLVKA4fpyZwnaJtfLmgxw4JhW6dZAbo7Vit72aP9qgLx8Wy/yUNCDSp/Z2sWuX+VnMrLp7cEwktVX7zpMoh4B7xv07LTmTmTVGeR4REZWwbYCKcXdh6eHX+xcCFtrL1UjJKHGO0Gig0bw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TnzEUrOn; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788293127; c=relaxed/simple;
+	bh=6xHhXi6J06QWcYHT4XAH9JrkYOlqS9Ep7EIrsnfpVm4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=AlMqV4xfln0kBfD4bzOjyfdTjw1zaibqpZUh/f8xuvJwpE/k757Z3xs1NUJI+8JYUqoeCQQtJmm+dwdEbTmWc6kltz+IJRWt0sC1DWnxc7fL4HgO+NKtoJXPjbt0OY4/seyhX3O8r8PFt39dlB3BB/bWAaR7dIt0bEpySfGShuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ESp3xSXn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TnzEUrOn"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id F362CC2BCF4;
-	Tue,  1 Sep 2026 20:05:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788293101;
-	bh=Qvg96r1uqRi7ZsIahTd0vxEuEUAxLGPkPnDx+jmOuQs=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=TnzEUrOnWeKc2IJhDqDEHr24D1ZpYZJTysb91o2LXRfFMdLZJD8mon8H9TFI1JY+g
-	 wHBs3NQfp/kNUO8unmeJXu9FFgc1ywOzd8wd8R6KsCjGi5+oOk+xXooNI6waXpRBPT
-	 2W2dJA8Pcon9slfvjKvGaa/Kg9MZLGSOBq4btFOzzOIHiaEwDoKsG5XRRvq1mVWmk3
-	 f4SK+nIxxW8UkkzcWPyH0g8mRQTtt3sZK2lTX7YK1dAKyRCEVq27puthHw8f5vTe+i
-	 0RoJG/1mMSvdGe7mmO1fK/sMGU+FF7ByXgL2fBH+62ePRjQ/LR50qBeKVlNC2qevZa
-	 85k4kYnncJzZg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CC85DC61DD6;
-	Tue,  1 Sep 2026 20:05:00 +0000 (UTC)
-From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Tue, 01 Sep 2026 22:04:37 +0200
-Subject: [PATCH] bus: fsl-mc: register the object drivers after misc_class
- exists
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ESp3xSXn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16B7A1F000E9
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:05:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788293125;
+	bh=D/+4brkDHmZ+QnmE/zqdwooG9iS3MJ/5To5lInwHY/A=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ESp3xSXnO+Ir6sdOu/zjUPGpWtdAlT818jn8nHWQ+HWNEESDwyGm3RqSjsDhw9LC/
+	 pZAfl48pGsx4V0ChSuJdrE//GadW1nvNDNg7UEcD/LdTGG2W49nk408heGghwWAq4v
+	 3PfNZ+4RRzIng7/ISIeYa0ueGN73DjjDqlxugJdOAz6DvD7Wz3gZPhJF6IFqDpZWev
+	 aI6jlaXqcfUP3EKd03SRFGNHPW6C8TrqYt0D6eRXYsW4ftYg/7AYm4HNmwee1pcU3o
+	 xJeQ67Bo4mCRp49YswndXFFy9N1HUC87z3GSkpmpmA4ohYYnc4DTP8Al/qGYxP0G4l
+	 EZLTvYn2yBcdQ==
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a374bea882so442836a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:05:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwkp3b08x0YyEo3mWEeJ3iTy5Cl2hSyvnkTLplq8i3DAeEEDNGdXKJHJ6rFQY8Jg3LjNHgdYGfAZ7e6OiA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mr6iMSsMOJ63YqhuvlH8jtabG7/vHJwx++tyCXrxiPPD8slM2P
+	j+axnqWOsVnq5lpf7znkHU9jVzr79gHChemmIbLHQz/eAPRGoNSm0FVSzHevSYCTqVFs0JmiRKA
+	J0SgiQWbFkxSkM4V9INzaavucJKQqoA==
+X-Received: by 2002:a05:6402:388d:b0:6a6:32f5:90b4 with SMTP id
+ 4fb4d7f45d1cf-6a682af9bf3mr137153a12.22.1788293123755; Tue, 01 Sep 2026
+ 13:05:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-for-upstream-fsl-mc-initcall-order-v1-1-36ffe48f767d@free.fr>
-X-B4-Tracking: v=1; b=H4sIANQvl2oC/x3NwQrCMAyA4VcZORtoU5jMVxEPtUs10LUj2UQYe
- 3eLx+/y/wcYq7DBbThA+SMmrXb4ywDpHeuLUeZuIEejm4gwN8V9tU05Lpit4JJQqmwploJNZ1b
- kEPwYJnf19IQeWpWzfP+T++M8f6bGI1F0AAAA
-To: Ioana Ciornei <ioana.ciornei@nxp.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: Laurentiu Tudor <laurentiu.tudor@nxp.com>, 
- linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, stable+noautosel@kernel.org, 
- Vincent Jardin <vjardin@free.fr>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788293080; l=2613;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=SXlMvnAA+Yv9aOr3bof+GHsV/62VSrRffjRMXK6jUP8=;
- b=Q0DNQlW6k/74/YvmvMnm7KR6URJ1LrX/mfYfTlKrZ73dg+vhupeXaUuRo+NA7LhYlLA4RULEh
- Bl42jSLrySdALA0c54lYp2NUpW7m/nPrOleoqbafewj1sO6QtpbR7ZC
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
-X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
- auth_id=871
-X-Original-From: Vincent Jardin <vjardin@free.fr>
-Reply-To: vjardin@free.fr
+References: <20260901172058.1512508-1-elder@riscstar.com> <20260901172058.1512508-2-elder@riscstar.com>
+In-Reply-To: <20260901172058.1512508-2-elder@riscstar.com>
+From: Rob Herring <robh@kernel.org>
+Date: Tue, 1 Sep 2026 15:05:12 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqJJPdrYArNhbRPTM=scDghLAWe5=0a2+ACNaHe07h6-tw@mail.gmail.com>
+X-Gm-Features: AcwNN1UgpW6Z9ydTggKrR6I_Vdbck50n7YuEwMJyuJwLKyVB0nahVAUkaTN_zr8
+Message-ID: <CAL_JsqJJPdrYArNhbRPTM=scDghLAWe5=0a2+ACNaHe07h6-tw@mail.gmail.com>
+Subject: Re: [PATCH 1/5] arm64: dts: qcom: qcs6490-rb3gen2: use pci for device nodes
+To: Alex Elder <elder@riscstar.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, daniel@riscstar.com, mohd.anwar@oss.qualcomm.com, 
+	lorenzo.bianconi@oss.qualcomm.com, devicetree@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Vincent Jardin <vjardin@free.fr>
+On Tue, Sep 1, 2026 at 12:21=E2=80=AFPM Alex Elder <elder@riscstar.com> wro=
+te:
+>
+> A recent change caused the embedded PCIe endpoints on TC9564 SoCs to
+> be treated by the devicetree code as PCI buses, which is incorrect.
+>
+> An RB3gen2 system has an "interposer board" that contains a TC9564
+> SoC.  The TC9564 includes a PCIe switch with one upstream port and
+> two downstream (external) ports, plus a third downstream port.  The
+> third port has an embedded PCIe endpoint with two functions, each
+> providing access to a 10 Gbps capable Ethernet interface.
+>
+> The devicetree nodes representing these functions were previously
+> named "pci@" but were renamed in the interest of consistency in
+> commit e806c63ba51a7 ("arm64: dts: qcom: Rename pci@ nodes to pcie@").
+>
+> Unfortunately, of_node_is_pcie() causes nodes named "pcie@" to be
+> treated as PCI bridges, which PCI endpoints are not.  The previous
+> name "pci" matched such nodes as "default-flags" bus type, defined
+> in the of_busses[] array.
+>
+> Rename the PCIe endpoint nodes "pci@" so they are not mistaken for
+> bridge nodes by the devicetree parsing code.  This restores the
+> previous behavior, and allows them to be used for PCI endpoint bus.
+>
+> Fixes: e806c63ba51a7 ("arm64: dts: qcom: Rename pci@ nodes to pcie@")
+> Signed-off-by: Alex Elder <elder@riscstar.com>
+> ---
+>  arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/bo=
+ot/dts/qcom/qcs6490-rb3gen2.dts
+> index a13315bf0fb07..99a985a177a61 100644
+> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> @@ -954,7 +954,7 @@ pcie@3,0 {
+>                         ranges;
+>                         bus-range =3D <0x5 0xff>;
+>
+> -                       pcie@0,0 {
+> +                       pci@0,0 {
 
-Unbinding and re-binding the root DPRC fails with:
+The kernel should treat either name the same. There may have been some
+reason 'pci' was not included in checks. It could have been that only
+old things are (parallel, plain) 'pci' and anything new is 'pcie'.
 
-  sysfs: cannot create duplicate filename '/dev/char/10:256'
-    misc_register / fsl_mc_uapi_create_device_file /
-    dprc_setup / dprc_probe
+These are ethernet devices, right? Then the right name is
+'ethernet@0,0'. If not, then pick something that matches what the node
+is. Both pci and pcie mean the node implements a PCI bus.
 
-Cc: stable+noautosel@kernel.org # niche: root DPRC unbind/rebind only
-Fixes: 2cf1e703f066 ("bus: fsl-mc: add fsl-mc userspace support")
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
----
-Issue found when unbinding/rebinding the root DPRC on an LX2160A.
-
-The failure is silent at bind time and only shows up as a
-duplicate /dev/char entry on the second bind.
----
- drivers/bus/fsl-mc/fsl-mc-bus.c | 40 ++++++++++++++++++++++++----------------
- 1 file changed, 24 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/bus/fsl-mc/fsl-mc-bus.c b/drivers/bus/fsl-mc/fsl-mc-bus.c
-index 66a4fa73c5b86..7f283844e4500 100644
---- a/drivers/bus/fsl-mc/fsl-mc-bus.c
-+++ b/drivers/bus/fsl-mc/fsl-mc-bus.c
-@@ -1264,35 +1264,43 @@ static int __init fsl_mc_bus_driver_init(void)
- 	error = bus_register(&fsl_mc_bus_type);
- 	if (error < 0) {
- 		pr_err("bus type registration failed: %d\n", error);
--		goto error_cleanup_cache;
-+		return error;
- 	}
- 
--	error = platform_driver_register(&fsl_mc_bus_driver);
--	if (error < 0) {
--		pr_err("platform_driver_register() failed: %d\n", error);
-+	error = bus_register_notifier(&platform_bus_type, &fsl_mc_nb);
-+	if (error < 0)
- 		goto error_cleanup_bus;
--	}
-+
-+	return 0;
-+
-+error_cleanup_bus:
-+	bus_unregister(&fsl_mc_bus_type);
-+	return error;
-+}
-+postcore_initcall(fsl_mc_bus_driver_init);
-+
-+static int __init fsl_mc_bus_drivers_init(void)
-+{
-+	int error;
- 
- 	error = dprc_driver_init();
- 	if (error < 0)
--		goto error_cleanup_driver;
-+		return error;
- 
- 	error = fsl_mc_allocator_driver_init();
- 	if (error < 0)
- 		goto error_cleanup_dprc_driver;
- 
--	return bus_register_notifier(&platform_bus_type, &fsl_mc_nb);
-+	error = platform_driver_register(&fsl_mc_bus_driver);
-+	if (error < 0) {
-+		pr_err("platform_driver_register() failed: %d\n", error);
-+		goto error_cleanup_dprc_driver;
-+	}
-+
-+	return 0;
- 
- error_cleanup_dprc_driver:
- 	dprc_driver_exit();
--
--error_cleanup_driver:
--	platform_driver_unregister(&fsl_mc_bus_driver);
--
--error_cleanup_bus:
--	bus_unregister(&fsl_mc_bus_type);
--
--error_cleanup_cache:
- 	return error;
- }
--postcore_initcall(fsl_mc_bus_driver_init);
-+subsys_initcall_sync(fsl_mc_bus_drivers_init);
-
----
-base-commit: 786262be6048deab760f68c8acc2c85607165894
-change-id: 20260922-for-upstream-fsl-mc-initcall-order-e3316390712b
-
-Best regards,
--- 
-Vincent Jardin <vjardin@free.fr>
-
-
+Rob
