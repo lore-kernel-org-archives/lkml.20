@@ -1,72 +1,35 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C192236194D
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:31:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00E4472084;
+	Tue,  1 Sep 2026 13:31:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788269469; cv=none; b=kKKj9JyvVqom2pLPs0wwnFZvNVREoIZkThUWL4DvYxr6Gqd3PRD8BnL/M9nKqwiEka6GevwO0lUZvWooD+NIEgB5c3H4yOEjlY1pzMZyuzQ4i6Zfpy4woD6fbAvxr5XHTegqNTAKw8QXOEtemG3DrNlcfsdN+cf+iWtQpTghC0Q=
+	t=1788269470; cv=none; b=C/nwjwNUO/4+PW0smwYXnUyNUrKvKAa0VaDkpFxVY8getajV6pcGxzZuYQ8S9HdKqW6l6s+5NaDw/otNGAiSbiwwngthucquZAN278xrK6oCV92+yjx6MN04eUMQYkXfy0CcsS/7JwEdRvZDO4bWJvfKCIyUxZ0MZGT58Z+2CBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788269469; c=relaxed/simple;
-	bh=5i/toXbbaRrnbWBeavkjd+MF3jICrCrT94X4l2SDRrE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ckCw9Ko5q8cXdpcR8m2JD9vyai7fUh0j9+0n/e0XVxnikDS7/x0kXfLnwetqPvoQoxrxhOmRC6rfaoG2jcrgYIvMpLonp36/cRN+zUaHOTPuBwQL1BpgJOF9G0y9h5p6e/vrCxACAUbzJg0ujyAr018nWLIUef9wFy8kthXLnDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B3axe0vB; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788269470; c=relaxed/simple;
+	bh=fSWLmEM+qUKvuvXBfZA/dIZDxpUvtz6idNCD9qf/v+c=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=uHcuGRQQg3glr9kUwswRHTuN1TWLNx7d5oUs46C4XLpWRtdd8NDAvinDkX6sHAYaO4VCuVuLBB6OFKsOFxyMxi8b+isHGrxGL1ndNfe1FyEl0zscGWzEOqTn6ychXmgyzGl9YAOU0e7O0dhj578wfpb72/ZV6l1A1fVZrKg/qHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZjNyuvUU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B3axe0vB"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8568e3ecfc3so3016735b3a.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 06:31:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788269467; x=1788874267; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JmmxrMO3DsuXk29dJatWULdI5zCXuAMcw71cL28w5iE=;
-        b=B3axe0vBpg28dhpVe9dDtQ+D46jj3S4GRGXGuDjX1WBiXERpjMhaSKH3/IAMF6ur2D
-         DwmkGZluqOSo24nX3Ezs8F1eZ2KK3EwcpLfdyr8cWcIKuyTfS6hn/GHJ/GasOgizmVy2
-         sPW4P9/YKiNykZVhbt4tXOFrVeriRMB6xL/wQW2XdEzL+kz3a0OETlH2xFOMHQri8qkl
-         u3oiYRFv52DJuCvFSiM3ngK6rY2vKOTobSoyJAQdS/ftRtcCX5gbaKqRQDBNiOAAKi9q
-         Mt+CD26pqAi1PvI6v2fjKXsStQOy5pFQ5Ey3O+MkITAQDOL+lQEJaQ+gmx0mhu3VFq5c
-         16fA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788269467; x=1788874267;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JmmxrMO3DsuXk29dJatWULdI5zCXuAMcw71cL28w5iE=;
-        b=D2ttFSDHnY1deJNZzr/WB6dHdDFyHNn/Ej0DxEG9ouOGwlPeXw3V3MTV7nFGez75WX
-         iGZYbppRsUwoSYU6z4wNnmnJcXB7rUSDAKGoBOfqfU3GplBT+Cnd+7A9F6Z8AwV8K44d
-         YTa7r6LbAzd17FXGm8ybglVcjvlfLGDUEvwskwqJHxZEBksUSM3xkoysW9BVai7Q1I7i
-         HSYSJSjx/zR1Kp4YKxuS/4eWMOpVf7iQ0WxdeMdPijH6h9dUztT710Dx7s9+3W7Z/uJ6
-         VlfWnvxF5eGn5t73LlJYzGaRKi7sjqdjbVFHFkADsGODOZaIgC99GbruRDm2COdG0UjQ
-         +KNw==
-X-Forwarded-Encrypted: i=1; AHgh+RpIrwoiP+P0PhM3+Qfkkwnhe+jCMnfxF/ja4/tMhKl9Z2TF0Q7j1U8o6Gry86p9PSgH/8aARPrcf6vTanY=@vger.kernel.org
-X-Gm-Message-State: AFuF++l923fQZlG5Uk+oCBrrNIggCWzYPmO68iphwAwjira932H3yipc
-	O/K9i9gVx48MtWpn6HOm+eW6e6umYXsN44iKtzFbn98k1JxkRmmfgBaIrYuHXQ==
-X-Gm-Gg: AR+sD13bmcs2vA3O7vOsM85foxo8URisT4Uk23GqCcBh7q8MD71lr3QXM5LG88SeU3p
-	aZUoW0rE9L9LgKNBdYBjx1SN2ig6ygKSXxOdDfKKqgTCzcp9rLwGGyEWB/Ua0eyh7w6cCVRnpB7
-	ss/OiTKAgEadmCj54AaZ+9reEFGIFa6iuvNTOseQ3m0QED+zTScutEVMR0f0LSeERGd7YxZRghI
-	V45Z8UmSCpKTEhS7YmTOuZyN593cHM/I8LbGEOEHxjdOQmRfrmd4EUUelfL0h5CG7XiCJZfLWCF
-	26Se8naSG7oz06p5rs2ZyplBB031R9QzDkHAiEqclN7jxVMJ/DAFTbjk+yxIxfhQ/Blx2PoKyGX
-	T6PAiLjr98fsIPfIRioh0HftGLEKsqjsSTluvPIPz3ZpnXGmIkNk9ubxsgsHxUBTlGl3W/SO1CF
-	c2FQw2aon/u1fOLGx8ls/Me3PJERLB6HhgK1Nki568OoS6UCpHOVistjCMd1r6/q3wvjGOEMN47
-	yKz6VKaZkxEESwlEI8=
-X-Received: by 2002:a05:6a00:3693:b0:845:3033:6cb7 with SMTP id d2e1a72fcca58-85b5a05e9a3mr12708774b3a.9.1788269466552;
-        Tue, 01 Sep 2026 06:31:06 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:21dc:72d0:8f97:df90:f2de:21cb])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85be982f7dfsm1109059b3a.54.2026.09.01.06.31.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 06:31:06 -0700 (PDT)
-From: ThangNN99 <ngocthang2710.1999@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ThangNN99 <ngocthang2710.1999@gmail.com>,
-	syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com
-Subject: [PATCH] media: as102: init mutexes before registering the dvb adapter
-Date: Tue,  1 Sep 2026 20:31:00 +0700
-Message-ID: <20260901133100.15692-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZjNyuvUU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83BAF1F000E9;
+	Tue,  1 Sep 2026 13:31:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788269469;
+	bh=pY3Mevs5Q+7bXSl27PgPi8DZPEJ4oPIVYsmCCQIuEP8=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=ZjNyuvUUl4lJrerjX/MBp0tAcJ34HSJ262VzhSvfllK+j+/vGnaLoGlDZb5Dkyl2j
+	 3ojZOGB1Qfjvhm8KQEJos4CypJFqEnj/FNSfCvLMgt2CX5c1M20Ia5XTUhjGzhJVme
+	 YL4DfMh/zBHQEvFXO/UCz61CCU4hi98rtspftnkEO5ecq1R5NR+jSo3fcwUhve6cDt
+	 FXzW316h6FbCOGMSH37DR5yYUQRfx4Wv4g0hPVSVnx9aNfqs/UqVdl4Wvw8Gyk3FLo
+	 QXrtIvTFCBoxHCPLzRrzBOt227hUIpLhVVVSWu8qAgMeLEuQSZtKRp2fbAREqLhyiF
+	 UcZJWw9CQiRHQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 568E43924FF0;
+	Tue,  1 Sep 2026 13:30:13 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -74,62 +37,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v2 0/3] netlink: specs: rt-link: ipv6 devconf
+ updates
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178826941214.1182020.17205509719306465886.git-patchwork-notify@kernel.org>
+Date: Tue, 01 Sep 2026 13:30:12 +0000
+References: <20260831093458.472180-1-ast@fiberby.net>
+In-Reply-To: <20260831093458.472180-1-ast@fiberby.net>
+To: =?utf-8?b?QXNiasO4cm4gU2xvdGggVMO4bm5lc2VuIDxhc3RAZmliZXJieS5uZXQ+?=@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org
+Cc: donald.hunter@gmail.com, kuba@kernel.org, davem@davemloft.net,
+ edumazet@google.com, pabeni@redhat.com, horms@kernel.org, fmaurer@redhat.com,
+ danieller@nvidia.com, fmancera@suse.de, g.goller@proxmox.com,
+ prohr@google.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org
 
-as102_dvb_register() calls dvb_register_adapter() and
-dvb_register_frontend() before mutex_init()'ing bus_adap.lock and
-sem. Both mutexes live inside the kzalloc'd as102_dev, so until
-mutex_init() runs they are all-zero, uninitialized memory.
+Hello:
 
-dvb_register_frontend() makes /dev/dvb/adapterX/frontendY openable
-right away, and open() reaches as102_stream_ctrl(), which locks
-bus_adap.lock. Likewise, dvb_dmxdev_init() exposes as102_dev->sem to
-the demux start/stop_feed callbacks well before the two
-mutex_init() calls near the end of the function run. A concurrent
-open() racing the tail of as102_dvb_register() can thus lock a
-mutex that was never initialized: lockdep reports this as "trying
-to register non-static key", and on a real contended lock it is
-worse than a missing annotation, since an uninitialized mutex has
-no valid wait list.
+This series was applied to netdev/net-next.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
 
-Move both mutex_init() calls to the top of the function, before the
-adapter is registered, so the locks are always ready before the
-device is reachable from userspace.
+On Mon, 31 Aug 2026 09:34:52 +0000 you wrote:
+> This series updates the doc-string for ifla-inet6-conf, and adds
+> two missing ipv6-devconf enum values as identified by Sashiko
+> during review of v1.
+> 
+> Changes:
+> v2:
+>  - Update commit message for net-next, and renamed from
+>    "netlink: specs: rt-link: fix ipv6 devconf doc"
+>  - Add Reviewed-by from Fernando (Thanks).
+>  - Sashiko comments:
+>    - Added missing enum members accept-ra-min-lft and force-forwarding
+>      as patch #2 and #3.
+>    - Re: data types: as Jakub wrote in the original commit 720447bd0b24
+>      ("netlink: specs: rt-link: remove implicit structs from devconf"):
+>      "u32 is probably best we can do right now", as the reality is that
+>      the sub-type varies per value.
+> v1: https://lore.kernel.org/20260824103816.40040-1-ast@fiberby.net
+> 
+> [...]
 
-Reported-by: syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=2a3de29133b40e8f69f3
-Signed-off-by: ThangNN99 <ngocthang2710.1999@gmail.com>
----
- drivers/media/usb/as102/as102_drv.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+Here is the summary with links:
+  - [net-next,v2,1/3] netlink: specs: rt-link: update ipv6 devconf doc
+    https://git.kernel.org/netdev/net-next/c/5e63ade19044
+  - [net-next,v2,2/3] netlink: specs: rt-link: add accept-ra-min-lft
+    https://git.kernel.org/netdev/net-next/c/2b0aecb7b2b1
+  - [net-next,v2,3/3] netlink: specs: rt-link: add force-forwarding
+    https://git.kernel.org/netdev/net-next/c/f952040d7016
 
-diff --git a/drivers/media/usb/as102/as102_drv.c b/drivers/media/usb/as102/as102_drv.c
-index 6b1d3528a0a7..5495672c0646 100644
---- a/drivers/media/usb/as102/as102_drv.c
-+++ b/drivers/media/usb/as102/as102_drv.c
-@@ -287,6 +287,10 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
- 	struct device *dev = &as102_dev->bus_adap.usb_dev->dev;
- 	int ret;
- 
-+	/* locks must be ready before the device nodes become openable */
-+	mutex_init(&as102_dev->bus_adap.lock);
-+	mutex_init(&as102_dev->sem);
-+
- 	ret = dvb_register_adapter(&as102_dev->dvb_adap,
- 			   as102_dev->name, THIS_MODULE,
- 			   dev, adapter_nr);
-@@ -341,12 +345,6 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
- 		goto efereg;
- 	}
- 
--	/* init bus mutex for token locking */
--	mutex_init(&as102_dev->bus_adap.lock);
--
--	/* init start / stop stream mutex */
--	mutex_init(&as102_dev->sem);
--
- 	/*
- 	 * try to load as102 firmware. If firmware upload failed, we'll be
- 	 * able to upload it later.
+You are awesome, thank you!
 -- 
-2.43.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
