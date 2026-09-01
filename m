@@ -1,108 +1,72 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B4D41ABED9
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:55:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E8D8189F43
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:55:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788270903; cv=none; b=M6ks20J8fEWXkLXrjxxd4PdAOf6jp7MlJ5JLgWoKtO2RlZSib30JA6zEfX5FxHE0k8OTfCm5CVMumsEVbD07mZzYx8SxbHp4vYLE8ZIjVKajbN2WfVB6XD854Sd1HY/7xuJTCoduvuS3bnQWv4KmEm0LBN4iE4ITZj+jkRSg8hE=
+	t=1788270904; cv=none; b=Pl0X9++6yqCGGwx0l7ZjSCQQsk5T+VtNAuTr3odYsT/z1A40ofg7vazuAaJCF/2N+6PDn5LG+8XJyI5npxAr1ZlPoyas3tWiHhtTwvfgYLmx3v7yhBCIeiGQn9VOZ/Ybn5QEc8uZAKP3N8nzoPXVcurq5j/AvFd+PTJx4vLfsPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788270903; c=relaxed/simple;
-	bh=peaiG4utdtDmiTw+VM51fMGkc99uuU/N1OYIRRJoyK8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=SSLdDbKsS65RKCpIQq/mumwQWKYd8DMw6Oke1mOTm0LDF/y5rbChIFa0dY+S1WXXf1SFCX78btcUw2SgO/93w1hDT/9BXHJmd1Rlnzfo7IjHbkOAkT1GbncHcRk2mhSexILEhi+wTZifj5da+XR1l5H4EAIl8rEnfjiUe92/j7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=eHCx/uL1; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=M7qtZ8HM; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="eHCx/uL1";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="M7qtZ8HM"
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788270898;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=pBedKPjpyAqB3ilM47w1kt238sOX7lz5UOuQTj6NJEc=;
-	b=eHCx/uL1kbIUTkYHgK9IUnksVWiQxSfW57p5XssYSI2p3NUP8kxmIZmqv3Gzd/fgyz2oto
-	OpWi7+AMEWtOMZo2wB/OBafYDsZ6j9nKynwlL94B6iJO1ADHFX6MNd/qAE7mmf1EMJm+Hr
-	mlN/LM9M+QpBIix6Q/b88IiKu9c0dB6mM4lDMnVkAh30dvUWP8STDy0fcREY1ZDrCbjpi5
-	HdIKSrHt1Ypvm+SP1LttYT3TxWnq9bIZlvLeAS2Y7DwaT3ni7goMbW5BiX/SfSpUDM3r4j
-	Z2gr8X0l0q4sxjqquzdCMgzD/BzZTuaLXusbJZz7QxGvj8DyH/+ESv3r29lRjQ==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788270898;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=pBedKPjpyAqB3ilM47w1kt238sOX7lz5UOuQTj6NJEc=;
-	b=M7qtZ8HMEL68tvpeWnk8CZjTM1iVJnGg1smrSvKuD6uVFTkXpGy+3wCnRbLVYQKe4DFull
-	s0LhsAtgSkNAW0CQ==
-To: linux-kernel@vger.kernel.org
-Cc: =?UTF-8?q?Andr=C3=A9=20Almeida?= <andrealmeid@igalia.com>,
-	Darren Hart <dvhart@infradead.org>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Borislav Petkov <bp@alien8.de>,
-	Yao Kai <yaokai34@huawei.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Subject: [PATCH v4 0/2] futex: Address two futex-requeue-pi issues
-Date: Tue,  1 Sep 2026 15:54:50 +0200
-Message-ID: <20260901135453.3121948-1-bigeasy@linutronix.de>
+	s=arc-20240116; t=1788270904; c=relaxed/simple;
+	bh=/Pv0AAWYb0jl4hz6Ua2kexQogSdK2GmdnkdDXJC9w/I=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=pwlQkgMOQQTPiIFFLZiq86BRx12hV6PNVtgMiuFK7m841IpzI3NLr/2XRSyVtI1MsA2PZTQEdd6Ddcpd+nMrqUoIN55fNnnCDkMkItHibEuoS9wU/s3GhGQ0i5oUqB8bYRn1qgU28EOF9gAkT6dxU1VRl1vGMjw8cWagxDXluBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b28dbf4197so1126626b6e.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 06:55:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788270902; x=1788875702;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=yWnA06NvNkhaGPIA84TZUB6p/D3Ab5c95Nryrui03M0=;
+        b=OI9ZkUmYTsvNfKwVAeUqE/Ui9It5H3OhnzVmdKBPEsXukMcnAmHItVFHNPBwQsjw5J
+         ENydN66czJbRr/b/bAmjw+Ya2CwIszJiNma6gQ/o80YcFloM5snbcA66Egq/BED5qoV/
+         JC4Lve9+BME+mEU3rqszQj8PgDIY8L9ZGzD0O4sVDFvB+BEC5GDjqm5IbZI5CXVbToHs
+         09901R8N1WVAIk549ASHOu7rf+Fd9sSvRwx/S/TOtp4Pd6K8ev4B11B7MfHvBrvzo41r
+         QEi9r0FLhQQjT/vuyaWLndzVyjhKzMMq2Wsiws3bbiR2t8d67WawdS+9NQWMyhAhxJ1e
+         Nuzg==
+X-Forwarded-Encrypted: i=1; AHgh+RrozrgPWql8mUagg4LUpJpJByEPaAVlAITUbthQjRQ3zdu98SiVwdCh6DPaRyG36tGyw7b2OC7VL5qNCfM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mOi3moVJLhOn1Wib6l1kec/6Nbdps8iEWbThTlo+HZa+PKSV0L
+	XmZufw0CdEEyKZ9ONXllbUPZd6Pnr/0767Q52e95COpOrTSPrd1HHtXL7MTyqvwuAl/CwkXK+c+
+	Fsl7eV3pJ8QRMF8eWve93nGgoFvygSAIJe0s7Xnu30CKurWB9jhwUc1q3s14=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-Received: by 2002:a05:6808:d4e:b0:4b2:3e72:bab1 with SMTP id
+ 5614622812f47-4b3980187dfmr31716616b6e.6.1788270902315; Tue, 01 Sep 2026
+ 06:55:02 -0700 (PDT)
+Date: Tue, 01 Sep 2026 06:55:02 -0700
+In-Reply-To: <6a96d026.1c744c18.2a1e2a.26ce@mx.google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a96d936.99c12218.408a8.0006.GAE@google.com>
+Subject: Re: [syzbot] [f2fs?] kernel BUG in clear_inode (5)
+From: syzbot <syzbot+fc026e87558558f75c00@syzkaller.appspotmail.com>
+To: kth5965@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-This is an update to Yao Kai initial series. I replaced #1 and updated the
-commit a bit in #2.
-=20
-#1 Was simply missed in the initial commit and never noticed.
-#2 Requires extreme precise timing to reproduce.
+Hello,
 
-v3=E2=80=A64: https://lore.kernel.org/all/20260824125544.2353006-1-bigeasy@=
-linutronix.de/
- - PeterZ pointed out that doing sched_submit_work() while waiter is enqueu=
-ed
-   looks a bit wrong. tglx's enthusiasm was also missing.
-   Rewrote that bit to only trigger the assert.
-=20
-v2=E2=80=A6v3: https://lore.kernel.org/20260722085140.1949077-1-yaokai34@hu=
-awei.com
- - Update commit message for both patches.
- - Drop the comment from #1. The whole thing has nothing to do with
-   skipped schedule(). The only problem is that that rt_mutex_schedule()
-   requires a rt_mutex_.*_schedule() invocation before rtmutex is about
-   to be acquired. In case it went unnoticed for so long because that
-   rt_mutex is usually not contended.
- - Update the comment in #2 to describe the race and why the wake is
-   skipped.
-=20
-v1=E2=80=A6v2: (Yao Kai) https://lore.kernel.org/20260722085140.1949077-1-y=
-aokai34@huawei.com
- - Replace the scheduler helper split in patch 1 with
-   rt_mutex_pre_schedule()/rt_mutex_post_schedule() directly around
-   rt_mutex_wait_proxy_lock().
- - Expand patch 2's comment and changelog to explain why the saved-task
-   wakeup covers rcuwait without losing a wakeup.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Sebastian Andrzej Siewior (1):
-  futex: Provide rt_mutex_.*_schedule() equivalents for futex scheduling
+Reported-by: syzbot+fc026e87558558f75c00@syzkaller.appspotmail.com
+Tested-by: syzbot+fc026e87558558f75c00@syzkaller.appspotmail.com
 
-Yao Kai (1):
-  futex: Prevent rcuwait use-after-free during requeue PI
+Tested on:
 
- include/linux/sched/rt.h     |  2 ++
- kernel/futex/pi.c            | 16 +++-------------
- kernel/futex/requeue.c       | 12 ++++++++++--
- kernel/locking/rtmutex_api.c |  2 ++
- kernel/sched/core.c          | 16 ++++++++++++++++
- 5 files changed, 33 insertions(+), 15 deletions(-)
+commit:         786262be Merge tag 'edac_updates_for_v7.3_rc2' of git:..
+git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=13096779580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=a22d2472d0d324e7
+dashboard link: https://syzkaller.appspot.com/bug?extid=fc026e87558558f75c00
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=16a84779580000
 
---=20
-2.55.0
-
+Note: testing is done by a robot and is best-effort only.
