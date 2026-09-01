@@ -1,188 +1,88 @@
-Received: from mail-oa2-f10.google.com (mail-oa2-f10.google.com [74.125.231.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2432F33AD8B
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 23:06:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2008D47FAE1;
+	Tue,  1 Sep 2026 23:06:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788303988; cv=none; b=u6NGZ45XZAqkw67ineIKZKGEo/E4Rt74H/i9YhF5dDka4faDGo0poQQmKRa1pE40CQjhTBc1oV3/BVH0RYW4eCH4A1x6P7l5yRJpWJU9U9qV0KFrh37WuN1VCAtlj/SgsC9IkX6uadvBTK7P4KcNIqKakeD2gz31yR+eCDFbwlI=
+	t=1788303999; cv=none; b=Iq3E0ExoURoCvoxZkXfMrZ7DaM77Kuvh54KPNyyzEH2Cp/RDogdwJ2WG1BZGPN70vTn/fUVJNRyDXpio1ChL5rsaBTt+e/OIVqRLvIzfdSsAdxvbdMTkgxK5JOZQFyMvBTdV4ImYMv9ScYRrmdGGe1Tb2plF/6l8FpITDe2iIWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788303988; c=relaxed/simple;
-	bh=fTTzUUef/giTP36AMBrK8vZ5Mt4Z0GkfdMC6ws30VT8=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=MLiRdjmH/Vl0L3XUEFaOSWWr9VLHSuZB1lhfEQyAoGIToqmJKxrAqwDn7J89ynI1wD6DWD94oFEF4INMAQfAhOL7f584vR4ZwfBT03EkaxEuUmN5LI4IE6P/nPCoCGXJcsEKSnBl3SY7SNHwIB159YWzSHca7z1r9mrDvNT24JM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa2-f10.google.com with SMTP id 586e51a60fabf-46abf222dc3so63286fac.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 16:06:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788303986; x=1788908786;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ToRfVoUbS7J82fWQO+yda+u6CrS6/cWnXChbMIIKU1Y=;
-        b=P5KC/Wj69RJhNEQPCYkUPCvNqKr55VasmAVZPTdJtO6nhnOua+7kOrPZscFnq2uNRJ
-         Qct6PieR8hEy97jOyitSQOcR0zboEasLQFWMb9XmbAzb5gEIK1skTw2oA9BEg8WSnnE2
-         C0iDuzmO953xw9JQCey7dBWH23dQonM4XFdWmy3N9SXrVGEGZk+eWH3cEUTgRXCYGiRj
-         mP/qw8AHxzUHzC+5afKZXyQFGFKIJl2wXjXVGyRwM6dFFM6ryj71Bl10DKEDuU1UIsZX
-         EMSByfsftGLj/M1T20F4bfUZG7YQNsYooU8M+lZcHIp7KHjPR7XTO8Lt8fnjBYVwWuyF
-         AB/A==
-X-Forwarded-Encrypted: i=1; AHgh+RrGvXkGPl9dQPQteD5L5u/vbv8GK26+iHiWkjEKx1XKrkLD0d8FBrs1pYBuF2qm/CfSzaJcSRlSv4lFsfE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lExDuJZXTvskCBSIaCWyM0RuWxO8kl2OWKWojJ5mkJ5K+EjMIy
-	C/y8ehOXNTrhbDnV7IjuK/2h8Y2aRX3ulHz2xK7Uy2/gfodDOy0Ytr0eHcJ99HtdFFXPtExTAN7
-	M8yHqT1DftSUBoNhWbtALczLtZJVvzg1Upzy59cprikvdHrCAtz6T4I4my0c=
+	s=arc-20240116; t=1788303999; c=relaxed/simple;
+	bh=TyzcjStKbc9ACvi5JKfidyEQXbD6XbX0nzc8avWGLHg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qyz9cKLTFNPwnywaZ6wQy6SB7NrMmB/EdgguNyILONCJxEuXtooRnHR5Yf4LX2oJoKxHq4xB8oWOEaDuII1kJO9B2gfblBQ/gawiHTdFBWF/TjDzz83KEDaWpjVgfk2D5/sUOrYuShuDUlnik337Xz8LVLxBAY6KpWcsyDk8GI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eP+z6wnR; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eP+z6wnR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4CC71F000E9;
+	Tue,  1 Sep 2026 23:06:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788303998;
+	bh=7X3iDDd39BNMvDlwlAry4pqgYtb8qqQvZag8u9fNkVw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=eP+z6wnRCpWsK0ulnl7I58zOXDLyn1F5uuzFetFxqUSRHZeZa/v+m5QLvecBCvFlT
+	 Ak7tSi3+moFE7GpOvXwbWDFQBzIziVKkPAM/nPdXRpEA+XgRdaWnWOb9lDq4alcadv
+	 b794H0FmQWovsWR6Q4FbO70lxp81sgUdt4FSRiYe6OjaxKLQJSvrWePF30fFNW/AE6
+	 yNVqQv85XPYtsfKC+vYvxKBVWrzzaeaUBhv3gi7jmuGzf9gxX8g86hLZQCTJ3EPNz3
+	 gjS9evHan2KsiMTtKJUGfiqZiAfyqWYlZKaxg2Cq3bq0Ug1zayvwS56PcYpepnaX74
+	 fNmJWUqYHWkIw==
+From: Kees Cook <kees@kernel.org>
+To: "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Mark Brown <broonie@kernel.org>
+Cc: Kees Cook <kees@kernel.org>,
+	linux-hardening@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v4] hardening: Default randstruct off with rust for better allmodconfig support
+Date: Tue,  1 Sep 2026 16:06:32 -0700
+Message-Id: <178830398996.1189233.9472554390731309504.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260901-rust-reverse-randstruct-dep-v4-1-3bfa19efe1fa@kernel.org>
+References: <20260901-rust-reverse-randstruct-dep-v4-1-3bfa19efe1fa@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:3108:b0:6b1:afca:5c78 with SMTP id
- 006d021491bc7-6b48043ec63mr234212eaf.32.1788303985978; Tue, 01 Sep 2026
- 16:06:25 -0700 (PDT)
-Date: Tue, 01 Sep 2026 16:06:25 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a975a71.9266084e.bf0d7.0002.GAE@google.com>
-Subject: [syzbot] [gfs2?] general protection fault in gfs2_quota_lock
-From: syzbot <syzbot+d84e35a320d14f8c270a@syzkaller.appspotmail.com>
-To: agruenba@redhat.com, gfs2@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+On Tue, 01 Sep 2026 23:50:02 +0100, Mark Brown wrote:
+> Currently randstruct does not support rust so we have Kconfig dependencies
+> which prevent rust being enabled when randstruct is. Unfortunately this
+> prevents rust being enabled in allmodconfig, our standard coverage build.
+> randstruct gets turned on by default, then the dependency on !RANDSTRUCT
+> causes rust to get disabled.
+> 
+> Work around this by disabling randstruct by default if we have a usable
+> rust toolchain and rust support for the architecture, circular
+> dependencies prevent us directly depending on !RUST. This means we might
+> end up with a configuration that disables both rust and randstruct but
+> hopefully it's more likely go give the expected result.
+> 
+> [...]
 
-syzbot found the following issue on:
+Applied to for-linus/hardening, thanks!
 
-HEAD commit:    89c07d98716a Add linux-next specific files for 20260831
-git tree:       linux-next
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=13eafe25580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=3084bde934a7eb4b
-dashboard link: https://syzkaller.appspot.com/bug?extid=d84e35a320d14f8c270a
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=167d3b79580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14c51379580000
+[1/1] hardening: Default randstruct off with rust for better allmodconfig support
+      https://git.kernel.org/kees/c/2625480a1bf7
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/efda3e96af9f/disk-89c07d98.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/7cba3e147607/vmlinux-89c07d98.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/bf4b2e49d1cb/bzImage-89c07d98.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/85a2c905fb7a/mount_2.gz
-  fsck result: OK (log: https://syzkaller.appspot.com/x/fsck.log?x=10c51379580000)
+Take care,
 
-The issue was bisected to:
+-- 
+Kees Cook
 
-commit e65756f09826a87322479abc946ca11e6816a6ce
-Author: Andreas Gruenbacher <agruenba@redhat.com>
-Date:   Wed Aug 26 10:41:28 2026 +0000
-
-    gfs2: No quotas for meta inodes
-
-bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=112f5c15580000
-final oops:     https://syzkaller.appspot.com/x/report.txt?x=132f5c15580000
-console output: https://syzkaller.appspot.com/x/log.txt?x=152f5c15580000
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+d84e35a320d14f8c270a@syzkaller.appspotmail.com
-Fixes: e65756f09826 ("gfs2: No quotas for meta inodes")
-
-capability: warning: `syz-executor311' uses deprecated v2 capabilities in a way that may be insecure
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000020: 0000 [#1] SMP KASAN PTI
-KASAN: null-ptr-deref in range [0x0000000000000100-0x0000000000000107]
-CPU: 1 UID: 0 PID: 5636 Comm: syz-executor311 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:gfs2_quota_lock+0x103/0x7b0 fs/gfs2/quota.c:1105
-Code: 00 00 4d 89 fd 49 c1 ed 03 41 80 7c 1d 00 00 74 08 4c 89 ff e8 1e fd e7 fd 49 8b 3f 48 8d 87 00 01 00 00 48 89 c1 48 c1 e9 03 <0f> b6 0c 19 84 c9 0f 85 c9 05 00 00 8b b7 00 01 00 00 ba 08 00 00
-RSP: 0018:ffffc90003bcf8d0 EFLAGS: 00010202
-RAX: 0000000000000100 RBX: dffffc0000000000 RCX: 0000000000000020
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 0000000000000000 R08: ffffffff907a487f R09: 1ffffffff20f490f
-R10: dffffc0000000000 R11: fffffbfff20f4910 R12: ffff888012189320
-R13: 1ffff110024312f9 R14: 00000000ffffffff R15: ffff8880121897c8
-FS:  000055558edf6400(0000) GS:ffff888124dcd000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00000000006a9ee0 CR3: 0000000073f60000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- gfs2_quota_lock_check fs/gfs2/quota.h:50 [inline]
- do_grow fs/gfs2/bmap.c:2117 [inline]
- gfs2_setattr_size+0x9df/0x1270 fs/gfs2/bmap.c:2198
- gfs2_setattr+0x269/0x430 fs/gfs2/inode.c:2138
- notify_change+0xbba/0xea0 fs/attr.c:556
- do_truncate+0x1c2/0x250 fs/open.c:68
- vfs_truncate+0x4b4/0x540 fs/open.c:118
- ksys_truncate+0xf3/0x1c0 fs/open.c:142
- __do_sys_truncate fs/open.c:154 [inline]
- __se_sys_truncate fs/open.c:152 [inline]
- __x64_sys_truncate+0x5b/0x70 fs/open.c:152
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f49688f2409
-Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffd4cc3da68 EFLAGS: 00000246 ORIG_RAX: 000000000000004c
-RAX: ffffffffffffffda RBX: 0030656c69662f2e RCX: 00007f49688f2409
-RDX: 00007f49688f2409 RSI: 000000000008fff5 RDI: 0000200000000180
-RBP: 0000000000000001 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffd4cc3db98
-R13: 0000000000000002 R14: 00007f49689b3c80 R15: 0000000000000002
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:gfs2_quota_lock+0x103/0x7b0 fs/gfs2/quota.c:1105
-Code: 00 00 4d 89 fd 49 c1 ed 03 41 80 7c 1d 00 00 74 08 4c 89 ff e8 1e fd e7 fd 49 8b 3f 48 8d 87 00 01 00 00 48 89 c1 48 c1 e9 03 <0f> b6 0c 19 84 c9 0f 85 c9 05 00 00 8b b7 00 01 00 00 ba 08 00 00
-RSP: 0018:ffffc90003bcf8d0 EFLAGS: 00010202
-RAX: 0000000000000100 RBX: dffffc0000000000 RCX: 0000000000000020
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 0000000000000000 R08: ffffffff907a487f R09: 1ffffffff20f490f
-R10: dffffc0000000000 R11: fffffbfff20f4910 R12: ffff888012189320
-R13: 1ffff110024312f9 R14: 00000000ffffffff R15: ffff8880121897c8
-FS:  000055558edf6400(0000) GS:ffff888124dcd000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00000000006a9ee0 CR3: 0000000073f60000 CR4: 00000000003526f0
-----------------
-Code disassembly (best guess):
-   0:	00 00                	add    %al,(%rax)
-   2:	4d 89 fd             	mov    %r15,%r13
-   5:	49 c1 ed 03          	shr    $0x3,%r13
-   9:	41 80 7c 1d 00 00    	cmpb   $0x0,0x0(%r13,%rbx,1)
-   f:	74 08                	je     0x19
-  11:	4c 89 ff             	mov    %r15,%rdi
-  14:	e8 1e fd e7 fd       	call   0xfde7fd37
-  19:	49 8b 3f             	mov    (%r15),%rdi
-  1c:	48 8d 87 00 01 00 00 	lea    0x100(%rdi),%rax
-  23:	48 89 c1             	mov    %rax,%rcx
-  26:	48 c1 e9 03          	shr    $0x3,%rcx
-* 2a:	0f b6 0c 19          	movzbl (%rcx,%rbx,1),%ecx <-- trapping instruction
-  2e:	84 c9                	test   %cl,%cl
-  30:	0f 85 c9 05 00 00    	jne    0x5ff
-  36:	8b b7 00 01 00 00    	mov    0x100(%rdi),%esi
-  3c:	ba                   	.byte 0xba
-  3d:	08 00                	or     %al,(%rax)
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-For information about bisection process see: https://goo.gl/tpsmEJ#bisection
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
