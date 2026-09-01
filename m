@@ -1,306 +1,395 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B587839F17F
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 05:45:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2A9C4CCDF8;
+	Tue,  1 Sep 2026 05:47:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788241513; cv=none; b=KDpT5arnOTydG59hQn4AOO3h48Y7KY3tIEcoGqD1rqavZCBAnMHRqX3ziEEI4+qwRPYMqGvwN1FA2MivMtKcXRVYGAOtVGeoUhkgAIv6yVNdax9+jZ13gK5t8cL1huFV83XxHyKjhu0RrQsg/orZ55z11wtIJ/r/qJpRk0kKNM8=
+	t=1788241663; cv=none; b=HRPdz99iGI+vtceyhNEKz4EIspQWlqNGIjpGrvQUxtNvB46vLNVhKKF3Bh+7XC9QreAIFj9nKQezyKqCUGWsLxq9bKWjs7KrdHW3JrUW1hvOl9k3tbnooukSFzWpZa41+YHKGqVlVfK6eMK7+M0U8F1vdRMXqxbFcB3t5v708xc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788241513; c=relaxed/simple;
-	bh=ExzsBBQQzRLXmN5iM7ua3O1UxwNf7wasB8hjbJf/zWo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WW9x7QyK/TVGHwkngibkiOjypoFp9+MPwe5ZD7VzaJ42FwPM8qsMj8fKpvvr6zSFbMyYJHVYyAO+WsJ0PfTgrII2X+cZl6fUoiWqYR1geVe3WI8ZivrmdB7AJSMjhbFEedpTz0Mh3LQ2fQKl/d2sjjv2ePoRoZTyYJZBGJcXrio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=lIqXMwdd; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788241663; c=relaxed/simple;
+	bh=VpwS63NbME8IuJb6nm2MRV/gQddltvy6kmfDhE8M1g8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=af4Dmo13sIUKPgg36Y/RdwWxz1iEVPpN5zZgLNoyvambKZSkfu9htmshYVFsJNOBkSlYoA5TFHvKp0ZKQvY/lUSVEyr+Hx/GOdhvkhHkcaOiscEZtofPXBtePDZgH6S7p9S3vYcz5+kv2aw5ZBZZ8lJrlVHBZne1iAO3eQ3eJOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iuemYoeZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="lIqXMwdd"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 445F61756;
-	Mon, 31 Aug 2026 22:45:06 -0700 (PDT)
-Received: from cesw-amp-gbt-1s-m12830-01.blr.arm.com (cesw-amp-gbt-1s-m12830-01.blr.arm.com [10.164.195.33])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 2B6443F85F;
-	Mon, 31 Aug 2026 22:45:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788241510; bh=ExzsBBQQzRLXmN5iM7ua3O1UxwNf7wasB8hjbJf/zWo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=lIqXMwddZi+uOm9ZJisAjVtSPICoXG4TgBYeL3OwVXiBe3YuDLo86lqjl4CnIXSQu
-	 hAAQNs6LM9tL+uABixrKnhZhHejKRN55E0CZS3bV2ebPGFWeTIcFC7IPuVMOaHGnxD
-	 vX99fqxU1f1+wtDyVO5ioGry1vQqF96Jso7B3QCw=
-From: Dev Jain <dev.jain@arm.com>
-To: akpm@linux-foundation.org,
-	david@kernel.org,
-	ljs@kernel.org,
-	hughd@google.com,
-	chrisl@kernel.org,
-	kasong@tencent.com
-Cc: Dev Jain <dev.jain@arm.com>,
-	riel@surriel.com,
-	liam@infradead.org,
-	vbabka@kernel.org,
-	harry@kernel.org,
-	jannh@google.com,
-	lance.yang@linux.dev,
-	baolin.wang@linux.alibaba.com,
-	shikemeng@huaweicloud.com,
-	nphamcs@gmail.com,
-	baoquan.he@linux.dev,
-	baohua@kernel.org,
-	youngjun.park@lge.com,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	rppt@kernel.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	pfalcato@suse.de,
-	ryan.roberts@arm.com,
-	anshuman.khandual@arm.com
-Subject: [PATCH v2 8/8] mm/rmap: batch unmap anonymous swap-backed large folios
-Date: Tue,  1 Sep 2026 05:43:55 +0000
-Message-ID: <20260901054358.4049095-9-dev.jain@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260901054358.4049095-1-dev.jain@arm.com>
-References: <20260901054358.4049095-1-dev.jain@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iuemYoeZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 399E01F000E9;
+	Tue,  1 Sep 2026 05:47:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788241661;
+	bh=EKfCohoJKBTiPKVgTsTz6ZX4azQ94zIE5XmXPUkUt30=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=iuemYoeZGFGLTERH7y3jY2bzkArxvG6wMjgtiKKEy92VH/J3opeqKj/5FgrxtZ4lc
+	 1tvC3QJxqJFEd9LU60idFIJ/oD/kl+t+mc7lsYlN3C96oZO1N66bJO7dnfh1SUhvxb
+	 933ykveeql9pNlWw6tQOBVvby6BJlVpqWH9kRtk+OY+7TSytfolsuXwa0kDv/a1Kz3
+	 ayYZuR4vAcYs02iPo2+zqb974L99l2MpqjBq7OuyEXgLpLgurBo5WoFFoFXfNELInc
+	 3vN4WfitOkY5BpSACsLrv4kXB3US0TZX5AwXqJc8rvqKNLmd0dsAVIBzxKqrQz8DRz
+	 jSvrJOwAJ+uWQ==
+Message-ID: <503e87d9-3311-413a-98c0-e02a02c4a354@kernel.org>
+Date: Tue, 1 Sep 2026 07:47:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/4] dt-bindings: Add CIX Sky1 USB bindings
+To: Hongliang Yang <hongliang.yang@cixtech.com>, peter.chen@kernel.org,
+ pawell@cadence.com, vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: gregkh@linuxfoundation.org, rogerq@kernel.org, neil.armstrong@linaro.org,
+ p.zabel@pengutronix.de, fugang.duan@cixtech.com,
+ cix-kernel-upstream@cixtech.com, linux-usb@vger.kernel.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260831082309.3854507-1-hongliang.yang@cixtech.com>
+ <20260831082309.3854507-2-hongliang.yang@cixtech.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260831082309.3854507-2-hongliang.yang@cixtech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Enable batch clearing of ptes, and batch swap setting of ptes for anon
-swap-backed folio unmapping.
+On 31/08/2026 10:23, Hongliang Yang wrote:
+> Add device tree bindings for CIX Sky1 USB3 PHY and Cadence USBSSP
+> controller glue layer.
+> 
+> Signed-off-by: Hongliang Yang <hongliang.yang@cixtech.com>
+> ---
+>  .../bindings/phy/cix,sky1-usb3-phy.yaml       | 109 +++++++++++++
+>  .../bindings/usb/cix,sky1-usbssp.yaml         | 153 ++++++++++++++++++
 
-Processing all ptes of a large folio in one go helps us batch across
-atomics (add_mm_counter etc), barriers (in the function
-__folio_try_share_anon_rmap), repeated calls to page_vma_mapped_walk(),
-to name a few. In general, batching helps us to execute similar code
-together, making the execution of the program more memory and
-CPU friendly.
+Please use subject prefixes matching the subsystem. You can get them for
+example with `git log --oneline -- DIRECTORY_OR_FILE` on the directory
+your patch is touching. For bindings, the preferred subjects are
+explained here:
+https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
 
-On arm64-contpte, batching also helps us avoid redundant ptep_get() calls
-and TLB flushes while breaking the contpte mapping.
+A nit, subject: drop second/last, redundant "bindings". The
+"dt-bindings" prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
 
-The handling of anon-exclusivity is very similar to commit cac1db8c3aad
-("mm: optimize mprotect() by PTE batching"). Since folio_unmap_pte_batch()
-won't look at the bits of the underlying page, we need to process
-sub-batches of ptes pointing to pages which are same w.r.t exclusivity,
-and batch set only those ptes to swap ptes in one go.
+And do not combine USB patches with other subsystems.
 
-arch_unmap_one() is only defined for sparc64; I am not comfortable
-regarding the nuances between retrieving the pfn from pte_pfn() or from
-(paddr = pte_val(oldpte) & _PAGE_PADDR_4V).
+>  MAINTAINERS                                   |   3 +
+>  3 files changed, 265 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
+>  create mode 100644 Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml b/Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
+> new file mode 100644
+> index 000000000000..76d020df72dd
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/cix,sky1-usb3-phy.yaml
+> @@ -0,0 +1,109 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/phy/cix,sky1-usb3-phy.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: CIX Sky1 USB3 PHY
+> +
+> +maintainers:
+> +  - Hongliang Yang <hongliang.yang@cixtech.com>
+> +
+> +description:
+> +  The CIX Sky1 USB3 PHY is a multi-port SuperSpeedPlus PHY that
+> +  supports up to two USB3 lanes. Each port is represented as a
+> +  child node of the PHY controller.
 
-(And, pte_next_pfn() can't even be called from arch_unmap_one() because
-that file does not include pgtable.h) So just disable the
-"sparc64-anon-swapbacked" case for now.
+Please read and follow DTS coding style.
 
-We need to take care of rmap accounting (folio_remove_rmap_ptes) and
-reference accounting (folio_put_refs) when anon folio unmap succeeds.
-In case we partially batch the large folio and fail, we need to correctly
-do the accounting for pages which were successfully unmapped. So, put
-this accounting code (which is finish_folio_unmap()) in
-__ttu_anon_swapbacked_folio() itself, instead of doing some horrible
-goto jumping at the callsite of ttu_anon_folio().
+> +
+> +properties:
+> +  compatible:
+> +    const: cix,sky1-usb3-phy
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: APB register interface clock
+> +      - description: PHY reference clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: apb_clk
+> +      - const: ref_clk
+> +
+> +  resets:
+> +    items:
+> +      - description: PHY reset
+> +      - description: PHY APB preset
+> +
+> +  reset-names:
+> +    items:
+> +      - const: reset
+> +      - const: preset
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 0
+> +
+> +patternProperties:
+> +  "^usb-port@[0-9a-f]+$":
+> +    type: object
+> +    description:
+> +      A single USB3 PHY port/lane.
+> +
+> +    properties:
+> +      reg:
+> +        maxItems: 1
+> +
+> +      "#phy-cells":
+> +        const: 0
+> +
+> +    required:
+> +      - reg
+> +      - "#phy-cells"
+> +
+> +    additionalProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - reset-names
+> +  - "#address-cells"
+> +  - "#size-cells"
+> +
+> +unevaluatedProperties: false
 
-Similarly, do the finish_folio_unmap() in ttu_anon_folio itself for
-the non-swapbacked (lazyfree) case.
+Which other schema do you want to reference?
 
-If the batch length is less than the number of pages in the folio, then
-we must skip over this batch.
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/cix,sky1.h>
+> +    #include <dt-bindings/reset/cix,sky1-s5-system-control.h>
+> +
+> +    usb-phy@9210000 {
+> +        compatible = "cix,sky1-usb3-phy";
+> +        reg = <0x09210000 0x40000>;
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        resets = <&s5_syscon SKY1_USBPHY_SS_RST_N>,
+> +                 <&s5_syscon SKY1_USBPHY_SS_PST_N>;
+> +        reset-names = "reset", "preset";
+> +
+> +        clocks = <&scmi_clk CLK_TREE_USB3A_PHY3_GATE>,
+> +                 <&scmi_clk CLK_TREE_USB3A_PHY_x2_REF>;
+> +        clock-names = "apb_clk", "ref_clk";
+> +
+> +        usb-port@0 {
+> +            reg = <0>;
+> +            #phy-cells = <0>;
+> +        };
+> +
+> +        usb-port@1 {
+> +            reg = <1>;
+> +            #phy-cells = <0>;
+> +        };
+> +    };
+> diff --git a/Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml b/Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml
+> new file mode 100644
+> index 000000000000..47202ff5b9e5
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/usb/cix,sky1-usbssp.yaml
+> @@ -0,0 +1,153 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/usb/cix,sky1-usbssp.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: CIX Sky1 Cadence USBSSP Controller
+> +
+> +maintainers:
+> +  - Hongliang Yang <hongliang.yang@cixtech.com>
+> +
+> +description:
+> +  The CIX Sky1 USBSSP controller is based on the Cadence USBSSP DRD
+> +  controller. The integration adds glue registers and mode strap controls
+> +  in the Sky1 S5 system controller. The CIX glue node wraps a Cadence
+> +  USBSSP core as a child node.
+> +
+> +properties:
+> +  compatible:
+> +    const: cix,sky1-usbssp
+> +
+> +  reg:
+> +    items:
+> +      - description: AXI property configuration register
+> +      - description: Controller status register
 
-The page_vma_mapped_walk API ensures this - check_pte() will return true
-only if any of [pvmw->pfn, pvmw->pfn + nr_pages) is mapped by the pte.
-There is no pfn underlying a swap pte, so check_pte returns false and we
-keep skipping until we hit a present pte, which is where we want to start
-unmapping from next.
+Registers are not address spaces. Devices do not have address spaces of
+one register, so this is not a real device.
 
-Remove the label finish_unmap since no goto callers are left now.
 
-Signed-off-by: Dev Jain <dev.jain@arm.com>
----
- mm/rmap.c | 110 ++++++++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 81 insertions(+), 29 deletions(-)
+> +
+> +  reg-names:
+> +    items:
+> +      - const: axi_property
 
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 1b9f07d4d1be9..68e0201ffd003 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -1964,12 +1964,14 @@ static inline unsigned int folio_unmap_pte_batch(struct folio *folio,
- 	end_addr = pmd_addr_end(addr, vma->vm_end);
- 	max_nr = (end_addr - addr) >> PAGE_SHIFT;
- 
--	/* We only support lazyfree or file folios batching for now ... */
--	if (folio_test_anon(folio) && folio_test_swapbacked(folio))
-+	if (pte_unused(pte))
- 		return 1;
- 
--	if (pte_unused(pte))
-+#ifdef __HAVE_ARCH_UNMAP_ONE
-+	/* Add batching support to arch_unmap_one() to remove this */
-+	if (folio_test_anon(folio) && folio_test_swapbacked(folio))
- 		return 1;
-+#endif
- 
- 	/*
- 	 * If unmap fails, we need to restore the ptes. To avoid accidentally
-@@ -2139,16 +2141,25 @@ static pte_t swp_pte_prepare(swp_entry_t entry, pte_t old_pte,
- 	return swp_pte;
- }
- 
--static bool ttu_anon_swapbacked_folio(struct vm_area_struct *vma,
-+static void finish_folio_unmap(struct vm_area_struct *vma,
-+		struct folio *folio, struct page *page, unsigned long nr_pages)
-+{
-+	folio_remove_rmap_ptes(folio, page, nr_pages, vma);
-+	if (vma->vm_flags & VM_LOCKED)
-+		mlock_drain_local();
-+	folio_put_refs(folio, nr_pages);
-+}
-+
-+static bool __ttu_anon_swapbacked_folio(struct vm_area_struct *vma,
- 		struct folio *folio, struct page *page, unsigned long address,
--		pte_t *ptep, pte_t pteval)
-+		pte_t *ptep, pte_t pteval, unsigned long nr_pages,
-+		bool anon_exclusive)
- {
--	const bool anon_exclusive = folio_test_anon(folio) &&
--				    PageAnonExclusive(page);
- 	swp_entry_t entry = page_swap_entry(page);
- 	struct mm_struct *mm = vma->vm_mm;
-+	pte_t swp_pte;
- 
--	if (folio_dup_swap_pages(folio, page, 1) < 0)
-+	if (folio_dup_swap_pages(folio, page, nr_pages) < 0)
- 		return false;
- 
- 	/*
-@@ -2157,21 +2168,57 @@ static bool ttu_anon_swapbacked_folio(struct vm_area_struct *vma,
- 	 * so we'll not check/care.
- 	 */
- 	if (arch_unmap_one(mm, vma, address, pteval) < 0) {
--		folio_put_swap_pages(folio, page, 1);
-+		VM_WARN_ON(nr_pages != 1);
-+		folio_put_swap_pages(folio, page, nr_pages);
- 		return false;
- 	}
- 
- 	/* See folio_try_share_anon_rmap(): clear PTE first. */
--	if (anon_exclusive && folio_try_share_anon_rmap_pte(folio, page)) {
--		folio_put_swap_pages(folio, page, 1);
-+	if (anon_exclusive &&
-+	    folio_try_share_anon_rmap_ptes(folio, page, nr_pages)) {
-+		folio_put_swap_pages(folio, page, nr_pages);
- 		return false;
- 	}
- 
- 	mm_prepare_for_swap_entries(mm);
--	dec_mm_counter(mm, MM_ANONPAGES);
--	inc_mm_counter(mm, MM_SWAPENTS);
--	set_pte_at(mm, address, ptep,
--		   swp_pte_prepare(entry, pteval, anon_exclusive));
-+	add_mm_counter(mm, MM_ANONPAGES, -nr_pages);
-+	add_mm_counter(mm, MM_SWAPENTS, nr_pages);
-+	swp_pte = swp_pte_prepare(entry, pteval, anon_exclusive);
-+	set_softleaf_ptes(mm, address, ptep, swp_pte, nr_pages);
-+	finish_folio_unmap(vma, folio, page, nr_pages);
-+	return true;
-+}
-+
-+static bool ttu_anon_swapbacked_folio(struct vm_area_struct *vma,
-+		struct folio *folio, struct page *first_page,
-+		unsigned long address, pte_t *ptep, pte_t pteval,
-+		unsigned long nr_pages)
-+{
-+	unsigned long batch_idx = 0;
-+
-+	while (nr_pages) {
-+		bool anon_exclusive = PageAnonExclusive(first_page + batch_idx);
-+		unsigned long len = page_anon_exclusive_batch(batch_idx,
-+				nr_pages, first_page, anon_exclusive);
-+
-+		if (!__ttu_anon_swapbacked_folio(vma, folio,
-+				first_page + batch_idx, address, ptep, pteval,
-+				len, anon_exclusive)) {
-+			/* Restore the remaining PTEs that were cleared. */
-+			set_ptes(vma->vm_mm, address, ptep, pteval, nr_pages);
-+			return false;
-+		}
-+
-+		nr_pages -= len;
-+		if (!nr_pages)
-+			break;
-+
-+		pteval = pte_advance_pfn(pteval, len);
-+		address += len * PAGE_SIZE;
-+		batch_idx += len;
-+		ptep += len;
-+	}
-+
- 	return true;
- }
- 
-@@ -2184,15 +2231,22 @@ static bool ttu_anon_folio(struct vm_area_struct *vma, struct folio *folio,
- 	 * See handle_pte_fault() ...
- 	 */
- 	if (WARN_ON_ONCE(folio_test_swapbacked(folio) !=
--			 folio_test_swapcache(folio)))
-+			 folio_test_swapcache(folio))) {
-+		set_ptes(vma->vm_mm, address, ptep, pteval, nr_pages);
- 		return false;
-+	}
- 
--	if (!folio_test_swapbacked(folio))
--		return ttu_anon_lazyfree_folio(vma, folio, nr_pages);
-+	if (!folio_test_swapbacked(folio)) {
-+		if (!ttu_anon_lazyfree_folio(vma, folio, nr_pages)) {
-+			set_ptes(vma->vm_mm, address, ptep, pteval, nr_pages);
-+			return false;
-+		}
-+		finish_folio_unmap(vma, folio, page, nr_pages);
-+		return true;
-+	}
- 
--	/* nr_pages > 1 not supported yet */
- 	return ttu_anon_swapbacked_folio(vma, folio, page, address, ptep,
--					 pteval);
-+					 pteval, nr_pages);
- }
- 
- /*
-@@ -2370,13 +2424,14 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
- 			 */
- 			dec_mm_counter(mm, mm_counter(folio));
- 		} else if (folio_test_anon(folio)) {
-+			/* finish_folio_unmap handled internally */
- 			if (!ttu_anon_folio(vma, folio, page, address,
--					    pvmw.pte, pteval, nr_pages)) {
--				set_ptes(mm, address, pvmw.pte, pteval, nr_pages);
-+					    pvmw.pte, pteval, nr_pages))
- 				goto walk_abort;
--			}
- 
--			goto finish_unmap;
-+			if (nr_pages == folio_nr_pages(folio))
-+				goto walk_done;
-+			continue;
- 		} else {
- 			/*
- 			 * This is a locked file-backed folio,
-@@ -2391,11 +2446,8 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
- 			 */
- 			add_mm_counter(mm, mm_counter_file(folio), -nr_pages);
- 		}
--finish_unmap:
--		folio_remove_rmap_ptes(folio, page, nr_pages, vma);
--		if (vma->vm_flags & VM_LOCKED)
--			mlock_drain_local();
--		folio_put_refs(folio, nr_pages);
-+
-+		finish_folio_unmap(vma, folio, page, nr_pages);
- 
- 		/*
- 		 * If we are sure that we batched the entire folio and cleared
--- 
-2.43.0
+axi
 
+> +      - const: controller_status
+
+controller
+
+
+
+> +
+> +  clocks:
+> +    items:
+> +      - description: Start-of-frame clock
+> +      - description: AXI bus clock
+> +      - description: Low-power mode clock
+> +      - description: APB register interface clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: sof_clk
+> +      - const: usb_aclk
+> +      - const: lpm_clk
+> +      - const: usb_pclk
+> +
+> +  resets:
+> +    items:
+> +      - description: APB register reset
+> +      - description: Controller reset
+> +
+> +  reset-names:
+> +    items:
+> +      - const: usb_preset
+> +      - const: usb_reset
+> +
+> +  cix,usb_syscon:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description:
+> +      Phandle to the Sky1 S5 system controller used to program USB mode
+> +      strap controls.
+
+So this is part of that device most likely.
+
+> +
+> +  axi_bmax_value:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    default: 0x7
+> +    description:
+> +      AXI bus maximum burst length configuration value.
+> +
+> +  "#address-cells":
+> +    const: 2
+> +
+> +  "#size-cells":
+> +    const: 2
+> +
+> +  ranges: true
+> +
+> +patternProperties:
+> +  "^usb-controller@[0-9a-f]+$":
+
+Why using completely different names than entire Linux kernel?
+
+> +    $ref: cdns,usb3.yaml#
+> +    description:
+> +      The Cadence USBSSP core controller node. See cdns,usb3.yaml
+> +      for properties such as dr_mode, maximum-speed, phys, and interrupts.
+
+Redundant description.
+
+> +    unevaluatedProperties: false
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - reset-names
+> +  - cix,usb_syscon
+> +  - "#address-cells"
+> +  - "#size-cells"
+> +  - ranges
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/cix,sky1.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/reset/cix,sky1-s5-system-control.h>
+> +
+> +    soc {
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
+> +
+> +        usb@91c0300 {
+> +            compatible = "cix,sky1-usbssp";
+> +            #address-cells = <2>;
+> +            #size-cells = <2>;
+> +            ranges;
+> +
+> +            reg = <0x00 0x091c0314 0x00 0x4>,
+> +                  <0x00 0x091c0400 0x00 0x4>;
+
+Nope. You do not have a device with two registers.
+
+
+Best regards,
+Krzysztof
