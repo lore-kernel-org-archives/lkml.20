@@ -1,329 +1,508 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-115.mta0.migadu.com [91.218.175.115])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6624448B9B
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:43:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA865448B9B
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:43:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788295383; cv=none; b=jiYJzTBnTAYzJ8FRuQEqRLvU8Whmzwm4ny6Emopr8GeI4Y32IGfnKvsznHjUImRNrGMHvqFYgDjqjAvFykleepjddwmt+rnCTAwnTMmqo/eDGkpLk3q2VFfTPrG0XSpFR+8pPEYVHLDZryuJN3Msv8VbXP6dMQS44ds1vfofEGA=
+	t=1788295404; cv=none; b=r05+We5xUBxOjeXqUznSZO5yjg5d9KAL8u44FPuX1BrbuE+jyHsjSH0/X54xUu76XVA1drSP1Ipci9wGtDnAIF0B5FX5vSFDsUCrEa/7DJyixqx3hp6NuJK8mCZalULEHEOemU944EjhfhHEsztk9n/MrXl8dtPiCHCuCh4e4Mw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788295383; c=relaxed/simple;
-	bh=K9qV321kv5/v2NGUIm1euDEutRs79l3TjH4BzWCPGu0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Z2tFOhFHcpBj6+5pu0hd1pMjygSNfNhMRAswdgJcF1CNe4/TDJEvqRbh7exS5YUx3Qrpi1Pe33bpS2/8KgUhRFiLeXGjfQLw/LlcgI0N8o1GXNIuawFV6tiQqeCbOywZ8dXRaArNYDC0ubDZbUZZYFQB7d12AU6MEnqVh1c00lU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VftbaNnY; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788295404; c=relaxed/simple;
+	bh=jBKvXUFM1f0s+hjikahqMP0nXyIuhryvTs8Cm/LcB1g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=o6z6NC3lHNI+4CdCMnDMGCBI1aGzswjOtD/zPC9FDHVtkWUg4gE0iAG3HxdMmUuCpN8/MtzU6Jc0YYlGLFsnOt75+wrINexzNIFT9iifzc4EDptppqSmduRyA2PgNwD0etqHkmoQazXJYqBjwUFZofxp/PAtjQgndutmOYYg9sY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nowcvRCv; arc=none smtp.client-ip=91.218.175.115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VftbaNnY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788295381; x=1819831381;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=K9qV321kv5/v2NGUIm1euDEutRs79l3TjH4BzWCPGu0=;
-  b=VftbaNnYI9srx1CsGRZMCf6exe1bh6xQV+hYjlXv8mR/jeLTFsZPmQMA
-   cifwUs+njqTnLlDxkqDVzOiPsEa7TnDRkSmJl1GvLptQeAOP1kfFKtxw2
-   ouuxd1mwreDEeAITpgqoBCGlHokMmHF38jvh4TkUIgg+O+Il4pKOB1hbl
-   LdghWuNBmQXwJXgX67EAYtjD6anOiB3fKgLrc5cRmYZAvpZsIUKbw728Y
-   Ywdm8bwy3hWC3zX4TnFpiFR2DV2SlKgFBTXf3kV9h8ZBXAvhez1GuYtA3
-   MkS42BGxjZLafFVeDe9es/GOF+OjTO0EAR9W5o69jvIVm6vi8kiYCiE4/
-   A==;
-X-CSE-ConnectionGUID: x5KdIXz5Syql013r554y9Q==
-X-CSE-MsgGUID: MRxAfyS/SIWaz4s9Ptmu5A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="92438518"
-X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
-   d="scan'208";a="92438518"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 13:42:59 -0700
-X-CSE-ConnectionGUID: ++pcQsB3TSuoLZKnh2TbeQ==
-X-CSE-MsgGUID: HrMpB6OZQA2SiJ660uBBMg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
-   d="scan'208";a="269243795"
-Received: from unknown (HELO [10.241.243.185]) ([10.241.243.185])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 13:42:59 -0700
-Message-ID: <06ed8af87506f858176a81a4c29acf92d24b6dc7.camel@linux.intel.com>
-Subject: Re: sched/fair: which tasks should nr_pref_llc_running be compared
- against?
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Chen Yu <chen.yu@linux.dev>
-Cc: Zhan Xusheng <zhanxusheng1024@gmail.com>, yu.c.chen@intel.com, 
-	peterz@infradead.org, mingo@redhat.com, juri.lelli@redhat.com, 
-	vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org, 
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
- kprateek.nayak@amd.com, 	linux-kernel@vger.kernel.org,
- zhanxusheng@xiaomi.com
-Date: Tue, 01 Sep 2026 13:42:58 -0700
-In-Reply-To: <apPnJaUS5vq2f85J@three-body>
-References: <20260827135000.735138-1-zhanxusheng@xiaomi.com>
-	 <59e2b8265fc650266b93d8f523c366edfa912428.camel@linux.intel.com>
-	 <apPnJaUS5vq2f85J@three-body>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nowcvRCv"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=jBKvXUFM1f0s+hjikahqMP0nXyIuhryvTs8Cm/LcB1g=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788295397; v=1; x=1788900197;
+ b=nowcvRCv2q7WbiAYvGa+rJ4eBEDwPUuW5YlqlM456eY7wJvrcvYF9c0JewyzCu+c/N/DSkHU
+ ANv1e+YyrsFEBPzfoCE1tDoGm7bTfJESVVaVfpglf5Xb+eEVTOlXBzoPi80QsNd01T4w+kSi0AA
+ 7WCKpT7iyiVBg2ReevLBufI0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b57c6c0cb33d22b9;
+	Tue, 01 Sep 2026 20:43:07 +0000
+X-Mizu-Trace-ID: b57c6c0cb33d22b9
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <f2f9c32b-589f-4d9d-b42b-c83b435fc821@linux.dev>
+Date: Tue, 1 Sep 2026 13:43:02 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 2/2] selftests: liveupdate: Add selftest for eventfd
+ LUO
+To: Chenghao Duan <duanchenghao@kylinos.cn>, viro@zeniv.linux.org.uk,
+ brauner@kernel.org, jack@suse.cz, linux-fsdevel@vger.kernel.org,
+ pasha.tatashin@soleen.com, linux-kernel@vger.kernel.org, rppt@kernel.org,
+ pratyush@kernel.org, kexec@lists.infradead.org, linux-mm@kvack.org,
+ "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
+Cc: jianghaoran@kylinos.cn
+References: <20260625054946.73445-1-duanchenghao@kylinos.cn>
+ <20260625054946.73445-3-duanchenghao@kylinos.cn>
+From: Zhu Yanjun <yanjun.zhu@linux.dev>
+In-Reply-To: <20260625054946.73445-3-duanchenghao@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sun, 2026-08-30 at 16:17 +0800, Chen Yu wrote:
-> On Thu, Aug 27, 2026 at 01:57:33PM -0700, Tim Chen wrote:
-> > On Thu, 2026-08-27 at 21:50 +0800, Zhan Xusheng wrote:
-> > Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
-> > ---
-> >  kernel/sched/fair.c | 45 ++++++++++++++++++++++++++++++++++++++++++++-
-> >  1 file changed, 44 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> > index d78467ec6ee1..1673b17273c5 100644
-> > --- a/kernel/sched/fair.c
-> > +++ b/kernel/sched/fair.c
-> > @@ -1544,7 +1544,14 @@ static void account_llc_dequeue(struct rq *rq, s=
-truct task_struct *p)
-> > =20
-> >  	rq->nr_llc_running--;
-> >  	if (p->pref_llc_queued) {
-> > -		rq->nr_pref_llc_running--;
-> > +		/*
-> > +		 * If the task is being finally dequeued while still delayed,
-> > +		 * set_delayed() already removed it from nr_pref_llc_running;
-> > +		 * skip here to avoid underflow. Clearing pref_llc_queued also
-> > +		 * stops the subsequent clear_delayed() from re-adding it.
-> > +		 */
-> > +		if (!p->se.sched_delayed)
-> > +			rq->nr_pref_llc_running--;
->=20
-> Should we also do similar check in account_llc_enqueue()? It is possible =
-during
-> load balance migration, a migrate_load allows the task to be migrated acr=
-oss
-> CPUs. And load balance leverages detach_tasks()/attach_tasks() to move ta=
-sks.
-> During this stage the p->se.sched_delayed remained unchanged:
-> In enqueue_task_fair(), only when if (se->on_rq && se->sched_delayed) is =
-true,
-> p->se.sched_delayed will be cleared by requeue_delayed_entity() - during =
-migration,
-> se->on_rq is false.
+在 2026/6/24 22:49, Chenghao Duan 写道:
+> This test verifies the Live Update Orchestrator (LUO) support for
+> preserving eventfd file descriptors across kexec. It creates multiple
+> LUO sessions, each preserving different eventfd types, and verifies
+> their state after kexec.
+> 
+> The test covers six different eventfd configurations:
+> 1. **Empty eventfd** - Zero count, default flags
+>     - Verifies flag preservation without behavioral testing
+> 2. **Default eventfd** - Initial count + write, verifies count preservation
+>     - Tests basic counter value retention across kexec
+> 3. **Semaphore eventfd** - EFD_SEMAPHORE flag, multiple reads
+>     - Verifies semaphore behavior (returns 1 per read)
+> 4. **Non-blocking eventfd** - EFD_NONBLOCK flag
+>     - Tests O_NONBLOCK flag preservation
+> 5. **Large-count eventfd** - UINT_MAX count value
+>     - Tests handling of maximum counter values
+> 6. **Modified-after-preserve** - Count changed during handover
+>     - Verifies freeze callback captures final state
+> 
+> The test validates the following sequence:
+> 
+> Stage 1 (pre-kexec):
+> - Creates state file for inter-stage communication
+> - Creates multiple LUO sessions
+> - Preserves eventfds with different configurations
+> - Trigger kexec reboot
+> 
+> Stage 2 (post-kexec):
+> - Retrieves preserved eventfd sessions
+> - Verifies flags and counter values for each type
+> - Tests semaphore read behavior
+> - Finalizes all sessions
+> 
+> Signed-off-by: Chenghao Duan <duanchenghao@kylinos.cn>
+> ---
+>   tools/testing/selftests/liveupdate/Makefile   |   1 +
+>   tools/testing/selftests/liveupdate/config     |   2 +
+>   .../selftests/liveupdate/luo_test_eventfd.c   | 376 ++++++++++++++++++
+>   3 files changed, 379 insertions(+)
+>   create mode 100644 tools/testing/selftests/liveupdate/luo_test_eventfd.c
+> 
+> diff --git a/tools/testing/selftests/liveupdate/Makefile b/tools/testing/selftests/liveupdate/Makefile
+> index 30689d22cb02..e092e38fa6f6 100644
+> --- a/tools/testing/selftests/liveupdate/Makefile
+> +++ b/tools/testing/selftests/liveupdate/Makefile
+> @@ -8,6 +8,7 @@ TEST_GEN_PROGS_EXTENDED += luo_kexec_simple
+>   TEST_GEN_PROGS_EXTENDED += luo_multi_session
+>   TEST_GEN_PROGS_EXTENDED += luo_stress_sessions
+>   TEST_GEN_PROGS_EXTENDED += luo_stress_files
+> +TEST_GEN_PROGS_EXTENDED += luo_test_eventfd
+>   
+>   TEST_FILES += do_kexec.sh
+>   
+> diff --git a/tools/testing/selftests/liveupdate/config b/tools/testing/selftests/liveupdate/config
+> index 91d03f9a6a39..d388bd755245 100644
+> --- a/tools/testing/selftests/liveupdate/config
+> +++ b/tools/testing/selftests/liveupdate/config
+> @@ -9,3 +9,5 @@ CONFIG_LIVEUPDATE_TEST=y
+>   CONFIG_MEMFD_CREATE=y
+>   CONFIG_TMPFS=y
+>   CONFIG_SHMEM=y
+> +CONFIG_EVENTFD=y
+> +CONFIG_LIVEUPDATE_EVENTFD=y
+> diff --git a/tools/testing/selftests/liveupdate/luo_test_eventfd.c b/tools/testing/selftests/liveupdate/luo_test_eventfd.c
+> new file mode 100644
+> index 000000000000..94ef3bc66ad9
+> --- /dev/null
+> +++ b/tools/testing/selftests/liveupdate/luo_test_eventfd.c
+> @@ -0,0 +1,376 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2026 KylinSoft Corporation.
+> + * Author: Chenghao Duan <duanchenghao@kylinos.cn>
+> + */
+> +
+> +/*
+> + * Multi-session kexec selftest for eventfd LUO support.
+> + *
+> + * Modeled after luo_multi_session.c.
+> + * It creates multiple LUO sessions, each preserving different eventfd types,
+> + * and verifies them after kexec.
+> + */
+> +
+> +#include <errno.h>
+> +#include <fcntl.h>
+> +#include <limits.h>
+> +#include <stdint.h>
+> +#include <stdio.h>
+> +#include <stdlib.h>
+> +#include <string.h>
+> +#include <sys/eventfd.h>
+> +#include <sys/ioctl.h>
+> +#include <unistd.h>
+> +
+> +#include "luo_test_utils.h"
 
-Yes, you're right.  We should extend the sched_delayed check also to enqueu=
-e.
+luo_test_utils.h should be libliveupdate.h since the commit df1a0d068d48 
+selftests/liveupdate: Move luo_test_utils.* into a reusable library
 
->=20
-> As a result, attach_tasks -> enqueue_hierarchy -> enqueue_entity -> accou=
-nt_llc_enqueue(rq, p)
-> incorrectly increase rq->nr_pref_llc_running - even that task is in delay=
-ed state, and
-> not runnable.
->=20
-> >  		/*
-> >  		 * Update the status in case
-> >  		 * other logic might query
-> > @@ -1572,6 +1579,24 @@ static void account_llc_dequeue(struct rq *rq, s=
-truct task_struct *p)
-> >  	}
-> >  }
-> > =20
-> > +/*
-> > + * A task becoming delay-dequeued leaves the runnable set while stayin=
-g
-> > + * queued. Keep nr_pref_llc_running in the runnable domain (like
-> > + * h_nr_runnable) so alb_break_llc() can compare the two directly.
-> > + */
-> >=20
->=20
-> Regarding alb_break_llc(), since we have compared nr_pref_llc_running vs=
-=20
-> nr_runnable, I wonder if we should also change the code?
-> 	if (env->src_rq->nr_pref_llc_running &&
->  	    env->src_rq->nr_pref_llc_running =3D=3D env->src_rq->cfs.h_nr_runna=
-ble)
-> 		unsigned long util =3D 0;
-> 		struct task_struct *cur;
-> =20
->                 if (env->src_rq->cfs.h_nr_runnable <=3D 1)
->                         return true;
+Yanjun.Zhu
 
-We already know that there is at least a cfs running task
-preferring src LLC.
-
-And if there is only 1 running task, (i.e. env->src_rq->nr_running <=3D 1)
-then env->src_rq->>cfs.h_nr_runnable should be also 1 here. So switching
-the check to use cfs.h_nr_runnable should have the same effect.
-
-So I'll leave that change out for now.
-
-The patch is updated as below.  Chen Yu and Xusheng,
-please add your reviewed by if the updated patch looks good.
-
-Thanks.
-
-Tim
-
----
-From 05d33ae88ba1348ec53ede00c405e1100747f028 Mon Sep 17 00:00:00 2001
-Message-Id: <05d33ae88ba1348ec53ede00c405e1100747f028.1788294281.git.tim.c.=
-chen@linux.intel.com>
-From: Tim Chen <tim.c.chen@linux.intel.com>
-Date: Thu, 27 Aug 2026 11:20:31 -0700
-Subject: [PATCH v2] sched/cache: Keep nr_pref_llc_running in the runnable d=
-omain
-
-alb_break_llc() decides whether to break LLC preference during active
-load balance. It does so by testing that every runnable fair task on the
-source rq prefers its LLC:
-
-	env->src_rq->nr_pref_llc_running =3D=3D env->src_rq->cfs.h_nr_runnable
-
-But the two counters cover different sets. nr_pref_llc_running is updated
-in account_llc_enqueue()/account_llc_dequeue(), next to cfs_rq->nr_queued,
-so it follows queued tasks. h_nr_runnable is updated in set_delayed()/
-clear_delayed() and drops delay-dequeued tasks.
-
-So under DELAY_DEQUEUE, a preferring task that goes to sleep stays counted
-in nr_pref_llc_running while h_nr_runnable falls. The equality then breaks,
-alb_break_llc() returns false, and active balance is free to pull a task
-off its preferred LLC. Active balance only moves runnable tasks, and this
-is the only LLC check it consults: once the stopper runs, LBF_ACTIVE_LB
-skips the per-task test in can_migrate_task(). The runnable set is the one
-we want.
-
-Fix it on the counter side. Adjust nr_pref_llc_running in set_delayed()
-and clear_delayed(), the same places that adjust h_nr_runnable, so both
-exclude delayed tasks.
-
-This needs care to not count a task twice. set_delayed() removes the task
-from nr_pref_llc_running when it sleeps. Later, when the task is really
-dequeued, dequeue_entity() calls account_llc_dequeue() and then
-clear_delayed(). Left as is, account_llc_dequeue() would remove the task a
-second time and clear_delayed() would add it back. So account_llc_dequeue()
-skips its decrement while the task is still delayed, and clears
-pref_llc_queued so clear_delayed() also leaves the count alone.
-nr_llc_running and sd->llc_counts are not touched and stay on queued
-semantics.
-
-Reported-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-Suggested-by: Chen Yu <yu.c.chen@intel.com>
-Assisted-By: claude-opus-4.8
-Signed-off-by: Tim Chen <tim.c.chen@linux.intel.com>
----
-Changes in v2:
-- Prevent delay dequeued task from counted as running task in enqueue
-  operation.
----
- kernel/sched/fair.c | 53 +++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 51 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 8dff37059faf..84c068f1deec 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -1549,7 +1549,13 @@ static void account_llc_enqueue(struct rq *rq, struc=
-t task_struct *p)
-=20
- 	pref_llc_queued =3D (pref_llc =3D=3D task_llc(p));
- 	rq->nr_llc_running++;
--	rq->nr_pref_llc_running +=3D pref_llc_queued;
-+	/*
-+	 * If the task is being migrated while delay dequeued, keep it out
-+	 * of the runnable-domain nr_pref_llc_running; clear_delayed() ->
-+	 * account_llc_requeue_delayed() re-adds it when it wakes.
-+	 */
-+	if (!p->se.sched_delayed)
-+		rq->nr_pref_llc_running +=3D pref_llc_queued;
-=20
- 	/*
- 	 * Record whether p is enqueued on its preferred
-@@ -1583,7 +1589,14 @@ static void account_llc_dequeue(struct rq *rq, struc=
-t task_struct *p)
-=20
- 	rq->nr_llc_running--;
- 	if (p->pref_llc_queued) {
--		rq->nr_pref_llc_running--;
-+		/*
-+		 * If the task is being finally dequeued while still delayed,
-+		 * set_delayed() already removed it from nr_pref_llc_running;
-+		 * skip here to avoid underflow. Clearing pref_llc_queued also
-+		 * stops the subsequent clear_delayed() from re-adding it.
-+		 */
-+		if (!p->se.sched_delayed)
-+			rq->nr_pref_llc_running--;
- 		/*
- 		 * Update the status in case
- 		 * other logic might query
-@@ -1611,6 +1624,24 @@ static void account_llc_dequeue(struct rq *rq, struc=
-t task_struct *p)
- 	}
- }
-=20
-+/*
-+ * A task becoming delay-dequeued leaves the runnable set while staying
-+ * queued. Keep nr_pref_llc_running in the runnable domain (like
-+ * h_nr_runnable) so alb_break_llc() can compare the two directly.
-+ */
-+static void account_llc_delayed(struct rq *rq, struct task_struct *p)
-+{
-+	if (p->pref_llc_queued)
-+		rq->nr_pref_llc_running--;
-+}
-+
-+/* A delay-dequeued task becoming runnable again rejoins the count. */
-+static void account_llc_requeue_delayed(struct rq *rq, struct task_struct =
-*p)
-+{
-+	if (p->pref_llc_queued)
-+		rq->nr_pref_llc_running++;
-+}
-+
- void mm_init_sched(struct mm_struct *mm,
- 		   struct sched_cache_time __percpu *_pcpu_sched)
- {
-@@ -2008,6 +2039,10 @@ static void account_llc_enqueue(struct rq *rq, struc=
-t task_struct *p) {}
-=20
- static void account_llc_dequeue(struct rq *rq, struct task_struct *p) {}
-=20
-+static void account_llc_delayed(struct rq *rq, struct task_struct *p) {}
-+
-+static void account_llc_requeue_delayed(struct rq *rq, struct task_struct =
-*p) {}
-+
- #endif /* CONFIG_SCHED_CACHE */
-=20
- /*
-@@ -6392,6 +6427,13 @@ static void set_delayed(struct sched_entity *se)
- 	if (!entity_is_task(se))
- 		return;
-=20
-+	/*
-+	 * A delayed task is queued but no longer runnable. Drop it from
-+	 * nr_pref_llc_running so that counter keeps runnable semantics and
-+	 * stays comparable with h_nr_runnable in alb_break_llc().
-+	 */
-+	account_llc_delayed(rq_of(cfs_rq_of(se)), task_of(se));
-+
- 	for_each_sched_entity(se) {
- 		struct cfs_rq *cfs_rq =3D cfs_rq_of(se);
-=20
-@@ -6412,6 +6454,13 @@ static void clear_delayed(struct sched_entity *se)
- 	if (!entity_is_task(se))
- 		return;
-=20
-+	/*
-+	 * Re-add on wake (requeue_delayed_entity). On the final delayed
-+	 * dequeue, account_llc_dequeue() has already cleared pref_llc_queued,
-+	 * so this correctly does nothing.
-+	 */
-+	account_llc_requeue_delayed(rq_of(cfs_rq_of(se)), task_of(se));
-+
- 	for_each_sched_entity(se) {
- 		struct cfs_rq *cfs_rq =3D cfs_rq_of(se);
-=20
---=20
-2.32.0
-
-
+> +
+> +/* Session names */
+> +#define SESSION_EMPTY     "eventfd-empty"
+> +#define SESSION_DEFAULT   "eventfd-default"
+> +#define SESSION_SEM       "eventfd-sem"
+> +#define SESSION_NONBLOCK  "eventfd-nonblock"
+> +#define SESSION_LARGE     "eventfd-large"
+> +#define SESSION_MODIFIED  "eventfd-modified-after-preserve"
+> +
+> +/* Tokens */
+> +#define TOKEN_DEFAULT       0xCAFEBABE
+> +#define TOKEN_SEM           0xDEADBEEF
+> +#define TOKEN_NONBLOCK      0xFEEDBEEF
+> +#define TOKEN_LARGE         0xBEEFCAFE
+> +#define TOKEN_MODIFIED      0xABCD1234
+> +
+> +/* Counts */
+> +#define COUNT_INITIAL   42
+> +#define COUNT_WRITE     10
+> +#define COUNT_EXPECTED  (COUNT_INITIAL + COUNT_WRITE) /* 52 */
+> +#define COUNT_SEM       5
+> +#define COUNT_NONBLOCK  100
+> +#define COUNT_LARGE     ((unsigned int)-1) /* UINT_MAX */
+> +#define COUNT_MODIFIED  25
+> +#define COUNT_MODIFY_DELTA  99
+> +
+> +/* State tracking */
+> +#define STATE_SESSION_NAME "eventfd_multi_state"
+> +#define STATE_TOKEN        997
+> +
+> +/* Eventfd verification modes */
+> +enum verify_mode {
+> +	VERIFY_FLAGS,        /* Only verify flags, no behavior testing */
+> +	VERIFY_ONCE,         /* Read once and verify count */
+> +	VERIFY_SEMAPHORE,    /* Read multiple times, verify returns 1 each time */
+> +	VERIFY_NONBLOCK,     /* Read once in nonblock mode */
+> +	VERIFY_LARGE         /* Read once, verify large count */
+> +};
+> +
+> +/* Test session configuration */
+> +struct test_session_config {
+> +	const char *session_name;
+> +	unsigned long token;
+> +	unsigned int count;
+> +	unsigned int flags;
+> +	enum verify_mode verify_mode;
+> +	const char *desc;
+> +};
+> +
+> +/* Test session configurations */
+> +static const struct test_session_config test_configs[] = {
+> +	{SESSION_EMPTY, 0, 0, 0, VERIFY_FLAGS, "Empty"},
+> +	{SESSION_DEFAULT, TOKEN_DEFAULT, COUNT_EXPECTED, 0, VERIFY_ONCE, "Default"},
+> +	{SESSION_SEM, TOKEN_SEM, COUNT_SEM, EFD_SEMAPHORE, VERIFY_SEMAPHORE, "Semaphore"},
+> +	{SESSION_NONBLOCK, TOKEN_NONBLOCK, COUNT_NONBLOCK, EFD_NONBLOCK, VERIFY_NONBLOCK, "Nonblock"},
+> +	{SESSION_LARGE, TOKEN_LARGE, COUNT_LARGE, 0, VERIFY_LARGE, "Large-count"},
+> +	{SESSION_MODIFIED, TOKEN_MODIFIED, COUNT_MODIFIED + COUNT_MODIFY_DELTA, 0, VERIFY_ONCE, "Modified after preserve (kexec handover)"},
+> +};
+> +#define NUM_TEST_SESSIONS ARRAY_SIZE(test_configs)
+> +
+> +static int verify_eventfd_flags(int efd, unsigned int expected_flags, const char *desc)
+> +{
+> +	int actual_flags = fcntl(efd, F_GETFL);
+> +
+> +	if (actual_flags < 0)
+> +		return -errno;
+> +
+> +	int expected_fd_flags = expected_flags & (EFD_NONBLOCK | EFD_CLOEXEC);
+> +	int actual_fd_flags = actual_flags & (O_NONBLOCK | O_CLOEXEC);
+> +
+> +	if (actual_fd_flags != expected_fd_flags) {
+> +		ksft_print_msg("%s: flag mismatch - expected 0x%x, got 0x%x\n",
+> +			       desc, expected_fd_flags, actual_fd_flags);
+> +		return -EINVAL;
+> +	}
+> +
+> +	ksft_print_msg("  %s eventfd flags OK (0x%x)\n", desc, expected_fd_flags);
+> +	return actual_flags; /* Return actual flags for further use */
+> +}
+> +
+> +static int ensure_nonblock(int efd, int current_flags)
+> +{
+> +	return fcntl(efd, F_SETFL, current_flags | O_NONBLOCK);
+> +}
+> +
+> +static int verify_count_once(int efd, unsigned int expected_count, const char *desc)
+> +{
+> +	uint64_t val;
+> +
+> +	if (read(efd, &val, sizeof(val)) != sizeof(val))
+> +		return -errno;
+> +
+> +	if (val != (uint64_t)expected_count) {
+> +		ksft_print_msg("%s: expected %u got %llu\n",
+> +			       desc, expected_count, (unsigned long long)val);
+> +		return -EINVAL;
+> +	}
+> +
+> +	ksft_print_msg("  %s eventfd OK: %u\n", desc, expected_count);
+> +	return 0;
+> +}
+> +
+> +static int verify_semaphore_behavior(int efd, unsigned int expected_count, const char *desc)
+> +{
+> +	uint64_t val;
+> +
+> +	/* Read expected_count times, each should return 1 */
+> +	for (unsigned int i = 0; i < expected_count; i++) {
+> +		if (read(efd, &val, sizeof(val)) != sizeof(val))
+> +			return -errno;
+> +
+> +		if (val != 1) {
+> +			ksft_print_msg("%s: expected 1, got %llu at read %u\n",
+> +				       desc, (unsigned long long)val, i + 1);
+> +			return -EINVAL;
+> +		}
+> +		ksft_print_msg("  %s eventfd OK: %u at read %u\n", desc, (unsigned int)val, i + 1);
+> +	}
+> +
+> +	/* Next read should return EAGAIN (no more events) */
+> +	if (read(efd, &val, sizeof(val)) >= 0 || errno != EAGAIN) {
+> +		ksft_print_msg("%s: expected EAGAIN after %u reads\n",
+> +			       desc, expected_count);
+> +		return -EINVAL;
+> +	}
+> +
+> +	ksft_print_msg("  %s eventfd OK (%u reads)\n", desc, expected_count);
+> +	return 0;
+> +}
+> +
+> +static int restore_and_verify_eventfd_generic(int session_fd,
+> +					      unsigned long token,
+> +					      unsigned int expected_count,
+> +					      unsigned int expected_flags,
+> +					      enum verify_mode mode,
+> +					      const char *desc)
+> +{
+> +	struct liveupdate_session_retrieve_fd arg = { .size = sizeof(arg) };
+> +	int efd, ret = 0, actual_flags;
+> +
+> +	arg.token = token;
+> +	if (ioctl(session_fd, LIVEUPDATE_SESSION_RETRIEVE_FD, &arg) < 0)
+> +		return -errno;
+> +	efd = arg.fd;
+> +
+> +	switch (mode) {
+> +	case VERIFY_FLAGS:
+> +		/* Only verify flags, no behavior testing */
+> +		ret = verify_eventfd_flags(efd, expected_flags, desc);
+> +		if (ret < 0)
+> +			close(efd);
+> +		return ret < 0 ? ret : 0;
+> +
+> +	case VERIFY_SEMAPHORE:
+> +		/* Verify flags + semaphore behavior */
+> +		actual_flags = verify_eventfd_flags(efd, expected_flags, desc);
+> +		if (actual_flags < 0) {
+> +			ret = actual_flags;
+> +			goto out;
+> +		}
+> +
+> +		if (ensure_nonblock(efd, actual_flags) < 0) {
+> +			ret = -errno;
+> +			goto out;
+> +		}
+> +
+> +		ret = verify_semaphore_behavior(efd, expected_count, desc);
+> +		break;
+> +
+> +	case VERIFY_ONCE:
+> +	case VERIFY_NONBLOCK:
+> +	case VERIFY_LARGE:
+> +		/* Verify flags + count behavior */
+> +		actual_flags = verify_eventfd_flags(efd, expected_flags, desc);
+> +		if (actual_flags < 0) {
+> +			ret = actual_flags;
+> +			goto out;
+> +		}
+> +
+> +		ret = verify_count_once(efd, expected_count, desc);
+> +		break;
+> +
+> +	default:
+> +		ret = -EINVAL;
+> +		break;
+> +	}
+> +
+> +out:
+> +	close(efd);
+> +	return ret;
+> +}
+> +
+> +static int create_and_preserve_eventfd_keep_fd(int session_fd,
+> +					       unsigned long token,
+> +					       unsigned int count,
+> +					       unsigned int flags,
+> +					       const char *desc,
+> +					       int *efd_out)
+> +{
+> +	struct liveupdate_session_preserve_fd arg = { .size = sizeof(arg) };
+> +	int efd = eventfd(count, flags);
+> +
+> +	if (efd < 0)
+> +		return -errno;
+> +
+> +	arg.fd = efd;
+> +	arg.token = token;
+> +	if (ioctl(session_fd, LIVEUPDATE_SESSION_PRESERVE_FD, &arg) < 0) {
+> +		int ret = -errno;
+> +
+> +		close(efd);
+> +		return ret;
+> +	}
+> +
+> +	if (efd_out)
+> +		*efd_out = efd;
+> +	else
+> +		close(efd);
+> +	return 0;
+> +}
+> +
+> +static int create_and_preserve_eventfd(int session_fd,
+> +				       unsigned long token,
+> +				       unsigned int count,
+> +				       unsigned int flags,
+> +				       const char *desc)
+> +{
+> +	return create_and_preserve_eventfd_keep_fd(session_fd, token, count,
+> +						   flags, desc, NULL);
+> +}
+> +
+> +static int create_session_checked(int luo_fd, const char *session_name)
+> +{
+> +	int session_fd = luo_create_session(luo_fd, session_name);
+> +
+> +	if (session_fd < 0)
+> +		fail_exit("luo_create_session for '%s'", session_name);
+> +	return session_fd;
+> +}
+> +
+> +static int retrieve_session_checked(int luo_fd, const char *session_name)
+> +{
+> +	int session_fd = luo_retrieve_session(luo_fd, session_name);
+> +
+> +	if (session_fd < 0)
+> +		fail_exit("luo_retrieve_session for '%s'", session_name);
+> +	return session_fd;
+> +}
+> +
+> +static void finish_session_checked(int session_fd, const char *session_name)
+> +{
+> +	if (luo_session_finish(session_fd) < 0)
+> +		fail_exit("luo_session_finish for '%s'", session_name);
+> +	close(session_fd);
+> +}
+> +
+> +static int verify_eventfd_config(int session_fd, const struct test_session_config *config)
+> +{
+> +	return restore_and_verify_eventfd_generic(session_fd, config->token,
+> +						 config->count, config->flags,
+> +						 config->verify_mode, config->desc);
+> +}
+> +
+> +
+> +static void run_stage_1(int luo_fd)
+> +{
+> +	ksft_print_msg("[STAGE 1] Starting pre-kexec setup for multi-eventfd test...\n");
+> +	ksft_print_msg("[STAGE 1] Creating state file for next stage (2)...\n");
+> +	create_state_file(luo_fd, STATE_SESSION_NAME, STATE_TOKEN, 2);
+> +
+> +	/* Create all test sessions */
+> +	for (size_t i = 0; i < NUM_TEST_SESSIONS; i++) {
+> +		const struct test_session_config *config = &test_configs[i];
+> +
+> +		ksft_print_msg("[STAGE 1] Creating session '%s'...\n", config->session_name);
+> +		int session_fd = create_session_checked(luo_fd, config->session_name);
+> +
+> +		/* Special handling for modified session (preserve then modify) */
+> +		if (config->token == TOKEN_MODIFIED) {
+> +			int preserved_efd;
+> +
+> +			if (create_and_preserve_eventfd_keep_fd(session_fd,
+> +								config->token,
+> +								COUNT_MODIFIED,
+> +								config->flags,
+> +								"modified-after-preserve",
+> +								&preserved_efd) < 0)
+> +				fail_exit("create_and_preserve_eventfd_keep_fd modified");
+> +
+> +			/* Now modify the preserved eventfd's count */
+> +			uint64_t modify_value = COUNT_MODIFY_DELTA;
+> +
+> +			if (write(preserved_efd, &modify_value,
+> +			    sizeof(modify_value)) != sizeof(modify_value))
+> +				fail_exit("write to preserved eventfd after preserve");
+> +
+> +			close(preserved_efd);
+> +		} else {
+> +			/* Standard session creation */
+> +			if (create_and_preserve_eventfd(session_fd, config->token,
+> +							config->count, config->flags,
+> +							config->desc) < 0)
+> +				fail_exit("create_and_preserve_eventfd %s", config->desc);
+> +		}
+> +	}
+> +
+> +	close(luo_fd);
+> +	daemonize_and_wait();
+> +}
+> +
+> +static void run_stage_2(int luo_fd, int state_session_fd)
+> +{
+> +	int session_fds[NUM_TEST_SESSIONS];
+> +	int stage;
+> +
+> +	ksft_print_msg("[STAGE 2] Starting post-kexec verification...\n");
+> +
+> +	restore_and_read_stage(state_session_fd, STATE_TOKEN, &stage);
+> +	if (stage != 2)
+> +		fail_exit("Expected stage 2, but state file contains %d", stage);
+> +
+> +	ksft_print_msg("[STAGE 2] Retrieving all sessions...\n");
+> +	for (size_t i = 0; i < NUM_TEST_SESSIONS; i++)
+> +		session_fds[i] = retrieve_session_checked(luo_fd, test_configs[i].session_name);
+> +
+> +	ksft_print_msg("[STAGE 2] Verifying eventfds...\n");
+> +	for (size_t i = 0; i < NUM_TEST_SESSIONS; i++) {
+> +		if (verify_eventfd_config(session_fds[i], &test_configs[i]) < 0)
+> +			fail_exit("verify %s eventfd", test_configs[i].desc);
+> +	}
+> +
+> +	ksft_print_msg("[STAGE 2] All eventfd sessions verified successfully.\n");
+> +
+> +	ksft_print_msg("[STAGE 2] Finalizing all sessions...\n");
+> +	for (size_t i = 0; i < NUM_TEST_SESSIONS; i++)
+> +		finish_session_checked(session_fds[i], test_configs[i].session_name);
+> +
+> +	ksft_print_msg("[STAGE 2] Finalizing state session...\n");
+> +	if (luo_session_finish(state_session_fd) < 0)
+> +		fail_exit("luo_session_finish for state session");
+> +	close(state_session_fd);
+> +
+> +	ksft_print_msg("\n--- EVENTFD_LUO TEST PASSED ---\n");
+> +}
+> +
+> +int main(int argc, char *argv[])
+> +{
+> +	return luo_test(argc, argv, STATE_SESSION_NAME,
+> +			run_stage_1, run_stage_2);
+> +}
 
