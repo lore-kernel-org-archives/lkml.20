@@ -1,102 +1,99 @@
-Received: from out30-101.freemail.mail.aliyun.com (out30-101.freemail.mail.aliyun.com [115.124.30.101])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB8E382281
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:51:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D8B32C8B;
+	Tue,  1 Sep 2026 06:51:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788245465; cv=none; b=FNsXqQgZMEpaEubWtl9vGNwpYqt68/wblOWfR4YCvHr5DSBRs/W/cRDde9Nk3xhjUQakzWgbTieVW6LeJ1AA/Vjt5bXlZ9skwFF52WRzmuW8qYG6Dje2nhsqQF3Dh+inE2y8/20S+EodU3eqZi7DFNAqAAyVoORyIXAOgvOiDGQ=
+	t=1788245506; cv=none; b=aKr+e8uNjuTrVVk0IgLc5AUbXkhF03S/g5Cqn38mZAnNq+xSWW+a6cY1sD3IY/ABAkCIIFM7ki+lu17lpK27OrsCinyI6ElsT7li1gJWEF24fd9juMO+vMROfxmMxPFL2JZIyWo3LfJ8pAusOF9bpARcgOhLSXRxmOxoERr+gwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788245465; c=relaxed/simple;
-	bh=vccdml3Gx5UYhkiDMlgryGSZgbpoUs2zfDs5PCxuhkQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iAL4h7Uf9NsUl0fnuhC9mS/PtTJBwf76eO7TS4GeQHNr/Edq2IrPMRIS93medn3Qgvjll4YRWLzNETXy+QkgO9ALRV/uqKKuLwseR1ISZa7mG2MnnRprkTFHPnmT1iy+ZmTpaS6gS22BLJ5OSytHfPVDAMOAxmiX9PZcM/c9Gac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=BQONdtUX; arc=none smtp.client-ip=115.124.30.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788245506; c=relaxed/simple;
+	bh=EubD39YqsL7iOOzLVbICCurKyiXRQOqe+nNODXJleUU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=un8y72QqO9hqDuDMekI2GYzf3z/YqkMAf1e+s0v9zo7MUzO8/uDIjGY1mVcE/ER6DaeK1ODRgoPJ+tnIEmeM1f+Plv+ufVwGtWAvdl58EeWVtvq1bmAugKkXxkVxX3qDh/gadADmPY5gVYNhTx0wPfnc3ujMY8v7FvsLL7YRlik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lpIE3eNB; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="BQONdtUX"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788245453; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=rf4WK0KdwAQ6jr0zJzFS4FpQKho5BAQcjv37Xsync5k=;
-	b=BQONdtUXvOwZz9kI5RfwFFsTNCqE4b5P+VPTQc7NkFKnH+ZhZZAo/WqF/SyTIRnhfeg7NkyhuuQ1BqimTn5Edb9VZo42t6bupwwxctj4hABxDoowNh5/YwNEGZfy0ElxzXFIfJZLFfIkrt4P4oWnUIfhMDAPNbgTM5wve6MYDOs=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R191e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0XA4XWTg_1788245451;
-Received: from banye.tbsite.net(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XA4XWTg_1788245451 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 01 Sep 2026 14:50:52 +0800
-From: Qinyun Tan <qinyuntan@linux.alibaba.com>
-To: dri-devel@lists.freedesktop.org
-Cc: tzimmermann@suse.de,
-	airlied@redhat.com,
-	jfalempe@redhat.com,
-	kraxel@redhat.com,
-	dmitry.osipenko@collabora.com,
-	hansg@kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	simona@ffwll.ch,
-	leandro.ribeiro@collabora.com,
-	daniels@collabora.com,
-	pekka.paalanen@collabora.com,
-	virtualization@lists.linux.dev,
-	spice-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Qinyun Tan <qinyuntan@linux.alibaba.com>
-Subject: [PATCH 3/4] drm/virtio: create blend mode property on cursor plane
-Date: Tue,  1 Sep 2026 14:50:44 +0800
-Message-ID: <20260901065045.1152136-4-qinyuntan@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260901065045.1152136-1-qinyuntan@linux.alibaba.com>
-References: <20260901065045.1152136-1-qinyuntan@linux.alibaba.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lpIE3eNB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788245504; x=1819781504;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=EubD39YqsL7iOOzLVbICCurKyiXRQOqe+nNODXJleUU=;
+  b=lpIE3eNB7AdH2Lm1i4+7+VLDDiY/Yg33xNgJJWvBkM9vDQpZXTIATzCp
+   /8vjtmeG4bPb3gsK5Ui1Lw8gRJbHVtNBsOUVrs9okywBiKW3JDq1ZgiZ7
+   t2tAv2AjTZx/kroio0R6WxL/2SZ0/WwQxxmvLYwFbME2eUuKB22UV28Zm
+   DzYp4W0sygztQjK5rydfdml+os9xEf3cdYGAz3oRDm0lkvD+QfF7/k1YQ
+   qG3HnNQta++/CjCRrmNa3Gc/gwLssMmv+9AjTLXoykMbNWPi/B0mKGHY8
+   8Y8+WO5kTySSTr1wNwoL/uN/o+NzKCbdn1BydxurRvxBNgAs6rwYJfWcy
+   w==;
+X-CSE-ConnectionGUID: 7Dl+bIRcR4SvpMIM9+ElAQ==
+X-CSE-MsgGUID: YZbM4usdQj+CDzNPP2W9rA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88674813"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="88674813"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 23:51:44 -0700
+X-CSE-ConnectionGUID: I50rmJ/JR1ad/nMsiPk4PQ==
+X-CSE-MsgGUID: lhmhMWZmRouPT7A4jFAoTQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="264723559"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.222])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 23:51:41 -0700
+Date: Tue, 1 Sep 2026 09:51:39 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: David Lechner <dlechner@baylibre.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Chris Hall <c-hall@ti.com>,
+	Patrick Edwards <pedwards@ti.com>, Kurt Borja <kuurtb@gmail.com>,
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] iio: adc: ti-ads112c14: add burnout current
+ support
+Message-ID: <apZ1-9WHcIynqmXS@ashevche-desk.local>
+References: <20260827-iio-adc-ti-ads112c14-burnout-v2-0-00a1fab9e2d1@baylibre.com>
+ <20260827-iio-adc-ti-ads112c14-burnout-v2-1-00a1fab9e2d1@baylibre.com>
+ <apE7BEGrIzJd1_zx@ashevche-desk.local>
+ <70c2d36d-b079-411f-a454-a62061e395cf@baylibre.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <70c2d36d-b079-411f-a454-a62061e395cf@baylibre.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Since commit 860e748bddcc ("drm: ensure blend mode supported if pixel
-format with alpha exposed"), drm_mode_config_validate() warns when a
-plane exposes an alpha pixel format but not the "pixel blend mode"
-property. The virtio-gpu cursor plane (HOST_ARGB8888) trips this.
+On Mon, Aug 31, 2026 at 04:14:47PM -0500, David Lechner wrote:
+> On 8/28/26 2:38 AM, Andy Shevchenko wrote:
+> > On Thu, Aug 27, 2026 at 05:27:02PM -0500, David Lechner (TI) wrote:
 
-The cursor has always blended with pre-multiplied alpha and userspace
-assumes that blend mode when the property is not attached. Expose a
-"pixel blend mode" property advertising only DRM_MODE_BLEND_PREMULTI
-to make the existing semantics explicit and silence the warning. The
-primary plane only exposes HOST_XRGB8888, so the call is gated to the
-cursor. No functional change.
+...
 
-Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
-Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
----
- drivers/gpu/drm/virtio/virtgpu_plane.c | 4 ++++
- 1 file changed, 4 insertions(+)
+> >> +				return dev_err_probe(dev, -EINVAL,
+> > 
+> > I would use different error code, EINVAL is abused and overloaded a lot in the
+> > kernel, and basically errors like ENODEV and EINVAL are synonyms to "*an* error"
+> > happened. Unfortunately, reading the errno*.h I haven't found anything better.
+> 
+> There is an error message to disambiguate.
+> > 
+> >> +						     "invalid burn-out-current-nanoamp value\n");
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
-index 1d1b27ece62a7..640815af40980 100644
---- a/drivers/gpu/drm/virtio/virtgpu_plane.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
-@@ -24,6 +24,7 @@
-  */
- 
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_blend.h>
- #include <drm/drm_damage_helper.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_gem_atomic_helper.h>
-@@ -609,6 +610,9 @@ struct drm_plane *virtio_gpu_plane_init(struct virtio_gpu_device *vgdev,
- 
- 	if (type == DRM_PLANE_TYPE_PRIMARY)
- 		drm_plane_enable_fb_damage_clips(plane);
-+	else if (type == DRM_PLANE_TYPE_CURSOR)
-+		drm_plane_create_blend_mode_property(plane,
-+						     BIT(DRM_MODE_BLEND_PREMULTI));
- 
- 	return plane;
- }
+While this is true, there might be the case when it won't help. When the kernel
+is compiled without printk() support and run in production the userspace still
+may decode an error from the number representation. That's why in a tricky cases
+(this one probably not that tricky, but just saying) it's very important to use
+better granularity for the error codes.
+
 -- 
-2.43.7
+With Best Regards,
+Andy Shevchenko
+
 
