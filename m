@@ -1,94 +1,162 @@
-Received: from mta0.migadu.com (out-39.mta0.migadu.com [91.218.175.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 244073793B6
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:44:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B603A7F54;
+	Tue,  1 Sep 2026 12:44:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788266666; cv=none; b=oRwNTWScgxl16jcaG2hLgr68Xrdr3s38x5IpTKgCUqpt8pg+Z5erhekep/b+sMAiSe28SaXOeocxM8RBocL6yZNe+3YIZzTXu7n7pouXPztYbjiHecKzPrHVaa7pySiXO9qnhKnFBNKM7BKt6ht+jLeq41TCe8kG3hRPMCJnIqE=
+	t=1788266671; cv=none; b=tbNe0gK/j1MvN+bGR7+EcAQyij7EqcfNuStbAbLijCeP1GPKUsgJ+8y8vh/pDsXfU12mexaRkuS3U1Z6YC1O++nuAByDz+mu3gjeo+RzX9ROxY6Elx9l5YpOFtqgrmW3cp15h4JuV0p41HWrHoNKuOnhH3B8XV3OIp4joXikOUU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788266666; c=relaxed/simple;
-	bh=4xYToF5MA/xkEqr/sq1dy954cS2PfO//LD1OfNLVaM0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jwogOOnMJ79lITJZcNjH+w7pj42mvQ3DB71r7zWwIcvBhOWvIjoQzkHbjKdsamCYZxSiKyp9jcW6COYiDaIBmyReCuIjlLBvv/0mPmvBStYU2BzgZCRiwcKE9gXoX65THDZEFtGcMBKAwluFIKxEdpbujwShDdUmBWy4IfME7yA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qVJsP0FQ; arc=none smtp.client-ip=91.218.175.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788266671; c=relaxed/simple;
+	bh=lTIFVCbT44JWdCl33pIqGx6hasmFSd29i4Fq3DTtYzM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=qzxrNbm5tZgjPH16m/1oQhHOhvnulZuzLvVUQN32Apyx/68nCPrVVCkZEs9RBlDsohUNh7ibtiFQdvmf6Ikth27rRVZQrzjhMLGRrW7n0kJv9GihAucsGCY7bnIcFIyeHLu41Ed5Jxud7SmlSS746nSAo0dTlpU+790FPFNVXng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RwhOO1V9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qVJsP0FQ"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=4xYToF5MA/xkEqr/sq1dy954cS2PfO//LD1OfNLVaM0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788266662; v=1; x=1788871462;
- b=qVJsP0FQsZ3/CX8gVuA6NowMPsoz17VdmS5lsCIxH3q8zr8ue3QvuKfucP3EiTzlQIlmkgOR
- Mcwtcf2yE8oxpmbCkHOcrklAr5QiQMah1z+K6bD/GlN/YX15kMvvz5GaxJCahMktO0l1qyEZP8W
- f66s/XijNwkiZmG3RitXzOJE=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 69d6713c70f1300e;
-	Tue, 01 Sep 2026 12:44:21 +0000
-X-Mizu-Trace-ID: 69d6713c70f1300e
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: tj@kernel.org,
-	arighi@nvidia.com
-Cc: void@manifault.com,
-	changwoo@igalia.com,
-	michalblk@google.com,
-	sched-ext@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RwhOO1V9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A24501F000E9;
+	Tue,  1 Sep 2026 12:44:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788266670;
+	bh=CR096vE5bRSe+2pGq3qMqD4kNPXWT2kota8/MmZ+zdM=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=RwhOO1V9niebNzIBzf1GvUNR1CzWvh4/WjqQebvqF3FWtC5HvBfKszwHDrpLqG2w8
+	 xJGmLuZqdoscJgf10Vox5kEQC/57oeCFDXCL+sKG7dcs/2Yn1yN9RCTS38JlKx5jq5
+	 Aoz6nm1cXhRzBviRz0gxqcB8OI6drxsMENHk3Ize9ihVMmRnuLu2/eCDmYAjqhekvK
+	 qi/E0VXw5db1xVSPOnv5PtNwBOxabMiIVjDI+vRnQ3/Ima0jyRbHQYEs+OdRCz/eM+
+	 7Sf/O1Gts3gjcnSGfp6DnQrn0ll3+mCB+3NYAUI4V4tyxwu0fnp7r2AMPniOFG9JPC
+	 YTvpgD7hbHWMA==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	cui.tao@linux.dev,
-	Tao Cui <cuitao@kylinos.cn>
-Subject: [PATCH v2] sched_ext: don't deliver duplicate ops.cgroup_set_idle() for same value
-Date: Tue,  1 Sep 2026 20:43:47 +0800
-Message-ID: <20260901124347.755904-1-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	Alexey Kardashevskiy <aik@amd.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Joerg Roedel <joro@8bytes.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Xu Yilun <yilun.xu@linux.intel.com>
+Subject: Re: [RFC PATCH v4 00/16] coco/TSM: Implement host-side support for
+ Arm CCA TDISP setup
+In-Reply-To: <20260831180855.GA2171358@nvidia.com>
+References: <20260427085344.941627-1-aneesh.kumar@kernel.org>
+ <20260831180855.GA2171358@nvidia.com>
+Date: Tue, 01 Sep 2026 18:14:19 +0530
+Message-ID: <yq5aa4q1nnto.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-From: Tao Cui <cuitao@kylinos.cn>
+Jason Gunthorpe <jgg@nvidia.com> writes:
 
-ops.cgroup_set_idle() is documented to be invoked when a cgroup
-transitions between idle and non-idle states, and scx_group_set_weight()
-already skips value-preserving writes. scx_group_set_idle() delivers
-every write unconditionally, so rewriting an already-correct cpu.idle
-value feeds the BPF scheduler a transition callback each time, which
-toggle- or accounting-based schedulers miscount. Mirror the weight
-guard and only deliver on an actual change.
+> On Mon, Apr 27, 2026 at 02:23:28PM +0530, Aneesh Kumar K.V (Arm) wrote:
+>> 
+>> This patch series implements the host-side changes needed for end-to-end
+>> Arm CCA TDISP setup. It adds the RMI/RHI plumbing required to create and
+>> manage Realm vdev objects, service device-attestation object requests, and
+>> complete the KVM/RMM flows needed for device run-time transitions.
+>
+> So this is enough for the realm to see a physical PCI device inside it
+> without any vSMMU inside the realm?
+>
 
-Verified with a probe scheduler printing each callback: rewriting
-cpu.idle=1 twice on an already-idle cgroup delivered two callbacks
-before and none after.
+There are multiple series, and this is the final one:
 
-Fixes: 347ed2d566da ("sched/ext: Implement cgroup_set_idle() callback")
-Link: https://lore.kernel.org/r/b53c61a1-4d7d-4232-941f-d48b0563d4ed@linux.dev
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
-Reviewed-by: Andrea Righi <arighi@nvidia.com>
----
-v1 -> v2: Fix the Link: msgid (missing @linux.dev, Andrea).
+1. arm-cca-guest series
+2. arm-cca-host IDE setup series
+3. iommufd interface for TSM operations
+4. arm-cca-host TDISP support (this series)
 
- kernel/sched/ext/ext.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> It is really weird to see a viommu for a case where there is no
+> viommu..
+>
 
-diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
-index 8041c87a3562..8b3625107b72 100644
---- a/kernel/sched/ext/ext.c
-+++ b/kernel/sched/ext/ext.c
-@@ -4933,7 +4933,8 @@ void scx_group_set_idle(struct task_group *tg, bool idle)
- 	percpu_down_read(&scx_cgroup_ops_rwsem);
- 	sch = scx_tg_knob_sched(tg);
- 
--	if (scx_cgroup_enabled && sch && SCX_HAS_OP(sch, cgroup_set_idle))
-+	if (scx_cgroup_enabled && sch && SCX_HAS_OP(sch, cgroup_set_idle) &&
-+	    tg->scx.sched_idle != idle)
- 		SCX_CALL_OP(sch, cgroup_set_idle, NULL, tg_cgrp(tg), idle);
- 
- 	/* Update the task group's idle state */
--- 
-2.43.0
+We ended up with a viommu despite having no stage-1 SMMU or vSMMU
+because it held the KVM reference needed by item (3) above [1]. With the
+recent changes in that series [2], we now inherit the KVM details from
+VFIO through iommufd_device_bind. I can possibly look at using the idev
+for this instead.
 
+[1] https://lore.kernel.org/all/20260309111704.2330479-2-aneesh.kumar@kernel.org
+[2] https://lore.kernel.org/all/20260525154816.1029642-1-aneesh.kumar@kernel.org
+
+
+> It doesn't do anything except manage memory for the RMM..
+>
+> It feels wrong that the arm-cca-guest module is calling
+> RMI_PDEV_CREATE and RMI_VDEV_CREATE while the viommu is allocating STE
+> memory for the PDEV. That doesn't make alot of sense? The STE is
+> needed before VDEV_CREATE, right? So why not place it there in the
+> flow?
+>
+> If that's changed then the only thing the viommu does is manage the
+> PSMMU, which again, seems like something VDEV_CREATE needs, so why is
+> a viommu involved at all?
+>
+
+We do not have a separate vdev-create operation; instead, we have
+tsm_bind. The required iommufd objects (idev/viommu) are set up before
+tsm_bind.
+
+Currently, the primary reason for having a viommu is to obtain the KVM
+reference. Now that the KVM details are inherited from VFIO through
+iommufd_device_bind(), I can look at using the idev instead and dropping
+the viommu requirement.
+
+>
+> The smmu driver involvment would be much smaller if it was only the
+> interrupt routing and some helper to return the psmmu addr for a
+> struct device that the arm-cc-guest module can call to manage the
+> psmmu?
+>
+
+I designed this so that the PSMMU details are managed by the arm-smmu
+driver, with minimal involvement from arm-cca-host. If the arm-smmu
+driver does not set up the PSMMU correctly, tsm_bind, which is handled
+by arm-cca-host, can fail.
+
+
+> But I'm also sitting here scratching my head a bit, did the tsm_ops
+> design go the wrong way? Should we have run more of that through a
+> viommu instead of tsm_ops? Bind is sort of an illogical operation
+> without a viommu, even if it is a nop viommu.
+>
+> I suppose it depends what it looks like when a real vsmmu is
+> created.. That probably needs a special viommu object, and do we get
+> into order problems if the lifecylce becomes split to tsm and viommu?
+>
+>> RHI v1.0 BET1 specification [5].
+>> 
+>> At a high level, the series adds support for:
+>> - host-side vdev communication and lifecycle management
+>> - host handling of RHI DA object read/size requests
+>> - host-side fetching and caching of interface reports and measurements
+>> - KVM handling of vdev request/complete exits
+>> - KVM handling of map/validation exits and teardown on granule destroy
+>> - vdev transition to TDISP RUN state
+>> - enabling DA in Realm create parameters
+>> 
+>> The series builds upon the TSM framework patches posted at [2] and depends on
+>> the KVM CCA patchset [3]. A git repository containing all related changes is
+>> available at [4]. kvmtool repo is at [6]
+>
+> It looks like it also needs the series that adds bind to iommufd too
+>
+> Jason
+
+-aneesh
