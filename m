@@ -1,103 +1,107 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1995E47728E
+Received: from mta1.migadu.com (out-5.mta1.migadu.com [95.215.58.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC1993546D0
 	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:13:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788253982; cv=none; b=dlsH8SVkVqYtY6ANX7+xWIdD3MPGQV+l2e2KpHJUVOfrbERy8HYJxryfKBP/mo0pautFlGGk2mE18vo4avjWLrzrmnpf1klStEZP11bfkP8DkhU4ILRfT2oMRAl8+eybmOn7KI2dLI50J7TaerSo98NM1QRc/2/ef3LRqmTlAxw=
+	t=1788253982; cv=none; b=ct/ihXBJErIC4VFdLGOdMWp0ZbUwUrtH8yqC56x1y5PQVXBckfsPp0SpIFrvmqJ850p26C4qDPJ5/pbH7K+mYQrLVNksHP5cRIIbv7YfPyuJ+ZhYXSIUv+vBnK96hCw16zm/+3u/x9+UiKJSsfqPtRdQDDA+uKQCr3QFBDc6pus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788253982; c=relaxed/simple;
-	bh=rbaRyeBPrLdcQyWyCt5ftES2mzcd8+vW5l8SUinEmKw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jW+bGcJrOVP84tKt9PURXubHtQZlf2zue/8+Icx52LsCSP6+kvOOFj0CsAHcbf297dknzqZEqnqGCnFETMKoznnD9PPRfhNrfhs58uRCf3NYL5o3eUfNjI0RduOsqEcARtQgb2fAuTwAjgzOhomk6neyGPESTw4b59VOKH5U5QY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=KoOZ9kQR; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	bh=kaupwl2CerM+wcHSCXXaFwLigAE3E8c74QApBbEU49A=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DICJ4GduYC8qx/IOvsLORWF7yAj3azpE+HHi2jioHSVSSUUD5QWHRaVEdRbl8Jf6TvgSoFKRpy/uAlRKHTqkXfyID8j2FBabMgt8OoSxdfhYtb0RJ8Qrla0ncYec7WFpZL+u88/r1EpyVK8th5j1speLZHM0JnL9TphxVRThm5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=irU2sJO9; arc=none smtp.client-ip=95.215.58.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="KoOZ9kQR"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 714961AED;
-	Tue,  1 Sep 2026 02:12:56 -0700 (PDT)
-Received: from [10.57.7.38] (unknown [10.57.7.38])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A378B3F882;
-	Tue,  1 Sep 2026 02:12:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788253980; bh=rbaRyeBPrLdcQyWyCt5ftES2mzcd8+vW5l8SUinEmKw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=KoOZ9kQRWDVapEe+PRSx3GlmHQ1bOERvE9n0m1uXbfY+3jf32r3ozjYgMTknTEt97
-	 J/egV5OVx8vR+xZPEwrKRHP2kIWAR+pa3QkOiuluynTStRIM5QctxTFFnLmls1qM/2
-	 Zr5IKtty+8ZaimKIu4wbd7BWz8iAesXqI/FfuOws=
-Message-ID: <e98a0dd6-d834-402c-be1c-0b7e8737e7ad@arm.com>
-Date: Tue, 1 Sep 2026 11:12:54 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="irU2sJO9"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=kaupwl2CerM+wcHSCXXaFwLigAE3E8c74QApBbEU49A=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788253978; v=1; x=1788858778;
+ b=irU2sJO9q4WUJoILGuRTchvv90VDGfFzrX7swFprOZS1WtztcdnKaSoZVz/BNamTFcR8oQdd
+ Sb6IEq9iJkws2UFE5KgXWKdaDwItzXwWCn1zAAoWIjiy9hxR82tLy8OmGyvn35qdm8N8/DGQCib
+ YeyCuuGdmZX9TgfQ60U62DZc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b5c480e00ff4c702;
+	Tue, 01 Sep 2026 09:12:58 +0000
+X-Mizu-Trace-ID: b5c480e00ff4c702
+X-Migadu-Flow: FLOW_OUT
+From: "Hui Zhu" <hui.zhu@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Kairui Song <kasong@tencent.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>
+Subject: [PATCH mm-unstable v5 1/2] mm/vmscan: fix missing NR_ISOLATED counter update in MGLRU reclaim path
+Date: Tue,  1 Sep 2026 17:12:18 +0800
+Message-ID: <65cf410fc9e281bc1de00e938522e5140eb49499.1788252038.git.zhuhui@kylinos.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1788252038.git.zhuhui@kylinos.cn>
+References: <cover.1788252038.git.zhuhui@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 4/4] arm64: mm: Move fixmap intermediate page
- tables into .rodata
-To: Ard Biesheuvel <ardb+git@google.com>, linux-kernel@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org, Ard Biesheuvel <ardb@kernel.org>
-References: <20260827164409.3421848-6-ardb+git@google.com>
- <20260827164409.3421848-10-ardb+git@google.com>
-From: Kevin Brodsky <kevin.brodsky@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260827164409.3421848-10-ardb+git@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 27/08/2026 18:44, Ard Biesheuvel wrote:
-> From: Ard Biesheuvel <ardb@kernel.org>
->
-> The fixmap intermediate page tables are allocated statically, are
-> installed into the kernel's page table hierarchy early during boot, and
-> control a slice of the kernel's virtual address space that is not
-> subject to KASLR randomization.
->
-> Combined with the lack of randomization of the linear map, and the
-> tendency of some Android bootloaders to place the kernel image at the
-> base of DRAM in the physical space, the placement of these page tables
-> produces a vulnerability that is comparatively easy to exploit.
->
-> Avoid this, by moving these intermediate page tables into .rodata, so
-> that they cannot be manipulated directly via the linear map.
+From: Hui Zhu <zhuhui@kylinos.cn>
 
-Would be good to mention that this works thanks to the previous patches,
-otherwise one would wonder why we didn't do this earlier :)
+MGLRU evict_folios() isolates folios from the LRU without updating
+the NR_ISOLATED_ANON/FILE counters, unlike the legacy
+shrink_inactive_list() path. This causes compaction's
+too_many_isolated() check to under-count isolated pages when MGLRU
+reclaim is active.
 
-- Kevin
+Add NR_ISOLATED counter updates in evict_folios(): increment after
+isolate_folios() and decrement after all retry passes complete, using
+the existing nr_isolated which holds the original isolated count.
 
-> Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
-> ---
->  arch/arm64/include/asm/linkage.h | 1 +
->  arch/arm64/mm/fixmap.c           | 4 ++--
->  2 files changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/arch/arm64/include/asm/linkage.h b/arch/arm64/include/asm/linkage.h
-> index d1f7a16729d2..00963e11ebf0 100644
-> --- a/arch/arm64/include/asm/linkage.h
-> +++ b/arch/arm64/include/asm/linkage.h
-> @@ -45,6 +45,7 @@
->  
->  #define _THIS_IP_ ({ unsigned long __ip; asm volatile("adr %0, ." : "=r" (__ip)); __ip; })
->  
-> +#define __rodata_pgtbl __section(".pgtbl.ro_after_init") __aligned(PAGE_SIZE)
->  #define __bss_pgtbl __section(".bss..pgtbl") __aligned(PAGE_SIZE)
->  
->  #endif
-> diff --git a/arch/arm64/mm/fixmap.c b/arch/arm64/mm/fixmap.c
-> index 3a8cf6de6a7d..ab0f9ba7b712 100644
-> --- a/arch/arm64/mm/fixmap.c
-> +++ b/arch/arm64/mm/fixmap.c
-> @@ -32,8 +32,8 @@ static_assert(NR_BM_PMD_TABLES == 1);
->  #define BM_PTE_TABLE_IDX(addr)	__BM_TABLE_IDX(addr, PMD_SHIFT)
->  
->  pte_t fixmap_bm_pte[NR_BM_PTE_TABLES][PTRS_PER_PTE] __bss_pgtbl;
-> -static pmd_t bm_pmd[PTRS_PER_PMD] __bss_pgtbl __maybe_unused;
-> -static pud_t bm_pud[PTRS_PER_PUD] __bss_pgtbl __maybe_unused;
-> +static pmd_t bm_pmd[PTRS_PER_PMD] __rodata_pgtbl;
-> +static pud_t bm_pud[PTRS_PER_PUD] __rodata_pgtbl;
->  
->  const size_t fixmap_bm_pte_size = sizeof(fixmap_bm_pte);
->  
+Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Barry Song <baohua@kernel.org>
+---
+ mm/vmscan.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index c1404a59523d..98226bb021f3 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -4892,6 +4892,9 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 	scanned = isolate_folios(nr_to_scan, lruvec, sc, swappiness,
+ 				 &list, &isolated, &type, &type_scanned);
+ 	nr_isolated = isolated;
++	if (nr_isolated)
++		__mod_node_page_state(pgdat, NR_ISOLATED_ANON + type,
++				      nr_isolated);
+ 
+ 	/* Scanning may have emptied the oldest gen, flush it */
+ 	if (scanned)
+@@ -4954,6 +4957,8 @@ static int evict_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
+ 		goto retry;
+ 	}
+ 
++	mod_node_page_state(pgdat, NR_ISOLATED_ANON + type, -nr_isolated);
++
+ 	if (nr_isolated > total_reclaimed)
+ 		mod_lruvec_state(lruvec, PGROTATE_ANON + type,
+ 				 nr_isolated - total_reclaimed);
+-- 
+2.53.0
+
