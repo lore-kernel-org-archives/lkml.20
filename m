@@ -1,141 +1,98 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3DEA46C4CD
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:37:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD9238A70A;
+	Tue,  1 Sep 2026 07:37:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248256; cv=none; b=msLrbLV3VgdvmyilEC0up5UAok/SZNVIdfqYRprp5MZPIlZx31hZoP6QF6nYvvRARKVckyxmQxHp8/PoDKPD+8wFKs1y8s+x/9XO9d2l1AxjeuUxjSTKhqzoxJMopxMysrc9Kt7dizo3rpH9GPYnZPUga/rB0J6Ffo5wRPoNosw=
+	t=1788248257; cv=none; b=ewNzXmhNQr6GpaaD7UwY8XCXZK582jf9l4OdRqJ9uy5h3+kC5JMCPZxTbuHXCZkEDTnDKemUhWWE1BxoDTOZPqyxDkI1QI5Ts7clCzr2odoJ272RsdUNe6dFmYV8fGlaLeetdhDLezo8XUiK7igfCl/bpS7g/er/YExD07c75BE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248256; c=relaxed/simple;
-	bh=CqfhTtR97gXh7eQqL6sBYYIKsG+QkBmqY1sau7tvQm4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=hb/xbvLcYuLoN8L/tQn77VmKI2/YKRA+GiRzMDbHFP7BPrpPNRnvQEOEUTMeXNICAGFsSuPc+PSmv3uLzEaJsEvkdehta8ngcSW/uhRPzhGG3Pp3174uIRxWmnaS53Be+zs/wdBe46zCdBEFUxkR9hCkTwVDQ/1CakT+xfkLGvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=i8xw5h5t; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=SgTt7RnQ; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788248257; c=relaxed/simple;
+	bh=jqZ8xQH1dVMJFgjon3C/M51RNgYl4ya4gn+q45vKXT4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Kr15uZ8E2IXr8qbk8i2t4UZU1/V38MUPPE6Zj819iMPSH6FkJb0J/3R3FlsaJV5BxBsfOvcUrUyQrHBdeaWDCF4sMuIZrtFVpDuvAugWml2FmU5qWTALVC4uJU8r5gjOOi8Sheo+UlXgGGXJ6cTgC/mb3GtTOv9oJHkj8c4xzKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=pnEgrGql; arc=none smtp.client-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="i8xw5h5t";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="SgTt7RnQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788248253;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=Rk6MoM1HIB054uV59BcMTgA//1R4qE5kuR4lQOsz+qc=;
-	b=i8xw5h5tooTy1ZqOu3l5X4EdsOQDPHdLDNWtjs8CPBVd1FrfEQqo75IIkE2gYfPvWIjXSd
-	3c8mX3J1yk2TFnw+efv3ruTSRBdWmBec0FqJVRH6nBbm1VZMfGniGqn+Q4MWQqt7pyNCEC
-	HuMvTdXoV/zp+R3QZRK/ZdwPBNYxgEw=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-479-l18ZnaQCP22VWtw3tYBLyQ-1; Tue, 01 Sept 2026 03:37:32 -0400
-X-MC-Unique: l18ZnaQCP22VWtw3tYBLyQ-1
-X-Mimecast-MFC-AGG-ID: l18ZnaQCP22VWtw3tYBLyQ_1788248251
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49554715277so40789235e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:37:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788248251; x=1788853051; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Rk6MoM1HIB054uV59BcMTgA//1R4qE5kuR4lQOsz+qc=;
-        b=SgTt7RnQwRo2OsKCCnMBJMz8jstWQ9goIO2NFvwi5Lz4ZC3JYMIX8Is2Z4tMBNWMpd
-         EjeaWy3CEq0QEL+9l9QUEHwTDjjPSvDq/iXsaGbQVVvNajeflLc4q99EL9+nltIXNsmm
-         06XmZmcU75qmFRXs0l4Xpk0gwZPNLp3dYsAR2GEWXLHiXSIlPrT7n8GpERkyWwfvMkkO
-         uPw/PX/S5wUpCMSP9fdWsgQIhjHKNTg5/75JE8VnCqEDbu6i7/dIyw6v7pP21NjKtxaP
-         0It4dl++Fvp0LVoJX6sqdexnr0Xjn4WNGI2hcNQB/zzDElHzR35Eixv+bdjHsPE7UpL3
-         Vp4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788248251; x=1788853051;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Rk6MoM1HIB054uV59BcMTgA//1R4qE5kuR4lQOsz+qc=;
-        b=E0efHoqHhd9Rsomdyt1DtWAYsCl/5aqzK6o5wmcPG96m5wnLAODMGrIr3XzAeSZVnE
-         7C/CRmGDxPbzv+3MX+4AyYTMuLvHj/yMvdxI+SXFsdxIIbVbnA58Y9smkPDjWzg0TVPD
-         psdnUyC8sKgJNo59tGHIck/j/yi40vYreDUUfrN1DykzLCJyq/F0+Vwg4C3NJVoCb3VO
-         Dg8FbPNS6s77yYJmg9IN+Ly1x4icmapvo89Qao4x/zBaVJTEUbTfPWToLgoCF7eRoUpr
-         Y+sP036eBBfkui5TLqCAr4R52Zco9pYkwD0YnsYxozBchpxGYuvrtp4RSBQxX3sDr5oz
-         gsOQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoCJFTdKyRuTT5iSR62V2OneOUdGd999uZhyH2ZQu9QiHaTye7ejip1toPHLCBmEyGqguzg4kn73ek5Ocs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPi/lT71Dg34vNpH0EsgCdk3H0vXiElnpjHTKKaUzIRMACAekh
-	9K0nb2uooktea7du0U0hbCB2it0XZ91Se/ycDtS/wBBEZ7IAsHuYstRkH5tuJBT2uJ0df7V/o2e
-	LcBEzr6+WyweQqRuLFdU+U/skTthx0dLHlSIfLgXYAvheJyqhRaww/QENFuYWdbp0gw==
-X-Gm-Gg: AR+sD11tJ4wyVKc9LKeXnCmk0Kg4hjv64MUYmH4wgnxf2fVdr11a0Yo18xoBzMIxVtK
-	56uoKLlT86Iqs52yhwdKlmXqP1UDf4T+sc5dOtKffrWsBVSBYofZkND94GK0WOayw3uxW1RQ4kF
-	s1pyLiumDkhGq9Uqou28MwJuPaXC/+m851exGpEH1ezN0eGToYCgjM2IQICRABMay4pXms8AKpq
-	4ViEpi22kGAlk92T90/yBliASIHtkae4Qvl7RZq90tw/PUyZbXs1YQ/KHlwITPPhZHLkUn/J4je
-	lwYwfVZRTCy8j0lCI9rY0QIlJMKbmHL08+Ibc9IzMawkXzOVFE+4BUe4pgKbnbGEapWdnH0y2d8
-	BrMw4TrAZD+ufdHQxbNraVffY3KYZXA==
-X-Received: by 2002:a05:600c:a418:b0:499:b65e:49c9 with SMTP id 5b1f17b1804b1-49cdc558513mr101959715e9.10.1788248251555;
-        Tue, 01 Sep 2026 00:37:31 -0700 (PDT)
-X-Received: by 2002:a05:600c:a418:b0:499:b65e:49c9 with SMTP id 5b1f17b1804b1-49cdc558513mr101958885e9.10.1788248251168;
-        Tue, 01 Sep 2026 00:37:31 -0700 (PDT)
-Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.135.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b91c5790csm286144315e9.0.2026.09.01.00.37.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 00:37:30 -0700 (PDT)
-Message-ID: <0b0b115713a6d5a10d719085284dc7cef21ed892.camel@redhat.com>
-Subject: Re: [RFC 1/3] rv: add per-edge dwell-time statistics primitive
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: Tobias Schaffner <tobias.schaffner@siemens.com>, Steven Rostedt
-	 <rostedt@goodmis.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>,  Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Jan Kiszka	
- <jan.kiszka@siemens.com>, Philippe Gerum <rpm@xenomai.org>, 
-	linux-trace-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Tue, 01 Sep 2026 09:37:28 +0200
-In-Reply-To: <20260827072400.45734-2-tobias.schaffner@siemens.com>
-References: <20260827072400.45734-1-tobias.schaffner@siemens.com>
-	 <20260827072400.45734-2-tobias.schaffner@siemens.com>
-Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
- keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
- 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
- Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
- Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
- cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
- T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
- eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
- 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="pnEgrGql"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+	s=iohv2404; t=1788248190;
+	bh=FMXo3bO0qzDar0vxsQSKX+ThzBkt5waPMvBBuUNS/kU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=pnEgrGqlEvF+6V+Pd7dtaSDoI3ZJne8wtxaoL3eCRF+dzFyymiMUTVyNi8TYOIRj0
+	 LeAa9o5krlaa0Lqm0H212kurLx6IrRF0WQ9cl4ipJZwiDk1voeQruDDFZi5wPBfs6o
+	 wQWvuk7aVo8m7reJTC/3y2Mx7k3KlwizY7ZT/mB8=
+X-QQ-mid: esmtpgz10t1788248185t673dc2ed
+X-QQ-Originating-IP: qDq27hcP+Rp8Psic93OtsDSkMg4ZsjrcuvjY1CFJKmY=
+Received: from [127.0.0.1] ( [180.98.43.87])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 01 Sep 2026 15:36:23 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 11605117471512466628
+Message-ID: <92098CDF3B76D648+da81354b-56cd-4b07-9e5a-acdf4d730478@smail.nju.edu.cn>
+Date: Tue, 1 Sep 2026 15:36:23 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/nouveau/uvmm: fix UAF in bind job cleanup
+To: lyude@redhat.com, dakr@kernel.org
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <7F26D29D0BD60619+20260901063255.661503-1-peiyang_he@smail.nju.edu.cn>
+Content-Language: en-US
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+In-Reply-To: <7F26D29D0BD60619+20260901063255.661503-1-peiyang_he@smail.nju.edu.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: NEAuM+RWOyST1V/S32fS9NZTyEBnm2dFxf60mAYkg9tztHHA6rfqPR5d
+	DmS3sAsae7BU2M1HnwAJpZFOPyyMZOF6lEykgqelaygwYkHLwT0c1LnY3f3to7tA7Stg58h
+	DyLubNofuXveNHWr0BV0hRd1Cvsvu5Hfpmro6wsN0CFVOLss0ZPqwClXgrjaF/KP7Rog9FQ
+	KoXPYejwKD7mEgV9b4ryTyneS5qDJUF19DYjCNLycjjjLdphzUuSo47zeHqVJ7fyjjK17vJ
+	EJA6i4AAjSc/lRLCn4/t76t66yVIK2ARvw4+RslIPlAobTkbMwGA9/RQQ03kXeDdXmUds+1
+	bdYyHpSx6oefZuiR/Oglbh5FYQvN9k3Hfb9ojpyhyKb1BFqJfXMnCWKt1qyR30iV/QNoc9z
+	nEqp2P5mt9EaS40dJy9HaAPcQSFG4cNHe0KBmd6fKFcOP/ucWnk5em+vRbDfNxRvMd2Tzn6
+	1mF/uz3TGSvo3MjprhHLmsW52Y+TOrL3MHaebJ1z2ilfrppgsZ4FDEO4vjWYFr8ieskF2yJ
+	paMKBPV66seh3JqXQeca3ZIbr8XsWuo2/KnYj/u4D+95ukH4qQy9X+2RE7zYZi21jxIjXtJ
+	cyd2Ht/STszp/tQer6ZC1v4RaTERYR0JQcaehdOk+elJvLolLtm41NBztdfK34eFyJesB1u
+	/dJSv+XZk7Yh+Roz5URcwlCy+QEmM5lLOtQXzIaoMaLzlEiqai0NFsAp4HNxv6G7oqwlv6S
+	AGWAeCa3B5hF2OrDjDM9tpdbwZqE4lc3gdLuPicZYuNLob7N14BU1oo9KyvBpzaRTuuww4x
+	gL7B2YjKWnj5hI7zDq0Bn0Z227nNc/xBX1o6MycgRiWp/Yco0dDpO7C37oOgijEE6K4RjXH
+	uBTKwoeZTHQd7n5xeTXYU+Jx+yLzOXTuEmMntQoDU/pIhG4OwN7GkUT301M8URV3skFEm/a
+	OVvQRrL/ZATH+9qwBTesd4p8e6iDWpry7OV7rAV+sA6I/vxlbcz66vWwgZN/zE6+37TUCoX
+	/JrDnmwl0XaDPE1dXNUq347EMX28UuD7MIRZythR3/hzASHtGl
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-On Thu, 2026-08-27 at 09:23 +0200, Tobias Schaffner wrote:
-> +	while (dwell_ns > (u64)max) {
-> +		s64 prev =3D local64_cmpxchg(&s->max_ns, max, dwell_ns);
-> +
-> +		if (prev =3D=3D max)
-> +			break;
-> +		max =3D prev;
-> +	}
+On 2026/9/1 14:32, Peiyang He wrote:
+>  drivers/gpu/drm/nouveau/nouveau_uvmm.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+> index f5e4756b4de4..aad14316cbef 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+> @@ -1318,6 +1318,7 @@ nouveau_uvmm_bind_job_submit(struct nouveau_job *job,
+>  			op->reg = nouveau_uvma_region_find(uvmm, op->va.addr,
+>  							   op->va.range);
+>  			if (!op->reg || op->reg->dirty) {
+> +				op->reg = NULL;
+>  				ret = -ENOENT;
+>  				goto unwind_continue;
+>  			}
+> @@ -1327,6 +1328,7 @@ nouveau_uvmm_bind_job_submit(struct nouveau_job *job,
+>  								op->va.range);
+>  			if (IS_ERR(op->ops)) {
+>  				ret = PTR_ERR(op->ops);
+> +				op->reg = NULL;
+>  				goto unwind_continue;
+>  			}
 
-try_cmpxchg() functions produce arguably cleaner code, would you mind doing=
-:
-
-  while (dwell_ns > (u64)max) {
-      if (local64_try_cmpxchg(&s->max_ns, &max, dwell_ns))
-          break;
-  }
-
-Also, although issues are practically impossible, I'd avoid an unbound loop=
- in
-hot paths, you could go up to MAX_DA_RETRY_RACING_EVENTS (already existing =
-in
-da_monitor) and put some warning in case you reach the maximum amount of
-retries.
-
-Thanks,
-Gabriele
-
+None of the two issues pointed by Sashiko AI are introduced by this patch.
