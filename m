@@ -1,245 +1,212 @@
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4903636680E
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:59:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 369C7379998
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:02:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788245978; cv=none; b=Xuao4NkRr8vfTwvcLsYAMy5uTRgkzlqMbP2P7s3B2QEatRx3jOnrPIBOwcbKyeFeMvv0mJqe8ZBO3s4e8R3bGonm0T10IfOl/MxPJBylqMtGqWcd/SuDq9rSgaFkcUHBjg6bfP88Q7zXboKSxrMoYAz3WVS3rXp2zFLknH1C5ak=
+	t=1788246136; cv=none; b=pdB5nKmy/sPxk2tLsyDVwSiKmT8hdf6HA2RKtoQ4Pw643PYe12lUYd2ZD1z6HfcWui/oKQFUKfGiXXMCAMX8gQBHKUOpv3oqTfjIpLpfen129Yai+02BTWREoLvcnRBd6KqBvKd2xFomT43vwwQGREHU3Qoxg7UM+C74NzD8L9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788245978; c=relaxed/simple;
-	bh=bybDq+Dgk+bd3pbHkkH+vj+kmBGHB1tiLHdPmcf3tRo=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=npBK8/RaOcbFQjHCq9ljAPqkA2CWYkCbQCsmMhgbhrVVLv9I95blmBJHiBZ9H9lthI3dEcPmmvON9KGO5AoYEAipMdiKy8REVB1l0DdosU4p9CR7T1HSmgEYZLFqEhVIDGlAoF9u560sJt+mU0spP2VCDYX9kl/LLCtQ6Hkjzpo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b352d9062fso759638eaf.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 23:59:35 -0700 (PDT)
+	s=arc-20240116; t=1788246136; c=relaxed/simple;
+	bh=1tVJVFq3W2CWu2gl2ygoskorZBUU7AtPQpGG1dkvqYw=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=LUO11BX/a3YVNj8jL3RQV8icnM65SuEtz9O9Njk0x1EvFyZCbIqfxJng+ALEudrvu39fMUjxjqb9I4vqHTBZgAQhQDcKaat3NNhXqPh4FDhP1MjKCkstVr0IV4f+dLstQaeC+iFH3Vq+DJzLXiAJ9OuorHwvAjuGT62bRbtppCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=doyensec.com; spf=pass smtp.mailfrom=doyensec.com; dkim=pass (2048-bit key) header.d=doyensec.com header.i=@doyensec.com header.b=cjWTns7I; arc=none smtp.client-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=doyensec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=doyensec.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=doyensec.com header.i=@doyensec.com header.b="cjWTns7I"
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a0794669a6so7211577a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:02:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=doyensec.com; s=google; t=1788246132; x=1788850932; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2M/jGXwNV+sYka8BTRloCdb7CFduDV3zUnRzw5nv/RE=;
+        b=cjWTns7Is7OoWOfZobI9gJHCsQB2R/7G9zt17FxcuV+O+QtMbDOqwclaU293zTtllt
+         qMl5wi8YDpWOWV27nlRvYB9H/YvyXihcdT3ngyaUUwuC9XjAbj4JWN7IqxrFawstxtYR
+         2E+0oFjqI0LeOVB+iz+akxY2dbyy+q8XvRoXdD4viuuGBc14JYUtHOENjO5dCoBb4YH2
+         h6uV2oz5JHflypOOHs9kbKgpiEwLUK9rn/xdeDxsm6nXvRThLBCpsbXmwjndAi6Qe1Yq
+         s6ignN9uWJK5jXI7HUCnWnSLnGVgGg3AVb8Ci6xifplYxjjeq8Q+/K0SRq17/hofh3H3
+         +cFA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788245974; x=1788850774;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=63L/bxFUv722Vl7mOzFbgh0sRzdogZ3j1mEhDHkXGRo=;
-        b=Yhce3fsCdLIzaiyPiHClZy9PJXIv40JXemASFEP+0ndRBFobKB7TaNEXdlHJodWN5z
-         q+GU3g8+qgL+RPxUY07JTGtPhvOo9sUh175CzL06BMgbgXdnZk2wq9ZExU6pa7WbUq+O
-         cXf0HxWnFq6t+EhVF4rL/T6i1YxK0EnibFN1Oeo66wy5m9Fy8bH+Bs/bYEQU4mkGCfg5
-         f+wVMBwa+VdxMEtqIsG8PPArqkwMuoNqxsLXKYE0ehTG8IJKahy4BEBspBIKBO/t9Zjq
-         vLo/ZW9KpNAlWYQRN3ANmdSfwdyXc6+v54oB78f0PYCzvEdVEOF3/viBg8TA6mMbv3TA
-         25zA==
-X-Forwarded-Encrypted: i=1; AHgh+RpesSfM9vCZB7SWRmXU0Ao4gQ8hNzMyzqnyU/lhx2TgVAmpXr2txufEDiHN37BiNnJhyqlq3XPx8MHfGL0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nW1kthgCHcYzBVk4aGaVuzTopbH2UACiw6g/bebVeNU45hm9r6
-	h37m0OSpNW8xba7IOZsUQo28nxX+ANZ3c/b+Uhtxe92w5FlcfoQUM83vwr7BI7+oWhUKvHqWdon
-	n8SGSAbUxHD+ZFVQG7KGUzvp/kR00MnX5IdfXfEE8sGDLTmhs64DsTdh+3YE=
+        d=1e100.net; s=20251104; t=1788246132; x=1788850932;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2M/jGXwNV+sYka8BTRloCdb7CFduDV3zUnRzw5nv/RE=;
+        b=Eb4390sgR6q/nVk/GlJtPqYMdC+4t3FUislokjEVbC5MEj2aTBC+/aal4OwL1TO6zE
+         pAMLrRtecUkiMKl2gBU4DaiYCDyGgKiVFBGBSBcNaqC7iIGi9MZedE9X7vIT0wupbBIq
+         rXT2j4E9oOE1muzFWeBwQnNhcldFRaivEuvQRWCqj/x50TVd7LfaBN4mNVJMjMpy3VwG
+         /Zs3gSraez/+pGT89URRkronHzvjlAfMRQNcxH+A0ler7DgnvHB4adeVdy2ATA+x+r0q
+         f3M94ecKYKdq+MqQNBz53TnuNi+1ByfIN7CSeXrvV0T3Vc9qTyKGHHC+PLjzdxLcxknT
+         Fhcg==
+X-Forwarded-Encrypted: i=1; AKwUvByVu6o9i+Xa1hTYFGf/BipJJAmlbQyX/Fzc8LeGFVrjFPBzAK6Sx5XAZKNEqfLNm5DFt3UZZxqsV21sjnE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZbXQ5fLo7X+1nmZqU+vfzGpiTHePjxTTQeyQEwb4qN5KNQ55S
+	k2iCeKibmZAdCpmhNB3r1zxQy7PcrepzR2RjulSRUkKKcM0KZP1N31I05xG/RzYf0EM=
+X-Gm-Gg: AYBFou3t0znIyQ1S8MQpwmnInae1GYGgj3sHZwbsEOSVSIWZaeolzBCAEU+cK0J8KWL
+	zYwAdesZJPEO72qkb9f7dzSC7SYXLqFLx5bWEvNN+nLA7gix3O7c+OGc0wB2xYhSOQMgdH6DvJ5
+	wgiY7DdoDzpbqDiGV90yvIR0pR/tDKmFgXwnaiIB1gYasMNwN5SlhEJQCPOXUpt7/pLmpkQhjOd
+	tOs5DVDtDKZTockZ645MHlc7Yuul2LIIw+YJGMKJHFM5rJ+NM04Z9PhiFLqtcgKPv4m6FHMWe/3
+	Cpr7akEw9X/qoAqx9b9vCwmCKWXmNndDRjfIBpaFOABrMHOvV3kk0IgzaPWd02cJBNPU+ELMXxw
+	gXlw2dgmTFzfqNAUvveQrDK+8u0KmcM5Nd2AGx10+S4JiJH8Lwshpw8M1DHS5nbhlUVoMCM8viw
+	Q6/YosKoOhHCdWSqOD5+NCFUCVGMGzIk4Ji0xD8uEHpblStPI1wpC82U3kUSBjAQ9b8JroLxZFL
+	i6eF/2fP3NUln3++Q5YxeJreJKPtpPA85DUY3GXPWtvpc7aREiX
+X-Received: by 2002:a05:6402:2383:b0:6a6:6389:37d5 with SMTP id 4fb4d7f45d1cf-6a6638949bfmr4028036a12.8.1788246127439;
+        Tue, 01 Sep 2026 00:02:07 -0700 (PDT)
+Received: from smtpclient.apple (83.10.35.35.ipv4.supernova.orange.pl. [83.10.35.35])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a66ccb753bsm364169a12.4.2026.09.01.00.02.05
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Tue, 01 Sep 2026 00:02:06 -0700 (PDT)
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Received: by 2002:a05:6820:824:b0:6b3:6d00:263b with SMTP id
- 006d021491bc7-6b36d00398emr7086198eaf.19.1788245974251; Mon, 31 Aug 2026
- 23:59:34 -0700 (PDT)
-Date: Mon, 31 Aug 2026 23:59:34 -0700
-In-Reply-To: <20260831152044.166353-1-ivanrwcm25@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9677d6.04428c52.29b18.0002.GAE@google.com>
-Subject: [syzbot ci] Re: block: brd/loop error-path cleanup
-From: syzbot ci <syzbot+ci7c1a0fc0cefeacdb@syzkaller.appspotmail.com>
-To: axboe@kernel.dk, ivanrwcm25@gmail.com, linux-block@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.4\))
+Subject: Re: [PATCH net] can: isotp: take rtnl_lock() before leaving the
+ notifier list
+From: Norbert Szetei <norbert@doyensec.com>
+In-Reply-To: <2c5851d3-cd83-4a16-91ed-b7323cabe7c0@hartkopp.net>
+Date: Tue, 1 Sep 2026 09:01:54 +0200
+Cc: linux-can@vger.kernel.org,
+ Marc Kleine-Budde <mkl@pengutronix.de>,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <E1633997-A167-405C-9B1D-4FFED8E4A595@doyensec.com>
+References: <CEA6A38A-2646-4ADA-95B4-CBAE2F301A8E@doyensec.com>
+ <2c5851d3-cd83-4a16-91ed-b7323cabe7c0@hartkopp.net>
+To: Oliver Hartkopp <socketcan@hartkopp.net>
+X-Mailer: Apple Mail (2.3826.700.81.1.4)
 
-syzbot ci has tested the following series
+Hey Oliver,
 
-[v1] block: brd/loop error-path cleanup
-https://lore.kernel.org/all/20260831152044.166353-1-ivanrwcm25@gmail.com
-* [PATCH v1 1/2] block: brd: destroy xa on allocation failure
-* [PATCH v1 2/2] block: loop: restore state on loop_configure() error
+> On Aug 31, 2026, at 15:08, Oliver Hartkopp <socketcan@hartkopp.net> =
+wrote:
+>=20
+> Hello Norbert,
+>=20
+> many thanks for your patch and the analysis of the unremoved filter =
+lists in the case of moving a CAN device to another namespace.
+>=20
+> But I don't think that moving rtnl_lock() up so that it covers a busy =
+loop including a schedule_timeout_uninterruptible(1) wait is not a nice =
+move for other rtnl_lock() users.
+>=20
+> Focussing on the removal of the correct filter lists when the =
+namespace is changed away from the socket's namespace I would propose =
+this small change:
+>=20
+> diff --git a/net/can/isotp.c b/net/can/isotp.c
+> index 155530aedce2..0835a4758a72 100644
+> --- a/net/can/isotp.c
+> +++ b/net/can/isotp.c
+> @@ -1490,15 +1490,15 @@ static int isotp_release(struct socket *sock)
+>        /* remove current filters & unregister
+>         * tracked reference so->dev is taken at bind() time with =
+rtnl_lock
+>         */
+>        if (so->bound && so->dev) {
+>                if (isotp_register_rxid(so))
+> -                       can_rx_unregister(net, so->dev, so->rxid,
+> +                       can_rx_unregister(dev_net(so->dev), so->dev, =
+so->rxid,
+>                                          SINGLE_MASK(so->rxid),
+>                                          isotp_rcv, sk);
+>=20
+> -               can_rx_unregister(net, so->dev, so->txid,
+> +               can_rx_unregister(dev_net(so->dev), so->dev, so->txid,
+>                                  SINGLE_MASK(so->txid),
+>                                  isotp_rcv_echo, sk);
+>                netdev_put(so->dev, &so->dev_tracker);
+>        }
+>=20
+> @@ -1846,13 +1846,10 @@ static int isotp_getsockopt(struct socket =
+*sock, int level, int optname,
+> static void isotp_notify(struct isotp_sock *so, unsigned long msg,
+>                         struct net_device *dev)
+> {
+>        struct sock *sk =3D &so->sk;
+>=20
+> -       if (!net_eq(dev_net(dev), sock_net(sk)))
+> -               return;
+> -
+>        if (so->dev !=3D dev)
+>                return;
+>=20
+>        switch (msg) {
+>        case NETDEV_UNREGISTER:
+>=20
+>=20
+> Can you give it a try with your KASAN setup and maybe also ask opus =
+about my idea?
 
-and found the following issues:
-* general protection fault in lo_release
-* general protection fault in lo_rw_aio
+I just tested your version and I was no longer able to reproduce=20
+the bug. Initially, I considered it too, but moving rtnl_lock()=20
+sounded simpler and I had not thought about the busy-wait sitting=20
+there. Thanks for pointing this out and submitting the patch.
 
-Full report is available here:
-https://ci.syzbot.org/series/9ab490fc-567e-414a-9754-890ca131012d
+Regards,
+Norbert
 
-***
+> Many thanks,
+> Oliver
+>=20
+> On 31.08.26 10:30, Norbert Szetei wrote:
+>> isotp_release() removes the socket from isotp_notifier_list before it
+>> takes rtnl_lock(). The netdev notifier chain runs under RTNL, so a
+>> socket that leaves the list in that window is skipped by =
+isotp_notify()
+>> and has to unregister its own CAN filters.
+>> It cannot always do that. isotp_release() passes sock_net(sk) to
+>> can_rx_unregister(), which returns early when that netns no longer
+>> matches dev_net(dev), before the receiver list is searched and before
+>> the "receive list entry not found" warning. Once the bound device has
+>> been moved to another netns the filters are removed zero times, and
+>> can_rx_register() stores rcv->sk without taking a reference, so the
+>> receivers left in the device's dev_rcv_lists point at the freed =
+socket
+>> and travel with the device into the new netns.
+>>   BUG: KASAN: use-after-free in isotp_rcv+0x1570/0x24d0
+>>   Read of size 1 at addr ffff888118130552 by task isotp_ns_uaf/578
+>>    can_rcv_filter+0x4af/0x8c0
+>>    can_receive+0x28d/0x3c0
+>>    can_rcv+0x2a9/0x310
+>>    __netif_receive_skb_one_core+0x21a/0x260
+>>    process_backlog+0x210/0x760
+>> Take rtnl_lock() before removing the socket from the notifier list, =
+so
+>> that isotp_release() and isotp_notify() cannot both skip the removal.
+>> Fixes: 20bab8b88baa ("can: isotp: fix use-after-free race with =
+concurrent NETDEV_UNREGISTER")
+>> Cc: stable@vger.kernel.org
+>> Assisted-by: Claude:claude-opus-5
+>> Signed-off-by: Norbert Szetei <norbert@doyensec.com>
+>> ---
+>> Reproducer available on request.
+>>  net/can/isotp.c | 3 ++-
+>>  1 file changed, 2 insertions(+), 1 deletion(-)
+>> diff --git a/net/can/isotp.c b/net/can/isotp.c
+>> index 155530aedce2..8ca75d30360c 100644
+>> --- a/net/can/isotp.c
+>> +++ b/net/can/isotp.c
+>> @@ -1475,6 +1475,8 @@ static int isotp_release(struct socket *sock)
+>>   /* forced SHUTDOWN may have skipped IDLE (gave up on a signal) */
+>>   wake_up_interruptible(&so->wait);
+>>  + rtnl_lock();
+>> +
+>>   spin_lock(&isotp_notifier_lock);
+>>   while (isotp_busy_notifier =3D=3D so) {
+>>   spin_unlock(&isotp_notifier_lock);
+>> @@ -1484,7 +1486,6 @@ static int isotp_release(struct socket *sock)
+>>   list_del(&so->notifier);
+>>   spin_unlock(&isotp_notifier_lock);
+>>  - rtnl_lock();
+>>   lock_sock(sk);
+>>     /* remove current filters & unregister
+>=20
 
-general protection fault in lo_release
-
-tree:      axboe
-URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/axboe/linux.git
-base:      44e96e364b04163ddddc8a24289cef4982b7e36e
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/f5d23472-69ec-45bc-b33a-b59f7c0e7493/config
-syz repro: https://ci.syzbot.org/findings/a48673c0-89de-4ffc-b71c-3aa9e5313ec8/syz_repro
-
-Oops: general protection fault, probably for non-canonical address 0xdffffc000000000a: 0000 [#1] SMP KASAN PTI
-KASAN: null-ptr-deref in range [0x0000000000000050-0x0000000000000057]
-CPU: 0 UID: 0 PID: 5946 Comm: syz.0.87 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-RIP: 0010:__loop_clr_fd drivers/block/loop.c:1177 [inline]
-RIP: 0010:lo_release+0x47c/0x7e0 drivers/block/loop.c:1780
-Code: 89 e7 e8 77 60 fc fb bf e0 01 00 00 49 03 3c 24 be 02 00 00 00 e8 84 c6 9c 05 48 8b 44 24 30 4c 8d 70 50 4c 89 f0 48 c1 e8 03 <42> 80 3c 28 00 74 08 4c 89 f7 e8 45 60 fc fb 41 bc e8 00 00 00 4d
-RSP: 0018:ffffc90003787b60 EFLAGS: 00010206
-RAX: 000000000000000a RBX: ffff8881063f93c8 RCX: 0000000000000046
-RDX: 0000000000000006 RSI: ffffffff8e46de57 RDI: ffffffff8c6d5780
-RBP: ffffc90003787d08 R08: ffffffff9079c73f R09: 1ffffffff20f38e7
-R10: dffffc0000000000 R11: fffffbfff20f38e8 R12: ffff8881063f8080
-R13: dffffc0000000000 R14: 0000000000000050 R15: 1ffff920006f0f74
-FS:  00007fae103d46c0(0000) GS:ffff88818d6f1000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fae0f5eb840 CR3: 000000010c31a000 CR4: 00000000000006f0
-Call Trace:
- <TASK>
- bdev_release+0x571/0x690 block/bdev.c:-1
- blkdev_release+0x15/0x20 block/fops.c:682
- __fput+0x418/0xa50 fs/file_table.c:512
- fput_close_sync+0x11f/0x240 fs/file_table.c:617
- __do_sys_close fs/open.c:1560 [inline]
- __se_sys_close fs/open.c:1545 [inline]
- __x64_sys_close+0x7e/0x110 fs/open.c:1545
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fae0f55e98e
-Code: 08 0f 85 a5 a8 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 80 00 00 00 00 48 83 ec 08
-RSP: 002b:00007fae103d3da8 EFLAGS: 00000246 ORIG_RAX: 0000000000000003
-RAX: ffffffffffffffda RBX: 00007fae103d46c0 RCX: 00007fae0f55e98e
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000004
-RBP: 0000000000000010 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000003
-R13: 00007fae103d3ee0 R14: 00007fae103d46a8 R15: 00007fae06600000
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:__loop_clr_fd drivers/block/loop.c:1177 [inline]
-RIP: 0010:lo_release+0x47c/0x7e0 drivers/block/loop.c:1780
-Code: 89 e7 e8 77 60 fc fb bf e0 01 00 00 49 03 3c 24 be 02 00 00 00 e8 84 c6 9c 05 48 8b 44 24 30 4c 8d 70 50 4c 89 f0 48 c1 e8 03 <42> 80 3c 28 00 74 08 4c 89 f7 e8 45 60 fc fb 41 bc e8 00 00 00 4d
-RSP: 0018:ffffc90003787b60 EFLAGS: 00010206
-RAX: 000000000000000a RBX: ffff8881063f93c8 RCX: 0000000000000046
-RDX: 0000000000000006 RSI: ffffffff8e46de57 RDI: ffffffff8c6d5780
-RBP: ffffc90003787d08 R08: ffffffff9079c73f R09: 1ffffffff20f38e7
-R10: dffffc0000000000 R11: fffffbfff20f38e8 R12: ffff8881063f8080
-R13: dffffc0000000000 R14: 0000000000000050 R15: 1ffff920006f0f74
-FS:  00007fae103d46c0(0000) GS:ffff8882a8cf1000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007ffd52a75ff8 CR3: 000000010c31a000 CR4: 00000000000006f0
-----------------
-Code disassembly (best guess):
-   0:	89 e7                	mov    %esp,%edi
-   2:	e8 77 60 fc fb       	call   0xfbfc607e
-   7:	bf e0 01 00 00       	mov    $0x1e0,%edi
-   c:	49 03 3c 24          	add    (%r12),%rdi
-  10:	be 02 00 00 00       	mov    $0x2,%esi
-  15:	e8 84 c6 9c 05       	call   0x59cc69e
-  1a:	48 8b 44 24 30       	mov    0x30(%rsp),%rax
-  1f:	4c 8d 70 50          	lea    0x50(%rax),%r14
-  23:	4c 89 f0             	mov    %r14,%rax
-  26:	48 c1 e8 03          	shr    $0x3,%rax
-* 2a:	42 80 3c 28 00       	cmpb   $0x0,(%rax,%r13,1) <-- trapping instruction
-  2f:	74 08                	je     0x39
-  31:	4c 89 f7             	mov    %r14,%rdi
-  34:	e8 45 60 fc fb       	call   0xfbfc607e
-  39:	41 bc e8 00 00 00    	mov    $0xe8,%r12d
-  3f:	4d                   	rex.WRB
-
-
-***
-
-general protection fault in lo_rw_aio
-
-tree:      axboe
-URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/axboe/linux.git
-base:      44e96e364b04163ddddc8a24289cef4982b7e36e
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/f5d23472-69ec-45bc-b33a-b59f7c0e7493/config
-syz repro: https://ci.syzbot.org/findings/556532c0-64a7-4471-9558-ea3a7a213af7/syz_repro
-
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000009: 0000 [#1] SMP KASAN PTI
-KASAN: null-ptr-deref in range [0x0000000000000048-0x000000000000004f]
-CPU: 0 UID: 0 PID: 83 Comm: kworker/u9:3 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-Workqueue: loop0 loop_rootcg_workfn
-RIP: 0010:lo_rw_aio+0xc36/0xf20 include/linux/percpu-rwsem.h:-1
-Code: fb 48 8d 35 00 00 00 00 bf 60 04 00 00 48 03 3b e8 9f 51 68 fb bb 30 00 00 00 4c 8b 74 24 58 49 83 c6 48 4c 89 f0 48 c1 e8 03 <42> 80 3c 20 00 74 08 4c 89 f7 e8 8b 6c fc fb 49 03 1e 48 89 d8 48
-RSP: 0018:ffffc9000277f620 EFLAGS: 00010206
-RAX: 0000000000000009 RBX: 0000000000000028 RCX: ffff888102725a00
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: ffffc9000277f790 R08: ffff88810aa529a7 R09: 1ffff1102154a534
-R10: dffffc0000000000 R11: ffffed102154a535 R12: dffffc0000000000
-R13: 0000000000000000 R14: 0000000000000048 R15: ffff88810aa529b0
-FS:  0000000000000000(0000) GS:ffff88818d6f1000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000558fd5b46210 CR3: 00000001bb152000 CR4: 00000000000006f0
-Call Trace:
- <TASK>
- do_req_filebacked drivers/block/loop.c:432 [inline]
- loop_handle_cmd drivers/block/loop.c:1954 [inline]
- loop_process_work+0x960/0x11c0 drivers/block/loop.c:1989
- process_one_work kernel/workqueue.c:3387 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3470
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3551
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:lo_rw_aio+0xc36/0xf20 include/linux/percpu-rwsem.h:-1
-Code: fb 48 8d 35 00 00 00 00 bf 60 04 00 00 48 03 3b e8 9f 51 68 fb bb 30 00 00 00 4c 8b 74 24 58 49 83 c6 48 4c 89 f0 48 c1 e8 03 <42> 80 3c 20 00 74 08 4c 89 f7 e8 8b 6c fc fb 49 03 1e 48 89 d8 48
-RSP: 0018:ffffc9000277f620 EFLAGS: 00010206
-RAX: 0000000000000009 RBX: 0000000000000028 RCX: ffff888102725a00
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: ffffc9000277f790 R08: ffff88810aa529a7 R09: 1ffff1102154a534
-R10: dffffc0000000000 R11: ffffed102154a535 R12: dffffc0000000000
-R13: 0000000000000000 R14: 0000000000000048 R15: ffff88810aa529b0
-FS:  0000000000000000(0000) GS:ffff88818d6f1000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000558fd5b46210 CR3: 0000000169ee2000 CR4: 00000000000006f0
-----------------
-Code disassembly (best guess):
-   0:	fb                   	sti
-   1:	48 8d 35 00 00 00 00 	lea    0x0(%rip),%rsi        # 0x8
-   8:	bf 60 04 00 00       	mov    $0x460,%edi
-   d:	48 03 3b             	add    (%rbx),%rdi
-  10:	e8 9f 51 68 fb       	call   0xfb6851b4
-  15:	bb 30 00 00 00       	mov    $0x30,%ebx
-  1a:	4c 8b 74 24 58       	mov    0x58(%rsp),%r14
-  1f:	49 83 c6 48          	add    $0x48,%r14
-  23:	4c 89 f0             	mov    %r14,%rax
-  26:	48 c1 e8 03          	shr    $0x3,%rax
-* 2a:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1) <-- trapping instruction
-  2f:	74 08                	je     0x39
-  31:	4c 89 f7             	mov    %r14,%rdi
-  34:	e8 8b 6c fc fb       	call   0xfbfc6cc4
-  39:	49 03 1e             	add    (%r14),%rbx
-  3c:	48 89 d8             	mov    %rbx,%rax
-  3f:	48                   	rex.W
-
-
-***
-
-If these findings have caused you to resend the series or submit a
-separate fix, please add the following tag to your commit message:
-  Tested-by: syzbot@syzkaller.appspotmail.com
-
----
-This report is generated by a bot. It may contain errors.
-syzbot ci engineers can be reached at syzkaller@googlegroups.com.
-
-To test a fix for this bug, please reply with `#syz test`
-(on a separate line) and attach the patch to the email.
-
-Notes:
-- The patch will be applied on top of the tested series (as an
-  incremental fix).
-- To test a new version of the whole series, please send it directly
-  to syzbot@lists.linux.dev.
-- Arguments like custom git repos and branches are not supported.
