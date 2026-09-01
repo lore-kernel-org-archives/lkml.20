@@ -1,148 +1,171 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD6638D3E6
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:05:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788224714; cv=pass; b=W2GOR5JkzxuO1UMQMHRVkvA57EyYmIioGmSfwQnZ95ru2pC1Rm5nW14BCAO8EiJOerKQfI/qPzIFLeKvtRSPNFTqKMv12bRXfYw5LUpFemoklB6Lu/TqzB/mVOUYLYNv/ZIRkf+oyU4rbxBRDURCzkKY5vtT2rbQoD7+uQNUvEo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788224714; c=relaxed/simple;
-	bh=rCXar17b9Zfs8+JbBMEwMyfXf7r3W/8xbeDNprk7fJM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ir6fdyHnkz2gArStOzjoAH1CSogXCwMcVk9BmkMiLtU9UB5VysdjGBtFblahoFmVfVtcuuYgTva/c3oDM7Jls7u71fY9FYLxL5k3+LAkE9ltO24i8lJ6pATTK2qx17Os0Vxxw+ZuJ235W4lZaZENFWXSPWn9XfNeKl4rYBK4okg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=cfuu/kbN; arc=pass smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 771A238E8CC
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:05:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788224718; cv=none; b=H4/FQmSsGny90CZk1t/7eMb7lY2mUROC2J4Ex8LxjNNUiH96T92vtQYFgLf47uzJ7uJpZtmWliMPLBxcDOIq8rs8YgPyF94YZFnwWSzEUQoql4zmbOcqBHs3U/OS693VgQvVXSEsLZsJ83jvFhSU10gqsDPlefWzsOBVC+NN9kI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788224718; c=relaxed/simple;
+	bh=S/AOyWuaiA3NHvzmTE2CNReBuvvkbVK6T+Yewj+2g5Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KBu8Oq4razdqHk4rOM+cBr2IhGYWJeYoznQL+tiwAsDXVIeBqh5kyxfo6MtOboM2zaqki1+GId47L19x9KINIZTT89K7Sk1E24lHNnYHtbYJK6YuBJ1AEH/HeX4Anw2GxRLdhEoabKvQ71ZnGcpf0z3dVYCLsE67SGRVHiH4SGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fd+bz32y; arc=none smtp.client-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="cfuu/kbN"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-499add6348fso11355e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:05:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788224709; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sjuz37hLX40j/lbo6LgH19tzkY2mfhQeS0CT+WeEs6umdJK7/x5cJfPNWtUtksFPDz
-         SPPMHUwL5hLOqJ/La14U7PdD7Dla/sIHJKT8chn9gOqy0JrN2TnTitZcmNbgKR5XqxzU
-         nOHqK740uysYSfBDDs77Q8g9DB+8zvrorlI3pMYS2KnxuV0wVGhLxMcp2/7HkPsbIS7w
-         bw52uA7HtYhYPgbJ09WSJh79IWGZwZuD2MSgJ9waC1AM1zqVBHXmkQsHs9Ek5yjB2Xel
-         /+3GKT7S3Ff/Ksj4YQ1jstBl53HACvA7Ei9WWWdTs6N6YrIquh1RNAcepDtTxuFsI+D+
-         /AlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mFR8aYSnOaVLnjgwM+vo5O2WKxjAzys+M0VrDg9dEOw=;
-        fh=tTDq1Cqj+X4J+oxAX1vbd/1BVM6HrK6h26wb75pExAQ=;
-        b=QfU6+oJbIduh+6hsZjDJzYxHXY8Y0KtUsVUw4ZXjeLiQp9EMHe9UaLtkT/oKT37Zrp
-         F08QOpWzFl5e3SdF8qfuKZmazjXQ95mjtui6Xv4iUTXAJsEFmg0+YszYKMGiOQs+tCiG
-         GOcq3qy6AzTITXCmqv6i8YYbyca9X4qYHEoef1qzX3EF0OkfsDJJxnIEOJ1ea7dJB5D0
-         TZMNMb2G4U2BhG6I21G5egZK0hWgCB0898Oke7njKLddCXZ+RVNHTq+9LPXUPaeC2NjD
-         tt+ByeXxQotzNjlJiblTphweP64V9tQiVMfL897CEoiq19hh0jzxaVX6bdrXetMG8fpQ
-         qvPg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fd+bz32y"
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38fdeaed181so6244171a91.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:05:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788224709; x=1788829509; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mFR8aYSnOaVLnjgwM+vo5O2WKxjAzys+M0VrDg9dEOw=;
-        b=cfuu/kbNiiHChyxAPhsjcDeOOX0SY9zZzOw9+6+wMMoonHk82+31sB6EQpIRXn4JOv
-         hhFsWmK93uF3LBX5rstp9oaIgw+1HYEqcCxfXMtdFa7taZrIdWhl/McZvri46trtZHzp
-         tWY+CQpYmPbnFTo8NIJipfqO6ULoEOnEP3Fmj6RHKMmaRlqpkE3PLDF4GoERHuf1Wyye
-         xmWdwg3tR9Pe3kM7Q8QUJdEKWfEYYnSIzz/C9/wEkSYeujR6OCdzOfPSnsglghjQIQo2
-         Ix89W7ubMPM5isfbr7kapi6nnQnuSGinehhXuMvOpDdiw6XUml3+rLz+Nul8A6xN1KK8
-         RDew==
+        d=gmail.com; s=20251104; t=1788224711; x=1788829511; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZxuwZq03lYI2TGgQtjkc9QJfZ6xOq7ziiudQrg9Xx9o=;
+        b=fd+bz32yCWvfXhKEUaxlixgV3kiy6TsUmNr5WbxryVjQpBcFI46cP5ABP7pCz5XlBU
+         3s0W9Rv+ct6iQSD08ircYVhfzpDJmh6EwZwD/GHWzMGQ8h7D8KgjvTR29luloQFpgtNt
+         mt5c8n7k9kDfShQU06bWnRXsxv/KOVQwoZGRslhvCjYo4lf9h2Qav4vK0Gm5B1e4SnhF
+         St+MQG0l1tM5umdMm4zGBSlgnYTA7RZuS8/TM7yp2GR1qy/6G3m5q2Cl9B+6LhnVuHRO
+         Lq0WTaNI9lk5BNmNIujFUeTBROi8DFqEneJIhS+RM/icgq+oCc5txVxH1AJ6PGSH0FXA
+         muAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788224709; x=1788829509;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mFR8aYSnOaVLnjgwM+vo5O2WKxjAzys+M0VrDg9dEOw=;
-        b=VrD0echIuovlvAz8Al67+JebgbcKBefSaSnIgE9mAdfHSvIwMWvnXxzpZRZrhgdnRr
-         5r6y7XbQ14tVSEyBTkGSQ1O4VU4cRWQyX6AroerCD9EZ5c4eMeDWmM9C9+DNp+DccscD
-         vF19Vut5OVBxLhgLhMTrv6pmOkhdP+OoN2/JGpugryI9ElaN4yCYwHW/gSyR7lKlMEOs
-         IeCrRtit35Zyy82GmljPNE27+70mu40/RyjesrdCts+WMbWY/W7y+St2KJ9yrdpYmh8m
-         VEZ2/9xSeV/bWOJ79Jc3sictGZOUqlMbLP7bi6AYgxRKMrroPTYVT9bG33pPefW2yqI6
-         LODA==
-X-Forwarded-Encrypted: i=1; AHgh+RqUtUFXI7e41dlP0l4D15TYUsvZ6GWwY3XRIoFJgyChVNc8XAULSeS8843N2zdAOnnT109YuJ+e7tbGojw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kYglgqdg+3Z3VAKzKRaamHTTH+2dMH0h0VPxywmk0sBbUgAWLU
-	LLU5Ej0S3ZNSEnmlsrg0p1OLAXYFAQ9GDiTRwSp1ypsihQiV9v6WcnDBXgqTrsC/Ev4ApIHYnoJ
-	nTMz0uA4kTibmKXvIpM9QAWByPTL0745GWVWwJ49CWAeILSAatoh0Px7cH4ApYg==
-X-Gm-Gg: AR+sD11FNJkF62gXEW5FsQzcdgvD/Yt8P3xXMCRLR/3SRwSpXQdck47RqVcCfbtdnHa
-	OiZasX0mNqd0Tx7L6NhbPBXQh//KqDk3j4M/EVULSu5QdA4CJpGjxCzsDWuYL1X4yNd23p57cP4
-	b6aowIzRzG+tR8HhxlYKG6t2i/CNx14MjiDrhoj2PSPbwbsOWg9MQOYOO0UTtbBPEIQ5Pfg0cGV
-	VYCHxAfKVowOFymKKuvaqc4x+PPMebl1K8mHEhX0L5SM+INF2bA2oHZKc2WiH7oICVtTB5tb8zS
-	iA2J1m0jzX15cCBsborHklRUbpjkDOVq9xF7S+OSvKDgp/iiJSMViqBV67kmQS00A9IPJE3MQKE
-	=
-X-Received: by 2002:a05:600c:c088:b0:499:c4db:2ea9 with SMTP id
- 5b1f17b1804b1-49cde7bdfaamr142075e9.9.1788224708321; Mon, 31 Aug 2026
- 18:05:08 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788224711; x=1788829511;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZxuwZq03lYI2TGgQtjkc9QJfZ6xOq7ziiudQrg9Xx9o=;
+        b=JRsWGsepE0mKKtMBWAWiHV6WOG9hmPJnIuu8ynvSPeCSJ+Fw0L/okA2vgcDuveMdnm
+         0wb2P2fpl22e6DVsJFOd9QcmDIvbiK6O3k9wT0gnu9I0qMiJbhw+/TIEZX+BUq5ohQmh
+         QtsTKGkpxDbPhlIzWbk8sNwp8eXMTf8daKqgRnzqQvNuPSSKsNGaXXXbaz43IbzIZgGF
+         zpv9Mgx/QiicXrp+7cW3LrKtvLR/08KpA0rmcYIgcntb1T+A2maG6k3uuQXnE6CvhGGg
+         CcwIlgQ8uQmHbUfy6GQRShljxNxktR6GWlmNd4SNT4+Cru3I3dP5wWVv7oGe5miNv5Lo
+         iHAg==
+X-Forwarded-Encrypted: i=1; AKwUvBz1I4IShtEtqJC3x7ICjsQIsYE8wpAP0we5Gke+kJmQqZKuzvRg+rwpWbrJ/FN1hcRpRrm3Ssryk/BXg1k=@vger.kernel.org
+X-Gm-Message-State: AFuF++mWtPhg3a3dRi+WJWM4jTssH0TANjQ03AzELBlcCQHTa1b6pQCA
+	/wovkIoZYL0eIBtj+NXphueW/ZCIbNK+5P29huzoDEoCCGxfEtWVLywi
+X-Gm-Gg: AYBFou1qF/58snxKmpmsIRnXFOiFog0vugg9zeJsy2W1uUlaPYXrbKdGzpJVURshQiI
+	cLyonVsRR0IxsT7jWe/MQNydtkorISEnr+WSLQ2X+yUyQHgq7KqNecWekjnvuoGugfcjlYMvU+F
+	eEjZxRkV+oouaXwErpgEXq3CLf2fmzQwJfMP5m1Ue3yOFD36+j/Gytkc/9XKC91BpzlUdJuTqvR
+	OCKIg8MHTOpCP+9h1o7docgG57TsiLo0xsK33w6Ka4TDxs28PhBjSf8fuNZnsJ/kGSJ0vFMGq0h
+	PTKx2cKgdEBarxHvTSxxzutMfkeytngbPnB9vfDZH9Fn5xJxd6sE2zvkv01FuQq6ZSZig7HVoeK
+	HctYydaaoV9sYej3Ggh88MKHIVkQTjm9dsEHwId3ZAUQhFNgY4CQOvVUGj7BTw2ssHj8+RSjRlX
+	v79RCFgajvaFm2hyrG8JMSN0yhJXu+ygqPMyUIPLWp5wM+qVwDvgauRRiIq8LZt0XDGQmINIJAy
+	F6YSfVr6uK0Mk3M
+X-Received: by 2002:a17:90b:5281:b0:38e:6aa7:68ad with SMTP id 98e67ed59e1d1-39907aff83dmr6183862a91.5.1788224711002;
+        Mon, 31 Aug 2026 18:05:11 -0700 (PDT)
+Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d49e9e0sm2372024a91.11.2026.08.31.18.05.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 18:05:10 -0700 (PDT)
+From: alistair23@gmail.com
+X-Google-Original-From: alistair.francis@wdc.com
+To: linux-pci@vger.kernel.org,
+	Jonathan.Cameron@huawei.com,
+	djbw@kernel.org,
+	rust-for-linux@vger.kernel.org,
+	lukas@wunner.de,
+	alistair@alistair23.me,
+	jic23@kernel.org,
+	linux-cxl@vger.kernel.org,
+	bhelgaas@google.com,
+	akpm@linux-foundation.org,
+	linux-kernel@vger.kernel.org
+Cc: gary@garyguo.net,
+	ojeda@kernel.org,
+	benno.lossin@proton.me,
+	a.hindborg@kernel.org,
+	wilfred.mallawa@wdc.com,
+	tmgross@umich.edu,
+	alistair23@gmail.com,
+	boqun.feng@gmail.com,
+	bjorn3_gh@protonmail.com,
+	alex.gaynor@gmail.com,
+	aliceryhl@google.com,
+	Alistair Francis <alistair.francis@wdc.com>
+Subject: [PATCH v3 08/21] rust: error: impl From<FromBytesWithNulError> for Kernel Error
+Date: Tue,  1 Sep 2026 11:03:34 +1000
+Message-ID: <20260901010347.2614656-9-alistair.francis@wdc.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260901010347.2614656-1-alistair.francis@wdc.com>
+References: <20260901010347.2614656-1-alistair.francis@wdc.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831234339.280376-1-stevensd@google.com> <apYXCL_GJs9Ovu0v@linux.dev>
-In-Reply-To: <apYXCL_GJs9Ovu0v@linux.dev>
-From: David Stevens <stevensd@google.com>
-Date: Mon, 31 Aug 2026 18:04:57 -0700
-X-Gm-Features: AcwNN1UUQ5wS7WM0_atlL1tQIeuhEAKnPM1Hr-Z68q5Q2CNXNYgeVFoYiElXs7Y
-Message-ID: <CAOiLmNEV8b3TW_Q7+h5mYrZ1Nw73XcPFPUsapeYObLYajq_PJw@mail.gmail.com>
-Subject: Re: [PATCH] memcg: Don't call schedule_work when no spinning is allowed
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 5:10=E2=80=AFPM Shakeel Butt <shakeel.butt@linux.de=
-v> wrote:
->
-> On Mon, Aug 31, 2026 at 04:43:39PM -0700, David Stevens wrote:
-> > Memcg charging can be done from any context, but calling schedule_work(=
-)
-> > isn't safe from an NMI. If memory.high is breached from a context where
-> > spinning isn't allowed, use irq_work to schedule the reclaim work.
-> >
-> > Fixes: 3ac4638a734a ("memcg: make memcg_rstat_updated nmi safe")
-> > Signed-off-by: David Stevens <stevensd@google.com>
->
-> Did you hit this issue or just code inspection? I assume this is the
-> done_restock code path.
+From: Alistair Francis <alistair.francis@wdc.com>
 
-I just found this via code inspection. I spent a little bit trying to
-trigger it for real, but the only way I managed was by writing a hacky
-driver absuing alloc_pages_nolock().
+Implement From<FromBytesWithNulError> for the Kernel Error type as we
+will use it in a future patch.
 
-> > ---
-> >  include/linux/memcontrol.h |  1 +
-> >  mm/memcontrol.c            | 12 +++++++++++-
-> >  2 files changed, 12 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-> > index 8170bb8066a2..036d973ceca6 100644
-> > --- a/include/linux/memcontrol.h
-> > +++ b/include/linux/memcontrol.h
-> > @@ -219,6 +219,7 @@ struct mem_cgroup {
-> >       spinlock_t       peaks_lock;
-> >
-> >       /* Range enforcement for interrupt charges */
-> > +     struct irq_work high_irq_work;
->
-> Instead of adding more complexity, let's just return if we can not spin o=
-n
-> done_restock path.
->
+As this is now generally available we can remove it from the test case
+as well.
 
-There would be no guarantee that memcg reclaim would ever be
-triggered, which also would also stop MEMCG_HIGH events from being
-generated. Overall that seems a more serious than just dropping
-userspace notifications like is done for MEMCG_MAX.
+Signed-off-by: Alistair Francis <alistair.francis@wdc.com>
+---
+ rust/kernel/error.rs | 18 +++++++++++++++---
+ rust/kernel/str.rs   |  7 -------
+ 2 files changed, 15 insertions(+), 10 deletions(-)
 
-That said, it is very much an edge case. I can send a patch with the
-simpler fix if dropping the events is preferred.
+diff --git a/rust/kernel/error.rs b/rust/kernel/error.rs
+index e52793f77196..84e6466f54c2 100644
+--- a/rust/kernel/error.rs
++++ b/rust/kernel/error.rs
+@@ -12,9 +12,14 @@
+     str::CStr,
+ };
+ 
+-use core::num::NonZeroI32;
+-use core::num::TryFromIntError;
+-use core::str::Utf8Error;
++use core::{
++    ffi::FromBytesWithNulError,
++    num::{
++        NonZeroI32,
++        TryFromIntError, //
++    },
++    str::Utf8Error, //
++};
+ 
+ /// Contains the C-compatible error codes.
+ #[rustfmt::skip]
+@@ -358,6 +363,13 @@ fn from(e: core::convert::Infallible) -> Error {
+     }
+ }
+ 
++impl From<FromBytesWithNulError> for Error {
++    #[inline]
++    fn from(_: FromBytesWithNulError) -> Error {
++        code::EINVAL
++    }
++}
++
+ /// A [`Result`] with an [`Error`] error type.
+ ///
+ /// To be used as the return type for functions that may fail.
+diff --git a/rust/kernel/str.rs b/rust/kernel/str.rs
+index b3caa9a1c898..a556788bcc5e 100644
+--- a/rust/kernel/str.rs
++++ b/rust/kernel/str.rs
+@@ -433,13 +433,6 @@ macro_rules! c_str {
+ mod tests {
+     use super::*;
+ 
+-    impl From<core::ffi::FromBytesWithNulError> for Error {
+-        #[inline]
+-        fn from(_: core::ffi::FromBytesWithNulError) -> Error {
+-            EINVAL
+-        }
+-    }
+-
+     macro_rules! format {
+         ($($f:tt)*) => ({
+             CString::try_from_fmt(fmt!($($f)*))?.to_str()?
+-- 
+2.55.0
 
--David
