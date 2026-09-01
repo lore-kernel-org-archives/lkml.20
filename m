@@ -1,94 +1,160 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D638E476694
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:15:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D18247798B;
+	Tue,  1 Sep 2026 09:17:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788254158; cv=none; b=GNSXAebeC8t4OMJrkwsoByG85XhYyo9INcxuvBT6ZVTHPRXc3xSzX6uTxlXnNhWJBg3r1HKJYtHl6rG78UUxgMc6paRRU2Kdf1yIrVhSsk8KiOUiHTuRyWWYKM80c+8KmpxT0hBpUDi12HsVQ2RGG09rihxqqATux0ewNO4j+gs=
+	t=1788254234; cv=none; b=R6cAk+8zVEEiWAsP5CGYs+kjKRtX2ikhG2utAVONJyxogtpcefZ9QRM5xgLnZ/rc0N3tAMacE5SZa4AuwBq8UksLKS+4d34yerqPvC0ksqQwmxCdHR0Wp+UPBFZ0JoSKclqZcb2Awr9m/iPAwc5TJkhJQtCV4H9On0Cy6HX+bPc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788254158; c=relaxed/simple;
-	bh=E+Rt5wOPJ8RNnN5YxUxJHXBh0UHtkQZj6cIJL9v9y3Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jLKHSeN3wZrJuMcYkPrvQ/HxVkT6GCw2oZn3ZruTcvoP8sCFYtvkm7o8Zx/AnWvF+pq81GXSPisNOpN5Wav3oqrh0Nk3nMsLs+qgeDW+t50XD0TD8mIpqHtcSa10gF6QL9cGIbLwK87uvd4v+oy0RN0+VumcIpclVbKXnr/a8aA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=WgOvLae/; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788254234; c=relaxed/simple;
+	bh=SEvxqsLXA5gPmTU0Dj4YKtTfRCn4/vTp5S4oMrM7tGk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=BJKM/XJRTx1Bm2jdEKprB4xv+tnajlO+MDPkfDN4+czk8XIz8NHFsCnPCmyDKbldp+hyE6iba0YDwckprMli1Cz28IJ4LJwoN/9Qrrhk9EtWr6qRoJhbybMd37PRLeLMIMh1czos4LK3leGktlelWxDEZ38xWc3rIsTLntLwEW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XROMNIUm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="WgOvLae/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=DC
-	nerTV0ZvZoIkpRk6nnjdtD9XaIEisWkGaFoLXO7UA=; b=WgOvLae/WiUOPCqDO2
-	9jJoqX7jU+O+TmXbOxAtcQngQ6NtWC3hHGaALrnSjVZMb2Bzb15VFsQ4JfEX8l8W
-	TnRNPbjQXblsaVsr4FMjdwUDN9QfYxC3AWllsE0x5fEKMU32LiGNJAdZELd6YwRc
-	rbu1ictffHQ5eNya+uuffca8A=
-Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wDXmJ6pl5ZqstwpQw--.142S2;
-	Tue, 01 Sep 2026 17:15:27 +0800 (CST)
-From: Baolin Liu <liubaolin12138@163.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XROMNIUm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4EB61F000E9;
+	Tue,  1 Sep 2026 09:17:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788254232;
+	bh=mITZlxCGGk5dvksU48UBQe0WaGaTY/+s4dpeJMto630=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=XROMNIUmyhA7M/dbxKK8Imo86dz2L5j/zRFqHXNrxib/St5Bz1Wb45NtmhWOw5fJy
+	 1u3rgOng700Q/MQ7vgjnccFx73xrQm/I7XQ3n67GRnFhDKxJ/VFmyX48m+SserSxs+
+	 Tj82D7pJJMB26AvoXAgxRVqAW3LgHXg+Khq3BxBKr9/K3b1pItu8VaSk4UULn1gG//
+	 8C8f2gKAHAI74TDde4b39ZA0HPi0d9Z3mFhPd6KgiQH0aY3Zq0mWuwzTsGSVTSS7ZE
+	 jUydPyVjl+1VTyXdmpr4NjgMXIHt/C0EyY7NN9kjEfZOHNqNA5Ed9dbgxa4YiD6AJE
+	 VftVrjb3WsNrg==
+X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
+From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
+To: Nicolin Chen <nicolinc@nvidia.com>
+Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	liubaolin12138@163.com,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH 0/2] ntfs: wire up the fileattr API
-Date: Tue,  1 Sep 2026 17:15:16 +0800
-Message-ID: <20260901091519.2885376-1-liubaolin12138@163.com>
-X-Mailer: git-send-email 2.51.0
+	Alexey Kardashevskiy <aik@amd.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>,
+	Joerg Roedel <joro@8bytes.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Pranjal Shrivastava <praan@google.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Xu Yilun <yilun.xu@linux.intel.com>
+Subject: Re: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
+ viommu plumbing
+In-Reply-To: <apM6dOHcEI2ztWS0@nvidia.com>
+References: <20260427085344.941627-1-aneesh.kumar@kernel.org>
+ <20260427085344.941627-4-aneesh.kumar@kernel.org>
+ <apM6dOHcEI2ztWS0@nvidia.com>
+Date: Tue, 01 Sep 2026 14:47:04 +0530
+Message-ID: <yq5a8q5lz5yn.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXmJ6pl5ZqstwpQw--.142S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Kry5XF4DAry3WF1kCF15Arb_yoW8AF1rpF
-	WfCFy3WrnrXry2ywsavr1DW3yFqw4kXrWUWry2q34xCFn8Jry2gFyIk3Wrurs2yrWfJ3sF
-	qr4jqr9rWan0ya7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pir-BtUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwg9RHGqWl69iMgAA3U
+Content-Type: text/plain
 
-From: Baolin Liu <liubaolin@kylinos.cn>
+Nicolin Chen <nicolinc@nvidia.com> writes:
 
-This series implements fileattr_get and fileattr_set for ntfs so that
-lsattr(1) and chattr(1) work on ntfs.
+> On Mon, Apr 27, 2026 at 02:23:31PM +0530, Aneesh Kumar K.V (Arm) wrote:
+>> +static const struct iommufd_viommu_ops arm_realm_smmu_v3_ops = {
+>> +	.destroy = arm_realm_smmu_v3_destroy,
+>> +	.alloc_domain_nested = arm_vsmmu_alloc_domain_nested,
+>> +	.cache_invalidate = arm_vsmmu_cache_invalidate,
+>
+> I don't think realm vsmmu should include NS nested domain ops. I
+> wonder if adding here is for some covert reason that prevents us
+> from registering viommu/vdevice objects?
+>
+>> +static int arm_realm_smmu_v3_vdevice_init(struct iommufd_vdevice *vdev)
+>> +{
+>> +	struct device *dev = iommufd_vdevice_to_device(vdev);
+>> +	struct arm_smmu_master *master = dev_iommu_priv_get(dev);
+>> +	// fixme which stream to pick
+>> +	/* At this moment, iommufd only supports PCI device that has one SID */
+>> +	struct arm_smmu_stream *stream = &master->streams[0];
+>> +	struct arm_smmu_device *smmu = master->smmu;
+>> +	unsigned long rmi_ret = 0;
+>> +	int ret;
+>> +
+>> +	if (!smmu->realm_initialized)
+>> +		return -EINVAL;
+>> +
+>> +	ret = rmi_psmmu_st_l2_create(smmu->base_phys,
+>> +				     ALIGN_DOWN(stream->id, STRTAB_NUM_L2_STES),
+>> +				     &rmi_ret);
+>
+> The "vdevice" is for a PSMMU stream table allocation..
+>
+>> +int arm_realm_smmu_v3_init(struct iommufd_viommu *viommu,
+>> +			   const struct iommu_user_data *user_data)
+>> +{
+> [...]
+>> +psmmu_activate:
+>> +	ret = rmi_psmmu_activate(smmu->base_phys, virt_to_phys(params),
+>> +				 &rmi_ret);
+>
+> .. and the "viommu" is also for PSMMU activation...
+>
+>> +++ b/include/uapi/linux/iommufd.h
+>> @@ -1055,6 +1055,7 @@ enum iommu_viommu_type {
+>>  	IOMMU_VIOMMU_TYPE_DEFAULT = 0,
+>>  	IOMMU_VIOMMU_TYPE_ARM_SMMUV3 = 1,
+>>  	IOMMU_VIOMMU_TYPE_TEGRA241_CMDQV = 2,
+>> +	IOMMU_VIOMMU_TYPE_ARM_REALM_SMMUV3 = 3,
+>
+> .. and we demand userspace (VMM) to use IOMMU_VIOMMU_ALLOC ioctl,
+> even if VMM does not actually expose a guest-level SMMU instance.
+> Thus, no user_data.
+>
+> I can get the reasoning behind the flow using this viommu/vdevice.
+>
+> But, on the other hand, I can imagine that a Realm VSMMU would add
+> a new flag with a user_data to this VIOMMU. Then, this flow would
+> give some troubles to VMM (QEMU for example):
+>
+>  - For VM with a guest-level SMMU, QEMU creates a realm instance
+>    where IOMMU_VIOMMU_TYPE_ARM_REALM_SMMUV3 (with vsmmu) can be
+>    allocated.
+>  - For VM w/o a guest-level SMMU, QEMU won't create such a realm
+>    instance, while still required to invoke the ioctl (w/o vsmmu). 
+>
+> Taking a step back, I wonder if we really need to use iommufd for
+> PSMMU activation and its stream table allocations?
+>
+> Here are some facts:
+>   - An iommufd has a ctx, that's one per VM. Similarly, a Realm
+>     has an RD.
+>   - For an RMI command that needs an RD, it makes sense to be per
+>     iommufd ctx, e.g. RMI_VSMMU_* or RMI_VDEV_* commands.
+>   - PSMMU commands are global; they don't need RD. So they don't
+>     seem necessary to tie to an iommufd ctx.
+>
+> Instead, could the PSMMU activation be done after RMI_PSMMU_INFO
+> check? Is there any reason not to do that? A safer timing might
+> be at the device assignment stage?
+>
 
-Patch 1 wires up the fileattr inode operations and implements support
-for FS_IMMUTABLE_FL and FS_APPEND_FL. These flags map to inode->i_flags
-(S_IMMUTABLE, S_APPEND), so the VFS enforces them. fileattr_get also
-reports the compressed and encrypted state, which the driver already
-exposes through STATX_ATTR_* in ntfs_getattr().
+One of the reasons I added IOMMU_VIOMMU_TYPE_ARM_REALM_SMMUV3 was to
+avoid creating a psmmu object when we are not using a PCI passthrough
+VM. That is also the reason for all the refcounting around the psmmu
+objects.
 
-Patch 2 adds FS_NODUMP_FL support, which dump(8) and other backup tools
-use to mark files to skip. The flag is stored in a new ntfs_inode field
-and reported through both fileattr_get (for lsattr) and ntfs_getattr()
-(as STATX_ATTR_NODUMP, for statx), so the two interfaces stay consistent.
+If we are okay with creating psmmu objects early, then I guess we can go
+with the above approach.
 
-All three accepted flags (immutable, append-only, nodump) are kept in
-memory and do not survive a remount, matching ntfs3 behavior.
+>
+> Speaking of which, RMI_PSMMU_ST_L2_CREATE doesn't seem necessary
+> to be invoked in a vdevice context either. Maybe it should align
+> with iommufd idev's lifecycle?
+>
 
-Tested in QEMU on an NTFS volume, both with chattr(1)/lsattr(1) and with
-a test binary issuing the ioctls directly:
- - chattr +i/+a/+d each set the flag and lsattr reads it back
- - appending to a +i file fails with EPERM
- - statx(2) reports STATX_ATTR_NODUMP once nodump is set, and stops
-   reporting it once cleared
- - FS_COMPR_FL is rejected with EOPNOTSUPP
- - lsattr reports 'c' on a compressed file
- - chattr -i/-a/-d clear the flags, and a flag set before unmounting is
-   gone after dropping caches and mounting again
-
-Baolin Liu (2):
-  ntfs: implement fileattr_get and fileattr_set
-  ntfs: support the nodump flag
-
- fs/ntfs/file.c  | 65 ++++++++++++++++++++++++++++++++++++++++++++++++-
- fs/ntfs/inode.c |  1 +
- fs/ntfs/inode.h |  1 +
- fs/ntfs/ntfs.h  |  4 +++
- 4 files changed, 70 insertions(+), 1 deletion(-)
-
--- 
-2.51.0
-
+-aneesh
