@@ -1,239 +1,141 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E41E18FDDE
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:25:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 423D827FD76
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:26:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788265552; cv=none; b=F0eTRPJ0/hxZXpGjjROYShD4eMCEiyNmV6yD1NTc48qPj2MYBX31YFFWv02+noFMBLSHZf81P5YYAZTDF7JfzqoJflrZxtaj+CZEBc2KeqX5H2t4qJ8i9Hu/XieGey48BLg+Y5m80kc8gQxdMAVTQlf/nlyeG+Q4Zrys/w5oqYg=
+	t=1788265617; cv=none; b=sPENS4CSKp/2YSWsrUTsHz2V/NfFcaRYHdmgtr25DTA6OiisWXdAz0BJu1DCM1+lAGXB7njQ1aZwli684oNkFrKMlo0xq7GZlTHNK5sYG99kNC0OTsJZXHbwdS0Zy5oQgUV0guHOxHDCfE9er3v3A9r/M7ORG9fK/SEQY4ih+54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788265552; c=relaxed/simple;
-	bh=aOlIvd4RNUI7aMsUehMlOv0zAvYvJET7CTj58U6wqEc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kKAX7jnEGqj7bzS349DxMR0qJ/pGXSrWtwyWy4T8iK4p9ouw4zhmWcMzXl9bQhDuQsmF0Zy3mavCQCFblQ7C7llX0u3nu5yFsQDKVwfVM2AL1VeFyYUZEzyjAT/fdldadGsZ8MPdxCCinI+mPvodj6w08tWkysRCk3zgyRBEznc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YZRmUkqp; arc=none smtp.client-ip=209.85.221.54
+	s=arc-20240116; t=1788265617; c=relaxed/simple;
+	bh=7Q34ACZX39BwIgyh4m+8rA64bsnZpabLgc3mbIx2n/w=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Mhb5bqgM/6F0bwARM4MRzG3tBM7LiNc3EANfE52UhpUYgv2smNsBN3YEILKERg25Z37YzyYy9hmZMmbu4bkZ5c87A+A5FPCrbS6Qm0p4Hro3yV3d0aksaGLKYM1Mr6NbrahfPrkJ/zOnCrRpJcIFL57+xHdAG2nj5o3uHiXSrvw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W+V8iEj1; arc=none smtp.client-ip=209.85.221.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YZRmUkqp"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-482e257a23aso2746718f8f.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 05:25:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W+V8iEj1"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4843750de83so553487f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 05:26:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788265549; x=1788870349; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yugDxsMXHLsA2bowceNkyRvTb2StYc5BO0q5qfDNzXg=;
-        b=YZRmUkqp3AhSe+qjgaMAGMCFOGv/395H5CTl5uAsBQMG4AnEuPW52WMjIK4Po8Cbon
-         EBHOt0ICnOY2yViisfda2ETEDYSzgkF0my62CqjYJpiPGdOUIN3wCmmAzUtFXW11eK2m
-         JgC7WEi8O0NWpRvjJDz+tIuKrwAAbsVJes/IoBRXWwrt9p/krqYcJWMhfya6oYkqdvZv
-         KuDIUzzQfIOoK9/5MiwrWFeTTFQAFeY4EjHRVYR+xms/kA/YBZ5FnazJ15+2cJQ5WncI
-         jBt+VRs3/UZVsEbdjyaDIRgvOnbJEO7XofEXPN6e+u2YbpNxLSHUOqVu8VpAhVZGL+Su
-         jO0A==
+        d=gmail.com; s=20251104; t=1788265614; x=1788870414; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=f6qpjX7WWAJ2cweV8AeFtOfMeKDPxjEBYU+hvHsVykk=;
+        b=W+V8iEj1SYJmqTRgLxIijEMnL3aHNyuEuY4C2dSOsK7dH1KZjC6zDmRM8n5GMKp1ZK
+         SuX6ipU35B4rp7XVbnYm0cBV55Ix7kF7RniaYVbPHukcutZRJSknGi1lgZMhRNV589AU
+         yszNSj4AlRy5PQxP6DeAIAE/paCn+pbNgUdFQ3EGAxZUMN+u810xqmPbUssZsNxE3QeV
+         ydG1Ymkt+m2UNRaiuZ4epxzi99Ddl5Iu1SMCyiHWoRhJurLoIiRLoFmMAlVbREgm7xAe
+         9gHXPwEEPXrkBB4q4nr95hcW0m3x/3EEoPac5ITr/zek8JWVnxkYBK+zl+dqcJoRHmpb
+         LcJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788265549; x=1788870349;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yugDxsMXHLsA2bowceNkyRvTb2StYc5BO0q5qfDNzXg=;
-        b=NiYfeG0+LshUF00sdcJDOXXWyL0sEiJsFq/R2s74pQK/m+6XcGQq/VYwXL98D6r7x3
-         AHMuUwzXeaFzA+0GAyY1DkPdJIcsQ99dMMBmlQMN7XEPDeMTAynliLDYYk6BCr4wprNX
-         X6VvINyDHFrbzzIK/k1kv1U7n8Vs401hQS8+SbF9s7Gj9pRSuJYq6DXj0MnJmq2s6YO8
-         fz7+iz6Qht9G9cTz4G4QT/d83xTMwPeK5Wb5gvnDSMXNDM67b9Cs4FYmUHO/haiC7c1Y
-         RU2Q01hGSLx061jsuEijKRnb1uQKTrN/MFaq9C6sDr5PV8s/od5OEBJSE3wMuoRFjkCh
-         LHwA==
-X-Forwarded-Encrypted: i=1; AKwUvBzpfSeZtYhO1SYA38l4Bj0vhrJCYzsjn3CbMXl1zQHoNhSxPR15bNU9AgfKj4BLM0qb5GBO6hmZ1/jNvdU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgUhcSAJwHBcO1OE4ZX+4IxRaQYn1Cmdz0VU5QvfMnAq9cKcQR
-	ubi7Wlp1ZHI9A7znNEihv8qdYx3rTY1a06Rm7Rzqj2Dmg9Mvy0f3bbQv
-X-Gm-Gg: AYBFou0Duv3HZJG5AUXR0zqNLobBerVqVRUR5xkW3QMFGDs8TFBZEfKN+ZdzWytJqKi
-	crHTNqsLp3Q38E0HMkjuaP0h7xMdRKeIs2meuQrr2+cJoOOlmBjH04DeSkCawJKTJZJbYPJKgjL
-	x822pR2Na8FDebm555W7GJBaxXLF7VygPJE1OXdv1cKYJfM5yWXebzBDAtbbEq83V02GXgb4Si7
-	UtZ0OJGNiyJmod6y7dyPYleZn0SKRxsBrr63JNeYew3a5YCHn3A33ClpkB9fp25v5T7du1SMxZ4
-	ILqNCMPR6zlK7H4eamlyt9hbymGlYJo/Uc/SIhHOC86Wcj9HcMdW4zkN37Vt6bJz/mlLWOAu3u5
-	PUijRpUh3G1ZtrnWiHCkWXJO5iBIimenXjl2Ts7rKNtWYt84X2EsTAO5gB/R2XmQRphN1MkKqVM
-	Up4JE6ROsFUuV7OqKvfI3bqs0wexb2B144z6DpYOhZbCH9jpC6rjxkLzQzao1PI/fjEe7CmAwxA
-	WPW6UyZIJWDs9CIAtklZyiMbg==
-X-Received: by 2002:a05:6000:4693:b0:482:f5f6:d253 with SMTP id ffacd0b85a97d-482f79b0528mr44729814f8f.12.1788265548816;
-        Tue, 01 Sep 2026 05:25:48 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d7e70csm4375853f8f.36.2026.09.01.05.25.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 05:25:48 -0700 (PDT)
-Date: Tue, 1 Sep 2026 13:25:45 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Thomas =?UTF-8?B?V2Vpw59zY2h1aA==?= <thomas.weissschuh@linutronix.de>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>, John Stultz
- <jstultz@google.com>, Thomas Gleixner <tglx@kernel.org>, Stephen Boyd
- <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>, Deepa Dinamani
- <deepa.kernel@gmail.com>, Cassio Neri <cassio.neri@gmail.com>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] time: Prevent time64_to_tm() day truncation on 32-bit
-Message-ID: <20260901132545.3b58cd78@pumpkin>
-In-Reply-To: <20260901110349-7fc309aa-0ed4-4bd9-a4af-71cc703fa054@linutronix.de>
-References: <8d421725051450cecf0a7e6d2c514b6926df43b1.1788019619.git.kmehltretter@gmail.com>
-	<20260901110349-7fc309aa-0ed4-4bd9-a4af-71cc703fa054@linutronix.de>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        d=1e100.net; s=20251104; t=1788265614; x=1788870414;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=f6qpjX7WWAJ2cweV8AeFtOfMeKDPxjEBYU+hvHsVykk=;
+        b=HmeX0lMqbAJ7pzK/9/eDb69Duj7hkgmJeU8DINV7AV+L3UDlWxEG7Iqai1oPEj4KlX
+         L/XfTmofH9/Nx99Pgma6e/jm9JMcHcsQzRZkJbqK2mGhVLT4YT1GoqxByKfiEtjAt5o4
+         wmWT0WALhusPB1IvtfZUhusKg1zsF/B/dMfehoNVwk0R8UdLOxLBEZ5oG0CYZDDVuX9C
+         kNXSa3YN+3xOXbmdpJeAhOfqUdek2t3cQyLOMb6JNwTYWL8tzXM+y0Qd+2hX9Ee5XpgL
+         MMb/erRpnq8yD/HBbHq8H18qJ0Tq6BbDRrJzMQcpyhrkNRyk5PqPGZvJlbfV8m723+Gu
+         PGRA==
+X-Forwarded-Encrypted: i=1; AHgh+RrnhXvaJ6eX5CmAbWbXNwsNaNnfFxI0WRCc/VgyQs37kM8tmq4iuaSvia2pfDt89kouPemi2cGDFrBlTfU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mYF7c3u6KW6CO0ibkpFuG3F/ukMq5DlTloWoDO+T/ZWfTa1kUE
+	M9xgO5i6smT3aK4ozj86M3KCpFLuUnGKTOnzvwbmGodSSOVtevgt5FNa
+X-Gm-Gg: AR+sD1010mpbsDlSAMCOljMgwwFyupLTmXEiHxBBkAtDendD9TrjaoPEp4DVw/qQtzY
+	g3vKhKlRmL2A4rH/QWWfLJdLDdEqesnY9k+C1Po8xdB7w6jkre99JO3oasuFe4t+13TfyvBflRA
+	nZTt2MK218WnITLRcFYQEJkb+1MEeyyiVIduinfuBImmYdrgNACLwFcqhzJYWsjcZoKnn8O9262
+	wL2ZvPXGjYL7Az0huV4ETw2uetP0LnunTOXqzJ0e1HlyWRS16ZU6CTOd13HvbNorfyfUdn8ZlzM
+	HlxssjjY8kdN/A8KI9mc19txfL2VZ38EbMhLElQ5tHGX4Xl1y99Gqvm9KO1z6MOJ1KcXjI02Mul
+	rnfW3ofINze0r5XN0tJoPE/9k4ANExL1BiZH5ofbuh1/+gL82j2DaqlvJ9QL2EJnULY6V8es1uh
+	1Ye9Kj9UfFJVwZ+i8rVYSXTtHbj+a/pcLFTADnjp/8x2Ps6cAKwlFVS1F1/7Mbe13MBINutDlx1
+	XFr89uSe2Cxn1vwJcqHpgOSMSMoUSjInNCL/PVKgbFwyG4gsU0a7DWHZdCEjYEhFOtuu/Fq0LmU
+	h9+VBBYiX87Maf06THv8cZdMUzyRcbgv7LiimDfqvW8ec4llMaXVxWPAYhGnCsBEwtw=
+X-Received: by 2002:a05:600c:6091:b0:49c:d60c:74e0 with SMTP id 5b1f17b1804b1-49cdc44a420mr156178575e9.13.1788265614057;
+        Tue, 01 Sep 2026 05:26:54 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a16a-7801-fd8c-4b37-36b4-e53a.310.pool.telefonica.de. [2a02:3100:a16a:7801:fd8c:4b37:36b4:e53a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce089c2sm64755395e9.2.2026.09.01.05.26.52
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 01 Sep 2026 05:26:53 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: stable@vger.kernel.org
+Cc: Waiman Long <longman@redhat.com>,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	Guopeng Zhang <zhangguopeng@kylinos.cn>,
+	Chen Ridong <chenridong@huaweicloud.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Karl Mehltretter <kmehltretter@gmail.com>
+Subject: [PATCH 6.6.y] cgroup/cpuset: Fix misplaced DL migration reset
+Date: Tue,  1 Sep 2026 14:26:42 +0200
+Message-Id: <20260901122642.11571-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, 1 Sep 2026 11:14:45 +0200
-Thomas Wei=C3=9Fschuh <thomas.weissschuh@linutronix.de> wrote:
+Mainline commit 4a39eda5fdd8 ("cgroup/cpuset: Reset DL migration state
+on can_attach() failure") puts the common error cleanup in
+cpuset_can_attach().  The 6.6.y backport instead placed that hunk at
+cpuset_can_fork()'s similarly named out_unlock label, while removing
+cpuset_can_attach()'s two existing targeted resets.
 
-> On Sat, Aug 29, 2026 at 06:12:12PM +0200, Karl Mehltretter wrote:
-> > time64_to_tm() accepts a 64-bit seconds value, but stores the quotient =
-in
-> > long. On a 32-bit kernel the day count therefore wraps when it reaches
-> > 2^31, even though the corresponding year remains representable in
-> > struct tm.
-> >=20
-> > This is reachable when formatting externally supplied timestamps. For
-> > example, NILFS recovery copies the little-endian 64-bit ss_create field
-> > from an on-disk segment summary into time64_t. Its sysfs attributes then
-> > print that value with %ptTs, whose formatter calls time64_to_tm(). A
-> > corrupted image can consequently produce an architecture-dependent prin=
-ted
-> > date.
-> >=20
-> > Keep the day quotient in s64 while leaving the seconds-within-day remai=
-nder
-> > as long. Use div_s64_rem() for the weekday calculation so 32-bit builds=
- do
-> > not require compiler runtime division helpers. Add a KUnit case at the
-> > first positive day count outside signed 32-bit range. The baseline i386
-> > kernel returns a negative year and wrong calendar fields; the fixed ker=
-nel
-> > returns the same result as x86_64.
-> >=20
-> > Fixes: e6c2682a1da3 ("time: Add time64_to_tm()") =20
->=20
-> If this is supposed to be a fix which might get backported, the kunit
-> test changes should probably be in a dedicated commit.
->=20
-> > Assisted-by: LLM
-> > Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com> =20
->=20
-> Reviewed-by: Thomas Wei=C3=9Fschuh <thomas.weissschuh@linutronix.de>
->=20
-> > ---
-> > Review notes:
-> >=20
-> >   - On a test-only baseline, QEMU/i386 passed the existing case but fai=
-led
-> >     the wide-day case with tm_year=3D-5879541 and four other wrong fiel=
-ds.
-> >     Baseline x86_64 and fixed i386, x86_64 and lockdep x86_64 passed 2/=
-2.
-> >   - A direct s64 modulo emitted __moddi3 on i386 and __aeabi_ldivmod on=
- ARM
-> >     with Clang 21. The submitted form uses div_s64_rem(); W=3D1 builds =
-of
-> >     both objects contain neither compiler-runtime reference.
-> >   - The narrow type came from time_to_tm() in the Fixes commit. The 2021
-> >     arithmetic rewrite kept it and tested only +/-80,000 years, below t=
-he
-> >     approximately 5.88-million-year 32-bit day boundary. =20
->=20
-> We still have an overflow when year exceeds LONG_MAX on 32-bit.
-> Not sure how relevant it is to handle years over 2 billion, however it
-> is likely as relevant as years over 5.88 million.
+If cpuset_can_attach() fails after accounting a SCHED_DEADLINE task,
+cgroup_migrate_execute() does not call cpuset_cancel_attach() for the
+failing subsystem.  The temporary migration fields remain set, and a
+later successful migration can consume the stale state and corrupt
+deadline-task and pending-bandwidth accounting.
 
-By then the earth's rotation and orbit will have slowed enough that the
-Gregorian correction that 3/4 centuries aren't leap years won't be enough
-and the entire scheme will have to have changed.
+Move the reset to cpuset_can_attach()'s common error exit.  It is not
+needed in cpuset_can_fork(), which never accumulates migration DL state.
 
-The observant will also have realised that since December is 'month 10'
-January is month 11 and February month 12.
-So the year originally started in March, not even the 1st but on 'Lady day'
-with is (IIRC) the 25th.
-The UK tax year ended on Lady day until we switched from the Julian to
-Gregorian calendar (to match most of Europe except Russia). The change 'los=
-t'
-10 days, but having a short tax year would cause too much grief - so the end
-of the tax year was moved 10 days to April 5th keeping the year the same le=
-ngth.
-It has been there ever since.
+Fixes: 14897ef9341c ("cgroup/cpuset: Reset DL migration state on can_attach() failure")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Applies to Linux 6.6.155 and 6.6.156-rc1.
 
-David
-=20
+A controlled QEMU A/B on 6.6.155 forced an attach error after accounting a
+real SCHED_DEADLINE task.  The affected kernel returned with
+nr_migrate_dl_tasks=1 and sum_migrate_dl_bw=104857; both fields were zero
+with this patch.
 
->=20
-> >=20
-> >  kernel/time/time_test.c | 16 ++++++++++++++++
-> >  kernel/time/timeconv.c  |  6 ++++--
-> >  2 files changed, 20 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/kernel/time/time_test.c b/kernel/time/time_test.c
-> > index 1b99180da2881..8b718767b3baf 100644
-> > --- a/kernel/time/time_test.c
-> > +++ b/kernel/time/time_test.c
-> > @@ -87,8 +87,24 @@ static void time64_to_tm_test_date_range(struct kuni=
-t *test)
-> >  	}
-> >  }
-> > =20
-> > +static void time64_to_tm_test_wide_day_count(struct kunit *test)
-> > +{
-> > +	/* 2^31 days: the first count that does not fit in a 32-bit long. */
-> > +	time64_t timestamp =3D (1LL << 31) * 86400;
-> > +	struct tm result;
-> > +
-> > +	time64_to_tm(timestamp, 0, &result);
-> > +
-> > +	KUNIT_EXPECT_EQ(test, result.tm_year, 5879680);
-> > +	KUNIT_EXPECT_EQ(test, result.tm_mon, 6);
-> > +	KUNIT_EXPECT_EQ(test, result.tm_mday, 12);
-> > +	KUNIT_EXPECT_EQ(test, result.tm_yday, 193);
-> > +	KUNIT_EXPECT_EQ(test, result.tm_wday, 6);
-> > +}
-> > +
-> >  static struct kunit_case time_test_cases[] =3D {
-> >  	KUNIT_CASE_SLOW(time64_to_tm_test_date_range),
-> > +	KUNIT_CASE(time64_to_tm_test_wide_day_count),
-> >  	{}
-> >  };
-> > =20
-> > diff --git a/kernel/time/timeconv.c b/kernel/time/timeconv.c
-> > index 59b922c826e77..292a855827b7a 100644
-> > --- a/kernel/time/timeconv.c
-> > +++ b/kernel/time/timeconv.c
-> > @@ -49,7 +49,8 @@ void time64_to_tm(time64_t totalsecs, int offset, str=
-uct tm *result)
-> >  	u32 u32tmp, day_of_century, year_of_century, day_of_year, month, day;
-> >  	u64 u64tmp, udays, century, year;
-> >  	bool is_Jan_or_Feb, is_leap_year;
-> > -	long days, rem;
-> > +	s64 days;
-> > +	long rem; =20
->=20
-> This now breaks reverse christmas-tree order.
->=20
-> Tiniest of nitpicks: The reverse christmas tree looks better with the
-> 's64' line below the 'long' one.
->=20
-> >  	int remainder;
-> > =20
-> >  	days =3D div_s64_rem(totalsecs, SECS_PER_DAY, &remainder);
-> > @@ -70,7 +71,8 @@ void time64_to_tm(time64_t totalsecs, int offset, str=
-uct tm *result)
-> >  	result->tm_sec =3D rem % 60;
-> > =20
-> >  	/* January 1, 1970 was a Thursday. */
-> > -	result->tm_wday =3D (4 + days) % 7;
-> > +	div_s64_rem(days + 4, 7, &remainder);
-> > +	result->tm_wday =3D remainder;
-> >  	if (result->tm_wday < 0)
-> >  		result->tm_wday +=3D 7;
-> > =20
-> >=20
-> > base-commit: cf72cbb39da84b6f02f90c07f33b102fc10b16f0
-> > --=20
-> > 2.53.0 =20
->=20
+The equivalent 6.1.y correction is submitted separately.
 
+ kernel/cgroup/cpuset.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index f9c7178f51ada..bb413045d1744 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -2630,6 +2630,8 @@ static int cpuset_can_attach(struct cgroup_taskset *tset)
+ 	 */
+ 	cs->attach_in_progress++;
+ out_unlock:
++	if (ret)
++		reset_migrate_dl_data(cs);
+ 	mutex_unlock(&cpuset_mutex);
+ 	return ret;
+ }
+@@ -3462,8 +3464,6 @@ static int cpuset_can_fork(struct task_struct *task, struct css_set *cset)
+ 	cs->attach_in_progress++;
+ 
+ out_unlock:
+-	if (ret)
+-		reset_migrate_dl_data(cs);
+ 	mutex_unlock(&cpuset_mutex);
+ 	return ret;
+ }
+-- 
+2.53.0
