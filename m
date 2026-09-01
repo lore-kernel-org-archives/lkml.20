@@ -1,173 +1,148 @@
-Received: from mta1.migadu.com (out-126.mta1.migadu.com [95.215.58.126])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A183321DE
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:45:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.126
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F075471258
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:45:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788255906; cv=none; b=Yg8uvPBNx8qCHe/O7lZnd9IhRIzoZ8XeZfV74+1G/6bzujeromvSR1TWyKLpwgqpQ8q8+514PYtCm6NyLDhONYwnS+Hx5psDT45stxy2MOczDBLDuHVoYstoIAwoY03rA2/hnGOqkBV26rsRxLGl5wHRHX44cKxsaDWSie/SwUg=
+	t=1788255930; cv=none; b=X68BxIW5wQ5IMBBHcT7ptKODtHPHBEdu494GdpAqMtw+Dnwcn+Of0SrrFpZvM2wZMarYw4tm1Gl6ZLvg2UjJNCGdfDI0T1t+185NaLf10TEVI6+Xz/sCLEM5PuXodG/TO7iyUZGfNt5Cu5Sl37XkypDPsJsbFZjVmQc5CYPov4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788255906; c=relaxed/simple;
-	bh=z57+bjmdhsIpnXeGD4vSr7O/fAZ82WFkyFGHAzMiiKY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oqXuI74vyYT7X/QYBLVlWCPxmxAKVtiaX4qxXV8k/oHmfTkYRwbI8TQ5oB6ACdfXv5Et3b2v5oxt05EGYQAyt/HO/h5Qx2x2HqN4yzgIaFUYK57awnHuhb42CRloPHpXXz3y5VyY0lDFJpAz731OgvnYM8IshLEXm3R96caFfXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ngzGj4G+; arc=none smtp.client-ip=95.215.58.126
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788255930; c=relaxed/simple;
+	bh=1zi5QMlOCkuOHVQwes0TjXYaa7cgVBDSdPRT3fzLWAg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NG/owFJtiyKaFXXEWrfInMXIMaAWcvox0f8QqiGMjv3QVSGOYHWvqtqKoPQhjkOzYWm+X6CzbUjzfoRR8E55LeuLjdpVVQtOQG/dBFwfEz9Livl/KR2RQFDp7cxWosqQ80cmdURT7lbH8G1WiSl5SNOPH6iViY+kPYU4OfSOKPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bCJaobWx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iNjRwFWM; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ngzGj4G+"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=z57+bjmdhsIpnXeGD4vSr7O/fAZ82WFkyFGHAzMiiKY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788255902; v=1; x=1788860702;
- b=ngzGj4G+sfhAUtrUz3AI6efL4vCPPLcZB6gKsD+C5SNyYfaalRCu14YGlCZ+HCKrXDlToKSS
- wI34wrMqrmmPodbWfuWch9Gz52NgIfGa/sg99t+nn0flZwjyTNH4WabTZtaO6S2Mv/fJaxeMPLW
- CsahvriJZdYKOxpeHSiyzDWI=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 855061c2782e283e;
-	Tue, 01 Sep 2026 09:45:02 +0000
-X-Mizu-Trace-ID: 855061c2782e283e
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b2a73da7e1so6259e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:45:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByyYpo/WUv3GBspNhH/XJ3aCiw42OQ3HLJss/XyqIYe3IXdKEsCtjoWNkSdumlxhwS1NxMROhdbHGfS1t8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mQbhNgbFnWlO0k7NibH86yncRb+B87MdbyKo6JJiwXg2Y0/yfK
-	+LzR6uxK5xo/McOQx326WKfgEjgbq4z6SrMFBi+h9k0bvAMNlT3PnJip/TNCoHGTPwbw91UCwxw
-	8Gh4PVExcPW3mCJ/lp5VMWsat3XlhzysLRUYT4Lj6
-X-Received: by 2002:ac2:51cd:0:b0:5b1:ca0b:25d2 with SMTP id
- 2adb3069b0e04-5b5ff233baemr129072e87.4.1788255900753; Tue, 01 Sep 2026
- 02:45:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bCJaobWx";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iNjRwFWM"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681792JU705425
+	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 09:45:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	i0ClDBsCuyp7r5dFcBjSy61A/vo3PDsjrynZs0Zn6uI=; b=bCJaobWxg8aGVFvu
+	IsHHsXDLKIsaEG8oxHChmUrDujzzzCEHGEJ2TteU9kosbNvH5pvaxYvf5ZYVGerM
+	uXUs6oKD6fk8+A7AbHIAE49po80n6zPX+2l65n/rcJh3pPnAq9Mms/aMfezdYYjk
+	j9s+bY0HBzo6fxvywXqp8VagroUUsgCav5uAym5ync1xo0dBTLHAQmsu0F3Sts4U
+	FtcNFCTDp4bFrXEa6KrOlfOceWMwyywnn8Huny789xdRM/F0yvfK12aDj1/x63XW
+	EaJh9oIM4eJ3ZQKDBLT4jzT1sfloR8JkhQxiEyYqd+P3LkjV7mr9JXPbju7dad1P
+	rPX2aw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdrcsh529-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 09:45:24 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-938fd633df7so117386385a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:45:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788255923; x=1788860723; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i0ClDBsCuyp7r5dFcBjSy61A/vo3PDsjrynZs0Zn6uI=;
+        b=iNjRwFWMYoxV5C7ERA8+5qSZ5PxRUsLucj3POTbt9CmM4WSIb+w3PZwKQrnF+xvKTU
+         HLvXTvfZFOHtIDs6ke/2yg9k+OnLsRJTIxmGQ8qtKodZHVEJm8A9lVRLRkiMCC+U71Zj
+         5i93BoMlET7LN0OK19Yb3ELATZ4SjGIARDFx1qZikz6BSDFitN9iThXxn4630vardRav
+         jIt64qZfwskyI2y3Ta4dAddFLJoXcyH52y0M3g5l/5FJzRupg3hwfDiTeJR+1krJjlyp
+         K/cG+MNglJxQWzt1uSgkGgi8bOyGRIl+tuGwzXP3Gc7bxk/JaSw3fRsvw/Sqh4bU6ezX
+         FqFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788255923; x=1788860723;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=i0ClDBsCuyp7r5dFcBjSy61A/vo3PDsjrynZs0Zn6uI=;
+        b=qeeKG38yh7XvQhAa+zt35IcwUdbH9Wd5cKMlnRxN6uI70kEUlt0nqRFVWrdVmugb1X
+         9AYLNlV8S2UgQIVukXL08F++TemMkQ/Sd9GUXFsZWr32LH/6w4A6KcpaC/u1aLElnhwY
+         0mu+7mU0Jd2G72LUp3MoMuzMDCvKA/9ptbrQFPcvWoXhIoIzM44PtEgTcG5EpI0uACmf
+         KLM/JAv5AnK7hWPbPKxwpOC1bDSXSns5b4GMniH8mHFJPnjiX2gnnU7nP7BaDk/Gq/iC
+         KEmU+8DfkjDcYIhtmRdyVFN12piw21DpDuTVYJJOJVcnk7YPb3nFUjy+G/aBPyXY5anj
+         eUPA==
+X-Forwarded-Encrypted: i=1; AHgh+RqxIN6gj5gxQpby+euEAJfakVwnz9RCVJDBwg+EqIRLcX852IA4+nrl9BoZtrJ4HJ+uHthkNIsCu1Ei/G0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lcMM1eJpD5+7CQVGA3mfhXdh9Qv7J+xLc2mOlR39GanrUjbYzG
+	Frj18CAH3E60QNX4vKiq7XhBZUh7PvFMAFXjAgeZjjShL26+fcJrB7ZjY4NajxkzMAnr1tgx2Fl
+	NjDAN2pJBZd7/zEx0Kzw1lWO3Zij/5oW8UsXSwNL3xwsh6iGQaee5u1J/oYhfO2g7e2E=
+X-Gm-Gg: AR+sD131KEShRa7jrefaKWDXWYJWM1C2CCZkGhfcK+jli1L/oKjpUng3maLKVTim5fK
+	jfQYhTUg9eBru09ubwPzZ3tid/DvWUqOnQWDYUil0kjc5Ym2UWKcbvXBZ2ChnxMUFO4JB2DqXof
+	P602pnZlyXyXUFOuK2PcvDM4scRGhPGasx9WApqOOHH/gcWydR7I1eMfilFK+0RH42pr/xQuZW0
+	arQa2YyOWDYDGFoZI0wmZ7AZ13LmovnndG1nkd5xwX4VqhNbXXYZr+ADFanT7mSgBNJvFHBrFNy
+	WCz88moAiAZFq2RHWZnAIwKaS69V1JvSy26wSiYVGLXvNbfYJBv+hgePJ5HIU2zT9mAFqWje/VW
+	1mtODoR+6G9wUPqMS/25jug==
+X-Received: by 2002:a05:620a:8907:b0:934:95d9:85fe with SMTP id af79cd13be357-9392877eda5mr1438612185a.3.1788255923576;
+        Tue, 01 Sep 2026 02:45:23 -0700 (PDT)
+X-Received: by 2002:a05:620a:8907:b0:934:95d9:85fe with SMTP id af79cd13be357-9392877eda5mr1438610385a.3.1788255923169;
+        Tue, 01 Sep 2026 02:45:23 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255f273e8bsm548705066b.62.2026.09.01.02.45.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 02:45:22 -0700 (PDT)
+Message-ID: <5f074823-8448-449b-94cb-ee98026f2612@oss.qualcomm.com>
+Date: Tue, 1 Sep 2026 11:45:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com> <20260830-gmem-inplace-conversion-v12-11-85e5fd25252a@google.com>
-In-Reply-To: <20260830-gmem-inplace-conversion-v12-11-85e5fd25252a@google.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Tue, 1 Sep 2026 10:44:00 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTwWJ71eHG9MKPoHFzpTF_tgptm89F8N3auD-kFhiY9ykQ@mail.gmail.com>
-X-Gm-Features: AcwNN1UPfOAVycrEsYSNjlC5T6BZ8Jhw8Z-X2BEumfOk88JPkifl9vaDdwv3ap0
-Message-ID: <CA+EHjTwWJ71eHG9MKPoHFzpTF_tgptm89F8N3auD-kFhiY9ykQ@mail.gmail.com>
-Subject: Re: [PATCH v12 11/45] KVM: guest_memfd: Invalidate both SHARED and
- PRIVATE mappings for in-place conversions
-To: ackerleytng@google.com
-Cc: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
-	brauner@kernel.org, chao.p.peng@linux.intel.com, david@kernel.org, 
-	jmattson@google.com, jthoughton@google.com, michael.roth@amd.com, 
-	oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
-	rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
-	steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
-	yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org, 
-	suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
-	Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-mm@kvack.org, linux-coco@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] phy: qcom: m31: propagate reset errors
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>, Vinod Koul <vkoul@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260830131442.3025-1-pengpeng@iscas.ac.cn>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260830131442.3025-1-pengpeng@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA4NiBTYWx0ZWRfX1tsLOeBkdBGv
+ 8apifydUITRA4iW60VC7KRY+8frWmKOox6J51jkOCTsYfWKhj+QdGZqJpvFIItvAFpoR/y5MYQq
+ FKCent144PNa+bNbRA5nLrsFIDuaFUg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA4NiBTYWx0ZWRfXwSQ2VrC6WxFf
+ kIu3MiAY9q4ASzDSTnk2txsLud6x+fACIUXrufmM8tohfhOWrMfe/3GAra9gJmFXTd0vtOsLz7d
+ FaLQSOMcuczQHnnTQUj84aGxndqRF+3Yw/tmrtjPZ7+OpFZK/A+45zwP/jrbKHYArDNWXRqH++4
+ m6n6OuEY7NhEuXQenqbAtCJrGo6+8UA2dyaVmRQ9CfApuk4eisn9o+e+VivuUGqDo1VLmRmQqg0
+ 2Ec5MYaJ+/RGpcWoi/cIOaukCK9eN9GN8nJgqB6VL9yaVO8YTCRdYGaXIAcaxIp1y0u84j7aM44
+ b1pN4LKFemzLM9SO5pHmnAjkXgpugXGaY8bkw4lUwU9PJpXkRlndKr4vK2TsDArSjiztE188+ID
+ lWlwKhBcZ8PmeLVnflgNbFbAaIJNsaE6MdBAjeswXNEopQ60JsGOKACYLjgRELzvCSyqN4lR5GF
+ 8mwRHUenKAHsodXYS/A==
+X-Proofpoint-GUID: x_yrzNDJr71EDWoIqLq-vWiFh9bagKw3
+X-Proofpoint-ORIG-GUID: x_yrzNDJr71EDWoIqLq-vWiFh9bagKw3
+X-Authority-Analysis: v=2.4 cv=QsNuG1yd c=1 sm=1 tr=0 ts=6a969eb4 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=oSP5u9ADs2d8oolkbGQA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
+ a=zZCYzV9kfG8A:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_02,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 phishscore=0 suspectscore=0 adultscore=0
+ lowpriorityscore=0 malwarescore=0 priorityscore=1501 spamscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609010086
 
-On Mon, 31 Aug 2026 at 01:25, Ackerley Tng via B4 Relay
-<devnull+ackerleytng.google.com@kernel.org> wrote:
->
-> From: Sean Christopherson <seanjc@google.com>
->
-> When removing one or more folios from a guest_memfd instance, invalidate
-> both SHARED and PRIVATE mappings if in-place conversion is enabled, because
-> stating the obvious, KVM needs to ensure that all mappings to the folio(s)
-> are dropped.
->
-> Opportunistically rename the helper to capture that it returns a filter for
-> all gfns in anticipation of zapping only the previous mapping types on
-> conversion.  I.e. when doing in-place conversion to PRIVATE, only SHARED
-> mappings need to be zapped (ignoring that KVM would ideally not invalidate
-> ranges whose attributes aren't changing in the first place).
->
-> Note, precisely zapping only the possible mapping types when in-place
-> conversion is disabled is important for functional correctness, not just
-> for performance.  Specifically, if KVM zaps both when SHARED vs. PRIVATE is
-> tracked per-VM, then a PUNCH_HOLE operation on a PRIVATE guest_memfd will
-> incorrectly zap SHARED mappings that have nothing to do with that gmem
-> instance (because they're mapped via a VMA, not a gmem fd).
->
-> The incorrect over-zapping of SHARED memory that doesn't belong to the gmem
-> fd requesting the zapping will be resolved in a later patch, where, if
-> in-place conversion is enabled, KVM will use both shared and private memory
-> from the guest_memfd. If both shared and private memory are from the
-> guest_memfd, invalidation will only zap memory belonging to the given gmem
-> instance.
->
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-
-Cheers,
-/fuad
-
+On 8/30/26 3:14 PM, Pengpeng Hou wrote:
+> m31usb_phy_init() enables the regulator and clock, then performs an
+> unchecked
+> reset pulse before reporting that the PHY powered on.
+> 
+> Return reset-controller errors and release the clock and regulator that
+> were
+> enabled for the failed power-on attempt.
+> 
+> Fixes: 08e49af50701 ("phy: qcom: Introduce M31 USB PHY driver")
+> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 > ---
->  virt/kvm/guest_memfd.c | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
->
-> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-> index cd966eef45b69..0afe1468d2d9d 100644
-> --- a/virt/kvm/guest_memfd.c
-> +++ b/virt/kvm/guest_memfd.c
-> @@ -139,8 +139,11 @@ static struct folio *kvm_gmem_get_folio(struct inode *inode, pgoff_t index)
->         return folio;
->  }
->
-> -static enum kvm_gfn_range_filter kvm_gmem_get_invalidate_filter(struct inode *inode)
-> +static enum kvm_gfn_range_filter kvm_gmem_get_all_gfns_filter(struct inode *inode)
->  {
-> +       if (gmem_in_place_conversion)
-> +               return KVM_FILTER_SHARED | KVM_FILTER_PRIVATE;
-> +
->         if (GMEM_I(inode)->flags & GUEST_MEMFD_FLAG_INIT_SHARED)
->                 return KVM_FILTER_SHARED;
->
-> @@ -191,11 +194,9 @@ static void __kvm_gmem_invalidate_start(struct gmem_file *f, pgoff_t start,
->  static void kvm_gmem_invalidate_start(struct inode *inode, pgoff_t start,
->                                       pgoff_t end)
->  {
-> -       enum kvm_gfn_range_filter attr_filter;
-> +       enum kvm_gfn_range_filter attr_filter = kvm_gmem_get_all_gfns_filter(inode);
->         struct gmem_file *f;
->
-> -       attr_filter = kvm_gmem_get_invalidate_filter(inode);
-> -
->         kvm_gmem_for_each_file(f, inode)
->                 __kvm_gmem_invalidate_start(f, start, end, attr_filter);
->  }
-> @@ -347,7 +348,7 @@ static int kvm_gmem_release(struct inode *inode, struct file *file)
->          * memory, as its lifetime is associated with the inode, not the file.
->          */
->         __kvm_gmem_invalidate_start(f, 0, -1ul,
-> -                                   kvm_gmem_get_invalidate_filter(inode));
-> +                                   kvm_gmem_get_all_gfns_filter(inode));
->         __kvm_gmem_invalidate_end(f, 0, -1ul);
->
->         list_del(&f->entry);
->
-> --
-> 2.55.0.897.gb25b4bd76c-goog
->
->
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
+Konrad
