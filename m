@@ -1,124 +1,99 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3663042AFBB
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:21:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E80C30ACEE
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:22:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788276096; cv=none; b=oKTz7viyQoSzukTObrm4S7cfAHMAEh1EL4lqy+eK3a+g0YVEoiaKrjyqUeX836R4Zh2ruQFj83/OV/cb0jUSSmumBDW/zbJjolGSe+xRwAzmvN8xm5QLdT0NspjUqae0knd26aoD0YNzD3zbjj3P+/jwbG+3ElEyT2iK6PXKjG8=
+	t=1788276138; cv=none; b=ZieiHp+Ho+yxQJqQK965zi1sfyNo4xiYZ8+KNC2fxHdaStMwKrF0P0pPseqicqSh4J+rzVBrFMDbJ1PC2VtRLar/Z0lSje+dOtJ98h9N9xqxZ39NqR1uFYuQ7eKYAcvZ45V+5Y26GPy8J4fFsBkgIe03F2wyx7aTesceJCdMVsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788276096; c=relaxed/simple;
-	bh=haEcaONaRja1qUOHyi3OxXLJqfw+TC0USxhfuYRWozg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EQ62VPCyRP97/IGYEdmawOcdMcQ+rHNOKEIaBHluLHg/o5FZMYZAg+7cEOIRbYVx+nQc/zhtEBhbZqAIe/g1DsPdE2y/UiEl55yafXkw9CdS57xDFFWBwuHtmsrZMcOsMwl87oYf45weaktgIXiyDqTKatAOYzcEOcHbwKlsbSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YSk507m4; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788276138; c=relaxed/simple;
+	bh=CEPYJZ3jIkVHwYF3w/9XcB3PxmepmTehIoEbGFpjCUs=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=t8JDbUrka8uckaEXo16zeoJJ24GVJX23RcJt6ivldlhBjhboS7akkVnaXIWVZR8GgUVys3qmBknGWyI1qtlO/Jf2rNHyYeSCRoY+i5xU4hdeFqcX30UBBoFCCnABLmRprQSjUULlXMrjkSwvH7M3WfZzYKkgnMJHH8M5vStkq9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--michalblk.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qDcOgaf1; arc=none smtp.client-ip=209.85.128.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--michalblk.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YSk507m4"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d5cad1a6baso47720675ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:21:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qDcOgaf1"
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49ccfad90f1so22020475e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:22:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788276094; x=1788880894; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7XaLq54eX4gxpoy5NbzaGOOpUsCKXEm26+G5a1HE7Ws=;
-        b=YSk507m4Ke8PfiPnB83iNy/yvrEpZoCbXRDeKDFBYyovcYQR5Spi9brVJxwx/Kgvr5
-         d1RNHPHmkWi/ReFsFm2tafGpxFD0Vl57sFfVOk3deJMLF7gPn8784+s0SZTFQsGtyKIg
-         1+xcu2mIrRg1HXlkcQQ9X+61TolFHaTEXOA21RXljUKRuVDopoq8c8agRDGVVX3cNoyq
-         XtnwralrZ+ytP4T25dUsRlN4cJEdDBSsItQtDrYp8CvSCU5x0WaBq4uaIs30I/z1JsRF
-         wF/Xu9/dhx20KOSF0fTAx9UF9wG0e5S5uYMswe8kKeg0gOONikECyk0xoXpmJYYyvUAR
-         8ISg==
+        d=google.com; s=20251104; t=1788276135; x=1788880935; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WB3gaqcty5uU3bUEOpuRwBi4dDMCMvK/Ic/DzXm2h4Y=;
+        b=qDcOgaf1tTJSX/VjkD/fLBVqwqWDswBDWjUDriCRTfA3c8UuGDG+IJUYb5bbHLaMJI
+         Yd1lgu5bk0HdFjReVeuUEtvem78uoSrsLmkD8oklBV/XULIRDckIU6pnYn1fEDrJ7d3j
+         4OCrDO5tEqcTJT+GR3DrdzjEstmZD+SIp+O9O/VR+hJ9gwc3qO4i7n6HjnycJAL7qQX+
+         m9baZQxCA2CrtmCSM1mmk906Pvfdq2BSppuyeKZMl/oX44n+2d4f5STujBLyCzUDsVim
+         nX7gONmGkgjyv6gPSMlc5KdHT+qsfiTpm9U2b1gW17g+XFZcwxxDnnANFPNLLEmdhi2U
+         Fm/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788276094; x=1788880894;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7XaLq54eX4gxpoy5NbzaGOOpUsCKXEm26+G5a1HE7Ws=;
-        b=FO/OYRaHFgq7GO43j0bFpjRb73hI4XKsaNGAV8Ve+mgJir+L6zXrMxWRyT42V8t8/m
-         9R9EHSvEIrIp5KdadtJh0O8kAtqHSYZU8GtpfnlSikf5ZNbw6oyJwOK+3W49MCtwHvhs
-         yDUv/bv3GHIjGfF4rVWkdS6RctmQYJq/FluEt6QhXVxynHJvFfhUhES35KLxl2TPEM2J
-         Qau3txzTvGZZ+vX7WjmVN0KekVf2oU7se0mrNkID1H22Ul3Y88zHMHrmPgFfh7JfoZhL
-         5RvbzM75wqdcsx6+MCSdpnS5KwRYaI9gfLLHqhlteV9R2VybBolgbL5Lsvdxs4pe2Xbv
-         w5zw==
-X-Forwarded-Encrypted: i=1; AKwUvBzbBpS9CbuU+qr5kvXLWtY2oABe9i0QWRTY/89laX1VpFLDi+dYkOyKILeKNVFYmiKp5QRL9gLcX+016ZE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nnI/IRCvFU2sYfgIfI2QMCOhuhW7SpD4SBXWwIIqxmIMqqTDse
-	J1V2SxU2r8V0DNP09yvbyh8+g3rCNm883OzZhpRuY3n2MzlMKd5W6Z8=
-X-Gm-Gg: AYBFou3f14qsF7+8zc/j/rM6I0vn+1ooTVpa6kTMmF+dpzCFGQQEviRC6459pVKIIJ+
-	GxoXU38gmtgf0jjMLswc2uaTsqWvHnyuwz8lfyvMz6qQ1Z2frLTKsoEUD+ofuin1v+or03RCOM3
-	TwQ3qKiyX3QXGeM/WxV5oa0n+0Psx3NSAcKn83sOFKpRVj+BPRNf+cT+aHW0peARmw6ts1hPfHi
-	EpTCATEdX8Rhpi3+RBF7Ne6RTiOg3QtMX2AP+BG/6nylh23WlusCX6QxLMRmJGxeCEWaU9qb/u5
-	1N5f18PdaTq0hhz6+d+ODrzDuQ56VqjbsR+kIsET5agDrDtSmElz1HWOBg5b/tC6u+z596jTed+
-	u95KT/CTjpPjOzfn8pHQvXOZwN6eSY5vNjS6Efyiu4dyCepEs6KkzenYkcw9RR1xS66z7P13Vtc
-	N+yhOsR2gDKGI5h1RZuQadZ7VzRh+50xW+4tbEUuiwBVMZUgDSZ5t5kX1gnuKkE61WpjzuuMqyK
-	g==
-X-Received: by 2002:a17:902:cf12:b0:2d3:7c58:b0e1 with SMTP id d9443c01a7336-2d94a2e3a54mr149081855ad.0.1788276094509;
-        Tue, 01 Sep 2026 08:21:34 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:6496:3266:16f9:fc9f:f197:159b])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dadd3a8bfcsm695975ad.37.2026.09.01.08.21.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 08:21:33 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	Song Qiang <songqiang1304521@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Abhash Jha <abhashkumarjha123@gmail.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Subject: [PATCH] iio: proximity: vl53l0x-i2c: claim direct mode for raw reads
-Date: Wed,  2 Sep 2026 00:21:26 +0900
-Message-ID: <20260901152126.533902-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20251104; t=1788276135; x=1788880935;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WB3gaqcty5uU3bUEOpuRwBi4dDMCMvK/Ic/DzXm2h4Y=;
+        b=SkgJHcoPSB1eEVmETWbxrVh9TTkisEY8B9omkSKPahtDZX+wFF2dCTjeyXcOF11xKQ
+         P1pH+duIpe6ODD9+ZlhtOQZJHSadVAibBA5HC45epJjYRjaPE3E9S4npx1cFqBbS9MLi
+         x33iC8mSoxdqUsWi6O+siHfcgZU3D115YhMAUaR9DOgKHQkbdN8vu4RHi7b7jsPYX5zV
+         60sPvDAmLCiVK0Eo/I5tvwNrkEXbY1JBY/ydhh7MZDTCX4GuWflPxQF3b1F8WtKkfg6Q
+         R4stiUuVAJwQEEH9mvr2wZBIqYZsPfxne2miC9ptnKmiu2pSZK7PWyanIXXt2dvz/lYo
+         Spog==
+X-Forwarded-Encrypted: i=1; AHgh+Ro7zNotqGRLOQ1x2TuD61IEgS5jGwbhbvkba0PegscE4f0Y2OlRxnK/qUZtSvx1SPDD0rEiITacoA4dZBY=@vger.kernel.org
+X-Gm-Message-State: AFuF++npI0DpHSqIdqdVCrEFX2BIBs3bsNp3YwV40n1xPSJ2q1ar6eFq
+	qh5ivj6oBDmznbrUZLZ9ptRK0hqDfa7fOSk9h6dleqHJL8HmDhEj/wAMEoQwEh9EAYdhjQutIxz
+	V1MJ4sBfKocQ5EzbJJA==
+X-Received: from wmlf1.prod.google.com ([2002:a7b:c8c1:0:b0:493:bd51:5095])
+ (user=michalblk job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:1d1d:b0:499:ad2e:f7bc with SMTP id 5b1f17b1804b1-49b91c3ddbcmr440039425e9.10.1788276135254;
+ Tue, 01 Sep 2026 08:22:15 -0700 (PDT)
+Date: Tue,  1 Sep 2026 15:22:12 +0000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
+Message-ID: <20260901152212.1691696-1-michalblk@google.com>
+Subject: [PATCH] sched_ext: Use atomic cpumask_clear_cpu in scx_idle_test_and_clear_cpu()
+From: Michal Blaszczyk <michalblk@google.com>
+To: Tejun Heo <tj@kernel.org>, David Vernet <void@manifault.com>, Andrea Righi <arighi@nvidia.com>, 
+	Changwoo Min <changwoo@igalia.com>
+Cc: Michal Blaszczyk <michalblk@google.com>, Kuba Piecuch <jpiecuch@google.com>, sched-ext@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-vl53l0x_read_raw() starts a single-shot ranging measurement and reads
-back the result. Once the triggered buffer is enabled the sensor runs in
-continuous mode and its data-ready interrupt is routed to the trigger,
-so a concurrent in_distance_raw read disturbs the streaming setup and
-never gets its completion, returning -ETIMEDOUT.
+In scx_idle_test_and_clear_cpu(), the shared idle_smts mask is modified
+locklessly by concurrent CPUs. Currently, the code uses
+__cpumask_clear_cpu() to clear a CPU from the mask. Because this is
+a non-atomic read-modify-write operation, concurrent modifications to
+different bits within the same memory word can lead to data races and
+lost updates.
 
-The original submission claimed direct mode here, but it was dropped
-during review because the driver had no buffer support at the time [1].
-Continuous (buffered) mode was later added without restoring the
-claim [2], reintroducing the conflict.
+Fix this by replacing __cpumask_clear_cpu() with the atomic
+cpumask_clear_cpu().
 
-Reject direct reads while buffered capture is active by claiming direct
-mode around the measurement, as the vl53l1x sibling already does.
-
-Fixes: 762186c6e7b1 ("iio: proximity: vl53l0x-i2c: Added continuous mode support")
-Link: https://lore.kernel.org/linux-iio/20180911160300.GA9212@himanshu-Vostro-3559/ [1]
-Link: https://lore.kernel.org/linux-iio/20240909101508.263085-3-abhashkumarjha123@gmail.com/ [2]
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Fixes: 48849271e661 ("sched_ext: idle: Per-node idle cpumasks")
+Signed-off-by: Michal Blaszczyk <michalblk@google.com>
 ---
-Only compile-tested; I don't have VL53L0X hardware to exercise the race
-yet. The change mirrors the existing vl53l1x sibling.
+ kernel/sched/ext/idle.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/iio/proximity/vl53l0x-i2c.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/iio/proximity/vl53l0x-i2c.c b/drivers/iio/proximity/vl53l0x-i2c.c
-index 9fe14ceb8be7..173e69753df7 100644
---- a/drivers/iio/proximity/vl53l0x-i2c.c
-+++ b/drivers/iio/proximity/vl53l0x-i2c.c
-@@ -219,7 +219,10 @@ static int vl53l0x_read_raw(struct iio_dev *indio_dev,
+diff --git a/kernel/sched/ext/idle.c b/kernel/sched/ext/idle.c
+index d2973fb3af6d..8985b48c83a5 100644
+--- a/kernel/sched/ext/idle.c
++++ b/kernel/sched/ext/idle.c
+@@ -104,7 +104,7 @@ static bool scx_idle_test_and_clear_cpu(int cpu)
+ 		if (cpumask_intersects(smt, idle_smts))
+ 			cpumask_andnot(idle_smts, idle_smts, smt);
+ 		else if (cpumask_test_cpu(cpu, idle_smts))
+-			__cpumask_clear_cpu(cpu, idle_smts);
++			cpumask_clear_cpu(cpu, idle_smts);
+ 	}
  
- 	switch (mask) {
- 	case IIO_CHAN_INFO_RAW:
-+		if (!iio_device_claim_direct(indio_dev))
-+			return -EBUSY;
- 		ret = vl53l0x_read_proximity(data, chan, val);
-+		iio_device_release_direct(indio_dev);
- 		if (ret < 0)
- 			return ret;
- 
+ 	return cpumask_test_and_clear_cpu(cpu, idle_cpus);
 -- 
-2.53.0
+2.55.0.897.gb25b4bd76c-goog
 
