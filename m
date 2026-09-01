@@ -1,242 +1,118 @@
-Received: from mail-pz2-f9.google.com (mail-pz2-f9.google.com [74.125.228.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7517420E89
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:03:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.9
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788275011; cv=none; b=JO34Sa3L1YxgILFv9IntH8kcv1UJMOtLhsIm3x12BiVfVq9Im+vj2RUIqTw55QdFnsVwqSLSf3jqndWtyV6LWWAkqMsTBaD6mvJZlM3p/g7DT680UVXsGnMgx0Mt1tea8WeuedRkvv2zZNnzdxaieRnNfwcfNCrGfuMrUOxlb4s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788275011; c=relaxed/simple;
-	bh=Pbqc17ixdKV04mbPvez2/xb4avNWEBnmgCndr6ae4z0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l5aIarTaRI7tGPVi7vox5Glezpe9jAiXpz1gXCnIiS4Je4E8XskyTuedDV2rZnAl2kDiuohP9rMNFpVWHzsPsxSamE7Hk01Gzibel5/7kaGkQbLgqlFRR4MVVkho66tS2YyiEunwLT6nIcQrPQ/Rr/dWQvqPx91i2+g8Et2JmRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p+RXE0bp; arc=none smtp.client-ip=74.125.228.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDE40376A0C;
+	Tue,  1 Sep 2026 15:03:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788275026; cv=pass; b=jSBz8iG93x5XuRKOoVo8ynm0Cq/P3tftCX+/1LXipWYk+tHP9pf76yxeRh9YSxE69r6fjRS7xeTgH100TtYdmiuaoXIlzTJUTwX+OYEF+vPl3BfRIAs/KPoKX46d0OOUQmLyBsUd3LY7FLThrLkQgneN0uDVLtCYVa/OqGW4fLQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788275026; c=relaxed/simple;
+	bh=695EQeps+yAMFDUemmHOAdFbZ0pYZn2fKcy4RUCcTaY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=da0hrhOilRgCeBeBFzflMYIRhvtdzvNR2ueQsVU2zgiJK5ull00xlQXAmDFFeaDfon4nZLQ2aIf8QknBWd8fkZ9fyZ4U5DvHJWIXcT3JgIfLa5U5+8apS8eAyu6H8Z+jO7RZj6pMvJuzqB2bqyVdlIe1nCU4rHZw17Nz9p4dZ+4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=AvQtsjvC; arc=pass smtp.client-ip=136.143.188.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p+RXE0bp"
-Received: by mail-pz2-f9.google.com with SMTP id 41be03b00d2f7-cc150711112so775673a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:03:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788275009; x=1788879809; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2srrqsfvZcRiNitfhUr7DhaIgxeXboMwTknQApvQL7A=;
-        b=p+RXE0bpL3+o4Lw3WrP7+HU4iGx0qwT/vSMITaGgptxH3XfAdpuWVov0LoVrFj1vD3
-         sSroPXV9z+hO8tJ4gJ2zG113VLfY3Ovc/Wm2A7g0xYd6YrOPq0nhtdcuxPtNBgfvvNLd
-         gT9FViRjd6y8Zj3BCVFbYrOMzXwCS+08wRJbY7Y0J/dXQxBqnxjdimPyCANXva+t7M0J
-         fx7FcBrZiBWw0nC9Z2w/EqTo3KC0INrIUX8C2QHnC6ArY9/2aa67BmRqHnYlBDOU9aAl
-         CbiJFvTkRJTLb03QVDMPNmd7awBTI2vcqZKTHhbujzrUKAoap7xJfFxFKZCr1TNnb81m
-         1o6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788275009; x=1788879809;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2srrqsfvZcRiNitfhUr7DhaIgxeXboMwTknQApvQL7A=;
-        b=AD3E47/kU7O69R72M2+oFGyq4Q3yh17GD4F8+J1BYduozWeUBzFN0hiHZcqZo7+60+
-         SFSsMVyPy4CHnaGme1NLaBG5qdo5l/Dr+aHJPkWaF41+fmZWdTxSBU26nJcxypn6jDR4
-         gP3a4//dmdH3x7p2Nh5WHZ0vnidK2TjPvHRHihbCwhPyKiSx33idxbxooUlj7SNV1P2P
-         GDQwMBb8kGSVUi2GuHCHvHyWnfBchDTIKsoPbNnFZJsePu036NQ6aAAU1p3W6LMyiP3B
-         EiU2S/e2PYe9wYuswdb/itlUP/dRpxiOqz5KkQeTjZsrzQtHQM7lFwICPoipPNdsaRzI
-         pM3w==
-X-Forwarded-Encrypted: i=1; AHgh+Rr0XihLWDG2f3UhwGWFU/9lEio+eq1lxJ8HSMnu3eSLa8ZvRZzEspZ0wsUuaCnv/FTG/HHGq7tnTrn9u6E=@vger.kernel.org
-X-Gm-Message-State: AFuF++kqdJJG0Jh25ihv+0GymhKWnRB9B+kdtWD7OYB8pUE1d/YOdIG+
-	EEzitl81pStZhmV2C6ArTS6+ERo7z0w2oXs/YzuVTcVbjBAd9VXH4Bw3
-X-Gm-Gg: AR+sD11dwl0/I8H7yJ1TtdxAKAC8S88IpZ+ZV6qDMZJ4kJTYsZhy4ZmdtuAoF8YaXT0
-	ZfbBgiqQgK25TW9KHJ/zGGmlEvmyzYXB+PqJWFzr+yKHQ9PR+IX8e/bdIHxDFXpVXDnkwvfKd6u
-	nadwgY4nSQbSNPTl2Wn20z3mk+Vuo94tbopW4d5yuvrq3CfeEfTcyreIKIqjBG6M/pH26t9vV6B
-	RBl5w+NOoM70U7crEJx4YBvTEZ0gJRA2HHV3Z2CbYEiuovwbGWgKXGaRWIcztRgl8pqZZfiCJjH
-	gVk9siGJLv0afpHrVPG+8ryTW/Sjymz6ptWZ/ZAugkE0wqaor06gusEMfXPkAo48uqb1FukMNiG
-	A1Amg9XyeHSaXldNbOQfj02yOxAUk4njMAchEt/iQN+rt/Ka4IihNm+A3GR32LNict4/Ka9j+c9
-	QOiKnC38MzmL0w3lzFwRna6w0dZDTkysg1H0gS5SV3Vl1S54t4blR6lBQGPRY=
-X-Received: by 2002:a05:6a00:a213:b0:848:2ab3:ddeb with SMTP id d2e1a72fcca58-85b5b324108mr11831442b3a.14.1788275008779;
-        Tue, 01 Sep 2026 08:03:28 -0700 (PDT)
-Received: from server.lan ([150.230.217.250])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc0716846sm27914b3a.45.2026.09.01.08.03.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 08:03:28 -0700 (PDT)
-From: Coia Prant <coiaprant@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Vinod Koul <vkoul@kernel.org>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Romain Gantois <romain.gantois@bootlin.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Coia Prant <coiaprant@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	David Heidelberg <david@ixit.cz>,
-	netdev@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH net-next v3 09/10] arm64: dts: rockchip: rk3568-photonicat: enable SGMII LAN port
-Date: Tue,  1 Sep 2026 23:01:09 +0800
-Message-ID: <20260901150111.141037-10-coiaprant@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260901150111.141037-1-coiaprant@gmail.com>
-References: <20260901150111.141037-1-coiaprant@gmail.com>
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="AvQtsjvC"
+ARC-Seal: i=1; a=rsa-sha256; t=1788275015; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=Gc75f5kPQIhKYTouQpYHe5nqo4xjgIYggAVbDS+Mc1+pLBX27gvzbBA4zUwCHPNnldRE+enAKaZ9Wp0eOfjdHa1xRL8vApS8fj97+R64g9J/CtS3VJlLX5c/Oqivg98mZ1xY5ubwb+XeRyZt6p+AgCePzeDvx72R3iQAEsNliXk=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788275015; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=srPWlNuTqCs2PzpuGEVQeFzRN/tgS0eXJa4m1CpSl4I=; 
+	b=XEt3D97DsBaGoBmb0abF+1+aABLHhpfHf7drQVVQWH7NW73NJ6dJKanv7wdumF68AbPS7n1d+xV+qx1JOokCbR4kywudt++7dD86Neb3D1z1SKLE4BtGOZbIGcQjS9KhoDge4IiVoz8JXO3lnBetAdAQsIah8cmb6g69nqgrYsU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788275015;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+	bh=srPWlNuTqCs2PzpuGEVQeFzRN/tgS0eXJa4m1CpSl4I=;
+	b=AvQtsjvCuNZMR1l785YOKvNfP32BYCnZo+GLg113Yz1q9H0PWc1Y5VcQkoeUy6EE
+	6MLQB9LigsuABhpWMJ2kDHQGgf7Nv83m8EhbcHNCRkiAeAamLNDzexvHX5ygZBTBYbI
+	GhyChjCDncU2JICbRaFnDBde6bXwcy64lzgrdEWAZmlR7xN7GA0aPGH/Fx4IcAn1LEC
+	jhMHVYv/n8pTTg5T+1PuAI9pXT7zXD8MyH9wSK0m/lC8F9VUR+KnuwPuZVLAdRb8Bgk
+	t9CHaKgGfR3ioZKoZG0Cm4pzMFmlpt+QlT7+ynFOTPouEaWjUyl6hNYu67wkHLBc3qH
+	JIG3U3g4lQ==
+Received: by mx.zohomail.com with SMTPS id 1788275012047984.2457097577368;
+	Tue, 1 Sep 2026 08:03:32 -0700 (PDT)
+From: Rong Zhang <i@rong.moe>
+Subject: [PATCH 0/5] platform/x86/amd/pmf: Clean up undesirable function
+ outlining
+Date: Tue, 01 Sep 2026 23:02:10 +0800
+Message-Id: <20260901-amd-pmf-fix-outlining-v1-0-b54ff94d3d45@rong.moe>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QqEIBCF4VeJuW4gw0T2VZa9KB1roiw0I4jeP
+ bcuPzjnPyFSYIrwKU4ItHPkxWeIsgAztL4nZJsNygmthO2wnS2us0PHBy5pm9iz77GuZCMVaS2
+ Ng/xdA+XB0/3+XsfUjWS2fwyu6wZgpsnneQAAAA==
+X-Change-ID: 6f1861db-amd-pmf-fix-outlining-204546e884cf
+To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Sanket Goswami <Sanket.Goswami@amd.com>, 
+ "Mario Limonciello (AMD)" <superm1@kernel.org>
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Rong Zhang <i@rong.moe>
+X-Mailer: b4 0.17-dev-1f2f7
+X-ZohoMailClient: External
 
-The Ariaboard Photonicat has a Motorcomm YT8521SC Gigabit Ethernet PHY
-connected to GMAC0 via XPCS SGMII.  Enable the necessary nodes to make
-this port functional.
+The amd-pmf driver is notably bloated due to undesirable function
+outlining and linkage. Simple and dump helper functions as well as
+wrappers should really be static inline functions instead of global ones
+from the very beginning, or else they are prone to the overhead of
+function outlining and linkage, which bloats themselves and their
+callers.
 
-Enable combphy2 with rockchip,sgmii-mac-sel = <0> to route the SGMII
-interface to GMAC0.  Enable the xpcs node and its port 0 sub-node,
-referencing combphy2 as the SerDes PHY.
+The series converts all these helper functions and wrappers into static
+inline functions, and shrink the module (!CONFIG_AMD_PMF_DEBUG &&
+CONFIG_AMD_PMF_UTIL_SUPPORT) size by 1472 Bytes (GCC 16 -O2):
 
-Add the mdio0 node with the YT8521SC PHY at address 3, including its
-reset GPIO and LED configuration.  Also add LED configuration for the
-existing RGMII PHY on mdio1 for consistency.
+      text       data        bss      total filename	(before)
+     26810      31672       2768      61250 amd-pmf.ko
 
-Signed-off-by: Coia Prant <coiaprant@gmail.com>
+      text       data        bss      total filename	(after)
+     26046      30964       2768      59778 amd-pmf.ko
+
+As for CONFIG_AMD_PMF_DEBUG && CONFIG_AMD_PMF_UTIL_SUPPORT builds, the
+module size is shrunk by 1187 Bytes:
+
+      text       data        bss      total filename	(before)
+     34593      45500       2784      82877 amd-pmf.ko
+
+      text       data        bss      total filename	(after)
+     33988      44918       2784      81690 amd-pmf.ko
+
+This should also optimize the performance a little bit theoretically,
+though it's probably not very important on modern hardware anyway.
+
+Signed-off-by: Rong Zhang <i@rong.moe>
 ---
- .../boot/dts/rockchip/rk3568-photonicat.dts   | 74 ++++++++++++++++++-
- 1 file changed, 72 insertions(+), 2 deletions(-)
+Rong Zhang (5):
+      platform/x86/amd/pmf: Inline !AMD_PMF_DEBUG stub
+      platform/x86/amd/pmf: Inline simple helper functions of Core Layer
+      platform/x86/amd/pmf: Inline simple helper function of SPS Layer
+      platform/x86/amd/pmf: Inline simple helper function of Smart PC TA interfaces
+      platform/x86/amd/pmf: Inline wrappers of ap{mf,ts}_if_call_store_buffer()
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts b/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
-index 58c1052ba8ef3..25caa44198843 100644
---- a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
-@@ -3,6 +3,7 @@
- /dts-v1/;
- 
- #include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/leds/common.h>
- #include <dt-bindings/pinctrl/rockchip.h>
- #include <dt-bindings/soc/rockchip,vop2.h>
- #include "rk3568.dtsi"
-@@ -242,6 +243,7 @@ &combphy1 {
- 
- &combphy2 {
- 	status = "okay";
-+	rockchip,sgmii-mac-sel = <0>;
- };
- 
- &cpu0 {
-@@ -260,9 +262,18 @@ &cpu3 {
- 	cpu-supply = <&vdd_cpu>;
- };
- 
--/* Motorcomm YT8521SC LAN port (require SGMII) */
-+/* Motorcomm YT8521SC LAN port */
- &gmac0 {
--	status = "disabled";
-+	assigned-clocks = <&cru SCLK_GMAC0_RX_TX>;
-+	assigned-clock-parents = <&xpcs_gmac0_clk>;
-+	pcs-handle = <&xpcs_mii0>;
-+	managed = "in-band-status";
-+	phy-handle = <&sgmii_phy>;
-+	phy-mode = "sgmii";
-+	phy-supply = <&vcc_3v3>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&gmac0_miim>;
-+	status = "okay";
- };
- 
- /* Motorcomm YT8521SC WAN port */
-@@ -341,6 +352,36 @@ &i2s0_8ch {
- 	status = "okay";
- };
- 
-+&mdio0 {
-+	sgmii_phy: ethernet-phy@3 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <0x3>;
-+		max-speed = <1000>;
-+		reset-assert-us = <20000>;
-+		reset-deassert-us = <100000>;
-+		reset-gpios = <&gpio3 RK_PC6 GPIO_ACTIVE_LOW>;
-+
-+		leds {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			led@1 {
-+				reg = <1>;
-+				color = <LED_COLOR_ID_AMBER>;
-+				function = LED_FUNCTION_LAN;
-+				default-state = "keep";
-+			};
-+
-+			led@2 {
-+				reg = <2>;
-+				color = <LED_COLOR_ID_GREEN>;
-+				function = LED_FUNCTION_LAN;
-+				default-state = "keep";
-+			};
-+		};
-+	};
-+};
-+
- &mdio1 {
- 	rgmii_phy: ethernet-phy@3 {
- 		compatible = "ethernet-phy-ieee802.3-c22";
-@@ -350,6 +391,25 @@ rgmii_phy: ethernet-phy@3 {
- 		reset-gpios = <&gpio4 RK_PC0 GPIO_ACTIVE_LOW>;
- 		rx-internal-delay-ps = <1500>;
- 		tx-internal-delay-ps = <1500>;
-+
-+		leds {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			led@1 {
-+				reg = <1>;
-+				color = <LED_COLOR_ID_AMBER>;
-+				function = LED_FUNCTION_WAN;
-+				default-state = "keep";
-+			};
-+
-+			led@2 {
-+				reg = <2>;
-+				color = <LED_COLOR_ID_GREEN>;
-+				function = LED_FUNCTION_WAN;
-+				default-state = "keep";
-+			};
-+		};
- 	};
- };
- 
-@@ -586,3 +646,13 @@ &xin32k {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&clk32k_out1>;
- };
-+
-+&xpcs {
-+	status = "okay";
-+	phys = <&combphy2 PHY_TYPE_SGMII>;
-+	phy-names = "serdes";
-+};
-+
-+&xpcs_mii0 {
-+	status = "okay";
-+};
--- 
-2.47.3
+ drivers/platform/x86/amd/pmf/acpi.c |  76 +-----------------
+ drivers/platform/x86/amd/pmf/core.c |  22 ------
+ drivers/platform/x86/amd/pmf/pmf.h  | 150 +++++++++++++++++++++++++++++++-----
+ drivers/platform/x86/amd/pmf/spc.c  |  15 ----
+ drivers/platform/x86/amd/pmf/sps.c  |   5 --
+ 5 files changed, 131 insertions(+), 137 deletions(-)
+---
+base-commit: 9ffed84a24d60ec506d8961fe138f0baa92fdbd0
+change-id: 6f1861db-amd-pmf-fix-outlining-204546e884cf
+
+Thanks,
+Rong
 
