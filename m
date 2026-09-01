@@ -1,28 +1,28 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012021.outbound.protection.outlook.com [52.101.53.21])
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011051.outbound.protection.outlook.com [40.107.208.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A20D636197C;
-	Tue,  1 Sep 2026 00:34:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1EF8362120;
+	Tue,  1 Sep 2026 00:34:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788222868; cv=fail; b=RoaQIAWQktdpG/FQqfCtq2/HsbogNSjE7hALf872ym+rHVtBbyjDyMgkn2IohsbYDZM38chvhIlUQs31UxbNwkcFk19cEYWzVSk9vYrxsdR+AjJmj4tFv2D5DWsXfXmjoUgSDZjkTSFw0oe8r0Zz73ZUeoMv8iVLKJ9d3yrqb9w=
+	t=1788222871; cv=fail; b=aja9VedzzzlskaicZDyhhTU7AxmhuzqCIJDrlls5rAuLgv9Z3eV/zTleYH6us/f06W8Zl6p65ItjBRFK6xzqcWkSxkmfF53rlPjJJrizkWngV90PDyXZOduV2TwZyFiMcPHAYK+cGpo2O+KrOGIWj5MKQf5+XUVrz+DV7AhMLNE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788222868; c=relaxed/simple;
-	bh=sTiU8pvLi/Ky5PjV8hsOF1EOYOWqadnhoH1XIyqAq50=;
+	s=arc-20240116; t=1788222871; c=relaxed/simple;
+	bh=4QSE2Nyy6PxHImrUVWNgdWnJwtJuGI39OkZNG1n8VjA=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=s+CH3gqv/9UHxVa5ZDD7Nj/nY7LNGLOMK4YX1p15qzWVTxB6UFP985LP4eLvnBMl/OaSW1LXhfkX2fjLXotx5gizym5prssj/DQfLdGzNeVL1rJLi590teRn8zk4Ht8cmKnrYXOjNsJlpf2KCSFEZSTeVH7tb05EGirHm8AZwmw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=W5VSeBuM; arc=fail smtp.client-ip=52.101.53.21
+	 MIME-Version:Content-Type; b=YgyySjDcmpPBybcaGmsarmB1g0adY8RnikqR9SpNMq26r6yXtDymtaN2B1Cnl2WpchuoNFiDMuatssh1uSAVnzJZgxalhF8I3RfUYsjZtm7bQF8GgtQLTA+QqdDUkX+DCaGf3wGmkyiZPHPijDeEMuGELh/NIg3znTN2l4PuM+8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=YIBQHAa0; arc=fail smtp.client-ip=40.107.208.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="W5VSeBuM"
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="YIBQHAa0"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l5oZfZdalVScPROlyfO8RwBLRfl8YZErOeMItGtXKVFB2TYtz69iC44mYE3Ovw1xiuMzyEplkLyF93qoFdQO7hnyZvXU8E8uBzTOtzyjcJxnkbN1xNZ6n4IUKi5msxzhhsd6trtNNCqd/tc03jPCx+8a6RlJAT/KYjaJE2dlu7Vz1lYAmlMe+UXCAffsbObejGtCwkImUa0L8KbNFclGa+DZbU+jD2So9nq7RRsJbu3NORpMJPVwp6oOVJTcWg68XkO+vAbTdAyFx0hrvtLJ8nuu3vMYiHlGld+pB4rSvcRBOk7v9EuKXBUCKAAXIxNL+z46BY11Te2lZbZWkNLQFw==
+ b=X18ZasLQ0n6yczj3ZQrQcu14o2cRWYs/yRha2khBNXlVLWehKvaXW+nuXl98R3hqkDZdsRNGYqdRImrAKP6/Qw07A87WCG8dx26pHXYfe6MDYC+HJZspHdRBlsheLHvVkRaxU252CLMWufxk2iiDe1f3J+Ix9so//VSDlFNFL0MH+1OI6X3fl1pZREcFCSxX9PzXTk1kM7jLGncqTMd7iggsdKOfFIc+wA4EX2b2fZwCqmzI9NgIBzPzRPieGKn5+ix54hAKNkWIecH8cl7cSAbbh3Byf/m6F5iSnacITjcyDJrrLPWKh2dRkC0i71CEorzY3WUNAEX67lszpwHOBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zXlEqslKZvwiikH9vgVp+f638h9Qp4h657+zWuY6rNY=;
- b=FFxGf5v10GUJmECNHyVfmDMe40wX8KEoj2JrZap4dNdOuP5njxlvir9ofWNWpRFMwqJg+PUiXvXq1E47FwT2iVdmv61Xeqc2/0j/9K52SSMNULxy1iiGXAWOoJj8Kpih2YQukwkdHj0n2qITxA/buWrZrk/gw6Fmfx9noyYYRgPAXV3co7sY5Lwn7vCFVfFum4E/y0p1gy1fz8pFJ1DAbiGX64ioU4iL6WXJz5/RyO99r2qtA7OBtzUsAAce5E5G4xOJu9Mb/CU7do3+lS6HxOArfDVguHMckWkiSoq4vvO1mNwFNRTA0Z/yM17pV03vaZy45arkbQk+JkJ7MuJWOg==
+ bh=mKi2h9fQq6glmYu6hIBoR7Iwn/e3kX9/6py2fyekxlI=;
+ b=lORqi0UEXMzT0yNheGeX5Vzpats/o3WUbqf8QurHnRbnV/wXNjje9eRj03q6a2MSU0+I/Is8HNvzrLUQtjL+hvR8gUYccSPjHM0yCwtyn7BZcyg33pgaYU3pdeeVKPdMCrZc1uKrJmOSx4zgtlnyjxPMY2/MgCTof0Cudt6yoEiMFHDR4DWlZFcPB7kTTpWqG4Gna/zhiAnh+rU72cOS4DhDwm7HDkUKPY+VxKY9+fZotDcGJZ/Ln560yE5hHk+C5dTMJ4a414vPp8OLBsQcftZRd0+/GdGY3Tjjw6Ys8G0vmjOolvjaOVjMFSonmUwmCMxfAlOVG9S1E1l3/acE0w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
  dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
@@ -30,18 +30,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zXlEqslKZvwiikH9vgVp+f638h9Qp4h657+zWuY6rNY=;
- b=W5VSeBuMHuRaQlyYBHCA3QDs027lpc28IQJc1zKUtq7txfthq5Sa0zTyD3kB4CUCDH3utOTGgQ0NZz6sS+t6UKBCOzzlY5D01sSSXv1k6za2BXejDtl2CymeW+04ka39ZGEu4ZwFwTMrIJT+mwEyodt8i+TOMXZN7CJpzsQ2wxCNw1hV+LjEfyLUoDQxO1tXexAjCnhBuo9x0V4FksxHK9p5EbHwJjEmExRsRIJyN0iWULe0KGC8JD7UfyCb8ribe1gxb9rSCTYNp9W212R1i0x5nhuMmyDEgGFToUgOG0AozTYJqdPQMsC5g03WARJCRDoNV3T+diBKzUZE5CzPbw==
-Received: from DM6PR04CA0008.namprd04.prod.outlook.com (2603:10b6:5:334::13)
- by DS0PR12MB7852.namprd12.prod.outlook.com (2603:10b6:8:147::5) with
+ bh=mKi2h9fQq6glmYu6hIBoR7Iwn/e3kX9/6py2fyekxlI=;
+ b=YIBQHAa0HgB6d6TJSHICk+tK6+rwi9/7VPAtE0u0zeTz45paxp6iInj1jyHGTSdOdwrr3PuCAyV53C5PXZDdrf+ZseugYj4XO5UHfJy4sDtrPTzPrkyn/z2n+8D+oPeTxh5+grOg2DUIYgbnHhoWwfEDUFYUxdp4m/SnJzqp3Wqhf3i0lY10fWuR865rYuGBdZHQQ5DwRCdN67/HthPi77svZzRk+RoTAsppU3thqMcrJ2j8f1I9waCgSd2T8Ayjh52N/J60EhxyluZrajmL94MmNLCH75dZJDVhYoS/JfKag8UZiTXGA6oVUO8kWOeSjZprgemgOQNkghuId0Y++g==
+Received: from BYAPR21CA0006.namprd21.prod.outlook.com (2603:10b6:a03:114::16)
+ by DM6PR12MB4202.namprd12.prod.outlook.com (2603:10b6:5:219::22) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 00:34:18 +0000
-Received: from BN1PEPF0000468C.namprd05.prod.outlook.com
- (2603:10b6:5:334:cafe::65) by DM6PR04CA0008.outlook.office365.com
- (2603:10b6:5:334::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Tue, 1
- Sep 2026 00:34:18 +0000
+ 2026 00:34:23 +0000
+Received: from SJ1PEPF000026C5.namprd04.prod.outlook.com
+ (2603:10b6:a03:114:cafe::35) by BYAPR21CA0006.outlook.office365.com
+ (2603:10b6:a03:114::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Tue, 1
+ Sep 2026 00:34:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
  smtp.mailfrom=nvidia.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=nvidia.com;
@@ -49,20 +49,20 @@ Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
  216.228.117.161 as permitted sender) receiver=protection.outlook.com;
  client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
 Received: from mail.nvidia.com (216.228.117.161) by
- BN1PEPF0000468C.mail.protection.outlook.com (10.167.243.137) with Microsoft
+ SJ1PEPF000026C5.mail.protection.outlook.com (10.167.244.102) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 00:34:18 +0000
-Received: from rnnvmail205.nvidia.com (10.129.68.10) by mail.nvidia.com
+ 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 00:34:22 +0000
+Received: from rnnvmail204.nvidia.com (10.129.68.6) by mail.nvidia.com
  (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
- 2026 17:34:03 -0700
-Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail205.nvidia.com
- (10.129.68.10) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 17:34:08 -0700
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail204.nvidia.com
+ (10.129.68.6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
- 2026 17:34:03 -0700
+ 2026 17:34:07 -0700
 Received: from Asurada-Nvidia.nvidia.com (10.127.8.14) by mail.nvidia.com
  (10.129.68.9) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Mon, 31 Aug 2026 17:34:02 -0700
+ Transport; Mon, 31 Aug 2026 17:34:06 -0700
 From: Nicolin Chen <nicolinc@nvidia.com>
 To: <will@kernel.org>, <robin.murphy@arm.com>, <jgg@nvidia.com>
 CC: <joro@8bytes.org>, <bhelgaas@google.com>, <praan@google.com>,
@@ -71,9 +71,9 @@ CC: <joro@8bytes.org>, <bhelgaas@google.com>, <praan@google.com>,
 	<iommu@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
 	<linux-pci@vger.kernel.org>, <skaestle@nvidia.com>, <mmarrid@nvidia.com>,
 	<skolothumtho@nvidia.com>, <bbiber@nvidia.com>, <harsha.v@oss.qualcomm.com>
-Subject: [PATCH v3 01/13] iommu/arm-smmu-v3: Add arm_smmu_attach_release()
-Date: Mon, 31 Aug 2026 17:33:26 -0700
-Message-ID: <7dcf4aaa538a6a14626f5e2854141f14268250fa.1788222485.git.nicolinc@nvidia.com>
+Subject: [PATCH v3 04/13] iommu/arm-smmu-v3: Flush in-flight fault work on domain detach
+Date: Mon, 31 Aug 2026 17:33:29 -0700
+Message-ID: <45b6e8c6dab5b67a91ba54c32bf11ab3347d80f5.1788222485.git.nicolinc@nvidia.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1788222485.git.nicolinc@nvidia.com>
 References: <cover.1788222485.git.nicolinc@nvidia.com>
@@ -88,182 +88,152 @@ Content-Type: text/plain
 X-NV-OnPremToCloud: ExternallySecured
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF0000468C:EE_|DS0PR12MB7852:EE_
-X-MS-Office365-Filtering-Correlation-Id: 70bfef04-d3bb-41f6-0fa9-08df07c0c249
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C5:EE_|DM6PR12MB4202:EE_
+X-MS-Office365-Filtering-Correlation-Id: 45b7d1db-cda3-4909-c8ce-08df07c0c500
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|23010399003|7416014|376014|22082099003|18002099003|56012099006|11063799006|10067099003;
+	BCL:0;ARA:13230040|376014|7416014|82310400026|1800799024|23010399003|36860700016|10067099003|6133799003|18002099003|22082099003|11063799006|5023799004|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	HHKUUZWJluVTrHxGFPkt8ZeEgqHEoEP268hWvCt+V19E5vrA2OLYTMRX7EK7dLuCZQm4XLSdGToH8QFiPW9FJsZgImzjIX8o4Zl43kpLod5DMMVbiCuAfuWqM94lsSatrbK7q+NUAzSgn0FUhEEUAu1cUE7HYwjSTpWT3q3MrQ7BppUIYkZMv5B8tLsz/DLSOh3LG11UnnTPVULhrAQnhZFbqZml6K7E5thjIJDfTjXj+N2weKVHfvoAnT3aL5ghwG8dwxAq9J28tgI6g18KSDWZuQqpeDjyl9g/4GjmmyFIeY25kVXPFtqSHpNi9koSOFayfUl0CkQFQA6ChXwomwHA/huu6Joc6zjQbMANIs6PDcxkAFby46VHzx/2lr//K7qo3DNgzzpd3KdkEyOvjGzYI3uR6MOtB9dAyb+wt9gOpvu9UZFDuIErwsKLjrQmKpqWIclvHO/6JzEy/U/wtzBusak+dzhSEx4r1rI4iAr+01otbKvpkO+ewjYjGHPKoMcuYgYeiBsLlcuqeglFFwZkoHk9iXwCF8nnShT4BZEIBNe6b+nqVnkZqEWDhHonxfBlCQYOXNXXu4WtxXvjwvpOn1vBnN5gNgaRYRyomW/e0Eb+pT2nJ+4Hdzx8Kitx7gT7f+eAo2hkLeGk0f2jt+XXQ4HSiEAn6lsC3UVWBgou4G1PzyOsYyOZE8HPQuUXX/O153K9dU5sv+g4pvs7TA==
+	CrZaMd9g8Lhhh6gb8iMA+ln9bc7LYNB56knm267tFda0kGWxZHUGiEGImWDszBnJCObTSOdbVE+4AKWscZ7bd+kPf0rTEBLyHyfePpkj5mr2X2IA/Cw/JsN36tw6jyLdPrYdvbdbc6114FD55f1/ygU9APCMdFuTHhTLMOjL1Ch5yojOZ/Yk/F4AVkMHivTXZmPYuulWWi6iUqBDzHi5J9M8pq7advEAw9Ax0WbioCVSNrq6GMJODM6piHNh+c2lDDn6nOMoGso1LvoKo5BBzkcRtJYMYvNHosV9SBhq51ma/KedQaRClSxIROGEkfafF2Mry8FRIaXssQ3uLVnGSQbNSdOaD+KZ2P2CnoSMw2bb1bbBzO4frdN6l7SSy3UHOT5QLMhLQi3NLPyFgHw5QBJ8tVA7IC8SFeuXqVkJJuOsMlyeAwRnBv1V4viDZ3J9qMfzwcuRMN5x9mqoJPWFkt/+A3HvljMqA68dE+UOb3NCb1CtfdNrCJTOgIZANHDsjjvO3BhrjasXTZdUpCSj+DLpzuYM4URq+EsikMuEDBLSorNt79sSUhHufdzEXw6k3kNuO8bnbF94g2XQNsRMvIbZGO5SZma+lQP7uA5TROkbF7oD6UHzevoT1PtKwdLs/jRadz5Ts9UOuZR9yZAXgxDj37qeNiiC8iQLuXS/mGnjhsf5mZq0BFEHOCl5eEFHvSVrBPeddSXTtCPEgquWMw==
 X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(23010399003)(7416014)(376014)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(7416014)(82310400026)(1800799024)(23010399003)(36860700016)(10067099003)(6133799003)(18002099003)(22082099003)(11063799006)(5023799004)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	+OQRhq7WB37kzEi2hvYT2DDxAC+y7+ZmzJCpwZ8mMzklOSDHXHmvhr8DNX/8AvgMeKGdWUzckYn0hsitQB1dojWwU//DqIL3iYkIvVzZqqHKAFLvdMJS84oE6KD61EUwRlDcJg5WJYiDwH5+0gEInxfIyUZGoGnj0Xrkx9prrleLkurxwXj1VqbX1Vd/M0zYjJ+L7qDcTrb7LvOrmuyl5qSfdo+5Jqhl3cPvFQuqG4Imp2xCNKhsblJTXZoUInJm1DcEjStZps73gKovKi7v4nwFhGAUETeidm6pJfQ5yRVb5B7ZoaLPgTj/HpiXRshAvUrPT0FJDYSeM8TodEDr2+2eTELAi29209g7Xn7j8KWSGFnCyyEUOzNxk2aJwXSMMdFTIi8IQ1bMHDHxVhK1RWiAYtCkTQQ7hPeRvGjmGdL7LR9WwTsvk9+eGDOwieTH
+	UAwZAaXu2JmP545ysNXhBjPou0Ccf9B3dg4QiHmSxQGHgid+d0DXSTzHDMXBGqU+LM1C6mmZ6HUIIr7+a2BHjF8WY0FEu2/L0JcYJVNMNwGLDXoz5qzSAQAGAA52FBEVC3kaJI2L9GSABhs/1Xg7b++HAVzb7wbqBnmcUG29hyzl3C+MtC85H892yMdmNjGGcn1gTGHBsdLdOEG0a0C12cxZ8c6zto64Wu6NDfMRiyQesVBWGv7oi5bRhvXdkBI1eghj9CBD0/yo0eSG8kHuHi4tlhz7BOdPytHAiMFLmPG5k6siw/UTx55rMbh43GPr+qopY1sjWB3C3eEjIf53Gy9YQ3y0YOSQCx5EC2N04OhyABDF61C42OSSZVJZelBSueveoO51ZTV/+lW2eoMxrMYE2igcHNSrxdsHyIY7Mi3wnaAbESzBCCXjYnHJ7yV4
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 00:34:18.2771
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 00:34:22.8815
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70bfef04-d3bb-41f6-0fa9-08df07c0c249
+X-MS-Exchange-CrossTenant-Network-Message-Id: 45b7d1db-cda3-4909-c8ce-08df07c0c500
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF0000468C.namprd05.prod.outlook.com
+	SJ1PEPF000026C5.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7852
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4202
 
-The IOPF teardown is done in arm_smmu_remove_master_domain() when releasing
-the master_domain on detach, under the global arm_smmu_asid_lock mutex. But
-the teardown must drain any in-flight IOPF (for the old domain), before the
-master_domain is freed via iopf_queue_flush_dev() calling flush_workqueue()
-that can block on user-faulting page-fault handlers. Doing so while holding
-the arm_smmu_asid_lock would stall any unrelated attachment in the system.
+arm_smmu_attach_release() polls the hardware event queue to drain all the
+in-flight stall events for an old domain that the IOMMU core might free at
+any moment. However, a drained event is dequeued, yet it is not necessarily
+handled, and the IOPF work for a handled one can still be running.
 
-Split the teardown out of arm_smmu_remove_master_domain(), to a new helper
-arm_smmu_attach_release() that runs after arm_smmu_asid_lock is released.
+So, first synchronize_irq() on the evtq and the combined IRQs following the
+drain, in order to guarantee that every dequeued event has reached the IOPF
+workqueue, since synchronize_irq() waits for an in-flight IRQ thread. Skip
+the waits on a timed-out drain though, since a stuck consumer would block
+the unbounded wait_event() inside synchronize_irq() as well.
 
-Since no other device would use the old master_domain that is being freed,
-it's safe to move out of arm_smmu_asid_lock (still under the protection of
-iommu_group->mutex).
+Then, invoke iopf_queue_flush_dev() to finally drain the IOPF workqueue, as
+the fault work references the old domain via its attach handle, while the
+IOMMU core might free that old domain once the detach call returns.
 
-Note: this is a pure refactor; no functional change.
+If arm_smmu_drain_queue() times out, fault work may still be in flight, and
+iopf_queue_remove_device() would free iopf groups that the queued work also
+references. Skip the iopf teardown and leak the master_domain, rather than
+risk a use-after-free.
 
+The skip also leaks the iopf refcount, keeping the device enrolled on the
+IOPF queue, which would strand its fault parameter on the queue list once
+the device teardown frees dev->iommu, crashing a later iopf_queue_free().
+Reclaim the enrollment in arm_smmu_release_device(), where all the attach
+handles are gone so a straggler report cannot queue a new fault group.
+
+Note that a residual race window remains between an iopf_queue_flush_dev()
+and iopf_queue_remove_device(): a fault arriving in between still resolves
+to the old attach handle, as the IOMMU core publishes a handle change only
+after the driver ops return. This window predates the drain narrowing it,
+and is only closable by an ordering fix in the IOMMU core. Furthermore, a
+timed-out drain shares exactly the same window, given that it must keep the
+device enrolled on the IOPF queue, where iopf_queue_remove_device() would
+free the iopf groups that any in-flight fault work still references.
+
+Fixes: cfea71aea921 ("iommu/arm-smmu-v3: Put iopf enablement in the domain attach path")
+Cc: stable@vger.kernel.org # v6.16
+Co-developed-by: Barak Biber <bbiber@nvidia.com>
+Signed-off-by: Barak Biber <bbiber@nvidia.com>
+Co-developed-by: Stefan Kaestle <skaestle@nvidia.com>
+Signed-off-by: Stefan Kaestle <skaestle@nvidia.com>
+Signed-off-by: Malak Marrid <mmarrid@nvidia.com>
+Assisted-by: Claude:claude-fable-5
 Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
 ---
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h   |  2 ++
- .../arm/arm-smmu-v3/arm-smmu-v3-iommufd.c     |  1 +
- drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c   | 33 +++++++++++++++----
- 3 files changed, 30 insertions(+), 6 deletions(-)
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c | 48 +++++++++++++++++++--
+ 1 file changed, 45 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-index 50f8321e979ce..5b89bad71c102 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h
-@@ -1204,12 +1204,14 @@ struct arm_smmu_attach_state {
- 	struct arm_smmu_vmaster *vmaster;
- 	struct arm_smmu_inv_state old_domain_invst;
- 	struct arm_smmu_inv_state new_domain_invst;
-+	struct arm_smmu_master_domain *old_master_domain;
- 	bool ats_enabled;
- };
- 
- int arm_smmu_attach_prepare(struct arm_smmu_attach_state *state,
- 			    struct iommu_domain *new_domain);
- void arm_smmu_attach_commit(struct arm_smmu_attach_state *state);
-+void arm_smmu_attach_release(struct arm_smmu_attach_state *state);
- void arm_smmu_install_ste_for_dev(struct arm_smmu_master *master,
- 				  const struct arm_smmu_ste *target);
- 
-diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-iommufd.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-iommufd.c
-index 25982bdbcbd9a..fce026efa44f1 100644
---- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-iommufd.c
-+++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-iommufd.c
-@@ -194,6 +194,7 @@ static int arm_smmu_attach_dev_nested(struct iommu_domain *domain,
- 	arm_smmu_install_ste_for_dev(master, &ste);
- 	arm_smmu_attach_commit(&state);
- 	mutex_unlock(&arm_smmu_asid_lock);
-+	arm_smmu_attach_release(&state);
- 	return 0;
- }
- 
 diff --git a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-index 5732f3ba0122d..99baa59b39c9d 100644
+index d255ff2519f9d..1851ee7ec15b9 100644
 --- a/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
 +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c
-@@ -3285,9 +3285,9 @@ arm_smmu_master_build_invs(struct arm_smmu_master *master, bool ats_enabled,
- 	return master->build_invs;
- }
+@@ -3399,6 +3399,7 @@ void arm_smmu_attach_release(struct arm_smmu_attach_state *state)
+ 	struct arm_smmu_master_domain *master_domain = state->old_master_domain;
+ 	struct arm_smmu_master *master = state->master;
+ 	struct arm_smmu_device *smmu = master->smmu;
++	int ret = 0;
  
--static void arm_smmu_remove_master_domain(struct arm_smmu_master *master,
--					  struct iommu_domain *domain,
--					  ioasid_t ssid)
-+static struct arm_smmu_master_domain *
-+arm_smmu_remove_master_domain(struct arm_smmu_master *master,
-+			      struct iommu_domain *domain, ioasid_t ssid)
- {
- 	struct arm_smmu_domain *smmu_domain = to_smmu_domain_devices(domain);
- 	struct arm_smmu_master_domain *master_domain;
-@@ -3295,7 +3295,7 @@ static void arm_smmu_remove_master_domain(struct arm_smmu_master *master,
- 	unsigned long flags;
- 
- 	if (!smmu_domain)
--		return;
-+		return NULL;
- 
- 	if (domain->type == IOMMU_DOMAIN_NESTED)
- 		nested_ats_flush = to_smmu_nested_domain(domain)->enable_ats;
-@@ -3310,8 +3310,23 @@ static void arm_smmu_remove_master_domain(struct arm_smmu_master *master,
- 	}
- 	spin_unlock_irqrestore(&smmu_domain->devices_lock, flags);
- 
-+	/* arm_smmu_attach_release() will free it */
-+	return master_domain;
-+}
+ 	lockdep_assert_not_held(&arm_smmu_asid_lock);
+ 	iommu_group_mutex_assert(master->dev);
+@@ -3412,8 +3413,40 @@ void arm_smmu_attach_release(struct arm_smmu_attach_state *state)
+ 	 * up once the IOMMU core swaps the handle, mistakenly resuming it
+ 	 * against the next domain.
+ 	 */
+-	if (master->stall_enabled)
+-		arm_smmu_drain_queue(smmu, &smmu->evtq.q, false);
++	if (master->stall_enabled) {
++		ret = arm_smmu_drain_queue(smmu, &smmu->evtq.q, false);
++		/*
++		 * Ensure pending events have reached the IOPF queue, unless
++		 * the drain timed out: a stuck consumer would also block an
++		 * unbounded wait_event() inside the synchronize_irq().
++		 */
++		if (!ret && smmu->evtq.q.irq)
++			synchronize_irq(smmu->evtq.q.irq);
++		/* Pending events might be in the combined_irq handler */
++		if (!ret && smmu->combined_irq)
++			synchronize_irq(smmu->combined_irq);
++	}
 +
-+/* Release the old master_domain detached by arm_smmu_remove_master_domain() */
-+void arm_smmu_attach_release(struct arm_smmu_attach_state *state)
-+{
-+	struct arm_smmu_master_domain *master_domain = state->old_master_domain;
-+	struct arm_smmu_master *master = state->master;
++	/*
++	 * Only IOPF-enabled attachments queue fault work, and such work
++	 * references the old domain via its attach handle. Flush it, as
++	 * the IOMMU core might free the old domain once this returns.
++	 */
++	if (master_domain->using_iopf) {
++		/* Lastly, drain the IOPF queue */
++		iopf_queue_flush_dev(master->dev);
 +
-+	iommu_group_mutex_assert(master->dev);
-+
-+	if (!master_domain)
-+		return;
++		/*
++		 * A timed-out drain may leave fault work in flight, and
++		 * iopf_queue_remove_device() would free iopf groups that
++		 * such work still references. Skip the iopf teardown and
++		 * leak master_domain, rather than risk a UAF.
++		 */
++		if (WARN_ON(ret)) {
++			state->old_master_domain = NULL;
++			return;
++		}
++	}
+ 
  	arm_smmu_disable_iopf(master, master_domain);
  	kfree(master_domain);
-+	state->old_master_domain = NULL;
- }
+@@ -4397,7 +4430,16 @@ static void arm_smmu_release_device(struct device *dev)
+ {
+ 	struct arm_smmu_master *master = dev_iommu_priv_get(dev);
  
- /*
-@@ -3609,7 +3624,8 @@ void arm_smmu_attach_commit(struct arm_smmu_attach_state *state)
- 		arm_smmu_atc_inv_master(master, IOMMU_NO_PASID);
- 	}
+-	WARN_ON(master->iopf_refcount);
++	/*
++	 * A timed-out drain in arm_smmu_attach_release() leaks the refcount,
++	 * keeping the device on the IOPF queue. Reclaim it here, since every
++	 * attach handle is gone: a straggler fault can no longer queue a new
++	 * fault group, so the queue turns stable once flushed.
++	 */
++	if (WARN_ON(master->iopf_refcount)) {
++		iopf_queue_flush_dev(dev);
++		iopf_queue_remove_device(master->smmu->evtq.iopf, dev);
++	}
  
--	arm_smmu_remove_master_domain(master, state->old_domain, state->ssid);
-+	state->old_master_domain = arm_smmu_remove_master_domain(
-+		master, state->old_domain, state->ssid);
- 	arm_smmu_install_old_domain_invs(state);
- 	master->ats_enabled = state->ats_enabled;
- }
-@@ -3684,6 +3700,7 @@ static int arm_smmu_attach_dev(struct iommu_domain *domain, struct device *dev,
- 
- 	arm_smmu_attach_commit(&state);
- 	mutex_unlock(&arm_smmu_asid_lock);
-+	arm_smmu_attach_release(&state);
- 	return 0;
- }
- 
-@@ -3784,6 +3801,7 @@ int arm_smmu_set_pasid(struct arm_smmu_master *master,
- 
- out_unlock:
- 	mutex_unlock(&arm_smmu_asid_lock);
-+	arm_smmu_attach_release(&state);
- 	return ret;
- }
- 
-@@ -3804,9 +3822,11 @@ static int arm_smmu_blocking_set_dev_pasid(struct iommu_domain *new_domain,
- 	arm_smmu_clear_cd(master, pasid);
- 	if (master->ats_enabled)
- 		arm_smmu_atc_inv_master(master, pasid);
--	arm_smmu_remove_master_domain(master, &smmu_domain->domain, pasid);
-+	state.old_master_domain = arm_smmu_remove_master_domain(
-+		master, &smmu_domain->domain, pasid);
- 	arm_smmu_install_old_domain_invs(&state);
- 	mutex_unlock(&arm_smmu_asid_lock);
-+	arm_smmu_attach_release(&state);
- 
- 	/*
- 	 * When the last user of the CD table goes away downgrade the STE back
-@@ -3869,6 +3889,7 @@ static void arm_smmu_attach_dev_ste(struct iommu_domain *domain,
- 	arm_smmu_install_ste_for_dev(master, ste);
- 	arm_smmu_attach_commit(&state);
- 	mutex_unlock(&arm_smmu_asid_lock);
-+	arm_smmu_attach_release(&state);
- 
- 	/*
- 	 * This has to be done after removing the master from the
+ 	arm_smmu_disable_pasid(master);
+ 	arm_smmu_remove_master(master);
 -- 
 2.43.0
 
