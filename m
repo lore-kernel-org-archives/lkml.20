@@ -1,236 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-63.mta0.migadu.com [91.218.175.63])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 774AF3C7DF5;
-	Tue,  1 Sep 2026 02:59:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92223431E6D
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:59:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.63
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788231569; cv=none; b=ec5O7EcFkHIzf+x/rYv1B43cndN1NnT/exNrufqae6oKQJdorC9YTp/WpKQW2u+hQvd6F3ASjZAhEMF/SjmKa5LDZID/JnXE6CKjhuJ08RrzIcGIRtOgEKqYL5nw2Qh4LK3VvZlaGE0OJQBiKzx/SOznekgPTvEUW6MBzjqllSI=
+	t=1788231583; cv=none; b=YBD3e1e/Z9f/wfFQ1bFHjYUVseundWP0HDJBBUgSUWAg2MzgONHI3qwUEQZCiQv++P7avSPNO91O7CVB2VbP4o+IQB/pUDxMtkEOwD1pvY9S8IpwIjrq67uO7HUexraY0yfnlgHMuR1RtAiKysZ/jlICjetAwgzEB1Kv4/oPWOg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788231569; c=relaxed/simple;
-	bh=N4PK4DI6scUEUeaFQBbo1vozkMaf/Zv8esOB6ubpIWM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WSWNeNnHk+dCAi+N91QTwVfwuLjho3t+GxzoI//W3HtbCxY1wsNgF969FQhSz9DGdEcRb7IsycEWGt7/pF0oDN2zOalZh3jaa5G5LnwxORmonhbZc673sw3Lz3/9f9+DVQIna0WVj+EBDfgDAumYKPqmuuTOuK3XtpeoAHegyJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eWmR0xjt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788231583; c=relaxed/simple;
+	bh=ciZZAzaZaR3UaV0eFejfaxcyL47+g1hpSZHv6435/SE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=X6pLsSecdPrnszi1QWwhOGAVd8b2krqv90IZkUZgOefaT+MvzQDGa8EmVj2juukwZTkgsbSBGT+StlVg+QjQOg9WGb64b6WCltJFMtQSaq8vTtjmCFpW43aAahWO6bUdQRTzy0ATcORNMX8Ad2Ed5zJZCaTe30kK04/rKhnH9Hk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=BVddg9xQ; arc=none smtp.client-ip=91.218.175.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eWmR0xjt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 158CE1F000E9;
-	Tue,  1 Sep 2026 02:59:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788231566;
-	bh=02GbqUzWLLMFr25w99+0O6J/0Q693xHEP7rfxhgeZmQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eWmR0xjtbyfdrXybmWCVhMZzSjbs24yF8RU64JmI5SyXKnHBD7/F99jJjWt2SrJwY
-	 +Scg1Bn6ZQY/cvyRbqGHyZte9PLQovNHiYQm/Vh6WscYsb3JDxEiyXHL0uY85qN57l
-	 iJzOxVqPivkX22VD0ZPeKmUoSaBktLcHNMUH4azOC0q8/S5FQ9ZfFNRnL1N7djweE8
-	 jAOkNRI/haAju20ux6Wt3QrxpcDefXCU2QepmWKnR02HrqfjHw33nlYICzTum7dNJ1
-	 HiwzGNwr85TdHvhhtWsiRk3HJR1ucig9LurnhI1zs7rdqXbDEg2iAOZ1nA/k9OeUGa
-	 pakcyviKKia/w==
-From: Jakub Kicinski <kuba@kernel.org>
-To: rosenp@gmail.com
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	netdev@vger.kernel.org,
-	claudiu.manoil@nxp.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	pabeni@redhat.com,
-	Manfred.Rudigier@omicron.at,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] net: gianfar: fix DMA unmap of time stamped frames at teardown
-Date: Mon, 31 Aug 2026 19:59:23 -0700
-Message-ID: <20260901025924.1616280-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260828212255.46046-1-rosenp@gmail.com>
-References: <20260828212255.46046-1-rosenp@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="BVddg9xQ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ciZZAzaZaR3UaV0eFejfaxcyL47+g1hpSZHv6435/SE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788231577; v=1; x=1788836377;
+ b=BVddg9xQfgMBm84LyeQdcvSHAvPMHvHjo+BFO+MmquUDMQLeOuKFqK5661AWKPIRKRb/ODaE
+ 22Iw/mt+2pZn0IVc5aWGjiADZ1gD+AG4wT7FHx8oHkFBmNtIRVXGk90u4iXkAowjAmrdoWpV3HR
+ dld728wU1Tx6YbToz/bwc0Hs=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 0a8ec0cb1a616635;
+	Tue, 01 Sep 2026 02:59:37 +0000
+X-Mizu-Trace-ID: 0a8ec0cb1a616635
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <4984b835-6cd2-4870-9b2c-ebe74c684b23@linux.dev>
+Date: Tue, 1 Sep 2026 10:59:27 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Betterbird (macOS/Intel)
+Subject: Re: [PATCH bpf-next v5 1/2] mm/bpf: Add bpf_proactive_reclaim kfunc
+To: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Shakeel Butt <shakeel.butt@linux.dev>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>,
+ JP Kobryn <inwardvessel@gmail.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>, Ihor Solodrai
+ <ihor.solodrai@linux.dev>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
+ Emil Tsalapatis <emil@etsalapatis.com>, Shuah Khan <shuah@kernel.org>,
+ Barry Song <baohua@kernel.org>, Geliang Tang <geliang@kernel.org>,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, linux-mm@kvack.org,
+ linux-kselftest@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
+References: <cover.1787826402.git.zhuhui@kylinos.cn>
+ <5dfdc7800469eac4e9a240f2422ba65d4ef4c4ba.1787826402.git.zhuhui@kylinos.cn>
+ <apHk86Y8araBlXcq@linux.dev> <DL0VTAZE10HC.3R4HIC6S0U3P1@gmail.com>
+Content-Language: en-US
+From: Hui Zhu <hui.zhu@linux.dev>
+In-Reply-To: <DL0VTAZE10HC.3R4HIC6S0U3P1@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
----
-net: gianfar: fix DMA unmap of time stamped frames at teardown
 
-This teaches free_skb_tx_queue() that a time stamped frame occupies an
-extra TxBD for the time stamp buffer: the head unmap length is derived
-from the time stamp BD length plus GMAC_FCB_LEN and GMAC_TXPAL_LEN, and
-the time stamp BD is skipped before the fragment loop runs.  The intent
-is to mirror what gfar_clean_tx_ring() does on the transmit path.
+> On Fri Aug 28, 2026 at 9:53 PM CEST, Shakeel Butt wrote:
+>> On Thu, Aug 27, 2026 at 06:36:29PM +0800, Hui Zhu wrote:
+>>> From: Hui Zhu <zhuhui@kylinos.cn>
+>>>
+>>> Add bpf_proactive_reclaim(), a sleepable kfunc which performs one
+>>> proactive reclaim pass on a given memory cgroup, similar to a write
+>>> to memory.reclaim but without retrying until the target is reached.
+>>>
+>>> The kfunc refuses to reclaim if the calling task is already in a
+>>> reclaim context, as a nested reclaim would corrupt the outer reclaim
+>>> state.
+>>>
+>>> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+>>> ---
+>>>   mm/bpf_memcontrol.c | 46 +++++++++++++++++++++++++++++++++++++++++++++
+>>>   1 file changed, 46 insertions(+)
+>>>
+>>> diff --git a/mm/bpf_memcontrol.c b/mm/bpf_memcontrol.c
+>>> index 716df49d7647..297ff7f05042 100644
+>>> --- a/mm/bpf_memcontrol.c
+>>> +++ b/mm/bpf_memcontrol.c
+>>> @@ -6,6 +6,7 @@
+>>>    */
+>>>
+>>>   #include <linux/memcontrol.h>
+>>> +#include <linux/swap.h>
+>>>   #include <linux/bpf.h>
+>>>
+>>>   __bpf_kfunc_start_defs();
+>>> @@ -159,6 +160,49 @@ __bpf_kfunc void bpf_mem_cgroup_flush_stats(struct mem_cgroup *memcg)
+>>>   	mem_cgroup_flush_stats(memcg);
+>>>   }
+>>>
+>>> +/*
+>>> + * Reclaim must not recurse: try_to_free_mem_cgroup_pages() overwrites
+>>> + * current->reclaim_state, so a nested call would corrupt the outer
+>>> + * reclaim state. Reclaim windows are marked with PF_MEMALLOC;
+>>> + * reclaim_state is also checked because it is installed slightly
+>>> + * before PF_MEMALLOC.
+>>> + */
+>>> +static bool bpf_in_reclaim_context(void)
+>>> +{
+>>> +	return (current->flags & PF_MEMALLOC) || current->reclaim_state;
+>>> +}
+>>> +
+>>> +/**
+>>> + * bpf_proactive_reclaim - proactively reclaim memory from a memory
+>>> + *                         cgroup
+>>> + * @memcg: the target memory cgroup to reclaim from
+>>> + * @size:  the amount of memory to reclaim, in bytes
+>>> + *
+>>> + * Trigger one proactive reclaim pass on @memcg, similar to a write to
+>>> + * memory.reclaim, but without retrying until @size is reached.
+>>> + * Must not be called with a filesystem lock held: the reclaim path
+>>> + * may deadlock on it via filesystem shrinkers.
+>>> + *
+>>> + * Return: The amount of memory reclaimed, in bytes, or 0 if @size is
+>>> + * smaller than a page or the task is already in a reclaim context.
+>>> + */
+>>> +__bpf_kfunc unsigned long bpf_proactive_reclaim(struct mem_cgroup *memcg,
+>>> +						unsigned long size)
+>>> +{
+>>> +	unsigned long nr_reclaimed;
+>>> +
+>>> +	if (size < PAGE_SIZE || unlikely(bpf_in_reclaim_context()))
+>>> +		return 0;
+>> I have been thinking about this more and more and after looking at the reasoning
+>> behind your check current->reclaim_state and also Sashiko's comment on NOIO/NOFS
+>> contexts, I am more convinced that this kfunc can not be a simple sleepable
+>> function. We need more than that. We need clean process context as well similar
+>> to the userspace poking memory.reclaim. Something like kthread or workqueue.
+>>
+>> Kumar & Andrii, is there a way to restrict a kfunc to only be called from
+>> special BPF threads/workqueues? Is there some similar concept in BPF world?
+>>
+> Yeah, I think the concern is valid. E.g. inode_rmdir() is sleepable but will be
+> problematic here, I think. My first instinct was if bpf_in_reclaim_context() +
+> nofs/noio save-restore might provide enough protection to let it be callable
+> from generic sleepable contexts, but I guess that will disable invocation of
+> filesystem shrinkers unconditionally.
+>
+> So my suggestion would be to fix the context to BPF_PROG_TYPE_SYSCALL. There, we
+> should be able to init and schedule timers which poll specific state and arms wq
+> execution etc. It then remains invocable from sleepable async contexts (wq,
+> task_work) or the syscall program, all of which should be ok. Once BPF kthread
+> lands we can let it be callable from those threads as well, but that is for
+> later.
 
-A couple of questions about the new walk below.
+Hi Kumar and Shakeel,
 
-> diff --git a/drivers/net/ethernet/freescale/gianfar.c b/drivers/net/ethernet/freescale/gianfar.c
-> index cf636fc5aafa..c5a716d91fd1 100644
-> --- a/drivers/net/ethernet/freescale/gianfar.c
-> +++ b/drivers/net/ethernet/freescale/gianfar.c
-> @@ -1064,21 +1064,41 @@ static void free_skb_tx_queue(struct gfar_priv_tx_q *tx_queue)
->  	txbdp = tx_queue->tx_bd_base;
->  
->  	for (i = 0; i < tx_queue->tx_ring_size; i++) {
-> -		if (!tx_queue->tx_skbuff[i])
-> +		struct sk_buff *skb = tx_queue->tx_skbuff[i];
-> +		bool do_tstamp;
-> +		int buflen;
-> +
-> +		if (!skb)
->  			continue;
 
-[Severity: High]
-The commit message says the walk is fixed "the same way gfar_clean_tx_ring()
-does on the transmit path", but the cursor here is still anchored at
-tx_queue->tx_bd_base and it is not advanced when a tx_skbuff[] slot is NULL.
-Should it start from tx_queue->dirty_tx / tx_queue->skb_dirtytx like the
-reference implementation does?
+The patch has been modified according to your comments.
 
-gfar_clean_tx_ring() anchors both cursors and advances them together:
+Please help me review it.
 
-	bdp = tx_queue->dirty_tx;
-	skb_dirtytx = tx_queue->skb_dirtytx;
 
-	while ((skb = tx_queue->tx_skbuff[skb_dirtytx])) {
-		...
-		skb_dirtytx = (skb_dirtytx + 1) &
-			      TX_RING_MOD_MASK(tx_ring_size);
-	}
+Best,
 
-gfar_init_bds() only resets dirty_tx and skb_dirtytx to the ring base at
-startup, so at teardown they sit wherever transmit completion left them.
-Outstanding frames live in [dirty_tx, cur_tx) with skb indices
-[skb_dirtytx, skb_curtx).
+Hui
 
-Given that, when skb_dirtytx != 0 does the first processed skb get unmapped
-using descriptor 0, i.e. a descriptor belonging to an already completed
-frame?  gfar_clear_txbd_status() in gianfar.h keeps only the wrap bit and
-never clears bufPtr:
 
-	lstatus &= BD_LFLAG(TXBD_WRAP);
-	bdp->lstatus = cpu_to_be32(lstatus);
-
-so the dma_unmap_single() below would use a stale bufPtr with length 0, the
-fragment loop would then dma_unmap_page() further stale bufPtr values, and
-the head plus fragment mappings of the skb actually being freed are never
-released.  Is that not the same leak the commit message is trying to remove?
-
-stop_gfar() does netif_tx_stop_all_queues(), set_bit(GFAR_DOWN),
-disable_napi(), gfar_halt() and then free_skb_resources(), without draining
-the TX ring, so non-NULL tx_skbuff[] entries with live mappings look like the
-normal case here - in particular on the
-gfar_timeout() -> gfar_reset_task() -> reset_gfar() -> stop_gfar() path.
-
-> +		do_tstamp = (skb_shinfo(skb)->tx_flags & SKBTX_HW_TSTAMP) &&
-> +			    priv->hwts_tx_en;
-
-[Severity: Medium]
-Can priv->hwts_tx_en differ here from the value that was in effect when the
-frame was enqueued?  gfar_start_xmit() computes the same expression and that
-is where the descriptor topology is fixed (frags + 2 BDs, head BD length set
-to GMAC_FCB_LEN, time stamp BD length set to skb_headlen(skb) - fcb_len).
-
-gfar_hwtstamp_set() flips the flag with no lock, no WRITE_ONCE, no TX drain
-and no reset_gfar() on the tx_type transitions:
-
-	case HWTSTAMP_TX_OFF:
-		priv->hwts_tx_en = 0;
-		break;
-	case HWTSTAMP_TX_ON:
-		if (!(priv->device_flags & FSL_GIANFAR_DEV_HAS_TIMER))
-			return -ERANGE;
-		priv->hwts_tx_en = 1;
-		break;
-
-For the on-to-off direction, if a genuinely time stamped frame is still in
-tx_skbuff[] when the flag is cleared, does this take the non-tstamp branch
-and unmap only be16_to_cpu(txbdp->length) == GMAC_FCB_LEN bytes of a
-skb_headlen()-sized mapping, then dma_unmap_page() the time stamp BD whose
-bufPtr is an interior offset of that same single mapping, leaving the real
-fragment BDs unvisited?
-
-For the off-to-on direction, an ordinary frame carrying SKBTX_HW_TSTAMP set
-by the socket takes the tstamp branch, sizes the head unmap from
-txbdp[1].length belonging to another frame, skips one real fragment BD, and
-consumes one BD more than the frame occupied.
-
-Would keying this on SKBTX_IN_PROGRESS, which gfar_start_xmit() sets only
-when the time stamp BD was actually emitted, or on a recorded per-frame BD
-count, keep the teardown view consistent with what was mapped?
-
-reset_gfar() reaches free_skb_resources() from gfar_reset_task, a workqueue
-without rtnl, holding only the GFAR_RESETTING bit that the tx_type path of
-gfar_hwtstamp_set() does not test, so the flag can also change while this
-walk is running.
-
-> +
-> +		/* Sending a time stamped frame requires two additional
-> +		 * buffers, the time stamp buffer itself being between the
-> +		 * FCB and the actual frame data, all mapped together.
-> +		 */
-> +		if (unlikely(do_tstamp))
-> +			buflen = be16_to_cpu(txbdp[1].length) +
-> +				 GMAC_FCB_LEN + GMAC_TXPAL_LEN;
-> +		else
-> +			buflen = be16_to_cpu(txbdp->length);
-> +
->  		dma_unmap_single(priv->dev, be32_to_cpu(txbdp->bufPtr),
-> -				 be16_to_cpu(txbdp->length), DMA_TO_DEVICE);
-> +				 buflen, DMA_TO_DEVICE);
->  		txbdp->lstatus = 0;
-> -		for (j = 0; j < skb_shinfo(tx_queue->tx_skbuff[i])->nr_frags;
-> -		     j++) {
-> +
-> +		if (unlikely(do_tstamp))
-> +			txbdp++;
-> +
-> +		for (j = 0; j < skb_shinfo(skb)->nr_frags; j++) {
->  			txbdp++;
->  			dma_unmap_page(priv->dev, be32_to_cpu(txbdp->bufPtr),
->  				       be16_to_cpu(txbdp->length),
->  				       DMA_TO_DEVICE);
->  		}
-
-[Severity: High]
-The new txbdp[1] read and the new txbdp++ use plain pointer arithmetic
-rather than the ring helpers.  Should these use next_txbd() / skip_txbd()?
-
-	static inline struct txbd8 *next_txbd(struct txbd8 *bdp, struct txbd8 *base,
-					      int ring_size)
-	{
-		return skip_txbd(bdp, 1, base, ring_size);
-	}
-
-gfar_start_xmit() and gfar_clean_tx_ring() step the ring exclusively with
-those, and gfar_clean_tx_ring() reads the time stamp BD length through
-next_txbd() for exactly this case:
-
-		if (unlikely(do_tstamp)) {
-			next = next_txbd(bdp, base, tx_ring_size);
-			buflen = be16_to_cpu(next->length) +
-				 GMAC_FCB_LEN + GMAC_TXPAL_LEN;
-		} else
-			buflen = be16_to_cpu(bdp->length);
-
-Without wrapping, when the cursor lands on the last entry of the ring does
-txbdp[1] read outside this queue's BD array?  gfar_alloc_skb_resources()
-places all tx rings and then all rx rings in one dma_alloc_coherent() block:
-
-	vaddr = dma_alloc_coherent(dev,
-				   (priv->total_tx_ring_size *
-				    sizeof(struct txbd8)) +
-				   (priv->total_rx_ring_size *
-				    sizeof(struct rxbd8)),
-
-so the length would come from the adjacent tx ring or from an RxBD whose
-length field is written by hardware, and that value is then handed to
-dma_unmap_single() / dma_unmap_page().
-
-Both of these look reachable from ordinary teardown - ip link set dev ethX
-down, an MTU change, an ethtool ring resize, or the tx-timeout reset path.
-
-Thanks for looking at this code; the time stamp BD handling was clearly
-missing here.
--- 
-pw-bot: cr
+>> [...]
