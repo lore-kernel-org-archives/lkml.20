@@ -1,97 +1,156 @@
-Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF1642E43D
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:54:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A0B440637
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:54:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788278089; cv=none; b=bKeVnlThgJKuDB32JcciiIhAVtLvHLDgqu/mkfJElA9PAJVJ2O6/gGPGhrYp1LA2peb9/RXunkepm7Qc89X9zYdcHguwRX+kPg9Ax1NZ2cTtGm3EdyvouCoNVYW1XcPDFCgnB697SILGcFjX5K8owm8bphWGb8LndnazDqzLwwA=
+	t=1788278094; cv=none; b=gB7/LU4MPZ+tjMtDQ8DJC9ApJldRwM98bw/EWKiDPdZDHuNpMOXFsMfH8839SRcukxI0I/PIG1g/3I9POKx7VIl6cy+rV7r7b7ePlEBeiWA6k1w2JChsHDDSi+mNPT237MjxgBzVXNNf85dbgi40z+FOjf0bJDiyr6artJi5zDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788278089; c=relaxed/simple;
-	bh=fChNNIeTRqBn5nqD90K0ukY1OdPy6INqd7R3VWIz5Cg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FO2pPXa2DmaaGIe/6NoLBCCGR18Y4hkF5+RuOnzHhu5Qc5dRWdKORGEfR15i6m4atigTlZI6KVEJlVBmu6yMfynMPCYO4ebr2Go/2MLwzdGM10qvEE2N5h98V6tzXgp1qMO9/nijP7dlhZ6hOEqaKZEl6fgwvDr1XvPnoao1l9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=LprvfNhS; arc=none smtp.client-ip=209.85.219.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1788278094; c=relaxed/simple;
+	bh=NU66rj7meP2lwUheHCMM6UTvsVHkphOk4z+aTUBJBQU=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=cA8jmXIbWdXatTs+8IFT0DhuQv6wHrELPkXzVCk0jfoXvUBo539eO/L5uW96GIU66q08OmrbFHMOpHmBWk7MFtEE7YadrgoeDn0xXvqfHYnJX5Qxs9AdQ0/zxCSbDG67kUWHvfWFEv1jX+MxuZ9dzG0eVrLIhMCjXP4swcXJAkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fp7ybGeV; arc=none smtp.client-ip=209.85.128.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="LprvfNhS"
-Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-90cd1012479so12219006d6.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:54:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fp7ybGeV"
+Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-49b0e6638e3so38689985e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:54:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1788278085; x=1788882885; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ucz+U5vH56qFJK/L4c9McNdRpbMBTFsKxX9xAzx9wCw=;
-        b=LprvfNhS/aYyHT5i8pP7jZwsbo6MnY0T2SCk9DlESe0FzpHncRGruaAtrK+WHPRorZ
-         jeLQkRo/PB5WcCS093WIQ8VHsvg6pc44Xbvv7/ylZ6bN8cGpPQP0dGUVUqkkONiRMqH9
-         qg0vNkKwBUPOvpLqP0UAwdfVbL4o+dG6uGbu9A4Rzzk1zSSrFREMWPU37KYr+fbpedTp
-         Oc+rhJwsQvrviyedAITwZFTehNgkGODNhcco/+i1coVNRwTHDMhbX6YNHcwq/0GRaJ5r
-         d0INUgDoJaQxvBOL3T5uO851JxCeKnA42FT6ZmKii0Kw5ZTtvlZA1N1o3EQOE/BPne54
-         GOQA==
+        d=google.com; s=20251104; t=1788278091; x=1788882891; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DmazxTkjw29WW7LAJurjmx1r535FKAoFupnRDAtKegs=;
+        b=fp7ybGeVpRlUy0N5a4xJDZ3kMrsx6/l7VNFMC3xIfE/1a25TfazbZ54na+rKy/VPGE
+         1jM7aj73A9mDaAIDEn+QZb1AVC45kl0ipecKcbIn8uqt5k4bYlqjJrxRcMuVS5GmGGh4
+         8/7sPP38KycEsBD5f0bwIxqRiWnFRTa34vYyfeHt2paoAtQMFSqOa2hv3Z/nkrSqXjZt
+         x2+ozvxHVgENuApRVpbmStU/lTLZpQPHpVr+HBvtQQaZ5v2ogDxNnIAaaX3Hxq0Q/5ck
+         ZmoCvFQv61i9iFjnexmxTVEy8o77t/OrEWtIE4Ow6an+TdWB79LbqvaSv+aFjDzUWCuY
+         kGHA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788278085; x=1788882885;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788278091; x=1788882891;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ucz+U5vH56qFJK/L4c9McNdRpbMBTFsKxX9xAzx9wCw=;
-        b=gzBBVdYlEX8jghBLX0syxemQigg5eoPGyVEnF4i9yAAM+zakPugJy3SYX/qtKH9Fzd
-         Xyx96VWiMX7YJGEY9kWJ5LodVGSmIysI1HgtBQ0TIhsXoeXJSstd5ZL4XJxUJJgBG77J
-         5B4/bY/uU54bOcr9AQYqx4EQCe91cJjOCaEf26IdqBcBL1Qvnagj5rH19XYBGg0hE94T
-         K0oHqhNZTQtFnNP1BisSyz36VSDj8R/WJ+QsHBBXhxu2TTVfMtE4Y1N4WNrVaU98heFC
-         FruTxbwpA7deZNCzcEsNE6+M+RiSQLMx+VmkgG+3aDq/Pu1yU4WmCA2J5UigkNEMUW1e
-         c7mQ==
-X-Forwarded-Encrypted: i=1; AKwUvByj+qtxU/KeYMi+agkdaDR2LzTnCorCyF6q7OrjrQd7asnjlnw8Ql14oKvL0mNaz5sGCzJvCSc4qc/2NuE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nRKyAiW3I/P1525M3tAEgVZF8JGsWF6IRhAoFOWJ2sW9PwUl0b
-	qFyNeBnwD1PQksxh+mRCWzvpb68dxj2jAthYhfgR17kGYK20SqjbSE2VJcKfwjuLp34=
-X-Gm-Gg: AYBFou1FEkuIAV+Wqvjh0sYP/8oiZD7MPcTBGUnY7Ms3eTlkoVit5cIfh5MOTGtnNah
-	VQ6MFHamiZp9FTK5sin+tdSslOKMlqgHPCb1MgINgJvTyTfVLvpPhhCW/uohrcRkJN1BXmrrkVy
-	UCf6GcgmGUBcmbabBji9qyWxInNssWtnbk/SkzSLq/sWuZMs04GLOkfe2BmoCcEDtqrfI+bAYrp
-	Tng4Kvnh6MCTHj2k6w9mt2diBtHKD3AGceXutfaD8pRbD9WyYEkIh/2ech8fHdFeKsMC/tKFxbX
-	apWS5nlTZJjj3xuwKr0BBgvRZhTsicasV/ICJKxyf5hdqGwSCP1yQfBm5pjCum32EEJA/H8SMKO
-	2t3idZtt6DGM0DZIVpRgEaW8YoBzX02bcgCnTs8EURUthkMYmNWK0BoDEBGiq83Yia81Dco/ZSH
-	bvfJZoNzZwLYrWVA/r8zUDAmUZbE9A8djqLlG7gVdOtvJt60xa7F9XWm51SdIN+lV8rPmK9Oadb
-	Vp/d6MvIiJLZwHtU+evuQXg4Zy5fynJtVT2VAM8Yw7V
-X-Received: by 2002:ad4:5cc7:0:b0:90c:c1eb:ae42 with SMTP id 6a1803df08f44-90e9579ed9amr72405516d6.13.1788278085601;
-        Tue, 01 Sep 2026 08:54:45 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90ce4512dcasm111045856d6.34.2026.09.01.08.54.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 08:54:45 -0700 (PDT)
-Date: Tue, 1 Sep 2026 11:54:43 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "Huang, Ying" <ying.huang@linux.alibaba.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, david@kernel.org, ziy@nvidia.com, matthew.brost@intel.com, 
-	joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com, apopple@nvidia.com, 
-	urezki@gmail.com, chenwandun@huawei.com, 
-	Chelsy Ratnawat <chelsyratnawat2001@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/mempolicy: take a cpuset cookie for the interleave
- node count
-Message-ID: <apb1Mq0rJfNwh7Xa@gourry-fedora-PF4VCD3F>
-References: <20260828193111.1023497-1-gourry@gourry.net>
- <877bl5qknu.fsf@DESKTOP-5N7EMDA>
+        bh=DmazxTkjw29WW7LAJurjmx1r535FKAoFupnRDAtKegs=;
+        b=Q8g8U93yYSaSANmQOssEiGsz9wr1VgPHs4jWTAzCaHtiwh5CTNvhBSZLY/nNoJaCy6
+         j22N39QMkaVDFyj1QP8jEmzBrbUOjPl88FZC5JmBBpZIoe6UAqTQ+hZkKwIQTN3d18hq
+         093/nfdnFVCLwtWTJYMzWE9FCtHSGfjBQ67vmETaYQM0Z0Ht3US4zQiw8vFS6plRGDbo
+         P6djIrRdiCyQ/VBnL5TlLWS28Czc5K1ZM7tk0+x5lLY6HQvu4/SYQKmjFF1N4ZJ2W2st
+         ql++y0JgTGy5yWiS9bmSWpyxddE6zoklRZW5f2+gn0H8lzNNxoYc21WiuiizDvNmvO7W
+         YVhw==
+X-Forwarded-Encrypted: i=1; AHgh+RpVL5hR+fclQbLIjgwaafenAViOrqwuFyE+aK+m3mJALL4JvAGMczBO9xYHxQIIUnsYaCDIINkkpbKBhr4=@vger.kernel.org
+X-Gm-Message-State: AFuF++kfTiC+MC4YLd9aEvEtdCARW+vNVq2k1d8C6GPhZZxlobVLcNQn
+	H85Rli05Hx/TXZwJOCH3sQ1zLxrzUyIXfUNZGG/OemfqVdCno2VJagOke2OYQSvGnyiDBlkF6qa
+	UYjzGVVHzyTAg8HCuwiJRVg==
+X-Received: from wmqe20.prod.google.com ([2002:a05:600c:4e54:b0:499:b2b5:78e8])
+ (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:4f88:b0:49c:c0d4:53d9 with SMTP id 5b1f17b1804b1-49cdc4546c9mr157815095e9.14.1788278091021;
+ Tue, 01 Sep 2026 08:54:51 -0700 (PDT)
+Date: Tue,  1 Sep 2026 16:54:41 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <877bl5qknu.fsf@DESKTOP-5N7EMDA>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
+Message-ID: <20260901155445.1475405-1-vdonnefort@google.com>
+Subject: [PATCH v9 0/4] ring-buffer: Fixes for subbuf resizing and persistent buffers
+From: Vincent Donnefort <vdonnefort@google.com>
+To: rostedt@goodmis.org, mhiramat@kernel.org, 
+	linux-trace-kernel@vger.kernel.org
+Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 01, 2026 at 07:24:21PM +0800, Huang, Ying wrote:
-> Gregory Price <gourry@gourry.net> writes:
-> 
-> LGTM, feel free to add my
-> 
-> Reviewed-by: Huang Ying <ying.huang@linux.alibaba.com>
-> 
-> in the future version.
-> 
+This series addresses multiple issues discovered with the dynamic ring
+buffer resizing.
 
-Thank you!
-~Gregory
+I have managed to reproduce a ring_buffer_read_page() race with
+
+ $ while true; do for i in 8 16 32; do echo $i > /sys/kernel/tracing/buffer_subbuf_size_kb; sleep 0.1; done; done
+
+Changelog:
+
+v9:
+
+  - Fix splice read loop when buffer size changes at the same time (Steven)
+  - Allow splice for all static buffers (via memcpy)
+  - Rebase on 7.3-rc1
+
+v8 (https://lore.kernel.org/all/20260826094528.3738023-1-vdonnefort@google.com/):
+
+  - ring_buffer_read_page() handles gracefully read_page/reader_page
+    order mismatch (Steven)
+
+v7 (https://lore.kernel.org/linux-trace-kernel/20260817101533.1558223-1-vdonnefort@google.com/):
+
+  - Match the "static" rb limit with bpage::id bitwidth
+  - Cover another 32-bit truncation in rb_range_buffer (Sashiko)
+  - Fix uninitialized spare_size (Sashiko)
+
+v6 (https://lore.kernel.org/all/20260814154823.755406-1-vdonnefort@google.com/):
+
+  - New prototype for ring_buffer_alloc_read_page() (Steven)
+  - ring_buffer_read_page() to return -EAGAIN (Steven)
+  - Keep nr_pages "unsigned long" (Steven)
+  - Repase on ring-buffer/next (Drop most of the patches)
+
+v5 (https://lore.kernel.org/all/20260813131152.3589632-1-vdonnefort@google.com/):
+
+  - Reset info->spare_read only when data is in the ring-buffer (Sashiko)
+  - Use `unsigned long` for subbuf_size declaration to avoid 32-bit
+    truncation. (Sashiko)
+  - Make cpu_buffer::free_page a buffer_read_data_page
+  - Update kerneldoc for ring_buffer_alloc_read_page()
+
+v4 (https://lore.kernel.org/all/20260812153311.2328812-1-vdonnefort@google.com/):
+
+  - Add rb_subbuf_start() helper (Steven)
+  - kerneldoc additions
+  - Fix races in trace_pipe_raw readers
+  - Use rb_subbuf_capacity() in ring_buffer_subbuf_order_set()
+  - use rb_page_capacity() in ring_buffer_map_get_reader (Sashiko)
+  - Fix 32-bit overflow in ring_buffer_subbuf_order_set() (Sashiko)
+  - Hold cpu_buffer::lock when modifying cpu_buffer->free_page in
+    ring_buffer_subbuf_order_set (Sashiko)
+
+v3 (https://lore.kernel.org/all/20260810125633.3344684-1-vdonnefort@google.com/):
+
+  - Drop first 3 patches (Rebased on 7.2-rc7)
+  - Add a patch to align "nr_pages" to unsigned int
+  - Add a patch to remove useless trace_buffer::cpus
+  - Add unsigned long cast for rb_subbuf_size()
+  - subbuf_order fix for rb_free_cpu_buffer() (Sashiko)
+  - Use __always_inline just like the other accessors for the hot-path.
+
+v2 (https://lore.kernel.org/all/20260806211306.3704194-1-vdonnefort@google.com/):
+
+  - Prevent resizing of the persistent ring buffer
+  - Add missing bpage::order init
+  - Rework subbuf_size/subbuf_order (Sashiko)
+  - Remove ring_buffer_per_cpu::mapped
+  - Dynamically calculate trace_buffer::max_data_size
+
+v1 (https://lore.kernel.org/all/20260805153225.2096152-1-vdonnefort@google.com/)
+
+Vincent Donnefort (4):
+  ring-buffer: Allow splice reads on static buffers
+  tracing: Fix subbuf resize races with trace_pipe_raw readers
+  ring-buffer: Cap static ring buffer nr_pages
+  ring-buffer: Prevent truncation of nr_pages / nr_subbufs
+
+ include/linux/ring_buffer.h          |   5 +-
+ kernel/trace/ring_buffer.c           | 224 +++++++++++++++++----------
+ kernel/trace/ring_buffer_benchmark.c |   6 +-
+ kernel/trace/trace.c                 |  95 +++++-------
+ kernel/trace/trace.h                 |   9 +-
+ 5 files changed, 196 insertions(+), 143 deletions(-)
+
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.55.0.897.gb25b4bd76c-goog
+
