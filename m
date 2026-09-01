@@ -1,508 +1,136 @@
-Received: from mta0.migadu.com (out-115.mta0.migadu.com [91.218.175.115])
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA865448B9B
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:43:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE1A9257AF8
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:44:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788295404; cv=none; b=r05+We5xUBxOjeXqUznSZO5yjg5d9KAL8u44FPuX1BrbuE+jyHsjSH0/X54xUu76XVA1drSP1Ipci9wGtDnAIF0B5FX5vSFDsUCrEa/7DJyixqx3hp6NuJK8mCZalULEHEOemU944EjhfhHEsztk9n/MrXl8dtPiCHCuCh4e4Mw=
+	t=1788295498; cv=none; b=rQS5xYmc0SJvGmw41IvXZ2uqTRGHDNqQFTgQ1wsgAyv9CwCQX/JUjEuqtceJzQx/Bgl/6+6VgT7qu+x215FZVLwcmZEY0ZTSu+Eycv5g+mCl7dVmS5zt5OQ+JD3V0n7O/0qdc2DHqRl9fTiq9w2bsVk1i0SF0Vy1jna6wmAZnzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788295404; c=relaxed/simple;
-	bh=jBKvXUFM1f0s+hjikahqMP0nXyIuhryvTs8Cm/LcB1g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=o6z6NC3lHNI+4CdCMnDMGCBI1aGzswjOtD/zPC9FDHVtkWUg4gE0iAG3HxdMmUuCpN8/MtzU6Jc0YYlGLFsnOt75+wrINexzNIFT9iifzc4EDptppqSmduRyA2PgNwD0etqHkmoQazXJYqBjwUFZofxp/PAtjQgndutmOYYg9sY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=nowcvRCv; arc=none smtp.client-ip=91.218.175.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788295498; c=relaxed/simple;
+	bh=iZJ5bk7vRn2xe9aU5KW9nN7+y0cemowWIrEwhcSMcCY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=f10nNjXbW7asxC16VBJ6ydDuAwKJJcRdcBQ7T3AnvBw7/OKAo4VaY6Qm/JLCCiUCXiZ3Q9QY2phFeCLYtDYk2Q4KiAcnwO6UMhKa985x4ae2OV5XMH6V3/PGJng/adIeROKjsE8vkjY88GVcd2TH4gs3RyreNcj0Sl7O1duL8B0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=nauQ8D5P; arc=none smtp.client-ip=74.125.224.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="nowcvRCv"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=jBKvXUFM1f0s+hjikahqMP0nXyIuhryvTs8Cm/LcB1g=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788295397; v=1; x=1788900197;
- b=nowcvRCv2q7WbiAYvGa+rJ4eBEDwPUuW5YlqlM456eY7wJvrcvYF9c0JewyzCu+c/N/DSkHU
- ANv1e+YyrsFEBPzfoCE1tDoGm7bTfJESVVaVfpglf5Xb+eEVTOlXBzoPi80QsNd01T4w+kSi0AA
- 7WCKpT7iyiVBg2ReevLBufI0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b57c6c0cb33d22b9;
-	Tue, 01 Sep 2026 20:43:07 +0000
-X-Mizu-Trace-ID: b57c6c0cb33d22b9
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <f2f9c32b-589f-4d9d-b42b-c83b435fc821@linux.dev>
-Date: Tue, 1 Sep 2026 13:43:02 -0700
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="nauQ8D5P"
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-66f883abfdcso493269d50.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:44:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1788295494; x=1788900294; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EH/NfLg4aACwiLJhYAQ0D2cKDfAytCBjkGxmccPidO8=;
+        b=nauQ8D5PipIlHo75UwPMiRgAeV/Ix6/XCPF3FfoSgzM5ydpOJWpeB4rH4kTTj8JbVp
+         uxK/NrtQWpTzyIAXBybIeeCdWxqg9HhNl3Old+gPHQ4xhN0zhku4MltMNuEQ4fMzucl/
+         DWjtnC61dQU/n8JZHApa4U1Ek6Ml0A08cveMC5JBwev2RHhizw+1M+N5+0eN4SrbTpg1
+         mERhK3xlxSGG9t7uDMWBXB9WjhEdMHnKssdxfHuflni+fADowJXBb9eLgQXJaoYZZcLN
+         S7ZRV6vKGONpDVNGrw+cicxv0nzggLO9rlRT6cq/pX5Kivsfj5RkTIqVtASgzSZ/rx8F
+         nndA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788295494; x=1788900294;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EH/NfLg4aACwiLJhYAQ0D2cKDfAytCBjkGxmccPidO8=;
+        b=SWQn/tRrDD5L2Ge8TdsPp7Qn9AqM+QqQYkpuBjSSIwDhScXVKqFNQhrnBbgYLTcllj
+         DJEtFcorRwxrtec+Km2kE8RYoP3w+EURrL3ZK5eXC8whu4o7XPISHaUGq5zyC5btXik7
+         jbcrUbr8ZkZQeEFod9YUe1oTfPT7ADDMV/GBaIq1YC2T0MyJOmVhGE2nh2Od7GGGcI0p
+         T/VBtVhjUDaATmpXE/r7+mfN+SRL1RXnuGTnwuLKIpH8Uk1bvkuOIaKWZZRGZAOm3qVE
+         9DNfgKp8dV2LnPp1whfrWIPQmBgqGP3SzyLs0vNn+i2hEfxiElklo6+j2ZNPpx8Vwh/C
+         kxOg==
+X-Forwarded-Encrypted: i=1; AKwUvBwyNmc/qmVYwnPV3YZeOvP32g9YLYpMDDjCNuZvehP4G0OeOsZBGSoCFwpuCgCvH8YUYEUIjt4q4d3P248=@vger.kernel.org
+X-Gm-Message-State: AFuF++m2dJtBgC+2RpUPAs0+cqY7ak8ockvGpeQLlPgy2/Zs8cjigZHj
+	hZNGsn6TD/HhIgmVkr6lOVNrLeZS4prtQoc7feWr37cKBJQQ9lCRcczPkM7D7qkHKdY=
+X-Gm-Gg: AYBFou2w9y7DaEk8ZKwFgD0IYQrUtB31Gebl05v6oF2A9sxGY+nSgh/dQmP+Se5syAR
+	ZsFDPCrjp5gocvmVZrU/CB3x3pRjLG69BMkfCmRzYYxLFw+gUPtqzPqFfNSEa484zVDsQYr02Hb
+	xb7vfY5noThEITqJXUIyYqBk/YEx1HTJ2j50tEHP5l76i7eGA/d8PMGBd40gU/jF0wk+e8BH3Ld
+	hUp0KxvDr0WAzVP5N7jiFjuBQyRLjIFPxkzsLG0gGCN0LUAHS935MylD5Nl/vdEntMIYslifjqR
+	wfKTthVUOw1IBFX2Ud8rQHnuWCBtZTGDwJ5EVyqq95KIrglzRnKYwGZwu2Uj9BcUrvElCdwDX5l
+	0mxDmylYHuy5lqmUDySHZ+KmXYr47+Q64UWZ6i2Mf2Kq13R210VLHkXj5tI05AkhCTSvU5CW1uh
+	UBUuCJMaXrFLvDFGZCQStMjjlbzL+dO+a4xtfpnrjyiO5GAxUP/jtREY30Cu/A
+X-Received: by 2002:a53:a484:0:b0:66c:e472:c792 with SMTP id 956f58d0204a3-66f988480bbmr298480d50.31.1788295494303;
+        Tue, 01 Sep 2026 13:44:54 -0700 (PDT)
+Received: from localhost ([2605:8600:200:1a83:fe59:7385:2855:8588])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66f98656dddsm432178d50.10.2026.09.01.13.44.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 13:44:53 -0700 (PDT)
+Date: Tue, 1 Sep 2026 16:44:49 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Nimrod Oren <noren@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Hugh Dickins <hughd@google.com>, Nirmoy Das <nirmoyd@nvidia.com>,
+	Dragos Tatulea <dtatulea@nvidia.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
+Message-ID: <20260901204449.GK3004@cmpxchg.org>
+References: <20260901190123.3511535-1-noren@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/2] selftests: liveupdate: Add selftest for eventfd
- LUO
-To: Chenghao Duan <duanchenghao@kylinos.cn>, viro@zeniv.linux.org.uk,
- brauner@kernel.org, jack@suse.cz, linux-fsdevel@vger.kernel.org,
- pasha.tatashin@soleen.com, linux-kernel@vger.kernel.org, rppt@kernel.org,
- pratyush@kernel.org, kexec@lists.infradead.org, linux-mm@kvack.org,
- "yanjun.zhu@linux.dev" <yanjun.zhu@linux.dev>
-Cc: jianghaoran@kylinos.cn
-References: <20260625054946.73445-1-duanchenghao@kylinos.cn>
- <20260625054946.73445-3-duanchenghao@kylinos.cn>
-From: Zhu Yanjun <yanjun.zhu@linux.dev>
-In-Reply-To: <20260625054946.73445-3-duanchenghao@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901190123.3511535-1-noren@nvidia.com>
 
-在 2026/6/24 22:49, Chenghao Duan 写道:
-> This test verifies the Live Update Orchestrator (LUO) support for
-> preserving eventfd file descriptors across kexec. It creates multiple
-> LUO sessions, each preserving different eventfd types, and verifies
-> their state after kexec.
-> 
-> The test covers six different eventfd configurations:
-> 1. **Empty eventfd** - Zero count, default flags
->     - Verifies flag preservation without behavioral testing
-> 2. **Default eventfd** - Initial count + write, verifies count preservation
->     - Tests basic counter value retention across kexec
-> 3. **Semaphore eventfd** - EFD_SEMAPHORE flag, multiple reads
->     - Verifies semaphore behavior (returns 1 per read)
-> 4. **Non-blocking eventfd** - EFD_NONBLOCK flag
->     - Tests O_NONBLOCK flag preservation
-> 5. **Large-count eventfd** - UINT_MAX count value
->     - Tests handling of maximum counter values
-> 6. **Modified-after-preserve** - Count changed during handover
->     - Verifies freeze callback captures final state
-> 
-> The test validates the following sequence:
-> 
-> Stage 1 (pre-kexec):
-> - Creates state file for inter-stage communication
-> - Creates multiple LUO sessions
-> - Preserves eventfds with different configurations
-> - Trigger kexec reboot
-> 
-> Stage 2 (post-kexec):
-> - Retrieves preserved eventfd sessions
-> - Verifies flags and counter values for each type
-> - Tests semaphore read behavior
-> - Finalizes all sessions
-> 
-> Signed-off-by: Chenghao Duan <duanchenghao@kylinos.cn>
-> ---
->   tools/testing/selftests/liveupdate/Makefile   |   1 +
->   tools/testing/selftests/liveupdate/config     |   2 +
->   .../selftests/liveupdate/luo_test_eventfd.c   | 376 ++++++++++++++++++
->   3 files changed, 379 insertions(+)
->   create mode 100644 tools/testing/selftests/liveupdate/luo_test_eventfd.c
-> 
-> diff --git a/tools/testing/selftests/liveupdate/Makefile b/tools/testing/selftests/liveupdate/Makefile
-> index 30689d22cb02..e092e38fa6f6 100644
-> --- a/tools/testing/selftests/liveupdate/Makefile
-> +++ b/tools/testing/selftests/liveupdate/Makefile
-> @@ -8,6 +8,7 @@ TEST_GEN_PROGS_EXTENDED += luo_kexec_simple
->   TEST_GEN_PROGS_EXTENDED += luo_multi_session
->   TEST_GEN_PROGS_EXTENDED += luo_stress_sessions
->   TEST_GEN_PROGS_EXTENDED += luo_stress_files
-> +TEST_GEN_PROGS_EXTENDED += luo_test_eventfd
->   
->   TEST_FILES += do_kexec.sh
->   
-> diff --git a/tools/testing/selftests/liveupdate/config b/tools/testing/selftests/liveupdate/config
-> index 91d03f9a6a39..d388bd755245 100644
-> --- a/tools/testing/selftests/liveupdate/config
-> +++ b/tools/testing/selftests/liveupdate/config
-> @@ -9,3 +9,5 @@ CONFIG_LIVEUPDATE_TEST=y
->   CONFIG_MEMFD_CREATE=y
->   CONFIG_TMPFS=y
->   CONFIG_SHMEM=y
-> +CONFIG_EVENTFD=y
-> +CONFIG_LIVEUPDATE_EVENTFD=y
-> diff --git a/tools/testing/selftests/liveupdate/luo_test_eventfd.c b/tools/testing/selftests/liveupdate/luo_test_eventfd.c
-> new file mode 100644
-> index 000000000000..94ef3bc66ad9
-> --- /dev/null
-> +++ b/tools/testing/selftests/liveupdate/luo_test_eventfd.c
-> @@ -0,0 +1,376 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (C) 2026 KylinSoft Corporation.
-> + * Author: Chenghao Duan <duanchenghao@kylinos.cn>
-> + */
-> +
-> +/*
-> + * Multi-session kexec selftest for eventfd LUO support.
-> + *
-> + * Modeled after luo_multi_session.c.
-> + * It creates multiple LUO sessions, each preserving different eventfd types,
-> + * and verifies them after kexec.
-> + */
-> +
-> +#include <errno.h>
-> +#include <fcntl.h>
-> +#include <limits.h>
-> +#include <stdint.h>
-> +#include <stdio.h>
-> +#include <stdlib.h>
-> +#include <string.h>
-> +#include <sys/eventfd.h>
-> +#include <sys/ioctl.h>
-> +#include <unistd.h>
-> +
-> +#include "luo_test_utils.h"
+On Tue, Sep 01, 2026 at 10:01:23PM +0300, Nimrod Oren wrote:
+> When THP is enabled, set_recommended_min_free_kbytes() may raise
+> min_free_kbytes using a heuristic that scales with pageblock_nr_pages.
+> Commit f000565adb77 ("thp: set recommended min free kbytes") added this
+> heuristic to help keep pageblocks free and reduce fragmentation for THP
+> allocations.
 
-luo_test_utils.h should be libliveupdate.h since the commit df1a0d068d48 
-selftests/liveupdate: Move luo_test_utils.* into a reusable library
+We've had problems with compaction before when min_free_kbytes was too
+small on large machines. Competing free space scanners do a lot of
+work only to fight over a very small set of possible target pages.
 
-Yanjun.Zhu
+So I'm a bit uneasy that you didn't include any benchmark numbers with
+this that prove basic functionality on larger hosts isn't regressed.
 
-> +
-> +/* Session names */
-> +#define SESSION_EMPTY     "eventfd-empty"
-> +#define SESSION_DEFAULT   "eventfd-default"
-> +#define SESSION_SEM       "eventfd-sem"
-> +#define SESSION_NONBLOCK  "eventfd-nonblock"
-> +#define SESSION_LARGE     "eventfd-large"
-> +#define SESSION_MODIFIED  "eventfd-modified-after-preserve"
-> +
-> +/* Tokens */
-> +#define TOKEN_DEFAULT       0xCAFEBABE
-> +#define TOKEN_SEM           0xDEADBEEF
-> +#define TOKEN_NONBLOCK      0xFEEDBEEF
-> +#define TOKEN_LARGE         0xBEEFCAFE
-> +#define TOKEN_MODIFIED      0xABCD1234
-> +
-> +/* Counts */
-> +#define COUNT_INITIAL   42
-> +#define COUNT_WRITE     10
-> +#define COUNT_EXPECTED  (COUNT_INITIAL + COUNT_WRITE) /* 52 */
-> +#define COUNT_SEM       5
-> +#define COUNT_NONBLOCK  100
-> +#define COUNT_LARGE     ((unsigned int)-1) /* UINT_MAX */
-> +#define COUNT_MODIFIED  25
-> +#define COUNT_MODIFY_DELTA  99
-> +
-> +/* State tracking */
-> +#define STATE_SESSION_NAME "eventfd_multi_state"
-> +#define STATE_TOKEN        997
-> +
-> +/* Eventfd verification modes */
-> +enum verify_mode {
-> +	VERIFY_FLAGS,        /* Only verify flags, no behavior testing */
-> +	VERIFY_ONCE,         /* Read once and verify count */
-> +	VERIFY_SEMAPHORE,    /* Read multiple times, verify returns 1 each time */
-> +	VERIFY_NONBLOCK,     /* Read once in nonblock mode */
-> +	VERIFY_LARGE         /* Read once, verify large count */
-> +};
-> +
-> +/* Test session configuration */
-> +struct test_session_config {
-> +	const char *session_name;
-> +	unsigned long token;
-> +	unsigned int count;
-> +	unsigned int flags;
-> +	enum verify_mode verify_mode;
-> +	const char *desc;
-> +};
-> +
-> +/* Test session configurations */
-> +static const struct test_session_config test_configs[] = {
-> +	{SESSION_EMPTY, 0, 0, 0, VERIFY_FLAGS, "Empty"},
-> +	{SESSION_DEFAULT, TOKEN_DEFAULT, COUNT_EXPECTED, 0, VERIFY_ONCE, "Default"},
-> +	{SESSION_SEM, TOKEN_SEM, COUNT_SEM, EFD_SEMAPHORE, VERIFY_SEMAPHORE, "Semaphore"},
-> +	{SESSION_NONBLOCK, TOKEN_NONBLOCK, COUNT_NONBLOCK, EFD_NONBLOCK, VERIFY_NONBLOCK, "Nonblock"},
-> +	{SESSION_LARGE, TOKEN_LARGE, COUNT_LARGE, 0, VERIFY_LARGE, "Large-count"},
-> +	{SESSION_MODIFIED, TOKEN_MODIFIED, COUNT_MODIFIED + COUNT_MODIFY_DELTA, 0, VERIFY_ONCE, "Modified after preserve (kexec handover)"},
-> +};
-> +#define NUM_TEST_SESSIONS ARRAY_SIZE(test_configs)
-> +
-> +static int verify_eventfd_flags(int efd, unsigned int expected_flags, const char *desc)
-> +{
-> +	int actual_flags = fcntl(efd, F_GETFL);
-> +
-> +	if (actual_flags < 0)
-> +		return -errno;
-> +
-> +	int expected_fd_flags = expected_flags & (EFD_NONBLOCK | EFD_CLOEXEC);
-> +	int actual_fd_flags = actual_flags & (O_NONBLOCK | O_CLOEXEC);
-> +
-> +	if (actual_fd_flags != expected_fd_flags) {
-> +		ksft_print_msg("%s: flag mismatch - expected 0x%x, got 0x%x\n",
-> +			       desc, expected_fd_flags, actual_fd_flags);
-> +		return -EINVAL;
-> +	}
-> +
-> +	ksft_print_msg("  %s eventfd flags OK (0x%x)\n", desc, expected_fd_flags);
-> +	return actual_flags; /* Return actual flags for further use */
-> +}
-> +
-> +static int ensure_nonblock(int efd, int current_flags)
-> +{
-> +	return fcntl(efd, F_SETFL, current_flags | O_NONBLOCK);
-> +}
-> +
-> +static int verify_count_once(int efd, unsigned int expected_count, const char *desc)
-> +{
-> +	uint64_t val;
-> +
-> +	if (read(efd, &val, sizeof(val)) != sizeof(val))
-> +		return -errno;
-> +
-> +	if (val != (uint64_t)expected_count) {
-> +		ksft_print_msg("%s: expected %u got %llu\n",
-> +			       desc, expected_count, (unsigned long long)val);
-> +		return -EINVAL;
-> +	}
-> +
-> +	ksft_print_msg("  %s eventfd OK: %u\n", desc, expected_count);
-> +	return 0;
-> +}
-> +
-> +static int verify_semaphore_behavior(int efd, unsigned int expected_count, const char *desc)
-> +{
-> +	uint64_t val;
-> +
-> +	/* Read expected_count times, each should return 1 */
-> +	for (unsigned int i = 0; i < expected_count; i++) {
-> +		if (read(efd, &val, sizeof(val)) != sizeof(val))
-> +			return -errno;
-> +
-> +		if (val != 1) {
-> +			ksft_print_msg("%s: expected 1, got %llu at read %u\n",
-> +				       desc, (unsigned long long)val, i + 1);
-> +			return -EINVAL;
-> +		}
-> +		ksft_print_msg("  %s eventfd OK: %u at read %u\n", desc, (unsigned int)val, i + 1);
-> +	}
-> +
-> +	/* Next read should return EAGAIN (no more events) */
-> +	if (read(efd, &val, sizeof(val)) >= 0 || errno != EAGAIN) {
-> +		ksft_print_msg("%s: expected EAGAIN after %u reads\n",
-> +			       desc, expected_count);
-> +		return -EINVAL;
-> +	}
-> +
-> +	ksft_print_msg("  %s eventfd OK (%u reads)\n", desc, expected_count);
-> +	return 0;
-> +}
-> +
-> +static int restore_and_verify_eventfd_generic(int session_fd,
-> +					      unsigned long token,
-> +					      unsigned int expected_count,
-> +					      unsigned int expected_flags,
-> +					      enum verify_mode mode,
-> +					      const char *desc)
-> +{
-> +	struct liveupdate_session_retrieve_fd arg = { .size = sizeof(arg) };
-> +	int efd, ret = 0, actual_flags;
-> +
-> +	arg.token = token;
-> +	if (ioctl(session_fd, LIVEUPDATE_SESSION_RETRIEVE_FD, &arg) < 0)
-> +		return -errno;
-> +	efd = arg.fd;
-> +
-> +	switch (mode) {
-> +	case VERIFY_FLAGS:
-> +		/* Only verify flags, no behavior testing */
-> +		ret = verify_eventfd_flags(efd, expected_flags, desc);
-> +		if (ret < 0)
-> +			close(efd);
-> +		return ret < 0 ? ret : 0;
-> +
-> +	case VERIFY_SEMAPHORE:
-> +		/* Verify flags + semaphore behavior */
-> +		actual_flags = verify_eventfd_flags(efd, expected_flags, desc);
-> +		if (actual_flags < 0) {
-> +			ret = actual_flags;
-> +			goto out;
-> +		}
-> +
-> +		if (ensure_nonblock(efd, actual_flags) < 0) {
-> +			ret = -errno;
-> +			goto out;
-> +		}
-> +
-> +		ret = verify_semaphore_behavior(efd, expected_count, desc);
-> +		break;
-> +
-> +	case VERIFY_ONCE:
-> +	case VERIFY_NONBLOCK:
-> +	case VERIFY_LARGE:
-> +		/* Verify flags + count behavior */
-> +		actual_flags = verify_eventfd_flags(efd, expected_flags, desc);
-> +		if (actual_flags < 0) {
-> +			ret = actual_flags;
-> +			goto out;
-> +		}
-> +
-> +		ret = verify_count_once(efd, expected_count, desc);
-> +		break;
-> +
-> +	default:
-> +		ret = -EINVAL;
-> +		break;
-> +	}
-> +
-> +out:
-> +	close(efd);
-> +	return ret;
-> +}
-> +
-> +static int create_and_preserve_eventfd_keep_fd(int session_fd,
-> +					       unsigned long token,
-> +					       unsigned int count,
-> +					       unsigned int flags,
-> +					       const char *desc,
-> +					       int *efd_out)
-> +{
-> +	struct liveupdate_session_preserve_fd arg = { .size = sizeof(arg) };
-> +	int efd = eventfd(count, flags);
-> +
-> +	if (efd < 0)
-> +		return -errno;
-> +
-> +	arg.fd = efd;
-> +	arg.token = token;
-> +	if (ioctl(session_fd, LIVEUPDATE_SESSION_PRESERVE_FD, &arg) < 0) {
-> +		int ret = -errno;
-> +
-> +		close(efd);
-> +		return ret;
-> +	}
-> +
-> +	if (efd_out)
-> +		*efd_out = efd;
-> +	else
-> +		close(efd);
-> +	return 0;
-> +}
-> +
-> +static int create_and_preserve_eventfd(int session_fd,
-> +				       unsigned long token,
-> +				       unsigned int count,
-> +				       unsigned int flags,
-> +				       const char *desc)
-> +{
-> +	return create_and_preserve_eventfd_keep_fd(session_fd, token, count,
-> +						   flags, desc, NULL);
-> +}
-> +
-> +static int create_session_checked(int luo_fd, const char *session_name)
-> +{
-> +	int session_fd = luo_create_session(luo_fd, session_name);
-> +
-> +	if (session_fd < 0)
-> +		fail_exit("luo_create_session for '%s'", session_name);
-> +	return session_fd;
-> +}
-> +
-> +static int retrieve_session_checked(int luo_fd, const char *session_name)
-> +{
-> +	int session_fd = luo_retrieve_session(luo_fd, session_name);
-> +
-> +	if (session_fd < 0)
-> +		fail_exit("luo_retrieve_session for '%s'", session_name);
-> +	return session_fd;
-> +}
-> +
-> +static void finish_session_checked(int session_fd, const char *session_name)
-> +{
-> +	if (luo_session_finish(session_fd) < 0)
-> +		fail_exit("luo_session_finish for '%s'", session_name);
-> +	close(session_fd);
-> +}
-> +
-> +static int verify_eventfd_config(int session_fd, const struct test_session_config *config)
-> +{
-> +	return restore_and_verify_eventfd_generic(session_fd, config->token,
-> +						 config->count, config->flags,
-> +						 config->verify_mode, config->desc);
-> +}
-> +
-> +
-> +static void run_stage_1(int luo_fd)
-> +{
-> +	ksft_print_msg("[STAGE 1] Starting pre-kexec setup for multi-eventfd test...\n");
-> +	ksft_print_msg("[STAGE 1] Creating state file for next stage (2)...\n");
-> +	create_state_file(luo_fd, STATE_SESSION_NAME, STATE_TOKEN, 2);
-> +
-> +	/* Create all test sessions */
-> +	for (size_t i = 0; i < NUM_TEST_SESSIONS; i++) {
-> +		const struct test_session_config *config = &test_configs[i];
-> +
-> +		ksft_print_msg("[STAGE 1] Creating session '%s'...\n", config->session_name);
-> +		int session_fd = create_session_checked(luo_fd, config->session_name);
-> +
-> +		/* Special handling for modified session (preserve then modify) */
-> +		if (config->token == TOKEN_MODIFIED) {
-> +			int preserved_efd;
-> +
-> +			if (create_and_preserve_eventfd_keep_fd(session_fd,
-> +								config->token,
-> +								COUNT_MODIFIED,
-> +								config->flags,
-> +								"modified-after-preserve",
-> +								&preserved_efd) < 0)
-> +				fail_exit("create_and_preserve_eventfd_keep_fd modified");
-> +
-> +			/* Now modify the preserved eventfd's count */
-> +			uint64_t modify_value = COUNT_MODIFY_DELTA;
-> +
-> +			if (write(preserved_efd, &modify_value,
-> +			    sizeof(modify_value)) != sizeof(modify_value))
-> +				fail_exit("write to preserved eventfd after preserve");
-> +
-> +			close(preserved_efd);
-> +		} else {
-> +			/* Standard session creation */
-> +			if (create_and_preserve_eventfd(session_fd, config->token,
-> +							config->count, config->flags,
-> +							config->desc) < 0)
-> +				fail_exit("create_and_preserve_eventfd %s", config->desc);
-> +		}
-> +	}
-> +
-> +	close(luo_fd);
-> +	daemonize_and_wait();
-> +}
-> +
-> +static void run_stage_2(int luo_fd, int state_session_fd)
-> +{
-> +	int session_fds[NUM_TEST_SESSIONS];
-> +	int stage;
-> +
-> +	ksft_print_msg("[STAGE 2] Starting post-kexec verification...\n");
-> +
-> +	restore_and_read_stage(state_session_fd, STATE_TOKEN, &stage);
-> +	if (stage != 2)
-> +		fail_exit("Expected stage 2, but state file contains %d", stage);
-> +
-> +	ksft_print_msg("[STAGE 2] Retrieving all sessions...\n");
-> +	for (size_t i = 0; i < NUM_TEST_SESSIONS; i++)
-> +		session_fds[i] = retrieve_session_checked(luo_fd, test_configs[i].session_name);
-> +
-> +	ksft_print_msg("[STAGE 2] Verifying eventfds...\n");
-> +	for (size_t i = 0; i < NUM_TEST_SESSIONS; i++) {
-> +		if (verify_eventfd_config(session_fds[i], &test_configs[i]) < 0)
-> +			fail_exit("verify %s eventfd", test_configs[i].desc);
-> +	}
-> +
-> +	ksft_print_msg("[STAGE 2] All eventfd sessions verified successfully.\n");
-> +
-> +	ksft_print_msg("[STAGE 2] Finalizing all sessions...\n");
-> +	for (size_t i = 0; i < NUM_TEST_SESSIONS; i++)
-> +		finish_session_checked(session_fds[i], test_configs[i].session_name);
-> +
-> +	ksft_print_msg("[STAGE 2] Finalizing state session...\n");
-> +	if (luo_session_finish(state_session_fd) < 0)
-> +		fail_exit("luo_session_finish for state session");
-> +	close(state_session_fd);
-> +
-> +	ksft_print_msg("\n--- EVENTFD_LUO TEST PASSED ---\n");
-> +}
-> +
-> +int main(int argc, char *argv[])
-> +{
-> +	return luo_test(argc, argv, STATE_SESSION_NAME,
-> +			run_stage_1, run_stage_2);
-> +}
+> The recommendation scales poorly with larger base page sizes. With the
+> default arm64 pageblock sizes, the contribution per eligible zone
+> before applying the existing cap of 5% of low memory is:
+> 
+>   4 KiB pages:   2 MiB pageblock,   22 MiB per zone
+>  16 KiB pages:  32 MiB pageblock,  352 MiB per zone
+>  64 KiB pages: 512 MiB pageblock,  5.5 GiB per zone
 
+I question whether pageblocks need to be 512M on those machines to
+begin with. After this patch, you're still asking the page allocator
+to optimize grouping such that 512M pages can be allocated at
+runtime. Only now you took away part of the mechanism to do so.
+
+If you're using 512M THPs, I would kind of assume it's on machines
+with a memory size where 5.5G for defrag purposes isn't devastating.
+
+And if you're not, it would make more sense to lower the pageblock
+size to the mTHP size you're actually using. And that would fix the
+"excessive" min_free_kbytes issue as well.
+
+> The automatic min_free_kbytes increase predates proactive compaction
+> and many subsequent changes to compaction. Given those changes,
+> increasing min_free_kbytes for THP by default is no longer clearly
+> justified.
+
+That's pretty handwavy. How would these changes specifically eliminate
+the need for compaction scratch space and allocator fallback options
+to stave off fragmentation during placement?
