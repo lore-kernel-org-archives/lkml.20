@@ -1,281 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E55472084;
-	Tue,  1 Sep 2026 10:27:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788258462; cv=none; b=lw9bxGW+d3En3PuAQMeQC3ESVyA4dmlPiUypuzKDsySKJWltjdMs3mzSU7A5nPfBt5bu9z4dxELjxFkm7psFH2oJo61jhaaXQtM+Tl4oEy5oDi4IeGkXkPDYio2UIlVGgKuocLu+wPjxFneIt5J2VGtdWkBp6xFk9a/b11bbxkQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788258462; c=relaxed/simple;
-	bh=B8ums80A+BXGaWv6pR5BVF6ePSQrQMQTgeVhFGLrzNs=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=T7qx0OtZF38YYkfMvytoRaJ11kjsffMYOKfJnYT58uh7awcZiAVh0UlRUQnglCmtqOltkR2TBbAEs2DoAOg+GMLdETsDTo4YCMRjc6SvesbVPtLRtXRICQArbuA7nvESwdn2YpzztcgcNIFSvPMfj6apFelYNTFYX/OvMFnfRX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZnLVANCZ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99E147669D
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 10:28:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788258486; cv=pass; b=RltuXpab7KSflFwr77G3o7bJpOrOtPXW2hlpFTk5ZZryUc4J/bAgcCSs0ViZiU6M0Feg8WfvvI9de+4+L19ZwvDNACy3FWqHi3GnkOQxUs2Z2AcNwMaJ4W6PBmuF67Zj+BYI60YYrT8XmOTKSLKjAZVE4OIU4ONzcKRffX1sIUI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788258486; c=relaxed/simple;
+	bh=8RhSTE7NXQuuRFzzEOBXrTTWdZIlYAoUG2HnFqGjzaQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Yn6JQpKhujZbwtMiF0nBAHN1OyqenGrBS/O6iAmsISayuP56OukIZM3vYuUmSynQx02Js9o3G+Lbp2BHr/cFA6AWyosbyjqG90RwQN7wG/sVB0kPySf8Kuw3UHPBJ2quLVwHpF8NwFmtIdNEm45de4Q0dkku7hxv+8hLjaGiLHM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GD4naID+; arc=pass smtp.client-ip=209.85.208.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZnLVANCZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 597521F000E9;
-	Tue,  1 Sep 2026 10:27:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788258461;
-	bh=BxpNmtosXBLcejVvVlsO0MWlW4PxIZtHHw+hJL+JV3k=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=ZnLVANCZ8CZoCqBMfmsgwuXdtcB011s0hQrurqb+Ef81pWLP++1DIcwVCQLbZGsOo
-	 eWYSIgnGLejrN//AequtxdK7KhQ+Hll8osCsrZGGag/2l7LnC0HUm3VlC/JVAjM3Km
-	 sq3WCc5QWCPBARwbPh1uSmpu3Jm/AhDY4Vuj/r1xhNp6eMaAGEpKGpOgbhCY70jERK
-	 jDKISlZHgKBLOjYD62HFFHjW4mAo2KmzAuyldqCuoWHPIk7KNg23wsnZtM24eogw/p
-	 glSqqzId01li2r/SA2O0g6T6QsPwqX73S2KSCPgbuo36Cv70p/Xp/TP4eX6d5wJn5W
-	 AMJRRKPLs5ptw==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GD4naID+"
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-39f20d19895so31880071fa.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 03:28:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788258482; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GCfFvatyBk6d7cnOLVN3Fqg1fYsiD5gqkr7ThgsAo3bJerj7q8554qG3DEamm4PIvQ
+         Z2uhOGWHSNGoNZno17cDxCQXXM3o+OQFIA4PCACFdZyfSj0lkCbjaAWC/ebtMxYpsmfb
+         qCycDP+zSZwtfJierUuXty8aOvXBGhNM4KL/mH+qtqyJw1CVxjXFApV4yPxclcXGFDAo
+         A0uoL1f9wHFbRTYcJFespyXgSnDYieWM+nNAmlojfrrtPJ9hsoyMIJOo8J3K3N6JyP/i
+         kgOnTx/W/dIqwS7EozV90qhXZTX1TXKllU1P0Gxz4xOh1SDEaHx1JQqYlwTNjnDkH+xv
+         pNow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8RhSTE7NXQuuRFzzEOBXrTTWdZIlYAoUG2HnFqGjzaQ=;
+        fh=QX3f3npJRRahOo9R2QF5oo630VsQhBMV3F6A3SNk2qE=;
+        b=sxNlLEXAoD+LG3H7YWuNmzHpNjz7afvNvEU3kw3gRHX3+PM2b8zu67fqQWLUL5kNkd
+         qTYSL3RZ0ZnXKTG/U46pYFj4mr0Dd3MzLiYzqQFKOuFI21XqmUqQFF/Y43ceZrXoe1MO
+         d6aqmuJT4cAjPBBJoTSe/6j3XTvFkwov29BtpyfgsSe/XfDmRkWL1fmc58AqRqxk+Rcs
+         KsP8utrjRVlwZom+7msw1WxMqcvcOuWKmT77zAcJ9VoRTAidHxVZ/CdLURsfoCVVBlws
+         KSMaV9B9b3NsPAgakZxkrhJAI+XCnA0SCFUbhq3W6DX/gPRlcyB/H8gdzenu+ORgwED7
+         npug==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788258482; x=1788863282; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8RhSTE7NXQuuRFzzEOBXrTTWdZIlYAoUG2HnFqGjzaQ=;
+        b=GD4naID+2f9Pu4Z8SJDMTTggRM0sjj79qe7A4adyIqCQuJ/f7Ww8erv9ztOGA3RnFG
+         6eq01YttuFogZWLdxfF+2rOqbTchpuxywNCY+jo2tJ1DGuTE8UjACeeOJSodo0sqe9SA
+         vwq31V+3H4It1x9JSGDutVUMZ4q9aRuLVZ83ABvZ0/TW6LNVDh4XcVKclALTbMn+sQFO
+         LMIB0y6LFrGinvc85MhS7KSi0CZCO2uxhq+uxnjL/9xXKCYtrM8tjbBtqtHYM10QrJiN
+         7chSK87bYl1TQZsDOI77b5wh0QAyJFtzXxdJqxJvWny34tBch1dmV94x5W5jczOCGDjM
+         MDgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788258482; x=1788863282;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8RhSTE7NXQuuRFzzEOBXrTTWdZIlYAoUG2HnFqGjzaQ=;
+        b=iXbpS8k3S35qw769mjg2Ich31H89aLdh6L9Yl2nGjYMZVNw6vP+Ln6lW3qx/r/68+P
+         vo0w7n98ZJxzQob/ojNM8mucsHVgwtA/LzO8fPhycrOgH0x+DGGpWMBln2awR71oh1gx
+         xyX3eX5Wxujd/Tb5wfiPcYFjE3k7cmkbj/Y9aXP8ttmO0+oYz4NRgUjJZP1LLHbFkPRl
+         qTrqWW7evKMV3g2ZHDJ4OSuYYrn2NM02LxCPg/2ENkuIydFgxbviH+LyZbFif8brveNB
+         0K99EXPfP0+c1JZlfDsPJXN6/jhn7255nZ9YMAnzIQMdVupUP8bRAoLvSEy+ErcCMgyr
+         c5rA==
+X-Forwarded-Encrypted: i=1; AKwUvByaiv8yFM152ezsd+zEEfSMP7Cqku2uYoQIFiblHU+uJyit0q0UhnMLPcAtGZgn4ud5M/7zp4XUKkuLLX4=@vger.kernel.org
+X-Gm-Message-State: AFuF++ngYOTlLRssnU9qLONQUTLLE3m5M2Ujh00zUXbiqiQs4DgaRkov
+	TWdDBcWst19d/E2CA8Q9/ph8L3QnM9jmCG96Unnu38kwPKrMLhpgA400QsLLXd+2FAITp/x2Z2Q
+	KD9hkl9BuraX0+5Q0ILByfWkKqaIF8SU=
+X-Gm-Gg: AYBFou1nYCgB+xwjojtg0XBm7TBoVhk8faOIOu0xp8MtTbhPFWFlYQWqTdnZVzGp2wF
+	kqSS32ksPbmZu/rFe3W3mPN1AmLgae4SunIKOiZ3PEVNIbAz9Atn192HJg9iKQqazcef9NS/rbl
+	OTCF6tYU6wuWAsr1BKp89jAUEd2NclDyPkS2r+xcuV117G8XgKnRGI65I0gjB2BtT+vAnRql1DP
+	wVwn2XYYVoO8MhIMkbKl9hOlbWFSbJI+iK2GZitnAb9xiQXHMFtuJfayj+PL9Z3ARPIOcvfbYmb
+	/CKi4WdqAgFdHkCmRKhJLYmw6qB/SelfqcXPuJFA0813Nr6i6IFjwQNQ3FIRRisNhYCrQoQlzEt
+	8dvYGEOD2HseCpi+qzq1jFIa5LKxQShu+nvFL5ieTVSS+2UqS4syT0AGWY8tlzmFOu9UZzSjy4b
+	nOm2wROYlu+9RYSi+ZnRTn5ltyMyj9Jw==
+X-Received: by 2002:a2e:bc1a:0:b0:3a1:7f22:93ec with SMTP id
+ 38308e7fff4ca-3a301ac17femr70548301fa.7.1788258480982; Tue, 01 Sep 2026
+ 03:28:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20260831142853.1995573-1-andriy.shevchenko@linux.intel.com>
+ <20260831142853.1995573-3-andriy.shevchenko@linux.intel.com> <20260901102428.GH106095@black.igk.intel.com>
+In-Reply-To: <20260901102428.GH106095@black.igk.intel.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Tue, 1 Sep 2026 13:27:24 +0300
+X-Gm-Features: AcwNN1WgC1bCIJ_reqGXE4PLxo0exnyYPD5oOf4cmGwFgaL2WmrJZYZHO1OB9ZM
+Message-ID: <CAHp75Vd0weJnX2yb4XY8br6xD4gUA0dogzyg7-KNuynOtXnziw@mail.gmail.com>
+Subject: Re: [PATCH v1 2/2] pinctrl: intel: Try to retrieve driver data for
+ pure platform drivers
+To: Mika Westerberg <mika.westerberg@linux.intel.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Andy Shevchenko <andy@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, =?UTF-8?B?UmFkZWsgVsOhbGtv?= <rvalko@lipicko.cz>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 01 Sep 2026 12:27:36 +0200
-Message-Id: <DL3WPTVM033J.33RWYCZOC67Z1@kernel.org>
-Subject: Re: [PATCH v5 01/11] gpu: nova-core: Add public driver API to
- nova-core
-Cc: "Alistair Popple" <apopple@nvidia.com>, "nova-gpu"
- <nova-gpu@lists.linux.dev>, "M Henning" <mhenning@darkrefraction.com>,
- "Alice Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>,
- "Alexandre Courbot" <acourbot@nvidia.com>, "Benno Lossin"
- <lossin@kernel.org>, "Eliot Courtney" <ecourtney@nvidia.com>, "John
- Hubbard" <jhubbard@nvidia.com>, <linux-kernel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>
-To: "Gary Guo" <gary@garyguo.net>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260828033531.1117754-1-apopple@nvidia.com>
- <20260828033531.1117754-2-apopple@nvidia.com>
- <DL3EGE1IY4FL.3X49WKCS67UT@kernel.org>
- <DL3F6EKL2F6Z.2DRXPQLYLE7FM@garyguo.net>
-In-Reply-To: <DL3F6EKL2F6Z.2DRXPQLYLE7FM@garyguo.net>
 
-On Mon Aug 31, 2026 at 10:42 PM CEST, Gary Guo wrote:
-> I think if you change the signatue of `registration_data_with` slightly:
+On Tue, Sep 1, 2026 at 1:24=E2=80=AFPM Mika Westerberg
+<mika.westerberg@linux.intel.com> wrote:
+> On Mon, Aug 31, 2026 at 04:25:47PM +0200, Andy Shevchenko wrote:
+> > The Denverton pinctrl device can be instantiated by the Intel LPC
+> > driver as an MFD platform device named "denverton-pinctrl".
+
+...
+
+> > +static const struct intel_pinctrl_soc_data *
+> > +intel_pinctrl_get_soc_data_by_hid(struct platform_device *pdev)
 >
->     pub fn registration_data_with<'this, F: ForLt + 'static, R>(
->         &'this self,
->         f: impl for<'a> FnOnce(Pin<&'this F::Of<'a>>) -> R,
->                                     ^ note this is changed from 'a to 'th=
-is
->     ) -> Result<R>;
->
-> then there will be an implied bound available inside the callback where '=
-a
-> outlives 'this, and thus the function callback is able to perform coercio=
-n of
-> any T<'a> to T<'this> provided that `T` is covariant over lifetime `'a`.
->
-> [ The coercion won't work when doing abstract `F::Of` on the bus abstract=
-ion
-> side, but for any user it is dealing with concrete types so the compiler =
-sees
-> specific types and thus can check variance ]
->
-> Then your projection can just be
->
->     aux.registration_data_project(|x| &x.field)
->
-> I haven't tried it out but I think it should work.
+> pdev can be const, no?
 
-I gave this a shot and it seems to work out, it's a good simplification. I =
-think
-we don't even need a dedicated project method in this case. We could add an
-alias for with() just to clarify the intent, but not sure that's worth.
+Yes, but it will require also to change the existing prototype for
+_uid case. After I get a confirmation the fix works I will issue a v2
+with an additional patch included.
 
-@Alistair: Here's the diff I tested this with:
-
-diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
-index 798b14f33e20..9babaa0b9a5f 100644
---- a/drivers/gpu/drm/nova/file.rs
-+++ b/drivers/gpu/drm/nova/file.rs
-@@ -13,6 +13,7 @@
-         gem::BaseObject,
-         Registered, //
-     },
-+    num::Bounded,
-     prelude::*,
-     transmute::AsBytes,
-     uaccess::UserSlice,
-@@ -32,10 +33,12 @@
-
- impl GpuInfo {
-     fn new(reg_data: &DrmRegData<'_>) -> Self {
-+        let spec =3D reg_data.api.with(|api| api.get_ref().spec());
-+
-         reg_data.api.with(|api| {
-             Self(uapi::drm_nova_gpu_info {
--                architecture: api.architecture(),
--                implementation: api.implementation(),
-+                architecture: u32::from(Bounded::from(spec.chipset.arch())=
-),
-+                implementation: spec.chipset.implementation(),
-                 vram_size: api.vram_size(),
-                 gpu_name: api.gpu_name(),
-                 gpu_short_name: api.gpu_short_name(),
-diff --git a/drivers/gpu/nova-core/api.rs b/drivers/gpu/nova-core/api.rs
-index c9ae48d278af..6825d3562d56 100644
---- a/drivers/gpu/nova-core/api.rs
-+++ b/drivers/gpu/nova-core/api.rs
-@@ -13,6 +13,8 @@
-     types::ForLt, //
- };
-
-+pub use crate::gpu::Spec;
-+
- use crate::gpu::{
-     Gpu, //
- };
-@@ -44,14 +46,9 @@ pub fn handle(adev: &auxiliary::Device<Bound>) -> Result=
-<NovaCoreApiHandle<'_>>
-         NovaCoreApiHandle::of(adev)
-     }
-
--    /// Returns the architecture identifier of this GPU.
--    pub fn architecture(&self) -> u32 {
--        self.gpu.spec.chipset.arch() as u32
--    }
--
--    /// Returns the implementation identifier of this GPU.
--    pub fn implementation(&self) -> u32 {
--        self.gpu.spec.chipset.implementation()
-+    /// Returns the GPU [`Spec`].
-+    pub fn spec(&self) -> &Spec {
-+        &self.gpu.spec
-     }
-
-     /// Returns the size of the PCIe BAR used for accessing VRAM, typicall=
-y
-@@ -78,7 +75,9 @@ fn of(adev: &'a auxiliary::Device<Bound>) -> Result<Self>=
- {
-     }
-
-     /// Access the [`NovaCoreApi`] through a closure.
--    pub fn with<R>(&self, f: impl for<'b> FnOnce(Pin<&'b NovaCoreApi<'b>>)=
- -> R) -> R {
-+    ///
-+    /// References to covariant sub-fields can be returned from the closur=
-e directly.
-+    pub fn with<R>(&self, f: impl for<'b> FnOnce(Pin<&'a NovaCoreApi<'b>>)=
- -> R) -> R {
-         self.adev
-             .registration_data_with::<ForLt!(NovaCoreApi<'_>), R>(f)
-             .expect("TypeId was validated in NovaCoreApiHandle::of()")
-diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
-index 166f4bb55752..04b97b0f89f4 100644
---- a/drivers/gpu/nova-core/gpu.rs
-+++ b/drivers/gpu/nova-core/gpu.rs
-@@ -42,7 +42,8 @@ macro_rules! define_chipset {
-         ::kernel::macros::paste!(
-         /// Enum representation of the GPU chipset.
-         #[derive(fmt::Debug, Copy, Clone, PartialOrd, Ord, PartialEq, Eq)]
--        pub(crate) enum Chipset {
-+        #[allow(missing_docs)]
-+        pub enum Chipset {
-             $($variant =3D $value),*,
-         }
-
-@@ -119,7 +120,8 @@ fn try_from(value: u32) -> Result<Self, Self::Error> {
- });
-
- impl Chipset {
--    pub(crate) const fn arch(self) -> Architecture {
-+    /// Returns the [`Architecture`] generation of this chipset.
-+    pub const fn arch(self) -> Architecture {
-         match self {
-             Self::TU102 | Self::TU104 | Self::TU106 | Self::TU117 | Self::=
-TU116 =3D> {
-                 Architecture::Turing
-@@ -138,8 +140,8 @@ pub(crate) const fn arch(self) -> Architecture {
-         }
-     }
-
--    /// Returns the implementation identifier of this chipset.
--    pub(crate) const fn implementation(self) -> u32 {
-+    /// Returns the implementation identifier of this chipset within its a=
-rchitecture.
-+    pub const fn implementation(self) -> u32 {
-         self as u32 & 0xf
-     }
-
-@@ -167,7 +169,8 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Resul=
-t {
-     /// Enum representation of the GPU generation.
-     #[derive(fmt::Debug, Copy, Clone)]
-     #[repr(u32)]
--    pub(crate) enum Architecture with TryFrom<Bounded<u32, 6>> {
-+    #[allow(missing_docs)]
-+    pub enum Architecture with TryFrom<Bounded<u32, 6>> {
-         Turing =3D uapi::drm_nova_architecture_NOVA_DRM_ARCHITECTURE_TURIN=
-G,
-         Ampere =3D uapi::drm_nova_architecture_NOVA_DRM_ARCHITECTURE_AMPER=
-E,
-         Hopper =3D uapi::drm_nova_architecture_NOVA_DRM_ARCHITECTURE_HOPPE=
-R,
-@@ -202,8 +205,9 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Resul=
-t {
-
- /// Structure holding a basic description of the GPU: `Chipset` and `Revis=
-ion`.
- #[derive(Clone, Copy)]
--pub(crate) struct Spec {
--    pub(crate) chipset: Chipset,
-+pub struct Spec {
-+    /// The GPU chipset.
-+    pub chipset: Chipset,
-     revision: Revision,
- }
-
-diff --git a/rust/kernel/auxiliary.rs b/rust/kernel/auxiliary.rs
-index 60dfbec8f330..06f816420790 100644
---- a/rust/kernel/auxiliary.rs
-+++ b/rust/kernel/auxiliary.rs
-@@ -305,6 +305,10 @@ unsafe fn registration_data_pinned<F: ForLt + 'static>=
-(&self) -> Result<Pin<&F::
-     /// `F` is the [`ForLt`](trait@ForLt) encoding of the data type. The c=
-losure receives a pinned
-     /// reference to the registration data.
-     ///
-+    /// The outer reference carries the `&self` lifetime while the inner t=
-ype carries the HRTB
-+    /// lifetime `'a`, implying `'a` outlives `&self`. This allows the clo=
-sure to coerce covariant
-+    /// sub-fields (e.g. `&'a T` to the caller's lifetime) and return them=
- directly in `R`.
-+    ///
-     /// For covariant types that implement [`trait@CovariantForLt`], prefe=
-r
-     /// [`registration_data`](Self::registration_data) which returns a dir=
-ect reference.
-     ///
-@@ -314,13 +318,14 @@ unsafe fn registration_data_pinned<F: ForLt + 'static=
->(&self) -> Result<Pin<&F::
-     /// Returns [`ENOENT`] if no registration data has been set, e.g. when=
- the device was
-     /// registered by a C driver.
-     #[inline]
--    pub fn registration_data_with<F: ForLt + 'static, R>(
--        &self,
--        f: impl for<'a> FnOnce(Pin<&'a F::Of<'a>>) -> R,
-+    pub fn registration_data_with<'this, F: ForLt + 'static, R>(
-+        &'this self,
-+        f: impl for<'a> FnOnce(Pin<&'this F::Of<'a>>) -> R,
-     ) -> Result<R> {
--        // SAFETY: The HRTB closure prevents the caller from smuggling in =
-references with a
--        // concrete short lifetime, making the round-trip from `'static` s=
-ound regardless of
--        // variance.
-+        // SAFETY: The HRTB on the inner type prevents the caller from exp=
-loiting a specific
-+        // choice of `'a`. Covariant sub-fields can be safely coerced to `=
-'this`, while
-+        // invariant fields cannot be coerced and thus cannot escape with =
-an incorrect
-+        // lifetime.
-         let pinned =3D unsafe { self.registration_data_pinned::<F>()? };
-
-         Ok(f(pinned))
+--=20
+With Best Regards,
+Andy Shevchenko
