@@ -1,91 +1,97 @@
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+Received: from mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A67C429CF3
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:39:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BE812737FC
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:40:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.189
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788230383; cv=none; b=YGViCmC+X74Hr6ELTXVB/mK0BkaCceDs+A/8DDI7WhFqlccPU5cWqUl/6XQn7IdHQoGnfcvFHBXTRGcYSqHqIPNMa7+PJ0P/LPFSltYMIYFOfOiBfXTXc6tn/Nlfghr1gO4daW+0S84AEkH3j7xPhzYcfWuFrZ9Mr90gbRq28UU=
+	t=1788230463; cv=none; b=IuWc2sisT9yiOVZOvKLZu7lR6CeAKUwa9kvEA5vtNCiAORbaYMl58xP/r7UE51vtNKoQwoCDkpep/yRUu7fB6eyEeuMOZ9aVsMp0+OkJzqnC9MoI4XMVd7SQNE2PhbCjfEwrfpu4E501cKlEvsjm5J8rUfhwZHhjp0zzO95KE5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788230383; c=relaxed/simple;
-	bh=oi8V8m9yhWt2T01PV3i7dkQGa4gKCsXLsiisqVWkrII=;
-	h=To:Subject:Message-Id:Content-Type:Cc:Date:From:Mime-Version:
-	 Content-Disposition:In-Reply-To:References; b=Aqc7rq4VpAjBzQqPRRuuBgyDtHeOyNwFxKZ+bZzQvJcR9hq84I5j77NO6hgDUWpal4MSCgJGTxKpOS0kShBMx/xRZfWsQH6M+CcoAYxEvsaKqgCD8T1e1CCtXN+cnTY/zClKecA1M/P/wj+p8UGoTwVDpTb3x2WRZ7M8JSFZgtM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=YEFk89gk; arc=none smtp.client-ip=209.127.230.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1788230463; c=relaxed/simple;
+	bh=uaa47HjIg5FFqjOeEzANpXLJA0/CX5ySz08yr8qyvWs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Kd+/m79c1QRkNCS/zFlOOSOnfyq2t8fx8CIxE6OsPlzbKqTMuBJ/fppUFhsGDJ74mgDemI3MEdK4biM4qM98nOTCVoyjojcJNsL+tf0XTKWcoopxhGHuW8dU3JJlzEqKTraM26/fnWxrg2Kk4vpgyV5iZWRCaMfXDo3PkAsGdXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ZtwA/0Dj; arc=none smtp.client-ip=91.218.175.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="YEFk89gk"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1788230367; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=I41FvFMGhlMUafyDljZGaCY9IVbp2TA3OePZTsAT+p0=;
- b=YEFk89gk8Ra4AcycBPSObnvkfDUJcXtUzqThN5oLPAX2pjOjCtSdPH2sUfWwQNJkSt0bW/
- 5Kz+rTYGcO25kyzY+r0UsI86OKIetU6k3uo+gE34jkRwv5hyA++8f7gFb7sgCUQb7N2+LI
- 0VeN3gOk2tyhi2o46IOK3P5/Yrn7pCie6LHad0uPPV3GXJI4U90W7dVpv9lzbXpEim+EIm
- mSjuIz1xD1MYA6vOu4Se4VG5d5t+YenoPnDd4jLLNdLfWKhpVBlnQloUtSVUEobj1+RZze
- IbOfWTh6xiylym5y8X1AshIqDu4xJsvZ1l5lxWNvwLr5fl8Zw7PYpqpyhL1nig==
-To: "Wanwu Li" <liwanwu@kylinos.cn>
-Subject: Re: [PATCH 0/2] sched/fair: Use cfs_rq->h_curr in the bandwidth paths
-Message-Id: <20260901023851.GA4059187@bytedance.com>
-X-Lms-Return-Path: <lba+26a963add+eb8f04+vger.kernel.org+ziqianlu@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: "Ingo Molnar" <mingo@redhat.com>, 
-	"Peter Zijlstra" <peterz@infradead.org>, 
-	"Juri Lelli" <juri.lelli@redhat.com>, 
-	"Vincent Guittot" <vincent.guittot@linaro.org>, 
-	"Dietmar Eggemann" <dietmar.eggemann@arm.com>, 
-	"Steven Rostedt" <rostedt@goodmis.org>, 
-	"Ben Segall" <bsegall@google.com>, "Mel Gorman" <mgorman@suse.de>, 
-	"Valentin Schneider" <vschneid@redhat.com>, 
-	"K Prateek Nayak" <kprateek.nayak@amd.com>, 
-	<linux-kernel@vger.kernel.org>
-Date: Tue, 1 Sep 2026 10:38:51 +0800
-Content-Transfer-Encoding: 7bit
-From: "Aaron Lu" <ziqianlu@bytedance.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ZtwA/0Dj"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=uaa47HjIg5FFqjOeEzANpXLJA0/CX5ySz08yr8qyvWs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788230451; v=1; x=1788835251;
+ b=ZtwA/0Dj0d8b6rrHyEJlG/mPCGJwCT2zkC64X/HJ2n/PgKdEBZe5WSxMkaKws9dKjPv0yahs
+ nQnukOI5MDA3p7hugu4bgzr+uWoZW5OUiGQsrncaG6bxdgG/cptiD/TtQhYGx/mns1bfETa0lJv
+ sTa/4IA0r0NzfPHFa0k5RaCA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b6cebc90bc5a86e6;
+	Tue, 01 Sep 2026 02:40:50 +0000
+X-Mizu-Trace-ID: b6cebc90bc5a86e6
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: tj@kernel.org,
+	void@manifault.com
+Cc: arighi@nvidia.com,
+	changwoo@igalia.com,
+	michalblk@google.com,
+	liwanwu@kylinos.cn,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	cui.tao@linux.dev,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: [PATCH 0/2] sched_ext: fix wraparound-unsafe vtime orderings
+Date: Tue,  1 Sep 2026 10:40:36 +0800
+Message-ID: <20260901024038.730424-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260831101141.391382-1-liwanwu@kylinos.cn>
-X-Original-From: Aaron Lu <ziqianlu@bytedance.com>
-References: <20260831101141.391382-1-liwanwu@kylinos.cn>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 06:11:39PM +0800, Wanwu Li wrote:
-> Hi Peter, Ingo,
-> 
-> Since commit 85570f10a4c6 ("sched/eevdf: Move to a single runqueue")
-> the per-level "is something running at this level" information moved
-> from cfs_rq->curr to cfs_rq->h_curr; cfs_rq->curr is now only
-> maintained on the root cfs_rq. The cgroup hierarchy is kept for load
-> tracking and bandwidth accounting, which makes the bandwidth paths the
-> only code that still runs per-level and consults a per-level current.
-> Two locations were not updated in this conversion:
-> 
->   1/2: throttle_cfs_rq() reads cfs_rq->curr to decide whether the
->        throttled level has a running entity. For intermediate cfs_rqs
->        the check is always false, so quota exhaustion never requests a
->        full sched_cfs_bandwidth_slice() and never arms the deferred
->        throttle task_work via task_throttle_setup_work(); a running
->        task can out-run its group's quota until the next pick armed
->        the work instead.
-> 
->   2/2: distribute_cfs_runtime() gates its clock refresh and runtime
->        accounting on cfs_rq->curr, which never fires for cgroup
->        cfs_rqs. Since commit 28ad5427682b ("sched/fair: Call
->        update_curr() before unthrottling the hierarchy")
->        unthrottle_cfs_rq() catches up unconditionally, so this is not
->        a correctness hole today, but the refresh the check was written
->        for is gone.
+From: Tao Cui <cuitao@kylinos.cn>
 
-For this series:
-Reviewed-by: Aaron Lu <ziqianlu@bytedance.com>
+Two spots order tasks by 64-bit virtual time with comparisons that
+break when the values are far apart: the kernel's vtime DSQ priority
+queue and scx_flatcg's cgroup tree. They need opposite fixes, which
+is the point of this series.
 
-I also run a test where a nop is affined to a single cpu and I can see
-that nop task can use more than its quota from time to time; with this
-series applied, this no longer happens, so:
-Tested-by: Aaron Lu <ziqianlu@bytedance.com>
+The kernel's scx_dsq_priq_less() compares with time_before64(), i.e.
+(s64)(a - b) < 0. That is only a valid ordering when all values in
+the queue are less than 2^63 apart. CFS upholds that invariant with
+min_vruntime clamping; sched_ext cannot, because dsq_vtime comes
+straight from the BPF scheduler. A scheduler that inserts vtimes
+wider than 2^63 apart into one DSQ gets the inverted order -- the
+tasks it placed last run first while the rest starve. Patch 1
+switches to a plain u64 comparison, which is a total order and always
+honors the requested order; it reproduces the inversion with a probe
+scheduler and verifies the fix.
+
+scx_flatcg's cgv_node_less() has the inverse problem: it compares
+with a plain <, which misorders once cvtime wraps. There the cyclic
+(s64)(a - b) < 0 comparison from patch 1's bug is the correct fix,
+because flatcg does uphold the spread invariant --
+cgrp_cap_budget() clamps every node to within max_budget behind
+cvtime_now -- and the cyclic comparison also carries the ordering
+correctly across the natural 2^64 wrap, which a plain comparison
+would not.
+
+So: same bug family, opposite fixes, each justified by whether the
+spread invariant exists. This is also why the naive "use
+time_before64 everywhere" suggestion doesn't hold -- without the
+invariant it is exactly the inversion patch 1 fixes.
+
+Tao Cui (2):
+  sched_ext: fix vtime priority queue inversion on wide vtime spread
+  sched_ext/scx_flatcg: make cgv_node_less() wraparound-safe
+
+ kernel/sched/ext/ext.c           | 3 ++-
+ tools/sched_ext/scx_flatcg.bpf.c | 3 ++-
+ 2 files changed, 4 insertions(+), 2 deletions(-)
+
+-- 
+2.43.0
+
