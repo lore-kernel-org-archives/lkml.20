@@ -1,226 +1,414 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CCCC47CC69
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:04:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F7B37B014
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:04:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788260672; cv=none; b=FxxsTGni1kmElyIuFXxdT4TW+mZeqCArlTSSoCulP0bHGOk39RQerXyrtCu1rzzEczx5pUX/kdBqrwMQWm0XVYU71UcD/Bto6TqJ1jpEIlBvZYkjB/8nj5Y4Mum71rg963fPy7LfL6BugHHOcBp6IJbVGPb3BydC7bqwgwMM+wA=
+	t=1788260691; cv=none; b=C9kP6z9LlxblEbqdOUzw3ZZzHocEfCltzVDl04oqqVMRrC7QxE58YlEet4W60PY9CQvHsjiEE/YPSf1EV5v1dhUDb8a8c1TmC09aJEMYJaT0ZSV9RzvKk05cGnZJj43YMnxaaoRN1zZBlc6HXJYFlFsMakyj8h9AR+vAV5tnEe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788260672; c=relaxed/simple;
-	bh=kLCPJHfnPYk6jxIxd56fZeydQCtMBIcUA041uVwy4s8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=muvKaOCQLK4MfeWGabQnPco+p/tdMjPL4K4FQW80Vfjt7fHrmtYtNeGw5b60w3pzWTvUZ5g9b8lXtwB/co+HZmj73AbL72nHbaFpzJxvTQMQxfe/nKsmKTCKHGpADyVL16E2S6ltueg8bDrFM0xjyvkNPMKLmvJ/QSiVvb/fHyw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JbN2o7/4; arc=none smtp.client-ip=170.10.133.124
+	s=arc-20240116; t=1788260691; c=relaxed/simple;
+	bh=I8M6O40zF2FqQBTEIIg1qxA/Ns7PDdWoqhU12y9YI0Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I2YY7rFCUTGI9rUDqb4Ojnn7lxdZsfGaXMeZQ33feCQtjVXKQJ0nCRjumTIXnkhSTa5Vt5U/dOCo1hdxNccpRqtMVgR7ogR1rLL+QMdNz2yje2qxUteB/2Dy6nTf1443u6NhTB38ny8In/N1W39NrHoL3AqQPmDBaEwvChtwzdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=i2AfmOxo; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Nc2ruhjM; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JbN2o7/4"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="i2AfmOxo";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Nc2ruhjM"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788260667;
+	s=mimecast20190719; t=1788260688;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=XRv81smlVWxNb1A0Cr9qAtGJQ8qZ9KnUs2NstCo31Yc=;
-	b=JbN2o7/4atHHvwd6IafHyJyyLN6OLLtmO2ONmJLw8QQHALCLHC7UJroLPK8/cg4+LtKFgx
-	tPa+jIZWHrtkiOXm9/ZawmXV5hU/H/2eNO/RLTDvqrafMffaCpgljSksEBRLjNeqPS/hiI
-	/20TPP+tYkaDZ2+Yt8rEQTkMyLwUx7k=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-452-plUwejrXP9aoqQnNbURvgw-1; Tue,
- 01 Sept 2026 07:04:18 -0400
-X-MC-Unique: plUwejrXP9aoqQnNbURvgw-1
-X-Mimecast-MFC-AGG-ID: plUwejrXP9aoqQnNbURvgw_1788260650
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 122801845530;
-	Tue,  1 Sep 2026 11:04:10 +0000 (UTC)
-Received: from gerbillo.redhat.com (unknown [10.44.49.14])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 40A8E423;
-	Tue,  1 Sep 2026 11:04:06 +0000 (UTC)
-From: Paolo Abeni <pabeni@redhat.com>
-To: johnathan.browall@topgolf.com
-Cc: michael.chan@broadcom.com,
-	pavan.chebbi@broadcom.com,
-	netdev@vger.kernel.org,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	pontus.hallstedt@topgolf.com
-Subject: Re: [PATCH net v2] bnxt_en: avoid redundant RX mask updates in UC overflow state
-Date: Tue,  1 Sep 2026 13:04:01 +0200
-Message-ID: <20260901110401.153294-1-pabeni@redhat.com>
-In-Reply-To: <20260828-bnxt-uc-overflow-v2-1-faddc16b0ea0@topgolf.com>
-References: <20260828-bnxt-uc-overflow-v2-1-faddc16b0ea0@topgolf.com>
+	bh=dpalFsc50tyK4pf8E+Xa5el9aZ7WXkhDyVSpKjl/dAo=;
+	b=i2AfmOxoq+9h2aTtd5ilH5uktpQfPiar5hLU4xf0iBACjtd9y2h8g/+Ya41Ybxw7kxor3N
+	zihBfcxSKMd8U9E20qlcXRD5fegILCDP6UejEXVTuP3KFK4V1DHrAfcjyrsJZhiVWqY0O8
+	q4Tk2ykypgexq1O6rB700fcDKaoeHOA=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-649-hOTbfT6ZNEu-oSVCuA047Q-1; Tue, 01 Sept 2026 07:04:47 -0400
+X-MC-Unique: hOTbfT6ZNEu-oSVCuA047Q-1
+X-Mimecast-MFC-AGG-ID: hOTbfT6ZNEu-oSVCuA047Q_1788260686
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-47d81cf0c4cso2822492f8f.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 04:04:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788260686; x=1788865486; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dpalFsc50tyK4pf8E+Xa5el9aZ7WXkhDyVSpKjl/dAo=;
+        b=Nc2ruhjMYdHQbWuX+mTahshVwQtgS6KESee7LFT5jDEPcOPRk0pEYlLkMlt9CB+VU7
+         Wa6QtvvQzpV9UkqiXIV0mf5mShyQ9/fRyAnDKRkSKw9wzRP6ecRTafHZ2tuDOjijaO9/
+         URn0YOVUZbO7Y96yalSkN8sNsklQnRrxsbcy7RTLxt2hvZCB4r7Q6T6Pqd/rCW0vL3S5
+         pp5bZp9rVhVNgY4RX7Fp4jLayJEfNEmM4tV6U0D5hIHofyQN68vpbk8OLHEgsjR7kWmk
+         2YbMEJAA8eXqBC3pNIasCvMRUERhGuZ+A6v/ncbnlxKas8nsEQJFhV1S/CRUlvjqyw6C
+         zudg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788260686; x=1788865486;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dpalFsc50tyK4pf8E+Xa5el9aZ7WXkhDyVSpKjl/dAo=;
+        b=mNNWNcOa+xzGY7c7ABZqUeSP3e1gpIdnDxUgplBqWV2b7QPHFe6b/vGcKsN1b9gJI2
+         A4oG0/jTe75Bf/51tTry7wUttJUepro//iyalyX2dkW0mLbfKev5vGNsc1DcugGbrjae
+         YzNvflJe6602lnxTyo+E5HB9GOMRbmiwNjL3NikXbbDBH/hN2iH4JTAlGwhu4oDwd/sH
+         PXJtk+6v3957LlB+3DrGQVACbcIqofLiGO6vnq4Zvo3VsRj9yjJj3mRJhL7waU2iO2rU
+         xt5oth4A45LzuANYyuzWRS+GX9lPZAJtAPe/gmK2Uj6YO/yCUttG7HDIH/sd3P3DUT6Y
+         btgg==
+X-Forwarded-Encrypted: i=1; AHgh+RoAb7tbTwKfqwVjEd0Xr/ukm7gfLAdLNNAFgOQKf4D/ScyYhwbfPmJgbm9LzNY32QiEMpxRPNMV1hDClVM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nU42eHl7PXgMOQp1C5kRFyydHEyiCGbxUqWytnclvywzdh+eg8
+	H71Ynd9kfHA/0+WdotzrImBSKHCe4doo8LeHKe8rx4efCtM9lQhcQ/UDjow2b8EAdKrXXjkGP3O
+	gMzvKRYHROUU90XooQMJA2FDzBUqCrw5wfVp5KxwSLw1R6svueQmJKytplYykIYberQ==
+X-Gm-Gg: AR+sD13ScdyXt7NbVoOqIN0hh87fhfMwrcB+5pjEXvGsVlb1+tQe67eujjLxSDQ7jPg
+	d25xPgLFBOkKanEMDc01APnpydGawjBxua23sxAwLZyxbXl4QhhQBR0eZGrZjogC3MjWWMWQfEB
+	DxE8jgRFB9a75jZBw5+hqPO4MthWz+s2CRfP30Nes8VUnqFGGD4lP8FEFxHE2Fa95ErNuZ2Lpo8
+	yV+fHs7Ya9C623nj1EbPsYnXjPoAKDC2eJhTL9IOR/BVVuDZTu8ZH8LOD8RbHQwiRFevG1yeHZk
+	ln/bXoRiUHPotZQjBCsDHeNf8w0s2qgHABT+jUS8SYAeoQBduK1BXLzpb+RdyV4PQNun+tu/+0O
+	a+aICDSdNtcV2TN1GsfkqFOI=
+X-Received: by 2002:a05:600c:c11c:b0:499:b65d:1250 with SMTP id 5b1f17b1804b1-49cdc422c5bmr130324335e9.2.1788260686125;
+        Tue, 01 Sep 2026 04:04:46 -0700 (PDT)
+X-Received: by 2002:a05:600c:c11c:b0:499:b65d:1250 with SMTP id 5b1f17b1804b1-49cdc422c5bmr130323085e9.2.1788260685595;
+        Tue, 01 Sep 2026 04:04:45 -0700 (PDT)
+Received: from redhat.com (IGLD-80-230-79-236.inter.net.il. [80.230.79.236])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b91c5790csm298330355e9.0.2026.09.01.04.04.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 04:04:45 -0700 (PDT)
+Date: Tue, 1 Sep 2026 07:04:41 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: alistair23@gmail.com
+Cc: eperezma@redhat.com, linux-kernel@vger.kernel.org,
+	xuanzhuo@linux.alibaba.com, jasowangio@gmail.com,
+	linux-scsi@vger.kernel.org, mkp@kernel.org,
+	virtualization@lists.linux.dev,
+	James.Bottomley@hansenpartnership.com, alistair@alistair23.me,
+	Alistair Francis <alistair.francis@wdc.com>, graf@amazon.com
+Subject: Re: [PATCH 2/2] scsi: Initial commit of VirtIO PCIe Endpoint Driver
+Message-ID: <20260901044553-mutt-send-email-mst@kernel.org>
+References: <20260901014650.2728658-1-alistair.francis@wdc.com>
+ <20260901014650.2728658-3-alistair.francis@wdc.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901014650.2728658-3-alistair.francis@wdc.com>
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://netdev-ai.bots.linux.dev/sashiko/
----
-bnxt_en: avoid redundant RX mask updates in UC overflow state
+On Tue, Sep 01, 2026 at 11:46:50AM +1000, alistair23@gmail.com wrote:
+> From: Alistair Francis <alistair.francis@wdc.com>
+> 
+> This patch adds a VirtIO SCSI endpoint build on top of the VirtIO PCIe
+> endpoint. This is a similar approach to the NVMe PCIe Endpoint
+> (drivers/nvme/target/pci-epf.c) but for SCSI.
+> 
+> This does end up being somewhat similar to the pci-epf.c code, but
+> re-written for SCSI.
+> 
+> This approach allows a PCIe Endpoint device (tested on a
+> radxa-rock5b) to setup what appears to be a SCSI device, using an
+> existing SCSI backend (tested using scsi_debug).
+> 
+> At this point a host can connect over PCIe, ensure virtio_pci and
+> virtio_scsi is loaded and on PCIe rescan will see a scsi device.
+> 
+> There are two main pain points with this approach though:
+>  1. We have to use the Legacy SCSI VirtIO driver. This is because the
+>     Raxda Rock5b (and AFAIK all PCIe Endpoint hardware) can't add
+>     capabilities. So we can't advertise the VirtIO Common configuration
+>     capability, which means we can't be a modern VirtIO SCSI device.
+> 
+>     This is unfortunate, but there doesn't seem to be any way around
+>     this, at least with the current hardware.
 
-The patch records the unicast filter overflow condition in a new vnic flag
-so that bnxt_uc_list_updated() stops reporting the UC list as changed while
-the list is too long for the available L2 filters, and so that
-bnxt_set_rx_mode() keeps the promiscuous bit in the mask it computes.  The
-goal is to stop resending an identical HWRM_CFA_L2_SET_RX_MASK on every
-rx-mode callback.
+This was discussed on the virtio list. The way around this is
+to change virtio spec to allow common configuration
+in memory. I don't think a patch like this was ever posted -
+want to try?
 
-Link: https://patch.msgid.link/20260827-bnxt-uc-overflow-v1-1-f20d48864fe9@topgolf.com
 
-> diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> index 9c2cc50276a59..d960cf942e99e 100644
-> --- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> +++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-> @@ -13791,6 +13791,16 @@ static bool bnxt_uc_list_updated(struct bnxt *bp,
->  	struct netdev_hw_addr *ha;
->  	int off = 0;
->  
-> +	/* In the overflow state all unicast is accepted through the
-> +	 * promiscuous RX mask and no secondary L2 filters are in use,
-> +	 * so the list only needs reprogramming once it fits the
-> +	 * available filters again.  Reporting an update here would
-> +	 * resend an identical SET_RX_MASK on every callback, which
-> +	 * causes brief RX packet loss on some chips.
-> +	 */
-> +	if (vnic->flags & BNXT_VNIC_UC_PROMISC_FLAG)
-> +		return netdev_hw_addr_list_count(uc) <= (BNXT_MAX_UC_ADDRS - 1);
+....
+
+
+
+> +
+> +static int scsit_pci_epf_read_desc(struct scsit_pci_epf_vq *vq,
+> +				   u16 idx, struct vring_desc *desc)
+> +{
+> +	void __iomem *p;
+> +
+> +	if (idx >= vq->depth)
+> +		return -EINVAL;
+> +
+> +	p = vq->desc_map.virt_addr + (size_t)idx * sizeof(struct vring_desc);
+> +	desc->addr = cpu_to_le64(readq(p + offsetof(struct vring_desc, addr)));
+> +	desc->len = cpu_to_le32(readl(p + offsetof(struct vring_desc, len)));
+> +	desc->flags = cpu_to_le16(readw(p + offsetof(struct vring_desc, flags)));
+> +	desc->next = cpu_to_le16(readw(p + offsetof(struct vring_desc, next)));
+> +
+> +	return 0;
+> +}
+> +
+> +static int scsit_pci_epf_read_indirect(struct scsit_pci_epf_ctrl *ctrl,
+> +				       const struct vring_desc *parent,
+> +				       struct vring_desc **out_descs,
+> +				       unsigned int *out_n)
+> +{
+> +	struct vring_desc *descs;
+> +	u32 len = le32_to_cpu(parent->len);
+> +	unsigned int n;
+> +	int ret;
+> +
+> +	if (len % sizeof(struct vring_desc) || !len)
+> +		return -EINVAL;
+> +
+> +	n = len / sizeof(struct vring_desc);
+> +	descs = kmalloc_array(n, sizeof(*descs), GFP_KERNEL);
+> +	if (!descs)
+> +		return -ENOMEM;
+> +
+> +	ret = scsit_pci_epf_transfer(ctrl, descs, le64_to_cpu(parent->addr),
+> +				     len, DMA_FROM_DEVICE);
+> +	if (ret) {
+> +		kfree(descs);
+> +		return ret;
+> +	}
+> +
+> +	*out_descs = descs;
+> +	*out_n = n;
+> +	return 0;
+> +}
+> +
+> +struct scsit_pci_epf_chain {
+> +	struct vring_desc	*ro;
+> +	unsigned int		nr_ro;
+> +	u32			ro_len;
+> +	struct vring_desc	*wo;
+> +	unsigned int		nr_wo;
+> +	u32			wo_len;
+> +
+> +	struct vring_desc	*indirect;
+> +};
+> +
+> +static void scsit_pci_epf_chain_free(struct scsit_pci_epf_chain *c)
+> +{
+> +	kfree(c->ro);
+> +	c->ro = NULL;
+> +	kfree(c->wo);
+> +	c->wo = NULL;
+> +	kfree(c->indirect);
+> +	c->indirect = NULL;
+> +}
+> +
+> +static int scsit_pci_epf_walk_chain(struct scsit_pci_epf_ctrl *ctrl,
+> +				    struct scsit_pci_epf_vq *vq,
+> +				    u16 head_idx,
+> +				    struct scsit_pci_epf_chain *out)
+> +{
+> +	struct vring_desc desc, *descs = NULL;
+> +	unsigned int n = 0, i = 0, cap_ro = 8, cap_wo = 8;
+> +	bool in_indirect = false;
+> +	int ret;
+> +
+> +	memset(out, 0, sizeof(*out));
+> +
+> +	out->ro = kmalloc_array(cap_ro, sizeof(*out->ro), GFP_KERNEL);
+> +	out->wo = kmalloc_array(cap_wo, sizeof(*out->wo), GFP_KERNEL);
+> +	if (!out->ro || !out->wo) {
+> +		ret = -ENOMEM;
+> +		goto err;
+> +	}
+> +
+> +	ret = scsit_pci_epf_read_desc(vq, head_idx, &desc);
+> +	if (ret)
+> +		goto err;
+> +
+> +	/* Reject obviously-invalid head descriptors */
+> +	if (!le64_to_cpu(desc.addr) && !le32_to_cpu(desc.len) &&
+> +	    !le16_to_cpu(desc.flags)) {
+> +		ret = -EINVAL;
+> +		goto err;
+> +	}
+> +
+> +	for (;;) {
+> +		u16 flags = le16_to_cpu(desc.flags);
+> +
+> +		if (!in_indirect && (flags & VRING_DESC_F_INDIRECT)) {
+> +			ret = scsit_pci_epf_read_indirect(ctrl, &desc,
+> +							  &descs, &n);
+> +			if (ret)
+> +				goto err;
+> +			out->indirect = descs;
+> +			in_indirect = true;
+> +			i = 0;
+> +			desc = descs[0];
+> +			continue;
+> +		}
+> +
+> +		if (flags & VRING_DESC_F_WRITE) {
+> +			if (out->nr_wo == cap_wo) {
+> +				cap_wo *= 2;
+> +				out->wo = krealloc_array(out->wo, cap_wo,
+> +						sizeof(*out->wo), GFP_KERNEL);
+> +				if (!out->wo) {
+> +					ret = -ENOMEM;
+> +					goto err;
+> +				}
+> +			}
+> +			out->wo[out->nr_wo++] = desc;
+> +			out->wo_len += le32_to_cpu(desc.len);
+> +		} else {
+> +			/* Read-only descriptors must precede write-only. */
+> +			if (out->nr_wo) {
+> +				ret = -EINVAL;
+> +				goto err;
+> +			}
+> +			if (out->nr_ro == cap_ro) {
+> +				cap_ro *= 2;
+> +				out->ro = krealloc_array(out->ro, cap_ro,
+> +						sizeof(*out->ro), GFP_KERNEL);
+> +				if (!out->ro) {
+> +					ret = -ENOMEM;
+> +					goto err;
+> +				}
+> +			}
+> +			out->ro[out->nr_ro++] = desc;
+> +			out->ro_len += le32_to_cpu(desc.len);
+> +		}
+> +
+> +		if (!(flags & VRING_DESC_F_NEXT))
+> +			break;
+> +
+> +		if (in_indirect) {
+> +			i = le16_to_cpu(desc.next);
+> +			if (i >= n) {
+> +				ret = -EINVAL;
+> +				goto err;
+> +			}
+> +			desc = descs[i];
+> +		} else {
+> +			u16 next = le16_to_cpu(desc.next);
+> +
+> +			ret = scsit_pci_epf_read_desc(vq, next, &desc);
+> +			if (ret)
+> +				goto err;
+> +		}
+> +	}
+> +
+> +	return 0;
+> +
+> +err:
+> +	scsit_pci_epf_chain_free(out);
+> +	return ret;
+> +}
 > +
 
-[Severity: High]
 
-Can this early return defeat the rx-mode retry after a failed
-SET_RX_MASK?
 
-In bnxt_cfg_rx_mode() the overflow branch now latches both the flag and the
-cached promiscuous bit before bnxt_hwrm_cfa_l2_set_rx_mask() has installed
-anything, and after the secondary L2 filters have already been freed:
 
-	for (i = 1; i < vnic->uc_filter_count; i++) {
-		struct bnxt_l2_filter *fltr = vnic->l2_filters[i];
 
-		bnxt_hwrm_l2_filter_free(bp, fltr);
-		bnxt_del_l2_filter(bp, fltr);
-	}
-
-	vnic->uc_filter_count = 1;
-	...
-	if (netdev_hw_addr_list_count(uc) > (BNXT_MAX_UC_ADDRS - 1)) {
-		vnic->rx_mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
-		vnic->flags |= BNXT_VNIC_UC_PROMISC_FLAG;
-
-If the subsequent HWRM fails, the only reaction is the MCAST fallback plus a
-log message, and nothing clears the flag or the cached bit:
-
-	rc = bnxt_hwrm_cfa_l2_set_rx_mask(bp, 0);
-	if (rc && (vnic->rx_mask & CFA_L2_SET_RX_MASK_REQ_MASK_MCAST)) {
-		...
-	}
-	if (rc)
-		netdev_err(bp->dev, "HWRM cfa l2 rx mask failure rc: %d\n",
-			   rc);
-
-	return rc;
-
-The MCAST fallback does not fire when MASK_MCAST is absent, i.e. with
-IFF_ALLMULTI, with an MC list above BNXT_MAX_MC_ADDRS, or with no MC
-addresses at all.
-
-On the retry, bnxt_set_rx_mode() strips PROMISC and immediately re-adds it
-from the new flag, so mask equals the already-committed vnic->rx_mask, and
-bnxt_uc_list_updated() now returns false through the hunk above, so the
-guard is skipped entirely:
-
-	if (mask != vnic->rx_mask || uc_update || mc_update) {
-		vnic->rx_mask = mask;
-
-		return bnxt_cfg_rx_mode(bp, uc, uc_update);
-	}
-
-	return 0;
-
-netif_rx_mode_run() in net/core/dev_addr_lists.c treats that zero return as
-success and drops the retry state:
-
-		if (err)
-			netif_rx_mode_schedule_retry(dev);
-		else
-			dev->rx_mode_retry_count = 0;
-
-At that point the hardware has neither the secondary L2 filters (freed) nor
-the promiscuous bit (never installed), so traffic for the secondary unicast
-addresses is dropped until the UC list shrinks below the filter limit, the
-rx flags or the MC list change, or the interface is brought down and up.
-
-bnxt_init_chip() depends on the same retry:
-
-	rc = bnxt_cfg_rx_mode(bp, &bp->dev->uc, true);
-	if (rc == -EAGAIN) {
-		netif_rx_mode_schedule_retry(bp->dev);
-		rc = 0;
-	} else if (rc) {
-		goto err_out;
-	}
-
-so a transient -EAGAIN or -ENODEV on open with more than
-BNXT_MAX_UC_ADDRS - 1 unicast addresses would leave the interface up with
-no unicast filtering path at all.
-
-Before this patch, the overflow state left vnic->uc_filter_count == 1 with a
-non-empty UC list, so bnxt_uc_list_updated() returned true on every callback
-and the mask was re-sent until it succeeded.  Would it work to latch the
-flag and the cached promiscuous bit only after bnxt_hwrm_cfa_l2_set_rx_mask()
-returns success, or to clear them again on failure so the retry still
-programs the mask?
-
->  	if (netdev_hw_addr_list_count(uc) != (vnic->uc_filter_count - 1))
->  		return true;
->  
-> @@ -13826,6 +13836,13 @@ static int bnxt_set_rx_mode(struct net_device *dev,
->  	if (dev->flags & IFF_PROMISC)
->  		mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
->  
-> +	/* Keep the promiscuous bit while the UC list is longer than the
-> +	 * available L2 filters, so that an unchanged rx mode is not
-> +	 * treated as a mask change.
-> +	 */
-> +	if ((vnic->flags & BNXT_VNIC_UC_PROMISC_FLAG) && bnxt_promisc_ok(bp))
-> +		mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
+> +static int scsit_pci_epf_chain_to_segs(struct scsit_pci_epf_cmd *cmd,
+> +				       const struct vring_desc *descs,
+> +				       unsigned int n)
+> +{
+> +	struct scsit_pci_epf_segment *seg;
+> +	unsigned int i;
+> +	int ret;
 > +
->  	uc_update = bnxt_uc_list_updated(bp, uc);
->  
->  	if (dev->flags & IFF_BROADCAST)
-> @@ -13869,7 +13886,12 @@ static int bnxt_cfg_rx_mode(struct bnxt *bp, struct netdev_hw_addr_list *uc,
->  	netif_addr_lock_bh(dev);
->  	if (netdev_hw_addr_list_count(uc) > (BNXT_MAX_UC_ADDRS - 1)) {
->  		vnic->rx_mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
-> +		vnic->flags |= BNXT_VNIC_UC_PROMISC_FLAG;
->  	} else {
-> +		vnic->flags &= ~BNXT_VNIC_UC_PROMISC_FLAG;
-> +		if (!(dev->flags & IFF_PROMISC))
-> +			vnic->rx_mask &=
-> +				~CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
->  		netdev_hw_addr_list_for_each(ha, uc) {
->  			memcpy(vnic->uc_list + off, ha->addr, ETH_ALEN);
->  			off += ETH_ALEN;
+> +	if (n == 0)
+> +		return 0;
+> +
+> +	if (n == 1) {
+> +		cmd->nr_data_segs = 1;
+> +		cmd->data_segs = &cmd->data_seg;
+> +		seg = &cmd->data_segs[0];
+> +		seg->pci_addr = le64_to_cpu(descs[0].addr);
+> +		seg->length = le32_to_cpu(descs[0].len);
+> +		return 0;
+> +	}
+> +
+> +	ret = scsit_pci_epf_alloc_cmd_data_segs(cmd, n);
+> +	if (ret)
+> +		return ret;
+> +
+> +	for (i = 0; i < n; i++) {
+> +		seg = &cmd->data_segs[i];
+> +		seg->pci_addr = le64_to_cpu(descs[i].addr);
+> +		seg->length = le32_to_cpu(descs[i].len);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int scsit_pci_epf_alloc_cmd_data_buf(struct scsit_pci_epf_cmd *cmd)
+> +{
+> +	struct scsit_pci_epf_ctrl *ctrl = cmd->ctrl;
+> +	struct scsit_pci_epf_segment *seg;
+> +	struct scatterlist *sg;
+> +	int ret, i;
+> +
+> +	if (cmd->se_cmd.data_length > ctrl->mdts)
+> +		return -EINVAL;
+> +
+> +	if (cmd->nr_data_segs == 1) {
+> +		sg_init_table(&cmd->data_sgl, 1);
+> +		cmd->data_sgt.sgl = &cmd->data_sgl;
+> +		cmd->data_sgt.nents = 1;
+> +		cmd->data_sgt.orig_nents = 1;
+> +	} else {
+> +		ret = sg_alloc_table(&cmd->data_sgt, cmd->nr_data_segs,
+> +				     GFP_KERNEL);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	for_each_sgtable_sg(&cmd->data_sgt, sg, i) {
+> +		seg = &cmd->data_segs[i];
+> +		seg->buf = kmalloc(seg->length, GFP_KERNEL);
+> +		if (!seg->buf)
+> +			return -ENOMEM;
+> +		sg_set_buf(sg, seg->buf, seg->length);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static void scsit_pci_epf_post_used(struct scsit_pci_epf_vq *vq,
+> +				    u16 head_idx, u32 len)
+> +{
+> +	void __iomem *ring = vq->used_map.virt_addr +
+> +			     offsetof(struct vring_used, ring) +
+> +			     (size_t)(vq->next_used_idx & (vq->depth - 1)) *
+> +			     sizeof(struct vring_used_elem);
+> +
+> +	writel(head_idx, ring + offsetof(struct vring_used_elem, id));
+> +	writel(len, ring + offsetof(struct vring_used_elem, len));
+> +
+> +	vq->next_used_idx++;
+> +	writew(vq->next_used_idx,
+> +	       vq->used_map.virt_addr + offsetof(struct vring_used, idx));
+> +}
 
-[ ... ]
+
+
+So this is a reimplementation of virtio, and a weird one, for example
+features are legacy but format is LE like modern. Packed ring is
+not implemented.  Uses strongly ordered ops for everything.
+
+I don't have specific advice but there is some similarity here
+to what Alex Graf is doing.
+
+
+And I want to see a spec decumenting how all this is supposed
+to work, please, and not just an ad hoc implementation.
+
+
+
 -- 
-This is an AI-generated review.
+MST
 
