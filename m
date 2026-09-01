@@ -1,207 +1,396 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012058.outbound.protection.outlook.com [40.107.209.58])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B28449DB8D;
-	Tue,  1 Sep 2026 18:32:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788287553; cv=fail; b=V3THTyjw95kO0dnxCYdq40U84xIZn7xH+sbdgDSYPVcnbZadBMQBC35hAAsddtXarRJyaFa78eZTWM6caUcrKtJydZ9AKGGRLyCPCc/9IyFyPYlKqVUeoKhUkybWXmR6Uw+q/qiN1sl320ki51borViTkhPb0Ai55ncXFj9KANc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788287553; c=relaxed/simple;
-	bh=2NpHF08y2phTW1NJ8N/HIEbLhz/VIoOHzUdAucJnYrI=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=TZgf6a1E/5h8BLPjbhQfg5xxamY3E29g/o6vRUlqljev+IErRAzKout5O6v3Omx+eOEIotNdD9l4etvmobWpRnPlhVFd1Y95ncfPLNA2eZ4ec3sgdeXTZQK4odekSbTmqUiZGapMXtdMZYzvmvNL4x2R61y9E+UnKq5JAcWeJnQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=LQj8MvNn; arc=fail smtp.client-ip=40.107.209.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="LQj8MvNn"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pqwu5ysBpymhB4iaAkmNxlmfqjxbE7SDVN4PB4zbJ6d3ROgMSPvZhOtmtrtfp2E9GtEqphgD3N0Jyl9yXPFOKj2rgNuEjs/kpkEHBqzaQH9x5eoT6FZdYHXIXsHdNQooObbxtd0C5nWG6PHShoe07sU4kop/PAEGd2uTngQ945JCx3DwAqhcetngP+FEsj4UKwXfdxSOgQIXfC0tqA/9CVUbgbBLurt+HeecIOAdqLfgtyEYxNGDSpz/RSkvpUtR1q+1fVpmltqDJXHq6AoJgyNoAsYCa5opTPjNzdZLoUDgUVlmAskunpWjKnYHO0kOnUTEpEOD4QYJqxACLMmbbw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iUQLt+k2PYK5PljI2vlh7GvQgPRMrkUCk5EUROUNO0U=;
- b=SgYIBTUqtrCLCuWUTb9NH/ZdStAqxDmgQY/noPWBYuDO6ERZDNvCoLWXxlPMaI6FgAYaylpb74Y9y4/3mgJpQbKjYab5gfVdijdtUcUvIG01mpoFb3tWwsOBTEvmUQjWa00lLMMMLSv3JE5yggWJPu83e/Kk+ZaNgtHegP/+C6rbO2qcXoJsRtuxtYh0xdvbKItuSvVqXnEGaHWn7PIJhY/ZIOmy5xP2KefazhrQmgbi3WM2LVu+aFpIdgDlfBbkjQBmWD4yJ+PNidIb4rVBpHyBRelHIulrs0zFEAt6FfqsBCiQvQVcubty9SxvazL78wBbRM/psM5PnsV+zep/yg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iUQLt+k2PYK5PljI2vlh7GvQgPRMrkUCk5EUROUNO0U=;
- b=LQj8MvNnn0aa1PTtnC7M1IMS5cTnBzvvaIc4qc9wPOXb29b7ewxdBU6JyMzx4nZgE97MMyxt+s1V7rPyk/IHz/SR2Xh1Ka2SFuTbQBtPSMqLWXz2AiEwbl8MjosApT+gQqOufYdYRBSlzDm02nfeubMb6MSTKzxEmgIR4v3hSkijgCk4ENGvwfXiiehbioSYBnJF+2ncsHvGkErIooTtqzfix6a5tOMFVLFufy5AOBKuIJNyVbP87wa94kHfgcX23cjqDNjoF8xJpN5inY4lvLw1156DoCHuDkCeYP+4/rEnj8OTw2XOo9dHuBbHXAz2lS4MEG1ZoXZKecQYSxD8Og==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from DM4PR03MB6208.namprd03.prod.outlook.com (2603:10b6:5:39c::19)
- by DS2PR03MB8465.namprd03.prod.outlook.com (2603:10b6:8:32b::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 18:32:30 +0000
-Received: from DM4PR03MB6208.namprd03.prod.outlook.com
- ([fe80::2216:93ef:67b:9e04]) by DM4PR03MB6208.namprd03.prod.outlook.com
- ([fe80::2216:93ef:67b:9e04%3]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 18:32:30 +0000
-Message-ID: <cebd7511-784e-40c8-a893-a7de4a56a147@altera.com>
-Date: Wed, 2 Sep 2026 00:02:20 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/8] arm64: dts: agilex5: add SD/eMMC host controller
-To: Michael Tretter <m.tretter@pengutronix.de>
-Cc: linux-mmc@vger.kernel.org, ulfh@kernel.org, adrian.hunter@intel.com,
- krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org,
- dinguyen@kernel.org, p.zabel@pengutronix.de, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260829184252.27644-1-tanmay.kathpalia@altera.com>
- <20260829184252.27644-3-tanmay.kathpalia@altera.com>
- <apaQX_bHpEcP4Tp5@pengutronix.de>
-Content-Language: en-US
-From: "Kathpalia, Tanmay" <tanmay.kathpalia@altera.com>
-In-Reply-To: <apaQX_bHpEcP4Tp5@pengutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0076.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d8::10) To DM4PR03MB6208.namprd03.prod.outlook.com
- (2603:10b6:5:39c::19)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E255949DB8D;
+	Tue,  1 Sep 2026 18:32:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788287579; cv=none; b=QWt7N7CLWXng2B6ptyijyWfb3j8jCfpCjPhMmSPy9hcb2MrJBovPCTZoKqIHQqxbiDqLRdZt4tj7eNEs5vevu8sGPyXFX1KU1CpfP06w4umZnGKRiNL8oxxTJjYT4iFAP4zAXmUTX3W14ZHMKeh5o4DjKrw7ddzec4cgJc1QzAQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788287579; c=relaxed/simple;
+	bh=LG35q0rB7aisyVByQa8zIVI53//Au7O+KpzXaNGI2SE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ADPL2wNelh3od5YGNoX1rREmGtIVFxn+S/whac7RzearEFdebX6YfSL3ad/Xsq0iKQrBsAFRw9/ovtvHDEYWMOaHO2ZR0yQM50jsfopYL5kKTSWEbzF9k+hF3o6v2PDlgbXOr8kOiWDcDZoAVpCyFSm1lGo7VdQdPVBlgyq13j0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.74])
+	by APP-01 (Coremail) with SMTP id qwCowAAn__I8GpdqvbIDBw--.20040S2;
+	Wed, 02 Sep 2026 02:32:30 +0800 (CST)
+Message-ID: <51a0c0657870a424f6bc9e149542a57ff6fb3ecd.camel@iscas.ac.cn>
+Subject: Re: [PATCH 12/12] riscv: dts: thead: enable USB3 ports on Lichee Pi
+ 4A
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>, Fu Wei	
+ <wefu@redhat.com>, Michael Turquette <mturquette@baylibre.com>, Stephen
+ Boyd	 <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Vinod
+ Koul	 <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>,  Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, Jisheng Zhang <jszhang@kernel.org>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, linux-riscv@lists.infradead.org,
+ 	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-phy@lists.infradead.org, linux-usb@vger.kernel.org, Han Gao	
+ <rabenda.cn@gmail.com>, Yao Zi <ziyao@disroot.org>
+Date: Wed, 02 Sep 2026 02:32:28 +0800
+In-Reply-To: <20260507081710.4090814-13-zhengxingda@iscas.ac.cn>
+References: <20260507081710.4090814-1-zhengxingda@iscas.ac.cn>
+	 <20260507081710.4090814-13-zhengxingda@iscas.ac.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR03MB6208:EE_|DS2PR03MB8465:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9d5a85fc-bd4a-42dd-55ea-08df08576156
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|6133799003|10067099003|56012099006|11063799006|4143699003|18002099003|55112099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	9hYWVuA8PjbTpTU4Dvp0jU8rnyhxL85h7C0raihJT2pbOnsgwefMQ4Rj/Ilu83Fcln7ZMR9G63c6oZ18vTdjq9lBeluiv1/VQV8XyEb68KPJoSgY+PsJKjuui0vrr3Z7C6VbzNrG/kYUqug6A/mrLGW9YzVBTOhf3qONftx4dML2f+z+pkikA2bt2VUJEZtPUqKPnRzlFTa1gNOZar3Snps1OkGWhXidvYcr/WKdxoOjL1QjOdNKU7l9sk4+BrutR+yQrDigHJ9i80LwwMwa6kZ44UcnYYvHseR493s2Cr1jqnenTkWTX43Zi2RyOcOach+GN+w4A/rwX2IpB4iHYSlRrizxG+1yL0huz2/WLgWfJ/N8q6iO7MfEZ8lsD2brcJP6fgoDH2/jko0m6GWJoLpXpvQnXPe4p58bp3nQXp4oqcUn03iiv4DK/+oR7okDEjrEiA033i9nEqflyE6SO5FCsIcw/6zW3orpnetstulck89pl86yfw8cCutxb13ziY+wSzHOC4e4c79UCS9KRqdOVBM9yovfr88oer6cnNO2w/g6HajxUCGWj7fqyutP3dmigV3leM8hsHRLQ9graNNQDwe2+3dNn7aWxI3qm8h0JNDBkoWu7H9SA2BFnBTUQjBVDLsWKhinS/mslnVpxHMZzUC/9JI/4KQ7EZ/57S8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB6208.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(6133799003)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(55112099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?T21Yb0lIdEQzVVljZjhjQnlmaHYwMEo5dGg3My8xUXVzanpkSVVVTlpHbmhF?=
- =?utf-8?B?RnpmRU14OU1kRkJqU1ZXWGs2QThoMkxEZytTb0F6c2NMNlhkV04rSXBYVnp4?=
- =?utf-8?B?Q2M4b2kxNnAxczZmSmpiZVRKTUxjQTlRREJJVmpDeldxeHFjR0dMODBrd2R3?=
- =?utf-8?B?TnMzQWdQZ3M4eFJLU2ZjNlJTNjloOUR6TlY4aE96ekFSRTVRTWhPNlF3bVdh?=
- =?utf-8?B?alNKZkZiYytkbEg4YjNKYjFheitoVGpsK2Vlamh6dWVjV3lzMmVCYXlhRE9t?=
- =?utf-8?B?RmZRMHd1dU03V1hkZzZ5aGo2QnI5T3ZFRkRrWDNFYVFhZFkvN2gvcks2dDZ3?=
- =?utf-8?B?c29TRlRwVFMyQWhnV25FQkVOc3liNU43OEFmYng2YXFpYTEzbEZZcHNRR3dD?=
- =?utf-8?B?NzdNSFhSKzU1clVNajVmaUxnRU1OOGdHK0dFRUFEb0Z2cG16N2VWdTNjOXEx?=
- =?utf-8?B?aDBKWUxKN1VZemlPNXg0b3l1dG1keHJBSXNVd3hhN0VJZGdTNlp0dU9LRWd4?=
- =?utf-8?B?QlpBaUxFSDczeHlmK3lIK204NU5pdXNXVGdVUWVYS0wwNG5NZW9FalovMkNG?=
- =?utf-8?B?ZFlCVWgxRUNBQXEyNy9WMUVuQ1l1VURXQ3RFZmU2QWYvQXBDTFpRWVZSZytn?=
- =?utf-8?B?Rm10ZUlJbU9Fa0RHbVJCQUU1c1VJQldQdFZ0KzNNaUdjbktHdDJxUFhIUTV0?=
- =?utf-8?B?aExBZUVLOXlwZUpTM0d0cURCNGhaVlFKVmZZRnlTQnZRNlRwYU53NnczWDNP?=
- =?utf-8?B?Zjk5Zjg5TmZOYUNDbEZXbkdXdlUwQTVQclBrR1JhV2ZXanNPM3VIVjJIcThN?=
- =?utf-8?B?Zkw2MjJGNUp0blFCS3d5S2hCZzZWN1JQZUxCVnIvN2I5ZlRnOTFYYjhMcTJw?=
- =?utf-8?B?UkRWd0xJRzQ1bjZOTmp3RG5XdU1rYUdWQWNhVGhDUTVaa0h2OU1jTjQwc1BC?=
- =?utf-8?B?NUdjc3pwMlZMb2RSRTB0dW5NUE1pVkRKNzZaOVRFTWxma1h3RmZ1Vy9wdTJ6?=
- =?utf-8?B?MGhMejM2NlRwaGlZYlVrYkF0emJqQnhKRUNYbC9RM2J2Sko3dUFDUkZBRnJD?=
- =?utf-8?B?ZHdSTU1kV0h4L3plZXlBMWV6bkMrLzdGb2dodk5rMTZkMjRqNGljUVNkNzJS?=
- =?utf-8?B?QUZraXNhODFTREQ4OG1QNTdVcHlNelhvWTRoeUQwM2xCUmZCSk5KOFhUUDdp?=
- =?utf-8?B?enpBdnpjTlltd3k4N3JHRjhvbUFZQmk3bkpPRkVqOGZaRFU5ajY2UE9jclpk?=
- =?utf-8?B?RG4rMTdWSDRlUmIxNHMwejJpUHB5aDdlRlZCRGxrSEhZVHpnTjB5N21KVVFT?=
- =?utf-8?B?UkZ3KzVQRlZsUTBJOURwK1cycEZjTnZra0RMdHJOWkkzMVZOT0p1MitLeUtT?=
- =?utf-8?B?UVFIc1JTN1BHaXZKcDdvSFVFamxRMDcvM1QxVmZSc3JFdTVLVmxiWDdQNEZ2?=
- =?utf-8?B?MzVlR1FLbW1kd0tiby9Ha3RiZ1g0Q3Z1QkFYT3N5b2NsUE9ueEVFaXFrTlZF?=
- =?utf-8?B?NUpVZGhFbWcrSzJiajZTbS9KVndzSUVWQ2hwZGFMRGRiTXZoTURZYnUvOEJh?=
- =?utf-8?B?TFRhUE5CbStQcnAvNmRPQUxkcVhzZnBPMTFNeXpzaDd4SUFPbThpNlJpU04v?=
- =?utf-8?B?VTZSZjR6b0FWMk9YRVRmYzJubEQ3cFpBdG1qOFBLOXJHQ25SUjlTODFlZmN6?=
- =?utf-8?B?ZmZhTy9iOHR2bTVETlllYlBNaE9aUnFCRjdBOTZEckpWQ2NtTTBldXdJcnlz?=
- =?utf-8?B?MGVWZWFVZ2NpemtEaUxlQTdFNUFia0ZZV1pVYXVkUmM4dk50VUhSTzdETVFI?=
- =?utf-8?B?RG1MLzZOamxaeW9FUlczVStpMXg5TEg5bGFCVVcvdzY1cEtuRy9mWnlYUmJ2?=
- =?utf-8?B?S2VuVlhDYzhBTys4UlBuVWttYzVRQzRKL0llWDFuUUo4Zk0zQTBWK1JkRU1M?=
- =?utf-8?B?RDFTTUk0eDFydmRWc1d4VnBRaEpNbHlDcXQxUjRKNUZOcTcxaFZiTytyRW1K?=
- =?utf-8?B?Vm1wTGs2VFpXYmsxRkUzRytQQTZ4MHFwelUrV0paMW95Nk00UlNyNlBsaTNZ?=
- =?utf-8?B?SW02SVlsQ2tCRmJJR2piNE9GQ3F6UUdlQ2JMNWRicTVVREJtTDdBZG1HTDdV?=
- =?utf-8?B?cVFYWTRIQnphYmhFQ2dtZytmWEJScW1YV2haSnkraHo3WXdGMlpjNm9vTWRl?=
- =?utf-8?B?NWcvYXhId0RyMW54VlRFK0l4cUsvL1g1QVpNYTNaeWR4QTF5TEpDSmtSTE54?=
- =?utf-8?B?d0pJS2Zub1JzR1NZWklZZnNvRFJ2RGhVNXF0TWlLdm9BS1h5bk10YVZDS1Vp?=
- =?utf-8?B?d3BqWXFrWFRNK0tWQ1BSUGkvc2tZR1RVTCt5dm5xTS8ybVNab1dCN0twcVox?=
- =?utf-8?Q?8cb2U4cTBCVZBTAk=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d5a85fc-bd4a-42dd-55ea-08df08576156
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB6208.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 18:32:30.1640
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TOuft/u6mF70qBRakmxbFI7avZbSajKIagIIRz/tHK05k6oIRpDvEwY+7MiV959b28/rNnmDuNjMj0nT9okZSlmFVDY7LSyG69BOka5SJ2A=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR03MB8465
+X-CM-TRANSID:qwCowAAn__I8GpdqvbIDBw--.20040S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3XF13XrWrJFyUKrW3uw1Utrb_yoWxJFWkpa
+	9xJan3uay0vr17Ka13J3WDG3Z8Cr4v9a4v9r15Gr10kwsruwnFkryakrsY9ayUGF4xX34q
+	vr4kuFWIgrnIg3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvlb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
+	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r
+	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xK
+	xwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJV
+	W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
+	1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6x
+	IIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvE
+	x4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvj
+	DU0xZFpf9x07bIBTOUUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Hi Michael,
-
-Thanks for your feedback.
-
->>   			};
->>   		};
->>   
->> +		/*
->> +		 * Shared SD/eMMC controller node. On the SOCDK OOBE daughter-card
->> +		 * this is used for SD card operation; on the SOCDK eMMC daughter-card
->> +		 * it is configured for eMMC.
->> +		 */
-> The documentation about the daughter-card configuration belongs into the
-> device trees of the daughter-cards and not in the SoC device tree.
-
-Agreed. The comment is dropped from the SoC DTSI in v7.
-
->> +		emmc: mmc@10808000 {
-> The HPS register address map uses the name "sdmmc" for this group. Maybe
-> that's a better label than emmc, if the controller may be used for eMMC
-> or SD card.
-
-Agreed. v7 renames the label to sdmmc.
-
->> +			compatible = "altr,agilex5-sd6hc", "cdns,sd6hc";
->> +			reg = <0x10808000 0x1000>;
->> +			/*
->> +			 * "ciu" (SDMCLK) is listed first so it is selected as the
->> +			 * primary clock by the SDHCI platform layer; the SD6HC PHY
->> +			 * timing calculations are derived from this clock rate.
->> +			 */
-> This is surprising to me and I can't find where the first clock is
-> selected as primary clock by the SDHCI platform layer.
->
-> Could you point me to the code that relies on the order of clocks in the
-> device tree?
-
-The comment was wrong: it is not the SDHCI platform layer. v6 did
-   clk = devm_clk_get_enabled(dev, NULL);
-in sdhci_cdns_probe().
-SD6HC now requests the clocks by
-name:
-   clk = devm_clk_get_enabled(dev, "ciu");
-   biu_clk = devm_clk_get_enabled(dev, "biu");
-SD4HC still uses the unnamed lookup because its binding has no
-clock-names. The DTS clock-order comment is also removed.
-
->
->
-> -&gpio0 {
-> +&emmc {
-> +	bus-width = <4>;
-> +	cap-sd-highspeed;
-> +	disable-wp;
-> +	max-frequency = <200000000>;
-> +	no-mmc;
-> +	sd-uhs-sdr104;
-> +	vmmc-supply = <&vmmc_reg>;
-> +	vqmmc-supply = <&vqmmc_io_reg>;
+=E5=9C=A8 2026-05-07=E5=9B=9B=E7=9A=84 16:17 +0800=EF=BC=8CIcenowy Zheng=E5=
+=86=99=E9=81=93=EF=BC=9A
+> The Lichee Pi 4A board features an onboard VIA VL817 hub connected to
+> the SoC's USB3 as upstream and 4 USB-3.0-capable Type-A ports as
+> downstream.
+>=20
+> Enable SoC USB3 and the hub on Lichee Pi 4A.
+>=20
+> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> ---
+> =C2=A0.../dts/thead/th1520-lichee-module-4a.dtsi=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 15 ++
+> =C2=A0.../boot/dts/thead/th1520-lichee-pi-4a.dts=C2=A0=C2=A0=C2=A0 | 231
+> ++++++++++++++++++
+> =C2=A02 files changed, 246 insertions(+)
+>=20
+> diff --git a/arch/riscv/boot/dts/thead/th1520-lichee-module-4a.dtsi
+> b/arch/riscv/boot/dts/thead/th1520-lichee-module-4a.dtsi
+> index 8e76b63e0100a..bfda5a6b56b8f 100644
+> --- a/arch/riscv/boot/dts/thead/th1520-lichee-module-4a.dtsi
+> +++ b/arch/riscv/boot/dts/thead/th1520-lichee-module-4a.dtsi
+> @@ -20,6 +20,16 @@ memory@0 {
+> =C2=A0		device_type =3D "memory";
+> =C2=A0		reg =3D <0x0 0x00000000 0x2 0x00000000>;
+> =C2=A0	};
 > +
->   	status = "okay";
-> I'd have split the addition of the controller to the SoC device tree and
-> the enabling for the board in two separate patches, but that's probably
-> just personal taste.
->
+> +	/* TODO: Switch to AON regulator when it's available. */
+> +	avdd33_usb3: regulator-avdd33-usb3 {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "AVDD33_USB3";
+> +		regulator-min-microvolt =3D <3300000>;
+> +		regulator-max-microvolt =3D <3300000>;
+> +		/* Marked as always on on the schematics */
+> +		regulator-always-on;
+> +	};
+> =C2=A0};
+> =C2=A0
+> =C2=A0&osc {
+> @@ -202,3 +212,8 @@ &sdio0 {
+> =C2=A0	max-frequency =3D <198000000>;
+> =C2=A0	status =3D "okay";
+> =C2=A0};
+> +
+> +&usb_phy {
+> +	avdd33-usb3-supply =3D <&avdd33_usb3>;
+> +	status =3D "okay";
+> +};
+> diff --git a/arch/riscv/boot/dts/thead/th1520-lichee-pi-4a.dts
+> b/arch/riscv/boot/dts/thead/th1520-lichee-pi-4a.dts
+> index 354f3893aa8cf..de38f1f457e6b 100644
+> --- a/arch/riscv/boot/dts/thead/th1520-lichee-pi-4a.dts
+> +++ b/arch/riscv/boot/dts/thead/th1520-lichee-pi-4a.dts
+> @@ -4,6 +4,7 @@
+> =C2=A0 */
+> =C2=A0
+> =C2=A0#include "th1520-lichee-module-4a.dtsi"
+> +#include <dt-bindings/gpio/gpio.h>
+> =C2=A0
+> =C2=A0/ {
+> =C2=A0	model =3D "Sipeed Lichee Pi 4A";
+> @@ -97,6 +98,141 @@ fan: pwm-fan {
+> =C2=A0		cooling-levels =3D <0 66 196 255>;
+> =C2=A0	};
+> =C2=A0
+> +	hub_5v: regulator-hub-5v {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "HUB_5V";
+> +		regulator-min-microvolt =3D <5000000>;
+> +		regulator-max-microvolt =3D <5000000>;
+> +		gpio =3D <&ioexp3 3 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +	};
+> +
+> +	vcc5v_usb: regulator-vcc5v-usb {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "VCC5V_USB";
+> +		regulator-min-microvolt =3D <5000000>;
+> +		regulator-max-microvolt =3D <5000000>;
+> +		gpio =3D <&gpio1 22 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +		/*
+> +		 * Workaround for Linux currently being not able to
+> power on
+> +		 * Vbus for USB Type-A connectors.
+> +		 */
+> +		regulator-always-on;
 
-Done in v7: SoC node in one patch, SOCDK SD enablement in the next.
+OHHHHH onboard_usb_dev now matches "usb-a-connector" and is able to
+power on the vbus-supply regulator.
 
-Thanks again for the review, it improved the series.
+This hack should be removable now.
 
-Tanmay
+Thanks,
+Icenowy
+
+> +	};
+> +
+> +	connector-usb-a-1 {
+> +		compatible =3D "usb-a-connector";
+> +		vbus-supply =3D <&vcc5v_usb>;
+> +
+> +		ports {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +
+> +			port@0 {
+> +				reg =3D <0>;
+> +
+> +				usb_a_1_hs_ep: endpoint {
+> +					remote-endpoint =3D
+> <&hub_hs_port1_ep>;
+> +				};
+> +			};
+> +
+> +			port@1 {
+> +				reg =3D <1>;
+> +
+> +				usb_a_1_ss_ep: endpoint {
+> +					remote-endpoint =3D
+> <&hub_ss_port1_ep>;
+> +				};
+> +			};
+> +		};
+> +	};
+> +
+> +	connector-usb-a-2 {
+> +		compatible =3D "usb-a-connector";
+> +		vbus-supply =3D <&vcc5v_usb>;
+> +
+> +		ports {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +
+> +			port@0 {
+> +				reg =3D <0>;
+> +
+> +				usb_a_2_hs_ep: endpoint {
+> +					remote-endpoint =3D
+> <&hub_hs_port2_ep>;
+> +				};
+> +			};
+> +
+> +			port@1 {
+> +				reg =3D <1>;
+> +
+> +				usb_a_2_ss_ep: endpoint {
+> +					remote-endpoint =3D
+> <&hub_ss_port2_ep>;
+> +				};
+> +			};
+> +		};
+> +	};
+> +
+> +	connector-usb-a-3 {
+> +		compatible =3D "usb-a-connector";
+> +		vbus-supply =3D <&vcc5v_usb>;
+> +
+> +		ports {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +
+> +			port@0 {
+> +				reg =3D <0>;
+> +
+> +				usb_a_3_hs_ep: endpoint {
+> +					remote-endpoint =3D
+> <&hub_hs_port3_ep>;
+> +				};
+> +			};
+> +
+> +			port@1 {
+> +				reg =3D <1>;
+> +
+> +				usb_a_3_ss_ep: endpoint {
+> +					remote-endpoint =3D
+> <&hub_ss_port3_ep>;
+> +				};
+> +			};
+> +		};
+> +	};
+> +
+> +	connector-usb-a-4 {
+> +		compatible =3D "usb-a-connector";
+> +		vbus-supply =3D <&vcc5v_usb>;
+> +
+> +		ports {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +
+> +			port@0 {
+> +				reg =3D <0>;
+> +
+> +				usb_a_4_hs_ep: endpoint {
+> +					remote-endpoint =3D
+> <&hub_hs_port4_ep>;
+> +				};
+> +			};
+> +
+> +			port@1 {
+> +				reg =3D <1>;
+> +
+> +				usb_a_4_ss_ep: endpoint {
+> +					remote-endpoint =3D
+> <&hub_ss_port4_ep>;
+> +				};
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&aogpio {
+> +	/* Route USB2 to the onboard hub for normal operation */
+> +	sel-usb-hub-hog {
+> +		gpio-hog;
+> +		gpios =3D <4 GPIO_ACTIVE_HIGH>;
+> +		output-high;
+> +	};
+> =C2=A0};
+> =C2=A0
+> =C2=A0&dpu {
+> @@ -262,3 +398,98 @@ &uart0 {
+> =C2=A0	pinctrl-0 =3D <&uart0_pins>;
+> =C2=A0	status =3D "okay";
+> =C2=A0};
+> +
+> +&usb {
+> +	dr_mode =3D "host";
+> +	#address-cells =3D <1>;
+> +	#size-cells =3D <0>;
+> +	status =3D "okay";
+> +
+> +	hub_hs: hub@1 {
+> +		compatible =3D "usb2109,2817";
+> +		reg =3D <1>;
+> +		peer-hub =3D <&hub_ss>;
+> +		vdd-supply =3D <&hub_5v>;
+> +
+> +		ports {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +
+> +			port@1 {
+> +				reg =3D <1>;
+> +
+> +				hub_hs_port1_ep: endpoint {
+> +					remote-endpoint =3D
+> <&usb_a_1_hs_ep>;
+> +				};
+> +			};
+> +
+> +			port@2 {
+> +				reg =3D <2>;
+> +
+> +				hub_hs_port2_ep: endpoint {
+> +					remote-endpoint =3D
+> <&usb_a_2_hs_ep>;
+> +				};
+> +			};
+> +
+> +			port@3 {
+> +				reg =3D <3>;
+> +
+> +				hub_hs_port3_ep: endpoint {
+> +					remote-endpoint =3D
+> <&usb_a_3_hs_ep>;
+> +				};
+> +			};
+> +
+> +			port@4 {
+> +				reg =3D <4>;
+> +
+> +				hub_hs_port4_ep: endpoint {
+> +					remote-endpoint =3D
+> <&usb_a_4_hs_ep>;
+> +				};
+> +			};
+> +		};
+> +	};
+> +
+> +	hub_ss: hub@2 {
+> +		compatible =3D "usb2109,817";
+> +		reg =3D <2>;
+> +		peer-hub =3D <&hub_hs>;
+> +		vdd-supply =3D <&hub_5v>;
+> +
+> +		ports {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +
+> +			port@1 {
+> +				reg =3D <1>;
+> +
+> +				hub_ss_port1_ep: endpoint {
+> +					remote-endpoint =3D
+> <&usb_a_1_ss_ep>;
+> +				};
+> +			};
+> +
+> +			port@2 {
+> +				reg =3D <2>;
+> +
+> +				hub_ss_port2_ep: endpoint {
+> +					remote-endpoint =3D
+> <&usb_a_2_ss_ep>;
+> +				};
+> +			};
+> +
+> +			port@3 {
+> +				reg =3D <3>;
+> +
+> +				hub_ss_port3_ep: endpoint {
+> +					remote-endpoint =3D
+> <&usb_a_3_ss_ep>;
+> +				};
+> +			};
+> +
+> +			port@4 {
+> +				reg =3D <4>;
+> +
+> +				hub_ss_port4_ep: endpoint {
+> +					remote-endpoint =3D
+> <&usb_a_4_ss_ep>;
+> +				};
+> +			};
+> +		};
+> +	};
+> +};
+
