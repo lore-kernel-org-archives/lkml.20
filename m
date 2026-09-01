@@ -1,62 +1,61 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF9C3D9DA8;
-	Tue,  1 Sep 2026 09:09:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E7A547206A
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:09:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788253757; cv=none; b=LlGZNmXFDK+YDr+1AJPVKgRilfMrtM2X8P2omBoRRBDL65OpJ957uQY4/tSCUqZ4Np19BpqklIZRqrckFk1hJKXV72C3CuEazEK1LchGSQiczmiCC47/tT7vRpzdhfQZQxg78M/e69YJOkTErUENcssIo/F9hb435AfziW5osAU=
+	t=1788253764; cv=none; b=X/KyqGdbgK+0scTBytS0x/yCQfLU00nu3NmagivkL4W5LmQQUjeKVOzVNDBBJ+REfK0zDvRW7WQ8iTM2I6oZdSW2ezs14mhdgvMNIuyHXAnPm4mxzWCB+nP2u3DeA9pj9jnisiv7N2kna2wCpCsl/6g10RsWUEVixSWO+veY5pw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788253757; c=relaxed/simple;
-	bh=Y4/T1t0/5d6DPMYU2oiJY3HMTFglW1Px3HhcVyu7rSs=;
+	s=arc-20240116; t=1788253764; c=relaxed/simple;
+	bh=No0g8sMpQ62w8gRG+EeMNJh/VNFdqhcrMjrIZCnCe2Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A2GwfbDgLCuJqH9V3HCKyCGuqXamceJN1vdZyDnVQEu8pvqx7W3coULU/MZwx+xtQa/lTkhbyWaSM8JpQDbT/IbH6NuAjeB/ZuQBAsnHf7KmFQI3deQkymBvrc+H+592f1RFp+kDyzIsp5RWVtyJDADM4BN0TymIK+e1SdnarTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Yu/fLs6z; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=rjd5zE/ZJRx4/BJpfNiPnmx+OrhHrd5PK99lwWf4SS3Jk1cX0afjEQTyqb5r3SbN5dAsNmAtyvJyU0E61ikeBhfe2to3v8e8Wmt7yqnA4nbszuXmbf8QivDffP25h6/Hmb6WFZERco3uY+vwERd/kiX/L2By9SSWwgpByyLVBXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=jK6t+CDm; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Yu/fLs6z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788253753; x=1819789753;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Y4/T1t0/5d6DPMYU2oiJY3HMTFglW1Px3HhcVyu7rSs=;
-  b=Yu/fLs6zM9o+BIupHyb2n5t1P31MqSfGvho/jCD12mpG1zHZP8SZt0Nf
-   3SvGcp8X1Qnl/u6NoMTRiz6aTvo7NWK5GbGKcfEtMJhuBKyrFuDETFZ80
-   USf6N09liswdhIsBlD+hOPFSuF2GXP6RKnc0GQgj4cC383iLK99UtF4pl
-   Mz49TwuVE+arfKrTQYNXCSu7KI6UKtRprVIGx6KioBugCzjkafn7ydEsw
-   NR4BV17KBk5wQZm5CY+dWjU/ChGchu5lQbjNe7tXjGWWytYXMM1FBxzP4
-   jYP2FZvBAN9hu489u6gL6HjglJn2b6TZNnu/Gz8HC7DYEnLy3OB3Xbn0D
-   Q==;
-X-CSE-ConnectionGUID: tERUTOmzTnix5rB1bos1bA==
-X-CSE-MsgGUID: fvSMTp99STO/HigwlzJVrQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="99334602"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="99334602"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 02:09:09 -0700
-X-CSE-ConnectionGUID: HJSldBdbSn29p67N9lRijw==
-X-CSE-MsgGUID: e7mjZsjxRtibTToC8EiwNw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="265321379"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.29])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 02:09:05 -0700
-Date: Tue, 1 Sep 2026 12:09:02 +0300
-From: Tony Lindgren <tony.lindgren@linux.intel.com>
-To: Binbin Wu <binbin.wu@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, seanjc@google.com,
-	pbonzini@redhat.com, dave.hansen@linux.intel.com,
-	andrew.cooper3@citrix.com, nik.borisov@suse.com, kas@kernel.org,
-	rick.p.edgecombe@intel.com, xiaoyao.li@intel.com,
-	chao.gao@intel.com
-Subject: Re: [PATCH v3 3/4] KVM: TDX: Filter configurable CPUID bits
-Message-ID: <apaWLqbWq2boIGld@tlindgre-MOBL1>
-References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
- <20260827031837.2863609-4-binbin.wu@linux.intel.com>
- <apZ0X8J31bVCoc9E@tlindgre-MOBL1>
- <09c2f755-d822-4aac-993a-878d58c3b47b@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="jK6t+CDm"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=czh3rQAWAmJyiyiLMm64PQaNiIh2S51TPnPG1qoRn4g=; b=jK6t+CDmAUicfWHGYjsrPPugUy
+	KUPA77dVMrLsAO3sOkKQJwbHtYgr6z7oyU/oB61XjwBANQkSUyx/TnOhLRzlj0qn+99bsDFr0bP6n
+	Pb2pWsK8uuwWawtqnl4nEmvZFn8pfjBihFHyUHKeheg0/Qxeyx3xFOv+sebDzTJ52b65rt6oMnfp3
+	M51YHD8PabAHlIi8I9dEzf3ne6nArM9Jt/xsdmFryhAvVqRsnJ1NrMYQhGZNXITos8/2nFTuxpnzQ
+	mTUH6RDHIGkoLBf2Tm4bJI3yOPBlRy0XJjFc8T8XlQ+I/10Lw9ojCFSz1roRQgBeZfEcrSCOt+O/v
+	XSDcKkow==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x1KU1-00000004oNT-3yiM;
+	Tue, 01 Sep 2026 09:08:46 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 7EA6A30031E; Tue, 01 Sep 2026 11:08:43 +0200 (CEST)
+Date: Tue, 1 Sep 2026 11:08:43 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Jianyong Wu <wujianyong@hygon.cn>
+Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Chen Yu <yu.c.chen@intel.com>,
+	Tim Chen <tim.c.chen@linux.intel.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Phil Auld <pauld@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, jianyong.wu@outlook.com, zhongyuan@hygon.cn,
+	huangsj@hygon.cn, wangfengyu@hygon.cn, yingzhiwei@hygon.cn,
+	justin.he@arm.com
+Subject: Re: [RFC PATCH v2 11/23] sched/cache: Introduce helpers for task
+ migration decisions
+Message-ID: <20260901090843.GQ4120091@noisy.programming.kicks-ass.net>
+References: <20260827122816.756234-1-wujianyong@hygon.cn>
+ <20260827122816.756234-12-wujianyong@hygon.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -65,87 +64,219 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <09c2f755-d822-4aac-993a-878d58c3b47b@linux.intel.com>
+In-Reply-To: <20260827122816.756234-12-wujianyong@hygon.cn>
 
-On Tue, Sep 01, 2026 at 04:42:20PM +0800, Binbin Wu wrote:
-> On 9/1/2026 2:44 PM, Tony Lindgren wrote:
-> > On Thu, Aug 27, 2026 at 11:18:36AM +0800, Binbin Wu wrote:
-> >> --- a/arch/x86/kvm/vmx/tdx.c
-> >> +++ b/arch/x86/kvm/vmx/tdx.c
-> > ...
-> >> +static u32 tdx_cfg_non_feature_mask(u32 function, u32 index, int reg)
-> >>  {
-> >> -	if (has_tsx(entry))
-> >> -		clear_tsx(entry);
-> >> +	/*
-> >> +	 * For a leaf/subleaf/register that will never be repurposed to hold
-> >> +	 * feature bits, it's safe to return TDX_CPUID_ALL_ALLOWED_MASK, i.e.
-> >> +	 * leave the TDX module's CPUID config mask intact.
-> >> +	 */
-> >> +	switch (function) {
-> >> +	case 1:
-> >> +		if (reg == CPUID_EAX || reg == CPUID_EBX)
-> >> +			return TDX_CPUID_ALL_ALLOWED_MASK;
-> >> +		return 0;
-> >> +	case 4:
-> >> +	case 0x18:
-> >> +	case 0x1f:
-> >> +		return TDX_CPUID_ALL_ALLOWED_MASK;
-> >> +	case 0x24:
-> >> +		if (index == 0 && reg == CPUID_EBX)
-> >> +			return GENMASK_U32(7, 0);
-> >> +		return 0;
-> >> +	case 0x80000008:
-> >> +		if (reg == CPUID_EAX)
-> >> +			return TDX_CPUID_ALL_ALLOWED_MASK;
-> >> +		return 0;
-> >> +	default:
-> >> +		return 0;
-> >> +	}
-> >> +}
-> > 
-> > How about rename the above to something simpler like tdx_get_cpuid_bits()?
-> > Sorry I don't have anything better to suggest for naming.
-> > 
-> >> +static u32 tdx_cfg_feature_mask(u32 function, u32 index, int reg)
-> >> +{
-> >> +	for (int i = 0; i < NR_KVM_CPU_CAPS; i++) {
-> >> +		const struct cpuid_reg *cpuid = &reverse_cpuid[i];
-> >> +
-> >> +		if (!cpuid->function)
-> >> +			continue;
-> >> +
-> >> +		if (cpuid->function == function && cpuid->index == index &&
-> >> +		    cpuid->reg == reg)
-> >> +			return tdx_cpu_cfg_caps[i];
-> >> +	}
-> >> +
-> >> +	return 0;
-> >>  }
-> > 
-> > And then the above to tdx_get_cpuid_feature_bits()?
-> >   
-> >> -static bool tdx_unsupported_cpuid(const struct kvm_cpuid_entry2 *entry)
-> >> +static u32 tdx_get_allowed_cfg_cpuid_mask(u32 function, u32 index, int reg)
-> >>  {
-> >> -	return has_tsx(entry) || has_waitpkg(entry);
-> >> +	u32 non_feature_mask = tdx_cfg_non_feature_mask(function, index, reg);
-> >> +
-> >> +	if (non_feature_mask == TDX_CPUID_ALL_ALLOWED_MASK)
-> >> +		return TDX_CPUID_ALL_ALLOWED_MASK;
-> >> +
-> >> +	/*
-> >> +	 * It's possible that a CPUID register contains both feature and
-> >> +	 * non-feature bits.
-> >> +	 */
-> >> +	return non_feature_mask | tdx_cfg_feature_mask(function, index, reg);
-> >>  }
-> > 
-> > And then tdx_get_cpuid_mask()?
+On Thu, Aug 27, 2026 at 08:28:04PM +0800, Jianyong Wu wrote:
+
+> +/*
+> + * Decide if migration should happen on a specific node.
+> + * The node here is an LLC or a NUMA.
+> + */
+> +static enum llc_mig __maybe_unused can_migrate_node(int src_cpu, int dst_cpu,
+> +			struct task_struct *p, bool to_pref)
+> +{
+> +	const struct cpumask *span;
+> +	struct mm_struct *mm;
+> +	unsigned long dst_util, dst_cap, tsk_util = 0;
+> +	unsigned long src_util = 0, src_cap = 0;
+> +	unsigned long acc_util = 0, acc_cap = 0;
+> +	int node, target_cpu = src_cpu;
+> +	int get_src = 0;
+> +
+> +	if (!get_llc_stats(dst_cpu, &dst_util, &dst_cap))
+> +		return mig_unrestricted;
+> +
+> +	if (!get_llc_stats(src_cpu, &src_util, &src_cap))
+> +		src_cap = 0;
+
+Comparing against can_migrate_llc(), that bails with mig_unrestricted
+when !get_llc_stats(src_cpu).
+
+> +
+> +	if (p) {
+> +		mm = p->mm;
+> +		if (mm) {
+> +			if (mm->sc_stat.cpu >= 0)
+> +				target_cpu = mm->sc_stat.cpu;
+> +		}
+> +		tsk_util = task_util(p);
+> +	}
+
+It isn't clear when !p would be valid. migration is always about a task,
+no?
+
+> +
+> +	dst_util = dst_util + tsk_util;
+
+can_migrate_llc() also adjusts src_util by subtracting tsk_util (and
+flooring at 0).
+
+> +	if (to_pref) {
+> +		unsigned long dst_pre = dst_util - tsk_util;
+> +
+> +		if (fits_llc_capacity(dst_util, dst_cap))
+> +			return mig_llc;
+> +
+> +		/*
+> +		 * The destination is over the margin. That is a reason to
+> +		 * refuse a task while the margin can still be met, but not
+> +		 * while every LLC of the node is over it: no placement
+> +		 * satisfies the margin then, and refusing every migration
+> +		 * leaves the imbalance in place.
+> +		 *
+> +		 * Let the task through when the move still lowers the peak,
+> +		 * that is when the source is noticeably heavier than the
+> +		 * destination and carries at least two more tasks worth of
+> +		 * utilization. The second condition keeps the destination
+> +		 * from becoming the heavier side, which would bounce the
+> +		 * task straight back.
+> +		 */
+> +		if (src_cap && util_greater(src_util, dst_pre) &&
+> +		    src_util >= dst_pre + 2 * tsk_util)
+> +			return mig_llc;
+> +
+> +		return mig_forbid;
+> +	}
+> +
+> +	for_each_sched_node(target_cpu, node) {
+
+So this iterates the nodes in the order specific to the node that
+contains target_cpu..
+
+> +		unsigned long u = 0, c = 0, nu, nc;
+> +
+> +		/*
+> +		 * The walk starts at the anchor, so the nodes it crosses before
+> +		 * reaching the source say nothing about this migration: the task
+> +		 * does not live there and is not going there. Judging them only
+> +		 * lets an unrelated node with room refuse the move. Start at the
+> +		 * node the task actually sits on.
+> +		 */
+> +		if (!get_src) {
+> +			if (!cpumask_test_cpu(src_cpu, cpumask_of_node(node)))
+> +				continue;
+> +			else
+
+Strictly speaking this else is superfluous.
+
+> +				get_src = 1;
+> +		}
+
+And then you skip the nodes between target and src, which are the nodes
+with best locality, confusing, but lets read on..
+
+(sometimes target == src, and you thus don't skip anything, but other
+times this is the preferred cpu)
+
+> +		if (cpumask_test_cpu(dst_cpu, cpumask_of_node(node))) {
+
+For the node that contains dst_cpu..
+
+> +			nu = 0;
+> +			nc = 0;
+> +			for_each_llc_node_span(node, span) {
+
+Iterate the LLCs in this node..
+
+> +				get_span_stats(span, &u, &c);
+
+Now I'm confused again, @span is the span of the llc, but
+get_span_stats() is a wrapper around get_llc_stats(), and since span is
+just a single llc, why use this rather than get_llc_stats() directly?
+
+> +				nu += u;
+> +				nc += c;
+> +				if (cpumask_test_cpu(dst_cpu, span)) {
+
+If llc includes dst_cpu
+
+(indent is getting a little out of hand here)
+
+> +					if (fits_llc_capacity(u + tsk_util, c))
+> +						return mig_llc;
+> +
+> +					/*
+> +					 * The destination is over the margin,
+> +					 * but so may be the source. Refusing
+> +					 * then leaves the peak where it is:
+> +					 * a LLC at seven tasks stays at seven
+> +					 * while a neighbour in the same node
+> +					 * sits at four, because taking one
+> +					 * more would put that neighbour over
+> +					 * the margin as well.
+> +					 *
+> +					 * Let the task through when the move
+> +					 * still lowers the peak, guarded the
+> +					 * same way as the aggregation path:
+> +					 * the source must be noticeably
+> +					 * heavier and carry at least two more
+> +					 * tasks worth of utilization, so the
+> +					 * destination cannot end up the
+> +					 * heavier side and bounce it back.
+> +					 */
+> +					if (src_cap &&
+> +					    util_greater(src_util, u + tsk_util) &&
+> +					    src_util >= u + 2 * tsk_util)
+> +						return mig_llc;
+> +
+> +					return mig_forbid;
+
+This is an unconditional return..
+
+> +				/*
+> +				 * A nearer LLC only justifies vetoing this
+> +				 * migration if the task would actually fit
+
+But you just skipped the nodes between target and src, those are nearer,
+no?
+
+> +				 * there, so account for its utilization the
+> +				 * same way the destination branch above does.
+> +				 * Without it a LLC already holding one task
+> +				 * per core still reads as having room and
+> +				 * vetoes every migration towards a farther,
+> +				 * genuinely idle LLC.
+> +				 */
+> +				} else if (fits_llc_capacity(acc_util + nu + tsk_util,
+
+.. which renders this else superfluous, but that won't help with the
+indent because you still have the chained if :-(
+
+> +						acc_cap + nc)
+> +						&& fits_llc_capacity(u + tsk_util, c)
+> +						&& !util_greater(u, dst_pre))
+
+(logical operators go at the end of the previous line, your patch is
+inconsistent on this point, since that is what you do elsewhere)
+
+> +					return mig_forbid;
+> +			}
+> +		}
+> +
+> +		/* Don't migrate if this is a good place to live. */
+> +		for_each_llc_node_span(node, span) {
+> +			get_span_stats(span, &u, &c);
+
+This is shared with the above loop, meaning you're now duplicating this
+work in case you fell through.
+
+> +			if (cpumask_test_cpu(src_cpu, span)) {
+> +				if (fits_llc_capacity(u, c))
+> +					return mig_forbid;
+> +			} else {
+> +				if (fits_llc_capacity(u + tsk_util, c))
+> +					return mig_forbid;
+> +			}
+> +		}
+> +	}
+> +
+> +	return mig_unrestricted;
+> +}
+> +
+>  /*
+>   * Check if task p can migrate from source LLC to
+>   * destination LLC in terms of cache aware load balance.
+> -- 
+> 2.34.1
 > 
-> How about:
-> tdx_get_cpuid_cfg_non_feature_mask()
-> tdx_get_cpuid_cfg_feature_mask()
-> tdx_get_cpuid_cfg_mask()
-
-I'd be happy with that.
+> 
