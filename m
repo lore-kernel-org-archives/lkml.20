@@ -1,94 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F18A4CCDE4;
-	Tue,  1 Sep 2026 22:46:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 703074CCDE4
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 22:46:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788302782; cv=none; b=IQ4TjY5a84IQu2CAd7anxrCKbxJdYRLvOj+zx6+sudfrfStSHwjkC2ftq0CEys+No7oies3t7FGdKMiNArNEL7Z4AdgfGDYeWODUCOLfY0mAWb/Azm0hKOFT/bE58NrQZy//LI0RolvnfrBFWkOHKFPjeooPK0y8Pf/uZ6tnFxs=
+	t=1788302814; cv=none; b=EvoT6QZJDPB98SqJjFkUBAnK+U/ps8npD0ODhhzRcJ36F7Or/xbJhVAWXEVsnKMaRtLpEhK/bOBWX4348DmMaWB6rHYg6YrdFG2tH9qfL34n2MO7QotFfn822xtfvftHsnBmuzVHLMI3jVae9gvmUXnoNg6Nu+rJhwKFo/aVn3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788302782; c=relaxed/simple;
-	bh=o1YaUPzMUEWUrWnq64yGJLNH1Cvm2M0jaTT38EAUCrg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kg0eEhuL9MeZKiE1sPEpl9HDCjfXRb/JjsqOlaVFtGGnNwrJ8GyOq08Tmk2n6PF6V+wmqRJz4dgCQWYc6CGVTVdc9JYbuCKaDxiR8B9BtDxmQU4amYdYf4xdshLTvMoeuCgrms6T/h0sJKTv8jY/kXG1qLAiQds7ZytbjzRLjAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bnSYA3tP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788302814; c=relaxed/simple;
+	bh=Mkw5q/HNtXXho+hpQuUUFYWhDUWGXG2a+bSB9a0y00w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Kf2ARzkYnXVRGSUzYDw/EMSrIIsh9n/bJQ8OYTFjB5Jn0VJtFVmJ/6tnw5Tyq4vxR7AD3teCTHukQft2AX2sqk+qnjrIhiRAznx8I3v8OGPsxvkvOkGjxIJINNfLAtPgFNI7zhQi4/FRZV2XDy+/0eoncwcYn2ZBDjiUBqfrhdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=rJ9FShs1; arc=none smtp.client-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bnSYA3tP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B11711F000E9;
-	Tue,  1 Sep 2026 22:46:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788302781;
-	bh=wEL9yVRaCvLplrPadvlbrdLt9/pOGLB8ecyiEr7E9LA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=bnSYA3tP/Xt0G8ICX1OhiONYGT38pcygiVv15vj6AouIQ/zzU927fpjb7B9QE/zCp
-	 H02Lj0SSP1sq0+UlBNoWPswmQKCa9J3Tx95auM/me+5n9xTISJNbEB3jJ3swek5IfZ
-	 immeU9FBny1+FHeOlH2TS1J7KxzrozIW3uBK+SJFsWVkvotbeUPmHBOcxig1hbymmP
-	 Uan5cr5rHJyABZjmAS/rbYDkEEitCamYGkobFytj6H0FWXjfiG5dzHn4em+wun7A4n
-	 fwdlFDy5UGA4Nl8keSkd3Bqf6zfL9UR71cPymWjyrulUIVjLh5nOppIwpgguphubmC
-	 jzSN5rZ3DR2Mg==
-Date: Tue, 1 Sep 2026 15:46:20 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Matthieu Baerts <matttbe@kernel.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, thomas.petazzoni@bootlin.com,
- linux-kselftest@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- davem@davemloft.net, Eric Dumazet <edumazet@google.com>, Paolo Abeni
- <pabeni@redhat.com>, Donald Hunter <donald.hunter@gmail.com>, Simon Horman
- <horms@kernel.org>, Shuah Khan <shuah@kernel.org>, Stanislav Fomichev
- <sdf@fomichev.me>
-Subject: Re: [PATCH net-next 2/2] selftests: drv-net: Use cross-compilation
- environment for the io_uring check
-Message-ID: <20260901154620.492ab980@kernel.org>
-In-Reply-To: <20631f9a-1a2f-4ef5-a4c5-e1948e55dd78@bootlin.com>
-References: <20260901164200.1124343-1-maxime.chevallier@bootlin.com>
-	<20260901164200.1124343-3-maxime.chevallier@bootlin.com>
-	<a42cdc44-efaf-44ff-9ace-f08e0c3b9856@kernel.org>
-	<20631f9a-1a2f-4ef5-a4c5-e1948e55dd78@bootlin.com>
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="rJ9FShs1"
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4hZLZh68Srzlfq9P;
+	Tue,  1 Sep 2026 22:46:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1788302809; x=1790894810; bh=Mkw5q/HNtXXho+hpQuUUFYWh
+	DUWGXG2a+bSB9a0y00w=; b=rJ9FShs10Z+ITPwEQGPLMTWHSd6fIpdA6GJ6rhbi
+	2C2qcSv94Lql+bZqQunk9hvRkXoNxz99+4L4nTxcdv0V5ItDJwompREv9B/bKL1r
+	pgqzvd7Gqy40B1ZlihKnt+uY+Ud5D/g/2diIAu56Vgk9TXn86vUIxnYj6Nq+mwcH
+	4jaJaiJ5SCjjh116pBG3R2hUTR+q7XSC6RnsXNUH/gA8JvvLq9zURP7JniHAx6ez
+	0EaiPWp7sUnIRPQCZSkgVeuj5nyNv71xHSU9uoe6WnTQC7DuAL/1Xl9B2sqh2sPr
+	G+o1tJLi96PKGm8CWKzxbkxuI4oD892rZTxY/wo2h0yIzA==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id ybiG_2rWYGAP; Tue,  1 Sep 2026 22:46:49 +0000 (UTC)
+Received: from [100.80.227.50] (unknown [104.135.182.42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4hZLZZ4VtgzlfwgS;
+	Tue,  1 Sep 2026 22:46:46 +0000 (UTC)
+Message-ID: <d5c64d53-1d36-43c5-9122-8a57b4bda9b0@acm.org>
+Date: Tue, 1 Sep 2026 15:46:45 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] tracing: Make is_signed_type() compatible with sparse
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: David Laight <david.laight.linux@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org,
+ Christoph Hellwig <hch@lst.de>, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+ Chris Li <sparse@chrisli.org>
+References: <bde573c1a758505339239f08be28788a34dfcb73.1786121949.git.bvanassche@acm.org>
+ <20260831214437.15d6ad34@pumpkin>
+ <a771af57-40ee-433a-be84-9b7c3e6965c5@acm.org>
+ <20260901092043.7feaf5d7@pumpkin>
+ <dca931ff-5995-444c-9f89-6d6cca4e71f3@acm.org>
+ <CAHk-=wgFEG7ZVaFAbo=bWWfsSh_weA4cOh6BV-xHWNSn6SwNBQ@mail.gmail.com>
+ <737a4f62-f50a-40bd-a94a-1f42e9f3f54a@acm.org>
+ <CAHk-=wiZog53-M8--_2m7HRk4XOQ+_jkh1XVuyQXXJgSwooQng@mail.gmail.com>
+ <07dcd177-bc20-416e-accc-9c137d70a5d6@acm.org>
+ <CAHk-=wj1rTtCXQVf-_doFT0KbnCDObvuoG0yEv8eH6V+Yq4=vg@mail.gmail.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <CAHk-=wj1rTtCXQVf-_doFT0KbnCDObvuoG0yEv8eH6V+Yq4=vg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue, 1 Sep 2026 22:45:47 +0200 Maxime Chevallier wrote:
-> Hi Matthieu,
-> 
-> On 9/1/26 19:24, Matthieu Baerts wrote:
-> > Hi Maxime,  
-> >> +# Set CC for the io_uring check
-> >> +CC := $(CROSS_COMPILE)gcc  
-> > 
-> > Could we have something similar to
-> > tools/testing/selftests/riscv/cfi/Makefile:
-> > 
-> >   # Set CC for the io_uring check done before including lib.mk
-> >   ifeq ($(LLVM)$(CC),cc)
-> >   CC := $(CROSS_COMPILE)gcc
-> >   endif
-> > 
-> > WDYT?  
-> 
-> Ah this is better indeed IMO, I'll use that in V2 then, thanks for
-> the tips.
-> 
-> Initially I considered doing a larger rework of extracting the logic
-> in lib.mk that sets CC to the right value base on CROSS_COMPILE, LLVM
-> and ARCH into a dedicated .mk file that we would include at the top,
-> but at that time it seemed to be too big of a rework for just the
-> io_uring check.
-> 
-> It lead to some headache about double-inclusions and relative paths lookups
-> that far exceeded my Makefile skills :(
-> 
-> Thanks for the review,
 
-I assume you don't actually have luring for your cross- env? Could we
-keep it simple and just declare luring as unavailable when cross
-compiling? Because the probing compilation rule is probably missing 
-more flags to make cross compilation work.
+On 9/1/26 1:24 PM, Linus Torvalds wrote:
+> This is partly me fishing for some poor soul who actually *wants* to
+> maintain this.
+It is well known that the official repository for sparse is
+git://git.kernel.org/pub/scm/devel/sparse/sparse.git so I think we
+should keep that URL. Pushing changes to that repository requires a
+kernel.org account. I lost my kernel.org PGP key about nine years ago so
+I will have to create a new one and get it signed again. I will let you
+know when my new PGP key has been signed and when Konstantin Ryabitsev
+has reactivated my kernel.org account.
 
-Ignore if selftests using luring do actually work for you after this
-patch..
+Thanks,
+
+Bart.
