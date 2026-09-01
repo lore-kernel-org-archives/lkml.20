@@ -1,122 +1,81 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 711E3345ECC
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:48:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD88377553;
+	Tue,  1 Sep 2026 09:49:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788256137; cv=none; b=qufjn6HH0chVKZH02RzThGGEa8kW6o89aSN4aLC5It+CapsNKc1oT0WUBY5FCbje1dw88qF1n5ZbRcs8O4dNYCqxdLLVdVkE19MZYH9EWova/2bfwAQFxCjfXQX1WoVP15xG82yqa0gw9Q3JmH4kYwTrOiZY6SM2Usj5dTKlyUk=
+	t=1788256144; cv=none; b=D66Tbk4KtJ89XQC3JCnpzVl9IjFlMYUw6VI6V9JfwcH8vuPKdYTEwpmzaT6R2Rh0V5tCr1jHimYqv3QF3atJFULbqfzNCwMEiNsh7Kmvwq5KJ28YxnzPMphy4JCYT2bOZxc+J+8E6QLpz+SMGwYMTpsurcmZIwX9pjvcYa1wyk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788256137; c=relaxed/simple;
-	bh=KaKHTjJP6maqXyyFZTupgoIGA05+0Mx9hjqgSw5vu1c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dQyPINwkY9hTskwN7pRy9DwhCr452DrZip5O4aNbYLH5qpMsuj0U3QCBalFVwXDi7KmZYCTyKhrFJlBMQWhSHTDnoVD1O2FVkYYk3O7fQD/cMVa+fTTxLE5BmaDv/PxV+9Nu47xyBO+3o8hAI4EyYNBFdDsawYmnUmw6yAy7uQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=PeKbWsFV; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788256144; c=relaxed/simple;
+	bh=UVX0KBf3ApwxZY8p4rqs4udY2EoQtenM+JvnVDrDsCg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Joks+6MhTmeXtxleTa8eEdKpnI5SuYNNHUCCBq8qDcAt7kP/z9BWVakWo31vTLL8o5rTaK2FNK4sUnbgF14GOQqgTKVOM9bUrrSxAEOI/L2jhtd2DV8xVpqQffLsoRks6/45kojCLvE9v+aUDPte9vDR3nrettUAAY2DkCSiDxI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lQbVlc2x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="PeKbWsFV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=bpoxNlNsE/rnv3QgKo3WpL5jXF0IhTodGTVdgaDxGnM=;
-	b=PeKbWsFV88ZGzH585opFniKKg7sx5ET495H3CKRy524vAuMgGI45qPPODeY8vA
-	fxLUXs5qQWqWCkPIuGdAg3sVLn74wnRQ0BIh2iEMKfvBR7aQK+gEwIFHBol6E2Cj
-	Poftaou4q/osgoJsR50CXtnq5aaG/G8bqletBQSE+mwJE=
-Received: from [IPV6:2409:8900:1ef4:8f82:70cd:c8db:75a7:b1e2] (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wAnZ6Zmn5ZqRFLNTQ--.49450S2;
-	Tue, 01 Sep 2026 17:48:25 +0800 (CST)
-Message-ID: <cbe8b022-dbe0-4696-8a97-633ee9ba664b@163.com>
-Date: Tue, 1 Sep 2026 17:48:22 +0800
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lQbVlc2x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35E971F000E9;
+	Tue,  1 Sep 2026 09:49:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788256141;
+	bh=eioGlH9qaWUGFtsGS+cAvYgq1xcxQUWu/p70MSWtF/E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lQbVlc2xn9DMO+662HZBNSCAHlFvhZpsxIU7PpI+P/xc0yVShKQP/UuYyvcyfscIZ
+	 Gj6iCr7Y+c1UykgRZHI6lTBMbXvDpPc8v/vD1eegExL4obpOqA3oLHcEVjYG+Nolox
+	 HqZyVb5N5DkhV8bU/zBYVOaeHE32BUZ/t2WiPZcM=
+Date: Tue, 1 Sep 2026 11:48:57 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Mohit Mishra <mishraloopmohit@gmail.com>
+Cc: Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
+	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: greybus: gbphy: use sysfs_emit() instead of
+ sprintf()
+Message-ID: <2026090144-showplace-strum-df62@gregkh>
+References: <20260808171302.72231-1-mishraloopmohit@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] ntfs: report volume errors to fsnotify
-To: Hyunchul Lee <hyc.lee@gmail.com>
-Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev,
- linux-kernel@vger.kernel.org, liubaolin12138@gmail.com,
- Baolin Liu <liubaolin@kylinos.cn>
-References: <20260826122734.2129830-1-liubaolin12138@163.com>
- <20260826122734.2129830-2-liubaolin12138@163.com>
- <CANFS6ba-=yXwSrA+NGnnZ84Yffmm-gNrAWEWpyjdC5fazWSXxw@mail.gmail.com>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <CANFS6ba-=yXwSrA+NGnnZ84Yffmm-gNrAWEWpyjdC5fazWSXxw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wAnZ6Zmn5ZqRFLNTQ--.49450S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7WFyfJFyxXr47Kw43tr4xWFg_yoW8urWUpF
-	WkCan3KFWkJry7WrnI9rWavFsYg34xWa1Utr13tw1xXrn5tr1DtFs2vw1FgFn29rWvgw4I
-	qF1jgr93WFZ8Zr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U2-erUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwQlCDWqWn2kucQAA3S
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260808171302.72231-1-mishraloopmohit@gmail.com>
 
-
-
-在 2026/8/31 14:38, Hyunchul Lee 写道:
-> Hi Baolin,
+On Sat, Aug 08, 2026 at 10:43:02PM +0530, Mohit Mishra wrote:
+> protocol_id_show() uses sprintf() to format sysfs output into the page
+> buffer. Convert it to sysfs_emit(), which is the preferred helper for
+> sysfs show() callbacks as it enforces page boundary checks.
 > 
-> 2026년 8월 26일 (수) 오후 9:28, Baolin Liu <liubaolin12138@163.com>님이 작성:
->>
->> From: Baolin Liu <liubaolin@kylinos.cn>
->>
->> The ntfs driver reports volume corruption only to dmesg. Wire up the
->> generic fserror infrastructure at NVolSetErrors(), the point where the
->> driver concludes the volume metadata is inconsistent, so that an
->> FS_ERROR event is emitted as well. This lets health monitoring daemons
->> watching the mount with fanotify(FAN_FS_ERROR) learn about corruption
->> without scraping kernel logs.
->>
->> Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
->> ---
->>   fs/ntfs/super.c  |  8 ++++++++
->>   fs/ntfs/volume.h | 14 +++++++++++++-
->>   2 files changed, 21 insertions(+), 1 deletion(-)
->>
->> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
->> index cd8fa2c13370..5229eb27bb30 100644
->> --- a/fs/ntfs/super.c
->> +++ b/fs/ntfs/super.c
->> @@ -14,6 +14,7 @@
->>   #include <linux/sched/mm.h>
->>   #include <linux/fs_context.h>
->>   #include <linux/fs_parser.h>
->> +#include <linux/fserror.h>
->>
->>   #include "sysctl.h"
->>   #include "logfile.h"
->> @@ -330,6 +331,13 @@ const struct option_t on_errors_arr[] = {
->>          { 0,                    NULL }
->>   };
->>
->> +/* Mark the volume as corrupt and notify fanotify(FAN_FS_ERROR) listeners. */
->> +void NVolSetErrors(struct ntfs_volume *vol)
->> +{
->> +       set_bit(NV_Errors, &vol->flags);
->> +       fserror_report_metadata(vol->sb, -EFSCORRUPTED, GFP_ATOMIC);
->> +}
+> Similar conversions have already been made elsewhere in this subsystem
+> (e.g. loopback.c, arche-platform.c).
 > 
-> NVolSetErrors() is also reached when some functions
-> return -EIO. Could you preserve the original errno?
+> Signed-off-by: Mohit Mishra <mishraloopmohit@gmail.com>
+> ---
+>  drivers/staging/greybus/gbphy.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> And in some situations, fserror_report_file_metadata()
-> can be useful instead of fserror_report_metadata().
+> diff --git a/drivers/staging/greybus/gbphy.c b/drivers/staging/greybus/gbphy.c
+> index bdb0f5164a6f..bb9a5b538e6e 100644
+> --- a/drivers/staging/greybus/gbphy.c
+> +++ b/drivers/staging/greybus/gbphy.c
+> @@ -31,7 +31,7 @@ static ssize_t protocol_id_show(struct device *dev,
+>  {
+>  	struct gbphy_device *gbphy_dev = to_gbphy_dev(dev);
+>  
+> -	return sprintf(buf, "0x%02x\n", gbphy_dev->cport_desc->protocol_id);
+> +	return sysfs_emit(buf, "0x%02x\n", gbphy_dev->cport_desc->protocol_id);
+>  }
+>  static DEVICE_ATTR_RO(protocol_id);
+>  
+> -- 
+> 2.43.0
 > 
 
-Hi Hyunchul,
+Please see the mailing list archives for why this type of patch keeps
+getting rejected.
 
-   You are right, reporting -EFSCORRUPTED unconditionally loses that
-   distinction - a media failure and genuine metadata corruption should 
-not look the same to a listener.
-   Agreed on fserror_report_file_metadata() too, several call sites do 
-have the inode at hand.
+sorry,
 
-   I will rework the implementation along both lines and send a v2.
-   Thanks for the review.
-
-Thanks,
-Baolin
-
+greg k-h
