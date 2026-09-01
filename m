@@ -1,229 +1,162 @@
-Received: from mta0.migadu.com (out-113.mta0.migadu.com [91.218.175.113])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010057.outbound.protection.outlook.com [52.101.229.57])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD6F1DF980
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:26:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.113
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788229568; cv=none; b=Ih+TcWlESEqvh5ZzPW22amuHPBDY0xeriT0czFxzY++Lybf9iOJos8NGsEH9nCDlfoBsOrKgW+4ia5UqUgUZihrYDHM/okjo4YUOyuvDnPE+VJd31hNjtOYOHSollTPS6v2AwZqTbVNXWRBG0fKN8Qp956Lh0/csgsWxybza1DM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788229568; c=relaxed/simple;
-	bh=vM4ijJrAqrKJgp4ES8M9TJJbW0Vk7gw6kwz+ZDDvvJk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=F7ZzFYvHji6ine0GNMhBA0em8Iv2nRYlPoTIfrGlF0oOFccF1uAs2T+MoUX0YDXUKZcFDL89pfxPwAGYs38wb1RStQPqn11sNjoaLbdkXidCfHrpewa0O78n9DUoJOP+4TK63UzjL1oNYgRNLspPK+7UIMZkiJbsaCK3gVdZqc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=eK2bNcqD; arc=none smtp.client-ip=91.218.175.113
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8E8B3596E1;
+	Tue,  1 Sep 2026 02:26:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.57
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788229570; cv=fail; b=LdhZFA9dzhN5ci2xIWCzY4ptrzYaFE1jnIHa+F9Jc8yvGH+K+u1NeIlTE0ulSkXnhUbluNDYea7mLNA/G6EOJHl715SMiBeQecAUy2haP5n/HYw3EuM5RFmJUCL80yFlFXUmprlWzdXMf7pB5mNPmwXWybZV+Tpj+Vys8zyWv4I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788229570; c=relaxed/simple;
+	bh=powneQBNLarRa/cd4489IYWFXMYku2ff6TRDhDTzKh4=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=E3NrA5s0wpHOHTODsD5RB8TjEpjAUvv2+OaM2NbJt7ESe/3pU1DL9mGckgbY25IUX+SK6yJ6CNa3ym18rZ5PQeKYR/nbarNONZlpoArZ2w/7HDiiUS8scwQjJtMnxrAwMgbF96tXc5y2fFYYJxbhL/+Ys/fshU269FxISU95rW4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=HaJAv5fW; arc=fail smtp.client-ip=52.101.229.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="eK2bNcqD"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=vM4ijJrAqrKJgp4ES8M9TJJbW0Vk7gw6kwz+ZDDvvJk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788229564; v=1; x=1788834364;
- b=eK2bNcqDHpvc1Nu+jZjxFLplZmuBMkyksPobxop+IfEAY5idHgRx/hvuJU+OgKsg544n+9cl
- ZM3winv0F9Xu2zejXJYR2T8U/C9kMvBOO9/riYsrUVl066XYxTXST3nKzQefsRw8c78g1IX+q94
- 3ciZouNw5ce3aHpL5hodeIEY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id ffc1d7bc8b38b6b0;
-	Tue, 01 Sep 2026 02:26:04 +0000
-X-Mizu-Trace-ID: ffc1d7bc8b38b6b0
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <6aea8093-54ee-49f2-916c-09b2c6587f20@linux.dev>
-Date: Tue, 1 Sep 2026 10:25:57 +0800
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="HaJAv5fW"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=d5vCTfrMeU7j3ZHxvgP16UeivSmMcX5ymvO6CaJmfNrs88a6GOjhjHRF70NDE0a2/9ZMOhuIlMd398ELv58uKFnkRM3v/Esj//XOVY6naGClsT4HpknrlOEAIhkSYFOQeGN8e72VWW3PnC4ccpfwgc/tmMy4cqxYk1iXKJFGZHgn27P32JXF/nsKf9hOV0yvU1nmIsgl9zDugLFo1QF4glt1iaphcRdm/J89xPqenqtMH5cht+ZKEiGDK0NciVei1EDycF3yVqz42M2ErTd7ucyhP2xnO95G8bLGfT6AXunDe5Opoa83g79IaXcVafpc2eLmXMvtdZH507+hMGgdDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=EGZENCgr0LWjH0uqO+22AVGWypNl5Msxj5g5ER7e6N0=;
+ b=MlrKGrLojY07NF3uNGE3czN+Z/cmUk90bfIul1jVVmi/C+GEkvKQs8alGKPyhrY695Sk8WgcvTRNo3gbWIsqupLS9/xPt3GO2ClW6RLv2UiEihWyYrbgqWNb9KMjQgeYrp0QbaqG3RcxlQkKqOa3LQkNj9TAEHEex2kuejlS6SbEXxejxery9/3brcqGLhXOeAwFlU6ts9wAIoewn4NyTeRh0RoXRtxRygGzkbp1OfW8j8IivnHNahzRr4PwoBkSvjxilGWn6D3E5EVijq3llNyMLBBX2KJRJP0de5WJP96/VCoWkl/DKBvHoUaFGgT9Po0rSRryBbNHcu78eSAPuQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=EGZENCgr0LWjH0uqO+22AVGWypNl5Msxj5g5ER7e6N0=;
+ b=HaJAv5fWa2r82iP36+TC9Wp8iQOSevAoxNaEEzOQ+q3tMpHjmCSCE5O8K3V8ZtnmoAzRef5Mm6VMQcyn95WfVdz4UssxlMe+KGMAsJTQ+PLwnrHD9Q9YDzxQrbtdvaw+y+w6ehzUt8xx6yzE7KPk6xImAQd5wu+zvzxnQk0CXOQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TYRPR01MB16474.jpnprd01.prod.outlook.com
+ (2603:1096:405:2ee::10) by OSOPR01MB12344.jpnprd01.prod.outlook.com
+ (2603:1096:604:2db::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 02:26:06 +0000
+Received: from TYRPR01MB16474.jpnprd01.prod.outlook.com
+ ([fe80::2a39:9988:dbe9:894b]) by TYRPR01MB16474.jpnprd01.prod.outlook.com
+ ([fe80::2a39:9988:dbe9:894b%6]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 02:26:06 +0000
+Message-ID: <87mru17lmq.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v2] ASoC: report component resume callback errors
+In-Reply-To: <20260825085239.82282-1-pengpeng@iscas.ac.cn>
+References: <20260825085239.82282-1-pengpeng@iscas.ac.cn>
+User-Agent: Wanderlust/2.15.9 Emacs/30.2 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Tue, 1 Sep 2026 02:26:05 +0000
+X-ClientProxiedBy: TYWPR01CA0027.jpnprd01.prod.outlook.com
+ (2603:1096:400:aa::14) To TYRPR01MB16474.jpnprd01.prod.outlook.com
+ (2603:1096:405:2ee::10)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/4] fs: fix missed removal of
- super_fs_objects_eligible()
-To: Andrew Morton <akpm@linux-foundation.org>, usama.arif@linux.dev
-Cc: hughd@google.com, baolin.wang@linux.alibaba.com, brauner@kernel.org,
- david@kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Qi Zheng <zhengqi.arch@bytedance.com>
-References: <cover.1786955972.git.zhengqi.arch@bytedance.com>
- <3b038d373c70ebac7cdabfb0035bb91d1d6e6cfe.1786955972.git.zhengqi.arch@bytedance.com>
- <20260828114129.909edbfb7e42b36af2da6a98@linux-foundation.org>
- <eeae0d48-4d50-4dd4-9e16-b4f9902d84f4@linux.dev>
- <20260829162350.1ee9e17d71a297b06b171941@linux-foundation.org>
- <c1ad6e39-3b21-413c-ad02-f90cfc4102f9@linux.dev>
- <20260831192143.84da447c4fa2afb60757afa4@linux-foundation.org>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <20260831192143.84da447c4fa2afb60757afa4@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYRPR01MB16474:EE_|OSOPR01MB12344:EE_
+X-MS-Office365-Filtering-Correlation-Id: b04f6624-b701-4bdb-dbf4-08df07d0603b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|52116014|1800799024|23010399003|366016|376014|18002099003|22082099003|56012099006|6133799003|5023799004|11063799006|10067099003|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	lg4eUxs+82SYBBJfdVtSZvUX52ouYcCZFxyx/dDjf7J7OaxYgTkpYG1+uICYQEZMKd2ecaEP5LOTxEFluqW3F0GcZxmLR6ZrpVOnBkcCn7da8aGIFmCwB+GshIax8B6ThEqMHh3PlIYPPQaolve3pSDqRowMMjfZ25qEUgj6Imu9kZxk6ndkWgNwVGG7BNQWxyuBD3cOvatZZGRi8y/zIGLdlZB1PDZky9lCi0lpermr9W8WKzuwB9sCI2rPzhghkrKpwh/xHqooa1t4cTQUspFZuMLb5ttRKzMd1LTz/o38PkCGxbw7wLbshq9hI8JRhnQZqHRu5oYEaLMXTPuFuxqT6BWn9XSon+hOnloUYTj1cHtSzjrurMJBiBRjs5KqNGtlN8o334QIk/chqfL/+eTwOHZqj9jhzJoyqw67h9h63znODBO8+vot/5ZFJWMP43GolYRkJPL9OOC4hbjK6sEAV1OBF/3D69Uit2aCZpmcGR4Q07/J5d8qbplvTt+ZB503vYK2+jnsvWl0kVbFVkIwBn1Ih0O5Ui6hUHbgA+0Gil06GslyGpn2JeZz4Z8/iHGms7roXZa7+iUkYKsBZ3nZw4ON1fMX9ck3RqTsnb9lQCIGQvTV6XPVjygLeaG2CAhD12bqlQIf9cWGM5Uhy+7s5XaNcDu7TGyKPyarHrNEeedZVSsZQZ49lEyjjSOgJTi41gqJ/QQt4zAWcFDWIA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB16474.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(52116014)(1800799024)(23010399003)(366016)(376014)(18002099003)(22082099003)(56012099006)(6133799003)(5023799004)(11063799006)(10067099003)(38350700014);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?I2+gvkq7H8gkv1aByBzjNpAZ6mPgh04TF1IXna56RzyZmRqeYg7aY7RXVDDR?=
+ =?us-ascii?Q?SnZxH4f89d9iM6i3+IA+oYB1Uoa7isnsas7g8CsKluH3jjSYifUjutYZl1vo?=
+ =?us-ascii?Q?lbHzE8geIdgpYuYRp8BLuLkPZ9xzZ/+nIm/EaU9vb1zjY9veA/5xUzGvyhU0?=
+ =?us-ascii?Q?t2ec1MEc4HbLyaN5+CMUmSpeHQ/0FQ+5DcN/sHkc+iq9wJgJVSyGT4TTCk0u?=
+ =?us-ascii?Q?+txPXz1HPhDjsSZK7SCFs5NeS3J6hEhpNPAEV7GeaifSJ3QaoEp4E1BzRotg?=
+ =?us-ascii?Q?ApiwG455cnL+u9wx3w4KwPIe0YtO39rJU/NPlNqr6vsllnrzC6BYwP7ZNecC?=
+ =?us-ascii?Q?dtYvZv5gZQbzW+PX6kv1nDFqyFXxce/56e7ZUvyT9/dD6yQfDb5uf2VjUbNc?=
+ =?us-ascii?Q?DRUvrhU+QjYin6u8WiDFRdgfA06AuV7JQnprIh/z7vpATEn623DqHnww5q6/?=
+ =?us-ascii?Q?HVMsZa1zuIMZi6x4Xj+kUByHruJksGt3SYEC/VuzlYzlLJwXu4QoY18biHpI?=
+ =?us-ascii?Q?5fwp8depxe8EaGNd1j/oUxi08e8zzo1JvDUA6AfaHmIjbGMQ8qU3NVJFdYjW?=
+ =?us-ascii?Q?RAFpO67pX1/IRF+dEKzXytqkjcRmoJ8BTlJuV2ljM7rQxn3ola3pJ0awiaId?=
+ =?us-ascii?Q?NWzer9OTi4hmNRV0/Cz/J0ThfAYHxZsuTs1+bR/zHR3tHsKZO7Vd7UzUeJ8A?=
+ =?us-ascii?Q?T5QVbls+yi2xy46xfZ/fXDU3ZNRdoX319vRvue/aufKWwAGlZOI9Jf7Cweie?=
+ =?us-ascii?Q?59YBdFuGqHDAGFNhVDwWR6B7PxB7vAoVkCeSviYRdbqTuzFGhPjjqolzNivl?=
+ =?us-ascii?Q?OqpOTuR6Wg1EFD7O7XzLFDk6AvzULIcVASnOti1StUAp1d9gpy9n05NAcLKS?=
+ =?us-ascii?Q?gfFnCKJbGekQlxh20tQmKxi5jLsnSL8KjVXHlp0FA0yOUyItkcE9KZZz/7PA?=
+ =?us-ascii?Q?r0H+SG6a5zb98J8eT+pKCJWa1S7G+v61w8/t40Dp/TrGF2vsrQfRhXrUdZw2?=
+ =?us-ascii?Q?b7vGNmNYOvtnNWYGIe98d+UNlYEt3z18d09BqFzilVIgMjQz/Hcry8i1CLjZ?=
+ =?us-ascii?Q?qJE2YaCNP2NDMGLw1Wu1CHWXckCxLdnkNdm94/GUacl+NgAJewTs/l9zpTiJ?=
+ =?us-ascii?Q?v8oaGIf15Su506Hois0zfFrkAuTgn4pX68mU9I6OwcZAhZalIr0Igw3Wdqlm?=
+ =?us-ascii?Q?oiGjXeaGxEQpLylSuJYzAz/vSxn4ZRWo3iHqKitnd9HKy3sAkwcIYq84pcIB?=
+ =?us-ascii?Q?I5cCqIwdekEwsTgOmDOAjDI4Uyg0KniA72pvojAKHIsiyH+IwuJCOE3Jdp4k?=
+ =?us-ascii?Q?8F90mI6k5VO8UH/Vf2hEwY5prpNb8gWCymUYr5Py9m8fCpXHJ8E5e3qfPlnp?=
+ =?us-ascii?Q?7ifBW2JLYTXcLzOvvqwyVo8APtEsAWICsSHfR9iQo1dBIn1evLDQzd5FJiUz?=
+ =?us-ascii?Q?cRL/bGXZinnmOodVoGuCQE6Gn3J8e5IJuv5PmfI0gi2VOH510qRQvCPE5Bli?=
+ =?us-ascii?Q?DqjlsjwFFMcXLxMCt9kxHZ8r4OuDlCW4HFywJGd2/cXkKw+3UuQ2wQyHRVt0?=
+ =?us-ascii?Q?eFNKKT//152IJ4QBeHVgMGK/55A6ImxFeGsJ8bu5BbbY3eAiVxeYXUNK3puY?=
+ =?us-ascii?Q?O33+xls80nwNI3/fWrknln4F1PellPZKNNokq2Y1afZ2GGhUyFaGeNXNNKHu?=
+ =?us-ascii?Q?n/+ikBooWanbo62ADjOuj8PPMfZKYCf1hPZfZyyzKeQLA1UglucSG/X5jHhb?=
+ =?us-ascii?Q?Z+Hq1Z6IwADCgEpWH3G24m4s73JcVejbZ4B+7IjZGyQQnIHhyImC?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b04f6624-b701-4bdb-dbf4-08df07d0603b
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB16474.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 02:26:06.0278
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Bl9GJx5asMuVZGb0D3lyzqVdzX6IuaAtNfIKOnlJIUvCND53o+bDqLNipvpxm4dqlVJWNDo/Xw+kR3g12xqPQEEOSkTKNBgL8vQ5mWaZGbE1iCqASkI6TkK0RS9QwH7r
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSOPR01MB12344
 
 
+Hi
 
-On 9/1/26 10:21 AM, Andrew Morton wrote:
-> On Mon, 31 Aug 2026 10:28:00 +0800 Qi Zheng <qi.zheng@linux.dev> wrote:
+> snd_soc_component_driver::resume() returns an int, but
+> snd_soc_component_resume() discards it. In the deferred resume path,
+> snd_soc_resume() has already returned success to the PM core, so an error
+> cannot be propagated back to that caller.
 > 
->>> OK, please add this info to this patch's changelog.  Please also decide
->>> whether a cc:stable should be added and if so, ensure the changelog
->>> makes clear why we're recommending a backport.
->>>
->>> As part of this, let's expand on "XFS will also run into issues".
->>
->> How about this instead:
->>
->> ---
->> Commit 0ef8faff490be ("fs: push nr_cached_objects memcg gating into
->> individual filesystems") was meant to drop the blanket memcg gate in
->> fs/super.c and let each ->nr_cached_objects() implementation decide
->> for itself whether it is meaningful in per-memcg reclaim. However,
->> when that patch was applied the removal of super_fs_objects_eligible()
->> and its two call sites in super_cache_scan() / super_cache_count() was
->> lost, so the helper is still gating every ->nr_cached_objects() hook
->> and 0ef8faff490be is effectively a no-op.
->>
->> Consequences of the leftover gate:
->>
->>     - XFS's inode-reclaim hook, which is intentionally driven from
->>       per-memcg contexts to free memcg-charged slab, is still
->>       short-circuited in fs/super.c — exactly the regression from
->>       commit 0baad6f9b997 ("fs/super: skip non-memcg-aware
->>       nr_cached_objects in memcg slab shrink") that 0ef8faff490be was
->>       written to undo. Memcg-charged XFS inode slab therefore keeps
->>       piling up under per-memcg pressure until global reclaim kicks in.
->>
->>     - Any future ->nr_cached_objects()/->free_cached_objects() that
->>       grows memcg awareness is likewise blocked before it can run, so
->>       filesystems cannot opt in to per-memcg reclaim on their own —
->>       defeating the whole point of pushing the gating decision down
->>       into the callbacks.
->>
->> Drop the leftover helper and its call sites so the intent of
->> 0ef8faff490be actually takes effect.
->>
->> Fixes: 0ef8faff490be ("fs: push nr_cached_objects memcg gating into
->> individual filesystems")
->> Cc: stable@vger.kernel.org
->> ---
->>
->> Can you fix up the commit message directly on your end? Let me know if
->> you prefer me to spin a v5 instead.
+> Pass the callback result through the existing ASoC component error helper.
+> This reports negative results with component context while preserving the
+> established best-effort behavior: the component is still marked resumed
+> and the worker continues DAPM resume, digital unmute and card power
+> publication.
 > 
-> Thanks.  I pasted this in and turned your [1/4] into a standalone patch
-> for mm-hotfixes, with a cc:stable.
-
-Thanks!
-
+> There are existing callbacks, including tas2562_resume() and
+> atmel_classd_component_resume(), which directly return regcache_sync()
+> errors. Those errors currently disappear at the component wrapper.
 > 
-> The remaining three patches I turned into a separate series for the
-> next merge window.
-
-OK.
-
+> This only makes errors already returned by component callbacks observable.
+> It does not expose operations that individual callbacks ignore, and it
+> does not add rollback or retry semantics. Callbacks which already report
+> an error may retain their driver-specific message in addition to the
+> common ASoC component context, as with other ASoC component wrappers.
 > 
-> This particular patch has no evidence of reviewer input yet?
-
-Hi Usama, could you please help review this patch?
-
-Thanks,
-Qi
-
+> This is an RFC to confirm that reporting and continuing is the intended
+> contract for deferred component resume failures.
 > 
-> 
-> From: Qi Zheng <zhengqi.arch@bytedance.com>
-> Subject: fs: fix missed removal of super_fs_objects_eligible()
-> Date: Mon, 17 Aug 2026 17:03:25 +0800
-> 
-> Commit 0ef8faff490be ("fs: push nr_cached_objects memcg gating into
-> individual filesystems") was meant to drop the blanket memcg gate in
-> fs/super.c and let each ->nr_cached_objects() implementation decide for
-> itself whether it is meaningful in per-memcg reclaim.  However, when
-> that patch was applied the removal of super_fs_objects_eligible() and
-> its two call sites in super_cache_scan() / super_cache_count() was
-> lost, so the helper is still gating every ->nr_cached_objects() hook
-> and 0ef8faff490be is effectively a no-op.
-> 
-> Consequences of the leftover gate:
-> 
->     - XFS's inode-reclaim hook, which is intentionally driven from
->       per-memcg contexts to free memcg-charged slab, is still
->       short-circuited in fs/super.c  exactly the regression from
->       commit 0baad6f9b997 ("fs/super: skip non-memcg-aware
->       nr_cached_objects in memcg slab shrink") that 0ef8faff490be was
->       written to undo. Memcg-charged XFS inode slab therefore keeps
->       piling up under per-memcg pressure until global reclaim kicks in.
-> 
->     - Any future ->nr_cached_objects()/->free_cached_objects() that
->       grows memcg awareness is likewise blocked before it can run, so
->       filesystems cannot opt in to per-memcg reclaim on their own
->       defeating the whole point of pushing the gating decision down
->       into the callbacks.
-> 
-> Drop the leftover helper and its call sites so the intent of
-> 0ef8faff490be actually takes effect.
-> 
-> Link: https://lore.kernel.org/cover.1786955972.git.zhengqi.arch@bytedance.com
-> Link: https://lore.kernel.org/3b038d373c70ebac7cdabfb0035bb91d1d6e6cfe.1786955972.git.zhengqi.arch@bytedance.com
-> Link: https://lore.kernel.org/all/20260715103516.2410175-1-usama.arif@linux.dev/ [0]
-> Fixes: 0ef8faff490b ("fs: push nr_cached_objects memcg gating into individual filesystems")
-> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-> Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Cc: Christian Brauner <brauner@kernel.org>
-> Cc: David Hildenbrand <david@kernel.org>
-> Cc: Hugh Dickins <hughd@google.com>
-> Cc: Christian Brauner <brauner@kernel.org>
-> Cc: David Hildenbrand <david@kernel.org>
-> Cc: Hugh Dickins <hughd@google.com>
-> Cc: Johannes Weiner <hannes@cmpxchg.org>
-> Cc: Michal Hocko <mhocko@kernel.org>
-> Cc: Muchun Song <muchun.song@linux.dev>
-> Cc: Roman Gushchin <roman.gushchin@linux.dev>
-> Cc: Shakeel Butt <shakeel.butt@linux.dev>
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 > ---
-> 
->   fs/super.c |   18 ++----------------
->   1 file changed, 2 insertions(+), 16 deletions(-)
-> 
-> --- a/fs/super.c~fs-fix-missed-removal-of-super_fs_objects_eligible
-> +++ a/fs/super.c
-> @@ -172,19 +172,6 @@ static void super_wake(struct super_bloc
->   }
->   
->   /*
-> - * The s_op->nr_cached_objects hooks (used for example by btrfs and xfs)
-> - * operate on filesystem-global state and ignore sc->memcg. Driving them
-> - * from per-memcg shrink_slab_memcg() invocations only burns CPU walking
-> - * per-cpu counters and queueing duplicate work: the actual reclaim happens on
-> - * the global path (kswapd or root direct reclaim) regardless. Restrict them
-> - * to that path.
-> - */
-> -static inline bool super_fs_objects_eligible(struct shrink_control *sc)
-> -{
-> -	return !sc->memcg || mem_cgroup_is_root(sc->memcg);
-> -}
-> -
-> -/*
->    * One thing we have to be careful of with a per-sb shrinker is that we don't
->    * drop the last active reference to the superblock from within the shrinker.
->    * If that happens we could trigger unregistering the shrinker from within the
-> @@ -213,7 +200,7 @@ static unsigned long super_cache_scan(st
->   	if (!super_trylock_shared(sb))
->   		return SHRINK_STOP;
->   
-> -	if (sb->s_op->nr_cached_objects && super_fs_objects_eligible(sc))
-> +	if (sb->s_op->nr_cached_objects)
->   		fs_objects = sb->s_op->nr_cached_objects(sb, sc);
->   
->   	inodes = list_lru_shrink_count(&sb->s_inode_lru, sc);
-> @@ -274,8 +261,7 @@ static unsigned long super_cache_count(s
->   		return 0;
->   	smp_rmb();
->   
-> -	if (sb->s_op && sb->s_op->nr_cached_objects &&
-> -	    super_fs_objects_eligible(sc))
-> +	if (sb->s_op && sb->s_op->nr_cached_objects)
->   		total_objects = sb->s_op->nr_cached_objects(sb, sc);
->   
->   	total_objects += list_lru_shrink_count(&sb->s_dentry_lru, sc);
-> _
-> 
 
+Indeed we can do nothing for resume case error.
+
+Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+
+Thank you for your help !!
+
+Best regards
+---
+Kuninori Morimoto
