@@ -1,68 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52042931CD;
-	Tue,  1 Sep 2026 09:58:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92FDB33DEF7
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:59:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788256710; cv=none; b=AXbccTa/PSfLPmRntObA8u2bheAx5/v1G/rPnfUZH+657PU5eqYhwXtz2N8MFmgIc6zogu0IXV8vSeaqdoRmRIyEzYbTneCwv8koEVmfGGX2/Qw9/9/tlwfREHuh6glvRGOOyKvRgUWBx1Rxry0LV9CSg5NH9apxYxPWHyVENLA=
+	t=1788256749; cv=none; b=MH+hIYUAV7DWKBh0yrSGVG0+HLtP8Op0i+bQGK+Ej4GoRe13MPZeOqU4fNIoxm+i1DtXFXFvM4kLnEP4cytJyOyEw9DHQdWZpyFTPAb7zCKStdYN2HuqQZ7XyEEu1jKzPHomElYi5HgeuK2nNNhDC6HKKPGM3HQI0N+lGJUZotw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788256710; c=relaxed/simple;
-	bh=ZzkvxlCG1ixPz8vK6bTV71Hau8woza5bw54+xcqOBIM=;
+	s=arc-20240116; t=1788256749; c=relaxed/simple;
+	bh=bKM3BOiWSK2/vxsVP7xGQiL6REe1Em7IJPUcnMsp9wQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oJnpcXsvOdfb9sx0mSU63mNJKh2Upob48mlnhp1DrNnyvTnsKqh6KHJbR8UUKOHD1h4xmOuwD1jL6zW8ImMbM8n0Nt+R7+h2KNyltbqxXSC5d12ADyXuWagHg2awP4e3fBZ3EMEbcD0bten6uoElf4xj9aY/sxHSi58/aPahIZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XqYfG65D; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=GNOOYwrL4FDnd07fXjhVom/XUdNn5xdqFXuQPiQ9VVuJBWFUSmbqMGJaviyD+cCJBrISw7bezcyiH63swx4Ujj3bJoGLQE1NrWtn/abRSZyH+Qxy8mXa8ZumKgi3InjT3UPQ+bPpnk/lVJYAGn5aZR786eSy5H/qbbMFx+WVUyI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=srenq8KZ; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XqYfG65D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FD141F000E9;
-	Tue,  1 Sep 2026 09:58:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788256709;
-	bh=cig5EAB1yC6y3NFERncxBWChwEjQLbYEzPejDmotQJg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XqYfG65DREwMaiMkAcjZzAXcPhrGYZ7dkf8rODdAGiFi0tudGi8LYNHJI5+o+UAeh
-	 zcH/Lc4dgarJejrsMBlH7v9cr+1hFlMG/NcvJcMNSqyqyxRMX5e9cNr/qznbz3d3V7
-	 IkE2e/ZO4qUC0E1Ww8pxm78JGSIRNlqR1k9OPAprU7fSS0ePmSjGAwQ5OTmU3YHQjA
-	 kGz3f92LSyRQpuC3R0jtwyBFoBu3/DI61OPF3aZZgziVEyRGAd0TU0eYBd7kEKBIUi
-	 b1NV200BlGuEQSCwndZ26limqQGKFx0f6qx0uF6/t7f1hO5mJOO4LA9zVswX4IKegp
-	 OrK6MUyUrnigw==
-Date: Tue, 1 Sep 2026 11:58:25 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Arthur Crepin Leblond <arthur@marmottus.net>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v6 2/3] dt-bindings: net: wiznet,w5100: add link
- status interrupt
-Message-ID: <20260901-busy-lorikeet-of-piety-bda3a1@quoll>
-References: <20260831-wiznet-link-gpio-v6-0-abee6c5c966e@marmottus.net>
- <20260831-wiznet-link-gpio-v6-2-abee6c5c966e@marmottus.net>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="srenq8KZ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=8hcZZuGg5zfIoWr+fssOIfgBGeSQ/Wi7x8gohmj3py8=; b=srenq8KZEkMiu7sLjo+AjDKVWc
+	JWGjbodqLNndMUAt5vV1X0QK7XqderFV4bT/xGQvJolaTyqV9m3pgfZ/Sb1FWhHpf3vxwgQ7nBDMP
+	yMR61ZW0oBRYxbmBGaAJRmZmTGwN1rveoJxlg86zH2P69RhoWx8FzpkXCGPvVlO8vRXVPaJmzu5K1
+	eFDPFy+9V9KN4nfS8uPfHuIG/R66HOg/IAzE0/EWPrV8cCjztYSF0q6KQXRVVVtPI9aFheOuRA6lP
+	wrkASIwbBSCEzUathVj0D93Cl0gR5SjKsv/d5sUAv2JpkvzjLWqCbFDYq3rYwUlSk+R2062oEGwzI
+	bZkTvAgw==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x1LGL-00000004tKQ-1oqx;
+	Tue, 01 Sep 2026 09:58:41 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 895DD300578; Tue, 01 Sep 2026 11:58:40 +0200 (CEST)
+Date: Tue, 1 Sep 2026 11:58:40 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Jianyong Wu <wujianyong@hygon.cn>
+Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Chen Yu <yu.c.chen@intel.com>,
+	Tim Chen <tim.c.chen@linux.intel.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Phil Auld <pauld@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, jianyong.wu@outlook.com, zhongyuan@hygon.cn,
+	huangsj@hygon.cn, wangfengyu@hygon.cn, yingzhiwei@hygon.cn,
+	justin.he@arm.com
+Subject: Re: [RFC PATCH v2 12/23] sched/cache: Introduce rq affinity gain
+ calculation
+Message-ID: <20260901095840.GR4120091@noisy.programming.kicks-ass.net>
+References: <20260827122816.756234-1-wujianyong@hygon.cn>
+ <20260827122816.756234-13-wujianyong@hygon.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260831-wiznet-link-gpio-v6-2-abee6c5c966e@marmottus.net>
+In-Reply-To: <20260827122816.756234-13-wujianyong@hygon.cn>
 
-On Mon, Aug 31, 2026 at 02:53:35PM +0200, Arthur Crepin Leblond wrote:
-> Add an optional link status interrupt which can be connected to the
-> LINKLED pin on the device to detect link status changes.
-> 
-> Signed-off-by: Arthur Crepin Leblond <arthur@marmottus.net>
-> 
-> ---
-> v6:
-> - Fix DT error: use minItems
-> - Remove conditional properties
+On Thu, Aug 27, 2026 at 08:28:05PM +0800, Jianyong Wu wrote:
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>  #ifdef CONFIG_SCHED_CACHE
+> +extern int max_lid;
+>  /*
+>   * Record the statistics for this scheduler group for later
+>   * use. These values guide load balancing on aggregating tasks
+> @@ -11998,6 +11999,174 @@ static bool update_llc_busiest(struct lb_env *env,
+>  	 */
+>  	return sgs->nr_pref_dst_llc > busiest->nr_pref_dst_llc;
+>  }
+> +
+> +/*
+> + * Get all LLCs that are closer to the destination LLC than to the
+> + * source LLC inside a NUMA.
+> + */
+> +static int get_affi_llcs(struct sched_domain *sd, int src_llc, int dst_llc,
+> +			 int *affi_llcs, int *affi)
+> +{
+> +	int j = 0, src_dist, dst_dist, cur_node;
+> +
+> +	if (src_llc == dst_llc || sd->flags & (SD_NUMA | SD_SHARE_LLC))
+> +		return 0;
+> +
+> +	cur_node = llc_to_node(src_llc);
+> +	if (cur_node != llc_to_node(dst_llc))
+> +		return 0;
+> +
+> +	for (int i = 0; i <= max_lid; i++) {
 
-Best regards,
-Krzysztof
-
+This isn't safe. max_lid isn't stable, you should use sd->llc_max which
+matches the actual allocation size of sd->llc_counts.
