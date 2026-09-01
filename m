@@ -1,139 +1,202 @@
-Received: from out-zbxj-a91.jellyfish.systems (out-zbxj-a91.jellyfish.systems [198.54.127.91])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4874137E5EF
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 00:51:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.54.127.91
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0E6637EFE7;
+	Tue,  1 Sep 2026 00:51:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788223913; cv=none; b=pRMk1ISzuoH1QwiYahk99qus8WmpXTakUAWFzzoY1W/MOne5ye3fWcjaU09pXNA1/sDs+rQ5QJH9wZmSa5wr1xTBkKTqnLe8PcADvx3Su4bL/mkV9DGvHLCB90bDTVtmjUDDyrAeDV6J9rcTX71xGMb6j59vsPofTxXmNw1NOXo=
+	t=1788223915; cv=none; b=dh/iTx+kzKdcpTPSFrmq7CqxhD0O+6Ra6tytkeDGl32SPl+nZiaVLD8T9uxYCJYwWTcJkFEVqyLZdWqQtJJYUirCtJQp7/1IjrMUbdJVBhDM+JHEW9jnTJ/2bl3qeX007PgV7mpSYZZ2ygJH9LsRqAsfL3qUGgvV5K3uLeu6U9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788223913; c=relaxed/simple;
-	bh=pDHNs5tzOnSgGhVMJwsbSK33nJ4lCp8YGpCMQIp8Z88=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SukIplAoIlXD0qhoxNtKDBbkmrts9jxB0u0kTFn3KgbjDGI+13Iy2AfYqS/KO4+x35iQQmByJXuPJrzP157YgfmX7XjpSduD7VaLmFnWauOizEEg34NjRnp8Wc02W1JQQzCyYUT2vuEW3bG2SVH4ktWwa4DSlBjWbRgQ8HLgbpk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=198.54.127.91
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
-Received: from mail.privateemail.com (unknown [87.215.145.39])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.privateemail.com (Postfix) with ESMTPSA id 4hYnP53ZSnz2x9C;
-	Tue, 01 Sep 2026 00:51:37 +0000 (UTC)
-From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-To: Jonathan Cameron <jic23@kernel.org>,
-	linux-iio@vger.kernel.org
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
-	linux-hardening@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Luca Weiss <luca.weiss@fairphone.com>,
-	Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
-	Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
-Subject: [PATCH v3 0/5] iio: light: stk3310: per-chip match data and STK36C61 support
-Date: Tue,  1 Sep 2026 02:51:09 +0200
-Message-ID: <20260901005114.203062-1-jorijnvdgraaf@catcrafts.net>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1788223915; c=relaxed/simple;
+	bh=jkzrYj8PJyPz96nMDh9g0buGOmxTZpqsD6UgMxBlmJU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=epzkLP0yIxuHPglp6qLCyMLXPqq1GDG3rHXfoEyZUE5pStK06kUBS/8DgimCngb0FXu6oURKolpYJyUuGhlaPdWhefJh0qIvP7bv9DbpdG/Zl0oFvKPwHJsziIAksxb8BtotqGcSta4aHdxnWDeiaV7sOQdojl/Dz2sBS97+Gy8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mA0dn3MD; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mA0dn3MD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8B101F000E9;
+	Tue,  1 Sep 2026 00:51:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788223913;
+	bh=3J24YzvMtZcbVkqO6v2h4dYWM+5So6cHobuVpr4vxEA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mA0dn3MDZd9FsqLvQz78FkiFmHDKPMoF3QI8rHzbgUDdLhSNdTfp+A9yAZcZhRMMd
+	 CE/A6VuiKEvSNGktWqHU8S6MIK8DpxkkfvDRzqMSs4qWd9kJoXDX+QXiH5spcXthRZ
+	 tBzcdmizY7QS2A0eoFlpJxn7Mf3LD6G/CpiYh5Cu64eKnlAGi1JZI0dADGDlf++mw2
+	 82M/CtpfZaFwxwoNMQzy28c1WZoEroQZ/Mh3zUyOQsMSd720GgjW1od+Bq3j7rh3NZ
+	 6QocUfb/4HecZgXn5KUfoSV+HBEv223mFySl1yd4LNWlc54iKLI2JssuMjoYjTAnSr
+	 0zXlUXXQn43ug==
+Date: Mon, 31 Aug 2026 17:51:49 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Khawar Ahemad <ahemadkhawar123@gmail.com>
+Cc: bpf@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, magnus.karlsson@intel.com,
+ maciej.fijalkowski@intel.com, sdf@fomichev.me, ast@kernel.org,
+ daniel@iogearbox.net, hawk@kernel.org, john.fastabend@gmail.com,
+ pabeni@redhat.com, edumazet@google.com, horms@kernel.org,
+ syzbot+aa48b5fe7bfda62d1682@syzkaller.appspotmail.com
+Subject: Re: [PATCH bpf-next v4] xsk: Fix circular locking dependency
+ between &net->xdp.lock, &xs->mutex, and netdev_lock_ops
+Message-ID: <20260831175149.6a13c2a3@kernel.org>
+In-Reply-To: <20260826174744.3394-1-ahemadkhawar123@gmail.com>
+References: <20260826174744.3394-1-ahemadkhawar123@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: jorijnvdgraaf@catcrafts.net
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The Sensortek STK36C61 is a 3-in-1 ambient light / proximity / RGB
-colour sensor whose register interface is compatible with the stk3310
-across the ALS and proximity data, threshold, gain and
-integration-time registers this driver uses. The part name comes from
-the Fairphone 6 manual, which lists the component as "3IN1 ALPS/RGB
-sensor/STK36C61". The layout was probed on the device: chip ID 0x95,
-the stk3310 STATE/FLAG bit layout, data and threshold registers
-(thresholds written through the event interface read back from the
-chip, and the FLAG near/far bit crosses with them), gain and
-integration-time fields the ALS and proximity readings scale with,
-and an RGBC data block directly after the ALS data, the red, green
-and blue assignments each confirmed by the matching channel
-dominating under the matching illumination and clear by its broadband
-response.
+On Wed, 26 Aug 2026 23:17:44 +0530 Khawar Ahemad wrote:
+> Subject: [PATCH bpf-next v4] xsk: Fix circular locking dependency between &net->xdp.lock, &xs->mutex, and netdev_lock_ops
 
-The colour controls: R, G and B share the illuminance channel's gain.
-Clear is gained by its own field in a GAINCTRL register at 0x4E,
-originally located via the datasheet of the STK37660 (a documented
-sibling with the same data register layout) and verified on the
-device: stepping it multiplies the clear count by ~4 per step while
-the other channels hold still. The STK36C61 patch exposes scale and
-integration time on the colour channels.
+This patch got assigned to netdev in patchwork, which means it should
+go via the networking trees. When reposting please tag it as 
+[PATCH net v5] rather than bpf-next.
 
-A public datasheet exists: the STK36C61-A preliminary datasheet,
-version 0.9, hosted by LCSC [1]. It agrees with the device on the
-colour-engine layout (RGBC data at 0x15-0x1C, the clear gain in
-GAINCTRL 0x4E, the shared RGB-gain and integration-time fields in
-ALSCTRL1), but it documents the -A variant and gives the product ID
-as 0x93 where this part reports 0x95. Luca Weiss reports a newer
-revision (0.9.2) gives 0x95 and different mLux-per-count figures for
-the ALSCTRL1 gain settings. I could not find a published copy of
-that revision.
+> syzbot reported a circular locking dependency involving &net->xdp.lock,
+> &port->pnodes_lock, netdev_lock_ops(), and &xs->mutex:
+> 
+> -> #3 (&net->xdp.lock):  
+>        xsk_notifier+0x3d/0x2c0 net/xdp/xsk.c:2106
+>        ipvlan_device_event+0x310/0x4e0 drivers/net/ipvlan/ipvlan_main.c:834
+>        unregister_netdevice_many_notify+0x808/0x18b0 net/core/dev.c:12518
+> 
+> -> #2 (&port->pnodes_lock):  
+>        ipvlan_device_event+0x85/0x4e0 drivers/net/ipvlan/ipvlan_main.c:795
+>        notifier_call_chain+0xb5/0x410 kernel/notifier.c:85
+> 
+> -> #1 (&dev_instance_lock_key / netdev_lock_ops):  
+>        netdev_lock_ops include/net/netdev_lock.h:42 [inline]
+>        xsk_bind+0x331/0x11d0 net/xdp/xsk.c:1627
+> 
+> -> #0 (&xs->mutex):  
+>        xsk_diag_fill net/xdp/xsk_diag.c:113 [inline]
+>        xsk_diag_dump+0x2e0/0x4e0 net/xdp/xsk_diag.c:166
+> 
+> The cycle exists through the following dependency chain:
+> 1. xsk_diag_dump() acquired &xs->mutex while holding &net->xdp.lock (#0).
+> 2. xsk_bind() acquired netdev_lock_ops() while holding &xs->mutex (#1).
+> 3. Device unregistration in ipvlan_device_event() acquired
+>    &port->pnodes_lock (#2) and called xsk_notifier(), which acquired
+>    &net->xdp.lock (#3).
 
-Tested on a Fairphone 6 running a 7.2-based tree: this series'
-stk3310.c, byte-identical, built as a module against that tree (the
-i2c core files the binding behaviour depends on are identical between
-the trees). Verified there: DT boot instantiation, the colour
-scale/integration-time interface, and the sysfs name behaviours this
-series changes: a lower-case name reaches the id table's match data,
-capitals no longer bind, and a full-compatible-string client now
-fails probe with the missing-driver-data error. A board DTS node
-using the new compatible follows separately via linux-arm-msm.
+This description is not super clear on what creates the cycle TBH.
+Please clean this up.
 
-Patch 5 carries no Datasheet: tag since the sheet at [1] is a
-preliminary for the -A variant: the published revision's product ID
-mismatches this part's, the register map omits the ALS data
-registers, and the later revision disagrees on the mLux-per-count
-figures. I am unable to find specifics for the Datasheet: tag,
-whether it must be the exact sheet for the part or if a "good
-enough" sheet is accepted.
+> Break the circular dependency by decoupling the locking in xsk_diag_dump()
+> and xsk_notifier():
+> 
+> 1. In xsk_diag_dump(), avoid holding &net->xdp.lock while calling
+>    xsk_diag_fill(). Instead, locate the target socket under &net->xdp.lock,
+>    take a temporary socket reference via sock_hold(), release
+>    &net->xdp.lock, and call xsk_diag_fill() (which acquires &xs->mutex)
+>    with sock_put().
+>    To preserve dump continuation across buffer exhaustion, distinguish
+>    -ENOENT (when an unbound socket is skipped) from -EMSGSIZE (when the
+>    skb is full and the cursor must be retained for the next dump callback).
 
-Changes in v3:
-- patch 4: drop the tab alignment of the chip_info members, take the
-  probe failure through a struct device local, and return -ENODATA
-  instead of -ENODEV on missing match data, commit message
-  wording tightened (Andy)
-- patch 5: commit message squeezed to the point, the verification and
-  colour-assignment detail moved into this letter, the scale
-  rationale trimmed to its load-bearing constraint (Andy, Jonathan)
-- cover letter: the "no public datasheet" claim corrected (Marcelo)
-- picked up Andy's Reviewed-by on patches 1 and 3
+Why are you doing this? We still take the socket logs under the netns
+in the notifier so does this actually fix anything?..
 
-v2: https://lore.kernel.org/all/20260826175409.326131-1-jorijnvdgraaf@catcrafts.net/
-v1: https://lore.kernel.org/all/20260810110423.41697-1-jorijnvdgraaf@catcrafts.net/
+> 2. In xsk_notifier(), split device unregistration into two phases:
+>    - First, unbind all matching sockets under &net->xdp.lock and
+>      &xs->mutex.
+>    - Then, release &net->xdp.lock and perform device queue teardown by
+>      sweeping the device queues via xsk_get_pool_from_qid() and calling
+>      xp_clear_dev(pool) outside all AF_XDP locks.
 
-[1] https://www.lcsc.com/datasheet/C49230205.pdf
+..IOW isn't fixing this enough? 
 
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+> Fixes: 975b11ae9077 ("xsk: add socket allocate, create and bind")
 
-Jorijn van der Graaf (5):
-  iio: light: stk3310: lower-case the i2c device ID names
-  dt-bindings: iio: light: stk33xx: document the Sensortek STK36C61
-  iio: light: stk3310: move the data registers into the channel address
-  iio: light: stk3310: add per-chip match data
-  iio: light: stk3310: support the Sensortek STK36C61
+Hallucination. Besides, if the problem in the netdev lock - pretty sure
+it didn't exist when xsk was added.
 
- Documentation/ABI/testing/sysfs-bus-iio       |   1 +
- .../bindings/iio/light/stk33xx.yaml           |   9 +-
- drivers/iio/light/stk3310.c                   | 203 +++++++++++++-----
- 3 files changed, 156 insertions(+), 57 deletions(-)
+> Reported-by: syzbot+aa48b5fe7bfda62d1682@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=aa48b5fe7bfda62d1682
+> Signed-off-by: Khawar Ahemad <ahemadkhawar123@gmail.com>
 
+> diff --git a/net/xdp/xsk.c b/net/xdp/xsk.c
+> index 7855ee09c4..e72344fccb 100644
+> --- a/net/xdp/xsk.c
+> +++ b/net/xdp/xsk.c
+> @@ -2099,7 +2099,9 @@ static int xsk_notifier(struct notifier_block *this,
+>  {
+>  	struct net_device *dev = netdev_notifier_info_to_dev(ptr);
+>  	struct net *net = dev_net(dev);
+> +	unsigned int max_queues;
+>  	struct sock *sk;
+> +	u16 qid;
+>  
+>  	switch (msg) {
+>  	case NETDEV_UNREGISTER:
+> @@ -2114,13 +2116,21 @@ static int xsk_notifier(struct notifier_block *this,
+>  					sk_error_report(sk);
+>  
+>  				xsk_unbind_dev(xs);
+> -
+> -				/* Clear device references. */
+> -				xp_clear_dev(xs->pool);
+>  			}
+>  			mutex_unlock(&xs->mutex);
+>  		}
+>  		mutex_unlock(&net->xdp.lock);
+> +
+> +		/* Clear device references outside AF_XDP locks to avoid
+> +		 * lock inversion with netdev_lock_ops().
+> +		 */
+> +		max_queues = max(dev->real_num_rx_queues, dev->real_num_tx_queues);
+> +		for (qid = 0; qid < max_queues; qid++) {
+> +			struct xsk_buff_pool *pool = xsk_get_pool_from_qid(dev, qid);
 
-base-commit: 350d1fb9204b13c5f95e511e98b8bcb47574d425
+This will not work for leased queues.
+Just collect the sockets in the loop above and hold them like you did
+on the diag side. Then you can walk the sockets and use xs->pool.
+
+> +			if (pool)
+> +				xp_clear_dev(pool);
+> +		}
+>  		break;
+>  	}
+>  	return NOTIFY_DONE;
+> diff --git a/net/xdp/xsk_diag.c b/net/xdp/xsk_diag.c
+> index 0170363eb5..bad0b13064 100644
+> --- a/net/xdp/xsk_diag.c
+> +++ b/net/xdp/xsk_diag.c
+> @@ -97,6 +97,7 @@ static int xsk_diag_fill(struct sock *sk, struct sk_buff *nlskb,
+>  	struct xdp_sock *xs = xdp_sk(sk);
+>  	struct xdp_diag_msg *msg;
+>  	struct nlmsghdr *nlh;
+> +	int err = -EMSGSIZE;
+>  
+>  	nlh = nlmsg_put(nlskb, portid, seq, SOCK_DIAG_BY_FAMILY, sizeof(*msg),
+>  			flags);
+> @@ -111,8 +112,10 @@ static int xsk_diag_fill(struct sock *sk, struct sk_buff *nlskb,
+>  	sock_diag_save_cookie(sk, msg->xdiag_cookie);
+>  
+>  	mutex_lock(&xs->mutex);
+> -	if (READ_ONCE(xs->state) == XSK_UNBOUND)
+> +	if (READ_ONCE(xs->state) == XSK_UNBOUND) {
+> +		err = -ENOENT;
+
+If the caller has no special handling for this just return 0
+but I'm not sure this is right. The socket is no longer listed
+so we shouldn't count against the iterator.
+
+>  		goto out_nlmsg_trim;
+> +	}
+>  
+>  	if ((req->xdiag_show & XDP_SHOW_INFO) && xsk_diag_put_info(xs, nlskb))
+>  		goto out_nlmsg_trim;
+> @@ -145,7 +148,7 @@ static int xsk_diag_fill(struct sock *sk, struct sk_buff *nlskb,
+>  out_nlmsg_trim:
+>  	mutex_unlock(&xs->mutex);
+>  	nlmsg_cancel(nlskb, nlh);
+> -	return -EMSGSIZE;
+> +	return err;
+>  }
 -- 
-2.55.0
-
+pw-bot: cr
