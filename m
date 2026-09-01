@@ -1,172 +1,244 @@
-Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020141.outbound.protection.outlook.com [52.101.196.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A9A536B91D;
-	Tue,  1 Sep 2026 12:07:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788264424; cv=fail; b=XFNjsyjaMZwi407VjgkIClzXVIUtrsSoZxq68lnF3Ju+aDLJSQ8ChJ4+72PgDzqizQxZMT3Jy6CRpp9jq45M3cAiOsqQWBIGIqdn3r2DrFhGH7bV0t0aVEdDFj1jWniEsjXkI4mwoejCpNLs1yyAdb/Ja7a6eYYN5QosdypyvXY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788264424; c=relaxed/simple;
-	bh=sQOyoXtL9UOXyb9JYJQEIBOLAXvk+HA9gBTul0QXczE=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=biYMPfVBczusxquoKBV6Tmki5HnPizNV3yie2NpFXPt1vRDhAmYMkjRLA8K5bQKV9FLB4TwmZhyvhjgKP8eCVsudGdZWYgKpFPAdELO3zB9GRmQfrojCGvgifqAvo7QB/PxNElGWKW+VQvVoz1RG54tqXHm3D2cKRkn4tR4Pe68=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=mhYVdWHU; arc=fail smtp.client-ip=52.101.196.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F8F38F926;
+	Tue,  1 Sep 2026 12:07:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788264464; cv=none; b=oPG02jVjnj+lwSXeGd0J7jTHZGdoJUhabUPQG0xWJxcmshJsxuiL1xavyZ9NlK8gmJdtjsr1/PHCqDnAhV1N5843SrO/L9SWF91d9rPoJ03KZT93losrW7/IRW7yOsAukyY+lISNDjCu5Rkw5+XMuLnHcK+B7RmVBStwVxBkSrM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788264464; c=relaxed/simple;
+	bh=xS0p7eMGg8FbKTE8HSzHffCSILcS34d+HUQe7mmWxa0=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SEQqs8TTcBJYn6B3FTfKgqXATmSHMrE0C2cFo/UU51+AORxpSuDVoVo+Jyv9GYvIKNKIQEk4kaGnLSQVRptBXGkI80NHouyKNUd6ulR+8eYweMY+6MrRhTQqNq9awGT0APUD+ye7fW+/6He1WEasn5vkH9i4nD4rpQXvksu/czc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=eqkOw8rL; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=CR1LTNve; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=kiE3mv24; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=EyWKZMjW; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="mhYVdWHU"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tzN9GUsDcsESbVj9iEOQ+EPs6txXoQZE4L849HL/uiX3dxm/LmPpnte+Bvd3AD2tKE171DwbOwyODM+GtRdhzMtr3iXCdUVUrEe1oA/I4xHNTAqTHLTFh4P4kYjiiv6h8S8gS1p+i1uNve/qoxGs5R8UMKoMourbZXaGdPXn6XOpjN235/II4dbSW5FLmMWUfCGZIvtqSXCtXNxFD+RZF2TiuS5jwmWPL2oHmVjLmEuWKiFDnSbtbImuoHrDshoXiVx2m8mxV9GqwPYz/6QG4bXnoVsI3++ycT7WTbkGSnDp+zevIgUdcg0rO8PrYcgSyZjxwky/HN0mh41c3OKJnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sQOyoXtL9UOXyb9JYJQEIBOLAXvk+HA9gBTul0QXczE=;
- b=J0V4EOym2De7UjyYOt0kPJErlsm7icqxSKcrx9K1egi+2Rw+AerW+lgl7s2qVY9RF5jxk0artOKsOcWAQV8fBZ7YjxWml89wsfOTTLzJGeurzU8CUgG6BtDMgrOET8J3DRKe9xT2g6XL803diu+W0Bqy9XTJn17zZb9nn/5uZCwsaUpHctm29mCroql3ImpbP/42MR0qtVMNIj6eU+zk7Z8W6BIvQdZh37cO/+qVcqShJBm6yBlWQucemEJxvAordXcaaaW4Bd+JYUzuzxNCv44M/kdMrvuppnVnpOSDJcKNPdxRTo5/bgIc0fo9yT1hnfBXNehcuPvfZDYlI//LhA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sQOyoXtL9UOXyb9JYJQEIBOLAXvk+HA9gBTul0QXczE=;
- b=mhYVdWHUmTixHuVtVUWxgcozz9eMGBnSLDHj4mF2PSWZkK04gvIeA0XvxV3I9nbRmwIKdmQjhq/8KAZ6/m+dLBha+d75H/AfiPD1G19L1yjY0MDclhnQ6gStv1hpDuHSGydo3A3nV0g/RCiA7nBkWk2tuKIF15IvfyK6l1T+scw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO2P265MB5086.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:251::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 12:06:56 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 12:06:56 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 01 Sep 2026 13:06:54 +0100
-Message-Id: <DL3YTUU7W86I.29BD41EC3XI9V@garyguo.net>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
- "rust-for-linux@vger.kernel.org" <rust-for-linux@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: =?utf-8?q?Re:_=E5=9B=9E=E5=A4=8D:_[PATCH_v4]_rust:_pci:_reject_IRQ_vector?= =?utf-8?q?_indices_that_do_not_fit_in_u32?=
-From: "Gary Guo" <gary@garyguo.net>
-To: "ai qubits" <aiqubits@hotmail.com>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "Sophon Zhang via B4 Relay"
- <devnull+aiqubits.hotmail.com@kernel.org>
-X-Mailer: aerc 0.22.0
-References: <20260901-fix-pci-irq-vector-index-truncation-v4-1-f94aa6932fd9@hotmail.com> <DL3XDBBHXKKV.G9P6KRSSX1DN@nvidia.com> <SN7PR07MB9708B6C36F40362265511D2ECFA82@SN7PR07MB9708.namprd07.prod.outlook.com>
-In-Reply-To: <SN7PR07MB9708B6C36F40362265511D2ECFA82@SN7PR07MB9708.namprd07.prod.outlook.com>
-X-ClientProxiedBy: OL1P279CA0045.NORP279.PROD.OUTLOOK.COM
- (2603:10a6:e10:14::14) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="eqkOw8rL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="CR1LTNve";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="kiE3mv24";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="EyWKZMjW"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E62681FCE4;
+	Tue,  1 Sep 2026 12:07:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788264456; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TuzsBV1zRn+YRKNKFMpDJCUI0dP2J7UENxLZObRDc+w=;
+	b=eqkOw8rLJjetpSAraZ6CwIeTZt3zEBLgfmbIPbHKcuZHMoET4X3SYk9606IrFpGVfJAgp/
+	8OzNcQpqB22V11ltMS7FStzGtcZsSbdqMZda0pIXA7QTwU0ERm67KCJXViPETOAWwZxAIt
+	XeIDP54CFe+68Rf90oK1l5mTOhAolBY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788264456;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TuzsBV1zRn+YRKNKFMpDJCUI0dP2J7UENxLZObRDc+w=;
+	b=CR1LTNveVlo+6JX/SBEK6H8fQE+djTLJcKsj/G8BwWitPDxNL9SOLLwP4OxP2xIceOU3Iu
+	Ws+To2f2A2WggpBg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=kiE3mv24;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=EyWKZMjW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788264451; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TuzsBV1zRn+YRKNKFMpDJCUI0dP2J7UENxLZObRDc+w=;
+	b=kiE3mv24ufHZ1ZhT4MeqYt8jzc8h59A1ylUpPX5YXMT0YLCNsi5B/PXNfFl+CyR8QkJfpw
+	7FazUWFoETlt/Uw+YOHDwOlaAdR9qEhCtaG16UNDvAe51qxaW6OIi6KACbkbiPMZL1ItH0
+	yxvGtlzEq0s4w3ubVYR9YOMY9e8f8As=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788264451;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TuzsBV1zRn+YRKNKFMpDJCUI0dP2J7UENxLZObRDc+w=;
+	b=EyWKZMjW0hoAbcG5IHX66HtY/++Wyhzkc9GK6LPHdCmvWUIFfN6Xzo6ySfEIuP6i6cA97H
+	wUVmYmBy8o0P0YBA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 92667136B2;
+	Tue,  1 Sep 2026 12:07:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id mPgjIwPAlmp3YgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 01 Sep 2026 12:07:31 +0000
+Date: Tue, 01 Sep 2026 14:07:27 +0200
+Message-ID: <87o6ehcgzk.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: casey@samaritansolutions.net,
+	Casey Tunturi via B4 Relay <devnull+casey.samaritansolutions.net@kernel.org>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ALSA: hda: intel: reset link for HP ENVY 27-p014
+In-Reply-To: <20260828-hp-envy-27-hda-reset-v1-1-0da50c215148@samaritansolutions.net>
+References: <20260828-hp-envy-27-hda-reset-v1-1-0da50c215148@samaritansolutions.net>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO2P265MB5086:EE_
-X-MS-Office365-Filtering-Correlation-Id: b4c10270-cd32-41a9-320f-08df082184e7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|10070799003|23010399003|366016|56012099006|10067099003|4143699003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	2DXNjnrCfrhieqzRd4w9BOLAJBbKLX0q+P06UNeET3U2IMQRXZkNGRTf8F+HRCsKxC2/+cwPkoXFnbQk+cvtFSD8fg7D0U39nD3O8s/qKIjsSMLyvfN2Lpw9AXmZsB9dtre1tjBeVD0xkg+IYT5Qg9YY/JGajQwDE429Wcr1ceNRylgNnG563xggcHYypPHwo3W9vlBAsqGkJBImn3UCz43GYDB2g2yWt+VszR9FL1LNZ8wIVr2iefjMOweOiGPRnEpEeIdLwB7csIkYUQCmhK3U+OL8fYnlODKxHX+91EVxMGzdWj67L5aSn33SzED2jvLeVfDfz05bQeSEjywre+yBoyfna6WsXhkoaWR39VxutK7O2pNtHLGvIKv/a1Q9vdeqQzDhHOCz7c4KciR+c2zb7Ry8hTYa3iu7tJUxF4B8wfEBpUDClzubIGPZn++lV6hBeG6+WrRMAnJOrpk+tpzKonl1/T3ft8aGrrKQ2npSMHyYZbapbBBBssf+txuj79I49XRnfTTFlfiHiQ+JeXL8BCR7gyp5WzkT4Wcn/+v+lDLZwjQU+uSHWKzo1u48cKGymci+oScYwWXEBfU9f9NKwNiBqp2guWkfH84ZOG0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(10070799003)(23010399003)(366016)(56012099006)(10067099003)(4143699003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Nmd2Z05KMmdlRkMwcWI0QVo2M0xZTjNvaEJCdlg3R1RPYllFMXE2VWFtRHFw?=
- =?utf-8?B?RlYwSEVLdllXWE9IQTNValZWaXZNR0x6OEFXOHJLcFVXTDBhZVQ4VnNpVHdD?=
- =?utf-8?B?aU1rSXhueVA5VC9IdHZwR3paaFdOb3UyMk5zS1lGN0YxWEgzM1B1bHJReEhL?=
- =?utf-8?B?OTJjQk9PK2xxNm1pVnBzK3BmY1NuMkpOZFlqYXY4WHVUOVROdllwK0FOMjJv?=
- =?utf-8?B?cW5uc05MM0VxZ3hRa0RjQUh6WDRHaTJqc1BRdFphOUxlUDUzd2t2RWVJc2cr?=
- =?utf-8?B?NWJDemprZGxJNGtFNGJZbExUUDk4d0o0MkNVWERXTkVoamhVY0ZXcEhLK1V4?=
- =?utf-8?B?VXVnQTFsR3A1bW9taHF1TW50d2dVT2V4TmUwOENST3BjZlpSRUFTMG11T0RU?=
- =?utf-8?B?WThrUytRb2dDcHNIWmZhanl3NDhVbjUreEg3QjkvZzNGQlJ1bmlUNm1sZ2JX?=
- =?utf-8?B?c21LeGYzVGI5ZVY1SkV2eVdWOGJQQ1lLdE4rTWJlNTFHSlZWbGlYMWJSMGxr?=
- =?utf-8?B?K1JocjRyZTc2dUZQS1dXZGZFL1NDSzRuQWdxakxXQ202TDgwSWRvWjZocEJm?=
- =?utf-8?B?aUZNQVFnemE1bjg3Z1NEemE1NHlSYnJUQlY1K1dzelh6WGRHc1NOOExITkZ2?=
- =?utf-8?B?UXJZY1cveVpxMjhUdGdMdjZQTzcvWHdCVzd6Q2NUOGRHNlBrVFMxWXlySzRu?=
- =?utf-8?B?YlRHaUVaYmhZdUtCSmJmeVZoM2hwS1dkeUpDTDdxVnk0Um5FTUxEMjVqS0Zn?=
- =?utf-8?B?YmJ5STRycXRQVzhHNk9tTU00ZDhGRHc3TWRwUVJ6dXVxTzBKekxZc3ZZZ29u?=
- =?utf-8?B?YjNsOE9LcVZZOFhSeVZUYWJpcXA3QWZ1NmlvTDlkNHJPN0Q0YU9uTzNMa0JO?=
- =?utf-8?B?c2tUczF4bDNHMWt4ZUIrTTdCSXdvcmNYWkoyUjRNZE9hYkN0dUhBVGRHMVhK?=
- =?utf-8?B?Nk1Kd3BPYmI4YWpiK2dldUx5RUZFY0g1QktPS25TbzZDdmN3czlXY05FZU90?=
- =?utf-8?B?LzU4UjF0ZEloTjBkcm5zTUQ5eGZsNXZINStsSXhwV0NMUURXV3hhcjZzY0Er?=
- =?utf-8?B?dURsUmowcEpxY05yTmlLdHYybE9TK0hpd3hlZkNkZHJTUEFlVHJEaURXWDg2?=
- =?utf-8?B?T1BKTmlRYlo3MWpkcHpCUTM1ekZzY1BDM1haVVhnRndQY1IwQjFxbW5IUTVr?=
- =?utf-8?B?Q1ZhOWU4Ry9qMjN1Yk13S3NTakRJUklGUWpHWGdvSWEzN3h0eFd1M0JQbGpi?=
- =?utf-8?B?bkl0T1FlNHZFbFhLRlcvL0d4WGdVQ3dTeWEwT045TjJxYThTNkRiUTIrWHdW?=
- =?utf-8?B?WU81R2tRVFVUS2h6b0twdkNndEluUVZDT1dlK0dNbFhXcTRkUFBpYWFqQldR?=
- =?utf-8?B?dzZBMm4zNG1rSUwxOE91bGs0dFl1ZkNTdU44NXlUMG02Y0hHc3MvQzJZR2NF?=
- =?utf-8?B?SnZsZ1Q1eU1kcWJjclAyNk1EOE9abXpZdGM0cCtxZGpjQVdTZFFPTnMrdUsz?=
- =?utf-8?B?YXpxZTZEUjZ1MFdqWmY0cWEwdjBneGcwQVdrWDZ3SXFTc0hGMllHTTdmNGxM?=
- =?utf-8?B?eGRnbUZ1UGdNV0k0V1NFT2Q0TWx0TVhXcFlPcUovM3BQK1RhZDJTQWs4OFlv?=
- =?utf-8?B?ODdBckpXc1NsaWZhVHg3WVFxbk9WZm1iZVNLZjl6cG9Hb1VCRG9ZOUF3cG5o?=
- =?utf-8?B?L2Jhekx3R0xZYUhnaWpJaVplRG9qaThiSjRCdXN4SWJYV2xuNzllMzFpb1Fh?=
- =?utf-8?B?aDBoeEphQVE1WlFYbWNaZzc2cXV3OWJ2cVdBeTk2eXA0c2FxU0VpenVieHc0?=
- =?utf-8?B?VkorZEsvaCt3aUVLWWozQ29uNGNhT0hwU2FlWGd6cUR6M2xIaGx4NnAzSnlh?=
- =?utf-8?B?QWVKUXZLRTQwL2c4L0cwaGJpSXRIRXZtdjlYNnZGYnZoMnlRbW9NNGl1VEZC?=
- =?utf-8?B?SUs5ajlNTnE4Z3dxWVJHV1Vqbm9mekhINENsTlQ2NkZDWG15dUM2cnlyT1A2?=
- =?utf-8?B?MElpRko2Ym96eXpjeHpmZE81dWhQZk9oL3RJUGNjWXdlSzU4RFRsMTM1VFpk?=
- =?utf-8?B?Tkk0ZzgyS3JWMW1ZUHhKYlNSSmtXWDFjRmJ0cVRPNkEwNnVMSVVmZmtkSmVm?=
- =?utf-8?B?NXkzL2pqRko3cUhLZG9jUGJ2Tm5La29kaUE2amJlZzlnK2hxb3lVVjlVdVI1?=
- =?utf-8?B?ZnluQkRNVENLK1VLenEwWjBjZGVqdEFGZmw5YUJXeFVRdzZxSm0vOHVGT2pD?=
- =?utf-8?B?MXhjd2p3bHRjbDc3SWlxcXdqeVhJcHovdDdSdVZnODNmUVNoV0c5RkRHaXdu?=
- =?utf-8?B?bU16WS96KzFHclpIRTlTb2Q1UDVKa1hrYmgxNjUvMGhxTCtPYkl1dz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: b4c10270-cd32-41a9-320f-08df082184e7
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 12:06:56.7468
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FUcFwl6ghLfd1fok9It2unzrjJoVnIRo2aRmXivJX474Fifqw3XWucSEEFXSV2S9YHZnt7oci8GCiLVzvCrOXA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB5086
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -2.01
+X-Rspamd-Queue-Id: E62681FCE4
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_DN_SOME(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	TAGGED_RCPT(0.00)[casey.samaritansolutions.net];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[alsa-info.sh:url,samaritansolutions.net:email,suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
 
-On Tue Sep 1, 2026 at 12:47 PM BST, ai qubits wrote:
-> Thanks for the question, Alexandre, and for the clarification, Danilo.
-> =EF=BB=BF
-> I agree that usize is the more appropriate type for an index-oriented
-> Rust API. Callers are likely to obtain indices from ranges, iterators, or
-> other Rust indexing operations, which naturally use usize.
-> =EF=BB=BF
-> The unsigned int expected by pci_irq_vector() is an implementation detail
-> of the C interface, so the necessary validation and conversion should
-> remain inside the Rust abstraction rather than being exposed to callers.
-> =EF=BB=BF
-> I will therefore keep IrqVectorRegistration::index() accepting usize and
-> handle the C API boundary internally.
-> =EF=BB=BF
-> Best regards,
-> Sophon
+On Fri, 28 Aug 2026 22:29:28 +0200,
+Casey Tunturi via B4 Relay wrote:
+> 
+> From: Casey Tunturi <casey@samaritansolutions.net>
+> 
+> While bringing up audio on an HP ENVY 27-p014, I found that the normal
+> link reset only discovers the HDMI codec. The CX20753/4 at address 0
+> appears after a second CRST pulse, with STATESTS left alone and no fixed
+> delays.
+> 
+> I added that pulse when address 0 is missing, and again before the codecs
+> resume. Initial setup uses immediate commands long enough to add the
+> codec, then returns the controller to CORB/RIRB.
+> 
+> That brought analog audio up at boot, and capture kept working through
+> four deep suspend and resume cycles.
+> 
+> Signed-off-by: Casey Tunturi <casey@samaritansolutions.net>
 
-Hi Sophon,
+Thanks for the patch.  But I must say that it's very hackish, and
+we should reconsider to make the changes a bit more generic or
+cleaner.
 
-Please avoid top-posting. See
-https://subspace.kernel.org/etiquette.html#do-not-top-post-when-replying (a=
-nd
-rest of that page, too).
+But, first off, could you give more details about your hardware?
+At best, give alsa-info.sh output (run with --no-upload option and
+attach the output).
 
-Also, your email contains byte order marks (FEFF). Not sure what clients ar=
-e you
-using, but please pick a proper one for plain text mails.
+Now more about the code change:
 
-Thanks,
-Gary
+> +static u16 hp_envy_27_reset_link(struct azx *chip)
+> +{
+> +	struct hdac_bus *bus = azx_bus(chip);
+> +	u32 gctl;
+> +	u16 statests;
+> +	int timeout;
+> +
+> +	snd_hdac_bus_stop_chip(bus);
+> +
+> +	gctl = snd_hdac_chip_readl(bus, GCTL);
+> +	snd_hdac_chip_writel(bus, GCTL, gctl & ~AZX_GCTL_RESET);
+> +	for (timeout = 250; timeout; timeout--) {
+> +		if (!(snd_hdac_chip_readl(bus, GCTL) & AZX_GCTL_RESET))
+> +			break;
+> +		udelay(1);
+> +	}
+> +
+> +	gctl = snd_hdac_chip_readl(bus, GCTL);
+> +	snd_hdac_chip_writel(bus, GCTL, gctl | AZX_GCTL_RESET);
+> +	for (timeout = 250; timeout; timeout--) {
+> +		if (snd_hdac_chip_readl(bus, GCTL) & AZX_GCTL_RESET)
+> +			break;
+> +		udelay(1);
+> +	}
+> +
+> +	statests = snd_hdac_chip_readw(bus, STATESTS);
+> +	bus->codec_mask |= statests;
+> +	snd_hdac_bus_init_chip(bus, false);
+> +
+> +	return statests;
 
+Can't the standard snd_hdac_bus_reset_link() work?  If not, we may
+tweak there in the standard code instead of open-code here.
+
+>  static void __azx_runtime_resume(struct azx *chip)
+>  {
+>  	struct hda_intel *hda = container_of(chip, struct hda_intel, chip);
+> @@ -1003,6 +1043,8 @@ static void __azx_runtime_resume(struct azx *chip)
+>  
+>  	azx_init_pci(chip);
+>  	hda_intel_init_chip(chip, true);
+> +	if (chip->pm_prepared && hp_envy_27_needs_reset(chip))
+> +		hp_envy_27_reset_link(chip);
+
+So you need a bus reset always at each S3/S4 resume?
+Or could this be conditional?
+
+> +static int hp_envy_27_probe_codec(struct azx *chip)
+> +{
+> +	struct hdac_bus *bus = azx_bus(chip);
+> +	struct hda_codec *codec = NULL;
+> +	bool use_pio;
+> +	int probe_mask;
+> +	int err;
+> +
+> +	if (!hp_envy_27_needs_reset(chip) || (bus->codec_mask & BIT(0)))
+> +		return 0;
+> +	if (!(hp_envy_27_reset_link(chip) & BIT(0)))
+> +		return -ENODEV;
+
+Trying the bus reset at probe is understandable, but...
+
+> +	probe_mask = chip->codec_probe_mask;
+> +	use_pio = bus->use_pio_for_commands;
+> +	chip->codec_probe_mask = BIT(0);
+> +	bus->use_pio_for_commands = true;
+> +	err = snd_hda_codec_new(&chip->bus, chip->card, 0, &codec);
+> +	chip->codec_probe_mask = probe_mask;
+> +	if (!err && codec)
+> +		err = snd_hda_codec_configure(codec);
+> +	else if (!err)
+> +		err = -ENODEV;
+> +	bus->use_pio_for_commands = use_pio;
+
+... those look too ugly.  The use of PIO mode isn't mentioned in the
+description, either.  Maybe PIO mode should be used always for your
+board?
+
+> @@ -2444,6 +2519,8 @@ static int azx_probe_continue(struct azx *chip)
+>  		pm_runtime_allow(&pci->dev);
+>  		pm_runtime_put_autosuspend(&pci->dev);
+>  	}
+> +	if (hp_envy_27_needs_reset(chip))
+> +		pm_runtime_forbid(&pci->dev);
+
+Add to power_save_denylist, instead.
+
+
+thanks,
+
+Takashi
