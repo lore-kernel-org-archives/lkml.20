@@ -1,282 +1,128 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E87B47D950;
-	Tue,  1 Sep 2026 13:44:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 532493246E8
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:44:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788270252; cv=none; b=maLk1q2nz7LON5/41QuTjLSCnsrbxb5eD/UlyJiGMtMc/79Q8IRfhobjFU8Gv/7Nqqu/7R1IKXGL+UR8NeW+LjtiHvtSrKCQdrdH31UaxYaslLe8CEj/hHGuoSiqLjwqqVFDCeLPdPpeBvrzX6ohOc3zsovfVmQTpcg/bfOqXt8=
+	t=1788270281; cv=none; b=AfYvfg4eVLdJyjEUnUY3AQ8dnTVilEiTIlqjNfmDiD+ZHE5RKDGc89attQK92LErbKXVxA/QAW7odxoiwYmZpNtzdKrO4ORN2GPCCI5XS0+D5Hwbu23tmIW347ekxpxe6tLHHO8QxqP8tVF+1Ci+jIDFjfmyz0BpBBR9WY3o944=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788270252; c=relaxed/simple;
-	bh=y74Nf40DEsTVwzW5dQTmLNPaF+kIqM5psvNR/H6yCts=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hxH/4ujxBmLNg6+0n8NxqeVEAGJfJQF+0dmpdWk1eZJfVf5f8XKaLLQZEjOQFp4Cm/ZJNZcoPcLSlD7UI7CFzaMrPwWzrD/AG20dss8RIwWOGY35Krf1cIhe6NLQMqPJbzCm3L8rks+m4QLVIOVkhbtf73qJZksSQm9D0552pdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XXR6lx52; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788270281; c=relaxed/simple;
+	bh=rkZ5ijmpJAGxeoOVO7yyUbFq4Mbbp5IQA48pR+FRNS4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eJZbA3LuKQGOwix/9fwGwu9gQPnrA7nPxvM7aUj4NrTyMgXDnEGEJ7ThCKGg/hRVPZJtpWzSjGrqp7kL1i2SX+MXUjkRJJsfP8PYjdfcl8EJQAH+OzvY7MmC4aC+x2hXyFC0RoaZB97inrtm1xqa+iTNChEXmpmBKeuLvvd3hsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kYFGEr26; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XXR6lx52"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681DVrfe2920334;
-	Tue, 1 Sep 2026 13:44:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	yOpFVwhnZOyMkzmfVKfb2oA+CqGaFaCKhVpPP9g/zUM=; b=XXR6lx52wTAJlhCn
-	1H6fIK5Pu9Zl7Ck9mF3SBJkVqK3aIsv5s0y/duP04bP9mohEFWVEEEbxJeBxiG2c
-	IEk2vdFguKi8ksIc0UzqPYH9Tc/c1zLinIgWGGBBpYx3id7EPk/q00RAvi73HP1j
-	fhLq1a02sFwq29tYxmwZ0PeaQv/wOvZxR+cwsz+SUZIRo5dOMOkOf0B5gncUakt1
-	e/0qoi2mDmfjjiFfReiBpiAjk/KLVaWlAP3CK2gCkFZ40Cw6vSfb3W9YKEuMVjXI
-	6z+BqahV07OgeND1UVRBkduVsgW7wBSZlfHScqc/TDGwIpxEUukFUO+RTk+Jr2DC
-	t8S9eA==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdqbh2b20-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 01 Sep 2026 13:44:07 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 681Di4RB800782;
-	Tue, 1 Sep 2026 13:44:05 GMT
-Received: from hu-akdwived-hyd.qualcomm.com (hu-akdwived-hyd.qualcomm.com [10.213.97.219])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTP id 681Di3h2800644;
-	Tue, 01 Sep 2026 13:44:05 +0000 (GMT)
-From: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
-Date: Tue, 01 Sep 2026 19:14:03 +0530
-Subject: [PATCH 3/3] arm64: dts: qcom: Add Talos Lyra EVK board
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kYFGEr26"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d5cad1a6baso46054375ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 06:44:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788270280; x=1788875080; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=H4Oo1S4jAyEm4Xw/DK4VzIEPmxMTMVWIQhiDyGj7k1E=;
+        b=kYFGEr26KJ8fa1xg9UvRRZUGfYSMrX7DpGnvoPL7deIxQeWfR7ZwsS/df4eVHofk+a
+         S0h96pFjDg0tYfe9CJF/ZwNDwS+cYWW1ru5DMHMiYwACKcza8GLTrr8WBbQAjbiBge3M
+         anD76pbHYeNchRP8kLwAZ+SX84xDK/6EAklleN2AjVe7PyExPw7Kc9U/8oEiiQ4bALjS
+         +v6/rOFYOzT8K6XUYsNKMT6vDmhCyV9iVArrR43zFCyll+XxWmKZxJxgEMJ2N+eqIQtP
+         4EKawjY1tfQ2A/+eks5eRFqt9czvcPlRdxmQfGDF26mg8G83YcbjvQLfvqlvRidDxwR/
+         OP7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788270280; x=1788875080;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H4Oo1S4jAyEm4Xw/DK4VzIEPmxMTMVWIQhiDyGj7k1E=;
+        b=DAdx9jsiyfX0k/BSNfue9CJ9F5lNIdSiL3HXKgR65KvyZNSujs/9ps8c4YXPIQx7aW
+         PeQ4iWg4Mqvxfzl7RWKIr3YRF+QLQSWSqofafnZiBLTJpAqYTANlTXQuWaKVDd4sGRa9
+         7NCIRF/LvvIh94Owgqb86uvmOTqR1VNCH3wP44tthnI0+B83JtCvsHJ637SHIIMOAEDq
+         /7W6AR5yCKuezg1iF3rrRHkVFk9bDPJyajj4sWhfHvYJk8TA5F1GtcFBhazv0uHin988
+         W6+ZEBM+7sOUWmay0aAtjuYt5aWNT02LdDcqyvs+t0lhf3TBf1E1SALxa4q7LWN1akgi
+         kHog==
+X-Gm-Message-State: AFuF++mglwHrhcKCnJwBsbpWdQ2Bnroh0FKhySvkl2xy2Ym54xigsaN5
+	kvaW39a41A3YFRaD+7A5PNFTYqBxN625c9t8JxXKAC12CUctSxbctgDp
+X-Gm-Gg: AR+sD13myx0tUvm3Y6cWAvh8CcmOh9z2zbMP219drB01CGNy9EjYOGZv43kWRpYEr9n
+	Lsh2MOkug1qqnA9MN7kix6KbNgsDPmLtYzBtGgKDfHmj9pKo6aEIh47rOt3758r2GUwKN6UXM6e
+	LRXoQKhboI2TDku/hkzjhh47JiODU4sAME2vqqiKaCgMBMmm3/6K+ayvW9f80qXznl3MgWhnmKK
+	cyfJJWUaW2DqhrznLmEeQgI5NZNdlgvQZtUgbpXyMb6cIzqEYHZegr9tx1Swm7OEJokVTBiKeRK
+	PYQ7StH99NXc/87aWCNWx7U71e5L+ILcZGNxiP/prXMxFvCzsIUI+sOQun8ncUOD3kQUwsDrzlx
+	p83nBuFF7EAHakQbUVf5VudsKhlzFV+/AIXwvX42NNKjsctoYHzP9eUckFSfjx/yXFuHAm2QPrp
+	B8XYsvsLcktOqxVhCTzK83Nu+5rLYtCGs5WpD4GmYhdq3XkNMKdkBWe6omuKkLP6wAWF7GyoY=
+X-Received: by 2002:a17:903:1b30:b0:2d8:d4d3:da4e with SMTP id d9443c01a7336-2d94a90efd6mr141688925ad.18.1788270279390;
+        Tue, 01 Sep 2026 06:44:39 -0700 (PDT)
+Received: from ustb520lab-MS-7E07.. ([115.25.44.221])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d7594fc0c9sm52461455ad.2.2026.09.01.06.44.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 06:44:38 -0700 (PDT)
+From: Jiaming Zhang <r772577952@gmail.com>
+To: konishi.ryusuke@gmail.com,
+	linux-nilfs@vger.kernel.org,
+	slava@dubeyko.com
+Cc: linux-kernel@vger.kernel.org,
+	r772577952@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] nilfs2: clear folio dirty flag when copying back from the shadow map
+Date: Tue,  1 Sep 2026 21:44:30 +0800
+Message-ID: <20260901134430.1292467-1-r772577952@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-lyra_upstreaming-v1-3-e3a76dc9e21c@oss.qualcomm.com>
-References: <20260901-lyra_upstreaming-v1-0-e3a76dc9e21c@oss.qualcomm.com>
-In-Reply-To: <20260901-lyra_upstreaming-v1-0-e3a76dc9e21c@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>,
-        Akash Kumar <akakum@qti.qualcomm.com>,
-        Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>,
-        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
-        Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDEyMiBTYWx0ZWRfX83HFATUJYGJe
- 8EYaX7m3NZNjyCrLR2envJd6b+rrCRvj0r2AzGXKUO0f8TdodCSzpf8DKQis9VJzgwC4bKgLAOU
- ZpPQUSsKn7VrENYjoyGwjhrgqa4V3v0=
-X-Authority-Analysis: v=2.4 cv=R9wz39RX c=1 sm=1 tr=0 ts=6a96d6a7 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=3rZLn0I5MTVVH2NkZqwA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: JhmI1JT0lIZa59a1cjoL_BQS0ofMRe_e
-X-Proofpoint-ORIG-GUID: JhmI1JT0lIZa59a1cjoL_BQS0ofMRe_e
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDEyMiBTYWx0ZWRfX98zD3ISj8b9m
- CQsowPDWhdfylWZnDY3rQk+Vcem9efn+cIlRiqgJ68Fz/aKoggyORa6TZrWIjV4jYamJOhBs9ZC
- 0OvQ76RyxiCSH+tZOeqtps0GK5yHL+UzRyQWfM1R2Jb7Vji7aNgSYSCG/AcSrPQLNpJz/yVTXiq
- WkSE6ZrCyx8UouBMuyLohiwKsWePa06wo2PwH6aXd7gFoaBm6JLCv3OcT1Dh+NBhalb3Ux0juIZ
- X7WRBSJCKNyPfeWKUhOiCywUi3emYcoLSB8ZhoD72lHkPO39uZ4CjCZyQB6C4QzqnZGOS/WIcyy
- WjMv04NYCgGqi+4ij3h5G9XBnWPv0+gngZdSXRKOed9tHOkulY3P75w443Jds2qFP6/eaQtLh1c
- RKWqE/QUNNFBW+nOsIvZ17Ap6CS0aPl1EybX3prJVKLUn7c9SErsUa8Qsnbxd5to1DIEJt6XA33
- QJggKT5FEQuEhOvk8wA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_03,2026-09-01_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 clxscore=1015 phishscore=0 suspectscore=0
- malwarescore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609010122
+Content-Transfer-Encoding: 8bit
 
-Add the device tree for the Talos Lyra EVK platform which combines
-the Talos Lyra EVK SoM and Lyra carrier board.
+While garbage collection runs, nilfs2 keeps a shadow copy of the DAT
+metadata file's page cache so that it can roll the file back if GC
+fails.  The rollback has two steps: nilfs_clear_dirty_pages() drops the
+dirty state of the folios in the DAT cache, then nilfs_copy_back_pages()
+overwrites them with the saved contents.  The second step warns if it
+still finds a dirty folio, because the first step is supposed to have
+cleared every one of them:
 
-This device tree adds board-specific peripheral configuration on top
-of the SoM, including:
+	/* overwrite existing folio in the destination cache */
+	WARN_ON(folio_test_dirty(dfolio));
 
-- Native DisplayPort output
-- GPIO expanders on i2c5
-- SPI-attached TPM (ST33)
-- USB host and peripheral controllers
-- Power and reset keys
+Clearing has been best-effort since commit ca76bb226bf4 ("nilfs2: do not
+force clear folio if buffer is referenced"): nilfs_clear_folio_dirty()
+leaves a folio dirty if a buffer head under it is still busy.  Reading
+metadata creates such buffers.  nilfs_mdt_read_block() submits
+read-ahead for the blocks following the one it was asked for and waits
+only for that one, so the read-ahead buffers are still locked when it
+returns.  When the block size is smaller than the page size, several
+metadata blocks share a folio, so a single folio can hold both a dirty
+block and a locked read-ahead buffer.  Such a folio survives the
+clearing step, and the copy-back warns on it.
 
-Co-developed-by: Akash Kumar <akakum@qti.qualcomm.com>
-Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
-Co-developed-by: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
-Signed-off-by: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
-Co-developed-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Signed-off-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
-Signed-off-by: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
+Use __nilfs_clear_folio_dirty() to clear the dirty flag of the
+destination folio before overwriting it, rather than making
+nilfs_clear_folio_dirty() force-clear busy buffer heads again.
+
+Fixes: ca76bb226bf4 ("nilfs2: do not force clear folio if buffer is referenced")
+Closes: https://lore.kernel.org/lkml/CANypQFZSYrtcshnUzOPiqatyLd-M8_OReOewQoAi_V5yY0dTtg@mail.gmail.com/
+Cc: stable@vger.kernel.org
+Assisted-by: Claude Code:claude-opus-5
+Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/Makefile           |   1 +
- arch/arm64/boot/dts/qcom/talos-lyra-evk.dts | 137 ++++++++++++++++++++++++++++
- 2 files changed, 138 insertions(+)
+ fs/nilfs2/page.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 1c86e7e98f55..9818568912fd 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -409,6 +409,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-qrd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-mtp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-qrd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= talos-lyra-evk.dtb
- 
- talos-evk-el2-dtbs	:= talos-evk.dtb talos-el2.dtbo
- 
-diff --git a/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts b/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
-new file mode 100644
-index 000000000000..7974e5bad24c
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
-@@ -0,0 +1,137 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+/dts-v1/;
-+
-+#include "talos-lyra-evk-som.dtsi"
-+
-+/ {
-+	model = "Qualcomm QCS615 Talos Lyra EVK";
-+	compatible = "qcom,talos-lyra-evk", "qcom,talos-lyra-evk-som", "qcom,qcs615",
-+		     "qcom,sm6150";
-+	chassis-type = "embedded";
-+
-+	dp0-connector {
-+		compatible = "dp-connector";
-+		label = "DP0";
-+		type = "full-size";
-+
-+		hpd-gpios = <&tlmm 104 GPIO_ACTIVE_HIGH>;
-+
-+		port {
-+			dp0_connector_in: endpoint {
-+				remote-endpoint = <&mdss_dp0_out>;
-+			};
-+		};
-+	};
-+
-+};
-+
-+&i2c5 {
-+	clock-frequency = <100000>;
-+	status = "okay";
-+
-+	expander0: gpio@20 {
-+		compatible = "kinetic,kts1622", "ti,tcal6416";
-+		reg = <0x20>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+	};
-+
-+	expander1: gpio@21 {
-+		compatible = "kinetic,kts1622", "ti,tcal6416";
-+		reg = <0x21>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+	};
-+
-+	expander2: gpio@38 {
-+		compatible = "ti,tca9538";
-+		reg = <0x38>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+	};
-+
-+	expander3: gpio@3c {
-+		compatible = "ti,tca9538";
-+		reg = <0x3c>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+	};
-+};
-+
-+&mdss {
-+	status = "okay";
-+};
-+
-+&mdss_dp0 {
-+	status = "okay";
-+};
-+
-+&mdss_dp0_out {
-+	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000>;
-+	remote-endpoint = <&dp0_connector_in>;
-+};
-+
-+&pon_pwrkey {
-+	status = "okay";
-+};
-+
-+&pon_resin {
-+	linux,code = <KEY_VOLUMEDOWN>;
-+
-+	status = "okay";
-+};
-+
-+&spi6 {
-+	status = "okay";
-+
-+	tpm@0 {
-+		compatible = "st,st33htpm-spi", "tcg,tpm_tis-spi";
-+		reg = <0>;
-+		spi-max-frequency = <20000000>;
-+	};
-+};
-+
-+&usb_1 {
-+	dr_mode = "peripheral";
-+
-+	status = "okay";
-+};
-+
-+&usb_1_hsphy {
-+	vdd-supply = <&vreg_l5a>;
-+	vdda-pll-supply = <&vreg_l12a>;
-+	vdda-phy-dpdm-supply = <&vreg_l13a>;
-+
-+	status = "okay";
-+};
-+
-+&usb_2 {
-+	dr_mode = "host";
-+
-+	status = "okay";
-+};
-+
-+&usb_2_hsphy {
-+	vdd-supply = <&vreg_l5a>;
-+	vdda-pll-supply = <&vreg_l12a>;
-+	vdda-phy-dpdm-supply = <&vreg_l13a>;
-+
-+	status = "okay";
-+};
-+
-+&usb_qmpphy {
-+	vdda-phy-supply = <&vreg_l5a>;
-+	vdda-pll-supply = <&vreg_l12a>;
-+
-+	status = "okay";
-+};
-+
-+&usb_qmpphy_2 {
-+	vdda-phy-supply = <&vreg_l5a>;
-+	vdda-pll-supply = <&vreg_l12a>;
-+
-+	status = "okay";
-+};
-
+diff --git a/fs/nilfs2/page.c b/fs/nilfs2/page.c
+index cf4f1c6798f5..b26d9c3bda6d 100644
+--- a/fs/nilfs2/page.c
++++ b/fs/nilfs2/page.c
+@@ -328,7 +328,8 @@ void nilfs_copy_back_pages(struct address_space *dmap,
+ 		dfolio = filemap_lock_folio(dmap, index);
+ 		if (!IS_ERR(dfolio)) {
+ 			/* overwrite existing folio in the destination cache */
+-			WARN_ON(folio_test_dirty(dfolio));
++			if (unlikely(folio_test_dirty(dfolio)))
++				__nilfs_clear_folio_dirty(dfolio);
+ 			nilfs_copy_folio(dfolio, folio, false);
+ 			folio_unlock(dfolio);
+ 			folio_put(dfolio);
 -- 
-2.34.1
+2.43.0
 
