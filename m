@@ -1,103 +1,61 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76A2248380E
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:17:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2925488211;
+	Tue,  1 Sep 2026 17:18:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788283044; cv=none; b=eIAt3Kjy6vUYPAblwPagTVktcY8nqwSjZGwwhP82ujc1IvHllHaF9AAQv90M4KzoighYGsqpRXlm57r5CHGXWreS05EazDtJWixolOMxT8Vwb9oC9Eh8jE8/23T1PwRSWoyksPFmuZaIVgo+SKciSGChPNY1jacV686/tI+xXEw=
+	t=1788283082; cv=none; b=MBYkxee1EHd75lr/nPA7QA85tKdD3yIPXuraj2BMc8F/n0EiU0bzDV2To6cbDLMK1lxhl8fYQ+ZfFaXSXipMvZr+u9wU75SFCdBpxLIWbKsHNRnph/PKipM5tgcwDiBWOZtqFVZpg1BaFqrci8UezgjeHfWO9ZB3pEyhpHX5afM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788283044; c=relaxed/simple;
-	bh=jARQcDwwsc9Yk1oJ9JgA3vbuEVDpTJIxmvVTQ260XWc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bZ2x7pe7U7vHvX2SpuDx+ZvEYiuf/yhj1p0AOTAIADSd1YHUrue/TQ55BgukAIojfTiBi7Bkn59l//N1KAZGMbC8JnwehIAr7s01/FlubtCd0hO8/XV4kSDoBHWVoe3LwEKyZXh2DZOZ9Yv6eVI33gKfViTbjFil/Pkn/hjgBXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [120.85.96.74])
-	by APP-01 (Coremail) with SMTP id qwCowAAn+u2QCJdq5v8CBw--.35276S3;
-	Wed, 02 Sep 2026 01:17:09 +0800 (CST)
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Icenowy Zheng <uwu@icenowy.me>,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: [PATCH 2/2] drm/verisilicon: set blend mode for the cursor plane
-Date: Wed,  2 Sep 2026 01:17:03 +0800
-Message-ID: <20260901171703.1161592-2-zhengxingda@iscas.ac.cn>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260901171703.1161592-1-zhengxingda@iscas.ac.cn>
-References: <20260901171703.1161592-1-zhengxingda@iscas.ac.cn>
+	s=arc-20240116; t=1788283082; c=relaxed/simple;
+	bh=RLHsiMQAj995DmYI+hUn8DbIOyFBdtMhVvy+1Z1N9vQ=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=AUmXOYaMAZg3EdVILQ2wrqOnKxEMS5xDe0VcMSCTRSFRU3FiYqzlvodj99EsVBTuglUBlat72nkGB3zMZlLpHXhuga0B4jajwQXwXIbaTXBkVo/9Z2YXmYWK1zDArLJIBfy/FTumeg659/CUQUVuzkWDo1b3PcfZNmRJqtrXAps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=GYUxjOp2; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="GYUxjOp2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E46501F00A3A;
+	Tue,  1 Sep 2026 17:18:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788283081;
+	bh=qNy8aFxk/AJak35WjwkPfrrpfkELAGWHw5uPOVPVzP4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=GYUxjOp2aphZq8mIT9V1j15Kpl/xo9Ln9v4wuPqsr237ZjQthjG2S/Cm+pgHRrToy
+	 q7RvgwrTUkHmSI1XTvEJeWnKu9G+ltZt3D2FGhMia65IdemdDZlwxecKDiyFtHcdhG
+	 34ITMNX9JAw7kJ5jWiQOynxvMukRw6KtAP1TQms4=
+Date: Tue, 1 Sep 2026 10:18:00 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: SJ Park <sj@kernel.org>
+Cc: "Liam R. Howlett" <liam@infradead.org>, David Hildenbrand
+ <david@kernel.org>, Jonathan Corbet <corbet@lwn.net>, Lorenzo Stoakes
+ <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>, Mike Rapoport
+ <rppt@kernel.org>, Randy Dunlap <rdunlap@infradead.org>, Shuah Khan
+ <shuah@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>, Suren
+ Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>,
+ damon@lists.linux.dev, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-mm@kvack.org
+Subject: Re: [PATCH v1.1 00/17] mm/damon: introduce data access-as-a-data
+ attribute
+Message-Id: <20260901101800.0d76452eb310a4b958d792fd@linux-foundation.org>
+In-Reply-To: <20260901132506.99243-1-sj@kernel.org>
+References: <20260901132506.99243-1-sj@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowAAn+u2QCJdq5v8CBw--.35276S3
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw4rCF4kCw15Jw1UGF4rZrb_yoW8XryDpF
-	4jyFWUJrZ8tan3tFy7Cw18taya9a15GFn2qrn5uFWqvwn8try7Zr1rGF1S9FWkJrsrWrWf
-	KrsrAr9xArW09F7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBl14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
-	x26xkF7I0E14v26r1I6r4UM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
-	Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84
-	ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AI
-	xVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20x
-	vE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xv
-	r2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q6r43Mx
-	AIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_
-	Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwI
-	xGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWx
-	JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcV
-	C2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbn2-7UUUUU==
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Blend mode properties are now required to expose pixel formats w/ alpha.
+On Tue,  1 Sep 2026 06:24:47 -0700 SJ Park <sj@kernel.org> wrote:
 
-Experiments show that the fixed blending mode for the cursor seems to be
-COVERAGE:
+> TL;DR: extend DAMON's data attributes monitoring system to support page
+> table accessed bit and PG_idle based access monitoring.
+> 
 
-- With a cursor plane filled with R=G=0, B=0xff, A=0x40, the cursor is
-  visible on a pure-white background, which means the background is
-  multiplied.
-- With a cursor plane filled with R=G=B=0xff, A=0x40, the cursor isn't
-  pure white and non-white patterns can be see through, which means the
-  cursor is multiplied.
+Thanks, added.
 
-Add a fixed COVERAGE blend mode property for the cursor plane.
-
-Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
----
- drivers/gpu/drm/verisilicon/vs_cursor_plane.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-index fa4f601dd0c87..36e3664373fa1 100644
---- a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-+++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-@@ -11,6 +11,7 @@
- 
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_blend.h>
- #include <drm/drm_crtc.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_framebuffer.h>
-@@ -268,5 +269,7 @@ struct drm_plane *vs_cursor_plane_init(struct drm_device *drm_dev,
- 
- 	drm_plane_helper_add(plane, &vs_cursor_plane_helper_funcs);
- 
-+	drm_plane_create_blend_mode_property(plane,
-+					     BIT(DRM_MODE_BLEND_COVERAGE));
- 	return plane;
- }
--- 
-2.52.0
-
+What does "v1.1" mean?
