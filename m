@@ -1,164 +1,114 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B01D47FAF8
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:18:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788265133; cv=pass; b=Iwp1MdgpFmkDna/5E08uF6r6poPNQiC+c9I6ZNBdnh50XczJ6dmOig8jSS4GBKQz0x0rMi9rFKeCc6RBsOUNokaLk6nXZSdWYCHAYkFpdrqtR4NtBBMWEJ3PIlGkJQVtGlgXqcU1cqO4uTXV1NPtpakrluZ+lohqOhBo6n18GgU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788265133; c=relaxed/simple;
-	bh=Es/cIjPUD1zzwXufbvKj4+Elkno+b+6GyubYx/khWOg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TrC8HxDVoGRx4rfcMszoYCd9KtWI+mqZ5KrezbBzD3QrJH3D3/3FyK3qmjt/LpN+w5Gc/jyosOqRGQfUUGCG1AJQS0gKiq6vZ0VjxDQVAugRI7zNSXSeVmy2EbLJULhC7FAI57ix/11Cclbt6MllXJgeK32py7Wm6+d5aZ+gnhA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=cu+sxr8M; arc=pass smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E703220687;
+	Tue,  1 Sep 2026 12:19:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788265154; cv=none; b=ds6vJXKR50AAF1DC3yeK6PJmJsCQM1AaAq8zQlVlSYfHyeGmC6IFZLdsHIsjurSQRWdO/isUc3qn2vwYNPH+w+lxSjGUxiJyLc7NtwDwLuoBieXxwut/j6Uhws51uTGEH04bA+DgNLTr6KBM3JHAS2LWg+gMgCWB2aCI2UstKtQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788265154; c=relaxed/simple;
+	bh=NQYQLBBoAiiCGBr+b14hRW1oV2++VtwdOjDRFyDTa/M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Wr+dJKKnXPPDrfYzQpcgU4kUixiwn0qNYbMOmPT/p6cnTYXH83n1ARwsDEzyz10XWkTGjmXoQ/q9cVLq4/ErrQSN5PeRMqXxI8wQuJo81kQFvgnU0ZECu9oh3PcevQlotskUo7bxhgLAt9wFCIFRs7oJScIiJ1IbcxWiJW3w3nU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=inr+6Ohl; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="cu+sxr8M"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49b0dd3c9a0so33025665e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 05:18:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788265130; cv=none;
-        d=google.com; s=arc-20260327;
-        b=o8ql3lvaAPSljTIphM5rbexmpRwsqtfNszGaxjdL5NCLANhMDRlLQgyfHPyWkO9WQs
-         QeyU6g4I1rc87nJEi7q2oLdJxHphH5TGyV4shv9xraKyOGS2wf7GoBBc8/oicDgAGK6z
-         yJVehvk9G1cvMYvfi5W+p/EEovgvLxC6gyo4nFae3MQphEJ79jxIfrkIrveJFX7PYPT6
-         A18na1oSki7+P4aJaQhyj3MXx1jvkoU+mTsFnM0wKPFnSyCsqmKrMBlnz9C1DC0g58z4
-         WPykqw9d2xfIlX1LNkjIBJYwXI7xV1UR7pI0K1jv6eje/Reoyst3kJNFzDuUH6RI0rzg
-         72Bg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=UvAi+mvqn+hfoITwGygPm/YRj+YQGu0S7A55rivu94M=;
-        fh=XNYXhj1DifEgUveR64TWjyg0JEZFGapr8zzCFGYlmx0=;
-        b=fVAnKDyc1Xf45eS6HZsVcr3M9JocmhYBnI8ZccdVUp+1RuRdSe/z6YU7O2fcZUuzIa
-         q2+xfmgFhcfvLJaXQV8ZcKANDI33JTNKt9DLzehJCU3ZfGjy6SkG5aAyANpC2a+cgplU
-         2K9Ragopq3Xtdf9H4EKQm0rU2SW8EI4WLHt0yyExPCVMYcMiOcJlw5m1tFgGr4jxjJJQ
-         bT2Igo5zVly0WUcpf/+RB3zH4G+mFpm7fu8p6znHKzcPnBcsdsXCL2OR4po0vDpLowY1
-         JtvrfiarUoR3fRjCFbxSWb8H798v129YAZgZcEX508QcJftj3freJOQBgYUsq0axWLpr
-         6Hpg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788265130; x=1788869930; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UvAi+mvqn+hfoITwGygPm/YRj+YQGu0S7A55rivu94M=;
-        b=cu+sxr8MK5sNC/uVsEzuQ15QB5fgL926vBMF3dm9MLyD0FjEmRuoRHqdEw9BqHWhye
-         TBa1ExtRh8OOER2i74w5OILPqw3+MU4Kneja2YTshuGPesAeBzKlKZEA+4NbY/5uo52s
-         RDr+jyzZQQCG6tHuikKqwWYYiwbpYYhMR6EbPHdhaZQl39yJH+6Ucx/k92aI0waI5QSl
-         O6fMckPyqyodn5Dc8lzaFZj2I8G38EoFHu45F90amE/RCLIGCffXnCpC2dryp2Qwhlb4
-         V10VFurB6/JJp3Fd+6q9Mu32cH5NG19cGUnMpuMfignb3pTXtybWNn1dMXKfukPyXipz
-         0y6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788265130; x=1788869930;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=UvAi+mvqn+hfoITwGygPm/YRj+YQGu0S7A55rivu94M=;
-        b=SpY+TONliv959fHhpxPsA/LS2oU3wsZOkwyEARAmAW71Kr04rtABVb7dcZDosCA0jl
-         k/cl+Uua6hDhy0BFDEUPIogKUlEuJzBGZEEuNmnqSBkJcuJ5THRg40BWdoE9cyD77OwL
-         t0r7ApT+chW6tYmpj/7qBgfj5N33veWvAFg59ftX+/FeDYKPNggcB7E1Db+fyUteTlGV
-         Bjx6QsQnxBYeT2/p3qRvaVywaqdobEu73/Yt/0MUaviX8fT1ZrKIWFsZgklnoiU02VMJ
-         u5PSyuKyoZREYdcFZu5KcJpEzBrPx+DvnKcriQzsUQG9U/sZgiRdVUxFZX3/ynMWThZQ
-         /aCw==
-X-Forwarded-Encrypted: i=1; AHgh+RpAw5mGdaATvd+8Hto7eyRBVVXYdRb522BfTVB3FbTOX7+jCrfPaq9yWCtuMksa6iWeAtfMb9yUBqsSIjw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWyjT1je1qC5qDitVH9q0pX+cw0NsMR1k+ce3X5InHNMMKpgTV
-	e+VKnW5t5wfJtEPKXSfbYpacaNgjjzUuQ6YfgxKNzUaQhlyCqf5LAqkle3jic0ai7gCghSy3KPV
-	8AYTk+jJbY7JY4ie99vd/iWEHtILCrjXGYc29nkUJsQ==
-X-Gm-Gg: AR+sD101PLfaxb5oRqGVMLK/VhY7AXmEalPvVLGS5+yVNPfMn9VaM4XXRtZbdUmb4oH
-	ZYiR26BKjOig7o426tKDaby4OJ85HtedBWaOdiqaYMUNwDSCh3SGYBK2AvxzpUslWr+lxZ+Gcbm
-	Ch3M1NAGje5wfEvY/FibkiMz6uiZgDVHe6bYpezffQWLrXT9ciXwLn4SUA+48dq0hGgRWgpz0pn
-	lIxcd09UHnRQza9SO26FOA/trdEXBHsDPpxsms2ATlZfjEag1OdL5enIwB8qjMRb688gQH+MuJC
-	XowpsGpRXAQofyINN5/gxn26IBRT9ZpvejwIgUgHwIAAILVMmCDeXvTGn5/ndaWYCtTAt4vVK63
-	JErewPQDSpZjypf+r/p5a/5b6ibkeqPPMSqNuFOxwgw==
-X-Received: by 2002:a05:600c:3b13:b0:495:4d5c:903e with SMTP id
- 5b1f17b1804b1-49cdc4332d4mr140012115e9.7.1788265130443; Tue, 01 Sep 2026
- 05:18:50 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="inr+6Ohl"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=tTg7Bo2wbjcRAUaxL1UEgGC/z6y7gvvxxIrjwzhUMXw=; b=inr+6Ohlz4RN7rLPYiLjzI4aYf
+	4TVsOlrxoOmr6Zx7CKUnmemKhTUkxJIBfi4hNvs9yerdiHWTBkvh8sgbBGkBy3PHfgWzGsKWDLTXm
+	jRYbOQAgAiG8YFBmEt5a3T8TO4X5cxzOLji/CUfrK5+m34t7Pz1uyrVhwwuNfx6iS8vg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x1NRr-002Lx0-P9; Tue, 01 Sep 2026 14:18:43 +0200
+Date: Tue, 1 Sep 2026 14:18:43 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: guoqi0226 <guoqi0226@163.com>
+Cc: Frank <Frank.Sae@motor-comm.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	cuiguoqi@kylinos.cn
+Subject: Re: [PATCH] net: phy: motorcomm: keep chip delay defaults when
+ firmware provides none
+Message-ID: <0dc278ab-c370-4e13-a727-a5e92f18703d@lunn.ch>
+References: <20260901061915.3410228-1-guoqi0226@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260513085340.3673127-1-neelx@suse.com> <20260513085340.3673127-6-neelx@suse.com>
- <20260601230913.GD25574@quark>
-In-Reply-To: <20260601230913.GD25574@quark>
-From: Daniel Vacek <neelx@suse.com>
-Date: Tue, 1 Sep 2026 14:18:39 +0200
-X-Gm-Features: AcwNN1WZzfR7nMvK7wzsu0uw9g-Q6K8Z-mgC6-phqgqu2rO8TCpwPmWb_Vlt_uY
-Message-ID: <CAPjX3FebVAj-U3s7nJiwu3D74p_nAGacYPJAX04TVXJBaievGg@mail.gmail.com>
-Subject: Re: [PATCH v7 05/43] blk-crypto: add a process bio callback
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: Chris Mason <clm@fb.com>, Josef Bacik <josef@toxicpanda.com>, "Theodore Y. Ts'o" <tytso@mit.edu>, 
-	Jaegeuk Kim <jaegeuk@kernel.org>, Jens Axboe <axboe@kernel.dk>, David Sterba <dsterba@suse.com>, 
-	linux-block@vger.kernel.org, linux-fscrypt@vger.kernel.org, 
-	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901061915.3410228-1-guoqi0226@163.com>
 
-On Tue, 2 Jun 2026 at 01:09, Eric Biggers <ebiggers@kernel.org> wrote:
-> On Wed, May 13, 2026 at 10:52:39AM +0200, Daniel Vacek wrote:
-> > @@ -330,6 +330,17 @@ static void __blk_crypto_fallback_encrypt_bio(struct bio *src_bio,
-> >               }
-> >       }
-> >
-> > +     /* Process the encrypted bio before we submit it. */
-> > +     if (bc->bc_key->crypto_cfg.process_bio) {
-> > +             blk_status_t status;
-> > +
-> > +             status = bc->bc_key->crypto_cfg.process_bio(src_bio, enc_bio);
-> > +             if (status != BLK_STS_OK) {
-> > +                     enc_bio->bi_status = status;
-> > +                     goto out_free_enc_bio;
-> > +             }
-> > +     }
->
-> This looks very out of place in this function, because this function
-> potentially submits multiple encrypted bios whereas this code assumes
-> there's just one.  I think we could at least use a comment here, as well
-> as a WARN_ON_ONCE(!bc->bc_key->crypto_cfg.process_bio) in the case where
-> an additional bio is being submitted.
+On Tue, Sep 01, 2026 at 02:19:15PM +0800, guoqi0226 wrote:
+> From: cuiguoqi <cuiguoqi@kylinos.cn>
+> 
+> ytphy_rgmii_clk_delay_config() unconditionally programs the YT8521
+> RGMII delay registers. When firmware describes neither
+> rx-internal-delay-ps nor tx-internal-delay-ps,
+> ytphy_get_delay_reg_value() falls back to the default 1950 ps values
+> and those are still written into CCR and RC1R, overwriting the chip
+> strap/OTP settings. With phy-mode "rgmii-rxid" this clears the RX
+> internal delay the MAC relies on, causing CRC errors, packet loss and
+> link training failures at gigabit speed until the link falls back to
+> 100M.
+> 
+> The fallback only supplies a value and does not skip the register
+> write, so the check belongs in the caller. Since the hardware links
+> cleanly at gigabit with the chip defaults untouched, return early when
+> firmware provides neither delay property. Delays supplied via DT or
+> ACPI _DSD are still honored.
+> 
+> Since commit fffedfece2b4 ("net: phy: motorcomm: use device properties
+> for firmware tuning") switched the driver to the generic device
+> property API, this applies to both DT and ACPI platforms.
 
-While this funcion may submit multiple encrypted bios in general case,
-the check below makes sure that in case of crypto_cfg.process_bio
-callback splitting is not allowed and only single encrypted bio will
-be submitted. The WARN_ON would be impossible to hit. That's why no
-handling is implemented with the in-loop submit.
+This seems wrong.
 
-> > +     /*
-> > +      * We cannot split bio's that have process_bio, as they require the original bio.
-> > +      * The upper layer must make sure to limit the submitted bio's appropriately.
-> > +      */
-> > +     if (bio_segments(src_bio) > BIO_MAX_VECS && bc->bc_key->crypto_cfg.process_bio) {
->
-> Checks should be reversed so that the expensive bio_segments() check
-> only gets done if process_bio is non-NULL.
->
-> (Sashiko spotted this too, by the way)
+phydev->interface describes the basic actions.
+PHY_INTERFACE_MODE_RGMII means no delays are added by the
+PHY. PHY_INTERFACE_MODE_RGMII_ID means delays are added for both RX
+and TX, by PHY.
 
-Yup, true.
+rx-internal-delay-ps and tx-internal-delay-ps are about how big the
+delays are. The RGMII standard says the delays should be 2ns, so if
+these properties are not present, if delays should be added, 2ns
+should be added.
 
-> > + * @process_bio: the call back if the upper layer needs to process the encrypted
-> > + *            bio
->
-> or NULL if no such callback is needed.
+The chips strapping does not matter, the PHY should do what it is told
+to do, via phydev->interface.
 
-I'll add this.
+So, does your PCB have extra long clock lines? That decides on the
+phy-mode value, you are describing the hardware.
 
-> > + * @proces_bio: optional callback to process encrypted bios.
->
-> Typo.
+https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bindings/net/ethernet-controller.yaml#L287
 
-Already fixed. Sashiko also noticed.
+You say "rgmii-rxid". That would be a very odd value, it means you
+have an extra long clock line for one, and a regular clock line for
+the other. It does happen, but it is very unusual.
 
-> By the way, after writing kerneldoc you should run the kerneldoc
-> checker, as it will find things like this:
->
-> $ scripts/kernel-doc -v -none include/linux/blk-crypto.h
-> Info: include/linux/blk-crypto.h:79 Scanning doc for struct blk_crypto_config
-> Warning: include/linux/blk-crypto.h:95 struct member 'process_bio' not described in 'blk_crypto_config'
+If you really want to have the PHY not touch the delay configuration:
 
-Hey, this is a good hint. Thanks, I'll keep that in mind.
+/**
+ * enum phy_interface_t - Interface Mode definitions
+ *
+ * @PHY_INTERFACE_MODE_NA: Not Applicable - don't touch
 
---nX
+and you need to patch ytphy_rgmii_clk_delay_config() to support this.
+
+    Andrew
+
+---
+pw-bot: cr
