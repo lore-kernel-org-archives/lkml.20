@@ -1,371 +1,371 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013031.outbound.protection.outlook.com [40.107.162.31])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 565E54A2E32
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:05:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788289527; cv=none; b=kxxIbdlUuh/gKFoBEM/LO94lgEflJHerL7H3xNBVDbmTx0sVdGF3YjfrHsPvQMhdlfSzucM54JCF4OvCkpNWmkxIjQW6Os8jUL6/052RnEd7UVTowu0ivcZ5JeUvq4dwHLX/fYVp/UJMOE1yXLrOtKGwsvwuRM1UzfjMO7QEfRM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788289527; c=relaxed/simple;
-	bh=7TpNIuEmLp+G5e+2SpK8ix5wNiH93X57SXsd3KUQO5E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XnbjgMEluO9l/WeFijgsldJHr90H4kd22EyUb82uqIToCss2TtJy3rfIwytbOUuEWwxQ5ViLO1rQ0QGvXTb6BeY9DskeIUDuI9EZ7uiDoQcco6Zbi3674FFGwUtQvJGKXLuDUp6fSVCEODTrYAH3StGMTDRsooOQj7YLVJPQRpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FeITimoK; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2938A49DB8B;
+	Tue,  1 Sep 2026 19:05:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.31
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788289534; cv=fail; b=B6BXnCp7dxQN8f+SWpNwGScwz/bvYb80zLAxQ6s7L5BbTFwCBhrbdZOotJPE1fjKmbm4K4GBUx8WHi9fPVShKCndxr5FAMBeGGG4dBAuOj4r+RMekjIVj6icZY0dXU3mnnZQmRBKMT8tI6d8CsHtoC72qfUIKNuVmDkbqGlWgXY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788289534; c=relaxed/simple;
+	bh=uzlpymp1rk/hmSj3hQv94a5fOLFq7Y6qfheoPb8/OE8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=h+r38EsaSPQySsmrFoum9GT/Y5ZQMzFaPA2FloAqk/XNVhMO/BxJ/eu5Nkx9aeJGEdGArOMgJIJla3WNS3/WYKaPY6/ZjhE2Ld8zZDm0SSE0iKxd+NozXUG8YaLJd+bk2cA1cv6hg4UgHr9FQCicAeQKAqV3IcONNH/EQf7UZCw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=juEId7dI; arc=fail smtp.client-ip=40.107.162.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FeITimoK"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49ccfae359fso969005e9.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:05:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788289513; x=1788894313; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=06nDeaXmBzbafN8AxJnH0KVNHErvgEdljVUYQQyITT8=;
-        b=FeITimoKWL1WHBNlZrhZiGz2hF8ds1sRkkpj6JfBmKkWyhrqzFmuXwM2DULb35XM3C
-         JAgh6/zL0tWMCxGmLBBg6ufNZFpdppcijspf0mzds3YitDEIA1qxIf5vpHBXZyXW5sc6
-         89aa+oiuiC0w2l0F+4hj2vmLkG5d6gwv8PzhA2oQLTqWH5ujvj0QPHBG6ehau5RCaSRk
-         zfp7i7tc/w9qnBVmmupXDjPLCmmg+hWgvKoU8W2RAFP+UAiE2o7qkf4ck5lXrI915Xfl
-         /wQk+JDbXjjFyql2fTQEAGAMnL/+uV4OUeCGk+zdCE1Z/k2RrsBwFfI2NCdEn/6EafMW
-         /EXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788289513; x=1788894313;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=06nDeaXmBzbafN8AxJnH0KVNHErvgEdljVUYQQyITT8=;
-        b=akw5qzq7+lMilwoSf2kNHeBcZD63pOTtVlu5551rDlQ0kOrBbMZ9GVlr8WCy/sLDS3
-         X4t157kc/b2BATEkQ3N6uMk9tb4faWyFtHFzWUBuyKlhGf6qjIrdDnvH8vmYUKbWSics
-         CTdGWtWvsZ7312EQMmGwyL3iz+dvYQmF6RG+EPWI4tEZM3oJRdpIkILi8Zpdir0GenJl
-         AK53HladU+yZgysm/Gd9J+Mx9rsEV52nEls7/JLYV1RGRda8oSMDVFsNVP3gF9XzWdDF
-         kmYg5ygg30JnlW8HOySLIrezG6HIEmapnkeBsNdebVaI0OzPB/IcMpqE0uvXzYeugMcT
-         Uvgg==
-X-Forwarded-Encrypted: i=1; AHgh+RrFG9ClV755e9hWh+sYhu/2eL8gOrxE7czLVSZ1ecLeF+4RqeDi3lKmW8MqeILWJkM7Pd0OkOuZItQiqI8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mPOLx79QTekFLoY7zjWpsALsoW3aNEqtxMAwDtt34vGmbpDKcs
-	p08hK9VpcxNgrn/JXT70Uroz770WYaAcQiUQwwWVwS1jCr+wCNfsP2Og
-X-Gm-Gg: AR+sD11RvGWGegrXtFQiU2ChmiuvWh0OyOpuTTMRPfV36DPvJrb8ZLlokDhVr/BNLAx
-	qwGqm30Iz1OpC8MKuxmqbp2XhNZHdCRYMzfnyb8lWWPbxI9eid33fNVKt3bgX10gOUal94WEucu
-	3SDLfmMWxmFHmUYprpiS8vMqp7G2C7klO+Z7H7MkmqdI7dcQl4T6rby/BX2fXuItNwlHdEDuahl
-	gKcLvljimA0SGWtRTWHTogJ3GWN1ARlLWX8eCWXUX1au+ZNMpl5c/R5owONioPZx0y08jVzJzmz
-	5ZThZNlEA9CjNvuU4xwUJIYSgLs9XcSL+dCxXwaA6hSpMjPGvjUnZj0LpFNx0ry1FjgfinyPAOE
-	/2PVoa+rtVSy1CXIL7wfatBBvo0KiqrMDyXKnn+WeX/EkpJ1HWVGzwaj+Bc2ZLCBjTwy7BFr0Sk
-	8803Ji8Fsx1ZoCIRrWje8QAN6nDps15mhMqE+gRrzJCfTE25B8agY9EuXBLq2ZyeJnZm9LpfdiZ
-	KroME3uKEpjKa9dgNzfZZSJqb5PWwvDZEP7Vq0OfA==
-X-Received: by 2002:a05:600c:529a:b0:49c:cedc:3c36 with SMTP id 5b1f17b1804b1-49ccedc3cafmr423438715e9.16.1788289513210;
-        Tue, 01 Sep 2026 12:05:13 -0700 (PDT)
-Received: from 1Z10 ([78.213.73.56])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce10148sm85481985e9.5.2026.09.01.12.05.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 12:05:12 -0700 (PDT)
-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-To: mchehab@kernel.org,
-	linux-media@vger.kernel.org
-Cc: sakari.ailus@linux.intel.com,
-	bingbu.cao@amd.com,
-	jacopo.mondi@ideasonboard.com,
-	nicholas@rothemail.net,
-	andy@kernel.org,
-	andriy.shevchenko@intel.com,
-	hansg@kernel.org,
-	gregkh@linuxfoundation.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v6 16/16] media: i2c: Add WV517S lens actuator driver
-Date: Tue,  1 Sep 2026 21:04:38 +0200
-Message-ID: <844ce35b357721e258c0b8d83e6caf9b06366385.1788286339.git.mauriziocasciano7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1788286339.git.mauriziocasciano7@gmail.com>
-References: <cover.1788286339.git.mauriziocasciano7@gmail.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="juEId7dI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sdf+tdL00xWTxg2942RuuT9rhB0zi78N2pKaItcg2Q8PhJ/vXFnSalrAxJJwTadsPKQ2v0iymqowuNhl6GnZaIiF445AMEvv43a0ef1VBjYloM2Fg2oZ2miGbdla2Fg+emGu9HkoImPbSIwtu2XTaF+V7xnWtjK+6Anu/K5iVMADz1NHmxS80wwAGAYxkd2n24ijyEN0ooh9YBp882AqUeY/v/ycURcXiqigk7F5LPFTdFUts70HNE1+pcA96CDAZ11qwy5tg7dmz6rfFTLkCBROBgEPGS7PxvSlFzO0b4bcp+306yObErfS4Mm3Pyu0O+3lMUJLOhHvNCQHir4iFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wNA7++2csiCKfuLpaxQ4i2RWjtRFn41EPFxfywTZiec=;
+ b=SnpNHrQJ3xbThmFjRxT4Tou8oGYj7R/88Ml8sqvY/Wr0W8+h8iC7OEp+2XXSuPwiceGgeL8B49fcYM7hLoHC3qjm9diNr5tbsrm7prttOOpcnCJaxao3l7GpowfJmwC2uHpAiAuRXxWIQ1zYHJOmfg3SFmGxfQf0xbShRGDuMSqAenq7OLvkc/tQoWGFzMzORkXSbi7QK6jZ6zkW3DM/OR+EQA+WSmsI2ql5vmfNA5yQZBB6aH7JLlBd1YZihGqnevSkI5AiK1RUzk3aXUwj295xkW3JLgnDx/QvbJsbDwfXI1UY9E1q48GitxWjgY1POCaRepJpzBlh4B8GPOnd0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wNA7++2csiCKfuLpaxQ4i2RWjtRFn41EPFxfywTZiec=;
+ b=juEId7dI1Y5m5Dt40XmUUi7xRB0Jqi5y/Nd/VaYV3DgG2UeTmiHIzs4+ySjtoy860n2LObiq6d5dNeDX9EF9K4Ga6nnWuIrN060CaRMY38ZCTVMfvX/d7l9tvhKUgJwwRz2x9giRFziJ5RPnOwQbkPdpqkdy94BI1BvH0SGp604e0DavIoOsJ8hYZESmuo3IM9SwO6ut1055ARXK/JHtdQYxinDtRp0kAYFeJTGQEMeL/ORP4YO4R+IUGhFo6C9jiFowQ1KvZZBUBSNnw9EDXLvrNGOgugL1C2f+Jn5BBGOL1VDT80ss5CVyWKdDQ51OsBCNMZKlql/ZIGJkBvnyfQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM7PR04MB6919.eurprd04.prod.outlook.com (2603:10a6:20b:10e::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 19:05:24 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 19:05:24 +0000
+Date: Tue, 1 Sep 2026 14:05:14 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Manivannan Sadhasivam <mani@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, ntb@lists.linux.dev,
+	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 2/2] PCI: endpoint: pci-epf-vntb: Manage virtual NTB
+ and PCI bus lifetime
+Message-ID: <apch6kP9Xdvo43O6@SMW015318>
+References: <20260901063238.631166-1-den@valinux.co.jp>
+ <20260901063238.631166-3-den@valinux.co.jp>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901063238.631166-3-den@valinux.co.jp>
+X-ClientProxiedBy: PH7PR17CA0019.namprd17.prod.outlook.com
+ (2603:10b6:510:324::16) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM7PR04MB6919:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1492c469-c16c-4a11-5228-08df085bf9ed
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|19092799006|23010399003|7416014|376014|6133799003|18002099003|22082099003|56012099006|10067099003|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	x/oZ5tM4R44weVDwURINamoIVr9cphQsIXA+7xhmmLymC+i1CVeGzPQh1QJwhKvAFia0li+vj2QlJ2Rl7mfKjexGO2Dj/A0i5UfjrxhhRTPBJ82DVkrpdD1W2Hm0sGE5Vqu2wiIWGO/+ki85kd4UBDE+qHt06GrEuDcMeCYdszs4rUyP3CbeMscmpKzG6zaK1s7HvNoJ/Bxp7ujtmYzMVydSYGMiHdjjGoJTn8boylYB7p8dDp25Rg5h01PJJXRaMFhILNapa1eb7hRgvj7h0iWuWaA0nwM31gH4NM9vQYUp/eNQ2/ut0bvG3v7qYH/AsCgwo5nP1Hdib/dpJ5blv97BWBn4XJb3Av8buR82joHwVlOXTqnxlS/fSVWeRrln1X4w2X5ZTizbXfvFJB1IzgXPqRpg+6xwvFDYwL4atoqFOn6hEphJ3DNiuxQ9MDz7Cxotg5ycMSclHW0KB+TGVrPIQ3TPY8NjqIVq59vB3V4y+o9nzKMiO6Ed3VaKGYYNsIk80+ZbRLZk1uMeeP2qAePkuibe9PGAUGAf4fged3I2Zcm8DsT2YXFcQ8zrOa3ZAcvtkOBSUdCmWGUTQ8CaYntPepjZJFDGMIgjHfIZ0BQdmY6n6AtS/dmzRq/UrtK2
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(23010399003)(7416014)(376014)(6133799003)(18002099003)(22082099003)(56012099006)(10067099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?HbqC5osnJN2j2i2yZFGAOv4VRFgo1qLmuIDmWhhfwIia51R8JDOlBTa92ndk?=
+ =?us-ascii?Q?+lLLEij0CCH61Q6qnEAnPr1kTSdzM6IZQUfWGoHl4NQ1UbEzqFIDKFF7PvqM?=
+ =?us-ascii?Q?JH7JvYNIHLedWmOWpYiD/fKJ4wyf42RXiC5ZWqIuRHbTihT2x/VlEnPBGx34?=
+ =?us-ascii?Q?3G2AFGx6VEL1pwtp2dbX54Lzmyx5Sl8zU1FYGlqcJnEZmV3NN7jx2UkYyVdJ?=
+ =?us-ascii?Q?9ihja032L6ptWzTS0iLChPJ2DqZEQebtasnKQGXxbwxrCWPI0vZEE1kxZORk?=
+ =?us-ascii?Q?WSHuhA0TH2qtq/+yitIbT/iGDtrKKkrMiM01zyD2AsxHQI1TsmWGS749ipIa?=
+ =?us-ascii?Q?qDQDwBAuVGNhUIDod4HoCfF4/7dGkKtnc1tuxbVzMAIOzfYeqgYS5aPswlex?=
+ =?us-ascii?Q?vOFae9ihK1EFLzCdaOkxy8jBWs8PU0H+7mmqnvvx/mN7G0QHEpiDhaqhOgdo?=
+ =?us-ascii?Q?USeLLbJHATCt9h9gM37zg4kvKg31AEaa1LO20CIemKjb+lyM60dGOef93dip?=
+ =?us-ascii?Q?f/P4JuIgL6gwcXy5WONAzI8qmwbvmzF6aMQnrowLaSn8eCn+0oBq8mIDmNKY?=
+ =?us-ascii?Q?Hb7Mm4dba441ALaZ3J29WMPJkx93oFbi4yhxw94UGaKKIFhdogoxLk98BOqR?=
+ =?us-ascii?Q?gbI+UpYi8hYkX7tkaBResyTWNL+05cv7pRvq9gIyaA3cbLZlRSAvuK/GHG8T?=
+ =?us-ascii?Q?YhKnDxT4MS05Pa9ksJWhBMTo062UnqnY46HEs/CYcFjUoo0whqY5PRjBYKKr?=
+ =?us-ascii?Q?SoSGKOYOAWI33WgvmCJDpbc/HjLSD8VtIPA8XVV7MhikY8fApJS5RUgGFJcx?=
+ =?us-ascii?Q?2YouYnXZvoOuPgn0AoBZYj38+0tibe4sGawIn7Ft0KM55JfFQ2N+7Uv5lFVB?=
+ =?us-ascii?Q?BiQqZvJacTHtr3VbuZAICASh7hw/yqCj7NOl3RH00/yR9V0HmQSsB03/oqTy?=
+ =?us-ascii?Q?rnhyc9EyTBUTzW/BEuW6aWp9mhyTf/lGLN81QYgAfnX6WXg9qcN1vNXCHVoG?=
+ =?us-ascii?Q?tmW2+51oSkaUvaJIGIt9pS5/cQLkqLu1J9l4sbEf7nDB9ahdMDQm5Lq7Je6S?=
+ =?us-ascii?Q?IqnIgVXV03ERVYCmK5PVk5kpMAgCDTq2fmEGRZj8RMz6jmQtaPPSANd3E317?=
+ =?us-ascii?Q?JquMJOEDTyh/Ipdj46vmsw5nNbFaDmfHKEWPT3LldzSutI+AYhtTFmkwzyAU?=
+ =?us-ascii?Q?K6c/+o7yK8O5r7lWGlc1Jcspa5V9y6fZzpXQuZqq8xdSif5qjBw223vxFY0Q?=
+ =?us-ascii?Q?Ju54mUmf5NniVrYdwIKc6B2WCjNAv7iw3IMYQQXRLSbOVjQHpxmrgtmySlNa?=
+ =?us-ascii?Q?wtc07oPqyOTKY/eZXhjBeaxkpP58aAICzdbyhMRlris3QHdG57LLxN7auFuq?=
+ =?us-ascii?Q?6Kk0R4Kqh4WbcEvv4hCRsoxz5evhCnI73wvJ+/TxbQQbE8WXr9fsFOzbzW88?=
+ =?us-ascii?Q?oeXbC8/XRpheSWG5Qvw0jrr5ZSHWtPhppUvRVvM85ZfD4Lpq8Ji5ghzqSSyi?=
+ =?us-ascii?Q?h6/ALIzId6nJm4nxAThChARIbUxaQf/6dmK6U+RBJEcK6ph5qG2e9c8n7tdv?=
+ =?us-ascii?Q?96XLHMcPYEuxanGrhOUWTQHlE+qiup1kz0ON/s/tfJVS5J+wcXRjRDk82ppd?=
+ =?us-ascii?Q?7JsM8zjoWBjuJ2Nms/PRtUV+h3VggvYC/I2JOh3pH6eJ+a3AM0Z86lMHdYFa?=
+ =?us-ascii?Q?Ro5hFG3GokyNdHfBBt9Kv6PaYinK4tzob0nyV10RAP16tA14oC5sbwGmvtG0?=
+ =?us-ascii?Q?SnoWSMftKoDn//xP8pdlAJmjRzl/02ikDovSllgURUZgbr5TvSiJ?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1492c469-c16c-4a11-5228-08df085bf9ed
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 19:05:24.0954
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 18hMP1zbYD0q2VyU3wIBTCLZEEgmRztk3MShVYhYcmZNCEWjnEk5/sRf9Sdo54o3jMdVZDgLxFa/HfjqLw5pOf6CDtTE97+YTNA0TGo6QfdwkHELjDdsqZOgdpqpIRlj
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6919
 
-The Lenovo Yoga Book YB1-X91 rear camera contains a WV517S voice-coil
-actuator. Add a V4L2 lens subdevice exposing the standard 10-bit
-FOCUS_ABSOLUTE control and the device ringing-control mode.
+On Tue, Sep 01, 2026 at 03:32:38PM +0900, Koichiro Den wrote:
+> The virtual PCI driver registers an ntb_dev but has no remove callback.
+> Unbinding the endpoint function can therefore free BARs while the NTB
+> device and its client still use them. It also leaves the virtual PCI
+> devices and root bus allocated.
+>
+> Allocate an ntb_dev for each virtual PCI probe and unregister it from the
+> matching remove callback. Start command processing only after registration.
+> Publish the device for doorbell IRQs at the same point. During remove, stop
+> the command work and drain IRQ handlers before unregistering the device.
+>
+> Retain the root bus returned by pci_scan_bus() so it can be removed on
+> unbind. Unregister the virtual PCI driver before releasing endpoint
+> resources. Stop and remove the root bus under the PCI rescan/remove lock,
+> then release its host bridge.
+>
+> Fixes: e35f56bb0330 ("PCI: endpoint: Support NTB transfer between RC and EP")
+> Cc: stable@vger.kernel.org # 6.0+
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> ---
 
-Use regmap for register access and tie control updates to runtime PM so
-the IPU bridge sensor link keeps shared power resources active. Propagate
-PM acquisition failures and restore the drive mode and controls after
-resume.
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-The register addresses and drive-mode value are derived from Intel's
-GPL-2.0 WV517 driver. Retain the Intel copyright notice and document the
-2026 copyright for this V4L2/regmap implementation.
-
-Link: https://github.com/jekhor/yogabook-linux-android-kernel/blob/574bae692716f1b14093497bfab8a007fe8e460b/drivers/external_drivers/camera/drivers/media/i2c/wv517.c
-Assisted-by: LLM sparse
-Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
----
- MAINTAINERS                |   1 +
- drivers/media/i2c/Kconfig  |  11 ++
- drivers/media/i2c/Makefile |   1 +
- drivers/media/i2c/wv517s.c | 206 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 219 insertions(+)
- create mode 100644 drivers/media/i2c/wv517s.c
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 55b3c2d7a78a..a4380be897e9 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -28555,6 +28555,7 @@ S:	Maintained
- F:	drivers/media/i2c/ak*
- F:	drivers/media/i2c/dw*
- F:	drivers/media/i2c/lm*
-+F:	drivers/media/i2c/wv517s.c
- 
- V4L2 CAMERA SENSOR DRIVERS
- M:	Sakari Ailus <sakari.ailus@linux.intel.com>
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 5c52007f9cbe..c5636e0cbecf 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -949,6 +949,17 @@ config VIDEO_DW9807_VCM
- 	  capability. This is designed for linear control of
- 	  voice coil motors, controlled via I2C serial interface.
- 
-+config VIDEO_WV517S
-+	tristate "WV517S lens voice coil support"
-+	select REGMAP_I2C
-+	help
-+	  This is a driver for the WV517S camera lens voice coil. The driver
-+	  supports 10-bit focus control and exposes the actuator through the
-+	  standard V4L2 lens sub-device interface.
-+
-+	  To compile this driver as a module, choose M here: the module will be
-+	  called wv517s.
-+
- endif
- 
- menu "Flash devices"
-diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index d04bd5724552..e480932a9540 100644
---- a/drivers/media/i2c/Makefile
-+++ b/drivers/media/i2c/Makefile
-@@ -173,4 +173,5 @@ obj-$(CONFIG_VIDEO_VP27SMPX) += vp27smpx.o
- obj-$(CONFIG_VIDEO_VPX3220) += vpx3220.o
- obj-$(CONFIG_VIDEO_WM8739) += wm8739.o
- obj-$(CONFIG_VIDEO_WM8775) += wm8775.o
-+obj-$(CONFIG_VIDEO_WV517S) += wv517s.o
- obj-$(CONFIG_VIDEO_INTEL_CVS) += cvs/
-diff --git a/drivers/media/i2c/wv517s.c b/drivers/media/i2c/wv517s.c
-new file mode 100644
-index 000000000000..fa6c6d7524fb
---- /dev/null
-+++ b/drivers/media/i2c/wv517s.c
-@@ -0,0 +1,206 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+/*
-+ * WV517S voice-coil motor driver
-+ *
-+ * Copyright (c) 2014 Intel Corporation.
-+ * Copyright (C) 2026 Maurizio Casciano <mauriziocasciano7@gmail.com>
-+ */
-+
-+#include <linux/container_of.h>
-+#include <linux/device.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/types.h>
-+
-+#include <media/v4l2-ctrls.h>
-+#include <media/v4l2-device.h>
-+
-+#define WV517S_MAX_FOCUS_POSITION	1023
-+#define WV517S_DEFAULT_FOCUS_POSITION	300
-+
-+#define WV517S_REG_FOCUS		0x41
-+#define WV517S_REG_DRIVE_MODE		0x43
-+#define WV517S_DRIVE_MODE_12_6_MS	0x0211
-+
-+struct wv517s_device {
-+	struct v4l2_ctrl_handler ctrl_handler;
-+	struct v4l2_subdev sd;
-+	struct regmap *regmap;
-+	bool resuming;
-+};
-+
-+static inline struct wv517s_device *to_wv517s(struct v4l2_subdev *sd)
-+{
-+	return container_of(sd, struct wv517s_device, sd);
-+}
-+
-+static const struct regmap_config wv517s_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 16,
-+	.max_register = WV517S_REG_DRIVE_MODE,
-+	.val_format_endian = REGMAP_ENDIAN_BIG,
-+};
-+
-+static int wv517s_set_ctrl(struct v4l2_ctrl *ctrl)
-+{
-+	struct wv517s_device *wv517s =
-+		container_of(ctrl->handler, struct wv517s_device, ctrl_handler);
-+	struct device *dev = wv517s->sd.dev;
-+	int pm_ret;
-+	int ret;
-+
-+	if (ctrl->id != V4L2_CID_FOCUS_ABSOLUTE)
-+		return -EINVAL;
-+
-+	/* Runtime resume restores controls while the PM state is RPM_RESUMING. */
-+	pm_ret = pm_runtime_get_if_active(dev);
-+	if (!pm_ret && !wv517s->resuming)
-+		return 0;
-+	if (pm_ret < 0)
-+		return pm_ret;
-+
-+	ret = regmap_write(wv517s->regmap, WV517S_REG_FOCUS, ctrl->val);
-+
-+	if (pm_ret > 0)
-+		pm_runtime_put(dev);
-+
-+	return ret;
-+}
-+
-+static const struct v4l2_ctrl_ops wv517s_ctrl_ops = {
-+	.s_ctrl = wv517s_set_ctrl,
-+};
-+
-+static int wv517s_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
-+{
-+	return pm_runtime_resume_and_get(sd->dev);
-+}
-+
-+static int wv517s_close(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
-+{
-+	pm_runtime_put(sd->dev);
-+
-+	return 0;
-+}
-+
-+static const struct v4l2_subdev_internal_ops wv517s_internal_ops = {
-+	.open = wv517s_open,
-+	.close = wv517s_close,
-+};
-+
-+static const struct v4l2_subdev_ops wv517s_subdev_ops = { };
-+
-+static int wv517s_resume(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct wv517s_device *wv517s = to_wv517s(sd);
-+	int ret;
-+
-+	/* Restore the vendor-recommended 12.6 ms ringing-control mode. */
-+	ret = regmap_write(wv517s->regmap, WV517S_REG_DRIVE_MODE,
-+			   WV517S_DRIVE_MODE_12_6_MS);
-+	if (ret)
-+		return ret;
-+
-+	wv517s->resuming = true;
-+	ret = v4l2_ctrl_handler_setup(&wv517s->ctrl_handler);
-+	wv517s->resuming = false;
-+
-+	return ret;
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(wv517s_pm_ops, NULL, wv517s_resume, NULL);
-+
-+static int wv517s_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct wv517s_device *wv517s;
-+	int ret;
-+
-+	wv517s = devm_kzalloc(dev, sizeof(*wv517s), GFP_KERNEL);
-+	if (!wv517s)
-+		return -ENOMEM;
-+
-+	wv517s->regmap = devm_regmap_init_i2c(client, &wv517s_regmap_config);
-+	if (IS_ERR(wv517s->regmap))
-+		return dev_err_probe(dev, PTR_ERR(wv517s->regmap),
-+				     "failed to initialize regmap\n");
-+
-+	v4l2_i2c_subdev_init(&wv517s->sd, client, &wv517s_subdev_ops);
-+	wv517s->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-+	wv517s->sd.internal_ops = &wv517s_internal_ops;
-+	wv517s->sd.entity.function = MEDIA_ENT_F_LENS;
-+
-+	v4l2_ctrl_handler_init(&wv517s->ctrl_handler, 1);
-+	v4l2_ctrl_new_std(&wv517s->ctrl_handler, &wv517s_ctrl_ops,
-+			  V4L2_CID_FOCUS_ABSOLUTE, 0,
-+			  WV517S_MAX_FOCUS_POSITION, 1,
-+			  WV517S_DEFAULT_FOCUS_POSITION);
-+	if (wv517s->ctrl_handler.error) {
-+		ret = wv517s->ctrl_handler.error;
-+		goto err_free_ctrl_handler;
-+	}
-+	wv517s->sd.ctrl_handler = &wv517s->ctrl_handler;
-+
-+	ret = media_entity_pads_init(&wv517s->sd.entity, 0, NULL);
-+	if (ret)
-+		goto err_free_ctrl_handler;
-+
-+	pm_runtime_set_active(dev);
-+	pm_runtime_enable(dev);
-+
-+	ret = wv517s_resume(dev);
-+	if (ret)
-+		goto err_disable_pm;
-+
-+	ret = v4l2_async_register_subdev(&wv517s->sd);
-+	if (ret)
-+		goto err_disable_pm;
-+
-+	pm_runtime_idle(dev);
-+
-+	return 0;
-+
-+err_disable_pm:
-+	pm_runtime_disable(dev);
-+	media_entity_cleanup(&wv517s->sd.entity);
-+err_free_ctrl_handler:
-+	v4l2_ctrl_handler_free(&wv517s->ctrl_handler);
-+
-+	return ret;
-+}
-+
-+static void wv517s_remove(struct i2c_client *client)
-+{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+	struct wv517s_device *wv517s = to_wv517s(sd);
-+
-+	v4l2_async_unregister_subdev(sd);
-+	pm_runtime_disable(&client->dev);
-+	v4l2_ctrl_handler_free(&wv517s->ctrl_handler);
-+	media_entity_cleanup(&sd->entity);
-+}
-+
-+static const struct i2c_device_id wv517s_id_table[] = {
-+	{ .name = "wv517s" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, wv517s_id_table);
-+
-+static struct i2c_driver wv517s_i2c_driver = {
-+	.driver = {
-+		.name = "wv517s",
-+		.pm = pm_ptr(&wv517s_pm_ops),
-+	},
-+	.probe = wv517s_probe,
-+	.remove = wv517s_remove,
-+	.id_table = wv517s_id_table,
-+};
-+module_i2c_driver(wv517s_i2c_driver);
-+
-+MODULE_AUTHOR("Maurizio Casciano <mauriziocasciano7@gmail.com>");
-+MODULE_DESCRIPTION("WV517S VCM driver");
-+MODULE_LICENSE("GPL");
--- 
-2.53.0
-
+> Changes in v6:
+>   - Rework v5 patch 5 on v7.3-rc1.
+>   - Publish ntb_dev only after registration, and tie command work and
+>     doorbell delivery to its lifetime.
+>   - Retain and remove the virtual root bus, then release its host bridge.
+>   - Drop v5 patch 4; f7245901de89 ("PCI: Check parent for NULL in
+>     of_pci_bus_release_domain_nr()") fixed the bug it worked around.
+>     v5: https://lore.kernel.org/r/20260226084142.2226875-6-den@valinux.co.jp/
+>
+> @Frank, the code changed substantially since v5, so I did not carry your
+> R-b tag. I would appreciate another look.
+>
+>  drivers/pci/endpoint/functions/pci-epf-vntb.c | 85 +++++++++++++++----
+>  1 file changed, 70 insertions(+), 15 deletions(-)
+>
+> diff --git a/drivers/pci/endpoint/functions/pci-epf-vntb.c b/drivers/pci/endpoint/functions/pci-epf-vntb.c
+> index 412e8cc6fb1d..992f5e7f8d4a 100644
+> --- a/drivers/pci/endpoint/functions/pci-epf-vntb.c
+> +++ b/drivers/pci/endpoint/functions/pci-epf-vntb.c
+> @@ -132,7 +132,7 @@ struct epf_ntb_ctrl {
+>  } __packed;
+>
+>  struct epf_ntb {
+> -	struct ntb_dev ntb;
+> +	struct ntb_dev *ntb;
+>  	struct pci_epf *epf;
+>  	struct config_group group;
+>
+> @@ -166,10 +166,15 @@ struct epf_ntb {
+>  	void __iomem *vpci_mw_addr[MAX_MW];
+>
+>  	struct delayed_work cmd_handler;
+> +	struct pci_bus *vpci_bus;
+>  };
+>
+>  #define to_epf_ntb(epf_group) container_of((epf_group), struct epf_ntb, group)
+> -#define ntb_ndev(__ntb) container_of(__ntb, struct epf_ntb, ntb)
+> +
+> +static struct epf_ntb *ntb_ndev(struct ntb_dev *ntb)
+> +{
+> +	return ntb->pdev->sysdata;
+> +}
+>
+>  static struct pci_epf_header epf_ntb_header = {
+>  	.vendorid	= PCI_ANY_ID,
+> @@ -195,7 +200,7 @@ static int epf_ntb_link_up(struct epf_ntb *ntb, bool link_up)
+>  	else
+>  		ntb->reg->link_status &= ~LINK_STATUS_UP;
+>
+> -	ntb_link_event(&ntb->ntb);
+> +	ntb_link_event(ntb->ntb);
+>  	return 0;
+>  }
+>
+> @@ -284,7 +289,7 @@ static void epf_ntb_cmd_handler(struct work_struct *work)
+>  	     i++) {
+>  		if (ntb->epf_db[i]) {
+>  			atomic64_or(1 << (i - EPF_IRQ_DB_START), &ntb->db);
+> -			ntb_db_event(&ntb->ntb, i - EPF_IRQ_DB_START);
+> +			ntb_db_event(ntb->ntb, i - EPF_IRQ_DB_START);
+>  			ntb->epf_db[i] = 0;
+>  		}
+>  	}
+> @@ -348,12 +353,18 @@ static void epf_ntb_cmd_handler(struct work_struct *work)
+>  static irqreturn_t epf_ntb_doorbell_handler(int irq, void *data)
+>  {
+>  	struct epf_ntb *ntb = data;
+> +	struct ntb_dev *ndev;
+>  	int i;
+>
+> +	/* Pair with smp_store_release() in pci_vntb_probe(). */
+> +	ndev = smp_load_acquire(&ntb->ntb);
+> +	if (!ndev)
+> +		return IRQ_HANDLED;
+> +
+>  	for (i = EPF_IRQ_DB_START; i < ntb->db_count; i++)
+>  		if (irq == ntb->epf->db_msg[i].virq) {
+>  			atomic64_or(1 << (i - EPF_IRQ_DB_START), &ntb->db);
+> -			ntb_db_event(&ntb->ntb, i - EPF_IRQ_DB_START);
+> +			ntb_db_event(ndev, i - EPF_IRQ_DB_START);
+>  		}
+>
+>  	return IRQ_HANDLED;
+> @@ -985,7 +996,6 @@ static int epf_ntb_epc_init(struct epf_ntb *ntb)
+>  	}
+>
+>  	INIT_DELAYED_WORK(&ntb->cmd_handler, epf_ntb_cmd_handler);
+> -	queue_work(kpcintb_workqueue, &ntb->cmd_handler.work);
+>
+>  	atomic64_set(&ntb->peer_db_pending, 0);
+>  	enable_work(&ntb->peer_db_work);
+> @@ -1340,6 +1350,7 @@ static int vpci_scan_bus(void *sysdata)
+>  		pci_unlock_rescan_remove();
+>  		return -EINVAL;
+>  	}
+> +	ndev->vpci_bus = vpci_bus;
+>
+>  	pci_bus_add_devices(vpci_bus);
+>
+> @@ -1425,7 +1436,7 @@ static int vntb_epf_mw_set_trans(struct ntb_dev *ndev, int pidx, int idx,
+>  	int ret;
+>  	struct device *dev;
+>
+> -	dev = &ntb->ntb.dev;
+> +	dev = &ndev->dev;
+>  	barno = ntb->epf_ntb_bar[BAR_MW1 + idx];
+>  	epf_bar = &ntb->epf->bar[barno];
+>  	epf_bar->phys_addr = addr;
+> @@ -1563,7 +1574,7 @@ static void vntb_epf_peer_db_work(struct work_struct *work)
+>  			ret = pci_epc_raise_irq(epf->epc, func_no, vfunc_no,
+>  						PCI_IRQ_MSI, interrupt_num);
+>  			if (ret)
+> -				dev_err(&ntb->ntb.dev,
+> +				dev_err(&epf->dev,
+>  					"Failed to raise IRQ for interrupt_num %u: %d\n",
+>  					interrupt_num, ret);
+>  		}
+> @@ -1681,13 +1692,18 @@ static const struct ntb_dev_ops vntb_epf_ops = {
+>
+>  static int pci_vntb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+>  {
+> -	int ret;
+>  	struct epf_ntb *ndev = (struct epf_ntb *)pdev->sysdata;
+>  	struct device *dev = &pdev->dev;
+> +	struct ntb_dev *ntb;
+> +	int ret;
+> +
+> +	ntb = devm_kzalloc(dev, sizeof(*ntb), GFP_KERNEL);
+> +	if (!ntb)
+> +		return -ENOMEM;
+>
+> -	ndev->ntb.pdev = pdev;
+> -	ndev->ntb.topo = NTB_TOPO_NONE;
+> -	ndev->ntb.ops =  &vntb_epf_ops;
+> +	ntb->pdev = pdev;
+> +	ntb->topo = NTB_TOPO_NONE;
+> +	ntb->ops = &vntb_epf_ops;
+>
+>  	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
+>  	if (ret) {
+> @@ -1695,16 +1711,41 @@ static int pci_vntb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+>  		return ret;
+>  	}
+>
+> -	ret = ntb_register_device(&ndev->ntb);
+> +	ret = ntb_register_device(ntb);
+>  	if (ret) {
+>  		dev_err(dev, "Failed to register NTB device\n");
+>  		return ret;
+>  	}
+>
+> +	/* Publish after ntb_register_device() succeeds. */
+> +	smp_store_release(&ndev->ntb, ntb);
+> +	queue_delayed_work(kpcintb_workqueue, &ndev->cmd_handler, 0);
+> +
+>  	dev_dbg(dev, "PCI Virtual NTB driver loaded\n");
+>  	return 0;
+>  }
+>
+> +static void pci_vntb_remove(struct pci_dev *pdev)
+> +{
+> +	struct epf_ntb *ndev = pdev->sysdata;
+> +	struct ntb_dev *ntb;
+> +	unsigned int i;
+> +
+> +	/* Stop the work reader, then close and drain the IRQ gate. */
+> +	cancel_delayed_work_sync(&ndev->cmd_handler);
+> +
+> +	ntb = xchg(&ndev->ntb, NULL);
+> +
+> +	if (ndev->msi_doorbell)
+> +		for (i = 0; i < ndev->db_count; i++) {
+> +			if (epf_ntb_db_irq_is_duplicated(ndev->epf, i))
+> +				continue;
+> +			synchronize_irq(ndev->epf->db_msg[i].virq);
+> +		}
+> +
+> +	ntb_unregister_device(ntb);
+> +}
+> +
+>  static struct pci_device_id pci_vntb_table[] = {
+>  	{
+>  		PCI_DEVICE(0xffff, 0xffff),
+> @@ -1716,6 +1757,7 @@ static struct pci_driver vntb_pci_driver = {
+>  	.name           = "pci-vntb",
+>  	.id_table       = pci_vntb_table,
+>  	.probe          = pci_vntb_probe,
+> +	.remove         = pci_vntb_remove,
+>  };
+>
+>  /* ============ PCIe EPF Driver Bind ====================*/
+> @@ -1796,12 +1838,25 @@ static int epf_ntb_bind(struct pci_epf *epf)
+>   */
+>  static void epf_ntb_unbind(struct pci_epf *epf)
+>  {
+> +	struct pci_host_bridge *bridge;
+>  	struct epf_ntb *ntb = epf_get_drvdata(epf);
+>
+> +	pci_unregister_driver(&vntb_pci_driver);
+> +
+> +	if (ntb->vpci_bus) {
+> +		bridge = to_pci_host_bridge(ntb->vpci_bus->bridge);
+> +
+> +		pci_lock_rescan_remove();
+> +		pci_stop_root_bus(ntb->vpci_bus);
+> +		pci_remove_root_bus(ntb->vpci_bus);
+> +		ntb->vpci_bus = NULL;
+> +		pci_unlock_rescan_remove();
+> +
+> +		pci_free_host_bridge(bridge);
+> +	}
+> +
+>  	epf_ntb_epc_cleanup(ntb);
+>  	epf_ntb_config_spad_bar_free(ntb);
+> -
+> -	pci_unregister_driver(&vntb_pci_driver);
+>  }
+>
+>  // EPF driver probe
+> --
+> 2.51.0
+>
