@@ -1,151 +1,205 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 665453DAAAE
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:06:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 961FE43B6C4;
+	Tue,  1 Sep 2026 16:07:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788278811; cv=none; b=mvXaUij6Y9fEIVCIMj2eHJKNkjRmqYWG7oXQfctyEKCwnKQRRQQQbJxPKBsh0bkbsaXppXFeM2E0cMi6Bquulxj0ZNLtdl5Uu8LELnDc5OnsXdBkel+mcfogDsaVkGP2aaVyb9w060TddPR9LzcirSQejSZxvtAUU1RJM5LUim8=
+	t=1788278867; cv=none; b=BT0mM0cUHOXCFMjr1zQi0npbkhgnKeb+tqZG/Ol+57Hr+1zw9/V0VF5JVmwI5UJINyVuTe0zJF21ODwqAOid159p+N5Jouv83SkPKkbbrSpPirx0slaI0Hx+IBBNeW2APuU1IHBVBASFsoA4ArlJpKRP7nTA1axtrRSMDXSjNmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788278811; c=relaxed/simple;
-	bh=q44ZV+VsKxN6JVRQY5u21IK1dlCmX3i+WcEkxuAqjPQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A7d0oEpirPEbyuuQLU/VSdv1Ao6yDtTI8239YmY4lN7B1eol8N3mhhDx3NeuOw2Uo4iFlY92lKxDUfibzswind13iaCOmbXuGA7LcOWt8QH+IEjx/3tVjuiJ+f1E6kgPZXC/gG6f5Q3KVVhk9x9stmbx73BBQ7v5wwo1Mt/MZIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=RMeAPZbT; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ozPbe9/5; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788278867; c=relaxed/simple;
+	bh=W1kafMqDjOCUPInaEDPdnz/T7i9UzWQpYMS3IeahQyo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OOJ004QHdDYr/xFneJMb7RtcgaOTUU2Bw+eVmtYLHPc1bmO3TvE1AT1GMc1/MMF5TUV82HxKwCeWHowaV7tGKqD0cArh7G/Nd3JDTEf/0pxFCpY+MprmtvdpKLx/KusZLv9jQIup6nuVcv4ny3B1ZGKHJzuZuqrSUJ2Oqc87K3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SCRpMMXG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="RMeAPZbT";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ozPbe9/5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788278809;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ePc7Ut/AZztzEtumFTcDNqc3j4BQeQVeG9iOBqVe9vA=;
-	b=RMeAPZbToWOCNn7yNWQbPWOc/0RE5mqkbiFt9Gqyejbrev5dCyB18Nu3aYLkzoN7J75M21
-	OFFFg8T6LfTE9UNuyabUWpfDMprFnQxSb8gE4KDSnKFDVK/535mJ1lYXslG/bFD08V0C9V
-	U/RgcwnoDfW54cO41a0u4ngTtrcgWdw=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-300-wLbBrvj-MJyvoGDwLF61kQ-1; Tue, 01 Sept 2026 12:06:48 -0400
-X-MC-Unique: wLbBrvj-MJyvoGDwLF61kQ-1
-X-Mimecast-MFC-AGG-ID: wLbBrvj-MJyvoGDwLF61kQ_1788278807
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-47f6e8b5996so35538f8f.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 09:06:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788278807; x=1788883607; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ePc7Ut/AZztzEtumFTcDNqc3j4BQeQVeG9iOBqVe9vA=;
-        b=ozPbe9/5WDwGH1fWjT0773KwUQi8GCMJLM7ImUQPkyfOB79ylGpaYfaWDF1+01OeWV
-         UUD2UpX/xC4K5jq8hPUC+MySGszejvApt+jNJJeb491AV1Pn+eTmJVn1hjiQC7z2YUFL
-         WP4c0g1gtuKYLtWxoR3d+u1F01A18dQ4PHNCpfd/+dmQngwZuENEdRFCMq1SzRDkoYic
-         NNNZePL/NFzY3ueWXjegn5hEwnWDwAIpRfoEAJViQZ6tdRqVxpFrf6O3q0jFaZFZj2Ii
-         cxW3pewgwpPwEc4+Efyc5dq4q0lvqHaB3rEJ/ge4GZtra+lRAsMYJaxWfQi5Goktkc8b
-         tvSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788278807; x=1788883607;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ePc7Ut/AZztzEtumFTcDNqc3j4BQeQVeG9iOBqVe9vA=;
-        b=MEa/Pth3LUlBGE3Nmfn6r2l8MJPNyh2ObXWL4aTVYx55WFR13x4ldYI2rBzn167aTa
-         1R5iRqpSoIoSQACH/RKyxmi8x2y5xQD+L4Ch9nowtBaUL2lIHQzVruPCowRVfXisHeZc
-         qhwJ5KgVcXF4WH/ekUg5ZijXLTg3hLAoVpje/+qJkGlGLuQo9ST2ij3aEWLW2W3wN19w
-         OmymMEjbnRlumvkq1vVpSJYTTiH48pbcu1DC8RI2bEjepgzLe/rHXMOy8NVbh3KuvUfO
-         tB994uJ+eUJfDJFmJeqj3xY5KZbNRG26KACcGlxnYwerc0h4ysrckBidD94rfHJFTJsv
-         e19g==
-X-Forwarded-Encrypted: i=1; AKwUvBxTXgxRc1RKz7uufbK2LYXDbIZt04T0p/sdMtpZYw4jLplXLcWQ8zoEFIgBtNYJSkNQM0taI3qlyUK9SSc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lwR1IUFMT01cFv/eugg8IeyUdR2bXO/reA6wQfPMtTsHqh9DWe
-	2HDQN9edXeWCVj5LCGWWvS7uccjVbuL+4p+jGeRLS3MLdvYIuiVMBwuL0JihfPDGNGz941XCck7
-	zBub0UzOX9P9nXO0x7tx1lSZ26bwUZ9Dg8Hzy6ZmHpZmgElLoGL/eudMQwY1LSXgl7w==
-X-Gm-Gg: AYBFou2VHI3vMZRCaP13+BT66A0VABkEFYVM8jWpRhJo052XCGVV9ynqsit6fZDrl2F
-	acC4WkD+n2dGHd67CcMerYfBXL4qAIKLYaVJug8zAkJ9tScpxCWv4N4xwivOxOeBf0RN6MlLSbu
-	zGWwdGzP/xi+ZtShHHYuIf4PSDantBvX0sazmqVu1U46Jy5ckqAAD5Qw2Tp554Gp84wtI3ywTnZ
-	41JO/iCMd7M8jDU1VSsZz8xkgf9HuaocyPgb4xiY0EqZydg2hjH0smDACJVjCln46vEPrm5ziQr
-	tRahdxgCKdsYCnE16WAKperisn9h/D1BlvCnY2ObuQ90VqvWh8pvx4dq8qi9zkKnrdJObwdSc2N
-	5MZ24yh3KK6T+WCUDajxaIocPSFAzIYxpfGCMQnWAZH5PVw==
-X-Received: by 2002:a05:6000:470d:b0:482:e8f9:c6b0 with SMTP id ffacd0b85a97d-482f79b1e7amr57844689f8f.13.1788278806691;
-        Tue, 01 Sep 2026 09:06:46 -0700 (PDT)
-X-Received: by 2002:a05:6000:470d:b0:482:e8f9:c6b0 with SMTP id ffacd0b85a97d-482f79b1e7amr57844520f8f.13.1788278806034;
-        Tue, 01 Sep 2026 09:06:46 -0700 (PDT)
-Received: from sgarzare-redhat (host-79-53-30-11.retail.telecomitalia.it. [79.53.30.11])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d787b8sm5977548f8f.29.2026.09.01.09.06.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 09:06:45 -0700 (PDT)
-Date: Tue, 1 Sep 2026 18:06:40 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: linux-integrity@vger.kernel.org, Peter Huewe <peterhuewe@gmx.de>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, 
-	Stuart Yoder <stuart.yoder@arm.com>, Chu Guangqing <chuguangqing@inspur.com>, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] tpm_crb: Remove dead code from crb_map_res()
-Message-ID: <apb2LdIAqUHROYBt@sgarzare-redhat>
-References: <20260901142955.187856-1-jarkko@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SCRpMMXG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 074371F000E9;
+	Tue,  1 Sep 2026 16:07:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788278866;
+	bh=T/2aUpJVcP4K5UuA+yMWg9r9rcG5CMYvek4Bzm6AV1A=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=SCRpMMXGP6roaFqulAGZDp41ZFF8B6X70ykI+UWYhpOv7jGA35GbvrODY2qxdBycf
+	 KcvWy4Grani8ffbVC/NhndwvqTKFUzBoB9E0VCPWMKqi9YGIDxDGn1tzjyKyhaR5R+
+	 KLUdVjKYOST6KfGZooYp5ZLaMhqpnuawYP8tooSqBughx3Slue+ion3S7/8m/M1pqa
+	 JzG0JHVnAN52KwAyDSTbfgOxHZl5xLg99OCK9B1kA+6bpP0B/W2PdB/esAnvvMQmV5
+	 FtQec1e26wbAck1gkTMqNx++vxBrSmBBsTjY3lApJmrE0+rfAxwVX2xeVfScs26yiE
+	 qG2qZeaKNIfhg==
+Message-ID: <c9cf1a69-9136-4f64-b223-aa038520a0a9@kernel.org>
+Date: Tue, 1 Sep 2026 18:07:42 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260901142955.187856-1-jarkko@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] power: supply: core: Honor supplied-from with CONFIG_OF=y
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>,
+ Sebastian Reichel <sre@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Maurizio Casciano <maurizio.casciano@eng.it>, stable@vger.kernel.org
+References: <20260901145156.3177187-1-mauriziocasciano7@gmail.com>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20260901145156.3177187-1-mauriziocasciano7@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 01, 2026 at 05:29:46PM +0300, Jarkko Sakkinen wrote:
->In all the pre-existing call sites both @iomem and @iobase_ptr are
->either NULL or non-NULL.
+Hi,
 
-I don't know this code, but I'm a bit worried about iobase_ptr and 
-*iobase_ptr. IIUC it is true that iobase_ptr and iores are either NULL 
-or non-NULL, but here we are removing the case where *iobase_ptr is 
-NULL.
+Thank you for your patch.
 
-Now looking at crb_map_io(), IIUC iobase_array is initialized with NULL 
-pointers and the code we are removing was the only one initializing 
-those pointers IIUC, or am I missing something?
+On 1-Sep-26 16:51, Maurizio Casciano wrote:
+> From: Maurizio Casciano <maurizio.casciano@eng.it>
+> 
+> The supplied-from device property is the name-based counterpart to
+> firmware-node power-supplies references. It was added for non-DT platforms,
+> but its parser is compiled only when CONFIG_OF is disabled. CONFIG_OF is a
+> global kernel option, so x86 systems commonly enable it even when
+> individual power supplies are described by software nodes.
+> 
+> Consequently, these consumers never populate supplied_from and supplier
+> notifications do not reach their external_power_changed() callbacks. On a
+> Lenovo Yoga Book YB1-X91L, ftrace showed the Whiskey Cove supplier
+> notification running without invoking the BQ25892 callback, leaving the
+> input current limit at its boot-time value.
+> 
+> Move the generic supplied-from parser into an unconditional helper and try
+> it before firmware-reference power-supplies lookup. Keep an explicitly
+> supplied list at the highest priority and retain power-supplies as the
+> fallback. With the fix, ftrace shows the BQ25892 callback on hotplug and a
+> boot-offline test changes its input current limit from 500 mA to 2 A.
+> 
+> Fixes: 58a36bb06891 ("power: supply: core: Add support for supplied-from device-property")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Maurizio Casciano <maurizio.casciano@eng.it>
 
-Thanks,
-Stefano
+Interesting. This seems to be a new problem / development in 7.3-rc1
+where it seems CONFIG_OF now seems to get enabled on x86 configs.
 
->
->Thus, add invariant for this and remove a dead basic block.
->
->Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
->---
-> drivers/char/tpm/tpm_crb.c | 9 +++------
-> 1 file changed, 3 insertions(+), 6 deletions(-)
->
->diff --git a/drivers/char/tpm/tpm_crb.c b/drivers/char/tpm/tpm_crb.c
->index ceb4100ba400..e7a61f36c58b 100644
->--- a/drivers/char/tpm/tpm_crb.c
->+++ b/drivers/char/tpm/tpm_crb.c
->@@ -570,15 +570,12 @@ static void __iomem *crb_map_res(struct device *dev, struct resource *iores,
-> 	if (start != new_res.start)
-> 		return IOMEM_ERR_PTR(-EINVAL);
->
->+	if ((iores == NULL) != (iobase_ptr == NULL))
->+		return IOMEM_ERR_PTR(-EINVAL);
->+
-> 	if (!iores)
-> 		return devm_ioremap_resource(dev, &new_res);
->
->-	if (!*iobase_ptr) {
->-		*iobase_ptr = devm_ioremap_resource(dev, iores);
->-		if (IS_ERR(*iobase_ptr))
->-			return *iobase_ptr;
->-	}
->-
-> 	return *iobase_ptr + (new_res.start - iores->start);
-> }
->
->-- 
->2.47.3
->
->
+This change has also lead to other problems, e.g. :
+
+https://bugzilla.redhat.com/show_bug.cgi?id=2523734#c7
+
+Still I agree that this code should do the right thing when CONFIG_OF
+is enabled on x86 which it currently clearly is not doing.
+
+But I don't taking that making the new power_supply_check_supplies_by_name()
+function higher priority then proper OF/devicetree node links is a good
+idea.
+
+IMHO this should be the fallback (in the CONFIG_OF enabled case)
+when no suppliers are found through looking at DT node links first.
+
+Sebastian, what do you think ?
+
+Regards,
+
+Hans
+
+
+
+
+> ---
+>  drivers/power/supply/power_supply_core.c | 61 ++++++++++++++----------
+>  1 file changed, 36 insertions(+), 25 deletions(-)
+> 
+> diff --git a/drivers/power/supply/power_supply_core.c b/drivers/power/supply/power_supply_core.c
+> index 00d8bc98d588..5101decebb7a 100644
+> --- a/drivers/power/supply/power_supply_core.c
+> +++ b/drivers/power/supply/power_supply_core.c
+> @@ -190,6 +190,35 @@ static void power_supply_deferred_register_work(struct work_struct *work)
+>  		device_unlock(psy->dev.parent);
+>  }
+>  
+> +static int power_supply_check_supplies_by_name(struct power_supply *psy)
+> +{
+> +	struct device *parent = psy->dev.parent;
+> +	int nval, ret;
+> +
+> +	if (!parent)
+> +		return 0;
+> +
+> +	nval = device_property_string_array_count(parent, "supplied-from");
+> +	if (nval <= 0)
+> +		return 0;
+> +
+> +	psy->supplied_from = devm_kmalloc_array(&psy->dev, nval,
+> +						sizeof(*psy->supplied_from),
+> +						GFP_KERNEL);
+> +	if (!psy->supplied_from)
+> +		return -ENOMEM;
+> +
+> +	ret = device_property_read_string_array(parent, "supplied-from",
+> +						(const char **)psy->supplied_from,
+> +						nval);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	psy->num_supplies = nval;
+> +
+> +	return 0;
+> +}
+> +
+>  #ifdef CONFIG_OF
+>  static int __power_supply_populate_supplied_from(struct power_supply *epsy,
+>  						 void *data)
+> @@ -262,19 +291,22 @@ static int power_supply_find_supply_from_fwnode(struct fwnode_handle *supply_nod
+>  static int power_supply_check_supplies(struct power_supply *psy)
+>  {
+>  	struct fwnode_handle *np;
+> -	int cnt = 0;
+> +	int cnt = 0, ret;
+>  
+>  	/* If there is already a list honor it */
+>  	if (psy->supplied_from && psy->num_supplies > 0)
+>  		return 0;
+>  
+> +	/* Check for the name-based "supplied-from" device property first. */
+> +	ret = power_supply_check_supplies_by_name(psy);
+> +	if (ret || psy->num_supplies)
+> +		return ret;
+> +
+>  	/* No device node found, nothing to do */
+>  	if (!psy->dev.fwnode)
+>  		return 0;
+>  
+>  	do {
+> -		int ret;
+> -
+>  		np = fwnode_find_reference(psy->dev.fwnode, "power-supplies", cnt++);
+>  		if (IS_ERR(np))
+>  			break;
+> @@ -304,28 +336,7 @@ static int power_supply_check_supplies(struct power_supply *psy)
+>  #else
+>  static int power_supply_check_supplies(struct power_supply *psy)
+>  {
+> -	int nval, ret;
+> -
+> -	if (!psy->dev.parent)
+> -		return 0;
+> -
+> -	nval = device_property_string_array_count(psy->dev.parent, "supplied-from");
+> -	if (nval <= 0)
+> -		return 0;
+> -
+> -	psy->supplied_from = devm_kmalloc_array(&psy->dev, nval,
+> -						sizeof(char *), GFP_KERNEL);
+> -	if (!psy->supplied_from)
+> -		return -ENOMEM;
+> -
+> -	ret = device_property_read_string_array(psy->dev.parent,
+> -		"supplied-from", (const char **)psy->supplied_from, nval);
+> -	if (ret < 0)
+> -		return ret;
+> -
+> -	psy->num_supplies = nval;
+> -
+> -	return 0;
+> +	return power_supply_check_supplies_by_name(psy);
+>  }
+>  #endif
+>  
 
