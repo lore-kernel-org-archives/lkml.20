@@ -1,47 +1,49 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com [45.249.212.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40FC41D135;
-	Tue,  1 Sep 2026 14:58:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F091411FA4;
+	Tue,  1 Sep 2026 14:58:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788274697; cv=none; b=qbzcY7aE8g9IyTRD6XSEe6oN93K42+CPm6EZ441n2pHrvej5LaH60Ys0DwjwIaqo4SOohAPucIsEKDhpLlwTXMn65tG2SHeQ9ATWtlHZ5TvHlfnrQ2D1M0sI2F3b4hx/P09ouTqRLyHC+BUtdak9GSEV5G7WKgE5jU/KTwwbRz4=
+	t=1788274700; cv=none; b=G+Iz4s2VEXm2ZKZq4rSIntowZR0mG0SZ7NoVjmXKcO18UN0E/Yv15lhLIqjgKVWr3C7BRhBOSVf7pLwtkDQZI/btdMtTOxK3O8uZ0zEHZM/3prswd0iDEttGoqJNECugsgbIYKOgtlE9MRj3JubSCYizEmOz7vDv1JCvKVXbtvU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788274697; c=relaxed/simple;
-	bh=0NZj8dzHMvDPafeShpBt1PLgjhP7gFYn0JXz851agAI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qVcxduYfeuBd6iy5Ay/NtrE9LR8b6SOdIdGqwhnX0YcMZVcAmjXUjbBReRfWaRvB0c08cJcJf0G6d1JSNlJXlPdn3S/x1rg4aIyj1d0WlUJ3X+a25TcD88+uTRvGCfLyIKtjqkvsoYWNoSVd7eaLh7M2WAVZLYbFLJrWi+xx9bo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fHmVoYtD; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fHmVoYtD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CF741F00ADE;
-	Tue,  1 Sep 2026 14:58:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788274695;
-	bh=UTvJDIw3wcg7xi4i0kyVSun0Dn6RIuyJL6Ze7BRUb5M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fHmVoYtD48si7U4QBauUocNTZRD1pcYnoGOdDynX3BhCHV/UgsIB+z2JK1nYO11t8
-	 JVRGqHItgAbcTdxPsb66Wk+Ro3HzpCxFUkarQlX9yShbQVZAejZNohwd3QUzip7HTx
-	 kOlFQBv5nTbH304V+gsJvn+5WY3k++rpVpkiiOnLMYI3i/byofcDRs/VEYNnsetO46
-	 AXWLkz3z1eMUD06SvLIF7oLZFGEIqd2oC54Tu7qs/JVJ81jzKMbS+H5YtJFCZe4Z03
-	 OJi+j8iP4uy6xNa0eMsl4tyPxiNMtFDlv0RJU5uAGwo0iMO7kt5OmA+k/MUp8WvYfO
-	 ioQkgoguf72Lg==
-From: Eric Biggers <ebiggers@kernel.org>
-To: x86@kernel.org
-Cc: linux-um@lists.infradead.org,
-	linux-raid@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
+	s=arc-20240116; t=1788274700; c=relaxed/simple;
+	bh=THbZKuaaAcQ9iUriPTfKOlUNhALwS5Ep7mvPftVX6Ys=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZNHHL5UxzzvMJmBCF2lLsLLLLBACXJ5/lt5OQ7Yx0BCdZ5voA4NLZmSr/4YuENteVG2Q+qn/YK8LZcdJ5Zm7ANa/gKSEiKtQ0RIFjU1TlDZcFHvkfrl2sdxXDf0ulQPpwlf8ASVakQIw8Ou5feFwfAuSUqTiij+v6mGjVq+BAdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com; spf=none smtp.mailfrom=huaweicloud.com; arc=none smtp.client-ip=45.249.212.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.177])
+	by dggsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hZ88p3F5WzKHMMW;
+	Tue,  1 Sep 2026 22:57:14 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.252])
+	by mail.maildlp.com (Postfix) with ESMTP id 61B7E4059A;
+	Tue,  1 Sep 2026 22:58:03 +0800 (CST)
+Received: from ultra.huawei.com (unknown [10.90.53.71])
+	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgD3a7n655ZqqlR_AQ--.38292S2;
+	Tue, 01 Sep 2026 22:58:03 +0800 (CST)
+From: Pu Lehui <pulehui@huaweicloud.com>
+To: bpf@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Christoph Hellwig <hch@lst.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Eric Biggers <ebiggers@kernel.org>,
-	David Laight <david.laight.linux@gmail.com>
-Subject: [PATCH v5 8/8] xor: Add AVX-512 optimized xor_gen()
-Date: Tue,  1 Sep 2026 07:57:40 -0700
-Message-ID: <20260901145740.42337-9-ebiggers@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260901145740.42337-1-ebiggers@kernel.org>
-References: <20260901145740.42337-1-ebiggers@kernel.org>
+	Alexei Starovoitov <ast@kernel.org>,
+	Hou Tao <houtao@huaweicloud.com>,
+	Leon Hwang <leon.hwang@linux.dev>
+Cc: Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	Pu Lehui <pulehui@huawei.com>,
+	Pu Lehui <pulehui@huaweicloud.com>
+Subject: [PATCH bpf v3] bpf: Fix UAF due to concurrent consumption of ttrace lists in alloc_bulk
+Date: Tue,  1 Sep 2026 15:03:07 +0000
+Message-Id: <20260901150307.3474349-1-pulehui@huaweicloud.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -49,253 +51,234 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_Ch0CgD3a7n655ZqqlR_AQ--.38292S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3GF4fur1rXF1Uur4rury5twb_yoWxKF1fpF
+	W3Jr98XF45ZF4av3WSqr48Cwsxtr4vq343Jay8uryS9r1Yvwn0gFyfCry3uF9IyrZ7ua43
+	tr1qgry8AF4UZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9014x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
+	VFxhVjvjDU0xZFpf9x0pRHUDLUUUUU=
+X-CM-SenderInfo: psxovxtxl6x35dzhxuhorxvhhfrp/
 
-Add an implementation of xor_gen() using AVX-512.
+From: Pu Lehui <pulehui@huawei.com>
 
-It uses 512-bit vectors, i.e. ZMM registers.  It also uses the
-vpternlogq instruction to do three-input XORs when applicable.
+Syzkaller repeatedly triggered UAF splats related to nodes in
+waiting_for_gp_ttrace within the bpf memalloc:
 
-It's enabled on x86_64 CPUs that have AVX512F && !PREFER_YMM.  In
-practice that means:
+BUG: KASAN: slab-use-after-free in llist_del_first+0x85/0x110 lib/llist.c:61
+Read of size 8 at addr ffff8881572cd080 by task syz.4.470/5112
+ ...
+ llist_del_first+0x85/0x110 lib/llist.c:61
+ alloc_bulk+0x193/0x460 kernel/bpf/memalloc.c:229
+ bpf_mem_refill+0x386/0x560 kernel/bpf/memalloc.c:436
 
-    - AMD Zen 4 and later (client and server)
-    - Intel Sapphire Rapids and later (server)
-    - Intel Rocket Lake (client)
-    - Intel Nova Lake and later (client)
+Freed by task 14:
+ ...
+ __free_rcu kernel/bpf/memalloc.c:281 [inline]
+ __free_rcu_tasks_trace+0x48/0xd0 kernel/bpf/memalloc.c:291
+ rcu_tasks_invoke_cbs+0x1ec/0x3e0 kernel/rcu/tasks.h:571
+ rcu_tasks_one_gp+0x13d/0x220 kernel/rcu/tasks.h:621
+ rcu_tasks_kthread+0xf3/0x120 kernel/rcu/tasks.h:651
 
-The !PREFER_YMM condition excludes the older AVX-512 implementations in
-Intel Skylake Server and Intel Ice Lake.  They could run this code, but
-they're known to have overly-eager downclocking when ZMM registers are
-used.  This is the same policy that the crypto and CRC code uses.
+Initially, we suspected that alloc_bulk() lacked RCU Tasks Trace
+protection when accessing waiting_for_gp_ttrace. However, explicitly
+adding rcu_read_lock_trace() did not help.
 
-Results from xor_benchmark on AMD Ryzen 9 9950X (Zen 5):
+This is expected because, as noted in commit 57b23c0f612d ("bpf: Retire
+rcu_trace_implies_rcu_gp()"), an RCU Tasks Trace GP currently implies
+(and will continue to imply in the future) a normal RCU GP. Since
+alloc_bulk() runs in an RCU read-side CS (!PREEMPT_RT runs in IRQ
+context, PREEMPT_RT runs with guard(rcu)), an RCU Tasks Trace GP cannot
+complete while alloc_bulk() is accessing the list.
 
-Before:
+Instead, the UAF occurs after the GP expires: when the __free_rcu()
+callback runs, there is no synchronization protecting llist_del_all()
+against concurrent alloc_bulk() operates on waiting_for_gp_ttrace,
+leading to the race condition below:
 
-    # xor_benchmark:           	 4096 bytes	16384 bytes
-    # xor_benchmark:   4 disks:	  256  GB/s	  185  GB/s
-    # xor_benchmark:   5 disks:	  233  GB/s	  165  GB/s
-    # xor_benchmark:   6 disks:	  243  GB/s	  174  GB/s
-    # xor_benchmark:   7 disks:	  244  GB/s	  176  GB/s
-    # xor_benchmark:   8 disks:	  265  GB/s	  179  GB/s
-    # xor_benchmark:  10 disks:	  249  GB/s	  175  GB/s
-    # xor_benchmark:  12 disks:	  219  GB/s	  173  GB/s
-    # xor_benchmark:  15 disks:	  206  GB/s	  177  GB/s
-    # xor_benchmark:  16 disks:	  212  GB/s	  180  GB/s
-    # xor_benchmark:  32 disks:	  193  GB/s	  177  GB/s
+CPU0                                           CPU1
+                                               __free_rcu (RCU Tasks Trace callback)
+alloc_bulk
+  llist_del_first(&c->waiting_for_gp_ttrace)
+    entry = smp_load_acquire(&head->first);
+    do {
+      if (entry == NULL)
+        return NULL;
+                                               free_all(llist_del_all(&c->waiting_for_gp_ttrace))
+                                                 llist_for_each_safe(pos, t, llnode)
+                                                   free_one(pos);
+      next = READ_ONCE(entry->next); <-- trigger UAF
+    } while (!try_cmpxchg(&head->first, &entry, next));
 
-After:
+In addition, there is also a theoretical race condition on the
+free_by_rcu_ttrace list. This race requires two preconditions: an
+in-flight Tasks Trace GP keeping c->call_rcu_ttrace_in_progress == 1,
+and concurrent cross-CPU frees repopulating c->free_by_rcu_ttrace with
+new nodes. Under these conditions, the following scenario triggers UAF:
 
-    # xor_benchmark:           	 4096 bytes	16384 bytes
-    # xor_benchmark:   4 disks:	  492  GB/s	  202  GB/s
-    # xor_benchmark:   5 disks:	  436  GB/s	  191  GB/s
-    # xor_benchmark:   6 disks:	  466  GB/s	  193  GB/s
-    # xor_benchmark:   7 disks:	  491  GB/s	  194  GB/s
-    # xor_benchmark:   8 disks:	  513  GB/s	  205  GB/s
-    # xor_benchmark:  10 disks:	  454  GB/s	  199  GB/s
-    # xor_benchmark:  12 disks:	  330  GB/s	  204  GB/s
-    # xor_benchmark:  15 disks:	  266  GB/s	  198  GB/s
-    # xor_benchmark:  16 disks:	  243  GB/s	  177  GB/s
-    # xor_benchmark:  32 disks:	  187  GB/s	  165  GB/s
+// CPU0
+// irq work is still busy (on PREEMPT_RT)
+alloc_bulk()
+  llist_del_first(&c->free_by_rcu_ttrace)
+    entry = smp_load_acquire(&head->first);
+    do {
+      if (entry == NULL)
+        return NULL;
 
-Reviewed-by: David Laight <david.laight.linux@gmail.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Acked-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+        // CPU1
+        bpf_mem_alloc_destroy()
+          WRITE_ONCE(c->draining, true)
+          // wait for CPU0
+          irq_work_sync()
+
+                // CPU2
+                do_call_rcu_ttrace(tgt(CPU0))
+                  if (c->draining) {
+                    llist_del_all(&c->free_by_rcu_ttrace)
+                    free_all()
+                  }
+
+// CPU0 continue
+      next = READ_ONCE(entry->next); <-- trigger UAF
+    while (!try_cmpxchg(&head->first, &entry, next));
+
+Fix this by introducing a raw spinlock to synchronize the concurrent
+consumption on waiting_for_gp_ttrace and free_by_rcu_ttrace.
+
+Fixes: 04fabf00b4d3 ("bpf: Allow reuse from waiting_for_gp_ttrace list.")
+Suggested-by: Alexei Starovoitov <ast@kernel.org>
+Suggested-by: Hou Tao <houtao1@huawei.com>
+Signed-off-by: Pu Lehui <pulehui@huawei.com>
 ---
- lib/raid/xor/Makefile         |   2 +-
- lib/raid/xor/x86/xor-avx512.c | 122 ++++++++++++++++++++++++++++++++++
- lib/raid/xor/x86/xor_arch.h   |  30 ++++++---
- 3 files changed, 143 insertions(+), 11 deletions(-)
- create mode 100644 lib/raid/xor/x86/xor-avx512.c
+v3:
+- Fix concurrent issue also for free_by_rcu_ttrace. (bpfci and Hou Tao)
+- Use scoped_guard. (Leon)
 
-diff --git a/lib/raid/xor/Makefile b/lib/raid/xor/Makefile
-index 9b0fad459cdb..e1e3455c219d 100644
---- a/lib/raid/xor/Makefile
-+++ b/lib/raid/xor/Makefile
-@@ -31,7 +31,7 @@ xor-$(CONFIG_SPARC32)		+= sparc/xor-sparc32.o
- xor-$(CONFIG_SPARC64)		+= sparc/xor-sparc64.o sparc/xor-sparc64-glue.o
- xor-$(CONFIG_S390)		+= s390/xor.o
- xor-$(CONFIG_X86_32)		+= x86/xor-avx.o x86/xor-sse.o x86/xor-mmx.o
--xor-$(CONFIG_X86_64)		+= x86/xor-avx.o x86/xor-sse.o
-+xor-$(CONFIG_X86_64)		+= x86/xor-avx.o x86/xor-sse.o x86/xor-avx512.o
- obj-y				+= tests/
+v2: https://lore.kernel.org/bpf/20260827084013.1062816-1-pulehui@huaweicloud.com
+- Use raw spinlock to fix concurrent alloc_bulk and __free_rcu on
+  waiting_for_gp_ttrace after GP. (Hou Tao)
+
+v1: https://lore.kernel.org/bpf/20260826103615.932094-1-pulehui@huaweicloud.com
+
+ kernel/bpf/memalloc.c | 51 ++++++++++++++++++++++++-------------------
+ 1 file changed, 29 insertions(+), 22 deletions(-)
+
+diff --git a/kernel/bpf/memalloc.c b/kernel/bpf/memalloc.c
+index e9662db7198f..5927943c765a 100644
+--- a/kernel/bpf/memalloc.c
++++ b/kernel/bpf/memalloc.c
+@@ -119,6 +119,7 @@ struct bpf_mem_cache {
+ 	struct llist_head waiting_for_gp_ttrace;
+ 	struct rcu_head rcu_ttrace;
+ 	atomic_t call_rcu_ttrace_in_progress;
++	raw_spinlock_t lock;
+ };
  
- CFLAGS_xor-neon.o		+= $(CC_FLAGS_FPU) -I$(src)/$(SRCARCH)
-diff --git a/lib/raid/xor/x86/xor-avx512.c b/lib/raid/xor/x86/xor-avx512.c
-new file mode 100644
-index 000000000000..c11d83441875
---- /dev/null
-+++ b/lib/raid/xor/x86/xor-avx512.c
-@@ -0,0 +1,122 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * AVX-512 optimized implementation of xor_gen()
-+ *
-+ * Copyright 2026 Google LLC
-+ */
-+
-+#include <linux/types.h>
-+#include <asm/fpu/api.h>
-+#include "xor_impl.h"
-+#include "xor_arch.h"
-+
-+/*
-+ * Implementation notes:
-+ *
-+ * Unrolling by the number of buffers (2-5) is very important.
-+ *
-+ * Unrolling by length is less important, especially when using register-indexed
-+ * addressing with negative indices from the end of the buffers.  That approach
-+ * results in just two loop control instructions being needed per iteration,
-+ * regardless of the number of buffers.
-+ *
-+ * In fact, benchmarks showed that the 2 and 3 buffer cases require only 2x
-+ * unrolling by length, while the 4 and 5 buffer cases don't require any
-+ * unrolling by length.  Benchmarks also showed that the register-indexed
-+ * addressing isn't a bottleneck either; i.e., we can't do any better by
-+ * incrementing the pointers as we go along, even with more unrolling.
-+ */
-+
-+static void xor_avx512_2(long bytes, u8 *p1, const u8 *p2)
-+{
-+	long i = -bytes;
-+
-+	asm volatile("1: vmovdqa64 (%1,%0), %%zmm0\n"
-+		     "vmovdqa64 64(%1,%0), %%zmm1\n"
-+		     "vpxorq (%2,%0), %%zmm0, %%zmm0\n"
-+		     "vpxorq 64(%2,%0), %%zmm1, %%zmm1\n"
-+		     "vmovdqa64 %%zmm0, (%1,%0)\n"
-+		     "vmovdqa64 %%zmm1, 64(%1,%0)\n"
-+		     "add $128, %0\n"
-+		     "jnz 1b\n"
-+		     : "+&r"(i)
-+		     : "r"(p1 + bytes), "r"(p2 + bytes)
-+		     : "memory", "cc");
-+}
-+
-+static void xor_avx512_3(long bytes, u8 *p1, const u8 *p2, const u8 *p3)
-+{
-+	long i = -bytes;
-+
-+	asm volatile("1: vmovdqa64 (%1,%0), %%zmm0\n"
-+		     "vmovdqa64 64(%1,%0), %%zmm1\n"
-+		     "vmovdqa64 (%2,%0), %%zmm2\n"
-+		     "vmovdqa64 64(%2,%0), %%zmm3\n"
-+		     "vpternlogq $0x96, (%3,%0), %%zmm2, %%zmm0\n"
-+		     "vpternlogq $0x96, 64(%3,%0), %%zmm3, %%zmm1\n"
-+		     "vmovdqa64 %%zmm0, (%1,%0)\n"
-+		     "vmovdqa64 %%zmm1, 64(%1,%0)\n"
-+		     "add $128, %0\n"
-+		     "jnz 1b\n"
-+		     : "+&r"(i)
-+		     : "r"(p1 + bytes), "r"(p2 + bytes), "r"(p3 + bytes)
-+		     : "memory", "cc");
-+}
-+
-+static void xor_avx512_4(long bytes, u8 *p1, const u8 *p2, const u8 *p3,
-+			 const u8 *p4)
-+{
-+	long i = -bytes;
-+
-+	asm volatile("1: vmovdqa64 (%1,%0), %%zmm0\n"
-+		     "vmovdqa64 (%2,%0), %%zmm1\n"
-+		     "vpxorq (%3,%0), %%zmm0, %%zmm0\n"
-+		     "vpternlogq $0x96, (%4,%0), %%zmm1, %%zmm0\n"
-+		     "vmovdqa64 %%zmm0, (%1,%0)\n"
-+		     "add $64, %0\n"
-+		     "jnz 1b\n"
-+		     : "+&r"(i)
-+		     : "r"(p1 + bytes), "r"(p2 + bytes), "r"(p3 + bytes),
-+		       "r"(p4 + bytes)
-+		     : "memory", "cc");
-+}
-+
-+static void xor_avx512_5(long bytes, u8 *p1, const u8 *p2, const u8 *p3,
-+			 const u8 *p4, const u8 *p5)
-+{
-+	long i = -bytes;
-+
-+	asm volatile("1: vmovdqa64 (%1,%0), %%zmm0\n"
-+		     "vmovdqa64 (%2,%0), %%zmm1\n"
-+		     "vpternlogq $0x96, (%3,%0), %%zmm1, %%zmm0\n"
-+		     "vmovdqa64 (%4,%0), %%zmm1\n"
-+		     "vpternlogq $0x96, (%5,%0), %%zmm1, %%zmm0\n"
-+		     "vmovdqa64 %%zmm0, (%1,%0)\n"
-+		     "add $64, %0\n"
-+		     "jnz 1b\n"
-+		     : "+&r"(i)
-+		     : "r"(p1 + bytes), "r"(p2 + bytes), "r"(p3 + bytes),
-+		       "r"(p4 + bytes), "r"(p5 + bytes)
-+		     : "memory", "cc");
-+}
-+
-+DO_XOR_BLOCKS(avx512_inner, xor_avx512_2, xor_avx512_3, xor_avx512_4,
-+	      xor_avx512_5);
-+
-+/*
-+ * Preconditions: bytes is a nonzero multiple of 512, and all buffers are
-+ * 64-byte aligned.
-+ */
-+static void xor_gen_avx512(void *dest, void **srcs, unsigned int src_cnt,
-+			   unsigned int bytes)
-+{
-+	kernel_fpu_begin();
-+	xor_gen_avx512_inner(dest, srcs, src_cnt, bytes);
-+	asm volatile("vzeroupper");
-+	kernel_fpu_end();
-+}
-+
-+struct xor_block_template xor_block_avx512 = {
-+	.name = "avx512",
-+	.xor_gen = xor_gen_avx512,
-+};
-diff --git a/lib/raid/xor/x86/xor_arch.h b/lib/raid/xor/x86/xor_arch.h
-index 991abe3f4bbd..ed5921d2e2aa 100644
---- a/lib/raid/xor/x86/xor_arch.h
-+++ b/lib/raid/xor/x86/xor_arch.h
-@@ -6,21 +6,31 @@ extern struct xor_block_template xor_block_p5_mmx;
- extern struct xor_block_template xor_block_sse;
- extern struct xor_block_template xor_block_sse_pf64;
- extern struct xor_block_template xor_block_avx;
-+extern struct xor_block_template xor_block_avx512;
+ struct bpf_mem_caches {
+@@ -214,25 +215,25 @@ static void alloc_bulk(struct bpf_mem_cache *c, int cnt, int node, bool atomic)
+ 	gfp = __GFP_NOWARN | __GFP_ACCOUNT;
+ 	gfp |= atomic ? GFP_NOWAIT : GFP_KERNEL;
  
--/*
-- * When SSE is available, use it as it can write around L2.  We may also be able
-- * to load into the L1 only depending on how the cpu deals with a load to a line
-- * that is being prefetched.
-- *
-- * When AVX2 is available, force using it as it is better by all measures.
-- *
-- * 32-bit without MMX can fall back to the generic routines.
-- */
- static __always_inline void __init arch_xor_init(void)
+-	for (i = 0; i < cnt; i++) {
+-		/*
+-		 * For every 'c' llist_del_first(&c->free_by_rcu_ttrace); is
+-		 * done only by one CPU == current CPU. Other CPUs might
+-		 * llist_add() and llist_del_all() in parallel.
+-		 */
+-		obj = llist_del_first(&c->free_by_rcu_ttrace);
+-		if (!obj)
+-			break;
+-		add_obj_to_free_list(c, obj);
+-	}
+-	if (i >= cnt)
+-		return;
++	scoped_guard(raw_spinlock_irqsave, &c->lock) {
++		for (i = 0; i < cnt; i++) {
++			/*
++			 * For every 'c' llist_del_first(&c->free_by_rcu_ttrace); is
++			 * done only by one CPU == current CPU. Other CPUs might
++			 * llist_add() and llist_del_all() in parallel.
++			 */
++			obj = llist_del_first(&c->free_by_rcu_ttrace);
++			if (!obj)
++				break;
++			add_obj_to_free_list(c, obj);
++		}
+ 
+-	for (; i < cnt; i++) {
+-		obj = llist_del_first(&c->waiting_for_gp_ttrace);
+-		if (!obj)
+-			break;
+-		add_obj_to_free_list(c, obj);
++		for (; i < cnt; i++) {
++			obj = llist_del_first(&c->waiting_for_gp_ttrace);
++			if (!obj)
++				break;
++			add_obj_to_free_list(c, obj);
++		}
+ 	}
+ 	if (i >= cnt)
+ 		return;
+@@ -279,8 +280,12 @@ static int free_all(struct bpf_mem_cache *c, struct llist_node *llnode, bool per
+ static void __free_rcu(struct rcu_head *head)
  {
--	if (boot_cpu_has(X86_FEATURE_AVX)) {
-+	if (IS_ENABLED(CONFIG_X86_64) && boot_cpu_has(X86_FEATURE_AVX512F) &&
-+	    !boot_cpu_has(X86_FEATURE_PREFER_YMM)) {
-+		/*
-+		 * Use the AVX-512 code on CPUs that support AVX-512 without
-+		 * overly-eager downclocking.  On such CPUs the AVX-512 code
-+		 * should always work at least as well as the AVX code, so
-+		 * runtime selection is unnecessary.
-+		 *
-+		 * The AVX-512 code can work on X86_32.  However, due to lack of
-+		 * use case for that, for now it's built only for X86_64.
-+		 */
-+		xor_force(&xor_block_avx512);
-+	} else if (boot_cpu_has(X86_FEATURE_AVX)) {
-+		/* AVX will be the best; no need to try others. */
- 		xor_force(&xor_block_avx);
- 	} else if (IS_ENABLED(CONFIG_X86_64) || boot_cpu_has(X86_FEATURE_XMM)) {
-+		/*
-+		 * When SSE is available, use it as it can write around L2.  We
-+		 * may also be able to load into the L1 only depending on how
-+		 * the cpu deals with a load to a line that is being prefetched.
-+		 */
- 		xor_register(&xor_block_sse);
- 		xor_register(&xor_block_sse_pf64);
- 	} else if (boot_cpu_has(X86_FEATURE_MMX)) {
+ 	struct bpf_mem_cache *c = container_of(head, struct bpf_mem_cache, rcu_ttrace);
++	struct llist_node *llnode;
++
++	scoped_guard(raw_spinlock_irqsave, &c->lock)
++		llnode = llist_del_all(&c->waiting_for_gp_ttrace);
+ 
+-	free_all(c, llist_del_all(&c->waiting_for_gp_ttrace), !!c->percpu_size);
++	free_all(c, llnode, !!c->percpu_size);
+ 	atomic_set(&c->call_rcu_ttrace_in_progress, 0);
+ }
+ 
+@@ -300,7 +305,8 @@ static void do_call_rcu_ttrace(struct bpf_mem_cache *c)
+ 
+ 	if (atomic_xchg(&c->call_rcu_ttrace_in_progress, 1)) {
+ 		if (unlikely(READ_ONCE(c->draining))) {
+-			llnode = llist_del_all(&c->free_by_rcu_ttrace);
++			scoped_guard(raw_spinlock_irqsave, &c->lock)
++				llnode = llist_del_all(&c->free_by_rcu_ttrace);
+ 			free_all(c, llnode, !!c->percpu_size);
+ 		}
+ 		return;
+@@ -535,6 +541,7 @@ int bpf_mem_alloc_init(struct bpf_mem_alloc *ma, int size, bool percpu)
+ 			c->objcg = objcg;
+ 			c->percpu_size = percpu_size;
+ 			c->tgt = c;
++			raw_spin_lock_init(&c->lock);
+ 			init_refill_work(c);
+ 			prefill_mem_cache(c, cpu);
+ 		}
+@@ -557,7 +564,7 @@ int bpf_mem_alloc_init(struct bpf_mem_alloc *ma, int size, bool percpu)
+ 			c->objcg = objcg;
+ 			c->percpu_size = percpu_size;
+ 			c->tgt = c;
+-
++			raw_spin_lock_init(&c->lock);
+ 			init_refill_work(c);
+ 			prefill_mem_cache(c, cpu);
+ 		}
+@@ -609,7 +616,7 @@ int bpf_mem_alloc_percpu_unit_init(struct bpf_mem_alloc *ma, int size)
+ 		c->objcg = objcg;
+ 		c->percpu_size = percpu_size;
+ 		c->tgt = c;
+-
++		raw_spin_lock_init(&c->lock);
+ 		init_refill_work(c);
+ 		prefill_mem_cache(c, cpu);
+ 	}
 -- 
-2.55.0
+2.34.1
 
