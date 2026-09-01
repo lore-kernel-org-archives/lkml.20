@@ -1,125 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C70C4756AE
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 10:35:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52AE247A895;
+	Tue,  1 Sep 2026 10:37:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788258925; cv=none; b=eEc16kiePe64zyJQ5uGBuZr+IwaB1awszjb8+Q9VxvM9nwn3eK8hrQqyIz9umiZxQjxVRZNZzSPx27SSI0efk8q6wkih7dOaWfjsNRGjEukhbQ7KihcjIy6TDEpVD3CG+LzaZ80rxpxMNHtqtD0V4gwMyk3Uasv8DqlyGotGu7g=
+	t=1788259046; cv=none; b=MmNasKTjCtUzqCsKzBkCmKOMAimmYY7A1Hg5VtTCxzNbYTPEXN/f4lB5fIeH+r3cr4EgWnLN4ABmTP94QFqB+rpQKHfAkPjQCcCJTFXDET/B0Pu3g8qwZl0mmZ0/rRJNIBDsUwAPxCkIy4M91N2/gv+UrQxGt9A/sWl0MRhs/H0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788258925; c=relaxed/simple;
-	bh=aw9k60djUqep7PosMklBHBSSfddhEhOp83WNis3Iua0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aTCPNP8B7ipfv4DbYR+JvNTLH1eEvoOtKedy2pEoCBCUVV7x3hi/F4I18TWpbFM9ace5mF1StYEDE2iTx7fQWtHtKRunkR6Hy4N4OkVB2Cv+BGIz+84J9kX1GlvCom3To9L+nJotVV725OXmEscnFvlQxoLk20JgBbD8gMa549g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oXuSImGD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788259046; c=relaxed/simple;
+	bh=MKAN7FuNPdql2ijvJSwXgesFhgJoNaFlzr5XXnC7c/g=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MRNKdjAyW68Onykq3PGx8HYQbIBH2PHrJMy1F8wcOx9DlBmPX6XwjZkiuPg3jds2NEopLnz0culR9r5w1oLYlf6ZfHZUcBokrMQlwuA/7nXPo8QrIwLUWZuM+DJgjMiC+l3TL4FkZnwz28ugVlBWcxGxp+Vusr7AbDCGQ+PNTi0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=jT4G6yla; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=tZlqsoHa; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=JF2R12Cy; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=DRd61sJz; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oXuSImGD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 539491F00A3E;
-	Tue,  1 Sep 2026 10:35:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788258924;
-	bh=vcCpSEftgA430RoM1FBDWtUuyGK8FaBAzL5tRn5s8zM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oXuSImGDshsC4cMw06Og+zCSkRUrxIotWKrIurPV2r5a//sQklqZqXJ2pQnRp/NGJ
-	 eHpbL9vnBaHsA+RUhHdpCWd6M8gZJdYoSKuoco+SwglBa32xOOPPXWMOP48TsaBOql
-	 3rLj2othD9ZBlqSH0QGklrOg3xCfjm/pE6hw52OPHWQpTjGXCbtxORz6TuuUj/1eRw
-	 5eQX2nuIcnUF5oTCEOPUPf5pnnpXamchYWVRyryc/i1OccBRTask/gkmpD2KqsPaQj
-	 +t2hE/0gwVxIPo/ifZCo1td+HYFneUJyROwonZEblR3RkcroOr9riQoERgEU13vAo0
-	 F2kU2R3ymXfkQ==
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfauth.ams.internal (Postfix) with ESMTP id A5ACC1980070;
-	Tue,  1 Sep 2026 06:35:20 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Tue, 01 Sep 2026 06:35:21 -0400
-X-ME-Sender: <xms:aKqWagsNt5TTV4gNgXZv315Lf8cdhJW2t8g3ySjbdpuhAarRq_jl6Q>
-    <xme:aKqWalA_Xq7_s3fbgnGzaZWx-otnKzHgXcPY1as0MbtgFyqa35LmwaEfrtGBb4Hbh
-    OupnuQVrPdKjdQy5QGcEWiGgbnPSb34i4pXkjnw6poAYqrEFRBROLGW>
-X-ME-Received: <xmr:aKqWarbfbcPjzbzfKU3pkfrtXQfEiRUzWDmJ1hxPJ0os5et-UQQn2RUlvZc>
-X-ME-Proxy-Cause: dmFkZTFiNb433Q2Ib/Q2x5Tb/4fJV8R4aY9r3SmdNboMtRz6Yw9Dgi3VJue9v5So8a+3MX
-    c8D5JOWRer9UtNw34dj/pFkuNTqEx574YOQuIJnWF1VTpPE1UxviOWyB/6xe9WD02Vwldw
-    JlDOX17LoDRvA8e2NUMfZpnZMzDayPynx8l8SHwrlGTrs4F0UwLCyL9ROUV9+XC3gpMpMf
-    /yFsNvsuUyH1amP65pfRfAGTMrIcTnRl8ZGqeI38P4WJ14uOAMw1z8CCC+CEk0eInXqQsC
-    OdH8W6nIHpsooSUt7rkU6agVnxag7Ep7LfdC9ruY0VEnlLLkrKHevYBMy7v0U422JUJkr6
-    ga7jPiK3xF2RTpK0L5Wp6bZN/7855JjuBlsxScXRS66u8fe0eSaw+Fs0dwqtQv1PY+2DaW
-    Kh32s9Ae+8h4FerOMfa31kCiJT9bGNunOe8k6onHLb9vCWueohqLVm0dqGxa/wmqw1ZmCt
-    gfXVfB8UmAh1iP5Q3JKn7YBFWGMczIi7l/6rEa6tDxQymL/IJwRLysGrn7Gs266djH4NaH
-    rCOaPVYQ26pwBxQ31eB2DWmhTVnyj/DYVcMNCet/D8mtOaHcEJJ1uwzMeOKRcjToBWjOZK
-    OJ9P52T/v+4Ml2vpzQ6FX1Iss19dPN7mKpHXv7uSue01Xm2m3Dlky+YB906Q
-X-ME-Proxy: <xmx:aKqWav8jQbCBf0d0UbO-aeNLn7jzbvgdFa0O-lizsk8U2TkuGzjtMQ>
-    <xmx:aKqWanj1ePc6ksqrncvGqdGffNYL0t-qljzEnBot__oZhMnP8JFBZg>
-    <xmx:aKqWaiiSMEXjcRacLgnTDvj_3pWhpdSFxRh_9k22qkxdBaZ5nvm2BQ>
-    <xmx:aKqWat5G2vtz8fwGPazKHNlBrNvQiPmivEKQCTs-_WcBJXUQT4sUjA>
-    <xmx:aKqWakTsqQHhDVe1-YddCq2AA021DMF7cbP5ZdE14e9nKjgS7ImAxnP->
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 1 Sep 2026 06:35:19 -0400 (EDT)
-Date: Tue, 1 Sep 2026 11:35:18 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Sarthak Sharma <sarthak.sharma@arm.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] mm/gup_test: prevent overflow in GUP batch
- calculation
-Message-ID: <apaqJk91uAN-zD66@thinkstation>
-References: <20260901083452.115365-1-sarthak.sharma@arm.com>
- <20260901083452.115365-2-sarthak.sharma@arm.com>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="jT4G6yla";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="tZlqsoHa";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="JF2R12Cy";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="DRd61sJz"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id EBED0223F1;
+	Tue,  1 Sep 2026 10:37:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788259039; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FN/q+EaJzmidy+Gw4FqvGJbssgUzfJFrQjNzUcTKvCA=;
+	b=jT4G6yla+AhilAdTquk1YSzk0nVaXiK9Tgs7dXDe9kmsPcpr+QV3y5qLpDs7o8T/WHn5zj
+	oi1Yp1bJlHg4bfIe14x6fc0ktwQkThwerhsyRHee06eW5o4vaGTKAUHru57OGLpKAohTLP
+	nvM4IIJpivdjtAQQypdaHU2jyLJeTvU=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788259039;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FN/q+EaJzmidy+Gw4FqvGJbssgUzfJFrQjNzUcTKvCA=;
+	b=tZlqsoHa5Q6p1YUALjreIPT0Uex/O0GMExNVyvX2XLhTBBS8ATTKiUR1Let/YjGIJd2L9S
+	63lUo1OqHKDw3uDg==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=JF2R12Cy;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=DRd61sJz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788259034; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FN/q+EaJzmidy+Gw4FqvGJbssgUzfJFrQjNzUcTKvCA=;
+	b=JF2R12Cyp/aJ//8FFd20L7xpdITiCQOuXB87a+tjL1Sn0RRRRdbOt3lyptLwkYnwk25p45
+	X/oCoOhO/ZdLeWjJ/56YVeJOZUdei31GN3uTI/0zcbFOSWW2FCrmUDXzE3qbHlPiaVNEtn
+	zdE6gZ1YCIo9NYsVPQcoLTWXaUnh+qE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788259034;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FN/q+EaJzmidy+Gw4FqvGJbssgUzfJFrQjNzUcTKvCA=;
+	b=DRd61sJzkniEoNPpxba440AqldQbb5yyuJCwsTctc8EXrZhz13IwGXfTSi9RDZRcuLZ4fG
+	KvLkqgHg81BQI/Bg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id B9FED1369E;
+	Tue,  1 Sep 2026 10:37:14 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id xlfVLNqqlmpQCAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Tue, 01 Sep 2026 10:37:14 +0000
+Date: Tue, 01 Sep 2026 12:37:14 +0200
+Message-ID: <875x0pdzqd.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: HyeongJun An <sammiee5311@gmail.com>
+Cc: clemens@ladisch.de,
+	tiwai@suse.com,
+	perex@perex.cz,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ALSA: usb-audio: fix OOB write in snd_usbmidi_us122l_output()
+In-Reply-To: <20260901090409.1478573-1-sammiee5311@gmail.com>
+References: <20260901090409.1478573-1-sammiee5311@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901083452.115365-2-sarthak.sharma@arm.com>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -3.51
+X-Rspamd-Queue-Id: EBED0223F1
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-3.51 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:dkim,suse.de:mid];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_TRACE(0.00)[suse.de:+]
+X-Spam-Flag: NO
 
-On Tue, Sep 01, 2026 at 02:04:51PM +0530, Sarthak Sharma wrote:
-> __gup_test_ioctl() calculates the end of a GUP batch using:
+On Tue, 01 Sep 2026 11:04:09 +0200,
+HyeongJun An wrote:
 > 
-> next = addr + nr * PAGE_SIZE;
+> The snd_usbmidi_us122l_output() picks a count of 2 on anything slower
+> than high speed and never relates it to ep->max_transfer.  The URB
+> buffer holds exactly max_transfer bytes, so a device declaring a one
+> byte bulk endpoint takes two bytes from snd_rawmidi_transmit(), and the
+> memset that pads the rest computes 1 - 2 in int and wraps to SIZE_MAX.
 > 
-> If nr is too large, it can cause the next to overflow and wrap around.
-> If it wraps, the next > end check is bypassed and a large value
-> of nr is passed to the gup call, even though the pages array was
-> allocated according to gup->size. This can lead to out of bounds writes.
+> Only 0x800e and 0x800f are pinned to nine bytes.  The US-122MKII at
+> 0x0644:0x8021 falls to the default and takes usb_maxpacket(), which the
+> USB core only clamps downward.
 > 
-> Compare nr with the number of pages remaining before performing
-> the multiplication. Clamp it to remaining range so that next does
-> not overflow or exceed end.
+> The akai and novation output ops in this file were given the same guard
+> recently.  Do the same here.
 > 
-> Fixes: 64c349f4ae78 ("mm: add infrastructure for get_user_pages_fast() benchmarking")
-> Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
-> ---
->  mm/gup_test.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/gup_test.c b/mm/gup_test.c
-> index 44c1cdfb9c37..910cbef709b4 100644
-> --- a/mm/gup_test.c
-> +++ b/mm/gup_test.c
-> @@ -139,10 +139,11 @@ static int __gup_test_ioctl(unsigned int cmd,
->  		if (nr != gup->nr_pages_per_call)
->  			break;
->  
-> -		next = addr + nr * PAGE_SIZE;
-> -		if (next > end) {
-> +		if (nr > (end - addr) / PAGE_SIZE) {
->  			next = end;
->  			nr = (next - addr) / PAGE_SIZE;
-> +		} else {
-> +			next = addr + nr * PAGE_SIZE;
->  		}
->  
->  		switch (cmd) {
+> Fixes: 030a07e44129 ("ALSA: Add USB US122L driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
 
-What about this:
+Applied now.  Thanks.
 
-              nr = min(nr, (end - addr) / PAGE_SIZE);
-              next = addr + nr * PAGE_SIZE;
 
-Seems to be easier to follow, no?
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Takashi
