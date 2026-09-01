@@ -1,45 +1,68 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96E5D40B6C9;
-	Tue,  1 Sep 2026 02:10:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D89E40B0ED;
+	Tue,  1 Sep 2026 02:09:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788228609; cv=none; b=iACrj6kzThPVCodDEqETKLwKME6KFVTjkJAu+iJFwZm1w9CnsHj5lvfUDUGO1cUd/duhtqS/LjWj+84+AWGkPyZZ+YP15INh16gWVOruy++5Q7gOmWVMPUeMqbSTsXzOqhjgG09cM9/0II7Y1kryf6sANrwcNlyX3xSqSjTBGPE=
+	t=1788228604; cv=none; b=tSm3O10pxe+TYzxjbjAFzhWCMw6JxBYBwvAB4wxF46NtHNOIYX5vITS0mq+HthOFR+TKSZQYkOlb7dJeDPYMMtYWeiAsjHE51OeTNuEUK0c5fcVzYDNJLJ0/pLajn2QwanBK0a4o8+YFGJ0LFHfzfaenVT4f1NYetSnEgJoAwYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788228609; c=relaxed/simple;
-	bh=xvaQTj1YwJf5V9NO3LpE3tjG1hU8Jroc60VNDG+eLrI=;
+	s=arc-20240116; t=1788228604; c=relaxed/simple;
+	bh=vM/b+8Lm9P5CL6sjrNCoXlhWVUIXWgvPTo9FewuChPY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CB/y+fgaOqaznCrC1KGInibt/mtbVFoGipsTWY3agKd2+fgVr+7+2eBXlAmkULRcP1J7fbUE/aWZwjXTh2v7VLK6njJPFlMO250Uly9u+lB+CRX46m11e49vIwibzPvyP5LdrY7jhAYZtab///AsZTI9e66fyuBgYDKYorMySX0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D0nvx9cl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=NglycMX5pNKdiyQnNIqAgacptc2TitpjcuP3or4VpL+HINYD+PyyqujXblmpvZ0BIfDoHEk8OAKCAsA8fs+CaMQ92+rwXr4igsFHV9pOqIPyGQbWRhhZl/0Gvu8UnGhrUXNimt7bCwBPzJn+U1IjcwBEH+ZvWWzZEkUNMbb70MY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ok2cON5q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D0nvx9cl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 882781F00ACF;
-	Tue,  1 Sep 2026 02:10:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ok2cON5q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B25EF1F00ACA;
+	Tue,  1 Sep 2026 02:09:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788228601;
-	bh=/ETHjOMoxWmxmsZByUUKeE6TTPkX9y5GbMLcgDSZBUU=;
+	s=k20260515; t=1788228585;
+	bh=imccdf2g1mEFtExQXUXHUdzPH5T3kvgztV71j7lsVdk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=D0nvx9clonYU05ssnfGbyFKZeFaQKO31pVkeKExjZX8wE763uzYyzgLkKuBLuiBmU
-	 SJtGuDw/eHFqXSkNtG7dJkr/PXI5ijMI3iyzjA2QNF583STTVlUXbCKC2WP8S4SoGY
-	 AIqxI9R4WtW3kCoHeG2SsdHUI9cRwKwgicAXy3cSw30gh2UrdtY6rzdgpnMbEe/E9Q
-	 /fw4KoJ4o91ImQYTrHdy5tENUtxhot0NaX7kvz9AacdtZZjMUiM8NPdGaG9B5OzZj7
-	 lAWCGl/f2NMTDDptSCkjjnyglpZe5knIw5RgPKCrLQfwADLaOf3Lq+QNsi60nX9OXk
-	 DBgnYgB0jA9Hg==
+	b=Ok2cON5qzJUYs6HC/WtGf6nOZ+S7sog1jx06koojWhYpFvB1VjXlpU+vazbj6ys6X
+	 5NaeODhTcaoc/Wr0vJz6n2tNSs+/7uMVVIQEQCklowwFfSRTC0jihy6WpRwsDFJhTw
+	 utAT3OmjhjG2VfvLkMnFdFm2RfAE/kQ8ugvNCpyBdAyxBm35bEexK2wsO88UXt6SxC
+	 J4hGZZQOjQ4lmZzuEyH0vh5MC4F1UfYUlc9dkyf+/VqvKRw7gSogBmSItmpuQXFjV9
+	 sOqkbnoqyFXwJhzmXg95gCfi/FksnNECfYMWhmofd+jCJDZA4TWyC3W77+LTsVw++C
+	 /fi4xgOjY/I9A==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
-	Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
-	Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Georgi Djakov <djakov@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Robert Marko <robimarko@gmail.com>,
+	Guru Das Srinagesh <linux@gurudas.dev>,
+	Taniya Das <taniya.das@oss.qualcomm.com>,
+	Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v3 0/4] Fix endian, overflow, and write-protection bugs in SE firmware loading
-Date: Mon, 31 Aug 2026 21:09:35 -0500
-Message-ID: <178822856276.1835959.8663134025896190257.b4-ty@kernel.org>
+	devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v5 00/15] Add initial support for Qualcomm Kuno SoC
+Date: Mon, 31 Aug 2026 21:09:22 -0500
+Message-ID: <178822856270.1835959.15842744749902984423.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260821-fix-write-to-read-only-firmware-buffer-v3-0-43e6a3abd651@oss.qualcomm.com>
-References: <20260821-fix-write-to-read-only-firmware-buffer-v3-0-43e6a3abd651@oss.qualcomm.com>
+In-Reply-To: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
+References: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -50,28 +73,30 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 21 Aug 2026 12:06:16 +0530, Viken Dadhaniya wrote:
-> This series fixes four issues in geni_find_protocol_fw() and
-> geni_load_se_fw(), all introduced by commit d4bf06592ad6 ("soc: qcom:
-> geni-se: Add support to load QUP SE Firmware via Linux subsystem").
+On Thu, 27 Aug 2026 23:21:03 +0530, Hardeep Sharma wrote:
+> This series adds initial support for the Qualcomm Kuno SoC and the Kuno
+> IDP reference board.
 > 
-> The most critical issue (patch 4/4) causes a level-3 permission fault
-> and crashes the kernel during QUP firmware load on CentOS; writing through
-> a non-const cast into a read-only firmware mapping is undefined behavior
-> regardless of whether the fault is raised.
+> Kuno is a 32-bit ARM (Cortex-A7) Qualcomm platform. This series brings up
+> the essential SoC infrastructure required to boot to a serial console:
+> 
+>   - Global Clock Controller (GCC) and RPMh clock controller
+>   - RPMh power domains
+>   - Interconnect (NoC) provider
+>   - TLMM pin controller
+>   - PDC interrupt controller and SCM firmware interface
+>   - Devicetree for the SoC and the Kuno IDP board
 > 
 > [...]
 
 Applied, thanks!
 
-[1/4] soc: qcom: geni-se: Fix endian conversion for serial_protocol comparison
-      commit: 0231382f070df26a8b267f9e68c5440928b87c89
-[2/4] soc: qcom: geni-se: Widen fw_size to u32 to prevent wrap-around
-      commit: e976c865bf31b562ab3908f0f1e2160da77fa156
-[3/4] soc: qcom: geni-se: Fix fw_end computed before round-up; propagate size to caller
-      commit: d1750c530e9b9b75c8d1b29d3c76e052a049f51f
-[4/4] soc: qcom: geni-se: Fix write to read-only firmware buffer
-      commit: 28b9c15f1829fff7b26db0dbbbde1c6b466cb156
+[04/15] dt-bindings: clock: qcom,rpmhcc: Add Kuno RPMh clock controller
+        commit: e304e8919043712191462224ce9d40bb5f5a6bc1
+[05/15] clk: qcom: clk-rpmh: Add support for Kuno RPMh clocks
+        commit: 12918d595ac96b819b9c3ba0df4c6a4bf50c43a9
+[11/15] clk: qcom: Add Global Clock Controller driver for Kuno
+        commit: 7db06b5f624b583fa2206f98de8437819acada9b
 
 Best regards,
 -- 
