@@ -1,236 +1,224 @@
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BC2730649C;
-	Tue,  1 Sep 2026 04:27:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4FF33ACF12
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 04:29:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788236848; cv=none; b=onP+SYEACdXn7CYvEbkViHdFcBmzR8finTa1mDKV9FxUwO5zos7OISNLrQ+P1L58cX4UKLqc+bBnU0M7zjm5DxNSOPcFHXKpFvhWfHt49RRJPMLboU5Ma53d5nNJ1VSeFv6pFzovPypyWYm/q+Mbu//qsnvyPYwf7MrZwNlAFx0=
+	t=1788236979; cv=none; b=O04cI89ToEyMI5dahAhV1CRi5NmmKgThV15VAZ3TK/dBFY77UATzx5EpZnqRCuyYad326s/m3Hl3VfSVYGtfPVZnwEuD87z19toMiKHrE2xtuwZgeyniWqJkc8fCMb+fjErQ8h9BV9DlBzfw+mQDtX9c9tDviT3LVzWSK95YrDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788236848; c=relaxed/simple;
-	bh=muRkWO7Tp34zgl3pqZqCwAacrwRwlWxq6BDlBE6EEKo=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BIi2OIQMBndy+mI33xEWnotLnlYU5azo4Tpdwdiq8DWkQQ114oFCd7QjuWHQSoH5C3oU24VyxpbDVGv0ty/yiCNPAMMbJyNjHN47+rq3q8g95GYzoyJmVDrw0Enq8pyeBk5802c4qLXO4+rWF5n+68iPKkrvmI1GFISUkMgspYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=Of5z6iNS; arc=none smtp.client-ip=67.231.156.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1788236979; c=relaxed/simple;
+	bh=b/q72RLD9lBRxi2VmlFM4dWbgfCb6GrTRD2Ri5Ba41s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MUUjaiSR1nGT1tUephBZQNVBm1D5Zv8T1F7NW7DhBtqU/mqOrX0Tcb/gGpy2h7e603gdpL/O8gNYA0WlPh5XKG2TBCDD+cfrpiyyu25kU32XvwBB4j6EH2zK7QWQDwngNVpaxPeqFl0hvANkMyN5kN+rxCg0NK4q4vReUOtRrp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MCINri1g; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=hSMaV6uR; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="Of5z6iNS"
-Received: from pps.filterd (m0431383.ppops.net [127.0.0.1])
-	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6811G4XN2183940;
-	Mon, 31 Aug 2026 21:27:16 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pfpt0220; bh=N31moCfPPwymPMZk+/+3+Jk5b
-	XNyQsO1Ut2mXUB2vu4=; b=Of5z6iNSkFzZL44AzxbkeY7kHq5pX5tMSXbQo3UK1
-	w7vKYwYQA7T1DxbzRYfoFcU47y65Yw0uFIR2KQceeoZKdrinUchFSvaTXKRFW0NI
-	EH0qQ1oOFeSdoG4Xb1zRxgJrmaF7t5GGEQFmMzmIX74OMAWIk3KS0c03kjcvqjAA
-	Zy6fSmpyLVeI9pfaEiuGleI7++uqLbM1PATDWUCQiinuoQHs8fP2mEB6vZk2la5M
-	S3OhvJ6lONV2Ps8DLNd+MN/uBOIOrNRRxX2DCn29f5Tj89YGY8w6+XgH6mCWJ3Ka
-	eYSuoYxP8MS2lJE7DMpQYsl3AEbZbf93nlAHrVIDIdD3w==
-Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
-	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4gdmvqrhfp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 31 Aug 2026 21:27:16 -0700 (PDT)
-Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
- DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Mon, 31 Aug 2026 21:27:15 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
- (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Mon, 31 Aug 2026 21:27:15 -0700
-Received: from rkannoth-OptiPlex-7090 (unknown [10.28.36.165])
-	by maili.marvell.com (Postfix) with SMTP id 674995B6926;
-	Mon, 31 Aug 2026 21:27:12 -0700 (PDT)
-Date: Tue, 1 Sep 2026 09:57:06 +0530
-From: Ratheesh Kannoth <rkannoth@marvell.com>
-To: Qingfang Deng <qingfang.deng@linux.dev>
-CC: <davem@davemloft.net>, <gakula@marvell.com>,
-        <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
-        <sgoutham@marvell.com>, <andrew+netdev@lunn.ch>, <edumazet@google.com>,
-        <kuba@kernel.org>, <pabeni@redhat.com>
-Subject: Re: [PATCH v5 net] octeontx2-af: switch qmem from coherent DMA alloc
- to streaming DMA mapping
-Message-ID: <apZUGpdCKJZiX_ta@rkannoth-OptiPlex-7090>
-References: <20260901015621.2708182-1-rkannoth@marvell.com>
- <710b8c70-a7fb-484a-957f-ec230952739b@linux.dev>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MCINri1g";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="hSMaV6uR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788236976;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YCQU+V95xqEH8EbNTciL/CsMqe3BTX/wUO0rCYM10FE=;
+	b=MCINri1gBAl2Y5AU/X1mZ1x7bpSitYjHljQdXJiSZq3VhDLv16nW4uOgMIg0gucgFmYE2u
+	ZXrQNABPzwOxj4wWUEqxn5MnaSRFbYVPufXMYTuH8SEiKNxoP3vtUYDpWP9sGz9s/qvbnj
+	1eq4Xl+xPebXwsoQlVbu5Zo9z8oLTAU=
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com
+ [209.85.215.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-622-K5r9Gh8KP-yp1KQkq1U-rA-1; Tue, 01 Sept 2026 00:29:35 -0400
+X-MC-Unique: K5r9Gh8KP-yp1KQkq1U-rA-1
+X-Mimecast-MFC-AGG-ID: K5r9Gh8KP-yp1KQkq1U-rA_1788236975
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cbb467e56aaso3809192a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:29:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788236975; x=1788841775; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YCQU+V95xqEH8EbNTciL/CsMqe3BTX/wUO0rCYM10FE=;
+        b=hSMaV6uRCq+5w4vlUZbgt5hVWo1Lm18O/mQfVV7TtSUED35DSCLHk0mU99w0LAg7Cq
+         /zl7ZdCWr9+Cb/ci3Dys4JqepeG6BTAnknPca17777XmC8BTHIxaVta+macL5LEYW4BH
+         XQTQAaJepQubshDGZJnvgMf24GPg5E754Gz/C8E9KE0tMwJ6MUpJ1zRhob92/+WOwrXe
+         fFaqEsP9JYuAoAyfQxIg/TtciSbhB2OjoOl02wfda5pVUICvtiRmcZWYmy7kHbZI+3CJ
+         Oi/q1nO17uha+hU3vJskU1U3jYXbErfTtxse0wYYwpN6bHQPLDqzckMI5/daAhb345cZ
+         r2Qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788236975; x=1788841775;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YCQU+V95xqEH8EbNTciL/CsMqe3BTX/wUO0rCYM10FE=;
+        b=Z+AfLmekMJLqqct9t/9vaFonJZFEooUGZS9Xp/Lvqhb2vcEwDOzqjtKUF4FRznalL3
+         y3DC/Ix0TsvKWwaE4XhQmrOSLOI58Lbe8AW4EO2xrB8DGC4hnHVfEHowv4s7zWgZZkqm
+         NLREK7ht/+I9kC/Dao3Gh7Klo1E/3c3Muu+5fj6xakhCMoBoKKHckKaB4SvAoyvbmQay
+         SZBkB0t78VCZaJN8z5OFLnCxvgFX9XyCHXSV8kielamSmdHt2cF1MN5sm7/RZXxXncdO
+         HWetRS+rkR8gTuWxxzNs5BFQN4aMaOtY4ZDnP1H4KJNCNyyiTlv+06Li2WcyL/omlu4+
+         1wDw==
+X-Forwarded-Encrypted: i=1; AKwUvBzLgB/F7cKPJzWT9Smjl0NkEKc3vfC+tkpfkIZ1B8uqa9dtHhuBjEsvPf2/GJXDAzWJiKuzvFzuGDdGZDs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kgmYMltrUlr2qIXgpW5YOM+zLDetD3GJLoUxakCSTLcmUtzQ75
+	/inoo/105TqdhGdMP+5Lv2PYQCCX8XxxW2u+jFQVET0hXZulL+kup7Xsjvt4uTBKkqveoAoEVf3
+	8rdTi3/OV2iMW3OiQVj4Px8MPlX/AV39qKUuF0MnAAUIHEm0bOM82yR587otvu1OcCQ==
+X-Gm-Gg: AYBFou3DvrfaaqKidCQHVtgv9VgLi6PJsGNyUjJhEsUnoKuUlUj1nwNFsn3jP/IupMQ
+	wcvLURDt9ri+B18jXx13r1sCW8BJbtoGXRJf0tH91L1Fna87LsWiPc6oUr7WIWvj/NVOd2vl7Hz
+	EqP3AM2C9m06/iLZoj7skWrad/8sWtzVz6CcdDuYsvqY3k9a9sxNCJcUMARkBh+4lVrf/nJviJ0
+	jgLHZ1Z+pOr22Uu0ZamNd8zRPmXYgVxpj47pXMC7I6HSIn2WC+2fMr5S6p4z399OhNeBmsT4+TG
+	bQW/UVp4xoJ6o9It2C8TK6LiHE5kj9wq6zSpX+wJHfvETCee0L4qmJ+PW22U9yVo0JtIWncKuQS
+	qHKky0d57PPDaMExFYxgb3jYqph9DGdj1K8yo0NSglw==
+X-Received: by 2002:a17:903:2acb:b0:2d9:1c02:5a19 with SMTP id d9443c01a7336-2d94a956b48mr72439895ad.22.1788236974301;
+        Mon, 31 Aug 2026 21:29:34 -0700 (PDT)
+X-Received: by 2002:a17:903:2acb:b0:2d9:1c02:5a19 with SMTP id d9443c01a7336-2d94a956b48mr72439155ad.22.1788236973766;
+        Mon, 31 Aug 2026 21:29:33 -0700 (PDT)
+Received: from [192.168.68.51] (n175-34-8-244.mrk21.qld.optusnet.com.au. [175.34.8.244])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3286f95a847sm30663601eec.17.2026.08.31.21.29.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 21:29:33 -0700 (PDT)
+Message-ID: <8e699e2d-c04c-4ff7-98a3-c01e573ee817@redhat.com>
+Date: Tue, 1 Sep 2026 14:29:22 +1000
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <710b8c70-a7fb-484a-957f-ec230952739b@linux.dev>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDAzNiBTYWx0ZWRfX0k8dgLRfCc8f
- t7s2wT1JVpiPZIm09Cdj1/3SVHta1YPCVY03qSgDMwswv48iSlnAGueWCxMs2mBD2tnzTvBwlb2
- /sCYiqzn3+PAGW/0oC+/XQj1jnJW4hBavKAYyPu8XWuHwSZE6I8Lg9Iza0MDXBvlrc0pMtLjWg6
- IVeU4pzRPjnOcytZ73ALdnKy/Xd9zWdpyiG0ZNcHQOp9rg6LeUddZe4M6rHSjYGDl/jo9kun55q
- WKq61V5PW06mIpRI3R3csbUjpQ7srdhqnhOlGxpBD+D0uH2PanCGputiBqJwR7HRAyvZIGz4TdD
- qWzBxMWX/hw/kIv/NHrhy8QL78zKv0I9gJWEMlBAvuq4aTOu/N4KXfV8CvLMVfcc2E8FtmnPtP0
- jbhgVhF7PVaxjzfDV0WYO5M0v1exivQGmnqkxF5LfhEQNYnNxk4FWoo1bxVehE8fKpqVQCtQScQ
- l0g+DwJTAtzzTFSxwHg==
-X-Authority-Analysis: v=2.4 cv=HYQkiCE8 c=1 sm=1 tr=0 ts=6a965424 cx=c_pps
- a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=l0iWHRpgs5sLHlkKQ1IR:22 a=qit2iCtTFQkLgVSMPQTB:22 a=VwQbUJbxAAAA:8
- a=M5GUcnROAAAA:8 a=c92rfblmAAAA:8 a=OB1bGeSAjrwdn4wCMFAA:9 a=CjuIK1q_8ugA:10
- a=OBjm3rFKGHvpk9ecZwUJ:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-ORIG-GUID: Rn_fEmMohaCO7R3hHCwegbU6HtiujxBF
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDAzNiBTYWx0ZWRfX3vNUIolV2eB+
- +v45RPVQ/xO+V+6NFafLPmp630fJDXsvrxHDQLF//EOe6D3yFxJx89/Pq++EiWvdR4qH6crf68E
- ORzDfj0h4XbSzSMX0g6ioFK68yD954c=
-X-Proofpoint-GUID: Rn_fEmMohaCO7R3hHCwegbU6HtiujxBF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_01,2026-08-31_01,2025-10-01_01
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v16 15/45] KVM: arm64: CCA: Don't expose unsupported
+ capabilities for realm guests
+To: Steven Price <steven.price@arm.com>, kvm@vger.kernel.org,
+ kvmarm@lists.linux.dev
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
+ Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>,
+ Oliver Upton <oliver.upton@linux.dev>, Zenghui Yu <yuzenghui@huawei.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Joey Gouly <joey.gouly@arm.com>, Alexandru Elisei
+ <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>,
+ Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev,
+ Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
+ Shanker Donthineni <sdonthineni@nvidia.com>, Alper Gun
+ <alpergun@google.com>, "Aneesh Kumar K . V" <aneesh.kumar@kernel.org>,
+ Emi Kisanuki <fj0570is@fujitsu.com>, Vishal Annapurve
+ <vannapurve@google.com>, WeiLin.Chang@arm.com,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>
+References: <20260803134403.80630-1-steven.price@arm.com>
+ <20260803134403.80630-16-steven.price@arm.com>
+Content-Language: en-US
+From: Gavin Shan <gshan@redhat.com>
+In-Reply-To: <20260803134403.80630-16-steven.price@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 2026-09-01 at 09:20:01, Qingfang Deng (qingfang.deng@linux.dev) wrote:
-> Hi,
->
-> On 2026/9/1 9:56, Ratheesh Kannoth wrote:
-> > qmem_alloc() uses dma_alloc_attrs() with DMA_ATTR_FORCE_CONTIGUOUS, which
-> > allocates CPU-cache-coherent DMA memory and, with CMA enabled, draws from
-> > the CMA pool. qmem backs NIX/NPA queue contexts, admin queues, and LMTST
-> > regions (including CN10K LMTST areas that span page boundaries), so
-> > consumption grows with enabled interfaces and is hard to provision in CMA.
-> >
-> > Switch qmem to a streaming-DMA-style path: allocate physically contiguous
-> > compound pages from the buddy allocator via __get_free_pages(), then map
-> > them for device access with dma_map_phys() and dma_unmap_phys() using
-> > DMA_ATTR_REQUIRE_COHERENT. Add otx2_dma_alloc_coherent() and
-> > otx2_dma_free_coherent() helpers that enforce dev_is_dma_coherent(),
-> > retry with GFP_DMA32 when the physical range is outside the device DMA
-> > mask, and wire qmem_alloc()/qmem_free() through them instead of
-> > dma_alloc_attrs()/dma_free_attrs().
->
-> __get_free_pages() can only allocate memory in power-of-two pages. You can
-> use alloc_pages_exact() and free_pages_exact() to save memory.
-Thank you ! will take it as an enhancement to net-next tree after this patch is merged.
+Hi Steve,
 
->
-> > This works on Octeon because the octeontx2 driver is written for
-> > DMA-coherent devices: Octeon platforms provide IO coherency (via SMMU), so
-> > the driver already uses streaming DMA APIs for packet data while
-> > deliberately skipping explicit CPU cache sync (DMA_ATTR_SKIP_CPU_SYNC).
-> > The same IO coherency lets qmem use a streaming map of buddy-allocated
-> > pages instead of a dedicated coherent allocator or CMA reservation. That
-> > is valid because the platform is DMA-coherent, not because omitting
-> > dma_sync_* magically makes memory coherent.
-> >
-> > Allocations requiring more than MAX_PAGE_ORDER pages are still rejected,
-> > since the buddy allocator cannot serve them without CMA.
->
-> Can you confirm that no existing allocations exceeds MAX_PAGE_ORDER?
-Tested this patch on cn10k platforms.
+On 8/3/26 11:43 PM, Steven Price wrote:
+> From: Suzuki K Poulose <suzuki.poulose@arm.com>
+> 
+> RMM v2.0 provides no mechanism for the host to perform debug operations
+> on the guest. So limit the extensions that are visible to an allowlist
+> so that only those capabilities we can support are advertised.
+> 
+> Signed-off-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> Signed-off-by: Steven Price <steven.price@arm.com>
+> ---
+> Changes since v13:
+>   * Add missing check in kvm_vm_ioctl_enable_cap().
+> Changes since v10:
+>   * Add a kvm_realm_ext_allowed() function which limits which extensions
+>     are exposed to an allowlist. This removes the need for special casing
+>     various extensions.
+> Changes since v7:
+>   * Remove the helper functions and inline the kvm_is_realm() check with
+>     a ternary operator.
+>   * Rewrite the commit message to explain this patch.
+> ---
+>   arch/arm64/kvm/arm.c | 26 ++++++++++++++++++++++++++
+>   1 file changed, 26 insertions(+)
+> 
+> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
+> index c4d906861736..6f39831dcf5d 100644
+> --- a/arch/arm64/kvm/arm.c
+> +++ b/arch/arm64/kvm/arm.c
+> @@ -135,6 +135,26 @@ int kvm_arch_vcpu_should_kick(struct kvm_vcpu *vcpu)
+>   	return kvm_vcpu_exiting_guest_mode(vcpu) == IN_GUEST_MODE;
+>   }
+>   
+> +static bool kvm_realm_ext_allowed(long ext)
+> +{
+> +	switch (ext) {
+> +	case KVM_CAP_IRQCHIP:
+> +	case KVM_CAP_ARM_PSCI:
+> +	case KVM_CAP_ARM_PSCI_0_2:
+> +	case KVM_CAP_NR_VCPUS:
+> +	case KVM_CAP_MAX_VCPUS:
+> +	case KVM_CAP_MAX_VCPU_ID:
+> +	case KVM_CAP_MSI_DEVID:
+> +	case KVM_CAP_ARM_VM_IPA_SIZE:
+> +	case KVM_CAP_ARM_PTRAUTH_ADDRESS:
+> +	case KVM_CAP_ARM_PTRAUTH_GENERIC:
+> +	case KVM_CAP_ARM_RMI:
+> +	case KVM_CAP_SYNC_MMU:
+> +		return true;
+> +	}
+> +	return false;
+> +}
+> +
 
->
-> > cc: Geetha sowjanya <gakula@marvell.com>
-> > Fixes: 73d33dbc0723 ("octeontx2-af: Use DMA_ATTR_FORCE_CONTIGUOUS attribute in DMA alloc")
-> > Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
-> >
-> > ---
-> >
-> > v4 -> v5: Fixed compilation issues.
-> > 	https://lore.kernel.org/netdev/20260831024210.208447-1-rkannoth@marvell.com/
-> >
-> > v3 -> v4: Fixed compilation issues.
-> > 	https://lore.kernel.org/netdev/apTpKcN_S1xIwRbZ@rkannoth-OptiPlex-7090/
-> >
-> > v2 -> v3: Addressed sashiko comments
-> > 	https://sashiko.dev/#/patchset/20260825045616.3723078-1-rkannoth%40marvell.com
-> >
-> > v1 -> v2: Rewrote patch as per sashiko comment
-> > ---
-> >   .../ethernet/marvell/octeontx2/af/common.h    | 93 +++++++++++++++++--
-> >   1 file changed, 87 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/drivers/net/ethernet/marvell/octeontx2/af/common.h b/drivers/net/ethernet/marvell/octeontx2/af/common.h
-> > index 779413a383b7..061dd907f7fa 100644
-> > --- a/drivers/net/ethernet/marvell/octeontx2/af/common.h
-> > +++ b/drivers/net/ethernet/marvell/octeontx2/af/common.h
-> > @@ -7,6 +7,11 @@
-> >   #ifndef COMMON_H
-> >   #define COMMON_H
-> > +#include <linux/dma-mapping.h>
-> > +#include <linux/dma-map-ops.h>
-> > +#include <linux/gfp.h>
-> > +#include <linux/mm.h>
-> > +
-> >   #include "rvu_struct.h"
-> >   #define OTX2_ALIGN			128  /* Align to cacheline */
-> > @@ -44,6 +49,83 @@ struct qmem {
-> >   	u32		qsize;
-> >   };
-> > +/* Buddy-backed coherent DMA alloc (Option 3): pages from __get_free_pages(),
-> > + * DMA-reachable RAM via dma_coherent_ok(), and bus/SMMU mappings via
-> > + * dma_map_phys() -> iommu_dma_map_phys() -> iommu_map() on SMMU systems.
-> > + */
-> > +#define OTX2_DMA_COHERENT_ATTRS	DMA_ATTR_REQUIRE_COHERENT
-> > +
-> > +static inline bool otx2_dma_phys_in_mask(struct device *dev, phys_addr_t paddr,
-> > +					 size_t size)
-> > +{
-> > +	u64 mask = dma_get_mask(dev);
-> > +
-> > +	return paddr + size - 1 <= mask;
-> > +}
-> > +
-> > +static inline void *otx2_dma_alloc_coherent(struct device *dev, size_t size,
-> > +					    dma_addr_t *dma_handle, gfp_t gfp)
-> > +{
-> > +	dma_addr_t dma_addr;
-> > +	unsigned int order;
-> > +	phys_addr_t paddr;
-> > +	void *vaddr;
-> > +	gfp_t alloc_gfp;
-> > +
-> > +	if (!dev || !dma_handle || !size)
-> > +		return NULL;
-> > +
-> > +	if (!dev_is_dma_coherent(dev))
-> > +		return NULL;
-> > +
-> > +	size = PAGE_ALIGN(size);
-> > +	order = get_order(size);
-> > +	if (order > MAX_PAGE_ORDER)
-> > +		return NULL;
-> > +
-> > +	alloc_gfp = (gfp & ~(__GFP_DMA | __GFP_DMA32 | __GFP_HIGHMEM)) |
-> > +		__GFP_ZERO | __GFP_COMP | __GFP_RECLAIM;
-> > +
-> > +	vaddr = (void *)__get_free_pages(alloc_gfp, order);
-> > +	while (vaddr &&
-> > +	       !otx2_dma_phys_in_mask(dev, page_to_phys(virt_to_page(vaddr)), size)) {
->
-> page_to_phys(virt_to_page(vaddr)) can be simplifed to virt_to_phys(vaddr).
-ACK.
+Nitpick: The code can be simplified a bit if @kvm is passed to kvm_realm_ext_allowed().
+In this way, kvm_realm_ext_allowed() looks similar to kvm_pkvm_ext_allowed().
 
->
-> > +		free_pages((unsigned long)vaddr, order);
-> > +		if (alloc_gfp & GFP_DMA32)
-> > +			return NULL;
-> > +		alloc_gfp |= GFP_DMA32;
-> > +		vaddr = (void *)__get_free_pages(alloc_gfp, order);
-> > +	}
-> > +	if (!vaddr)
-> > +		return NULL;
-> > +
-> > +	paddr = page_to_phys(virt_to_page(vaddr));
->
-> Same here.
-ACK.
->
-> > +	dma_addr = dma_map_phys(dev, paddr, size, DMA_BIDIRECTIONAL,
-> > +				OTX2_DMA_COHERENT_ATTRS);
-> > +	if (dma_mapping_error(dev, dma_addr)) {
-> > +		free_pages((unsigned long)vaddr, order);
-> > +		return NULL;
-> > +	}
-> > +
-> > +	*dma_handle = dma_addr;
-> > +	return vaddr;
-> > +}
-> Kind regards,
-> Qingfang
+static bool kvm_realm_ext_allowed(struct kvm *kvm, long ext)
+{
+	if (!kvm || !kvm_is_realm(kvm))
+		return true;
+
+	switch (ext) {
+	case KVM_CAP_IRQCHIP:
+		:
+	case KVM_CAP_SYNC_MMU:
+		return true;
+	}
+
+	return false;
+}
+
+>   int kvm_vm_ioctl_enable_cap(struct kvm *kvm,
+>   			    struct kvm_enable_cap *cap)
+>   {
+> @@ -146,6 +166,9 @@ int kvm_vm_ioctl_enable_cap(struct kvm *kvm,
+>   	if (is_protected_kvm_enabled() && !kvm_pkvm_ext_allowed(kvm, cap->cap))
+>   		return -EINVAL;
+>   
+> +	if (kvm && kvm_is_realm(kvm) && !kvm_realm_ext_allowed(cap->cap))
+> +		return -EINVAL;
+> +
+
+	if (!kvm_realm_ext_allowed(kvm, cap->cap))
+		return -EINVAL;
+
+>   	switch (cap->cap) {
+>   	case KVM_CAP_ARM_NISV_TO_USER:
+>   		r = 0;
+> @@ -380,6 +403,9 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, long ext)
+>   	if (is_protected_kvm_enabled() && !kvm_pkvm_ext_allowed(kvm, ext))
+>   		return 0;
+>   
+> +	if (kvm && kvm_is_realm(kvm) && !kvm_realm_ext_allowed(ext))
+> +		return 0;
+> +
+
+	if (!kvm_realm_ext_allowed(kvm, ext))
+		return 0;
+
+>   	switch (ext) {
+>   	case KVM_CAP_IRQCHIP:
+>   		r = vgic_present;
+
+Thanks,
+Gavin
+
