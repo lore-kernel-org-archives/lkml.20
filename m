@@ -1,52 +1,50 @@
-Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C60738AC72;
-	Tue,  1 Sep 2026 03:08:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D793D9DC0;
+	Tue,  1 Sep 2026 03:08:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788232125; cv=none; b=gHpcUztfb9M5cmgkHyspfsI4GHm1C5nAeof8xhLTEwP/fHd0945LcRz7S0ajG1hH+x43u3kS3fkxhgNfyRhVJWvV0OkQfLm5AYT2SLHcGLCeM7UOqsm+TEXH4PFtszHrWGZaDRBSTm3gguXTg1k0/eIJ4F/14P6y8Kumn20eXTU=
+	t=1788232137; cv=none; b=Awf2CQVdZjAm22IZGWxW7J7lFhr2HxgjgngMe7Yn1zw1OLA3PKZSSrN62mL55GHPCo1jwmMH9INbIUrW7u7Sg6Z7hViWqirgEOstwEubyylm8iXn/AvJy+azjCHa1GdIGwTvImoPjb772MdhTdymvYc7Q+uV3scmIlfOHV/tH4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788232125; c=relaxed/simple;
-	bh=exRYbENaeqIC9LzQrl1oaL3FO3hyBULOPrf5+b+88N8=;
+	s=arc-20240116; t=1788232137; c=relaxed/simple;
+	bh=iDjZBzHdOIEWE3US+miz1BbbH4gQX386+ehW6sw4idk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=T73Tn65+zUCFPsCoDtxZXcNnvM/PQ6kZGJ4DhITQNG12GtU+zGKVR1yBJGjziVK6g7lZjbRFJIW0vr8M9PgZ25E/t4Y4faUQuBPL9vzGrJla5KK+3P7yAtP9t/x4sWDc/C8HrwX06CBQfSh+/WjYl5g3gEdJ8fFvWaBxukmWypM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com; spf=pass smtp.mailfrom=foxmail.com; dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b=UXRsDfoQ; arc=none smtp.client-ip=162.62.58.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	 In-Reply-To:Content-Type; b=nCutf6aJ+aH8eemCMaFjyQ+NMzkFDdeB/Wg8l3LCoQsf5VO4t6FkGLg8xB9A0M4okIDdLdP8UUInlMptmhI8yvBC9jkTXFHq6+6NPoZhJ/qsmVUJsDFJVHpNc6JAHCHIO4qP/mCbp/5lP72AQGEp7zqhvuDKwHfHBYSe35PmpK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=oJhgk1ni; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b="UXRsDfoQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1788232111;
-	bh=eEsz7+r7qwRJXlGm1iAic9cd7SXMJhQKDo9zhXiMp/Y=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UXRsDfoQPXTwnU6xc2cTmdo1+3ONr/Eoe3J4mtB2yrkfN+MUZ5z0L2+W6W0AtA9Vl
-	 2XWXVFppHI36tUv5plCu5zON26k4bubF/He3RLi8ReXCHOcTLySFPIkvejkpFaXtJ9
-	 1Z455t6ljwH5HIGTlwhNfAA8yK4XxHgGUjZg7bp8=
-Received: from [198.18.0.1] ([58.206.203.238])
-	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
-	id 21C366A4; Tue, 01 Sep 2026 11:08:28 +0800
-X-QQ-mid: xmsmtpt1788232108tcd6hcrco
-Message-ID: <tencent_CD7E18210FC0A874E644DBB097794EE29C09@qq.com>
-X-QQ-XMAILINFO: NlxVGCthfHmZFAK0fER5jLvqeLRrYIEPU6hyEUUcoZQ8XDorFKOId7L4orlH3o
-	 P7NQaJJt6Mk7v/CO2Zqnv0n9Wt7eOaDWRIEtPK8Jsnm9p5bUeDYTru4J8NKBHsVeIjOKHSW4YMCy
-	 Lbg0lPQh4Zpwrwa6mmEeIYe4eEpBcwyI8X5CFzz55+01AUlHFtbIZtM9er543CaeBV/dBWAD73u6
-	 r6yVuUZCI/2GOfRE8c3/ZBV9R3f7rDIuC0d0s/lyfnMHbbol645Z+uaDlsaLHW3NNd5CyUQWXeSB
-	 Vl3T5NmHvfCC+TpJ2KMM8NWzQqoMZnewA5eFvigeeUowZHZJGeLr0bN9VxE0FPuCPjClqbREJiKH
-	 b24SJCVkUfFZTl8/TTPdvh9aeFuyfpKQDcSZmjPy/7KYm8H298cJB5oNiWJntx7Y+8f7O5lNXch/
-	 IxsgDcLNVRPwp6JqQdw7K5PxvaCO4bJMJpkJTbmD5Ujy3xY4vhDW/FBEYK9JVs8fwSEjgpO9BkL2
-	 KtQPYniAa18k2x+F1zwULWsgxvHkNWcKPMMoJ547GbI3AaAOsVMXaXE0Y0Pt7iZlxLzkGUaDxobc
-	 xn4pHZzOyBiDxXUcNeGRFe8BdIUZkuUN9Fr8V3D93nt92hwWX+kcrLbY3qthn0DOi/TdpUhdYKJU
-	 f6vpeOH8AGK2WQtipoEL9sI5jVRgVjTp95Vw38Qxg78ruRSaEeMaqxvLYmgXHiVbi7qNaNq8EScx
-	 MI18jsEy5WK5V6IsLJqzRk1t0lr4HhbrkZtNUTwEciZMdfdzD1oGP031VhOlSeDcJq245wb/buUU
-	 wQVK15lUzXR2eoQeVSx7i9vnq+H9f422ZrVJvsY8tDsQVaQd8HMYE05lbKhcMdKRKJrR63c3TbpH
-	 fTXcqGrJgqkcE/wx9Ig7Pfxuasw9g5JnH7j5KhJNW2vtPSCPXn3ywlzmK5s4EEowlAQMflKexTdT
-	 g5/kFF3M73ptYPf2PmRGIu/6WYhnlxfACeVaYXOEySx5ZiAAoGNuDqjp6cY807iHQcNnXQvUF8F6
-	 G8lORqEI902MDyrNwhubALmqJohLaek/s7z0tXCWS3YRopq9g8J69SEgu17xD4mqL3A4C3QS+V1r
-	 LEYc+vWv68GQKdvX0=
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-OQ-MSGID: <e059628d-2f57-4c1d-830b-0387eee74e24@foxmail.com>
-Date: Tue, 1 Sep 2026 11:08:26 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="oJhgk1ni"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788232137; x=1819768137;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=iDjZBzHdOIEWE3US+miz1BbbH4gQX386+ehW6sw4idk=;
+  b=oJhgk1nikTOQesOZx3aV4OMPUZoDspbabJZdI97OVInvD2DoIlApYjpe
+   309Tgfoda6b/LWQqCTlb3/SqMWM9r4y0/fLnwBqGF/JI0Z9506Es1y2Qo
+   mcP1vpodlnEFqbS9OkQ/ZJJR1bjb3ARK9iBAjye2JhDBP1pvfpNt6ei9v
+   +syVEfRUAqUs+n78UIXzg/fCkvGFTp6tePCqTDc7KlNaCmhKbm7FkALJZ
+   KesokF1d+q3uRwkJGOeWYciPsW9BGOPXJZBxR52fB/fM2ToWF+xfPrc3r
+   R7G6l/+CqwGOlG+lhv7yNet/tNp/3aELDiqJF2Ra8IXnGbL+WQh1GCjdz
+   w==;
+X-CSE-ConnectionGUID: GFTKTQDSSAGOOVhVUSb55w==
+X-CSE-MsgGUID: +xZdgaPpQmmbRJrDnGj7cA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88853371"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="88853371"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 20:08:56 -0700
+X-CSE-ConnectionGUID: pC+PsqAhR7OgyKYzcQSe6w==
+X-CSE-MsgGUID: 3IEHxcTdSvCew1oNSRrksg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="267161422"
+Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
+  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 20:08:52 -0700
+Message-ID: <c5471c76-e4bc-43fb-a2f2-b362fb439b05@linux.intel.com>
+Date: Tue, 1 Sep 2026 11:08:50 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,86 +52,67 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] usb: gadget: goku_udc: fix kobject warning on
- probe failure
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Alan Stern <stern@rowland.harvard.edu>, Felipe Balbi <balbi@kernel.org>,
- Peter Chen <peter.chen@nxp.com>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- syzbot+06ec7624018233e17113@syzkaller.appspotmail.com
-References: <20260826-b4-fix-usb-v3-0-b28366e817f3@foxmail.com>
- <tencent_79E338821F4FC825B0149D5951476C189E07@qq.com>
- <2026082647-tripping-skater-fe31@gregkh>
-From: Cheng Lingfei <chenglingfei@foxmail.com>
-In-Reply-To: <2026082647-tripping-skater-fe31@gregkh>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v2 07/16] KVM: x86/pmu: Expose kvm_host_pmu to vendor
+ modules
+To: Zide Chen <zide.chen@intel.com>, Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>
+Cc: kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>,
+ Jim Mattson <jmattson@google.com>, Stephane Eranian <eranian@google.com>,
+ linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
+ Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
+ Xudong Hao <xudong.hao@intel.com>
+References: <20260827223755.143247-1-zide.chen@intel.com>
+ <20260827223755.143247-8-zide.chen@intel.com>
+Content-Language: en-US
+From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
+In-Reply-To: <20260827223755.143247-8-zide.chen@intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 8/26/2026 5:27 PM, Greg Kroah-Hartman wrote:
-> On Wed, Aug 26, 2026 at 05:15:07PM +0800, Cheng Lingfei wrote:
->> goku_probe() calls goku_remove() when hardware initialization fails, but
->> the gadget device is initialized only near the end of probe. As a result,
->> goku_remove() calls usb_del_gadget_udc(), which drops a reference to an
->> uninitialized gadget device and triggers a kobject warning.
->>
->> Initialize the gadget device immediately after allocating the controller,
->> but add it only after all hardware resources have been acquired. Track the
->> gadget registration state so goku_remove() can safely clean up both partial
->> probe state and a fully initialized device.
->>
->> Use the split gadget removal API and drop the final gadget reference only
->> after all hardware resources have been released. Obtain the controller from
->> the embedded gadget device in the release callback because driver data is
->> set on the PCI device rather than the gadget device.
->>
->> Fixes: 3301c215a2bb ("USB: UDC: Expand device model API interface")
->> Reported-by: syzbot+06ec7624018233e17113@syzkaller.appspotmail.com
->> Closes: https://syzkaller.appspot.com/bug?extid=06ec7624018233e17113
->> Tested-by: syzbot+06ec7624018233e17113@syzkaller.appspotmail.com
->> Assisted-by: Codex:gpt-5.6
->> Signed-off-by: Cheng Lingfei <chenglingfei@foxmail.com>
->> ---
->>   drivers/usb/gadget/udc/goku_udc.c | 28 ++++++++++++++--------------
->>   drivers/usb/gadget/udc/goku_udc.h |  3 ++-
->>   2 files changed, 16 insertions(+), 15 deletions(-)
->>
->> diff --git a/drivers/usb/gadget/udc/goku_udc.c b/drivers/usb/gadget/udc/goku_udc.c
->> index 5ad8633f522b..615cc6b8f354 100644
->> --- a/drivers/usb/gadget/udc/goku_udc.c
->> +++ b/drivers/usb/gadget/udc/goku_udc.c
->> @@ -20,6 +20,7 @@
->>   // #define	VERBOSE		/* extra debug messages (success too) */
->>   // #define	USB_TRACE	/* packet-level success messages */
->>   
->> +#include <linux/container_of.h>
->>   #include <linux/debugfs.h>
->>   #include <linux/kernel.h>
->>   #include <linux/module.h>
->> @@ -1726,7 +1727,7 @@ static irqreturn_t goku_irq(int irq, void *_dev)
->>   
->>   static void gadget_release(struct device *_dev)
->>   {
->> -	struct goku_udc	*dev = dev_get_drvdata(_dev);
->> +	struct goku_udc *dev = container_of(_dev, struct goku_udc, gadget.dev);
-> 
-> That looks wrong.  If it is correct, please create a proper macro for it
-> so that you verify that this all is working properly.
+Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
 
-The object allocated by goku_probe() is struct goku_udc, with struct 
-usb_gadget embedded in it. Therefore, when the gadget release callback 
-is invoked with a pointer to the embedded gadget.dev, it must recover 
-and free the enclosing struct goku_udc.
-This follows the same pattern used by the net2280 and fsl_qe_udc 
-drivers. I agree that the conversion should be made explicit, so I will 
-add a helper macro in the next revision:
-
-#define to_goku_udc(g) \
-	container_of((g), struct goku_udc, gadget)
-
-#define gadget_dev_to_goku_udc(d) \
-	to_goku_udc(dev_to_usb_gadget(d))
-
--- 
-Best regards,
-Cheng Lingfei
-
+On 8/28/2026 6:37 AM, Zide Chen wrote:
+> kvm_host_pmu holds the unadulterated host PMU capabilities, which
+> can be used to compare against guest capabilities to determine whether
+> certain MSRs should be intercepted by KVM.
+>
+> Exposing it directly avoids the need to introduce per-field accessors,
+> which would add boilerplate without hiding any implementation detail
+> worth encapsulating.
+>
+> Opportunistically, fix typo "Unadultered" in the comment.
+>
+> Signed-off-by: Zide Chen <zide.chen@intel.com>
+> ---
+>  arch/x86/kvm/pmu.c | 5 +++--
+>  arch/x86/kvm/pmu.h | 1 +
+>  2 files changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
+> index b0fcd0a538d2..7837e2e1af98 100644
+> --- a/arch/x86/kvm/pmu.c
+> +++ b/arch/x86/kvm/pmu.c
+> @@ -27,8 +27,9 @@
+>  /* This is enough to filter the vast majority of currently defined events. */
+>  #define KVM_PMU_EVENT_FILTER_MAX_EVENTS 300
+>  
+> -/* Unadultered PMU capabilities of the host, i.e. of hardware. */
+> -static struct x86_pmu_capability __read_mostly kvm_host_pmu;
+> +/* Unadulterated PMU capabilities of the host, i.e. of hardware. */
+> +struct x86_pmu_capability __read_mostly kvm_host_pmu;
+> +EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_host_pmu);
+>  
+>  /* KVM's PMU capabilities, i.e. the intersection of KVM and hardware support. */
+>  struct x86_pmu_capability __read_mostly kvm_pmu_cap;
+> diff --git a/arch/x86/kvm/pmu.h b/arch/x86/kvm/pmu.h
+> index b7a319b1eccc..9a658ae5b268 100644
+> --- a/arch/x86/kvm/pmu.h
+> +++ b/arch/x86/kvm/pmu.h
+> @@ -252,6 +252,7 @@ static inline bool pmc_is_locally_enabled(struct kvm_pmc *pmc)
+>  	return !kvm_pmu_call(pmc_is_disabled_in_current_mode)(pmc);
+>  }
+>  
+> +extern struct x86_pmu_capability kvm_host_pmu;
+>  extern struct x86_pmu_capability kvm_pmu_cap;
+>  
+>  void kvm_init_pmu_capability(struct kvm_pmu_ops *pmu_ops);
