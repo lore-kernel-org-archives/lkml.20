@@ -1,130 +1,135 @@
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26944494822
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:05:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0F3FE494801;
+	Tue,  1 Sep 2026 18:06:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788285930; cv=none; b=FRUuXX7kYAIWWzxIDBUoKLMWpii6fc/QRFm2sq4lg+VQR8WZts4hHoABcAN7IHrU38Vb/o0bsHXtCRfvIzafm5S05vaFSRw+J20TzWFgnuh+fLdhvJQwI9OZOxVYNC0As2s0OlmSnBkVUyx416m82EFeg8dcW6Tw5yt0BsL9Rsw=
+	t=1788285987; cv=none; b=Dp7OpwnV9qTFSVcOzbqVanw0WSC7q/ijzSYfxET8Oxv9GJZsasBiPmT6De97VryEi8XEWzj57ldQLYv7DQaRzEHF8+Y64+p7AaXlKeNUsFlnHp58Umhpu1an99wDs9u2GObPcA6SpqZDiT6UdMgbds8/OeSO3GgI1uDya+LdBu8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788285930; c=relaxed/simple;
-	bh=z3C34BsrHSMi2y7Wt4votuBaML+q4BgcrzyroXVN5mY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Xsf9YSKYKrrJEg9U9I4NTpbNqrcyIhQc1OXF/rLmShbgOfiGwfh4Fx7gVkA8b3rCy9iovDiv6bfYMENb/xb9Xj+syc0b2txDgCUUozwaORf/IRckxsykCrMDSkMy6CNnTgngq1w02T8Bf83LEUivMBfLyb+aYuXi40n/xUHJk2w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=E7Qd10nw; arc=none smtp.client-ip=199.89.1.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1788285987; c=relaxed/simple;
+	bh=3W8JVYLQkvVQN7to25EbxblwpFAKAuVFh9UmW30i3N0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VItTHEYCn/GLPJAAMPZOJaYwxSPIy9WdGXJxysPH9hgCETYZ1/CRytxHqZKlKM+ia5QsFv1Os40JcOn//OkgfQ0yiRHOfkNUOrnVn+hkqfHWyNsAL9QkzG6S56s0c/pb2SPWJS9xx7xZB2uev3BA6YaD2rAOa8HUqtVNbL7Mlx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=CL4/pghU; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="E7Qd10nw"
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4hZDL04cp9zlfqB3;
-	Tue,  1 Sep 2026 18:05:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1788285922; x=1790877923; bh=UcvK0M7vO6rQpKZC0FA6e/mp
-	oF8Rhgg41MhurqsyWK4=; b=E7Qd10nwtnbGVgt2NU7qMWk4bATq2rM/KPiYybFa
-	PHvHmuOB7kBJZ8RM+7Uy9KI7U1e2yzi24a5y9HCQavpNSyhNBJr2mzO3QMa3KVAs
-	DzXXvkiG19GMnnDqEdwmOtpshvrD0XWXWJ4tgBB5o81lzjaIhWq+KZTu5lGCNPTl
-	pilDagyNGziPYO411BLKZb0PpZR7jvJttRwP2yFJHSsDPUyeBCFEOGJMk16ekuxT
-	s4WmWTb0lOyOa8WrbXY1lRhEHTGHHrcwl+AdrRK+am5sq/1Mecq25nF1YWcLIoW2
-	aSotbJKE5v0DfJEv+OLVOegCvsM8PquYsalkpcij9D4Dyw==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id 9KMc0q2iCxB3; Tue,  1 Sep 2026 18:05:22 +0000 (UTC)
-Received: from [100.80.227.50] (unknown [104.135.182.42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4hZDKr02MjzlfqB2;
-	Tue,  1 Sep 2026 18:05:19 +0000 (UTC)
-Message-ID: <dca931ff-5995-444c-9f89-6d6cca4e71f3@acm.org>
-Date: Tue, 1 Sep 2026 11:05:18 -0700
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="CL4/pghU"
+Received: from localhost.localdomain (unknown [52.172.102.222])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 5DEB420B7166;
+	Tue,  1 Sep 2026 11:05:40 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5DEB420B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1788285949;
+	bh=dPpGuVKFWxabCbT9X1+NC/BlECnScEpIX1GeAfUkNws=;
+	h=From:To:Cc:Subject:Date:From;
+	b=CL4/pghUYwiPRKjF+dxKSwmOqV2fl3bq+GtqijeIdX9alwhOipERGR60zU3z4ERTV
+	 +PF9Dc5oXlQzrqMrU5XphNUnlVnJJSvtaD8JVfTN4diKNkCtz/jKl71QffuG/wpvxi
+	 j+Ao1+/5ApWzvg7jTnrdaz5RjdL/KiIlbkrm8oAk=
+From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
+To: viro@zeniv.linux.org.uk,
+	brauner@kernel.org
+Cc: jack@suse.cz,
+	jkoolstra@xs4all.nl,
+	neil@brown.name,
+	sandeen@redhat.com,
+	kees@kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	AutonomousCodeSecurity@microsoft.com,
+	xmei5@asu.edu,
+	tgopinath@linux.microsoft.com,
+	kys@microsoft.com,
+	"Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
+Subject: [PATCH] ufs: validate cylinder group free bitmap offset
+Date: Tue,  1 Sep 2026 14:06:00 -0400
+Message-ID: <20260901180600.10394-1-cenzhang@linux.microsoft.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] tracing: Make is_signed_type() compatible with sparse
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Steven Rostedt <rostedt@goodmis.org>, linux-kernel@vger.kernel.org,
- Christoph Hellwig <hch@lst.de>, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
- Linus Torvalds <torvalds@linux-foundation.org>, Chris Li <sparse@chrisli.org>
-References: <bde573c1a758505339239f08be28788a34dfcb73.1786121949.git.bvanassche@acm.org>
- <20260831214437.15d6ad34@pumpkin>
- <a771af57-40ee-433a-be84-9b7c3e6965c5@acm.org>
- <20260901092043.7feaf5d7@pumpkin>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20260901092043.7feaf5d7@pumpkin>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/1/26 1:20 AM, David Laight wrote:
-> I suspect you need to change the TRACE_EVENT() calls to remove the
-> __bitwise marker.
+ufs_read_cylinder() copies cg_freeoff from the on-disk cylinder group
+without checking that the free-fragment bitmap fits in the loaded
+cylinder group buffers. A crafted image can place cg_freeoff past those
+buffers so that allocation later indexes ubh->bh[] out of range.
 
-How to remove the __bitwise marker? Removing the __bitwise marker is not
-supported by sparse, isn't it?
+UBSAN: array-index-out-of-bounds in fs/ufs/balloc.c:752:15
+  ubh_scanc()              fs/ufs/balloc.c:752
+  ufs_bitmap_search()      fs/ufs/balloc.c
+  ufs_alloccg_block()      fs/ufs/balloc.c
+  ufs_alloc_fragments()    fs/ufs/balloc.c
+  ufs_new_fragments()      fs/ufs/balloc.c
 
-How about the changes shown below (should be split into two patches)?
+Reject the cylinder group unless the full BITS_TO_BYTES(s_fpg)
+free-fragment bitmap starting at c_freeoff fits in the bytes actually
+loaded for that cylinder group.
 
-diff --git a/include/linux/compiler.h b/include/linux/compiler.h
-index cb2f6050bdf7..54c99a25caa5 100644
---- a/include/linux/compiler.h
-+++ b/include/linux/compiler.h
-@@ -326,7 +326,14 @@ static inline void *offset_to_ptr(const int *off)
-   * Whether 'type' is a signed type or an unsigned type. Supports 
-scalar types,
-   * bool and also pointer types.
-   */
--#define is_signed_type(type) (((type)(-1)) < (__force type)1)
-+#define is_signed_type(type) _Generic(((TYPEOF_UNQUAL(type))0),	\
-+	signed char: true,			\
-+	signed short: true,			\
-+	signed int: true,			\
-+	signed long: true,			\
-+	signed long long: true,			\
-+	char: ((char)-1 < (char)1),		\
-+	default: false)
-  #define is_unsigned_type(type) (!is_signed_type(type))
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
+Cc: AutonomousCodeSecurity@microsoft.com
+Cc: stable@vger.kernel.org
+Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@linux.microsoft.com>
+---
+ fs/ufs/cylinder.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
-  /*
-diff --git a/lib/tests/is_signed_type_kunit.c 
-b/lib/tests/is_signed_type_kunit.c
-index 88adbe813f3a..b72da7f6084f 100644
---- a/lib/tests/is_signed_type_kunit.c
-+++ b/lib/tests/is_signed_type_kunit.c
-@@ -22,6 +22,8 @@ static void is_signed_type_test(struct kunit *test)
-  	KUNIT_EXPECT_EQ(test, is_signed_type(signed char), true);
-  	KUNIT_EXPECT_EQ(test, is_signed_type(unsigned char), false);
-  	KUNIT_EXPECT_EQ(test, is_signed_type(char), false);
-+	KUNIT_EXPECT_EQ(test, is_signed_type(short), true);
-+	KUNIT_EXPECT_EQ(test, is_signed_type(unsigned short), false);
-  	KUNIT_EXPECT_EQ(test, is_signed_type(int), true);
-  	KUNIT_EXPECT_EQ(test, is_signed_type(unsigned int), false);
-  	KUNIT_EXPECT_EQ(test, is_signed_type(long), true);
-@@ -32,6 +34,13 @@ static void is_signed_type_test(struct kunit *test)
-  	KUNIT_EXPECT_EQ(test, is_signed_type(enum signed_enum), true);
-  	KUNIT_EXPECT_EQ(test, is_signed_type(void *), false);
-  	KUNIT_EXPECT_EQ(test, is_signed_type(const char *), false);
-+	KUNIT_EXPECT_EQ(test, is_signed_type(int (*)(void)), false);
+diff --git a/fs/ufs/cylinder.c b/fs/ufs/cylinder.c
+index a2813270c303..fec6c9dfb055 100644
+--- a/fs/ufs/cylinder.c
++++ b/fs/ufs/cylinder.c
+@@ -33,6 +33,8 @@ static bool ufs_read_cylinder(struct super_block *sb,
+ 	struct ufs_sb_private_info * uspi;
+ 	struct ufs_cg_private_info * ucpi;
+ 	struct ufs_cylinder_group * ucg;
++	u64 cg_bytes, free_bitmap_bytes;
++	const char *err;
+ 	unsigned i, j;
+ 
+ 	UFSD("ENTER, cgno %u, bitmap_nr %u\n", cgno, bitmap_nr);
+@@ -48,8 +50,10 @@ static bool ufs_read_cylinder(struct super_block *sb,
+ 	UCPI_UBH(ucpi)->bh[0] = sbi->s_ucg[cgno];
+ 	for (i = 1; i < UCPI_UBH(ucpi)->count; i++) {
+ 		UCPI_UBH(ucpi)->bh[i] = sb_bread(sb, UCPI_UBH(ucpi)->fragment + i);
+-		if (!UCPI_UBH(ucpi)->bh[i])
++		if (!UCPI_UBH(ucpi)->bh[i]) {
++			err = "can't read cylinder group block %u";
+ 			goto failed;
++		}
+ 	}
+ 	sbi->s_cgno[bitmap_nr] = cgno;
+ 			
+@@ -68,6 +72,16 @@ static bool ufs_read_cylinder(struct super_block *sb,
+ 	ucpi->c_clustersumoff = fs32_to_cpu(sb, ucg->cg_u.cg_44.cg_clustersumoff);
+ 	ucpi->c_clusteroff = fs32_to_cpu(sb, ucg->cg_u.cg_44.cg_clusteroff);
+ 	ucpi->c_nclusterblks = fs32_to_cpu(sb, ucg->cg_u.cg_44.cg_nclusterblks);
 +
-+	KUNIT_EXPECT_EQ(test, is_signed_type(const int), true);
-+	KUNIT_EXPECT_EQ(test, is_signed_type(const unsigned int), false);
++	cg_bytes = UCPI_UBH(ucpi)->count * sb->s_blocksize;
++	free_bitmap_bytes = BITS_TO_BYTES((u64)uspi->s_fpg);
++	/* The full free bitmap must fit in the loaded CG buffer. */
++	if (!free_bitmap_bytes ||
++	    (u64)ucpi->c_freeoff + free_bitmap_bytes > cg_bytes) {
++		err = "cylinder group %u has invalid free bitmap";
++		goto failed;
++	}
 +
-+	KUNIT_EXPECT_EQ(test, is_signed_type(volatile int), true);
-+	KUNIT_EXPECT_EQ(test, is_signed_type(volatile unsigned int), false);
-  }
+ 	UFSD("EXIT\n");
+ 	return true;
+ 	
+@@ -75,7 +89,7 @@ static bool ufs_read_cylinder(struct super_block *sb,
+ 	for (j = 1; j < i; j++)
+ 		brelse(UCPI_UBH(ucpi)->bh[j]);
+ 	sbi->s_cgno[bitmap_nr] = UFS_CGNO_EMPTY;
+-	ufs_error (sb, "ufs_read_cylinder", "can't read cylinder group block %u", cgno);
++	ufs_error(sb, "ufs_read_cylinder", err, cgno);
+ 	return false;
+ }
+ 
 
-  static struct kunit_case is_signed_type_test_cases[] = {
+base-commit: 786262be6048deab760f68c8acc2c85607165894
+-- 
+2.55.0
 
-Thanks,
-
-Bart.
