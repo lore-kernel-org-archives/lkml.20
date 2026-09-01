@@ -1,121 +1,338 @@
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 590A83B4E8F
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:34:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A413B05A3;
+	Tue,  1 Sep 2026 14:35:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788273290; cv=none; b=JpU/PTJKqKOSSJcBNOE8wdbF2c7/Ly2lsBaq9VJbWzZocEKe+sd4h0oD4eJJrRRsQzbG0sHSkwJE2mHFoj166Z80CkdiaiRmZOCWPAAgROadaNh4FlUSt3dJUFXwDDnvH+SHh1jqUcCEIqmhXnumNsuLtqTIrW9mSr67mpxZLxA=
+	t=1788273317; cv=none; b=jtztNMdunGY6Fl2Qvrnwbk4l/uBEMaDRMc0/yvmplYqJqGCXlMC3IyWQCFiVV58Iji3gE8EM4lVcgubz0ePdy/kcayLncQapTxsymysycJfiw007PjpdZORBuk7g8hluSPTOUMeicbBgWu+y0sT7SPJsap8pAHEA4HaPfZsr0Co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788273290; c=relaxed/simple;
-	bh=8yIR2l5kWTbTZXEBPaalfxQDjpL45I/SVC9tN3kaCb0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uJNEXAxsKAcH5d2skMbALs7XUuTltBVV0noajZxvAhEhJYNF/v/Ek7z9XueaY7REzWPKH8cmBPO/BMEZaYuty6Qyk8N9z2UzC+MwA1NxnfmA1Ns0A3s+JPFjdXecfJOHwYNeLH7rzRjL5cG22jqm+bVQoGdnYXSx20EXSRy2c6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=DlMa9Dh9; arc=none smtp.client-ip=209.85.160.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1788273317; c=relaxed/simple;
+	bh=10qxOg1MT6XuMAd8B8PCnROxf2oXs4aNMchBl0JpzL8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pht1t7hdHkTQ/CpufhRKuuCj3WuWcGitI08dAQuB8wDojjOIs4LSJsSg8nSc4EQu9Q/bbdUSee+Rd5921jvCnb2FxzW53ZNd3KD1tIsuKo9Ftm6rKuEAPAuzP864lWKU19uYqqRA6EuetB+GTU3vLctNnlvnlh3VLxaLO7p8rhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YAwt93Nr; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="DlMa9Dh9"
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5301db51586so12022991cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 07:34:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1788273287; x=1788878087; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4Msi/TOmLhS+cZQhvH9ha0bUxCIzijPq3v5j1Cfzxv4=;
-        b=DlMa9Dh9ODREYDiarkdo5RRQo7Wl0pj4nagtqgPvIlXJjoOiSYZ3vr08YWndvNGrHD
-         tHzPTfCAbfrjZ5c1w8cariElMwFdz7MNhDNmChrovX4mqjt2jgWKYnrQbxqPIr+cfmUb
-         uawODkPTFIVOGsVkQ25AquJleAfELuhnxvKBa8UlRo+mOELUHasMPIY9Ycsv0u5Sp4Wf
-         S09afldoYvuVdhGJaLgoiIMfi3Xrap5TwPfpko2l85KBYBkfrCGJ7hmQTVHrssuO8Qxz
-         BlMFAHXIg6OZkcTxelAfcrk3nkyfZcY4czgKhpzynv81mRZOMCuN3lieAMdWjE5T2T7z
-         hKbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788273287; x=1788878087;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4Msi/TOmLhS+cZQhvH9ha0bUxCIzijPq3v5j1Cfzxv4=;
-        b=ClYsQ63cjAfPujt4Mo2VElDkcBnBtTpvv3nEpulB5CnqWgb7PldXZBu/GadshIJEn6
-         GvJeOlefTVdNesAlHsFb40flfqBNa6qhiJSm8mBgkZZcasYvZX6064bX8Z1qJgSRTM8R
-         IkBNTcF78inB3y6T2IcrR4I8dvE+yzNCyXq7uPjXcEYzotDo0tzaEmRTHfToKnA/9u6a
-         ZUcuytX0Wq06NfKeDLPXiP10isdR9Qwqfhciop+G/5nrVYOtkwhp7T69fJjJmLPrXNLO
-         qCeAZQfafNKZe+sU/CuEpKsgwpA9WEJdtdX+0IQuQ2jQJivMPN+mo09ruqvpw7Mqeaz3
-         X0oQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp8QGsB0lovsOexEtlsAS8Biy9H4K96mkfJpJPhIfVUofb4+zHfQmDEtXiL3OrL6e7Fffd3rJfD4lTZrDM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lGW3KJ3S/JE6oqmvp6TVYg5hdmhdbT6h1WQSPDryBgW49+G+8v
-	p8mBUW5x+7gtkLs/mtac93RHZmjvMIG/9lQvPkiw4E88EAYUuq8VwvF9L2zWcdx4rro=
-X-Gm-Gg: AR+sD12S+rbBvZmy/2HIBIQPbUqF6RqPqK9SmYjJmaX4+jxuheXWToj9WEcqxe1spok
-	tg+XpV7o155Gaw/bbC06lnS+81U/KPXaby9YOowEfInkvxPRqcW0Oxk9R+9fp31He9ln0vcA1Iu
-	gvhGKoBFI6CDl+DFuk4wp5bWwsKQvRIsHO2QdjwzZhIf8lAfUgCLw1cc2wem8at3oVT6KjZ0olw
-	69OzsfsQZnNxXRE0ZXE6TcVV4g9U2MCXB1tTqYOdjzT4g64rDJ4tuqTkKuLrZATqtoWRbe7a4U+
-	9Sr0byCbW3Q2WlBLZTMc5yUOTFpuuueHtvRFxIcypnDq/H3HkYXTOeieUCyE8BFG6luPM2KVkmw
-	GdteHrc01Rc8cFcJQZu+TEP4Pe1YRfmcqL1mBHGM6JodMnYRPsVjVsuLtCkzKnYk1to2DRurzmb
-	2oKCAURAbEFz9cHIcBpnGcoEtGWRQOCB0toi00zRnIIR26kbCanra1X37FyL63aOHFrsOHoqNDY
-	1w0DZBH4HMY8fwm8pvhnF30GUoTSUdX2wW+MAP0rvdVvns=
-X-Received: by 2002:a05:622a:5913:b0:52f:f472:bad1 with SMTP id d75a77b69052e-52ff472c08bmr383344431cf.33.1788273287009;
-        Tue, 01 Sep 2026 07:34:47 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52fbe830222sm98165671cf.20.2026.09.01.07.34.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 07:34:46 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x1PZV-0000000Bhy0-23ZI;
-	Tue, 01 Sep 2026 11:34:45 -0300
-Date: Tue, 1 Sep 2026 11:34:45 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
-Cc: Nicolin Chen <nicolinc@nvidia.com>, linux-coco@lists.linux.dev,
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, Alexey Kardashevskiy <aik@amd.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Joerg Roedel <joro@8bytes.org>, Jonathan Cameron <jic23@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Pranjal Shrivastava <praan@google.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Will Deacon <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>
-Subject: Re: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
- viommu plumbing
-Message-ID: <20260901143445.GC56830@ziepe.ca>
-References: <20260427085344.941627-1-aneesh.kumar@kernel.org>
- <20260427085344.941627-4-aneesh.kumar@kernel.org>
- <apM6dOHcEI2ztWS0@nvidia.com>
- <yq5a8q5lz5yn.fsf@kernel.org>
- <yq5aecfdnv4i.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YAwt93Nr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788273315; x=1819809315;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=10qxOg1MT6XuMAd8B8PCnROxf2oXs4aNMchBl0JpzL8=;
+  b=YAwt93NrxtQpkRaMUbtPMvUfG9kt/745+xmz3aNSajhJC5xf/23quWFG
+   qW6ZCD+4VvZkvfXCef8poaduxXfr/opzMSQTJonadXN3TPZ3LdAwUeUtM
+   RjmKcGMpgAybtg73IBvl4EQUE8IW8hC74D018bHewcYYSdzuKa1daOKvw
+   WVhrxsNs5Efbp1Co/cU7q24XkmlIvQPlpb6hcqsIqVS0a6x3bMVrioG7t
+   kBpcha/vThJ6pTwRCJ6UT431mbI2fzSKGK6T+6uwIWsvfMEuvxK0Tx8Vn
+   9fQBYAyjCNWbeS9L+9qI/amT6of7uTYjWC7NmKZ0oEIUkksR4Bhu5PNXd
+   w==;
+X-CSE-ConnectionGUID: A+u5yQBNRm24oJtDKvjc+g==
+X-CSE-MsgGUID: 0jkRLcqiS5O/6V/7oVcRcQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88716023"
+X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
+   d="scan'208";a="88716023"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 07:35:14 -0700
+X-CSE-ConnectionGUID: LTvTmytkRR+FrZTs/kY5Vg==
+X-CSE-MsgGUID: LHae2+5OQauLLpV9UyxW1g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
+   d="scan'208";a="272896245"
+Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.124.240.119]) ([10.124.240.119])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 07:35:12 -0700
+Message-ID: <55488b92-66a8-45e5-ad0f-8fed63ce1187@intel.com>
+Date: Tue, 1 Sep 2026 22:35:09 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <yq5aecfdnv4i.fsf@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/4] KVM: TDX: Track configurable CPUID bits allowed by
+ KVM
+To: Binbin Wu <binbin.wu@linux.intel.com>, linux-kernel@vger.kernel.org,
+ kvm@vger.kernel.org
+Cc: seanjc@google.com, pbonzini@redhat.com, dave.hansen@linux.intel.com,
+ andrew.cooper3@citrix.com, nik.borisov@suse.com, kas@kernel.org,
+ rick.p.edgecombe@intel.com, chao.gao@intel.com
+References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
+ <20260827031837.2863609-2-binbin.wu@linux.intel.com>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <20260827031837.2863609-2-binbin.wu@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 01, 2026 at 03:36:37PM +0530, Aneesh Kumar K.V wrote:
+On 8/27/2026 11:18 AM, Binbin Wu wrote:
+> Add tdx_cpu_cfg_caps[] to track the subset of TDX directly configurable
+> CPUID feature bits that KVM supports, and build the masks during TDX
+> hardware setup via tdx_initialize_cpu_cfg_caps().
+> 
+> The TDX module reports the CPUID bits that the VMM can directly configure
+> for a TD, but KVM cannot blindly expose all reported bits to userspace.
+> Certain features imply additional architectural state, e.g. one or more
+> MSRs, that KVM must explicitly manage across host/guest transitions to
+> prevent host state corruption.
+> 
+> Today KVM relies on a hardcoded denylist, i.e. it clears a few known
+> problematic bits, e.g. TSX and WAITPKG, and passes everything else through.
+> A denylist is fundamentally fragile while an allowlist inverts the default,
+> i.e. unknown configurable bits are hidden and not allowed to be enabled
+> until KVM explicitly opts in.
+> 
+> Except for a few fixed-1 bits required for basic TDX support, host state
+> clobbering features are either directly configurable or gated by TD
+> ATTRIBUTES/XFAM.  
 
-> @@ -463,14 +460,13 @@
->  	vsmmu->vmid = s2_parent->s2_cfg.vmid;
->  
->  	if (viommu->type == IOMMU_VIOMMU_TYPE_ARM_SMMUV3) {
-> +		if (arm_smmu_is_realm_viommu(viommu))
-> +			return arm_realm_smmu_v3_init(viommu, user_data);
+> Tracking only the directly configurable feature bits is
+> therefore sufficient to serve the purpose while keeping the code footprint
+> small.
+
+I'm not clear how it is therefore sufficient. We at least need to 
+explain that ATTRIBUTS/XFAM are validated separately by KVM already?
+> Organize tdx_cpu_cfg_caps[] following kvm_cpu_caps[] so that the masks can
+> be built with the similar feature-name based initializers.  CPUID registers
+> that hold directly configurable non-feature (multi-bit) fields are handled
+> separately.
+> 
+> The allowlist is consumed by later patches to filter KVM_TDX_CAPABILITIES
+> and to reject unsupported CPUID input to KVM_TDX_INIT_VM, so that newly
+> introduced TDX directly configurable CPUID feature bits stay hidden from
+> userspace until KVM explicitly opts in.
+> 
+> Add comments as placeholders for HLE, RTM and WAITPKG, which KVM doesn't
+> support for TDX yet.
+> 
+> Signed-off-by: Binbin Wu <binbin.wu@linux.intel.com>
+> ---
+> v3:
+> - Drop the new data structure in v2 and only track feature bits by
+>    following the organization of kvm_cpu_caps[], handle non-feature
+>    bits separately. (Sean)
+> - Use two versions of macros (TDX_CFG_F() VS. TDX_CFG_EXTRA_F()) to
+>    distinguish whether a supported TDX configurable CPUID bit should be
+>    checked against KVM's common cpu capabilities.
+> - Add AMX_COMPLEX since it has been defined in the CPUID virtualization doc.
+> ---
+>   arch/x86/kvm/vmx/tdx.c | 145 +++++++++++++++++++++++++++++++++++++++++
+>   1 file changed, 145 insertions(+)
+> 
+> diff --git a/arch/x86/kvm/vmx/tdx.c b/arch/x86/kvm/vmx/tdx.c
+> index b272c20586a7..d4a3a42cfd9d 100644
+> --- a/arch/x86/kvm/vmx/tdx.c
+> +++ b/arch/x86/kvm/vmx/tdx.c
+> @@ -52,6 +52,149 @@
+>   	__TDX_BUG_ON(__err, #__fn, __kvm, ", " #a1 " 0x%llx, " #a2 ", 0x%llx, " #a3 " 0x%llx", \
+>   		     a1, a2, a3)
+>   
+> +static u32 tdx_cpu_cfg_caps[NR_KVM_CPU_CAPS] __ro_after_init;
+> +static_assert(ARRAY_SIZE(tdx_cpu_cfg_caps) == ARRAY_SIZE(kvm_cpu_caps));
 > +
+> +#define TDX_VALIDATE_CPU_CAP_USAGE(name)			\
+> +	BUILD_BUG_ON(__feature_leaf(X86_FEATURE_##name) !=	\
+> +		     tdx_cpu_cap_init_in_progress)
+> +
+> +/* For feature bit that KVM advertised through kvm_cpu_caps[]. */
 
-I think the realm vsmmu is going to require a different info struct
-than the normal psmmu case, isn't it?
+I would say it
 
-If so it needs its own enum value.
+For feature bit that needs to be cap'ed by kvm_cpu_caps[]
 
-It would be nice to see a draft patch showing how the real vsmmu works
-on top of the RMM spec for it. If we are using a viommu object then
-non-vsmmu case should be identical just with an option in the info
-struct to not create the vsmmu object.
+> +#define TDX_CFG_F(name)					\
+> +({							\
+> +	TDX_VALIDATE_CPU_CAP_USAGE(name);		\
+> +	tdx_cfg_caps |= feature_bit(name);		\
+> +})
+> +
+> +/*
+> + * For feature bit KVM allows for TDX guests even though it is not advertised
+> + * through kvm_cpu_caps[], e.g. MWAIT.
+> + */
+> +#define TDX_CFG_EXTRA_F(name)				\
 
-Jason
+EXTRA doesn't sound like a fit name, though
+
+> +({							\
+> +	TDX_VALIDATE_CPU_CAP_USAGE(name);		\
+> +	tdx_cfg_extra_caps |= feature_bit(name);	\
+> +})
+> +
+> +#define tdx_cpu_cfg_cap_init(leaf, feature_initializers...)		\
+> +do {									\
+> +	const u32 __maybe_unused tdx_cpu_cap_init_in_progress = leaf;	\
+> +	u32 tdx_cfg_extra_caps = 0;					\
+> +	u32 tdx_cfg_caps = 0;						\
+> +									\
+> +	feature_initializers						\
+> +	tdx_cpu_cfg_caps[leaf] = (tdx_cfg_caps & kvm_cpu_caps[leaf]) |	\
+> +				 tdx_cfg_extra_caps;			\
+> +} while (0)
+> +
+> +/*
+> + * Track only CPUID feature bits that are directly configurable by userspace.
+
+the "by userspace" is misleading. It's just the directly configurable 
+CPUID bits reported by TDX module.
+
+> + * Features controlled by XFAM or ATTRIBUTES are excluded; userspace cannot
+> + * enable them until KVM adds support for the corresponding control.
+> + */
+
+I don't like the comments. How about somthing
+
+/*
+  * Intialize tdx_cpu_cfg_caps[], which is list of CPUID features that
+  * KVM supports for TDX. It only covers the directly configurable CPIUD
+  * bits reported by TDX module. Features controlled by XFAM and
+  * ATTRIBUTES are maintained separately.
+  */
+
+> +static void __init tdx_initialize_cpu_cfg_caps(void)
+> +{
+> +	tdx_cpu_cfg_cap_init(CPUID_1_ECX,
+> +		TDX_CFG_EXTRA_F(MWAIT),
+> +		TDX_CFG_F(TSC_DEADLINE_TIMER),
+> +		TDX_CFG_F(AVX),
+> +		TDX_CFG_F(F16C),
+> +	);
+
+TDX 1.5.24 on SPR report configurable bits of CPUID_1_ECX as
+0x31044988, which have
+
+- bit 3		MWAIT
+- bit 7		EST
+- bit 8		TM2
+- bit 11	SDBG
+- bit 14	XTPR
+- bit 18	DCA
+- bit 24	TSC_DEADLINE_TIMER
+- bit 28	AVX
+- bit 29	F16C
+
+but EST/TM2/SDBG/XTPR/DCA are not list here. I guess the reason is 
+kvm_cpu_cap[] doesn't support it. If so, it seems to guard twice:
+1. mentally/manually check if it a feature is supported in kvm_cpu_caps[]
+
+2. kvm_cpu_caps guarding in tdx_cpu_cfg_cap_init().
+
+I think 1) is not necessary, we can rely on 2)
+
+BTW, this seems also breaks the current userspace after this series.
+- Before, EST/TM2/SDBG/XTPR/DCA are allowed to be exposed to TD
+- After, they are not.
+
+If we cares CORE_CAPABILITIES in patch 2, why EST/TM2/SDBG/XTPR/DCA 
+don't matter?
+
+(I don't check the following leafs..)
+> +	tdx_cpu_cfg_cap_init(CPUID_1_EDX,
+> +		TDX_CFG_F(MCE),
+> +		TDX_CFG_F(MTRR),
+> +		TDX_CFG_F(MCA),
+> +		TDX_CFG_F(SELFSNOOP),
+> +	);
+> +
+> +	tdx_cpu_cfg_cap_init(CPUID_7_0_EBX,
+> +		TDX_CFG_F(BMI1),
+> +		/* HLE */
+> +		TDX_CFG_F(BMI2),
+> +		TDX_CFG_F(ERMS),
+> +		/* RTM */
+> +		TDX_CFG_F(AVX512F),
+> +		TDX_CFG_F(AVX512DQ),
+> +		TDX_CFG_F(ADX),
+> +		TDX_CFG_F(AVX512IFMA),
+> +		TDX_CFG_F(AVX512PF),
+> +		TDX_CFG_F(AVX512ER),
+> +		TDX_CFG_F(AVX512CD),
+> +		TDX_CFG_F(AVX512BW),
+> +		TDX_CFG_F(AVX512VL),
+> +	);
+> +
+> +	tdx_cpu_cfg_cap_init(CPUID_7_ECX,
+> +		TDX_CFG_F(UMIP),
+> +		/* WAITPKG */
+> +		TDX_CFG_F(AVX512_VBMI2),
+> +		TDX_CFG_F(GFNI),
+> +		TDX_CFG_F(VAES),
+> +		TDX_CFG_F(VPCLMULQDQ),
+> +		TDX_CFG_F(AVX512_VNNI),
+> +		TDX_CFG_F(AVX512_BITALG),
+> +		TDX_CFG_F(AVX512_VPOPCNTDQ),
+> +		TDX_CFG_F(LA57),
+> +		TDX_CFG_F(RDPID),
+> +		TDX_CFG_F(CLDEMOTE),
+> +	);
+> +
+> +	tdx_cpu_cfg_cap_init(CPUID_7_EDX,
+> +		TDX_CFG_F(AVX512_4VNNIW),
+> +		TDX_CFG_F(AVX512_4FMAPS),
+> +		TDX_CFG_F(FSRM),
+> +		TDX_CFG_F(AVX512_VP2INTERSECT),
+> +		TDX_CFG_F(SERIALIZE),
+> +		TDX_CFG_F(TSXLDTRK),
+> +	);
+> +
+> +	tdx_cpu_cfg_cap_init(CPUID_7_1_EAX,
+> +		TDX_CFG_F(SHA512),
+> +		TDX_CFG_F(SM3),
+> +		TDX_CFG_F(SM4),
+> +		TDX_CFG_F(AVX_VNNI),
+> +		TDX_CFG_F(AVX512_BF16),
+> +		TDX_CFG_F(CMPCCXADD),
+> +		TDX_CFG_F(FZRM),
+> +		TDX_CFG_F(FSRS),
+> +		TDX_CFG_F(FSRC),
+> +		TDX_CFG_F(LKGS),
+> +		TDX_CFG_F(WRMSRNS),
+> +		TDX_CFG_F(AMX_FP16),
+> +		TDX_CFG_F(AVX_IFMA),
+> +		TDX_CFG_F(LAM),
+> +		TDX_CFG_F(MOVRS),
+> +	);
+> +
+> +	tdx_cpu_cfg_cap_init(CPUID_7_1_EDX,
+> +		TDX_CFG_F(AVX_VNNI_INT8),
+> +		TDX_CFG_F(AVX_NE_CONVERT),
+> +		TDX_CFG_F(AMX_COMPLEX),
+> +		TDX_CFG_F(AVX_VNNI_INT16),
+> +		TDX_CFG_F(PREFETCHITI),
+> +		TDX_CFG_F(AVX10),
+> +	);
+> +
+> +	tdx_cpu_cfg_cap_init(CPUID_7_2_EDX,
+> +		TDX_CFG_F(DDPD_U),
+> +		TDX_CFG_F(MCDT_NO),
+> +	);
+> +
+> +	tdx_cpu_cfg_cap_init(CPUID_1E_1_EAX,
+> +		TDX_CFG_F(AMX_FP8),
+> +		TDX_CFG_F(AMX_TF32),
+> +		TDX_CFG_F(AMX_AVX512),
+> +		TDX_CFG_F(AMX_MOVRS),
+> +	);
+> +
+> +	tdx_cpu_cfg_cap_init(CPUID_8000_0008_EBX,
+> +		TDX_CFG_F(WBNOINVD),
+> +	);
+> +}
+> +
+> +#undef TDX_CFG_F
+> +#undef TDX_CFG_EXTRA_F
+>   
+>   bool enable_tdx __ro_after_init;
+>   module_param_named(tdx, enable_tdx, bool, 0444);
+> @@ -3481,6 +3624,8 @@ int __init tdx_hardware_setup(void)
+>   		return r;
+>   	}
+>   
+> +	tdx_initialize_cpu_cfg_caps();
+> +
+>   	KVM_SANITY_CHECK_VM_STRUCT_SIZE(kvm_tdx);
+>   
+>   	vt_x86_ops.vm_size = max_t(unsigned int, vt_x86_ops.vm_size, sizeof(struct kvm_tdx));
+
