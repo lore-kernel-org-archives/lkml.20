@@ -1,24 +1,86 @@
-Received: from mail-m15594.qiye.163.com (mail-m15594.qiye.163.com [101.71.155.94])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19DE21F3B87;
-	Tue,  1 Sep 2026 08:16:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A6318C332
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:17:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788250617; cv=none; b=SmFR13vCJTVCOfgkn1iLRtOXaSa+OKjFCOq5fiF/LjJmv41M/tOXVobQy/risxQXXu8zarj6l2a8dVuy6cniRYrx/NXqq8uUDqdIafbyCX/cRTXlfQ3MG78cQK+N1+pgHBpg8ZVNVSowu479HOE0zD3HkJ90CUJ13wFHUZG4sd0=
+	t=1788250631; cv=none; b=JGU2UGxWjqS7uYeIAgwyEwjwCATwgrRqAcYwQU8onxoqByFp+jhUz0/p/AqeTbOOG2Kc4IwpZOm9aq0XIU/r1UPBXYx6EBv6lkxy2JImegwPeRSN6M9NXf1+ooJCqn89P/Z0oA+CBjvS4tS6+sNnsfOO8qN1dTh3JOh1oBwEQks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788250617; c=relaxed/simple;
-	bh=SsMxA1kjDySJWAU1JTBxcDQNRKDy8p32OnnCIFtDLz8=;
+	s=arc-20240116; t=1788250631; c=relaxed/simple;
+	bh=zGnQ84apf/mbpMHtA34xeCIz3kCTFXdRl9AvA3Jz38U=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kfuXogyCR1JbLlInCK2aJdK3Sk9wUr5hGDNmAfDvRxQ5pFHe22Ck6KeudYI9soM3nO8oULyfOYl39pxwoomBq5CMYOc//uudm9jE4sM0kTeGROuui1AtAyMfQ85CklRXjxjc8bZ1jmoVXTVxB/o7t4j/066SBkx+Lg4ap2HLbOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn; spf=pass smtp.mailfrom=easystack.cn; arc=none smtp.client-ip=101.71.155.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=easystack.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=easystack.cn
-Received: from [192.168.0.59] (unknown [218.94.118.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 1e8dcbb65;
-	Tue, 1 Sep 2026 16:01:21 +0800 (GMT+08:00)
-Message-ID: <ff7d838c-8ea7-4a91-86bc-f6899970cdcf@easystack.cn>
-Date: Tue, 1 Sep 2026 16:01:20 +0800
+	 In-Reply-To:Content-Type; b=Q6YIJNmr2yG4IhFtHfdjqsdQ0jsVKGGcWG3xStgFRTT4fafXxaYRlH9bTtP5KycXMynC9eHXRwFt914/FpCe78PbvIPbJclSWbTWWc9344PR2FhH2P9Sv1IYLkp6QAfhTJc9RSt1gxdWilvOMQvhHWfJzBpDfobQWAMZnS1NKyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=aRrufnb6; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=rpfjXEOq; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="aRrufnb6";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="rpfjXEOq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788250628;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FaAfjcGylOA2zaTCnKXmz3u6FQBcwhDKCkrIkARVyTY=;
+	b=aRrufnb6Zo7orMOUJNKxOIOmB8Bwdq1lVJKjZAoxmCeDNgtCAfziYNRYzqLEx4aaiCR4if
+	NzVSTHAho6e9K0enxjwcvhvWlqn27SWxnhwGRJ8Zoc7dymYiSwVEDmnEetweWqF98Ampsi
+	i7e8sBDDfhVkPpkcdz3I5xInyE8BaEs=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-359-inBUWJm_O1u2FwfhHnePKQ-1; Tue, 01 Sept 2026 04:17:02 -0400
+X-MC-Unique: inBUWJm_O1u2FwfhHnePKQ-1
+X-Mimecast-MFC-AGG-ID: inBUWJm_O1u2FwfhHnePKQ_1788250622
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-482e8e1ac69so347505f8f.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 01:17:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788250621; x=1788855421; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FaAfjcGylOA2zaTCnKXmz3u6FQBcwhDKCkrIkARVyTY=;
+        b=rpfjXEOqD6rHBWHaWnX/vIVOXbzXV+LgaJNb4uV4O1a+eorWswXSikpKVo+CQKyN5i
+         VFs2aUraVxXlQauiS6Ctolb6ByiAItHEsdKG8YIihnMBeumt02WnAil58Vrzga9iJavG
+         zTY5pmbuPcBAzAE0tDFoNXA1azDO5eEaZBl2jH0OuCkl15Q/XCN/ggDCXss599KIHIJs
+         8+kWUpg9w12gXVPrRpU+2r0RTClzaZ2HP/A5Eu+X/o+Ry+XlWMA/bjfSIkFuTF+XqoUK
+         c2AR536tNl64J2ecLNiUXwzciCLkkhNwqnTzWEk4vELfCh+N7mRplvwUNA5JOi08uAX8
+         F0Vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788250621; x=1788855421;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FaAfjcGylOA2zaTCnKXmz3u6FQBcwhDKCkrIkARVyTY=;
+        b=QBAB5ilFsDQOoMH1kptQEtyFQ6YnIQ34Ko6XNurggYeGAWoySYJtoEhoCmQv1TiS9U
+         ANdxrsBPfO3uaTGur+VZaWwXsdRzVyCEq8RE5067gffpTSdIRgc3xtsDJTc1BvHo8pH6
+         YkH2kkHEJULLlS2IaOi6bIRnv5SwAoAXT4vx6vnNHsG2Q2BqgjimSkjE7vCcWZVoajB0
+         pPxpYKeLJHIGkVZvEcn9Lq+CN8Hqoh4cs8fsfNOoxRjlCmXm4TpLHMc3xXWYYC9n3wOW
+         OA+gCp7Rbgzq2Pjeym4VGnNqcMTpnMKCbp+dXZt1pitRb9juycLeAAFuSRxqKilFY9XN
+         ubWw==
+X-Forwarded-Encrypted: i=1; AKwUvBziw8tScyzeOs/Qb2b4AiOR41YjmbGKF1GKwqgrq54jH8kFat11BgmxXFa+MxdVJrzNrCRvnjaMuJlsNkE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nB5PHczLAXDVydcnlelB6p1so6OdSVJz9gdyFXJrp5JhKjdXRA
+	UqBh6cRQUofJWKObyrbaB9Bl45R1EZxkCXfuz4jci83stinuHeBXRqOBhojlI5lAzoOAt6shp9g
+	N9KNxzX0Fj0kRJqRB16WEG7y6tE0Fqw9bDI+DIfUXC9wJPwONhFG2TqeVlKHFnoBcLQ==
+X-Gm-Gg: AYBFou1v/6YJ3nmHCu+1EahHiV8VuHVYSbNKDTVam7YMtYKzXKf0VmOiY8ANT5WG2rS
+	yHYB85HmM3oMl/Kcf1SDqHbzGSEEqbC1f5k1wJrO6o0JxJcu9AlJl4YbwziJ9FEGN/fq8KO6N47
+	xzkYOXYpk14j8A5JZrwOlpvQ3sDX0PFaHCSv1QQdTY+eC7VDopiQS2nLIIO7ftbznms76+web+M
+	3RMMiOjIcpI6BMgnHEIDGgc4rYEL8G89TEE3G1XIPJC0JCG3GRa5CS0SEH2XKOafRajhijybUIY
+	Ltvd2upx08gI4Ehf3V3W5A4ygvz7rweXYWzpWBU5jnQl1aVJ7G6SDpg9NaQypX1X1A7jraLAFmy
+	9FGxFFS3kdaqC6aGrGXNuLFFm3yS64cQvvsVG9A6YJrf+qRkfU3lbFcY4pzP85uEZSPxE768cUQ
+	==
+X-Received: by 2002:a05:6000:41c2:b0:482:dd86:348 with SMTP id ffacd0b85a97d-48441fc951amr7391027f8f.4.1788250621517;
+        Tue, 01 Sep 2026 01:17:01 -0700 (PDT)
+X-Received: by 2002:a05:6000:41c2:b0:482:dd86:348 with SMTP id ffacd0b85a97d-48441fc951amr7390013f8f.4.1788250616845;
+        Tue, 01 Sep 2026 01:16:56 -0700 (PDT)
+Received: from [192.168.188.103] (ip245-45-231-195.pool-bba.aruba.it. [195.231.45.245])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d788ebsm3428937f8f.27.2026.09.01.01.16.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 01:16:56 -0700 (PDT)
+Message-ID: <1c87458d-7d76-4da4-9981-51756cef391b@redhat.com>
+Date: Tue, 1 Sep 2026 10:16:54 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -26,159 +88,101 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/8] mm/page_owner: Add PID/TGID/COMM and cgroup filtering
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, "Liam R . Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Brendan Jackman <brendan.jackman@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>,
- linux-mm@kvack.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260828031339.1270699-1-zhen.ni@easystack.cn>
- <apEx0wT_hWs1Q5Wp@gremlin>
- <20260828113654.d01abd8baed3f73e87506eb3@linux-foundation.org>
- <9fce3210-3548-4df3-ae00-730b666f5d57@easystack.cn>
- <apZ99NHTmNI_nIwz@gremlin>
-From: "zhen.ni" <zhen.ni@easystack.cn>
-In-Reply-To: <apZ99NHTmNI_nIwz@gremlin>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa05bfcacc80229kunma31d9b2c27c472
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFJQjdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTExDVk5OGEJNS0gfTBhJGlYVFA
-	kWGhdVGRETFhoSFyQUDg9ZV1kYEgtZQVlJSkNVQk9VSkpDVUJLWVdZFhoPEhUdFFlBWU9LSFVCQk
-	lOS1VKS0tVSkJLQlkG
+Subject: Re: [PATCH net v4] bnxt_en: Bound SW TPA IDs to prevent crashes
+To: Joe Damato <joe@dama.to>, netdev@vger.kernel.org,
+ Michael Chan <michael.chan@broadcom.com>,
+ Pavan Chebbi <pavan.chebbi@broadcom.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
+ Rukhsana Ansari <rukhsana.ansari@broadcom.com>
+Cc: horms@kernel.org, colin.winegarden@broadcom.com,
+ linux-kernel@vger.kernel.org, raphaelcf@meta.com, stable@vger.kernel.org,
+ llvm@lists.linux.dev
+References: <20260828190900.1767611-1-joe@dama.to>
+From: Paolo Abeni <pabeni@redhat.com>
+Content-Language: en-US
+In-Reply-To: <20260828190900.1767611-1-joe@dama.to>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 8/28/26 9:08 PM, Joe Damato wrote:
+> TPA IDs are generated by FW and can be up to 1024. bnxt_alloc_agg_idx is
+> intended to wrap the FW ID down to a software ID which is used to index
+> rxr->rx_tpa, and to generate a mapping between FW IDs and the wrapped
+> software ID.
+> 
+> On a 57608 with firmware version 233, the firmware advertises 32
+> concurrent TPAs. As of the commit under fixes, bp->max_tpa on this NIC
+> is set to 32.
+> 
+> If the software ID from bnxt_alloc_agg_idx is above 31, this results in
+> an invalid address being loaded on this line:
+> 
+>   tpa_info = &rxr->rx_tpa[agg_id];
+> 
+> because rx_tpa is allocated with only bp->max_tpa (32) entries. Writes
+> to tpa_info later in the code are out of bounds.
+> 
+> This bug results in a crash at boot:
+> 
+> Oops: general protection fault, kernel NULL pointer dereference 0x8: 0000 [#1] SMP NOPTI
+> RIP: 0010:bnxt_rx_pkt+0xc0/0x1560
+> RSP: 0018:ffffc900009b8c78 EFLAGS: 00010246
+> RAX: 0000000000000000 RBX: 0000000000000048 RCX: 0000000206682516
+> RDX: ffffc900009b8db4 RSI: 0000000000000000 RDI: 01ffffff038fe1c0
+> RBP: ffffc9006e687480 R08: ffffc9006e687000 R09: 0000000000003048
+> R10: 0000000000000480 R11: ffff8881c6083900 R12: 0000000006682516
+> R13: ffff8881c6095400 R14: 0000000000000016 R15: ffff8881c6b66680
+> FS:  0000000000000000(0000) GS:ffff88fef3c77000(0000) knlGS:0000000000000000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 00007fc8bda40584 CR3: 000000807c812001 CR4: 0000000008772ef0
+> PKRU: 55555554
+> Call Trace:
+>  <IRQ>
+>  ? __netif_receive_skb_list_core+0x1ca/0x250
+>  __bnxt_poll_work+0x152/0x280
+>  bnxt_poll_p5+0x1cd/0x480
+>  __napi_poll+0x30/0x180
+>  net_rx_action+0x20b/0x3b0
+>  ? note_gp_changes+0x53/0xe0
+>  ? tick_setup_sched_timer+0x180/0x180
+>  ? __napi_schedule+0x9a/0xb0
+>  ? bnxt_msix+0x24/0x30
+>  handle_softirqs+0xdd/0x2c0
+>  __irq_exit_rcu.llvm.3171231171502365008+0x47/0xf0
+>  common_interrupt+0x85/0x90
+>  </IRQ>
+>  <TASK>
+>  asm_common_interrupt+0x22/0x40
+> 
+> This stack trace is from a crash triggered when an out of bounds rx_tpa
+> is dereferenced. The invalid write mentioned above is silent in this
+> particular crash.
+> 
+> Fix this by allocating rx_tpa with bp->max_tpa rounded up to the next
+> power of 2 (bp->max_tpa_roundup_size) entries and masking the FW TPA ID
+> with that size, so the wrapped ID can never index past the end of the
+> array.
+> 
+> Fixes: 54c28fab2fa5 ("bnxt_en: Set bp->max_tpa according to what the FW supports")
+> Reported-by: Raphael Cardoso Fernandes <raphaelcf@meta.com>
+> Suggested-by: Michael Chan <michael.chan@broadcom.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Joe Damato <joe@dama.to>
+> ---
+> v4:
+>   - Moved bp->max_tpa_roundup_size init out of the early return path and
+>     documented that TPA is unsupported there, as suggested by Michael.
 
+Clashiko quite convincingly elaborates that the above is not enough:
 
-在 2026/9/1 15:27, Lorenzo Stoakes (ARM) 写道:
-> On Tue, Sep 01, 2026 at 02:34:34PM +0800, zhen.ni wrote:
->>
->>
->> 在 2026/8/29 02:36, Andrew Morton 写道:
->>> On Fri, 28 Aug 2026 08:03:38 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
->>>
->>>> On Fri, Aug 28, 2026 at 11:13:31AM +0800, Zhen Ni wrote:
->>>>> This patch series adds process and memory cgroup filtering support to
->>>>> page_owner. Following the previous series that introduced print_mode and
->>>>> NUMA node filters:
->>>>>     https://lore.kernel.org/linux-mm/20260707115411.1714314-1-zhen.ni@easystack.cn/
->>>>>
->>>>> This series adds filtering capabilities to page_owner, allowing users to
->>>>> filter output by specific processes and memory cgroups. Users can now
->>>>> filter page_owner output by PID, TGID, COMM (with wildcard support), and
->>>>> memory cgroup path. This makes page_owner debugging more focused and
->>>>> efficient for tracking memory allocations in specific contexts.
->>>>
->>>> The majority of this cover letter feels like it should have been
->>>> documentation put somewhere :)
->>>
->>> yes please.
->>>
->>> The only thing longer than the cover letter is the Sashiko report ;)
->>>
->>> 	https://sashiko.dev/#/patchset/20260828031339.1270699-1-zhen.ni@easystack.cn
->>>
->>>
->>
->> Hi Andrew, Lorenzo,
->>
->> Thanks for the review.
->>
->> I have analyzed all the Sashiko report findings. Some will be fixed in
->> the next version, and for the rest I propose not to fix them, with
->> reasons below. If there are no objections I will send v2 accordingly.
->>
->> Will be fixed in the next version:
->>
->> - mm/page_owner.c: drop the kstrdup() copy in parse_pid_t_list(); the
->>    token will be parsed in place. This also fixes a leak on the success
->>    path and a kfree() of an advanced (interior) pointer on the error
->>    path. cmp_int() will replace plain subtraction in cmp_pid_t(), and
->>    pid values exceeding PID_MAX_LIMIT will be rejected.
->> - mm/page_owner.c: PAGE_OWNER will select GLOB so glob_match() is
->>    always linked in; parse_comm_list() will drop its kstrdup() copy the
->>    same way.
->> - mm/page_owner.c: the cgroup path buffer will be allocated once per
->>    read() outside the page_ext RCU read-side critical section instead of
->>    per page inside get_page_memcg_info() (GFP_KERNEL allocations must
->>    not sleep there). The memcg= parsing branch will be guarded by
->>    CONFIG_MEMCG so kernels built without memcg reject the command
->>    instead of silently enabling a filter that never matches.
->> - tools/mm/page_owner_filter.c: user-visible input errors (empty
->>    -p/-t/-c/-g arguments) will print error messages instead of exiting
->>    silently.
->> - Documentation: the wildcard pattern in the -c example will be quoted
->>    to prevent shell glob expansion.
->>
->> Proposed not to fix, by design:
->>
->> 1. Shared-fd concurrent read/write races (READ_ONCE around the pid
->>     passed to bsearch, torn reads of pid/tgid lists, glob_match() racing
->>     comm rewrites, concurrent write() leading to state->memcg_path
->>     double-allocation): multi-threaded sharing of one page_owner fd is
->>     not a designed use of this interface. The filters are per-fd state
->>     meant to be configured once and then read, which is what the
->>     page_owner_filter tool does. Adding locking to the read path would
->>     put overhead into the per-page scan loop for no designed benefit.
->>     This matches the semantics of the original filter introduction.
->>
->> 2. No "clear filter" support (empty pid=/tgid= lists partially clearing
->>     proc filters, empty memcg=/nid= being rejected): write commands are
->>     incremental -- "keep the unmentioned filters" -- and there is no
->>     clear operation by design. To start over, close the fd and open a
->>     fresh one; the page_owner_filter tool already works this way. This
->>     also matches the semantics of the original filter introduction.
->>
->> 3. kcalloc() vs kmalloc_array() for new_comm_list: no consumer of the
->>     list reads past strscpy()'s NUL terminator, so uninitialized bytes
->>     are unreachable.
->>
->> 4. char cgroup_path[512] in validate_cgroup_path(): acknowledged that
->>     the kernel side accepts paths up to PATH_MAX (4096). The userspace
->>     check truncates an over-long path with snprintf() and then fails
->>     access(), so it is rejected, never silently accepted. Bumping the
->>     buffer to PATH_MAX would only serve pathological paths; realistic
->>     cgroup paths are well under 100 bytes, so 512 wastes nothing in
->>     practice.
->>
->> If this plan looks reasonable I will send v2.
-> 
-> Sorry but this kind of 'summary', 'do you agree with the plan' email is not
-> acceptable.
-> 
-> You have your feedback, reply to people like a human being directly to them,
-> thank you very much.
-> 
-> At this point, based on past experience, I have to ask if you're using an LLM?
-> If so please disclose this as per kernel guidelines:
-> 
-> https://docs.kernel.org/process/coding-assistants.html
-> https://docs.kernel.org/process/generated-content.html
-> 
->>
->> Thanks,
->> Zhen Ni
-> 
-> --
-> Cheers, Lorenzo
-> 
-> 
-Hi, Lorenzo
+https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260828190900.1767611-1-joe%40dama.to
 
-I honestly don't understand what is wrong here. I spent two full days
-going through every single finding in the Sashiko report one by one,
-checking each against the code. In fact I am already working on v2 and
-testing the corresponding changes. What I don't understand is what
-"this kind of 'summary' email is not acceptable" is supposed to mean.
+Could you please have a look?
 
-If you disagree with any specific item, name it and we can discuss it
--- but rejecting the whole thing outright, with just two documentation
-links and no specifics, is not something I can act on.
+/P
 
-Thanks,
-Zhen
