@@ -1,70 +1,171 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C6F3C3515DF
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:40:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE46843DA5C;
+	Tue,  1 Sep 2026 16:41:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788280848; cv=none; b=eMnKRBv1DBQA/UPlGB02FsrKXmApZWiI4rSR4f+L6siv95wGrOkD43q08nT/yHRLSwKbrZhQwIx5BLHYe8BxWlVGBFncZx2t7O+zr1t1ODJbo90Qp8c2cMDD/qi+P6NK5S10+NCStwUEqu2n1L/X4CfZaGP3wzFCvk/3Aupy9Ag=
+	t=1788280866; cv=none; b=E/ePG8sVuWFTS865qUmV00YSerNWmno1PZzWNC9KEu4eMiJgyVnoYYWe+j4XjCi8bvpdwmCGGdqBSAf3ln2gsGSvdHQjZTg9a56cScGJoYLnh3nRH5lTxNCH8WBL7W2LSO4/4gmzNROJxY5vlvQ5GdWoJcZYr4YXNC5j7pak8qY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788280848; c=relaxed/simple;
-	bh=phnRUbVE70oVuIQH/cr8MeODjJbWljXef1k1i13/I7E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gxUjggPJozohxqKJ0+9GAtv5JzdZCu3UwN5wGwKOeI+7hKeGOU/+piNnKIZnFDTliax8CHjQ1LPFYtIC7vSL8LrCcjn4KKtnD0IwgbnTgwmoXh8LDqjKPqgjpwrjm8StIweujo/fl2FxRaffG0y0KAO3DiEGzCpFCZDTn8Jz6gY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=m4dVtvP0; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788280866; c=relaxed/simple;
+	bh=hbYcEZ5t1jKLdhhzBsDiDxzVfK9mLxWF7x5pUlvRtKw=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=j++LC9OWTbYbnqHvh1Lso70So+n20xllTUJqP0jN8qhiWoptwRboSIe9gfmivsYUTGUvBk8tjOXLrPhlhcPz7Ho9yxag+QLypoOpa6PQB60umy8PKSyIVJbxL0+XzKEg5vNVw+Egcwxl+4RJE8UVjQJJHaClOhNU6FTyodsO2k8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GdR5JF/D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="m4dVtvP0"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 56F7A1756;
-	Tue,  1 Sep 2026 09:40:42 -0700 (PDT)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B6C9F3F85F;
-	Tue,  1 Sep 2026 09:40:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788280846; bh=phnRUbVE70oVuIQH/cr8MeODjJbWljXef1k1i13/I7E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=m4dVtvP0hAN14T/hSk8Qv2GRDF6PBoyWWXfwid9uJ6Xyd4WngOIyXCWV/s38lWX1F
-	 P6GZU5fMRAJFISCZI/+y+5g2hvZUx54spko+fOs9iueK4YFGydjvAHXh3u9s6HM7QE
-	 9w3re8uMmq3B+pU2MxScx2SKSBO/0ifoK9fbA0Yk=
-Date: Tue, 1 Sep 2026 17:40:43 +0100
-From: Leo Yan <leo.yan@arm.com>
-To: Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-kernel@vger.kernel.org, James Clark <james.clark@arm.com>,
-	Tao Zhang <quic_taozha@quicinc.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	coresight@lists.linaro.org, Danilo Krummrich <dakr@kernel.org>,
-	Mike Leach <mike.leach@arm.com>,
-	linux-arm-kernel@lists.infradead.org,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH v4] coresight: coresight.h: add '*' to kernel-doc lines
-Message-ID: <20260901164043.GR8904@e132581.arm.com>
-References: <20260831030912.3399089-1-rdunlap@infradead.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GdR5JF/D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3AA21F000E9;
+	Tue,  1 Sep 2026 16:41:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788280864;
+	bh=BquFv9yL+oqsu0iQAMjKTxvhkEp4Ce4d3z7hB0ao2xo=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=GdR5JF/Dmj2wZevDdv7KegcbJudOgutQNKy34uQpxez/dctKOb4zz44h2Rz2TRcx6
+	 2yMFhiM3AtvWh9Xf1VJbO10cn490cDPuoPpnVkrVhDfjTLKITznz01zuqMkxE05Tf/
+	 VZZrp2J7/0GV1N1eatTN5GALxUHhWzqHvGd0VhB+PzGGm3W4AFHIXZrZpTkWaUFne0
+	 KCxb2F5pHoP8TjHsSVgMIJoQVlgdc7RMH2UueUBQjUHFKSRoozXlk8GEbX33rL1/Ft
+	 jrWZ54OkKEdLaztPBClepf3fv3w1MXV7aX9JIWN2IkL6TGj3xrHynhtNEywifxiVDJ
+	 zIpqgDsXN7l4w==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831030912.3399089-1-rdunlap@infradead.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 4/4] iio: accel: adxl367: add support for INT2
+ interrupt pin
+From: Jonathan Cameron <jic23@kernel.org>
+To: Antoniu Miclaus <antoniu.miclaus@analog.com>
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, 
+ linux@analog.com, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260831083122.3486-5-antoniu.miclaus@analog.com>
+References: <20260831083122.3486-1-antoniu.miclaus@analog.com>
+ <20260831083122.3486-5-antoniu.miclaus@analog.com>
+Date: Tue, 01 Sep 2026 17:40:47 +0100
+Message-Id: <178828084760.2788519.15283878760227392025.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3722;
+ i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
+ bh=hbYcEZ5t1jKLdhhzBsDiDxzVfK9mLxWF7x5pUlvRtKw=;
+ b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqlwASftjEjfF3ZyUA6ese3Ya24ehr89RVnfPPx
+ ORps2fw6wiJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCapcAEhEcamljMjNAa2Vy
+ bmVsLm9yZwAKCRBUhTSZxPQWiB45D/99eOXNRUuVsk/PP5iZpNLacTHlahYX0ZZvUJkbAkb1tHU
+ ukpiURwyRIdyBIGVR8fsZunhVk9NOtHcFP+siR937JMzYgqt+49Gujb40nyRJIpelHsRSoHjglg
+ 3FkjgfXpFn6YTZjI50elzyx/iSAdf0YvZUKGb5DO0rSPaOMNZM2L/qeFLdmVBN9Abo6L8b+CNtQ
+ 58+vnZvqz5YNJWbl/EpRWcKKJRu5+IoN585yCGwlC9JY7Uj1z37SKVfIx6LzE5AZImg4TsWrVXx
+ EPEROwS67pv878cse9YGVcbp24MUL7OnKf4BPka0HlJy1goASt2uo4Wv/d9ZYvnXjEb+7tecVMA
+ aZKaW8Wi185FYinTLm4VKUG7Kk+b7K8w1JNbXFLQYK8GLUwIH7i05ee2zewoi+oluk5WOmvIGkP
+ a4/aGQMS5KVA5V8ZP3EvNnnkZy4O1D8Aw5HM6kd34TMRBL0SnvwfYt+eitplrXwvqXZSYVmTH8M
+ oPmaBXntVs5S0wU5iw5zVO5aHpI1krZzQbkTlP/A4q8Vz6VMJwaNBJrRvQiJumTilTqomIePcx6
+ tdSDxhHDFYlT2166a2yC+lE6AtNTDgFpEXu3aJN2aa2MWgk8kguU/WnFP/7RnPTEpqJ+QEZsRMy
+ VwZ4o15VssTpK5iZjioHPJChp6/h4FyCAjrj7pg==
+X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
+ fpr=6E2966B387840652912681B154853499C4F41688
 
-On Sun, Aug 30, 2026 at 08:09:12PM -0700, Randy Dunlap wrote:
-> kernel-doc reports 2 (kernel-doc) lines in coresight.h that don't have
-> a beginning '*' in them, so fix these lines.
+> The ADXL367 provides two independent interrupt output pins, INT1 and
+> INT2, each with its own event mapping register (INTMAP1_LOWER at 0x2A
+> and INTMAP2_LOWER at 0x2B) sharing an identical bit layout. Until now
+> the driver hardcoded INT1 for all interrupt mappings, so a board that
+> routes only INT2 to the host could never receive activity, inactivity
+> or FIFO watermark interrupts.
 > 
-> Also convert struct coresight_trace_id_map to kernel-doc format to
-> remove another warning.
+> Determine the connected pin from the interrupt-names device tree
+> property using fwnode_irq_get_byname(), and route the interrupt
+> mappings to the matching register. Use the interrupt number returned by
+> the lookup for devm_request_threaded_irq() so the requested line always
+> matches the routed INTMAP register, regardless of the order in which the
+> interrupts are listed. When no interrupt-names are present, default to
+> INT1 and the bus-provided interrupt to preserve the existing behaviour.
 > 
-> Warning: include/linux/coresight.h:173 bad line:
->   connected to @src_port. NULL until the device is created
-> Warning: include/linux/coresight.h:177 bad line:
->   needs to be filtered.
-> Warning: include/linux/coresight.h:236 This comment starts with '/**',
->   but isn't a kernel-doc comment.
-> 
-> Fixes: ec9903d6cc34 ("coresight: Add support for trace filtering by source")
-> Fixes: d49c9cf15f89 ("coresight: Rename connection members to make the direction explicit")
-> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
+>
 
-Reviewed-by: Leo Yan <leo.yan@arm.com>
+One follow on thing to look at via sashiko.
+
+Otherwise, this looks good to me, but given the active discussion on previous
+version I'm not going to pick this up until plenty of time has passed
+or tags have been given.
+
+> diff --git a/drivers/iio/accel/adxl367.c b/drivers/iio/accel/adxl367.c
+> index b4e8dc6d6a5c..9b47e66c49ea 100644
+> --- a/drivers/iio/accel/adxl367.c
+> +++ b/drivers/iio/accel/adxl367.c
+
+> @@ -1430,6 +1434,36 @@ static int adxl367_setup(struct adxl367_state *st)
+>  	return adxl367_set_measure_en(st, true);
+>  }
+>  
+> +static int adxl367_set_int_map_reg(struct adxl367_state *st, int irq)
+> +{
+> +	int ret;
+> +
+> +	/*
+> +	 * Route the mappings to whichever of INT1/INT2 is named in the
+> +	 * interrupt-names property. -EINVAL (property absent) and -ENODATA
+> +	 * (name not listed) are not errors; anything else is.
+> +	 */
+> +	ret = fwnode_irq_get_byname(dev_fwnode(st->dev), "INT1");
+> +	if (ret > 0) {
+> +		st->int_map_reg = ADXL367_REG_INT1_MAP;
+> +		return ret;
+> +	}
+> +	if (ret != -ENODATA && ret != -EINVAL)
+> +		return ret;
+> +
+> +	ret = fwnode_irq_get_byname(dev_fwnode(st->dev), "INT2");
+> +	if (ret > 0) {
+> +		st->int_map_reg = ADXL367_REG_INT2_MAP;
+> +		return ret;
+> +	}
+> +	if (ret != -ENODATA && ret != -EINVAL)
+> +		return ret;
+> +
+> +	/* No INT1/INT2 named: default to INT1 and the bus interrupt. */
+> +	st->int_map_reg = ADXL367_REG_INT1_MAP;
+> +	return irq;
+
+I'd like to explore the helper idea for this, but it can be a separate
+series when someone has the time.
+
+> +}
+> +
+>  int adxl367_probe(struct device *dev, const struct adxl367_ops *ops,
+>  		  void *context, struct regmap *regmap, int irq)
+>  {
+> @@ -1486,6 +1520,11 @@ int adxl367_probe(struct device *dev, const struct adxl367_ops *ops,
+>  	if (ret)
+>  		return ret;
+>  
+
+[Severity: Medium]
+Since fwnode_irq_get_byname() inside adxl367_set_int_map_reg() can return
+-EPROBE_DEFER if the interrupt controller is not yet ready, will placing this
+lookup after adxl367_setup() cause repeated boot delays and leave the device
+powered up on deferral?
+
+Looking at adxl367_probe(), it resets the hardware, sleeps for 15ms, and calls
+adxl367_setup() which powers up the device into measurement mode.
+
+If adxl367_set_int_map_reg() then returns -EPROBE_DEFER, the probe aborts
+without an error cleanup path to power down the device.
+
+Could this software resource acquisition be performed before the hardware
+interaction to avoid unnecessary boot stalls and power leaks during probe
+deferral?
+
+-
+
+This obviously isn't new, but it might make sense to turn the device
+off at least.
+
+Can be a follow up patch.
+
+-- 
+Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
