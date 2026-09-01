@@ -1,137 +1,118 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C6CA415B8F;
-	Tue,  1 Sep 2026 07:13:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A59D3BB674;
+	Tue,  1 Sep 2026 07:13:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788246811; cv=none; b=eH7VSi57XpBSTpwV2xD533TJc1PhSRMmy1pxFQEh6TzCwrnqcfxeah1vzH4+7Q9HPSHdeRiqyk1VNwvLvqZFKU0atcm9/tXn7qu5Yb8XiQI7VELWoX6iWMWuvIE0am2L9X6jYrcPpZEXYuFv3itnUa6tL2tFQCU+LbTEk5oKRLA=
+	t=1788246837; cv=none; b=g2Zuwm/aIJ0Gz3JfAC4Bi2GAjzSPvbsOZS4FBPLbzCRRqeK4GBGDyCDJqI5gF00YNKH9GpQVkiCUDXkoY0i/sNs1A9AlcCk0xxv8I2jEL1kA+z8LygeCjec9PVnAkwszfdDfWPEw0So9XzNKl+kAdASJNcvHZV0wDuHRhfEfo2Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788246811; c=relaxed/simple;
-	bh=lIbuJ1Tvy1SNjfie8kslSdQan8pkxnFTsDJhFrNDajw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mhgC9IOr5RzZozqwBrBYEfplw1ct8FsYmZSYvjKiwen+tQ8i503/a+hAhPV9KqsJQd78VCtWQWHeO6m06nB69ICHn85GpS4znINkN4UBlSepR86KVcbVR3mqCw2Q4VmO76Tiq0mHNwezVuq3H3OEYs9H+kKMtGaTFgsVIkZNW/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TGpyXamx; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788246837; c=relaxed/simple;
+	bh=fo3eEH+mpRfdJzCSVpOfwHZwWLVlDIEbk28HxZcXPPA=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Af+gPyunef2Joxi99VVpeItpNXyWiDuiFkR0bac9PNOtFjigZYkn33XxlOSjPKhEaaERadUtGCz7KBuDX4taqAUQKcQluIzGv9ilG6DyvVfOt1jS6h5clTuQlJB9c9AWlYndiGY27IPvqRvudBEfHAYmnkRP42d67pE3XTx1/cI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=RbCWRFst; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TGpyXamx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788246809; x=1819782809;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=lIbuJ1Tvy1SNjfie8kslSdQan8pkxnFTsDJhFrNDajw=;
-  b=TGpyXamxqi75H0g++JYFBUULrxQgzxpV+VGlqHV00VZS+EgCAe/d+5JI
-   dOvpx8ENvLzG8FGFzevUpiAjCmkaKvX3K+t8YMbLFGATMF8I0F7yH2BjE
-   1hKsH6gdVzLP5ThEupVu392K9ddeU4jU2lt+dzf7ALjtXFMmfJlktHff7
-   2eSib1tt3bzmbm8qfn8kxc9JHQYASJYcjIEb7XLCg7wrG1Tt6pDfTQETr
-   wzupvFPfpPgbl2+ijVyHYFChs4qgwn7xPU3hINycXCfvhPCfleY5soJGG
-   GzkHjvIaIdJDUwhUHfpJxHbgfklLg48yOGaI8zZOFP7TkWE6AsOhwcoYj
-   g==;
-X-CSE-ConnectionGUID: 5x/9YsshRbindCqX2CSojQ==
-X-CSE-MsgGUID: 8u126HA6SW2fpp0kOcNB0w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88592464"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="88592464"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 00:13:25 -0700
-X-CSE-ConnectionGUID: xdSXeKOYTdatfy05Sqk8rQ==
-X-CSE-MsgGUID: f7k/mDcfR4SH8WALBQSsVg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="268480641"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.222])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 00:13:21 -0700
-Date: Tue, 1 Sep 2026 10:13:18 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Esben Haabendal <esben@geanix.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Martin Kepplinger <martink@posteo.de>,
-	Sean Nyekjaer <sean@geanix.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Martin Kepplinger <martin.kepplinger@theobroma-systems.com>,
-	Christoph Muellner <christoph.muellner@theobroma-systems.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 4/8] iio: accel: mma8452: Support interrupt sharing
-Message-ID: <apZ7DpgQM6v7JbcS@ashevche-desk.local>
-References: <20260831-mma8452-open-drain-v7-0-22946812c928@geanix.com>
- <20260831-mma8452-open-drain-v7-4-22946812c928@geanix.com>
- <Ncm871ICTmFO0dGlJCPws8DbZwRNawMZGh74FyRieKxOU9C35zNksyV7FWkx97CU50ky9hYms5spg6SF8rATTQ==@protonmail.internalid>
- <apWIJfGoQLtDV4IB@ashevche-desk.local>
- <87ik4quwhh.fsf@geanix.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="RbCWRFst"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6817DJ8f81480650, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1788246800; bh=fo3eEH+mpRfdJzCSVpOfwHZwWLVlDIEbk28HxZcXPPA=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=RbCWRFst9c3PRAH5ZL+RA+ZZ98n+akGV2a6u8ELslEmpcBYr4mw0LXkSBfQV4pgqM
+	 TO4GQ0HqA/O3Ar37VIXbkpFXQcophFwJahs4mbimYydhjp6JFRi5doGfTFQv7uTAGz
+	 ZnsgHdNa2XBOnwU7TVH2T8WCy+ARuHY82SHqwKbr7Gte/dRS9MY0u6druPIenKexD5
+	 gvYNEjVTb6Rrc2j3lsDaDymAxY8TbZ4drP7SZWDhSF85jn+6Tc+SFB8Go5l4bFl3Qg
+	 i8vTErgjDrfAGRVTFPWA/b1yNxgfa2jPd1SVszjwnV3a58V2hEOsKSKgLMmC9o02Yn
+	 7kARxTI0LYL1w==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6817DJ8f81480650
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 1 Sep 2026 15:13:20 +0800
+Received: from RTKEXHMBS04.realtek.com.tw (10.21.1.54) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Tue, 1 Sep 2026 15:13:18 +0800
+Received: from RTKEXHMBS04.realtek.com.tw ([::1]) by
+ RTKEXHMBS04.realtek.com.tw ([fe80::6d7e:80bb:9fcb:1a5e%6]) with mapi id
+ 15.02.2562.043; Tue, 1 Sep 2026 15:13:18 +0800
+From: Justin Lai <justinlai0215@realtek.com>
+To: Yang Zi <2959243019@qq.com>, Larry Chiu <larry.chiu@realtek.com>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>
+CC: "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
+	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
+	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH] net: rtase: Fix NULL pointer dereference in NAPI cleanup
+ on probe failure
+Thread-Topic: [PATCH] net: rtase: Fix NULL pointer dereference in NAPI cleanup
+ on probe failure
+Thread-Index: AQHdNHB+KP6gOL0O7kacMo8VAsZX0ba5WYJA
+Date: Tue, 1 Sep 2026 07:13:18 +0000
+Message-ID: <b2e37853a4634b3b8810283580b6d393@realtek.com>
+References: <tencent_AFD4DC7BE2EC61C628B53A3BCF4B558C2105@qq.com>
+In-Reply-To: <tencent_AFD4DC7BE2EC61C628B53A3BCF4B558C2105@qq.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87ik4quwhh.fsf@geanix.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Aug 31, 2026 at 05:43:06PM +0200, Esben Haabendal wrote:
-> "Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
-> > On Mon, Aug 31, 2026 at 02:17:07PM +0200, Esben Haabendal wrote:
-
-...
-
-> >> +	WRITE_ONCE(data->suspended, false);
-> >> +
-> >>  	ret = mma8452_active(data);
-> >>  	if (ret < 0)
-> >>  		goto runtime_resume_failed;
-> >
-> >>  	return 0;
-> >>
-> >>  runtime_resume_failed:
-> >> +	WRITE_ONCE(data->suspended, true);
-> >>  	regulator_disable(data->vddio_reg);
-> >>  	regulator_disable(data->vdd_reg);
-> >
-> > But with this, what's the point in having WRITE_ONCE()? It can be read
-> > just in the middle as true and be immediately changed afterwards. It
-> > may be that I am missing something, but I think WRITE_ONCE() should be
-> > done once in this function.
-> 
-> Yes, there does look like there is still a race condition after adding
-> this data->suspended flag. An irq handler could just have read
-> data->suspended, gotten false, and thereafter proceeeded with handling
-> the irq, and then we write data->suspended=true and the irq handler
-> would just continue with accessing the device, even though we are now
-> (if possible) powering down the device.
-> 
-> I did go through all the pre-existing runtime pm and other race
-> condition issues raised by sashiko-bot during this review, and worked
-> through it all. The result is a quite a bit larger than what I would
-> like to add on top of this series. Among other things, it converts the
-> driver to use regmap for accessing the i2c registers, and after various
-> fixes the data->suspended flag is removed again.
-> 
-> So I am a bit hesitant to pull all those changes into this series, the
-> combined series would blow up quite a bit. But if required, I guess I
-> can do that, although I fear that it will not make reviewing easier to
-> mix things more than maybe needed.
-
-Personally I would go with it, or as a compromise, publish somewhere in Git
-(like on GitHub) and share the link to the repo (in a format that one can run
-with `git fetch ...`).
-
-> Could we find a way to merge this series first in some way, or should I
-> post a new version with all the other fixes added on top?
-
-It's a Q to Jonathan.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+WWFuZyBaaSA8Mjk1OTI0MzAxOUBxcS5jb20+IHdyb3RlOg0KPiANCj4gRXh0ZXJuYWwgbWFpbCA6
+IFRoaXMgZW1haWwgb3JpZ2luYXRlZCBmcm9tIG91dHNpZGUgdGhlIG9yZ2FuaXphdGlvbi4gRG8g
+bm90DQo+IHJlcGx5LCBjbGljayBsaW5rcywgb3Igb3BlbiBhdHRhY2htZW50cyB1bmxlc3MgeW91
+IHJlY29nbml6ZSB0aGUgc2VuZGVyIGFuZA0KPiBrbm93IHRoZSBjb250ZW50IGlzIHNhZmUuDQo+
+IA0KPiANCj4gDQo+IHJ0YXNlX2luaXRfbmFwaSgpICh3aGljaCBhZGRzIHRoZSBOQVBJIGNvbnRl
+eHRzIGFuZCBzZXRzIG5hcGktPmRldikgaXMNCj4gY2FsbGVkIGFmdGVyIHJ0YXNlX2FsbG9jX2lu
+dGVycnVwdCgpLiAgSWYgaW50ZXJydXB0IGFsbG9jYXRpb24gZmFpbHMsDQo+IHJ0YXNlX2luaXRf
+b25lKCkganVtcHMgdG8gZXJyX291dF9kZWxfbmFwaSBhbmQgY2FsbHMgbmV0aWZfbmFwaV9kZWwo
+KSBvbg0KPiBOQVBJIGNvbnRleHRzIHRoYXQgd2VyZSBuZXZlciBhZGRlZCwgc28gbmFwaS0+ZGV2
+IGlzIHN0aWxsIE5VTEwuDQo+IG5ldGlmX25hcGlfZGVsKCkgLT4gX19uZXRpZl9uYXBpX2RlbCgp
+IC0+IG5ldGRldl9sb2NrKG5hcGktPmRldikNCj4gZGVyZWZlcmVuY2VzIHRoYXQgTlVMTCBwb2lu
+dGVyLg0KPiANCj4gS0FTQU4gcmVwb3J0Og0KPiANCj4gICAgIEJVRzogS0FTQU46IG51bGwtcHRy
+LWRlcmVmIGluIF9fbXV0ZXhfbG9ja19jb21tb24NCj4ga2VybmVsL2xvY2tpbmcvbXV0ZXguYzo2
+MjUgW2lubGluZV0NCj4gICAgIEJVRzogS0FTQU46IG51bGwtcHRyLWRlcmVmIGluIF9fbXV0ZXhf
+bG9jaysweDhmLzB4Y2UwDQo+IGtlcm5lbC9sb2NraW5nL211dGV4LmM6ODIwDQo+ICAgICBSZWFk
+IG9mIHNpemUgOCBhdCBhZGRyIDAwMDAwMDAwMDAwMDBjZDggYnkgdGFzayBzeXouMC4xLzExNDcN
+Cj4gDQo+ICAgICBfX211dGV4X2xvY2srMHg4Zi8weGNlMCBrZXJuZWwvbG9ja2luZy9tdXRleC5j
+OjgyMA0KPiAgICAgbmV0ZGV2X2xvY2sgaW5jbHVkZS9saW51eC9uZXRkZXZpY2UuaDoyODE4IFtp
+bmxpbmVdIFtydGFzZV0NCj4gICAgIF9fbmV0aWZfbmFwaV9kZWwgaW5jbHVkZS9saW51eC9uZXRk
+ZXZpY2UuaDoyOTQyIFtpbmxpbmVdIFtydGFzZV0NCj4gICAgIG5ldGlmX25hcGlfZGVsIGluY2x1
+ZGUvbGludXgvbmV0ZGV2aWNlLmg6Mjk2MSBbaW5saW5lXSBbcnRhc2VdDQo+ICAgICBydGFzZV9p
+bml0X29uZSsweDVjM2QvMHg1ZmQwDQo+IGRyaXZlcnMvbmV0L2V0aGVybmV0L3JlYWx0ZWsvcnRh
+c2UvcnRhc2VfbWFpbi5jOjIyOTUgW3J0YXNlXQ0KPiANCj4gT25seSBjYWxsIG5ldGlmX25hcGlf
+ZGVsKCkgb24gTkFQSSBjb250ZXh0cyB0aGF0IHdlcmUgYWN0dWFsbHkgYWRkZWQNCj4gKG5hcGkt
+PmRldiAhPSBOVUxMKSwgc28gdGhlIGludGVycnVwdC1hbGxvY2F0aW9uIGZhaWx1cmUgcGF0aCBz
+a2lwcyB0aGVtDQo+IHdoaWxlIHRoZSBwb3N0LW5hcGktaW5pdCBmYWlsdXJlIHBhdGhzIHN0aWxs
+IHJlbW92ZSB0aGVtLg0KPiANCj4gU2lnbmVkLW9mZi1ieTogWWFuZyBaaSA8Mjk1OTI0MzAxOUBx
+cS5jb20+DQo+IC0tLQ0KPiAgZHJpdmVycy9uZXQvZXRoZXJuZXQvcmVhbHRlay9ydGFzZS9ydGFz
+ZV9tYWluLmMgfCA3ICsrKysrKy0NCj4gIDEgZmlsZSBjaGFuZ2VkLCA2IGluc2VydGlvbnMoKyks
+IDEgZGVsZXRpb24oLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9y
+ZWFsdGVrL3J0YXNlL3J0YXNlX21haW4uYw0KPiBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3JlYWx0
+ZWsvcnRhc2UvcnRhc2VfbWFpbi5jDQo+IGluZGV4IGUzY2Q0ZjdjMTM4MC4uYjRkODgyOGNhODdk
+IDEwMDY0NA0KPiAtLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9yZWFsdGVrL3J0YXNlL3J0YXNl
+X21haW4uYw0KPiArKysgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9yZWFsdGVrL3J0YXNlL3J0YXNl
+X21haW4uYw0KPiBAQCAtMjQ5Myw5ICsyNDkzLDE0IEBAIHN0YXRpYyBpbnQgcnRhc2VfaW5pdF9v
+bmUoc3RydWN0IHBjaV9kZXYgKnBkZXYsDQo+ICAgICAgfQ0KPiANCj4gIGVycl9vdXRfZGVsX25h
+cGk6DQo+ICsgICAgLyogcnRhc2VfaW5pdF9uYXBpKCkgcnVucyBhZnRlciBydGFzZV9hbGxvY19p
+bnRlcnJ1cHQoKTsgaWYgaW50ZXJydXB0DQo+ICsgICAgICogYWxsb2NhdGlvbiBmYWlsZWQgdGhl
+IE5BUEkgY29udGV4dHMgd2VyZSBuZXZlciBhZGRlZCBhbmQgbmFwaS0+ZGV2DQo+IGlzDQo+ICsg
+ICAgICogc3RpbGwgTlVMTCwgc28gbmV0aWZfbmFwaV9kZWwoKSBtdXN0IG5vdCBiZSBjYWxsZWQg
+b24gdGhlbS4NCj4gKyAgICAgKi8NCj4gICAgICBmb3IgKGkgPSAwOyBpIDwgdHAtPmludF9udW1z
+OyBpKyspIHsNCj4gICAgICAgICAgaXZlYyA9ICZ0cC0+aW50X3ZlY3RvcltpXTsNCj4gLSAgICAg
+ICAgbmV0aWZfbmFwaV9kZWwoJml2ZWMtPm5hcGkpOw0KPiArICAgICAgICBpZiAoaXZlYy0+bmFw
+aS5kZXYpDQo+ICsgICAgICAgICAgICBuZXRpZl9uYXBpX2RlbCgmaXZlYy0+bmFwaSk7DQo+ICAg
+ICAgfQ0KPiANCj4gIGVycl9vdXRfcmVsZWFzZV9ib2FyZDoNCg0KVGhhbmtzIGZvciB0aGUgcGF0
+Y2guDQogDQpTaW5jZSBydGFzZV9pbml0X25hcGkoKSBpcyBvbmx5IGNhbGxlZCBhZnRlcg0KcnRh
+c2VfYWxsb2NfaW50ZXJydXB0KCkgc3VjY2VlZHMsIEkgdGhpbmsgdGhlIGludGVycnVwdCBhbGxv
+Y2F0aW9uDQpmYWlsdXJlIHBhdGggY2FuIHNpbXBseSBqdW1wIHRvIGVycl9vdXRfcmVsZWFzZV9i
+b2FyZCBpbnN0ZWFkIG9mDQpjaGVja2luZyBuYXBpLT5kZXYgaW4gdGhlIE5BUEkgY2xlYW51cCBw
+YXRoLiBUaGUNCmVycl9vdXRfZGVsX25hcGkgbGFiZWwgY2FuIHRoZW4gYmUgcmVtb3ZlZC4NCiAN
+Ckp1c3Rpbg0K
