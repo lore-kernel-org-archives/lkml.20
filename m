@@ -1,123 +1,102 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from mx1.secunet.com (mx1.secunet.com [62.96.220.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 926DA376A0C;
-	Tue,  1 Sep 2026 08:40:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F4438C42F;
+	Tue,  1 Sep 2026 08:40:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.96.220.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788252052; cv=none; b=Fe+IJKnKA9eedsw3iWLI2d+9MhztDUeNfu13eXFPQaRKtYu6NyBqGLt5Y+HF+Q0COJKPHZM4MCvws7o1WaEEmrVxcpppLr7o8vfNBp/03R+6wGjWQCSgH7NbU7+Z+JYTLYySMzXmCE188JN6LJfzT/Th8MQFDVh687QvTcFPFwo=
+	t=1788252053; cv=none; b=l3gX5QvAIK1kEKzyY/m65kHSZO8HgtVHqE3vQ0XSHwjIQOGZK1JxaM0bbYfX4xdz3I1IPpnhnwDVuvJP/di4KyNxk//fzobtvaI7vdRb5WFJE3KiZsvrnB2Cz2PXcJpWT8HnKIqgT82SIKgXIItj3mM44/HzU20BI2MssDHG+X4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788252052; c=relaxed/simple;
-	bh=5XiakXpplk8GoOLAS7psNyW3QXrUDVAxVTxHN8ADh68=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ovlmcsyLABjxcFzMXTyzlBE92fKtxHPaAo06OaM0Kam4YB++F07AFeUJRieI4UmjYohzlSEKmR6V8O62VrwFhC5KxC3EMKuCzfxXWMbSeLLTaIDqLa1zuzEd2X7VPWl+2r1wu1h0N7OHpWoKgRnu86H8DulO7vODw1do2OZgdMQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=e6nbN+pZ; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788252053; c=relaxed/simple;
+	bh=XG61fYTYZ+z+MMqRrZHqdwC6snXeWdZqkX/bX3ulsuQ=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AQHMCBP12fYOCKkfqHEErmVasnIX17zz6Ot2kAL/F9piz2ohNC6uDs41EQrCy/7VqYVmUyllTXy/e/BhSyHf1nx5uUHhRI4kE32JEiKOhy1FUIGgkrQ1vIbwfkPB/14mxftLFg1/KYD45HtpcmSBlnoVfJLWm2oNWkZgwJe4M2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com; spf=pass smtp.mailfrom=secunet.com; dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b=m5JVgZNS; arc=none smtp.client-ip=62.96.220.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=secunet.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=secunet.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="e6nbN+pZ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788252050; x=1819788050;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=5XiakXpplk8GoOLAS7psNyW3QXrUDVAxVTxHN8ADh68=;
-  b=e6nbN+pZsqA0XrH/zZN87vdIHyrM/pBpxzVAmfr0mqeWBUpSWYPRoYwr
-   tweoSyTSdIJErvpS+2nDadGluAukEAZKNWBtlO9rvlX1Xw+XsFzt+AiWm
-   u1xr057sOiyanJi6JxNWQq8ne3qF1ujim9QAdjcjAP+6TLE6topQf2t4m
-   2Qq75Fmzl7IpIjpf+3ufBcWwXcADlMszFycyHxDg7uzqG2ti2IWXqwf28
-   8pZnDiroLc20bvm3VXFkIiaRqPjSRw9e69jso19Tyx9KRgzI0ds9ZhTr9
-   NH5QgvWqbb24z6PAHXjXgzYjlkDqJ8i72BP2z3gL/Cf2cC/kIRPqXScha
-   w==;
-X-CSE-ConnectionGUID: 5tOAbxlHQwWpizDjNdHu8g==
-X-CSE-MsgGUID: D9kYKiyPTiC4yM3kbACeJQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88722537"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="88722537"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 01:40:50 -0700
-X-CSE-ConnectionGUID: EmnUlq1cQOCiv+mWZezLaw==
-X-CSE-MsgGUID: DCs01bhUQT+6MvJqY4kkqw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="307247761"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.222])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 01:40:48 -0700
-Date: Tue, 1 Sep 2026 11:40:45 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-Cc: Linux ACPI <linux-acpi@vger.kernel.org>,
-	Linux PM <linux-pm@vger.kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Peixin Xie <peixin.xie@linux.spacemit.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Lukas Wunner <lukas@wunner.de>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Linux PCI <linux-pci@vger.kernel.org>,
-	Bjorn Helgaas <helgaas@kernel.org>,
-	Hans de Goede <hansg@kernel.org>
-Subject: Re: [PATCH v1 4/7] ACPI: scan: Combine two conditionals in
- acpi_bus_attach()
-Message-ID: <apaPjaBH48O4V03m@ashevche-desk.local>
-References: <3435655.aeNJFYEL58@rafael.j.wysocki>
- <2021470.taCxCBeP46@rafael.j.wysocki>
+	dkim=pass (2048-bit key) header.d=secunet.com header.i=@secunet.com header.b="m5JVgZNS"
+Received: from localhost (localhost [127.0.0.1])
+	by mx1.secunet.com (Postfix) with ESMTP id ECA4F20799;
+	Tue,  1 Sep 2026 10:40:49 +0200 (CEST)
+X-Virus-Scanned: by secunet
+Received: from mx1.secunet.com ([127.0.0.1])
+ by localhost (mx1.secunet.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 79HTfUNoBlby; Tue,  1 Sep 2026 10:40:49 +0200 (CEST)
+Received: from EXCH-01.secunet.de (rl1.secunet.de [10.32.0.231])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mx1.secunet.com (Postfix) with ESMTPS id 607B120189;
+	Tue,  1 Sep 2026 10:40:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mx1.secunet.com 607B120189
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=secunet.com;
+	s=202301; t=1788252049;
+	bh=VmJXhMCUKxJfTqQ7p0Z4k1hfeIzokvWxFuVWHxN2XmQ=;
+	h=Date:From:To:CC:Subject:References:In-Reply-To:From;
+	b=m5JVgZNSHPIVIhhLy7Ko431bWQoI5HJtUpK/k2FT4mDwQ8ffDmbOXNHMwkqIYOPLc
+	 np5vEwAo7lTf6NQeOCV2nPZQeuzYVTF3NEjVF+SEWJBAodfK6y5kEIbGf4/J+S00QH
+	 FiwYd3b5e9x1KEsDZHgvKezdwO3/RopQFMWXwmymYkXouH+R+siXDX6Ah4ZeTkx9z8
+	 Y9HPnHs65IGUQZ3Rp/ztmWD8KoeZpweS42hMVvOuTLT8LkXGCCAinCP6LlAr3mDWCi
+	 2wKJ1NjUVeLnbgW9XRzgtwBiNUWTJze+NJwcZ1LBz3mxV6fLsshrtnemPwiaHTfK/J
+	 myi6sYeiAxS3Q==
+Received: from secunet.com (10.182.7.193) by EXCH-01.secunet.de (10.32.0.171)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 1 Sep
+ 2026 10:40:48 +0200
+Received: (nullmailer pid 7716 invoked by uid 1000);
+	Tue, 01 Sep 2026 08:40:48 -0000
+Date: Tue, 1 Sep 2026 10:40:48 +0200
+From: Steffen Klassert <steffen.klassert@secunet.com>
+To: Maher Azzouzi <maherazz04@gmail.com>
+CC: <herbert@gondor.apana.org.au>, <davem@davemloft.net>,
+	<edumazet@google.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
+	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net v2] esp: downgrade zerocopy managed frags before
+ mutating skb frags
+Message-ID: <apaPkA215hGGd6wZ@secunet.com>
+References: <20260817133752.30033-1-maherazz04@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <2021470.taCxCBeP46@rafael.j.wysocki>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260817133752.30033-1-maherazz04@gmail.com>
+X-ClientProxiedBy: EXCH-01.secunet.de (10.32.0.171) To EXCH-01.secunet.de
+ (10.32.0.171)
 
-On Mon, Aug 31, 2026 at 07:59:32PM +0200, Rafael J. Wysocki wrote:
-
-> There are two conditionals in acpi_bus_attach() that can be combined,
-> which slightly reduces the overhead and makes the code a bit easier
-> to follow, so do that.
+On Mon, Aug 17, 2026 at 02:37:52PM +0100, Maher Azzouzi wrote:
+> On the out-of-place output path (esp->inplace == false) ESP rewrites the
+> skb frag array: esp_output_head() appends a trailer frag and
+> esp_output_tail() replaces the frags with a destination page, both
+> referenced with get_page().
 > 
-> No intentional functional impact.
+> When the skb carries zerocopy managed frags (SKBFL_MANAGED_FRAG_REFS) the
+> payload frags are owned by the ubuf and must not be referenced or
+> unreferenced individually, but ESP mutates the frag array without ever
+> downgrading the skb.  This breaks the managed-frag invariant two ways:
+> 
+>   - esp_ssg_unref() walks the source scatterlist and drops a page
+>     reference for every frag, including the ubuf-owned payload frags,
+>     pushing their refcount below the GUP pin bias while the pages are
+>     still pinned, i.e. a use-after-free of the zerocopy pages;
+> 
+>   - esp_output_tail() installs its destination page as frag 0 with
+>     get_page() but leaves SKBFL_MANAGED_FRAG_REFS set, so
+>     skb_release_data() takes the skip_unref branch and never drops that
+>     reference, leaking the x->xfrag page at packet rate.
+> 
+> Fix this the way every other frag-mutating site does (__ip_append_data(),
+> __ip6_append_data(), tcp_sendmsg_locked()) and call
+> skb_zcopy_downgrade_managed() before ESP touches the frag array: it takes
+> a real reference on each existing frag and clears SKBFL_MANAGED_FRAG_REFS,
+> so the per-frag unref in esp_ssg_unref() and the frag release in
+> skb_release_data() are both balanced and no mixed-ownership frag array is
+> left behind.
+> 
+> Fixes: 753f1ca4e1e5 ("net: introduce managed frags infrastructure")
+> Signed-off-by: Maher Azzouzi <maherazz04@gmail.com>
 
-...
-
-> -	if (ret > 0 && !device->flags.enumeration_by_parent) {
-> +	if (!device->flags.enumeration_by_parent && (ret > 0 ||
-> +	    (!device->pnp.type.platform_id && !device->pnp.type.backlight)))
->  		acpi_device_set_enumerated(device);
-> -		goto ok;
-> -	}
-> -
-> -	if (device->pnp.type.platform_id || device->pnp.type.backlight ||
-> -	    device->flags.enumeration_by_parent)
-> -		acpi_default_enumeration(device);
->  	else
-> -		acpi_device_set_enumerated(device);
-> +		acpi_default_enumeration(device);
-
-I would leave a longer line (having logical split)
-
-	if (!device->flags.enumeration_by_parent &&
-	    (ret > 0 || (!device->pnp.type.platform_id && !device->pnp.type.backlight)))
-		acpi_device_set_enumerated(device);
-	else
-		acpi_default_enumeration(device);
-
-Or even going further and cleaning too many negations (if I'm not mistaken in
-the logic)
-
-	if (device->flags.enumeration_by_parent ||
-// not sure what the expected ret values here, maybe < 0 or == 0 part is not needed
-	    (ret <= 0 && (device->pnp.type.platform_id || device->pnp.type.backlight)))
-		acpi_default_enumeration(device);
-	else
-		acpi_device_set_enumerated(device);
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Now applied to the ipsec tree, thanks a lot!
