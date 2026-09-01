@@ -1,329 +1,163 @@
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 347544078D8
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:27:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788229670; cv=pass; b=lw3b8JqT58kFTUXKqXiFs7yO3sMA2uHGiUNfiTs7CA4WolKPc7dzE1luRmzMnOji0Jbcw6Z4UMTN7b6zf9kzGdORQvFA1JgOcZd755HmpjhRa2YVKTrOAGHdCOqsJycDBA9rlZMeQbrkCxHnQwGjiqlTBE3njhFRA5H4MCPpEjg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788229670; c=relaxed/simple;
-	bh=PN/UjImC7bgd865J9BP2KD4atjXNWpj+MALMnuPZKh0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RqafYhHNTRzvy2CDFG1NFyIMAXB7r7RcA/IeXWwFn3HiJmF7Elktq3rGJSSnaS60a5V5dX1oB6+lq6yWRTCFLeZcO+UIWf30UaUT4rXigJrk9fFqg+f5TX9CW+YBgR7B4++vyS+xNbQOoD1Xdexq5fPHG+s+WGoDG9N5Yn5nnLc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aVGtqx6U; arc=pass smtp.client-ip=209.85.222.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23A4F3B47DF
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:27:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788229681; cv=none; b=Ss09pLmthqPVP44nvP97CWi6zkyu48xZ3J5jnDZkgupxEccNRCAbZZ5WDu4qRG/uEwMJQUafQkIy2pnHqu5Xz24DpIw4ctgXq+Ilil+kk1E2MBgMgJIXKCuJcA2YenfvO0qwo9FqyW2DDe/du5bmrAwxmG/Bh2xOyKTS7+in2Ic=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788229681; c=relaxed/simple;
+	bh=aJOqvp+m9yw8vXbrKDLmTt+ksd0xUEQcYggk/0JrfpE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bXffWoBZctU1YliqJ4VEQ7H/i+z5GVck9tMMUyC2QolU6pGhqVxNgQFgD7NnzBMw9QGBbVp0VVF9KYYk0lbR94vkVaNd7EYPw5Q3/5ZFjPoe7xkyJJxgeCMRlrKQlDFrdpVXLTcplhYKvrHsFXrgyDjVFIQZ9PcegnO7N2UeZ2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g0zBt5TY; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=canonical.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aVGtqx6U"
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-9382fbb1208so441444085a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:27:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788229667; cv=none;
-        d=google.com; s=arc-20260327;
-        b=P6YCCIqYL4xr/TVxxuDg9nmtOhjd+Zvltnb2kdUPD20SkfNrw4PX7U6vDM3GWS84L8
-         Vta8a8aWvd+ALEIFujVUxKZP5JX1dHq+ZE2j2oQogPSKN48YxQU9nehkUAv3WX9JY/Gp
-         EaCeCfeydDkL/d8IDG4wJwhlNG/e6R/+3DQIwREJ2NpO/dhIArhqmhOmRHdpwyPNDTvr
-         UXY29IWU/4hPHxHw/H+viZxmEnPLTKDnzQLThy78DwBCfdxZECCkurW0BddBjxSXTOO0
-         euJ2pP02BKwdQipF9UDWR+VSZE0r26jo1fm0bJ6BW+ZB7F8Bb1YuqaGdsVbWgLcrhb5L
-         WVFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DIwG3h1DWr4hnTm8Um8YYeq8VR9qYUjCZHlufcU+1bY=;
-        fh=Q8R8BF3NcabA5W1LtQi1ISIocwitDnSdL3tzTe3wS4c=;
-        b=ZTbZOjmFfNXtMcpJGvyAg1rH2mW0LnBvV9AGXhWe0vzMPHfrF6BDa/ituRLkIKOx+v
-         lBI+ukKWgVhpT+CkanuIT1jl/2dbxHCLYPhhSz4klIXc2s46qH/y7VvUAEMHSie+MOfZ
-         0oXTiAcZE8aEpD+1N7b99q31FgvPue7vcuaiy+5d9yjckSsdaiEiE1UJHev7uUU3PSwS
-         tduIqxT9UM++3Z7mmmuGKMQEzzUDyaAKSRMVNF7iDm3x8Nxg4xsEKjlGZPDgcBvFYPv1
-         jN0uvwytTS5hSf72oU/qdvWpl6oqJClxe93WgVUlBGPUa3u0FxcJRqI4Vu+lqWS3ff5L
-         fGAQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g0zBt5TY"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-39682983a0fso5359535a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 19:27:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788229667; x=1788834467; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DIwG3h1DWr4hnTm8Um8YYeq8VR9qYUjCZHlufcU+1bY=;
-        b=aVGtqx6Uh8m9TPjCcQt7kVMDw6uqg4T0QVuPd6jOfSZQ6Zc84z01Yq8soTAZEvCXdz
-         9LLyHYXAlH85VL0t0nM/AinM4plP5VgD680Swx7x1qNWdE5hibAFnfhDlPkHHZUFcM4r
-         c2TJCXohAm7KhUWI2kIo4BexlQR4xtcjQMBkwuuObg0Ms5PEMpF0WRHPOzoj6BwDE+iR
-         Rm/YMZhTtO2lHEkhuOyLabtaGBlXteTq19jLxFAxDZbQ/Y8Ft1unvka0Let9vxbNGB1l
-         H5QP/HwZB+ms2GEBrGKIiSLmKGMCR4jHmu/BkYk7i6ggExW9nve8pIyHhUouR0SEWfxL
-         TYcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788229667; x=1788834467;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788229679; x=1788834479; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DIwG3h1DWr4hnTm8Um8YYeq8VR9qYUjCZHlufcU+1bY=;
-        b=sjCeOrH4N70P9LKcXxFqzS1mBDZ2yQhe/ph35+NvCM90xNY1TBAgNy/EQq/Yr9pb7U
-         RjUWo1Ru7wBVpb3wLUiCHykBTnFJ9k6c3TuKg1r6nWnNIMfJDobqehlR09QSJxKoZmTJ
-         wsTC7d84XPPkepkZo+KHLxgEx16mGGhEXdjTEvUTCL5OKB5z3Ehq73/Y8HYCigvv+cPU
-         3TFhrXneevqHjwGGurEe6UlGqrprc1+F7vSupXrWWYP7t5zL30JThtpdpUN36UIXWmnV
-         ki2aQyfZWhnaICxoHG9txgbTeqA4/uyBoykyVfS8F8XDA521VHD8VbCbYziIqjB3MYfE
-         Snkg==
-X-Forwarded-Encrypted: i=1; AHgh+Rotl5hd59euNo7yo5KbB24kPxUHBXDuPAOchhJrqJORFtOruFyw/ffzwowQRtjhdUBwocw5UEJkUruNv8Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++nNfTgpoLhKsO75SbAZaqWGBiMxA2x1Oi4VWX2e0atlUOBki98b
-	sBv8ALw6rJXVUGMc+4O29nQmRUzkWQqwrmg9CcarwSM+2bP53AhUXIGWG7MZ1nhCtWm9w8jfxuU
-	gKtF6p45MQVIWA+7jyOvYLGozO000TJg=
-X-Gm-Gg: AR+sD10nOfM9zwDC2yixgvxTx4hGz8sBXkV0nN+ofRgsLh44MOh0nF/i9avUT5SFgls
-	6XnH7RFmCMOF1d7aivvjr7MHo0d1nUfVCVSVylMwalNTX3ucHRjw2vHDEr67s7OnX1DtM4wWj0j
-	J7QD90m/Iq4YLYYB+0lTsceQm3F+z4jCF7Ep5B1K/y+iWm33SoT0Pctisuk7KtESfPmbKqBJWZG
-	V9BCp1fNpq3g9/PLSb8tIDHDsmiqNttYUsPr39Nqr/opjlarai3idkGlL1JSJA7d+Uk/A1Nl9R/
-	qab6VK+RFqlpG45QYQN8dshIWTOrjyUJS8TncIi8qXcG
-X-Received: by 2002:a05:620a:172b:b0:939:32ea:9f0c with SMTP id
- af79cd13be357-93932eaa334mr1720744085a.8.1788229666903; Mon, 31 Aug 2026
- 19:27:46 -0700 (PDT)
+        bh=Qf8oy7qaKirN8ICo0JJ6d8Lc9hgixjHXp2cKregM+M8=;
+        b=g0zBt5TYnDRL5qcqS2VW07ENseaYnoz4qKCtmNrVWYHtQawo4YqborPZAt1kFU8D5d
+         u8LCoJyEZ9s26Zhp47wWUsqUwjtJa/BqOsNJDXHQhmnU4lu5XExJ+75DSbOlkFJLwsXC
+         JTMYd5tZXaofPQHZeIS8Tk6SFUvkd4AbqVB7vStz0uhfaELLkaOijL5vJcOoZIZ8o0Hf
+         AJ1uUz1DZz+D0ri3W0Z+pvS13yQ3ocW31FL/oRHVPzdAMEPYemdOc6dPjEiXqBhAWYce
+         ymTe0SfCuutAiyjYaDxR47LZwESRBnNhdyEGpIS/ME/y1v38vXElJALggNqALaQea3rC
+         7Knw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788229679; x=1788834479;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Qf8oy7qaKirN8ICo0JJ6d8Lc9hgixjHXp2cKregM+M8=;
+        b=d6fb+HC3ysGqh9GI3xdWepbEipLjU8CNpCKeemyefImOI2ASnIt8mayJ7NkTiix+ik
+         Ji6lsiwmLoj7yvrKPDR3MAZX09W9WjET04ubw5edWUoUgeZr40drxGBi3HQjFBmeCFOI
+         9SoJorZ3bwnitAi04LIiAbkTChXZW/xsSKcW/R/cmCczkYI6syCFkhc5QGNPxVjB3/MK
+         uG1W571PHWMaUbFQIdi6VcXRkMfB5CgflHM0sSedT3H+HRACKIRIWAM0w0zBXMI6EHwu
+         4Kxvv2JsV7SBPg4HrTZI2S4fGrmTb87CCwGlduHYkNHeNgBEdlCqBA58xO5AOl0EwwwW
+         8CMA==
+X-Forwarded-Encrypted: i=1; AKwUvBzV52IE78i6KNbHbMVEfjh4JfnsOvoooofZHoDL3HcO99cRXb0cYOCSuCia3HW6OUgHvUtHDE3rET9raYo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kocK3SvhbTgjdKq/dqUfXfQofNcM80wGsVR43veDMbnKwuTD5x
+	WyRLZezSXil1lkstHfNCt8QkAuQTD3NaA7uBuFYdF4TNTsTm32yI8GJX
+X-Gm-Gg: AYBFou0GTgCMl2h6hpv8D73q5GrHsjJtQAvxc4JZD+bgI3X4KYi8ycufv3sx4hbbYSV
+	/whexRoDS7xCN+VrCtIgyYBuZy7/vIuP3KBYbcqrywlZHSa8usNzY7QHlQQXWHL4RfqNFrzA/iN
+	KkpYNOpTdL3n8tMhONoBEEQJ4r3pUPyiLVq+5aDI3ZFNtqL6BcyizMRtX9PDvjY5Bk7f4lmYHa1
+	VE574V8a4tMq78zJ2WvAYS/wQ68eOtapRNg1bLafl/dQmwl4i+gmwEylLqGVQlqHMsSWCmdiZVl
+	liAp3KsiEwyqOhUSreyjrk9z6XqY+EJgxdWe1WkSVo22fPJX0nP91B/VeBdmO7QzphTouf25G+D
+	AxJaaXvdB48bUsI5RPV65hfX8sIIsiFYLvawOgJqQB2njfxFsQorX6Apc/MG4crK9cfkW+t4Ykf
+	g4WWt/Owj0Sjjfz7O+i/8xQpeVn2gmvEndl74lQAe7iw0+UB4EPdqUmnuKtUS7svkAYrHrvCM8j
+	1ScBOyci7uHpO4t
+X-Received: by 2002:a17:90b:3f50:b0:381:a766:efc9 with SMTP id 98e67ed59e1d1-396d0df72e2mr45995759a91.7.1788229679378;
+        Mon, 31 Aug 2026 19:27:59 -0700 (PDT)
+Received: from localhost (211-75-139-220.hinet-ip.hinet.net. [211.75.139.220])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d802787sm2997055a91.16.2026.08.31.19.27.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 19:27:58 -0700 (PDT)
+Sender: AceLan Kao <acelan@gmail.com>
+From: AceLan Kao <acelan.kao@canonical.com>
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Benson Leung <bleung@chromium.org>,
+	Andrei Kuchynski <akuchynski@chromium.org>,
+	Jameson Thies <jthies@google.com>,
+	Pooja Katiyar <pooja.katiyar@intel.com>,
+	Hsin-Te Yuan <yuanhsinte@chromium.org>,
+	Johan Hovold <johan@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] usb: typec: ucsi: recover from silent PPM completion in sync_control
+Date: Tue,  1 Sep 2026 10:27:54 +0800
+Message-ID: <20260901022754.3102934-1-acelan.kao@canonical.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827055850.26951-1-physicalmtea@gmail.com> <CAJaqyWfjjSe19z4TrPbJfBBQZJXuAzqE4H8bik6UAiSgogzfmQ@mail.gmail.com>
-In-Reply-To: <CAJaqyWfjjSe19z4TrPbJfBBQZJXuAzqE4H8bik6UAiSgogzfmQ@mail.gmail.com>
-From: Jia Jia <physicalmtea@gmail.com>
-Date: Tue, 1 Sep 2026 10:27:11 +0800
-X-Gm-Features: AcwNN1X8xFc3zj4Mx5oZW-ZuOM04e_bQ28qEh0Tx7DrEEEAOGAyocsDW-QjEdZI
-Message-ID: <CAJwVaMJ5Lc0J1M-+QAHH9w_tcrjNYDqOTbkAWUucCK4_50ay-g@mail.gmail.com>
-Subject: Re: [PATCH] vhost/vsock: batch RX used-ring updates
-To: Eugenio Perez Martin <eperezma@redhat.com>
-Cc: Stefan Hajnoczi <stefanha@redhat.com>, Stefano Garzarella <sgarzare@redhat.com>, 
-	"Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, kvm@vger.kernel.org, 
-	virtualization@lists.linux.dev, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
->
-> On Thu, Aug 27, 2026 at 7:59=E2=80=AFAM Jia Jia <physicalmtea@gmail.com> =
-wrote:
-> >
-> > vhost_transport_do_send_pkt() calls vhost_add_used() for every Guest RX
-> > buffer even though it delays the Guest signal until the worker finishes=
-.
-> > Each call publishes one used entry and updates the used index separatel=
-y.
-> >
-> > Collect the completed buffer heads in the arrays already allocated for =
-the
-> > virtqueue and publish them with vhost_add_used_n().  Bound the batch by=
- the
-> > ring size, array capacity, and worker packet budget.  Flush before
-> > re-enabling notifications or leaving the worker.
-> >
-> > Each used entry describes one completed RX buffer and keeps its actual =
-used
-> > length, so set nheads to 1 for every entry.  This patch does not change
-> > negotiated features or compress multiple buffers into one used entry.
-> >
-> > This patch is limited to the current skb-based vhost-vsock RX path.
-> >
-> > Performance:
-> >
-> > Tested with a QEMU/KVM guest on a host with 4 online CPUs, using 2 vCPU=
-s
-> > pinned to host CPUs 2 and 3, QEMU 10.2.1, q35, 1536 MiB, and Linux
-> > 7.2.0-rc3-next-20260713-next-debug-kasan.  The vhost-vsock source is ba=
-sed
-> > on linux-next master at 49362394dad7df66c274c867a271394c10ca2bb8.
-> >
-> > Current vhost-vsock does not implement VIRTIO_F_IN_ORDER or
-> > VIRTIO_F_RING_PACKED, so both configurations used packed=3Doff and
-> > in_order=3Doff:
-> >
-> >   baseline:                 RX batching=3Doff
-> >   vhost-vsock RX batching:  RX batching=3Don
-> >
-> > The test used vsock_perf.  The Guest receiver was started with:
-> >
-> >   vsock_perf --port PORT --buf-size 64M --vsk-size 64M --rcvlowat 1
-> >
-> > The Host sender was started with:
-> >
-> >   vsock_perf --sender 3 --port PORT --bytes BYTES \
-> >       --buf-size SEND_BUF --vsk-size 64M
-> >
-> > Each workload transferred BYTES=3D1 GiB.  The SEND_BUF values were 256 =
-B
-> > (SEND_BUF=3D256), 512 B (SEND_BUF=3D512), 4 KiB (SEND_BUF=3D4K), and 64=
- KiB
-> > (SEND_BUF=3D64K).
-> > Each state used a fresh Guest.  Each workload uses 20 paired runs, with=
- 10
-> > runs in each order.  The reported values are
-> > Guest RX throughput in Gbits/s.  The baseline and batching columns are =
-the
-> > geometric means over the 20 runs; change is batching / baseline - 1,
-> > computed from the unrounded values:
-> >
-> >   workload   baseline RX    batching RX   change   faster
-> >   256 B      0.0795724      0.0831509      +4.497%  20/20
-> >   512 B      0.1194885      0.1210297      +1.290%  14/20
-> >   4 KiB      0.7208273      0.7242053      +0.469%  11/20
-> >   64 KiB     2.1712797      2.1951941      +1.101%  13/20
-> >
-> > For reference, the table below gives the 95% normal-approximation inter=
-vals
-> > obtained from the 20 paired log(batching / baseline) values:
-> >
-> >   workload   paired 95% interval
-> >   256 B      +3.985% to +5.011%
-> >   512 B      +0.206% to +2.385%
-> >   4 KiB      -1.442% to +2.416%
-> >   64 KiB     -1.474% to +3.745%
-> >
-> > All transfers passed byte-count checks, and no kernel errors were obser=
-ved
-> > in the logs.  The 256-byte workload improved in every pair.  The 512 B
-> > workload was faster in 14 of 20 pairs, with a small gain.  The 4 KiB an=
-d
-> > 64 KiB workloads showed no material throughput change; the difference
-> > between their results may be due to scheduling and execution variation.
-> >
-> > Link: https://lore.kernel.org/r/20181214082146-mutt-send-email-mst@kern=
-el.org
-> > Link: https://lore.kernel.org/r/20220901055434.824-4-qtxuning1999@sjtu.=
-edu.cn
-> > Signed-off-by: Jia Jia <physicalmtea@gmail.com>
-> > ---
-> >  drivers/vhost/vsock.c | 41 +++++++++++++++++++++++++++++++++++++++--
-> >  1 file changed, 39 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/vhost/vsock.c b/drivers/vhost/vsock.c
-> > index 9aaab6bb8..d8050cca2 100644
-> > --- a/drivers/vhost/vsock.c
-> > +++ b/drivers/vhost/vsock.c
-> > @@ -103,12 +103,37 @@ static bool vhost_transport_has_remote_cid(struct=
- vsock_sock *vsk, u32 cid)
-> >         return found;
-> >  }
-> >
-> > +static bool vhost_vsock_flush_used(struct vhost_virtqueue *vq,
-> > +                                  unsigned int *used_count)
-> > +{
-> > +       if (!*used_count)
-> > +               return false;
-> > +
-> > +       vhost_add_used_n(vq, vq->heads, vq->nheads, *used_count);
-> > +       *used_count =3D 0;
-> > +       return true;
-> > +}
-> > +
->
-> I think that the used_count should be updated by the caller based on
-> the boolean returned by this function.
->
+From: "Chia-Lin Kao (AceLan)" <acelan.kao@canonical.com>
 
-Thanks for the review. I will fix this in v2.
+Some firmware completes UCSI commands and sets COMMAND_COMPLETE (or
+ACK_COMPLETE for ACK_CC_CI) in CCI but never fires the ACPI notify that
+would wake ucsi_sync_control_common().  The driver then times out after
+5 seconds and returns -ETIMEDOUT, even though the EC finished the command
+successfully.
 
-> > +static void vhost_vsock_add_used(struct vhost_virtqueue *vq,
-> > +                                unsigned int *used_count,
-> > +                                unsigned int head, unsigned int len)
-> > +{
-> > +       struct vring_used_elem *used =3D &vq->heads[*used_count];
-> > +
-> > +       used->id =3D cpu_to_vhost32(vq, head);
-> > +       used->len =3D cpu_to_vhost32(vq, len);
-> > +       vq->nheads[*used_count] =3D 1;
-> > +       (*used_count)++;
-> > +}
->
-> Same here, why pass it as an argument? The caller knows way better.
+Fix this by polling CCI once via poll_cci() on timeout.  If the relevant
+completion bit is already set, the EC finished silently; fall through to
+out_clear_bit so the normal read_cci()/read_message_in() path retrieves
+the data and ucsi_run_command() issues ACK_CC_CI as usual.  Only return
+-ETIMEDOUT when the EC has genuinely not completed the command.
 
-I will fix this in v2.
+Guard the poll_cci() call with a NULL check: if a backend does not
+provide the op, skip the poll and keep reporting -ETIMEDOUT rather than
+dereferencing a NULL function pointer.
 
->
-> Other than that, the patch looks good to me,
->
-> Acked-by: Eugenio P=C3=A9rez <eperezma@redhat.com>
->
-> Thanks!
->
+Fixes: 584e8df58942 ("usb: typec: ucsi: extract common code for command handling")
+Cc: <stable@vger.kernel.org> # 6.14+
+Signed-off-by: Chia-Lin Kao (AceLan) <acelan.kao@canonical.com>
 
-Thanks!
+---
+v2 -> v3:
+- rebase and resolve conflicts against v7.2
+- Invert the post-timeout completion check so the empty "silent
+  completion" branch falls straight through to out_clear_bit instead
+  of being an empty if {} with the real logic in the else, as pointed
+  out in Greg's review.
+v1 -> v2:
+- Add Cc: <stable@vger.kernel.org> # 6.14+ as flagged by Greg's patch bot:
+  the Fixes: tag targets a commit already in released kernels, so the fix
+  must be nominated for stable.  Scoped to 6.14+ because poll_cci only
+  exists from that release (absent in 6.11-6.13).
+- Guard the poll_cci() call with a NULL check to avoid dereferencing a
+  NULL function pointer when a backend does not provide the op.
+---
+ drivers/usb/typec/ucsi/ucsi.c | 24 ++++++++++++++++++++++--
+ 1 file changed, 22 insertions(+), 2 deletions(-)
 
-> > +
-> >  static void
-> >  vhost_transport_do_send_pkt(struct vhost_vsock *vsock,
-> >                             struct vhost_virtqueue *vq)
-> >  {
-> >         struct vhost_virtqueue *tx_vq =3D &vsock->vqs[VSOCK_VQ_TX];
-> >         int pkts =3D 0, total_len =3D 0;
-> > +       unsigned int used_count =3D 0;
-> > +       unsigned int used_limit;
-> >         bool added =3D false;
-> >         bool restart_tx =3D false;
-> >
-> > @@ -120,6 +145,12 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vs=
-ock,
-> >         if (!vq_meta_prefetch(vq))
-> >                 goto out;
-> >
-> > +       used_limit =3D min_t(unsigned int, vq->num,
-> > +                          min_t(unsigned int, vq->dev->iov_limit,
-> > +                                vq->dev->weight));
-> > +       if (unlikely(!used_limit))
-> > +               goto out;
-> > +
-> >         /* Avoid further vmexits, we're already processing the virtqueu=
-e */
-> >         vhost_disable_notify(&vsock->dev, vq);
-> >
-> > @@ -134,9 +165,13 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vs=
-ock,
-> >                 u32 offset;
-> >                 int head;
-> >
-> > +               if (used_count =3D=3D used_limit)
-> > +                       added |=3D vhost_vsock_flush_used(vq, &used_cou=
-nt);
-> > +
-> >                 skb =3D virtio_vsock_skb_dequeue(&vsock->send_pkt_queue=
-);
-> >
-> >                 if (!skb) {
-> > +                       added |=3D vhost_vsock_flush_used(vq, &used_cou=
-nt);
-> >                         vhost_enable_notify(&vsock->dev, vq);
-> >                         break;
-> >                 }
-> > @@ -153,6 +188,7 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vso=
-ck,
-> >                         /* We cannot finish yet if more buffers snuck i=
-n while
-> >                          * re-enabling notify.
-> >                          */
-> > +                       added |=3D vhost_vsock_flush_used(vq, &used_cou=
-nt);
-> >                         if (unlikely(vhost_enable_notify(&vsock->dev, v=
-q))) {
-> >                                 vhost_disable_notify(&vsock->dev, vq);
-> >                                 continue;
-> > @@ -230,8 +266,8 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vso=
-ck,
-> >                  */
-> >                 virtio_transport_deliver_tap_pkt(skb);
-> >
-> > -               vhost_add_used(vq, head, sizeof(*hdr) + payload_len);
-> > -               added =3D true;
-> > +               vhost_vsock_add_used(vq, &used_count, head,
-> > +                                    sizeof(*hdr) + payload_len);
-> >
-> >                 VIRTIO_VSOCK_SKB_CB(skb)->offset +=3D payload_len;
-> >                 total_len +=3D payload_len;
-> > @@ -264,6 +300,7 @@ vhost_transport_do_send_pkt(struct vhost_vsock *vso=
-ck,
-> >                         virtio_transport_consume_skb_sent(skb, true);
-> >                 }
-> >         } while(likely(!vhost_exceeds_weight(vq, ++pkts, total_len)));
-> > +       added |=3D vhost_vsock_flush_used(vq, &used_count);
-> >         if (added)
-> >                 vhost_signal(&vsock->dev, vq);
-> >
-> > --
-> > 2.53.0
-> >
->
+diff --git a/drivers/usb/typec/ucsi/ucsi.c b/drivers/usb/typec/ucsi/ucsi.c
+index bef3f9b71d718..0363ed127a567 100644
+--- a/drivers/usb/typec/ucsi/ucsi.c
++++ b/drivers/usb/typec/ucsi/ucsi.c
+@@ -92,8 +92,28 @@ int ucsi_sync_control_common(struct ucsi *ucsi, u64 command, u32 *cci,
+ 		goto out_clear_bit;
+ 
+ 	if (!wait_for_completion_timeout(&ucsi->complete,
+-					 msecs_to_jiffies(UCSI_TIMEOUT_MS)))
+-		ret = -ETIMEDOUT;
++					 msecs_to_jiffies(UCSI_TIMEOUT_MS))) {
++		u32 polled_cci = 0;
++
++		/*
++		 * Notification from EC did not arrive.  Poll once to check
++		 * whether the PPM actually finished without firing a notify.
++		 * If poll_cci() is missing or fails, polled_cci stays 0 and we
++		 * correctly report -ETIMEDOUT below.
++		 */
++		if (ucsi->ops->poll_cci)
++			ucsi->ops->poll_cci(ucsi, &polled_cci);
++
++		/*
++		 * If the relevant completion bit is not set, the EC has not
++		 * completed the command; report the timeout.  Otherwise fall
++		 * through to out_clear_bit, which reads CCI+data normally,
++		 * and ucsi_run_command() will issue ACK_CC_CI as usual.
++		 */
++		if (!((ack && (polled_cci & UCSI_CCI_ACK_COMPLETE)) ||
++		      (!ack && (polled_cci & UCSI_CCI_COMMAND_COMPLETE))))
++			ret = -ETIMEDOUT;
++	}
+ 
+ out_clear_bit:
+ 	if (ack)
+-- 
+2.53.0
+
