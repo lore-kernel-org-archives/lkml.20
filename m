@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F126136D9FE
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 05:44:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5729937F8DD
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 05:45:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788241497; cv=none; b=SDivkDowxsiHKjdvJpjpjWgOd2u2oRxSRh7Ce1rJ4woeJFjD5bjToI9dUb/A41+uQxx60O90s5llDhJmqlnpHl9DpCqzL/0yUcpxqBed4W4zETuu0+4glJWMPFxC5ZgkfQFMCsWu1E2MlEnBhuauryC/IRB/ex1uTuHv2rcd074=
+	t=1788241504; cv=none; b=EHgDKoxOTfMu5b4+DLWZcRx1tIMcUGB773unYCMnuMuYC1pPuNM1yGbbmn17S6vdCyIv2l69UaZUad79ohPoVy0VkOONEaWaYb2IScHuqKkTbF13//vs9jSoeDOgY2bn9HK7/tLZYqejnFFQK3d73Ih7aGxwiLquJmluaA7Jwl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788241497; c=relaxed/simple;
-	bh=MUViQSYFM/j8MeFADam1qMeEw2VDwtqRRIgpPPWeUZQ=;
+	s=arc-20240116; t=1788241504; c=relaxed/simple;
+	bh=tmJo3rjw0Sr3OV0lC41Li6x3+cmR1t0LVTih0JfnMfU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dvNHN3V5FMR/h6fHOZBAUC9Z0kLnEcC8qFKvOyw4Cnmi/o7sfvDKMsrx9l5PtdnLNEJKYEySj6M4kJM8sgthiryFeN2Ke7em3lk+DXEdDNs8OrCVgIQ5jMICInTkYpn9xgMrMbF1CkrVMqFvnCd1PMjF8kyfC6luQYMgAzOobBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nBLhpdqq; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=Re3g/+vamH8UJeOt4d/2U0t3uyKx7gKKO1psFX2PaS/11q1Qwv2LaKY67f+UvO0uZx1CCAzZ/jA5GHZdi2M8XQNSTbobICY4ZkOCMzqG0pk37EF2dvbjDZJKRrjbZOAASKXGX4fVcMRVk+y5HALO7Xtdrc3AxR1HnHvyYpv6bHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=mxQNKj4W; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nBLhpdqq"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="mxQNKj4W"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6DA081756;
-	Mon, 31 Aug 2026 22:44:51 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D512F1AED;
+	Mon, 31 Aug 2026 22:44:58 -0700 (PDT)
 Received: from cesw-amp-gbt-1s-m12830-01.blr.arm.com (cesw-amp-gbt-1s-m12830-01.blr.arm.com [10.164.195.33])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 559553F85F;
-	Mon, 31 Aug 2026 22:44:48 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id B6B9A3F85F;
+	Mon, 31 Aug 2026 22:44:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788241495; bh=MUViQSYFM/j8MeFADam1qMeEw2VDwtqRRIgpPPWeUZQ=;
+	t=1788241502; bh=tmJo3rjw0Sr3OV0lC41Li6x3+cmR1t0LVTih0JfnMfU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=nBLhpdqqTeiLBsehoAgcnw5ytfBWyQ0xm+6HJxkFcOWigjKxlOo00ljikMwNN901B
-	 cAROJ+KOhN61lBJivqsFVGsiHbEwUTULpVkJC3sQZ+/EcGS2ohMeraBMHRgGU5LuPz
-	 eXikSx8j70m4MiV72hE6xi7jYl9SlkGSd/YPikoI=
+	b=mxQNKj4Wb0AEhmFu9i0suaBsQYFruZECm4SWTseJP7rcY2W3tIcJc2YI9lEycAGbN
+	 ZsPZbxPAQokrm2WN4mK1Ud3PO6iU7lcQ+kcXpB4dNkc5H19R67JsXBZnnUMZTQD+38
+	 NeY2MAeNqKc1GX+dQ6Zfqt+VNWjlIMJLzoHmT2n0=
 From: Dev Jain <dev.jain@arm.com>
 To: akpm@linux-foundation.org,
 	david@kernel.org,
@@ -54,9 +54,9 @@ Cc: Dev Jain <dev.jain@arm.com>,
 	pfalcato@suse.de,
 	ryan.roberts@arm.com,
 	anshuman.khandual@arm.com
-Subject: [PATCH v2 6/8] mm/internal: add set_softleaf_ptes
-Date: Tue,  1 Sep 2026 05:43:53 +0000
-Message-ID: <20260901054358.4049095-7-dev.jain@arm.com>
+Subject: [PATCH v2 7/8] mm/memory: use set_softleaf_ptes for uffd-wp markers
+Date: Tue,  1 Sep 2026 05:43:54 +0000
+Message-ID: <20260901054358.4049095-8-dev.jain@arm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260901054358.4049095-1-dev.jain@arm.com>
 References: <20260901054358.4049095-1-dev.jain@arm.com>
@@ -68,68 +68,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Currently we have a helper called set_ptes() which is used to set
-consecutive present ptes in the pgtables. To do the same operation but
-to set "consecutive" nonpresent (softleaf) ptes, add set_softleaf_ptes().
-
-The softleaves which have a notion of consecutivity is swap softleaf,
-and those grouped by softeaf_has_pfn(). The latter is trivial; future
-code can convert present ptes pointing to the same large folio to
-swap softleaves with consecutive offsets using this helper.
-
-The other case is softleaf markers. They do not have a notion of a swap
-offset or PFN, so future code can use set_softleaf_ptes() to store
-multiple (same) markers on the ptes.
+Use set_softleaf_ptes() to store multiple uffd-wp marker entries instead
+of open coding the batched setting.
 
 Signed-off-by: Dev Jain <dev.jain@arm.com>
 ---
- mm/internal.h | 33 +++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+ mm/memory.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
-diff --git a/mm/internal.h b/mm/internal.h
-index cfea888366d58..41cf8b9607e31 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -507,6 +507,39 @@ static inline pte_t pte_next_softleaf_offset(pte_t pte)
- 	return pte_move_softleaf_offset(pte, 1);
- }
+diff --git a/mm/memory.c b/mm/memory.c
+index 7ce8413a8117d..8c45fb25fd8dd 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -1737,14 +1737,8 @@ bool cond_install_uffd_wp_ptes(struct vm_area_struct *vma,
+ 	if (likely(!arm_uffd_pte))
+ 		return false;
  
-+/**
-+ * set_softleaf_ptes - Set consecutive softleaf PTEs.
-+ * @mm: Address space the PTEs belong to.
-+ * @addr: Address of the first PTE.
-+ * @ptep: Page table pointer for the first PTE.
-+ * @pte: PTE to set for the first entry.
-+ * @nr: Number of PTEs to set.
-+ *
-+ * Install @nr softleaf PTEs, advancing @pte when its softleaf entry
-+ * represents consecutive offsets. Swap entries advance through swap offsets,
-+ * PFN softleaf entries advance through PFNs (encoded by swap offset), and
-+ * marker entries are repeated unchanged.
-+ */
-+static inline void set_softleaf_ptes(struct mm_struct *mm, unsigned long addr,
-+		pte_t *ptep, pte_t pte, unsigned long nr)
-+{
-+	softleaf_t entry;
-+	bool advance;
-+
-+	entry = softleaf_from_pte(pte);
-+	advance = softleaf_is_swap(entry) || softleaf_has_pfn(entry);
-+
-+	for (;;) {
-+		set_pte_at(mm, addr, ptep, pte);
-+		if (--nr == 0)
-+			break;
-+		if (advance)
-+			pte = pte_next_softleaf_offset(pte);
-+		ptep++;
-+		addr += PAGE_SIZE;
-+	}
-+}
-+
- /**
-  * swap_pte_batch - detect a PTE batch for a set of contiguous swap entries
-  * @start_ptep: Page table pointer for the first entry.
+-	for (;;) {
+-		set_pte_at(vma->vm_mm, addr, ptep,
+-			   make_pte_marker(PTE_MARKER_UFFD_WP));
+-		if (--nr_ptes == 0)
+-			break;
+-		ptep++;
+-		addr += PAGE_SIZE;
+-	}
++	set_softleaf_ptes(vma->vm_mm, addr, ptep,
++			  make_pte_marker(PTE_MARKER_UFFD_WP), nr_ptes);
+ 
+ 	return true;
+ }
 -- 
 2.43.0
 
