@@ -1,148 +1,104 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461863876CE
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:09:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D51376A19
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:10:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788260970; cv=none; b=REn1On1mHotp+pY8gzWrZ7x/YVTZbOth4NTXPbWJJIj5pOEcOZzX29dYcVkwhUSFPuhBrrqvyQdiOU+G8+nQhBvM8jTV4pSu/4bZOLXLS9VIAEuav6WymfnD2Lnd/NEl17Q/YehzyXwzGA22ozBdkhQkVS61q6A3we53EEoSuQY=
+	t=1788261019; cv=none; b=Kz3izQzhxUN0DYRBq7wblN4j8qFXYMJDFquGk97fOk7WG/RU5T3SY7Ly9iCJ3X8kTB6DDk2HCA2Q5rF//gFUMroOY01dUUdIk4AuwaFwdHuCAoM6R/NMuEJu+3VHKhO0qrQA2FEx2VDaWnqhoOa7FtmjsqsBN2qJTXCu9yRyEAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788260970; c=relaxed/simple;
-	bh=PT6U7N8m7Ox53yKiw8eE7Vpbd12EUaxfbGezLlwIumo=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=gem1unu9N/KtFbFZCWSJc+eSvSCvjfZ/9i6/gXjlJVOTzgdxCFLc2M6w+6LV3ZemxIKJ1hAccRBQfslfkLY1jk3StLzSUqCAWppq+n5kRQGQ6/e1+180PNnbKR7HoGWFXOuc2HcnHbT0m2ueA2Jev8VMpaA0JL51ERDBgmnLQHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I+HbyIL3; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788261019; c=relaxed/simple;
+	bh=L8Hrqvz6GFMoSEhRyzIorG1PWvffPNsLFlZwtdXw7FQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ax5f1XlWDBuq1EFaZaE5POQMeWGcCPDQ6U4khjpe7kDzJz/QgLeby20c48fM9XSqV0JMH/ow9Y/4tmkTHum16UFSsCGZHgKEIxlTZZqPdTWls4HVqXGsbYNcd8SvIYTQfG/x/RHJu4nMeyi6dZUaqvMUOA+iKQLUXHZv2xCVcTE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q6vNaZuf; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I+HbyIL3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788260970; x=1819796970;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=PT6U7N8m7Ox53yKiw8eE7Vpbd12EUaxfbGezLlwIumo=;
-  b=I+HbyIL3OarREq+SQkdsvJ7gyPzWpzBgqYg8Zt3kNQX8QItmw8oAqm/v
-   VA7Y6x2C0taouIU3eNgia65Nk8oBJSp1Q0sKy7oQlJ/S3gBopd5W9d32t
-   /1AqRvHQ91NVGdJVuxjlzoVUjhREvVaNTTlA6xsUzEJAg93oSw7tWds42
-   GOnPjtjyrPkf/smeELyE/Os9xZKfnZqsf4P2EfyOcE0rQQGqhxKl0sDcP
-   1KBIgqO1M6coKKvCF9zEZ3SqjCvNTf3EiiLn3Y/S0Z+ioH81cHyZWZ8w1
-   u0PFHqQRvLdGW2dSLYqnBlSiJ3f1BtXU4L+25g4JrkK2EMnO4gg+NII4T
-   Q==;
-X-CSE-ConnectionGUID: ghklk6P8Q0aS5JgjzWX0JA==
-X-CSE-MsgGUID: 9y8x7mHDTI6UBw9m8A8lHg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="92381515"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="92381515"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 04:09:30 -0700
-X-CSE-ConnectionGUID: MZOOJboeQ+GgmiGLODi3hA==
-X-CSE-MsgGUID: DHcRUdbuT8m70L5cHql2cA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="266483210"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.37])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 04:09:24 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 1 Sep 2026 14:09:20 +0300 (EEST)
-To: Tony Luck <tony.luck@intel.com>
-cc: Fenghua Yu <fenghuay@nvidia.com>, 
-    Reinette Chatre <reinette.chatre@intel.com>, 
-    Maciej Wieczor-Retman <maciej.wieczor-retman@intel.com>, 
-    Peter Newman <peternewman@google.com>, James Morse <james.morse@arm.com>, 
-    Babu Moger <babu.moger@amd.com>, Drew Fustini <dfustini@baylibre.com>, 
-    Dave Martin <Dave.Martin@arm.com>, Chen Yu <yu.c.chen@intel.com>, 
-    David E Box <david.e.box@intel.com>, x86@kernel.org, 
-    Christoph Hellwig <hch@infradead.org>, LKML <linux-kernel@vger.kernel.org>, 
-    patches@lists.linux.dev
-Subject: Re: [PATCH v11 20/23] platform/x86/intel/pmt: Inform resctrl when
- MMIO maps are being removed
-In-Reply-To: <20260831174421.13921-21-tony.luck@intel.com>
-Message-ID: <e71b9661-0a38-0b61-6250-c0ec58a1979b@linux.intel.com>
-References: <20260831174421.13921-1-tony.luck@intel.com> <20260831174421.13921-21-tony.luck@intel.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q6vNaZuf"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so815697a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 04:10:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788261018; x=1788865818; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IgO2ob95gg6fumjWiN+mfIqaFjC/9ud8+iboIR5TNwg=;
+        b=Q6vNaZuf9iWDfxOuNNZVl/lZ9P5DuJDi8HR4nRMaGyutWmCKO+oiiEfJ+mHZT/ZAzA
+         Xf+5AMiXbEIitwvjcH4ommzo4p63jCnXuySLMBsDSsIklqtV+EFAjee2oUN39neScvTe
+         fNiZ1tyG+aiYTuNPbegKzvw8FX16RiTlvxd8R2Y4JyNNu7CsKIQdJD/oe6viYLIXi5Sv
+         E3ohQZcdlrt22asYt95ApGLBKiGRHydTW3ibvD1+FtduNvdvu+BQ0SdKj0Wz3TM5ibBD
+         +vpfTIyKU2eL3ZSfxO5WjTxC019WYetG6G8g2blOsRIObTEoX5Em4LZi7Ad2ref4YOXU
+         VUvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788261018; x=1788865818;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IgO2ob95gg6fumjWiN+mfIqaFjC/9ud8+iboIR5TNwg=;
+        b=QQ7yasrFU7HnILhrQIbU5H6VVKqlvS1tyFFDSqfwNcMH7KXIjAU7P3mI+NBHseQ9LP
+         8WMMzntwW81Z5hQHx+ZQbu2s8v13Q7TggU1THxqCxE4ursREWuFVjRxp9VWZ3xIdXnQ5
+         GBXsvHCEH6XAXwJv+YlQ0srBzedG9jtQdEx80XBVVlMA9HiRaiRJ0DycUV+b581xHEt4
+         cA7+VB5jh7z9rsbwMSNkMJ+Bf8niwKQS5GaRUI2KuyD7SF0ez8KBfztn7Fo2WBYWWyCm
+         LagMY/U27cSQtWbHrB076zAv4qxl9afOeF6NRkn9DJw0fMkdmpGRqUG91bPjaZjQEErL
+         zq/A==
+X-Gm-Message-State: AFuF++nVZ+W03kdKh/5jsaTr947NIKfcH7DuL5dGLOEcddFxv05dN7yt
+	DcYNzNNLSiUpXuxwf2pUHmczUzZo53ws1MCLhihn0BUtWUtS6HRtvEA3
+X-Gm-Gg: AYBFou3NSLMOeMrUwAARfgmMuVPhPi2zicOo8Z97Ai5CMdoEFM9UCPDxu+HU8sxNQx7
+	04E5OPdSZOmiHOV/Hv9Eo9SX9cRAPaXF3/pFOGVPcUChOTddNxVal08x4Sv2U0TPaz4EwDfluJw
+	AkXrZiBL4XOF1md7ZNnq/uKVaJobx26DuAgm2JuZl3Ts46gJZCng6ztMHdfmYUrW8w8iPuSfRBB
+	NXUN3kEr+PvgIpq5pg743P4oUJ5r9ayfYidkxA6hrmOcYyKze+rjeyAci/yLIspqAS3ac9DjzC7
+	GvfvA20NgECvWmGy5wiblj7OIcb+SeK63y1VeqegOkEGiSPGuic9HBOrahyTbcSOAKTfBqO6Q2a
+	xtW+JgiFq60elHSh/plqnzZ3AdGVYNpbzLzrih4QcD3PDszS9T3d+/MlLQA5AfoNEohm4hcWS5d
+	bPcFvbQtwa5ZFgE9euNsN4vcUVlWLAbeLxMMngZrWUvXaVxDbCRW2Ho/df
+X-Received: by 2002:a17:90b:3c8a:b0:38e:524:8797 with SMTP id 98e67ed59e1d1-396d10076e9mr49352310a91.13.1788261017551;
+        Tue, 01 Sep 2026 04:10:17 -0700 (PDT)
+Received: from ubuntu.. ([110.9.142.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396d777c329sm7452644a91.2.2026.09.01.04.10.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 04:10:16 -0700 (PDT)
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+To: Veerasenareddy Burru <vburru@marvell.com>,
+	Sathesh Edara <sedara@marvell.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: [PATCH net-next] octeon_ep: remove redundant memset in octep_setup_pfvf_mbox()
+Date: Tue,  1 Sep 2026 20:09:11 +0900
+Message-ID: <20260901110913.977745-1-ekffu200098@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Mon, 31 Aug 2026, Tony Luck wrote:
+vzalloc() returns zeroed memory, so the memset after the allocation is
+redundant.
 
-> Before destroying devices, tell resctrl that the virtual addresses
-> supplied by an earlier call to intel_pmt_get_regions_by_feature()
-> are about to be invalidated and should not be used again.
-> 
-> Signed-off-by: Tony Luck <tony.luck@intel.com>
-> ---
-> v11:
-> 	Unbind/remove operations can't cross package boundaries.
-> 	Psss package_id instead of bitmap of package IDs.
-> 	Use dev_warn() to report failure to find package_id.
-> 
->  drivers/platform/x86/intel/pmt/telemetry.c | 32 ++++++++++++++++++++++
->  1 file changed, 32 insertions(+)
-> 
-> diff --git a/drivers/platform/x86/intel/pmt/telemetry.c b/drivers/platform/x86/intel/pmt/telemetry.c
-> index 2d2282c636b2..92871ce51c57 100644
-> --- a/drivers/platform/x86/intel/pmt/telemetry.c
-> +++ b/drivers/platform/x86/intel/pmt/telemetry.c
-> @@ -366,11 +366,43 @@ pmt_telem_find_and_register_endpoint(struct device *dev, u32 guid, u16 pos)
->  }
->  EXPORT_SYMBOL_NS_GPL(pmt_telem_find_and_register_endpoint, "INTEL_PMT_TELEMETRY");
->  
-> +static int pmt_telem_get_package_id(struct pmt_telem_priv *priv)
-> +{
-> +	u32 ret = -1;
-> +	int i;
-> +
-> +	mutex_lock(&ep_lock);
-> +	for (i = 0; i < priv->num_entries; i++) {
-> +		struct intel_pmt_entry *entry = &priv->entry[i];
-> +		struct pci_dev *pdev = to_pci_dev(entry->ep->dev);
-> +		struct oobmsm_plat_info *plat_info;
-> +
-> +		plat_info = intel_vsec_get_mapping(pdev);
-> +		if (!IS_ERR(plat_info)) {
-> +			ret = plat_info->package_id;
+No functional change.
 
-Use guard() and a direct return, no need to complicate code flow anymore 
-just for handling unlocking.
+Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+---
+ drivers/net/ethernet/marvell/octeon_ep/octep_pfvf_mbox.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-> +			break;
-> +		}
-> +	}
-> +	mutex_unlock(&ep_lock);
-> +
-> +	return ret;
-> +}
-
-> +
->  static void pmt_telem_remove(struct auxiliary_device *auxdev)
->  {
->  	struct pmt_telem_priv *priv = auxiliary_get_drvdata(auxdev);
-> +	int package_id = pmt_telem_get_package_id(priv);
->  	int i;
->  
-> +	/*
-> +	 * Tell resctrl/AET that virtual mappings for MMIO space in a CPU
-> +	 * packages are about to be torn down.
-> +	 */
-> +	if (package_id != -1)
-> +		intel_aet_invalidate(package_id);
-> +	else
-> +		dev_warn(&auxdev->dev, "Unable to determine package ID for removed device\n");
-
-Why to print this? To me it looks like dev_dbg() material at most, if even 
-that.
-
-> +
->  	mutex_lock(&ep_lock);
->  	for (i = 0; i < priv->num_entries; i++) {
->  		struct intel_pmt_entry *entry = &priv->entry[i];
-> 
-
+diff --git a/drivers/net/ethernet/marvell/octeon_ep/octep_pfvf_mbox.c b/drivers/net/ethernet/marvell/octeon_ep/octep_pfvf_mbox.c
+index 0867fab61b19..e4175d5bdb3b 100644
+--- a/drivers/net/ethernet/marvell/octeon_ep/octep_pfvf_mbox.c
++++ b/drivers/net/ethernet/marvell/octeon_ep/octep_pfvf_mbox.c
+@@ -274,7 +274,6 @@ int octep_setup_pfvf_mbox(struct octep_device *oct)
+ 		if (!oct->mbox[ring])
+ 			goto free_mbox;
+ 
+-		memset(oct->mbox[ring], 0, sizeof(struct octep_mbox));
+ 		memset(&oct->vf_info[i], 0, sizeof(struct octep_pfvf_info));
+ 		mutex_init(&oct->mbox[ring]->lock);
+ 		INIT_WORK(&oct->mbox[ring]->wk.work, octep_pfvf_mbox_work);
 -- 
- i.
+2.43.0
 
