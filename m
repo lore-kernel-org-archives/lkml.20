@@ -1,133 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EF7219CCF5;
-	Tue,  1 Sep 2026 00:05:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F7D15665C
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 00:08:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788221131; cv=none; b=PLZnpkv2w6Tol2iQ2ogKEp0ipvH1N+GQ/T3x6s0HtGzKwsWUnk0hOR8AWp81LPlsk4mwH+xyCroyntMop2x8PAa/JMnNh9AgQ7tBt92Yp72zpj/Qga4/2YueKQ7BPwbGVApX1iSb1XGJK65yZdrc9Gk/8OEy+4xyfxyggLojabo=
+	t=1788221341; cv=none; b=E6UczEx6dZym3Z9xLur1eYZkC1QvyRzYp+mKW2Mx/deWi2FqEqODDUAghFjpVBjqdiPArtgW97Rjq1YzjJyHryX8krGU4b4hq1C9RF2jbxTgacEgTnTEaCWaQrtNWhvtK9gqLHyZyXI43qu+kuGPaD94mB4J0KBGboRVhlr0sV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788221131; c=relaxed/simple;
-	bh=wXy+md3V6c/53NjBfGXXfpwk7xqCTaiFCQIuUnUqm54=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=VBtSPftFYWWE+CFOu+vob0aTfdCVQqj0IrzsTzQdwwzuRVDglntlEvKvOL68NQJQjY9wFHc/bkDg+l8KO45zwrBRUlDwu0zvb50HfIrEs3WkITCpx0U8yhqP/XcNENPBmfbGdDSytc3Zyx6XYFH3W504XIYpY6UTvM4X11uHi7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q+gAImPl; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788221341; c=relaxed/simple;
+	bh=7C1mJL+d0RD9Sz8BFCniH1v8F4EmGh+fIvAplCZdQrI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YrgPpZYfIdH64iJZoW3SrVR/Os5d87tVtCQEUZ2gInpMtb35aKUWLu+q6VdGawnBNfP2dgfj0a6Djr4gXy8jWn6Jh8YARpVAJMDXe5lCUBH8CQ+lOZ0wwQ7gTWid4o+GZOIsxdjLv1BdAz6MJhgx9Gmi0EgTBCkbeTJCweSnhEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SjRG1asv; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q+gAImPl"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DF534C2BCB8;
-	Tue,  1 Sep 2026 00:05:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788221130;
-	bh=wXy+md3V6c/53NjBfGXXfpwk7xqCTaiFCQIuUnUqm54=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=Q+gAImPlmu0MwgBw2FXQVIxkI7q+12ta7L2GNKz9tR4dYRE64EUTK613k+dPetDmp
-	 vi9mFMBmMiWh2sbnhy0+9hsWopXBBAQPIjuafIIB5vJZvWydgNFTGKqPRtBLDYkeAS
-	 Tf9DGC+4F5XdBvZN/3E73gQzp29oB904gm5LU+EzTKqooGzNb/C2MIhfay9esH0gqb
-	 1SG9flchJGqNhDp075hDuocgraeS9altLdiuGUJxHVRgTBFnve9A8asSMpn/5vBMf3
-	 /ZxUtlJlCZ7JCqt2z/G3X7c+ZaB4skoyV2zz7RvdtXr4R7v4+tFzShJXJeB5o057kR
-	 xY3BKALM3PalQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B9DAAC624CE;
-	Tue,  1 Sep 2026 00:05:30 +0000 (UTC)
-From: Alon Shakevsky via B4 Relay <devnull+shakevsky.berkeley.edu@kernel.org>
-Date: Tue, 01 Sep 2026 00:05:31 +0000
-Subject: [PATCH] ksmbd: validate COPYCHUNK source and target ranges
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SjRG1asv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788221338;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=cJFMEq80QkpWSaSDsjkZJUys8LK+Qc2YgMiiqzuhFRY=;
+	b=SjRG1asvRGgIzpMZ5MkQBkDlZGUknniJLJ+5a26KXyLwxXQ02VJxd92CAJRIHFL3ZYOkH2
+	SCXMexhh8rTSsNH6ovVVjNpzKlnsFg4IFfw5UKyKheUT1lGtgyF/d0OFe18LXcL48ZUwoy
+	/E6GTfiIPKUdSWlaM8767WZj6itzzK4=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-392-uRIloH20MoSLK8j0_x_Lxg-1; Mon,
+ 31 Aug 2026 20:08:54 -0400
+X-MC-Unique: uRIloH20MoSLK8j0_x_Lxg-1
+X-Mimecast-MFC-AGG-ID: uRIloH20MoSLK8j0_x_Lxg_1788221332
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id EED9E19540E8;
+	Tue,  1 Sep 2026 00:08:51 +0000 (UTC)
+Received: from [100.91.18.181] (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4BDF87D8;
+	Tue,  1 Sep 2026 00:08:50 +0000 (UTC)
+Message-ID: <85411b3f-bcbd-4a7e-99a5-49a465ca2df8@redhat.com>
+Date: Mon, 31 Aug 2026 20:08:49 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] cgroup/cpuset: Handle cpu hotplug race in
+ guarantee_active_cpus()
+To: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Farhad Alemi <farhad.alemi@berkeley.edu>
+References: <20260828180322.730419-1-longman@redhat.com>
+ <ba138f23-6972-44c8-8ce5-80de1f50891c@linux.dev>
+Content-Language: en-US
+From: Waiman Long <longman@redhat.com>
+In-Reply-To: <ba138f23-6972-44c8-8ce5-80de1f50891c@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-review-ksmbd-copychunk-offsets-v2-v1-1-4a7f598eb9c9@berkeley.edu>
-X-B4-Tracking: v=1; b=H4sIAMoWlmoC/yXNywqDMBCF4VeRWXcgCSVoX6V0UZNJnUoTyXipi
- O9ubJcfHP6zgVBmErhVG2SaWTjFAn2pwHXP+CJkXwxGGasapfEc0YK9fFqPLg2r66bYYwpBaBS
- cDSprbK29b641QekMmQJ/fx/3x98ytW9y4xmGfT8Ad8NK+4UAAAA=
-X-Change-ID: 20260901-review-ksmbd-copychunk-offsets-v2-062681dd948e
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, 
- ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-kernel@vger.kernel.org, 
- linux-cifs@vger.kernel.org, Tom Talpey <tom@talpey.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788221130; l=2533;
- i=shakevsky@berkeley.edu; s=20260829; h=from:subject:message-id;
- bh=zk9ntSxK6KH2GBnQw9ciD278sqGKtMWF34uLWFj0peY=;
- b=yQA1yMpddtk2egLqVHUYN9brG83RmkSNGDeABt7kbCc/rFdF0Pl7zbbN/CwWszVWRlgfpuyxQ
- 8MYJPOjQWenDntrG3a+c5HxEROmx4fRFLOTRfeJRyEh5MpcRpDeqM8w
-X-Developer-Key: i=shakevsky@berkeley.edu; a=ed25519;
- pk=yWZAM5+fHWudgjDI2F4zjbrSoHRSkvQ4pqpdyFWJUis=
-X-Endpoint-Received: by B4 Relay for shakevsky@berkeley.edu/20260829 with
- auth_id=987
-X-Original-From: Alon Shakevsky <shakevsky@berkeley.edu>
-Reply-To: shakevsky@berkeley.edu
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-From: Alon Shakevsky <shakevsky@berkeley.edu>
+On 8/30/26 9:50 PM, Ridong Chen wrote:
+>
+>
+> On 8/29/2026 2:03 AM, Waiman Long wrote:
+>> With commit 2125c0034c5d ("cgroup/cpuset: Make cpuset hotplug
+>> processing synchronous"), the cpuset hotplug operation becomes
+>> synchronous. That commit also removes the code that handles the race
+>> between cpuset_hotplug_work and cpu hotplug notifier with the assumption
+>> that race is now gone. Later commit 7a0aabd9ce69 ("cgroup/cpuset:
+>> Always use cpu_active_mask") updates the cpuset code to always use
+>> cpu_active_mask instead of cpu_ohline_mask in various places including
+>> guarantee_online_cpus() which is also renamed to guarantee_active_cpus()
+>> in that commit.
+>>
+>> In the case of CPU offline operation, cpuset_active_mask is updated
+>> first in sched_cpu_deactivate() to remove the offline CPU before
+>> cpuset_handle_hotplug() is called to update the effective_cpus of the
+>> affected cpusets. The cpu_online_mask is updated after that near the end
+>> of the offline operation to remove the offline CPU. As a result, the 
+>> race
+>> comes back and the top cpuset may not have any active CPU leading to 
+>> NULL
+>> pointer dereference during the race window when guarantee_active_cpus()
+>> is called after cpu_active_mask is updated to remove the CPU to be torn
+>> down but before cpuset_handle_hotplug() is able to properly update the
+>> effective_cpus of the top cpuset.
+>>
+>
+> Hi Longman,
+>
+> Thank you for the patch. I believe it should resolve the issue.
+> Could Farhad please verify whether it works as expected?
+>
+>> Fix this by adding back the NULL cs check to avoid this problem. 
+>> However,
+>> the output of guarantee_active_cpus() will be unreliable during that
+>> race window.
+>>
+>
+> If guarantee_active_cpus() can return unreliable results during that 
+> race window, should it instead return an error when it cannot 
+> guarantee that the active CPUs are usable? Otherwise, callers might 
+> use an incorrect 'pmask', which could lead to other issues downstream.
 
-ksmbd_vfs_copy_file_ranges() rejects negative source offsets in the
-copy loop, but it does not validate target offsets. It also calculates
-lock and overlap endpoints before ensuring that either range fits within
-MAX_LFS_FILESIZE.
+I am thinking about that too. However, the change will be more extensive 
+and it is that easy to figure out if we are the in the race window. So 
+more thought will be needed before we can make that change. In the mean 
+time, we have to fix the NULL pointer dereference and it has behaved 
+like that before.
 
-When the target is an alternate data stream, the buffered path passes a
-negative target offset to ksmbd_vfs_stream_write(). Let n be Length and
-let -d be TargetOffset, where 0 < d < n <= XATTR_SIZE_MAX. For an empty
-stream, the writer allocates n - d bytes, then copies n bytes starting d
-bytes before the allocation. An authenticated SMB client can control d
-and the source data, overwrite kernel heap memory, and crash the host.
-
-Validate both ranges before lock, overlap, or I/O calculations.
-
-Fixes: 8482150a0743 ("ksmbd: support copychunk for alternate data streams")
-Assisted-by: Antiproof:GPT-5.6-Sol
-Signed-off-by: Alon Shakevsky <shakevsky@berkeley.edu>
----
- fs/smb/server/vfs.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
-
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index 35123550a5535..3a6f3139c6f52 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -2009,6 +2009,11 @@ static ssize_t ksmbd_vfs_copy_file_range_buffered(struct ksmbd_work *work,
- 	return ret;
- }
- 
-+static bool ksmbd_vfs_copy_range_valid(loff_t offset, size_t len)
-+{
-+	return offset >= 0 && (loff_t)len <= MAX_LFS_FILESIZE - offset;
-+}
-+
- int ksmbd_vfs_copy_file_ranges(struct ksmbd_work *work,
- 			       struct ksmbd_file *src_fp,
- 			       struct ksmbd_file *dst_fp,
-@@ -2044,6 +2049,10 @@ int ksmbd_vfs_copy_file_ranges(struct ksmbd_work *work,
- 			dst_off = le64_to_cpu(chunks[i].TargetOffset);
- 			len = le32_to_cpu(chunks[i].Length);
- 
-+			if (!ksmbd_vfs_copy_range_valid(src_off, len) ||
-+			    !ksmbd_vfs_copy_range_valid(dst_off, len))
-+				return -E2BIG;
-+
- 			if (check_lock_range(src_fp->filp, src_off,
- 					     src_off + len - 1, READ))
- 				return -EAGAIN;
-@@ -2136,7 +2145,8 @@ int ksmbd_vfs_copy_file_ranges(struct ksmbd_work *work,
- 		len = le32_to_cpu(chunks[i].Length);
- 		copy_len = len;
- 
--		if (src_off < 0)
-+		if (!ksmbd_vfs_copy_range_valid(src_off, len) ||
-+		    !ksmbd_vfs_copy_range_valid(dst_off, len))
- 			return -E2BIG;
- 
- 		if (src_off > src_file_size || len > src_file_size - src_off) {
-
----
-base-commit: e53a23f960a10bf85ed2c9dbe0c1fc7d09c077ae
-change-id: 20260901-review-ksmbd-copychunk-offsets-v2-062681dd948e
-
-Best regards,
---  
-Alon Shakevsky <shakevsky@berkeley.edu>
-
+Cheers,
+Longman
 
