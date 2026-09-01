@@ -1,113 +1,87 @@
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71704766B6;
-	Tue,  1 Sep 2026 08:48:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B3B24772A2;
+	Tue,  1 Sep 2026 08:49:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788252538; cv=none; b=V/M2UJUmFt901w1bPqQLzeuA9ca2IyGqCY0iVhC+TVtMxFq/n6qw4A5UU0xZHbd5fU7XKPFoLFqiSdSu3S2I+EZb+HJQa4snuje6vpL1RmE7zNBnghrgrV+mV8D1EfL4qi4dkF7ncwyXT+YOLxQvs2f0QqyHTMWFqvp1e86qqiA=
+	t=1788252550; cv=none; b=Puj0vdJef8WPON5yLAueyrWR2zLY918yPaZ3+hgpoGMLU+GjC5tGDuxQe2LTxX85bWxA9UfHJvSkdu4cGGySfOp0dBY8vk/Bcu+xGWsTtRfx5PLHsI8FXwuHpA92mfT6e0yK9uj1Hmv5qDuVnJ5nG90+tyApYIaALwWd423aYOg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788252538; c=relaxed/simple;
-	bh=oDplWRoiwO5NuQtrHxA7ZfWcC6OR+6v2pC5fKH/TROk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MK+jOgKsT4FKFv2vmP6PD+v84paoOeDapye9Mu6Ojzc9Un8Pdb0PfbJ22B4wWpP6z5kmvqKJ/RwuwpBQF86cITrmz2pV0lwvZiBUOXTm5mmwYUraqxrYRMw7LKL/I/84KYIL0ivKOGu7NTRFu0IxKtWQvrG31vEajw6qHHlm/hA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.254.200.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip4t1788252505te49710af
-X-QQ-Originating-IP: j0zn8JV8YG2Na5F1kBXtTpcNGNwxlSCLn2r/eXAtkZE=
-Received: from [192.168.30.32] ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 01 Sep 2026 16:48:22 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 8002565544933552914
-EX-QQ-RecipientCnt: 29
-From: Xilin Wu <sophon@radxa.com>
-Date: Tue, 01 Sep 2026 16:47:57 +0800
-Subject: [PATCH 4/6] dt-bindings: arm: qcom: document Radxa Dragon Q8B
+	s=arc-20240116; t=1788252550; c=relaxed/simple;
+	bh=BAaJKs/MsSUfw3bKxCSKef8r2tUVBE6DhtfuTs/AAUg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JnrEEwTVL3Kk7hVS4rrfY4k8KlMDcQfsYFPC9mtSFGif/EsMwzsGXSJxYohFfq9iSFwHOX1bzznEJ2y7SGmfO65yfdj6t9P5ppPf9W97TdC0AIWbaarlnRTvkpyCmHsIQ4pfpmGwrlAdXoRoh8ThO+cBcVrNnYpEhK96M7qmAFM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cpThLpME; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cpThLpME"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C6E31F000E9;
+	Tue,  1 Sep 2026 08:49:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788252548;
+	bh=RDrCUHp86k6keyJJMl9083cG2tyxbKuBSwQQaJ+bpS8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=cpThLpME+PX9SfzJ8ufHXpVmFwReYZoB8qn2UTJuqz21v23OW9CiJ53oeEw5BRhXt
+	 F6qE/r0oQQBqOz5HCpv898QgsKyj9cGNPvUn1k1aZYbydQRYnYLphBDoTIZ8OZK29r
+	 /dulnbeAZMQpUl89Q1QI617eDb6vIOSOY2waCRKx1gVj8pSEGKN2QM2NF8tCLpth4Q
+	 vLUoxBbvsKruStcFQhSL9j8gJdLDPQkrNRkNNZcuj9EWW0O2++s6ZMTXF4n3a2Ya4v
+	 V5+xneECDqqbSnWGJx9fSyM0Vr3tjOcWMdu1NQUB4T64bP+cZ7vS2rbx2GAEIhQnoY
+	 WlkHXWl7DG6GQ==
+Message-ID: <8e3633ca-6e82-4c2e-b441-adeac02d3eff@kernel.org>
+Date: Tue, 1 Sep 2026 10:49:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] dt-check-style: Handle indented fragments in
+ indent-consistent
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
+ Daniel Golle <daniel@makrotopia.org>, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, asahi@lists.linux.dev
+References: <20260830-b4-dts-check-fix-v1-0-e7c1b2774730@kernel.org>
+ <20260830-b4-dts-check-fix-v1-2-e7c1b2774730@kernel.org>
+ <20260901-platinum-dalmatian-of-intensity-b18743@quoll>
+Content-Language: en-US
+From: Sven Peter <sven@kernel.org>
+In-Reply-To: <20260901-platinum-dalmatian-of-intensity-b18743@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-q8b-dts-v1-4-7de0b6a73d08@radxa.com>
-References: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
-In-Reply-To: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
-To: Bjorn Helgaas <bhelgaas@google.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
- Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>, 
- Xilin Wu <sophon@radxa.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=789; i=sophon@radxa.com;
- h=from:subject:message-id; bh=oDplWRoiwO5NuQtrHxA7ZfWcC6OR+6v2pC5fKH/TROk=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFnTJjqzbZkX+ofzc+sR0R4nue1x+naVL37ekzz5Y5PLk
- T2n3dOsOkpZGMS4GGTFFFkU4hnmslfmXnsqVqoHM4eVCWQIAxenAEzEPZuR4dqe5vPLFuZ15f1Y
- 8jKr6qR3rbzwn2N1fsm6ffL+IuzHpzL8r51lzRt5QdNJYD7v2i+cCjd0lZsqF878U/JHPLt5nmA
- KLwA=
-X-Developer-Key: i=sophon@radxa.com; a=openpgp;
- fpr=205F009D07796DD6E516752E32C31567AD9E324E
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: OYMEOeTae7mlmx+Rp0A0Ql7aIoOG6RVaU5J8cPw3jOtO2akVFB69QBW0
-	wny2TQtfpO4Owh4Wko6ZNGrmv4l/MaK8pFIBrcdE1CNZMVrR6B9lhhZfLyjZg2X5Vllhg7D
-	v6zw50oZK5QUGxLlAsG4WnKmdVM7UJRcH8Q6ZYS1RmjtEq8Twm9tZGkXRUWnuuTiImmhDqF
-	6wevIAxqitWAZka1oj2D+MywFB834cN2Rr9G25bSfoOcd8ky0HZZfx43r9BPdv2rYiSowKl
-	SXLDOCnrc5l/CzDUtiFuHUIhPD1GR+SvNWimbhZCnmdbpNWN8CKXeOe2a6reDe1sTmYiGys
-	ShXbkzGivSayxu15fmzFUPHskFTwVzzKgvJ2bK6FZRV9eSwnCQ07JwS2EZXy9+POAWil8jH
-	T1RetR2h3ctBvjNSEMmULsR3fMVjQjGaaaVCxFevJWPNkJLJ7+jQ2s4AAlT1I5KhO+f5zyP
-	nZCDfEY0lPPc8Qr69sp/UxgggpU/amRdG0Lsf/OvVQcdaPdrXcdifO5bz772svFZ2yN4Yma
-	ODyzqGz0jj/QgaRoLmRUrzzIAF5sv/4V//jV0SRZJ30SOSHHVmuZ5XcmGr0CkqYa62Ib1Mb
-	z0zhV0/HXibDg0035G5sRUirjBnvWBibZICaGnysckgHHQ42fRRSiO+jwLs3lelrWewodga
-	Ia6QS6E9KXXM8dHFt/Rw1UwkHe2MTI9zr/oVQx04dxw5ZZeaT55Va7KOPo0hxDs2zNvTt9j
-	1wO+5pL8ziPiBzixt/aGzn0MjvOsO4ZneddFnsFgHyaae0AAndTfww4UldhtFA+JRzUcX4d
-	eCoOVzbZZ2FGt2j3J3PrgCWNTEIBXwC4wzyTYDVJNKtpv6sj/6AWq4N9c5Tffk6cViVAxA+
-	fiu6evohBClU6BVhH2VFP3as26TXTYd7UGjCI1O83HSXnlMJ2UVCQ4x7CQ5CuiOEvG3MoWQ
-	n5l8EkJcXW2SzWrTmX3XVCg7DSjJZ7/o1uHiT0Nm5yrOkEmfc7hvGOWo1zo+F6+1tVwexqy
-	huLlzQ4Q46l3fxotnddzd4LKUS1qLWqCWaQ2G15iS1XVDt4drmrk+XhBL8WW0=
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
 
-The Radxa Dragon Q8B is a single-board computer based on the Qualcomm
-SC8280XP platform.
 
-Document its radxa,dragon-q8b compatible.
 
-Signed-off-by: Xilin Wu <sophon@radxa.com>
----
- Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
- 1 file changed, 1 insertion(+)
+On 9/1/26 10:22, Krzysztof Kozlowski wrote:
+> On Sun, Aug 30, 2026 at 08:24:55PM +0200, Sven Peter wrote:
+>> diff --git a/scripts/dtc/dt-style-selftest/expected/dts-fragment-indent.dtsi.txt b/scripts/dtc/dt-style-selftest/expected/dts-fragment-indent.dtsi.txt
+>> new file mode 100644
+>> index 000000000000..84ec8eb73468
+>> --- /dev/null
+>> +++ b/scripts/dtc/dt-style-selftest/expected/dts-fragment-indent.dtsi.txt
+>> @@ -0,0 +1,3 @@
+>> +# mode=strict
+>> +bad/dts-fragment-indent.dtsi:9: [indent-consistent] indent mismatch (expected depth 2 * '\t')
+>> +bad/dts-fragment-indent.dtsi:10: [indent-consistent] indent mismatch (expected depth 2 * '\t')
+>> diff --git a/scripts/dtc/dt-style-selftest/good/dts-fragment.dtsi b/scripts/dtc/dt-style-selftest/good/dts-fragment.dtsi
+>> new file mode 100644
+>> index 000000000000..58735112d3aa
+>> --- /dev/null
+>> +++ b/scripts/dtc/dt-style-selftest/good/dts-fragment.dtsi
+>> @@ -0,0 +1,19 @@
+>> +// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>> +/* Include fragment indented for its inclusion context. */
+>> +
+>> +	bus@10000 {
+> So here is a good example... and this is code is wrong.
+>
+> You CANNOT have MMIO node outside of MMIO bus or a new node outside of
+> root node indented with one tab.
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index ff8a35df7862..4341bb04f912 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -902,6 +902,7 @@ properties:
-               - microsoft,blackrock
-               - qcom,sc8280xp-crd
-               - qcom,sc8280xp-qrd
-+              - radxa,dragon-q8b
-           - const: qcom,sc8280xp
- 
-       - items:
+Fair enough, just ignore this series then.
+I'll just do the whitespace fix then and un-indent the -dieX files for 
+apple which I think should make them pass the checker then.
 
--- 
-2.55.0
+
+Sven
 
