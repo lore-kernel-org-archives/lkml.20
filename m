@@ -1,66 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-117.mta0.migadu.com [91.218.175.117])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E7E02BEC4E;
-	Tue,  1 Sep 2026 12:35:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C7C033F368
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:35:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.117
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788266132; cv=none; b=IGlqK9LFkOA18a/ZpzM/wMdkgouYY17JEQoJ0BwiLcK9xEKCw69OIMGTHnclrUx2V1re4+6m3/TfJSkGY2nHl37jv8OJTsH73pGuUCedr4g8Dhh91Cnl6rrwOB4mJQq3bQN/BYwGTY1INi/s2u2DJ6eq1vQa4zM/x1TSYI6wqlc=
+	t=1788266132; cv=none; b=e2SONUilojATqmrjGwS0vQsV4yTdAMznLJ+DfLQg/pXwwGRvqizJZeOuLCkL0XXMzWhgABzrRujIB5UmbGpa1DulLbzw8us3gU1QnDkijSUwZB/Bp+wut4hPMbGCCoKViM5ANROkulKVQZUUL0EckDECcEJmIP3T/Rt0Jl03TBQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788266132; c=relaxed/simple;
-	bh=yFYT+bqTTwweJnkbICBzdfNK4ESeSCd97FLzpwSLmUw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=G7OFQCyIBeX4A0JUXs5l1d9Ds8wdMGw7eOmrvWFgkMFAj9vAe2H3666lANCQecIXt61BKVYIa9kDypGNTio6EyxHrVebyMt1lFYjMkPSTMJYmCVqPFx7Nb/EMCgq0XlcazLmsJAxVKCJxsI46NXs/aDHRyTnh67BDM1XRma64QE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B7801F000E9;
-	Tue,  1 Sep 2026 12:35:27 +0000 (UTC)
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-To: Manivannan Sadhasivam <mani@kernel.org>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
- Qiang Yu <qiang.yu@oss.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- linux-pci@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20260819-ecam_blocker-v2-1-e7a8fdc1c5cb@oss.qualcomm.com>
-References: <20260819-ecam_blocker-v2-1-e7a8fdc1c5cb@oss.qualcomm.com>
-Subject: Re: [PATCH v2] PCI: qcom: Block accesses to downstream devices on
- link down
-Message-Id: <178826612782.58092.15490835074765422013.b4-ty@b4>
-Date: Tue, 01 Sep 2026 14:35:27 +0200
+	bh=X+DkHxLt+CgQ947vh/gRAc51B7xguiauK38xqdvZxys=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=rL6XPthJa+fu6I28otbF3WDFWL/jOfHA3PDHg0riZB7UGIbMvOLvnTITLcHapljMFEV/CbaxuZAl77db160CXKWxleecYIWe1YinHCAjdvLEI7v3N3SuG5Q3qpSZf0y19A6bHg0zRkMMFADC1ACEPc+rlbxfXuxz6nX2pT4vc6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Mp4BZJBW; arc=none smtp.client-ip=91.218.175.117
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Mp4BZJBW"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=X+DkHxLt+CgQ947vh/gRAc51B7xguiauK38xqdvZxys=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788266126; v=1; x=1788870926;
+ b=Mp4BZJBWQ0nHlQMN8r+q9d/YUtOBHa+Nrp1JAowPqTbwJ/IC4FAhTCSayVmsTArHV3mX9Lh6
+ FscbcURYEiimMVsgRLx7sSKGXo3IENSwrfnU6qw8pt3h7u4/s2SmcOhqRWdf+RooAlKr35qKPNV
+ g4jb63He1lZs3CW23p+Tfc1A=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6fb685d0476b67ce;
+	Tue, 01 Sep 2026 12:35:26 +0000
+X-Mizu-Trace-ID: 6fb685d0476b67ce
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <2da859e8-2025-4926-99f4-8ba595e25abf@linux.dev>
+Date: Tue, 1 Sep 2026 20:35:22 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, tj@kernel.org, void@manifault.com,
+ changwoo@igalia.com, michalblk@google.com, sched-ext@lists.linux.dev,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ Tao Cui <cuitao@kylinos.cn>
+Subject: Re: [PATCH] sched_ext: don't deliver duplicate ops.cgroup_set_idle()
+ for same value
+To: Andrea Righi <arighi@nvidia.com>
+References: <20260901031101.731943-1-cui.tao@linux.dev>
+ <apZ-B__OiVcZW46Z@gpd4>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <apZ-B__OiVcZW46Z@gpd4>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.15.2
 
+Hi Andrea,
 
-On Wed, 19 Aug 2026 23:36:54 -0700, Qiang Yu wrote:
-> After a PCIe link goes down, software may still access the BAR (MMIO)
-> space or configuration space of devices behind that link before recovery
-> has run. As the link is down, these accesses never complete, resulting in
-> a storm of Completion Timeout AERs.
+在 2026/9/1 15:25, Andrea Righi 写道:
+> Hi Tao,
 > 
-> Use the controller's ECAM blocker to drop these accesses to the PCIe
-> address space as soon as the link-down interrupt fires, so that Completion
-> Timeout AERs are reduced. The blocked range covers the entire address
-> space (base 0x0, all-ones limit), since the Root Port's own DBI/iATU
-> register space remains accessible regardless.
+> On Tue, Sep 01, 2026 at 11:11:01AM +0800, Tao Cui wrote:
+>> From: Tao Cui <cuitao@kylinos.cn>
+>>
+>> ops.cgroup_set_idle() is documented to be invoked when a cgroup
+>> transitions between idle and non-idle states, and scx_group_set_weight()
+>> already skips value-preserving writes. scx_group_set_idle() delivers
+>> every write unconditionally, so rewriting an already-correct cpu.idle
+>> value feeds the BPF scheduler a transition callback each time, which
+>> toggle- or accounting-based schedulers miscount. Mirror the weight
+>> guard and only deliver on an actual change.
+>>
+>> Verified with a probe scheduler printing each callback: rewriting
+>> cpu.idle=1 twice on an already-idle cgroup delivered two callbacks
+>> before and none after.
+>>
+>> Fixes: 347ed2d566da ("sched/ext: Implement cgroup_set_idle() callback")
+>> Link: https://lore.kernel.org/r/b53c61a1-4d7d-4232-941f-d48b0563d4ed
 > 
-> [...]
+> This link seems broken, I think the right one is:
+> 
+> Link: https://lore.kernel.org/r/b53c61a1-4d7d-4232-941f-d48b0563d4ed@linux.dev
+> 
 
-Applied, thanks!
+Thanks! Somehow my vim seems to have eaten the `@linux.dev` part of the Message-ID. I'll fix the Link tag in the next revision.
 
-[1/1] PCI: qcom: Block accesses to downstream devices on link down
-      commit: 86624b718f94517b26f96c1d7beb7632e5562afd
+Thanks for the review!
 
-Best regards,
--- 
-மணிவண்ணன் சதாசிவம்
+Best,
+Tao
 
+>> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+> 
+> Other than that looks good to me.
+> 
+> Reviewed-by: Andrea Righi <arighi@nvidia.com>
+> 
+> Thanks,
+> -Andrea
+> 
+>> ---
+>>  kernel/sched/ext/ext.c | 3 ++-
+>>  1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+>> index 8041c87a3562..8b3625107b72 100644
+>> --- a/kernel/sched/ext/ext.c
+>> +++ b/kernel/sched/ext/ext.c
+>> @@ -4933,7 +4933,8 @@ void scx_group_set_idle(struct task_group *tg, bool idle)
+>>  	percpu_down_read(&scx_cgroup_ops_rwsem);
+>>  	sch = scx_tg_knob_sched(tg);
+>>  
+>> -	if (scx_cgroup_enabled && sch && SCX_HAS_OP(sch, cgroup_set_idle))
+>> +	if (scx_cgroup_enabled && sch && SCX_HAS_OP(sch, cgroup_set_idle) &&
+>> +	    tg->scx.sched_idle != idle)
+>>  		SCX_CALL_OP(sch, cgroup_set_idle, NULL, tg_cgrp(tg), idle);
+>>  
+>>  	/* Update the task group's idle state */
+>> -- 
+>> 2.43.0
+>>
 
