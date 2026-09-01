@@ -1,120 +1,126 @@
-Received: from mta1.migadu.com (out-66.mta1.migadu.com [95.215.58.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B72493626
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:01:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15D0C30568B;
+	Tue,  1 Sep 2026 18:03:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788285684; cv=none; b=OFQugVLfz1sVp+zL84jCmWQGW4C56jn7koCDjsSEUEFwhdbbclRf6nMe77y3jBtjcrK07+efxUBQUZY33K/ZsbC4WnUYLPaUqMcPAlKrzqfPS1Fr6I6ycCqXcVAdxXu2Msmz7n7vDFsawQW1+EkRHZSIdte9/Sz/BGTmEMFwRTM=
+	t=1788285788; cv=none; b=MjNVNHxMvIsmj2l7rU+ssnsrcMwZnop0Yo7r7tqi33FPm8aBeDS2OAfNZXqyQZf5wtq7735Ti1KYzU3nhmv0teYHH4xREnRsl8p0EcB331oJoAV2LC6F1lWkUvEdL2Vvz8xIHXv6a1bj1QvwIOcA+8JDTickHgcuxcteu4xKWwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788285684; c=relaxed/simple;
-	bh=nqYmKjd9b9ej6SRWcnIOWJeONPy2vtwt8S3/sMfIUtY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FhiWiHhz0HEJoc3j0Ek5ApT2BzNuRJdYgLfbcIChhmg8GOwg2ULAtis2SH+jvpOPfhFdR5O2HTqnZo/HLkefcOsdV6Cg8y5XpMKtoF3jSeg9gSV48ukgeD/p5HNZTs5bfeIHVni3WBJFVmViiBHz/vALY/Z92EKkV8CvvT9c+Ko=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=q6d6LXw5; arc=none smtp.client-ip=95.215.58.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788285788; c=relaxed/simple;
+	bh=qs2SX8F5Og2czgNdzK+mMq6jg51pQlKUmsN26fJDni0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JRN+NihyO65lsnulpJkK+zhTBeGt89Dg6ZHYYv7+cMNcRD0w/2Uj7/cquQii49HS3uHPmjEGLOj8ZijNQWQ/F1Cj1+oemypXKOBFkv2RJ05R34mgZasIrTltH1iIRXWTjOMN8x0a3o8NQu3v6V7SAS0iwvwSUTAAqIbNwGysxLQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dlN9LDRK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="q6d6LXw5"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nqYmKjd9b9ej6SRWcnIOWJeONPy2vtwt8S3/sMfIUtY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788285680; v=1; x=1788890480;
- b=q6d6LXw5C7LRW32fkzga2wLw7TSXkpXDll/8iUnvQEoZ14NRnxa41tilgeEnscAopuufaDKV
- Kde3G4BMAos8MOxMYnZy0mrzOmr4bEtRvzXCpqilDG5DZ2mKe66DWsRDQIaDaEQ527BwOvUUd0U
- tBY/fp83+1EuC7Zj3egqFu74=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id dc1bc49c649213e5;
-	Tue, 01 Sep 2026 18:01:20 +0000
-X-Mizu-Trace-ID: dc1bc49c649213e5
-X-Migadu-Flow: FLOW_OUT
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Hugh Dickins <hughd@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>
-Cc: "Liam R . Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Matthew Wilcox <willy@infradead.org>,
-	Meta kernel team <kernel-team@meta.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] mm/mlock: use the IRQ-safe accessor for NR_MLOCK in __munlock_folio()
-Date: Tue,  1 Sep 2026 11:01:09 -0700
-Message-ID: <20260901180109.3797944-1-shakeel.butt@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dlN9LDRK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A999C1F000E9;
+	Tue,  1 Sep 2026 18:03:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788285786;
+	bh=LN2ENGkJIguIkuNp78+34IIF1/xG02KYlfbiil+BNbs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dlN9LDRKxHK+QstIKyaHTt5/8CZWx7xU27dJvI8fnkvIsinVAryqeIoK/eFVMTiGe
+	 9mipeViuXLpZXfE7eiC07AGyKDNWv0SOIHmLxdOQt29sNV3OtmxQSYBOJdIarvToKi
+	 WYgwkvJCnaLgJvfoxRYIOw4HkzvI/CIu9peZQue7EdNzw691jEoNmxv0Camjc/9cnu
+	 lUbcvutqTRFWO3iNLXayzy7eXol7cnsHOoRUJZ/dxZV0kOeO1iQtL1HmrC7IT04TWs
+	 17CGqS5d62E9pnjqQOj/humAvhcg13vfMeyCSjAqtuUXcKtwKFbiVBRJYmsgHtEXQJ
+	 9ptaGxt/P0xxw==
+Date: Tue, 1 Sep 2026 19:03:02 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-pm@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+	Flaviu Nistor <flaviu.nistor@gmail.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+	linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: hwmon: tmp102: Fix up TMP103 bindings
+Message-ID: <20260901-stammer-outward-dde753ce2c32@spud>
+References: <20260901174847.97261-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wmu9DbT3vuFr7WDB"
+Content-Disposition: inline
+In-Reply-To: <20260901174847.97261-1-marex@nabladev.com>
 
-NR_MLOCK is updated from interrupt context.  __free_pages_prepare() clears
-a stray PG_mlocked and adjusts NR_MLOCK, and a folio can reach it with the
-flag still set from a bio completion handler:
+--wmu9DbT3vuFr7WDB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-  __free_pages_ok+0x6af/0x7a0
-  <IRQ>
-  __bio_release_pages+0xde/0x260
-  __iomap_dio_bio_end_io+0x16e/0x1a0
-  blk_update_request+0x14b/0x3d0
-  blk_mq_end_request+0x18/0x30
-  blk_done_softirq+0x49/0x60
+On Tue, Sep 01, 2026 at 07:47:54PM +0200, Marek Vasut wrote:
+> The TMP102 and TMP110 are backward compatible, therefore the valid
+> compatible strings are "ti,tmp110", "ti,tmp102" and "ti,tmp102" .
+>=20
+> The TMP103 is not backward compatible with TMP102, but it does share a
+> schema now, therefore the only valid compatible string for the TMP103
+> should be "ti,tmp103" .
+>=20
+> Make exactly those three compatible strings valid and everything else
+> rejected.
+>=20
+> Fixes: d67ec24d3f07 ("dt-bindings: hwmon: tmp102: move ti,tmp103 out of t=
+rivial-devices.yaml")
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
 
-The folio gets there like this.  A MAP_SHARED file mapping is mlocked, so
-its page cache folios carry PG_mlocked, and an O_DIRECT write sourced from
-that mapping GUP-pins those same folios.  munlock() then runs
-mlock_vma_pages_range(), which clears VM_LOCKED before walking the page
-tables to munlock each folio.  A concurrent hole punch reaches the folio
-through the rmap (i_mmap_rwsem, not mmap_lock) and can land inside that
-window: __folio_remove_rmap() -> munlock_vma_folio() sees VM_LOCKED
-already clear, so it neither queues the folio on the mlock batch nor takes
-a reference, and the pte it clears makes the pending mlock_pte_range()
-walk skip the folio at its !pte_present() check.  filemap_remove_folio()
-then drops the page cache reference, leaving the bio's pin as the last
-one, released from the completion handler above.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+(I am just realising now that the reason for this was the binding
+in-tree having been cocked up)
 
-So __zone_stat_mod_folio() here needs interrupts disabled, not merely
-preemption, and __munlock_folio() has a path where they are not: when the
-folio has already been taken off the LRU by somebody else the function
-jumps straight to the counter update without taking the lruvec lock.  The
-read-modify-write of the per-CPU NR_MLOCK diff can then be interrupted by
-the softirq above, and one of the two decrements is lost, leaving Mlocked
-in /proc/meminfo permanently overstated.
+> ---
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Flaviu Nistor <flaviu.nistor@gmail.com>
+> Cc: Guenter Roeck <linux@roeck-us.net>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-hwmon@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
+> V3: New patch
+> ---
+>  Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml | 7 +++----
+>  1 file changed, 3 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml b/Doc=
+umentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+> index 55d9f106465d7..477f478b9dd0f 100644
+> --- a/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+> +++ b/Documentation/devicetree/bindings/hwmon/ti,tmp102.yaml
+> @@ -13,11 +13,10 @@ properties:
+>    compatible:
+>      oneOf:
+>        - items:
+> -          - const: ti,tmp102
+> -          - const: ti,tmp103
+>            - const: ti,tmp110
+> -      - enum:
+> -          - ti,tmp102
+> +          - const: ti,tmp102
+> +      - const: ti,tmp102
+> +      - const: ti,tmp103
+> =20
+>    interrupts:
+>      maxItems: 1
+> --=20
+> 2.53.0
+>=20
 
-Use zone_stat_mod_folio().  mod_zone_state()'s this_cpu_try_cmpxchg() is
-atomic against a same-CPU interrupt and retries, and on the path where the
-lruvec lock is held its cost is negligible next to the lock itself.
+--wmu9DbT3vuFr7WDB
+Content-Type: application/pgp-signature; name=signature.asc
 
-The UNEVICTABLE_PG* events are deliberately left on the __ accessors:
-they occupy different vm_event_states slots from the UNEVICTABLE_PGCLEARED
-that __free_pages_prepare() bumps, and nothing updates those two from
-interrupt context.
+-----BEGIN PGP SIGNATURE-----
 
-Fixes: 2fbb0c10d1e8 ("mm/munlock: mlock_page() munlock_page() batch by pagevec")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
----
- mm/mlock.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapcTVgAKCRB4tDGHoIJi
+0pqoAQD/EQ4f7IN4g+fkj/cjLpGRvDzBQUO5piAhC9MQrx59aAD/Y068xCi6f6xX
+j5oma8wMOcMWJwbOQu/3eG2FGRkr1Q0=
+=IAIA
+-----END PGP SIGNATURE-----
 
-diff --git a/mm/mlock.c b/mm/mlock.c
-index efa6716e4dfb..39215a3eab1f 100644
---- a/mm/mlock.c
-+++ b/mm/mlock.c
-@@ -141,7 +141,7 @@ static struct lruvec *__munlock_folio(struct folio *folio, struct lruvec *lruvec
- 
- munlock:
- 	if (folio_test_clear_mlocked(folio)) {
--		__zone_stat_mod_folio(folio, NR_MLOCK, -nr_pages);
-+		zone_stat_mod_folio(folio, NR_MLOCK, -nr_pages);
- 		if (isolated || !folio_test_unevictable(folio))
- 			__count_vm_events(UNEVICTABLE_PGMUNLOCKED, nr_pages);
- 		else
--- 
-2.53.0-Meta
-
+--wmu9DbT3vuFr7WDB--
