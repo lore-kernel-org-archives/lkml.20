@@ -1,80 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3056F64A8C;
-	Tue,  1 Sep 2026 00:15:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C4E62DE6F8
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 00:15:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788221728; cv=none; b=G8WDLo4+EwN2wqzUy51iNUUX8H+iC6ZeQLn146kiAwmhkXOP1Y9uVJq3tTQzfDHxHI7eJqRcIYZi/mNbNsxWvYk8RUtB23rNrdqCTg72A5rbOPS843Wc8UXBxdHDhP5ybA9y+mcB3jeWuZSZwm1r4pFMXduD+d+sl9Wmbnpdd8Q=
+	t=1788221752; cv=none; b=ceFNdSP+P1KMNwtd/R6b3ikDRWqsYVsS0iFTvk+cgvo+vSMLYr5xc3xLcdn/N3Tm/UF5wRwkZNGm58eFGoMSsI1c1YpNqwvoJCwQiym2uLVOv9wHBTk6pQo/Yy/YIjPDYgnqYMRMQlKCrgD4YlPIeFIZ0Js3143ZGR09yMtFAmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788221728; c=relaxed/simple;
-	bh=5vMDHhZ+0A2Xm+N/7nAlZJWIxMjCuGKanoeno4hcZmo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=rebaVocK59cw6ompR89pyIc1U2giOOoQpQdtsqwQy349dR9nIPPwmRfFbBvimmGJzOFnprVRgAUxZoSGlweGxlSHh6z+3TjWK8cG8iBacAfyQL6UgAoauv8WE+2s2ctrYdPBpdkkrDoLn5F+9T7AAyyU5qhVrMphjuc/vo8fM/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BfeGxmKE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788221752; c=relaxed/simple;
+	bh=yCGJm1jGkR5RuGr2i5gkhz3GBdsvJF4mNpsE9U0bBo4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WXGi0lLm9V/puKG0uNjH/vwbbRWftaYy2Yh+718askI4yrQeGkGDVbIVAmrUN+GBmt6gwKqUqtrlne4hVmh+idOttfnqJrEWO7AtWVnlICkacuaui6Ah5S4fraIYD3Pw3fNxFioBUuXcBAi0Ov1vVlzYQO7x8oXT+sPK+g2Xec4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d9WoiCtk; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BfeGxmKE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 242F61F000E9;
-	Tue,  1 Sep 2026 00:15:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788221725;
-	bh=1I7ynJu2ytq03AWWyjwj7LZEKvRUFatBc402ODpm9KU=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=BfeGxmKElAU9KEgRou22DO/koHkKAR2F4LgOrlkvwvXWDui+mtf1X2yqy+KZeGat4
-	 E9OwwcAl6Vl1h8HelZIBGyb+TuxDeCCtMBlwN4OBaay2B4twiLnl4ZIDzi0RvymFCF
-	 s/uarUywYLcrsQvfM22mLcybuBoTVwpx5ZPt8HfmSru4sKfuEYmkAVA69dFYKlwkX0
-	 Z89Z0U12zipmlDtHYZ4F0/aHy2e1sntJzbj3OFJf0PxEp9Dx3Qq0ihmgrwtuiQnKel
-	 uJ7ubgplK01y/FuKHgEKcSQaTY5/PwpaXOOvIArfP/Gooj7KB1zmJRt6nGn2YtKUPU
-	 QeCmCd/Wp+iKg==
-From: Nathan Chancellor <nathan@kernel.org>
-To: linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Yuntao Wang <yuntao.wang@linux.dev>
-Cc: Masahiro Yamada <masahiroy@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>
-In-Reply-To: <20260823094913.421144-1-yuntao.wang@linux.dev>
-References: <20260823094913.421144-1-yuntao.wang@linux.dev>
-Subject: Re: [PATCH] setlocalversion: make tag local to try_tag()
-Message-Id: <178822171873.4128818.6966319791092529167.b4-ty@b4>
-Date: Mon, 31 Aug 2026 17:15:18 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d9WoiCtk"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3969e82ff8fso4391817a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:15:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788221749; x=1788826549; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VfqEXN2Uyf15PT99s9ZwevHcWniSGZO3B8ZSbTXjUBU=;
+        b=d9WoiCtkaMNFsYbeMa1iAraKNC+yOAWARLz05OqE0V/PsTPuqfFgdqtY1MHfecdBO1
+         J44u6mT+eF76rWqpECjrrUVGOCnvywd60d4T2EOeRm5NARRuIif/YtKQ9QecOP1BF9Ud
+         EvqYRQpqhb3K+H2DRVFKBs49apdLe0QNZ2yT+qmFaxVOVoJppWDuT8R4EEuAlcHit0pt
+         fVv9ehb4NN5CzEdgz3YG1lP6Q8U5fS0/LwAXw+7eKolWNKDHki7uXSt+d5AVzE5tEjnS
+         GfHmOxjLNK1oaQaq5394ZCg+WAFESRbnNuCELNqvnvqKV+rgKOLXzOOlMOzrBeYRGZo+
+         jo6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788221749; x=1788826549;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VfqEXN2Uyf15PT99s9ZwevHcWniSGZO3B8ZSbTXjUBU=;
+        b=OpDRgpFtCbF0BGh5ROauNFdede9AXcW9C1PJ+ZRJ+Gb7AiHPY/+H//BkTgBY73JzR+
+         Ms7zacabfxxqhKrxSl/ECOXoaJ27v8u9fAn9u9cPoKGwy/n6kAiHwlmWTxFPRwcBHXvi
+         5ZliLFV0pw0pfqV9z6AjTqMmcMBzrpdmxhJAQQFIL9n766piPwdcCC3rmICON9j2lnTF
+         adlKz2LwiBIRoW4Yzu+HkJo+4T2Vz30tgPuVcVmG3qTKlYpTNWoApRMNu0b7h3wjL7dQ
+         5KYiE1RPrwP3HNb165NJBbrfKuaCAg6kGDsZqiwitBshqHB8H7imnFB0xrCJ5GR/shp4
+         20Jw==
+X-Forwarded-Encrypted: i=1; AKwUvBxUHtcAeZc2n6umgWIVzQC/GrjHc9L/QM6ly3flzrXRZYRyPcL1NPPxTJa+FBTsZ55ITTgThZ0/sPP+KDI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lFB7C8NJl36ExsRHPK5gB0Vwu7LPLQ2fwJEXWHt03zB5SK20ui
+	kuIq+gNZ0S/Pia6iFnigmOhvIpOGmQhs1NAoJ3DxyUliUSnNQIVO2UlT
+X-Gm-Gg: AYBFou0tr0mt2ZD1e6LF8pQLSQ7QrJkcVsCiBYY1VP9MsKqvOgErJpbJ/lnSf4YSVXb
+	JKy/dc21/4agatplmkSjAz28+C2tjXZJthK2OOKgsKSk/w99epcFKhEWNI6//0uOD6NI7D1IwL7
+	l35DC9K0/7iy0OTzDgSDe3DEE6NKft/i8ZV/7lAV1q4+wCH575+M+wLAwuaaodcu43OBBjLo8Xa
+	kzeFSOYOg4pVK/jPvFQtx3qf7tLYfv1ZDsTFnabcgAIcx8be1zYBDew3szF4DQGauyDoyfSiAy6
+	4BrU5ahzCxZgyNJrlaYsQrVdHot2xPm4pUT/qadEMiGmICS5xIi78bNdTO9dOWsY3lPzUoKZAlD
+	OfmrMjYxyTDNUN8X7F5GjuUo64DYIosrrrZ33kC+AL9RwbHr3xBFco8rge3VI6496JAKowci9y2
+	sGuPK7BasIMORTDrJ5g04SPVwV1ZZmSMnf3qiIIgdr2cW1MWaMWBTDy0Sr0qpFak9VvtvYKBxUl
+	im3AxBiztIUeHXA1m0XhQYaJdcSnw==
+X-Received: by 2002:a17:90b:530c:b0:381:1c96:829b with SMTP id 98e67ed59e1d1-396d0d4c43amr46596844a91.3.1788221749583;
+        Mon, 31 Aug 2026 17:15:49 -0700 (PDT)
+Received: from [192.168.1.3] (ip68-4-215-93.oc.oc.cox.net. [68.4.215.93])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d3fdf6sm32745466c88.6.2026.08.31.17.15.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 17:15:48 -0700 (PDT)
+Message-ID: <478c7bc6-bdd7-45c1-ae8f-cc7e672912de@gmail.com>
+Date: Mon, 31 Aug 2026 17:15:48 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.18 00/83] 6.18.49-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260831133359.207714926@linuxfoundation.org>
+Content-Language: en-US
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260831133359.207714926@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=712; i=nathan@kernel.org;
- h=from:subject:message-id; bh=5vMDHhZ+0A2Xm+N/7nAlZJWIxMjCuGKanoeno4hcZmo=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFnTJCXuLOGLnLYxQuK58q3bLUp3Fbqil6ke+VBjce/OD
- bYN37jNO0pZGMS4GGTFFFmqH6seNzScc5bxxqlJMHNYmUCGMHBxCsBExE8w/DP9pGmwbvXhaZyd
- NfMzBT6KvDwXGhr12mb7mw41w5K5S3cwMjS3/ZYtFFmw8ciS5w++qreGHxQMfjTVKkV8r4h3/Ex
- eDiYA
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-On Sun, 23 Aug 2026 17:49:13 +0800, Yuntao Wang wrote:
-> setlocalversion: make tag local to try_tag()
 
-Applied to
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/kbuild/linux.git kbuild-next-unstable
+On 8/31/2026 6:33 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.18.49 release.
+> There are 83 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.49-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-Thanks!
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-[1/1] setlocalversion: make tag local to try_tag()
-      https://git.kernel.org/kbuild/c/ba0e6a6f0fe7a
-
-Please look out for regression or issue reports or other follow up
-comments, as they may result in the patch/series getting dropped or
-reverted. Patches applied to an "unstable" branch are accepted pending
-wider testing in -next and any post-commit review; they will generally
-be moved to the main branch in a week if no issues are found.
-
-Best regards,
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
-Cheers,
-Nathan
-
+Florian
 
