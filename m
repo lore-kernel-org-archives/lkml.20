@@ -1,145 +1,99 @@
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAEAA477981
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:19:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788290390; cv=pass; b=DBXIS9rq+axvSbW80kn/A1ju4pynXfpnP/exjnu8ipYPO4zgKft58EthupCNH847q4EOAXmZ2E1Bonx7hftcPn80AKnwHHeLwfzEWKS95t3tKvODy2Sdt1w4R8ie5IrHdv1zMkfn3OOIrhA9vv4fBUp45kuUbdKBJ3iy0buKFT8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788290390; c=relaxed/simple;
-	bh=OeXCShUDRg/EoGX0bQe5nZls3cDjB6iKzioYj+6G7Po=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MgTyxiStb0hn2QwHSo3WD54d8+7GHhae4kP8aCOIe4XK+MHkVbAq3TyJuaviFTYjGHwJ7AITugtW4pLd2knoUKn/R6R4KwFzosDxBHoxzHE+tJPGzXF7YnmX/L+xjTD/5wUMbh7V7Q77Uf/+TWo1PAkKxztjueZlcgRzrRezcuI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KE/L64JM; arc=pass smtp.client-ip=209.85.217.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0765649CF22;
+	Tue,  1 Sep 2026 19:21:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788290480; cv=none; b=tH2JB+dskSsnPDxdvPIgd5e4mDq2gEB0cBCg/hNEnbmmgOB2S8ah8vP9okzDA/CaTFGHLfTEZcSS0it+qrqhIKsDrSqgAm6nhvcUMrIn4QF832wbbkD31+v3NXWuYjFB9ju3BXMYRebSO4eH+OFexylXOdgmn9+aDVltIINSXUo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788290480; c=relaxed/simple;
+	bh=rFCR4wvJPqtoOsLRqFRiTraJfKJOCvUH3Vowulw0ArM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pmdLCBQmO7TaUK4sSbym+yx0TJKFQQ10Of4zMvOXW50QpMXlDchrTGN7ufXFkbPizg8dI+3bqo1F1IR2SxWd9qz3OD+wOqN+adVW9okbhrtF3aiuau9wnhbxO9M3CdhPMixmsSI6uUXswQgAyCu4pG35Yw9Uxdwq5XZDLYaTzaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=JOO1+1L2; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KE/L64JM"
-Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-7855bfd6ab6so127909137.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:19:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788290388; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DOF94Ppna0fGcoc363CvLRqeMAjQmNaHHlazv75xnxo2T9bUb08pAe8/VTfeKQffbu
-         5aCPAZpV5C5iJqhY9ELS9mlTadNO0X4CMT+i09x7KFToeecxddcA/7oFrWYt5EnfpDIN
-         Py8kuVJrb/yxAzUTHkAWoSPPLwuH5Pl+TPtrbyjzsCt9q9YTVYFzGDfxWSRVRvB4DRRX
-         PZQ94c7S/PQDDLnhZ+/dfCSzlvCsLsoONB5JVp3PYLvpoaI1GJo2rZqNwCfMsWHL6IWR
-         PSdpecgX6j6iTdFO8mv5MMdC4x2tjc/DtAuCDUIqYJkGCjVwb42V4glLOe6zN209X0eI
-         7lxA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=OeXCShUDRg/EoGX0bQe5nZls3cDjB6iKzioYj+6G7Po=;
-        fh=w5KKZ51EKCdmdVM+XGot1FXtAuQdWdi+pp2nUu7h89k=;
-        b=QOLDvWQyOPy0PRfKL4PQ8uvSjPlqE8+Rku+07JfPL5WFcNzNHD/WMYDFTIONHP2OGK
-         oT423t16XWoAxknRu9MCtdtH+XNguLihwmK9QJdAX1hLI0ao2GUzdLCWwb5c3fjT6pA6
-         oJbK4vmiwEPinXeqadarJbgmKYRDW5MKAhPkw+Ga2wHJQFOhh572N5vpWhr4GtLFyuqK
-         DI+ROa9+KoU9YpYNeoUWXusbNlEuGcPIw78TGM9CBJcYtZMRHssL5s2n/sWWQ6UFIk0c
-         dnCrVt/ZqViNv7ySZEiu11fQQs62Nws6u4RbD73Cz1krb6GNKLaxCiPzCuaZEWTBq55g
-         o2sA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788290388; x=1788895188; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OeXCShUDRg/EoGX0bQe5nZls3cDjB6iKzioYj+6G7Po=;
-        b=KE/L64JMYW8qdYveadiAStk5did2TxAzFacqIinZC1vJbJ/Om66sG/K+SaFRkbVNXL
-         NX6M249DtIJjag6rfArHwpA5TXgdF3AmQFac1WCjiz9iSDLo0Nh2I0+B34WNvMLnKQL/
-         HlhX0EvCdAliYYp2Ykbbw1Nf7li9m1wyan07sFk7p7YMv8Dxu/JL+YBMgDnWxiybBS4Q
-         m3feFQuDRnCFxXPLKL2PDUNXbEOsV2dQm1K3U+CvHED5vPDdnkvWyswQvdRWYFHtRI62
-         LssFY43Qbqdbxq/VMlTRK9PiehJuRzidzUuBA6v9WRNpJIELzIG/ik68XAKR4MQw6PfZ
-         hDUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788290388; x=1788895188;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OeXCShUDRg/EoGX0bQe5nZls3cDjB6iKzioYj+6G7Po=;
-        b=XLbYj7ufpaESsza9+Dy+UXlSBmKLs6tRlaJpb7hDSCT7srO/xJ1E3Ovb1mVaB/3HBr
-         drrs1rMDEOtC4IpNbCgQyrB8CaFYIpXG9Z9WdT8SyBRF+aBLwyjhgrFmn6ndqiOb29yj
-         hblcrXBmqUBPQlwKav/kxLAzqfNrcTxfPASrubkuo/E02G3DUrHXvovAOcqADQ0G8uxK
-         LwERH9SCnYGBaKxpPnLMeTghCwQh+zvQB07r4n37yV4M2S5p3DXVWCmt+zEuYlyeNypT
-         RG/Obr1OiUCJsx7CphLaNJy3PAfjxVr8Tap4qwJHkHwAnH0jjj1H4jsgiGG8IKWXoAw7
-         3qSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz2fUpyRuI0SlYuZbw+I57AgLijfFNrjnMnrzoOjBI/ZqO4AP8afvQ3kUKOr0jFR9wox5LEPzRN8q5ZH9Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++lyMkwHXHGRD2eH7BEFbkAkOC9gBGzy8kAhfX8tIrg/LdDc916a
-	EqYMFh7cxsG6ZdCjU2dAWI9Tsv1sn9iL7EKUUyfhqeC8NJaQmL0IMV5pehAU+lULGTlaM3eNULL
-	dB3J78iZL0YiPxPSUu7Fy4xHEB0QK5oM=
-X-Gm-Gg: AYBFou3VfARPnxGSpAEmfigTbLcDcBa2geU2GXcMyWspVzZWL54sZUK4Cl/IfXn6dIT
-	OnrnmMO+gOVsJOE5GjPGrI99UfvBydUJKamBWfZjn8C1gsu7ybxNx+RI8YLh2hI6c6G6VfMR7lt
-	xklvkIWAIHpH3ppyP9tXSc7FPw9DC1Lpx1zvW3PTsJ7f5tK0joBWnP52/iiTzxPF6lz3k3JKshl
-	CJ2yiwhyniXqlthcIN2ml77OOBjg9z8x8/EsOFS0AOIQ8SY3TWKn+vY9Fj1b6D1+jePbzIj10or
-	bfQeuiWaUwHqB3g22OeMexLzAlohROwK4xQ2QU/6pyjkFhFTp6nIhv4loCPa9s5MbqhDckofnrv
-	E8/O5NvK/hi8=
-X-Received: by 2002:a05:6102:8090:b0:784:b9ec:910b with SMTP id
- ada2fe7eead31-78a1c856b5amr85437137.12.1788290387764; Tue, 01 Sep 2026
- 12:19:47 -0700 (PDT)
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="JOO1+1L2"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id D31DA40E01DD;
+	Tue,  1 Sep 2026 19:21:13 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 42J7P_o6H5Nz; Tue,  1 Sep 2026 19:21:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1788290463; bh=RnB4UBwIEU5ra0mwZ01BUCuLPy+58IVs4ew37pEMoXc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=JOO1+1L273NyqfcFGwz2MT94SkwUY+b8uVgDoJa653eT5gtWzVONMMzv+jX3TL0QK
+	 DQnQ1yJgZDcxC2tOpBvs1nRWJ8ymnlElQZruVLAJQm4PazrZPgQepckG7RcltsVl8V
+	 BuZfc5wfOkZ49YdT8GpN69T5jtUrDID6WbiCmzORwtXRAZVd3DjlGCWkoYiZ8dYbYt
+	 llHUv/QtmuDgnr38XOSvF5OazHwO+dq0CEVUc24j5nvvkc2TlugkxKGwWuFe/+GppP
+	 Vq1A5SoJxK7qDyytsvsepZ4Q+MdSgqX2L/xm5sAvDbTjabHYNh0mbtnizA615wYU74
+	 mNnUPQE17VxdwaHDbzEE2ZRPOADmraP7VF/10NsKy5hEZN7FSnTwB78Pxjg4A7PEmg
+	 fk6LBPgj36NvAo3jOYO6HNQ7+sZ1Sph9tEzExKoBfZ0+8IqECTzz/VgMz3F9V28m4L
+	 o+uSE7S0TEU+K9mLOb79Qh7RXIccMC7tKxbewNLSrz0k6JjWM07GACH1vf1H4xBFGF
+	 ha1kCJjMcTGmfm/101WrWNpsG92FTbxQHADRecgAxHi6n5T2H04SM/0I3Nfl6sxBo2
+	 L3TDgOkyJTZS+UmOlYk6CU4GLAwqZdemIvs8It0MMpWW8i0Lf3XEdMfIpeZ3Q4IM8s
+	 g4XXoiThC2RTKS3y5TOVozmc=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id CD76340E01E1;
+	Tue,  1 Sep 2026 19:20:28 +0000 (UTC)
+Date: Tue, 1 Sep 2026 12:20:25 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: "Kalra, Ashish" <ashish.kalra@amd.com>
+Cc: tglx@kernel.org, mingo@redhat.com, dave.hansen@linux.intel.com,
+	x86@kernel.org, hpa@zytor.com, seanjc@google.com,
+	peterz@infradead.org, thomas.lendacky@amd.com,
+	herbert@gondor.apana.org.au, davem@davemloft.net, ardb@kernel.org,
+	pbonzini@redhat.com, aik@amd.com, Michael.Roth@amd.com,
+	KPrateek.Nayak@amd.com, Tycho.Andersen@amd.com,
+	Nathan.Fontenot@amd.com, ackerleytng@google.com, jackyli@google.com,
+	pgonda@google.com, rientjes@google.com, jacobhxu@google.com,
+	xin@zytor.com, pawan.kumar.gupta@linux.intel.com,
+	babu.moger@amd.com, dyoung@redhat.com, nikunj@amd.com,
+	john.allen@amd.com, darwi@linutronix.de,
+	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
+	kvm@vger.kernel.org, linux-coco@lists.linux.dev
+Subject: Re: [PATCH v12 4/5] x86/sev: Add support to perform RMP
+ optimizations asynchronously
+Message-ID: <20260901192025.GHapcleQABEDuwZc3I@fat_crate.local>
+References: <cover.1786389115.git.ashish.kalra@amd.com>
+ <9c9502278f68af9da19f0dd583ba303d0e6d66d2.1786389115.git.ashish.kalra@amd.com>
+ <20260829205208.GDapNGeGMOs02IrkGS@fat_crate.local>
+ <c699a686-dab2-4e7b-af6e-3ea89cbed202@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827175703.1549-1-orgads@gmail.com> <2026090139-shout-unscrew-0197@gregkh>
-In-Reply-To: <2026090139-shout-unscrew-0197@gregkh>
-From: Orgad Shaneh <orgads@gmail.com>
-Date: Tue, 1 Sep 2026 22:19:35 +0300
-X-Gm-Features: AcwNN1XyWSUHocmPj2MzGIz9O3V7vm4LgQI7ayfr9wFZoCCSHoE-NA8v0K5-Wdk
-Message-ID: <CAGHpTBKDBsecVq3Tww7qSo+h9=MVxe-AFAMkUbowK8MbEpu1xg@mail.gmail.com>
-Subject: Re: [PATCH 1/3] usb: octeon-hcd: fix the FIFO-flush timeout computation
-To: Greg KH <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <c699a686-dab2-4e7b-af6e-3ea89cbed202@amd.com>
 
-On Tue, Sep 1, 2026 at 5:48=E2=80=AFPM Greg KH <gregkh@linuxfoundation.org>=
- wrote:
-> Should this series have an Assisted-by: tag?
+On Mon, Aug 31, 2026 at 03:00:25PM -0500, Kalra, Ashish wrote:
+> And we drop the leader/follower bookkeeping, but the warm-up stays.
+> 
+> Minor nit with the patch below : with the andnot gone, this_cpu is now unused, so please drop it.
 
-Yes - my oversight, v2 will carry it on all three patches:
+Ok, these changes mean, the previous patch "x86/sev: Initialize RMPOPT
+configuration MSRs" needs to be redone too so that it doesn't add
+rmpopt_cpumask at all.
 
-Assisted-by: Claude:claude-opus-5
+So please take all the cleanups from this thread and send a new revision
+after integrating and testing them.
 
-I used Claude Code for the analysis, patches and commit texts. My
-Signed-off-by stays as the DCO certification; I ran and reviewed it all on
-hardware.
+Thx.
 
-> How did you find and test it?
+-- 
+Regards/Gruss,
+    Boris.
 
-I'm updating the kernel on our Octeon boards from ancient 2.6 to 7.2, so I
-walked into it. Bringing USB back up on an AudioCodes M800 (CN5020p1.1-300,
-board type CN3010_EVB_HS5), modprobing octeon-hcd killed the board: watchdo=
-g
-reset, nothing printed. Serial capture caught a soft lockup in __delay() un=
-der
-cvmx_wait_tx_rx(), where the missing parens on octeon_get_clock_rate are ri=
-ght
-there in the deadline; git blame lands on 3e195a80e096, and the cast hides =
-it
-from the compiler.
-
-The flush never finished on my board because the driver got the DTS default
-12MHz crystal instead of the board's 24MHz external reference, so the PHY n=
-ever
-came up and the USBC registers read all-ones. That is a board/arch problem =
-I'm
-handling separately, but it made a reliable reproducer: with the clock wron=
-g,
-probe never returns and the board dies; with 1/3 it times out after 100us a=
-nd
-returns an error; with 2/3 it bails earlier at GHWCFG3 and says why. With t=
-he
-clock right, the root hub and on-board 4-port hub enumerate at high speed a=
-nd
-run without errors, so the timeout doesn't fire on healthy hardware - same
-setup 3/3 was measured on (8200 -> 4 USB interrupts/s idle). Builds clean,
-checkpatch is happy.
-
-Untested: any part other than CN5020, and the HFNUM wrap path in 3/3 beyond
-reasoning plus long idle runs with a hub attached.
-
-- Orgad
+https://people.kernel.org/tglx/notes-about-netiquette
