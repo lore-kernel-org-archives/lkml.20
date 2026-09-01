@@ -1,91 +1,91 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F16E366048;
-	Tue,  1 Sep 2026 14:21:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC63F366048;
+	Tue,  1 Sep 2026 14:21:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788272479; cv=none; b=tGDtVKFiNEkIaqAIElmNKk9jtZMhUilZm8Vt0GJGGFNiEpM3hs2b+qdQrdiujGPF1S5ULV2mjYnCmlbAw9tadpm0Od6IhcJMUcS288L9C5JXHSBkbtRn5kmkgxcCAZmD1zsLRcaiWzTIVK16VXcLahkL6diNvAvJRD8l/GVJDzQ=
+	t=1788272494; cv=none; b=ZiTF0nQ5NWaFnUX/uDY/pd4+2Qx2eN82saSXnEhkr1OEM2KxZaPLQRhI+cqg8OnTKolt09xpXMTDHWIcWPfdoRL8gDyBlupcBl2Y/SF/gJVh2gRbjU1yg0g1rOCG5dwqkRk5TIjR8FdUGSWM5pOsT29rZeN0kGg+xxAUwmHODC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788272479; c=relaxed/simple;
-	bh=WKx0dUE0doFC6+SAHC20I3U3fPMSdZd2MyvoNanlSuc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rhAy/Z7bMFe64SOw9banQAqjP5S1TKyFDvy85mzsZbOdKrXTshs1F9OR4t6QegkK+nxcCwQUJ7Q6Lig7JYe7f1rePgvWnxClSqrD+ES8j1NksmFUZ/woY+GlplEq61W10AJD7OIWbDt12FCq3+6SZjscw5nqUgVZ4OO6ozixf6o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=t9fUmDEG; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788272494; c=relaxed/simple;
+	bh=Z5KC5/voZNvU5d96y2OKaoXL8EZmW60+UN09Xzk6T1s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=t87IMhzJdhn3YRtkAaR6pSpupcFlTB9hERhhW1yqeB9zNnlBQPSOOoG/PXuCocVtvx97NxPAKSw9h/45zhZA9JISLgntDxraC58bIF0+k+HIElNbGDHnFAQMyvNx6xMBmZ06XwMlzueQqImfKvnFRrCBiOgkAkWtZ9DsVSyg+KI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cLxkpoDe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="t9fUmDEG"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=Qw1ecCgMMihyYP+SiQ//Ez6T8sZrR5bj2VsU7ndXDGU=; b=t9fUmDEG/FsEuhlufXePstuI5U
-	zK5WPg7W/pwwBStlL2qLLV53/oLJuFmv8GdbgaJs3uqNYQe7o7sVyRicYa7oLmUjL6NW1c08V76Dj
-	J0V3TYbw2XUzwDvWtcJijEaAl3hNzFYc0SRDcOtZxFjwJI/+j5w2CfUTBWE15Mzy+JyQ=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x1PMG-002MrZ-Ud; Tue, 01 Sep 2026 16:21:04 +0200
-Date: Tue, 1 Sep 2026 16:21:04 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Hangbin Liu <hangbin.liu@linux.dev>
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	Hangbin Liu <liuhangbin@kylinos.cn>
-Subject: Re: [PATCH net-next 1/2] netdevsim: add link speed support
-Message-ID: <4892d03c-6493-4c1c-aaab-39d71ddf527b@lunn.ch>
-References: <20260831-nsim_speed-v1-0-7a651ee65738@kylinos.cn>
- <20260831-nsim_speed-v1-1-7a651ee65738@kylinos.cn>
- <20260831150818.660de896@kernel.org>
- <apZ3f3vm5sUrcyrZ@fedora>
- <apaLl13Saka4Sw1J@fedora>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cLxkpoDe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD68F1F000E9;
+	Tue,  1 Sep 2026 14:21:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788272492;
+	bh=YAKNeA/4QkQbqM7hiTsCNwtyw4TIDuXo+NwB0Wtjg8Y=;
+	h=From:To:Cc:Subject:Date;
+	b=cLxkpoDemeEpk0FOZWJ8PTfdzMQIIQmHZWADV7Sa0nYy1cxf05eBmqWvEY6QtJiyv
+	 C0SDFrR1gx3xBgfQYM9gWxFPusKPFUagWnBXJxakhGBu0fugR6NdsgKa/RrRovqIEv
+	 iAJTX8FQ+fKAohkcnFoNnkGDDQ/HWLPp2v5llt42q4iRDDSYrxw+UBWF2QWaWEYXZ6
+	 QS84Cx49gp/NO5M+5JdtFyKdfsLpcKAtihFG88GyCw8zWu+iG8jU4MSHq8uuEQWF4H
+	 faK2UnGEWYLP3bczrn48EzVuX+t/m1TC1VZP8x4bxeAw0rLDP9jkz9cUOxMOgkEF/c
+	 MJdVvII5Y11hw==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>,
+	x86@kernel.org
+Cc: Jinchao Wang <wangjinchao600@gmail.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Ian Rogers <irogers@google.com>,
+	linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-perf-users@vger.kernel.org
+Subject: [PATCH v3 0/3] tracing/probes: Fix BTF structure member finder
+Date: Tue,  1 Sep 2026 23:21:26 +0900
+Message-ID: <178827248631.123716.2627172171811720261.stgit@devnote2>
+X-Mailer: git-send-email 2.43.0
+User-Agent: StGit/0.19
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apaLl13Saka4Sw1J@fedora>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 04:23:51PM +0800, Hangbin Liu wrote:
-> On Tue, Sep 01, 2026 at 02:58:17PM +0800, Hangbin Liu wrote:
-> > On Mon, Aug 31, 2026 at 03:08:18PM -0700, Jakub Kicinski wrote:
-> > > On Mon, 31 Aug 2026 11:28:10 +0800 Hangbin Liu wrote:
-> > > > Add ethtool get/set_link_ksettings callbacks to netdevsim so the simulated
-> > > > link speed and duplex can be queried and configured from userspace.
-> > > > 
-> > > > Move NSIM_LINK_SPEED_MAX and NSIM_LINK_SPEED_UNIT from dev.c to netdevsim.h
-> > > > so they are available to both the devlink rate path and the new ethtool
-> > > > code. The set callback rejects speeds exceeding NSIM_LINK_SPEED_MAX.
-> > > > 
-> > > > The default link speed is set to SPEED_5000 with DUPLEX_FULL, matching the
-> > > > existing NSIM_LINK_SPEED_MAX definition.
-> > > 
-> > > This breaks TDC which uses netdevsim for taprio testing.
-> > 
-> > Sigh, I really didn't expect a speed feature could break the tc qdisc
-> > testing... I will check the reason.
-> 
-> OK, here is the reason. In taprio_set_picos_per_byte(), it init NIC speed to
-> SPEED_10. If the NIC doesn't support get_link_ksettings, the final calculated
-> picos_per_byte would be a extremely large number 800000. The later tc taprio
-> testing `tc qdisc ... sched-entry S 02 300` will always failed in
-> fill_sched_entry(), as min_duration is also a large number 48000.
-> 
-> After we supports get_link_ksettings for netdevsim, the speed is 5000 and
-> picos_per_byte will be init to 1600. The later min_duration checking in
-> fill_sched_entry() is 300 vs 96. So the tc qdisc command always return 0.
-> 
-> To fix the test, I think we should reduce the interval number. e.g.
+Hi,
 
-Why not just set the initial speed to SPEED_10, so nothing changes?
+This is the 3rd version of fixes for the BTF structure member finder in
+trace_btf.c. Sashiko found 2 problems in it during reviewing the wprobe 
+series.[1][2]
+[1] https://lore.kernel.org/all/20260822095110.0772E1F000E9@smtp.kernel.org/
+[2] https://lore.kernel.org/all/20260830143859.D56991F00A3D@smtp.kernel.org/
 
-    Andrew
+Here is the previous thread:
+  https://lore.kernel.org/all/178822361441.115597.11442662641658772793.stgit@devnote2/
+
+This version decouple the indentation cleanup part from [2/3], and
+add a new cleanup patch[3/3].
+
+Thanks,
+
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+
+Masami Hiramatsu (Google) (3):
+      tracing/probes: Fix anon_stack check for unnamed bitfields in btf_find_struct_member
+      tracing/probes: Fix BTF kflag check for anonymous struct member access
+      tracing/probes: Fix code indent in get_bitoffset_of_field()
+
+
+ kernel/trace/trace_btf.c   |   31 +++++++++++++++++--------------
+ kernel/trace/trace_btf.h   |    3 ++-
+ kernel/trace/trace_probe.c |   15 ++++++++-------
+ 3 files changed, 27 insertions(+), 22 deletions(-)
+
+--
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
