@@ -1,363 +1,151 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 832F8486B82;
-	Tue,  1 Sep 2026 17:22:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27744485CEC;
+	Tue,  1 Sep 2026 17:24:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788283377; cv=none; b=US7nupsex5ypswhHqm06wcDYOfQV+Jbkjcfv7fE9H7qWzAwf04FB0UrqUz1+Jx6DfSR9WtgeblUdwGC6aBqXYhMlphiOqVXLZKFTFe4BNFAxJMuaM8TH1rI871SjG4V+B9quqe/F1JK5Zus7zefh5drCPpjZoNC7A9q8hn8NwAc=
+	t=1788283456; cv=none; b=e+8svL02HNk28YiuVqRPbCApTaVwAKny3sruMBkpOfe4V39r+tY4Lr8jzpv8rsNWGd13aAQnhz+wJvlK50npf12y6NAYmU+iGNDIySm2MxozywAMSTbymQ0Md7c1BXNchEH0HhOxfsq6ANDQzDZRaKkku0WBK4Zp75fP43CRfFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788283377; c=relaxed/simple;
-	bh=n2H38iWvZIE+jZsfjoU/6HkPlgh3y6+8xS5AimbIenE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Disposition; b=VjFKI4nyKIdRdp/xhzn1FSG8LOMUF66tYQ+RSBvVHxI2bqcc8CodRftWlQJNo+wYSw7yPuWOd6rmx2YgD7EXtbmzd3kIhp2TkKe+QD4VcgYtifsHXErFrlEj3jZWPKcyguBfEVM0UgugX8HrvDw9e+TO2EoJINjN40a98jruQnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Ej7IEhFH; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788283456; c=relaxed/simple;
+	bh=UY6btghwQtIwfJk0bmCNskL778LtGOfFmqSp3uBvIRA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=l+lf555guxLTeuyxQ1hpTJRXdu/4b5vFab06rzhmEYCgme4+npSTg7IU96cXu8s57ELNzAAupxLK/e3rJMfnSzcrm1acwGvKvt/5I33093suyoJ4y02LVxFUoi0sj/KXmj9R6XmpFAJ0xbxhsUtIf6GQe8KoOFZDN2oZOIpvjrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WTo6UkzH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Ej7IEhFH"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 06FCC1756;
-	Tue,  1 Sep 2026 10:22:51 -0700 (PDT)
-Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 185233F7D8;
-	Tue,  1 Sep 2026 10:22:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788283374; bh=n2H38iWvZIE+jZsfjoU/6HkPlgh3y6+8xS5AimbIenE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Ej7IEhFHq8mSVYiuKKqLFTWea+V0OFSqyoyGCBQRnSIxZx8CUbcd28q0HSKnQcvna
-	 kcK/7HVLH/O4jvQHpOvlmEmZtKTG0zSW9ZyGHOjLW+25xqK3ZKKrRjeghKwiLl4ovV
-	 NBlxHhtBmS7x7BCz0grhymWtPKmAzigmMkRuzeL4=
-From: Leonardo Bras <leo.bras@arm.com>
-To: Tian Zheng <zhengtian10@huawei.com>
-Cc: Leonardo Bras <leo.bras@arm.com>,
-	Oliver Upton <oupton@kernel.org>,
-	maz@kernel.org,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	yuzenghui@huawei.com,
-	wangzhou1@hisilicon.com,
-	yangjinqian1@huawei.com,
-	caijian11@h-partners.com,
-	liuyonglong@huawei.com,
-	yezhenyu2@huawei.com,
-	yubihong@huawei.com,
-	linuxarm@huawei.com,
-	joey.gouly@arm.com,
-	kvmarm@lists.linux.dev,
-	kvm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com
-Subject: Re: [PATCH v4 3/6] KVM: arm64: Add auto DBM support for hardware dirty tracking
-Date: Tue,  1 Sep 2026 18:22:49 +0100
-Message-ID: <apcJ6bClZbX4BCpR@LeoBrasDK>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <ad48e628-d036-440e-955d-856c2539e568@huawei.com>
-References: <45d76d0d-48e9-46a6-b1f9-691f840eba46@huawei.com> <anBrvILpcSFhW7Wg@LeoBrasDK> <95f1ebd4-be04-4684-be68-388f752a1379@huawei.com> <anDCno9HdVI5UAls@LeoBrasDK> <2070002d-94aa-4a5b-8df1-e8e0f0fd265c@huawei.com> <anHIa5PDnF7r9EA4@LeoBrasDK> <3808f469-5403-4f2e-85f0-8c6ca13068bd@huawei.com> <anmvnclRTPS6an8e@LeoBrasDK> <aoh1vw0ZdWJf6T4q@LeoBrasDK> <ad48e628-d036-440e-955d-856c2539e568@huawei.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WTo6UkzH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DA491F000E9;
+	Tue,  1 Sep 2026 17:24:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788283454;
+	bh=EL0Xo+Mhydk52yGAHcNqYMVa9Cn0eSVqA82Qi453s+I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=WTo6UkzHgw76FyrAZXps+cxxRQdHRvjH9pz5rD+x+iUEvbuHYaDe/ksJCW5GvY6Jg
+	 JaZdXgg9tBq9f4KY+EH4U9Nwbo/CWlUdSctATAq5h3/12sj6oYmvMYipVuYsO98zji
+	 BI2RPNFtIYc2LA21ZFKYBQPKyGnZx6M2DR/icKUAb1VrzzJSAJeSRiPqPxJB+p6oXz
+	 N0OLj6KHgk1Hupco2E4Sd4pSgBeNPOnCoxCtRNE7Ds9D2g9ry7KryMs9q7OHUTihfM
+	 9uXHUVizu23JZBwiRzllsykRaR9QLgIJ9MV4LBFAUtxvfOnSZ77Gbps1gGqTLVmdZ5
+	 jCGnAHKrc2y9g==
+Message-ID: <a42cdc44-efaf-44ff-9ace-f08e0c3b9856@kernel.org>
+Date: Tue, 1 Sep 2026 19:24:07 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH net-next 2/2] selftests: drv-net: Use cross-compilation
+ environment for the io_uring check
+Content-Language: fr
+To: "Maxime Chevallier (Netdev Foundation)" <maxime.chevallier@bootlin.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ thomas.petazzoni@bootlin.com, linux-kselftest@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>, davem@davemloft.net,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Donald Hunter <donald.hunter@gmail.com>,
+ Simon Horman <horms@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ Stanislav Fomichev <sdf@fomichev.me>
+References: <20260901164200.1124343-1-maxime.chevallier@bootlin.com>
+ <20260901164200.1124343-3-maxime.chevallier@bootlin.com>
+From: Matthieu Baerts <matttbe@kernel.org>
+Autocrypt: addr=matttbe@kernel.org; keydata=
+ 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
+ lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
+Organization: NGI0 Core
+In-Reply-To: <20260901164200.1124343-3-maxime.chevallier@bootlin.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Aug 31, 2026 at 08:36:10PM +0800, Tian Zheng wrote:
+Hi Maxime,
+
+Thank you for looking at that.
+
+On 01/09/2026 18:41, Maxime Chevallier (Netdev Foundation) wrote:
+> To test for the presence of zerocopy support in the available liburing,
+> a small check program is compiled.
 > 
+> The CC value used for the io_uring library check defaults to the host
+> compiler, which will fail in cross-compiling environments.
 > 
-> On 8/21/2026 11:58 PM, Leonardo Bras wrote:
-> > On Mon, Aug 10, 2026 at 12:01:49PM +0100, Leonardo Bras wrote:
-> > [> On Wed, Aug 05, 2026 at 11:41:51AM +0800, Tian Zheng wrote:
-> > > > 
-> > > > 
-> > > > On 8/4/2026 7:10 PM, Leonardo Bras wrote:
-> > > > > On Tue, Aug 04, 2026 at 12:54:16PM +0800, Tian Zheng wrote:
-> > > > > > 
-> > > > > > 
-> > > > > > On 8/4/2026 12:32 AM, Leonardo Bras wrote:
-> > > > > > > On Mon, Aug 03, 2026 at 09:57:46PM +0800, Tian Zheng wrote:
-> > > > > > > > 
-> > > > > > > > 
-> > > > > > > > On 8/3/2026 6:21 PM, Leonardo Bras wrote:
-> > > > > > > > > On Mon, Aug 03, 2026 at 12:04:24PM +0800, Tian Zheng wrote:
-> > > > > > > > > > 
-> > > > > > > > > > 
-> > > > > > > > > > On 8/3/2026 9:33 AM, Tian Zheng wrote:
-> > > > > > > > > > > > > > > > > 09, 2026 at 06:40:23PM +0800, Tian Zheng wrote:
-> > > > > > > > > > > > > > > > > > -    if (prot & KVM_PGTABLE_PROT_W)
-> > > > > > > > > > > > > > > > > > +    if (prot & KVM_PGTABLE_PROT_W) {
-> > > > > > > > > > > > > > > > > >                 set |= KVM_PTE_LEAF_ATTR_LO_S2_S2AP_W;
-> > > > > > > > > > > > > > > > > > 
-> > > > > > > > > > > > > > > > > > +        /*
-> > > > > > > > > > > > > > > > > > +         * No DEVICE filter needed here:
-> > > > > > > > > > > > > > > > > > relax_perms is only called
-> > > > > > > > > > > > > > > > > > +         * on FSC_PERM faults. Device pages
-> > > > > > > > > > > > > > > > > > always get full RW from
-> > > > > > > > > > > > > > > > > > +         * initial mapping and are never write-protected during
-> > > > > > > > > > > > > > > > > > +         * migration, so they never trigger a permission fault.
-> > > > > > > > > > > > > > > > > > +         */
-> > > > > > > > > > > > > > > > > > +        if (pgt->flags & KVM_PGTABLE_S2_DBM)
-> > > > > > > > > > > > > > > > > > +            set |= KVM_PTE_LEAF_ATTR_HI_S2_DBM;
-> > > > > > > > > > > > > > > > > > +    } else {
-> > > > > > > > > > > > > > > > > > +        /*
-> > > > > > > > > > > > > > > > > > +         * Clear DBM on W→RO downgrade to prevent hardware from
-> > > > > > > > > > > > > > > > > > +         * silently upgrading RO+DBM back to W+dirty, which would
-> > > > > > > > > > > > > > > > > > +         * bypass KVM's write tracking and cause data corruption.
-> > > > > > > > > > > > > > > > > > +         */
-> > > > > > > > > > > > > > > > > > +        clr |= KVM_PTE_LEAF_ATTR_HI_S2_DBM;
-> > > > > > > > > > > > > > > > > > +    }
-> > > > > > > > > > > > > > > > > > +
-> > > > > > > > > > > > > > > > > This block makes it pretty evident that the DBM bit really *is* the
-> > > > > > > > > > > > > > > > > write permission bit. I'd much rather we
-> > > > > > > > > > > > > > > > > introduce the concept of dirty
-> > > > > > > > > > > > > > > > > state to the page table library and migrate the abstract write
-> > > > > > > > > > > > > > > > > permission to the DBM field, even if we don't have FEAT_HAFDBS.
-> > > > > > > > > > > > > > > > > 
-> > > > > > > > > > > > > > > 
-> > > > > > > > > > > > > > > Ohh, that's an amazing idea!
-> > > > > > > > > > > > > > 
-> > > > > > > > > > > > > > Thinking about that again...
-> > > > > > > > > > > > > > If we adopt the encoding with DBM being the write-permission
-> > > > > > > > > > > > > > bit, and all
-> > > > > > > > > > > > > > PTEs have it since the start, how can we have lazy-splitting happening?
-> > > > > > > > > > > > > > 
-> > > > > > > > > > > > > > Only way I think of is removing both DBM and S2_S2AP_W bit
-> > > > > > > > > > > > > > from writable
-> > > > > > > > > > > > > > PTEs during dirty-track enable, and re-adding them during
-> > > > > > > > > > > > > > the first write
-> > > > > > > > > > > > > > fault. If we don't remove the DBM bit, systems with HDBSS
-> > > > > > > > > > > > > > would just dirty
-> > > > > > > > > > > > > > it by hardware, without causing a fault.
-> > > > > > > > > > > > > > 
-> > > > > > > > > > > > > > DBM=0 would need to happen only in the first write-protect (only on
-> > > > > > > > > > > > > > lazy-splitting). All other write-protecting would just clean
-> > > > > > > > > > > > > > the S2_S2AP_W
-> > > > > > > > > > > > > > bit, as everything is already split.
-> > > > > > > > > > > > > > 
-> > > > > > > > > > > > > > Is that what was intended?
-> > > > > > > > > > > > > > 
-> > > > > > > > > > > > > > Thanks!
-> > > > > > > > > > > > > > Leo
-> > > > > > > > > > > > > > 
-> > > > > > > > > > > > > Hi Leo,
-> > > > > > > > > > > > > 
-> > > > > > > > > > > > > I think the cleanest way to handle this is to simply avoid setting DBM
-> > > > > > > > > > > > > on block mappings. If we only set DBM on page-level PTEs, then block
-> > > > > > > > > > > > > mappings will naturally stay DBM=0 and trigger a write fault on first
-> > > > > > > > > > > > > access — exactly what we need for lazy splitting.
-> > > > > > > > > > > > > 
-> > > > > > > > > > > > > When the fault occurs, the block gets split into page-level PTEs, and at
-> > > > > > > > > > > > > that point we can set DBM=1 on the resulting leaf entries. This way:
-> > > > > > > > > > > > > 
-> > > > > > > > > > > > > 1. Lazy split works naturally (fault -> split -> set DBM=1)
-> > > > > > > > > > > > > 
-> > > > > > > > > > > > > 2. No need to clear DBM globally at dirty-track enable
-> > > > > > > > > > > > > 
-> > > > > > > > > > > > > 3. No special handling for block mappings
-> > > > > > > > > > > > > 
-> > > > > > > > > > > > > So I think global DBM is still viable — we just need to filter out block
-> > > > > > > > > > > > > mappings when setting the DBM bit. That way the lazy split path
-> > > > > > > > > > > > > is preserved
-> > > > > > > > > > > > > without extra complexity.
-> > > > > > > > > > > > 
-> > > > > > > > > > > > Hi Tian,
-> > > > > > > > > > > > 
-> > > > > > > > > > > > Humm, but would not that be contrary to what Oliver suggested:
-> > > > > > > > > > > > changing the
-> > > > > > > > > > > > encoding from the PTE for all entries?
-> > > > > > > > > > > > 
-> > > > > > > > > > > > (Like, if the PTE is writable, it has to have DBM set)
-> > > > > > > > > > > > 
-> > > > > > > > > > > > IIUC what you said, on first faulting of the page in the VM:
-> > > > > > > > > > > > - If the entry is a page (level-3 leaf) and writable, add DBM
-> > > > > > > > > > > > - If it's a block entry (leaf but not a level-3), don't add DBM
-> > > > > > > > > > > > 
-> > > > > > > > > > > > So after we enable dirty-logging:
-> > > > > > > > > > > > - a level-3 entry would not fault, using HDBSS, and
-> > > > > > > > > > > > - a block entry would fault, do the splitting, and add DBM to level-3
-> > > > > > > > > > > >        entries during the split.
-> > > > > > > > > > > > 
-> > > > > > > > > > > > If I got that correct, that would be clean indeed.
-> > > > > > > > > > > > 
-> > > > > > > > > > > > But then we would have a different encoding for block entries and page
-> > > > > > > > > > > > entries. In page entries, DBM could be used to say if the page is
-> > > > > > > > > > > > writable,
-> > > > > > > > > > > > but on block entries one would have to look at the 'dirty-bit'.
-> > > > > > > > > > > > 
-> > > > > > > > > > > > Would that be ok?
-> > > > > > > > > > > > 
-> > > > > > > > > > > > Thanks!
-> > > > > > > > > > > > Leo
-> > > > > > > > > > > > 
-> > > > > > > > > > > Hi Leo,
-> > > > > > > > > > > 
-> > > > > > > > > > > My initial concern was that clearing all DBM bits at the start of
-> > > > > > > > > > > migration would be too expensive, so I thought distinguishing between
-> > > > > > > > > > > level-3 entries and block entries would be better.
-> > > > > > > > > > > 
-> > > > > > > > > 
-> > > > > > > > > I think we expect it to be expensive, but since we already clean the
-> > > > > > > > > dirty-bit (ro/rw) bit, we can have both happening in the same write :)
-> > > > > > > > > 
-> > > > > > > > > (since we only mark the DBM bit when we fault the memory on lazy-splitting,
-> > > > > > > > > we are expecting to have the same amount of writes to pagetable as we have
-> > > > > > > > > before HDBSS, both on faulting and 1st iteration cleaning)
-> > > > > > > > > 
-> > > > > > > > Hi, Leo
-> > > > > > > > 
-> > > > > > > > Actually, I have thought about this approach too, but if we clear DBM in
-> > > > > > > > kvm_pgtable_stage2_wrprotect(), then during the first round of
-> > > > > > > > migration, we will fault and release RO -> W, and then add DBM.
-> > > > > > > 
-> > > > > > > Yeah, that's only for lazy-splitting, though.
-> > > > > > > 
-> > > > > > > > 
-> > > > > > > > But next time, when we migrate the dirty pages in round two, we will run
-> > > > > > > > kvm_pgtable_stage2_wrprotect() again, which will clear DBM again. And
-> > > > > > > > finally, HDBSS will be useless during migration.
-> > > > > > > 
-> > > > > > > Right, on lazy splitting, we have to clean the DBM bit on the
-> > > > > > > write-protect only if it's a block entry (hugepage).
-> > > > > > > 
-> > > > > > > Once it faults for the first time, it will lazy-split, and we don't need to
-> > > > > > > clean the DBM bit.
-> > > > > > > 
-> > > > > > > > 
-> > > > > > > > > 
-> > > > > > > > > > > However, I ran a quick test on a 400GB VM (4 vCPUs), and the overhead
-> > > > > > > > > > > turned out to be around 30ns — which I think is acceptable.
-> > > > > > > > > > 
-> > > > > > > > > > Just a quick correction — I misstated the unit in my previous email. The
-> > > > > > > > > > overhead for clearing DBM on the 400GB VM (4 vCPUs) was around 32 µs, not 30
-> > > > > > > > > > ns.
-> > > > > > > > > > 
-> > > > > > > > > 
-> > > > > > > > > Oh, that seems more likely :)
-> > > > > > > > > 
-> > > > > > > > > Question: is tha above amount of memory initially in Level-1 blocks,
-> > > > > > > > > level-2 blocks or level-3 pages? (aka: were you using explicit/transparent
-> > > > > > > > > hugepages?)
-> > > > > > > > > 
-> > > > > > > > 
-> > > > > > > > I'm using transparent hugepages. However, if we were to use level-3 stage-2
-> > > > > > > > pages with -mem-prealloc enabled in QEMU, I believe the time cost would be
-> > > > > > > > extremely high — potentially out of our control.
-> > > > > > > > 
-> > > > > > > 
-> > > > > > > Yeah, that's the issue.
-> > > > > > > For this not to explode like this, we need to mark as RO only when the
-> > > > > > > entries are blocks AND we are doing lazy splitting.
-> > > > > > > 
-> > > > > > > We have:
-> > > > > > > Mode	DBM	Dirty bit
-> > > > > > > RO	0	X
-> > > > > > > WC	1	0
-> > > > > > > WD	1	1
-> > > > > > > 
-> > > > > > > On write-protect:
-> > > > > > > - Lazy splitting + block entry (hugepage, level 2-) -> RO
-> > > > > > > - Otherwise					    -> WC
-> > > > > > > 
-> > > > > > > On first fault, the block entry will be lazy-splitten, and we can set DBM=1
-> > > > > > > in every new page.
-> > > > > > > 
-> > > > > > > That way we guarantee that we are not faulting level-3 pages unecessarily,
-> > > > > > > nor need to go through the whole tree setting DBM=1 or DBM=0 on level-3
-> > > > > > > pages.
-> > > > > > > 
-> > > > > > > How does that sound?
-> > > > > > > 
-> > > > > > > Thanks!
-> > > > > > > Leo
-> > > > > > > 
-> > > > > 
-> > > > > > 
-> > > > > > Hi Leo,
-> > > > > > 
-> > > > > > I've also been thinking about this approach: clear
-> > > > > > KVM_PTE_LEAF_ATTR_HI_S2_DBM when kvm_pgtable_stage2_wrprotect() calls
-> > > > > > stage2_update_leaf_attrs(). And we can check whether a page is a block
-> > > > > > page during the page walk, right?
-> > > > > 
-> > > > > Hi Tian,
-> > > > > That was what I was thinking :)
-> > > > > 
-> > > > > > 
-> > > > > > So we can check the page level in the walker callback
-> > > > > > stage2_attr_walker(), filter there, clear DBM for block pages and
-> > > > > > preserve DBM on level-3 pages. Something like this:
-> > > > > > 
-> > > > > > ```
-> > > > > > pte &= ~data->attr_clr;      // wrprotect: clears S2AP_W only
-> > > > > > pte |= data->attr_set;
-> > > > > > if (ctx->level < KVM_PGTABLE_LAST_LEVEL)
-> > > > > 
-> > > > > Only on lazy splitting, right?
-> > > > > 
-> > > > > Or maybe we get the DBM bit on during eager splitting...
-> > > > 
-> > > > Hi, Leo
-> > > > 
-> > > > No, it works for both. Whether eager or lazy split, wrprotect always runs
-> > > > before split, so the block DBM is cleared first.
-> > > 
-> > > Hi Tian,
-> > > 
-> > > On eager splitting, why should we ever strip DBM?
-> > > 
-> > > Eager splitting means we won't have to fault to do the splitting, so we can
-> > > have HAFDBS/HDBSS handle every fault, including the first one that we use
-> > > for lazy-splitting.
-> > > 
-> > > > 
-> > > > For eager split: wrprotect clears W (W=1->W=0) and strips DBM from the
-> > > > block. Then the block is split into level-3 pages, but since W=0 and DBM
-> > > > depends on W, DBM stays 0. DBM is only set back to 1 during the first write
-> > > > fault (relax_perms: W=0->W=1, which also sets DBM=1).
-> > > 
-> > > I suggest that, on splitting, set all writable level-3 pages with DBM=1.
-> > > If lazy-splitting, that will happen naturally on the first fault's split.
-> > > If eager-splitting that will happen during the split as well.
-> > > 
-> > > So total solution looks like:
-> > > - Dirty-logging on, walk the memslot pagetable
-> > >    - On block: mark as read-only
-> > >    - On page: mark as writable-clean
-> > > - On splitting: Mark writable block's new pages as writable-clean
-> > > - On fault: after the split, mark the faulting page as writable-dirty
-> > > 
-> > > This should take care of everything, including lazy/eager splitting
-> > > differences, as well as set the groundwork for HDBSS to work properly.
-> > > 
-> > > What do you think?
-> > > 
-> > 
-> > I implemented that down, and will send it soon.
-> > Seeing the code will make it easier to understand the idea :)
-> > 
-> > Thanks!
-> > Leo
-> > 
+> Normally the CC for cross-compile is set in lib.mk, but this also
+> requires the test list to be set when we include it, and this check
+> needs to run first.
 > 
-> Hi Leo,
+> Note that this doesn't cover the LLVM cross-compiling case though.
 
-Hi Tian,
-
-It was already done here, but I got sidetracked and forgot to send before.
-
-https://lore.kernel.org/kvmarm/20260901171558.2674031-1-leo.bras@arm.com/
-
-The relevant parts for the RO/RW -> RO/WC/WD conversion are in patches #1, 
-#2 and #3.
-
+Maybe it is enough to just check if LLVM is set?
+> Signed-off-by: Maxime Chevallier (Netdev Foundation) <maxime.chevallier@bootlin.com>
+> ---
+>  tools/testing/selftests/drivers/net/hw/Makefile | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> v5 already implements this, and I'm about to send it out shortly.
-> 
+> diff --git a/tools/testing/selftests/drivers/net/hw/Makefile b/tools/testing/selftests/drivers/net/hw/Makefile
+> index 78bb0169350b..0ebb4767cd57 100644
+> --- a/tools/testing/selftests/drivers/net/hw/Makefile
+> +++ b/tools/testing/selftests/drivers/net/hw/Makefile
+> @@ -1,5 +1,8 @@
+>  # SPDX-License-Identifier: GPL-2.0+ OR MIT
+>  
+> +# Set CC for the io_uring check
+> +CC := $(CROSS_COMPILE)gcc
 
-Oh, awesome! 
-Please verify it against the patchset above, just in case :)
+Could we have something similar to
+tools/testing/selftests/riscv/cfi/Makefile:
 
-Thanks!
-Leo 
+  # Set CC for the io_uring check done before including lib.mk
+  ifeq ($(LLVM)$(CC),cc)
+  CC := $(CROSS_COMPILE)gcc
+  endif
+
+WDYT?
+
+But that's possibly not needed for this simple check? I guess if gcc can
+find liburing.h, clang should look at the same places.
+
+>  # Check if io_uring supports zero-copy receive
+>  HAS_IOURING_ZCRX := $(shell \
+>  	echo -e '#include <liburing.h>\n' \
+
+Cheers,
+Matt
