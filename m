@@ -1,87 +1,38 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from hr2.samba.org (hr2.samba.org [144.76.82.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE77C481FA5
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:48:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FD96399D00;
+	Tue,  1 Sep 2026 16:50:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=144.76.82.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788281336; cv=none; b=u8l8SSDosI/w7Epfr+sJG2lacWrpMra0edXke084Lt/Cd2QYI0BH8bpqQx37J+/o0/F5XNC/LryTTQW3noMUlRlCxxslTvjLq36FX1ovjd4JDkEFtrZZbRUR21v2ESLPphKn39IqknvjXsH482y72JTje6PmaxvQEK0otYlGoXo=
+	t=1788281431; cv=none; b=t3x1MERKW3y7kZo+nW5osx+ythqvV1cdUo4gsZJXbaRLzU4o8Pf4Lg8RGsH5PMPGJw9gFy3+oRDK+tQiqJ9KFVmIzJenPo2vBb+e7o9xRVvoezwA2DrFPyRldd7fGshM0hLubpzaktBgZE3fRdZpM5nL9pPnWP8op1MFZZdlS6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788281336; c=relaxed/simple;
-	bh=CfzWqf5o+3N92HLjtir92933+kWR07XnaDw5BK9jsWQ=;
+	s=arc-20240116; t=1788281431; c=relaxed/simple;
+	bh=SDOwRP58mmnKlrUHlccngVQYFwJN3D63qUx2AYvxIKE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZmH6/XGSlOBnut59/ANnVEwPIQKs/mhdiryNfe9Q5sPPrbwrngkmqATV8ExdZ46YxDer7xcvtg0MIEMz9TkIKVNMya995LRiBaWsQjQ4rI6vchKrNfFQpD+L0Swow8qgutmv5QFfUc34Ls61QqmC9iSyIDjg+JN26ox5FvyBa5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gLNqsggg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hI+IV1JF; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=gQ/UcgC7BvCxI+dpKwrz+ezqo98DTRU3/3F+MP4dgg6eKBEUjGWwXq2hfBQeCJ4Fd3yn29zBE7V/Foyhv//f5eHipF3MzVf9tTnYCemKSs1f2bZ7aYTcZWZqRXw/8VxzbWnzzF7WRvgLtkhVZQPiDrM5afkvmnTErEpvbQkgrXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org; spf=pass smtp.mailfrom=samba.org; dkim=pass (3072-bit key) header.d=samba.org header.i=@samba.org header.b=VPmxNb81; arc=none smtp.client-ip=144.76.82.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=samba.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samba.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gLNqsggg";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hI+IV1JF"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681E8tFj3914100
-	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 16:48:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	b62TM3b+R7LBBBMdiFoxJotUo5iPVNG6UJ+rLi3xZbw=; b=gLNqsgggpn1u3v7B
-	ihUObr1bhMSg+9eNo6gGT6JwdQ7VCl51Iw1tDlfT4vRHHDM0zHCPu7D0NAMXY0zW
-	AAwHroDHKm4owfTqo/eS9u+jDHHeLbm3JKcUK52z+XGnbU9RvFqJ+1KwRR2L6qJk
-	JVLFPl1EYWSvB0Ua4ajiC5qSdyS0Qg1A3IHBC2SWo8BSj87hAUb7ZPFrDWH/qiP3
-	OCjG5jrZyzgig4exr5ZLAcflW30O/0utbZfTJY3ql5AOlbKCGyvJQ+X+aeyedqW2
-	IulmWho7SXtAee0CvZgQClTNGFS6P8W7Q6rG9pVLPhmpYQp1fQj5rLHqH7AmI4kd
-	rX2J3Q==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdsnu2wqn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 16:48:53 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1c18c775eso1460838a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 09:48:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788281333; x=1788886133; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b62TM3b+R7LBBBMdiFoxJotUo5iPVNG6UJ+rLi3xZbw=;
-        b=hI+IV1JFvx2lYKZoDbus3DhNXE0sLMcx/UCUUFDRUWewDOIWaXI7vsMNt2CvH5OyQG
-         dBOLa7aNImfryyC6I/Y2Acy/HZzMBKx+x633xuo+ZTdPTnjexp4i1c/N0w9krP5x65+I
-         YJH5M0R//cQkfQHy9GH+uuwwdIi0D98FD8/FVIqdW3lFnlm9274YYBojKXRQCdkBQ2cj
-         EMXUAkFfW5DFcEcA872tGJYEH5ldLwFfgo9O8bJe6U4rIcBlVIxtJwtoObft0oK6IYYi
-         KwxgdcIo/FS1CInRv9J5RbeZYbKyWo0kl9vwoLqhNsqwczjebAiUK6DsvOeno/pKs65N
-         BBXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788281333; x=1788886133;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b62TM3b+R7LBBBMdiFoxJotUo5iPVNG6UJ+rLi3xZbw=;
-        b=cRrOSzeJqXZ9TzBOqgiLbaokCuvy4BXqMC4HYECjPUZ8p4dPjtmw22bXu7CorL1k8m
-         OpSv6Pvj88ht4WKRrw/jTZg0BfOTayO1j2WUziUhsycEEyX5vponk4/J5RLEPEgwd15A
-         Pf79NhkjhXxmdKR8OuTgNEA/frWodjC/JtRzfo01k5+dX9/qiBsjfj6aPKwq9qCvt1Z0
-         IF5vMFQTmesmUUd7CP61B8HrYCXEB/XkBmgF4kXQbhisn5Yg3WIFuv024PGZJAx867Lx
-         lRnNyaWEqiUVADRbJvuKbPdX+ArCmwFcHbmcWIpccC5lN1aqYxNksMTT7AeyJ5gqJozJ
-         Lw1A==
-X-Forwarded-Encrypted: i=1; AKwUvByMcbt+W41KwaWK5OS55bB4KtM40RqxyddrOAk5Txwsy1SoUP78cdPy7hqlwGL70v60aoBvNuZSQe6hfMs=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKTmGkwnPb+ghbyIDDxX3ZggPP3n1b4ZpZCHPsI1eXrpOAz7IR
-	mnSL8UYGqevPjiD1bcSbN5nwatR68V7VFJVUCWeTSlJ8nQkZ6jzFFCLc7iQqWPKAyB6M1KgE1nr
-	QAi+oygCaQh+OrBYWVHkRQWO7eQ2ouKZIOHJmw6+GX8e4PeA6aDLr04fBqaAF/dZwzlo=
-X-Gm-Gg: AYBFou0ALVExK7Y+UdUYlDdyzoxSgiQJ8SIJWU/y8JINAB6NFsWUUzvpLK9RJLKWUqk
-	ihNl7FeD1USzuILTtZ+wsm+gP5qYZ8YRTxeMPxVjvvC/ETnuYAK9ijPhlMDrzAb7udXMR5RwItz
-	KhW17A8lgT8pk01swQW9M8f2bVMCE+ZjiQ0SfeKPIPQgK2yS1cf+11t+I9cqlF0d+rcwYdjRylf
-	K89YdSO6neaLRUNKsVj0cnKTTrWkrhXCx43mxrQzoC4fh1rLazAT7AoPcf7x9PZ6Hy2RYJxei1p
-	+usO7ftfvuP72kdpGurTwXViYvJpREVpcwVQpskwPc6SjRSc0n1xsE96pBbkv4lWQ8QRsyWv4n7
-	mgaqM/KPNtWT92rdoZgvbWz7myTaO9CfQ
-X-Received: by 2002:a17:90b:2247:b0:37f:a913:1554 with SMTP id 98e67ed59e1d1-3990f890861mr6902049a91.16.1788281333017;
-        Tue, 01 Sep 2026 09:48:53 -0700 (PDT)
-X-Received: by 2002:a17:90b:2247:b0:37f:a913:1554 with SMTP id 98e67ed59e1d1-3990f890861mr6901973a91.16.1788281332349;
-        Tue, 01 Sep 2026 09:48:52 -0700 (PDT)
-Received: from [192.168.0.5] ([49.204.111.114])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-328713b944bsm41662284eec.27.2026.09.01.09.48.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 09:48:51 -0700 (PDT)
-Message-ID: <177884a8-902f-49be-8fcb-b2bec3ec7d6c@oss.qualcomm.com>
-Date: Tue, 1 Sep 2026 22:18:44 +0530
+	dkim=pass (3072-bit key) header.d=samba.org header.i=@samba.org header.b="VPmxNb81"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=samba.org;
+	s=42; h=From:Cc:To:Date:Message-ID;
+	bh=C30V8qWM8Ula8+RBcfws0g6Mkjg3NA2ZsU4qGPGdJpk=; b=VPmxNb81eFyfOgf41a72wjEHKf
+	VWtl5rilUbWLhd3Ag+s8wGuWXK/MHFl/l3jpHoinBn0VaJQTC4a3ZBMlgiuxXtPzLfpRLFnTo0gMt
+	yr0mpLzhEcvf96lznYG5lDpBJTELFMuhSnZ1x6kGpWvrQPBfa6Rb7Dqugb/gODCE+9122JQ8WkxNx
+	hKRCQuRkd2ZH25o2eDWAT30xsruNPeacFiovgHMeN4NuVbRoOKImWgs9EM505OLHnfKl7ZJzenir3
+	HLljfqgOmt1LwqNK9enMIGeI5bAhInphbI5ncZcbMzodhHW2hhOBWQKs6z6S1fQ88OKNLw6E+U6N5
+	aT2h94xtYjeyeaEjvYYkg5Ow/wqDrYSxftOgiT8Rg1w1pcWDOHUntfOLMg7KJIF0OryuyxBT4733M
+	S26EBYmF76txlsiPae8TZgp1aZCTS9kN6pks2W1HG36GIWBNQGdCr2sXQexxsh0Y8fU8pSKC5HeKZ
+	TI4KU7YJBztMejqMf4DxnNJv;
+Received: from [127.0.0.2] (localhost [127.0.0.1])
+	by hr2.samba.org with esmtpsa (TLS1.3:ECDHE_SECP256R1__ECDSA_SECP256R1_SHA256__CHACHA20_POLY1305:256)
+	(Exim)
+	id 1x1Rgg-00000002P6e-0jyo;
+	Tue, 01 Sep 2026 16:50:18 +0000
+Message-ID: <47142579-3af7-453b-875c-ff6d610f26a7@samba.org>
+Date: Tue, 1 Sep 2026 18:50:15 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,179 +40,114 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/9] soc: qcom: geni: Derive SE clock configuration
- from OPP table on SA8255P
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Cc: konrad.dybcio@oss.qualcomm.com, Sudeep Holla <sudeep.holla@kernel.org>,
-        Cristian Marussi <cristian.marussi@arm.com>,
-        Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Jiri Slaby <jirislaby@kernel.org>, Mark Brown <broonie@kernel.org>,
-        Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
-        Andi Shyti <andi.shyti@kernel.org>, mukesh.savaliya@oss.qualcomm.com,
-        chandana.chiluveru@oss.qualcomm.com, arm-scmi@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-serial@vger.kernel.org, linux-spi@vger.kernel.org,
-        linux-i2c@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
-References: <20260827-derive_clk_perf_tbl_from_perf_domain_opp_table-v2-0-091697dbeb02@oss.qualcomm.com>
- <CAPx+jO9fcvBsxe9yx9oK=0EXmpNwub5ba0a-TGk1WRFaRGsqpA@mail.gmail.com>
+Subject: Re: [RFC PATCH] RDMA/iwcm: allow aborting an active connect awaiting
+ CONNECT_REPLY
+To: Leon Romanovsky <leon@kernel.org>, Yunseong Kim <yunseong.kim@est.tech>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Jacob Moroni <jmoroni@google.com>,
+ Bart Van Assche <bvanassche@acm.org>, Namjae Jeon <linkinjeon@kernel.org>,
+ Tom Talpey <tom@talpey.com>, Yunseong Kim <yunseong.kim@ericsson.com>,
+ linux-cifs@vger.kernel.org, samba-technical@lists.samba.org,
+ linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org,
+ Bernard Metzler <bernard.metzler@linux.dev>
+References: <20260805000159.321645-2-yunseong.kim@est.tech>
+ <20260901124103.GL24140@unreal>
 Content-Language: en-US
-From: Praveen Talari <praveen.talari@oss.qualcomm.com>
-In-Reply-To: <CAPx+jO9fcvBsxe9yx9oK=0EXmpNwub5ba0a-TGk1WRFaRGsqpA@mail.gmail.com>
+From: Stefan Metzmacher <metze@samba.org>
+In-Reply-To: <20260901124103.GL24140@unreal>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDE0OCBTYWx0ZWRfXypaPgIuyczdx
- ksWeqE73OKyYLsyaGA+UZ14J/Uua/RBBKkKYbSJWWmg3uqa9qr6LxWeoUebZA5Nf/MCVbSNVPlm
- MOu4KuS+lTDHlIUJpjIt0L9Xc6LImp/zKu2K7R91de5Bw+x+UHm5K5v54defeKUItwEa00sb7kN
- 2I0oK+0CYIZuNWhEFoFaTLVGtVduB4N0rVyMQnWVSGm72LeC0GKwpGMkZrVOB/6u79w3/C+jOOu
- 8dKGmjZK7eto82ySCcwU4KDtZufjjyhdnOQYOn49zjrAsAuBpXZ+VL3NJGM51s2RbTS/rogom6l
- WZHJ4j9RweWtO3EEzvNs/LeRRFHed/WMWs4rTIhtJVIhQsiCMftTqCFVO5M2WX8JMU0GtPHEi7C
- 98/JtLUrgxhUjb19VIL4qQNDHIqDvD2ypGE6Ba4qpiGwu4NyP/GSVSodv5HrriraZanrkX2F94e
- RTEaSOWWz/9BCsLchLg==
-X-Authority-Analysis: v=2.4 cv=L6ItheT8 c=1 sm=1 tr=0 ts=6a9701f5 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=Z/g59IqO3Gki/5UUpFMnLg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=1OWG-U-0pMjJ1F8qq_YA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDE0OCBTYWx0ZWRfX76XcVtrmSBGv
- PHjBqIgOWAWIY4lQNoqPCF2JfEjJZDWncgPccYsonY+clTMR1KOuagaf9FUyhK94bze815mJMMY
- 22RDWgOeziBOdGi6QUY2ymhBsGSoZpo=
-X-Proofpoint-ORIG-GUID: vt9Kntn3RL2lDO37MpmtzyXKoeoIYiNT
-X-Proofpoint-GUID: vt9Kntn3RL2lDO37MpmtzyXKoeoIYiNT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_04,2026-09-01_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 phishscore=0 suspectscore=0 priorityscore=1501
- lowpriorityscore=0 impostorscore=0 malwarescore=0 bulkscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010148
+Content-Transfer-Encoding: 7bit
 
-Hi Ulf,
+Hi Leon,
 
-On 01-09-2026 20:22, Ulf Hansson wrote:
-> On Thu, Aug 27, 2026 at 7:59 PM Praveen Talari
-> <praveen.talari@oss.qualcomm.com> wrote:
->> On firmware-managed platforms such as SA8255P, there is no Linux clock
->> handler available to determine the appropriate SE source clock, source
->> clock index, and divider values for a requested protocol frequency.
->> However, these parameters are required when programming GSI TREs, where
->> the hardware expects an explicit clock source selection and divider
->> configuration for the serial engine.
+> On Wed, Aug 05, 2026 at 02:02:00AM +0200, Yunseong Kim wrote:
+>> After a successful connect downcall, iw_cm_connect() returns with
+>> IWCM_F_CONNECT_WAIT still set and the cm_id in IW_CM_STATE_CONN_SENT.
+>> The only thing that clears the flag is the provider delivering
+>> IW_CM_EVENT_CONNECT_REPLY (cm_conn_rep_handler()).  Until that event
+>> arrives, iw_cm_disconnect() and destroy_cm_id() sleep uninterruptibly
+>> in
 >>
->> In contrast, platforms using Linux-managed clocks derive these
->> parameters through geni_se_clk_freq_match() using the source clock
->> information stored in clk_perf_tbl. Since the firmware-managed path
->> lacks equivalent clock information, protocol drivers cannot reuse the
->> existing frequency matching logic and instead rely on a direct mapping
->> between protocol-requested frequencies and performance levels. This
->> creates a separate clock configuration flow and prevents
->> firmware-managed platforms from deriving the actual SE clock parameters
->> required for GSI TRE programming.
-> Hmm, this sounds like moving backwards when it comes to keeping
-> drivers as portable as possible.
->
-> I understand geni_se_clk_freq_match() has been around for a while, but
-> fortunately its use seems limited to only a few qcom specific drivers.
->
-> Rather than continue down this path, would it not be possible to find
-> a more generic solution for "geni_se_clk_freq_match()"? Can we replace
-> it with a common clock/OPP API? In this way, we would not need to
-> sprinkle drivers with calls to platform specific  code.
-I agree that protocol drivers should not need to know whether GENI resources
-are managed through the clock framework or a firmware-provided 
-performance domain.
-
-The intent of this series is actually to move in that direction rather than
-introduce a separate flow. Today firmware-managed platforms cannot use
-geni_se_clk_freq_match() because clk_perf_tbl is only populated when a 
-Linux clock
-is present. This series derives the same clock-performance 
-information(clk_perf_tbl) from the OPP
-table and populates clk_perf_tbl during geni_se_domain_attach(), 
-allowing both
-resource-management models to reuse the existing 
-geni_se_clk_freq_match() infrastructure.
-
-Likewise, geni_se_set_rate() hides whether the underlying implementation 
-uses
-dev_pm_opp_set_rate() on a perf-domain device or a regular clock-backed 
-device,
-so protocol drivers no longer need platform-specific callbacks. The goal 
-is to
-converge both paths behind common GENI helpers rather than maintain separate
-clock-selection mechanisms.
->
->> To address this limitation, the performance-domain OPP table is treated
->> as the representation of SE-supported source clock frequencies. During
->> geni_se_domain_attach(), the OPP entries are used to populate
->> clk_perf_tbl and related clock performance data, allowing
->> firmware-managed platforms to leverage the same clock frequency matching
->> infrastructure used by Linux-managed platforms.
+>> 	wait_event(cm_id_priv->connect_wait,
+>> 		   !test_bit(IWCM_F_CONNECT_WAIT, &cm_id_priv->flags));
 >>
->> With this change, protocol drivers can use geni_se_clk_freq_match() to
->> select the closest supported source clock frequency for a requested
->> protocol rate, derive the corresponding source clock index and divider
->> values required for GSI TRE programming, and apply the matched clock
->> through the OPP framework. This removes the dependency on direct
->> protocol-frequency-to-performance-level mappings and provides a common
->> clock selection and configuration mechanism across both firmware-managed
->> and Linux-managed GENI deployments.
-> Rather than adding yet another platform specific method, would it be
-> possible to extend the generic OPP library with the pieces that are
-> missing to make this work in a generic way?
-I agree with the goal of using generic infrastructure. However, 
-geni_se_clk_freq_match()
-derives GENI-specific parameters such as the source clock, clock index, 
-and divider values
-required for GSI TRE programming, which are not represented by the 
-generic OPP interface today.
-
-This series does not introduce a new clock selection path; it reuses the 
-existing
-geni_se_clk_freq_match() flow on firmware-managed platforms by populating
-clk_perf_tbl from OPP data.
->
->> Signed-off-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
-> Kind regards
-> Uffe
->
+>> and both state machines treat IW_CM_STATE_CONN_SENT as BUG(), so the
+>> API has no way to cancel a pending active connect.  If the provider
+>> never generates the reply, because the peer died in the middle of
+>> connection setup or because of a provider bug, every teardown path
+>> (rdma_disconnect(), rdma_destroy_id()) blocks in D state forever and
+>> the ULP cannot recover: there is no way to disconnect after
+>> rdma_connect() was called without risking an unbounded hang.
+>>
+>> This class of problem is not theoretical.  The pending smbdirect
+>> change "smb: smbdirect: bound the disconnect wait in destroy_sync" [1]
+>> had to work around it on the ULP side:
+>> smbdirect_socket_destroy_sync() waited unbounded for the socket to
+>> reach SMBDIRECT_SOCKET_DISCONNECTED, a transition that depends on an
+>> asynchronous RDMA CM disconnect event, and when the peer died abruptly
+>> (a killed client, or Soft-RoCE/RXE where no graceful disconnect
+>> completes) that event never arrived.  The destroy ran on the single
+>> ksmbd-conn-release workqueue, every later connection release queued
+>> behind it in D state, and the whole server wedged until hung_task
+>> fired.  That change bounded the wait and drove the socket state
+>> machine to DISCONNECTED locally on timeout; ULPs should not have to
+>> resort to that, the CM should offer a teardown they can rely on.
+>>
+>> IWCM_F_CONNECT_WAIT currently guards two different windows:
+>>
+>>   * the connect/accept downcall into the provider being in progress;
+>>     teardown must keep waiting for that, it is short and bounded;
+>>
+>>   * an issued active connect waiting for CONNECT_REPLY, which is
+>>     potentially unbounded.
+>>
+>> Mark the second window with a new flag, IWCM_F_CONNECT_SENT: set by
+>> iw_cm_connect() once the downcall has returned successfully, cleared
+>> by cm_conn_rep_handler().  The teardown waits now complete when either
+>> the downcall has finished (!IWCM_F_CONNECT_WAIT, as before) or the
+>> pending-reply window has been entered (IWCM_F_CONNECT_SENT), and the
+>> previously BUG() CONN_SENT cases become:
+>>
+>>   * iw_cm_disconnect(): return -ENOTCONN; there is no established
+>>     connection to disconnect, aborting is the destroy path's job;
+>>
+>>   * destroy_cm_id(): abort the pending connect locally by moving to
+>>     DESTROYING and putting the QP into error so the provider tears the
+>>     connection attempt down.
+>>
+>> A CONNECT_REPLY that arrives after the abort is dropped: either
+>> cm_work_handler() sees IWCM_F_DROP_EVENTS, or cm_conn_rep_handler()
+>> now recognizes IW_CM_STATE_DESTROYING (the abort and the reply
+>> serialize on cm_id_priv->lock) and frees the event without touching
+>> the QP that destroy_cm_id() already released.  The cm_id memory stays
+>> valid for such a late reply because the provider holds its own
+>> reference (cm_id->add_ref) for as long as it can deliver events.
+>>
+>> The passive side has a sibling gap, where after a successful accept
+>> downcall the flag stays set until the provider's ESTABLISHED event
+>> arrives, which this patch deliberately does not change.
+>>
+>> [1] https://github.com/smfrench/smb3-kernel/commit/26d0f82a02c8a9c9c8cdfc138acb7ed0bf8e01a9
+>>
+>> Suggested-by: Stefan Metzmacher <metze@samba.org>
+>> Signed-off-by: Yunseong Kim <yunseong.kim@est.tech>
 >> ---
->> Changes in v2:
->> - Add new patch to remove OPP rate reset from resource deactivation
->> - Add new patch to vote source frequency via OPP for I2C
->> - Compress the SPI, I2C and serial commit messages per review feedback
->> - Drop a stray blank line before trace_geni_i2c_bus_setup() in the
->>    I2C resource-initialization helper commit.
->> - Link to v1: https://patch.msgid.link/20260805-derive_clk_perf_tbl_from_perf_domain_opp_table-v1-0-61171ab1cdce@oss.qualcomm.com
->>
->> ---
->> Praveen Talari (9):
->>        pmdomain: arm: Fix -EINVAL from scmi_pd_set_perf_state() on state 0
->>        soc: qcom: geni-se: Populate clk_perf_tbl with SE source clock frequencies from perf OPP table
->>        soc: qcom: geni-se: Add helper to set SE clock rate via OPP
->>        soc: qcom: geni-se: Remove OPP rate reset from resource deactivation
->>        serial: qcom-geni: Use geni_se_set_rate() for source clock configuration
->>        spi: qcom-geni: Use geni_se_set_rate() for setting source clock frequency
->>        i2c: qcom-geni: Vote for SE clock rate using OPP
->>        i2c: qcom-geni: Use common GENI resource initialization helper
->>        i2c: qcom-geni: Use geni_se_set_rate() for setting source clock frequency
->>
->>   drivers/i2c/busses/i2c-qcom-geni.c      | 72 +++++++++++++++++----------------
->>   drivers/pmdomain/arm/scmi_perf_domain.c |  2 +-
->>   drivers/soc/qcom/qcom-geni-se.c         | 62 +++++++++++++++++++++++++---
->>   drivers/spi/spi-geni-qcom.c             | 24 +++++------
->>   drivers/tty/serial/qcom_geni_serial.c   | 26 ++++++------
->>   include/linux/soc/qcom/geni-se.h        |  2 +
->>   6 files changed, 122 insertions(+), 66 deletions(-)
->> ---
->> base-commit: 0f6da28aab51b16762ed82e8fdeaa5042da45b08
->> change-id: 20260805-derive_clk_perf_tbl_from_perf_domain_opp_table-2f29ad32226a
->>
->> Best regards,
->> --
->> Praveen Talari <praveen.talari@oss.qualcomm.com>
->>
+>>   drivers/infiniband/core/iwcm.c | 76 +++++++++++++++++++++++++++++-----
+>>   drivers/infiniband/core/iwcm.h |  1 +
+>>   2 files changed, 67 insertions(+), 10 deletions(-)
+> 
+> I'm not sure what to do with this patch, as the iWARP folks have
+> remained silent.
+> 
+> Stefan,
+> 
+> Do you still need this patch? Have you tested it?
+
+I'll test it soon.
+
+But the problem is real and I hit it very often in the past and the only option
+was a reboot.
+
+I added Bernard explicitly...
+
+metze
+
