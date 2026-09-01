@@ -1,94 +1,249 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F67443A97;
-	Tue,  1 Sep 2026 19:47:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92BF84457B7
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:48:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788292058; cv=none; b=QOOG+Wt8v/u0HVB+OQF8NZ03O2rRF7G7WLr7ved5VCsasXpRypd/oVbuS1pek6N3WCBtomT7fBrL4M1+k8NcxKA72iLEiibTWeWue3LcJaSwyONvfP4zXgWul50cfEf/Z/xXvXG45hJpbB0zpRtNi9fGtFs34mHKR8LXKUIy/1E=
+	t=1788292096; cv=none; b=V1KOA06YvAlRV9BkL7JJdveAQL5M1PPVlIgvO7jQE/QnFvCzawx0pPqhS/aWdsWbVT6R5xmpKSl6LMBQwJ4Sq3shvXrOR8vWA58K8Zr74cvMqa200tbQD7AqPqxdSX97pd2exSf3Ae19YocMlwtsekJgolomyrg2TynB1I6CmK4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788292058; c=relaxed/simple;
-	bh=S6Ze5dH30c1sk13lINsxsruT9DPKAtqX7682wKNvFoM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZY76xw/baSTX3dPcyhSibNs4OoTR1G8Xn1rt6ZkiawOajpbk7ntjHcWB2eQRrtDaGuX2ICPECuZwCg67FI3wW/6qP/zzxJ5JNyvYMji+ei4ToKjZRkfnLoEfRHjhSU+2l1NcDk3mLGW1uhY4uxFvcM65gBgeuKKq18l8dMToNTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=KGQ6Sv5V; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=iMGMW1+A; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788292096; c=relaxed/simple;
+	bh=sPC3Ah28TihUij+uD/N02WrVG3dZzALQlVZpFtjEf+g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EVVn8BPF3OzHJt0UC/8+Cs330iEhg3D5kt68tVabM/uAQPiCtie6jJz2pnSjoKGzC16ddQp6g5N8FtWMH9aF98+mBT6N5Gw33CITpUMkLiaf4yYdhWWDxTBTPKJbZJr+UCy4BRj65xyGj9yImY+nueewq+gErEe0eXmYwc4IC8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bv+M9GMr; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="KGQ6Sv5V";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="iMGMW1+A"
-Date: Tue, 1 Sep 2026 21:47:29 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788292050;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8kVakSZKJ+/biQmo1FhyfgpI2TOx3aJuye+azQYfGnU=;
-	b=KGQ6Sv5V/WARQz5NH6d3Sb3JusTpH/c7YNqpIgnd9h+VIJikdiibfvsSkNPtm2bSP/sNrE
-	AvHRhw0oEpHKfBQZW28q8HHevQzjUQdV4cj7aH7bgegDqLPaMvv5rlmLb9YdaAASayjDzJ
-	xVlgYYJBlHfQhauHSraIKwBiw3GZR6FVxUYNYgUeeeBA0exkdQe8TVBBAh0RBWdGZWXBvF
-	h3NuDkP6SH5UBdfiI5GtXrMum8aDWrwZ4iiAoPmhDv2/N8lPNbi1ApDs+lQBJonjZYRdM7
-	zXdBN2cuHfTH8WIKTdW+KcAncRBjoEAr8ptEteLUVDWDo0bwvmdcdOyjZCGUcA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788292050;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8kVakSZKJ+/biQmo1FhyfgpI2TOx3aJuye+azQYfGnU=;
-	b=iMGMW1+AP/4HcbKeF6pbp3Co1it0nekDJR7mljsr5oAtbOpE4Avv74bSlvj0UHwdzmMNy2
-	/d0cJ8VUYMLn94Bw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Marek Vasut <marex@nabladev.com>
-Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Yicong Hui <yiconghui@gmail.com>, kernel@dh-electronics.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [net,PATCH v1] net: ks8851: Fix receiver error in 100BASE-TX
- mode following software power-down
-Message-ID: <20260901194729.r9N1Z-4-@linutronix.de>
-References: <20260901173925.96183-1-marex@nabladev.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bv+M9GMr"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b8f86c6deso1363425e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:48:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788292093; x=1788896893; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=omAAgGNiYBPCrHMFPlQIFcFCi6bz3SF78ujtnlnWU9s=;
+        b=Bv+M9GMrhR8IMwBU0JvznLxjt19V819vg+jLDr7Ew02rddWorXyfqeXM/ukrQQlrgM
+         VZurrhsFjO+cwoEKc6jzzNbwcwIAwqzozAr+FfEXQCDrR6TCCkSmT9tsBYsYtxxVmUb7
+         bm8fOvCDO72HM1Y5+izQug+qzoyTSZn0IEFnSvt20kFT5Rrt92uhdgoAhqj9xBpgMKKj
+         1D7BXht/LB1y6fy0smd5pNjH4XmwBaVsnLtfifcNUATQLY5ijY+xkUdMEsv1etq/Nzl6
+         7k1B++GJqVI4ksvF4i8l37dY8NNhj6OvPLkUNQkgvmEfBC3SpArdgh7op1u+YQZ0OdDD
+         5cqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788292093; x=1788896893;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=omAAgGNiYBPCrHMFPlQIFcFCi6bz3SF78ujtnlnWU9s=;
+        b=OguXWy+RoFEZmr3NlUzi59HoJ91O6FIl3h1jjlNYoBUSv89GGtYxBXFR5D+AiSOoA0
+         HHv+rI0/MJsNfJ78EXq4UqVgLfNCHUBGzWS2paa0+b2yb9/tn/7ortTw6o/IjTjOd1um
+         MxNtThcXXTGvrMq1TbftgkRXVlM8NBI5ZRrz9z13aLw7oTKfWz/DeECyCy9AeLLLYYuE
+         X0bSa11+wzjtYdKL4jCpXHFhp4A2qOYGC82MkW6UZEcRQpZKvNWHpThih+U4NesQjtCC
+         JsyZu7eySTDQXeJrb0dcR0ARZ124MCYi+/SWCZxbtU5hiKmOr4mhM/+xz9OUSHYgMiWg
+         7IYA==
+X-Forwarded-Encrypted: i=1; AHgh+Robq8IZmYn2po4VPd2n2Mi4W6MZIGY5vGOQj9nnemd9y49pvbbUSbKiZALhduY2pyR3ZHkeDNO+InEVLw8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mhfd3H1KKX3pJ3E1lKxerJt9CXHxsVA45jQg6DuD/tiSpHByGB
+	wOI0BGZhcWHOZ8YPK/0eu9RF/sY5YqlldF7V7c+XssrYuQJdSxm9rN4=
+X-Gm-Gg: AR+sD11XPazFMBUkpCu8/Sm6YBWCQIFdkWVXn189MtGb2aTquy+s+sWwqPm4li5l8tQ
+	KMeJlAjSx/lH7F8DDii+lQlbzTYCOQ9iE5FdArmsjvriuLqWYyX+WzU455rEb0T1l5rA/nsVOMw
+	x2H65omDum+Xb3KM0P/ctcbP/sumJK5mLft/fK8VoyofxSw6G7wlvAjxWj3z8Aq2Cqv7w5IAfuA
+	3oQdoIJiEgRr2XCq+6gXGDY8rXX/PBHUjhC0iJKsgeTqFYH5eOmw59kVPke60eZ6tdssajzDSxL
+	UO4qZpLMN3K552MLQHHp6qTRN3Sv2uBXM8Lw3vUSjqQMRndlPz3FZ2neGML0X2aGBRia2e3TGcf
+	YOqftno925PAztL6PlhnmFDqLYQm+Crv+LUsEtkTwqk5tjVYmjPHTzn51m/6G3xKLEzJ7qophTm
+	GTwiZySSg4tufG0208lFYCwMlfdCvimKm9D0yPi94fJRqyO6/n5NMspE5/e3sDtXRm38YMV5u/2
+	V4AlGqef1Zkta1nLJw2tCG/DyU3Pb5+OtHqZrQXKQbx2zJcx0Tc/mHJqIJBnugqP2ODlSvpOw==
+X-Received: by 2002:a05:600c:a012:b0:49c:d818:8764 with SMTP id 5b1f17b1804b1-49cd81887aemr267991585e9.11.1788292092338;
+        Tue, 01 Sep 2026 12:48:12 -0700 (PDT)
+Received: from chateau ([148.69.202.63])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e72b5bsm1166896f8f.4.2026.09.01.12.48.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 12:48:10 -0700 (PDT)
+From: Sergey Zagursky <gvozdoder@gmail.com>
+To: miguel.vadillo@intel.com,
+	sakari.ailus@linux.intel.com,
+	mehdi.djait@linux.intel.com,
+	mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: [REGRESSION 7.1 -> 7.2] media: ipu-bridge: IVSC camera broken by c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU bridge driver")
+Date: Tue,  1 Sep 2026 20:43:54 +0100
+Message-ID: <20260901194526.6369-1-gvozdoder@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260901173925.96183-1-marex@nabladev.com>
+Content-Transfer-Encoding: 8bit
 
-On 2026-09-01 19:39:14 [+0200], Marek Vasut wrote:
-> KSZ8851 errata sheet DS80000716D-page 4 Module 3 [1] states that,
-> when issuing a software power-down (PMECR[1:0] = 10) followed by a
-> power-on (PMECR[1:0] = 00), the receiver circuit can fail to start
-> properly preventing communication. The Transmitter will still send
-> data, but no data will be received.
-> 
-> The errata sheet also includes a workaround, which states that,
-> it is recommended that the software power-down feature not be used.
-> 
-> Implement that workaround and drop the entry into software power-down
-> mode. The ks8851_write_mac_addr() calls entry into normal power-on
-> mode at the very beginning of the function, therefore dropping the
-> second call to enter software power-down mode is sufficient here.
-> The ks8851_net_stop() can only be called after ks8851_net_start()
-> was already called, and ks8851_net_start() also makes the MAC enter
-> normal power-on mode, therefore it is also fine to drop the call to
-> enter software power-down mode from ks8851_net_stop().
-> 
-> This will lead to slight increase in power consumption, but it also
-> fixes a sporadic problem which occurs at least on KSZ8851-16MLL, on
-> which this fix is tested.
-> 
-> [1] https://ww1.microchip.com/downloads/en/DeviceDoc/80000716D.pdf
-> 
-> Fixes: 3ba81f3ece3c ("net: Micrel KS8851 SPI network driver")
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
+Hi,
 
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+the internal camera on my Dell XPS 16 9640 (Meteor Lake, IPU6 + IVSC)
+stopped working when going from 7.1.6 to 7.2. It is still broken in
+7.2.2 and, from code inspection, in 7.3-rc1.
 
-The patch description matches the errata document and the change.
+#regzbot introduced: c6b1b34b509032c7e7cef9efc63cab55c2ad309e
 
-Sebastian
+Hardware
+--------
+
+  Dell XPS 16 9640, BIOS 1.4.1 (04/22/2024), board 029TJ2
+  Intel Core Ultra 9 185H (Meteor Lake)
+  IPU6: 00:05.0 Multimedia controller [8086:7d19] (rev 04)
+  Sensor: OVTI02C1 (ov02c10) behind IVSC
+  IVSC ACPI device: INTC10CF:00, path \_SB_.PC00.SPFD.CVFD
+  Transport: INTC10D0:00 (\_SB_.PC00.SPFD) on LJCA USB bridge (8086:0b63)
+
+  Good: 7.1.6
+  Bad:  7.2, 7.2.2 (CachyOS builds, but the relevant code is unmodified
+        mainline; ov02c10 / ivsc-csi / ivsc-ace / intel-ipu6 /
+        intel-ipu6-isys / mei-vsc-hw all have identical srcversion in
+        7.1.6 and 7.2.2 -- only ipu-bridge and mei-vsc changed)
+
+Symptom
+-------
+
+No sensor subdevice is ever created:
+
+  $ cam -l
+  [..] INFO Camera camera_manager.cpp:340 libcamera v0.7.2
+  [..] INFO SimplePipeline simple.cpp:1911 No sensor found for /dev/media0
+  Available cameras:
+  (none)
+
+  $ ls /dev/v4l-subdev*
+  (none)
+
+  $ media-ctl -d /dev/media0 -p | grep -E '^- entity' | grep -v Capture
+  - entity 193: Intel IPU6 CSI2 0 (9 pads, 8 links, 0 routes)
+  - entity 203: Intel IPU6 CSI2 1 (9 pads, 8 links, 0 routes)
+  [.. CSI2 2..5, no sensor entity ..]
+
+  $ ls /sys/bus/i2c/drivers/ov02c10/
+  bind  module  uevent  unbind          # no bound device
+
+  $ ls /sys/bus/acpi/devices/OVTI02C1:00/
+  cid  hid  modalias  path  power  status  subsystem  uevent  uid
+                                           # status=15, no physical_node
+
+dmesg (loglevel=3 on the console, taken from the journal):
+
+  intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
+  intel-ipu6 0000:00:05.0: Connected 1 cameras
+  intel-ipu6 0000:00:05.0: IPU6-v4[7d19] hardware version 6
+  intel_vsc intel_vsc: silicon stepping version is 0:2
+  ivsc_csi intel_vsc-92335fcf-3203-4472-af93-7b4453ac29da: mei-csi probed
+      without device fwnode!
+
+Note that ipu-bridge reports success ("Connected 1 cameras"), so nothing
+is retried afterwards.
+
+Analysis
+--------
+
+c6b1b34b5090 added two fallbacks to ipu_bridge_get_ivsc_csi_dev():
+
+	/* IVSC device on platform bus */
+	dev = bus_find_device(&platform_bus_type, NULL, adev,
+			      ipu_bridge_match_ivsc_dev);
+	if (dev) {
+		snprintf(name, sizeof(name), "%s-%pUl", dev_name(dev), &uuid);
+		csi_dev = device_find_child_by_name(dev, name);
+		put_device(dev);
+		return csi_dev;
+	}
+
+  -	return NULL;
+  +	/* Try to locate CVS device on the I2C bus */
+  +	csi_dev = bus_find_device_by_acpi_dev(&i2c_bus_type, adev);
+  +	if (csi_dev)
+  +		return csi_dev;
+  +
+  +	/* Fallback to platform bus for CVS device */
+  +	return bus_find_device_by_acpi_dev(&platform_bus_type, adev);
+
+The fallbacks are intended for CVS (INTC10DE/INTC10E0/INTC10E1), but they
+are reached for every entry of ivsc_acpi_ids[], including the IVSC IDs
+INTC1059/INTC1095/INTC100A/INTC10CF.
+
+On this machine the IVSC ACPI device INTC10CF:00 has two physical nodes:
+
+  /sys/bus/acpi/devices/INTC10CF:00/physical_node
+      -> /sys/devices/platform/INTC10CF:00     (bare ACPI platform device,
+                                                no driver bound)
+  /sys/bus/acpi/devices/INTC10CF:00/physical_node1
+      -> /sys/devices/platform/intel_vsc       (the real IVSC device created
+                                                by mei_vsc, parent of the
+                                                mei-csi client)
+
+and they appear in this order relative to the IPU6 probe:
+
+  07:59:29.297  platform INTC10CF:00 created (ACPI scan)
+  07:59:41      intel-ipu6 probe -> ipu_bridge_init()
+  07:59:42.391  platform intel_vsc created (mei_vsc, after the LJCA USB
+                bridge and its SPI controller have come up)
+
+So at ipu_bridge_init() time:
+
+  1. bus_find_device(&platform_bus_type, .., ipu_bridge_match_ivsc_dev)
+     returns NULL, because the match requires dev_name() == "intel_vsc"
+     and that device does not exist yet.
+  2. bus_find_device_by_acpi_dev(&i2c_bus_type, adev) returns NULL.
+  3. the new bus_find_device_by_acpi_dev(&platform_bus_type, adev) matches
+     the bare INTC10CF:00 platform device and returns it.
+
+sensor->csi_dev is therefore the wrong device, and
+
+	static int ipu_bridge_instantiate_ivsc(struct ipu_sensor *sensor)
+	{
+		...
+		set_secondary_fwnode(sensor->csi_dev, fwnode);
+	}
+
+attaches the IVSC software node to the bare platform device instead of the
+mei-csi client (intel_vsc-92335fcf-...). ipu_bridge_check_ivsc_dev() then
+returns 0, ipu-bridge reports "Connected 1 cameras", and the probe is not
+retried.
+
+When ivsc_csi probes at 07:59:52 it finds no fwnode ("mei-csi probed
+without device fwnode!"), so the CSI-2 link is never described. The sensor
+ACPI device OVTI02C1:00 has a _DEP on INTC10CF, which is honoured
+(acpi_honor_dep_ids[] in drivers/acpi/scan.c), so it is never enumerated,
+no i2c client is created, ov02c10 never probes, no v4l2 subdev is
+registered, and libcamera finds no sensor.
+
+Before c6b1b34b5090, step 3 did not exist: csi_dev stayed NULL,
+ipu_bridge_check_ivsc_dev() returned -ENODEV, ipu_bridge_init() failed and
+the probe was retried later, by which time platform/intel_vsc existed and
+the correct mei-csi child was found. That is why 7.1.6 works.
+
+The commit message says the patch was tested on a Dell XPS 13 9350 with
+IPU7 and CVS; the IVSC path does not appear to have been covered.
+
+I could not find a fix for this in v7.3-rc1 -- the ipu-bridge changes there
+are additions (Himax HM1092, NVL/IPU8 IDs, DMI quirks) rather than changes
+to this lookup. I have not booted v7.3-rc1, so that part is from reading
+the code only.
+
+Happy to test any patch or to collect further debug output.
+
+Disclosure of tool-generated content
+------------------------------------
+
+Per Documentation/process/generated-content.rst: this report was produced
+with the help of an AI coding assistant (Claude Code). I asked it to find
+out why the camera stopped working after a distro update. It gathered the
+sysfs/journal/media-ctl state shown above from the affected machine,
+compared module srcversions between 7.1.6 and 7.2.2 to narrow down what
+changed, and located c6b1b34b5090 and the code path described in the
+Analysis section. The wording of this mail is largely its output; I have
+reviewed it and can reproduce and defend every claim in it on my machine.
+
+No reproducer beyond "boot the affected machine" exists. I have built and
+booted a patched kernel on the affected machine; the fix is posted as a
+reply to this mail.
+
+Assisted-by: Claude Code:claude-opus-5
+
+Thanks,
