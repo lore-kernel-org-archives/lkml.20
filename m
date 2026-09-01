@@ -1,221 +1,183 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011071.outbound.protection.outlook.com [40.107.208.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11A7047988C
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:13:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788254011; cv=none; b=gZIJUFBQ6c7peMH5aNucEegkK5wqgpZ2MQmWs6iCS2uAttaS0dmlvqxYJNGnceMmEemUyJU7nYbyVfvqn7BvrVSPcVgedeEdJn2v3q2WolgJSMD5tvOD+sK++hl8YrK8wvo8+NJv4WCHcTjChWjJdCo33HGqNezwZ9r+2bLXobo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788254011; c=relaxed/simple;
-	bh=wiy8pO7v9iI1/7qOJcZeis9iXMhYLOorLIS5PCg4eBE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VMMmuK/j0tR25FWdm2p0aDQ54K9UGSgchmBPwsqXNqYkOkglR5a6pxFWOU4oXB3gocyrIeEl2DpDVPWXWKiMAjNggvd5+/9PpywPzPMStCVSD7a8jbCvJjC58QqIWw99oa1de1SQ3SNFbulvU8FRj51+1n1nz35DCrB6OIggOqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NPoU7h1V; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FA1247208F;
+	Tue,  1 Sep 2026 09:13:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788254037; cv=fail; b=jO0mtmpsEz9DSmvIHUy0/opdoRgpIeFTu02xW2TT6bxis3Osk8ZqLbhCiZ76rwEK45Vv2vPtfdmIdqRB2AxyL9kzxRclfobXp2mHww7ebPGs00O8Bfmxhb/DWiEKyz8NCCPRO/8uh8T4CPSlvUyni6b/8sGZLfVu30cxVnzjMCY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788254037; c=relaxed/simple;
+	bh=wxI+Dbj2UbV5xkIEL63t/Ex6YqAWELWdDyjFiYs+0PU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=aPoucOdeqJWERf60EDSxtEak6Y4tvZOqZ25hl12Omq3HRO1gEXW+gMnmkG1A7nBV7+mFDnyw2Y5LyepP5w8Q0tpO3qDnExHJ3Y6Y9hRw5H1X0dWoX6N+bt2PMON+TI7dCyJoN5iuhtIp0+6dkxTHBgULwg+HIUZY0nQ4E7zVb+s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=mDySedQ3; arc=fail smtp.client-ip=40.107.208.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NPoU7h1V"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48444eff835so91808f8f.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:13:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788254006; x=1788858806; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VTk2I9UAlwFcSdMLy483yatScQNtKnIT1avRSc59jAI=;
-        b=NPoU7h1VFHs9yhF1P/3i7cfJt/00J2/eoUqyzFfqMk3K0POIMYTaxtODh0C6albeTo
-         QgMlvgduPTmQgWJ1pIns+QXYKsqaK/n+NczhcRu5Yg1MoC9kSUz89MeysgKybHhVaSqA
-         iBaySSBSnfTqRIjuwRjcc/GVtB5OQLWBiHjv4mcB7kXX31/GYhelcpirpJC46Hi0Wuob
-         x2TxA5aGaQ/QZhPRLGcm+GcT9MyMsoDBhq8Jato07Fok2hZzGiqOkOvKmhzOdnyxprxp
-         y0xgv+E+yT7k2+1RBWSukI7DlE5MQq6vcPQwJTmVdzJGOEK74PqQ9w62C22rhnq1ZjA3
-         MtUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788254006; x=1788858806;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VTk2I9UAlwFcSdMLy483yatScQNtKnIT1avRSc59jAI=;
-        b=SzOhMAvcEov9sXoiaLFZYgn0nUEIYjXdB24rvQd53QXUmb8TNg6cp8Tc5fXenw7nvW
-         EZf/2Y6dyiE4Do0sYDNGdQQeZIbG3yLTM6EaGIHirKZaLMtzWhL9Dv754aF6d2eRafq/
-         LYCTZwi3+qrlyXoshWaJU0wbv2F0hgOZYNiRkC2fdCayNKX+tTFhiz7ejBofrwdB9rJ2
-         HBrvUCCtJZv0BqIbL03SXThX2y0kv46u89QcXRn3bHacX4jjvSHzkD9WeFbdS4ucWibe
-         yi4uKNOntxme8y38AuFaDVPa8DsxGPeJjUQnpzHdmz6DTIiioVFOecMglw/QoH6++Mnq
-         Gwdw==
-X-Forwarded-Encrypted: i=1; AKwUvBwMd1ijEWhiWCY6pOZ6rRmTYJKpKWuRqptN+CG4z5Q91c1tLCVWTFakzRKHYnaguTPVHksIJFBdfFP3RRY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kVmebLdXCEvudDhVuLAzLi8oulFvqKuYV8b2VEMwBWuCskJga8
-	+a2NZ39FrwVCvGb5MPesa/MokObnOOlQDVoI6U3ESpUDeGI69IQS02Sz
-X-Gm-Gg: AYBFou0Zg2TnVl7vtSFZ/5bZS8N9owRWwWIoU+wO2KaLr6abOpyyrNQTFHaP4xqnje4
-	OskktTI/WrZphdIOFAZcks6zfY4Drwxz+j45RezRFfEW8QtxN+jH9d5elFYhQNJlnwoJAfdRpPr
-	cNVpzjulgQllqOGrvWoJuIGJN5TuUbYpcsfUB17pevnTA3R/p8bdcaLn+GG9gYcRcrTQmvgKjpK
-	MbRQp6kMG4LNMtw4SwdV4dNSs/UDy8mT96zYeItscJEdBEWs2XJm0DYrEy7ddHXGTeT1bqiJQOb
-	EQmk/trTsYOEUqyAcGtk2mH3pwrEtU7FODeQPPk4zsxSzmVEtht5ycwRe/nWmSIJEuz8jd7EfnQ
-	MrCvFErGw25UZxu0hR/VaXoBh2lhmAHr3cCteFyXmZm20Iyv611qxsZGJFKoR2Gny690F1njTWV
-	S1NtTtP/3Px/tuw5+JxVwZfbsESOkPoBuR8AXgRQlL5us4rpUnn9Q6OBnR5SeOrZVYTGPipA/mC
-	rmzWYubUVO3lNV5fpvhBFHkj2i/JrDBtfzVXdQhh6aOEV5LiIbcFsISaqlfen2uCvZrWWi8rR+w
-	qSEwTerAD1w3Y4PvNSxL13mK8+l6KbQeKKgYAMi7hQEWZ5jYUb0z4bEiFEfEpXM4W+Q=
-X-Received: by 2002:a05:6000:3106:b0:47f:8d71:210a with SMTP id ffacd0b85a97d-482f79cf4d0mr47047548f8f.15.1788254005998;
-        Tue, 01 Sep 2026 02:13:25 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a16a-7801-fd8c-4b37-36b4-e53a.310.pool.telefonica.de. [2a02:3100:a16a:7801:fd8c:4b37:36b4:e53a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d781bcsm3378291f8f.26.2026.09.01.02.13.25
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 01 Sep 2026 02:13:25 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: stable@vger.kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	=?UTF-8?q?C=C3=A1ssio=20Gabriel?= <cassiogabrielcontato@gmail.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+8fa95c41eafbc9d2ff6f@syzkaller.appspotmail.com,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] ALSA: aloop: Fix peer runtime UAF during format-change stop
-Date: Tue,  1 Sep 2026 11:13:02 +0200
-Message-Id: <20260901091302.66860-3-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260901091302.66860-1-kmehltretter@gmail.com>
-References: <2026050445-connector-rebuff-f713@gregkh>
- <20260901091302.66860-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="mDySedQ3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Cv2ewHX6AvGeBN31tAA8HgwQMPZ2PmJK7x1An/XGjAG+siKnVRIxm/TiZoCBX4f4YQkAIk8Xy9NpYwWRuu84U01uvVKeDyebKMEwgsn4Ahuf7GhQ8bRCAnUF4CX3zWeD2GwlvjhQLZLo4dsbvBJZituCzQh0e3chGxD7W7iu5nOYdRuE6ATagGkrCGXF9Nmk2gvXHRU+srspDo5XCse/x/uuPIQpdxWoiB8X+3/6XjxkDJZL4CcEnzP+HElktIbw279/w4ibzIXupcKwJjGbUAvAilQn9C6gKDFEllsKi27eU09SqxBPlX7fMB1TbY5261JxpKMDpNZw6WoViAPihg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=N0aOHJ51RKjTh7W7o/Bxl2rIzMr48WHRX6P9sTo27+M=;
+ b=c6XgdHO+MXNp6YEXUjeqCaPgsocmqSA7tGvB753FlyO75DZTvpxRbxRMV1Uwq7j7jlNKDAFFxh6MUvPwR1fAKlN8q32C9MdkHpe9kx+VENopCk9WnFUz5234LrYa231Q8ov2YtbWXAZ4YAJqJWIore8GmCzvB6yUGtIg7htz3kGdBJY2tTdYTUVsJn5tIftw8EhqSBy4Otx/DXEx6P+7UVL/54Q7VgPt+kGohW3PWQbukA74Rlrpm075/zo2VcWNOFrkeyK5KCZEvyWg9zZ1kv25z7uvz7PzAZ9GzXKfuNi8Gz+lClOfhv3PpuGrWhl6S2Iwv01zRNrIJ123PlUOSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=N0aOHJ51RKjTh7W7o/Bxl2rIzMr48WHRX6P9sTo27+M=;
+ b=mDySedQ3F1udsqjQRc+IgixgXz5u7QeuJ/kkZF2gAVZ29oR0IUllUbHL+6txW5CYVQPcarRAcHH7XiHqRD2qpZk6h4/qgCoOmw3cguJMXBTpQV+duMQKXyK1Pbjt3FfKH7BVlrdmpBv5KRF0L9d1JkYVp/lxgYQb/HcH2roGPZ4z51cBDy2gamr+o40ud55oz9XJoeBH8rj+CvYumpM5Ujrbu9w30ToIVmE5T9xkWWIOoLFCMyJtMhCNyxu0kzYWL77IewcJlDXUO5X6Htnuf2uvmTmfQ0h0tAT13c/T2xlWPHqr24x/FsjtBvTbAxlscuMQKOM6JF1X5OOYMjWXfQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com (2603:10b6:208:37c::22)
+ by SA5PPF7D510B798.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8d0) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 09:13:52 +0000
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28]) by MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 09:13:52 +0000
+Date: Tue, 1 Sep 2026 19:13:46 +1000
+From: Alistair Popple <apopple@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: Gary Guo <gary@garyguo.net>, nova-gpu <nova-gpu@lists.linux.dev>, 
+	M Henning <mhenning@darkrefraction.com>, Alice Ryhl <aliceryhl@google.com>, 
+	David Airlie <airlied@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Benno Lossin <lossin@kernel.org>, Eliot Courtney <ecourtney@nvidia.com>, 
+	John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v5 01/11] gpu: nova-core: Add public driver API to
+ nova-core
+Message-ID: <apaVyXAV7GvE6_ld@nvdebian.thelocal>
+References: <20260828033531.1117754-1-apopple@nvidia.com>
+ <20260828033531.1117754-2-apopple@nvidia.com>
+ <DL3EGE1IY4FL.3X49WKCS67UT@kernel.org>
+ <DL3F6EKL2F6Z.2DRXPQLYLE7FM@garyguo.net>
+ <apZ3_o8hxlMr6SoP@nvdebian.thelocal>
+ <DL3SM4UA1QC5.3KA2M1DE6F0F7@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DL3SM4UA1QC5.3KA2M1DE6F0F7@kernel.org>
+X-ClientProxiedBy: SY6PR01CA0075.ausprd01.prod.outlook.com
+ (2603:10c6:10:110::8) To MN0PR12MB5977.namprd12.prod.outlook.com
+ (2603:10b6:208:37c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB5977:EE_|SA5PPF7D510B798:EE_
+X-MS-Office365-Filtering-Correlation-Id: 01654bf6-afaa-474a-2668-08df08095748
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|7416014|376014|1800799024|56012099006|10067099003|4143699003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	1bnjq0diAOszePBV8JuSz7AojBGhO0NsoyML4Zr69ZX8NVNoyLV2cupopw5VJTq6eCbWUHkrczNUctColdm/npo5zfieljTDgltCuff/OtjA2RJPNcyZDIi0xGtpAci6Gd3O0N7iUF+X1MX8KyhOV6KvEQN12aqsp666g8nsv20wa4K//karNFwylNWG1Y91wtWrnYwvIE0zxnoyHjNDHgtP6yE0XkNnX8CwxZXtDYe8y7b/u+m5pQ4aV05usmueIvDDV0zDYyj6KyDEeP3w4aOi66LTMcDPFD3x8RNcRDmnyZV2B3H5XS4PX5PK3sSNsXi51Gp3dP3WmhKg/Hsf9kKDCuUmTyKVMsHjONqgTNoPb4WpqagPTFUDvf0MnB9G8WE7NVoF2W7PZ7FAzsbgGEueoxjWHfq2cCAVAm/qvOfCDjzogOYlzh6N+NA8ia+ANDsJnMdMzpkutty2gJdZGQy4KADrQ0OI98PSsMkwHzbLbKEMicITjI0Ablqhhblp2EFW1ZC5SsCtWinZgt7A/L/+fbp09+Rx/GoJVoNSNpseTYGXk6faEpDb11pdK4RiVYS1orWQHELBo9iDVG2wZSMEorxJ1L/wYMe6QP+6J9OxP+/0eJX5G4T1PdT6xL6lDedwlMxd3n4sbIrW7h6i1NKGXKkJgsVK6Sc3A6PR/9g=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5977.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(7416014)(376014)(1800799024)(56012099006)(10067099003)(4143699003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?ov4I35blzRyqHMiFI4eAPZQWG9kcGmLlp3Q5fEQvTm6qZHaMt04NChXMzeNL?=
+ =?us-ascii?Q?1Al9XreufrIFnrjWCMWVKFD+2ScQAyyfdqA14EK6QNSpddfLhQ+25AfUfOlZ?=
+ =?us-ascii?Q?EzVD3ZD6GGRQ99HULkYXiDK7qKCBSGF075xYEcEXhUWYJnw88V9aaKpkrmRF?=
+ =?us-ascii?Q?vD2u6bQCTBSWRhscAweUE0j3871248VkrIqpLLnBrJk97n2aCU3z4Z3IQUlO?=
+ =?us-ascii?Q?lw57qF+FgO5/BQ9sNTKuBLmKkxVLQo4s9PlQAkGJ3HTjTMJf/oYERnHc/rza?=
+ =?us-ascii?Q?ct1K2BbDBgo6MhWVb7Ds5r1R6yiJvcQ4f7Be3uJAxs5lq9FzaYmW1msuLsBV?=
+ =?us-ascii?Q?MrdlJpA76eqea1OUz6Ijwroem70gMKX8CKtJRPxoVNSvJt83KPGOvXNEm2dA?=
+ =?us-ascii?Q?fJM0DbXquyNPsR8jvwsgqnJcw5aYUZDKobuk6JYkNhttDn73gDOqCNRbOw1C?=
+ =?us-ascii?Q?/jo5ZaNcYX46+vrIHDJzxXKn9N/I+HzPYVrVxfSopap9Fb5z8woPJ+z5ELFr?=
+ =?us-ascii?Q?IIDNRN8CPumCJ7UraSRRT8IL/sa3GjRK2dCsYSFuOPQKEgVxrctDBHLDnZE1?=
+ =?us-ascii?Q?yHEcBOaOPxAp680xq0VnCpyxZuqYsV+LQjhei7IJv+gSJPJRZkXHzVaAsa4P?=
+ =?us-ascii?Q?QtUJE9HR7mOOEnq2u8t7J8UZ7KV9PcLd87tcKGFxO8z/qpZZEghaq6+n7i6u?=
+ =?us-ascii?Q?bIVmcA4pKOYL1MpyjoHsyta42laLOqiBeCEYc/wlVCyJ36t4jyazgnfp7RQE?=
+ =?us-ascii?Q?cNozH2sOP34O0nby2rJCO1sgsW5ispnaE8z3hOyAuPVjkvBWuWVjrKzFvEfd?=
+ =?us-ascii?Q?xOOhm3pg7/xn2ki6t+anj+q2/fJuSRsaCepwpEqzs5i6biXbFuXh4OmZOYz/?=
+ =?us-ascii?Q?ToCXHeRrVPvnHkQnfXsO+KwR1PMrnBhDzfyIXOs9LxxB/CCiQ8kneq/KPcot?=
+ =?us-ascii?Q?hcBXlEP6yOJxPfAVQbYUsaouSNwEgn0Z4EKtcqWQRqHZgGtTB1dkHt0wbFsf?=
+ =?us-ascii?Q?r1xNlZC+sxcGmKpudS25+kudDXVj8Q1HUZFGEklXE7/40obLhnEpwP6NYODW?=
+ =?us-ascii?Q?cicPiaEJTH9zwLMVjQWK5vRtcTimUO0TuZ0l4imqGhfzMVwTOKFl8lNGgF9V?=
+ =?us-ascii?Q?CXjE5nc9yhu/Em/Oavaa5nSdZh2s2CXCzDWu98Ze/5EIXE2YojY4MqZ7QEH0?=
+ =?us-ascii?Q?EJrrjdr16Tu8jWqwz3xATFIYI71nakc99GPJ0z67tw9jGyIY8tXglB4E0Mln?=
+ =?us-ascii?Q?ZkB1Nm3rDHNhJ1VxoRGyGzEdPlZgHOunbq3EhqnJlMAYwu2d8d/bXc3z/R0v?=
+ =?us-ascii?Q?yRlYyI+Sxwj2LL9/oIpe80Nr6SG66m6hTcL4wE5IRwf8hKSG7NUiMxuURgO+?=
+ =?us-ascii?Q?Xmrij1olqY45KyydL0o/BG7t6z+lufdpzvjn3SZ/HOrA4teOXUxBuipF6Ytc?=
+ =?us-ascii?Q?44oZkzEwdd88J2ahjaKbt7STb3hHs/MQHPJS0/dyk/3lCXTASFU/B/0olvpQ?=
+ =?us-ascii?Q?UgR0ne+EmUkskyJCzAcae1YAKFRVCPvfE1Iex2L3Gmp7QK42lMYQzYLLxowH?=
+ =?us-ascii?Q?tfgeXGs51CWgkJ3kP58MJBd1+4VP01EuQPOtFYN57R0j0sRcSVYUi2bzq5tB?=
+ =?us-ascii?Q?7tyKjeqh3FijXW85lC9SlqSNXciTm+9H6Cv+iYnBHholD8gkeRm9cmZDvyba?=
+ =?us-ascii?Q?0UeKpQ0xDN1MdNNKYlG+4ydmKwQYidlwRT4g1Rqp7oIf5+RLszPRQbiwEk6w?=
+ =?us-ascii?Q?u1UCvqpwyw=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01654bf6-afaa-474a-2668-08df08095748
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5977.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 09:13:52.3814
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SB+zAZeSZiyXwt1q8HeXFXzRd07PitrOO3CZg/+aan2L2UmN4+o1LBNTH3wXp0PDd+PtKXOSdMD0Azfbkzn1FA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF7D510B798
 
-From: Cássio Gabriel <cassiogabrielcontato@gmail.com>
+On 2026-09-01 at 17:14 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
+> On Tue Sep 1, 2026 at 9:07 AM CEST, Alistair Popple wrote:
+> > On 2026-09-01 at 06:42 +1000, Gary Guo <gary@garyguo.net> wrote...
+> >> On Mon Aug 31, 2026 at 9:08 PM BST, Danilo Krummrich wrote:
+> >> > On Fri Aug 28, 2026 at 5:35 AM CEST, Alistair Popple wrote:
+> >> >> +/// API handle for the auxiliary bus child drivers to interact with nova-core.
+> >> >> +pub struct NovaCoreApi<'bound> {
+> >> >> +    #[expect(unused)]
+> >> >> +    pub(crate) gpu: Pin<&'bound Gpu<'bound>>,
+> >> >> +}
+> >> >> +
+> >> >> +impl NovaCoreApi<'_> {
+> >> >> +    /// Obtain a [`NovaCoreApi`] handle from an auxiliary device registered
+> >> >> +    /// by nova-core.
+> >> >> +    pub fn of(adev: &auxiliary::Device<Bound>) -> Result<Pin<&NovaCoreApi<'_>>> {
+> >> >> +        adev.registration_data::<CovariantForLt!(NovaCoreApi<'_>)>()
+> >> >> +    }
+> >> >> +}
+> >> >
+> >> > CovariantForLt does not hold anymore on latest drm-rust-next, as Cmdq has a
+> >> > Mutex. So, this needs ForLt now and therefore the approach that I shared in [1]
+> >> > a while ago. I applied the changes in [2] to fix it up.
+> >
+> > I can see why the mutex means covariance no longer holds, but I would kind
+> > of also expect it to not compile given it surely can't be safe here to treat
+> > an invariant type as covariant. Is this just a limitation of the current
+> > CovariantForLt implementation not being able to prove covariance or am I missing
+> > something else? Thanks.
+> 
+> Well, it did not compile (as expected) on my end, which is how I caught it.
+> What's your base revision?
 
-[ Upstream commit e5c33cdc6f402eab8abd36ecf436b22c9d3a8aff ]
+I'm on drm-rust-next which I believe is:
 
-loopback_check_format() may stop the capture side when playback starts
-with parameters that no longer match a running capture stream. Commit
-826af7fa62e3 ("ALSA: aloop: Fix racy access at PCM trigger") moved
-the peer lookup under cable->lock, but the actual snd_pcm_stop() still
-runs after dropping that lock.
+commit b705c185105762676aa6ec16cf976101df87cc35 (drm-rust/for-linux-next, drm-rust/drm-rust-next)
+Author: Alexandre Courbot <acourbot@nvidia.com>
+Date:   Thu Jul 23 22:54:37 2026 +0900
 
-A concurrent close can clear the capture entry from cable->streams[] and
-detach or free its runtime while the playback trigger path still holds a
-stale peer substream pointer.
+    gpu: nova-core: fix incorrect naming/framing of GSP-FMC firmware
 
-Keep a per-cable count of in-flight peer stops before dropping
-cable->lock, and make free_cable() wait for those stops before
-detaching the runtime. This preserves the existing behavior while
-making the peer runtime lifetime explicit.
+Reason it compiles is because the the Gsp has no lifetime parameter in the chain
+to the mutex:
 
-Reported-by: syzbot+8fa95c41eafbc9d2ff6f@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=8fa95c41eafbc9d2ff6f
-Fixes: 597603d615d2 ("ALSA: introduce the snd-aloop module for the PCM loopback")
-Cc: stable@vger.kernel.org
-Suggested-by: Takashi Iwai <tiwai@suse.com>
-Signed-off-by: Cássio Gabriel <cassiogabrielcontato@gmail.com>
-Link: https://patch.msgid.link/20260424-alsa-aloop-peer-stop-uaf-v2-1-94e68101db8a@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-[ used scoped_guard(spinlock_irq) instead of guard(spinlock_irq) ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-[ Karl Mehltretter: 6.12.y commit 03f52a9c1704 applies to 6.1.y/6.6.y
-  unchanged; identical patch-id. ]
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- sound/drivers/aloop.c | 44 +++++++++++++++++++++++++++++--------------
- 1 file changed, 30 insertions(+), 14 deletions(-)
+Gpu<'a> -> GspResources<'a> -> Gsp -> Cmdq -> Mutex<CmdqInner>
 
-diff --git a/sound/drivers/aloop.c b/sound/drivers/aloop.c
-index 67bbadcec02b0..64870381d66ec 100644
---- a/sound/drivers/aloop.c
-+++ b/sound/drivers/aloop.c
-@@ -98,6 +98,9 @@ struct loopback_ops {
- struct loopback_cable {
- 	spinlock_t lock;
- 	struct loopback_pcm *streams[2];
-+	/* in-flight peer stops running outside cable->lock */
-+	atomic_t stop_count;
-+	wait_queue_head_t stop_wait;
- 	struct snd_pcm_hardware hw;
- 	/* flags */
- 	unsigned int valid;
-@@ -347,8 +350,11 @@ static int loopback_check_format(struct loopback_cable *cable, int stream)
- 				return 0;
- 			if (stream == SNDRV_PCM_STREAM_CAPTURE)
- 				return -EIO;
--			else if (cruntime->state == SNDRV_PCM_STATE_RUNNING)
-+			else if (cruntime->state == SNDRV_PCM_STATE_RUNNING) {
-+				/* close must not free the peer runtime below */
-+				atomic_inc(&cable->stop_count);
- 				stop_capture = true;
-+			}
- 		}
- 
- 		setup = get_setup(dpcm_play);
-@@ -371,8 +377,11 @@ static int loopback_check_format(struct loopback_cable *cable, int stream)
- 		}
- 	}
- 
--	if (stop_capture)
-+	if (stop_capture) {
- 		snd_pcm_stop(dpcm_capt->substream, SNDRV_PCM_STATE_DRAINING);
-+		if (atomic_dec_and_test(&cable->stop_count))
-+			wake_up(&cable->stop_wait);
-+	}
- 
- 	return 0;
- }
-@@ -1004,24 +1013,29 @@ static void free_cable(struct snd_pcm_substream *substream)
- 	struct loopback *loopback = substream->private_data;
- 	int dev = get_cable_index(substream);
- 	struct loopback_cable *cable;
-+	struct loopback_pcm *dpcm;
-+	bool other_alive;
- 
- 	cable = loopback->cables[substream->number][dev];
- 	if (!cable)
- 		return;
--	if (cable->streams[!substream->stream]) {
--		/* other stream is still alive */
--		spin_lock_irq(&cable->lock);
--		cable->streams[substream->stream] = NULL;
--		spin_unlock_irq(&cable->lock);
--	} else {
--		struct loopback_pcm *dpcm = substream->runtime->private_data;
- 
--		if (cable->ops && cable->ops->close_cable && dpcm)
--			cable->ops->close_cable(dpcm);
--		/* free the cable */
--		loopback->cables[substream->number][dev] = NULL;
--		kfree(cable);
-+	scoped_guard(spinlock_irq, &cable->lock) {
-+		cable->streams[substream->stream] = NULL;
-+		other_alive = cable->streams[!substream->stream];
- 	}
-+
-+	/* Pair with the stop_count increment in loopback_check_format(). */
-+	wait_event(cable->stop_wait, !atomic_read(&cable->stop_count));
-+	if (other_alive)
-+		return;
-+
-+	dpcm = substream->runtime->private_data;
-+	if (cable->ops && cable->ops->close_cable && dpcm)
-+		cable->ops->close_cable(dpcm);
-+	/* free the cable */
-+	loopback->cables[substream->number][dev] = NULL;
-+	kfree(cable);
- }
- 
- static int loopback_jiffies_timer_open(struct loopback_pcm *dpcm)
-@@ -1216,6 +1230,8 @@ static int loopback_open(struct snd_pcm_substream *substream)
- 			goto unlock;
- 		}
- 		spin_lock_init(&cable->lock);
-+		atomic_set(&cable->stop_count, 0);
-+		init_waitqueue_head(&cable->stop_wait);
- 		cable->hw = loopback_pcm_hardware;
- 		if (loopback->timer_source)
- 			cable->ops = &loopback_snd_timer_ops;
--- 
-2.53.0
+Which I think means using ConvariantForLt is fine in this context, unless there
+is some other change coming which requires the lifetime. John's IRQ series hides
+the Cmdq behind an Arc<> but that still works as there's no lifetime parameter
+there either.
+
+Not sure why you're seeing failures, what base revision are you using? (and
+apologies, next time I will tell git to add the base sha1 to the series).
+
+ - Alistair
