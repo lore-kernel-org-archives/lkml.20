@@ -1,161 +1,143 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A183390991;
-	Tue,  1 Sep 2026 09:15:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00AF0477E22
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:15:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788254151; cv=none; b=RQ4/wn4nTt6wbQQRdnqxo1sBJPh70OgurCImm0d/6snIwVPOgdIB5ybOOMWuJtC23A8boqBKYF4fkVHYPaZkaYHj2Hnnt2VVCTZOMR4VA7+TazuDJLc5qNpek+14MO7JEFvpILSexXvcS55HbPTs+A1quhv6exxaHh6IrXPGUGU=
+	t=1788254156; cv=none; b=RiRqBN+QB8KVdqEekgb8xCfXqeDOKW/eDndCUTM3VM0FiutkHxyDFXfE0yYQKhTTC/IM6jbVPNiTVv9vVqiBpv7VaoZTsfLP4LqJAOCACPJR+NkKPpyXvbfK09wmH8gmvPwkWYalt9w1cH+p27PzcTE9a8nz8eEicaMzn1B2GLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788254151; c=relaxed/simple;
-	bh=3nGsT1a8ZAxjr6zYdLM1ZD2KxJd2Bpj/IpTiJ0lSTeI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KgtEkHjyYhUZe9cRG6dou/H598uAbkcG6fKaYNvQQfJ5bbqxq4D+9SIp5565guX8EdrQOpbzUPe1d8qpeck/J742uDNqoBRK2TYe8kGR1uFmit5cG+DJzHtvnIssgHVWCKOpKsORLCxNk3uq8VTmwZvDRecnW3rg5968qV7zHBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=T5HDpcGc; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=XOsNivaS; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=UpUhZkNW; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=r9D50IQ1; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1788254156; c=relaxed/simple;
+	bh=QYFtU56wHUIHz9DqB9/4PCaSfSoLvAsDwkg+srcbm7k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KySe6wJlt076NCeA0aG4tUTshRjmlR2CY/rmBfWxN2NwrKOK1jviSkOpQiIz9hK02yiSP+TiM4gyoIfQuNL15t6cllyPGky/f3+I27qvHzpWXKHr9kZn8Mcc5E/JcxXPzMzKK89YzRU4T8eCRERAZwkLMNbIY2AzJ0MB8F5G86Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=nhgXXPI9; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="T5HDpcGc";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="XOsNivaS";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="UpUhZkNW";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="r9D50IQ1"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 0AF362264D;
-	Tue,  1 Sep 2026 09:15:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788254143; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JfSyDPEMs2JFoyqupch3mU4oxd1RHFxIvwMKRSaKMG4=;
-	b=T5HDpcGcG/KB1IH0GvXrcFzwv9nCU+jaCzuB1yTTcmbxQHeVunzqzvVos0wQUbw1prnWc/
-	bj5MYX+0IXnHbk3+qzuTyj5Rd/uPiMCybnO5zlYkhvss1RLFybvns01Gi3qQMZMTPXsj5Y
-	b4AfpQoBWq/vOqXbhpisDqaR11exqF8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788254143;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JfSyDPEMs2JFoyqupch3mU4oxd1RHFxIvwMKRSaKMG4=;
-	b=XOsNivaS80SdQXPUnjK1cTi7rhPg77P53aD5Wop2hxaOme1HTxw9LXMgp+V5sBagzFEph1
-	VcGcCK3/gS0hpFCw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788254139; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JfSyDPEMs2JFoyqupch3mU4oxd1RHFxIvwMKRSaKMG4=;
-	b=UpUhZkNWbAE6kB9Qlh3lkmABTgnrEPfmYsFXeBK14HH0GRJazixdaPibc8fqP46VNZxNbC
-	dzmvWlQWBEU5AJDAv2chkW/GMJ5uHPvXVRVpmUItI82IW++NiG42pmSNGRPbrB8qHgcbOy
-	hsP7v+A+4jn1WVViod8+lgfFU3UVsH0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788254139;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JfSyDPEMs2JFoyqupch3mU4oxd1RHFxIvwMKRSaKMG4=;
-	b=r9D50IQ1Xg9M5tgff5s+OkJKJadGeFmladvUf/FfgsYQLgy88zNc7/d5AMAg2kmglvm/7M
-	6fEHWmsVVUfihyAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DF67813515;
-	Tue,  1 Sep 2026 09:15:38 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id PMOBNrqXlmosNQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Tue, 01 Sep 2026 09:15:38 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 7AD3BA13AF; Tue, 01 Sep 2026 11:15:30 +0200 (CEST)
-Date: Tue, 1 Sep 2026 11:15:30 +0200
-From: Jan Kara <jack@suse.cz>
-To: Bhaskar Chowdhury <unixbhaskar@gmail.com>
-Cc: viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH V2] fs: Kconfig: Alignment of code and text in the FS_DAX
- help section for better readability
-Message-ID: <tobxd52ikncxgffyrbz6bwvz3rk4joxrf2i7agh2ajevkgwfre@xekv4txekrsf>
-References: <20260823212851.1187668-1-unixbhaskar@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="nhgXXPI9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=VX
+	5Cuk3BS+hb9L7FUjA0yrHAyqJD41h0HN4osJ2eN5s=; b=nhgXXPI9Ks84rYMzio
+	CEgTm/Xg/Bkr+jQDNcyN3z9Vnd1bFnp/gf/LBJeedEO75EqspnFyyTLmCr/GpEiN
+	5pYJ/Z4SwjNGvUBINdpXuvYPP37zq9YzQ1pHXxClQsA+I4JvfqFzJ2OkUDSiD2zS
+	CvQEhSj0zcSYNwcuSiROTgMK0=
+Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wDXmJ6pl5ZqstwpQw--.142S4;
+	Tue, 01 Sep 2026 17:15:31 +0800 (CST)
+From: Baolin Liu <liubaolin12138@163.com>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	liubaolin12138@163.com,
+	Baolin Liu <liubaolin@kylinos.cn>
+Subject: [PATCH 2/2] ntfs: support the nodump flag
+Date: Tue,  1 Sep 2026 17:15:18 +0800
+Message-ID: <20260901091519.2885376-3-liubaolin12138@163.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260901091519.2885376-1-liubaolin12138@163.com>
+References: <20260901091519.2885376-1-liubaolin12138@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260823212851.1187668-1-unixbhaskar@gmail.com>
-X-Spam-Level: 
-X-Spam-Score: -3.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,suse.com:email,imap1.dmz-prg2.suse.org:helo]
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDXmJ6pl5ZqstwpQw--.142S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWxWw1ktF43WF43GFyfAr1UKFg_yoW5Wr4kpF
+	Z3JFyfGa18Wry2grZ29r4jg3W0yanrGrWUurW5Aw1Iy3ZxJr1aqFySk3W0grnYqrWku342
+	qFyUt3yUAFW2937anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zR8hL8UUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwRRTHmqWl7RmCAAA3p
 
-On Mon 24-08-26 02:50:18, Bhaskar Chowdhury wrote:
-> I thought eliminating the line break and add an empty line would improve the
-> readability.
-> 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202608240313.d7SDG2tE-lkp@intel.com/
-> 
-> Signed-off-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
+From: Baolin Liu <liubaolin@kylinos.cn>
 
-I don't know. It depends on the width of your terminal what's more
-readable. I'd just leave it as is.
+Add FS_NODUMP_FL to the flags fileattr_set accepts, so that chattr +d
+works, and report it back from both fileattr_get and ntfs_getattr(), the
+latter as STATX_ATTR_NODUMP.
 
-								Honza
+The flag is advisory: it only tells backup tools such as dump(8) to skip
+the file, so the driver merely has to remember it. NTFS has no on-disk
+attribute for it, so it is kept in a new ntfs_inode field and lives for
+the lifetime of the mount. ntfs3 does the same.
 
-> ---
->  Changes from V1:
->  Getting rid of the unwanted ":" ;that was the source of build failure.
->  fs/Kconfig | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/Kconfig b/fs/Kconfig
-> index e05917adcd60..a2e724cae76f 100644
-> --- a/fs/Kconfig
-> +++ b/fs/Kconfig
-> @@ -71,11 +71,10 @@ config FS_DAX
->  	  struct pages.  For the nfit based NVDIMMs this can be enabled
->  	  using the ndctl utility:
-> 
-> -		# ndctl create-namespace --force --reconfig=namespace0.0 \
-> -			--mode=fsdax --map=mem
-> +	  # ndctl create-namespace --force --reconfig=namespace0.0 --mode=fsdax --map=mem
-> +
-> +	  See the 'create-namespace' man page for details on the overhead of --map=mem
-> 
-> -	  See the 'create-namespace' man page for details on the overhead of
-> -	  --map=mem:
->  	  https://docs.pmem.io/ndctl-user-guide/ndctl-man-pages/ndctl-create-namespace
-> 
->  	  For ndctl to work CONFIG_DEV_DAX needs to be enabled as well. For most
-> --
-> 2.54.0
-> 
+Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
+---
+ fs/ntfs/file.c  | 11 +++++++++--
+ fs/ntfs/inode.c |  1 +
+ fs/ntfs/inode.h |  1 +
+ 3 files changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
+index b7a0fb2d8229..2ff1d2c74343 100644
+--- a/fs/ntfs/file.c
++++ b/fs/ntfs/file.c
+@@ -155,6 +155,8 @@ int ntfs_fileattr_get(struct dentry *dentry, struct file_kattr *fa)
+ 		flags |= FS_IMMUTABLE_FL;
+ 	if (vi->i_flags & S_APPEND)
+ 		flags |= FS_APPEND_FL;
++	if (ni->nodump)
++		flags |= FS_NODUMP_FL;
+ 
+ 	fileattr_fill_flags(fa, flags);
+ 	return 0;
+@@ -174,7 +176,7 @@ int ntfs_fileattr_set(struct mnt_idmap *idmap, struct dentry *dentry,
+ 
+ 	if (fileattr_has_fsx(fa))
+ 		return -EOPNOTSUPP;
+-	if (fa->flags & ~(FS_IMMUTABLE_FL | FS_APPEND_FL))
++	if (fa->flags & ~(FS_IMMUTABLE_FL | FS_APPEND_FL | FS_NODUMP_FL))
+ 		return -EOPNOTSUPP;
+ 
+ 	if (fa->flags & FS_IMMUTABLE_FL)
+@@ -183,6 +185,7 @@ int ntfs_fileattr_set(struct mnt_idmap *idmap, struct dentry *dentry,
+ 		new_fl |= S_APPEND;
+ 
+ 	inode_set_flags(vi, new_fl, S_IMMUTABLE | S_APPEND);
++	NTFS_I(vi)->nodump = fa->flags & FS_NODUMP_FL;
+ 
+ 	inode_set_ctime_current(vi);
+ 	mark_inode_dirty(vi);
+@@ -445,8 +448,12 @@ int ntfs_getattr(struct mnt_idmap *idmap, const struct path *path,
+ 	if (inode->i_flags & S_APPEND)
+ 		stat->attributes |= STATX_ATTR_APPEND;
+ 
++	if (ni->nodump)
++		stat->attributes |= STATX_ATTR_NODUMP;
++
+ 	stat->attributes_mask |= STATX_ATTR_COMPRESSED | STATX_ATTR_ENCRYPTED |
+-				 STATX_ATTR_IMMUTABLE | STATX_ATTR_APPEND;
++				 STATX_ATTR_IMMUTABLE | STATX_ATTR_APPEND |
++				 STATX_ATTR_NODUMP;
+ 
+ 	/*
+ 	 * If it's a compressed or encrypted file, NTFS currently
+diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
+index 5aedc045f65a..5520df707162 100644
+--- a/fs/ntfs/inode.c
++++ b/fs/ntfs/inode.c
+@@ -492,6 +492,7 @@ void __ntfs_init_inode(struct super_block *sb, struct ntfs_inode *ni)
+ 	ni->reparse_tag = 0;
+ 	ni->reparse_flags = 0;
+ 	ni->target = NULL;
++	ni->nodump = 0;
+ 	ni->i_dealloc_clusters = 0;
+ }
+ 
+diff --git a/fs/ntfs/inode.h b/fs/ntfs/inode.h
+index ff61bd402df0..bc24dcf0b49f 100644
+--- a/fs/ntfs/inode.h
++++ b/fs/ntfs/inode.h
+@@ -145,6 +145,7 @@ struct ntfs_inode {
+ 	__le32 reparse_tag;
+ 	__le32 reparse_flags;
+ 	char *target;
++	bool nodump;
+ };
+ 
+ /*
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.51.0
+
