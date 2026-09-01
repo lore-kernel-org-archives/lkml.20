@@ -1,150 +1,91 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011021.outbound.protection.outlook.com [52.101.57.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-113.mta0.migadu.com [91.218.175.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA833C343E;
-	Tue,  1 Sep 2026 14:26:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.21
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788272771; cv=fail; b=L5yUIeFbqTPlRx2erNWxlj0e+2vNJdeEN1LiO9j/TVGuagtE/wvkSAoAbT7E1tylOv5kfdltEIzstMnAK7yiTlH3ygR84U9LCsnZBZYkY4yqKRkrWS3XTnpS+5v9CnhC72ou4bTmVhtunVjQgIrWoPQg7PANGSJ8EIbRAvnqrvE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788272771; c=relaxed/simple;
-	bh=MMzqAbGjPmXUXw7vSm87nmL8Aa+8MA5YCvfP3YtjAkM=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=lmar1OGJSCvoji2VwJ3+9R38z1ZRzLXHcCL10E/5vrV7EPkYLXWUCAHbHuIiHwcPDDt6Yhy8A4uf0onRjNgOLbi9i+u85YwGWu3t9jrXKBvy+CcajbExWvdzvp/Kv2dY2O/piGXA4zcNmgN41s3deBjkhykj0DNN3B++mfXmrZ0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=vjCnW+TL; arc=fail smtp.client-ip=52.101.57.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44BE13803E8
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:26:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.113
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788272787; cv=none; b=LasjQ0o0VgY1nc8j9ArPIaEjH10q/6Efkgf27FLNnJSPTghk0xYRBP8Zx/mgGLfA0CViuJEGwz/cW1k13GW+F7c0BbewsJEbeN6Intf4V4E37s3ORJj1EZZ9LDjh08DIncCu3+Ks1f+5g/K2Is5cqEGZfBMq0lVs1Xtt0GPmmSk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788272787; c=relaxed/simple;
+	bh=BYo7V49rEgMHWq7ZsNC+wtDhhAsiwmzghNYGwdvniXQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=evgrzAT3EFfo2gpAh3fb++odFGVCkSj/fRKHc28h5KRGp7MaC7lxsARJiiPYP6LPf2iyMm7muAgYxY2z6STqaLylqdZZMuqyXa68hG2lLdMxk0njfoxHfadIfN9yDN9YoPXAVsb7WBci3j/LJuT7J6Zv/4wL/N1kFjf5C7QmQ2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=JvQpvZiP; arc=none smtp.client-ip=91.218.175.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="vjCnW+TL"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AnXeNmjqAkKml5jZQc9nXLvzWsiKiYYBptvO1uN77pNG8gP4Z7YyXba0TaO8KQa9cWyTwNFgnXNnciH6NvQ71d2P4cGhTdfaNiN29IQ2yXGD3TWluKTX5z3y+/+FYmjX/JA+2UNmJiJpzTQDx2/W+Fqp4oTpxNuJOGiP2RqNG6istlrms+1OuYmmsRcsxs5QrSlGUjvaVQ1eRXwSnex4CacOqjSJWhz4GN4BeH1FdkgeqCWtd4wf+mG/3+Fd+ebEdBpY5KM62HSGZDE48JAmr2/loEKTDfER+/1moKMyVQh0Zy+nyuQIspv1GUU5xY9e488nfRY0lFtn6jBvFr3S2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Jefetif/5G5EpvGfvF6o6vYkYfZBbSmhc8F3jRmtTqU=;
- b=heeuypu5rgwp3sATCdr/le2wdRY+myLe3baiEo0Dhw2/aeitJqQ8aWlrAKmeepNGODViukX6THK2Pol+RuQC5KYTLtpTcLYhWeFeOwnHKbrmGGBbQXwAPlUvlC7Q5C6+mFqTHh3cFSNljnIqdoguvFk+7maomXtET/BfLOYil4BnAdXK6r9tYBfFTFA+VF9myLV5j6eAkdrIy0LxnqXRfXw7oydwMlvjwqdG0DRMYsrloHM3UGv4UKha3DanjQN5pjx+u/pyw/pUoO3OMSij0zFBC7QDJuelk8GmhQf7YruX6SdBcWLt/6+i5rTyUPmuNIl9CCvx/uOgiYVBdNPfeg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=bootlin.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Jefetif/5G5EpvGfvF6o6vYkYfZBbSmhc8F3jRmtTqU=;
- b=vjCnW+TLhhF+eps++3ofahS2UMsTJWBnEtaopyYeFt7N4s5CQ1WasuY7KrBOIjecDHQrP2A6A5PZRsmKuxyL+jLYP1gR/WjtAHtPJl9bu3ScWPYRWpn8qKfxps2Fz0bTm8uagBANIJSbIewftqnfbP3I6ylbY6lQGey3sPP0MdM=
-Received: from DS7PR06CA0034.namprd06.prod.outlook.com (2603:10b6:8:54::18) by
- CY0PR12MB226969.namprd12.prod.outlook.com (2603:10b6:930:130::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 14:25:48 +0000
-Received: from CH2PEPF00000142.namprd02.prod.outlook.com
- (2603:10b6:8:54:cafe::8c) by DS7PR06CA0034.outlook.office365.com
- (2603:10b6:8:54::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Tue, 1
- Sep 2026 14:25:47 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF00000142.mail.protection.outlook.com (10.167.244.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 14:25:47 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 1 Sep
- 2026 09:25:44 -0500
-Received: from xhdvineethc40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Tue, 1 Sep 2026 09:25:42 -0500
-From: Vineeth Karumanchi <vineeth.karumanchi@amd.com>
-To: <theo.lebrun@bootlin.com>, <conor.dooley@microchip.com>,
-	<andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-	<kuba@kernel.org>, <pabeni@redhat.com>
-CC: <vineeth.karumanchi@amd.com>, <git@amd.com>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH net-next] net: macb: detach netdev before closing on shutdown
-Date: Tue, 1 Sep 2026 19:55:40 +0530
-Message-ID: <20260901142541.1469544-1-vineeth.karumanchi@amd.com>
-X-Mailer: git-send-email 2.44.4
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="JvQpvZiP"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=BYo7V49rEgMHWq7ZsNC+wtDhhAsiwmzghNYGwdvniXQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788272782; v=1; x=1788877582;
+ b=JvQpvZiPq9n81+epQf8WYz3zIPppaKIylwaTeW8D+c+ahhQGt2JxXTbpuGPOh9h7kaY1FUQm
+ 3TFrQ3Nv5CujNeoHg8+VnHgboBpKgK4GN8pDauT4OoFEYst0Q5wQ0T/iGeM7K7iSMNjIp4lisQV
+ wCByLihBxCDn51jvNNA3wmh4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6877674021b6adc4;
+	Tue, 01 Sep 2026 14:26:22 +0000
+X-Mizu-Trace-ID: 6877674021b6adc4
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 1 Sep 2026 07:26:21 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Tejun Heo <tj@kernel.org>, Christian Brauner <christian@brauner.io>
+Cc: Meta kernel team <kernel-team@meta.com>, 
+	linux-kselftest@vger.kernel.org, driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] selftests: cover kernfs dentry revalidation
+Message-ID: <apbgQnHeMKDyVHPg@linux.dev>
+References: <20260829022825.407836-1-shakeel.butt@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000142:EE_|CY0PR12MB226969:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f8ce20e-36d6-4113-70ee-08df0834ea61
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|36860700016|82310400026|1800799024|10067099003|56012099006|11063799006|6133799003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	spA5ufr+h56IYgx8U0dHCWJd/DFzbM2CP8AYI7OcZrpiYRwFHzZ+lplu3xI4m6XqFrsSu1lCw3u67YXjFofn2uKOEPzRwvBjHHVpoCsjQnm7r99ot93tQXgr5g+A8eriMx2fT59k+1sHG1qMyRhrcgkDKL0cV01Fs00GwV3ses4IKdhgLwfv3n4sKPQoAk1yuZbqJQPsV1CVdFSKUljlJv8+yQzIhvshDhMh+1cu4V11wlNeLxD0Jy6PkHlVOzAoRXXUy3FZ1ngC4EjHbvu9plR5pWk6DjolnMVAYxSZdkkRr6dRzINs222oq+yDMAkvflSDUXOhY8QLawZgPBxsKPsOxysWt0x1DnmaWg9o2uMWBR1F8h3IP4m9B53E8YN8eYdA5QCktpYFmTPsxM6xTB6OA5MXs/JvQwnwwDY1+Swv4NkIQUVWpiI199mKNXZliHHspjXxHTH7KK53U1NCquRB8pUVtxuhe8osuvsLqhkAWlKJGndDtqVMDAdu7ysTuHjRk/3JZLr0KAwr4W1G/mp5CjyjLm+z7oNmM/CrdYFyf/y+aonJz1Uha0BmTDfCmG29hcKlyRL7BzVMlvHTqZm4viNTIexxqIye1RSAhfZGaYPPAwb+Zi/ePiDR7yibAKPfglWTKT58fH4YfnWOdLyhJm0ftDe5rF50k4jVXC195C0Gk/jL8xJqTqDwBlCvkThcg4iIdWt8K4xSpWbtCw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(36860700016)(82310400026)(1800799024)(10067099003)(56012099006)(11063799006)(6133799003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	vdw54Sty11LfAGRN0jHRkXv9h4YIZkf7mO+QD08PYH8CcYaSj21z6qBUMPUwC7hJCtNt9BhSzh74ZaYJ3KXqg0zVUjCNc+2IP0HS2czMkLXmLA4XbIBUEII9MPo29ueW7bFL/qZczbkiZw7A2iqeq/fZSP5B+aRfOnG257rCYJ7h78kkkj2iNY8OEn5psz40TRvDwqSu4acfkI00Bicv07CMvtVLFK1i80kml931SPskMNfxeFTo4SEfuX0Pj8nzB4wUX5P2/46hZCggtqt1dT6yYA/te/cAUpLQp4BADG0Q+op6xVPC8rWcXsarvauP7OiIgGH/JmtTu6hFZgFdLGXKTHgF7z1hdK4veaGdN60m88T1hcWRz+/cge+Pf7bAgul3dqALZanjQuRj5ghJIsr2g8WL2NOVmznmopDILkhJF+GnP5pvogvS1KtQc1xQ
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 14:25:47.2890
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f8ce20e-36d6-4113-70ee-08df0834ea61
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF00000142.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY0PR12MB226969
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260829022825.407836-1-shakeel.butt@linux.dev>
 
-macb_shutdown() calls netif_device_detach() after dev_close().
-netif_device_detach() only stops the TX queues when the device is
-still running:
+On Fri, Aug 28, 2026 at 07:28:25PM -0700, Shakeel Butt wrote:
+> kernfs_test only exercised two xattr calls, so nothing covered the part
+> of kernfs most exposed to userspace: the dentry cache.
+> 
+> kernfs nodes appear and disappear from kernel contexts with no VFS
+> operation driving them, and removal cannot reliably unhash the cached
+> dentries, so ->d_revalidate() is the correctness backstop. It had no
+> test at all.
+> 
+> Add tests that drive kernfs from kernel context rather than through VFS
+> create/unlink:
+> 
+>  - writing cgroup.subtree_control makes the kernel add and remove files
+>    in every child cgroup, exercising both the negative-dentry revision
+>    check and the deactivation check,
+>  - renaming a network interface renames the sysfs node underneath an
+>    already cached dentry,
+>  - sysfs in a fresh network namespace must show only that namespace's
+>    interfaces, covering the KERNFS_NS tagging paths,
+>  - lookup hammered against concurrent mkdir/rmdir must only ever see
+>    success or an errno meaning "it went away",
+>  - removal-while-open, readdir duplicate detection and a
+>    seekdir()/telldir() round trip over kernfs_dir_pos()'s hash cookie.
+> 
+> Also the other direction: walking already cached dentries must not
+> invalidate them. That is not merely a lost optimisation --
+> d_invalidate() calls detach_mounts(), so a revalidation that wrongly
+> fails silently tears down any mount underneath the directory.
+> 
+> Both filesystems are needed: cgroup2 has no ->rename and is not
+> namespace tagged, and sysfs cannot be mounted with a controllable set of
+> children. The config fragment keeps a kernel built via kselftest-merge
+> from reporting a pass while running almost nothing.
+> 
+> Verified the suite reacts to a broken backstop rather than passing:
+> stubbing kernfs_dir_changed() to return false turns 8 of the 11 tests
+> red.
+> 
+> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
 
-	if (test_and_clear_bit(__LINK_STATE_PRESENT, &dev->state) &&
-	    netif_running(dev))
-		netif_tx_stop_all_queues(dev);
-
-By that point dev_close() has already cleared the running state, so the
-detach only clears __LINK_STATE_PRESENT and the netif_tx_stop_all_queues()
-step is skipped.
-
-Reorder so the device is detached while still running, letting
-netif_device_detach() mark it absent and stop the TX queues as intended,
-before dev_close() tears the interface down.
-
-This is a cleanup with no functional change: dev_close() stops the queues
-and quiesces the DMA/HW via macb_close() regardless of ordering, so the
-reboot/kexec safety path is unaffected.
-
-Signed-off-by: Vineeth Karumanchi <vineeth.karumanchi@amd.com>
----
- drivers/net/ethernet/cadence/macb_main.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 76ee4f506033..21ebaee00f9e 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -6246,12 +6246,11 @@ static void macb_shutdown(struct platform_device *pdev)
- 	struct net_device *netdev = platform_get_drvdata(pdev);
- 
- 	rtnl_lock();
-+	netif_device_detach(netdev);
- 
- 	if (netif_running(netdev))
- 		dev_close(netdev);
- 
--	netif_device_detach(netdev);
--
- 	rtnl_unlock();
- }
- 
--- 
-2.43.0
-
+Sashiko raised couple of issues, so I will address those and send v2.
