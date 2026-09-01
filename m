@@ -1,117 +1,109 @@
-Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D1F313267
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:08:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4678436B91E
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:10:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788224912; cv=none; b=GP4XdZqtNMJJbcfa62i/nrqCIn/DH1PGaWnyiY2jytpCjNqJxtKyLnyXxOQTWzXKzTZ9lDB/4jxromfTMAs2y+HrjylDRGvdBF1aK2CbncYlMd2wfIjjDAfNdP/1pnKJHO/DewGWo8MownpFSwqoLV16N5GMtMUYJN6qZ2GCK00=
+	t=1788225003; cv=none; b=GnQ+RNaY/RAlG8I6CQCdIm/i7jdEoHSdXYL1GbowAAfrhcdjzGfSchiOZeLXAcrFyJ62uIIQlLMqmJ7v7hpr4x4AZ5b9/jhqt2b8WpZXUdM1/ZCcnvrzIpOXEZQ6E51Sy8ep1GT6QThkdMBuOIK1IKKUEVXhbnnVyZCiFFK8MtM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788224912; c=relaxed/simple;
-	bh=MJNLhpQhJGkeIF1WwTDDw3hEE3CKHIwQNpVbb5x81kI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gVqoTlqAaWgLlIfcJpJoQgP2WMxZVO+1xQVsD6RJYtZYXqsb5vMIApGN1B0YOA6j8WWsJdQnHW1dq5lBWtLp+bJ4OHmHoyc47y2yYIUrH4P5iFTZ7J7fUluD0uIBp7Vnc49ivMbvhgsdgIuyiYwqY6f2vMSCzRnJEYLS5Zfq4QM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=vVBKhSqu; arc=none smtp.client-ip=115.124.30.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788225003; c=relaxed/simple;
+	bh=NCDEEuD/8FZ+vKZsi2cUKW+UkePK0cB9gz1+URmemhY=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=Oc1ne8rrNBQNK63AfqO2awOlYh+JDjUY3zaEdAo4wx0z7kbNAxMWCSRX09HiMM772h+f+/If/fcvX7c6OOWIw0fkoqetA+4atWXHbdd+Qo1LAEBJ6BQrJlSZVZT49tc4J9k5KLZ6IgWfEXqtY5tGvTtPyKjO1ZOMWx6BeK7BVcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ZjTiFKQd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="vVBKhSqu"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788224907; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=FakrPrqir8gfCjpOedoFPimPDGsbRAUjqSeFGI41yOA=;
-	b=vVBKhSquVltgYYBCYttVHGhtwbZ+adIenF18O0s0sj8TnpkY6ShpO15obNNKA9axLg3swSGSGd58y+dDyxD0AAKJ772H6C3t7Ce2dU4eLrkKiUipd6OzxRGTGJFcCqo1Y9neuIgvIkcbNKY2OrdJKQ6+IH0FCLfsfbissJNP1oY=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R831e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XA0Vqsa_1788224906;
-Received: from 30.221.129.88(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XA0Vqsa_1788224906 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 01 Sep 2026 09:08:26 +0800
-Message-ID: <fdd373d2-0c70-4a64-b2da-50f2dac194b1@linux.alibaba.com>
-Date: Tue, 1 Sep 2026 09:08:26 +0800
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ZjTiFKQd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7663D1F00A3D;
+	Tue,  1 Sep 2026 01:10:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788225001;
+	bh=y1oZm4WwnJE9a1bcKC6zS9Kgispny6D5jmDZJ5LFvVA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ZjTiFKQdhaHeMVQoULPC2+n+Dvmm5yJu4/GHjF0ED/K1JLF8CAZMyilycoof7LN2U
+	 eCr8ig6VMzyDOTfNzSPXbgAP35xuSn1CWFazWZem3JOoonIU3N7IkSYuxJhvsyqGZK
+	 SIwot2H3myVPu2spB2z1x+GV0MmS9sr0V+GGCAfc=
+Date: Mon, 31 Aug 2026 18:10:01 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Longlong Xia <xialonglong2025@163.com>
+Cc: muchun.song@linux.dev, osalvador@suse.de, david@kernel.org,
+ mike.kravetz@oracle.com, yuzhao@google.com, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Longlong Xia <xialonglong@kylinos.cn>
+Subject: Re: [PATCH v2 0/2] mm/hugetlb: fix surplus accounting and
+ availability checks during demotion
+Message-Id: <20260831181001.ad2df1afb44789cfeb79fd81@linux-foundation.org>
+In-Reply-To: <20260831133519.2505020-1-xialonglong2025@163.com>
+References: <20260831133519.2505020-1-xialonglong2025@163.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] ocfs2: restrict OCFS2_INVALID_SLOT suballoc slot to
- system inodes
-To: Heming Zhao <heming.zhao@suse.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Mark Fasheh <mark@fasheh.com>,
- Joel Becker <jlbec@evilplan.org>, ocfs2-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20260831062848.2743436-1-joseph.qi@linux.alibaba.com>
- <20260831062848.2743436-2-joseph.qi@linux.alibaba.com> <apWJLyCNwqfdiRQb@p15>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <apWJLyCNwqfdiRQb@p15>
-Content-Type: text/plain; charset=UTF-8
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
+On Mon, 31 Aug 2026 21:35:17 +0800 Longlong Xia <xialonglong2025@163.com> wrote:
 
-
-On 8/31/26 10:02 PM, Heming Zhao wrote:
-> On Mon, Aug 31, 2026 at 02:28:45PM +0800, Joseph Qi wrote:
->> ocfs2_validate_inode_block() currently permits i_suballoc_slot to be
->> OCFS2_INVALID_SLOT for any dinode.  Only system inodes created by
->> mkfs.ocfs2 are allocated from the global allocator and thus
->> legitimately carry this value; regular inodes are always allocated
->> from a per-slot suballocator and hence must have a valid slot.
->>
->> If a corrupted regular inode with OCFS2_INVALID_SLOT is accepted,
->> ocfs2_remove_inode() will pass the slot to ocfs2_get_system_file_inode()
->> and get_local_system_inode() will hit BUG_ON(slot == OCFS2_INVALID_SLOT)
->> when the inode is deleted.  This can be triggered by an unprivileged
->> user unlinking such a corrupted file.
->>
->> Reject OCFS2_INVALID_SLOT for non-system dinodes during validation,
->> while still accepting it for system inodes.
->>
->> Fixes: fe7a283b3916 ("ocfs2: add suballoc slot check in ocfs2_validate_inode_block()")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+> From: Longlong Xia <xialonglong@kylinos.cn>
 > 
-> LGTM.
-> Reviewed-by: Heming Zhao <heming.zhao@suse.com>
+> This is v2 of the two-patch series fixing surplus accounting and
+> availability checks in the hugetlb demote path.
+> 
+> Patch 1 fixes source hstate accounting when the free folio selected for
+> demotion accounts for a surplus page. Patch 2 prevents demotion from
+> removing free huge pages that back reservations.
+> 
+> Both fixes were tested with x86_64 QEMU guests. The commands below use:
+> 
+>   hstate=/sys/kernel/mm/hugepages/hugepages-1048576kB
+> 
+> Patch 1: surplus accounting
+> 
+> A vmemmap restoration failure is difficult to trigger deterministically.
+> For this test only, add a one-shot fault injection that makes the first
+> attempt to restore the vmemmap of an optimized 1 GiB folio fail:
 
-Thanks, sashiko has some review comments, I'll fix them and send v2 later.
+OK, so hard to hit from userspace but not impossible.
 
-Joseph
+> Patch 2: cap demotion
+> 
+> This reproducer requires no kernel instrumentation.
+> 
+> ...
+> 
+>    Before this fix, the access fails with SIGBUS and leaves:
+> 
+>      nr=0 surplus=0 free=0 resv=0
+> 
+>    After this fix, the access succeeds and leaves:
+> 
+>      nr=1 surplus=0 free=1 resv=0
 
->> ---
->>  fs/ocfs2/inode.c | 19 +++++++++++++++++--
->>  1 file changed, 17 insertions(+), 2 deletions(-)
->>
->> diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
->> index 180107a11046..eda50f13ffb5 100644
->> --- a/fs/ocfs2/inode.c
->> +++ b/fs/ocfs2/inode.c
->> @@ -1520,8 +1520,23 @@ int ocfs2_validate_inode_block(struct super_block *sb,
->>  		goto bail;
->>  	}
->>  
->> -	if (le16_to_cpu(di->i_suballoc_slot) != (u16)OCFS2_INVALID_SLOT &&
->> -	    (u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
->> +	/*
->> +	 * Only system inodes created by mkfs.ocfs2 are allocated from the
->> +	 * global allocator and thus legitimately carry OCFS2_INVALID_SLOT.
->> +	 * Regular inodes are always allocated from a per-slot suballocator.
->> +	 * If a regular inode with OCFS2_INVALID_SLOT was accepted here,
->> +	 * deleting it would pass the slot to get_local_system_inode() via
->> +	 * ocfs2_remove_inode() and trigger BUG_ON(slot == OCFS2_INVALID_SLOT).
->> +	 */
->> +	if (le16_to_cpu(di->i_suballoc_slot) == (u16)OCFS2_INVALID_SLOT) {
->> +		if (!(le32_to_cpu(di->i_flags) & OCFS2_SYSTEM_FL)) {
->> +			rc = ocfs2_error(sb,
->> +					 "Invalid dinode %llu: suballoc slot %u for non-system inode\n",
->> +					 (unsigned long long)bh->b_blocknr,
->> +					 le16_to_cpu(di->i_suballoc_slot));
->> +			goto bail;
->> +		}
->> +	} else if ((u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
->>  		rc = ocfs2_error(sb, "Invalid dinode %llu: suballoc slot %u\n",
->>  				 (unsigned long long)bh->b_blocknr,
->>  				 le16_to_cpu(di->i_suballoc_slot));
->> -- 
->> 2.39.3
->>
+OK, that's bad behavior.
 
+I asked my friendly neighborhood LLM and was told
+
+: I'd phrase it like this, keeping the stable justification concrete
+: without overstating the exact failure mode:
+: 
+: On architectures where gigantic HugeTLB pages cannot be allocated or
+: freed at runtime, memory hot-remove or hwpoison can attempt to dissolve
+: a boot-allocated gigantic page.  The lower-level removal helpers
+: silently reject such pages, but dissolve_free_hugetlb_folio() continues
+: and can free the folio while it is still on the HugeTLB free list.  If
+: vmemmap restoration fails, the rollback can additionally add the
+: already-listed folio to the free list again.
+: 
+: This corrupts the HugeTLB free-page state.  The corruption can persist
+: beyond the operation which triggered it and be encountered by a later
+: HugeTLB allocation, potentially resulting in kernel warnings, crashes
+: or memory corruption.  Avoid the corruption by rejecting gigantic pages
+: without runtime support before modifying the HugeTLB pool.
+
+So, with a statement like that, I'm thinking that we should backport
+these fixes (or something else that fixes these issues!)
+
+Anyway, these are matters for maintainers to consider, please.  For now
+I'll get these patches under test.
