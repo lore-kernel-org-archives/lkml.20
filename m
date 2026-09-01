@@ -1,69 +1,68 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C55AA43B6D4
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:33:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BF31432BF5
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:33:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788276819; cv=none; b=FeXFMLjIb7ewRuursytQdC7yFBBDGH0/PGXiBvNZ2QtpzlXru9Y6d/apuygjV545i5ZTue6Vwc9xLK/84478lvEU2BdNMyakdCGTYQveecClWnya1k4J1y1lyR6FNSmE+w9xUx66Zq1ILsXmX6LWFbZqMwfmeoucUVjK29aJSBc=
+	t=1788276836; cv=none; b=M34z7rJ4UYJzeVp6hUZv/nKBAVHTbHqGRcxdBoOMZn7YOAJ5NbW9jxTVpaUXo/UVbWL2DMB0WjGddc3K6sr4fHB2iS26VPrXKqQcDZ4BD3/HImD41OAIo8u2Yt3lJwGjNUHCaesHCpJOWY4kdLTRUcTthJy5Pw08iqqLvMda+ng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788276819; c=relaxed/simple;
-	bh=7ScGxa+8+RlYUQcbDyTy3K6G/E2mZ7i4yB4b0QAxXtI=;
+	s=arc-20240116; t=1788276836; c=relaxed/simple;
+	bh=amm6IB2QVHQmS41llynjCeEO9qHZu2xpesEVqtnd22I=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Tag1UW5g+TrIzmCwawtniFX2KAh+V1xJEwIzNLr0B1YXgbLVKruRrCNKu/lv3xPSaBZy0dbj8M1z1+uZu0D7wjEjYH2IP3R0CuaDhV3x2HxsiDe8gvJFpPyLzsHd2PqmO7U/z8zGuvpCuxj7IJvv4A54z0tK6xJMi0nuC6ovLLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=kg6BH0lW; arc=none smtp.client-ip=209.85.221.53
+	 In-Reply-To:To:Cc; b=ph3Mt9IbM5/2YUF7/x0bEwvhgDsDYaTf3MP1apSkYms2Z/CulG1B9kAnjyRZCSs6dT2+gs4rUsVc+rKvXhvtBiJZfPkFjy0l2eX0OOjz0EBzcLFwmw5bZEo440BuQ4SxAm6DBQJzzDPCfzS6dHdPfC6DKFxC1eUEjiUjIwmk6pM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=E5ssZtUF; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="kg6BH0lW"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso30260f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:33:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="E5ssZtUF"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49b8eeb3ff2so37358655e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:33:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1788276816; x=1788881616; darn=vger.kernel.org;
+        d=flipper.net; s=google; t=1788276833; x=1788881633; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BlRBTnAxAr5Mr3h2Ki5AWmuYRNMm8WhwP7R0oNWZa10=;
-        b=kg6BH0lWqwKW5wyB3bDFhVoWEZ6lz5i6rkxXySknCzE3HYpDfFSkhATWIyn25exoW+
-         9IEwvR7K6o9jAQniKcDRafs4Zhpr4fvWxBGp6uDEscNVfjsveFRG+j7IcQ7cUYqbKK+1
-         fStXNjWUOjFIkOqsdLlMLe2Yqkw6UD7+lkbQI3ieSlspoHppHe2mA/mfy1l3jozNH1k5
-         8hMpvbkeAzdOVmTAS0Sp6K4fhwPvf/f80cnc+zTAdMChCa8RIZ1YNuu7RrMUqu6QQ3rW
-         FgZda3Kg+54niQ7vN1/bUK/u6gRb6/NvMY+XSQzQ3xYNGCkTR0whA4IYPygF2WCxgYDw
-         SZhQ==
+        bh=MR/cQZoK7JPxTk5LPqkidwaMJQfEv51POKdRxNvWHUE=;
+        b=E5ssZtUFAfATEqCPXU6WzHWaxK0dzq3YpkacvciZ3wUrP/nbA6oDbYMJBLjWG5lw2N
+         bKWFONVvcUopczZaZ6f4L+obPmcKi0oxBGNwOQ24+XwpdOIMyVui/6RSuV3pAJth24Ey
+         hdT7wqfWAO2UXkhMl02SGHIdhjq54RJV35TDcaqWX9MlkCnS5NaYOt6UtrG+X8nOreIL
+         EE/RlYym07WiOxLKILjATNcnVO700SaOhfov8zsw/hDOHl7T73qm5PjiGMczyxVFvXb9
+         vmfb1zpu7zvvHtEnj6I5W4S35aNSph3svxoCwXb9kZfKmzn4nhkV5jVn53efVRUbpSBb
+         YsEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788276816; x=1788881616;
+        d=1e100.net; s=20251104; t=1788276833; x=1788881633;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=BlRBTnAxAr5Mr3h2Ki5AWmuYRNMm8WhwP7R0oNWZa10=;
-        b=R5jblR7CabVQjWKmIiRisLC+cEqZENsHrNsmrKCKO4NFRXUFmSaOry+AXQYMAqMI1j
-         8Z9UesEsAfXKaHimg004MgdXwQZ7y/B+JuX7schvMUTujlBY+2yev64577Brqa14J1kC
-         4iXgEoDLC2pEMBnqn1zs0JUCoTUc7oRoMJ+jeQYrLPQNg8hWAlTSWsHRuXTRtUppGCd7
-         anEgFsdwp8kRAe7YFG7TSTcCKWv5L8IDx0aouqvO6Mk3pZ31Nksf9vRxEjRf/zICxCy3
-         u8OSYWiAgOp/DVgIIdzOXWM5TNOZVzDol59+/6CqrkmUW09/pQmdoy5DN1WhYuNrifBn
-         6qfA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp2iKjt2cSHhAKADEUraJRZk65cKKlr2KWb1T9P46lXtSJtQK90FZmlQm+ZM4qPSvz/la4XJps9J2hVRYc=@vger.kernel.org
-X-Gm-Message-State: AFuF++nb9fxHuKJl29E/k8X5mg6ujGYCDYrejdsBPQj2/w73z+BMUTE9
-	ceb1B2vasBBu+tFbj/18b+i7xi7MzQsNmsQwTsUyCltfhy/fnmLWd3bV3XKVUmrcd2c=
-X-Gm-Gg: AR+sD12FFUlJpjNseqP9i44sdZrChdjNIHctBcwOo4UnoR7I0zKuIkTbM6Cnn04uWqA
-	uDULu01+RpR2K+XXnNcr5UsYpsc9x20yb8TQ2jyhgPdY2pcHD+Ntim8mt9UQpLMibWCGYx1vqVh
-	FG8pv/C6R4c8WwLsDBb0P4gRxk6A+0YkryXEjDJWGRQsmuiyd5o+Of3xwV7SR5LRteTIXjHgOfu
-	o715cq3h036FolFNcQHZYLer5xkREy7Dx7ut2cKqQwIXINpUf8bK6xnrVgQ+fBGsfa8bPt6uAFJ
-	5kP9e4dQuhcKhc+fdjzwLZjZPyMmfKrBFo4DJADMg6+D4H1eBKJ43WMlg1h0z/Noo7imJsmYqtj
-	zQ3LiF4L1iBT8ONh9ku7rNnHlQzaxA9zwNBw3QFhu0tDWb2NiQpzE9iVaYaheq3RrTDIiNU+43P
-	exVRIoGiata0sI87S8dFOwV07jOGMyRGX5iifazSsgbjCk1UKnLyY0PeFLpcMK0BclVz2wJm2h1
-	6JQTJobazObYdhQWRiZjYzxoewD9KrfNb5lAa9t
-X-Received: by 2002:a05:600c:5288:b0:499:84fe:5f3e with SMTP id 5b1f17b1804b1-49b91c41014mr616951295e9.9.1788276815737;
-        Tue, 01 Sep 2026 08:33:35 -0700 (PDT)
+        bh=MR/cQZoK7JPxTk5LPqkidwaMJQfEv51POKdRxNvWHUE=;
+        b=pOkpDfrJp+EZUuqxmIIyIOeuV00XjLDapCLe9VDn59J9kBoBr3pJYQpGeBPXL4XeAE
+         538NJleJdb4ccnMLrqPcsfD4Pajrp/SI4o/qAZ038m/WezClVi4FNIbtE5/7YwSCx+Ww
+         KnChrZg5j8dhmIKNSdD9e57RW9bLbWMoYL15GbmCgSZSlhPmg7jpJvL+YcWU8uG3zT3X
+         VyDzmYqWEAlhO2KYOisVvM2yE8J5CtrtCOS2pKyse429172fg4+fzStGEkqtlq4owIxf
+         ERAHAPHKGMTFDfIcu9zOi/cwwgziFkN6r/Yzvv40wZF4VGFApAq2aWErxARIf/+5Mtuk
+         d4Kw==
+X-Forwarded-Encrypted: i=1; AHgh+RqqzquRVfR51zHN8V5BDMTZrjeToByz+/SWYn7PQxBf+sXuIVyScoGcRhE+FlLhqw6itkMT8PKLb7VhlnE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lckYTABY/vC9j22lZWW2bauKdP/lk5MnSSySrOFgz+qcgREC5q
+	/KETeA1RVFxy4a8jognCIsGXikBqGVttS6HyosQjynCa1SjRhzszUlGnkEDxpJGxbfE=
+X-Gm-Gg: AR+sD10t27OsOQmqjw9oHS9t9o409inuk2Ylqyzor/fs2e8JJdLJaUA6v3Vrw33MYVG
+	tQk/HFWJ3FJq0W/6uYPcNPFdugzgPU7UJvu0sx3KsjL6bhiva5MtAqa3651N3Er8+4fVlF98CLh
+	1DsxfQ1VQhOSD2vbuMVNvTYreRcn07CpRxTYavDQUJ3OTixTmMJX2VLG1bdhHhgEhIM/7jI8co6
+	/n9FpT4QygOj/IMvKMtD4Qje3bWVOqSfzeuGnvwHUX43eZXM7bGIiiyJ3r6TQwSqXZfS/jFy2LJ
+	WJ1i1rb1PYN59xNCumUXAAqq+4hDlRBpdJpSgGwx8FgiJxAHJ5QyniOU1DgOBktu4M/7Xuk1atu
+	ysQmpkJXsWXCnHssmDY4LG8KmBFoNr6/qUreCuUMqLWOsAw10zNQFoMBIUYjpS34X7SuFWyLSGT
+	amnxTlUtsO1cScmflAYyk9y2YiM7URyl9Z9gT44Yr8chc6Tj5pLMuCZop2UEVtBao7FJWHdR7U9
+	pSew3FPvj6lregHB8QjMwYBarW1q7Sx0KZ2fE/4YC8A7YeWE4A=
+X-Received: by 2002:a05:600c:5391:b0:49c:cedf:f870 with SMTP id 5b1f17b1804b1-49cdc555577mr180831445e9.16.1788276804848;
+        Tue, 01 Sep 2026 08:33:24 -0700 (PDT)
 Received: from alchark-surface.localdomain (bba-2-51-220-108.alshamil.net.ae. [2.51.220.108])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b91c5790csm314541845e9.0.2026.09.01.08.33.31
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b91c5790csm314541845e9.0.2026.09.01.08.33.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 08:33:33 -0700 (PDT)
+        Tue, 01 Sep 2026 08:33:24 -0700 (PDT)
 From: Alexey Charkov <alchark@flipper.net>
-Date: Tue, 01 Sep 2026 19:33:14 +0400
-Subject: [PATCH 4/4] arm64: dts: rockchip: Derive GMAC MAC addresses from
- OTP on RK3576
+Date: Tue, 01 Sep 2026 19:33:11 +0400
+Subject: [PATCH 1/4] nvmem: rockchip-otp: Serialize reads
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-rk3576-otp-cpuid-mac-v1-4-ea9135270fc2@flipper.net>
+Message-Id: <20260901-rk3576-otp-cpuid-mac-v1-1-ea9135270fc2@flipper.net>
 References: <20260901-rk3576-otp-cpuid-mac-v1-0-ea9135270fc2@flipper.net>
 In-Reply-To: <20260901-rk3576-otp-cpuid-mac-v1-0-ea9135270fc2@flipper.net>
 To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -83,71 +82,88 @@ To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- Alexey Charkov <alchark@flipper.net>
+ Alexey Charkov <alchark@flipper.net>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2071; i=alchark@flipper.net;
- h=from:subject:message-id; bh=7ScGxa+8+RlYUQcbDyTy3K6G/E2mZ7i4yB4b0QAxXtI=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWRN+2Bn0+oxU6P3qU/7I7eGFXnGf49KT7dMO7uyUF1W6
- rxyqMHyjoksDGJcDJZiiixzvy2xnWrEN2uXh8dXmDmsTCBDpEUaGICAhYEvNzGv1EjHSM9U21DP
- 0EjHWMeIgYtTAKa6W5zhn97ro1tSdDtDJG4wGubZej43tPqwU1bkr0wH95UzN2IYrzEyPHz0dy2
- bQNfGDaf/3zEQnXryvurGjW8ropd8La2Y5dtUwAkA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2712; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=amm6IB2QVHQmS41llynjCeEO9qHZu2xpesEVqtnd22I=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWRN+2C3xbXrK4OeZYvDjPdrr1mZbp/St7fnwfTot49W3
+ TD5HCSf3jGRhUGMi8FSTJFl7rcltlON+Gbt8vD4CjOHlQlkiLRIAwMQsDDw5SbmlRrpGOmZahvq
+ GRrpGOsYMXBxCsBUx35iZNibP3We43yhXZ16Wn+qpl7LuCJ44ZzTmxzTjRy/HlSF/clg+GfIZX2
+ of9I/hUiz98vtfcUeTXiyUHIf56ZrjJturNqyaAEPAA==
 X-Developer-Key: i=alchark@flipper.net; a=openpgp;
  fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-Rockchip SoCs derive stable MAC addresses from the CPU ID in OTP memory,
-which a bootloader would normally process and patch the live device tree
-based on it. This depends on the particular bootloader implementation
-though, and the derivation itself is not described in the device tree.
+The OTP controller is driven through a single set of registers holding a
+state machine which has to be stepped through for every word read, yet
+nothing keeps two readers out of each other's way. Concurrent reads
+interleave, and the outcome is either a reader bailing out:
 
-Add explicit nvmem layout for the CPU ID derived MAC addresses on RK3576,
-so that any OS can implement the same derivation without depending on the
-bootloader used.
+  rockchip-otp 2a580000.otp: timeout during read setup
 
-Boards which store a MAC address of their own can override the reference
-with a cell of their choosing.
+or, worse, one of them silently taking delivery of the other's data.
 
+Reading two cells in parallel from userspace on RK3576 reproduces both
+within 150 iterations - 53 read errors and 9 corrupted results, the latter
+either losing their first word or, in one case, ending in the two bytes
+which belong to the other reader's cell - whereas the same reads issued
+sequentially never fail. Concurrency is not hypothetical here, as six
+thermal sensors source their trim values from the OTP and reach the driver
+straight from asynchronous driver probing.
+
+Guard the read path with a mutex. Reads are the only way into the hardware,
+as the driver registers no write callback, and they always run in process
+context, so a plain mutex spanning the whole clock-enable, read,
+clock-disable sequence is enough.
+
+Fixes: 755864feb729 ("nvmem: add Rockchip OTP driver")
+Cc: stable@vger.kernel.org
 Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
- arch/arm64/boot/dts/rockchip/rk3576.dtsi | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/nvmem/rockchip-otp.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-index b0c0d3c8b1b1..0012b45ef426 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-@@ -1845,6 +1845,8 @@ gmac0: ethernet@2a220000 {
- 			interrupts = <GIC_SPI 293 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 298 IRQ_TYPE_LEVEL_HIGH>;
- 			interrupt-names = "macirq", "eth_wake_irq";
-+			nvmem-cells = <&otp_mac_address 0>;
-+			nvmem-cell-names = "mac-address";
- 			power-domains = <&power RK3576_PD_SDGMAC>;
- 			resets = <&cru SRST_A_GMAC0>;
- 			reset-names = "stmmaceth";
-@@ -1893,6 +1895,8 @@ gmac1: ethernet@2a230000 {
- 			interrupts = <GIC_SPI 301 IRQ_TYPE_LEVEL_HIGH>,
- 				     <GIC_SPI 306 IRQ_TYPE_LEVEL_HIGH>;
- 			interrupt-names = "macirq", "eth_wake_irq";
-+			nvmem-cells = <&otp_mac_address 1>;
-+			nvmem-cell-names = "mac-address";
- 			power-domains = <&power RK3576_PD_SDGMAC>;
- 			resets = <&cru SRST_A_GMAC1>;
- 			reset-names = "stmmaceth";
-@@ -2131,6 +2135,14 @@ soc_tsadc_trim: soc-tsadc-trim@64 {
- 				reg = <0x64 0x2>;
- 				bits = <0 10>;
- 			};
-+
-+			nvmem-layout {
-+				compatible = "rockchip,rk3576-otp-cpuid";
-+
-+				otp_mac_address: mac-address {
-+					#nvmem-cell-cells = <1>;
-+				};
-+			};
- 		};
+diff --git a/drivers/nvmem/rockchip-otp.c b/drivers/nvmem/rockchip-otp.c
+index 2c0feb036f3f..b034b7455016 100644
+--- a/drivers/nvmem/rockchip-otp.c
++++ b/drivers/nvmem/rockchip-otp.c
+@@ -12,6 +12,7 @@
+ #include <linux/io.h>
+ #include <linux/iopoll.h>
+ #include <linux/module.h>
++#include <linux/mutex.h>
+ #include <linux/nvmem-provider.h>
+ #include <linux/reset.h>
+ #include <linux/slab.h>
+@@ -80,6 +81,8 @@ struct rockchip_otp {
+ 	void __iomem *base;
+ 	struct reset_control *rst;
+ 	const struct rockchip_data *data;
++	/* Serializes access to the OTP controller state machine */
++	struct mutex mutex;
+ 	struct clk_bulk_data clks[];
+ };
  
- 		sai0: sai@2a600000 {
+@@ -272,6 +275,8 @@ static int rockchip_otp_read(void *context, unsigned int offset,
+ 	if (!otp->data || !otp->data->reg_read)
+ 		return -EINVAL;
+ 
++	guard(mutex)(&otp->mutex);
++
+ 	ret = clk_bulk_prepare_enable(otp->data->num_clks, otp->clks);
+ 	if (ret < 0) {
+ 		dev_err(otp->dev, "failed to prepare/enable clks\n");
+@@ -431,6 +436,11 @@ static int rockchip_otp_probe(struct platform_device *pdev)
+ 
+ 	otp->data = data;
+ 	otp->dev = dev;
++
++	ret = devm_mutex_init(dev, &otp->mutex);
++	if (ret)
++		return ret;
++
+ 	otp->base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(otp->base))
+ 		return dev_err_probe(dev, PTR_ERR(otp->base),
 
 -- 
 2.54.0
