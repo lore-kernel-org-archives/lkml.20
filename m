@@ -1,164 +1,130 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE10A3B05A3
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:48:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 676504266B8;
+	Tue,  1 Sep 2026 13:49:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788270533; cv=none; b=bmp79XRXq4hutJStYJl8XhYxpBLRoRJno0mnJk8+K81Tj4kXbkXZzbH5RvaVaA5avG95p9NouWluMyV5/UadP2+yXkbMWm+kKmtcm4Jvp7Ru86XEqwMJuB/czxi11n8aqAO3W3WLhfnRx/0nntIS7krjGtTyam+ZVk5Nqjedrag=
+	t=1788270557; cv=none; b=j2PR1ennL6OeuNtK0YcFYLx4q9+fbOPGZdPS5KcrymdnHcSuo2Jb76LdcUUU+gJJUSINqZXrJc4FN6acnL6mo3rGSR3WnWq9igciznku5L5PzKjav4kFo7MTGKLt3ToKV9i11Ikj4QLivFIXCaHXfHWkJmVYuT7QomuyepTOcXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788270533; c=relaxed/simple;
-	bh=FhGox9gXqmh4I7C5JglwAnrOhoH6H+CLn2mkAQ+mXqM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=M/cTu5VDuwn2xio9MArozHu2pbSH5+rx1fRzhxCi+7bpgQ4uK+aKvss/4l31FFke6tG0rnlB9s26OXgTwuXjcRzGEOn3Tf51OSrx0hd+9HQ0HalwUFhrkZKr/n2MLSUUU/X1yBXmxzUp/L+YKAaKY4tmN76yn0bKE322TK1Xj7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pRwRh/z7; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788270557; c=relaxed/simple;
+	bh=PVhpvelKtMWVVHcIFK38Lglxyc5enB4NZx9uwY/m/zs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RuvmdaojdAkuw+HSwaSatICcqSSkxB4gXmcQlx5iUQsorlfZm36WM7iMJp/+cQ85xLzINVSpRlVtRMsIvGlyGysv6FVoR8Q26m/mkqJNrUxHkPTIoJ3klnzHyR80T7XySIiVnh5ZI9GnH+7k+u/IptQFwyYQE+/vqP533ozt0vY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=BmPHjLdm; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pRwRh/z7"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-4843f205a5bso1181693f8f.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 06:48:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788270530; x=1788875330; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yTQx2GsPa85XjvX9iVGk5mcgWwxcHbSTKInQpmNkpgQ=;
-        b=pRwRh/z7/Owf/eTBs5AAF7tg3JvZzLsXaYx30TPMVj2/cc0vOdd4KzMs1cTiuIpgrh
-         7fO8ZScGwGw2vzFvXiRga6sPAnRiDQP0GfcnjgluYzQ1uuY0LXUqMpnJq0uVycECql2Z
-         +QgLWvNqT7bGFFRp87aNuB4JphLK0h2+brfqEFbQWmGLBD4Bu1WQv/9tGkBRHa8Es+0U
-         xrYYqSuAB7LJ66DAS3omSCfk8lBczdLPSxNsdQ3EAN16HgpdKA+X6hHMhrPMXy82nAJ5
-         7Jkc57FvutklxQ4kbq19B0JBmTHxvqkECIJZ8JOOzM51SNQfx7oKF7s1SkDTgmebcIBT
-         hZyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788270530; x=1788875330;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=yTQx2GsPa85XjvX9iVGk5mcgWwxcHbSTKInQpmNkpgQ=;
-        b=dbPuMVnqiMdfPNhxUEJBAJCQRbzM3NpDqexYlD8+2NNySx1OOug4O6G9zb3mMKnj3V
-         DeOc9lRNeGydJl+Q9q1enrU+r4pp3zwLXgYUhAQ142v7U98Myp5Y7hHhr9c1VRMVfTgt
-         mYO1kNZDCqmWV2UDXdGmKq8qpDVTbC9Cmsrk6bH7Ox7GkE33JLKk1bECO2/5wwAJTDY+
-         YJQtmQa5r0yIdInvqNIplISr2pzL9ozDuhpqFjWGyY8Nu1Fsiv6RThYWsjibNMiU204B
-         aKBinUPcqIZ6IFCXGthBNcnlkkgj/ibJiSocVrrKSFNTMbJWcXSemptiBVt4c2PllK8I
-         l5gA==
-X-Forwarded-Encrypted: i=1; AKwUvBx5cur9hoPRlIGDTZe4tMNgjMuZd5G301X3UqIcGotPqiB3y+bcKqGVDBt3tJPbiEUIkj273tw6msT8ZCE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kCktpHs96SDccJwy0jG6+L9pd/Ohm2YZ/sVww0WVvn6Y23lgaZ
-	dV30qZdRn+Ol4WkHsn4W/yY5l0DYr9XmnsGjJegvs5/QtUg0yD13jzy6
-X-Gm-Gg: AYBFou3jpXTfiTTZktW3XIZMiROOSW7n2CognHcJEBZgsNPhHEQilmN1G0pqHpPpFux
-	5ArT56NXYKNPA7V2Td0QnEoaXh0QRjQizCqxIpzuMOpLkZ+PDKxHlOs9/1NfyaAD4hXuB5lB7r2
-	7r3S2Da917jk87rFa+sEdCnN/lKJAA1jquAUYPUve7HT3E38hx9wIQCv464DpLtYk109lwicU5C
-	Af0FeWSq82Rh2+aVSATUfEUXoo/fVekwCL13If+/Mfxx3oeQRGh21M6hVSTHyE4J+tqI/qdmG2B
-	7bmmRqbChY9sQY1wvbnM/c5TjOHzKNiuYGRa3Ab3WFC+q7O5HLlNzJwU7q2FSfL3Kj5ljptgedQ
-	YonlkwLT5nTWK9lszRpZMuPmiV8rUJ9Fr6fwOOStRgZtbpSD4mqJW8cZK6sSVleELyiRD8dZcWj
-	tq3AJVFv/aBrlt+b/5HaQ8c4si59r2xVAZ0lyM1yiYIjXj/VBRixTWEri3V0wN9BEKn989RwpeP
-	L66oJ1bhQslHGuXa3Ft8Zjb7I4jr6atQ0tmOonC6U9I7HmOKU8zWUKW
-X-Received: by 2002:a05:6000:4010:b0:482:f528:be4 with SMTP id ffacd0b85a97d-482f79bab3cmr50727081f8f.16.1788270529641;
-        Tue, 01 Sep 2026 06:48:49 -0700 (PDT)
-Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d3b4f1sm4512147f8f.9.2026.09.01.06.48.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 06:48:49 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <0c445767-a4fa-4c44-b81a-64863be3de2d@gmail.com>
-Date: Tue, 1 Sep 2026 14:48:47 +0100
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="BmPHjLdm"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=57RWwzvbEDf7DvtJW9GsWV6QWqUGcL9KWR4klLOP/3A=; b=BmPHjLdmp5W9SZiMNWvuxvdjCj
+	Wa9un9M1cecMTXAQROipZ+eaiy+P0Ic3OnFb76MwkN2bBLa66Z6TuTC3TsfDt94pdBw0UaGoMBezy
+	B3I32EJxW+9swJ09kjtNwPPvdOjptdI793sgwStqwh+HAIQ1q8OVQRXfODOcjrhAH7f8=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x1OrA-002Mbr-FD; Tue, 01 Sep 2026 15:48:56 +0200
+Date: Tue, 1 Sep 2026 15:48:56 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Jia Wang <wangjia@ultrarisc.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+	Jose Abreu <joabreu@synopsys.com>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH net-next 3/3] net: stmmac: Add UltraRISC DP1000 GMAC
+ support
+Message-ID: <910be156-b631-4b62-972a-79d9a9e38697@lunn.ch>
+References: <20260901-dwmac-ultrarisc-v1-0-f19454814bcf@ultrarisc.com>
+ <20260901-dwmac-ultrarisc-v1-3-f19454814bcf@ultrarisc.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] kconfig: fix extra output from savedefconfig on
- out-of-range defaults
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: nathan@kernel.org, nsc@kernel.org, xiang@kernel.org, chao@kernel.org,
- zbestahu@gmail.com, jefflexu@linux.alibaba.com, dhavale@google.com,
- hongbohbli@tencent.com, guochunhai@vivo.com, michael.bommarito@gmail.com,
- kees@kernel.org, vegard.nossum@oracle.com, sam@ravnborg.org,
- u.kleine-koenig@pengutronix.de, mmarek@suse.cz,
- linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
- "open list:SERIAL DRIVERS" <linux-serial@vger.kernel.org>,
- Arnd Bergmann <arnd@arndb.de>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, mpe@ellerman.id.au
-References: <20260830221129.2668354-1-julianbraha@gmail.com>
- <CAMuHMdWkPtJinDa10S_r7Pj2DTgcKpwgxt7U3tqm7fnSwGxm-Q@mail.gmail.com>
- <CAMuHMdUywobKkt5Zozh3GdOW57nF_XhydJh7PaqTBoGB-2XvTQ@mail.gmail.com>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <CAMuHMdUywobKkt5Zozh3GdOW57nF_XhydJh7PaqTBoGB-2XvTQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901-dwmac-ultrarisc-v1-3-f19454814bcf@ultrarisc.com>
 
-CC: Arnd, Christophe
+> --- /dev/null
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-ultrarisc.c
+> @@ -0,0 +1,54 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * UltraRISC DWMAC platform driver
+> + *
+> + * Copyright (C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
+> + */
+> +
+> +#include <linux/module.h>
+> +#include <linux/phy.h>
+> +#include <linux/platform_device.h>
+> +
+> +#include "stmmac_platform.h"
+> +
+> +static int ultrarisc_dwmac_probe(struct platform_device *pdev)
+> +{
+> +	struct plat_stmmacenet_data *plat_dat;
+> +	struct stmmac_resources stmmac_res;
+> +	struct device *dev = &pdev->dev;
+> +	int ret;
+> +
+> +	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to get resources\n");
+> +
+> +	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
+> +	if (IS_ERR(plat_dat))
+> +		return dev_err_probe(dev, PTR_ERR(plat_dat), "failed to parse DT parameters\n");
+> +
+> +	plat_dat->phy_interface =
+> +		phy_fix_phy_mode_for_mac_delays(plat_dat->phy_interface, true, true);
+> +	if (plat_dat->phy_interface == PHY_INTERFACE_MODE_NA)
+> +		return dev_err_probe(dev, -EINVAL, "unsupported phy interface mode\n");
+> +
+> +	return devm_stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res);
+> +}
+> +
+> +static const struct of_device_id ultrarisc_dwmac_match[] = {
+> +	{ .compatible = "ultrarisc,dp1000-gmac" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, ultrarisc_dwmac_match);
+> +
+> +static struct platform_driver ultrarisc_dwmac_driver = {
+> +	.probe = ultrarisc_dwmac_probe,
+> +	.driver = {
+> +		.name = "ultrarisc-dwmac",
+> +		.pm = &stmmac_pltfr_pm_ops,
+> +		.of_match_table = ultrarisc_dwmac_match,
+> +	},
+> +};
+> +module_platform_driver(ultrarisc_dwmac_driver);
+> +
+> +MODULE_DESCRIPTION("UltraRISC DWMAC platform driver");
+> +MODULE_LICENSE("GPL");
 
-On 9/1/26 11:17, Geert Uytterhoeven wrote:
+This looks to be 90% identical to dwmac-sophgo.c.
 
-> FTR, this will impact all defconfigs that restrict SERIAL_8250_NR_UARTS
-> to a value lower than 4:
-> 
->     config SERIAL_8250_NR_UARTS
->             int "Maximum number of 8250/16550 serial ports"
->             depends on SERIAL_8250
->             default "4"
-> 
->     config SERIAL_8250_RUNTIME_UARTS
->             int "Number of 8250/16550 serial ports to register at runtime"
->             depends on SERIAL_8250
->             range 0 SERIAL_8250_NR_UARTS
->             default "4"
+Do you expect any further changes to this driver? Is everything
+supported? Are there more clocks? A GPIO for WoL?
 
-I suspected that there could be some cases where these out-of-range
-defaults were actually accidents and causing bugs, so I added a check
-with my SMT solver [1], which also detected these two (powerpc-only):
+I'm just wondering if the common code should be pulled out, or even
+dwmac-sophgo.c made generic so it can handle all plain boring devices
+which have RGMII delays and not a lot else.
 
-
-  config DATA_SHIFT
-    int "Data shift" if DATA_SHIFT_BOOL
-    default 24 if STRICT_KERNEL_RWX && PPC64
-    range 17 28 if (STRICT_KERNEL_RWX || DEBUG_PAGEALLOC || KFENCE) &&
-PPC_BOOK3S_32
-    range 14 23 if (STRICT_KERNEL_RWX || DEBUG_PAGEALLOC || KFENCE) &&
-PPC_8xx
-    range 20 24 if (STRICT_KERNEL_RWX || DEBUG_PAGEALLOC || KFENCE) &&
-PPC_85xx
-    default 22 if STRICT_KERNEL_RWX && PPC_BOOK3S_32
-    default 18 if (DEBUG_PAGEALLOC || KFENCE) && PPC_BOOK3S_32
-    default 23 if (STRICT_KERNEL_RWX || DEBUG_PAGEALLOC || KFENCE) &&
-PPC_8xx && \
-      (PIN_TLB_DATA || PIN_TLB_TEXT)
-    default 19 if (STRICT_KERNEL_RWX || DEBUG_PAGEALLOC || KFENCE) &&
-PPC_8xx
-    default 24 if STRICT_KERNEL_RWX && PPC_85xx
-    default PAGE_SHIFT
-
-  config MODULES_SIZE
-    int "Size of modules/execmem area (In Mbytes)" if MODULES_SIZE_BOOL
-    range 1 256 if EXECMEM
-    default 64 if EXECMEM && PPC_BOOK3S_32
-    default 32 if EXECMEM && PPC_8xx
-    default 0
-
-
-The DATA_SHIFT case may be bug, where it should be 12, but incorrectly
-adjusts to 20 when:
-  PPC_85xx=y
-
-  DEBUG_PAGEALLOC=y
-
-  STRICT_KERNEL_RWX=n
-
-  PAGE_SHIFT=12
-
-The MODULES_SIZE case seems harmless since the only systems using that
-option are PPC_BOOK3S_32 and PPC_8xx.
-
-Anyway, this change to savedefconfig would also affect those 2.
-
-[1] https://github.com/julianbraha/kconfirm/tree/smt
-
-- Julian Braha
-
-
+      Andrew
