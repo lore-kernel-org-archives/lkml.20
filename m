@@ -1,92 +1,184 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A458E330301
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:49:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E9113603D8;
+	Tue,  1 Sep 2026 12:49:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788266946; cv=none; b=ZEPMrB95nQhAkL0V+gx1uC/riXjLpAqDMBxClEH+eJbfR4iYexjICCmldiwfgUv/bPRoSiWd3AYTH/b5bRlelcGHwieN9q4RZp+ws4nfG/LA01c3l1ykPqV/NHNeZ9DMAAqsMUhQTRYTTGyrOQ7zM269Jc/o5i8bIeiWtvO6Oi8=
+	t=1788266989; cv=none; b=LOCxZ6i6DqsATgoi3iUl3YwJ76YaU0P8ouAZa+4Hdw4Zy7krccaQYLymzc3eMxQQOqhRijkrNg7cjjVrUHyUxUN6jhWRgeethVFYBBe7TfmZepG5oxLVnn0CMlCxlrFvrIEgaxdkU3rD5eKv9loSUnjAWOYmUilMfb2gQJucyIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788266946; c=relaxed/simple;
-	bh=p+RebVyRjeEN8sDHYk4AA5M8VtGKIjLTPplRY2HkqHY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sxqdJhZHF8zdEuObLZU3RYFSPl9JPe/URZtLjQVJ0oEbC6dlCdCE+uQgCz18bVNim6S+VcV6NeUVX1ir1fIrxnvZ9CaDh1plqqRIfObRXYYjkyLX3W1RISezCCTkG3di52+CizJnvLARP43MNslvH4UZQSC9xibMYbKA2Flfoic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=uQYbR90L; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788266989; c=relaxed/simple;
+	bh=eR5QRP+3ErWplxoTfCLBWrCAh6P4IzW/uFFoww0sU6s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WNyJLCL6dmAM6hXV6tXghurySAGW1Q2mH9jxQ43IHOKQuJaYuRXPHuI8NnJa6+k0IUmfOCxVaTnSDadxOb5XCEHFAiyf2KDv2XvFv+wGgucGrryGCtLXT6e4nSUz/4OWhUZl5bJD85pF1T4bgGDUHSY6X1CpimjJGBldbqoDYeg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=Tw02IMJZ; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="uQYbR90L"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
-	Sender:Reply-To:Content-ID:Content-Description;
-	bh=zYOvd8xUmq3KMZUEL2+l4KB/Nt/1RwlSG63QEYkOY6s=; b=uQYbR90Lnxq7Osc/BftVPgL6vy
-	hX3+r9x3m2WbtJF0kYLTZFbSEhlHF30qRZUKW8UrDiML37g7kJ/cBubbwsbTf76LT4L3GPxBTTi8C
-	QbEc4S3iX7Stnfe2jMt1nqKUUTiDFfuiksNddKOVRpOZqOQd6l10MADcKK9GsluO20IzXCFf3vap6
-	eQjFIUXpuypd/EMncyln3GlCHWh5yA6FW8Dhj4Vzi46DHl8R1fGvX6Z0J15iMbZqZQlJILKREpxhq
-	xiOWWBLu7EiCq/iOXdJ8SZ0zt0wszMoM5Tiy2E37BNZ1JKhPPZ1cc3LsXMoxL9pTswFXjFVBfPY4o
-	X+q8mofw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x1NvA-000000057zj-30Ez;
-	Tue, 01 Sep 2026 12:49:00 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 546EB30031E; Tue, 01 Sep 2026 14:49:00 +0200 (CEST)
-Date: Tue, 1 Sep 2026 14:49:00 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Frederic Weisbecker <frederic@kernel.org>
-Cc: Bradley Morgan <include@grrlz.net>, Tejun Heo <tj@kernel.org>,
-	linux-kernel@vger.kernel.org, brads@mainlining.org
-Subject: Re: [PATCH] kthread: remove worker->task self-assignment
-Message-ID: <20260901124900.GB687043@noisy.programming.kicks-ass.net>
-References: <20260829161150.16301-1-include@grrlz.net>
- <20260829161848.20635-1-include@grrlz.net>
- <apbI91PzT2BaRazM@localhost.localdomain>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="Tw02IMJZ"
+Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id 1671E1F94F;
+	Tue,  1 Sep 2026 14:49:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1788266975;
+	bh=16wkGkGjtMZJK0egYytkz9YHSnlvfQ9XYjKckJktAqc=; h=From:To:Subject;
+	b=Tw02IMJZ6jzXen+J6UQZpvw655/oHpgiVUqUrMiVYUbvf6dP6zo0JeDXSi5b3Inws
+	 5OqRZpl8mN9abu1KnrutKWp/ZEvy9s+NhEWu9LaOqDis3Ls50vIr3QPaCw66MS3YUO
+	 D8TtZSMM0Rf8LVHK7ILDHXaYr8fp38R7dycWkyfuutoJwjLsZljSx1cleEcJ5bnbyM
+	 W9nictGWcDSqmJ84f1Bd98ztPyYPW67kwO1G2FNWgy+Z+x4iprmy092kJTXvzz3bto
+	 uSZtldAPjzK1lnqOA8ab7gtlLJA1Oz/O0yBdzETyPgLzggOHuD9K1Kyv+t8P41rPzy
+	 8O+odu53Ncp9w==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1] ARM: dts: imx7d-colibri-emmc: Add VGA overlay
+Date: Tue,  1 Sep 2026 14:49:20 +0200
+Message-ID: <20260901124921.78635-1-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <apbI91PzT2BaRazM@localhost.localdomain>
 
-On Tue, Sep 01, 2026 at 02:45:43PM +0200, Frederic Weisbecker wrote:
-> Hi,
-> 
-> Le Sat, Aug 29, 2026 at 04:18:48PM +0000, Bradley Morgan a écrit :
-> > From: Bradley Morgan <brads@mainlining.org>
-> > 
-> > All kthread worker users now create their workers with
-> > kthread_create_worker*(), which sets worker->task before the worker
-> > starts. The self-assignment in kthread_worker_fn() is dead code now.
-> 
-> How could it be created before?
-> 
-> > 
-> > Remove it.
-> > 
-> > Signed-off-by: Bradley Morgan <brads@mainlining.org>
-> > ---
-> >  kernel/kthread.c | 7 -------
-> >  1 file changed, 7 deletions(-)
-> > 
-> > diff --git a/kernel/kthread.c b/kernel/kthread.c
-> > index 63beb59b7a3d..18bc702e8d2d 100644
-> > --- a/kernel/kthread.c
-> > +++ b/kernel/kthread.c
-> > @@ -987,13 +987,6 @@ int kthread_worker_fn(void *worker_ptr)
-> >  	struct kthread_worker *worker = worker_ptr;
-> >  	struct kthread_work *work;
-> >  
-> > -	/*
-> > -	 * FIXME: Update the check and remove the assignment when all kthread
-> > -	 * worker users are created using kthread_create_worker*() functions.
-> > -	 */
-> > -	WARN_ON(worker->task && worker->task != current);
-> 
-> Should we keep a WARN_ON(worker->task != current) here?
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-I vote yes! Paranoia is good :-)
+Add a device tree overlay for the VGA output on the Colibri iMX7 parallel
+RGB LCD interface. The VGA output is driven through a non-programmable
+video DAC without VESA DDC I2C signals to a DVI connector.
+
+The overlay is also combined with the Aster, Evaluation Board v3, Iris
+and Iris v2 carrier board device trees to provide ready-to-use DTBs.
+
+Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+---
+this patch is on top of https://lore.kernel.org/all/20260723105225.194366-1-francesco@dolcini.it/
+---
+ arch/arm/boot/dts/nxp/imx/Makefile            | 21 +++++++
+ .../dts/nxp/imx/imx7d-colibri-emmc-vga.dtso   | 59 +++++++++++++++++++
+ 2 files changed, 80 insertions(+)
+ create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-vga.dtso
+
+diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
+index e9f95c3b8353..d1272104ef27 100644
+--- a/arch/arm/boot/dts/nxp/imx/Makefile
++++ b/arch/arm/boot/dts/nxp/imx/Makefile
+@@ -436,18 +436,39 @@ imx7d-colibri-emmc-eval-v3-panel-res-touch-7inch-parallel-dtbs := \
+ 	imx7d-colibri-emmc-eval-v3.dtb \
+ 	imx7d-colibri-emmc-panel-res-touch-7inch-parallel.dtbo
+ 
++imx7d-colibri-emmc-aster-vga-dtbs := \
++	imx7d-colibri-emmc-aster.dtb \
++	imx7d-colibri-emmc-vga.dtbo
++
++imx7d-colibri-emmc-eval-v3-vga-dtbs := \
++	imx7d-colibri-emmc-eval-v3.dtb \
++	imx7d-colibri-emmc-vga.dtbo
++
++imx7d-colibri-emmc-iris-vga-dtbs := \
++	imx7d-colibri-emmc-iris.dtb \
++	imx7d-colibri-emmc-vga.dtbo
++
++imx7d-colibri-emmc-iris-v2-vga-dtbs := \
++	imx7d-colibri-emmc-iris-v2.dtb \
++	imx7d-colibri-emmc-vga.dtbo
++
+ dtb-$(CONFIG_SOC_IMX7D) += \
+ 	imx7d-cl-som-imx7.dtb \
+ 	imx7d-colibri-aster.dtb \
+ 	imx7d-colibri-emmc-aster.dtb \
+ 	imx7d-colibri-emmc-aster-panel-cap-touch-7inch-parallel.dtb \
++	imx7d-colibri-emmc-aster-vga.dtb \
+ 	imx7d-colibri-emmc-iris.dtb \
++	imx7d-colibri-emmc-iris-vga.dtb \
+ 	imx7d-colibri-emmc-iris-v2.dtb \
+ 	imx7d-colibri-emmc-iris-v2-panel-cap-touch-7inch-parallel.dtb \
++	imx7d-colibri-emmc-iris-v2-vga.dtb \
+ 	imx7d-colibri-emmc-eval-v3.dtb \
+ 	imx7d-colibri-emmc-eval-v3-panel-cap-touch-7inch-parallel-touch-adapter.dtb \
+ 	imx7d-colibri-emmc-eval-v3-panel-res-touch-7inch-parallel.dtb \
++	imx7d-colibri-emmc-eval-v3-vga.dtb \
+ 	imx7d-colibri-emmc-panel-cap-touch-7inch-parallel.dtbo \
++	imx7d-colibri-emmc-vga.dtbo \
+ 	imx7d-colibri-eval-v3.dtb \
+ 	imx7d-colibri-iris.dtb \
+ 	imx7d-colibri-iris-v2.dtb \
+diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-vga.dtso b/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-vga.dtso
+new file mode 100644
+index 000000000000..cda214c13876
+--- /dev/null
++++ b/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-vga.dtso
+@@ -0,0 +1,59 @@
++// SPDX-License-Identifier: GPL-2.0-only OR MIT
++/*
++ * Copyright (c) Toradex
++ *
++ * VGA output connected to the Colibri parallel RGB LCD interface through a
++ * non-programmable video DAC with a DVI connector.
++ *
++ * The VGA output is available on multiple carrier boards (including Iris,
++ * Eval, Aster) without VESA DDC I2C signals.
++ */
++
++/dts-v1/;
++/plugin/;
++
++&{/} {
++	vga-encoder {
++		compatible = "dumb-vga-dac";
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++
++				vga_enc_in: endpoint {
++					remote-endpoint = <&lcdif_out>;
++				};
++			};
++
++			port@1 {
++				reg = <1>;
++
++				vga_enc_out: endpoint {
++					remote-endpoint = <&dvi_connector_in>;
++				};
++			};
++		};
++	};
++
++	dvi-connector {
++		compatible = "dvi-connector";
++		analog;
++
++		port {
++			dvi_connector_in: endpoint {
++				remote-endpoint = <&vga_enc_out>;
++			};
++		};
++	};
++};
++
++&lcdif {
++	status = "okay";
++};
++
++&lcdif_out {
++	remote-endpoint = <&vga_enc_in>;
++};
+-- 
+2.47.3
+
