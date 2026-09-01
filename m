@@ -1,170 +1,291 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011027.outbound.protection.outlook.com [52.101.70.27])
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C4C1471254;
-	Tue,  1 Sep 2026 08:02:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.27
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788249778; cv=fail; b=Meh4leeK0oGEG0wrnrRObCNgzfz9vXtk8rRB1izwUb1K3dGPR8UeYOXqOrdJaFkkoPr9bmARWCD1h0fAdEmRVyIvA2/aWUeMSrdiCLO5d9bTDHuu16j2Yx7KQ60431X8TF7mPQT2cSEBhpMoUrmnMU3u5UgflebGUxYwnLwf4B0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788249778; c=relaxed/simple;
-	bh=C5peRDzxCzFhGIv6UPgkgKl+qSuq4Pb6oSoqbasZy+Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=Gk5H6lFAtBfOL2hn2nilrFc+XzFvn7q+VJkDQcyWJEnOnOlmDAMyPvqBqF3uW/Qq+JE3RXS3UpA+rw1lWcWcJbYtlIvQ5ETxB349wcLTsDAEbifzUh/h46RrMxXngD9cRGZ2b3MIJGhV7SE8lwgkQW5MS/ztj1sXyvj7tA0TB8o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=USaqbKSw; arc=fail smtp.client-ip=52.101.70.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D10471CF4;
+	Tue,  1 Sep 2026 08:03:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788249805; cv=none; b=sYqmGBkkl0dK0BYuHoAwnAVAe7HHmZBiIgrdXpLltyj/uW+eGzkARt4ONM3CthV48wP+uY7dPuzqF3BpBknX/o973kZE+2giQDz/MJ3ZT2LhPfgqNSWdn68QNawiZex6aCfq7tLCnkkOXZT2kCO/vwqlfUCxkSiuSkvNMBv2VGI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788249805; c=relaxed/simple;
+	bh=DBqvi2145wRaRemZ3CPfuFNwzKfMZKCYNC7ndtk8tJQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dkRFEC4ronJa8HeqGHtSNY0WaCDNSZQ5/LGEQNFfbWkzdzgtH2/tInmSR3hINY1+pSPGzXpeKcBsKwPDzCaeDHUc8FZebCJptfZ2XsY0XmzHd6DLM6xJBos+loYse8byK1xZyC03ui5vxCsYwWJ9DQX/mnhDNRRAtMqZ9/VppLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=abm/sfz7; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="USaqbKSw"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jGS7SD5eGt5q0vvb6txkVP2Ma1VvbNzll0A7PBvOgZZz3w/UaWsR9NNxTT5S/A6XnpnSSsXDUntrQtaR24n2t4ubh0Sj3G90En/k+bejaV9JD5XzOSUvFcSmvdntEZ9dCHf/EyCgDiHAz2+q1HhuOG1ty+Ag3+V3PRxHyw0k1xFfQ2nCa7I58P+tukx6WVYboNJ1CxN7F82/OfnQD/I3bTBcAx+fUgH7UfMiPCRvNoXK0y154FWbkMi+Ojb+av9853ls4nkKNYry2ooYUCtTGvKnau52dQCSaZMN9h2/n5Op2NQOo3PnYhQqr4DdeIL4rzZeuxB/dUu6MG1zNyG3kQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dXkcpHwZuyiwHzWPNkF4HSa74rmlBAPJ/1Av/5KalY8=;
- b=WcQm52uWjXbwSsBNZ8GDceX8sLAx7+t4chB86t/Oll/4KDTophtl3eQCwJ/33tO8Y7VP3tol6QHT45+xztANO2QFuipdwRGs3BZaWnXNZKWDMaVIJ2OIGtWPO3L6Ny51wyxdI0TjW6VxObZjEzXuZ9D4GNH8ziH7WWzvosLAv6J/5rMftKMWTfLOt21T9pDlKIsLbwNJXQJcEB73yEnHqqJbPqbKyDjOThzHWJym2+Eq9QyDlFkjO5BOzMtfLZs4kF7hfADoagrAh6SRBWy8gfJ6tZADgmQuQTSQg4b9WrtgZuij75AwR8sA+BxJswrgqTO7Vbe6HB9vNSsmDTRumw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.87) smtp.rcpttodomain=oss.nxp.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dXkcpHwZuyiwHzWPNkF4HSa74rmlBAPJ/1Av/5KalY8=;
- b=USaqbKSw9nWLhbffssfdekSvyndOCX/94FZXS8k9q8JSPPysHRLEWoxwHpuzm+GvfpWd1edgKnidV8YslNpfry3iu3pgAbLnSQZ7L+1pwY6Fr6hS6LcPOB3OUPLeQS7Y2lMFjsO3StZ6r7es/SVnlsxrsGllCSWLSi6C+l7z4QUav8aZP7nmFp0cD5CDFq3ZioyZIJWWg3MffRs41FlvEJcAXTXqOVM0N0ui4QBrRoTrLtNn6gLYxjSm7U+wCaHN6k4bc2f15uBkeLyb8T+irRL7YSbAcLYf3DXlcT9hXqGP7FzYKxNK6FiY1Psn8icTU/DpdqSaNBng6Y+g42DnBQ==
-Received: from DB8PR04CA0024.eurprd04.prod.outlook.com (2603:10a6:10:110::34)
- by PRAPR10MB5397.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:291::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 08:02:52 +0000
-Received: from DU6PEPF0000B61B.eurprd02.prod.outlook.com
- (2603:10a6:10:110:cafe::99) by DB8PR04CA0024.outlook.office365.com
- (2603:10a6:10:110::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Tue, 1
- Sep 2026 08:02:52 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.87)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.87 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.87; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.87) by
- DU6PEPF0000B61B.mail.protection.outlook.com (10.167.8.132) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 08:02:52 +0000
-Received: from ENXDAG1NODE4.st.com (10.75.129.197) by smtpo365.st.com
- (10.250.44.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 1 Sep
- 2026 10:04:49 +0200
-Received: from [10.48.86.251] (10.48.86.251) by ENXDAG1NODE4.st.com
- (10.75.129.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 1 Sep
- 2026 10:02:50 +0200
-Message-ID: <ee0fe8e9-4166-4fd2-a872-d45ca7af0612@foss.st.com>
-Date: Tue, 1 Sep 2026 10:02:50 +0200
+	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="abm/sfz7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202608; t=1788249796;
+	bh=ZLh/gL5WqkFxJPzGlA/crTex+7BN4AyLSjbpVYk3uhs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=abm/sfz7KH1SOvblSl8+aKwSR8WVx5XKFpz3AgWHtzdcVcl7kJURAt1PDhdwszBb0
+	 C7gL5zyFrW4kWOwtHUmXHnOF/qlaHsJxKuw3hoi2SwhK3BpiZ9s/rmnIZH6IVXCpdn
+	 M7qCDGieUo4+51udPLed4BpQbEZpb5qpLyqSkKfURGEMsaNyC2z66K5HG6Byyzn+cY
+	 uVE1iIDPvXryhmIXs4EO4OKPeIolJpZV8FSy2NlGBp9NTHkA2d+BooX+ID45UAP7S4
+	 tqpwd1bkfZe7KrOf4mjlV/2+7gGDTw+6AxWK5+a+GBZUrazLO7eJn8C2fW38qXRwQ5
+	 CtAk2ziI1QMNA==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4hYyz85zhSz4wG8; Tue, 01 Sep 2026 18:03:16 +1000 (AEST)
+Date: Tue, 1 Sep 2026 18:03:09 +1000
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v3 03/15] tests: Don't assume the root node is available
+ at offset 0
+Message-ID: <apaGr_i-s4DAZ-Ul@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+ <20260826083146.304291-4-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] dt-bindings: usb: gpio-sbu-mux: Add compatible for
- FUSB340
-To: Xu Yang <xu.yang_2@oss.nxp.com>
-CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, "Heikki
- Krogerus" <heikki.krogerus@linux.intel.com>, Marek Vasut
-	<marex@nabladev.com>, <linux-usb@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>, Conor Dooley
-	<conor.dooley@microchip.com>
-References: <20260826-usb-fusb340-v1-v3-0-11927682504d@foss.st.com>
- <20260826-usb-fusb340-v1-v3-1-11927682504d@foss.st.com>
- <c6pnde4lh44kwx6a45wtx7rsb7liam253disb7kg6e4brtqix6@3gcv4wmab5ag>
-Content-Language: en-US
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-In-Reply-To: <c6pnde4lh44kwx6a45wtx7rsb7liam253disb7kg6e4brtqix6@3gcv4wmab5ag>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To ENXDAG1NODE4.st.com
- (10.75.129.197)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU6PEPF0000B61B:EE_|PRAPR10MB5397:EE_
-X-MS-Office365-Filtering-Correlation-Id: db5e0b3a-6dcd-4a5b-cc12-08df07ff6c42
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|7416014|376014|1800799024|56012099006|10067099003|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	Cq/i3JpYSeCNBtiO9sf3FBDV1iBOinIXe/XN14qiJ8AONOUHqwPfdpflu3wuK89aG54SvPP/C/xg/M+ldF7e4FuY05xenoBKsn60Y+E3ihosMrUaSu0bXMsVFdC2YxyV3eT2DLI83VBTeUpnQ+Pxnaidl6B6nIPG01SOqPPsmAK3YG0S01CCsRf0uJYJzwe9F2JOKy+cXhDLOiBOBFI8iJkXi9F5qdS9LQGBvNApjqV5TeQXSpgT4kWBntVL2ot/3+/UBHWrJjUqkzuEjsZfFg0ToZC3jifRokPimFDrFSN2gUGmHNq8P+6FcCu8W/C5sJnOhKgVf+Zhpf67bJVewZK7Nrlv0jhdX+o0PiauqlvgktwgvvNLcPdbgzYSNgWpHYhnGmRa7Cr+PcccTvtMutF0ZQbRnEPdpyvE7QLicPuyU4tdH7KyUsCQscVcNKR9avDzP1AfI3veo8Vj8Vx4AnhoKe2Yqeo0mZELYVNscwysL1xGrrE+oi20Yas7E3wc+xG9vP6Vkkd7cggkJcIdUEnPWlCFlhN7Mm1pepcyUK0rRwlHKou6kAkgMBNWxKCwW+leH5sJKeWKQGO8QiB/vklyfhdeoTVxsEGXIiu7FTnfgI73p4Q7v98hauSzu+xoyrqczpgf5GAXmCf9Ft57thKwqbrIG0eYRuL3LQTzZ1cJ/4ueYuyWuGypXRyoPDs03THq0dshkYH/hjgm2BJllg==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.87;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(7416014)(376014)(1800799024)(56012099006)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ET1olM3vPuheFHI14j1RmKV931qKsn10FrBg/p8/V7y8jNvJpyVPolHxyg3KMT2etvx5u19I/f/myf7B4iBjQEzwg7FPuWUCYqGDspKNypY6MKPukh6ptanBRBOJRiIh6uRWVykF/vfdeB5gKXWBlTY9rFHxUz09XZGIvpOU3gI4TxQ/wvFXtWzGHXu7yT/FsYephc+7C3VzIz8lP3pVpjvAVyziPdXhb+rMMqSDoKkCK/Uk7bEZ/FlzbTC2FHcTapD0QuVCdZViFPvwjF0RsX8rn5UgE7M2gpoW92F9Xn4CyV4RU1zSuzj/8G3N3qVC8Bd2z/wQOC/XB2ogOhEeNGOiMgc+pk906ZDhLDC9+th2d4Xjw1cz9kdlyVxJFvRijHI4w+PbcLCnz3h8n/2KXtjEDWGehaw8kQUbnQq7hppys9ivHb3CjJV78asb4BKN
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 08:02:52.3105
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: db5e0b3a-6dcd-4a5b-cc12-08df07ff6c42
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.87];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU6PEPF0000B61B.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PRAPR10MB5397
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="oli3xoiA707CJUi1"
+Content-Disposition: inline
+In-Reply-To: <20260826083146.304291-4-herve.codina@bootlin.com>
 
-On 9/1/26 08:31, Xu Yang wrote:
-> Hi Fabrice,
-> 
-> On Wed, Aug 26, 2026 at 02:16:35PM +0200, Fabrice Gasnier wrote:
->> Add a compatible for the FUSB340 GPIO-based 2:1 SuperSpeed switch
->> with enable-gpios and select-gpios controls. The switch can be used
->> in Type-C applications where a reversible cable requires a switch.
->>
->> Suggested-by: Marek Vasut <marex@nabladev.com>
->> Acked-by: Conor Dooley <conor.dooley@microchip.com>
->> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
->> ---
->>  Documentation/devicetree/bindings/usb/gpio-sbu-mux.yaml | 1 +
->>  1 file changed, 1 insertion(+)
->>
->> diff --git a/Documentation/devicetree/bindings/usb/gpio-sbu-mux.yaml b/Documentation/devicetree/bindings/usb/gpio-sbu-mux.yaml
->> index 793662f6f3bf..c0e60848d8ab 100644
->> --- a/Documentation/devicetree/bindings/usb/gpio-sbu-mux.yaml
->> +++ b/Documentation/devicetree/bindings/usb/gpio-sbu-mux.yaml
->> @@ -22,6 +22,7 @@ properties:
->>            - nxp,cbdtu02043
->>            - onnn,fsusb42
->>            - onnn,fsusb43l10x
->> +          - onnn,fusb340
->>            - pericom,pi3usb102
->>            - ti,tmuxhs4212
->>        - const: gpio-sbu-mux
-> 
-> To be honest, the added one is SuperSpeed Line switch. The gpio-sbu-mux.yaml
-> describes SBU line here. They are different. Should another compatible name
-> be created? Such as gpio-ss-mux or similar?
+--oli3xoiA707CJUi1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Hi Xu,
+On Wed, Aug 26, 2026 at 10:31:34AM +0200, Herve Codina wrote:
+> Several tests uses offset 0 as the offset of the root node. Either to
+> check the offset returned by tested functions or to directly manipulate
+> the root node retrieved using fdt_offset_ptr(fdt, 0, ...).
+>=20
+> The root node is not always at offset 0. Indeed, a FDT_NOP tag can be
+> present at offset 0. fdt_root_offset() returns the offset of the root
+> node taking care of possible FDT_NOP tag.
+>=20
+> Use fdt_root_offset() to get the offset of the root node and use this
+> value whenever the offset of the root node is expected.
+>=20
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> ---
+>  tests/node_offset_by_compatible.c |  4 +++-
+>  tests/node_offset_by_prop_value.c | 11 +++++++----
+>  tests/path_offset.c               | 13 +++++++++----
+>  tests/root_node.c                 |  6 +++++-
+>  4 files changed, 24 insertions(+), 10 deletions(-)
+>=20
+> diff --git a/tests/node_offset_by_compatible.c b/tests/node_offset_by_com=
+patible.c
+> index a9e67835..1278a562 100644
+> --- a/tests/node_offset_by_compatible.c
+> +++ b/tests/node_offset_by_compatible.c
+> @@ -39,12 +39,14 @@ static void check_search(void *fdt, const char *compa=
+t, ...)
+>  int main(int argc, char *argv[])
+>  {
+>  	void *fdt;
+> +	int root_offset;
+>  	int subnode1_offset, subnode2_offset;
+>  	int subsubnode1_offset, subsubnode2_offset;
+> =20
+>  	test_init(argc, argv);
+>  	fdt =3D load_blob_arg(argc, argv);
+> =20
+> +	root_offset =3D fdt_root_offset(fdt);
+>  	subnode1_offset =3D fdt_path_offset(fdt, "/subnode@1");
+>  	subnode2_offset =3D fdt_path_offset(fdt, "/subnode@2");
+>  	subsubnode1_offset =3D fdt_path_offset(fdt, "/subnode@1/subsubnode");
+> @@ -54,7 +56,7 @@ int main(int argc, char *argv[])
+>  	    || (subsubnode1_offset < 0) || (subsubnode2_offset < 0))
+>  		FAIL("Can't find required nodes");
+> =20
+> -	check_search(fdt, "test_tree1", 0, -FDT_ERR_NOTFOUND);
+> +	check_search(fdt, "test_tree1", root_offset, -FDT_ERR_NOTFOUND);
 
-It is very similar to other parts supported here already (see tmuxhs4212
-datasheet). I don't understand why another compatible would be created ?
-And other properties in the bindings indicate the purpose, e.g.
-mode-switch, orientation-switch.
+This does highlight that even with the compatibility changes
+introduced here, allowing NOPs before the root node can potentially
+break things.  We now handle _passing_ 0 to any of the functions as a
+node offset, but anything that expects a _returned_ offset to be 0 if
+it's the root node will break.
 
-BR,
-Fabrice
+I think that's probably an acceptable breakage, but it's something to
+be aware of.
 
-> 
-> Thanks,
-> Xu Yang
-> 
->>
->> -- 
->> 2.43.0
->>
+>  	check_search(fdt, "subnode1", subnode1_offset, -FDT_ERR_NOTFOUND);
+>  	check_search(fdt, "subsubnode1", subsubnode1_offset, -FDT_ERR_NOTFOUND);
+>  	check_search(fdt, "subsubnode2", subsubnode2_offset, -FDT_ERR_NOTFOUND);
+> diff --git a/tests/node_offset_by_prop_value.c b/tests/node_offset_by_pro=
+p_value.c
+> index 48ab1d93..329409b9 100644
+> --- a/tests/node_offset_by_prop_value.c
+> +++ b/tests/node_offset_by_prop_value.c
+> @@ -64,12 +64,14 @@ static void check_search_str(void *fdt, const char *p=
+ropname,
+>  int main(int argc, char *argv[])
+>  {
+>  	void *fdt;
+> +	int root_offset;
+>  	int subnode1_offset, subnode2_offset;
+>  	int subsubnode1_offset, subsubnode2_offset;
+> =20
+>  	test_init(argc, argv);
+>  	fdt =3D load_blob_arg(argc, argv);
+> =20
+> +	root_offset =3D fdt_root_offset(fdt);
+>  	subnode1_offset =3D fdt_path_offset(fdt, "/subnode@1");
+>  	subnode2_offset =3D fdt_path_offset(fdt, "/subnode@2");
+>  	subsubnode1_offset =3D fdt_path_offset(fdt, "/subnode@1/subsubnode");
+> @@ -79,19 +81,20 @@ int main(int argc, char *argv[])
+>  	    || (subsubnode1_offset < 0) || (subsubnode2_offset < 0))
+>  		FAIL("Can't find required nodes");
+> =20
+> -	check_search_cell(fdt, "prop-int", TEST_VALUE_1, 0, subnode1_offset,
+> -			  subsubnode1_offset, -FDT_ERR_NOTFOUND);
+> +	check_search_cell(fdt, "prop-int", TEST_VALUE_1, root_offset,
+> +			  subnode1_offset, subsubnode1_offset, -FDT_ERR_NOTFOUND);
+> =20
+>  	check_search_cell(fdt, "prop-int", TEST_VALUE_2, subnode2_offset,
+>  			  subsubnode2_offset, -FDT_ERR_NOTFOUND);
+> =20
+> -	check_search_str(fdt, "prop-str", TEST_STRING_1, 0, -FDT_ERR_NOTFOUND);
+> +	check_search_str(fdt, "prop-str", TEST_STRING_1, root_offset,
+> +			  -FDT_ERR_NOTFOUND);
+> =20
+>  	check_search_str(fdt, "prop-str", "no such string", -FDT_ERR_NOTFOUND);
+> =20
+>  	check_search_cell(fdt, "prop-int", TEST_VALUE_1+1, -FDT_ERR_NOTFOUND);
+> =20
+> -	check_search(fdt, "no-such-prop", NULL, 0, -FDT_ERR_NOTFOUND);
+> +	check_search(fdt, "no-such-prop", NULL, root_offset, -FDT_ERR_NOTFOUND);
+> =20
+>  	PASS();
+>  }
+> diff --git a/tests/path_offset.c b/tests/path_offset.c
+> index ad8db833..d4f6553b 100644
+> --- a/tests/path_offset.c
+> +++ b/tests/path_offset.c
+> @@ -84,11 +84,16 @@ int main(int argc, char *argv[])
+>  	void *fdt;
+>  	int subnode1_offset, subnode2_offset;
+>  	int subsubnode1_offset, subsubnode2_offset, subsubnode2_offset2;
+> +	int root_offset;
+> =20
+>  	test_init(argc, argv);
+>  	fdt =3D load_blob_arg(argc, argv);
+> =20
+> -	check_path_offset(fdt, "/", 0);
+> +	root_offset =3D fdt_root_offset(fdt);
+> +	if (root_offset < 0)
+> +		FAIL("fdt_root_offset()) failed: %s", fdt_strerror(root_offset));
+> +
+> +	check_path_offset(fdt, "/", root_offset);
+> =20
+>  	subnode1_offset =3D check_subnode(fdt, 0, "subnode@1");
+>  	subnode2_offset =3D check_subnode(fdt, 0, "subnode@2");
+> @@ -106,8 +111,8 @@ int main(int argc, char *argv[])
+> =20
+>  	/* Test paths with extraneous separators */
+>  	check_path_offset(fdt, "", -FDT_ERR_BADPATH);
+> -	check_path_offset(fdt, "//", 0);
+> -	check_path_offset(fdt, "///", 0);
+> +	check_path_offset(fdt, "//", root_offset);
+> +	check_path_offset(fdt, "///", root_offset);
+>  	check_path_offset(fdt, "//subnode@1", subnode1_offset);
+>  	check_path_offset(fdt, "/subnode@1/", subnode1_offset);
+>  	check_path_offset(fdt, "//subnode@1///", subnode1_offset);
+> @@ -116,7 +121,7 @@ int main(int argc, char *argv[])
+>  	/* Test fdt_path_offset_namelen() */
+>  	check_path_offset_namelen(fdt, "/subnode@1", -1, -FDT_ERR_BADPATH);
+>  	check_path_offset_namelen(fdt, "/subnode@1", 0, -FDT_ERR_BADPATH);
+> -	check_path_offset_namelen(fdt, "/subnode@1", 1, 0);
+> +	check_path_offset_namelen(fdt, "/subnode@1", 1, root_offset);
+>  	check_path_offset_namelen(fdt, "/subnode@1/subsubnode", 10, subnode1_of=
+fset);
+>  	check_path_offset_namelen(fdt, "/subnode@1/subsubnode", 11, subnode1_of=
+fset);
+>  	check_path_offset_namelen(fdt, "/subnode@2TRAILINGGARBAGE", 10, subnode=
+2_offset);
+> diff --git a/tests/root_node.c b/tests/root_node.c
+> index 37e6f059..30903f2b 100644
+> --- a/tests/root_node.c
+> +++ b/tests/root_node.c
+> @@ -19,12 +19,16 @@ int main(int argc, char *argv[])
+>  {
+>  	void *fdt;
+>  	const struct fdt_node_header *nh;
+> +	int root_offset;
+> =20
+>  	test_init(argc, argv);
+>  	fdt =3D load_blob_arg(argc, argv);
+> =20
+> -	nh =3D fdt_offset_ptr(fdt, 0, sizeof(*nh));
+> +	root_offset =3D fdt_root_offset(fdt);
+> +	if (root_offset < 0)
+> +		FAIL("fdt_root_offset() returns %d", root_offset);
 
+Hm.  It's been a long time, but I suspect the purpose of this testcase
+was to be super low-level, checking the contents of the root node
+_without_ relying on iteration or lookup functions first.  Putting the
+lookup call here arguably defeats that purpose: certainly the test
+that nh->tag =3D=3D FDT_BEGIN_NODE is no longer meaningful, since
+fdt_root_offset() will explicitly look for a location where that's
+true.
+
+Or perhaps another way to look at it is that this test is explicitly
+verifying that the root node is at offset 0, so does it make snese for
+this test to even exist any more.  I guess the test for the name of
+the root node is still meaningful, if minor.
+
+Nonetheless, to maintain as best we can this test's goal as working
+independent of lookup functions, I think it might be worth open coding
+something to skip FDT_NOP tags (not using fdt_next_tag(), even), then
+construct nh immediately after that.
+
+
+> =20
+> +	nh =3D fdt_offset_ptr(fdt, root_offset, sizeof(*nh));
+>  	if (! nh)
+>  		FAIL("NULL retrieving root node");
+> =20
+> --=20
+> 2.55.0
+>=20
+>=20
+
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--oli3xoiA707CJUi1
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqWhq8ACgkQzQJF27ox
+2GfF/hAAgGk88CGJY5GnqxSyVsj87cj4yuEmW4NHSjiCXJbp9Mqo7fFAfMiW4QPf
+pCib5FRTdWlkxlHBMWOab2QTfZs8w0EtQu7URQ0Mm6fcbADqoDpiajldm5xfW2IV
++QZwGi4lmAThf7nizOkUQvidT965J8AsFVb9BdshrnyPpe8nMuhmJtx0xwi+KhSk
+ijiUe3xf+LVbt0bQbO3zVy3nA7fBSQxl2qMu67J0obNTwht7YDjex5//ZqCX9Etq
+qH2YJntpuEP4xB1mq/0HEB7Fo/m3awUvOK27QyHEhFyjh0tD3Aak0WtRb95ygAMY
+gYSze7hBYxcLGtxzDChOZj8GcYGjDBYzZ2SUufJHZ5QFKFWz2J3QNqxPfQo1Zc4f
+tJFdUXdraNY0hJDCS0kvi/75sUHDlDBaKSJ4XWQgObng+ENNSro6+zlbodJvhlew
+HpEiTGbja0tuK4I81K5p0Ig1rVyoEeMh9MinIWzzwpPNrml6rCeCcbeYB3gbnOoa
+K29W1v5jEkjVH0YQcdYCqNiwdHzi9fFxI6RRi/0qFvM7wyH1OPUIk706ZAHWn5ZF
+rdYsFZqix2DSxNpfwarDr8Q1DIYF50buUdWvQrIKiIXPvv5aMkpum9NEDsUuhV9Q
+wJtO1AudgfEKdWS6JnyiwnOGU8AIPNiNstYRQxJVwPpPjTFzLWc=
+=9hsg
+-----END PGP SIGNATURE-----
+
+--oli3xoiA707CJUi1--
