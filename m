@@ -1,203 +1,159 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012036.outbound.protection.outlook.com [52.101.48.36])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C4A245563E
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:02:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.36
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788292932; cv=fail; b=rF9SVfCtH3xTVuS6zlCxjFH4bPamgelVWDQn6TvDbwr7h1Ifwh8pfqUfY7nLrU/LNCuKzpn5tr+oVaFwcj7YhQ+45Lclb5biZ38PHMKY48HyeC66vQAsg2YsV/dIPFDiQAnHmYwwlsWkcoKTtbUMm7rWVzp+KZuNvsjF9xxsaAU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788292932; c=relaxed/simple;
-	bh=191NRWU31zMO2NvPwNjoDF0mGZ0GShq+42E0+9MD27M=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=RxUbw2rTlda8Gwmu2tu4eTl9LOaOUdgFG07ZFVvDOB6R+4OYjvAp+sVoUw4td07XalR5aAoDxD/bbeuMiFE+458HVWWz1/Ejwj9X1ACwh9VM+o2ZU89ExVN0DB7HER8e1eTltbLf8+p89JEnSMF1tH1ZUSU5wwlYmBTtOr19ESk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=HwFRAdtj; arc=fail smtp.client-ip=52.101.48.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64A0E456297
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:05:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788293101; cv=none; b=H8cOSXC0tsTXLoqqjg+aMYeD97O3pJHo2iXLdKSFM55+bdEvGQkqRgpT0TXBcQee3N42FVccD6SMVvDjmHh4hPoJaTpC1wBXmLZ2NGq9tA3DzYAMBeB+FEVbzs6IZEFna+aFw+IAQzRIetIvdPEE0uT7ERGLwboWIcPtOanxlHw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788293101; c=relaxed/simple;
+	bh=Qvg96r1uqRi7ZsIahTd0vxEuEUAxLGPkPnDx+jmOuQs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=lKeKvTuTLaGBeiLW01To3iVYIahtvnFLVKA4fpyZwnaJtfLmgxw4JhW6dZAbo7Vit72aP9qgLx8Wy/yUNCDSp/Z2sWuX+VnMrLp7cEwktVX7zpMoh4B7xv07LTmTmTVGeR4REZWwbYCKcXdh6eHX+xcCFtrL1UjJKHGO0Gig0bw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TnzEUrOn; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="HwFRAdtj"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dGmkAqlLTXtj+0r/Dmn13+xXDDQO3W03Kb7EzNQoN+jsypIDclgQT6oPDLVNNodQHrxSC6YbfrFeS+er2liHAV/Ug60dWh8RTfQ+/NtVNWfJw+TBA0Np2ykEFr6BkbX5M5d/dBADZTnG2v66vqyJ3oKIYTNb6Gi80ufw3cDHYblyus7JIU074jDFejz9dLl7Dd3f8/N4J7RVKQ7p+hBPnUdngq6K9FY8ze5pqyE4S4KKfHk1x0YnEdwMs39s0JD+unZJCsToHfQ2P5tsT0fPPbfu+LK0iPgNHprqUVeWEHk7gaRryyBYEDZjqWZjckeRl0FL+URFx5bM8ynJO5pnXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7LUPwFus1GvRDU1+nlO5bBaF9pkltj4MUgQS9rq/O1s=;
- b=Hc1GyZGyaHQ/CdjM1d/ol46IkTEM5Nr1EoiX+9JJo40psXWl8imDJLB6FqtDeUTriVo/T8LIYOTCAq9xgrGmZJALO8adX3pl5mwj6n1TdDSUFPVuJCUaHrq0b84fY1BivcOYD9PdT41/qx2rDPR0z+GZX+hxiv8SJlHLvqG5AEvrnHII8CVFNI8iG7vSnQbw1RIog3bpBGc2CX3HDBALvimKlHak64NilcZtirOXibwDBYd05oeYgmTwlVII+73Ec84otcPPZuDaoIFckUATs84C5ZgWNUCtwxoZ6Q+5+3lzkR2y2CC8RQvg1EzTuohKvdJVgwk/a7PQ/nNyonudIg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7LUPwFus1GvRDU1+nlO5bBaF9pkltj4MUgQS9rq/O1s=;
- b=HwFRAdtjljbfc/uFKGh1Wz5Fb3ueGSY/H/ZRnVkEyQMjvlJS6v+JuBMXgkm7CR8YL+dHUiiSm0DZC22+WPHedC7276i/ejUky9bMVXyisxo/qBn62VY+MbYQqiyWqLylpMbb9G2DqKxbT9y8Cnv1adQa0IDKI4w6H8NQn4UMiHy8CxXG7NvACy7IjHofAuUaUcwDIVI66Vq1gHX06ySmZDzZqFGKgCj3NsFRo/dWO8n+wC2ve5YSJCmPmFX1eun6LwghRNjkeWC6yROFBCWV5QiNGnv/3/YYLjOAGbhI2k6wCkI2UoGylhkeW6xKQbyUaeITg93vY5ibsH9HLtZaSw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by CH3PR12MB7692.namprd12.prod.outlook.com (2603:10b6:610:145::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 20:02:02 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 20:02:02 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: Nimrod Oren <noren@nvidia.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Brendan Jackman <brendan.jackman@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Hugh Dickins <hughd@google.com>,
- Nirmoy Das <nirmoyd@nvidia.com>, Dragos Tatulea <dtatulea@nvidia.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
-Date: Tue, 01 Sep 2026 16:01:59 -0400
-X-Mailer: MailMate (3.0r7024)
-Message-ID: <F67B6AED-04CF-4A55-AE31-D09039A1D106@nvidia.com>
-In-Reply-To: <20260901190123.3511535-1-noren@nvidia.com>
-References: <20260901190123.3511535-1-noren@nvidia.com>
-Content-Type: text/plain
-X-MS-Reactions: disallow
-X-ClientProxiedBy: CH3P220CA0019.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:610:1e8::18) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TnzEUrOn"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id F362CC2BCF4;
+	Tue,  1 Sep 2026 20:05:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788293101;
+	bh=Qvg96r1uqRi7ZsIahTd0vxEuEUAxLGPkPnDx+jmOuQs=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=TnzEUrOnWeKc2IJhDqDEHr24D1ZpYZJTysb91o2LXRfFMdLZJD8mon8H9TFI1JY+g
+	 wHBs3NQfp/kNUO8unmeJXu9FFgc1ywOzd8wd8R6KsCjGi5+oOk+xXooNI6waXpRBPT
+	 2W2dJA8Pcon9slfvjKvGaa/Kg9MZLGSOBq4btFOzzOIHiaEwDoKsG5XRRvq1mVWmk3
+	 f4SK+nIxxW8UkkzcWPyH0g8mRQTtt3sZK2lTX7YK1dAKyRCEVq27puthHw8f5vTe+i
+	 0RoJG/1mMSvdGe7mmO1fK/sMGU+FF7ByXgL2fBH+62ePRjQ/LR50qBeKVlNC2qevZa
+	 85k4kYnncJzZg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CC85DC61DD6;
+	Tue,  1 Sep 2026 20:05:00 +0000 (UTC)
+From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
+Date: Tue, 01 Sep 2026 22:04:37 +0200
+Subject: [PATCH] bus: fsl-mc: register the object drivers after misc_class
+ exists
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|CH3PR12MB7692:EE_
-X-MS-Office365-Filtering-Correlation-Id: c0ece55b-550e-40a3-6e01-08df0863e375
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|23010399003|10067099003|11063799006|56012099006|13003099007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	+KWmxR1z4LcDoLC/wH6VDAkacT0ycoz30mhIqsorrhIGbn6foU3DQugKWzJyTWbPaPCd7M/+YiByViEtMXga+5nyNZ17rw3UizTlYQWVdLlIYp7bhY9pM2b7iNai3mYzXc6m0z3MVrWZfrnkc0caOTI95BP/zrSa08QvdF72zR5u9GuAqBawsTXHcfRXP8j4x6qt05jKaXZhyuFdYhRIg4aSPkUmJyYg+DaeZYSAnAfVWPjZ90m5+Ew9QAgkLb51o0LJNPpgX9np2ZLF559ex8YOaLeMETEMKB6Gw+eHXpE3BJR0yFDJeUPQCwlnGO3pam1T+u9K09qvrz6vvUOR5H9gj/pyQyNYSeBQQD4R+M9nSbsSbNTb+EifgnJ6AStZSmGqGR4VJB9dLeQu3nYywnNsFLyG07YUBqdg9Jilq8ZYGtLQgLRs4z6sj6/Yu8RgO+vUP6FWE7B5QAxWrZvmYimoxZ9F52Yp8NdB4Tqmxl8uTISaKNbPbjgYYhSWrGYl5yEY4+n6xhJLRMiYHuIfZH25SFB+FXpikcx5ckDoek4fYOxhCCbf6fSfbFJVGP8B5rSqaXz5EEHk3an8P3z6V3twPdHxLpKI8DLL5UPuJWw+Kof91C9uUOzYr8EIsZMUNnFFrvDA2ib0dZu0jfKhifOH746RzUNECV9sNylAbu8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(10067099003)(11063799006)(56012099006)(13003099007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?rPK5/PgL02uvRKgnA6xFxB5dY4HN/AH27d48fmK4zUMd+THMRgOfc72H/+aG?=
- =?us-ascii?Q?gWpLWmmtBcppnV8ymh5Zn36bAtAtR2HjPXdrXJoYdxQEtSxZXIVpixaubtB8?=
- =?us-ascii?Q?E8MG4g3CnNBDyCayl1oOEabbJJxr4QLxBZOgOUF7wzn1m2BZ5ZzC0ehILKd/?=
- =?us-ascii?Q?xi/rY4j+DRYPzmMAI6jh/g6M3jI6m1E9cqPNAPdG5ENY7PSEw8o6S9zNEX4y?=
- =?us-ascii?Q?UrIN+H2uvW3nR1RS7Ft8iyldXDkGpmBRougpbD6pAnUi11HvQWtGlUUBZ1t2?=
- =?us-ascii?Q?H/OF0Zzn9pgOL1A4wswKBiUTUrBxBy9zzLP6rraPk5vgq0BCguJpNa5TEd4H?=
- =?us-ascii?Q?0w0zfsIs2nWS6uOx2B9DlCh81RBQn3TPq/wT8kdCTO/IaKxwuDcL6YH3VU+3?=
- =?us-ascii?Q?wUK1HhcTMMIIE4QT9bxW4+fnlYnxxJGwpLDBFIpBRuknM3iVOsYpLfKY2AsH?=
- =?us-ascii?Q?vZyqmXbvk9xxNXCuRoqWmMPUvbwaNlX/3KUSXHZavU6Wu2SVno2Nh1Uvxe6M?=
- =?us-ascii?Q?c5hXOzDOKwNx1e3RLxdf+D1DsPI2HRHunLbQCglWlqgsQHfSEhwc5WtL0zzL?=
- =?us-ascii?Q?YW8r8pDZ38X2pG9L5fo9IjEm3g9Nz/NhZUW6vEOQo2QMjvRchjqJL6H0THn/?=
- =?us-ascii?Q?0CmuqXbfjl4B8G0z649jY22b/kLXP0jxK0C22X4UL7wdo9mDnIl35XkI13lc?=
- =?us-ascii?Q?uOASNTrJ4mSlcr3/xiAhuITTYa4AoINfpulN4Gz4Rwx4/EWViOd+uu4B67Kq?=
- =?us-ascii?Q?ViGSXPoZftQidhq886ecuM45FXpXTcIBBusVp2WMt1CfQ7v49wGZpqxs8CNw?=
- =?us-ascii?Q?0AA+zX81Fx2BRwVjDXp5UcMEt8/NB8hMkxaMo2GARMWkVke1YCfOHsP/FisF?=
- =?us-ascii?Q?eNpDIeccuPcBHF2SbNknjZZCXrYOqqJHtLxfRNFqChiONHML//IcrO2GxUDl?=
- =?us-ascii?Q?ZPr4FqE8LByqqcw7cljh1bXtISNMlMQH7fUhbFOnngYMII4k4EGmXuXZV6EM?=
- =?us-ascii?Q?vkNblarlkSYjFmh5w4HN08uHI0zy+wpefA9QsjqM9/beOu6+RousVZWQB+gF?=
- =?us-ascii?Q?Jf0VXLSzMnOwgD0GTVhFYzL4OMmo+7M7dDjDZyYNd8fl4dye1K48rWK9VjAm?=
- =?us-ascii?Q?PC7K9C3t5G8D4Xa4oaCEj7T2Hoo8LTdZKfDPGXXAhzb/YzG2xaDyJT4dEWte?=
- =?us-ascii?Q?2j/blOO69dR5RXX9EjwVCxaHnoWMPQ74TstnZrf0ztB+12l7/aSzxzGAbJ6m?=
- =?us-ascii?Q?UR0BSD1/Zg9XlmlEW7Ms/HdrJlkwMJfD6LNCRdfyPoyIBKeBE283L9E4NkqK?=
- =?us-ascii?Q?qJtDMoG2bb3vDHk1P6EvStyJi4QXDKNe6qvrj3jB6D4bbqbEmUbS2/EfIj+n?=
- =?us-ascii?Q?uhXx4pr7AkbCKwHu+yb7Oq48CkjqppndcDqcFPI+UsTtyruiVqgHOYDzba0N?=
- =?us-ascii?Q?vLEvAT6gctinQZWhNQLgLNe/qVKkfW81HE1Fvz56JgDvhJ6r0J9lYfR3xXux?=
- =?us-ascii?Q?Ojfb1/+YI7ItI1STqhk9cE9S2+bPUP1V5Ake3R/+w3WjRLVAxFUJ1Rq5eRh3?=
- =?us-ascii?Q?K8LroN2gPyqb6oXyNWIw/MLiy2guhHzsHCZwq6/PHHgSPYDPzGvyO4s13+NC?=
- =?us-ascii?Q?Zq8121wiYwwhcB8r1yUc71xSlSMwKJ1bPm/J319+sqch0PyMVhSm4yzK5wz4?=
- =?us-ascii?Q?h6Z8XSJuG05qxHwpyJAFxGCwfq+nj/K6Euua/WfquXirPFRN+y+2gNBKpPNA?=
- =?us-ascii?Q?kv77HWXlXg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0ece55b-550e-40a3-6e01-08df0863e375
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 20:02:02.3899
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UzQi4YI3MMP50RXAMeVivKqDbOjEnoFuko5QayCbCLndmfCVDZd02zfcif4PH3UH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7692
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260901-for-upstream-fsl-mc-initcall-order-v1-1-36ffe48f767d@free.fr>
+X-B4-Tracking: v=1; b=H4sIANQvl2oC/x3NwQrCMAyA4VcZORtoU5jMVxEPtUs10LUj2UQYe
+ 3eLx+/y/wcYq7DBbThA+SMmrXb4ywDpHeuLUeZuIEejm4gwN8V9tU05Lpit4JJQqmwploJNZ1b
+ kEPwYJnf19IQeWpWzfP+T++M8f6bGI1F0AAAA
+To: Ioana Ciornei <ioana.ciornei@nxp.com>, 
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Cc: Laurentiu Tudor <laurentiu.tudor@nxp.com>, 
+ linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, stable+noautosel@kernel.org, 
+ Vincent Jardin <vjardin@free.fr>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788293080; l=2613;
+ i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
+ bh=SXlMvnAA+Yv9aOr3bof+GHsV/62VSrRffjRMXK6jUP8=;
+ b=Q0DNQlW6k/74/YvmvMnm7KR6URJ1LrX/mfYfTlKrZ73dg+vhupeXaUuRo+NA7LhYlLA4RULEh
+ Bl42jSLrySdALA0c54lYp2NUpW7m/nPrOleoqbafewj1sO6QtpbR7ZC
+X-Developer-Key: i=vjardin@free.fr; a=ed25519;
+ pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
+X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
+ auth_id=871
+X-Original-From: Vincent Jardin <vjardin@free.fr>
+Reply-To: vjardin@free.fr
 
-On 1 Sep 2026, at 15:01, Nimrod Oren wrote:
+From: Vincent Jardin <vjardin@free.fr>
 
-> When THP is enabled, set_recommended_min_free_kbytes() may raise
-> min_free_kbytes using a heuristic that scales with pageblock_nr_pages.
-> Commit f000565adb77 ("thp: set recommended min free kbytes") added this
-> heuristic to help keep pageblocks free and reduce fragmentation for THP
-> allocations.
->
-> The recommendation scales poorly with larger base page sizes. With the
-> default arm64 pageblock sizes, the contribution per eligible zone
-> before applying the existing cap of 5% of low memory is:
->
->   4 KiB pages:   2 MiB pageblock,   22 MiB per zone
->  16 KiB pages:  32 MiB pageblock,  352 MiB per zone
->  64 KiB pages: 512 MiB pageblock,  5.5 GiB per zone
->
-> Even with that cap, min_free_kbytes can reach excessive levels.
->
-> The automatic min_free_kbytes increase predates proactive compaction
-> and many subsequent changes to compaction. Given those changes,
-> increasing min_free_kbytes for THP by default is no longer clearly
-> justified.
->
-> Remove set_recommended_min_free_kbytes() and all associated
-> recalculation paths. With this policy gone, min_free_kbytes is
-> controlled only by the page allocator's default calculation and the
-> vm.min_free_kbytes sysctl. Users who want additional headroom may set a
-> higher value via that sysctl.
->
-> Link: https://lore.kernel.org/r/20260831075635.2244437-1-noren@nvidia.com/
-> Suggested-by: Michal Hocko <mhocko@suse.com>
-> Signed-off-by: Nimrod Oren <noren@nvidia.com>
-> ---
-> v3:
-> * Replace the 1 GiB cap with removal of the THP-driven min_free_kbytes
->   increase as suggested by Michal.
-> * Remove all associated recalculation paths.
-> * Make min_free_kbytes, user_min_free_kbytes,
->   calculate_min_free_kbytes(), and setup_per_zone_wmarks() static.
-> * Drop the now-unused declarations and khugepaged's page_alloc.h include.
-> * Drop the obsolete v2 documentation addition.
->
-> v2:
-> * Use a named constant for the cap.
-> * Drop explicit linux/sizes.h include.
-> * Update min_free_kbytes documentation.
-> https://lore.kernel.org/r/20260831075635.2244437-1-noren@nvidia.com/
->
-> v1:
-> * Cap the final recommendation at 1 GiB as suggested by Lorenzo.
-> https://lore.kernel.org/r/20260728202014.2517142-1-noren@nvidia.com/
->
-> RFC v1:
-> https://lore.kernel.org/r/20260716173504.760369-1-noren@nvidia.com/
-> ---
->  include/linux/khugepaged.h |  5 ----
->  mm/huge_memory.c           | 14 ---------
->  mm/internal.h              |  8 -----
->  mm/khugepaged.c            | 60 --------------------------------------
->  mm/page_alloc.c            | 11 +++----
->  mm/page_alloc.h            |  2 --
->  mm/shmem.c                 |  7 -----
->  7 files changed, 4 insertions(+), 103 deletions(-)
->
+Unbinding and re-binding the root DPRC fails with:
 
-The stats look nice. Like you said in the commit message, user can still
-have the old behavior by increasing vm.min_free_kbytes. Thanks.
+  sysfs: cannot create duplicate filename '/dev/char/10:256'
+    misc_register / fsl_mc_uapi_create_device_file /
+    dprc_setup / dprc_probe
 
-Acked-by: Zi Yan <ziy@nvidia.com>
+Cc: stable+noautosel@kernel.org # niche: root DPRC unbind/rebind only
+Fixes: 2cf1e703f066 ("bus: fsl-mc: add fsl-mc userspace support")
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+---
+Issue found when unbinding/rebinding the root DPRC on an LX2160A.
 
-Best Regards,
-Yan, Zi
+The failure is silent at bind time and only shows up as a
+duplicate /dev/char entry on the second bind.
+---
+ drivers/bus/fsl-mc/fsl-mc-bus.c | 40 ++++++++++++++++++++++++----------------
+ 1 file changed, 24 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/bus/fsl-mc/fsl-mc-bus.c b/drivers/bus/fsl-mc/fsl-mc-bus.c
+index 66a4fa73c5b86..7f283844e4500 100644
+--- a/drivers/bus/fsl-mc/fsl-mc-bus.c
++++ b/drivers/bus/fsl-mc/fsl-mc-bus.c
+@@ -1264,35 +1264,43 @@ static int __init fsl_mc_bus_driver_init(void)
+ 	error = bus_register(&fsl_mc_bus_type);
+ 	if (error < 0) {
+ 		pr_err("bus type registration failed: %d\n", error);
+-		goto error_cleanup_cache;
++		return error;
+ 	}
+ 
+-	error = platform_driver_register(&fsl_mc_bus_driver);
+-	if (error < 0) {
+-		pr_err("platform_driver_register() failed: %d\n", error);
++	error = bus_register_notifier(&platform_bus_type, &fsl_mc_nb);
++	if (error < 0)
+ 		goto error_cleanup_bus;
+-	}
++
++	return 0;
++
++error_cleanup_bus:
++	bus_unregister(&fsl_mc_bus_type);
++	return error;
++}
++postcore_initcall(fsl_mc_bus_driver_init);
++
++static int __init fsl_mc_bus_drivers_init(void)
++{
++	int error;
+ 
+ 	error = dprc_driver_init();
+ 	if (error < 0)
+-		goto error_cleanup_driver;
++		return error;
+ 
+ 	error = fsl_mc_allocator_driver_init();
+ 	if (error < 0)
+ 		goto error_cleanup_dprc_driver;
+ 
+-	return bus_register_notifier(&platform_bus_type, &fsl_mc_nb);
++	error = platform_driver_register(&fsl_mc_bus_driver);
++	if (error < 0) {
++		pr_err("platform_driver_register() failed: %d\n", error);
++		goto error_cleanup_dprc_driver;
++	}
++
++	return 0;
+ 
+ error_cleanup_dprc_driver:
+ 	dprc_driver_exit();
+-
+-error_cleanup_driver:
+-	platform_driver_unregister(&fsl_mc_bus_driver);
+-
+-error_cleanup_bus:
+-	bus_unregister(&fsl_mc_bus_type);
+-
+-error_cleanup_cache:
+ 	return error;
+ }
+-postcore_initcall(fsl_mc_bus_driver_init);
++subsys_initcall_sync(fsl_mc_bus_drivers_init);
+
+---
+base-commit: 786262be6048deab760f68c8acc2c85607165894
+change-id: 20260922-for-upstream-fsl-mc-initcall-order-e3316390712b
+
+Best regards,
+-- 
+Vincent Jardin <vjardin@free.fr>
+
+
