@@ -1,76 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4166E64;
-	Tue,  1 Sep 2026 13:38:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7232D7398
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:39:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788269927; cv=none; b=iDlgJllUyzbXgkdu4EWVUVvtuhi8kE7fyWGvSKM5PZ/qSwn0rhFuuYqxFzTh1h/BM3f3rVmOnNskWs0D9U59Fxa04/Ud9KWhUpfzt6Xuc9JaxrsdFnBc3Ty+CxKEj6FksrYazZlHHbPRpJPKqHEHFFX9kGqLBkxM2jMqrx+iYoo=
+	t=1788269970; cv=none; b=BjgmTximDGspQqso0SeTyxf1VcKjRuxUa/koVCz1zZOTRe9XmJBQrFEDKEFISA8fNSbZmPi2lImYpzTAFY8sjEchHXQaND68AktBOq9ZJwtwXIoSjVwsqFAkzt3rY7FASUxfNMnIzkT8kdyBwcPGtxJggn1sFGWDPU863QXawlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788269927; c=relaxed/simple;
-	bh=wnEx4rDNkziZBTzK4aZ7qaCWiw57NIRKirHCSXvWtSg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=s7t+dLbhGaaMLGtKRYDgDvDmNAnGp6GtukmXcpSSxbiPw0u6Im2/rKMn/TiT+MmCGMPahHrJAEWU0znt3hfmvXcaHmET2WV6aHxiJmZqxYNjm4LaJ8VRbncqidAMJWjGJzh13vwpLfKsmKHgJL7dbioW1bXvPRziq7SQC9+op9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E1KlXXTu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788269970; c=relaxed/simple;
+	bh=GETv14Dpfp5sEawaBob7toQBWXgFrpyikggq3YNNmkg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IZVrW2TC16vJWOHMvvpzjbeDJD8u4XWqtDs9tjPi3qM27vzZatdCmEkZY9rY/9nYPiSOv0d6Fk3lnBcRuXGoDtlhl2xHVPvkKESusJfqnQaHWULUuoypmmOSOsVMFy5ls3U2WcNV5OuvAhkmIEJWrOf9S9DqppUnhZpcF3qG2gg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=f8DxVwFu; arc=none smtp.client-ip=115.124.30.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E1KlXXTu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BAFE1F00A3D;
-	Tue,  1 Sep 2026 13:38:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788269926;
-	bh=jCOmXUqUA0JFX/6v0B8YEvtU3s0Uus/ZFSIva0GOO3M=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=E1KlXXTuq1zN2r8vbLV2O20CQIu/+R49FhOl8Dw9a0dt/DMvSS4fA1N47wOoD+sNm
-	 pMM08fhmeXJ10nVpNqXTJ9EC8p7K1sMFiHWr3+cIS8GbshzD8FuuvTfPR3ZOI7hgqf
-	 MslrySwSwfJWC9iARh0NmPk3YS24WkMIwHz/pV0od4Ay13LW2CFX/bPmGRXb8JNuc6
-	 QSY3vciEulvqMp5RM5XGHaeqjMBf8tB4GmHwSCQIbYCG9mGgDRFKhgc3HEEkGvCBaN
-	 B9zg7nYZpoBlqClPdkr/fJghBaf/eHtyfgHHZVlMB25+BMBuQqe23gt42HQhdgH0Ry
-	 qYRcGRK2VqbKw==
-From: Leon Romanovsky <leon@kernel.org>
-To: linux-rdma@vger.kernel.org, Ruizhe Zhou <zhouruizhe@resnics.com>
-Cc: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, linux-kernel@vger.kernel.org
-In-Reply-To: <20260812033647.2281547-1-zhouruizhe@resnics.com>
-References: <20260812033647.2281547-1-zhouruizhe@resnics.com>
-Subject: Re: [PATCH 0/2] RDMA: Remove obsolete 32-bit DMA mask fallbacks
-Message-Id: <178826992328.1353295.521040898136090856.b4-ty@kernel.org>
-Date: Tue, 01 Sep 2026 09:38:43 -0400
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="f8DxVwFu"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788269965; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=rjZG1oum5ouwIyghJAvrKRp+c0uDhrzvhztsrMAS+V4=;
+	b=f8DxVwFu1I1zMWp+9TwoNs1EYCWd/M2eIv0Tl1RQBGDwfL5gSxdEVrHThKMeAkzBsX8stfdewhgyTDCJFq8t2h3AYF0qETIjTBJ+GwlwcC617IvZWnIyGTwJtHIqdY88zGQkrJCmlDEEqHUw0HvT7MveiQzawciilNMEfvhAB58=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XA9NaXm_1788269962;
+Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XA9NaXm_1788269962 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 01 Sep 2026 21:39:23 +0800
+From: fangyu.yu@linux.alibaba.com
+To: tomasz.jeznach@linux.dev,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	baolu.lu@linux.intel.com,
+	jroedel@suse.de,
+	zong.li@sifive.com,
+	andrew.jones@oss.qualcomm.com,
+	anup@brainfault.org,
+	jgg@nvidia.com,
+	jgg@ziepe.ca
+Cc: fangyu.yu@linux.alibaba.com,
+	guoren@kernel.org,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org
+Subject: [PATCH v2 0/3] iommu/riscv: Fix command queue publishing races
+Date: Tue,  1 Sep 2026 21:39:17 +0800
+Message-Id: <20260901133920.14550-1-fangyu.yu@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
+Content-Transfer-Encoding: 8bit
 
+From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
 
-On Wed, 12 Aug 2026 11:36:45 +0800, Ruizhe Zhou wrote:
-> hfi1 and mlx5 data direct both set a 64-bit DMA mask and retry with a
-> 32-bit mask if the first call fails. This treats the return value of
-> dma_set_mask_and_coherent() as an indication that the platform requires
-> a narrower DMA width.
-> 
-> That is not a correct interpretation of dma_set_mask_and_coherent().
-> The mask describes the DMA addresses the device can accept and constrains
-> subsequent mappings to that range. A 64-bit mask includes every address
-> permitted by a 32-bit mask, including addresses from a platform that only
-> produces 32-bit DMA addresses. Retrying with 32 bits therefore adds a stricter
-> constraint and cannot correct a failure to establish the 64-bit mask.
-> The DMA API HOWTO explicitly calls this fallback pattern incorrect [1].
-> See [2] and [3] for details.
-> 
-> [...]
+This series fixes races in the RISC-V IOMMU command queue submission
+path.
 
-Applied, thanks!
+The current command queue code reserves a producer index before the
+command is written and before the hardware tail is updated. Multiple CPUs
+can therefore reserve different producer indexes concurrently and then
+wait for the software tail to reach their index before publishing their
+own command.
 
-[1/2] RDMA/hfi1: Remove obsolete 32-bit DMA mask fallback
-      https://git.kernel.org/rdma/rdma/c/901c15a2099d43
-[2/2] RDMA/mlx5: Remove obsolete 32-bit DMA mask fallback
-      https://git.kernel.org/rdma/rdma/c/08a978db86e877
+That model is fragile when a command submission fails after reserving an
+index. The failed producer index is never published, so later submitters
+can wait behind a hole in the software producer stream. This can also
+lead to misleading IOFENCE.C completion timeouts, because the sync path
+may wait for a producer index whose command was never actually enqueued.
 
-Best regards,
+Fix this by serializing command queue publishing with a raw spinlock.
+Instead of reserving producer indexes ahead of time, the submission path
+uses the current software tail as the next command index, writes the
+command, publishes the hardware tail, and then advances the software tail
+while holding the lock. When the command queue is full, the code drops
+the lock and waits for hardware consumption before retrying, so other CPUs
+are not blocked behind a long hardware poll.
+
+The final patch changes the queue submission helper to return an error 
+when enqueue fails. The IOFENCE.C sync path then avoids waiting for a
+command that was never published to hardware.
+
+This series does not attempt to add full RAS/error recovery for command 
+queue failures. It keeps the existing local error reporting behavior and
+only fixes the software queue state and wait semantics.
+
+---
+Changes in v2:
+    - Avoid reacquiring the command queue lock after waiting for space
+      times out.
+    - Link to v1:
+      https://lore.kernel.org/linux-riscv/20260817142728.61783-1-fangyu.yu@linux.alibaba.com/
+
+Fangyu Yu (3):
+  iommu/riscv: Add command queue lock
+  iommu/riscv: Serialize command queue publishing
+  iommu/riscv: Avoid waiting on failed command enqueue
+
+ drivers/iommu/riscv/iommu.c | 117 +++++++++++++++++++++---------------
+ drivers/iommu/riscv/iommu.h |   2 +
+ 2 files changed, 72 insertions(+), 47 deletions(-)
+
 -- 
-Leon Romanovsky <leon@kernel.org>
+2.50.1
 
