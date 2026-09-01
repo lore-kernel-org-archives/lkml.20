@@ -1,70 +1,75 @@
-Received: from MEUPR01CU001.outbound.protection.outlook.com (mail-australiasoutheastazon11020100.outbound.protection.outlook.com [52.101.152.100])
+Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021099.outbound.protection.outlook.com [52.101.100.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF71539A4DC;
-	Tue,  1 Sep 2026 11:43:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.152.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885B724501D
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:43:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.99
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788263002; cv=fail; b=sCuUekVkw9ZjolRAcSPCYuT6m/K7Rso8HJ4op2+3IfNNkMCMMo7MwveZAi7HdC4zB33IBwqVdhyOQ/4GsKxsXAVLj7Wa6pa2jzWWdB/bSgtk7Pmcu+l2rFqNJreFJDjoljmoYmVvb0ummcnPJFBXxnYUycP7+RvSA9QrDGL0nug=
+	t=1788263005; cv=fail; b=cLbLvR4aDqHoJrx78C2gSiKzVg+zyy8zNqy4DFk/IVe8PD2drD7LlI8ZXo/eoZejDJFlQb2HtBwhP9brqD4Ssl7RiiUg5bAcCL62p4HV2sf938WzaufLmrWgI9MxlHtzBpjXawUQu1jG198fsNSzXk91FxXO5OXKLUyYQz0E9J0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788263002; c=relaxed/simple;
-	bh=Z+pmCdrWxHfXt+4VgF6amomeRejf0yMXwFW9SBh7O04=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=rtfD2aoDuUmgozq/HvAROLQ33uG0XPvfl+Xnh/6l7QbU1iGlrLnqVnI7rKx44RQ0KVfO3LMP9iLajqT9lo1Itfthl3ZGNJg+ZL2+r+Gd+7OAaaE+hpcslh3gsp8KPWrDr3xTfHI4CYRMeIoiJVp9kC49g6HDi6GIvSsZ7ewQ3mw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=heitbaum.com; spf=pass smtp.mailfrom=heitbaum.com; dkim=pass (2048-bit key) header.d=heitbaum.com header.i=@heitbaum.com header.b=iOMQASEu; arc=fail smtp.client-ip=52.101.152.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=heitbaum.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=heitbaum.com
+	s=arc-20240116; t=1788263005; c=relaxed/simple;
+	bh=WWh3n3tqffllMB5ZqphnUJigzmXsoZgiBG0HMm75tc0=;
+	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
+	 In-Reply-To:MIME-Version; b=kXxCm4Kp1yx5XUL6Ul0pR1MllJCVaWDkB4bOUzhhhi1TvbXM0kKA8dhphV4YdY9WzQn+ZNuvDaQM80uA/Kp8cFqX9fzPgwJQL+DikNQulo0uvznKvcUzioUQkA1YOsEI+g0EGup5OjvJEsvQt3hgpyINuk7lSpl5+tQG0gte6f4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=x7Ni6JUQ; arc=fail smtp.client-ip=52.101.100.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=heitbaum.com header.i=@heitbaum.com header.b="iOMQASEu"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="x7Ni6JUQ"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=N2GB39diLQWAk618IOKTF9FBBgvZ7TivU47qDfMUWiJVIpm8DLuEfQyHIEhF2PB7Fxyzt66f5EZ1SC+kKvYKSNaXicTh1x8uqo0soPD+vE+COLw/DLTCsJtQhVDflUrPrWpDT7lbDTgSPwlBhmVwpaIyXBlp1w1tc+fC+5KxMqTt4omJRoPt9+rj949Vn4h/8jtdC8hEwYl3Wus2DV63dlHRi/OdScbMutasaA823WJljnlTU4cdPITk6HVu/TGsnQMH/TopBUQ1Xd4asNy3rVtQORmvaYjxD0EzQUh5zbYdawWu4VC+VjJ77z6csPlK5zQL05RPa+kuTp006tyOSA==
+ b=JTbaFDrWWznUUHD4+smt5grUes5dt7RZewqDkRp7VeFit3YYvL7mOAOmJsna+lqDz6ILQ9zYEbDNP8Sy1xEi/OmVm3IxGivELIZ9p+3zv3dM5pOMhmbFGW2i08wKV840eEOy+IgXTxKqPJPzTOJu143zVVBydugu3aawB4sAEbCs5gaj/Tq+QYgFyDOkUgMAktAHFBOHP7wvfb37uAo/+4Bd41w0m2D0FTNagBsuPsI4dh6QCpp2YKLce45/IuGydkGkxlMKvmUUxF8ahVWVS3yEdi6d6TttlqGYYFD/tuZwI4geUgphYjmveYGs2b6s+MIbYMpzGvBFbwzxGmcI3A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y7fMlDkXKYG3oVx4kQUx8RwXQRR3ISB+4nAjaV5mjKQ=;
- b=P7Ay50TnhnVHJM1y5p93lXMD5z2dFW1M8OMsTwxg/h0zvZBdxTIxMxbh82fXO2beQvedYiDf3uOwbtkx9XmnoPU+m4wKLYdoJldDTzmimtEQr9HEW6DMED11tmDZ7uBKPJJeN5dH11lFhn17+VrKA7C7HcQuUEDgZyGYjtQ+TtBtoxkBxaXXmoBljQzZ8629kp5sIq8j0sqR7kPJYyauejrgJinus5puX5Q9ii+3Pim8NY8bXrLbL24ZMgIzVc8dvOza9NsJadSqdsXJFXEBP6tfCiiqDVqeAPkFdOA5EePcSAbJzlPg0eiO7WlftUijydLxafeRzrBmx/QhzoRYzQ==
+ bh=VaKSf9Q4DqUd1LGU1SuYL6ztMMTRGVUZtO+0x1CGnQs=;
+ b=OU2M6XeOkRdc+crPdW2ev/E4ygvG66S5DdNxKG7YXHukip2XpeTVtyQhO6qUITWHnLIlD/Wa2gxec9ENUAMAJm2PtT6wDjDC/mQNUnQ7qIWTQahGjshCqdMrbRKXGB4lfnSMyZiSlF3fuyV/XN1veWl4hZFdC1bIoFE6BGZkc04hOoL3iLtXU0VtP3fJXBjKZ/xPdJB15U1sf+iW4RbaxUY1ZNiyp2VEjwX2Gc06AllmqMc5+hSteBU90lZeXtWIFmgaJFcyDCehs4qG8z414ZTJBgh3UEscj1Mcl8/Oa0BG+ulOLupdbleAzxzgpqN8DKqKpBtFx8Fh31VJTHKcgg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=heitbaum.com; dmarc=pass action=none header.from=heitbaum.com;
- dkim=pass header.d=heitbaum.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=heitbaum.com;
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y7fMlDkXKYG3oVx4kQUx8RwXQRR3ISB+4nAjaV5mjKQ=;
- b=iOMQASEuA7u8+fi31TCspHTKrsPGcCEJ+IKhCj9dgfAW5vggLJ0iZed5PAvCQUJWF6aFAAt0tHWxhgOYS/LUYI8OHU9G+gIdzJu5arm8DYKPjXCj+0N6gRpWfPa8fIEZhhKj8BeaKp6j8xXZqahLSKNXU/xmzWE9SKsExC2aQWQ1Xtm/Ok346WN6foeEsmWpJHpF2NsKmXfKK8QG4y7jOEKevwFqeAqBs9/8ZNyM0QawZeObRZBVBE8d1zkj4l/92KBOeDquaevmh9GGCcIJPV2zZVr31Ip+hQmjN7kSGvklinxjOwWoTSQQF0xV1wrs+LnEWZuAg6EoIBIJfQcSoA==
+ bh=VaKSf9Q4DqUd1LGU1SuYL6ztMMTRGVUZtO+0x1CGnQs=;
+ b=x7Ni6JUQAQjoT/lqmmy8Bwnb+RPfc2OCt6wIVosh5u+f8uCjB9FZketYfOCFG2MWH9ZqNXiQcecd3ey7cQ29JkXrJ8Q1y3/AMYEvATXgkUVWKPf5JMA0WokEp85uHGT+mDWt28Nk5WyNszRmAHgtzdr/L6/8TmxNeYW+CKE6bBA=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=heitbaum.com;
-Received: from SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:279::22)
- by SY5P282MB4758.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:270::21) with
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by CW1P265MB7769.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1d9::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 11:43:11 +0000
-Received: from SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
- ([fe80::21b6:91f8:614d:1fdd]) by SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
- ([fe80::21b6:91f8:614d:1fdd%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 11:43:10 +0000
-Date: Tue, 1 Sep 2026 11:42:52 +0000
-From: Rudi Heitbaum <rudi@heitbaum.com>
-To: Chaoyi Chen <kernel@airkyi.com>,
-	Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>
-Cc: Matthias Kaehlcke <mka@chromium.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	rudi@heitbaum.com
-Subject: Re: [PATCH] usb: onboard_dev: add the Rockchip rk1808
-Message-ID: <apa6PKthz_vMv3XP@649ea4ce1770>
-References: <aouw7rH6FZxscUTO@0d3a7a881997>
- <5096877.GXAFRqVoOG@phil>
- <apFpPP1O45BWXDv5@5be1eda4e59e>
- <4512468.iIbC2pHGDl@diego>
- <apGMEsCwly8TCOww@5be1eda4e59e>
- <84A6832DFD4B9FF2+64806113-d65e-448a-b2c4-ee83e125a665@airkyi.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <84A6832DFD4B9FF2+64806113-d65e-448a-b2c4-ee83e125a665@airkyi.com>
-X-ClientProxiedBy: MEWP282CA0129.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:220:1d1::9) To SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:279::22)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Tue, 1 Sep
+ 2026 11:43:18 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 11:43:18 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 01 Sep 2026 12:43:17 +0100
+Message-Id: <DL3YBS0UXYMC.1KJEZ9KWV52O8@garyguo.net>
+Subject: Re: [PATCH v3 1/2] gpu: nova-core: fix barrier usage in CPU->GSP
+ messaging path
+From: "Gary Guo" <gary@garyguo.net>
+To: "Eliot Courtney" <ecourtney@nvidia.com>, "Gary Guo" <gary@garyguo.net>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+X-Mailer: aerc 0.22.0
+References: <20260819-rust-barrier-v3-0-d5b7bd7e6624@garyguo.net>
+ <20260819-rust-barrier-v3-1-d5b7bd7e6624@garyguo.net>
+ <DKX6R86RZJIW.2HMS6X0NUP15T@nvidia.com>
+ <DKX6VRIHFF71.1KWPD0ZQM2RAB@garyguo.net>
+ <DKX70RBRWHC2.3KXXJYL22T8K@nvidia.com>
+ <DKX7400TO0RK.1R05PZKS9Q33F@garyguo.net>
+ <DKXLSOCZBYYX.1OE2DF4LYRMV5@nvidia.com>
+ <DL3AYW5D121E.29D3XI699XMKN@garyguo.net>
+ <DL3MXU3NQFLM.21AFT3KWNROVP@nvidia.com>
+In-Reply-To: <DL3MXU3NQFLM.21AFT3KWNROVP@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0427.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18b::18) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,124 +77,187 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SY7P282MB4909:EE_|SY5P282MB4758:EE_
-X-MS-Office365-Filtering-Correlation-Id: 89e7b651-34a1-466f-59ec-08df081e32a1
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CW1P265MB7769:EE_
+X-MS-Office365-Filtering-Correlation-Id: f06b6882-a0b4-4439-2f9b-08df081e377c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|4143699003|10067099003|22082099003|18002099003|3023799007|56012099006;
+	BCL:0;ARA:13230040|376014|7416014|23010399003|10070799003|1800799024|366016|6133799003|56012099006|4143699003|10067099003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	4PHA7fkqgJXwvO8TccO/D96thmsgD7C7qObnnQxS7IhNjuhvFBDhbZr6Xv9HD4I7xqY/RaBzbBmA6rEENLvKxRLyeS+6F2Ygv82a3AL5+KLxNu+uo/nlEvLWL0JN0OS5a5YaGTj2yqxbmhupcNuYL/dDGlu5Ez21DYQ8b6u5eEgOcmwyS7IrekT23QqwfQHcYSXzMf22IT2SuaEYJ+Gph4ZcjzXya5MQ0ibjtX/cnwT7Tht/b8sD7uOEU54osATSdak7fyDfwkNfsOXEPJgbtXSzxPThtXNqdR/o23Ibua0YvxL9nbzfSxumJtJx8Dw9pd7Rl/W0ocG6iUBxBhIDII2jZ1mfIIjkD3jWnM81TeCKMOp9MCTUhy/3jX0T8wB7VGeBstySU3QgUDEzXOYB8jYAF9NpkIV14+kY3HMrnrJ91RMJf8xW4TFeAUVi6YuPXyRUbne5jwR3fenEi9on0oOCcY9otpblpf5EELAVadvV6CWmshKA96NoHg2sTRSnYrkmIrpG/EthbrQHZC/aZrPgfWu09fBjpdOvNoO5IMcn6r7PHnBl6yLH5Sp4yrSwBUosog5qoLXEKQ8W9OK9LMXI3lxjXbrBvmlaL3is57XfTZryroVVxfXhBjA3563dVHTTTzMgY/PGX+/Vl3CmlF8X4izZkFqt+mTY8WORFOs=
+	8SDPfb8WTsV3rT21QC4G2y0Ywop/dsxuXaBg1KrQPebltLnmG4zwaQex06b9pT3qJcYfnW7JAgdVEN8934Cklfk2fVTe+e5/4WdoR9HLk69DpJICMGq6NILGwZoElM8NCs5nmk8oOlDWIU6GrsOvvnPzJU+vYq1VpE/WtzNy4dyd7h6BvXc+i+ag4AAov7Vx11AnIAv7w4RRrfn0/LMVV8b9yqlt6w7nQD/hvo2oD2NzCZVqJ6MfspErApsx3bsZx7v2mhTiX7HVJN1OiV7ekecH4HCBf0crkRiP0Es9QM7j6V62Hx0t2tcWmOB7l/UoSsQaSzDp8AcFYRpYEDV6eyXBuSRjksAwbKeQKS2wDU5Grskgx8QObgSv+T1ICqDj+z8w/MM7DTAGjDHkv9wzd8NFRbUgJKwfjrP/J+Ba4o6nf45yxaDya9dJeZ6gyhGNRRrgjZodEQO/kxN72I9dUSwqU8uKc0pj5A6QH9JEXd3xGqn1zrT6DBxAVYARmSKx8Lyg8xDPuCgveUrNybnq/GTelD6e5I2Hx5XgKq10BMjWg6KkuQ+TUxsKjfuqsBQbd2NNctZIVLDaPAMi7rU/v51HLZ6bq8rcTH6X8prLue9ZB/AK9tOemZoHKhaFMamMIQgSxMXN2/8jrDGdjKPoQRjKPn5qiyh3skjMS4zrQRA=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(4143699003)(10067099003)(22082099003)(18002099003)(3023799007)(56012099006);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(10070799003)(1800799024)(366016)(6133799003)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?bFebHJVF2SS7ycWWFriUYMzzV0c4HwVKvEkqiYmEaByySSHrFYCLkwayvnLV?=
- =?us-ascii?Q?dtDsj4onfPMq7WhUFUV/d68ChpGKMfStgkoI6HJH5EPAOn2SmvQXla/xu/gU?=
- =?us-ascii?Q?BxLLwJoQT+OdualYmqOaC/XK8DWb8R1RBLfTVfD3K+yaaut42PJ5Ckqsg459?=
- =?us-ascii?Q?NT793z5Q7e/CX420RH5FL/8OlWZW387xom9kJQxC2AGp8rA8250xe8Rv3Iye?=
- =?us-ascii?Q?+BGkrRpn4G6Mosv7mpifJapImxxpeLxd8+8eHeaCFbgVyd2VisY1dHzxJknr?=
- =?us-ascii?Q?I2GgGkNkj2572Du+dAXkCKlrYBUq7W34EfrCQuYhx+pl5mnLa5L6EoZZe70J?=
- =?us-ascii?Q?FyWYQZ+INb2Gbhn+JKaCeTI1M7NjwbChK+1JraG+wruZ3xzGJobcyUwZ9mjN?=
- =?us-ascii?Q?uSNHPY3qJGhJogCSF10xvUCvD3q9lN/KzPUUuo+YW36C6QtEuPBNtu/MXkl/?=
- =?us-ascii?Q?mVwLS1t5ikdudgcBaXw1U9/eoeGaNIxEqpE+yOYcqhrpFeo5TMJ++ceDh+vY?=
- =?us-ascii?Q?DuGj1B7nL062QP4CCQOZTW0x9dlg040DMAG0HCJ5Aenm8j7q+gmTxViSp9KR?=
- =?us-ascii?Q?guiLxiXPZE3LAqQNylj8nagVM9MdYgBveiwKNFiQrqzORaX0Y/JcyZRdkO2r?=
- =?us-ascii?Q?+uJxXSAjmFDsBdUkaACpmWCvuS4TAwypnxF3nEXCzbOkNu+jHhX7jdrqtM8k?=
- =?us-ascii?Q?6VgvDT04wxxE0pvSwcU+Sv5B5d7Iv1OxPR2vYnavv6QF1eMH8xGBvu69qHqf?=
- =?us-ascii?Q?lE3yrTw4FBVl2elDb5XXAFdk1Cft0bcdICeNrEis0yWWLL7U5ASK4NHC6iqY?=
- =?us-ascii?Q?Xqd5thhUrTVBCVmjFeuGs+UUL7HCxytGdJJHSmZJfQn6JqrnJnOUqkfBonBP?=
- =?us-ascii?Q?qsrYE8fbycSB9M/qV8KONMFH1gi68xtHePE8oQUZ+Fz0OeZHwKUKzp2PylUv?=
- =?us-ascii?Q?BnXDX7JlZ2+/09WJx1u2+hj1Ig0C8mIzaVdjYZDDa98y0sQ6eWq01wjYkVRL?=
- =?us-ascii?Q?NCC+eLKgBVF0EnKOLYwqD36xjVDLIzi7qG7L7RQCubOAbUsI4VhvEvfmBwm7?=
- =?us-ascii?Q?clx71ZQ23oHuHwnG4DcJggIxYvu40BqQqrMJ95245dw6rE9xKzwsZnHshjNs?=
- =?us-ascii?Q?qSEaX4L42uLQOMPqfGsi5+52Ezrm+oUglbomGwA2nKfCkuOWnb2x7rYvinxZ?=
- =?us-ascii?Q?bqiqU42S0WXCdTIMIkqK88HmSvy/RIFoDkTXPAuEN+aFQ2gR+TcUCd5IN3Mo?=
- =?us-ascii?Q?PUBbObbtbp+utwAsK5IE7pPLhFs0skRRDQ460sCeFp/fwhn5/av9oqUW1/Jx?=
- =?us-ascii?Q?Ld4VMYkFjx+xO5ZyUF1E/oQDvANROAcQOrzBWerRZ8HpaFEXL/hs3MxDLO3O?=
- =?us-ascii?Q?O4g7G6BBDlOg0bEyX+7oRJ4YZLc9Agdpe4bIiu6ZvLzZ3GsEcc3PWyQGSEKO?=
- =?us-ascii?Q?eOs5ySTpTMB4y7HDQZ25cJeg0ErPZ0PZ2MoITenB5nAIacf3myZFtGANYAkj?=
- =?us-ascii?Q?gwu1lazmrEOdqlxTl7LMiCLVDIvH+XWoOoBvFxKJd+zQfZNwokIeyVQeTvKv?=
- =?us-ascii?Q?QJHOjHcUmgetqzXL9hB5o9nPAyCJgBqwG0R1vz39gopyctQ1eNFtPhnSm7mQ?=
- =?us-ascii?Q?g52ua3elYltxSgEWRG1METfClO5rh9DxG8RQJkpY5SuxjHdmZ55Koj5F2ZvB?=
- =?us-ascii?Q?WDllksL97FskgruI3Fca59qNFnehFFN90/Aa+KPuVfgVPEde?=
-X-OriginatorOrg: heitbaum.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 89e7b651-34a1-466f-59ec-08df081e32a1
-X-MS-Exchange-CrossTenant-AuthSource: SY7P282MB4909.AUSP282.PROD.OUTLOOK.COM
+	=?utf-8?B?bUhDV1pkb0lTU2Y0NjN2dmQvSVRZSnh6YVRTYlNlaFM2QlJYSi9WWXNLbmFB?=
+ =?utf-8?B?KzBZbWpzdCtBVzcySU1PVk12OTcwVmFHTXBqQThXQUtZM2tZaTZicXpsN0JV?=
+ =?utf-8?B?akpOanRaTlAwalRWYnByMmQxL2hacWNYNTYrdnJ4bXMvMzN6ODM5RUVxQWV3?=
+ =?utf-8?B?MlVCaUVYK1BNVSt5SnBCS2Uwc0pFZE1iZUVJVEFhdUZHR1FmWWNNYTZBbTRY?=
+ =?utf-8?B?cFdKR0I4VDhDY3JaOWlpZXYrbWEzdHcxMHNLNDBkQ1pzTEJFSUxIdmQ5YzBV?=
+ =?utf-8?B?WmhLRS82SzVSQzB1Y01RbUZVeUxXd2hlcmdBZElpWlRXb3l5N01TcXV1eTIy?=
+ =?utf-8?B?Y1dKeVYrZ3E2amwyandwVlAva1lYZDgxTjZpUTAyNjVHN3krdTJjdWtRbllr?=
+ =?utf-8?B?UEkwNHdZNlo5Tk9vN1hTaTRhSmo2VWNoSThPV2htclpqRzUxTUhpdWFzeGpH?=
+ =?utf-8?B?OW9sbFNYcWdGNEpOQ09sVS9Kb1FZWkNqQUsxNmRIYUJhdVpTeUdJajlocFIz?=
+ =?utf-8?B?VEZhTlRPVG8rdlZZMHBQRWxMY3B1R0NKZStSNkorbzJXck52RHNkVlRXMGI0?=
+ =?utf-8?B?a2Jtb1JzNGJIS1ZvcEV5MWliMEd6cDVWNXIrWW85NjJ0UTdPc2x2YnFKSHhw?=
+ =?utf-8?B?eWpmMHVEbjV6Q241cmFtOTI1MmlCYlpjdEFHY3JaeEM3R3piK1hxMFVaemZV?=
+ =?utf-8?B?TjBIUEhqcXpwZ3RmS2hyV3NXNGxCV3JEVGhWcHVHeHh0Y2R1ODE1UUpFQU1B?=
+ =?utf-8?B?bVZVRnpENmZFSUZKQjVPVDh5SGJndVZqRnliSWVaVEo3Q2Fsb2cxZWk5TklK?=
+ =?utf-8?B?TkZVaE9vUWN1aWtyWldwS0dxMjI2Tk5sY1Z4NDNwOG5kVTR4SjE5dklKeDkw?=
+ =?utf-8?B?RnRyQmxMeW9oZVBzVUN3SnV2akFMTjR2RUttZzBjeVI0WjEwT1ZoditaRzJw?=
+ =?utf-8?B?REpUWFlBOHgzRzR3eDhBWktXTFYrK1FyZVhpZkg5dVc0WWZtVmF1WFhoSGJM?=
+ =?utf-8?B?RkxXMVpKUFBsR0RKRlU5S1I1YlVyUlFWV1ZlN1F5SU5EbkUyNVFJakZZMG5P?=
+ =?utf-8?B?YWJwMUpEK042VTdwMVI2R212eWQ1WFZPeXAwR3Q0ZTFyTU5helhDTUVuVENM?=
+ =?utf-8?B?T0twN0xnM2VZKzdTSnlHemhYODZKTW8rWWs4Y2ZXSTlaQW5iMUpQbjdFeHRp?=
+ =?utf-8?B?MTNjWlRRYmxRelFtbE1DTGZYSEErYUkzSE1rbkVqN2RidWhZaGFKUGZtOUoz?=
+ =?utf-8?B?NmozbE5ITXdGRTVsNDZSU3UzS2N3TTNxQmRkaktuamFNak84RUsweU5Sdnl1?=
+ =?utf-8?B?WVFtSXY4OGlpMnhzenNEaVk5NWRYVGNvLzNwZWU1M2RXRUxGUExBZW5kNkVq?=
+ =?utf-8?B?WkVlZU40aVB5M0RFSzlFdlhEWlV6ZXIrNXBldHNteU0raUJKMkRRWG11STB0?=
+ =?utf-8?B?d2tIQWVRK3lEbUtWcHRNSy9LNE5ta3ZNazNuekFTeis1di9VQjdlaDhYcEtW?=
+ =?utf-8?B?WCtHRmtmTFNpcjlYcXZZNFk2cVNsbSswS2k5WFVwTExlMEcrQlVvdnoweGRG?=
+ =?utf-8?B?bnpUWlhYOXo0Um5IMjBJQmJUWC9zbHNOY2JSdE80QXpJWnZocVI0bnA3S0xK?=
+ =?utf-8?B?OWhvZkhBUUlEQ1g3d2duWTJZNFp2TGRic2t4NmFYRjFlZVJjcDlVNmtENlhn?=
+ =?utf-8?B?UXRrMDZReG5ORUJjVVpRMzFRUTJXMmdxb1BvUDB2cHlIclEvMS9ZcVByWE5P?=
+ =?utf-8?B?dUwrbkcrajVUOXdjak1xdysydHA2T1JmRjN0aGFZSVQxaFZuNXl0eWh6NXdP?=
+ =?utf-8?B?a1diRlRsbjBQT0NIcG9BRDYraUptZXQyRXV2ZWlGZjRZL0srQVFGclFNZzVl?=
+ =?utf-8?B?YjV1YWZZZ1dSSnlRS2VSWG5LRTByS0JCeDY4V0Q0RSt0amt3eDRtQ2FsaXhn?=
+ =?utf-8?B?UWs2YlJIeUs4RkZXdCtCV1p5ZHdNcVRBWEt4QVRqUzZjSEppMDZaVThPZ3pN?=
+ =?utf-8?B?UUQybjViaGFmdmxoTXRKUEl5ZTFCbU5YYUgrcS8xWVFLRERKZ1NNY1YwRVU2?=
+ =?utf-8?B?QkdCVnlDeitXblJMWW5Da3p6c2MwMmdhczhzc0FPYmZqR1JhS3B2T2EzQkVr?=
+ =?utf-8?B?Z3N2VXV2VXI3WjlKeUZISFVOZmNON2NwV1dCV3EwNzFObjhBQmVwNnZwMlE1?=
+ =?utf-8?B?aEN2TkwzQ2hHZS9oV0JWTmo4TzRGbWhlRzJwelUvZi92Mlp5Q3ZRdEJjLzdM?=
+ =?utf-8?B?TEMwL3JEdmtnTUZPaFFodmxaa0V6RlpxTmFNY3ZHdWF4RlVmZm9MTWRyQkdk?=
+ =?utf-8?B?dXBFQ1JaRkZ0cFNHQVd3SXgycVBMaEF5UVhNb3d0QmxSQ2pBdjNSZz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: f06b6882-a0b4-4439-2f9b-08df081e377c
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 11:43:10.2212
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 11:43:18.3712
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 35ffebb5-7282-4da6-8519-efab29b0108e
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /WDQBVeFTjaTdBBpsaiKGovkPKQHldLgkFpzs9Sg1FtkJReMRN6VxPJmTX/zP3tCSGJLpAU9/PN6WMYW+m1KNQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY5P282MB4758
+X-MS-Exchange-CrossTenant-UserPrincipalName: FocDriy0S7c5gcpJyacuxxasGLc07wUutpBpkWcSxBjPKMs5sXUFvGCKQ5BKua5cHEcogL5/oR42c6FQa+TKzg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB7769
 
-On Mon, Aug 31, 2026 at 09:41:08AM +0800, Chaoyi Chen wrote:
-> Hello Rudi,
-> 
-> On 8/28/2026 9:24 PM, Rudi Heitbaum wrote:
-> > Hi Heiko,
-> > 
-> > I hadn't looked in to these from the mainline viewpoint. I had been
-> > using an adapted vendor script based on the radxa npu_powerctl binary
-> > which reimplements the npu_reset sequence over GPIO.
-... 
-> > I have the schematics and the working N10 here, so let me look into
-> > describing these in the .dts and update the onboard_usb_dev.h.
-> > 
-> 
-> Perhaps we should first check whether the power-on sequence in
-> onboard_usb_dev.c meets the requirements, as it enables all
-> regulator supplies at the same time.
+On Tue Sep 1, 2026 at 3:47 AM BST, Eliot Courtney wrote:
+> On Tue Sep 1, 2026 at 2:25 AM JST, Gary Guo wrote:
+>> On Tue Aug 25, 2026 at 1:38 AM BST, Eliot Courtney wrote:
+>>> On Mon Aug 24, 2026 at 10:07 PM JST, Gary Guo wrote:
+>>>> On Mon Aug 24, 2026 at 2:03 PM BST, Eliot Courtney wrote:
+>>>>> On Mon Aug 24, 2026 at 9:56 PM JST, Gary Guo wrote:
+>>>>>>>> @@ -683,6 +689,9 @@ fn send_single_command<M>(&mut self, bar: Bar0=
+<'_>, command: M) -> Result
+>>>>>>>>              dst.header.length(),
+>>>>>>>>          );
+>>>>>>>> =20
+>>>>>>>> +        // ORDERING: STORE->STORE ordering needed to order `cpu_w=
+rite_ptr` write after data write.
+>>>>>>>> +        dma_mb(Write);
+>>>>>>>> +
+>>>>>>>
+>>>>>>> Is there a reason this can't go into `advance_cpu_write_ptr`?
+>>>>>>
+>>>>>> I think it's more clear to consider `advance_cpu_write_ptr` to just =
+be the
+>>>>>> pointer increment, and the ordering should be visible in code that p=
+erforms both
+>>>>>> memory ops.
+>>>>>
+>>>>> In the second patch, it looks like you're adding the memory barrier
+>>>>> directly in `advance_cpu_read_ptr`. So we'd have one barrier directly=
+ in
+>>>>> the code advancing the pointer and one not, which seems asymmetric. I
+>>>>> think it's less error prone to put the barrier in the function so it
+>>>>> can't be misused (and we already have evidence the barriers are easy =
+to
+>>>>> get wrong, since this code was already broken).
+>>>>
+>>>> In the second one `message.header.length()` is read, so if I move the =
+barrier to
+>>>> before the advance it'll be incorrect.
+>>>>
+>>>> Best,
+>>>> Gary
+>>>
+>>> Yerp I mean move the barrier into `advance_cpu_write_ptr` not move the
+>>> barrier out of `advance_cpu_read_ptr` - I agree that'd be incorrect. On
+>>> clearness, it feels very odd to me to have these two functions
+>>> (advance_cpu_read_ptr, advance_cpu_write_ptr) where one controls the
+>>> memory barrier and one doesn't, purely based off the structure of the
+>>> callers. And I still think it's less error prone (for future changes) t=
+o
+>>> do it this way too.
+>>
+>> Frankly I don't like the asymmetry that the advancing code does the barr=
+ier,
+>> while the pointer reading code doesn't have the barrier. However, if we =
+move the
+>> barrier to the pointer read function, then the `driver_write_area_size` =
+would
+>> gain a unnecessary barrier. (Actually, `driver_read_area` code have a si=
+milar
+>> issue, a failed pool would execute an unnecessary barrier).
+>>
+>> As an alternative to move the barrier into the advancing code, alternati=
+vely we
+>> can pull the `message.header.length()` to a separate line instead.
+>>
+>> I think we should either always have barrier inside the pointer read/upd=
+ate
+>> code, or always on the user side. Given the former would mean unnecessar=
+y
+>> barriers, I am erring on the latter.
+>>
+>> Best,
+>> Gary
+>
+> I see - so you're saying that one side of the maximally consistent
+> position is to put the memory barriers in additionally `gsp_read_ptr`
+> and `gsp_write_ptr`, but those don't always need a barrier e.g.
+> driver_write_area_size because they are not necessarily followed by an
+> access that needs ordering, and the alternative is to have callers of
+> those functions handle that responsibility.
+>
+> I think the differrence is that `advance_cpu_read_ptr` and
+> `advance_cpu_write_ptr` definitely need barriers, so why push up that
+> one level? Having barriers in `advance_cpu_read_ptr`,
+> `advance_cpu_write_ptr`, `driver_read_area`, and `driver_write_area` is
+> sufficiently consistent since it's the deepest set of functions that
+> can't avoid memory barriers.
 
-Hi Chaoyi and Heiko,
+To me conceptually it's best to place memory barriers in places in between =
+two
+operations so it's very clear that it provides ordering between two operati=
+ons.
+Hiding memory barrier inside a plain access can be confusing.
 
-I have done some work on the bringup of the rk1808, and can confirm that
-it needs six rails up and its reset released before it appears on the
-bus. There are no ordering requirements, issuing the reset 25 ms later
-is reliably working. The supply names being "vdd", "vddlog", "vddcpu",
-"vdd0v8", "vcc1v8", "vccio". This moves the power-on into the kernel
-and not the userland script. 
+Alternatively, we can specifiy that the pointer updater have release semant=
+ics
+and the pointer reader have acquire semantics. This way it's also very clea=
+r,
+but does introduce unneeded barrier for the polling case as I mentioned. Th=
+at
+said, given that the polling interval is once a millisecond, extra barrier =
+is
+okay (full barrier is ~100ns). I do wish we have acquire/release barriers f=
+or
+these cases, which would be quite much cheaper!
 
-The MAX_SUPPLIES fixed size array needs to be expanded from 2 to 6 to
-accommodate the rails.
+So unless there's an objection, I'll take the second approach by moving bar=
+rrier
+to pointer accessors/updaters and mark these methods to have acq/rel semant=
+ics.
 
-The rock-pi-n10 and the on-die rk1808 (including the onboard VIP8000Nano-Q
-NPU) are now both running on the 7.2 mainline kernel. The
-rock-pi-n10/rk3399pro-vmarc-som is booting with the mainline .dts and
-the rk1808 is booting with an adapted vendor .dts.
+Best,
+Gary
 
-The required changes to the drivers/usb/misc/onboard_usb_dev.h are now:
+>
+> If we want to remove unnecessary memory barriers on polling
+> `driver_read_area`, we could add an analogous `driver_read_area_size` or
+> move the memory barrier for driver_read_area up one level. The poll is
+> only once every millisecond though, so I doubt it makes a difference for
+> performance. But if we were to change it imo `driver_read_area_size` is
+> most consistent.
 
-    @@ -6,1 +6,1 @@
-    -#define MAX_SUPPLIES 2
-    +#define MAX_SUPPLIES 6
 
-    @@ -134,6 +134,6 @@ static const struct onboard_dev_pdata xmos_xvf3500_data = {
-    +static const struct onboard_dev_pdata rockchip_rk1808_data = {
-    +       .reset_us = 25000,
-    +       .num_supplies = 6,
-    +       .supply_names = { "vdd", "vddlog", "vddcpu", "vdd0v8", "vcc1v8", "vccio" },
-    +       .is_hub = false,
-    +};
-
-    @@ -167,2 +167,2 @@ static const struct of_device_id onboard_dev_match[] = {
-    +       { .compatible = "usb2207,1808", .data = &rockchip_rk1808_data, },
-    +       { .compatible = "usb2207,180a", .data = &rockchip_rk1808_data, },
-
-Hoping to get your direction on this, and if this can go through as a
-single patch, or should be raised as a series. I will raise a v2 of
-the above if this is suitable.
-
-https://github.com/heitbaum/linux/commits/rock-pi-n10/
-https://github.com/heitbaum/linux/commits/rk1808/
-
-Regards
-Rudi
-
-> 
-> -- 
-> Best, 
-> Chaoyi
-> 
