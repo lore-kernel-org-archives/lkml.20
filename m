@@ -1,119 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E2E46D2AF;
-	Tue,  1 Sep 2026 11:01:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A3BD47CC92
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:01:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788260486; cv=none; b=MTdzxESKUS27GQv5yLExWb4FGnTCDtpD4tN0dNPjKFtvvBfdsoBUCd8l+cKmtea+mr3R7r4suaGmR4zzwrRAbjRS4cmO+dlB2QQS+KtfQZDbWrocMISC7ZUp9T0gIr6OUhotsxae8Yh7PM+iqdG51VfWqw4tOdz58wMNpDNfAhM=
+	t=1788260491; cv=none; b=Qvx7M3XfuC/tKwiovMv2IptiJ4hpG/ttaKhgZaWSDVMF0jfn8KvLwstmqnwREz3UBXROS3pmBGtYwd68B0gLA2mVnRefFgLpJpr3Hff0CAsuqPhXCgy8BczPBg/SeSAEzOactoLQpKuaoogYULOiSONAlFG5nSUuUhleaM+7Lb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788260486; c=relaxed/simple;
-	bh=8jBuMd67Ol/N6kGxJ2O28/j+nc3UTyItyafL74h16Lk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WstJbIFN9tqqcY63wEZOPY4Cv/d61AV2CRQPxDBsJLCcUcMrBd92rMJbHaw5nnv27k88/LgYeOxmoZotUC8eBp6vDKGvg7nRh6tPPjhNjMe1iVJ0oumEt4rnzMvfk1Oa1O1yqKTBiZeWZ2ZeeyIwing7/JPqogIE8A5hz6nK1i0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ObR1Hbvx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788260491; c=relaxed/simple;
+	bh=rUg5RDcbQwv21+EeGr6tJRVYoyYOYvydRnuXEoCQPSE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=njNO8N6JonX+0Z/cTUc8a0RWaK3vHHWcyL0PsGPtq/vFbkRxAD4ClsbVnSefEEVHHM6DO0ZXLRDmM7o3aJpkH/9utrQI+cuRfVmiTctMR20IfiZ1tFZIsDK+9jRzap5kb4PLtbzrzp3lgFLzsK3eIzeycVo2rBMKRGKL1PYb6GU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CW83/wQb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RmIiYnIr; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ObR1Hbvx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D9801F000E9;
-	Tue,  1 Sep 2026 11:01:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788260484;
-	bh=aHxVERBew5CgbQQj/MuD9uQI515uVkBhK5soxUtArlo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ObR1Hbvx8mIlygu/0Q7wQ04cJeYLdBrCbKqhDMcBy15MfEa0QWJ2LL2T+loGt/Qiy
-	 Erp5toxkW16/RHLQfLOnF8d7SBfPNX8x/b8ZGpzKQf9EUUi2POwKavf/485oXpqyge
-	 bX4S1WxYPzWsSCuptkwjYSKznjido5rft1Kf8VHaYdz/gmnvGqc6XrM4YdIUepo6Q9
-	 wxT59x27V95hx3ZnqXhUaXXYOEqRR6GcJYxOjlNoShRw2HBX+vsLW6Fz4PzS97Rc1r
-	 uUiLKfhTB8B6Ri+fsU4TE6+Lrc/MrgBdtbGuHZ3H7cL0wvSkDW7/pbkRy18dBMYsqd
-	 +mVzweO6p72Aw==
-Date: Tue, 1 Sep 2026 14:01:20 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Rodrigo Vivi <rodrigo.vivi@intel.com>
-Cc: Konstantin Sinyuk <ksinyuk@kernel.org>, dri-devel@lists.freedesktop.org,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Francois Dugast <francois.dugast@intel.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Donald Hunter <donald.hunter@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Ilia Levi <ilia.levi@intel.com>,
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 0/12] drm/fabric: vendor-neutral topology
- infrastructure for scale-up accelerator interconnects
-Message-ID: <20260901110120.GJ24140@unreal>
-References: <cover.1787552412.git.ksinyuk@kernel.org>
- <20260826093222.GC42790@unreal>
- <fabric-leon-reply.1787844400.ksinyuk@kernel.org>
- <20260827170911.GG42790@unreal>
- <apGzqP6cEZ1miNmR@intel.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CW83/wQb";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RmIiYnIr"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681AJilU2752208
+	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 11:01:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ZF/DA0i/vJB8ETVhi537WGfCwLGoiddks1hUp3ZHR0s=; b=CW83/wQb1Y2K6z+G
+	0dyFxJoDvzG7dR2702RceUiMPF8VFNuTNnJ6J2A28NyzdnTMriZNJnfYIwzvcraY
+	VSfzLNiBLOn0MTSucE7A6S0FPP2m9hmQUXmAP7XD6hZMlL1kBS2g1pUS4xfL02NU
+	sSowKQX9+f/ZWkf7JHo26vnDLo0sc03R42ERljW6qoVRho3NI37/DEbThiLYCwQZ
+	25yzSE1uJylfQJj8TWRbLsWcnCYIKJwBW2CC9LYUOhvii0W4SNq6IRZBU1wCK0Rs
+	zISEzek6R9Hmyf/0LK7ugjLWZxSiISeP73/ct1g/wTdzf4tdP4OXhcJIcmHWf4YF
+	sKPXlA==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdfchbjx6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 11:01:29 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d6f80c76e6so75060915ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 04:01:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788260488; x=1788865288; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZF/DA0i/vJB8ETVhi537WGfCwLGoiddks1hUp3ZHR0s=;
+        b=RmIiYnIr8z+S8YBCgI1FJ7kpFszkiHr2gJbwdjGTflyU7QhWVIzo98/RMgRBf4ZH+j
+         ZEWkwwsn2ofyso+1tAKIIx/Zs+bt/E/1NiVHfoj6wK+wBcNcy5l5vcAyPCHicfCKcOGy
+         2WmEtIC6cnYTkoV8sfw3pLjc6AsFKlgovkZMhvXxnGoAEZMXm9YDp6pHjaxKTc7kvb3H
+         v+CFXg75qiRxNOBPmlZzGbDyDQjkUPnHId5VXZgDRzwxwETa2VTWzB65JIlbii3coBY1
+         LTnE9TxXZdD5NRe1MpV5D68wOVEBLQYhKhKXSSQPG/3tAcOgG9hQoLhGGl3t90GVNxRv
+         RSfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788260488; x=1788865288;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZF/DA0i/vJB8ETVhi537WGfCwLGoiddks1hUp3ZHR0s=;
+        b=qQ3Env75+YwplwOy/126OH5QbL5hPagjW48cT8wXMH30kWsCQecI8s018xd8Bv5R2p
+         Zff/WUg/ntp0WykegbZKSFg6V+LpWL3ETZG2tGb9p7FP/gL0tCnLhDEhSAPV1EKm4VYs
+         ghsHM/YkEOWBwXFbn1BMXt7Tsj5zq5JZcilmVtwhbhMWi/U6MvA3rPGn8hu08U/EZZGi
+         5omw+1iSsKF2XYHvfsT5hotQmvd6g+BfkWf2gScs6miCrM7z8HtHVAdZUjO7x0yPxasD
+         tZj5k7h7gPuaTKlGdSUN/pfBpjS3W8naaULOx2g8rStVIWLC4HpHE8X5pz52tOLRwD8Y
+         Z30g==
+X-Forwarded-Encrypted: i=1; AKwUvByndlxlGk5yGn4MlSFrShtKAX9L1Ot2THy3vDPxP6y4LmXA34H9vAP8f+n7EWvLR5lPZRZr6lhz/hGTE2s=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLdpExioJQHv3w4MvltQNpbExWc2Zm3ckeNLDiPDJgCX+e6SuO
+	fkyjliCh16fJFUiUmvzQjh41j7ji5zGcs51g62/vUMprkzQsEvR0WmaSv/zPi/yvBJfartwyAxs
+	nQTDAZcHKkjsZsyFcLPUedHIt3nKlc3eVzZJpWMDVVnFkRyFpJ2UG36TYtO1iU9ReGG2B8OMqwZ
+	E=
+X-Gm-Gg: AYBFou0G27sqM71S+BE+iJBlpfyboj8rp2hH2vO3EYfYpDA0io6IQRooPbAs7M+3Ub3
+	hFvuUDE2tZIMLmOp4IQuCYNZwDR3pY5fttI6t/R3SE1nnut3MKg1Mf9JDFuBj/kWch2H3BKH9aN
+	NoYTSLa/OzsYUJfQi5wH7dQRabxevfmG6kYmGAyHvGd8B+n8ehJaNogLEiiiBlGwq11nXQGol7q
+	NMPeSOd1Q9lqOFBJXdzfRrC39Antb3FbWy3LZ/GcBOrMREMlVomU2pTCUiiHgSu1UW/0RfSveRi
+	4hhSea/ZAG1zgOSoLI8pARHZwW6qBBjxYOfdCDHlGBesuh02pZz+Hv7+AlJFP7FX4G7SqxLdC3R
+	GcAwiQpAKewECc89147S5553+YWsVmw==
+X-Received: by 2002:a17:903:1a2d:b0:2d8:d4cc:be64 with SMTP id d9443c01a7336-2d94a904ffcmr110370415ad.17.1788260485726;
+        Tue, 01 Sep 2026 04:01:25 -0700 (PDT)
+X-Received: by 2002:a17:903:1a2d:b0:2d8:d4cc:be64 with SMTP id d9443c01a7336-2d94a904ffcmr110365825ad.17.1788260484072;
+        Tue, 01 Sep 2026 04:01:24 -0700 (PDT)
+Received: from [10.219.57.226] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d7596412c2sm49707335ad.37.2026.09.01.04.01.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 04:01:23 -0700 (PDT)
+Message-ID: <5c91768f-b8b0-48f8-aac3-b08b76605e1d@oss.qualcomm.com>
+Date: Tue, 1 Sep 2026 16:31:19 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apGzqP6cEZ1miNmR@intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v13] misc: fastrpc: Allocate entire reserved memory for
+ Audio PD in probe
+To: Jianping Li <jianping.li@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        quic_chennak@quicinc.com, stable@kernel.org
+References: <20260826033803.475-1-jianping.li@oss.qualcomm.com>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <20260826033803.475-1-jianping.li@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: tYlABIJwHZ7PSp8dhyoQMQOMHMpEmeKA
+X-Authority-Analysis: v=2.4 cv=G9Ms1dk5 c=1 sm=1 tr=0 ts=6a96b089 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=MOthyIZreOk6ictk8Y8A:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-GUID: tYlABIJwHZ7PSp8dhyoQMQOMHMpEmeKA
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA5NyBTYWx0ZWRfX3AjhLihS1NIw
+ gzCXPsgzJnptqlU7M4g1zkjSyVo8JBvMNcdtdSX42t03lInWDNW+xEiQORyPyL5rh4RRe8lVum2
+ UB5haL1sRdJO8DW9jFKWCAFT3SDntJA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA5NyBTYWx0ZWRfX7+HfwmVsNex7
+ 2lhOHtQ9IXgn74w3IBXJ2VWvuInNQwZl+8jez3XZznhq6qHw9lN19eTr1aQ73M2gd2USQtDUmdT
+ +K62Y6z2GGwhSIfcd2XoJHpa/DbITEDDASySTdAeehaqFm7/oM3sFH4QtnQt6/GkY6LavapsjqY
+ da9X/h4DoMGqgzvIrjesGPqW8iqgTqr8bRLcRnZmhxiAFj7I1jnxihxJP80LSLJMTl6MpJVu/54
+ F3meC9HyNO47Wiv4CejPqpkpFj8N0D3rJ0YlLNU0n0PHmQOkHG7C+nvpghhbi19g0SonUD8z+KV
+ 2lCYGVcVSjOc9qp+tm6NFTL91fj8cLylHIZbFzMP53r04Zj9A9wUjrZstwPt5Fej59Mp8jT76dN
+ eTsAozElgb2joF80Cat4PA7ToSPjNUpR3xOXBrOGRPI5tayb5ISDjt83cDZl8Dkkb3zWbMiRuXc
+ A8ASagS47nP/uZyo0eQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_03,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 suspectscore=0 adultscore=0 phishscore=0 malwarescore=0
+ impostorscore=0 spamscore=0 bulkscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010097
 
-On Fri, Aug 28, 2026 at 12:13:28PM -0400, Rodrigo Vivi wrote:
-> On Thu, Aug 27, 2026 at 08:09:11PM +0300, Leon Romanovsky wrote:
-> > On Wed, Aug 26, 2026 at 06:38:58PM +0300, Konstantin Sinyuk wrote:
-> > > On Wed, Aug 26, 2026 at 12:32:22PM +0300, Leon Romanovsky wrote:
-
-<...>
-
-> > The wording alone is not sufficient. Your proposal should be backed by
-> > real devices representing different architectures from different
-> > vendors.
+On 26-08-2026 09:08, Jianping Li wrote:
+> Allocating and freeing Audio PD memory from userspace is unsafe because
+> the kernel cannot reliably determine when the DSP has finished using the
+> memory. Userspace may free buffers while they are still in use by the DSP,
+> and remote free requests cannot be safely trusted.
 > 
-> Future Intel (and other vendors) hardware will include UALink.
-
-I guess that, like most of us, you are not authorized to discuss or
-comment on Intel's non-public roadmap. Can you point to any public
-commitment from Intel to implement UALink in its devices?
-
-I couldn't find one.
-
-<...>
-
-> > The current proposal is based on a single implementation, which is
-> > unlikely to be ported to this new framework in the foreseeable future.
-> > The amdgpu xGMI implementation already exposes the required UAPI through
-> > sysfs and would need very strong incentives to abandon its "legacy"
-> > users in favor of this new netlink interface.
-> > 
-> > The last new subsystem I am aware of was introduced with implementations
-> > from three different vendors to demonstrate its robustness. You should
-> > probably aim for a similar level of coverage here.
+> Additionally, the current implementation allows userspace to repeatedly
+> grow the Audio PD heap, but does not support shrinking it. This can lead
+> to unbounded memory usage over time, effectively causing a memory leak.
 > 
-> If we wait 3 different devices to show-up before we can start discussing
-> a common API, then it might be way too late.
+> Fix this by allocating the entire Audio PD reserved-memory region during
+> rpmsg probe and tying its lifetime to the rpmsg channel. This removes
+> userspace-controlled alloc/free and ensures that memory is reclaimed only
+> when the DSP process is torn down.
 > 
-> But of course, we can definitely move this netlink as is to inside
-> drivers/gpu/drm/xe and call it xe_fabric and if someone else is interested
-> in join effort we move that outside.
-
-We are not talking about "waiting for", but about "being backed by".
-The general kernel rule is that the second implementation is responsible
-for consolidating the code. XE appears to be that second implementation.
-
-Thanks
-
-
+> The reserved-memory region is now mandatory for the Audio PD domain.
+> Rather than failing rpmsg probe when it is missing, validate it in
+> fastrpc_init_create_static_process() and reject only the static-process
+> creation. This keeps the fastrpc device probing for all other domains
+> even on a misconfigured device tree.
 > 
-> Thanks,
-> Rodrigo.
-> 
-> > 
-> > Thanks
-> > 
-> > > 
-> > > Thanks,
-> > >  Konstantin.
+> Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
+> Cc: stable@kernel.org
+> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+
+Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
