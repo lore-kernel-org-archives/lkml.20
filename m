@@ -1,1460 +1,284 @@
-Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11021128.outbound.protection.outlook.com [40.107.130.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2519E47884B
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:29:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.69.130.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788287363; cv=none; b=ID9Wu7X1rm/5iiqQfPrO/1JAm8bufKtSRQfiteXmPmiPZVVuM0uSNxxcW/Jg6JfGXt9R6l/8ew5+lZhSZri9qsLmBfIMiE6ltyS/rpiFwCb2lrDFBecjkcRJ42tr2uUxSx3D3J2XokPo3uKew6hts5aE6NEKuYaELcWT63HT7LQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788287363; c=relaxed/simple;
-	bh=YEBxtx2tOSttrVbdSgjXG0BK8vfseWy5kvUeptlxwxs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hVMh2tTp0EF5yqrdTQ4/yNQ8gBR4DmpLJ5BPsJIbq++y5+X8TNi4gYUxL6IBu9+VJyv8KpkrFMonK2YgN/zxgCHUwr2ZEvFHKpB9Y9RcGDAbiT4IGTYIzsGYUYfiLcUm8N3ZfvRnbP+rF6di+fNgTpD30H7/NQgJWjbXqsjVXRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=u+wyOG4u; arc=none smtp.client-ip=158.69.130.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA81849C4CF;
+	Tue,  1 Sep 2026 18:29:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.128
+ARC-Seal:i=4; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788287378; cv=fail; b=td3xDBwyqPBHzPqY5yG0Mf0PvkS6qFRblK8a/YUT5BgSDdKGba6NVelDl0cmuuw/afTQhO5KSy1n0mfk5n3BQHif0GkU3LrMT3Z23kFI/qSH7acNqS+9f496h4oNv84gjxkTtkVQIzFotNujHaYY6XSxA4QwTMD+OeztWUr9phQ=
+ARC-Message-Signature:i=4; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788287378; c=relaxed/simple;
+	bh=KqQvlLNnZ0ttRpjLC2MieuRKCw5OA1tDne90hEygK24=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=gjqi01eHuJoKi/U5ONjzUM1R+tQLm/Yo2vQacJ/TflKRFgBU6yk8wW57pRaoUS6HztLGpud6hEkSKyIkWOka3V+8MzL3F1qhzhBuB2Yq8E9vTzp176clySR2XoGeVZRv3AM795hRo955Z6fVFA77g7lH5moKBZuRpzEpDaaCLNM=
+ARC-Authentication-Results:i=4; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com; spf=pass smtp.mailfrom=solid-run.com; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=DTYQNMcq; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=DTYQNMcq; arc=fail smtp.client-ip=40.107.130.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=solid-run.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="u+wyOG4u"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1788287350;
-	bh=FHi0zdrEvXn5qCL/X4oRLWq75p3tEGelkftxbxFlfgg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=u+wyOG4unB6n2uNWHjbgO/HHoKZZmSqYQYd4C04ma04ndZvPWD68/VEMnuyyID21R
-	 1Wm1z0tTfyQrfKBQKP3TQXEa5/JA2AQ33le95BRhWyjyJx/XVIXuX3/0JCIrLtT9nr
-	 3C8vmrUuDFaf+Qim/hlumhdTonJmlqUVE0j2B1gOdAnvKVZddIz5AE/FLH/M1MPi3L
-	 ndS0BRskt4LdhrDPzkUTm/7pysW+0QFCUkgf2yHiKzAJFRkQAy4WDvPEKb6Gmwv1IL
-	 OEpjdoNwzzctYl/AqK1Bd+jzfGQEEkj5Ev4J3CWjUrS2NuVwvrH94dJ5pI4DLVTdRv
-	 Uc1QZfMj42AYQ==
-Received: from compudjdev.. (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4hZDsL1Tz2zWHK;
-	Tue, 01 Sep 2026 14:29:10 -0400 (EDT)
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Dennis Zhou <dennis@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@linux.com>,
-	Martin Liu <liumartin@google.com>,
-	David Rientjes <rientjes@google.com>,
-	christian.koenig@amd.com,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	SeongJae Park <sj@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Sweet Tea Dorminy <sweettea-kernel@dorminy.me>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Wei Yang <richard.weiyang@gmail.com>,
-	David Hildenbrand <david@kernel.org>,
-	Miaohe Lin <linmiaohe@huawei.com>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Yu Zhao <yuzhao@google.com>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Mateusz Guzik <mjguzik@gmail.com>,
-	Matthew Wilcox <willy@infradead.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Aboorva Devarajan <aboorvad@linux.ibm.com>,
-	David Carlier <devnexen@gmail.com>,
-	Josh Law <objecting@objecting.org>,
-	linux-mm@kvack.org
-Subject: [PATCH v21 1/6] lib: introduce hierarchical per-cpu counters
-Date: Tue,  1 Sep 2026 14:28:46 -0400
-Message-ID: <20260901182857.26690-2-mathieu.desnoyers@efficios.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260901182857.26690-1-mathieu.desnoyers@efficios.com>
-References: <20260901182857.26690-1-mathieu.desnoyers@efficios.com>
+	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="DTYQNMcq";
+	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="DTYQNMcq"
+ARC-Seal: i=3; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=ESYO3XqZ2rpgFeSN7UdufZKSmTB2dc8LCvcg+P5R65EamLOWYTacKyYWNB5mUI7nTqiaZVuzttpIvpAgelt76sNO5ijAxTIx6LxCvcKMCG4Ph8z9CCMmKamx99P2Y9rvZU/Bl9aLh2HqAgmlnxIB0O3ndCp9Wkfs4We42H3FhnntrE6hVydu5pdn003F13/rfAiyG39E9Z7d2mj78M2ppjTXk2DkW4CZ/lI90vdPqAw2qFX1OiAXTHsAKzbAK9wp4hFOqIExcqw0BBpaIYwKJQOrb+IL0wAg9FoLFf9J6RhiAXMd0aRT5WYQ9/Xpv12nMT5afkPc6+RY9mtwVniDng==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KqQvlLNnZ0ttRpjLC2MieuRKCw5OA1tDne90hEygK24=;
+ b=YfpPS8S1cwGDqmmqWJDoaYF6Z8UQ7RKR0o6b30XsLeH9fvG7Ixz7Rsu/ruHHTrHHAVBAUqo7RXMMVFLC/CTcTs4cHD17YFT0ISsSikaYvfiMqqCpHsEdcOgR+sTsGavpGkAtxlfdUwAf8+pNHMQhd4Hp9O2Pc94Cw93Oi3XxkbUUgaZjij5GeeYEmIshGmQ2XOXHaR1+Ivql2X9IgXcyFlNkwcTmloFX+L3D5qGKA7iVWg4zZV773KLWOGd5oMz5pV4mgYapb/Lod1oIdX0Q1iB3CU6ZiyrwOPGw2Nj9e+YKe43mraCdvdjCHhy6NRa+NnaUHatWY9RWT42mzXeElA==
+ARC-Authentication-Results: i=3; mx.microsoft.com 1; spf=fail (sender ip is
+ 52.17.62.50) smtp.rcpttodomain=glider.be smtp.mailfrom=solid-run.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=solid-run.com; dkim=pass (signature was verified)
+ header.d=solid-run.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=solid-run.com] dkim=[1,1,header.d=solid-run.com]
+ dmarc=[1,1,header.from=solid-run.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KqQvlLNnZ0ttRpjLC2MieuRKCw5OA1tDne90hEygK24=;
+ b=DTYQNMcqakiLYKifaf+vLUWXQwHEJRWTXRGrnkZSVCO1p1YxTzIla1ivBfKCkI/J6XmkQg0etnNYY1D14BfitwGQt3L0zAiDsPwGHK2yph/VCwnO8NKRhD5TPXf5rkVKd9URm3TR8KKibadLyyxzNJPbdSFegQuxCrkUKN+wz66kUf4AGCRtvAyRR7JYzdQdxmwVFIB9QF8gM4TGk8B7Ksojc3FE6OG17sB43aueVx9YiapKoHgFdCKL0UleB1BdNHslejODm0tCBE8+UZyE4OwmroKnApsi0VICFJCVbUrts8SR81jVqg4HW0pV4kLnV1tBxycyHttg38r2evS8Hg==
+Received: from DUZPR01CA0188.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b6::27) by DB9PR04MB9913.eurprd04.prod.outlook.com
+ (2603:10a6:10:4c4::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Tue, 1 Sep 2026
+ 18:29:20 +0000
+Received: from DB1PEPF000509FA.eurprd03.prod.outlook.com
+ (2603:10a6:10:4b6:cafe::82) by DUZPR01CA0188.outlook.office365.com
+ (2603:10a6:10:4b6::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Tue, 1
+ Sep 2026 18:29:20 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 52.17.62.50)
+ smtp.mailfrom=solid-run.com; dkim=pass (signature was verified)
+ header.d=solid-run.com;dmarc=pass action=none header.from=solid-run.com;
+Received-SPF: Fail (protection.outlook.com: domain of solid-run.com does not
+ designate 52.17.62.50 as permitted sender) receiver=protection.outlook.com;
+ client-ip=52.17.62.50; helo=eu-dlp.cloud-sec-av.com;
+Received: from eu-dlp.cloud-sec-av.com (52.17.62.50) by
+ DB1PEPF000509FA.mail.protection.outlook.com (10.167.242.36) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.8
+ via Frontend Transport; Tue, 1 Sep 2026 18:29:20 +0000
+Received: from emails-7683964-12-mt-prod-cp-eu-2.checkpointcloudsec.com (ip-10-20-5-203.eu-west-1.compute.internal [10.20.5.203])
+	by mta-outgoing-dlp-942-mt-prod-cp-eu-2.checkpointcloudsec.com (Postfix) with ESMTPS id 7120780F51;
+	Tue,  1 Sep 2026 18:29:20 +0000 (UTC)
+ARC-Seal: i=2; cv=pass; a=rsa-sha256; d=checkpointcloudsec.com;
+ s=arcselector01; t=1788287360;
+ b=gzvjR7S5hDALTHmIEajUaTh35kSKLD8N/MEyn1b2DXNv1sftUW5eZ3xq0CnK9klxNfq3g
+ rQ/i5L4NbiuZQGF3WwicyM+gldYnfhAXKooVxNlMIRZg00FtIkZAYa2BA67N2sR1Ma6cHCf
+ 7RmCfRNXCbOrZsXBo5hiz1JZVz4WUUQ=
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed;
+ d=checkpointcloudsec.com; s=arcselector01; t=1788287360; h=from : to :
+ subject : date : message-id : content-type : mime-version;
+ bh=KqQvlLNnZ0ttRpjLC2MieuRKCw5OA1tDne90hEygK24=;
+ b=Kr89SNY9zy93IPOKVscwFQJ4y1GUO12hAdZAKzCmoa8AAPb4tMekbRQxZ3doweiciClyq
+ sqXegRMdIaRoesVLmQ5QHizVaKB2Cx1TGMJNRYIsQSGv/+TaxxycjM+VGVXa9EiHiVBH+/v
+ 550thTqYctWKAvDYTwd8Cv1dDu+DR0E=
+ARC-Authentication-Results: i=2; mx.checkpointcloudsec.com;
+ arc=pass;
+ dkim=none header.d=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KqQvlLNnZ0ttRpjLC2MieuRKCw5OA1tDne90hEygK24=;
+ b=DTYQNMcqakiLYKifaf+vLUWXQwHEJRWTXRGrnkZSVCO1p1YxTzIla1ivBfKCkI/J6XmkQg0etnNYY1D14BfitwGQt3L0zAiDsPwGHK2yph/VCwnO8NKRhD5TPXf5rkVKd9URm3TR8KKibadLyyxzNJPbdSFegQuxCrkUKN+wz66kUf4AGCRtvAyRR7JYzdQdxmwVFIB9QF8gM4TGk8B7Ksojc3FE6OG17sB43aueVx9YiapKoHgFdCKL0UleB1BdNHslejODm0tCBE8+UZyE4OwmroKnApsi0VICFJCVbUrts8SR81jVqg4HW0pV4kLnV1tBxycyHttg38r2evS8Hg==
+Received: from MMZPR04MB400504.eurprd04.prod.outlook.com (2603:10a6:190:28::8)
+ by GVXPR04MB12314.eurprd04.prod.outlook.com (2603:10a6:150:30f::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 18:29:06 +0000
+Received: from MMZPR04MB400504.eurprd04.prod.outlook.com
+ ([fe80::2f52:2d22:c7b3:4292]) by MMZPR04MB400504.eurprd04.prod.outlook.com
+ ([fe80::2f52:2d22:c7b3:4292%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 18:29:06 +0000
+From: Josua Mayer <josua@solid-run.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm
+	<magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Benjamin Bara <benjamin.bara@skidata.com>
+CC: Jon Nettleton <jon@solid-run.com>, Mikhail Anikin
+	<mikhail.anikin@solid-run.com>, Yazan Shhady <yazan.shhady@solid-run.com>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>, Conor Dooley
+	<conor.dooley@microchip.com>, Krzysztof Kozlowski
+	<krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v6 0/5] arm64: dts: renesas: Add various SolidRun RZ/G2
+ based boards
+Thread-Topic: [PATCH v6 0/5] arm64: dts: renesas: Add various SolidRun RZ/G2
+ based boards
+Thread-Index: AQHdKJeIQJMXSFRL80G4W28a5cQJMba6LlsA
+Date: Tue, 1 Sep 2026 18:29:06 +0000
+Message-ID: <3bf36594-ee72-447d-9b09-e8ef663798a8@solid-run.com>
+References: <20260810-rzg2-sr-boards-v6-0-41faa32cdafb@solid-run.com>
+In-Reply-To: <20260810-rzg2-sr-boards-v6-0-41faa32cdafb@solid-run.com>
+Accept-Language: de-DE, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=solid-run.com;
+x-ms-traffictypediagnostic:
+	MMZPR04MB400504:EE_|GVXPR04MB12314:EE_|DB1PEPF000509FA:EE_|DB9PR04MB9913:EE_
+X-MS-Office365-Filtering-Correlation-Id: 99c6cd0a-21bf-46f3-cf71-08df0856f08c
+x-cloud-sec-av-info: solidrun,office365_emails,sent,inline
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|10067099003|56012099006|18002099003|22082099003|38070700021;
+X-Microsoft-Antispam-Message-Info-Original:
+ fbsLURqo/1cfwxEFroq1l3whjtYQLEfKISOKMA4FqaKBsvT28QssZbGT696odSipGs8bmMlLmT5typ1+pAdRKkN6BN97cDIL72bqdwAoBeWMMZHo3TTE3s981fIQJqZPzy7NrO3f7KEWvDosV2+TczNRxj5LzEaEA2Sor2uxX/Bb8X0p61d0WhMS256qwmC8CdaHzIaRXLZ2VoZMjCsYhMuJmMFF2mCWsEFp6/DEe+7wrOvOp4Z9zGgylG8Q5QcEYm42QPfgjcVY7Uv6ZdQsfV63ElhfoFzEDa66N3zGdYuF5Rz6lCw6/UavIptzcppFhrm4J3SNZrk7qs4nYFzNB+chcCWqeqs/CmVTNbOF8d5xJgB6Gj/K4bGMv6iybxey+FpKWpWSTIJVS3zfaE8kRpcrvE9b/USw4keoUwXU+8IphU0XyL9XGy2jGiARYYD96LeHWpM2jgL+vTyapoxO6SrOm+9Vua6IQDz3Zk44rRFT8JWjCv0oIg4d7/9Sy0atcoffiVqHgaqwoBLC6c/8naQlsK6vWNz9igSp2ov70RWzHw8x9k9vfV6d69ontbnT6uz+cJxdkNsC1bwJ621g+Fxk2nS38oVS08b96IGOjynW3NNx6oCnwb3tZx3RvknfVIEwDQPw2YbMIYZ4doHJAT3NkJmcCLuTsr7Fgo8A+P4=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MMZPR04MB400504.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(10067099003)(56012099006)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1102;
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <72B574CB3B5F464EB81FC1417262A1A0@eurprd04.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked:
+ aEZ/8HNksOuWHIF7RUVhaFVKoTGxaTUZ98hL77LYiaBms2rUlGXDe0UVW2jZMBMqR6TrogFXejw+zponO2KGG1f4FtY4NxHxHAt3CUhMYNHPEzd0TxisBGwvEmYeZ2n/bmCumxhio6ruuXLVjipH5jfCI2eG+tCBINyGtUXudjL1ANi6b7mamRw9QaCRthR/H26Ro/L46gNlnk/0sUeEaNqA+Fx4Ki4o/kKKoSnprW0/vjKTEZfsQmKIpyMzdBej1E/JojoCaD7RFxxJSX1D0HslUJvsKw8YLMq/YiBmcgvXmvgF1w/9vr2F2sPudk5mJ7wyVAPIlEvVOTuZtI3JTA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB12314
+X-CLOUD-SEC-AV-INT-Relay: sent<mta-outgoing-dlp-mt-prod-cp-eu-2.checkpointcloudsec.com>
+X-CLOUD-SEC-AV-UUID: 9a8f3bc1b0d343289d3b3b01aedd24e6:solidrun,office365_emails,sent,inline:80b78ba5794ed4ca4ce1d0d4db18ec9a
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=TUkLqVaa9d8IYnSk6Cud4XarjnWsX4X9FjmMKk5ktHLPn9w8yDMMOvYFcDgXnwBQxfi6ee4vINuNzY9c1hE4viXRhO/nLxdevZ+xK0ZjPGR8GDJ5veuoIp2i1+q/U49n1WnNmnBkfxSRcnntqvySG1h6qgspT7FFfafRx3F0E4KE5IonrrFvdcLGkHDgFjMktFrPovF8ffN0jzswyB0hFF/lQFDy3Sj1rUH+fZf8/CN01rDIMlAM3rIg2GfhJCMXXt/y83N9lPCwoyhiUiyvLGWV81YE4Me0oo/yRzTDKEU3tKoQz90HZhMPGsdRmHXuMPx3toOAhP1kmVHhRoYn5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KqQvlLNnZ0ttRpjLC2MieuRKCw5OA1tDne90hEygK24=;
+ b=jqUU8jKPbYcYInH1EsxBX7UH73itnLh251aTBsTfgaxmXmzia7fcwXZNaTZ4mpOYvm79+s4WmCNidfPlsKFXqLqBT2D3VhEVG3V/OIK6twfthArOEqDwDIYpUL5XdVWh62HLp/xGx/OsiHdxqPtvgJ4tWj8DI5j/bWmaEVMYeF2BzAeAnIxX1ibcNi/5TvX6GLrggXPl+Pc0a4uV5SMPnvkQkukKDH4rqjuLgyvHuYNE3y7f3msxhD6IWQpA7OqU+3jak6ZQ1ktfxVUJ30UUGgCHDG+dn5/5MkNRbpHX1sjirek/qb2KPqr+Sd1vvV+BY3l7XTqit7CAKYWnmt6RPg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=solid-run.com; dmarc=pass action=none
+ header.from=solid-run.com; dkim=pass header.d=solid-run.com; arc=none
+Authentication-Results-Original: mx.checkpointcloudsec.com; arc=pass;
+ dkim=none header.d=none
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ DB1PEPF000509FA.eurprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	eceb6915-224a-4fef-acb9-08df0856e813
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|14060799003|82310400026|23010399003|7416014|376014|35042699022|36860700016|1800799024|13003099007|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	4oc+E0l81u86qsG2jYghlH2ozJYuIRA9ntAiP7U8x9CY/krZsZt7Jm1JQ9YMzx2MBxanva+CCzZ4HtGsqiJFyDLfaOGVDVR2Y3vTe+jkWao9a90x/nICF1b12UM3bboR07Bsqo+jRBiEAyu+2yS90d89XADqoWQPAdvJNzMEPUrkmlta/BW9XYtC9VX3TSWXa1LkI9m/SaAIssk395vxzi2lvsvSe5c0bUbjSln5JA0BLn9FzYfPjcuyq0vF2x6XPOvDkDANq1aK5vD5nuxRFypHeVG9L/42IAfonFvRLbEv7b62wXHiI71cLWofbPfJC1/vTZj1t7Ni3LqUoUHrpldINeJQesZTEGF0Um0N+FizglhIkv3c2jyEM8Yt6hnKi+nEjcCOfjIl7fYn6hxr9Qt/li2n7BZqm3V/9Ly/Jp4ALw6QXWVJfgo26a62RexN9cobjfQFaYvwXGxEoA8aFhnMpdQuWKNV3c2jrX2yEAly8CkDP7BS/NxK2rV6HFXRKlvKHYfAgQtpOM4FrdLdzZDWmc3yt9qYMuleLGlPT0+cxS3Yj40UlnGl8X8zMAWy3KlfX7BZ8NQb8ZaNx62cRTqnp3UQfEG2Zo00EWe0UxiMZMz/Zxi/m3DLe7xMRQatHUdzv1Co+rMsYWZWGisrMg==
+X-Forefront-Antispam-Report:
+	CIP:52.17.62.50;CTRY:IE;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:eu-dlp.cloud-sec-av.com;PTR:eu-dlp.cloud-sec-av.com;CAT:NONE;SFS:(13230040)(14060799003)(82310400026)(23010399003)(7416014)(376014)(35042699022)(36860700016)(1800799024)(13003099007)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	NSfn0R8twp04dxms/t86hMJ2+mk4y70nuS7ajWeCyygeAcDXIO+RHl8tYfv3tyO+UVgZKTjNDu8/fTHB7YXSL5zT+RaUR0WWg2nsB/Ekb0OwrQqXK8L0nVgfkoRdIHKfsmrhbazNZiZ9hLJq6WnUVQUAok2Sm8iukPv1X8RuFTadxgstWgD3rSptWHoehlwqdJgwfDif2dKTOswbxSc/92TrehicSRC0V8m98qvVqCvxku5cqL27vM2TPwaLN7exF983T+inBV2PzFO+hydoR9ROk3IhG/HeZ/7lIbCr+GxCHcuIULbyUg7GaY5NBpXKniPnmwrWtxgh3aOhe19gNZohHRue/I+3c+KEVzwCmc7S5ltfloMhc3cH887lpRYmDs0i/WjaFZbgwaICMqy9dNkN4WIJ4yHoBSg2AsIRVpe8+VUtHKDMY4wr/j6zpQqD
+X-OriginatorOrg: solid-run.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 18:29:20.5422
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 99c6cd0a-21bf-46f3-cf71-08df0856f08c
+X-MS-Exchange-CrossTenant-Id: a4a8aaf3-fd27-4e27-add2-604707ce5b82
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a4a8aaf3-fd27-4e27-add2-604707ce5b82;Ip=[52.17.62.50];Helo=[eu-dlp.cloud-sec-av.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB1PEPF000509FA.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9913
 
-This series introduces the hierarchical tree counter (hpcc) to increase
-accuracy of approximated RSS counters exposed through proc interfaces.
-
-With a test program hopping across CPUs doing frequent mmap/munmap
-operations, the upstream implementation approximation reaches a 1GB delta
-from the precise value after a few minutes, compared to a 80MB delta with
-the hierarchical counter.  The hierarchical counter provides a guaranteed
-maximum approximation inaccuracy of 192MB on that hardware topology.
-
-* Motivation
-
-The purpose of this hierarchical split-counter scheme is to:
-
-- Minimize contention when incrementing and decrementing counters,
-- Provide fast access to a sum approximation,
-- Provide a sum approximation with an acceptable accuracy level when
-  scaling to many-core systems.
-- Provide approximate and precise comparison of two counters, and
-  between a counter and a value.
-- Provide possible precise sum ranges for a given sum approximation.
-
-Its goals are twofold:
-
-- Improve the accuracy of the approximated RSS counter values returned
-  by proc interfaces [1],
-- Reduce the latency of the OOM killer on large many-core systems.
-
-* Design
-
-The hierarchical per-CPU counters propagate a sum approximation through a
-N-way tree.  When reaching the batch size, the carry is propagated through
-a binary tree which consists of logN(nr_cpu_ids) levels.  The batch size
-for each level is twice the batch size of the prior level.
-
-Example propagation diagram with 8 cpus through a binary tree:
-
-Level 0:  0    1    2    3    4    5    6    7
-          |   /     |   /     |   /     |   /
-          |  /      |  /      |  /      |  /
-          | /       | /       | /       | /
-Level 1:  0         1         2         3
-          |       /           |       /
-          |    /              |    /
-          | /                 | /
-Level 2:  0                   1
-          |               /
-          |         /
-          |   /
-Level 3:  0
-
-For a binary tree, the maximum inaccuracy is bound by:
-   batch_size * log2(nr_cpu_ids) * nr_cpu_ids
-which evolves with O(n*log(n)) as the number of CPUs increases.
-
-For a N-way tree, the maximum inaccuracy can be pre-calculated based on
-the the N-arity of each level and the batch size.
-
-* Memory Use
-
-The most important parts in terms of memory use are the per-cpu counters
-and the tree items which propagate the carry.
-
-In the proposed implementation, the per-cpu counters are allocated within
-per-cpu data structures, so they end up using:
-
-  nr_possible_cpus * sizeof(unsigned long)
-
-This is in addition to the tree items.  The size of those items is defined
-by the per_nr_cpu_order_config table "nr_items" field.  Each item is
-aligned on cacheline size (typically 64 bytes) to minimize false sharing.
-
-Here is the footprint for a few nr_cpu_ids on a 64-bit arch:
-
-nr_cpu_ids  percpu counters (bytes)     nr_items       items size (bytes)     total (bytes)
-    2               16                     1                 64                    80
-    4               32                     3                192                   224
-    8               64                     7                448                   512
-   64               512                   21               1344                  1856
-  128              1024                   21               1344                  2368
-  256              2048                   37               2368                  4416
-  512              4096                   73               4672                  8768
-
-There are of course various trade offs we can make here. We can:
-
-* Increase the n-arity of the intermediate items to shrink the nr_items
-  required for a given nr_cpus. This will increase contention of carry
-  propagation across more cores.
-
-* Remove cacheline alignment of intermediate tree items. This will
-  shrink the memory needed for tree items, but will increase false
-  sharing.
-
-* Represent intermediate tree items on a byte rather than long.
-  This further reduces the memory required for intermediate tree
-  items, but further increases false sharing.
-
-* Represent per-cpu counters on bytes rather than long. This makes
-  the "sum" operation trickier, because it needs to iterate on the
-  intermediate carry propagation nodes as well and synchronize with
-  ongoing "tree add" operations. It further reduces memory use.
-
-* Implement a custom strided allocator for intermediate items carry
-  propagation bytes. This shares cachelines across different tree
-  instances, keeping good locality. This ensures that all accesses
-  from a given location in the machine topology touch the same
-  cacheline for the various tree instances. This adds complexity,
-  but provides compactness as well as minimal false-sharing.
-
-Compared to this, the upstream percpu counters use a 32-bit integer
-per-cpu (4 bytes), and accumulate within a 64-bit global value.
-
-So there is an extra memory footprint added by the current hpcc
-implementation, but if it's an issue we have various options to consider
-to reduce its footprint.
-
-Link: https://lkml.kernel.org/r/20260227153730.1556542-1-mathieu.desnoyers@efficios.com
-Link: https://lore.kernel.org/lkml/20250331223516.7810-2-sweettea-kernel@dorminy.me/ # [1]
-Link: https://lkml.kernel.org/r/20260227153730.1556542-2-mathieu.desnoyers@efficios.com
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Dennis Zhou <dennis@kernel.org>
-Cc: Tejun Heo <tj@kernel.org>
-Cc: Christoph Lameter <cl@linux.com>
-Cc: Martin Liu <liumartin@google.com>
-Cc: David Rientjes <rientjes@google.com>
-Cc: christian.koenig@amd.com
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: SeongJae Park <sj@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Sweet Tea Dorminy <sweettea-kernel@dorminy.me>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Wei Yang <richard.weiyang@gmail.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Miaohe Lin <linmiaohe@huawei.com>
-Cc: Al Viro <viro@zeniv.linux.org.uk>
-Cc: Yu Zhao <yuzhao@google.com>
-Cc: Roman Gushchin <roman.gushchin@linux.dev>
-Cc: Mateusz Guzik <mjguzik@gmail.com>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Aboorva Devarajan <aboorvad@linux.ibm.com>
-Cc: David Carlier <devnexen@gmail.com>
-Cc: Josh Law <objecting@objecting.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-mm@kvack.org
----
- .../core-api/percpu-counter-tree.rst          |  75 ++
- include/linux/mm_types.h                      |   4 +-
- include/linux/percpu_counter_tree.h           | 367 +++++++++
- init/main.c                                   |   2 +
- lib/Makefile                                  |   1 +
- lib/percpu_counter_tree.c                     | 702 ++++++++++++++++++
- 6 files changed, 1149 insertions(+), 2 deletions(-)
- create mode 100644 Documentation/core-api/percpu-counter-tree.rst
- create mode 100644 include/linux/percpu_counter_tree.h
- create mode 100644 lib/percpu_counter_tree.c
-
-diff --git a/Documentation/core-api/percpu-counter-tree.rst b/Documentation/core-api/percpu-counter-tree.rst
-new file mode 100644
-index 000000000000..196da056e7b4
---- /dev/null
-+++ b/Documentation/core-api/percpu-counter-tree.rst
-@@ -0,0 +1,75 @@
-+========================================
-+The Hierarchical Per-CPU Counters (HPCC)
-+========================================
-+
-+:Author: Mathieu Desnoyers
-+
-+Introduction
-+============
-+
-+Counters come in many varieties, each with their own trade offs:
-+
-+ * A global atomic counter provides a fast read access to the current
-+   sum, at the expense of cache-line bouncing on updates. This leads to
-+   poor performance of frequent updates from various cores on large SMP
-+   systems.
-+
-+ * A per-cpu split counter provides fast updates to per-cpu counters,
-+   at the expense of a slower aggregation (sum). The sum operation needs
-+   to iterate over all per-cpu counters to calculate the current total.
-+
-+The hierarchical per-cpu counters attempt to provide the best of both
-+worlds (fast updates, and fast sum) by relaxing requirements on the sum
-+accuracy. It allows quickly querying an approximated sum value, along
-+with the possible min/max ranges of the associated precise sum. The
-+exact precise sum can still be calculated with an iteration on all
-+per-cpu counter, but the availability of an approximated sum value with
-+possible precise sum min/max ranges allows eliminating candidates which
-+are certainly outside of a known target range without the overhead of
-+precise sums.
-+
-+Overview
-+========
-+
-+The herarchical per-cpu counters are organized as a tree with the tree
-+root at the bottom (last level) and the first level of the tree
-+consisting of per-cpu counters.
-+
-+The intermediate tree levels contain carry propagation counters. When
-+reaching a threshold (batch size), the carry is propagated down the
-+tree.
-+
-+This allows reading an approximated value at the root, which has a
-+bounded accuracy (minimum/maximum possible precise sum range) determined
-+by the tree topology.
-+
-+Use Cases
-+=========
-+
-+Use cases HPCC is meant to handle invove tracking resources which are
-+used across many CPUs to quickly sum as feedback for decision making to
-+apply throttling, quota limits, sort tasks, and perform memory or task
-+migration decisions. When considering approximated sums within the
-+accuracy range of the decision threshold, the user can either:
-+
-+ * Be conservative and fast: Consider that the sum has reached the
-+   limit as soon as the given limit is within the approximation range.
-+
-+ * Be aggressive and fast: Consider that the sum is over the
-+   limit only when the approximation range is over the given limit.
-+
-+ * Be precise and slow: Do a precise comparison with the limit, which
-+   requires a precise sum when the limit is within the approximated
-+   range.
-+
-+One use-case for these hierarchical counters is to implement a two-pass
-+algorithm to speed up sorting picking a maximum/minimunm sum value from
-+a set. A first pass compares the approximated values, and then a second
-+pass only needs the precise sum for counter trees which are within the
-+possible precise sum range of the counter tree chosen by the first pass.
-+
-+Functions and structures
-+========================
-+
-+.. kernel-doc:: include/linux/percpu_counter_tree.h
-+.. kernel-doc:: lib/percpu_counter_tree.c
-diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-index 6d815f6440c9..dff5fd1c1b06 100644
---- a/include/linux/mm_types.h
-+++ b/include/linux/mm_types.h
-@@ -1462,8 +1462,8 @@ static inline void __mm_flags_set_mask_bits_word(struct mm_struct *mm,
- 			 MT_FLAGS_USE_RCU)
- extern struct mm_struct init_mm;
- 
--#define MM_STRUCT_FLEXIBLE_ARRAY_INIT				\
--{								\
-+#define MM_STRUCT_FLEXIBLE_ARRAY_INIT									\
-+{													\
- 	[0 ... sizeof(cpumask_t) + MM_CID_STATIC_SIZE - 1] = 0	\
- }
- 
-diff --git a/include/linux/percpu_counter_tree.h b/include/linux/percpu_counter_tree.h
-new file mode 100644
-index 000000000000..828c763edd4a
---- /dev/null
-+++ b/include/linux/percpu_counter_tree.h
-@@ -0,0 +1,367 @@
-+/* SPDX-License-Identifier: GPL-2.0+ OR MIT */
-+/* SPDX-FileCopyrightText: 2025 Mathieu Desnoyers <mathieu.desnoyers@efficios.com> */
-+
-+#ifndef _PERCPU_COUNTER_TREE_H
-+#define _PERCPU_COUNTER_TREE_H
-+
-+#include <linux/preempt.h>
-+#include <linux/atomic.h>
-+#include <linux/percpu.h>
-+
-+#ifdef CONFIG_SMP
-+
-+#if NR_CPUS == (1U << 0)
-+# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	0
-+#elif NR_CPUS <= (1U << 1)
-+# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	1
-+#elif NR_CPUS <= (1U << 2)
-+# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	3
-+#elif NR_CPUS <= (1U << 3)
-+# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	7
-+#elif NR_CPUS <= (1U << 4)
-+# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	7
-+#elif NR_CPUS <= (1U << 5)
-+# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	11
-+#elif NR_CPUS <= (1U << 6)
-+# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	21
-+#elif NR_CPUS <= (1U << 7)
-+# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	21
-+#elif NR_CPUS <= (1U << 8)
-+# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	37
-+#elif NR_CPUS <= (1U << 9)
-+# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	73
-+#elif NR_CPUS <= (1U << 10)
-+# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	149
-+#elif NR_CPUS <= (1U << 11)
-+# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	293
-+#elif NR_CPUS <= (1U << 12)
-+# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	585
-+#elif NR_CPUS <= (1U << 13)
-+# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	1173
-+#elif NR_CPUS <= (1U << 14)
-+# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	2341
-+#elif NR_CPUS <= (1U << 15)
-+# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	4681
-+#elif NR_CPUS <= (1U << 16)
-+# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	4681
-+#elif NR_CPUS <= (1U << 17)
-+# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	8777
-+#elif NR_CPUS <= (1U << 18)
-+# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	17481
-+#elif NR_CPUS <= (1U << 19)
-+# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	34953
-+#elif NR_CPUS <= (1U << 20)
-+# define PERCPU_COUNTER_TREE_STATIC_NR_ITEMS	69905
-+#else
-+# error "Unsupported number of CPUs."
-+#endif
-+
-+struct percpu_counter_tree_level_item {
-+	atomic_long_t count;		/*
-+					 * Count the number of carry for this tree item.
-+					 * The carry counter is kept at the order of the
-+					 * carry accounted for at this tree level.
-+					 */
-+} ____cacheline_aligned_in_smp;
-+
-+#define PERCPU_COUNTER_TREE_ITEMS_STATIC_SIZE	\
-+	(PERCPU_COUNTER_TREE_STATIC_NR_ITEMS * sizeof(struct percpu_counter_tree_level_item))
-+
-+struct percpu_counter_tree {
-+	/* Fast-path fields. */
-+	unsigned long __percpu *level0;	/* Pointer to per-CPU split counters (tree level 0). */
-+	unsigned long level0_bit_mask;	/* Bit mask to apply to detect carry propagation from tree level 0. */
-+	union {
-+		unsigned long *i;	/* Approximate sum for single-CPU topology. */
-+		atomic_long_t *a;	/* Approximate sum for SMP topology.  */
-+	} approx_sum;
-+	long bias;			/* Bias to apply to counter precise and approximate values. */
-+
-+	/* Slow-path fields. */
-+	struct percpu_counter_tree_level_item *items;	/* Array of tree items for levels 1 to N. */
-+	unsigned long batch_size;	/*
-+					 * The batch size is the increment step at level 0 which
-+					 * triggers a carry propagation. The batch size is required
-+					 * to be greater than 1, and a power of 2.
-+					 */
-+	/*
-+	 * The tree approximate sum is guaranteed to be within this accuracy range:
-+	 * (precise_sum - approx_accuracy_range.under) <= approx_sum <= (precise_sum + approx_accuracy_range.over).
-+	 * This accuracy is derived from the hardware topology and the tree batch_size.
-+	 * The "under" accuracy is larger than the "over" accuracy because the negative range of a
-+	 * two's complement signed integer is one unit larger than the positive range. This delta
-+	 * is summed for each tree item, which leads to a significantly larger "under" accuracy range
-+	 * compared to the "over" accuracy range.
-+	 */
-+	struct {
-+		unsigned long under;
-+		unsigned long over;
-+	} approx_accuracy_range;
-+};
-+
-+size_t percpu_counter_tree_items_size(void);
-+int percpu_counter_tree_init_many(struct percpu_counter_tree *counters, struct percpu_counter_tree_level_item *items,
-+				  unsigned int nr_counters, unsigned long batch_size, gfp_t gfp_flags);
-+int percpu_counter_tree_init(struct percpu_counter_tree *counter, struct percpu_counter_tree_level_item *items,
-+			     unsigned long batch_size, gfp_t gfp_flags);
-+void percpu_counter_tree_destroy_many(struct percpu_counter_tree *counter, unsigned int nr_counters);
-+void percpu_counter_tree_destroy(struct percpu_counter_tree *counter);
-+void percpu_counter_tree_add(struct percpu_counter_tree *counter, long inc);
-+long percpu_counter_tree_precise_sum(struct percpu_counter_tree *counter);
-+int percpu_counter_tree_approximate_compare(struct percpu_counter_tree *a, struct percpu_counter_tree *b);
-+int percpu_counter_tree_approximate_compare_value(struct percpu_counter_tree *counter, long v);
-+int percpu_counter_tree_precise_compare(struct percpu_counter_tree *a, struct percpu_counter_tree *b);
-+int percpu_counter_tree_precise_compare_value(struct percpu_counter_tree *counter, long v);
-+void percpu_counter_tree_set(struct percpu_counter_tree *counter, long v);
-+int percpu_counter_tree_subsystem_init(void);
-+
-+/**
-+ * percpu_counter_tree_approximate_sum() - Return approximate counter sum.
-+ * @counter: The counter to sum.
-+ *
-+ * Querying the approximate sum is fast, but it is only accurate within
-+ * the bounds delimited by percpu_counter_tree_approximate_accuracy_range().
-+ * This is meant to be used when speed is preferred over accuracy.
-+ *
-+ * Return: The current approximate counter sum.
-+ */
-+static inline
-+long percpu_counter_tree_approximate_sum(struct percpu_counter_tree *counter)
-+{
-+	unsigned long v;
-+
-+	if (!counter->level0_bit_mask)
-+		v = READ_ONCE(*counter->approx_sum.i);
-+	else
-+		v = atomic_long_read(counter->approx_sum.a);
-+	return (long) (v + (unsigned long)READ_ONCE(counter->bias));
-+}
-+
-+/**
-+ * percpu_counter_tree_approximate_accuracy_range - Query the accuracy range for a counter tree.
-+ * @counter: Counter to query.
-+ * @under: Pointer to a variable to be incremented of the approximation
-+ *         accuracy range below the precise sum.
-+ * @over: Pointer to a variable to be incremented of the approximation
-+ *        accuracy range above the precise sum.
-+ *
-+ * Query the accuracy range limits for the counter.
-+ * Because of two's complement binary representation, the "under" range is typically
-+ * slightly larger than the "over" range.
-+ * Those values are derived from the hardware topology and the counter tree batch size.
-+ * They are invariant for a given counter tree.
-+ * Using this function should not be typically required, see the following functions instead:
-+ * * percpu_counter_tree_approximate_compare(),
-+ * * percpu_counter_tree_approximate_compare_value(),
-+ * * percpu_counter_tree_precise_compare(),
-+ * * percpu_counter_tree_precise_compare_value().
-+ */
-+static inline
-+void percpu_counter_tree_approximate_accuracy_range(struct percpu_counter_tree *counter,
-+						    unsigned long *under, unsigned long *over)
-+{
-+	*under += counter->approx_accuracy_range.under;
-+	*over += counter->approx_accuracy_range.over;
-+}
-+
-+#else	/* !CONFIG_SMP */
-+
-+#define PERCPU_COUNTER_TREE_ITEMS_STATIC_SIZE	0
-+
-+struct percpu_counter_tree_level_item;
-+
-+struct percpu_counter_tree {
-+	atomic_long_t count;
-+};
-+
-+static inline
-+size_t percpu_counter_tree_items_size(void)
-+{
-+	return 0;
-+}
-+
-+static inline
-+int percpu_counter_tree_init_many(struct percpu_counter_tree *counters, struct percpu_counter_tree_level_item *items,
-+				  unsigned int nr_counters, unsigned long batch_size, gfp_t gfp_flags)
-+{
-+	for (unsigned int i = 0; i < nr_counters; i++)
-+		atomic_long_set(&counters[i].count, 0);
-+	return 0;
-+}
-+
-+static inline
-+int percpu_counter_tree_init(struct percpu_counter_tree *counter, struct percpu_counter_tree_level_item *items,
-+			     unsigned long batch_size, gfp_t gfp_flags)
-+{
-+	return percpu_counter_tree_init_many(counter, items, 1, batch_size, gfp_flags);
-+}
-+
-+static inline
-+void percpu_counter_tree_destroy_many(struct percpu_counter_tree *counter, unsigned int nr_counters)
-+{
-+}
-+
-+static inline
-+void percpu_counter_tree_destroy(struct percpu_counter_tree *counter)
-+{
-+}
-+
-+static inline
-+long percpu_counter_tree_precise_sum(struct percpu_counter_tree *counter)
-+{
-+	return atomic_long_read(&counter->count);
-+}
-+
-+static inline
-+int percpu_counter_tree_precise_compare(struct percpu_counter_tree *a, struct percpu_counter_tree *b)
-+{
-+	long count_a = percpu_counter_tree_precise_sum(a),
-+	     count_b = percpu_counter_tree_precise_sum(b);
-+
-+	if (count_a == count_b)
-+		return 0;
-+	if (count_a < count_b)
-+		return -1;
-+	return 1;
-+}
-+
-+static inline
-+int percpu_counter_tree_precise_compare_value(struct percpu_counter_tree *counter, long v)
-+{
-+	long count = percpu_counter_tree_precise_sum(counter);
-+
-+	if (count == v)
-+		return 0;
-+	if (count < v)
-+		return -1;
-+	return 1;
-+}
-+
-+static inline
-+int percpu_counter_tree_approximate_compare(struct percpu_counter_tree *a, struct percpu_counter_tree *b)
-+{
-+	return percpu_counter_tree_precise_compare(a, b);
-+}
-+
-+static inline
-+int percpu_counter_tree_approximate_compare_value(struct percpu_counter_tree *counter, long v)
-+{
-+	return percpu_counter_tree_precise_compare_value(counter, v);
-+}
-+
-+static inline
-+void percpu_counter_tree_set(struct percpu_counter_tree *counter, long v)
-+{
-+	atomic_long_set(&counter->count, v);
-+}
-+
-+static inline
-+void percpu_counter_tree_approximate_accuracy_range(struct percpu_counter_tree *counter,
-+						    unsigned long *under, unsigned long *over)
-+{
-+}
-+
-+static inline
-+void percpu_counter_tree_add(struct percpu_counter_tree *counter, long inc)
-+{
-+	atomic_long_add(inc, &counter->count);
-+}
-+
-+static inline
-+long percpu_counter_tree_approximate_sum(struct percpu_counter_tree *counter)
-+{
-+	return percpu_counter_tree_precise_sum(counter);
-+}
-+
-+static inline
-+int percpu_counter_tree_subsystem_init(void)
-+{
-+	return 0;
-+}
-+
-+#endif	/* CONFIG_SMP */
-+
-+/**
-+ * percpu_counter_tree_approximate_sum_positive() - Return a positive approximate counter sum.
-+ * @counter: The counter to sum.
-+ *
-+ * Return an approximate counter sum which is guaranteed to be greater
-+ * or equal to 0.
-+ *
-+ * Return: The current positive approximate counter sum.
-+ */
-+static inline
-+long percpu_counter_tree_approximate_sum_positive(struct percpu_counter_tree *counter)
-+{
-+	long v = percpu_counter_tree_approximate_sum(counter);
-+	return v > 0 ? v : 0;
-+}
-+
-+/**
-+ * percpu_counter_tree_precise_sum_positive() - Return a positive precise counter sum.
-+ * @counter: The counter to sum.
-+ *
-+ * Return a precise counter sum which is guaranteed to be greater
-+ * or equal to 0.
-+ *
-+ * Return: The current positive precise counter sum.
-+ */
-+static inline
-+long percpu_counter_tree_precise_sum_positive(struct percpu_counter_tree *counter)
-+{
-+	long v = percpu_counter_tree_precise_sum(counter);
-+	return v > 0 ? v : 0;
-+}
-+
-+/**
-+ * percpu_counter_tree_approximate_min_max_range() - Return the approximation min and max precise values.
-+ * @approx_sum: Approximated sum.
-+ * @under: Tree accuracy range (under).
-+ * @over: Tree accuracy range (over).
-+ * @precise_min: Minimum possible value for precise sum (output).
-+ * @precise_max: Maximum possible value for precise sum (output).
-+ *
-+ * Calculate the minimum and maximum precise values for a given
-+ * approximation and (under, over) accuracy range.
-+ *
-+ * The range of the approximation as a function of the precise sum is expressed as:
-+ *
-+ *   approx_sum >= precise_sum - approx_accuracy_range.under
-+ *   approx_sum <= precise_sum + approx_accuracy_range.over
-+ *
-+ * Therefore, the range of the precise sum as a function of the approximation is expressed as:
-+ *
-+ *   precise_sum <= approx_sum + approx_accuracy_range.under
-+ *   precise_sum >= approx_sum - approx_accuracy_range.over
-+ */
-+static inline
-+void percpu_counter_tree_approximate_min_max_range(long approx_sum, unsigned long under, unsigned long over,
-+						   long *precise_min, long *precise_max)
-+{
-+	*precise_min = approx_sum - over;
-+	*precise_max = approx_sum + under;
-+}
-+
-+/**
-+ * percpu_counter_tree_approximate_min_max() - Return the tree approximation, min and max possible precise values.
-+ * @counter: The counter to sum.
-+ * @approx_sum: Approximate sum (output).
-+ * @precise_min: Minimum possible value for precise sum (output).
-+ * @precise_max: Maximum possible value for precise sum (output).
-+ *
-+ * Return the approximate sum, minimum and maximum precise values for
-+ * a counter.
-+ */
-+static inline
-+void percpu_counter_tree_approximate_min_max(struct percpu_counter_tree *counter,
-+					     long *approx_sum, long *precise_min, long *precise_max)
-+{
-+	unsigned long under = 0, over = 0;
-+	long v = percpu_counter_tree_approximate_sum(counter);
-+
-+	percpu_counter_tree_approximate_accuracy_range(counter, &under, &over);
-+	percpu_counter_tree_approximate_min_max_range(v, under, over, precise_min, precise_max);
-+	*approx_sum = v;
-+}
-+
-+#endif  /* _PERCPU_COUNTER_TREE_H */
-diff --git a/init/main.c b/init/main.c
-index 2613d3f9b3ce..eda2170bb21f 100644
---- a/init/main.c
-+++ b/init/main.c
-@@ -108,6 +108,7 @@
- #include <linux/time_namespace.h>
- #include <linux/unaligned.h>
- #include <linux/vdso_datastore.h>
-+#include <linux/percpu_counter_tree.h>
- #include <net/net_namespace.h>
- 
- #include <asm/io.h>
-@@ -1041,6 +1042,7 @@ void start_kernel(void)
- 	vfs_caches_init_early();
- 	sort_main_extable();
- 	trap_init();
-+	percpu_counter_tree_subsystem_init();
- 	mm_core_init();
- 	maple_tree_init();
- 	poking_init();
-diff --git a/lib/Makefile b/lib/Makefile
-index dfab958327c5..f1d0cb831630 100644
---- a/lib/Makefile
-+++ b/lib/Makefile
-@@ -182,6 +182,7 @@ obj-$(CONFIG_TEXTSEARCH_KMP) += ts_kmp.o
- obj-$(CONFIG_TEXTSEARCH_BM) += ts_bm.o
- obj-$(CONFIG_TEXTSEARCH_FSM) += ts_fsm.o
- obj-$(CONFIG_SMP) += percpu_counter.o
-+obj-$(CONFIG_SMP) += percpu_counter_tree.o
- obj-$(CONFIG_AUDIT_GENERIC) += audit.o
- obj-$(CONFIG_AUDIT_COMPAT_GENERIC) += compat_audit.o
- 
-diff --git a/lib/percpu_counter_tree.c b/lib/percpu_counter_tree.c
-new file mode 100644
-index 000000000000..5c8fc2dcdc16
---- /dev/null
-+++ b/lib/percpu_counter_tree.c
-@@ -0,0 +1,702 @@
-+// SPDX-License-Identifier: GPL-2.0+ OR MIT
-+// SPDX-FileCopyrightText: 2025 Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-+
-+/*
-+ * Split Counters With Tree Approximation Propagation
-+ *
-+ * * Propagation diagram when reaching batch size thresholds (± batch size):
-+ *
-+ * Example diagram for 8 CPUs:
-+ *
-+ * log2(8) = 3 levels
-+ *
-+ * At each level, each pair propagates its values to the next level when
-+ * reaching the batch size thresholds.
-+ *
-+ * Counters at levels 0, 1, 2 can be kept on a single byte ([-128 .. +127] range),
-+ * although it may be relevant to keep them on "long" counters for
-+ * simplicity. (complexity vs memory footprint tradeoff)
-+ *
-+ * Counter at level 3 can be kept on a "long" counter.
-+ *
-+ * Level 0:  0    1    2    3    4    5    6    7
-+ *           |   /     |   /     |   /     |   /
-+ *           |  /      |  /      |  /      |  /
-+ *           | /       | /       | /       | /
-+ * Level 1:  0         1         2         3
-+ *           |       /           |       /
-+ *           |    /              |    /
-+ *           | /                 | /
-+ * Level 2:  0                   1
-+ *           |               /
-+ *           |         /
-+ *           |   /
-+ * Level 3:  0
-+ *
-+ * * Approximation accuracy:
-+ *
-+ * BATCH(level N): Level N batch size.
-+ *
-+ * Example for BATCH(level 0) = 32.
-+ *
-+ * BATCH(level 0) =  32
-+ * BATCH(level 1) =  64
-+ * BATCH(level 2) = 128
-+ * BATCH(level N) = BATCH(level 0) * 2^N
-+ *
-+ *            per-counter     global
-+ *            accuracy        accuracy
-+ * Level 0:   [ -32 ..  +31]  ±256  (8 * 32)
-+ * Level 1:   [ -64 ..  +63]  ±256  (4 * 64)
-+ * Level 2:   [-128 .. +127]  ±256  (2 * 128)
-+ * Total:      ------         ±768  (log2(nr_cpu_ids) * BATCH(level 0) * nr_cpu_ids)
-+ *
-+ * Note that the global accuracy can be calculated more precisely
-+ * by taking into account that the positive accuracy range is
-+ * 31 rather than 32.
-+ *
-+ * -----
-+ *
-+ * Approximate Sum Carry Propagation
-+ *
-+ * Let's define a number of counter bits for each level, e.g.:
-+ *
-+ * log2(BATCH(level 0)) = log2(32) = 5
-+ * Let's assume, for this example, a 32-bit architecture (sizeof(long) == 4).
-+ *
-+ *               nr_bit        value_mask                      range
-+ * Level 0:      5 bits        v                             0 ..  +31
-+ * Level 1:      1 bit        (v & ~((1UL << 5) - 1))        0 ..  +63
-+ * Level 2:      1 bit        (v & ~((1UL << 6) - 1))        0 .. +127
-+ * Level 3:     25 bits       (v & ~((1UL << 7) - 1))        0 .. 2^32-1
-+ *
-+ * Note: Use a "long" per-cpu counter at level 0 to allow precise sum.
-+ *
-+ * Note: Use cacheline aligned counters at levels above 0 to prevent false sharing.
-+ *       If memory footprint is an issue, a specialized allocator could be used
-+ *       to eliminate padding.
-+ *
-+ * Example with expanded values:
-+ *
-+ * counter_add(counter, inc):
-+ *
-+ *         if (!inc)
-+ *                 return;
-+ *
-+ *         res = percpu_add_return(counter @ Level 0, inc);
-+ *         orig = res - inc;
-+ *         if (inc < 0) {
-+ *                 inc = -(-inc & ~0b00011111);  // Clear used bits
-+ *                 // xor bit 5: underflow
-+ *                 if ((inc ^ orig ^ res) & 0b00100000)
-+ *                         inc -= 0b00100000;
-+ *         } else {
-+ *                 inc &= ~0b00011111;           // Clear used bits
-+ *                 // xor bit 5: overflow
-+ *                 if ((inc ^ orig ^ res) & 0b00100000)
-+ *                         inc += 0b00100000;
-+ *         }
-+ *         if (!inc)
-+ *                 return;
-+ *
-+ *         res = atomic_long_add_return(counter @ Level 1, inc);
-+ *         orig = res - inc;
-+ *         if (inc < 0) {
-+ *                 inc = -(-inc & ~0b00111111);  // Clear used bits
-+ *                 // xor bit 6: underflow
-+ *                 if ((inc ^ orig ^ res) & 0b01000000)
-+ *                         inc -= 0b01000000;
-+ *         } else {
-+ *                 inc &= ~0b00111111;           // Clear used bits
-+ *                 // xor bit 6: overflow
-+ *                 if ((inc ^ orig ^ res) & 0b01000000)
-+ *                         inc += 0b01000000;
-+ *         }
-+ *         if (!inc)
-+ *                 return;
-+ *
-+ *         res = atomic_long_add_return(counter @ Level 2, inc);
-+ *         orig = res - inc;
-+ *         if (inc < 0) {
-+ *                 inc = -(-inc & ~0b01111111);  // Clear used bits
-+ *                 // xor bit 7: underflow
-+ *                 if ((inc ^ orig ^ res) & 0b10000000)
-+ *                         inc -= 0b10000000;
-+ *         } else {
-+ *                 inc &= ~0b01111111;           // Clear used bits
-+ *                 // xor bit 7: overflow
-+ *                 if ((inc ^ orig ^ res) & 0b10000000)
-+ *                         inc += 0b10000000;
-+ *         }
-+ *         if (!inc)
-+ *                 return;
-+ *
-+ *         atomic_long_add(counter @ Level 3, inc);
-+ */
-+
-+#include <linux/percpu_counter_tree.h>
-+#include <linux/cpumask.h>
-+#include <linux/atomic.h>
-+#include <linux/export.h>
-+#include <linux/percpu.h>
-+#include <linux/errno.h>
-+#include <linux/slab.h>
-+#include <linux/math.h>
-+
-+#define MAX_NR_LEVELS 5
-+
-+/*
-+ * The counter configuration is selected at boot time based on the
-+ * hardware topology.
-+ */
-+struct counter_config {
-+	unsigned int nr_items;				/*
-+							 * nr_items is the number of items in the tree for levels 1
-+							 * up to and including the final level (approximate sum).
-+							 * It excludes the level 0 per-CPU counters.
-+							 */
-+	unsigned char nr_levels;			/*
-+							 * nr_levels is the number of hierarchical counter tree levels.
-+							 * It excludes the final level (approximate sum).
-+							 */
-+	unsigned char n_arity_order[MAX_NR_LEVELS];	/*
-+							 * n-arity of tree nodes for each level from
-+							 * 0 to (nr_levels - 1).
-+							 */
-+};
-+
-+static const struct counter_config per_nr_cpu_order_config[] = {
-+	[0] =	{ .nr_items = 0,	.nr_levels = 0,		.n_arity_order = { 0 } },
-+	[1] =	{ .nr_items = 1,	.nr_levels = 1,		.n_arity_order = { 1 } },
-+	[2] =	{ .nr_items = 3,	.nr_levels = 2,		.n_arity_order = { 1, 1 } },
-+	[3] =	{ .nr_items = 7,	.nr_levels = 3,		.n_arity_order = { 1, 1, 1 } },
-+	[4] =	{ .nr_items = 7,	.nr_levels = 3,		.n_arity_order = { 2, 1, 1 } },
-+	[5] =	{ .nr_items = 11,	.nr_levels = 3,		.n_arity_order = { 2, 2, 1 } },
-+	[6] =	{ .nr_items = 21,	.nr_levels = 3,		.n_arity_order = { 2, 2, 2 } },
-+	[7] =	{ .nr_items = 21,	.nr_levels = 3,		.n_arity_order = { 3, 2, 2 } },
-+	[8] =	{ .nr_items = 37,	.nr_levels = 3,		.n_arity_order = { 3, 3, 2 } },
-+	[9] =	{ .nr_items = 73,	.nr_levels = 3,		.n_arity_order = { 3, 3, 3 } },
-+	[10] =	{ .nr_items = 149,	.nr_levels = 4,		.n_arity_order = { 3, 3, 2, 2 } },
-+	[11] =	{ .nr_items = 293,	.nr_levels = 4,		.n_arity_order = { 3, 3, 3, 2 } },
-+	[12] =	{ .nr_items = 585,	.nr_levels = 4,		.n_arity_order = { 3, 3, 3, 3 } },
-+	[13] =	{ .nr_items = 1173,	.nr_levels = 5,		.n_arity_order = { 3, 3, 3, 2, 2 } },
-+	[14] =	{ .nr_items = 2341,	.nr_levels = 5,		.n_arity_order = { 3, 3, 3, 3, 2 } },
-+	[15] =	{ .nr_items = 4681,	.nr_levels = 5,		.n_arity_order = { 3, 3, 3, 3, 3 } },
-+	[16] =	{ .nr_items = 4681,	.nr_levels = 5,		.n_arity_order = { 4, 3, 3, 3, 3 } },
-+	[17] =	{ .nr_items = 8777,	.nr_levels = 5,		.n_arity_order = { 4, 4, 3, 3, 3 } },
-+	[18] =	{ .nr_items = 17481,	.nr_levels = 5,		.n_arity_order = { 4, 4, 4, 3, 3 } },
-+	[19] =	{ .nr_items = 34953,	.nr_levels = 5,		.n_arity_order = { 4, 4, 4, 4, 3 } },
-+	[20] =	{ .nr_items = 69905,	.nr_levels = 5,		.n_arity_order = { 4, 4, 4, 4, 4 } },
-+};
-+
-+static const struct counter_config *counter_config;	/* Hierarchical counter configuration for the hardware topology. */
-+static unsigned int nr_cpus_order;			/* Order of nr_cpu_ids. */
-+static unsigned long accuracy_multiplier;		/* Calculate accuracy for a given batch size (multiplication factor). */
-+
-+static
-+int __percpu_counter_tree_init(struct percpu_counter_tree *counter,
-+			       unsigned long batch_size, gfp_t gfp_flags,
-+			       unsigned long __percpu *level0,
-+			       struct percpu_counter_tree_level_item *items)
-+{
-+	/* Batch size must be greater than 1, and a power of 2. */
-+	if (WARN_ON(batch_size <= 1 || (batch_size & (batch_size - 1))))
-+		return -EINVAL;
-+	counter->batch_size = batch_size;
-+	counter->bias = 0;
-+	counter->level0 = level0;
-+	counter->items = items;
-+	if (!nr_cpus_order) {
-+		counter->approx_sum.i = per_cpu_ptr(counter->level0, 0);
-+		counter->level0_bit_mask = 0;
-+	} else {
-+		counter->approx_sum.a = &counter->items[counter_config->nr_items - 1].count;
-+		counter->level0_bit_mask = 1UL << get_count_order(batch_size);
-+	}
-+	/*
-+	 * Each tree item signed integer has a negative range which is
-+	 * one unit greater than the positive range.
-+	 */
-+	counter->approx_accuracy_range.under = batch_size * accuracy_multiplier;
-+	counter->approx_accuracy_range.over = (batch_size - 1) * accuracy_multiplier;
-+	return 0;
-+}
-+
-+/**
-+ * percpu_counter_tree_init_many() - Initialize many per-CPU counter trees.
-+ * @counters: An array of @nr_counters counters to initialize.
-+ *	      Their memory is provided by the caller.
-+ * @items: Pointer to memory area where to store tree items.
-+ *	   This memory is provided by the caller.
-+ *	   Its size needs to be at least @nr_counters * percpu_counter_tree_items_size().
-+ * @nr_counters: The number of counter trees to initialize
-+ * @batch_size: The batch size is the increment step at level 0 which triggers a
-+ * 		carry propagation.
-+ *		The batch size is required to be greater than 1, and a power of 2.
-+ * @gfp_flags: gfp flags to pass to the per-CPU allocator.
-+ *
-+ * Initialize many per-CPU counter trees using a single per-CPU
-+ * allocator invocation for @nr_counters counters.
-+ *
-+ * Return:
-+ * * %0: Success
-+ * * %-EINVAL:		- Invalid @batch_size argument
-+ * * %-ENOMEM:		- Out of memory
-+ */
-+int percpu_counter_tree_init_many(struct percpu_counter_tree *counters, struct percpu_counter_tree_level_item *items,
-+				  unsigned int nr_counters, unsigned long batch_size, gfp_t gfp_flags)
-+{
-+	void __percpu *level0, *level0_iter;
-+	size_t counter_size = sizeof(*counters->level0),
-+	       items_size = percpu_counter_tree_items_size();
-+	void *items_iter;
-+	unsigned int i;
-+	int ret;
-+
-+	memset(items, 0, items_size * nr_counters);
-+	level0 = __alloc_percpu_gfp(nr_counters * counter_size,
-+				    __alignof__(*counters->level0), gfp_flags);
-+	if (!level0)
-+		return -ENOMEM;
-+	level0_iter = level0;
-+	items_iter = items;
-+	for (i = 0; i < nr_counters; i++) {
-+		ret = __percpu_counter_tree_init(&counters[i], batch_size, gfp_flags, level0_iter, items_iter);
-+		if (ret)
-+			goto free_level0;
-+		level0_iter += counter_size;
-+		items_iter += items_size;
-+	}
-+	return 0;
-+
-+free_level0:
-+	free_percpu(level0);
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(percpu_counter_tree_init_many);
-+
-+/**
-+ * percpu_counter_tree_init() - Initialize one per-CPU counter tree.
-+ * @counter: Counter to initialize.
-+ *	     Its memory is provided by the caller.
-+ * @items: Pointer to memory area where to store tree items.
-+ *	   This memory is provided by the caller.
-+ *	   Its size needs to be at least percpu_counter_tree_items_size().
-+ * @batch_size: The batch size is the increment step at level 0 which triggers a
-+ * 		carry propagation.
-+ *		The batch size is required to be greater than 1, and a power of 2.
-+ * @gfp_flags: gfp flags to pass to the per-CPU allocator.
-+ *
-+ * Initialize one per-CPU counter tree.
-+ *
-+ * Return:
-+ * * %0: Success
-+ * * %-EINVAL:		- Invalid @batch_size argument
-+ * * %-ENOMEM:		- Out of memory
-+ */
-+int percpu_counter_tree_init(struct percpu_counter_tree *counter, struct percpu_counter_tree_level_item *items,
-+			     unsigned long batch_size, gfp_t gfp_flags)
-+{
-+	return percpu_counter_tree_init_many(counter, items, 1, batch_size, gfp_flags);
-+}
-+EXPORT_SYMBOL_GPL(percpu_counter_tree_init);
-+
-+/**
-+ * percpu_counter_tree_destroy_many() - Destroy many per-CPU counter trees.
-+ * @counters: Array of counters trees to destroy.
-+ * @nr_counters: The number of counter trees to destroy.
-+ *
-+ * Release internal resources allocated for @nr_counters per-CPU counter trees.
-+ */
-+
-+void percpu_counter_tree_destroy_many(struct percpu_counter_tree *counters, unsigned int nr_counters)
-+{
-+	free_percpu(counters->level0);
-+}
-+EXPORT_SYMBOL_GPL(percpu_counter_tree_destroy_many);
-+
-+/**
-+ * percpu_counter_tree_destroy() - Destroy one per-CPU counter tree.
-+ * @counter: Counter to destroy.
-+ *
-+ * Release internal resources allocated for one per-CPU counter tree.
-+ */
-+void percpu_counter_tree_destroy(struct percpu_counter_tree *counter)
-+{
-+	return percpu_counter_tree_destroy_many(counter, 1);
-+}
-+EXPORT_SYMBOL_GPL(percpu_counter_tree_destroy);
-+
-+static
-+long percpu_counter_tree_carry(long orig, long res, long inc, unsigned long bit_mask)
-+{
-+	if (inc < 0) {
-+		inc = -(-inc & ~(bit_mask - 1));
-+		/*
-+		 * xor bit_mask: underflow.
-+		 *
-+		 * If inc has bit set, decrement an additional bit if
-+		 * there is _no_ bit transition between orig and res.
-+		 * Else, inc has bit cleared, decrement an additional
-+		 * bit if there is a bit transition between orig and
-+		 * res.
-+		 */
-+		if ((inc ^ orig ^ res) & bit_mask)
-+			inc -= bit_mask;
-+	} else {
-+		inc &= ~(bit_mask - 1);
-+		/*
-+		 * xor bit_mask: overflow.
-+		 *
-+		 * If inc has bit set, increment an additional bit if
-+		 * there is _no_ bit transition between orig and res.
-+		 * Else, inc has bit cleared, increment an additional
-+		 * bit if there is a bit transition between orig and
-+		 * res.
-+		 */
-+		if ((inc ^ orig ^ res) & bit_mask)
-+			inc += bit_mask;
-+	}
-+	return inc;
-+}
-+
-+/*
-+ * It does not matter through which path the carry propagates up the
-+ * tree, therefore there is no need to disable preemption because the
-+ * cpu number is only used to favor cache locality.
-+ */
-+static
-+void percpu_counter_tree_add_slowpath(struct percpu_counter_tree *counter, long inc)
-+{
-+	unsigned int level_items, nr_levels = counter_config->nr_levels,
-+		     level, n_arity_order;
-+	unsigned long bit_mask;
-+	struct percpu_counter_tree_level_item *item = counter->items;
-+	unsigned int cpu = raw_smp_processor_id();
-+
-+	WARN_ON_ONCE(!nr_cpus_order);	/* Should never be called for 1 cpu. */
-+
-+	n_arity_order = counter_config->n_arity_order[0];
-+	bit_mask = counter->level0_bit_mask << n_arity_order;
-+	level_items = 1U << (nr_cpus_order - n_arity_order);
-+
-+	for (level = 1; level < nr_levels; level++) {
-+		/*
-+		 * For the purpose of carry propagation, the
-+		 * intermediate level counters only need to keep track
-+		 * of the bits relevant for carry propagation. We
-+		 * therefore don't care about higher order bits.
-+		 * Note that this optimization is unwanted if the
-+		 * intended use is to track counters within intermediate
-+		 * levels of the topology.
-+		 */
-+		if (abs(inc) & (bit_mask - 1)) {
-+			atomic_long_t *count = &item[cpu & (level_items - 1)].count;
-+			unsigned long orig, res;
-+
-+			res = atomic_long_add_return_relaxed(inc, count);
-+			orig = res - inc;
-+			inc = percpu_counter_tree_carry(orig, res, inc, bit_mask);
-+			if (likely(!inc))
-+				return;
-+		}
-+		item += level_items;
-+		n_arity_order = counter_config->n_arity_order[level];
-+		level_items >>= n_arity_order;
-+		bit_mask <<= n_arity_order;
-+	}
-+	atomic_long_add(inc, counter->approx_sum.a);
-+}
-+
-+/**
-+ * percpu_counter_tree_add() - Add to a per-CPU counter tree.
-+ * @counter: Counter added to.
-+ * @inc: Increment value (either positive or negative).
-+ *
-+ * Add @inc to a per-CPU counter tree. This is a fast-path which will
-+ * typically increment per-CPU counters as long as there is no carry
-+ * greater or equal to the counter tree batch size.
-+ */
-+void percpu_counter_tree_add(struct percpu_counter_tree *counter, long inc)
-+{
-+	unsigned long bit_mask = counter->level0_bit_mask, orig, res;
-+
-+	res = this_cpu_add_return(*counter->level0, inc);
-+	orig = res - inc;
-+	inc = percpu_counter_tree_carry(orig, res, inc, bit_mask);
-+	if (likely(!inc))
-+		return;
-+	percpu_counter_tree_add_slowpath(counter, inc);
-+}
-+EXPORT_SYMBOL_GPL(percpu_counter_tree_add);
-+
-+static
-+long percpu_counter_tree_precise_sum_unbiased(struct percpu_counter_tree *counter)
-+{
-+	unsigned long sum = 0;
-+	int cpu;
-+
-+	for_each_possible_cpu(cpu)
-+		sum += *per_cpu_ptr(counter->level0, cpu);
-+	return (long) sum;
-+}
-+
-+/**
-+ * percpu_counter_tree_precise_sum() - Return precise counter sum.
-+ * @counter: The counter to sum.
-+ *
-+ * Querying the precise sum is relatively expensive because it needs to
-+ * iterate over all CPUs.
-+ * This is meant to be used when accuracy is preferred over speed.
-+ *
-+ * Return: The current precise counter sum.
-+ */
-+long percpu_counter_tree_precise_sum(struct percpu_counter_tree *counter)
-+{
-+	return percpu_counter_tree_precise_sum_unbiased(counter) + READ_ONCE(counter->bias);
-+}
-+EXPORT_SYMBOL_GPL(percpu_counter_tree_precise_sum);
-+
-+static
-+int compare_delta(long delta, unsigned long accuracy_neg, unsigned long accuracy_pos)
-+{
-+	if (delta >= 0) {
-+		if (delta <= accuracy_pos)
-+			return 0;
-+		else
-+			return 1;
-+	} else {
-+		if (-delta <= accuracy_neg)
-+			return 0;
-+		else
-+			return -1;
-+	}
-+}
-+
-+/**
-+ * percpu_counter_tree_approximate_compare - Approximated comparison of two counter trees.
-+ * @a: First counter to compare.
-+ * @b: Second counter to compare.
-+ *
-+ * Evaluate an approximate comparison of two counter trees.
-+ * This approximation comparison is fast, and provides an accurate
-+ * answer if the counters are found to be either less than or greater
-+ * than the other. However, if the approximated comparison returns
-+ * 0, the counters respective sums are found to be within the two
-+ * counters accuracy range.
-+ *
-+ * Return:
-+ * * %0		- Counters @a and @b do not differ by more than the sum of their respective
-+ *                accuracy ranges.
-+ * * %-1	- Counter @a less than counter @b.
-+ * * %1		- Counter @a is greater than counter @b.
-+ */
-+int percpu_counter_tree_approximate_compare(struct percpu_counter_tree *a, struct percpu_counter_tree *b)
-+{
-+	return compare_delta(percpu_counter_tree_approximate_sum(a) - percpu_counter_tree_approximate_sum(b),
-+			     a->approx_accuracy_range.over + b->approx_accuracy_range.under,
-+			     a->approx_accuracy_range.under + b->approx_accuracy_range.over);
-+}
-+EXPORT_SYMBOL_GPL(percpu_counter_tree_approximate_compare);
-+
-+/**
-+ * percpu_counter_tree_approximate_compare_value - Approximated comparison of a counter tree against a given value.
-+ * @counter: Counter to compare.
-+ * @v: Value to compare.
-+ *
-+ * Evaluate an approximate comparison of a counter tree against a given value.
-+ * This approximation comparison is fast, and provides an accurate
-+ * answer if the counter is found to be either less than or greater
-+ * than the value. However, if the approximated comparison returns
-+ * 0, the value is within the counter accuracy range.
-+ *
-+ * Return:
-+ * * %0		- The value @v is within the accuracy range of the counter.
-+ * * %-1	- The value @v is less than the counter.
-+ * * %1		- The value @v is greater than the counter.
-+ */
-+int percpu_counter_tree_approximate_compare_value(struct percpu_counter_tree *counter, long v)
-+{
-+	return compare_delta(v - percpu_counter_tree_approximate_sum(counter),
-+			     counter->approx_accuracy_range.under,
-+			     counter->approx_accuracy_range.over);
-+}
-+EXPORT_SYMBOL_GPL(percpu_counter_tree_approximate_compare_value);
-+
-+/**
-+ * percpu_counter_tree_precise_compare - Precise comparison of two counter trees.
-+ * @a: First counter to compare.
-+ * @b: Second counter to compare.
-+ *
-+ * Evaluate a precise comparison of two counter trees.
-+ * As an optimization, it uses the approximate counter comparison
-+ * to quickly compare counters which are far apart. Only cases where
-+ * counter sums are within the accuracy range require precise counter
-+ * sums.
-+ *
-+ * Return:
-+ * * %0		- Counters are equal.
-+ * * %-1	- Counter @a less than counter @b.
-+ * * %1		- Counter @a is greater than counter @b.
-+ */
-+int percpu_counter_tree_precise_compare(struct percpu_counter_tree *a, struct percpu_counter_tree *b)
-+{
-+	long count_a = percpu_counter_tree_approximate_sum(a),
-+	     count_b = percpu_counter_tree_approximate_sum(b);
-+	unsigned long accuracy_a, accuracy_b;
-+	long delta = count_a - count_b;
-+	int res;
-+
-+	res = compare_delta(delta,
-+			    a->approx_accuracy_range.over + b->approx_accuracy_range.under,
-+			    a->approx_accuracy_range.under + b->approx_accuracy_range.over);
-+	/* The values are distanced enough for an accurate approximated comparison. */
-+	if (res)
-+		return res;
-+
-+	/*
-+	 * The approximated comparison is within the accuracy range, therefore at least one
-+	 * precise sum is needed. Sum the counter which has the largest accuracy first.
-+	 */
-+	if (delta >= 0) {
-+		accuracy_a = a->approx_accuracy_range.under;
-+		accuracy_b = b->approx_accuracy_range.over;
-+	} else {
-+		accuracy_a = a->approx_accuracy_range.over;
-+		accuracy_b = b->approx_accuracy_range.under;
-+	}
-+	if (accuracy_b < accuracy_a) {
-+		count_a = percpu_counter_tree_precise_sum(a);
-+		res = compare_delta(count_a - count_b,
-+				    b->approx_accuracy_range.under,
-+				    b->approx_accuracy_range.over);
-+		if (res)
-+			return res;
-+		/* Precise sum of second counter is required. */
-+		count_b = percpu_counter_tree_precise_sum(b);
-+	} else {
-+		count_b = percpu_counter_tree_precise_sum(b);
-+		res = compare_delta(count_a - count_b,
-+				    a->approx_accuracy_range.over,
-+				    a->approx_accuracy_range.under);
-+		if (res)
-+			return res;
-+		/* Precise sum of second counter is required. */
-+		count_a = percpu_counter_tree_precise_sum(a);
-+	}
-+	if (count_a - count_b < 0)
-+		return -1;
-+	if (count_a - count_b > 0)
-+		return 1;
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(percpu_counter_tree_precise_compare);
-+
-+/**
-+ * percpu_counter_tree_precise_compare_value - Precise comparison of a counter tree against a given value.
-+ * @counter: Counter to compare.
-+ * @v: Value to compare.
-+ *
-+ * Evaluate a precise comparison of a counter tree against a given value.
-+ * As an optimization, it uses the approximate counter comparison
-+ * to quickly identify whether the counter and value are far apart.
-+ * Only cases where the value is within the counter accuracy range
-+ * require a precise counter sum.
-+ *
-+ * Return:
-+ * * %0		- The value @v is equal to the counter.
-+ * * %-1	- The value @v is less than the counter.
-+ * * %1		- The value @v is greater than the counter.
-+ */
-+int percpu_counter_tree_precise_compare_value(struct percpu_counter_tree *counter, long v)
-+{
-+	long count = percpu_counter_tree_approximate_sum(counter);
-+	int res;
-+
-+	res = compare_delta(v - count,
-+			    counter->approx_accuracy_range.under,
-+			    counter->approx_accuracy_range.over);
-+	/* The values are distanced enough for an accurate approximated comparison. */
-+	if (res)
-+		return res;
-+
-+	/* Precise sum is required. */
-+	count = percpu_counter_tree_precise_sum(counter);
-+	if (v - count < 0)
-+		return -1;
-+	if (v - count > 0)
-+		return 1;
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(percpu_counter_tree_precise_compare_value);
-+
-+static
-+void percpu_counter_tree_set_bias(struct percpu_counter_tree *counter, long bias)
-+{
-+	WRITE_ONCE(counter->bias, bias);
-+}
-+
-+/**
-+ * percpu_counter_tree_set - Set the counter tree sum to a given value.
-+ * @counter: Counter to set.
-+ * @v: Value to set.
-+ *
-+ * Set the counter sum to a given value. It can be useful for instance
-+ * to reset the counter sum to 0. Note that even after setting the
-+ * counter sum to a given value, the counter sum approximation can
-+ * return any value within the accuracy range around that value.
-+ */
-+void percpu_counter_tree_set(struct percpu_counter_tree *counter, long v)
-+{
-+	percpu_counter_tree_set_bias(counter,
-+				     v - percpu_counter_tree_precise_sum_unbiased(counter));
-+}
-+EXPORT_SYMBOL_GPL(percpu_counter_tree_set);
-+
-+/*
-+ * percpu_counter_tree_items_size - Query the size required for counter tree items.
-+ *
-+ * Query the size of the memory area required to hold the counter tree
-+ * items. This depends on the hardware topology and is invariant after
-+ * boot.
-+ *
-+ * Return: Size required to hold tree items.
-+ */
-+size_t percpu_counter_tree_items_size(void)
-+{
-+	if (!nr_cpus_order)
-+		return 0;
-+	return counter_config->nr_items * sizeof(struct percpu_counter_tree_level_item);
-+}
-+EXPORT_SYMBOL_GPL(percpu_counter_tree_items_size);
-+
-+static void __init calculate_accuracy_topology(void)
-+{
-+	unsigned int nr_levels = counter_config->nr_levels, level;
-+	unsigned int level_items = 1U << nr_cpus_order;
-+	unsigned long batch_size = 1;
-+
-+	for (level = 0; level < nr_levels; level++) {
-+		unsigned int n_arity_order = counter_config->n_arity_order[level];
-+
-+		/*
-+		 * The accuracy multiplier is derived from a batch size of 1
-+		 * to speed up calculating the accuracy at tree initialization.
-+		 */
-+		accuracy_multiplier += batch_size * level_items;
-+		batch_size <<= n_arity_order;
-+		level_items >>= n_arity_order;
-+	}
-+}
-+
-+int __init percpu_counter_tree_subsystem_init(void)
-+{
-+	nr_cpus_order = get_count_order(nr_cpu_ids);
-+	if (WARN_ON_ONCE(nr_cpus_order >= ARRAY_SIZE(per_nr_cpu_order_config))) {
-+		printk(KERN_ERR "Unsupported number of CPUs (%u)\n", nr_cpu_ids);
-+		return -1;
-+	}
-+	counter_config = &per_nr_cpu_order_config[nr_cpus_order];
-+	calculate_accuracy_topology();
-+	return 0;
-+}
--- 
-2.43.0
-
+T24gOC8xMC8yNiAxMDoxMSwgSm9zdWEgTWF5ZXIgd3JvdGU6DQo+IEFkZCBzdXBwb3J0IGZvciBh
+IHZhcmlldHkgb2YgU29saWRSdW4gUlovRzIgYmFzZWQgU29NcyBhbmQgdGhlDQo+IEh1bW1pbmdC
+b2FyZCBJSW9UIEV2YWx1YXRpb24gYm9hcmQuDQo+DQo+IEJpbmRpbmdzIGFyZSBhZGRlZCBmb3Ig
+YWxsIFNvbGlkUnVuIFJaL0cyIFNvTXM6DQo+DQo+IC0gUlovRzJMIFNZU1RFTSBPTiBNT0RVTEUN
+Cj4gICAgaHR0cHM6Ly93d3cuc29saWQtcnVuLmNvbS9lbWJlZGRlZC1pbmR1c3RyaWFsLWlvdC9y
+ZW5lc2FzLXJ6LWZhbWlseS9yei1nMmwtc29tLw0KPiAtIFJaL1YyTCBTWVNURU0gT04gTU9EVUxF
+DQo+ICAgIGh0dHBzOi8vd3d3LnNvbGlkLXJ1bi5jb20vZW1iZWRkZWQtaW5kdXN0cmlhbC1pb3Qv
+cmVuZXNhcy1yei1mYW1pbHkvcnotdjJsLXNvbS8NCj4gLSBSWi9HMkxDIFNZU1RFTSBPTiBNT0RV
+TEUNCj4gICAgaHR0cHM6Ly93d3cuc29saWQtcnVuLmNvbS9lbWJlZGRlZC1pbmR1c3RyaWFsLWlv
+dC9yZW5lc2FzLXJ6LWZhbWlseS9yei1nMmxjLXNvbS8NCj4gLSBSWi9HMlVMIFNZU1RFTSBPTiBN
+T0RVTEUNCj4gICAgaHR0cHM6Ly93d3cuc29saWQtcnVuLmNvbS9lbWJlZGRlZC1pbmR1c3RyaWFs
+LWlvdC9yZW5lc2FzLXJ6LWZhbWlseS9yei1nMnVsLXNvbS8NCj4NCj4gQW5kIGVhY2ggc3VwcG9y
+dGVkIGNhcnJpZXIgYm9hcmQ6DQo+DQo+IC0gSFVNTUlOR0JPQVJEIFJaL0cyTCBJSU9UDQo+ICAg
+IGh0dHBzOi8vd3d3LnNvbGlkLXJ1bi5jb20vZW1iZWRkZWQtaW5kdXN0cmlhbC1pb3QvcmVuZXNh
+cy1yei1mYW1pbHkvaHVtbWluZ2JvYXJkLXJ6LXNlcmllcy1zYmNzL2h1bW1pbmdib2FyZC1yei1n
+MmwtaW90LXNiYy8NCj4gLSBIVU1NSU5HQk9BUkQgUlovRzJMIFBSTw0KPiAgICBodHRwczovL3d3
+dy5zb2xpZC1ydW4uY29tL2VtYmVkZGVkLWluZHVzdHJpYWwtaW90L3JlbmVzYXMtcnotZmFtaWx5
+L2h1bW1pbmdib2FyZC1yei1zZXJpZXMtc2Jjcy9odW1taW5nYm9hcmQtcnotZzJsLXNiYy8NCj4g
+LSBIVU1NSU5HQk9BUkQgUlovRzJMQyBCQVNFIChSaXBwbGUpDQo+ICAgIGh0dHBzOi8vd3d3LnNv
+bGlkLXJ1bi5jb20vZW1iZWRkZWQtaW5kdXN0cmlhbC1pb3QvcmVuZXNhcy1yei1mYW1pbHkvaHVt
+bWluZ2JvYXJkLXJ6LXNlcmllcy1zYmNzL2h1bW1pbmdib2FyZC1yei1nMmxjLWJhc2UvDQo+DQo+
+IERldmljZS10cmVlIGFyZSBvbmx5IGFkZGVkIGZvciB0aGUgZmlyc3QgYm9hcmQgdG8gcmVkdWNl
+IGluaXRpYWwgZWZmb3J0Lg0KPg0KPiBTaWduZWQtb2ZmLWJ5OiBKb3N1YSBNYXllciA8am9zdWFA
+c29saWQtcnVuLmNvbT4NCj4gLS0tDQo+IENoYW5nZXMgaW4gdjY6DQo+IC0gRHJvcCBjdXJyZW50
+bHkgdW51c2VkIHVzYi12YnVzIHBpbmN0cmwgbm9kZXMgZnJvbSBzb20gZHRzaSwgcmVwb3J0ZWQN
+Cj4gICAgYnkgc2FzaGlrby4NCj4gLSBGaXggZHVwbGljYXRlIHBpbiBjb25maWcgbWlzdGFrZXMg
+aW4gc3BsaXQgZGF0MC0zL2RhdDQtNywgcmVwb3J0ZWQgYnkNCj4gICAgc2FzaGlrby4NCj4gLSBM
+aW5rIHRvIHY1OiBodHRwczovL3BhdGNoLm1zZ2lkLmxpbmsvMjAyNjA4MDktcnpnMi1zci1ib2Fy
+ZHMtdjUtMC0xOWM2NjIzNThlMzZAc29saWQtcnVuLmNvbQ0KPg0KPiBDaGFuZ2VzIGluIHY1Og0K
+PiAtIENsYXJpZmllZCBzZGhpIG11eCBkdCBjb21tZW50IG9uIG11eCBhbmQgZ3BpbyBzdGF0ZXMu
+DQo+IC0gQWRkZWQgbWljcm9zZCAmIGVtbWMgZHRib3MgdG8gTWFrZWZpbGUgdGFyZ2V0cyBleHBs
+aWNpdGx5IGZvciBWMkwgU29DDQo+ICAgIHRvby4gUmVwb3J0ZWQgYnkgU2FzaGlrby4NCj4gLSBz
+cGxpdCA4LWJpdCBhbmQgNC1iaXQgc2RoaSBwaW5jdHJsIHRvIGF2b2lkIHRoZW9yZXRpY2FsIG92
+ZXJ2b2x0YWdlIG9uDQo+ICAgIGhhcmR3aXJlZCBlTU1DIERBVDQtNyBwaW5zLiBSZXBvcnRlZCBi
+eSBzYXNoaWtvLg0KPiAtIE1vdmVkIGRyX21vZGUgZnJvbSB1c2IgcGh5IHRvIGNvbnRyb2xsZXIu
+IFJlcG9ydGVkIGJ5IHNhc2hpa28uDQo+IC0gQ29sbGVjdGVkIGFja3MuDQo+IC0gTGluayB0byB2
+NDogaHR0cHM6Ly9wYXRjaC5tc2dpZC5saW5rLzIwMjYwNzMwLXJ6ZzItc3ItYm9hcmRzLXY0LTAt
+MDhiYzQ1OTU3OGRjQHNvbGlkLXJ1bi5jb20NCj4NCj4gQ2hhbmdlcyBpbiB2NDoNCj4gLSBSZWJh
+c2VkIG9uIHY3LjItcmMxLg0KPiAtIEFkZHJlc2VkIHNhc2hpa28gY29tbWVudHMgZm9yIGcybCBz
+b20gJiBoYi1paW90Og0KPiAgICBncGlvIGR0IHByb3BlcnR5IC0+IHBsdXJhbCwgaXJxIGxldmVs
+cywgbWVtb3J5IHNpemUsIHVzYi0zLjAgaHViLg0KPiAgICBUaGUgdXNiIGh1YiBpZHMgaG93ZXZl
+ciBhcmUgY29ycmVjdCwgNjUwMiBhbmQgNjUwNiBhcmUgdXNiLTIuMC4NCj4gLSBBZGRyZXNzZWQg
+c2FzaGlrbyBjb21tZW50cyBmb3IgZzJsYyBzb20gJiBoYi1paW90Og0KPiAgICBncGlvIGR0IHBy
+b3BlcnR5IC0+IHBsdXJhbCwgdm1tYyBncGlvIHBvbGFyaXR5Lg0KPiAtIExpbmsgdG8gdjM6IGh0
+dHBzOi8vcGF0Y2gubXNnaWQubGluay8yMDI2MDUxMi1yemcyLXNyLWJvYXJkcy12My0wLWYwMzNm
+Yzk2YzkwNkBzb2xpZC1ydW4uY29tDQo+DQo+IENoYW5nZXMgaW4gdjM6DQo+IC0gQWRkZWQgZXhw
+bGFuYXRvcnkgY29tbWVudHMgb24gd29uJ3QtZml4IHNhc2hpa28gZmluZGluZ3MuDQo+IC0gQWRk
+ZWQgY2FwLXNkaW8taXJxIHRvIHNkaGkgY29udHJvbGxlcnMgdXNlZCBmb3IgV2lGaS4NCj4gLSBE
+cm9wIHJlZHVuZGFudCBhZGRpdGlvbiBvZiBjb21tb24gZGV2aWNlLXRyZWUgb3ZlcmxheXMgdG8g
+aW5zdGFsbA0KPiAgICB0YXJnZXRzIG9mIEcyTChDKSBTb0MuDQo+IC0gQWRkIGNvbW1vbiBkZXZp
+Y2UtdHJlZSBvdmVybGF5cyB0byBpbnN0YWxsIHRhcmdldHMgb2YgYm90aCBHMkwgYW5kIFYyTA0K
+PiAgICBTb0NzLg0KPiAtIEFzc2lnbiBrYnVpbGQgY29tcG9zaWUgdmFyaWFibGVzIHdpdGggOj0g
+b3BlcmF0b3IuDQo+IC0gTGluayB0byB2MjogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvci8yMDI2
+MDUxMS1yemcyLXNyLWJvYXJkcy12Mi0wLTgyYWViYmQyNzg5MUBzb2xpZC1ydW4uY29tDQo+DQo+
+IENoYW5nZXMgaW4gdjI6DQo+IC0gQWRkZWQgcmVsZXZhbnQgcHJvZHVjdCBwYWdlIGxpbmtzIHRv
+IGVhY2ggY29tbWl0IGRlc2NyaXB0aW9uLg0KPiAtIEFkZGVkIHByb2R1Y3QgcGFnZSBsaW5rcyB0
+byBjb3ZlciBsZXR0ZXIsIHRoYW5rcyBHZWVydC4NCj4gLSBMaW5rIHRvIHYxOiBodHRwczovL2xv
+cmUua2VybmVsLm9yZy9yLzIwMjYwNTAzLXJ6ZzItc3ItYm9hcmRzLXYxLTAtODU0NTY3N2Y5M2Nh
+QHNvbGlkLXJ1bi5jb20NCj4NCj4gQ2M6IEpvbiBOZXR0bGV0b24gPGpvbkBzb2xpZC1ydW4uY29t
+Pg0KPiBDYzogTWlraGFpbCBBbmlraW4gPG1pa2hhaWwuYW5pa2luQHNvbGlkLXJ1bi5jb20+DQo+
+IENjOiBZYXphbiBTaGhhZHkgPHlhemFuLnNoaGFkeUBzb2xpZC1ydW4uY29tPg0KPiBUbzogR2Vl
+cnQgVXl0dGVyaG9ldmVuIDxnZWVydCtyZW5lc2FzQGdsaWRlci5iZT4NCj4gVG86IE1hZ251cyBE
+YW1tIDxtYWdudXMuZGFtbUBnbWFpbC5jb20+DQo+IFRvOiBSb2IgSGVycmluZyA8cm9iaEBrZXJu
+ZWwub3JnPg0KPiBUbzogS3J6eXN6dG9mIEtvemxvd3NraSA8a3J6aytkdEBrZXJuZWwub3JnPg0K
+PiBUbzogQ29ub3IgRG9vbGV5IDxjb25vcitkdEBrZXJuZWwub3JnPg0KPiBUbzogR3JlZyBLcm9h
+aC1IYXJ0bWFuIDxncmVna2hAbGludXhmb3VuZGF0aW9uLm9yZz4NCj4gVG86IEJlbmphbWluIEJh
+cmEgPGJlbmphbWluLmJhcmFAc2tpZGF0YS5jb20+DQo+IENjOiBsaW51eC1yZW5lc2FzLXNvY0B2
+Z2VyLmtlcm5lbC5vcmcNCj4gQ2M6IGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnDQo+IENjOiBs
+aW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnDQo+IENjOiBsaW51eC11c2JAdmdlci5rZXJuZWwu
+b3JnDQo+DQo+IC0tLQ0KPiBKb3N1YSBNYXllciAoNSk6DQo+ICAgICAgICBkdC1iaW5kaW5nczog
+c29jOiByZW5lc2FzOiBBZGQgdmFyaW91cyBTb2xpZFJ1biBSWi9HMiBiYXNlZCBib2FyZHMNCj4g
+ICAgICAgIGR0LWJpbmRpbmdzOiB1c2I6IGN5cHJlc3MsaHgzOiBtYWtlIHBlZXItaHViIHByb3Bl
+cnR5IG9wdGlvbmFsDQo+ICAgICAgICBhcm02NDogZHRzOiByZW5lc2FzOiBhZGQgc3VwcG9ydCBm
+b3Igc29saWRydW4gcnpnMmwgc29tIGFuZCBoYi1paW90IGV2Yg0KPiAgICAgICAgYXJtNjQ6IGR0
+czogcmVuZXNhczogYWRkIHN1cHBvcnQgZm9yIHNvbGlkcnVuIHJ6djJsIHNvbSBhbmQgaGItaWlv
+dCBldmINCj4gICAgICAgIGFybTY0OiBkdHM6IHJlbmVzYXM6IGFkZCBzdXBwb3J0IGZvciBzb2xp
+ZHJ1biByemcybGMgc29tIGFuZCBoYi1paW90IGV2Yg0KPg0KPiAgIC4uLi9kZXZpY2V0cmVlL2Jp
+bmRpbmdzL3NvYy9yZW5lc2FzL3JlbmVzYXMueWFtbCAgIHwgIDM3ICsrDQo+ICAgLi4uL2Rldmlj
+ZXRyZWUvYmluZGluZ3MvdXNiL2N5cHJlc3MsaHgzLnlhbWwgICAgICAgfCAgIDEgLQ0KPiAgIGFy
+Y2gvYXJtNjQvYm9vdC9kdHMvcmVuZXNhcy9NYWtlZmlsZSAgICAgICAgICAgICAgIHwgIDM1ICsr
+DQo+ICAgLi4uL2R0cy9yZW5lc2FzL3I5YTA3ZzA0NGMyLWh1bW1pbmdib2FyZC1paW90LmR0cyAg
+fCAgMjAgKw0KPiAgIC4uLi9kdHMvcmVuZXNhcy9yOWEwN2cwNDRsMi1odW1taW5nYm9hcmQtaWlv
+dC5kdHMgIHwgIDE2ICsNCj4gICAuLi4vZHRzL3JlbmVzYXMvcjlhMDdnMDU0bDItaHVtbWluZ2Jv
+YXJkLWlpb3QuZHRzICB8ICAxNiArDQo+ICAgLi4uL3JlbmVzYXMvcnpnMmwtaHVtbWluZ2JvYXJk
+LWlpb3QtY29tbW9uLmR0c2kgICAgfCA1NjAgKysrKysrKysrKysrKysrKysrKysrDQo+ICAgLi4u
+L3JlbmVzYXMvcnpnMmwtaHVtbWluZ2JvYXJkLWlpb3QtbWljcm9zZC5kdHNvICAgfCAgMjYgKw0K
+PiAgIC4uLi9yZW5lc2FzL3J6ZzJsLWh1bW1pbmdib2FyZC1paW90LXJzNDg1LWEuZHRzbyAgIHwg
+IDE3ICsNCj4gICAuLi4vcmVuZXNhcy9yemcybC1odW1taW5nYm9hcmQtaWlvdC1yczQ4NS1iLmR0
+c28gICB8ICAxNyArDQo+ICAgLi4uL2Jvb3QvZHRzL3JlbmVzYXMvcnpnMmwtaHVtbWluZ2JvYXJk
+LWlpb3QuZHRzaSAgfCAgNDkgKysNCj4gICBhcmNoL2FybTY0L2Jvb3QvZHRzL3JlbmVzYXMvcnpn
+Mmwtc3Itc29tLWVtbWMuZHRzbyB8ICA0NCArKw0KPiAgIGFyY2gvYXJtNjQvYm9vdC9kdHMvcmVu
+ZXNhcy9yemcybC1zci1zb20uZHRzaSAgICAgIHwgNDUxICsrKysrKysrKysrKysrKysrDQo+ICAg
+YXJjaC9hcm02NC9ib290L2R0cy9yZW5lc2FzL3J6ZzJsYy1zci1zb20uZHRzaSAgICAgfCA0MDgg
+KysrKysrKysrKysrKysrDQo+ICAgMTQgZmlsZXMgY2hhbmdlZCwgMTY5NiBpbnNlcnRpb25zKCsp
+LCAxIGRlbGV0aW9uKC0pDQo+IC0tLQ0KPiBiYXNlLWNvbW1pdDogZGM1OWU0ZmVhOWQ4M2YwM2Jh
+ZDZiZGRmM2ZhMmU1MjQ5MTc3NzQ4Mg0KPiBjaGFuZ2UtaWQ6IDIwMjYwNTAyLXJ6ZzItc3ItYm9h
+cmRzLTM3ZDU1NjY2OGEyZA0KPg0KPiBCZXN0IHJlZ2FyZHMsDQo+IC0tDQo+IEpvc3VhIE1heWVy
+IDxqb3N1YUBzb2xpZC1ydW4uY29tPg0KDQpQbGVhc2UgZG9uJyB0IG1lcmdlIGFuZCBob2xkIG9m
+ZiB0aWxsIHY3Lg0KVGhlIGxhdGVzdCB2ZXJzaW9ucyBhdHRlbXB0cyBhdCBhdm9pZGluZyAxLjhW
+LzMuM1YgY29uZmxpY3RzDQpvbiBTRDAgcGlucyBicmVhayBib290aW5nIGFuZCBhcmUgaW52YWxp
+ZC4NCg==
