@@ -1,152 +1,115 @@
-Received: from out30-124.freemail.mail.aliyun.com (out30-124.freemail.mail.aliyun.com [115.124.30.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4488439CD02
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:51:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4F33624A9
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:52:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788267099; cv=none; b=VUuQiQYUK7iuHBxx2spxdtuu9wOkFek2S0YZ1dF48oCjv66l3uT3HjJuFNYrSm5FIyE9094j/yAB/W8ICBL1BAmBMt082tmSYuj9lQU6pp555AbljmNIGkR0lIhLbTKf7xNnsSivtJyjFypyaqifmI9GegBhzg2eLYt8mBrXiPE=
+	t=1788267125; cv=none; b=ENG2Bo0bS+rL7N22z3LTj+llLDDPEOgJoyaJqxr6VhyugsdX6heQMEUCJoTDYFqnm62hCWOPnYjqpKG9LFvKHHTKdzkx9u/yFgoNWxMMVE74pP3NX8z8DDiRx7NyoVe8vIr1e5uKOhCHduChpnKqwI19QtVO17UZRjZn8RXigcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788267099; c=relaxed/simple;
-	bh=LPaZmEQ6mWw4jItsJmVWxKZ239DkgKqW0OUsppUlIuo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JbouCe7cepvb8vij9OV4DhRGyhO6ztl/P+pjyYXkjJXdqYSIusLOSi3JFogQyAxs9I4z/PvQDyEOUEkaEcb7L50QbVbf76kVsSgHyvcYPvGeRd74rpyV89L/Pn1FREzE5H9Il5XFkaso0UijALDQ2biIR+myAGxuuMqP7iK2Kqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=Hy/2SxLs; arc=none smtp.client-ip=115.124.30.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788267125; c=relaxed/simple;
+	bh=FoHZTB9cnvppjq0kX629ApVhBBw1l7eB1Aok6qcffPQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=oqYuRAEVpBBdaP0XlJH2x8eR2R9ildED2NvGB9YPnLfcEdnGHurPY9uo53EzRqobZ6Kp0jfSYKP5g20WnvGt6JtXczObIyhFyMNtVNs2TbN7tryhDbcCrmAUiLAPSfJrVgjmM1SaoWATqkGj4HbK0K0Wn/KUn6UwJaY6ZSQEZ54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cIJQEnjk; arc=none smtp.client-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Hy/2SxLs"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788267088; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=lTOlsDQ4+47U/45ixyptCvDQ1ryhv/HPtsz8TRQdczo=;
-	b=Hy/2SxLsKrBZ8g4+UM5AcO9ba2y2cWU6wj0zJRSTq75Vjrv4L7G7RjWvPRavLJrofVB3BdyC2APA2GjfvC6CQg5pEPjOOvRzQqS2U/Xwx8JYk2QqpQMBpDD/iz4W2pdpuE6uLj5iETA7QbNTjs7yYVG8AIjniP+n/A8kd6a4H7E=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R711e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=16;SR=0;TI=SMTPD_---0XA8VHYm_1788267080;
-Received: from 30.178.69.13(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XA8VHYm_1788267080 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 01 Sep 2026 20:51:27 +0800
-Message-ID: <8c6ef5d2-1f85-4dad-b426-143d490e1114@linux.alibaba.com>
-Date: Tue, 1 Sep 2026 20:51:18 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cIJQEnjk"
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a5ded53570so1257213a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 05:52:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788267121; x=1788871921; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3ro4d/Tm6ZUdjMArZWZHciQyr6YK8EIE6H0sDY06CCw=;
+        b=cIJQEnjkJHwV28JNFLASVzY1tWrbALXvJXLRO5R76ELGwRy7FIT/i01U9O2dfy2xKT
+         0QXr0eqaE4o298cPITolxt5+fDjFHI03WQ2Vt3bBWtCh2E+ROu1ibrTcYWUctYY1iaw6
+         gXIKpq4Hy4HWyOgRAHJOMuV9U04EFBBjZJbWvEtBpSSAF7BPvPRde3sXD8gxnCa3XjhK
+         aS77wDwXvONgYoNhuAbn6p+GMQfR3fQqMt8D4DxgRigoJfu/1D7Jc5YkvInc6i59aJnA
+         iOUeCW7dUrbgfe+DjPq4kLMsm0TdvEsdlN60uwQUG8y6He0QSnumT7HxjxIx6b4F9GfB
+         Ki4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788267121; x=1788871921;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3ro4d/Tm6ZUdjMArZWZHciQyr6YK8EIE6H0sDY06CCw=;
+        b=OAerBHAwz3DgaUQoMS6MXGcsAbu5bBG1TuRl15wVNytbBUcZPREna808RhoZp/AkZR
+         bSeE7v4g/nsFZtFUJjCc6mxwTC1gFHfTEh3neUkqIUrQoIWe7oblm/GFH53R8fPV0BRt
+         LESzA8wFM6Ko3bK/zA3SLHeBkGuDZX4IZx1OVl28hnMNo86+Eqd9B59nSspkXHm2BKoQ
+         CaueW02yFhVgWfnonteu+i6mKApwUk8EirhfIgbjqthXU5Nkr8XNWeKbQWFyoDVcQe8U
+         zn6fpYznpppWp6hcODnzU/4YxwCQObyaB4vKie+MDR+P5u+nHzyaruiN+YSlZxjN3ePn
+         vcxw==
+X-Forwarded-Encrypted: i=1; AKwUvBx/lUYQiZ7nVWwSlS3WtNMWPR6Fd4GoA9LW9XembeIIrqfv7KQ5Sl8mEtyObzapVrjSIuvFTfSJMaLDFYU=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0GCDNUWOuXKOeM3SYWhH/vkGINUW8+5Q1hKr6r1DHdVYNfNRa
+	ylpwY/ZMJrzg7SIZ65P7PkEi+Qy5e42iefxoEeSF383RYUlO1yry3qUf
+X-Gm-Gg: AYBFou0pC6KIapUyujaCLTmBLLRUiuIyj2bUiFjZ4aMLw2StMpGsqWLldt8Eh9fwwjD
+	EId51gPOJYhlu7XUD4IqciMBSyogsu3+tY8DZ63orfx+DZHCtv1SEIUcOGePcaRgTa7GmPkpFQI
+	AFjGHrUcvHInso60FDNjuM29N0rikPjU+3si1NaIw8xWrP8paTL6MGEig0F9WUHfyaOsnsFzm+g
+	/5q982c+jH3ESlyWDMV3HnhqrYTIjqLmDxrnxW4XiTnjUL/R2nRfj7subSsoUeIgGezCZ7jYgnB
+	ogIBvRhkwAxq2yVwzgfT3tw3DkOInInp0T+7xdWGwPkJbimK8qEl00WIIlYRoVXAsGUakWXRHH8
+	Gvd1GxTAkHkYcWe/yq3cVSJhxv0E7hRF5rXGxJ8pF2peBL6ZBHPvQpxK+1PafOV7Pueyor2aKCr
+	2m5La+zWZDMEjo2IZRVznGSXHCRiqtPDFNqn9kHnWUGSqaNSjZB33k1BbD9Pnjhtw3ETLMCBPi5
+	oSMT0/1WrwGBg8oJMeztQwcJQ==
+X-Received: by 2002:a05:6402:44d7:b0:6a3:87b7:b5a9 with SMTP id 4fb4d7f45d1cf-6a60d3b4e36mr16460049a12.12.1788267120995;
+        Tue, 01 Sep 2026 05:52:00 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a66ccb6c1csm684717a12.6.2026.09.01.05.52.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 05:52:00 -0700 (PDT)
+Date: Tue, 1 Sep 2026 13:51:59 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mohit Mishra <mishraloopmohit@gmail.com>, Dan Carpenter
+ <dan.carpenter@linaro.org>, Nikolay Kulikov <nikolayof23@gmail.com>,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] staging: rtl8723bs: convert swing index variables
+ from u8 to int
+Message-ID: <20260901135159.5417b6b5@pumpkin>
+In-Reply-To: <2026090155-cruelness-plus-404c@gregkh>
+References: <YOUR-ORIGINAL-MESSAGE-ID>
+	<20260804170137.20708-1-mishraloopmohit@gmail.com>
+	<2026090155-cruelness-plus-404c@gregkh>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] drm/ast: create blend mode property on cursor
- plane
-To: Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org
-Cc: airlied@redhat.com, jfalempe@redhat.com, kraxel@redhat.com,
- dmitry.osipenko@collabora.com, hansg@kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
- leandro.ribeiro@collabora.com, daniels@collabora.com,
- pekka.paalanen@collabora.com, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260901083234.1828755-1-qinyuntan@linux.alibaba.com>
- <20260901083234.1828755-2-qinyuntan@linux.alibaba.com>
- <1f7a2056-825b-4b18-ac60-94f13ee40212@suse.de>
- <15f87b4e-3da8-4ce9-9cde-b4c8cefe1d80@suse.de>
-From: Qinyun Tan <qinyuntan@linux.alibaba.com>
-In-Reply-To: <15f87b4e-3da8-4ce9-9cde-b4c8cefe1d80@suse.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Thomas,
+On Tue, 1 Sep 2026 11:43:11 +0200
+Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
 
-On 9/1/26 8:30 PM, Thomas Zimmermann wrote:
-> Hi
+> On Tue, Aug 04, 2026 at 10:31:37PM +0530, Mohit Mishra wrote:
+> > In ODM_TxPwrTrackSetPwr_8723B(), Final_OFDM_Swing_Index and
+> > Final_CCK_Swing_Index are declared as u8. Using u8 for variables involved
+> > in arithmetic calculations and lower-bound comparisons (<= 0) is unusual
+> > and triggers static analysis warnings.  
 > 
-> Am 01.09.26 um 13:54 schrieb Thomas Zimmermann:
->> Hi,
->>
->> thanks for the updated patch.
->>
->> Did you see the review from the Sashiko bot?  The default value is PRE_MULTI, but the driver only supports COVERAGE.  This needs to be changed as part of this patch. The default assignment is at [1] in __drm_atomic_helper_plane_state_init().
->>
->> The ast driver needs to override drm_plane_funcs.atomic_create_state for the cursor plane to update the value pixel_blend to COVERAGE for new plane states. Same goes for vbox.
+> What warnings?
 > 
-> Or even better: I just sent out a patch to pick the right default value for the plane state. Let's first see what comes out of this. Patch is at [1].
+> > Convert both variables from u8 to int to clean up the variable types,
+> > aligning with the TODO item to "convert any remaining unusual variable
+> > types".  
 > 
-> [1] https://lore.kernel.org/dri-devel/20260901122731.83854-1-tzimmermann@suse.de/
+> u8 is NOT an unusual variable type at all.
+
+Indeed, but doing arithmetic on u6 and u16 is likely to be less efficient
+because the compiler has to mask the results (on pretty much all architectures
+except x86 and m68k).
+But that isn't the reason given.
+
+David
+
 > 
-> Best regards
-> Thomas
+> thanks,
 > 
- 
-Thanks! I did see the Sashiko bot report and had started on a v3 that
-overrides drm_plane_funcs.atomic_create_state in ast and vboxvideo
-(for vboxvideo on both the primary and cursor planes).
-
-But your approach looks better to me: drm_plane_create_blend_mode_property()
-already picks DRM_MODE_BLEND_COVERAGE as the property default when
-PREMULTI is not supported, so initializing the plane state from the
-property default fixes this for every COVERAGE-only plane without
-per-driver boilerplate.
-
-I'll hold off on v3 until your patch has settled.
-
-Best regards,
-Qinyun
-
-
->>
->> [1] https://gitlab.freedesktop.org/drm/misc/kernel/-/blob/drm-misc-next/drivers/gpu/drm/drm_atomic_state_helper.c?ref_type=heads#L281
->>
->> Best regards
->> Thomas
->>
->>
->> Am 01.09.26 um 10:32 schrieb Qinyun Tan:
->>> Since commit 860e748bddcc ("drm: ensure blend mode supported if pixel
->>> format with alpha exposed"), drm_mode_config_validate() warns when a
->>> plane exposes an alpha pixel format but not the "pixel blend mode"
->>> property. The ast cursor plane (ARGB4444, ARGB8888) trips this on
->>> driver load:
->>>
->>>    [PLANE:37:plane-1] pixel format with alpha exposed but blend mode not setup
->>>    WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate+0x48f/0x510 [drm]
->>>    ...
->>>    Call Trace:
->>>     drm_dev_register+0x1ce/0x290 [drm]
->>>     ast_pci_probe+0x19d/0x3f0 [ast]
->>>     local_pci_probe+0x41/0x90
->>>
->>> Per Thomas Zimmermann's review, the ASPEED documentation describes the
->>> hardware cursor as blending with straight (non-pre-multiplied) alpha,
->>> which corresponds to DRM_MODE_BLEND_COVERAGE. Expose a "pixel blend
->>> mode" property advertising only DRM_MODE_BLEND_COVERAGE to make the
->>> hardware semantics explicit and silence the warning.
->>>
->>> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
->>> Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
->>> Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
->>> ---
->>> v2: advertise DRM_MODE_BLEND_COVERAGE instead of PREMULTI, per Thomas
->>> Zimmermann's review and the ASPEED documentation.
->>>
->>>   drivers/gpu/drm/ast/ast_cursor.c | 3 +++
->>>   1 file changed, 3 insertions(+)
->>>
->>> diff --git a/drivers/gpu/drm/ast/ast_cursor.c b/drivers/gpu/drm/ast/ast_cursor.c
->>> index fd19c45f2abe2..690d4cd1db5ee 100644
->>> --- a/drivers/gpu/drm/ast/ast_cursor.c
->>> +++ b/drivers/gpu/drm/ast/ast_cursor.c
->>> @@ -25,6 +25,7 @@
->>>   #include <linux/sizes.h>
->>>     #include <drm/drm_atomic.h>
->>> +#include <drm/drm_blend.h>
->>>   #include <drm/drm_damage_helper.h>
->>>   #include <drm/drm_format_helper.h>
->>>   #include <drm/drm_gem_atomic_helper.h>
->>> @@ -355,6 +356,8 @@ int ast_cursor_plane_init(struct ast_device *ast)
->>>       }
->>>       drm_plane_helper_add(cursor_plane, &ast_cursor_plane_helper_funcs);
->>>       drm_plane_enable_fb_damage_clips(cursor_plane);
->>> +    drm_plane_create_blend_mode_property(cursor_plane,
->>> +                         BIT(DRM_MODE_BLEND_COVERAGE));
->>>         return 0;
->>>   }
->>
+> greg k-h
 > 
 
