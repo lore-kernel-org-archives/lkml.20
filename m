@@ -1,263 +1,261 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012011.outbound.protection.outlook.com [52.101.66.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E18B143F4BC;
-	Tue,  1 Sep 2026 16:22:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B7D47DF8B
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:24:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788279748; cv=fail; b=DpeqwzVTxK6lOg/+prLO17JdtcdCC2dYK+LuyDqJppJtEBjPYcDhPoRJO0Lcc0V3c0+GhPaa+G3c/+rEn00bJkAX0scvqgXdm6+rgMkI6aYNFmrghBE/+MDOJrLldgW6a3k2XKrsnbcgeQs6LviXnVgwguC5ycr/x6YWAzH8vcc=
+	t=1788279863; cv=pass; b=FzD/vOS+wrJBmQ4y2Pf4IExUCB+43sS3l4HTNr5SjOBTLGl/J9ILTg1xlDRdQBP5erldJNzq8kPOVRTmNvx4gvrCnNPnM2ZTamRzpJxWKENn4qvjoCz7l4poits5k7mV2A8pbjfJeWjUlCrn57qDjO3jWndk8GlNpehOr2zLbM4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788279748; c=relaxed/simple;
-	bh=w9tdbDCLB+ZpmsenYUClUoOLkdGiK+jSp2IYqm9UQYw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=rKDUh1HXUFCAGAnUDXoG/0jcprajNXTBO9k+qvXFizyPKfXMkSw0L/6m7AIUBJd35fseYJitXCnQKu1Mgos19aS8n1aaZjVd+WhOIM8/0VWY4ct41L+cdgZ94ZXdrzrR998vqQm0QeSZvhsv/Mh3kaS1TCswC4wKs//iWRPngwc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=P9ISoi6c; arc=fail smtp.client-ip=52.101.66.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1788279863; c=relaxed/simple;
+	bh=fihGLTO3wxvRn1HVgRAq5GXUuflx3ZDlmZRCApsNctc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Q2JC9IreMWIJTcmNbzvqvt8ktJSaZUBHXPKM8QjFWj2iYlMWknHjDUEkeNZ17emmWH14FJf/tXczHqw6FK6ybuBcJene06BqpEhssAXOej+xvhnBmcSIvkc9UP9OhyPwWQ+VrrZcwWYK7f3q741OrU+aIQLd8/VmSpExmyRGz/U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YGBTAzoC; arc=pass smtp.client-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="P9ISoi6c"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ETLTRmMxWODQYHMZbc08AJooyaO4uDlfgK/FG0XTkQef/5G1j8lQfMbcdjMySCK2gyaO9EjrD0wSBv2s0+i2vyHJXrS1tzBE75zU3ZK3/FVSUpoH4hCUhz3xu9JWhXCqZygL5au0RNwL2enKidmHYSpGjPM2m52CGtIjkyhysRpxLT+EUeSK9WyIXwj+/ZEpmpM9zOYzKxVBJ/Zi6Msq4XkQGf8Ps07vulWQXN656si68jGSErk5lcY8mbsGD3WdsuL3LXFZGpz1FMEhYUTZRyUcQ00Ds2D2NYLHqUqXNZCQ1QaIgGbQ+hUk12QwuECcvigsVs6CjgoPK32aK59r8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MRzq4DATOT4BTNahFXb6FPpCVG7a5y9MznbuZIqT4lI=;
- b=mxmNW3aSb3N/+jI8c15K7SbH/xqCbOGAUMl89BftFNrt8WFBV4bGseHopORzxgFeKX3FpK5K9c3TNKI/4sYmZXnJ0ObN0+3gH1bfRvTE3KEk+NYXMzACyjwnc9oiP5mvA/IVr4nYKeiGHVvedhxl0y06zMKbO9bKJATR45aVdHqK5wQXc+3K1gZ6PYvnMn1PeMooLDkEpq1KI9tqHf3lm3h1yKlH950ZfTmnLqOoOITcPpuYYcUFHqzmXypF9kYue/d905EqdwtRHq98THXPSnI5KNCZEBruOSYvKBL2T+mMe5opbZ5JayYsq+IioladUb6D0UUb/R+Y+XkNUFWpbQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MRzq4DATOT4BTNahFXb6FPpCVG7a5y9MznbuZIqT4lI=;
- b=P9ISoi6cxMsqiX5DBR3349Y2avayHpDzeqAob7w6mB4JTIb3Mp141zO0KXBRJUjV3+YQS6iFLRnGnC41zzpSo0ikzMiRnWk/y++wDMX8nHSFGkXgGzgEWZa5g8zBM4T6gJa1ZgoABstJ+IKbQG7GEc9WdOVv0yQL0qozcoGLfcpvUWIiGdgCpuYZtzWL9bQbefA4/ztigcLfXEYEn6Zc73/3BSSAlucjkVPog+9wklhncQ/NpNmV76QKd3SAOfwEc532deDGLX1zHgc4vy3qoS9p+9acpvAkoF4kcFCAO+EjBUBfRCBTx/3NQ6E4FradBXsobw9Yl0Tx9ZMxZGefiA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DBBPR04MB7579.eurprd04.prod.outlook.com (2603:10a6:10:1f5::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 16:22:23 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 16:22:23 +0000
-Date: Tue, 1 Sep 2026 11:22:13 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Francesco Dolcini <francesco@dolcini.it>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] ARM: dts: imx7d-colibri-emmc: Add VGA overlay
-Message-ID: <apb7tZfjXTdULZtj@SMW015318>
-References: <20260901124921.78635-1-francesco@dolcini.it>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901124921.78635-1-francesco@dolcini.it>
-X-ClientProxiedBy: CY5PR22CA0096.namprd22.prod.outlook.com
- (2603:10b6:930:65::18) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YGBTAzoC"
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a5e971c970so2118742a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 09:24:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788279859; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OdHZ9R79knhjFcBiAipZKuQFs0jNI31igqDHnAVVDm4Cd+VEznSMth+KJh6plVtAp/
+         dZIbn7lhlKgYNes6hglH0gPrt5YzU3N4qq3O8BocWv1IpwitQF1kfUrRFRbw6vybM4mp
+         0zXGJROCS/N7uGkCO3Lrmhk7W+S4jJmbM9aRrOzznQGOAxLqA8iKXo6XsiD+ZMVnO83D
+         giHRDXDJ6QZdTRhhAwVeT9yrsV5tKGNpv+UzXsUSUVnAaW2gpS759Ut0pOrgi/GbbKFe
+         pujXThXx42dLyeyMoLZ8p7Z8a/cey9OrRm7+hh1GX3D0bCoOJCs6EAxjhTTiEfOxaxxM
+         gahA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nd+x62BgvaUKtLsEkKCNcqg4e9OToPZipxYRv5SqDCY=;
+        fh=bRIDkW4yFq3h+c3X7z1RernvkTQzZTgPWaKBlnnEpCk=;
+        b=p/rptbYdUCmoXbD1AM8nW55L5bWDcfX90PqWxgJFZktU5PC30ad94JIc6zOMXypaFi
+         e/wmqsGs4jUS4CpdVIKIk9vTVKdJrVtYFlQrmvWx7HKWsUxo3+E5JMrRNx5I9mB1f9up
+         ppl5rmrAfWUQn++Z5HGTd3XcuvTVdlAJl9keyQqbgAic/nxS3GT5QzldQtAXpcPG/bc1
+         eeVLb0pVBEYZ2LcTUL/NJUlxAI0UNM0bTK8XCWrz/YbUHdD6UO6BZt8DiS3ld+5fYbPZ
+         VGhcsRmDTW5A4Lo7Jk4gDdRxzTKSI+CQfubiJlZa+svqBERcNg01GqVpPZrMohA/vxGX
+         6IMw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788279859; x=1788884659; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nd+x62BgvaUKtLsEkKCNcqg4e9OToPZipxYRv5SqDCY=;
+        b=YGBTAzoCtXkiiukEmQ9Rz4H0XY9Yg107UCdBhnOHcyEIsweEbkaaE6V49Kz0BMOnc1
+         ig29qhGoXx6nrE7Cni8S193t6+yHc6L0cGIHKpP6TKGSdc6Vw5yTTWIoImTRyNDpdliJ
+         L436tD+khR29p9PtaKztZQ16INzbB4zm1J8dgBGdL6LhRneY2o7JHmDlmbI9p/2LabJb
+         RRq+HFRXKQTgObZbWdw/eSBHqfox80ObeUMiwbj1QiycwczJXLc80hzXSTVzv4kSnW1S
+         QHUHCFEUF5T2YjnquUw+n8t6/zHMis4TyMHlMMPBH2I71QSdx1wATCbB3b69w2IzqQ4m
+         e/Vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788279859; x=1788884659;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nd+x62BgvaUKtLsEkKCNcqg4e9OToPZipxYRv5SqDCY=;
+        b=Cm8OAfqnrIm9XX4iZSpOHOv7uWvh9fVrn+8bEdsWuw+BPEK7fpK4hkSVM7UtVW32ry
+         o5N4rEHOgV4rIFugmYtPSJXHo8s8hAIa7TQRSh/bXXsfRj0pWdTWum7GgkZSpkslVV+k
+         XgBqw6m92X1bLpP3JRMLYJWI9JMtJ/494yhHU6lIRGoSsojlD8umj5X4Pb4IBBfqkRGc
+         bc+UXvOjpCzTNIKRD/iGMg6vxVxrYnUa6zM7seaq+Pxbg8KpLrSDgNBKSX8DS8dMrErg
+         nHk6GgCXpwpZcvNRrcVlJbPr7ev0qhlDjG8ONamdtkm/3yk7no7Th8J2yzmgSIrsgV52
+         VO7w==
+X-Forwarded-Encrypted: i=1; AKwUvBwqFCOmjdQZ5WXsdI4Fvor5agDxmGanTI7MNHksOoqQKlyhMtVKKqSDKDw9tZL8MHFbWKHuarvtJXeAzQA=@vger.kernel.org
+X-Gm-Message-State: AFuF++ler8xMN5fb6zQ8Jn8lw1ytw3E69sQC2fMZUVg1HydFhL6ggl8g
+	El+/SvKUHf7yo2VKhivIPBX4s9IkYmbt/L5yjmmfLEnW4SK5kKf7FOG/nVyIcLEQmQsgwZZlG48
+	s4S2tuwlFgKmDUVkwVVdR/MvmzCZ/ZHw=
+X-Gm-Gg: AYBFou3TMLlK7GfGM47agmsbPxFLeue0NcfRLvAIspsR3pqoUAdGHSCheLtbKBb006M
+	t0VLxnt+z7o9WUMZwA5c2aGr9zU4LQfpV0MIWPiVPMlvtwKPTEiqToGS/+YRYVAjTsSETohK3zO
+	6kmUbIDWHYmqhDsRUJIf4rl+Q8+R/XKKZhAbJXQWomdNChjqahxbBlSWvzLjfgR6eGcbsrYZNpF
+	3a6R7ahbhvxckA6Ib0UsGlBRdHZ8c9E2jn3YlLRV6iuGyGrb+BDjkpNx7QBJiG7aE8VLydW/BtA
+	z/p5rkBh6gGZgzBGsyBafG3mVrjURZoho81X+lRGi1o=
+X-Received: by 2002:a05:6402:f04:b0:6a6:7ed8:f11f with SMTP id
+ 4fb4d7f45d1cf-6a67ed8f1eemr380561a12.0.1788279857823; Tue, 01 Sep 2026
+ 09:24:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DBBPR04MB7579:EE_
-X-MS-Office365-Filtering-Correlation-Id: ada43df4-1af0-4b98-0103-08df084533de
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|19092799006|366016|11063799006|3023799007|10067099003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	C/kqEtuE2nX8wN5NoYxbYf/q2beD/UplD8ZvcnC37D8bKTmoL97aVZNDhoPw78AfgLKK6IY1Jzok1e6eXvgxuH0rCO1zo/icoRr/djZYYJpaRWW1ZIl/X8oee5bh6ctrT7q17jAi9bFrRr81V9O5lQLP22/m7kiJR6m+NuCEwW/wK1KgNl7UfdQRsAVpInv0JWAB9bHCwh3FbucezIV9QZ9DyU50nBD/4asmMoxf1aDK0ad8njtgq+WrfstmkVPoAiJ9FCsIfx4Kxtk3idanwVtLJQkJJzVTk7uWW5XrvDueBhPfeAxy1q/qTItutAgbEfB57pihXyOoSACHUHy6Mv85CEhx820K3mNmRru2dQUF1avSDYr7OWWF8lfR2hebNjKOWRg0KMbhEcRrhjVYLFSCuSWR+4sOs9H/bYfyLt5JKkOwmrPao4bgKtylwQ9CG0nyqlZu9ojsiYIZ0PmTXjUKyJLpqfPgaMnOCPtdbc53hkTCWZbD25VaJtVyg3gjCzBYiy/ZSD3gTMEqLPLXFQG1ETlkzHgOIJWLNf0B7pa6A4227NvqSCRBf8QH9CdjnFuzP+R+3+LiEJ1T10pF9mIR1mbqFZc0IecYp0BKvouMFCgopEReZkQpODlHwo9/HJ9+7c3y1hHlpRG2QuPOVutgeV4jSRCg6gc5VeEtXQs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(19092799006)(366016)(11063799006)(3023799007)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?WiaAyHVPUiW8DwexObT6VIyn9OoUv6jsi+sft+zoVy08kXgg1drd2DCgmGj7?=
- =?us-ascii?Q?J25fAwIdd6DkLymXuOGGjCfY7D70kFueS5h2IGxol30yE/9h6AL64OE9akTb?=
- =?us-ascii?Q?U9OyUiLPYJjZuUsv+mAUXjFJ3cjEgG3ajzgZDWYFnL9JyidxdQvvWwTH8Vtz?=
- =?us-ascii?Q?KM7711PGXmFUlfaV1Qmu04mk/tg73xgITyiaDTWDQ4CnDo/qKbDI2DLlvyFc?=
- =?us-ascii?Q?EsjJi8E2Uepl8hIAOPcL4gb6P0qB13qtvyzVPafN/t4UJGy/wxSzBUvoyh9a?=
- =?us-ascii?Q?fJRZlBzOUvjWGrWQAVUoemGADCpBZZQrc6R6BOm72+ukZhfWJp+fci83vcFY?=
- =?us-ascii?Q?bWz4Bfk5NW1Ww6fe5wz14GmUk63IloP/+gO3fUxA3gHJEAU22UwM55SBd4JL?=
- =?us-ascii?Q?CDvEO0ZqbK0X5RWB7rGV2kj3WIOwXCGrCwsQMW8ijsE8DwDGUZlYJqiP/J8U?=
- =?us-ascii?Q?pPtXQfydpKF7KUrtj6bl1Jp/9hjEaNmHWqTbWQLM1jPWE6BJ5fUkzxXhv6cO?=
- =?us-ascii?Q?lZ46X+5uuVzRkXTvYp7QezC+2T9DuzmlVF0sG/zhoefehMcwu2Er0aseW2Dr?=
- =?us-ascii?Q?/hZEV3Ccz0lnO89KwwOknxSGmSeztX1/Z7soXqzhkiMX6Tex+AY/ZdZOIjwt?=
- =?us-ascii?Q?VReTfa8g4c19wuh5Wdm5EmFWg63rz4tvaldLFUgJ+9Eu/IM92plXwh9jqyUv?=
- =?us-ascii?Q?XvRKZj5/zJD6STKfQdM1C/yPkTNcgv3iri7TDzww7yb7OfBr1UbNzeClu/+m?=
- =?us-ascii?Q?h2ku7tfcmvdnCZHbbae2k63GjLEcTLnz4gObN3T6fIjQuaE3YIARUOm5AD1h?=
- =?us-ascii?Q?YQpccF7bjspP9qMGf8aBUyw3B8wm+tC/MiUDOP0mhvrvLWh0CwCFfUWwfdLN?=
- =?us-ascii?Q?nYLBCrXHfll+dc6RPN2BjAsygQuZk1KjCHzBasxuafc+N1yLU6izDMtCEXLV?=
- =?us-ascii?Q?B54dZsaiMBUCgKKzFaN6fWWNPyMp/nAKZnO5fJpuJcrsA9QADAYiby0NpRHM?=
- =?us-ascii?Q?hIOwd8VC0txuTPumMtRhXxTHPYTzJ+0bEev7SK2Mr3lTHRyAaHEaMMlF8Kg8?=
- =?us-ascii?Q?SftIyCSnFECYC0R3npHBV0MSJoO/0C4sL7+PqsgymKVsXtbwGyDNPR6Gw7jg?=
- =?us-ascii?Q?IfX+4AZyG4czq2e4mqr9qoE+P+mNaF0yKyw7jtWlHMuEcjEitS4an9bC9keP?=
- =?us-ascii?Q?17tr4FMtuam6aIKxG/F+lceRARx/t7RoQjYUuUip86OVwpT9Dgj2ZEf9qmAx?=
- =?us-ascii?Q?b5O8gygVqBubkP3OidNWWFx4DoIK7aMhJfSun+fldSVCcTGEbHJO5TVYF+IK?=
- =?us-ascii?Q?uY/XxX6eT5z5Iq7rnz7EHxljcPS9gKMjvXL+74uT9o8bQcP5f17TcBhoeDdY?=
- =?us-ascii?Q?qNq9HUg46BwvI8rnuGo3h6Gqznlpup0WVgfCgWWpF7f1wRkFr9pxGVxyYivN?=
- =?us-ascii?Q?Gw8bFZjyqccjAofOWRorOuzxdxqQviyAvPFVWCRNAaMkISXMsAhzN+HhMZyd?=
- =?us-ascii?Q?jqiuA4jxF35cmDRAwPfaOfLodG6BFQoOO9ALluhdhSi5sxmCv/F6DhZk2teU?=
- =?us-ascii?Q?vGIQV4n/Jq+RwULLu37XTJpIM8rP9/VaK+76HuvqfjQsbYX/wG+9xGBOZ4L/?=
- =?us-ascii?Q?ab9dveG6yZlnshi6n/G2HCYiiaWrl/1iqWqmbOlyiqfPfif15VCelQDFHruK?=
- =?us-ascii?Q?H57dVyU01bs3tXK9erxxvp2oMtIxeeIvKZvSjc9mKrDgszR2kSMdVGhdEsuB?=
- =?us-ascii?Q?F6qlWS2gkGtsyFxzlvGFkxHbHe39hUOimMof2K7+2Vq3WoFX+w43?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ada43df4-1af0-4b98-0103-08df084533de
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 16:22:22.9624
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5oIn3VGDS01AYr5M49/gyWnrGZ647lcYe9QEkFx5FclGlAgqwvmJ84nnw+fRegi+AWI37TxCt2GLBNB1+yfobQWrUjbFJNBig3O/qkdx+lB5Pdz29kZ89QNImrGfHxoF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7579
+References: <20260825151242.576456-1-lee@kernel.org> <CAF8JNhKWr7v7tY-tH_CGeLUQQpidx2_7J49c17TD0bw6xEi9BA@mail.gmail.com>
+ <20260901124952.GK2943942@google.com>
+In-Reply-To: <20260901124952.GK2943942@google.com>
+From: Ping Cheng <pinglinux@gmail.com>
+Date: Tue, 1 Sep 2026 09:24:06 -0700
+X-Gm-Features: AcwNN1WTLnaD9h4VNCjN-CXQ_kBLgu2eSfzw6ZnrDLAgmDy4-RNWJ6AFprlBCJw
+Message-ID: <CAF8JNhKiMMfkkgh9UMW+uib-tUQahwzGfxSr-36r8vrBxZt-aQ@mail.gmail.com>
+Subject: Re: [PATCH 1/5] HID: wacom: Use hdev->product in wacom_setup_touch_input_capabilities
+To: Lee Jones <lee@kernel.org>
+Cc: Ping Cheng <ping.cheng@wacom.com>, Jason Gerecke <jason.gerecke@wacom.com>, 
+	Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+	Aaron Skomra <aaron.skomra@wacom.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Peter Hutterer <peter.hutterer@who-t.net>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 01, 2026 at 02:49:20PM +0200, Francesco Dolcini wrote:
-> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+On Tue, Sep 1, 2026 at 5:49=E2=80=AFAM Lee Jones <lee@kernel.org> wrote:
 >
-> Add a device tree overlay for the VGA output on the Colibri iMX7 parallel
-> RGB LCD interface. The VGA output is driven through a non-programmable
-> video DAC without VESA DDC I2C signals to a DVI connector.
+> Ping, Jason,
 >
-> The overlay is also combined with the Aster, Evaluation Board v3, Iris
-> and Iris v2 carrier board device trees to provide ready-to-use DTBs.
+> > Thank you for your effort and persistence! We (Wacom and Wacom's
+> > customers) are lucky to have people like you working in this
+> > community!
 >
-> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> ---
-> this patch is on top of https://lore.kernel.org/all/20260723105225.194366-1-francesco@dolcini.it/
-> ---
->  arch/arm/boot/dts/nxp/imx/Makefile            | 21 +++++++
->  .../dts/nxp/imx/imx7d-colibri-emmc-vga.dtso   | 59 +++++++++++++++++++
->  2 files changed, 80 insertions(+)
->  create mode 100644 arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-vga.dtso
+> Thank you! :)
 >
-> diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
-> index e9f95c3b8353..d1272104ef27 100644
-> --- a/arch/arm/boot/dts/nxp/imx/Makefile
-> +++ b/arch/arm/boot/dts/nxp/imx/Makefile
-> @@ -436,18 +436,39 @@ imx7d-colibri-emmc-eval-v3-panel-res-touch-7inch-parallel-dtbs := \
->  	imx7d-colibri-emmc-eval-v3.dtb \
->  	imx7d-colibri-emmc-panel-res-touch-7inch-parallel.dtbo
+> > In addition to making sure that you know your contribution is greatly
+> > appreciated, I am giving you an initial testing feedback so you know
+> > you are on the right track.
+> >
+> > I manually tested a few older and new Wacom tablets. Some of them have
+> > touch switches, some don't. They all worked well!
+> >
+> > Two more details I'd like to share.
+> >
+> > The first one is about the touch-only tablet. In all the models of
+> > Wacom tablets, there was only one model that is touch-only. It was a
+> > Bamboo Touch (model CTT-460) released on September 24, 2009. So, it
+> > was more than 17 years ago. However, the quality of Wacom tablets are
+> > so high, it is possible that some people are still using those ones
+> > ;).
+> >
+> > The second one is about the type of touch on/off switches. There are
+> > two types of touch on/off switches: it can be a soft key or hardware
+> > switch. The hardware touch switch is easy to understand. The soft key
+> > touch switch is actually an on-screen display in the shape of fingers,
+> > where the touch on/off is controlled by the driver: [1]. This softkey
+> > touch switch, somehow, is not reported to the userland by the existing
+> > driver. Your patchset doesn't show it either.
+> >
+> > I will do more testing to figure out the root cause of the softkey issu=
+e.
 >
-> +imx7d-colibri-emmc-aster-vga-dtbs := \
-> +	imx7d-colibri-emmc-aster.dtb \
-> +	imx7d-colibri-emmc-vga.dtbo
-> +
-> +imx7d-colibri-emmc-eval-v3-vga-dtbs := \
-> +	imx7d-colibri-emmc-eval-v3.dtb \
-> +	imx7d-colibri-emmc-vga.dtbo
-> +
-> +imx7d-colibri-emmc-iris-vga-dtbs := \
-> +	imx7d-colibri-emmc-iris.dtb \
-> +	imx7d-colibri-emmc-vga.dtbo
-> +
-> +imx7d-colibri-emmc-iris-v2-vga-dtbs := \
-> +	imx7d-colibri-emmc-iris-v2.dtb \
-> +	imx7d-colibri-emmc-vga.dtbo
-> +
+> Is there anything left for me to do?
 
-Thanks for reuse overlay file.
+I guess you'd still need to figure out if Sashiko-bot's infinite-loop
+suggestion and other potential issues are real or not.
 
-Frank
+I have the hardware. I will test the patches when they are updated.
+Right now, I am still on the softkey switch issue. The existing driver
+works for softkey. It is reported from the kernel driver. The issue is
+sometimes it is not showing up in the userland, which we know. The new
+patchset moved the logic. I think the sibling_pending routing should
+be the one that's responsible for the SW_MUTE_DEVICE recognition. But
+the shared structure only knows the pen and touch. It is the pad that
+holds the touch switch usage....
 
->  dtb-$(CONFIG_SOC_IMX7D) += \
->  	imx7d-cl-som-imx7.dtb \
->  	imx7d-colibri-aster.dtb \
->  	imx7d-colibri-emmc-aster.dtb \
->  	imx7d-colibri-emmc-aster-panel-cap-touch-7inch-parallel.dtb \
-> +	imx7d-colibri-emmc-aster-vga.dtb \
->  	imx7d-colibri-emmc-iris.dtb \
-> +	imx7d-colibri-emmc-iris-vga.dtb \
->  	imx7d-colibri-emmc-iris-v2.dtb \
->  	imx7d-colibri-emmc-iris-v2-panel-cap-touch-7inch-parallel.dtb \
-> +	imx7d-colibri-emmc-iris-v2-vga.dtb \
->  	imx7d-colibri-emmc-eval-v3.dtb \
->  	imx7d-colibri-emmc-eval-v3-panel-cap-touch-7inch-parallel-touch-adapter.dtb \
->  	imx7d-colibri-emmc-eval-v3-panel-res-touch-7inch-parallel.dtb \
-> +	imx7d-colibri-emmc-eval-v3-vga.dtb \
->  	imx7d-colibri-emmc-panel-cap-touch-7inch-parallel.dtbo \
-> +	imx7d-colibri-emmc-vga.dtbo \
->  	imx7d-colibri-eval-v3.dtb \
->  	imx7d-colibri-iris.dtb \
->  	imx7d-colibri-iris-v2.dtb \
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-vga.dtso b/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-vga.dtso
-> new file mode 100644
-> index 000000000000..cda214c13876
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/nxp/imx/imx7d-colibri-emmc-vga.dtso
-> @@ -0,0 +1,59 @@
-> +// SPDX-License-Identifier: GPL-2.0-only OR MIT
-> +/*
-> + * Copyright (c) Toradex
-> + *
-> + * VGA output connected to the Colibri parallel RGB LCD interface through a
-> + * non-programmable video DAC with a DVI connector.
-> + *
-> + * The VGA output is available on multiple carrier boards (including Iris,
-> + * Eval, Aster) without VESA DDC I2C signals.
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +&{/} {
-> +	vga-encoder {
-> +		compatible = "dumb-vga-dac";
-> +
-> +		ports {
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +
-> +			port@0 {
-> +				reg = <0>;
-> +
-> +				vga_enc_in: endpoint {
-> +					remote-endpoint = <&lcdif_out>;
-> +				};
-> +			};
-> +
-> +			port@1 {
-> +				reg = <1>;
-> +
-> +				vga_enc_out: endpoint {
-> +					remote-endpoint = <&dvi_connector_in>;
-> +				};
-> +			};
-> +		};
-> +	};
-> +
-> +	dvi-connector {
-> +		compatible = "dvi-connector";
-> +		analog;
-> +
-> +		port {
-> +			dvi_connector_in: endpoint {
-> +				remote-endpoint = <&vga_enc_out>;
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&lcdif {
-> +	status = "okay";
-> +};
-> +
-> +&lcdif_out {
-> +	remote-endpoint = <&vga_enc_in>;
-> +};
+I'll share my findings with you when I have a solution.
+
+Cheers,
+Ping
+
+> > [1] ttps://github.com/linuxwacom/input-wacom/blob/master/4.18/wacom_wac=
+.c#L2063
+> >
+> > On Tue, Aug 25, 2026 at 10:09=E2=80=AFAM Lee Jones <lee@kernel.org> wro=
+te:
+> > >
+> > > Replace the lookup-dependent 'wacom_wac->shared->touch->product' refe=
+rences
+> > > with 'hdev->product' inside wacom_setup_touch_input_capabilities() si=
+nce
+> > > 'hdev' is already available (via container_of) and represents the tou=
+ch
+> > > device itself.
+> > >
+> > > Signed-off-by: Lee Jones <lee@kernel.org>
+> > > ---
+> > >
+> > > v7 -> v8: New patch
+> > >
+> > >  drivers/hid/wacom_wac.c | 18 +++++++++---------
+> > >  1 file changed, 9 insertions(+), 9 deletions(-)
+> > >
+> > > diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
+> > > index a29bf051ada7..4436faf2d2bb 100644
+> > > --- a/drivers/hid/wacom_wac.c
+> > > +++ b/drivers/hid/wacom_wac.c
+> > > @@ -3953,8 +3953,8 @@ int wacom_setup_pen_input_capabilities(struct i=
+nput_dev *input_dev,
+> > >  int wacom_setup_touch_input_capabilities(struct input_dev *input_dev=
+,
+> > >                                          struct wacom_wac *wacom_wac)
+> > >  {
+> > > +       struct hid_device *hdev =3D container_of(wacom_wac, struct wa=
+com, wacom_wac)->hdev;
+> > >         struct wacom_features *features =3D &wacom_wac->features;
+> > > -
+> > >         if (!(features->device_type & WACOM_DEVICETYPE_TOUCH))
+> > >                 return -ENODEV;
+> > >
+> > > @@ -3963,9 +3963,11 @@ int wacom_setup_touch_input_capabilities(struc=
+t input_dev *input_dev,
+> > >         else
+> > >                 __set_bit(INPUT_PROP_POINTER, input_dev->propbit);
+> > >
+> > > -       if (features->type =3D=3D HID_GENERIC)
+> > > +       if (features->type =3D=3D HID_GENERIC) {
+> > > +               hid_dbg(hdev, "generic touch setup\n");
+> > >                 /* setup has already been done */
+> > >                 return 0;
+> > > +       }
+> > >
+> > >         input_dev->evbit[0] |=3D BIT_MASK(EV_KEY) | BIT_MASK(EV_ABS);
+> > >         __set_bit(BTN_TOUCH, input_dev->keybit);
+> > > @@ -3997,19 +3999,17 @@ int wacom_setup_touch_input_capabilities(stru=
+ct input_dev *input_dev,
+> > >                 input_dev->evbit[0] |=3D BIT_MASK(EV_SW);
+> > >                 __set_bit(SW_MUTE_DEVICE, input_dev->swbit);
+> > >
+> > > -               if (wacom_wac->shared->touch->product =3D=3D 0x361) {
+> > > +               if (hdev->product =3D=3D 0x361) {
+> > >                         input_set_abs_params(input_dev, ABS_MT_POSITI=
+ON_X,
+> > >                                              0, 12440, 4, 0);
+> > >                         input_set_abs_params(input_dev, ABS_MT_POSITI=
+ON_Y,
+> > >                                              0, 8640, 4, 0);
+> > > -               }
+> > > -               else if (wacom_wac->shared->touch->product =3D=3D 0x3=
+60) {
+> > > +               } else if (hdev->product =3D=3D 0x360) {
+> > >                         input_set_abs_params(input_dev, ABS_MT_POSITI=
+ON_X,
+> > >                                              0, 8960, 4, 0);
+> > >                         input_set_abs_params(input_dev, ABS_MT_POSITI=
+ON_Y,
+> > >                                              0, 5920, 4, 0);
+> > > -               }
+> > > -               else if (wacom_wac->shared->touch->product =3D=3D 0x3=
+93) {
+> > > +               } else if (hdev->product =3D=3D 0x393) {
+> > >                         input_set_abs_params(input_dev, ABS_MT_POSITI=
+ON_X,
+> > >                                              0, 6400, 4, 0);
+> > >                         input_set_abs_params(input_dev, ABS_MT_POSITI=
+ON_Y,
+> > > @@ -4039,8 +4039,8 @@ int wacom_setup_touch_input_capabilities(struct=
+ input_dev *input_dev,
+> > >                 fallthrough;
+> > >
+> > >         case WACOM_27QHDT:
+> > > -               if (wacom_wac->shared->touch->product =3D=3D 0x32C ||
+> > > -                   wacom_wac->shared->touch->product =3D=3D 0xF6) {
+> > > +               if (hdev->product =3D=3D 0x32C ||
+> > > +                   hdev->product =3D=3D 0xF6) {
+> > >                         input_dev->evbit[0] |=3D BIT_MASK(EV_SW);
+> > >                         __set_bit(SW_MUTE_DEVICE, input_dev->swbit);
+> > >                         wacom_wac->has_mute_touch_switch =3D true;
+> > > --
+> > > 2.55.0.887.g758fc8c411-goog
+> > >
+> > >
+>
 > --
-> 2.47.3
->
->
+> Lee Jones
