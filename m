@@ -1,188 +1,175 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010014.outbound.protection.outlook.com [52.101.61.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 921C138F642;
-	Tue,  1 Sep 2026 05:24:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788240260; cv=none; b=GljuV5TXzb6JzoGJYpwY580062jimutYaslH1WYvrgGFtgQ3RypU+0EgNx6bXCbXN/vi39XpYMTtMi1Kthr7l9dDd6QjsaUPmK1/NO33Ytac3c7A0CRP8cBnl1d/wnWngmpJcVivrGaHEQAZdPcKBFuCJ9aqjc6rXkpyD40BtKk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788240260; c=relaxed/simple;
-	bh=Rd1+8Drlvqve5BS7MQCml9zsuJlAOqB4b34aulE+dEM=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ARFEvvu6Eht3x7lbV5mVnmwZz6KJLgO7AU0UwZIKHQ96dVZi+lUEOtCnN3xc8NECnwkfuWaPq/CfRCNq/RAWJ9NkLKCak6ZIWcEtjqQ58G8/Tbqrw7JsiuShguo49LuIaiDBNeBRG6wdIEa6VnzwgNcjiV7WhPh8j+AIIHcdtaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=S4WSMe25; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96B19375ADE;
+	Tue,  1 Sep 2026 05:24:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.14
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788240298; cv=fail; b=mQipkO7peYmzGYswUfLS8LaXTQzptjcCv4sGX/kdf8mcUVBQcWY/C/pzgQAHWwO9N5SYTJSIaS5pO5Q83GA6mpNkGH+lI79mPTBnOTVayyLGz0WzWs+O0vHb8piKbYpms+7jLGgcTCJ58V6QRE9x8ACtp7s+iYk13Oy4N8QGE24=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788240298; c=relaxed/simple;
+	bh=590g+8H+Y2R2AMcp/m+XQd0ddclUaOZg/9/+yZ7nIZQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=bxQYC+M5TR/8hOMdVOhIOXKQRTsYuJTyK4WiIOzdl8eHGUZVvGjUlmKecmDtpxVgozFLsadCYBc6bIrFa7EMfxE7EzVBT70u7ZQsRBZZHYCIfseIFuavyS2qEoYiC6/ef0OxH8u78vRyvCfQYrx0l4Zw6PWGUgnCQ3IK3NKw+nk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=ISKgdxrE; arc=fail smtp.client-ip=52.101.61.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="S4WSMe25"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6815ODwoC1394487, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1788240253; bh=E1gVoItUvm6Loo9Ud9VyGjaKlBM9ZGi38uHYPKnX07I=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=S4WSMe25gEaGEnX42Uzoo0O+dUszrlIsTB16nUUmjRsT085T0gllDehqWCneww1jn
-	 01z3xjTFvqC1FI+FDfCn3EB/kG7wcTox7LirIKpinIMEjju+MyspeWcf718vzGPNo6
-	 Pgcgedneqw/pBUBLfrLKSB792V8Hc7Lo+WYB2ai6GT2KbtJzklu7GTErAVEfF7/Xxv
-	 q3whtLZ4YfxuoaMgmmm8dvjWp1JoTE0I3smp/BcvrjboVWLJKAt80xKB9qlkBxiPSL
-	 JldubCr+Bp4nAMV9BlfiESkEJbORGvpAgE446YrMBjUbf9nA5GOyNBGVfqbgHbVh/K
-	 jJ+gwev+QtIkQ==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6815ODwoC1394487
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Tue, 1 Sep 2026 13:24:13 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Tue, 1 Sep 2026 13:24:13 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
- 15.02.2562.043; Tue, 1 Sep 2026 13:24:13 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Mehmet Fide <mehmet.fide@gmail.com>
-CC: Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	"linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH rtw-next v3] wifi: rtw88: usb: route bmc frames via the
- high queue only for DTIM delivery
-Thread-Topic: [PATCH rtw-next v3] wifi: rtw88: usb: route bmc frames via the
- high queue only for DTIM delivery
-Thread-Index: AQHdK66WOfaBclcfS0e15NhvFyIcILazZGiAgAXJeAA=
-Date: Tue, 1 Sep 2026 05:24:13 +0000
-Message-ID: <9209280c3f044363afd884687ae3cb6b@realtek.com>
-References: <20260814053426.2473247-1-mehmet.fide@gmail.com>
- <20260828191051.178481-1-mehmet.fide@gmail.com>
-In-Reply-To: <20260828191051.178481-1-mehmet.fide@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="ISKgdxrE"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DyhUDbOmVGWSNCHTCZ+O3c9hhzuCi+3CGrB6pWjxBCXGhrT1MEWbJYTF7OxjDl5ISdwEl14up7TRuMDaVtwoP9APVBNoVF51MeafS825z2OO9yi/xQXTZK8C0Ip9ZGiZevR0Ojwirt/68e78EqK7CSuOdjpFMD8T+4MlgM7Ii52+mJMvOxUH16GSdGrJbMT0jG7bs/m9mFMw2Cs/a8HgV+C8BzyqOcNymbZgh04JCv+QGcyxfUYaZbpY3wlI2HHSNExvs7Pqc+DQWCga35SDE6DHybHN4/6JsfjbvHSXo9o/dMXWIGNWTQh2HOEaPE7Jpu3lzMjRvkxYEGVHIorEPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FtR4lZfOGl7aqpZYBTDUHbuDmN/z+qhPGBBW0CkMnhI=;
+ b=OlX9Biij9I2nNHb2W07O1hwWrzZ3FRDqK1uDmSAmZbpPzs20AaWjp5iNMzZgVrPQklVIyBMt9Ahaq57B6BH6QEwHAV21G0GBSeAZTtO5AthykkUCL87jRy2iZgnf0vSwqNAMPeloNhoIQ24iXWSW0a8MeXoZWNIbTz4mYyv0fZlJ7iaVhKNZ767XN4+Hkoiiz7rbZzzOD3Y726aYsCHMuyLf0Ss/TWVMt0tw/A3ViFRrZUD3+P627xsXm9rsAK7cs8G7OZnXpruuj3iAoNfjVqt/jLcOl+W40o4RoTpV02X9W64y+auFI1Jio/9wZ7FfrisCxv2kAdkk4casORJ7Jg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FtR4lZfOGl7aqpZYBTDUHbuDmN/z+qhPGBBW0CkMnhI=;
+ b=ISKgdxrEBoayP6raz9RZBBQw2GgLhwAux1Ru7XOu6jzluiOk8haqQebEOZFc74e9dGsdNf/sx2TuNO0G2NXag5NjhUN8jYoxnw22+TmRTfdL48YpLwZ3vuIP8aD/tThl+yeg3PfVkn1nxLF79EAX4dQu+sbiW16cXCnUZpr6YJI3AyUTgirfvBh6Jck337VjrhE0aH7InonZVtjCCYV2IqJpdRxkM60IEQQDIc9Gz4rEMGtPg1zg5KMVo2f9I9tPeoIR7zAK1OYKghrScyqoJ2p/sqU2EqOxn9svue63YN0P8i3tNvXoJLPC3+WfPMbF2wfg8rtNg1I5A0LNdW+Bvg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com (2603:10b6:208:37c::22)
+ by LVUPR12MB999160.namprd12.prod.outlook.com (2603:10b6:408:3a4::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 05:24:53 +0000
+Received: from MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28]) by MN0PR12MB5977.namprd12.prod.outlook.com
+ ([fe80::d8:f725:258:2f28%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 05:24:53 +0000
+Date: Tue, 1 Sep 2026 15:24:48 +1000
+From: Alistair Popple <apopple@nvidia.com>
+To: Dave Airlie <airlied@gmail.com>
+Cc: nova-gpu <nova-gpu@lists.linux.dev>, 
+	M Henning <mhenning@darkrefraction.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Alexandre Courbot <acourbot@nvidia.com>, 
+	Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v5 05/11] drm: nova: Add an info ioctl
+Message-ID: <apZeL83cEzPygI57@nvdebian.thelocal>
+References: <20260828033531.1117754-1-apopple@nvidia.com>
+ <20260828033531.1117754-6-apopple@nvidia.com>
+ <CAPM=9tw6nv7UbMvKOGSsZKKwoZwCG2hvwGk=JjmsxQcH=wGfqw@mail.gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAPM=9tw6nv7UbMvKOGSsZKKwoZwCG2hvwGk=JjmsxQcH=wGfqw@mail.gmail.com>
+X-ClientProxiedBy: SY8P282CA0025.AUSP282.PROD.OUTLOOK.COM
+ (2603:10c6:10:29b::30) To MN0PR12MB5977.namprd12.prod.outlook.com
+ (2603:10b6:208:37c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB5977:EE_|LVUPR12MB999160:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7ef5c6e9-effd-4dd3-3c14-08df07e95a16
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|6133799003|18002099003|22082099003|10067099003|4143699003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	lAR8ZdArWZosQGL5n/Z1bDQgNOvHUvgwT6RE8KsmBJF2QfY0vubFp5OGD6D+OoNSTFDNEyO4NfgbZxIXvRMM4+mrKS9l31HDeojTGbd1JN4BWFWnzQV9JJ49MhgR8/uBBI9P8FMmLSQxdbhldPUHLNOOai3tv69eMXRW7LfdHGONKcUio80NFTLUnrNwHoKjUwU5v+ChQ/oXS6qN6yEiAWnSjqzWfTbgV2fGP6FSoeIVUdQ3ZphpqeCX0Xim5HFW+gd4yWKx36Ybx+xtuWUGi+/E63pzVRc69JwQSXfBvnOrCjiWQnv/XVy3YWunlFaGn/LtHyWpg0+WV6GOAixbIWGyyOysmZ/cBenIpwZQQZOsKYp8N59g5NIbdp6Wqn/QiAcQq6dwPhlhmqcTHa6fwplRTuDPrWLE0kYtJNAqNpSs4ErObI3J9yJWX4NTnaKvhnXjUFznaPA2DebPAWaPPKCMlcUHmM0rqzXcj1lDnZUSkj+5CsB3YV5CfVcUwrc0cE3wkRS0kss7X7fF2mwi1NFvN3wzwgOA81zT1m1wKzohwFgvjzpc0gzR5AJoK7lSVeovTF60A4E3sVR4D96YMTwtdf3yl6hb1KCZQOhsSKBHIX9e08MnK7fJAQHVb/xmoJ8UWeP8MZpkmZuwNO/WOL4eJSPz+2UvGv7zDKr000g=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5977.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(6133799003)(18002099003)(22082099003)(10067099003)(4143699003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?6c1wsOgURruGlRbAqABLjXudnhnx/VkbEKC23kC8yhA+bA65xSMMDNMQ1xZ4?=
+ =?us-ascii?Q?TRSPW8NUAhzv/42/WUojSTo8alFYi2EHMTkIXrAabZcbX86ZMstM2tmm38vm?=
+ =?us-ascii?Q?khMpgZhYy3fitHBmlUaoOPbO4MoAyutsN6GvMDPwnIVeoPMx6RhZDHyzxSKN?=
+ =?us-ascii?Q?fgAb6QzX5cgzM7jeu5osQxrW7hrr2z1teY3mIvveCSxVC01KU+eJwEgr/14t?=
+ =?us-ascii?Q?53iaxnjxDWPCEIfpzx8z2APIHToLU548157dahCDE+IcVq4i+VPQ81BhJZoK?=
+ =?us-ascii?Q?qyCwz8zEIRHdVVzXguP2u8aZg+HnvGWoIrCf01s4b0ULnPsmVB6TSsySoEOM?=
+ =?us-ascii?Q?8QmNctiiyO57MQNHcoESDTrstEFeRi7ksFVmc9ZZ3SCRVJwFcqEkT/R7tSGz?=
+ =?us-ascii?Q?josfF61RzO7HSDH8IpIY2kIO8bUkuTOt9xpz3TGWwoEOUrbv7My3q9i0Wila?=
+ =?us-ascii?Q?Vfqfw0ii0wuxxZgTMvWmmO4xGL/rP7cl7FCmdpg+woqVfbCtYnA4pGUaeFyx?=
+ =?us-ascii?Q?ITxIxpIQmMZUopuqAvrpLEc0btNp7E0l1dHTJOizXGHQBqjAypy9O5NdowAP?=
+ =?us-ascii?Q?/YUuaWYSaKp09EqMwRYTqzK62kNeQgq+esL1Su7qlghVbfL7FCuBuU+d6VCF?=
+ =?us-ascii?Q?8nEp/BHZN/PTRA68Ul23vOvniwIhme/ZFG7s5dkYgChwKYr2pOU1492KYyLi?=
+ =?us-ascii?Q?1LAvjvI2lUzloIWFYgILqAe7l2flTwwdeBjp+t6Q3s94itLaoE7Imfa3m5VS?=
+ =?us-ascii?Q?wisdq3lWzRBQTCEqTCTIDdM6P0G3pOn12+UDgFERRsdTXGQugvr4+ax91mCp?=
+ =?us-ascii?Q?U82Lhpb+NgF+8BDOsk4GqUrvfivgk1mrd7DV4ah3sbv+kkRIKuyhDG68R9ow?=
+ =?us-ascii?Q?w3mJniAIHe/PTHfOLmV9ip4/Z/ZPmfvNKSvPfvcSKiffyuJknsTWnowZRwv8?=
+ =?us-ascii?Q?udMxFqXq/+Jw+TdnGKDV+RM0zcSBxBiDRiAUqb7GxSc27JVfj57PtZ6AZSkv?=
+ =?us-ascii?Q?/BN6um5C67nXGHk/7/d/hMB/a0drHzSjo1zRBC/U1GE97CQ8v7F+IYP1wyUp?=
+ =?us-ascii?Q?KRUbjcbwdp3tY6tqAEtWx0wOECndj6UP9cSr/jl6qTeTgTuo9nE4q3rnrMYl?=
+ =?us-ascii?Q?bfzOWufAze6F2Sr1ZJF60qe6UPdpC1Ka6wIiWxkF75TX+M2PCp3daARUSbj4?=
+ =?us-ascii?Q?MCEIx9InaB4Ja8uO0yfOYj+lp+PYoyxoe9tejKMAhQgkynfphI8o4dczVT1/?=
+ =?us-ascii?Q?WBtQmS4/c67dxvkNDXAOboUe+z6gHVRVsV3Zs88pyxh0a7HS2YEgPfBnrjEM?=
+ =?us-ascii?Q?sn3cg9/Fmhjp0yUa/TxTc0Bs0I2bICrztJFHQ0AHqQ7ePQI2lVJA6TK4m5B6?=
+ =?us-ascii?Q?Epfptxo75sBcpD4HAcL1CgKhInJIXOGI/GV4hFZJohoHAvRo4OwtRD9kWUKD?=
+ =?us-ascii?Q?W5ZCnBcGvgoRI7gb2bv+49pI5u5+lZQHrhQx8CUkXi0ovDq+NlWUczlNF1Dk?=
+ =?us-ascii?Q?BN3nuPzBKq4rUjCZNZTc60eHQ10HVT8XD37NPJOFB/pgqYaei0193SG/vDNr?=
+ =?us-ascii?Q?A7QVAWcsy5Ebt1CM8LCg9DpGHjcaMhU+rWHYdkz4sD/68O21mW9yC1wym94K?=
+ =?us-ascii?Q?CvZSYWMKwQf27Kd0q7ionMprJ6Z73+bOGPCX0jj/+YmHdPI8Qa+54Ye7G7KN?=
+ =?us-ascii?Q?7imZOr4U88s3/ymiCVcaLUk3foA/wlmeY1lBaNo7XQkZQB+OhoxWNyTPoziV?=
+ =?us-ascii?Q?RtSEO6KY1g=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ef5c6e9-effd-4dd3-3c14-08df07e95a16
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5977.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 05:24:53.1098
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wN+r0fleMfzbQroQs/yRBSYx7o6VaCbASp1xPNWUr2QGMYYABso8Kv26dRdOfhGtH3axXaihOfsZGUsc8/uOFg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LVUPR12MB999160
 
-Mehmet Fide <mehmet.fide@gmail.com> wrote:
-> Hi Ping-Ke, Bitterblue,
->=20
-> thanks for the ack on this one. It has not been applied yet, and before
-> I post anything on top of it I would like your opinion, because I now
-> have a case where the same lockup comes back with this patch in place.
->=20
-> What happens
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->=20
-> The patch made the after-DTIM routing conditional, but nothing bounds
-> that path. mac80211 sets IEEE80211_TX_CTL_SEND_AFTER_DTIM on every bmc
-> frame while a single station is dozing, so one client in power save is
-> enough to put all broadcast and multicast traffic back on the high
-> queue. The chip drains that queue at beacon pace while the frames
-> occupy the shared TX page pool, so ordinary chatter such as mDNS
-> exhausts the pool and with it every other transmit, including the auth
-> and assoc responses other clients need. The AP still beacons and looks
-> alive, but nothing can join until the device is rebooted. That is what
-> our field report looked like.
->=20
-> Measured on an AM62 based AP with an RTL8822BU, one associated client
-> in power save, and 40 broadcast frames per second generated on the AP
-> itself. Free page count at 0x240:
->=20
->   t=3D0     1803
->   t=3D30s   1148
->   t=3D60s    716
->   t=3D90s     16   <- 0.9 % left
->   ...       16   pinned for as long as the traffic runs
+On 2026-09-01 at 14:53 +1000, Dave Airlie <airlied@gmail.com> wrote...
+> On Fri, 28 Aug 2026 at 13:36, Alistair Popple <apopple@nvidia.com> wrote:
+> >
+> > Add an extensible info ioctl and use it to report basic GPU information.
+> > One of the first things userspace needs to know about a GPU is its
+> > architecture and implementation, so add that as the first field in the
+> > GPU info result.
+> >
+> > The ioctl selects an information type by ID and writes the result through
+> > a sized userspace buffer. The kernel truncates results to the supplied
+> > size, allowing information structures to grow and new logical information
+> > groups to be added without introducing new ioctls.
+> >
+> >
+> 
+> This is a higher level for the future, I think we have two paths for
+> getparam type ioctl.
+> 
+> Either we expose a big struct full of values with a add to the end
+> mentality or we keep a long list of value pairs, and userspace passes
+> in a list of value keys, and we return a list of the values.
 
-Have you confirmed the broadcast frames ate all of them?
+There's already been a fair bit of back and forth on this on this series and
+this is where we ended up - a bunch of info ioctls returning big structs full
+of values.
 
-The HIQ packets only send out right after beacon within ATIM
-window controlled by REG_ATIMWND (0x055A). Can you try to
-enlarge the size to see if it will be different?
+I did wonder if io_uring could be used by user-space to efficiently pass a list
+of value keys as that's trivial enough to add to drm[1] but perf wise didn't
+achieve much over just calling lots of ioctls, at least when I tested with a
+mock key/value type interface.
 
->=20
-> and at that point dmesg starts printing "error beacon valid" and
-> "failed to download drv rsvd page". When the client wakes or the
-> traffic stops the pool recovers; in the field both conditions persist,
-> so the AP stays dead.
+[1] - https://lists.freedesktop.org/archives/dri-devel/2025-September/524469.html
 
-If you stop 40 broadcast frames per second, will AP become available?
+> I'm trying to think ahead towards native virtio context support, and I
+> think having the sequence,
+> 
+> open
+> get_all_infos
+> create vm/channel
+> 
+> might have the most optimal ioctl count but also let power management
+> avoid booting the GPU on every open if we never create a vm/channel.
 
->=20
-> How to reproduce
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->=20
->   - any rtw88 USB device as an AP, one client associated
->   - put the client into power save (a phone with the screen off will
->     do; on Windows set "Wireless Adapter Settings -> Power Saving Mode"
->     to maximum and reconnect)
->   - from the AP itself send roughly 40 multicast or broadcast packets
->     per second, for example in a loop:
->       socat -u - UDP4-DATAGRAM:224.0.0.251:5353,ttl=3D1
->   - watch the free page count:
->       echo "0x240 4" > /sys/kernel/debug/ieee80211/phyX/rtw88/read_reg
->       cat /sys/kernel/debug/ieee80211/phyX/rtw88/read_reg
->=20
-> Do not ping the client while watching. That wakes it, mac80211 flushes
-> the queue and the pool recovers, which is what hid the problem from me
-> in the first run.
->=20
-> What I would like to do
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
->=20
-> Mirror the vendor driver. It never lets chatter into the hardware high
-> queue: xmitframe_hiq_filter() in core/rtw_xmit.c admits only ARP, EAPOL
-> and DHCP (CONFIG_RTW_HIQ_FILTER, default "allow special"), everything
-> else leaves on its access category queue. With the same rule in rtw88
-> the pool stays at 1803 in the test above, a DHCP flood still takes the
-> after-DTIM path, so the filter is selective rather than a blanket
-> disable, and plain join/ping cycling without power save is unchanged
-> (10/10 here).
->=20
-> The trade-off is that a dozing station can miss non-special multicast,
-> since we do not buffer it in software the way the vendor does.
+Power management is a good point - thus far all the info is cached in nova-core
+anyway so there shouldn't be much impact there regardless of what interface
+we choose.
 
-Is it possible to declare IEEE80211_HW_HOST_BROADCAST_PS_BUFFERING and
-call ieee80211_get_buffered_bc() to get the BC packets to send?
+Thanks.
 
->=20
-> Before I post a patch:
->=20
->   1. Is such a filter acceptable as the fix, or would you rather see a
->      hard bound on how many bmc frames may sit on the high queue, which
->      would also cover an ARP or DHCP broadcast storm?
-
-I think it depends on which kind of packets get lost we can accept.=20
-
-The vendor driver considers ARP, EAPOL and DHCP as important ones, because
-user experience becomes bad if they get lost, but actually they have
-their own re-transmit.
-
-Consider multicast streaming, I guess it has error correction (like FEC),
-so maybe it has more tolerant to handle packet loss. (I'm not familiar with
-streaming, and no much experience with playing multicast streaming).
-
->=20
->   2. Or both, filter first and bound on top?
-
-With the filter, I think it will not reason bound, because there will not
-be much that kind of packets. Maybe, check bound first, and then filter ?
-
->=20
->   3. Is there a way to learn the DTIM boundary on USB that I have
->      missed? With one the driver could hand the chip a single burst per
->      DTIM and the pool could not run dry at all.
-
-I think this is not possible, because USB needs time to transmit packets=20
-from host to WiFi card, and then it needs to wait for next DTIM. Though
-driver can prepare packets earlier, but it will be inaccurate=20
-(still buffered in hardware HIQ).
-
-
-As above, we have ATIM window, BC buffer in mac80211, HIQ filter,
-and HIQ bound. But I don't have clear picture how to combine them to
-deal with this case. Since you have spent time to dig the problem,
-you may have more sense and better idea. :)
-
-
+ - Alistair
