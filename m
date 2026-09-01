@@ -1,126 +1,241 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.155.198.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9F54A3845
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:24:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C89DA4A2E02
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:26:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.155.198.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788294285; cv=none; b=C5ukGgkbItDfXuJd1W8w4cr24pbSnzp7+tLiWogmLhZDF2FdGLuWpMapxX3OpwNZLRLp5Wde4AGo8VdQ6PM0jcuChIg2qAwjNPsuIfyfTv8+4LSsX9idmHvgHH19onS9LQrU53MzFZssS8k2hBqpGrfmhXchxIiJKTcUaOjASiI=
+	t=1788294368; cv=none; b=Vz5AqHV5HQOWskfuuSOV9X3Lux2/xQA3AN8r2fhmsJbTNuqdHkgtQYi/1GSqiYXlomJfLruJa3NglugD76Iev9fRWoy6nrkajFOjus2XloKoQ6n5HMfMJ46z0CJdnisoO6iLgBV0/mE1Jj/X2iCnuJQ2gHxje1Cz2Lf7PGrqVBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788294285; c=relaxed/simple;
-	bh=sldmoJYScfl31jM3ib4ObxKG2HqldB+IrI8ee6KokdA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=B5B+vabVVXTneOuhAdJ45IaN4BqNzSpVyer/6yVoeKAr1mGBcge5vXvBZ6NYFV8bp1RJMGXKiDoEeUHJjaBBdJ7rzwMVnPiW8v2mMGVT8RCnVA2wMElFnG2/ton69G/AwotNeKh9hC1fyi/KyYORH5PKCZsZ0io1qZlfmMgQg3E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=g0QS+gj6; arc=none smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1788294368; c=relaxed/simple;
+	bh=qxg+l5IJaRQZAhtGavRIRPHg8RMijEvD7LNxM1Xdj1Y=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QyU7GZVkW5FIohOTjIAA6O9shC3ONrh0EBHYNBbht9jDeXSngiKNieGZi8qcJZnanJKiHVU1j2/cvsk2E6mrVYhUPws60U8r2Henv77Z9ecQxUk2QdPa8u/YS+4Zdu/SmMz1wTPMsqlFmHDGzqTYgwkWBaKUUeKDbz8XrUD8ujI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=FG9hrJ2k; arc=none smtp.client-ip=35.155.198.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="g0QS+gj6"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c250a2bc3b3so22315066b.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:24:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="FG9hrJ2k"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1788294278; x=1788899078; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=l4RMRsZtxYKt7wS2Hs0vwKTCicpwK9tkOyvJwCizYns=;
-        b=g0QS+gj6Ji3zg8Fzmx4cCyoyEbCIDGIl79aR4zw27omEDgIgB4JfQ0Y/l+PIYbn/PA
-         Be8IjXoJNfgHy5gwlDoqh5Ib6hvaAPJCMd5l7I2MRG+PFsHNbmhhLRM+8WMEys5fR9Ny
-         akkT2Yt8bUpjMOeYMMke+xGT/zAuo07qOvO4g=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788294278; x=1788899078;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=l4RMRsZtxYKt7wS2Hs0vwKTCicpwK9tkOyvJwCizYns=;
-        b=l+cuHDo1p9Dth5pNqouesmc3RUOc9lwl8c3Qx7N2ts8+FS5Ue1ytmaJhDeeUjHw+T7
-         Ghtj+tspvpU6zQhlVvTfeMDnWwlQL+Wi0GxuEvlSDNsNidHh+oEL0VtozjaIxIz7CS88
-         MYY/uOvQjB4zRqHcXAWyf0B9MIUZ+K6+96xCeT7rJXvET2CUH366k4q0Y2+t4Y+euEK+
-         l0IMUTs/uvMGjtg6NkMnMht2LcBzCIUMXYIO7wffN6PGMwKr9U3n0yo5wuyZxR8c60mI
-         sAbxw3GdTdqUXI0SyKCGoApABKWcv8sBeoKrwSa+BIa3nkDvWApEPS5c83KeGZT0pB5q
-         58qw==
-X-Forwarded-Encrypted: i=1; AHgh+RqOPTdXkXuiyWsyU0/cJrqVxbiP/gb9BSMkLKBcidVFgWe90W762ludP8kIYj2Otv5RzdlVysxoWc28MCY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgXtj/w9r0G9OKIgmu/FtjCqQpItB928/WiciVvOD9hgHAe8iH
-	VARZhG2eHIcTAk2fKNfkYZmI/xd937i7h1uMvkcExkNfSSAjfVOYnOFd/ucz3wyqY7+7WVVaQt9
-	XQfipOJw=
-X-Gm-Gg: AR+sD13c7DOCb+hCSAdxG0Fna6Fr4BsEzOgbXEkQqk25u8ExVzzogfqaUxfLnrtogvz
-	AoZ0n5OFjdoitjmGLqq1omnuT/Q7vliRvaDss7DwSojwG/q8Qtts7prf8/sEwrgs1AICPDUsaS1
-	yuYT9hfjn0Rngee5m4ZYf5tSJ/MAnvdV7Dwi3nvCfqrnwXlBVcLIm3Zfui/aqPTQA/1lX3pZ9Kq
-	tBrM6CyPcChLHPnBPh2+BbW+8WVaIRC1r2GlsJhw2bOBwJ/THbUZclIADUErIZFDVZeNsczngfq
-	iUwIcr+p8MGsf8C6cxVqoI+GUr7p+WbGpDkDd5R4fZle/RRoNe/LIOcLPYFz00gP+KLy/JqGUkp
-	mgV44mX65cyrtuql8uzyTBsAPVEaWOd6PdnlEluOJ5mkrp8HJXYg0cwAMTV4JGEY3weJgtl0lKM
-	Yy43ol8r0HoXfN3fG8Cm/NbIgko7ZsFsMEddRKNxVkKs4qhZWxFXJEIVfFoEMM/HTyhhFlqPSJx
-	8kSSwFl46D5wOukhr2mE+0XqTOxCNw1zN/hTvmOU60Ybp7U
-X-Received: by 2002:a17:907:1ca4:b0:c21:9870:c4f7 with SMTP id a640c23a62f3a-c2557433257mr2259764666b.20.1788294278463;
-        Tue, 01 Sep 2026 13:24:38 -0700 (PDT)
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com. [209.85.218.53])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25d002f908sm20560666b.20.2026.09.01.13.24.37
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 13:24:37 -0700 (PDT)
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c25b661d37dso33570666b.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:24:37 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RquE7pZeMG0vzPyzP6LmMqN+ysW3giLVIH61AONB8Ben/Of+R21uaEvN1EjbWOHlfrWdWKBdXjwxwcxuqc=@vger.kernel.org
-X-Received: by 2002:a17:907:1ca4:b0:c21:9870:c4f7 with SMTP id
- a640c23a62f3a-c2557433257mr2259760166b.20.1788294277490; Tue, 01 Sep 2026
- 13:24:37 -0700 (PDT)
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1788294366; x=1819830366;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=j1+lz1XGiX0BvlzPaXPOzNmEwexlRwPc116ec8ON0iw=;
+  b=FG9hrJ2kbsmJuT1sxu0wui/Nx5yuBwXwj6RLowMDijr05IVIEFR+sblv
+   ZVamsekr+R2miIpydVk2yiKFkXSYPxJuQBJpEEQSW6WVrM7FLTqtXssFC
+   1keTCs0RwZJB7ioxrlKh8DESJrG6CJsf/5lP5BDDKKU1MYUI1kKCOaP7d
+   D4ndA1rA73yOB/YmwkqtZtXdvoplLokuIHQr2vEAxbeWPCrV+N6oUG7th
+   gjdA7pBAZEnV2uY8JsEL7fdFYOZg2MyCTmESbvp08byoB5qrhWwHBIhOg
+   0X5+tAQlj5mVBfskJK2DoHzpbxjizdGf32pxIe7ytL767XKPHWieU7fyp
+   g==;
+X-CSE-ConnectionGUID: TMfv6vunRVuzQxhi7I5z0w==
+X-CSE-MsgGUID: 3XFDF2SwSuydFlJDKdPE+A==
+X-IronPort-AV: E=Sophos;i="6.25,256,1779148800"; 
+   d="scan'208";a="27441235"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 20:26:06 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.48:3112]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.52.146:2525] with esmtp (Farcaster)
+ id ade34076-eba1-46fe-9270-4f79be2b816f; Tue, 1 Sep 2026 20:26:06 +0000 (UTC)
+X-Farcaster-Flow-ID: ade34076-eba1-46fe-9270-4f79be2b816f
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Tue, 1 Sep 2026 20:26:06 +0000
+Received: from 6c7e67c92ceb.amazon.com (10.187.170.39) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
+ Tue, 1 Sep 2026 20:26:05 +0000
+From: Nathan Gao <zcgao@amazon.com>
+To: SJ Park <sj@kernel.org>
+CC: Nathan Gao <zcgao@amazon.com>, <akpm@linux-foundation.org>,
+	<damon@lists.linux.dev>, <linux-mm@kvack.org>,
+	<linux-kernel@vger.kernel.org>, <baolin.wang@linux.alibaba.com>,
+	<david@kernel.org>, <ryan.roberts@arm.com>
+Subject: Re: [PATCH v2] mm/damon/vaddr: use a page-aligned address for the sampling walks
+Date: Tue, 1 Sep 2026 13:25:36 -0700
+Message-ID: <20260901202556.39515-1-zcgao@amazon.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260901013551.91246-1-sj@kernel.org>
+References: <20260831221151.50561-1-zcgao@amazon.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <bde573c1a758505339239f08be28788a34dfcb73.1786121949.git.bvanassche@acm.org>
- <20260831214437.15d6ad34@pumpkin> <a771af57-40ee-433a-be84-9b7c3e6965c5@acm.org>
- <20260901092043.7feaf5d7@pumpkin> <dca931ff-5995-444c-9f89-6d6cca4e71f3@acm.org>
- <CAHk-=wgFEG7ZVaFAbo=bWWfsSh_weA4cOh6BV-xHWNSn6SwNBQ@mail.gmail.com>
- <737a4f62-f50a-40bd-a94a-1f42e9f3f54a@acm.org> <CAHk-=wiZog53-M8--_2m7HRk4XOQ+_jkh1XVuyQXXJgSwooQng@mail.gmail.com>
- <07dcd177-bc20-416e-accc-9c137d70a5d6@acm.org>
-In-Reply-To: <07dcd177-bc20-416e-accc-9c137d70a5d6@acm.org>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 1 Sep 2026 13:24:20 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wj1rTtCXQVf-_doFT0KbnCDObvuoG0yEv8eH6V+Yq4=vg@mail.gmail.com>
-X-Gm-Features: AcwNN1UrGJ0dKTFkZKrqa4mGdf-1Ln_Qsse_j-BYtQta2GxuTVhnifoPDPpl0ME
-Message-ID: <CAHk-=wj1rTtCXQVf-_doFT0KbnCDObvuoG0yEv8eH6V+Yq4=vg@mail.gmail.com>
-Subject: Re: [PATCH v2] tracing: Make is_signed_type() compatible with sparse
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: David Laight <david.laight.linux@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>, 
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Luc Van Oostenryck <luc.vanoostenryck@gmail.com>, 
-	Chris Li <sparse@chrisli.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D040UWA004.ant.amazon.com (10.13.139.93) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Tue, 1 Sept 2026 at 13:06, Bart Van Assche <bvanassche@acm.org> wrote:
->
-> This makes me wonder whether I should switch from the official sparse
-> tree (git clone git://git.kernel.org/pub/scm/devel/sparse/sparse.git) to
-> your tree?
+On Mon, 31 Aug 2026 18:35:50 -0700 SJ Park <sj@kernel.org> wrote:
 
-That's an option, but honestly, I don't know how good the state of
-that tree is. And I'm not going to be a good maintainer of it.
+> On Mon, 31 Aug 2026 15:11:51 -0700 Nathan Gao <zcgao@amazon.com> wrote:
+> 
+> > __damon_va_prepare_access_check() picks a random byte address within the
+> > region and stores it in r->sampling_addr. There are two users of
+> > r->sampling_addr in vaddr.c that pass it into a page table walk, and
+> > both use it as the address of a page.
+> > 
+> >   damon_va_mkold(mm, r->sampling_addr)
+> >     damon_va_walk_page_range(mm, addr, addr + 1)
+> >       damon_mkold_pmd_entry()
+> >         damon_ptep_mkold(pte, vma, addr)
+> >           ptep_test_and_clear_young(vma, addr, pte)
+> >           mmu_notifier_clear_young(mm, addr, addr + PAGE_SIZE)
+> > 
+> >   damon_va_young(mm, r->sampling_addr, &folio_sz)
+> >     damon_va_walk_page_range(mm, addr, addr + 1)
+> >       damon_young_pmd_entry()
+> >         ptep_get(pte)
+> >         mmu_notifier_test_young(walk->mm, addr)
+> > 
+> > For arm64, before commit 6f0e1142173a ("arm64: mm: support batch
+> > clearing of the young flag for large folios"), the contpte helper walked
+> > exactly CONT_PTES entries from the aligned-down page table pointer and
+> > used @addr only to pass down to each entry, so an unaligned value was
+> > harmless:
+> > 
+> >         ptep = contpte_align_down(ptep);
+> >         addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
+> >         for (i = 0; i < CONT_PTES; i++, ptep++, addr += PAGE_SIZE)
+> > 
+> > Now the range to walk is derived from @addr instead: end = addr +
+> > nr * PAGE_SIZE, rounded up to CONT_PTE_SIZE. For a sample in the last
+> > page of a contpte block, the sub-page offset puts end just past the
+> > block boundary, so the round-up lands a whole block further and the
+> > walk clears PTE_AF in CONT_PTES entries beyond the sampled block. For
+> > the last block in a page table page, those entries are past the end of
+> > that page, so the walk writes into the page that follows.
+> > 
+> > Triggered by the full 7.1/7.2 kernel selftest suite on arm64 (EC2
+> > c/m6g.4xlarge). The kernel sometimes crashes at or shortly after the
+> > DAMON test.
+> > 
+> > What the overrun does depends on the page that happens to follow the
+> > page table, so there is no single signature. If that page is read-only,
+> > the write faults in the sampling path itself:
+> > 
+> >   Unable to handle kernel write to read-only memory at virtual address ffff0003c5d2d000
+> >     FSC = 0x0f: level 3 permission fault
+> >     CM = 0, WnR = 1, TnD = 0, TagAccess = 0
+> >   CPU: 10 UID: 0 PID: 3487 Comm: kdamond.2
+> >   pc : contpte_test_and_clear_young_ptes+0x70/0xc0
+> >   lr : damon_ptep_mkold+0x1e8/0x1f8
+> >   Call trace:
+> >    contpte_test_and_clear_young_ptes+0x70/0xc0 (P)
+> >    damon_mkold_pmd_entry+0x150/0x170
+> >    walk_pmd_range+0x110/0x2b0
+> >    walk_pud_range+0x10c/0x208
+> >    walk_pgd_range+0x134/0x258
+> >    __walk_page_range+0x98/0x1b0
+> >    walk_page_range_vma_unsafe+0x90/0x148
+> >    walk_page_range_vma+0x28/0x40
+> >    damon_va_walk_page_range+0x114/0x2b8
+> >    damon_va_prepare_access_checks+0xec/0x1a8
+> >    kdamond_fn+0x534/0x770
+> >    kthread+0x128/0x138
+> >    ret_from_fork+0x10/0x20
+> > 
+> > Otherwise the page is writable, the PTE_AF clearing succeeds silently
+> > and the damage only surfaces later, in whatever happened to own the
+> > page, so the backtrace is unrelated to DAMON and differs between runs.
+> 
+> Urgh, this must have been a painful debugging.  Sorry about that, and
+> appreciate your great work on this!
+> 
 
-If we really have lost sparse maintenance again, and nobody is willing
-to step up, I can try to do a minimal job at it.
+No problem at all!  Had fun digging into this. 
 
-But I'll be honest: I think it's been exactly two decades since I
-really worked on sparse, because I think I stopped Sept 2006, and Josh
-Triplett took over, and then we've had Chris Li and Luc Van Oostenryck
-doing maintenance.
+> > 
+> > Align the address down to a page boundary in damon_va_mkold() and
+> > damon_va_young(), the two users that pass it into a page table walk. It
+> > is the address of the page to sample, so this matches its intended
+> > meaning. r->sampling_addr itself is left as is, so the sampling and
+> > region bookkeeping semantics are unchanged.
+> 
+> I'm still wondering if it makes sense to restore unaligned address support in
+> contpte_test_and_clear_young_ptes() as a long term fix.
+> 
 
-So I'd treat it like I treat my microemacs "maintainance" - sporadic,
-and probably with an LLM. Because I'm not really willing to put in a
-lot of effort.
+I'd appreciate Baolin's thoughts here.  If it turns out callers are
+expected to do the alignment, it would be better to have a WARN to expose
+the issue.
 
-This is partly me fishing for some poor soul who actually *wants* to
-maintain this. Because if somebody sees that "I'll use an LLM" as a
-threat: that's exactly how it's meant.
+> > 
+> > Fixes: 6f0e1142173a ("arm64: mm: support batch clearing of the young flag for large folios")
+> > Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+> > Cc: David Hildenbrand (Arm) <david@kernel.org>
+> > Cc: Ryan Roberts <ryan.roberts@arm.com>
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Nathan Gao <zcgao@amazon.com>
+> > ---
+> > V1 -> V2:
+> > - Align inside damon_va_mkold() and damon_va_young(), the two users that
+> >   pass the address into a page table walk, rather than aligning
+> >   r->sampling_addr itself, so that sub-page sampling addresses remain
+> >   possible for future non-PTE access check primitives (SJ)
+> > - Point Fixes: at 6f0e1142173a instead of 3f49584b262c, since the
+> >   unaligned address was harmless before that commit (SJ)
+> > - Describe how the issue was noticed and what it does to the kernel (SJ)
+> > - Reword the subject to match the narrower change
+> > 
+> > v1: https://lore.kernel.org/all/20260827193821.46115-1-zcgao@amazon.com/
+> > 
+> >  mm/damon/vaddr.c | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+> > 
+> > diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
+> > index 2c1c1952c008d..e7aa18200088f 100644
+> > --- a/mm/damon/vaddr.c
+> > +++ b/mm/damon/vaddr.c
+> > @@ -349,6 +349,9 @@ static void damon_va_mkold(struct mm_struct *mm, unsigned long addr)
+> >  		.hugetlb_entry = damon_mkold_hugetlb_entry,
+> >  	};
+> >  
+> > +	/* Arch helpers can derive a page range from @addr; align it down. */
+> > +	addr = PAGE_ALIGN_DOWN(addr);
+> > +
+> >  	damon_va_walk_page_range(mm, addr, addr + 1, &damon_mkold_ops, NULL);
+> 
+> Could we do the alignment just before passing the addr to
+> contpte_test_and_clear_young_ptes(), which is the exact function that disallows
+> the unaligned address?
+> 
 
-But Bart, maybe you'd like a new hobby? Think of all the glory. People
-stopping you in the streets, asking you whether you're the sparse
-maintainer and asking for selfies.
+Sent a v3.  It moves the alignment into damon_ptep_mkold(), the only place
+in DAMON that reaches contpte_test_and_clear_young_ptes(), so it is as
+close to that function as DAMON can get:
 
-You won't be a rock star or an astronaut (or a fireman, or a dinosaur,
-or whatever you dreamt of being when you were a wee tyke), but it's
-the closest us geeks will ever get.
+https://lore.kernel.org/all/20260901201001.33271-1-zcgao@amazon.com/
 
-             Linus
+> >  }
+> >  
+> > @@ -482,6 +485,9 @@ static bool damon_va_young(struct mm_struct *mm, unsigned long addr,
+> >  		.hugetlb_entry = damon_young_hugetlb_entry,
+> >  	};
+> >  
+> > +	/* Arch helpers can derive a page range from @addr; align it down. */
+> > +	addr = PAGE_ALIGN_DOWN(addr);
+> > +
+> >  	damon_va_walk_page_range(mm, addr, addr + 1, &damon_young_ops, &arg);
+> 
+> Ditto.
+> 
+> >  	return arg.young;
+> >  }
+> > -- 
+> > 2.50.1
+> > 
+> > 
+> 
+> 
+> Thanks,
+> SJ
+
+Thanks,
+Nathan
+
+Sent using hkml (https://github.com/sjp38/hackermail)
