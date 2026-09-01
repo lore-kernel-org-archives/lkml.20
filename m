@@ -1,105 +1,119 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51125480DF0
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:35:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38CE5481234
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:35:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788280528; cv=none; b=NOHlyskh1wpzLEID5Coi/V/6JmZgfzLc93Rdm0HsBZspevxvBWv42Vog8IoaJkGLeSVB54wONabbeScTgLu8FhC657yCl5QZaSrRLZzXF6clyZDzUDUQkgRJQuAp6gCfAi/uZP8Z2NEBJRPycIXb/hkgPr4ccpRHQGOM3FB2rrU=
+	t=1788280529; cv=none; b=aYXfPgXUW1S+XcWk6q4Maa1+eXfoQNL644DiKLdhZY+3r77gdYDppDU7XEnXOZrpvjJ6FKb+asFY6b43RcldkBc4zEHSjk83p5xqtT7ZwX3IyMyOh3D1oPbj7mpeXe38KadYzyZiTxQk9waBcPEkMYN9pixY4ogItzoBcA5eYyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788280528; c=relaxed/simple;
-	bh=Ef4BVBI7qGDPlNFCmdIJj76ArTzSGUBqsa9qjOr7AUQ=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=ug+keLvbAkCBS0WZWlUlmH1UsDpal/Xnu2yZL+f+IKC7reVDM9D2ak2SQHqL6Un0VeX4tIkn1Ks6ySEr2ZdUr6W09msq9Rq2Knms1cqf8PeAEfVeOsX8YhomB0/88aHNqTPRVEWDnvyv6tJ6ObymIJtZXrrHPOcd2IeMl7qppnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=BnQiAAaA; arc=none smtp.client-ip=209.85.216.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--cmllamas.bounces.google.com
+	s=arc-20240116; t=1788280529; c=relaxed/simple;
+	bh=N8JM3AGLYH7uWa9CDWzRiEpqBo+EGY0M+jTXIhBNq+w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=efLQ+obv5Zyah56xBpiGRBVUNJGhHlj8ArYFr+LYQ5MBgsl9qmmatlJ9WSJk+FsaenLVW0IcLU5xmRmLEySgvvES7v0Yw44s6Chq5Zea+rYSaBIuxxDcNQr3w1xvOumk0CA8Ff5vjoRKc14nLFSzlB5J5jCjihvfq6QJr/vkm3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JTpemz1J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="BnQiAAaA"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38f5ac7416eso1441a91.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JTpemz1J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAD791F00ACA
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:35:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788280527;
+	bh=ohW7UY6jRF8/wS6/l3RdRhBBpTsafPMYyJNXCMz+GIw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=JTpemz1JdI1TYNNCQS3gvhcbKXgfipNBY6U3U5aK6wnOY8rDW4mbwui7wXglFmqtX
+	 9M0zVjx5NckXQAE6xiMc3rSmAXwE3E1DVjf2hhWAzRVilhTkqbeZDw6fVYK0plXVAn
+	 FMkiP4TSPYAij0Mw/iAltpNblsr3hneehsTONm9YifC3V1sSECIu1oozxTC3df9W3Z
+	 zFGNLqyNI/NC6rnxTquiw49Qa9ztDfX3YUPUm96X10DhUw+PxfmjkBs2ttUYYOJseK
+	 OVBck7zwj5KcMOr2E1Juh74P1eahIc56OiDATKiO/jx8pmtgX4QulqHt+o6pKLqSbL
+	 PCo9WL4HY8Qfw==
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a305310ddaso302261fa.0
         for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 09:35:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788280526; x=1788885326; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fOQzO1BwLqdJ6VWVJ7Bsn3PX5GscE0Esr+/b/xerP4U=;
-        b=BnQiAAaAfm9xU//FEf50iWunOo7QUkAgkuNhscgqwapFJNDvFUSomFLngiA5RW2egT
-         Pfgw4hQwPQPPmIwnQNMTf18839G0rRadDnVEnhyua11vfmuEwnUAlTX9KVe3dY1QIevR
-         /q6OvSlGyIPJeTHm9zy6e+JFGEooJ5BFzpLG3Cz3J4fsJpwpt972QceSmtkAvznCvNfF
-         dC7I3Xc1j4WAkT85gEK19fUzpbjHuF2gnDFZyezQhSSGlPyd3Q2ntOxQd4EwY03Vlnby
-         SnYAmASRiFv278F9MM3s/oc3xlOvc3rdkonpubh1E4RhjXgq6Ku5vTo03uLHfndyKapZ
-         BsFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788280526; x=1788885326;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fOQzO1BwLqdJ6VWVJ7Bsn3PX5GscE0Esr+/b/xerP4U=;
-        b=aqq/AFLEURzI2VXcVMp25oDmHv2ddG38ubuGVXRPb7u31Ia5FI8yKNdq6EzvAUwJTp
-         dQmw25RkyYd9KfSCv+kj8mRaM06IxRWoEBXPfN23x7aOCrTgu/qVkveYPY6eXh5m4MJL
-         EhKvH4DiR2/P39K8yO0mfDZKqFT5Y0YHC086u0ACs2DJm1y9zoYjTidYSL8NGQhZsgpC
-         0854a1lTuCNzKWu5+a1yvIOPSFv0Q7WPBS4yFjOZHAaWJrT3cFGRbpLesOVGlj7PnFup
-         IEhuRCnnHo9d7tDorVqUqRtyS5npw/3s7pTREJZBFuR0r5FW0wuYdTvQHx7DW217fSXv
-         WdFg==
-X-Forwarded-Encrypted: i=1; AKwUvBzyFmoctU5OR7+BpVCDnPHr6bRnzkD7RmNeWPJ0z3jUHSFDdlAEA7fKBAnE96/W30g6DLIH69qISQVX4Bo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mxmkG4RuaniXqSNKmBOLFfBO3QNUQWv+1PZaBEs2sJm7G+a6XO
-	B5f/zGPtTwCk4F1S7XMYPyIBnSvYUyZYdwFfY7mh3Iz9SorFWCQc3Vmvdha3AbmfwtWn99p1u2D
-	ddeEV2jSEYrw5OA==
-X-Received: from dybsr39.prod.google.com ([2002:a05:7301:71a7:b0:328:ea0:399e])
- (user=cmllamas job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90b:3ec1:b0:38e:7168:281 with SMTP id 98e67ed59e1d1-396d0f2dcd8mr41443991a91.10.1788280526175;
- Tue, 01 Sep 2026 09:35:26 -0700 (PDT)
-Date: Tue,  1 Sep 2026 16:35:14 +0000
-In-Reply-To: <20260901163521.1355535-1-cmllamas@google.com>
+X-Forwarded-Encrypted: i=1; AKwUvBxIo2FwAyX+8V60AHh5CAt4kPtHVH61DnyVorjCDdzlywdS/N8jnAIi1SvE5sqcOz6LieGwoRqAae4ksdc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kYkYJZIpUl1VMKAYwSKI1gk6LRPkKo5FrhKKqg3SoF9HQLd+yE
+	4NJWl63ROP0IqoMUZLUqAtr5xkaz0icoDscequt+kr5RmNdJ7YtYWufPOfh7ViaaAr6+QV+JRr8
+	0Jdz7AdmnKWW7rPr8TXAw1Y7GXlrgQrc=
+X-Received: by 2002:a05:6512:2384:b0:5b4:a9e6:aa9b with SMTP id
+ 2adb3069b0e04-5b5fe0d82bcmr4339765e87.13.1788280526139; Tue, 01 Sep 2026
+ 09:35:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260901163521.1355535-1-cmllamas@google.com>
-X-Mailer: git-send-email 2.55.0.966.g6673acef38-goog
-Message-ID: <20260901163521.1355535-2-cmllamas@google.com>
-Subject: [PATCH v3 1/5] binder: set VM_DONTEXPAND
-From: Carlos Llamas <cmllamas@google.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"=?UTF-8?q?Arve=20Hj=C3=B8nnev=C3=A5g?=" <arve@android.com>, Todd Kjos <tkjos@android.com>, 
-	Christian Brauner <brauner@kernel.org>, Carlos Llamas <cmllamas@google.com>, 
-	Alice Ryhl <aliceryhl@google.com>
-Cc: kernel-team@android.com, linux-kernel@vger.kernel.org, 
-	Suren Baghdasaryan <surenb@google.com>, stable@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>
+MIME-Version: 1.0
+References: <20260831194428.2287055-1-mario.limonciello@amd.com>
+ <20260831194428.2287055-2-mario.limonciello@amd.com> <f18fafe4-f873-4080-8ddf-72fb6abec557@amd.com>
+ <fc724887-fbad-4433-85b2-27dca6da28dd@amd.com>
+In-Reply-To: <fc724887-fbad-4433-85b2-27dca6da28dd@amd.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 1 Sep 2026 18:34:31 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0ipHi6DFbd=kCnJvxQ4qzsdANHou6uAPXbhFxUrLpdmuw@mail.gmail.com>
+X-Gm-Features: AcwNN1VbtB8tSvW4djDqQk6HmLj6pWKgELFaMSxC7WUTfQB8XFHS9f8A7fYlhoA
+Message-ID: <CAJZ5v0ipHi6DFbd=kCnJvxQ4qzsdANHou6uAPXbhFxUrLpdmuw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] ACPI: CPPC: Refactor boost ratio handling
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: K Prateek Nayak <kprateek.nayak@amd.com>, "Rafael J . Wysocki" <rafael@kernel.org>, 
+	linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org, x86@kernel.org, 
+	Vishal Badole <Vishal.Badole@amd.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Binder does not support expanding VMAs. It caches the original size
-under alloc->buffer_size during mmap() and expanding the VMA would only
-result in a wasted virtual range. Set the VM_DONTEXPAND flag to prevent
-the vma from being expanded via mremap().
+On Tue, Sep 1, 2026 at 5:28=E2=80=AFPM Mario Limonciello
+<mario.limonciello@amd.com> wrote:
+>
+>
+>
+> On 9/1/26 04:31, K Prateek Nayak wrote:
+> > On 9/1/2026 1:14 AM, Mario Limonciello wrote:
+> >> +int amd_get_max_frequency(unsigned int cpu)
+> >> +{
+> >> +    enum x86_topology_cpu_type type =3D cpu_data(cpu).topo.cpu_type;
+> >> +    const struct x86_cpu_id *id =3D x86_match_cpu(amd_zen6_client_ids=
+);
+> >> +    const struct amd_max_freq *max_freq;
+> >> +
+> >> +    if (!id)
+> >> +            return -ENODEV;
+> >> +
+> >> +    max_freq =3D (const struct amd_max_freq *)id->driver_data;
+> >> +
+> >> +    switch (type) {
+> >> +    case TOPO_CPU_TYPE_PERFORMANCE:
+> >> +            return max_freq->performance;
+> >> +    case TOPO_CPU_TYPE_EFFICIENCY:
+> >> +            return max_freq->efficiency;
+> >> +    case TOPO_CPU_TYPE_LOW_POWER:
+> >> +            return max_freq->low_power;
+> >> +    default:
+> >> +            break;
+> >> +    }
+> >> +
+> >> +    return -EINVAL;
+> >
+> > nit. Since we don't really propagate the error codes returned
+> > by amd_get_max_frequency(), maybe we can return 0 instead of
+> > -ENODEV, -EINVAL and the callers can simply do:
+> >
+> >      max_freq =3D amd_get_max_frequency(cpu);
+> >      if (!max_freq)
+> >           max_freq =3D /* Fallback */;
+> >
+> > similar to get_max_boost_ratio() pattern. No strong feelings
+> > either way.
+> >
+>
+> OK.  Will adjust for next version.
+>
+> >> +}
+> >> +EXPORT_SYMBOL_GPL(amd_get_max_frequency);
 
-Cc: stable@vger.kernel.org
-Fixes: 457b9a6f09f0 ("Staging: android: add binder driver")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260831224145.169403-1-cmllamas%40google.com?part=1
-Signed-off-by: Carlos Llamas <cmllamas@google.com>
----
- drivers/android/binder.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Please note though that all CPPC-related material is gated on this patch se=
+ries:
 
-diff --git a/drivers/android/binder.c b/drivers/android/binder.c
-index 8f2ef1bd539f..1b492ed48ea6 100644
---- a/drivers/android/binder.c
-+++ b/drivers/android/binder.c
-@@ -6056,7 +6056,8 @@ static int binder_mmap(struct file *filp, struct vm_area_struct *vma)
- 		       proc->pid, vma->vm_start, vma->vm_end, "bad vm_flags", -EPERM);
- 		return -EPERM;
- 	}
--	vm_flags_mod(vma, VM_DONTCOPY | VM_MIXEDMAP, VM_MAYWRITE);
-+	vm_flags_mod(vma, VM_DONTCOPY | VM_MIXEDMAP | VM_DONTEXPAND,
-+		     VM_MAYWRITE);
- 
- 	vma->vm_ops = &binder_vm_ops;
- 	vma->vm_private_data = proc;
--- 
-2.55.0.966.g6673acef38-goog
+https://lore.kernel.org/linux-acpi/20260830115644.2056983-1-christian.loehl=
+e@arm.com/
 
+and there are other multiple series already waiting.
+
+That queue needs to be flushed I'm afraid.
