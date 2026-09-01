@@ -1,101 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C70339719;
-	Tue,  1 Sep 2026 10:18:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8060147ACD5
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 10:19:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788257937; cv=none; b=E9M3Lvo01LoK7axJIRnMnrSAXV0xSU5uvTatJhDcd4Lw0dtd49gsP2620jX4tmcy1A/A2G/CvzBqkbHz4Ns9DrwtAkZkyw62KSICrbW59727SfdJKNZMfKN0sttC4UcXVOm2S/YE3uniM4++0gfUCu3fONNcPCJ1rzGt3L2ptdU=
+	t=1788257947; cv=none; b=lask3ecoV0tkA9+xRk/cfQeBX1dKd81kQRznPyFo5U9fIInQpBgfslTpj3RC32FWAk4R9T3JOiPAP0Iqkp0rgDJPqLDdF8bWkd0zkU5RcoV/hS2RhboZBvbgyAJ4RKKDnwvxExmP+V2p+3tE655q60bqfZkCcDiNrrz1c/2y8ZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788257937; c=relaxed/simple;
-	bh=WQX3IVodqbImdCBSG+YJAJR6aIXwTH2ynIp8BtWgjMI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ejoTKzRJl6PnPgc1EYSrFmFPYPJxf9gm3VtA2WnokUCmd/DlbdloalALqTxCCwN/Is9216LlXQpEXlweI89Hm7gelGAEcJVQeZJgNDckyud6WtEoJR5JF+L8u2aV6MIAzTsSSI3M6EiDgSiEh7oUSaBuQdQUWUL1l0XWLZSHpfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SKNjawl0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788257947; c=relaxed/simple;
+	bh=EIrNvUHDstHHjeFO3U3xOZlTlAPgkrzoxREHv2U3uN0=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=OeiZOpqb5tflTk1kVwaF0RPG9F32gImUbZbsZNRujcr+HDb75hs49m3/vUAcEmHohwH6PqJVk7EsFyMSCkbHTaUAvsLEvAk7y2+RXlzykcJOY9iD4M1vznVoxBNuZPzYQvYx7ROVGgvENCQln9S9kLec8VoZKOSFzrbwVPfBRa8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=frvFdlTO; arc=none smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SKNjawl0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF9101F00A3D;
-	Tue,  1 Sep 2026 10:18:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788257936;
-	bh=w5JPc2aRIFjCWmCKt0WbPeIcbKxS4QsvuWN5FwFGQIE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SKNjawl0qzxgCLVZArcuJpVCJTa+7NEsmMseJhMRYYmcA9yrR5yMxt9jP4ySIOt29
-	 5ChmvG+j4HMx28AUDl9suHomocKgiSFtfGZi8NX+IbbPW7A7SlNIFsrC2Vk4KdPRB0
-	 Ym4/Us3uKlH390Gc/alT0o+mZFiJb02PmOCyZEcpEUxN7hH+YE8giNu+U9Nm0Ca/Ua
-	 9JGh7Wvhw3G4RrGNw07AErdCbqvsMGSxiMbLDhnzb+tNR8L2e2AY7eJrl6zjezmgIF
-	 D9Ti1EAUjUNRoL11rY/hOsSv+oHcg2TBZpSaEcJdt79hVFj3sfHa4UMH9bFDc8RDBP
-	 PwtRs9/VHoFsA==
-Date: Tue, 1 Sep 2026 13:18:52 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Ben Cressey <ben@cressey.dev>
-Cc: Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
-	Mark Bloch <mbloch@nvidia.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Shahar Shitrit <shshitrit@nvidia.com>,
-	Carolina Jubran <cjubran@nvidia.com>,
-	Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
-	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Will Mortensen <will@extrahop.com>,
-	"Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
-Subject: Re: [PATCH net] Revert "net/mlx5: Add sensor name to temperature
- event message"
-Message-ID: <20260901101852.GI24140@unreal>
-References: <20260828-b4-mlx5-temp-warn-revert-v1-1-4e2ae5a0351f@cressey.dev>
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="frvFdlTO"
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c169ae1cb26so138393866b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 03:19:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1788257943; x=1788862743; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/R2B4UIn9uyXdoZMfmtsPZpaGxOVNwVD5ZuxHGzJeSs=;
+        b=frvFdlTOqgkCeW2YCZUfPilvQBCXd3N7umri5bdQa722FT9DT5tia80QY2a26O2crW
+         Hdn4WstmCXvtJXAKql6MNWiUf+eRBL1c6tC0PrvTGHa3LgrM/dneD22FvH4G6VCQdTep
+         ZgJTksz5hkMwn9KqttobQtKCsS7lVGvpduqid1wIiWTeqcvIpKEdEXtyDEo+xjfD68/Q
+         bQAofkA+GQPvSE6Eb7Jhi+GB+NNEe7BUPXOCrR4ByvoHeNeVi775Z+jX9N13SxTjwoIo
+         GTby0LiVgwKkIHvBgvrEHeSP34V/krX/plCXpkjgSjTlykVRtOmybrXoALO8y0NLIikr
+         Ecbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788257943; x=1788862743;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/R2B4UIn9uyXdoZMfmtsPZpaGxOVNwVD5ZuxHGzJeSs=;
+        b=OTRl3FrzA8dVOrYAdAahO+NJu1w7eVQU6ubEJ1NifVsnPSy8MwSIBwf4dOzM86mJds
+         qoXu4ljLhP2cpARQd9juSMDB7Zz0zgaAPJMePoRHDMafPiOe75CY8ssKDNjffMooFadc
+         en3XU7u2Mz4fhuMB3bNi52dAnpvQGIiouEaIktAQu7LjG2OsHNDN73BlkPKm/HgIUIem
+         XtXg1xl/MbHIVaLCjboshlt8AGpd4RyehJg/sJWVbrlpcmUFEpiqIjlURWYSi3XO7V5/
+         LWE+p0JFUOpuda/7CF3WrnSqsCwOl0P3Ra9o1okbMWuktl0qG8WuOTRkVvCkwHHVcHiC
+         oA8A==
+X-Forwarded-Encrypted: i=1; AHgh+Ron9wnYXNdPwe28/HoBBr9LHUcAdhookIWDJKJRuv+qrbgamXuz3cb+ow7FYCuhc61j5FWAwLKBwr51KgA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mvlfts9E8rBtiHyjzgIT6VTSx1rCJhdY5L134sKeQNGLH9AMNx
+	AWH0vDf7v9tytl2CKA4npjdOzLovrFoW/uMKCK89sUnZYatBqxRJV5TvfC6OwGosx9g=
+X-Gm-Gg: AR+sD13fQg2jQiViHocBn75jBsfoE6dbjYjorhibN7m/cTNpieo0OH+y8CRWcKnXtpy
+	RRgv6//7y0/l9WRyQUH4vA9RLkxGa+7EiQklR7V7J+2+W9aRc1+s7h5BrMou8emMfJOnID058yS
+	1RDxdZpw8/2Nkh0MQg/ux46hTtuYWF9Tm/SioHAOjt+XmWzkMWp8E000zXJVahM0jJzgbenp5xn
+	uFegS6hty9oSzLi2QXzHKPXQuIpxpf/wxN1Zlfo9NtMwQsa2GBigTtNiRj5DsrrDIfmNd/HgBqV
+	fiFAGbCRf9cXl4KW2pgDt4TNws83OctK+9mI+iwXXCeMB3/HWWefWU1XVPyVkD2qEBvws1kWlEd
+	g2twDAQpzBCm2VlJA/uYNd5KgB69faFUmmKqeNZv0UyG7iBf487VI3TU5pfh6Bq7VieVeTInm4h
+	5vqMky15uHPyqUj/TWxsPb4uyRDDrEL1iTneAYfkxFi/TQv33iB8j+mCI9BMc0NCae2ysZEcjUR
+	VIQOYssfCFLUmDPs0soPvfPZLZRsQt1/A==
+X-Received: by 2002:a17:907:3cc4:b0:c16:6dac:a008 with SMTP id a640c23a62f3a-c25b919fe0emr274723666b.8.1788257942589;
+        Tue, 01 Sep 2026 03:19:02 -0700 (PDT)
+Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255ee0b388sm549393466b.5.2026.09.01.03.19.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 03:19:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260828-b4-mlx5-temp-warn-revert-v1-1-4e2ae5a0351f@cressey.dev>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 01 Sep 2026 12:19:01 +0200
+Message-Id: <DL3WJ9AX6P5Y.QS2RPHUIJWVL@fairphone.com>
+Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
+ <linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-bluetooth@vger.kernel.org>,
+ <linux-wireless@vger.kernel.org>, <ath11k@lists.infradead.org>, "Dmitry
+ Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v2 0/7] Enable Bluetooth and WiFi on Fairphone
+ (Gen. 6)
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Bjorn Andersson" <andersson@kernel.org>, "Konrad Dybcio"
+ <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Alexander Koskovich" <AKoskovich@pm.me>, "Liam Girdwood"
+ <lgirdwood@gmail.com>, "Mark Brown" <broonie@kernel.org>, "Bartosz
+ Golaszewski" <brgl@kernel.org>, "Marcel Holtmann" <marcel@holtmann.org>,
+ "Luiz Augusto von Dentz" <luiz.dentz@gmail.com>, "Balakrishna Godavarthi"
+ <quic_bgodavar@quicinc.com>, "Rocky Liao" <quic_rjliao@quicinc.com>,
+ "Johannes Berg" <johannes@sipsolutions.net>, "Jeff Johnson"
+ <jjohnson@kernel.org>, "Luca Weiss" <luca.weiss@fairphone.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260403-milos-fp6-bt-wifi-v2-0-393322b27c5f@fairphone.com>
+ <178820768635.1699313.4119708799289566517.b4-ty@kernel.org>
+In-Reply-To: <178820768635.1699313.4119708799289566517.b4-ty@kernel.org>
 
-On Fri, Aug 28, 2026 at 04:55:52AM +0000, Ben Cressey wrote:
-> This reverts commit 46fd50cfcc12368bed9ae5257cc3beaea5b3c193.
-> 
-> print_sensor_names_in_bit_set() passes the sensor index from the
-> temperature warning event to hwmon_get_sensor_name(), which uses it
-> as an index into temp_channel_desc[]. That array is indexed by hwmon
-> channel, not by sensor index: it has one entry per ASIC or platform
-> sensor the device reports, plus at most one module sensor
-> (module_scount is 0 or 1). Module sensors have index 64 and up, so a
-> module temperature warning reads far past the end of the allocation
-> and prints whatever memory follows it, up to the next NUL byte, into
-> the log.
-> 
-> The mapping from sensor index to hwmon channel cannot be made
-> reliable here: the driver registers at most one module channel, while
-> the event can carry bits for other ports' modules, and the bitmap in
-> the existing warning already distinguishes the ASIC sensor (bit 0)
-> from module sensors (bit 64 and up). Drop the name lookup rather than
-> fix the mapping, as suggested in review of an earlier fix [1].
-> 
-> Fixes: 46fd50cfcc12 ("net/mlx5: Add sensor name to temperature event message")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Leon Romanovsky <leon@kernel.org>
-> Link: https://lore.kernel.org/netdev/20260518112555.GM33515@unreal/
-> Reported-by: Will Mortensen <will@extrahop.com>
-> Closes: https://lore.kernel.org/netdev/20260512-b4-mlx5-sensor-fix-v2-1-531fee4fd7fd@extrahop.com/
-> Link: https://lore.kernel.org/netdev/20260515-b4-mlx5-sensor-fix-v3-1-f537ce191d6c@extrahop.com/ [1]
-> Assisted-by: LLM
-> Reviewed-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
-> Signed-off-by: Ben Cressey <ben@cressey.dev>
-> ---
-> The restored warning string intentionally lacks the trailing period
-> and newline: this is a pure revert of 46fd50cfcc12, the commit that
-> added them.
-> 
-> Will - happy for you to carry this as v4 if you'd prefer.
-> ---
->  drivers/net/ethernet/mellanox/mlx5/core/events.c | 31 +++---------------------
->  drivers/net/ethernet/mellanox/mlx5/core/hwmon.c  |  5 ----
->  drivers/net/ethernet/mellanox/mlx5/core/hwmon.h  |  1 -
->  3 files changed, 3 insertions(+), 34 deletions(-)
-> 
+Hi Bjorn,
 
-Thanks,
-Acked-by: Leon Romanovsky <leon@kernel.org>
+On Mon Aug 31, 2026 at 10:21 PM CEST, Bjorn Andersson wrote:
+>
+> On Fri, 03 Apr 2026 15:52:46 +0200, Luca Weiss wrote:
+>> Add the required bits to enable Bluetooth and WiFi on the Milos
+>> SoC-based Fairphone (Gen. 6) smartphone.
+>>=20
+>>=20
+>
+> Applied, thanks!
+>
+> [3/7] dt-bindings: net: wireless: ath11k: Document WCN6755 WiFi
+>       commit: e506d34e57236c41cebacc43e50f35f5b52dc675
+
+Mostly checking in, are you planning to pick up the rest of the patches
+from this series as well? PATCH 1/7 (PMU dt-bindings) have been picked
+up already, and the bluetooth dt-bindings patch has an Acked-by since
+June sou you can also pick that up as far as I understand it. Then only
+dts is remaining which still appears to apply fine on latest -next.
+
+Shall I resend, or can you pick them up from this v2?
+
+Regards
+Luca
+
+>
+> Best regards,
+
