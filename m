@@ -1,110 +1,124 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 828695FDA7;
-	Tue,  1 Sep 2026 06:20:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788243627; cv=none; b=o1Wzp/5w1UrA26PwstJ9VK0y0Cz0MShjl+VTHa/1rRP+p+LySbcXsiYW9FMWERYzvYJ+smltXRXgtUmorptVD08N1JE/oLL9t+5K7cr32rr3c/gUrXemG1Lf2QtXMXIQG72PFSGe1MDepHkeO1GuCtjDCe5Mf4XzahOyEd6dfkg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788243627; c=relaxed/simple;
-	bh=YxiFU9/82jDAV6JYBPDzG7V683ieSGbBZ51OOgOUV9w=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=P/sH3IwimrC78X6XYhGcx+9UlwLy2x+1EXJRL1AWykOM/QDNuIpYrdZQkbBG9qbYMilMZz3iOM6EqU8n/DA8rfPirKYPvTDfq5xtA7nTEMTead8MqttbEgtQMGrQhae+cd3oCeAKADiTJwqFNbIyuGgn6yexzC4yIU0gBs8UV0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=pAfB3HYW; arc=none smtp.client-ip=117.135.210.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2C536728D
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:21:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788243685; cv=pass; b=BoJurhNP4W3V86U9gfM4KDsfHVc5tJtWthtncI60+dS6RYfms/IN02uIMGoIeJMq3Jzetl8dKIanmzlJ0rcdT/Yaq8VgB+4XTl9nVCWsl3O7KrbSiakHssCSjDJPGDmgcHGCwsl4k0ywZi8vR5AfPCU/1R7/PU4losdbdLLyV5c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788243685; c=relaxed/simple;
+	bh=I3lSPzdIKrqVH24xSYTfJkxcALnNqxzrGfeYxDEtYXM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HvuXhhsopQWJ15dH9UHwR79FH3Q2dogWFga3D5GjY/8DoPZLGK+lF/i/+df1e43IaBs1t1VlOsyCxWZ9QIzAafTg7ORHkptOdj2vmKSuzG9hS/YlU/dL2i2Zdu5hkM9yZ5a2qjhehE52F2L/Cj2V/ReDT//pPjYKnZvSxgRXt2o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=m7XwxRAr; arc=pass smtp.client-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="pAfB3HYW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=aJ
-	7PhLxxl4PYQ5oEasx3MRN7GPE1zqCps2cOFgmWAvc=; b=pAfB3HYWGvDac7V2Iy
-	ibBuvAl1Uy0CaCxA01Z5QR5U1dgSpDJr2xby0nrhTLRKg0fKX25QJEXqW88iLJJD
-	p/+zgmscmK2mkEutq7c8sbEmYWl9kmfTkTFq+ect7a9f3bmQwrMakYnnMgK70poO
-	c8XeL55jJmTfKFQN/iQOcfZc4=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDn78FjbpZqEUZBTQ--.7422S2;
-	Tue, 01 Sep 2026 14:19:16 +0800 (CST)
-From: guoqi0226 <guoqi0226@163.com>
-To: Frank <Frank.Sae@motor-comm.com>,
-	Andrew Lunn <andrew@lunn.ch>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cuiguoqi@kylinos.cn
-Subject: [PATCH] net: phy: motorcomm: keep chip delay defaults when firmware provides none
-Date: Tue,  1 Sep 2026 14:19:15 +0800
-Message-Id: <20260901061915.3410228-1-guoqi0226@163.com>
-X-Mailer: git-send-email 2.25.1
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="m7XwxRAr"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a611ba5130so6059952a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 23:21:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788243682; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EuEY/oUxRT4EiFOYgWpZgnQaz1JGVJvjaDv64TGjBOhj4bKz6getgjtZ7KeXGja6b5
+         dbwX+XgwbXQzbTmwDYy1mJLO+r8Z06aKx/Z0Hla8/0PziSs40K3D2vQyVpqp+jAmndA3
+         yc+gDZYQSMcRpq2J9kKZakZNzGEqYQ8uB4CRryjpWlpMZuuGIejTdNkAFG74r+9mErxF
+         Z22ZmlRy1ADSwPcT0DrU5hHiCCBCLMiVkVa/uyWzAjW17rC4vbLY4eSBNw1olcE1hk9/
+         Y5axA9seP7Z2j8+aWrC2fsxh0yGMZfR2bgxLpLXv2r7dycGky7Ap3yFslQ4fpIcvle+C
+         lMVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=I3lSPzdIKrqVH24xSYTfJkxcALnNqxzrGfeYxDEtYXM=;
+        fh=KUXZUBvUDkW5/duYBmBCfdEmbUHDSXOlKRN/kMo0ViU=;
+        b=QTiNHc3+Cu9R2icGkB8STB3U0V5Cz8/sMtqFUXp/PGaR1tppYfphlbXaNxoWcgomBs
+         wTmgqgjaW1xS6txgkdpzESvjfCuklkwEt+ofFQpONQZXEHoQYs2Zydl0nEoB6PUeYzEI
+         aAPp7USyLYWlpJI33FQQ58OxmnYrM51GXRQXo+AiIv7umtlootxPQ2LVOncvpsJhIpDp
+         Db8s20cKhlz+gr9UZicK5KVDFGo+tMY9WVa0rI8LilbKNY99tp4zzBKOYhY8etNS54ge
+         1QfssKmD+jWgFHsQP+drW2RcyWSsR8CCVPKQhsrE6BvKjv1X6mB5quSpA0pN2dvBa4Wn
+         SUsA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788243682; x=1788848482; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I3lSPzdIKrqVH24xSYTfJkxcALnNqxzrGfeYxDEtYXM=;
+        b=m7XwxRArAefMxoydkfuig8zdmevCCo4RtmerQMVrjBV9fKihtYIOJaK3l1lGEK3ib5
+         gcvlf6ijpgiMdJW+Pbmy+BxA5v6836IIIJ/Z/r1t8lA50Kbwq4U2yby2YRwvZFxmzqrB
+         o4Brj5IAuUp13ZuglvhmegFA6aS3DkQzPtfZqRQBrQFeez4fjNkTYQTW0kTgIAcGNKLu
+         DzBPyKxtwKs1i7rhvi5kiKVFis47uY6h9eaLGeYZYNIhjq0lCVVfCY6xM4s1SNld5tDz
+         mA8cd0lGrt5ZFPi7kJqT3zO+EtWktfaOyzYdILbCtTeUQ28+MsVobQq5Z9ddJC1ZVQhh
+         tSew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788243682; x=1788848482;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=I3lSPzdIKrqVH24xSYTfJkxcALnNqxzrGfeYxDEtYXM=;
+        b=f7f2Pm4JXMlra7ABkGtTJMqxlmiMLkZYWm1xjvRCzNzeg8ExZip2xckOP/4kNVej6X
+         dMZBRTqXiyw4IOY1TuqzL3qHhgCrjcRKp43eH3Ire4lZn4eo1nuIcVErjGyEljdw0hTt
+         JN5BL1GSazrFb+8mDToHsEeiTsNPJEd0mzGFl+956+nL/FjoRuUmWlbnXQuPenw4cOlM
+         mG9UD0GsknaYSuCdY5sik9LT1upxc7N25OvgAQ0NLhNvpTuOoQ/kXVz3DjkDSDwLo5yI
+         X14w0+dl8Ze6KTLE8URSq5pyskvJfYcORWYAv0mwJkC5U8OoVlxaUchFv89Spvtav/Of
+         3NHQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw6aVsJonUmJkaOB5NqRGznbgOxuFWpsBRB57tMCZZpiDCtPCkfNPkF0B3u73XecASHMyaNf9v2qJy0mqo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lu+386RkuRePTjYzzJm7WXkVsTXKlfUY4flKn2NDNOB1tq01eX
+	LEM4E2RQl7HeI3Cmdik4JWX8sRdFQA27Gg+pU005Qc/Nx5iR8GRWvq/BvKY0lWIGKcfmUpYtW7w
+	hnrQ6Mhg44lelmcZSTGow97vVi8Ogih5sKeYRZr41rQ==
+X-Gm-Gg: AYBFou10N9Uhj/IJDLRznoGHw0Emi4gWnb5+9Go+ErcBypTFYLorrjsda+T/0loSPFe
+	XHY4y/7ros30Vcnr6/B0RBw9WtJYKFM8cASyWAnDGcF+bU7D0hg8O12fqRl1MmYV8uqtNHXtkfw
+	8SNX0/ak6jl9Qc1/4AVHzd9FaBDljy8XkBhqf6bEOTSkCf/+A4dzwUa1U99CvhJRBM99eJ2sI0G
+	T76eJv5hymyrlkr8DWe1lT1cxBMUTrlJiEpYNPNhYV9Yu+wiEvud/etq+wYIjynazIQgavtZCy7
+	+5JDkyvMHR42NOSv7lGo89bIWKBxlWlQv4NC2tzT0dL8E9YpnI8N7kEcCNuROWszq53eQU19wMq
+	blppfA6z/s+gC
+X-Received: by 2002:a05:6402:42c4:b0:698:be4d:ca2a with SMTP id
+ 4fb4d7f45d1cf-6a663ac4091mr3714223a12.15.1788243681562; Mon, 31 Aug 2026
+ 23:21:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDn78FjbpZqEUZBTQ--.7422S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tryUWry7Xw4fKFWxCry3Arb_yoW8tFy7pr
-	W5XFWYqrWqg3W8Gwn8tan7ZryFqan3JrW7Gr1rWw1F9ws8AF9Yvr48KFy7tF1UCrW8Xa1a
-	vrZ5WayDuas0krJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jvMKtUUUUU=
-X-CM-SenderInfo: 5jxr1xaqsslqqrwthudrp/xtbC-gT0XWqWbmT87wAA32
+References: <20260825103855.721013-1-sshegde@linux.ibm.com>
+ <20260825103855.721013-6-sshegde@linux.ibm.com> <8262d2f9-9f2f-4821-8497-991d7c8448a3@arm.com>
+ <apMziCV_8y0xeIBT@yury> <53035ba4-53ec-4907-93b8-c8b957d1fa61@linux.ibm.com>
+ <CAKfTPtA5Bdw89hezn1wi_p0m0dJgJJ1GYg8H93PsvsMC4bVJxA@mail.gmail.com> <apWxmL_brfi4fa4z@yury>
+In-Reply-To: <apWxmL_brfi4fa4z@yury>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Tue, 1 Sep 2026 08:21:09 +0200
+X-Gm-Features: AcwNN1Utuah9bS1-hCxKZcQtbUk5R5Z8_GlRW8ZBL4bnKRqxoMfIHUQt_k9sfL0
+Message-ID: <CAKfTPtA4zmD=0Es2cXSHAodTZGLJPvv88s0_4QScp745PxFVMw@mail.gmail.com>
+Subject: Re: [PATCH v11 05/12] sched/core: Try to use a preferred CPU in is_cpu_allowed
+To: Yury Norov <ynorov@nvidia.com>
+Cc: Shrikanth Hegde <sshegde@linux.ibm.com>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+	linux-kernel@vger.kernel.org, mingo@kernel.org, peterz@infradead.org, 
+	juri.lelli@redhat.com, yury.norov@gmail.com, kprateek.nayak@amd.com, 
+	iii@linux.ibm.com, corbet@lwn.net, meted@linux.ibm.com, tglx@kernel.org, 
+	gregkh@linuxfoundation.org, pbonzini@redhat.com, seanjc@google.com, 
+	vschneid@redhat.com, huschle@linux.ibm.com, rostedt@goodmis.org, 
+	maddy@linux.ibm.com, srikar@linux.ibm.com, hdanton@sina.com, 
+	chleroy@kernel.org, vineeth@bitbyteword.org, frederic@kernel.org, 
+	arighi@nvidia.com, pauld@redhat.com, christian.loehle@arm.com, tj@kernel.org, 
+	tommaso.cucinotta@gmail.com, maz@kernel.org, rafael@kernel.org, 
+	rdunlap@infradead.org, kernellwp@gmail.com, linux-doc@vger.kernel.org, 
+	jgross@suse.com, virtualization@lists.linux.dev, sunlightlinux@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: cuiguoqi <cuiguoqi@kylinos.cn>
+On Mon, 31 Aug 2026 at 18:54, Yury Norov <ynorov@nvidia.com> wrote:
+>
+> On Mon, Aug 31, 2026 at 05:09:41PM +0200, Vincent Guittot wrote:
+>
+> > > Dietmar/Vincent,
+> > > Do you think it makes sense to enable the driver on ARM64 now?
+> > > Or you think it is better to delay it and once the feature is stable
+> > > ARM ecosystem can enable it?
+> >
+> > It's always better to support all arch by default, unless something is
+> > missing which is not the case here.
+>
+> ARM64 testing is obviously missed.
 
-ytphy_rgmii_clk_delay_config() unconditionally programs the YT8521
-RGMII delay registers. When firmware describes neither
-rx-internal-delay-ps nor tx-internal-delay-ps,
-ytphy_get_delay_reg_value() falls back to the default 1950 ps values
-and those are still written into CCR and RC1R, overwriting the chip
-strap/OTP settings. With phy-mode "rgmii-rxid" this clears the RX
-internal delay the MAC relies on, causing CRC errors, packet loss and
-link training failures at gigabit speed until the link falls back to
-100M.
-
-The fallback only supplies a value and does not skip the register
-write, so the check belongs in the caller. Since the hardware links
-cleanly at gigabit with the chip defaults untouched, return early when
-firmware provides neither delay property. Delays supplied via DT or
-ACPI _DSD are still honored.
-
-Since commit fffedfece2b4 ("net: phy: motorcomm: use device properties
-for firmware tuning") switched the driver to the generic device
-property API, this applies to both DT and ACPI platforms.
-
-Fixes: a6e68f0f8769 ("net: phy: Add dts support for Motorcomm yt8521 gigabit ethernet phy")
-Signed-off-by: cuiguoqi <cuiguoqi@kylinos.cn>
----
- drivers/net/phy/motorcomm.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
-index 5071605a1a11..a8b8ebbd4d6b 100644
---- a/drivers/net/phy/motorcomm.c
-+++ b/drivers/net/phy/motorcomm.c
-@@ -895,6 +895,18 @@ static int ytphy_rgmii_clk_delay_config(struct phy_device *phydev)
- 	u16 mask, val = 0;
- 	int ret;
- 
-+	/* When firmware provides no delay properties, keep the chip's
-+	 * strap/OTP defaults untouched. Rewriting the delay registers here
-+	 * would zero the RX internal delay that rgmii-rxid relies on,
-+	 * which breaks gigabit links (CRC errors and intermittent link
-+	 * training failures).
-+	 */
-+	if (!device_property_present(&phydev->mdio.dev,
-+				     "rx-internal-delay-ps") &&
-+	    !device_property_present(&phydev->mdio.dev,
-+				     "tx-internal-delay-ps"))
-+		return 0;
-+
- 	rx_reg = ytphy_get_delay_reg_value(phydev, "rx-internal-delay-ps",
- 					   ytphy_rgmii_delays, tb_size,
- 					   &rxc_dly_en,
--- 
-2.25.1
-
+But the cpumask is already available not like if you need to create a new one
