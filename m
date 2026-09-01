@@ -1,101 +1,121 @@
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C6739023F
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:33:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A20A53905EB
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:34:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788291240; cv=none; b=VNgZYAhn81XC0ZfTFYksIWSF3OWAYodzluy4Ad5stICL7s2cHSTujI2OMskAoGWV3G5QiiS6GwyAvQoBasJ6LAa3OA+oEUaoD6MZADs559fgBH1/B0cBXZERpimbyLJcoW1nZVTsnzz3ndCpunzEXjN6G3xVSH46ymyu3CTKVvA=
+	t=1788291246; cv=none; b=ZwrmPB4nEp5jS1pJZa8hFwGW6mt7DEAarHJWqbCrDbvtwdVyFdZk16EMewXA5P2GZLEYI2ueoxGp/KFLhw0DoGSwwSvE3KIrCnzV6DCB8vbHmq8DXADozkEiHwi9977A0g3S5QDuGdbjlJRBxssg6qsXdhRxIiN5Ly3DOQp+NeY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788291240; c=relaxed/simple;
-	bh=QZCoj1cVP7Hqv2C3oAs0XizEvyiKlG+bPfHrCm4CO/E=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=LlZKhsDWgnId8FXXoQi64WPLs+D6+neH0ANpF8/duZxF70NVp24LqwqS+r359r0cPYbZQO40ngY8hw992gmNCqTmbZKz5VAlr4l6GkrZ0qtychJaPC1VB6w7xU6zO4sxHz+zuJHRPEaQJFZfmUvY/mo5HKWETDrQGJzjVgvwQLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=e8tmIMTy; arc=none smtp.client-ip=209.85.216.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1788291246; c=relaxed/simple;
+	bh=T9J1gxfDHXIxdL2lKT0b9+PNh7/0tNrUAHtU91n6X64=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lXtYXDhzsEt4GE+rfGfcxwY+ZcS4tob/ELFwvMmCtbGkoLr72UfXZjKGnZzUUzr9p+hmnz/R1mQAz4HQDOyRto2v+2b6c8PlPCrYSdR38HGTMqz2CnsRFPt8DyixjfwZWn276bbBgCsLwKT2e2dkKCiM2VncLz3QSfM9r+lPc6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KY3smrA6; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="e8tmIMTy"
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-398e1fafe17so274741a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:33:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KY3smrA6"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4956869750eso1053725e9.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:34:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788291238; x=1788896038; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vcp2HqC1PIYDI/BW2a9G/QFQNxe/OVU+goHiKCv6lBU=;
-        b=e8tmIMTy5n+PXwVMx7iz4kfOQw2n+BygsGi4uOHFmRBdFvM/pd7Dv4JvokWvm0TEaU
-         91XrITgRvEYJsphtS2X/A7FOV11hdrt2/wH8U1yC1jqA29HxxAqdtVVyEmlVy+IMxXFp
-         eQBE1OG+mDwDlCzeRB118YfN2pucvx1GDvllby6Gl8IyeawIhOH7A4ctu+giL3KHqGuG
-         gc1aVcLuz2Ft9vpnmzWaimbGOjI59/+op5MqMS9d5K+7Wk+IoM9UkbW9+LKEmg56vc70
-         yI3WJpWv8/poiTF9hBfAJzdwln3hs8QYcN/e37Bpghg+/CL7Qj08Cacyzlbzc9Oh58pa
-         CA6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788291238; x=1788896038;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788291242; x=1788896042; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vcp2HqC1PIYDI/BW2a9G/QFQNxe/OVU+goHiKCv6lBU=;
-        b=gzV8YDLY21UW74QIGxuSLXdVtILk8y2GcjjKoPy8hrRqcegsP5blNKoOfsNhyST1lw
-         89SN+9+meSxnRpSUwd76HdZBimBT9NOL6WwzGlrSpv65JEAtGOdq/rMJddJlsRmWJm2c
-         0KlxLFHIl67KTAPHCqVBCEQRk2qnkZlr3bVo90ZBkN5DhvqIXSZIpncXF8m/xrYcoM34
-         r59FQy6Qi/oSHUiJjQFMAZEXndnn7I6IpCJ/iMi02i8ZTJI6TGq2zqpFCOxRrCMvnl18
-         eFt+iZ+QRCpe7HJN8+TBU7fmg4GQGNl5xx9LHtK60cZEQ6PG/fFPJ2/pIYR2+OXqo1ZU
-         n6Vw==
-X-Forwarded-Encrypted: i=1; AKwUvBySvt7c6mDh2Vlvn0vr0Gba+FChcJj9ncH2Q9wVRQnYITpC+W2PVKBJDFUJBzQrHUCFo4fVAf5+/tU/Ms0=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/AhakOLv8GqWKqgKJ8VhFdCMyz7mMF+ofcswZFmRZaN7+v4zv
-	qwgAM9o6/V9SzB63lYxM8Nk2bR8/nKGh4yoNTSG14FU6iXLhCZmu+gFPK6Zv5JoYwd0ob6YNFqQ
-	mTKuP8w==
-X-Received: from pjff15.prod.google.com ([2002:a17:90b:562f:b0:38e:77e2:3e70])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:17cd:b0:398:ba9e:75ff
- with SMTP id 98e67ed59e1d1-398ba9e7753mr31253638a91.21.1788291237665; Tue, 01
- Sep 2026 12:33:57 -0700 (PDT)
-Date: Tue, 1 Sep 2026 12:33:50 -0700
-In-Reply-To: <7eedeed241687f3b5f5953bf6717afd2bf5a58d2.camel@infradead.org>
+        bh=a2OfNYzeEIu4hE7s+v0no5iuQlcG0XuJ4sg5AErZQdU=;
+        b=KY3smrA6vdSJ0S370Q78Po1z20FoRLW9kM27A97eh6fu19FyfpA58RFEu53gUfbTTV
+         n4KCF5AGTj1RRSphCkqjjm1jkWkDYp6pzrUCp3Cl3a3C8bu92dYiMBBENWIEjFiny64V
+         SdDEPiun1RwOyISKGRpECOR8JEf1gJVfNMuY545HfeVeU5mSQcfRuSe5zhWkJxyfZ9eN
+         aapVjA258MWzGXOJV/ULa/HPF8skxI3zeqswvt3iYc88EoqMSnjd0gEoyMJC43oCZfCI
+         3ECyNRqL23B2N6tsuBsF4aA5N/FSwD5AB84KlUhbog6c967AUY5udLXDa7Xuabsd9LUb
+         hI8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788291242; x=1788896042;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a2OfNYzeEIu4hE7s+v0no5iuQlcG0XuJ4sg5AErZQdU=;
+        b=eFhmNW1P0yseiVYNzLG0j7zctlpSY6dhONIGS4P4/VarBem/QrWSWr9KHbuKAB4yac
+         TXB0qcFPr+27Dg22U4S9qccCXIMUI9ZqyHd2ZPee/ILvcRyA+gwxWZ7OuaRBPU/WE8iG
+         UzDkUfYIqJNpxCFV5HWklyREBtjNThFpb6IqsklkPcBPpAPPnU991LmrRuqgJAo5mhWO
+         dYBeYlPmISvazH24iTzTXnvzrnv0Gl7oAhs5Cras6DLaVAqGOdZZIR1zG9urgLIDREC6
+         BiLSwq44fNzgyS/OGhxD/ovBv7KVzlcnFgFAtT6QlwpFxI6QKVUhQDs5ZOxWN7XpQxo/
+         NKMw==
+X-Forwarded-Encrypted: i=1; AHgh+RrT5bnH0CCpbURwEPKtM/0Br+bDeBY2YeGTdL1YqahCTPaxlVeMbrq4c8eQrmf1zSbOXKZbovTYnhMPCPk=@vger.kernel.org
+X-Gm-Message-State: AFuF++mMJpiAahR5sRzBiLoZA4J/issRy0YG9VhVl0TXVPhSez17/wLu
+	wJeUlRSkCXOW8TBfHnPqx03LQOZ23mwgU+xkX+yWdLB33q49Wn3P9V4sIndHrFk3
+X-Gm-Gg: AR+sD10ByNBp9bZMtMkJ1xVTJsjsmQbViJoJuisQlkKLC7i89g2rWZ6Bbky1K+2pvr5
+	oo7gSUgZp9kBUEeR/q0PaVrQU7T0kREf8+DhdKSETqbtEHhzewlUB+yO1e9c0Y6MxBSrlR9TDXp
+	w4MU/+Dv/40ZJBtDhdep5X4rXQ2auKfHQ5JDt2IaN3osJyD9UZ2N+opBFNYILvVu/ssPOE/33MO
+	FT52rLQVmxPai7yimxskXEgwDhK3Mj1opiWgcfELKQcrcfAVERmpDsFiQNjlhHq6l+SYW2wUnGa
+	R8OcAxTUdaCYI8Yo7nOoMWsJeXreq0OnV+PWrFZdzL9QuT34eBScDD0TYT3lRSGJuNuWG7JNrAw
+	fT1/7KXnHLbeaNyIbdd+kaBnSMspS9juOsoNGaC5RMioh7HPIxo8c0IQsrcEhNi9l18obJZIPbn
+	HMx6Iv4CyBFwZJp3TU0KnK+hacheGOvSIjKM5BGUK1ncIlIE4PqiG5dTtfSbbU9PufCRsXEAlc5
+	l4uj3bdvkirfJo+BM5+zOacP/4/YoljERYUxYm+1m0qp/5FC66Hn5ZVGjZhRDegPX+bktwMbrti
+	toyoag==
+X-Received: by 2002:a05:600c:4f92:b0:49b:90cc:3c87 with SMTP id 5b1f17b1804b1-49b91c487b2mr576060905e9.13.1788291242049;
+        Tue, 01 Sep 2026 12:34:02 -0700 (PDT)
+Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448ed3840sm1099834f8f.17.2026.09.01.12.33.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 12:34:00 -0700 (PDT)
+From: Orgad Shaneh <orgads@gmail.com>
+To: tsbogend@alpha.franken.de
+Cc: linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] MIPS: Octeon: apply USB FDT fixups also when USB is modular
+Date: Tue,  1 Sep 2026 19:33:55 +0000
+Message-ID: <20260901193357.1352617-1-orgads@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260827175728.1574-1-orgads@gmail.com>
+References: <20260827175728.1574-1-orgads@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260826214952.129BB1F000E9@smtp.kernel.org> <7eedeed241687f3b5f5953bf6717afd2bf5a58d2.camel@infradead.org>
-Message-ID: <apconttxYicjmZSd@google.com>
-Subject: Re: [PATCH v10 21/21] KVM: x86: Use kernel timekeeping snapshot to
- get walltime+TSC
-From: Sean Christopherson <seanjc@google.com>
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: pbonzini@redhat.com, Thomas Gleixner <tglx@linutronix.de>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, paul@xen.org, dongli.zhang@oracle.com, 
-	sashiko-reviews@lists.linux.dev
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 28, 2026, David Woodhouse wrote:
-> On Wed, 2026-08-26 at 21:49 +0000, sashiko-bot@kernel.org wrote:
-> > [Severity: High]
-> > Does removing KVM's local TSC clamping expose guests to mismatched time pairs?
-> > 
-> > When establishing the guest's PV clock, KVM provides a master clock
-> > snapshot pairing a host TSC with a system time. The previous read_tsc()
-> > logic explicitly clamped the TSC to cycle_last to maintain mathematical
-> > consistency.
-> 
-> I think this is basically the same class of issue I brought up in
-> https://lore.kernel.org/all/87v7beb7s3.ffs@fw13/ and Thomas said the
-> right thing is just to ignore it?
->
-> If the discrepancy was more than a few cycles, we shouldn't be in
-> masterclock mode anyway, should we?
+The uctl/usbn device-tree fixups in octeon_prune_device_tree() - which
+set the board's USB reference-clock frequency and type from
+__cvmx_helper_board_usb_get_clock_type() - are guarded by
+"#ifdef CONFIG_USB", which is false when USB is built as a module. The
+fixups then silently disappear and octeon-hcd sees whatever default the
+DTS carries (12MHz crystal in octeon_3xxx.dts), leaving the PHY dead or
+the bus erroring on boards with a different reference clock.
 
-Agreed.  If a host CPU really has a TSC that is observably behind others, KVM
-will mark the TSC unstable when loading a vCPU on that pCPU.
+Use IS_ENABLED() so USB=m gets the same fixups as USB=y.
 
-		s64 tsc_delta = !vcpu->arch.last_host_tsc ? 0 :
-				rdtsc() - vcpu->arch.last_host_tsc;
-		if (tsc_delta < 0)
-			mark_tsc_unstable("KVM discovered backwards TSC");
+Fixes: 7fd57ab9d9cf ("MIPS: Octeon: Fix compile error when USB is not enabled.")
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Orgad Shaneh <orgads@gmail.com>
+---
 
-And as Thomas pointed out, the discrepancy will show up at some point.  E.g. even
-if the kernel provided a perfect pair, RDTSC from the guest would read a too-low
-value since KVM has historically required identical offsets to use masterclock,
-i.e. the guest would still be able to observe time going backwards if a vCPU did
-__pvclock_clocksource_read() with a TSC that is behind the masterclock reference.
+v2: no code change; added the Assisted-by tag for the AI assistance used
+    (Documentation/process/coding-assistants.rst).
+
+diff --git a/arch/mips/cavium-octeon/octeon-platform.c b/arch/mips/cavium-octeon/octeon-platform.c
+--- a/arch/mips/cavium-octeon/octeon-platform.c
++++ b/arch/mips/cavium-octeon/octeon-platform.c
+@@ -18,7 +18,7 @@
+ #include <asm/octeon/octeon.h>
+ #include <asm/octeon/cvmx-helper-board.h>
+ 
+-#ifdef CONFIG_USB
++#if IS_ENABLED(CONFIG_USB)
+ #include <linux/usb/ehci_def.h>
+ #include <linux/usb/ehci_pdriver.h>
+ #include <linux/usb/ohci_pdriver.h>
+@@ -1080,7 +1080,7 @@
+ 		;
+ 	}
+ 
+-#ifdef CONFIG_USB
++#if IS_ENABLED(CONFIG_USB)
+ 	/* OHCI/UHCI USB */
+ 	alias_prop = fdt_getprop(initial_boot_params, aliases,
+ 				 "uctl", NULL);
+-- 
+2.47.0
