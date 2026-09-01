@@ -1,148 +1,128 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1C41E42BEAA;
-	Tue,  1 Sep 2026 17:49:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE3BA48CD7B;
+	Tue,  1 Sep 2026 17:51:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788284993; cv=none; b=ZC8faGP/pNEy0F5ZgzjQu2IroyGaZrHQ/1KEf0ec/dKcLguy9IS+9MsL+QJefH77TWPxog58jbNqpaazuxuHCH54jRKzPdDRTJ96br9yaSext1Z7VBzOCcmSTrq3oXjQqakaMzCb6+fnbsYKKT/0YgieZNvzvFj++W3ycq6u/Xo=
+	t=1788285106; cv=none; b=gsllYtdkEl2/BPncxhRK+2UGki2uk4NhvJWZci2e5RVO738T0ZLpwV7aqs4VowKGkIVGvBDOdtNgMbS3i9F4QW6Muha/HtHaJBqafurHU47U0p9oJfhMdN3hf0NJAVg5j2/1lTJKPuELq66ZmEgRuM1pySpNm83AIvyFlXTw/aw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788284993; c=relaxed/simple;
-	bh=F0LklRtFSXeQjK7D6ZPutqx+XbwgMNSwpv1KRwrlgCo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dt0zQwZ0EKbKSRTZHK8SPWBGf1ZCD1wQc3dbP+L26/xjuRUp6NjkExEGUcrrIIjWsM4mqx+KCH4bqLrGc6jDJoj9CpCl/0vZ1DZezQXDMoI3tAA02mqYpZ4z7ECxVRlwRv9KnaB4hJ3hZAwbYi7uxAnC9/xQJqxKVUl5v/jWpeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=WdRudZ9o; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1788285106; c=relaxed/simple;
+	bh=mk6ZlwMR8I8JyL7P8y24/m1gn7Yiaio7RVEkXCR57rk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tzjyWXsPo+Ydr2LR81WqHJtXaI4ymWVz34EJvdFUhsAUkFNJUyf/OxnJrjxRMypZfki4NrHRKhYWYYWd6rB0Mze2A7/zwgTep4Bo60RDyUzm/z+X4eg8ku5sP8gb4j+IC+266QtY+pDw0ZV6jcyeu84w0bv2TuqMYepGBc8wOtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hn8bwCGu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="WdRudZ9o"
-Received: from localhost.localdomain (unknown [52.172.102.219])
-	by linux.microsoft.com (Postfix) with ESMTPSA id DAE1E20B7128;
-	Tue,  1 Sep 2026 10:49:09 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com DAE1E20B7128
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788284954;
-	bh=2gguwpYhmjNlRVlGYJOLn4hwFyH2pbwnWpRN0CDsyZU=;
-	h=From:To:Cc:Subject:Date:From;
-	b=WdRudZ9onwk2aci+42Z6mU7v9arNtEsXzqqZnuxwJwIf+2bujhLy2cWikhiHrdAGN
-	 GJXQ4zlpGa/Z6uVCiE+MeQDUizkpBKewxb23i7K3weC1n8gPFdsQOz/AcjNYtsUozy
-	 nve3R1+GnvRUf7Zr45IE8aRN8mRjHG5VtjZFwR/E=
-From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
-To: almaz.alexandrovich@paragon-software.com
-Cc: ntfs3@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com,
-	xmei5@asu.edu,
-	tgopinath@linux.microsoft.com,
-	kys@microsoft.com,
-	"Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
-Subject: [PATCH] fs/ntfs3: validate target_attr in log_replay()
-Date: Tue,  1 Sep 2026 13:49:34 -0400
-Message-ID: <20260901174934.6275-1-cenzhang@linux.microsoft.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hn8bwCGu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EA0D1F000E9;
+	Tue,  1 Sep 2026 17:51:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788285105;
+	bh=oMqnx0cSzXOgUG5/dEgx7SkbOHcdfGj04WjrZWYxDLE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Hn8bwCGucDycl0BIqxDSdg7l3vg6KOJ6Bi3OP2ujwXRz9PDh+bcCNiRUGXjrpmi2n
+	 XiEQqNzo8nlua7UFs2rzUHELLbSwWQ/hiluVidrF1lKN7/mnsHu4qH3+ls2QuDgnBP
+	 3mB2oRPdCnAkrm8AMspnR1R4gSQkGteCYLfJx2zHngjuz9KXMKkcRjE/k8ZN1IhzbQ
+	 7QPiPnLNK+dW1XaYAP8xkejwceAyw3zDh0LgmbkcH1h54841LBIXv+1sZfFMqC6K2Y
+	 SYkrrJ2N1ceK3szY0HEPitv8PGQyqNhEKUrgrtS311UstKR7USUkJJMtmO9CoMov1W
+	 mvwAzRjNKJ2MQ==
+Date: Tue, 1 Sep 2026 18:51:41 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-serial@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Lubomir Rintel <lkundrak@v3.sk>,
+	in file <devicetree@vger.kernel.org>,
+	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] dt-bindings: serial: 8250: add marvell,armada-38x-uart
+ compatible
+Message-ID: <20260901-corrode-unvented-4cf271941722@spud>
+References: <20260901004203.49686-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="SToglXmfLL+RKNIv"
+Content-Disposition: inline
+In-Reply-To: <20260901004203.49686-1-rosenp@gmail.com>
 
-log_replay() treats lrh->target_attr as a byte offset to an
-OPEN_ATTR_ENRTY in the open-attribute restart table. A valid offset is
-the table header size plus an integral number of entries. The redo
-lookup checks only target_attr < bytes_per_rt(oatbl); its earlier
-alignment check subtracts the header size without first checking the
-lower bound, so the subtraction can wrap.
+--SToglXmfLL+RKNIv
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The undo lookup has no table-bound check, and its earlier alignment
-check is skipped when lcns_follow is zero. Unlike the redo lookup, it
-also does not reject unallocated entries or NULL entry pointers.
+On Mon, Aug 31, 2026 at 05:42:03PM -0700, Rosen Penev wrote:
+> The Armada 38x and 98DX3236 SoCs use this compatible, either paired
+> with "ns16550a" (armada-38x.dtsi) or on its own
+> (armada-xp-98dx3236.dtsi). Neither form is covered by the 8250
+> binding, so dtbs_check reports:
+>=20
+>   serial@12000: failed to match any schema with compatible:
+>   ['marvell,armada-38x-uart', 'ns16550a']
+>=20
+> Add a standalone const entry and a two-string variant paired with
+> "ns16550a".
 
-A crafted $LogFile can therefore point into the table header, the middle
-of an entry, or past the table and trigger an out-of-bounds access.
+Only one of these is correct, add one and fix the users.
+Given there's match data, it's probably the standalone one.
 
-BUG: KASAN: slab-out-of-bounds in log_replay+0x7d44/0x9d80
-  fs/ntfs3/fslog.c:5235 log_replay()
-  ntfs_loadlog_and_replay()
-  ntfs_fill_super()
-  path_mount()
+pw-bot: changes-requested
 
-Add rstbl_entry_valid() to require a nonzero entry size and an offset
-between the table header and end that is aligned to the entry size. Use
-it before both lookups, and make the undo lookup match the redo lookup
-by rejecting unallocated entries and NULL entry pointers. Skip
-targetless records with no LCN work before the lookup so their unused
-target_attr is not subjected to the new validation.
+Thanks,
+Conor.
 
-Fixes: b46acd6a6a62 ("fs/ntfs3: Add NTFS journal")
-Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
-Cc: AutonomousCodeSecurity@microsoft.com
-Cc: stable@vger.kernel.org
-Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@linux.microsoft.com>
----
- fs/ntfs3/fslog.c | 33 +++++++++++++++++++++++++++++++--
- 1 file changed, 31 insertions(+), 2 deletions(-)
+>=20
+> Validated with make dt_binding_check (8250.yaml) and dt-validate on
+> armada-38x and armada-xp 98DX3236 boards: the UART schema errors are
+> gone.
+>=20
+> Assisted-by: opencode:big-pickle
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/serial/8250.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documen=
+tation/devicetree/bindings/serial/8250.yaml
+> index 8c2c177faf89..f71c6afe02f2 100644
+> --- a/Documentation/devicetree/bindings/serial/8250.yaml
+> +++ b/Documentation/devicetree/bindings/serial/8250.yaml
+> @@ -109,6 +109,7 @@ properties:
+>        - const: aspeed,ast2500-vuart
+>        - const: intel,xscale-uart
+>        - const: mrvl,pxa-uart
+> +      - const: marvell,armada-38x-uart
+>        - const: nuvoton,wpcm450-uart
+>        - const: nuvoton,npcm750-uart
+>        - const: nvidia,tegra20-uart
+> @@ -119,6 +120,9 @@ properties:
+>                - exar,xr16l2551
+>                - exar,xr16l2550
+>            - const: ns8250
+> +      - items:
+> +          - const: marvell,armada-38x-uart
+> +          - const: ns16550a
+>        - items:
+>            - enum:
+>                - altr,16550-FIFO32
+> --=20
+> 2.55.0
+>=20
 
-diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
-index ed50c1d0c23e..1ddff43dbe87 100644
---- a/fs/ntfs3/fslog.c
-+++ b/fs/ntfs3/fslog.c
-@@ -384,6 +384,14 @@ static inline u32 bytes_per_rt(const struct RESTART_TABLE *rt)
- 	       sizeof(struct RESTART_TABLE);
- }
- 
-+static inline bool rstbl_entry_valid(const struct RESTART_TABLE *rt, u32 off)
-+{
-+	u16 size = le16_to_cpu(rt->size);
-+
-+	return size && off >= sizeof(*rt) && off < bytes_per_rt(rt) &&
-+	       !((off - sizeof(*rt)) % size);
-+}
-+
- /* Log record length. */
- static inline u32 lrh_length(const struct LOG_REC_HDR *lr)
- {
-@@ -5086,7 +5094,7 @@ int log_replay(struct ntfs_inode *ni, bool *initialized)
- 		goto read_next_log_do_action;
- 
- 	t16 = le16_to_cpu(lrh->target_attr);
--	if (t16 >= bytes_per_rt(oatbl)) {
-+	if (!rstbl_entry_valid(oatbl, t16)) {
- 		err = -EINVAL;
- 		goto out;
- 	}
-@@ -5231,8 +5239,29 @@ int log_replay(struct ntfs_inode *ni, bool *initialized)
- 	if (lrh->undo_op == cpu_to_le16(Noop))
- 		goto read_next_log_undo_action;
- 
--	oe = Add2Ptr(oatbl, le16_to_cpu(lrh->target_attr));
-+	/* Skip records with neither target nor LCN work. */
-+	t16 = le16_to_cpu(lrh->undo_op);
-+	if (!lrh->lcns_follow && !is_target_required(t16) &&
-+	    can_skip_action(t16))
-+		goto read_next_log_undo_action;
-+
-+	t16 = le16_to_cpu(lrh->target_attr);
-+	if (!rstbl_entry_valid(oatbl, t16)) {
-+		err = -EINVAL;
-+		goto out;
-+	}
-+
-+	oe = Add2Ptr(oatbl, t16);
-+	if (oe->next != RESTART_ENTRY_ALLOCATED_LE) {
-+		err = -EINVAL;
-+		goto out;
-+	}
-+
- 	oa = oe->ptr;
-+	if (!oa) {
-+		err = -EINVAL;
-+		goto out;
-+	}
- 
- 	t16 = le16_to_cpu(lrh->lcns_follow);
- 	if (!t16)
+--SToglXmfLL+RKNIv
+Content-Type: application/pgp-signature; name=signature.asc
 
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
--- 
-2.55.0
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapcQrQAKCRB4tDGHoIJi
+0kA5AP96ot4argarOlgm/qdoWeZgmyzkpAcwl8ej4iDZ88d37gEA6I/nD5yQZzOL
+AoeeJsgShmEcMaI/5GG/Z8vucUkNDQQ=
+=JF0w
+-----END PGP SIGNATURE-----
+
+--SToglXmfLL+RKNIv--
