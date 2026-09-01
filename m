@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4C5A48124C;
-	Tue,  1 Sep 2026 12:15:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBCC5472084;
+	Tue,  1 Sep 2026 12:15:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788264953; cv=none; b=EIs8Hsx6LZpIFzEexGCDjzs199adqNeWLPtZ3I6CnOlUb9BWrs1fcbm6INCRYNaxZ99bKWJ81Fq0GMM0gHyTseTBtp47Imu8xmDNyjACG60htPr6I9flp0daEfN1APD9owEl/dA9KP2VF4vICr0gj9fYmbC1MBnb7Em8N/Ih1Tc=
+	t=1788264962; cv=none; b=QYdSsP6vlkwMhgBIQy7qipb9cWHPS1H3YLMzuXXGdpgz9mlxwGJtz6W/OWtjuw/f6ULjGNT/4UGM+RRF0CtsfkefJIoXxvsPXrPBeRagDlWDaKQ/VjXc4CwG9KsOWjPwLtyDlaL+XRLAAyTEGzNYanjUUyy9CaO15SZgkoCOzkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788264953; c=relaxed/simple;
-	bh=YH4wIymDLQxftNOfKmORn42+3BV23xqNEVhE75kY+38=;
+	s=arc-20240116; t=1788264962; c=relaxed/simple;
+	bh=086SkQQ2jeSjezggo/uGFR2PxvWxOaW9c+GLTBjd1HI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=axAtrG9evGiVipkyquxlYiVSY1J5cl8L7Vd4bADgKo0QyepzflGN3pQroz41TWHJYQBUYdErXItpVDIllsooNbsph9Qt55spr3LMNkNFnDnfV55ewSwiVt/AhMV4FxYJnsWucfqJQqShWXurizCA5bac3MmpXNCbhQMwPFH4Yjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cd984zp8; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=FCLijE2zINU6Q8DGfMCWF9BTrHPE9jM/QIwn5xdRKnbC27tQE0PHlfIz8KyBsO6aB5dEoeQg00WzzLR9WOQk+pZmEUfWYyJBjfC882wZtablhTwCuggM9meDWPc6eDjxoXI0PDwvEOpZo+sEkh3KIuSeow3twurKe4PfT0g8SXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iDuPiu2k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cd984zp8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A7FF1F00A3E;
-	Tue,  1 Sep 2026 12:15:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iDuPiu2k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB0C91F00A3F;
+	Tue,  1 Sep 2026 12:15:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788264949;
-	bh=Zifdcelt9vSyiVScEOWDSkdG96TKAbb8cZXWmUV74ck=;
+	s=k20260515; t=1788264959;
+	bh=YsBPJcZ1ybFdEapB0ophtPws6nIEBMtmOqfItzqjiwI=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=cd984zp8d0nqOOTPB2nCgtWGTAEiL/wcFJYyVwufKIIlv6NmBar5bBvjLLxiSxBCi
-	 Y8q6hWBdthYKkhlqzqUUA5QqGmMt+pE25SIcuDFlBf7PVJcpraTE0kQ+BBTX2ISBUP
-	 b05qbU2Wk0Rt2rj+H6vi9z0pozge6Od2ZIxbdsJrrj8BtCSBhsuBL/xSa76NpLlWfw
-	 mj4x20O5tNygIkn3mCGt0Xis5Wh8J8lWshAHmHCZ1ZIQ9E3HWC00wP3qri1GzrcX3v
-	 ArTr4d2d1EaDM5iYKEhIx3cvnQh1nJDDAeWEIAbBkxmYTTFcQooKgVoMOn9RA6hnpO
-	 yOTQEZVJT7UHg==
+	b=iDuPiu2ks8NGNuHDxxUREdRncnsHb3HEcxLej5c9D+Afi4fjyMmnfodQheIKo3e43
+	 SFTJddD6cjocUHWhYCYfNHgjpw9BUFCLtn8gO854Oh1aQcTUpxb5t7diBeDx6uDlSo
+	 vZu/H301XAdAKRWyld1bTb88onUYYV8IDAnbqLHSwmliIlSDSMzk+KAyvs4OUNm254
+	 Y7V7ZX5PeP/oMEWUDuo1WVNwuC3WMCN37XPXE747c+c9cSxDL14SBocZGWlbKEgppx
+	 Jk/kfx1eSiytatZQzD337O/TgZrWxz8R/eU+FW0QTXmjhkPRKerhR9tiVdE0s2mhCi
+	 5yzCFNXah7VKw==
 From: Christian Brauner <brauner@kernel.org>
-Date: Tue, 01 Sep 2026 14:14:38 +0200
-Subject: [PATCH 13/27] fs: port xattr to const mnt_idmap
+Date: Tue, 01 Sep 2026 14:14:40 +0200
+Subject: [PATCH 15/27] fs: port ->set_acl() to pass const mnt_idmap
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -37,7 +37,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-work-idmap-const-v1-13-54ccd48e100b@kernel.org>
+Message-Id: <20260901-work-idmap-const-v1-15-54ccd48e100b@kernel.org>
 References: <20260901-work-idmap-const-v1-0-54ccd48e100b@kernel.org>
 In-Reply-To: <20260901-work-idmap-const-v1-0-54ccd48e100b@kernel.org>
 To: linux-fsdevel@vger.kernel.org
@@ -52,12 +52,12 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
  linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>
 X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=60790; i=brauner@kernel.org;
- h=from:subject:message-id; bh=YH4wIymDLQxftNOfKmORn42+3BV23xqNEVhE75kY+38=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRNO7g2xqPxWqUne73U2sfBIXHfXX+8WchuwF5mpXw3Z
- JvXkkbbjhIWBjEuBlkxRRaHdpNwueU8FZuNMjVg5rAygQxh4OIUgIlMWM/w42OXosrLhL7ddz3C
- T+w/+7kyZuPPSWrltxh2XersYd5+iuGvdEPwDbnQl8ssui5Jrt4VwRH+XS/6/neLkvo3B3NWTlv
- GAAA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=34692; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=086SkQQ2jeSjezggo/uGFR2PxvWxOaW9c+GLTBjd1HI=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRNO7hWfpKkZ937EOmDii+3b3DIU2nls2m8bRw/2UrjV
+ djcVUFuHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABOZFcnI8CLjyJ0tsabmt+cs
+ 99qR2haoo/3ucPnvM43HHQ0/rjEvO8fIcLpj8tKXc5ckpD2o+vf5mlzay1dF3k0X2E5M2tE/fet
+ 3O24A
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
@@ -77,1405 +77,838 @@ No functional changes.
 
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- Documentation/filesystems/locking.rst |  2 +-
- fs/9p/xattr.c                         |  2 +-
- fs/afs/xattr.c                        |  4 ++--
- fs/attr.c                             |  2 +-
- fs/btrfs/xattr.c                      |  6 +++---
- fs/ceph/xattr.c                       |  2 +-
- fs/ecryptfs/inode.c                   |  2 +-
- fs/ext2/xattr_security.c              |  2 +-
- fs/ext2/xattr_trusted.c               |  2 +-
- fs/ext2/xattr_user.c                  |  2 +-
- fs/ext4/xattr_hurd.c                  |  2 +-
- fs/ext4/xattr_security.c              |  2 +-
- fs/ext4/xattr_trusted.c               |  2 +-
- fs/ext4/xattr_user.c                  |  2 +-
- fs/f2fs/xattr.c                       |  4 ++--
- fs/fuse/dir.c                         |  2 +-
- fs/fuse/fuse_i.h                      |  2 +-
- fs/fuse/xattr.c                       |  2 +-
- fs/gfs2/xattr.c                       |  2 +-
- fs/hfs/attr.c                         |  2 +-
- fs/hfsplus/xattr.c                    |  2 +-
- fs/hfsplus/xattr_security.c           |  2 +-
- fs/hfsplus/xattr_trusted.c            |  2 +-
- fs/hfsplus/xattr_user.c               |  2 +-
- fs/jffs2/security.c                   |  2 +-
- fs/jffs2/xattr_trusted.c              |  2 +-
- fs/jffs2/xattr_user.c                 |  2 +-
- fs/jfs/xattr.c                        |  4 ++--
- fs/kernfs/inode.c                     |  4 ++--
- fs/nfs/nfs4proc.c                     | 10 +++++-----
- fs/ntfs/ea.c                          |  2 +-
- fs/ntfs3/xattr.c                      |  2 +-
- fs/ocfs2/xattr.c                      |  6 +++---
- fs/orangefs/xattr.c                   |  2 +-
- fs/overlayfs/xattrs.c                 |  4 ++--
- fs/pidfs.c                            |  2 +-
- fs/smb/client/xattr.c                 |  2 +-
- fs/smb/server/vfs.c                   | 24 ++++++++++++------------
- fs/smb/server/vfs.h                   | 20 ++++++++++----------
- fs/ubifs/xattr.c                      |  2 +-
- fs/xattr.c                            | 22 +++++++++++-----------
- fs/xfs/xfs_iops.c                     |  2 +-
- fs/xfs/xfs_xattr.c                    |  2 +-
- include/linux/capability.h            |  4 ++--
- include/linux/fs.h                    |  2 +-
- include/linux/lsm_hook_defs.h         |  8 ++++----
- include/linux/security.h              | 20 ++++++++++----------
- include/linux/xattr.h                 | 20 ++++++++++----------
- kernel/bpf/inode.c                    |  2 +-
- mm/shmem.c                            |  2 +-
- net/socket.c                          |  4 ++--
- security/commoncap.c                  |  8 ++++----
- security/integrity/evm/evm_main.c     |  4 ++--
- security/integrity/ima/ima_appraise.c |  4 ++--
- security/security.c                   |  8 ++++----
- security/selinux/hooks.c              |  6 +++---
- security/smack/smack_lsm.c            |  6 +++---
- 57 files changed, 135 insertions(+), 135 deletions(-)
+ Documentation/filesystems/vfs.rst |  2 +-
+ fs/9p/acl.c                       |  2 +-
+ fs/9p/acl.h                       |  2 +-
+ fs/bad_inode.c                    |  2 +-
+ fs/btrfs/acl.c                    |  2 +-
+ fs/btrfs/acl.h                    |  2 +-
+ fs/ceph/acl.c                     |  2 +-
+ fs/ceph/super.h                   |  2 +-
+ fs/ecryptfs/inode.c               |  2 +-
+ fs/ext2/acl.c                     |  2 +-
+ fs/ext2/acl.h                     |  2 +-
+ fs/ext4/acl.c                     |  2 +-
+ fs/ext4/acl.h                     |  2 +-
+ fs/f2fs/acl.c                     |  2 +-
+ fs/f2fs/acl.h                     |  2 +-
+ fs/fuse/acl.c                     |  2 +-
+ fs/fuse/fuse_i.h                  |  2 +-
+ fs/gfs2/acl.c                     |  2 +-
+ fs/gfs2/acl.h                     |  2 +-
+ fs/internal.h                     |  4 ++--
+ fs/jffs2/acl.c                    |  2 +-
+ fs/jffs2/acl.h                    |  2 +-
+ fs/jfs/acl.c                      |  2 +-
+ fs/jfs/jfs_acl.h                  |  2 +-
+ fs/nfs/nfs3_fs.h                  |  2 +-
+ fs/nfs/nfs3acl.c                  |  2 +-
+ fs/ntfs/ea.c                      |  2 +-
+ fs/ntfs/ea.h                      |  2 +-
+ fs/ntfs3/ntfs_fs.h                |  4 ++--
+ fs/ntfs3/xattr.c                  |  4 ++--
+ fs/ocfs2/acl.c                    |  2 +-
+ fs/ocfs2/acl.h                    |  2 +-
+ fs/orangefs/acl.c                 |  2 +-
+ fs/orangefs/orangefs-kernel.h     |  2 +-
+ fs/overlayfs/inode.c              |  2 +-
+ fs/overlayfs/overlayfs.h          |  2 +-
+ fs/posix_acl.c                    | 12 ++++++------
+ fs/smb/client/cifsacl.c           |  2 +-
+ fs/smb/client/cifsproto.h         |  2 +-
+ fs/smb/server/vfs.c               |  4 ++--
+ fs/smb/server/vfs.h               |  4 ++--
+ fs/xattr.c                        |  4 ++--
+ fs/xfs/xfs_acl.c                  |  2 +-
+ fs/xfs/xfs_acl.h                  |  2 +-
+ fs/xfs/xfs_iops.c                 |  4 ++--
+ fs/xfs/xfs_iops.h                 |  2 +-
+ include/linux/fs.h                |  2 +-
+ include/linux/posix_acl.h         | 16 ++++++++--------
+ 48 files changed, 67 insertions(+), 67 deletions(-)
 
-diff --git a/Documentation/filesystems/locking.rst b/Documentation/filesystems/locking.rst
-index 5af7d3bfcd5e..2a91bc9c15f5 100644
---- a/Documentation/filesystems/locking.rst
-+++ b/Documentation/filesystems/locking.rst
-@@ -148,7 +148,7 @@ prototypes::
- 		   struct inode *inode, const char *name, void *buffer,
- 		   size_t size);
- 	int (*set)(const struct xattr_handler *handler,
--                   struct mnt_idmap *idmap,
-+                   const struct mnt_idmap *idmap,
-                    struct dentry *dentry, struct inode *inode, const char *name,
-                    const void *buffer, size_t size, int flags);
- 
-diff --git a/fs/9p/xattr.c b/fs/9p/xattr.c
-index 8604e3377ee7..dac06587f67a 100644
---- a/fs/9p/xattr.c
-+++ b/fs/9p/xattr.c
-@@ -153,7 +153,7 @@ static int v9fs_xattr_handler_get(const struct xattr_handler *handler,
+diff --git a/Documentation/filesystems/vfs.rst b/Documentation/filesystems/vfs.rst
+index c43bad400c30..d0dd2be3885b 100644
+--- a/Documentation/filesystems/vfs.rst
++++ b/Documentation/filesystems/vfs.rst
+@@ -440,7 +440,7 @@ As of kernel 2.6.22, the following members are defined:
+ 				   unsigned open_flag, umode_t create_mode);
+ 		int (*tmpfile) (struct mnt_idmap *, struct inode *, struct file *, umode_t);
+ 		struct posix_acl * (*get_acl)(struct mnt_idmap *, struct dentry *, int);
+-	        int (*set_acl)(struct mnt_idmap *, struct dentry *, struct posix_acl *, int);
++	        int (*set_acl)(const struct mnt_idmap *, struct dentry *, struct posix_acl *, int);
+ 		int (*fileattr_set)(const struct mnt_idmap *idmap,
+ 				    struct dentry *dentry, struct file_kattr *fa);
+ 		int (*fileattr_get)(struct dentry *dentry, struct file_kattr *fa);
+diff --git a/fs/9p/acl.c b/fs/9p/acl.c
+index ae7e7cf7523a..d09a41336d0d 100644
+--- a/fs/9p/acl.c
++++ b/fs/9p/acl.c
+@@ -152,7 +152,7 @@ struct posix_acl *v9fs_iop_get_acl(struct mnt_idmap *idmap,
+ 	return v9fs_get_cached_acl(d_inode(dentry), type);
  }
  
- static int v9fs_xattr_handler_set(const struct xattr_handler *handler,
--				  struct mnt_idmap *idmap,
-+				  const struct mnt_idmap *idmap,
- 				  struct dentry *dentry, struct inode *inode,
- 				  const char *name, const void *value,
- 				  size_t size, int flags)
-diff --git a/fs/afs/xattr.c b/fs/afs/xattr.c
-index 3770ed236f67..bcffd7236cc9 100644
---- a/fs/afs/xattr.c
-+++ b/fs/afs/xattr.c
-@@ -97,7 +97,7 @@ static const struct afs_operation_ops afs_store_acl_operation = {
-  * Set a file's AFS3 ACL.
-  */
- static int afs_xattr_set_acl(const struct xattr_handler *handler,
--			     struct mnt_idmap *idmap,
-+			     const struct mnt_idmap *idmap,
-                              struct dentry *dentry,
-                              struct inode *inode, const char *name,
-                              const void *buffer, size_t size, int flags)
-@@ -228,7 +228,7 @@ static const struct afs_operation_ops yfs_store_opaque_acl2_operation = {
-  * Set a file's YFS ACL.
-  */
- static int afs_xattr_set_yfs(const struct xattr_handler *handler,
--			     struct mnt_idmap *idmap,
-+			     const struct mnt_idmap *idmap,
-                              struct dentry *dentry,
-                              struct inode *inode, const char *name,
-                              const void *buffer, size_t size, int flags)
-diff --git a/fs/attr.c b/fs/attr.c
-index c5033afe04bf..1845d145fe4c 100644
---- a/fs/attr.c
-+++ b/fs/attr.c
-@@ -158,7 +158,7 @@ static bool chgrp_ok(const struct mnt_idmap *idmap,
-  * Should be called as the first thing in ->setattr implementations,
-  * possibly after taking additional locks.
-  */
--int setattr_prepare(struct mnt_idmap *idmap, struct dentry *dentry,
-+int setattr_prepare(const struct mnt_idmap *idmap, struct dentry *dentry,
- 		    struct iattr *attr)
+-int v9fs_iop_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int v9fs_iop_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		     struct posix_acl *acl, int type)
  {
- 	struct inode *inode = d_inode(dentry);
-diff --git a/fs/btrfs/xattr.c b/fs/btrfs/xattr.c
-index ab55d10bd71f..a06420b9c662 100644
---- a/fs/btrfs/xattr.c
-+++ b/fs/btrfs/xattr.c
-@@ -353,7 +353,7 @@ static int btrfs_xattr_handler_get(const struct xattr_handler *handler,
+ 	int retval;
+diff --git a/fs/9p/acl.h b/fs/9p/acl.h
+index 333cfcc281da..7de74704c465 100644
+--- a/fs/9p/acl.h
++++ b/fs/9p/acl.h
+@@ -12,7 +12,7 @@ struct posix_acl *v9fs_iop_get_inode_acl(struct inode *inode, int type,
+ 				   bool rcu);
+ struct posix_acl *v9fs_iop_get_acl(struct mnt_idmap *idmap,
+ 					  struct dentry *dentry, int type);
+-int v9fs_iop_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int v9fs_iop_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		     struct posix_acl *acl, int type);
+ int v9fs_acl_chmod(struct inode *inode, struct p9_fid *fid);
+ int v9fs_set_create_acl(struct inode *inode, struct p9_fid *fid,
+diff --git a/fs/bad_inode.c b/fs/bad_inode.c
+index c2cfa9395bc9..6e116810f66d 100644
+--- a/fs/bad_inode.c
++++ b/fs/bad_inode.c
+@@ -153,7 +153,7 @@ static int bad_inode_tmpfile(struct mnt_idmap *idmap,
+ 	return -EIO;
  }
  
- static int btrfs_xattr_handler_set(const struct xattr_handler *handler,
--				   struct mnt_idmap *idmap,
-+				   const struct mnt_idmap *idmap,
- 				   struct dentry *unused, struct inode *inode,
- 				   const char *name, const void *buffer,
- 				   size_t size, int flags)
-@@ -395,7 +395,7 @@ static int btrfs_xattr_handler_get_security(const struct xattr_handler *handler,
- }
- 
- static int btrfs_xattr_handler_set_security(const struct xattr_handler *handler,
--					    struct mnt_idmap *idmap,
-+					    const struct mnt_idmap *idmap,
- 					    struct dentry *unused,
- 					    struct inode *inode,
- 					    const char *name,
-@@ -413,7 +413,7 @@ static int btrfs_xattr_handler_set_security(const struct xattr_handler *handler,
- }
- 
- static int btrfs_xattr_handler_set_prop(const struct xattr_handler *handler,
--					struct mnt_idmap *idmap,
-+					const struct mnt_idmap *idmap,
- 					struct dentry *unused, struct inode *inode,
- 					const char *name, const void *value,
- 					size_t size, int flags)
-diff --git a/fs/ceph/xattr.c b/fs/ceph/xattr.c
-index cc4ffbbcb719..7d77214c76c6 100644
---- a/fs/ceph/xattr.c
-+++ b/fs/ceph/xattr.c
-@@ -1352,7 +1352,7 @@ static int ceph_get_xattr_handler(const struct xattr_handler *handler,
- }
- 
- static int ceph_set_xattr_handler(const struct xattr_handler *handler,
--				  struct mnt_idmap *idmap,
-+				  const struct mnt_idmap *idmap,
- 				  struct dentry *unused, struct inode *inode,
- 				  const char *name, const void *value,
- 				  size_t size, int flags)
-diff --git a/fs/ecryptfs/inode.c b/fs/ecryptfs/inode.c
-index 6dafca14ca78..691b3a24b60a 100644
---- a/fs/ecryptfs/inode.c
-+++ b/fs/ecryptfs/inode.c
-@@ -1158,7 +1158,7 @@ static int ecryptfs_xattr_get(const struct xattr_handler *handler,
- }
- 
- static int ecryptfs_xattr_set(const struct xattr_handler *handler,
--			      struct mnt_idmap *idmap,
-+			      const struct mnt_idmap *idmap,
- 			      struct dentry *dentry, struct inode *inode,
- 			      const char *name, const void *value, size_t size,
- 			      int flags)
-diff --git a/fs/ext2/xattr_security.c b/fs/ext2/xattr_security.c
-index db47b8ab153e..ade074354258 100644
---- a/fs/ext2/xattr_security.c
-+++ b/fs/ext2/xattr_security.c
-@@ -19,7 +19,7 @@ ext2_xattr_security_get(const struct xattr_handler *handler,
- 
- static int
- ext2_xattr_security_set(const struct xattr_handler *handler,
--			struct mnt_idmap *idmap,
-+			const struct mnt_idmap *idmap,
- 			struct dentry *unused, struct inode *inode,
- 			const char *name, const void *value,
- 			size_t size, int flags)
-diff --git a/fs/ext2/xattr_trusted.c b/fs/ext2/xattr_trusted.c
-index 995f931228ce..0f12d634d6d0 100644
---- a/fs/ext2/xattr_trusted.c
-+++ b/fs/ext2/xattr_trusted.c
-@@ -26,7 +26,7 @@ ext2_xattr_trusted_get(const struct xattr_handler *handler,
- 
- static int
- ext2_xattr_trusted_set(const struct xattr_handler *handler,
--		       struct mnt_idmap *idmap,
-+		       const struct mnt_idmap *idmap,
- 		       struct dentry *unused, struct inode *inode,
- 		       const char *name, const void *value,
- 		       size_t size, int flags)
-diff --git a/fs/ext2/xattr_user.c b/fs/ext2/xattr_user.c
-index dd1507231081..48002c033e9c 100644
---- a/fs/ext2/xattr_user.c
-+++ b/fs/ext2/xattr_user.c
-@@ -30,7 +30,7 @@ ext2_xattr_user_get(const struct xattr_handler *handler,
- 
- static int
- ext2_xattr_user_set(const struct xattr_handler *handler,
--		    struct mnt_idmap *idmap,
-+		    const struct mnt_idmap *idmap,
- 		    struct dentry *unused, struct inode *inode,
- 		    const char *name, const void *value,
- 		    size_t size, int flags)
-diff --git a/fs/ext4/xattr_hurd.c b/fs/ext4/xattr_hurd.c
-index 8a5842e4cd95..a3ecbff72b10 100644
---- a/fs/ext4/xattr_hurd.c
-+++ b/fs/ext4/xattr_hurd.c
-@@ -32,7 +32,7 @@ ext4_xattr_hurd_get(const struct xattr_handler *handler,
- 
- static int
- ext4_xattr_hurd_set(const struct xattr_handler *handler,
--		    struct mnt_idmap *idmap,
-+		    const struct mnt_idmap *idmap,
- 		    struct dentry *unused, struct inode *inode,
- 		    const char *name, const void *value,
- 		    size_t size, int flags)
-diff --git a/fs/ext4/xattr_security.c b/fs/ext4/xattr_security.c
-index 776cf11d24ca..af5b8a93fed1 100644
---- a/fs/ext4/xattr_security.c
-+++ b/fs/ext4/xattr_security.c
-@@ -23,7 +23,7 @@ ext4_xattr_security_get(const struct xattr_handler *handler,
- 
- static int
- ext4_xattr_security_set(const struct xattr_handler *handler,
--			struct mnt_idmap *idmap,
-+			const struct mnt_idmap *idmap,
- 			struct dentry *unused, struct inode *inode,
- 			const char *name, const void *value,
- 			size_t size, int flags)
-diff --git a/fs/ext4/xattr_trusted.c b/fs/ext4/xattr_trusted.c
-index 9811eb0ab276..458e1982ef83 100644
---- a/fs/ext4/xattr_trusted.c
-+++ b/fs/ext4/xattr_trusted.c
-@@ -30,7 +30,7 @@ ext4_xattr_trusted_get(const struct xattr_handler *handler,
- 
- static int
- ext4_xattr_trusted_set(const struct xattr_handler *handler,
--		       struct mnt_idmap *idmap,
-+		       const struct mnt_idmap *idmap,
- 		       struct dentry *unused, struct inode *inode,
- 		       const char *name, const void *value,
- 		       size_t size, int flags)
-diff --git a/fs/ext4/xattr_user.c b/fs/ext4/xattr_user.c
-index 4b70bf4e7626..ad35215f6610 100644
---- a/fs/ext4/xattr_user.c
-+++ b/fs/ext4/xattr_user.c
-@@ -31,7 +31,7 @@ ext4_xattr_user_get(const struct xattr_handler *handler,
- 
- static int
- ext4_xattr_user_set(const struct xattr_handler *handler,
--		    struct mnt_idmap *idmap,
-+		    const struct mnt_idmap *idmap,
- 		    struct dentry *unused, struct inode *inode,
- 		    const char *name, const void *value,
- 		    size_t size, int flags)
-diff --git a/fs/f2fs/xattr.c b/fs/f2fs/xattr.c
-index 6728d1488cad..ffe4815ffa6d 100644
---- a/fs/f2fs/xattr.c
-+++ b/fs/f2fs/xattr.c
-@@ -67,7 +67,7 @@ static int f2fs_xattr_generic_get(const struct xattr_handler *handler,
- }
- 
- static int f2fs_xattr_generic_set(const struct xattr_handler *handler,
--		struct mnt_idmap *idmap,
-+		const struct mnt_idmap *idmap,
- 		struct dentry *unused, struct inode *inode,
- 		const char *name, const void *value,
- 		size_t size, int flags)
-@@ -111,7 +111,7 @@ static int f2fs_xattr_advise_get(const struct xattr_handler *handler,
- }
- 
- static int f2fs_xattr_advise_set(const struct xattr_handler *handler,
--		struct mnt_idmap *idmap,
-+		const struct mnt_idmap *idmap,
- 		struct dentry *unused, struct inode *inode,
- 		const char *name, const void *value,
- 		size_t size, int flags)
-diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
-index 4b87973c727d..0dbe3c6560f8 100644
---- a/fs/fuse/dir.c
-+++ b/fs/fuse/dir.c
-@@ -2143,7 +2143,7 @@ int fuse_flush_times(struct inode *inode, struct fuse_file *ff)
-  * vmtruncate() doesn't allow for this case, so do the rlimit checking
-  * and the actual truncation by hand.
-  */
--int fuse_do_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
-+int fuse_do_setattr(const struct mnt_idmap *idmap, struct dentry *dentry,
- 		    struct iattr *attr, struct file *file)
+-static int bad_inode_set_acl(struct mnt_idmap *idmap,
++static int bad_inode_set_acl(const struct mnt_idmap *idmap,
+ 			     struct dentry *dentry, struct posix_acl *acl,
+ 			     int type)
  {
- 	struct inode *inode = d_inode(dentry);
-diff --git a/fs/fuse/fuse_i.h b/fs/fuse/fuse_i.h
-index a07c75377a30..9ea346ea2e01 100644
---- a/fs/fuse/fuse_i.h
-+++ b/fs/fuse/fuse_i.h
-@@ -1189,7 +1189,7 @@ bool fuse_write_update_attr(struct inode *inode, loff_t pos, ssize_t written);
- int fuse_flush_times(struct inode *inode, struct fuse_file *ff);
- int fuse_write_inode(struct inode *inode, struct writeback_control *wbc);
- 
--int fuse_do_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
-+int fuse_do_setattr(const struct mnt_idmap *idmap, struct dentry *dentry,
- 		    struct iattr *attr, struct file *file);
- 
- void fuse_unlock_inode(struct inode *inode, bool locked);
-diff --git a/fs/fuse/xattr.c b/fs/fuse/xattr.c
-index cab2685acc65..53e3c5e6fff0 100644
---- a/fs/fuse/xattr.c
-+++ b/fs/fuse/xattr.c
-@@ -188,7 +188,7 @@ static int fuse_xattr_get(const struct xattr_handler *handler,
- }
- 
- static int fuse_xattr_set(const struct xattr_handler *handler,
--			  struct mnt_idmap *idmap,
-+			  const struct mnt_idmap *idmap,
- 			  struct dentry *dentry, struct inode *inode,
- 			  const char *name, const void *value, size_t size,
- 			  int flags)
-diff --git a/fs/gfs2/xattr.c b/fs/gfs2/xattr.c
-index b9f48d6f10a9..0e66e4849b57 100644
---- a/fs/gfs2/xattr.c
-+++ b/fs/gfs2/xattr.c
-@@ -1229,7 +1229,7 @@ int __gfs2_xattr_set(struct inode *inode, const char *name,
- }
- 
- static int gfs2_xattr_set(const struct xattr_handler *handler,
--			  struct mnt_idmap *idmap,
-+			  const struct mnt_idmap *idmap,
- 			  struct dentry *unused, struct inode *inode,
- 			  const char *name, const void *value,
- 			  size_t size, int flags)
-diff --git a/fs/hfs/attr.c b/fs/hfs/attr.c
-index f8395cdd1adf..6d737a085461 100644
---- a/fs/hfs/attr.c
-+++ b/fs/hfs/attr.c
-@@ -121,7 +121,7 @@ static int hfs_xattr_get(const struct xattr_handler *handler,
- }
- 
- static int hfs_xattr_set(const struct xattr_handler *handler,
--			 struct mnt_idmap *idmap,
-+			 const struct mnt_idmap *idmap,
- 			 struct dentry *unused, struct inode *inode,
- 			 const char *name, const void *value, size_t size,
- 			 int flags)
-diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
-index 21a1c196c71f..71364e093fa7 100644
---- a/fs/hfsplus/xattr.c
-+++ b/fs/hfsplus/xattr.c
-@@ -1008,7 +1008,7 @@ static int hfsplus_osx_getxattr(const struct xattr_handler *handler,
- }
- 
- static int hfsplus_osx_setxattr(const struct xattr_handler *handler,
--				struct mnt_idmap *idmap,
-+				const struct mnt_idmap *idmap,
- 				struct dentry *unused, struct inode *inode,
- 				const char *name, const void *buffer,
- 				size_t size, int flags)
-diff --git a/fs/hfsplus/xattr_security.c b/fs/hfsplus/xattr_security.c
-index 90f68ec119cd..1969919c12cb 100644
---- a/fs/hfsplus/xattr_security.c
-+++ b/fs/hfsplus/xattr_security.c
-@@ -23,7 +23,7 @@ static int hfsplus_security_getxattr(const struct xattr_handler *handler,
- }
- 
- static int hfsplus_security_setxattr(const struct xattr_handler *handler,
--				     struct mnt_idmap *idmap,
-+				     const struct mnt_idmap *idmap,
- 				     struct dentry *unused, struct inode *inode,
- 				     const char *name, const void *buffer,
- 				     size_t size, int flags)
-diff --git a/fs/hfsplus/xattr_trusted.c b/fs/hfsplus/xattr_trusted.c
-index fdbaebc1c49a..c140a95ab3f0 100644
---- a/fs/hfsplus/xattr_trusted.c
-+++ b/fs/hfsplus/xattr_trusted.c
-@@ -22,7 +22,7 @@ static int hfsplus_trusted_getxattr(const struct xattr_handler *handler,
- }
- 
- static int hfsplus_trusted_setxattr(const struct xattr_handler *handler,
--				    struct mnt_idmap *idmap,
-+				    const struct mnt_idmap *idmap,
- 				    struct dentry *unused, struct inode *inode,
- 				    const char *name, const void *buffer,
- 				    size_t size, int flags)
-diff --git a/fs/hfsplus/xattr_user.c b/fs/hfsplus/xattr_user.c
-index 6464b6c3d58d..7e5da15f9937 100644
---- a/fs/hfsplus/xattr_user.c
-+++ b/fs/hfsplus/xattr_user.c
-@@ -22,7 +22,7 @@ static int hfsplus_user_getxattr(const struct xattr_handler *handler,
- }
- 
- static int hfsplus_user_setxattr(const struct xattr_handler *handler,
--				 struct mnt_idmap *idmap,
-+				 const struct mnt_idmap *idmap,
- 				 struct dentry *unused, struct inode *inode,
- 				 const char *name, const void *buffer,
- 				 size_t size, int flags)
-diff --git a/fs/jffs2/security.c b/fs/jffs2/security.c
-index 437f3a2c1b54..67330aeb8ae8 100644
---- a/fs/jffs2/security.c
-+++ b/fs/jffs2/security.c
-@@ -57,7 +57,7 @@ static int jffs2_security_getxattr(const struct xattr_handler *handler,
- }
- 
- static int jffs2_security_setxattr(const struct xattr_handler *handler,
--				   struct mnt_idmap *idmap,
-+				   const struct mnt_idmap *idmap,
- 				   struct dentry *unused, struct inode *inode,
- 				   const char *name, const void *buffer,
- 				   size_t size, int flags)
-diff --git a/fs/jffs2/xattr_trusted.c b/fs/jffs2/xattr_trusted.c
-index b7c5da2d89bd..85133ad8b449 100644
---- a/fs/jffs2/xattr_trusted.c
-+++ b/fs/jffs2/xattr_trusted.c
-@@ -25,7 +25,7 @@ static int jffs2_trusted_getxattr(const struct xattr_handler *handler,
- }
- 
- static int jffs2_trusted_setxattr(const struct xattr_handler *handler,
--				  struct mnt_idmap *idmap,
-+				  const struct mnt_idmap *idmap,
- 				  struct dentry *unused, struct inode *inode,
- 				  const char *name, const void *buffer,
- 				  size_t size, int flags)
-diff --git a/fs/jffs2/xattr_user.c b/fs/jffs2/xattr_user.c
-index f64edce4927b..dcfd3caf1d8b 100644
---- a/fs/jffs2/xattr_user.c
-+++ b/fs/jffs2/xattr_user.c
-@@ -25,7 +25,7 @@ static int jffs2_user_getxattr(const struct xattr_handler *handler,
- }
- 
- static int jffs2_user_setxattr(const struct xattr_handler *handler,
--			       struct mnt_idmap *idmap,
-+			       const struct mnt_idmap *idmap,
- 			       struct dentry *unused, struct inode *inode,
- 			       const char *name, const void *buffer,
- 			       size_t size, int flags)
-diff --git a/fs/jfs/xattr.c b/fs/jfs/xattr.c
-index 11d7f74d207b..dcc4a69d44fe 100644
---- a/fs/jfs/xattr.c
-+++ b/fs/jfs/xattr.c
-@@ -956,7 +956,7 @@ static int jfs_xattr_get(const struct xattr_handler *handler,
- }
- 
- static int jfs_xattr_set(const struct xattr_handler *handler,
--			 struct mnt_idmap *idmap,
-+			 const struct mnt_idmap *idmap,
- 			 struct dentry *unused, struct inode *inode,
- 			 const char *name, const void *value,
- 			 size_t size, int flags)
-@@ -975,7 +975,7 @@ static int jfs_xattr_get_os2(const struct xattr_handler *handler,
- }
- 
- static int jfs_xattr_set_os2(const struct xattr_handler *handler,
--			     struct mnt_idmap *idmap,
-+			     const struct mnt_idmap *idmap,
- 			     struct dentry *unused, struct inode *inode,
- 			     const char *name, const void *value,
- 			     size_t size, int flags)
-diff --git a/fs/kernfs/inode.c b/fs/kernfs/inode.c
-index d53d104e54d5..b348d4cd150b 100644
---- a/fs/kernfs/inode.c
-+++ b/fs/kernfs/inode.c
-@@ -344,7 +344,7 @@ static int kernfs_vfs_xattr_get(const struct xattr_handler *handler,
- }
- 
- static int kernfs_vfs_xattr_set(const struct xattr_handler *handler,
--				struct mnt_idmap *idmap,
-+				const struct mnt_idmap *idmap,
- 				struct dentry *unused, struct inode *inode,
- 				const char *suffix, const void *value,
- 				size_t size, int flags)
-@@ -356,7 +356,7 @@ static int kernfs_vfs_xattr_set(const struct xattr_handler *handler,
- }
- 
- static int kernfs_vfs_user_xattr_set(const struct xattr_handler *handler,
--				     struct mnt_idmap *idmap,
-+				     const struct mnt_idmap *idmap,
- 				     struct dentry *unused, struct inode *inode,
- 				     const char *suffix, const void *value,
- 				     size_t size, int flags)
-diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
-index 04b1987115d5..21e5df7e5251 100644
---- a/fs/nfs/nfs4proc.c
-+++ b/fs/nfs/nfs4proc.c
-@@ -7866,7 +7866,7 @@ int nfs4_lock_delegation_recall(struct file_lock *fl, struct nfs4_state *state,
- #define XATTR_NAME_NFSV4_ACL "system.nfs4_acl"
- 
- static int nfs4_xattr_set_nfs4_acl(const struct xattr_handler *handler,
--				   struct mnt_idmap *idmap,
-+				   const struct mnt_idmap *idmap,
- 				   struct dentry *unused, struct inode *inode,
- 				   const char *key, const void *buf,
- 				   size_t buflen, int flags)
-@@ -7889,7 +7889,7 @@ static bool nfs4_xattr_list_nfs4_acl(struct dentry *dentry)
- #define XATTR_NAME_NFSV4_DACL "system.nfs4_dacl"
- 
- static int nfs4_xattr_set_nfs4_dacl(const struct xattr_handler *handler,
--				    struct mnt_idmap *idmap,
-+				    const struct mnt_idmap *idmap,
- 				    struct dentry *unused, struct inode *inode,
- 				    const char *key, const void *buf,
- 				    size_t buflen, int flags)
-@@ -7912,7 +7912,7 @@ static bool nfs4_xattr_list_nfs4_dacl(struct dentry *dentry)
- #define XATTR_NAME_NFSV4_SACL "system.nfs4_sacl"
- 
- static int nfs4_xattr_set_nfs4_sacl(const struct xattr_handler *handler,
--				    struct mnt_idmap *idmap,
-+				    const struct mnt_idmap *idmap,
- 				    struct dentry *unused, struct inode *inode,
- 				    const char *key, const void *buf,
- 				    size_t buflen, int flags)
-@@ -7935,7 +7935,7 @@ static bool nfs4_xattr_list_nfs4_sacl(struct dentry *dentry)
- #ifdef CONFIG_NFS_V4_SECURITY_LABEL
- 
- static int nfs4_xattr_set_nfs4_label(const struct xattr_handler *handler,
--				     struct mnt_idmap *idmap,
-+				     const struct mnt_idmap *idmap,
- 				     struct dentry *unused, struct inode *inode,
- 				     const char *key, const void *buf,
- 				     size_t buflen, int flags)
-@@ -7965,7 +7965,7 @@ static const struct xattr_handler nfs4_xattr_nfs4_label_handler = {
- 
- #ifdef CONFIG_NFS_V4_2
- static int nfs4_xattr_set_nfs4_user(const struct xattr_handler *handler,
--				    struct mnt_idmap *idmap,
-+				    const struct mnt_idmap *idmap,
- 				    struct dentry *unused, struct inode *inode,
- 				    const char *key, const void *buf,
- 				    size_t buflen, int flags)
-diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-index 744ea8c446e5..7fd323912510 100644
---- a/fs/ntfs/ea.c
-+++ b/fs/ntfs/ea.c
-@@ -852,7 +852,7 @@ static int ntfs_validate_fattr(struct ntfs_inode *ni, __le32 fattr)
- }
- 
- static int ntfs_setxattr(const struct xattr_handler *handler,
--		struct mnt_idmap *idmap, struct dentry *unused,
-+		const struct mnt_idmap *idmap, struct dentry *unused,
- 		struct inode *inode, const char *name, const void *value,
- 		size_t size, int flags)
- {
-diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
-index d800735477c3..5644167de863 100644
---- a/fs/ntfs3/xattr.c
-+++ b/fs/ntfs3/xattr.c
-@@ -863,7 +863,7 @@ static bool ntfs_is_reserved_lxattr(const char *name)
-  * ntfs_setxattr - inode_operations::setxattr
-  */
- static noinline int ntfs_setxattr(const struct xattr_handler *handler,
--				  struct mnt_idmap *idmap, struct dentry *de,
-+				  const struct mnt_idmap *idmap, struct dentry *de,
- 				  struct inode *inode, const char *name,
- 				  const void *value, size_t size, int flags)
- {
-diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
-index 35bcbb0ff607..da8e19e21a91 100644
---- a/fs/ocfs2/xattr.c
-+++ b/fs/ocfs2/xattr.c
-@@ -7503,7 +7503,7 @@ static int ocfs2_xattr_security_get(const struct xattr_handler *handler,
- }
- 
- static int ocfs2_xattr_security_set(const struct xattr_handler *handler,
--				    struct mnt_idmap *idmap,
-+				    const struct mnt_idmap *idmap,
- 				    struct dentry *unused, struct inode *inode,
- 				    const char *name, const void *value,
- 				    size_t size, int flags)
-@@ -7598,7 +7598,7 @@ static int ocfs2_xattr_trusted_get(const struct xattr_handler *handler,
- }
- 
- static int ocfs2_xattr_trusted_set(const struct xattr_handler *handler,
--				   struct mnt_idmap *idmap,
-+				   const struct mnt_idmap *idmap,
- 				   struct dentry *unused, struct inode *inode,
- 				   const char *name, const void *value,
- 				   size_t size, int flags)
-@@ -7629,7 +7629,7 @@ static int ocfs2_xattr_user_get(const struct xattr_handler *handler,
- }
- 
- static int ocfs2_xattr_user_set(const struct xattr_handler *handler,
--				struct mnt_idmap *idmap,
-+				const struct mnt_idmap *idmap,
- 				struct dentry *unused, struct inode *inode,
- 				const char *name, const void *value,
- 				size_t size, int flags)
-diff --git a/fs/orangefs/xattr.c b/fs/orangefs/xattr.c
-index 885fd3bd5a3d..a49e64566e1e 100644
---- a/fs/orangefs/xattr.c
-+++ b/fs/orangefs/xattr.c
-@@ -527,7 +527,7 @@ ssize_t orangefs_listxattr(struct dentry *dentry, char *buffer, size_t size)
- }
- 
- static int orangefs_xattr_set_default(const struct xattr_handler *handler,
--				      struct mnt_idmap *idmap,
-+				      const struct mnt_idmap *idmap,
- 				      struct dentry *unused,
- 				      struct inode *inode,
- 				      const char *name,
-diff --git a/fs/overlayfs/xattrs.c b/fs/overlayfs/xattrs.c
-index 5ae44b9c8790..acc54f6138ef 100644
---- a/fs/overlayfs/xattrs.c
-+++ b/fs/overlayfs/xattrs.c
-@@ -190,7 +190,7 @@ static int ovl_own_xattr_get(const struct xattr_handler *handler,
- }
- 
- static int ovl_own_xattr_set(const struct xattr_handler *handler,
--			     struct mnt_idmap *idmap,
-+			     const struct mnt_idmap *idmap,
- 			     struct dentry *dentry, struct inode *inode,
- 			     const char *name, const void *value,
- 			     size_t size, int flags)
-@@ -217,7 +217,7 @@ static int ovl_other_xattr_get(const struct xattr_handler *handler,
- }
- 
- static int ovl_other_xattr_set(const struct xattr_handler *handler,
--			       struct mnt_idmap *idmap,
-+			       const struct mnt_idmap *idmap,
- 			       struct dentry *dentry, struct inode *inode,
- 			       const char *name, const void *value,
- 			       size_t size, int flags)
-diff --git a/fs/pidfs.c b/fs/pidfs.c
-index a6a643f15d08..5bc136de8660 100644
---- a/fs/pidfs.c
-+++ b/fs/pidfs.c
-@@ -1102,7 +1102,7 @@ static int pidfs_xattr_get(const struct xattr_handler *handler,
- }
- 
- static int pidfs_xattr_set(const struct xattr_handler *handler,
--			   struct mnt_idmap *idmap, struct dentry *unused,
-+			   const struct mnt_idmap *idmap, struct dentry *unused,
- 			   struct inode *inode, const char *suffix,
- 			   const void *value, size_t size, int flags)
- {
-diff --git a/fs/smb/client/xattr.c b/fs/smb/client/xattr.c
-index 5091f6c0d7fe..f6c9343016f7 100644
---- a/fs/smb/client/xattr.c
-+++ b/fs/smb/client/xattr.c
-@@ -91,7 +91,7 @@ static int cifs_creation_time_set(unsigned int xid, struct cifs_tcon *pTcon,
- }
- 
- static int cifs_xattr_set(const struct xattr_handler *handler,
--			  struct mnt_idmap *idmap,
-+			  const struct mnt_idmap *idmap,
- 			  struct dentry *dentry, struct inode *inode,
- 			  const char *name, const void *value,
- 			  size_t size, int flags)
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index 0361de56edc2..3c4d18a4e8d5 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -216,7 +216,7 @@ int ksmbd_vfs_mkdir(struct ksmbd_work *work, const char *name, umode_t mode)
- 	return err;
- }
- 
--static ssize_t ksmbd_vfs_getcasexattr(struct mnt_idmap *idmap,
-+static ssize_t ksmbd_vfs_getcasexattr(const struct mnt_idmap *idmap,
- 				      struct dentry *dentry, char *attr_name,
- 				      int attr_name_len, char **attr_value)
- {
-@@ -841,7 +841,7 @@ ssize_t ksmbd_vfs_listxattr(struct dentry *dentry, char **list)
- 	return size;
- }
- 
--static ssize_t ksmbd_vfs_xattr_len(struct mnt_idmap *idmap,
-+static ssize_t ksmbd_vfs_xattr_len(const struct mnt_idmap *idmap,
- 				   struct dentry *dentry, char *xattr_name)
- {
- 	return vfs_getxattr(idmap, dentry, xattr_name, NULL, 0);
-@@ -856,7 +856,7 @@ static ssize_t ksmbd_vfs_xattr_len(struct mnt_idmap *idmap,
-  *
-  * Return:	read xattr value length on success, otherwise error
-  */
--ssize_t ksmbd_vfs_getxattr(struct mnt_idmap *idmap,
-+ssize_t ksmbd_vfs_getxattr(const struct mnt_idmap *idmap,
- 			   struct dentry *dentry,
- 			   char *xattr_name, char **xattr_buf)
- {
-@@ -893,7 +893,7 @@ ssize_t ksmbd_vfs_getxattr(struct mnt_idmap *idmap,
-  *
-  * Return:	0 on success, otherwise error
-  */
--int ksmbd_vfs_setxattr(struct mnt_idmap *idmap,
-+int ksmbd_vfs_setxattr(const struct mnt_idmap *idmap,
- 		       const struct path *path, const char *attr_name,
- 		       void *attr_value, size_t attr_size, int flags,
- 		       bool get_write)
-@@ -1177,7 +1177,7 @@ int ksmbd_vfs_query_allocated_ranges(struct ksmbd_file *fp, loff_t start,
- 	return ret;
- }
- 
--int ksmbd_vfs_remove_xattr(struct mnt_idmap *idmap,
-+int ksmbd_vfs_remove_xattr(const struct mnt_idmap *idmap,
- 			   const struct path *path, char *attr_name,
- 			   bool get_write)
- {
-@@ -1511,7 +1511,7 @@ int ksmbd_vfs_remove_acl_xattrs(struct mnt_idmap *idmap,
- 	return err;
- }
- 
--int ksmbd_vfs_remove_sd_xattrs(struct mnt_idmap *idmap, const struct path *path)
-+int ksmbd_vfs_remove_sd_xattrs(const struct mnt_idmap *idmap, const struct path *path)
- {
- 	char *name, *xattr_list = NULL;
- 	ssize_t xattr_list_len;
-@@ -1606,7 +1606,7 @@ static struct xattr_smb_acl *ksmbd_vfs_make_xattr_posix_acl(const struct mnt_idm
- }
- 
- int ksmbd_vfs_set_sd_xattr(struct ksmbd_conn *conn,
--			   struct mnt_idmap *idmap,
-+			   const struct mnt_idmap *idmap,
- 			   const struct path *path,
- 			   struct smb_ntsd *pntsd, int len,
- 			   bool get_write)
-@@ -1673,7 +1673,7 @@ int ksmbd_vfs_set_sd_xattr(struct ksmbd_conn *conn,
- }
- 
- int ksmbd_vfs_get_sd_xattr(struct ksmbd_conn *conn,
--			   struct mnt_idmap *idmap,
-+			   const struct mnt_idmap *idmap,
- 			   struct dentry *dentry,
- 			   struct smb_ntsd **pntsd)
- {
-@@ -1742,7 +1742,7 @@ int ksmbd_vfs_get_sd_xattr(struct ksmbd_conn *conn,
- 	return rc;
- }
- 
--int ksmbd_vfs_set_dos_attrib_xattr(struct mnt_idmap *idmap,
-+int ksmbd_vfs_set_dos_attrib_xattr(const struct mnt_idmap *idmap,
- 				   const struct path *path,
- 				   struct xattr_dos_attrib *da,
- 				   bool get_write)
-@@ -1764,7 +1764,7 @@ int ksmbd_vfs_set_dos_attrib_xattr(struct mnt_idmap *idmap,
- 	return err;
- }
- 
--int ksmbd_vfs_get_dos_attrib_xattr(struct mnt_idmap *idmap,
-+int ksmbd_vfs_get_dos_attrib_xattr(const struct mnt_idmap *idmap,
- 				   struct dentry *dentry,
- 				   struct xattr_dos_attrib *da)
- {
-@@ -1820,7 +1820,7 @@ void *ksmbd_vfs_init_kstat(char **p, struct ksmbd_kstat *ksmbd_kstat)
- }
- 
- int ksmbd_vfs_fill_dentry_attrs(struct ksmbd_work *work,
--				struct mnt_idmap *idmap,
-+				const struct mnt_idmap *idmap,
- 				struct dentry *dentry,
- 				struct ksmbd_kstat *ksmbd_kstat)
- {
-@@ -1895,7 +1895,7 @@ int ksmbd_vfs_fill_dentry_attrs(struct ksmbd_work *work,
+diff --git a/fs/btrfs/acl.c b/fs/btrfs/acl.c
+index 662cdd1cbdef..10a0d733bfd1 100644
+--- a/fs/btrfs/acl.c
++++ b/fs/btrfs/acl.c
+@@ -101,7 +101,7 @@ int __btrfs_set_acl(struct btrfs_trans_handle *trans, struct inode *inode,
  	return 0;
  }
  
--ssize_t ksmbd_vfs_casexattr_len(struct mnt_idmap *idmap,
-+ssize_t ksmbd_vfs_casexattr_len(const struct mnt_idmap *idmap,
- 				struct dentry *dentry, char *attr_name,
- 				int attr_name_len)
+-int btrfs_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int btrfs_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		  struct posix_acl *acl, int type)
  {
+ 	int ret;
+diff --git a/fs/btrfs/acl.h b/fs/btrfs/acl.h
+index 0458cd51ed48..6eae2db3654d 100644
+--- a/fs/btrfs/acl.h
++++ b/fs/btrfs/acl.h
+@@ -15,7 +15,7 @@ struct mnt_idmap;
+ struct dentry;
+ 
+ struct posix_acl *btrfs_get_acl(struct inode *inode, int type, bool rcu);
+-int btrfs_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int btrfs_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		  struct posix_acl *acl, int type);
+ int __btrfs_set_acl(struct btrfs_trans_handle *trans, struct inode *inode,
+ 		    struct posix_acl *acl, int type);
+diff --git a/fs/ceph/acl.c b/fs/ceph/acl.c
+index 85d3dd48b167..124f07ae5b2d 100644
+--- a/fs/ceph/acl.c
++++ b/fs/ceph/acl.c
+@@ -87,7 +87,7 @@ struct posix_acl *ceph_get_acl(struct inode *inode, int type, bool rcu)
+ 	return acl;
+ }
+ 
+-int ceph_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int ceph_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		 struct posix_acl *acl, int type)
+ {
+ 	int ret = 0;
+diff --git a/fs/ceph/super.h b/fs/ceph/super.h
+index ef9861797eb2..fd603be209e4 100644
+--- a/fs/ceph/super.h
++++ b/fs/ceph/super.h
+@@ -1252,7 +1252,7 @@ void ceph_release_acl_sec_ctx(struct ceph_acl_sec_ctx *as_ctx);
+ #ifdef CONFIG_CEPH_FS_POSIX_ACL
+ 
+ struct posix_acl *ceph_get_acl(struct inode *, int, bool);
+-int ceph_set_acl(struct mnt_idmap *idmap,
++int ceph_set_acl(const struct mnt_idmap *idmap,
+ 		 struct dentry *dentry, struct posix_acl *acl, int type);
+ int ceph_pre_init_acls(struct inode *dir, umode_t *mode,
+ 		       struct ceph_acl_sec_ctx *as_ctx);
+diff --git a/fs/ecryptfs/inode.c b/fs/ecryptfs/inode.c
+index b9c32e8f855a..1e5146485214 100644
+--- a/fs/ecryptfs/inode.c
++++ b/fs/ecryptfs/inode.c
+@@ -1097,7 +1097,7 @@ static struct posix_acl *ecryptfs_get_acl(struct mnt_idmap *idmap,
+ 			   posix_acl_xattr_name(type));
+ }
+ 
+-static int ecryptfs_set_acl(struct mnt_idmap *idmap,
++static int ecryptfs_set_acl(const struct mnt_idmap *idmap,
+ 			    struct dentry *dentry, struct posix_acl *acl,
+ 			    int type)
+ {
+diff --git a/fs/ext2/acl.c b/fs/ext2/acl.c
+index 7e54c31589c7..b2746657fc53 100644
+--- a/fs/ext2/acl.c
++++ b/fs/ext2/acl.c
+@@ -219,7 +219,7 @@ __ext2_set_acl(struct inode *inode, struct posix_acl *acl, int type)
+  * inode->i_mutex: down
+  */
+ int
+-ext2_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++ext2_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 	     struct posix_acl *acl, int type)
+ {
+ 	int error;
+diff --git a/fs/ext2/acl.h b/fs/ext2/acl.h
+index 4a8443a2b8ec..e68bc3545608 100644
+--- a/fs/ext2/acl.h
++++ b/fs/ext2/acl.h
+@@ -56,7 +56,7 @@ static inline int ext2_acl_count(size_t size)
+ 
+ /* acl.c */
+ extern struct posix_acl *ext2_get_acl(struct inode *inode, int type, bool rcu);
+-extern int ext2_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++extern int ext2_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 			struct posix_acl *acl, int type);
+ extern int ext2_init_acl (struct inode *, struct inode *);
+ 
+diff --git a/fs/ext4/acl.c b/fs/ext4/acl.c
+index 3bffe862f954..59fac55a2426 100644
+--- a/fs/ext4/acl.c
++++ b/fs/ext4/acl.c
+@@ -225,7 +225,7 @@ __ext4_set_acl(handle_t *handle, struct inode *inode, int type,
+ }
+ 
+ int
+-ext4_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++ext4_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 	     struct posix_acl *acl, int type)
+ {
+ 	handle_t *handle;
+diff --git a/fs/ext4/acl.h b/fs/ext4/acl.h
+index 0c5a79c3b5d4..a14838c5bc42 100644
+--- a/fs/ext4/acl.h
++++ b/fs/ext4/acl.h
+@@ -56,7 +56,7 @@ static inline int ext4_acl_count(size_t size)
+ 
+ /* acl.c */
+ struct posix_acl *ext4_get_acl(struct inode *inode, int type, bool rcu);
+-int ext4_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int ext4_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		 struct posix_acl *acl, int type);
+ extern int ext4_init_acl(handle_t *, struct inode *, struct inode *);
+ 
+diff --git a/fs/f2fs/acl.c b/fs/f2fs/acl.c
+index e7e0084d0a5f..22ca39e0aad6 100644
+--- a/fs/f2fs/acl.c
++++ b/fs/f2fs/acl.c
+@@ -289,7 +289,7 @@ static int __f2fs_set_acl(const struct mnt_idmap *idmap,
+ 	return error;
+ }
+ 
+-int f2fs_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int f2fs_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		 struct posix_acl *acl, int type)
+ {
+ 	struct inode *inode = d_inode(dentry);
+diff --git a/fs/f2fs/acl.h b/fs/f2fs/acl.h
+index 20e87e63c089..01ec74b6daf2 100644
+--- a/fs/f2fs/acl.h
++++ b/fs/f2fs/acl.h
+@@ -34,7 +34,7 @@ struct f2fs_acl_header {
+ #ifdef CONFIG_F2FS_FS_POSIX_ACL
+ 
+ struct posix_acl *f2fs_get_acl(struct inode *, int, bool);
+-int f2fs_set_acl(struct mnt_idmap *, struct dentry *,
++int f2fs_set_acl(const struct mnt_idmap *, struct dentry *,
+ 			struct posix_acl *, int);
+ int f2fs_init_acl(struct inode *, struct inode *, struct folio *ifolio,
+ 		struct folio *dfolio);
+diff --git a/fs/fuse/acl.c b/fs/fuse/acl.c
+index 31fb50e16aed..c3813fff4f27 100644
+--- a/fs/fuse/acl.c
++++ b/fs/fuse/acl.c
+@@ -90,7 +90,7 @@ struct posix_acl *fuse_get_inode_acl(struct inode *inode, int type, bool rcu)
+ 	return __fuse_get_acl(fc,  inode, type, rcu);
+ }
+ 
+-int fuse_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int fuse_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		 struct posix_acl *acl, int type)
+ {
+ 	struct inode *inode = d_inode(dentry);
+diff --git a/fs/fuse/fuse_i.h b/fs/fuse/fuse_i.h
+index 6ca56757869c..561ada21ea86 100644
+--- a/fs/fuse/fuse_i.h
++++ b/fs/fuse/fuse_i.h
+@@ -1207,7 +1207,7 @@ struct posix_acl;
+ struct posix_acl *fuse_get_inode_acl(struct inode *inode, int type, bool rcu);
+ struct posix_acl *fuse_get_acl(struct mnt_idmap *idmap,
+ 			       struct dentry *dentry, int type);
+-int fuse_set_acl(struct mnt_idmap *, struct dentry *dentry,
++int fuse_set_acl(const struct mnt_idmap *, struct dentry *dentry,
+ 		 struct posix_acl *acl, int type);
+ 
+ /* readdir.c */
+diff --git a/fs/gfs2/acl.c b/fs/gfs2/acl.c
+index a5b60778b91c..7b94efbbe8e3 100644
+--- a/fs/gfs2/acl.c
++++ b/fs/gfs2/acl.c
+@@ -102,7 +102,7 @@ int __gfs2_set_acl(struct inode *inode, struct posix_acl *acl, int type)
+ 	return error;
+ }
+ 
+-int gfs2_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int gfs2_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		 struct posix_acl *acl, int type)
+ {
+ 	struct inode *inode = d_inode(dentry);
+diff --git a/fs/gfs2/acl.h b/fs/gfs2/acl.h
+index 82f5b09c04e6..d19d41755936 100644
+--- a/fs/gfs2/acl.h
++++ b/fs/gfs2/acl.h
+@@ -13,7 +13,7 @@
+ 
+ struct posix_acl *gfs2_get_acl(struct inode *inode, int type, bool rcu);
+ int __gfs2_set_acl(struct inode *inode, struct posix_acl *acl, int type);
+-int gfs2_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int gfs2_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		 struct posix_acl *acl, int type);
+ 
+ #endif /* __ACL_DOT_H__ */
+diff --git a/fs/internal.h b/fs/internal.h
+index a502b1fbacd2..8ba0a1613d20 100644
+--- a/fs/internal.h
++++ b/fs/internal.h
+@@ -302,12 +302,12 @@ int import_xattr_name(struct xattr_name *kname, const char __user *name);
+ int may_write_xattr(const struct mnt_idmap *idmap, struct inode *inode);
+ 
+ #ifdef CONFIG_FS_POSIX_ACL
+-int do_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int do_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 	       const char *acl_name, const void *kvalue, size_t size);
+ ssize_t do_get_acl(struct mnt_idmap *idmap, struct dentry *dentry,
+ 		   const char *acl_name, void *kvalue, size_t size);
+ #else
+-static inline int do_set_acl(struct mnt_idmap *idmap,
++static inline int do_set_acl(const struct mnt_idmap *idmap,
+ 			     struct dentry *dentry, const char *acl_name,
+ 			     const void *kvalue, size_t size)
+ {
+diff --git a/fs/jffs2/acl.c b/fs/jffs2/acl.c
+index f0f8a4f57add..7548f44bf327 100644
+--- a/fs/jffs2/acl.c
++++ b/fs/jffs2/acl.c
+@@ -228,7 +228,7 @@ static int __jffs2_set_acl(struct inode *inode, int xprefix, struct posix_acl *a
+ 	return rc;
+ }
+ 
+-int jffs2_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int jffs2_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		  struct posix_acl *acl, int type)
+ {
+ 	int rc, xprefix;
+diff --git a/fs/jffs2/acl.h b/fs/jffs2/acl.h
+index e976b8cb82cf..bc5df521633f 100644
+--- a/fs/jffs2/acl.h
++++ b/fs/jffs2/acl.h
+@@ -28,7 +28,7 @@ struct jffs2_acl_header {
+ #ifdef CONFIG_JFFS2_FS_POSIX_ACL
+ 
+ struct posix_acl *jffs2_get_acl(struct inode *inode, int type, bool rcu);
+-int jffs2_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int jffs2_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		  struct posix_acl *acl, int type);
+ extern int jffs2_init_acl_pre(struct inode *, struct inode *, umode_t *);
+ extern int jffs2_init_acl_post(struct inode *);
+diff --git a/fs/jfs/acl.c b/fs/jfs/acl.c
+index 16b71a23ff1e..6e0a7feb6c80 100644
+--- a/fs/jfs/acl.c
++++ b/fs/jfs/acl.c
+@@ -89,7 +89,7 @@ static int __jfs_set_acl(tid_t tid, struct inode *inode, int type,
+ 	return rc;
+ }
+ 
+-int jfs_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int jfs_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		struct posix_acl *acl, int type)
+ {
+ 	int rc;
+diff --git a/fs/jfs/jfs_acl.h b/fs/jfs/jfs_acl.h
+index f892e54d0fcd..bda26b333519 100644
+--- a/fs/jfs/jfs_acl.h
++++ b/fs/jfs/jfs_acl.h
+@@ -8,7 +8,7 @@
+ #ifdef CONFIG_JFS_POSIX_ACL
+ 
+ struct posix_acl *jfs_get_acl(struct inode *inode, int type, bool rcu);
+-int jfs_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int jfs_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		struct posix_acl *acl, int type);
+ int jfs_init_acl(tid_t, struct inode *, struct inode *);
+ 
+diff --git a/fs/nfs/nfs3_fs.h b/fs/nfs/nfs3_fs.h
+index b333ea119ef5..ffcabadb3546 100644
+--- a/fs/nfs/nfs3_fs.h
++++ b/fs/nfs/nfs3_fs.h
+@@ -12,7 +12,7 @@
+  */
+ #ifdef CONFIG_NFS_V3_ACL
+ extern struct posix_acl *nfs3_get_acl(struct inode *inode, int type, bool rcu);
+-extern int nfs3_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++extern int nfs3_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 			struct posix_acl *acl, int type);
+ extern int nfs3_proc_setacls(struct inode *inode, struct posix_acl *acl,
+ 		struct posix_acl *dfacl);
+diff --git a/fs/nfs/nfs3acl.c b/fs/nfs/nfs3acl.c
+index a126eb31f62f..2549a1985b9a 100644
+--- a/fs/nfs/nfs3acl.c
++++ b/fs/nfs/nfs3acl.c
+@@ -254,7 +254,7 @@ int nfs3_proc_setacls(struct inode *inode, struct posix_acl *acl,
+ 
+ }
+ 
+-int nfs3_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int nfs3_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		 struct posix_acl *acl, int type)
+ {
+ 	struct posix_acl *orig = acl, *dfacl = NULL, *alloc;
+diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
+index 7fd323912510..063cc15f1626 100644
+--- a/fs/ntfs/ea.c
++++ b/fs/ntfs/ea.c
+@@ -1080,7 +1080,7 @@ static noinline int ntfs_set_acl_ex(const struct mnt_idmap *idmap,
+ 	return err;
+ }
+ 
+-int ntfs_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int ntfs_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		 struct posix_acl *acl, int type)
+ {
+ 	return ntfs_set_acl_ex(idmap, d_inode(dentry), acl, type, false);
+diff --git a/fs/ntfs/ea.h b/fs/ntfs/ea.h
+index 9d17abc2e491..6d98e7487a2c 100644
+--- a/fs/ntfs/ea.h
++++ b/fs/ntfs/ea.h
+@@ -19,7 +19,7 @@ ssize_t ntfs_listxattr(struct dentry *dentry, char *buffer, size_t size);
+ #ifdef CONFIG_NTFS_FS_POSIX_ACL
+ struct posix_acl *ntfs_get_acl(struct mnt_idmap *idmap, struct dentry *dentry,
+ 			       int type);
+-int ntfs_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int ntfs_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		 struct posix_acl *acl, int type);
+ int ntfs_init_acl(const struct mnt_idmap *idmap, struct inode *inode,
+ 		  struct inode *dir);
+diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
+index e494bed87679..0a5e81d420f0 100644
+--- a/fs/ntfs3/ntfs_fs.h
++++ b/fs/ntfs3/ntfs_fs.h
+@@ -965,7 +965,7 @@ unsigned long ntfs_names_hash(const u16 *name, size_t len, const u16 *upcase,
+ #ifdef CONFIG_NTFS3_FS_POSIX_ACL
+ struct posix_acl *ntfs_get_acl(struct mnt_idmap *idmap, struct dentry *dentry,
+ 			       int type);
+-int ntfs_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int ntfs_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		 struct posix_acl *acl, int type);
+ int ntfs_init_acl(const struct mnt_idmap *idmap, struct inode *inode,
+ 		  struct inode *dir);
+@@ -974,7 +974,7 @@ int ntfs_init_acl(const struct mnt_idmap *idmap, struct inode *inode,
+ #define ntfs_set_acl NULL
+ #endif
+ 
+-int ntfs_acl_chmod(struct mnt_idmap *idmap, struct dentry *dentry);
++int ntfs_acl_chmod(const struct mnt_idmap *idmap, struct dentry *dentry);
+ ssize_t ntfs_listxattr(struct dentry *dentry, char *buffer, size_t size);
+ extern const struct xattr_handler *const ntfs_xattr_handlers[];
+ 
+diff --git a/fs/ntfs3/xattr.c b/fs/ntfs3/xattr.c
+index 5644167de863..2d17b80999ca 100644
+--- a/fs/ntfs3/xattr.c
++++ b/fs/ntfs3/xattr.c
+@@ -677,7 +677,7 @@ static noinline int ntfs_set_acl_ex(const struct mnt_idmap *idmap,
+ /*
+  * ntfs_set_acl - inode_operations::set_acl
+  */
+-int ntfs_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int ntfs_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		 struct posix_acl *acl, int type)
+ {
+ 	return ntfs_set_acl_ex(idmap, d_inode(dentry), acl, type, false);
+@@ -722,7 +722,7 @@ int ntfs_init_acl(const struct mnt_idmap *idmap, struct inode *inode,
+ /*
+  * ntfs_acl_chmod - Helper for ntfs_setattr().
+  */
+-int ntfs_acl_chmod(struct mnt_idmap *idmap, struct dentry *dentry)
++int ntfs_acl_chmod(const struct mnt_idmap *idmap, struct dentry *dentry)
+ {
+ 	struct inode *inode = d_inode(dentry);
+ 	struct super_block *sb = inode->i_sb;
+diff --git a/fs/ocfs2/acl.c b/fs/ocfs2/acl.c
+index 090ec60fb576..801a2f56ad08 100644
+--- a/fs/ocfs2/acl.c
++++ b/fs/ocfs2/acl.c
+@@ -260,7 +260,7 @@ static int ocfs2_set_acl(handle_t *handle,
+ 	return ret;
+ }
+ 
+-int ocfs2_iop_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int ocfs2_iop_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		      struct posix_acl *acl, int type)
+ {
+ 	struct buffer_head *bh = NULL;
+diff --git a/fs/ocfs2/acl.h b/fs/ocfs2/acl.h
+index a91f9ce278d6..1ed05899cce1 100644
+--- a/fs/ocfs2/acl.h
++++ b/fs/ocfs2/acl.h
+@@ -17,7 +17,7 @@ struct ocfs2_acl_entry {
+ };
+ 
+ struct posix_acl *ocfs2_iop_get_acl(struct inode *inode, int type, bool rcu);
+-int ocfs2_iop_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int ocfs2_iop_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		      struct posix_acl *acl, int type);
+ extern int ocfs2_acl_chmod(struct inode *, struct buffer_head *);
+ struct ocfs2_acl_state {
+diff --git a/fs/orangefs/acl.c b/fs/orangefs/acl.c
+index a01ef0c1b1bf..f31196e4bfaa 100644
+--- a/fs/orangefs/acl.c
++++ b/fs/orangefs/acl.c
+@@ -112,7 +112,7 @@ int __orangefs_set_acl(struct inode *inode, struct posix_acl *acl, int type)
+ 	return error;
+ }
+ 
+-int orangefs_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int orangefs_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		     struct posix_acl *acl, int type)
+ {
+ 	int error;
+diff --git a/fs/orangefs/orangefs-kernel.h b/fs/orangefs/orangefs-kernel.h
+index c582ceffb26e..a5c9e7be4005 100644
+--- a/fs/orangefs/orangefs-kernel.h
++++ b/fs/orangefs/orangefs-kernel.h
+@@ -98,7 +98,7 @@ enum orangefs_vfs_op_states {
+ extern const struct xattr_handler * const orangefs_xattr_handlers[];
+ 
+ extern struct posix_acl *orangefs_get_acl(struct inode *inode, int type, bool rcu);
+-extern int orangefs_set_acl(struct mnt_idmap *idmap,
++extern int orangefs_set_acl(const struct mnt_idmap *idmap,
+ 			    struct dentry *dentry, struct posix_acl *acl,
+ 			    int type);
+ int __orangefs_set_acl(struct inode *inode, struct posix_acl *acl, int type);
+diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
+index 5f4e8b6d9722..18e4cbe154cf 100644
+--- a/fs/overlayfs/inode.c
++++ b/fs/overlayfs/inode.c
+@@ -536,7 +536,7 @@ static int ovl_set_or_remove_acl(struct dentry *dentry, struct inode *inode,
+ 	return err;
+ }
+ 
+-int ovl_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int ovl_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		struct posix_acl *acl, int type)
+ {
+ 	int err;
+diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
+index 46a5cf5dae4c..8b335993bf56 100644
+--- a/fs/overlayfs/overlayfs.h
++++ b/fs/overlayfs/overlayfs.h
+@@ -819,7 +819,7 @@ static inline struct posix_acl *ovl_get_acl(struct mnt_idmap *idmap,
+ {
+ 	return do_ovl_get_acl(idmap, d_inode(dentry), type, false, false);
+ }
+-int ovl_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int ovl_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		struct posix_acl *acl, int type);
+ struct posix_acl *ovl_get_acl_path(const struct path *path,
+ 				   const char *acl_name, bool noperm);
+diff --git a/fs/posix_acl.c b/fs/posix_acl.c
+index b279804ebf56..cec7fb557278 100644
+--- a/fs/posix_acl.c
++++ b/fs/posix_acl.c
+@@ -608,7 +608,7 @@ EXPORT_SYMBOL(__posix_acl_chmod);
+  * performed on the raw inode simply pass @nop_mnt_idmap.
+  */
+ int
+- posix_acl_chmod(struct mnt_idmap *idmap, struct dentry *dentry,
++ posix_acl_chmod(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		    umode_t mode)
+ {
+ 	struct inode *inode = d_inode(dentry);
+@@ -937,7 +937,7 @@ static ssize_t vfs_posix_acl_to_xattr(const struct mnt_idmap *idmap,
+ }
+ 
+ int
+-set_posix_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++set_posix_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 	      int type, struct posix_acl *acl)
+ {
+ 	struct inode *inode = d_inode(dentry);
+@@ -1018,7 +1018,7 @@ const struct xattr_handler nop_posix_acl_default = {
+ };
+ EXPORT_SYMBOL_GPL(nop_posix_acl_default);
+ 
+-int simple_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int simple_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		   struct posix_acl *acl, int type)
+ {
+ 	int error;
+@@ -1091,7 +1091,7 @@ static int vfs_set_acl_idmapped_mnt(const struct mnt_idmap *idmap,
+  *
+  * Return: On success 0, on error negative errno.
+  */
+-int vfs_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int vfs_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		const char *acl_name, struct posix_acl *kacl)
+ {
+ 	int acl_type;
+@@ -1212,7 +1212,7 @@ EXPORT_SYMBOL_GPL(vfs_get_acl);
+  *
+  * Return: On success 0, on error negative errno.
+  */
+-int vfs_remove_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int vfs_remove_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		   const char *acl_name)
+ {
+ 	int acl_type;
+@@ -1265,7 +1265,7 @@ int vfs_remove_acl(struct mnt_idmap *idmap, struct dentry *dentry,
+ }
+ EXPORT_SYMBOL_GPL(vfs_remove_acl);
+ 
+-int do_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int do_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 	       const char *acl_name, const void *kvalue, size_t size)
+ {
+ 	int error;
+diff --git a/fs/smb/client/cifsacl.c b/fs/smb/client/cifsacl.c
+index 12005f46307d..0a05b6b0be5f 100644
+--- a/fs/smb/client/cifsacl.c
++++ b/fs/smb/client/cifsacl.c
+@@ -1931,7 +1931,7 @@ struct posix_acl *cifs_get_acl(struct mnt_idmap *idmap,
+ #endif
+ }
+ 
+-int cifs_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int cifs_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		 struct posix_acl *acl, int type)
+ {
+ #if defined(CONFIG_CIFS_ALLOW_INSECURE_LEGACY) && defined(CONFIG_CIFS_POSIX)
+diff --git a/fs/smb/client/cifsproto.h b/fs/smb/client/cifsproto.h
+index 00168839c123..565697c233a9 100644
+--- a/fs/smb/client/cifsproto.h
++++ b/fs/smb/client/cifsproto.h
+@@ -214,7 +214,7 @@ struct smb_ntsd *get_cifs_acl_by_fid(struct cifs_sb_info *cifs_sb,
+ 				     u32 *pacllen, u32 info);
+ struct posix_acl *cifs_get_acl(struct mnt_idmap *idmap, struct dentry *dentry,
+ 			       int type);
+-int cifs_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int cifs_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		 struct posix_acl *acl, int type);
+ int set_cifs_acl(struct smb_ntsd *pnntsd, __u32 acllen, struct inode *inode,
+ 		 const char *path, int aclflag);
+diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
+index 3c4d18a4e8d5..75edff8dde31 100644
+--- a/fs/smb/server/vfs.c
++++ b/fs/smb/server/vfs.c
+@@ -1471,7 +1471,7 @@ struct dentry *ksmbd_vfs_kern_path_create(struct ksmbd_work *work,
+ 	return dent;
+ }
+ 
+-int ksmbd_vfs_remove_acl_xattrs(struct mnt_idmap *idmap,
++int ksmbd_vfs_remove_acl_xattrs(const struct mnt_idmap *idmap,
+ 				const struct path *path)
+ {
+ 	char *name, *xattr_list = NULL;
+@@ -2200,7 +2200,7 @@ void ksmbd_vfs_posix_lock_unblock(struct file_lock *flock)
+ 	locks_delete_block(flock);
+ }
+ 
+-int ksmbd_vfs_set_init_posix_acl(struct mnt_idmap *idmap,
++int ksmbd_vfs_set_init_posix_acl(const struct mnt_idmap *idmap,
+ 				 const struct path *path)
+ {
+ 	struct posix_acl_state acl_state;
 diff --git a/fs/smb/server/vfs.h b/fs/smb/server/vfs.h
-index 9c8b5b288926..5e34fc61b48b 100644
+index 5e34fc61b48b..67cc48e583c8 100644
 --- a/fs/smb/server/vfs.h
 +++ b/fs/smb/server/vfs.h
-@@ -104,20 +104,20 @@ int ksmbd_vfs_copy_file_ranges(struct ksmbd_work *work,
- 			       unsigned int *chunk_size_written,
- 			       loff_t  *total_size_written);
- ssize_t ksmbd_vfs_listxattr(struct dentry *dentry, char **list);
--ssize_t ksmbd_vfs_getxattr(struct mnt_idmap *idmap,
-+ssize_t ksmbd_vfs_getxattr(const struct mnt_idmap *idmap,
- 			   struct dentry *dentry,
- 			   char *xattr_name,
- 			   char **xattr_buf);
--ssize_t ksmbd_vfs_casexattr_len(struct mnt_idmap *idmap,
-+ssize_t ksmbd_vfs_casexattr_len(const struct mnt_idmap *idmap,
- 				struct dentry *dentry, char *attr_name,
- 				int attr_name_len);
--int ksmbd_vfs_setxattr(struct mnt_idmap *idmap,
-+int ksmbd_vfs_setxattr(const struct mnt_idmap *idmap,
- 		       const struct path *path, const char *attr_name,
- 		       void *attr_value, size_t attr_size, int flags,
- 		       bool get_write);
- int ksmbd_vfs_xattr_stream_name(char *stream_name, char **xattr_stream_name,
- 				size_t *xattr_stream_name_size, int s_type);
--int ksmbd_vfs_remove_xattr(struct mnt_idmap *idmap,
-+int ksmbd_vfs_remove_xattr(const struct mnt_idmap *idmap,
- 			   const struct path *path, char *attr_name,
- 			   bool get_write);
- int ksmbd_vfs_kern_path(struct ksmbd_work *work, char *name,
-@@ -147,28 +147,28 @@ int ksmbd_vfs_query_allocated_ranges(struct ksmbd_file *fp, loff_t start,
- int ksmbd_vfs_unlink(struct file *filp);
- void *ksmbd_vfs_init_kstat(char **p, struct ksmbd_kstat *ksmbd_kstat);
- int ksmbd_vfs_fill_dentry_attrs(struct ksmbd_work *work,
--				struct mnt_idmap *idmap,
-+				const struct mnt_idmap *idmap,
- 				struct dentry *dentry,
+@@ -152,7 +152,7 @@ int ksmbd_vfs_fill_dentry_attrs(struct ksmbd_work *work,
  				struct ksmbd_kstat *ksmbd_kstat);
  void ksmbd_vfs_posix_lock_wait(struct file_lock *flock);
  void ksmbd_vfs_posix_lock_unblock(struct file_lock *flock);
- int ksmbd_vfs_remove_acl_xattrs(struct mnt_idmap *idmap,
+-int ksmbd_vfs_remove_acl_xattrs(struct mnt_idmap *idmap,
++int ksmbd_vfs_remove_acl_xattrs(const struct mnt_idmap *idmap,
  				const struct path *path);
--int ksmbd_vfs_remove_sd_xattrs(struct mnt_idmap *idmap, const struct path *path);
-+int ksmbd_vfs_remove_sd_xattrs(const struct mnt_idmap *idmap, const struct path *path);
+ int ksmbd_vfs_remove_sd_xattrs(const struct mnt_idmap *idmap, const struct path *path);
  int ksmbd_vfs_set_sd_xattr(struct ksmbd_conn *conn,
--			   struct mnt_idmap *idmap,
-+			   const struct mnt_idmap *idmap,
- 			   const struct path *path,
- 			   struct smb_ntsd *pntsd, int len,
- 			   bool get_write);
- int ksmbd_vfs_get_sd_xattr(struct ksmbd_conn *conn,
--			   struct mnt_idmap *idmap,
-+			   const struct mnt_idmap *idmap,
- 			   struct dentry *dentry,
- 			   struct smb_ntsd **pntsd);
--int ksmbd_vfs_set_dos_attrib_xattr(struct mnt_idmap *idmap,
-+int ksmbd_vfs_set_dos_attrib_xattr(const struct mnt_idmap *idmap,
- 				   const struct path *path,
- 				   struct xattr_dos_attrib *da,
- 				   bool get_write);
--int ksmbd_vfs_get_dos_attrib_xattr(struct mnt_idmap *idmap,
-+int ksmbd_vfs_get_dos_attrib_xattr(const struct mnt_idmap *idmap,
+@@ -171,7 +171,7 @@ int ksmbd_vfs_set_dos_attrib_xattr(const struct mnt_idmap *idmap,
+ int ksmbd_vfs_get_dos_attrib_xattr(const struct mnt_idmap *idmap,
  				   struct dentry *dentry,
  				   struct xattr_dos_attrib *da);
- int ksmbd_vfs_set_init_posix_acl(struct mnt_idmap *idmap,
-diff --git a/fs/ubifs/xattr.c b/fs/ubifs/xattr.c
-index b5a9ab9d8a10..3b0e8a270f59 100644
---- a/fs/ubifs/xattr.c
-+++ b/fs/ubifs/xattr.c
-@@ -660,7 +660,7 @@ static int xattr_get(const struct xattr_handler *handler,
- }
- 
- static int xattr_set(const struct xattr_handler *handler,
--			   struct mnt_idmap *idmap,
-+			   const struct mnt_idmap *idmap,
- 			   struct dentry *dentry, struct inode *inode,
- 			   const char *name, const void *value,
- 			   size_t size, int flags)
+-int ksmbd_vfs_set_init_posix_acl(struct mnt_idmap *idmap,
++int ksmbd_vfs_set_init_posix_acl(const struct mnt_idmap *idmap,
+ 				 const struct path *path);
+ int ksmbd_vfs_inherit_posix_acl(const struct mnt_idmap *idmap,
+ 				const struct path *path,
 diff --git a/fs/xattr.c b/fs/xattr.c
-index c08f188748a9..acdaafb0c7c1 100644
+index acdaafb0c7c1..758a7ffe3a86 100644
 --- a/fs/xattr.c
 +++ b/fs/xattr.c
-@@ -123,7 +123,7 @@ static inline int xattr_permission_error(int mask)
-  * because different namespaces have very different rules.
+@@ -652,7 +652,7 @@ int setxattr_copy(const char __user *name, struct kernel_xattr_ctx *ctx)
+ 	return error;
+ }
+ 
+-static int do_setxattr(struct mnt_idmap *idmap, struct dentry *dentry,
++static int do_setxattr(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		struct kernel_xattr_ctx *ctx)
+ {
+ 	if (is_posix_acl_xattr(ctx->kname->name))
+@@ -1029,7 +1029,7 @@ SYSCALL_DEFINE3(flistxattr, int, fd, char __user *, list, size_t, size)
+  * Extended attribute REMOVE operations
   */
- static int
--xattr_permission(struct mnt_idmap *idmap, struct inode *inode,
-+xattr_permission(const struct mnt_idmap *idmap, struct inode *inode,
- 		 const char *name, int mask)
+ static long
+-removexattr(struct mnt_idmap *idmap, struct dentry *d, const char *name)
++removexattr(const struct mnt_idmap *idmap, struct dentry *d, const char *name)
  {
- 	if (mask & MAY_WRITE) {
-@@ -204,7 +204,7 @@ xattr_supports_user_prefix(struct inode *inode)
- EXPORT_SYMBOL(xattr_supports_user_prefix);
+ 	if (is_posix_acl_xattr(name))
+ 		return vfs_remove_acl(idmap, d, name);
+diff --git a/fs/xfs/xfs_acl.c b/fs/xfs/xfs_acl.c
+index fdfca6fc75b6..20d87b52c4fc 100644
+--- a/fs/xfs/xfs_acl.c
++++ b/fs/xfs/xfs_acl.c
+@@ -243,7 +243,7 @@ xfs_acl_set_mode(
+ }
  
  int
--__vfs_setxattr(struct mnt_idmap *idmap, struct dentry *dentry,
-+__vfs_setxattr(const struct mnt_idmap *idmap, struct dentry *dentry,
- 	       struct inode *inode, const char *name, const void *value,
- 	       size_t size, int flags)
+-xfs_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++xfs_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 	    struct posix_acl *acl, int type)
  {
-@@ -242,7 +242,7 @@ EXPORT_SYMBOL(__vfs_setxattr);
-  *  is executed. It also assumes that the caller will make the appropriate
-  *  permission checks.
-  */
--int __vfs_setxattr_noperm(struct mnt_idmap *idmap,
-+int __vfs_setxattr_noperm(const struct mnt_idmap *idmap,
- 			  struct dentry *dentry, const char *name,
- 			  const void *value, size_t size, int flags)
- {
-@@ -295,7 +295,7 @@ int __vfs_setxattr_noperm(struct mnt_idmap *idmap,
-  *  a delegation was broken on, NULL if none.
-  */
- int
--__vfs_setxattr_locked(struct mnt_idmap *idmap, struct dentry *dentry,
-+__vfs_setxattr_locked(const struct mnt_idmap *idmap, struct dentry *dentry,
- 		      const char *name, const void *value, size_t size,
- 		      int flags, struct delegated_inode *delegated_inode)
- {
-@@ -324,7 +324,7 @@ __vfs_setxattr_locked(struct mnt_idmap *idmap, struct dentry *dentry,
- EXPORT_SYMBOL_GPL(__vfs_setxattr_locked);
+ 	umode_t mode;
+diff --git a/fs/xfs/xfs_acl.h b/fs/xfs/xfs_acl.h
+index bf7f960997d3..183526bec32c 100644
+--- a/fs/xfs/xfs_acl.h
++++ b/fs/xfs/xfs_acl.h
+@@ -11,7 +11,7 @@ struct posix_acl;
  
- int
--vfs_setxattr(struct mnt_idmap *idmap, struct dentry *dentry,
-+vfs_setxattr(const struct mnt_idmap *idmap, struct dentry *dentry,
- 	     const char *name, const void *value, size_t size, int flags)
- {
- 	struct inode *inode = dentry->d_inode;
-@@ -358,7 +358,7 @@ vfs_setxattr(struct mnt_idmap *idmap, struct dentry *dentry,
- EXPORT_SYMBOL_GPL(vfs_setxattr);
- 
- static ssize_t
--xattr_getsecurity(struct mnt_idmap *idmap, struct inode *inode,
-+xattr_getsecurity(const struct mnt_idmap *idmap, struct inode *inode,
- 		  const char *name, void *value, size_t size)
- {
- 	void *buffer = NULL;
-@@ -395,7 +395,7 @@ xattr_getsecurity(struct mnt_idmap *idmap, struct inode *inode,
-  * Returns the result of alloc, if failed, or the getxattr operation.
-  */
- int
--vfs_getxattr_alloc(struct mnt_idmap *idmap, struct dentry *dentry,
-+vfs_getxattr_alloc(const struct mnt_idmap *idmap, struct dentry *dentry,
- 		   const char *name, char **xattr_value, size_t xattr_size,
- 		   gfp_t flags)
- {
-@@ -448,7 +448,7 @@ __vfs_getxattr(struct dentry *dentry, struct inode *inode, const char *name,
- EXPORT_SYMBOL(__vfs_getxattr);
- 
- ssize_t
--vfs_getxattr(struct mnt_idmap *idmap, struct dentry *dentry,
-+vfs_getxattr(const struct mnt_idmap *idmap, struct dentry *dentry,
- 	     const char *name, void *value, size_t size)
- {
- 	struct inode *inode = dentry->d_inode;
-@@ -527,7 +527,7 @@ vfs_listxattr(struct dentry *dentry, char *list, size_t size)
- EXPORT_SYMBOL_GPL(vfs_listxattr);
- 
- int
--__vfs_removexattr(struct mnt_idmap *idmap, struct dentry *dentry,
-+__vfs_removexattr(const struct mnt_idmap *idmap, struct dentry *dentry,
- 		  const char *name)
- {
- 	struct inode *inode = d_inode(dentry);
-@@ -557,7 +557,7 @@ EXPORT_SYMBOL(__vfs_removexattr);
-  *  a delegation was broken on, NULL if none.
-  */
- int
--__vfs_removexattr_locked(struct mnt_idmap *idmap,
-+__vfs_removexattr_locked(const struct mnt_idmap *idmap,
- 			 struct dentry *dentry, const char *name,
- 			 struct delegated_inode *delegated_inode)
- {
-@@ -589,7 +589,7 @@ __vfs_removexattr_locked(struct mnt_idmap *idmap,
- EXPORT_SYMBOL_GPL(__vfs_removexattr_locked);
- 
- int
--vfs_removexattr(struct mnt_idmap *idmap, struct dentry *dentry,
-+vfs_removexattr(const struct mnt_idmap *idmap, struct dentry *dentry,
- 		const char *name)
- {
- 	struct inode *inode = dentry->d_inode;
+ #ifdef CONFIG_XFS_POSIX_ACL
+ extern struct posix_acl *xfs_get_acl(struct inode *inode, int type, bool rcu);
+-extern int xfs_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++extern int xfs_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		       struct posix_acl *acl, int type);
+ extern int __xfs_set_acl(struct inode *inode, struct posix_acl *acl, int type);
+ void xfs_forget_acl(struct inode *inode, const char *name);
 diff --git a/fs/xfs/xfs_iops.c b/fs/xfs/xfs_iops.c
-index df5e7c1b2334..b652f129c85e 100644
+index b652f129c85e..25d4d42fbc7f 100644
 --- a/fs/xfs/xfs_iops.c
 +++ b/fs/xfs/xfs_iops.c
-@@ -754,7 +754,7 @@ xfs_vn_getattr(
- 
+@@ -777,7 +777,7 @@ xfs_vn_change_ok(
+  */
  static int
- xfs_vn_change_ok(
+ xfs_setattr_nonsize(
+-	struct mnt_idmap	*idmap,
++	const struct mnt_idmap	*idmap,
+ 	struct dentry		*dentry,
+ 	struct xfs_inode	*ip,
+ 	struct iattr		*iattr)
+@@ -903,7 +903,7 @@ xfs_setattr_nonsize(
+  */
+ int
+ xfs_vn_setattr_size(
 -	struct mnt_idmap	*idmap,
 +	const struct mnt_idmap	*idmap,
  	struct dentry		*dentry,
  	struct iattr		*iattr)
  {
-diff --git a/fs/xfs/xfs_xattr.c b/fs/xfs/xfs_xattr.c
-index 1efe6c8139b2..b059a9714d11 100644
---- a/fs/xfs/xfs_xattr.c
-+++ b/fs/xfs/xfs_xattr.c
-@@ -169,7 +169,7 @@ xfs_xattr_flags_to_op(
+diff --git a/fs/xfs/xfs_iops.h b/fs/xfs/xfs_iops.h
+index 0896f6b8b3b8..328305bba19d 100644
+--- a/fs/xfs/xfs_iops.h
++++ b/fs/xfs/xfs_iops.h
+@@ -10,7 +10,7 @@ struct xfs_inode;
  
- static int
- xfs_xattr_set(const struct xattr_handler *handler,
--	      struct mnt_idmap *idmap, struct dentry *unused,
-+	      const struct mnt_idmap *idmap, struct dentry *unused,
- 	      struct inode *inode, const char *name, const void *value,
- 	      size_t size, int flags)
- {
-diff --git a/include/linux/capability.h b/include/linux/capability.h
-index c39a2bbefc47..8ab509c4e1ef 100644
---- a/include/linux/capability.h
-+++ b/include/linux/capability.h
-@@ -210,11 +210,11 @@ static inline bool checkpoint_restore_ns_capable_noaudit(struct user_namespace *
- }
+ extern ssize_t xfs_vn_listxattr(struct dentry *, char *data, size_t size);
  
- /* audit system wants to get cap info from files as well */
--int get_vfs_caps_from_disk(struct mnt_idmap *idmap,
-+int get_vfs_caps_from_disk(const struct mnt_idmap *idmap,
- 			   const struct dentry *dentry,
- 			   struct cpu_vfs_cap_data *cpu_caps);
+-int xfs_vn_setattr_size(struct mnt_idmap *idmap,
++int xfs_vn_setattr_size(const struct mnt_idmap *idmap,
+ 		struct dentry *dentry, struct iattr *vap);
  
--int cap_convert_nscap(struct mnt_idmap *idmap, struct dentry *dentry,
-+int cap_convert_nscap(const struct mnt_idmap *idmap, struct dentry *dentry,
- 		      const void **ivalue, size_t size);
- 
- #endif /* !_LINUX_CAPABILITY_H */
+ int xfs_inode_init_security(struct inode *inode, struct inode *dir,
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index f815594dd8cb..08166900931a 100644
+index 764ef2d97a5d..9186d9bb2697 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -3399,7 +3399,7 @@ static inline bool generic_ci_validate_strict_name(struct inode *dir,
+@@ -2028,7 +2028,7 @@ struct inode_operations {
+ 			struct file *, umode_t);
+ 	struct posix_acl *(*get_acl)(struct mnt_idmap *, struct dentry *,
+ 				     int);
+-	int (*set_acl)(struct mnt_idmap *, struct dentry *,
++	int (*set_acl)(const struct mnt_idmap *, struct dentry *,
+ 		       struct posix_acl *, int);
+ 	int (*fileattr_set)(const struct mnt_idmap *idmap,
+ 			    struct dentry *dentry, struct file_kattr *fa);
+diff --git a/include/linux/posix_acl.h b/include/linux/posix_acl.h
+index 7c6cfcae0a9d..9220fe0c965d 100644
+--- a/include/linux/posix_acl.h
++++ b/include/linux/posix_acl.h
+@@ -74,20 +74,20 @@ extern int __posix_acl_create(struct posix_acl **, gfp_t, umode_t *);
+ extern int __posix_acl_chmod(struct posix_acl **, gfp_t, umode_t);
  
- int may_setattr(const struct mnt_idmap *idmap, struct inode *inode,
- 		unsigned int ia_valid);
--int setattr_prepare(struct mnt_idmap *, struct dentry *, struct iattr *);
-+int setattr_prepare(const struct mnt_idmap *, struct dentry *, struct iattr *);
- extern int inode_newsize_ok(const struct inode *, loff_t offset);
- void setattr_copy(const struct mnt_idmap *, struct inode *inode,
- 		  const struct iattr *attr);
-diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
-index 30897590258f..e8638f7d2245 100644
---- a/include/linux/lsm_hook_defs.h
-+++ b/include/linux/lsm_hook_defs.h
-@@ -146,14 +146,14 @@ LSM_HOOK(void, LSM_RET_VOID, inode_post_setattr, struct mnt_idmap *idmap,
- 	 struct dentry *dentry, int ia_valid)
- LSM_HOOK(int, 0, inode_getattr, const struct path *path)
- LSM_HOOK(int, 0, inode_xattr_skipcap, const char *name)
--LSM_HOOK(int, 0, inode_setxattr, struct mnt_idmap *idmap,
-+LSM_HOOK(int, 0, inode_setxattr, const struct mnt_idmap *idmap,
- 	 struct dentry *dentry, const char *name, const void *value,
- 	 size_t size, int flags)
- LSM_HOOK(void, LSM_RET_VOID, inode_post_setxattr, struct dentry *dentry,
- 	 const char *name, const void *value, size_t size, int flags)
- LSM_HOOK(int, 0, inode_getxattr, struct dentry *dentry, const char *name)
- LSM_HOOK(int, 0, inode_listxattr, struct dentry *dentry)
--LSM_HOOK(int, 0, inode_removexattr, struct mnt_idmap *idmap,
-+LSM_HOOK(int, 0, inode_removexattr, const struct mnt_idmap *idmap,
- 	 struct dentry *dentry, const char *name)
- LSM_HOOK(void, LSM_RET_VOID, inode_post_removexattr, struct dentry *dentry,
- 	 const char *name)
-@@ -170,9 +170,9 @@ LSM_HOOK(int, 0, inode_remove_acl, const struct mnt_idmap *idmap,
- LSM_HOOK(void, LSM_RET_VOID, inode_post_remove_acl, const struct mnt_idmap *idmap,
- 	 struct dentry *dentry, const char *acl_name)
- LSM_HOOK(int, 0, inode_need_killpriv, struct dentry *dentry)
--LSM_HOOK(int, 0, inode_killpriv, struct mnt_idmap *idmap,
-+LSM_HOOK(int, 0, inode_killpriv, const struct mnt_idmap *idmap,
- 	 struct dentry *dentry)
--LSM_HOOK(int, -EOPNOTSUPP, inode_getsecurity, struct mnt_idmap *idmap,
-+LSM_HOOK(int, -EOPNOTSUPP, inode_getsecurity, const struct mnt_idmap *idmap,
- 	 struct inode *inode, const char *name, void **buffer, bool alloc)
- LSM_HOOK(int, -EOPNOTSUPP, inode_setsecurity, struct inode *inode,
- 	 const char *name, const void *value, size_t size, int flags)
-diff --git a/include/linux/security.h b/include/linux/security.h
-index 12bc12e243bf..d5832750418a 100644
---- a/include/linux/security.h
-+++ b/include/linux/security.h
-@@ -188,8 +188,8 @@ int cap_inode_setxattr(struct dentry *dentry, const char *name,
- int cap_inode_removexattr(const struct mnt_idmap *idmap,
- 			  struct dentry *dentry, const char *name);
- int cap_inode_need_killpriv(struct dentry *dentry);
--int cap_inode_killpriv(struct mnt_idmap *idmap, struct dentry *dentry);
--int cap_inode_getsecurity(struct mnt_idmap *idmap,
-+int cap_inode_killpriv(const struct mnt_idmap *idmap, struct dentry *dentry);
-+int cap_inode_getsecurity(const struct mnt_idmap *idmap,
- 			  struct inode *inode, const char *name, void **buffer,
- 			  bool alloc);
- extern int cap_mmap_addr(unsigned long addr);
-@@ -427,7 +427,7 @@ int security_inode_setattr(struct mnt_idmap *idmap,
- void security_inode_post_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
- 				 int ia_valid);
- int security_inode_getattr(const struct path *path);
--int security_inode_setxattr(struct mnt_idmap *idmap,
-+int security_inode_setxattr(const struct mnt_idmap *idmap,
- 			    struct dentry *dentry, const char *name,
- 			    const void *value, size_t size, int flags);
- int security_inode_set_acl(const struct mnt_idmap *idmap,
-@@ -446,7 +446,7 @@ void security_inode_post_setxattr(struct dentry *dentry, const char *name,
- 				  const void *value, size_t size, int flags);
- int security_inode_getxattr(struct dentry *dentry, const char *name);
- int security_inode_listxattr(struct dentry *dentry);
--int security_inode_removexattr(struct mnt_idmap *idmap,
-+int security_inode_removexattr(const struct mnt_idmap *idmap,
- 			       struct dentry *dentry, const char *name);
- void security_inode_post_removexattr(struct dentry *dentry, const char *name);
- int security_inode_file_setattr(struct dentry *dentry,
-@@ -454,8 +454,8 @@ int security_inode_file_setattr(struct dentry *dentry,
- int security_inode_file_getattr(struct dentry *dentry,
- 			      struct file_kattr *fa);
- int security_inode_need_killpriv(struct dentry *dentry);
--int security_inode_killpriv(struct mnt_idmap *idmap, struct dentry *dentry);
--int security_inode_getsecurity(struct mnt_idmap *idmap,
-+int security_inode_killpriv(const struct mnt_idmap *idmap, struct dentry *dentry);
-+int security_inode_getsecurity(const struct mnt_idmap *idmap,
- 			       struct inode *inode, const char *name,
- 			       void **buffer, bool alloc);
- int security_inode_setsecurity(struct inode *inode, const char *name, const void *value, size_t size, int flags);
-@@ -996,7 +996,7 @@ static inline int security_inode_getattr(const struct path *path)
+ extern struct posix_acl *get_posix_acl(struct inode *, int);
+-int set_posix_acl(struct mnt_idmap *, struct dentry *, int,
++int set_posix_acl(const struct mnt_idmap *, struct dentry *, int,
+ 		  struct posix_acl *);
+ 
+ struct posix_acl *get_cached_acl_rcu(struct inode *inode, int type);
+ struct posix_acl *posix_acl_clone(const struct posix_acl *acl, gfp_t flags);
+ 
+ #ifdef CONFIG_FS_POSIX_ACL
+-int posix_acl_chmod(struct mnt_idmap *, struct dentry *, umode_t);
++int posix_acl_chmod(const struct mnt_idmap *, struct dentry *, umode_t);
+ extern int posix_acl_create(struct inode *, umode_t *, struct posix_acl **,
+ 		struct posix_acl **);
+ int posix_acl_update_mode(const struct mnt_idmap *, struct inode *, umode_t *,
+ 			  struct posix_acl **);
+ 
+-int simple_set_acl(struct mnt_idmap *, struct dentry *,
++int simple_set_acl(const struct mnt_idmap *, struct dentry *,
+ 		   struct posix_acl *, int);
+ extern int simple_acl_create(struct inode *, struct inode *);
+ 
+@@ -105,16 +105,16 @@ static inline void cache_no_acl(struct inode *inode)
+ 	inode->i_default_acl = NULL;
+ }
+ 
+-int vfs_set_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int vfs_set_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		const char *acl_name, struct posix_acl *kacl);
+ struct posix_acl *vfs_get_acl(struct mnt_idmap *idmap,
+ 			      struct dentry *dentry, const char *acl_name);
+-int vfs_remove_acl(struct mnt_idmap *idmap, struct dentry *dentry,
++int vfs_remove_acl(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		   const char *acl_name);
+ int posix_acl_listxattr(struct inode *inode, char **buffer,
+ 			ssize_t *remaining_size);
+ #else
+-static inline int posix_acl_chmod(struct mnt_idmap *idmap,
++static inline int posix_acl_chmod(const struct mnt_idmap *idmap,
+ 				  struct dentry *dentry, umode_t mode)
+ {
  	return 0;
+@@ -141,7 +141,7 @@ static inline void forget_all_cached_acls(struct inode *inode)
+ {
  }
  
--static inline int security_inode_setxattr(struct mnt_idmap *idmap,
-+static inline int security_inode_setxattr(const struct mnt_idmap *idmap,
- 		struct dentry *dentry, const char *name, const void *value,
- 		size_t size, int flags)
+-static inline int vfs_set_acl(struct mnt_idmap *idmap,
++static inline int vfs_set_acl(const struct mnt_idmap *idmap,
+ 			      struct dentry *dentry, const char *name,
+ 			      struct posix_acl *acl)
  {
-@@ -1050,7 +1050,7 @@ static inline int security_inode_listxattr(struct dentry *dentry)
- 	return 0;
+@@ -155,7 +155,7 @@ static inline struct posix_acl *vfs_get_acl(struct mnt_idmap *idmap,
+ 	return ERR_PTR(-EOPNOTSUPP);
  }
  
--static inline int security_inode_removexattr(struct mnt_idmap *idmap,
-+static inline int security_inode_removexattr(const struct mnt_idmap *idmap,
- 					     struct dentry *dentry,
- 					     const char *name)
+-static inline int vfs_remove_acl(struct mnt_idmap *idmap,
++static inline int vfs_remove_acl(const struct mnt_idmap *idmap,
+ 				 struct dentry *dentry, const char *acl_name)
  {
-@@ -1078,13 +1078,13 @@ static inline int security_inode_need_killpriv(struct dentry *dentry)
- 	return cap_inode_need_killpriv(dentry);
- }
- 
--static inline int security_inode_killpriv(struct mnt_idmap *idmap,
-+static inline int security_inode_killpriv(const struct mnt_idmap *idmap,
- 					  struct dentry *dentry)
- {
- 	return cap_inode_killpriv(idmap, dentry);
- }
- 
--static inline int security_inode_getsecurity(struct mnt_idmap *idmap,
-+static inline int security_inode_getsecurity(const struct mnt_idmap *idmap,
- 					     struct inode *inode,
- 					     const char *name, void **buffer,
- 					     bool alloc)
-diff --git a/include/linux/xattr.h b/include/linux/xattr.h
-index 54ac3cbc133f..4cc4257de084 100644
---- a/include/linux/xattr.h
-+++ b/include/linux/xattr.h
-@@ -47,7 +47,7 @@ struct xattr_handler {
- 		   struct inode *inode, const char *name, void *buffer,
- 		   size_t size);
- 	int (*set)(const struct xattr_handler *,
--		   struct mnt_idmap *idmap, struct dentry *dentry,
-+		   const struct mnt_idmap *idmap, struct dentry *dentry,
- 		   struct inode *inode, const char *name, const void *buffer,
- 		   size_t size, int flags);
- };
-@@ -77,25 +77,25 @@ struct xattr {
- };
- 
- ssize_t __vfs_getxattr(struct dentry *, struct inode *, const char *, void *, size_t);
--ssize_t vfs_getxattr(struct mnt_idmap *, struct dentry *, const char *,
-+ssize_t vfs_getxattr(const struct mnt_idmap *, struct dentry *, const char *,
- 		     void *, size_t);
- ssize_t vfs_listxattr(struct dentry *d, char *list, size_t size);
--int __vfs_setxattr(struct mnt_idmap *, struct dentry *, struct inode *,
-+int __vfs_setxattr(const struct mnt_idmap *, struct dentry *, struct inode *,
- 		   const char *, const void *, size_t, int);
--int __vfs_setxattr_noperm(struct mnt_idmap *, struct dentry *,
-+int __vfs_setxattr_noperm(const struct mnt_idmap *, struct dentry *,
- 			  const char *, const void *, size_t, int);
--int __vfs_setxattr_locked(struct mnt_idmap *, struct dentry *,
-+int __vfs_setxattr_locked(const struct mnt_idmap *, struct dentry *,
- 			  const char *, const void *, size_t, int,
- 			  struct delegated_inode *);
--int vfs_setxattr(struct mnt_idmap *, struct dentry *, const char *,
-+int vfs_setxattr(const struct mnt_idmap *, struct dentry *, const char *,
- 		 const void *, size_t, int);
--int __vfs_removexattr(struct mnt_idmap *, struct dentry *, const char *);
--int __vfs_removexattr_locked(struct mnt_idmap *, struct dentry *,
-+int __vfs_removexattr(const struct mnt_idmap *, struct dentry *, const char *);
-+int __vfs_removexattr_locked(const struct mnt_idmap *, struct dentry *,
- 			     const char *, struct delegated_inode *);
--int vfs_removexattr(struct mnt_idmap *, struct dentry *, const char *);
-+int vfs_removexattr(const struct mnt_idmap *, struct dentry *, const char *);
- 
- ssize_t generic_listxattr(struct dentry *dentry, char *buffer, size_t buffer_size);
--int vfs_getxattr_alloc(struct mnt_idmap *idmap,
-+int vfs_getxattr_alloc(const struct mnt_idmap *idmap,
- 		       struct dentry *dentry, const char *name,
- 		       char **xattr_value, size_t size, gfp_t flags);
- 
-diff --git a/kernel/bpf/inode.c b/kernel/bpf/inode.c
-index 7837968c0842..11174037a9ca 100644
---- a/kernel/bpf/inode.c
-+++ b/kernel/bpf/inode.c
-@@ -874,7 +874,7 @@ enum {
- };
- 
- static int bpf_fs_xattr_set(const struct xattr_handler *handler,
--			    struct mnt_idmap *idmap, struct dentry *unused,
-+			    const struct mnt_idmap *idmap, struct dentry *unused,
- 			    struct inode *inode, const char *name,
- 			    const void *value, size_t size, int flags)
- {
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 9ab5231c4dfe..ed633b3bc38d 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -4264,7 +4264,7 @@ static int shmem_xattr_handler_get(const struct xattr_handler *handler,
- }
- 
- static int shmem_xattr_handler_set(const struct xattr_handler *handler,
--				   struct mnt_idmap *idmap,
-+				   const struct mnt_idmap *idmap,
- 				   struct dentry *unused, struct inode *inode,
- 				   const char *name, const void *value,
- 				   size_t size, int flags)
-diff --git a/net/socket.c b/net/socket.c
-index c05d86e63abf..052273ad081a 100644
---- a/net/socket.c
-+++ b/net/socket.c
-@@ -422,7 +422,7 @@ static const struct xattr_handler sockfs_xattr_handler = {
- };
- 
- static int sockfs_security_xattr_set(const struct xattr_handler *handler,
--				     struct mnt_idmap *idmap,
-+				     const struct mnt_idmap *idmap,
- 				     struct dentry *dentry, struct inode *inode,
- 				     const char *suffix, const void *value,
- 				     size_t size, int flags)
-@@ -447,7 +447,7 @@ static int sockfs_user_xattr_get(const struct xattr_handler *handler,
- }
- 
- static int sockfs_user_xattr_set(const struct xattr_handler *handler,
--				 struct mnt_idmap *idmap,
-+				 const struct mnt_idmap *idmap,
- 				 struct dentry *dentry, struct inode *inode,
- 				 const char *suffix, const void *value,
- 				 size_t size, int flags)
-diff --git a/security/commoncap.c b/security/commoncap.c
-index 9361393fd756..d47ab3022343 100644
---- a/security/commoncap.c
-+++ b/security/commoncap.c
-@@ -348,7 +348,7 @@ int cap_inode_need_killpriv(struct dentry *dentry)
-  *
-  * Return: 0 if successful, -ve on error.
-  */
--int cap_inode_killpriv(struct mnt_idmap *idmap, struct dentry *dentry)
-+int cap_inode_killpriv(const struct mnt_idmap *idmap, struct dentry *dentry)
- {
- 	int error;
- 
-@@ -417,7 +417,7 @@ static bool is_v3header(int size, const struct vfs_cap_data *cap)
-  * by the integrity subsystem, which really wants the unconverted values -
-  * so that's good.
-  */
--int cap_inode_getsecurity(struct mnt_idmap *idmap,
-+int cap_inode_getsecurity(const struct mnt_idmap *idmap,
- 			  struct inode *inode, const char *name, void **buffer,
- 			  bool alloc)
- {
-@@ -566,7 +566,7 @@ static bool validheader(size_t size, const struct vfs_cap_data *cap)
-  *
-  * Return: On success, return the new size; on error, return < 0.
-  */
--int cap_convert_nscap(struct mnt_idmap *idmap, struct dentry *dentry,
-+int cap_convert_nscap(const struct mnt_idmap *idmap, struct dentry *dentry,
- 		      const void **ivalue, size_t size)
- {
- 	struct vfs_ns_cap_data *nscap;
-@@ -672,7 +672,7 @@ static inline int bprm_caps_from_vfs_caps(struct cpu_vfs_cap_data *caps,
-  * permissions. On non-idmapped mounts or if permission checking is to be
-  * performed on the raw inode simply pass @nop_mnt_idmap.
-  */
--int get_vfs_caps_from_disk(struct mnt_idmap *idmap,
-+int get_vfs_caps_from_disk(const struct mnt_idmap *idmap,
- 			   const struct dentry *dentry,
- 			   struct cpu_vfs_cap_data *cpu_caps)
- {
-diff --git a/security/integrity/evm/evm_main.c b/security/integrity/evm/evm_main.c
-index aaf228ebed7c..94928549bfab 100644
---- a/security/integrity/evm/evm_main.c
-+++ b/security/integrity/evm/evm_main.c
-@@ -607,7 +607,7 @@ static int evm_protect_xattr(const struct mnt_idmap *idmap,
-  * userspace from writing HMAC value.  Writing 'security.evm' requires
-  * requires CAP_SYS_ADMIN privileges.
-  */
--static int evm_inode_setxattr(struct mnt_idmap *idmap, struct dentry *dentry,
-+static int evm_inode_setxattr(const struct mnt_idmap *idmap, struct dentry *dentry,
- 			      const char *xattr_name, const void *xattr_value,
- 			      size_t xattr_value_len, int flags)
- {
-@@ -639,7 +639,7 @@ static int evm_inode_setxattr(struct mnt_idmap *idmap, struct dentry *dentry,
-  * Removing 'security.evm' requires CAP_SYS_ADMIN privileges and that
-  * the current value is valid.
-  */
--static int evm_inode_removexattr(struct mnt_idmap *idmap, struct dentry *dentry,
-+static int evm_inode_removexattr(const struct mnt_idmap *idmap, struct dentry *dentry,
- 				 const char *xattr_name)
- {
- 	/* Policy permits modification of the protected xattrs even though
-diff --git a/security/integrity/ima/ima_appraise.c b/security/integrity/ima/ima_appraise.c
-index 1aed041c127a..cfc20c63a814 100644
---- a/security/integrity/ima/ima_appraise.c
-+++ b/security/integrity/ima/ima_appraise.c
-@@ -757,7 +757,7 @@ static int validate_hash_algo(struct dentry *dentry,
- 	return -EACCES;
- }
- 
--static int ima_inode_setxattr(struct mnt_idmap *idmap, struct dentry *dentry,
-+static int ima_inode_setxattr(const struct mnt_idmap *idmap, struct dentry *dentry,
- 			      const char *xattr_name, const void *xattr_value,
- 			      size_t xattr_value_len, int flags)
- {
-@@ -799,7 +799,7 @@ static int ima_inode_set_acl(const struct mnt_idmap *idmap, struct dentry *dentr
- 	return 0;
- }
- 
--static int ima_inode_removexattr(struct mnt_idmap *idmap, struct dentry *dentry,
-+static int ima_inode_removexattr(const struct mnt_idmap *idmap, struct dentry *dentry,
- 				 const char *xattr_name)
- {
- 	int result, digsig = -1;
-diff --git a/security/security.c b/security/security.c
-index e81dcda3050b..e3a14c958bc4 100644
---- a/security/security.c
-+++ b/security/security.c
-@@ -1921,7 +1921,7 @@ int security_inode_getattr(const struct path *path)
-  *
-  * Return: Returns 0 if permission is granted.
-  */
--int security_inode_setxattr(struct mnt_idmap *idmap,
-+int security_inode_setxattr(const struct mnt_idmap *idmap,
- 			    struct dentry *dentry, const char *name,
- 			    const void *value, size_t size, int flags)
- {
-@@ -2108,7 +2108,7 @@ int security_inode_listxattr(struct dentry *dentry)
-  *
-  * Return: Returns 0 if permission is granted.
-  */
--int security_inode_removexattr(struct mnt_idmap *idmap,
-+int security_inode_removexattr(const struct mnt_idmap *idmap,
- 			       struct dentry *dentry, const char *name)
- {
- 	int rc;
-@@ -2197,7 +2197,7 @@ int security_inode_need_killpriv(struct dentry *dentry)
-  * Return: Return 0 on success.  If error is returned, then the operation
-  *         causing setuid bit removal is failed.
-  */
--int security_inode_killpriv(struct mnt_idmap *idmap,
-+int security_inode_killpriv(const struct mnt_idmap *idmap,
- 			    struct dentry *dentry)
- {
- 	return call_int_hook(inode_killpriv, idmap, dentry);
-@@ -2219,7 +2219,7 @@ int security_inode_killpriv(struct mnt_idmap *idmap,
-  *
-  * Return: Returns size of buffer on success.
-  */
--int security_inode_getsecurity(struct mnt_idmap *idmap,
-+int security_inode_getsecurity(const struct mnt_idmap *idmap,
- 			       struct inode *inode, const char *name,
- 			       void **buffer, bool alloc)
- {
-diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index 672d6374d8b0..b7c6eba08fdc 100644
---- a/security/selinux/hooks.c
-+++ b/security/selinux/hooks.c
-@@ -3367,7 +3367,7 @@ static int selinux_inode_xattr_skipcap(const char *name)
- 	return !strcmp(name, XATTR_NAME_SELINUX);
- }
- 
--static int selinux_inode_setxattr(struct mnt_idmap *idmap,
-+static int selinux_inode_setxattr(const struct mnt_idmap *idmap,
- 				  struct dentry *dentry, const char *name,
- 				  const void *value, size_t size, int flags)
- {
-@@ -3526,7 +3526,7 @@ static int selinux_inode_listxattr(struct dentry *dentry)
- 	return dentry_has_perm(cred, dentry, FILE__GETATTR);
- }
- 
--static int selinux_inode_removexattr(struct mnt_idmap *idmap,
-+static int selinux_inode_removexattr(const struct mnt_idmap *idmap,
- 				     struct dentry *dentry, const char *name)
- {
- 	/* if not a selinux xattr, only check the ordinary setattr perm */
-@@ -3606,7 +3606,7 @@ static int selinux_path_notify(const struct path *path, u64 mask,
-  *
-  * Permission check is handled by selinux_inode_getxattr hook.
-  */
--static int selinux_inode_getsecurity(struct mnt_idmap *idmap,
-+static int selinux_inode_getsecurity(const struct mnt_idmap *idmap,
- 				     struct inode *inode, const char *name,
- 				     void **buffer, bool alloc)
- {
-diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
-index 244cdb49e928..df4fc6ff26aa 100644
---- a/security/smack/smack_lsm.c
-+++ b/security/smack/smack_lsm.c
-@@ -1348,7 +1348,7 @@ static int smack_inode_xattr_skipcap(const char *name)
-  *
-  * Returns 0 if access is permitted, an error code otherwise
-  */
--static int smack_inode_setxattr(struct mnt_idmap *idmap,
-+static int smack_inode_setxattr(const struct mnt_idmap *idmap,
- 				struct dentry *dentry, const char *name,
- 				const void *value, size_t size, int flags)
- {
-@@ -1482,7 +1482,7 @@ static int smack_inode_getxattr(struct dentry *dentry, const char *name)
-  *
-  * Returns 0 if access is permitted, an error code otherwise
-  */
--static int smack_inode_removexattr(struct mnt_idmap *idmap,
-+static int smack_inode_removexattr(const struct mnt_idmap *idmap,
- 				   struct dentry *dentry, const char *name)
- {
- 	struct inode_smack *isp;
-@@ -1612,7 +1612,7 @@ static int smack_inode_remove_acl(const struct mnt_idmap *idmap,
-  *
-  * Returns the size of the attribute or an error code
-  */
--static int smack_inode_getsecurity(struct mnt_idmap *idmap,
-+static int smack_inode_getsecurity(const struct mnt_idmap *idmap,
- 				   struct inode *inode, const char *name,
- 				   void **buffer, bool alloc)
- {
+ 	return -EOPNOTSUPP;
 
 -- 
 2.53.0
