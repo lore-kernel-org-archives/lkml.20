@@ -1,224 +1,138 @@
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f7.google.com (mail-pz2-f7.google.com [74.125.228.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF8643B4BD;
-	Tue,  1 Sep 2026 15:03:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788275041; cv=pass; b=emwqnR2iYPBdTDDldsb7kBt1V086XarzeiQL51J87fygMA0FCG4EimeLE66321kehWefeHak+rK7WH5VIXz1nXDCMj18ujTAheqZn6xQCPB95XFeFPHbwbXwfLVhO1UZbLwOgnzL6fBjdF/vwWnmZYhrMJ9yP6kGC9LI4TxhXF4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788275041; c=relaxed/simple;
-	bh=bsiX9TmU8yyJWunXTtk29c3Q4XxwYjJFWNna0AbGdLU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=O4HFT+S7hJo62bcq00srpEMSZYqpzulI9dCLE/ZQCLfQX0kbmoNqOM0Ml/PhRtoqsc2kRoCp6bme3/RQtmTiWoMP0+gURyCNpRfng9cnZs+1LHDz1/jrdWqkg6a/0PFNchm954TkYRbgqtYZKWngH4ntKoqLsOwVmVVN3djKUfc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=rC8KrlFG; arc=pass smtp.client-ip=136.143.188.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B12C83D6663
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:04:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.7
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788275050; cv=none; b=KfjPIqBruV6WL+M556Zn6dCB1nSXpCOhsKHW91Tl/YGxU91cXRRTb9Z7RaTFP1lLxjnGDLEeJzUwPS184DHpKAjcbksFPGoLT5DAdUCQ1mFDidF4gIpr6+k/jf1qEBeEec4i9NveOxCi1sMlEHChYCPxeYvTkCY0nmBRFE+lg9Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788275050; c=relaxed/simple;
+	bh=VMBfELsDgdw4LHnXCPqjLHfbD46aI9SXxvEcWut9ryc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ulF2o2OAxKeNk4lgyz7MHuayqOHTZuLnpFoyef9GcGOIB2IeNSDaDQtuGgCHrsj2VgBOe9k/f+AXhpBRlY49lWEzr4Xq/vfRL82IzFVPcCDZM2ROzU4Z4TE6hTCJmV6ayhfGq5X7cjPNHNW3PerijIs7yFzaUoj/RjmwI6Lq6po=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=brmu9yGT; arc=none smtp.client-ip=74.125.228.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="rC8KrlFG"
-ARC-Seal: i=1; a=rsa-sha256; t=1788275023; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=JSvCwaDj7o5huU1KlCQpr8W6r1hZc80re2SoCuKreSLGQ7YfwppDhDSjynY+qmIP11N/gBOWD7WHpuVt32CTbBd9CphRW95wSr9AGHcD9jGH2a4aPiDENwiGYH+mmFHh3aGzAHLgnuMs1MVxbWD/2hpjIjGwlLGA6nYd+e+6fco=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788275023; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=cTnD9NEl02EgDePoGeEJ/9xidaKFbvUQBYGEhsD2/Lo=; 
-	b=IWEiIx6nDDSzr0LMgYPG2Ml/NXzOIDyO5dZ+fBkyTd9hvPd3UXJrolydjY9tK3YuiH4KjvVVK+7mQct0RupoDzR9b9Ls6iANDNZfr9bhpcYd0O9LufZfA7We144tbu7G1YwYH9Kcd59vGBL8ALBGcIePEXvcjXcSdjvij/PIWOI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788275023;
-	s=zmail2048; d=rong.moe; i=i@rong.moe;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
-	bh=cTnD9NEl02EgDePoGeEJ/9xidaKFbvUQBYGEhsD2/Lo=;
-	b=rC8KrlFGAVh0FSvRLHu/Qyjy9vbrycdxpMRr4NfhzP3w1DDz7qEihZ86wqQVwQSv
-	BUoF0kEh4yGvajH2pjUGeNxo2sijDM8M70Cl3Ye9GA3tVL7Jwrqmi4v73ZgsT44R6gS
-	+sfsPHbzWfH4JsA/IdYjRcVQIvqxGhD4iOyDfySZ5YtP2hAlhagefbOpohxiw9Gnj9T
-	C9LYNqPFFFOidulTf26PrSnD/Tk8s8nkP5Rt88j+b3mAgFcnSAGAadI5hNqFSwqi0Ug
-	7HjpdsIA9XUe2gi+XJ9IZ13/yeVY1c/ngSPhPOhU/p2O7BpjiIdiaIkXABjHyOaR7eU
-	lnQTxBYeIg==
-Received: by mx.zohomail.com with SMTPS id 1788275020278835.966605680935;
-	Tue, 1 Sep 2026 08:03:40 -0700 (PDT)
-From: Rong Zhang <i@rong.moe>
-Date: Tue, 01 Sep 2026 23:02:12 +0800
-Subject: [PATCH 2/5] platform/x86/amd/pmf: Inline simple helper functions
- of Core Layer
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="brmu9yGT"
+Received: by mail-pz2-f7.google.com with SMTP id 41be03b00d2f7-cc1ddb3ba3eso3187657a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:04:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788275048; x=1788879848; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jFOAryefyj3E8LprwQb6zM23kP14ZZpWJUCwFcY71vI=;
+        b=brmu9yGTEA2F4WzPCq6ADcgF7oOZy++TTvE+0A4rE30xUoEOT6hWOz5XtZPRBGh7NI
+         VdA7uNEsUkaBJIjyaNdrV/WEW218oPPbEwXuLXTYwpTbeAU5fPhJFRMuQN27pKY0JQgr
+         9p5yXkCKY/anvFDdiOPEs0dbGhGAjhtSTbUXZVWjdsobeRL0nXh27qXK74EPuhhyZj/j
+         4p+4gERbxqoZFE+vq5LvdyDZHAiyBqfEWeC/0YQbeIhFVoDq39Yg/l80Tlx8mpnsSSnP
+         iInc1Fs/c//Zlt7ga4B3V+AMNVG2n7IdHs3tOWXqqMo+r9VH1l+RsJvnbePrEGWOC+mG
+         460g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788275048; x=1788879848;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jFOAryefyj3E8LprwQb6zM23kP14ZZpWJUCwFcY71vI=;
+        b=inDoojIKEdCVuKetSi+4PMAg3cF4tJWvHPTrv20v3wS/vVKdH68s8G+VMNzAnYmRZA
+         q1kw3mZAMmdv0V4FmlVspPjEprlY5rfX/nDiuNR5v1i0o5yMl7iD8us+XeS6ay0X1kM9
+         VzfV7ciCAt6fU7zi2GGvn3vmoxaq57ukdJ8rwDym+//HmghdJp/R0BcKTC+el+Kk0WH6
+         oNjqfGPFqx0Tf7n2OaOqBcDj3zdeS5vdiAQS4Bt2dAyb/niBCVGOZj2r5gsk9AJePmF8
+         tGGqsJAHElWVGZ5rWsp96tI+mbFUQZy/sq84BN3FuUeOWoh3LjZTHEz9HMEpSs42HyT/
+         VRFA==
+X-Forwarded-Encrypted: i=1; AHgh+RqaMBDpdpIGuHnfH5hM6RVuy43aUkoQli0/KR4H9wtNduWJc2ISoszgvMgJez45lFnYS1RL0055CSOSsiA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kH5Yw9QFSeEw7mA00y93mL0136vo+/qdfO4S+kFtLddEwHt6LV
+	d5lH7sWWyUCFYGFFbqkB0NBZi/z4gB5Wmp+nU4xvxhyILxNEpU8cJ4y2
+X-Gm-Gg: AR+sD11qjDdlCAOxefFEn5OXNcDF4zY1E72t/OkK780B9hM8SLlZJREqkY88ZopdnO/
+	j9GZ5aN7o6ADUvVJhr9ckHfiV1RafrGW8xwRfJTBNFjlrqCT4Zm95a85b2rH2Md7O1lNJX/mUVy
+	aTQuJaZV+0jJ7q2vqkN4FbnLH7DG69UtCq2cp5Y9g4KOZrleFwOwqXTqW+SpPeMA338Yb7yupFv
+	1t/CROzQAPizxjMJjCJoGg9vDR2p9VSlqE0UApKRBkqp3la8686Fpt8NmK/itDfJh/jRA4E4q4m
+	7309VRlACYgjbo6jgkEtOZXA2DdyUxMsNpjuTw9U03PnqmWiCnfI6kF3tKq95nzoR/4c9qX254r
+	EPHh/mFouAz99deFXrT+kNiu0vk3AbDXsKxcKzrDNOqIdcHDobeN5gtVCunO4xXR7XNvMJ+hpWw
+	21yz5QPw9ruQWSvvvWc6KbjYy63OD37uC+rH0FI2LrP661wmjDnGR5R2Bddsk=
+X-Received: by 2002:a05:6a00:4501:b0:857:72f8:dc91 with SMTP id d2e1a72fcca58-85772f8de55mr39669660b3a.18.1788275020723;
+        Tue, 01 Sep 2026 08:03:40 -0700 (PDT)
+Received: from server.lan ([150.230.217.250])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc0716846sm27914b3a.45.2026.09.01.08.03.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 08:03:39 -0700 (PDT)
+From: Coia Prant <coiaprant@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Vinod Koul <vkoul@kernel.org>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Romain Gantois <romain.gantois@bootlin.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Coia Prant <coiaprant@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	David Heidelberg <david@ixit.cz>,
+	netdev@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH net-next v3 10/10] MAINTAINERS: add entry for Rockchip XPCS driver
+Date: Tue,  1 Sep 2026 23:01:10 +0800
+Message-ID: <20260901150111.141037-11-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260901150111.141037-1-coiaprant@gmail.com>
+References: <20260901150111.141037-1-coiaprant@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-amd-pmf-fix-outlining-v1-2-b54ff94d3d45@rong.moe>
-References: <20260901-amd-pmf-fix-outlining-v1-0-b54ff94d3d45@rong.moe>
-In-Reply-To: <20260901-amd-pmf-fix-outlining-v1-0-b54ff94d3d45@rong.moe>
-To: Shyam Sundar S K <Shyam-sundar.S-k@amd.com>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Sanket Goswami <Sanket.Goswami@amd.com>, 
- "Mario Limonciello (AMD)" <superm1@kernel.org>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Rong Zhang <i@rong.moe>
-X-Mailer: b4 0.17-dev-1f2f7
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-The Core Layer has simple and dumb helper functions defined as global
-symbols, which are heavily used by other layers and become symbols
-against linkage. This bloats the size of the module.
+Add a MAINTAINERS entry for the Rockchip RK3568 XPCS platform driver
+and its device tree binding.
 
-Convert them into static inline functions to get rid of the overhead of
-function outlining and linkage, and shrink the module
-(!CONFIG_AMD_PMF_DEBUG && CONFIG_AMD_PMF_UTIL_SUPPORT) size by 432 Bytes
-(GCC 16 -O2):
+Include the relevant mailing lists (netdev and linux-rockchip) so that
+future patches are properly distributed.
 
-      text       data        bss      total filename	(before)
-     26781      31636       2768      61185 amd-pmf.ko
-
-      text       data        bss      total filename	(after)
-     26533      31452       2768      60753 amd-pmf.ko
-
-Signed-off-by: Rong Zhang <i@rong.moe>
+Signed-off-by: Coia Prant <coiaprant@gmail.com>
 ---
- drivers/platform/x86/amd/pmf/acpi.c | 11 -----------
- drivers/platform/x86/amd/pmf/core.c | 22 ---------------------
- drivers/platform/x86/amd/pmf/pmf.h  | 39 +++++++++++++++++++++++++++++++++----
- 3 files changed, 35 insertions(+), 37 deletions(-)
+ MAINTAINERS | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/platform/x86/amd/pmf/acpi.c b/drivers/platform/x86/amd/pmf/acpi.c
-index 3d94b03cf794..6a2c11e75eea 100644
---- a/drivers/platform/x86/amd/pmf/acpi.c
-+++ b/drivers/platform/x86/amd/pmf/acpi.c
-@@ -158,17 +158,6 @@ static int apts_if_call_store_buffer(struct amd_pmf_dev *pdev,
- 	return err;
- }
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3a19da74d00c9..c3b17752cc817 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -23744,6 +23744,15 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/sound/rockchip,rk3576-sai.yaml
+ F:	sound/soc/rockchip/rockchip_sai.*
  
--int is_apmf_func_supported(struct amd_pmf_dev *pdev, unsigned long index)
--{
--	/* If bit-n is set, that indicates function n+1 is supported */
--	return !!(pdev->supported_func & BIT(index - 1));
--}
--
--int is_apmf_bios_input_notifications_supported(struct amd_pmf_dev *pdev)
--{
--	return !!(pdev->notifications & CUSTOM_BIOS_INPUT_BITS);
--}
--
- int apts_get_static_slider_granular_v2(struct amd_pmf_dev *pdev,
- 				       struct amd_pmf_apts_granular_output *data, u32 apts_idx)
- {
-diff --git a/drivers/platform/x86/amd/pmf/core.c b/drivers/platform/x86/amd/pmf/core.c
-index b4eae65e675b..ec2ce7fa3dee 100644
---- a/drivers/platform/x86/amd/pmf/core.c
-+++ b/drivers/platform/x86/amd/pmf/core.c
-@@ -138,14 +138,6 @@ static void amd_pmf_dbgfs_register(struct amd_pmf_dev *dev)
- 				    &current_power_limits_fops);
- }
- 
--int amd_pmf_get_power_source(void)
--{
--	if (power_supply_is_system_supplied() > 0)
--		return POWER_SOURCE_AC;
--	else
--		return POWER_SOURCE_DC;
--}
--
- static inline u32 amd_pmf_reg_read(struct amd_pmf_dev *dev, int reg_offset)
- {
- 	return ioread32(dev->regbase + reg_offset);
-@@ -176,20 +168,6 @@ static void __maybe_unused amd_pmf_dump_registers(struct amd_pmf_dev *dev)
- 	dev_dbg(dev->dev, "AMD_PMF_REGISTER_MESSAGE:%x\n", value);
- }
- 
--/**
-- * fixp_q88_fromint: Convert integer to Q8.8
-- * @val: input value
-- *
-- * Converts an integer into binary fixed point format where 8 bits
-- * are used for integer and 8 bits are used for the decimal.
-- *
-- * Return: unsigned integer converted to Q8.8 format
-- */
--u32 fixp_q88_fromint(u32 val)
--{
--	return val << 8;
--}
--
- int amd_pmf_send_cmd(struct amd_pmf_dev *dev, u8 message, bool get, u32 arg, u32 *data)
- {
- 	int rc;
-diff --git a/drivers/platform/x86/amd/pmf/pmf.h b/drivers/platform/x86/amd/pmf/pmf.h
-index 4da2ef1abb50..024f20306e11 100644
---- a/drivers/platform/x86/amd/pmf/pmf.h
-+++ b/drivers/platform/x86/amd/pmf/pmf.h
-@@ -13,11 +13,13 @@
- 
- #include <linux/acpi.h>
- #include <linux/amd-pmf-io.h>
-+#include <linux/bits.h>
- #include <linux/circ_buf.h>
- #include <linux/compiler_attributes.h>
- #include <linux/compiler_types.h>
- #include <linux/input.h>
- #include <linux/mutex_types.h>
-+#include <linux/power_supply.h>
- #include <linux/platform_device.h>
- #include <linux/platform_profile.h>
- #include <linux/types.h>
-@@ -1073,18 +1075,47 @@ struct ta_pmf_shared_memory {
- /* Core Layer */
- int apmf_acpi_init(struct amd_pmf_dev *pmf_dev);
- void apmf_acpi_deinit(struct amd_pmf_dev *pmf_dev);
--int is_apmf_func_supported(struct amd_pmf_dev *pdev, unsigned long index);
- int amd_pmf_send_cmd(struct amd_pmf_dev *dev, u8 message, bool get, u32 arg, u32 *data);
- int amd_pmf_init_metrics_table(struct amd_pmf_dev *dev);
--int amd_pmf_get_power_source(void);
- int apmf_install_handler(struct amd_pmf_dev *pmf_dev);
- int apmf_os_power_slider_update(struct amd_pmf_dev *dev, u8 flag);
- int amd_pmf_set_dram_addr(struct amd_pmf_dev *dev, bool alloc_buffer);
- int amd_pmf_notify_sbios_heartbeat_event_v2(struct amd_pmf_dev *dev, u8 flag);
--u32 fixp_q88_fromint(u32 val);
--int is_apmf_bios_input_notifications_supported(struct amd_pmf_dev *pdev);
- void amd_pmf_set_device(struct device *p_device);
- 
-+static inline int is_apmf_func_supported(struct amd_pmf_dev *pdev, unsigned long index)
-+{
-+	/* If bit-n is set, that indicates function n+1 is supported */
-+	return !!(pdev->supported_func & BIT(index - 1));
-+}
++ROCKCHIP XPCS DRIVER
++M:	Coia Prant <coiaprant@gmail.com>
++L:	netdev@vger.kernel.org
++L:	linux-rockchip@lists.infradead.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/net/pcs/rockchip-dwxpcs.yaml
++F:	drivers/net/pcs/pcs-xpcs-rk.c
++F:	include/linux/pcs/pcs-xpcs-rk.h
 +
-+static inline int is_apmf_bios_input_notifications_supported(struct amd_pmf_dev *pdev)
-+{
-+	return !!(pdev->notifications & CUSTOM_BIOS_INPUT_BITS);
-+}
-+
-+static inline int amd_pmf_get_power_source(void)
-+{
-+	if (power_supply_is_system_supplied() > 0)
-+		return POWER_SOURCE_AC;
-+	else
-+		return POWER_SOURCE_DC;
-+}
-+
-+/**
-+ * fixp_q88_fromint: Convert integer to Q8.8
-+ * @val: input value
-+ *
-+ * Converts an integer into binary fixed point format where 8 bits
-+ * are used for integer and 8 bits are used for the decimal.
-+ *
-+ * Return: unsigned integer converted to Q8.8 format
-+ */
-+static inline u32 fixp_q88_fromint(u32 val)
-+{
-+	return val << 8;
-+}
-+
- /* Metrics layer */
- int amd_pmf_get_tbl_dram_addr(struct amd_pmf_dev *dev);
- 
-
+ ROCKER DRIVER
+ M:	Jiri Pirko <jiri@resnulli.us>
+ L:	netdev@vger.kernel.org
 -- 
-2.55.0
+2.47.3
 
