@@ -1,95 +1,108 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5F9EE4908DA;
-	Tue,  1 Sep 2026 17:58:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01176490BF4;
+	Tue,  1 Sep 2026 17:58:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788285534; cv=none; b=lLbeLG1F85I4B4AWJA+3NCHscKKbMwulYMA2U8gzZMrJYcag4laQiw9eEAhPTiPZy1eXSVzpVyVogldCQPH5r8nYS7P69elaVpuC9ZyJx+ud2Ps5tcUA/dvI3H0e6rVnFRFRE0iQ19CjDpAgOgw6cASb9vluVZ26RjunTsz5eu4=
+	t=1788285540; cv=none; b=uOsuwpWGEXFzmNGXEPfGHHpAHzvtq2bfWwrieHVOy+7WgcJ2tX4Jh42GHibKlICeogkBsN8XIeGXtVeJXArZ2AJ/6CCN0nF8y5Xe0QforZ6eJSEpbZe2e04iWshXYaEt9k8tWp9gr3XrjpOm2RJmxVMWZkbYy0riA4CKVLs7iso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788285534; c=relaxed/simple;
-	bh=2W8npXJoJZbijCjhRseirFQjDutKhflMtpGqwMrfhl4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IcRNe7y1YLv4LTjrOsLz5AEOxQkxkiFuWQaYlLxjwLyZSeBVzP1dku7qA4OhuV4munr5zm7YdI5t8O9AIOY+O0uk3tHTpaOslV9nA89XI7jMIon5vFVcNCsoteLHoeG/6IyKTj2tQt7e8SR0l8Moukrv4/l4If4EmmMPwEQ87rY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=rfUKe7To; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1788285540; c=relaxed/simple;
+	bh=SFftTY28xng0TqAs0+/d6fgvhXTiZq29gcPBy5wVyio=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=t3njhnQCI4HWgo5p9021s4Ra4/V0/85xDzzT95/NPZrdHDDNkJ9HULdztMWlwlloyB2bESWrgHb4Q0oe3MP2AObUb4FHLptQ1aDJNMd5yrC0jyWeoWkMzVKMroSaH8MGsjHubl07Dp5Ilby94kPc6WkXvDcYcqiCER+mzptNvFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=M4vOQmDP; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="rfUKe7To"
-Received: from localhost.localdomain (unknown [4.194.122.144])
-	by linux.microsoft.com (Postfix) with ESMTPSA id AA6AB20B7166;
-	Tue,  1 Sep 2026 10:58:10 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com AA6AB20B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788285495;
-	bh=3ihD57aXs5CmbpTZxGzE5aopK/AIL3W0/70G+AGNwtg=;
-	h=From:To:Cc:Subject:Date:From;
-	b=rfUKe7ToVhjNyWs7b7op8+XYIsBIjE7C5kGJnArHPITfS6/3olQ6AVflkbaDXNRjj
-	 9P7yh5LTa6dpGdTSp/lGGjnsgq9P9ptHM+nYOR+zr8QnjZnHtbCzJDbi5pmOSjebQu
-	 R0iHrqZ3BTQ6EiDxLWMPsSiMGcI+qN8Hi4NV8dTY=
-From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
-To: almaz.alexandrovich@paragon-software.com
-Cc: ntfs3@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com,
-	xmei5@asu.edu,
-	tgopinath@linux.microsoft.com,
-	kys@microsoft.com,
-	"Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
-Subject: [PATCH] fs/ntfs3: fix slab-out-of-bounds write in ntfs_create_inode
-Date: Tue,  1 Sep 2026 13:58:34 -0400
-Message-ID: <20260901175834.8557-1-cenzhang@linux.microsoft.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="M4vOQmDP"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 35BEB11D4BB;
+	Tue, 01 Sep 2026 19:58:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1788285532;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=n/7cN7BJcI04hefEhKdm0Ws+9Mi+O5JMycLuLM+ZCnE=;
+	b=M4vOQmDPH3Mv+k6rRUIyqM/Je75b3M8F3pesqvgcdcIzTYEgQBCGBjOfCnrU8M/HXRiLGV
+	UqEKKL4R0LxDisIe0HJMtpisz0nwbRbm8hp/l4yIrXSevO/Gj6k7EMpJQy1cb3hAL7SDc1
+	enEePUWr6Ezj1EvOGWpJxSDF5/iRlVawgeBRMm1lYLN0owaPwxPUw5vm8Gx12ZLSf72y+k
+	yoIpwk5TvO494f8tsJAjXCn6ngwVFjQjCpusSuq2N2DVVXrKPWyuxOrVJiIha6qwVOoVmI
+	AQFEzVCSxix0Fwx+lO1+SxzgCmrwYDGydMVJwI8W3EKGW4jF3ZdxnV81Atj4YA==
+Message-ID: <2e3f7dab-5f64-4dcf-b995-82fcc3a5e780@nabladev.com>
+Date: Tue, 1 Sep 2026 19:58:51 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] dt-bindings: hwmon: tmp102: Document TMP113
+To: Guenter Roeck <linux@roeck-us.net>, Conor Dooley <conor@kernel.org>
+Cc: linux-pm@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Flaviu Nistor <flaviu.nistor@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260901161008.46948-1-marex@nabladev.com>
+ <20260901-untimely-wake-578b1a86b9fe@spud>
+ <4bbcc5fe-86a1-4299-a0df-e9f44d5c237f@roeck-us.net>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <4bbcc5fe-86a1-4299-a0df-e9f44d5c237f@roeck-us.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-ntfs_create_inode() sizes the non-resident reparse run list as
-record_size - offset - SIZEOF_NONRESIDENT, then sets the attribute size
-to SIZEOF_NONRESIDENT + ALIGN(run_pack(), 8). It does not reserve space
-for the trailing ATTR_END, so a maximally packed run list places that
-4-byte sentinel just past the allocated MFT record.
+On 9/1/26 7:48 PM, Guenter Roeck wrote:
 
-BUG: KASAN: slab-out-of-bounds in ntfs_create_inode+0x4390/0x5220
-  ntfs_create_inode+0x4390/0x5220 fs/ntfs3/inode.c:1796
-  ntfs_symlink+0x108/0x170 fs/ntfs3/namei.c:224
-  vfs_symlink+0x137/0x420
-  filename_symlinkat+0x326/0x460
-  __x64_sys_symlink+0x79/0xb0
+Hello Guenter,
 
-After packing the run list, check that the 8-byte ATTR_END slot still
-fits in the MFT record. Return -EINVAL if the aligned run list would
-place it past the buffer.
+>>> @@ -13,11 +13,12 @@ properties:
+>>>     compatible:
+>>>       oneOf:
+>>>         - items:
+>>> +          - enum:
+>>> +              - ti,tmp110
+>>> +              - ti,tmp113
+>>>             - const: ti,tmp102
+>>> -          - const: ti,tmp103
+>>> -          - const: ti,tmp110
+>>> -      - enum:
+>>> -          - ti,tmp102
+>>> +      - const: ti,tmp102
+>>> +      - const: ti,tmp103
+>>
+>> Should this not be two patches, one fixing the existing stuff and one
+>> adding the 113?
+>>
+> 
+> It is all in -next. Looks like I resolved the conflict when combining
+> "dt-bindings: hwmon: tmp102: move ti,tmp103 out of trivial-devices.yaml"
+> and "dt-bindings: hwmon: tmp102: Document TMP110" the wrong way.
+> Sorry for that.
 
-Fixes: 82cae269cfa9 ("fs/ntfs3: Add initialization of super block")
-Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
-Cc: AutonomousCodeSecurity@microsoft.com
-Cc: stable@vger.kernel.org
-Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@linux.microsoft.com>
----
- fs/ntfs3/inode.c | 5 +++++
- 1 file changed, 5 insertions(+)
+No worries, I hope V3 I just sent fixes it up.
 
-diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
-index 56b4f6469a28..d6e4b4b3154d 100644
---- a/fs/ntfs3/inode.c
-+++ b/fs/ntfs3/inode.c
-@@ -1769,6 +1769,11 @@ int ntfs_create_inode(struct mnt_idmap *idmap, struct inode *dir,
- 			}
- 
- 			asize = SIZEOF_NONRESIDENT + ALIGN(err, 8);
-+			if (asize + PtrOffset(rec, attr) + 8 >
-+			    sbi->record_size) {
-+				err = -EINVAL;
-+				goto out5;
-+			}
- 			/* Write non resident data. */
- 			err = ntfs_sb_write_run(sbi, &ni->file.run, 0, rp,
- 						nsize, 0);
+> Instead of adding more patches on top of it, how about providing a
+> single patch moving tmp103 and adding tmp110 as well as tmp113
+> together ? Alternatively, I could drop "dt-bindings: hwmon: tmp102:
+> Document TMP110", apply the original (non-conflicting version) of
+> "dt-bindings: hwmon: tmp102: move ti,tmp103 out of trivial-devices.yaml",
+> and then tmp110 and tmp113 could be added in a single patch.
+> 
+> Please let me know.
+I think the broken commit is d67ec24d3f07 ("dt-bindings: hwmon: tmp102: 
+move ti,tmp103 out of trivial-devices.yaml") and v3 1/2 is the fix for 
+that broken commit. V3 2/2 only adds the missing TMP113 .
 
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
--- 
-2.55.0
+So I think there are two options:
+- The complicated one -- squash d67ec24d3f07 ("dt-bindings: hwmon: 
+tmp102: move ti,tmp103 out of trivial-devices.yaml") and V3 1/2 (and 
+either do it in tree, or drop d67ec24d3f07 ("dt-bindings: hwmon: tmp102: 
+move ti,tmp103 out of trivial-devices.yaml") and ask for it to be 
+updated and resent), then apply that, and apply V3 2/2 (or newer) .
+- The simple one -- apply both V3 patches (or whatever newer version is 
+good enough) and move on.
 
+Just let me know what you like better.
