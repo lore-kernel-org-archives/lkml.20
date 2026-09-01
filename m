@@ -1,214 +1,128 @@
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from icts-p-cavspool-1.kulnet.kuleuven.be (icts-p-cavspool-1.kulnet.kuleuven.be [134.58.240.194])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C38754119E4
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:04:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8832D41DE02
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:05:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=134.58.240.194
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788275081; cv=none; b=Kx7lfTeipYHLYtGdr1iecieF3rrc+GaB9N+ZL+7eBvxupuQe+mtU9WefJRWYDeJ8XDz1wAheZaJly+OL9/Sb2vv3B3IkhaZBBFfaFiDjbvmbCpK3U14EpdoA14O5AoVgxbaG29V1FQnUFUAjLsX+u3cNzM2t1iEPmn8PiBDK78Q=
+	t=1788275131; cv=none; b=o8p17NZAVMl/JJedu4/yR5yyvxlZl5gy1SKtUHr5WLQ87zMbtoJnssrstv75quQ9tb+sgZ8LFAHKPlDdN15qOxCJoHSCSKFWRtGDDo27KLdYVBx5z2iZ5XYkLGCs/MA0UqtDLDzxD3QJalTW+EXvMuj+zmKS0TIkxzVp5Wgc6rQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788275081; c=relaxed/simple;
-	bh=tpdO18xICJ5y9qBS7LZamGFxvdeqjw46wDaY+iq0bPI=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=mZkk89khZXsL14rgGgJUduA/noxpTB2myNP1Bdmksc2AOavxSgQQpCNzGSzoSBmFdnY0gkyW9j9CJLFySRCJj3jhSz3lEPYMCgl98m7NECZFN+ZGkJp9q+gmsmhXpjHr9FUq6R0Q3kjTwgPh8qu1tsVBuyp3SWqAJ87CvmvT1xc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VpMQ1djU; arc=none smtp.client-ip=209.85.215.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1788275131; c=relaxed/simple;
+	bh=/c3w8PU8MzfCBx4rHdXQP7pYPzliQVY/cNHV2v0BtiI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SGdIJ6HhmyD88tQiDNp2TNcw1LZz9ZBENO0BUEwl9SYGvmBuIC1lsnDhlGeJQYzD52xft+bNm8Y1dUFHEOLqrAYTMuvLdrL0W2Ps/Yh2S7A7twBXujvj53Pgsj8ntEVZuIcl2hgX1H7OStDv2yE4V7AGOThZxUAfJs9BcmUAS5M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.kuleuven.be; spf=pass smtp.mailfrom=cs.kuleuven.be; dkim=pass (1024-bit key) header.d=cs.kuleuven.be header.i=@cs.kuleuven.be header.b=JYv5sPNr; arc=none smtp.client-ip=134.58.240.194
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cs.kuleuven.be
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.kuleuven.be
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VpMQ1djU"
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1c2f1acebso7983793a12.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 08:04:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788275078; x=1788879878; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UgCARssVX+b4Z43xPlj6rs96AWy4osjZB7qoxt3QrO0=;
-        b=VpMQ1djUopgW/qK8KWR3SFkvRoC6qsf6RnCPqNsBvyJVofjL9RQO0hiRysDCTWI6GE
-         6/JMjQwnUWY39cCeRwcMD0aeAXTnorjw1S2VIXoI4HmcZnAwuxEjILaFedL3ghOENtxD
-         r9zyQ+ywZlvbN7UGfphsSq2ZxR42qLTgngpXjSzztI8LJwMChgRFLtqBr80MquCcwLRc
-         Xo4mPrL4WjbJ3ILa0Suq/hAEH1kF2GNLtJpsuCQVpYOSOd5ag7wmZASnT0BEgjgJyTXY
-         HtZkScNZMoRSn1Z3z4XzV2wKdv1ahsMrwIalS0BXuLjCkHR+l9wxGKsyREKOnLfDlX83
-         TAtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788275078; x=1788879878;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UgCARssVX+b4Z43xPlj6rs96AWy4osjZB7qoxt3QrO0=;
-        b=TQ7E/qub+TGn/HJJSZyguCL3ijihEdtwPAX7skxS8eS0+3jBGYhvQf0kZLpbi+ddIK
-         EWNvLlDi+1GbRVHoM75Fvvzzr+KyfBFqtO7dO3dWEyWriklWeFxCmG4VmD9DofusqeYI
-         E3zErfeMA1VWw2X0xtPh5FiVo8bIXDh/Ympb71TP90YovcS5GuknZeY/A3qiXN9VK5cI
-         dXTbCk5yqyDHvtSgj9pooHxDdnHqbLR0htieUdt7QBurDTsgx7fjGZNIwzvcgSzO4P/L
-         znk2GxhCos7F6dmD2c6xFDzCQlFMp89wY0SRpuS1kfErpM1jX87CQxLhuVFqn30LAgTz
-         tXig==
-X-Forwarded-Encrypted: i=1; AHgh+RpcHZr+75TEK+hO30mjRGBEI0b9d3PBV+2A+igJvP39JX3CLFrCizC60oXlzQSWMNTqsEpP9uNQ7y/GReA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kAln5v8/xRPz8s47AniZjehziSHzKlhyR/ZHO5WPlAvrPcpcvR
-	wUOq+RlXBfR64EmbFKYRX3GLsYMWD4eJmtGK6kGx+hTIxcMMITaiq3qy/sj7gsc2ZvHd+m0IZuc
-	oXQx8gw==
-X-Received: from pgcga9.prod.google.com ([2002:a05:6a02:6689:b0:c9e:28e0:16dd])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:6017:b0:3b4:61f:1fec
- with SMTP id adf61e73a8af0-3d7adeb5aa1mr14590054637.2.1788275077870; Tue, 01
- Sep 2026 08:04:37 -0700 (PDT)
-Date: Tue, 1 Sep 2026 08:04:37 -0700
-In-Reply-To: <20260901-gmem-selftests-fix-v2-1-5a273153354c@amd.com>
+	dkim=pass (1024-bit key) header.d=cs.kuleuven.be header.i=@cs.kuleuven.be header.b="JYv5sPNr"
+Received: from icts-p-cavuit-3.kulnet.kuleuven.be (icts-p-cavuit-3.kulnet.kuleuven.be [IPv6:2a02:2c40:0:c0::25:133])
+	by icts-p-cavspool-1.kulnet.kuleuven.be (Postfix) with ESMTP id A95E15163
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:57:08 +0200 (CEST)
+X-KULeuven-Envelope-From: jo.vanbulck@cs.kuleuven.be
+X-KULeuven-Scanned: Found to be clean
+X-KULeuven-ID: D99A2200D7.A9BF2
+X-KULeuven-Information: Katholieke Universiteit Leuven
+Received: from icts-p-ceifnet-smtps-1.kuleuven.be (icts-p-ceifnet-smtps.service.icts.svcd [IPv6:2a02:2c40:0:51:139::25])
+	by icts-p-cavuit-3.kulnet.kuleuven.be (Postfix) with ESMTP id D99A2200D7;
+	Tue,  1 Sep 2026 16:56:59 +0200 (CEST)
+BCmilterd-Mark-Subject: no
+BCmilterd-Errors: 
+BCmilterd-Report: SA-HVU#DKIM_SIGNED#0.00,SA-HVU#DKIM_VALID_AU#0.00,SA-HVU#DKIM_VALID#0.00,SA-HVU#OURIPS#-35.00
+X-CAV-Cluster: smtps
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cs.kuleuven.be;
+	s=cav; t=1788274619;
+	bh=ptRC/EYGEt+GZphk5vxeF2pgFgze7JJt6aLBjRPtaX8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=JYv5sPNrRgoCf+OmO4pv80Bmzye3ok+9h7iAOoanTC/dkGy8lxw9uz36zYu/bxZP5
+	 c2AhNJO9Q5VmH5/C3Hvw1TxpsaEdsaP9dN+akmyHmxRMc0H8w2McyU81Qi9WhU9GHm
+	 bl8WPwWzVht97NBnBmkFD8QaSqfjV/FKtDp5WtFo=
+Received: from [10.45.52.163] (unknown [10.45.52.163])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by icts-p-ceifnet-smtps-1.kuleuven.be (Postfix) with ESMTPSA id 8BE72D4B94591;
+	Tue, 01 Sep 2026 16:56:59 +0200 (CEST)
+Message-ID: <e9e1928a-0dbf-40da-b8d9-d19d85d914cb@cs.kuleuven.be>
+Date: Tue, 1 Sep 2026 16:56:59 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260901-gmem-selftests-fix-v2-0-5a273153354c@amd.com> <20260901-gmem-selftests-fix-v2-1-5a273153354c@amd.com>
-Message-ID: <apbphZSNG4KXUNyW@google.com>
-Subject: Re: [PATCH v2 1/4] KVM: selftests: fix maxnode arguments in xapic_ipi_test
-From: Sean Christopherson <seanjc@google.com>
-To: Shivank Garg <shivankg@amd.com>
-Cc: Paolo Bonzini <pbonzini@redhat.com>, David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	Jim Mattson <jmattson@google.com>, Peter Shier <pshier@google.com>, 
-	Ricardo Koller <ricarkol@google.com>, Ackerley Tng <ackerleytng@google.com>, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dm-integrity: fix buffer overflow with keyed discard
+To: Ben Cressey <ben@cressey.dev>, Alasdair Kergon <agk@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>, Shukai Ni <shukai.ni@kuleuven.be>
+Cc: dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Mike Snitzer <snitzer@redhat.com>,
+ "Jose Fernandez (Anthropic)" <jose.fernandez@linux.dev>
+References: <20260820-dm-integrity-discard-v1-0-196d3618d09a@cressey.dev>
+ <20260820-dm-integrity-discard-v1-1-196d3618d09a@cressey.dev>
+Content-Language: en-US
+From: jo.vanbulck@cs.kuleuven.be
+In-Reply-To: <20260820-dm-integrity-discard-v1-1-196d3618d09a@cressey.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 01, 2026, Shivank Garg wrote:
-> migrate_pages() syscall expect maxnode to be one greater than the
-> number of bits in the nodemask. do_migrations() passes the size of
-> nodemask in bytes to migrate_pages(). This sets the maxnode to 8,
-> so kernel only checks node IDs 0-6 even though the nodemask covers
-> node IDs 0-63.
-> 
-> Pass the nodemask size in bits plus one because get_nodes() in
-> mempolicy does --maxnode.
+On 8/20/26 23:44, Ben Cressey wrote:
+> Since commit 68c5c42567bc ("dm-integrity: replace forgeable discard
+> filler with a keyed sector marker"), integrity_metadata computes a
+> checksum for every discarded block into the "checksums" buffer.
+> integrity_sector_checksum always writes the whole digest. So if the tag
+> size is smaller than the digest size, the checksum of the last block
+> that fits into the buffer is written past the end of it. For example,
+> with hmac(sha256) and tag size 16, a 4MiB discard writes 16 bytes past
+> the kmalloc'ed page.
 
-Ok, I'm not crazy.  I read all of this multiple times and the manpages seemed
-completely nonsensical.  Looking at QEMU's use of mbind(), it's the kernel that
-sucks:
+Hi,
 
-    /*
-     * We can have up to MAX_NODES nodes, but we need to pass maxnode+1
-     * as argument to mbind() due to an old Linux bug (feature?) which
-     * cuts off the last specified node. This means backend->host_nodes
-     * must have MAX_NODES+1 bits available.
-     */
-    assert(sizeof(backend->host_nodes) >=
-           BITS_TO_LONGS(MAX_NODES + 1) * sizeof(unsigned long));
+This initially got stuck in spam somehow. Reviewed this together with 
+Shukai. Agreed this is an oversight in the original patch for the 
+(unlikely) case where tag_size < digest_size.
+> Fix this by subtracting extra_space from the buffer size when computing
+> max_blocks, like we do for writes.
 
+The code path is quite convoluted, but looks OK to us (and arguably more 
+elegant/efficient than the alternatives, which would allocate 
+digest_size local variables or allocate extra_space bytes for every 
+page-sized buffer allocation).
 
-And from https://lore.kernel.org/all/63ccc890-fd57-118b-5997-e0259f507d28@suse.cz:
-
- : And this is I think the reason why we can't change this now. I assume
- : numactl allocates 1024 bits (0 to 1023) and passes 1025 to make sure all
- : 1024 bits are processed. If we change it now, kernel will process 1025
- : bits (0 to 1024) and overflow the allocated bitmask. If it happens to be
- : at the border of mmaped vma, it's a segfault...
-
-This is quite possibly the most confusing syscall interface ever, and IMO the
-manpage is still straight up wrong (well, the kernel is the one that's buggy,
-but the manpage doesn't reflect the kernel's behavior):
-
- : The maxnode argument is the maximum node number in the bit mask plus one
-
-Beacuse it's not the maximum node number plus one, it's the number of nodes in
-the bitask plus one.
-
-What a confusing mess.
-
-
-> Fixes: 678e90a349a4 ("KVM: selftests: Test IPI to halted vCPU in xAPIC while backing page moves")
-> Signed-off-by: Shivank Garg <shivankg@amd.com>
+> Fixes: 68c5c42567bc ("dm-integrity: replace forgeable discard filler with a keyed sector marker")
+> Reviewed-by: Jose Fernandez (Anthropic) <jose.fernandez@linux.dev>
+> Signed-off-by: Ben Cressey <ben@cressey.dev>
+> Assisted-by: Claude:unspecified
 > ---
->  tools/testing/selftests/kvm/x86/xapic_ipi_test.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Found with KASAN on current mainline (after the 7.3 dm merge): brd,
+> "0 <n> integrity /dev/ram0 0 16 J 2 internal_hash:hmac(sha256):<key>
+> allow_discards_keyed", 8MiB written, then BLKDISCARD of 4MiB:
 > 
-> diff --git a/tools/testing/selftests/kvm/x86/xapic_ipi_test.c b/tools/testing/selftests/kvm/x86/xapic_ipi_test.c
-> index 469e3ab16460..0f11f4d7cc3d 100644
-> --- a/tools/testing/selftests/kvm/x86/xapic_ipi_test.c
-> +++ b/tools/testing/selftests/kvm/x86/xapic_ipi_test.c
-> @@ -291,7 +291,7 @@ void do_migrations(struct test_data_page *data, int run_secs, int delay_usecs,
->  		 * KVM_CREATE_VCPU ioctl. If that assumption ever changes this
->  		 * test may break or give a false positive signal.
->  		 */
-> -		pages_not_moved = migrate_pages(0, sizeof(nodemasks[from]),
-> +		pages_not_moved = migrate_pages(0, sizeof(nodemasks[from]) * 8 + 1,
+>    BUG: KASAN: slab-out-of-bounds in __hmac_sha256_final+0x1be/0x1e0
+>    Write of size 4 at addr ff11000104b05000 by task kworker/0:0/9
+>    Workqueue: dm-integrity-offload integrity_bio_wait
+>     integrity_sector_checksum_shash+0x181/0x490
+>     integrity_metadata+0x101e/0x18a0
+>     dm_integrity_map_continue+0x1eb2/0x34d0
+>    The buggy address is located 0 bytes to the right of
+>     allocated 4096-byte region
+> ---
+>   drivers/md/dm-integrity.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
+> index c50feaa98bf9e..73c1db7e55d5c 100644
+> --- a/drivers/md/dm-integrity.c
+> +++ b/drivers/md/dm-integrity.c
+> @@ -1980,7 +1980,7 @@ static void integrity_metadata(struct work_struct *w)
+>   		if (unlikely(dio->op == REQ_OP_DISCARD)) {
+>   			unsigned int bi_size = dio->bio_details.bi_iter.bi_size;
+>   			unsigned int max_size = likely(checksums != checksums_onstack) ? PAGE_SIZE : HASH_MAX_DIGESTSIZE;
+> -			unsigned int max_blocks = max_size / ic->tag_size;
+> +			unsigned int max_blocks = (max_size - extra_space) / ic->tag_size;
+>   			sector_t sector = dio->range.logical_sector;
+>   
+>   			if (!ic->discard_keyed)
+> 
 
-BITS_PER_TYPE()
-
-However, given that it's basically impossible for developers to get this right,
-we should add "#define MAXNODE_FOR_MASK(mask) (BITS_PER_TYPE(mask) + 1)" with a
-big comment explain why the code looks wrong.
-
-E.g. patch 3 gets it wrong in get_numa_mem_nodes():
-
-  static inline unsigned long get_numa_mem_nodes(void)
-  {
-       unsigned long nodemask = 0;
-
-       /* Get set of first 64 numa nodes available */
-       if (get_mempolicy(NULL, &nodemask, BITS_PER_TYPE(nodemask), NULL,
-                         MPOL_F_MEMS_ALLOWED))
-               return 0;
-
-       return nodemask;
-  }
-
-because that will only get the mask for bits 62:0.  Even Sashiko got confused in
-patch 4:
-
-  When maxnode is passed to kvm_get_mempolicy() here, the kernel must write at
-  least 5 bytes to return 33 bits of node status. This rounds up to 8 bytes (two
-  32-bit words).
-
-since the disaster of a syscall that is get_mempolicy() and friends will only
-provide 32 bits of node status.
-
-Looking at the rest of the patches in this series, the main goal of fixing the
-extremely-unlikely-to-happen-in-practice bug in patch 4 needs a lot of work.  To
-move along the other cleanups, I'll send the below plus rebased versions of
-patches 1 and 2.
-
-diff --git a/tools/testing/selftests/kvm/guest_memfd_test.c b/tools/testing/selftests/kvm/guest_memfd_test.c
-index 2233d871a38f..cd5df88bc642 100644
---- a/tools/testing/selftests/kvm/guest_memfd_test.c
-+++ b/tools/testing/selftests/kvm/guest_memfd_test.c
-@@ -80,7 +80,7 @@ static void test_mbind(int fd, size_t total_size)
- {
- 	const unsigned long nodemask_0 = 1; /* nid: 0 */
- 	unsigned long nodemask = 0;
--	unsigned long maxnode = BITS_PER_TYPE(nodemask);
-+	unsigned long maxnode = MAXNODE_FOR_MASK(nodemask);
- 	int policy;
- 	char *mem;
- 	int ret;
-diff --git a/tools/testing/selftests/kvm/include/numaif.h b/tools/testing/selftests/kvm/include/numaif.h
-index 29572a6d789c..84e82857f1c5 100644
---- a/tools/testing/selftests/kvm/include/numaif.h
-+++ b/tools/testing/selftests/kvm/include/numaif.h
-@@ -30,6 +30,16 @@ KVM_SYSCALL_DEFINE(mbind, 6, void *, addr, unsigned long, size, int, mode,
- 		   const unsigned long *, nodemask, unsigned long, maxnode,
- 		   unsigned int, flags);
- 
-+/*
-+ * Caclucate the @maxnode param for the above syscalls given the mask that will
-+ * be passed to the kernel, to account for a longstanding off-by-one bug in the
-+ * kernel that isn't properly documented in the manpages.  The manpages say
-+ * that @maxnode is "the maximum node ID plus one", but the kernel's actual
-+ * behavior is "the number of bits in the mask plus one", i.e. "the maximum
-+ * node ID plus two".
-+ */
-+#define MAXNODE_FOR_MASK(mask) (BITS_PER_TYPE(mask) + 1)
-+
- static inline int get_max_numa_node(void)
- {
- 	struct dirent *de;
-diff --git a/tools/testing/selftests/kvm/x86/xapic_ipi_test.c b/tools/testing/selftests/kvm/x86/xapic_ipi_test.c
-index 469e3ab16460..1ddcf95d7fe4 100644
---- a/tools/testing/selftests/kvm/x86/xapic_ipi_test.c
-+++ b/tools/testing/selftests/kvm/x86/xapic_ipi_test.c
-@@ -248,7 +248,7 @@ void do_migrations(struct test_data_page *data, int run_secs, int delay_usecs,
- 		delay_usecs);
- 
- 	/* Get set of first 64 numa nodes available */
--	kvm_get_mempolicy(NULL, &nodemask, sizeof(nodemask) * 8,
-+	kvm_get_mempolicy(NULL, &nodemask, MAXNODE_FOR_MASK(nodemask),
- 			  0, MPOL_F_MEMS_ALLOWED);
- 
- 	fprintf(stderr, "Numa nodes found amongst first %lu possible nodes "
