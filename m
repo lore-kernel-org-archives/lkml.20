@@ -1,219 +1,211 @@
-Received: from mail.lysator.liu.se (mail.lysator.liu.se [130.236.254.3])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA0942C4F0;
-	Tue,  1 Sep 2026 07:11:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.236.254.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0304642DA36
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:12:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788246701; cv=none; b=N3CyWoL3y9MLPGN1ZZm0164lO5fty3ZUrFPU5U4jtjRiw0JJ7YwV9n9J/eV5O/wxT4jwXPiqnWK7IP6t+wm5kzlHEW47UEdC0bwirXGL43rKPjsJsOhAxLYDsDQhgrbQUdf50wEOO26UkP4vd1tEGvNOsCuqF157JDIH8TmYE4w=
+	t=1788246723; cv=none; b=mq4SXgzjNY6lojN3SrCVkqGQPxioBPONjw8YOckgGs8XHsTVEFz3CpU2z46q19+sv8F8COqHvvYiqnavaJLJ0CcrmvySmreMk0LYKVp5p1b5+38VuYWqj4RSEQ3v3IMSx7+FcC2eizok1U0vj/vJxtVdcYvXD6Km+Yxuxy8085k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788246701; c=relaxed/simple;
-	bh=dW0qF+TCQeqlzOW1eBAtmZO3e+NnkioqB8pb1wWmhu4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Fx+Yq9v2GoQpkx6TzKNbtyeKPaJFYEYAPtH3VJLZGvZHUe+K3Ew4BOg5Sl7JnYdvIZHjv7v2rdW9VwIxXEE1ZvDA07za1aFjD70aoiIUxBw8aXS6lp6A5jJuNVq8PdV+FLj1/Adt3uz84A9nI9WWqOwvWJXqZ0u/CPp3UvKsGHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se; spf=pass smtp.mailfrom=lysator.liu.se; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=XNQL8Hwa; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=XNQL8Hwa; arc=none smtp.client-ip=130.236.254.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lysator.liu.se
+	s=arc-20240116; t=1788246723; c=relaxed/simple;
+	bh=IJV+cJcfZdPXEq3nWzfJc7AtEYY8y/J55FvImPI05W8=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=EhMl4sCCtOvohGrnMpUOmiZHcogCW976455liMy2Kf3voHK9gSZ2Cx0PrX2Z5hI5kUBCtK1xc8JfNjBx5zbpXZHIUejZLTvHGqOABkyiIey556ceX5e7Ik4u2gGpFwPtEioafZ1B6FlQzLYuhOVsZQEigrqu8SHPhIQjNh9rdmA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i2wyTHf9; arc=none smtp.client-ip=209.85.208.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="XNQL8Hwa";
-	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="XNQL8Hwa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
-	s=2026; t=1788246688;
-	bh=dW0qF+TCQeqlzOW1eBAtmZO3e+NnkioqB8pb1wWmhu4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=XNQL8HwaSbaMvf8SCzE4H8zh24EwyQmOlEaWtpmK18+A2m2/iZWoMdX5eZIYvq4aY
-	 LjaCHlO/Lfidpbr7UkTVlIpySpYkVrYhkOcKiGRrHJpafQ3Qlvh184B0hCCKoeBqsk
-	 W55HVRKrzEYKG4jFfkpksRP0VqYL3F0xjA6K3fT+5W9wVBxxuUN6KOF4fBKdjxPlDm
-	 mg6RyRI2M0ZDtsr2u0WKMh3g61xj4dxuLFCjpDpEv26Z2/+GhMyqie23JI/J9axRd2
-	 GSE66CRS+woaTSr6HgX57CJbF4ESOAgiBMUb87hd0R9i6tEA/GDWZ015z/iQ1FoLNz
-	 sO1DT4MrAw79Q==
-Received: from mail.lysator.liu.se (localhost [127.0.0.1])
-	by mail.lysator.liu.se (Postfix) with ESMTP id 5F9CD1299B;
-	Tue,  1 Sep 2026 09:11:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
-	s=2026; t=1788246688;
-	bh=dW0qF+TCQeqlzOW1eBAtmZO3e+NnkioqB8pb1wWmhu4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=XNQL8HwaSbaMvf8SCzE4H8zh24EwyQmOlEaWtpmK18+A2m2/iZWoMdX5eZIYvq4aY
-	 LjaCHlO/Lfidpbr7UkTVlIpySpYkVrYhkOcKiGRrHJpafQ3Qlvh184B0hCCKoeBqsk
-	 W55HVRKrzEYKG4jFfkpksRP0VqYL3F0xjA6K3fT+5W9wVBxxuUN6KOF4fBKdjxPlDm
-	 mg6RyRI2M0ZDtsr2u0WKMh3g61xj4dxuLFCjpDpEv26Z2/+GhMyqie23JI/J9axRd2
-	 GSE66CRS+woaTSr6HgX57CJbF4ESOAgiBMUb87hd0R9i6tEA/GDWZ015z/iQ1FoLNz
-	 sO1DT4MrAw79Q==
-Received: from gryt (81-225-28-11-no2391.tbcn.telia.com [81.225.28.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by mail.lysator.liu.se (Postfix) with ESMTPSA id 114071299A;
-	Tue,  1 Sep 2026 09:11:27 +0200 (CEST)
-Date: Tue, 1 Sep 2026 09:11:26 +0200
-From: Peter Rosin <peda@lysator.liu.se>
-To: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] mux: gpio: Add optional enable gpio
-Message-ID: <apZ6nvq1x0zEKjr9@gryt>
-References: <20260831-add-external-mux-enable-gpio-v2-0-f6027a4afe61@vaisala.com>
- <20260831-add-external-mux-enable-gpio-v2-2-f6027a4afe61@vaisala.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i2wyTHf9"
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a12ffc112cso6433901fa.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:12:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788246720; x=1788851520; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=D+CSScneE3PY8jH7ppTyN3wkhx3v10vl4wTiv7mZ0VM=;
+        b=i2wyTHf9Ug1aLOmqRa8KJKDwM8X2VIit8xPzj7+OSiYuEsBhQXRWF9a4PzzQR79dXH
+         5AXePglGLVB5sKTm+kBtYlGXelJLfHVmrr4eC1mecpfJJXDZ127i5vODOKpZ5qrwUg7c
+         6qar0jg9KInXX3AKcGJNy0c++Cj7xyMBdIZBNisU/Ja4Ht2MCRzyOEAKaZzkn/krbjKA
+         O//0a/f1n+cz1DTxPVv/5O/PUXzV7CJ2u8FJ+CJcuyMLeW/0eIsXpkt7OILDqURmpnUv
+         JE1Pu1DVuQpGwT5+bGy9CDUcoNy1QVjpBuJ33xCXsyAyeS4peJCFIukmtrAjIKlnd4xp
+         KaOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788246720; x=1788851520;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=D+CSScneE3PY8jH7ppTyN3wkhx3v10vl4wTiv7mZ0VM=;
+        b=Ec4CyEFTVdPsCRG4FKaqsY2zQlzwdwAG6dEyIXyY2S6yj0eKSmUQIbmebhn2ALD4XC
+         6B1Fb+nLDOlZ/igOPFXAPYsuaZ6E41ftMyZnxyxy/OIrN5E8kjdzBDTi7hrsYRkD1VWT
+         ONOE5hK8/C4jt8UsSk35M6XnR+wHYkIuqUCykKdyfkA0rIWMCp22wY+SMsNBpsb4/vg0
+         vHIx5ef1PE4my/hQg5IBMvAAzochFsP8d9DyYEhW4fKiNEC/8LDdB/dOD+6a0bEEyNAI
+         Bp0aQL71jC7wPEUjlzK2YiHCIsIibbaxOFRn2o0sGc/1coe/dP/UxclCItWtq3G8HCjh
+         S2OA==
+X-Forwarded-Encrypted: i=1; AKwUvByNCQIKeh84tTax9UtpfkApy1xAByHQazlB/mX+tHN8+96wLBmpLj8lJ7PbNrlvQVE8oF9VKCKRI2pZahs=@vger.kernel.org
+X-Gm-Message-State: AFuF++l0V7eJUeqLTp8s3S8Fxt359e2TpjfLm57p9iJcE2LAPOqiSa+Q
+	asKCYP0gfbVjqF4DNkQei3ToF6mB5mabU7Gd5m/LmmVqw0HOue5KbtMp
+X-Gm-Gg: AYBFou0gww1vBmMQo+4/F6YS6XiDl3A3kZ2bJU1aW619h09eVACU+jWn1iCbK00JJeb
+	EmaDqgN7r3NvzPwnseeEQDN4lA0jrxQ4ZTeQMuH4OndJWG3H0lRVXNcA/nEsc6Ipw8a/3y7vhOZ
+	1ACH7rye6JHylm6rqwvfbXPoeXrrlkO5+l7gDsXlGv4Tqxvicdnk+ZCFQH8/BpurzxhxISmPAvx
+	P/EBTLr09+2cAb1bmmMU6XQpNZpNbmtwPTadJa0/JhVa7v0wQdVmQ09HfEy/+MfjGD5ebQGUomt
+	JozwpIcOEnfKp19YdXPEYUdrpzO46frYM0kCIFFqwyoIu40UoHgzPyyWvB6pug01vZg3fX7ecxz
+	cV4Sgj57AtypcQc0hMQXhuQMJXnHQQXwVtmp+QOnvl/1oaqblpdKpIZ3zFpqQSn3x8mvYD5xNQa
+	L2+e5+Zr+9Ycn/kdkNwayV9LW2rzT/x2nu+gZBJcj8rg6f0mEI6AlcVBSTA7tWb5g=
+X-Received: by 2002:a05:651c:a201:10b0:3a3:3fa3:25a6 with SMTP id 38308e7fff4ca-3a33fa3324cmr3629011fa.3.1788246717606;
+        Tue, 01 Sep 2026 00:11:57 -0700 (PDT)
+Received: from [192.168.1.161] ([81.200.11.252])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b5e89c5c9asm2754562e87.11.2026.09.01.00.11.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 00:11:57 -0700 (PDT)
+Message-ID: <5951b1195537558a5e93cfd44bd24fe56d446f81.camel@gmail.com>
+Subject: Re: [PATCH v2] iio: proximity: vcnl3020: fix ISR bitmask check in
+ IRQ handler
+From: Ivan Mikhaylov <fr0st61te@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>, Salah Triki <salah.triki@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=
+	 <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, 
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Tue, 01 Sep 2026 10:11:56 +0300
+In-Reply-To: <20260901022731.10771244@jic23-huawei>
+References: <20260824042908.8887-1-salah.triki@gmail.com>
+	 <20260901022731.10771244@jic23-huawei>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.0 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831-add-external-mux-enable-gpio-v2-2-f6027a4afe61@vaisala.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
 
-Hi,
+On Tue, 2026-09-01 at 02:27 +0100, Jonathan Cameron wrote:
+> On Mon, 24 Aug 2026 05:29:07 +0100
+> Salah Triki <salah.triki@gmail.com> wrote:
+>=20
+> > The threaded IRQ handler contained multiple issues in handling
+> > interrupt
+> > events and clearing status flags:
+> >=20
+> > 1. ISR bit check: The handler incorrectly checked the Interrupt
+> > Status
+> > =C2=A0=C2=A0 Register (VCNL_ISR) against VCNL_ICR_THRES_EN (BIT(1)), wh=
+ich is
+> > a
+> > =C2=A0=C2=A0 bitmask meant for the Control Register (VCNL_PS_ICR). In
+> > VCNL_ISR,
+> > =C2=A0=C2=A0 BIT(1) corresponds only to low-threshold interrupts. A hig=
+h-
+> > threshold
+> > =C2=A0=C2=A0 interrupt (VCNL_INT_TH_HI, BIT(0)) on its own was complete=
+ly
+> > ignored and
+> > =C2=A0=C2=A0 returned IRQ_NONE.
+> >=20
+> > 2. Event direction & channel index: The handler unconditionally
+> > pushed a
+> > =C2=A0=C2=A0 RISING event code on channel index 1. The driver only regi=
+sters
+> > a single
+> > =C2=A0=C2=A0 proximity channel (index 0), and low-threshold interrupts =
+should
+> > be
+> > =C2=A0=C2=A0 reported with IIO_EV_DIR_FALLING.
+> >=20
+> > 3. ISR clearing: The write-back to acknowledge the interrupt only
+> > preserved
+> > =C2=A0=C2=A0 BIT(1) instead of masking against both valid status bits.
+> >=20
+> > Fix this by checking both VCNL_INT_TH_HI and VCNL_INT_TH_LOW bits
+> > in
+> > VCNL_ISR, pushing separate IIO events with the correct direction
+> > and
+> > channel index (0), and properly clearing handled status bits.
+> >=20
+> > Fixes: 3363fbbe19e5 ("iio: proximity: vcnl3020: add periodic mode")
+> > Signed-off-by: Salah Triki <salah.triki@gmail.com>
+>=20
+> Trying an active address that is hopefully the same Ivan!
+>=20
+> This looks fine to me, but I'd ideally like input from Ivan.
+>=20
+> Jonathan
+>=20
+> > ---
+> > Changes since v1:
+> > =C2=A0 - Extended the patch to fix additional bugs found in
+> > vcnl3020_handle_irq_thread():
+> > =C2=A0=C2=A0=C2=A0 - Corrected event directions (RISING for high thresh=
+old,
+> > FALLING for low threshold).
+> > =C2=A0=C2=A0=C2=A0 - Fixed channel index from 1 to 0 (matching single p=
+roximity
+> > channel).
+> > =C2=A0=C2=A0=C2=A0 - Corrected ISR W1C clear logic for both HI and LOW =
+bits.
+> > =C2=A0 - Updated commit message to detail all IRQ handler fixes.
+> >=20
+> > =C2=A0drivers/iio/proximity/vcnl3020.c | 24 +++++++++++++++++-------
+> > =C2=A01 file changed, 17 insertions(+), 7 deletions(-)
+> >=20
+> > diff --git a/drivers/iio/proximity/vcnl3020.c
+> > b/drivers/iio/proximity/vcnl3020.c
+> > index 7f417372566a..d0b8f429999f 100644
+> > --- a/drivers/iio/proximity/vcnl3020.c
+> > +++ b/drivers/iio/proximity/vcnl3020.c
+> > @@ -584,16 +584,26 @@ static irqreturn_t
+> > vcnl3020_handle_irq_thread(int irq, void *p)
+> > =C2=A0		return IRQ_HANDLED;
+> > =C2=A0	}
+> > =C2=A0
+> > -	if (!(isr & VCNL_ICR_THRES_EN))
+> > +	if (!(isr & (VCNL_INT_TH_HI | VCNL_INT_TH_LOW)))
+> > =C2=A0		return IRQ_NONE;
+> > =C2=A0
+> > -	iio_push_event(indio_dev,
+> > -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 IIO_UNMOD_EVENT_CODE(IIO_PROXIM=
+ITY, 1,
+> > -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ IIO_EV_TYPE_THRESH,
+> > -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+ IIO_EV_DIR_RISING),
+> > -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 iio_get_time_ns(indio_dev));
+> > +	if (isr & VCNL_INT_TH_HI) {
+> > +		iio_push_event(indio_dev,
+> > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 IIO_UNMOD_EVENT_CODE(IIO_PROXI=
+MITY,
+> > 0,
+> > +						=C2=A0=C2=A0=C2=A0
+> > IIO_EV_TYPE_THRESH,
+> > +						=C2=A0=C2=A0=C2=A0
+> > IIO_EV_DIR_RISING),
+> > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 iio_get_time_ns(indio_dev));
+> > +	}
+> > +
+> > +	if (isr & VCNL_INT_TH_LOW) {
+> > +		iio_push_event(indio_dev,
+> > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 IIO_UNMOD_EVENT_CODE(IIO_PROXI=
+MITY,
+> > 0,
+> > +						=C2=A0=C2=A0=C2=A0
+> > IIO_EV_TYPE_THRESH,
+> > +						=C2=A0=C2=A0=C2=A0
+> > IIO_EV_DIR_FALLING),
+> > +			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 iio_get_time_ns(indio_dev));
+> > +	}
+> > =C2=A0
+> > -	rc =3D regmap_write(data->regmap, VCNL_ISR, isr &
+> > VCNL_ICR_THRES_EN);
+> > +	rc =3D regmap_write(data->regmap, VCNL_ISR, isr &
+> > (VCNL_INT_TH_HI | VCNL_INT_TH_LOW));
+> > =C2=A0	if (rc)
+> > =C2=A0		dev_err(data->dev, "Error (%d) writing in reg
+> > (0x%x)\n",
+> > =C2=A0			rc, VCNL_ISR);
 
-Thanks for the patches! This all looks nice, but I do have a
-few cosmetic nits...
+Jonathan, thanks for pinging me, yes, address still same, I'll check
+patch until end of the week.
 
-Den Mon, Aug 31, 2026 at 10:28:25AM +0000, skrev Tapio Reijonen:
-> Analog multiplexers have an enable input that disconnects all channels
-
-Some analog multiplexers ...
-or perhaps just
-Some multiplexers ...
-
-> when deasserted, independent of the address inputs; on a 74HC4051 it is
-> the E input. Add it as an optional gpio.
-> 
-> The mux gpios are not updated atomically. gpiod_multi_set_value_cansleep()
-
-The mux gpios are not guaranteed to be updated atomically.
-
-> groups them per gpio controller, and only controllers implementing
-> set_multiple() update theirs in a single write, so a mux with its address
-
-... set_multiple() can possibly update theirs ...
-
-> inputs spread over two controllers passes through the intermediate
-> addresses on every change. Deassert the enable gpio for the duration of
-> the update and assert it once the address is settled.
-> 
-> The enable gpio is also what makes an idle state of MUX_IDLE_DISCONNECT
-> possible, which the mux core applies when the chip is registered and after
-> every deselect: it leaves the enable gpio deasserted and the address
-> inputs alone. Refuse that idle state without an enable gpio, because the
-> address inputs cannot disconnect anything on their own and mux_gpio_set()
-> would instead drive them to the bit pattern of MUX_IDLE_DISCONNECT.
-> 
-> Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
-> ---
->  drivers/mux/gpio.c | 34 ++++++++++++++++++++++++++++------
->  1 file changed, 28 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/mux/gpio.c b/drivers/mux/gpio.c
-> index f9c7863e51b82fb76ed03cf17308fae74716cf6d..df5d24214bd5fa8c3c1d733b25d32ca88c06c8c0 100644
-> --- a/drivers/mux/gpio.c
-> +++ b/drivers/mux/gpio.c
-> @@ -18,6 +18,7 @@
->  
->  struct mux_gpio {
->  	struct gpio_descs *gpios;
-> +	struct gpio_desc *enable_gpio;
-
-Please drop the _gpio suffix from the name.
-
->  };
->  
->  static int mux_gpio_set(struct mux_control *mux, int state)
-> @@ -26,10 +27,18 @@ static int mux_gpio_set(struct mux_control *mux, int state)
->  	DECLARE_BITMAP(values, BITS_PER_TYPE(state));
->  	u32 value = state;
->  
-> +	/* The gpios are not updated atomically, disable the mux meanwhile. */
-
-	/*
-	 * The gpios might not be updated atomically, disable the mux
-	 * meanwhile.
-	 */
-
-> +	gpiod_set_value_cansleep(mux_gpio->enable_gpio, 0);
-> +
-> +	if (state == MUX_IDLE_DISCONNECT)
-> +		return 0;
-> +
->  	bitmap_from_arr32(values, &value, BITS_PER_TYPE(value));
->  
->  	gpiod_multi_set_value_cansleep(mux_gpio->gpios, values);
->  
-> +	gpiod_set_value_cansleep(mux_gpio->enable_gpio, 1);
-> +
->  	return 0;
->  }
->  
-> @@ -70,14 +79,27 @@ static int mux_gpio_probe(struct platform_device *pdev)
->  	WARN_ON(pins != mux_gpio->gpios->ndescs);
->  	mux_chip->mux->states = BIT(pins);
->  
-> +	mux_gpio->enable_gpio = devm_gpiod_get_optional(dev, "enable", GPIOD_OUT_LOW);
-> +	if (IS_ERR(mux_gpio->enable_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(mux_gpio->enable_gpio),
-> +				     "failed to get optional enable gpio\n");
-> +
->  	ret = device_property_read_u32(dev, "idle-state", (u32 *)&idle_state);
-> -	if (ret >= 0 && idle_state != MUX_IDLE_AS_IS) {
-> -		if (idle_state < 0 || idle_state >= mux_chip->mux->states) {
-> -			dev_err(dev, "invalid idle-state %u\n", idle_state);
-> -			return -EINVAL;
-> +	if (ret >= 0) {
-> +		if (idle_state == MUX_IDLE_DISCONNECT) {
-> +			if (!mux_gpio->enable_gpio)
-> +				return dev_err_probe(dev, -EINVAL,
-> +						     "idle-state disconnect requires enable-gpios\n");
-> +
-> +			mux_chip->mux->idle_state = MUX_IDLE_DISCONNECT;
-> +		} else if (idle_state != MUX_IDLE_AS_IS) {
-> +			if (idle_state < 0 || idle_state >= mux_chip->mux->states) {
-> +				return dev_err_probe(dev, -EINVAL,
-> +						     "invalid idle-state %d\n",
-> +						     idle_state);
-> +			}
-> +			mux_chip->mux->idle_state = idle_state;
-
-The new code is a bit convoluted and too deeply indented, methinks. I'd
-prefer:
-
-	ret = device_property_read_u32(dev, "idle-state", (u32 *)&idle_state);
-	if (ret < 0)
-		idle_state = mux_chip->mux->idle_state;
-
-	if (idle_state == MUX_IDLE_AS_IS) {
-	} else if (idle_state == MUX_IDLE_DISCONNECT && !mux_gpio->enable) {
-		dev_err(dev, "idle-state disconnect requires enable-gpios\n");
-		return -EINVAL;
-	} else if (idle_state == MUX_IDLE_DISCONNECT) {
-	} else if (idle_state < 0 || idle_state >= mux_chip->mux->states)
-		dev_err(dev, "invalid idle-state %d\n", idle_state);
-		return -EINVAL;
-	}
-
-	mux_chip->mux->idle_state = idle_state;
-
-Using the "return dev_err_probe(dev, -EINVAL, ...)" pattern only buys
-you an "error EINVAL" prefix but costs over-long lines. So, not worth
-it to me.
-
-Beware, the above snippet was written directly in the MUA and has never
-seen a compiler. It probably has some silly bug, but something like
-that...
-
-Cheers,
-Peter
-
->  		}
-> -
-> -		mux_chip->mux->idle_state = idle_state;
->  	}
->  
->  	ret = devm_regulator_get_enable_optional(dev, "mux");
-> 
-> -- 
-> 2.47.3
-> 
+Thanks.
