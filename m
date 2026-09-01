@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1659747FB0B;
-	Tue,  1 Sep 2026 15:39:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51382480DC4;
+	Tue,  1 Sep 2026 15:39:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788277182; cv=none; b=qV16JR93CiTXlLn9eyygNiUX5DIHL6H3+yp6xrzpr3/oLVJTeY3hgZ5I0J/9y4QC13Fz9+aRn/6P0ubtGLyjH2Im+pwWTkE+PKWfYLEBXAw3vQQ9wQSkqZDYW+D7nAMaZjYtAC9jYnzCEj1uPbT1xl/B0XsBR9dHEFDYQI++Ea0=
+	t=1788277185; cv=none; b=JSNvWbzr3QdTpgSxCA5OGlu16QRfdvjSl/mSZ9GN7j39eTLGgAgkpmREqdm5N0fHtAWcgoJ1pNK8cxnNQTQwyF5jQ1Ivb9Bfar1jtwZDG4YEtOoFZb8zYko4Yrq+qFxZ/dB1QyY3U/D/TARzwZQ0ETsSxRIDUBpUoWLkschU1Tc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788277182; c=relaxed/simple;
-	bh=eZ7s20l0CuLrp7v/QhML2YKsFqgzCxZkDfgniCxnCs4=;
+	s=arc-20240116; t=1788277185; c=relaxed/simple;
+	bh=hDLmPmzyXSsHzKx7g4NI8YUWs5fKSEiY9RsT5ITJWfo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=i+0MYinTL4BjoCCWJTd8JkZs4KzRQJAY2PJpi7+Qwo1+Gb4MUfU7QwS45/0lc1xX1AFsfPigD4vt1sPThpS2nTBgAiSshuVZPrGl5BGgbywbTM/pf4GrabRVq43KzzaQcUBg4Bs6Ur8VD6wpxlf6X0Rs06n1V15zrwkkFuodizQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=qYXhnFhh; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=p9hUEs+WbhkUwOGoiKdTEfdzzARclTjg2bEHI4vPSgv4aYnJade3NUtKk2WxYfhyHsYm6gfgfMg8iTyM27ISsQBrP/Giw1oYWpWhnkj5lDjtzXfeJWkXOgdOz/dlYqjjmgTJ6YgjJ2vxdxPwiERFGMe9lxdExNVGmTU07tRnB3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=MSwMYSQc; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="qYXhnFhh"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="MSwMYSQc"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788277179;
-	bh=eZ7s20l0CuLrp7v/QhML2YKsFqgzCxZkDfgniCxnCs4=;
+	s=mail; t=1788277181;
+	bh=hDLmPmzyXSsHzKx7g4NI8YUWs5fKSEiY9RsT5ITJWfo=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=qYXhnFhhdBqX01Th+6Cnba7QYA3oLPmI+tnH7qpOin08CuVSwWtXRb8noMRvN/k3M
-	 JYiVgyOLgg5Ye9AjkG6p3j8uwlNhZ2Yg9j1bUdqzmBAuQhtgE/jEXXsJ7OGiMZKlCN
-	 Y5QDGOkcKbCOBK9WnuWGCTeQekX1NVx+lg3+oncXMOQ+YAdGRGmGZmuGHeRF/kgKIN
-	 uWZFw/YrSm07xB21/GVzTcIem8xXhaT5eQT6QnaI68MSIfDFwyocBNF1zsL1fD3IF8
-	 6k08a7v/T/KLiWitx5m6Hn5Bn9oJGrVuCdWc7ET26VIZ5JK0jO0guvcxvCRQSOH7Xq
-	 Ic06uovT4L+bg==
+	b=MSwMYSQcIZNhgdDIx9HJmMd4iuZsI5W+ABSyKMRH2pxO7uyyGA9ictaxGnLYNCc9e
+	 LcHPIB9kzHUeGRsAj9p2cAXVYGpvs0EypFq+D9eP1q5iipxfEqx7FGe3RJW9h4jP4P
+	 0YxMwV/1qpBfKwGLV97M1AyADpDEkh+yaCSeb0uIai2eCxA53w4bRRE4zDoWbI9UUS
+	 vVzdxi9aTGy7ZNVbYnSrPZF0e2qvVIxgyY4CP4+HfRbQ1PJQ4ngpQC4jYUIGwDRQBl
+	 7YnFK+/Zxe25CETajFovTHE2gFGtp1AvMrjhJ1frrDHYCCW/DMnsxDrXG6dDX2v6Li
+	 XJF5SYQVHJz8w==
 Received: from yukiji.home (unknown [100.64.0.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 5372517E080A;
-	Tue, 01 Sep 2026 17:39:38 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7A01A17E0934;
+	Tue, 01 Sep 2026 17:39:40 +0200 (CEST)
 From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Tue, 01 Sep 2026 17:39:01 +0200
-Subject: [PATCH v11 13/24] scsi: ufs: mediatek: Remove vendor kernel quirks
- cruft
+Date: Tue, 01 Sep 2026 17:39:03 +0200
+Subject: [PATCH v11 15/24] scsi: ufs: mediatek: Remove
+ mediatek,ufs-broken-rtc property
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-mt8196-ufs-v11-13-dbd007704490@collabora.com>
+Message-Id: <20260901-mt8196-ufs-v11-15-dbd007704490@collabora.com>
 References: <20260901-mt8196-ufs-v11-0-dbd007704490@collabora.com>
 In-Reply-To: <20260901-mt8196-ufs-v11-0-dbd007704490@collabora.com>
 To: Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
@@ -69,119 +69,72 @@ Cc: kernel@collabora.com, linux-arm-kernel@lists.infradead.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-scsi@vger.kernel.org, 
  Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
  Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788277163; l=3056;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788277163; l=2134;
  i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=f4axdRSq5pcbpsFxO3oN+7YJzgLHRhwPFuOIqwFRnMo=;
- b=5K4XxKuVKYFXY+3L1sgqwmDYGUEWLcj4lvUXs5vQZMkWPhaOSBL6xpxqAfyjVMBavTJpMfCnm
- UfpJX2nPMLeAfLz9biyzE5j29jsYlpvP6yhPDn+sEwlrWV8pHcMqc2O
+ bh=JMEyQZm9mztqyjWLzyrw20bJKmXDPQGwgKTDP2yACkw=;
+ b=IY3OPhC4PuVuRaRLm6DQ9S7nhW6avTtuGHIUl51Vv9m6GKBtxCO29J3RkUD9qUqDv6HdkSu2A
+ smr4QlcZvjbBZ1Hkbq2IuQUBuVrRrbh1nc1kGtfKBYrwx3ZBgHsWjiE
 X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
  pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-Both ufs_mtk_vreg_fix_vcc and ufs_mtk_vreg_fix_vccqx look like they are
-vendor kernel hacks to work around existing downstream device trees.
-Mainline does not need or want them, so remove them.
+This flag property was never described in the binding, and its
+capability wrapper seems pointless.
+
+If one of the MediaTek SoCs needs the ufshcd quirk applied, then this
+can be done per-compatible, without needing to give the device tree
+author the option to forget to set it.
+
+Remove it and the associated capability flag wrapping code.
 
 Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Reviewed-by: Peter Wang <peter.wang@mediatek.com>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 ---
- drivers/ufs/host/ufs-mediatek.c | 69 -----------------------------------------
- 1 file changed, 69 deletions(-)
+ drivers/ufs/host/ufs-mediatek.c | 5 -----
+ drivers/ufs/host/ufs-mediatek.h | 2 --
+ 2 files changed, 7 deletions(-)
 
 diff --git a/drivers/ufs/host/ufs-mediatek.c b/drivers/ufs/host/ufs-mediatek.c
-index b01fc37bd259..ae053f40aaf4 100644
+index 1df16ce29ea4..5d8c02b7a857 100644
 --- a/drivers/ufs/host/ufs-mediatek.c
 +++ b/drivers/ufs/host/ufs-mediatek.c
-@@ -1046,73 +1046,6 @@ static void ufs_mtk_init_clocks(struct ufs_hba *hba)
- 	}
+@@ -684,9 +684,6 @@ static void ufs_mtk_init_host_caps(struct ufs_hba *hba)
+ 	if (of_property_read_bool(np, "mediatek,ufs-rtff-mtcmos"))
+ 		host->caps |= UFS_MTK_CAP_RTFF_MTCMOS;
+ 
+-	if (of_property_read_bool(np, "mediatek,ufs-broken-rtc"))
+-		host->caps |= UFS_MTK_CAP_MCQ_BROKEN_RTC;
+-
+ 	dev_info(hba->dev, "caps: 0x%x", host->caps);
  }
  
--#define MAX_VCC_NAME 30
--static int ufs_mtk_vreg_fix_vcc(struct ufs_hba *hba)
--{
--	struct ufs_vreg_info *info = &hba->vreg_info;
--	struct device_node *np = hba->dev->of_node;
--	struct device *dev = hba->dev;
--	char vcc_name[MAX_VCC_NAME];
--	struct arm_smccc_res res;
--	int err, ver;
--
--	if (info->vcc)
--		return 0;
--
--	if (of_property_read_bool(np, "mediatek,ufs-vcc-by-num")) {
--		ufs_mtk_get_vcc_num(res);
--		if (res.a1 > UFS_VCC_NONE && res.a1 < UFS_VCC_MAX)
--			snprintf(vcc_name, MAX_VCC_NAME, "vcc-opt%lu", res.a1);
--		else
--			return -ENODEV;
--	} else if (of_property_read_bool(np, "mediatek,ufs-vcc-by-ver")) {
--		ver = (hba->dev_info.wspecversion & 0xF00) >> 8;
--		snprintf(vcc_name, MAX_VCC_NAME, "vcc-ufs%u", ver);
--	} else {
--		return 0;
--	}
--
--	err = ufshcd_populate_vreg(dev, vcc_name, &info->vcc, false);
--	if (err)
--		return err;
--
--	err = ufshcd_get_vreg(dev, info->vcc);
--	if (err)
--		return err;
--
--	err = regulator_enable(info->vcc->reg);
--	if (!err) {
--		info->vcc->enabled = true;
--		dev_info(dev, "%s: %s enabled\n", __func__, vcc_name);
--	}
--
--	return err;
--}
--
--static void ufs_mtk_vreg_fix_vccqx(struct ufs_hba *hba)
--{
--	struct ufs_vreg_info *info = &hba->vreg_info;
--	struct ufs_vreg **vreg_on, **vreg_off;
--
--	if (hba->dev_info.wspecversion >= 0x0300) {
--		vreg_on = &info->vccq;
--		vreg_off = &info->vccq2;
--	} else {
--		vreg_on = &info->vccq2;
--		vreg_off = &info->vccq;
--	}
--
--	if (*vreg_on)
--		(*vreg_on)->always_on = true;
--
--	if (*vreg_off) {
--		regulator_disable((*vreg_off)->reg);
--		devm_kfree(hba->dev, (*vreg_off)->name);
--		devm_kfree(hba->dev, *vreg_off);
--		*vreg_off = NULL;
--	}
--}
--
- static void ufs_mtk_setup_clk_gating(struct ufs_hba *hba)
- {
- 	unsigned long flags;
-@@ -2031,8 +1964,6 @@ static void ufs_mtk_fixup_dev_quirks(struct ufs_hba *hba)
- 	     host->ip_ver == IP_VER_MT6995_B0))
- 		hba->quirks |= UFSHCD_QUIRK_VCC_ON_DELAY;
+@@ -1225,8 +1222,6 @@ static int ufs_mtk_init(struct ufs_hba *hba)
+ 	hba->quirks |= UFSHCI_QUIRK_SKIP_MANUAL_WB_FLUSH_CTRL;
  
--	ufs_mtk_vreg_fix_vcc(hba);
--	ufs_mtk_vreg_fix_vccqx(hba);
- 	ufs_mtk_fix_ahit(hba);
- 	ufs_mtk_fix_clock_scaling(hba);
- }
+ 	hba->quirks |= UFSHCD_QUIRK_MCQ_BROKEN_INTR;
+-	if (host->caps & UFS_MTK_CAP_MCQ_BROKEN_RTC)
+-		hba->quirks |= UFSHCD_QUIRK_MCQ_BROKEN_RTC;
+ 
+ 	hba->vps->wb_flush_threshold = UFS_WB_BUF_REMAIN_PERCENT(80);
+ 
+diff --git a/drivers/ufs/host/ufs-mediatek.h b/drivers/ufs/host/ufs-mediatek.h
+index bde2b53f5798..d97951ee1f4e 100644
+--- a/drivers/ufs/host/ufs-mediatek.h
++++ b/drivers/ufs/host/ufs-mediatek.h
+@@ -138,8 +138,6 @@ enum ufs_mtk_host_caps {
+ 	UFS_MTK_CAP_DISABLE_MCQ                = 1 << 8,
+ 	/* Control MTCMOS with RTFF */
+ 	UFS_MTK_CAP_RTFF_MTCMOS                = 1 << 9,
+-
+-	UFS_MTK_CAP_MCQ_BROKEN_RTC             = 1 << 10,
+ };
+ 
+ struct ufs_mtk_crypt_cfg {
 
 -- 
 2.55.0
