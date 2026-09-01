@@ -1,118 +1,273 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0334949E5EE
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:37:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788287840; cv=pass; b=tWp0XAQsSYGhECRRma/cQN0XZmirVlNMosJxtU6uIJRh/t4FlUv7t3LIqXYIleKLHR2OBvbRcv+s6iniWjxeNbWKRfV9SVTwINJyfMU+9m2TWc7TuOPugvnka4+vV7xo1c4x3/lJvqN2whgfw2m8AdYjrW+pKtZtjsFLQ+PCaiI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788287840; c=relaxed/simple;
-	bh=494ckq7zWDraIEHV/+JsNGhiWAQA60hpCZCjqs/KHgc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QZh3dyJe9K++4PssAEjpVR5CxT9WfbsU4xGxg6nhMWNUEjlJmv/YzF1lWKCMu5w3qR4Jpgz9fTFY0W5QCZny+c6yEOw3sO5DQDptS/VDgZBzcKrK4N86+KxV6U7iN3TUtZHP8Qd2gWZLNutmEw2CXg4JRi1K/rfdnvK4/khzxRU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kKBYKNvB; arc=pass smtp.client-ip=209.85.218.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05F2A49DBA7
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:40:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788288015; cv=none; b=mF9a0bQ8APN48zPQNTfBHWsKV1fEQcyoSMugdoJcLYlWsrle/BTLWT4tdOSf50wDJFzG2J/6CxBZfBvhzIgCZbDS2sDPXf/8Ma+RAt6seJ71Z+9TTluISkFR9tNGdsFVsjkbqx00WyIM/xx4X0WExmhn1tc4eOHvM5G9YOuVvK4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788288015; c=relaxed/simple;
+	bh=CkpdHI1gclkgDI/DsyJyvvvljYzxYaIM5oPebtXVa4Y=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=iuWATCtFYrc699qKXOoZ62IqoUgGU6JAwrAs6Lhez/4X7n6zK+aG54KE5Q38zzRMGp7vjMfFE3cjliEAIltGM/07pPR0M0/3hL1rnsrhWgJ+fEajX8bPjGTT9SmbCYJfMVsNPd54Pq19jCuhZJz3kjyzcoYyDBUzRnaYRefxkh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xzmb+XYQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kKBYKNvB"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c25099bb1fbso10370166b.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 11:37:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788287835; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GJs/eK2Brf015gkjgQ9Z/PsSdUUM5rIamp5oCyj5aBqfgRlr5Ax5pexcHbPL8A3exR
-         qNLbadyUz4Y2lY60U0Z1Vfdv8YQvW+fqCL3eaGKmzR3w9cAZGs5Gtnlfyun0/4zezZ99
-         7HSDhH0pbJVyRVXYkWmi/RzV7gu9WwcjAk3rD5nQ+s0RyXz11l37IT7A7lVxC3EPx3iv
-         TRWF3nZhmELOXgpENt1/+GOOuu/WXP2pZNaiv/cK76zxzWOEn4yFIG1nILsG6fWrr81G
-         JU/Ih4dBjP5LuUXtB6I82NcyN756l8CxOFVVpjBIZOLaAWFDu8OaZnIwrlfG3wZ6KcZy
-         AdXQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VVxT21+okXO7H1rZRlv527+HZuHOBJIShXeskdwzZ5E=;
-        fh=hsEGk9Az7fnZ0IAs6jSf3C+Du8X1R2tIHu4i8aLyuvo=;
-        b=i0RgLLWgZZWZSNGkek/J5162tsT7XKI+P6e5T57AO52rstIO5Fc0dj/18dlZpEygoO
-         /JXD9OoUOV+hKQL9QCXftuW+Lixs2/fW9xvGGWb5KAMtoWyz4ek8GBAoS3kzGJ/t0vKG
-         KYJhmIwd7hthW9n4npeL1W5Ff+2eMKqO0vgWDbvk22RSUl1ZiGVPBRgMTgtZeQGMK75A
-         Gob46ssrmdqZ7tETKlvf9v9TqzZRw36hPR07LYzqhfXi0eQp6GquPHJTxd5qzo58iD+o
-         STyQ4wSf4tSGw9dLrJekHyLJsLjUXiOw4eDL49tAEwKelSnAKAPkHAb2WoOgNJOFInAb
-         Uzlg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788287835; x=1788892635; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VVxT21+okXO7H1rZRlv527+HZuHOBJIShXeskdwzZ5E=;
-        b=kKBYKNvBUnclv15WTHuP0UPrtxDazur5+xRPXOIYcsxFAvc0qbt8r5u9V0H6U/F0Mr
-         LqQUHwfrJ1eBOhgD3UUplCJUjFDAXRdmSxbsIzdWy2Hf6ygkiPgDs6E+jSprvIjncUMh
-         glTsz5KIwXU3fbEm+SZq5VwT1Nx9gmphLdxZfsRnaacRxYaUcSCQEB4GX7pcznt0A7F1
-         uvB5pywKk/SjtvA91turLbuMQO6fNx8cM1k5lGDGppDTwCI4POROAGIENlEhoc5vkJQH
-         /6GUkDN6F0+wBxdJSMgbwySstPZ3F4m7MtwuEwqgpmIEXFBrbByi1KjOBwEbHo5Ja69w
-         6XNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788287835; x=1788892635;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VVxT21+okXO7H1rZRlv527+HZuHOBJIShXeskdwzZ5E=;
-        b=Ln1FsNhZSuno1h5+bUPTt0ieYIiV4bJOS+sDeIHFdDAIAHT9DSe+KBCCU6kXdVvMug
-         O8lsphqUnOhd+qg8wQjk7ogTorlg2eU8ld9rcb47uO+1YiHfbJq0WlVtv0rzBZYlA8C7
-         QVUhEEg/Onc6/nXLLcYCO2hinF/8CXa4IbvoII4M8Im/0WQ2mcpQvAbZ42LTYJ1cAPME
-         Ob3dIv8AadSTuCNFWW2yWR7TRDvhLD1jtNptO8yeyp9+3eFGpI88f+QJVbE5+bTM8JzU
-         7sOaVdcfRbEtQvGe1gAmwpAaOyhDhAiQ3HbHm3E5D9V2xteee94913d2RyI0cwVRGaXf
-         c8cQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzrnvuYz1YDx+pYduE2LSKJVBouqY8h42C08dfK8QEvlc55pcAqDF3UOt9mfWlPQgHJYIdA0tjubZzjv9w=@vger.kernel.org
-X-Gm-Message-State: AFuF++nH0Muwb++78EnuNUY8FyGS8sall1iNOMbH2V3AnwjRCpUuC3yJ
-	xsc+xXIrbvht4UxhLbxDnVa09ZkoBNuSQBi2SCblkhBaKaxDbYHh2VvAqpnhJvUvD77gI/4Ei/b
-	aMhiCvE8wA8LjkoyJ94g0IjpAuJcWlXA=
-X-Gm-Gg: AYBFou1sO3oHnWOCUJ6quNsK/K1tHQ+csRRWVYODfxJWjimGV++YXwvRHtxS7l5CyF1
-	Z4hbD2Z9OcSyvWyVt7NaMaf7W2oiYtqQDamdK31zitMtcsvvS/VnkabkvMRUuC64PHwI9/nJfFE
-	lj6uvAP+QH+jeAR9w0ErcAXecMiJs9GAMvswqefTFeTAWOETukFyI8wOmcY1hjJ2DooYIwEuDMt
-	zw1PcamzQ1ytGVBdnDJxmle8ZTIiXWaU2efL6FFPylEWnHJcTaAvIaDm4RKvjAbs+I4Epjvghsw
-	rj4zgqHow3CuyzhUiG/qC7pE7LEQH20e0cxgVSvDrV4MQ4iEDmzLHDbCAMNNCqunFMekGqQWKPK
-	zWVeYYco9uVKwUZnJZUFCLVE3Qu6yGIwH7bCz8jI3KH+rbdDGxegKC0+2SPG2793lwrdzUeK8VW
-	ub5pb7Z8RSlJpj+jhpNlP3WtUzHNH/h+geb6+fRT/FArQ1ph3gCjRY0xU=
-X-Received: by 2002:a05:6402:c44:b0:6a6:32fa:1e9a with SMTP id
- 4fb4d7f45d1cf-6a632fa1f2bmr14643753a12.18.1788287835187; Tue, 01 Sep 2026
- 11:37:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xzmb+XYQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF7F61F000E9;
+	Tue,  1 Sep 2026 18:40:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788288013;
+	bh=aZNzsY1hykZH/A0D+/Rw52l/dN/g2TIOHG9zrVDB2k0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=Xzmb+XYQ3/yrROjfKviqQR/ZVo+N/hIVx0emwupDV71SXq6E5VI8ph2eM/w1kS7gT
+	 W+9Qwk2On3ccFPXuHJlvPvL2sQV52zxGcJ7wdqBmogLYm2lGfjuXrn3vQUstS5HFGO
+	 4VEtquChobtvnrO7WIcEZeJaLwG5hRObHoJMLsO8UibVINlh34I4Ppaw8C7BIqW0Ip
+	 hf5K53Mro+9pFxhEfqgg3AJH5tMXGLwMrVNiBv1Q+yR0FEhOj1JgSwveVLesVN1+ct
+	 0e8jyNOJddCJNHepQVO6MWAxoJL1pbHpsr6c9OTFuxAXQ9LytRPieMiSBXbEbQotOJ
+	 XaZAf+DT8hy2Q==
+From: Thomas Gleixner <tglx@kernel.org>
+To: "Eric W. Biederman" <ebiederm@xmission.com>
+Cc: Oleg Nesterov <oleg@redhat.com>, Frederic Weisbecker
+ <frederic@kernel.org>, Hyunwoo Kim <imv4bel@gmail.com>,
+ brauner@kernel.org, peterz@infradead.org, anna-maria@linutronix.de,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH V2] signal: Prevent exec() race
+In-Reply-To: <87qzjcdh06.fsf@email.froward.int.ebiederm.org>
+References: <875x10hrkt.ffs@fw13> <aowkvvxg8cPP5V0X@redhat.com>
+ <aoww8qi_ce_8ECA9@redhat.com> <aoxOVAd8ooqHFW12@localhost.localdomain>
+ <87pkz6gms6.ffs@fw13> <ao3kt-eRxw4agOj7@redhat.com> <87fr02gegn.ffs@fw13>
+ <ao6zmDB9EjsqPIVN@redhat.com> <87zey8g05g.ffs@fw13>
+ <ao8_NUo0ACPAA4QB@redhat.com>
+ <87ecfki6l5.fsf@email.froward.int.ebiederm.org> <87se3zgb3m.ffs@fw13>
+ <87mru7h09e.fsf@email.froward.int.ebiederm.org> <87tsofdvf2.ffs@fw13>
+ <871pbfeaiv.ffs@fw13> <87zey3fep2.fsf@email.froward.int.ebiederm.org>
+ <87pkyyd39l.ffs@fw13> <87h5kad0mx.ffs@fw13>
+ <87bjaie2gc.fsf@email.froward.int.ebiederm.org> <87wlt5aybr.ffs@fw13>
+ <87qzjcdh06.fsf@email.froward.int.ebiederm.org>
+Date: Tue, 01 Sep 2026 20:40:10 +0200
+Message-ID: <87ecfcbyt1.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901025311.955936-1-rosenp@gmail.com> <e1087196-fcfa-4c1f-96da-ef76a3e03a11@lunn.ch>
-In-Reply-To: <e1087196-fcfa-4c1f-96da-ef76a3e03a11@lunn.ch>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Tue, 1 Sep 2026 11:37:03 -0700
-X-Gm-Features: AcwNN1UPUj6nKVtq1cjCz-NC6msW_ZrmBOinD39yYI4g4c84oBstlABPtX9pTQk
-Message-ID: <CAKxU2N_qR-KKvq=qv0eu4PMYMf8zHnpYnZ8jMvpBNKVitB3Vuw@mail.gmail.com>
-Subject: Re: [PATCH] ARM: dts: helios4: add Wake-on-LAN gpio key
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: devicetree@vger.kernel.org, Gregory Clement <gregory.clement@bootlin.com>, 
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"moderated list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,..." <linux-arm-kernel@lists.infradead.org>, 
-	open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Mon, Aug 31, 2026 at 8:08=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wrote:
->
-> On Mon, Aug 31, 2026 at 07:53:11PM -0700, Rosen Penev wrote:
-> > Add a gpio-keys node exposing Wake-On-LAN on its gpio0 18 input,
-> > allowing the board to be woken from suspend.
->
-> Could you explain this some more. Why a GPIO key? The MAC needs to
-> know if the PHY can wake the system, in order to offload the WoL to
-> the PHY.
-This was an out of tree solution to get WOL working on this board.
+Hyunwoo debugged the following KASAN UAF splat:
 
-After some back and forth with an LLM, the conclusion reached was that
-this is the simplest way to get it working, not upstream ready. And as
-sashiko points out, it has problems. I'll respin.
->
->     Andrew
+  BUG: KASAN: slab-use-after-free in __send_signal_locked+0xb27/0xba0
+  Write of size 8 at addr ffff888007ed80c8 by task poc/79
+  ...
+  Call Trace:
+   __send_signal_locked+0xb27/0xba0
+   do_send_sig_info+0xa7/0x160
+   do_send_specific+0x76/0xa0
+   __x64_sys_tgkill+0x193/0x270
+  ...
+  Allocated by task 80:
+   do_timer_create+0x1a4/0x1030
+   __x64_sys_timer_create+0x145/0x190
+  ...
+  Freed by task 12:
+   kmem_cache_free_bulk+0x1f8/0x4a0
+   kvfree_rcu_bulk+0x14f/0x1c0
+   kfree_rcu_work+0x128/0x1a0
+  ...
+  Last potentially related work creation:
+   kvfree_call_rcu+0x39/0x390
+   __flush_itimer_signals+0x211/0x320
+   flush_itimer_signals+0x47/0x90
+   begin_new_exec+0xa6b/0x28c0
+
+It turned out that this happens with a non-leader exec() as Hyunwoo
+explained:
+
+de_thread() calls exchange_tids() before release_task(leader), so the
+struct pid held by a SIGEV_THREAD_ID timer created against the leader's tid
+now points to the thread which called execve(). pid_task() returns that
+thread and lock_task_sighand() on it succeeds.
+
+If the timer signal is blocked, its sigqueue stays queued on the leader's
+task::pending. The next expiry of that timer can then run while
+release_task() flushes the queue.
+
+posixtimer_send_sigqueue() checks whether the sigqueue is already queued
+with a plain list_empty(), which only reads list_head::next.
+list_del_init() is not atomic and INIT_LIST_HEAD() stores list_head::next
+before list_head::prev, so the check can pass in between. list_add_tail()
+queues the entry on the task::pending of the live thread, and the
+list_head::prev store from the flush then overwrites the list_head::prev
+link that list_add_tail() has just set.
+
+__flush_itimer_signals() does not undo that either. With list_head::prev
+pointing at the entry itself, its list_del_init() only stores the same
+values again, so the entry is not removed from the list. It is still there
+after the last reference is dropped and the timer is freed by RCU, and the
+list_add_tail() of a later tgkill() follows that list_head::prev into the
+freed timer.
+
+This problem surfaced with the recent commit which moved the sigqueue flush
+out of the sighand lock held region.
+
+Hyonwoo proposed to fix this by using list_del_init_careful(), but that
+just papers over the problem. After some disucssions and various attempts
+to solve it, Eric pointed out that there is no reason to flush
+task::pending late in release_task() and it should be done in
+exit_signals() already.
+
+As nothing can collect and deliver signals which are queued in a dying
+task's pending queue, there is no reason to delay it further.
+
+But it has to be ensured that no signals can be queued into it after that
+point. exit_signals() sets PF_EXITING in task::flags, which can be used as
+an indicator for this.
+
+Cure it by:
+
+  - Preventing signal queueing for task private signals (PIDTYPE_PID) when
+    the task has PF_EXITING set in __send_signal_locked() and in
+    posixtimer_send_sigqueue().
+
+  - Protecting the unlocked setting of PF_EXITING in exit_signals() for the
+    task group empty and the group exit case with sighand lock
+
+  - Flushing task::pending signals right there.
+
+    Optimize that by moving the whole pending list to an on-stack list head
+    under sighand lock and free the signals without the lock held.
+
+Fixes: fb3bbcfe344e ("exit: change the release_task() paths to call flush_sigqueue() lockless")
+Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
+Debugged-by: Hyunwoo Kim <imv4bel@gmail.com>
+Suggested-by: "Eric W. Biederman" <ebiederm@xmission.com>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Acked-by: "Eric W. Biederman" <ebiederm@xmission.com>
+Cc: stable@vger.kernel.org
+Closes: https://patch.msgid.link/aok1rdkBgZsynHZB@v4bel
+---
+V2: Don't flush w/o sighand lock held - Oleg
+    Move the while pending list under the lock and free it lockless
+---
+ kernel/exit.c   |   11 ++++++-----
+ kernel/signal.c |   37 +++++++++++++++++++++++++++++++------
+ 2 files changed, 37 insertions(+), 11 deletions(-)
+
+--- a/kernel/exit.c
++++ b/kernel/exit.c
+@@ -299,12 +299,13 @@ void release_task(struct task_struct *p)
+ 	free_pids(post.pids);
+ 	release_thread(p);
+ 	/*
+-	 * This task was already removed from the process/thread/pid lists
+-	 * and lock_task_sighand(p) can't succeed. Nobody else can touch
+-	 * ->pending or, if group dead, signal->shared_pending. We can call
+-	 * flush_sigqueue() lockless.
++	 * This task was already removed from the process/thread/pid lists and
++	 * lock_task_sighand(p) can't succeed. If it's the group leader then
++	 * flush tsk->signal->shared_pending. tsk->pending has been flushed
++	 * already in exit_signals(). Nothing else can touch
++	 * signal->shared_pending anymore, so flush_sigqueue() can be invoked
++	 * lockless.
+ 	 */
+-	flush_sigqueue(&p->pending);
+ 	if (thread_group_leader(p))
+ 		flush_sigqueue(&p->signal->shared_pending);
+ 
+--- a/kernel/signal.c
++++ b/kernel/signal.c
+@@ -457,18 +457,28 @@ static void __sigqueue_free(struct sigqu
+ 	kmem_cache_free(sigqueue_cachep, q);
+ }
+ 
+-void flush_sigqueue(struct sigpending *queue)
++static void flush_sigqueue_list(struct list_head *head)
+ {
+-	struct sigqueue *q;
++	struct sigqueue *q, *tmp;
+ 
+-	sigemptyset(&queue->signal);
+-	while (!list_empty(&queue->list)) {
+-		q = list_entry(queue->list.next, struct sigqueue , list);
++	list_for_each_entry_safe(q, tmp, head, list) {
+ 		list_del_init(&q->list);
+ 		__sigqueue_free(q);
+ 	}
+ }
+ 
++void flush_sigqueue(struct sigpending *queue)
++{
++	sigemptyset(&queue->signal);
++	flush_sigqueue_list(&queue->list);
++}
++
++static void sigqueue_dequeue_pending(struct sigpending *queue, struct list_head *head)
++{
++	sigemptyset(&queue->signal);
++	list_splice_init(&queue->list, head);
++}
++
+ /*
+  * Flush all pending signals for this kthread.
+  */
+@@ -1030,6 +1040,10 @@ static int __send_signal_locked(int sig,
+ 	lockdep_assert_held(&t->sighand->siglock);
+ 
+ 	result = TRACE_SIGNAL_IGNORED;
++
++	if (unlikely(type == PIDTYPE_PID && (t->flags & PF_EXITING)))
++		goto ret;
++
+ 	if (!prepare_signal(sig, t, force))
+ 		goto ret;
+ 
+@@ -1990,6 +2004,9 @@ void posixtimer_send_sigqueue(struct k_i
+ 	if (!likely(lock_task_sighand(t, &flags)))
+ 		return;
+ 
++	if (unlikely(tmr->it_pid_type == PIDTYPE_PID && (t->flags & PF_EXITING)))
++		return;
++
+ 	/*
+ 	 * Update @tmr::sigqueue_seq for posix timer signals with sighand
+ 	 * locked to prevent a race against dequeue_signal().
+@@ -3120,6 +3137,7 @@ static void retarget_shared_pending(stru
+ 
+ void exit_signals(struct task_struct *tsk)
+ {
++	LIST_HEAD(sigq_list);
+ 	int group_stop = 0;
+ 	sigset_t unblocked;
+ 
+@@ -3130,8 +3148,12 @@ void exit_signals(struct task_struct *ts
+ 	cgroup_threadgroup_change_begin(tsk);
+ 
+ 	if (thread_group_empty(tsk) || (tsk->signal->flags & SIGNAL_GROUP_EXIT)) {
+-		tsk->flags |= PF_EXITING;
++		scoped_guard(spinlock_irq, &tsk->sighand->siglock) {
++			tsk->flags |= PF_EXITING;
++			sigqueue_dequeue_pending(&tsk->pending, &sigq_list);
++		}
+ 		cgroup_threadgroup_change_end(tsk);
++		flush_sigqueue_list(&sigq_list);
+ 		return;
+ 	}
+ 
+@@ -3141,6 +3163,7 @@ void exit_signals(struct task_struct *ts
+ 	 * see wants_signal(), do_signal_stop().
+ 	 */
+ 	tsk->flags |= PF_EXITING;
++	sigqueue_dequeue_pending(&tsk->pending, &sigq_list);
+ 
+ 	cgroup_threadgroup_change_end(tsk);
+ 
+@@ -3157,6 +3180,8 @@ void exit_signals(struct task_struct *ts
+ out:
+ 	spin_unlock_irq(&tsk->sighand->siglock);
+ 
++	flush_sigqueue_list(&sigq_list);
++
+ 	/*
+ 	 * If group stop has completed, deliver the notification.  This
+ 	 * should always go to the real parent of the group leader.
