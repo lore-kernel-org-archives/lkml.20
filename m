@@ -1,33 +1,33 @@
 Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3195A4CCDFC;
-	Tue,  1 Sep 2026 06:17:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B74C032B12C;
+	Tue,  1 Sep 2026 06:17:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788243437; cv=none; b=cCEQfsFCGf7aXKBRvrMxSNhVdC5C5As1AAc65JJvNb9TMZXXgXZ4YwqVz09wiRvnVaoEzdiHtGCgZ5LLqFVQaQmEfvejh3roEvppXX/zTV/rNoaoVmgvBBYdV4YUfShD5qVTyvtgVlHRUszUmQGWT6oV17/tPe2nLE7EUWYyY38=
+	t=1788243438; cv=none; b=PMbd9Jocu3ss5spajMuUl0bN1S1KprmiWeU9lyNsGZTNp4YgqFJ5IeLECQ+xOXtW1Eq2Cyd7e4cEeDupD3RZt0+AuuS65MUY9uvumiUisqFA2DL4xVp1iaUYRB7SrGAGFa0LbtOAzc9Jutxl11hwzOMA36hQxr6U55f21XoH7Gc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788243437; c=relaxed/simple;
-	bh=6Gd+of4Puc7xILD1S5PlRkm3yJCuJkB/jZUj5nzD0AM=;
+	s=arc-20240116; t=1788243438; c=relaxed/simple;
+	bh=bOofOIoyu7nVYi6NenUtKXuZTckxrh/YWOiFdf8W5n4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qZGWTCTbcWiK+IJJTIJhmRFFzhe48cZIN+MIyEuoB0Y5whLi4ARGYVlkJl5LLOH+29f6C3bR4+ISkuZlqYCBBOWlwVbmgjy99E8qKLg50m7BqHcGGqx3a84+Y10si8niNyu3yx8VytmO36lqbHj25DVanamViB/BgvGJEGreZdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=o3lWQwx4; arc=none smtp.client-ip=218.76.62.146
+	 In-Reply-To:To:Cc; b=qSJAGJU2g884s1JqtOmzU9P59hM5Vd1nSQkxsqSWr1H6WooVUppKwr5pJeKqn8vUFnDiWGeC4vja0L2K9AatzR6KBIUo1M60TxGbIvWsYKoPlWqaTMs/SyqV/8IwMks0LAbTOSqe2zSdEyEHnXeiHyomUlgV6Tygk8DaS+oy5YI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=lwadHFFl; arc=none smtp.client-ip=218.76.62.146
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="o3lWQwx4"
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="lwadHFFl"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=ultrarisc.com; s=dkim; h=Received:From:Date:Subject:
 	MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	References:In-Reply-To:To:Cc; bh=DPAUNyXjrPHG/Ri1i6kK82mXAsYo7P9
-	e2J85llwtjPU=; b=o3lWQwx4pYlYe7tDXz9sMSiIMzxyPsDVsrZjx7H//AFFFWI
-	DVTEAlpuZHqWWErFSAwIS2g7/GpY/gRgRhr+glO/fii3pQjTr4UYXZKu+CDc1Naz
-	VgFbzQBXy8QXx0+gboWVhz/T8Ji0AxDBlzpOQAGIf2lrlHoRlJIP2km7K2P8=
+	References:In-Reply-To:To:Cc; bh=NMLRxRJLMK5HDpwcoJZdra6d5ORXjPE
+	RdZnGUWgsmkA=; b=lwadHFFlENN3g4isYYIVzHZbcLlnKMCO6eMePvF2BLq8j7/
+	y5lU2ZZ0rcPtNU+Rv4y7fZhzP+loXFx9+2P5UfOJdb1UQCf/8y/07F6D4qZsDV8q
+	iP1EJ35ut17yHhnUtsqmabjr0mnVSeXwoRPtVMkM+VBs6CbxsPyAAIDkgZ2U=
 Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwDnrwbjbZZqXCAAAA--.118S5;
-	Tue, 01 Sep 2026 14:17:15 +0800 (CST)
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwDnrwbjbZZqXCAAAA--.118S3;
+	Tue, 01 Sep 2026 14:17:10 +0800 (CST)
 From: Jia Wang <wangjia@ultrarisc.com>
-Date: Tue, 01 Sep 2026 14:16:06 +0800
-Subject: [PATCH v2 3/4] dmaengine: dw-axi-dmac: Fix CH_CFG2 channel
- priority position
+Date: Tue, 01 Sep 2026 14:16:04 +0800
+Subject: [PATCH v2 1/4] dmaengine: dw-axi-dmac: Fix AXI burst length
+ encoding
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -36,7 +36,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-dma-fix-v2-3-d7f0459ebb14@ultrarisc.com>
+Message-Id: <20260901-dma-fix-v2-1-d7f0459ebb14@ultrarisc.com>
 References: <20260901-dma-fix-v2-0-d7f0459ebb14@ultrarisc.com>
 In-Reply-To: <20260901-dma-fix-v2-0-d7f0459ebb14@ultrarisc.com>
 To: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
@@ -45,60 +45,75 @@ To: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
  Sia Jee Heng <jee.heng.sia@intel.com>
 Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jia Wang <wangjia@ultrarisc.com>
+ Jia Wang <wangjia@ultrarisc.com>, Frank Li <Frank.Li@nxp.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788243415; l=988;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788243415; l=1915;
  i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=6Gd+of4Puc7xILD1S5PlRkm3yJCuJkB/jZUj5nzD0AM=;
- b=cW14D0R9u6FqNEVZ5HDyewMVyT4+NzKjsE2lBYMdb7raEchwhGdDYcvCcd5yvRwaF8YO1hFlO
- VYa3wX75S+8DNdSPu2lJSHkJl39ABhoznVg8CG0nRDTvJehTm4RY4zP
+ bh=bOofOIoyu7nVYi6NenUtKXuZTckxrh/YWOiFdf8W5n4=;
+ b=hasD4ZIreoFvXVjsEZkhgJYTMk5/mpdOyed77LyNTcOnMuEDhKEGgpCSn0rd3B8Oov2IEZyD6
+ UOCTEgUr4hzD3LP5LEbB8VAPgM4NcyCnCbNw6Swpx+4JkOKARWGupUi
 X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
  pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-CM-TRANSID:AQAAfwDnrwbjbZZqXCAAAA--.118S5
-X-Coremail-Antispam: 1UD129KBjvdXoWruw18JFWxZr1xGFWrJr45Awb_yoWDWFX_u3
-	48WrWaqF1rCFW8Kw48tr1fXr4jvF18ur4I9r4ayr97Ar45Xws8tw4ktFWrGr13AayxGF15
-	urW7XrWSqa13XjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbqAFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUWwA2048vs2IY02
-	0Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xv
-	wVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4
-	x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr0_Cr1UM2AI
-	xVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20x
-	vE14v26r1j6r18McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xv
-	r2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q6r43Mx
-	kIecxEwVCm-wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
-	F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GF
-	ylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
-	4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfU
-	55rcDUUUU
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAREWqVJKMAYAAFsc
+X-CM-TRANSID:AQAAfwDnrwbjbZZqXCAAAA--.118S3
+X-Coremail-Antispam: 1UD129KBjvJXoW7ZF1rKryfZFy7CFy3tr1fJFb_yoW8Zryfpa
+	n5Kw4rJFyDtw1qka1kJa47uFyUtFy5KrWIvFW8Zw1S9rZ8X34Svr1kKw1F9r1kAF4rJr4f
+	tF4fJFyrZF1kZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmG14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
+	x26xkF7I0E14v26r1I6r4UM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+	Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84
+	ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAS
+	0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
+	IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
+	Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2
+	xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I8I3I0E
+	4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGV
+	WUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_
+	Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rV
+	WUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWx
+	JrUvcSsGvfC2KfnxnUUI43ZEXa7VUja0PDUUUUU==
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAREWqVJKMAYAABsY
 
-The CH_CFG2 channel priority field occupies bits 51:47 of the 64-bit
-channel configuration register, corresponding to bits 19:15 of CH_CFG2_H.
+The snps,axi-max-burst-len property describes the number of beats in an
+AXI burst, while the ARLEN and AWLEN fields encode that value minus one.
 
-The driver currently shifts the priority value by 20, programming the
-wrong bits. Use bit 15 as the field position.
+The driver keeps axi_rw_burst_len as the actual burst length so that
+dma_device.max_burst reports the correct value. However, it also programs
+that unencoded value directly into the hardware fields. A value of 256
+therefore overflows the 8-bit fields and can cause AXI decode errors.
 
-Fixes: 824351668a41 ("dmaengine: dw-axi-dmac: support DMAX_NUM_CHANNELS > 8")
+Subtract one only when constructing hardware descriptors, while keeping
+the actual value for dma_device.max_burst.
+
+Fixes: c454d16a7d5a ("dmaengine: dw-axi-dmac: Burst length settings")
 Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 ---
- drivers/dma/dw-axi-dmac/dw-axi-dmac.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac.h b/drivers/dma/dw-axi-dmac/dw-axi-dmac.h
-index 67cc199e24d1..97451bb8b16a 100644
---- a/drivers/dma/dw-axi-dmac/dw-axi-dmac.h
-+++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac.h
-@@ -327,7 +327,7 @@ enum {
- #define CH_CFG2_H_TT_FC_POS		0
- #define CH_CFG2_H_HS_SEL_SRC_POS	3
- #define CH_CFG2_H_HS_SEL_DST_POS	4
--#define CH_CFG2_H_PRIORITY_POS		20
-+#define CH_CFG2_H_PRIORITY_POS		15
+diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+index eebed2474210..742e08cfab43 100644
+--- a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
++++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+@@ -706,7 +706,7 @@ static int dw_axi_dma_set_hw_desc(struct axi_dma_chan *chan,
+ 	ctlhi = CH_CTL_H_LLI_VALID;
  
- /**
-  * DW AXI DMA channel interrupts
+ 	if (chan->chip->dw->hdata->restrict_axi_burst_len) {
+-		burst_len = chan->chip->dw->hdata->axi_rw_burst_len;
++		burst_len = chan->chip->dw->hdata->axi_rw_burst_len - 1;
+ 		ctlhi |= CH_CTL_H_ARLEN_EN | CH_CTL_H_AWLEN_EN |
+ 			 burst_len << CH_CTL_H_ARLEN_POS |
+ 			 burst_len << CH_CTL_H_AWLEN_POS;
+@@ -975,7 +975,7 @@ dma_chan_prep_dma_memcpy(struct dma_chan *dchan, dma_addr_t dst_adr,
+ 
+ 		reg = CH_CTL_H_LLI_VALID;
+ 		if (chan->chip->dw->hdata->restrict_axi_burst_len) {
+-			u32 burst_len = chan->chip->dw->hdata->axi_rw_burst_len;
++			u32 burst_len = chan->chip->dw->hdata->axi_rw_burst_len - 1;
+ 
+ 			reg |= (CH_CTL_H_ARLEN_EN |
+ 				burst_len << CH_CTL_H_ARLEN_POS |
 
 -- 
 2.34.1
