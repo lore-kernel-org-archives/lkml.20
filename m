@@ -1,30 +1,30 @@
-Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
+Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 778AD3546D0
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:39:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE0C371053
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:39:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.119
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788269974; cv=none; b=Cy0LZB8AnIvFqgTpWesuig//XjmxXO6bm1X8bC+2Dm89DUTtWatT9406MjN+u4BJpN4HcUyBK6JkN6WLPf4U/mNWfDqgQobOUvWYmbShSJYetGuedWewmwq7rSRogtV3ONT2qDezGSfwwPp5w2bYu9ezIQNsK25SbXZ+0gg3zAw=
+	t=1788269974; cv=none; b=g8rMZFoueyqvJZtBxxEtVHt1r8+RmIeqz8/v2SL12gtZhHtrkTycd0hI+tOtjAppdwJtxINm12j6/YtdLRvBiDLfMcGMWgbu4oncRk7Z/vtMCL3tShrRISyGuqp2jqLd74rK2jcHFub1696+MarAdNoKatRh1/0s1BD1idhNmBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788269974; c=relaxed/simple;
-	bh=6ZEVi/aOJyaJhuddMfCe08+BHazf/2XCD9aBzk4QniM=;
+	bh=ai20KLKiOYNguIr/aic80m0d2gkI0atucc+KfaGJgrc=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=OMJyaGetDLtvA6XjPBZpfHYQOCz1m19x0WPFPRsys1b4k+GiJNe/Oo1nANq8S3kE/pB8HrD/LPGKUJARyansIboiU4y1B6/d9MXtkmQR4btt4cbuu/Wb8WOZFBkIu8Jc7DmaTrwpr9izKbAyvYxNqp0tNbUZbd0eFROEoojzmjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=jqdzBQnA; arc=none smtp.client-ip=115.124.30.131
+	 MIME-Version; b=VEeUtIU9qW1WvvpSv8fNlA79GY4rAAF9o+Q3w/AWuxMZnHdOYqwiudNYwCxB03NEYdod03gje14mAHBxsWV8D3ADV3fLjASzfzTowT09nd5CGz1lKeMnb/Mme2e7tv2X6WLVyqlYBvWMN6wxsciDRGBUUDpDGsZ1xN56WZ+9HME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=Qo4vsBwu; arc=none smtp.client-ip=115.124.30.119
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="jqdzBQnA"
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Qo4vsBwu"
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linux.alibaba.com; s=default;
-	t=1788269967; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=Zhv3H2+2w0gZKGeUibRr/8VGF24nes4VuRka42uR/+4=;
-	b=jqdzBQnAW5zLQ/f07uzqoJ7+3MytExawkSvMuK5bn3tZASmMH3lB0RUh4x1EUyNhKr5ieGSKysdSjBh6W3L0Zk6R5KsP+4lu3fj/j/8vUT7ikf76NZtn7KGMPY/kuHWUsm64gKYVRIovtEd6Rem8O282EAKlLvzTleW04c7IQo0=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R171e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XA9NaYb_1788269964;
-Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XA9NaYb_1788269964 cluster:ay36)
+	t=1788269970; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=XIEfra7Gk5GpAPhNqAO8Wx/0NjuLdwOdToBsoQSy4QA=;
+	b=Qo4vsBwupYtn5L2kXcej+Wk2ptvHE/mdXOEtJsUrxinjdydqvRyGCv21ErBtnqMHVg8C6bGPnuJ12Af+ZfYc6OguhF6tbAbacUthBmZaaUW3lYeL65Ghqg6gCDo9ppmyjv4qKOJCuqjMYky5kv7ZTUQuhcHA0qQjP2pROyAzvtk=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=20;SR=0;TI=SMTPD_---0XA9NaZW_1788269967;
+Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XA9NaZW_1788269967 cluster:ay36)
           by smtp.aliyun-inc.com;
-          Tue, 01 Sep 2026 21:39:25 +0800
+          Tue, 01 Sep 2026 21:39:28 +0800
 From: fangyu.yu@linux.alibaba.com
 To: tomasz.jeznach@linux.dev,
 	joro@8bytes.org,
@@ -46,9 +46,9 @@ Cc: fangyu.yu@linux.alibaba.com,
 	iommu@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-riscv@lists.infradead.org
-Subject: [PATCH v2 1/3] iommu/riscv: Add command queue lock
-Date: Tue,  1 Sep 2026 21:39:18 +0800
-Message-Id: <20260901133920.14550-2-fangyu.yu@linux.alibaba.com>
+Subject: [PATCH v2 3/3] iommu/riscv: Avoid waiting on failed command enqueue
+Date: Tue,  1 Sep 2026 21:39:20 +0800
+Message-Id: <20260901133920.14550-4-fangyu.yu@linux.alibaba.com>
 X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 In-Reply-To: <20260901133920.14550-1-fangyu.yu@linux.alibaba.com>
 References: <20260901133920.14550-1-fangyu.yu@linux.alibaba.com>
@@ -62,48 +62,75 @@ Content-Transfer-Encoding: 8bit
 
 From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
 
-Add a raw spinlock to the RISC-V IOMMU queue state so command queue
-publishing can be serialized by a later change.
+Do not wait for IOFENCE.C completion when the command failed to enter the
+queue. The command was not published to hardware, so waiting for its
+producer index can only report a misleading execution timeout.
 
 Fixes: 856c0cfe5c5f ("iommu/riscv: Command and fault queue support")
 Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
 ---
- drivers/iommu/riscv/iommu.c | 1 +
- drivers/iommu/riscv/iommu.h | 2 ++
- 2 files changed, 3 insertions(+)
+ drivers/iommu/riscv/iommu.c | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
-index cec3ddd7ab10..2c0dcc90cf85 100644
+index e335beb70e42..fe8e6d0f8a23 100644
 --- a/drivers/iommu/riscv/iommu.c
 +++ b/drivers/iommu/riscv/iommu.c
-@@ -1560,6 +1560,7 @@ int riscv_iommu_init(struct riscv_iommu_device *iommu)
- 	int rc;
+@@ -419,8 +419,9 @@ static int riscv_iommu_queue_wait_for_space(struct riscv_iommu_queue *queue,
+ }
  
- 	RISCV_IOMMU_QUEUE_INIT(&iommu->cmdq, CQ);
-+	raw_spin_lock_init(&iommu->cmdq.lock);
- 	RISCV_IOMMU_QUEUE_INIT(&iommu->fltq, FQ);
+ /* Enqueue an entry and publish it to the hardware queue. */
+-static unsigned int riscv_iommu_queue_send(struct riscv_iommu_queue *queue,
+-					   void *entry, size_t entry_size)
++static int riscv_iommu_queue_send(struct riscv_iommu_queue *queue,
++					  void *entry, size_t entry_size,
++					  unsigned int *out_prod)
+ {
+ 	unsigned int prod;
+ 	unsigned int head;
+@@ -462,14 +463,16 @@ static unsigned int riscv_iommu_queue_send(struct riscv_iommu_queue *queue,
+ 	atomic_set(&queue->tail, prod + 1);
+ 	atomic_set(&queue->prod, prod + 1);
  
- 	rc = riscv_iommu_init_check(iommu);
-diff --git a/drivers/iommu/riscv/iommu.h b/drivers/iommu/riscv/iommu.h
-index 46df79dd5495..5676001548cc 100644
---- a/drivers/iommu/riscv/iommu.h
-+++ b/drivers/iommu/riscv/iommu.h
-@@ -12,6 +12,7 @@
- #define _RISCV_IOMMU_H_
+-	raw_spin_unlock_irqrestore(&queue->lock, flags);
++	if (out_prod)
++		*out_prod = prod;
  
- #include <linux/iommu.h>
-+#include <linux/spinlock.h>
- #include <linux/types.h>
- #include <linux/iopoll.h>
+-	return prod;
++	raw_spin_unlock_irqrestore(&queue->lock, flags);
++	return 0;
  
-@@ -23,6 +24,7 @@ struct riscv_iommu_queue {
- 	atomic_t prod;				/* unbounded producer allocation index */
- 	atomic_t head;				/* unbounded shadow ring buffer consumer index */
- 	atomic_t tail;				/* unbounded shadow ring buffer producer index */
-+	raw_spinlock_t lock;			/* serialize queue publishing */
- 	unsigned int mask;			/* index mask, queue length - 1 */
- 	unsigned int irq;			/* allocated interrupt number */
- 	struct riscv_iommu_device *iommu;	/* iommu device handling the queue when active */
+ err_busy:
+ 	/* Report the failure and continue; full RAS recovery is not implemented. */
+ 	dev_err_once(queue->iommu->dev, "Hardware error: command enqueue failed\n");
+-	return prod;
++	return ret;
+ }
+ 
+ /*
+@@ -508,7 +511,7 @@ static irqreturn_t riscv_iommu_cmdq_process(int irq, void *data)
+ static void riscv_iommu_cmd_send(struct riscv_iommu_device *iommu,
+ 				 struct riscv_iommu_command *cmd)
+ {
+-	riscv_iommu_queue_send(&iommu->cmdq, cmd, sizeof(*cmd));
++	riscv_iommu_queue_send(&iommu->cmdq, cmd, sizeof(*cmd), NULL);
+ }
+ 
+ /* Send IOFENCE.C command and wait for all scheduled commands to complete. */
+@@ -517,9 +520,12 @@ static void riscv_iommu_cmd_sync(struct riscv_iommu_device *iommu,
+ {
+ 	struct riscv_iommu_command cmd;
+ 	unsigned int prod;
++	int ret;
+ 
+ 	riscv_iommu_cmd_iofence(&cmd);
+-	prod = riscv_iommu_queue_send(&iommu->cmdq, &cmd, sizeof(cmd));
++	ret = riscv_iommu_queue_send(&iommu->cmdq, &cmd, sizeof(cmd), &prod);
++	if (ret)
++		return;
+ 
+ 	if (!timeout_us)
+ 		return;
 -- 
 2.50.1
 
