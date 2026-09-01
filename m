@@ -1,33 +1,33 @@
-Received: from mta1.migadu.com (out-59.mta1.migadu.com [95.215.58.59])
+Received: from mta0.migadu.com (out-193.mta0.migadu.com [91.218.175.193])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1AB7415F23
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:41:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.59
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FD742B33D
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 02:40:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788230476; cv=none; b=kjKEOYSzh9wdAgue8tUxUxVoY/SF89+4J5r+MOUbWSsZcxPNVqXNP/tWtRjneVfxZUbx/U6Lht9GMD+VEpQ5IJ4REDUe0kRr0HsUo/o/axKozqDXSKIyUt2dAe7jGUN+5djmrsNWzuxoEfVWY3me2r7tObNvs4W8+trx5u/2ZEA=
+	t=1788230473; cv=none; b=Xs8r24G6zZEjRG5vmpqqoA2LuaTwsAR0y3oRFr8y6VzjpXZe+1uJ2E/LMy0X9lukhjReSQmz2jhk1G7OKMKNhrw+BIE5UxV7GyM6PPboLiOzMCdPgT0NlA+Hqx4hnrmRWFW3ttNPaUdIcroClFXJjXYVGX9wfSQIO/lHJ2N+qNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788230476; c=relaxed/simple;
-	bh=+g8JFj6bSuPhOwWMaBi1S77p3N0JoJc+KMCCgtIXAqg=;
+	s=arc-20240116; t=1788230473; c=relaxed/simple;
+	bh=zGl9k2EKaQ/cypP2a3HZEV5eAmxgn5HG0stOMh5zxuc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gqYqJh+mGulpcx57KPFNWX/IP/sBJ19EZuVcvskJLJf/f+HVof+mH8d4pXV4b7wWnI3imfxdoqGSPmz/nRyZz1WK+5Z+1Uh9Xe27gmXm+6OAmQxF41UW15NJYPVsd585YfEaWbU+8IPol67GiVW9/bp/q3DZzb9LrbvS/xIFeEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=LfvTh0FN; arc=none smtp.client-ip=95.215.58.59
+	 MIME-Version; b=DrTHkQDQgRZLRZm8NM/VRFaksWwTo71tzP616ZNEIb4GkjqU4sJ0Bn9+nCyo0SFj4ZgEJ3s+dKx92Lpnz7klKaMHjszUAWM0bNIeH42tHvTb1zjzAQx6aPvenfaBTZlMrhi1mRsq/Etht4/XK4pEP5nfUMXxpWEZlsoHGJiu8jM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HoiwX54D; arc=none smtp.client-ip=91.218.175.193
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="LfvTh0FN"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HoiwX54D"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+g8JFj6bSuPhOwWMaBi1S77p3N0JoJc+KMCCgtIXAqg=;
+DKIM-Signature: a=rsa-sha256; bh=zGl9k2EKaQ/cypP2a3HZEV5eAmxgn5HG0stOMh5zxuc=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788230461; v=1; x=1788835261;
- b=LfvTh0FN43rOVOo09URUo19lOKDNohwxrxEfLNJFn9kiQccjQ5VNlklzE17m9oT7hi85bIIp
- GWqEiFVhoa792eTXaz+4iHRjsXY8hbCC+G0rxSdqzJSrnIQjxgCA0JG60LTTATrj7FdN7NTTrSC
- jKzvBVuGxQM9RbBmAzDmnBMw=
+ t=1788230454; v=1; x=1788835254;
+ b=HoiwX54DQrfYZJWKPMKZesULS90u1xJUpAMjWosCmIkwXCMLXkscriPhKHbeTBn2d3fCAXhC
+ xmFdJfSo0UhBSd3njfcbaE/MECAdjAgAwp9cn0yH/UNwImWsnrgvq7EzlQGGjqpwDK+Qxyqiukz
+ yQTTtetUoJomPe/KOMzrm0j0=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 04d6f9c65dfb2da7;
-	Tue, 01 Sep 2026 02:41:01 +0000
-X-Mizu-Trace-ID: 04d6f9c65dfb2da7
+Received: by smtp.migadu.com with ESMTPS id 8df81cf4b717920e;
+	Tue, 01 Sep 2026 02:40:54 +0000
+X-Mizu-Trace-ID: 8df81cf4b717920e
 X-Migadu-Flow: FLOW_OUT
 From: Tao Cui <cui.tao@linux.dev>
 To: tj@kernel.org,
@@ -40,11 +40,10 @@ Cc: arighi@nvidia.com,
 	linux-kernel@vger.kernel.org,
 	bpf@vger.kernel.org,
 	cui.tao@linux.dev,
-	Tao Cui <cuitao@kylinos.cn>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH 2/2] sched_ext/scx_flatcg: make cgv_node_less() wraparound-safe
-Date: Tue,  1 Sep 2026 10:40:38 +0800
-Message-ID: <20260901024038.730424-3-cui.tao@linux.dev>
+	Tao Cui <cuitao@kylinos.cn>
+Subject: [PATCH 1/2] sched_ext: fix vtime priority queue inversion on wide vtime spread
+Date: Tue,  1 Sep 2026 10:40:37 +0800
+Message-ID: <20260901024038.730424-2-cui.tao@linux.dev>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260901024038.730424-1-cui.tao@linux.dev>
 References: <20260901024038.730424-1-cui.tao@linux.dev>
@@ -58,44 +57,42 @@ Content-Transfer-Encoding: 8bit
 
 From: Tao Cui <cuitao@kylinos.cn>
 
-cgv_node_less() compares cvtimes with a plain <, which breaks once
-cvtime wraps. A weight-1 cgroup in a hierarchy summing to 10000
-advances cvtime at up to 10000x wall time, so 2^64 ns of cvtime is
-weeks of continuous saturation away -- unlikely but reachable on a
-long-running host. At the wrap instant the plain comparison puts the
-wrapped node behind everything else permanently.
+scx_dsq_priq_less() compares dsq_vtime with time_before64(), a cyclic
+comparison that is only valid when the values in the queue are less
+than 2^63 apart. Unlike CFS, which enforces that invariant with
+min_vruntime clamping, sched_ext takes dsq_vtime directly from the BPF
+scheduler and cannot bound the spread. A scheduler that inserts tasks
+with vtimes wider than 2^63 apart into one DSQ gets the order inverted:
+the tasks it placed last run first and the rest starve. Reproduced with
+a probe scheduler assigning half its tasks vtimes near 0 and the other
+half vtimes above 2^63 -- four of eight busy tasks monopolized the CPU
+while the other four starved.
 
-Compare with (s64)(a - b) < 0 instead, as CFS does for vruntime. A
-cyclic comparison is valid as an rbtree comparator only because
-cgrp_cap_budget() clamps every node to within max_budget behind
-cvtime_now, so any two nodes are far less than 2^63 apart and the
-cyclic order agrees with the true order.
+Compare with plain u64 < instead, which is a total order and always
+honors the order the scheduler asked for. The transient misordering
+around the natural 2^64 wrap is the same class of anomaly the cyclic
+comparison trades it for, but bounded.
 
-Compile-tested and smoke-tested in a VM: weight distribution and
-dispatch unaffected.
-
-Fixes: 7b742aa2c2c9 ("sched_ext: Add a cgroup scheduler which uses flattened hierarchy")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/r/3f1ce004-e259-4e72-a5f7-14a5050053bd@linux.dev
+Fixes: 06e51be3d5e7 ("sched_ext: Add vtime-ordered priority queue to dispatch_q's")
 Signed-off-by: Tao Cui <cuitao@kylinos.cn>
 ---
- tools/sched_ext/scx_flatcg.bpf.c | 3 ++-
+ kernel/sched/ext/ext.c | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/tools/sched_ext/scx_flatcg.bpf.c b/tools/sched_ext/scx_flatcg.bpf.c
-index 454ebb820c5e..be03b409db5e 100644
---- a/tools/sched_ext/scx_flatcg.bpf.c
-+++ b/tools/sched_ext/scx_flatcg.bpf.c
-@@ -144,7 +144,8 @@ static bool cgv_node_less(struct bpf_rb_node *a, const struct bpf_rb_node *b)
- 	cgc_a = container_of(a, struct cgv_node, rb_node);
- 	cgc_b = container_of(b, struct cgv_node, rb_node);
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 8041c87a3562..dd0ce01370d1 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -1417,7 +1417,8 @@ static bool scx_dsq_priq_less(struct rb_node *node_a,
+ 	const struct task_struct *b =
+ 		container_of(node_b, struct task_struct, scx.dsq_priq);
  
--	return cgc_a->cvtime < cgc_b->cvtime;
-+	/* wrap-safe: cap_budget keeps nodes within 2^63 of each other */
-+	return (s64)(cgc_a->cvtime - cgc_b->cvtime) < 0;
+-	return time_before64(a->scx.dsq_vtime, b->scx.dsq_vtime);
++	/* dsq_vtime is arbitrary BPF input: keep a total order */
++	return a->scx.dsq_vtime < b->scx.dsq_vtime;
  }
  
- static struct fcg_cpu_ctx *find_cpu_ctx(void)
+ static void dsq_inc_nr(struct scx_dispatch_q *dsq, struct task_struct *p, u64 enq_flags)
 -- 
 2.43.0
 
