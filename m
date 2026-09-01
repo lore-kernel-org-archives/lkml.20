@@ -1,78 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3383459AE7
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:25:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 064DB370AE5;
+	Tue,  1 Sep 2026 08:25:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788251114; cv=none; b=gDFDc+4Jb9sstROc5yeVyMvWUWx2ERPnAhjIFq45xstCNjknp+rNYhxnsFZ77n6Ny+zHMY2BXB+gnQeyLiKp8vTSAbWMAksNaBufLvWaOCFBDJXpfLBylCsoU1wGwl2iRQgJ0hcWgjfRpz/HjQlC4HbAy0h4Di4lDjTDS7yW0dE=
+	t=1788251122; cv=none; b=Ou3ciDH2yVpYJ09pP33VkiSAqio6ZoJA45QRoW+T4GykTw4bv8QOy88m4zOIRb4JYsycMSo1xtIr2TsgBleMlT0boFv97CZljsH5zOUGAZ4YAFWbo076WVoOVziL7V94EI2z9z1itSszM3inq2djpfWoJ/NxX2YkMC3WuUuyv7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788251114; c=relaxed/simple;
-	bh=i/iM4/p+swZSDXAyE3q1hyvPmHOykqSfcjwmXtMIt2w=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CjielaRFp9QNYouH9GG3D2DKFBVsbBFfZ24EcjSH+CM9uSPXBh1NKW1qR94VEAWRJGN5HBngn2M4Z1dkrDYHAjF04RvIza7u4LXB+CBkRV3oI+X/I3C5GTBUjyp/5x/BAXP3IHX+ZTauBrjrAqoGWrTsey1u8HiOStfTgBPPHcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dULhbiMd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788251122; c=relaxed/simple;
+	bh=iRZTdjP4a0nk+McE3IZXdnR6pSeTAkVaDrKHZcKX8xY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SLpJCchLBJdgtie1/ItYd6NsAewr4Gi2Vzv4+kayJO4oQ9Gg9013JrOU3PK0hquiKfD22Ypy4JyD+XMfzXur5gThw5w5/g4vWVfXJHqpvDSCZc6mVdu/pIGjflCJ275EbIScMM6F6ARxbuZQKMXHMzJ5tOT0MOKy6rArd8gRDBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MplQJzO9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dULhbiMd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50DB71F00A3E
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:25:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MplQJzO9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE2F91F000E9;
+	Tue,  1 Sep 2026 08:25:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788251113;
-	bh=i/iM4/p+swZSDXAyE3q1hyvPmHOykqSfcjwmXtMIt2w=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=dULhbiMdhwA/semByH6OuMrSfMdj1f/+J0IiMxC96LXoU2n4MYdu1tN8z/u2qbMlu
-	 FKPys2LYUhZDDkGIErEaCkTV+ZLlsWP4036NJV7UmU0JxyGXG1xm1IyKYjHuq98+Om
-	 WJ1jxtOg3DIlFUL+ras8H3wcvk+Fv3MVqDfCP7zJLldFVHSVvcD7RSmoqud90hZld4
-	 jIG7R3n9G+Lgtcpo4As3g/TWiGvw4AFt86KX0BBJ+uU+1AyF5yuHF/c/Dd4zg/oGmM
-	 kFFFuc9hIKmqnulxAfeC1O2yIyUdLxc+E3z7tz+XHfAJVAwyX9FLkim2hkeWVxFAfR
-	 QNJDer3YujEjQ==
-Received: by mail-lj1-f178.google.com with SMTP id 38308e7fff4ca-3a1981228f8so40489361fa.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 01:25:13 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy5EeCiG/obEC8s5/8q6oshrLXLrWvO/eBLSlGmUj7BTz2zCXYOFAqiq94d8cESoVsEmEbB+W1u74wet6s=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWEHicOrfY/306lc3eA/eYj4CeNR2iLiBlkV3iXfU4haJW/Phj
-	WM6mqINZ+GGWtAyhLFmsV9pZGzXz+m7IxpFTH0urffTkLpS5vBXpULkmCXHJ1GVziU+BYEDZabc
-	TiGRBxG8I3Oj4X5PQB377YSzM9SQgLsa3HCc3eIsQrg==
-X-Received: by 2002:a05:6512:1194:b0:5ae:bd4d:852 with SMTP id
- 2adb3069b0e04-5b5e68b2095mr8818726e87.5.1788251112031; Tue, 01 Sep 2026
- 01:25:12 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 1 Sep 2026 01:25:11 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 1 Sep 2026 01:25:11 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260831143125.151360-1-ivanrwcm25@gmail.com>
+	s=k20260515; t=1788251120;
+	bh=cwoiwAp4oLTxvCVw8zP4O4iMvSZjkBTBMfxJMXq0q0Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MplQJzO9GXIGFKUoOSptRVi8mKjaWyFhrcH8xSJybcRgSuWsU0TEfFfgfpToHg+yM
+	 vopzdEZHD1wQVuHEfaPM58r5DfLe1ry+aGpQZbuNbJHiKzJqPzqW+BaHjLA30rNcIE
+	 g2fwmmNmE6Ezc8dIh0M2C6qsBFkUSj8mjiN65Y2LLbMgnsfb8tvoVo/1EvFGUPNFGJ
+	 Vjxeex+yCRWRJ1qxijT4hjIHUODsD67MVZ6cX6K07/Y8vug0Ge7i298a3zRnuT0Dxr
+	 YbSgWZZ4uEaI15ebien7/je/aVs42s4EPnLeK2thvO36Ob5QlLpSzDQOZmg+GHzioN
+	 2J9c4ntQ7Nv8w==
+Message-ID: <c8d6c58f-f9ff-4de5-96b2-b0ada727c51a@kernel.org>
+Date: Tue, 1 Sep 2026 10:25:15 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831143125.151360-1-ivanrwcm25@gmail.com>
-Date: Tue, 1 Sep 2026 01:25:11 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MfCNuiOC61Qhmw-HYZ0wkYOMpqbbaPhjCrkhE-TyMG5ig@mail.gmail.com>
-X-Gm-Features: AcwNN1Wn5N4h64iDIMsKV0sAJA18IFGsQVi5MnScE8py1Uj_DvOSo3BSYlTaDyY
-Message-ID: <CAMRc=MfCNuiOC61Qhmw-HYZ0wkYOMpqbbaPhjCrkhE-TyMG5ig@mail.gmail.com>
-Subject: Re: [PATCH 0/7] docs/abi: align userspace documentation with implementation
-To: =?UTF-8?Q?Iv=C3=A1n_Ezequiel_Rodriguez?= <ivanrwcm25@gmail.com>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, =?UTF-8?B?TWlja2HDq2wgU2FsYcO8bg==?= <mic@digikod.net>, 
-	Jason Wang <jasowangio@gmail.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/nouveau/uvmm: reject zero-length range in
+ validate_range
+To: Zhenhao Wan <whi4ed0g@gmail.com>
+Cc: Lyude Paul <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dave Airlie <airlied@redhat.com>, dri-devel@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
+References: <20260812-nouveau-uvmm-pt-fixes-v1-1-ab3a823f946e@gmail.com>
+From: Danilo Krummrich <dakr@kernel.org>
+Content-Language: en-US
+In-Reply-To: <20260812-nouveau-uvmm-pt-fixes-v1-1-ab3a823f946e@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, 31 Aug 2026 16:31:18 +0200, "Iv=C3=A1n Ezequiel Rodriguez"
-<ivanrwcm25@gmail.com> said:
-> Documentation and ABI alignment fixes found on v7.3-rc1 by comparing
-> userspace-api docs, kernel-doc blocks, and uapi headers against the
-> current implementation.
->
-> Patches 1-6 are documentation only. Patch 7 makes GPIO v2 return
-> -EOPNOTSUPP when EVENT_CLOCK_HTE is requested but no HTE provider is
-> available, matching the documented behaviour.
->
+On 8/12/26 4:56 PM, Zhenhao Wan wrote:
+> nouveau_uvmm_validate_range() rejects misaligned addresses and ranges and
+> defers the remaining bounds check to drm_gpuvm_range_valid(), but neither
+> rejects a zero range: 0 is page-aligned and addr + 0 does not overflow, so
+> a zero-length VM_BIND request from userspace passes validation. It then
+> reaches the generic GPUVA interval-tree insertion, where the node last key
+> is computed as addr + range - 1. With range == 0 this underflows to
+> addr - 1, producing an interval whose end lies below its start. The
+> resulting malformed node corrupts the augmented interval tree and misleads
+> the overlap checks of later map/unmap operations on the same VM.
 
-I suppose the separate series you sent after is the one I should be looking=
- at?
+Given this, why do you think drm_gpuvm_range_valid() intentionally leaves
+the zero-range rejection to its callers? Why not fix this in GPUVM instead?
 
-Bartosz
+> drm_gpuvm_range_valid() intentionally leaves the zero-range rejection to
+> its callers; drm/imagination does exactly this with an explicit "size != 0"
+> test next to its drm_gpuvm_range_valid() call. nouveau simply omitted it.
+> 
+> Reject range == 0 alongside the existing alignment test.
+> 
+> Fixes: b88baab82871 ("drm/nouveau: implement new VM_BIND uAPI")
+> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+> Assisted-by: Claude:claude-opus-5
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhenhao Wan <whi4ed0g@gmail.com>
+> ---
+>  drivers/gpu/drm/nouveau/nouveau_uvmm.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+> index f5e4756b4de4..0efedd9ecc75 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
+> @@ -1008,7 +1008,7 @@ nouveau_uvmm_validate_range(struct nouveau_uvmm *uvmm, u64 addr, u64 range)
+>  	if (addr & ~PAGE_MASK)
+>  		return -EINVAL;
+>  
+> -	if (range & ~PAGE_MASK)
+> +	if (!range || range & ~PAGE_MASK)
+>  		return -EINVAL;
+>  
+>  	if (!drm_gpuvm_range_valid(&uvmm->base, addr, range))
+> 
+> ---
+> base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+> change-id: 20260812-nouveau-uvmm-pt-fixes-9706da1a03cf
+> 
+> Best regards,
+> --  
+> Zhenhao Wan <whi4ed0g@gmail.com>
+> 
+
