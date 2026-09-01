@@ -1,33 +1,33 @@
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E576949CF2B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8028949B217
 	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:29:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=158.69.130.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788287366; cv=none; b=uxxUkrk8tW8kWxy5VKYuhB01RU6470NYvFL2vleG0cN0Hia3l9omV1PlNsEbjlVnwfOz3xfBuvMwX+fCuVlMQnsOEjtWl+fSNgprzhlpIBRVfEyg0Uwr7uVbrCL3GqG0SnIJ7ReHhXNtcXWGKZQDdbPwSsaEEbw7h0cRS6ljlmw=
+	t=1788287368; cv=none; b=o9lXhdJ2JpBsr1v2nci0nQ9CT9mBNXuiVBowZhu5L31M4H31ZEgrdA/KqG24EYx8kIO9+027NVGOEAwRBZr4u8TqB4JQkq6ZBRwaWdVXCtTd6YBZp8+DYAU0Rnt+gt2rhMBfmC8+xDscU1jwTnQTPB1lHt6SQybzGLpeK95RJoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788287366; c=relaxed/simple;
-	bh=FRBzQuF9NKvbTxzaWx4pzpaKcPAZeQr1CV0FO/0Fhpg=;
+	s=arc-20240116; t=1788287368; c=relaxed/simple;
+	bh=d0rPPJLR58Grj5g6WrWaYlhVdbvhMvShcBm1vU+F4qw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YBFG78+HpSz28TUq2+sjOZs2MV7NHj8cO72wjU+eUtNyRw2e+0TppARXQqevgv0MdIddMH7roYg4JWr7HeaMOxqFS4jho5NVM7uKaHgU6hpKYFwNRk0fIus92VzTv6pyREpVky7re44lfzz4e8MA6q2kUXt9RmRqdLa6SWS7a7E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=qggSTP/b; arc=none smtp.client-ip=158.69.130.18
+	 MIME-Version; b=shxcGiDQYW1i4CTJHrD5KB9yL9O/+dr9bkN8vN9iMkFo2QD+N1GkWo7JiadODBFE+kxhU1rcY+hnAUYd0nFX/u0Df+E6x2YY0txtjtrqifTAZSYZyjXeMLygNg+Iq66MD1sSQfOGhMB0GRU7LUe+AZ1G+9ttUWZ5YcKHq8attMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com; spf=pass smtp.mailfrom=efficios.com; dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b=FNSSxZHa; arc=none smtp.client-ip=158.69.130.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="qggSTP/b"
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.b="FNSSxZHa"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1788287351;
-	bh=Tup5QvhrUxBuHbOp/mUBjVWrl1apXEgoVpX9q/lsPY8=;
+	s=smtpout1; t=1788287350;
+	bh=MVIkjcqq74IZZNU1n5Q5hTuCbDzAa7ExJXxmdI4hdXI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=qggSTP/bMcWpRasG0WnaP9ws1YJFtVdzjObT99OSRwUR65maTBgJBaqTOQbc0wDeL
-	 25QqSwuqF/o9a+SL8TEJBKSUiAxdk+MbcNlDACdQ+9N6JHsHeDThh8N/Wp/FmRu2sY
-	 1Qwi/Bh+MvObtuU9Xt7CHHgq5+e4MGXlVSRPAQR2KE66n8bnwbXbG5lz5aq/fF71LQ
-	 GaLUslwndIoe4WqGLpRYkP//V8t6vrVPKiocXYPyq1xESgzxyGl7wNA23o6WCons/D
-	 9lIZ6nPcfP8LZl7OYaG8cLoQVBn9IN5QmlDsFxZwiOkO4QY4X9vx7tnkR4HROZwP6l
-	 cscrNHFYhbIrA==
+	b=FNSSxZHa5FtuOKibtrS9mmnbzAdIGiGFwDVNJJu4Gy1huXHzsDX+deS22Nh88XhmW
+	 zIx7o38HaJgbKJWIeUrU8U1JFgBsq8rh92gT/IkrUWKQPrrkTjfjIksnxwAiky0atk
+	 GMoQTkYHJh6yqZCZNytGeyGOmoSAxRrBq/3jYe+qdW/ib8GuKj69hZkzFRU4oLFn8/
+	 DJ061TyjoawwTY2GAjq6TxrjQeV+S0VVOKGiuzGwj6Tm6kupgbYleOKpljDtTIE/VZ
+	 OwZw8BCTpwAVwjnCzsYwDjjqBMrSPUoGeQWP89Ykz2Sox6M8aWz2JV8csPyp9oAGmn
+	 8Ic3jJsgihd/Q==
 Received: from compudjdev.. (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4hZDsM00XdzW6M;
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4hZDsL625lzWP7;
 	Tue, 01 Sep 2026 14:29:10 -0400 (EDT)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: Andrew Morton <akpm@linux-foundation.org>
@@ -66,9 +66,9 @@ Cc: linux-kernel@vger.kernel.org,
 	David Carlier <devnexen@gmail.com>,
 	Josh Law <objecting@objecting.org>,
 	linux-mm@kvack.org
-Subject: [PATCH v21 6/6] lib: inline percpu_counter_tree_items_size with boot-safety sentinel
-Date: Tue,  1 Sep 2026 14:28:51 -0400
-Message-ID: <20260901182857.26690-7-mathieu.desnoyers@efficios.com>
+Subject: [PATCH v21 5/6] init: move percpu_counter_tree_subsystem_init() earlier in boot
+Date: Tue,  1 Sep 2026 14:28:50 -0400
+Message-ID: <20260901182857.26690-6-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260901182857.26690-1-mathieu.desnoyers@efficios.com>
 References: <20260901182857.26690-1-mathieu.desnoyers@efficios.com>
@@ -80,25 +80,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace the out-of-line percpu_counter_tree_items_size() function with a
-static inline that loads the __ro_after_init variable
-__percpu_counter_tree_items_size directly. This eliminates a function
-call on paths that compute mm_struct flexible array layout offsets.
+Move percpu_counter_tree_subsystem_init() from after trap_init() to
+immediately after setup_nr_cpu_ids() in start_kernel().
 
-Initialize the variable to SIZE_MAX as a sentinel value, and add a
-WARN_ON_ONCE check in the inline accessor to catch any accidental use
-before percpu_counter_tree_subsystem_init() sets the real value based on
-nr_cpu_ids. An early misuse would produce an absurd offset that triggers
-the warning with a stack trace pointing at the offending caller, rather
-than silently computing wrong memory offsets.
+The function's only dependency is nr_cpu_ids: it calls
+get_count_order(nr_cpu_ids), indexes into a const configuration table,
+and performs arithmetic to derive accuracy parameters. It requires no
+memory allocator, percpu areas, or other infrastructure.
 
-percpu_counter_tree_subsystem_init() sets the variable to the runtime
-value immediately after deriving counter_config from nr_cpu_ids,
-before calculate_accuracy_topology(). After boot, __ro_after_init moves
-the variable into read-only memory.
-
-On !CONFIG_SMP, the existing inline returning 0 is unchanged and
-requires no sentinel.
+Initialize the subsystem as soon as its dependency is available rather
+than deferring until later in the boot sequence. This ensures
+percpu_counter_tree_items_size() returns the correct value well before
+its first use in mm_cache_init().
 
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 Cc: "Paul E. McKenney" <paulmck@kernel.org>
@@ -136,82 +129,29 @@ Cc: Josh Law <objecting@objecting.org>
 Cc: Andrew Morton <akpm@linux-foundation.org>
 Cc: linux-mm@kvack.org
 ---
- include/linux/percpu_counter_tree.h | 19 ++++++++++++++++++-
- lib/percpu_counter_tree.c           | 24 ++++++++----------------
- 2 files changed, 26 insertions(+), 17 deletions(-)
+ init/main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/percpu_counter_tree.h b/include/linux/percpu_counter_tree.h
-index 3e8a820e2d1d..4095acdc879b 100644
---- a/include/linux/percpu_counter_tree.h
-+++ b/include/linux/percpu_counter_tree.h
-@@ -101,7 +101,24 @@ struct percpu_counter_tree {
- 	} approx_accuracy_range;
- };
- 
--size_t percpu_counter_tree_items_size(void);
-+extern size_t __percpu_counter_tree_items_size __ro_after_init;
-+
-+/*
-+ * percpu_counter_tree_items_size - Query the size required for counter tree items.
-+ *
-+ * Query the size of the memory area required to hold the counter tree
-+ * items. This depends on the hardware topology and is invariant after
-+ * boot.
-+ *
-+ * Return: Size required to hold tree items.
-+ */
-+static inline
-+size_t percpu_counter_tree_items_size(void)
-+{
-+	WARN_ON_ONCE(__percpu_counter_tree_items_size == SIZE_MAX);
-+	return __percpu_counter_tree_items_size;
-+}
-+
- int percpu_counter_tree_init_many(struct percpu_counter_tree *counters, struct percpu_counter_tree_level_item *items,
- 				  unsigned int nr_counters, unsigned long batch_size, gfp_t gfp_flags);
- int percpu_counter_tree_init(struct percpu_counter_tree *counter, struct percpu_counter_tree_level_item *items,
-diff --git a/lib/percpu_counter_tree.c b/lib/percpu_counter_tree.c
-index 5c8fc2dcdc16..cfa5b04e05d7 100644
---- a/lib/percpu_counter_tree.c
-+++ b/lib/percpu_counter_tree.c
-@@ -653,22 +653,9 @@ void percpu_counter_tree_set(struct percpu_counter_tree *counter, long v)
- }
- EXPORT_SYMBOL_GPL(percpu_counter_tree_set);
- 
--/*
-- * percpu_counter_tree_items_size - Query the size required for counter tree items.
-- *
-- * Query the size of the memory area required to hold the counter tree
-- * items. This depends on the hardware topology and is invariant after
-- * boot.
-- *
-- * Return: Size required to hold tree items.
-- */
--size_t percpu_counter_tree_items_size(void)
--{
--	if (!nr_cpus_order)
--		return 0;
--	return counter_config->nr_items * sizeof(struct percpu_counter_tree_level_item);
--}
--EXPORT_SYMBOL_GPL(percpu_counter_tree_items_size);
-+/* Initialize to SIZE_MAX to catch early boot misuses. */
-+size_t __percpu_counter_tree_items_size __ro_after_init = SIZE_MAX;
-+EXPORT_SYMBOL_GPL(__percpu_counter_tree_items_size);
- 
- static void __init calculate_accuracy_topology(void)
- {
-@@ -697,6 +684,11 @@ int __init percpu_counter_tree_subsystem_init(void)
- 		return -1;
- 	}
- 	counter_config = &per_nr_cpu_order_config[nr_cpus_order];
-+	if (!nr_cpus_order)
-+		__percpu_counter_tree_items_size = 0;
-+	else
-+		__percpu_counter_tree_items_size = counter_config->nr_items *
-+			sizeof(struct percpu_counter_tree_level_item);
- 	calculate_accuracy_topology();
- 	return 0;
- }
+diff --git a/init/main.c b/init/main.c
+index eda2170bb21f..845cb57e9096 100644
+--- a/init/main.c
++++ b/init/main.c
+@@ -1011,6 +1011,7 @@ void start_kernel(void)
+ 	setup_boot_config();
+ 	setup_command_line(command_line);
+ 	setup_nr_cpu_ids();
++	percpu_counter_tree_subsystem_init();
+ 	setup_per_cpu_areas();
+ 	smp_prepare_boot_cpu();	/* arch-specific boot-cpu hooks */
+ 	early_numa_node_init();
+@@ -1042,7 +1043,6 @@ void start_kernel(void)
+ 	vfs_caches_init_early();
+ 	sort_main_extable();
+ 	trap_init();
+-	percpu_counter_tree_subsystem_init();
+ 	mm_core_init();
+ 	maple_tree_init();
+ 	poking_init();
 -- 
 2.43.0
 
