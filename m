@@ -1,153 +1,129 @@
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499F249C4A5
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:26:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE85D49C4C9
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:28:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788287209; cv=none; b=O0T86b5Y8u0kJtxCx+eFn3t/JUb0miZMVFwL3hEkxPHAM7aw+IWg2zt11GmfbCQQtYbvSbRIbtQ7HgALuvFiHb70FzpJi7e+Y1g/dt+RWn9zqWqMILP9aGMOGo9753bXCTv0kzrpgpJwP5C7cRCmtqhGNX7s/s4meWX8b9hOWMA=
+	t=1788287306; cv=none; b=eswQb8A8Vv+ZM67C5qnrBCe4mvy7nPwDy+DiVoFX4B8B/GHnbcge7Ha00Ddnuqnie6t/Fb+h4BOAZYC26Byh2K1KlR+Zs0rLPl8aFgiqb8IKrja0SbbbFlHUlIfirqSt9bVFXDvlSXOKI3/lrCB1uLXfvtH/jyxq/rhICx2kCEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788287209; c=relaxed/simple;
-	bh=vz7vfk19Z+bqyE6zKwD5krwa/0p2VNqmkC4gZJtUZS4=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=izyMS2fkKCwT3HCDHaTx7R1E7AoqBYEQ/HLxtLQQUd0Rxy5x5PsPMZu62cVazTXTxHsdWObtuZIUWUowwShsIIplIdZMRRh2W2gMPrQuSdocewGsFeF5TdrNQ42AON7aJ0vq21dgD6XsW5gJERiKrec6qUUdmsY7yItgXfHXcaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nxB8465w; arc=none smtp.client-ip=209.85.215.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1788287306; c=relaxed/simple;
+	bh=dW2zjSNtAE6tsW8Oju7mw9KbJTPLQO2YIQfVnyGAYe8=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=N2S5du2zOXXNoGWPrjx0tK6MF/yIzLfy4/pguARlFcp4yFsHvA1y04ZHHr9bj0XZa+DTJ4FjCOaTD5IykS7ibPgPcK4oyRFYnR/RaF2k4cjVy+aUL7KAm+esUzE9pgXXUiYS2RRLMGoG6biyFsNBcpx4fo71frCb6mfAwhND7B4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=DyoSLdec; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=tHc8/rT4; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nxB8465w"
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cbb92868263so150895a12.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 11:26:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788287207; x=1788892007; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5v8dwO4qIccjpXs9ZdhBw1lluA5t2BNdQSYlylga9bQ=;
-        b=nxB8465wd02jxyXSBEDLq4Idb0QJSWjaR0KxrjK2ITfpNGuKegdz1Pxa76jdytfIiw
-         vYUIkwuZECZXAAw/H8tlVTN9/2hyvUIw7K4/dfIFKlWMzJj0OjpEfHayidTeqvIX1lik
-         j686n8m+uMuii79vRA5CZ+1nW7KzMnQYulgg6tzwqzIOhGciNmX2N+CDq1xTc1SWbmYQ
-         gh0doBDhGcEtYsePeLeaJtXCW17bN6xhNnW0ctQZlmikL9WyGNtiicLPFHmHRhoE38+5
-         YU2YIJ6IF0SgyeoerLjvTX7NZDrLYgsOdnaG8uVl7J/azPKP4e/UbC8p1qrCp++Umqz0
-         yuLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788287207; x=1788892007;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5v8dwO4qIccjpXs9ZdhBw1lluA5t2BNdQSYlylga9bQ=;
-        b=MWmxk8gtKI3bb3vlkL+QKxBYqCW9Jk18yyl+/tRrf7dc4+WHxKL8S+SlFkN3Ajxe5k
-         0lTBhbDjIzHYyKDJ7DZWqYygDyQ6syMK+z/QNwpyTXBpAx1pi7FYTpnMwalcq+O28q4s
-         UgAX2DMqNnmYZ8WhLUqGZPrOwjpEeIGW6OaQE3sK4ZUDP/DKRFpxDVuOx/9wwN5mmQAK
-         JBoOV399G1gCRU9QGskCXp8ceioB07A89WxqSQvBNoLgSIyMl0hmDjTBu/wYINeFwRE1
-         m6ZVDSnmWP8znpkm7QgrXR/z44OBr+ohFBcrqYuKm+mPqnYjFIB/gqNqw3r8WTzv5quP
-         4CKQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rqh7ihRXr5L4MFZ7XymLvc/pddszhX+iMjlT+Q4HnySd2nKRGSByoX8MinPUwoxEcsMfmh6GVXnSl1Ybsc=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5xA3IwvjkYx9HvtY0JMCvSwPk7W+RrFhtVXWAtx9k+Qlrivcs
-	a1qiaaPrPtCe4HAoQw3ayi0xDIxDxdjjwSyNsehtLcIQy1sCLo6jyfS43vNyFn6L5fhFllwHmKy
-	hFNutMQ==
-X-Received: from pgbd18-n1.prod.google.com ([2002:a05:6a02:64d2:10b0:cc3:28ba:e8b1])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:7284:b0:3d0:cc29:ff63
- with SMTP id adf61e73a8af0-3d7ae4ed97emr13763648637.12.1788287205983; Tue, 01
- Sep 2026 11:26:45 -0700 (PDT)
-Date: Tue, 1 Sep 2026 11:26:45 -0700
-In-Reply-To: <CA+EHjTzALzghuG5J-LFuG5pXJ4WgEfrMHgwkMHnq1U-D6yS7Pg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="DyoSLdec";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="tHc8/rT4"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788287301; bh=OkJepz8PCeZ28Uwp3SuZn8C
+	JAmNOXwFNtkBjqv1pH9A=; b=DyoSLdec6c3y2IbCMvaqtrJMS9+CxoRNJk3mqw91OjZwXM0wS1
+	0BxRXmqruIiHqOBeCORrrmC6CPwPjr5uwoBtbJwVa7DydtqhjVxBDnIcfBUSitCIP/SA4cSo6pX
+	uAHDqF6W7vFCrJnGMPKO6IrlA2tCoj1D52V94VHo2Li1MDard/BpHzGZ0D38ERESUNUdvy6e44E
+	8c/Ym8TpjZyKgFa8nvZAwdNA45uz4VxcvNbVNMegdvSHZxZM69yyiSKf7NUsvMI4+0YQUSNyI+X
+	eaTgUFKinnkivHLNX4meuPGlUi66xebysB4Xc/wtlaj2XCOG65WKgSrqgDNm2ThT7wA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1788287301; bh=OkJepz8PCeZ28Uwp3SuZn8C
+	JAmNOXwFNtkBjqv1pH9A=; b=tHc8/rT4+RRRtqhi/Jw2oNdsMpaDJAz6WdMp9VdCGvFnx42e8k
+	H/smFzih8FG5sDBl3dGbj2DvRfFoEQJSbIAA==;
+Date: Tue, 01 Sep 2026 19:28:19 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: Frederic Weisbecker <frederic@kernel.org>
+CC: Peter Zijlstra <peterz@infradead.org>, Bradley Morgan <include@grrlz.net>,
+ Tejun Heo <tj@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] kthread: remove worker->task self-assignment
+In-Reply-To: <apbb--idnSZMNLPU@localhost.localdomain>
+References: <20260829161150.16301-1-include@grrlz.net> <20260829161848.20635-1-include@grrlz.net> <apbI91PzT2BaRazM@localhost.localdomain> <20260901124900.GB687043@noisy.programming.kicks-ass.net> <CE1F7435-D872-4A3F-BC7A-50443BBE2904@mainlining.org> <apbb--idnSZMNLPU@localhost.localdomain>
+Message-ID: <87CE893D-07E6-4EA4-8156-2CE6946D12BD@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
- <20260830-gmem-inplace-conversion-v12-23-85e5fd25252a@google.com> <CA+EHjTzALzghuG5J-LFuG5pXJ4WgEfrMHgwkMHnq1U-D6yS7Pg@mail.gmail.com>
-Message-ID: <apcY5b2o5k04XffH@google.com>
-Subject: Re: [PATCH v12 23/45] KVM: Let userspace disable per-VM mem
- attributes, enable per-gmem attributes
-From: Sean Christopherson <seanjc@google.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: ackerleytng@google.com, aik@amd.com, andrew.jones@linux.dev, 
-	binbin.wu@linux.intel.com, brauner@kernel.org, chao.p.peng@linux.intel.com, 
-	david@kernel.org, jmattson@google.com, jthoughton@google.com, 
-	michael.roth@amd.com, oupton@kernel.org, pankaj.gupta@amd.com, 
-	qperret@google.com, rick.p.edgecombe@intel.com, rientjes@google.com, 
-	shivankg@amd.com, steven.price@arm.com, willy@infradead.org, 
-	wyihan@google.com, yan.y.zhao@intel.com, forkloop@google.com, 
-	pratyush@kernel.org, suzuki.poulose@arm.com, aneesh.kumar@kernel.org, 
-	liam@infradead.org, Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>, 
-	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
-	Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-mm@kvack.org, linux-coco@lists.linux.dev, 
-	Xiaoyao Li <xiaoyao.li@intel.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026, Fuad Tabba wrote:
-> Hi Sean, Ackerley,
-> 
-> On Mon, 31 Aug 2026 at 01:25, Ackerley Tng via B4 Relay
-> <devnull+ackerleytng.google.com@kernel.org> wrote:
-> ...
-> > +       kvm.gmem_in_place_conversion=
-> > +                       [KVM] Controls whether KVM enables in-place conversion
-> > +                       support for guest_memfd and tracks the private/shared
-> > +                       state of memory per guest_memfd instead of per VM.
-> > +
-> > +                       If enabled, KVM enables the KVM_SET_MEMORY_ATTRIBUTES2
-> > +                       ioctl on guest_memfd file descriptors and disables the
-> > +                       legacy VM-scoped KVM_SET_MEMORY_ATTRIBUTES ioctl for
-> > +                       private memory state tracking. Only the
-> > +                       KVM_MEMORY_ATTRIBUTE_PRIVATE attribute moves to
-> > +                       per-guest_memfd tracking; other attributes remain
-> > +                       per-VM.
-> > +
-> > +                       This parameter toggles KVM's in-place conversion
-> > +                       capability support. Whether a VMM uses separate backends
-> > +                       or out-of-place memory management is determined by
-> > +                       userspace VMM design.
-> > +
-> > +                       Note, this parameter is only available when
-> > +                       CONFIG_KVM_VM_MEMORY_ATTRIBUTES=y. When
-> > +                       CONFIG_KVM_VM_MEMORY_ATTRIBUTES is not set, in-place
-> > +                       conversion is unconditionally enabled.
-> > +
-> > +                       Default is Y (on).
-> 
-> The parameter is only settable when CONFIG_KVM_VM_MEMORY_ATTRIBUTES=y, and
-> in that config gmem_in_place_conversion initialises to
-> !IS_ENABLED(CONFIG_KVM_VM_MEMORY_ATTRIBUTES), i.e. N, not Y. Is the doc line
-> wrong, or is N-by-default not what was intended here?
+On 1 September 2026 15:06:51 BST, Frederic Weisbecker <frederic@kernel.org>
+wrote:
+>Le Tue, Sep 01, 2026 at 02:57:38PM +0100, Bradley Morgan a écrit :
+>> On 1 September 2026 13:49:00 BST, Peter Zijlstra <peterz@infradead.org>
+>> wrote:
+>> >On Tue, Sep 01, 2026 at 02:45:43PM +0200, Frederic Weisbecker wrote:
+>> >> Hi,
+>> >> 
+>> >> Le Sat, Aug 29, 2026 at 04:18:48PM +0000, Bradley Morgan a écrit :
+>> >> > From: Bradley Morgan <brads@mainlining.org>
+>> >> > 
+>> >> > All kthread worker users now create their workers with
+>> >> > kthread_create_worker*(), which sets worker->task before the worker
+>> >> > starts. The self-assignment in kthread_worker_fn() is dead code
+>now.
+>> >> 
+>> >> How could it be created before?
+>> >> 
+>> >> > 
+>> >> > Remove it.
+>> >> > 
+>> >> > Signed-off-by: Bradley Morgan <brads@mainlining.org>
+>> >> > ---
+>> >> >  kernel/kthread.c | 7 -------
+>> >> >  1 file changed, 7 deletions(-)
+>> >> > 
+>> >> > diff --git a/kernel/kthread.c b/kernel/kthread.c
+>> >> > index 63beb59b7a3d..18bc702e8d2d 100644
+>> >> > --- a/kernel/kthread.c
+>> >> > +++ b/kernel/kthread.c
+>> >> > @@ -987,13 +987,6 @@ int kthread_worker_fn(void *worker_ptr)
+>> >> >  	struct kthread_worker *worker = worker_ptr;
+>> >> >  	struct kthread_work *work;
+>> >> >  
+>> >> > -	/*
+>> >> > -	 * FIXME: Update the check and remove the assignment when all kthread
+>> >> > -	 * worker users are created using kthread_create_worker*() functions.
+>> >> > -	 */
+>> >> > -	WARN_ON(worker->task && worker->task != current);
+>> >> 
+>> >> Should we keep a WARN_ON(worker->task != current) here?
+>> >
+>> >I vote yes! Paranoia is good :-)
+>> >
+>> 
+>> 
+>> Yeah, but it *should* be useless.
+>
+>Famous last words :-)
+>
+>> Do you really want me to readd the warn
+>> statement? Maybe add some text, like
+>> 
+>> "worker->task is deprecated"?
+>
+>Is it deprecated? We still need that field for wakeup on queue at least.
+>Don't bother with a message, it's only a sanity check.
+>
+>Thanks.
 
-The doc is wrong.  The intent is to maintain backwards compatibility with existing
-deployments if KVM_VM_MEMORY_ATTRIBUTES=y.
+Hi, I hopped on the computer, 
 
-> > diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> > index 05c518c9b8078..929fd3e1a01e6 100644
-> > --- a/virt/kvm/kvm_main.c
-> > +++ b/virt/kvm/kvm_main.c
-> > @@ -103,7 +103,10 @@ static bool __ro_after_init allow_unsafe_mappings;
-> >  module_param(allow_unsafe_mappings, bool, 0444);
-> >
-> >  #ifdef kvm_arch_has_private_mem
-> > -bool __ro_after_init gmem_in_place_conversion = false;
-> > +bool __ro_after_init gmem_in_place_conversion = !IS_ENABLED(CONFIG_KVM_VM_MEMORY_ATTRIBUTES);
-> > +#ifdef CONFIG_KVM_VM_MEMORY_ATTRIBUTES
-> > +module_param(gmem_in_place_conversion, bool, 0444);
-> > +#endif
-> >  EXPORT_SYMBOL_FOR_KVM_INTERNAL(gmem_in_place_conversion);
-> >  #endif
+Right, so the whole warn on things is good, but I converted all the
+callers, so it'll never fire.
+
+For OOT users, maybe this'll be beneficial (but yk what their like, theyll
+remove the warn on)
+
+Guys, what do you think?
+
+>
+>> 
+>> --- Thanks!
+>>
+>https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+>
+>
+
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
