@@ -1,121 +1,164 @@
-Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 722F436196C;
-	Tue,  1 Sep 2026 11:36:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.156
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CBB536196C;
+	Tue,  1 Sep 2026 11:36:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788262609; cv=none; b=aPdV+Foqv4PiY73cPBOvF0ZTCMsjBdki4vonfucqGieKPLGeE8uXuQUHKOXkWIX4U3BYFEp9MIjmg1H0mRx7+FZlh2vAxNJbcx9d5OjSXzFEdWUUbS64PqRxPt4NUq88nH3gDmhAlu9w7jpUZQQzaH6MNXjmD/QFgQh6do2eYn4=
+	t=1788262617; cv=none; b=qIEhRP8u7SdQh+bBXm6jVHRdX3ah9BoZ6E458Rwh3nCNHXajDkzf8O5HtTETLuX9e+Ahx/UQKuN6Iwf7n3iEa5bS5cxuZNAi/rRUrfZ6G7fZ8pngLNI1ZSLRRWJi2m2SQWQ1Axj5AaNB4nrLHbqM5PgNqep6JlNM48RA/kVz/kU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788262609; c=relaxed/simple;
-	bh=gLelPmLEsoPnFKYlhDICAWSrN4O91Vosg3Qlv++Y3Uc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FUkRzlw9K+yHl3XgoRIjk+G5YKiVfDueTy8CcHflPC28QlBGq/K+S/Wl5IemsLjvuMXzB7MpIiT/lx4gGZh8doPUhdQ5DyS/+I+llC1QTbFJhDjNUDyEfRe8Cytyswjiz3dR0E8xhM8/O+DJGeYq5mjLiEM/AaDqRhhu9rAyxnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=pLtzi+c5; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=VINdCKvq; arc=none smtp.client-ip=202.12.124.156
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="pLtzi+c5";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VINdCKvq"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 4F0AA7A00CA;
-	Tue,  1 Sep 2026 07:36:47 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-06.internal (MEProxy); Tue, 01 Sep 2026 07:36:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1788262607;
-	 x=1788349007; bh=WWI7sQp77Sgm7AQWiGIdwkiJgyJusLyg1xrSIe6m9uM=; b=
-	pLtzi+c5wrp3Ey6nDEkU1sm3LCu6IUQMeN33Vj72OZD2LeNgmetjiQQFHADbMNvW
-	he4ejVPn7K4TcAJQtI72/OmEi/WVoDHfWswXVeDJWXvoLhwmIQOXacXRhMDWtrFv
-	mc42wU0hl4cMNPxPhvCVi2mvdlGSuDdxEqyLB4MXkE/XA+f2Hv1Zn/eyqHyZmho4
-	ZZoH3EnTPzAcUupNjIisXk3vim1VBcuOMHnrJZseIG/CqAx8ZD3U+3+JatK7je0l
-	inEhshyX8vE8ywEC1irNcOQmiHEN8SdoLBkDAQNAGHu23yDz/iMRLzfiIdRcWBGt
-	8Td7aNDM7npiYbji0RIDUw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1788262607; x=
-	1788349007; bh=WWI7sQp77Sgm7AQWiGIdwkiJgyJusLyg1xrSIe6m9uM=; b=V
-	INdCKvqxil5u6CjoxuQerWgFO3yS6ZKGeH/AJGcFFh8fPINlTKR+dWkJDz2xQ5RE
-	XV6uGSXF869VF8cjj8TKSUhK+dJxXppirPXF6mBOeZjQXqoKinV5EHTAYxDOSp+k
-	jOUPpf8tMjvz0L/IXJaV0rkh4UvvKryed8NIhtoEWTHc8JG91er6R1hmhjwu4sNw
-	OCBDX3X9ZotbCFe0EAUVyPyHwHDqvySA290c+P53GBBn2wJ8dQ+dkTBONJdyLzin
-	gBCJpabvyEV887y+vQ7V6U4p7S3P6Pg5v488Yc3HbyiKA6GSgGkWViMyrvyrBsEj
-	y+/ofzX41o8UYUz/hgP2A==
-X-ME-Sender: <xms:zriWatTtoGnHyrgjMNBiUrYyhLoj3D6eTTHcfa3sVAN_-ue54KMkyQ>
-    <xme:zriWaioKpYIyS1jS_fhfm6ZyG0kLDVaVnWaimFZ9-41-rUazYjZaVg7ckygwUnDLR
-    kpe56TA27GHl3ULzhZMztuBemH_LW9zyH53wJHbA4q43Jzv738ZEiA>
-X-ME-Received: <xmr:zriWauX2MrvCaDXiEaY3vb49R55LPenzn1RHKkPqbnA2hJhOOVxO_3ZAndLuFiEi4N4h6AptK9R-I_mWyRCUW_93UldKu88Z>
-X-ME-Proxy-Cause: dmFkZTGS6LjT42RS79EjSyV0exP8rl87LIYwE8D6UfM99+DHSZKlC08qTt3wRDC2E7w3kq
-    MLrMKYWa0eh5yk3yN/Gkw39oK8CIj8nQei6hmbRId0TEX3MNDpbtNv9uNPqdUS8sauVC94
-    kKdVRORy0ENmJrvNoM1+gtOmkIpPy7/wH2yGboyAHUKHpn7R+QcjkibzizoLIfwsWta1CY
-    9c0RXYsrxIBrj0b2IfJt7l9vDe8aGXM9m3BNjg7nm4NT4fdlQFAIMrs2w6YurbjwgQiLZz
-    efoig3r8/HxLkXz4p2+05202Dl/SK/dl8ymHDmQIuv5BcYv+ZYMN/hqNhrH8PFy+EUNAkM
-    oHNa2/qFtZ/GkBnZrW7tkTjDYP0YoZDv5bi9t8PpRrr0g3T7R7e16yfIaa2WwYaNl1HNg7
-    uu7e/LPKLkXQJP8VkUYjgkoldRjt5aN68XXIxFNqJt21Ex4/bka5BW8/6nJflFWn5bH5Id
-    b3c/2uMXiQ/la8f/lOqsbnpQDlTMWVc+epM+Lb2UcR36bD5XRml0rhnaMTtycuhJZUJe0g
-    zVQFKVMVqxVlgb6k/lNok6iXJWBi/ayJaFFPQCxuxzODV8c8sL0Y+8NrM3tSHNIAFRkYmE
-    OawOy0cRedq9zQHP1aqX0Py41hUFyoWxBmS+OqetVfUVvye6zo0eDKBILdNw
-X-ME-Proxy: <xmx:zriWao_HEwMpsgxspEEGEegp13zXuLHeCby8VJlp2RCG3mVgNTBDWQ>
-    <xmx:zriWauYq9okyHMI-afSo-GDcHGQY_6Q6dntSE4t-fsi4yeFRzxiCWQ>
-    <xmx:zriWaod-vqhg0sVTJ0EytwEyyMkMPFReha-wkK_BosSdbLcBEG7xOw>
-    <xmx:zriWagpLB7-57BmZfplcPDmt_4qV6jxG-lw0h3j0mfom8yM5U38pNg>
-    <xmx:z7iWagEBW41cq6-T2T1TyWasimUIbZRu055RwETFJ8Fv2Tz4Xuh88XkA>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 1 Sep 2026 07:36:43 -0400 (EDT)
-Message-ID: <9a2a3d7e-0792-4fce-8703-05b183bc133d@pobox.com>
-Date: Tue, 1 Sep 2026 04:36:42 -0700
+	s=arc-20240116; t=1788262617; c=relaxed/simple;
+	bh=xOl9+Kul4dBwt8rxRnAINY0vnOHwaByTCuM9DbK+p3I=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=dihZLShqZJ0mVRYerGczu8cGMJz7O2UYYrkvPcwG3vWDuF+1NdGdL6jXVQ2JOsg82MspYW0c7CXfZKJ8rOmgZgMiXNUnCROBYX0bvgRuGcgBtUTERE4sbBcoTuun9gOx+njVloYOtHojG/KS4pQpqaljEpSiPDX7Zrjdf1hj53U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Tue, 1 Sep
+ 2026 19:35:39 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Tue, 1 Sep 2026 19:35:39 +0800
+From: Billy Tsai <billy_tsai@aspeedtech.com>
+Date: Tue, 1 Sep 2026 19:35:33 +0800
+Subject: [PATCH 6/8] i3c: mipi-i3c-hci: Program AST2700 IBI termination
+ threshold
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1 00/92] 6.1.187-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260831133359.482388899@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260831133359.482388899@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-ID: <20260901-b4-i3c-hci-ast2700-v1-6-19909e7cbd7e@aspeedtech.com>
+References: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
+In-Reply-To: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
+	<Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
+	<joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, Philipp Zabel
+	<p.zabel@pengutronix.de>
+CC: <linux-i3c@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
+	<linux-kernel@vger.kernel.org>, Billy Tsai <billy_tsai@aspeedtech.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788262538; l=4578;
+ i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
+ bh=xOl9+Kul4dBwt8rxRnAINY0vnOHwaByTCuM9DbK+p3I=;
+ b=qWtlv5VOUEegPE0YGyLI/BFbXn5JqLuelcacCgbJoGHuQrR+O8yF30Ewl63FfhKPpWughtyAl
+ CyKmYJFamIQD4ibRMn+c7kGx+ZNZ05JfxmCg1tulc3aHN/RrVyURlUY
+X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
+ pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
 
-On 8/31/26 6:33 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.1.187 release.
-> There are 92 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.187-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+For an IBI with payload, it's normally the device that decides when to
+stop sending payload bytes. A misbehaving device that never terminates
+can leave the controller stuck waiting on the transfer. AST2700 has an
+in-house IBI payload length threshold that, once enabled, forces
+termination once the received payload reaches it.
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
-no regressions observed.
+When payload IBIs are requested, grow the AST2700 termination
+threshold to at least the requested payload length and enable
+termination on that value. The register is controller-wide while IBI
+requests for different devices can run in parallel, so the
+read-modify-write is serialized under the controller lock. Controllers
+without the vendor capability block keep the existing behavior.
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
+Assisted-by: Claude:claude-fable-5
+---
+ drivers/i3c/master/mipi-i3c-hci/core.c          | 14 ++++++++++----
+ drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c | 20 ++++++++++++++++++++
+ drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.h |  5 +++++
+ 3 files changed, 35 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/i3c/master/mipi-i3c-hci/core.c b/drivers/i3c/master/mipi-i3c-hci/core.c
+index e0ee8148aa2f..3d52d8f277ad 100644
+--- a/drivers/i3c/master/mipi-i3c-hci/core.c
++++ b/drivers/i3c/master/mipi-i3c-hci/core.c
+@@ -690,15 +690,21 @@ static void i3c_hci_detach_i2c_dev(struct i2c_dev_desc *dev)
+ static int i3c_hci_request_ibi(struct i3c_dev_desc *dev,
+ 			       const struct i3c_ibi_setup *req)
+ {
+-	struct i3c_master_controller *m = i3c_dev_get_master(dev);
+-	struct i3c_hci *hci = to_i3c_hci(m);
+ 	struct i3c_hci_dev_data *dev_data = i3c_dev_get_master_data(dev);
++	struct i3c_master_controller *m = i3c_dev_get_master(dev);
++	unsigned int ibi_max_len = req->max_payload_len;
+ 	unsigned int dat_idx = dev_data->dat_idx;
++	struct i3c_hci *hci = to_i3c_hci(m);
+ 
+-	if (req->max_payload_len != 0)
++	if (req->max_payload_len != 0) {
+ 		mipi_i3c_hci_dat_v1.set_flags(hci, dat_idx, DAT_0_IBI_PAYLOAD, 0);
+-	else
++
++		if (is_aspeed(hci))
++			aspeed_i3c_ibi_grow_threshold(hci, ibi_max_len);
++	} else {
+ 		mipi_i3c_hci_dat_v1.clear_flags(hci, dat_idx, DAT_0_IBI_PAYLOAD, 0);
++	}
++
+ 	return hci->io->request_ibi(hci, dev, req);
+ }
+ 
+diff --git a/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c b/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c
+index b521fce4c084..e32dea0d5fc3 100644
+--- a/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c
++++ b/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c
+@@ -25,6 +25,26 @@ void aspeed_i3c_write(struct i3c_hci *hci, u32 reg, u32 val)
+ 	writel(val, to_aspeed_vendor_data(hci)->inhouse_regs + reg);
+ }
+ 
++void aspeed_i3c_ibi_grow_threshold(struct i3c_hci *hci, unsigned int ibi_max_len)
++{
++	u32 mrl, cur_len;
++
++	/*
++	 * The termination threshold is controller-wide while IBI requests
++	 * for different devices can run in parallel, so serialize the
++	 * read-modify-write.
++	 */
++	guard(spinlock_irqsave)(&hci->lock);
++
++	mrl = aspeed_i3c_read(hci, ASPEED_I3C_MST_MRL);
++	cur_len = FIELD_GET(ASPEED_I3C_IBI_TERMINATE_LEN, mrl);
++
++	ibi_max_len = max(ibi_max_len, cur_len);
++	aspeed_i3c_write(hci, ASPEED_I3C_MST_MRL,
++			 ASPEED_I3C_IBI_TERMINATE_EN |
++			 FIELD_PREP(ASPEED_I3C_IBI_TERMINATE_LEN, ibi_max_len));
++}
++
+ static void aspeed_i3c_phy_write(struct i3c_hci *hci, u32 reg, u32 val)
+ {
+ 	writel(val, to_aspeed_vendor_data(hci)->phy_regs + reg);
+diff --git a/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.h b/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.h
+index 8760384d1c6f..84afb2bec956 100644
+--- a/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.h
++++ b/drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.h
+@@ -51,6 +51,7 @@ static inline struct aspeed_i3c_vendor_data *to_aspeed_vendor_data(struct i3c_hc
+ u32 aspeed_i3c_read(struct i3c_hci *hci, u32 reg);
+ void aspeed_i3c_write(struct i3c_hci *hci, u32 reg, u32 val);
+ int aspeed_i3c_phy_init(struct i3c_hci *hci);
++void aspeed_i3c_ibi_grow_threshold(struct i3c_hci *hci, unsigned int ibi_max_len);
+ 
+ #define ASPEED_I3C_CTRL				0x00
+ #define ASPEED_I3C_CTRL_CLOCK_STALL_EN		BIT(14)
+@@ -58,6 +59,10 @@ int aspeed_i3c_phy_init(struct i3c_hci *hci);
+ #define ASPEED_I3C_CTRL_INIT_MODE		GENMASK(1, 0)
+ #define   ASPEED_I3C_INIT_MST_MODE		0
+ 
++#define ASPEED_I3C_MST_MRL			0x08
++#define ASPEED_I3C_IBI_TERMINATE_EN		BIT(16)
++#define ASPEED_I3C_IBI_TERMINATE_LEN		GENMASK(15, 0)
++
+ #define ASPEED_I3C_DAA_INDEX0			0x10
+ #define ASPEED_I3C_DAA_INDEX1			0x14
+ #define ASPEED_I3C_DAA_INDEX2			0x18
 
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+2.34.1
+
