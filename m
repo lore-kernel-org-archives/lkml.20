@@ -1,84 +1,289 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC94368D57;
-	Tue,  1 Sep 2026 01:01:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74C8A1A5B8C
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:04:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788224468; cv=none; b=rb2s5YtuySqSzUQ6HtA7A6+zzqvzEGROEzFu3+7jy/QupgmW/H/bnXvPjQbO98aslNJJ3Xfbu9zXroVGsJEBXwOf5JealcX7p4SSAsdU6Qn9emOMJ1FX6lCk95w2TaPw/CbASYO7KgJLReodi9qOs3mRIrtEuBvyTdurRsE3Vd0=
+	t=1788224643; cv=none; b=Zwy1fxKpJNfjcyU006NfQjOBbEqD3xn66RpkHcCv6UtkoKpsAPhJKN6t3pWIKe4i+FkXiSsuWS5w9g4DmUf5PtYn292781OX+ouQPgpfmyW0yJzARpcr7x9VfJRMv7p4OeRVJEsnmtKMZ5jt+L1NLvPVrfpT65qA4U2/on3PaGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788224468; c=relaxed/simple;
-	bh=mipydyEjHYfdhAPCLXZ66tBI7Sv+IqQT4SHorWwipU0=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=CYkXpyz43n/qgzuX12ClFcv+4b9KURd3FISxnAJOXZ90Kg9FwwvfCccwbL9ezr5n5iebDn//bfhzPOUqBXpfL+872hDHYldoDrQr2gSgE5DQHs7t7le+lz20sq8e+XFJMBIvogF+eDM04zZZbz8kpY7C886hUIarw9wOEDEvZPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lHXvtnV/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788224643; c=relaxed/simple;
+	bh=0N7PZFteYPmAdCXOV/1Ri00KQjA0+w/H1rYBhz7BBzg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=VQT8cE326vQdU1Geo5JLzFnv4f2LBDIYKT33feZuxdVLB8biS5CmAmTeiRFM8Z7ltvY5C0RXB0SsX0z+kiFe16B5MVf4iFRbYIdj1uV8MC8PJSq5qe9wV7q9YTLisULqL0ojNiamYUmNuLLZyqeBjnQiSvgKNe/K1aVGDasrQDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dZsNlE05; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lHXvtnV/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B24891F000E9;
-	Tue,  1 Sep 2026 01:01:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788224466;
-	bh=qb5Sdcffuw6jgiRZLGzjS48W/Bl53rX7hLmSgwGrXEc=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=lHXvtnV/KwfmnGvIuCPc8QYCui78lhSD9v6wbZRsA3zfs8u6Es6YnVE/L0nkuAxZR
-	 POcUKleOFGb4p0XCzsiffPx/DSrsti/rkqA3HV8HRkeGzzpb79FNLxO1o3O/BPiHsR
-	 KaVPi8XkKqWzOE1oH5yb0hFVSWLMER5bkPoRHJ+gywIktXFPPxCng6kVuppkKcu6yN
-	 jbawX6WcYYcpKyfdDOUuc3ahfNJS25hbvmOyX3xGYnJQIbtGlOhwMv40Ute6NbFU7B
-	 f+GY2zz9ZBH3/GBVMk/E9v9LQBYl6f5Uz8RcAfG0xl4ImysbF7vvNgy7VoSobndIL7
-	 VfZauIt0tDUZg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D099B3924A40;
-	Tue,  1 Sep 2026 01:00:10 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dZsNlE05"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2cc891373e0so37535615ad.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:04:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788224641; x=1788829441; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jWR/AgMdqB4Pk8bTidltEk6Rcw76/YkJaVkIRSZ9AmY=;
+        b=dZsNlE05r7kiAEuSerS7zkQaeQ6ZI66/+jNaO05wgRJS5cIB61LkTcD91nYT6KQeGy
+         IfooLJj1APQtKdyQntzmCwdI31zmzPBu2ki+H/3izpmmJ/aBGL7Jied2G/mBITgCdSpE
+         2t85yQWtB+ImUErSQyi0VQp6gORooPEOpW2dDxz99PLHHRveDamOTSdKYjJCaktESoC3
+         PPTaHHD0OLUamnJPX3qDpmD3hUeRHTX08VSgv4R0l7cCWNDl5yXZvIVOMdNyT9lQsbjn
+         AJkxGtK+oSyDsQcs7NV0UuMtJ4j3SauujtB+U9AsIlQKBRaBOwb+md9NhovwPtHpKOnM
+         HQKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788224641; x=1788829441;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jWR/AgMdqB4Pk8bTidltEk6Rcw76/YkJaVkIRSZ9AmY=;
+        b=qCgALLdvODiTD3RwKKX4HHtXOBtWA2YQanWPiDJ1dJQRrcwk5sn3nh8ukwGU7gLONM
+         gwkElIKgSk58CH3o2WfyVPRaEdQzvc/TYY5ixe12jlb0GCU56jBQdE/40vlfGgAwXdMu
+         sQhWqisaS+aj2ZTZ0AlYma8pT0vmZdG8eCdk9HG0cNN13Jklgt6TwI4ExTMFIRy68boP
+         aMrF6nfUK1NGoB6jmZaL9Y1uOqLwjnxJgJr84n9OJ3i7JE1o4BmjwLKcVaxJprII0D/u
+         BaKG4RpCMkKOgUD9sHf0ygIC5zMt7rDYlckaxcTHwkGBWj4LnWbLN7wSplLCsybiCjSU
+         JxSA==
+X-Forwarded-Encrypted: i=1; AKwUvByqGg90SqElDuNNvNGUY2L9YzKkg7vp3BY7oLrdmMFNh6/PBewSAx3tJ2uC1ZP4gNrqaQHr+Q7598Bm3Lk=@vger.kernel.org
+X-Gm-Message-State: AFuF++l32F22/RURExgn/gToKgR8VyV0rhFUjiLrv+WVeccJmrtETtUM
+	gxlTe6/vcBjlw3JLGY8UoJmwZU5z0nkuIAktMMLsAriVRq6HbEz2Fcp8
+X-Gm-Gg: AYBFou3KzTwdIFy9lSTqHbHg+Y4FPzEHp6a+MhWJDbfIeYLTIVx0OGrB3WEymdh4x+H
+	QbCwIBGvAWzJd3GW99uzhB1KcpD2+nNcnKgaUJFZtHnk9j6lBh/lhqDCpD+hoN1cwZV2sRzGEgk
+	twSodH42xaEvfvrVTeAh7kAS8ugno2e4VdjyDYjBLwVl6V5eZCZqLaSaEUnrWXAKEVmk/U5+0iE
+	qNnn0hT2Tg4ujVcQ+PLL+v0D3p5kqofJEmXO1oAa6EPF2vDgPYlUSM/39QfroIOrunPpyMmsSXI
+	uVD4pg6X6pfLwwG+QFYnN/8870e0QLJh6yP2psyvDPTvkTAf5UfXh3du/1EMkW0gYdJfurHAxz7
+	g9kBfOqjl4Pd+tJe/O6pil2Sgn+bGOqaMm++TCxi0md/9QFRy1dH+hZze1M9CyIviUsT+e/FOiY
+	5fcS6ypceSaBj9Cmfx860DdxL1IOR/CoHDWXW4Pi+Df6pxVUYm868rrO7AL7dfaenBJ10uaRPG/
+	/xKPw==
+X-Received: by 2002:a17:90b:2783:b0:398:9beb:5c19 with SMTP id 98e67ed59e1d1-3989beb6352mr31989254a91.20.1788224640516;
+        Mon, 31 Aug 2026 18:04:00 -0700 (PDT)
+Received: from toolbx.alistair23.me ([2403:581e:fdf9:0:13b2:851f:d9cb:44c5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d49e9e0sm2372024a91.11.2026.08.31.18.03.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 18:03:59 -0700 (PDT)
+From: alistair23@gmail.com
+X-Google-Original-From: alistair.francis@wdc.com
+To: linux-pci@vger.kernel.org,
+	Jonathan.Cameron@huawei.com,
+	djbw@kernel.org,
+	rust-for-linux@vger.kernel.org,
+	lukas@wunner.de,
+	alistair@alistair23.me,
+	jic23@kernel.org,
+	linux-cxl@vger.kernel.org,
+	bhelgaas@google.com,
+	akpm@linux-foundation.org,
+	linux-kernel@vger.kernel.org
+Cc: gary@garyguo.net,
+	ojeda@kernel.org,
+	benno.lossin@proton.me,
+	a.hindborg@kernel.org,
+	wilfred.mallawa@wdc.com,
+	tmgross@umich.edu,
+	alistair23@gmail.com,
+	boqun.feng@gmail.com,
+	bjorn3_gh@protonmail.com,
+	alex.gaynor@gmail.com,
+	aliceryhl@google.com,
+	Alistair Francis <alistair.francis@wdc.com>
+Subject: [PATCH v3 00/21] lib: Rust implementation of SPDM
+Date: Tue,  1 Sep 2026 11:03:26 +1000
+Message-ID: <20260901010347.2614656-1-alistair.francis@wdc.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net 1/2] ppp: ppp_async: simplify tty disc_data access
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178822440939.861275.10014391745794552179.git-patchwork-notify@kernel.org>
-Date: Tue, 01 Sep 2026 01:00:09 +0000
-References: <20260828073245.126804-1-qingfang.deng@linux.dev>
-In-Reply-To: <20260828073245.126804-1-qingfang.deng@linux.dev>
-To: Qingfang Deng <qingfang.deng@linux.dev>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, kees@kernel.org, jirislaby@kernel.org,
- linux-ppp@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- syzbot+8e808eb853386f575d86@syzkaller.appspotmail.com
 
-Hello:
+From: Alistair Francis <alistair.francis@wdc.com>
 
-This series was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Security Protocols and Data Models (SPDM) [1] is used for authentication,
+attestation and key exchange. SPDM is generally used over a range of
+transports, such as PCIe, MCTP/SMBus/I3C, ATA, SCSI, NVMe or TCP.
 
-On Fri, 28 Aug 2026 15:32:36 +0800 you wrote:
-> tty_ldisc_hangup() invokes the hangup callback while holding only a read
-> lock on tty->ldisc_sem, so it can run concurrently with other line
-> discipline callbacks. This currently forces async PPP to maintain
-> separate lifetime protection around tty->disc_data.
-> 
-> Line discipline close is called under the write lock during hangup
-> processing. Remove the hangup callback and rely on close for teardown,
-> as done for SLIP by commit 23c53269f2ba ("slip: remove slip_hangup() to
-> fix use-after-free in slip_receive_buf()"). This serializes teardown
-> with all other line discipline operations.
-> 
-> [...]
+From the kernels perspective SPDM is used to authenticate and attest devices.
+In this threat model a device is considered untrusted until it can be verified
+by the kernel and userspace using SPDM. As such SPDM data is untrusted data
+that can be mallicious.
 
-Here is the summary with links:
-  - [net,1/2] ppp: ppp_async: simplify tty disc_data access
-    https://git.kernel.org/netdev/net/c/9feb069e5ed0
-  - [net,2/2] ppp: ppp_synctty: simplify tty disc_data access
-    https://git.kernel.org/netdev/net/c/d8d4d1cf40d5
+The SPDM specification is also complex, with the 1.2.1 spec being almost 200
+pages and the 1.3.0 spec being almost 250 pages long.
 
-You are awesome, thank you!
+As such we have the kernel parsing untrusted responses from a complex
+specification, which sounds like a possible exploit vector. This is the type
+of place where Rust excels!
+
+This series implements a SPDM requester in Rust.
+
+This is based on Lukas' C implementation [2], but has been refacted during the
+first few RFCs. I have included some of the relevent patchesfrom Lukas' C
+SPDM implementation in this series where they are required.
+
+This is a standalone series and doesn't depend on Lukas' implementation.
+
+The goal of this series is to get the smallest possible SPDM implementation
+upstream. That will provide building blocks for us to continue working on.
+
+As such we don't yet provide evidence or certificates to userspace, allow
+userspace to provide a nonce, support PQC or more advanced SPDM features.
+This is enough to communicate with a device and return "authenticated" to
+userspace.
+
+Note that RFC v3 did provide evidence and certificates to userspace and
+allowed a custom nonce. Showing that it's possible. I also have patches
+that build apon [4] to do this via a TSM driver, again showing it's
+possible with the current approach.
+We just don't support it yet and for TSM I need [4] upstream first.
+
+This series is different to Lukas' original approach and the approach taken
+in the previous RFCs and instead adds the PCI-CMA support as a TSM driver.
+This was described by Dan in [3] and [5]. The advantage here is that for PCIe
+we can leverage the TSM work for a lot of the features and provide userspace
+a consistient interface between PCI TSM and CMA.
+
+This series also doesn't check the certificate chain against the kernel
+keyring and will instead leave that to userspace once [4] is merged.
+
+Other transport mode (such as ATA, SCSI, NVMe and MCTP) will
+therefore need slightly different approaches, as TSM doesn't apply.
+The library can support this though, it will just need some netlink
+and sysfs wrappers added as applicable. This way each transport can support
+SPDM in the way it sees fit.
+
+The entire tree can be seen here:
+https://github.com/alistair23/linux/tree/alistair/spdm-rust-tsm
+
+I'm testing this by running the following
+
+```shell
+cargo run -- --qemu-server response
+
+qemu-system-x86_64 \
+  -nic none \
+  -object rng-random,filename=/dev/urandom,id=rng0 \
+  -device virtio-rng-pci,rng=rng0 \
+  -drive file=deploy/images/qemux86-64/core-image-pcie-qemux86-64.rootfs.ext4,if=virtio,format=raw \
+  -usb -device usb-tablet -usb -device usb-kbd \
+  -cpu Skylake-Client \
+  -machine q35,i8042=off \
+  -smp 4 -m 2G \
+  -drive file=blknvme,if=none,id=mynvme,format=raw \
+  -device nvme,drive=mynvme,serial=deadbeef,spdm_port=2323,spdm_trans=doe \
+  -snapshot \
+  -serial mon:stdio -serial null -nographic \
+  -kernel deploy/images/qemux86-64/bzImage \
+  -append 'root=/dev/vda rw  console=ttyS0 console=ttyS1 oprofile.timer=1 tsc=reliable no_timer_check rcupdate.rcu_expedited=1 swiotlb=0 '
+
+ls /sys/devices/pci0000:00/0000:00:03.0/
+ls /sys/devices/pci0000:00/0000:00:03.0/tsm/
+cat  /sys/devices/pci0000:00/0000:00:03.0/authenticated
+echo tsm0 > /sys/devices/pci0000:00/0000:00:03.0/tsm/connect
+cat  /sys/devices/pci0000:00/0000:00:03.0/authenticated
+```
+
+1: https://www.dmtf.org/standards/spdm
+2: https://lore.kernel.org/all/cover.1719771133.git.lukas@wunner.de/
+3: http://lore.kernel.org/69976d7d39c60_2f4a1009@dwillia2-mobl4.notmuch
+4: https://lore.kernel.org/all/69976d7d39c60_2f4a1009@dwillia2-mobl4.notmuch/
+5: https://lore.kernel.org/lkml/69e19c80b892b_fe0831000@djbw-dev.notmuch/
+
+v3:
+ - Rebase on 7.3-rc1
+v2:
+ - Tidy up the PCI/TSM function naming and is_pci_tsm_host()
+ - A large number of changes (mostly to the Rust code) based on Sashiko reviews
+     - This includes a few local runs of Sashiko
+     - This has fixed a few undefined behviour bugs in the Rust code
+ - Rebase on v4 of Benno's validate patches (patch 1, 2, 3)
+v1:
+ - Add CMA as a TSM driver
+ - Initial support for SPDM 1.4
+ - Cleanup a range of comments and concerns from RFC
+ - Remove kernel keyring checks
+RFC v3:
+ - Use netlink to send information to userspace
+ - Don't autogenerate Rust helpers
+RFC v2:
+ - Drop support for Rust and C implementations
+ - Include patches from Lukas to reduce series deps
+ - Large code cleanups based on more testing
+ - Support for authentication
+
+Alistair Francis (14):
+  rust: add bindings for hash.h
+  rust: error: impl From<FromBytesWithNulError> for Kernel Error
+  lib: rspdm: Initial commit of Rust SPDM
+  PCI/TSM: Rename pf0 to host
+  PCI/TSM: Support connecting to PCIe CMA devices
+  PCI/CMA: Add a PCI TSM CMA driver using SPDM
+  lib: rspdm: Support SPDM get_version
+  lib: rspdm: Support SPDM get_capabilities
+  lib: rspdm: Support SPDM negotiate_algorithms
+  lib: rspdm: Support SPDM get_digests
+  lib: rspdm: Support SPDM get_certificate
+  lib: rspdm: Support SPDM certificate validation
+  rust: allow extracting the buffer from a CString
+  lib: rspdm: Support SPDM challenge
+
+Benno Lossin (3):
+  rust: transmute: add `cast_slice[_mut]` functions
+  rust: create basic untrusted data API
+  rust: validate: add `Validate` trait
+
+Lukas Wunner (4):
+  X.509: Make certificate parser public
+  X.509: Parse Subject Alternative Name in certificates
+  X.509: Move certificate length retrieval into new helper
+  PCI/CMA: Validate Subject Alternative Name in certificates
+
+ MAINTAINERS                               |   13 +
+ crypto/asymmetric_keys/x509_cert_parser.c |    9 +
+ crypto/asymmetric_keys/x509_loader.c      |   38 +-
+ crypto/asymmetric_keys/x509_parser.h      |   42 +-
+ drivers/crypto/ccp/sev-dev-tio.h          |    4 +-
+ drivers/crypto/ccp/sev-dev-tsm.c          |   12 +-
+ drivers/pci/Kconfig                       |   14 +
+ drivers/pci/Makefile                      |    5 +
+ drivers/pci/cma.asn1                      |   41 +
+ drivers/pci/cma.c                         |  275 +++++
+ drivers/pci/doe.c                         |    6 +-
+ drivers/pci/tsm.c                         |  115 +-
+ include/keys/asymmetric-type.h            |    2 +
+ include/keys/x509-parser.h                |   57 +
+ include/linux/oid_registry.h              |    3 +
+ include/linux/pci-doe.h                   |    4 +
+ include/linux/pci-tsm.h                   |   30 +-
+ include/linux/pci.h                       |    1 +
+ include/linux/spdm.h                      |   37 +
+ lib/Kconfig                               |   15 +
+ lib/Makefile                              |    2 +
+ lib/rspdm/Makefile                        |   10 +
+ lib/rspdm/consts.rs                       |  184 +++
+ lib/rspdm/lib.rs                          |  167 +++
+ lib/rspdm/state.rs                        | 1230 +++++++++++++++++++++
+ lib/rspdm/validator.rs                    |  554 ++++++++++
+ rust/bindings/bindings_helper.h           |    5 +
+ rust/helpers/hash.c                       |   18 +
+ rust/helpers/helpers.c                    |    1 +
+ rust/kernel/error.rs                      |   18 +-
+ rust/kernel/lib.rs                        |    1 +
+ rust/kernel/str.rs                        |   13 +-
+ rust/kernel/transmute.rs                  |   59 +
+ rust/kernel/validate.rs                   |  216 ++++
+ 34 files changed, 3071 insertions(+), 130 deletions(-)
+ create mode 100644 drivers/pci/cma.asn1
+ create mode 100644 drivers/pci/cma.c
+ create mode 100644 include/keys/x509-parser.h
+ create mode 100644 include/linux/spdm.h
+ create mode 100644 lib/rspdm/Makefile
+ create mode 100644 lib/rspdm/consts.rs
+ create mode 100644 lib/rspdm/lib.rs
+ create mode 100644 lib/rspdm/state.rs
+ create mode 100644 lib/rspdm/validator.rs
+ create mode 100644 rust/helpers/hash.c
+ create mode 100644 rust/kernel/validate.rs
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.55.0
 
