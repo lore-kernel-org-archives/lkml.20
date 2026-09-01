@@ -1,68 +1,69 @@
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
+Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7028339021C
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 21:42:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F38E3A961A
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 21:42:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788298953; cv=none; b=sDJ/jS1ZaZvsZsGuOfqmx7eUu/DwaiqbrE5EqRQyGf03NqwNlMZlAsM2GRnHzSCxHmMjDJzWF8Ag2UgrxNRCtwzzhl3l41bbiObaU+sYeqXhAQvnGMqgQ11NZvcMZ9kkKg/dENhX0IPmmBewmCVLew1LN6i6mIq5y/6x8mcKf20=
+	t=1788298956; cv=none; b=IaQ9MHM1nAnK/q8iOlX22mhSYRxD3wzELAtoptSBAxAFMnuODNxNA9UdKtyUZIRzNRy4EPurDpgxbBAwrE1B7+qiH8afQGCIaBRtHAZk8dMTizs8MN8To6Kz5GMc1qVGDAa8B2KadBAdExKLMIYiTZy63hSOttQ19qBvC+YjhrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788298953; c=relaxed/simple;
-	bh=81GtuhM8WPaQORq30yLJ9T7RnVg1D0CM09jTFAW6Whg=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=UDwrkxZkeKB9YLDY80cN8ZsrHXShliwgpm0+pxyKxd49IG3S22HjyGc6mBBgnyrClUiMil6I1TV4qj/3wz6rFNor77XSWTjuV1jFgRKpXz9+ZyAczsJmtngaGHmW9mILAjl+bKLVHXbL45ObfsfKxJ35xEuOtpPU40LmPKg676k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mOaowlb2; arc=none smtp.client-ip=209.85.210.49
+	s=arc-20240116; t=1788298956; c=relaxed/simple;
+	bh=JPUA3viflQ2v9uEzqZ95Rm337zpwh6hXrUk2Yg+PzV8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=OVz81ppJ6223rELF7+y7uR+irshWI/tn+zgQufS5XXXxZ9Ogatd6lUGX4Kbb8B0g693+AmhzDKQT4OB7X9bwWkwsK7iviedTLCv0wECUvNs3JcmjtHOvUQQ+D2w3VJ6WxWGTi8iDldkW9r0XvXNKmsdgFlHc1szWvyaYvgqum9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P02ltant; arc=none smtp.client-ip=209.85.160.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mOaowlb2"
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7f57db8b5a4so219628a34.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 14:42:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P02ltant"
+Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-46ad7304688so1684065fac.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 14:42:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788298951; x=1788903751; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=y249H53XhLZ2onZan6XPWtvu2gNoxIJKlrKV115uQNw=;
-        b=mOaowlb2nBqpA2MI2X9Q+0Oy7O0HGn49oi6X/L32JIQ8IB9uXwckHU+rdRSJbtfM13
-         ewJfJvInM+eDOnpta/LlkkqZJfN5qpd790gj7UrVDuCmS5PDNKErvjBhDkxcSngNTtgO
-         bYAjgbqoEfQ8KVvdY4EARjiLQsIFXVpku+geSOdsrcAbdjH8gOMXZYCf2wUGMfZtu8pa
-         GZ7A9CKJhYVnygNSyli+iEKnJ4fGbHxo5/nctCjQDw+mmuu5deRZ7WyIfDCob9Lu19dA
-         dRtmXMgk2EbAtm4AEnlZl4h3mfVd5yH0tuMXrfFEbmQn7PIOLd5WqOR01XYsDnlrTAdE
-         S7QQ==
+        d=gmail.com; s=20251104; t=1788298953; x=1788903753; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F+NmUzFRKeuEQ7M+1ibV0+Pzn+8gHlXWcUZ2COu4Ht4=;
+        b=P02ltantu8oshKZx4o9a1xUnDYuKblvHDHy+YNGvhEPpwpmIO9JaWHP2XDXpg8QpAx
+         Kmg6Zo9rO1JeLJfEltpVgzrJSU58i6DjzOnWg4sp1Wuoo48K82TI3+3JIWQU5zDz8rIU
+         j+wXa4awoJHrC1xqRbTPVDMjTnB4EbKyIzX0Ar/u5evhkTFePKY8/2fUuN7UMuTb4CMO
+         T3jDgt1zMw2j6qk8jOtfVPIXvwR0MyrE9DBcVovjIM8Tj1LkJ1G+DbyV1aEWLXJtq7Hm
+         YMHIylHtwTp49IsQxtQ3JxYQO7Nl8gJIb/AZDNn2pBKPAD6YC7RAftFqaK+fq1LN9b22
+         qAWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788298951; x=1788903751;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=y249H53XhLZ2onZan6XPWtvu2gNoxIJKlrKV115uQNw=;
-        b=fMZDlfvaEPzN/QTJDKMu0IqcIPSmZUSZ+xpBAnbpFHJMQhXIa7p6N0SUuThyx2x8si
-         9nj9o5psKdCoWQsiEQu6tkZGcMEVc+UJHip4j9TxgZTGQjemAwPQ/iQWAtPNSBS3IfgY
-         0hqoRuMu1DNiWjwZPPmr3Jd+exVMvM1OgIEowPikeFTUckE18x427bUjhRJj8dWdInqS
-         36B0RWNp38/aV4JsPaDAkg5lF9yFJpivLjG/Qn6ktB0XmDc6zc74iwBpu8FKVYCfxAgm
-         vLEZg42wHQ0ADzq+9OLjDpDRZPLZL6afBoawHeCVVTRIWEIrWEKHdFAWVGWJ8dZuTiXN
-         r5dQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqNf9SRN74WbQQTEj3OxjUlm4U8yncBGSSv1RGznT/UU2DTaRSwMxMryWGNp6sBFbC2FklBtJIfwYr/AUc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lsCpvQCrhQoqBDVibWMFFI8WfafAqWqmzC5Km5ykNvsad3HuMV
-	IsgeD93MvZUnIrOzWl1EevEkQ8+op517MkC/0jtiqRVBz//pb8GnO/ajqawtsYO6
-X-Gm-Gg: AR+sD13JHU8Dd11DdIlWnYRNkKOcVj7RBfOAbPqlCO/kXrBErjkPQTWGW8iMyGcZbP5
-	Gzez4jjL3Wh5qeoUG8/nAGYgeyCmiJV05R1Bdg90z1AP6Xu3f1iRPs4LOmJOAU5hqbNswMhECAt
-	06vCFnFh6pwkYoj2az+NaEhzr+no9wEMzR7odpmsaUrogzEMFd+fJXjbRpHY8c95XPVDb1m4HjQ
-	y0mhdq6ZFJYHIpxBJ7FHPasNOmTdfOn7WRxP7dmCnH8zzwO+FOOIlIyiuZmt1Gj/dyWt0Ik4YWJ
-	2EiFZzbupiBsobbZIUzmUgfDFNzb/OyEy+ZWFEyiYrMLUK3pYEGvNdIooAZMi8+fmkOoVq6fabe
-	dT9Lnn1IfobWBxzQkSJRBc9GwbwpauQFo8E/2nXiYA+aIL71e1YqKtvEGk3IKiZNiONN3atc09B
-	xSc+uKc8azAhcKKYI6khFi/ZNEHDC/vPb8PETsqLk/z81cfEBSxlBKB9MMy0Uyf4Zvzz9G8saeg
-	5HRDjwyHDP9NZuScMkQkRJmut0HDtRXuAS1bx3lpvf6htOXObLZU+EINI/MUPcb2VlxfsNMqBIW
-	BPw/Meot6hbXZtVwhVIcns6rXC3l3sitS22LXuOc+3BUVQ==
-X-Received: by 2002:a05:6820:824:b0:6b3:6bc7:2ea7 with SMTP id 006d021491bc7-6b36bc73476mr11612524eaf.7.1788298951280;
-        Tue, 01 Sep 2026 14:42:31 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788298953; x=1788903753;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=F+NmUzFRKeuEQ7M+1ibV0+Pzn+8gHlXWcUZ2COu4Ht4=;
+        b=H2nqUPtx4j5EA3IhNSuZ9LdzNLnFaMmIZd/KTNEEoq1odMtGf6NrZ+pqOYADKxDVX5
+         2U7w6sSAQI5QANPX47sIStL1h/o2sUGhJj1dVetVEJJL7LHrJn1s2Jt6YBWCcWUXlKp5
+         eacI7GV734ZA7LJfeeSeq4XhryAjw66vB2eOVDGdDqOuoi6v3hxZyoVtxx96fp0QpRBN
+         /qBKMSICsirql94BZnW6lvrFlBl+W53rJ8OanPoPJU1B74Z6rSBo+tCoF5EMrdI+ZuOP
+         0H1z3MV56DUVao4ZIxKzgNqFNAEHz00s73ZsRWTHTzHoWkoja9rckWGxoKMHSP47+Tuf
+         jCow==
+X-Forwarded-Encrypted: i=1; AHgh+RpC7jUzP7sAMJRrfdxuNbWaExvDtg1Iq8EQWSV1eDojRkKST07dbMp+nUnEBxobfPUVdvHT0q6vUWBG0UQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nYcKKOEw0O9dHBSFFpDJoiNyUwg46ICJXbXXWZZmIGgk0Q5NeP
+	AyhEPUJWVH6cd3beQ8LvEWLP3AwAKEBmR2uD5ATTgIBt5OYA2YaIyLqidf0hV1GN
+X-Gm-Gg: AR+sD104/icPAbev4+4JMejTeDaMtSkUlWcp9bekOq+iccnPLEBNkJU1omWEIRbVNVj
+	Mq/vXfNnwIraKiCjxw7SGmlQT6qNNSAjbppZgwfACWQbKNRvDm+GCSwoFgs6CXvJtinZOZtmpWX
+	aA4GKCavRB0K/drOQNVXrKH1BSCXT7/1CIo8ezjcxbAJZS95CEYU8aITnne/fcamxCyVvhSCMkm
+	41p4xeeXzRjZKShTTYj+UpVcnN2TEDMKOEQIOWPEvOUYvxbnw7mzJPoZWXOW7f3qlUsdmq13tVs
+	lZJ25ndrJU2IAw1/MIrZzllQrFlnkcniGoWxg7V1dNGTFOofEwx/LuygtPnx3m7eZLClhO6/W+R
+	spnnFa6CF13UUvUqc4nqxff8H7Vyq84XPmZobweqeSNUD39VAVtkwLcewGy4ViOBSo0YKl+uzJ8
+	J0f0AHAlPZYSZP3d+1EPceFaFZ7xuUSW2P8pJj7BE6Mbms7QFNOfXS62JaTc1GRPWOg/AaQXODE
+	2v54Zf5srHQ2EwIQMzDs38BKgvfdfUkd3diB3+/Fl2goAHw+zBCRgzhcapTBkMXUFu/F1ldB1mU
+	6xc9UeCsK+HNFChAUXyYAgK54c/Quim+pxP4nJNw1xcJCQ==
+X-Received: by 2002:a05:6820:f012:b0:6b1:a812:988a with SMTP id 006d021491bc7-6b4716950fdmr99940eaf.6.1788298953204;
+        Tue, 01 Sep 2026 14:42:33 -0700 (PDT)
 Received: from [127.0.1.1] (140-186-136-19-dynamic.midco.net. [140.186.136.19])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b40ba648f6sm1094703eaf.2.2026.09.01.14.42.28
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b40ba648f6sm1094703eaf.2.2026.09.01.14.42.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 14:42:30 -0700 (PDT)
+        Tue, 01 Sep 2026 14:42:32 -0700 (PDT)
 From: Robert Nelson <robertcnelson@gmail.com>
-Subject: [PATCH 0/3] Add support for BeagleBone Black RevD
-Date: Tue, 01 Sep 2026 16:42:20 -0500
-Message-Id: <20260901-v7-3-rc1-beaglebone-black-revd-v1-0-f521950b777a@gmail.com>
+Date: Tue, 01 Sep 2026 16:42:21 -0500
+Subject: [PATCH 1/3] dt-bindings: omap: Add BeagleBone Black RevD
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,10 +72,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIALxGl2oC/yXNQQ6CMBCF4auQWTtJS2OJXsW4mBkGHCXFtEhMC
- He36vJbvP9tUDSbFjg3G2RdrdicKvyhAblRGhWtr4bWtdGdnMe1w4BZPLLSOCnPSZEnkgfWeY+
- dEIfBUzzGADXyzDrY+3dwuf5dXnxXWb5V2PcPzG7msoIAAAA=
-X-Change-ID: 20260901-v7-3-rc1-beaglebone-black-revd-7cab3f1a6563
+Message-Id: <20260901-v7-3-rc1-beaglebone-black-revd-v1-1-f521950b777a@gmail.com>
+References: <20260901-v7-3-rc1-beaglebone-black-revd-v1-0-f521950b777a@gmail.com>
+In-Reply-To: <20260901-v7-3-rc1-beaglebone-black-revd-v1-0-f521950b777a@gmail.com>
 To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
  Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
  Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
@@ -87,27 +87,27 @@ Cc: linux-omap@vger.kernel.org, devicetree@vger.kernel.org,
  Robert Nelson <robertcnelson@gmail.com>
 X-Mailer: b4 0.15.2
 
-The BeagleBoard.org BeagleBone Black RevD and Industrial (00D0/EID0) are
-redesigns of the BeagleBone Black Rev C3. They feature an IT66122 HDMI
-PHY to replace the EOL NXP TDA19988.
+Document the beagle,am335x-bone-black-revd compatible string in the
+appropriate place within the omap family binding file.
 
 Signed-off-by: Robert Nelson <robertcnelson@gmail.com>
 ---
-Robert Nelson (3):
-      dt-bindings: omap: Add BeagleBone Black RevD
-      arm: dts: omap: Add support for BeagleBone Black RevD
-      arm: dts: ti: Enable overlays for BeagleBone Black RevD
+ Documentation/devicetree/bindings/arm/ti/omap.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
- Documentation/devicetree/bindings/arm/ti/omap.yaml |   1 +
- arch/arm/boot/dts/ti/omap/Makefile                 |   2 +
- .../dts/ti/omap/am335x-boneblack-ite-hdmi.dtsi     | 184 +++++++++++++++++++++
- .../arm/boot/dts/ti/omap/am335x-boneblack-revd.dts | 166 +++++++++++++++++++
- 4 files changed, 353 insertions(+)
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260901-v7-3-rc1-beaglebone-black-revd-7cab3f1a6563
+diff --git a/Documentation/devicetree/bindings/arm/ti/omap.yaml b/Documentation/devicetree/bindings/arm/ti/omap.yaml
+index f694dcbf2348..9666c455628d 100644
+--- a/Documentation/devicetree/bindings/arm/ti/omap.yaml
++++ b/Documentation/devicetree/bindings/arm/ti/omap.yaml
+@@ -104,6 +104,7 @@ properties:
+       - description: TI AM33 based platform
+         items:
+           - enum:
++              - beagle,am335x-bone-black-revd
+               - compulab,cm-t335
+               - moxa,uc-8100-me-t
+               - novatech,am335x-lxm
 
-Best regards,
---  
-Robert Nelson <robertcnelson@gmail.com>
+-- 
+2.55.0
 
