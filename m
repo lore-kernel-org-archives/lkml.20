@@ -1,117 +1,72 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 599D03DA7D6
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:37:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85EB83DB332;
+	Tue,  1 Sep 2026 14:37:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788273455; cv=none; b=AvQQwU7qG371HUi8nYYi5R5uZzOhP2n3cQ9s4CbMMCTLn/jzMMbfhbdyU5oza39Z2aHwsARi2IAEBu8sCNQght3UClx+CHJXjC2nA83sIOb8d2mXxv6aYV18NPmZS2A8QLutwPvvtXW3SNPMtEmTVNERS78+eAGnWwPga9P0Nuw=
+	t=1788273462; cv=none; b=el28OkIdmU4+HaoMGlCANwVSKrkkdDN6OCoawGiieA9JD21qg3gzbjukQttN7kX2xwoTUrI0UYU6C4vostP6Oue+QonOWwtOLhaZtKd3YOgc+/4nqddGvqR+u1n+LfJjnt8JMfmlK4TY8z+zK3+rFfbvt66jF9qZz+LAIjAoH7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788273455; c=relaxed/simple;
-	bh=kSFkLCT4lP4vFeFSDVrix+7vF6mBascSgouocKOzfTE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=o86bRLO42wffYESRRM0X9D5cOwYC96ioZ1o80CYYgwlJYKSeDrsc/wKZIBNTYzPNTyscgrSsjm4SHH5eOVS6Jec+mfwT0LgG74gTWWYyJlhG4Ak3z8FRRGF0Rk2hnzwZssr24N8SE3hxFVPMKhkIXQm5ILTPWaIiAsmqpUqcIUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=sG+pyP5g; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1788273462; c=relaxed/simple;
+	bh=v3wZJuDMDY6TSDIDONh2k6AtxL5ulmJGOmoHhLMcpwk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=duMYy8cQJd/pVTyTcm8z48ddNGcxEAesdMC+BQ6FMC+IEu+B6TTmE1HXmlP0n+qWptyAc0Etqs7m4RA1w8tcJ5JojmXjqej2B7jVOqEZOzWiQ+De9/dI1pgxgYEoO0kq+L96m3SO9FpLaOSFwr45/ax8f1DGK2H7/Z7/1X8MdxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=pF5ztuKj; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="sG+pyP5g"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260901143727euoutp0229af01237578143057007e05957d2472~ROTnmlLbd0421604216euoutp02D
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:37:27 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260901143727euoutp0229af01237578143057007e05957d2472~ROTnmlLbd0421604216euoutp02D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1788273447;
-	bh=FAsl/XQrs4VLbX74CG0t4ucPsDxZGFB9D3BoVTKBaao=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=sG+pyP5gX3vW7whpHoWG3DUp+gs63BbFNPdCwBhiXaBVaDb158qx2qDyKQC8kEcQH
-	 jBJKBW1/MhjcMc4hBRPeppV5zLZ/85/0relSASg00s5VSBDdeYLiOS4bElWHm5AlC8
-	 WnVtE8WisOrFH2bjR8psBk/vdjPwOlFlfqThYldI=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260901143727eucas1p1a5f14449cb713b428091c1dfedd6fdf0~ROTnTiDnv0625906259eucas1p12;
-	Tue,  1 Sep 2026 14:37:27 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260901143726eusmtip1f872eae2510fdcd32a78e8c61018cf78~ROTmfxHEn0405704057eusmtip1a;
-	Tue,  1 Sep 2026 14:37:26 +0000 (GMT)
-Message-ID: <1a6d4f12-edef-4faa-b2e0-2ea711fb6ad4@samsung.com>
-Date: Tue, 1 Sep 2026 16:37:26 +0200
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="pF5ztuKj"
+Received: from omf14.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay01.hostedemail.com (Postfix) with ESMTP id CCE731C1FFC;
+	Tue,  1 Sep 2026 14:37:24 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf14.hostedemail.com (Postfix) with ESMTPA id 9AE8832;
+	Tue,  1 Sep 2026 14:37:21 +0000 (UTC)
+Date: Tue, 1 Sep 2026 10:38:20 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>,
+ x86@kernel.org, Jinchao Wang <wangjinchao600@gmail.com>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ "H . Peter Anvin" <hpa@zytor.com>, Alexander Shishkin
+ <alexander.shishkin@linux.intel.com>, Ian Rogers <irogers@google.com>,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] tracing/probes: Fix code indent in
+ get_bitoffset_of_field()
+Message-ID: <20260901103820.2107bd39@gandalf.local.home>
+In-Reply-To: <178827252027.123716.7095571176291547259.stgit@devnote2>
+References: <178827248631.123716.2627172171811720261.stgit@devnote2>
+	<178827252027.123716.7095571176291547259.stgit@devnote2>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH] iommu/exynos: Initialize lock before requesting IRQ
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, Robin
-	Murphy <robin.murphy@arm.com>, Krzysztof Kozlowski <krzk@kernel.org>, Alim
-	Akhtar <alim.akhtar@samsung.com>, KyongHo Cho <pullip.cho@samsung.com>,
-	Kukjin Kim <kgene.kim@samsung.com>, iommu@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Jianhao Xu
-	<jianhao.xu@seu.edu.cn>
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20260901130527.3289245-1-runyu.xiao@seu.edu.cn>
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260901143727eucas1p1a5f14449cb713b428091c1dfedd6fdf0
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260901130537eucas1p274a55745ced68a1e157bd43cfd17448f
-X-EPHeader: CA
-X-CMS-RootMailID: 20260901130537eucas1p274a55745ced68a1e157bd43cfd17448f
-References: <CGME20260901130537eucas1p274a55745ced68a1e157bd43cfd17448f@eucas1p2.samsung.com>
-	<20260901130527.3289245-1-runyu.xiao@seu.edu.cn>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: 19y4b9qhgdcgswwg4t5st45u8etsext7
+X-Rspamd-Server: rspamout04
+X-Rspamd-Queue-Id: 9AE8832
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1/iXbsiAH6pXVzSyFhCzaeWlIPa3DYWPjM=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=yQDGO02vuRqXUkUjS+l5m4mq9vTXgkzRMx38IXIK0CY=; b=pF5ztuKjJB/8NEc+aYO5YPitCcMMu1Mozjclog5zStB/1FXmHuKvxWqQuKn0rg3IdISr+Uih6XaiHVOntU4HKmtneNGRSLdwIapBb0YDI4O1ZBwDW0mhmUPKcrqdm//ubf4G2W2lEKfIivpP6Qk0NeLAPxVyOZju1BWejSDNI4Y=
+X-HE-Tag: 1788273441-787153
+X-HE-Meta: U2FsdGVkX18UoaDCe/a3Z7bNfaIKcrS0dsbkS5g/02YOo6heimae2XurKyEyYCQFUlasfinFdp69LETmDJzD9qhqhotWxsUWenmXm7Lzu1QtYSdgVwW+XnZqLpUYybrNjhez07DOSjuti4a3VELjWLZxYMlo7boLj128oQAqOQTRka4hjO2YiqlFmDaTJqQGdyBeOnaTd8YbHEXFr/r/A+qh/RQKzx6vcSZ9wMaT01kJKP0LRYqEk3CRqhl7WmA9g9ZyRSwIQNqQUVqZEteUgDoslszmq1uVTKEa10YOCPYOZvtjv0ofuGwkcE7wF9IgMUEI14AulcJ+i7jMORcwHEVRRgxoF7c1dFtRkC3JM5AQ1cYxWraS8RCJ6mBRu2IAcO/d6iISuzFvEaai8x62gA==
 
-On 01.09.2026 15:05, Runyu Xiao wrote:
-> The SysMMU interrupt handler can run as soon as devm_request_irq() is
-> called. Initialize the driver lock before registering the handler so an
-> early interrupt cannot use an uninitialized lock.
->
-> Fixes: 2a96536e77b4 ("iommu/exynos: Add iommu driver for EXYNOS Platforms")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-> Assisted-by: Codex:GPT-5
+On Tue,  1 Sep 2026 23:22:00 +0900
+"Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
 
+> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> 
+> Fix code block indentation introduced by commit f21834524025
+> ("tracing/probes: Support field specifier option for typecast").
+> 
+> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
 
-Sorry, but this patch doesn't make much sense. There are other things that have
-to be properly initialized before the interrupts can be handled. To ensure that
-interrupt doesn't fire before handler has been registered one should enable
-clocks and reset the hw:
-        writel(CTRL_DISABLE, data->sfrbase + REG_MMU_CTRL);
-        writel(0, data->sfrbase + REG_MMU_CFG);
+Reviewed-by: Steven Rostedt <rostedt@goodmis.org>
 
-> ---
->  drivers/iommu/exynos-iommu.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/iommu/exynos-iommu.c b/drivers/iommu/exynos-iommu.c
-> index 874d05f4b..e9feb83b3 100644
-> --- a/drivers/iommu/exynos-iommu.c
-> +++ b/drivers/iommu/exynos-iommu.c
-> @@ -735,6 +735,8 @@ static int exynos_sysmmu_probe(struct platform_device *pdev)
->  	if (!data)
->  		return -ENOMEM;
->  
-> +	spin_lock_init(&data->lock);
-> +
->  	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
->  	data->sfrbase = devm_ioremap_resource(dev, res);
->  	if (IS_ERR(data->sfrbase))
-> @@ -773,7 +775,6 @@ static int exynos_sysmmu_probe(struct platform_device *pdev)
->  		return PTR_ERR(data->clk_master);
->  
->  	data->sysmmu = dev;
-> -	spin_lock_init(&data->lock);
->  
->  	__sysmmu_get_version(data);
->  
-
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+-- Steve
 
