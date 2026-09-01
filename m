@@ -1,296 +1,177 @@
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF484734F9;
-	Tue,  1 Sep 2026 22:08:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41D3839A4A4
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 22:09:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788300523; cv=none; b=KIX6YnqqE7hlsNg9++byEtKis8syXs0XDnKX5ZcKm3ZqOLa1xTl5af942cY98i85BFXdAU732JEx7hygkDVnSYNO9SIgvQxT4rbqx5VncK2YFEFdsdFzslpFyPTE3K1er1l63x0ZH6z5s5zOZogeJpbpwTLskRrovMovz5jwSY8=
+	t=1788300566; cv=none; b=HuFzTLArvDpxx9V3Azk3qqEpnfnprzB++OiLOggZdQLXe+hQ8qCY1DZjrGvq5nxOk0zY5hCbxrCByCc3mbzlvMCVIyOvk/hHkwPa1ynXsN4w5OOtoEbsFRC9xCa7067RJ8vGFaduZ9sVFklKTkV2bLiLLi7g+6qNrqvfsY7uoEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788300523; c=relaxed/simple;
-	bh=ruYiUnJhRkMQAC/ItfX3cvazU5K4UldfPjTFl3+GGMg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DBiocIzisJKKSvlrHcZ58i2P/oTIi+aU2hMIAPAhI2XU6JfEFGb1HzqWEd23UQS7iRTqZwe3F5CDjQk/IldGdpOGzSdwtRFgphX04ahld5lLT9k+e9Ip8m5YHBydqdPmk9mvvlCrw9Xm25l+v5SdCIL/Jk160XpwqbR2SQWHPs8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=AySZgqGl; arc=none smtp.client-ip=91.189.121.228
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
+	s=arc-20240116; t=1788300566; c=relaxed/simple;
+	bh=7RBFT/jzVt2TZvCkr50FJgetNEOcyAfjPOyqUNOAWgU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T6ypdGSblw3i6PKmXXMOuFZYkcc77kczr1G4ypCAbc4Oq8ZbM7NU9MKN++6kqUO1U90kmWc+Ej4EwOUJYStRatf1rHB3NnyPX+Wa/Ulu/IOmU7qq/7EG9Rf8nYuHJZ4SAtwxPLQ3unjwDwzL7Pwo3bzyjJwQzM8BgLFOW2GXP7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=dhBHukGY; arc=none smtp.client-ip=209.85.128.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="AySZgqGl"
-From: Stian Halseth <stian@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1788300517;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+uskWWJzRcco0wssXkzwNOb4yloItCzVtecRlIryDcA=;
-	b=AySZgqGlKKhs5VTdWyGqq6y5BOX6LfKaAI20e+ku4IPFMGxA/zkuWsMLx8RhsYd/k0UVHX
-	h8O92R0s8Oi+jwJP9b2Agn+jJCx4lzxh1aVrQfnVPi7ZzM7MiwCTYBPeQcC0WIYCLllRPm
-	TeYdCT7kGQvSEI7+It6L75u5h2bPC6E=
-To: Andreas Larsson <andreas@gaisler.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Kees Cook <kees@kernel.org>,
-	sparclinux@vger.kernel.org
-Cc: Andy Lutomirski <luto@amacapital.net>,
-	Will Drewry <wad@chromium.org>,
-	Oleg Nesterov <oleg@redhat.com>,
-	Shuah Khan <shuah@kernel.org>,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Stian Halseth <stian@itx.no>
-Subject: [PATCH 1/2] sparc64: add seccomp filter support
-Date: Wed,  2 Sep 2026 00:08:10 +0200
-Message-ID: <20260901220811.3369666-2-stian@itx.no>
-In-Reply-To: <20260901220811.3369666-1-stian@itx.no>
-References: <20260901220811.3369666-1-stian@itx.no>
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="dhBHukGY"
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-836c8bdac50so6805307b3.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 15:09:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1788300562; x=1788905362; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=M4+niubgl505BkFKhEwPKEaItzjdUcc0IlA8qi6slv4=;
+        b=dhBHukGYt8PioOMSWQxAkbpTHT/tAmPd7qGywIMH0OfDlfaHoF+79qqIGrAGzDLh3k
+         cKI1FX+pEoOZ9hND3R3nrokKDYOBLcCtvEcLxIjpdd0fGfjv6xn2EBl9gaTLE1+5nST/
+         SrOvzuiPCjJRfKOI6bbwGVuIyM+Av5i3QfM6t3cOKvsDPqf0eO1LAtSvbzN3lQLFVt38
+         S7yYnvsIM8HvWPtqJag80flY/u8hR+WJ4fGuxiEXyOjdLBmoxSjXYskwgMbruASvIhDE
+         wk7PHcdRsbGcFzf3tSAaQFu+hjxfzBsjTjTjz9UlK5q5ICbtPmfvVd/68BMH6KuQgqO8
+         +dpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788300562; x=1788905362;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M4+niubgl505BkFKhEwPKEaItzjdUcc0IlA8qi6slv4=;
+        b=iei5Tdm+c9gzrw+s7oxC5UYwoLdLV0ySTtP3WdiKHzr2fOFYU06tm75FO1ZCIvVIOc
+         p5o3MSPIOfLqmrVkiB+Q60Soo8nlvfCAJyX5893vYafNA0c48bVz3eWCC5Lt2/dvuHkf
+         KSYYEK2ivpRRalNY9HcHBs2/apwmWI7Vpc+dT1uA8dDwFFm1q0gid+6KEgeFAySLdD60
+         ZYKra/PksZCK4xXd1n8r0B6uAeyv5+52DvE5GF/+nN1C0NBVNS16yenVFrr5D/iSf4Ug
+         RM/pna2qR52kcpunNw08q42xmPkzPxtpo6emFNxwK7U9Ajdvq2iiz1ud5/x2RVscmrLS
+         MGQw==
+X-Forwarded-Encrypted: i=1; AKwUvBwXMFc0HvH/ycgoRA7o7Fs9RkTGIn9/bTNG7ytr7BKAS/jvWm1hhmkuiHTj6ARsUclLD9CBaUWJpszZ19I=@vger.kernel.org
+X-Gm-Message-State: AFuF++nYzaNR0KCO05a58EzSpSlThm9MV4ZeupDi+qJPChp+E3OVij+v
+	qJQzhBTrVjbHQa4TTIG3lNOxDybXs97bvxCN/wrRHZhiAMGwvn73fhFQ3BbHKelf2pM=
+X-Gm-Gg: AYBFou04iQS7B+ZDKA7sG9xNRvnBJeln4WrOq6Zy4d2hnzt3xe1EZCzsiMwnmDHWUWi
+	dkzHGV6d7B3aycRP4LBSnruXrw2fdU6Bs6GcoiBNxWXxHnla07JqZCAtxxFYf9++TOZjRXjLl+2
+	TWn+d9LVQbvY9KyoXe8vjoT9JTteH+FWS/2O9ZyJ3/aw6fqVelWjzuK2Yn6aYVoJkAKuB+zrJR+
+	eS2Zadd6We57JL+Ra2A8E8wdBhaVKFkKt7mdwozf4WXccMGo/YpR/AVfFMfYP17NEM7KRza8BQB
+	p0cwPA+jGNzs87JWsiv5JWrkm+vdDQggDoRo3hn2bT1njsdnDJnUVPIRb0O57ak1DpdoC0UQ6nl
+	wIAvToZfVNnq/NZkkBJcxaPnjfiu/1QG0AwodYhSwj0fiPweQSSj5Ky0Di/Xj07JsDX1ikaJjaD
+	1F7P48uib/pLNwX+AZ54ULVWt46pU6lTTtizA+a+9PsItxleONQ8kAhgyEYzNHQJLfIOq+JV8=
+X-Received: by 2002:a05:690c:d8a:b0:81d:6af3:b9b5 with SMTP id 00721157ae682-86c4e7d322dmr2445717b3.9.1788300561871;
+        Tue, 01 Sep 2026 15:09:21 -0700 (PDT)
+Received: from localhost ([2605:8600:200:1a83:fe59:7385:2855:8588])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-86c10c93fa5sm4188977b3.3.2026.09.01.15.09.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 15:09:21 -0700 (PDT)
+Date: Tue, 1 Sep 2026 18:09:17 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Zi Yan <ziy@nvidia.com>
+Cc: Nimrod Oren <noren@nvidia.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Hugh Dickins <hughd@google.com>, Nirmoy Das <nirmoyd@nvidia.com>,
+	Dragos Tatulea <dtatulea@nvidia.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
+Message-ID: <20260901220917.GM3004@cmpxchg.org>
+References: <20260901190123.3511535-1-noren@nvidia.com>
+ <20260901204449.GK3004@cmpxchg.org>
+ <C8541A2F-D6A9-41B0-A3FE-52339A6601F0@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <C8541A2F-D6A9-41B0-A3FE-52339A6601F0@nvidia.com>
 
-sparc is the last architecture besides alpha without SECCOMP_FILTER,
-which systemd, docker, flatpak and the like all want, and userspace
-support already exists as a pending libseccomp pull request.
-Everything the filter mode needs is in fact already in place:
-syscall_get_arch(), syscall_get_arguments() and
-syscall_set_return_value() have long been provided for audit and
-ptrace, TIF_SECCOMP is already in the syscall-entry work mask, and
-strict-mode seccomp has been wired up for years.  What is missing is
-letting seccomp veto a syscall and honouring the return value it
-sets.
+On Tue, Sep 01, 2026 at 05:09:52PM -0400, Zi Yan wrote:
+> On 1 Sep 2026, at 16:44, Johannes Weiner wrote:
+> 
+> > On Tue, Sep 01, 2026 at 10:01:23PM +0300, Nimrod Oren wrote:
+> >> When THP is enabled, set_recommended_min_free_kbytes() may raise
+> >> min_free_kbytes using a heuristic that scales with pageblock_nr_pages.
+> >> Commit f000565adb77 ("thp: set recommended min free kbytes") added this
+> >> heuristic to help keep pageblocks free and reduce fragmentation for THP
+> >> allocations.
+> >
+> > We've had problems with compaction before when min_free_kbytes was too
+> > small on large machines. Competing free space scanners do a lot of
+> > work only to fight over a very small set of possible target pages.
+> >
+> > So I'm a bit uneasy that you didn't include any benchmark numbers with
+> > this that prove basic functionality on larger hosts isn't regressed.
+> >
+> >> The recommendation scales poorly with larger base page sizes. With the
+> >> default arm64 pageblock sizes, the contribution per eligible zone
+> >> before applying the existing cap of 5% of low memory is:
+> >>
+> >>   4 KiB pages:   2 MiB pageblock,   22 MiB per zone
+> >>  16 KiB pages:  32 MiB pageblock,  352 MiB per zone
+> >>  64 KiB pages: 512 MiB pageblock,  5.5 GiB per zone
+> >
+> > I question whether pageblocks need to be 512M on those machines to
+> > begin with. After this patch, you're still asking the page allocator
+> > to optimize grouping such that 512M pages can be allocated at
+> > runtime. Only now you took away part of the mechanism to do so.
+> >
+> > If you're using 512M THPs, I would kind of assume it's on machines
+> > with a memory size where 5.5G for defrag purposes isn't devastating.
+> >
+> > And if you're not, it would make more sense to lower the pageblock
+> > size to the mTHP size you're actually using. And that would fix the
+> > "excessive" min_free_kbytes issue as well.
+> 
+> But lowering pageblock size requires a kernel compilation. That means
+> maintaining two sets of kernels for different needs.
 
-Rework the entry hook accordingly: syscall_trace_enter() now runs the
-ptrace entry report first and seccomp second (matching the generic
-entry code, so a tracer's changes are seen by the filter), and
-returns -1 when the syscall has been denied.  On denial the return
-value and the carry bit have already been set in pt_regs -
-syscall_set_return_value() for a ptrace abort, the seccomp core for
-SECCOMP_RET_ERRNO/TRAP/TRACE/KILL - so the assembler stubs must no
-longer force -ENOSYS; they instead branch to a new linux_syscall_skip
-path that advances TPC/TNPC past the trap instruction and returns
-through the syscall exit work without storing a new return value.
+That depends on whether anyone actually wants 512M pageblocks...
 
-The old behaviour of a ptrace entry abort (ENOSYS with the carry bit
-set, followed by the exit report) is preserved, it is just set up in
-C now.
+> The ultimate solution is to enable better compaction to generate
+> THPs bigger than a pageblock size, like Rik's super-pageblock
+> proposal.
 
-syscall_rollback()'s XXX comment is replaced with an explanation of
-why a no-op is correct: every caller runs before the syscall has been
-invoked, and on sparc the first argument register is only overwritten
-by the return value once the syscall has actually run.
+...or whether we can say, at that point, use gigablocks/cma+hugetlb.
 
-SECCOMP_ARCH_NATIVE/COMPAT are defined so the constant-action bitmap
-cache works for both 64-bit and compat 32-bit tasks.
+And then the static pageblock size for the fallback logic etc. can be
+a smaller, saner default for everybody.
 
-Filter support is 64-bit only for now, as strict mode already was:
-the 32-bit kernel's entry path has no equivalent plumbing.
+Because the point you didn't address: it doesn't make really sense to
+have 512M pageblocks on smaller machines, beyond the min_free_kbytes
+issue: Fragmentation events will poison half a gig at once,
+should_try_claim_block() becomes harder which results in less
+conversions and more allocations falling through to stealing, page
+isolation is more likely to fail, compaction locks and operates on
+oversized chunks which is bad for latency and concurrency...
 
-Tested on an UltraSPARC T4-1: the seccomp_bpf selftest passes 95 of
-95 (16 skipped for missing optional features such as uprobes), the
-libseccomp test suite with its pending SPARC support passes 5190 of
-5190 including the live tests, and docker containers run confined by
-both the default and custom seccomp profiles.
+Seems to me the excessive min_free_kbytes is just a symptom of a
+deeper problem.
 
-Link: https://github.com/sparclinux/issues/issues/11
-Signed-off-by: Stian Halseth <stian@itx.no>
----
- arch/sparc/Kconfig               |  2 +-
- arch/sparc/include/asm/seccomp.h | 15 +++++++++++++++
- arch/sparc/include/asm/syscall.h | 11 +++++------
- arch/sparc/kernel/entry.h        |  2 +-
- arch/sparc/kernel/ptrace_64.c    | 28 +++++++++++++++++++---------
- arch/sparc/kernel/syscalls.S     | 28 ++++++++++++++++++++++------
- 6 files changed, 63 insertions(+), 23 deletions(-)
+> After removing automatic min_free_kbytes boosting, user can still
+> increase it via sysctl to restore the old free memory head room.
+> It is much easier, right?
+> 
+> >
+> >> The automatic min_free_kbytes increase predates proactive compaction
+> >> and many subsequent changes to compaction. Given those changes,
+> >> increasing min_free_kbytes for THP by default is no longer clearly
+> >> justified.
+> >
+> > That's pretty handwavy. How would these changes specifically eliminate
+> > the need for compaction scratch space and allocator fallback options
+> > to stave off fragmentation during placement?
+> 
+> Extra free memory is still necessary. min_free_kbytes can be adjusted
+> at machine boot time to achieve it, right?
 
-diff --git a/arch/sparc/Kconfig b/arch/sparc/Kconfig
-index ab77d3f2536e..8dd15256edf6 100644
---- a/arch/sparc/Kconfig
-+++ b/arch/sparc/Kconfig
-@@ -23,7 +23,7 @@ config SPARC
- 	select HAVE_ASM_MODVERSIONS
- 	select HAVE_ARCH_KGDB if !SMP || SPARC64
- 	select HAVE_ARCH_TRACEHOOK
--	select HAVE_ARCH_SECCOMP if SPARC64
-+	select HAVE_ARCH_SECCOMP_FILTER if SPARC64
- 	select HAVE_EXIT_THREAD
- 	select HAVE_PCI
- 	select SYSCTL_EXCEPTION_TRACE
-diff --git a/arch/sparc/include/asm/seccomp.h b/arch/sparc/include/asm/seccomp.h
-index 62d4579efb1a..1ea70080f5cd 100644
---- a/arch/sparc/include/asm/seccomp.h
-+++ b/arch/sparc/include/asm/seccomp.h
-@@ -6,6 +6,21 @@
- 
- #define __NR_seccomp_sigreturn_32 __NR_sigreturn
- 
-+#ifdef CONFIG_SPARC64
-+# define SECCOMP_ARCH_NATIVE		AUDIT_ARCH_SPARC64
-+# define SECCOMP_ARCH_NATIVE_NR		NR_syscalls
-+# define SECCOMP_ARCH_NATIVE_NAME	"sparc64"
-+# ifdef CONFIG_COMPAT
-+#  define SECCOMP_ARCH_COMPAT		AUDIT_ARCH_SPARC
-+#  define SECCOMP_ARCH_COMPAT_NR	NR_syscalls
-+#  define SECCOMP_ARCH_COMPAT_NAME	"sparc"
-+# endif
-+#else
-+# define SECCOMP_ARCH_NATIVE		AUDIT_ARCH_SPARC
-+# define SECCOMP_ARCH_NATIVE_NR		NR_syscalls
-+# define SECCOMP_ARCH_NATIVE_NAME	"sparc"
-+#endif
-+
- #include <asm-generic/seccomp.h>
- 
- #endif /* _ASM_SECCOMP_H */
-diff --git a/arch/sparc/include/asm/syscall.h b/arch/sparc/include/asm/syscall.h
-index b0233924d323..fc225f2ee23c 100644
---- a/arch/sparc/include/asm/syscall.h
-+++ b/arch/sparc/include/asm/syscall.h
-@@ -40,12 +40,11 @@ static inline void syscall_set_nr(struct task_struct *task,
- static inline void syscall_rollback(struct task_struct *task,
- 				    struct pt_regs *regs)
- {
--	/* XXX This needs some thought.  On Sparc we don't
--	 * XXX save away the original %o0 value somewhere.
--	 * XXX Instead we hold it in register %l5 at the top
--	 * XXX level trap frame and pass this down to the signal
--	 * XXX dispatch code which is the only place that value
--	 * XXX ever was needed.
-+	/* Every caller rolls back before the syscall has been invoked
-+	 * (a ptrace entry abort or a seccomp user notification), and at
-+	 * that point the arguments in pt_regs are still intact: the
-+	 * return value only overwrites u_regs[UREG_I0] once the syscall
-+	 * has actually run.  Nothing to undo.
- 	 */
- }
- 
-diff --git a/arch/sparc/kernel/entry.h b/arch/sparc/kernel/entry.h
-index c746c0fd5d6b..734a649301ea 100644
---- a/arch/sparc/kernel/entry.h
-+++ b/arch/sparc/kernel/entry.h
-@@ -82,7 +82,7 @@ void do_notify_resume(struct pt_regs *regs,
- 		      unsigned long orig_i0,
- 		      unsigned long thread_info_flags);
- 
--asmlinkage int syscall_trace_enter(struct pt_regs *regs);
-+asmlinkage long syscall_trace_enter(struct pt_regs *regs);
- asmlinkage void syscall_trace_leave(struct pt_regs *regs);
- 
- void bad_trap_tl1(struct pt_regs *regs, long lvl);
-diff --git a/arch/sparc/kernel/ptrace_64.c b/arch/sparc/kernel/ptrace_64.c
-index 825ddf55fece..6f4a005e674f 100644
---- a/arch/sparc/kernel/ptrace_64.c
-+++ b/arch/sparc/kernel/ptrace_64.c
-@@ -38,6 +38,7 @@
- #include <asm/page.h>
- #include <asm/cpudata.h>
- #include <asm/cacheflush.h>
-+#include <asm/syscall.h>
- 
- #define CREATE_TRACE_POINTS
- #include <trace/events/syscalls.h>
-@@ -1082,18 +1083,27 @@ long arch_ptrace(struct task_struct *child, long request,
- 	return ret;
- }
- 
--asmlinkage int syscall_trace_enter(struct pt_regs *regs)
-+/*
-+ * Returns 0 to let the syscall through, or -1 to skip it.  On skip the
-+ * return value and the carry bit have already been set in pt_regs; the
-+ * assembler caller must return through the syscall exit work without
-+ * writing to them.
-+ */
-+asmlinkage long syscall_trace_enter(struct pt_regs *regs)
- {
--	int ret = 0;
--
--	/* do the secure computing check first */
--	secure_computing_strict(regs->u_regs[UREG_G1]);
--
- 	if (test_thread_flag(TIF_NOHZ))
- 		user_exit();
- 
--	if (test_thread_flag(TIF_SYSCALL_TRACE))
--		ret = !ptrace_report_syscall_permit_entry(regs);
-+	if (test_thread_flag(TIF_SYSCALL_TRACE) &&
-+	    !ptrace_report_syscall_permit_entry(regs)) {
-+		/* The tracer aborted the syscall. */
-+		syscall_set_return_value(current, regs, -ENOSYS, 0);
-+		return -1;
-+	}
-+
-+	/* Do seccomp after ptrace, to catch any tracer changes. */
-+	if (!seccomp_permit_syscall())
-+		return -1;
- 
- 	if (unlikely(test_thread_flag(TIF_SYSCALL_TRACEPOINT)))
- 		trace_sys_enter(regs, regs->u_regs[UREG_G1]);
-@@ -1102,7 +1112,7 @@ asmlinkage int syscall_trace_enter(struct pt_regs *regs)
- 			    regs->u_regs[UREG_I1], regs->u_regs[UREG_I2],
- 			    regs->u_regs[UREG_I3]);
- 
--	return ret;
-+	return 0;
- }
- 
- asmlinkage void syscall_trace_leave(struct pt_regs *regs)
-diff --git a/arch/sparc/kernel/syscalls.S b/arch/sparc/kernel/syscalls.S
-index 96fe8763d70c..46779bb27e77 100644
---- a/arch/sparc/kernel/syscalls.S
-+++ b/arch/sparc/kernel/syscalls.S
-@@ -159,11 +159,13 @@ linux_sparc_ni_syscall:
- linux_syscall_trace32:
- 	call	syscall_trace_enter
- 	 add	%sp, PTREGS_OFF, %o0
--	brnz,pn	%o0, 3f
--	 mov	-ENOSYS, %o0
- 
-+	/* A negative return means the syscall was denied and the
-+	 * return value is already set in pt_regs.
-+	 */
-+	brlz,pn	%o0, linux_syscall_skip
- 	/* Syscall tracing can modify the registers.  */
--	ldx	[%sp + PTREGS_OFF + PT_V9_G1], %g1
-+	 ldx	[%sp + PTREGS_OFF + PT_V9_G1], %g1
- 	sethi	%hi(sys_call_table32), %l7
- 	ldx	[%sp + PTREGS_OFF + PT_V9_I0], %i0
- 	or	%l7, %lo(sys_call_table32), %l7
-@@ -189,11 +191,13 @@ linux_syscall_trace32:
- linux_syscall_trace:
- 	call	syscall_trace_enter
- 	 add	%sp, PTREGS_OFF, %o0
--	brnz,pn	%o0, 3f
--	 mov	-ENOSYS, %o0
- 
-+	/* A negative return means the syscall was denied and the
-+	 * return value is already set in pt_regs.
-+	 */
-+	brlz,pn	%o0, linux_syscall_skip
- 	/* Syscall tracing can modify the registers.  */
--	ldx	[%sp + PTREGS_OFF + PT_V9_G1], %g1
-+	 ldx	[%sp + PTREGS_OFF + PT_V9_G1], %g1
- 	sethi	%hi(sys_call_table64), %l7
- 	ldx	[%sp + PTREGS_OFF + PT_V9_I0], %i0
- 	or	%l7, %lo(sys_call_table64), %l7
-@@ -307,3 +311,15 @@ linux_syscall_trace2:
- 	stx	%l1, [%sp + PTREGS_OFF + PT_V9_TPC]
- 	ba,pt	%xcc, rtrap
- 	 stx	%l2, [%sp + PTREGS_OFF + PT_V9_TNPC]
-+
-+	/* The syscall was denied at entry by ptrace or seccomp.  The
-+	 * return value and the carry bit are already set in pt_regs;
-+	 * advance past the trap instruction and run the syscall exit
-+	 * work without storing a new return value.  We can only get
-+	 * here from the entry trace stubs, so the thread flags in %l0
-+	 * are known to be non-zero.
-+	 */
-+linux_syscall_skip:
-+	ldx	[%sp + PTREGS_OFF + PT_V9_TNPC], %l1	! pc = npc
-+	ba,pt	%xcc, linux_syscall_trace2
-+	 add	%l1, 0x4, %l2				! npc = npc+4
--- 
-2.43.0
-
+That argument cuts both ways, no? ;)
