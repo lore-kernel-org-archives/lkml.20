@@ -1,117 +1,122 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from lahtoruutu.iki.fi (lahtoruutu.iki.fi [185.185.170.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ECE847D470
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:20:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788268830; cv=none; b=qGAt4Crjy/qZNjIq4MixGc5enUN+PoRfSYbf9jph6/zk4lD2Nzx2qrPhQUDEoQPBzOlXq5ny8qx2wstnGKvSWDOWfQLzxuDwgjMQPYbCJk3y6bdKJvMPQLCFMBIf1iHPXSlGaZD4W0Gz5liVgCSrtBGS0+80VudmyJP3oI5cPKI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788268830; c=relaxed/simple;
-	bh=KDktPBIZnTUsCVqQrYT803wekYLhe+qbjOOKuzaIwfM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XX9DZ7NUFGdwc1rRpBaWZo4dvhAfvdHOy8qqKw/Hb4v0nmEhG0NNvQ16K6wki1OexGe1IdG7o83KRKpl/MVMB4QZZYSIc7zTowISJHAUUqwLFtk/UpyIIKlwwQJMyvs25H4hqjOWFIB2FUWlUU2nksGOhEeYYYGX7Sl3TRmENqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=i18dBmGz; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01260390C95;
+	Tue,  1 Sep 2026 13:20:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.185.170.37
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788268845; cv=pass; b=VkQDxpDdyww6GPjVT5h8c7OmSlsKtSZ2e/rZ0qCavjOiIOMEpPpIaRdv3zfUae3P8geEh1Y2HZ9CYrNAitm48ln9hUXDD0Ss/WDco192KqHs5nMZm3RiX3ewRv9ZAFY0c+UsIwDNrM3n1brans13eJPsoZjPcxz1IH1Pt77S3JE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788268845; c=relaxed/simple;
+	bh=MjFIhswWHGmA81saWxNm3PzHlKyCMCf2Imvg3vl+RZo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=p3hPuOvR1tOh9keVukemiwmLsdB31no5TpDm2+ypiiagdf2z8vpVbKci75PNx4rppGV1a5mbj5553Bjw0l+1WfH2C2dUTxefR80KXFj9HV2k4BQ675asBAv7wEF0zo59zl+1+srewvQdOxmAnyVxpoO+eIRDWzuHIuH1Ef0T/Rg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi; spf=pass smtp.mailfrom=iki.fi; dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b=dZHnT9DG; arc=pass smtp.client-ip=185.185.170.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iki.fi
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iki.fi
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="i18dBmGz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788268827;
-	bh=KDktPBIZnTUsCVqQrYT803wekYLhe+qbjOOKuzaIwfM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=i18dBmGzXXVxRYTDuziHzl3/K6DoX7q3IM1PmHNqCt/H+mxvUHNgpLfXPXTNcUX9c
-	 kEfSCCWYYk3oEn8wL0lyC7aaV8QyBX4NMqevI9lob6eSiiXz4vSbb+T/PyR+hi1Wq1
-	 SePkBU1sj6/Pn+huFEyYnSLnNf/9PKdlEUWdbP6qWKSKIYpHAf1BkXzrKIogVgwbzD
-	 /g+a03oUv6OqJdVtH9axaGMSk/7SXyb81YAaHkBJrgUgDwf+2VTf5PcZIm8OxNvmhE
-	 Bo5GfHkTFmEuKH4HgNBttRUxm8ABGAt4OZFiRDNZB+X/FxK29NTrInWmHFGf6vtQXo
-	 JlfcLR7QLZN8w==
-Received: from fedora-21.home (unknown [100.64.0.11])
+	dkim=pass (2048-bit key) header.d=iki.fi header.i=@iki.fi header.b="dZHnT9DG"
+Received: from mandelbrot.. (xdsl-83-150-90-33.nebulazone.fi [83.150.90.33])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	(Authenticated sender: bbrezillon)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9E49B17E006A;
-	Tue, 01 Sep 2026 15:20:26 +0200 (CEST)
-Date: Tue, 1 Sep 2026 15:20:22 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
- <faith.ekstrand@collabora.com>, "Marty E. Plummer"
- <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
- <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
- Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
- <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v7 10/17] drm/panfrost: Add warning messages to fatal
- error conditions
-Message-ID: <20260901152022.69f3e969@fedora-21.home>
-In-Reply-To: <20260828-claude-fixes-v7-10-72a13b2c125d@collabora.com>
-References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
-	<20260828-claude-fixes-v7-10-72a13b2c125d@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	(Authenticated sender: jmtilli)
+	by lahtoruutu.iki.fi (Postfix) with ESMTPSA id 4hZ61H62tNz49Q7P;
+	Tue, 01 Sep 2026 16:20:35 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi; s=lahtoruutu;
+	t=1788268835;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JB0TMAWB5v8+c1siilNb9KvoFf3O00+TEZzQXqcio9I=;
+	b=dZHnT9DGwHZX4YbFnNpPex5kbMbfwJKb6gXTlttSfLhUjR5g5qJilqf+TobasHoTXcpw4A
+	bUFSQG6ZSL8rixgIibJmiyZnMx0Qw+bnq8Tsq6/4DGfuBBhk5LAT0pU0/y9mCbGjUcUPut
+	YbqPdPoOIbYv18tj9KRWtR5gFWXxrhEqc8pAetO8J3cO+Y10KVqPytQOc8kM7rBO5oM39O
+	8dhkKQJ9xlxzAJr+uVn1v8Bxm3EVPfOiaAmDX2zvyGBsuH5b+NdeS8cY7zP2QepLZUipXO
+	ba2Xb4P834RB+0r5qAMcvOtB5EbtOcj6MRnkfMbFcJmNtU5KpT7AFU3FPfn5dw==
+ARC-Seal: i=1; a=rsa-sha256; d=iki.fi; s=lahtoruutu; cv=none; t=1788268835;
+	b=iFs1HNvo3eIwJAel/L8Xcm209XGJhTtIaj2vAYVVvfDh/Nz0WlOI6wquejrFPsdeQcAMEJ
+	KwlqtE4oH5kfmRzy9Bue6qJJFOE7dz2UwoZOmZec+L1EANE1Zc63ixHFGUvGg8AQbbLPo4
+	EGvD0J9qccqKZk90qZtxWidKCLpeOh3jzTBWI7p1J07fk/GZCMR2zhoi6eF/9wg2BhXlPM
+	458KMc5Wul/hW/FVD+08duEiBwD/EV+9f9RBCTlDqzCIsCP6zsfwqX2XiV/SKfobrtmwmK
+	qOmr7pmxAAtvoDJwdpNMwlxwK6J3jWKK4ZVnjmVSvVPrtHrh8RdoZQdC9/N8sA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=iki.fi;
+	s=lahtoruutu; t=1788268835;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JB0TMAWB5v8+c1siilNb9KvoFf3O00+TEZzQXqcio9I=;
+	b=ixUsWyzw9obhPB99i0fVNSY2JQN23dYRIcJ9U9LLnZkB++7CtLpm8Lu52mSsdCwCLBo0sd
+	MdVR/PwTircpCZstQJ9JM5RbT+MRyEhSRho5+Tr0NUYfGj25+7UfoROqpMt0bXOYg6ByA/
+	bS0tlA3+WIyXdw7rINdJtFGUrQJEsEbnZKAmICOKKpuX6UsqxIfnURms/gg/qTA004rMWI
+	3oO+dRaepe4Ei4rwaUpfR1EYm7KBNNKcs0GCsLiWN+1uG35VP4RzdD+3Z+Mxz3uQZtC0x7
+	AY5vJsMnDT6rpvJwHXIMRQJ7yv+vrhVKmihIV3lrs9IUDohfL1/KQHwsYfNiXA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=jmtilli smtp.mailfrom=juha-matti.tilli@iki.fi
+From: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
+To: linux-arm-msm@vger.kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>
+Cc: Eric Dumazet <edumazet@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Willem de Bruijn <willemb@google.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Marcel Holtmann <marcel@holtmann.org>,
+	Andy Gross <agross@kernel.org>,
+	Mihai Moldovan <ionic@ionic.de>,
+	Denis Kenzior <denkenz@gmail.com>,
+	Juha-Matti Tilli <juha-matti.tilli@iki.fi>,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: [PATCH v6 01/15] net: qrtr: ns: validate msglen before ctrl_pkt use
+Date: Tue,  1 Sep 2026 16:19:20 +0300
+Message-Id: <20260901131934.225991-2-juha-matti.tilli@iki.fi>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260901131934.225991-1-juha-matti.tilli@iki.fi>
+References: <20260901131934.225991-1-juha-matti.tilli@iki.fi>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, 28 Aug 2026 21:56:50 +0100
-Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+From: Denis Kenzior <denkenz@gmail.com>
 
-> Rather than just failing silently, let's warn the user of device remove n=
-ot
-> being able to take an PM reference or the PM suspend path still reporting
-> inflight jobs. Neither situation should ever happen.
->=20
-> Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+The qrtr_ctrl_pkt structure is currently accessed without checking
+if the received payload is large enough to hold the structure's fields.
+Add a check to ensure the payload length is sufficient.
 
-Reviewed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Signed-off-by: Denis Kenzior <denkenz@gmail.com>
+Reviewed-by: Marcel Holtmann <marcel@holtmann.org>
+Reviewed-by: Andy Gross <agross@kernel.org>
+Signed-off-by: Mihai Moldovan <ionic@ionic.de>
+Fixes: 0c2204a4ad71 ("net: qrtr: Migrate nameservice to kernel from userspace")
+Signed-off-by: Juha-Matti Tilli <juha-matti.tilli@iki.fi>
+---
+ net/qrtr/ns.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-> ---
->  drivers/gpu/drm/panfrost/panfrost_device.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm=
-/panfrost/panfrost_device.c
-> index 70c8109ea698..d8acae9b8cfa 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> @@ -9,6 +9,7 @@
->  #include <linux/pm_runtime.h>
->  #include <linux/regulator/consumer.h>
->  #include <drm/drm_drv.h>
-> +#include <drm/drm_print.h>
-> =20
->  #include "panfrost_device.h"
->  #include "panfrost_devfreq.h"
-> @@ -367,7 +368,7 @@ int panfrost_device_init(struct panfrost_device *pfde=
-v)
-> =20
->  void panfrost_device_fini(struct panfrost_device *pfdev)
->  {
-> -	pm_runtime_get_sync(pfdev->base.dev);
-> +	drm_WARN_ON(&pfdev->base, pm_runtime_get_sync(pfdev->base.dev) < 0);
->  	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
->  	pm_runtime_disable(pfdev->base.dev);
->  	pm_runtime_put_noidle(pfdev->base.dev);
-> @@ -517,7 +518,7 @@ static int panfrost_device_runtime_suspend(struct dev=
-ice *dev)
->  {
->  	struct panfrost_device *pfdev =3D dev_get_drvdata(dev);
-> =20
-> -	if (!panfrost_jm_is_idle(pfdev))
-> +	if (drm_WARN_ON(&pfdev->base, !panfrost_jm_is_idle(pfdev)))
->  		return -EBUSY;
-> =20
->  	panfrost_device_disable_hw(pfdev);
->=20
+diff --git a/net/qrtr/ns.c b/net/qrtr/ns.c
+index e5b2adb161d92..d544e4998c5d5 100644
+--- a/net/qrtr/ns.c
++++ b/net/qrtr/ns.c
+@@ -668,6 +668,9 @@ static void qrtr_ns_worker(struct work_struct *work)
+ 			break;
+ 		}
+ 
++		if ((size_t)msglen < sizeof(*pkt))
++			break;
++
+ 		pkt = recv_buf;
+ 		cmd = le32_to_cpu(pkt->cmd);
+ 		if (cmd < ARRAY_SIZE(qrtr_ctrl_pkt_strings) &&
+-- 
+2.34.1
 
