@@ -1,126 +1,113 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B39471CF5
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:50:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC2D7470444;
+	Tue,  1 Sep 2026 07:50:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788249023; cv=none; b=hcKNNrioqoGoq9A2oMdkbCW/byb174NTqkKlu/rVqI8dutyIqK9V25FAOz4ZGuxZRvKC8Y0yVJFoouLNG92WnAf12AXC4/vz/SKVSCBM/pcy2s2SdJFDA+/fv6PTnyAjmtZdImAxOr2+MHY9cH+K4swBHDq2HmzKiymnNM4tRBE=
+	t=1788249031; cv=none; b=hzy6xpdXGCs0gmBTe0p3cCsONJqV1eFZ3rGWbr9Rboej2hH5sMMa9Sb+BvqkeHbLZ6Jk2xg1S4zk1BHAUwLkPDAkDDOz4SyEFesE++6dnMYe3ofwbJMXCJG+VC8ZjYv1QRjsIFm7Cyd2WJvt69bAdo8CgctZ64AOTgZs5DoFyuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788249023; c=relaxed/simple;
-	bh=/rbvHcyLFzkOkhdGFkadotpTkB6WTk/HoLFqLifD8i0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WTV70wwFuX3f9ylb1/w2IAs6iP8IlirRH1dHKdL4enfXRu1uG3oC1ut+GCnc7GwyvEKLNVFUT+76OXagyBjDSqI4rOcoNQSnHMEzztoUe/HvC01nReHyRGW3RUW+Is5f+Kw4QJvOUz8l/lWmHWshLf4S4n8SXivbUyh2wgP+9CQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=M7oa4Oh5; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1788249031; c=relaxed/simple;
+	bh=pEVhM2KWUpb1U9c5jGVUf/CdbKSoZ0utrnF20+Hvy9o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=My3A2WnrfmxKf4yhyCqq5qRPox0z+1oFs2JWzDN4XtmnZyd5kkOkJC4jXkHc2bANtwVH2rHDePKqRvY3GlJ9t6mPtk+kMCCFlI05agNckKYJywnpIAchUZSR5/1/6IabJqTGmQ8MhJZrWDoL8uuA7mLhi2BtlL0YITpBCNKEo5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HIpBZ1Xg; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="M7oa4Oh5"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2d715f4a587so8231175ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:50:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788249021; x=1788853821; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3ehsC4fkcGYgZxU5YfTTtJEKH9Dtw/4IjhfNmBesfrM=;
-        b=M7oa4Oh5JLb12LGDew9uMpM0cJ3sj6tPtJks2pmho0j2NlD/gc4quOMjE9GngiEICU
-         3wnNYCJWJuS41IGV8YksgZDr+hdc7WmVHt2P3xsd4jlCneumQey5pSJBGioxfMkic1yB
-         wr3mxw+YYCPWyqzErw7dSeR4zXwkjNgGLl0UE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788249021; x=1788853821;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3ehsC4fkcGYgZxU5YfTTtJEKH9Dtw/4IjhfNmBesfrM=;
-        b=C9Q6gxSKpfl2bSxy7184NvR3t/LxBS0hGHc71dpQzGUi+ltAgPfikr24VHyzAsBZcv
-         CDe07ZKWetPhX0dzyPOhoD2xC8guYHhBKbqvXSKFZHTg/gnY2544Kpkj933V8EfHtoD6
-         rjtHWtzyMHgXym0fBO4Q3DR/WWHT29ykxWdcfAVytpR7eK8krf8l6x1TnLaG1HmbQljd
-         lRwkrmmQd5nGG3q+WUa5ibU8fgz/DMeCaoWEANC57Ifr8fKEIrEqKdSJUy/TkB8t2oPd
-         Ra2Levvzg6ZFKTfTYSN5cxrWMVV+q2cHXP28x27y9FSEbnStbjj+sDGoXi+4PNoPm7bq
-         rEMw==
-X-Forwarded-Encrypted: i=1; AHgh+RqI38yzDIQCT62qSPuppmk/uuOwUSiNr2Rayc+Lk0UANaVAkHBrlc5cM9cRIdPRSWoXAsLMBXEUIhpq6f0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nX4S3geufPiLtRMrOtKvqgCTUSpbhzKag7Xz5Z0XIWJLFxZMgS
-	KUZInyVf6jnLYBv2gdoKOV4fZ+ACSv8dx7crdNlSq/Y6m68rkxjodP4fqp2K9pVVCA==
-X-Gm-Gg: AYBFou1A5V6X9k9U/qLtMTSsxNJe3TnrABKadhspMOEQx4jh5dEbtMJu4WwNhJ7LmmI
-	ckGaRyIQZ4g17cj3UoDnp+l5wheU3PPTFBzN0GPCpK5RFI/iFDfX4bcq8XGOAy1R4qhtayNXjZM
-	7mnq8/ZE83WhPinwcT+EZD3pRc7rDOEi9z/t2m5gpEpxTVFwRwMfPQFIVEDP3DGrzGcW6kFfhIU
-	LVw1hYmTctyf/FNqE8wDburGHlvVx9nbxE6m6DdDaeiqnFEvCcoUdsHw9ssfq4iYC0QzdtV8ZuQ
-	cOIudhGPu0xsasSSKzDf0Fxr5n9pLxStyMq3xVsbkya/sYAvBIUdLl1/yVG+pkVelSGXBvTUP/G
-	UwKoKspEpcn652WHnki93L6AIa9JD3d21CDVOz8RZjmE2ms+j1GbKYplvJ4owzgq6Px/Ven5qDj
-	hTyKxJt56nG7G900FH2xXynkHTOD9hObGUklc4+pOs335I5pebqugclhhC3LjyM+4MZXk38D7f/
-	NJQhadtophwntsdn/kdI9Gup7iwnqfFRAnd6k6fiOjfU3w=
-X-Received: by 2002:a17:902:f791:b0:2d9:1dee:43db with SMTP id d9443c01a7336-2d91dee456dmr196089085ad.15.1788249019467;
-        Tue, 01 Sep 2026 00:50:19 -0700 (PDT)
-Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:201d:8:8cf:6df0:9c4e:f5e1])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75988b699sm48142515ad.59.2026.09.01.00.50.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 00:50:19 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Mark Brown <broonie@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	Benson Leung <bleung@chromium.org>,
-	Tzung-Bi Shih <tzungbi@kernel.org>,
-	linux-mediatek@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	chrome-platform@lists.linux.dev,
-	linux-input@vger.kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable+noautosel@kernel.org
-Subject: [PATCH v6 8/8] arm64: dts: mediatek: mt8192-asurada-spherion: Add Synaptics trackpad's supply
-Date: Tue,  1 Sep 2026 15:49:26 +0800
-Message-ID: <20260901074930.764550-9-wenst@chromium.org>
-X-Mailer: git-send-email 2.55.0.897.gb25b4bd76c-goog
-In-Reply-To: <20260901074930.764550-1-wenst@chromium.org>
-References: <20260901074930.764550-1-wenst@chromium.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HIpBZ1Xg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788249029; x=1819785029;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=pEVhM2KWUpb1U9c5jGVUf/CdbKSoZ0utrnF20+Hvy9o=;
+  b=HIpBZ1XgY34wlIaSzqptwh3s4zuj3ScnPZ5fOtpqohdxxqxDjU+V6b9S
+   Jw/VKPUbjo+GWQj/DR+h60llmbrGdypUpeZ3v2qSG9ePGugubMUFb5Dgi
+   ADWnw/Oc5LxXqNj7H8w83SlWUClhnZf7ARc5PyydxRB5tf+ZUW9WacBCK
+   Z+hY0iCgeCkZRsw08hECpEoYShe99CcWwseNd8j/y99Q0/RpWRxQoJNHt
+   gYenacNqQWAxkn63Wx1JJ96foYAIhdrVScEOpLIH8CpNiSpv/4Gz0pDVg
+   Smz4kiYgEsizCC/ocFzhFS7cxTsMhuhTnjeBRHomFpivMXZcw0bnOh5OL
+   g==;
+X-CSE-ConnectionGUID: 5srYy8sHQ2qMqt69Xw682g==
+X-CSE-MsgGUID: 65RB3skWS3u77vfQ5keAvg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="91182063"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="91182063"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 00:50:28 -0700
+X-CSE-ConnectionGUID: rPh+sygKQ1qN8DjGhsCQpg==
+X-CSE-MsgGUID: vwWWZvFwSQeLeYWB53Oolw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="269073212"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.222])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 00:50:24 -0700
+Date: Tue, 1 Sep 2026 10:50:21 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Shehryar Ahmad <shehryar.amd@gmail.com>
+Cc: jic23@kernel.org, nuno.sa@analog.com, Michael.Hennerich@analog.com,
+	dlechner@baylibre.com, andy@kernel.org, gregkh@linuxfoundation.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux@analog.com, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev,
+	devicetree@vger.kernel.org, marcelo.schmitt1@gmail.com,
+	danascape@gmail.com
+Subject: Re: [PATCH 0/3] iio: accel: merge adis16203 into mainline adis16201
+ and remove from staging
+Message-ID: <apaDvbBECui7zNsm@ashevche-desk.local>
+References: <20260831184201.34416-1-shehryar.amd@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831184201.34416-1-shehryar.amd@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-The Synaptics trackpad, like the Elan trackpad option, is fed from the
-system 3.3V power rail. Add it to the trackpad device node.
+On Mon, Aug 31, 2026 at 11:41:58PM +0500, Shehryar Ahmad wrote:
+> This series merges the adis16203 staging driver into the mainline
+> adis16201 driver and removes staging copy. Following discussion at [1].
+> 
+> Register addresses are identical between both parts (SUPPLY_OUT,
+> AUX_ADC, TEMP_OUT, inclination regs all match). Pin config is identical
+> too, all 16 pins, same names/types (Table 5, both datasheets). SPI
+> protocol is identical as well (Figure 3, both datasheets, Phase = 1,
+> Polarity = 1). adis16203's second (180-degree) inclination channel is
+> dropped, since userspace can trivially compute it from the first channel
+> anyway.[2]
+> 
+> Differences between chips selected per-device via a new struct
+> differ_info, picked in probe() off of_device_id match, same pattern as
+> adis16475.c, similar thing in adis16480 but different mechanism.
+> 
+> Don't have hardware for either part, only tested locally with KUnit that
+> the sign_extend32 and SCALE/OFFSET paths of real read_raw behave
+> correctly for both chips. Register read/write and probe aren't tested.
+> 
+> Patch 3's binding content is unchanged from [3].
+> 
+> If this isn't the right direction, guidance would be appreciated.
+> 
+> Link: https://lore.kernel.org/all/20250308144239.0442f1a7@jic23-huawei/
+> Link: https://lore.kernel.org/linux-iio/20180204163124.67234ae5@archlinux/
+> Link: https://lore.kernel.org/all/20260812043506.456ced6d@jic23-huawei/
 
-Also add the correct post-power-on delay, even though in practice it is
-not required. The Synaptics trackpad requires 100ms after power-on (or
-deasserting the reset, whichever comes later) to fully initialize. The
-power is always on and the reset pin is not routed out, so the
-implementation could try skipping the delay.
+Yeah, in the cover letter it's better to avoid Link tags unless you want
+them to be present in the each of the patches (here I believe it's not
+the case). Also you forgot the reference numbers. I assume you wanted
+this:
 
-Cc: <stable+noautosel@kernel.org> # Without driver changes only lengthens probe time
-Fixes: 925ebc0cd55c ("arm64: dts: mt8192-asurada-spherion: Add Synaptics trackpad support")
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
-I think this shouldn't be backported, as backporting it without the
-driver enhancements just delays the trackpad probing with no real
-gains.
----
- arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts | 2 ++
- 1 file changed, 2 insertions(+)
+ [1] https://lore.kernel.org/all/20250308144239.0442f1a7@jic23-huawei/
+ [2] https://lore.kernel.org/linux-iio/20180204163124.67234ae5@archlinux/
+ [3] https://lore.kernel.org/all/20260812043506.456ced6d@jic23-huawei/
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts b/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
-index 68caf4c58cfe..8adbfc307fca 100644
---- a/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
-+++ b/arch/arm64/boot/dts/mediatek/mt8192-asurada-spherion-r0.dts
-@@ -94,6 +94,8 @@ trackpad@2c {
- 		hid-descr-addr = <0x20>;
- 		interrupts-extended = <&pio 15 IRQ_TYPE_LEVEL_LOW>;
- 		wakeup-source;
-+		vdd-supply = <&pp3300_u>;
-+		post-power-on-delay-ms = <100>;
- 		status = "fail-needs-probe";
- 	};
- };
 -- 
-2.55.0.897.gb25b4bd76c-goog
+With Best Regards,
+Andy Shevchenko
+
 
