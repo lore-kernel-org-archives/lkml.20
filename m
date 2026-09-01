@@ -1,210 +1,114 @@
-Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021114.outbound.protection.outlook.com [52.101.95.114])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f178.google.com (mail-yw1-f178.google.com [209.85.128.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3ECB39A06A
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:59:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.114
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788296391; cv=fail; b=FP2Hq4gR+KsClRZs9oXUj0uTOoTA5+2mq3mYMTTWdlZtl6K7zUdDlibNClbhTI8t0/5tD+yXVMB01yNze5dP/uPgvQEJrSRsWOjVnQdkCtzXnA+wUl0gz7FSpcoRTs+NNsityNki2E97TICTcSI13TwgYiMFUDY5SnpBEo1gzd0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788296391; c=relaxed/simple;
-	bh=33Pm3hRXK5jx771N7w2zNBSOklF04nwD2U2IvnmDhfQ=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=KAvnSjOLczfxZB3fGjLzB5A2aypXSeWRpbBHsyjxIYcdMMQKBPFBbnSxoWplz9+3Fp9IvjxDwKCZyD2pGb3NfV437FQ8acHBwhoMDeWbOQPVP0IrD6f6U+aRm2oP4jfwbPyI1wibsXIJZxzdfyU0V3XhlzBp7mB5iGaQTp96Vz4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=nZbF5R/k; arc=fail smtp.client-ip=52.101.95.114
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 407024A4419
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 20:59:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.178
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788296395; cv=none; b=Dplt0Rg7hwtzJ54Z+QB3Ip2c+kw15s8IRDXR+hmxDXIxyjVFIKx0jbzWhUop0jX7sGby4dVLR2uSFEl+z7HMHezbgyfCFuv8IxPIHiZ1ZFk7Ihdv8Qzv/U7Kayt4sXNeJod1AcgXsZaY7OJvBobiStgTaDK0T3W1xJjz/f6M9aE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788296395; c=relaxed/simple;
+	bh=7Bwol/isO3PKYL7GwxQ+DnKxspzRoJb43zIQMxZuCDY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LlB3YZVcLdX86wiDWHay0xSV8d1Ca34gP18w4jVEhKKoss1mEXEZlnXtpmauHym6i/AbJFMLQYYeNNWc30uK65xFMpgUq35lwa0xh093N1BhN7Q3Fv1itMHfAGbCxf1/6AmShoLllOwrrwvdOsvWXiEx3luHTE6g1C4qmXbi2is=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=YJfB2dm+; arc=none smtp.client-ip=209.85.128.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="nZbF5R/k"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qcMTuFF0QxT8jd22L2pjGmJ7UnLtoMU4IxSKidYOrqaUYG011YyivblkWfY3Ix8g4aA8VrUqGmq70pRMRnIsbBexhZ4EfElcewjbcxhYdu/gOp7FRPQdj8/R08QotLVG83j7OOVJosli1s0zL5lv9vzuPogp9wz9fWK0Qd1KNpDdU4X8NjhaToXxu6TwxL5ytINPaiLjAcrXsJO9wPrxiAZpXWQIRwPfc+/bFlb5Tt0s4w9CA7YVbqVczc0VlsYI19aHPDKYxYWGzO11cRNbiqzCKHCYSMDDr7RlMIKqEwvn+AOEpR/L36+LS7FNb3ySAB27vpfryjA2BB727NndWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4NSxa3sS3V5oCUbl7eX+7LUrlfqDG/dfV63nGnzQCCQ=;
- b=YkrZNLXbkP7vUJhU/HjD6ARx0CZpFIpVAMsEOyyevnaGfHCqkQqB7eljQE+zHa8Ux3iM6NJtYHq+iPIuMhMjcaBnqMMJwB0E0KcCFexLUJk23xBb31zChYjg7xwP+K+yc/+DzLXGllzaTKLxFziGEzPhaVr9zbCDKmU0G2iM/9iRr1K8Z99F58+xLjjG+WjGhEwdh8iteNxmK0yHClgvE2E/a9+hD4G0piE/mdLKaC2fIBVcXq1zh5gFcK5K062wUAu8k+thOWV5ROCqfAa0yo3tGz6yFHHnapuDqzg1T9i5nRNMgo8mHNl8k/jtkE39M5l76tcEkfM+CjKRjC0LLg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4NSxa3sS3V5oCUbl7eX+7LUrlfqDG/dfV63nGnzQCCQ=;
- b=nZbF5R/k7MF+Htphr3lfsdwoCKvp8HXVCy9yykK28TzN1cuN4gQrFqbtYkTsFISVvp9PbB3k/Jmt5dlLSdE/ncWt9X3Hvxsw4bm2w2epzQd3SYyipoD1kXviHAntgdUldbVUlvrK9Aq5DYnCdIY6MK8vq2y36hpShxu71QJOzZM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO2P265MB2624.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:146::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 20:59:43 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 20:59:43 +0000
-From: Gary Guo <gary@garyguo.net>
-Date: Tue, 01 Sep 2026 21:59:32 +0100
-Subject: [PATCH v4 1/2] gpu: nova-core: fix barrier usage in CPU->GSP
- messaging path
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-rust-barrier-v4-1-94427f445310@garyguo.net>
-References: <20260901-rust-barrier-v4-0-94427f445310@garyguo.net>
-In-Reply-To: <20260901-rust-barrier-v4-0-94427f445310@garyguo.net>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- Alexandre Courbot <acourbot@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Gary Guo <gary@garyguo.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788296382; l=2742;
- i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=33Pm3hRXK5jx771N7w2zNBSOklF04nwD2U2IvnmDhfQ=;
- b=Q5k5qG01D7pJ22lt96U3jW3U0auIMtK7XiUXJJ2fDW+ytCG2MpMkjhnwPQ/ekR8RjVV9R5FO7
- 8mdA47iweI0DEKoghyrjjn8B7NMlhQ3Uu1ivselPzWk1QL7lPDjOEkg
-X-Developer-Key: i=gary@garyguo.net; a=ed25519;
- pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
-X-ClientProxiedBy: LO4P265CA0251.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:350::19) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="YJfB2dm+"
+Received: by mail-yw1-f178.google.com with SMTP id 00721157ae682-861feb6d61bso5282637b3.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 13:59:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1788296391; x=1788901191; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=scAaW2u08X/6xoYYfzAu3cY9q95BQA8pLakjGEvGhLQ=;
+        b=YJfB2dm+oM8zkvx9mZ/MCddLaSAoLBN9yf8SQYeCD5dVyIi8jWR5rQbpndEo0A5f4g
+         N6FHZIL0MdU5dunJVOO8yTEV/34kI0F0BcI/Ij2BoOE/bBndwc4wgOetpoDhOXt/FInO
+         ZQLISVUf4WSItvhdBUm697OS6mZVbVlw9BxEfse1pm/pmEhmAsZHMvGTTNbAWVZi5aaa
+         SgDlTcKZXIatCkekAcJMZh0AUDL+iz8ab+SmcMILC+xTNl8g/nodf4Zw9f0/AbMU26q8
+         5N3rbmsVxw37+0ZClT7huVzl3d6WRopmNQMjVi/9pqjjKVhil0ikA3YHjO+aNNcIkvlv
+         Yy6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788296391; x=1788901191;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=scAaW2u08X/6xoYYfzAu3cY9q95BQA8pLakjGEvGhLQ=;
+        b=k5O04LTwncFcaOuUdraWZUW3PiqR21z94M60nb2nVt7+6zivbwwUZ4Y46OIwC5HIH9
+         MGWerbQwa1AMsIdzTAxxQlO8LJl4FKn39owSwvHT9jMhb+yr9V4fRW6mOUOqBYBAVUUi
+         SB6PnK/qoxz9J6wbxB2YOjMq+3pJk7yktRk3WutQzfXHpm6QrM84OV9097T7waal3h3k
+         fz5Va13L+zQc96t6IY4CaWNfE3iZL+nbfi9vbNFR4KHVvnPTCz2nPPPkoWYOwDj/k9nn
+         y/nDd8oo/8kSqkyCoE/GDhwqRvc2lgrwBfUKnBWnjM+d+CkOuhb9Qpaon7o7/MiFPNql
+         c/oA==
+X-Forwarded-Encrypted: i=1; AKwUvBwa9djmF0qiLl7ysNZ14PLBrscJc2wAxrBMaoFycKbqL+m2XP/YLsWH93zl3o6lM5mvOFgd1BJuvf0Tjvk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nr1DQPraN5qHp3KpuN8oVJSUJLNKNsGdQnwyZ+OLWFEyNfCFjQ
+	IaPJCl3aHXPPWEhJbGN6Zl1tRgpHOxRGDtIRzkqJGfH+OnhDlaNnUrGKO7m/XUJ43g4=
+X-Gm-Gg: AYBFou3JDPsV81JxoAOrmuXSaTHiVBvw7KUugb8AgOnAR+x0ObJADRn2QjEAoB/YGVS
+	pINoRmUxsIguLHE8HeOByih3WJgDHyuqxb0g1J9Ag6ETFxQgly3z6CGAlQ6X5KExGDRhmOh4+fL
+	b2DbVR3UyiZKW7nEjxmZIzRwncDgix8bp5D5ZaWQ7KZ0IwljZ18s1FC49O7z4z3ZdKINdD7uFrx
+	jc5rIPoybZtuzIy9XHPFohS/h9dQUtAwOSRd6qSeIS2p1IXX4Ec+Y6t37OwCDtKqCAyy9z/S/q1
+	lAAyEiSeTaaw7Gddk9enTuFCZgEWboKwyp13VXXqAKWyPtgmGwWqVcfSZGXgbFZlzggFCm0NE8F
+	0UMrscb1yOdXWpttdO5IyiBVzg7Bqn9YV1n1fxJ2TfpNau3NEdE2qXgdyKLPGUZga6Bcn6PQngr
+	xaiLKuQfN6m/FUXONyUcI0/7bSLTsCtGCd/EWChEX/z0w3P7Qu3M3n6JryPfIh
+X-Received: by 2002:a05:690e:1347:b0:66f:8a2b:3db1 with SMTP id 956f58d0204a3-66f8a2b40ebmr2730463d50.46.1788296390661;
+        Tue, 01 Sep 2026 13:59:50 -0700 (PDT)
+Received: from localhost ([2605:8600:200:1a83:fe59:7385:2855:8588])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66f986afd80sm444525d50.20.2026.09.01.13.59.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 13:59:49 -0700 (PDT)
+Date: Tue, 1 Sep 2026 16:59:46 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Michal Hocko <mhocko@suse.com>
+Cc: David Stevens <stevensd@google.com>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>, cgroups@vger.kernel.org,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] memcg: Don't call schedule_work when no spinning is
+ allowed
+Message-ID: <20260901205946.GL3004@cmpxchg.org>
+References: <20260831234339.280376-1-stevensd@google.com>
+ <apYXCL_GJs9Ovu0v@linux.dev>
+ <CAOiLmNEV8b3TW_Q7+h5mYrZ1Nw73XcPFPUsapeYObLYajq_PJw@mail.gmail.com>
+ <20260901142552.GG3004@cmpxchg.org>
+ <apbyZgB_Zu-DK8pN@tiehlicka>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO2P265MB2624:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1db7dc9b-36df-45ce-04eb-08df086bf23d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|366016|376014|23010399003|1800799024|22082099003|18002099003|6133799003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	aNHKaxCO/5FF8qWKtOFFseWlJHce1znlLLCv/acTeKGz0lOkL0J+UTlUf5US1Iy2C4rIFSzf5rIc1D9nEft39Qic6aiiEoXkDkK8BrNYZl/C2Eg8YKoTzIq0aiFFzDpF7tBNrUjDCDr4kOsfWZCJypI3QkIG83yso8BJOJhwOVDYcO2cot9TNQxQCvsSLM/cEzHoU9qRSJHWh57Mma06iavh8UFd8EIJ+Tm3/SKQI5PC+Zhaxlnz6sVYxgJMomiboirllky46sek5+eeJozUtmox2yzPeHVEtD2sSUVWHLNvsYp4J2dzebx+d6pVzK+C52AbkCBthf2r6usCiJwqHA3at3ep0/iDVhzQxH1SZM8+YNSrWaRoBdSmgUpG+Rb0bg25w8BT81NvReqRugreHRE3WgFfVZ1XxEI/5xYjx00iACUjdGCXLhcA3pvTPJ7hwEAuOWQCttqtg2NQEgVVXZAVKeM0V0pTq/CMOVq1O7tuURSH8A2YuMZmtvtlylDuviiTd6PXv8+51zpVsxGQzekFUL67K9wfQrBAnhSbmhwT69sV9ka1m6BT+5FFeTVasVM9SppP/+UOZaV9yhcXZygY2EuK5WGfGDXV4X+1+34n0ZSfqHIgSBJ23kZwSB0hoGDGRUczupnnt6NgMdQN2BVNYiPngc+JmuVxB0UBARo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(366016)(376014)(23010399003)(1800799024)(22082099003)(18002099003)(6133799003)(10067099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MWpQeHM1ZXUraGFpa2xWSXFzYnlUVjI2YUJ5SkZQR2FmYzMwMG9MUlB0ckFH?=
- =?utf-8?B?MW5PdzFNOU5LVWVKZFMwK3pVYnRad3FXeDVDN0M4MnpOaWl2bTcvOGNhSXJB?=
- =?utf-8?B?Z0k3ZjlueGVHek5ESVJSNHlRcmJqMW5TSjJBQ2NNTTlranR6QUZaeGp6VFZ5?=
- =?utf-8?B?cEFaeEZyTGhTWVF6eVovQjF6SmQzRVh2MVlKekxLVlNKTkpyTldsUktGczJT?=
- =?utf-8?B?dFFONlJaWldxeXdydXlzZ05hQjk3c3p4YW5Hd3luQkY1a3pVM2E5TVg0bXdE?=
- =?utf-8?B?cW0xY0JlNWt0QTlUUHhveS8rQTBwbjB4TXI2MHVZV1ZFNnFDMFF0M1BqQ0dB?=
- =?utf-8?B?TkhlbHhnTWpCY0N3Z1VuVWZSdFM1VnQrKzF2b2k0N2RhRGR6cmVUc09GNjlS?=
- =?utf-8?B?dTdZdHZiR1F1ais3dG1sZkJPMVNUVWdZc25Ib0NmTVY3bzV2a3RsV1FNZWs1?=
- =?utf-8?B?WGhtN1oyWHh4YWczbXZJVXRENFJzdzAwcll1eWlyVFhhVWNsaGhNN3BnZW1F?=
- =?utf-8?B?TUJteWw1eWVXOXpVS2J6bldoWm5iUkJrM1gxOFIxNmRGVXZYUzBOUzVMNnBL?=
- =?utf-8?B?N2N0bVRCbXh3TU56d2UwL05wRTNORnJ3S2U4dzhRbUpzSW5oVW5aY1ZuVU56?=
- =?utf-8?B?OHlqVlNtVzlmeDF4ZVlYL1VDMDRKM2gxZzVUK2NKdE9sQlJxaDRVWUI2anRy?=
- =?utf-8?B?UTRBVXBUTjZVSktjMENxTk83VmNLa3JZVUxtRWpuRFkvSW9UMktaRU1FdzRi?=
- =?utf-8?B?ejVvZGRtUUZvN0VBNDZ2WVIxNmthNFVaWmxNQzBGdWQ0Umd2aDRKcGNTYXNv?=
- =?utf-8?B?UEEwMmdpWUNFY2tsQ1IrcmhUcXpIeFRZaXhNNk1pam5rYjVtYlNhUytmcWlq?=
- =?utf-8?B?TTlENHZxRUpoSTJpZHlZRzBFcExlQ3MzUTNJZ0hvRWxKUThQVE51a0xWcm42?=
- =?utf-8?B?SGxFYWdOOTBaUmQ2bFF6TkNiOW40bThkdUVLRzJUVkhGY1JUa3BkZ2RNVy95?=
- =?utf-8?B?cWUxLzN2UGU4VG1rQk5tV3dzalduREpmK045dnllWHlsN3YwN0JNM0JCSGFl?=
- =?utf-8?B?OEw1TUFXV0MyMEZYT0VONHB2YzFXaWVWdC9yTng2Zy91VnI1WWd3QnU5UXdM?=
- =?utf-8?B?c0RUV1RLWGp5WG1SL3prcktRb1BzekdZR3FiK3MxbjV1MHRoNWZzQzhNSFlQ?=
- =?utf-8?B?MEFlQmtheWhIUGlmLzgxWmZzMDRsekZ1TkNhMXNOeG5EUkVweVFqZkc4OWFV?=
- =?utf-8?B?UXdBZUZzNXJMc1JnNmJ4TURBaitNemg3N0tSdXdsUW9kR2d0WXIweTFhcWN6?=
- =?utf-8?B?bWs0UkhsbDgybGNXWEc0eHo0SjE0SWhGTTAzZDRNRGlDZExmWGJWSnViNExT?=
- =?utf-8?B?VGlXNTNUVlh1VGJDU1M3L0JjT1phaktEbjRNVVBIVXBZZmJEa2p2S2VNL2N4?=
- =?utf-8?B?bVVLMk5hRTJWUEhsMnptZ0JkaHpNUE1uOFFycWVTQTZ2ekhYWVFPVE9KY1Jx?=
- =?utf-8?B?OUQ5V3FYcnEwdjdRNGxZV3EwWG0vMFVmU1B2SEpla1A5ZnMzM1V4bzVDUW04?=
- =?utf-8?B?d1k1MVZPMnZPRGk1NmZMR0l3ejMrVTFDZGMvZmw5RGZScGRZTUY1WW5iRUVS?=
- =?utf-8?B?NGxCbFExbmt5T1ZrVWFocWgyL1oxaFFiZlFiK1ozZzQwVGQ5T2VFTEdtdm8x?=
- =?utf-8?B?NzF1TDlyVzVNdW5ZcHEwOUk1Z1VwSExOZ1A1RmxZSnhvb2RPNzNEWXdjYUtH?=
- =?utf-8?B?VFRGRlBTZFVwUUNwQ2ltbEs4anlHbFZ5WUR6d3ZEYkIyZ0ZCaGhVU2wrelVD?=
- =?utf-8?B?U243eDlaY0l4STd5VGp2RVFNdkNKZitNU1ZyRnJyVlJ6UVZoLzltajJSQVZJ?=
- =?utf-8?B?bEZPdXpaUUg3KzhCdlNDZ3FEMEd6WGQ0SExHSjFUOFpBU0QwS240MGJ0MTdL?=
- =?utf-8?B?eFhSZktsaE5FMi9JekRqSG1EakNycTEzVk1jU1dqOU1NdXc0NytrRlB6Mzhp?=
- =?utf-8?B?NnVaWEk4cU5KdEJoMmFaVjh0Z2lobXplTERUcHJNWjNkZEp4NWpWemppNW1Y?=
- =?utf-8?B?a2wrMHZHUmcvMHk5SitSSkVvL0Z6N3hTcEFTU2NsOHcwSjNoRGE1ZXNUNlov?=
- =?utf-8?B?c09EbUpxdVhVMXdBQW5pRTNkaVQzYm1aWlZzZTE1cVpzbi9TVHRPU0ErQWlm?=
- =?utf-8?B?K2VMb1JTZkRhYklRN1YzWXdoTENzZVRkYU9jdzZxVFlaUDN5K2c0OWgxYVBV?=
- =?utf-8?B?UFl3dEdmSjdvR0pTNm5sb3M3RkpnK0ZCN09WM3JUdEpBek9sVUdMTlA0TVdT?=
- =?utf-8?B?dUU2S2hHQWZIYmdKSVVjVGNqODNwMDgyQ1Ava01CU0VhVXNwSGxidz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1db7dc9b-36df-45ce-04eb-08df086bf23d
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 20:59:42.9107
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: n1L1Tq3cG07PR2K0gAc598FMEkXlgvNZaqXNH9OKNMDo4r3p7e9KRdpEWyFsoKAVhxaF4E1t0iw1NpbDpxH0Yg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB2624
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apbyZgB_Zu-DK8pN@tiehlicka>
 
-In the CPU->GSP messaging path, the code reads the read pointer from GSP,
-writes the command, advances the write pointer, and then notifies the GSP.
+On Tue, Sep 01, 2026 at 05:42:30PM +0200, Michal Hocko wrote:
+> On Tue 01-09-26 10:25:52, Johannes Weiner wrote:
+> > On Mon, Aug 31, 2026 at 06:04:57PM -0700, David Stevens wrote:
+> [...]
+> > > There would be no guarantee that memcg reclaim would ever be
+> > > triggered, which also would also stop MEMCG_HIGH events from being
+> > > generated. Overall that seems a more serious than just dropping
+> > > userspace notifications like is done for MEMCG_MAX.
+> > 
+> > I'm leaning that way too. It's an indefinite error, and it's a freely
+> > programmable surface.
+> 
+> I am really curious about the indefinite error side of things. It has
+> been my understanding that these NMI safe charges are a) rare and b)
+> there is userspace running so eventually any discrepancies would
+> resolve so the excess is temporary.
 
-A LOAD->STORE ordering is needed after reading the read pointer from GSP
-and writing the command. Control dependency exists here which provide the
-needed ordering, but it's best to avoid depending on it.
+So I think the question is what limits the error in both space and
+time. When you say it's rare and userspace fixes it, it basically
+means the answer is: luck of the common case.
 
-A STORE->STORE ordering is needed after the command write and before the
-write pointer advance. This is currently incorrectly done after the write
-pointer advance (and before GSP notification), but this can cause issue if
-GSP is still processing ring buffer, as it may observe the write pointer
-advance before command write. Thus move this barrier to be before the write
-pointer advance. Note that barriers are not needed between write pointer
-advance and GSP notification, as MMIO accessors already carries the
-required barrier.
+But that doesn't help the worst case that can be triggered.
 
-Signed-off-by: Gary Guo <gary@garyguo.net>
----
- drivers/gpu/nova-core/gsp/cmdq.rs | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
-index 6da728201281..bfd61e678802 100644
---- a/drivers/gpu/nova-core/gsp/cmdq.rs
-+++ b/drivers/gpu/nova-core/gsp/cmdq.rs
-@@ -27,6 +27,11 @@
-     ptr,
-     sync::{
-         aref::ARef,
-+        barrier::{
-+            dma_mb,
-+            Full,
-+            Write, //
-+        },
-         Mutex, //
-     },
-     time::Delta,
-@@ -413,7 +418,12 @@ fn gsp_write_ptr(&self) -> u32 {
-     //
-     // - The returned value is within `0..MSGQ_NUM_PAGES`.
-     fn gsp_read_ptr(&self) -> u32 {
--        MsgqRxHeader::read_ptr(io_project!(self.0, .gspq.rx)) % MSGQ_NUM_PAGES
-+        let ptr = MsgqRxHeader::read_ptr(io_project!(self.0, .gspq.rx)) % MSGQ_NUM_PAGES;
-+
-+        // ORDERING: LOAD->STORE ordering needed to order `gsp_read_ptr` read before data write.
-+        dma_mb(Full);
-+
-+        ptr
-     }
- 
-     // Returns the index of the memory page the CPU can read the next message from.
-@@ -447,12 +457,12 @@ fn cpu_write_ptr(&self) -> u32 {
- 
-     // Informs the GSP that it can process `elem_count` new pages from the command queue.
-     fn advance_cpu_write_ptr(&mut self, elem_count: u32) {
-+        // ORDERING: STORE->STORE ordering needed to order `cpu_write_ptr` write after data write.
-+        dma_mb(Write);
-+
-         let tx = io_project!(self.0, .cpuq.tx);
-         let wptr = MsgqTxHeader::write_ptr(tx).wrapping_add(elem_count) % MSGQ_NUM_PAGES;
-         MsgqTxHeader::set_write_ptr(tx, wptr);
--
--        // Ensure all command data is visible before triggering the GSP read.
--        fence(Ordering::SeqCst);
-     }
- }
- 
-
--- 
-2.54.0
-
+Like I said, if we need to have code to handle that !allow_spinning
+case anyway, I'd rather just have a few lines of working code than a
+(lengthy) comment explaining the luck of the common case.
