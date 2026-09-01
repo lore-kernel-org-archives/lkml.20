@@ -1,111 +1,156 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D64DE397937;
-	Tue,  1 Sep 2026 17:46:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E18C3397937
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:46:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788284808; cv=none; b=HDjkHoI720S35jeDWgtIEYwRdwDLSJzEQ49pjyOLrFtkFuY3nTBpOjOdKt8sMNjfpWOZ6qbBLL4/ABJLNP6MCJ1m1tCjtHoUNOxZz8VKbuwsmajYmWRRNGNdTUohH2kFUkwGdcJfrD/QO9792SAeejvNgR90qpRDH06zuyE1wRA=
+	t=1788284814; cv=none; b=iYbvfhkyEa/eaoB8gzysgjGc4cnx7ILo/9wtRC/uH3gz6U2GA/LOFhXjwlPw8eOW7ueAH9+4TpTGM4sR4UHzfO7OccuXipJiYFiGCPiKHLNnKhrmDxlfFhogt2CIHn2jA0L8rQ36z0rrVxlpn+qJ/dMw+8NZF+Ld/uXJwkyAGxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788284808; c=relaxed/simple;
-	bh=0JxmeWVydT0ihziXtDVOy5pWHYK5GYZf44fz61PRjX8=;
+	s=arc-20240116; t=1788284814; c=relaxed/simple;
+	bh=OwY8/mhLF8CKTpQS6Hyvz0jA0JQ1s6JiR+9pFe24O3E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gRA9eSRY1bVhLThsB7rTA3CUjDh8MDceKC85M1k7BbaT0tgPwEZTspg7OCYA3cdvYTD1foeuHMIaMQtEJJrkrCci5hOzU2x9gqVjNaYo22Uj469WCo+a/xAh5djfOevz4nPviZQxq2tgruhO4VdfYuRk/KXUwn9Ks0wQlc2S+ZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nXTCt3rN; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ee47KJcTYJaSJ4NsHSbUs9qbsQjBk64WsmSTUWSnQNBO9gxp1Op9qnFuhZM9OVH8VydHjMsxGGV5T2xshGtNvOjG5cVG2zYSIm97JWGHur4mKo70zOUS+Kh2O3ACTxJJLWM1tWPf9c4oPfOQXiOB7muSRbupH2C6rAbemKNnJEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MM8rdnOG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nXTCt3rN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3E731F000E9;
-	Tue,  1 Sep 2026 17:46:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MM8rdnOG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A3001F00A3A;
+	Tue,  1 Sep 2026 17:46:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788284806;
-	bh=iPWi4hoZNDrjC4oNfHd7fHgoe10Ao+nAr9o9Kh5FrzI=;
+	s=k20260515; t=1788284812;
+	bh=Di7QTynNdwrefgWArR8x/gWtyxCUPTHCJ3Ml9Ox/wmg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nXTCt3rNQUkwOrhPzMl0KYcQM0uwZq+OWqHdAykNvQi3KJ3W75V1wgo+nZIlRf+b1
-	 GB7VwPNqXnX5Rs6wcx7DZGLSExw0HLvDp4KtZsHLQ02+vRHlhSsSQKbA5ACVa8ikP+
-	 AUJJaseGWXkgNdM+O7OlCDrSno6Fwj6ij2L9NAtJ300JlUES0huwhjmZ9c+OXe2KXP
-	 xeHoU0eZwxbiUnHGtzfO55eUfSOTKMIZF8T8uk4Ggktc8FlUw+qBpC1QS1Uc0a5ghT
-	 x1gyMwBBTWQNPQbKzLTeEfc9AJWgPahIyWpAQLGV5C/81xRCjXoRkh46lAgKJavs4S
-	 pKFh39gZDRAvw==
-Date: Tue, 1 Sep 2026 18:46:41 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jia Wang <wangjia@ultrarisc.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-	Jose Abreu <joabreu@synopsys.com>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH net-next 1/3] dt-bindings: net: snps,dwmac: Add UltraRISC
- DP1000 compatible
-Message-ID: <20260901-press-buckwheat-92d17a6b8f71@spud>
-References: <20260901-dwmac-ultrarisc-v1-0-f19454814bcf@ultrarisc.com>
- <20260901-dwmac-ultrarisc-v1-1-f19454814bcf@ultrarisc.com>
+	b=MM8rdnOGJ8NlTTKLBF+ZWl4lOqzsu33URdTXUoJAJpM+r3LMdEnN32gB8oaIOp83P
+	 z7fAnqDfQSf6tUhZgpY4nWuMOnOy7OfNzElYFAYlsMu2dcBVtpp2mqJUbXPsNkvPxV
+	 11dRQjJ7g1neo95rCP6rPnh8KcRaPxitPJjADq9dyLpOgxG24g/VuDYURyR5Pqy8Eh
+	 COgDziYII4r37BFKQYvTyK1UzqfV5hd2eo61ezLxLtw6eNo/8Hp7OJIVWxoGYK7+t9
+	 7rtvqZ/IE+uWuuJPihziw49O8FbDUnDc5Ycrl6Ydu8kO3O5Kd29Z2yQnBOLRiTMiRZ
+	 Mv+NLrts5eGrg==
+Date: Tue, 1 Sep 2026 20:46:43 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Eli Billauer <eli.billauer@gmail.com>
+Cc: David Laight <david.laight.linux@gmail.com>,
+	Arnd Bergmann <arnd@arndb.de>, Brad Warrum <bwarrum@linux.ibm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Ritu Agarwal <rituagar@linux.ibm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, linuxppc-dev@lists.ozlabs.org
+Subject: Re: [PATCH 2/4] char: xillybus: replace __get_free_pages() with
+ kmalloc()
+Message-ID: <apcPg_y-HsMki7we@kernel.org>
+References: <20260830-char-misc-v1-0-05e2ce44f291@kernel.org>
+ <20260830-char-misc-v1-2-05e2ce44f291@kernel.org>
+ <f6001085-9234-4025-ff34-6cc4a66c293a@outbound.gmail.com>
+ <20260831123937.32255a49@pumpkin>
+ <apaF1HUtJnstuUN4@kernel.org>
+ <1729fb06-6beb-f8ef-3e71-47fc3f00345d@outbound.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jiiFleqVVWDTS025"
-Content-Disposition: inline
-In-Reply-To: <20260901-dwmac-ultrarisc-v1-1-f19454814bcf@ultrarisc.com>
-
---jiiFleqVVWDTS025
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <1729fb06-6beb-f8ef-3e71-47fc3f00345d@outbound.gmail.com>
 
-On Tue, Sep 01, 2026 at 09:27:30AM +0800, Jia Wang wrote:
-> The UltraRISC DP1000 GMAC is based on a Synopsys DesignWare MAC.
->=20
-> Allow its SoC-specific compatible in the common DWMAC compatible list.
->=20
-> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
-> ---
->  Documentation/devicetree/bindings/net/snps,dwmac.yaml | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Docu=
-mentation/devicetree/bindings/net/snps,dwmac.yaml
-> index 2449311c6d28..2ed4564ae99d 100644
-> --- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
-> @@ -119,6 +119,7 @@ properties:
->          - starfive,jh7110-dwmac
->          - tesla,fsd-ethqos
->          - thead,th1520-gmac
-> +        - ultrarisc,dp1000-gmac
+Hi Eli,
 
-This should not be a standalone patch, rather merged with the other dt
-one.
+Thanks for the detailed explanation!
 
-> =20
->    reg:
->      minItems: 1
->=20
-> --=20
-> 2.34.1
->=20
+On Tue, Sep 01, 2026 at 10:44:20AM +0200, Eli Billauer wrote:
+> On 01/09/2026 9:59, Mike Rapoport wrote:
+> > > Would it really make sense to allocate the four buffers separately?
+> > > And/or use vmalloc().
+> > My understanding is that the buffers don't need to be physically
+> > contiguous and vmalloc()ing the entire fifo->mem in one go should work.
+> 
+> vmalloc() is an interesting point.
+> 
+> fifo_init(), fifo_write(), fifo_read() and fifo_mem_release() implement a
+> FIFO in software that the XillyUSB driver uses internally.
+> 
+> The memory for this FIFO is allocated in fifo_init() by calling
+> __get_free_pages() with requests for up to 64 kiB. With the maximal total
+> buffer size of 256 MiB, we have a possibility of 4096 allocations into an
+> array of buffers. And if __get_free_pages() fails, the size of each buffer
+> is halved in the following attempt, which tries to allocate 8192 buffers,
+> each 32 kiB, in this example. And so on.
 
---jiiFleqVVWDTS025
-Content-Type: application/pgp-signature; name=signature.asc
+With vmalloc() you'd get all 256 MiB in one go if there are indeed free 
+256 MiB in the system. Unlike get_free_pages()/kmalloc(), vmalloc() does
+not try to allocate physically contiguous chunks and it's not affected by
+fragmentation.
+ 
+> This mechanism with an array of buffers complicates the implementation of
+> the other functions as well.
+> 
+> So why not replace this with a single call to vmalloc(), possibly asking for
+> 256 MiB in one call? That would mean simplifying all four functions.
+> 
+> When I wrote this driver back in 2020, I avoided vmalloc() because Linus
+> wrote "vmalloc() is NOT SOMETHING YOU SHOULD EVER USE!". (See [1]). He also
+> noted that vmalloc() is a restricted resource. But that's from 2003, so
+> maybe things have changed since?
 
------BEGIN PGP SIGNATURE-----
+I believe so, we have kvmalloc() that falls back from kmalloc() to
+vmalloc() for larger allocations and we do have about 1k callers of
+vmalloc() family.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapcPgAAKCRB4tDGHoIJi
-0pJJAQC2MOQ3WQ775wZhL2oOE84EeepYhkoKAGs4AIdvFoIJIQEAs4oDcmd2sGxv
-x/CeJ0b0IJ340Tqg8YPgsSiFvur70QU=
-=9MSe
------END PGP SIGNATURE-----
+In 2003 the majority of machines that ran Linux were 32 bit and those had
+limited virtual address space. And yes, vmalloc() is slower than kmalloc()
+or get_free_pages().
+ 
+> Questions that arise in this context:
+> 
+> * Does vmalloc() guarantee that non-pageable physical RAM is allocated when
+> it returns?
 
---jiiFleqVVWDTS025--
+It's not pageable in the sense of demand paging. Some architectures lazily
+synchronize vmalloc page tables and this can cause page faults that will
+take care of the page table synchronization.
+
+> * Can copy_to/from_user() be used with memory allocated with vmalloc().
+
+Yes.
+
+> * Is vmalloc() guaranteed to successfully allocate memory in the same
+> situation that __get_free_pages() could have been used to obtain the same
+> amount of memory (in smaller chunks, as with fifo_init() )? Maybe they
+> allocate memory from separate memory pools?
+
+The pools are the same in the end, vmalloc() allocates memory using page
+allocator, just like __get_free_pages(). The difference is that vmalloc()
+does not try to allocate physically contiguous chunks, but rather a
+collection of assorted order-0 pages.
+
+This is actually more likely to succeed than multiple large order
+allocations.
+ 
+> And most important: In what way, if at all, is memory obtained with
+> vmalloc() practically different from memory allocated by __get_free_pages(),
+> if it's never used for DMA?
+
+The memory is not physically contiguous and cannot be used for DMA.
+Some accesses may generate a fault to synchronize the kernel page tables.
+The memory is there, but some processes may have not-yet-synced page
+tables.
+The allocation itself does more work and it is slower.
+ 
+> Does the API offer clear answers to these questions?
+ 
+Thanks for the detailed explanation
+
+> Thanks in advance,
+>    Eli
+> 
+> [1] https://lwn.net/Articles/57804/
+
+-- 
+Sincerely yours,
+Mike.
