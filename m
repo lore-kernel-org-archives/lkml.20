@@ -1,59 +1,55 @@
 Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020089.outbound.protection.outlook.com [52.101.196.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC662481FD1;
-	Tue,  1 Sep 2026 16:50:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A19483BF2;
+	Tue,  1 Sep 2026 16:50:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.89
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788281439; cv=fail; b=HA/TW4KQI4OlRjLljUC2ZnkqKyy/+zqFXvR0yq2Ml5MG4w7KmwvaboPUxUZ4pAxuw8yg928xMXVAdZkyZEQVYGFtn+MFYKGgx9SKN7dcxB4BSRhZggI7NAtrKXmhV82sdnl0I1R+zVK0U1LL9i9lAYq4RKgp+oKZaM00Js0ljWU=
+	t=1788281444; cv=fail; b=Y5Ams3kvbZIjEi7/igOedcJDwuXswqb8pcoR/oZQLveJtNjiQv4y0cE+X6PMKzyJ5cJfcJlClbfooX1ZB8UdW3LvAzXS77qJe9RSRMkzZjLAyyz9Zn1b+kpewAyZdGHE8AU5aFiJpTM9CP2h2JPgvgA/e8CiVvfktEWhen5ROGg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788281439; c=relaxed/simple;
-	bh=UHKH4zyYBytsX3yO7lbFYKBzvVJUryht3EMmJm8jozY=;
-	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=P7UJDBnIdCNZzBynENtDwPsRAO8p3FvIitK2wFy4SFKDOXk0l14Ey79Od2qO6uCS3kWeWKvMdF3tU9zUSDS9gpVBJP4RzFGyXDiW+aaf/HnPrQfm83fQsDzsEbsMfcVjUXpaJwLDPPvakVP3hSFxTyk5r+zD2jjlFc+Wv75hnhI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=Tw6/oquS; arc=fail smtp.client-ip=52.101.196.89
+	s=arc-20240116; t=1788281444; c=relaxed/simple;
+	bh=aqM1m8hQVBQcfuLUtUp2YErCndlB9UHKXD3Qyyki3X0=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=WX/VVh5OnbjEZIKe3DOjCp5M9sY40y6PB8CZb/kEXa8vIPF+MoXLVN85NyHBnFN5k4Bx14DMhE3yZpVEY2o4HLEGExtUFwg+9UdAphQHEOnUNAHxI2azFwtyp/8k4mcgH852/oz7W45JLAczvedhmmn96RMsQTAqdlPYe6/DEfg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=SOHoEwq8; arc=fail smtp.client-ip=52.101.196.89
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="Tw6/oquS"
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="SOHoEwq8"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bdzOnzYrcvY/swV9r8s+fCtiuOrSFejVFpMUhW3QcxDusSn762m4d2gVMTlYYBOHTuPb4gY/LDxGE+1YWryFAUGsv8G5xAs0EwWUgPjQSGq8Dibsk4T/F8J+iClutk7yWg17HEwEqLId4rfUGP6p9E2Q2Sl98zwyQpvAqm3QO0kwIhL1XrbGUhIHVJG9qA8kbVwVqLG7H5wR8Uzrc8JwyvMMpzxyKcn1dLc2kP6p4QsQCW/g/lAlq3IcjLoNbio5fYFatRnxNpFH5mMfUUiFngqYkk3/evwAu+20vsP8ZWSBrDrBIE4my7MyJP1ATYZ2npk0iLa0Urp1RV1SMV26Ew==
+ b=CKIsAk9ZbaU/7G2lApYykoq+BCVINm1rMpOsI7ZJDusqWkVGUlmL/sLSpnlNOcTM6uPqH5IpX4OU9X1qKNL13se4CfLuNK8pe2o81gDJmo0rEuB537OL5Fa7bhYoQ0UxN4ln9OdAO/1KvIHPAOflEIE5sRL/MTCUYKIfuE/fmag1MENl76Z72gRoAi36VmaEp3cqxJYj8gxFiut97H206Kq4WISEnibbdMZS4GXDr3hvH/dAgSRFilkS4GFi5BzqVZTQdxy3C6RW8pQ7TCoSw9lYCY6lwk0e0Tlz3J6Yav77HYG898NdbDzRphowMQuYGOEcPqshGxSIpKNuv9WYzw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ig7lugtsLlgWziVqLe0/Z0Y7oBFIKuQzN9aKaxiTeG0=;
- b=glS3oX66ORxWAUu6bQ/effaccZE7pw1xhA2p+JxwuK6jdSVEAJkmnjsRaAQYg4+qIeVjewZNZE7Fgf10sInOw6OnL9pzKxl5pKAG8XhdcIXduAkbZs98y2ZGML5YYRdIr/73vwnxYIdk5epshe8L4TMzVpMn46Z0KmpQA8sw+HauOo5BaqhjlunUwuhxuBdGT+rC8VbnezVSYHCqXIvMjO27ozQ4w9xnpGBzzIFOJTds10FCww1JiSQSZjz2MAZGzNaFT2Gi6NLv5B324n105W1e0TB4ad9Fv/GQBzoT5ghFg5U9Te02OzX/sEafF7Y/cb7TsnOwUdaNSsUQGeuKoQ==
+ bh=/LIgUQ0Lq8xjNZ53P0UEI58qk7Zc3xSvgVWc9JA3104=;
+ b=rdRvGCagnZmzO82qSasZMQwn+pWawA1tLow81rAxzZDwHUk+UW2IGgqHII7pKKKZsPRfV7wi+Fj6Bpq4KZ5RqqgL6Z4IY4MoVC5rx+QrQbI9lOM31qKwo9auZbLAgLv/T0XCV2QeKNvOcdUjXXtFJUAeIBkVMMj5LwulZQHxGLL7y6jag3LI4hQYU4UFA+ll79+WRMVKBBDSdPPuRfvUjaKb0bt2vFZSApgSWNwqNy4eABCPNdMCUmlFwO4i2QsBoS/3eNIN0JWDHq8ytSM+WqVsiunsX9DISHnMyU1KWuLFTi0K4Pbw4b5CrzDeY47e3BacknXb0jAgv0Oc5xInKw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ig7lugtsLlgWziVqLe0/Z0Y7oBFIKuQzN9aKaxiTeG0=;
- b=Tw6/oquS312zLiRE1AJlDa+IhLMOnWqfnkAi4eTWQ/y7OcVeEhHHnADRV69BH2+QzYIphsDGMUgFgGr3CrnJfuQl+zTh631ofPQeUi1sw2qBbfewyRC53FITN46ErVKTxZIJ15X6I+1jsCCtNusljB0R8Itc1lwWTlT24mq2KxQ=
+ bh=/LIgUQ0Lq8xjNZ53P0UEI58qk7Zc3xSvgVWc9JA3104=;
+ b=SOHoEwq8wTzcO0q+2kl61gVgKzaME7WAm0U0ocdel/CmP84P6Rol4h/4mEB7S7Qj42u8fnPCSfuZbrFT/gqcvjGInEpTgzytogz9CjspFR70CetKOVP+6GHocO0eQIyzdcfQAnmXG+hNsqP4fYWq42i2yRU48me1fhwajO7lTHg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
  by LO0P265MB7316.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2ef::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 16:50:32 +0000
+ 2026 16:50:35 +0000
 Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
  ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 16:50:32 +0000
+ 16:50:35 +0000
 From: Gary Guo <gary@garyguo.net>
-Subject: [PATCH v4 00/16] rust: io: support register projections and remove
- relative registers
-Date: Tue, 01 Sep 2026 17:50:24 +0100
-Message-Id: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
+Date: Tue, 01 Sep 2026 17:50:27 +0100
+Subject: [PATCH v4 03/16] rust: mem: add `AsRepr` and `AsReprMut`
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAFACl2oC/3XO0U6EMBAF0F/Z9NlqOwUqPvkfm42ZlgFqtGzaQ
- iAb/t12fVBDfLyTOyf3xiIFR5G9nG4s0OKim3wO1cOJ2RH9QNx1OTMQ0AgNkqftSt1boMHFRIF
- L3RAahYZIs/x0DdS79Q6eL985zuadbCpKaRiMxE1Ab8dy+nB+XrmnNT19YiFLZ8z4FLb7qkUW6
- 98Bi+SCVzV0GkyTO/A6YNiGeXr0lFiZsMAP8CzqAwAZsMqirABAoDgC6hcg2wOgMqCatkVd99j
- 18i+w7/sXK2UxZGYBAAA=
-X-Change-ID: 20260721-typed_register-176eab3abee7
+Message-Id: <20260901-typed_register-v4-3-5552b1d59525@garyguo.net>
+References: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
+In-Reply-To: <20260901-typed_register-v4-0-5552b1d59525@garyguo.net>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
  Daniel Almeida <daniel.almeida@collabora.com>, 
  Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -70,11 +66,11 @@ Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org, 
  Gary Guo <gary@garyguo.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788281431; l=5764;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788281431; l=6839;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=UHKH4zyYBytsX3yO7lbFYKBzvVJUryht3EMmJm8jozY=;
- b=c/skwdWn4QYGIVRI4NePMh/PpUn71kGDiWIJCQWVXIaZG+l+KND0Mo3nK4iAWGzyQ9pQuPQQ0
- VZxjKD1N7eHAbUn2TMmUh0AQNzUW40ezOil0NnzGymrozQ0Sf1kxxXa
+ bh=aqM1m8hQVBQcfuLUtUp2YErCndlB9UHKXD3Qyyki3X0=;
+ b=enlmFjuj+HDXPvXRhhJv3ET7jkW9NEJzhAbRX6Kuy55iCm4ZJ6qZ+7W/khraQMtw/YboG3onn
+ dN22aHbn6dEBaecVUk3QbZ6s62Z+Vx8zuUTzZhWR1AqeLsmfTbKM7DV
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: PAZP264CA0173.FRAP264.PROD.OUTLOOK.COM
@@ -88,201 +84,241 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO0P265MB7316:EE_
-X-MS-Office365-Filtering-Correlation-Id: 620eac85-c3b0-47db-c795-08df084922db
+X-MS-Office365-Filtering-Correlation-Id: f3b5ef96-960c-439d-df8f-08df08492495
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|10070799003|376014|7416014|10067099003|56012099006|18002099003|921020;
+	BCL:0;ARA:13230040|366016|1800799024|23010399003|10070799003|376014|7416014|10067099003|6133799003|22082099003|56012099006|18002099003|921020;
 X-Microsoft-Antispam-Message-Info:
-	J+EqeZ5K1S/P+uTewWH37e5T4D9ZaDuV42pe51AGzI6ujXKZfg/w8lMsPCZXMWRAAUkaVsCmGY85T1AJxTAaeYVpgzzrkcwrF8xLyfNN7A48GpWRgOaPwyCUbBXm5EuwVlIj2aSGsxFjCH3rk+hwlk0MiTkyRTR7So5gDmaqX0Lwl88V2KiT+jt6CFElvA7Ow2kqajXpTYHF38TsqRTsozXrlA90rQMP8dp+n5neS7Y6izRRsoKJ44/WfxFGRJPpBKcRH5TXLlPVvQ0PXwZ9c6603I6Ecq4GKhYK7/U5lxoK+YyHotUuLc0aOU6uKKETUKXsHoP7ccBjQRh2LNcqH+FU1EMu4qij5mw7rSrApkwGRxoe8OlsJaw5jeHxALnZkk6moPHDzVMjQoMo249bWOK3i9mxgryh5wJme7TVX+Z5Jw7ehAZD+weFjEIJeHENFcihUa09mMtq9fAZPFDQTZvVYRThqfyaICtyE/5vwaE17L8eJTyLikLQlG1yWu8pxGbcULcQSP9WoPkBTbDEBZtfr0rSYxyQ4n98rkkfwXeTBNV2FqVxBZ4fE/rFe1ktjkyFTEXtYhlJgRQYqKMnnOibI70+hFg2891b8tpjXZ6tR0GYbsnA1yW47DOvN0KbkXRcWfVqaqlAS1VWSePCORzaS3KZb2a9DCNJc9xNFEI=
+	ApGvS0sXhGTZNZI29jPsMFXuEpurZ3CNR3qp8UHrTXYHyaIVArZ4Sg8tMqVL195V6WqsHrCkBvP9kH3R67T4ybjJsaWUVqbnsiJ85d81OZ04TFfMQFTl4GUbbaxpTrbNCA/6daDFmUpXdfGDKAeaTyfjGmVm9+EjvwYEoRt+aNpjPYMO7v5kstKUqMqD1d4GoQCciDH6Pr6Qwx5JWIvJElFyEvmp0Q14qnockQqreR2rjOCYA+uTSDAs6teTlT8qvZhqPw8QjwgQiOK5tXt/GjpiraiHdnfxVFD5udtgRZTjARg/arwliEDmgxYWcdnHn0gsDnGtlFFEmSOPVXp0C6W1FPE0ACf+6aflhyjxuirxvEr+OeZNeiQnCCL1VEWQWXo1AsKMj6fuIK9nd7WSxo9ClcRmn67BXocLY0OgsigIWTUxO7ZniSgEyVHtR6RZ16/o0PX4EyOiwe9OkAWibxrFMVL6BL6/uSG3XT++6gtLeQjQ9Ca67WrlpkV5NqfRMDDKwdNlmczLvCTu7vtEef6PPtIdsT7iskOcA7Wl9TiMQU39YFZnxx1PyYcIpvlCH0mA6maNHCaOEmkxUQUP3RdX3UFphfzjuRjWrGRargdyywJcZzwAdpHiuJK7NC6tqdn/QVlZ5ZnnGRgUnuniAx9Q31zrZJg8LqCm9hTAi0a6nRISsC3jUbU/8SKbWwHEnvpVBQ1Lj8fdWCanSrNOyw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(10070799003)(376014)(7416014)(10067099003)(56012099006)(18002099003)(921020);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(10070799003)(376014)(7416014)(10067099003)(6133799003)(22082099003)(56012099006)(18002099003)(921020);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UlZTU0F6TUdDd1FTTVh6aW1abnVXOGZ3WUo1UjZ4b0xPYyt1NnBJUHA1M2Jm?=
- =?utf-8?B?M3p5V3lFVjdCN1N2T1FnUlNyY1dFYTA4aWoveXFNL0w4djc5TFdiU1dKaXFz?=
- =?utf-8?B?RHloNktpcDNrRW1tTkJPZGdYejNMUUx3YVkxU0xlS0hxL1dnYWpGQXBzV0pa?=
- =?utf-8?B?NWxHQlk4UVZTQlFKTDRMZHdXMkZuRFQzTlBRdW1obkF3bmx6dmk3eWNkSThu?=
- =?utf-8?B?eWhBczBQcXQ3YVIramc3TFp2SjZTSlBhQnI0dWcrb3dyMGQ1cUxOSWlHZTVG?=
- =?utf-8?B?cUFReUFDVWJ5c1ZnTkgra25vUzN4a2pUdWFsVGRlb0V3WnFxVHR3Y1NzRmh1?=
- =?utf-8?B?dG5GcmcvZ2pvaDBpRUJsNkd1NThCM00zdlNPeFBkM21mWGNqVm00T1NLQVNP?=
- =?utf-8?B?dy9IM2k1bVpyRkg2SDdtdFBMRHRhUXVxbjh0RTUrOTEzTGdMaVo2Tkx2MGN1?=
- =?utf-8?B?dEIvOEtTOVJuTmhwa0xDWks2MjFiSFFjY2xhYm5NV1FFUE1zVk5ISStDemNz?=
- =?utf-8?B?Zjd3Tnp6ajlNOGdEVCtmanBHczJNWkl5b1ZSQTV2MVNYd1pCM2VZS3FYMjVi?=
- =?utf-8?B?UTg3UDJBcFVLUkxzL3NodGkzYi9lZ1BwUzRQaEt1VFhBbVRCbDRmN2M4Skhz?=
- =?utf-8?B?QkhHS3F0bXVHNEt2UUhySk9XYnEzMk1PZkNFSVQ3Rm5wRzJWRGlPZ25qR09V?=
- =?utf-8?B?YmJxeXl6ZERyUGNiVHU5MEJJUU5yN1lNTkVLNndTdUljVDhPQXNRd3lVL3Fr?=
- =?utf-8?B?eGk5OU4xVmV4K3VVVWpremY0dmtBa1VraW9DZ1NmcDR1OFBpSnhjTEMzYzdi?=
- =?utf-8?B?K2dIYUhOb2g5ejk2bkIxcHY5RloyOW9DZTdqZTh3clE0d1l5TGZ6RHpXQkVw?=
- =?utf-8?B?c0tTOHBka1liZW54bDVkcXhES2RqR09xTGFYTHlRaFlWZEN2Z2tkT2hKaGhi?=
- =?utf-8?B?Z2hsZXVZRGF2VHNNb1hSeHd2ZnVxcFpPV0h3a3hqVUpNbFQxUHp1YWcrQWUv?=
- =?utf-8?B?eGdja2R6SVZKcWZjTU9UZWUzb3lSYytVejFZZjVFb3VZL3JUVFZydXBXcTFn?=
- =?utf-8?B?YzExQVNlNS9jKzhuNGNVMEppWUY5Y2RLL0NOaUNLUE1PV3d3NHZWMnlTNHNV?=
- =?utf-8?B?WnRXVWdxVTM4N2xCMFhXMDcreGZaSjEyZXQ4Y3VGQURzY1hzMm9qbFZBbmpN?=
- =?utf-8?B?QnJxVk5XSG85R0VJeEwrNFQrcDVvZ0J2RHJUZVBodlZMd0pUT2pmR2JqaWtD?=
- =?utf-8?B?dHVHMjJ2WlpYOWZhUmdMVmU0K2JnNkYvNVJHSGRWSFFQeC9WUUN4M2FmRVBH?=
- =?utf-8?B?L21vTlZWL0Q3MjR4OUhJSm1nVFJEcllZTkZ5YktSeDVwZlVCZjMyUSs1RnZt?=
- =?utf-8?B?eFoyelRUWGFUdE9LQnk4MTBNM3JFWFJ6dURNUXRiZnhMWnpGTGJhckNnazBW?=
- =?utf-8?B?RFVNRGFSc2dTM240MTlaYUttU3ZMWUlFNzE3VXBLN2MrcHM2WjNiV1oydUZl?=
- =?utf-8?B?R2IyaWROZW1ESGpXVWNUemJkZWFCK2c5cTV3YW1KaTVrMUZPN0ovakpaTXdX?=
- =?utf-8?B?TDQrUk03ZHlEbkM5UTVQdHQ1SkRHVEx4YVJ2SnJDWGxhdzlhZ3V0N281cEJP?=
- =?utf-8?B?RHZyckFHb1ZvUHlpR0ZialVMcWF5RmtibVA4QVdva1hFdE43TFovZ1EySExn?=
- =?utf-8?B?TmJsNDA3Y2hnUkE1ZW1ZZHZKRjRpMk5SQ0lCRVczV0lQUFdSVWJkY0tFWG5k?=
- =?utf-8?B?K2FVV3liSUhHb2dQbWpuZW1DZ0FGVm4wc29pdDRyRkk0Wkhud2dMaU4xdmdL?=
- =?utf-8?B?Rjk4NndxTG00N0hTS1VNLytLcTNxcllsZHZGU3JKS1hBcjNsaW5JeFowZ1hl?=
- =?utf-8?B?d09SQ1hyVHAzd29odExQRkJ5YSsvczJhUHAwZEFxZGN1Yy9IUXVSZTNDbjBt?=
- =?utf-8?B?YVlVMDgzd1JqVnZoNWhSbmZUcnVJY1ZUMUdITk9hOEpxK09OekhmMlRLTTI3?=
- =?utf-8?B?alR6ay9mSWsxQ1o0VERoUGk4RmgzOHlQcXh1VFU1U3QreDlaUXpjekhCNjBt?=
- =?utf-8?B?RXNYUUt6dURhRUJURTFGMVNoNFVqQ00xS0hCdDVTcTY5YUhsM250cWl1U2hj?=
- =?utf-8?B?SmM2VnNTQUtKTnh3ck5Ebm1kbDRlc1hwN3NBMDExUVJKTUtZMWt1TVRQbVJD?=
- =?utf-8?B?NkptbURRaHRlOEY3RVNkTEtqS3dSTEpGNWl4RS9VSWJweENQZmE1WmtTOHRC?=
- =?utf-8?B?UzJMMHFoN0xZc0EvY2lTeEJPUVhnejNaMWtLWHdmcGdEamk3eG11RVNXTzc2?=
- =?utf-8?B?SDZ3Yk1kZWVtUjhXVktHNjA5SEhKUWhLYVFJenJwaGRDbGxTdWxVUT09?=
+	=?utf-8?B?a290RmdYSTNISnRGMmpITTcwNysveFM2TVNnUHRkR1RyNlNnclkvVHNidGh0?=
+ =?utf-8?B?aFovMW5FaU4xVDllYjZ1Q2ExUVg1WGdVVldRZkduTlVHWkEvajBPRFdMTkIr?=
+ =?utf-8?B?cUJtRnVxOWVLcnlJYkE5QStYaXpmOW1oTnpxSVFRSnoxOFpPQlE5L2NhS01X?=
+ =?utf-8?B?ZjVQSTJGVzFQRkxtUi8yYnRwMWI4UG9GcDhQWjhtWnZWcTV0dEFZcG5TRExn?=
+ =?utf-8?B?WDNIVDNDU2dkWTZUL3VkVFFtZFg3cHR0OVV0NC94TW5ZRmJ5SjJ5OVJ5VDRW?=
+ =?utf-8?B?dUZHVkI4dnU5YlQ3czdmM2tpU2xXaEIxdlVuNXM2djlmcXk5ZnhWL2xGTHln?=
+ =?utf-8?B?L1hVaFZVWm5rTURjWVA2aS8rUlFSY2F0bEZNcnhuRzZod3l2ODV1a3pHdFE3?=
+ =?utf-8?B?Y1hOWStPYXErVW1tWUd5QTQ4K1dCNmJwZlU0UGlqczhNd0I4b3l1WUdtc1g3?=
+ =?utf-8?B?eWo5WU9zQ0ZrN095a2laY2lvQzU3VldEcDFqeWxkOE9xclllc2hnd21wMG0y?=
+ =?utf-8?B?KzFkamFXLzliQUdzVmJKNjFsREYwdzRnck5ibXhqOFhMMXNWZVpQejBCazdX?=
+ =?utf-8?B?b2U0M1M5WDJiUW5MTlpXRC9PR1dUS3pSQVdIWkJYYmlPY0wxNWgzWVpUdkVm?=
+ =?utf-8?B?SW12SDNnUVV4OUNUSVhKNEtNTFgwVnI5ckF4aW51WmduYWJDam90eFJWV2dy?=
+ =?utf-8?B?VllrUHBQL1dXRHRTZit2RUFiSnBIYWUxcGxOdUQ1TVNDZytuK2p6MUNUYzRw?=
+ =?utf-8?B?WkowbnFFeGJ1STdNMmtSRE55UkNST2FwU2orN3lKTEhzVmRyc1NiVFkrdWhK?=
+ =?utf-8?B?bTNONGxSV0xaR0lVSGJzSkwrTVZFVVo0aGRGNHR4NTN3NG1jT0ErVmwwaW9N?=
+ =?utf-8?B?UVRLSjB4bG12ZC9GT25YR3h4cUJyaCtTT0YwbEU1cnJQbnlaWGxURFdNOXY1?=
+ =?utf-8?B?SWVieWc1V2dDRDAvcWdxN0VoMmJUNlM5Y3BtSWViWVZMUms5eFVsMlA3RnE3?=
+ =?utf-8?B?MEprRzcrOGM0QkYvcHY1V2h4d1hGVThGTmdVUVVVK1NrazlrK3d5dUU2V1lV?=
+ =?utf-8?B?ZmN5NzlkSzkwYUNBT2p4dmZaMDcyWkdzZW5lWmtWN2V5Z2cvTXJQYzIzWmhS?=
+ =?utf-8?B?MnA3SzMvL0l1ODl0RDZBTjJvMElxUU8xZE5HMGFzZ2RLQkhLNjZEbWRZUnhD?=
+ =?utf-8?B?bEUrYnB2K0dOVEhzYWxDV0RuMnFHaStUekNWMWdoSHVnbDRxWHp1N1VSUTVp?=
+ =?utf-8?B?dFY4WDZaeFJUdm5OZU1nekdnUUlwdjlhL1lVMEpCanlTQ2xZbmtYbnQ1Nmpk?=
+ =?utf-8?B?NEFQamZBRnBjMHRwTDgvNTdLOFZnd05zRzhWMEdRTWJxVXkrNktLNXhRd1Er?=
+ =?utf-8?B?bnNxLzhwd01RZWxJNklHVkc2N1ZCb2VsdjU0Si9WVjRxeFFpdHQrQk95VE8x?=
+ =?utf-8?B?RmRxaXpiUXpCTjJDUmh3dTdNVml5M3J6dm1Ma0lXTUNqUS9JRS92YXdiK0pl?=
+ =?utf-8?B?c0dUbzlKZ0NnclkzdjVoa0VCNkhHZkFjNjhwcW5tVzNmKzUyMzJ3TVdvYkVp?=
+ =?utf-8?B?Z0Z5cnRpWngzeFhBaUhHZm1ZZ1pWanZRa2p2WC9NSjJlSEVBU25Tc1VHaHhk?=
+ =?utf-8?B?ckZreTNjS2YwNlJIV3hFdmI0eEN6OU1oSms3RTV6OVRsVG5zUGZ3MVJ6aWJP?=
+ =?utf-8?B?djNBT05IUmQ3MWg3dGxrMy9JMUk5OVl2NXoxYVJNQWpXakl0Njhoc3NIM1NP?=
+ =?utf-8?B?UHgzRDFVRW5XNXlWWmpVenlyL1VpMlFwTmtFbEFpY1VMc2JVSVZjUGVZdmdF?=
+ =?utf-8?B?dzNJb3BTZ1VMM2lNZEZGelkwTko5bEJkOHIzL1ArWEJVMlVsM2FaQms5aFZy?=
+ =?utf-8?B?OE1oam94Wi9PWnh2N3FyMGhNek5VeWttWjRRaEhWczBIamtMaGJvaHUvOTJt?=
+ =?utf-8?B?dGo4enlzSHNMVWZqTEVsNVFjK0lqdlQzbnhYWTF4bHNNMWRHK0tTQi9YbTJ4?=
+ =?utf-8?B?dy83OC96N1ltZHRnU2tkN0FQMGF0K1pyc3huZXhNamxVaFErNWRFUzZFUzZM?=
+ =?utf-8?B?dUFIOUZQamxnbHNFWEJQYlQ2c000c1lTdHhHZHlZa2ZidzdxaCs1YlMxSGFr?=
+ =?utf-8?B?Y3MxY2lNSFhNUUZqK0t2OEJwR2dLRVkwdHNtVkR1b1JnUDdDK2hHb0gyaWdI?=
+ =?utf-8?B?UEdwTEp1R3lzM2RmbWpDUWhFVXhtZmR6Yno4TWE5OGFFc0FORlE3MFNkWEpJ?=
+ =?utf-8?B?QjhYSkpHM3FIdTlKVmc4OThBQzFhRlg5YjFOYnNkdkdkV3kyVEVpMnBsNERH?=
+ =?utf-8?B?SUVZL1ArY0VITFpLYU5HZWdPSHl3enNTYzI2dkVRSHZWV3Z5bWVMZz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 620eac85-c3b0-47db-c795-08df084922db
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3b5ef96-960c-439d-df8f-08df08492495
 X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 16:50:32.1847
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 16:50:34.9904
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kaT39AwKFE+Q+z24VQEf1GSlYnpkri4wxUE182HaZvQLNCNEJujnUiuehMknoLTGZnIMM2oqbCcgVnvK2Krb3g==
+X-MS-Exchange-CrossTenant-UserPrincipalName: LbR3wIuREzRA1bxNhtdNCuSc+pw981etpsR8CeUmlaOSVyzqBRLbApVngmem/uPWISMYle0oU3lq4n0zEJZ6yA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB7316
 
-Currently registers work for all untyped I/O regions, which is not ideal.
-It allows registers defined for device A to work for another device B and
-there is no safeguarding at all.
+Some API like atomics and I/O operate on primitives only; therefore other
+types would need to converted to these primitive first. Add two traits
+`AsRepr` and `AsReprMut` to indicate that the type can be turned into a
+primitive for these operations.
 
-Change this by requiring a base type for registers. `register!` can still
-define registers on untyped `Region`s, although users would need to do so
-explicitly and supply a concrete type.
+`T: AsRepr` means that `&T` can be viewed as `&T::Repr` and thus it needs
+to support transmutability in one direction. `T: AsReprMut` means that
+`&mut T` can be viewed as `&mut T::Repr` and thus it needs to support
+bi-directional transmutability.
 
-This change makes it possible to use projection for relative registers;
-relative registers can be implemented by defining new types for the I/O
-subregions and just define registers for these subregion types like normal
-registers.
-
-This actually results in more ergnomic code for users of relative registers
-(currently only nova-core), because non-array registers can be written to
-with
-
-    #[...]
-    struct Subregion(...);
-
-    register! {
-        base: MyBase;
-        SUBREGION: Subregion @ ...;
-    }
-
-    register! {
-        base: Subregion;
-        REG(u32) @ .. { .. }
-    }
-
-    let subregion = io_project!(bar, build: SUBREGION);
-    subregion.read(REG)
-    subregion.write_reg(reg)
-
-instead of
-
-    struct SubregionType;
-    struct Subregion;
-    impl RegisterBase<SubregionType> for Subregion {
-        const BASE: usize = ...;
-    }
-
-    register! {
-        REG(u32) @ Subregion + .. { .. }
-    }
-
-    bar.read(REG::of::<Subregion>())
-    bar.write(WithBase::of::<Subregion>(), reg)
-
-This also allows a lot more code sharing between I/O projection and
-`register!` macro.
-
-The expressiveness power of Rust declarative macros is becoming limiting,
-so it is converted to a proc macro before new features being added to it.
+To avoid duplicating implementations, all repr types are normalized to
+unsigned integers.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
-Changes in v4:
-- Rebase on 7.3-rc1.
-- Many typo fixes. (Alex)
-- Tweaks to `transmute` and `AsRepr`. See changelogs inline in patches.
-- Link to v3: https://patch.msgid.link/20260819-typed_register-v3-0-3699a75fadf1@garyguo.net
+Changes since v3:
+- Added `as_repr` and `as_repr_mut` so the name makes sense (Alex).
+  I did not add `Copy` bound because it is not necessary (adding it won't
+  simplify the implementation without also requring `Self: Copy`, which I
+  don't want to add).
 
-Changes in v3:
-- Convert the `register!` macro to syn.
-- Add check to ensure register and alias share the same base. (Alex)
-- Split transmute functionalities to `kernel::mem`. (Alex)
-- Remove some stray trait bound in nova code. (Alex)
-- Link to v2: https://patch.msgid.link/20260805-typed_register-v2-0-c3ca142220a0@garyguo.net
+- Dropped round-trip transmutability as a concept, as it can be proved
+  correct because `from_repr_unchecked(into_repr(v))` is basically just
+  `move v`.
 
-Changes in v2:
-- Extract type conversion from `register!` to `Io`
-- Redesign the API to be centered around regsiter projections.
-  * Support register projections in `io_project!`
-  * Support adding register definition without defining bitfield
-  * Subregions is thus unified with other registers.
-- Store projected subregions in `Falcon` for nova.
-- Link to v1: https://patch.msgid.link/20260721-typed_register-v1-0-452d72b60262@garyguo.net
-
+  Even for the `AtomicType`'s use case where copies are made, it can still
+  be proven by observing that `from_repr_unchecked(copy into_repr(v))` is
+  not distinguishable from `from_repr_unchecked(into_repr(copy v))`.
 ---
-Gary Guo (16):
-      rust: io: register: reimplement as proc macro
-      rust: mem: add `transmute` with deferred size check
-      rust: mem: add `AsRepr` and `AsReprMut`
-      rust: io: perform conversions using `AsRepr`
-      rust: io: support register projections
-      rust: io: register: allow explicit base type specification
-      gpu: nova-core: specify base type for registers
-      drm/tyr: specify base type for registers
-      samples: rust: pci: specify base type for registers
-      rust: io: register: make register have a typed base
-      rust: io: register: support fixed offset register without bitfield
-      gpu: nova-core: use projection for PFALCON and PFALCON2 registers
-      gpu: nova-core: convert hshub0 from relative register to projection
-      rust: io: register: remove relative registers
-      rust: io: register: remove `Register` trait and cleanup macro
-      rust: io: register: unify handling of register with/without bitfields
+ rust/kernel/mem.rs | 132 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 132 insertions(+)
 
- MAINTAINERS                                        |   1 +
- drivers/gpu/drm/tyr/driver.rs                      |   1 +
- drivers/gpu/drm/tyr/fw.rs                          |   5 +-
- drivers/gpu/drm/tyr/regs.rs                        |  45 +-
- drivers/gpu/nova-core/driver.rs                    |   1 +
- drivers/gpu/nova-core/falcon.rs                    | 161 ++---
- drivers/gpu/nova-core/falcon/fsp.rs                |  63 +-
- drivers/gpu/nova-core/falcon/gsp.rs                |  51 +-
- drivers/gpu/nova-core/falcon/hal/ga102.rs          |  59 +-
- drivers/gpu/nova-core/falcon/hal/tu102.rs          |   9 +-
- drivers/gpu/nova-core/falcon/sec2.rs               |  37 +-
- drivers/gpu/nova-core/fb/hal/gb100.rs              |  59 +-
- drivers/gpu/nova-core/fb/regs.rs                   |  31 +-
- drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |  18 +-
- drivers/gpu/nova-core/gsp/hal/tu102.rs             |   7 +-
- drivers/gpu/nova-core/gsp/regs.rs                  |   9 +-
- drivers/gpu/nova-core/regs.rs                      | 115 ++--
- drivers/gpu/nova-core/vbios.rs                     |  11 +-
- rust/kernel/bitfield.rs                            |   9 +
- rust/kernel/device_id.rs                           |   3 +-
- rust/kernel/io.rs                                  | 181 +++--
- rust/kernel/io/register.rs                         | 759 +++++----------------
- rust/kernel/lib.rs                                 |   1 +
- rust/kernel/mem.rs                                 | 231 +++++++
- rust/kernel/sync/atomic.rs                         |   4 +-
- rust/macros/io/mod.rs                              |   3 +
- rust/macros/io/register.rs                         | 296 ++++++++
- rust/macros/lib.rs                                 |   9 +
- samples/rust/rust_driver_pci.rs                    |   4 +
- 29 files changed, 1230 insertions(+), 953 deletions(-)
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260721-typed_register-176eab3abee7
+diff --git a/rust/kernel/mem.rs b/rust/kernel/mem.rs
+index 958e43bbcc3a..0bfd6929ae45 100644
+--- a/rust/kernel/mem.rs
++++ b/rust/kernel/mem.rs
+@@ -97,3 +97,135 @@ pub const fn safe_transmute<Src: IntoBytes, Dst: FromBytes>(val: Src) -> Dst {
+     // SAFETY: transmute is safe with `IntoBytes` and `FromBytes` bounds.
+     unsafe { transmute(val) }
+ }
++
++/// Type that is layout-compatible with a primitive representation.
++///
++/// # Safety
++///
++/// - `Self` must have the same size and alignment as [`Self::Repr`].
++/// - `Self` can be [transmutable] to [`Self::Repr`].
++/// - Neither `Self` nor [`Self::Repr`] contains interior mutability.
++///
++/// The above basically says that `&Self` can be transmuted to `&Self::Repr`.
++///
++/// [transmutable]: core::mem::transmute
++pub unsafe trait AsRepr: Sized {
++    /// Primitive representation of this type.
++    type Repr;
++
++    /// Convert from `&Self` to [`&Self::Repr`](AsRepr::Repr).
++    #[inline(always)]
++    fn as_repr(this: &Self) -> &Self::Repr {
++        // SAFETY: Per safety requirement of the trait.
++        unsafe { core::mem::transmute(this) }
++    }
++
++    /// Convert from `Self` to [`Self::Repr`].
++    #[inline(always)]
++    fn into_repr(this: Self) -> Self::Repr {
++        // SAFETY: Per safety requirement of the trait.
++        unsafe { transmute(this) }
++    }
++
++    /// Convert from [`Self::Repr`] to `Self`.
++    ///
++    /// # Safety
++    ///
++    /// `repr` must be a valid bit pattern of `Self` and satisfy type-specific invariants of it.
++    ///
++    /// Alternatively, if `repr` is previously obtained using [`Self::into_repr`], and each
++    /// `from_repr_unchecked` should corresponds to a unique `into_repr` call, then it is safe to
++    /// call as well (this means that we're undoing a `into_repr` call getting the exact bytes
++    /// back).
++    ///
++    /// This method makes no guarantee if a `into_repr` corresponds to multiple
++    /// `from_repr_unchecked` (i.e. copies are made), to allow for cases where `Repr` is a pointer
++    /// and the user of the API wants ownership transfer. Users that want the ability to call
++    /// `from_repr_unchecked` after copying can require `Copy` bound explicitly.
++    #[inline(always)]
++    unsafe fn from_repr_unchecked(repr: Self::Repr) -> Self {
++        // SAFETY: Per safety requirement, `repr` is valid repr of `Self`, or it is previously from
++        // `into_repr`, in which case we're undoing the transmute so it is also safe.
++        unsafe { transmute(repr) }
++    }
++}
++
++/// Type that is bi-directionally transmutable with a primitive representation.
++///
++/// # Safety
++///
++/// - [`Self`] must be [transmutable] from [`Self::Repr`].
++///
++/// [transmutable]: core::mem::transmute
++/// [`Self::Repr`]: AsRepr::Repr
++pub unsafe trait AsReprMut: AsRepr {
++    /// Convert from `&mut Self` to [`&mut Self::Repr`](AsRepr::Repr).
++    #[inline(always)]
++    fn as_repr_mut(this: &mut Self) -> &mut Self::Repr {
++        // SAFETY: Per safety requirement of the trait.
++        unsafe { core::mem::transmute(this) }
++    }
++
++    /// Convert from [`Self::Repr`](AsRepr::Repr) to `Self`.
++    #[inline(always)]
++    fn from_repr(repr: Self::Repr) -> Self {
++        // SAFETY: Per safety requirement of the trait.
++        unsafe { transmute(repr) }
++    }
++}
++
++// SAFETY: `bool` has the same size and alignment as `u8`, and Rust guarantees that `bool` has
++// only two valid bit patterns: 0 (false) and 1 (true). Thus `bool` can be transmuted to `u8`.
++// Neither types contain interior mutability.
++unsafe impl AsRepr for bool {
++    type Repr = u8;
++}
++
++// SAFETY: `*mut T` has the same size and alignment with `*const c_void`, and thus `*mut T` is
++// transmutable to `*const c_void`. Neither types contain interior mutability.
++unsafe impl<T> AsRepr for *mut T {
++    type Repr = *const c_void;
++}
++
++// SAFETY: `*mut T` is transmutable from `*const c_void`.
++unsafe impl<T> AsReprMut for *mut T {}
++
++// SAFETY: `*const T` has the same size and alignment with `*const c_void`, and is transmutable to
++// `*const c_void`. Neither types contain interior mutability.
++unsafe impl<T> AsRepr for *const T {
++    type Repr = *const c_void;
++}
++
++// SAFETY: `*const T` is transmutable from `*const c_void`.
++unsafe impl<T> AsReprMut for *const T {}
++
++macro_rules! int_impl {
++    ($($unsigned:ident $signed:ident ,)*) => {$(
++        // SAFETY: $unsigned has the same size and alignment with itself, and is transmutable to
++        // itself. It does not contain interior mutability.
++        unsafe impl AsRepr for $unsigned {
++            type Repr = $unsigned;
++        }
++
++        // SAFETY: $unsigned is transmutable from itself.
++        unsafe impl AsReprMut for $unsigned {}
++
++        // SAFETY: $signed has the same size and alignment with $unsigned, and is transmutable to it
++        // Neither types contain interior mutability.
++        unsafe impl AsRepr for $signed {
++            type Repr = $unsigned;
++        }
++
++        // SAFETY: $signed is transmutable from $unsigned.
++        unsafe impl AsReprMut for $signed {}
++    )*};
++}
++
++int_impl! {
++    u8 i8,
++    u16 i16,
++    u32 i32,
++    u64 i64,
++    // `usize` is not normalized to particular integer for portability.
++    usize isize,
++}
 
-Best regards,
---  
-Gary Guo <gary@garyguo.net>
+-- 
+2.54.0
 
