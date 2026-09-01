@@ -1,223 +1,142 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D3993AB47A
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:08:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D83A629BD8C
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:10:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788264486; cv=none; b=XGxmoCkj+r8zeMft8K2g9wK/WMa6KHo/jtTqa8VlmCTKnxyXN0ta5+8Gt/7YFue/gruLlnmKDp6EBAcqUQW3+GUvLAG6TWKIpHt14BvMbU5tMO+sFmpBFKOWVhIpesUeSpSHvwi2BDan9VHOx3FYZP6AuLyN0N6u1JN2K4iicao=
+	t=1788264612; cv=none; b=WFAUNsnMpGdtDcq2vnJzhzVs7rcl5M4++OkKB16Z54MeSVWYlk2K1++obEptrp+N1za4dp36Krjyg2eS9GHFju6QuUI1oily3yeqH6w9QgSzoOa2TujgY+8Nkt6GjYf3yFkJS1kdKmpGZpb+RTIG4MzR6Wc+jmE7FmiRkoV2HoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788264486; c=relaxed/simple;
-	bh=o5Egp9yNwXpcCqrJLh2gmihEga63VBYdsEigTCjApRk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Qh/nX0KTvN7HHvA1D2rMS4xyYVxivRdIRrAxeeapSospYfNVYxXU2tklb5yyn0KTWYY7uspAV7LqBZziX8B5dXEWySdf31JOIb/OaHJAgfTDb2QtawUm8Nc6imQKxlm9nk3M6Auqn4ypFWdOAAUdp7UiHJ2AJaY/kE2K1heGEbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ajou.ac.kr; spf=pass smtp.mailfrom=ajou.ac.kr; dkim=pass (1024-bit key) header.d=ajou.ac.kr header.i=@ajou.ac.kr header.b=DEpEL3lu; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ajou.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ajou.ac.kr
+	s=arc-20240116; t=1788264612; c=relaxed/simple;
+	bh=pUAQhpIylhH03veS5v2pJ5187OFtExWloOWxSlrMTWg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=Y6YbfXHyze760ul+NtkkLzCD9OOOHKavcxI+o2bXhmJqtGSquyUa+Vpibbk/P8tREeyG3dMR9qm6UuSI55XNQemGoF8v92d7ahVCXh8OgHWaxwsM/ANgIYZzer/OeCx4df1TzGLGorhNiUSg5jqsXk+1pdDt2JtjXRCkorOacgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=f4QxjJXf; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=MlypWCcK; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ajou.ac.kr header.i=@ajou.ac.kr header.b="DEpEL3lu"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d5cad1a6baso44587945ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 05:08:02 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="f4QxjJXf";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="MlypWCcK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788264610;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8fwOGFXieQl813ckc/IUkjGRGe4UDJCJhqZtMy1/kp8=;
+	b=f4QxjJXf0UToeGWa4DjOpHdG72g6Su0JJR5GcowOUb527c1TeRb5W27eptul/mMsUJ80ls
+	fhp6MGBbEyJ903yB6AxCpY8DAkFowfu6UmqSgAPlJUYHfaPRsJMcC/FwhIV1Pls0HU7e5i
+	rTUs+DKhZ5/qiFqIzxrHPg3Hz3Wo9Dg=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-184-u78x63gzNJ6akwVGfdVc4g-1; Tue, 01 Sept 2026 08:10:08 -0400
+X-MC-Unique: u78x63gzNJ6akwVGfdVc4g-1
+X-Mimecast-MFC-AGG-ID: u78x63gzNJ6akwVGfdVc4g_1788264607
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-4843313047eso1830539f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 05:10:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ajou.ac.kr; s=google; t=1788264482; x=1788869282; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OQLp2qcl9BqKOUtBIxO1nk5z5lFh8LVeO8TWdXgzcQg=;
-        b=DEpEL3luiE4MUR7b1N9KH7PpFFXQQSnocXKa4I//EKuvSOzbleXjjeIBTMJfqdxSSU
-         59E48Ke9B7N7R2wKJ45tx7XOYXgeSMfctO+doNo6hJaBWDpUTf5mFdibdHkAeKynoUK8
-         zizMKjCdb3mh4cKkjXToPNhc/QqNiveuGM6GI=
+        d=redhat.com; s=google; t=1788264607; x=1788869407; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8fwOGFXieQl813ckc/IUkjGRGe4UDJCJhqZtMy1/kp8=;
+        b=MlypWCcKSfGjZY9Eqt5KulJUqs2foa19Ey6tTuqKHzbs+XTIrn6Kff89D6VhhxGpwx
+         Pk+QaqxVW2hC/fK5ecRMrEC21EERvDF4Ah8c6IElLrmyTz0lYXuNYIkze1t+xHojUZ1q
+         UtgcDDEMTtEmutpZKssgUNSjrDU6dG42m/2PnUaJEMCXDo444Z0+SwccPKAFdp80Lu9G
+         +hnraQ4ZPgwgBep6EPjPnoxYv5gg5THpqr6GO1FXat17cBgpfCub+dF4Fj78sfeZvRl3
+         BFLNhNO7qPAPnAACXnfrZ6iO79oKZsBHFt3EP1d1XX1btxpP5qVQ9D+a7XmqlzxAmGNI
+         OnRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788264482; x=1788869282;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OQLp2qcl9BqKOUtBIxO1nk5z5lFh8LVeO8TWdXgzcQg=;
-        b=GmIjKusW6ZC+F4oua1NivRQk0Xno6K9tinEGs0qB4MGd6hxYiRStMI5fo2/x6xm4bJ
-         HGHYmdI7jL4GCr8Bd7xpvkWSjNw5E5qUWzNWhsg4CNsmihEI6cjs3q0bafzzLN+a8HkZ
-         q0VGlQa64scA6GO0uijTjGUEXrMWi638E/gAPPbYi23GlIcztQvnNapbofKBM6u50Ccf
-         QJ4zchFiEhsKRGaPzEhNaKozu8hjDdq92GJ+Ufk/kC5UGNX6irKuqGcGnt24r5/u6wGN
-         khS5Z2KkTXRKoNxh/sALaLe81vqC/pQbT7/GIvbvA//qEGNvej/rraYNA0hoIeoLQ8+z
-         Q8xQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxWNwMChepeGlU4grtxTK16+uJfX8yRIEvcaf/J6KXMJSUY4FUNeLJ2eB663Emx4A2AUXRt7Fg94FDPoqg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWtPlZt9JR3dhuRatpBIonKd56dBjAJpBM5AYDHyJvmeQr8HwX
-	xfEuKr5udgIa7ZRUVST1Ed8iulhhqN/Kw01iUpxYM4rpEGL0fa/ubZZrlfXsdix2PfI=
-X-Gm-Gg: AR+sD13jqES/MXJrUXAUi3KqFfazQ+7CqS6FC3ztb1XTG9bVGnCpb/OjHsYdlGwtJvh
-	If2/lDLwL4RmgQofbms9zRWb2dkCa6MKa757HsoWq2VACE6J7oXhgnxSYP42V0wGMDruc/Efz+g
-	XgmfcvuA41lEiT5/KS488NEBSa8IjTTfW1HABxNGlnA7H49t/GgaxyV4a809axrRDjaN4CHepH1
-	1RRRL0m9ZFpJVkAw35UEFYHcbPCEOt4fSkCefYI2/8WPh9El22t6VrXA2kc0E2t02OUUMft8rL/
-	AuhYqpV5MFE0gxGo4//qWBu8m3LOGrOrHPoCrqNjuMI+IAqYwGefozYIUQb+KVmlwRnhXOHIgMC
-	LDvPcFVai6R6RitBBuR8POTyQQoJTeCceJCBkIWNpbB6oe+0WBfyQzEnAZ7luKaZ1sNdnNz912p
-	agEuN49juzu8osuAnEx/KXHLSoMo6lX3hRPSG+2GD/Rn+YDANT5K7NEi0IFXTJ60TUgHGE2bUkk
-	i6+qjCAQQCtYHGhB8XhJ/vQ6uAUX3UFwovvSTMkVz8=
-X-Received: by 2002:a17:903:1aab:b0:2d9:e1b:73ee with SMTP id d9443c01a7336-2d94a760fc8mr105012655ad.8.1788264482200;
-        Tue, 01 Sep 2026 05:08:02 -0700 (PDT)
-Received: from DESKTOP-2P4OM44.localdomain ([175.195.197.184])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75986aea3sm50325765ad.52.2026.09.01.05.07.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 05:08:01 -0700 (PDT)
-From: qotmddnjs <qotmddnjs@ajou.ac.kr>
-To: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	dsahern@kernel.org,
-	idosch@nvidia.com,
-	shuah@kernel.org
-Cc: horms@kernel.org,
-	netdev@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Seungwon Bae <qotmddnjs@ajou.ac.kr>
-Subject: [PATCH net v2] vxlan: reject dynamic fdb entries that reference a nexthop id
-Date: Tue,  1 Sep 2026 21:07:40 +0900
-Message-ID: <20260901120740.105374-1-qotmddnjs@ajou.ac.kr>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20251104; t=1788264607; x=1788869407;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=8fwOGFXieQl813ckc/IUkjGRGe4UDJCJhqZtMy1/kp8=;
+        b=erhcomIAsnl8RTSjVlIKGZDFc/CQ8VWHRF6RM01aif93OBEpT5XzPNFOpQl/PSwZIn
+         oWy9h9i3xSXjSOjlWv0IiMJY68Hu6SNGw0xnEM2DPUvluJLanHqjlmk263m+M8TZNhN2
+         5gOzgP0hG4YLRv11AfQuBtkNhojiGe7E/NZODT3JBLHIfJG1/GQLSgXgv7r/v7DRc3rJ
+         gGtuYLAIVUVstr3uUjED77y56UASQseARemC9IOYXzkToBHXWmrGk6J6NIEHt3OcaF7Y
+         QQ3+n/AkR7YunGG56fv4RnQ6PfJYbh+R4PXTSonp0s0kA4aAwepkflk5rk7mSndsHI5/
+         MYwA==
+X-Forwarded-Encrypted: i=1; AKwUvBzuBiGQ0cOov7LMGvuZjdSEn9QGIYB938waG5zB5IvqatSv0u7ze69sYAgTm0eKw1tipKtByGSopRiJQx4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXEaloRKUu3q8BI8qKlkyqSG9KrAOA8v/rdwvo17fvgYOc5j5V
+	/AFShP7HWs15OxmjQuSIgxo3y8DcZmrJ/PhMwL07LlvljxrXmad+1yuEf57pJFC04bFy76I40so
+	uHOrNZYLP+u7CgjHuNsspYXfZ2zVyGY+Ms6wxHsclhttiDgCXW9qbXDSWaiEO4wBeTA==
+X-Gm-Gg: AYBFou3eK8gRy4I0Na5O05kqrv1cvUcFrW6+so5616vyNvZb8Z1L/aXC5pcgV57DIvy
+	62CKXjnOStZFq+OYI2v7O/edNrDhis2u9X3IH0IyMxqNqIeVWozzdokmtFlQdGMcCeumsP6XZhA
+	rFBstEsSMelBity2glpuXmKkqU8SxmHY46t/1fIImI9dviippBZf5Udlz+hU9MeCAn25er/KOZb
+	2F4CpFgasEFk4mejQiLCUptTbkHUL/OtXui1KceoGNgVRuIwBDJPQglisXKJ9SKGSPF1OJPyzNO
+	fS+B9/dqj/mV+BNwxaORvm8zC8MmsJSEe4FT7tgGj6sMfFZgQ/EqD8hIHHAM6uNmQtOrNiqSHDv
+	fs75f46gv8w4AF4UoqQUY2p2RoaQyjh7M6PI4wQCq9RRC1MHXVCmpbYoqOjsUtkoYTCKswJziXw
+	==
+X-Received: by 2002:a05:6000:1ac5:b0:484:3785:210e with SMTP id ffacd0b85a97d-4844103cd55mr13006996f8f.25.1788264607272;
+        Tue, 01 Sep 2026 05:10:07 -0700 (PDT)
+X-Received: by 2002:a05:6000:1ac5:b0:484:3785:210e with SMTP id ffacd0b85a97d-4844103cd55mr13006886f8f.25.1788264606789;
+        Tue, 01 Sep 2026 05:10:06 -0700 (PDT)
+Received: from [192.168.188.218] (ip245-45-231-195.pool-bba.aruba.it. [195.231.45.245])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442d36e9csm4881021f8f.3.2026.09.01.05.10.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 05:10:05 -0700 (PDT)
+Message-ID: <b8b6db7b-353d-4d6a-b0b6-3b5e1be22008@redhat.com>
+Date: Tue, 1 Sep 2026 14:10:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v4] bnxt_en: Bound SW TPA IDs to prevent crashes
+To: Joe Damato <joe@dama.to>, netdev@vger.kernel.org,
+ Michael Chan <michael.chan@broadcom.com>,
+ Pavan Chebbi <pavan.chebbi@broadcom.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
+ Rukhsana Ansari <rukhsana.ansari@broadcom.com>, horms@kernel.org,
+ colin.winegarden@broadcom.com, linux-kernel@vger.kernel.org,
+ raphaelcf@meta.com, stable@vger.kernel.org, llvm@lists.linux.dev
+References: <20260828190900.1767611-1-joe@dama.to>
+ <1c87458d-7d76-4da4-9981-51756cef391b@redhat.com>
+ <apa9qofhuatqGTra@devvm20253.cco0.facebook.com>
+From: Paolo Abeni <pabeni@redhat.com>
+Content-Language: en-US
+In-Reply-To: <apa9qofhuatqGTra@devvm20253.cco0.facebook.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Seungwon Bae <qotmddnjs@ajou.ac.kr>
+On 9/1/26 1:57 PM, Joe Damato wrote:
+> On Tue, Sep 01, 2026 at 10:16:54AM +0200, Paolo Abeni wrote:
+>> On 8/28/26 9:08 PM, Joe Damato wrote:
+>>>   - Moved bp->max_tpa_roundup_size init out of the early return path and
+>>>     documented that TPA is unsupported there, as suggested by Michael.
+>>
+>> Clashiko quite convincingly elaborates that the above is not enough:
+>>
+>> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260828190900.1767611-1-joe%40dama.to
+>>
+>> Could you please have a look?
+[...]
+> 3.) "The new assignment sits after the max_tpa_v2 == 0 early return, so on a P5+
+> device whose firmware reports max_aggs_supported == 0, does
+> bp->max_tpa_roundup_size stay 0 while BNXT_FLAG_TPA is set? ..."
+> 
+> Michael commented in the v3 that this is a false positive, hence why I changed
+> the code from what it was in the v3 to this.
 
-An fdb entry that references a nexthop id cannot roam and therefore has no
-reason to be aged out, even though vxlan_snoop() keeps refreshing its
-timestamp.  Nevertheless, such an entry can currently be created (or an
-existing nexthop entry updated) with a dynamic state, which places it on
-the aging list.
+This is the comment I referred to.
 
-struct nexthop.fdb_list is a per-nexthop global list of the vxlan fdb
-entries that reference an fdb-nexthop.  It is manipulated by vxlan under
-the per-device vxlan->hash_lock only.  When two vxlan devices reference the
-same fdb-nexthop, their entries share one nh->fdb_list, but each device
-takes only its own hash_lock.  vxlan_cleanup() - the aging timer - then
-runs in softirq with only its device's hash_lock and calls
-vxlan_fdb_destroy() -> list_del_rcu(&f->nh_list), racing a concurrent
-list_add_tail_rcu()/list_del_rcu() driven from the other device.  The
-shared list is corrupted and a freed struct vxlan_fdb is left linked on
-nh->fdb_list, a use-after-free later consumed by vxlan_fdb_nh_flush().
+AFAICS the problem is that the driver sets
 
-On CONFIG_DEBUG_LIST/KASAN this reproduces as:
+	bp->dev->hw_features |= NETIF_F_LRO;
 
-  list_del corruption. next->prev should be ..., but was dead000000000122.
-  __list_del_entry_valid_or_report <- vxlan_fdb_destroy <- vxlan_cleanup
-  <- run_timer_softirq
-  BUG: KASAN: slab-use-after-free in vxlan_fdb_destroy
+regardless of the supported capabilities, and that seams to disagree
+with Michael.
 
-Since a nexthop fdb entry must not be aged out in the first place, reject
-making it dynamic, both when it is created and when an existing entry is
-updated.  vxlan_cleanup() skips NUD_PERMANENT/NUD_NOARP entries, so this
-guarantees nexthop fdb entries are never touched by the softirq aging
-path, and nh->fdb_list ends up manipulated under RTNL only, removing the
-race entirely.
-
-Extend the vxlan fdb-nexthop selftests to cover the rejection on add,
-replace and append.
-
-Verified with a KASAN + CONFIG_DEBUG_LIST kernel and an unprivileged
-(userns+netns) reproducer that previously ran two vxlan devices churning
-dynamic add + aging-delete on a shared fdb-nexthop: before the change the
-dynamic nexthop adds succeed and produce hundreds of list_del corruptions
-plus a slab-use-after-free; after the change the adds are rejected with
--EINVAL and the run is clean (0 corruptions, 0 KASAN reports).
-
-Fixes: 1274e1cc4226 ("vxlan: ecmp support for mac fdb entries")
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Signed-off-by: Seungwon Bae <qotmddnjs@ajou.ac.kr>
----
-Found with AI assistance; treated as public per
-Documentation/process/security-bugs.rst. A reproducer is available
-privately on request.
-
-Changes in v2:
-- Reject making a nexthop fdb dynamic (on add and update) instead of
-  adding a lock around nh->fdb_list, per review feedback: a nexthop fdb
-  cannot roam, so it should never be aged out; this removes the softirq
-  racer and leaves nh->fdb_list manipulated under RTNL only.
-- Add fib_nexthops.sh selftest coverage (add/replace/append rejection).
-- Add Fixes tag.
-v1: https://lore.kernel.org/netdev/20260901050253.47197-1-qotmddnjs@ajou.ac.kr/
- drivers/net/vxlan/vxlan_core.c              | 11 ++++++++
- tools/testing/selftests/net/fib_nexthops.sh | 28 +++++++++++++++++++++
- 2 files changed, 39 insertions(+)
-
-diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
-index ac88d1c85..93bf7c535 100644
---- a/drivers/net/vxlan/vxlan_core.c
-+++ b/drivers/net/vxlan/vxlan_core.c
-@@ -996,6 +996,12 @@ static int vxlan_fdb_update_existing(struct vxlan_dev *vxlan,
- 		return -EOPNOTSUPP;
- 	}
- 
-+	if (rcu_access_pointer(f->nh) &&
-+	    !(state & (NUD_PERMANENT | NUD_NOARP))) {
-+		NL_SET_ERR_MSG(extack, "Cannot make a nexthop fdb dynamic");
-+		return -EOPNOTSUPP;
-+	}
-+
- 	/* Do not allow an externally learned entry to take over an entry added
- 	 * by the user.
- 	 */
-@@ -1257,6 +1263,11 @@ static int vxlan_fdb_add(struct ndmsg *ndm, struct nlattr *tb[],
- 	if (err)
- 		return err;
- 
-+	if (nhid && !(ndm->ndm_state & (NUD_PERMANENT | NUD_NOARP))) {
-+		NL_SET_ERR_MSG(extack, "A nexthop fdb cannot be dynamic");
-+		return -EINVAL;
-+	}
-+
- 	if (vxlan->default_dst.remote_ip.sa.sa_family != ip.sa.sa_family)
- 		return -EAFNOSUPPORT;
- 
-diff --git a/tools/testing/selftests/net/fib_nexthops.sh b/tools/testing/selftests/net/fib_nexthops.sh
-index 3d3471267..431d7bed7 100755
---- a/tools/testing/selftests/net/fib_nexthops.sh
-+++ b/tools/testing/selftests/net/fib_nexthops.sh
-@@ -533,6 +533,20 @@ ipv6_fdb_grp_fcnal()
- 	run_cmd "$BRIDGE fdb add 02:02:00:00:00:14 dev vx10 nhid 61 self"
- 	log_test $? 255 "Fdb mac add with nexthop"
- 
-+	# fdb entries with a nexthop group cannot be aged out
-+	run_cmd "$BRIDGE fdb add 02:02:00:00:00:15 dev vx10 nhid 102 self static"
-+	log_test $? 0 "Fdb mac add with nexthop group and static state"
-+
-+	run_cmd "$BRIDGE fdb add 02:02:00:00:00:16 dev vx10 nhid 102 self dynamic"
-+	log_test $? 255 "Fdb mac add with nexthop group and dynamic state"
-+
-+	run_cmd "$BRIDGE fdb add 02:02:00:00:00:17 dev vx10 nhid 102 self"
-+	run_cmd "$BRIDGE fdb replace 02:02:00:00:00:17 dev vx10 dst 2001:db8:91::11 self dynamic"
-+	log_test $? 255 "Fdb mac replace with nexthop group and dynamic state"
-+
-+	run_cmd "$BRIDGE fdb append 02:02:00:00:00:17 dev vx10 dst 2001:db8:91::11 self dynamic"
-+	log_test $? 255 "Fdb mac append with nexthop group and dynamic state"
-+
- 	run_cmd "$IP -6 ro add 2001:db8:101::1/128 nhid 66"
- 	log_test $? 2 "Route add with fdb nexthop"
- 
-@@ -669,6 +683,20 @@ ipv4_fdb_grp_fcnal()
- 	run_cmd "$BRIDGE fdb add 02:02:00:00:00:14 dev vx10 nhid 12 self"
- 	log_test $? 255 "Fdb mac add with nexthop"
- 
-+	# fdb entries with a nexthop group cannot be aged out
-+	run_cmd "$BRIDGE fdb add 02:02:00:00:00:15 dev vx10 nhid 102 self static"
-+	log_test $? 0 "Fdb mac add with nexthop group and static state"
-+
-+	run_cmd "$BRIDGE fdb add 02:02:00:00:00:16 dev vx10 nhid 102 self dynamic"
-+	log_test $? 255 "Fdb mac add with nexthop group and dynamic state"
-+
-+	run_cmd "$BRIDGE fdb add 02:02:00:00:00:17 dev vx10 nhid 102 self"
-+	run_cmd "$BRIDGE fdb replace 02:02:00:00:00:17 dev vx10 dst 10.0.0.3 self dynamic"
-+	log_test $? 255 "Fdb mac replace with nexthop group and dynamic state"
-+
-+	run_cmd "$BRIDGE fdb append 02:02:00:00:00:17 dev vx10 dst 10.0.0.3 self dynamic"
-+	log_test $? 255 "Fdb mac append with nexthop group and dynamic state"
-+
- 	run_cmd "$IP ro add 172.16.0.0/22 nhid 16"
- 	log_test $? 2 "Route add with fdb nexthop"
- 
--- 
-2.43.0
+/P
 
