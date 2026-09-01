@@ -1,154 +1,355 @@
-Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021096.outbound.protection.outlook.com [52.101.100.96])
+Received: from mx1.riseup.net (mx1.riseup.net [198.252.153.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8308639A7E0;
-	Tue,  1 Sep 2026 11:50:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.96
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788263444; cv=fail; b=hlFXFHwi4bdIvybHvH23mzOqOSrwJfJjzvFDJZq98SKzKPCl9AFnHNQvR8m1givr4MsNJ8xElP2t9fPCVLosSboX+TMVriVSDnjzRcDhhb4LgxRJeEmXtVbgJVSl86YtF1rwHwePR8JNo2q7/A06NZmbfCPGJh7KUwPOKZ+slro=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788263444; c=relaxed/simple;
-	bh=pM6SXKrTYIp13z0q12/dcTWdkRV7JazDaiU1kye/jKc=;
-	h=Content-Type:Date:Message-Id:To:Cc:Subject:From:References:
-	 In-Reply-To:MIME-Version; b=KcNKInk8D/qOqiqnZ+3OoMtKVIUsDhtGsvjK7X/+ZfGTpX510xV9/0O22sOSjmCoxiPBmPwtVGTS5hOKYoABkSsPwd8r4Nj5BY/IPb6hk1ZntVR2aXSnZW1K1jlLot3BvaasZE3VIYiWBOd5foqOoCmD5q7dBKEdfuwmVn/yhiA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=dutT+lrH; arc=fail smtp.client-ip=52.101.100.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D479363C46;
+	Tue,  1 Sep 2026 11:51:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.252.153.129
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788263463; cv=none; b=FNl8RjxKlvBZINCwOGINytuS2V2UzCEIooHhMFuq/ovPJSemv7WQdzojsMz+Rth2ZlcKSAVloiC08xddS3NFmRPF/o39aaQ8Zwe5TwzGz9erW3Bl+TwQrjxJmhalZHsmuZcmCyOIJ1MIav8aSdYdgfhPTrdX9VWUyXrjiDhRMyw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788263463; c=relaxed/simple;
+	bh=zqdUYV1yNctxuRi2ceiURU5QKjQzKpJ/jpsDnKflsTc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=fYQsbJ1BNim9ufD0x1LI4lcsCt2eFvQQ0+qtL61SKDS7l6+xv/b6CkWFzAoCmH08T4hWzMpkGOOGNSRTsiaqDNlAQx9ncfRUDY3qO6OWahLzKmzcBF1Gc4ptqrgqIpiOFf0O5p+odme8Yc+a2YCG4oQ+xVRpsEpf12JmYBSZDg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riseup.net; spf=pass smtp.mailfrom=riseup.net; dkim=pass (1024-bit key) header.d=riseup.net header.i=@riseup.net header.b=VfUylumr; arc=none smtp.client-ip=198.252.153.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riseup.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riseup.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="dutT+lrH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RGDQQ7Rra5nzWI24l0TXXyhsJ3lnmyW+Whn3HKW0luzDUzHThuyaL6rtk13RMj422x3vU2OtOCXWJrLgI+2yFdct3eDDHS2iJyd4pTY1XcprSx1R1tIzEGtPKJ+8PD9atQJideijw1GQzj8DPZW9XSbiZOUp8ZNZmFoBhr7iZ+Hq+cwByZFCUDiGIRTYv5y+zBYnskBZ4CvHxmY479BbaoJ9jaL25PKb1+aXS4tacnIHmXZyyQFJ/oag8ryQ1srXrnCJIbglRi+oA/usXhjekcsx8BlkFOL2ujD/mD5DzrzCWdeCFUVFQxnTu2AyWtVW2AEKVxmW1MvshNmP4oweHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bku2Mjz/K40d0ckvnAxnBq6+fEdquOoNz2vSXKzDgXI=;
- b=cf7aTa5Qwv53nOIeb/ZVWlsHYDmrNY8WO0zlL5LKfZYjpxu744iVZ/Ju1I4xjdzgxm75XcUGkHTha5ewQcFaWVnwZAdjNby+HmAaNYa5q1W3GBkucTGhswTRC4n5jmA5q1czRNjatHPLpTUBDsB7F2pflHWfDYPBuBrQtD3mH+MiDaw0pAg4aq3J3IpuTlyzzgK3Dz+C/NHw4oAwKB5cgU8Lde5eckWLc4hL3JA0h/AdViasHKaDaeXVDDfVq0WY/kS9Dt0eSk3Kg+mUOIND+XTwOWiyfo83YfiNhQitNGOqG9SWRkZcBStBuOLxSEIPEacDC+Z/D1D6KmMOIMgSnA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bku2Mjz/K40d0ckvnAxnBq6+fEdquOoNz2vSXKzDgXI=;
- b=dutT+lrHqyUWomCq8Yn75ERb7UjZ2VG8/rmAdW9P+5m29It7cPeDEF9vHgD6Os5vNoECWwwrFOrvkPuIrofIUFvNlMJf/qidq1sdxIZRs4vQKfmmbF3DD/YX/tknPe3CTMgSyzZdlUkJ1vguOUawqMkDjTGR6CV+3jmCkyX3gV4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO2P265MB2525.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:12f::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 11:50:40 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 11:50:39 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 01 Sep 2026 12:50:38 +0100
-Message-Id: <DL3YHEOVTPTX.3LTWSZ05GAFAG@garyguo.net>
-To: "Eliot Courtney" <ecourtney@nvidia.com>, "Alexandre Courbot"
- <acourbot@nvidia.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-Cc: "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v2 2/3] rust: prelude: add `num::cv`
-From: "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.22.0
-References: <20260901-cv-v2-0-446bc69d2ade@nvidia.com>
- <20260901-cv-v2-2-446bc69d2ade@nvidia.com>
-In-Reply-To: <20260901-cv-v2-2-446bc69d2ade@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0476.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a8::13) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (1024-bit key) header.d=riseup.net header.i=@riseup.net header.b="VfUylumr"
+Received: from fews01-sea.riseup.net (fews01-sea-pn.riseup.net [10.0.1.109])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx1.riseup.net (Postfix) with ESMTPS id 4hZ41b1B0tzDqhC;
+	Tue,  1 Sep 2026 11:50:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=riseup.net; s=squak;
+	t=1788263454; bh=IPswc6Cjd8p7WwVezZA2g6UODoR/ie6W2jlz9aPTgYY=;
+	h=From:To:Cc:Subject:Date:From;
+	b=VfUylumrcmaQjvyhXLkMyiR9wENqWf4nTKiGtdP8Yvs/Q5OqprQU4gIcKq0gKOIok
+	 46FJYz5quOY4S4XLDs53bNJwcZ1+mtizdi3Q3gCrvScbu94Bxzoh9HCltv1nydkw0V
+	 m/yoim5TLMIg2q0i6yXrsZWZucC3RsqmJXC0zyQA=
+X-Riseup-User-ID: E5F8F7D98D2829322768F754E05AE5AE62A09FBC44B70DAB5A0A24EA938CE3A6
+Received: from [127.0.0.1] (localhost [127.0.0.1])
+	 by fews01-sea.riseup.net (Postfix) with ESMTPSA id 4hZ41Q1d1Sz1xpZ;
+	Tue,  1 Sep 2026 11:50:34 +0000 (UTC)
+From: =?UTF-8?q?=C3=8D=C3=B1igo=20Huguet?= <ihuguet@riseup.net>
+To: David Ahern <dsahern@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Neal Cardwell <ncardwell@google.com>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Florian Westphal <fw@strlen.de>,
+	Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+Cc: =?UTF-8?q?=C3=8D=C3=B1igo=20Huguet?= <ihuguet@riseup.net>,
+	Simon Horman <horms@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Phil Sutter <phil@nwl.cc>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Junseo Lim <zirajs7@gmail.com>,
+	Leon Hwang <leon.hwang@linux.dev>,
+	Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
+	Willem de Bruijn <willemb@google.com>,
+	Kees Cook <kees@kernel.org>,
+	Qi Tang <tpluszz77@gmail.com>,
+	Jeff Layton <jlayton@kernel.org>,
+	Joe Damato <joe@dama.to>,
+	Breno Leitao <leitao@debian.org>,
+	Li RongQing <lirongqing@baidu.com>,
+	netdev@vger.kernel.org (open list:VRF),
+	linux-kernel@vger.kernel.org (open list),
+	netfilter-devel@vger.kernel.org (open list:NETFILTER),
+	coreteam@netfilter.org (open list:NETFILTER),
+	bpf@vger.kernel.org (open list:BPF [MISC]:Keyword:(?:\b|_)bpf(?:\b|_))
+Subject: [PATCH net] net/ipv6: don't route packets with unknown source address
+Date: Tue,  1 Sep 2026 13:50:07 +0200
+Message-ID: <20260901115021.50057-1-ihuguet@riseup.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO2P265MB2525:EE_
-X-MS-Office365-Filtering-Correlation-Id: b727210b-ff48-4ae8-7b3a-08df081f3e96
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|10070799003|366016|23010399003|376014|7416014|22082099003|18002099003|56012099006|4143699003|10067099003|921020;
-X-Microsoft-Antispam-Message-Info:
-	R4j7bybApCd2Zl2RyI3zh+JxATVndqeYG/0H33azR0i9St1/kk0QJB93noctQBbum0z2ElOaV5ACEJgFq/sUuwjBvLMASFJaWb8qzNk92BXBFuY+yjeRmUHdlMZ2DaSJ0a09JczmR9779PFrB6P9HkLB94bdjnCaB95u+XD0ZWGqKX3+D2Td2wvkTPMqPTvwrn3iu7OChJn8DxMTnfzRIWq/UmaHS78hsIBw0PZo0tFwYNk9s0WTG5Dyy+inG5iddVe4jLEihIi76Ckpnf+EJ0cUxkN6OHyus+P4kKDKwPuVwbTY3sokLyLVta9setAF2uY4EH0d3Zu4eI2ZIuOSq3lwPAmDZovBiiw+InW8wNsLML81jQ0J0w67i0BORzL9fNWX65ncinXUaY+TFYrmyJ6u71dR5RVN5sw1t0mWKaFuOswaJXk/FnWZ/tn/ZKeMjX6uP1xMbQB1X1FUeZLFCeoFHkvJ/EtcWkrE/h5aO6STwFnFa0awGsBDPpUNh7scZdrdENbkBQ4eQdhgaZpFnlNE6eL8hblPVOxr+4jGHD3+8uxKtU2QcGzSaDi10MVUrfaRNTpWYUY+HLSNAljfNwCnYdUwtKwrUWUg+Z5TtFpGH1DZiJyZNjEJQvj8sq4T6BM9I48vTAaNu3LjOnD4csUb+5Za08NAmdHKgHvi9CtM7iEFsW9Qs0Br5ZZ8aKT2ign29SB7pqU2fCc4c8efog==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(366016)(23010399003)(376014)(7416014)(22082099003)(18002099003)(56012099006)(4143699003)(10067099003)(921020);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aHZBWFdINTdQeVBoaEpLNEQ1d0E3MzBDKzJmSDBubmF1MldmbEVJZ0JtRFZt?=
- =?utf-8?B?dWMwRmxQbkhpaGRHeE4vUklSQktoT29jRmF2bGUyN0VURklEVTV1SEozalJF?=
- =?utf-8?B?ZGFoSU5vc3ZjaWxpV0RUS2t5Y0xHVEJsWHplcWNLN2taZE1tN25KUkNaRWdC?=
- =?utf-8?B?R3g4Y1VZUTZEVERjZWozemdQZnc5RFFQY0xiaTQ1S2xsVWVzMWhDMXA2aTR4?=
- =?utf-8?B?TVZ6Qk1sL2U0WVAwNXY3Rjl4S29RNldud2ltWU5RdFVFV2JQMXp3YXFKbVBC?=
- =?utf-8?B?L2hCT2hkNnY4elBkTlBvZTM5KzA0R2ZPaytYZ3VPakxWa1ZKRFRINFk2Lzlk?=
- =?utf-8?B?RG5UVzc0YkNtbU5vdmpWUmNMZmNqOFNyYlo2ZzgvaVo5V3U0WmROd1p3Unpw?=
- =?utf-8?B?UnpzeEI1NGhjd2oxbldRaEhDTnNqb1p2N1NyQWNlMWgrK2dIeTdRMHlMSGVu?=
- =?utf-8?B?UE40dExJbGNqZUFlZmppVVRDMEtSaVhWcENObFlVaWUrOEZIbFJXc0g4b3BP?=
- =?utf-8?B?clQrZmJhMVVhRFhPcFF0dnc3RVlYUnBvQmh5SHppOFlab1IrL21WaWNSV21a?=
- =?utf-8?B?ZU9CTVZ3ZmRLRFl4QWYrVVVpSHhWczhCdmo5USt5VUtjZ1MwYnYxSFJWeFZS?=
- =?utf-8?B?UGRzbW5nVlE1QUpmbHlKYmZjWXpwTXN3dEdBdUZHRUhVVldjWExwVmsyaWFx?=
- =?utf-8?B?aVZ1QTNRS1hWdE1IdjdIYk1WSjNWM0c0TWJWWVZ6Q2tMZ1FlYjE4eGR3L2lk?=
- =?utf-8?B?ajh6MTBNbStGZXZ1c3BPUDNCN1RYVjhQNmJpanVIZmZLMDZsamsrRmRlWVZz?=
- =?utf-8?B?UHlHWmtMemxMVC84Y3Q3eE9pTTAvTTNmZFlFSWxLNHd1R1JpbVIydEdqdCtY?=
- =?utf-8?B?M0NMaHpBUTQzRkZwNldqYS9lUldpUUcrakJnWDJET0FHaDY0TUpCc25kSExy?=
- =?utf-8?B?cDVrMlNwMWcyZXRISHZObEp6cHFmM3IzMVRSNlFaT0VPNWcwSllLam1QY082?=
- =?utf-8?B?bHYzVk9QTXhTQTJ1OTJYdFp1SDBNTjcyWllqKzVKT3JTbXFpc1ZEK1ltak1s?=
- =?utf-8?B?MDJNSGp0Yk8vQmw0WXA5TUxUM3VZRlEreEVrZzdlWlRYN3VIZ3d3bHZuSkg2?=
- =?utf-8?B?d0NkS2ttZ3BYYWRUUDk4ckNxY2EyVDU5Q2Rrc3BBTHdlT3pDaExRTytGQ29r?=
- =?utf-8?B?YzI4M3UxaDdGTFZ4clJHOTlwN2pQdXlYczR1dFVhVjZvemhkWWl1Q1ZUaDZ5?=
- =?utf-8?B?VVE1Y2M1YWdQeElrN0NaQjI1UzQrZ0pFTVNUQTJqVmR6WW1XL21ha0tLZ3Bu?=
- =?utf-8?B?NEZHTWZTUWpUblc2eFhmcGhES29LM25hRi91dG90UWk2TStIWFBDYWtvSkYx?=
- =?utf-8?B?WTBmTTluOTB2SmFPeGJ5bWRKelJhSElDV1JsYXM0Tm41b2t5TnFtRTU5ZS8x?=
- =?utf-8?B?bUdQNFJwTzNRVEd4R2hhU3VjWlVpMnVGdzZSNTdLcWhvM2kydjhGeVJuZGFW?=
- =?utf-8?B?RFpIR2xCOUhwMWZSWDJkVlRZRGNLQlp6Qk9PZTdBc2gzZmRQN054Zk9MSDRF?=
- =?utf-8?B?UUFMTWdvLzY0bktQWm1aN25laFNtYlRubWxwYllGb1NkbWs2TmZ5bzhvOWVt?=
- =?utf-8?B?Zk50OTR5dDE0TkQ1b0xEZFZxRWdESUhxQytld1lNT2NveHRIVEF1c2VRTlVh?=
- =?utf-8?B?S1F2Yzg2dnB1QlJRTktrT3NQWkNIZzQ2OFNEL0ZlNzhBOGZMazlZQTFiRWVm?=
- =?utf-8?B?eXJsTU05TFBaVmIrTFMxMEx4TGVCYWxyaEtEY2tLajkvV29kdUxnL1crRitV?=
- =?utf-8?B?REt5MUVwQUZzSXp4L25KT1hSdUZiMEdlMmtrQ0ZsWnNET2dEUVpVcmk1OWps?=
- =?utf-8?B?dFNtODdwcGN6cFFZaUNvVXhWbmY5aktrdWdSMzJ4ZG5maVdDUlprWDRJUnJF?=
- =?utf-8?B?Syt2N3NUaEpkeWV1eFcvai9Eb2FnaDV5d0wwaUg0eDNXSkRUOUxpSjRvZnFT?=
- =?utf-8?B?ejF6eldtc1VFYjlGN2hsQVMzdEovUnJvVXBzeFYvK3hwNCsrelVDTjJRU1oy?=
- =?utf-8?B?SjZSdngvZVV4d2Zlci9jUHRGWStDcmQ3WGlLZWZEMU9Oa094OU15dFFhREND?=
- =?utf-8?B?ajB3TndXSTJoR1NOd3dRckpXSGhjMGtRamJBMVk4Q3lKZVp6aGhVZ2x1Mmhz?=
- =?utf-8?B?aEc0cVUyU0JIcHRJSFBSOVQrK2Q4WlJMWXlsaWdsWS8vUWVGc3ArNlBMYmZM?=
- =?utf-8?B?T1QxVmNldjB5dmY1bXpQY3l2cmkrZUhlcXdkdWZkd0g2c2hhSnAzN1ZpaEpB?=
- =?utf-8?B?MDViNklrdHIwaExkdU1taGhoSjROdjRLLzk1LzJaZldKaUF2RHZoQT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: b727210b-ff48-4ae8-7b3a-08df081f3e96
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 11:50:39.8005
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xlbc1aZjeGRACNUxA/fcgqRRCdCBp3DC6Md2F+UZRwNQYjp3u24eDV6c6yehrQp/i5MFaDhnABnekV/h/xHRVg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB2525
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue Sep 1, 2026 at 6:06 AM BST, Eliot Courtney wrote:
-> Add the `cv!` macro to the prelude so it doesn't need to be imported
-> explicitly to use it.
->=20
-> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+Don't allow routing packets with a source address that is not configured
+in the host. Allow it only in certain cases like when using a
+transparent socket, by setting the ANYSRC flag in flowi_flags.
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
+Until now, it was possible to send such a packet if a route can be found
+in the routing table for it. For example:
+1. Configure an address 1:2::3:4/64 and a static route 1:2::/64
+2. Establish a TCP connection to 1:2::3:4
+3. Remove the address from the interface, but keep the route.
+4. Packets are still sent out by the TCP connection because of
+   the static route. No incoming packets are accepted, though.
 
-> ---
->  rust/kernel/num.rs     | 1 -
->  rust/kernel/prelude.rs | 1 +
->  2 files changed, 1 insertion(+), 1 deletion(-)
+This patch prevents the outgoing packets to be sent in normal
+circumnstances.
+
+This aligns the behaviour with the IPv4 stack. To determine the places
+where the ANYSRC needs to be set, I set the flag in the same places as
+the IPv4 stack does.
+
+Apart from consolidating the behaviour of both stacks, there is a more
+important reason why this is needed. RFC 4862 states that "an invalid
+address MUST NOT be used as the source address of outbound packets".
+Therefore, sending packets with a source address considered "invalid",
+like an expired address, is disallowed.
+
+Signed-off-by: Íñigo Huguet <ihuguet@riseup.net>
+
+---
+
+Testing: tested with a manual reproducer executing the steps described
+above. Tested also with transparent sockets to ensure that the packets
+are sent in that case. Also executed the following selftests to prevent
+potential regressions: fcnal-ipv6, fib_tests, fib-onlink-tests,
+nft_nat, nft_tproxy_tcp, nft_tproxy_udp.
+
+The change in the netfilter's ip6_route_me_harder function is the one
+that I'm more unsure about. It was not clear to me the reason why it was
+done like this in the IPv4 counterpart. Please review carefully.
+---
+ drivers/net/vrf.c                |  1 +
+ net/core/lwt_bpf.c               |  1 +
+ net/ipv6/af_inet6.c              |  1 +
+ net/ipv6/datagram.c              |  1 +
+ net/ipv6/inet6_connection_sock.c |  2 ++
+ net/ipv6/ip6_output.c            | 28 ++++++++++++++++++++++++++++
+ net/ipv6/netfilter.c             | 10 ++++++++--
+ net/ipv6/ping.c                  |  1 +
+ net/ipv6/raw.c                   |  1 +
+ net/ipv6/syncookies.c            |  1 +
+ net/ipv6/tcp_ipv6.c              |  2 ++
+ net/ipv6/udp.c                   |  1 +
+ net/l2tp/l2tp_ip6.c              |  2 ++
+ 13 files changed, 50 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/vrf.c b/drivers/net/vrf.c
+index a0557a3a7026..6c09d5f46d6b 100644
+--- a/drivers/net/vrf.c
++++ b/drivers/net/vrf.c
+@@ -432,6 +432,7 @@ static netdev_tx_t vrf_process_v6_outbound(struct sk_buff *skb,
+ 	fl6.flowlabel = ip6_flowinfo(iph);
+ 	fl6.flowi6_mark = skb->mark;
+ 	fl6.flowi6_proto = iph->nexthdr;
++	fl6.flowi6_flags = FLOWI_FLAG_ANYSRC;
+ 
+ 	dst = ip6_dst_lookup_flow(net, NULL, &fl6, NULL);
+ 	if (IS_ERR(dst) || dst == dst_null)
+diff --git a/net/core/lwt_bpf.c b/net/core/lwt_bpf.c
+index da49364ec63d..e8b954282689 100644
+--- a/net/core/lwt_bpf.c
++++ b/net/core/lwt_bpf.c
+@@ -233,6 +233,7 @@ static int bpf_lwt_xmit_reroute(struct sk_buff *skb)
+ 		fl6.flowi6_mark = skb->mark;
+ 		fl6.flowi6_uid = sock_net_uid(net, sk);
+ 		fl6.flowlabel = ip6_flowinfo(iph6);
++		fl6.flowi6_flags = FLOWI_FLAG_ANYSRC;
+ 		fl6.flowi6_proto = iph6->nexthdr;
+ 		fl6.daddr = iph6->daddr;
+ 		fl6.saddr = iph6->saddr;
+diff --git a/net/ipv6/af_inet6.c b/net/ipv6/af_inet6.c
+index 282912a11999..e55a36372ab2 100644
+--- a/net/ipv6/af_inet6.c
++++ b/net/ipv6/af_inet6.c
+@@ -820,6 +820,7 @@ int inet6_sk_rebuild_header(struct sock *sk)
+ 	fl6->fl6_dport = inet->inet_dport;
+ 	fl6->fl6_sport = inet->inet_sport;
+ 	fl6->flowi6_uid = sk_uid(sk);
++	fl6->flowi6_flags = inet_sk_flowi_flags(sk);
+ 	security_sk_classify_flow(sk, flowi6_to_flowi_common(fl6));
+ 
+ 	ip6_ecmp_set_mp_hash(sock_net(sk), fl6, sk->sk_txhash);
+diff --git a/net/ipv6/datagram.c b/net/ipv6/datagram.c
+index 38d7b4845281..0773bfa0342d 100644
+--- a/net/ipv6/datagram.c
++++ b/net/ipv6/datagram.c
+@@ -52,6 +52,7 @@ static void ip6_datagram_flow_key_init(struct flowi6 *fl6,
+ 	fl6->flowi6_mark = sk->sk_mark;
+ 	fl6->fl6_dport = inet->inet_dport;
+ 	fl6->fl6_sport = inet->inet_sport;
++	fl6->flowi6_flags = inet_sk_flowi_flags(sk);
+ 	fl6->flowlabel = ip6_make_flowinfo(np->tclass, np->flow_label);
+ 	fl6->flowi6_uid = sk_uid(sk);
+ 
+diff --git a/net/ipv6/inet6_connection_sock.c b/net/ipv6/inet6_connection_sock.c
+index 3e4ce8cb478e..f295f3efe243 100644
+--- a/net/ipv6/inet6_connection_sock.c
++++ b/net/ipv6/inet6_connection_sock.c
+@@ -45,6 +45,7 @@ struct dst_entry *inet6_csk_route_req(const struct sock *sk,
+ 	fl6->flowi6_mark = ireq->ir_mark;
+ 	fl6->fl6_dport = ireq->ir_rmt_port;
+ 	fl6->fl6_sport = htons(ireq->ir_num);
++	fl6->flowi6_flags = inet_sk_flowi_flags(sk);
+ 	fl6->flowi6_uid = sk_uid(sk);
+ 	security_req_classify_flow(req, flowi6_to_flowi_common(fl6));
+ 
+@@ -71,6 +72,7 @@ struct dst_entry *inet6_csk_route_socket(struct sock *sk,
+ 	fl6->daddr = sk->sk_v6_daddr;
+ 	fl6->saddr = np->saddr;
+ 	fl6->flowlabel = np->flow_label;
++	fl6->flowi6_flags = inet_sk_flowi_flags(sk);
+ 	IP6_ECN_flow_xmit(sk, fl6->flowlabel);
+ 
+ 	if (sk->sk_protocol == IPPROTO_TCP)
+diff --git a/net/ipv6/ip6_output.c b/net/ipv6/ip6_output.c
+index 8fc4766c8da9..57eebe347902 100644
+--- a/net/ipv6/ip6_output.c
++++ b/net/ipv6/ip6_output.c
+@@ -1191,6 +1191,34 @@ static int ip6_dst_lookup_tail(struct net *net, const struct sock *sk,
+ 	if (err)
+ 		goto out_err_release;
+ 
++	/* Routing packets with a source address not present in the host is
++	 * disallowed unless the ANYSRC flag is set (i.e. with transparent sockets).
++	 * The source address must be in the same L3 domain as the destination device.
++	 */
++	if (!ipv6_addr_any(&fl6->saddr) &&
++	    !(fl6->flowi6_flags & FLOWI_FLAG_ANYSRC)) {
++		struct net_device *oif_dev;
++
++		rcu_read_lock();
++		/* For local routes, (*dst)->dev can be 'lo', which has no l3mdev
++		 * master, so that the L3 domain wouldn't match if the source
++		 * address is in a VRF-enslaved device. To avoid that, check the
++		 * outgoing interface from the flowi6 structure instead.
++		 */
++		if (fl6->flowi6_oif)
++			oif_dev = dev_get_by_index_rcu(net, fl6->flowi6_oif);
++		else
++			oif_dev = (*dst)->dev;
++
++		if (!ipv6_chk_addr_and_flags(net, &fl6->saddr, oif_dev,
++					     1, 1, IFA_F_TENTATIVE))
++			err = -ENETUNREACH;
++		rcu_read_unlock();
++
++		if (err)
++			goto out_err_release;
++	}
++
+ #ifdef CONFIG_IPV6_OPTIMISTIC_DAD
+ 	/*
+ 	 * Here if the dst entry we've looked up
+diff --git a/net/ipv6/netfilter.c b/net/ipv6/netfilter.c
+index a7025ec87035..7c19ecbec112 100644
+--- a/net/ipv6/netfilter.c
++++ b/net/ipv6/netfilter.c
+@@ -26,11 +26,11 @@ int ip6_route_me_harder(struct net *net, struct sock *sk_partial, struct sk_buff
+ 	const struct ipv6hdr *iph = ipv6_hdr(skb);
+ 	struct sock *sk = sk_to_full_sk(sk_partial);
+ 	struct net_device *dev = skb_dst_dev(skb);
++	int daddr_type = ipv6_addr_type(&iph->daddr);
+ 	struct flow_keys flkeys;
+ 	unsigned int hh_len;
+ 	struct dst_entry *dst;
+-	int strict = (ipv6_addr_type(&iph->daddr) &
+-		      (IPV6_ADDR_MULTICAST | IPV6_ADDR_LINKLOCAL));
++	int strict = daddr_type & (IPV6_ADDR_MULTICAST | IPV6_ADDR_LINKLOCAL);
+ 	struct flowi6 fl6 = {
+ 		.flowi6_l3mdev = l3mdev_master_ifindex(dev),
+ 		.flowi6_mark = skb->mark,
+@@ -41,6 +41,12 @@ int ip6_route_me_harder(struct net *net, struct sock *sk_partial, struct sk_buff
+ 	};
+ 	int err;
+ 
++	fl6.flowi6_flags = sk ? inet_sk_flowi_flags(sk) : 0;
++	if (daddr_type & (IPV6_ADDR_UNICAST | IPV6_ADDR_LINKLOCAL))
++		fl6.flowi6_flags |= FLOWI_FLAG_ANYSRC;
++	else
++		fl6.saddr = in6addr_any;
++
+ 	if (sk && sk->sk_bound_dev_if)
+ 		fl6.flowi6_oif = sk->sk_bound_dev_if;
+ 	else if (strict)
+diff --git a/net/ipv6/ping.c b/net/ipv6/ping.c
+index 6e90d0bf9f3d..d0964396c2c5 100644
+--- a/net/ipv6/ping.c
++++ b/net/ipv6/ping.c
+@@ -140,6 +140,7 @@ static int ping_v6_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
+ 	fl6.flowi6_proto = IPPROTO_ICMPV6;
+ 	fl6.saddr = np->saddr;
+ 	fl6.daddr = *daddr;
++	fl6.flowi6_flags = inet_sk_flowi_flags(sk);
+ 	fl6.flowi6_mark = ipc6.sockc.mark;
+ 	fl6.flowi6_uid = sk_uid(sk);
+ 	fl6.fl6_icmp_type = user_icmph.icmp6_type;
+diff --git a/net/ipv6/raw.c b/net/ipv6/raw.c
+index b965258cf9e5..ef5ddbe7ac10 100644
+--- a/net/ipv6/raw.c
++++ b/net/ipv6/raw.c
+@@ -887,6 +887,7 @@ static int rawv6_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
+ 		fl6.flowi6_oif = READ_ONCE(np->ucast_oif);
+ 	security_sk_classify_flow(sk, flowi6_to_flowi_common(&fl6));
+ 
++	fl6.flowi6_flags = inet_sk_flowi_flags(sk);
+ 	if (hdrincl)
+ 		fl6.flowi6_flags |= FLOWI_FLAG_KNOWN_NH;
+ 
+diff --git a/net/ipv6/syncookies.c b/net/ipv6/syncookies.c
+index b581cb1ee2e8..3d665e93fcac 100644
+--- a/net/ipv6/syncookies.c
++++ b/net/ipv6/syncookies.c
+@@ -242,6 +242,7 @@ struct sock *cookie_v6_check(struct sock *sk, struct sk_buff *skb)
+ 		fl6.flowi6_mark = ireq->ir_mark;
+ 		fl6.fl6_dport = ireq->ir_rmt_port;
+ 		fl6.fl6_sport = inet_sk(sk)->inet_sport;
++		fl6.flowi6_flags = inet_sk_flowi_flags(sk);
+ 		fl6.flowi6_uid = sk_uid(sk);
+ 		security_req_classify_flow(req, flowi6_to_flowi_common(&fl6));
+ 
+diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+index df9c29eb5c1f..401a1297e7db 100644
+--- a/net/ipv6/tcp_ipv6.c
++++ b/net/ipv6/tcp_ipv6.c
+@@ -268,6 +268,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+ 	fl6->flowi6_mark = sk->sk_mark;
+ 	fl6->fl6_dport = usin->sin6_port;
+ 	fl6->fl6_sport = inet->inet_sport;
++	fl6->flowi6_flags = inet_sk_flowi_flags(sk);
+ 	if (IS_ENABLED(CONFIG_IP_ROUTE_MULTIPATH) && !fl6->fl6_sport)
+ 		fl6->flowi6_flags = FLOWI_FLAG_ANY_SPORT;
+ 	fl6->flowi6_uid = sk_uid(sk);
+@@ -979,6 +980,7 @@ static void tcp_v6_send_response(const struct sock *sk, struct sk_buff *skb, u32
+ 	fl6.fl6_dport = t1->dest;
+ 	fl6.fl6_sport = t1->source;
+ 	fl6.flowi6_uid = sock_net_uid(net, sk && sk_fullsock(sk) ? sk : NULL);
++	fl6.flowi6_flags = sk ? inet_sk_flowi_flags(sk) : 0;
+ 	security_skb_classify_flow(skb, flowi6_to_flowi_common(&fl6));
+ 
+ 	/* Pass a socket to ip6_dst_lookup either it is for RST
+diff --git a/net/ipv6/udp.c b/net/ipv6/udp.c
+index 93478d1ad576..5154d445ba9c 100644
+--- a/net/ipv6/udp.c
++++ b/net/ipv6/udp.c
+@@ -1656,6 +1656,7 @@ int udpv6_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
+ 	if (ipv6_addr_any(&fl6->saddr) && !ipv6_addr_any(&np->saddr))
+ 		fl6->saddr = np->saddr;
+ 	fl6->fl6_sport = inet->inet_sport;
++	fl6->flowi6_flags = inet_sk_flowi_flags(sk);
+ 
+ 	if (cgroup_bpf_enabled(CGROUP_UDP6_SENDMSG) && !connected) {
+ 		err = BPF_CGROUP_RUN_PROG_UDP6_SENDMSG_LOCK(sk,
+diff --git a/net/l2tp/l2tp_ip6.c b/net/l2tp/l2tp_ip6.c
+index bdaae1b64d25..22ae5bc2669a 100644
+--- a/net/l2tp/l2tp_ip6.c
++++ b/net/l2tp/l2tp_ip6.c
+@@ -633,6 +633,8 @@ static int l2tp_ip6_sendmsg(struct sock *sk, struct msghdr *msg, size_t len)
+ 	else if (!fl6.flowi6_oif)
+ 		fl6.flowi6_oif = READ_ONCE(np->ucast_oif);
+ 
++	fl6.flowi6_flags = inet_sk_flowi_flags(sk);
++
+ 	security_sk_classify_flow(sk, flowi6_to_flowi_common(&fl6));
+ 
+ 	fl6.flowlabel = ip6_make_flowinfo(ipc6.tclass, fl6.flowlabel);
+-- 
+2.54.0
 
