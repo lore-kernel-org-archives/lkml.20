@@ -1,190 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C6F641DE08;
-	Tue,  1 Sep 2026 10:05:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9065478870;
+	Tue,  1 Sep 2026 10:05:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788257132; cv=none; b=X+ktUD4diru1OhQn0ADbUMN5TyHuH7RL46qCfm8ZsrNVz51jQbLvhvq+L4Jzu6r2Y+xA8gF+txYv+phRdQhtLzr9DlcLNlhNQaiBSDRx6RfhOv4xaxj4aWA3+JgNIxIbV3ZnuxvB1jwBW9LUXpldaXoTFctLdadhoQszlHUCSfE=
+	t=1788257152; cv=none; b=Bx44qMVQ94RM1xEj1AwoGHuICcb4FNxmVEKZMOjsAyUVT/adKZ5GOe8BhraEOjUQk6ltZM7ejEWLgH9tKOmOHpuvh6N0vX3xbDvpgnjVGnEJtlkucrwvBf+mDNJ0AMWedm0GKKUQ1piy71peRzx43GRVHi9oBuk3A3Bzl8TaKFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788257132; c=relaxed/simple;
-	bh=7+m+iuaplCMK2WRosgxc4zd1kWJKHb1IDiwZ8radkV0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=toRmQvQ2E3zzviAgGptLPjT0pEHJe6ferFJeB2bhJnPuJZm5cPhJEqCp0c9Gx/5j/obPbOlZ2O/U2bo03N+aHYKVNQOsIa6y7cuWDm2N34/DGmmJ1WubkgChYsn30rdnlwbUq28ZWXnZFxun1z6Mdg171NdzXbiz63P/5AMmdqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SD0xZAu7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788257152; c=relaxed/simple;
+	bh=CP2iDjjjM2LmDr+6QCKQ1dQlRgx9KRthcQlcKJm0aSg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Ot44GE1WSHIZajFWSU8TjOpYKT+kqfddJTllzX+K8yQ1OM82MA92fwWDSd+QNH+kBVkKWQWWZPea2X4adIdsD8TZS1tSQSG4FJxjuRJrXYHQshE+EaSirSepxpDCNHP8YjezqoHiYm4RPE+F++PttM0jurNNC2RRxE3V8b/e+ko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dQPaTAma; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SD0xZAu7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08C8C1F000E9;
-	Tue,  1 Sep 2026 10:05:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dQPaTAma"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42A861F000E9;
+	Tue,  1 Sep 2026 10:05:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788257130;
-	bh=G16mJgiGGsS4pp8GycAQb1G+YaBLkP+xLI1RpKwUZGc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SD0xZAu77WmakhKvsElwMocYyHV5VONv5alRC0gmvFAt65Z1kw7pNLGkzYgTgLTJi
-	 Dc022miruNpzUJqtHq6YlgTiRSKg8X6ty59O5GagI/lIOUbZuWEkE2nKbMh9SUgTsQ
-	 Vx+cyZYI5TJ7brZpjMDdPUV5FqytTgj8IL8p18jr0SGl3fEIImCG3FIFlSqTZmurX9
-	 RC/QckIOjqfRG3wsTxM5QtscJmq/Nrh2zrO40ubwOV5/0AZQsjhREEQkL94xQHYlUI
-	 GoLn+pWWZYrFnR6tIHoT3qLwnyagHQjPj+OB9QZdytZgtWS2SofvlIV86k43akrxZc
-	 i+pMj7+fEuAqA==
-Date: Tue, 1 Sep 2026 12:05:27 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Markus Probst <markus.probst@posteo.de>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <uwe@kleine-koenig.org>, 
-	Andrew Lunn <andrew@lunn.ch>, Gregory Clement <gregory.clement@bootlin.com>, 
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, Michael Langer <michael.brainbug.langer@googlemail.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Linus Walleij <linusw@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 1/6] dt-bindings: rtc: Add pinctrl for S35390A
-Message-ID: <20260901-proud-furious-bison-0edeec@quoll>
-References: <20260831-rtc_s35390a_int1-v8-0-dac1dc86ce1f@posteo.de>
- <20260831-rtc_s35390a_int1-v8-1-dac1dc86ce1f@posteo.de>
+	s=k20260515; t=1788257150;
+	bh=XDZ+ZClSMASP42h1TijFhfnc1qGMmcP7N0HWSwmjy1E=;
+	h=From:Subject:Date:To:Cc;
+	b=dQPaTAmaU2YT6/KypFrB2MGNyuFkBqANNPOZkZaMHYPPU0rh3A8NhdntgbgVevlPn
+	 Gm4Dl56xv2zENtxsXkMzZ9sLvsegWObLsxHAxvxZajERM2x/L9i+jLz+MWOzBRaQNY
+	 gV/uUFGCm8Gm6h377NqG4O9eBMdS8xIwyg3RKkwhlwhvwIDTemyw59AdXqxPFE3Cxt
+	 6dmTHwFYOBAGQGRu/6DutX03GpKTx3jNZywoijxESj3U1Amxnp2mWXp5RjQKYza337
+	 OuIvlzA9+ilZquNX8IN03tl1Ak/0bE0dkBQ+IvBGRZVEuif5Ru1PY2HhXo2dlHSfXr
+	 2FkA1EAchMWJw==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Subject: [PATCH v3 0/4] DWC3 link tunneling state reporting
+Date: Tue, 01 Sep 2026 12:05:42 +0200
+Message-Id: <20260901-topic-dwc3_tunneling_state-v3-0-22fdced8de55@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260831-rtc_s35390a_int1-v8-1-dac1dc86ce1f@posteo.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NXQuCMBhG/4rsusnmd131PyJkvr7pQjdz0wrxv
+ 7cZ0U1088CBh3MWYnCUaMghWMiIszRSKwfxLiDQCtUglbVjErEoYylLqNWDBFrfIS7tpBR2UjW
+ lscIiTVlaFMCQC4yJEwwjXuRjk5/ObzZTdUWw3ugfrTRWj8+tPnP/+4TSf6GZU0YTIUQGMfAEq
+ qM2JrxNogPd96Eb4ntz9DXm/L8xckb3S4pcsILz/Q/juq4vvAsg3i8BAAA=
+X-Change-ID: 20260504-topic-dwc3_tunneling_state-50588c0e1ae3
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Mathias Nyman <mathias.nyman@intel.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ usb4-upstream@oss.qualcomm.com, 
+ Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>, 
+ Mika Westerberg <mika.westerberg@linux.intel.com>, 
+ Sven Peter <sven@kernel.org>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788257146; l=2784;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=CP2iDjjjM2LmDr+6QCKQ1dQlRgx9KRthcQlcKJm0aSg=;
+ b=N5CgGSE/sCiIZu7jWNrRtdmACoFmtTlOg4qgU0pv6r1XT0/Q250j0GMpMpGxIwiPTNJHYUuVs
+ H4ApmArh1K3DAbPoBpzIGraeX7JCdgRtuY3JFqfHo6Az+mBWPGzdu6L
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-On Mon, Aug 31, 2026 at 05:42:22PM +0000, Markus Probst wrote:
-> Synology NAS devices use the output pin for interrupt signal 1 to wake up
-> the system.
-> 
-> Move devicetree bindings for sii,s35390a into its own file.
-> Add necessary properties to configure the individual pins via pinctrl,
-> which allows the interrupt signal 1 to be used for wakeup alarm.
-> 
-> Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> ---
->  .../devicetree/bindings/rtc/sii,s35390a.yaml       | 117 +++++++++++++++++++++
->  .../devicetree/bindings/rtc/trivial-rtc.yaml       |   3 -
->  2 files changed, 117 insertions(+), 3 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml b/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml
-> new file mode 100644
-> index 000000000000..dfe632c4b2c8
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/rtc/sii,s35390a.yaml
-> @@ -0,0 +1,117 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/rtc/sii,s35390a.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: S-35390A 2-WIRE REAL-TIME CLOCK
-> +
-> +maintainers:
-> +  - Markus Probst <markus.probst@posteo.de>
-> +
-> +description:
-> +  The S-35390A is a CMOS 2-wire real-time clock IC which operates with the
-> +  very low current consumption in the wide range of operation voltage.
-> +
-> +allOf:
-> +  - $ref: rtc.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: sii,s35390a
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    minItems: 1
-> +    maxItems: 2
-> +    description: Supports up to 2 interrupt lines via the INT1 and INT2 pins.
-> +
-> +  interrupt-names:
-> +    items:
-> +      - const: int1
-> +      - const: int2
-> +
-> +  wakeup-parent: true
-> +
-> +  wakeup-source: true
-> +
-> +  "#clock-cells":
-> +    const: 1
-> +
-> +patternProperties:
-> +  "^pins":
-> +    type: object
-> +    additionalProperties: false
-> +
-> +    patternProperties:
-> +      "-pins$":
-> +        type: object
-> +        additionalProperties: false
-> +
-> +        allOf:
-> +          - $ref: /schemas/pinctrl/pinmux-node.yaml#
-> +
-> +        properties:
-> +          pins:
-> +            minItems: 1
-> +            items:
-> +              enum:
-> +                - int1
-> +                - int2
-> +
-> +          function:
-> +            description: |
-> +              Pin function:
-> +              - ignore:  Preserve the previous state.
-> +              - disable: Disable pin output.
-> +              - wakeup:  Output wakes up the system.
-> +              - clock:   Output clock pulse.
-> +              - pmin1:   Minute periodical output with 50% duty.
-> +              - pmin2:   Minute periodical output L for 7.81 ms.
-> +                         Can only be used with pin int1.
-> +            enum:
-> +              - ignore
-> +              - disable
-> +              - wakeup
-> +              - clock
-> +              - pmin1
-> +              - pmin2
-> +
-> +        required:
-> +          - pins
-> +          - function
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        rtc@30 {
-> +            compatible = "sii,s35390a";
-> +            reg = <0x30>;
-> +            pinctrl-0 = <&rtc_pins_default>;
-> +            pinctrl-names = "default";
-> +
-> +            wakeup-parent = <&int>;
+Currently, retrieving the tunneled/native state of a running port is
+only possible on Intel XHCI hosts. This series extends that to CIO-
+capable DWC31 controllers (see [1]).
 
-I don't understand this need. Device does not generate interrupts - no
-interrupts property - thus how can it wakeup?
+Note that this patchset only results in the correct udev->tunnel_mode
+value being assigned. Creating the device links (which requires this
+information) between the USB4 router and the USB3 controller does not
+currently take place on DT-based platforms, but that will be amended
+in a follow-up patchset.
 
-As explained in commit msg, the signal at int1 goes to the SoC, right?
-So where does it go? To which pin of which device? &int?
+Tested on a Qualcomm X1E80100 CRD board, with a (currently) out-of-tree
+set of drivers.
 
-Can you show complete upstream DTS using this?
+[1] I'm not entirely sure about the DWC version range (particularly
+    wrt DWC32 and newer), so I limited it to a reasonable subset. I'll
+    happily amend that.
 
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+Changes in v3:
+- Report USB_LINK_UNKNOWN instead of NATIVE if the DWC3 controller
+  seems not to support USB4
+- Cache the capability of reporting tunneling mode instead of checking
+  it every single time
+- Link to v2: https://patch.msgid.link/20260715-topic-dwc3_tunneling_state-v2-0-026487a08119@oss.qualcomm.com
+
+Changes in v2:
+- Add handling for XHCI v1.2's USB3 tunneling and PORTSC.TM for
+  platforms that advertise it (!!! UNTESTED !!!, I have no access to
+  HW that exposes this)
+- Prefer the aforementioned cap over custom implementations
+- Bail out of the DWC3-specific check if `usb4-host-interface` device
+  property is absent - hence this now depends on:
+  https://github.com/devicetree-org/dt-schema/pull/196
+
+- Link to v1: https://patch.msgid.link/20260505-topic-dwc3_tunneling_state-v1-0-4aaa6c3c14cb@oss.qualcomm.com
+
+---
+Konrad Dybcio (4):
+      usb: xhci: debugfs: Expose the USB3 tunneling ext_cap register value
+      usb: xhci: Honor PORTSC.TM if valid
+      usb: xhci: Allow custom op for usb_link_tunnel_mode reporting
+      usb: dwc3: Notify XHCI core of tunneled status
+
+ drivers/usb/dwc3/core.c          | 16 ++++++++++++++++
+ drivers/usb/dwc3/core.h          | 18 ++++++++++++++++++
+ drivers/usb/dwc3/host.c          | 12 ++++++++++++
+ drivers/usb/host/xhci-debugfs.c  |  9 +++++++++
+ drivers/usb/host/xhci-debugfs.h  |  2 ++
+ drivers/usb/host/xhci-ext-caps.h |  4 ++++
+ drivers/usb/host/xhci-hub.c      | 24 +++++++++++++++++++-----
+ drivers/usb/host/xhci-plat.c     |  2 ++
+ drivers/usb/host/xhci-plat.h     |  1 +
+ drivers/usb/host/xhci-port.h     |  3 ++-
+ drivers/usb/host/xhci.c          | 11 ++++++++++-
+ drivers/usb/host/xhci.h          |  6 +++++-
+ 12 files changed, 100 insertions(+), 8 deletions(-)
+---
+base-commit: 89c07d98716a13454ec3fd9f97689e812cc71bd4
+change-id: 20260504-topic-dwc3_tunneling_state-50588c0e1ae3
 
 Best regards,
-Krzysztof
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
