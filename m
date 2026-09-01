@@ -1,156 +1,207 @@
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C88BF411665;
-	Tue,  1 Sep 2026 16:57:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788281836; cv=pass; b=aJLvAHXUqNoxVq3fNP3qUMigFGsKmIuSur1+TzHMyzVmaV3aLJHJMIf7v5VZvWl7lZnAe7y01jkGQIBIdwlQLjm07OBAbmhNkcyYLD2Kj3TKcpX2Aylkdeyw8Q21Ob54CcvNhEBFa0q1xdKQXBvpuvVb1gf0NN+8kbXkOSy3ChE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788281836; c=relaxed/simple;
-	bh=2o50ioaSos31AQffpyMEqKbixGBDTkL88GZUNPuz45c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lXAUcKryGrYJEtPI7Z7eR67zrYLT2FKHCvlsJZNs9YjFiKmPx04tPHdMcWpsJLfLQNx9YYtHA90CkyVCAOn8F/WBqwE2M3Z87SySsrx7EgFYbWunrESjDjc8T+CAIDfIBtg1TMbpntw3UJ3DJM3hAnU627NGW13bLNNmCIQy8dQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc; spf=pass smtp.mailfrom=ziyao.cc; dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b=bd4mBydR; arc=pass smtp.client-ip=136.143.188.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43692483820
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:57:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788281848; cv=none; b=rQ/xfCDX6hufMTIas5Iftzs7XukyOv1KqPKgHRZLcm+N2P9CbUt42ixcD4jxaTszyiPpiuBlfBKioxI3V0qQPZtegZaPT42Fya7G1d/shEiGcPb98qH0RC2l8MwkR8Q4t9YPfhOGYa/UEONSnskri1TdNQ46BSPkZjkfg1/co0A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788281848; c=relaxed/simple;
+	bh=lgwdoTrlO0HEFS94P4RArG+h9VAkaKbGLxswo5sqNXI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TMf6k2goSaQljemdKat8/9HyWCM/cvPsSNdCIYtHMHxMzqeusBx9+At34g7UXcYjBbyHh0PHeDRs8sbazperTk22s1TcDJLlrQosS+DxTt42jDQlelCksWii5t51iyb3JwYkrs/zG7E699m+cOsyLZw6xiEuV7rayTwG+W7/Dnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bHbYyok9; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b="bd4mBydR"
-ARC-Seal: i=1; a=rsa-sha256; t=1788281795; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=YxlD8eKZdzvGSCqLTBceHoCcn8xAgVPXM/40YpkDNQdDqYbBZI5p4jgIaZIoiqm8wA6vL7alnU6p4zQk3PB1DxcP6jbAXmDbkgtwu3FWROr0Iigg9y2hOd12OIv3hf4CI1GdjJFJVP5Ex6xmIIrlTGQyX/oucYfGT6poobskD94=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788281795; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=EIjF6irFWof5iYX8mJ+DqBBduW8CEQHKF360pseUiV0=; 
-	b=IqS4WrCY3h/7bfvUq2WivzRAAquuGJzHGfEpVpT/XcAlvJXDoMN/fSKCfPfa3ybzutv68teVg2lKQMD2GcbjN4aBI3yyi08NC4iVDCH+A/MzqbmPsezP9jclGkVJIj4nxHo9F2+ocxGr48ZIKsm5x515CGhy8sxxkTGEXpMji6s=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ziyao.cc;
-	spf=pass  smtp.mailfrom=me@ziyao.cc;
-	dmarc=pass header.from=<me@ziyao.cc>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788281795;
-	s=zmail; d=ziyao.cc; i=me@ziyao.cc;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=EIjF6irFWof5iYX8mJ+DqBBduW8CEQHKF360pseUiV0=;
-	b=bd4mBydR/1IVcYtyruTb9J+DesuhtHF1J1VU+wP8TkFSFTZdkLSjKxSlwwjffUW8
-	qP4x8W2yRwyQaYxMN+PhciVIZoiZtkZuTESGwliZWFgkvVE1hSIYV3M6MffgM+gYYI+
-	ROmd0NqRHgujNwBHDp0mUzfGsU/qfPD46DPH/fO4=
-Received: by mx.zohomail.com with SMTPS id 1788281791276114.8959116523572;
-	Tue, 1 Sep 2026 09:56:31 -0700 (PDT)
-Date: Tue, 1 Sep 2026 16:56:16 +0000
-From: Yao Zi <me@ziyao.cc>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>, davem@davemloft.net,
-	Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Heiner Kallweit <hkallweit1@gmail.com>, Yao Zi <me@ziyao.cc>,
-	Frank <Frank.Sae@motor-comm.com>
-Cc: thomas.petazzoni@bootlin.com,
-	Alexis =?iso-8859-1?Q?Lothor=E9?= <alexis.lothore@bootlin.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: Re: [PATCH net-next 3/3] net: phy: motorcomm: Enable analog frontend
- on YT8531S
-Message-ID: <apcDsF_P9fDDiOn6@pie>
-References: <20260831073747.361482-1-maxime.chevallier@bootlin.com>
- <20260831073747.361482-4-maxime.chevallier@bootlin.com>
- <17e50070-46c9-46dd-8109-95007a4f681f@redhat.com>
- <3053bd10-50c0-4a4e-bfe3-7c2479bad560@bootlin.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bHbYyok9"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so12939595e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 09:57:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788281844; x=1788886644; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bwW47ioONs/Vqr3qlve/7uLurw9nuu4muvuRMdEX4tA=;
+        b=bHbYyok97xbWPZzyU/6milPuBdpCPAsQ2et42/SA+T9yhFsZ1PfuFgVON2SnEe4/mO
+         HoJZJoE1sWcFRptxieUF/D1OmrLXF8dIDxAJo6nlJCCQICE5qySrex6LZlpFf+2lmAz2
+         pxzMx5uLkT1OGx8xa2Sqgye/8V6YsI9c6YNNBawVqjuBxyAAYBntNZHZtD4+/pXY2MbC
+         Dy2ftV2vxaQAAyFfWdail9+oGy1iauxkhjVlViT2a2mObXUUx9vBRy1Kr0HZ/VS5LS3k
+         59Wjy6WierUI9jZb+R0rpR/jAWKHSd0cixECOuobKOaezb8po8YjBVwoH/rL3vAn3FM+
+         grBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788281844; x=1788886644;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bwW47ioONs/Vqr3qlve/7uLurw9nuu4muvuRMdEX4tA=;
+        b=gvfSzsjjWhBQt+InoQoDsxivKjJzdIxvx48u61WH4/ZyGXWq8yHHH40z6st9BZQhjg
+         +KDJwqrdJy8ihaDRqRKm8V78NcPxDyV6ay3YPjJYjNDeaNM0AR0PUhF/caAcCiCgvEol
+         CrjqyuwM/oB1XY1hFbaSG5CbkAqnyZ2CcUukO+IkJXtATjv0x7xEVqakXw7/6QcZh675
+         v2vHOdP6k5GtEXy3ORrMzg7NsvpzugNCupYqxlKb6qWZ571emcqFcSNIFZjdcPA990XT
+         TkOi7lmmrTJhWVIsrKNO+H4TjrJnE77xeCbjkHQM8suWnlRUxP6Yw3GAEa5PW2fRdNhe
+         vyPw==
+X-Gm-Message-State: AFuF++nc/A5fjd7H2xssyjvrSP3HAy93erMQGvhHKrLJwsVU3Lwo53uY
+	Isf8AHHis2nqGsk7N68Kx7rCuAU2y9i/4hcJkWOVukFxNGjvTQHY4zkAmNzCYgmhQes=
+X-Gm-Gg: AR+sD12XG2jo1XjUjtpwOiv7jLLJMRllHbr2PnMkNOoT7ikxVq/QdzWYH0nOLkxFkcS
+	yy70JIX3Hrwm/CazZz/dLPyXjxabGFMg7AqzJmkkqywpBek1SyFQqyd73ogSCj3nX3kk9pqeRnv
+	w686Fl7x+jglR1fewZKnaG9fmFI8Np3GxYHdTOOZYXKmntWZ4TL6v33niccx0VL/bm4GYRO7A6E
+	JkUMOoc7Q/OBKVD3Tze1IT+6UyOgOsgWWqyyNxZQczR6beqSWEyYRzDUSihaJh6eqhy3+q35kMs
+	5hBX+j2MfK31Y+f1wgdU00dVmjvKD84taSt2LNnD7Ui82oed+0qho3yRaeybic8ik7MM0veq10n
+	Ihh5VkVxKBl5i2IEFuZKnejqCLsxvKIFCV8rKXswaEKNif91/4ylFRlni9lLJC+URGkedt50eSp
+	HeGI5emcwYj7MIxtTvtP1NDRdWvdrtUZkrTV/8F+KCsaTVElcys2Fo8UKTqtrhVLVL/8Tp92q/o
+	rgP8L8Lbq+IuPOJw1GbocM+7A==
+X-Received: by 2002:a05:600c:3511:b0:499:adb4:a922 with SMTP id 5b1f17b1804b1-49b91c4bab5mr413374315e9.12.1788281844013;
+        Tue, 01 Sep 2026 09:57:24 -0700 (PDT)
+Received: from ?IPV6:2a03:83e0:1126:4:f403:a537:85fc:d569? ([2620:10d:c092:500::6:3965])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e72c28sm362209f8f.6.2026.09.01.09.57.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 09:57:23 -0700 (PDT)
+Message-ID: <6727850f-7d94-4e01-bc42-bd630f7e6e26@gmail.com>
+Date: Tue, 1 Sep 2026 17:57:22 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3053bd10-50c0-4a4e-bfe3-7c2479bad560@bootlin.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.256.78
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH bpf-next v3 1/4] bpf: Cancel special fields in resizable
+ hashtab on recycle
+To: chenyuan_fl@163.com, bpf@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Martin KaFai Lau <martin.lau@linux.dev>,
+ Emil Tsalapatis <emil@etsalapatis.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>,
+ Nuoqi Gui <gnq25@mails.tsinghua.edu.cn>, Yuan Chen <chenyuan@kylinos.cn>
+References: <0560a24d-2cf9-4e5b-aa61-580af1e56de1@gmail.com>
+ <20260901062845.1379760-1-chenyuan_fl@163.com>
+ <20260901062845.1379760-2-chenyuan_fl@163.com>
+Content-Language: en-US
+From: Mykyta Yatsenko <mykyta.yatsenko5@gmail.com>
+In-Reply-To: <20260901062845.1379760-2-chenyuan_fl@163.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 01, 2026 at 04:21:36PM +0200, Maxime Chevallier wrote:
-> 
-> 
-> On 9/1/26 15:59, Paolo Abeni wrote:
-> > On 8/31/26 9:37 AM, Maxime Chevallier wrote:
-> >> The YT6801 PCIe NIC includes the dwmac-motorcomm IP for the MAC part, as
-> >> well as a YT8531S PHY, configured in GMII mode.
-> >>
-> >> It seems this PHY requires the Analog Front-end (AFE) DAC clock to be
-> >> enabled for link to reliably establish, otherwise the link just doesn't
-> >> come up.
-> >>
-> >> Let's enable it at config_init().
-> >>
-> >> This logic has been extracted from the vendor driver provided by
-> >> Motorcomm.
-> >>
-> >> It's really unclear if this is specific to the integrated version of
-> >> that PHY, and how this potentially interacts with the fiber mode this
-> >> PHY supports, so this configuration is only enabled when the interface
-> >> is GMII, i.e. the PHY is integrated.
-> >>
-> >> With this, the PHY reliably establishes link and the YT6801 PCIe card
-> >> becomes fully functional.
-> >>
-> >> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-> >> ---
-> >>  drivers/net/phy/motorcomm.c | 14 +++++++++++++-
-> >>  1 file changed, 13 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
-> >> index 36c229460a77..90a4f86f2758 100644
-> >> --- a/drivers/net/phy/motorcomm.c
-> >> +++ b/drivers/net/phy/motorcomm.c
-> >> @@ -144,6 +144,11 @@
-> >>  #define YT8521_CLOCK_GATING_REG			0xC
-> >>  #define YT8521_CGR_RX_CLK_EN			BIT(12)
-> >>  
-> >> +/* Analog front-end control register 3 */
-> >> +#define YT8531S_EXT_AFE_CTRL3			0x12
-> >> +/* Analog front-end DAC clock enable */
-> >> +#define YT8531S_AFE_CTRL3_CLKDAC_AON		BIT(13)
-> >> +
-> >>  #define YT8521_EXTREG_SLEEP_CONTROL1_REG	0x27
-> >>  #define YT8521_ESC1R_SLEEP_SW			BIT(15)
-> >>  #define YT8521_ESC1R_PLLON_SLP			BIT(14)
-> >> @@ -1740,8 +1745,15 @@ static int yt8531s_config_init(struct phy_device *phydev)
-> >>  	if (ret)
-> >>  		goto err_restore_page;
-> >>  
-> >> -	if (phy_interface_is_rgmii(phydev))
-> >> +	if (phy_interface_is_rgmii(phydev)) {
-> >>  		ret = yt8531_set_ds(phydev);
-> >> +		if (ret)
-> >> +			goto err_restore_page;
-> >> +	}
-> >> +
-> >> +	if (phydev->interface == PHY_INTERFACE_MODE_GMII)
-> >> +		ret = ytphy_modify_ext(phydev, YT8531S_EXT_AFE_CTRL3,
-> >> +				       0, YT8531S_AFE_CTRL3_CLKDAC_AON);
-> > 
-> > Sashiko suspects this will not survive a suspend/resume:
-> > 
-> > https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260831073747.361482-1-maxime.chevallier%40bootlin.com
-> 
-> hmm sashiko may be right, worth adding right now as it seems there are
-> some discussions already on motorcomm suspend/resume issues, let me spin
-> a V2
-> 
-> Thanks !
 
-Yes, suspend/resume already works for some time on devices unaffected
-by the issue under discussion. It looks good to me apart from this.
-I'll call some guys to test for regressions on devices proven to work
-before.
 
-> Maxime
+On 9/1/26 7:28 AM, chenyuan_fl@163.com wrote:
+> From: Yuan Chen <chenyuan@kylinos.cn>
 > 
+> rhtab_delete_elem() and rhtab_map_update_existing() eagerly call
+> bpf_obj_free_fields() when an element is deleted or its value is
+> replaced. This runs kptr destructors in the caller's execution
+> context, which is unsafe for BPF programs running in NMI context
+> (e.g. perf_event programs attached to hardware PMU overflows):
+> referenced kptr destructors may take locks or otherwise cannot run
+> in NMI.
+> 
+> Commit a3a81d247651 ("bpf: Cancel special fields on map value
+> recycle") switched the hash map and array recycle paths to
+> bpf_obj_cancel_fields(), which only cancels NMI-safe fields (timer,
+> workqueue, task_work), but it missed the resizable hashtab.
+> rhtab_map_update_existing() even documents the intended "cancel"
+> semantics while still calling bpf_obj_free_fields().
+> 
+> Fix the resizable hashtab the same way: call bpf_obj_cancel_fields()
+> on delete and in-place update, matching htab. Referenced kptrs stay
+> attached to the recycled element and are destroyed by rhtab_mem_dtor()
+> once the element is eventually freed, keeping the reference accounting
+> balanced. No special-field initialization is added to the element
+> alloc path: fresh elements come zeroed from the bpf mem allocator,
+> recycled elements already had their timer/workqueue/task_work slots
+> reset by bpf_obj_cancel_fields(), and check_and_init_map_value() would
+> zero the kptr slot of a recycled element, dropping the reference
+> without releasing it.
+> 
+> Verified with a selftest: a perf_event (NMI) program overwrites a
+> rhtab element that holds a referenced task kptr, and a second phase
+> deletes and re-inserts the element to exercise the recycle path.
+> Before the patch the NMI update eagerly released the kptr and the
+> recycle path zeroed the inherited slot; after the patch the kptr is
+> inherited on both paths and the probe observes it non-NULL.
+> 
+> Fixes: a3a81d247651 ("bpf: Cancel special fields on map value recycle")
+> Suggested-by: Mykyta Yatsenko <mykyta.yatsenko5@gmail.com>
+> Signed-off-by: Yuan Chen <chenyuan@kylinos.cn>
+> ---
+>  kernel/bpf/hashtab.c | 32 ++++++++++++++++----------------
+>  1 file changed, 16 insertions(+), 16 deletions(-)
+> 
+> diff --git a/kernel/bpf/hashtab.c b/kernel/bpf/hashtab.c
+> index d40cb5dd446c..aaedda3730f3 100644
+> --- a/kernel/bpf/hashtab.c
+> +++ b/kernel/bpf/hashtab.c
+> @@ -2864,16 +2864,6 @@ static int rhtab_map_alloc_check(union bpf_attr *attr)
+>  	return htab_map_alloc_check(attr);
+>  }
+>  
+> -static void rhtab_check_and_free_fields(struct bpf_rhtab *rhtab,
+> -					struct rhtab_elem *elem)
+> -{
+> -	if (IS_ERR_OR_NULL(rhtab->map.record))
+> -		return;
+> -
+> -	bpf_obj_free_fields(rhtab->map.record,
+> -			    rhtab_elem_value(elem, rhtab->map.key_size));
+> -}
+> -
+>  static void rhtab_mem_dtor(void *obj, void *ctx)
+>  {
+>  	struct htab_btf_record *hrec = ctx;
+> @@ -2963,8 +2953,9 @@ static int rhtab_delete_elem(struct bpf_rhtab *rhtab, struct rhtab_elem *elem, v
+>  		rhtab_read_elem_value(&rhtab->map, copy, elem, flags);
+>  		check_and_init_map_value(&rhtab->map, copy);
+>  	}
+> -	/* Release internal structs: kptr, bpf_timer, task_work, wq */
+> -	rhtab_check_and_free_fields(rhtab, elem);
+> +	/* Cancel NMI-safe fields; full destruction happens in rhtab_mem_dtor */
+> +	bpf_obj_cancel_fields(&rhtab->map,
+> +			      rhtab_elem_value(elem, rhtab->map.key_size));
+>  	bpf_mem_cache_free_rcu(&rhtab->ma, elem);
+>  	return 0;
+>  }
+> @@ -3022,10 +3013,12 @@ static long rhtab_map_update_existing(struct bpf_map *map, struct rhtab_elem *el
+>  	 * BPF_F_LOCK, matching arraymap semantics.
+>  	 *
+>  	 * copy_map_value() skips special-field offsets, so old timers/
+> -	 * kptrs/etc. still sit in the slot. Cancel them after the copy
+> -	 * to match arraymap's update semantics.
+> +	 * kptrs/etc. still sit in the slot. Cancel the NMI-safe ones after
+> +	 * the copy to match arraymap's update semantics; referenced kptrs
+> +	 * stay attached and are destroyed by rhtab_mem_dtor().
+>  	 */
+> -	rhtab_check_and_free_fields(rhtab, elem);
+> +	bpf_obj_cancel_fields(&rhtab->map,
+> +			      rhtab_elem_value(elem, rhtab->map.key_size));
+>  	return 0;
+>  }
+>  
+> @@ -3066,7 +3059,14 @@ static long rhtab_map_update_elem(struct bpf_map *map, void *key, void *value, u
+>  
+>  	memcpy(elem->data, key, map->key_size);
+>  	copy_map_value(map, rhtab_elem_value(elem, map->key_size), value);
+> -	check_and_init_map_value(map, rhtab_elem_value(elem, map->key_size));
+> +	/*
+> +	 * No explicit special-field initialization, matching the hash map's
+> +	 * non-prealloc path: fresh elements come zeroed from the bpf mem
+> +	 * allocator, and recycled elements had their timer/workqueue/task_work
+> +	 * slots reset by bpf_obj_cancel_fields() on delete. kptr slots are
+> +	 * left untouched so a recycled element keeps owning its reference
+> +	 * until rhtab_mem_dtor() releases it.
+> +	 */
 
-Best regards,
-Yao Zi
+I'm not sure this comment is useful, we don't comment on why we are not zeroing
+special fields in htab, so why here.
+Please address the finding of the bot regarding the old_val variable and for the
+next respin send the patch series independently, not as a response to an old thread.
+>  
+>  	/* Prevent deadlock for NMI programs attempting to take bucket lock */
+>  	bpf_disable_instrumentation();
+
