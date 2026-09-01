@@ -1,149 +1,83 @@
-Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C28B04CCDDD
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:05:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
+Received: from va-2-28.ptr.blmpb.com (va-2-28.ptr.blmpb.com [209.127.231.28])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA032C21D8
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:05:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788249944; cv=none; b=fWWbJjzlCE2dfd10Re3QYFiHZ9FQ41AciqMmJHjMnAcYcSsr45fqIioS372XqIrDg9nVpbqcI957SN7u7a1leGuiIFtW/2we/AgTEy6n0LF63gd4Y4fd0f5cIm6kZotP9YMqtgZhKr45tiSwPTA3yGEFWZFZFwlmYnCaHPBoun8=
+	t=1788249957; cv=none; b=sudNqOKnJ/ImBQkw98gYGbXEZq6fSVDGKqZ16J/N9BJnarIOO5grUf7fqLDgKaYoSR4VsvHnvXYFw4D03ykL0t+3DD6LKZcy9MnCLpDbHBfKggOYDKCGQGLkHyN6vA6ucTLkFBcsLKFiOx2gMDd2wqwBPQbcDXzvf+JO7E0tDZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788249944; c=relaxed/simple;
-	bh=IjfA1fxSXaT1NDKdzwoU1MH5kx2wH1EC2314OuUQCv8=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Ox/ejpPS8MpzbBBa474MbjoP0Ii3mjnFVCA55xl1kq4FjM0VhSR/SEg59dEzc3S9DLzabdKz6WoR9eFtl49NcilOggPYoQG1ZN8d6hga6eoednHbUHj7ERV50iXZSpO4ex73B1a3+IcfkX/fgy4UTO/3EODfCYr58GJtH9j41tk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp2.hygon.cn (unknown [127.0.0.1])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hYz1Z6Qwmz1PvqY;
-	Tue,  1 Sep 2026 16:05:22 +0800 (CST)
-Received: from maildlp2.hygon.cn (unknown [172.23.18.61])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hYz1Z4T9pz1PvqY;
-	Tue,  1 Sep 2026 16:05:22 +0800 (CST)
-Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp2.hygon.cn (Postfix) with ESMTPS id C830F30004D2;
-	Tue,  1 Sep 2026 16:01:30 +0800 (CST)
-Received: from cncheex04.Hygon.cn (172.23.18.114) by cncheex04.Hygon.cn
- (172.23.18.114) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Tue, 1 Sep
- 2026 16:05:22 +0800
-Received: from cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d]) by
- cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d%10]) with mapi id
- 15.02.1544.036; Tue, 1 Sep 2026 16:05:22 +0800
-From: Jianyong Wu <wujianyong@hygon.cn>
-To: Peter Zijlstra <peterz@infradead.org>
-CC: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>, Chen Yu <yu.c.chen@intel.com>,
-	Tim Chen <tim.c.chen@linux.intel.com>, Dietmar Eggemann
-	<dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, Ben Segall
-	<bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin Schneider
-	<vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, "Shrikanth
- Hegde" <sshegde@linux.ibm.com>, Phil Auld <pauld@redhat.com>, Andrew Morton
-	<akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-mm@kvack.org" <linux-mm@kvack.org>, "jianyong.wu@outlook.com"
-	<jianyong.wu@outlook.com>, Yuan Zhong <zhongyuan@hygon.cn>, Huangsj
-	<huangsj@hygon.cn>, Fengyu Wang <wangfengyu@hygon.cn>, Zhiwei Ying
-	<yingzhiwei@hygon.cn>, "justin.he@arm.com" <justin.he@arm.com>
-Subject: RE: [RFC PATCH v2 07/23] sched/cache: Prioritize preferred NUMA node
- selection over LLC selection
-Thread-Topic: [RFC PATCH v2 07/23] sched/cache: Prioritize preferred NUMA node
- selection over LLC selection
-Thread-Index: AQHdNiA/Gl7/wvc7qkaJjcGUBBSfi7a3pS6AgAG8IqA=
-Date: Tue, 1 Sep 2026 08:05:22 +0000
-Message-ID: <82a9b1c118424a48a0b70439ddae6905@hygon.cn>
-References: <20260827122816.756234-1-wujianyong@hygon.cn>
- <20260827122816.756234-8-wujianyong@hygon.cn>
- <20260831132229.GL4120091@noisy.programming.kicks-ass.net>
-In-Reply-To: <20260831132229.GL4120091@noisy.programming.kicks-ass.net>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	s=arc-20240116; t=1788249957; c=relaxed/simple;
+	bh=/fXyNC1SCrVVh1dlZ7cd+p57PMSaOXahAXDGkXDuVMo=;
+	h=Content-Type:To:From:Date:Mime-Version:Cc:Subject:Message-Id; b=qKl7GrbOCWGMpnLK5bZwtA/WD5EvbuW6WrOtJWY7degixbupdp8f8ohw/RJLlMgN3Efbp6NkJfuxxr6F7+j1fwc3te5/B1znB45RAxyTRXeL6OwFfHUYfExmG91vFYlBB4jg6eyMqMwDPfD79tK9lwKxzbOw8EGfatPbavP7C1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=moonshot.ai; spf=pass smtp.mailfrom=moonshot.ai; dkim=pass (2048-bit key) header.d=moonshot.ai header.i=@moonshot.ai header.b=i/NvTp+C; arc=none smtp.client-ip=209.127.231.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=moonshot.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=moonshot.ai
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=moonshot.ai header.i=@moonshot.ai header.b="i/NvTp+C"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2510091218; d=moonshot.ai; t=1788249945; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=olD/KwTfA6Mw6pBOtKDza7C0xrnqoRE53Nj2OT+WgiA=;
+ b=i/NvTp+C48190yZkH53H/TWbop5Po3JxSUmEmrrTnO+xxgm4EWtQR6HgF60HkK9BlZik+3
+ rSmQ+nKvNBE5fk/5IAnLwLL+g2Yxk/M0cgdJqXDNdz4V3eCyuCKIznf8n9mhUAzxP44XSV
+ vzcSR0S4qSYI/7cY7dJlw0CvfD9aaaIs7mTR/k/Ox+ICWNWvNEiotlVpcLxs3TOYjVAaDl
+ THDP6xn8iuSPJyHRk6P5lmD94YqPD4BDmbO53yXZIexfckRb8uUb+btBM8e0N7b7LdOD3s
+ +JubZrUZFp6xkBXK39F9xoOOxmOjNt7PMZvaf0X7I4Dhfp9LqDqoG6P1oMB+1w==
+Received: from dev.msh-dev.svc.cluster.local ([117.157.206.135]) by smtp.feishu.cn with ESMTPS; Tue, 01 Sep 2026 16:05:42 +0800
+Content-Type: text/plain; charset=UTF-8
+To: "Johannes Berg" <johannes@sipsolutions.net>
+X-Lms-Return-Path: <lba+26a968757+9cdf54+vger.kernel.org+yilinzhang@moonshot.ai>
+Content-Transfer-Encoding: 7bit
+From: "Yilin Zhang" <yilinzhang@moonshot.ai>
+Date: Tue,  1 Sep 2026 16:04:27 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-Original-From: Yilin Zhang <yilinzhang@moonshot.ai>
+Cc: "Yilin Zhang" <yilinzhang@moonshot.ai>, <linux-wireless@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, 
+	"Sergey Matyukevich" <sergey.matyukevich.os@quantenna.com>, 
+	"Dmitry Antipov" <dmantipov@yandex.ru>, 
+	"Kimi Security Team" <bug-report@moonshot.ai>
+Subject: [PATCH] cfg80211: fix double-free of shared hidden-group beacon IEs
+Message-Id: <20260901080427.1983015-1-yilinzhang@moonshot.ai>
+X-Mailer: git-send-email 2.34.1
 
-Hi Peter,
+cfg80211_update_known_bss() adopts new->pub.beacon_ies without
+checking whether new is a hidden group member.
 
-> -----Original Message-----
-> From: Peter Zijlstra <peterz@infradead.org>
-> Sent: Monday, August 31, 2026 9:22 PM
-> To: Jianyong Wu <wujianyong@hygon.cn>
-> Cc: Ingo Molnar <mingo@redhat.com>; Juri Lelli <juri.lelli@redhat.com>;
-> Vincent Guittot <vincent.guittot@linaro.org>; Chen Yu
-> <yu.c.chen@intel.com>; Tim Chen <tim.c.chen@linux.intel.com>; Dietmar
-> Eggemann <dietmar.eggemann@arm.com>; Steven Rostedt
-> <rostedt@goodmis.org>; Ben Segall <bsegall@google.com>; Mel Gorman
-> <mgorman@suse.de>; Valentin Schneider <vschneid@redhat.com>; K
-> Prateek Nayak <kprateek.nayak@amd.com>; Shrikanth Hegde
-> <sshegde@linux.ibm.com>; Phil Auld <pauld@redhat.com>; Andrew
-> Morton <akpm@linux-foundation.org>; David Hildenbrand
-> <david@kernel.org>; linux-kernel@vger.kernel.org; linux-mm@kvack.org;
-> jianyong.wu@outlook.com; Yuan Zhong <zhongyuan@hygon.cn>; Huangsj
-> <huangsj@hygon.cn>; Fengyu Wang <wangfengyu@hygon.cn>; Zhiwei Ying
-> <yingzhiwei@hygon.cn>; justin.he@arm.com
-> Subject: Re: [RFC PATCH v2 07/23] sched/cache: Prioritize preferred NUMA
-> node selection over LLC selection
->=20
-> On Thu, Aug 27, 2026 at 08:28:00PM +0800, Jianyong Wu wrote:
-> > In the current implementation, the preferred LLC is selected based on t=
-he
-> > LLC with the largest running time of the thread group. However, the
-> > preferred LLC may be prone to frequent migration when the workload
-> > spreads across the entire system, especially when the number of CPUs
-> > sharing an LLC is small. A better approach is to first select a preferr=
-ed
-> > NUMA node in the same way, and then select the preferred LLC within
-> that
-> > preferred NUMA node.
->=20
-> Hmm, if we're going to look at nodes, should we not also consider the
-> numa balancing preferred node, and perhaps priorize an llc inside that
-> nore, rather than the occupancy wise busiest node?
->=20
+cfg80211_update_assoc_bss_entry() can pass such a member as new on a
+CSA channel switch, so the same IEs get two owners and are freed
+twice.
 
-The NUMA balancing preferred node is already covered by the scan:
-get_scan_cpumasks() folds p->numa_preferred_nid (plus the node of the
-current preferred LLC and the current running node) into the scan mask,
-so it is not ignored - it is one of the candidates. And it filters out othe=
-r no
-related nodes.
+Same issue as commit 26e84445f02c ("wifi: cfg80211: fix
+use-after-free in cmp_bss()"), which fixed only the drop path.
 
-The reason I don't hard-prioritize it is that numa_preferred_nid is
-per-task while the preferred LLC is per-process. Different threads of the
-same process can hold different preferred nodes, so prioritizing any one
-of them would make the process-wide preferred LLC bounce between nodes.
-So instead I include the NUMA balancing preferred node as a candidate and
-let occupancy decide among them.
+Reported-by: Kimi Security Team <bug-report@moonshot.ai>
+Fixes: 0afd425b1b64 ("cfg80211: fix duplicated scan entries after channel switch")
+Signed-off-by: Yilin Zhang <yilinzhang@moonshot.ai>
+---
+ net/wireless/scan.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
->=20
-> > -				a_occ +=3D occ;
-> > -				if (occ > m_occ) {
-> > -					m_occ =3D occ;
-> > -					m_cpu =3D i;
-> > +					a_occ +=3D occ;
-> > +					if (occ > m_occ) {
-> > +						m_occ =3D occ;
-> > +						m_cpu =3D i;
-> > +					}
-> > +
-> > +					cur =3D rcu_dereference_all(cpu_rq(i)->curr);
-> > +					if (cur && !(cur->flags & (PF_EXITING |
-> PF_KTHREAD)) &&
-> > +					    cur->mm =3D=3D mm)
-> > +						nr_running++;
-> >  				}
->=20
-> This level of indenting seems to suggest perhaps breaking things out
-> into a helper function?
-
-Agreed, the nesting got too deep. I'll factor the inner LLC occupancy
-scan out into a helper function in the next revision.
-
-Thanks
-Jianyong
-
+diff --git a/net/wireless/scan.c b/net/wireless/scan.c
+index 071083c..1fbbcda 100644
+--- a/net/wireless/scan.c
++++ b/net/wireless/scan.c
+@@ -1937,6 +1937,9 @@ cfg80211_update_known_bss(struct cfg80211_registered_device *rdev,
+ 			return false;
+ 		}
+ 
++		if (new->pub.hidden_beacon_bss)
++			return true;
++
+ 		old = rcu_access_pointer(known->pub.beacon_ies);
+ 
+ 		rcu_assign_pointer(known->pub.beacon_ies, new->pub.beacon_ies);
+-- 
+2.34.1
