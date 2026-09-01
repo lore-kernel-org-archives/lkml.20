@@ -1,151 +1,358 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C03275B03
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:32:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C832F3C18;
+	Tue,  1 Sep 2026 12:32:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788265949; cv=none; b=iQiVRnoc8WXkUdWZ5iyUg1u+UL8Lc5zi6S8vvTa235Zr4oktaxYyrIMnG+LcaAw9+YEP8IGVUnR64BfIThubzVz0jSfB0BYxjhvOntlKn+ueBWnxnDhOSvjjmt0PnoIdOS/juQUN3YELlAsTzu+WdzM+LbVSt4WcQnk8/uoGR5E=
+	t=1788265979; cv=none; b=bkRDjyYMtr4ZQqC4D5hJgJ3BMNM/fnUSjEJb5Wf3FRiwb6l+Jdolt0aNY1qZ6clq3xpLefpwiWhfX75DL64TXN2PKcya4n5AeSFR9jBUiVK1jV3yVHOAFSoyL0NdwQ7qoK2py/gKlxUuORXYRNdozNuiLv2fwNuuEieA6GDzSGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788265949; c=relaxed/simple;
-	bh=L/1GqbI6CVNHTOL+k5Bs8hxag5TXOK8IKP5ljcwCiiU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hR/kDgYMzr8UFtROD2LzOlMN6Uqi+pXBVlJojB9tj9A8e0te7PPChrIp0Z5n666wBHfuZQojPiukRqR12cnX0hbihx0WD5ybrAnofK+F9uxhjlYvbnNRXpsIJsQCPEgm+bFaCdsBgG5UhhyEHYkNayZYiWrDN0rFSZDcFOOmjqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=irf9zcoS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=c/brrIno; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788265979; c=relaxed/simple;
+	bh=sarvfpcmUBkbQ1pk9o9l5AkUN8fqXZ4qhuVeVsElDGM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uILWksxLrz9dRVR45TLZrlz7LlNUuUJ8nNe18fvR/Q5awNSRMOA7AzjPAoylFHD8OZJg8FV2IIzz3HEMZ/ZDbn1jElt5fduyr+KsUHg/g7PuhAnbxzqBPBX3FlHRDzvvz/IZjRJXS1z1uTb+X/90yImIgvAvhqsThhbp2Zq7EZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=m3LPIu+F; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="irf9zcoS";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c/brrIno"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681AJdpq1713065
-	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 12:32:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	UicsQCF2CHWzuvo39HPg9O428ToJvHotIHdRWV/p2dg=; b=irf9zcoSmiDPinKB
-	60PluqS2vnI1lsOxUmCHBUVLANxeE5+APsUjKskvpzQEekTcbKXSncLl5oeu6M6Z
-	vAUA86FCM7dOMEBoReY9kKpEK07FFOS9ELKOwDbBgObeS8uQWFee8prHRvR96N2m
-	r2dLGBV/COzhVJFapfVPAIVKdhNuHx370XD5bS+vCH7kRp5BH9aJRn5jagnWc7Nd
-	fQ6TyVfbbJxYaEqT2FfALq2dprYxZa1YM9yhy3EOu8EbRCs7RN3xvoYgy2e3j4yL
-	Vgx0oTVGXkMC8gQ/Az8NcwaclewhP83CJv6iIryVS9AxRVTAdbD4wlrK7YDGpENL
-	gt98Sw==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdndxaggf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:32:27 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-398ba5404d2so4208356a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 05:32:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788265946; x=1788870746; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UicsQCF2CHWzuvo39HPg9O428ToJvHotIHdRWV/p2dg=;
-        b=c/brrInoJKxkzbClhPcfhxsegHuy6BKKg3M4YsW2ASz0Q9qfmuWdDkjbpV0dV8E4jo
-         c9OxMrcH+ENj+4NR2bwiwEr7DAKOIFWKk2yND9QrO2SBsOV8RQtyDj3bJFXWYZZ7eozA
-         t2K4blrQ5sC/ACE6OAqHe8NrZUf06v/gT6pkZWlNK0TFXnvSj9HZY7UTl0Rz/dch5ZBA
-         tHlVbZLLU7e4PKbCcVZIu/6xwCiB590VjAnTWexgMSFoOrjF6FxHUoXBe2KPs5gZsERM
-         urb85LynfiT9z0r20tPEKDAjUqDhvSIaLuoPfYPLKVuySSRaQ8vuiSipzZSAqwk6KLwJ
-         0mUw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788265946; x=1788870746;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UicsQCF2CHWzuvo39HPg9O428ToJvHotIHdRWV/p2dg=;
-        b=A+p3PCHpgeE7quQ8A8q3YXvacksp13kjyWCCf0mMfnSlUyhfCBvlzb7FWqhz17r0G6
-         SeC3r9S3pjwHHtVGu55o9tKAX7pvdg8ObaKl05ZFWDrSld8il7UZkxV07rCbyPKi37o0
-         KNzcr8SZjBfLQSGbafWdgdLRd4esfWIpEW1oBYFHaelTZtw1pUvtE6vUXbU9k5Xnikkm
-         febaq8XAmIb9SHeo0chxxuMsGVVs/BRsYUlHqNYmfRMYlnxJqo/1xDByHNR0w9CBxae7
-         quOnUC/1fjqLQ+xnGSuBFDve8i7T4Jw9l0w/bDsVK717Zky0YkD7di9lBm8c8xC9TLeL
-         IFaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy3HJl2zIyJnCSffKOKNOlAeQ9HAcGEAzUGY+pMFFUmTX/Dy6NtOE37dMv7v/Qb1J7IXbWSVAVwkXU9i+k=@vger.kernel.org
-X-Gm-Message-State: AFuF++n17Dem7KMXZIFxnFvXz7ps7pHCfIV+5QPZaNtsz8lKEJvHuzSN
-	c+JEAxktk8EqK6d7he6AMS6feMu/eVjxf+Vl+UGeZXfP51/BSKUThmEVgxIM+errEUsM1agfPMD
-	GSfHsA5K6peiYXWWiZsHTQu+1arUV65VVB7DdDu22Wu4hLiXDcLaBDLdexzXIQT5PWes=
-X-Gm-Gg: AYBFou0cKDwCnY0KbvltgJIlp+onyeE12jXMIHY/psHZXnM8OWDdPzocCIBvhRljTu5
-	VYTCoekDo4b7mIqfXQr7tnkX5+pyd5daCmjswOqfRem6vRMez3gw1Pn9sTkBorsEsJtmtyVU8We
-	JWo2VZgO36Lo7/2zi21nInam+lnRrtIX5zXeXxRDhVKKCtvox5vVeY2jGDogesSaOa/6eUWQmgs
-	2GogYr4u3jPa+WtoMKzHsVh9tGLI5VEUMpAX4xTwznlVOXA0dq2AC1pOWvrQoX3oEOsY9KI9x2K
-	1fVaT7ijiEVGANixaVsfzCeI9B/DVwY3gdv3A06feEMJFA8xzoptCFwCEPIYi0cPJclqhC/Tcbx
-	fDHRStUYe+w45sqYQ/gmdy7CbZozkeNF5PA6MtEQt1MQN
-X-Received: by 2002:a17:90b:4e88:b0:398:a145:5d3d with SMTP id 98e67ed59e1d1-39907b17a4dmr12472461a91.6.1788265946430;
-        Tue, 01 Sep 2026 05:32:26 -0700 (PDT)
-X-Received: by 2002:a17:90b:4e88:b0:398:a145:5d3d with SMTP id 98e67ed59e1d1-39907b17a4dmr12472352a91.6.1788265945902;
-        Tue, 01 Sep 2026 05:32:25 -0700 (PDT)
-Received: from [192.168.11.105] ([124.123.80.135])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d18eaasm39622866c88.1.2026.09.01.05.32.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 05:32:25 -0700 (PDT)
-Message-ID: <0fc0b82d-69c6-453d-bdf5-c51a9237035a@oss.qualcomm.com>
-Date: Tue, 1 Sep 2026 18:02:17 +0530
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="m3LPIu+F"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=11FIk8dcywNJhU7vX3fMrD3GTQv+b8U3zFVsgXjY8xM=; b=m3LPIu+FoN9GPmQNL+JAbX4umA
+	RCUc+55B7wNBeD3QfRf+OKff006wPY1a+T19QUXMcQ8KZEi3a5TwgbOb6786lS+bW2TFXIYPIRHhE
+	qRIvsbkExCXz+DP7wtsi0aHN56mVl5brXaG+jkal7C/7mYPaczD+Rl6dK7M5b3vqIeRtlPfX4Hfl/
+	1LH04kzs9EHRGu7/dwrbDFrW48rrY6d1lX5LWfchOSIbd0HdayxTR9wg4Sf2mizckZ+LOabpUVMgo
+	wtG/mnhCfGBbWaYhgPcFuc5AAYBFFlZ38IjafUCrsAko73fIWQLqur2GNEBKog4d2Smxl6v7uXoAA
+	lF7siVdQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x1NfK-0000000AwqP-2nSA;
+	Tue, 01 Sep 2026 12:32:38 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 7FE65300578; Tue, 01 Sep 2026 14:32:36 +0200 (CEST)
+Date: Tue, 1 Sep 2026 14:32:36 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	David Stevens <stevensd@google.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>,
+	Clark Williams <clrkwllms@kernel.org>, suleiman@google.com,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-mm@kvack.org, linux-rt-devel@lists.linux.dev
+Subject: Re: [RFC 06/10] Reclaim memory from blocked kernel stacks
+Message-ID: <20260901123236.GA687043@noisy.programming.kicks-ass.net>
+References: <20260827232948.2520558-1-stevensd@google.com>
+ <20260827232948.2520558-7-stevensd@google.com>
+ <20260828133620._x2XfJR_@linutronix.de>
+ <20260828135947.GU776954@noisy.programming.kicks-ass.net>
+ <20260828151018.HnR9xV1N@linutronix.de>
+ <20260828150836.2d5b378c@gandalf.local.home>
+ <20260828151313.5c4a5e4b@gandalf.local.home>
+ <20260828151747.20035d50@gandalf.local.home>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] wifi: ath12k: support calibration-variant from
- device tree
-To: Andrew LaMarche <andrewjlamarche@gmail.com>,
-        Johannes Berg <johannes@sipsolutions.net>,
-        Jeff Johnson
- <jjohnson@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
-        ath12k@lists.infradead.org, linux-kernel@vger.kernel.org,
-        Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-References: <20260630133001.1426824-1-andrewjlamarche@gmail.com>
-From: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20260630133001.1426824-1-andrewjlamarche@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: rF0ssEKlXnZv6eVuC6QGSYfu0ThD2Kgv
-X-Proofpoint-ORIG-GUID: rF0ssEKlXnZv6eVuC6QGSYfu0ThD2Kgv
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDExMSBTYWx0ZWRfX6w6LlS14dXjp
- yMwivrXC8XU5UmxZjo3gP70IuVP5jgpmG46+S7+9pwDD8qEhyjFskU8BvvW/BjOLAk3go3ZPSn3
- ywz/vQO5dfnVyIZFhEkEqZiq0XvXJBI=
-X-Authority-Analysis: v=2.4 cv=U8eiy+ru c=1 sm=1 tr=0 ts=6a96c5db cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=kllYWVK2JqQtNyhMtAlpJw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=erCTOyO-HGHO-QmL5V4A:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDExMSBTYWx0ZWRfX3ni1B28aaPNv
- HkJbx5JP4nDUGryKtHl+aYtYX4TV68Mh8sYrnCswDmJE3m7URXDvsDe4iFEIlYbr1itbR6gHOEQ
- p/MH5AcPpvBHZs/5ZeFXyP0ZuUXTKoqKNgJxavseB8BUPGMuEQXHYVqsTTs3oxSlhJnL28lktHn
- xjuwhQ1M06yC2MEAB4um3K79Cz2Ch30rTfcHN2lKXYDnhfS8gib01e3Bbf5R2+TUQLrMmNl7NQZ
- zsNM1sUUUoRGFE0Jmi2Usc2xRLvkmWCE1c6B5cVhxBHxa1+3HJBwuKR6190izGi10uEDwtc/2GZ
- zwlDmOFFkV8c+xaZ3L4+l6CoGN5HczN6pVEkEd+e6qV23sFrns/v2H5v0Pk0u+ieMNKd+UYDjDO
- 4pT6PTMn/BYNvRorslozYznFTMWD+Pcmz9Jkh9D4z7nr7uerEziyhX3XI1PrcK9qBF0uPrmV+RU
- nrfxhcoMfCkCntt0x5w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_03,2026-08-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 lowpriorityscore=0 impostorscore=0 adultscore=0
- spamscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010111
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828151747.20035d50@gandalf.local.home>
 
-On 6/30/2026 7:00 PM, Andrew LaMarche wrote:
-> ath10k and ath11k support reading calibration variants from the device
-> tree to locate the correct Board Description File (BDF). The ath12k-wsi
-> binding already describes using qcom,calibration-variant but it is not
-> implemented in the driver.
-> 
-> Many ath12k designs expose all the radios under a single phy, each of
-> which typically require a separate BDF. Without this, the radios may not
-> come up or will not be calibrated correctly.
-> 
-> Fix this by parsing the device tree for the generation-agnostic
-> qcom,calibration-variant. This allows the driver to properly select,
-> read and apply the correct BDF.
-> 
-> Signed-off-by: Andrew LaMarche <andrewjlamarche@gmail.com>
-Reviewed-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
+On Fri, Aug 28, 2026 at 03:17:47PM -0400, Steven Rostedt wrote:
+
+>   1)     8072     104   update_group_capacity+0x94/0x960
+>   2)     7968     528   update_sd_lb_stats.constprop.0+0x426/0x39b0
+>   3)     7440     424   sched_balance_find_src_group+0x8f/0x1150
+>   4)     7016     552   sched_balance_rq+0x934/0x4130
+
+Bah, yeah, those on-stack statistics just keep growing.
+
+This should probably help. Very lightly tested. Also we can probably
+relax the assertion to bh-disabled and avoid the extra irq-disable
+around sched_balance_rq().
+
+Anybody got time to play around with this?
+
+---
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 8dff37059faf..0c83b0856a95 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -11418,6 +11418,39 @@ struct sd_lb_stats {
+ 	struct sg_lb_stats local_stat;		/* Statistics of the local group */
+ };
+ 
++struct pcpu_lb_stats {
++	struct sd_lb_stats sds;
++	struct sg_lb_stats sgs;
++	struct sg_lb_stats local_sgs;
++	struct sg_lb_stats idlest_sgs;
++};
++
++static DEFINE_PER_CPU(struct pcpu_lb_stats, pcpu_lb_stats);
++
++static inline struct sd_lb_stats *this_sds(void)
++{
++	lockdep_assert_irqs_disabled();
++	return this_cpu_ptr(&pcpu_lb_stats.sds);
++}
++
++static inline struct sg_lb_stats *this_sgs(void)
++{
++	lockdep_assert_irqs_disabled();
++	return this_cpu_ptr(&pcpu_lb_stats.sgs);
++}
++
++static inline struct sg_lb_stats *this_local_sgs(void)
++{
++	lockdep_assert_irqs_disabled();
++	return this_cpu_ptr(&pcpu_lb_stats.local_sgs);
++}
++
++static inline struct sg_lb_stats *this_idlest_sgs(void)
++{
++	lockdep_assert_irqs_disabled();
++	return this_cpu_ptr(&pcpu_lb_stats.idlest_sgs);
++}
++
+ static inline void init_sd_lb_stats(struct sd_lb_stats *sds)
+ {
+ 	/*
+@@ -12406,12 +12439,13 @@ static struct sched_group *
+ sched_balance_find_dst_group(struct sched_domain *sd, struct task_struct *p, int this_cpu)
+ {
+ 	struct sched_group *idlest = NULL, *local = NULL, *group = sd->groups;
+-	struct sg_lb_stats local_sgs, tmp_sgs;
++	struct sg_lb_stats *local_sgs = this_local_sgs();
+ 	struct sg_lb_stats *sgs;
+ 	unsigned long imbalance;
+-	struct sg_lb_stats idlest_sgs = {
+-			.avg_load = UINT_MAX,
+-			.group_type = group_overloaded,
++	struct sg_lb_stats *idlest_sgs = this_idlest_sgs();
++	*idlest_sgs = (struct sg_lb_stats){
++		.avg_load = UINT_MAX,
++		.group_type = group_overloaded,
+ 	};
+ 
+ 	do {
+@@ -12430,17 +12464,17 @@ sched_balance_find_dst_group(struct sched_domain *sd, struct task_struct *p, int
+ 					       sched_group_span(group));
+ 
+ 		if (local_group) {
+-			sgs = &local_sgs;
++			sgs = local_sgs;
+ 			local = group;
+ 		} else {
+-			sgs = &tmp_sgs;
++			sgs = this_sgs();
+ 		}
+ 
+ 		update_sg_wakeup_stats(sd, group, sgs, p);
+ 
+-		if (!local_group && update_pick_idlest(idlest, &idlest_sgs, group, sgs)) {
++		if (!local_group && update_pick_idlest(idlest, idlest_sgs, group, sgs)) {
+ 			idlest = group;
+-			idlest_sgs = *sgs;
++			*idlest_sgs = *sgs;
+ 		}
+ 
+ 	} while (group = group->next, group != sd->groups);
+@@ -12458,17 +12492,17 @@ sched_balance_find_dst_group(struct sched_domain *sd, struct task_struct *p, int
+ 	 * If the local group is idler than the selected idlest group
+ 	 * don't try and push the task.
+ 	 */
+-	if (local_sgs.group_type < idlest_sgs.group_type)
++	if (local_sgs->group_type < idlest_sgs->group_type)
+ 		return NULL;
+ 
+ 	/*
+ 	 * If the local group is busier than the selected idlest group
+ 	 * try and push the task.
+ 	 */
+-	if (local_sgs.group_type > idlest_sgs.group_type)
++	if (local_sgs->group_type > idlest_sgs->group_type)
+ 		return idlest;
+ 
+-	switch (local_sgs.group_type) {
++	switch (local_sgs->group_type) {
+ 	case group_overloaded:
+ 	case group_fully_busy:
+ 
+@@ -12486,17 +12520,17 @@ sched_balance_find_dst_group(struct sched_domain *sd, struct task_struct *p, int
+ 		 */
+ 
+ 		if ((sd->flags & SD_NUMA) &&
+-		    ((idlest_sgs.avg_load + imbalance) >= local_sgs.avg_load))
++		    ((idlest_sgs->avg_load + imbalance) >= local_sgs->avg_load))
+ 			return NULL;
+ 
+ 		/*
+ 		 * If the local group is less loaded than the selected
+ 		 * idlest group don't try and push any tasks.
+ 		 */
+-		if (idlest_sgs.avg_load >= (local_sgs.avg_load + imbalance))
++		if (idlest_sgs->avg_load >= (local_sgs->avg_load + imbalance))
+ 			return NULL;
+ 
+-		if (100 * local_sgs.avg_load <= sd->imbalance_pct * idlest_sgs.avg_load)
++		if (100 * local_sgs->avg_load <= sd->imbalance_pct * idlest_sgs->avg_load)
+ 			return NULL;
+ 		break;
+ 
+@@ -12545,9 +12579,9 @@ sched_balance_find_dst_group(struct sched_domain *sd, struct task_struct *p, int
+ 				imb_numa_nr = min(w, sd->imb_numa_nr);
+ 			}
+ 
+-			imbalance = abs(local_sgs.idle_cpus - idlest_sgs.idle_cpus);
++			imbalance = abs(local_sgs->idle_cpus - idlest_sgs->idle_cpus);
+ 			if (!adjust_numa_imbalance(imbalance,
+-						   local_sgs.sum_nr_running + 1,
++						   local_sgs->sum_nr_running + 1,
+ 						   imb_numa_nr)) {
+ 				return NULL;
+ 			}
+@@ -12560,7 +12594,7 @@ sched_balance_find_dst_group(struct sched_domain *sd, struct task_struct *p, int
+ 		 * up that the group has less spare capacity but finally more
+ 		 * idle CPUs which means more opportunity to run task.
+ 		 */
+-		if (local_sgs.idle_cpus >= idlest_sgs.idle_cpus)
++		if (local_sgs->idle_cpus >= idlest_sgs->idle_cpus)
+ 			return NULL;
+ 		break;
+ 	}
+@@ -12647,14 +12681,13 @@ static inline void update_sd_lb_stats(struct lb_env *env, struct sd_lb_stats *sd
+ {
+ 	struct sched_group *sg = env->sd->groups;
+ 	struct sg_lb_stats *local = &sds->local_stat;
+-	struct sg_lb_stats tmp_sgs;
+ 	unsigned long sum_util = 0;
+ 	bool sg_overloaded = 0, sg_overutilized = 0;
+ 
+ 	env->dst_core_idle = !sched_smt_active() || is_core_idle(env->dst_cpu);
+ 
+ 	do {
+-		struct sg_lb_stats *sgs = &tmp_sgs;
++		struct sg_lb_stats *sgs = this_sgs();
+ 		int local_group;
+ 
+ 		local_group = cpumask_test_cpu(env->dst_cpu, sched_group_span(sg));
+@@ -12929,21 +12962,21 @@ static inline void calculate_imbalance(struct lb_env *env, struct sd_lb_stats *s
+ static struct sched_group *sched_balance_find_src_group(struct lb_env *env)
+ {
+ 	struct sg_lb_stats *local, *busiest;
+-	struct sd_lb_stats sds;
++	struct sd_lb_stats *sds = this_sds();
+ 
+-	init_sd_lb_stats(&sds);
++	init_sd_lb_stats(sds);
+ 
+ 	/*
+ 	 * Compute the various statistics relevant for load balancing at
+ 	 * this level.
+ 	 */
+-	update_sd_lb_stats(env, &sds);
++	update_sd_lb_stats(env, sds);
+ 
+ 	/* There is no busy sibling group to pull tasks from */
+-	if (!sds.busiest)
++	if (!sds->busiest)
+ 		goto out_balanced;
+ 
+-	busiest = &sds.busiest_stat;
++	busiest = &sds->busiest_stat;
+ 
+ 	/* Misfit tasks should be dealt with regardless of the avg load */
+ 	if (busiest->group_type == group_misfit_task)
+@@ -12965,7 +12998,7 @@ static struct sched_group *sched_balance_find_src_group(struct lb_env *env)
+ 	if (busiest->group_type == group_imbalanced)
+ 		goto force_balance;
+ 
+-	local = &sds.local_stat;
++	local = &sds->local_stat;
+ 	/*
+ 	 * If the local group is busier than the selected busiest group
+ 	 * don't try and pull any tasks.
+@@ -12986,14 +13019,14 @@ static struct sched_group *sched_balance_find_src_group(struct lb_env *env)
+ 			goto out_balanced;
+ 
+ 		/* XXX broken for overlapping NUMA groups */
+-		sds.avg_load = (sds.total_load * SCHED_CAPACITY_SCALE) /
+-				sds.total_capacity;
++		sds->avg_load = (sds->total_load * SCHED_CAPACITY_SCALE) /
++				sds->total_capacity;
+ 
+ 		/*
+ 		 * Don't pull any tasks if this group is already above the
+ 		 * domain average load.
+ 		 */
+-		if (local->avg_load >= sds.avg_load)
++		if (local->avg_load >= sds->avg_load)
+ 			goto out_balanced;
+ 
+ 		/*
+@@ -13009,9 +13042,9 @@ static struct sched_group *sched_balance_find_src_group(struct lb_env *env)
+ 	 * Try to move all excess tasks to a sibling domain of the busiest
+ 	 * group's child domain.
+ 	 */
+-	if (sds.prefer_sibling && local->group_type == group_has_spare &&
++	if (sds->prefer_sibling && local->group_type == group_has_spare &&
+ 	    (busiest->group_type == group_llc_balance ||
+-	    sibling_imbalance(env, &sds, busiest, local) > 1))
++	    sibling_imbalance(env, sds, busiest, local) > 1))
+ 		goto force_balance;
+ 
+ 	if (busiest->group_type != group_overloaded) {
+@@ -13025,7 +13058,7 @@ static struct sched_group *sched_balance_find_src_group(struct lb_env *env)
+ 		}
+ 
+ 		if (busiest->group_type == group_smt_balance &&
+-		    smt_vs_nonsmt_groups(sds.local, sds.busiest)) {
++		    smt_vs_nonsmt_groups(sds->local, sds->busiest)) {
+ 			/* Let non SMT CPU pull from SMT CPU sharing with sibling */
+ 			goto force_balance;
+ 		}
+@@ -13054,8 +13087,8 @@ static struct sched_group *sched_balance_find_src_group(struct lb_env *env)
+ 
+ force_balance:
+ 	/* Looks like there is an imbalance. Compute it */
+-	calculate_imbalance(env, &sds);
+-	return env->imbalance ? sds.busiest : NULL;
++	calculate_imbalance(env, sds);
++	return env->imbalance ? sds->busiest : NULL;
+ 
+ out_balanced:
+ 	env->imbalance = 0;
+@@ -13958,6 +13991,7 @@ static void sched_balance_domains(struct rq *rq, enum cpu_idle_type idle)
+ 
+ 		interval = get_sd_balance_interval(sd, busy);
+ 		if (time_after_eq(jiffies, sd->last_balance + interval)) {
++			guard(irqsave)();
+ 			if (sched_balance_rq(cpu, rq, sd, idle, &continue_balancing)) {
+ 				/*
+ 				 * The LBF_DST_PINNED logic could have changed
