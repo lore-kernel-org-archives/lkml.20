@@ -1,91 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDEA049EC4F;
-	Tue,  1 Sep 2026 18:42:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4710C283142
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:43:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788288171; cv=none; b=skyejH7eJxvUDthEIuOyTzI49sfgU6ppP/TNaS36rLSe0pxUSWLBD3gqHA7loJ0BTlwE+0l3Kdiex7v8R/gxRO1F74KfMlN9ejglT2qzUDfCxP7XRt3hb30nHMLoLriZ7lyhA85aUa32yR9/QviFnUPN+Nr+ncX3WLYMcv5LpKc=
+	t=1788288190; cv=none; b=jMQvYnVkkQ7gSGtV/7AlxgP1RX+mVageTg3hMeTwDwSN29CTT0HNZYa9VYPpNVRRpCAxGKs3r9syPrA1vGZ1yK1twvGMqUpJAbnBpG6z33zNITbIWE6jYBSvxD4R7CB9PtE5KRsZxMY6Gg5Asl59lEg661W7oyli6ax2lvCOSa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788288171; c=relaxed/simple;
-	bh=RVP5qBPFI0tRi3WvK2Bu3xa5iHCQDbRNmZXtW6FoTeY=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L/7hXInlSCQ170w/iigwoXL4F2ThzXu64qtouSqNaDY4szryMh7ou4OkpV6wsAytst+zk63V0hMzXjnfhi1H9n3VMCzSANRXpeOuZ3vk6ANY5Jx5Umski8RyB8/9dGe/Nyjk7qjoLvAQZ0MeQpr5rJP8l7if8vw7TW0wSEioIeY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UXESltqM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788288190; c=relaxed/simple;
+	bh=Nr5B9X/EA/TPHrdPqN5lYHsqf+HIQ0e6gSRt/7NYRVE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TN4iaStb2/MR7+RXAW6Hlb88b3xAU8mi08NDZq0UZTcrBCxXC/HEJP4m4WXubYWp6n12vXfZEkJ1QUwm0bzEJXMEOm8dB/tzGgJPOMk4kKK5vq84GvUAvkMedStVu7KLn1dbRQdQuLEmNsePPBzsUgbCQWS6P4WkIccNnPJ1hko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dxJrSd+n; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UXESltqM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 071041F000E9;
-	Tue,  1 Sep 2026 18:42:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788288167;
-	bh=eDGEZQZIBXS92OA/xO1G3mmdv51Q3ex53I8UxL51AZA=;
-	h=Date:From:To:Subject:References:In-Reply-To;
-	b=UXESltqMEaJ3gr6E4vBQNLJRll4iBfIB/7kIg46eIYmcLYeT/9jSSf68AcYpsndqV
-	 jWr4ISonRB+SzakTM6zJSlYWynkDgeJJVc0f4cxN/hCJ1DIBFbQ7iDp8/kLRT6ari2
-	 83zZpnDMANia9bqe/lBJ7684+tn3z112Mkx7GpjIrwoVN7F98aUx/2qc4fV7yU9y5w
-	 AmUKgKjD+2BbWLLlE2IcCfHhWYdHz3162NfFvuHhTUOHzYzIcjpLbeA+QZSy3mmBF5
-	 3j6jtEzpbK102EGVbqGql8g9ZlCJLhSLQRIOTuqE2N5HjPW7tIEsys937sBJBHCf7u
-	 wQaA7ztkkVdxw==
-Date: Tue, 1 Sep 2026 11:42:46 -0700
-From: Kees Cook <kees@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>,
-	Ferran Duarri <ferran.duarri@me.com>, linux-kbuild@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-Subject: Re: [PATCH] kbuild: ubsan: skip UBSAN for external modules by default
-Message-ID: <202609011138.9FE4254@keescook>
-References: <20260820190200.203185-1-ferran.duarri@me.com>
- <20260821190701.GA3030879@ax162>
- <aoisfLPgD33M0sRt@levanger>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dxJrSd+n"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso1179635e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 11:43:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788288187; x=1788892987; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gzeE/hU4D9bblLATFtWOwYmE1vpCRHRwseWHzl1OrOs=;
+        b=dxJrSd+nCz1zSAvEg62OoeSgSIIoQ7VPBbdx1S63Ph3i/xebLfQdCsbjhnGyEUOIq3
+         k0MyhHtUXoKPCCaWLi8jPm5TXnj5pHiboRpI54UJpW0GIAYSAh5slXJSf4HJeHAyqR+d
+         p+mNx/QLVYJOelGxBtghwuMCx3BOZ4VZWFUBwL7rM4IfKUJw0iKEXduJxnc7ggpuNT7n
+         yjKav6Esuyz7qQvcoqPkWpLD/bnsyoAcENOhNm9qQlsLpFYFB4orU2jzGow7OPzj24CN
+         1S2DR540+rrZwGhP6kBiBO23RGLs3T7AffCEVtcV1CM39pS8Blxpswq4Zgj6MiKQ0qz6
+         gykg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788288187; x=1788892987;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gzeE/hU4D9bblLATFtWOwYmE1vpCRHRwseWHzl1OrOs=;
+        b=pd7coxhvz2ccdn5u66Oq5SFuCUPy1TezF4vqiH1d/o+kFxvGgh8UrXNzR48g7AUS/5
+         KRElSfncwFg8AbVKChyEDTZ/Aj2NPoQSq4ooV1ReyGCqX/8pWZZzffg7wEpYmJeU+yHC
+         QuwuDuMN0PCm4k62M4K35Z+IySc6ApzUItkSynWhwZZKsbeDVUH3oeSroIwn/Qo+zo5s
+         4B0XqgOMSkzC0GlyCshQPi1M+KatuBZT6gicy3AaQSQyQsekYNo4iELUJ7ngRPHqNXqw
+         uGdZoQ00b/yyD0IlVYoXlXpoUgMub9JJHcbMmbhL1+jqc/V0ENAv0gRjMu2ZQ9/U0Ayu
+         8a/g==
+X-Forwarded-Encrypted: i=1; AHgh+RooVqhqk4ON7Fr6V5ZXkX/6Jgz5q16uzeSM1iD9bDVNP/nqmsmQ32322oX0zHS8g7GH7ntPlMiqjwuRrBw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kfV6Re5N/cORBAVYtWi3dlxBS6bePbPbxQNdBxMXEhvwB/Ru69
+	KGKTA0okiFyuqUWlFKaxwQ4KThStWnIUND30nXE7vetl5/cXYVzGM5Uo
+X-Gm-Gg: AR+sD119thaibhFJbITbSrcPAiq+FeO1f30zBIR7joABOttmXKX6XmPgtiNReA+um7j
+	M2ffVUsGCi2N8qXbpcF+jhV1ldaTzo7nwl2GA7k9eEgby7Yt8A7l/mfgTYvzgAipFdERRKtkfeo
+	+JEBSw+47xh3JwjqcouoYVlcvVnF2d15QLCDEiwPjXnqnHAFuFckz8HSlSXRAN3ZldJwbcPyGuB
+	g9RGFpzEUeEWPxnZlnUK8s6EA4j2+oZcnE4DQAhvhDpXZo0jz5+vgETNxNnTDBltG8zG9g5AoIR
+	A/eawdWLWUa1wXJfJS9/gYEiK7A+h1qrD3qBUdfBsu1BK0doPecmtjcfvG7VkcHoZifBlQDkrno
+	OpggZKNvxSD2Njm4bvf83jpS8UwLGuB5pZB1PbhgG4LsmlcwMerq5eIRVcFRJMnuuZuSeMp3v8X
+	3uLe4DAV6eVSAp+UuRbSod3pAJ+91RIaTyYOg3DHqkW/KY9uGREFIkuw6wGxgS0WBzTK75kwG5H
+	TU476IyKqTsmW3BjGVUmsZpWEV591kDj8Bt
+X-Received: by 2002:a05:600c:64c6:b0:495:52a5:8829 with SMTP id 5b1f17b1804b1-49cdc558470mr204496575e9.11.1788288187157;
+        Tue, 01 Sep 2026 11:43:07 -0700 (PDT)
+Received: from flaviu-Aspire-E5-572G.. ([5.15.67.216])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448ed30c0sm822987f8f.24.2026.09.01.11.43.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 11:43:06 -0700 (PDT)
+From: Flaviu Nistor <flaviu.nistor@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno Sa <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>
+Cc: Flaviu Nistor <flaviu.nistor@gmail.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH 1/2] dt-bindings: iio: adc: ti,ads1015: Add label property
+Date: Tue,  1 Sep 2026 21:43:01 +0300
+Message-ID: <20260901184302.8127-1-flaviu.nistor@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aoisfLPgD33M0sRt@levanger>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 21, 2026 at 09:52:28PM +0200, Nicolas Schier wrote:
-> On Fri, Aug 21, 2026 at 12:07:01PM -0700, Nathan Chancellor wrote:
-> > + Kees and linux-hardening@ for visibility
-> > 
-> > On Thu, Aug 20, 2026 at 09:01:58PM +0200, Ferran Duarri wrote:
-> > > External modules built with KBUILD_EXTMOD set inherit UBSAN sanitizer
-> > > flags from the kernel's KBUILD_CFLAGS because is-kernel-object is 'y'
-> > > for any obj-m object. This silently breaks third-party modules whose
-> > > source code (e.g. VMware vmnet/vmmon) triggers UBSAN UB checks at
-> > > runtime, causing packet-forwarding failures and VM instability while
-> > > the module itself loads successfully.
-> > > 
-> > > Make UBSAN opt-in for external modules: skip the is-kernel-object 'y'
-> > > fallback when KBUILD_EXTMOD is set. External modules that explicitly
-> > > need UBSAN can still opt in by setting UBSAN_SANITIZE := y.
-> > > 
-> > > In-kernel module builds are not affected.
-> > > Signed-off-by: Ferran Duarri <ferran.duarri@me.com>
-> > 
-> > I am open to other opinions but I am not inclined to apply this change.
-> > If an external module has issues with these checks, it should either be
-> > fixed or 'UBSAN_SANITIZE := n' can be added to the module's Makefile,
-> > rather than making the default worse for everyone else, especially given
-> > the importance of UBSAN_BOUNDS for avoiding out of bounds accesses and
-> > writes.
-> 
-> Yes, I second that.
+Add support for an optional label property per channel similar to other adc
+chips. This allows assigning distinct names for each channel which can
+match the schematic signal name.
 
-Correct. And (unsurprisingly) I take an even harder line: the
-external module source should be fixed, full stop. Disabling it with
-"UBSAN_SANITIZE := n" is just a localized version of the proposed patch.
-The whole point of these defense in the kernel is to stop bad code
-from operating.
+Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
+---
+ Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-The out-of-tree code needs to be fixed. If it can't run with these
-features enabled, it is an active threat to the safety of the users of
-systems with that code running in their kernels. If VMware can't fix
-this, no one should be using that code.
-
--Kees
-
+diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml
+index 718f633c6e04..777a75c21d7f 100644
+--- a/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml
+@@ -66,6 +66,11 @@ patternProperties:
+           - minimum: 0
+             maximum: 7
+ 
++      label:
++        $ref: /schemas/types.yaml#/definitions/string
++        description:
++          A descriptive name for this channel, like "vcc_ram" or "CH3".
++
+       ti,gain:
+         $ref: /schemas/types.yaml#/definitions/uint32
+         minimum: 0
+@@ -125,6 +130,7 @@ examples:
+                 reg = <4>;
+                 ti,gain = <3>;
+                 ti,datarate = <5>;
++                label = "CH3";
+             };
+         };
+     };
 -- 
-Kees Cook
+2.34.1
+
