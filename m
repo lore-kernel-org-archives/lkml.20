@@ -1,156 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 791E838F248;
-	Tue,  1 Sep 2026 03:07:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C60738AC72;
+	Tue,  1 Sep 2026 03:08:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788232066; cv=none; b=YMyrHzI8CVSezpqJSBKgBg1+e8iUOn4e/6RsiisWEaK1u0DzK25omUtiVKsIXrMIPM4qxT8WthHRfoY8uNEVSL3nhmbeZn1F3dN+o/QYSP7Nbyy48PyuYl7mIVQ3LeVNgam7WcidJABmGFpCbroRbqbJrBmbPRmZyK+BbWHNfgQ=
+	t=1788232125; cv=none; b=gHpcUztfb9M5cmgkHyspfsI4GHm1C5nAeof8xhLTEwP/fHd0945LcRz7S0ajG1hH+x43u3kS3fkxhgNfyRhVJWvV0OkQfLm5AYT2SLHcGLCeM7UOqsm+TEXH4PFtszHrWGZaDRBSTm3gguXTg1k0/eIJ4F/14P6y8Kumn20eXTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788232066; c=relaxed/simple;
-	bh=Mq73nCEb/lXDrCcSxx8IA/cMyh1PNrIMwP8FU/Oy1dU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HEf3Qxki9J7QQUjkJDVc2YMPrwiOI5SlP3jzmI/klr/Rwu8zbA85iWXh6nDWAx3VZRoMMBtEhdIbAngrenFeG8YUtdAwQzBkxFc3o/XK6odrfbpx5WKYwLAMcuIshhQQO4qCcahoBuKUCXYc0GpyaM6lN7Qvqf/mWjUc3VLtz6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MoV7p+no; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788232125; c=relaxed/simple;
+	bh=exRYbENaeqIC9LzQrl1oaL3FO3hyBULOPrf5+b+88N8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=T73Tn65+zUCFPsCoDtxZXcNnvM/PQ6kZGJ4DhITQNG12GtU+zGKVR1yBJGjziVK6g7lZjbRFJIW0vr8M9PgZ25E/t4Y4faUQuBPL9vzGrJla5KK+3P7yAtP9t/x4sWDc/C8HrwX06CBQfSh+/WjYl5g3gEdJ8fFvWaBxukmWypM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com; spf=pass smtp.mailfrom=foxmail.com; dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b=UXRsDfoQ; arc=none smtp.client-ip=162.62.58.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MoV7p+no"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 752C11F000E9;
-	Tue,  1 Sep 2026 03:07:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788232065;
-	bh=Rm3rexZv/rqn+JjZRgRNeAhDymbMcB+5L6QoB5OwkYQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=MoV7p+noUSbkZ04p8/XYInmqPg0P3k7/8KkxFGtesZb1HOOLUZj21mpSkFR3EdqiA
-	 LgBZ3yp3bRgJuTZ/e+ekK3QfnEI4ENYhX9o6dy2h/A3x4geAmX+HmVTm7Ln9kjMSfE
-	 giY1W46Oq9SYjArjaLOalZDN1/fyEczNjcgAIIsywy/+JsD1e/cf+O1rXkLMqx59p+
-	 mvpczO5iY2ou6sP0X8oTm5+rNlvkZnOaSbuaSg09NpEH6fHi9aKU+YZIX2XrvB/KH2
-	 6AGb3h3F/shr0UrLp/uVTUpAwnoHUNe/FhAsH9iD4Sjh6NmZkS8y0aNQcftMzsPWyg
-	 wTKvmLMQbSWeQ==
-Date: Tue, 1 Sep 2026 04:07:40 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: David Lechner <dlechner@baylibre.com>
-Cc: Kurt Borja <kuurtb@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 03/10] iio: adc: add the ti-ads1262 driver
-Message-ID: <20260901040740.19588bf4@jic23-huawei>
-In-Reply-To: <bc00d888-9944-4a22-88e3-8f4d7384d037@baylibre.com>
-References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
-	<20260828-ads126x-v4-3-1dc27e9c0260@gmail.com>
-	<bc00d888-9944-4a22-88e3-8f4d7384d037@baylibre.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=foxmail.com header.i=@foxmail.com header.b="UXRsDfoQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1788232111;
+	bh=eEsz7+r7qwRJXlGm1iAic9cd7SXMJhQKDo9zhXiMp/Y=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UXRsDfoQPXTwnU6xc2cTmdo1+3ONr/Eoe3J4mtB2yrkfN+MUZ5z0L2+W6W0AtA9Vl
+	 2XWXVFppHI36tUv5plCu5zON26k4bubF/He3RLi8ReXCHOcTLySFPIkvejkpFaXtJ9
+	 1Z455t6ljwH5HIGTlwhNfAA8yK4XxHgGUjZg7bp8=
+Received: from [198.18.0.1] ([58.206.203.238])
+	by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
+	id 21C366A4; Tue, 01 Sep 2026 11:08:28 +0800
+X-QQ-mid: xmsmtpt1788232108tcd6hcrco
+Message-ID: <tencent_CD7E18210FC0A874E644DBB097794EE29C09@qq.com>
+X-QQ-XMAILINFO: NlxVGCthfHmZFAK0fER5jLvqeLRrYIEPU6hyEUUcoZQ8XDorFKOId7L4orlH3o
+	 P7NQaJJt6Mk7v/CO2Zqnv0n9Wt7eOaDWRIEtPK8Jsnm9p5bUeDYTru4J8NKBHsVeIjOKHSW4YMCy
+	 Lbg0lPQh4Zpwrwa6mmEeIYe4eEpBcwyI8X5CFzz55+01AUlHFtbIZtM9er543CaeBV/dBWAD73u6
+	 r6yVuUZCI/2GOfRE8c3/ZBV9R3f7rDIuC0d0s/lyfnMHbbol645Z+uaDlsaLHW3NNd5CyUQWXeSB
+	 Vl3T5NmHvfCC+TpJ2KMM8NWzQqoMZnewA5eFvigeeUowZHZJGeLr0bN9VxE0FPuCPjClqbREJiKH
+	 b24SJCVkUfFZTl8/TTPdvh9aeFuyfpKQDcSZmjPy/7KYm8H298cJB5oNiWJntx7Y+8f7O5lNXch/
+	 IxsgDcLNVRPwp6JqQdw7K5PxvaCO4bJMJpkJTbmD5Ujy3xY4vhDW/FBEYK9JVs8fwSEjgpO9BkL2
+	 KtQPYniAa18k2x+F1zwULWsgxvHkNWcKPMMoJ547GbI3AaAOsVMXaXE0Y0Pt7iZlxLzkGUaDxobc
+	 xn4pHZzOyBiDxXUcNeGRFe8BdIUZkuUN9Fr8V3D93nt92hwWX+kcrLbY3qthn0DOi/TdpUhdYKJU
+	 f6vpeOH8AGK2WQtipoEL9sI5jVRgVjTp95Vw38Qxg78ruRSaEeMaqxvLYmgXHiVbi7qNaNq8EScx
+	 MI18jsEy5WK5V6IsLJqzRk1t0lr4HhbrkZtNUTwEciZMdfdzD1oGP031VhOlSeDcJq245wb/buUU
+	 wQVK15lUzXR2eoQeVSx7i9vnq+H9f422ZrVJvsY8tDsQVaQd8HMYE05lbKhcMdKRKJrR63c3TbpH
+	 fTXcqGrJgqkcE/wx9Ig7Pfxuasw9g5JnH7j5KhJNW2vtPSCPXn3ywlzmK5s4EEowlAQMflKexTdT
+	 g5/kFF3M73ptYPf2PmRGIu/6WYhnlxfACeVaYXOEySx5ZiAAoGNuDqjp6cY807iHQcNnXQvUF8F6
+	 G8lORqEI902MDyrNwhubALmqJohLaek/s7z0tXCWS3YRopq9g8J69SEgu17xD4mqL3A4C3QS+V1r
+	 LEYc+vWv68GQKdvX0=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-OQ-MSGID: <e059628d-2f57-4c1d-830b-0387eee74e24@foxmail.com>
+Date: Tue, 1 Sep 2026 11:08:26 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] usb: gadget: goku_udc: fix kobject warning on
+ probe failure
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Alan Stern <stern@rowland.harvard.edu>, Felipe Balbi <balbi@kernel.org>,
+ Peter Chen <peter.chen@nxp.com>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ syzbot+06ec7624018233e17113@syzkaller.appspotmail.com
+References: <20260826-b4-fix-usb-v3-0-b28366e817f3@foxmail.com>
+ <tencent_79E338821F4FC825B0149D5951476C189E07@qq.com>
+ <2026082647-tripping-skater-fe31@gregkh>
+From: Cheng Lingfei <chenglingfei@foxmail.com>
+In-Reply-To: <2026082647-tripping-skater-fe31@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-
-A couple of comments on comments.
-
-Thanks,
-
-J
-> > +	},
-> > +	{
-> > +		.type = IIO_VOLTAGE,
-> > +		.channel = ADS1262_INPMUX_AVDD,
-> > +		.channel2 = ADS1262_INPMUX_AVDD,
-> > +		.indexed = 1,
-> > +		.address = ADS1262_MONITOR_ADDR_OFFSET + 1,
-> > +		.scan_type = {
-> > +			.format = IIO_SCAN_FORMAT_SIGNED_INT,
-> > +			.realbits = ADS1262_ADC1_RESOLUTION,
-> > +			.storagebits = 32,
-> > +			.endianness = IIO_BE,
-> > +		},
-> > +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
-> > +	},
-> > +	{
-> > +		.type = IIO_VOLTAGE,
-> > +		.channel = ADS1262_INPMUX_DVDD,
-> > +		.channel2 = ADS1262_INPMUX_DVDD,
-> > +		.indexed = 1,
-> > +		.address = ADS1262_MONITOR_ADDR_OFFSET + 2,
-> > +		.scan_type = {
-> > +			.format = IIO_SCAN_FORMAT_SIGNED_INT,
-> > +			.realbits = ADS1262_ADC1_RESOLUTION,
-> > +			.storagebits = 32,
-> > +			.endianness = IIO_BE,
-> > +		},
-> > +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
-> > +	},
-> > +	{
-> > +		.type = IIO_VOLTAGE,
-> > +		.channel = ADS1262_INPMUX_TDAC,
-> > +		.channel2 = ADS1262_INPMUX_TDAC,  
+On 8/26/2026 5:27 PM, Greg Kroah-Hartman wrote:
+> On Wed, Aug 26, 2026 at 05:15:07PM +0800, Cheng Lingfei wrote:
+>> goku_probe() calls goku_remove() when hardware initialization fails, but
+>> the gadget device is initialized only near the end of probe. As a result,
+>> goku_remove() calls usb_del_gadget_udc(), which drops a reference to an
+>> uninitialized gadget device and triggers a kobject warning.
+>>
+>> Initialize the gadget device immediately after allocating the controller,
+>> but add it only after all hardware resources have been acquired. Track the
+>> gadget registration state so goku_remove() can safely clean up both partial
+>> probe state and a fully initialized device.
+>>
+>> Use the split gadget removal API and drop the final gadget reference only
+>> after all hardware resources have been released. Obtain the controller from
+>> the embedded gadget device in the release callback because driver data is
+>> set on the PCI device rather than the gadget device.
+>>
+>> Fixes: 3301c215a2bb ("USB: UDC: Expand device model API interface")
+>> Reported-by: syzbot+06ec7624018233e17113@syzkaller.appspotmail.com
+>> Closes: https://syzkaller.appspot.com/bug?extid=06ec7624018233e17113
+>> Tested-by: syzbot+06ec7624018233e17113@syzkaller.appspotmail.com
+>> Assisted-by: Codex:gpt-5.6
+>> Signed-off-by: Cheng Lingfei <chenglingfei@foxmail.com>
+>> ---
+>>   drivers/usb/gadget/udc/goku_udc.c | 28 ++++++++++++++--------------
+>>   drivers/usb/gadget/udc/goku_udc.h |  3 ++-
+>>   2 files changed, 16 insertions(+), 15 deletions(-)
+>>
+>> diff --git a/drivers/usb/gadget/udc/goku_udc.c b/drivers/usb/gadget/udc/goku_udc.c
+>> index 5ad8633f522b..615cc6b8f354 100644
+>> --- a/drivers/usb/gadget/udc/goku_udc.c
+>> +++ b/drivers/usb/gadget/udc/goku_udc.c
+>> @@ -20,6 +20,7 @@
+>>   // #define	VERBOSE		/* extra debug messages (success too) */
+>>   // #define	USB_TRACE	/* packet-level success messages */
+>>   
+>> +#include <linux/container_of.h>
+>>   #include <linux/debugfs.h>
+>>   #include <linux/kernel.h>
+>>   #include <linux/module.h>
+>> @@ -1726,7 +1727,7 @@ static irqreturn_t goku_irq(int irq, void *_dev)
+>>   
+>>   static void gadget_release(struct device *_dev)
+>>   {
+>> -	struct goku_udc	*dev = dev_get_drvdata(_dev);
+>> +	struct goku_udc *dev = container_of(_dev, struct goku_udc, gadget.dev);
 > 
-> Hmm... a differential where channel == channel2 usually means a shorted
-> input. TDACP and TDACN can be controlled indepedantly, so really are two
-> separate channels.
+> That looks wrong.  If it is correct, please create a proper macro for it
+> so that you verify that this all is working properly.
 
-This came up recently.  We do have a history of doing this for
-fixed purpose pairs as well.  The ambiguity vs shorted inputs
-was one of the negatives, but I decided it was nicer that making
-numbers up for IN1+ IN1- type setups.
+The object allocated by goku_probe() is struct goku_udc, with struct 
+usb_gadget embedded in it. Therefore, when the gadget release callback 
+is invoked with a pointer to the embedded gadget.dev, it must recover 
+and free the enclosing struct goku_udc.
+This follows the same pattern used by the net2280 and fsl_qe_udc 
+drivers. I agree that the conversion should be made explicit, so I will 
+add a helper macro in the next revision:
 
-If they are separately controllable then indeed makes no sense
-to do this. Given them separate numbers unless intent is a shorted
-channel.
+#define to_goku_udc(g) \
+	container_of((g), struct goku_udc, gadget)
 
-> 
-> > +		.indexed = 1,
-> > +		.differential = 1,
-> > +		.address = ADS1262_MONITOR_ADDR_OFFSET + 3,
-> > +		.scan_type = {
-> > +			.format = IIO_SCAN_FORMAT_SIGNED_INT,
-> > +			.realbits = ADS1262_ADC1_RESOLUTION,
-> > +			.storagebits = 32,
-> > +			.endianness = IIO_BE,
-> > +		},
-> > +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
-> > +	},
-> > +};
-> > +  
-> > +
-> > +	rate = clk_get_rate(clk);
-> > +	if (clk && !rate)
-> > +		return dev_err_probe(dev, -EINVAL, "failed to get clock rate\n");
-> > +	st->clk_rate = rate ? rate : ADS1262_NOMINAL_CLK_RATE;
-> > +
-> > +	st->start_gpiod = devm_gpiod_get_optional(dev, "start", GPIOD_OUT_LOW);
-> > +	if (IS_ERR(st->start_gpiod))
-> > +		return dev_err_probe(dev, PTR_ERR(st->start_gpiod),
-> > +				     "failed to get start GPIO\n");
-> > +
-> > +	st->regmap = devm_regmap_init(dev, &ads1262_regmap_bus, st,
-> > +				      &ads1262_regmap_config);
-> > +	if (IS_ERR(st->regmap))
-> > +		return PTR_ERR(st->regmap);
-> > +
-> > +	ret = ads1262_dev_configure(st);
-> > +	if (ret)
-> > +		return dev_err_probe(dev, ret, "failed to configure device\n");
-> > +
-> > +	indio_dev->name = ads1262_device_id_to_name[st->dev_id];  
-> 
-> Not so sure about this. Almost always, this is coming from the compatible
-> match data. So unless we plan on trusting the device ID returned by the
-> chip over the devicetree when we add more to the device id tables and looking
-> up per-chip behavior from there instead of the compatible, I would go with
-> the traditional approach. That way the name userpace sees match the driver
-> behavior that goes with the other chip-specific match data that is likely
-> to be added in the future.
+#define gadget_dev_to_goku_udc(d) \
+	to_goku_udc(dev_to_usb_gadget(d))
 
-We have done this detection path in the past (with fallback to the
-dt compat where we don't know better). Normally we do this because
-we know there are boards in the wild with the wrong description and
-want to be nice.  Here it indeed seems perhaps too complex.
-
-Jonathan
+-- 
+Best regards,
+Cheng Lingfei
 
