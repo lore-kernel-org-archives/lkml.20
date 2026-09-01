@@ -1,177 +1,163 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012017.outbound.protection.outlook.com [52.101.53.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-66.mta1.migadu.com [95.215.58.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09299488D82
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:36:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.17
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788284196; cv=fail; b=kfspCVbOSMWEVpBc8O0QM7Huch8pFigpppuTqrP9JWX7mH8PDKQWu8rlmQQHpnlK5WlZM9+UI1MQXgnk4bLUgLaAQJlbqU4oro1snZzi5M4HaCe7gryYsZsh1lxyRU8RCLSHGtm2pmv0WkYPzKsu7PccPFQDuy3AIBFNGzATQj8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788284196; c=relaxed/simple;
-	bh=vu815QnnM+gjdu9fzolcZEElCGkmmuh/XpQc9f4b30U=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NgFa1PuV27Cjn3c+IIKLP25fvZFITjJQtbEPf8BShPnY1zgGX9HEVTfsDvaprrYLoSRTHQMTCYYhpLysp3cx/1ZIpv6b0BnXm8B4TPwNNoPe7/NQE/REzKJ1wQ//nGI/oXkNrV3xPyC9MpVI0Q1kYfAwRJQKoFN3VXDDaS6HAD4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=NSrMK6k5; arc=fail smtp.client-ip=52.101.53.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB28486BA9
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:37:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.66
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788284241; cv=none; b=UBdIj9CJrFPVA/xs6K+ThfW+6RaJvgkCNdXK2oA/4l/VTNDxlfilk6hUrsAod7VZvlIf26OtswgBdVwSJPmMt7VwwrTposwOtCa/Rh3PjdADsEilWOYitwQsIweANjPfnV9sTznhkDuYa4YWhpcciAC3oPp1GHBnTY2Joqx5unY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788284241; c=relaxed/simple;
+	bh=6zo0vD0WrMxDTrLkYi5SZlZp0oHj/c0Lu7P8MC3D64I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ky03D4cIGHqcpy5exDqOg6xCC32/x5oMqGxz5SlCqipUtzNUTv/MSYfzVTd9ian2Q7el/oUZgqm6PZ6j+kWwRKVGQurUHgi/qdfLkDPcgPD7J5QdFRxempjEyvQ4RUav8u84RxVobOD02hpKBFRh/Nv0bL49mUNH0+G3UcF7qfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Y7GCVbGI; arc=none smtp.client-ip=95.215.58.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="NSrMK6k5"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HH/9qMm6bTns2tr3Wujd6NGQl9NWscZLQY6Ee2E6+xrddLirWDbKMKDA3it2NW7LUMMepPR5po4xKBbXzCPVKQOIQN/+K7/6U6ozz0o1s5WOH3wCpK5UseJZJVBmar8L/W5WpdFozCd1AQu1FPYTyx/H+9R6t0oaC4OW5M9SSrYqj8y1QdHARQWDV1cGd8dT7P8+k5OG69hwRLCb5jUU0kaykELdMH1LW7lppuFH3CCHwfvoWt9tYSVE9Y07M8oC3FgdC9pi1luqTnaiOym3hijIUbpYh3leJHHMhxlmgZeAuhbkE2DXd9wRIzXFiuWmzkXK5zD1hSogjPcArzx8Ag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Hno+TQ63egrzVyTXxBZVzKgqkjJHSL//1OGCbnphbys=;
- b=EcsJt78V1DOM7nOHS8ItDQvoArbtxjCE8YoM2zfa5wU5tNY1ZRv4xTadloy3ctSN2NjA210/hKr6CatgLm3RJo2V/2SjKdJXF2jQpvMRm7PFXZx7clXFTqAJqo9kQlwPJkwsVMmTBkbxHeuXiUa0N4PMykatSjriMwFrYsmjNk/DlpPwiz6qcB6Mkq8e4O959FZhKrhYzFOeKFVpR0/+dUh82Ef/mYUPnxH6Nz/ZB2UDY9gWUs1sS1lLn1VCgIeBXmO5Aghh20UD/EcMLrx5EdzsEv+kC66P9sZ7BpqsoUv5RZB7WsNtjVAFvyDGOBsDZXr6Pk2a9xiivqjbLlexvw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Hno+TQ63egrzVyTXxBZVzKgqkjJHSL//1OGCbnphbys=;
- b=NSrMK6k5IgKTUErwJkovsC2si5/QOYglFqMqpTY2wiAd7EX5DygKKN2JuZ5w0+mnWZ+qNVL2xFNIP/VP0Q9FbZcntXzHPlts68AIURqbOmcegmhuinC11yhpDHI+VyTo57lOqmWIuU6Vh/Q9Soohiz98uAEo7mpljquPfpPFYF12CeHSXiWAmvBSZtKx54Gt8yAfLga1GqqfMAk4Sl5oD6O7bdeKVWDGvrZohKdlM5nqYy/VOm3OzfwbQN8s41XiGC7KfjB6V4raa2JoYBMj0rOOmi7OPpUheTGLoCX2jePz+yrw6E1Z0ywuqCACuTVvUYeB5BwvHYL+p5jzQ4jBsg==
-Received: from BY5PR03CA0026.namprd03.prod.outlook.com (2603:10b6:a03:1e0::36)
- by SA1PR12MB9548.namprd12.prod.outlook.com (2603:10b6:806:458::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 17:36:28 +0000
-Received: from SJ5PEPF00000203.namprd05.prod.outlook.com
- (2603:10b6:a03:1e0:cafe::32) by BY5PR03CA0026.outlook.office365.com
- (2603:10b6:a03:1e0::36) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Tue, 1
- Sep 2026 17:36:28 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.232)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- SJ5PEPF00000203.mail.protection.outlook.com (10.167.244.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 17:36:28 +0000
-Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 1 Sep
- 2026 10:36:09 -0700
-Received: from drhqmail203.nvidia.com (10.126.190.182) by
- drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 1 Sep 2026 10:36:08 -0700
-Received: from nvidia.com (10.127.8.10) by mail.nvidia.com (10.126.190.182)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46 via Frontend
- Transport; Tue, 1 Sep 2026 10:36:07 -0700
-Date: Tue, 1 Sep 2026 10:36:06 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-CC: <linux-coco@lists.linux.dev>, <kvmarm@lists.linux.dev>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Alexey Kardashevskiy <aik@amd.com>, Catalin Marinas
-	<catalin.marinas@arm.com>, Dan Williams <dan.j.williams@intel.com>, "Jason
- Gunthorpe" <jgg@ziepe.ca>, Joerg Roedel <joro@8bytes.org>, Jonathan Cameron
-	<jic23@kernel.org>, Marc Zyngier <maz@kernel.org>, Pranjal Shrivastava
-	<praan@google.com>, Robin Murphy <robin.murphy@arm.com>, Samuel Ortiz
-	<sameo@rivosinc.com>, Steven Price <steven.price@arm.com>, Suzuki K Poulose
-	<Suzuki.Poulose@arm.com>, Will Deacon <will@kernel.org>, Xu Yilun
-	<yilun.xu@linux.intel.com>
-Subject: Re: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
- viommu plumbing
-Message-ID: <apcNBiTK15/3+4b/@nvidia.com>
-References: <20260427085344.941627-1-aneesh.kumar@kernel.org>
- <20260427085344.941627-4-aneesh.kumar@kernel.org>
- <apM6dOHcEI2ztWS0@nvidia.com>
- <yq5a8q5lz5yn.fsf@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Y7GCVbGI"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=6zo0vD0WrMxDTrLkYi5SZlZp0oHj/c0Lu7P8MC3D64I=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788284236; v=1; x=1788889036;
+ b=Y7GCVbGIEXLYVUd79jHtVQQqb+uBUWPuth9NYQmo6v5EAfHQ7tZSk2S6fa+0ez6f00vUj0nd
+ aBFMZZR2tPO4xr3NjVhOh7PxBHZHxGuzip0tn0zpHpPGmn09eLJrd1mrL3q061ELjFruiaqFdoI
+ CTFnd7yCBk67B0NrKgluxrng=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c386ce8340dde776;
+	Tue, 01 Sep 2026 17:37:16 +0000
+X-Mizu-Trace-ID: c386ce8340dde776
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 1 Sep 2026 10:37:14 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Kairui Song <ryncsn@gmail.com>
+Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
+	Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Chris Li <chrisl@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Ridong Chen <ridong.chen@linux.dev>, Lian Wang <lianux.mm@gmail.com>, Yu Zhao <yuzhao@google.com>, 
+	Zi Yan <ziy@nvidia.com>, Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/6] mm/memcontrol: make lru_zone_size atomic and
+ simplify sanity check
+Message-ID: <apcJgcFLHKZfI40m@linux.dev>
+References: <20260831-mglru-flags-cleanup-v4-0-2d15dde0d7ee@tencent.com>
+ <20260831-mglru-flags-cleanup-v4-1-2d15dde0d7ee@tencent.com>
+ <apZVe8UHZ1CNo4r1@linux.dev>
+ <CAMgjq7D6V4eTZJ1Q1Xf2J6yTCq=JjvzT-W-HHX6EnMfzm3BK1g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <yq5a8q5lz5yn.fsf@kernel.org>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000203:EE_|SA1PR12MB9548:EE_
-X-MS-Office365-Filtering-Correlation-Id: 893bb952-a558-4599-280f-08df084f8def
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|376014|7416014|23010399003|36860700016|6133799003|3023799007|10067099003|11063799006|5023799004|56012099006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	DPYGL/ctZQGDl9Zvhx/xAhg5MkF46Q2dToNRFjHK4B+7HROlyBfhOqXmbjV3Ev1TVlvAxObtX8jM07f3W8P758N2J/NQYBWnF2vGSbLvp3NydilB7aIcRXul8oYj6NhIgczDfssRsgMFYLuTPp0hHieBveOEfVWyd5T32GKqYkOOVrH4pbAu/h6pLryl3cRSEclg5aqnrCrJl8UxypnOo1L8Zttd3Bwh7ys4Wa4iUKX4CEg6Brzaf60I5YdbhkL+pkF7mptY+xChkiIUPB0oWPgUlRmUlMe3WZC3Qlia7c1Y/yAkqoqN658H1w/BHA/ets/bJYZu/ky1hybptKMbvfic6R/PxDxGjf9QY8BB9rfrAgIvYzJ6Drtg08MV5tZ88H1E7XHo3s6Ty7vr2VDc2d+1CROg6Kti6pW8LiRPysXxzSjMasWzUB6td8gVaExpUwVIsZIEkNvsiB57SqjgqV35ULWArQ6FHuwuWdTf3tIS/Wskv4Qx5TowFa8P6mu22PWTvdUJR/4iQ5y6oQhJEsqEHPju18+xUF8UuEAI0GVsTgx2QmLVdTSF06ss1mAsafA0YgFR3XSgFUwnK93cm09ot9gQZtgimcZHGeng1lcxGCEgv1Z0BgurquSPVCMCg/Q79DD4YI/Eyl+uNnn8HNhEQab2ykzDE/rgx0iRRHtoR234cW2C7A8epFNBVm41Fxfi7/DRWL52WVD1EX8WbA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(7416014)(23010399003)(36860700016)(6133799003)(3023799007)(10067099003)(11063799006)(5023799004)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	LcWiNv1Rt3t/GEW26HTyypHg+wNB9bvTBhl3Gf4GYcC9x0IQk5lG+nJEO1zsY42NCWdjywmL1Ag+/sw4p3dleJGTXARjPVi2tq5a8wBSMLPZvbu1RKgrMpymM/0T3adg067bUQrVBQP6gXXmehx8FQS9HKVMZ3rfH8IhdqYhMHFenikxFjGqc3UdKXAhQRWq6LBgYouWwyYAaE8PgM64E8s/XPmmnGMzvT32sxz+dmn5fHGw6UFy2tbl66mGdu5a84BqURi8IhCX0ytRUdZdnt/3delUJ8y3Pc7Akc7/bXs6rTy9gUCyTfqdY8JlCTcrH4yPKKzxUSAD4cgTkwrOdicaVPYE5wnKKDR4LZC1u2ejNEVjHvcINR4NpGnV9vHxniD5vV/Kw74GAiWxwTsiSmdLdDOWmlbZ/JwIiuWCl3dmDpQ6chi1fg+m6w76psdZ
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 17:36:28.6394
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 893bb952-a558-4599-280f-08df084f8def
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF00000203.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9548
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAMgjq7D6V4eTZJ1Q1Xf2J6yTCq=JjvzT-W-HHX6EnMfzm3BK1g@mail.gmail.com>
 
-On Tue, Sep 01, 2026 at 02:47:04PM +0530, Aneesh Kumar K.V wrote:
-> Nicolin Chen <nicolinc@nvidia.com> writes:
-> > But, on the other hand, I can imagine that a Realm VSMMU would add
-> > a new flag with a user_data to this VIOMMU. Then, this flow would
-> > give some troubles to VMM (QEMU for example):
+On Tue, Sep 01, 2026 at 01:20:33PM +0800, Kairui Song wrote:
+> On Tue, Sep 1, 2026 at 12:38 PM Shakeel Butt <shakeel.butt@linux.dev> wrote:
 > >
-> >  - For VM with a guest-level SMMU, QEMU creates a realm instance
-> >    where IOMMU_VIOMMU_TYPE_ARM_REALM_SMMUV3 (with vsmmu) can be
-> >    allocated.
-> >  - For VM w/o a guest-level SMMU, QEMU won't create such a realm
-> >    instance, while still required to invoke the ioctl (w/o vsmmu). 
+> > On Mon, Aug 31, 2026 at 02:43:31AM +0800, Kairui Song via B4 Relay wrote:
+> > > From: Kairui Song <kasong@tencent.com>
+> > >
+> > > commit ca707239e8a7 ("mm: update_lru_size warn and reset bad lru_size")
+> > > introduced a sanity check to catch memcg counter underflow, which was
+> > > more of a workaround for another bug: lru_zone_size is unsigned, so
+> > > underflow wraps it around and returns an enormously large number, then
+> > > the memcg shrinker loops almost forever as the calculated number of
+> > > folios to shrink is huge. That commit also checked if a zero value
+> > > matches the empty LRU list, so we have to hold the LRU lock, and
+> > > handle the positive and negative deltas separately.
+> > >
+> > > But later commit b4536f0c829c ("mm, memcg: fix the active list aging
+> > > for lowmem requests when memcg is enabled") already removed the LRU
+> > > emptiness check, so handling the deltas separately is no longer
+> > > needed. And if we just turn it into an atomic long, underflow isn't a
+> > > big issue either,
 > >
-> > Taking a step back, I wonder if we really need to use iommufd for
-> > PSMMU activation and its stream table allocations?
-> >
-> > Here are some facts:
-> >   - An iommufd has a ctx, that's one per VM. Similarly, a Realm
-> >     has an RD.
-> >   - For an RMI command that needs an RD, it makes sense to be per
-> >     iommufd ctx, e.g. RMI_VSMMU_* or RMI_VDEV_* commands.
-> >   - PSMMU commands are global; they don't need RD. So they don't
-> >     seem necessary to tie to an iommufd ctx.
-> >
-> > Instead, could the PSMMU activation be done after RMI_PSMMU_INFO
-> > check? Is there any reason not to do that? A safer timing might
-> > be at the device assignment stage?
-> >
+> > Why atomic long and not just long?
 > 
-> One of the reasons I added IOMMU_VIOMMU_TYPE_ARM_REALM_SMMUV3 was to
-> avoid creating a psmmu object when we are not using a PCI passthrough
-> VM. That is also the reason for all the refcounting around the psmmu
-> objects.
+> Long is fine too; I was just trying to be defensive. The original
+> check was a defensive design for leaks or races, and atomic long is
+> more immune to race conditions. See below for the other conditions.
+
+Unless we really need it, let's stay with "long" for now. As you mentioned below
+this is busy/hot path, no need to add overhead of atomic here.
+
 > 
-> If we are okay with creating psmmu objects early, then I guess we can go
-> with the above approach.
+> > > So let's turn the counter into an atomic long and check at the reader
+> > > side instead, which has a smaller overhead. The underflow correction
+> > > is removed: a massive leak of the LRU size counter would indicate
+> > > that something else has gone very wrong, and one should fix that
+> > > leaking site instead. Besides, the updater-side sanity check is
+> > > unlikely to catch the leaking site anyway: if a folio was removed
+> > > without updating the counter while other folios remain on the LRU,
+> > > the WARN only triggers much later, from a likely innocent callsite.
+> >
+> > Do you have any data to support your claim that updater-side sanity check is not
+> > that useful? Also can you explain the motivation to move the check from the
+> > update side to reader side?
+> 
+> I think I described that in the commit message. Commit ca707239e8a7
+> introduced the original emptiness check. The goal was to fix an
+> over-busy reclaim scenario: upon underflow, an unsigned long returns
+> an extremely large value. The reclaimer calculates the page number to
+> scan based on that value, and thus enters a busy loop trying to
+> reclaim much more than the actual usage. It's really a defensive
+> design or workaround.
+> 
+> And later commit b4536f0c829c just removed that emptiness check,
+> leaving only the underflow check. So at this point we are just
+> defending against underflow. Currently, I don't believe there are any
+> known leaks or underflow issues in mainline, still purely a defensive
+> design.
+> 
+> Reading these counters (mem_cgroup_get_zone_lru_size()) is much rare
+> than updating them: the only readers are reclaimer - per loop, each
+> loop will scan a large chunk of folios. Or during reparenting - per
+> child.
+> 
+> Writers, however, operate on every LRU folio.
+> 
+> So checking it in the reader side is much lighter and cleaner code-wise.
 
-Do you see any trouble if we implement in this way:
- - Add "struct arm_smmu_realm *psmmu" in struct arm_smmu_device
- - RMI_PSMMU_INFO in probe():
-   + allocate a smmu->psmmu on success
-   + keep smmu->psmmu->users = 0; psmmu is not activated
- - Device binds to iommufd, creating idev
-   + invoke an iommu op to a driver-level callback:
-	psmmu = smmu->psmmu;
-	if (!psmmu)
-		return 0;
-	guard(mutex)(&psmmu->mutex);
-	if (!smmu->psmmu->users)
-		rmi_psmmu_activate();
-	psmmu->users++;
-	rmi_psmmu_st_l2_create();
-?
+So, one motivation is cleaner code?
 
-Nicolin
+> 
+> Checking in the reader side also tolerates deferred accounting false
+> positives: if a folio is added to / removed from LRU but have the
+> accounting happens later, that's fine, but might cause a temporary
+> underflow (there shouldn't be such usage right now, but cleanly the
+> oldest commit I mentioned is trying to catch something). It should
+> just proceed without performing extra operations on the counter or
+> raising a warning on the updater side.
+> 
+> The underflow won't affect anything besides the two readers mentioned
+> above (reclaimer and reparenting).
+> 
+> Besides, I don't think warning on the writer side will help catch the
+> real leak either, it just adds overhead to a busy path. The folio
+> triggering the underflow is very unlikely to be the one leaking the
+> count. And if that leak is actually caused by a race, the atomic long
+> change should cure it.
+
+I think you are going and looking too much into the history of this warning. I
+think you just need to explain that the current warning in the update side
+already can't always catch the actual leak and is costly. Moving to read side
+make the code cleaner and warnings will be at the location where the consumers
+we care about are going to consume it. Also add couple of sentences on behavior
+difference it will have i.e. warning on flipping into negative vs we will
+continue to operate even in negative but only warn on negative consumption.
+
+Another question: why is this patch part of this series? Just some orthogonal
+cleanups or are they related?
+
+
+
