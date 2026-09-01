@@ -1,141 +1,81 @@
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CF2C4A0F07
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:12:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC8B47CA6D
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:13:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788289979; cv=none; b=Zhl6Sq9uPvawD3xy43rgtZPAHuBPB32HD4Qif+CPD5Y3lW1adiJnN7NDgyxA7V5MXG9M1j6gZz6E5nhMB5drSdAHaaqZhUD54a1lnRA8whDalweTUzvJaeCihnoEMt4uxLTHQMPWkj155vXLbTvwnYeMDlGhjb2kNNuC+BoTxmk=
+	t=1788290036; cv=none; b=km6aFJWeXLWTrqQ7WqTS3BYw/DpbFhV2VZqkUFHWuyXjOQosbbbsogU4g7NXCwP3Y+c1zasFF//fj8SZB/wOxW/eKA9fmsWMf9Nx2K7eM1xz3wObXCgD3r2JS/tXRyEh7SWQs4/5AsPbE1VtSm7rKEgTelbf3ujBR75KrB1AKko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788289979; c=relaxed/simple;
-	bh=Kt0LuE28XbF55ehOiA2DPZrjnmRa799DCvT54SE1CAI=;
+	s=arc-20240116; t=1788290036; c=relaxed/simple;
+	bh=6h5m8oBLmcsaN8EsPH+tpcDxvt17SGebO468AlTg5Us=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=rIafpjm0YWbD9Zeg+G//odUPssVm8DDVqfQOsTs6zRcmwjrLGj1iV+ZpGjQOZC8ar19WOIfJFoPP4bZoYBeQ4OgtF28xN0/mwb/DRFUh7fP95ZpvEczk4eKVbv6Sfw2g8HOOHwko8xOhmq2VggGpSysipMo+563WHthdDmVznlg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=No1iT1h2; arc=none smtp.client-ip=209.85.216.71
+	 To:Cc:Content-Type; b=mKZzzGvXyrD9HhFP9mBHGKpeQLJkS4lNUlcDkfu4eYJUEULB3g2wS4vZvQS4OzAO/4DMQUty3MlwNcwtHnzIK63J7VNNoPy1BcHBHedM6GEYHIim2Eh52BNYjFH62qPQ7Zk5CBrlwbHcyqW3DQCwRKgYqhwLJ2X2c6ICC59nmBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NpPV1p7F; arc=none smtp.client-ip=209.85.215.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="No1iT1h2"
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3823dcc1647so202410a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:12:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NpPV1p7F"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1c62f0d60so360195a12.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:13:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788289973; x=1788894773; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Kt0LuE28XbF55ehOiA2DPZrjnmRa799DCvT54SE1CAI=;
-        b=No1iT1h2iKaXTQOA9OkWxHG6FhK8w5jL0CJaazPx2MHKHmRIhuWCsP84S1PCM7KTXc
-         4nz/xlR27+SzNBL5EH/wZJEJ/Zs0PZC6NyTBGfWhtCLEsdpvzoonPbWSTFmpFaZX9aV0
-         2TCXCwRnKAJmYf7LBAZFXuHqmfFBN69SA1GrOah/cc7GkDsmKzgIAKFDr2lrAmGcd8e3
-         E69xfyUAl4gUqkIJUa/N8nYZKj/zZB9RErK21w/GEsN4KbigMIPbYbpBjiZ69D5VeNo1
-         DizQzZn5Fxr3sOMOSFdwBGf1JLmTPPc1GANfoZrgzSt3NVRetpHENmQxryJq6x7xEs+C
-         XwPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788289973; x=1788894773;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1788290032; x=1788894832; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Kt0LuE28XbF55ehOiA2DPZrjnmRa799DCvT54SE1CAI=;
-        b=SmZrcm3N2F1IFLnHhO6M//YY9W+6G3xgU0k+lFI4npRXXYhDG5TISM0W5QHZby8U1x
-         wlBgwwSVcndqW3fcnValyMQsz3knwIOh70PHBBRo54JQVcAvqyF9aJOEKlsbExOPucCO
-         n5MmUek+mptvYT4v+BLTPv76BA6ALQr3s+c7XDtlMJu1EBm/9bdlmP0yJBINy+2zRhnS
-         z32191yEQItQ02l3yTc831RBYp6Xdufh/20tS0k2dggORgnFwii5aWNgCZw2orNRfoQ7
-         S6O1spUuqq8ALtOfafV8O06F0MTho3AB39b6BsgYGAaGwObHBRev8hLBLsBUGk9Q8ykN
-         Xezw==
-X-Forwarded-Encrypted: i=1; AKwUvBzNvsjmU4dafMbWod70zIqZTTVkZ67WGtGg5XdW5zFjSGVsSiu+gDijOm0OTLE11E+Gs/CiRbed6jlOfLQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mC0dzdGzGOnrwDJ1PXaD08eWZDm/ImOjQ3OUA4FLCJwLUOjPFX
-	trWO54hvb486rhOdjyk5D0ne4F5LB3ar+iCj+aIej7UvIl+DCfLeAKnR8ecbRLjZ6JlnXmIoqvL
-	//igocw==
-X-Received: from pjtn13.prod.google.com ([2002:a17:90a:c68d:b0:39a:e7d1:b083])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2d06:b0:38e:5964:97a8
- with SMTP id 98e67ed59e1d1-39ae83ec5demr364047a91.16.1788289972383; Tue, 01
- Sep 2026 12:12:52 -0700 (PDT)
-Date: Tue, 1 Sep 2026 12:12:51 -0700
-In-Reply-To: <8cd4aa65b1b499d4c614aa4cba445b6aeb89acf7.camel@infradead.org>
+        bh=cC/v4tGqIHa7qRI7tcSqJWeetrZS27j4AD0COX7TVh8=;
+        b=NpPV1p7F/V0mz7x5SRug0O0TpoI41viG7ONLH6akUQMu+kiHqphEbd3Z4M9HnDnloi
+         eKka8m+hyJm6PmCEN118707TbcHyWKT0JP3QnEkIptiVjbGzX1XbzwdXqd0Ska+Q0CWw
+         TTvIRwGSDuQ7DAt6W8URxcM4T7PJe08wJekXp2xK4R+OC9GsWAmMWcDNWCLKDQnP/MPV
+         sYp1a+SxQtTG/T3EmQSAuVoH7DC3wGWSryEOT7rrAsKInqeRdZTjGeIyV2jq/1Wc8b0b
+         FybPJA6FpC/fh362SWNmF7TrbYxddsTqxUBSIqQ6tbARZa2xlr3EwZZRQ1wK8H9ZWN2T
+         Aa4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788290032; x=1788894832;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cC/v4tGqIHa7qRI7tcSqJWeetrZS27j4AD0COX7TVh8=;
+        b=njIypyMn11YfsyxsnF6QAn/J+NqVZSgRh6EFZVIivqlBdAshh1KXWNpkElVCZdTTt4
+         O/VSMVrVXvxRodXMXaTyMV1GOSuNg3FbDdVBn1hi3QwK3x7BIGzPt6MS9C1gYlkpXJ7a
+         5+h1TA1uGX0/6qbW8E8E0WQLajCZS44XPxO7Rcf/UzqCP3lA5uttye6RSX/jNgb8YVJx
+         0jWpO9lojmtvwGZ6SpWbY0w44zweswOmDFaGfvkuZ/VLpiDT9GqDIle5SWldrP4jNSoS
+         9eNPYgfazzR7mp3fusY/tXSJhqmTQfcKoavJ7tEHZZI4Hny1ISgrOGvohWeNyZ/5H9Q+
+         gBvA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro0QVIRJLE0wPIsoIUtamLeCUUnuHc+nfcVeFm4GTLhbdKEmi5J5Y5PLXmwgtRnHuAQk+HCFnpSn44feE0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lQnd4Iib7h4EkXn5TmSbRWf8hDgBJsUDMd1wBwSdA/WaKTvN3d
+	WIFXGc3jYfoGzuNCXqCK4InSeccEHhMQ5o6kQ83XhTo9u3kkk7wIVGIfmBW6vkZAr6UJV43at68
+	vMR9KEg==
+X-Received: from pgcv12.prod.google.com ([2002:a05:6a02:530c:b0:c8e:c0e0:e670])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:1611:b0:3d0:8abe:9e08
+ with SMTP id adf61e73a8af0-3d7ad780037mr15285138637.3.1788290031806; Tue, 01
+ Sep 2026 12:13:51 -0700 (PDT)
+Date: Tue, 1 Sep 2026 12:13:51 -0700
+In-Reply-To: <CAH+3ta7b7MudRedhFG4xQH6-3ZK9gfkcEPy_aHsAHBwjyK81+w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <333c4cdb-8f34-4e3f-a47f-961f47e089a0@paulmck-laptop>
- <11dcf5a87125451897982f728c1f65a5151987e4.camel@infradead.org>
- <69567965-48fd-48c5-abb6-0699d7f5bd16@paulmck-laptop> <124af87fb49c267eeb26b8b4d952b9b1a5b3fb68.camel@infradead.org>
- <9427a8e0-3ba6-4f31-a35d-54429bd7e071@paulmck-laptop> <3d0463b6099d4fcde9a025a2f9e231d75303b61c.camel@infradead.org>
- <b0be19e9-b0ae-48de-bef6-d905ee007c8a@paulmck-laptop> <c39bda52f4c1573193aed39246f0d705755143fe.camel@infradead.org>
- <90d91673-a912-439f-98ee-e43285294486@paulmck-laptop> <8cd4aa65b1b499d4c614aa4cba445b6aeb89acf7.camel@infradead.org>
-Message-ID: <apcjs83XSU4Eb9hm@google.com>
-Subject: Re: [PATCH] mm/mmu_notifier: Remove non_block_start/end() from
- notifier invocation
+References: <20260807112818.958190-1-kimjw04271234@gmail.com> <CAH+3ta7b7MudRedhFG4xQH6-3ZK9gfkcEPy_aHsAHBwjyK81+w@mail.gmail.com>
+Message-ID: <apcj7xrcIhEw7lCl@google.com>
+Subject: Re: [PATCH] KVM: x86: Use active memslots for the per-vCPU MMIO cache
 From: Sean Christopherson <seanjc@google.com>
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: paulmck@kernel.org, Jason Gunthorpe <jgg@ziepe.ca>, Michal Hocko <mhocko@suse.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-	Clark Williams <clrkwllms@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>, 
-	Jerome Glisse <jglisse@redhat.com>, Christian Koenig <christian.koenig@amd.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, linux-mm@kvack.org, kvm@vger.kernel.org, 
-	linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+To: Jinu Kim <kimjw04271234@gmail.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, security@kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On Tue, Sep 01, 2026, David Woodhouse wrote:
-> On Mon, 2026-08-31 at 17:58 -0700, Paul E. McKenney wrote:
-> > On Fri, Aug 28, 2026 at 12:25:01AM +0100, David Woodhouse wrote:
-> >=20
-> >=20
-> > > =C2=A0 * 23f10e07aba3 srcu: Add try_synchronize_srcu() for callers wh=
-ich can prove readers absent
-> >=20
-> > I do not intend to provide a separate API for this given the possibilit=
-y
-> > of indefinite postponement.
->=20
-> Makes sense. In that case, calling it internally from the 'right'
-> places becomes important, as the callers who care can't do so for
-> themselves.
->=20
-> We discussed the fact that synchronize_srcu_expedited() will also want
-> to use the same fast path.
->=20
-> I'm also looking back to Sean's call_srcu_expedited() patch from March:
-> https://lore.kernel.org/all/20260309193059.2244645-1-seanjc@google.com/
->=20
->=20
-> | Due to differences in how VMMs manage guest devices, and in the
-> | architecture being emulated by userspace, some updates trigger call_src=
-u()
-> | with concurrent readers (i.e. while the VM is active), while others occ=
-ur
-> | without readers, e.g. when configuring devices during a pre-boot setup.
-> | For the later case (no concurrent readers), using the vanilla call_srcu=
-()
-> | is problematic, as it can kick off a normal grace period (totally fine =
-for
-> | freeing the object) and effectively transfer the non-expedited grace pe=
-riod
-> | to the upcoming synchronize_srcu_expedited().
->=20
-> So the offending path uses call_srcu() and triggers a normal GP, while
-> the victim calls synchronize_srcu_expedited() and gets stuck behind
-> that non-expedited GP.
->=20
-> Sean, if the victim is the "no concurrent readers" code path, as you
-> said above, do you think the fast path in the victim should suffice,
-> without the cost of an expedited GP for every bus registration?
+On Tue, Sep 01, 2026, Jinu Kim wrote:
+> Hi Sean, Paolo,
+> 
+> A friendly ping on this patch.
+> I originally sent this on August 7, which was fairly late in the 7.2
+> release cycle, so I held off on pinging during the remainder of the
+> cycle and the 7.3 merge window.
+> Now that 7.3-rc1 is out, could you please take a look when you get a chance?
+> Please let me know if you'd prefer that I resend or rebase the patch.
 
-IIUC, you're asking if being able to use try_synchronize_srcu() for the fas=
-t/happy
-of synchronize_srcu_expedited() (i.e. for kvm_swap_active_memslots()()), ev=
-en if
-there's an in-flight GP, would suffice for a fix of the regression introduc=
-ed by
-commit 7d9a0273c459 ("KVM: Avoid synchronize_srcu() in kvm_io_bus_register_=
-dev()").
-
-If my understanding is correct, then yes, that should work, and presumably =
-would
-be a notable improvement overall.
+No RESEND is necessary, this is already on my list of things to grab (or to make
+sure Paolo grabs).
