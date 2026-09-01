@@ -1,70 +1,70 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97DDA357D1D;
-	Tue,  1 Sep 2026 14:30:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E0D399365;
+	Tue,  1 Sep 2026 14:31:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788273028; cv=none; b=D1ZXTX3D7Bv+i1jzDIQHlkouZUwNcZnScOiJSezcmY5QN8cyOjKbH3rhZRi0MFEdfNnmMsuspVanZcORvEUwei4Mj4jJ3BiM7trhe7ELysXZdoVHKwjeq5Qa/z0n7GDlErkO+zEt36AkkxkPHtnAjhHMl7x8oMkQK/VWhQnkbpw=
+	t=1788273061; cv=none; b=V5jr5OrJi2fq+L+msdJwe4u1RNZ029IQzVF0G8jv0htuzmAYoXWBAdzeTqIv/kwwyThEQICLjXZjPw+y+3Ud41q9YuS1AQSj0+t0HCoGtk03XXO0f+YTj5K5DEQZkCwh4N/fDMUX+I4b7SK6mML+z+P7JPLrDwWLyrJsnO5/mPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788273028; c=relaxed/simple;
-	bh=jW/b0dVDpVU5rrJm9PMAuWF//BvEI6N5koUfbL2MkEM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NN5YgmHq/3E7G8sGU0eQp480T5CgYkPvC4lsBfuO7evWIkKJ7ygZDqNFtAfDv/H2dHMQSW2yX3pK58B8ciu0snc8Loeg7XDMVqNt2KVnAZu6E35lWJY/SAYDe0ulz2vtkJq3DCmO+zy0XZxaGMqq1ngYbgpANWJ/lTfSnot4Z1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SoGHclln; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788273061; c=relaxed/simple;
+	bh=TcHeTAMyL2pLTb7rK7VxmOZdEXeTFU2zzVZy1DOaX2Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=u+BOIig3Fey8CDV7l9RgJfHQFw0QxXlv6NBFibLv4oRFezuK6s4PiBxnFAs57WUnrMnj3RWr34234Nc2igvVkwDyzO72PTVl1fy5mQI3hUiSsxcMmMHOtVcjLHuicETf4aaFztEe2paA9uXjhvrGUEBncoeHxSNas5ZX7lZ2FfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RzZP5Qky; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SoGHclln"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E7241F000E9;
-	Tue,  1 Sep 2026 14:30:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788273027;
-	bh=qt2R7D8fZGD+BqqoxpVpzjKc3dyooMj4QRi4L8plzHU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SoGHcllnD9wijuVaVDlVh9k+a9lG+OPXa4WVUj/ZMDLGo8SWIAZpK8KlgVkKq0qVZ
-	 NAa1SvhtIjUwqtsClxCBPG7DbDFMPit8IVAW+bH3D42ViGPH7SvIPIVzRG6qsYQSlI
-	 iJZLs6LrvQUSY0JXClKXXnZNrxQDeDYU7Ouz3WsY=
-Date: Tue, 1 Sep 2026 16:30:23 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Oliver Neukum <oneukum@suse.com>
-Cc: Griffin Kroah-Hartman <griffin@kroah.com>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] usb: image: mdc800: change kmalloc() to kzalloc()
-Message-ID: <2026090159-aspire-vanquish-da99@gregkh>
-References: <20260819-usb_misc_random-v1-1-43a0dcee3a32@kroah.com>
- <0ff47679-3f00-4cb4-b1ee-2b3a0e15b13a@suse.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RzZP5Qky"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 427F11F000E9;
+	Tue,  1 Sep 2026 14:31:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788273060;
+	bh=zPIRT1eDM3lMbQhKVz12Hh9ErNZglXURkwle2X65Z6U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=RzZP5Qkye+TEPQgaY/tN0jMWyT7LGaDsLqJ9Tr36PoeeG7oxxYlw0aM9c0DYPIrxj
+	 t1SJrCeGUhXt5LcO77+u5dYOBdos91jotme1/vqxbKobvCAd3JrcxJ1sFuyI2WcbFT
+	 agQc9UxGsk39+1P6cZ0pVmsd68eGEGB/ZMutc/6GslXELwUQq5FqIDhBfphhnkdGla
+	 csyDOpJvxBOhV6oxtfSgLeOoD+3AI462ZWbUiBGRK6Nmr5toULI58spGcnZ22lnc98
+	 j88tA1CQWE8c2CKfzpcshfQlTIBLwBp2oAMYtJ0tdQqYJgz5bF1zjV/PgO+3ZUtgdN
+	 T0mTNwaMl8E8g==
+From: SJ Park <sj@kernel.org>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	stable@vger.kernel.org,
+	Usama Arif <usamaarif642@gmail.com>,
+	Yueyang Pan <pyyjason@gmail.com>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH 0/8] mm/damon: fix DAMOS bugs in core, paddr and vaddr
+Date: Tue,  1 Sep 2026 07:30:52 -0700
+Message-ID: <20260901143053.101196-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260901131850.98037-1-sj@kernel.org>
+References: 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0ff47679-3f00-4cb4-b1ee-2b3a0e15b13a@suse.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 02:17:54PM +0200, Oliver Neukum wrote:
-> 
-> 
-> On 19.08.26 12:04, Griffin Kroah-Hartman wrote:
-> > Change the kmalloc() calls in usb_mdc800_init() for irq_urb_buffer and
-> > download_urb_buffer to kzalloc(), avoiding potential stack leaks if a
-> > shorter message is received in mdc800_usb_irq() and
-> > mdc800_usb_download_notify()
-> 
-> Hi,
-> 
-> thanks for the patch, but is this the right approach?
-> If we get too short a reply we shouldn't process it
-> at all.
+On Tue,  1 Sep 2026 06:18:41 -0700 SJ Park <sj@kernel.org> wrote:
 
-The last time we tried to do that, we broke a bunch of CAN drivers
-because they ended up sending "short" messages that no one noticed :(
+> Fix misc bugs of DAMOS.  Patch 1 makes DAMOS less stress memory
+> allocator under extreme situation.  Patches 2 and 3 fix wrong folios
+> walking in DAMON_PADDR.  Patches 4 and 5 fix wrong folios walking in
+> DAMON_VADDR.  Patches 6-8 handle extreme and unlikely memory situations
+> that can cause divide by zero and underflow.
 
-With old hardware like this, let's just stick to this "obviously
-correct" patch, and if someone with the hardware ever shows up, we can
-then test short message information like this.  As-is, this prevents a
-simple "leak kernel memory to userspace with a hand-crafted-device" bug.
+Sashiko found no blocker for this series.  Sashiko sent findings to damon@
+mailing list [1], and I replied to all the comments.  Please read those for
+details.
 
-thanks,
+[1] https://lore.kernel.org/damon/
 
-greg k-h
+
+Thanks,
+SJ
+
+[...]
