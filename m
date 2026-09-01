@@ -1,145 +1,103 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CCAC371053
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 12:42:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.181
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788266550; cv=pass; b=lEhWxSeb8kpIEm6x5bTYnfkZPPyvj3LL9ch8WpLSUqJ2FWhpCI2qCWlof6LwtsRHRCuGi/1V6Seq5v+PTZ8UpAHZWROYCp3/VTE6akoAlcnzH9l8NR28IAOV6Cnp/OFnl9gBnYmTSeMiq3KaorUHND4pb1i2TsL/zzgz6l0oR8U=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788266550; c=relaxed/simple;
-	bh=ZreO0EubD/Cpg2PFlTmnjBPWguJk/VPiiKkxH3gIp4M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QDwH+R9yCcMjhpIg9Wy6WKLz/6WkMDXL+9+SkrVjt/m3tDW8kBjpYkG9UT8d4n5Uguk19SyzDcfMquMDcjsgMWr2yAjIfPFZU1V6pw6AWrS2BN6X0r8I3R8UDHvbDupUQWnu2eVe6au/sCK7Vhr0jOM2fAddSQ6UQnO26FHst3Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WP8yHs1Z; arc=pass smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD0423242D8;
+	Tue,  1 Sep 2026 12:43:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788266630; cv=none; b=pGj6nwPSUFNlw2dMtIovvVQLRuB6mpLX/ZXZZyKghPbyhZhn36k2j3UBMuIoijcjUtNGpkNQl/79gMi4UY/bmCBCZ5lLA8sxld1ACaTfAtjung3OWoq+6tYGDBQsnxMe7zLpTLbxfUrPcchvh8SuQxyUZcIhEgTddRdz5kNLznI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788266630; c=relaxed/simple;
+	bh=RI2I8TVst60QA7Wwo891cXbfplKuOcbVlYL7hlT75r4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WDIPDHsmtgTjNlwJXIM4potzHMYeHfyV009Bi9nHUEFl4Oq2c1V4LE64cHX69Nik57ZZSOSBEfcO2DKaleabS0crCwkUs1BsU4ZEj5Dka2ikXtFmD5E4az7YxjURK+CFFFr/fHbeey+hbpnySP2q4kZ1V/+OF9C13Xt2N2F0VaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=jzYPc4wH; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WP8yHs1Z"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2d30c22b1eeso4915555ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 05:42:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788266548; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aElsNZghRRB8YOfwwzdQe6V+ifSvIH5s5Yo3cdnK5v8/hajE/HBP6UbOntCUlo4qTu
-         4KSVs+APv4RzfqkispCZxm7gMxu4QwjI7s15TP7EOaKDp6b/PCVjw4HZiKxb1YctXc6h
-         GY6UwSaE0kWN0Eca0/hjfl5E5+XXBH7PjVckW7FRGUdya1Kp0M6A7qt/i8B+8At5a8NW
-         CnsvWQRACkACra/pOT51KVsLkdtSstr9eZacNYvqoAwhv60pbPd2gMFxx07ERfwKzMLt
-         +IQIfTBFki/2Vhi8mTypBVq02PziKzkfu2CkCwk+zGX2Y3qOBgxIeaIrS+CLBZrmNUXI
-         DEeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZreO0EubD/Cpg2PFlTmnjBPWguJk/VPiiKkxH3gIp4M=;
-        fh=UxCkpsG6nYhQE/o1sGcRFYjRryelWO5TRkpUAhaKQMc=;
-        b=K48expPtKQqxKP1zHeXvJsyzniYjWcYzhPINBdx7GBOzngT5g4/8mE7tfTMeU9pLE9
-         c5w8Ct8iy8OO+Lao/tkbXCOOLkAf8yEpI08+FCjskak80Wl6bHzCuWa2WysCHvNtdcr7
-         5zC4Ss9a0X3syfx2WT7UqKlvd8BqxxfGuFKMX4fjCxt40bEVuiJ4rr+b1YX56QU49YWs
-         mTA1e+nSKBKfMZ9WFaSICBHRyPToxV2JhF5ygtNBGfdqTGkUexzpvKVCWiAq4Nz54QQB
-         L3MO0oEaouwpBcuhNap0dAP7eZT1uGsXhoK4RUpUCI6qamgsfWUmYBnBcrjwEb9+ZUxO
-         J5OQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788266548; x=1788871348; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZreO0EubD/Cpg2PFlTmnjBPWguJk/VPiiKkxH3gIp4M=;
-        b=WP8yHs1ZJ6F3DqOFSZF7f5mLDLSaOZgOXE1egF2FqkzaHXQWbk0x5q2SYHqCjQ53c4
-         sZfNN7Iq9M2UDDG94HJCHH22rF9OBz0U4PC13mEp9EBtu/VsDvq5t6jS4AW0Za4wn1N8
-         PoafNmo+faCsCuTFMQlzyJI9uOC25vedAPHEXNM6bjXI380dDGMlFTxZkTj1H3Kh5p+s
-         SiWYDT7q8gv2thXxpbcD89oA5ZC0fE3cTflvR90/MgxpUfgf0C82053cZGzrdl/0+zqm
-         s1N5qxTYTptMCUI8n+dQTnV5pY7l+mObYIVlCwa+nXENPuA9N5cGeT3+eMAle0dBzwnr
-         eBQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788266548; x=1788871348;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZreO0EubD/Cpg2PFlTmnjBPWguJk/VPiiKkxH3gIp4M=;
-        b=iiYdAST2h+eCHOdZyQKkE00yOFTo66vwP1oGJxDuKcQUHJ+TPOx/i/qtysxpQHbsHy
-         5wVNfYNK5akwcdAYo5UjtSYV78xLhl8orM1vrXeHclN5AIOWJ/SCgkixPfRvGUVN8E/x
-         qhGqAP0PKTfedy4NvkKnOQ2MQyTB6kQwiZPIp0GrZEpEeglnVK3/z7/LsnXZ4TltYyzV
-         ge7EdfmBLYqxTqH+qinMMzqhtPRQo9i0QhznZNPef+zT2e4fVO8gp8PndweCmHSA0OX8
-         f9c1rTb+noUSjRrErSlNWXhwOYRWELzBWs9YtEqhapzO5t07dRPDw+hNlR+TEe5hwQ99
-         iWXg==
-X-Forwarded-Encrypted: i=1; AKwUvBx5xK6efuzjilGLNs5U9t/bSta27iPI/e8tYJag/V0APuurb9vv7GQNg9otCUlILtwTdaso711gV9Tef4U=@vger.kernel.org
-X-Gm-Message-State: AFuF++lVvapRX999gS0tQOoFaOK7cLWd7T5OfXRzrBjceJLkmL3BJFmu
-	TObYzTqiEHBRgrm7dUIDJxPq2+6QePFSfcby+5wq5D/qbthcYi5o0qespPrY0QES1a9EF6lP8MZ
-	BYSrzLLKInmhyKRDc3swUONxoloX7fSc=
-X-Gm-Gg: AYBFou3MzbnqnQau/M9taNlhhO8l/UuweZi1jbDv7SJr8HcmhtnlO+diKU7XwvP7Rjv
-	taRQnFSxp83awVkDb2GVi2sgw5jjCG5y4yqxuBM0lYWExPTgGL3jvHwM5MIXYQ2h2nCqPGVMb4K
-	nKswRY1gIqXCkbNBLO/6GCG/OrkS+FiRl3IBZZloCQMw3+CbfS5oBAWrQmyinTDEPqdAarSDQb9
-	nDd15v09qL6xhMBMUy7YLNp3vI4SvA0Rbnk+sjfoMDa6weX7pyhLyt2TAxQykAEQ0e3COTXLdEH
-	AkaUVYq6IqFSEvBNJCy+PZOXj27qP+BLiuDqbicZelSla8YQOAV+VjcNm6kGIuKaX00l2edNf6d
-	chNsk17FO7ZTKfToEsPNUNrLxlAAR/vCu2LmtkaJv3/7jusq0wb/3oXuogUOu
-X-Received: by 2002:a17:902:d2d0:b0:2c7:ef84:c58e with SMTP id
- d9443c01a7336-2d74dc08a13mr304207985ad.1.1788266547835; Tue, 01 Sep 2026
- 05:42:27 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="jzYPc4wH"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=e3VZOr6RNXuMNZ3GiRBt7EGvtd3df9zDyi/QD1KV4w0=; b=jzYPc4wHaWGYtW+8ajtkNP1w5u
+	caRT+ejzr1+LNoTMrtimyR5bbdXR9tumAakmJ/WaJpxp/vNmDawecY3zGfsHnNU3nXUSZdOurMLUB
+	3AKk6REdUU5WmzJZyBVX2d7sSyTnw8WQQeQBX0ZIdfBajcYRswd26CjJYJJtQOOj6bMM=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x1Npz-002M5N-Bd; Tue, 01 Sep 2026 14:43:39 +0200
+Date: Tue, 1 Sep 2026 14:43:39 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Hangbin Liu <hangbin.liu@linux.dev>
+Cc: Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	Hangbin Liu <liuhangbin@kylinos.cn>
+Subject: Re: [PATCH net-next 1/2] netdevsim: add link speed support
+Message-ID: <18c7a000-97ad-459a-bb9c-5c821274e9f3@lunn.ch>
+References: <20260831-nsim_speed-v1-0-7a651ee65738@kylinos.cn>
+ <20260831-nsim_speed-v1-1-7a651ee65738@kylinos.cn>
+ <53215678-05bb-4191-b5ff-aa236b16a96a@lunn.ch>
+ <apZzJDVtENpAluhT@fedora>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901-fix-pci-irq-vector-index-truncation-v4-1-f94aa6932fd9@hotmail.com>
- <DL3XDBBHXKKV.G9P6KRSSX1DN@nvidia.com>
-In-Reply-To: <DL3XDBBHXKKV.G9P6KRSSX1DN@nvidia.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Tue, 1 Sep 2026 14:42:14 +0200
-X-Gm-Features: AcwNN1VnWRWOYROIxu4T-i2jI1d1fjW-RoGFUjjuLdYxZ3xRyTDBVBEFMSpQ8Bo
-Message-ID: <CANiq72=GvH3KwsdTMtRq8jJcTWAh83uj5L3qD8vHbyntgCgoNg@mail.gmail.com>
-Subject: Re: [PATCH v4] rust: pci: reject IRQ vector indices that do not fit
- in u32
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: Sophon Zhang via B4 Relay <devnull+aiqubits.hotmail.com@kernel.org>, aiqubits@hotmail.com, 
-	Danilo Krummrich <dakr@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, linux-pci@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apZzJDVtENpAluhT@fedora>
 
-On Tue, Sep 1, 2026 at 12:58=E2=80=AFPM Alexandre Courbot <acourbot@nvidia.=
-com> wrote:
->
-> That makes me wonder, shouldn't we make `index` take a `u32` directly?
-> If that's what the C API expects, it does make sense to align to it
-> instead of forcing users to make a potential unneeded conversion if they
-> already have a u32.
+On Tue, Sep 01, 2026 at 02:39:32PM +0800, Hangbin Liu wrote:
+> On Mon, Aug 31, 2026 at 02:16:46PM +0200, Andrew Lunn wrote:
+> > >  static void nsim_ethtool_ring_init(struct netdevsim *ns)
+> > > @@ -250,12 +276,16 @@ void nsim_ethtool_init(struct netdevsim *ns)
+> > >  	ns->ethtool.fec.active_fec = ETHTOOL_FEC_NONE;
+> > >  
+> > >  	ns->ethtool.channels = ns->nsim_bus_dev->num_queues;
+> > > +	ns->ethtool.duplex = DUPLEX_FULL;
+> > > +	ns->ethtool.speed = SPEED_5000;
+> > >  
+> > >  	ethtool = debugfs_create_dir("ethtool", ns->nsim_dev_port->ddir);
+> > >  	ns->ethtool_ddir = ethtool;
+> > >  
+> > >  	debugfs_create_u32("get_err", 0600, ethtool, &ns->ethtool.get_err);
+> > >  	debugfs_create_u32("set_err", 0600, ethtool, &ns->ethtool.set_err);
+> > > +	debugfs_create_u32("speed", 0600, ethtool, &ns->ethtool.speed);
+> > > +	debugfs_create_u8("duplex", 0600, ethtool, &ns->ethtool.duplex);
+> > 
+> > debugfs_create_bool() ?
+> 
+> I'm not sure if anyone want to set nsim duplex to unknown for testing.
+> Do you think that we should disable this behavior?
 
-In general, Rust users shouldn't be dealing with C APIs, so if they
-have a `u32` then it usually is because we exposed it from somewhere
-else (e.g. we returned it to them) or because that is generally the
-right underlying type, in which case it may make sense to align
-everything.
+Ah, i did not think of DUPLEX_UNKNOWN.
 
-But even in those cases, it may have made sense to define a Rust
-newtype or similar instead.
+We need to consider Jakubs reply, what are you actually testing here,
+do such tests make any sense?
 
-So other than exceptional cases, the types that C APIs use shouldn't
-drive the decisions on the Rust signatures, since they shouldn't be
-seen by the Rust users to begin with.
+If they do, i think some validation would be good here. We already
+have:
 
-That definitely introduces some friction on our side, but it does give
-us a lot of freedom defining APIs the best way we can, which is a
-major advantage, i.e. since we have to provide these abstractions, it
-is a good time to be able to clean old decisions and improve on them
-using whatever tools Rust give us.
+static inline int ethtool_validate_duplex(__u8 duplex)
+{
+	switch (duplex) {
+	case DUPLEX_HALF:
+	case DUPLEX_FULL:
+	case DUPLEX_UNKNOWN:
+		return 1;
+	}
 
-Otherwise, one could also argue we should be passing the underlying
-types in general, e.g. even pointers.
+	return 0;
+}
 
-(Of course, you know this, I am just elaborating; and obviously there
-may be cases it may make sense to just use the underlying type since
-it is something that has never changed or is fixed due to some
-"standard" etc.).
+We don't expect a driver to set duplex to 42, so why should the user
+be allowed to do that?
 
-Cheers,
-Miguel
+Also, SPEED_UNKNOWN is -1, so you need debugfs_create_s32().
+
+	Andrew
