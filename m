@@ -1,79 +1,98 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005AF47CA68
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:26:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A2D47ACD3
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:26:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788254796; cv=none; b=Yp05XiGIm4fQz7Islw4en0T0wkrFUZ0Q/EwJfLmGobWZwx4c8vf0adKKn7K6OliQOFbPIQYapKCV71D8A+VDTnU4sOB2NzBGAQldvef0pq8PE0LJcfGf1EmHoLGCFco0dKu+FVRwiTAfJJfjMcMZbvdo3DZaWIbnV62uY+5mu+k=
+	t=1788254796; cv=none; b=ObpAuR0CoS8uDTNDKXBja1P6Epog3MvgyYv8cE4cVzkRlquFn67gpU5pjLtmXNJTW0+NSm66NZI5RQ/xAyw83ytG3DRt9DJkiNoKgGiMk8E07/NL4l6U1EVn3tpcgBKmf0noSku6RK2ikboEeshrM9JN3AD6s+WxA8Gok1kC3dU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788254796; c=relaxed/simple;
-	bh=19eTCqrrjDDqZcwZomzp1yeRhX84hOOWpMarqsBgp58=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C9mWd01tnAfs0A0FMFRYNH6JC2ffBF3dwgT+p1vb7HhjpzSBaBC9MqXfO5hWmHKReL+4B6tISJCq96AhywDSf88/BgCWDwQIQCvRfPCsIPYmFisAuI1zHmf2/FiGMN3f/qaRHhQzM+JrMG3s7DoD1kri4QIoN+VaBkcz8IsRNtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de; spf=pass smtp.mailfrom=bairaktaris.de; dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b=yP5l1lLf; arc=none smtp.client-ip=209.85.208.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
+	bh=+m7WxzhF7QuTKjSt0vk6t6LsZP/6AIR8o4P2rlZl1RE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dIy6s371MmK3b+KRMBLf6KfUCKrnxGkV/eYh7u45qUt+Nh63arTcyDSfcLYqtnobPG3k5Vgn85sXXl3Pbqj/6xR591V9mCDMYa0xPLCR2V7XxKKWufoXCv9k5F+QaBbSkhKpE7FfRzRxra8W7iWiZ5Y4oF2tzaX5JIX8rsZzHYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eT0fKfCO; arc=none smtp.client-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bairaktaris.de header.i=@bairaktaris.de header.b="yP5l1lLf"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a61910369bso4498188a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:26:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eT0fKfCO"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so6247169a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:26:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1788254793; x=1788859593; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Klhk2PrFgiXUCk6rP4JbpGXhbQzfUnpa3kBBA5F/UDI=;
-        b=yP5l1lLf646V4OmcS3y/kAr+oJfP57xBn+ax7xnQ3JoXdq6kOTmJxtjCIK0rOzrSwF
-         TUD5SvDlrduQST3BL/Asf6vIF2NiDvYXIT0Zk3K9wBQNvsSRB7dc+4Hm4vZ0rkhvpKQF
-         XDj5DVTEuNo4H+fKinSvIQTFesqaOiKtAjpH5ck/4pDL3na0HJnJk9oV5o+b6pMKNm8V
-         2Q2bgb6ssm1G9JG1+n6sjBXYMeNPIpjamKKnxO7bGFa3uAuBJgDorLg08aYs83xzq0tI
-         Z7quOLpUGF6Gj5lpJ4ByO9yYi4Cq0Y0nBNqfjAtzA9EPYV9XrMYW1p/HajnphQDWAeXH
-         67sQ==
+        d=gmail.com; s=20251104; t=1788254793; x=1788859593; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=khMXXSisMw9dgBq90MQcu6P4BUMmcXEpcjfAoZEh/Pw=;
+        b=eT0fKfCOXSn9IEcANvNS9ndZyCyuxaAS1IFXOLtORxQGtjmonf841KWUpIIpdDEKV/
+         u0Lj4UC880YnlIBe1oFxjhjMjpP0YbQTvhboZnY6TYziQa2lBcuICvVdTqDWH6jUTVVJ
+         qbrFHcMnHwKbGIAKt7PgzBNMdup6UrfD8gtX0R6wMKdC+ShNRa2lgEoZwGD8DKPfhwf7
+         hBhxqR/PKvAWWPo3//cNkFu544p8m3s7CdAnQnRZusRFmxAV7DIZaqaZsAzXLJTiWf/L
+         KU6c5EryAmwsiKRIAlFVJnwJkbAIUtatysj/rNri7bMgoki8na0yNvYvOQ/cNsu4ZMIr
+         G1qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1788254793; x=1788859593;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Klhk2PrFgiXUCk6rP4JbpGXhbQzfUnpa3kBBA5F/UDI=;
-        b=JypCcCtbZgYgZQa6v26ZtHW0kOQWtJrc5EQD4co/c8IThAeg0UCLAkv2A5qJ/nFBk+
-         iEAcXQqG4qilm9bbUakgr52v6vi7V15Nw/5CDw5jZUb1RC14JjLJkzSUiRROEBA8xuQk
-         PQ1CXMLGEvsWBwxCHd/5tUx98q1pR+7v8lL5wOcnq8D+tlqWZWZqVtAnVmy5LU5Yhvc8
-         dsZ9bZmTkIObGA8IhUjdya28GGrwEkd2RX9pnh1s+FxzsYy1vScbTmw9tCOkUpshf0dG
-         vt6xdX3U2MNCOcs1dBofTth+UKKwd08mEIbRzq5vinQPY1rdx+JPelrwy9NrkhjG7g8o
-         Q/xA==
-X-Forwarded-Encrypted: i=1; AHgh+RoGsp4i3+QQmfIJQBk/AdCG2aWIWzC0OiBCXNq6m7mLZXMahDedVyuRZ3OrurpchR0uk2ndfqENOUWkERo=@vger.kernel.org
-X-Gm-Message-State: AFuF++m2fF5zsrpPsT1A/F2x+LyCq2HuWUBl/1sY1y5Y6Hn95wKyLa8i
-	+a85HHiSjXMSseM4t4UyPjS2XuuZwdpakSUbiYZKlqxlVm+cW7H8ORAWKoajUiJu+w==
-X-Gm-Gg: AR+sD12Bv+9NJ3w2teEWd7m5pDKK+boOySnWIryhz6lUo9oiORQrxpm2fwJUWPGUppX
-	5Q9tepvdv7ui4fQF4kfnffh9mQfC96S5KOjM+fVXCZiSR6poKO/Ob9WuHTPgLb47UnldLYUAFjI
-	rkOAWGq/b4QEaFAQ5I69u5E+ETgvNCWQPtQd+8+mCXcu9pu4hevpb0hJN2i/ydKbCXqOKG8wcgE
-	SAnrwYgCFBRUAb+XXpOWjP+jIasDemfKJMvIgfoRy6i8NEPWHKBrbUkPhmzGY5zsvuBpO6qZR+r
-	TYN27pOcjY0H19Sb44K2bGfAqRKdpCHdsYFbV2BaBki5PIsZSDr6CGCruf7/m9eK0qDNl6GbIO6
-	LI37HCI0tYcgiW6ZoDX+88i2y3AQvvLIIOmfyj5XeZCh7FakzojSDAgfQHsSk1oaP5gjHjT3MDv
-	ciEIXbvyVwp61ou9NKa2p9dc1vnehJPLzxRI9u9oq8GvI/7w4L75o86SMUXMqAwuXF2SX171XHl
-	iduRqexowUMUvLyvHEB86qxiE1Ijj5/lbHUsgbVYDLofNbJoq+D+pdSfaHUatccGLgn7dwV8pwi
-	QLA5WnCy3uVCEDYoc1D0+mb1ns78Zv3rtwSqGRDyd/nNmE/ehzhM0LieVbsaJ9PDxhA5BHQM472
-	SH8EH6INIGlNoB6WVpPz+7l9p2w6Nup6FDc47CksKth7qRiusv3lHLPmvK6eYeu+HmEG3yGzv+9
-	FYgV+f90E=
-X-Received: by 2002:a17:907:73cd:b0:c24:b11a:470f with SMTP id a640c23a62f3a-c25b39d698cmr465856366b.0.1788254792938;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=khMXXSisMw9dgBq90MQcu6P4BUMmcXEpcjfAoZEh/Pw=;
+        b=s/uivAIszRKFehEaXBC2353qNMOp05H5LG0ZjlKVkuk65/WekK2dq/2tYOlaL2+JRM
+         lTqbxso2jR+4XnnnZdmXexacHqeNNzX2HTfflCW3aD35OQWuMETD+zLyAhruE7efS1FG
+         VbnMVspsqBHtASEkTcB7NHVSJaYJ3ogte19CgtbNVEnYvTDqSl9+8hb8IuLUw89if1za
+         oWsN/Op5Ew36M60I5rekELiOv0uXoYtr8iULmkSie0ostL7flE2AKlxWOF21Qp8jGW0m
+         4+bYp5HjG472ApCX1KKopUrhhRvN32mr3dvPqeaDwv8B+ze1eb34a9tm6ar+SF/4e4wg
+         PQZA==
+X-Forwarded-Encrypted: i=1; AKwUvBwlD2wNkZDRUSHlK/jqpER6Rw7uhLCxzVf5y7uzPT1dfjl6E3EZroKToGEmV8l+K7l0xxUE4NGUz0G+SR0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mg3SdPRqqH161kdMlbwyHdXkMkLRMQGh5fAWNIyaNIjvrgv/ex
+	CvU5Neif0QC20z3jftIFAxS00BXS6oJmJr8pdBBlWpdGfs4jDoOdcMd1
+X-Gm-Gg: AYBFou2ZtBrHbSatJ9SHV2AJGXwgIKwvuhYIpcBDV8ROlrb17KZfktuDBHaQytMBPAV
+	ZfqhKO4DQCgD/ZcdfytBcO07/Ire8YYtW8bdM08N4ltKbOU1vIMRhGs8krItS7CGagJ8WtOrPZz
+	NI+kuItgW796B8gETDZ24/vPFmp/ZAh7B8qnJ1v3s0uDr1nV9UicAUBrbUef9I98iSxyvLHIEzO
+	A5i1jQO6JbnmILNfbI10sef2MG1eRfyusxKlO9vDWS3h16jdB46Vu1m34aS3V7vJhOb/MqL0sBa
+	BBB0lwm5Pa4MpbvMnEXfXM9hcsT9cuLIXEaKJgT5IbUeSX7XmMHlMwZi/RlIrzcMEPgS7rWTBTh
+	8aNxYRe3aaLWDTkM5JJU7IrroZvjOdTUzhJ8LJAgXp9WSeYPTi96v5XmfD///GFgLzK2TBJscug
+	KgELCnYNgrXk/42yELrjiHkxBJx8fq8wfDPHNr5ycdCJLkHLBeNGFcuxc5DExYG68MbYdHAOFEl
+	x1ZVXfN1c8/
+X-Received: by 2002:a17:90b:3904:b0:398:bc52:825b with SMTP id 98e67ed59e1d1-39907e82897mr9143773a91.21.1788254792747;
         Tue, 01 Sep 2026 02:26:32 -0700 (PDT)
-Received: from Desktop.fritz.box ([185.181.129.92])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255f1b5a4esm549163566b.32.2026.09.01.02.26.32
+Received: from localhost.localdomain ([157.51.207.128])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32b28ab0571sm30004560eec.4.2026.09.01.02.26.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Tue, 01 Sep 2026 02:26:32 -0700 (PDT)
-From: Julius Bairaktaris <julius@bairaktaris.de>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next] net: dsa: offer a flowtable to the switch before the conduit
-Date: Tue,  1 Sep 2026 11:25:46 +0200
-Message-ID: <20260901092546.369232-1-julius@bairaktaris.de>
-X-Mailer: git-send-email 2.53.0
+From: Sreeshankar K <sreeshankar0910@gmail.com>
+To: andersson@kernel.org,
+	sboyd@kernel.org,
+	bmasney+clk@redhat.com,
+	jbrunet+clk@baylibre.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	rafael@kernel.org,
+	viresh.kumar@linaro.org,
+	konradybcio@kernel.org,
+	tglx@kernel.org,
+	ulfh@kernel.org
+Cc: radu@rendec.net,
+	abel.vesa@oss.qualcomm.com,
+	taniya.das@oss.qualcomm.com,
+	danila@mainlining.org,
+	davidwronek@gmail.com,
+	mani@kernel.org,
+	robimarko@gmail.com,
+	linux@gurudas.dev,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Sreeshankar K <sreeshankar0910@gmail.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: [PATCH v9 08/12] pmdomain: qcom: rpmhpd: Add RPMh power domains for SM7250
+Date: Tue,  1 Sep 2026 09:24:43 +0000
+Message-ID: <20260901092447.3028-9-sreeshankar0910@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260901092447.3028-1-sreeshankar0910@gmail.com>
+References: <20260901092447.3028-1-sreeshankar0910@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -82,65 +101,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A netfilter flowtable bound to a DSA user port reaches hardware through
-dsa_user_setup_ft_block(), which forwards the block to the conduit
-netdev. That route serves a flow engine that sits on the conduit, as
-mtk_eth's does. TC_SETUP_FT is the only tc setup type handled this way:
-every other type falls through to ds->ops->port_setup_tc, so a switch
-that owns its flow engine is never offered the flowtable at all.
+Add RPMh power domains for SM7250 SoC.
 
-Reaching back from the conduit's ndo_setup_tc through conduit->dsa_ptr
-is not a substitute: dsa_tree_teardown() tears down the conduit before
-the ports, so a block unbound while the tree goes down can no longer be
-resolved to the port it was bound on.
-
-Offer TC_SETUP_FT to the switch first and keep the conduit forward as
-the fallback. Every driver implementing .port_setup_tc returns
--EOPNOTSUPP for a setup type it does not handle, so a conduit-side flow
-engine is reached exactly as before.
-
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
+Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
-The switch-side consumer is a DSA driver for the IPQ8074 PPE, maintained
-in OpenWrt; a flowtable bound to its user ports is exercised there on
-IPQ8074 hardware, against a live PPPoE uplink. The conduit path is
-unchanged by inspection: every in-tree .port_setup_tc implementation
-returns -EOPNOTSUPP for a setup type it does not handle, so mtk_eth
-behind mt7530 keeps receiving the forward exactly as before.
+ drivers/pmdomain/qcom/rpmhpd.c | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
- net/dsa/user.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/net/dsa/user.c b/net/dsa/user.c
-index 041f9060c8ef..c5adb557056f 100644
---- a/net/dsa/user.c
-+++ b/net/dsa/user.c
-@@ -1734,11 +1734,22 @@ static int dsa_user_setup_tc(struct net_device *dev, enum tc_setup_type type,
- {
- 	struct dsa_port *dp = dsa_user_to_port(dev);
- 	struct dsa_switch *ds = dp->ds;
-+	int err;
+diff --git a/drivers/pmdomain/qcom/rpmhpd.c b/drivers/pmdomain/qcom/rpmhpd.c
+index 96e4bd2f5..70d0ff5cc 100644
+--- a/drivers/pmdomain/qcom/rpmhpd.c
++++ b/drivers/pmdomain/qcom/rpmhpd.c
+@@ -490,6 +490,24 @@ static const struct rpmhpd_desc sm7150_desc = {
+ 	.num_pds = ARRAY_SIZE(sm7150_rpmhpds),
+ };
  
- 	switch (type) {
- 	case TC_SETUP_BLOCK:
- 		return dsa_user_setup_tc_block(dev, type_data);
- 	case TC_SETUP_FT:
-+		/* A switch that owns the flow tables answers for itself; only
-+		 * a conduit-side flow engine needs the block forwarded, and
-+		 * that forward is gone by the time the port is torn down.
-+		 */
-+		if (ds->ops->port_setup_tc) {
-+			err = ds->ops->port_setup_tc(ds, dp->index, type,
-+						     type_data);
-+			if (err != -EOPNOTSUPP)
-+				return err;
-+		}
- 		return dsa_user_setup_ft_block(ds, dp->index, type_data);
- 	default:
- 		break;
-
-base-commit: 25c1f6111034aef7fc06cfbdcf1e4f0d6e5ee74b
++/* SM7250 RPMH powerdomains */
++static struct rpmhpd *sm7250_rpmhpds[] = {
++	[RPMHPD_CX] = &cx_w_mx_parent,
++	[RPMHPD_CX_AO] = &cx_ao_w_mx_parent,
++	[RPMHPD_EBI] = &ebi,
++	[RPMHPD_GFX] = &gfx,
++	[RPMHPD_LCX] = &lcx,
++	[RPMHPD_LMX] = &lmx,
++	[RPMHPD_MSS] = &mss,
++	[RPMHPD_MX] = &mx,
++	[RPMHPD_MX_AO] = &mx_ao,
++};
++
++static const struct rpmhpd_desc sm7250_desc = {
++	.rpmhpds = sm7250_rpmhpds,
++	.num_pds = ARRAY_SIZE(sm7250_rpmhpds),
++};
++
+ /* SM8150 RPMH powerdomains */
+ static struct rpmhpd *sm8150_rpmhpds[] = {
+ 	[SM8150_CX] = &cx_w_mx_parent,
+@@ -910,6 +928,7 @@ static const struct of_device_id rpmhpd_match_table[] = {
+ 	{ .compatible = "qcom,sm4450-rpmhpd", .data = &sm4450_desc },
+ 	{ .compatible = "qcom,sm6350-rpmhpd", .data = &sm6350_desc },
+ 	{ .compatible = "qcom,sm7150-rpmhpd", .data = &sm7150_desc },
++	{ .compatible = "qcom,sm7250-rpmhpd", .data = &sm7250_desc },
+ 	{ .compatible = "qcom,sm8150-rpmhpd", .data = &sm8150_desc },
+ 	{ .compatible = "qcom,sm8250-rpmhpd", .data = &sm8250_desc },
+ 	{ .compatible = "qcom,sm8350-rpmhpd", .data = &sm8350_desc },
 -- 
-2.53.0
+2.43.0
 
