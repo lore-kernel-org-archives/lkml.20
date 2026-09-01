@@ -1,248 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F5547669A;
-	Tue,  1 Sep 2026 10:17:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F682477E48;
+	Tue,  1 Sep 2026 10:18:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788257870; cv=none; b=RC1EluW7Ca7zzM2bbSxFeKaDCjSKtmFbdNBIbEhUhBK6w9YtoXhu/NYrvLk9h8uYUoYK8mIFboHHDjZb+oxt8lbKjwUrh08Y6XW7maMhON0e9RT3Ak5/XjvyrRH6nHitQdHwVpUD4xgI6d83Zab7VoyBeSPDlVn1GLfNRyWs8uw=
+	t=1788257909; cv=none; b=cykw3zf4VGnYP5Hsh9dxcBd7GuzlCEU/7XunvuzN+I/3Y1oqH8MxeCniNpBXCv5t2AjYhZp2pL7G6LXlqnd6BbXKEBvZnQNf3qDVzs/eiF4CnJMvO1ljAV61koKIvhBQMhjQ3IH72Fp1xxiTvEKqRAMMW/2TkmMukKlZJiCPOvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788257870; c=relaxed/simple;
-	bh=b5nF/rkMUtpaOMm853YhrTWPu8MRNN+GraOtoNwSRoQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q4DAhHr7gVc8lL6N9mt5r7vscUK8X0xN+qPy5X4+5ug6HwI45z/OLC8iNdA7+hFvIghNfTc1mO3aQxy4jRVjVadkwryR3JwI7v1QM5EjGdQshhNSHBK/Id31UbYrD5c6TMq5y/+mjLgg44sNq0Mj0iQnox9OUdwstz0cGWIe1qA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ACutFyiY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788257909; c=relaxed/simple;
+	bh=DD1ZcYySwyp6GQIOY8kOv1lGVX4OLsW8Ii30gx0aN2w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NDe0SxBYiXVqXwP6eyZSYhUNNlqQDpHYHRYqSkHO3AHDuw2bHiOXwb4firsG+u8sgwPlc4PPxhSB1hNxJSPk1wyoCLIAIliGH2DwxwxjIpGDc/ATXAvfOOvwahuRvgNvpEECA7wYODIOwf6EZE9+NhTeLo4MR+LgEiMs0l+WV4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IJCZACXJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ACutFyiY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50AB31F00A3D;
-	Tue,  1 Sep 2026 10:17:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IJCZACXJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80A2C1F000E9;
+	Tue,  1 Sep 2026 10:18:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788257869;
-	bh=bD+NO1g8IcJci8fvIzJFemXzIyBE1S8uBHtu51YLBF0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ACutFyiY8cBL8pUEITCpBSusdAAbThw3ByP8SxszmZRUwdllDgLVVhD1FQrsGDy9L
-	 DO95/RErUhBoER1ZrmyczpdHgFoqpGiLuT4ueF2SIGxZfrH1+K1ILboFOWsYvglMSW
-	 pMxgNyddQtnZCgelaeXVn1t/ZHF3jb5YgCsckx9gZsUQzb9qC6qIDEaZ9zBqY1EtYE
-	 a1nZqam8j3aURnydgbAjLqicbx9Xcp06BtI0WDagtlzLhAQCSSibmz5l1LqSefhGft
-	 xfXuoCBsG0/n2yUzhkdKs/IzxmrvE9ZvKkLfh9WrVmMLolLxkXl0ay8+v1US8X9i6/
-	 SalC+3IKnHMHg==
-Date: Tue, 1 Sep 2026 11:17:45 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Changhuang Liang <changhuang.liang@starfivetech.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: Add starfive,jhb100-fan-tach
-Message-ID: <20260901-rascal-accompany-019414202877@spud>
-References: <20260830011941.40199-1-changhuang.liang@starfivetech.com>
- <20260830011941.40199-2-changhuang.liang@starfivetech.com>
- <20260831-dominion-data-c8b6f691dd5b@spud>
- <9f4e99f4-5135-4db8-8534-46c91bf4f7d2@roeck-us.net>
+	s=k20260515; t=1788257908;
+	bh=ka+EzEk2oJ6Jd08jco3fylL/LVEMBlnehzUs03r5tcI=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=IJCZACXJ67zF1pP8dvGxQNa4GwnXJMvRkCQF5/Aaz1+/jO7mEeYhBBMpr262Vx3R7
+	 hvUxMxn7xPTn7h08Ivw4uDAQ2Oiwu8nv4h+C7KgBDBqpNv6SSLgK7TxT4KhSEL/QPR
+	 KuFGzNITSjD6ET1I9BS58d9FKuzXm9ESg6QHbypR2RcEO5PzGan9VBw/zwl1r/5X0F
+	 dmFRXM76SeeEC3Lh75SkTywsYKUFQIXPhFKkTcSMPhRuFVR4pVbql34roRGvkVpDkC
+	 rM+fhberaKHhVuqr7mTsXdfFFDpumMNSYBwj8AhdsZwtR8JUBLCm3WeeUQPD+A7tbp
+	 Q8JAeDwfbmrpA==
+Message-ID: <75d51a99-b9b7-4e0a-adb1-c8a002fb0b05@kernel.org>
+Date: Tue, 1 Sep 2026 12:18:24 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="OllR8tuWijpArDcA"
-Content-Disposition: inline
-In-Reply-To: <9f4e99f4-5135-4db8-8534-46c91bf4f7d2@roeck-us.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] MAINTAINERS: add memory related docs in core-mm/ to
+ MM - MISC section
+Content-Language: en-US
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>
+Cc: "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Michal Hocko <mhocko@suse.com>, Randy Dunlap <rdunlap@infradead.org>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Suren Baghdasaryan <surenb@google.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <20260831-docs-memalloc-guide-v1-0-547718c274c1@kernel.org>
+ <20260831-docs-memalloc-guide-v1-2-547718c274c1@kernel.org>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260831-docs-memalloc-guide-v1-2-547718c274c1@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---OllR8tuWijpArDcA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 8/31/26 17:13, Mike Rapoport (Microsoft) wrote:
+> Previous efforts to make sure that mm files are properly listed in
+> MAINTAINERS missed
+> 
+> Documentation/admin-guide/mm/
+> Documentation/core-api/memory-allocation.rst
 
-On Mon, Aug 31, 2026 at 10:54:32AM -0700, Guenter Roeck wrote:
-> On 8/31/26 09:32, Conor Dooley wrote:
-> > On Sat, Aug 29, 2026 at 06:19:40PM -0700, Changhuang Liang wrote:
-> > > Add compatible "starfive,jhb100-fan-tach" for StarFive JHB100 Fan-Tach
-> > > controller.
-> > >=20
-> > > Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> > > ---
-> > >   .../hwmon/starfive,jhb100-fan-tach.yaml       | 93 ++++++++++++++++=
-+++
-> > >   1 file changed, 93 insertions(+)
-> > >   create mode 100644 Documentation/devicetree/bindings/hwmon/starfive=
-,jhb100-fan-tach.yaml
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/hwmon/starfive,jhb100-=
-fan-tach.yaml b/Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan=
--tach.yaml
-> > > new file mode 100644
-> > > index 000000000000..1dcd4932768f
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/hwmon/starfive,jhb100-fan-tac=
-h.yaml
-> > > @@ -0,0 +1,93 @@
-> > > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/hwmon/starfive,jhb100-fan-tach.ya=
-ml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: StarFive JHB100 Fan-Tach controller
-> > > +
-> > > +maintainers:
-> > > +  - Changhuang Liang <changhuang.liang@starfivetech.com>
-> > > +
-> > > +description:
-> > > +  The StarFive Fan-Tach controller can support up to 16 fan tach inp=
-ut.
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    enum:
-> > > +      - starfive,jhb100-fan-tach
-> > > +
-> > > +  reg:
-> > > +    maxItems: 1
-> > > +
-> > > +  clocks:
-> > > +    maxItems: 1
-> > > +
-> > > +  resets:
-> > > +    maxItems: 1
-> > > +
-> > > +  interrupts:
-> > > +    maxItems: 1
-> > > +
-> > > +  "#address-cells":
-> > > +    const: 1
-> > > +
-> > > +  "#size-cells":
-> > > +    const: 0
-> > > +
-> > > +patternProperties:
-> > > +  "^fan@[0-9a-f]+$":
-> > > +    $ref: fan-common.yaml#
-> > > +    unevaluatedProperties: false
-> > > +
-> > > +    properties:
-> > > +      reg:
-> > > +        description:
-> > > +          PWM channel index. The driver allows two fans to share the=
- same
-> > > +          PWM channel, or each fan to use a dedicated channel.
-> >=20
-> > Doesn't matter what the driver can do, the description should describe
-> > what the hardware supports.
-> > pw-bot: changes-requested
-> >=20
-> > Does this fan-tach controller provide the PWMs?
-> > If so (although Guenter may correct me), I think the fan-tach controller
-> > needs to be.
-> >=20
-> > If you don't do that, I think you're going to run into problems with
-> > having multiple nodes with the same unit address when two fans share a
-> > pwm?
-> >=20
->=20
-> Depends on how the controller works. Normally fan controllers have a feed=
-back
-> mechanism which can be either temperature -> pwm output or fan speed -> p=
-wm output.
-> I don't know how this controller works, specifically if the fan speed inp=
-uts are
-> internally associated with pwm outputs or if they are completely independ=
-ent
-> of each other. If it is the latter, aspeed,g6-pwm-tach.yaml would probably
-> be a good baseline.
+These partially don't match the actually added lines :)
 
-Judging from the other reply, it probably isn't a good baseline because
-this is not a pwm provider.
+> 
+> Add them to "MEMORY MANAGEMENT - MISC"
+> 
+> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
-> > I think what you're supposed to do is drop "reg" and replace it with
-> > "pwms", but once again Guenter may correct me there.
-> > e.g. aspeed,g6-pwm-tach.yaml
-> >=20
->=20
-> Sorry, when it comes to devicetree properties, I am completely clueless.
-> Usually the devicetree and pwm maintainers insist that all fan controllers
-> are modeled as pwm controllers because they have pwm outputs. My approach
-> is "use whatever bindings are acceptable by DT maintainers".
+Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-Would you mind taking a look at my question in the other reply about how
-the feedback path works (or doesn't) in that case? My lack of
-familiarity with the subsystem has me scratching my head about how the
-tach would be used to adjust the pwm duty cycle with the dt setup
-described there!
+> ---
+>  MAINTAINERS | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 3a19da74d00c9..707f93320ad72 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -17275,6 +17275,8 @@ F:	Documentation/ABI/testing/sysfs-kernel-mm-cma
+>  F:	Documentation/ABI/testing/sysfs-kernel-mm-memory-tiers
+>  F:	Documentation/ABI/testing/sysfs-kernel-mm-numa
+>  F:	Documentation/admin-guide/mm/
+> +F:	Documentation/core-api/memory-allocation.rst
+> +F:	Documentation/core-api/mm-api.rst
+>  F:	Documentation/mm/
+>  F:	drivers/char/mem.c
+>  F:	include/linux/cma.h
+> 
 
-Thanks,
-Conor.
-
->=20
-> Guenter
->=20
-> > Cheers,
-> > Conor.
-> >=20
-> > > +        maximum: 15
-> > > +
-> > > +      tach-ch:
-> > > +        description:
-> > > +          The tachometer channel(s) wired to the fan(s) driven by th=
-is PWM
-> > > +          channel. Integer values in the range 0-15.
-> > > +        minItems: 1
-> > > +        maxItems: 2
-> > > +        items:
-> > > +          maximum: 15
-> > > +
-> > > +    required:
-> > > +      - reg
-> > > +      - tach-ch
-> > > +
-> > > +required:
-> > > +  - compatible
-> > > +  - reg
-> > > +  - clocks
-> > > +  - resets
-> > > +  - interrupts
-> > > +
-> > > +additionalProperties: false
-> > > +
-> > > +examples:
-> > > +  - |
-> > > +    fan-controller@11be0000 {
-> > > +        compatible =3D "starfive,jhb100-fan-tach";
-> > > +        reg =3D <0x11be0000 0x400>;
-> > > +        interrupts =3D <128>;
-> > > +        clocks =3D <&per2crg 33>;
-> > > +        resets =3D <&per2crg 5>;
-> > > +        #address-cells =3D <1>;
-> > > +        #size-cells =3D <0>;
-> > > +
-> > > +        fan@0 {
-> > > +            reg =3D <0x0>;
-> > > +            tach-ch =3D /bits/ 8 <0x0 0x8>;
-> > > +            pulses-per-revolution =3D <2>;
-> > > +        };
-> > > +        fan@1 {
-> > > +            reg =3D <0x1>;
-> > > +            tach-ch =3D /bits/ 8 <0x1>;
-> > > +            pulses-per-revolution =3D <2>;
-> > > +        };
-> > > +    };
-> > > --=20
-> > > 2.25.1
-> > >=20
->=20
-
---OllR8tuWijpArDcA
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapamSQAKCRB4tDGHoIJi
-0pcFAP9NvhtVArULnG8/TcoZuMv9hLMI3fMdLauAVZ1kqkpcwgD/dvDa1Dh0dbVn
-wntMkz3OdcbTVJykj8hjq6a8pHhDngQ=
-=X4B+
------END PGP SIGNATURE-----
-
---OllR8tuWijpArDcA--
