@@ -1,313 +1,238 @@
-Received: from mta0.migadu.com (out-160.mta0.migadu.com [91.218.175.160])
+Received: from mta1.migadu.com (out-245.mta1.migadu.com [95.215.58.245])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D91847CC67
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:03:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.160
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56CCD47B437
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:03:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.245
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788260612; cv=none; b=Ttj2FxyCoOGdv71Uh6XehzkCsBo8n6e04U2bV2IYA/5hkU/FEzzxyeRp2cZURYGufhZqBbvhi0UmuXyAm+uUtpWxZIMIEF3o0z3LKflDWTWft33MyXySSyDRwAyffiZsOobhRW+Teaiflf3nT7ecJpGpYT1cPv3vtdmSxmmoJhE=
+	t=1788260620; cv=none; b=AV5Q7nu9MBTfp7U5QaXV3dHR/VUxZ2H9qB9+B5pDwyFj0J4Piu56gijKbGbOiZkzcTdmyq0oABQJ2s9Ob5ZEvXufzV05A9YRhBGzAOIVD8sbz5SnYcXwSG8+aWDtSrVH7U/E7WgVr6KuMNLd5NyfSrDvOHBz2bDAcqivL1LspvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788260612; c=relaxed/simple;
-	bh=10BPoXSvNRKLCIsLAtRnqoN5RbDX+QNvv2CGSYHUBm0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mMYU4/BI0srG8CMypakCi3se3slcrRvA8WglFvXGzS7V6pBlBdC7+wS1KBor6bbxPPxlI6I9XN1TCDS+hW3N8CU8Ndf7I6OtHWfAtWWB5JM/lHq7o3NzpBfpMDn25VeJVH4rxXWH+9Phhebj2ZdZWfFZtulYevLspK4rSXGBWYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hXq1J0fi; arc=none smtp.client-ip=91.218.175.160
+	s=arc-20240116; t=1788260620; c=relaxed/simple;
+	bh=WyDimoZKuyTxJfpwGX971Wvc9+oQiBDBINkGgnAGP8g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IFipnln4yyYmewJBneHqvbGEU80U4InZTHYJUJv8ZDFkhST8Aza2LEGNEzlaDEVdET0thZPkI2CkwNKj+LGkDxWZqmWgrpI3yxGbNcpXjASlBDoHqM5+JQtuXXZ7/WCoAhiOf7FHSlsWKIZT3V5BLIMc0AxV3Va2fb5t+OFtK1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=K9DvgTUc; arc=none smtp.client-ip=95.215.58.245
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hXq1J0fi"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="K9DvgTUc"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=10BPoXSvNRKLCIsLAtRnqoN5RbDX+QNvv2CGSYHUBm0=;
+DKIM-Signature: a=rsa-sha256; bh=WyDimoZKuyTxJfpwGX971Wvc9+oQiBDBINkGgnAGP8g=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788260608; v=1; x=1788865408;
- b=hXq1J0fiMsGnHny6V4KmVpDoCvHBBUtYn6OYRuvNFnzQVc1FfomDVkzWY+O319K77hhjkpUt
- sh6EQsk3tfU301h9JOxVRqU4frkmRCaTWPp54i8E8OxypAtA9lZ/nMeRW2ciq7WklRgYo7IYVpY
- 69AAvQtoGa5csoRNxmoKQ1fE=
+ t=1788260616; v=1; x=1788865416;
+ b=K9DvgTUc94VuhJ5dVcrUYoavjkUcZiqqYjSf6pivW+yX2mxkzEMoIWSJEe0FJ/cO3xT51r51
+ e9idmjUH61thYnsytGBMG/PcvUiphJgY0My7pIzqCfo/fQsQHll8F3o4Gv7EypSgvgiImZDfiuE
+ sxq6ecq3GV9OffzqiOByaQf8=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id e5b3d4cddfa1846c;
-	Tue, 01 Sep 2026 11:03:27 +0000
-X-Mizu-Trace-ID: e5b3d4cddfa1846c
+Received: by smtp.migadu.com with ESMTPS id b351eed8a82f2337;
+	Tue, 01 Sep 2026 11:03:36 +0000
+X-Mizu-Trace-ID: b351eed8a82f2337
 X-Migadu-Flow: FLOW_OUT
-Date: Tue, 1 Sep 2026 19:03:25 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Kairui Song <ryncsn@gmail.com>
-Cc: Baoquan He <hebaoquan@kylinos.cn>, linux-mm@kvack.org,
-	akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com,
-	nphamcs@gmail.com, baohua@kernel.org, youngjun.park@lge.com,
-	hannes@cmpxchg.org, yosry@kernel.org, shikemeng@huaweicloud.com,
-	chengming.zhou@linux.dev, david@kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 00/16] xswap: extendable swap device backed by zswap
-Message-ID: <apaw_XmqnEcY8sv7@MiWiFi-R3L-srv>
-References: <20260827094509.1016740-1-hebaoquan@kylinos.cn>
- <apVNB2FRTFMDtvGP@KASONG-MC4>
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b2a73da7e1so6882e87.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 04:03:36 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxFz4/aaFiLr2bEU8Ow+Zx8FSgZ+qbqn9Yjb/uBiD3MJZDrkb5dho9gLwTtS9xkNVdZb5XEcysOgBieK28=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVPNR2ec4xVH09D1+KELYsSp0pEEPxBUaGM0dhnJvi8efaf8vy
+	l+rAUD7RMOWbT4d6JytcRca+HeWUdmfwuZrg+ot6NpbR17Bst8JtTMpmVgVdYq8z0DHkAvRAfUq
+	b5ilFCiWd3E7waHOUWYNTMRQE0Adz58rsiJxVic3E
+X-Received: by 2002:a05:6512:b8d:b0:5b2:8963:e5d4 with SMTP id
+ 2adb3069b0e04-5b600a42bd7mr115293e87.5.1788260614031; Tue, 01 Sep 2026
+ 04:03:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <apVNB2FRTFMDtvGP@KASONG-MC4>
+References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com> <20260830-gmem-inplace-conversion-v12-43-85e5fd25252a@google.com>
+In-Reply-To: <20260830-gmem-inplace-conversion-v12-43-85e5fd25252a@google.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 1 Sep 2026 12:03:00 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTy8-Otz2NpetF=GsgZ=PQ10KHuHhGKtDmi8NG9skDZP_g@mail.gmail.com>
+X-Gm-Features: AcwNN1XpQa0y8jS48DZXcNiZMD0Nb3-aLRIoorwIpEndtCPmsJSxZZnT6oLYZmg
+Message-ID: <CA+EHjTy8-Otz2NpetF=GsgZ=PQ10KHuHhGKtDmi8NG9skDZP_g@mail.gmail.com>
+Subject: Re: [PATCH v12 43/45] KVM: selftests: Set up page size and alignment
+ independently for guest_memfd
+To: ackerleytng@google.com
+Cc: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
+	brauner@kernel.org, chao.p.peng@linux.intel.com, david@kernel.org, 
+	jmattson@google.com, jthoughton@google.com, michael.roth@amd.com, 
+	oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
+	rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
+	steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
+	yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org, 
+	suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
+	Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-mm@kvack.org, linux-coco@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 
-On 09/01/26 at 01:54am, Kairui Song wrote:
-> On Thu, Aug 27, 2026 at 05:44:50PM +0800, Baoquan He wrote:
-> > xswap is an extendable swap device with no backing storage. Swapped-out
-> > pages live only in zswap, so the device wastes no disk space and its
-> > size is independent of any physical device.
-> > 
-> > xswap decouples PTE swap entries from physical backing storage. The
-> > cluster_info array is backed by a sparse vmalloc (VM_SPARSE) area that is
-> > grown and shrunk on demand:
-> > 
-> > - Grow: when cluster allocation runs out of free clusters and the device
-> >   is below its ceiling, more physical pages are mapped into the VM_SPARSE
-> >   area and their clusters are added to the free list.
-> > 
-> > - Shrink: when contiguous free clusters accumulate at the tail of the
-> >   mapped range (tracked in O(1) via nr_free_tail), they are unmapped and
-> >   the backing pages freed.  Shrink is deferred to a workqueue to avoid
-> >   lock recursion.
-> > 
-> 
-> Hi Baoquan,
-> 
-> I didn't check too many details on how the implementation in previous
-> RFC until now, After looking at it, using VM_SPARSE to setup the cluster
-> info area is a really smart idea, really good job!
-> 
-> I think many info are missing in the cover letter though so I wasn't
-> sure how this grow and shrink works from the description, after
-> checking the code, it looks much cleaner to me now, correct me
-> if I'm wrong:
-> 
-> Every xswap device will have a huge and fixed "hard limit"
-> (si->max and si->nr_clusters_max), and practically can be considered
-> large enough to hold any workload, and won't change once swapon
-> is done.
-> 
-> The actually data (si->cluster_info) of xswap device is completely
-> sparse and dynamic using VM_SPARSE, and so we don't need to change
-> any existing routine. It grow/alloc and shrink/free automatically by
-> the kernel, limited or driven by a "soft limit" (si->nr_clusters
-> and si->pages) which you can modify using the interface below.
+On Mon, 31 Aug 2026 at 01:25, Ackerley Tng via B4 Relay
+<devnull+ackerleytng.google.com@kernel.org> wrote:
+>
+> From: Ackerley Tng <ackerleytng@google.com>
+>
+> Currently, vm_mem_add derives the backing source page size, alignment
+> padding, and mmap size from the backing source type upfront before checking
+> if guest_memfd is being mmapped.
+>
+> With shared memory also mmap()-ed from guest_memfd, the alignment of the
+> mmap-ed address needs to respect guest_memfd's backing page size.
+>
+> Refactor the backing store setup to configure the backing source page
+> size, alignment, mmap flags, and mmap offset directly for guest_memfd
+> when it is mmapped, ignoring the backing source type.
+>
+> Skip hugepage validation and anonymous memory madvise calls when mmapping
+> from guest_memfd, since those are not applicable when mmapping guest_memfd.
+>
+> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 
-Thanks a lot for careful checking, and you are quite right about the
-mechanism and details.
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
 
-> 
-> Once concern is that the "hard limit" is now the total RAM size. Isn't
-> that actually a bit small? Will be better if that one is tunable too?
-> With a parameter, and before swap on, as the hard limit is hard to
-> adjust once swapon is done. Any thing limiting this?
-
-Chris and I talked about this, we both think the total RAM size is a
-good hard limit. Because xswap is similar with zswap/zram in essence by
-compressing memory content to save memory. So the real limit is the
-zswap pool, not the slot count. In fact it's never able to utilize the
-total system RAM, right? Making it larger than system RAM is
-meaningless.
-
-Memory hotplug is a case in which system RAM can be enlarged during
-system running, while that can be taken into account later as a enhanced
-feature if it's really wanted.
-
-> 
-> And I think these details better be mentioned bit more too.
-
-Sure, I can put these thoughts into cover letter or patch log for
-reference.
-
-> 
-> > A per-device ceiling (nr_clusters) bounds growth and is adjustable at
-> > runtime via debugfs.
-> > 
-> > Interface:
-> > 
-> >   /sys/kernel/mm/xswap/create           write "<percent> [<prio>]" to
-> >                                         create a device; percent is a
-> >                                         percent of RAM (0 for the default),
-> >                                         prio is an optional swap priority
-> >                                         (default DEF_SWAP_PRIO)
-> 
-> With what I have read so far, the mandatory percent limit here is kind of
-> strange, even with 0 as default. Why not make both args optional and just
-> let it grow without any limit by default? It looks more "fully dynamic"
-> that way.
-
-I'd like to clarify why we default to a soft limit rather than "no limit".
-
-The soft limit is the administrator's deliberate size choice, similar
-to how zram requires an explicit size. On a multi-TB system the
-cluster_info array is not free, so planning how much of it to allow is a
-real decision. The current behavior is: grow up to the soft limit as usage
-demands, then stay there. We do not shrink on idle, and shrink only happens
-when the admin lowers the limit. So there is no grow/shrink oscillation in
-normal operation.
-
-A default of "no limit / fully dynamic" will instead let the device grow
-without restriction under memory pressure. While allocating cluster_info
-pages exactly when memory is scarce, relying on shrink to reclaim afterwards,
-which is the oscillation we want to avoid. So we'll make both create arguments
-optional, but the default will be a sensible ceiling rather than unbounded.
-
-> 
-> >   /sys/kernel/mm/xswap/destroy          write a swap type to tear down
-> >                                         a device
-> >   /sys/kernel/debug/xswap/type<N>_cluster_limit
-> >                                         read/write the per-device
-> >                                         cluster ceiling
-> 
-> Having a lot of type<N>_cluster_limit in a seperate debug path
-> looks a bit odd to me too, and the _cluster_limit doesn't look
-> like a debug interface, we will be relying on debugfs for setting
-> the limit, also see below.
-
-Agreed on both — it's a real interface, will move to sysfs, and will
-use size (pages/MiB) instead of cluster count.
-
-> 
-> > 
-> > Since xswap has no backing, swapped-out pages are stored compressed in
-> > zswap: physical writeout is skipped, and zswap writeback is disabled when
-> > every swapfile in the system is an xswap device.  xswap requires zswap, so
-> > device creation is refused when zswap is unavailable.
-> > 
-> > Naming:
-> > ======
-> > I'm going with "xswap" (the "x" for extendable/extension) rather than "vswap".
-> > Chris suggested this name, and this aligns with the "VFS-like swap layers"
-> > direction Chris Li described in the first swap abstraction LPC talk
-> > (co-hosted with Yosry) the swap ops and the xswap extension interfaces in
-> > this series are moving toward exactly that. I don't have a strong preference
-> > between xswap and vswap, so if reviewers object to the name, please comment.
-> > 
-> > Note:
-> > =====
-> > This patchset only build the base. On top of this, the subsequent core code
-> > implementation of xswap writeback, rmap etc can be done more easily. E.g, we
-> > only need add one field in struct swap_cluster_info to let xs_table point to
-> > physical swap entry, or zswap entry etc. On top of this patchset, no need to
-> > stir core data structure too much or introduce extra data structure.
-> > 
-> > --- a/mm/swap.h
-> > +++ b/mm/swap.h
-> > @@ -57,6 +57,9 @@ struct swap_cluster_info {
-> >         u8 order;
-> >         atomic_long_t __rcu *table;     /* Swap table entries, see mm/swap_table.h */
-> >         unsigned int *extend_table;     /* For large swap count, protected by ci->lock */
-> > +#ifdef CONFIG_XSWAP
-> > +       unsigned long *xs_table;
-> > +#endif
-> > 
-> > Testing (taken on qemu kvm guest with 8G memory):
-> > =========
-> > 1. enable zswap and create/destroy xswap device
-> > ~# echo 0 > /sys/kernel/mm/xswap/create
-> > -bash: echo: write error: Operation not supported
-> > ~# echo 1 > /sys/module/zswap/parameters/enabled
-> > ~# echo 0 > /sys/kernel/mm/xswap/create
-> 
-> Recent proposal have mentioned mm/xswap, and mm/swap/tiers, while we
-> already have mm/swap and module/zswap. I think it's fine to use sysfs
-> to organize things but will it be good to have it in unified way to
-> put them all under mm/swap/? And will mkdir be prettier than
-> echo > create? For these part, just an idea, no strong opinion here.
+Cheers,
+/fuad
 
 
-Creation passes percent+priority atomically; a plain mkdir can't. I'd
-keep echo > create. On mm/swap/ unification, happy to align once the
-direction settles, while keep this series as is for now.
-> 
-> > ~# swapon
-> > NAME   TYPE  SIZE USED PRIO
-> > xswap0 xswap 2.3G   0B   -1
-> > ~# echo 0 > /sys/kernel/mm/xswap/destroy
-> > ~# swapon
-> > 
-> > 2. create xswap device and tune the zswap size
-> > 
-> > ~# echo "50 10" > /sys/kernel/mm/xswap/create
-> > ~# echo 0 > /sys/kernel/mm/xswap/create
-> > ~# swapon
-> > NAME   TYPE  SIZE USED PRIO
-> > xswap0 xswap 3.9G   0B   10
-> > xswap1 xswap 2.3G   0B   -1
-> > 
-> > ~# cat /sys/kernel/debug/xswap/type0_cluster_limit
-> > 1990
-> > ~# cat /sys/kernel/debug/xswap/type1_cluster_limit
-> 
-> Can we just use size instead? Calculating the cluster number
-> seems not neccessary, only making it harder to use, if this
-> is suppose to be a formal interface and not debug only.
-
-As said at above, I will change to size as suggested.
-
-> 
-> > 1194
-> > ~# echo 2048 > /sys/kernel/debug/xswap/type0_cluster_limit
-> > ~# echo 2048 > /sys/kernel/debug/xswap/type1_cluster_limit
-> > ~# swapon
-> > NAME   TYPE  SIZE USED PRIO
-> > xswap0 xswap   4G   0B   10
-> > xswap1 xswap   4G   0B   -1
-> > 
-> > 3. under heavy memory pressure tune swap size or destroy xswap device
-> > 
-> > ~# stress-ng --vm 1 --vm-bytes 8G --vm-keep --timeout 120s &
-> > 
-> > ~# echo 1024 > /sys/kernel/debug/xswap/type0_cluster_limit
-> > ~# swapon
-> > NAME   TYPE  SIZE USED PRIO
-> > xswap0 xswap   2G 2.6G   10
-> > xswap1 xswap   4G 182M   -1
-> > ~# echo 1024 > /sys/kernel/debug/xswap/type1_cluster_limit
-> > ~# swapon
-> > NAME   TYPE  SIZE   USED PRIO
-> > xswap0 xswap   2G   1.4G   10
-> > xswap1 xswap   2G 315.4M   -1
-> > 
-> > ~# echo 0 > /sys/kernel/mm/xswap/destroy
-> > ~# swapon
-> > NAME   TYPE  SIZE USED PRIO
-> > xswap1 xswap   2G 1.1G   -1
-> > 
-> > I tried create/destroy and grow/shrink xswap device under heavy
-> > memory pressure, all passed.
-> 
-> Do you have some performance reading on this? I remember you had
-> some in your previous RFC, better to at least keep a link, I spend
-> quite some time to find the previous zswap test result from you.
-> I noticed this series is different from what you sent before as it
-> only contains the foundation so there could be no performance gain
-> currently but still, might worth mentioning what this could achieve.
-
-The initial version is about removing xarray in zswap, that has a obvious
-performance improvement data. This series is the foundation
-(grow/shrink/destroy). I will think about ways to get some testing data,
-e.g xswap vs zswap (no writing back).
-
-> 
-> Another thing is, maybe we can defer the implementation of shrink
-> for easier understand and review? The memory consumption is totally
-> acceptable even without shrink.
-
-I understand the motivation, but I don't think it reduces the review burden
-as much as it seems. When a device is removed (destroy/swapoff), its mapped
-pages must be released regardless of shrink, otherwise they leak. And that
-cleanup uses the same unmap-and-free code shrink does. So deferring shrink
-removes only the runtime shrink triggers, not the unmap machinery, which
-every device needs on removal. The nr_clusters ceiling and the limit knob
-are also half shrink: without shrink, lowering the limit can stop growth
-but never reclaim memory, leaving that interface only half functional. 
-
-Thanks again for your careful reviewing, thorough considering and great
-suggestions.
-
-Thanks
-Baoquan
-
+> ---
+>  tools/testing/selftests/kvm/lib/kvm_util.c | 74 ++++++++++++++++++------------
+>  1 file changed, 45 insertions(+), 29 deletions(-)
+>
+> diff --git a/tools/testing/selftests/kvm/lib/kvm_util.c b/tools/testing/selftests/kvm/lib/kvm_util.c
+> index cac5624e99774..3f559f207408f 100644
+> --- a/tools/testing/selftests/kvm/lib/kvm_util.c
+> +++ b/tools/testing/selftests/kvm/lib/kvm_util.c
+> @@ -1034,11 +1034,12 @@ void vm_mem_add(struct kvm_vm *vm, enum vm_mem_backing_src_type src_type,
+>  {
+>         int ret;
+>         struct userspace_mem_region *region;
+> -       size_t backing_src_pagesz = get_backing_src_pagesz(src_type);
+> -       int mmap_flags = vm_mem_backing_src_alias(src_type)->flag;
+>         size_t mem_size = npages * vm->page_size;
+> -       off_t mmap_offset = 0;
+> -       size_t alignment = 1;
+> +       size_t backing_src_pagesz;
+> +       off_t mmap_offset;
+> +       bool is_gmem_mmap;
+> +       size_t alignment;
+> +       int mmap_flags;
+>
+>         TEST_REQUIRE_SET_USER_MEMORY_REGION2();
+>
+> @@ -1090,19 +1091,31 @@ void vm_mem_add(struct kvm_vm *vm, enum vm_mem_backing_src_type src_type,
+>         /* Allocate and initialize new mem region structure. */
+>         region = calloc(1, sizeof(*region));
+>         TEST_ASSERT(region != NULL, "Insufficient Memory");
+> -       region->mmap_size = mem_size;
+>
+> -       /*
+> -        * When using THP mmap is not guaranteed to returned a hugepage aligned
+> -        * address so we have to pad the mmap. Padding is not needed for HugeTLB
+> -        * because mmap will always return an address aligned to the HugeTLB
+> -        * page size.
+> -        */
+> -       if (src_type == VM_MEM_SRC_ANONYMOUS_THP)
+> -               alignment = max(backing_src_pagesz, alignment);
+> +       is_gmem_mmap = (flags & KVM_MEM_GUEST_MEMFD) &&
+> +                      (gmem_flags & GUEST_MEMFD_FLAG_MMAP);
+> +
+> +       if (is_gmem_mmap) {
+> +               backing_src_pagesz = getpagesize();
+> +               alignment = 1;
+> +               mmap_flags = MAP_SHARED;
+> +               mmap_offset = gmem_offset;
+> +       } else {
+> +               backing_src_pagesz = get_backing_src_pagesz(src_type);
+> +               /*
+> +                * When using THP mmap is not guaranteed to returned a hugepage aligned
+> +                * address so we have to pad the mmap. Padding is not needed for HugeTLB
+> +                * because mmap will always return an address aligned to the HugeTLB
+> +                * page size.
+> +                */
+> +               alignment = src_type == VM_MEM_SRC_ANONYMOUS_THP ? backing_src_pagesz : 1;
+> +               mmap_flags = vm_mem_backing_src_alias(src_type)->flag;
+> +               mmap_offset = 0;
+> +       }
+>
+>         TEST_ASSERT_EQ(gpa, align_up(gpa, backing_src_pagesz));
+>
+> +       region->mmap_size = mem_size;
+>         /* Add enough memory to align up if necessary */
+>         if (alignment > 1)
+>                 region->mmap_size += alignment;
+> @@ -1129,10 +1142,8 @@ void vm_mem_add(struct kvm_vm *vm, enum vm_mem_backing_src_type src_type,
+>         }
+>
+>         region->fd = -1;
+> -       if (flags & KVM_MEM_GUEST_MEMFD && gmem_flags & GUEST_MEMFD_FLAG_MMAP) {
+> +       if (is_gmem_mmap) {
+>                 region->fd = kvm_dup(gmem_fd);
+> -               mmap_flags = MAP_SHARED;
+> -               mmap_offset = gmem_offset;
+>         } else if (backing_src_is_shared(src_type)) {
+>                 region->fd = kvm_memfd_alloc(region->mmap_size,
+>                                              src_type == VM_MEM_SRC_SHARED_HUGETLB);
+> @@ -1141,22 +1152,27 @@ void vm_mem_add(struct kvm_vm *vm, enum vm_mem_backing_src_type src_type,
+>         region->mmap_start = __kvm_mmap(region->mmap_size, PROT_READ | PROT_WRITE,
+>                                         mmap_flags, region->fd, mmap_offset);
+>
+> -       TEST_ASSERT(!is_backing_src_hugetlb(src_type) ||
+> -                   region->mmap_start == align_ptr_up(region->mmap_start, backing_src_pagesz),
+> -                   "mmap_start %p is not aligned to HugeTLB page size 0x%lx",
+> -                   region->mmap_start, backing_src_pagesz);
+> -
+>         /* Align host address */
+>         region->host_mem = align_ptr_up(region->mmap_start, alignment);
+>
+> -       /* As needed perform madvise */
+> -       if ((src_type == VM_MEM_SRC_ANONYMOUS ||
+> -            src_type == VM_MEM_SRC_ANONYMOUS_THP) && thp_configured()) {
+> -               ret = madvise(region->host_mem, mem_size,
+> -                             src_type == VM_MEM_SRC_ANONYMOUS ? MADV_NOHUGEPAGE : MADV_HUGEPAGE);
+> -               TEST_ASSERT(ret == 0, "madvise failed, addr: %p length: 0x%lx src_type: %s",
+> -                           region->host_mem, mem_size,
+> -                           vm_mem_backing_src_alias(src_type)->name);
+> +       if (!is_gmem_mmap) {
+> +               TEST_ASSERT(!is_backing_src_hugetlb(src_type) ||
+> +                           region->mmap_start ==
+> +                           align_ptr_up(region->mmap_start, backing_src_pagesz),
+> +                           "mmap_start %p is not aligned to HugeTLB page size 0x%lx",
+> +                           region->mmap_start, backing_src_pagesz);
+> +
+> +               /* As needed perform madvise */
+> +               if ((src_type == VM_MEM_SRC_ANONYMOUS ||
+> +                    src_type == VM_MEM_SRC_ANONYMOUS_THP) && thp_configured()) {
+> +                       int advice = src_type == VM_MEM_SRC_ANONYMOUS ?
+> +                                    MADV_NOHUGEPAGE : MADV_HUGEPAGE;
+> +
+> +                       ret = madvise(region->host_mem, mem_size, advice);
+> +                       TEST_ASSERT(ret == 0, "madvise failed, addr: %p length: 0x%lx src_type: %s",
+> +                                   region->host_mem, mem_size,
+> +                                   vm_mem_backing_src_alias(src_type)->name);
+> +               }
+>         }
+>
+>         region->backing_src_type = src_type;
+>
+> --
+> 2.55.0.897.gb25b4bd76c-goog
+>
+>
