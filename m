@@ -1,80 +1,198 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012012.outbound.protection.outlook.com [40.107.200.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07AE83806D6;
-	Tue,  1 Sep 2026 01:11:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788225063; cv=none; b=pjcQl5MbewP4Tw+jCtUEHvO/Q0RWn+u6obIUkeeWt5HFe6a2xK8LlRJfitIVkc3R2e8qdeOo3u7AOCSSV43GBMEEbWLZNeW8GCVrxLrSmL13ECnCokavIhS1wGqRzb3+RikUgzoFN31y2far+s6Z3GoGnvKJDxNYpn95C3ANi0Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788225063; c=relaxed/simple;
-	bh=0ziwbXVvDByMOxnROMdlOL2td3Po88GNdFEjUfLDp6U=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jyXR1NvZnlBxmS2qno1WyU3sP9TT07Tz7S9NRLUi2hJ5IM9RosCvc28OxcTbyV6wlf1Tqv99WdBduShA5YHNEbbGC4UMaEWIAo6A89WoudRMZ67/hgHMwtbHbaCm6fyvbBNSZvtDpqqPdjmZZKNSRd/orHnaKWT0JrQ5n31/P/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DKGnZ6/S; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FF6231C56D
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:13:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788225212; cv=fail; b=SKvSI3qrNLNSdReJp1RbZZReOq1j+F94pIv9O/Bhx7Oaeh9YaVCimRyQJjBUWALS08+Wxgp8vwlUFEfBsUFU/pLrR4eBpQGEE4ke7MFp0+U6eb9yqxPqQWZKP9GHkGB9yAE2XPc0n2Gkyz1M1G1VBXacVLWRFBy2kZmqiJSivGI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788225212; c=relaxed/simple;
+	bh=/bCZtk1cMHl8AEfvhgwFw+23QxnnQu6FuLDMkLjvAKs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=EswTZEJkXPGoW02jjDArc3ZaMlp9dpAQBxS4zflaVnKzGaAjIkYmq/lz1TaCKh1Kr4VYD98i/E45ajCbcU59KbO5vOnTHtayXdTlOnZuUEBnKCAuikdUH8u9MyLJDqqpwSA9NCzdt3aSkOEHhXyOGkd1j7gX0/aMhRimVlrOdWI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=QDZmoIBL; arc=fail smtp.client-ip=40.107.200.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DKGnZ6/S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B09751F00A3D;
-	Tue,  1 Sep 2026 01:10:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788225059;
-	bh=Mox303Pdpou1cUvaJnui7WP6S+jeLI/A2ZYo0woZKgw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DKGnZ6/SI4kCSEs4CMAy6vatVhx6DWp5i3DIoI+SKaSqn9JJ6PqUYroySB33TOUkQ
-	 7eleCtEW1LcRzK2L3PwnZw+gddbb/yOt/fsjiDtVbSUcLxAc1xULZZOEOv1j2bf76G
-	 AhMl+6tB0CpPcnvLnjTR2KdUL9MKddXRA2YZZM+akbrqvfJBHXd0TBIQn5QBmf9Gyd
-	 r6k+wL4W/vFzvGXNMBF/tSkfZ+NdItdDGNN+yXwRcU2h1i5PhmTpqgSn9qR/7l69ja
-	 ERZefz1kpRf+/qzVaE5XoiDvIFuFnFuImr9leJH9/AQVHbj0ZXWITKA0QZ3VexpdzW
-	 iXiYuQeK4hKig==
-Date: Tue, 1 Sep 2026 02:10:54 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Muchamad Coirul Anwar <muchamadcoirulanwar@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>, lars@metafoo.de,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-i2c@vger.kernel.org, rust-for-linux@vger.kernel.org,
- andi.shyti@kernel.org, wsa+renesas@sang-engineering.com, ojeda@kernel.org,
- dakr@kernel.org, igor.korotin@linux.dev, branstj@gmail.com,
- brucer42@gmail.com
-Subject: Re: [RFC PATCH v5 1/3] i2c: rust: implement SMBus access via
- IoBackend and FallibleIoCapable
-Message-ID: <20260901021054.057aab97@jic23-huawei>
-In-Reply-To: <CAO26r3QwUZ1QeO3PYNPoYQrbKpzfhttYAi0kNNB+QumAN=vZkQ@mail.gmail.com>
-References: <20260822062725.60519-1-muchamadcoirulanwar@gmail.com>
-	<20260822062725.60519-2-muchamadcoirulanwar@gmail.com>
-	<20260824004103.54eb2f7b@jic23-huawei>
-	<CAO26r3QwUZ1QeO3PYNPoYQrbKpzfhttYAi0kNNB+QumAN=vZkQ@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="QDZmoIBL"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hvC1vIWXeLUnujxFs6BK9OQfQHqmnGCgb3bFGSZVexI9lqS4IIF+nzgSGKMO9B7SzuOiM4ZjBXB8wULlNg44K4ize0xRnaBtsAK0nY/S0XlsljdMd5Rc169ljnARAixeArImh74W2q7M4a0ItDgUhj1psc7N7lI+K5WqFz3FSKYejJWX934gcM0xh3s+dNw7PCeWbVzH7StXwLTvAlGV5KU/82yxC+L+Q6ThaLSY6TlJzsETHOnuDrHRhmXn1jWXlL81i8gdJ//Dl7HB/YOoNtIQVe9KdQKY3EV2E+LnbGqyHcxMa4YzYVW30lRWkKR9gpWPdS+UlDZ08h63TciTVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xh5PHmH+CnPz+krg7zzKESp9BkZbWcircyrYvdoOTQ8=;
+ b=H+8oBdQ9JdAxKKe4yhEFvLmqGP0Z6vL906+TF9fbx3qd7mbJxOc3UmehuJsNu6h95umxOW+2aS0UdYIEDCjrqz5uX6d2xAwpOHUsCyD5qEPrI+sY4odhog1pmxUxi4Xx21AaXCxLMAFFde0pncqv+t0gg/gVJfuYAmxkToNOZ17IPmDNVpdEZpSfEpmk5OKYoIYem60O9ONtNRJgXLoL7BTfk45XJt4KXvLuFAcgrYdUTlKmGHWhkSAm7imljflBr+SkmAxv903KvYZfq86GAlRipjm1q9u7f7YRzuDCBsuVKu3xIHuTOBr1T8nfyEbyEulfgSsJ4+m5j788BY27Dg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xh5PHmH+CnPz+krg7zzKESp9BkZbWcircyrYvdoOTQ8=;
+ b=QDZmoIBL/NJ3BPwInxIELzjrCbnwSPI/zQ8lhfM9vC9SXg3vLk4PF1/wr/qGgy8QXosj495wJ/kuzbh3uoLfxCgB144SWKntEMoktilzsvL+bncORbSYM9uWFYI+3sF0eWuGaxA0R7dyV0U4hPqxkdGobqtL3+Vg4QjDMhbVRho=
+Received: from CH5P220CA0015.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1ef::9)
+ by DM4PR12MB6542.namprd12.prod.outlook.com (2603:10b6:8:89::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.13; Tue, 1 Sep 2026 01:13:27 +0000
+Received: from CH1PEPF0000A34A.namprd04.prod.outlook.com
+ (2603:10b6:610:1ef:cafe::39) by CH5P220CA0015.outlook.office365.com
+ (2603:10b6:610:1ef::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Tue, 1
+ Sep 2026 01:13:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CH1PEPF0000A34A.mail.protection.outlook.com (10.167.244.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 01:13:26 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
+ 2026 20:13:26 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
+ 2026 20:13:26 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Mon, 31 Aug 2026 20:13:25 -0500
+Message-ID: <0b43b082-4947-3e96-ac20-0a5443e8a4c1@amd.com>
+Date: Mon, 31 Aug 2026 18:13:25 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v2] accel/amdxdna: fix race condition in mailbox send path
+Content-Language: en-US
+To: Deniz Aydogan <denizaydogan1902@gmail.com>,
+	<amd-gfx@lists.freedesktop.org>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+References: <20260828221641.10034-1-denizaydogan1902@gmail.com>
+ <20260829075303.7457-1-denizaydogan1902@gmail.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20260829075303.7457-1-denizaydogan1902@gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A34A:EE_|DM4PR12MB6542:EE_
+X-MS-Office365-Filtering-Correlation-Id: f4a27099-0a56-4f12-35ae-08df07c63a06
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|1800799024|23010399003|82310400026|5023799004|4143699003|10067099003|11063799006|56012099006|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	0t/XNSX+TAFlJEALe1nGFzEX7Fmh8v2LwGlfd4HlSmFOsZfLPNUH4Bn9pHwp9AkQkPsuOPJXbNm5RhW74HLhb7EPV2KaUrJzHk6GHoQmNmbkw1Xa7hLOMewn/sUz8sZAID2hmVPKLZLJlJRbNoAEixX9ah4zMdZitnCf2tR7+gDqsvZAJDFjkFMb17din2yNK2C3xoizhKx/qgYf8ce61/0LE6rt/maKrDsYRYUC6bGWgAhEDQjPPc1BWrsV66Z5Ha2k+o18oMzsi20nSsebABa9KHvZO6k6PN1uxBP4ES8Oz1Uw8i6ukHZ3dwy5mJYNsxDfX7d3oLoKqpWDQO/qe1S112RNIGOW3G/3bRPESMh1CuEnhp6KKhPsOerdwOYSD/kQlXANLecspjGYk5/pYZ7tvzPRFxPL/N0C6daiW1ot486KmSwpdzT9ll6kecaf4jIi3cbvpOGOnXqGVpsSp5pBVBO+OKbKXbJHylhKS6N1DLR+tkwPIRksKhaxbhWqLtepr5+4Am2kMOJb+w0cCSv9a11kQKT9pQ8iWquGNW2atk76ah2+g0LViLP/ioRtqLYr60NvDUZkwzQ/t+4Jg1du7iKwqP2laX9pcZcH6snk1mpe94GyCYG6WyLPwVd8Z3H/4JX7qKWkJ5mgF18Mj5nqYmDefLl26QDte1ZWyCj0+MXRP8otv5tLrBiW0N2d
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(1800799024)(23010399003)(82310400026)(5023799004)(4143699003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	eoqZLQ3LBMbryJ8CjG2RSlPKPRy9DTmp4MU0TKaM4VhydjfgLGUwy+dHITUPRtP2r7rTi3YTuxvobnLmLsphcRBIVkqumBtfzcm0AWKYPQksrxjJESn4W4Gnd/yRc7de0ofhddT12A+V+XzDGs7EiGwh9raYllTi+Qme2bOj9VswMaV4PZJUwTAYWf7M2S1rkoHy/mCebgdvE7DcVo/JsbwV1L++dicUaZV6gxnyxey1Cxp/3ZixaEW2Ripabs1lGWxhJVAEGsFFddNSmsqAl9EaQUdEKfVh2uOoOrGSFItg/z7KgVIYya339+zz/lkn7+FysdJHfHLuZIK/q5wxXtI4vNiWQfSSJI+bKQ/FcUwCCQhBqQv/NElRa4+PCdsuAvBdBSxTuf2okBE+SoWbFbY0tRiW7Yf1OHKC5izLBhuCeI31TvodgTbITiZhN7HT
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 01:13:26.7770
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f4a27099-0a56-4f12-35ae-08df07c63a06
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000A34A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6542
 
-=20
-> > > +impl I2cClient<device::Bound> {
-> > > +    /// Returns an I/O handle for SMBus register access on this I2C =
-client.
-> > > +    ///
-> > > +    /// The returned handle provides fallible read/write methods for=
- the
-> > > +    /// 256-byte SMBus command address space (0x00=E2=80=930xFF). Th=
-is is the SMBus
-> > > +    /// command byte range, NOT the 7-bit device address, which is h=
-andled
-> > > +    /// by the I2C core at the adapter level. =20
-> >
-> > That rather feels like you are correcting my confusion in the earlier v=
-ersion!
-> > I'd assume people are more awake than me and skip the NOT part ;) =20
->=20
-> Sorry for the tone. I didn't mean to correct you. I'll drop that line.
 
-No problem. It wasn't the tone (which was fine!) - just the excess detail.
+On 8/29/26 00:53, Deniz Aydogan wrote:
+> mailbox_send_msg() reads and updates x2i_tail without any
+> synchronization. The DRM scheduler and ioctl paths can call
+> xdna_mailbox_send_msg() concurrently on the same channel, which
+> allows two threads to read the same tail value and corrupt the
+> hardware ring buffer.
 
-So dropping it works for me!
+Is this trying to address the sashiko comment?
 
-Jonathan
+The config cu ioctl should not concurrently running with commands 
+(submitting by DRM scheduler). If this happens, it indicates a bug in 
+user space. And the commands submitted to the same hwctx (mailbox 
+channel) could fail. The incorrect application may mess up itself and it 
+would not impact other processes.
 
+Thanks,
+
+Lizhi
+
+>
+> Add a mutex to serialize the entire send path. A mutex is used
+> rather than a spinlock because the existing code calls
+> read_poll_timeout() with a non-zero sleep, which can reschedule.
+>
+> Fixes: 3ba13f5e7180 ("Merge tag 'devicetree-fixes-for-7.3-1'")
+> Signed-off-by: Deniz Aydogan <denizaydogan1902@gmail.com>
+> ---
+>   drivers/accel/amdxdna/amdxdna_mailbox.c | 9 ++++++++-
+>   1 file changed, 8 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
+> index 271617347..8338f03bd 100644
+> --- a/drivers/accel/amdxdna/amdxdna_mailbox.c
+> +++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
+> @@ -8,6 +8,7 @@
+>   #include <linux/bitfield.h>
+>   #include <linux/interrupt.h>
+>   #include <linux/iopoll.h>
+> +#include <linux/mutex.h>
+>   #include <linux/slab.h>
+>   #include <linux/xarray.h>
+>   
+> @@ -60,6 +61,7 @@ struct mailbox_channel {
+>   	struct xarray			chan_xa;
+>   	u32				next_msgid;
+>   	u32				x2i_tail;
+> +	struct mutex			lock;
+>   
+>   	/* Received msg related fields */
+>   	struct workqueue_struct		*work_q;
+> @@ -205,6 +207,7 @@ mailbox_send_msg(struct mailbox_channel *mb_chann, struct mailbox_msg *mb_msg)
+>   	u32 tmp_tail;
+>   	int ret;
+>   
+> +	mutex_lock(&mb_chann->lock);
+>   	head = mailbox_get_headptr(mb_chann, CHAN_RES_X2I);
+>   	tail = mb_chann->x2i_tail;
+>   	ringbuf_size = mailbox_get_ringbuf_size(mb_chann, CHAN_RES_X2I) - sizeof(u32);
+> @@ -225,8 +228,10 @@ mailbox_send_msg(struct mailbox_channel *mb_chann, struct mailbox_msg *mb_msg)
+>   		ret = read_poll_timeout(mailbox_get_headptr, head,
+>   					tmp_tail < head || tail >= head,
+>   					1, 100, false, mb_chann, CHAN_RES_X2I);
+> -		if (ret)
+> +		if (ret) {
+> +			mutex_unlock(&mb_chann->lock);
+>   			return ret;
+> +		}
+>   
+>   		if (tail >= head)
+>   			goto check_again;
+> @@ -240,6 +245,7 @@ mailbox_send_msg(struct mailbox_channel *mb_chann, struct mailbox_msg *mb_msg)
+>   			    mb_msg->pkg.header.opcode,
+>   			    mb_msg->pkg.header.id);
+>   
+> +	mutex_unlock(&mb_chann->lock);
+>   	return 0;
+>   }
+>   
+> @@ -487,6 +493,7 @@ struct mailbox_channel *xdna_mailbox_alloc_channel(struct mailbox *mb)
+>   		goto free_chann;
+>   	}
+>   	mb_chann->mb = mb;
+> +	mutex_init(&mb_chann->lock);
+>   
+>   	return mb_chann;
+>   
