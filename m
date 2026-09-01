@@ -1,90 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 141D435A3BF
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:27:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788244081; cv=none; b=ZUmC1fe7BLiqeLuo/vindX3TlYhwXf5SD0HXuswp0HSQcynAjT0u56nduNRXsc7Lx2Js3G31VPWnAxsb+cFXC1M9LmScI53eFQ9XX8fltrMtYSIZ8Z1NC+s7ZBfLRMAnsGYEM+pgacg7u+zL50X9qlafNbky/H9QSGREcZSm7P0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788244081; c=relaxed/simple;
-	bh=bVL4cUIeWTZ4qeLv3Tfh0/RYVIyU0ulqvxElOnqv/SU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e/YHXEo2aXMku1te2tBnBp2saFKHku0zLZx6IWArMbBAmAe0K6ZXAuo5oB+iIkK5gPew0xkYy7Bav5nT287DNTXrmotlktcgxslaz8B19U23fpzX3+2IY5OL46N6SbtZLCQqMPzPoo1sjxnXpPx9Mg9Cf3goCYOnal4tb4ZNFuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GSsf3AHs; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA70365A02
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:29:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788244171; cv=pass; b=Fi5RsFHGFLTaC8u7r63hIGIoTVmG4YqtAD+uCsU0+IhSYhzfHN+em5np1eCqOwFclEYQEszY3o+zAaN3Wi+nEZDLrROUytVG77TGCdtKBTrZYXKOGvXk5yVEJ3jSKT4aBxSuUmO3nOj7g3l9CI9JGFiDiL5OKW0nLh8jismS7Xw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788244171; c=relaxed/simple;
+	bh=K4gZl2mOhHoZykPR7kAcqsDmqgMqQEWtRL2LJIdoA/Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qJ0ES1Vnx46C1fD8EhpTYW//4NLXkTxI+o/Dd0zGgqhdHW8wDGSYW3z+xeqBp2nHLBWqpYEckD7kQ9GgCTzCTwaNUnxKFJCxiKII+1Umbe2r175u/c2FwO94O6ntEIrgJYo2zOGEuYG2i5GymXfVp5ME/dZauXm7rswCyXCvcGw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fo2YkDhp; arc=pass smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GSsf3AHs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C74F01F000E9;
-	Tue,  1 Sep 2026 06:27:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788244079;
-	bh=QIJ9WnD/mIUV7NkTxdiSuUPVKAHvvjtPu+au55/iZio=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GSsf3AHsu9HSL2zagjPF2vAc+Fn16ULqmVlE4aK3n1ZtU1MRzfxXt1BfMmgJYJg9h
-	 OeGoWxLiB3NzysWXngOnJRx6LML8YWteJDEy/H5oAz4Xv1vuPdHBhv7BCj6RUg9YTo
-	 HEWbi/o5BdEjqcLggfg+7uX7+pE+oN/MXqad966PkVTGuPRAvgP+KyGis01nCJswDT
-	 VpT66ikYzckXnQFJiZOEjhfMmddYYPti5NP5hqyPPAda5oCTipX5bzmTQhOS4HkRHn
-	 aSv+ihiYh4GXNxxhc7KbgNsuYTqF5tbVmKfc+BaU/8KOxhtOHh/LX9zrOfY6RXA5PA
-	 75le3IEYnh66w==
-Date: Tue, 1 Sep 2026 09:27:54 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Sang-Heon Jeon <ekffu200098@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH] mm/mm_init: remove zone_absent_pages_in_node()
-Message-ID: <apZwagtACFXu5vev@kernel.org>
-References: <20260827144151.486192-1-ekffu200098@gmail.com>
- <178816183737.3691663.7482057515031348878.b4-review@b4>
- <CABFDxMHQjXUhbkUs_5Ki7Q6ZpQkF6Y-fDCS+LfxERFv09UgOrA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fo2YkDhp"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c15e592da74so524769466b.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 23:29:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788244168; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OFfdyXuHDxQUNT3vhbpHDAT9kBlcDpkKi3f4gGZIJSINEIJKrClQw+0sHrmkcAmhHW
+         0HsR22v9sloC9vYdY+kWDmRG6jXYR0fd3ilUukR77WdkolDwIMPkgq+A3cbrePJwgpyh
+         6CYUCggMxfcMPyVa+TP4BZ48P2uKkz1UeO/wFa4/oLgUtForJmv8oEl2FUMsQLHile5m
+         Vedr38c3hLtP6N1UY2W5t8vSOmih/2Vm7SOc9QeIFoeLKUiAyP8dnzI9V7Cu6XDFMiRj
+         y/8n18JUfsaGgRJwfEUxw6fxH+6z6BqY4NwU55TOgWYtme8kFQqNKMHChWRj/rRQrUF0
+         mpBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=bEEZ7fL9N/fBrtWdluD5mbU6vgaXF6Tfc86ggJbNVK8=;
+        fh=zAQCh43xog/oYtkOSHHq+J4eJTUVZ1Ki6YEGp1lNBIw=;
+        b=ExzF85ySqPCrb29ZFzLBxQ1vtJXs04B+xEwaHiLnB/eXxhWfRpXa4Zas3iRkLlbHCs
+         KhjPpJ0wmz1QWsY1sACN9+Oz4PazwaLvaYm9xjb16S1uIfkwiAnzH7fe1ajBbo9P52PU
+         RXGbfl8HJvUwBeYBe+TPTztx2+Vjw8/NKmtTeg/qgLHU/dsG+tOzocWVd3dreQcMi6Kj
+         kNwNriV6846YhQoZ7IGSQfLAxsiT4n37vI8Rg+upxUQVRmPcxoAmY5jhJnVGgm9LIYp5
+         eJjCthy/iAWTorc7gEbnxlR17ro8uIXWhmhsflKNC5ZggwfZtaBAHh6/IBzGGtxHt/eM
+         jrmg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788244168; x=1788848968; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bEEZ7fL9N/fBrtWdluD5mbU6vgaXF6Tfc86ggJbNVK8=;
+        b=fo2YkDhpZfxnKAqDT/bIy7kMg93snOkQDUV43O92bP0KQucf0Osu7oMJS8xxDHP0po
+         l8n8P2OyJog9TnxTt81NEDyUHmfJNfcliJBUagjOMFxSzHS3ThrxqxkwvtQ0TnNrAgnK
+         jggJtVqkFrof6Xxl7LcbB+3MTbyUUS+MvE/9L7xCgHNzENOW8FXaiQ8ZNwoIW1Xif7IR
+         3kPnIImwhJ/gHGDpA4Zqess+K0herU91/6dvhXk/OY23YasMNDhMTcxgjMZUoX8J5nY2
+         C+j05AhCZlMRPXoSS8kJTXsPrZKcKRw3WVRFRCvJIigMc6G1p0LMLFegwLrQPkaHlXrY
+         ewgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788244168; x=1788848968;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bEEZ7fL9N/fBrtWdluD5mbU6vgaXF6Tfc86ggJbNVK8=;
+        b=FJuv/iGiTw47rvjwKfShXijsM4ZnNMWXTNsgiuzF/884r8woMt6ROgybWuxRwXuC8b
+         agkFYknhqPdCgb4hTl51k6b26rezLSTvaw7wiod9YSnklZvDoilhFJB+c49umKrLjOWT
+         sdURzAmvyvzF3ltGAa2lrfKrXqVK7JezWQNZ2vhmOZPZsst7F1BWyc4AO1h3OvrveOUv
+         S1BrS2bWXkR/o9n/cUVzbCBzRwad9pN153pak9dwcZg3HwM26iMJF6e+KVrJyKjdc5XV
+         PBCcwW7ISysQPyi0myvag0OBPb4zVQPNihYHD9lHS9EONn9kKTdq+95GVOTMzR/zO4E5
+         nwiw==
+X-Forwarded-Encrypted: i=1; AHgh+RowS5d7wb+WVAlXW7Qj46mYK9U+VLxXwp8iI4dtQHdmeuRJcpVAXpJYgdhSlTTeXDVFt+R7RIw6lVT3ReA=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+KaakGc475GYdku9EO+MkC7JN3rM8P429MQ4ljnM2ExfaMxQp
+	ZYibVMjEJiQ4qB+0cj9TKDnKadRL4vMAoqvJ0J3ohhOswXe2CgEUYMYT2RsO+2BZzECi3BHPaR2
+	MIxu8ZDlSP5p1hOzoVlxNZLWOQ5ni+40=
+X-Gm-Gg: AR+sD10QO6BpvcT97W5HXT4rntelByjiADd9edsXCFoe5hxH1CG3PF8VUo5qScXXVr3
+	LUaDUG0w3EtYLsGuLdEZ+1C3G7TSb+Vt8YPvCHFnb0lKYFUHNYOfAIiO2sVMyv9XyV+7KN/Goer
+	0CGQdEM9bjJhseFJ7KNDI1AQrn425czxdMYMKqJHXpC92hnoZGlwXqlLx2zsDsjzqY+G0NNoDDt
+	2YFnE0Mb7wa8Rm79zLAeLE4lHaGMGX57mGOHF2TLSq7cBcBQxMoRIm5IP1A/eJgFowA6mihK7ld
+	3KzveeqrkkSN6bNtZ0gUxs4K/1tYdyGaN/jBCbWrU8bjrdnyYijbCzNKU5tDRSRaf1E4DLaa4Zw
+	+wg==
+X-Received: by 2002:a17:907:7b84:b0:c21:72b:dec0 with SMTP id
+ a640c23a62f3a-c2556c61d62mr1936956666b.5.1788244168036; Mon, 31 Aug 2026
+ 23:29:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABFDxMHQjXUhbkUs_5Ki7Q6ZpQkF6Y-fDCS+LfxERFv09UgOrA@mail.gmail.com>
+References: <20260824150156.1310-1-sreeshankar0910@gmail.com> <178822856275.1835959.3848131517961346933.b4-ty@kernel.org>
+In-Reply-To: <178822856275.1835959.3848131517961346933.b4-ty@kernel.org>
+From: Sreeshankar K <sreeshankar0910@gmail.com>
+Date: Tue, 1 Sep 2026 11:59:21 +0530
+X-Gm-Features: AcwNN1UlOPMwx9DB7E6Z2-eTZ4gj_ZRRlYulJwE9lf5s7b-4tAwIra4YOS7pijs
+Message-ID: <CAA-+ukLy9CoENCEnQ0hHGzzHTw3d-aZZfT3H2o7x8_cmo9dkJA@mail.gmail.com>
+Subject: Re: (subset) [PATCH v6 00/13] Add initial support for Qualcomm SM7250 SoC
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	mturquette@baylibre.com, sboyd@kernel.org, rafael@kernel.org, 
+	viresh.kumar@linaro.org, konradybcio@kernel.org, tglx@kernel.org, 
+	ulfh@kernel.org, bmasney@redhat.com, radu@rendec.net, 
+	abel.vesa@oss.qualcomm.com, lpieralisi@kernel.org, 
+	taniya.das@oss.qualcomm.com, danila@mainlining.org, davidwronek@gmail.com, 
+	mani@kernel.org, robimarko@gmail.com, linux@gurudas.dev, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Aug 31, 2026 at 08:30:40PM +0900, Sang-Heon Jeon wrote:
-> Hi,
-> 
-> On Mon, Aug 31, 2026 at 4:37 PM Mike Rapoport <rppt@kernel.org> wrote:
+On Tue, 1 Sept 2026 at 07:39, Bjorn Andersson <andersson@kernel.org> wrote:
+>
+>
+> On Mon, 24 Aug 2026 15:01:43 +0000, Sreeshankar K wrote:
+> > This patchset introduces foundational upstream support for the Qualcomm SM7250
+> > SoC (internally codenamed Lito).
 > >
-> > > zone_absent_pages_in_node() returns 0 when the zone is empty and
-> > > otherwise calls __absent_pages_in_range(), which already returns 0 for
-> > > an empty range.
+> > SM7250 is an ARMv8.2-A platform manufactured on a 7nm process, featuring an
+> > octa-core Kryo 475 CPU configuration (1x Prime Cortex-A76, 1x Gold Cortex-A76,
+> > and 6x Silver Cortex-A55) and Adreno 620 GPU.
 > >
-> > Right, but it loops over memblock memory for an empty zone to get that 0
-> 
-> Indeed. How about adding an early return in __absent_pages_in_range()
-> to avoid unnecessary iteration? I just want to remove the wrapper,
-> which never uses its zone_type argument since eb0e5b61369f
-> ("mm/mm_init: don't overlap NORMAL and MOVABLE zones with
-> kernelcore=mirror")
-> 
->         unsigned long nr_absent = range_end_pfn - range_start_pfn;
->         unsigned long start_pfn, end_pfn;
->         int i;
-> 
-> +       if (!nr_absent)
+> > [...]
+>
+> Applied, thanks!
+>
+> [09/13] dt-bindings: arm: cpus: Document Kryo 475 CPUs
+>         commit: 1c8fe8863780705aba77893fade65f728e82b67a
+>
+> Best regards,
+> --
+> Bjorn Andersson <andersson@kernel.org>
 
-Yes, just please add a comment:
-	
-	/* range is empty, nothing to do */
-
-> +               return 0;
-> +
->         for_each_mem_pfn_range(i, nid, &start_pfn, &end_pfn, NULL) {
->                 start_pfn = clamp(start_pfn, range_start_pfn, range_end_pfn);
->                 end_pfn = clamp(end_pfn, range_start_pfn, range_end_pfn);
-> 
-> > --
-> > Sincerely yours,
-> > Mike.
-> >
-
--- 
-Sincerely yours,
-Mike.
+Thanks,
+Sreeshankar K
