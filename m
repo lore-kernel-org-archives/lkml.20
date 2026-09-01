@@ -1,68 +1,68 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB29C3AF65A
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:29:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 258A33B3BED
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:29:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788226178; cv=none; b=GLsPJiBPqWqdKN+J+aPvig2F+JPxitfITESD7QtCD8Xgj0QRckqArP+ZNxpthozy+ncjD772/menFHzKuirSWFro3rMNNAJDc5iikE86tELe4M0agkC6XWRkvODOgI7HF8HDOJAmbf7HAhBULsIV38XcOn+iuWJDmQ+F8SMRb0Y=
+	t=1788226180; cv=none; b=oLqQsU+HDVaphScSCEnZ1mX4p5ux4V+j/N3osu3pOndem4Rds8szjG533yHwtwBRfrNGiInYY9ocN5X8d5p1y+8zgaj8qx9CGv/sN0M8oo3L2azUfzAXn8DHZV3DC5+ui4ICq4u9HRepDmPw5fwTJaicHjDUQkruzG/JgPv1buA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788226178; c=relaxed/simple;
-	bh=acOJS8se6Bn7H5ej5P3wKdM0zO0DOnFCnriESzJEpQE=;
+	s=arc-20240116; t=1788226180; c=relaxed/simple;
+	bh=gghIcfA0E5etGc3q/zBB+/m+pufUJ9ndp76omnr8Zck=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=skjqi91FwdkK5iZ+jFnw4WkJrXim6TOyJDEbvz32mnbPCoY+IXSCB90MeA/lpyFR8D9zb46+GLOIM6Bxz9b+YqmExYU+Z6m1VlFvv4I2TKfYKOAABFMRQUE24MrrL8uNRsovJpA8ISpEB1ZVFErmBP0zfiCNzjeamALUSGK/XZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=OPJo5cs4; arc=none smtp.client-ip=209.85.215.182
+	 In-Reply-To:To:Cc; b=R10ShAOoUeubXLBLx9yOGtrs8rQq+wyMKFBSoBK7Z6jOLePrCYRn9k/mIV2XAzmGGdzrLCL4GSSRMYPDeYvP0MJRNa3LgJhWOJfNG7b89sDwQpHXYnnnRdraCUGLgWi35KlaWf70FyJ5eP6B4c42uW84lNj9x/UFQgFcQLBK+FQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=RsN+lLaL; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="OPJo5cs4"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc1cbb64a1fso4079445a12.1
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:29:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="RsN+lLaL"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38e58034d05so3520967a91.2
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:29:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1788226174; x=1788830974; darn=vger.kernel.org;
+        d=nexthop.ai; s=google; t=1788226176; x=1788830976; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ma3PelxrCs1dceTiy4AcSJOVkhz7U1Hwxq7XQ/KQJhE=;
-        b=OPJo5cs4yuomqyProIj4iKk8jtZmrApYS57xkjMSVzbg86dvleLFR7rk5/lnBGNpB7
-         ec0H0VA3+F8kWPAIGXwWfCFp7Dc7i7o5S71hpiR9zOEWx25Mwqn2H3xTgexQ8BaUJ/4i
-         7lALu/MPb34kwxJl6MHcrDlcDfwLRblJ6W/+m7reZLi3nAr9ssCHWC2uHe0clgfXAI06
-         VZP5ZlnXdAZ5NK0pJUc8eGg9mHOsmaIZQ9sXHwahbKWg6RrFmDxLGvz6JUTSIrdLar8u
-         hpXKvXhYHAptZf0HuymL5eM+1dQJpoJ04bqW3Rky3x2jkD+N3odbs5PTh4bDb+faSLX5
-         BrGw==
+        bh=/l8H8s7+Ljb2oSYjq14mfIjexLlHVwt32RckwPqIL50=;
+        b=RsN+lLaLeBqapFumfi3FxEEU3RQVVsETFnHJAYLFJ0vZn0yGQWxmynMxPMQ2mtPawD
+         grEv8hXh5XR9P//P8EkxgTanMMoey3Tgaa2Nn6PYy9TcmUHUGmZNqCBJiv8dThVt2Yr3
+         iingkF5T5s8vFxtAPPgjz8pzT3Ehhu0/rcPb1LbLBi7wHTO8NrL/j14izj/cT+X8LTZR
+         vhh5FR0AKERZykP1Iqjk3oHKKk4gq2zj8rOqM20MF1Hd3mMws9O9y/I5H1efDL5JaHnN
+         ZDiCZAqzrIVkePF07AcYbCGfVADomfc5UTUPe8yCVOdQ7TUst4E5ME1ozx6GmDumKAA8
+         AOtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788226174; x=1788830974;
+        d=1e100.net; s=20251104; t=1788226176; x=1788830976;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ma3PelxrCs1dceTiy4AcSJOVkhz7U1Hwxq7XQ/KQJhE=;
-        b=AyE2Q3w6xyO5TOims3hDfcLsehuYzxS9fl9Vo7qfLP07iozcr93gn4MVSEK+aJQTQT
-         P2nT+tFMLOCeDHAhw4ZMmIyFEEuhaDvkza7VI7FDFHP9kdxlJ/YgROn9AxNi+3bSjomR
-         2m++TNA99BJBalsOoOg5EAx3BeKWWU7UwMRZGFpeTxwWJsN/mTw1Yct7Ov4mYsnpDe3R
-         Nhl+Wv2GfKjJqtKWcIpucXCJYHC90rkrwt3d/e899PL5cjSmN3+qYzaepyP3az5jFM/5
-         fJiclcGtCqnmThRHQhRhBI1flojczYG1LNdy3aERjZHqpPbSblSstxsj6GUvdcI/dtKQ
-         ZUwA==
-X-Forwarded-Encrypted: i=1; AHgh+RqZHKSv9T1Pv0F+8B/mtdks/59QaStFlVJo4VqMdlJFTFc1d8iU2EqdfR5mEOOGFcn6KG5PDk21NJJxmHY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lWhE5tP8G4o2mlAHIKIDy90/qGWQZFAGDVz2e1Q4H0CJQGSTbQ
-	bxe3B3Lz8Hc7Cd9tmq5LJBCT2k5Tk2Phbhwh8bl30kZdMcqDudZ4jbQV14xP+jdiFXs=
-X-Gm-Gg: AR+sD11+UvY+emmuCdhqKv6XVsggqRIGanlCqmkrkw3pzKYmd4qCyIQVsHK6jFijXMU
-	ilD0EMOQry+WVlqCLL/F0TZb8GCgolxmES8uIFEVu0lSIO9wQj01YoOPCJEPOIZx+aenlmU+/ls
-	oOLM+THQMbuSdmKrL2o5CFObkNCFWSIj4Uf4+bDrQf/B41ViijRV/58TE7VV1AVKhARj4EFXUvK
-	6Eh5bm+Ue7n84ByEA+CUsZFgtdrxRxsrRvW7el0+H4bpJrhvX21g0NW9B1z4n/jnK2B31kFV7Zh
-	DVn1rja8zvtISwZsTURFcZfQrfL4tGY6mUOvDFNV0Y8hCsmKla16PX8Yaz4vNe320Nj1x8RydQj
-	w+X9TOhworzIXxyGZTSvMG+Q/CEUYoboWaMtxQ/G7qqRByCJpfd2n5KhaLLE532C9EVqrewESE8
-	Se2BbcpVpV3+P8uTOMFHERP7B6fRE+ykWKQTT6GA/jcAlLLN0LPDHCIEZaATqI2GE=
-X-Received: by 2002:a05:6a21:3947:b0:3d3:ae40:51e0 with SMTP id adf61e73a8af0-3d3ae40563cmr34941450637.20.1788226173716;
-        Mon, 31 Aug 2026 18:29:33 -0700 (PDT)
+        bh=/l8H8s7+Ljb2oSYjq14mfIjexLlHVwt32RckwPqIL50=;
+        b=jjyR6uOOLxfBKCLZzwjNdNIP2hNdinwIB0W+opmyV2rtzqAdChTNCCAwrst6m3Lfz/
+         cvJJYrsBhOUoOwZoom//PPJjisfCuHjei0CMHJDQEkUoowlxa6vyc9kYNCmftMfiSZM/
+         GGgLDtHLhxTbrnwje2ZvYwOp8aJ6rQdMD7pB4HHm67Co91BTw4r6g950TEhbjUWYqhzo
+         Y2wrYheZwei9i5whi2Om+3WMBs3BUL2DchxE54jA8b+gYvc3Q3YTP/BuewXNlptr+vxx
+         4XTmG1CvRsryoT0NbzqS4bBdX74K2mVZIeEQhsxifem97KBo1eAg8wOmhfqb6UqDCkN8
+         8PQg==
+X-Forwarded-Encrypted: i=1; AKwUvBy3AsxUJj1aI7QibwMx1IdBtzBkIKodVTuKjKJV+fBK59ED49nbO5hSwHj+zGAIfUIyIFemFjf6JcFNlvE=@vger.kernel.org
+X-Gm-Message-State: AFuF++l3yLoaEH3iVTbs4VzDS4UcCOw0Jq7tbQ5SesMYmrL5YLIzNsZ6
+	Q7FEv5iHkBlmUL7TolRkcayFv2xABzWBrW5UcIH1G3dLttIs/C5Mfl/a7NFrwguYdu4=
+X-Gm-Gg: AYBFou2JkWu1Oqq5rA7DiY+AY3u0BFY+SGtzXB/ZGBsWysdCOC+4AyFihkQBAIWcuyZ
+	mz1VkoXBo3s4nTrFZAYOmp5lGsA0eAPsU6/f5UM/NyvQmEEB+P9CsMZbg0/7BwpdkTNG+8H0v1s
+	PwbGoMeATvl7IHUbvNhLdWkge0/LXljy/ujWwf2XX0W3jzHnBVvERtkm3Misp4x1jj43GvDqKoM
+	N7nGtRM/3j9+RxxPa8u/shE+pCEBYj6wmFii0l1sqe5RLeFUKPBSRBG87BJY0sXjl0eCOXI+f4T
+	QPHnpUMkUOfEV9z2Jf1VtvukYNkoeMTx+afx8Pwzxh/TEvXTu8QCT3ZXfYJYraKjEdW38v/srE/
+	ke4QsnPQhhZ86K1elesepzYf2l1iucWRRqRS+4aYwNE88iRzVn1MSKbWulThILi/UBP4sNadfxt
+	AJxCvNCKHhX1hK1Kr/Lm6VAfAUF0sNOl8EYIzImyC2WJJjow858NhVWfxKufKB13g=
+X-Received: by 2002:a17:90b:17ca:b0:395:4de5:1054 with SMTP id 98e67ed59e1d1-39907d65648mr5286523a91.16.1788226175501;
+        Mon, 31 Aug 2026 18:29:35 -0700 (PDT)
 Received: from [127.0.0.2] ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32b5bef7683sm19390817eec.12.2026.08.31.18.29.32
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32b5bef7683sm19390817eec.12.2026.08.31.18.29.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 18:29:33 -0700 (PDT)
+        Mon, 31 Aug 2026 18:29:34 -0700 (PDT)
 From: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Date: Mon, 31 Aug 2026 18:29:26 -0700
-Subject: [PATCH v7 08/10] of/overlay: return ERR_PTR from
- dup_and_fixup_symbol_prop()
+Date: Mon, 31 Aug 2026 18:29:27 -0700
+Subject: [PATCH v7 09/10] of/overlay: rewrite /aliases path values to
+ live-tree paths
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-nh-of-alias-overlay-v7-8-02754604805a@nexthop.ai>
+Message-Id: <20260831-nh-of-alias-overlay-v7-9-02754604805a@nexthop.ai>
 References: <20260831-nh-of-alias-overlay-v7-0-02754604805a@nexthop.ai>
 In-Reply-To: <20260831-nh-of-alias-overlay-v7-0-02754604805a@nexthop.ai>
 To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
@@ -84,127 +84,64 @@ To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Abdurrahman Hussain <abdurrahman@nexthop.ai>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788226164; l=4363;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788226164; l=2368;
  i=abdurrahman@nexthop.ai; s=20260510; h=from:subject:message-id;
- bh=acOJS8se6Bn7H5ej5P3wKdM0zO0DOnFCnriESzJEpQE=;
- b=F4s/DIjXalAldRlKbPPw41masS2dqAOkIG255BI9qGHyGIcfKYPHYIjxmyTmx7RR1hYqm4r8W
- 74ejSJE3Y3QCY0FiP1WX4W3VBpl8JWqdwHZVHBEaWzFo2prFnXh0RUz
+ bh=gghIcfA0E5etGc3q/zBB+/m+pufUJ9ndp76omnr8Zck=;
+ b=aCAARdMYQw95Hss3hPDMbX1z0tIcx67W6xf675nR/F0vPSDepbn9Y5hJ0ZsoKHtw/hg7vNjic
+ DG27SRu1ydsDGyTZpUoEmJD8BvsUvjJt/Fw/gbSRN0XqNo7qhoyyujv
 X-Developer-Key: i=abdurrahman@nexthop.ai; a=ed25519;
  pk=omTm9cCAbO0ZhS32aKfJDKue0W3sQGpG9ub5eYHif8I=
 
-dup_and_fixup_symbol_prop() returns NULL for malformed values, for
-values that are not paths into one of the overlay's fragments, and
-for allocation failures. The caller reports all of them as -ENOMEM,
-so a structural problem in /__symbols__ is diagnosed as memory
-exhaustion.
+An /aliases property added by an overlay references labeled nodes as
+"&label", which dtc renders as an overlay-internal path such as
+"/fragment@1/__overlay__/i2c@40000". The value is copied verbatim
+into the live tree, of_find_node_by_path() cannot resolve it, and
+of_alias_get_id() keeps returning -ENODEV.
 
-A later patch reuses the helper for /aliases values and must handle
-the three cases differently: copy verbatim, warn, or fail the apply.
-Return ERR_PTR(-EINVAL), ERR_PTR(-ENODEV) and ERR_PTR(-ENOMEM)
-respectively and propagate the errno in the /__symbols__ caller.
+/__symbols__ values follow the same convention and are already
+rewritten by dup_and_fixup_symbol_prop(). Use it for properties of
+the /aliases node too:
 
-Also verify that the value descends through the matched fragment's
-__overlay__ node before cutting the prefix. Only the first path
-component was resolved, so an absolute live-tree value sharing its
-first component with a fragment name was sliced at the prefix length
-and rewritten to garbage. A prefix mismatch returns -ENODEV.
+  - a value that resolves inside one of the overlay's fragments is
+    stored rewritten to the live-tree path
+  - -ENODEV (legacy string aliases, absolute live-tree paths) is
+    copied verbatim, as before this series
+  - -EINVAL (not a NUL-terminated string) is copied verbatim with a
+    warning; consumers validate before dereferencing, and an overlay
+    that applied before this series keeps applying
+  - only -ENOMEM fails the apply
+
+Pseudo-properties are exempt: the is_pseudo_property() check at the
+top of add_changeset_property() only covers live-tree targets, and a
+phandle of a newly created /aliases node is a cell, not a string.
 
 Assisted-by: Claude:claude-fable-5 [Claude Code]
 Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 ---
- drivers/of/overlay.c | 35 ++++++++++++++++++++++++++---------
- 1 file changed, 26 insertions(+), 9 deletions(-)
+ drivers/of/overlay.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
 diff --git a/drivers/of/overlay.c b/drivers/of/overlay.c
-index 6f2d7872028a..bc0c879dd807 100644
+index bc0c879dd807..2af9ffb08691 100644
 --- a/drivers/of/overlay.c
 +++ b/drivers/of/overlay.c
-@@ -206,6 +206,10 @@ static void overlay_fw_devlink_refresh(struct overlay_changeset *ovcs)
-  * The duplicated property value will be modified by replacing the
-  * "/fragment_name/__overlay/" portion of the value  with the target
-  * path from the fragment node.
-+ *
-+ * Return: the fixed-up property, or ERR_PTR: -EINVAL if @prop's value
-+ * is not a valid non-empty C string, -ENODEV if it is not a path into
-+ * one of @ovcs's fragments, -ENOMEM on allocation failure.
-  */
- static struct property *dup_and_fixup_symbol_prop(
- 		struct overlay_changeset *ovcs, const struct property *prop)
-@@ -217,6 +221,8 @@ static struct property *dup_and_fixup_symbol_prop(
- 	const char *path;
- 	const char *path_tail;
- 	const char *target_path;
-+	char *overlay_name;
-+	bool mismatch;
- 	int k;
- 	int overlay_name_len;
- 	int path_len;
-@@ -224,14 +230,14 @@ static struct property *dup_and_fixup_symbol_prop(
- 	int target_path_len;
- 
- 	if (!prop->value)
--		return NULL;
-+		return ERR_PTR(-EINVAL);
- 	if (strnlen(prop->value, prop->length) >= prop->length)
--		return NULL;
-+		return ERR_PTR(-EINVAL);
- 	path = prop->value;
- 	path_len = strlen(path);
- 
- 	if (path_len < 1)
--		return NULL;
-+		return ERR_PTR(-EINVAL);
- 	fragment_node = __of_find_node_by_path(ovcs->overlay_root, path + 1);
- 	overlay_node = __of_find_node_by_path(fragment_node, "__overlay__/");
- 	of_node_put(fragment_node);
-@@ -243,18 +249,27 @@ static struct property *dup_and_fixup_symbol_prop(
- 			break;
- 	}
- 	if (k >= ovcs->count)
--		return NULL;
-+		return ERR_PTR(-ENODEV);
-+
-+	overlay_name = kasprintf(GFP_KERNEL, "%pOF", fragment->overlay);
-+	if (!overlay_name)
-+		return ERR_PTR(-ENOMEM);
-+	overlay_name_len = strlen(overlay_name);
- 
--	overlay_name_len = snprintf(NULL, 0, "%pOF", fragment->overlay);
-+	/* @path must descend through this fragment's __overlay__ node */
-+	mismatch = overlay_name_len > path_len ||
-+		   strncmp(path, overlay_name, overlay_name_len) != 0 ||
-+		   (path[overlay_name_len] != '/' && path[overlay_name_len]);
-+	kfree(overlay_name);
-+	if (mismatch)
-+		return ERR_PTR(-ENODEV);
- 
--	if (overlay_name_len > path_len)
--		return NULL;
- 	path_tail = path + overlay_name_len;
- 	path_tail_len = strlen(path_tail);
- 
- 	target_path = kasprintf(GFP_KERNEL, "%pOF", fragment->target);
- 	if (!target_path)
--		return NULL;
-+		return ERR_PTR(-ENOMEM);
- 	target_path_len = strlen(target_path);
- 	/* a root target renders as "/"; drop it to avoid "//" results */
- 	if (target_path_len == 1 && target_path[0] == '/' && path_tail_len)
-@@ -284,7 +299,7 @@ static struct property *dup_and_fixup_symbol_prop(
- err_free_target_path:
- 	kfree(target_path);
- 
--	return NULL;
-+	return ERR_PTR(-ENOMEM);
- }
- 
- /**
-@@ -353,6 +368,8 @@ static int add_changeset_property(struct overlay_changeset *ovcs,
- 		if (prop)
- 			return -EINVAL;
+@@ -370,6 +370,19 @@ static int add_changeset_property(struct overlay_changeset *ovcs,
  		new_prop = dup_and_fixup_symbol_prop(ovcs, overlay_prop);
-+		if (IS_ERR(new_prop))
-+			return PTR_ERR(new_prop);
+ 		if (IS_ERR(new_prop))
+ 			return PTR_ERR(new_prop);
++	} else if (!is_pseudo_property(overlay_prop->name) &&
++		   of_node_is_aliases(target->np)) {
++		/* rewrite overlay-internal alias values to live-tree paths */
++		new_prop = dup_and_fixup_symbol_prop(ovcs, overlay_prop);
++		if (new_prop == ERR_PTR(-ENOMEM))
++			return -ENOMEM;
++		if (IS_ERR(new_prop)) {
++			if (new_prop == ERR_PTR(-EINVAL))
++				pr_warn("%pOF/%s is not a valid string; alias will be inert\n",
++					target->np, overlay_prop->name);
++			/* not overlay-internal: copy verbatim, consumers validate */
++			new_prop = __of_prop_dup(overlay_prop, GFP_KERNEL);
++		}
  	} else {
  		new_prop = __of_prop_dup(overlay_prop, GFP_KERNEL);
  	}
