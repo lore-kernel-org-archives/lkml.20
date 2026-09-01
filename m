@@ -1,108 +1,214 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mta-64-227.siemens.flowmailer.net (mta-64-227.siemens.flowmailer.net [185.136.64.227])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18036484237;
-	Tue,  1 Sep 2026 16:51:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0881748380B
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:50:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788281469; cv=none; b=AqdzDTRESZKRZpYOLcjM3/20dSONJRD9/jjSP0zjkDQrT1V3Q6NH7iOHuWTJLfjPMGieJtic08q3Q6cWOWolbpyp7WYpj8Wg4OLSol2cyI+33Ts1s6z5bW0H0WjlwQQLjwq21jUfWRPBdkwxDUKDoGt60mbmQopf+azVc1V4WY0=
+	t=1788281464; cv=none; b=jxvmENcnJdaFk1kn2qOSX4QQLuEoM/zlo6XFqJjjpmI7fWI5ZgiSBaPtTZ5e6xAu0ms059o90uimThRGWtGZPh3tVitvMKSFU6wY51WH9YN0pA3yEnyt+f3GqgQVZiTAMmMYDL/ohOTUyBFvTcSIc3lbe9E8GcIwF2sTkj/iHqA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788281469; c=relaxed/simple;
-	bh=ZYfD29Zk+rGU8BNK5ReLIGcFqaD6qE9+zuRBzYr1ChU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qIX+8cZtgiDov5xzr9RO5a6paf0FradwJit3Xh6kOKFTeX+Y2p7qw67coysRv2wUIG+V1/yB7xM5wqandrDN9Dhr1b9cKqERiDeA3T2RbZ3NlIGOX0EqtnIOuEd+Rs3pyU7JxwSc6ae7GvCOcXzoqM9izIRGvfHnWsTLJoKu3fc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tp0OkLeZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788281464; c=relaxed/simple;
+	bh=Ktoniz3KaUpJGaYPHbUdLkx/OpMpAg8WFjtQZ0YKu8M=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IoHll35zro/xoKd8UPWTXbe4+wSds3ye3VbgOS2A8xawoKhOc+vUjSulhUHgZN4BEqthNak7Vx/zrqH4RGHpJUyPwmsJJJTF8ihKBhIZ/OStBdkol+BUD8TWjkfq1szjaVBvnsQ7uDkVXiDE9hCm+kRSt5um3k9FgkdLN2SqBrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=PWol28LP; arc=none smtp.client-ip=185.136.64.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tp0OkLeZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EEB91F00A3D;
-	Tue,  1 Sep 2026 16:51:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788281467;
-	bh=uN08EoqRU5CJKsTaF+4v/3ejQA9w3ui5GBxyAFIzZSw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Tp0OkLeZwHdH+5jjudMS9vi4N8phTz7KVYHe/jOy5P1qHymzusKqcdilM9Flrl+7E
-	 05huOLo9NdA3ocmZKC/Cr2VhO5tmlWhCMXdZ68585Ea16+R6xoklcxuq0UFwlB7f7V
-	 kq4WYjW/vQjYzcA1yq0/9oFUH3dnyC+ztWVdmVum+f2Mn+JTIX7IOXn4Dzv60qFBrI
-	 yxS6N+OFuOdwwyBKEwcdDM4JJhjZYrEBshCevqcYfyGm75+Bgfi2Z1kkO02I8IceTJ
-	 +HSeacH9GH4RZ3tm2UHbK6q+Oiwma3G3/aCOefF7CpCTPVzZYAs0tINXS4hab4lu5/
-	 eh2qmtl2rfQeQ==
-Date: Tue, 1 Sep 2026 17:51:01 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>, linux-iio@vger.kernel.org
-Cc: Nicolas Pitre <nico@fluxnic.net>, Borislav Betkov <bp@alien8.de>, Ingo
- Molnar <mingo@redhat.com>, Thomas Gleinxer <tglx@linutronix.de>, Dave
- Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, Andrew Morton
- <akpm@linux-foundation.org>, linux-kernel@vger.kernel.org, "H. Peter Anvin"
- <hpa@zytor.com>, Peter Zijlstra <peterz@infradead.org>, Uwe
- =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <u.kleine-koenig@baylibre.com>,
- rodrigo.alencar@analog.com
-Subject: Re: [PATCH 0/2] x86: Use "er" asm constriant for add/sub
-Message-ID: <20260901175101.1e059ac8@jic23-huawei>
-In-Reply-To: <20260823233536.30b984ed@jic23-huawei>
-References: <20260803094702.3852-1-david.laight.linux@gmail.com>
-	<11o7545n-7569-3p9r-1q77-8nor8513r6n1@syhkavp.arg>
-	<20260803163955.627bdd3f@pumpkin>
-	<20260823233536.30b984ed@jic23-huawei>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="PWol28LP"
+Received: by mta-64-227.siemens.flowmailer.net with ESMTPSA id 202609011650520e6826d3b50002077a
+        for <linux-kernel@vger.kernel.org>;
+        Tue, 01 Sep 2026 18:50:52 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
+ d=siemens.com; i=alexander.sverdlin@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
+ bh=S1OujqtbTSD7Jd1sRNsbECS+JnzF9Yt5HTTfig8ekrY=;
+ b=PWol28LPTODO38aNnBolD4QWY9B+3ZGSh7qcpzCQQTgQvz7HsByaHPOjgrmaA6Lxzb2YBv
+ PmSSV8N4S639RpAlNZgrozYHjBuyQky+iHeBReRJq7LU5u9hYUa1zNN4++4GFSqXQh9RVhw4
+ HhXuJF2CMWzneTrQz4Y2sPSb/rAOZ0ZkyAoj0zbnRrZWWVogu9XV0SJGdo9n4BbtrUSCItPk
+ N/OYQTq7CXr9F/iGOByikCdx2GurrlsFstIFsYuzYJoKhAzUQl9Mr5UEcV2St7UmyuM/74qb
+ WzJUeXi5BpNBLUdAp5ueOyoSYw3DbOWoC9Y1bY1cJYCL0DfCuhx7y2lg==;
+From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
+To: netdev@vger.kernel.org
+Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Hauke Mehrtens <hauke@hauke-m.de>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH net-next] net: dsa: mxl-gsw1xx: deassert internal PHY resets before MDIO registration
+Date: Tue,  1 Sep 2026 18:50:48 +0200
+Message-ID: <20260901165049.672446-1-alexander.sverdlin@siemens.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-456497:519-21489:flowmailer
 
-On Sun, 23 Aug 2026 23:35:36 +0100
-Jonathan Cameron <jonathan.cameron@oss.qualcomm.com> wrote:
+From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
 
-> On Mon, 3 Aug 2026 16:39:55 +0100
-> David Laight <david.laight.linux@gmail.com> wrote:
-> 
-> > On Mon, 3 Aug 2026 10:49:40 -0400 (EDT)
-> > Nicolas Pitre <nico@fluxnic.net> wrote:
-> >   
-> > > On Mon, 3 Aug 2026, David Laight wrote:
-> > >     
-> > > > The x86 instruction set only supports 32bit signed immediate values
-> > > > for add/sub.
-> > > > Replace the "ir" constraint with "er" to avoid build errors.
-> > > > 
-> > > > Found by a patch that added used mul_u64_add_u64_div_u64() to
-> > > > do a rounding divide by 2^32 (perhaps not the best way to do this).
-> > > > 
-> > > > A quick grep only found one other affected file.      
-> > > 
-> > > Would be a good idea adding those cases to the test module.    
-> > 
-> > They fail to compile so it isn't a big deal.
-> >   
-> David, thanks for sorting this (and all for reviewing)
-> 
-> Seems like everyone is happy.  What route is this taking upstream?
-> 
-> I held Rodrigo's driver to avoid the build breakage and would like to
-> get it queued up early in next cycle.  So not that urgent but nice
-> to be able to tick it off the list!
-> 
+When the switch is bootstrapped with PS_NOWAIT = 0, the internal PHYs
+default to a held-in-reset state. The driver previously only worked with
+PS_NOWAIT = 1 where PHYs are released from reset automatically.
 
-Given I have a driver queued up behind this, shall I just take it through
-the drivers/iio tree?
+Deassert the PHY reset lines via the RST_REQ register before the MDIO bus
+is registered, so that PHY IDs can be read during bus scan. Only release
+PHYs for ports that have a phy-handle in the device tree, so unused ports
+do not consume power. A single 300ms delay after deasserting all needed
+resets ensures the PHYs are ready for MDIO communication (refer to Intel
+XWAY, Maxlinear GPY111 datasheets or the Lantiq counterpart of the driver).
 
-I can do an immutable branch just in case anyone else needs it this cycle.
+Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+---
+ drivers/net/dsa/lantiq/lantiq_gswip.h        |  2 +
+ drivers/net/dsa/lantiq/lantiq_gswip_common.c | 10 +++++
+ drivers/net/dsa/lantiq/mxl-gsw1xx.c          | 43 ++++++++++++++++++++
+ drivers/net/dsa/lantiq/mxl-gsw1xx.h          |  1 +
+ 4 files changed, 56 insertions(+)
 
-Jonathan
-
-
-> Thanks,
-> 
-> Jonathan
-> 
-> > 	David
-> >   
-> > > 
-> > > 
-> > > Nicolas    
-> >   
-> 
+diff --git a/drivers/net/dsa/lantiq/lantiq_gswip.h b/drivers/net/dsa/lantiq/lantiq_gswip.h
+index bc3686faad0d6..7af828577c27d 100644
+--- a/drivers/net/dsa/lantiq/lantiq_gswip.h
++++ b/drivers/net/dsa/lantiq/lantiq_gswip.h
+@@ -261,6 +261,8 @@ struct gswip_hw_info {
+ 	const struct gswip_pce_microcode (*pce_microcode)[];
+ 	size_t pce_microcode_size;
+ 	enum dsa_tag_protocol tag_protocol;
++
++	int (*setup)(struct dsa_switch *ds);
+ 	void (*phylink_get_caps)(struct dsa_switch *ds, int port,
+ 				 struct phylink_config *config);
+ 	struct phylink_pcs *(*mac_select_pcs)(struct phylink_config *config,
+diff --git a/drivers/net/dsa/lantiq/lantiq_gswip_common.c b/drivers/net/dsa/lantiq/lantiq_gswip_common.c
+index 0e8eedf64d3a3..61624f251aeb3 100644
+--- a/drivers/net/dsa/lantiq/lantiq_gswip_common.c
++++ b/drivers/net/dsa/lantiq/lantiq_gswip_common.c
+@@ -689,6 +689,16 @@ static int gswip_setup(struct dsa_switch *ds)
+ 	 */
+ 	regmap_write(priv->mdio, GSWIP_MDIO_MDC_CFG0, 0x0);
+ 
++	/* GSW1xx will wake up the PHYs here, so it makes sense that it happens
++	 * after the auto-polling deactivation above, but before the MDIO bus
++	 * registration below
++	 */
++	if (priv->hw_info->setup) {
++		err = priv->hw_info->setup(ds);
++		if (err)
++			return err;
++	}
++
+ 	/* Configure the MDIO Clock 2.5 MHz */
+ 	regmap_write_bits(priv->mdio, GSWIP_MDIO_MDC_CFG1, 0xff, 0x09);
+ 
+diff --git a/drivers/net/dsa/lantiq/mxl-gsw1xx.c b/drivers/net/dsa/lantiq/mxl-gsw1xx.c
+index a1104b2f92a92..2b5a0b41b473c 100644
+--- a/drivers/net/dsa/lantiq/mxl-gsw1xx.c
++++ b/drivers/net/dsa/lantiq/mxl-gsw1xx.c
+@@ -13,6 +13,7 @@
+ #include <linux/delay.h>
+ #include <linux/jiffies.h>
+ #include <linux/module.h>
++#include <linux/of.h>
+ #include <linux/of_device.h>
+ #include <linux/of_mdio.h>
+ #include <linux/phy/phy-common-props.h>
+@@ -588,6 +589,44 @@ static void gsw150_phylink_get_caps(struct dsa_switch *ds, int port,
+ 	gsw1xx_phylink_get_lpi_caps(config);
+ }
+ 
++static int gsw1xx_setup(struct dsa_switch *ds)
++{
++	struct gswip_priv *gswip_priv = ds->priv;
++	struct gsw1xx_priv *priv = container_of(gswip_priv, struct gsw1xx_priv, gswip);
++	struct device_node *phy_np;
++	struct dsa_port *dp;
++	u32 phy_reset_mask = 0;
++	int ret;
++
++	dsa_switch_for_each_user_port(dp, ds) {
++		struct phylink_config cfg = {};
++
++		/* Is there an internal PHY on this port? */
++		gswip_priv->hw_info->phylink_get_caps(ds, dp->index, &cfg);
++		if (!test_bit(PHY_INTERFACE_MODE_INTERNAL, cfg.supported_interfaces))
++			continue;
++
++		/* Will the PHY be really used? */
++		phy_np = of_parse_phandle(dp->dn, "phy-handle", 0);
++		if (!phy_np)
++			continue;
++
++		of_node_put(phy_np);
++		phy_reset_mask |= GSW1XX_RST_REQ_PHY(dp->index);
++	}
++
++	if (!phy_reset_mask)
++		return 0;
++
++	/* Deassert resets only for PHYs referenced by active ports */
++	ret = regmap_clear_bits(priv->shell, GSW1XX_SHELL_RST_REQ, phy_reset_mask);
++	if (ret)
++		return ret;
++	msleep(300);
++
++	return 0;
++}
++
+ static struct phylink_pcs *gsw1xx_phylink_mac_select_pcs(struct phylink_config *config,
+ 							 phy_interface_t interface)
+ {
+@@ -829,6 +868,7 @@ static const struct gswip_hw_info gsw12x_data = {
+ 		[GSW1XX_MII_PORT] = GSWIP_MII_PCDU0,
+ 		[GSW1XX_MII_PORT + 1 ... GSWIP_MAX_PORTS - 1] = -1,
+ 	},
++	.setup			= gsw1xx_setup,
+ 	.mac_select_pcs		= gsw1xx_phylink_mac_select_pcs,
+ 	.phylink_get_caps	= &gsw1xx_phylink_get_caps,
+ 	.supports_2500m		= true,
+@@ -851,6 +891,7 @@ static const struct gswip_hw_info gsw140_data = {
+ 		[GSW1XX_MII_PORT] = GSWIP_MII_PCDU0,
+ 		[GSW1XX_MII_PORT + 1 ... GSWIP_MAX_PORTS - 1] = -1,
+ 	},
++	.setup			= gsw1xx_setup,
+ 	.mac_select_pcs		= gsw1xx_phylink_mac_select_pcs,
+ 	.phylink_get_caps	= &gsw1xx_phylink_get_caps,
+ 	.supports_2500m		= true,
+@@ -873,6 +914,7 @@ static const struct gswip_hw_info gsw141_data = {
+ 		[GSW1XX_MII_PORT] = GSWIP_MII_PCDU0,
+ 		[GSW1XX_MII_PORT + 1 ... GSWIP_MAX_PORTS - 1] = -1,
+ 	},
++	.setup			= gsw1xx_setup,
+ 	.mac_select_pcs		= gsw1xx_phylink_mac_select_pcs,
+ 	.phylink_get_caps	= gsw1xx_phylink_get_caps,
+ 	.port_setup		= gsw1xx_port_setup,
+@@ -894,6 +936,7 @@ static const struct gswip_hw_info gsw150_data = {
+ 		[5] = 1,
+ 		[6] = 11,
+ 	},
++	.setup			= gsw1xx_setup,
+ 	.phylink_get_caps	= gsw150_phylink_get_caps,
+ 	/* There is only a single RGMII_SLEW_CFG register in GSW150 and it is
+ 	 * unknown if RGMII slew configuration affects both RGMII ports
+diff --git a/drivers/net/dsa/lantiq/mxl-gsw1xx.h b/drivers/net/dsa/lantiq/mxl-gsw1xx.h
+index caa8f1008587a..a7976a5988bd8 100644
+--- a/drivers/net/dsa/lantiq/mxl-gsw1xx.h
++++ b/drivers/net/dsa/lantiq/mxl-gsw1xx.h
+@@ -110,6 +110,7 @@
+ #define GSW1XX_SHELL_BASE			0xfa00
+ #define  GSW1XX_SHELL_RST_REQ			0x01
+ #define   GSW1XX_RST_REQ_SGMII_SHELL		BIT(5)
++#define   GSW1XX_RST_REQ_PHY(p)			BIT(p)
+ #define  GSW1XX_SHELL_MANU_ID			0x10
+ #define   GSW1XX_SHELL_MANU_ID_PNUML		GENMASK(15, 12)
+ #define   GSW1XX_SHELL_MANU_ID_MANID		GENMASK(11, 1)
+-- 
+2.55.0
 
