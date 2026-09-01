@@ -1,67 +1,47 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7813AD538
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:23:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8509367B70;
+	Tue,  1 Sep 2026 07:24:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788247437; cv=none; b=GSkIkrl8crW3J3NRrobplc06iqSsOq7Xrid3M7zBLyYFVG07IRMMEeZKCFeK0cHtcul/cVwwdAFJI3KQnvIKp6xjbr74B765+tAVbLw0k4trY3DntnkCbcujWD7aL4q53FYU3sRMdqQw+3LPKy4bKY4bNNwTTxm2Io7h9vPqwxw=
+	t=1788247492; cv=none; b=F844vJid430c5mXzp7G1EH8nYSF8/eoQrRVivaqRPeYT6LYYpz9LGiUvKyCBwRKQFd4OCWSf4V+6jpB8e2/zVBs5b3cilMPSvNMd6gaUyQS7TT7kaVvmhRF9P+j9Xr+pJ5SmIrsjW0f36LjRZdxKBu5X38mgjueB8N4hJVRZhpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788247437; c=relaxed/simple;
-	bh=Y5Ex12WIV9wQdBaA9857SL1DSzmnTAW0iQ+jfJYGOGY=;
+	s=arc-20240116; t=1788247492; c=relaxed/simple;
+	bh=95d0ztqekd1ljeTlBrkA6kBPhHpLPYjaeu6n97jTlms=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Arj8kqypb+lEEjuyVWBS2pt+SNauBG+sv664DA5D1oO+oeDw0jlk3uG3aAksEZUxs6vud8ZfMtOd5ArM6/0u5TvvJqQoWapzIEIUR8DM3tPOCo0xNqc/n69wPjVwMG9WaLpM6AswYbO6tp9pz4Dw4x4vGTFHJdGccSQjbENkz4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=U0fkqFji; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=PUbUcs9MoFIi5sgH8CLcWSnra1YlYdCMzvargfSqDWOzYBBEtkVOfoEss3fAsO/bVjdrJV2fCVgkNN/A/g3JUNZmQkxMCRAmkS0Rqv2+Ez8kUJywruKUFZFqMxdIZJDD14zQCs4+prBQktnaDfieauh2bsxbQDp2QRNaNHOoE+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PoZyl5sc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="U0fkqFji"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=iWhfzyQgaYUJtonCqs7Hc3xCwG5I/OFdVxQZLlY0m4E=; b=U0fkqFjibEL2Au50BwXhiEMpAJ
-	FHdHxlsHRfE9ddPoa8rf7lCgMRKv8R0QHofEwjFYQmJBCmC+Tolg8GG1fPwUsxRuvRa+YJ74Ppfo6
-	QcV27MIXjoNFh35D0OeU3+S4DrKRdwj2JfZRsncSeUjbFH1zsZyH3a50+FYXplGfj/KaPDwlmz7ke
-	7heeXq4AYy4kz0AegnczpiqBVkKaneioL+asAzJKQQlIcOlgvmcsrbnaMS6b4wL68taHvyHYZgElp
-	ye/iitKbCj9JSY5/4mMsC/2tH32SNuwcadBDQEO/hQiKw363WcDtQyH/9kDltW3nWQo+QPXyFxTgo
-	uqa2PJKA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x1IgP-0000000AgGO-1l2R;
-	Tue, 01 Sep 2026 07:13:25 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id E32853002ED; Tue, 01 Sep 2026 09:13:22 +0200 (CEST)
-Date: Tue, 1 Sep 2026 09:13:22 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Jianyong Wu <wujianyong@hygon.cn>
-Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Chen Yu <yu.c.chen@intel.com>,
-	Tim Chen <tim.c.chen@linux.intel.com>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Phil Auld <pauld@redhat.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-mm@kvack.org" <linux-mm@kvack.org>,
-	"jianyong.wu@outlook.com" <jianyong.wu@outlook.com>,
-	Yuan Zhong <zhongyuan@hygon.cn>, Huangsj <huangsj@hygon.cn>,
-	Fengyu Wang <wangfengyu@hygon.cn>,
-	Zhiwei Ying <yingzhiwei@hygon.cn>,
-	"justin.he@arm.com" <justin.he@arm.com>
-Subject: Re: [RFC PATCH v2 02/23] sched/topology: Introduce a NUMA distance
- matrix with unique distance values
-Message-ID: <20260901071322.GX687043@noisy.programming.kicks-ass.net>
-References: <20260827122816.756234-1-wujianyong@hygon.cn>
- <20260827122816.756234-3-wujianyong@hygon.cn>
- <20260831115004.GF776954@noisy.programming.kicks-ass.net>
- <ee97dce1db374f50b8e87e51ad133d96@hygon.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PoZyl5sc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BA101F000E9;
+	Tue,  1 Sep 2026 07:24:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788247490;
+	bh=bZ55NtX+y+GwV6o0a3sXWCeig+tLS7zsgudQjjHqc4Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PoZyl5scAeD4Qcr6uFGOerL4F2ILiG7/lM+gYubEiPHofI+iG910voC75BDqjrvjF
+	 44obI1xLEi5Hvc4TTI2lDlkIXDJhjvEN/Sah6qqBF1kYBv2vJiaiWj6B8OjJiSKu9R
+	 OOM2MEkJZQBfT3w0NNe/gOgV7WdDYCd0z6VAXlPZ3U7PxyeDkSObVQqbVL7PSjFUrE
+	 ktScc/FQiLPG3N/rFyTNe/cwPtUT4drlMN64JRHeWTBL9JfdsTNT71BVtrilV9Olxp
+	 hlec2RggrX6RWs7A0kpNdhTPO2SXWI+LF6y70cTj6CyqNuZqAc4tPlkqxT8PhOq5z7
+	 SB36d4AklERzw==
+Date: Tue, 1 Sep 2026 08:24:44 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-tip-commits@vger.kernel.org, 
+	Steffen Dirkwinkel <lists@steffen.cc>, Pedro Falcato <pfalcato@suse.de>, 
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Atish Patra <atishp@meta.com>, Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org, 
+	x86@kernel.org
+Subject: Re: [tip: x86/urgent] x86/alternative: Exclude text poking against
+ change_page_attr()
+Message-ID: <apZ9aKI35SsApV7U@gremlin>
+References: <20260813-cpa-fixes-v2-3-39b4ff90f91d@kernel.org>
+ <178821524520.3717435.12731475498671524229.tip-bot2@tip-bot2>
+ <4201eac9-297b-4672-8e7f-62e99dd13eb8@kernel.org>
+ <apZ8AXqJBeI2BztN@gremlin>
+ <386cbf7e-1734-4b56-ab7c-711d4f8ca48e@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,67 +50,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ee97dce1db374f50b8e87e51ad133d96@hygon.cn>
+In-Reply-To: <386cbf7e-1734-4b56-ab7c-711d4f8ca48e@kernel.org>
 
-On Tue, Sep 01, 2026 at 06:57:43AM +0000, Jianyong Wu wrote:
+On Tue, Sep 01, 2026 at 09:22:09AM +0200, Jiri Slaby wrote:
+> On 01. 09. 26, 9:18, Lorenzo Stoakes (ARM) wrote:
+> > On Tue, Sep 01, 2026 at 08:16:28AM +0200, Jiri Slaby wrote:
+> > > On 01. 09. 26, 0:27, tip-bot2 for Pedro Falcato wrote:
+> > > > The following commit has been merged into the x86/urgent branch of tip:
+> > > >
+> > > > Commit-ID:     1c4d1c070d734b241728378c0f79950c23a10883
+> > > > Gitweb:        https://git.kernel.org/tip/1c4d1c070d734b241728378c0f79950c23a10883
+> > >
+> > > Was it dropped in the meantime? Gitweb says:
+> > > Object 1c4d1c070d734b241728378c0f79950c23a10883 is not reachable from any
+> > > reference in this repository
+> > >
+> > > $ git rev-parse tip/x86/urgent
+> > > 477cf5cd1f698053df7426b7b8d9339e85e00946
+> > > $ git branch -r --contains 1c4d1c070d734b241728378c0f79950c23a10883
+> > > $
+> > >
+> > > Despite I managed to download it at some point though:
+> > > $ git show --oneline -s 1c4d1c070d734b241728378c0f79950c23a10883
+> > > 1c4d1c070d73 x86/alternative: Exclude text poking against change_page_attr()
+> > >
+> > > What's going on with tip today?
+> >
+> > Yup, I can't see this commit _at all_ in x86/urgent. Something's very
+> > broken here.
+>
+> FTR, I dug out the logs:
+>  + 096edb090797...4a0e6473921a master     -> tip/master  (forced update)
+>  + 096edb090797...4a0e6473921a tip/urgent -> tip/tip/urgent  (forced update)
+>  + 34cd1c931a36...477cf5cd1f69 x86/urgent -> tip/x86/urgent  (forced update)
+>
+> The original x86/urgent's HEAD (34cd1c931a36) indeed contains the commit
+> (1c4d1c070d7).
 
-> > This example uses Node only, but the code in question is specifically
-> > aimed at Cache granularity; might it be better to use a cache example?
-> > 
-> > A little something like so (I got tired of prompting Gemini to generate
-> > more complicates / less broken examples)...
+I mean 'forced updated' gives me hope at least that these patches can be rebased
+back to sanity :)
 
-> Originally I tried to use a single big LLC distance matrix. But once I
-> realized how much memory and computation time it would cost, e.g. when
-> calculating affinity scores in later patches. I dropped it in favor of
-> a two-level scheme: the first is a NUMA node distance matrix, and the
-> second is an intra-node LLC matrix that only encodes the LLC distances
-> inside a single node, so it is very small. This way, both memory and
-> time are greatly reduced.
+>
+> > > > Author:        Pedro Falcato <pfalcato@suse.de>
+> > > > AuthorDate:    Thu, 13 Aug 2026 12:01:26 +03:00
+> > > > Committer:     Dave Hansen <dave.hansen@linux.intel.com>
+> > > > CommitterDate: Mon, 31 Aug 2026 15:17:35 -07:00
+> > > >
+> > > > x86/alternative: Exclude text poking against change_page_attr()
+> > > thanks,
+> > > --
+> > > js
+> > > suse labs
+> >
+> > --
+> > Cheers, Lorenzo
+>
+>
+> --
+> js
+> suse labs
 
-See, that would've made good Changelog material :-) But yeah, fair
-enough, the matrix will get rather big I suppose. And going to
-triangular matrix storage will only save half, while you still scale by
-n^2, so that's not going to help.
-
-> > > Each row of this refined NUMA distance matrix is sorted in ascending
-> > order to
-> > > generate a unique per-node affinity sequence. This sequence will guide
-> > > thread migration logic introduced in subsequent patches.
-> > 
-> > IIRC greedy has significant worse bounds than many other schemes. This
-> > would result in more unique distances than strictly needed here, right?
-> > 
-> Yes, Greedy edge-coloring is simple but can't guarantee to get the
-> optimal result in theory.
-
-Right, so the theoretical count is :delta: or :delta:+1, but the greedy
-bound is 2:delta:+1. But IIRC (and I really am not well versed in this
-particular area) there are algorithms that are still relatively easy to
-implement and get better bounds.
-
-I just asked Gemini (so take with a big pinch of salt and consult your
-algorithm book) there are simple algorithms such as Eulerian paths, that
-exploit topological constraints, such as hypercubes or 2d meshes, to
-still reach :delta:.
-
-> > Since this is all on slow paths anyway, does it make sense to pick a
-> > slightly better algorithm in order to reduce this bound and get better
-> > results?
-> > 
-> This matrix currently has two consumers:
-> 1. it is sorted to build a unique per-node affinity sequence;
-> 2. its values are used to calculate the affinity gain in patch 12.
-> 
-> Therefore, when changing the de-duplication algorithm, I need to
-> consider the requirements of both Consumers, For the first use, any
-> symmetric matrix with no duplicate entries in a row is sufficient. For
-> the second use, however, the actual values and their differences may
-> affect the affinity score.
-> 
-> It is not yet clear whether using a more optimal algorithm would
-> provide any real benefit for these consumers. I will investigate
-> whether a tighter matrix can be generated without introducing too much
-> complexity, and then decide which algorithm is more appropriate.
-
-Right, fair enough. I'll continue trying to digest the series.
+--
+Cheers, Lorenzo
