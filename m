@@ -1,64 +1,64 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 821CC365A02
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:36:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE6937EFEE
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:36:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788244592; cv=none; b=YvrfqTTnaHgLf34BIZGJRTih1jxy6ctlecq/jGWo1uHynnBfqASjSead7xBuUYCqMMtY2HTyFvJFoT2+yuewI3cft0QLiMi1/b4efJnxwrHTc36Uozu9vDTJIgWTc4qfxs4TbWnEajY2ojp2soy3f8xM5aeqn7k6ULWGSPoiT5U=
+	t=1788244594; cv=none; b=Sy4sJhbs4ZTg23NTd7sQ4kuaFK/vpuyyxMN2rMBmC/anj68gRor/SFJl/WxUf20wI17XTXSpqEhkUxtrmgN35+zkZNbS9yZJTJbvJqGCZzWTubmCVbJ2r6Aby9QjchFaNJi2xsKjzPqW9PZDZbTXKcCiH1OT6Fhu+89qy4D+l/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788244592; c=relaxed/simple;
-	bh=OK66Pj7nY5BbXH42rp4i9E2XMj8PlRkGTHWhbDbet0g=;
+	s=arc-20240116; t=1788244594; c=relaxed/simple;
+	bh=jp1mxh4u0k5EkhsGC+WkntxjcMOROSMx+LhpJ5PkGTc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OYdWOEYTdWOpyhhr8X1FQflzBOvx8W9PzGi5wsFTIOSij5e82VHLjLs4ZQ3uNbRVRU2u7j8cW4pVvCbFaYV4wvUeJ/XfgSyuHkhB0SsOoiO1AiU435FLtQTyIQPqcfXb6aRDsEsZE6WGpRSgKh2PcYjuadtdSF94vrUIuvfg0l0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FEkJ3E/6; arc=none smtp.client-ip=209.85.215.181
+	 MIME-Version; b=ry8gyZssWmG4d9DU20rbJL42L3ou3+vEPimsTgMgVtPDOs7UueO+YwMzM6CobQVmauOZkytKQfXFpT5ne75gIPxGDqO8i3WNvW6YYTG+b65561q7OFueZiIzmzs0NND+ZuH2e/IYMTEAAUMh3Uox6oA6teUuozhA9eEurNic99I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PrRM9oaO; arc=none smtp.client-ip=209.85.216.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FEkJ3E/6"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc1d57602e8so4242465a12.3
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 23:36:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PrRM9oaO"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3966791a6eeso5326009a91.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 23:36:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788244589; x=1788849389; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788244592; x=1788849392; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=++ydc5oOA7Xjdiv/75GclRci10VVs2LubMQfzql8oQk=;
-        b=FEkJ3E/6vjWDPiifd5GvJDXdxAcgXfVkTRF990he4IEFgzSk6QRImz4udeXWcdHBox
-         LZgw2Cv56XGekrC09JMvXUJf/J0AQV25jA/0ZIAxsz/QyBxzcnnCROGQhOB/DgW68XKn
-         xnnmwrcHOJiiuKYSvKhq4psduX051La9l4twKYnzrFg4YeRJZUP4Swj+CA9digB6DukV
-         y8osC8I2bj3IcaRw1eUpxsPc4JcryHuicCYcrlmyp3ku22pOFgWNCurOesEhzzf6gtZg
-         MdfXf8pNncn+E3JOQummaOHHzzNp1l4+0canCUQWs7d2LOr3SXUoiQ6oTXvl/9CqTqxb
-         oKzw==
+        bh=daPhvcx3JqOGViV9zMVaZQKBED8orEBgOrh4gs4v0qM=;
+        b=PrRM9oaOD5oibbwf4boNBo6qcrkcXXq4jFqPpvjpgz1wZDdRmVru618TzQffasaUxb
+         eaSuap16qutCl6uY7AalIBEQ8uypSfm8XluG6jsBsdyvBasPwX4Mfnyic/F0y2a2yesT
+         vpnHeDEvMRfe+PIVtwtWTAwnFhMjWQ2KvOvoeianbltbMA7ux/Fh25hecUltdHWJzr4J
+         AzwUjp3T+auuaHjxlFLZo0mHS1NJMkh0Nm8yzgCJkkjCQ9WMaiAFLETlE3ABi54Lq3q+
+         QOWhSsZPQwqaHqkwkUpLuCDdiXbcQEz5zai9t4d3uUslHOZ/rRNwvZZhViuj2LqHzXlM
+         7PbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788244589; x=1788849389;
+        d=1e100.net; s=20251104; t=1788244592; x=1788849392;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=++ydc5oOA7Xjdiv/75GclRci10VVs2LubMQfzql8oQk=;
-        b=P8nSbp/X5JKPNysaBRZmlYoxwHZagpDIYzXQ3UgaKQZ1+jcTkEloTg5BMEkipyMERx
-         UySqPixoMa66IUjkZQunT5FjlrN7SX4sV02zBbLRbhBQHIfIDGfNS+HZ6aXSnJj/GnbL
-         JJwo17gvIoTbVUU/wIlCLTn1G3OW+2UN9BLtWKQxFxzG88dw3Ztgysg36junC1Chjmy1
-         CNKMUTapo9kR22+OzkTEg6yeApX6aJk//EfLHufHwViFuLZEtff7KZm5o/bmayFNEUZg
-         h4sEUwsGHsZCi9pwI4Hu8j9m2i2j9qgzvqM8bFma3t+6SZgfFIo5nVRRfju5aV1spSMs
-         G0tw==
-X-Forwarded-Encrypted: i=1; AKwUvBxX/c6uHXk1UlGg9+6jeIcRQuqfr/2bGjryFK6F6U8FO92JXuI8720Mb78jBnqtiefeRkRLU+OZa88urUQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kCp61rPowwe/u3HiqsAn6II/kajGj8weLowivTD9n465TIYSXa
-	qCcS/kOzF8u5BzCGJtsQlWhSP2bJKeB5pr3yO/VkOmmuKdf4x4sQRDPK
-X-Gm-Gg: AYBFou1ScPGD4hRqHaLs/5B0atmgtxgDrllv/IWSi2+CYi5+/CbLm4m+JEFF0YvVlEr
-	GP8PvCVO3vP/EerL5Or82QVxFWj2H4Y+d2cNMFDR1Tqurk3PsFS/zbFS17PM+qJHbps3OJ0cYnI
-	4+nwFbXFm8veixBkIjZYwKHWfs+UuAEIQ/BTfAsaB/KJ2DKrHJROznqcAVN0KxJzHqf59+1vvva
-	BlBF0libA+wHIWSRRWZYgFxUksNSf/Ml6VvRFNKHfZnwHu8CwD9f8kqbC8qxsm7R+xdOaTTf+eN
-	g7guviHkdGjMdkAJ+ow+YX+Z3PuZYS85x+sSk0DUkaI2RYMxbAeYxGCk/u8iuLUrjqGXyRn8FwY
-	csPXFGBBcud4bGqxSYNZY6XJ2zzD3J9SIqTStThFi5OQG5tgUqB9VNgWxaieFnMn7RQkyJS0jWv
-	ERATtigtF5YhWHazQnyftn79VIUOGZBennuXn5nE+hMLyy/0ZMqxC7SzNAygm9p6h4wbH2zYiz7
-	UudJtpXhmunzw==
-X-Received: by 2002:a17:90b:4c8a:b0:398:dcfe:967a with SMTP id 98e67ed59e1d1-398dcfe9ebfmr15735500a91.17.1788244588820;
-        Mon, 31 Aug 2026 23:36:28 -0700 (PDT)
+        bh=daPhvcx3JqOGViV9zMVaZQKBED8orEBgOrh4gs4v0qM=;
+        b=HcSGWG/0jwuE11Rserp1EqW77WC031zq2VTwRY1F4Tmzgv0IP6HRixveB3gdHKDxkR
+         Bdaz2vlf7E1VPLi8/1Srys7nkMQsx+lrF9IGOZTiY+EAe8P5lmKuJmARd3mJL0YYx4G7
+         BEIRAHELNwahil3hXPRgCvh6eMMwRQuAdZpnvgSMqcnV5x3+tDH52lCsKYBi+sN5rgjo
+         drVyEVCaQ5bRWwq3nMtFL7ID63B9ejuss11qFmkoG11x/r1TL8mzH8h12a9ke8k1OVMh
+         FnBVEL6bntZzuHwNupyxTkH4NXCEzLmBJY0YEmbdr5Z+NV0ac3Rtj3Jw/yEF48rUO2zX
+         h4gw==
+X-Forwarded-Encrypted: i=1; AKwUvBxhbxAWOyhmLeWero+1kUFMWyIn+fwHv8RIs0abgOMD+J1/CBkZd3EDL9o77QCfN1QI51qjrY0vBMASPzM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nyfrV/v/UPpQqUIGFOtW06m0Ur+oPdg4J0UgOoIag9Y+glir1l
+	iOyWDNkWw9MF+J1bT/LQ2H8zxfxBINYOOX9c8ZHYuWIiayvvT3h67DFk
+X-Gm-Gg: AYBFou0DmUG2uXeBlWzSK0avlNM1GabQAE5TflwHmLSVwUIPMDFKdEZ6crum8vXxWlm
+	CBzPk5uK6aCLioa1ZwoBXuAWqCi881UFAFYAYDwEXmuyS7/ZzimDpDwA6MyuSt4u/TPA9t5ofgw
+	akaHN+tPENLovesg5o8uQLVsjus2gFsF07e6ib2C/Q9aGkMfhrykpEdLaAgDVyq8xEhK5hnQGuI
+	qh6i39BcZZK1WPsRtBzW8YZy5FJsQIP5MUl4C6Eqlh8lntTyfCNqMXpsHIfETgbwCaG4yC/VzPb
+	lPryV/4wjNPpxqKISbRAqxLeOqoD+ErY4+vIO8CkvuHYu1N7mCT/YJQymXAhm26esUQEm3ZfC2K
+	AWOHDDjTCQgdsPKmCr6djyK6E5KTHBtqpwEDv9zuBSTajV+wc2h+1n2gdYhRvN7UtUkalfz1tAg
+	U5nwOVwxstRi1A1yH6a5EKcxNLWa6SD/mCQBxJSScne/wD2kJE5gZhUt9Iy+BjA6PF7Vk49fOUP
+	611Hu+GI7oFqg==
+X-Received: by 2002:a17:90b:2e48:b0:398:e969:87ef with SMTP id 98e67ed59e1d1-39907ec6baamr9076075a91.24.1788244592502;
+        Mon, 31 Aug 2026 23:36:32 -0700 (PDT)
 Received: from localhost.localdomain ([103.16.69.192])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0dc854dsm32694425c88.10.2026.08.31.23.36.25
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0dc854dsm32694425c88.10.2026.08.31.23.36.29
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 31 Aug 2026 23:36:28 -0700 (PDT)
+        Mon, 31 Aug 2026 23:36:31 -0700 (PDT)
 From: Aditya Dash <mradityadash@gmail.com>
 To: Benjamin Tissoires <bentiss@kernel.org>,
 	"Derek J. Clark" <derekjohn.clark@gmail.com>,
@@ -66,9 +66,9 @@ To: Benjamin Tissoires <bentiss@kernel.org>,
 	Mark Pearson <mpearson-lenovo@squebb.ca>
 Cc: linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 4/7] HID: hid-lenovo-go: return configuration request errors
-Date: Tue,  1 Sep 2026 12:06:05 +0530
-Message-ID: <28ecf20c7406e9416d38bac1e7b89ac796b39a59.1788222001.git.mradityadash@gmail.com>
+Subject: [PATCH v3 5/7] HID: hid-lenovo-go: normalize calibration failure status
+Date: Tue,  1 Sep 2026 12:06:06 +0530
+Message-ID: <49b6e07395d2fe555e844758bd8ccf34ac0cbf0c.1788222001.git.mradityadash@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1788222001.git.mradityadash@gmail.com>
 References: <cover.1788222001.git.mradityadash@gmail.com>
@@ -80,216 +80,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Any decoded configuration reply completes the shared completion. The driver
-also ignores the result of its interruptible wait. An unrelated reply, a
-firmware error, an interrupted wait, or a timeout can therefore be reported
-as success.
+The driver stores the firmware result byte as an index into the
+calibration status text. A Legion Go 1 returned 0x08 after an idle Stop.
+The status table has only three entries, so a later read returns -EINVAL.
 
-Add pending command state to the driver data. Match replies by command ID,
-command, sub-command, and device, and return request errors to the caller.
-Clear the pending request after an interruption or timeout so a late reply
-cannot replace that result.
+Keep the defined values 0x00 through 0x02. Treat larger result values as
+failure before storing them.
 
-Keep the existing 50 ms wait for every configuration request. Corrected
-calibration requests on an Original Legion Go received their matching SET
-replies within 8 ms. The final calibration result remains asynchronous.
-
-The firmware has no sequence number. A late reply with the same tuple can
-still match a newer request.
-
-Fixes: d69ccfcbc955 ("HID: hid-lenovo-go: Add Lenovo Legion Go Series HID Driver")
+Fixes: 995887a10da1 ("HID: hid-lenovo-go: Add Calibration Settings")
 Assisted-by: Pi:gpt-5.6-sol
 Signed-off-by: Aditya Dash <mradityadash@gmail.com>
 ---
- drivers/hid/hid-lenovo-go.c | 109 +++++++++++++++++++++++++++++-------
- 1 file changed, 88 insertions(+), 21 deletions(-)
+ drivers/hid/hid-lenovo-go.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/hid/hid-lenovo-go.c b/drivers/hid/hid-lenovo-go.c
-index 51e3112780e1..deed7acd2dc4 100644
+index deed7acd2dc4..59b457683357 100644
 --- a/drivers/hid/hid-lenovo-go.c
 +++ b/drivers/hid/hid-lenovo-go.c
-@@ -21,6 +21,7 @@
- #include <linux/led-class-multicolor.h>
- #include <linux/mutex.h>
- #include <linux/printk.h>
-+#include <linux/spinlock.h>
- #include <linux/sysfs.h>
- #include <linux/types.h>
- #include <linux/unaligned.h>
-@@ -31,13 +32,27 @@
- #include "hid-ids.h"
+@@ -648,17 +648,22 @@ static int hid_go_light_event(struct command_report *cmd_rep)
  
- #define GO_GP_INTF_IN		0x83
-+#define GO_INPUT_REPORT_ID	0x04
- #define GO_OUTPUT_REPORT_ID	0x05
- #define GO_GP_RESET_SUCCESS	0x01
- #define GO_PACKET_SIZE		64
-+#define GO_COMMAND_TIMEOUT_MS	50
-+
-+/* Lenovo replies identify a command and a sub-command, but have no sequence. */
-+struct hid_go_cmd {
-+	struct completion done;
-+	spinlock_t lock; /* protects fields below */
-+	bool pending;
-+	u8 id;
-+	u8 command;
-+	u8 sub_command;
-+	u8 device;
-+	int result;
-+};
- 
- static struct hid_go_cfg {
- 	struct delayed_work go_cfg_setup;
--	struct completion send_cmd_complete;
-+	struct hid_go_cmd cmd;
- 	struct led_classdev *led_cdev;
- 	struct hid_device *hdev;
- 	struct mutex cfg_mutex; /*ensure single synchronous output report*/
-@@ -331,6 +346,62 @@ static const char *const os_mode_text[] = {
- 	[LINUX] = "linux",
- };
- 
-+static void hid_go_cmd_arm(u8 id, u8 command, u8 sub_command, u8 device)
-+{
-+	guard(spinlock_irqsave)(&drvdata.cmd.lock);
-+
-+	reinit_completion(&drvdata.cmd.done);
-+	drvdata.cmd.pending = true;
-+	drvdata.cmd.id = id;
-+	drvdata.cmd.command = command;
-+	drvdata.cmd.sub_command = sub_command;
-+	drvdata.cmd.device = device;
-+}
-+
-+static void hid_go_cmd_consume(const struct command_report *cmd_rep, int result)
-+{
-+	guard(spinlock_irqsave)(&drvdata.cmd.lock);
-+
-+	if (drvdata.cmd.pending && cmd_rep->id == drvdata.cmd.id &&
-+	    cmd_rep->cmd == drvdata.cmd.command &&
-+	    cmd_rep->sub_cmd == drvdata.cmd.sub_command &&
-+	    cmd_rep->device_type == drvdata.cmd.device) {
-+		drvdata.cmd.pending = false;
-+		drvdata.cmd.result = result;
-+		complete(&drvdata.cmd.done);
-+	}
-+}
-+
-+static int hid_go_cmd_finish(long wait_result)
-+{
-+	guard(spinlock_irqsave)(&drvdata.cmd.lock);
-+
-+	if (wait_result <= 0) {
-+		drvdata.cmd.pending = false;
-+		return wait_result < 0 ? wait_result : -ETIMEDOUT;
-+	}
-+
-+	return drvdata.cmd.result;
-+}
-+
-+static int hid_go_cmd_cancel(int result)
-+{
-+	guard(spinlock_irqsave)(&drvdata.cmd.lock);
-+
-+	drvdata.cmd.pending = false;
-+	return result;
-+}
-+
-+static int hid_go_send_output_report(struct hid_device *hdev, u8 *packet)
-+{
-+	int ret;
-+
-+	ret = hid_hw_output_report(hdev, packet, GO_PACKET_SIZE);
-+	if (ret < 0)
-+		return ret;
-+	return ret == GO_PACKET_SIZE ? 0 : -EINVAL;
-+}
-+
- static int hid_go_version_event(struct command_report *cmd_rep)
+ static int hid_go_device_status_event(struct command_report *cmd_rep)
  {
- 	switch (cmd_rep->sub_cmd) {
-@@ -654,7 +725,7 @@ static int hid_go_raw_event(struct hid_device *hdev, struct hid_report *report,
- 	struct command_report *cmd_rep;
- 	int ep, ret;
- 
--	if (size != GO_PACKET_SIZE)
-+	if (size != GO_PACKET_SIZE || data[0] != GO_INPUT_REPORT_ID)
- 		goto passthrough;
- 
- 	ep = get_endpoint_address(hdev);
-@@ -707,7 +778,7 @@ static int hid_go_raw_event(struct hid_device *hdev, struct hid_report *report,
- 	dev_dbg(&hdev->dev, "Rx data as raw input report: [%*ph]\n",
- 		GO_PACKET_SIZE, data);
- 
--	complete(&drvdata.send_cmd_complete);
-+	hid_go_cmd_consume(cmd_rep, ret);
- 	return ret;
- 
- passthrough:
-@@ -722,7 +793,8 @@ static int mcu_property_out(struct hid_device *hdev, u8 id, u8 command,
- 	unsigned char *dmabuf __free(kfree) = NULL;
- 	u8 header[] = { GO_OUTPUT_REPORT_ID, id, command, index, device };
- 	size_t header_size = ARRAY_SIZE(header);
--	int timeout = 50;
-+	unsigned long timeout = msecs_to_jiffies(GO_COMMAND_TIMEOUT_MS);
-+	long wait_result;
- 	int ret;
- 
- 	if (header_size + len > GO_PACKET_SIZE)
-@@ -740,22 +812,14 @@ static int mcu_property_out(struct hid_device *hdev, u8 id, u8 command,
- 	dev_dbg(&hdev->dev, "Send data as raw output report: [%*ph]\n",
- 		GO_PACKET_SIZE, dmabuf);
- 
--	ret = hid_hw_output_report(hdev, dmabuf, GO_PACKET_SIZE);
--	if (ret < 0)
--		return ret;
--
--	ret = ret == GO_PACKET_SIZE ? 0 : -EINVAL;
-+	hid_go_cmd_arm(id, command, index, device);
-+	ret = hid_go_send_output_report(hdev, dmabuf);
- 	if (ret)
--		return ret;
--
--	ret = wait_for_completion_interruptible_timeout(&drvdata.send_cmd_complete,
--							msecs_to_jiffies(timeout));
--
--	if (ret == 0) /* timeout occurred */
--		ret = -EBUSY;
-+		return hid_go_cmd_cancel(ret);
- 
--	reinit_completion(&drvdata.send_cmd_complete);
--	return 0;
-+	wait_result = wait_for_completion_interruptible_timeout(&drvdata.cmd.done,
-+								timeout);
-+	return hid_go_cmd_finish(wait_result);
- }
- 
- static ssize_t version_show(struct device *dev, struct device_attribute *attr,
-@@ -2362,9 +2426,9 @@ static int hid_go_cfg_probe(struct hid_device *hdev,
- 	if (!buf)
- 		return -ENOMEM;
- 
-+	mutex_init(&drvdata.cfg_mutex);
- 	hid_set_drvdata(hdev, &drvdata);
- 	drvdata.hdev = hdev;
--	mutex_init(&drvdata.cfg_mutex);
- 
- 	ret = sysfs_create_groups(&hdev->dev.kobj, top_level_attr_groups);
- 	if (ret) {
-@@ -2435,8 +2499,11 @@ static int hid_go_probe(struct hid_device *hdev, const struct hid_device_id *id)
- 	}
- 
- 	ep = get_endpoint_address(hdev);
--	if (ep == GO_GP_INTF_IN)
--		init_completion(&drvdata.send_cmd_complete);
-+	if (ep == GO_GP_INTF_IN) {
-+		init_completion(&drvdata.cmd.done);
-+		spin_lock_init(&drvdata.cmd.lock);
-+		drvdata.cmd.pending = false;
-+	}
- 
- 	ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT);
- 	if (ret) {
++	u8 status = cmd_rep->data[1];
++
++	if (status > CAL_STAT_FAILURE)
++		status = CAL_STAT_FAILURE;
++
+ 	switch (cmd_rep->device_type) {
+ 	case LEFT_CONTROLLER:
+ 		switch (cmd_rep->data[0]) {
+ 		case CALDEV_GYROSCOPE:
+-			drvdata.gp_left_gyro_cal_status = cmd_rep->data[1];
++			drvdata.gp_left_gyro_cal_status = status;
+ 			return 0;
+ 		case CALDEV_JOYSTICK:
+-			drvdata.gp_left_joy_cal_status = cmd_rep->data[1];
++			drvdata.gp_left_joy_cal_status = status;
+ 			return 0;
+ 		case CALDEV_TRIGGER:
+-			drvdata.gp_left_trigg_cal_status = cmd_rep->data[1];
++			drvdata.gp_left_trigg_cal_status = status;
+ 			return 0;
+ 		default:
+ 			return -EINVAL;
+@@ -667,13 +672,13 @@ static int hid_go_device_status_event(struct command_report *cmd_rep)
+ 	case RIGHT_CONTROLLER:
+ 		switch (cmd_rep->data[0]) {
+ 		case CALDEV_GYROSCOPE:
+-			drvdata.gp_right_gyro_cal_status = cmd_rep->data[1];
++			drvdata.gp_right_gyro_cal_status = status;
+ 			return 0;
+ 		case CALDEV_JOYSTICK:
+-			drvdata.gp_right_joy_cal_status = cmd_rep->data[1];
++			drvdata.gp_right_joy_cal_status = status;
+ 			return 0;
+ 		case CALDEV_TRIGGER:
+-			drvdata.gp_right_trigg_cal_status = cmd_rep->data[1];
++			drvdata.gp_right_trigg_cal_status = status;
+ 			return 0;
+ 		default:
+ 			return -EINVAL;
 -- 
 2.55.0
 
