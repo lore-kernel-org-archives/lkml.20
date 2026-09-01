@@ -1,87 +1,143 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B43F376A0C;
-	Tue,  1 Sep 2026 08:44:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B06038DC7D
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:44:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788252260; cv=none; b=nI7LumIX4aOSDf9xCsew+jXWVFoXGFl6lVjvdTyxLSZy5Oe8WES/KvJhhve6jHausn45BWcDqq9rkmpMM91QBRet4KBuzIdHOZ71qP43GoPMNY4+FxGzsHWdrJ1LGvzgt9Y4CP45jVf0Ji28G+XmmW1n3tktgEH6n1ZMC8Qykkw=
+	t=1788252268; cv=none; b=RsTYcnle1Bq77qax+2SY616fs0jfm1l4WJoOBZIf/Sk869hmOK8oC9Px543y+uCYzMd7YjcZDcmPntZ35sguA6XPqvdJL079pnNTYZ02BfJXPj42Y/2ZeKp8meQ34NHXtDkaD16evPIvBjwF2b0SSQbkAcu1vMFyyVSzMy6FC6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788252260; c=relaxed/simple;
-	bh=UQL2AvVgTYIjOeMgq74rFfWzuqcozjMaGHHKlfugnZI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nnFF+AjsQzaJiSWCPG2TUtbThpIAejWlgb580/8kdN5NvvpSgFJPg8H6QD4M0Xn6Qqf4oA9yT4LSpYaMA3NZMnXM1nvcpt/Sf99YYnGN7vjGYblluBljDM/gB4/nkSIC+ZY/R2+rt0l3wpOlOF5N4uGiiPyZbrS4CMGybMiRukY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=Wgn0Ruco; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1788252268; c=relaxed/simple;
+	bh=DhPdDQt2s+ehRWy5phyOU+QWi+Oe2q8DoIjQFF4h8aw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jgs/3MLUO5eXgtWYRARsmKOthPLz52balkTp4rUx482SKW4qQH6DXIaQyzCUb5W6ObcoXIAFkk3GsquPZWr8RGLob+QgoTcaoskH837OG2UcSXtS/qdt/cI1hCxCcQ0GgfnMQVRKee4zC7G/jy7jyFuS8yg/XALUbhwSoTRkjNI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dS9l5E3O; arc=none smtp.client-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="Wgn0Ruco"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F1DC511C6E2;
-	Tue, 01 Sep 2026 10:44:09 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1788252250;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=iim8gbQmBzCCt56y67of+3f4sZwEwYxdqZFVhThR2Yg=;
-	b=Wgn0RucocANZxsy8N1Kcp33xcj//Y3O+Zl26waB9p1rr+B9q5O3hgE19VgpSc1LA83Q+/w
-	m0xtoRDuxS2zqPzozQqBIrik9tVQ0yK4C+nM5qBF5NUNymTpSNaQfnO3dKfyhvG4uaQm3G
-	4QM1TkHGFHGohZP7KQfta8lmPVzhV6kNofddj4IQfP9SEM1ex8yOrXScnwFzQRUjSIKPtV
-	3UStbiL8IZbq7CSrNV7J+Ph7O/tXuuFmBuEnnjTJbwtJ1ivqSuxmGZa05quci8H5+6NPBh
-	dA5My0WcrRhJlrja2tMw2QJQyIM/B+TAKxTo1OC0meadLjiwsGm36I1lh87NtQ==
-Date: Tue, 1 Sep 2026 10:44:08 +0200
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.6 00/91] 6.6.156-rc1 review
-Message-ID: <apaQWFJjN8s6QKDP@duo.ucw.cz>
-References: <20260831133359.468089036@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dS9l5E3O"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c247f6687dcso733089366b.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 01:44:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788252263; x=1788857063; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kfkumJrDF1tZTAVRjvzgDO3hMk1gGG9KZ2g7tgv7l7Y=;
+        b=dS9l5E3OnG6TQGvQpZYMLEM4mI+XpeRVIK9fQMMyDRNRkGmIhkF5NAMfTqhBODW5Mc
+         ifiQP6GRCy6Ehq1Wi1sB3VoNGwUdDAHhpjEgnHBeOxddZc7yaIghx69iHvUNMKlhDLsw
+         zJGRXlLkwnfvYa0EVXkTP3NyKIFH5EDvizHEVTP7VMPOGe7KaiTzPejBr5f1dlf3DpUL
+         W2oKWHifpZsjh04Q8dgERWsFnA0AsMM2pUhQIy02WHLX41ArFCVr0/RAQSQa4dmQFsk+
+         toJO8t1FB7d7E78uDqqHgdY0JCY7QFTrFoGsXzEmJdtYNVRTa7SKLBy9qHN3aThI5ciC
+         ixVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788252263; x=1788857063;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kfkumJrDF1tZTAVRjvzgDO3hMk1gGG9KZ2g7tgv7l7Y=;
+        b=RHK0Wnvz/WM1gdroZQMOpyRmMo9bKM36fASn8rMp772sHBek7lmqo/8rXW/FyGQx5Z
+         9ir6X4Gjbm+WLb9KWEiabfLAVKKMsoORra9pwv7MW28Ukk+SyZBfAb6C9a8agIkYDo75
+         zJfCgOujLIB5Pg9mm746sjDNxryk8AiAso+cDzHlAqNIx+F4Ro+IofUdoU+x3bCuaLQ9
+         inQuceeXyJdnKUkByz+8Tzl9SI80XvzGzJ0yjH3mylxUy+7JHr4qqRFsfSL4KEtMbaa3
+         RFcXiwknlb6/w5/tnxXyt03TQG2sI7nYQ2qeet9IfVjViIJbqWY7mGlA7EhSngeJbmY3
+         0bCQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq9unFYmdtfd0ZjHZo/UdKHWMwL4Yw8joPsccpb/WjyZKfUVZ4tGm/AVvCbg7NKV3/or5C135DUXHn6xVE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kSuL6IU2iQXyVGTh33Wn6i5A4wju47bPO5kuRaNyz0cNB3uTO8
+	7DhfsD/Ift+fhE+Pe8RhwiyeKZ+7W2VTcnJUeNEWBjrA9pr7a69/qmsx
+X-Gm-Gg: AR+sD13GP7+JeJkidMyfv6rtWrv/hY5brEtOojao3S+y6Br73NZus8ZDKjNqM3tbnTC
+	/0AwW0ZJJ4QYsByLEMAv6NuSxKA/v4zscsa6GE+HcRza2InQpYgXRUQOCd6i/Uq6h6dZwCTJRbf
+	EOnrTXt9ofqXZ7gFMODgH3wEFb2czj/hHoxcEl0i0Ue1Mc5Za06PhmHOA8eXkpD2lejn6755fyC
+	MR8sJ6yrLWKZkPtQsOGonlJZMilRLs4DoRjj1dYgupRwxGHCOZzmspH5Tvcw+8bw1GDVi2RvEqF
+	Znj8qMl8pnvW9T+thF/hxtfq9gLa4V0kgSGrjiqzkzaILkNC0WbZtnvLsAQTqJH1Yuwpi7NZyoW
+	LsFS1O7aAbppRK2Pl1EDmUoYt0FLyJ6cg3LPzgnJhrMEDjBUxuR6sJCvTi5mACqjJEfcQOiH8F1
+	wupf3CEla38qxfKcqQT8Rv6NuURnqhuFNjwiVTT2A5ddrDSzBuMyDo8Krzn/UhYJB80D8IJDQ5P
+	RWT03kKkmivGSrskRs7bfk=
+X-Received: by 2002:a17:906:f582:b0:c24:c22c:6372 with SMTP id a640c23a62f3a-c25b3affecdmr382949666b.5.1788252262902;
+        Tue, 01 Sep 2026 01:44:22 -0700 (PDT)
+Received: from [192.168.1.89] (c-85-228-45-68.bbcust.telenor.se. [85.228.45.68])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255eacf6bbsm527267366b.0.2026.09.01.01.44.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 01:44:22 -0700 (PDT)
+Message-ID: <1729fb06-6beb-f8ef-3e71-47fc3f00345d@outbound.gmail.com>
+Date: Tue, 1 Sep 2026 10:44:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="z9FRtFhKS7hIk2Cw"
-Content-Disposition: inline
-In-Reply-To: <20260831133359.468089036@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Subject: Re: [PATCH 2/4] char: xillybus: replace __get_free_pages() with
+ kmalloc()
+Content-Language: en-US
+To: Mike Rapoport <rppt@kernel.org>,
+ David Laight <david.laight.linux@gmail.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, Brad Warrum <bwarrum@linux.ibm.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Michal Simek <michal.simek@amd.com>, Ritu Agarwal <rituagar@linux.ibm.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Matthew Wilcox <willy@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linuxppc-dev@lists.ozlabs.org
+References: <20260830-char-misc-v1-0-05e2ce44f291@kernel.org>
+ <20260830-char-misc-v1-2-05e2ce44f291@kernel.org>
+ <f6001085-9234-4025-ff34-6cc4a66c293a@outbound.gmail.com>
+ <20260831123937.32255a49@pumpkin> <apaF1HUtJnstuUN4@kernel.org>
+From: Eli Billauer <eli.billauer@gmail.com>
+In-Reply-To: <apaF1HUtJnstuUN4@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 01/09/2026 9:59, Mike Rapoport wrote:
+>> Would it really make sense to allocate the four buffers separately?
+>> And/or use vmalloc().
+> My understanding is that the buffers don't need to be physically
+> contiguous and vmalloc()ing the entire fifo->mem in one go should work.
 
---z9FRtFhKS7hIk2Cw
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+vmalloc() is an interesting point.
 
-Hi!
+fifo_init(), fifo_write(), fifo_read() and fifo_mem_release() implement 
+a FIFO in software that the XillyUSB driver uses internally.
 
-> This is the start of the stable review cycle for the 6.6.156 release.
-> There are 91 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+The memory for this FIFO is allocated in fifo_init() by calling 
+__get_free_pages() with requests for up to 64 kiB. With the maximal 
+total buffer size of 256 MiB, we have a possibility of 4096 allocations 
+into an array of buffers. And if __get_free_pages() fails, the size of 
+each buffer is halved in the following attempt, which tries to allocate 
+8192 buffers, each 32 kiB, in this example. And so on.
 
-CIP testing did not find any problems here:
+This mechanism with an array of buffers complicates the implementation 
+of the other functions as well.
 
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.6.y
+So why not replace this with a single call to vmalloc(), possibly asking 
+for 256 MiB in one call? That would mean simplifying all four functions.
 
-Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
+When I wrote this driver back in 2020, I avoided vmalloc() because Linus 
+wrote "vmalloc() is NOT SOMETHING YOU SHOULD EVER USE!". (See [1]). He 
+also noted that vmalloc() is a restricted resource. But that's from 
+2003, so maybe things have changed since?
 
-Best regards,
-                                                                Pavel
+Questions that arise in this context:
 
---z9FRtFhKS7hIk2Cw
-Content-Type: application/pgp-signature; name="signature.asc"
+* Does vmalloc() guarantee that non-pageable physical RAM is allocated 
+when it returns?
+* Can copy_to/from_user() be used with memory allocated with vmalloc().
+* Is vmalloc() guaranteed to successfully allocate memory in the same 
+situation that __get_free_pages() could have been used to obtain the 
+same amount of memory (in smaller chunks, as with fifo_init() )? Maybe 
+they allocate memory from separate memory pools?
 
------BEGIN PGP SIGNATURE-----
+And most important: In what way, if at all, is memory obtained with 
+vmalloc() practically different from memory allocated by 
+__get_free_pages(), if it's never used for DMA?
 
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCapaQWAAKCRAw5/Bqldv6
-8qTaAJ9Ua7uH3fIg7aHLxEUJUCNZf6S4kwCdGwicf0BrtfB3j/nglW7JGweC3hQ=
-=tebh
------END PGP SIGNATURE-----
+Does the API offer clear answers to these questions?
 
---z9FRtFhKS7hIk2Cw--
+Thanks in advance,
+    Eli
+
+[1] https://lwn.net/Articles/57804/
