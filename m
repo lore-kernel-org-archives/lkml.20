@@ -1,164 +1,153 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 460C741A559
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 15:34:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086EF411FBF;
+	Tue,  1 Sep 2026 15:34:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788276860; cv=none; b=sv/YRr26+6xaF2rdG1D8nyAvYtWxQJWwMarTxfv1Osh8F/Rdmf1ma7mRtzE2CPoZu2r4Ke66L9jgZQvdeA8b4LiElpB9kVph7UwjBBVWtqqWpNIVrfG5QQS7Bwux4NzRMbAIBWhrn0zI9Gdh+lvuExQ90P7O8Q0+HYjM9WGQ/RA=
+	t=1788276888; cv=none; b=SSfc8yN3jCXm/uuixAtntq25lf3T7GxsQXFqRIMtN56AaLqJBYXyIDJVD10xfOCQBEo2Z2Hu1SrMFRBvjc01/yVSUTWviyOVQD0T1EEWq0kdLthM004IQClOYRYZUJWKRT/vzO7updOsqDKHw+KPunYZvI2gja/UELzzaYvJPno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788276860; c=relaxed/simple;
-	bh=FXXhaGwT2CHxXM9rmZ9cakXkn+w+VPN3qc03AzEa7Lg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=YsLF28ESy5QVoJ8U+uhGRi7ToLBSsqjb0OqF+tzuaT1kDFqPNasgLhMvmukLFaYqIkGRXeYSowMkSRx4yIi3SUhp9qKrY6aLkNe+6D5GRdaXho1NaJgqSheVKjOt6fVRBK6HXk9v85tBCzIMWBMHkze/GV/W5bIvLcP/zG869cE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WNvDgjGa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788276888; c=relaxed/simple;
+	bh=XLuK/PZ58lDhZmg6xDRQ9In2m+ureWTnrZMeNLfg+vQ=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=J2uF3XCerp269UwdVEYeDH0HtDDlUSTsiDp+x1fTBfI9yQ9m4N1DQDZXWGD9MR2izg05aGtsGQMqKjMjCNJnh8U7PA8u6ShihlOslI3TiUDx9Jl4uKh3d1MOm+hl73AigX9gyNCb8LDMKJIV12NzySGLTFpcyk84UAQx1dAaSrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oC1nNhPC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WNvDgjGa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65E551F000E9;
-	Tue,  1 Sep 2026 15:34:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oC1nNhPC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F48F1F000E9;
+	Tue,  1 Sep 2026 15:34:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788276858;
-	bh=hChj9oqRFW11MkUP6/iyHcLe24IWLQWtgzrEOUInO1M=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=WNvDgjGa0098t3vVQttA1f9RWfM85voA2ukWyWO2as8yG5rYT5MGJqGUJBln2g+X7
-	 rOYkFtXD2QHLBGwRHQGNiRGlIT1egI9NcrsM/2mT6QdzvVrExYgnJzvMIdS83H5+cH
-	 KwcNa7yhKcZj1lv0ua37RbAYKbyJ0y9v4S3trIHTg8Yd7jtbFKxGrH4Ge0SaE4Dc7T
-	 8NPyWWypC3vYeIOKxFjZu2zXP44xjndd5L5I/NSZqNWsqFE5ARhFrGwZCumc1BHnkY
-	 Lc08fVDAgFN/c+p9F4Jvv0IDxIbOWJMvgOziXYEKkS8ax+PicfLdeWoCdmiWfRgZdh
-	 6zPjJV7DhBokw==
-Message-ID: <d4af29ce-54e0-49aa-8b5f-b2ce06fa8f76@kernel.org>
-Date: Tue, 1 Sep 2026 17:34:02 +0200
+	s=k20260515; t=1788276886;
+	bh=sXDKWyKAaYd6V/9rFYp5krd/4rh/b9keSzpuKc3ug44=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=oC1nNhPC8CSLvJ7DmoQa5fClWUYEKBBK8TqAd5V2p0PDokhn2XA0bHuiDnm9H9Em1
+	 6YZljdShXLM7ndMP4NO8e7P4eaAmBM/HIBB7uSOPUu9C6CWSGcYFUqIzmmunUD4QDS
+	 y4ekkUeYhkf3SbhBUrbPAaTLA7Q1V1oaVHszAuSksd7tlhYgScqKDP6jOaOs2dPoFJ
+	 ZA+7WXtFNXR8orl5LxZY/0sjxrtUZYlZF1VjfytHrLk36rpEffDEx1vOhmjuAUHCtc
+	 bW1ZDJcvTVpAcixdjZyH1nXB90TfEKyOJUSWPppPJLGSPHndcXZ3gD37WiSIZFDFAB
+	 pl5P7wRY+pWCg==
+Content-Type: multipart/mixed; boundary="===============4761417725018966106=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2 2/4] memory: fsl_ifc: Use devm_platform_ioremap_resource
- and fix error paths
-To: Rosen Penev <rosenp@gmail.com>, linux-kernel@vger.kernel.org
-References: <20260721202450.485171-1-rosenp@gmail.com>
- <20260721202450.485171-3-rosenp@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260721202450.485171-3-rosenp@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Message-Id: <f987bc5dcd678e13cd661ba9830f30d43cf612f3ee8548020491c791c35308fc@mail.kernel.org>
+In-Reply-To: <20260901141954.29449-1-suchitkarunakaran@gmail.com>
+References: <20260901141954.29449-1-suchitkarunakaran@gmail.com>
+Subject: Re: [PATCH] selftests/bpf: Fix map_lookup_percpu_elem on sparse CPU IDs
+From: bot+bpf-ci@kernel.org
+To: suchitkarunakaran@gmail.com,andrii@kernel.org,ast@kernel.org,daniel@iogearbox.net,eddyz87@gmail.com,memxor@gmail.com,shuah@kernel.org
+Cc: emil@etsalapatis.com,ihor.solodrai@linux.dev,jolsa@kernel.org,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,zhoufeng.zf@bytedance.com,bpf@vger.kernel.org,linux-kselftest@vger.kernel.org,linux-kernel@vger.kernel.org,suchitkarunakaran@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue,  1 Sep 2026 15:34:45 +0000 (UTC)
+
+--===============4761417725018966106==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-On 21/07/2026 22:24, Rosen Penev wrote:
-> Replace of_iomap() with devm_platform_ioremap_resource() for automatic
-> resource management, eliminating manual iounmap in remove and error
-> paths. devm_ioremap_resource() reserves the region and checks for
-> overlaps, which is safe here since the IFC controller register space
-> and child chip-select ranges are always at distinct addresses in all
-> DTS files.
-> 
-> As one of the errors is -EPROBE_DEFER, run it before anything else to
-> avoid doing actual work in such a case.
-> 
-> Assisted-by: opencode:big-pickle
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->  drivers/memory/fsl_ifc.c | 23 +++++++++--------------
->  1 file changed, 9 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/memory/fsl_ifc.c b/drivers/memory/fsl_ifc.c
-> index dce94d8b05b9..7e6800fc8480 100644
-> --- a/drivers/memory/fsl_ifc.c
-> +++ b/drivers/memory/fsl_ifc.c
-> @@ -92,10 +92,6 @@ static void fsl_ifc_ctrl_remove(struct platform_device *dev)
->  	if (ctrl->nand_irq > 0)
->  		free_irq(ctrl->nand_irq, ctrl);
->  	free_irq(ctrl->irq, ctrl);
-> -
-> -	iounmap(ctrl->gregs);
-> -
-> -	dev_set_drvdata(&dev->dev, NULL);
->  }
->  
->  /*
-> @@ -201,6 +197,7 @@ static int fsl_ifc_ctrl_probe(struct platform_device *dev)
+> diff --git a/tools/testing/selftests/bpf/prog_tests/map_lookup_percpu_elem.c b/tools/testing/selftests/bpf/prog_tests/map_lookup_percpu_elem.c
+> index bfb1bf3fd427b..849f33259c003 100644
+> --- a/tools/testing/selftests/bpf/prog_tests/map_lookup_percpu_elem.c
+> +++ b/tools/testing/selftests/bpf/prog_tests/map_lookup_percpu_elem.c
+> @@ -2,29 +2,45 @@
+>  /* Copyright (c) 2022 Bytedance */
+>
+>  #include <test_progs.h>
+> +#include "bpf/libbpf_internal.h"
+>  #include "test_map_lookup_percpu_elem.skel.h"
+>
+>  void test_map_lookup_percpu_elem(void)
 >  {
->  	int ret = 0;
->  	int version, banks;
-> +	void __iomem *gregs;
-
-Why another local variable?
-
->  	void __iomem *addr;
->  	int nand_irq;
->  	int irq;
-> @@ -217,6 +214,11 @@ static int fsl_ifc_ctrl_probe(struct platform_device *dev)
->  	if (nand_irq == -EPROBE_DEFER)
->  		return nand_irq;
->  
-> +	/* IOMAP the entire IFC region */
-> +	gregs = devm_platform_ioremap_resource(dev, 0);
-> +	if (IS_ERR(gregs))
-> +		return PTR_ERR(gregs);
+>  	struct test_map_lookup_percpu_elem *skel;
+> -	__u64 key = 0, sum;
+> -	int ret, i, nr_cpus = libbpf_num_possible_cpus();
+> +	bool *possible = NULL;
+> +	__u64 key = 0, sum = 0;
+> +	int cpu, nr_cpu_ids, nr_cpus, ret, slot = 0;
+>  	__u64 *buf;
+>
+> -	buf = malloc(nr_cpus*sizeof(__u64));
+> -	if (!ASSERT_OK_PTR(buf, "malloc"))
+> +	ret = parse_cpu_mask_file("/sys/devices/system/cpu/possible", &possible,
+> +				  &nr_cpu_ids);
+> +	if (!ASSERT_OK(ret, "parse possible CPU mask"))
+>  		return;
+>
+> -	for (i = 0; i < nr_cpus; i++)
+> -		buf[i] = i;
+> -	sum = (nr_cpus - 1) * nr_cpus / 2;
+> +	nr_cpus = libbpf_num_possible_cpus();
+> +	if (!ASSERT_GT(nr_cpus, 0, "libbpf_num_possible_cpus"))
+> +		goto free_mask;
 > +
->  	fsl_ifc_ctrl_dev = devm_kzalloc(&dev->dev, sizeof(*fsl_ifc_ctrl_dev),
->  					GFP_KERNEL);
->  	if (!fsl_ifc_ctrl_dev)
-> @@ -224,12 +226,7 @@ static int fsl_ifc_ctrl_probe(struct platform_device *dev)
->  
->  	dev_set_drvdata(&dev->dev, fsl_ifc_ctrl_dev);
->  
-> -	/* IOMAP the entire IFC region */
-> -	fsl_ifc_ctrl_dev->gregs = of_iomap(dev->dev.of_node, 0);
+> +	buf = malloc(nr_cpus * sizeof(*buf));
+> +	if (!ASSERT_OK_PTR(buf, "malloc"))
+> +		goto free_mask;
+> +
+> +	for (cpu = 0; cpu < nr_cpu_ids; cpu++) {
+> +		if (!possible[cpu])
+> +			continue;
+> +		buf[slot++] = cpu;
+> +		sum += cpu;
+> +	}
 
-This is not equivalent and commit msg does not address that. Old code
-allowed multiple maps of the same address space but new code bails with
-EBUSY.
+Does this buffer layout match how the kernel expects it?
 
-Again, I asked last time - how did you test it?
+The userspace side fills buf[] with one entry per possible CPU, storing
+the logical CPU ID at packed index 'slot' (0, 1, 2, ...). For a mask
+like 0,2-3, this creates buf = {0, 2, 3} with 3 entries total.
 
-Please mark the patches as RFT.
+Looking at the kernel's update path, both percpu array and hash maps
+index the user buffer by logical CPU ID:
+
+kernel/bpf/arraymap.c:469 bpf_percpu_array_update()
+    for_each_possible_cpu(cpu) {
+            ptr = per_cpu_ptr(pptr, cpu);
+            val = (map_flags & BPF_F_ALL_CPUS) ? value : value + size * cpu;
+
+kernel/bpf/hashtab.c:1038 pcpu_copy_value()
+    for_each_possible_cpu(cpu) {
+            ...
+            copy_map_value_long(&htab->map, per_cpu_ptr(pptrs, cpu),
+                    value + off + size * cpu);
+
+With the mask 0,2-3 (num_possible_cpus() = 3, nr_cpu_ids = 4), the
+update walks possible CPUs {0, 2, 3} and indexes the buffer as:
+
+  cpu 0:  *(value + 0)  = buf[0] = 0   (intended)
+  cpu 2:  *(value + 16) = buf[2] = 3   (expects 2, gets 3)
+  cpu 3:  *(value + 24)             (past the 24-byte buffer end)
+
+The userspace layout is packed (3 entries), but the kernel accesses it
+as sparse (indexed by CPU ID). The test sized the buffer for
+num_possible_cpus() bytes, but the kernel's 'size * cpu' indexing can
+exceed that when the possible mask has holes.
+
+Should the userspace buffer either be laid out by CPU ID (sized for
+nr_cpu_ids, with holes at non-possible indices), or should the kernel's
+update path use packed indexing like the lookup direction does?
+
+> +	if (!ASSERT_EQ(slot, nr_cpus, "possible CPU mask weight"))
+> +		goto exit;
+>
+>  	skel = test_map_lookup_percpu_elem__open();
+>  	if (!ASSERT_OK_PTR(skel, "test_map_lookup_percpu_elem__open"))
+>  		goto exit;
+>
+>  	skel->rodata->my_pid = getpid();
+> -	skel->rodata->nr_cpus = nr_cpus;
+> +	skel->rodata->nr_cpu_ids = nr_cpu_ids;
+>
+>  	ret = test_map_lookup_percpu_elem__load(skel);
+
+[ ... ]
 
 
-Best regards,
-Krzysztof
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33521264909
+--===============4761417725018966106==--
