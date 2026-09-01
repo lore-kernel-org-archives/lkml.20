@@ -1,127 +1,138 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA93F46C838;
-	Tue,  1 Sep 2026 08:28:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE66442392
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:28:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788251285; cv=none; b=idqbJJ1bhAk57aR1oLKOy8LSMswC62UlJ1TMbOmg0izlZdn3xuH4lzA49cHfWCHjS8GtguDuEV92Vb66ohc21eBVBldAs0Rr9OTZ3TTnOZNbaVFaNfphIM8C2vtyH8vm3QHu6+QVkyAydCyahXZiZod3eSIC+gX7/29Wiwtn9NA=
+	t=1788251293; cv=none; b=k1xJ9tzAEIqEWWeG5SU6KQVMxU4Luhe5VDVfEK9afH1be2ydgypG5T1j6FWQLbU4lOpMc43uzSNRLecftIm0WEo1GSqXigC6ig1L2hWJvTKLhiSAb8qCYWtG1f4qXdwdxuH9uFWx8R11OdwxJ+SJrGBXVfTaIxwnMlswiHViYxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788251285; c=relaxed/simple;
-	bh=hleEjYPfqFEBLCARm2sQTGnwfh0JoVgAn8WRk1JfNqI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WUsK5LvNEhHk5XlWTC4jFWg/Aj5IUH7SJUr+qD2/YhAmhJwFjg2cQG2uBO3d3J/Pdm3qBNFCcdwGr1xKq8UepXy0gUxivYup4RAflVE/A01nd0wiD5cNl26pBBA+xmLTrVwfC3ObzoxYvziBmGLbxemfreznAqAmiD7R1RwMDxw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y//tAZWi; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788251293; c=relaxed/simple;
+	bh=8hx4lWUeNsl6WuKb5D+JS28TM0IqYc7QKB2TLo9n1Mo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=US0qb6p6+XGV2z2BX1W748M4Y7RVNe/o0JsuHFZKJLiRPMW7LO4tm9TbzufvIH/coVDeIp2hwP0rl1zn8xNJtJqNKGaHo1G664Gptn/0e0WdLtqlvkGjLmEmBDQrmNuMbK3rKpPgGrowcb70jYdtJ7dzG/yxf9okpaXV4i4oaYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=FBuCIVFX; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y//tAZWi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788251284; x=1819787284;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=hleEjYPfqFEBLCARm2sQTGnwfh0JoVgAn8WRk1JfNqI=;
-  b=Y//tAZWiaDqdJ1UFwbQ3nHZlBzZ/n2RDRaqrXsncaVOSbLOAJJxgZUDa
-   w1Qo5d0/ZS89gJffLSwhuZHasFte78QlZC1BrEN5o//G3Idf2M0QWTrxJ
-   cc4BKfCnDoe6eH0wse1ICFmX1DertVXTfMEIswzPkgZFPucUc63yiBM16
-   1iVcysabRQVYV5CPkVQ/qXJUas0RcqqR9vDbHBziT2Z74w/mZfJkz4dAn
-   4syIOm678IOpfz/ofnkVHFFVCtIsLre+ZJOOzpdsJB/ZuFV5lFiyX4FNB
-   lqOes5ffXaCMg9wAeurlBEWMMgzJ9N0JgWzi+4nejXi3IJs/MvNiXWB47
-   g==;
-X-CSE-ConnectionGUID: rPS6t9HqRda8AL3xn+4edg==
-X-CSE-MsgGUID: gTv36zfuQsWnq1nQi6ZHjQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="91186623"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="91186623"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 01:28:03 -0700
-X-CSE-ConnectionGUID: 80CGQDCnTLmQe2YaAC/EpA==
-X-CSE-MsgGUID: cQhgNP0kTWyCWQ318hE2gw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="307244930"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.192])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 01:28:00 -0700
-Date: Tue, 1 Sep 2026 11:27:56 +0300
-From: Tony Lindgren <tony.lindgren@linux.intel.com>
-To: Binbin Wu <binbin.wu@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, seanjc@google.com,
-	pbonzini@redhat.com, dave.hansen@linux.intel.com,
-	andrew.cooper3@citrix.com, nik.borisov@suse.com, kas@kernel.org,
-	rick.p.edgecombe@intel.com, xiaoyao.li@intel.com,
-	chao.gao@intel.com
-Subject: Re: [PATCH v3 1/4] KVM: TDX: Track configurable CPUID bits allowed
- by KVM
-Message-ID: <apaMjOzUb35SnoTt@tlindgre-MOBL1>
-References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
- <20260827031837.2863609-2-binbin.wu@linux.intel.com>
- <apZw3G2volNpLiBD@tlindgre-MOBL1>
- <0d1a90e9-8ada-4b82-9ec7-2c8bff9caedd@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="FBuCIVFX"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49a97714f5dso34874925e9.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 01:28:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788251290; x=1788856090; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MVfvd1UCarSJibTs2Zkpk5X8/zVFhGRdvXygnFF/0tI=;
+        b=FBuCIVFX5bibuvQUxwz2FA8ozSPuAVeQEv/XzhNF+bRdn/ViHf/q+q11E8ogwnnfIe
+         1ifKOr7mQbUhd3UFHnS2uJAB0lwRYeJvALh3Z1vwebu+fSmQ9QA7FFfaLsTvuHgMO40X
+         XImps/P+RyiE89pTuEIcljNOBzCOHhgmOqiVdR7Ow3IHZOzHZSuT/BHa9XXoc4eBbbvS
+         3AXAr8HqoQGXJ1xfp8/PriUufNeUOpRQxkF1e/6xFS7I3xAl52gVNx1ZYaiDGre2ijoQ
+         JLXPf0vs5RJ/yYLVRGny9cgEBdrpfgKOgSrarfjEe+tKfAGQaP6vFgdx9f+mvUyqnErr
+         YgaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788251290; x=1788856090;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MVfvd1UCarSJibTs2Zkpk5X8/zVFhGRdvXygnFF/0tI=;
+        b=S077kmbVVaRalNLEpG4GlgxkBLfm6ZGHB7x0r+KyzVnjSNQfFACalqH41KM1Q5ypgO
+         D0cMyIi+RCnqvOPzLQd5BEK8uck47EwaMBpCeFnagLcYe7u7psogZpiokcn/cgKarV1F
+         S8mnBdc9UaCzXG3Kvjza1f8LyiqY/L+1KKjBK3RaauscdW8i2hVljKu7p+75hxK/M01G
+         o8k3i7lWKfXR3rB9iEwnsFzLu7Lg2gey6KLJMenwwi+1iG+J2UGdsJdsq/OzF8+LlCyx
+         fMU6DGYuzJnqM/3daGFXHUo0bca5tuyd4+zg4HiHv+3IBwAx6vf8QyRbay22UrwMFg0w
+         hnFg==
+X-Forwarded-Encrypted: i=1; AHgh+RrMm6+Cn/HX0xuI8bSASl7K/sGeeayxC13w4JT26SZ5UwjGKM0MqnVK932JZoxF8QnPw4Z3fvvv+TWiofE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nFtK1ip/1Yo+ICf375Dqq2HVhxS0XgHRVMpvyWYjuYrcwqIfym
+	yZEZ6dXEjGwbf7AD6K3jixjOd2a3Ri6xIKRKFY3jImKAHEFdFyePBy3sslcLpOgDEMo=
+X-Gm-Gg: AR+sD115wsOftZWLr78EbZzT32nqrcvc1DRVjTgtrvvHp77HWxzo0LK1Acq59mSVms5
+	7IZ6DH/rxaVokvqi7gjzfCJW2o2l76Kmg6WuarhDaTvLlNkxKKH2rOA9dnM4UO5Pwr9I8keZW0X
+	BniGnpZqbrG6k7fCOTXgffqGGF7PXTMpnWHprje6CMrzX4tJRmAopsrCUHpVgu6th/OSRRFoV0x
+	oq57M3B60nh+5HgpKwXGM95hykokXVCvtwxfEorhjOnlsxGPHObpTjUZ0lCZRVRSfgOqIrtgxH8
+	jI42aBbAlqhb/GPNSBLDLz2ZBrb2cwISGDkc0uWYsbcvM7+Rcl96Ik9cN6Dqmz4QdBZIeKcyR7/
+	HaUjQEQZG+ygve4rW9WjboK9/jBij1hngpd/gCrRJ/D7CHHHLXyQ/jcOqUsBdDlKyeBqA/lBfbA
+	OyvMkquQDy8+jhrc5L8VLy1pKQGgaPZ+snRje8vb5LmNwo+wQCodA/A8BC1RvraaauOUrud2YCY
+	oZOrPCvNbn5Y8sv/Ti8WQu1q+f+rUgWKmg1Kqpp
+X-Received: by 2002:a05:600c:4453:b0:499:8777:ccba with SMTP id 5b1f17b1804b1-49b91c486abmr437716855e9.12.1788251289880;
+        Tue, 01 Sep 2026 01:28:09 -0700 (PDT)
+Received: from ?IPV6:2001:a61:13f5:3c01:dee6:bd49:2b83:2f74? ([2001:a61:13f5:3c01:dee6:bd49:2b83:2f74])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce0d936sm47212295e9.6.2026.09.01.01.28.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 01:28:09 -0700 (PDT)
+Message-ID: <746c4df4-abd5-4e04-9edc-3ff8f17506bf@suse.com>
+Date: Tue, 1 Sep 2026 10:28:08 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0d1a90e9-8ada-4b82-9ec7-2c8bff9caedd@linux.intel.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] USB: serial: generic: recover from a stalled bulk-in
+ endpoint
+To: Julian Oes <julian@oes.ch>, Johan Hovold <johan@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260901034949.118739-1-julian@oes.ch>
+Content-Language: en-US
+From: Oliver Neukum <oneukum@suse.com>
+In-Reply-To: <20260901034949.118739-1-julian@oes.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 01, 2026 at 04:23:00PM +0800, Binbin Wu wrote:
-> On 9/1/2026 2:29 PM, Tony Lindgren wrote:
-> > On Thu, Aug 27, 2026 at 11:18:34AM +0800, Binbin Wu wrote:
-> >> --- a/arch/x86/kvm/vmx/tdx.c
-> >> +++ b/arch/x86/kvm/vmx/tdx.c
-> >> @@ -52,6 +52,149 @@
-> >>  	__TDX_BUG_ON(__err, #__fn, __kvm, ", " #a1 " 0x%llx, " #a2 ", 0x%llx, " #a3 " 0x%llx", \
-> >>  		     a1, a2, a3)
-> >>  
-> >> +static u32 tdx_cpu_cfg_caps[NR_KVM_CPU_CAPS] __ro_after_init;
-> >> +static_assert(ARRAY_SIZE(tdx_cpu_cfg_caps) == ARRAY_SIZE(kvm_cpu_caps));
-> >> +
-> >> +#define TDX_VALIDATE_CPU_CAP_USAGE(name)			\
-> >> +	BUILD_BUG_ON(__feature_leaf(X86_FEATURE_##name) !=	\
-> >> +		     tdx_cpu_cap_init_in_progress)
-> >> +
-> >> +/* For feature bit that KVM advertised through kvm_cpu_caps[]. */
-> >> +#define TDX_CFG_F(name)					\
-> >> +({							\
-> >> +	TDX_VALIDATE_CPU_CAP_USAGE(name);		\
-> >> +	tdx_cfg_caps |= feature_bit(name);		\
-> >> +})
-> >> +
-> >> +/*
-> >> + * For feature bit KVM allows for TDX guests even though it is not advertised
-> >> + * through kvm_cpu_caps[], e.g. MWAIT.
-> >> + */
-> >> +#define TDX_CFG_EXTRA_F(name)				\
-> >> +({							\
-> >> +	TDX_VALIDATE_CPU_CAP_USAGE(name);		\
-> >> +	tdx_cfg_extra_caps |= feature_bit(name);	\
-> >> +})
-> >> +
-> >> +#define tdx_cpu_cfg_cap_init(leaf, feature_initializers...)		\
-> >> +do {									\
-> >> +	const u32 __maybe_unused tdx_cpu_cap_init_in_progress = leaf;	\
-> >> +	u32 tdx_cfg_extra_caps = 0;					\
-> >> +	u32 tdx_cfg_caps = 0;						\
-> >> +									\
-> >> +	feature_initializers						\
-> >> +	tdx_cpu_cfg_caps[leaf] = (tdx_cfg_caps & kvm_cpu_caps[leaf]) |	\
-> >> +				 tdx_cfg_extra_caps;			\
-> >> +} while (0)
-> > 
-> > How about make some of the above into just static functions for easier
-> > readabilyt?
-> 
-> Thanks for your review!
-> 
-> This deliberately mirrors the existing kvm_cpu_cap_init() / F() / XXX_F()
-> pattern in arch/x86/kvm/cpuid.c.
-> 
-> Similar to kvm_cpu_cap_init(), tdx_cpu_cfg_cap_init() takes a variadic list of
-> statements that mutate two local accumulators (tdx_cfg_caps, tdx_cfg_extra_caps). 
-> That's inherently a macro-scoped construct.
+On 01.09.26 05:49, Julian Oes wrote:
+> A USB serial port can go permanently silent when its bulk-in endpoint is
+> halted: the read URBs complete with -EPIPE, which the generic read
+> callback has always treated as fatal, and no further data arrives until
+> user space closes and reopens the tty.
 
-Ah OK thanks I now noticed the feature_initializers.
+But why do you get a port stalling?
+It seems your hardware is quite broken.
+
+[..]
+> Use a dedicated work item rather than the existing per-port work. The
+> latter is scheduled from every write completion and must not be
+> cancelled on close, as the line discipline depends on it. Stall
+> recovery resubmits the read URBs and must therefore be cancelled
+> wherever the reads are stopped, that is, on close, suspend and
+> disconnect.
+
+Well, I am sorry, but no.
+
+Your conceptual mistake is seeing the recovery from stall
+as an indivisible process. It is not, as it has two parts.
+Once your port is in a stall, you should send the feature
+request to unblock the halt. There is no reason to cancel the
+feature request if you close a port. You just need to refrain
+from resubmitting the read URB.
+In fact, if you were to be really comprehensive you need
+to wait for the result of a feature request on the way
+when you reopen a port.
+
+> @@ -128,8 +144,16 @@ void usb_serial_generic_close(struct usb_serial_port *port)
+>   		spin_unlock_irqrestore(&port->lock, flags);
+>   	}
+>   	if (port->bulk_in_size) {
+> -		for (i = 0; i < ARRAY_SIZE(port->read_urbs); ++i)
+> -			usb_kill_urb(port->read_urbs[i]);
+> +		usb_serial_generic_kill_read_urbs(port);
+> +		/*
+> +		 * The read URBs are dead now so no further stall can be
+> +		 * reported, but stall recovery may already be running and may
+> +		 * have resubmitted them. Wait for it to finish before killing
+> +		 * the URBs for good.
+> +		 */
+> +		cancel_delayed_work_sync(&port->stall_work);
+> +		usb_serial_generic_kill_read_urbs(port);
+
+And that is a race condition. Rekilling does not help reliably.
+If your timing is unlucky enough any subsequent operation can be a nop.
+A correct sequence would be something like
+
+poison URBs -> cancel the works -> unpoison the URBs
+
+	Regards
+		Oliver
+
