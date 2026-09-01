@@ -1,259 +1,313 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mta0.migadu.com (out-160.mta0.migadu.com [91.218.175.160])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6125B47CC7F
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:03:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788260585; cv=pass; b=GNHdEAJUuIik9G135Of2IY1C/TuhIbVxVaw7ZyLJY7NkkTUWoKZCVlGWPDiLTY03zRta547QTq1A2GNx3eANhWMlnhiV40fahm5rZBJv3KSoc0DOXHdelMzDEvqFtfrMurQjOMo4MMa772HxIsAv4SNT2fsSsEUuxRsjc/9Bwqs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788260585; c=relaxed/simple;
-	bh=9pZcWmQuwO7sUinLiZN20It+LnS0MxOvZ2XwTQJXn+k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NXvWsWUy53bFwgFQoUMn7tzCt50ET63xLjfLegKZwFjcXDxuVVEDhLxRSpnHeREVi6mRL8iXVL8BxyCi9k/beTnc/QcFmhc9XHhIXzZ3CuKtIhT9ifMh6bDR7AaR5974/N91uMYHvk9KE5f+S6pxHuJAwnv+wTfs6pYB9Bg++NE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=abHlSeKO; arc=pass smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D91847CC67
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:03:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.160
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788260612; cv=none; b=Ttj2FxyCoOGdv71Uh6XehzkCsBo8n6e04U2bV2IYA/5hkU/FEzzxyeRp2cZURYGufhZqBbvhi0UmuXyAm+uUtpWxZIMIEF3o0z3LKflDWTWft33MyXySSyDRwAyffiZsOobhRW+Teaiflf3nT7ecJpGpYT1cPv3vtdmSxmmoJhE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788260612; c=relaxed/simple;
+	bh=10BPoXSvNRKLCIsLAtRnqoN5RbDX+QNvv2CGSYHUBm0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mMYU4/BI0srG8CMypakCi3se3slcrRvA8WglFvXGzS7V6pBlBdC7+wS1KBor6bbxPPxlI6I9XN1TCDS+hW3N8CU8Ndf7I6OtHWfAtWWB5JM/lHq7o3NzpBfpMDn25VeJVH4rxXWH+9Phhebj2ZdZWfFZtulYevLspK4rSXGBWYc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hXq1J0fi; arc=none smtp.client-ip=91.218.175.160
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="abHlSeKO"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d71a50caa9so9747255ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 04:03:04 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788260584; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HyhL/9Q8SZACpNwCSnQuvzaODfkriGmRP+1edaYDIwkq6LTNBVJv/L2EywS0rWKjJ2
-         ylgpgyTzB3A4EQnxPoxvvCDyUGQl91pZ6IOJvmj9BFVkZmvwGGgTd+SkiXeK51fvNlTG
-         zddWHlxDMaLkXJKta/xy9qmzGFKl7nFw59p3vm30JAQNN+li2QZ60w3/kUDyurFrujGr
-         Rd24/N4Z49jas7HYrVVLJxuxlYKyVyIhGioMPZmzDtC7ROz6nw7sfJTfD1JZH1NWCuTq
-         i9kVlOeKX6wONq3i6dCQD0I1zrBoQm9aRaQtb04BdA2ouKisefJq7NFkIVPWUejg1muk
-         R22Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=xni6XiC9n8biLyj8Lypf2TuiINVCW7jBKaUVbdQaKLQ=;
-        fh=91A9323z2GiHJCCQPV9dNR8CGg4Bw1+4QnXCuJCTvwE=;
-        b=P88J5SGDMX4ztUdFGA/Db2DHVc3Bgzvav+7QigHA06oI5dSVup0PYm/3SVHBYaQ6aO
-         UpFYNUog/1KIINHxJ/bYXr5D3Q6374k+g9/26NdRU8LtwlImnEdRFEhVs7CeS2xJWXI+
-         p/kKYqimTlVCUE5gW9EAnAczDocnXeb1h/De6Ie2C8tpwhnFvn0LpH0ELXzE9iu6BNFB
-         LCOA9iN/JNnMV6Yr24RVOq8/NL7chS2GA8hkhg1fhbC+Pupp5Zu8FUZm4ZLmMR8bXzK3
-         fcE0RKv49hpO/DCtjVY87pdDdnKuiuM/CJGYwR053ECOVClU4dfaR8v/6zXoAM8JLxOP
-         6tQA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788260584; x=1788865384; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xni6XiC9n8biLyj8Lypf2TuiINVCW7jBKaUVbdQaKLQ=;
-        b=abHlSeKO1AlUkgHdCmsPeiYX0dVDAN8SErGde6xEa4kLUKKXRyy/XdyoIsEFHuDjsk
-         aVxqvDPizO4FDkDxtF/L3FTb0bMtKyKDO0KPK4Rty+FgRcmBXeDO/UoilxZmqxUKIF7k
-         PRl0RbmHm2Ph1r2qw2TVsn4fhUH7vRRPB8zRbclFC5eX7LepmbYVww7u5ZnrVfVn1Tx+
-         hzR/j656jmFfbQwq9CMhxiZbKHbtmcjrntWyJplJgmnf8AMmXTSAG9BWem5WhKV+2ahS
-         nzOnIIe0Wrfnmc5aQAkQfgSncBjZQ5xIO5gdx++4Zf5qStqQoMSHIaf9W3CR1HFXLwY0
-         C+Fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788260584; x=1788865384;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xni6XiC9n8biLyj8Lypf2TuiINVCW7jBKaUVbdQaKLQ=;
-        b=MleV5uyPdh8dowFS1C1l+HzP0Tc5ms7Rpn/QoAHvgoZFMBRBme9B9Mddmo1sShiQLF
-         OQHr/vb8K6K62AGEs8YTI4emFJsaYL5f3kPkefKca/DW4vEd6hrlQdKmVVet6sRhYIKP
-         l+DOnSnElxvzDYy9z/Zk//4Z1VTygl59XsWJ/0J3cBnKa+Ep2KJ3ZMxoeApuBhP9lWW0
-         rjw0sp5up6YYD2M1uae5TXZbtED9ZfhHwmSWZk0nZdI4qq+9Ds3N5uO6qBxjArn2ffDn
-         Wo9VlFBPStiTLiDJNkWgKo6M/EMfDQQjhN1NGT/eiMpYaMsx7feeNPHUvI3+A4Ffhw9D
-         Qwjg==
-X-Forwarded-Encrypted: i=1; AKwUvByoDaJvgIpZwImPKs1OnMSqM7N09Pi+0+V1RPKBZ10hGu//jM1OQoZoQd9qHk0gC7iaEuGuGPced48r0Pc=@vger.kernel.org
-X-Gm-Message-State: AFuF++ly40l1C82S0mbxmYmlUYzjrftQ4pTs95AIZTikTZyuzsCvhEiY
-	YiYazxmS775XbbLgS8RDaRqmFA0cD0CrNxUW3HODGxFgQXoZgnjk4/a94N4QpGWjwA+zN94Tcx3
-	BaOQ80Izsfge74Aa/OuWIIXiNxn+XfC8=
-X-Gm-Gg: AYBFou0RmhdoHxOdc3xBISOd5gtaxc9ZQgkhKgDj/N4p/GqbMYfVZdw6rKdLyn2JYNq
-	1WoCk1Uf3yBXfZVs5OSugk6HsSG/S1wrcuBMOYrdP4OfVgcOhVJ75+uJT4xko8n4I1Xj464dbde
-	KFRPmN1nnCnshCmz/2dV45V0yBIpJcRsRHHvCyKuOVMCGerkJhKJcscDlwMUht4pQ/LdZ8o9NVA
-	4bMzngPN0tjaopYst3hQemw8xiNNvO+yWLfEPyJmC7N1oKjzuwtQwbzThK/Eua+nZRBbzjd00f/
-	QpJGqvUPeeVdb/Pb5DNlW7dbStYG1LiZMeFvO2UKVUL9ZssV1hqKx4q/Q1+AsSzu466Sti23mco
-	V4w==
-X-Received: by 2002:a17:902:f70a:b0:2d9:56d8:75f with SMTP id
- d9443c01a7336-2d956d80878mr69911895ad.9.1788260581562; Tue, 01 Sep 2026
- 04:03:01 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hXq1J0fi"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=10BPoXSvNRKLCIsLAtRnqoN5RbDX+QNvv2CGSYHUBm0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788260608; v=1; x=1788865408;
+ b=hXq1J0fiMsGnHny6V4KmVpDoCvHBBUtYn6OYRuvNFnzQVc1FfomDVkzWY+O319K77hhjkpUt
+ sh6EQsk3tfU301h9JOxVRqU4frkmRCaTWPp54i8E8OxypAtA9lZ/nMeRW2ciq7WklRgYo7IYVpY
+ 69AAvQtoGa5csoRNxmoKQ1fE=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id e5b3d4cddfa1846c;
+	Tue, 01 Sep 2026 11:03:27 +0000
+X-Mizu-Trace-ID: e5b3d4cddfa1846c
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 1 Sep 2026 19:03:25 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: Kairui Song <ryncsn@gmail.com>
+Cc: Baoquan He <hebaoquan@kylinos.cn>, linux-mm@kvack.org,
+	akpm@linux-foundation.org, chrisl@kernel.org, kasong@tencent.com,
+	nphamcs@gmail.com, baohua@kernel.org, youngjun.park@lge.com,
+	hannes@cmpxchg.org, yosry@kernel.org, shikemeng@huaweicloud.com,
+	chengming.zhou@linux.dev, david@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 00/16] xswap: extendable swap device backed by zswap
+Message-ID: <apaw_XmqnEcY8sv7@MiWiFi-R3L-srv>
+References: <20260827094509.1016740-1-hebaoquan@kylinos.cn>
+ <apVNB2FRTFMDtvGP@KASONG-MC4>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824-lockdep-kunit-v2-0-36a6fec9f72e@gmail.com>
- <20260824-lockdep-kunit-v2-2-36a6fec9f72e@gmail.com> <205be33b-362d-45cb-b3a1-cadaba87b44a@davidgow.net>
-In-Reply-To: <205be33b-362d-45cb-b3a1-cadaba87b44a@davidgow.net>
-From: Malte Wechter <maltewechter@gmail.com>
-Date: Tue, 1 Sep 2026 13:02:47 +0200
-X-Gm-Features: AcwNN1W79p2fFOH7uCKy1nc1ZzYo-juVYXphO2_ZqdYVlaVgFvGUZW4sRrBNbXc
-Message-ID: <CAPB1BzeDC=V+jKZgX-2gucSZs8vOmZBvUgZLS8kTLvWa0x5S-Q@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] kunit: add KUnit test to assert kernel state
- before KUnit suites are run
-To: David Gow <david@davidgow.net>
-Cc: Brendan Higgins <brendan.higgins@linux.dev>, Rae Moar <raemoar63@gmail.com>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
-	linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <apVNB2FRTFMDtvGP@KASONG-MC4>
 
-Den tirs. 25. aug. 2026 kl. 13.00 skrev David Gow <david@davidgow.net>:
->
-> Le 24/08/2026 =C3=A0 21:32, Malte Wechter a =C3=A9crit :
-> > add pre-defined KUnit test suite and test case that asserts both
-> > `debug_locks` and `TAINT_WARN` prior to running any (user) KUnit tests.
-> > This asserts integrity before tests are run.
-> >
-> > Signed-off-by: Malte Wechter <maltewechter@gmail.com>
-> > ---
->
-> I'm not quite as convinced by this as I am by the first patch. While
-> ensuring the state of the system is good before tests are run is useful,
-> this does seem a bit heavy-handed in some respects.
->
-> This could probably use a more detailed description, particularly
-> describing why such a test is useful, and why it would need to be
-> implemented in a special way.
->
-> And I do think the implementation here is a bit _too_ special-cased. One
-> other possibility would be to prepend this suite using
-> kunit_merge_suite_sets(), so we don't need to have any special handling
-> of (e.g.) the test count. This could also allow this special suite to be
-> filtered out (which has both advantages and disadvantages).
->
-> It might also be nice to have this configurable independently from the
-> other checks, and maybe at runtime (via a KUnit module / command-line
-> parameter), particularly if this can't be filtered on. And, as before,
-> this definitely needs to be documented. People need to know how to
-> enable it, and where all of these extra results from tests they didn't
-> enable came from.
->
-> Thoughts?
-I get your point, the purpose of this special test suite is to assert
-that the kernel is in a "fine" state before any unit tests are run. If
-this
-check is left out the false positives could occur if the system is in
-a bad state before the tests are run.
-The reason that the case was handled differently compared to other was
-because this assertion _must_ be run before any other tests,
-and when kunit_merge_suite_sets() is called from kunit_run_all_tests()
-it also filters the test suites, which would not give any guarentee
-that this
-special suite gets run first.
+On 09/01/26 at 01:54am, Kairui Song wrote:
+> On Thu, Aug 27, 2026 at 05:44:50PM +0800, Baoquan He wrote:
+> > xswap is an extendable swap device with no backing storage. Swapped-out
+> > pages live only in zswap, so the device wastes no disk space and its
+> > size is independent of any physical device.
+> > 
+> > xswap decouples PTE swap entries from physical backing storage. The
+> > cluster_info array is backed by a sparse vmalloc (VM_SPARSE) area that is
+> > grown and shrunk on demand:
+> > 
+> > - Grow: when cluster allocation runs out of free clusters and the device
+> >   is below its ceiling, more physical pages are mapped into the VM_SPARSE
+> >   area and their clusters are added to the free list.
+> > 
+> > - Shrink: when contiguous free clusters accumulate at the tail of the
+> >   mapped range (tracked in O(1) via nr_free_tail), they are unmapped and
+> >   the backing pages freed.  Shrink is deferred to a workqueue to avoid
+> >   lock recursion.
+> > 
+> 
+> Hi Baoquan,
+> 
+> I didn't check too many details on how the implementation in previous
+> RFC until now, After looking at it, using VM_SPARSE to setup the cluster
+> info area is a really smart idea, really good job!
+> 
+> I think many info are missing in the cover letter though so I wasn't
+> sure how this grow and shrink works from the description, after
+> checking the code, it looks much cleaner to me now, correct me
+> if I'm wrong:
+> 
+> Every xswap device will have a huge and fixed "hard limit"
+> (si->max and si->nr_clusters_max), and practically can be considered
+> large enough to hold any workload, and won't change once swapon
+> is done.
+> 
+> The actually data (si->cluster_info) of xswap device is completely
+> sparse and dynamic using VM_SPARSE, and so we don't need to change
+> any existing routine. It grow/alloc and shrink/free automatically by
+> the kernel, limited or driven by a "soft limit" (si->nr_clusters
+> and si->pages) which you can modify using the interface below.
 
-I do agree that this initial way is maybe a bit coarse, and i will see
-if i can find a better fit for this assertion. But i dont want to
-leave it out.
->
-> Cheers,
-> -- David
->
-> >   lib/kunit/executor.c |  8 +++++++-
-> >   lib/kunit/test.c     | 30 ++++++++++++++++++++++++++++++
-> >   2 files changed, 37 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/lib/kunit/executor.c b/lib/kunit/executor.c
-> > index b0f8a41d61d36..0db67fe7f09f9 100644
-> > --- a/lib/kunit/executor.c
-> > +++ b/lib/kunit/executor.c
-> > @@ -290,9 +290,15 @@ void kunit_exec_run_tests(struct kunit_suite_set *=
-suite_set, bool builtin)
-> >       size_t num_suites =3D suite_set->end - suite_set->start;
-> >       bool autorun =3D kunit_autorun();
-> >
-> > +     #ifdef CONFIG_KUNIT_EXTRA_ASSERTS
->
-> Nit: Let's not indent the #ifdefs.
->
-> > +     size_t num_suites_plus_extra =3D num_suites+1;
-> > +     #else
-> > +     size_t num_suites_plus_extra =3D num_suites;
-> > +     #endif
-> > +
->
-> I'm not particularly happy with this way of adding an extra suite.
->
-> >       if (autorun && (builtin || num_suites)) {
-> >               pr_info("KTAP version 1\n");
-> > -             pr_info("1..%zu\n", num_suites);
-> > +             pr_info("1..%zu\n", num_suites_plus_extra);
-> >       }
-> >
-> >       __kunit_test_suites_init(suite_set->start, num_suites, autorun);
-> > diff --git a/lib/kunit/test.c b/lib/kunit/test.c
-> > index 99773e000e1b7..e64c6d1575280 100644
-> > --- a/lib/kunit/test.c
-> > +++ b/lib/kunit/test.c
-> > @@ -835,6 +835,30 @@ bool kunit_enabled(void)
-> >       return enable_param;
-> >   }
-> >
-> > +#ifdef CONFIG_KUNIT_EXTRA_ASSERTS
-> > +#define DEBUG_LOCKS_OK 1
-> > +#define TAINT_WARN_OK 0
->
-> Not totally sold on these #defines: I think I'd prefer to just have the
-> literal 1/0.
->
-> > +
-> > +static void pre_kunit_assert(struct kunit *test)
-> > +{
-> > +     KUNIT_EXPECT_EQ_MSG(test, debug_locks, DEBUG_LOCKS_OK,
-> > +             "debug_locks are off before any test ran");
-> > +     KUNIT_EXPECT_EQ_MSG(test, test_taint(TAINT_WARN), TAINT_WARN_OK,
-> > +             "kernel already TAINT_WARN tainted before any test ran");
-> > +}
->
-> If we are going to generate a special suite, let's have the taint and
-> lockdep checks as separate tests.
->
-> This would also make it easier to have them be configurable separately.
->
-> > +
-> > +static struct kunit_case pre_kunit_assert_cases[] =3D {
-> > +     KUNIT_CASE(pre_kunit_assert),
-> > +     {}
-> > +};
-> > +
-> > +static struct kunit_suite pre_kunit_assert_clean_state_suite =3D {
-> > +     .name =3D "pre_kunit_extra_asserts",
->
-> I think we could probably find a better name for this.
-> "initial_system_state" or similar might be better?
->
-> > +     .test_cases =3D pre_kunit_assert_cases,
-> > +};
-> > +
-> > +#endif /* CONFIG_RUST_KUNIT_EXTRA_ASSERTS */
-> > +
-> >   int __kunit_test_suites_init(struct kunit_suite * const * const suite=
-s, int num_suites,
-> >                            bool run_tests)
-> >   {
-> > @@ -857,6 +881,12 @@ int __kunit_test_suites_init(struct kunit_suite * =
-const * const suites, int num_
-> >       }
-> >       static_branch_inc(&kunit_running);
-> >
-> > +     #ifdef CONFIG_KUNIT_EXTRA_ASSERTS
-> > +     kunit_init_suite(&pre_kunit_assert_clean_state_suite);
-> > +     if (run_tests)
-> > +             kunit_run_tests(&pre_kunit_assert_clean_state_suite);
-> > +     #endif
-> > +
-> >       for (i =3D 0; i < num_suites; i++) {
-> >               kunit_init_suite(suites[i]);
-> >               if (run_tests)
-> >
->
-Best regards,
-Malte :)
+Thanks a lot for careful checking, and you are quite right about the
+mechanism and details.
+
+> 
+> Once concern is that the "hard limit" is now the total RAM size. Isn't
+> that actually a bit small? Will be better if that one is tunable too?
+> With a parameter, and before swap on, as the hard limit is hard to
+> adjust once swapon is done. Any thing limiting this?
+
+Chris and I talked about this, we both think the total RAM size is a
+good hard limit. Because xswap is similar with zswap/zram in essence by
+compressing memory content to save memory. So the real limit is the
+zswap pool, not the slot count. In fact it's never able to utilize the
+total system RAM, right? Making it larger than system RAM is
+meaningless.
+
+Memory hotplug is a case in which system RAM can be enlarged during
+system running, while that can be taken into account later as a enhanced
+feature if it's really wanted.
+
+> 
+> And I think these details better be mentioned bit more too.
+
+Sure, I can put these thoughts into cover letter or patch log for
+reference.
+
+> 
+> > A per-device ceiling (nr_clusters) bounds growth and is adjustable at
+> > runtime via debugfs.
+> > 
+> > Interface:
+> > 
+> >   /sys/kernel/mm/xswap/create           write "<percent> [<prio>]" to
+> >                                         create a device; percent is a
+> >                                         percent of RAM (0 for the default),
+> >                                         prio is an optional swap priority
+> >                                         (default DEF_SWAP_PRIO)
+> 
+> With what I have read so far, the mandatory percent limit here is kind of
+> strange, even with 0 as default. Why not make both args optional and just
+> let it grow without any limit by default? It looks more "fully dynamic"
+> that way.
+
+I'd like to clarify why we default to a soft limit rather than "no limit".
+
+The soft limit is the administrator's deliberate size choice, similar
+to how zram requires an explicit size. On a multi-TB system the
+cluster_info array is not free, so planning how much of it to allow is a
+real decision. The current behavior is: grow up to the soft limit as usage
+demands, then stay there. We do not shrink on idle, and shrink only happens
+when the admin lowers the limit. So there is no grow/shrink oscillation in
+normal operation.
+
+A default of "no limit / fully dynamic" will instead let the device grow
+without restriction under memory pressure. While allocating cluster_info
+pages exactly when memory is scarce, relying on shrink to reclaim afterwards,
+which is the oscillation we want to avoid. So we'll make both create arguments
+optional, but the default will be a sensible ceiling rather than unbounded.
+
+> 
+> >   /sys/kernel/mm/xswap/destroy          write a swap type to tear down
+> >                                         a device
+> >   /sys/kernel/debug/xswap/type<N>_cluster_limit
+> >                                         read/write the per-device
+> >                                         cluster ceiling
+> 
+> Having a lot of type<N>_cluster_limit in a seperate debug path
+> looks a bit odd to me too, and the _cluster_limit doesn't look
+> like a debug interface, we will be relying on debugfs for setting
+> the limit, also see below.
+
+Agreed on both — it's a real interface, will move to sysfs, and will
+use size (pages/MiB) instead of cluster count.
+
+> 
+> > 
+> > Since xswap has no backing, swapped-out pages are stored compressed in
+> > zswap: physical writeout is skipped, and zswap writeback is disabled when
+> > every swapfile in the system is an xswap device.  xswap requires zswap, so
+> > device creation is refused when zswap is unavailable.
+> > 
+> > Naming:
+> > ======
+> > I'm going with "xswap" (the "x" for extendable/extension) rather than "vswap".
+> > Chris suggested this name, and this aligns with the "VFS-like swap layers"
+> > direction Chris Li described in the first swap abstraction LPC talk
+> > (co-hosted with Yosry) the swap ops and the xswap extension interfaces in
+> > this series are moving toward exactly that. I don't have a strong preference
+> > between xswap and vswap, so if reviewers object to the name, please comment.
+> > 
+> > Note:
+> > =====
+> > This patchset only build the base. On top of this, the subsequent core code
+> > implementation of xswap writeback, rmap etc can be done more easily. E.g, we
+> > only need add one field in struct swap_cluster_info to let xs_table point to
+> > physical swap entry, or zswap entry etc. On top of this patchset, no need to
+> > stir core data structure too much or introduce extra data structure.
+> > 
+> > --- a/mm/swap.h
+> > +++ b/mm/swap.h
+> > @@ -57,6 +57,9 @@ struct swap_cluster_info {
+> >         u8 order;
+> >         atomic_long_t __rcu *table;     /* Swap table entries, see mm/swap_table.h */
+> >         unsigned int *extend_table;     /* For large swap count, protected by ci->lock */
+> > +#ifdef CONFIG_XSWAP
+> > +       unsigned long *xs_table;
+> > +#endif
+> > 
+> > Testing (taken on qemu kvm guest with 8G memory):
+> > =========
+> > 1. enable zswap and create/destroy xswap device
+> > ~# echo 0 > /sys/kernel/mm/xswap/create
+> > -bash: echo: write error: Operation not supported
+> > ~# echo 1 > /sys/module/zswap/parameters/enabled
+> > ~# echo 0 > /sys/kernel/mm/xswap/create
+> 
+> Recent proposal have mentioned mm/xswap, and mm/swap/tiers, while we
+> already have mm/swap and module/zswap. I think it's fine to use sysfs
+> to organize things but will it be good to have it in unified way to
+> put them all under mm/swap/? And will mkdir be prettier than
+> echo > create? For these part, just an idea, no strong opinion here.
+
+
+Creation passes percent+priority atomically; a plain mkdir can't. I'd
+keep echo > create. On mm/swap/ unification, happy to align once the
+direction settles, while keep this series as is for now.
+> 
+> > ~# swapon
+> > NAME   TYPE  SIZE USED PRIO
+> > xswap0 xswap 2.3G   0B   -1
+> > ~# echo 0 > /sys/kernel/mm/xswap/destroy
+> > ~# swapon
+> > 
+> > 2. create xswap device and tune the zswap size
+> > 
+> > ~# echo "50 10" > /sys/kernel/mm/xswap/create
+> > ~# echo 0 > /sys/kernel/mm/xswap/create
+> > ~# swapon
+> > NAME   TYPE  SIZE USED PRIO
+> > xswap0 xswap 3.9G   0B   10
+> > xswap1 xswap 2.3G   0B   -1
+> > 
+> > ~# cat /sys/kernel/debug/xswap/type0_cluster_limit
+> > 1990
+> > ~# cat /sys/kernel/debug/xswap/type1_cluster_limit
+> 
+> Can we just use size instead? Calculating the cluster number
+> seems not neccessary, only making it harder to use, if this
+> is suppose to be a formal interface and not debug only.
+
+As said at above, I will change to size as suggested.
+
+> 
+> > 1194
+> > ~# echo 2048 > /sys/kernel/debug/xswap/type0_cluster_limit
+> > ~# echo 2048 > /sys/kernel/debug/xswap/type1_cluster_limit
+> > ~# swapon
+> > NAME   TYPE  SIZE USED PRIO
+> > xswap0 xswap   4G   0B   10
+> > xswap1 xswap   4G   0B   -1
+> > 
+> > 3. under heavy memory pressure tune swap size or destroy xswap device
+> > 
+> > ~# stress-ng --vm 1 --vm-bytes 8G --vm-keep --timeout 120s &
+> > 
+> > ~# echo 1024 > /sys/kernel/debug/xswap/type0_cluster_limit
+> > ~# swapon
+> > NAME   TYPE  SIZE USED PRIO
+> > xswap0 xswap   2G 2.6G   10
+> > xswap1 xswap   4G 182M   -1
+> > ~# echo 1024 > /sys/kernel/debug/xswap/type1_cluster_limit
+> > ~# swapon
+> > NAME   TYPE  SIZE   USED PRIO
+> > xswap0 xswap   2G   1.4G   10
+> > xswap1 xswap   2G 315.4M   -1
+> > 
+> > ~# echo 0 > /sys/kernel/mm/xswap/destroy
+> > ~# swapon
+> > NAME   TYPE  SIZE USED PRIO
+> > xswap1 xswap   2G 1.1G   -1
+> > 
+> > I tried create/destroy and grow/shrink xswap device under heavy
+> > memory pressure, all passed.
+> 
+> Do you have some performance reading on this? I remember you had
+> some in your previous RFC, better to at least keep a link, I spend
+> quite some time to find the previous zswap test result from you.
+> I noticed this series is different from what you sent before as it
+> only contains the foundation so there could be no performance gain
+> currently but still, might worth mentioning what this could achieve.
+
+The initial version is about removing xarray in zswap, that has a obvious
+performance improvement data. This series is the foundation
+(grow/shrink/destroy). I will think about ways to get some testing data,
+e.g xswap vs zswap (no writing back).
+
+> 
+> Another thing is, maybe we can defer the implementation of shrink
+> for easier understand and review? The memory consumption is totally
+> acceptable even without shrink.
+
+I understand the motivation, but I don't think it reduces the review burden
+as much as it seems. When a device is removed (destroy/swapoff), its mapped
+pages must be released regardless of shrink, otherwise they leak. And that
+cleanup uses the same unmap-and-free code shrink does. So deferring shrink
+removes only the runtime shrink triggers, not the unmap machinery, which
+every device needs on removal. The nr_clusters ceiling and the limit knob
+are also half shrink: without shrink, lowering the limit can stop growth
+but never reclaim memory, leaving that interface only half functional. 
+
+Thanks again for your careful reviewing, thorough considering and great
+suggestions.
+
+Thanks
+Baoquan
+
