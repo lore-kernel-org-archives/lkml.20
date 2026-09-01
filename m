@@ -1,111 +1,78 @@
-Received: from out198-27.us.a.mail.aliyun.com (out198-27.us.a.mail.aliyun.com [47.90.198.27])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77919456E18;
-	Tue,  1 Sep 2026 07:17:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5FE3AFD15;
+	Tue,  1 Sep 2026 07:17:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788247066; cv=none; b=GNHm01sWhQWXN3YOO/rKa2laDn1j14lpLsIgV/63IWBQBJSazCiCSBgYBIqTDs81m+3qO2dXUYMbpYj8LEpkjkEDXSmoTPEwxxTUtZFfpSKj+3Nop6nHr5DCY7yv+oBKiy5ZpEBQj06QOewgXU/QhZ0yLKCj8b7vKxJjgYThYo0=
+	t=1788247074; cv=none; b=kRmHRHmTd8DGfiDG65yR5yYVlUnq3a3m8qo/7v4GxlDxRNa6i1WPZOwk53tFKPw0rSJ/Rc+HXKV8nxglIaoLy/DIVbxgxszeCncraL5OP0FIINDm/xHGCdcGQRa+nDOx7c2O+niHe2NxXvAv4d+XXsG4U6CKX/3tfSucRGEHkfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788247066; c=relaxed/simple;
-	bh=qJ1UQCsSl/CtaiffVaPKouOvZNTniSEjJVqDnK+qT2c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PD2QkApGEeokEODVgtx1+2wmubBWCpWnHym0VdifLCmeDUaLHSYxcR45jPxDtSsChvS2NdeMrOAiNhIX1V35+g5DIdDhdYcz/O3fufNwtU+YCN+Rtrt89C6ohtNHJAt/TG1L75ZdmtcARWx5kIYcmMyzimba060GxhihQZyvSUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net; spf=pass smtp.mailfrom=open-hieco.net; arc=none smtp.client-ip=47.90.198.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=open-hieco.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=open-hieco.net
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07450494|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00265924-0.00015051-0.99719;FP=16252303909509023947|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033023018039;MF=wanglin@open-hieco.net;NM=1;PH=DS;RN=11;RT=11;SR=0;TI=SMTPD_---.j2BhS8J_1788247050;
-Received: from localhost.localdomain(mailfrom:wanglin@open-hieco.net fp:SMTPD_---.j2BhS8J_1788247050 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Tue, 01 Sep 2026 15:17:30 +0800
-From: Lin Wang <wanglin@open-hieco.net>
-To: Borislav Petkov <bp@alien8.de>,
-	yazen.ghannam@amd.com,
-	mario.limonciello@amd.com
-Cc: tglx@linutronix.de,
-	mingo@redhat.com,
-	dave.hansen@linux.intel.com,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	bhelgaas@google.com,
-	x86@kernel.org,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 4/5] x86/amd_node: Skip SMN setup on Hygon Fam18h models 0x04-0x08
-Date: Tue,  1 Sep 2026 15:16:59 +0800
-Message-ID: <20260901071700.3255382-5-wanglin@open-hieco.net>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260901071700.3255382-1-wanglin@open-hieco.net>
-References: <20260901071700.3255382-1-wanglin@open-hieco.net>
+	s=arc-20240116; t=1788247074; c=relaxed/simple;
+	bh=aYsR4jlSpvw+sq28AnmN4VK19KR2u8+yQgAudjkCgwo=;
+	h=From:To:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=mZVoRez4D5terAh3nt32BimhcfcR4a/Zn+SLrKvXevAIjFhYy2I4ZI8sfcerSO66+qZBYByQbNbAqJvWcDDRW/eNxthhhqVnFkGdZphbIy5s5r/c+8VnE/YBNtNawaUNiH43PBpsiF/fkIryx+TL+NHmDA6xYlkLTo0swUHIW50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=nXIUXcWZ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=dkxWMDP3; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="nXIUXcWZ";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="dkxWMDP3"
+From: Nam Cao <namcao@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788247065;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aYsR4jlSpvw+sq28AnmN4VK19KR2u8+yQgAudjkCgwo=;
+	b=nXIUXcWZjolppAHh1zVBFoGC4q7dKaxM7h0uTDRleQGSkMsfafrcOyjXjJTWxf+duJLn+F
+	8M3YpGLBV5DzLZC5cCbhCUxy5eM0SopO0HbpQZ54pfPBMeLNn70C3FQnjE5nXq3mUh3e3a
+	tug8lZ9heCOE9ttdhE3dVVBgyY3ZTXIGS1RqEsR1waclzyNz80S5bdey2CKqATseTZgct8
+	/aTo+tON01enbkNyayXb3cvUF+OP+91NTVnmj7jCVbD/F4nOWe5kVa0WWyAPTZJaZo2ZOf
+	mg2nlmlegYvMNFm05ow6+GmA8Kzg37o6CGKzAuPEkOuNUfOGpt1lmtYTeAho9w==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788247065;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aYsR4jlSpvw+sq28AnmN4VK19KR2u8+yQgAudjkCgwo=;
+	b=dkxWMDP39RG56vHjE/4FJvlxmSp/dQgpWXMdl2ECQU462YD9FgCiSDQApwRYCODsdsRJnE
+	oDZlWd+faRK+TgAw==
+To: Kuniyuki Iwashima <kuniyu@google.com>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+ <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+ <horms@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev
+Subject: Re: [PATCH net-next v4 0/1] af_unix: Fix priority inversion issue
+In-Reply-To: <cover.1785824313.git.namcao@linutronix.de>
+References: <cover.1785824313.git.namcao@linutronix.de>
+Date: Tue, 01 Sep 2026 09:17:44 +0200
+Message-ID: <871pbdbftz.fsf@yellow.woof>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-amd_smn_init() distributes host bridge roots according to
-amd_num_nodes() and PCI enumeration order. Hygon Fam18h models
-0x04-0x08 have multiple DF nodes per socket and group SMN roots by
-socket, so the AMD mapping cannot provide their node-to-root map.
+Hi,
 
-Leave the roots unclaimed on these models regardless of
-CONFIG_HYGON_NODE; the AMD mapping does not apply to their topology.
-Since amd_num_nodes() is independent of the root array, check
-smn_exclusive before indexing the array so AMD SMN calls return
--ENODEV while its setup is inactive. When built, the Hygon node layer
-provides the node-to-root mapping. Other Hygon models keep the existing
-AMD SMN setup. amd_smn_init() can become AMD-only after the remaining
-Hygon callers have moved to Hygon-specific interfaces.
+Nam Cao <namcao@linutronix.de> writes:
+> While auditing AF_UNIX sockets, I noticed that the sendmsg() code paths may
+> block on the garbage collector running as workqueue. This can cause
+> priority inversion and latency for real-time users.
+>
+> The implementation does kindly avoid blocking "sane users". However, it is
+> impossible to tell whether the kernel's definition of "sane users"
+> accurately describes all users out there.
+>
+> Digging into history and figuring out the reasons why sendmsg() needs to
+> wait for garbage collector, it is determined that those reasons no longer
+> apply.
 
-Signed-off-by: Lin Wang <wanglin@open-hieco.net>
----
- arch/x86/kernel/amd_node.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+I just looked at patchwork and noticed that this patch is marked as
+"Changes Requested", but I'm not sure what changes are still expected.
 
-diff --git a/arch/x86/kernel/amd_node.c b/arch/x86/kernel/amd_node.c
-index 0be01725a2a4..a0cfd74ada03 100644
---- a/arch/x86/kernel/amd_node.c
-+++ b/arch/x86/kernel/amd_node.c
-@@ -88,6 +88,9 @@ static int __amd_smn_rw(u8 i_off, u8 d_off, u16 node, u32 address, u32 *value, b
- 	struct pci_dev *root;
- 	int err = -ENODEV;
- 
-+	if (!smn_exclusive)
-+		return err;
-+
- 	if (node >= amd_num_nodes())
- 		return err;
- 
-@@ -95,9 +98,6 @@ static int __amd_smn_rw(u8 i_off, u8 d_off, u16 node, u32 address, u32 *value, b
- 	if (!root)
- 		return err;
- 
--	if (!smn_exclusive)
--		return err;
--
- 	guard(mutex)(&smn_mutex);
- 
- 	err = pci_write_config_dword(root, i_off, address);
-@@ -252,6 +252,18 @@ static int __init amd_smn_init(void)
- 	if (!cpu_feature_enabled(X86_FEATURE_ZEN))
- 		return 0;
- 
-+	/*
-+	 * Hygon models outside this range, including legacy parts, keep the
-+	 * existing AMD SMN setup. Models 0x04-0x08 group SMN roots by socket
-+	 * instead of amd_num_nodes(), so leave AMD SMN inactive. The Hygon node
-+	 * layer, when built, owns their node-to-root mapping.
-+	 */
-+	if (boot_cpu_data.x86_vendor == X86_VENDOR_HYGON &&
-+	    boot_cpu_data.x86 == 0x18 &&
-+	    boot_cpu_data.x86_model >= 0x04 &&
-+	    boot_cpu_data.x86_model <= 0x08)
-+		return 0;
-+
- 	guard(mutex)(&smn_mutex);
- 
- 	if (amd_roots)
--- 
-2.43.0
+Did I miss a question or an issue that still needs to be addressed?
 
+Nam
