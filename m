@@ -1,57 +1,57 @@
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEC8D38F642
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 05:22:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C0B239A04F
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 05:22:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788240176; cv=none; b=eaauWhdIzHJTjOLJuYa3xw5P7rtPzvpPWEfUF42o3Awc89NQQ1Y6qD8MLVqTcX0qcMgclWlqbVdiiRTNm6EIUnMwGOb9ZUP0n3lHf5TPwC5VnYp2ACOg9TXdPvTkRlPWdohDI/GnwiotWG/CcDQ1wikL8TrPQZYRMBZ8V/COO9E=
+	t=1788240176; cv=none; b=FtT65MELcula4LlU1C5gs3bIXCOXtEgRR6wrG3k7Jywo8XcEmMEgT1y4XPk9/fSDyjcwp29k9YagTqKa6YMepmYjm7f5a7sOVTDJkcB7d+lexyaEKPjfkQIU/4wvg/O9sVUv5MlbFUKTGNBaBg8ubTVrm5/RBkkyEXa8V2WY9HA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788240176; c=relaxed/simple;
-	bh=Fks4pHYSzdgBN83mz688FTg4kFjTXCMANoaD+RC87Cg=;
+	bh=LKe2bNctC1A/j7uhC7WkmhcWVRTU9Foz1HcENo/uvJ0=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=BkvkWs1NWM9eDiz8xgSI/TCQu0hot3LM4TNMHbNOD5eGs4MLlTCn/gzlbuKA5lJvOIILsjPswIoIRMZMjrDehR2GQwN1SWRewPsdvWCPkIXd9iIpYoTRV/PBPJ9blBWcospRxRw2p3v2zZrp0z5U4dFjT7jttuZXyn94RZSA9/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--wfelipe.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CQEaJ7f5; arc=none smtp.client-ip=209.85.216.72
+	 To:Cc:Content-Type; b=gcNKvH5cVcq2+k8PKZlwB1Bn/nW2GZG73ERlt93IynIve+DG+4ZkVkuF9+nLj74C5PD2Yelxdyjah5bTd/24tbGKzsJtbrHPNmd7knkpJKvkeI/ZGqbdD9wXGBxn+wTCfY7U5plsXJWj5zgusmgzx0n0NE6A7LyintwSd/T2AHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--wfelipe.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=NnEZ5/P5; arc=none smtp.client-ip=209.85.210.199
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--wfelipe.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CQEaJ7f5"
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-381250979d5so779238a91.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 22:22:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="NnEZ5/P5"
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-854f274dd69so732430b3a.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 22:22:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788240174; x=1788844974; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788240175; x=1788844975; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:from:subject
          :message-id:references:mime-version:in-reply-to:date:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=1jqsz8r0tg3s4C+AAt1rnTrXqOx6Ok5MB9VnHnrHji0=;
-        b=CQEaJ7f58ahxJGORCtH7ohvxIcjMoQslW20aYJEU3xgG7sI/0SPx9RXs269HM1btEg
-         TLaGaQyILillh2X2IWex8vAWbYT3+szX++oHAicO9jI2jOXI+X6WuDtfSQdu3LJwPee7
-         MbxEm7euhgJfvA0++qg8oes0GVzQebwkNbOv3CPCNWOMPsgc4JFr6Jj93K431WRkK1lG
-         4y0UE6bLPjZ2zUcaFsi066om5dyGyIMOp+8jywL1M2orhlNKJZu5VMAY3q41uFEEWR4L
-         SKbNvzA4VmuFwuR6y8ZWbC3Kf2DeYJA81WqqIxBPij02VPJ9Khw3HaOs8MWvOAyQO0Tn
-         5awQ==
+        bh=txHyoP6V8LSeV3HcUyvKh0AUgxf1/LIju6BYMJo/v9M=;
+        b=NnEZ5/P5Lc0Zm0nGY8zofUcATHpHcV3LEkf0cGfgqNmVw/KIfXg6roswR6M4/NEhVG
+         HeoQFuqtyvoIpsizNV9NOB5gP4FNbMKkdY/5EEkpQMxjNI6dOr55kJoZw8jvSurbf962
+         XU0r4W+xSCwV81wHeVL0h8v5FNO79ONUGdV4dPjf4QEytX2gUX9WEqmGEHCRCrXHUw+j
+         r9M7q60AVqPQ+TtY+aDF6E2dDN+WJHuOMD5dl8uIoexnX6YeEDVxueA6yJWqhQ495BKo
+         lTpkVF20S7KoUx7MeGM1oot9c2BqLZ9no8KWOu2iNc60eq4VXJ+Xm9GlUdF5Np3JQdzH
+         DX6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788240174; x=1788844974;
+        d=1e100.net; s=20251104; t=1788240175; x=1788844975;
         h=content-transfer-encoding:content-type:cc:to:from:subject
          :message-id:references:mime-version:in-reply-to:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1jqsz8r0tg3s4C+AAt1rnTrXqOx6Ok5MB9VnHnrHji0=;
-        b=N6Lv78h8oeWCed2VTTqSTu/tVaiu1x7luG+f47J+vTGn8ft8WPkw+eQ1IJze7gksHM
-         N7BQr4JbT5yqEyTOrXupagE0dfTajobCLEjKkVoAXJU5HEHuVrDv0TPUyCu8ph1xxnO5
-         g5sqVgZNPXtDKEt1QccDGa/zbg2ja8S9g1dUba7XEt+NCYio/jSRAbR1ygsEreaYm3UA
-         cp78M8t/6mz8LvxyoNmc2XTVzZDETXgaQnEqM1xWycdx8j6tFIVavESjZTMUSMr2ZWlP
-         uxCnu1yloUiYzlcNC9JX4oo+oqkqhHZpteqM+yq8PmrsNIZLmc/ykBZUbP4W0GB7kW1A
-         IYpA==
-X-Forwarded-Encrypted: i=1; AKwUvBxen9x/cjxrLqkYKmEpptvh0HCTdVVTJkyALIxxjHSF1wNinioOzPxXvPrdBitzOspAIbZJu/uBoQKTXHs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kw9/UtfyNXiF6n+/BIzhhR1y51x3S2kNVjgPRssHhVzma/H7X7
-	+Umv+s2C8JcjusByvNIKNliEIxEZkO4KxzHj4t+HP/ltYr54wt01cAedoCSB5PuxptA2hFnmmsT
-	4muWBDU0cMQ==
-X-Received: from pjpu5.prod.google.com ([2002:a17:90a:a205:b0:396:4de4:b1a3])
- (user=wfelipe job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1811:b0:398:e86b:ce14
- with SMTP id 98e67ed59e1d1-398e86bcf08mr14606352a91.20.1788240173753; Mon, 31
- Aug 2026 22:22:53 -0700 (PDT)
-Date: Tue,  1 Sep 2026 05:22:27 +0000
+        bh=txHyoP6V8LSeV3HcUyvKh0AUgxf1/LIju6BYMJo/v9M=;
+        b=nN434wQrc3D2pkAnQw4eHZ+gTMO9rYCQUazz0KrMGR1W0XgOV8rotC8cJEd2Dbentf
+         utF0a831RAzjHrUnGXDjLbyhocPyIUHGoo+nQbOlt5hVZNVjLi7/fIoKuKEnXc4fkwBh
+         zcOOn5b7Vd6Iqrk7EClBAkRHXgvUo1H+XU6F9lZCbrptaZ2F5x3QGxpkaIRBOrtSOjEk
+         mMfzlDTOT35dMZvxgIJfEuu8LX+Txb9s5cJy0Y9cDuUzJjOHLwQ9lYVso1AUYJBMlYIn
+         1nd5Q1bOyOXvN27MupfqE8qOhOuy0w2Os1KGT6cSt0V/Ptxw1p8qBn7VY40/xsusfhau
+         8Dwg==
+X-Forwarded-Encrypted: i=1; AHgh+RqmeQp5mRL7/wn4QxeSeJPHLIpr6L8nvhjY0uyqhsLYzjy1f9dk5cJ+kZ+GFvqqtIQSADLbxHNUSbK+zG8=@vger.kernel.org
+X-Gm-Message-State: AFuF++njilX0rPvXT2irGmmxhRIxSnpzcmbtwKrym7zAfcjjAlTAHVkW
+	MrQ8hJUqlxeLuzGrDwP9hta7hlyMCVEOK1Udus5XymXTX6YYbS3PhYCvgYBzJS1mCvd9EVFm57J
+	3YHJi+uPx5A==
+X-Received: from pfbfh35.prod.google.com ([2002:a05:6a00:3923:b0:847:a85b:6c23])
+ (user=wfelipe job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:3692:b0:848:5f4f:289d
+ with SMTP id d2e1a72fcca58-856277dba33mr51581983b3a.4.1788240174518; Mon, 31
+ Aug 2026 22:22:54 -0700 (PDT)
+Date: Tue,  1 Sep 2026 05:22:28 +0000
 In-Reply-To: <20260901052250.154532-1-wfelipe@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,9 +61,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260901052250.154532-1-wfelipe@google.com>
 X-Mailer: git-send-email 2.55.0.970.g62bdec98f9-goog
-Message-ID: <20260901052250.154532-2-wfelipe@google.com>
-Subject: [PATCH v5 1/2] selftests/cgroup: test_zswap: wait for cgroup to
- unpopulate in test_zswap_writeback
+Message-ID: <20260901052250.154532-3-wfelipe@google.com>
+Subject: [PATCH v5 2/2] selftests/cgroup: test_zswap: fix implicit unsigned
+ promotion bug in test_no_kmem_bypass
 From: Wilson Felipe Pereira <wfelipe@google.com>
 To: Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
 	Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
@@ -75,46 +75,105 @@ Cc: linux-mm@kvack.org, cgroups@vger.kernel.org,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-When running test_zswap on a single-core VM (-smp 1) with 4GB of RAM,
-test_zswap_writeback intermittently fails on the initial run after boot.
+In test_no_kmem_bypass(), delta (stored_pages * page_size - zswapped) is
+checked against stored_pages * page_size / 4 to verify that the pages
+pushed to zswap belong to the test memory cgroup.
 
-In test_zswap_writeback(), after waitpid() reaps the child process created
-by test_zswap_writeback_one(), writing "+memory" to cgroup.subtree_control
-can fail with -EBUSY. Under cgroup v2, enabling domain subtree controllers
-is forbidden while any tasks remain in cgroup.procs.
+Due to slight stat update timing differences, delta can evaluate to a small
+negative number (e.g. -5MB out of 1GB). Because delta is declared as a
+signed int and stored_pages is an unsigned size_t, C's usual arithmetic
+conversions implicitly promote a negative delta to a large unsigned 64-bit
+integer, causing `delta < stored_pages * page_size / 4` to falsely evaluate
+to 0 and fail the test.
 
-When a child process exits, exit_notify() wakes the parent process,
-allowing waitpid() to return immediately. However, the cgroup populated
-task count (nr_populated_csets) is only decremented when the exiting
-task is switched away via finish_task_switch() -> cgroup_task_dead(). On
-single-core systems, the parent runs before the dead child has been
-switched out, causing "+memory" to fail with -EBUSY if written immediately
-after waitpid() returns.
+Fix this by declaring zswapped and delta as signed long long and comparing
+against a signed threshold, ensuring negative deltas correctly evaluate
+to true.
 
-Fix this by waiting for cgroup.events to report "populated 0\n" via
-cg_read_strcmp_wait() before enabling subtree control.
-
+Fixes: a549f9f31561a ("selftests: cgroup: add test_zswap with no kmem bypas=
+s test")
 Signed-off-by: Wilson Felipe Pereira <wfelipe@google.com>
 Acked-by: Michal Koutn=C3=BD <mkoutny@suse.com>
 ---
- tools/testing/selftests/cgroup/test_zswap.c | 2 ++
- 1 file changed, 2 insertions(+)
+ tools/testing/selftests/cgroup/lib/cgroup_util.c    |  9 +++++++--
+ .../selftests/cgroup/lib/include/cgroup_util.h      |  1 +
+ tools/testing/selftests/cgroup/test_zswap.c         | 13 ++++++++-----
+ 3 files changed, 16 insertions(+), 7 deletions(-)
 
+diff --git a/tools/testing/selftests/cgroup/lib/cgroup_util.c b/tools/testi=
+ng/selftests/cgroup/lib/cgroup_util.c
+index 2596c12cd864..ce2dd36291f8 100644
+--- a/tools/testing/selftests/cgroup/lib/cgroup_util.c
++++ b/tools/testing/selftests/cgroup/lib/cgroup_util.c
+@@ -172,7 +172,7 @@ long cg_read_long_fd(int fd)
+ 	return atol(buf);
+ }
+=20
+-long cg_read_key_long(const char *cgroup, const char *control, const char =
+*key)
++long long cg_read_key_long_long(const char *cgroup, const char *control, c=
+onst char *key)
+ {
+ 	char buf[BUF_SIZE];
+ 	char *ptr;
+@@ -184,7 +184,12 @@ long cg_read_key_long(const char *cgroup, const char *=
+control, const char *key)
+ 	if (!ptr)
+ 		return -1;
+=20
+-	return atol(ptr + strlen(key));
++	return atoll(ptr + strlen(key));
++}
++
++long cg_read_key_long(const char *cgroup, const char *control, const char =
+*key)
++{
++	return (long)cg_read_key_long_long(cgroup, control, key);
+ }
+=20
+ long cg_read_key_long_poll(const char *cgroup, const char *control,
+diff --git a/tools/testing/selftests/cgroup/lib/include/cgroup_util.h b/too=
+ls/testing/selftests/cgroup/lib/include/cgroup_util.h
+index 5d39c709ac7a..13923534003c 100644
+--- a/tools/testing/selftests/cgroup/lib/include/cgroup_util.h
++++ b/tools/testing/selftests/cgroup/lib/include/cgroup_util.h
+@@ -69,6 +69,7 @@ extern int cg_read_strstr(const char *cgroup, const char =
+*control,
+ 			  const char *needle);
+ extern long cg_read_long(const char *cgroup, const char *control);
+ extern long cg_read_long_fd(int fd);
++long long cg_read_key_long_long(const char *cgroup, const char *control, c=
+onst char *key);
+ long cg_read_key_long(const char *cgroup, const char *control, const char =
+*key);
+ long cg_read_key_long_poll(const char *cgroup, const char *control,
+ 			   const char *key, long expected, int retries,
 diff --git a/tools/testing/selftests/cgroup/test_zswap.c b/tools/testing/se=
 lftests/cgroup/test_zswap.c
-index 609c48f38524..8f2c9aa4776c 100644
+index 8f2c9aa4776c..11c67dde705f 100644
 --- a/tools/testing/selftests/cgroup/test_zswap.c
 +++ b/tools/testing/selftests/cgroup/test_zswap.c
-@@ -408,6 +408,8 @@ static int test_zswap_writeback(const char *root, bool =
-wb)
- 	 * Thus, the parent's setting shall be what's in effect. */
- 	if (cg_write(test_group, "memory.zswap.max", "max"))
- 		goto out;
-+	if (cg_read_strcmp_wait(test_group, "cgroup.events", "populated 0\n"))
-+		goto out;
- 	if (cg_write(test_group, "cgroup.subtree_control", "+memory"))
- 		goto out;
-=20
+@@ -630,11 +630,14 @@ static int test_no_kmem_bypass(const char *root)
+ 			break;
+ 		/* If memory was pushed to zswap, verify it belongs to memcg */
+ 		if (stored_pages > stored_pages_threshold) {
+-			int zswapped =3D cg_read_key_long(test_group, "memory.stat", "zswapped =
+");
+-			int delta =3D stored_pages * page_size - zswapped;
+-			int result_ok =3D delta < stored_pages * page_size / 4;
+-
+-			ret =3D result_ok ? KSFT_PASS : KSFT_FAIL;
++			long long zswapped =3D cg_read_key_long_long(
++				test_group, "memory.stat", "zswapped ");
++			long long delta =3D
++				(long long)stored_pages * page_size - zswapped;
++			long long max_delta =3D
++				(long long)stored_pages * page_size / 4;
++
++			ret =3D (delta < max_delta) ? KSFT_PASS : KSFT_FAIL;
+ 			break;
+ 		}
+ 	}
 --=20
 2.55.0.970.g62bdec98f9-goog
 
