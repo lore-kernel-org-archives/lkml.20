@@ -1,41 +1,41 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9059A4A091C;
-	Tue,  1 Sep 2026 18:51:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 276E24A8A03;
+	Tue,  1 Sep 2026 18:51:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788288685; cv=none; b=a9Lc/VN5CCh0UWvuWWE1aWEu5whVvwWQrVGa5oOkjBsTLWC4wC4VPZquAe6j+vNX4Z6H4cleeTP5Z59+vXvYAQoy5cCESyub4Vxy0wTv0rVap4nUE5/HzUM9tchYdLsOAeHCPU/8o4ITiYsmTXGY1li/dothwHAAui2E4Ch81RU=
+	t=1788288687; cv=none; b=u6gbmsmaS7/rA3NUsQrT51ZFF4jcQN3pWBauh7yM+GgHY9gHCAvatvU2L+/fkuZ6JlZ/OiBykcKxfOKKlscwDFMkpBx7r5hwh8yp7NVZGmMnObUVCfIVRwBrEDAOS58ZnOQfzmScb9I455RLR538i7qa5F8GoyCe9OqN4KbM7MI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788288685; c=relaxed/simple;
-	bh=9ULxXAJ8Lgf9TVfLmpWCFcvW40GpvaJh+iJkfEerDYw=;
+	s=arc-20240116; t=1788288687; c=relaxed/simple;
+	bh=YQBgk0tCInjN78ZsmtnC8gQAxWhSMvfMlnsIg4WQmiU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DTcf0RT5vjimBH+zfMHZ3yxCURAkY9PVhGbK5lt7lMj5yNtClXmcs/e97lvPT+CIch4+Z+KEr1xthP9A4uCLd0KCk2lsXmNqn5VMQY/3lyeFZvGXx9XYCQ4XPCk6IfEbTG4aKUPs9VciK+aDTu1MvZsz2GVj2hFSIVRW6KjdxPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=dIctpRAQ; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=MwFNP57NadXsrl6DJjPnahMjYKLFGdxhi0rTOHXAPv/CzhYtsoJo2J6qUhjlp7W3sb/Od2tZVKI3yMvFS8s+xdAWAmSdirL+Qc2jz/1fNJMQJX7YAoIGbtB4rCztyLilfUTttd+KOIBEimIjyHHJzipe1skZ0QhQWTd07D+s8o0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=U8xjbdh3; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="dIctpRAQ"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="U8xjbdh3"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788288680;
-	bh=9ULxXAJ8Lgf9TVfLmpWCFcvW40GpvaJh+iJkfEerDYw=;
+	s=mail; t=1788288681;
+	bh=YQBgk0tCInjN78ZsmtnC8gQAxWhSMvfMlnsIg4WQmiU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=dIctpRAQoiG69X0o4pnh6hUlZznNakZMsVMx/PQqn7QpfOIcvUjBYXGqq9map+tAC
-	 0a8IGYPL4TM8X4P9TM5cyqswNhCPELserhcjhAW3rEr2j+F/ls/pIsu6qNtTLAdzIW
-	 yKwxGICO/4gamiPdsn7s9YXyiFsqtnfmb1gzzkBczuBvgOWTbMwWzVM6GEBTwRHQBv
-	 W4sZGv4JfqLcx1V0p3RqXaaecmm/aNFvQ8eexM9nml4FBM4m3G2RQYvqU89BHc6yNw
-	 fzzUP0lctPRzfYQN6Li37q2DtWjcQtxUFf2GRKrWRE9UWNj4amM69x+b9zgiuDkeMX
-	 NgqMUBbawukSw==
+	b=U8xjbdh3G5kTDYHASjfYejz3nCp1ujP8CPZTrlxtIs9nj7IrI6f8i39K/Nrg6GNQe
+	 s4Yc5OoPpAQRlqQ7fXYFL5JQzJZ5lsTKfHhNxExG1ZtiazUC4btBC1LzI7fx/ZJKlR
+	 MGcaWV+OLiuU26ETBoP/BVJmR4nYa/xMPCEcuJXh7lL3ekYWn15R4DqQSFtN22sYYG
+	 CUHCk9Cll8ZHrwiki3RaHokeXVCLFq+WLC9naV2hpAusXc07wM+UXN3bnGyn3h7V1k
+	 +Frukvk8PWmTqdrUnBHu8cg/VIn80WzkD6c/knXnrtkNyCWMToy3hZJROMtywk1x3J
+	 tyYvX2lE5Dpow==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 1E37F17E3C79;
-	Tue, 01 Sep 2026 20:51:20 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8D5C217E3C81;
+	Tue, 01 Sep 2026 20:51:21 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Tue, 01 Sep 2026 21:51:17 +0300
-Subject: [PATCH v11 53/74] drm/bridge: ite-it6263: Advertise HDMI 1.3
+Date: Tue, 01 Sep 2026 21:51:19 +0300
+Subject: [PATCH v11 55/74] drm/bridge: lontium-lt9611: Advertise HDMI 1.4
  capabilities
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-dw-hdmi-qp-scramb-v11-53-bc12954a0688@collabora.com>
+Message-Id: <20260901-dw-hdmi-qp-scramb-v11-55-bc12954a0688@collabora.com>
 References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 In-Reply-To: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -78,72 +78,72 @@ HDMI version.  This is not enforced yet, but will become mandatory once
 the migration to the caps-based HDMI connector initialization API is
 complete.
 
-Advertise HDMI 1.3 support for IT6263, covering the 225 MHz TMDS
-character rate currently documented by the driver, which is within the
-HDMI 1.3 limit of 340 MHz.  Additionally, keep the stricter 150 MHz
-effective mode limit by setting max_tmds_char_rate from
-MAX_PIXEL_CLOCK_KHZ.
+As LT9611 supposedly cannot drive a TMDS character rate exceeding 297
+MHz, advertise HDMI 1.4 as the supported version.  HDMI 1.4 allows up to
+340 MHz, so set the bridge's max_tmds_char_rate to ensure the connector
+limit derived from supported_hdmi_ver remains within the hardware
+capabilities.
 
-The existing .hdmi_tmds_char_rate_valid() hook checks both the pixel
-clock and TMDS character rate.  Since the bridge only supports 8 bpc
-RGB444, these are equivalent for supported modes, making the 225 MHz
-TMDS rate check unreachable once the 150 MHz pixel-clock limit is
-applied.
-
-drm_bridge_connector_atomic_check() invokes
+drm_bridge_connector_atomic_check() calls
 drm_atomic_helper_connector_hdmi_check(), which rejects modes whose
 computed TMDS character rate exceeds the connector's max_tmds_char_rate
 before invoking the driver's .tmds_char_rate_valid hook.  Since
 max_tmds_char_rate now carries the existing effective limit,
-it6263_hdmi_tmds_char_rate_valid() is redundant.  Drop it.
+lt9611_hdmi_tmds_char_rate_valid() is redundant.  Drop it.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/bridge/ite-it6263.c | 17 ++---------------
- 1 file changed, 2 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/bridge/lontium-lt9611.c | 16 +++-------------
+ 1 file changed, 3 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/ite-it6263.c b/drivers/gpu/drm/bridge/ite-it6263.c
-index 550999491086..e8e0197171e1 100644
---- a/drivers/gpu/drm/bridge/ite-it6263.c
-+++ b/drivers/gpu/drm/bridge/ite-it6263.c
-@@ -738,20 +738,6 @@ it6263_bridge_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
- 	return input_fmts;
+diff --git a/drivers/gpu/drm/bridge/lontium-lt9611.c b/drivers/gpu/drm/bridge/lontium-lt9611.c
+index 3ebd8992cd94..53444bc8326f 100644
+--- a/drivers/gpu/drm/bridge/lontium-lt9611.c
++++ b/drivers/gpu/drm/bridge/lontium-lt9611.c
+@@ -5,6 +5,7 @@
+  */
+ 
+ #include <linux/gpio/consumer.h>
++#include <linux/hdmi.h>
+ #include <linux/i2c.h>
+ #include <linux/interrupt.h>
+ #include <linux/media-bus-format.h>
+@@ -952,18 +953,6 @@ static int lt9611_hdmi_write_hdmi_infoframe(struct drm_bridge *bridge,
+ 	return 0;
  }
  
 -static enum drm_mode_status
--it6263_hdmi_tmds_char_rate_valid(const struct drm_bridge *bridge,
+-lt9611_hdmi_tmds_char_rate_valid(const struct drm_bridge *bridge,
 -				 const struct drm_display_mode *mode,
 -				 unsigned long long tmds_rate)
 -{
--	if (mode->clock > MAX_PIXEL_CLOCK_KHZ)
--		return MODE_CLOCK_HIGH;
--
--	if (tmds_rate > MAX_HDMI_TMDS_CHAR_RATE_HZ)
+-	/* 297 MHz for 4k@30 mode */
+-	if (tmds_rate > 297000000)
 -		return MODE_CLOCK_HIGH;
 -
 -	return MODE_OK;
 -}
 -
- static int it6263_hdmi_clear_avi_infoframe(struct drm_bridge *bridge)
+ static int lt9611_hdmi_audio_startup(struct drm_bridge *bridge,
+ 				     struct drm_connector *connector)
  {
- 	struct it6263 *it = bridge_to_it6263(bridge);
-@@ -821,7 +807,6 @@ static const struct drm_bridge_funcs it6263_bridge_funcs = {
- 	.detect = it6263_bridge_detect,
- 	.edid_read = it6263_bridge_edid_read,
- 	.atomic_get_input_bus_fmts = it6263_bridge_atomic_get_input_bus_fmts,
--	.hdmi_tmds_char_rate_valid = it6263_hdmi_tmds_char_rate_valid,
- 	.hdmi_clear_avi_infoframe = it6263_hdmi_clear_avi_infoframe,
- 	.hdmi_write_avi_infoframe = it6263_hdmi_write_avi_infoframe,
- 	.hdmi_clear_hdmi_infoframe = it6263_hdmi_clear_hdmi_infoframe,
-@@ -883,6 +868,8 @@ static int it6263_probe(struct i2c_client *client)
- 	it->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
- 	it->bridge.vendor = "ITE";
- 	it->bridge.product = "IT6263";
-+	it->bridge.supported_hdmi_ver = HDMI_VERSION_1_3;
-+	it->bridge.max_tmds_char_rate = 1000ULL * MAX_PIXEL_CLOCK_KHZ;
+@@ -1029,7 +1018,6 @@ static const struct drm_bridge_funcs lt9611_bridge_funcs = {
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+ 	.atomic_get_input_bus_fmts = lt9611_atomic_get_input_bus_fmts,
  
- 	return devm_drm_bridge_add(dev, &it->bridge);
- }
+-	.hdmi_tmds_char_rate_valid = lt9611_hdmi_tmds_char_rate_valid,
+ 	.hdmi_write_audio_infoframe = lt9611_hdmi_write_audio_infoframe,
+ 	.hdmi_clear_audio_infoframe = lt9611_hdmi_clear_audio_infoframe,
+ 	.hdmi_write_avi_infoframe = lt9611_hdmi_write_avi_infoframe,
+@@ -1175,6 +1163,8 @@ static int lt9611_probe(struct i2c_client *client)
+ 	lt9611->bridge.hdmi_audio_dev = dev;
+ 	lt9611->bridge.hdmi_audio_max_i2s_playback_channels = 8;
+ 	lt9611->bridge.hdmi_audio_dai_port = 2;
++	lt9611->bridge.supported_hdmi_ver = HDMI_VERSION_1_4;
++	lt9611->bridge.max_tmds_char_rate = 297000000; /* 297 MHz for 4k@30 mode */
+ 
+ 	drm_bridge_add(&lt9611->bridge);
+ 
 
 -- 
 2.55.0
