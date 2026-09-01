@@ -1,124 +1,96 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F0F847DD77
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 10:29:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DAE447AF5C
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 10:29:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788258563; cv=none; b=W6l13rDOHMQcYGCCKpSWlHMxX8hePScacEM7f4/fMbHLuY+2A5WXuAN3Fc/3hkPskt7Vq8ieMzEwtXmKYuo/UvXu4uT5C0hLB08adK7kK0+BhqG124jIVVPtUd2pzIo60/wE0ckGZ8jVOfuKZEhiA02wUXvg2AcPle+NBIUwrq0=
+	t=1788258578; cv=none; b=tUh2umK0KPgvLp4Oo8OS+wWHP5EZ4ctd3EoC9a5YhYmubsFZQTfNsmoOfHuolIQajafbkhcv410dfZBYqLua+UduMGhz6XHKqliTau5pDoiipEbAutbmtGoSXti4AJ/x3ibLdYRJn9d4Mo0dEKSoKAc/PLOc5dnHiYcGMnlSohY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788258563; c=relaxed/simple;
-	bh=6VL+2jTpoIlB/ex9UG+2bXV0ukx5HvT53gO1KHXzF7s=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=ZDGdj761FZhZi2DgISSZzrcxP7m2Jb1uy4cDLEj1C7G/+GBiKcTNKqiT8p+A3Wa/m8WgzwodST5vnzh0pyvz8C5TEHdJy6yJYti2Cpsmd8BzAVfSTAfr18XSXkgP8LD3AqjX5UgYT0uzuwvPuWDaBhX/7gMhI+qJJdBh1Aj3gkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=E9pvZ9mw; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788258578; c=relaxed/simple;
+	bh=BuROZHB+oAUqZL/+duKbF7C95KZZYofztqYRf0xFPXg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=i4Im1A7QJvhsSaH5Vi5aLlLi8zWXywa6Bq0bu9cMSfdw8UMLlolzq3EyJOIGabzAWsAn5QhvO7DXfea+d0QPn82hAvLxwhMHTIf52NwLKzjHhdfYHxxVkiP1opuCsZN1C0gRIwr8GVCn4I9sb5tvz32e8CvEA3W/DbRAXQgE5dg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=CclhBcNQ; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="E9pvZ9mw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788258561; x=1819794561;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=6VL+2jTpoIlB/ex9UG+2bXV0ukx5HvT53gO1KHXzF7s=;
-  b=E9pvZ9mwi8ZrVkv5csb/Uk0ypU4IcpDvDZtfuF9bWpREAAxyFLTJbigI
-   jQETGNFstCSadwBDcTagtXzD352o6PWWTAb5pvfGSYX0wXGoJpSvKEHJS
-   KvAzdS8K+Fguki5Ybm8nImrkjaA9Xk/czx4EfMz1A/6bYAkMzszWgbEAZ
-   DOV4406YLoiMexenyAE7hM/gPa8OunSsf69u01P5UWL+h/sMm7M6fY5YU
-   lEnwQGxupC+UoeW4JOhjAvGbsB/y41oJHk7WCChLBuWsF58EWFFLmfKH9
-   70vvdyoX0vM8Xe0n863dLTjALqAoBoCzWlSd1rfrkqgkYGNklZtHQCR7u
-   w==;
-X-CSE-ConnectionGUID: 8N+66AjuQRm0XIW28xQzQA==
-X-CSE-MsgGUID: oXiodeT0QWe2RlOWR802uQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88609366"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="88609366"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 03:29:20 -0700
-X-CSE-ConnectionGUID: 6sWl4nocQYCB4W25KjLY1g==
-X-CSE-MsgGUID: VR0nG1OeSIWlgl4powKc8Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="272842924"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.213])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 03:29:18 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: David Laight <david.laight.linux@gmail.com>, Hrushiraj Gandhi
- <hrushirajg23@gmail.com>
-Cc: joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- tursulin@ursulin.net, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/i915/gvt: use strscpy() instead of strcpy() in
- virt_vbt_generation()
-In-Reply-To: <20260901101225.3aa0f0cf@pumpkin>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260901050241.359490-1-hrushirajg23@gmail.com>
- <20260901101225.3aa0f0cf@pumpkin>
-Date: Tue, 01 Sep 2026 13:29:15 +0300
-Message-ID: <198aae087325b563c87d6335ffe3b46bd5fb56ba@intel.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="CclhBcNQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=PUus9S9MODT/QuFwH6nooYCoD+hdaIxSvabuO+GXl/k=; b=CclhBcNQzW+aMW35635m3dmmAU
+	2cFyY7FteXJwlQUjc1icaB5jJpLE5ys9V2+Tu7k53qyaIyixvmg/uaYnAtf23/6yjEAoPXfEFWpAd
+	aZRzJK/kqv7lKTKSS6OYdgL6vUUrFBqnp9ydWsBFxDPM40mia1kL7SRCv+OeFB42E1adHOOE0QDsC
+	jhl48QBWzZteHxI89jYEmDs3M0QDoncSX5T914/ia/x1QAxpasclWAvGxv6KXA7fSaHuqssx2IMb6
+	xFG9APm7JP5pxdAXorXZxmk5nN+9k++VhsMsfFWPQL2hrSuUEhyF/Smit7koRsizy8GzDoX2Lk8wg
+	SOmCyBIQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x1Ljy-0000000Ar4c-1mv8;
+	Tue, 01 Sep 2026 10:29:18 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 43DED30031E; Tue, 01 Sep 2026 12:29:17 +0200 (CEST)
+Date: Tue, 1 Sep 2026 12:29:17 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: Jianyong Wu <wujianyong@hygon.cn>
+Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Chen Yu <yu.c.chen@intel.com>,
+	Tim Chen <tim.c.chen@linux.intel.com>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Phil Auld <pauld@redhat.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, jianyong.wu@outlook.com, zhongyuan@hygon.cn,
+	huangsj@hygon.cn, wangfengyu@hygon.cn, yingzhiwei@hygon.cn,
+	justin.he@arm.com
+Subject: Re: [RFC PATCH v2 14/23] sched/cache: Drop prefer_sibling
+ restriction for llc_balance
+Message-ID: <20260901102917.GH776954@noisy.programming.kicks-ass.net>
+References: <20260827122816.756234-1-wujianyong@hygon.cn>
+ <20260827122816.756234-15-wujianyong@hygon.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827122816.756234-15-wujianyong@hygon.cn>
 
-On Tue, 01 Sep 2026, David Laight <david.laight.linux@gmail.com> wrote:
-> On Tue,  1 Sep 2026 10:32:41 +0530
-> Hrushiraj Gandhi <hrushirajg23@gmail.com> wrote:
->
->> strcpy() has no bound on the destination buffer, so convert this to
->> the bounded, always-NUL-terminating strscpy() instead. The literal
->> "BIOS_DATA_BLOCK" (15 chars + NUL) fits the 16-byte signature field
->> exactly, so this is a no-op change in behaviour.
->> 
->> No functional change.
->> 
->> Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
->> ---
->>  drivers/gpu/drm/i915/gvt/opregion.c | 3 ++-
->>  1 file changed, 2 insertions(+), 1 deletion(-)
->> 
->> diff --git a/drivers/gpu/drm/i915/gvt/opregion.c b/drivers/gpu/drm/i915/gvt/opregion.c
->> index d6e76ba31d60..f2527e26cd1e 100644
->> --- a/drivers/gpu/drm/i915/gvt/opregion.c
->> +++ b/drivers/gpu/drm/i915/gvt/opregion.c
->> @@ -151,7 +151,8 @@ static void virt_vbt_generation(struct vbt *v)
->>  	v->header.vbt_size = sizeof(struct vbt);
->>  	v->header.bdb_offset = offsetof(struct vbt, bdb_header);
->>  
->> -	strcpy(&v->bdb_header.signature[0], "BIOS_DATA_BLOCK");
->> +	strscpy(v->bdb_header.signature, "BIOS_DATA_BLOCK",
->> +		sizeof(v->bdb_header.signature));
->
-> Pointless and potentially wrong.
-> Both normally reduce to the same memcpy() call.
-> If the fixed string is too long strcpy() generates a compile error
-> whereas strscpy() will silently truncate.
+On Thu, Aug 27, 2026 at 08:28:07PM +0800, Jianyong Wu wrote:
+> group_llc_balance performs balancing across LLC and NUMA domains.
+> The prefer_sibling constraint unnecessarily limits its scope, so remove
+> this requirement entirely from the branch condition.
+> 
+> Signed-off-by: Jianyong Wu <wujianyong@hygon.cn>
+> ---
+>  kernel/sched/fair.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 584297528a9e..5c35a43e5e38 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -13274,9 +13274,9 @@ static struct sched_group *sched_balance_find_src_group(struct lb_env *env)
+>  	 * Try to move all excess tasks to a sibling domain of the busiest
+>  	 * group's child domain.
+>  	 */
+> -	if (sds.prefer_sibling && local->group_type == group_has_spare &&
+> -	    (busiest->group_type == group_llc_balance ||
+> -	    sibling_imbalance(env, &sds, busiest, local) > 1))
+> +	if (local->group_type == group_has_spare &&
+> +	    ((busiest->group_type == group_llc_balance) || (sds.prefer_sibling &&
+> +	    sibling_imbalance(env, &sds, busiest, local) > 1)))
+>  		goto force_balance;
 
-Moreover, there's no provision that the signature must be NUL
-terminated. All consumers must treat it as a 16-byte block which may or
-may not be NUL terminated. In fact, it is usually padded with space
-rather than NUL terminated, and one could argue the NUL termination is
-wrong here.
-
-
-BR,
-Jani.
-
->
-> (The '&' and '[0]' might need removing.)
->
-> David
->
->>  	v->bdb_header.version = 186; /* child_dev_size = 33 */
->>  	v->bdb_header.header_size = sizeof(v->bdb_header);
->>  
->> 
->
-
--- 
-Jani Nikula, Intel
+Not sure about blanked disable. Maybe only disable when cache aware
+scheduling is present and enabled?
