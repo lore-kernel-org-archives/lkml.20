@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4218F47D93B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 422C347D93E;
 	Tue,  1 Sep 2026 12:15:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788264943; cv=none; b=YvVcIhzRPjGixBPqsqDiUHg+5gWEd+Xc+PdedXYyVC8/njV/eHhDHMgidSIN5Q2ToOtcxYqaDwWiFU1dS8ZjgFfIpPQ4bd+8K6br/rps28SGHW/Fni2zzR7WKqBVhmSz/lkPMi/PlyzCkIBHYzsMrevU715xJ0nzo2CpQi2jm28=
+	t=1788264943; cv=none; b=UeszLHeO9pr5iTjE0egv7hrtW8qMGSHokjlTq/R7nseupHdCMe5C+IBfVT5cIDbLdK/NNTfeQ1Nhw/lHyigHFCusq1UkrzTP3BrhcHSlrqL3/lZp6P1a8Gb26CLoogQIF3DwhqtGVmxSz5gy0TZ4lF1cr1ZxTw/mPT8Ot3Nd/SU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788264943; c=relaxed/simple;
-	bh=6s6cTO6Yn6yN3vSCDT7z8LoUbh5iLlboNe1Uq+mkWZw=;
+	bh=QXCrvztWFgYMqLyTHwJDILyJy7opN8pri3juktQ5n3k=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Jebn62QSMKc+Ym7VMSxRzDsdnxIXcJbrCeb/ND6HWowjUrAWQfGHlbMwXH1mKtUbcjKPqSnWMijdTC7RXX3e+Hv0VcbY/UVxCDSZDBQkr4PkmDCpyAQMTddKB++wZB2Thfb5fh4DXhWOhmvNxiLBELRi/lHgOsbOsD9oVaXjO1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PU/e26RE; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=hBb3PSGHP7LcyQGcMmGY459hW1r2GoHyEcKV9QHIyChXkc+QxaN1v5RDDFypjK9f6qWXS4ktoyOl7nor5l8nK0Uynn0LdAjgBQGDQXjl0ubrWkBrAj/zY7N6M3/vii7kPCgEjM54eRwPuMTQ8L0QTeEcLEAd+cpnNf3G49IrHm8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gNlQ32IM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PU/e26RE"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DC8F6C4AF0F;
-	Tue,  1 Sep 2026 12:15:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gNlQ32IM"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0C5DBC2BCFA;
+	Tue,  1 Sep 2026 12:15:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788264942;
-	bh=6s6cTO6Yn6yN3vSCDT7z8LoUbh5iLlboNe1Uq+mkWZw=;
+	s=k20201202; t=1788264943;
+	bh=QXCrvztWFgYMqLyTHwJDILyJy7opN8pri3juktQ5n3k=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=PU/e26REpqh8GV+fS7q+cbJhyj4/T0khUKuNpb2uFxn8sLXsif/zn3BrM3AjEn5HT
-	 ayiqziLHDWQNEld+6GzDjPMU4Itjxn+du76foygg+w/OKGtO9NruL4CDRjWAdhSOaq
-	 6SjBcHVG4tCjqUpHiqRSA+D5bqVHpvzLpqh2BlpyS/9z9Ky49kiSAVN4ZOt2VDBVjy
-	 pPpPHlVkijt6bjRP9z9SRbHhyQDYG7lGu66A1N3dBi+mZxgzG04bKwz41GUGlALtbp
-	 KKPlEDPmGD8NOFbRLZXr2SHQh3sznXe/+feIc4+8d3KWbj1KZeQzFS8YeUxhvvm3e9
-	 fOEYt87aRONHw==
+	b=gNlQ32IMyvX/TMWmTXfWJsxFgyZ2Y61KewMTlLXoZfaoDnwysmzQQi/L30IfDatRo
+	 7tE8WKOGtVmv56ozUVJEXUhjFJp2Pl8FgPjlO3MZK+SUtfPUlc+MdPM6mF1te7XBUu
+	 CAsMSbXbZhHoAI+4s6d7tOnCYEAtWuZTeiXv1fnRFg8sGYiW2D9EqcM4+gST5Rfr49
+	 qN0e9LbwvvxfPTeffRKm+0RixXGoIznagsuvkmfehdHtq6onyzq9xEKwqg1uo0nuH7
+	 P0wuU2uWcxU17HxShhrK2pDzLqHwHVdg1vptqk/tE1DpJCsSzFKsZbk1/n/ccI5GQ6
+	 QJ0pvhIPpPDgQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CA313C624D2;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EF1E9C624C6;
 	Tue,  1 Sep 2026 12:15:42 +0000 (UTC)
 From: Colin Huang via B4 Relay <devnull+u8813345.gmail.com@kernel.org>
-Date: Tue, 01 Sep 2026 20:15:20 +0800
-Subject: [PATCH v7 05/11] ARM: dts: aspeed: anacapa: Add eeprom device node
- for NFC adaptor board
+Date: Tue, 01 Sep 2026 20:15:22 +0800
+Subject: [PATCH v7 07/11] ARM: dts: aspeed: anacapa: Enable MCTP and FRU
+ for NIC
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-anacapa-devlop-phase-devicetree-v7-5-0bd71d2e0105@gmail.com>
+Message-Id: <20260901-anacapa-devlop-phase-devicetree-v7-7-0bd71d2e0105@gmail.com>
 References: <20260901-anacapa-devlop-phase-devicetree-v7-0-0bd71d2e0105@gmail.com>
 In-Reply-To: <20260901-anacapa-devlop-phase-devicetree-v7-0-0bd71d2e0105@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -52,13 +52,13 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
  colin.huang2@amd.com, Colin Huang <u8813345@gmail.com>, 
- Carl Lee <carl.lee@amd.com>
+ Andy Chung <Andy.Chung@amd.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788264931; l=833;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788264931; l=3263;
  i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
- bh=26fq2T2FsHohRgFb+8YUKBwoq82KVZ3EC93yHvrPJAI=;
- b=yNkBMl4M29kDge5+o3YGAzEKsBkwqW5oKMeb0jK6wxscwfH9GRuDHhX8Bvo639x3wzQYaVPWP
- rKj12fgNdetCGs8iuZfHoK4PtEvj19Qi4YgKS+G2/HDjj+fwf9fPqgc
+ bh=IMTHRnionsGkkMqXg9dauLUi9styDROAZ5JcOrMpvv0=;
+ b=L/gFUmw2dG1/OG7QaiRmMCEbZ/gel0F8X9wCZxtcd7OD3SBsNkplhsWYlO4eFSakfHlW1LKY3
+ CHcN5eQT0mkAZ6rwD4dmLFB0suG9d3kK7x0SWXLZnMTVPP43oDmmqzP
 X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
  pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
 X-Endpoint-Received: by B4 Relay for u8813345@gmail.com/20260202 with
@@ -66,39 +66,173 @@ X-Endpoint-Received: by B4 Relay for u8813345@gmail.com/20260202 with
 X-Original-From: Colin Huang <u8813345@gmail.com>
 Reply-To: u8813345@gmail.com
 
-From: Carl Lee <carl.lee@amd.com>
+From: Andy Chung <Andy.Chung@amd.com>
 
-Add eeprom device node for NFC adaptor board FRU.
+Add the mctp-controller property to enable frontend NIC management
+via PLDM over MCTP.
+Also add EEPROM device for NIC FRU and reorder the I2C virtual bus
+index accroding to the system silkscreen index.
 
-Signed-off-by: Carl Lee <carl.lee@amd.com>
+Signed-off-by: Andy Chung <Andy.Chung@amd.com>
 ---
- .../boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi   | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ .../aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi   | 137 +++++++++++++++++++++
+ 1 file changed, 137 insertions(+)
 
 diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi
-index 77126418a702..ed46a53aab24 100644
+index 83b3b99ceccb..c0b2976ad9e9 100644
 --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi
 +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi
-@@ -17,6 +17,19 @@ eeprom@51 {
+@@ -3,6 +3,25 @@
+ /dts-v1/;
+ #include "aspeed-bmc-facebook-anacapa-evt1.dtsi"
+ 
++&{/aliases} {
++	i2c36 = &i2c11mux0ch5;
++	i2c37 = &i2c11mux0ch6;
++	i2c38 = &i2c11mux0ch7;
++	i2c39 = &i2c11mux0ch0;
++	i2c40 = &i2c11mux0ch1;
++	i2c41 = &i2c11mux0ch2;
++	i2c42 = &i2c11mux0ch3;
++	i2c43 = &i2c11mux0ch4;
++	i2c44 = &i2c10mux0ch1;
++	i2c45 = &i2c10mux0ch2;
++	i2c46 = &i2c10mux0ch3;
++	i2c47 = &i2c10mux0ch4;
++	i2c48 = &i2c10mux0ch5;
++	i2c49 = &i2c10mux0ch6;
++	i2c50 = &i2c10mux0ch7;
++	i2c51 = &i2c10mux0ch0;
++};
++
+ // MB - PDB
+ &i2c8 {
+ 	i2c-mux@72 {
+@@ -51,6 +70,124 @@ eeprom@51 {
  	};
  };
  
-+// MB
-+&i2c13 {
-+	i2c-mux@70 {
-+		i2c@7 {
-+			// NFC adaptor board FRU
++// R Bridge Board
++&i2c10 {
++	multi-master;
++
++	mctp@10 {
++		compatible = "mctp-i2c-controller";
++		reg = <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
++	};
++
++	i2c-mux@71 {
++		/delete-property/ i2c-mux-idle-disconnect;
++
++		i2c10mux0ch1: i2c@1 {
++			mctp-controller;
++			// BE NIC FRU
++
 +			eeprom@50 {
-+				compatible = "atmel,24c128";
++				compatible = "atmel,24c32";
++				reg = <0x50>;
++			};
++		};
++
++		i2c10mux0ch2: i2c@2 {
++			mctp-controller;
++			// BE NIC FRU
++
++			eeprom@50 {
++				compatible = "atmel,24c32";
++				reg = <0x50>;
++			};
++		};
++
++		i2c10mux0ch3: i2c@3 {
++			mctp-controller;
++			// BE NIC FRU
++
++			eeprom@50 {
++				compatible = "atmel,24c32";
++				reg = <0x50>;
++			};
++		};
++
++		i2c10mux0ch4: i2c@4 {
++			mctp-controller;
++			// BE NIC FRU
++
++			eeprom@50 {
++				compatible = "atmel,24c32";
 +				reg = <0x50>;
 +			};
 +		};
 +	};
 +};
 +
- &sgpiom0 {
- 	gpio-line-names =
- 	/*in - out */
++// L Bridge Board
++&i2c11 {
++	multi-master;
++
++	mctp@10 {
++		compatible = "mctp-i2c-controller";
++		reg = <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
++	};
++
++	i2c-mux@71 {
++		/delete-property/ i2c-mux-idle-disconnect;
++
++		i2c11mux0ch0: i2c@0 {
++			mctp-controller;
++			// FE NIC FRU
++
++			eeprom@50 {
++				compatible = "atmel,24c32";
++				reg = <0x50>;
++			};
++		};
++
++		i2c11mux0ch1: i2c@1 {
++			mctp-controller;
++			// BE NIC FRU
++
++			eeprom@50 {
++				compatible = "atmel,24c32";
++				reg = <0x50>;
++			};
++		};
++
++		i2c11mux0ch2: i2c@2 {
++			mctp-controller;
++			// BE NIC FRU
++
++			eeprom@50 {
++				compatible = "atmel,24c32";
++				reg = <0x50>;
++			};
++		};
++
++		i2c11mux0ch3: i2c@3 {
++			mctp-controller;
++			// BE NIC FRU
++
++			eeprom@50 {
++				compatible = "atmel,24c32";
++				reg = <0x50>;
++			};
++		};
++
++		i2c11mux0ch4: i2c@4 {
++			mctp-controller;
++			// BE NIC FRU
++
++			eeprom@50 {
++				compatible = "atmel,24c32";
++				reg = <0x50>;
++			};
++		};
++	};
++};
++
+ // MB
+ &i2c13 {
+ 	i2c-mux@70 {
 
 -- 
 2.34.1
