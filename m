@@ -1,30 +1,30 @@
-Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
+Received: from out30-112.freemail.mail.aliyun.com (out30-112.freemail.mail.aliyun.com [115.124.30.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B5336A364
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:33:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85BB4378D89
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:33:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788244390; cv=none; b=LWWfHlqBbHqtEhjhZFLVAMgVFwpmEcziGVOZV8QnfmN1roQ9YvMh+dM5HjW4fqeWzVQSAWFNd/RgNdPzX6zhRDlX3uDDPjS9i/83D4MQeNM5NbOrpxc8GbPTLV8NIvf0u/OOSImQUjde4MQdQx7TueZd4+Zedt7fWzGMmaT7R6s=
+	t=1788244394; cv=none; b=F2ZpJTIKKt4kdfE+1GVC8izuFVa02aasmfMiSFbgJTtwvh3Bcz+gxw7uBjJwRll/7Z+rOQ82+nyFt3FQgNa3blxZ/16AsUyDi1/HA+rxma6s4h2mECkTlSm2JgI7ntcLHNpiR0LNp/5OEBOOZj4+7+Rc6cEasG3xwmxkFM93uew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788244390; c=relaxed/simple;
-	bh=h8kkhzO2ImVgjkG1e2qZ/ZXPIitu6FWdseOO3TZP70c=;
+	s=arc-20240116; t=1788244394; c=relaxed/simple;
+	bh=5R3l83+AnsGOP1omiDNJHnYYx4quuehlLcZf3o7Rddc=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=XtYIRsF6MOD+B1l5E0Mz7LI462YQ4Rvf4Aez9oAo9jvREWiDNmbAy9/MxVxcfvIRBou/x2b7K3xOHlZ1ZNCr7NNYDpoWpeSkPSBcSRPdIXQjWRHsuuX0qUzPVIFmsqh3qrx5A8VxINyQJhxbGW4PqdpscH9hg/gXraIQufoQt78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=tt5qHlP3; arc=none smtp.client-ip=115.124.30.111
+	 MIME-Version; b=RvYo1OS0RtFNRfvMM+4zswzJ07BWWpTKUHhOOJCoQGISkGTUP34S/EATbMzpa1Gq8NPrvWaFHRSJQCyDEwP4xmLArBl1R+s0MJptY1etG3jK9r8yqQzoTWbh4pBUpgs4jM9wHybOZeBCCJFwe7/DEk6YWZ5Mszwhfcs5QEmXLcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=O315y6Mj; arc=none smtp.client-ip=115.124.30.112
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="tt5qHlP3"
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="O315y6Mj"
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linux.alibaba.com; s=default;
 	t=1788244384; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=GyVRRq71oNkvnJvOiM8YXwHI5/MyS+0QmarDgfjWn34=;
-	b=tt5qHlP3HX0oxO/nMq6Rz7nX8Hle8VBavvFeemTHh9sP2lSSQmq4l64aJ4Ip2yARRfuarkohdPYF7lBQmvBkeOID63GQ8lUATXyjiRx1lO6zV6Na2HmYOOhtnwwCXt4YTmoj5duAtWgCyM7Kbf6V34fiw+Aj39PQ0uAyrow7dKY=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XA47zDB_1788244383;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XA47zDB_1788244383 cluster:ay36)
+	bh=yVWRK7fUCEudtcuozwBanmc7BlPTtipZ34kWdaYysDw=;
+	b=O315y6MjHQ5kNtbwfCFORdiCavL7c5tid0dMxO33gSPAQDLfnncheM7DBHU5vS/eCFUsWMsUDA2xRBridBF4fpmLostpNzMg5eXQgwDK2dc66gszsfKNhZnYCsQyMmEwDyjm03h0H8yiOQWNso/RC94auorIWbumLC+hjbCebtw=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XA4XOaV_1788244382;
+Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XA4XOaV_1788244382 cluster:ay36)
           by smtp.aliyun-inc.com;
-          Tue, 01 Sep 2026 14:33:04 +0800
+          Tue, 01 Sep 2026 14:33:03 +0800
 From: Joseph Qi <joseph.qi@linux.alibaba.com>
 To: Andrew Morton <akpm@linux-foundation.org>,
 	Heming Zhao <heming.zhao@suse.com>
@@ -32,9 +32,9 @@ Cc: Mark Fasheh <mark@fasheh.com>,
 	Joel Becker <jlbec@evilplan.org>,
 	ocfs2-devel@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/4] ocfs2: validate suballoc bit during inode read
-Date: Tue,  1 Sep 2026 14:32:59 +0800
-Message-Id: <20260901063301.984933-3-joseph.qi@linux.alibaba.com>
+Subject: [PATCH v2 1/4] ocfs2: restrict OCFS2_INVALID_SLOT suballoc slot to system inodes
+Date: Tue,  1 Sep 2026 14:32:58 +0800
+Message-Id: <20260901063301.984933-2-joseph.qi@linux.alibaba.com>
 X-Mailer: git-send-email 2.39.3
 In-Reply-To: <20260901063301.984933-1-joseph.qi@linux.alibaba.com>
 References: <20260901063301.984933-1-joseph.qi@linux.alibaba.com>
@@ -46,73 +46,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-i_suballoc_bit of a dinode is currently not validated at all.  A
-corrupted dinode can carry an abnormally large i_suballoc_bit, which
-bypasses ocfs2_validate_inode_block().  When the inode is deleted,
-ocfs2_remove_inode() calls ocfs2_free_dinode(), which passes the
-unvalidated bit to _ocfs2_free_suballoc_bits() and triggers
-BUG_ON((count + start_bit) > ocfs2_bits_per_group(cl)).
+ocfs2_validate_inode_block() currently permits i_suballoc_slot to be
+OCFS2_INVALID_SLOT for any dinode.  Only system inodes created by
+mkfs.ocfs2 are allocated from the global allocator and thus
+legitimately carry this value; regular inodes are always allocated
+from a per-slot suballocator and hence must have a valid slot.
 
-A suballocator block group bitmap is contained in a single block and
-starts after the group descriptor header, so a valid suballoc bit must
-be smaller than the number of bits fitting in the remaining space.
-Reject oversized i_suballoc_bit values during dinode validation.
+If a corrupted regular inode with OCFS2_INVALID_SLOT is accepted,
+ocfs2_remove_inode() will pass the slot to ocfs2_get_system_file_inode()
+and get_local_system_inode() will hit BUG_ON(slot == OCFS2_INVALID_SLOT)
+when the inode is deleted.  This can be triggered by an unprivileged
+user unlinking such a corrupted file.
 
+Reject OCFS2_INVALID_SLOT for non-system dinodes during validation,
+while still accepting it for system inodes.  Note that a crafted dinode
+carrying OCFS2_SYSTEM_FL passes the check above, yet a plain lookup of
+it still used to BUG() in ocfs2_read_locked_inode() ("system file state
+is ambiguous").  Since i_flags comes from disk, handle that mismatch
+with ocfs2_error() instead of BUG_ON() as well.
+
+Fixes: fe7a283b3916 ("ocfs2: add suballoc slot check in ocfs2_validate_inode_block()")
+Cc: stable@vger.kernel.org
 Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 ---
- fs/ocfs2/inode.c | 16 ++++++++++++++++
- fs/ocfs2/ocfs2.h | 11 +++++++++++
- 2 files changed, 27 insertions(+)
+ fs/ocfs2/inode.c | 37 ++++++++++++++++++++++++++++---------
+ 1 file changed, 28 insertions(+), 9 deletions(-)
 
 diff --git a/fs/ocfs2/inode.c b/fs/ocfs2/inode.c
-index 9228d6ef23c2..92f3450010fb 100644
+index 180107a11046..9228d6ef23c2 100644
 --- a/fs/ocfs2/inode.c
 +++ b/fs/ocfs2/inode.c
-@@ -1547,6 +1547,22 @@ int ocfs2_validate_inode_block(struct super_block *sb,
+@@ -638,14 +638,18 @@ static int ocfs2_read_locked_inode(struct inode *inode,
+ 	fe = (struct ocfs2_dinode *) bh->b_data;
+ 
+ 	/*
+-	 * This is a code bug. Right now the caller needs to
+-	 * understand whether it is asking for a system file inode or
+-	 * not so the proper lock names can be built.
++	 * The caller must know whether it is asking for a system file inode
++	 * or not so the proper lock names can be built.  Since i_flags comes
++	 * from disk, a mismatch is filesystem corruption instead of a code
++	 * bug, so handle it with ocfs2_error() rather than BUG_ON().
+ 	 */
+-	mlog_bug_on_msg(!!(fe->i_flags & cpu_to_le32(OCFS2_SYSTEM_FL)) !=
+-			!!(args->fi_flags & OCFS2_FI_FLAG_SYSFILE),
+-			"Inode %llu: system file state is ambiguous\n",
+-			(unsigned long long)args->fi_blkno);
++	if (!!(fe->i_flags & cpu_to_le32(OCFS2_SYSTEM_FL)) !=
++	    !!(args->fi_flags & OCFS2_FI_FLAG_SYSFILE)) {
++		status = ocfs2_error(osb->sb,
++				     "Inode %llu: system file state is ambiguous\n",
++				     (unsigned long long)args->fi_blkno);
++		goto bail;
++	}
+ 
+ 	if (S_ISCHR(le16_to_cpu(fe->i_mode)) ||
+ 	    S_ISBLK(le16_to_cpu(fe->i_mode)))
+@@ -1520,8 +1524,23 @@ int ocfs2_validate_inode_block(struct super_block *sb,
  		goto bail;
  	}
  
+-	if (le16_to_cpu(di->i_suballoc_slot) != (u16)OCFS2_INVALID_SLOT &&
+-	    (u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
 +	/*
-+	 * A suballocator block group bitmap is contained in a single block
-+	 * and starts after the group descriptor header, so a valid suballoc
-+	 * bit can never exceed ocfs2_suballoc_bits_per_block().  Otherwise
-+	 * deleting the inode will pass the oversized bit to
-+	 * _ocfs2_free_suballoc_bits() via ocfs2_free_dinode() and trigger
-+	 * BUG_ON((count + start_bit) > ocfs2_bits_per_group(cl)), since any
-+	 * group holds at most ocfs2_suballoc_bits_per_block() bits.
++	 * Only system inodes created by mkfs.ocfs2 are allocated from the
++	 * global allocator and thus legitimately carry OCFS2_INVALID_SLOT.
++	 * Regular inodes are always allocated from a per-slot suballocator.
++	 * If a regular inode with OCFS2_INVALID_SLOT was accepted here,
++	 * deleting it would pass the slot to get_local_system_inode() via
++	 * ocfs2_remove_inode() and trigger BUG_ON(slot == OCFS2_INVALID_SLOT).
 +	 */
-+	if (le16_to_cpu(di->i_suballoc_bit) >= ocfs2_suballoc_bits_per_block(sb)) {
-+		rc = ocfs2_error(sb, "Invalid dinode %llu: suballoc bit %u\n",
-+				 (unsigned long long)bh->b_blocknr,
-+				 le16_to_cpu(di->i_suballoc_bit));
-+		goto bail;
-+	}
-+
- 	if ((le32_to_cpu(di->i_flags) & OCFS2_ORPHANED_FL) &&
- 	    le16_to_cpu(di->i_orphaned_slot) >= OCFS2_SB(sb)->max_slots) {
- 		rc = ocfs2_error(sb, "Invalid dinode %llu: orphaned slot %u\n",
-diff --git a/fs/ocfs2/ocfs2.h b/fs/ocfs2/ocfs2.h
-index b747cdec1787..b6ead97605b3 100644
---- a/fs/ocfs2/ocfs2.h
-+++ b/fs/ocfs2/ocfs2.h
-@@ -593,6 +593,17 @@ static inline int ocfs2_supports_discontig_bg(struct ocfs2_super *osb)
- 	return 0;
- }
- 
-+/*
-+ * A suballocator block group bitmap starts right after the group
-+ * descriptor header and extends to the end of the group block, so a
-+ * suballoc bit can never exceed this number of bits.
-+ */
-+static inline u32 ocfs2_suballoc_bits_per_block(struct super_block *sb)
-+{
-+	return (sb->s_blocksize - offsetof(struct ocfs2_group_desc,
-+					   bg_bitmap)) * 8;
-+}
-+
- static inline unsigned int ocfs2_link_max(struct ocfs2_super *osb)
- {
- 	if (ocfs2_supports_indexed_dirs(osb))
++	if (le16_to_cpu(di->i_suballoc_slot) == (u16)OCFS2_INVALID_SLOT) {
++		if (!(le32_to_cpu(di->i_flags) & OCFS2_SYSTEM_FL)) {
++			rc = ocfs2_error(sb,
++					 "Invalid dinode %llu: suballoc slot %u for non-system inode\n",
++					 (unsigned long long)bh->b_blocknr,
++					 le16_to_cpu(di->i_suballoc_slot));
++			goto bail;
++		}
++	} else if ((u32)le16_to_cpu(di->i_suballoc_slot) > OCFS2_SB(sb)->max_slots - 1) {
+ 		rc = ocfs2_error(sb, "Invalid dinode %llu: suballoc slot %u\n",
+ 				 (unsigned long long)bh->b_blocknr,
+ 				 le16_to_cpu(di->i_suballoc_slot));
 -- 
 2.39.3
 
