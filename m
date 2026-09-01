@@ -1,263 +1,206 @@
-Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021099.outbound.protection.outlook.com [52.101.100.99])
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885B724501D
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:43:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.99
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788263005; cv=fail; b=cLbLvR4aDqHoJrx78C2gSiKzVg+zyy8zNqy4DFk/IVe8PD2drD7LlI8ZXo/eoZejDJFlQb2HtBwhP9brqD4Ssl7RiiUg5bAcCL62p4HV2sf938WzaufLmrWgI9MxlHtzBpjXawUQu1jG198fsNSzXk91FxXO5OXKLUyYQz0E9J0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788263005; c=relaxed/simple;
-	bh=WWh3n3tqffllMB5ZqphnUJigzmXsoZgiBG0HMm75tc0=;
-	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
-	 In-Reply-To:MIME-Version; b=kXxCm4Kp1yx5XUL6Ul0pR1MllJCVaWDkB4bOUzhhhi1TvbXM0kKA8dhphV4YdY9WzQn+ZNuvDaQM80uA/Kp8cFqX9fzPgwJQL+DikNQulo0uvznKvcUzioUQkA1YOsEI+g0EGup5OjvJEsvQt3hgpyINuk7lSpl5+tQG0gte6f4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=x7Ni6JUQ; arc=fail smtp.client-ip=52.101.100.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4902639DBD6;
+	Tue,  1 Sep 2026 11:43:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788263008; cv=none; b=csHYH0h67h1fV5zRBxyRUlFjx8YuTpVkKH79jsRsWTZaa2NXJuVRpalq1N2iyCu9YXVdL/lyggnWx6jIGRBRVccSImTRW9EC/e3fGSKwdO8za8ClxYKmdTjdBI/Qsqg4SR0uCm5WP4AfxRkH1n5P9qt9KaHR38uP+Q/o0TbNEXI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788263008; c=relaxed/simple;
+	bh=39ITq4Ff+c+FJRIAtgkzR/3Yy9O8cOz2fIYexbHY64o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=PQhrGBmSfO9DNoD7lt14QCB+2Fj+NgxKrHpkJSt88HTibPLqoSILpqflLj1dpms0qHruxToKkTfH0XpszRAFaiyKkyLbA/ttD2I1AlqP41nWntjHR3LM2/la0HzOJ5hLpQADm9gpSa/zqDYYX/tjI1iynzDQ5GkVWVTj+XJzIOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=3WCLVJ/Q; arc=none smtp.client-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="x7Ni6JUQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JTbaFDrWWznUUHD4+smt5grUes5dt7RZewqDkRp7VeFit3YYvL7mOAOmJsna+lqDz6ILQ9zYEbDNP8Sy1xEi/OmVm3IxGivELIZ9p+3zv3dM5pOMhmbFGW2i08wKV840eEOy+IgXTxKqPJPzTOJu143zVVBydugu3aawB4sAEbCs5gaj/Tq+QYgFyDOkUgMAktAHFBOHP7wvfb37uAo/+4Bd41w0m2D0FTNagBsuPsI4dh6QCpp2YKLce45/IuGydkGkxlMKvmUUxF8ahVWVS3yEdi6d6TttlqGYYFD/tuZwI4geUgphYjmveYGs2b6s+MIbYMpzGvBFbwzxGmcI3A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VaKSf9Q4DqUd1LGU1SuYL6ztMMTRGVUZtO+0x1CGnQs=;
- b=OU2M6XeOkRdc+crPdW2ev/E4ygvG66S5DdNxKG7YXHukip2XpeTVtyQhO6qUITWHnLIlD/Wa2gxec9ENUAMAJm2PtT6wDjDC/mQNUnQ7qIWTQahGjshCqdMrbRKXGB4lfnSMyZiSlF3fuyV/XN1veWl4hZFdC1bIoFE6BGZkc04hOoL3iLtXU0VtP3fJXBjKZ/xPdJB15U1sf+iW4RbaxUY1ZNiyp2VEjwX2Gc06AllmqMc5+hSteBU90lZeXtWIFmgaJFcyDCehs4qG8z414ZTJBgh3UEscj1Mcl8/Oa0BG+ulOLupdbleAzxzgpqN8DKqKpBtFx8Fh31VJTHKcgg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VaKSf9Q4DqUd1LGU1SuYL6ztMMTRGVUZtO+0x1CGnQs=;
- b=x7Ni6JUQAQjoT/lqmmy8Bwnb+RPfc2OCt6wIVosh5u+f8uCjB9FZketYfOCFG2MWH9ZqNXiQcecd3ey7cQ29JkXrJ8Q1y3/AMYEvATXgkUVWKPf5JMA0WokEp85uHGT+mDWt28Nk5WyNszRmAHgtzdr/L6/8TmxNeYW+CKE6bBA=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CW1P265MB7769.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1d9::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Tue, 1 Sep
- 2026 11:43:18 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 11:43:18 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 01 Sep 2026 12:43:17 +0100
-Message-Id: <DL3YBS0UXYMC.1KJEZ9KWV52O8@garyguo.net>
-Subject: Re: [PATCH v3 1/2] gpu: nova-core: fix barrier usage in CPU->GSP
- messaging path
-From: "Gary Guo" <gary@garyguo.net>
-To: "Eliot Courtney" <ecourtney@nvidia.com>, "Gary Guo" <gary@garyguo.net>,
- "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Alexandre Courbot" <acourbot@nvidia.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
-Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-X-Mailer: aerc 0.22.0
-References: <20260819-rust-barrier-v3-0-d5b7bd7e6624@garyguo.net>
- <20260819-rust-barrier-v3-1-d5b7bd7e6624@garyguo.net>
- <DKX6R86RZJIW.2HMS6X0NUP15T@nvidia.com>
- <DKX6VRIHFF71.1KWPD0ZQM2RAB@garyguo.net>
- <DKX70RBRWHC2.3KXXJYL22T8K@nvidia.com>
- <DKX7400TO0RK.1R05PZKS9Q33F@garyguo.net>
- <DKXLSOCZBYYX.1OE2DF4LYRMV5@nvidia.com>
- <DL3AYW5D121E.29D3XI699XMKN@garyguo.net>
- <DL3MXU3NQFLM.21AFT3KWNROVP@nvidia.com>
-In-Reply-To: <DL3MXU3NQFLM.21AFT3KWNROVP@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0427.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18b::18) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="3WCLVJ/Q"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=jVFy6vmRTrlaHy1nJIJgeFKjh2QY1a0llw9oeQ2GpfM=;
+	b=3WCLVJ/QUY/dalOUg3y2No3BSYtFDEAEem8rPz++4Q80iySAl3yWGYQ2UxsSal6T0WWl8CWEr
+	V84iMd5t1g+plSUv1YDwAow+nc6NIV0tY2t/r1OMfUEfKFMjGj5T1zOgK6FhcfCb2Wc83soM7U0
+	L7T78noz9RIp97/+mJx0B+4=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hZ3bz3DMsz1T4Fq;
+	Tue,  1 Sep 2026 19:31:59 +0800 (CST)
+Received: from dggpemf100018.china.huawei.com (unknown [7.185.36.183])
+	by mail.maildlp.com (Postfix) with ESMTPS id B649540579;
+	Tue,  1 Sep 2026 19:43:19 +0800 (CST)
+Received: from [10.67.111.115] (10.67.111.115) by
+ dggpemf100018.china.huawei.com (7.185.36.183) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Tue, 1 Sep 2026 19:43:18 +0800
+Message-ID: <5c4e30cf-3742-4d25-a209-25498c73f1f4@huawei.com>
+Date: Tue, 1 Sep 2026 19:43:17 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CW1P265MB7769:EE_
-X-MS-Office365-Filtering-Correlation-Id: f06b6882-a0b4-4439-2f9b-08df081e377c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|10070799003|1800799024|366016|6133799003|56012099006|4143699003|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	8SDPfb8WTsV3rT21QC4G2y0Ywop/dsxuXaBg1KrQPebltLnmG4zwaQex06b9pT3qJcYfnW7JAgdVEN8934Cklfk2fVTe+e5/4WdoR9HLk69DpJICMGq6NILGwZoElM8NCs5nmk8oOlDWIU6GrsOvvnPzJU+vYq1VpE/WtzNy4dyd7h6BvXc+i+ag4AAov7Vx11AnIAv7w4RRrfn0/LMVV8b9yqlt6w7nQD/hvo2oD2NzCZVqJ6MfspErApsx3bsZx7v2mhTiX7HVJN1OiV7ekecH4HCBf0crkRiP0Es9QM7j6V62Hx0t2tcWmOB7l/UoSsQaSzDp8AcFYRpYEDV6eyXBuSRjksAwbKeQKS2wDU5Grskgx8QObgSv+T1ICqDj+z8w/MM7DTAGjDHkv9wzd8NFRbUgJKwfjrP/J+Ba4o6nf45yxaDya9dJeZ6gyhGNRRrgjZodEQO/kxN72I9dUSwqU8uKc0pj5A6QH9JEXd3xGqn1zrT6DBxAVYARmSKx8Lyg8xDPuCgveUrNybnq/GTelD6e5I2Hx5XgKq10BMjWg6KkuQ+TUxsKjfuqsBQbd2NNctZIVLDaPAMi7rU/v51HLZ6bq8rcTH6X8prLue9ZB/AK9tOemZoHKhaFMamMIQgSxMXN2/8jrDGdjKPoQRjKPn5qiyh3skjMS4zrQRA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(10070799003)(1800799024)(366016)(6133799003)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bUhDV1pkb0lTU2Y0NjN2dmQvSVRZSnh6YVRTYlNlaFM2QlJYSi9WWXNLbmFB?=
- =?utf-8?B?KzBZbWpzdCtBVzcySU1PVk12OTcwVmFHTXBqQThXQUtZM2tZaTZicXpsN0JV?=
- =?utf-8?B?akpOanRaTlAwalRWYnByMmQxL2hacWNYNTYrdnJ4bXMvMzN6ODM5RUVxQWV3?=
- =?utf-8?B?MlVCaUVYK1BNVSt5SnBCS2Uwc0pFZE1iZUVJVEFhdUZHR1FmWWNNYTZBbTRY?=
- =?utf-8?B?cFdKR0I4VDhDY3JaOWlpZXYrbWEzdHcxMHNLNDBkQ1pzTEJFSUxIdmQ5YzBV?=
- =?utf-8?B?WmhLRS82SzVSQzB1Y01RbUZVeUxXd2hlcmdBZElpWlRXb3l5N01TcXV1eTIy?=
- =?utf-8?B?Y1dKeVYrZ3E2amwyandwVlAva1lYZDgxTjZpUTAyNjVHN3krdTJjdWtRbllr?=
- =?utf-8?B?UEkwNHdZNlo5Tk9vN1hTaTRhSmo2VWNoSThPV2htclpqRzUxTUhpdWFzeGpH?=
- =?utf-8?B?OW9sbFNYcWdGNEpOQ09sVS9Kb1FZWkNqQUsxNmRIYUJhdVpTeUdJajlocFIz?=
- =?utf-8?B?VEZhTlRPVG8rdlZZMHBQRWxMY3B1R0NKZStSNkorbzJXck52RHNkVlRXMGI0?=
- =?utf-8?B?a2Jtb1JzNGJIS1ZvcEV5MWliMEd6cDVWNXIrWW85NjJ0UTdPc2x2YnFKSHhw?=
- =?utf-8?B?eWpmMHVEbjV6Q241cmFtOTI1MmlCYlpjdEFHY3JaeEM3R3piK1hxMFVaemZV?=
- =?utf-8?B?TjBIUEhqcXpwZ3RmS2hyV3NXNGxCV3JEVGhWcHVHeHh0Y2R1ODE1UUpFQU1B?=
- =?utf-8?B?bVZVRnpENmZFSUZKQjVPVDh5SGJndVZqRnliSWVaVEo3Q2Fsb2cxZWk5TklK?=
- =?utf-8?B?TkZVaE9vUWN1aWtyWldwS0dxMjI2Tk5sY1Z4NDNwOG5kVTR4SjE5dklKeDkw?=
- =?utf-8?B?RnRyQmxMeW9oZVBzVUN3SnV2akFMTjR2RUttZzBjeVI0WjEwT1ZoditaRzJw?=
- =?utf-8?B?REpUWFlBOHgzRzR3eDhBWktXTFYrK1FyZVhpZkg5dVc0WWZtVmF1WFhoSGJM?=
- =?utf-8?B?RkxXMVpKUFBsR0RKRlU5S1I1YlVyUlFWV1ZlN1F5SU5EbkUyNVFJakZZMG5P?=
- =?utf-8?B?YWJwMUpEK042VTdwMVI2R212eWQ1WFZPeXAwR3Q0ZTFyTU5helhDTUVuVENM?=
- =?utf-8?B?T0twN0xnM2VZKzdTSnlHemhYODZKTW8rWWs4Y2ZXSTlaQW5iMUpQbjdFeHRp?=
- =?utf-8?B?MTNjWlRRYmxRelFtbE1DTGZYSEErYUkzSE1rbkVqN2RidWhZaGFKUGZtOUoz?=
- =?utf-8?B?NmozbE5ITXdGRTVsNDZSU3UzS2N3TTNxQmRkaktuamFNak84RUsweU5Sdnl1?=
- =?utf-8?B?WVFtSXY4OGlpMnhzenNEaVk5NWRYVGNvLzNwZWU1M2RXRUxGUExBZW5kNkVq?=
- =?utf-8?B?WkVlZU40aVB5M0RFSzlFdlhEWlV6ZXIrNXBldHNteU0raUJKMkRRWG11STB0?=
- =?utf-8?B?d2tIQWVRK3lEbUtWcHRNSy9LNE5ta3ZNazNuekFTeis1di9VQjdlaDhYcEtW?=
- =?utf-8?B?WCtHRmtmTFNpcjlYcXZZNFk2cVNsbSswS2k5WFVwTExlMEcrQlVvdnoweGRG?=
- =?utf-8?B?bnpUWlhYOXo0Um5IMjBJQmJUWC9zbHNOY2JSdE80QXpJWnZocVI0bnA3S0xK?=
- =?utf-8?B?OWhvZkhBUUlEQ1g3d2duWTJZNFp2TGRic2t4NmFYRjFlZVJjcDlVNmtENlhn?=
- =?utf-8?B?UXRrMDZReG5ORUJjVVpRMzFRUTJXMmdxb1BvUDB2cHlIclEvMS9ZcVByWE5P?=
- =?utf-8?B?dUwrbkcrajVUOXdjak1xdysydHA2T1JmRjN0aGFZSVQxaFZuNXl0eWh6NXdP?=
- =?utf-8?B?a1diRlRsbjBQT0NIcG9BRDYraUptZXQyRXV2ZWlGZjRZL0srQVFGclFNZzVl?=
- =?utf-8?B?YjV1YWZZZ1dSSnlRS2VSWG5LRTByS0JCeDY4V0Q0RSt0amt3eDRtQ2FsaXhn?=
- =?utf-8?B?UWs2YlJIeUs4RkZXdCtCV1p5ZHdNcVRBWEt4QVRqUzZjSEppMDZaVThPZ3pN?=
- =?utf-8?B?UUQybjViaGFmdmxoTXRKUEl5ZTFCbU5YYUgrcS8xWVFLRERKZ1NNY1YwRVU2?=
- =?utf-8?B?QkdCVnlDeitXblJMWW5Da3p6c2MwMmdhczhzc0FPYmZqR1JhS3B2T2EzQkVr?=
- =?utf-8?B?Z3N2VXV2VXI3WjlKeUZISFVOZmNON2NwV1dCV3EwNzFObjhBQmVwNnZwMlE1?=
- =?utf-8?B?aEN2TkwzQ2hHZS9oV0JWTmo4TzRGbWhlRzJwelUvZi92Mlp5Q3ZRdEJjLzdM?=
- =?utf-8?B?TEMwL3JEdmtnTUZPaFFodmxaa0V6RlpxTmFNY3ZHdWF4RlVmZm9MTWRyQkdk?=
- =?utf-8?B?dXBFQ1JaRkZ0cFNHQVd3SXgycVBMaEF5UVhNb3d0QmxSQ2pBdjNSZz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: f06b6882-a0b4-4439-2f9b-08df081e377c
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 11:43:18.3712
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FocDriy0S7c5gcpJyacuxxasGLc07wUutpBpkWcSxBjPKMs5sXUFvGCKQ5BKua5cHEcogL5/oR42c6FQa+TKzg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CW1P265MB7769
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Revert "irqchip/mbigen: Fix mbigen node address layout"
+Content-Language: en-US
+To: caina <caina@uniontech.com>, <tglx@kernel.org>, <maz@kernel.org>,
+	<radu@rendec.net>, <guohanjun@huawei.com>, "liaochang (A)"
+	<liaochang1@huawei.com>, Ruan Jinjie <ruanjinjie@huawei.com>,
+	<wangwudi@hisilicon.com>
+CC: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
+	<kernel@uniontech.com>
+References: <8633w854yk.wl-maz@kernel.org>
+ <20260821091720.16665-1-caina@uniontech.com>
+From: Yipeng Zou <zouyipeng@huawei.com>
+In-Reply-To: <20260821091720.16665-1-caina@uniontech.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ dggpemf100018.china.huawei.com (7.185.36.183)
 
-On Tue Sep 1, 2026 at 3:47 AM BST, Eliot Courtney wrote:
-> On Tue Sep 1, 2026 at 2:25 AM JST, Gary Guo wrote:
->> On Tue Aug 25, 2026 at 1:38 AM BST, Eliot Courtney wrote:
->>> On Mon Aug 24, 2026 at 10:07 PM JST, Gary Guo wrote:
->>>> On Mon Aug 24, 2026 at 2:03 PM BST, Eliot Courtney wrote:
->>>>> On Mon Aug 24, 2026 at 9:56 PM JST, Gary Guo wrote:
->>>>>>>> @@ -683,6 +689,9 @@ fn send_single_command<M>(&mut self, bar: Bar0=
-<'_>, command: M) -> Result
->>>>>>>>              dst.header.length(),
->>>>>>>>          );
->>>>>>>> =20
->>>>>>>> +        // ORDERING: STORE->STORE ordering needed to order `cpu_w=
-rite_ptr` write after data write.
->>>>>>>> +        dma_mb(Write);
->>>>>>>> +
->>>>>>>
->>>>>>> Is there a reason this can't go into `advance_cpu_write_ptr`?
->>>>>>
->>>>>> I think it's more clear to consider `advance_cpu_write_ptr` to just =
-be the
->>>>>> pointer increment, and the ordering should be visible in code that p=
-erforms both
->>>>>> memory ops.
->>>>>
->>>>> In the second patch, it looks like you're adding the memory barrier
->>>>> directly in `advance_cpu_read_ptr`. So we'd have one barrier directly=
- in
->>>>> the code advancing the pointer and one not, which seems asymmetric. I
->>>>> think it's less error prone to put the barrier in the function so it
->>>>> can't be misused (and we already have evidence the barriers are easy =
-to
->>>>> get wrong, since this code was already broken).
->>>>
->>>> In the second one `message.header.length()` is read, so if I move the =
-barrier to
->>>> before the advance it'll be incorrect.
->>>>
->>>> Best,
->>>> Gary
->>>
->>> Yerp I mean move the barrier into `advance_cpu_write_ptr` not move the
->>> barrier out of `advance_cpu_read_ptr` - I agree that'd be incorrect. On
->>> clearness, it feels very odd to me to have these two functions
->>> (advance_cpu_read_ptr, advance_cpu_write_ptr) where one controls the
->>> memory barrier and one doesn't, purely based off the structure of the
->>> callers. And I still think it's less error prone (for future changes) t=
-o
->>> do it this way too.
->>
->> Frankly I don't like the asymmetry that the advancing code does the barr=
-ier,
->> while the pointer reading code doesn't have the barrier. However, if we =
-move the
->> barrier to the pointer read function, then the `driver_write_area_size` =
-would
->> gain a unnecessary barrier. (Actually, `driver_read_area` code have a si=
-milar
->> issue, a failed pool would execute an unnecessary barrier).
->>
->> As an alternative to move the barrier into the advancing code, alternati=
-vely we
->> can pull the `message.header.length()` to a separate line instead.
->>
->> I think we should either always have barrier inside the pointer read/upd=
-ate
->> code, or always on the user side. Given the former would mean unnecessar=
-y
->> barriers, I am erring on the latter.
->>
->> Best,
->> Gary
+Oh Sorry, the format of the last email was messed up.
+
+Hi1616 is special hardware whose register layout differs
+from the other mbigen platforms: it does not have the clear register
+range fixed at [0xA000, 0xAFFF], on which the fix is based.  As a
+result, skipping an extra node offset for node IDs greater than or
+equal to ten, as the fix does, makes the driver access wrong
+registers on Hi1616.
+
+The fix was originally introduced to address a real problem on the
+other platforms: each mbigen chip has its own independent set of
+clear registers, whose offset is fixed within the range [0xA000,
+0xAFFF].  Meanwhile, mbigen allocates a consecutive 4-byte register
+to every hwirq for configuring the interrupt type, EOI and so on, so
+each 4KB node region accommodates 128 hwirqs.  Before the fix, the
+driver calculated the register address of each interrupt from its
+hwirq.  This works without any problem as long as the number of
+interrupts is below 1280, which means no more than nine mbigen nodes.
+Once the maximum number of interrupts of a mbigen chip exceeds 1280,
+however, the node register addresses reach offset 0xA000 and start to
+clobber the fixed clear-register range.
+
+The final solution will be worked out in cooperation with the BIOS:
+the firmware will pass a chip version to the driver so that it can
+take care of all platforms.  Since this depends on the corresponding
+BIOS versions being adapted first, it cannot land immediately.
+
+In the meantime it is safe to revert the fix, because nobody has run
+into this problem for now: it can only be triggered on "new hardware"
+platforms, while all the platforms available today, including
+Hi1616, work correctly.
+
+So, let's revert this patch first.
+
+Acked-by: Yipeng Zou <zouyipeng@huawei.com>
+
+在 2026/8/21 17:17, caina 写道:
+> This reverts commit 6be6cba9c4371d27f78d900ccfe34bb880d9ee20.
 >
-> I see - so you're saying that one side of the maximally consistent
-> position is to put the memory barriers in additionally `gsp_read_ptr`
-> and `gsp_write_ptr`, but those don't always need a barrier e.g.
-> driver_write_area_size because they are not necessarily followed by an
-> access that needs ordering, and the alternative is to have callers of
-> those functions handle that responsibility.
+> Commit 6be6cba9c437 ("irqchip/mbigen: Fix mbigen node address layout")
+> appears to cause a regression on Hi1616.
 >
-> I think the differrence is that `advance_cpu_read_ptr` and
-> `advance_cpu_write_ptr` definitely need barriers, so why push up that
-> one level? Having barriers in `advance_cpu_read_ptr`,
-> `advance_cpu_write_ptr`, `driver_read_area`, and `driver_write_area` is
-> sufficiently consistent since it's the deepest set of functions that
-> can't avoid memory barriers.
-
-To me conceptually it's best to place memory barriers in places in between =
-two
-operations so it's very clear that it provides ordering between two operati=
-ons.
-Hiding memory barrier inside a plain access can be confusing.
-
-Alternatively, we can specifiy that the pointer updater have release semant=
-ics
-and the pointer reader have acquire semantics. This way it's also very clea=
-r,
-but does introduce unneeded barrier for the polling case as I mentioned. Th=
-at
-said, given that the polling interval is once a millisecond, extra barrier =
-is
-okay (full barrier is ~100ns). I do wish we have acquire/release barriers f=
-or
-these cases, which would be quite much cheaper!
-
-So unless there's an objection, I'll take the second approach by moving bar=
-rrier
-to pointer accessors/updaters and mark these methods to have acq/rel semant=
-ics.
-
-Best,
-Gary
-
+> On-board hns NIC has two ports, enahisic2i0 and enahisic2i1, both
+> behind mbigen-v2.  Port 0 works; port 1 cannot pass any traffic.
 >
-> If we want to remove unnecessary memory barriers on polling
-> `driver_read_area`, we could add an analogous `driver_read_area_size` or
-> move the memory barrier for driver_read_area up one level. The poll is
-> only once every millisecond though, so I doubt it makes a difference for
-> performance. But if we were to change it imo `driver_read_area_size` is
-> most consistent.
+> Their interrupt pins fall on different mbigen nodes:
+>
+>    enahisic2i0: pins 1152-1198 -> all in node 9
+>    enahisic2i1: pins 1200-1246 -> node 9 (1200-1215) + node 10 (1216-1246)
+>
+>    (nid = (hwirq - 64) / 128 + 1; pin 1215 = node 9, pin 1216 = node 10)
+>
+> /proc/interrupts shows the break happens exactly at the node boundary:
+>
+>    enahisic2i1-rx0  pin 1200  count 102   <- node 9
+>    enahisic2i1-rx5  pin 1215  count   1   <- node 9, last pin
+>    enahisic2i1-tx5  pin 1216  count   0   <- node 10, first pin
+>    enahisic2i1-rx6  pin 1218  count   0   <- node 10
+>    ...all node 10 pins stay at zero.
+>
+> Port 0 (entirely node 9) is unaffected.  Reverting the commit restores
+> normal operation.
+>
+> The commit assumes CLEAR occupies a full 4 KB page at [0xa000, 0xb000)
+> and collides with node 10, so node 10+ gets shifted by 0x1000.
+>
+> But get_mbigen_clear_reg() uses flat, chip-wide addressing -- it never
+> multiplies by the node ID:
+>
+>      *addr = (hwirq / 32) * 4 + REG_MBIGEN_CLEAR_OFFSET;  /* 0xa000 */
+>
+> Over the valid hwirq range [64, 1407], CLEAR only spans 0xa008-0xa0af
+> (168 bytes).  Node 10's registers are:
+>
+>      TYPE: 0xa000-0xa00f  (16 B)   overlaps CLEAR by 8 B (0xa008-0xa00f)
+>      VEC:  0xa200-0xa3ff  (512 B)  no overlap with CLEAR
+>
+> Shifting the whole page moves VEC from 0xa200 to 0xb200.  The hardware
+> reads the event ID from the fixed silicon address 0xa200 on interrupt
+> firing, but software wrote it to 0xb200 -- so the hardware gets an
+> uninitialised value and the interrupt is lost.
+>
+> The only real overlap is 8 bytes of TYPE.  It can only trigger when a
+> single mbigen instance has devices on both node 1 (CLEAR 0xa008) and
+> node 10 (TYPE 0xa008).  On Hi1616 those nodes are on separate mbigen
+> instances, so it never triggers.
+>
+> Suggested-by: Marc Zyngier <maz@kernel.org>
+> Fixes: 6be6cba9c4371d27f78d900ccfe34bb880d9ee20 ("irqchip/mbigen: Fix mbigen node address layout")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: caina <caina@uniontech.com>
+> ---
+>   drivers/irqchip/irq-mbigen.c | 20 ++++----------------
+>   1 file changed, 4 insertions(+), 16 deletions(-)
+>
+> diff --git a/drivers/irqchip/irq-mbigen.c b/drivers/irqchip/irq-mbigen.c
+> index 6f69f4e5dbac..12919836dadb 100644
+> --- a/drivers/irqchip/irq-mbigen.c
+> +++ b/drivers/irqchip/irq-mbigen.c
+> @@ -64,20 +64,6 @@ struct mbigen_device {
+>   	void __iomem		*base;
+>   };
+>   
+> -static inline unsigned int get_mbigen_node_offset(unsigned int nid)
+> -{
+> -	unsigned int offset = nid * MBIGEN_NODE_OFFSET;
+> -
+> -	/*
+> -	 * To avoid touched clear register in unexpected way, we need to directly
+> -	 * skip clear register when access to more than 10 mbigen nodes.
+> -	 */
+> -	if (nid >= (REG_MBIGEN_CLEAR_OFFSET / MBIGEN_NODE_OFFSET))
+> -		offset += MBIGEN_NODE_OFFSET;
+> -
+> -	return offset;
+> -}
+> -
+>   static inline unsigned int get_mbigen_vec_reg(irq_hw_number_t hwirq)
+>   {
+>   	unsigned int nid, pin;
+> @@ -86,7 +72,8 @@ static inline unsigned int get_mbigen_vec_reg(irq_hw_number_t hwirq)
+>   	nid = hwirq / IRQS_PER_MBIGEN_NODE + 1;
+>   	pin = hwirq % IRQS_PER_MBIGEN_NODE;
+>   
+> -	return pin * 4 + get_mbigen_node_offset(nid) + REG_MBIGEN_VEC_OFFSET;
+> +	return pin * 4 + nid * MBIGEN_NODE_OFFSET
+> +			+ REG_MBIGEN_VEC_OFFSET;
+>   }
+>   
+>   static inline void get_mbigen_type_reg(irq_hw_number_t hwirq,
+> @@ -101,7 +88,8 @@ static inline void get_mbigen_type_reg(irq_hw_number_t hwirq,
+>   	*mask = 1 << (irq_ofst % 32);
+>   	ofst = irq_ofst / 32 * 4;
+>   
+> -	*addr = ofst + get_mbigen_node_offset(nid) + REG_MBIGEN_TYPE_OFFSET;
+> +	*addr = ofst + nid * MBIGEN_NODE_OFFSET
+> +		+ REG_MBIGEN_TYPE_OFFSET;
+>   }
+>   
+>   static inline void get_mbigen_clear_reg(irq_hw_number_t hwirq,
 
+-- 
+Regards,
+Yipeng Zou
 
