@@ -1,199 +1,239 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A74533438A9;
-	Tue,  1 Sep 2026 01:35:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA4CC389107
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:36:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788226560; cv=none; b=PDkgBYxFnRMLjLAhhP+B6eJon38ipSIzmAutVdcuWbeDtRDOd11PwlSASyq8r+Zv+I6CRp1eHk03Zpfmq048tGrdrbaEHsMeILe4hXrtsi26oufx0liFeeeSHF+pEMVP/tMBYfdnz4W/p1F+8rQazyS0M9NDS9KzQ/Ped8ob/fQ=
+	t=1788226584; cv=none; b=kYsbVvO1AOcTVaZcfOQeKrXy8r7CYGLBbCoryTFj2IUfYC4ZR961Xv7HyXyl8mQU2F64m7YmF9I3Eke0NIBuPma154wm36C/tBWXpDivh9KlgYdhrFGuHDrkfwlcMJIbB1jSyqROpqckqBuwet32GMsR/qDOSBPwsoJzOONsUDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788226560; c=relaxed/simple;
-	bh=KcvGC+aQjE+LrOWnCN5fDaaDw4k71YT14EBb0fnoSLQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YKRyY9SYLs+BbT2B1CD9CLd68KS4kAaqvipXbHhEixkfVZGsxlzp7lFTzbR6hg7lhtYx2QdcVbqwtdnTL3NJcCSIugkMCgtQbW8/PJOhVGJr2RPwpvnPUDHUu/nR4iScfvtN+fsFoARPRWUO8cqLnkiroHa8cT2eIOd3nvCZq30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UPKr34kg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788226584; c=relaxed/simple;
+	bh=DLnWERtgXZtBcRVy2WyXkr+Z7kOxDuPojS0fBoAqKMU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=XVwo9y2G0T8ptL4TRvCEHr9JuXwb2Qsj5BbIPnKk+NZY9Zbt76bgyGLNNr5tYviLhNr0xZ/m9I1HTN6d1iIQytmOsfyv60FskSCJ2sI0105VPyEjG8nZhk1KJ7sJ9e5KSlRFCBCr5V8HKIYml6RVTIc1g/0JOjmcKHenCH+vaHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Qjj5KFSW; arc=none smtp.client-ip=113.46.200.217
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UPKr34kg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D5221F000E9;
-	Tue,  1 Sep 2026 01:35:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788226558;
-	bh=r7mzqnDdkY1VrDdE5e4/l6tKv9BXqjTgShVJWiRcVpo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UPKr34kg1t2Oqiy1DnXeEZdVBklcuQHtos0Dd5GLPFlpdoyeOaYqlAlai13P4/L+B
-	 Hn6x7OxvtmUVrXLZNpOPFhRNRC4AXzdrRDTxm66FIx4MwpKSbeEHfRt9kbSLuc7BmI
-	 N2zdPGQddOjdhEDzMCIG9KcWFLmSrYI3v8H1FlqrVWrm+z+btXzwaOMbSk3jhl1yeh
-	 TR/sQbOowwA3Ofk7MGhZpw3oRfNs39np09iJm4GcwJpDpo9idm+HCzwf8Nn61H9MHU
-	 NpPT/zE7KbgityUhGvJfbu3DaI+etC8/QxUximg/seRg1c0UWMURDXX6TEhJciZbTm
-	 5PdtU0e3ijdng==
-From: SJ Park <sj@kernel.org>
-To: Nathan Gao <zcgao@amazon.com>
-Cc: SJ Park <sj@kernel.org>,
-	akpm@linux-foundation.org,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	baolin.wang@linux.alibaba.com,
-	david@kernel.org,
-	ryan.roberts@arm.com
-Subject: Re: [PATCH v2] mm/damon/vaddr: use a page-aligned address for the sampling walks
-Date: Mon, 31 Aug 2026 18:35:50 -0700
-Message-ID: <20260901013551.91246-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260831221151.50561-1-zcgao@amazon.com>
-References: 
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Qjj5KFSW"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=86qIo5v7jjY4HW3fkGNEhrjgiOH2gQXAnQ/w3mZCYX4=;
+	b=Qjj5KFSWecCIt6dholXauErXASvKGekw610GO6dhVENlL/2e0knDpsbbOGR8vDKBV0lg8FPbE
+	TVFTeFCcakARlI56/Xq4+OQFB2l6FLeB4IllFRlEEyP/hIoTey8/EDltuPkC/jpuIqwKkmsOJCY
+	QpfQnD6mCb/v6wOxaHWhr+4=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4hYp886mTNzcb0f;
+	Tue,  1 Sep 2026 09:25:28 +0800 (CST)
+Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
+	by mail.maildlp.com (Postfix) with ESMTPS id 326E340561;
+	Tue,  1 Sep 2026 09:36:12 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Tue, 1 Sep 2026 09:36:11 +0800
+Message-ID: <dbfbccf8-8344-4893-a93f-ef6d316e0f7b@huawei.com>
+Date: Tue, 1 Sep 2026 09:36:10 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/9] crash_dump: Fix potential double free and UAF of
+ keys_header
+To: Coiby Xu <coiby.xu@gmail.com>
+CC: <kexec@lists.infradead.org>, Andrew Morton <akpm@linux-foundation.org>,
+	Sourabh Jain <sourabhjain@linux.ibm.com>, Baoquan He <baoquan.he@linux.dev>,
+	Dave Young <ruirui.yang@linux.dev>, Pratyush Yadav <pratyush@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>, Pasha Tatashin <pasha.tatashin@soleen.com>,
+	open list <linux-kernel@vger.kernel.org>
+References: <20260828084900.1496839-1-coiby.xu@gmail.com>
+ <20260828084900.1496839-2-coiby.xu@gmail.com>
+ <76f634e3-9adb-4ae2-b2b0-a7e13a2f93c3@huawei.com> <apWEBBMz6aFBeefa@Rk>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <apWEBBMz6aFBeefa@Rk>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-
-On Mon, 31 Aug 2026 15:11:51 -0700 Nathan Gao <zcgao@amazon.com> wrote:
-
-> __damon_va_prepare_access_check() picks a random byte address within the
-> region and stores it in r->sampling_addr. There are two users of
-> r->sampling_addr in vaddr.c that pass it into a page table walk, and
-> both use it as the address of a page.
-> 
->   damon_va_mkold(mm, r->sampling_addr)
->     damon_va_walk_page_range(mm, addr, addr + 1)
->       damon_mkold_pmd_entry()
->         damon_ptep_mkold(pte, vma, addr)
->           ptep_test_and_clear_young(vma, addr, pte)
->           mmu_notifier_clear_young(mm, addr, addr + PAGE_SIZE)
-> 
->   damon_va_young(mm, r->sampling_addr, &folio_sz)
->     damon_va_walk_page_range(mm, addr, addr + 1)
->       damon_young_pmd_entry()
->         ptep_get(pte)
->         mmu_notifier_test_young(walk->mm, addr)
-> 
-> For arm64, before commit 6f0e1142173a ("arm64: mm: support batch
-> clearing of the young flag for large folios"), the contpte helper walked
-> exactly CONT_PTES entries from the aligned-down page table pointer and
-> used @addr only to pass down to each entry, so an unaligned value was
-> harmless:
-> 
->         ptep = contpte_align_down(ptep);
->         addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
->         for (i = 0; i < CONT_PTES; i++, ptep++, addr += PAGE_SIZE)
-> 
-> Now the range to walk is derived from @addr instead: end = addr +
-> nr * PAGE_SIZE, rounded up to CONT_PTE_SIZE. For a sample in the last
-> page of a contpte block, the sub-page offset puts end just past the
-> block boundary, so the round-up lands a whole block further and the
-> walk clears PTE_AF in CONT_PTES entries beyond the sampled block. For
-> the last block in a page table page, those entries are past the end of
-> that page, so the walk writes into the page that follows.
-> 
-> Triggered by the full 7.1/7.2 kernel selftest suite on arm64 (EC2
-> c/m6g.4xlarge). The kernel sometimes crashes at or shortly after the
-> DAMON test.
-> 
-> What the overrun does depends on the page that happens to follow the
-> page table, so there is no single signature. If that page is read-only,
-> the write faults in the sampling path itself:
-> 
->   Unable to handle kernel write to read-only memory at virtual address ffff0003c5d2d000
->     FSC = 0x0f: level 3 permission fault
->     CM = 0, WnR = 1, TnD = 0, TagAccess = 0
->   CPU: 10 UID: 0 PID: 3487 Comm: kdamond.2
->   pc : contpte_test_and_clear_young_ptes+0x70/0xc0
->   lr : damon_ptep_mkold+0x1e8/0x1f8
->   Call trace:
->    contpte_test_and_clear_young_ptes+0x70/0xc0 (P)
->    damon_mkold_pmd_entry+0x150/0x170
->    walk_pmd_range+0x110/0x2b0
->    walk_pud_range+0x10c/0x208
->    walk_pgd_range+0x134/0x258
->    __walk_page_range+0x98/0x1b0
->    walk_page_range_vma_unsafe+0x90/0x148
->    walk_page_range_vma+0x28/0x40
->    damon_va_walk_page_range+0x114/0x2b8
->    damon_va_prepare_access_checks+0xec/0x1a8
->    kdamond_fn+0x534/0x770
->    kthread+0x128/0x138
->    ret_from_fork+0x10/0x20
-> 
-> Otherwise the page is writable, the PTE_AF clearing succeeds silently
-> and the damage only surfaces later, in whatever happened to own the
-> page, so the backtrace is unrelated to DAMON and differs between runs.
-
-Urgh, this must have been a painful debugging.  Sorry about that, and
-appreciate your great work on this!
-
-> 
-> Align the address down to a page boundary in damon_va_mkold() and
-> damon_va_young(), the two users that pass it into a page table walk. It
-> is the address of the page to sample, so this matches its intended
-> meaning. r->sampling_addr itself is left as is, so the sampling and
-> region bookkeeping semantics are unchanged.
-
-I'm still wondering if it makes sense to restore unaligned address support in
-contpte_test_and_clear_young_ptes() as a long term fix.
-
-> 
-> Fixes: 6f0e1142173a ("arm64: mm: support batch clearing of the young flag for large folios")
-> Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Cc: David Hildenbrand (Arm) <david@kernel.org>
-> Cc: Ryan Roberts <ryan.roberts@arm.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Nathan Gao <zcgao@amazon.com>
-> ---
-> V1 -> V2:
-> - Align inside damon_va_mkold() and damon_va_young(), the two users that
->   pass the address into a page table walk, rather than aligning
->   r->sampling_addr itself, so that sub-page sampling addresses remain
->   possible for future non-PTE access check primitives (SJ)
-> - Point Fixes: at 6f0e1142173a instead of 3f49584b262c, since the
->   unaligned address was harmless before that commit (SJ)
-> - Describe how the issue was noticed and what it does to the kernel (SJ)
-> - Reword the subject to match the narrower change
-> 
-> v1: https://lore.kernel.org/all/20260827193821.46115-1-zcgao@amazon.com/
-> 
->  mm/damon/vaddr.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
-> index 2c1c1952c008d..e7aa18200088f 100644
-> --- a/mm/damon/vaddr.c
-> +++ b/mm/damon/vaddr.c
-> @@ -349,6 +349,9 @@ static void damon_va_mkold(struct mm_struct *mm, unsigned long addr)
->  		.hugetlb_entry = damon_mkold_hugetlb_entry,
->  	};
->  
-> +	/* Arch helpers can derive a page range from @addr; align it down. */
-> +	addr = PAGE_ALIGN_DOWN(addr);
-> +
->  	damon_va_walk_page_range(mm, addr, addr + 1, &damon_mkold_ops, NULL);
-
-Could we do the alignment just before passing the addr to
-contpte_test_and_clear_young_ptes(), which is the exact function that disallows
-the unaligned address?
-
->  }
->  
-> @@ -482,6 +485,9 @@ static bool damon_va_young(struct mm_struct *mm, unsigned long addr,
->  		.hugetlb_entry = damon_young_hugetlb_entry,
->  	};
->  
-> +	/* Arch helpers can derive a page range from @addr; align it down. */
-> +	addr = PAGE_ALIGN_DOWN(addr);
-> +
->  	damon_va_walk_page_range(mm, addr, addr + 1, &damon_young_ops, &arg);
-
-Ditto.
-
->  	return arg.young;
->  }
-> -- 
-> 2.50.1
-> 
-> 
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ dggpemf500011.china.huawei.com (7.185.36.131)
 
 
-Thanks,
-SJ
+
+在 2026/8/31 21:44, Coiby Xu 写道:
+> On Mon, Aug 31, 2026 at 03:39:35PM +0800, Jinjie Ruan wrote:
+>>
+>>
+>> 在 2026/8/28 16:48, Coiby Xu 写道:
+>>> If kexec_add_buffer somehow fails, keys_header will be freed. Depending
+>>> on /sys/kernel/config/crash_dm_crypt_key/reuse, it will lead to the
+>>> following two problems if the kexec_file_load syscall is called again,
+>>>   1. Double free of keys_header if reuse=false
+>>>   2. UAF of keys_header if reuse=true
+>>>
+>>> To address these problems and also make it easier to reason about the
+>>> code, keep two invariants,
+>>>   1. keys_header will always be freed at the end of kexec_file_load
+>>>      syscall except during kdump image unloading for CPU/memory
+>>>      hot-plugging support
+>>>   2. There will always be valid keys_header if reuse=true
+>>>
+>>> Fixes: 479e58549b0f ("crash_dump: store dm crypt keys in kdump
+>>> reserved memory")
+>>> Fixes: 9ebfa8dcaea7 ("crash_dump: reuse saved dm crypt keys for CPU/
+>>> memory hot-plugging")
+>>> Reported-by: Sourabh Jain <sourabhjain@linux.ibm.com>
+>>> Signed-off-by: Coiby Xu <coiby.xu@gmail.com>
+>>> ---
+>>>  include/linux/kexec.h        |  6 ++++
+>>>  kernel/crash_dump_dm_crypt.c | 66 ++++++++++++++++++++++++++----------
+>>>  kernel/kexec_file.c          |  2 ++
+>>>  3 files changed, 56 insertions(+), 18 deletions(-)
+>>>
+
+[...]
+
+>>> @@ -369,9 +387,6 @@ static int build_keys_header(void)
+>>>      struct config_key *key;
+>>>      int i, r;
+>>>
+>>> -    if (keys_header != NULL)
+>>> -        kvfree(keys_header);
+>>> -
+>>>      keys_header = kzalloc(get_keys_header_size(key_count), GFP_KERNEL);
+>>>      if (!keys_header)
+>>>          return -ENOMEM;
+>>> @@ -415,8 +430,7 @@ int crash_load_dm_crypt_keys(struct kimage *image)
+>>>          .top_down = false,
+>>>          .random = true,
+>>>      };
+>>> -    int r;
+>>> -
+>>> +    int r = 0;
+>>>
+>>>      if (key_count <= 0) {
+>>>          kexec_dprintk("No dm-crypt keys\n");
+>>> @@ -424,14 +438,15 @@ int crash_load_dm_crypt_keys(struct kimage *image)
+>>>      }
+>>>
+>>>      if (!is_dm_key_reused) {
+>>> -        image->dm_crypt_keys_addr = 0;
+>>>          r = build_keys_header();
+>>> -        if (r) {
+>>> -            pr_err("Failed to build dm-crypt keys header, ret=%d\n",
+>>> r);
+>>> -            return r;
+>>> -        }
+>>> +        if (r)
+>>> +            goto out;
+>>>      }
+>>>
+>>> +    /*
+>>> +     * keys_header will be copied to reserver memory later and then be
+>>> +     * cleaned up at the end of kexec_file_load syscall
+>>> +     */
+>>>      kbuf.buffer = keys_header;
+>>>      kbuf.bufsz = get_keys_header_size(key_count);
+>>>
+>>> @@ -441,18 +456,33 @@ int crash_load_dm_crypt_keys(struct kimage *image)
+>>>      r = kexec_add_buffer(&kbuf);
+>>>      if (r) {
+>>>          pr_err("Failed to call kexec_add_buffer, ret=%d\n", r);
+>>> -        kvfree((void *)kbuf.buffer);
+>>> -        return r;
+>>> +        goto out;
+>>>      }
+>>> +
+>>>      image->dm_crypt_keys_addr = kbuf.mem;
+>>>      image->dm_crypt_keys_sz = kbuf.bufsz;
+>>>      kexec_dprintk(
+>>>          "Loaded dm crypt keys to kexec_buffer bufsz=0x%lx
+>>> memsz=0x%lx\n",
+>>>          kbuf.bufsz, kbuf.memsz);
+>>>
+>>> +out:
+>>> +    is_dm_key_reused = false;
+>>
+>> I think there's still a bug for arm64 here.
+>>
+>> When is_dm_key_reused set to true, the outer while loop prematurely
+>> clears the is_dm_key_reused flag at the end of
+>> crash_load_dm_crypt_keys() in the very first iteration.
+>>
+>> Consequently, subsequent re-entrant calls to crash_load_dm_crypt_keys()
+>> falsely perceive the keys as not reused, forcing a redundant execution
+>> of build_keys_header() which overwrites the global keys_header pointer;
+>>
+>> This induces a silent kernel memory leak.
+> 
+> Thanks for reviewing this patch and raising the concern! Unless I miss
+> something, I don't think the global keys_header will be overwritten
+> because kexec_file_post_load_cleanup_dm_crypt will called to free the
+> memory during the end of kexec_file_load syscall.
+
+Hi Coiby,
+
+Not really on arm64, as below:
+
+kexec_file_load syscall
+-> kimage_file_alloc_init()
+   -> kimage_file_prepare_segments()
+      -> kexec_image_load_default()
+         -> arm64 image_load()
+            -> load_other_segments() while retry loop
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               -> crash_load_dm_crypt_keys()  -> May be called
+repeatedly!!! Memory leak bug here as I described above,
+
+      -> kimage_file_post_load_cleanup()
+
+> 
+>>
+>> 92 >-------/*
+>> 93 >------- * The location of the kernel segment may make it impossible
+>> to satisfy
+>> 94 >------- * the other segment requirements, so we try repeatedly to
+>> find a
+>> 95 >------- * location that will work.
+>> 96 >------- */
+>> 97 >-------while ((ret = kexec_add_buffer(&kbuf)) == 0) {
+>> 98 >------->-------/* Try to load additional data */
+>> 99 >------->-------kernel_segment = &image-
+>> >segment[kernel_segment_number];
+>> 100 >------->-------ret = load_other_segments(image, kernel_segment->mem,
+>> 101 >------->------->------->------->-------  kernel_segment->memsz,
+>> initrd,
+>> 102 >------->------->------->------->-------  initrd_len, cmdline);
+>> 103 >------->-------if (!ret)
+>> 104 >------->------->-------break;
+>> 105
+>> 106 >------->-------/*
+>> 107 >------->------- * We couldn't find space for the other segments;
+>> erase the
+>> 108 >------->------- * kernel segment and try the next available hole.
+>> 109 >------->------- */
+>> 110 >------->-------image->nr_segments -= 1;
+>> 111 >------->-------kbuf.buf_min = kernel_segment->mem +
+>> kernel_segment->memsz;
+>> 112 >------->-------kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
+>> 113 >-------}
+> 
+> Btw, I assume the above text is not related to the discussion, right?
+
+The code closely related to my description above — the arm64
+crash_load_dm_crypt_keys() — is exactly called within the
+load_other_segments() in the while loop mentioned earlier. Therefore,
+crash_load_dm_crypt_keys() may be called repeatedly before
+kexec_file_post_load_cleanup_dm_crypt().
+
+We can refer to the arm64 commit 108aa503657e ("arm64: kexec_file: try
+more regions if loading segments fails") , which introduced the retry loop.
+
+Best regards,
+Jinjie
+
+> [...]
+> 
+
