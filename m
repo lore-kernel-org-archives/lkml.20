@@ -1,130 +1,100 @@
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [207.46.229.174])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0FD2D368D4D
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:58:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=207.46.229.174
+Received: from mta1.migadu.com (out-92.mta1.migadu.com [95.215.58.92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 913184CCDF8
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:58:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788245892; cv=none; b=F+50jE5+yZBg5gsiB6nm3FyuuQRtdxQwxj2TCrd26MggrbIq8InhibKhuq90PxBbxLy/o0afMVoWTunIW1qF+F72VEhLXLwUh7qctSKmTNzhK6GPXlPmXtfJV92SPnxE1F1NFDrmLgynM5XNtmHX3FLOSVyL/00tH31dY/skl/s=
+	t=1788245911; cv=none; b=uR9MAMb78+MTFO+xrqwNbHE3JV2AcDa6nZ2gK6rz4xPHlIyWMJvyaXmOj5bAumbyF4jtfyJZG02/fnprPM+p0dzC6RhDU98Xda1x4S7tgptTpU1j4dzVsfBPk+Zvy4ruRB7Uf6Szdd4uZMP0dpGox/xbA+MdDiuRhb3m3piX91k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788245892; c=relaxed/simple;
-	bh=8K19ubM9YgSBmkC7SQBpoTyKw/32Ak8qu+Dlu3b7ouk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=j/ECOL09EMYEcMIKCAlnbE6JxKR2X0KFupP8eS9NLG2bF6h2+axSyAG12FhX+LXluWG5U7hrE1QuHWpPzpMbcUY8EIj/ygQIyO2bRdBRugKamQFtBF5ZfxLk4ObnLe2jwl19xvzkBzHWEuxtzAzoFODg9BTl9jQbWjFYIIh3lwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn; spf=pass smtp.mailfrom=hust.edu.cn; arc=none smtp.client-ip=207.46.229.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hust.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hust.edu.cn
-Received: from hust.edu.cn (unknown [172.16.0.52])
-	by app2 (Coremail) with UTF8SMTP id IQEQrMCGDE52d5ZqWsARAA--.22473S2;
-	Tue, 01 Sep 2026 14:57:58 +0800 (CST)
-Received: from [100.81.40.43] (unknown [10.12.191.55])
-	by gateway (Coremail) with SMTP id _____wDXtNFyd5ZqmsA6AA--.62082S2;
-	Tue, 01 Sep 2026 14:57:57 +0800 (CST)
-Message-ID: <12e94190-1f41-4852-a60b-9a99dd40d595@hust.edu.cn>
-Date: Tue, 1 Sep 2026 14:57:54 +0800
+	s=arc-20240116; t=1788245911; c=relaxed/simple;
+	bh=amvD2KT70UCxTU5QR/Qs4sT4tQAd0JRZ8JFIGs2eMxI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DWtdxA91sGV+gDlFve2/azjgkwuHibjeMHHkXn/eKpAJ6LbB2RkAqHQco1TvpbrAA96fswafGikHQqXZNxY5PU6GOGEljoDT081KBN+NYvZI9OpSY/HmMN6EM6zkjSKzdxkaltBhAor7517ebBDMBxXzmwn5bAhH187zTKCNViA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QIZbfTSz; arc=none smtp.client-ip=95.215.58.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QIZbfTSz"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=amvD2KT70UCxTU5QR/Qs4sT4tQAd0JRZ8JFIGs2eMxI=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788245907; v=1; x=1788850707;
+ b=QIZbfTSzr79ZnaarrIXydHJrRNJ7Mr/Ru3B5sdp6DEV5ALkS/lCQ1siisQjmqpSmPIkaMtrG
+ f/hMMc5WCsntHFGAM2LhjqFCm5dTfVF3zwzBdb4NJlKgOVCVBMpVWqWErWUIfvrgf/7Qekwe+4e
+ wgBkF49z3wdVX/uWwTpVlfRw=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a00feb9a4dbcf499;
+	Tue, 01 Sep 2026 06:58:17 +0000
+X-Mizu-Trace-ID: a00feb9a4dbcf499
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 1 Sep 2026 14:58:07 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	Hangbin Liu <liuhangbin@kylinos.cn>
+Subject: Re: [PATCH net-next 1/2] netdevsim: add link speed support
+Message-ID: <apZ3f3vm5sUrcyrZ@fedora>
+References: <20260831-nsim_speed-v1-0-7a651ee65738@kylinos.cn>
+ <20260831-nsim_speed-v1-1-7a651ee65738@kylinos.cn>
+ <20260831150818.660de896@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] irqdomain: Delete irq_domain_add_linear()
-To: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>, tglx@kernel.org
-Cc: linux-kernel@vger.kernel.org, Radu Rendec <radu@rendec.net>,
- Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>
-References: <20260901064716.253399-1-jirislaby@kernel.org>
-From: Dongliang Mu <dzm91@hust.edu.cn>
-In-Reply-To: <20260901064716.253399-1-jirislaby@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:IQEQrMCGDE52d5ZqWsARAA--.22473S2
-Authentication-Results: app2; spf=neutral smtp.mail=dzm91@hust.edu.cn;
-X-Coremail-Antispam: 1UD129KBjvJXoWxGF1kAFWDJr4xXF1Duw48JFb_yoW5WFWfpF
-	W3Jw1fWFsrJr129rZ7WrWUZa4aqa47Gws8ta15G3Z3tFnxt3ykKF4UurnakFyUAF9rAFy5
-	Cr12gFW8u3WqyFDanT9S1TB71UUUUjUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUQCb7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjx
-	v20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK
-	6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1ln4kS14v26r
-	1Y6r17M2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI
-	12xvs2x26I8E6xACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj64x0Y40En7xvr7AKxV
-	W8Jr0_Cr1UMcIj6x8ErcxFaVAv8VW8uFyUJr1UMcIj6xkF7I0En7xvr7AKxVW8Jr0_Cr1U
-	McvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUAVWUtwCY02
-	Avz4vE-syl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8uFyUJr1UMxC20s02
-	6xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr
-	4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxG
-	rwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8Jw
-	CI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2
-	z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxUVZ2-DUUUU
-X-CM-SenderInfo: asqsiiirqrkko6kx23oohg3hdfq/
+In-Reply-To: <20260831150818.660de896@kernel.org>
 
+On Mon, Aug 31, 2026 at 03:08:18PM -0700, Jakub Kicinski wrote:
+> On Mon, 31 Aug 2026 11:28:10 +0800 Hangbin Liu wrote:
+> > Add ethtool get/set_link_ksettings callbacks to netdevsim so the simulated
+> > link speed and duplex can be queried and configured from userspace.
+> > 
+> > Move NSIM_LINK_SPEED_MAX and NSIM_LINK_SPEED_UNIT from dev.c to netdevsim.h
+> > so they are available to both the devlink rate path and the new ethtool
+> > code. The set callback rejects speeds exceeding NSIM_LINK_SPEED_MAX.
+> > 
+> > The default link speed is set to SPEED_5000 with DUPLEX_FULL, matching the
+> > existing NSIM_LINK_SPEED_MAX definition.
+> 
+> This breaks TDC which uses netdevsim for taprio testing.
 
-On 9/1/26 2:47 PM, Jiri Slaby (SUSE) wrote:
-> 7.3-rc1 is free of calls to irq_domain_add_linear(), so it can be
-> deleted at last.
->
-> I used Gemini to update zh_CN/core-api/irq/irq-domain.rst too. Hopefully
-> the result is correct -- I really cannot read/write Chinese ("CHINESE
-> DOCUMENTATION" maintainers CCed).
->
-> Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-> Assisted-by: LLM (Gemini) # zh_CN
-> Cc: Thomas Gleixner <tglx@kernel.org>
-> Cc: Radu Rendec <radu@rendec.net>
-> Cc: Alex Shi <alexs@kernel.org>
-> Cc: Yanteng Si <si.yanteng@linux.dev>
-> Cc: Dongliang Mu <dzm91@hust.edu.cn>
-> ---
->   .../zh_CN/core-api/irq/irq-domain.rst          |  4 +---
->   include/linux/irqdomain.h                      | 18 ------------------
->   2 files changed, 1 insertion(+), 21 deletions(-)
->
-> diff --git a/Documentation/translations/zh_CN/core-api/irq/irq-domain.rst b/Documentation/translations/zh_CN/core-api/irq/irq-domain.rst
-> index aaefeda0e164..5ce16d2e6a0e 100644
-> --- a/Documentation/translations/zh_CN/core-api/irq/irq-domain.rst
-> +++ b/Documentation/translations/zh_CN/core-api/irq/irq-domain.rst
-> @@ -90,9 +90,7 @@ irq_domain映射的类型
->   映射的优点是固定时间查找IRQ号，而且irq_descs只分配给在用的IRQ。 缺点是该表
->   必须尽可能大的hwirq号。
->   
-> -irq_domain_add_linear()和irq_domain_create_linear()在功能上是等价的，
-> -除了第一个参数不同--前者接受一个Open Firmware特定的 'struct device_node' 而
-> -后者接受一个更通用的抽象 'struct fwnode_handle' 。
-> +irq_domain_create_linear() 接受一个通用的抽象 struct fwnode_handle 作为第一个参数。
+Sigh, I really didn't expect a speed feature could break the tc qdisc
+testing... I will check the reason.
 
- From the context, I think we can directly delete the whole paragraph.
+> You posted 2 series for net-next and both broke tests.
+> Please try harder to test stuff locally.
 
-Dongliang Mu
+Sorry for the extra work this caused you. You know I did not mean for this
+to happen.
 
->   
->   大多数驱动应该使用线性映射
->   
-> diff --git a/include/linux/irqdomain.h b/include/linux/irqdomain.h
-> index 73c25d40846c..3ba75a4ed3da 100644
-> --- a/include/linux/irqdomain.h
-> +++ b/include/linux/irqdomain.h
-> @@ -752,24 +752,6 @@ static inline void msi_device_domain_free_wired(struct irq_domain *domain, unsig
->   }
->   #endif
->   
-> -static inline struct irq_domain *irq_domain_add_linear(struct device_node *of_node,
-> -						       unsigned int size,
-> -						       const struct irq_domain_ops *ops,
-> -						       void *host_data)
-> -{
-> -	struct irq_domain_info info = {
-> -		.fwnode		= of_fwnode_handle(of_node),
-> -		.size		= size,
-> -		.hwirq_max	= size,
-> -		.ops		= ops,
-> -		.host_data	= host_data,
-> -	};
-> -	struct irq_domain *d;
-> -
-> -	d = irq_domain_instantiate(&info);
-> -	return IS_ERR(d) ? NULL : d;
-> -}
-> -
->   #else /* CONFIG_IRQ_DOMAIN */
->   static inline void irq_dispose_mapping(unsigned int virq) { }
->   static inline struct irq_domain *irq_find_matching_fwnode(struct fwnode_handle *fwnode,
+Every time I prepare a patch, I build it locally, run the relevant selftests,
+and get an AI review before posting.
 
+The selftest lib patch touches too many files. The fib_test failed locally
+without producing any useful error output: it returns 1, but I cannot spot
+the it by human viewing. The netdevsim test failed during tc testing, which
+I did not expect at all.
+
+> Matt added support for Docker to NIPA so you should be able
+> to repro all ksfts locally. If something doesn't work please 
+> report back.
+
+I will give this a try. NIPA could help capture this return‑1 failure.
+
+Regarding the tc‑related failures: do you run the full set of network
+selftests for every single patch, or are there rules to select tests based
+on the changes? As you know, not all companies have testing resources
+comparable to RedHat. I have to run all these tests on my personal laptop.
+
+Thanks
+Hangbin
