@@ -1,156 +1,194 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34FD033D4E9
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:57:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788253029; cv=none; b=Ieq1iT0r4/hqBgLDEmxbRSALmgcUswgzg3wf8LoqiBk3QTM38twK6YTsLQf47ZsYVB14VYvC+CLs8FK9+efZqgNm/JRai4gMN+pjd5sHZ6AFCUKH/KMY6nYQWVD+/AV0KOjCcUd5n7W41DigLOn7SBKgJtazWvFtn8k1gmBUR6I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788253029; c=relaxed/simple;
-	bh=qTcgY9EoeEHxVXgfiEWeuxCxjc4a584z0cwmku5Yd9g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VPVzsq+Jgn+0Gd0xBNOuSxbKnwHq5wBmllosSRubbSUIsylztfdtqQ8yF6rprNBgjMuSU6srX6F5TbkXZOzAy1sc4JEIHGjX7jmnE9+VMdQJ8rhCu4/1x8Q9ZT9+JaOIFWodshmzPslsIZ0asf/7lKRVTqI6wphomPCGXBPXTF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=UdDu2vPL; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D022638CFF8
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:57:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788253041; cv=pass; b=uVvw2f2STKwdGdeT3CXtzqHizvAq23gA+4Ja/et9YFOl5UO2vnMeE/SjEsLA3EMiYzzRf1N1AuiK5KjUXgzLJ24rrLv9OxxgBATpWRY2rsqLOfDIRkkxboP3huvSB0y29taQd2hIkt/1k1OLK0HsBBu2BaKpLYAvaOUH18xk8Ro=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788253041; c=relaxed/simple;
+	bh=Pbz07IOx7uWzunVKVHlwzF5t9F6b7iAgHltccdPflGw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=b/SHZQNEXgLnVqN5ZM9pToMyZMz6zP6gtVb2oqUc3MsLHgtF+izenSZvnVtj7pbl6CZQN3jI4RwSnHB5fdk4QWhMxziu3h+cSpLC8WPpyW8CBC9NktlYH/7iLzR4ByYaCjoTcPoDw+Rbwt1fNLGo5yiIETMLu0Pcle21PcNEyNE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hrGMohtJ; arc=pass smtp.client-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="UdDu2vPL"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49cdc81f40eso8439225e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 01:57:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hrGMohtJ"
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a61910369bso4460597a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 01:57:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788253038; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YX6AziLnpGCAy98RFLAA0I380aRG835RdudJ36KXs1yp2Co9aW/q5G8LGn8YqWtvRZ
+         912uYy36ikag7jfKQI2wdk2oHnZSSlKhIfA0R4ipHZ2VbDFdJf2rfTEfz7N6+zFxmNOA
+         vhPwsz2XSj8z5yewNUewlUfxR15mAWZNg8tIY+iVa6p0T/oqf9ga5dMhe/SIq4yyJrG1
+         +OGWL3jyMk3UNUFx0mOMwt99NCHpl3NECGUXMsNrYdRetfkjJf8xOkUg17z7drofjiqa
+         EwmO0gcTSrJ4bTMawXNT3Ct9smbwcxLse3k03H8TDkYCHP0YEeXFloL2J3MNR1/Am6L5
+         ih+Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=bPhwsI1urk840eFQFOhdbzxIWtm9TMM1qXVbyg+SFZE=;
+        fh=11lFSr34gI+kKkuwiW1HFqUQRdl3LYmrxhO+E5MIZK0=;
+        b=k8ID0JUZZU9SzTVB7EUFRwXxX5LBfhunGm/nwJJ0VnEm/TvGwHr1PiPi6jOKSHL7xs
+         0K7a7NybxXXKSr82DVuGHpkjBGb6WnjsILnpRYT9o6qvjSj/W/de4AYgl+cJs/zN5Oq1
+         p3mUhuY7xG8pXyMfth5ubh8gzu0vwo65jCiWUfwbmUlLkg/Pogb/v3KORT84StbJrSsS
+         qE3aDrfKkHQsvtAsgofXSIwITDGKPH0alTg6EP7ozNToVXqJnpus8DYq8yyV9XsDfwvR
+         eSAIKzmko9WwPlcsMtYM7Pfs36yXBnD2vFGKty0eQDFQcUMSpljfYxec8BjLEf9DCNzp
+         U+Eg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788253026; x=1788857826; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Xrf2I5rwuZTtUj0/BgFzlW7VpIjkJf+F8+X2M3EKpgI=;
-        b=UdDu2vPL8ptLlQXDjEu0QIyl1qM2qWV8g6iTYXLlSAurDvDYxMEICyQcgoiTs3bBa+
-         Zpm6/ZVHsLl4IYeZpJE6fSCAx27965xo2PDKDW9Jp3JjzVCMYrVBa0kIPbg99RbZuAwV
-         FpFYmo5BcHUNwrtLcnoubFnpqinQ6vCgvCVhVomSnpjeaqjxBNNuK3rd1Gbde8ObP7sf
-         y/j6Ne8+4j7IqG4EiMsv1v/d+VuJXDDT8UGTic2AlVT+ZArXleYP/tG/8rQE10AU3K6e
-         tqxqhE5vOeUu3ZSI71cXaifgZgPxPqFJUWVU140301WhpbgqIIMfY3w2r22YsQciTWQR
-         p3sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788253026; x=1788857826;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788253038; x=1788857838; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Xrf2I5rwuZTtUj0/BgFzlW7VpIjkJf+F8+X2M3EKpgI=;
-        b=cyPk3yhu/gVWFryHvAl0uQeZVDXKnJSP5uOUacoGcsFwFQpJl2IQcAHT+5CZCgberb
-         4fxP0froasQkGoZzS5+wWUCX8wilNVQxLtKc7t07S2Ju8DCYrfI/scPjxx+ZM6groV9k
-         i+j97vlBbCGXmKoWwt2dUbFKt1l+R+TApOlnP7VHPooTeYLbLnMVwLlzjV2ayjJwSWL9
-         WeJGyDqdf+stZJ5CEw/hHJwDYGpMSiFj4fUHJ+5H2pEa7MCQk8mSa2mJTgqAlvujA3on
-         aicX5SDnp1JsBVq4jTDsbIk2My//ghtPCERAxCjOy1Voyb84RdV/Kf+2JIMmcnkT9Ym8
-         enNA==
-X-Forwarded-Encrypted: i=1; AHgh+RqPsMTHT7SCjYVlXJlYYpYOpObXhdpwMfO3mz6PIcQn/KkllXrWZGQ8ph2TMumEvLeTpGOo6Gsh1GAliUQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lDyZaW0fiLf0+uRStNvwMMU8VTolEU1fA68cuGFLrH5PCB8hA9
-	7Wf/H9o7/Qw4VTyKjsVmCWlfQPbSeIn/HGGKX3mfrCwee9Q4ZR1oSyaIpCVg2OwMU9o=
-X-Gm-Gg: AR+sD12+ysS2QmvxB1S+f/p+e6A0e6kRQwiE45FaUGD3FqHksK4xwV/mYYFXVmMF7VR
-	nIRuuUY+Ir0jmQUYWNDtjaavvdOmWr/vVpCEn4OD75TWhdLnSfwMCBsu5FZXyUVFEybpF6EvmP7
-	XaAGx8Amor7oPZQXnHaTzzSG0Da2ou9OpQCJZbpn0iH16Z98BoekJabfMrfofjM/BEJUVa6L6SH
-	A9DTJj+/C8Q+YZUO5yQlVVpIktDck77FpuJbTIaZKo6KgoVQX/gJOKw+TYI7g6tFOVFGMEm2+0d
-	lNgbfZkHx6Bvmi5hap956x5+cMMigQxA97h0BqsfCvGc5SR5Dkm269T9wTiPq7lJdzV/RF4ETht
-	GEuIMjvZuCYyE9yMpw5Z/6FJWR/Eupy0Tm+pVkG6MT023FbP8BVp8q5JaRJO9p3RR0oEbv2tO/O
-	glm9o5gEjnvdmTJvRtNc02tpe17evpa4CRxsqOvpnoZX7KiY07TSaISqy9jZIiDOw=
-X-Received: by 2002:a05:600c:64c6:b0:495:52a5:8829 with SMTP id 5b1f17b1804b1-49cdc558470mr121172455e9.11.1788253026345;
-        Tue, 01 Sep 2026 01:57:06 -0700 (PDT)
-Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442c4259esm3313283f8f.7.2026.09.01.01.57.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 01:57:05 -0700 (PDT)
-Date: Tue, 1 Sep 2026 10:57:03 +0200
-From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
-To: Wilson Felipe Pereira <wfelipe@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Tejun Heo <tj@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	linux-mm@kvack.org, cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/2] selftests/cgroup: test_zswap: fix implicit
- unsigned promotion bug in test_no_kmem_bypass
-Message-ID: <apaO1OHVQWJCuJDE@localhost.localdomain>
-References: <20260901052250.154532-1-wfelipe@google.com>
- <20260901052250.154532-3-wfelipe@google.com>
+        bh=bPhwsI1urk840eFQFOhdbzxIWtm9TMM1qXVbyg+SFZE=;
+        b=hrGMohtJ+5Mbb6KN9lsAGC4MBEth86CGQhNW6qnIu2z3Zcf1iMFQaDusVtu0Dnjwoi
+         sMv15QY31d9w9B3kY1Z07kGX82ajGGzRXTr1EVhnALzLmldnybzD2idTPPRaldfldA6L
+         GC384aMxypXyMAWBWMYvI2rc+14mY78pFwPnUUH41XRYhIz4kSpt1tsutqf/hjG5YfCa
+         sH+z7xRINBHzdokYS5mbePOEU9gaDlDn9SvPF1HTKMMFDh2ynzKVLYYMoc2uycgj7sFL
+         S0CST3iTiuCAC4WUmq8OvxrSVATlG3u24B/CxuhnGcMZc7LY+xeKVDia5bf3AkahM0jc
+         GnDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788253038; x=1788857838;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bPhwsI1urk840eFQFOhdbzxIWtm9TMM1qXVbyg+SFZE=;
+        b=E2vxLm5E1itEC9iaG3PGJAZWEfutGKrCbmcF/wE2QvS/FMk+NImm7pA0EOJDeS7W7X
+         kz/QEea/2X3uIRQCSm+vQ5xGGalBf/0zQdsx3I3DNGjAYtQKQ6tkwF6w0KSU8/wsx5sK
+         hqU2DBRFeAShom+bpMaILCUoqA9eeqOPapfD3X6gJai48U6Wi/IdbNQfO8igAoS50sMy
+         Add6IzUgBHwWoveSSl2KAskfIOMcYcUhzmrrJGNTqXNIErqn2F/1m8I44tLGi6IntwwM
+         aEdBjQ/FCAX/MDADThZXRDxG4LcmNN4vFOOgQf47gKXrHW/MgL76GT+p6ZnTAF9VwKLO
+         zaqw==
+X-Forwarded-Encrypted: i=1; AHgh+RrL8LgKabQNP8F/Oza+r5/rC/Le0268Am2jYlay2BABBGin6KyfWUBC6PXuq36Te8wTN5ph2jgp3FxY6T0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nJ3/0f6hKb+oQIbzKFKB4LwvLAh7gSWcaSCFqmwDpxIUieK8zI
+	t1rVQFHtoJ2WfCOTi4n29jPynuYcbHNYiScHWH9tgzn1WA+7+xamilx1zELgYInq4qbdX6LkPBg
+	URmow/cSKngvAM8UR5+eiuKf+y3ti84Y=
+X-Gm-Gg: AR+sD112e6QEZJ/icloifljmXoU3t5NyAQ1NVhmUlJFErdNrrv68UhqxkU+A+8n9OJU
+	wNDGJOFYOg5mFImLEnXaIXnI1768b5hKsAaCsutT1N9HVHktbzIQ5qh5OcZGzl5HDC6rKJPiCW0
+	AJSiom5zz+272NV4m1o2TeEP9kKKwY8t67zIvr58G8oldxVv1RQEQ3OMFuDuBCLxR/EDvob4FKm
+	JR0k3gUtIwA/hwxaRFN3rsB+FJZVZ9pcS4H2MqSdQidNx4L85jIk+h8MZ1giGAdyl4Alr+PDlJv
+	AQFIcpuU68Vev+X1y2bdDZgewo986ew+7C+coGZRdmoSH4LOoo2+6cfIcgD9RSAzpX39GaJPSWQ
+	RYkw=
+X-Received: by 2002:a17:906:6a17:b0:c25:c67d:53cc with SMTP id
+ a640c23a62f3a-c25c67d5cd2mr18684866b.8.1788253037879; Tue, 01 Sep 2026
+ 01:57:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nuwu7tagmytj5izv"
-Content-Disposition: inline
-In-Reply-To: <20260901052250.154532-3-wfelipe@google.com>
+References: <20260901070717.20513-1-sreeshankar0910@gmail.com>
+ <20260901070717.20513-5-sreeshankar0910@gmail.com> <fyzo7furxfsreajgefuimfdpkkulxvwxf76plc5o6kjv7bgdym@2pah3t7yfiw7>
+In-Reply-To: <fyzo7furxfsreajgefuimfdpkkulxvwxf76plc5o6kjv7bgdym@2pah3t7yfiw7>
+From: Sreeshankar K <sreeshankar0910@gmail.com>
+Date: Tue, 1 Sep 2026 14:27:10 +0530
+X-Gm-Features: AcwNN1XGMvHREpeWhXMnhL-AR_TL9aR4BW-G9PMQ7EyQU1HF166WiwXPkNVsQPA
+Message-ID: <CAA-+ukJOPKGL3iS15uWAc7iXviRe-xgVf61dcd_gP6p9zLrByw@mail.gmail.com>
+Subject: Re: [PATCH v8 04/12] clk: qcom: Add Global Clock Controller (GCC)
+ driver for SM7250
+To: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: andersson@kernel.org, sboyd@kernel.org, bmasney+clk@redhat.com, 
+	jbrunet+clk@baylibre.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, rafael@kernel.org, viresh.kumar@linaro.org, 
+	konradybcio@kernel.org, tglx@kernel.org, ulfh@kernel.org, radu@rendec.net, 
+	taniya.das@oss.qualcomm.com, danila@mainlining.org, davidwronek@gmail.com, 
+	mani@kernel.org, robimarko@gmail.com, linux@gurudas.dev, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+On Tue, 1 Sept 2026 at 12:51, Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
+>
+> On 26-09-01 07:07:09, Sreeshankar K wrote:
+> > Add support for the global clock controller found on SM7250
+> > based devices.
+> >
+> > Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
+> > ---
+> >  drivers/clk/qcom/Kconfig      |    9 +
+> >  drivers/clk/qcom/Makefile     |    1 +
+> >  drivers/clk/qcom/gcc-sm7250.c | 2275 +++++++++++++++++++++++++++++++++
+> >  3 files changed, 2285 insertions(+)
+> >  create mode 100644 drivers/clk/qcom/gcc-sm7250.c
+> >
+>
+> [...]
+>
+> > diff --git a/drivers/clk/qcom/gcc-sm7250.c b/drivers/clk/qcom/gcc-sm7250.c
+> > new file mode 100644
+> > index 000000000..0d548fe4a
+> > --- /dev/null
+> > +++ b/drivers/clk/qcom/gcc-sm7250.c
+> > @@ -0,0 +1,2275 @@
+> > +// SPDX-License-Identifier: GPL-2.0-only
+> > +/*
+> > + * Copyright (c) 2018-2019, The Linux Foundation. All rights reserved.
+> > + * Copyright (c) 2026, Sreeshankar K <sreeshankar0910@gmail.com>
+> > + */
+>
+> [...]
+>
+> > +
+> > +static struct clk_alpha_pll gpll0 = {
+> > +     .offset = 0x0,
+> > +     .regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_LUCID],
+> > +     .clkr = {
+> > +             .enable_reg = 0x52010,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(struct clk_init_data){
+>
+> const
+>
+> I think I already mentioned this for v4.
+>
+> > +                     .name = "gpll0",
+> > +                     .parent_data = &(const struct clk_parent_data){
+> > +                             .index = DT_BI_TCXO,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .ops = &clk_alpha_pll_fixed_lucid_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static const struct clk_div_table post_div_table_gpll0_out_even[] = {
+> > +     { 0x1, 2 },
+> > +     { }
+> > +};
+> > +
+> > +static struct clk_alpha_pll_postdiv gpll0_out_even = {
+> > +     .offset = 0x0,
+> > +     .post_div_shift = 8,
+> > +     .post_div_table = post_div_table_gpll0_out_even,
+> > +     .num_post_div = ARRAY_SIZE(post_div_table_gpll0_out_even),
+> > +     .width = 4,
+> > +     .regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_LUCID],
+> > +     .clkr.hw.init = &(struct clk_init_data){
+>
+> Same here and everywhere else.
+>
+> > +             .name = "gpll0_out_even",
+> > +             .parent_hws = (const struct clk_hw*[]){
+> > +                     &gpll0.clkr.hw,
+> > +             },
+> > +             .num_parents = 1,
+> > +             .ops = &clk_alpha_pll_postdiv_lucid_ops,
+> > +     },
+> > +};
+>
+> [...]
 
---nuwu7tagmytj5izv
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v5 2/2] selftests/cgroup: test_zswap: fix implicit
- unsigned promotion bug in test_no_kmem_bypass
-MIME-Version: 1.0
+I apologize for my carelessness. I edited the source as per the
+instruction and sent the patch in v6 patchset.
+Link: https://lore.kernel.org/linux-arm-msm/20260824150156.1310-5-sreeshankar0910@gmail.com
+I accidently applied the old patch from v5 patchset to v8 patchset. I
+will send a completely fixed patchset as v9.
 
-On Tue, Sep 01, 2026 at 05:22:28AM +0000, Wilson Felipe Pereira <wfelipe@go=
-ogle.com> wrote:
-> In test_no_kmem_bypass(), delta (stored_pages * page_size - zswapped) is
-> checked against stored_pages * page_size / 4 to verify that the pages
-> pushed to zswap belong to the test memory cgroup.
->=20
-> Due to slight stat update timing differences, delta can evaluate to a sma=
-ll
-> negative number (e.g. -5MB out of 1GB). Because delta is declared as a
-> signed int and stored_pages is an unsigned size_t, C's usual arithmetic
-> conversions implicitly promote a negative delta to a large unsigned 64-bit
-> integer, causing `delta < stored_pages * page_size / 4` to falsely evalua=
-te
-> to 0 and fail the test.
->=20
-> Fix this by declaring zswapped and delta as signed long long and comparing
-> against a signed threshold, ensuring negative deltas correctly evaluate
-> to true.
->=20
-> Fixes: a549f9f31561a ("selftests: cgroup: add test_zswap with no kmem byp=
-ass test")
-> Signed-off-by: Wilson Felipe Pereira <wfelipe@google.com>
-> Acked-by: Michal Koutn=FD <mkoutny@suse.com>
-
-(The long long helper is a non-trivial change, so the ack should be
-stripped on this version (unless you can convince me ;-).)
-
-I'm afraid this bitness propagated too broadly.
-
-The long vs long long difference is only relevant on 32b, right?
-And the bit-width issue only appears because of the product, not the
-values read from memory.stat [1].
-
-I'd consider three ways forward:
-a) Consolidate the helpers into one cg_read_key_s64() (same explicit size
-   regardless of arch),
-b) keep single arch-dependent helper and tackle product(s) only,
-c) do not bother with 32b in these selftests (I have a hunch that
-   they're not so relevant on such archs).
-
-WDYT?
-
-Michal
-
-
-[1] At least the values derived from available memory, memory events
-    could grow indefinitely. It's true that kernel uses explicit u64 for
-    all of the entries.
-
---nuwu7tagmytj5izv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCapaTXBsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+Ag6rAD9F+z0oXfuQAC+NJQ52/69
-Wy9h9jBokjfFxG+tYku4HusA/A3LjZsf4+90ciLSyVy6BFPvXQx3uN958bN5VesH
-mjUK
-=8Zx/
------END PGP SIGNATURE-----
-
---nuwu7tagmytj5izv--
+Regards,
+Sreeshankar K
