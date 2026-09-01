@@ -1,237 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-3-27.ptr.tlmpb.com (sg-3-27.ptr.tlmpb.com [101.45.255.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA62D3812DD;
-	Tue,  1 Sep 2026 08:21:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA22367F5E
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:21:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.27
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788250886; cv=none; b=iO26j84DGgB+qjFIQeJjrLmewrmCcZNBrvyqbpBaWauGm9Z95ZPTF9tcDVGLi9cHHetjUoYZG6JN6SAirVBkg42KyryjfqIC1z+Rz/qAajI4Z1j1dLDDd5Sr7RzOlod+1SX9OfwWVNxWvxsP7fdNdOoCOEm408kcKwsZhK0GDpk=
+	t=1788250922; cv=none; b=GMB7u6ZMeDTSvunY633Qph3MKgUB2PYCFp233p3djjCuRt3m5I2vV/Ct5P4p/0Bx4lFWQaboJCxm6Fwi54rvXorD5VM6wSE4wOFvGgUSrZYTTrcFH6PLaAMHzY9FRbCK5pz+9roJvtE+7A+vrCqyr+x/IQrH8k4Td8qv8/CiVRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788250886; c=relaxed/simple;
-	bh=3z9FlMuwFeEP8NtG2NQH9s4DhyDCmMQBroSkqEkvXA0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uI+ALbw6w2226c2KCKs6zz/TG3I1IbVgdAYV3diSyu7gnbhuu4TwA2K7qxhEB1NsaR3UIlQ0M/IJZqQVikEfBOp7C215KbBwnImgbXBCbiFeNpzbguPvuZWjFqvK8TI5OJ5VB8AHfISLPsIjjT8d9HjUtYi0DglLIcb4BtZlTzw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=es9JJSCY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788250922; c=relaxed/simple;
+	bh=Tf++B65BqI9goJyWRFQD12XSAHLb8zatZrIZcNoy2zE=;
+	h=Subject:Date:References:Message-Id:Mime-Version:To:From:
+	 In-Reply-To:Content-Disposition:Cc:Content-Type; b=DJ8N/nseDuH4OUfps6trdUjXYvX59ywOh62Tcib7Hm2ciCdUJ6RIdT5m+82Hh3XmhAdc2A4C0RlZYUAHvfBfcDXmAPDaZ+oCQLJKRQCVkfD/i9TtK9eNsjNqquXCH+dvrIeK5djmZ2iadWaXcrtQ8SJ4KVVKiZ+UWZfRQ5Oz9E0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com; spf=pass smtp.mailfrom=picoheart.com; dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b=RTgwB7yy; arc=none smtp.client-ip=101.45.255.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="es9JJSCY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43CCD1F00A3D;
-	Tue,  1 Sep 2026 08:21:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788250885;
-	bh=kZfvDFaLatUlB1wp5I2s/R7TKlec2rrMOd8ygLJGYk4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=es9JJSCYblCEbnlkbdP4qJCKdURohgCDMFXz25i4fLE3f62KV+QBIFpXArlySGq1c
-	 fBSbMdEEuhnLpXyWOdAmGR5tuQDGQeB8CSLBmRWFgnySM70Ewp3PxouLDTl0s3ck+/
-	 +719D6XX/b18DYbi74HeQzoxYJZMz8+/ux1gpFER8CqDin+DxaJoF40ruJWLGYKgQe
-	 9vTxIUB4MIyoocxcQhyRK1l6LftRDGPjLsBqFGvUXI7kXk8tsnfWk2XXjpwyTxv9TS
-	 jrifj0wwA2ZPdVutYK8w9E6rmLeOgNFRx7qAqKTr68C7RQQG84lRLWbP/mNso8fooG
-	 DTnEam+cybRNg==
-Date: Tue, 1 Sep 2026 10:21:21 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sven Peter <sven@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Daniel Golle <daniel@makrotopia.org>, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	asahi@lists.linux.dev
-Subject: Re: [PATCH 1/2] dt-check-style: Handle indented fragments in
- indent-unit-dts
-Message-ID: <20260901-relaxed-hare-of-romance-abad1f@quoll>
-References: <20260830-b4-dts-check-fix-v1-0-e7c1b2774730@kernel.org>
- <20260830-b4-dts-check-fix-v1-1-e7c1b2774730@kernel.org>
+	dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b="RTgwB7yy"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604151535; d=picoheart.com; t=1788250868; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=3EU+WyNrIBc1ywamQPHDaiJRGwSjOx0FUX2meGEGOtI=;
+ b=RTgwB7yy3RUB2V2Y0V/Ev+NQIiTFkN1gPRfmsFJ5Q7N/L8RhjAjZMz1EJWD3dELqz1cR75
+ Cf1if9MVfxaoY9TOx8iVtvEwqI/hyIAPzLEEijPBmO+papDf+MNjRCUiCoYUEoIq/UFFP2
+ gKM3R5pD3DOKDarzfQCQR7sI6YTB0hRASmY64DbsQjliethOZ1lh1v0X5kN33W+dvnOIsh
+ LiUvySASzQKQzIzlzkT62CSGlAEgAYTS4y0ZZOdg2Z/doQGRvWvyS7zZGiwTel8x2PMrXf
+ lEYv5C09wAeZJWDqqrK4crE9oTxSCVj0YkmgzcaBDSwfXrGUoEfv7cYJtfOTTQ==
+Subject: Re: [PATCH] iommu/sva: remove iommu_sva_present flag
+Date: Tue, 1 Sep 2026 16:21:02 +0800
+References: <aoq8VGFL/Mdjd/M5@hostpc> <20260827131025.GF1449020@ziepe.ca>
+X-Lms-Return-Path: <lba+26a968af2+bea163+vger.kernel.org+liuzhaoyu.zackary@picoheart.com>
+Message-Id: <apaK7okXkiSLwspN@hostpc>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Mime-Version: 1.0
+X-Original-From: Zhaoyu Liu <liuzhaoyu.zackary@picoheart.com>
+To: "Jason Gunthorpe" <jgg@ziepe.ca>
+From: "Zhaoyu Liu" <liuzhaoyu.zackary@picoheart.com>
+In-Reply-To: <20260827131025.GF1449020@ziepe.ca>
 Content-Disposition: inline
-In-Reply-To: <20260830-b4-dts-check-fix-v1-1-e7c1b2774730@kernel.org>
+Cc: <joro@8bytes.org>, <will@kernel.org>, <robin.murphy@arm.com>, 
+	<baolu.lu@linux.intel.com>, <iommu@lists.linux.dev>, 
+	<linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Received: from hostpc ([183.129.139.234]) by smtp.feishu.cn with ESMTPS; Tue, 01 Sep 2026 16:21:04 +0800
+Content-Transfer-Encoding: 7bit
 
-On Sun, Aug 30, 2026 at 08:24:54PM +0200, Sven Peter wrote:
-> The multi-die Apple SoCs contain most of their nodes in a file that is
-> included to instantiate the same nodes across both dies. These included
-> fragments all have a tabs-only prefix that is correct in the final
-> composed file. dt-check-style however finds the first line starting with
-> two (or more) tabs and then indent-unit-dts rejects those correctly
-> indented files.
+Thank you, Jason.
+
+Hi joro, will, robin, baolu,
+could you help merge this patch?
+
+Thanks,
+zackary
+
+On Thu, Aug 27, 2026 at 10:10:25AM -0300, Jason Gunthorpe wrote:
+> On Sun, Aug 23, 2026 at 05:24:36PM +0800, Zhaoyu Liu wrote:
+> > The global iommu_sva_present bool merely mirrors
+> > !list_empty(&iommu_sva_mms) under the same mutex. Remove it and rely
+> > on list_for_each_entry to handle the empty list case, which is a no-op.
+> > 
+> > Signed-off-by: Zhaoyu Liu <liuzhaoyu.zackary@picoheart.com>
+> > ---
+> >  drivers/iommu/iommu-sva.c | 14 +++-----------
+> >  1 file changed, 3 insertions(+), 11 deletions(-)
 > 
-> Fix that by detecing a tabs-only prefix shared by rootless files and
-> treat that as a constant offset. Also add fixtures to test this.
+> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 > 
-> Signed-off-by: Sven Peter <sven@kernel.org>
-> ---
->  scripts/dtc/dt-check-style                         | 69 +++++++++++++++++-----
->  .../bad/dts-fragment-missing-prefix.dtsi           |  6 ++
->  .../bad/dts-indented-ref-node.dtsi                 |  6 ++
->  .../expected/dts-fragment-missing-prefix.dtsi.txt  |  2 +
->  .../expected/dts-indented-ref-node.dtsi.txt        |  2 +
->  5 files changed, 70 insertions(+), 15 deletions(-)
-> 
-> diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
-> index 96deffc0d8a7..2afc05fa6602 100755
-> --- a/scripts/dtc/dt-check-style
-> +++ b/scripts/dtc/dt-check-style
-> @@ -380,12 +380,43 @@ def check_mixed_indent_chars(ctx):
->                  yield (cont.lineno, 'mixed tabs and spaces in indent')
->  
-
-I did not expect simultaneous work, so I did some renaming and moving
-which unfortunately will cause you conflicts.
-
-My patches got merged and they add _ to detect_indent_unit(), so please
-follow. Also other functions go to a bit different place after sorting.
-
->  
-> +def detect_fragment_offset(ctx):
-> +    """Return the indentation inherited from an include context.
-> +
-> +    A fragment has neither a root nor top-level reference nodes and all
-
-What is a DTS fragment?
-
-> +    its top-level lines share the same tabs-only indentation.
-
-I don't think you are fixing right problem or at least not completely.
-The Apple DTS is incorrect, because - I assume we talk about
-t600x-dieX.dtsi - this should not be indented with a tab in the first
-place. Apple does not get separate coding style, although I am working
-on supression tags to avoid certain warnings.
-
-
-
-
-> +    """
-> +    if ctx.file_type != 'dts':
-> +        return ''
-> +    offset = None
-> +    for dl in ctx.lines:
-> +        if dl.depth != 0:
-> +            continue
-> +        if dl.linetype not in (LineType.NODE_OPEN, LineType.NODE_CLOSE,
-> +                               LineType.PROPERTY):
-> +            continue
-> +        if dl.linetype == LineType.NODE_OPEN and \
-> +                (dl.node_name == '/' or dl.ref_name is not None):
-> +            return ''
-> +        if offset is None:
-> +            offset = dl.indent_str
-> +        elif dl.indent_str != offset:
-> +            return ''
-> +    if not offset:
-> +        return ''
-> +    if any(char != '\t' for char in offset):
-> +        return ''
-> +    return offset
-> +
-> +
->  def detect_indent_unit(ctx):
->      """Find the indent unit used at depth 1 in this block.
->  
->      Returns tuple of string (one of: '  ' (2 spaces), '    ' (4 spaces),
-> -    '\\t' (tab), or None if depth-1 is empty or ambiguous) and line number when
-> -    detection was made)."""
-> +    '\\t' (tab), or None if depth-1 is empty or ambiguous), line number when
-> +    detection was made, and whether the detected fragment prefix is valid.
-> +    """
-> +    prefix = detect_fragment_offset(ctx)
->      for dl in ctx.lines:
->          if dl.depth != 1:
->              continue
-> @@ -395,20 +426,25 @@ def detect_indent_unit(ctx):
->              continue
->          if not dl.indent_str:
->              continue
-> -        if dl.indent_str == '\t':
-> -            return ('\t', dl.lineno)
-> -        if dl.indent_str == '    ':
-> -            return ('    ', dl.lineno)
-> -        if dl.indent_str == '  ':
-> -            return ('  ', dl.lineno)
-> +        indent = dl.indent_str
-> +        if prefix and not indent.startswith(prefix):
-> +            return (indent, dl.lineno, False)
-> +        if prefix:
-> +            indent = indent[len(prefix):]
-> +        if indent == '\t':
-> +            return ('\t', dl.lineno, True)
-> +        if indent == '    ':
-> +            return ('    ', dl.lineno, True)
-> +        if indent == '  ':
-> +            return ('  ', dl.lineno, True)
->          # Anything else at depth 1 is non-canonical; flag elsewhere.
-> -        return (dl.indent_str, dl.lineno)
-> -    return (None, None)
-> +        return (indent, dl.lineno, True)
-> +    return (None, None, True)
->  
->  
->  def check_indent_unit_relaxed(ctx):
->      """YAML examples: 2 or 4 spaces. Never tabs or other widths."""
-> -    (unit, lineno) = detect_indent_unit(ctx)
-> +    (unit, lineno, _) = detect_indent_unit(ctx)
->      if unit is None:
->          return
->      if unit not in ('  ', '    '):
-> @@ -417,7 +453,10 @@ def check_indent_unit_relaxed(ctx):
->  
->  def check_indent_unit_dts(ctx):
->      """DTS files: 1 tab per level. Always required."""
-> -    (unit, lineno) = detect_indent_unit(ctx)
-> +    (unit, lineno, prefix_valid) = detect_indent_unit(ctx)
-> +    if not prefix_valid:
-> +        yield (lineno, 'indent does not start with fragment offset')
-> +        return
->      if unit is None:
->          return
->      if unit != '\t':
-> @@ -426,7 +465,7 @@ def check_indent_unit_dts(ctx):
->  
->  def check_indent_unit_strict(ctx):
->      """YAML: must be exactly 4 spaces. DTS: 1 tab (same as relaxed)."""
-> -    (unit, lineno) = detect_indent_unit(ctx)
-> +    (unit, lineno, _) = detect_indent_unit(ctx)
->      if unit is None:
->          return
->      if ctx.file_type == 'yaml':
-> @@ -437,8 +476,8 @@ def check_indent_unit_strict(ctx):
->  
->  def check_indent_consistent(ctx):
->      """All indented lines must be a multiple of the detected unit."""
-> -    (unit, lineno) = detect_indent_unit(ctx)
-> -    if unit is None:
-> +    (unit, lineno, prefix_valid) = detect_indent_unit(ctx)
-> +    if unit is None or not prefix_valid:
->          return
->      if ctx.file_type == 'yaml':
->          if unit not in ('  ', '    '):
-> diff --git a/scripts/dtc/dt-style-selftest/bad/dts-fragment-missing-prefix.dtsi b/scripts/dtc/dt-style-selftest/bad/dts-fragment-missing-prefix.dtsi
-> new file mode 100644
-> index 000000000000..a72735e0884b
-> --- /dev/null
-> +++ b/scripts/dtc/dt-style-selftest/bad/dts-fragment-missing-prefix.dtsi
-> @@ -0,0 +1,6 @@
-> +// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +/* Include fragment whose child does not contain the inherited indentation. */
-> +
-> +		bus@10000 {
-> +	compatible = "simple-bus";
-> +		};
-> diff --git a/scripts/dtc/dt-style-selftest/bad/dts-indented-ref-node.dtsi b/scripts/dtc/dt-style-selftest/bad/dts-indented-ref-node.dtsi
-> new file mode 100644
-> index 000000000000..cabe4ee96d10
-> --- /dev/null
-> +++ b/scripts/dtc/dt-style-selftest/bad/dts-indented-ref-node.dtsi
-> @@ -0,0 +1,6 @@
-> +// SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +/* Reference nodes must remain at column zero. */
-> +
-> +	&example {
-> +		status = "okay";
-> +	};
-
-A good example would be useful and probably made the discussion easier -
-we would see that "good" example is actually not desired/correct style.
-
-Best regards,
-Krzysztof
-
+> Jason
