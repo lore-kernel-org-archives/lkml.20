@@ -1,234 +1,102 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8804736B06A;
-	Tue,  1 Sep 2026 13:36:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 692672F3C18;
+	Tue,  1 Sep 2026 13:37:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788269807; cv=none; b=psos+MeEuA8PbjClbE7WqjY7Ei63K/YLJ1elwmmJIDt/yNYZ7MjjKnyhtxfRj4IR9LvcqC8UoSDAHwiVm6NSSH6gdnuO+nfgqKYpZZ1ekrb+qoOTtv5QbnfJkKHKKDeYBCJMTyvkWaryClf24Xb2cbQdAN7ZTBGnUXSoRznRUrM=
+	t=1788269824; cv=none; b=nswLYYMIVBZgzN7gkbK+y4IhjPxm43It6ne/VfEDd7Q8xRYtltmbtEHXoBdMdMvgtMdQE9rBadNdoog6ekzmXbMmexwk6t8uXM7uPyidtkbeeYk8G7PWFcMx+pO/93N/jxVB398QSk6ZdyqnlaAyNaLWtg+p8ZimYH8XjcE439Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788269807; c=relaxed/simple;
-	bh=bCa/+ioSd391ansot8wasyv5SfvIWPFZ8hB1i2B1cEg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=csJlOPn+TdEdnT1mUQIb1vdUk1ujPAWmFj42OlM6kW2yyn2H/sCtbQvA9O+dj4s/8y53KJkUghk2YTJ3TXgY1uUHzAejXvkzRidm/J/sQiUA/nzy+ARmN2uC2TQ0IeKyMTDSvK2ffuj0LGfsGdJw5tAc4B9Hq+U//AN+MygUkKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Hk68tnfl; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788269824; c=relaxed/simple;
+	bh=kRGES7TqWRylTv32H4Tu85p6FSUS1bAPxHsMr3HCaWo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DrbhzNjgS77VU5k6alk3Th1S+LXTNUEFnSwwt1g9/mPdGFPAxcM3ve+ltgxtKUjfvlXf8GmUdiEZOp1Thb5KGA+yiSEckqjhZc85JDyhhveAhl1gJeey9uxDDIHllx2cIBQBQiJwef5HtkzSpc7ZEHEJulI+j2oj5EqeSsEj/Pc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UBHhtj5z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Hk68tnfl"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id A95561A18FE;
-	Tue,  1 Sep 2026 13:36:41 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7041A6053C;
-	Tue,  1 Sep 2026 13:36:41 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BBD1411C79281;
-	Tue,  1 Sep 2026 15:36:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788269796; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ebsqMy2EnVHY9plN/hZxJMwt48+kiHKpI9Ca6hUAEeQ=;
-	b=Hk68tnflvw1ZZQ6K/uKMjvMzk4RU+XfRXIYQhvZO2IcC+rhCrEd/D9hbnhKptQVnkZRV8Q
-	ntBPALWbYubzYp10NjU2ModBchlDLN+uIe3BDWwufWUvGpMFRO1iua7/zoMjb4Ld4HPPr3
-	kripHYEFzY0OlsEi+mUdVIxOnc9nZn/6rQvfCQwtk/5hqiMyGyB6pgilCaXdFRs81n784K
-	ZaD6R7uZHHACHnU8HpEXE38y0n0vIMi2NX7ukpTlpnVIoUvY55XfjTf6TyU02SEeiU4GOA
-	SO16em9npMcOjpj6FF+I3IVD3Q1IRr0uJIJxBovyFuGxPdV3b1WZCKvtUfYQEg==
-Date: Tue, 1 Sep 2026 15:36:26 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v3 03/15] tests: Don't assume the root node is available
- at offset 0
-Message-ID: <20260901153626.7f0e0813@bootlin.com>
-In-Reply-To: <apaGr_i-s4DAZ-Ul@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-4-herve.codina@bootlin.com>
-	<apaGr_i-s4DAZ-Ul@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UBHhtj5z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 637071F00A3D;
+	Tue,  1 Sep 2026 13:36:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788269823;
+	bh=TmJ0D6THwXSlKazd/+sm2hmq8WhHNqX9gHKbDkCivrU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UBHhtj5zVHN/QyGSVCTr2I1jvC6gEoa1X7Z6gK99peLAU9kcllSvdsachMsnbxfi2
+	 JevoZf7OerOse4NMEXYM/0FxqB9JBoPzCoJZUVKJZvxETemWI+sGevydriQVKY7zwU
+	 d6RV9ihRib8Kx4OdEPvExnZbXbiGGtAmtSjh6HjOpqwCk7+FHkY4zNBPq+5hYFCrIQ
+	 sMOzWWnzGpcqDz50by1vmfsT6j2HSNSu+M4yMlCP2aBH2B0Dro62QRikYe1BaiuUoZ
+	 6XYCY4YmKGFp/IbHx7iO71bwcXVfUFjtbeidsYGePl0SFUYKaoIG8UQFInApMhIDeD
+	 m/n88RuUi00xA==
+Message-ID: <f1930f04-a09b-4425-8ce3-a9229e52acfd@kernel.org>
+Date: Tue, 1 Sep 2026 15:36:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] rust: pci: reject IRQ vector indices that do not fit
+ in u32
+To: Alexandre Courbot <acourbot@nvidia.com>
+Cc: Sophon Zhang via B4 Relay <devnull+aiqubits.hotmail.com@kernel.org>,
+ aiqubits@hotmail.com, Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, =?UTF-8?Q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, linux-pci@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260901-fix-pci-irq-vector-index-truncation-v4-1-f94aa6932fd9@hotmail.com>
+ <DL3XDBBHXKKV.G9P6KRSSX1DN@nvidia.com> <DL3XLHXS647M.1LMHQUVX5RTI@kernel.org>
+ <DL40NH1AX8WN.2ZPY7GDL0FSEW@nvidia.com>
+From: Danilo Krummrich <dakr@kernel.org>
+Content-Language: en-US
+In-Reply-To: <DL40NH1AX8WN.2ZPY7GDL0FSEW@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 7bit
 
-Hi David,
-
-On Tue, 1 Sep 2026 18:03:09 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
-
-> On Wed, Aug 26, 2026 at 10:31:34AM +0200, Herve Codina wrote:
-> > Several tests uses offset 0 as the offset of the root node. Either to
-> > check the offset returned by tested functions or to directly manipulate
-> > the root node retrieved using fdt_offset_ptr(fdt, 0, ...).
-> > 
-> > The root node is not always at offset 0. Indeed, a FDT_NOP tag can be
-> > present at offset 0. fdt_root_offset() returns the offset of the root
-> > node taking care of possible FDT_NOP tag.
-> > 
-> > Use fdt_root_offset() to get the offset of the root node and use this
-> > value whenever the offset of the root node is expected.
-> > 
-> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > ---
-> >  tests/node_offset_by_compatible.c |  4 +++-
-> >  tests/node_offset_by_prop_value.c | 11 +++++++----
-> >  tests/path_offset.c               | 13 +++++++++----
-> >  tests/root_node.c                 |  6 +++++-
-> >  4 files changed, 24 insertions(+), 10 deletions(-)
-> > 
-> > diff --git a/tests/node_offset_by_compatible.c b/tests/node_offset_by_compatible.c
-> > index a9e67835..1278a562 100644
-> > --- a/tests/node_offset_by_compatible.c
-> > +++ b/tests/node_offset_by_compatible.c
-> > @@ -39,12 +39,14 @@ static void check_search(void *fdt, const char *compat, ...)
-> >  int main(int argc, char *argv[])
-> >  {
-> >  	void *fdt;
-> > +	int root_offset;
-> >  	int subnode1_offset, subnode2_offset;
-> >  	int subsubnode1_offset, subsubnode2_offset;
-> >  
-> >  	test_init(argc, argv);
-> >  	fdt = load_blob_arg(argc, argv);
-> >  
-> > +	root_offset = fdt_root_offset(fdt);
-> >  	subnode1_offset = fdt_path_offset(fdt, "/subnode@1");
-> >  	subnode2_offset = fdt_path_offset(fdt, "/subnode@2");
-> >  	subsubnode1_offset = fdt_path_offset(fdt, "/subnode@1/subsubnode");
-> > @@ -54,7 +56,7 @@ int main(int argc, char *argv[])
-> >  	    || (subsubnode1_offset < 0) || (subsubnode2_offset < 0))
-> >  		FAIL("Can't find required nodes");
-> >  
-> > -	check_search(fdt, "test_tree1", 0, -FDT_ERR_NOTFOUND);
-> > +	check_search(fdt, "test_tree1", root_offset, -FDT_ERR_NOTFOUND);  
+On 9/1/26 3:32 PM, Alexandre Courbot wrote:
+> On Tue Sep 1, 2026 at 8:08 PM JST, Danilo Krummrich wrote:
+>> On Tue Sep 1, 2026 at 12:58 PM CEST, Alexandre Courbot wrote:
+>>> That makes me wonder, shouldn't we make `index` take a `u32` directly?
+>>> If that's what the C API expects, it does make sense to align to it
+>>> instead of forcing users to make a potential unneeded conversion if they
+>>> already have a u32.
+>>
+>> I intentionally did not do this, as the common type for an index is usize. Thus,
+>> I do not expect anyone to already have a u32, but to already have a usize, e.g.
+>> from some iterator.
+>>
+>> The fact that the C API did pick unsigned int as index type is an implementation
+>> detail the abstraction should bother with.
 > 
-> This does highlight that even with the compatibility changes
-> introduced here, allowing NOPs before the root node can potentially
-> break things.  We now handle _passing_ 0 to any of the functions as a
-> node offset, but anything that expects a _returned_ offset to be 0 if
-> it's the root node will break.
+> Thanks for the clarification (and Miguel for elaborating - I wasn't
+> completely aware of it!). In that case this patch looks correct to me.
 > 
-> I think that's probably an acceptable breakage, but it's something to
-> be aware of.
-
-Yes, I know but I wouldn't say it is a breakage. NOPs are allowed by the
-specification. In current version dtc/libfdt, having a NOP before the root
-node is already broken.
-
-I agree with you we need to be aware of.
-
-...
-
-> > diff --git a/tests/root_node.c b/tests/root_node.c
-> > index 37e6f059..30903f2b 100644
-> > --- a/tests/root_node.c
-> > +++ b/tests/root_node.c
-> > @@ -19,12 +19,16 @@ int main(int argc, char *argv[])
-> >  {
-> >  	void *fdt;
-> >  	const struct fdt_node_header *nh;
-> > +	int root_offset;
-> >  
-> >  	test_init(argc, argv);
-> >  	fdt = load_blob_arg(argc, argv);
-> >  
-> > -	nh = fdt_offset_ptr(fdt, 0, sizeof(*nh));
-> > +	root_offset = fdt_root_offset(fdt);
-> > +	if (root_offset < 0)
-> > +		FAIL("fdt_root_offset() returns %d", root_offset);  
+> Note that there is another `as` right after, in the same method:
 > 
-> Hm.  It's been a long time, but I suspect the purpose of this testcase
-> was to be super low-level, checking the contents of the root node
-> _without_ relying on iteration or lookup functions first.  Putting the
-> lookup call here arguably defeats that purpose: certainly the test
-> that nh->tag == FDT_BEGIN_NODE is no longer meaningful, since
-> fdt_root_offset() will explicitly look for a location where that's
-> true.
+>   if irq < 0 {
+>       return Err(Error::from_errno(irq));
+>   }
 > 
-> Or perhaps another way to look at it is that this test is explicitly
-> verifying that the root node is at offset 0, so does it make snese for
-> this test to even exist any more.  I guess the test for the name of
-> the root node is still meaningful, if minor.
-> 
-> Nonetheless, to maintain as best we can this test's goal as working
-> independent of lookup functions, I think it might be worth open coding
-> something to skip FDT_NOP tags (not using fdt_next_tag(), even), then
-> construct nh immediately after that.
-
-Well "structured tags" are going to be introduced and so the open coding
-here will need to take care of that. Later some new tags could be introduced
-and could also have impacts on the test.
-
-To be honest, I hesitated to just remove this root_node test.
-
-I kept it because at least it checks that the offset returned by 
-fdt_root_offset() looks like a root node (i.e tag BEGIN_NODE and empty name).
-
-Adding an open coded loop here without fdt_next_tag() call will looks like
-a copy/paste of the loop available in fdtdump.c. I am not sure that this is
-what we want to see here.
-
-The question is: How to be sure that the offset returned by fdt_root_offset()
-is really the root node offset without having an open code loop here?
-
-Maybe we can add a new test, root_offset, and build dtbs where we exactly
-know where the root is (2 dtbs, with and without FDT_NOP). treegen could
-build those dtbs.
----- 8< ----
-/ {
-    offset = <real_root_node_offset>;
-};
----- 8< ----
-
-The treegen tool should be able to add a property where the value is the offset
-of the root node.
-
-The new test could get the root node offset thanks to fdt_root_offset(), read the
-'offset' property available at this root node offset and check that the property
-value matches the root node offset returned by fdt_root_offset().
-
-The root_node is kept as it is with this current patch applied:
-- use fdt_root_offset()
-- Check BEGIN_NODE
-- Check empty name
-
-What do you think about this solution ?
-
-Should the 'root_offset' test need to be implemented or does it look over-engineered ?
-
-Best regards,
-Hervé
-     
+>   // SAFETY: `irq` is a valid IRQ number for `self.dev`, resolved from this registration.
+>   Ok(unsafe { IrqVector::new(IrqRequest::new(self.dev.as_ref(), irq as u32), self) })
 > 
 > 
-> >  
-> > +	nh = fdt_offset_ptr(fdt, root_offset, sizeof(*nh));
-> >  	if (! nh)
-> >  		FAIL("NULL retrieving root node");
-> >  
-
-> > -- 
-> > 2.55.0
-> > 
-> >   
+> We could get rid of it by replacing the `if irq < 0` test with:
 > 
+>   let irq = u32::try_from(irq).map_err(|_| Error::from_errno(irq))?;
 
+That's a good suggestion!
 
+> Sophon, if you feel like doing it I think this could improve the patch
+> further.
 
--- 
-Hervé Codina, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Let's please do that as a separate patch though.
+
+Thanks,
+Danilo
