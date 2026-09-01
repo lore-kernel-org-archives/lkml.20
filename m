@@ -1,372 +1,273 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A822F9C37
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 00:16:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA4BA2F7F0F
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 00:16:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788221783; cv=none; b=QejHNVjbF7wcjXeHYPCkwJK81x5Fy7K4VWTEwDNzNYo55ReOTCB2wLfvQphUp06W6x1W6BVMHWcv5w2EN5TdnZkLOG9jJXj+UgZKqUtxetmtl5aR3+PNA3vut3lZYwy3XnglkOrx2yNpx+zgHEkk4aTqbbq4oDjhIHI7w8pfNZo=
+	t=1788221815; cv=none; b=QPtug2K+tGxWiMTUXP9TFFzAWMqngeyisnuoSq5a+jJUTPdT9A7kYNQsZvFSXnlrVzIFmM5lZx4HG4a88rAIKGmXSoXiCkTHA8QAWL3uzIhGCRlfytRw3MTtEH99mTQEkg49ufjpEgG0HOvRYaG/B9GtZrhMSbsOt3Brxc9yjT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788221783; c=relaxed/simple;
-	bh=wWd6FpJoBAUfxzqnHYWFxP6viUHJty1h+MngnoYm7jo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:Cc:From:
-	 In-Reply-To:Content-Type; b=V0FEj8kjVlYNMTsCFTyPuIPzM5GtCRdoz2/wkQa7SvCnXXX5cW6/fHwtOF5xmIgT/OLSFi1KYkjIABNLPw+yC/DtjxDLo5en4ZS3aKUc8vCAldU77bsOaDjE4ZpqawG4e1gSIfPr801Oio+yhY04YmwwqCf9cf/WAfhq2KDaRx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N+ZNMnTU; arc=none smtp.client-ip=209.85.215.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788221815; c=relaxed/simple;
+	bh=IclmeQ+f6hVncC1gnnUPeH7x7ixP12JNCKW7s2vqjZA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=X2GZm+dcE+r64S8r70KqulsJhvh7oZNHIeTJl/0R1pVNTe7z4pQYvk/sJPBdt7Anwo2eeQiUUBB9OFblJiKGKLFNQiChj2smbs8WDJveJ07hE/s/KH2cPGhf1VmfUPzCAauNTWzz8FS4KNjfpAWq8vFg7SZnSr8px5cpXYIivAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bep1AWtI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Jyo02Dl8; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N+ZNMnTU"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc1cb472b76so3779387a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:16:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bep1AWtI";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Jyo02Dl8"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67VIXmKA172359
+	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 00:16:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	PdcjjIeT2oCUvAqtxFqM1NFtN4OHETkY5T0wT3PbocY=; b=bep1AWtIDp+tCmJj
+	ulnJDQWcVw4KZCHCdIR0+WeTW42R387mWPyaCOPLKVYi9zSW3k3aVFNDF3WVWgtY
+	//U/K/yDUESUcHJ6Ms31H1Zto+pB6Bdlzuce7QgVRLJvHzqUvgFrGoTAzZJMCGoX
+	T6QaXMgyBJKZ+2Z0oLeNh1+A+VzZn9d6hTulxM1n6z/IqyZGDd9362BiJLmj58B5
+	m1P72Xth8+hGAA0+pYWDBQLMP+76cAtiy9zUqRGygGkC5aZnUYofrZDZogA/Ffwl
+	+fR1Fdzj2gJZHVyFipbtV2ydxeXQDJK81L082Q8AcT62KAvn3xxqz+KicpivShdG
+	UGa3KA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdd4dt2fw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 00:16:52 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-398e1f7d1a5so2539480a91.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:16:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788221781; x=1788826581; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/NH7GQnLQc0hjyaM40uObrrRPPN00SH54u5Q+Jsz9iY=;
-        b=N+ZNMnTUexZuOoGSnRDdWziUkSjHmJIj2bE86oAZyEQvhEzvBq2qkUQ0Gm4yoafYyP
-         wgftUi6ZqQ8hqGdtuKi7ExW705HsdwN3oxWM2luDOmsqJRycVqc3s8zPhRiH45b/m+1w
-         l2p2/5Bvs2u4R/+sYpX6olHb/RgBI8wxZVpIEDyUFkT1WhDCV9FvmzUGR1P5Y6LT5gyU
-         38uBVJJ6TbqcflKz4f+W/KxNDw6pwFnWuDI9/IllXjfzytkppm4cF+aewhLEDT6xDT0X
-         tNsVp542+hj72fshGOBUPjCLgt4RIGmILywd8EACM/lurJI0PQm5HW7AkAgIVyfn1AFr
-         W3bA==
+        d=oss.qualcomm.com; s=google; t=1788221811; x=1788826611; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PdcjjIeT2oCUvAqtxFqM1NFtN4OHETkY5T0wT3PbocY=;
+        b=Jyo02Dl8SssozAKUPy7YdF9reufcFcSNQJb8EFOIHUw5YmDXZCzXf3yS9MqDDoV+Dh
+         mbLFobhvyrySXIFq+X68+ETx2cWet17Ay+SASkUJWrcVLeItcpar1eqnsEgvEnxYuwsR
+         +xZAt9Z0qalXbWucmGdX/Ay80LHerkTLebiTkroaWMkv6CaWSlG+lFRCUoIGBkfuHqQe
+         MeoNeQvnZNXvJok+MDBLaGQsGgGEML1diY8UDzR801auEtmyYiqtbq66vem0tvjTrHK8
+         nErye9pjIjNeW4Q47mtcfuAqFNKK4KQADjJvKgqGN4JIpLD0+XIwySyLvyU8xjq+at1x
+         lfFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788221781; x=1788826581;
-        h=content-transfer-encoding:content-type:in-reply-to:from:cc
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788221811; x=1788826611;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/NH7GQnLQc0hjyaM40uObrrRPPN00SH54u5Q+Jsz9iY=;
-        b=d7IWAAKQKb/vw5ljiVy2jwj5RdX/alfntNIAGrPrS0lz6yGh9S2FKkoOCKZLyRaK2/
-         Bz5Uk2Hirjk+4Hg9cqfYu1fVxCX47fnQKvkXTW7CZVK8U13gCJ/2lFuUHh2xktYQPGwB
-         5pcyU8PvSRbl+Rj65/g/+ZyIP4LH9OLKfVUA2kSPD+ltQtrgwhNSjq3hw/yzQQBiBlmb
-         Ucfc+AYo903FhOUQ/kRkJkh7LYUJ0R9a18+SQGFBaZ3brF4Hycb1PufJ4n3nKaHlLf8d
-         7VExLmb4D82vEetm8EKEWlVjRQEh9PLtJy8P9e0z9n58ITD7icJbwgklY60E0TETXZbW
-         6PJA==
-X-Forwarded-Encrypted: i=1; AKwUvByZ7hf0QBk4KUOqt7p/BXyPfRrV3eflTIyM9H3CnehQtLjq0JsvKlf2qhgCjP8mULFTWQrOlcPx2mAbKHs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nrrCtAfJ53tJ3Y3V+0Dp5698yzYNlL+UZPhHum8UkYMQ3P5Wba
-	+89YNZg2Qo0k3qAPs9WxBqVmPsvWPyGhH3WZmnyUF8GKDnYo9REDnvZ23gHxRaYy
-X-Gm-Gg: AYBFou1CQezr10kzvALu3U2D8CqXni24YJohF0/PJYzHyV1v4SOSAS2nR2oMFcfsa8V
-	gJ0rRprtvKy+dgxqIjPn5FAzjkr1ongGe+cBjwTSzad2n7KK78XAxw9nkD0yZqpES/BPWPYs26l
-	jSme2TDYaJBLjFXj38FqJeSA1sO3gycqr1Dq6MOrloINr4r8GK5ViSW78rVlN3nPjzxqH1yVnCl
-	9K8kSUSX6clfLvLznF2AHbYeXE4rxH8KYYfOQw3+uhoPBkUC8ug+V5/a1A151tUz5/+AXQDGEqZ
-	ZgXz8DQves5dmiu5Q1kQXvdlRAnH0f5t9OXPgdIF9oOkhAPiOzXh+7zQFJVIQEuYHXfrOLTWPJs
-	iOYjtwIAiTCR1/cY+OpP7EKH+9rqKf9mc4fcaiR6KD48EvY4yPJcn4DM5txzSePMYLdZ39FQ5Bg
-	gdoobBwOTFGtgfn1b0gShD3lKplnNReaxN1zfcxdeu/ucWM/Ep0d2DjDvVXAls+2Kfpu7Qvp4aG
-	d3c4VMxsV1V1PkUx9gR0RyizAesbA9N8CITPJFeClyJeO8PZeEWP4KnFOrM
-X-Received: by 2002:a17:90b:530c:b0:381:1c96:829b with SMTP id 98e67ed59e1d1-396d0d4c43amr46601349a91.3.1788221780530;
-        Mon, 31 Aug 2026 17:16:20 -0700 (PDT)
-Received: from [10.21.0.95] (wnpgmb0592w-ds02-161-177-131.dynamic.bellmts.net. [207.161.177.131])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39914b4ea7asm1056747a91.13.2026.08.31.17.16.19
+        bh=PdcjjIeT2oCUvAqtxFqM1NFtN4OHETkY5T0wT3PbocY=;
+        b=Zc93RhddDxhgR5bdG72/CiUfqtY3GKDlKtq1VACLegiHKmfBFmK7sJ4iSEkvdRkxA1
+         IJI3ngF6ZlPrOs5AvGT00sL7YwsNUZJ92V78gwazf3Pa8r5mNAd0b+HvgnxtZR34kIv+
+         aKTrfnpxw/lsFTlMsr6ZCS39BYTwH3Y/albSd4uDjY5Ip36ibRUQFNlI3ycqiNc+kFZj
+         Y7i+QkHb6pldRVHjIN3j+mdg/4l+DyyCbbzO+XuJ4GfXJ9gOFXV4RG2Rr+bddnSmGqSz
+         /vo8uB7Ye+/jJr7lh8zKVOizYdYfRVRDjihOT2redD4cN9bI2Oo4d4fe0CqxfOF/+Gz4
+         KS1w==
+X-Forwarded-Encrypted: i=1; AKwUvBxkoNoKmKwbfUQwABb+71KZ4q1+xMzNU53KwTKPJrpOEe1Wax16qkS7vecsBz9Lu/OqlsmQqqDeaDSvSqM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mFrfO4acsczk9sFXdwskvpNBXSQ79us7xtg/X2VWG8MkSZjwC0
+	/LOpQNf2JQ0U4GtTYEiouJIbj1k5TNjbMC+BDpcczPRAJ0fVNDQ5wqZIOqndp7PdyQzNnyRa8f8
+	RxxZfFvfYGglbf9NPyipr1LxNlCb1+f3IviXiNWUWEqtEJmpWou8xkogDrjUSSVp9M08=
+X-Gm-Gg: AYBFou3oGdBD/PsKrIuIjLrd/ABuoIUDSnNvU4+Pzcnj/Gspjq1xqlkRzFPhFlQZKy7
+	MUbgXTiABsBE4HKipXCy4fbc0lhtpAvgY6eth02J9rrhc84cLyALP8MizKyzlXGbqezj3KKFEHi
+	arx1dNe7kKPzHl86oZJruj2wT3vFIEqq/7iUl8ju+S9ylIN8WiIdoWRWqq2zJ4wBPfck+AIoV7s
+	nLcXnNi9xpfpqIFbSMpea0K/rP1KPrYEQjDIEKmERuge1NVRKK4RDt3sY0n+8Jn3bU1lbQLuBNW
+	dusQlh/E+j8Ai4JKlPhKYV9gBfeAm8gyGMtkBx2obqOBk8M6r0Xh7N/6vHiCkJrfB6Wgu2qjyqq
+	Z8TNJNdLUtt7nEqW4f0Hua5IFtwCtB4Celij7izFKo3ZMnbw=
+X-Received: by 2002:a17:90b:2b4b:b0:398:9beb:5c18 with SMTP id 98e67ed59e1d1-3989beb635dmr31940047a91.19.1788221811226;
+        Mon, 31 Aug 2026 17:16:51 -0700 (PDT)
+X-Received: by 2002:a17:90b:2b4b:b0:398:9beb:5c18 with SMTP id 98e67ed59e1d1-3989beb635dmr31939979a91.19.1788221810681;
+        Mon, 31 Aug 2026 17:16:50 -0700 (PDT)
+Received: from [10.73.194.28] (pat_11.qualcomm.com. [192.35.156.11])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d4b336sm32407209c88.8.2026.08.31.17.16.49
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 31 Aug 2026 17:16:19 -0700 (PDT)
-Message-ID: <763a8b30-8548-4ff0-a1e9-8e74bbfe9b02@gmail.com>
-Date: Mon, 31 Aug 2026 19:16:17 -0500
+        Mon, 31 Aug 2026 17:16:49 -0700 (PDT)
+Message-ID: <0deb246b-0387-4921-b875-9477d73cdeed@oss.qualcomm.com>
+Date: Mon, 31 Aug 2026 17:16:49 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Linux)
-Subject: Re: [BUG] SPD5118 Intermittent MR11 Corruption During Suspend/Resume
-To: Guenter Roeck <linux@roeck-us.net>
-References: <1a8ea9da-1ac1-4312-a8ca-ea4a9f35093f@gmail.com>
- <ee284272-0da0-45b6-a3be-c76822e5d54f@roeck-us.net>
- <014b9438-e9b7-4be1-b816-002e83a068a0@roeck-us.net>
- <37132c40-aa82-4df1-b5ce-337601f3c085@gmail.com>
- <3c4e9f59-5272-48cf-a4a0-eeefcba955a9@roeck-us.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/4] Add larger page size support for USB audio offload
+ path
+To: Mathias Nyman <mathias.nyman@linux.intel.com>,
+        Mathias Nyman <mathias.nyman@intel.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Michal Pecio <michal.pecio@gmail.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-sound@vger.kernel.org
+References: <20260828-16k_offload_v1_b4-v2-0-8a46369ebbb6@oss.qualcomm.com>
+ <c3f69010-4263-4d71-bdfd-62f21989b639@linux.intel.com>
 Content-Language: en-US
-Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
-From: Matthew Bettencourt <matthew.bettencourt@gmail.com>
-In-Reply-To: <3c4e9f59-5272-48cf-a4a0-eeefcba955a9@roeck-us.net>
+From: Wesley Cheng <wesley.cheng@oss.qualcomm.com>
+In-Reply-To: <c3f69010-4263-4d71-bdfd-62f21989b639@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=b9qCJNGx c=1 sm=1 tr=0 ts=6a961974 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZdW6uxA9NKXbfdqeeS2OGA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=-oZYn3fwYyhup3hfDacA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDAwMSBTYWx0ZWRfX2Q4b+ogRpWAu
+ QIIe4cl3ri9EniyLfP5xys9azxhdWr04oQU6mptCwzM3rP/SF9Q/EwAC/USTcEMqdzHfaa6P/s2
+ /Guklq7Z6vC1PCH9jqdGxyZ9J/UeUW/tkGRTvO6cjtNIPp1DoQmdCYPMWHsbgrLg3dzC9x8M1Ro
+ 3ElWcx+kAlYq5ZgkXLxVCPXFhlbUNe7ukh/2gpJoUAX9hENkXP9PCZq9HEZSYlAwg8z3C+nURN9
+ 2wm5apFOpRaBssOyYUhEgaBkyvdOxD5NZ+SffydQQ7Ucy2wlqeJZNKatsP7yORjB/LlKbD2Pit7
+ ow1SbcZoHqVFmF/Y5rX/CvURhQEHQ6UOhZDhEzbG+xMmYSrqLhsVZ8x6ehIZjF2yxGlwrM+Px7a
+ 8mLxJyQ41zC1J+0RyEQCuy5Yc9tI90OGTxuVmP6OUhpfxio+0uesY38E7APL2foUb4+qkuRPNe4
+ Cr4jZSEOhP25nCmzJ1w==
+X-Proofpoint-GUID: GXlc2U5bODA1xqXZPUrquDPF75SWrLt5
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDAwMSBTYWx0ZWRfX2weKzNwR+UCT
+ o30vTpURx0M/EEMW89+RDRc5lyzex0JYH+OlblAfLnI5d5M4GOLBmQVgGMfLnebiHi95xz5+yy1
+ PMGTFnk6mAE6pqWiF+LchnK2Ob+5dI0=
+X-Proofpoint-ORIG-GUID: GXlc2U5bODA1xqXZPUrquDPF75SWrLt5
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_06,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 phishscore=0 clxscore=1015 impostorscore=0
+ spamscore=0 priorityscore=1501 adultscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010001
 
-Hello Guenter,
 
-Here is the list of i2c devices on my machine
 
-grep . /sys/class/i2c-dev/*/name
-/sys/class/i2c-dev/i2c-0/name:Synopsys DesignWare I2C adapter
-/sys/class/i2c-dev/i2c-10/name:AMDGPU DM aux hw bus 1
-/sys/class/i2c-dev/i2c-11/name:AMDGPU DM aux hw bus 2
-/sys/class/i2c-dev/i2c-12/name:SMBus PIIX4 adapter port 0 at 0b00
-/sys/class/i2c-dev/i2c-13/name:SMBus PIIX4 adapter port 2 at 0b00
-/sys/class/i2c-dev/i2c-14/name:SMBus PIIX4 adapter port 1 at 0b20
-/sys/class/i2c-dev/i2c-1/name:Synopsys DesignWare I2C adapter
-/sys/class/i2c-dev/i2c-2/name:AMDGPU SMU 0
-/sys/class/i2c-dev/i2c-3/name:AMDGPU SMU 1
-/sys/class/i2c-dev/i2c-4/name:AMDGPU DM i2c hw bus 0
-/sys/class/i2c-dev/i2c-5/name:AMDGPU DM i2c hw bus 1
-/sys/class/i2c-dev/i2c-6/name:AMDGPU DM i2c hw bus 2
-/sys/class/i2c-dev/i2c-7/name:AMDGPU DM i2c hw bus 3
-/sys/class/i2c-dev/i2c-8/name:AMDGPU DM i2c OEM bus
-/sys/class/i2c-dev/i2c-9/name:AMDGPU DM aux hw bus 0
-
-The dmesg output I provided was captured with i2c debugging enabled. 
-When the issue occurred those are the only i2c transitions I saw.
-
-I will try and add some additional logging and checks the controller 
-driver and see if there are any other i2c transactions with the same 
-symptoms.
-
- >  The only ideas I have is that somehow an access to another I2C bus
- > messes up controller registers, or that there is a real hardware problem.
-
-I am not against the determination that there might hardware issue, 
-however I got down this rabbit hole after I read a forum post on 
-level1techs where someone else had the exact issue with the same memory 
-kit. I have posted in that forum as well but have not gotten a reply. 
-The original post sounds very similar to this issue but the user never 
-reports on the actual SPD5118 registers so it is hard to know for sure.
-
-https://forum.level1techs.com/t/msi-x870e-carbon-9950x-2x48gb-ram-bizzare-issues/222454/23
-
-Thanks,
-Matthew
-
-On 8/31/26 6:38 PM, Guenter Roeck wrote:
-> On 8/31/26 16:10, Matthew Bettencourt wrote:
->> Hi Guenter,
+On 8/31/2026 6:04 AM, Mathias Nyman wrote:
+> On 8/29/26 00:37, Wesley Cheng wrote:
+>> On some environments, 16kB pages can be enabled from the Linux subsystem,
+>> which manages the IOMMU mappings for the audio DSP within the system.  In
+>> the current design, the following assumptions break when 16k pages are
+>> utilized:
+>>    1. xHCI ring size is equal to PAGE_SIZE
+>>    2. Ring addresses start at the beginning of a page
 >>
->> I checked the i2c bus and there is nothing at address 0x22:
+>> When the USB offload driver maps the rings (w/ the audio DSP SID), it is
+>> set with a 16k granular, which is a problem, as several xHCI rings could
+>> exist on the same page.  This is because the rings are currently allocated
+>> from the segment_pool.  Hence, potentially mapping non USB audio related
+>> rings into the region accessible by the audio DSP.
 >>
->> # i2cdetect -y 12
->>       0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
->> 00:                         -- -- -- -- -- -- -- --
->> 10: -- -- -- -- -- 15 -- -- -- -- -- -- -- -- -- --
->> 20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
->> 30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
->> 40: -- -- -- -- -- -- -- -- -- 49 -- 4b -- -- -- --
->> 50: -- 51 -- 53 -- -- -- -- -- -- -- -- -- -- -- --
->> 60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
->> 70: -- 71 -- 73 -- -- --
+>> To mitigate this, this series introduces a separate segment_pool
+>> associated to each sideband instance.  Before the USB audio offload path
+>> is enabled, the USB audio data streams/endpoint are not active.  Only when
+>> the class driver issues a usb_set_interface() call (done from
+>> snd_usb_endpoint_prepare()), will the xHCI allocate the transfer ring
+>> resources.  Which pool is selected is all based on if the sideband path
+>> is being enabled, and if so, memory can be allocated from that pool,
+>> which expects to be owned in conjunction with the audio DSP.  This
+>> concept allows to keep the same model existing in xHCI, where multiple
+>> 4k segments can reside on the same page, which reduces potentially over
+>> allocating based on the page size.
 >>
-> 
-> That means that
-> 
->>>>> [  277.574130] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, 
->>>>> CMD=0b, ADD=a3, DAT0=00, DAT1=18
->>>>> [  277.575552] [   T3293] i2c i2c-12: Transaction (post): CNT=08, 
->>>>> CMD=01, ADD=45, DAT0=ff, DAT1=18
->>>                                                                           ^^      ^^       ^^
->>> This is unexpected. It was supposed to read MR11 from 0x51, but the 
->>> returned data is 0xff,
->>> and the CMD and ADD register values are changed. 0xff is returned to 
->>> the calling code as MR11.
->>>
-> 
-> this is a real problem. I don't really know what to suggest here. You could
-> add some debugging code into the controller driver and check if / how often
-> CMD or ADD changes its value between pre and post, and generate a log 
-> message
-> if that happens. The value should never change. If it happens when 
-> reading MR11
-> I suspect that it happens with other accesses as well.
-> 
-> What I2C controllers do you have in your system ? "grep . /sys/class/ 
-> i2c-dev/*/name"
-> should tell. Also, do you see any other I2C transactions on other I2C
-> busses ? The only ideas I have is that somehow an access to another I2C bus
-> messes up controller registers, or that there is a real hardware problem.
-> 
-> Thanks,
-> Guenter
-> 
->>>>> [  277.575617] [    T113] i2c i2c-12: Transaction (pre): CNT=08, 
->>>>> CMD=1a, ADD=a7, DAT0=ff, DAT1=18
->>>>> [  277.576169] [    T113] i2c i2c-12: Transaction (post): CNT=08, 
->>>>> CMD=1a, ADD=a7, DAT0=00, DAT1=18
->>>
->>> Read MR26 of 0x53 (=0x00, enabled)
->>>
->>>>> [  277.576237] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, 
->>>>> CMD=0b, ADD=a2, DAT0=f8, DAT1=18
->>>>> [  277.577061] [   T3293] i2c i2c-12: Transaction (post): CNT=08, 
->>>>> CMD=0b, ADD=a2, DAT0=f8, DAT1=18
->>>
->>> Write 0xf8 into MR11 of 0x51. This is where things go wrong. The call 
->>> originates
->>> from regmap, which tries to configure page 0 (lower 3 bit) while 
->>> leaving the upper
->>> bits alone (which were 0xff from above corrupted read).
->>>
->>>>> [  277.577121] [    T113] i2c i2c-12: Transaction (pre): CNT=08, 
->>>>> CMD=0b, ADD=a7, DAT0=f8, DAT1=18
->>>>> [  277.578063] [    T113] i2c i2c-12: Transaction (post): CNT=08, 
->>>>> CMD=0b, ADD=a7, DAT0=00, DAT1=18
->>>
->>> Read MR11 of 0x53 (=0x00)
->>>
->>>>> [  277.578127] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, 
->>>>> CMD=1a, ADD=a3, DAT0=00, DAT1=18
->>>>> [  277.579062] [   T3293] i2c i2c-12: Transaction (post): CNT=08, 
->>>>> CMD=1a, ADD=a3, DAT0=00, DAT1=18
->>>
->>> Read MR26 of 0x51 (0x00 -> enabled)
->>>
->>>>> [  277.579131] [    T113] i2c i2c-12: Transaction (pre): CNT=08, 
->>>>> CMD=1a, ADD=a6, DAT0=01, DAT1=18
->>>>> [  277.579560] [    T113] i2c i2c-12: Transaction (post): CNT=08, 
->>>>> CMD=1a, ADD=a6, DAT0=01, DAT1=18
->>>
->>> Disable temperature sensor support on 0x53 (MR26 := 0x01)
->>>
->>>>> [  277.579620] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, 
->>>>> CMD=0b, ADD=a3, DAT0=01, DAT1=18
->>>>> [  277.580170] [   T3293] i2c i2c-12: Transaction (post): CNT=08, 
->>>>> CMD=0b, ADD=a3, DAT0=08, DAT1=18
->>>
->>> Read MR11 of 0x51. Since 0xf8 was written above, 0x08 is "as expected".
->>>
->>>>> [  277.580234] [    T113] i2c i2c-12: Transaction (pre): CNT=08, 
->>>>> CMD=0b, ADD=a7, DAT0=08, DAT1=18
->>>>> [  277.581061] [    T113] i2c i2c-12: Transaction (post): CNT=08, 
->>>>> CMD=0b, ADD=a7, DAT0=00, DAT1=18
->>>
->>> Read MR11 of 0x53 (0x00 -> page 0)
->>>
->>>>> [  277.581072] [    T113] spd5118 12-0053: POST BIT UPDATE: SUSPEND 
->>>>> MR11 (0x0B) -> Cache: 0x00 | Bus: 0x00
->>>>> [  277.581128] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, 
->>>>> CMD=1a, ADD=a2, DAT0=01, DAT1=18
->>>>> [  277.581559] [   T3293] i2c i2c-12: Transaction (post): CNT=08, 
->>>>> CMD=1a, ADD=a2, DAT0=01, DAT1=18
->>>
->>> Disable temperature sensor support on 0x51 (MR26 := 0x01)
->>>
->>>>> [  277.581626] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, 
->>>>> CMD=0b, ADD=a3, DAT0=01, DAT1=18
->>>>> [  277.582236] [   T3293] i2c i2c-12: Transaction (post): CNT=08, 
->>>>> CMD=0b, ADD=a3, DAT0=08, DAT1=18
->>>
->>> Read MR11 from 0x51, wrong as before
->>>
->>>>> [  277.582250] [   T3293] spd5118 12-0051: POST BIT UPDATE: SUSPEND 
->>>>> MR11 (0x0B) -> Cache: 0x00 | Bus: 0x08
->>>>>
->>>>>
->>>>> --- The logs that are of interest ---
->>>>> [  277.573085] [   T3293] spd5118 12-0051: PRE BIT UPDATE: SUSPEND 
->>>>> MR11 (0x0B) -> Cache: 0x00 | Bus: 0x00
->>>>> …
->>>>> …
->>>>> …
->>>>> [  277.582250] [   T3293] spd5118 12-0051: POST BIT UPDATE: SUSPEND 
->>>>> MR11 (0x0B) -> Cache: 0x00 | Bus: 0x08
->>>>>
->>>>> I enabled i2c debugging as well in case it helps. The lines I 
->>>>> focusing on are “PRE BIT UPDATE…” and “POST BIT UPDATE…”, 
->>>>> immediately after regmap_update_bits() the physical bus value for 
->>>>> MR11 shifts to 0x08 while the regmap cache remains 0x00.
->>>>>
->>>>> I looked through the history of spd5118 patches and bugs and 
->>>>> noticed there has been some issues around suspend and sleep cycles. 
->>>>> This might be a deeper issue than just the spd5118 driver.
->>>>>
->>>
->>> Those problems are related to I2C controllers on some Intel boards, 
->>> which disable
->>> write operations. That does not affect AMD systems.
->>>
->>> The problem is that one of the MR11 read operations fails or, rather, 
->>> returns
->>> bad data. This bad data then corrupts the register when written back.
->>> This by itself is odd. There should be at least a debug log message 
->>> if there is
->>> an error in piix4_transaction(). Is there anything on address 0x22 on 
->>> that I2C bus ?
->>> It almost appears as if there is a parallel access to the I2C 
->>> controller (for
->>> example from ACPI) which would corrupt the data for the spd5118 access.
->>>
->>>>> Additional Notes:
->>>>> - Intermittent Nature: The issue is intermittent and typically 
->>>>> reproduces within ~10 sleep/resume cycles.
->>>>>
->>>>> - Single DIMM Testing: I was unable to reproduce the issue with 
->>>>> only 1 DIMM installed after running over 30 sleep/resume cycles, 
->>>>> though the intermittent nature makes it hard to rule out entirely.
->>>>>
->>>
->>> Both is not surprising, given that we are dealing with corrupted data 
->>> when
->>> reading from MR11. I have no idea how that corruption can happen. The 
->>> above
->>> is a wild guess: If there is indeed ACPI access to the I2C 
->>> controller, the
->>> only remedy I can think of would be to black-list the I2C controller 
->>> driver
->>> itself.
->>>
->>> Thanks,
->>> Guenter
->>>
->>>>> - Hardware Health: Memory stability was verified with a varitey of 
->>>>> memory tests with zero errors. Issue occurs with JEDEC and XMP 
->>>>> profiles enabled
->>>>>
->>>>>
->>>>> --- Steps to Reproduce ---
->>>>> 1. Boot system from cold boot. Load the spd5118 driver.
->>>>> 2. Put system to sleep
->>>>> 3. Wake system
->>>>> 4. Check value of MR11, if corrupted warm reboot go to step 7
->>>>> 6. Go to step 2, repeat
->>>>> 7. System now shows corrupted DIMM with a size of 2GB
->>>>>
->>>>> --- My test spd5118_suspend function ---
->>>>> static int spd5118_suspend(struct device *dev)
->>>>> {
->>>>>   struct spd5118_data *data = dev_get_drvdata(dev);
->>>>>   struct regmap *regmap = data->regmap;
->>>>>   u32 cache_val = 0, bus_val = 0;
->>>>>   u32 regval;
->>>>>   int err;
->>>>>
->>>>>   err = regmap_read(regmap, SPD5118_REG_TEMP_CONFIG, &regval);
->>>>>   if (err < 0)
->>>>>   return err;
->>>>>
->>>>>
->>>>>   /* 1. Read cached MR11 value from RAM */
->>>>>   regmap_read(regmap, SPD5118_REG_I2C_LEGACY_MODE, &cache_val);
->>>>>
->>>>>   /* 2. Read physical MR11 value directly from I2C bus */
->>>>>   regcache_cache_bypass(regmap, true);
->>>>>   regmap_read(regmap, SPD5118_REG_I2C_LEGACY_MODE, &bus_val);
->>>>>   regcache_cache_bypass(regmap, false);
->>>>>
->>>>>   /* 3. Output both on the exact same log line */
->>>>>   dev_info(dev, "PRE BIT UPDATE: SUSPEND MR11 (0x0B) -> Cache: 
->>>>> 0x%02x | Bus: 0x%02x\n", cache_val, bus_val);
->>>>>
->>>>>   regcache_cache_bypass(regmap, true);
->>>>>   regmap_update_bits(regmap, SPD5118_REG_TEMP_CONFIG, 
->>>>> SPD5118_TS_DISABLE,
->>>>>   SPD5118_TS_DISABLE);
->>>>>   regcache_cache_bypass(regmap, false);
->>>>>
->>>>>   /* 1. Read cached MR11 value from RAM */
->>>>>   regmap_read(regmap, SPD5118_REG_I2C_LEGACY_MODE, &cache_val);
->>>>>
->>>>>      /* 2. Read physical MR11 value directly from I2C bus */
->>>>>      regcache_cache_bypass(regmap, true);
->>>>>      regmap_read(regmap, SPD5118_REG_I2C_LEGACY_MODE, &bus_val);
->>>>>      regcache_cache_bypass(regmap, false);
->>>>>
->>>>>      /* 3. Output both on the exact same log line */
->>>>>      dev_info(dev, "POST BIT UPDATE: SUSPEND MR11 (0x0B) -> Cache: 
->>>>> 0x%02x | Bus: 0x%02x\n", cache_val, bus_val);
->>>>>
->>>>>      regcache_cache_only(regmap, true);
->>>>>      regcache_mark_dirty(regmap);
->>>>>
->>>>>      return 0;
->>>>> }
->>>>
->>>
+>> Likewise this mechanism also allows for the offload client driver to
+>> determine which SID is associated to the segment_pool if it decides to
+>> map outside of the Linux subsystem.  The new ring allocation flow for
+>> sideband/offload clients will be as follows:
 >>
+>> qc_usb_audio_offload_probe()
+>>    ├─ segment_pool = dma_pool_create(...)
+>>    ▼
+>> xhci_sideband_register(intf, XHCI_SIDEBAND_VENDOR, segment_pool, 
+>> notify_client)
+>>    │  sb->segment_pool = segment_pool
+>>    ▼
+>> uadev[card_num].sb = sb
+>>
+>> handle_uaudio_stream_req()
+>>    ▼
+>> enable_audio_stream(subs, ..., pcm_card_num)
+>>    ├─ data_ep = uaudio_find_host_endpoint(subs, subs->data_endpoint)
+>>    ├─ xhci_sideband_add_endpoint(sb, data_ep) ← ep->sideband = sb; sb- 
+>> >eps[ep_index] = ep
+>>    ├─ snd_usb_endpoint_prepare(chip, sync_endpoint) ─┐
+>>    ├─ snd_usb_endpoint_prepare(chip, data_endpoint)  ├─→ 
+>> xhci_check_bandwidth()
+>>    │                                                 ▼
+>>    │            xhci_endpoint_init(xhci, virt_dev, ep, ...)
+>>    │            pool = sideband ? sideband->segment_pool : xhci- 
+>> >segment_pool
+>>    │            new_ring = xhci_ring_alloc_from_pool(..., pool, ...)
+>>    │            ▼
+>>    │            xhci_ring_alloc_from_pool(..., pool, flags)
+>>    │            ring->segment_pool = pool
+>>    │            ▼
+>>    │            xhci_alloc_segments_for_ring(xhci, ring, flags)
+>>    │            xhci_segment_alloc(xhci, ring->segment_pool, max_packet, 
+>> num, flags)
+>>    │            ▼
+>>    │            xhci_segment_alloc(xhci, pool, max_packet, num, flags)
+>>    │            seg->trbs = dma_pool_zalloc(pool, flags, &dma)
+>>    ▼
+>> xhci_sideband_get_endpoint_buffer(sb, data_ep) → xhci_ring_to_sgtable()
+>>
+>> qc_usb_audio_offload_disconnect() / unreg_xhci:
+>>    ├─ segment_pool = sb->segment_pool
+>>    ├─ xhci_sideband_unregister(sb)
+>>    ▼
+>>    dma_pool_destroy(segment_pool)
+>>
+>> Similar logic is added for the secondary interrupter path as well.  The USB
+>> offload class driver calls xhci_sideband_create_interrupter(), which will
+>> be responsible for allocating the secondary event ring.
 > 
+> The custom dma pool looks like a good solution.
+> 
+> I think we should tune this a bit and pass the custom pool pointer to
+> xhci_sideband_add_endpoint() and xhci_sideband_create_interrupter() instead
+> of xhci_sideband_register()
+> 
+> xhci.h:
+> struct xhci_virt_ep {
+>      ...
+>      struct dma_pool    *priv_seg_pool;
+> }
+> 
+> xhci-mem.c:
+> xhci_endpoint_init()
+> {
+>      struct dma_pool *pool;
+>      struct xhci_virt_ep *ep;
+>      ...
+> 
+>      ep = &virt_dev->eps[ep_index]
+> 
+>      /* use ep->priv_seg_pool if set by sideband or .add_endpoint wrapper */
+>      if (ep->priv_seg_pool)
+>          pool = ep->priv_seg_pool;
+>      else
+>          pool = xhci->segment_pool;
+> 
+>      xhci_ring_alloc_from_pool(..., pool);}
+> 
+> xhci-sideband.c:
+> 
+> xhci_sideband_add_endpoint(..., struct dma_pool *pool)
+> {
+>      ...
+>      if (pool)
+>          ep->priv_seg_pool = pool;
+> }
+> 
+> This allows finer granularity in selecting dma pools for endpoints.
+> 
+> It also keeps the xhci "core" sideband agnostic, avoids including xhci- 
+> sideband.h
+> in xhci-mem.c
+> 
+> It also helps possible vtio support so it can set its own ep->priv_seg_pool 
+> in a
+> possible .add_endpint wrapper.
+> 
+
+Hi Mathias,
+
+Makes sense.  I made the switch to adding it into the add_endpoint path and 
+its cleaner.  I'll wait for a little bit for more reviews before submitting 
+the next revision.
+
+Thanks
+Wesley Cheng
 
