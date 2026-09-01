@@ -1,311 +1,372 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C332EBB84
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 00:16:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A822F9C37
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 00:16:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788221775; cv=none; b=GmLKQwfKfYKNQ02SAndBe/nQtZDhD30mm0OrcTcXROVjD09PO6NDCatVyWu4FZC8V4+eWE4/iF16cJOokgHueWac9DERv/sONswPUplenLH6E9YoP4f6kfQDy/8gybFUa2xxzeIEKctLScCiGESxQdFyvDWmeuMs15jYBXqO/P0=
+	t=1788221783; cv=none; b=QejHNVjbF7wcjXeHYPCkwJK81x5Fy7K4VWTEwDNzNYo55ReOTCB2wLfvQphUp06W6x1W6BVMHWcv5w2EN5TdnZkLOG9jJXj+UgZKqUtxetmtl5aR3+PNA3vut3lZYwy3XnglkOrx2yNpx+zgHEkk4aTqbbq4oDjhIHI7w8pfNZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788221775; c=relaxed/simple;
-	bh=StKsJNsPtTcRRY8bo5L6swA7DbwLeXDGPuaR8jqYlVk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=SoTaO8HRRIjveAEHHtgzKTnYzznD4xrBkYrkKgq6ZAsKJ3n7CPZSW/j+S7fbKZvRaGHQCTcMZ+1OrKlzNZgNKJ5ugp12omX1CXTUI3toU5UurTHQixB2pLGev3ZlOZJCZGdb6lgFWtR0zNYDi2odq57OqWbyewebYeWj+MrrGLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cgR+3pbn; arc=none smtp.client-ip=209.85.215.169
+	s=arc-20240116; t=1788221783; c=relaxed/simple;
+	bh=wWd6FpJoBAUfxzqnHYWFxP6viUHJty1h+MngnoYm7jo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:Cc:From:
+	 In-Reply-To:Content-Type; b=V0FEj8kjVlYNMTsCFTyPuIPzM5GtCRdoz2/wkQa7SvCnXXX5cW6/fHwtOF5xmIgT/OLSFi1KYkjIABNLPw+yC/DtjxDLo5en4ZS3aKUc8vCAldU77bsOaDjE4ZpqawG4e1gSIfPr801Oio+yhY04YmwwqCf9cf/WAfhq2KDaRx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N+ZNMnTU; arc=none smtp.client-ip=209.85.215.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cgR+3pbn"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc1c9b7c1e4so687713a12.2
-        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:16:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N+ZNMnTU"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc1cb472b76so3779387a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 17:16:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788221772; x=1788826572; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=oh1Bjs24XivyOxbmYNyWwsD17pfqdQrLoXvFWU23HTU=;
-        b=cgR+3pbn7jPG685EFN9dM6J83+zM5UvUNddmVBveC6qLJALpBJw8G+Yk5qauJntQZR
-         ea20qIv32VxIJeUu0rcxmBKp9kg+qkJb3RRbgUDOjgHYKe9uCpKX/Uonu9PmO/N4SPy4
-         kJqVmsQzOjusRv4jm/jZaBUHYGMK+82hDzGn0rFd0eEDvcI9y5gc74MOtGO6i0r43d5d
-         2EggXW7s7rjDdMA/f2mPxPna98sfMaPXzl/SI2XYEBqpUBA+gD+6nT7ADLvRR29OM99u
-         J5CQIEQ3iDThbZgPr942SbH3/lDqL8tulm0V+2mITua3x/w6X6Wl78Ncl1Fpr1kGNbXA
-         W9ew==
+        d=gmail.com; s=20251104; t=1788221781; x=1788826581; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/NH7GQnLQc0hjyaM40uObrrRPPN00SH54u5Q+Jsz9iY=;
+        b=N+ZNMnTUexZuOoGSnRDdWziUkSjHmJIj2bE86oAZyEQvhEzvBq2qkUQ0Gm4yoafYyP
+         wgftUi6ZqQ8hqGdtuKi7ExW705HsdwN3oxWM2luDOmsqJRycVqc3s8zPhRiH45b/m+1w
+         l2p2/5Bvs2u4R/+sYpX6olHb/RgBI8wxZVpIEDyUFkT1WhDCV9FvmzUGR1P5Y6LT5gyU
+         38uBVJJ6TbqcflKz4f+W/KxNDw6pwFnWuDI9/IllXjfzytkppm4cF+aewhLEDT6xDT0X
+         tNsVp542+hj72fshGOBUPjCLgt4RIGmILywd8EACM/lurJI0PQm5HW7AkAgIVyfn1AFr
+         W3bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788221772; x=1788826572;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=oh1Bjs24XivyOxbmYNyWwsD17pfqdQrLoXvFWU23HTU=;
-        b=gRHxacXvGnO/DBol4UjqiM6NL6LISrKfhYScOJa9j23Io6V4OU1MKIFmIjqIBcB032
-         5ihqdlCQpTgXd/bK2+8u1jfSOaGa/mTN7ubJUcKGG0lzsyYk80jEZQagNWQ4YOeOYEFD
-         OTGBlG9OAmgZPZrjpsI1ufP4X5sFcGCgNWzBt3MTEl+xVXm8/8/sXadsI6pqMe1V8RLo
-         sG1X6FBHWiiMTLCWhFNntckdClKM2MasIdNenZHhCPUN87PORkSHh2/Q5OGiN6Wwezl8
-         eeAA7I4ne9Me9zed9uJfU0vRxapLyXZkJR30OeWRH8hLd4fD7g45/hiYtnkgeBspDrqe
-         3USQ==
-X-Forwarded-Encrypted: i=1; AKwUvByMMCYHi6LAuAYW4hRA1EOfTSftTBWC8bXfK/rDGSNqc26YFQ9cGD2P7MyKgmTNjudxE4CID1JvOxcnAj4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nukQcT56R+WTVm1IDVxACZD8z/0hq0K3xJ/5L6OuN/TvwtU8te
-	sB+WaDjf6FqMnracYBfYZ5qV1/OtjsUsHMXCNj3vSBPB2tW6J56lWANr
-X-Gm-Gg: AYBFou1u8TqP9jaVQDaVrdMKxuq3Zi9XD56Ql0HiBQM8A3vVQ4Ssvpg+VcL7YzjKqtb
-	q0v42a7Kx5ZjIWpPkCa3XnYFuEqkM+5ZXjbD4tozOU7m5APo7p2oKHCNcVH2pg7u+0tn8Hf4kgc
-	Cch9QTF0iybCrLl1lloNxoy0n0hVTaIcIu9WN+hNsT3IjIMtyDOXynog/ggAGXb1IV00nQ6YA01
-	2lX/vtOqoiJGyAhhymVrYVr8WXp7cwGzc8xQYeXJlirsTcOnR9c1msMtVWDbq7uorgyWhJGUufa
-	yOZApiBgEa4gGytJeFKT6y0JqcIBUqKB0xz9khsS2kT1lsJ/Y/+7u9RoYZF3K8qOKjjWXhbfDvE
-	JjnlYfM1eMP+aF5im5AnyhXA1RRVW/OMHOm5c+LQrct3c+JVoq8ufzTJ2P5PBB9dlBEv2mq3m4l
-	OtIK0R5yBfatsFk7NDHsDHULJ39LwoRJTTbmMn8fHcIrNxIr1stG+7um5yKl8Ua+FihTk+cZA=
-X-Received: by 2002:a17:90a:d2c3:b0:398:cee0:67dc with SMTP id 98e67ed59e1d1-398cee06896mr8018745a91.5.1788221771896;
-        Mon, 31 Aug 2026 17:16:11 -0700 (PDT)
-Received: from [10.60.78.252] ([2409:40c2:5002:4362:354a:8f21:7ceb:c8a6])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32b49c867f5sm19196398eec.2.2026.08.31.17.16.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 17:16:11 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Tue, 01 Sep 2026 05:45:50 +0530
-Subject: [PATCH v3] dt-bindings: net: ti,davinci-emac: Convert to DT schema
+        d=1e100.net; s=20251104; t=1788221781; x=1788826581;
+        h=content-transfer-encoding:content-type:in-reply-to:from:cc
+         :content-language:references:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/NH7GQnLQc0hjyaM40uObrrRPPN00SH54u5Q+Jsz9iY=;
+        b=d7IWAAKQKb/vw5ljiVy2jwj5RdX/alfntNIAGrPrS0lz6yGh9S2FKkoOCKZLyRaK2/
+         Bz5Uk2Hirjk+4Hg9cqfYu1fVxCX47fnQKvkXTW7CZVK8U13gCJ/2lFuUHh2xktYQPGwB
+         5pcyU8PvSRbl+Rj65/g/+ZyIP4LH9OLKfVUA2kSPD+ltQtrgwhNSjq3hw/yzQQBiBlmb
+         Ucfc+AYo903FhOUQ/kRkJkh7LYUJ0R9a18+SQGFBaZ3brF4Hycb1PufJ4n3nKaHlLf8d
+         7VExLmb4D82vEetm8EKEWlVjRQEh9PLtJy8P9e0z9n58ITD7icJbwgklY60E0TETXZbW
+         6PJA==
+X-Forwarded-Encrypted: i=1; AKwUvByZ7hf0QBk4KUOqt7p/BXyPfRrV3eflTIyM9H3CnehQtLjq0JsvKlf2qhgCjP8mULFTWQrOlcPx2mAbKHs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nrrCtAfJ53tJ3Y3V+0Dp5698yzYNlL+UZPhHum8UkYMQ3P5Wba
+	+89YNZg2Qo0k3qAPs9WxBqVmPsvWPyGhH3WZmnyUF8GKDnYo9REDnvZ23gHxRaYy
+X-Gm-Gg: AYBFou1CQezr10kzvALu3U2D8CqXni24YJohF0/PJYzHyV1v4SOSAS2nR2oMFcfsa8V
+	gJ0rRprtvKy+dgxqIjPn5FAzjkr1ongGe+cBjwTSzad2n7KK78XAxw9nkD0yZqpES/BPWPYs26l
+	jSme2TDYaJBLjFXj38FqJeSA1sO3gycqr1Dq6MOrloINr4r8GK5ViSW78rVlN3nPjzxqH1yVnCl
+	9K8kSUSX6clfLvLznF2AHbYeXE4rxH8KYYfOQw3+uhoPBkUC8ug+V5/a1A151tUz5/+AXQDGEqZ
+	ZgXz8DQves5dmiu5Q1kQXvdlRAnH0f5t9OXPgdIF9oOkhAPiOzXh+7zQFJVIQEuYHXfrOLTWPJs
+	iOYjtwIAiTCR1/cY+OpP7EKH+9rqKf9mc4fcaiR6KD48EvY4yPJcn4DM5txzSePMYLdZ39FQ5Bg
+	gdoobBwOTFGtgfn1b0gShD3lKplnNReaxN1zfcxdeu/ucWM/Ep0d2DjDvVXAls+2Kfpu7Qvp4aG
+	d3c4VMxsV1V1PkUx9gR0RyizAesbA9N8CITPJFeClyJeO8PZeEWP4KnFOrM
+X-Received: by 2002:a17:90b:530c:b0:381:1c96:829b with SMTP id 98e67ed59e1d1-396d0d4c43amr46601349a91.3.1788221780530;
+        Mon, 31 Aug 2026 17:16:20 -0700 (PDT)
+Received: from [10.21.0.95] (wnpgmb0592w-ds02-161-177-131.dynamic.bellmts.net. [207.161.177.131])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39914b4ea7asm1056747a91.13.2026.08.31.17.16.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 17:16:19 -0700 (PDT)
+Message-ID: <763a8b30-8548-4ff0-a1e9-8e74bbfe9b02@gmail.com>
+Date: Mon, 31 Aug 2026 19:16:17 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-ti-davinci-emac-v3-1-db41e32f3f6d@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNywqDMBBFf0Vm3ZQk1jy66n+ULkIy6kDVkkhoE
- f+90ZVQujwXzrkLJIyECa7VAhEzJZrGAvWpAt+7sUNGoTBILhU3QrOZWHCZRk8MB+eZRm91i95
- daoRivSK29N6L90fhntI8xc9+kMW2/m9lwQTjUiptglUK7a0bHD3Pfhpga2V59M2vL4tveKNrF
- axF1Rz9dV2/LAFRdu4AAAA=
-X-Change-ID: 20260817-ti-davinci-emac-7ec97feca43e
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Tony Lindgren <tony@atomide.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
- daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788221759; l=6674;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=StKsJNsPtTcRRY8bo5L6swA7DbwLeXDGPuaR8jqYlVk=;
- b=tRSTQ5iiDd4Dk/+xCnjIYv9ghT7Ha9LQpqAE/d7Nm0Gg1LQalXmKjINT6nLGeGuh9E6OFW15g
- 1eAqjAiQlbHBCu5FRbvo3Fx/sXvYZPWJnG4L16KN0Y4hPSLMtVZOqO8
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+User-Agent: Betterbird (Linux)
+Subject: Re: [BUG] SPD5118 Intermittent MR11 Corruption During Suspend/Resume
+To: Guenter Roeck <linux@roeck-us.net>
+References: <1a8ea9da-1ac1-4312-a8ca-ea4a9f35093f@gmail.com>
+ <ee284272-0da0-45b6-a3be-c76822e5d54f@roeck-us.net>
+ <014b9438-e9b7-4be1-b816-002e83a068a0@roeck-us.net>
+ <37132c40-aa82-4df1-b5ce-337601f3c085@gmail.com>
+ <3c4e9f59-5272-48cf-a4a0-eeefcba955a9@roeck-us.net>
+Content-Language: en-US
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+From: Matthew Bettencourt <matthew.bettencourt@gmail.com>
+In-Reply-To: <3c4e9f59-5272-48cf-a4a0-eeefcba955a9@roeck-us.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Convert Texas Instruments DaVinci EMAC binding from text to DT schema.
+Hello Guenter,
 
-Changes from the original binding:
-- Add clocks, clock-names, syscon, power-domains, and ti,hwmods
-  properties that are used in existing DTS files but were undocumented.
-- Disallow syscon and clock-names for ti,davinci-dm6467-emac since they
-  are not applicable to that SoC.
-- Allow 1-2 reg entries for DM816.
-- Make clocks a required property as driver probe fails without it.
-- Mark ti,hwmods as deprecated.
+Here is the list of i2c devices on my machine
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
-Changes in v3:
-- Rebase to latest mainline rc.
-- Allow 2 regs for DM816x only.
-- Link to v2: https://lore.kernel.org/r/20260818-ti-davinci-emac-v2-1-805736d99e65@gmail.com
+grep . /sys/class/i2c-dev/*/name
+/sys/class/i2c-dev/i2c-0/name:Synopsys DesignWare I2C adapter
+/sys/class/i2c-dev/i2c-10/name:AMDGPU DM aux hw bus 1
+/sys/class/i2c-dev/i2c-11/name:AMDGPU DM aux hw bus 2
+/sys/class/i2c-dev/i2c-12/name:SMBus PIIX4 adapter port 0 at 0b00
+/sys/class/i2c-dev/i2c-13/name:SMBus PIIX4 adapter port 2 at 0b00
+/sys/class/i2c-dev/i2c-14/name:SMBus PIIX4 adapter port 1 at 0b20
+/sys/class/i2c-dev/i2c-1/name:Synopsys DesignWare I2C adapter
+/sys/class/i2c-dev/i2c-2/name:AMDGPU SMU 0
+/sys/class/i2c-dev/i2c-3/name:AMDGPU SMU 1
+/sys/class/i2c-dev/i2c-4/name:AMDGPU DM i2c hw bus 0
+/sys/class/i2c-dev/i2c-5/name:AMDGPU DM i2c hw bus 1
+/sys/class/i2c-dev/i2c-6/name:AMDGPU DM i2c hw bus 2
+/sys/class/i2c-dev/i2c-7/name:AMDGPU DM i2c hw bus 3
+/sys/class/i2c-dev/i2c-8/name:AMDGPU DM i2c OEM bus
+/sys/class/i2c-dev/i2c-9/name:AMDGPU DM aux hw bus 0
 
-Changes in v2:
-- Remove original text binding that was left in v1
-- Link to v1: https://lore.kernel.org/r/20260817-ti-davinci-emac-v1-1-022678d966e9@gmail.com
----
- .../devicetree/bindings/net/davinci_emac.txt       |  44 -------
- .../devicetree/bindings/net/ti,davinci-emac.yaml   | 127 +++++++++++++++++++++
- 2 files changed, 127 insertions(+), 44 deletions(-)
+The dmesg output I provided was captured with i2c debugging enabled. 
+When the issue occurred those are the only i2c transitions I saw.
 
-diff --git a/Documentation/devicetree/bindings/net/davinci_emac.txt b/Documentation/devicetree/bindings/net/davinci_emac.txt
-deleted file mode 100644
-index 5e3579e72e2d..000000000000
---- a/Documentation/devicetree/bindings/net/davinci_emac.txt
-+++ /dev/null
-@@ -1,44 +0,0 @@
--* Texas Instruments Davinci EMAC
--
--This file provides information, what the device node
--for the davinci_emac interface contains.
--
--Required properties:
--- compatible: "ti,davinci-dm6467-emac", "ti,am3517-emac" or
--  "ti,dm816-emac"
--- reg: Offset and length of the register set for the device
--- ti,davinci-ctrl-reg-offset: offset to control register
--- ti,davinci-ctrl-mod-reg-offset: offset to control module register
--- ti,davinci-ctrl-ram-offset: offset to control module ram
--- ti,davinci-ctrl-ram-size: size of control module ram
--- interrupts: interrupt mapping for the davinci emac interrupts sources:
--              4 sources: <Receive Threshold Interrupt
--			  Receive Interrupt
--			  Transmit Interrupt
--			  Miscellaneous Interrupt>
--
--Optional properties:
--- phy-handle: See ethernet.txt file in the same directory.
--              If absent, davinci_emac driver defaults to 100/FULL.
--- ti,davinci-rmii-en: 1 byte, 1 means use RMII
--- ti,davinci-no-bd-ram: boolean, does EMAC have BD RAM?
--
--The MAC address will be determined using the optional properties
--defined in ethernet.txt.
--
--Example (enbw_cmc board):
--	eth0: emac@1e20000 {
--		compatible = "ti,davinci-dm6467-emac";
--		reg = <0x220000 0x4000>;
--		ti,davinci-ctrl-reg-offset = <0x3000>;
--		ti,davinci-ctrl-mod-reg-offset = <0x2000>;
--		ti,davinci-ctrl-ram-offset = <0>;
--		ti,davinci-ctrl-ram-size = <0x2000>;
--		local-mac-address = [ 00 00 00 00 00 00 ];
--		interrupts = <33
--				34
--				35
--				36
--				>;
--		interrupt-parent = <&intc>;
--	};
-diff --git a/Documentation/devicetree/bindings/net/ti,davinci-emac.yaml b/Documentation/devicetree/bindings/net/ti,davinci-emac.yaml
-new file mode 100644
-index 000000000000..f0c539d1bac7
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/ti,davinci-emac.yaml
-@@ -0,0 +1,127 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/ti,davinci-emac.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TI DaVinci EMAC Ethernet Controller
-+
-+maintainers:
-+  - Tony Lindgren <tony@atomide.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ti,davinci-dm6467-emac
-+      - ti,am3517-emac
-+      - ti,dm816-emac
-+
-+  reg:
-+    minItems: 1
-+    items:
-+      - description: EMAC core
-+      - description: EMAC control module
-+
-+  interrupts:
-+    items:
-+      - description: Receive Threshold
-+      - description: Receive
-+      - description: Transmit
-+      - description: Miscellaneous
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-names:
-+    const: ick
-+
-+  ti,davinci-ctrl-reg-offset:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: offset to control register
-+
-+  ti,davinci-ctrl-mod-reg-offset:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: offset to control module register
-+
-+  ti,davinci-ctrl-ram-offset:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: offset to control module ram
-+
-+  ti,davinci-ctrl-ram-size:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: size of control module ram
-+
-+  ti,davinci-rmii-en:
-+    $ref: /schemas/types.yaml#/definitions/uint8
-+    description: Set to 1 to enable RMII (Reduced MII) mode.
-+
-+  ti,davinci-no-bd-ram:
-+    type: boolean
-+    description:
-+      Indicates that the EMAC does not have on-chip buffer descriptor RAM.
-+
-+  syscon:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      Phandle to a syscon node providing access to the System Control
-+      Module (SCM) registers. Used on AM3517 and DM816x to read
-+      factory-programmed MAC addresses from eFuse registers.
-+
-+  ti,hwmods:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: TI hwmod name
-+    deprecated: true
-+
-+  power-domains:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - ti,davinci-ctrl-reg-offset
-+  - ti,davinci-ctrl-mod-reg-offset
-+  - ti,davinci-ctrl-ram-offset
-+  - ti,davinci-ctrl-ram-size
-+  - clocks
-+
-+allOf:
-+  - $ref: ethernet-controller.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: ti,davinci-dm6467-emac
-+    then:
-+      properties:
-+        syscon: false
-+        clock-names: false
-+        reg:
-+          maxItems: 1
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: ti,am3517-emac
-+    then:
-+      properties:
-+        reg:
-+          maxItems: 1
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    ethernet@220000 {
-+        compatible = "ti,davinci-dm6467-emac";
-+        reg = <0x220000 0x4000>;
-+        ti,davinci-ctrl-reg-offset = <0x3000>;
-+        ti,davinci-ctrl-mod-reg-offset = <0x2000>;
-+        ti,davinci-ctrl-ram-offset = <0>;
-+        ti,davinci-ctrl-ram-size = <0x2000>;
-+        local-mac-address = [ 00 00 00 00 00 00 ];
-+        interrupts = <33>, <34>, <35>, <36>;
-+        clocks = <&psc1 5>;
-+        power-domains = <&psc1 5>;
-+    };
+I will try and add some additional logging and checks the controller 
+driver and see if there are any other i2c transactions with the same 
+symptoms.
 
----
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-change-id: 20260817-ti-davinci-emac-7ec97feca43e
+ >  The only ideas I have is that somehow an access to another I2C bus
+ > messes up controller registers, or that there is a real hardware problem.
 
-Best regards,
--- 
-Bhargav
+I am not against the determination that there might hardware issue, 
+however I got down this rabbit hole after I read a forum post on 
+level1techs where someone else had the exact issue with the same memory 
+kit. I have posted in that forum as well but have not gotten a reply. 
+The original post sounds very similar to this issue but the user never 
+reports on the actual SPD5118 registers so it is hard to know for sure.
+
+https://forum.level1techs.com/t/msi-x870e-carbon-9950x-2x48gb-ram-bizzare-issues/222454/23
+
+Thanks,
+Matthew
+
+On 8/31/26 6:38 PM, Guenter Roeck wrote:
+> On 8/31/26 16:10, Matthew Bettencourt wrote:
+>> Hi Guenter,
+>>
+>> I checked the i2c bus and there is nothing at address 0x22:
+>>
+>> # i2cdetect -y 12
+>>       0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+>> 00:                         -- -- -- -- -- -- -- --
+>> 10: -- -- -- -- -- 15 -- -- -- -- -- -- -- -- -- --
+>> 20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>> 30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>> 40: -- -- -- -- -- -- -- -- -- 49 -- 4b -- -- -- --
+>> 50: -- 51 -- 53 -- -- -- -- -- -- -- -- -- -- -- --
+>> 60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+>> 70: -- 71 -- 73 -- -- --
+>>
+> 
+> That means that
+> 
+>>>>> [  277.574130] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, 
+>>>>> CMD=0b, ADD=a3, DAT0=00, DAT1=18
+>>>>> [  277.575552] [   T3293] i2c i2c-12: Transaction (post): CNT=08, 
+>>>>> CMD=01, ADD=45, DAT0=ff, DAT1=18
+>>>                                                                           ^^      ^^       ^^
+>>> This is unexpected. It was supposed to read MR11 from 0x51, but the 
+>>> returned data is 0xff,
+>>> and the CMD and ADD register values are changed. 0xff is returned to 
+>>> the calling code as MR11.
+>>>
+> 
+> this is a real problem. I don't really know what to suggest here. You could
+> add some debugging code into the controller driver and check if / how often
+> CMD or ADD changes its value between pre and post, and generate a log 
+> message
+> if that happens. The value should never change. If it happens when 
+> reading MR11
+> I suspect that it happens with other accesses as well.
+> 
+> What I2C controllers do you have in your system ? "grep . /sys/class/ 
+> i2c-dev/*/name"
+> should tell. Also, do you see any other I2C transactions on other I2C
+> busses ? The only ideas I have is that somehow an access to another I2C bus
+> messes up controller registers, or that there is a real hardware problem.
+> 
+> Thanks,
+> Guenter
+> 
+>>>>> [  277.575617] [    T113] i2c i2c-12: Transaction (pre): CNT=08, 
+>>>>> CMD=1a, ADD=a7, DAT0=ff, DAT1=18
+>>>>> [  277.576169] [    T113] i2c i2c-12: Transaction (post): CNT=08, 
+>>>>> CMD=1a, ADD=a7, DAT0=00, DAT1=18
+>>>
+>>> Read MR26 of 0x53 (=0x00, enabled)
+>>>
+>>>>> [  277.576237] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, 
+>>>>> CMD=0b, ADD=a2, DAT0=f8, DAT1=18
+>>>>> [  277.577061] [   T3293] i2c i2c-12: Transaction (post): CNT=08, 
+>>>>> CMD=0b, ADD=a2, DAT0=f8, DAT1=18
+>>>
+>>> Write 0xf8 into MR11 of 0x51. This is where things go wrong. The call 
+>>> originates
+>>> from regmap, which tries to configure page 0 (lower 3 bit) while 
+>>> leaving the upper
+>>> bits alone (which were 0xff from above corrupted read).
+>>>
+>>>>> [  277.577121] [    T113] i2c i2c-12: Transaction (pre): CNT=08, 
+>>>>> CMD=0b, ADD=a7, DAT0=f8, DAT1=18
+>>>>> [  277.578063] [    T113] i2c i2c-12: Transaction (post): CNT=08, 
+>>>>> CMD=0b, ADD=a7, DAT0=00, DAT1=18
+>>>
+>>> Read MR11 of 0x53 (=0x00)
+>>>
+>>>>> [  277.578127] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, 
+>>>>> CMD=1a, ADD=a3, DAT0=00, DAT1=18
+>>>>> [  277.579062] [   T3293] i2c i2c-12: Transaction (post): CNT=08, 
+>>>>> CMD=1a, ADD=a3, DAT0=00, DAT1=18
+>>>
+>>> Read MR26 of 0x51 (0x00 -> enabled)
+>>>
+>>>>> [  277.579131] [    T113] i2c i2c-12: Transaction (pre): CNT=08, 
+>>>>> CMD=1a, ADD=a6, DAT0=01, DAT1=18
+>>>>> [  277.579560] [    T113] i2c i2c-12: Transaction (post): CNT=08, 
+>>>>> CMD=1a, ADD=a6, DAT0=01, DAT1=18
+>>>
+>>> Disable temperature sensor support on 0x53 (MR26 := 0x01)
+>>>
+>>>>> [  277.579620] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, 
+>>>>> CMD=0b, ADD=a3, DAT0=01, DAT1=18
+>>>>> [  277.580170] [   T3293] i2c i2c-12: Transaction (post): CNT=08, 
+>>>>> CMD=0b, ADD=a3, DAT0=08, DAT1=18
+>>>
+>>> Read MR11 of 0x51. Since 0xf8 was written above, 0x08 is "as expected".
+>>>
+>>>>> [  277.580234] [    T113] i2c i2c-12: Transaction (pre): CNT=08, 
+>>>>> CMD=0b, ADD=a7, DAT0=08, DAT1=18
+>>>>> [  277.581061] [    T113] i2c i2c-12: Transaction (post): CNT=08, 
+>>>>> CMD=0b, ADD=a7, DAT0=00, DAT1=18
+>>>
+>>> Read MR11 of 0x53 (0x00 -> page 0)
+>>>
+>>>>> [  277.581072] [    T113] spd5118 12-0053: POST BIT UPDATE: SUSPEND 
+>>>>> MR11 (0x0B) -> Cache: 0x00 | Bus: 0x00
+>>>>> [  277.581128] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, 
+>>>>> CMD=1a, ADD=a2, DAT0=01, DAT1=18
+>>>>> [  277.581559] [   T3293] i2c i2c-12: Transaction (post): CNT=08, 
+>>>>> CMD=1a, ADD=a2, DAT0=01, DAT1=18
+>>>
+>>> Disable temperature sensor support on 0x51 (MR26 := 0x01)
+>>>
+>>>>> [  277.581626] [   T3293] i2c i2c-12: Transaction (pre): CNT=08, 
+>>>>> CMD=0b, ADD=a3, DAT0=01, DAT1=18
+>>>>> [  277.582236] [   T3293] i2c i2c-12: Transaction (post): CNT=08, 
+>>>>> CMD=0b, ADD=a3, DAT0=08, DAT1=18
+>>>
+>>> Read MR11 from 0x51, wrong as before
+>>>
+>>>>> [  277.582250] [   T3293] spd5118 12-0051: POST BIT UPDATE: SUSPEND 
+>>>>> MR11 (0x0B) -> Cache: 0x00 | Bus: 0x08
+>>>>>
+>>>>>
+>>>>> --- The logs that are of interest ---
+>>>>> [  277.573085] [   T3293] spd5118 12-0051: PRE BIT UPDATE: SUSPEND 
+>>>>> MR11 (0x0B) -> Cache: 0x00 | Bus: 0x00
+>>>>> …
+>>>>> …
+>>>>> …
+>>>>> [  277.582250] [   T3293] spd5118 12-0051: POST BIT UPDATE: SUSPEND 
+>>>>> MR11 (0x0B) -> Cache: 0x00 | Bus: 0x08
+>>>>>
+>>>>> I enabled i2c debugging as well in case it helps. The lines I 
+>>>>> focusing on are “PRE BIT UPDATE…” and “POST BIT UPDATE…”, 
+>>>>> immediately after regmap_update_bits() the physical bus value for 
+>>>>> MR11 shifts to 0x08 while the regmap cache remains 0x00.
+>>>>>
+>>>>> I looked through the history of spd5118 patches and bugs and 
+>>>>> noticed there has been some issues around suspend and sleep cycles. 
+>>>>> This might be a deeper issue than just the spd5118 driver.
+>>>>>
+>>>
+>>> Those problems are related to I2C controllers on some Intel boards, 
+>>> which disable
+>>> write operations. That does not affect AMD systems.
+>>>
+>>> The problem is that one of the MR11 read operations fails or, rather, 
+>>> returns
+>>> bad data. This bad data then corrupts the register when written back.
+>>> This by itself is odd. There should be at least a debug log message 
+>>> if there is
+>>> an error in piix4_transaction(). Is there anything on address 0x22 on 
+>>> that I2C bus ?
+>>> It almost appears as if there is a parallel access to the I2C 
+>>> controller (for
+>>> example from ACPI) which would corrupt the data for the spd5118 access.
+>>>
+>>>>> Additional Notes:
+>>>>> - Intermittent Nature: The issue is intermittent and typically 
+>>>>> reproduces within ~10 sleep/resume cycles.
+>>>>>
+>>>>> - Single DIMM Testing: I was unable to reproduce the issue with 
+>>>>> only 1 DIMM installed after running over 30 sleep/resume cycles, 
+>>>>> though the intermittent nature makes it hard to rule out entirely.
+>>>>>
+>>>
+>>> Both is not surprising, given that we are dealing with corrupted data 
+>>> when
+>>> reading from MR11. I have no idea how that corruption can happen. The 
+>>> above
+>>> is a wild guess: If there is indeed ACPI access to the I2C 
+>>> controller, the
+>>> only remedy I can think of would be to black-list the I2C controller 
+>>> driver
+>>> itself.
+>>>
+>>> Thanks,
+>>> Guenter
+>>>
+>>>>> - Hardware Health: Memory stability was verified with a varitey of 
+>>>>> memory tests with zero errors. Issue occurs with JEDEC and XMP 
+>>>>> profiles enabled
+>>>>>
+>>>>>
+>>>>> --- Steps to Reproduce ---
+>>>>> 1. Boot system from cold boot. Load the spd5118 driver.
+>>>>> 2. Put system to sleep
+>>>>> 3. Wake system
+>>>>> 4. Check value of MR11, if corrupted warm reboot go to step 7
+>>>>> 6. Go to step 2, repeat
+>>>>> 7. System now shows corrupted DIMM with a size of 2GB
+>>>>>
+>>>>> --- My test spd5118_suspend function ---
+>>>>> static int spd5118_suspend(struct device *dev)
+>>>>> {
+>>>>>   struct spd5118_data *data = dev_get_drvdata(dev);
+>>>>>   struct regmap *regmap = data->regmap;
+>>>>>   u32 cache_val = 0, bus_val = 0;
+>>>>>   u32 regval;
+>>>>>   int err;
+>>>>>
+>>>>>   err = regmap_read(regmap, SPD5118_REG_TEMP_CONFIG, &regval);
+>>>>>   if (err < 0)
+>>>>>   return err;
+>>>>>
+>>>>>
+>>>>>   /* 1. Read cached MR11 value from RAM */
+>>>>>   regmap_read(regmap, SPD5118_REG_I2C_LEGACY_MODE, &cache_val);
+>>>>>
+>>>>>   /* 2. Read physical MR11 value directly from I2C bus */
+>>>>>   regcache_cache_bypass(regmap, true);
+>>>>>   regmap_read(regmap, SPD5118_REG_I2C_LEGACY_MODE, &bus_val);
+>>>>>   regcache_cache_bypass(regmap, false);
+>>>>>
+>>>>>   /* 3. Output both on the exact same log line */
+>>>>>   dev_info(dev, "PRE BIT UPDATE: SUSPEND MR11 (0x0B) -> Cache: 
+>>>>> 0x%02x | Bus: 0x%02x\n", cache_val, bus_val);
+>>>>>
+>>>>>   regcache_cache_bypass(regmap, true);
+>>>>>   regmap_update_bits(regmap, SPD5118_REG_TEMP_CONFIG, 
+>>>>> SPD5118_TS_DISABLE,
+>>>>>   SPD5118_TS_DISABLE);
+>>>>>   regcache_cache_bypass(regmap, false);
+>>>>>
+>>>>>   /* 1. Read cached MR11 value from RAM */
+>>>>>   regmap_read(regmap, SPD5118_REG_I2C_LEGACY_MODE, &cache_val);
+>>>>>
+>>>>>      /* 2. Read physical MR11 value directly from I2C bus */
+>>>>>      regcache_cache_bypass(regmap, true);
+>>>>>      regmap_read(regmap, SPD5118_REG_I2C_LEGACY_MODE, &bus_val);
+>>>>>      regcache_cache_bypass(regmap, false);
+>>>>>
+>>>>>      /* 3. Output both on the exact same log line */
+>>>>>      dev_info(dev, "POST BIT UPDATE: SUSPEND MR11 (0x0B) -> Cache: 
+>>>>> 0x%02x | Bus: 0x%02x\n", cache_val, bus_val);
+>>>>>
+>>>>>      regcache_cache_only(regmap, true);
+>>>>>      regcache_mark_dirty(regmap);
+>>>>>
+>>>>>      return 0;
+>>>>> }
+>>>>
+>>>
+>>
+> 
 
