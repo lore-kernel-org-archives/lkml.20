@@ -1,147 +1,148 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010006.outbound.protection.outlook.com [52.101.56.6])
+Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F583134CCF;
-	Tue,  1 Sep 2026 09:36:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.6
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788255411; cv=fail; b=Ez/UxY8e1hE6Ysoe6aPmhTH/sDaCBt2995hfoF0KqNSty2dYRvTMjlCTl2Oc+o9hBMhC4FGmk8QgnU7CQsgzxv12i+nipXwto4RIW1TCuwbdHF4d9oubSAHRjKnPUBXM2ut0hmH3fjuXLhNjjR5r8EhI7rQzSW9fRDiHEOFKJug=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788255411; c=relaxed/simple;
-	bh=Sx9cf9kqKt2goHix+1lGAot205Xf52k/WeB4BnsMKVM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=VuDILZsdFSror53dxpSM+LIUEj2tayOaD9mb0dYJL95FKs/v/bMjEjV1u1W6ymUEU8aKrn+rEHPR3ZgUUxdLOCZu6utKJQ2+Gx2PqelKTV/k61SQh5lN28niJEgEBE8bLb64+M3bDfI+Ni0IoHwwfo4jh0wmT4uszexCGdBQIhk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=f9eQJRMS; arc=fail smtp.client-ip=52.101.56.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996CC30F924;
+	Tue,  1 Sep 2026 09:36:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788255419; cv=none; b=LDShSgDrwW+6qDSc2DBiQXAJV1T4d0472qlWnpghBcTRLCBfexcrhoszvfvUg6kqqZynU7HxrYjTU4wUDUao23Lam4mZeT6XMUXDQHoOqIzsFCs5YpD7KihdAe9ONcK+ewLq/U/+bYG3XtXPvXoA+WJjEgeLMRQG1RUW3p3H8Bc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788255419; c=relaxed/simple;
+	bh=PEWzitqT1v12vigw6Xw4rm05tYiA9pI41FiezO8JMdY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bAI67Ke9r8I99wsTdfL6wbZ34P2kyTSp7jmGUwWPZ4ZKzZHFKKmku5mKc036532UalC7GQwNH8Z5eV4OM63wd3UzHxZOtcJKfmsYNGkKOXERfMNcuetLLugufl9oY7OSHRB0bOmqJoicDZU2FKFZI0kSO046Ff3SpSFQNJOx6ww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=PNDBA02k; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=OBEdQ0rP; arc=none smtp.client-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="f9eQJRMS"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sRf+4fkm94BKSE6j1RrWEVKgPCmWBfiAJogVzgu62ZcUvzOIxkT7vSDrrIRA52nA4c39Xgj6pLWbBnXkXTijG7Jy7goXFYvMNuFe/NnT5PQ5Io0FEXeQW8zrH/sYlnAXSRrxYD/qO7V+ENI9WXlh8ykZMJGdRVTwSfQ9uMzVXAPnUoq38S4fPliBNprHG2xpyOqAOznwO8u/iEw1kWxRQSOABBMrJ4hFiAbm7KAnERhMltAl1daG4azdDPadT6/AKYc+ktsJiDh9yiNRtYRA7++SdKyqGBCcFtpM5llpnecVZX2COphDFliJL0Gl6buInlce5rYy9wF1B/lWD7SP3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oMM7iQTjXlkFxFIK9pumRkOkrwJFfUdzNJfwM3ZNGEI=;
- b=prWojpAGHUMQKKFp62r0T61pCsc+ZaFRAQF9DFR1LpD4rmLoeZ/4Hn5jDUOEQwBbkA9xDmI9WgqdRUR4J57/SIyotVxT5z9HtsckBpXk1qtcWHYgrY0BCd6P0Wf1dijPVv4+ST0Z1y02ImR8bbR1WKiEBZczBBwgeNOMB8cc1JSqfMXHjKn04R0RZhCH1xNl+qByJi43o2yrvH9RE4Xt+9tOn3yqm3PEF0c5eYVR5MiZq4Ev095ZYzox0z1n7Xqvpm2AGR8+2Wj5GlPCl8gDuCgSHLqjkJofZF/BANyDtGYDGCw185zIbQEzEiAXr6bsJYM6pM8Rfr5jYe1GM35U/w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oMM7iQTjXlkFxFIK9pumRkOkrwJFfUdzNJfwM3ZNGEI=;
- b=f9eQJRMS62/ggS2oj3nvrKatxKlR1VI9egmCBhhp7H1Qp1HTIL4tfq6Z9xnE/3oXGpMamw74dYXp+dom1j/hIsnyry9Pyx27/8B4kpmKcYn2P4xHOUBu4giyv/5mmHQUobLPf6jyKopsgS6h4gvPADRNb6J2P38TSMrnGPj3sk0=
-Received: from IA1P220CA0013.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:464::17)
- by DM6PR12MB4371.namprd12.prod.outlook.com (2603:10b6:5:2a3::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 09:36:31 +0000
-Received: from BN2PEPF000055DB.namprd21.prod.outlook.com
- (2603:10b6:208:464:cafe::2f) by IA1P220CA0013.outlook.office365.com
- (2603:10b6:208:464::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Tue, 1
- Sep 2026 09:36:31 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF000055DB.mail.protection.outlook.com (10.167.245.5) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.0 via Frontend Transport; Tue, 1 Sep 2026 09:36:31 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 1 Sep
- 2026 04:36:31 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 1 Sep
- 2026 04:36:31 -0500
-Received: from [10.136.35.162] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Tue, 1 Sep 2026 04:36:29 -0500
-Message-ID: <9fcba9fb-8e1d-4157-8e80-bf7965e195d0@amd.com>
-Date: Tue, 1 Sep 2026 15:06:28 +0530
+	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="PNDBA02k";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="OBEdQ0rP"
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.stl.internal (Postfix) with ESMTP id 3A21B1D000B5;
+	Tue,  1 Sep 2026 05:36:34 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Tue, 01 Sep 2026 05:36:34 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
+	 h=cc:cc:content-transfer-encoding:content-type:content-type
+	:date:date:from:from:in-reply-to:in-reply-to:message-id
+	:mime-version:references:reply-to:subject:subject:to:to; s=fm2;
+	 t=1788255394; x=1788341794; bh=F3soTVpgk+I32+/X1XRas5lmoapMmWr2
+	KZFitMfUEA4=; b=PNDBA02k83dYZ9xHAcbJ4Mcu0+n+1AXc1TZKacNJYO1HgwEU
+	kTkwMLb1rkei759ILgP/73TW8tT9JTaMw0+XRTMNP+/nZxxzCSc7l7QeVp0gtYDJ
+	LNGz917cIGegGDxp2VoxB758N0MtPG0kcWSpEqQaPFNHGshni5sR8eSAHThV74bX
+	Nt6xzdj2jtgtcnPXRhf3r8ZrpzBYNwS2CVobDIMNR2vazuoZizPkN0bX635KwfOL
+	L0ysUuURTJnQChmiB7IZhNfEa/0YGwMrRxRRVY6aVDpGux9Y1we66MzPD61otJX5
+	7ZKAFHWxUaIvbwtNXfxOaJ/tNFu+Z6tvc+CRaQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1788255394; x=
+	1788341794; bh=F3soTVpgk+I32+/X1XRas5lmoapMmWr2KZFitMfUEA4=; b=O
+	BEdQ0rPKLkD/gi5BDWY0OSa4/whynDZg5AQPcaa/D2C3E1CCzuRlN5UStjtQTTi9
+	0XpfUty4LdTgZua4g8Vw4Y/R7OdeZTIUKHGul1OczJfLq5PU94nkcfv4JqpZdY2G
+	Q4mNAdYFDP8bP/oU8BU8KJrb4FwqxOcWc0khoYEAf6QBpROACHt0dV3fd7SQfjRU
+	b2ANHQldhAay7Ktkwbf1OvUGNsmeqkyYD3pRI84fdcnJSacmQG1esg63eEAGYmYF
+	iEJuFbBr6HqYlqUHPYj/InOd+XnQ9oHXTmJg04WBhEMgGCxjHpvCO8sm9zWQvrLp
+	wWmUfyGZYYHSa/lbSLTXA==
+X-ME-Sender: <xms:oZyWatczOkIak00p_nsog4z0RusxvlGNoxI40rZM_ot0kHy6iL7Rgg>
+    <xme:oZyWanCnwHbUc3PsIIo2nRiXa2TOVfAGTehSfgCnHGS2foTXs-B551pavtpGvSFXy
+    njJb1ckA-MCqUYct0LxM6w5AIULCjtMOyLXtr0iNml9xi3hrV1rIqYu>
+X-ME-Received: <xmr:oZyWah4kB-p18HNsM5BAr8a8k6io-V9-jQ5BRDK7EJIx0PKSdX3B206jcQs>
+X-ME-Proxy-Cause: dmFkZTEMlaE8QXW3F9NNy7+L387hDqgbtUuldLBmUpJNAB/i2C65ypqft4VZ464icipY/B
+    7g96MAIYMfbfOx4dOV54fCGPYsnUwzpnt+B5tglu5IWrlYr4D+vyy6nktRctov7dQ7WZ7d
+    t91iK7zINnFriGdXddQCKBeeiOo8D5wKrA6krmb6bOtzuDORQO8Ny5ZIjhFQqSeVWAYlZm
+    8vt7EIapFnsOJ9741qLyBl+LsiO9YlQ0Bx9mNlTcMTg/OglX9Q/157hHeMvnBrzGadG2Q/
+    RxwWlQw2RjpszWz2LPL/HaKKpvUNGrK6yN+qioyGZGP0f0p8c3BEkfFJdFLwzHur5BJ2na
+    JM8YLbeJV++HMZKDPYhyTqjQkgh4rakAlM8DtsnbdVk8ZNFXt//IjqC/x+7u83S+NZKspa
+    ZEqKvY9TmAWX2fMg6T5MUuu/K0pv8cGF5wCrSkUXBjEAyOlTaeGK9AJWdYcyu1D5tAx0Jh
+    fGzvH6W4oupNoghVy3aMwg2bEOhQ6WO6J9jI7OMnf6ohOd85WljCysxXjqY+ZldegYHajq
+    P8OCZJmiNQCBqv3VVnBP4zndz5TGKFao3IUcyHvO9U16CANPBt7BFYkaZqGpPY7/zLMmiV
+    UUs5gTPlaQaLt9nLnj3QULb6tERs63i06xiXRCIrSBz8v3S6/a1Oa6/BXMaA
+X-ME-Proxy: <xmx:oZyWageS05GHQmd5be-E9NP6wWPKxFOQEJoxhM-XJ9YwWSwRsJMW1w>
+    <xmx:oZyWansNRiOkHLkHFmVwNdeJmAApIEIGk-WSyEheCKh7iVj_DSK1yQ>
+    <xmx:oZyWagkRUzfh0iG5yeRLZxcd7n7k7h4iDhT-S34HbJDnMXEsTxCpGA>
+    <xmx:oZyWaqRkkXsN7QXokmkjE2YolPE6y9qCfPfDA7ckA8_bUxxLThoDMQ>
+    <xmx:opyWakCeQVwreItFLd1e9DzWaaas2-9sTVBmL2KpSz-_bUeKuWIVE0cO>
+Feedback-ID: i934648bf:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 1 Sep 2026 05:36:33 -0400 (EDT)
+Date: Tue, 1 Sep 2026 11:36:31 +0200
+From: Sabrina Dubroca <sd@queasysnail.net>
+To: Sasha Levin <sashal@kernel.org>
+Cc: patches@lists.linux.dev, stable@vger.kernel.org,
+	Jakub Kicinski <kuba@kernel.org>,
+	Jakub Sitnicki <jakub@cloudflare.com>, john.fastabend@gmail.com,
+	davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH AUTOSEL 6.18-6.1] tls: reject the combination of TLS and
+ sockmap
+Message-ID: <apacn0u4092axmXy@krikkit>
+References: <20260831133314.4125787-1-sashal@kernel.org>
+ <20260831133314.4125787-596-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] Zen6 client CPPC
-To: Mario Limonciello <mario.limonciello@amd.com>, "Rafael J . Wysocki"
-	<rafael@kernel.org>
-CC: <linux-acpi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-pm@vger.kernel.org>, <x86@kernel.org>, Vishal Badole
-	<Vishal.Badole@amd.com>
-References: <20260831194428.2287055-1-mario.limonciello@amd.com>
-Content-Language: en-US
-From: K Prateek Nayak <kprateek.nayak@amd.com>
-In-Reply-To: <20260831194428.2287055-1-mario.limonciello@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000055DB:EE_|DM6PR12MB4371:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20e1381f-c909-4b21-596f-08df080c8183
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|376014|1800799024|23010399003|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	KkyEvAoeHJEpknRW9cbppaqM1sr/hCB+n91IzCOPBdfqdDISDjiv5J2MpcjIpnjuaVcpnvWQhRUkkSKlHm7b4bEoe1dPNDbujBRnxeMwrbchxaGfhJNST3ohVpqWLaVWQCSW3IFDDZfKPQnSJBW3lovkrGcEGTB/feflIi3d8RZO+WZB7s7rdkjeHR9kpoqIvgsu2uAoG7yfC3WUFAJvUEyUObkHcFXd1bMOQfykdmd1GN+PyCaZruSbGbtyZJr7EUryW62/fBy6VDh+2PsPLbkAS798TOpmh55JVZ7tI5gVFbgvbHlGxyZaaDlk4142fE1c7I+QhelEE6U8rlX196q0t3v/u7DZAiHs74a5eEbgXyB/BerhJFttBiceLIebq2BZ+X7ecldehoQj7+hvGBD8z/to7VkiwR5+eAgx4iEeFOoKmHf8LlG9mXCTnSriFNgsG9UiRJ1bhgs7Bj+Og3qY+gQSQKv9Zh4TndVvvb5lWh96FNZ/crGQOeqt4cs4qXfrBG+wXG5HnnR1b8MYiaB3HdhGq7ffc/o2svcgpdXjnYs2M3/oHM5g7VIdVO0i/FdjUS4l12EVJhWIMXmqZhHJuuYWnwW701PycqBR8wtw2lt1zEMO1hP1cqyVuiZhBdjWvMjY1FrlvXlklnL4lxVaf6TCmDzTFXl6Zy6lMRfNpHeKBStMWjv71qKWBisE/YH94BGMJvvdavOFYIL6zg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(23010399003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	bGRAq1Du4CPwd2Nf9XI8JwyfGE4nemxCTOWsla9bGhPNnZBuY0P5Cym8SaXkhJlQibC9GxYob9FfOb34IYMcrCnsSjFRduDjoOzTDeYdcNkGcsfSjNVCZlxZeLaLNfhldrudwGp5pyPRywTVsmS99HPVOseJZoPWd8clcxtlmIIc5aBL0NSfG0OaRdL7FHRqOBK0YthM0tiIrc9z/rPLwfHrhl7mSV0nQoekj6jbj0Y5YURagumI0uDR1WkzQEWaLkMzLRRSQ90RlkcL2xhO1/Z8D7pTTaHaBnN/2ekUusdZHV7+0O7T9uyrF87Q5dvMIvfkdsUn26+tdKggVX4D8DT/4ubzWLChPXzeRMp/sZKTA2brf1hTdsBLWuwO3EQN9yqV+qSX7GPRSYPP6nOYyPaVoNJYTienzC9EbnMBSmuPvsegfwHpHALvpgzte9af
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 09:36:31.4972
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20e1381f-c909-4b21-596f-08df080c8183
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000055DB.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4371
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260831133314.4125787-596-sashal@kernel.org>
 
-Hello Mario,
-
-On 9/1/2026 1:14 AM, Mario Limonciello wrote:
-> Zen6 client platforms use CPPC differently than previous platforms
-> and knowing maximum frequency for a core type is needed for capacity
-> calculations.
+2026-08-31, 09:30:24 -0400, Sasha Levin wrote:
+> From: Jakub Kicinski <kuba@kernel.org>
 > 
-> Newer versions of the ACPI will introduce a proper interface
-> for getting this information, but for now hardcode values so that
-> these systems perform as intended and to unblock future scheduler
-> work while we continue to wait.
-
-I did some sanity testing on couple of servers and everything looks
-good apart from that one section mismatch warning. Feel free to
-include:
-
-Tested-by: K Prateek Nayak <kprateek.nayak@amd.com>
-
+> [ Upstream commit 460e6486617c17dd19abe8f3fc67d9a6fa25f8ca ]
 > 
-> Mario Limonciello (3):
->   ACPI: CPPC: Refactor boost ratio handling
->   cpufreq/acpi-cpufreq: Use amd_get_boost_ratio()
->   cpufreq/amd-pstate: Get Highest Freq for a CPU
+> TLS and sockmap (BPF psock) integration hides a lot of latent bugs.
+> Bugs which may be more or less relevant for real users but they
+> are definitely exploitable.
 > 
->  arch/x86/kernel/acpi/cppc.c    | 174 ++++++++++++++++++++++-----------
->  drivers/cpufreq/acpi-cpufreq.c |  17 ++--
->  drivers/cpufreq/amd-pstate.c   |  22 +++--
->  include/acpi/cppc_acpi.h       |  14 ++-
->  4 files changed, 154 insertions(+), 73 deletions(-)
+> We could not find anyone actively using this integration so let's
+> reject this config. Adding a TLS socket to a sockmap was already
+> rejected by sk_psock_init() through the inet_csk_has_ulp() check.
+> We need to reject the attempts to configure the TLS keys (rather
+> than adding the ULP itself) because checking prior to the ULP
+> installation is tricky without risking a race with sockmap getting
+> added in parallel (sockmap does not hold the socket lock).
 > 
+> This patch is a minimal rejection of the feature. Subsequent patch
+> in the series will do a light dead code removal. Full cleanup would
+> require a major rewrite of the Tx path, we don't need skmsg any more.
+> 
+> Reviewed-by: Jakub Sitnicki <jakub@cloudflare.com>
+> Reviewed-by: Sabrina Dubroca <sd@queasysnail.net>
+> Link: https://patch.msgid.link/20260614014102.461064-2-kuba@kernel.org
+> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+> 
+> LLM Generated explanations, may be completely bogus:
+
+330L... wow.
+
+> ## Phase 1: Commit Message Forensics
+> 
+> ### Step 1.1: Subject line
+> **Record:** `[tls]` / `reject` — reject the unsupported TLS + sockmap
+> (BPF psock) configuration.
+> 
+> ### Step 1.2: Tags
+> **Record:**
+> - **Reviewed-by:** Jakub Sitnicki `<jakub@cloudflare.com>`
+> - **Reviewed-by:** Sabrina Dubroca `<sd@queasysnail.net>`
+> - **Link:**
+>   https://patch.msgid.link/20260614014102.461064-2-kuba@kernel.org
+> - **Signed-off-by:** Jakub Kicinski `<kuba@kernel.org>`
+> - No Fixes:, Reported-by:, Cc: stable@vger.kernel.org, or syzbot tags
+
+Yes, this was intentionally sent to net-next without a Fixes tag,
+because it's a "feature-level" change, so it kind of feels wrong to
+send that to stable (even if it's removing a feature that nobody seems
+to be using). OTOH the code is broken and not really fixable...
 
 -- 
-Thanks and Regards,
-Prateek
-
+Sabrina
