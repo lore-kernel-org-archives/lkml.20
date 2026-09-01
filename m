@@ -1,134 +1,293 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B0B490BFA
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:59:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7B94490BFE;
+	Tue,  1 Sep 2026 17:59:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788285557; cv=none; b=de/PPreUTM5fkTKm7y5EhUA5MG+qAguMuYDIw+7CDp896sP/C584ehXIHWoaV15ua5IMZhJWdAJN9o/jnQyypFFCW1i/OefeshJ8i27GiwegnoKKW8BVOukaBqfMIDnEVTVwrmD6bM5KN3jCGvCsAwO5BnllIHg3RSefOZ+S364=
+	t=1788285558; cv=none; b=uvq5pVkU5tnh6qyhtEKhxUSgwqCQUWloF/mKXc0+EeqjLhCMi6FIY/G9qi/lwO50OYOBcYwE3UaVp7zyivArftCEeQpSBFI0/Vh/oUKHzhJZME0x/OrqPi8QXVL6oXa4fEJjxxC6d+myaof4vhFgEMWLahn184f76xwq93R5yOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788285557; c=relaxed/simple;
-	bh=upOZfp7nr+JUKjA+9XgwYeougAECpv2MBCBLML5bTbA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SvI5efRbnmsCPHxjIAJU00fcBJXyH21UkIUa4RSmG9skTpY8knrz1KhKYkncbzOJlEKMQC3U/+pynvFhCuek/RV9Py5fprkltJHD9Kpygp6RP3BLcXocZWzQG3y4+qyJIlORe8La7s+tvAP6gCYTMprNYQSkA3XBt8ur/UJSVV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to; spf=none smtp.mailfrom=dama.to; dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b=megAzG5+; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	s=arc-20240116; t=1788285558; c=relaxed/simple;
+	bh=roF+e+hdaiMHtH92MP23h6CasbLm+AugGgJns+zy0lk=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
+	 References:In-Reply-To; b=Hv07eQ1SJ5wBkzqZBlCaYsok1Mr5NWteqksfUs/RJvDSPvzKsEz+Il5xTUr/KNpGrFn/OE4nUiKS1qM6Ik0zLbpmTdAKeSlSVqZWqysUFIHSi1CczWYOObG+vg6xmKjVI5LO9tBWWB4ChcBd/ndAIt19QBOQQ81Vc33Wly6dAuQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=0g1dp5U/; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20251104.gappssmtp.com header.i=@dama-to.20251104.gappssmtp.com header.b="megAzG5+"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-38e041ea211so134111a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 10:59:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20251104.gappssmtp.com; s=20251104; t=1788285555; x=1788890355; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:mail-followup-to:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iQGQ/jT41D7XhkwOcvrUM6Q+rqlIuyJ98icVtqutpDY=;
-        b=megAzG5+XJ3TWhRtqpQVVLrsWuMF6Hgo6qrrNkCiZzt5Z3dI40Cds0QAMZtoE9SKTM
-         JKtu5rsBifMmMvWFB5CkGbO6vcf4cb6Lu5aKpQQzm/iobNI3rN/EVfMNQVhVtTL4TfNw
-         pDr7ICtcdlzQrjNfXa/qMu+jS0F+VyxoeEpoqIs85SmaBAwEHiHv5zKbEiBl/PH1lhFW
-         /DHkOwiu2065z4fH7nnYYgQKAlnZMsGFKfobpKS3gYeu5xSVLfiWkW33KcQUKE6jwscV
-         GfkNZHBvcUwmg4UQzCXsJli5AY4FnqBmtkbVsQGd6E/02xbQCGnVrSBfr+Zka8ssTpag
-         AXnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788285555; x=1788890355;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:mail-followup-to:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=iQGQ/jT41D7XhkwOcvrUM6Q+rqlIuyJ98icVtqutpDY=;
-        b=dd/+3JLZr+xzQibaioKi8S81mEtngSmHvxwAfF+UMuG+ecsTRXV1exuybAfSfYVKN5
-         vNJvUQoaQjkv4gHvcRADGOxlmhNspi8Wl/lORg/NmAhSmebYBIEgn85Gk3j9pTVspfP5
-         PXgLB80k8xom8+TjbiesbaJJWvKoCViImP/WDSchbDc+xXXVPRNgGwm+c9rz3D0WIAqa
-         PFOemgHAz/XlnhFOBZcOTtdmLE0telp0bAqwNKw0Ko0QrVhd5DFTsXb7jpGW239RwjwE
-         r7RS/MFUwqz2gGbQhx0mEsjsq0Ty1SdvWsMFICK8bnDskQLckLY8jE57ZCX43n74+Dvt
-         kBzg==
-X-Forwarded-Encrypted: i=1; AKwUvBzw0LnYx8GQsfqg5sqg2QcHpaneHp+su6OESh1kmqWbugsSbRR0r7ix9QH2LT44nvtrpNwvDqBNd7LqfRQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kXlEoKOKMP/SqsJaTDkmQDwG9sCm1DOFWrr+Ur5U6XSOfg40p3
-	0ayVmMsVDgCmoySlU8QE4resM6s69Pq6NL6B13BV9MyCsQCZ/yViP3cMfA9+qug8RPI=
-X-Gm-Gg: AYBFou1q3txolezCn2eAD5PpnBL3bpKeUkYu/HwED04eyIRJkRwDMi+zfbwGOVGJ1SZ
-	voi33Nhhyy8pmjYnoA5ZHRoZlXenL/IgYWay/iB51L3bNXAKPwIvEJhkzdqPmmAo+e3jGdX5JvO
-	Rb8EltOyjuB27dzNMZ+4jBdFjsEfQzDvbf2AG7YvzYPui6PCejvuWWOmqXgfd5dfna128r1ooCX
-	bqTZYk7q+8jxyYuicI5YUiX7cuy9qRstAXHLZHUYcGSRqN72QYEgfevIEn4dwNKKwm3uYi5XEx9
-	hl8odFu/7Z6hSzdv+2VkiC+Wwyl2881o95WRpOqPtLK9DHsgIVD7ySQDjMbm+ECO/yih15UuQOm
-	W+7jodzQ3xxheAR7Uxf0JePWvdZQREjNGN14B25qmsYW4IIPtgkxv9xMXKAInWG8aNz+VPSq5zM
-	flDMl5ptWngYWiZQNdF88CUQmST2RhaPOG7HHQWnHtKw==
-X-Received: by 2002:a17:90b:39a3:b0:38e:bbf1:de3f with SMTP id 98e67ed59e1d1-39907d659e6mr14262544a91.12.1788285555109;
-        Tue, 01 Sep 2026 10:59:15 -0700 (PDT)
-Received: from localhost ([2a03:2880:2ff:71::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae3c1d85bsm768983a91.13.2026.09.01.10.59.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 10:59:14 -0700 (PDT)
-Date: Tue, 1 Sep 2026 10:59:13 -0700
-From: Joe Damato <joe@dama.to>
-To: Michael Chan <michael.chan@broadcom.com>
-Cc: netdev@vger.kernel.org, Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
-	Rukhsana Ansari <rukhsana.ansari@broadcom.com>, horms@kernel.org,
-	colin.winegarden@broadcom.com, linux-kernel@vger.kernel.org,
-	raphaelcf@meta.com, stable@vger.kernel.org, llvm@lists.linux.dev
-Subject: Re: [PATCH net v4] bnxt_en: Bound SW TPA IDs to prevent crashes
-Message-ID: <apcSccBgd3nwrjvt@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>,
-	Michael Chan <michael.chan@broadcom.com>, netdev@vger.kernel.org,
-	Pavan Chebbi <pavan.chebbi@broadcom.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
-	Rukhsana Ansari <rukhsana.ansari@broadcom.com>, horms@kernel.org,
-	colin.winegarden@broadcom.com, linux-kernel@vger.kernel.org,
-	raphaelcf@meta.com, stable@vger.kernel.org, llvm@lists.linux.dev
-References: <20260828190900.1767611-1-joe@dama.to>
- <CACKFLiks4ueY4faqOiu9-Zk6odEdNL1Abyhg+giOE72iMe0Z7g@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="0g1dp5U/"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id F242A4E414A2;
+	Tue,  1 Sep 2026 17:59:12 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B929B6053C;
+	Tue,  1 Sep 2026 17:59:12 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 632ED11C7929D;
+	Tue,  1 Sep 2026 19:58:55 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788285547; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=ZGg5+0PXOpr2qKFOyZDL1NQc/onpOdowko845pW6LhU=;
+	b=0g1dp5U/kpCeWZ3Kju2KhkhNfbtl7+eM4Xd4Z7HN49CZcsYmL8fpofuUOdsjuZL4vEhbau
+	aJ/qPMmP9MnguFUszlo5wYPE4PPdCM+GtS6P04ferWkCIkZHkrLeCsKL62Xxl5q909tY/N
+	rpnippCjBV5hoxpPAp+emdkvPdKi3rToq7iQfoG7IfAxX6C0ZC0zqjLCghdf2w9UQVgSUm
+	E/ReHcV2JVIP3dVIVVj+oE1nBAO+dveI0EiL3AvdI+HZaPOUL7rQIcvLdvBIThavWmHFNA
+	IVxSOODQqsXRWyfe7tat/v0TTZbzNVd191jCtm3QGmsu+qQBJ+myZQCRtioN5g==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CACKFLiks4ueY4faqOiu9-Zk6odEdNL1Abyhg+giOE72iMe0Z7g@mail.gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 01 Sep 2026 19:58:54 +0200
+Message-Id: <DL46BD4OVWZ2.6X01VIKUVCA5@bootlin.com>
+Subject: Re: [PATCH bpf-next v8 4/8] bpf, x86: emit KASAN checks in x86
+ JITed programs
+Cc: <ebpf@linuxfoundation.org>, <bastien.curutchet@bootlin.com>,
+ <thomas.petazzoni@bootlin.com>, <bpf@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ <martin.lau@kernel.org>, <clm@meta.com>
+From: =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
+To: <bot+bpf-ci@kernel.org>, <alexis.lothore@bootlin.com>, <ast@kernel.org>,
+ <daniel@iogearbox.net>, <john.fastabend@gmail.com>, <andrii@kernel.org>,
+ <martin.lau@linux.dev>, <eddyz87@gmail.com>, <memxor@gmail.com>,
+ <song@kernel.org>, <yonghong.song@linux.dev>, <jolsa@kernel.org>,
+ <tglx@kernel.org>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
+ <x86@kernel.org>, <hpa@zytor.com>, <shuah@kernel.org>, <mingo@redhat.com>,
+ <andreyknvl@gmail.com>, <emil@etsalapatis.com>, <ihor.solodrai@linux.dev>,
+ <laoar.shao@gmail.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260828-kasan-v8-4-7c1c0fdb9d7f@bootlin.com>
+ <25c4fc03d83c879c13ac1df190046881f7f969ffa532b904597ca9947c750d53@mail.kernel.org>
+In-Reply-To: <25c4fc03d83c879c13ac1df190046881f7f969ffa532b904597ca9947c750d53@mail.kernel.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sat, Aug 29, 2026 at 12:20:26AM -0700, Michael Chan wrote:
-> On Fri, Aug 28, 2026 at 12:09 PM Joe Damato <joe@dama.to> wrote:
-> > v4:
-> >   - Moved bp->max_tpa_roundup_size init out of the early return path and
-> >     documented that TPA is unsupported there, as suggested by Michael.
-> >
-> Thanks.
-> Reviewed-by: Michael Chan <michael.chan@broadcom.com>
+On Fri Aug 28, 2026 at 12:30 PM CEST, bot+bpf-ci wrote:
+>> diff --git a/arch/x86/net/bpf_jit_comp.c b/arch/x86/net/bpf_jit_comp.c
+>> index 13ba3232993ac..adb62216dd204 100644
+>> --- a/arch/x86/net/bpf_jit_comp.c
+>> +++ b/arch/x86/net/bpf_jit_comp.c
+>
+> [ ... ]
+>
+>> @@ -1110,6 +1121,92 @@ static void maybe_emit_1mod(u8 **pprog, u32 reg, =
+bool is64)
+>>  	*pprog =3D prog;
+>>  }
+>>
+>> +static int emit_kasan_check(struct bpf_verifier_env *env, u8 **pprog,
+>> +			    u32 addr_reg, struct bpf_insn *insn, u8 *ip,
+>> +			    bool is_write)
+>> +{
+>> +#ifdef CONFIG_BPF_JIT_KASAN
+>> +	u32 bpf_size =3D BPF_SIZE(insn->code);
+>> +	s32 off =3D insn->off;
+>
+> Does emit_kasan_check need to re-read insn->off here rather than taking
+> the effective displacement as a parameter? At the BPF_STX | BPF_MEM site
+> (line 2458), do_jit() remaps the offset for stack arguments:
+>
+>     insn_off =3D insn->off;
+>     if (dst_reg =3D=3D BPF_REG_PARAMS) {
+>         insn_off =3D outgoing_arg_base - outgoing_rsp - insn_off - 16;
+>         dst_reg =3D BPF_REG_FP;
+>     }
+>     ...
+>     emit_kasan_check(env, &prog, dst_reg, insn, ip, true);
+>     emit_stx(&prog, BPF_SIZE(insn->code), dst_reg, src_reg, insn_off);
+>
+> The check receives the remapped dst_reg (BPF_REG_FP) but re-derives the
+> offset from insn->off, so the check validates 'rbp + insn->off' while
+> emit_stx() writes to 'rbp + insn_off'.
 
-idk what you wanna do modulo paolo's comment on this thread.
+This one is right, I managed to reproduce it with a sample program
+similar to those for the args on stack selftests, JIT hardening
+enabled and cpuv4:
+- arg pushed on stack with cpuv4: BPF_ST|BPF_MEM|BPF_DW with dst_reg =3D
+  BPF_REG_PARAMS
+- hardening + ST on constant: constant pushed on stack is blinded,
+  program is patched with MOV + XOR + STX, the last one is marked as
+  non-stack accessing, per commit 1/8
+- JIT compiler enters the branch mentioned above and uses wrong offset
+  for the KASAN check, so we insert an unwanted stack access check AND
+  we check it at the wrong offset.
 
-i have a v5 locally that expands this to 5 patches which should address most
-of what sashiko is upset about:
+This made me realize that the series did not have this specific issues,
+as args-on-stack feature has been merged quite recently. Rather than
+adjusting the offset for a check that isn't really wanted (this is still
+a stack access), I plan to just skip the KASAN check insertion if
+dst_reg =3D=3D BPF_REG_PARAMS (or src_reg =3D=3D BPF_REG_PARAMS, for LDX).
 
-  bnxt_en: Bound SW TPA IDs to prevent crashes
-  bnxt_en: Handle buffer allocation failure in bnxt_rx_ring_reset()
-  bnxt_en: Propagate TPA buffer allocation failures in bnxt_queue_mem_alloc()
-  bnxt_en: Don't free the live ring's TPA state on queue restart failure
-  bnxt_en: Only restore LRO if the device supports TPA
+> The BPF_ST | BPF_MEM case (line 2432) has a second issue: the check
+> runs before any register remapping, so it is given the raw dst_reg:
+>
+>     if (!accesses_stack_only) {
+>         err =3D emit_kasan_check(env, &prog, dst_reg, insn, ip, true);
+>         ...
+>     }
+>     emit_st(&prog, insn, dst_reg, outgoing_arg_base, outgoing_rsp);
+>
+> When dst_reg =3D=3D BPF_REG_PARAMS (MAX_BPF_REG =3D=3D 11), emit_st() rem=
+aps
+> both the register and offset internally, but emit_kasan_check() receives
+> the raw value. reg2hex[] has no entry for index 11, so reg2hex[11] =3D=3D=
+ 0
+> and EMIT_mov(BPF_REG_1, BPF_REG_PARAMS) encodes 'mov rdi, rax'. The
+> check then validates 'rax + insn->off' - RAX being BPF R0, an arbitrary
+> program value - while the store goes to the outgoing-argument slot.
+>
+> In the BPF_DW / insn->off =3D=3D -8 sub-case of BPF_ST, emit_st() perform=
+s
+> no memory access at all (the value is materialized into R9), yet a full
+> __asan_store8 check is still emitted.
 
-but ofc, who knows what other stuff sashiko is gonna find if i submit this and
-how much furhter we'll push out fixing the original crash.
+Will be fixed the same way: skipping kasan check if dst_reg =3D=3D
+BPF_REG_PARAMS.
 
-lmk if you wanna stick with the v4 you reviewed as-is (and i'll send the other
-4 patches as a series) or if you'd rather i submit the above 5 as the v5 and
-get them all in at once ?
+> The BPF_LDX path (line 2645) handles this correctly: it remaps to
+> BPF_REG_FP before calling emit_kasan_check(), and the incoming-arg case
+> skips the check entirely.
+
+And I'll make sure to skip the KASAN check in the LDX path as well.
+>
+> Would passing the effective displacement to emit_kasan_check() as an
+> explicit parameter fix both the BPF_STX offset mismatch and let the
+> BPF_ST path perform the remap before the check?
+>
+>> +	u8 *prog =3D *pprog;
+>> +	void *kasan_func;
+>> +
+>> +	if (!env)
+>> +		return 0;
+>
+> [ ... ]
+>
+>> @@ -1911,10 +2026,12 @@ static int do_jit(struct bpf_verifier_env *env, =
+struct bpf_prog *bpf_prog, int *
+>>  		const s32 imm32 =3D insn->imm;
+>>  		u32 dst_reg =3D insn->dst_reg;
+>>  		u32 src_reg =3D insn->src_reg;
+>> +		bool accesses_stack_only;
+>>  		u8 b2 =3D 0, b3 =3D 0;
+>>  		u8 *start_of_ldx;
+>>  		s64 jmp_offset;
+>>  		s32 insn_off;
+>> +		int insn_idx;
+>>  		u8 jmp_cond;
+>>  		u8 *func;
+>>  		int nops;
+>> @@ -1931,6 +2048,10 @@ static int do_jit(struct bpf_verifier_env *env, s=
+truct bpf_prog *bpf_prog, int *
+>>  			EMIT_ENDBR();
+>>
+>>  		ip =3D image + addrs[i - 1] + (prog - temp);
+>> +		insn_idx =3D i - 1 + bpf_prog->aux->subprog_start;
+>> +		accesses_stack_only =3D
+>> +			env ? !env->insn_aux_data[insn_idx].non_stack_access :
+>> +			      false;
+>
+> This isn't a bug, but when env =3D=3D NULL, accesses_stack_only is set to
+> false ('not stack-only, do instrument'), yet every call site then
+> enters emit_kasan_check() which only no-ops because of its own 'if
+> (!env) return 0;' guard. Would 'env ? ... : true' make the fail-safe
+> default self-evident and avoid depending on emit_kasan_check()'s
+> internal guard for correctness?
+
+I'm not really convinced it would make things better. Having 'env ? ...
+: true' would also require to rename the variable to something likely
+mouthful, as accesses_something_else_other_than_stack (yes, I'm
+exaggerating a bit, but not so much), and as discussed in previous
+reviews, the emit_kasan_checks calls will stay anyway, even in the no-op
+case.
+
+> Also, the '!env' test plus 'insn_idx +=3D aux->subprog_start' is already
+> encapsulated by bpf_insn_is_indirect_target() (kernel/bpf/core.c:1646-
+> 1652). Would a small helper like bpf_insn_accesses_non_stack(env, prog,
+> i - 1) keep the arch-independent invariant in one place and let other
+> JITs reuse it when they gain KASAN support?
+
+There's a clear intent _not_ to bring KASAN support to other JIT
+compilers, so there's no much value in a dedicated helper just to check
+this flag. If that ever changes, I'll happily reconsider.
+
+[...]
+
+>> @@ -2572,28 +2711,42 @@ static int do_jit(struct bpf_verifier_env *env, =
+struct bpf_prog *bpf_prog, int *
+>>  			}
+>>  			fallthrough;
+>>  		case BPF_STX | BPF_ATOMIC | BPF_W:
+>> -		case BPF_STX | BPF_ATOMIC | BPF_DW:
+>> -			if (insn->imm =3D=3D (BPF_AND | BPF_FETCH) ||
+>> -			    insn->imm =3D=3D (BPF_OR | BPF_FETCH) ||
+>> -			    insn->imm =3D=3D (BPF_XOR | BPF_FETCH)) {
+>> -				bool is64 =3D BPF_SIZE(insn->code) =3D=3D BPF_DW;
+>> -				u32 real_src_reg =3D src_reg;
+>> -				u32 real_dst_reg =3D dst_reg;
+>> -				u8 *branch_target;
+>> -
+>> +		case BPF_STX | BPF_ATOMIC | BPF_DW: {
+>> +			bool is64 =3D BPF_SIZE(insn->code) =3D=3D BPF_DW;
+>> +			u32 real_src_reg =3D src_reg;
+>> +			u32 real_dst_reg =3D dst_reg;
+>> +			u8 *branch_target;
+>> +			u8 *pprog;
+>> +			bool is_atomic_fetch =3D
+>> +				(insn->imm =3D=3D (BPF_AND | BPF_FETCH) ||
+>> +				 insn->imm =3D=3D (BPF_OR | BPF_FETCH) ||
+>> +				 insn->imm =3D=3D (BPF_XOR | BPF_FETCH));
+>> +			if (is_atomic_fetch) {
+>>  				/*
+>>  				 * Can't be implemented with a single x86 insn.
+>>  				 * Need to do a CMPXCHG loop.
+>>  				 */
+>>
+>>  				/* Will need RAX as a CMPXCHG operand so save R0 */
+>> +				pprog =3D prog;
+>>  				emit_mov_reg(&prog, true, BPF_REG_AX, BPF_REG_0);
+>>  				if (src_reg =3D=3D BPF_REG_0)
+>>  					real_src_reg =3D BPF_REG_AX;
+>>  				if (dst_reg =3D=3D BPF_REG_0)
+>>  					real_dst_reg =3D BPF_REG_AX;
+>> -
+>> +				ip +=3D (prog - pprog);
+>> +			}
+>> +			if (!bpf_atomic_is_load_store(insn)) {
+>> +				if (!accesses_stack_only) {
+>> +					err =3D emit_kasan_check(env, &prog,
+>> +							       real_dst_reg,
+>> +							       insn, ip, true);
+>> +					if (err)
+>> +						return err;
+>> +				}
+>>  				branch_target =3D prog;
+>> +			}
+>> +			if (is_atomic_fetch) {
+>>  				/* Load old value */
+>>  				emit_ldx(&prog, BPF_SIZE(insn->code),
+>>  					 BPF_REG_0, real_dst_reg, insn->off);
+>
+> This isn't a bug, but does the restructured atomic case now make
+> branch_target a dead store on the non-fetch paths? branch_target is
+> written for every non-load/store atomic (plain BPF_ADD, BPF_XCHG,
+> BPF_CMPXCHG without BPF_FETCH) but only read under 'if
+> (is_atomic_fetch)'. Would moving 'branch_target =3D prog;' into the
+> following 'if (is_atomic_fetch)' block keep the KASAN check outside the
+> retry loop while restoring the definition-next-to-use property?
+
+Indeed, I'll bring it back under the relevant if branch.
+
+> Also, the new local 'u8 *pprog;' shadows the file-wide convention where
+> pprog is the u8 ** out-parameter of every emit_* helper.
+
+True, I'll rename it.
+
+Alexis
+
+--=20
+Alexis Lothor=C3=A9, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
