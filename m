@@ -1,120 +1,109 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D7832C8B;
-	Tue,  1 Sep 2026 06:50:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9924537A85A
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 06:50:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788245452; cv=none; b=T7sLmlVzuuHbnFWazt/njlXVOpnHLzPqMNmAm/0XdN1RCWWMMhdB//0NtpyDjGPWe3DolilM1OA85h6wQJIcYBZTmo2fFbVTSUYyoaSUEX6mZFYyp9WrkPrk0z1Y6/qEOB5ISlM/BoDm3qoLopRO3Xp9Bspk0PUS9JlNXMqA8FI=
+	t=1788245457; cv=none; b=aRf0LOlJvAkcFsF7SYU0omqXRozzdRGii3hwV1vttalW3BpxjjjQFfdqNgEvuJRMgDp6Af/8bXITjtgms3iLg6WeUwoiHsmWybEFW/nuujcyWI/4pux9S5sEkWO+IQFRKsMHTEkadrYgG2/VQc3qUjz8gi+u6hcRdrpqVubTcVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788245452; c=relaxed/simple;
-	bh=ukUEdUIq4V8E0DB6478BariAz5ATTjKx90QmyLRXQuU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HGuJ4qqTE0u6EfkCRUpdADJ6lTd7b49NHNLED3IfFSiodFMZQeac1fr1m20vGpLSwT2wau2l9GzfcSOvTL4mQtfJ09ADaxpnZ3Rj4vsO3OgVC+cYXWjy2YzmD4rJX9cWzsrKmPQa9Knf3IXiTKEB5t+rKaqmIbjM81Elo/sYkho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=I9sr1jyU; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788245457; c=relaxed/simple;
+	bh=LCCZuwWc+pikfTw2kfVqDazB4NpaxPix7k99DTIhjUw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DXGx+gQj9nmQ2gw0YVviLaiz1f3+JG3hSFhkXldmJKLKWiFadUUAyJ0oCaZ0qEPahyHIlYZihIvaJXkyphIAXqbLMrzxYNXZG3HKQFY3Z9R0zIor/oy1tQdM4s3dbf+mJxfwiCco2qeP5V6TGMfCDtqG5acO8FmZrhHZCzZ4Cdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=C1nyb4rk; arc=none smtp.client-ip=115.124.30.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="I9sr1jyU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788245450; x=1819781450;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=ukUEdUIq4V8E0DB6478BariAz5ATTjKx90QmyLRXQuU=;
-  b=I9sr1jyUlv+oZdaXe0N0EecG0tSHHv3rY8uYieZPObmuSMycZrbNOEHR
-   /wbqh4VAT5YaCi/QC2HsKTRwQKhhC1yRS6SycxmlgWbPhd1GWcKrzHv7i
-   LrSmx3UoxNjjgrjmLDITEkxTdjWgqDjMba3W8E7gfTSWwVpqR2+o00fAu
-   2YGXxmQRH8XgpzGkFu3w2i5qA7U/S4p7QGDAUQJcrd2uQzR7aHYa4hw8e
-   0FNm7kcuzc7KYDCtKsCCe0sMu3Ugz6o0pbpTCqO9BhS4bhxSW5qEQK6xt
-   lyhfIcRRaibqgAy16S1t4LhgyWNfjlfMBCck2A+iL9W9szufvHCHi7uHm
-   Q==;
-X-CSE-ConnectionGUID: d+fp5a7rSWmBs7Rw1HF0Uw==
-X-CSE-MsgGUID: 7hsV1SPsRe2OBRYVbQtnHw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="92477791"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="92477791"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 23:50:50 -0700
-X-CSE-ConnectionGUID: cPyQcD3JTqGacMsvgea5MA==
-X-CSE-MsgGUID: en4BSrYlTDarE/rzCT6hwQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="272794691"
-Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 23:50:47 -0700
-Message-ID: <3242caef-0693-4fba-98c6-f0b6ca9b80ed@linux.intel.com>
-Date: Tue, 1 Sep 2026 14:50:44 +0800
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="C1nyb4rk"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788245451; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=pK0k8hPLuxnI36PnvewidhRB8OWPpE5AE3xyR1ehLOg=;
+	b=C1nyb4rkMKZD56EAJY+myYQ+FB24ip6AQd1f2++Q8ZeywLYqrXmjW3TTejtXkQKsWeDeGZ1uvO9OMUZndJOJPXuEcvDe2ffiiIir/IaUUg72AT67a7JA9wmwdERPeRIuTCjmjlX59y4fB4sEdwGT+FmMSrYYDxGYsQgpOckyoLc=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0XA4XWSz_1788245449;
+Received: from banye.tbsite.net(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XA4XWSz_1788245449 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 01 Sep 2026 14:50:50 +0800
+From: Qinyun Tan <qinyuntan@linux.alibaba.com>
+To: dri-devel@lists.freedesktop.org
+Cc: tzimmermann@suse.de,
+	airlied@redhat.com,
+	jfalempe@redhat.com,
+	kraxel@redhat.com,
+	dmitry.osipenko@collabora.com,
+	hansg@kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	simona@ffwll.ch,
+	leandro.ribeiro@collabora.com,
+	daniels@collabora.com,
+	pekka.paalanen@collabora.com,
+	virtualization@lists.linux.dev,
+	spice-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Qinyun Tan <qinyuntan@linux.alibaba.com>
+Subject: [PATCH 1/4] drm/ast: create blend mode property on cursor plane
+Date: Tue,  1 Sep 2026 14:50:42 +0800
+Message-ID: <20260901065045.1152136-2-qinyuntan@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <20260901065045.1152136-1-qinyuntan@linux.alibaba.com>
+References: <20260901065045.1152136-1-qinyuntan@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 12/16] KVM: x86/pmu: Populate CPUID.0AH:ECX
- fixed-counter bitmap
-To: Zide Chen <zide.chen@intel.com>, Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>
-Cc: kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>,
- Jim Mattson <jmattson@google.com>, Stephane Eranian <eranian@google.com>,
- linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
- Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
- Xudong Hao <xudong.hao@intel.com>
-References: <20260827223755.143247-1-zide.chen@intel.com>
- <20260827223755.143247-13-zide.chen@intel.com>
-Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <20260827223755.143247-13-zide.chen@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Reviewed-by: Dapeng Mi <dapeng1.mi@linux.intel.com>
+Since commit 860e748bddcc ("drm: ensure blend mode supported if pixel
+format with alpha exposed"), drm_mode_config_validate() warns when a
+plane exposes an alpha pixel format but not the "pixel blend mode"
+property. The ast cursor plane (ARGB4444, ARGB8888) trips this on
+driver load:
 
+  [PLANE:37:plane-1] pixel format with alpha exposed but blend mode not setup
+  WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate+0x48f/0x510 [drm]
+  ...
+  Call Trace:
+   drm_dev_register+0x1ce/0x290 [drm]
+   ast_pci_probe+0x19d/0x3f0 [ast]
+   local_pci_probe+0x41/0x90
 
-On 8/28/2026 6:37 AM, Zide Chen wrote:
-> PerfMon v5 adds a fixed-counter support bitmap in CPUID.0AH:ECX.
-> This is the superset of EDX[4:0] which indicates the contiguous
-> counters starting from 0. For backward compatibility, it's recommended
-> to use the following to determine if a fixed counter is supported:
->
-> FxCtr[i]_is_supported := ECX[i] || (EDX[4:0] > i);
->
-> Originally-by: Yang Weijiang <weijiang.yang@intel.com>
-> Signed-off-by: Zide Chen <zide.chen@intel.com>
-> ---
->  arch/x86/kvm/cpuid.c         | 5 ++++-
->  arch/x86/kvm/vmx/pmu_intel.c | 3 +++
->  2 files changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/arch/x86/kvm/cpuid.c b/arch/x86/kvm/cpuid.c
-> index 106e719e7aee..63201d4ea4a1 100644
-> --- a/arch/x86/kvm/cpuid.c
-> +++ b/arch/x86/kvm/cpuid.c
-> @@ -1547,7 +1547,10 @@ static inline int __do_cpuid_func(struct kvm_cpuid_array *array, u32 function)
->  
->  		entry->eax = eax.full;
->  		entry->ebx = kvm_pmu_cap.events_mask;
-> -		entry->ecx = 0;
-> +		if (kvm_pmu_cap.version >= 5)
-> +			entry->ecx &= (u32)kvm_pmu_cap.fixed_cntr_mask64;
-> +		else
-> +			entry->ecx = 0;
->  		entry->edx = edx.full;
->  		break;
->  	}
-> diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
-> index a6d2ebff7cc9..1ce69e764ae1 100644
-> --- a/arch/x86/kvm/vmx/pmu_intel.c
-> +++ b/arch/x86/kvm/vmx/pmu_intel.c
-> @@ -585,7 +585,10 @@ static void intel_pmu_refresh(struct kvm_vcpu *vcpu)
->  				      kvm_pmu_cap.events_mask_len);
->  	pmu->available_event_types = ~entry->ebx & (BIT_ULL(eax.split.mask_length) - 1);
->  
-> +	/* FxCtr[i]_is_supported := ECX[i] || (EDX[4:0] > i) */
->  	fixed_cntr_mask = BIT_ULL(edx.split.num_counters_fixed) - 1;
-> +	if (pmu->version >= 5)
-> +		fixed_cntr_mask |= entry->ecx;
->  	fixed_cntr_mask &= kvm_pmu_cap.fixed_cntr_mask64;
->  
->  	/*
+The hardware cursor has always blended with pre-multiplied alpha and
+userspace assumes that blend mode when the property is not attached.
+Expose a "pixel blend mode" property advertising only
+DRM_MODE_BLEND_PREMULTI to make the existing semantics explicit and
+silence the warning. No functional change.
+
+Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
+Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
+---
+ drivers/gpu/drm/ast/ast_cursor.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/ast/ast_cursor.c b/drivers/gpu/drm/ast/ast_cursor.c
+index fd19c45f2abe2..08d93ac7f7cb8 100644
+--- a/drivers/gpu/drm/ast/ast_cursor.c
++++ b/drivers/gpu/drm/ast/ast_cursor.c
+@@ -25,6 +25,7 @@
+ #include <linux/sizes.h>
+ 
+ #include <drm/drm_atomic.h>
++#include <drm/drm_blend.h>
+ #include <drm/drm_damage_helper.h>
+ #include <drm/drm_format_helper.h>
+ #include <drm/drm_gem_atomic_helper.h>
+@@ -355,6 +356,8 @@ int ast_cursor_plane_init(struct ast_device *ast)
+ 	}
+ 	drm_plane_helper_add(cursor_plane, &ast_cursor_plane_helper_funcs);
+ 	drm_plane_enable_fb_damage_clips(cursor_plane);
++	drm_plane_create_blend_mode_property(cursor_plane,
++					     BIT(DRM_MODE_BLEND_PREMULTI));
+ 
+ 	return 0;
+ }
+-- 
+2.43.7
+
