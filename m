@@ -1,149 +1,109 @@
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0FFF4854E9
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:45:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D1C381E86;
+	Tue,  1 Sep 2026 17:45:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788284707; cv=none; b=CZZ3rcv0aE6gpO7xF3cIoikQ+6v5NX7K7AVOkqFsXFNZAKY0FWxMMm0VwwyRRHjpZc/4Kt0xxwDcWBPggFuDoyBwyE8H1eBDbvq63RT+N3Yz6LYzrN7PpKvZGFChgq6Ohz9gewKMLp4m9zhr1t+r8T/U1vzPuLfee3uNor+oK9s=
+	t=1788284757; cv=none; b=NFjEI6aquEOKEF5kyXbBz/1F44kmxM7nkmzPSviVwAmDAsb1Lr59SgawDiFK7hg8oNQVNFZWhyBP53z2qsbNTLhPB7kE9HxtgIb8I1YZXxxv8D6geoRSSAdOlKI8zG3YyamXIWMeDLBt9cemZGo6pvMSIwzjyUb2gTeEGwDoAhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788284707; c=relaxed/simple;
-	bh=6L/MBIpCfqnotMOzUP5gbdtoK12piFj3oych96kwEq4=;
+	s=arc-20240116; t=1788284757; c=relaxed/simple;
+	bh=VlqLdlBjZsCvP/SqKVD99VktAZVRkGdOgEx2DPutAzU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bx+UeKoqfJSziwZ3gV+MHihg6PCcrR/TpSwbf8puhGntwnpkQX9jF4bJgk5hTKik2ZySbzmIrWEFPJjqmN12CsXYFrJKVGN4OPjoFlnaZ6L2ThOIl5Md+uYO4dU2X8Z13VCjsbNjKJZlRo1y+z8SeOJJrt153m5sh+GLowWRly0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=iWEHvlJ/; arc=none smtp.client-ip=209.85.222.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	 Content-Type:Content-Disposition:In-Reply-To; b=O+gFk7CZIkLuzx+n/mqf7dkyz5a+cnCGcy9V2Nh67SKMw+9vsC7/Gki4z2x4dxeQQsZnLtrXEhu8MvzzhhQAnuGINdXEEtpDn2FfvBXpS5NW4PZ1aF8MbDqDeH4MezSVEPMsEKnB6a8aNNZiU0hCG5mvprC2MhzC884vOcMMwzA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FA9Qe+NK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="iWEHvlJ/"
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-93900ed2925so18892585a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 10:45:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1788284705; x=1788889505; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Dz5fCb8eEO+u0xeHbat1iXwZqnQiKYPkVzTkS17OKDs=;
-        b=iWEHvlJ/jKALCzgHxt1O12w5eLdwpOHDaIYkRAaOQeDsZjeyjaiXGTdxN8QIF0nQO6
-         KE8D/S9QByEZFhw3IPMqlOLyTg28gSvyQb8YL1IxUKMFuEAfJbQqqKrBaBnE6QLVVxk+
-         ai/yifJHW6s9zwqAv3Lb2pXTtCl95wX9nqp3j619NqxW05VlFBy0Ogsa3dT3RYwfLkgY
-         LZG0Mo3OlEzsHKV0wsF2eun6v1FanU6dHDFdGABpcTqCc3s2PM0ogq6qP9l23HegdJM2
-         sMthXbNdSFlkJiJ++eRzzO0XsTYRB5WUV9a8nfY/IKUfhjHcroa6+R3yLz275WKP2GjX
-         WT8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788284705; x=1788889505;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Dz5fCb8eEO+u0xeHbat1iXwZqnQiKYPkVzTkS17OKDs=;
-        b=raED782YxId31JrnnMFaj8+JHymizaHENKsZ2c8Wp9ErDUrE0JDPbttK1+r7G2+TE4
-         1sdjd5efZYnUm6Wfiorvo42mVX7UMF3hxvPDYcy4YPFszc0A6N0tL5NOr8hFOHB/d180
-         FRq9MmIJeMZXx6Y9MGNvUSYK7OoK49Iku2vtQI9VZdtRjBKVmAEXchOFa18lkekydVHj
-         Bqzq7S/dELo24utSL7KmzwhyySs9VQujnYq68De4i7ZDDUfZf679zBaMPZMkd8wqgU9o
-         /5e+nq1E1NIgecKGBFPXCJfhniB3xMCXQbYI+eltuVNJRCWO482whcIkLe9DAvRSMkK4
-         xqGg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq4QkYrovjmdT4t90Naoi3l67bpeYu4Pu9Y58cg4zbNEhOGu1cBIU0XshjoBIRG3U7EdMMQzbXXyFwjwAE=@vger.kernel.org
-X-Gm-Message-State: AFuF++k1OKXYlSn+oXd4XygE8rNSdnNx9M7P0bXhBg37KdPrvakEjMV+
-	BT6m5ljs1Sp5erVWArQXBONeA5unn25mukcngqOTJwAya0tsPf8fx1jB5ioNsHPYvMQ=
-X-Gm-Gg: AR+sD1165EGqeoJMrtxYVYpQnM80jy58FOWGPUAu8d7+pDz5lVxlIxza5fkLYcJZA1a
-	ReCjdChyG2FQG0Y/oqyaHOPnC2WVahd0Q1dWK0iGmnuyHlL2pNORmLJkDQ1rEARr1CXPTeW/7EY
-	YWVjXo6h6CmaS86jmrg5Fk/MuQIR6iSheIoizGyDPze4cG+o1EeQjR9lCfIKkgbkuTKpBpauPZX
-	PTT1c/8n37g6vcPeB3SbOl7+p5JnD6lBj3vsPHoqiBLJMt/eSRHQgtnncWOQssKEC/NZdTerxS9
-	KWz40fpCWz3tptHL/vzxg1tkm/av+KzNWPXuNE+uC4ja6j/F9UONtiubEG+gs9RZukKWGLBGO7f
-	s+2UJZrQinLTX2+VqCxYTPGcRLOyOYYC9HBkqu7n3kvclHrQlu3bacpMCm4mZ78+lqisyOlBcKM
-	DRbwSd68FELWdewbEJGZkGMdc3uEL89b9BUTefBaJhrGJBAgmr/0tnPVGs/+DuyroWHUdXEWPsi
-	X4eTCK+0IFqRHUKiGlCPa8FAfxNiBxTeZVBDpUfU+Um2g==
-X-Received: by 2002:a05:620a:2b90:b0:939:3712:77df with SMTP id af79cd13be357-939480e4a93mr1404504985a.21.1788284704506;
-        Tue, 01 Sep 2026 10:45:04 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93917247209sm1093584585a.17.2026.09.01.10.45.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 10:45:03 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x1SXf-0000000C5Bj-0yOq;
-	Tue, 01 Sep 2026 14:45:03 -0300
-Date: Tue, 1 Sep 2026 14:45:03 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
-	linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Joerg Roedel <joro@8bytes.org>, Jonathan Cameron <jic23@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Pranjal Shrivastava <praan@google.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Will Deacon <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>
-Subject: Re: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
- viommu plumbing
-Message-ID: <20260901174503.GB2847102@ziepe.ca>
-References: <20260427085344.941627-1-aneesh.kumar@kernel.org>
- <20260427085344.941627-4-aneesh.kumar@kernel.org>
- <apM6dOHcEI2ztWS0@nvidia.com>
- <yq5a8q5lz5yn.fsf@kernel.org>
- <yq5aecfdnv4i.fsf@kernel.org>
- <20260901143445.GC56830@ziepe.ca>
- <apcHoHKGoI7WNFXp@nvidia.com>
- <apcI6dnRaGRNdzN1@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FA9Qe+NK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74C421F000E9;
+	Tue,  1 Sep 2026 17:45:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788284756;
+	bh=4+eJ05EYcYl/X2yON9wDovfRwDxzooILuabJR+fv504=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FA9Qe+NKBzwV2u9DBHwCoi2qbJ7p+OGK99XCzVkgTp+iNI2c9W0zblSyg2YsiPzXA
+	 7ty+yQuHNqJ59bIOoCRwBqhYEE8NcGJ0TUhosW9pBlJiksVEHMN0/zsf16ut6ooR5d
+	 6//Wphdjg2D+0JT18E3o2sWkVP/wD67HJmqREaibeyswOZAsppBxZX5rhFj12NMXbD
+	 DKsd/UdQxKDARz8Fov6BLqJsDMDoISnEKaN/AI6MvGpOeH0R6GOQkt0fEBPqCb1+nQ
+	 aDrnYVAHvDG4Cyf4/v/Kn1AI/pFLF5Pl1sEKCI05SFkO6b68GDdIEYO7+9I9Lj1S9o
+	 ne4Wf6zYQc0fw==
+Date: Tue, 1 Sep 2026 18:45:51 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Kim Seer Paller <kimseer.paller@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@analog.com,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 2/4] dt-bindings: iio: dac: add adi,ad5710r.yaml
+Message-ID: <20260901-audacious-brigade-dafd881edf34@spud>
+References: <20260829-iio-ad5710r-upstream-v4-0-8af3121c7d21@analog.com>
+ <20260829-iio-ad5710r-upstream-v4-2-8af3121c7d21@analog.com>
+ <20260831-singer-reimburse-defba31848bc@spud>
+ <20260901041408.06d3f7ac@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="wU39Wj9gfRz4w7fM"
+Content-Disposition: inline
+In-Reply-To: <20260901041408.06d3f7ac@jic23-huawei>
+
+--wU39Wj9gfRz4w7fM
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <apcI6dnRaGRNdzN1@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 01, 2026 at 10:18:33AM -0700, Nicolin Chen wrote:
-> On Tue, Sep 01, 2026 at 10:13:11AM -0700, Nicolin Chen wrote:
-> > On Tue, Sep 01, 2026 at 11:34:45AM -0300, Jason Gunthorpe wrote:
-> > > On Tue, Sep 01, 2026 at 03:36:37PM +0530, Aneesh Kumar K.V wrote:
-> > > 
-> > > > @@ -463,14 +460,13 @@
-> > > >  	vsmmu->vmid = s2_parent->s2_cfg.vmid;
-> > > >  
-> > > >  	if (viommu->type == IOMMU_VIOMMU_TYPE_ARM_SMMUV3) {
-> > > > +		if (arm_smmu_is_realm_viommu(viommu))
-> > > > +			return arm_realm_smmu_v3_init(viommu, user_data);
-> > > > +
-> > > 
-> > > I think the realm vsmmu is going to require a different info struct
-> > > than the normal psmmu case, isn't it?
-> > > 
-> > > If so it needs its own enum value.
-> > > 
-> > > It would be nice to see a draft patch showing how the real vsmmu works
-> > > on top of the RMM spec for it. If we are using a viommu object then
-> > > non-vsmmu case should be identical just with an option in the info
-> > > struct to not create the vsmmu object.
-> > 
-> > Actually, the PSMMU-only viommu object in this series only adds a
-> > type with no viommu data structure.
-> > 
-> > I've drafted the vsmmu case on top of the series, so it would add
-> > a structure reusing the same IOMMU_VIOMMU_TYPE_ARM_SMMUV3 with a
-> > flag:
-> 
-> Oh. I replied too fast that I didn't notice this is under the
-> standard IOMMU_VIOMMU_TYPE_ARM_SMMUV3 used by non-secure vSTE.
+On Tue, Sep 01, 2026 at 04:14:08AM +0100, Jonathan Cameron wrote:
+>=20
+> Hi Conor,
+>=20
+> > > +  adi,range-double:
+> > > +    description:
+> > > +      Configure the output range for all channels. If the property i=
+s present,
+> > > +      the output will range from 0V to 2 x Vref. If the property is =
+not present,
+> > > +      the output will range from 0V to Vref. =20
+> >=20
+> > What was the rationale provided for this not being a userspace control?
+> >=20
+> Jumping in as I happen to read this...
+>=20
+> For DACs we often do it in kernel as potentially there is a circuit depen=
+dent aspect.
+> In extreme case leading to the bad kind of smoke. Normally it is covered =
+by an
+> output-range pair, but can't do that here as it is relative to vref (which
+> we have no way of knowing in the binding).=20
+>=20
+> For input devices it is always a userspace thing to control.
 
-The original patches were OK:
+I thought it'd actually be the opposite, with the assumption that output
+devices would default to being off and so there wouldn't be smoke
+production.
+If you say it's normal, then fine :)
 
-@@ -1055,6 +1055,7 @@ enum iommu_viommu_type {
-        IOMMU_VIOMMU_TYPE_DEFAULT = 0,
-        IOMMU_VIOMMU_TYPE_ARM_SMMUV3 = 1,
-        IOMMU_VIOMMU_TYPE_TEGRA241_CMDQV = 2,
-+       IOMMU_VIOMMU_TYPE_ARM_REALM_SMMUV3 = 3,
+>=20
+> > > +    type: boolean
 
-That's where everything should be placed, including your new struct
-above.
+--wU39Wj9gfRz4w7fM
+Content-Type: application/pgp-signature; name=signature.asc
 
-Jason
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapcPTwAKCRB4tDGHoIJi
+0kP+AP9FLNmXu8h5joF37v4O3WSNVbtZXoqJzJfCv0IwhsfoSwD/W8RyALsvb/OD
+lkLDGV0JeqYl3S9qxvTJxhH/eYyc0QI=
+=G+oK
+-----END PGP SIGNATURE-----
+
+--wU39Wj9gfRz4w7fM--
