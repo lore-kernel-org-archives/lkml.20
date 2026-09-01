@@ -1,108 +1,106 @@
-Received: from aposti.net (aposti.net [185.119.170.32])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6057B33EB1B;
-	Tue,  1 Sep 2026 14:24:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.119.170.32
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5785D38E8CC;
+	Tue,  1 Sep 2026 14:25:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788272668; cv=none; b=iV3wKYZQJdlIy3f2IewcAQRdkj/Fq2v6i9JfH1tVBjpiZiF3oJT0kEetb1qp5ECpzIC53ksvSep9siy44TJ1d5ObkXQzADj2DQpDnvAwCvqSgbWvRKSg2XJzx8Soa9BD0xlNatc+yssDA9mNmiKf4kKvbJ06qRMA0xs+uDkTi7M=
+	t=1788272729; cv=none; b=A9QzRvKahFhJqiSRAqjxVrCVEZhaF9/KNNVwS/TPwmoDRky8UqHAek1IBRDNRmPx1Tnwr+sjjlv+Xb+reTWUkPx2iDLRU2hp8+LzfxG/BE+qOIUQyPENwfe+p1jUJGvoyhhzBrztDwjeA7Q02rjK+k+Eg8FjnMWUKYAZ4NtEZTA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788272668; c=relaxed/simple;
-	bh=R0wYwCGJ8KvgZZlN+djOS8ZDU9JP1lx7HijwAfvGr2U=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=nb6czec3Vu4ZPaEsBX0Ak3tgfX/mtKuSkpcsfP9pPiIN4wRLHu0G+vDBBkvpnmRWgRB9V2AiI7CpjgSy8to+gEydsx9SpUbeygU2xXGWMYM3rjjnHC/LIYvqZlQXi30xTSgNC30CPCcDWyasWnxf8JpOFYQMcB4Cd82zNWYtxGg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net; spf=pass smtp.mailfrom=crapouillou.net; dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net header.b=SP0XSyik; arc=none smtp.client-ip=185.119.170.32
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
+	s=arc-20240116; t=1788272729; c=relaxed/simple;
+	bh=/8v/KW7+ptUdl1t9WICdp/3hPCwialykjU/Ai9wNdgI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UEFQ8tLaYLmdAquy71nFcztec7IVM4n7g5QeT8C/oBVoGZpisXxa6mweArOUiDGR4Ze/JVxqhQ7f7IN+GAWETyTUKxIHsktvt7xRAhFtA7DvLbqbGw09oW9VTyAxifr2HPKilpBbIHwXKmwfpnuymBux40PtW+urIS6x5AID3Ww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=s6swvN7o; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=kcBwlKHc; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net header.b="SP0XSyik"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=crapouillou.net;
-	s=mail; t=1788272658;
-	bh=R0wYwCGJ8KvgZZlN+djOS8ZDU9JP1lx7HijwAfvGr2U=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=SP0XSyikwyXPFzPMspfIQRhZ0OCagU3Nm6TKkoH4GDbkQAbsgCg1VXWwKiU2D3Z6/
-	 qIbTxjF8tKzdqVnNlAd33pbvk71Ygpm4rxs8HtffbScQddOfKolUQdc9xYW9iur6lq
-	 i1xq06IfwzGtU0WBSKazKhsoE0/JquAVfn4zd1+I=
-Message-ID: <bca0949bf284f9246376473821bea3bb6728a93a.camel@crapouillou.net>
-Subject: Re: [PATCH] Bluetooth: hci_bcm: Default to 4 Mbps
-From: Paul Cercueil <paul@crapouillou.net>
-To: Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>, linux-bluetooth@vger.kernel.org, 
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="s6swvN7o";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="kcBwlKHc"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1788272726; bh=/8v/KW7+ptUdl1t9WICdp/3hPCwialykjU/Ai9wNdgI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=s6swvN7oQZbxGyPrdOE9METD9UDHkCUWv4JwqJmgHOFkdSZM/pIIu0vDln0P9CJVj
+	 IPka10I1MY6V1mb/N3hMYKmiz6mOjuCoLBKWIiJwTUt40PxqllsB+zk3qWchBS9TLH
+	 1ttCciZw9yW9zZ+4QppYDSWcVPviv0U5zmK4rQgsiKMNr0wC1osUNo0vstqy3XRKmf
+	 RsAF/LwDnSTZuR1ZU/AnDyRucmxIEYvDargVsDF7nRS7wHnDGUfdMMm5P5n3KzbSxs
+	 57HYPmP9TVUYSkOIfPP69EACHGP70pWDO4pra0/ND9IHEtYb9SRODZy0xFSqbI/mWa
+	 QhAPtHOjha1KA==
+Received: by extorris.mess.org (Postfix, from userid 1004)
+	id 0201841447; Tue, 01 Sep 2026 15:25:25 +0100 (BST)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1788272725; bh=/8v/KW7+ptUdl1t9WICdp/3hPCwialykjU/Ai9wNdgI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=kcBwlKHcLPI0dQOsq9q0udZTFAtsLPSrDizFaRht6bkbknl4eaJcMVCkrm2KomzOL
+	 RHMuNej6UZO0GKTXeBnCGkjTHz8ZQQlEm5LWQS2TatLmT5CCGpBNZ/IYg4ciJUjhJW
+	 tgPaVe14pN5e8E6WUZQRTvsODoPCn/U9SNZV4Izt8QzZaBBP5GPyPktyPueCSQDhvW
+	 XKSHVdM6ivDfv8RqvRbsSBGl7xnLXdydXM/D095GVEsCjwjf3tVT33w8fHyo+Zar/4
+	 +156CU2dzrlByH3x466RIpKqhk+0I03bk0hSoIsXyVeWwlsNA9kQfQsZhNVXrvg94v
+	 f2a+o+mwls+mA==
+Received: from maru.home (host86-128-233-22.range86-128.btcentralplus.com [86.128.233.22])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by extorris.mess.org (Postfix) with ESMTPSA id 3950341444;
+	Tue, 01 Sep 2026 15:25:25 +0100 (BST)
+From: Sean Young <sean@mess.org>
+To: linux-media@vger.kernel.org,
+	Sean Young <sean@mess.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Patrice Chotard <patrice.chotard@foss.st.com>
+Cc: Rik van Riel <riel@surriel.com>,
+	stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Date: Tue, 01 Sep 2026 16:24:09 +0200
-In-Reply-To: <CABBYNZKNSbc7CNsJG3W2AgU_JLng7+Y2Jh4KUbKZQXOMGJ8ALw@mail.gmail.com>
-References: <20260829100205.113655-1-paul@crapouillou.net>
-	 <CABBYNZKNSbc7CNsJG3W2AgU_JLng7+Y2Jh4KUbKZQXOMGJ8ALw@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Subject: [PATCH v2 1/6] media: rc: Ensure registered is cleared in error path
+Date: Tue,  1 Sep 2026 15:24:51 +0100
+Message-ID: <c1f1990e3610766e6f08215a6a7dcd1bec6cfc2c.1788272198.git.sean@mess.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1788272198.git.sean@mess.org>
+References: <cover.1788272198.git.sean@mess.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Luiz,
+If rc_register_device() fails, ensure that registered is not set to true.
+If lirc_register() succeeded, then userspace could have an open file
+descriptor open. This leads to a use-after-free.
 
-Le lundi 31 ao=C3=BBt 2026 =C3=A0 10:56 -0400, Luiz Augusto von Dentz a =C3=
-=A9crit=C2=A0:
-> Hi Paul,
->=20
-> On Sat, Aug 29, 2026 at 6:02=E2=80=AFAM Paul Cercueil <paul@crapouillou.n=
-et>
-> wrote:
-> >=20
-> > The ACPI path already did default to 4000000 baud, while the OF
-> > path did
-> > not, for some reason. This meant that unless overridden with the
-> > 'max-speed' OF property, the serial port would stay at the init
-> > speed of
-> > 115200 bps, making it unsuitable with high-speed Bluetooth devices
-> > like
-> > audio equipment.
-> >=20
-> > Signed-off-by: Paul Cercueil <paul@crapouillou.net>
-> > ---
-> > =C2=A0drivers/bluetooth/hci_bcm.c | 1 +
-> > =C2=A01 file changed, 1 insertion(+)
-> >=20
-> > diff --git a/drivers/bluetooth/hci_bcm.c
-> > b/drivers/bluetooth/hci_bcm.c
-> > index 9a103db7e355..c44d552f9ad5 100644
-> > --- a/drivers/bluetooth/hci_bcm.c
-> > +++ b/drivers/bluetooth/hci_bcm.c
-> > @@ -1224,6 +1224,7 @@ static int bcm_acpi_probe(struct bcm_device
-> > *dev)
-> >=20
-> > =C2=A0static int bcm_of_probe(struct bcm_device *bdev)
-> > =C2=A0{
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bdev->oper_speed =3D 4000000;
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 bdev->use_autobaud_mode =3D =
-device_property_read_bool(bdev-
-> > >dev,
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0
-> > "brcm,requires-autobaud-mode");
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 device_property_read_u32(bde=
-v->dev, "max-speed", &bdev-
-> > >oper_speed);
-> > --
-> > 2.53.0
->=20
-> Sashiko flagged a problem with this:
->=20
-> https://sashiko.dev/#/patchset/20260829100205.113655-1-paul%40crapouillou=
-.net
+Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
+Signed-off-by: Sean Young <sean@mess.org>
+Cc: stable@vger.kernel.org
+---
+ drivers/media/rc/rc-main.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Noted.
+diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
+index d93e98189c1a..1f99540456f1 100644
+--- a/drivers/media/rc/rc-main.c
++++ b/drivers/media/rc/rc-main.c
+@@ -1934,7 +1934,8 @@ int rc_register_device(struct rc_dev *dev)
+ 			goto out_raw;
+ 	}
+ 
+-	dev->registered = true;
++	scoped_guard(mutex, &dev->lock)
++		dev->registered = true;
+ 
+ 	rc = device_add(&dev->dev);
+ 	if (rc)
+@@ -1982,6 +1983,8 @@ int rc_register_device(struct rc_dev *dev)
+ out_dev:
+ 	device_del(&dev->dev);
+ out_rx_free:
++	scoped_guard(mutex, &dev->lock)
++		dev->registered = false;
+ 	ir_free_table(&dev->rc_map);
+ out_raw:
+ 	ida_free(&rc_ida, minor);
+-- 
+2.55.0
 
-The argument about breaking Devicetree backwards compatibility is a
-good point, I didn't think about that.
-
-Disregard this patch then.
-
-Cheers,
--Paul
