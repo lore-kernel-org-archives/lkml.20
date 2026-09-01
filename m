@@ -1,106 +1,130 @@
-Received: from mta0.migadu.com (out-252.mta0.migadu.com [91.218.175.252])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B3147142E
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:01:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.252
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2E7A471CE0;
+	Tue,  1 Sep 2026 08:01:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788249710; cv=none; b=lcPUpPCfqQs4rIrbANInv50qpyfNVRmC9w0TYxSTPLocUfcphbzpaJErTFceyraexxE+o08e3EHGUz4+ywPzUvZeJB9ssrRRuuSQCMb5xfRT4JzzayNU46M+M34Uvw2kJYINpuB/Ah1lVa5XU6cw5SswKldOFjiKKbro8330gdo=
+	t=1788249711; cv=none; b=c8sTXGYgJxK+RpGS1cJbZG5kvX07f608pYpEPBF5ykNAr0+WnAnY+kevu5X/ep9pyW6fPB9SdRc97UlzGyZv8FObSIZJ+qtsq16lu5GLeBiuxfKrMIvOqFgmaNoAA13GEzxptGexyzly5G6eXCQV5YGSgJUYh4My8aI1Ez1UP0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788249710; c=relaxed/simple;
-	bh=3P9E5Gl1EjxsctRSZt48H99/ZpRYw60ocxNGWi1RFnI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=g0wmLnsDp9O7x72MEe8CeAaGIDR+lrJgxLQgkY102T6WIkKrvrailAmt3N4mdB1sbMfbzdKKksGZV8OIfjK47csV5/zlCTtetp69SwHYr1tY4T9niZkBhSw8J0cvISLk4CDkjgPq/5g3pmVjINef5Fs52ztUXTl27D9v2tgVXEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=N/gUorho; arc=none smtp.client-ip=91.218.175.252
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788249711; c=relaxed/simple;
+	bh=9B6Wxdvw3xp5ld7hEtbbwEFIpm4K2FL2RhXsefID288=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mla5y7z1Op7953KiOEMNoRD48BWRUUQVz0RGYt8heBxbSeHQXW8o2i4xa2kUoKsV/7ybMeo3yZv0gYq92eISWvxnC6++lQs3TOVrqPMxZAJDpuTAmZ6RCq2wRrd5iI+wtf0RIsRlis2l/xZLA9vjIYJ1ZYBT8O3BfwU/s/78ggk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=4YYzm+vl; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=yLPpUdCd; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="N/gUorho"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=3P9E5Gl1EjxsctRSZt48H99/ZpRYw60ocxNGWi1RFnI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788249703; v=1; x=1788854503;
- b=N/gUorhoHTseTPVU8IPkhZ0PKttVlWTHw7qe4mYtfXj6Lnr5cNR4jg9CjtxnHqRUhYlm6aBD
- GXUf06RGSPkXMCbxaS2pV2HQGrIWTA6GOIGkn7uDuYQ1SmMj+EOwajLYQy5RlkFoNUk5J2hdkHI
- ybU7HVzg79UrkuvJHI3ScSxM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 639bf1c88883279a;
-	Tue, 01 Sep 2026 08:01:43 +0000
-X-Mizu-Trace-ID: 639bf1c88883279a
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5b2a8173142so3380e87.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 01:01:37 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzPOXbvR7uywlR4GU2tTSoClf41PJQnAVd4EyQ3WeQZE5MYIBqarPGi41kxWvNpugBPhuCrDVQG33puORs=@vger.kernel.org
-X-Gm-Message-State: AFuF++k17Dem6SYSUmbnGYntLsuYZF9i/Ht1avAVWMrkCIQp4gNWlgzt
-	pC5YYjdcrp9oEOYK9tZI6ZRAv/pJQSjkqu35ZzSanZrhHt0aXXQ0O/UIoj+2Qpjry5+eJcBAmbJ
-	tg6qGbe39RQVn+YGEQ2DAa1fEEBUpDyTulv+kIVL4
-X-Received: by 2002:a05:6512:3b0d:b0:5b2:a967:c0e1 with SMTP id
- 2adb3069b0e04-5b5fefc71e5mr128710e87.0.1788249695751; Tue, 01 Sep 2026
- 01:01:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="4YYzm+vl";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="yLPpUdCd"
+Date: Tue, 1 Sep 2026 10:01:42 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788249704;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=G0pI8XTpNn+xxOYdAi7WHG2gkeeqcx1hUF85pJOp+GY=;
+	b=4YYzm+vls8qdZmN6EGlklWzPcwnIuoEQVd3e5ESsC1adh0nXf0IqUqd73abgsshx0rOyQz
+	an8E8ZD5tkzgQ3T4pvFBq0nwXk9ZGAIH+pvO918t1PphVnWxB3lFt14u7WIwldbxsgFx6x
+	HQhO6W91ugFP+NqYfxGvU//WIV0o61+bSiAUV/+Q69fCJ5Q5rtaBQmVlNeKDoeCqvh4YGq
+	kJwqgywKGvuLVl64VOFZzb5CQfGhisurtEQUEVtZ8aCc4ZE3xyP0rn8ejw3jgVYgOTZJDZ
+	xsYb0u/drSSYfl467Sw9+A+bF35BOJdCuDO0NN0dIgZZbY952gTT6kauufjFiw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788249704;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=G0pI8XTpNn+xxOYdAi7WHG2gkeeqcx1hUF85pJOp+GY=;
+	b=yLPpUdCdh4aRuH3xDYiA2EkjygI6oShXPQrWJ792XVzviGfc+PtQ6r4oOZT4Z9RjedP9AT
+	5q6f7SnyIY32TbAw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Petr Mladek <pmladek@suse.com>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Thomas Gleixner <tglx@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Kees Cook <kees@kernel.org>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tycho Andersen <tycho@tycho.pizza>,
+	Linus Torvalds <torvalds@linuxfoundation.org>
+Subject: Re: [PATCH v2 2/2] kallsyms: Document why unresolved symbols are
+ revealed
+Message-ID: <20260901080142.CMTCw6vE@linutronix.de>
+References: <20260821152614.2202196-1-bigeasy@linutronix.de>
+ <20260821152614.2202196-3-bigeasy@linutronix.de>
+ <ao8SeCCG65uwH-Tk@pathway.suse.cz>
+ <20260827102411.NsziRXyJ@linutronix.de>
+ <20260831133729.p5ylO7O6@linutronix.de>
+ <20260831124928.22e163ab@gandalf.local.home>
+ <apZ9ea1on8A7o6kk@pathway.suse.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com> <20260830-gmem-inplace-conversion-v12-14-85e5fd25252a@google.com>
-In-Reply-To: <20260830-gmem-inplace-conversion-v12-14-85e5fd25252a@google.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Tue, 1 Sep 2026 09:00:59 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTyU1Ldbw-qqdQOx_P8jrt85QEcKSGae2h+AahsDQdbmLw@mail.gmail.com>
-X-Gm-Features: AcwNN1U1NN91vo14dSs3E4M2DDFHxxtZ_83sNMiwJfMd7svq3f7bIIAQvr3cTJo
-Message-ID: <CA+EHjTyU1Ldbw-qqdQOx_P8jrt85QEcKSGae2h+AahsDQdbmLw@mail.gmail.com>
-Subject: Re: [PATCH v12 14/45] KVM: guest_memfd: Add base support for KVM_SET_MEMORY_ATTRIBUTES2
-To: ackerleytng@google.com
-Cc: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
-	brauner@kernel.org, chao.p.peng@linux.intel.com, david@kernel.org, 
-	jmattson@google.com, jthoughton@google.com, michael.roth@amd.com, 
-	oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
-	rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
-	steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
-	yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org, 
-	suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
-	Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-mm@kvack.org, linux-coco@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <apZ9ea1on8A7o6kk@pathway.suse.cz>
 
-Hi Ackerley,
+On 2026-09-01 09:23:37 [+0200], Petr Mladek wrote:
+> On Mon 2026-08-31 12:49:28, Steven Rostedt wrote:
+> > On Mon, 31 Aug 2026 15:37:29 +0200
+> > Sebastian Andrzej Siewior <bigeasy@linutronix.de> wrote:
+> > 
+> > > Could someone yell here, please? I convinced myself that hiding
+> > > unresolved pointers is the good thing to do here since a "wrong" pointer
+> > > would be seen in backtrace anyway.
+> > > 
+> > > Thread starts at
+> > > 	https://lore.kernel.org/all/20260821152614.2202196-1-bigeasy@linutronix.de/
+> > 
+> > I wonder if we should just tagged hash values as such:
+> > 
+> > | [    1.498171]  <TASK>
+> > | [    1.498172]  00000000cb9bc262 [hash]
+> > | [    1.498174]  ? 00000000eb5021dd [hash]
+> > | [    1.498176]  00000000ed1a9938 [hash]
+> > | [    1.498178]  </TASK>
+> > 
+> > So that people will know that the value is just some random hash value and
+> > not a real address.
+> > 
+> > Although rather useless in call stacks, I like hash values because the same
+> > address will show up the same.
+> > 
+> > Having '[unknown]' may also be confusing because it doesn't really say
+> > "why" it was unknown. But having a number goes back to what it always did.
+> > Hashing it with a "[hash]" marker will also let people know the value was
+> > hashed.
+> 
+> I like this idea. I just wonder whether it might confuse some parsers
+> who expect that symbol name is one string. %ps, %pS, %pB are used
+> in various context.
+> 
+> I think about adding the hint into the hashed value, e.g. by using
+> 'h' instead of the highest number, something like:
+> 
+>  [    1.498171]  <TASK>
+>  [    1.498172]  h0000000cb9bc262
+>  [    1.498174]  ? h0000000eb5021dd
+>  [    1.498176]  h0000000ed1a9938
+>  [    1.498178]  </TASK>
+> 
+> But 'h' is not a valid number number so it might confuse parsers as
+> well. And it is not that user friedly either.
+> 
+> So, I still like more Steven's variant with [hash].
 
-On Mon, 31 Aug 2026 at 01:25, Ackerley Tng via B4 Relay
-<devnull+ackerleytng.google.com@kernel.org> wrote:
->
-> From: Ackerley Tng <ackerleytng@google.com>
-...
-> +.. _KVM_SET_MEMORY_ATTRIBUTES2:
-> +
-> +4.145 KVM_SET_MEMORY_ATTRIBUTES2
+While it does make sense to add [hash] to make it obvious it breaks
+formatting for some of the %p users where %p is expected to have a fixed
+length depending on 32/64 bit. Here, it is a %pS so adding extra it
+wouldn't break anything but I don't think it should be different between
+%p and %pS assuming we do print the hash instead 'unknown'.
 
-This section number collides with the existing 4.145 (KVM_PPC_GET_COMPAT_CAPS)
-below, so api.rst ends up with two 4.145 sections. One of them needs
-renumbering.
+> Best Regards,
+> Petr
 
-...
->  4.145 KVM_PPC_GET_COMPAT_CAPS
-
-Cheers,
-/fuad
+Sebastian
