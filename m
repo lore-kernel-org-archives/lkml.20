@@ -1,142 +1,227 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21CC5361959;
-	Tue,  1 Sep 2026 10:55:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E5547CA6B
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 10:56:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788260143; cv=none; b=e8xKQdYiULY1WUjq3NCUu2lH3Gxy79Xd9VcEbKgATIpy0xEABwXjx6vN41bxOX39UUNN6FCnm7trDwSBs2gbNXdxzkJnBr+i9aJ/FIGzJXn9ReCKF1FV5ROCiZ+Bc8oOJUmtzoZXdk60Csz1PF9gRiSDIU7/xRoPHx4RLGVA9jc=
+	t=1788260197; cv=none; b=bTKpF8uzyzPoZ5eJp/XWfxB8CSiw7HRrozS7foeLqamCmZtokiCqMnsuADB7HdvKC8ABObf1iyEknc/2Er78Ude8ivfVgjQ14hLUViAk8nxp6OIdBgqv/WncSdSMkxJ3cKFTFJg04EGB4zOQTog+4eJlN9Htb8HL0XtUTbny2G8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788260143; c=relaxed/simple;
-	bh=vuheHId40hHtQGMzyp87Hbe75XRFLmtuO8PVbAfCoAU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=detd5KSGg5Xwr6y9QH5WbZt1jcwPk1QQv4AqC6Kk+XKLWkMwo8sDaueccfzNmxZns9kaOY3aOx4SIbJ4rQrp86xsPcRP9QzUbgTIr6aDLN6vImfwiOIYae5acxDJghK5Su2gzpatgw37uEvi5QokLTIgzZ6IaVMcD4xFR6Jx+g4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QmEINsDd; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788260197; c=relaxed/simple;
+	bh=xgJO17smNejyBIwcrwyDqoECJvhlsyuBONlAsXAmG8M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DMzFkiqPRiA0mRAQXpMoY6qE1FRxADROG++z28CmA2qsMqH0DfQC7sFqk/8ckIZQwhxYmXLlEgrl5z2hF3NmMNgnWZ42PHAq87epuFZ5AWJGs8Uwnhix3uZCGiZYHPFGwna+kPqvCFSj4b/ITLWzaBQPhlPLzG1PHo/pOrcGjP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MjCLmWal; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QmEINsDd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788260141; x=1819796141;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=vuheHId40hHtQGMzyp87Hbe75XRFLmtuO8PVbAfCoAU=;
-  b=QmEINsDdpgpkwPJlUlCq9YwPLNOIzFXIINvAKQsZw4LZkiZdgpHPxoOy
-   1BVqrkR5Ka2sOW0oPZsOxPzXWDk3czjmC6w6x2CGFNsY0ya5/8Iwe9vpG
-   dJufThHg8Wwqpg9Joqw37KcG90ncUyTjcp1k5kxp43Re2G7ITMdVIucWI
-   RQv6UBItGHb5uhEJxhB/y75HaK5J4wQQmJze8TrCQ3VqvugiHdcnZpLne
-   4/keEAyWwDLjNQ6HDvlwr7FwUF5uvt/gHqtka7BxpOTPvnfHHYKUSpAnf
-   4UTHGbTlmOd9CJOj03HqnTBj7IQa7xcL1AoEWUgVMwQ5/EYfozcAMIV0f
-   Q==;
-X-CSE-ConnectionGUID: DWfJAeJrSr+v+9z1KSiZRA==
-X-CSE-MsgGUID: GSFT2RWgTCuqyRErishPMA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="111454907"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="111454907"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 03:55:40 -0700
-X-CSE-ConnectionGUID: JoQbhaDZRV+gtekFNw+3RA==
-X-CSE-MsgGUID: rTckHSCERgGJdtoLZLQgeg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="267275353"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.222])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 03:55:38 -0700
-Date: Tue, 1 Sep 2026 13:55:35 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Thierry Chatard <tchatard@gmail.com>
-Cc: linux-kernel@vger.kernel.org, hansg@kernel.org, lee@kernel.org,
-	platform-driver-x86@vger.kernel.org, ilpo.jarvinen@linux.intel.com,
-	djrscally@gmail.com, linux-media@vger.kernel.org,
-	mchehab@kernel.org, sakari.ailus@linux.intel.com,
-	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
-	v.vitovt@gmail.com
-Subject: Re: [PATCH v10 3/8] platform/x86: int3472: tps68470: move Windows
- MFD setup below the device-type switch
-Message-ID: <apavJ8OOEIv6DC4T@ashevche-desk.local>
-References: <20260831160754.9857-1-tchatard@gmail.com>
- <20260831160754.9857-4-tchatard@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MjCLmWal"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE8581F0155C
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 10:56:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788260191;
+	bh=IrG48nudf8Db8eH9Q2rYlGxrD+mM6V+4qGZaDfjF11Y=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=MjCLmWalYXlLWJxWXjbT6tB96cG5bH+PfZ0C2w/5CrWMRAV6oJbWAPkTXlMvGyQ7z
+	 XDBMtzAIES0WhC8xRLIuLXN105B2KDNFGHy5ZJ4gmcMf5P+D3tq7fwHCM/WEvV4w/M
+	 VaX6hHXwrrBuoXSpzzHNH77U4SbN8Id889Xet+lcoiaNplbrBnv8bIzdhh4+pvIUbL
+	 hODxPbU3bKzdlb8r368n8BaKY0PdboqyNadv1BnWDJQqQdpR8F5UWUREjqJUaz3+rK
+	 X4RGGbmJT7vDxz6+vDXhFv+vAI9UNTfLPiHFkc4wHd9bFE30ioGt4A94O3SKMxWKLl
+	 E9e6RRbQ9Nxqg==
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-92e50a650a0so383095685a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 03:56:31 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rozr3a117xjlYASH+yYXXQVMott2A56BUSO/lLehq16lvxtsiF89USWqJWc33z2gtXAZg0ugtKcjibxoho=@vger.kernel.org
+X-Gm-Message-State: AFuF++n3skybyloBNybkv76b2+ErX41GgQlAm6F9AntMrbePDNRKROHT
+	BEJ9XHsiMaqSuBWLSN7z9irilnTdw3/JpyvCIUHpC48gQstWUZqZpj4p2V2Q6KOh7DbryxLMp9W
+	4YRA1l3Klzih8ERxXcBZ8Mklr2L+3QVI=
+X-Received: by 2002:a05:620a:a409:20b0:936:9f47:e908 with SMTP id
+ af79cd13be357-9394805aa9fmr798556785a.19.1788260191171; Tue, 01 Sep 2026
+ 03:56:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831160754.9857-4-tchatard@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260831-mglru-flags-cleanup-v4-0-2d15dde0d7ee@tencent.com> <20260831-mglru-flags-cleanup-v4-6-2d15dde0d7ee@tencent.com>
+In-Reply-To: <20260831-mglru-flags-cleanup-v4-6-2d15dde0d7ee@tencent.com>
+From: Barry Song <baohua@kernel.org>
+Date: Tue, 1 Sep 2026 18:56:19 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4y7MrUeHn4NvtpyyZ3EY-6dTUD4vhitw6Sy6tfRq6Tf9A@mail.gmail.com>
+X-Gm-Features: AcwNN1XnJ-vUwtXvUynuDK4bSBGCxwvSia1E-LheZ-OirsmZyvEnKkM9ehQEeH8
+Message-ID: <CAGsJ_4y7MrUeHn4NvtpyyZ3EY-6dTUD4vhitw6Sy6tfRq6Tf9A@mail.gmail.com>
+Subject: Re: [PATCH v4 6/6] mm/mglru: fix potential generation folio number leak
+To: kasong@tencent.com
+Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Muchun Song <muchun.song@linux.dev>, Chris Li <chrisl@kernel.org>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Ridong Chen <ridong.chen@linux.dev>, Lian Wang <lianux.mm@gmail.com>, Yu Zhao <yuzhao@google.com>, 
+	Zi Yan <ziy@nvidia.com>, Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Kairui Song <ryncsn@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 31, 2026 at 06:07:49PM +0200, Thierry Chatard wrote:
-> The Windows path looks up the board data, builds the tps68470-clk
-> platform data and registers the MFD cells; none of this is needed for the
-> ChromeOS path, which registers its own cells. Move that handling out of
-> the switch and let the ChromeOS case return directly, so the Windows-only
-> work is no longer done for ChromeOS and the function reads top to bottom.
-> 
-> While moving the code, use a local struct device *dev to shorten the many
-> &client->dev references, and return -ENODATA (rather than -ENODEV) when no
-> board data matches this machine, to distinguish it from a missing device.
-
-These all have to be split to the separate logical changes.
-
-> No functional change for either path.
-
-...
-
->  static int skl_int3472_tps68470_probe(struct i2c_client *client)
+On Mon, Aug 31, 2026 at 2:43=E2=80=AFAM Kairui Song via B4 Relay
+<devnull+kasong.tencent.com@kernel.org> wrote:
+>
+> From: Kairui Song <kasong@tencent.com>
+>
+> Each generation of MGLRU accounts anon and file folio numbers
+> separately, and the page table walker updates each generation's
+> counters in batch once the walk is done. The walker promotes a
+> folio's generation with a cmpxchg on folio->flags, and
+> update_batch_size() then reads the live flags again to pick the
+> anon/file column to charge. The walk holds neither the lruvec lock nor
+> the folio lock, so the type can flip between the cmpxchg and that
+> read: the lazyfree path clears PG_swapbacked, and reclaim sets it back
+> on a dirty lazyfree folio. The batched delta pair is then recorded in
+> the wrong type column. Nothing reconciles it afterwards, permanently
+> skewing lrugen->nr_pages and the reclaim budgets derived from it.
+>
+> Fix it by capturing the type from the flags snapshot the cmpxchg
+> linearized against: folio_update_gen() returns the type of the state
+> it transitioned from, and update_batch_size() accounts with that.
+>
+> A folio's type only changes while it is off the LRU list, inside a
+> del/add pair under the lruvec lock, with the gen bits cleared in
+> between. The generation and PG_swapbacked sit in the same
+> folio->flags word, so the cmpxchg snapshot captures them together.
+> Let G be the generation that snapshot captured (old_gen) and G' the
+> one it wrote (new_gen); the CAS can land in only three places:
+>
+>   - before the del: the folio is anon at G; the batch records anon
+>     G -> G', and the del later removes the folio from the anon
+>     counters;
+>   - between del and add: gen =3D=3D -1, so folio_update_gen() returns -1
+>     without touching the flags and no batch is recorded; the del/add
+>     pair accounts for the move alone;
+>   - after the add: the folio is file at the fresh generation the add
+>     charged; the batch records file, that gen -> G', matching that
+>     charge.
+>
+> Unlike the drift of lazy promotions, which sort_folio() repairs under
+> the lruvec lock, the phantom deltas from before this fix land in a
+> column the folio never occupies again, so nothing ever repairs them.
+>
+> Fixes: 018ee47f1489 ("mm: multi-gen LRU: exploit locality in rmap")
+> Signed-off-by: Kairui Song <kasong@tencent.com>
+> ---
+>  include/linux/mm_inline.h |  7 ++++++-
+>  mm/vmscan.c               | 13 +++++++------
+>  2 files changed, 13 insertions(+), 7 deletions(-)
+>
+> diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+> index 047295ae6e8a..7e487c23aff7 100644
+> --- a/include/linux/mm_inline.h
+> +++ b/include/linux/mm_inline.h
+> @@ -10,6 +10,11 @@
+>  #include <linux/userfaultfd_k.h>
+>  #include <linux/leafops.h>
+>
+> +static inline int folio_flags_is_file_lru(const unsigned long *flags)
+> +{
+> +       return !test_bit(PG_swapbacked, flags);
+> +}
+> +
+>  /**
+>   * folio_is_file_lru - Should the folio be on a file LRU or anon LRU?
+>   * @folio: The folio to test.
+> @@ -27,7 +32,7 @@
+>   */
+>  static inline int folio_is_file_lru(const struct folio *folio)
 >  {
-> -	struct acpi_device *adev = ACPI_COMPANION(&client->dev);
->  	const struct int3472_tps68470_board_data *board_data;
->  	struct tps68470_clk_platform_data *clk_pdata;
-> +	struct acpi_device *adev;
->  	struct mfd_cell *cells;
->  	struct regmap *regmap;
-> +	struct device *dev;
->  	int n_consumers;
->  	int device_type;
->  	unsigned int i;
->  	int ret;
->  
-> +	dev = &client->dev;
+> -       return !folio_test_swapbacked(folio);
+> +       return folio_flags_is_file_lru(const_folio_flags(folio, 0));
+>  }
 
-This one is not getting validated, hence it's fine to assign directly above
+I guess we don't need to change this function? It seems more natural to
+me to keep using `!folio_test_swapbacked(folio)` here.
 
-	struct device *dev = &client->dev;
+In `folio_update_gen()`, you already use
+`*is_file =3D folio_flags_is_file_lru(&old_flags)` to get the type from
+`old_flags`. I guess that's all we need?
 
+>
+>  static __always_inline void __update_lru_size(struct lruvec *lruvec,
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 724b6e034e69..87e667c410ed 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -3269,7 +3269,8 @@ static bool positive_ctrl_err(struct ctrl_pos *sp, =
+struct ctrl_pos *pv)
+>   ***********************************************************************=
+*******/
+>
+>  /* promote pages accessed through page tables */
+> -static int folio_update_gen(struct folio *folio, int new_gen, const vma_=
+flags_t *vma_flags)
+> +static int folio_update_gen(struct folio *folio, int new_gen, int *is_fi=
+le,
 
-> +	adev = ACPI_COMPANION(dev);
->  	if (!adev)
->  		return -ENODEV;
+Rather than is_file, I feel was_file would be more accurate here,
+since it doesn't represent what the folio is now.
 
-...
+> +                           const vma_flags_t *vma_flags)
+>  {
+>         unsigned long new_flags, old_flags =3D READ_ONCE(*folio_flags(fol=
+io, 0));
+>         int old_gen;
+> @@ -3298,6 +3299,7 @@ static int folio_update_gen(struct folio *folio, in=
+t new_gen, const vma_flags_t
+>                 new_flags |=3D BIT(PG_workingset);
+>         } while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flag=
+s));
+>
+> +       *is_file =3D folio_flags_is_file_lru(&old_flags);
+>         return old_gen;
+>  }
+>
+> @@ -3328,9 +3330,8 @@ static int folio_inc_gen(struct lruvec *lruvec, str=
+uct folio *folio)
+>  }
+>
+>  static void update_batch_size(struct lru_gen_mm_walk *walk, struct folio=
+ *folio,
+> -                             int old_gen, int new_gen)
+> +                             int old_gen, int new_gen, int type)
+>  {
+> -       int type =3D folio_is_file_lru(folio);
+>         int zone =3D folio_zonenum(folio);
+>         int delta =3D folio_nr_pages(folio);
+>
+> @@ -3519,7 +3520,7 @@ static bool suitable_to_scan(int total, int young)
+>  static void walk_update_folio(struct lru_gen_mm_walk *walk, struct vm_ar=
+ea_struct *vma,
+>                 struct lruvec *lruvec, struct folio *folio, bool dirty)
+>  {
+> -       int new_gen, old_gen;
+> +       int new_gen, old_gen, file;
+>
+>         if (!folio)
+>                 return;
+> @@ -3532,9 +3533,9 @@ static void walk_update_folio(struct lru_gen_mm_wal=
+k *walk, struct vm_area_struc
+>                 folio_mark_dirty(folio);
+>
+>         if (walk) {
+> -               old_gen =3D folio_update_gen(folio, new_gen, &vma->flags)=
+;
+> +               old_gen =3D folio_update_gen(folio, new_gen, &file, &vma-=
+>flags);
+>                 if (old_gen >=3D 0 && old_gen !=3D new_gen)
+> -                       update_batch_size(walk, folio, old_gen, new_gen);
+> +                       update_batch_size(walk, folio, old_gen, new_gen, =
+file);
 
->  	regmap = devm_regmap_init_i2c(client, &tps68470_regmap_config);
->  	if (IS_ERR(regmap)) {
-> -		dev_err(&client->dev, "Failed to create regmap: %ld\n", PTR_ERR(regmap));
-> +		dev_err(dev, "Failed to create regmap: %ld\n", PTR_ERR(regmap));
->  		return PTR_ERR(regmap);
->  	}
+This is one more place where we rely on `LRU_GEN_ANON =3D 0` and
+`LRU_GEN_FILE =3D 1`.
 
-This should be replaced with return dev_err_probe() in a separate change.
+We do this kind of thing quite often in MGLRU, such as `type =3D !type`.
+It relies on the numeric values of the type constants, which is sort of
+a semantic abuse, but it's hard to find a shorter way to express it.
 
->  	i2c_set_clientdata(client, regmap);
->  
-> -	ret = tps68470_chip_init(&client->dev, regmap);
-> +	ret = tps68470_chip_init(dev, regmap);
->  	if (ret < 0) {
-> -		dev_err(&client->dev, "TPS68470 init error %d\n", ret);
-> +		dev_err(dev, "TPS68470 init error %d\n", ret);
->  		return ret;
->  	}
-
-This is as well. And replacing &client->dev by dev should be in a separate
-patch.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Best Regards
+Barry
