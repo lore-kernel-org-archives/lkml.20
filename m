@@ -1,104 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF3E3537C7
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:29:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C68F486BA2;
+	Tue,  1 Sep 2026 17:29:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788283755; cv=none; b=aIFvcW+jUs0mVv98SgmBbZnb3Yif+RVQUm00OMn5aGlJ+1WQoDsKLXKPqnOMa9GlcR8DzXvM16JYyhI51ZDX2FimDA71QcCFKG85wS4liqb37In9qJ5DFm17ciMP4SvEA4M3AFLDEjDhq3fJrACm1mPs+3Ewz1pr7FZNk0XEeeI=
+	t=1788283764; cv=none; b=Mp/cjq3tZbZm9zPwGHVRfWN808+c1Xw1mSjCIRPcvw5qxB2DGI8oQykXqXWFdd8EHx3UdjMwGUE/vglsPshU9QXfaBAVJrdURwnPbABfseAAc8Aubxb+jqbIg9UF4nrTpnKtGcvvMHKMKgQ361caiTjdcHg2zqXzxZzdaBuLMgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788283755; c=relaxed/simple;
-	bh=/FFrJYTVM7e3EQoU6dqccPYv02h/IASAcqRVL1kZWyQ=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=IO25XEvVGmyobe86q8bgr7pYSkXNOZzEyitR26H/BXI9xtTp7iUaZt1gT5gxEDXgEcDiIRAuEEP9yFZliiKwN2RiNIHFRy0WQrQOk+zTi7hQLcLLSNLE78ZPqbj1LAqgB8Zs/PcWTXIFA6pjdkrTaBnS8zblr5JabPUEOny/TkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=sQHF9wmb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788283764; c=relaxed/simple;
+	bh=2kqZ7ju4j0PZiHOGGlH+diJ80i1T3wNQs/VSU995US0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UED8gfYd2zPoNVnn+dAtsk9vhLEG9HQuAHMZmRhJKFqkRIUFo8v4UEe1oXVBSMFlDtff/IWwohFQFRquej4IIMdrALBg3WSNWvjZLVm9HhVPqoPJD1ckbBoo0eXaYk/ZieMGnGxD1hy2HXpSsRUNiIF3wFUBsYGMD6NYdxtvV8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=bCXUPAmW; arc=none smtp.client-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="sQHF9wmb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B8191F000E9;
-	Tue,  1 Sep 2026 17:29:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1788283753;
-	bh=tnzUsYmBzTkG/qduuXF36go4ShLApC/ylajzDtl8Juw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=sQHF9wmbR7uB2TkEtzgH81EVp6gsoWuhzfGCCboeFIcl1DKbRtUJEiAmdpdSvFuEb
-	 0vWSSJF4hE1nqSM6y3rKl84LvWBFB8SJ33xlL3sjoATBlS3DNAz1C+EQ9oGoIL7ns3
-	 tIOoZ6CdwNeU+P8gNBFaxhC1X5VZAVV9j8CNFVQc=
-Date: Tue, 1 Sep 2026 10:29:13 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Qinyun Tan <qinyuntan@linux.alibaba.com>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, Michal =?ISO-8859-1?Q?Koutn=FD?=
- <mkoutny@suse.com>, Lance Yang <lance.yang@linux.dev>, Qi Zheng
- <qi.zheng@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>, Muchun
- Song <muchun.song@linux.dev>, Dave Chinner <david@fromorbit.com>, Baolin
- Wang <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>,
- Xunlei Pang <xlpang@linux.alibaba.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/list_lru: don't copy stale shrinker id from
- non-memcg-aware shrinkers
-Message-Id: <20260901102913.5c571bf153bc3830905c6770@linux-foundation.org>
-In-Reply-To: <20260901115104.2944996-1-qinyuntan@linux.alibaba.com>
-References: <20260901115104.2944996-1-qinyuntan@linux.alibaba.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="bCXUPAmW"
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4hZCXD2SdLzlfq9R;
+	Tue,  1 Sep 2026 17:29:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1788283752; x=1790875753; bh=8rfzsBpZ1OCOYWm2MClkFIZJ
+	JrLROY6MYyebwnDPAAs=; b=bCXUPAmWgUhvy09LvxviQaRYKrk+aoSadxCXjeoV
+	dptcQqYIl4MS0NDC+H3NJZL0L/MPEv+c/kUFdDjrjuWlCXlqWOtkSNXIfP+U4B3i
+	nEW5s4dNwPTF+kLqqTD0mEU4y+/5Ul70YtbYR7fOmD3AawF12ujp8QoafkZhfqdk
+	vwoBS3QDtRSwYhpGGbsCe9LLhZg5Neb0MD5NL8nCNe9SgZ7jKGucZ24stKi2Ps87
+	dgVWr9SVNmkafgQE2BvrOSE4yRml7Z93t/5j9r87WwFuU/So92ECwl7Ml8CriuLV
+	i5Qzl8+3PyzRSdZTgqt/3UoXwdZojXkz3sNOuqBAq08+cw==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id ycnNiPafx6ab; Tue,  1 Sep 2026 17:29:12 +0000 (UTC)
+Received: from [100.80.227.50] (unknown [104.135.182.42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4hZCX62WhSzlfq9P;
+	Tue,  1 Sep 2026 17:29:10 +0000 (UTC)
+Message-ID: <8948d38e-690d-4078-ae6d-b538421fc4b8@acm.org>
+Date: Tue, 1 Sep 2026 10:29:09 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] loop: defer the queue limits clear to a workqueue
+To: Tao Cui <cui.tao@linux.dev>, axboe@kernel.dk, hch@lst.de
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Tao Cui <cuitao@kylinos.cn>,
+ Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+References: <20260828072004.273519-1-cui.tao@linux.dev>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20260828072004.273519-1-cui.tao@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Tue,  1 Sep 2026 19:51:04 +0800 Qinyun Tan <qinyuntan@linux.alibaba.com> wrote:
-
-> With cgroup.memory=nokmem, shrinker_memcg_alloc() fails with -ENOSYS
-> for shrinkers without SHRINKER_NONSLAB, and shrinker_alloc() falls
-> back to a non-memcg-aware shrinker.  On this fallback path,
-> shrinker->id is never assigned and keeps 0 from kzalloc(), which is a
-> valid id belonging to whichever memcg-aware shrinker registers first.
+On 8/28/26 12:20 AM, Tao Cui wrote:
+> loop_clear_limits() calls queue_limits_commit_update() directly from
+> the loop workqueue that processes the request.  That does a
+> non-atomic struct assignment to q->limits without freezing the queue,
+> which races with lockless readers of q->limits on other CPUs - bio
+> splitting reads max_hw_sectors, the discard path reads
+> max_hw_discard_sectors - and can let them observe torn values.  The
+> trigger is a discard or write-zeroes request on a loop device whose
+> backing file does not support the corresponding fallocate operation.
 > 
-> __list_lru_init() copies shrinker->id unconditionally, so every
-> list_lru backed by such a fallback shrinker (thp-deferred_split,
-> zswap-shrinker, workingset shadow nodes, superblock lrus, ...) ends
-> up with lru->shrinker_id == 0 instead of -1.
-> 
-> Under nokmem the list_lru collapses to the shared per-node lists, but
-> __list_lru_add() still calls set_shrinker_bit() against the memcg of
-> the added object.  Most list_lru users are unaffected because their
-> objects resolve to a NULL memcg without kmem accounting, but the THP
-> deferred split queue holds user folios, which are charged regardless
-> of nokmem.  Since no memcg-aware shrinker can register under nokmem,
-> shrinker_nr_max stays 0 and every memcg's shrinker_info has
-> map_nr_max == 0, so the first folio added by khugepaged triggers on
-> every boot:
-> 
->   WARNING: mm/shrinker.c:212 at set_shrinker_bit+0x99/0xa0
-> 
-> On systems where a SHRINKER_NONSLAB shrinker (btrfs, xfs) did register
-> and expand the maps, there is no warning; instead bit 0 is set
-> spuriously for an unrelated shrinker.
-> 
-> shrinker->id is only meaningful while SHRINKER_MEMCG_AWARE is set,
-> and all readers inside mm/shrinker.c already check the flag before
-> using the id.  Make __list_lru_init() do the same and fall back to -1,
-> so set_shrinker_bit() is never reached with a bogus id.  The stale
-> shrinker->id itself is left as is; cleaning that up is a separate
-> topic.
+> The code already has an XXX comment saying this should move to a
+> workqueue.  Do that: schedule a work item on the system workqueue,
+> where it is safe to freeze the queue and update the limits using
+> queue_limits_commit_update_frozen().  Accumulate pending modes in
+> lo->clear_limits_mode so that failures between scheduling and
+> execution of the work item are not lost, and cancel the work item
+> before the device is freed.  If the device is reconfigured to a
+> backing file that does support the operation in that window, the
+> stale clear takes effect and discard is disabled until the next
+> reconfiguration.
 
-Thanks.  I'll queue this for test and review.
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
 
-> Fixes: 03375203e1da8 ("mm: do not allocate shrinker info with cgroup.memory=nokmem")
-
-Worth a cc:stable, I assume.
-
-> ---
-> 
-> Verified on a machine booting with cgroup.memory=nokmem and
-> CONFIG_TRANSPARENT_HUGEPAGE=y: the warning fires once per boot from
-> khugepaged, disappears when nokmem is removed from the command line,
-> and no longer triggers with this fix applied and nokmem set.
-
-That's useful info.  I'll move it into the changelog.
-
-
-Sashiko thinks there's a problem with cgroup_disable=memory as well:
-	https://sashiko.dev/#/patchset/20260901115104.2944996-1-qinyuntan@linux.alibaba.com
