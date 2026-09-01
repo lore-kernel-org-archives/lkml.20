@@ -1,29 +1,29 @@
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D9E8748422F;
-	Tue,  1 Sep 2026 16:57:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 29E0E48423A;
+	Tue,  1 Sep 2026 16:57:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788281852; cv=none; b=hW/3nnLiChiGFbf33qkbUwrMjaRHMKa+F+PZTbLQ5vXfgIPJFd0x9pN3g1WysAmo5S7iW+twAKxe+khlQxjW76Ucmt/oWqotlMKMSvLcFBxyHFaDcTyzY9Jpa6hU6MezzJNehThkvNV3Fq4R7SVMcgxSgiAokPdpdQLI6scV2ME=
+	t=1788281852; cv=none; b=vBPJTy//exInRlPfwpYN9X8ZEc4RUJGTnU/ROfUA6GQ+mAvHEgSJ15donbdU/wDI7RbEDoxPnEc47XKb1UVj/MHxtVdo8oXE7a9/b9wqLwjTmedWaU+b3KOEe2P6JfnfNcx5y83nZM3BWUza4pr2XNdPGjkynVO2DmsFo+Qy8cQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788281852; c=relaxed/simple;
-	bh=BYLNSpftBMqiAsSmrofow/DtQEm1FVYqb+nofRHTU0U=;
+	bh=8zgXpZdNVn//9tbb2bdapPC5ryUwN+H5qsHCR4ob8Y4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hzX0g5dYF9mYqKcuNEe+0vfKNQagwCiae4cIHpKlaOefuNXGfmtvHyBpA6nKHdQhjCF5hEQZVNHhPKJ4TdOSTeDKm7jldq0l63Dpv9WRWfrA+Yqu7v0y2gylMENZltzmcf8OnSIf0Eizj5M1OTIGODBRPZol5yCdi0VMvJpMmwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=ByuK+gb5; arc=none smtp.client-ip=13.77.154.182
+	 MIME-Version; b=MOnrXW6BaX5QFFufV4LM+Vsl9AGsCrH8oLcHcspPd3y0VLJF5Lf/NbmTbD9LZX8IXVlm7Wut3qUwbzflqnyCO8R79HTGMTcHrpnEz5IkJ913mBO+qs+92jnLlL5IlMV0CkEtlvyQ8Ye/z7oVCjidTX0sNpvEShXnNKAlPGwTQBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=rjDaZCxy; arc=none smtp.client-ip=13.77.154.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="ByuK+gb5"
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="rjDaZCxy"
 Received: by linux.microsoft.com (Postfix, from userid 1130)
-	id B049220B7128; Tue,  1 Sep 2026 09:56:54 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com B049220B7128
+	id BD50E20B7129; Tue,  1 Sep 2026 09:56:54 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com BD50E20B7129
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
 	s=default; t=1788281814;
-	bh=pq3olvd2U6K9Wem0Ry+RFBQUO82EsXIj9NKtu2tnT/w=;
+	bh=SDFmvrBzzsvWUwoeHWjK4dfGUsNJ6xbYPIoV56miAzI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ByuK+gb5R6+Yu1yunYrmlM2ifm0fOym4YVQQvwo/SeSNZMCjDpGIcAKg9ZN1qw3qV
-	 hHuuIg2KUU1rzKgbVPtiNfFgQe5sBu/3Pw0GyjVsh5ypIeJf+WUN9R/8YgQizAJd36
-	 sIeTfmow7t8EW9ZXC0XSwsL6Am6QiwL2q9X7tm/I=
+	b=rjDaZCxyN+xcNG6Dc9USNRZBdxcyhF+2KpoFV7HZnSKaQo2vPIYL2PZa2oKzQozhx
+	 Q7czDurjmnaVFFmdFpZ7ExSS2Md4XMVGgz4Jf1ILkdaUWsuGFSJQIN30GGdpUT3uY8
+	 aWXqsbSb+P910MuICL+aMPRT7NZxVbq/02BTsqMk=
 From: Thara Gopinath <tgopinath@linux.microsoft.com>
 To: kys@microsoft.com,
 	haiyangz@microsoft.com,
@@ -43,9 +43,9 @@ Cc: James.Bottomley@HansenPartnership.com,
 	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
 	linux-efi@vger.kernel.org,
 	Thara Gopinath <tgopinath@linux.microsoft.com>
-Subject: [RFC PATCH 01/12] drivers: hv: Add HYPERV_VSM kconfig option
-Date: Tue,  1 Sep 2026 09:55:15 -0700
-Message-ID: <20260901165647.3160413-2-tgopinath@linux.microsoft.com>
+Subject: [RFC PATCH 02/12] drivers: hv: hv_common: Allocate Hyper-V output arg page when VSM is enabled
+Date: Tue,  1 Sep 2026 09:55:16 -0700
+Message-ID: <20260901165647.3160413-3-tgopinath@linux.microsoft.com>
 X-Mailer: git-send-email 2.43.7
 In-Reply-To: <20260901165647.3160413-1-tgopinath@linux.microsoft.com>
 References: <20260901165647.3160413-1-tgopinath@linux.microsoft.com>
@@ -57,40 +57,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Introduce CONFIG_HYPERV_VSM, the top-level switch that gates
-VTL0-side support for Microsoft Hyper-V's Virtual Secure Mode (VSM).
-Enabling it lets the VTL0 kernel load a small secure kernel into
-VTL1 and stand up the VTL0<->VTL1 interfaces needed to request
-VSM services.
+hv_output_page_exists() controls whether the per-CPU Hyper-V output
+argument page is allocated at boot. This page is required for hypercalls
+that return results via an output GPA, like HvCallGetVpRegisters.
 
-Depends on HYPERV and on X86_64 which is the only architecture currently
-implemented.
+The VSM drivers read VSM-specific VP registers (e.g. HvRegisterVsmVpStatus,
+HvRegisterVsmCapabilities) via get_vp_registers(), which issues
+HvCallGetVpRegisters and therefore depends on the output argument page
+being present. Without it, those hypercalls fail and VSM initialization
+cannot proceed.
+
+Extend hv_output_page_exists() to return true when CONFIG_HYPERV_VSM is
+enabled.
 
 Signed-off-by: Thara Gopinath <tgopinath@linux.microsoft.com>
 ---
- drivers/hv/Kconfig | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/hv/hv_common.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/hv/Kconfig b/drivers/hv/Kconfig
-index aa11bcefddf2c..a325fc61be604 100644
---- a/drivers/hv/Kconfig
-+++ b/drivers/hv/Kconfig
-@@ -40,6 +40,15 @@ config HYPERV_VTL_MODE
+diff --git a/drivers/hv/hv_common.c b/drivers/hv/hv_common.c
+index 31256cb22b39e..44f4a10984618 100644
+--- a/drivers/hv/hv_common.c
++++ b/drivers/hv/hv_common.c
+@@ -259,7 +259,8 @@ static void hv_kmsg_dump_register(void)
  
- 	  If unsure, say N
+ static inline bool hv_output_page_exists(void)
+ {
+-	return hv_parent_partition() || IS_ENABLED(CONFIG_HYPERV_VTL_MODE);
++	return hv_parent_partition() || IS_ENABLED(CONFIG_HYPERV_VTL_MODE) ||
++		IS_ENABLED(CONFIG_HYPERV_VSM);
+ }
  
-+config HYPERV_VSM
-+	bool "Microsoft Hyper-V VSM driver"
-+	depends on HYPERV && X86_64
-+	help
-+	  Select this option to enable Hyper-V Virtual Secure Mode.
-+	  Enabling this option will load a secure kernel in VTL1 and
-+	  establish an interface between VTL0 and VTL1 to request for
-+	  VSM services.
-+
- config HYPERV_TIMER
- 	def_bool HYPERV && X86
- 
+ void __init hv_get_partition_id(void)
 -- 
 2.34.1
 
