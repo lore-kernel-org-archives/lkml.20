@@ -1,86 +1,115 @@
-Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+Received: from omta40.uswest2.a.cloudfilter.net (omta40.uswest2.a.cloudfilter.net [35.89.44.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E9FA46D541
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 23:25:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 201E43D16EF
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 23:26:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.89.44.39
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788305136; cv=none; b=To3UlejQCS0o++TBHbVu5dgVXWiiV6/3Z4psjC/jv6y+sZL38btch7Q13F5FHsqf7hOf/eYaHoYIad66kI3fqpQf80egA3e/MNtzwbJm90LpAMgh7YJwz2CVyvsgGyGad3vV68HMiIX6sqL5RIejvitqY18hw4Rtm/AtYZi8cUE=
+	t=1788305196; cv=none; b=furFBcsF5LPqVyP5kBBDbLemw63ztZOQZhLP9xHqOQCKQtGMGwtx52kosFwTqerehPv2Si048a27ZCEAuKBzP7hr0Pnh4caCMjh81LVNsFCmrAPYIXAZzeBN6C3gtcWISdgCWnFmn+D2FWCXf7eJXgQDIvH8gfSF3G6k9nXfzSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788305136; c=relaxed/simple;
-	bh=HW+F0mfXXAeH2iOJOGbsaH+Hny1/sIpjAptxPIGsTCo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hrFtYX3u997SIaxYN+kUIXGRf/nVCxGQPmATdol5nEc9jEioeu3qGtfglsbOHmDcjaw8+tLOYh1EuZoF8PkO90+UkfYFLVnzrR6P0i0UJvaoVv8JvszY/ViQ+OYVfCNbkV7CFIGe/YM0MlNMZOBI/2VsVIXtB9IJVx3FbtD6NVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=pMJkI+TP; arc=none smtp.client-ip=216.40.44.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788305196; c=relaxed/simple;
+	bh=Ky3c96ErmVkuK1T/2yqja5kZLq0+dvSbCc9fIgGP8A8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=N4PVZCGeNT58OLAyOnE8VXraKQK7uT9BUjcFVarlVM0X94IweenSUwYQmKQIX0xsYDuXmoDGaoNe5EQYP3WOLU2TL4ZNHCTS3EzqinpGIovZW4Xqv25or35cNznIEKbtS73DXRBEhjd+kNKLKhdenD/dsTTJzj3GkiuDgI/TlVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=4qTdjbod; arc=none smtp.client-ip=35.89.44.39
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="pMJkI+TP"
-Received: from omf10.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay02.hostedemail.com (Postfix) with ESMTP id 26AD0120550;
-	Tue,  1 Sep 2026 23:25:27 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf10.hostedemail.com (Postfix) with ESMTPA id 0D36035;
-	Tue,  1 Sep 2026 23:25:24 +0000 (UTC)
-Date: Tue, 1 Sep 2026 19:25:23 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Bart Van Assche <bvanassche@acm.org>, David Laight
- <david.laight.linux@gmail.com>, linux-kernel@vger.kernel.org, Christoph
- Hellwig <hch@lst.de>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, Luc Van
- Oostenryck <luc.vanoostenryck@gmail.com>, Chris Li <sparse@chrisli.org>
-Subject: Re: [PATCH v2] tracing: Make is_signed_type() compatible with
- sparse
-Message-ID: <20260901192523.0e989b10@robin>
-In-Reply-To: <CAHk-=wi_3xdtBrDgUxw5xtq8a=CdyRJnceo7YJg59wqqdXwiMQ@mail.gmail.com>
-References: <bde573c1a758505339239f08be28788a34dfcb73.1786121949.git.bvanassche@acm.org>
-	<20260831214437.15d6ad34@pumpkin>
-	<a771af57-40ee-433a-be84-9b7c3e6965c5@acm.org>
-	<20260901092043.7feaf5d7@pumpkin>
-	<dca931ff-5995-444c-9f89-6d6cca4e71f3@acm.org>
-	<20260901222909.05d6239f@pumpkin>
-	<1b86ccbf-4e41-4a26-9d22-8bd93bacb043@acm.org>
-	<CAHk-=wi_3xdtBrDgUxw5xtq8a=CdyRJnceo7YJg59wqqdXwiMQ@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="4qTdjbod"
+Received: from eig-obgw-6002b.ext.cloudfilter.net ([10.0.30.203])
+	by cmsmtp with ESMTPS
+	id 1UeJxRgddhJKM1XsAxp7SY; Tue, 01 Sep 2026 23:26:34 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id 1XsAx8dbbgxfo1XsAxnJ8T; Tue, 01 Sep 2026 23:26:34 +0000
+X-Authority-Analysis: v=2.4 cv=B7G50PtM c=1 sm=1 tr=0 ts=6a975f2a
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=y2ERv7ko0hlTFnYyMTsA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=jAfdZe60KbGrQDbe2CZwZmiZknj8gvjr4F/7lkjfOiI=; b=4qTdjbodObweod6/lzWr6WT/0W
+	rtzWDMA9hHkokfxX/uiBRpli2wla1nLGzVKkAgI605KVKktfdNfRwKthwkB8bM1ZpZgYNPmn73Mhh
+	HB5mCyR83fbt3SvMWPB6F5qj2ewm+KjUm1jsSGO+/IJ8b4x+vbTV50zqCpJeDmbqVhvJUUFRLd+Rp
+	6qcsMbntvs9li5bwB4oT0lN0Wmn9qur048HrUN2SfueQ9Dw7Ab39XrNKfvSqRYmBN6SiRRKlhKA9p
+	HHYNvXKnB5QG3Cr8L0wnQoXEQY5a2GlN3ACkFjmHNgt6v1octLRLY3t2jKJe5a/hAf7cD4106IDgv
+	aqESi68g==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:54400 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.5)
+	(envelope-from <re@w6rz.net>)
+	id 1x1Xs9-00000002YK8-2i5h;
+	Tue, 01 Sep 2026 17:26:33 -0600
+Message-ID: <3cc3ca45-7c38-4be4-bdf6-0fd01026dfb9@w6rz.net>
+Date: Tue, 1 Sep 2026 16:26:32 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.1 00/92] 6.1.187-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260831133359.482388899@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260831133359.482388899@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 0D36035
-X-Stat-Signature: yix48m3e38yqmhigfbg1er3e8efurqfe
-X-Rspamd-Server: rspamout07
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18WguzkOLLnf0vusUv0UYts7sXd9cYESHo=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=CWm+vCTHLyrMrLcgecahYG15tXLP2/TEWHRRkteza+U=; b=pMJkI+TPEJKeUa070u0GLVKXwJYIgPjWa3Ce+YkKSwOu0+LMydOihqtvsF/5fVkVx9B/Du3VqSRg57dAdd9lVXt9Z6s+jmdbr4gNo5f5z9pNob9kycy6AyQ34azytqOimfzAxPZxdSH4HYfX5QyYogc/5lukj9QzVsGPzA8Yt00=
-X-HE-Tag: 1788305124-757250
-X-HE-Meta: U2FsdGVkX18MsBcJd3j9hBW212q3qhPp3sLyZjmASpUSOga4AJbrIozzluM/UOlo/GD7NCNzl/UfiJRUr0bvwEwBmxMU8SL2l4a9afaEZBhrGfOj8HYiSDyiBoizBERx/8BXmqlugfPRpKf7ixmR6GGXdtAFtu5lTAP5W0CL/i3/zy+cBAHXmiOgfWlZuJ0zlxfwG1zhq7KHxLLXX5XmEYcy+OkaeJy5B6dGa2oTpB5PM+cLtnKKilTtIpnpcLj+tIoAZA7znRjdUxhNRaQ/0AXIlnUcogecQASgy2TBrHrhBbiWdWbr2W96iCtdOnUygCr5D7CH+Bld00SyEEAaCYG1Qb8M0ONog2750uEi+aOtkEslDPT92QGFDt98iqR4
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1x1Xs9-00000002YK8-2i5h
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:54400
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 77
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfPAm/pvGx43jylgWuB5dn9wIaksHsWapjS1kyoxe5mjzm+nE/vlzG/rqg2XRVOwVzissubiQOvQo4oTFMWAgAmwhCcll2gupIXUnyeTW1lpUjpMAm2aT
+ XGzggWrMGVEVWA5ycnxilDXSZh7IPqxz+32lWNddYq/cP1pT/Zvzr+tvEfvCb7r44UlF/2aX/9TAWvBeEluJj0GDgzZYmHc3R7g=
 
-On Tue, 1 Sep 2026 14:56:01 -0700
-Linus Torvalds <torvalds@linux-foundation.org> wrote:
+On 8/31/26 06:33, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.1.187 release.
+> There are 92 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.187-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-> 
-> In contrast, the existing macro is *not* garbage. It just says "does
-> casting -1 end up being larger than casting 1". Admittedly it *should*
-> cast 0, but then compilers are unhappy about comparing unsigned values
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-It originally did but was changed to 1 for exactly that reason [1].
+Tested-by: Ron Economos <re@w6rz.net>
 
-> against zero, so it's not great, but it's *simple*. It still gives
-> random results for 'bool', I guess, but is bool signed? I don't know,
-> I don't care.
-
-Yeah, it was originally used for the tracing format files so that
-tooling can know how to display the raw values it parses. Also it is
-used for the filtering logic to know how to compare to the raw values.
-
-I see is_signed_type() has picked up some use cases outside of tracing,
-so I'm not sure how much those other areas care about things like
-"bool".
-
--- Steve
-
-
-[1] d2802d0739dcc ("tracing: Compare to 1 instead of zero for is_signed_type()")
