@@ -1,200 +1,230 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010045.outbound.protection.outlook.com [52.101.193.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D29B0478868;
-	Tue,  1 Sep 2026 09:20:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788254458; cv=fail; b=pGhHyZCIi9FhGqG0PJ/pH9qXlAQS5Ov219KYIW+BWcmwGrvu/PLuz7i8NIXe4vCVEZ5d0jTvak0gfRveAHN5wZ8zxKnotZEL4MEr+G8nb+tOCeKMb6LniUVnbyvLJsGZOOVyOfW0Fe0M9j/0DuMg/7W0p6mU5fPmttCNXVOjXGw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788254458; c=relaxed/simple;
-	bh=LzPgiytSCqdpGbO6sH89lBBNhixjyCYKTtA8bljR8lM=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=M//JHOBBwcpzbOj7AhncbGDnDS1TTrdGbpL6vm3LgNjA1EyA4vST9w3QXtJRRhjtaXWMz2FIwyZau6DhHainfKy5LOlLcZyS6YZess7KMhjKt2NLt8pWlofSIoGFxqaGwaPaYBjoQtugntKzlIiM2JIWWrJMnVfrSBhIWe/BqKk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=o1oOHT0h; arc=fail smtp.client-ip=52.101.193.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612B447B43A
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:21:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788254462; cv=none; b=SxN+EUYuQePnjGNcojG4XyxoAFrU/hN6su2iLf3StiftOIZWqFJP98mTgpGCpbGlvB6kjARpoYSkiv3uhLalU6FrHvhDzF8NHTOiAMyGYXEb52Gc2zwJ11+i6BqXDRhB5vVL9xFKU/t1pjl2MCBVNuHNwUkAEmwHLpmKxuGdBPg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788254462; c=relaxed/simple;
+	bh=aO2eMioyOB/VcOtG8g2Q5/E7T79qL376zs9BEmEPMe0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=hk6YgXmhym7/T5+w8UbkJuE5wuGi1yOvVoTsrDto+lEIkUqsjTKyzflN+Zzy/pk9CGcNXpP3RnZd0QkkcTvSbKFZZQruEkZdXPVca15PNAkyVwB034o6v9mpaIMc97OcyMTppYGLh3CUOjIP+GyppP7Q7NluFKq+za6XgXuQQ98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=zJktN61h; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="o1oOHT0h"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S5sx0HAn/Bhj2UsGS9Qc3SFwgdvssrRInLduIvBK6Qn/YHZa4AkBbqzTGPLm/IC7YUTGhIwqXp36aLMmK6s4HN329zCMAMB7gVvEtPKJinPnlfwJFGMWokcU9/qWfDtt7BlprvxsecnsangOW1o6j96LAO0UrpHmF6R2JQTZITzvKvs2mu613SR7C80mlBvKYXlSse4pEQrW+91NWWJrBMhaC7FV9K3pYD6YfDHw4AXnUgfAsD2XnIqVFqjNmQRTF0Bg3I1rRcaWY2F++M744q8sfb73Lj+XrTJ52gFuzhgv663wm9cD6BDiUaX+7VCKULecqQi7WFAUWTXaLJYlCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=91Z9JLh9ZmVL+laxOzCzciwmnvmor0TeJ8f4VpNaIJc=;
- b=zEEWkcn+aJ/t/f6UnEPe6WoU3ory5aEdjZUTMg1+kQ268JWM39uiUSvbtumNz4h4IDIREEtWwwfWdgYqqVAY+uUKjA73ht6uiihU+sUHFUvhbw5bT35swGpVGdPFUVaruHX4dOs/1IQxnzJhbDDtpL3Jkd6DcsVQCxEUW9eFFdPGlqIJCNx7yTo/XCPXknsdCnaTXPu2OOxpD84PB9/Op09CvUrEZ3adTWmAaD516h5KoRLhiAtXbOwmO59O7Q2msZjswTOVqYd4QUG4kacM9eZNwV7TISlbgwVaGP4Wh01iy129A8z8OrWfAJE4MbuEKF6jG1ifI77rgr+wXM9YGg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=91Z9JLh9ZmVL+laxOzCzciwmnvmor0TeJ8f4VpNaIJc=;
- b=o1oOHT0hGlt/uA+tQ5p1eJ894Wuwbk61Gd8bLamyP9/vUkoOAuH3cm4yqIA6wDSO+8OqciRfMQfWySFu+F+MvekrUrqBmz7u/zJeveS5GiWKq/Kd83SHpuypQdXls5HtZRPhUVuLzDtgOQR8EBBBBmh/DK4auYKrclXTUynf39BVOUcJjIFjZuaP89FV0TGN/oF13q4a87cQWoajM4iWI2ObFN0etH/cbP1gdppRrFGNiugTFoHR/KbR/GzaCR9jrXVSQKMHADDy4UvyepMabHhyKWT0kgjToHFAp3bibvr4vglHBc4MT9w1HMOFCnRkN1p61HMIlgL6TlDi1typGg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ1PR12MB6051.namprd12.prod.outlook.com (2603:10b6:a03:48a::18)
- by CYYPR12MB8889.namprd12.prod.outlook.com (2603:10b6:930:cb::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Tue, 1 Sep
- 2026 09:20:53 +0000
-Received: from SJ1PR12MB6051.namprd12.prod.outlook.com
- ([fe80::96e1:b300:7b78:d3a9]) by SJ1PR12MB6051.namprd12.prod.outlook.com
- ([fe80::96e1:b300:7b78:d3a9%6]) with mapi id 15.21.0382.007; Tue, 1 Sep 2026
- 09:20:52 +0000
-Message-ID: <a6e33c46-160d-49a5-b711-56b4f47b9326@nvidia.com>
-Date: Tue, 1 Sep 2026 10:20:45 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH tty 1/1] serial: 8250: Change console_msr_work to
- IRQ_WORK_LAZY
-To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Cc: John Ogness <john.ogness@linutronix.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>,
- Andy Shevchenko <andy.shevchenko@gmail.com>, Petr Mladek <pmladek@suse.com>,
- Thierry Reding <thierry.reding@kernel.org>, linux-kernel@vger.kernel.org,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Crescent Hsieh <crescentcy.hsieh@moxa.com>,
- Hugo Villeneuve <hvilleneuve@dimonoff.com>, linux-serial@vger.kernel.org,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>
-References: <20260828155811.270462-1-john.ogness@linutronix.de>
- <20260828155811.270462-2-john.ogness@linutronix.de>
- <20260828160652.TQBsi8oO@linutronix.de>
- <0c2c424f-0372-4626-b14e-7697d98e6b20@nvidia.com>
- <20260831082028.cCEc7BXU@linutronix.de>
-Content-Language: en-US
-From: Jon Hunter <jonathanh@nvidia.com>
-In-Reply-To: <20260831082028.cCEc7BXU@linutronix.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: GV2PEPF00023955.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:158:400::352) To SJ1PR12MB6051.namprd12.prod.outlook.com
- (2603:10b6:a03:48a::18)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="zJktN61h"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c253425b253so95279066b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:21:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=fairphone.com; s=fair; t=1788254458; x=1788859258; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=du2ocNQni28qqCR806uGIh11ko8Tpsyo/Ip5FqU2z6w=;
+        b=zJktN61h0U58NfXcn9q70izN5hre6+wjwiiLYA9ki3Ic71SyDG4xhmipQWa4gjtWEo
+         jebaLKjLIwJY+NrkiIU2WmT6U1XwHDQK7RKVULObIm8NQrBNjf2744ODFGUQ0cNAqayP
+         Al5LY83GEyw/eE+vOEVbXkM/gYCsKUcAdnz6sik7eC0oq2LsodKp9OzVClMvFByaMboo
+         9kwh5/gZ0QJGCDOj3ANtU/ot7c9GafWEKUL/ubGJYttUx8GPZcWK2NdpOrDLiOOvgV7x
+         yvRW7EXUfGifH+YObHC2lXHYoyn+UEAgYPqhjRzdF6crI2vNU2k41SDgkCIP3IpXIaqi
+         hBHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788254458; x=1788859258;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=du2ocNQni28qqCR806uGIh11ko8Tpsyo/Ip5FqU2z6w=;
+        b=GMKGNqbAGTjMFhF+iZF/2/TYx6sG/i9SpKOv8sTZcXKOSwbG3CzZpWRb3N8eAX+M2x
+         kAXWfmikYJ1hi2VwtwxKueq8o5jWnetUeIUaiC6leaEIQwJGEmV+uypB2jwM9vVnrxrQ
+         DZK/xgUu5FP9LyiIeWkcV9vNsHjgzHeRORsMbFA+qY/aSWWVFkv2N2oNghrSeZfXJezN
+         nRZFum2t5M6OM5qwA9huVu7cbB/9CKSoQm4khWQkLEUWPbX2Q4HIKjb5D/krXD7OX8HA
+         7MTwW434gTfa1XJL2GFLavFUzJSG06G+SvqwXD4XPa4FvAOEsgLANr9Y4/v1PKgi3JDh
+         A2dQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoHTUloYrcpegB4UNvDtZ5/hQ0Zv21W8dPkeNXkJn+AB+GNmUr+2PDagr8+o8bEHi9k05hX4tOBH5SoHoo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyybn/rBS7fYh+hAq7L30YRyPgauAsHxzFR8IbTjdySAa8pqMP
+	GMiyFRl0g1ATK7xeLT2Su3cBxufJpOC47svqK8O0i0+s7qY2FET2LfJThPG+n9KhgXA=
+X-Gm-Gg: AR+sD13xePUhkbJTsSVb8ChRrIGhqovJABv1Wn/uU9ZWkfseCa8trqlkZAWI7aOYKyk
+	mr6A5PMkilXA1bRWNEMW3xM4ou4DHbvrhKCSKW1vAyUT5pvbTbFvqeCLHVH7/TY4teFYrgWhHOx
+	EPFv4zYFV0PcdlmbfsAT5Qn88+uFH8aBKvjB20MtX21QECiHXnSlYR4dTqFCoFnHyKxX7MmPz22
+	0QWpol4lwDokMWLx6bplw5O49rNnkkfoOmH9p8ur2Ov7Z1ub4rXOTNFIWM49ruYsyvRBQK/7+lO
+	cTfEPtBtLORZDcFdWt0dSPazuHtm7NJ7psqqm/lIOSatWiOBCqiqgpncNK6JmGhq28di3gvjTCB
+	Y1xhDDaHywzNw2Sn/7KVyTdkIcUM5bNXFFAjtTgiwoeHj2OxyaiPbHiAHr+vCYCIh77MQcwB4hb
+	LBwETDhAcWHJad2qLmiSnQBP9Sd4MSi/yploCD+Pm5ehAPOPfEMuR48ZQPpOHSTM4fNFLIFgO6c
+	qGiA6EwfPKE9JddRkbT6DmtS55rHkL7Jiyrkjc6s9o=
+X-Received: by 2002:a17:907:60cf:b0:c16:26c7:6ba8 with SMTP id a640c23a62f3a-c2556bfba7fmr2070373766b.6.1788254458608;
+        Tue, 01 Sep 2026 02:20:58 -0700 (PDT)
+Received: from [172.16.220.101] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c255f249468sm544122966b.56.2026.09.01.02.20.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 02:20:58 -0700 (PDT)
+From: Luca Weiss <luca.weiss@fairphone.com>
+Date: Tue, 01 Sep 2026 11:20:56 +0200
+Subject: [PATCH] arm64: dts: qcom: qcm6490-fairphone-fp5: Add parent supply
+ for regulators
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PR12MB6051:EE_|CYYPR12MB8889:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9dc32e77-bafa-4b5e-8182-08df080a51c5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|4143699003|10067099003|11063799006|56012099006|10086099003|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	WJ7sHFRaf5oj9/mGol+luJX4ShzHkLPCAgy7VdohPesm/Gp98IRAtlWnRYgifusayY7J5HLrStknMvrLBQ242B3rTkj963lybTtfaQ83FxtX6nkJSa/j0ANDDSx/6eBgn4Q/QI5opaMe3Owz2MrCq8+zUvxoVMynmzFt2luigUUjmGnLEOS4PasmXzeBDOCPzZwY5grSLwjxEqo0n9uE1cbCDPIOQ1qfhvF14r+i7F2qN08x6bd95xK2syMDYwxyJjyMeoIgADCL9Ei4NPbFaztscjW71XgoX02t22Z15wy0T1JzSvAaQhNOgZhRD3aBxlOieME1Y+AYcKhS6XXrq5FTUTh+tyTDEDyjg17GyB9kAXj4/WVviQEak3AtkIQZ+abnDPvGejqDLVTVNsZr2QDMbE9tMapaq8SQjG3XO5wQI2cnwqWYetMPiYM5ZqdoWPX5z9VmA4tEKKu6aqgUY1pyslYwdTcwUVWa8cmlZECpDBUH9V3MiULO4oLPn4xbpoCKVHU+vyYhNl5BF1Y77o4wvhwwpibFt8WkU6UqtQuqobOMX5I5vASqgrAb6KEF6TCjuwYMIP28ImrGKM2TZoFz/vs/lkxHwsNDcz+4+KlwS+mffUQsbDBuLCdQpYQLwLgm1NN2YMlpaeZdZcVjqtxUucf960Gs3mFdQ+gYzMY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ1PR12MB6051.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(4143699003)(10067099003)(11063799006)(56012099006)(10086099003)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?S2crTS9WT0ZPbkM0YitVa1hCdUdqeU56YWkxcDdlY0YrYVhrYVAvQ05Ea1kv?=
- =?utf-8?B?R3RJU1lERUs2OEJ4QTJFSDBCSzVSWGR3dklULzVLSEZrR1dGdzdrSGFweTVu?=
- =?utf-8?B?NmcvWHI1Z0FBMnlJMVlwaVFmdFM2OWN0VjJKN1g0ME5uVXhTNUk0bFlPR0I1?=
- =?utf-8?B?SmI4ODlsMmNYb1ozdEJFT1M1U00ybXlRYmcvRjlKOW53T1phL1B5SDlWUnFt?=
- =?utf-8?B?MEdoZlZRR3pNUkV6a0NDaE50YysyM2c0dkFyS0QrYzNJL2MyUFNidzNSQTl6?=
- =?utf-8?B?aEFPcTdCQkhGdTRQbzVzTDRpZTU5czRZZTZ3Y0cvcHU3cWU2Um9QRzhqMVZK?=
- =?utf-8?B?MitzeGxxZXU3c2VuNWRYSWl2QUwrdWdIOWUyUkE4RWd1bk5xL0VsaVViN0pB?=
- =?utf-8?B?WEhyYUUyUVoydWdVZkNkNUFyQ2hXejAvOE90NHZOZGcwMk1pTlA4YXFRbDl4?=
- =?utf-8?B?RHlMUUMrTzhrZi9RbGM5Q2o2YjFIN1AvWTc0TFZKOG5xdUEzYUtpYjRDTSty?=
- =?utf-8?B?N0VXZ3ZvUnJ5Z0hObVNmU0x3dmN1azNnMndLckZobURIbm9EUndlYzV3dGZU?=
- =?utf-8?B?QzhDQzljOTUzWDBXSlNHOThua2hQcUpWRnhhZ24vOHZjZFJOT0JXZlM4M2Rz?=
- =?utf-8?B?RjFQODljc3I2RHMyY1V2eElKVDFTVWIwR0U3SURiYkV3ZWJUMWNYYmU0L2VS?=
- =?utf-8?B?d0tSSUduNTlXd01scms0bERYaVFDQ0hUSlo5Q3VzanNtM0ZyWWRaS2I2eUFZ?=
- =?utf-8?B?YjRMemZJMVpXektnMy8wa2pibWQvZ2JELy90bUgwRGkvc1YxdnBZOGRXbkpL?=
- =?utf-8?B?S0o1dXhGVm5PTFpJQXAraG1hZ2FodjdGZFFUdjFZa2hmanYwVTA0N3JXZ2h5?=
- =?utf-8?B?cGNabHJUSHhMNkdUUkVRSE1BQklEbS96dU1qd3BIeDUwOWpxTUN6WURPaENJ?=
- =?utf-8?B?b3NVZnJpMmp1WnM2Qm9ZckxFUFBydlFyWlR4dm1GQ0h2RFM5aWV1a2ZpTDZy?=
- =?utf-8?B?cnhoemNHQzZpc1gyRUU4RlFFakluNXhkMmE1d2s0RXJORnpOVnowVlFQZ0VP?=
- =?utf-8?B?TkxicE9PY1VMVVBKQzgyTnlmazdnTmZXVjhPR1lWajlhOTVOdmJ6NnlsZGNH?=
- =?utf-8?B?WWxoTlhnSzY4ZnQza042RU1OV1hUakZHSGxNNC9qa0FsSS8wUXdHc1ZoaEk4?=
- =?utf-8?B?b29Kbkd2TWRsMngvMTNNdkVDQXkrWTZmMWJDZ24rQlFoWmFEZ0xCOE5TQ2ZJ?=
- =?utf-8?B?OTFoWGVzZUdsNGVSVnJ2S1h4dzY4QXVBVEJYSTBPR1NDeVBkR0ZWS1VkNmZW?=
- =?utf-8?B?SnJuR2pnb08rWTNyMWY4VzF3bm5aVGhYbzZLVGpsamwxZXA1MWEwS0QrcUly?=
- =?utf-8?B?Mjg0ZWtQdVI4OVNJb3Z5QlBaR2lkNXIzVkphQUMwd3Y2WUtaWWhvMjIvb0M1?=
- =?utf-8?B?SlkzbDhQUGJqV0d3Q0ZSbFN1RlJEWDVOOVpnY2phUjdDYVJnNEVvSGVMWEcx?=
- =?utf-8?B?SmlhazdXMDlvUnBGanZvSndxUExqT1N3OVQ5bWhkNVVYTmlQUnpmNjkrUU53?=
- =?utf-8?B?YWU3cHpJa1FyRmkvcHRTWjZJODRDSlNjcWxERElvbUhDSFAya2k1cVVQRURy?=
- =?utf-8?B?bU5QbUJ2M1dSWTlkdUFoeHk4VlR1QzF0OHVCTmhaN1NJbHYwelc0QU8yek1E?=
- =?utf-8?B?MHJWeTBCdkZEMUNIaVpNVHhHbDE1ay96NUFETVdIbEFjKzVvMWljUHdHbkxR?=
- =?utf-8?B?b0lBdWtMYjhJK3RqcWJmLzNWZmR6d0U3eHd6VG03alRIWDk5RFVyZDVTWTFk?=
- =?utf-8?B?c1VORlFpdmg4Y0U4OVdFTjYzTVdnZ0hDRmhLTlVWVkNndTRyN2FLMXJrMVhI?=
- =?utf-8?B?dUprRkFkdytwYjhDU3lWYUt0T3FPV1BkRlE2SjE1b2RQSW9rSWE5ODhNSWNB?=
- =?utf-8?B?dzhjcVpjRlIzc2V5dGZFQnBGOVEvcVI5bDV6by9aZWJnUStxdjNGZm16NUcw?=
- =?utf-8?B?SVFTMXAxRGJrT3lnM1c1M2VUcWlhelRkdkhINHpRYW0wR01halphNWp5Y1Rw?=
- =?utf-8?B?bFpacmFrd3htTWZSWXJGSy9uN3Z3WUVZUTU5SGJlUlhGMTl1eDFwUEF5NWZJ?=
- =?utf-8?B?TDZvTE5oeDd4RXhqajU4eFBiVlVma0ttN3RzWWE5WlQ1MlVLbGdZRW1zV1VU?=
- =?utf-8?B?ZEI5YVVHcjZzMVk2enB4RDBtNHhCMmRSWGhFcm5qWkQ4cTQvQVM3QTRKZ29I?=
- =?utf-8?B?V1loajRIMW9QYmZnNmppTGgxMWR6d1lHckJwNlpScVVqSkowZTFabHljMExT?=
- =?utf-8?B?UFFoU2NpSFRtclY0WkdHbHVKb0c5ZjdkOENHK1hsb3V1SWFIVDFkQT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9dc32e77-bafa-4b5e-8182-08df080a51c5
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR12MB6051.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 09:20:52.5377
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dEvaeQLJcTYGvEUPStNXxvQem90wrKDod4PIbvz0gZ07TXClJXon4EChyj7SK7ej7uRQ7yQFJdB1WFqIRtfw8g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8889
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260901-fp5-regulator-supply-v1-1-189fee0c1dba@fairphone.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQrCMAyA4VcZORtow5TVVxEPtWYzMraSrEMZe
+ 3erHr/D/29grMIG52YD5VVM5qnCHxpIjzgNjHKvBnJ0csF57PMRlYcyxmVWtJLz+MZI1HXBt6k
+ NBDXNyr28ftvL9W8rtyen5fuCff8AS3Yg5HgAAAA=
+X-Change-ID: 20260901-fp5-regulator-supply-a2288914c492
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788254458; l=3901;
+ i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
+ bh=aO2eMioyOB/VcOtG8g2Q5/E7T79qL376zs9BEmEPMe0=;
+ b=dqe9PVIolixAt/+8bKDii8RBAm2SBzQx4An5Hy/u5Mhmd1UmtydEG8tKvdyEyiRyliY7IJRN5
+ gSpMggRi5I0BYeBi6mUWq13j1GVYKIFsjyn/jdKz0HJ4MR9xvS42WFd
+X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
+ pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
+Add the vdd-*-supply properties to the rpmh-regulators nodes, so that
+the parent regulators can be enabled when needed.
 
-On 31/08/2026 09:20, Sebastian Andrzej Siewior wrote:
-> On 2026-08-28 18:06:50 [+0100], Jon Hunter wrote:
->>
->> On 28/08/2026 17:06, Sebastian Andrzej Siewior wrote:
->>> On 2026-08-28 18:04:08 [+0206], John Ogness wrote:
->>>> For some platforms it is a problem to queue irq_work when entering
->>>> cpuidle states. Since irq_work is used for deferred MSR handling,
->>>> any atomic console printing when entering cpuidle states can lead
->>>> to the affected hardware hanging. Tegra20 and Tegra30 are examples
->>>> of such platforms. Avoiding raising the irq_work IRQ has shown to
->>>> circumvent the problem.
->>>
->>> I would argue that this is done for the benefit of less interrupts since
->>> there no need to handle console_msr_work immediately. With the side
->>> effect that it might fix a bug that was not yet reported on Tegra[23]0.
->>>
->>> Ideally the Tegra folks should figure out what exactly is broken instead
->>> of adding duct tape everywhere else.
->>
->> Yes that would be ideal. Unfortunately these are old devices now and very
->> much in maintenance mode so getting to the bottom of this now is unlikely.
-> 
-> So this is maintenance mode.
-> 
->> You may say then why don't we completely deprecate these, but then you
->> could argue the other way and say they have been working fine up until
->> now.
-> 
-> So a couple of years ago this platform stalled printk development due
-> its irq_work usage. Now again. Imagine we would have a ext4 feature
-> which freezes just this platform on boot. What would happen here?
+PM7325's l3 and l5 are supplied by vreg_s2b ("ebi.lvl"), however since
+that regulator is not modelled as regulator, skip the -supply
+properties for those two LDOs.
 
-I simply reported a regression. I did not set out to stall any work.
-If the work stalled because of this issue alone, why was this not
-discussed back when this happened? I am sure we could have come to
-a reasonable comprise.
+And document what the "missing" regulators are used for.
 
-Please note that these legacy boards have caught some other issues in
-the past and so I do see some value in keeping them working. This one
-is a bit of an odd ball because clearly this platform has some issues
-related to CPU idle. Again we are happy to discuss that and come to a
-reasonable comprise.
-> The current workaround is to use LAZY which in general defers the IRQ
-> work to the next tick and it works for you. If you enable NOHZ and the
-> CPU goes tickless even a scheduled LAZY irq-work will raise the irq-work
-> interrupt to ensure the CPU does not go idle and we do have a wake up.
-> 
-> This might bring the problem back at some point.
+Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+---
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 54 ++++++++++++++++++++++
+ 1 file changed, 54 insertions(+)
 
-That may be, and we will cross that bridge if and when we come to it.
+diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+index f41ad446a39e..e9bf2faf6628 100644
+--- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
++++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
+@@ -196,6 +196,17 @@ vreg_usb_redrive_1v8: regulator-usb-redrive-1v8 {
+ 		pinctrl-names = "default";
+ 	};
+ 
++	vph_pwr: regulator-vph-pwr {
++		compatible = "regulator-fixed";
++
++		regulator-name = "vph_pwr";
++		regulator-min-microvolt = <3700000>;
++		regulator-max-microvolt = <3700000>;
++
++		regulator-always-on;
++		regulator-boot-on;
++	};
++
+ 	vreg_vtof_ldo_2p8: regulator-vtof-ldo-2p8 {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "VTOF_LDO_2P8";
+@@ -372,6 +383,18 @@ active-config0 {
+ &apps_rsc {
+ 	regulators-0 {
+ 		compatible = "qcom,pm7325-rpmh-regulators";
++
++		vdd-l1-l4-l12-l15-supply = <&vreg_s7b>;
++		vdd-l2-l7-supply = <&vreg_bob>;
++		vdd-l6-l9-l10-supply = <&vreg_s8b>;
++		vdd-l8-supply = <&vreg_s7b>;
++		vdd-l11-l17-l18-l19-supply = <&vreg_s1b>;
++		vdd-l13-supply = <&vreg_s7b>;
++		vdd-l14-l16-supply = <&vreg_s8b>;
++		vdd-s1-supply = <&vph_pwr>;
++		vdd-s7-supply = <&vph_pwr>;
++		vdd-s8-supply = <&vph_pwr>;
++
+ 		qcom,pmic-id = "b";
+ 
+ 		vreg_s1b: smps1 {
+@@ -380,6 +403,12 @@ vreg_s1b: smps1 {
+ 			regulator-max-microvolt = <2040000>;
+ 		};
+ 
++		/*
++		 * s2b (smps2) is ebi.lvl
++		 * s3b-s4b-s5b (smps3-smps4-smps5) is VDD_APC1
++		 * s6b (smps6) is VDD_APC0
++		 */
++
+ 		vreg_s7b: smps7 {
+ 			regulator-name = "vreg_s7b";
+ 			regulator-min-microvolt = <535000>;
+@@ -414,6 +443,11 @@ vreg_l3b: ldo3 {
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 		};
+ 
++		/*
++		 * l4b (ldo4) is lmx.lvl
++		 * l5b (ldo5) is lcx.lvl
++		 */
++
+ 		vreg_l6b: ldo6 {
+ 			regulator-name = "vreg_l6b";
+ 			regulator-min-microvolt = <1140000>;
+@@ -443,6 +477,8 @@ vreg_l9b: ldo9 {
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 		};
+ 
++		/* l10b (ldo10) is PMK7325 VDD_ACTIVE */
++
+ 		vreg_l11b: ldo11 {
+ 			regulator-name = "vreg_l11b";
+ 			regulator-min-microvolt = <1504000>;
+@@ -509,6 +545,16 @@ vreg_l19b: ldo19 {
+ 
+ 	regulators-1 {
+ 		compatible = "qcom,pm8350c-rpmh-regulators";
++
++		vdd-bob-supply = <&vph_pwr>;
++		vdd-l1-l12-supply = <&vreg_s1b>;
++		vdd-l2-l8-supply = <&vreg_s1b>;
++		vdd-l3-l4-l5-l7-l13-supply = <&vreg_bob>;
++		vdd-l6-l9-l11-supply = <&vreg_bob>;
++		vdd-l10-supply = <&vreg_s7b>;
++		vdd-s1-supply = <&vph_pwr>;
++		vdd-s9-supply = <&vph_pwr>;
++
+ 		qcom,pmic-id = "c";
+ 
+ 		vreg_s1c: smps1 {
+@@ -518,6 +564,12 @@ vreg_s1c: smps1 {
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 		};
+ 
++		/*
++		 * s2c-s3c-s4c (smps2-smps3-smps4) is cx.lvl
++		 * s5c-s6c (smps5-smps6) is mss.lvl
++		 * s7c-s8c (smps7-smps8) is gfx.lvl
++		 */
++
+ 		vreg_s9c: smps9 {
+ 			regulator-name = "vreg_s9c";
+ 			regulator-min-microvolt = <1010000>;
+@@ -525,6 +577,8 @@ vreg_s9c: smps9 {
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 		};
+ 
++		/* s10c (smps10) is mx.lvl */
++
+ 		vreg_l1c: ldo1 {
+ 			regulator-name = "vreg_l1c";
+ 			regulator-min-microvolt = <1800000>;
 
-Jon
+---
+base-commit: 89c07d98716a13454ec3fd9f97689e812cc71bd4
+change-id: 20260901-fp5-regulator-supply-a2288914c492
 
--- 
-nvpublic
+Best regards,
+--  
+Luca Weiss <luca.weiss@fairphone.com>
 
