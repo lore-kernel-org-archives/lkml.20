@@ -1,125 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C867C4078FC;
-	Tue,  1 Sep 2026 13:11:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F7E3CB2F8;
+	Tue,  1 Sep 2026 13:11:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788268309; cv=none; b=YlyxchXA9WgM+sQ4/tKMi3H6IWSXjn1wGMSh83ws3dkPARp0iwDoT6boMSMhPMfZ4G1zrVJEy0+8eMy25+VdflQWKoMFMJP6KUPwDC37ZnldcbuL8slEWT2T49wYicDtOJr0DbSufM6B5ZAgQu4gR0oWQskU7VQaN1RmAiNTJkM=
+	t=1788268317; cv=none; b=F9RxHlmmWgEhmLPxf8GxPdj/EttgKk8+a4feJBxdnHtUZh+DKvCeaQRi9mXX2PKQEC9Ci/qTasUhn9KH6vFe+1VwNQNySLrRfsImyp2Pdl1FSP54H8DtdN+KzTB983kRqfad4WY7fCoP7NiaZkIGuExb1ZzLxO33ly6E453Rj7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788268309; c=relaxed/simple;
-	bh=uzmKfGOpC1yygBuFet+Ziubz2Qep8w+tFC9X9YVlIRs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pJPu0zX3EI/6BDnnnyXtJkRZcYsvs15amTbnXbOlQGGn/v2TJUqkyvCF8o1Dx+wXTwQZqqChqUNPRQTPIaD/SGaI5LNI/9ykoRIgNup80yG3d++O5wWSpTHGmyluyMkvqN2Y7GAVXaBRfrtcCbZ7gfUj4P3gMU6FhfhrkGuMRw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fvEwq2jw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788268317; c=relaxed/simple;
+	bh=phsM/yfv4EwXb7wY5vlQFSEYk5LkP/zAE4QDjzmAL7A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mI/0uPMOTt2eJwKll1scq2ocuFziyaqoMYVvtM1hR5zKdDvPv185ZQuuv2c/XwRF+P51UbI2Eu8UH0YP8C0YuILq6rvU91rtqjI98y39G+qrD7xdu1vZWimV2CFhtP64zyR8oJWyQ54Gq13x7HMRCkzwWpb5J1+6X60o7PPROcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iX9d1BPn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fvEwq2jw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF03D1F00A3D;
-	Tue,  1 Sep 2026 13:11:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iX9d1BPn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49B961F000E9;
+	Tue,  1 Sep 2026 13:11:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788268307;
-	bh=B6lNRBavBduwwSNc/AwTwjdflDdDBVupiYBf7ApdEFk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fvEwq2jwVchhTYp5L4oYa2o6SAhC30pD+YDCTAqNZNmj1b+LNHPtl92hP+JP/+Kj6
-	 CHHmMOKvvoVHNnBlfzWvtBgxuwrwwwRgcVyK12b8hWx4qNW1mlO/gE9aHVMloQDwTq
-	 gGZB69YK+DUaDyMVu0NwF7PI+cV7UI/M5b+jTbn9vcdwgY+LFYykLzpxX/DfMPlnuM
-	 NuHb3Hi3mj0K1IQzA9kAkan2tYtqtXXp277ED7zoZJfEZ7aY8yuirnkHvRO1gwRfYp
-	 DgUTibJ52FSWMcJ+BHLgit9nANPAZ8iUpoG1eA4wSXm7lVLKmKq6tw4wDike0fONPD
-	 bINNdw1Z5tQKg==
-Message-ID: <ab77b204-834a-4b99-a571-0e721f241c2b@kernel.org>
-Date: Tue, 1 Sep 2026 15:11:43 +0200
+	s=k20260515; t=1788268315;
+	bh=84DA78nCb8/YfyuoiXwo4GACV9/6L1RAMEbU/Sql6a8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iX9d1BPnkv0eLulEkTIePn22YHRVxyCh7GeSCVkbPQsfu0mkG9Jhor85JYaNxFOdr
+	 apkciV1ShA6PDrCmSngG6bGDedqPVRk45EInJv/y74p+06cltEAS802w6/DweeUWbw
+	 6xRTq0J3kkCWkLOVsOfdFLgGhM7ntPAx0JvztfBFygPvjRkVHsCnhnyaYH4PXfyat5
+	 REgr0AzhgyqkJTRq8zVYNYL/S30xoqdpfHumOQZgdqaEMcdq5VryDmwJ2j7kZiKcCu
+	 Os/eqaDH6D68ZMH/IkqEir/woAmhNq+6c2gepRWGe/bRiWyvBiecrYyxGuHIZfrE0/
+	 2f0IDip+I7S3Q==
+Date: Tue, 1 Sep 2026 15:11:41 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, usb4-upstream@oss.qualcomm.com, 
+	Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>, Mika Westerberg <westeri@kernel.org>, 
+	Sven Peter <sven@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: [PATCH v4 5/5] arm64: dts: qcom: hamoa: Extend QMPPHY
+ description for USB4
+Message-ID: <tpnyev4byegefqswj3dh7v67loiwwpzfswo6us4xqcsyjfsqyh@35o6qljqiwqw>
+References: <20260820-topic-usb4phy-v4-0-aec9d2cb31f6@oss.qualcomm.com>
+ <20260820-topic-usb4phy-v4-5-aec9d2cb31f6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] platform/x86: x86-android-tablets: fix Arizona and
- Crystal Cove GPIO lookups
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Andy Shevchenko <andy@kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Linus Walleij <linusw@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260830-x86-android-lenovo-swnode-v1-0-066a91acb4ba@gmail.com>
- <5f5b802d-b0a4-493a-9816-e9bd91fd94df@kernel.org>
- <apXlqKuqhlBkSgpf@google.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <apXlqKuqhlBkSgpf@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260820-topic-usb4phy-v4-5-aec9d2cb31f6@oss.qualcomm.com>
 
-Hi,
-
-On 31-Aug-26 22:37, Dmitry Torokhov wrote:
-> On Mon, Aug 31, 2026 at 10:17:41PM +0200, Hans de Goede wrote:
->> Hi,
->>
->> On 30-Aug-26 13:15, Dmitry Torokhov wrote:
->>> When gpiolib dropped name-against-label matching in favor of firmware node
->>> identity mapping, lookups referencing unattached software nodes (such as
->>> arizona and gpio_crystalcove in x86-android-tablets) stopped working.
->>>
->>> This series fixes the lookups and cleans up redundant software node
->>> registrations on Lenovo tablets:
->>> - Point Arizona GPIO property entries directly to the codec device software
->>>   node, which is attached to the parent device.
->>> - Hold a device reference in gpio_secondary_fwnode_init() to ensure safety
->>>   during devres action teardown.
->>> - Generalize gpio_secondary_fwnode_init() to accept a node group argument
->>>   and use it to attach crystalcove_gpiochip_node as a secondary firmware
->>>   node to INT33FD:00 on Lenovo Yoga Tab 2 models.
->>> - Drop redundant swnode group registrations on Lenovo Yoga Tab 3 and
->>>   Yoga Tab 2 models where codec software nodes are already registered when
->>>   attached to their respective devices.
->>>
->>> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
->>
->> My initial testing report of success on the Yoga Tab 3 was a false negative
->> caused by me still running the older kernel.
->>
->> There was a generic bug in the new gpio_secondary_fwnode_init() helper
->> which was causing all GPIO lookups for PROPERTY_ENTRY_GPIO() properties
->> in the x86-android-tablets code to fail.
->>
->> I've send out a patch fixing this:
->>
->> https://lore.kernel.org/platform-driver-x86/20260831201157.36397-1-johannes.goede@oss.qualcomm.com/
->>
->> Note that patch applies *on top of* this series.
->>
->> With that patch everything works fine on both a "Yoga Tablet 2 1380" as
->> well as on a "Yoga Tab 3" which covers all types of GPIOS (BYT SoC,
->> CHT SoC, CrystalCove PMIC, Arizona codec) used in the x86-android-tablets
->> code.
->>
->> And the changes from this series look good to me too:
->>
->> Tested-by: Hans de Goede <johannes.goede@oss.qualcomm.com> # Yoga tab 2 1380, yt3
->> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+On Thu, Aug 20, 2026 at 04:24:14PM +0200, Konrad Dybcio wrote:
+> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > 
-> Will you apply everything yourself or will you let Ilpo do this?
+> The USB4 part of the QMPPHY requires that one more GCC clock (P2RR2P -
+> PHY-to-Router, Router-to-PHY) is enabled for the PHY to initialize
+> successfully. Describe that.
+> 
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Ilpo is doing 99% of the pdx86 maintainer work these days, with me just
-hanging around as backup.
+Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-So I think it is easier if Ilpo just applies this series himself.
+- Mani
 
-Ilpo: Note these are fixes (+ related cleanups) for a regression
-in 7.3-rc1 so these need to go to the fixes branch.
-
-And fixing the regression then requires this fix to be added on top:
-
-https://lore.kernel.org/platform-driver-x86/20260831201157.36397-1-johannes.goede@oss.qualcomm.com/
-
-Note the order matters (to avoid conflicts) first this series,
-them my fix on top.
-
-Regards,
-
-Hans
-
-
+-- 
+மணிவண்ணன் சதாசிவம்
