@@ -1,137 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C757F390CB7;
-	Tue,  1 Sep 2026 22:07:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ACDD43F4B5;
+	Tue,  1 Sep 2026 22:08:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.189.121.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788300480; cv=none; b=o3Gvu8tPJXO4VKLT5PTRaKpwxcJp1XaPGEscZZ2/0UpsBfFhz/y1r3fljhE6xVRGhndG6R5bdanRpv0EwFcpUjhKxRXZpuY9uL6mnoPfg6aZx/KClVDn7jpGeSOi5NhB6EK/ItFzCAjGZFgbgVf6HT+FwqFdV2WCdZ7nG6axpPo=
+	t=1788300515; cv=none; b=K6bBW/1l0W2GuY1cJ/tzPyU+tbdkdRtQXYLrhu74/rMzJ18qiFmfJ7guFrSjeXTFW4ZK2/BfgtOkYsPY4/U9n2Jm38/BpmRPDzwG1R4NVJDQEnQXH4mwyhFcnG9L1sC4bzcJ2Q46cywwVxZodH4q5cmdC5qEQ+PCD7N4xBqOymw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788300480; c=relaxed/simple;
-	bh=iS230YxR60m0KZnARzwoJEmq3M442kqYfn0rmrEblnU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Lf6ScYwNO4YY72rlbvLgRexkmC5ZF276W+oS47tvkQyg/Ht5H3UUV64C2dCrN5h6UsG9gMcyaWbN8w2bXiAncjjEn7UZa6UeG4bnAN3TkqGYA5ZfOoGOH4EjpK+PF+1LSyq/f07GDshJbZVxgjLzwCfPDvea+xG7fpoVl5kffQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lR511LSQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788300515; c=relaxed/simple;
+	bh=PZCh8+4LJ906fIrDSP915VFyemAeG3uWlTzWYUuEHIQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UqLHu/4d7T274qTDirlb1dUSrgW16XrA3XimGgeJU1vpxgmXVeZxv2UQoiLstYfPkJ4cb4n2w5lUvsqzgC9PHv65hujpNXTmW89YrvzNWmYRvxKsIxx0K5+wbbIHUq2LZw5Z/dtA6JXT9FqxnlUomp7iDCZPmipq/cBSJDIcmQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no; spf=pass smtp.mailfrom=itx.no; dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b=kOLYQgAh; arc=none smtp.client-ip=91.189.121.228
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lR511LSQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 847DF1F000E9;
-	Tue,  1 Sep 2026 22:07:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788300477;
-	bh=GxJ1J5o192Yi57FIwYJ2EOUQdRT6ypUFpputH/0IOeQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lR511LSQVSe9EdXltrtmNkOFE/TMh95ryDURboDTyyanhfibv5hS+A1di+rF3X1HG
-	 JfrrIa785v6+L5e1P4wKk/fmTkKXInKZVKRw/h0vjer88zu/anais1Y07FJ0S0GM/P
-	 rpHWWumV/MtRG/vnK1eBWypCMFw1ophLkq7JoQ5gSrcloW8zuV7Ct/4jPbfS8Oe8mV
-	 BLchSuVccGGoyOITjb6E0x0s1n9aPzj+q1LQKaxxu/8dIjG+AybLS+xTxIlY+ZYClZ
-	 zDy3wktDaB9+AZBUH6CG1hXHaSnOakwod/5moyfam5y8da0P4JGw3Lo+0P8khW0eEg
-	 IXj8HUadNw/bQ==
-Date: Tue, 1 Sep 2026 15:07:56 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: Chen Pei <cp0613@linux.alibaba.com>
-Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	x86@kernel.org, devicetree@vger.kernel.org,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Atish Patra <atish.patra@linux.dev>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Tony Luck <tony.luck@intel.com>, Babu Moger <babu.moger@amd.com>,
-	Peter Newman <peternewman@google.com>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Ved Shanbhogue <ved@rivosinc.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Rob Herring <robh@kernel.org>,
-	Zhiwei Liu <zhiwei_liu@linux.alibaba.com>, d@gen8
-Subject: Re: [PATCH v6 5/8] riscv_cbqri: resctrl: Add cache allocation via
- capacity block mask
-Message-ID: <apdMvKYegtdEWntp@gen8>
-References: <20260729-dfustini-atl-sc-cbqri-dt-v6-0-7c22b05d461b@kernel.org>
- <20260729-dfustini-atl-sc-cbqri-dt-v6-5-7c22b05d461b@kernel.org>
- <20260831100216.reply.cp0613@linux.alibaba.com>
+	dkim=pass (1024-bit key) header.d=itx.no header.i=@itx.no header.b="kOLYQgAh"
+From: Stian Halseth <stian@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1788300509;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=L5ItQBcdK1U2y12RotRrhXkN+PYLyvKp8+bgoCWE4Kg=;
+	b=kOLYQgAhUNXgCMcGDM4wOJQOTp+YDt/MwL82HrTyBo/fuAOrG0fuer6eNAsPgMJVxQ0y5d
+	MxPkCBTdUqPDnOtolmwWMI/53Pu9gg1fNJxMm5pGUgCP8oYRuOeKKr55Wyw5t2BulpqevL
+	b5vdQEMKNcvBeaKrro8Z0K5rsrFE+bk=
+To: Andreas Larsson <andreas@gaisler.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Kees Cook <kees@kernel.org>,
+	sparclinux@vger.kernel.org
+Cc: Andy Lutomirski <luto@amacapital.net>,
+	Will Drewry <wad@chromium.org>,
+	Oleg Nesterov <oleg@redhat.com>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Stian Halseth <stian@itx.no>
+Subject: [PATCH 0/2] sparc64: add seccomp filter support
+Date: Wed,  2 Sep 2026 00:08:09 +0200
+Message-ID: <20260901220811.3369666-1-stian@itx.no>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260831100216.reply.cp0613@linux.alibaba.com>
 
-On Mon, Aug 31, 2026 at 10:16:16AM +0800, Chen Pei wrote:
-> Hi Drew,
-> 
-> Thanks for keeping this series alive. While testing v6 on a RISC-V
-> platform with a CBQRI capacity controller (8 capacity blocks backing
-> one L3, Ssqosid + CBQRI exposed via DT), I hit a problem that traces
-> back to this patch; findings and a suggested fix below.
+This adds SECCOMP_FILTER support for sparc64.
 
-Thanks for testing the siers.
+The arch prerequisites have been in place for years, so patch 1 is
+mostly about the missing piece: letting seccomp veto a syscall, and
+returning to user space with the return value the seccomp core set in
+pt_regs rather than the -ENOSYS the assembler stubs used to force on
+any denied syscall.  Patch 2 teaches the seccomp_bpf selftest to
+drive sparc64's registers.
 
-> Symptom
-> -------
-> With the series applied, the resctrl interface reports an empty
-> capacity mask everywhere:
-> 
->   # cat /sys/fs/resctrl/info/L3/cbm_mask
->   0
->   # cat /sys/fs/resctrl/schemata
->   L3:0=0
->   # cat /sys/fs/resctrl/size
->   L3:0=0
-> 
-> while the hardware reports NCBLKS=8 in the CC capabilities register
-> (bits[23:8] of cc_capabilities, per CBQRI v1.0 §3.5), i.e. the
-> expected values are cbm_mask=ff / L3:0=ff.
-> 
-> Root cause
-> ----------
-> cbqri_resctrl_control_init() fills cbm_len/shareable_bits/min_cbm_bits
-> but never initializes res->default_ctrl, which therefore stays 0
-> (static storage):
-> 
-> > +static int cbqri_resctrl_control_init(struct cbqri_cache *ctrl,
-> > +				      struct rdt_resource *res)
-> > +{
-> > +	res->name = kasprintf(...);
-> > +	res->cache.cbm_len = ctrl->cc.ncblks;
-> > +	res->cache.shareable_bits = 0;
-> > +	...
+Tested on an UltraSPARC T4-1 (sun4v):
 
-I think you may be looking at an older version. The function in this
-patch is:
+  - tools/testing/selftests/seccomp/seccomp_bpf: 95 passed, 0 failed,
+    16 skipped (uprobes and other optional features)
+  - libseccomp with its pending SPARC support (libseccomp PR #471)
+    passes its full suite, 5190 of 5190, including the live tests
+    that require kernel SECCOMP_FILTER
+  - docker containers run confined by the default profile, and a
+    custom SCMP_ACT_ERRNO profile denies as expected
 
-static void cbqri_resctrl_control_init(struct cbqri_resctrl_res *cbqri_res)
+The libseccomp side is https://github.com/seccomp/libseccomp/pull/471,
+and the tracking issue is https://github.com/sparclinux/issues/issues/11.
 
-struct rdt_resource no longer has a default_ctrl member. Commit
-dbc58f7eec40 ("x86/resctrl: Generate default_ctrl instead of sharing
-it") removed it and derives the value instead.
+Stian Halseth (2):
+  sparc64: add seccomp filter support
+  selftests/seccomp: add sparc64 support
 
-The default seems to work okay in my testing. For example, with Qemu [1]:
+ arch/sparc/Kconfig                            |  2 +-
+ arch/sparc/include/asm/seccomp.h              | 15 ++++++++
+ arch/sparc/include/asm/syscall.h              | 11 +++---
+ arch/sparc/kernel/entry.h                     |  2 +-
+ arch/sparc/kernel/ptrace_64.c                 | 28 ++++++++++-----
+ arch/sparc/kernel/syscalls.S                  | 28 +++++++++++----
+ tools/testing/selftests/seccomp/seccomp_bpf.c | 35 +++++++++++++++++++
+ 7 files changed, 98 insertions(+), 23 deletions(-)
 
- qemu-system-riscv64 \
-      -M virt,aia=aplic-imsic \
-      -nographic \
-      -m 1G \
-      -smp 8 \
-      -kernel arch/riscv/boot/Image \
-      -append "root=/dev/vda ro console=ttyS0 rootwait earlycon" \
-      -drive if=none,file=rootfs.ext2,format=raw,id=hd0 \
-      -device virtio-blk-device,drive=hd0 \
-      -device riscv.cbqri.capacity,max_mcids=256,max_rcids=64,ncblks=16,mmio_base=0x04820000
-
-# cat /sys/fs/resctrl/info/L2/cbm_mask
-ffff
-# cat /sys/fs/resctrl/schemata
-L2:0=ffff
-
-I will send v7 today as I have now rebased on v7.3-rc1. It is already
-available as a branch [2]. Please give that a try and let me know of any
-problems.
-
-Thanks,
-Drew
-
-[1] https://github.com/tt-fustini/qemu/tree/riscv-cbqri-cache
-[2] https://github.com/tt-fustini/linux/tree/cbqri-cache-alloc-dt
+-- 
+2.45
