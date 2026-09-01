@@ -1,132 +1,132 @@
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33829361960
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 22:45:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788302748; cv=none; b=Vp7pggsTihxaSmp9F7Q5KgRnh+UceZYr/W32U7t7l9nA7os07ol2c6leJdpn2iBOezLmADDV6zyLh8Txrd3UlT1chxlLvZRzrlZVo5zp0mYHkbISMVwH1YuHESs45/lWPksgKGfyYUqvLz+y6E15ENqmM5insG++gnGRt0I9cCc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788302748; c=relaxed/simple;
-	bh=AmMY9+JiOedVBwkxJkvIf9KReIiEj6fvyuFyhDZAsuM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nCh2KIhDy2dfbRGWcK1ZnQo8bJ3HCfBD5zlb0fLvg4l/hLOpOiXxh5di4LSoZLaiDiHlPqH4limyhDIQ6YHih4yV01OsrYYsMi1KBsR43eJf4cJeaSLVpPFlHL4WYr9Rnf0zE3xpBhMeglSdy/Z9M9ywvJq6KYmtJYYKELedQrM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=oes.ch; spf=pass smtp.mailfrom=oes.ch; dkim=pass (2048-bit key) header.d=oes.ch header.i=@oes.ch header.b=Ow4uhTER; arc=none smtp.client-ip=209.85.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=oes.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oes.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BBED4CCDE4
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 22:46:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788302774; cv=pass; b=KobPCM7qy1hFe/YNtrFaLLkgxC8k8/RIE7FOqbEfSPSLbZlWatY4zpek996GF74K11nPYHCmFZhMu9j6I/7hCOHpmKOHcaBafJqHrWBNh29aHllKzWIh71WVwCkTeix+XkxtPzxGCD4bVeBuIKkSvq6dF7cworxdPCZ3O5kQs4U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788302774; c=relaxed/simple;
+	bh=Y7wjL8aGKHfhrB8GHuhTYqkPVVwHctoCXeQ0PtR50jw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Crzb5jXaWq0N9Bwo2fp+bHbVVRD0NaJUOR4IFWDJ8hNYl/euovqbErUKC6Ya+VQ2Z7eASmsk+Vm/JPyLDBmr0n1nBSvgAQNiiUwzNoverMhKI3eP7I5OPZTdesFGQMUf58Rxy3Jj7hLSxc/I4a1y91WZDckfIvlE+NNE1R+zTPY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hDpr994m; arc=pass smtp.client-ip=209.85.208.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oes.ch header.i=@oes.ch header.b="Ow4uhTER"
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2d6fe26ef1cso3710835ad.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 15:45:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hDpr994m"
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a668cacdadso578590a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 15:46:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788302771; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VA2b8MNmQYx2iMOWmXpl3RTvZnCkjHXvMEMcEcTkbC1BPwHFECKKSIUJgZUbpa9eqR
+         wgJ6mt1A5xJEDEccL4MmR5jy2a2CabqJqnwpzl9+MvWZPuko+4y8QSXVBwbHgXnd1CeK
+         dsQWF+FObQIJhN2kE4Zr+t+Dk66o5+Iv2VK3xQaXerzBDugv71r7dzqWvzO4ztOOUpo3
+         3Lmb38Fwg8hzNfSRNcpoN0uajpc2/0cOfEjKSOmetp1uZh4AkQxbO3MznJyqqHSVeoZf
+         7MFim1L6pTHXfEQrne0i4ttP1fqNCRLIWI4l7cG1cpPk8Oa2BL1hCpWcbHNnNpNl06p3
+         OR/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=OJSSrp57ik5SuL/p9XOeoiBv4DaL3YaC46FXR+QQSdQ=;
+        fh=S02M/YPPyjTkbTSUp9+d4hK1nYMkJZQJSNbXvekr6yM=;
+        b=QLWv0FSjRpCDIFvX/PyWyRBEz+nTJ4OgIylIEWFdLmRVIa/TTdycpfsKrGubD/qFPB
+         EXUHEaScwE+kKUeKFfkww/l3tkRCHHgAXMqoBD5LO2QxCG94QkxFiJalhdFjlfpRZZc9
+         Z93ZX6KqNxlFtHyr4Dby6yzuns/0vtEIJXguh43ASpn+g0oD+Ss/ZxQ1i1DK9S0/O52G
+         be7cVryrEPAaXOFDCHI9mVU0zjAaUt8HsOfo5HtNvjYorjhvUyFU/pTZg6yEzsFqF9WB
+         0+oZo1FsaQDGoc+pQaW9dC5XzsfpF4bz5Ufr2PZktE0w8yLz7qzALLgCWkMYNMDLUEz3
+         0IMw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oes.ch; s=google; t=1788302744; x=1788907544; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788302771; x=1788907571; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=pbcWidxi+5W3ugdRwHYPgaHhKhKyuwEwYBB8DF4jk68=;
-        b=Ow4uhTERmwrAgiEIA6MrgPBZW8OhaSKQmE6yXxYaT8gET8xgR+z486tUSmo+m6jXWg
-         93HyJ5r5KZIno8T30gnYDDXpF1rkUVhcMm6jNLIYnYdioHwe60PZcXr6WOYDSBNnI9Sj
-         WMSjJ1nqm5eEfe+4rZrMc3swn1DofCvVMEbwvSW5U2RA4KdVQwjHFuzCw6GMDRLfPZHj
-         lQMPjknkWENP/JlxAvE5KMIPtZvjFzxM1iinyRa3bNYAclUeZD7ZraMh+Y2wGcjpHHWp
-         r/0RRHJ/rajA9dWHa9Y7FfCN6LqFdrALfPllLajN7ccbhvtg5TO6ca7o470ofAx2seqB
-         Bh4w==
+        bh=OJSSrp57ik5SuL/p9XOeoiBv4DaL3YaC46FXR+QQSdQ=;
+        b=hDpr994mTzyhN1uBUQSgXLk2Si0zmstdy8S1b0jLLvhC0k2yzaeRfQOvT9vu4hzoh8
+         vXPgvteRDTZBGVN1agQsK0StCi9rFXezXZn0nCSb2nbDjOwmX3yI8el07q2QVH4hC6tK
+         V8oXbuvyECcY1b7bKKFuVCR4G8FfMokgFeSVKOuJPTK8nAH5VkCg/x8hI8sk6mnsoN0i
+         KWpasmhA+ec4tPN9roC+/ug+xmFqtSqpWwbddnAFd3K6Ia0OaE40Z67iEAhEO6TR69Q8
+         Pk+He5WiL21Q2CXrbUMaQ25l+Fe4MmqB7n3Z698YPT4Yppzlmwr67E3Tnc2lUmKco5yI
+         4qIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788302744; x=1788907544;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1788302771; x=1788907571;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pbcWidxi+5W3ugdRwHYPgaHhKhKyuwEwYBB8DF4jk68=;
-        b=OAIgyA7J2hqwxareWKSfmClt22xg34S3xGl3UTDimY/zeqZHSraV0V7CNz103yhoMA
-         OUjtfb7D40lOzXfgKFF32uoNdGs4hGr4ZI5/lEUAdvfFo6LuKxcjT+ImAgTNLHJK3Oyd
-         v0o707Y+V+AA/sWSUtzR7tUdNcAxXF+vyqWv0YopZfTpZNAX9Vqc2cfCGDBihvjemfS1
-         uWw5B0V+XjJn26Z5kFXN0Z6uDP9w9Om8CUBh94ffWlbgy5Ir1heCaBSWErUExM4tnHMm
-         enbRiPnAfO4nIFFdx054pOJbPHOmc9ztNeUdH6shVXXiXYktE5GIGq69m/v62j4nI2wj
-         6GwA==
-X-Forwarded-Encrypted: i=1; AKwUvBylqkjDGU+9WFKL8o53ywA80nfktCwqHNYGTfj9TtoLi7KVkclfkCcp/ZwlkswlMyBav8FxjhVvtsHonNU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nv8nkTO3LoVXcyK5GbBF2HvXm/Yj5XJxs7nGR4anqaXEg/u2fk
-	3sbL+3z3mH5CaqqxEnkJOBELSpiacduF8eF08u60GpgsK5uRiDo2koTzRwliPP6tXg==
-X-Gm-Gg: AYBFou1742vP8rhvaN9vUeSLcwXTj739bCFhBSg7fU1Y7fnOflkK+wFewyiieqJNVD7
-	Q8XevdLHUDOuuGWb1cM2Qr3bAfZutygJrEYauXDRuEI320mRZH4C4tT5UiAaOXYv6ctWtw7ipjw
-	bTyoNpjhyTmWClSnw6jbp6A+WajU7FC8q7pCZ9sLcrqpE075d15gQVBRWCdSZPu/l4j4zo9yPQB
-	zODt2az2Gsp17KTS0KdDSoCSuvfK43496lKZSea7rIXzmaNJ4pdPv+TcezGx6+FeTU3yushdphx
-	xessNhaBQdcivF7WxhWgnC70My7tx4I6bW+G+xa1BktAMDepQJB3fj4QTZz0gn/lozW0XLXmBgu
-	AfmWVrab9CJZivQ5YKbRK4ndefeuSMFYXjQ8KXH8+tGSQQtbp6b9IUrPs1shRj3GlWbn5sYDjpR
-	Bmv/aUQ/Mh4zgQZUWlI557csUnPqMT3NW0+eGlbvKmu1LB98m+RoOMNfveBBmvHKBgMBPZ01LXg
-	wDkVKGuRFRniixBb2NUVQWUqpS6O0oux7+sUkuEDru94mPY5RR8cVzdCnk6Va33gpqzgKa/kJCx
-	RYIH9bw5rLAF
-X-Received: by 2002:a17:903:2c0d:b0:2d6:f988:398f with SMTP id d9443c01a7336-2daec6b1e12mr6735075ad.12.1788302744259;
-        Tue, 01 Sep 2026 15:45:44 -0700 (PDT)
-Received: from cosinus.tail5d817.ts.net ([118.148.155.54])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dadd48865csm3829475ad.54.2026.09.01.15.45.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 15:45:43 -0700 (PDT)
-From: Julian Oes <julian@oes.ch>
-To: gregkh@linuxfoundation.org
-Cc: johan@kernel.org,
-	oneukum@suse.com,
-	linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	Julian Oes <julian@oes.ch>
-Subject: Re: [PATCH v2] USB: serial: generic: recover from a stalled bulk-in endpoint
-Date: Wed,  2 Sep 2026 10:44:44 +1200
-Message-ID: <20260901224447.50777-1-julian@oes.ch>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2026090142-walrus-zipfile-70d1@gregkh>
-References: <2026090142-walrus-zipfile-70d1@gregkh>
+        bh=OJSSrp57ik5SuL/p9XOeoiBv4DaL3YaC46FXR+QQSdQ=;
+        b=N61HULPW2fmYwerWEzcrXTJm9h6WCVAwsB6Ug9PYPsNQAlqjNeOeu5/tI8uwCvO1mw
+         ofcgT2OVHrC0bITD5GH+41B/Yu5ae4OyeKjXO0o99Z+5o9/Xh4yoMl3Ti566XUZkN7mi
+         Nuv5Jw96mZ9n3/4xL8uHz+uKKi8E8wJ0N0qvdqFGlHs7/AsarMJ1JbBzjPIAIkf3rVPQ
+         A2SuJIVwpOo0MeziOt2uFz39q1WYNMOv6W4E9wVPR1SXRJIzVTt9xncHXMJl2BQlcOr6
+         7cu0oz/tqtEa8ccxHYFQLkndBeF9glk4oQZ7eM4FzgtPEgyRPI3KmsLXMtOFh4AHxKbb
+         LVpw==
+X-Forwarded-Encrypted: i=1; AKwUvBwsYwBNhDaJocfP0hZuZ0JLVzic2qg7e2+OV1MKClftNIIewEHjOaDNgeAL7xUh/2ul8c8qsIViJsOKeVg=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0Pve9DgjCAFIVEfmRS83Aw/ochdpjM7sv3UFJoU655TjP6XED
+	P4fPUTra5m0jgBhDsheL86xT/DeP9HN87TqlTi9TfEC/AaOie2uZWGtE6LwIVAYd4E2mxbHK18o
+	J9oE28jf27QL3HCdAhvIccO/wFhIDqe4=
+X-Gm-Gg: AYBFou2TU8b4P0lpcXEHOgwdXjg91i/DJo5Uj5tTV7LFr0sTKo5SsXV7O61qqaY9wmU
+	XN4Twvvo4adWq0u2aU5wK/RDuVtI+tqvwY4AFZR2QM9Oi21mhJIGIhDrx5QBwr+Kshiq/CTBiyM
+	LkmOVEPVdTcDhCBCyuJSA7uJswEgmaTUuTW9KRtimjRwcLS83T4Pe1oZBIUn7PL8rK9oaKWuwxG
+	BT2Yzn6AiIoa9jb1QakoLDjQzSpc/10TgCsZZhN1fwDov7JM1mo915hVhSgdGpINu6OTeNY33Mh
+	f4M57EI6lk5Wp5RfSZCN6bMra+XXA3Q3wAWWEj3YkC3wjxmtMJeFTbkWcX82qMMQOn2K+F9R8Cn
+	iRuuQAonnF73VMayQfA4/tGY+hNyQXtsvP2UynYSMHzw=
+X-Received: by 2002:a05:6402:218a:b0:6a5:f912:b092 with SMTP id
+ 4fb4d7f45d1cf-6a68257bd75mr526660a12.6.1788302771360; Tue, 01 Sep 2026
+ 15:46:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <cover.1788277742.git.mattst88@gmail.com> <5ad0fa4995f9b0e6aa4af672e987a9b9ee43645d.1788277742.git.mattst88@gmail.com>
+In-Reply-To: <5ad0fa4995f9b0e6aa4af672e987a9b9ee43645d.1788277742.git.mattst88@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Wed, 2 Sep 2026 00:45:57 +0200
+X-Gm-Features: AcwNN1XTceI-OuMu6yihuXuFe37xXWvWHcZG-GNRzI3Cp5FuDhD3aeZfLumOfus
+Message-ID: <CA+=Fv5TE5z5MUObofTPJE5jpbBLS+ntgg+6B8A9GJibK=GDPkg@mail.gmail.com>
+Subject: Re: [PATCH 14/24] alpha: add ARCH_SUPPORTS_PAGE_TABLE_CHECK support
+To: Matt Turner <mattst88@gmail.com>
+Cc: linux-alpha@vger.kernel.org, richard.henderson@linaro.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 01, 2026 at 06:33:15AM +0200, Greg Kroah-Hartman wrote:
-> This sounds like a broken hub, why not just replace that?  It shouldn't
-> be causing transactions on a different port to stop.
+Hi Matt,
 
-I agree that ideally my hub would not do that. However, my assumption is
-that it's not my specific hub that is broken, but that this hub (or
-other hubs on the same chip) have that sort of issue, and I was hoping
-to be able to fix it for me and others in software, rather than brush it
-off as a hardware issue.
-
-From what I understand an endpoint halt is spec-defined as
-host-recoverable. In the current state (without the patch) the read
-never returns data again and the user doesn't know that it needs
-restarting.
-
-My patch is meant to do the same pattern that cdc-acm already does:
-EVENT_RX_STALL → kill → usb_clear_halt → resubmit.
-
-> > +#define USB_SERIAL_STALL_COOLDOWN    msecs_to_jiffies(10)
+On Tue, Sep 1, 2026 at 5:51=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
+te:
 >
-> control or bulk?  This comment does not make much sense.
+> Add the page table check helpers needed for CONFIG_PAGE_TABLE_CHECK
+> and select ARCH_SUPPORTS_PAGE_TABLE_CHECK in Kconfig.
+>
+> Alpha does not support huge pages, so pmd_user_accessible_page() and
+> pud_user_accessible_page() always return false. pte_user_accessible_page(=
+)
+> checks for present PTEs with user read access (_PAGE_URE).
+>
 
-Sorry, it's not clear. Both: the halted endpoint is the bulk-in one,
-but the CLEAR_FEATURE that clears it goes to the control pipe, so one
-recovery attempt is a control transfer plus a bulk resubmit.
+This patch does not build with CONFIG_PAGE_TABLE_CHECK enabled on
+v7.3-rc1.
 
-Without the delay I saw six stalls in six milliseconds. The clear-halt
-succeeds every time, but the hub re-stalls the endpoint as soon as a
-read is queued, until the transient is over.
+Commit cf8771ca4cdb ("mm/page_table_check: Pass mm_struct to
+pxx_user_accessible_page()") changed these helpers from:
 
-The delay is there to stop that becoming a tight loop.
+        pte_user_accessible_page(pte, addr)
 
-I can reword it for v3, depending on whether you agree that a stall
-needs clearing at all.
+to:
 
-For a bit of context: in the past 14 years, I have been working with
-various FTDI and similar USB devices, and it's possible that I have seen
-this issue every so often. Usually, I would just re-open screen, try a
-different USB port or hub, restart the hub, etc. It's only this time
-that I stumbled on a reproducible case, and had the capacity to dig
-deeper using an LLM.
+        pte_user_accessible_page(mm, addr, pte)
 
-I have been using the v1 patch that I submitted in May ever since and
-have not noticed such issues anymore.
+The Alpha definitions added here still use the old two-argument API.
+The same applies to pmd_user_accessible_page() and
+pud_user_accessible_page().
 
-Thanks,
-Julian
+Could you update the helpers to use the new three-argument signatures?
+
+Regards,
+Magnus
