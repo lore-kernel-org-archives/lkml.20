@@ -1,209 +1,94 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CFE4549B1F8;
-	Tue,  1 Sep 2026 18:21:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FEEA49B210
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 18:24:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788286918; cv=none; b=iAqV1QeXfjz81e+15JGidU7zjjK3LMmupZFqUkqMJJdwPqtM1c7a2jSnzCLTFkLscwmTL3ydP3zPXQBki35mXc+rf2z/7+o2yr+lR9d+zL3swGKE8MjwpI85o9F0M3EjSaX79daEP6cFpnxns4GZopFeXuvixswiTFxDPNcVjKE=
+	t=1788287050; cv=none; b=OS0vEo8cdWbBtdwdMP0yoaPRtaZLQBiAvEBety52vTMPZPoJ2wYTbBpgi6O0vU6I1/TFTallQI5oqPPiyFq5MQrCXD2YOrhKQh4W7p73UwcpEaq+McYB1mf7gTQ9do3mEni5u9ZI1/xVNX+QPDFxuwo9PfUG9WjZsCzN1D50ZgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788286918; c=relaxed/simple;
-	bh=qcbqwjo8PQ6HOaFe+HESTBjYFEM7Qgci90O8hxG6YPo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NVcRlfJs1vzRLhvns68R1D7zI0jStvWIkz6beFFYHXi1xCcMdp7YuLNcBfosB54+sLXaPD1YTmMOICQV2qrli7AESLoeGO1wR1lN1+JhHvr80kPSJPfyUscnnjz6B35Wa5lxf4WpFNxKz43NHu+ACMhPjGTP7Vux6WAx4XW6JnI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=pP1dPX9x; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1788287050; c=relaxed/simple;
+	bh=gTUWiR5VTJ8w/OOAFnC6tiKQEwNgsZyGLwtJMFQxMkg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DnFPSuJuiUwmIr1556O8h73+HBCVl75hFjXNs4WtoiXrZ0+DoESNWQRA+66PdtsTHgck7G4BewvkoqGEIP9CSz3WAfA22EkeqbEVkVIMG87VbM33NurBz7bLYgsiAqAOXRcVX3EVyyQH2xE8ApPNYQcXlhioG9CWzRREnEbwMZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N2E/3p8J; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="pP1dPX9x"
-Received: from localhost.localdomain (unknown [52.172.102.219])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 4993E20B7166;
-	Tue,  1 Sep 2026 11:21:10 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 4993E20B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788286880;
-	bh=j8p0fHYDQhDNXEvnAW4cKjXCyIpdjeOjWC3CDthUOCI=;
-	h=From:To:Cc:Subject:Date:From;
-	b=pP1dPX9xSEtbkNo1feR0YamEim4twVmOSp3MMncT84klmhFJ361Z+m/HWkY3EZI0C
-	 PiDXdO4tSifA4gQibyRa0ilQS5FLI+bMZZJzMKbatsrr4GtEyd0y7Nv75pidixxk36
-	 awCu+lfk9Tg5HMLrwcDSM5iODkqAMPKzGnxm85Qk=
-From: "Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
-To: linkinjeon@kernel.org,
-	smfrench@gmail.com
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	nicholas@carlini.com,
-	bahubali.bg@samsung.com,
-	kees@kernel.org,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	AutonomousCodeSecurity@microsoft.com,
-	xmei5@asu.edu,
-	tgopinath@linux.microsoft.com,
-	kys@microsoft.com,
-	"Cen Zhang (Microsoft Security FORGE Labs)" <cenzhang@linux.microsoft.com>
-Subject: [PATCH] ksmbd: fix tree connection use-after-free in smb2_tree_connect()
-Date: Tue,  1 Sep 2026 14:21:36 -0400
-Message-ID: <20260901182136.13745-1-cenzhang@linux.microsoft.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N2E/3p8J"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3969e82ff8fso187551a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 11:24:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788287049; x=1788891849; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vi3RXIQaIvC+Ri0ofJm7If1tHUYP3Tau+8yQZvuwIZY=;
+        b=N2E/3p8JtYK83hi+GTRhJH+rKUUIkOPJoy1U5oHLZIBaUF1B6ZEiu49bu5W0XF04Kp
+         ylDfAC1PTAUEbuBRsbgXM0zyeLIWaJ3s7ARxYMtRJM2K7vTnz1+EkqBdizqFeOg4gxOA
+         Xh8gRsUJOI5l82nVJybJ9YclNJBlgO4VKjT/LBIfrB0I+jFekK+xmxgUh1cCaanqppO7
+         BBLiM0iRZQ3Tl480xq1moTOeAnQmnlZO4kHQiP+IgXGI8r9HwcC8vpzOS9ObxxIzTswm
+         0JK9Z0DoR+0u7FNaugf1RN6IcNXeIPJ0ia7LDJNmb3+oShfq4k63rEVQnJfv9KJRBFmG
+         QVxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788287049; x=1788891849;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vi3RXIQaIvC+Ri0ofJm7If1tHUYP3Tau+8yQZvuwIZY=;
+        b=S29H1QgDkvKNmxTAQbtDXJ94Ylt9S7lQdjneg5Pxk4ZkoPW901Zv/Zn8s+va19vxj/
+         R2SWuLRFDL7qFOBjmOfJxPdZpHXz5G7SZT/HZbeqNpm7Yj4qk/2+Gg8dHghtj91TXKix
+         ctjdTKrRFTyLCK6kwgXxoWl2VIPdZmj7aTdk4qk9kFdAgAtmh/0XcT5kWa8+pi1Q8nKc
+         AtQ04PUy6Y8cFTKGmE136oINHw1/C6vli67x7X5N+AHj3aYLL9xJnfGGVKEIO1anVgXr
+         WzAcKoLT15yarNbX+viELfjG5WC61FQqNIdnaJyUYIs+TZtX1hYsTpOxE1FmeEWKiqcU
+         hu4w==
+X-Forwarded-Encrypted: i=1; AKwUvByIrct8cUHBo/90qGXWzQpIU3neAz9eQZd6MyecESiD/y2TxTLIcGu0uKGoX9l37vzpcrzTaJo7cO4NqHE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nibFcs8Vb5Dsjz5mpAQVVgHQUewxg+3cEaEIwE4RzyUGFubry5
+	4T9MvuPjR6YVeXWCMeVXvuRhfL6mvu4PL/JlCnhQHVsCdn6n+oFpfVyDf3KOpA==
+X-Gm-Gg: AYBFou2uCwcj6vlrUiXwKUQCWFjlcWaHyB6db9V39AAv+YX/22CNTRGwaX1eUDPXQhQ
+	zzw2MPSellkEctIgupUQzgBWxSFrVFfO1kb6Qq2Torm6Q8NRgzN7aPBMVXQYMUSCR14Q4bYF85g
+	LtqBuZerCOilUIxCkjIJd2zK2c3p2DBPk9F6sxOrtLaeSEkG8bksZtwc1bfNuq2FMyiTEVy+M2V
+	ckXuxinj3ACU468WpGF1SnKZR/n1wgaMeM9n+SJcC/yN1aJG5L/JSPTmgwJ4pmTHliaUyKvE0iy
+	KnleAal6iy0x8Af+SXs5kS0siVj0vPRMongTiMp0JhqfYXnWIRIIpeU24LIm0E7fQF9/hwNrdNE
+	+jKA2wQjtYAR3dmRFOz4le0rD5RmMYRIOS6XyocGdAG0rvsYnW3VruKeEcAaU+8Xwuwam3yhUCi
+	c+rCStSGyKGKo8nmGtlufARCIbHglXKKGFvdc00nGV4AdXHvmTtIZaOBw+SRpV9H06XtgtoXcQt
+	g==
+X-Received: by 2002:a17:90b:4a8a:b0:399:e97:8d5a with SMTP id 98e67ed59e1d1-3990e97a0a4mr11272779a91.25.1788287048611;
+        Tue, 01 Sep 2026 11:24:08 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae0dfcd65sm864498a91.3.2026.09.01.11.24.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 11:24:08 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Tue, 1 Sep 2026 11:24:07 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Armin Wolf <W_Armin@gmx.de>
+Cc: pali@kernel.org, linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org, pp12313124124@gmail.com
+Subject: Re: [PATCH 1/2] hwmon: (dell-smm) Add Dell OptiPlex 7090 to fan
+ control whitelist
+Message-ID: <1a0d87b1-0606-4bfd-983c-94be05cc8141@roeck-us.net>
+References: <20260901181849.241776-1-W_Armin@gmx.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901181849.241776-1-W_Armin@gmx.de>
 
-ksmbd_tree_conn_connect() publishes a new tree connection in
-sess->tree_conns with a single reference and returns its pointer to
-smb2_tree_connect(). The handler continues to initialize the object and
-build the response after publication. A concurrent session logoff can
-erase the connection and drop that reference, freeing the object while
-the handler still uses it.
+On Tue, Sep 01, 2026 at 08:18:48PM +0200, Armin Wolf wrote:
+> A user reported that the Dell OptiPlex 7090 needs to be whitelisted
+> for the special SMM calls necessary for globally enabling/disabling
+> BIOS fan control.
+> 
+> Closes: https://github.com/Wer-Wolf/i8kutils/issues/18
+> Signed-off-by: Armin Wolf <W_Armin@gmx.de>
 
-BUG: KASAN: slab-use-after-free in smb2_tree_connect+0xe3d/0xf90
-  smb2_tree_connect (fs/smb/server/smb2pdu.c:2872)
-  handle_ksmbd_work
-  process_one_work
-  worker_thread
-  kthread
+Applied.
 
-After xa_store() succeeds, take a second reference before releasing
-tree_conns_lock. The original reference belongs to the xarray entry and
-the second belongs to the creating smb2_tree_connect() handler.
-
-Keep the references balanced in every path:
-
-- On normal exit or an error after publication, smb2_tree_connect()
-  drops its creator reference. Error cleanup also calls
-  ksmbd_tree_conn_disconnect(), which drops the xarray reference only if
-  it removes the exact entry.
-- SMB2 TREE_DISCONNECT uses the same helper to remove the entry and drop
-  its xarray reference. The request's existing lookup reference remains
-  owned by the request and is released by the existing cleanup.
-- Session LOGOFF removes each entry and drops its xarray reference. If
-  it wins the race, later cleanup sees that the entry is gone and does
-  not drop that reference again.
-
-To enforce this ownership, claim the disconnected state and erase the
-exact entry atomically under tree_conns_lock. This guarantees one drop
-for the xarray reference and one drop by each in-flight user, regardless
-of which teardown path wins. If logoff removes the entry before
-initialization completes, fail the connect instead of marking the
-detached object TREE_CONNECTED.
-
-Fixes: 33b235a6e6eb ("ksmbd: fix race condition between tree conn lookup and disconnect")
-Reported-by: Xiang Mei (Microsoft) <xmei5@asu.edu>
-Cc: AutonomousCodeSecurity@microsoft.com
-Cc: stable@vger.kernel.org
-Signed-off-by: Cen Zhang (Microsoft Security FORGE Labs) <cenzhang@linux.microsoft.com>
----
- fs/smb/server/mgmt/tree_connect.c |  8 ++++++++
- fs/smb/server/smb2pdu.c           | 28 +++++++++++++---------------
- 2 files changed, 21 insertions(+), 15 deletions(-)
-
-diff --git a/fs/smb/server/mgmt/tree_connect.c b/fs/smb/server/mgmt/tree_connect.c
-index 5f63e236267a..dd1db3554cae 100644
---- a/fs/smb/server/mgmt/tree_connect.c
-+++ b/fs/smb/server/mgmt/tree_connect.c
-@@ -82,6 +82,8 @@ ksmbd_tree_conn_connect(struct ksmbd_work *work, const char *share_name)
- 	down_write(&sess->tree_conns_lock);
- 	ret = xa_err(xa_store(&sess->tree_conns, tree_conn->id, tree_conn,
- 			      KSMBD_DEFAULT_GFP));
-+	if (!ret)
-+		atomic_inc(&tree_conn->refcount);
- 	up_write(&sess->tree_conns_lock);
- 	if (ret) {
- 		status.ret = -ENOMEM;
-@@ -129,6 +131,12 @@ int ksmbd_tree_conn_disconnect(struct ksmbd_session *sess,
- 			       struct ksmbd_tree_connect *tree_conn)
- {
- 	down_write(&sess->tree_conns_lock);
-+	if (tree_conn->t_state == TREE_DISCONNECTED ||
-+	    xa_load(&sess->tree_conns, tree_conn->id) != tree_conn) {
-+		up_write(&sess->tree_conns_lock);
-+		return -ENOENT;
-+	}
-+	tree_conn->t_state = TREE_DISCONNECTED;
- 	xa_erase(&sess->tree_conns, tree_conn->id);
- 	up_write(&sess->tree_conns_lock);
- 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 903ffffdd187..e7c965e7b068 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -2804,6 +2804,7 @@ int smb2_tree_connect(struct ksmbd_work *work)
- 	struct ksmbd_session *sess = work->sess;
- 	char *treename = NULL, *name = NULL;
- 	struct ksmbd_tree_conn_status status;
-+	struct ksmbd_tree_connect *tree_conn = NULL;
- 	struct ksmbd_share_config *share = NULL;
- 	int rc = -EINVAL;
- 
-@@ -2831,6 +2832,7 @@ int smb2_tree_connect(struct ksmbd_work *work)
- 
- 	status = ksmbd_tree_conn_connect(work, name);
- 	if (status.ret == KSMBD_TREE_CONN_STATUS_OK) {
-+		tree_conn = status.tree_conn;
- 		rsp->hdr.Id.SyncId.TreeId = cpu_to_le32(status.tree_conn->id);
- 		share = status.tree_conn->share_conf;
- 
-@@ -2874,8 +2876,15 @@ int smb2_tree_connect(struct ksmbd_work *work)
- 		status.tree_conn->posix_extensions = true;
- 
- 	down_write(&sess->tree_conns_lock);
--	status.tree_conn->t_state = TREE_CONNECTED;
-+	if (status.tree_conn->t_state == TREE_DISCONNECTED) {
-+		status.ret = KSMBD_TREE_CONN_STATUS_ERROR;
-+		share = NULL;
-+	} else {
-+		status.tree_conn->t_state = TREE_CONNECTED;
-+	}
- 	up_write(&sess->tree_conns_lock);
-+	if (status.ret != KSMBD_TREE_CONN_STATUS_OK)
-+		goto out_err1;
- 	rsp->StructureSize = cpu_to_le16(16);
- out_err1:
- 	/*
-@@ -2902,9 +2911,6 @@ int smb2_tree_connect(struct ksmbd_work *work)
- 	rc = ksmbd_iov_pin_rsp(work, rsp, sizeof(struct smb2_tree_connect_rsp));
- 	if (rc) {
- 		if (status.ret == KSMBD_TREE_CONN_STATUS_OK) {
--			down_write(&sess->tree_conns_lock);
--			status.tree_conn->t_state = TREE_DISCONNECTED;
--			up_write(&sess->tree_conns_lock);
- 			ksmbd_tree_conn_disconnect(sess, status.tree_conn);
- 			status.tree_conn = NULL;
- 		}
-@@ -2945,6 +2951,9 @@ int smb2_tree_connect(struct ksmbd_work *work)
- 	if (status.ret != KSMBD_TREE_CONN_STATUS_OK)
- 		smb2_set_err_rsp(work);
- 
-+	if (tree_conn)
-+		ksmbd_tree_connect_put(tree_conn);
-+
- 	return rc;
- }
- 
-@@ -3048,17 +3057,6 @@ int smb2_tree_disconnect(struct ksmbd_work *work)
- 
- 	ksmbd_close_tree_conn_fds(work);
- 
--	down_write(&sess->tree_conns_lock);
--	if (tcon->t_state == TREE_DISCONNECTED) {
--		up_write(&sess->tree_conns_lock);
--		rsp->hdr.Status = STATUS_NETWORK_NAME_DELETED;
--		err = -ENOENT;
--		goto err_out;
--	}
--
--	tcon->t_state = TREE_DISCONNECTED;
--	up_write(&sess->tree_conns_lock);
--
- 	err = ksmbd_tree_conn_disconnect(sess, tcon);
- 	if (err) {
- 		rsp->hdr.Status = STATUS_NETWORK_NAME_DELETED;
-
-base-commit: f7e5381fe0e2956317075a6d24aad1f56d6ce382
--- 
-2.55.0
-
+Thanks,
+Guenter
