@@ -1,98 +1,106 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 749CA46C855;
-	Tue,  1 Sep 2026 08:06:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47F8936728D;
+	Tue,  1 Sep 2026 08:06:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788249990; cv=none; b=maSixx0pPOQNNsIvKieQpKjyakaVX/wXaTmah+sdF+v3nMsm8jZRhRtFgItmEKZp3OEYrcl5pVIB4KZGDxp+kkrIHyt4arUcUHWTwJzuRohc3ss5RXN1/z0KZDTaCkntdpqdfhSrkagNU6Q+aXKSc8TMv6+5/1yFOmo60tCcdL4=
+	t=1788249992; cv=none; b=f+qdXbU07+95McEGUksFTPzL8kYOpeAUxPvestKs8/hH3ZlNaLLCaTJ1k9NrpTYretRcL8b/Wfke1G6314AqsrYVExQXobBQh482Xel4+cF4zYqZEYJAIx0sZWPKWt4As8hvb2u5ei4GwzVnRXUf3YQvtyO1Y9pN4+Ni6Dr8qNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788249990; c=relaxed/simple;
-	bh=6jocrZ8BWtYGm87yBooi0QYPtq263J2v+Y3UsEtP2Ng=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n3ztBmnYMkhwqt1GaUs6Duu70PjJphttsgq9s/p6ZQ03DJWb1Fql6PPu1IMbifSdAmXK10ZVAbvVoNORkOLZZIiNO8ngSSub9iGm62bO/ckqin7R7Cw9RLWtFhyjw8MhMkCAQS6aJhQhWBAhUjKR3VvU5GJpR7U3pKb3xPor+rg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=qSrnwwCg; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="qSrnwwCg"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2ACE51756;
-	Tue,  1 Sep 2026 01:06:21 -0700 (PDT)
-Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4139A3F882;
-	Tue,  1 Sep 2026 01:06:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788249984; bh=6jocrZ8BWtYGm87yBooi0QYPtq263J2v+Y3UsEtP2Ng=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qSrnwwCgSNAk6gZGaTF4+LjyRGLWI1VKPsqwSCxRzooIoQdXp+IjgAYWi5CKwILl6
-	 kfrGSp++BQwo7Mx3G93jNN9Yrzw6Ef6jqaRfP4PHZrzdlujsywMIInxMng3joLKYfh
-	 hAEDxEGDMeToqCAIlCYW1lZqTG0vOk0iZCL7hINY=
-Date: Tue, 1 Sep 2026 09:06:19 +0100
-From: Yeoreum Yun <yeoreum.yun@arm.com>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>,
-	Kevin Brodsky <kevin.brodsky@arm.com>, linux-mm@kvack.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] kselftest: mm: replace usage of /proc/self/smaps
- for check_huge_xxx() helper
-Message-ID: <apaHexgq0pYduNq8@e129823.arm.com>
-References: <20260828-fix_split-v3-0-374022586a4b@arm.com>
- <20260828-fix_split-v3-2-374022586a4b@arm.com>
- <f9ae614f-beef-4e83-b307-d4e743d7062c@linux.alibaba.com>
+	s=arc-20240116; t=1788249992; c=relaxed/simple;
+	bh=u/xYBa5ikGyxoimV8RlW1cCOmvyniqrsnIpXe4Gpqbs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KaHD7zeAMx7DGHfXLOf/682qKzsFqpnRvc35cDfolsm5y7etWbJ+GGIRgeURemq4LkWeFcealxv/m7bYfNcVbzmFFGWBQnev075Ps0EkqSzeNmy2pLTnLkiCHoMLECbcwNOGilyWxY5wSe11kJJHd75jLQoxKIV2NDNmhdnyX3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.241.250])
+	by APP-01 (Coremail) with SMTP id qwCowADHYPR1h5ZqTaP9Bg--.30584S2;
+	Tue, 01 Sep 2026 16:06:13 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Anup Patel <anup@brainfault.org>,
+	Atish Patra <atish.patra@linux.dev>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	kvm@vger.kernel.org,
+	kvm-riscv@lists.infradead.org,
+	linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] RISC-V: KVM: Preserve LCOFIP when checking pending interrupts
+Date: Tue,  1 Sep 2026 16:06:08 +0800
+Message-ID: <20260901080610.91993-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <f9ae614f-beef-4e83-b307-d4e743d7062c@linux.alibaba.com>
+X-CM-TRANSID:qwCowADHYPR1h5ZqTaP9Bg--.30584S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CrW7tF1xWF1xCrWfuw47CFg_yoW8Zry7pr
+	4Ikw1YqrW0qa4Ik342gr40gr1Yg3ykJr43uFZ29a4UJr42qa4ruF4kKa4UAF4rGryF9a4x
+	XryIga45uas8Zw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
+	VFxhVjvjDU0xZFpf9x0JUd-B_UUUUU=
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-On Mon, Aug 31, 2026 at 03:58:18PM +0800, Baolin Wang wrote:
-> 
-> 
-> On 8/28/26 4:11 PM, Yeoreum Yun wrote:
-> > Since glibc commit 321e1fc73f (“malloc: Enable 2MB THP by default on AArch64”),
-> > glibc may call madvise(MADV_HUGEPAGE) for sufficiently large allocations
-> > made by memalign().
-> > 
-> > The underlying VMA may start at a different address from the aligned
-> > address returned by memalign(). Furthermore, a subsequent
-> > madvise(MADV_HUGEPAGE) call does not split the VMA because the flag is
-> > already set.
-> > 
-> > This causes split_huge_page_test to fail because the check_huge_xxx()
-> > helpers incorrectly require the address returned by memalign() to
-> > match the VMA start address reported in /proc/self/smaps.
-> > 
-> > Fix this by using /proc/self/pagemap and /proc/kpageflags instead of
-> > /proc/self/smaps to detect huge pages.
-> > 
-> > Reported-by: David Hildenbrand (Arm) <david@kernel.org>
-> > Suggested-by: Zi Yan <ziy@nvidia.com>
-> > Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
-> > ---
-> 
-> LGTM, with comments from Lorenzo and Zi addressed.
-> 
-> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Tested-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+KVM injects the guest counter-overflow interrupt into HVIP bit 13 and
+records the same bit in irqs_pending. The guest enables it through VSIE
+LCOFIE, also at bit 13.
 
-Thanks!
+kvm_riscv_vcpu_has_interrupts() shifts the complete VSIP valid mask by
+VSIP_TO_HVIP_SHIFT before matching it against irqs_pending. That maps
+SSIP, STIP, and SEIP to VSSIP, VSTIP, and VSEIP, but incorrectly moves
+LCOFIP from bit 13 to bit 14. The following high-interrupt term excludes
+all local interrupt bits, so it cannot recover LCOFIP.
 
--- 
-Sincerely,
-Yeoreum Yun
+As a result, kvm_arch_vcpu_runnable() can report false for a vCPU waiting
+in WFI even though an enabled PMU overflow interrupt is pending.
+
+Keep LCOFIP in place while shifting the three interrupt classes that have
+distinct VS-level bit positions. This makes a vCPU halted in WFI runnable
+when its PMU overflow interrupt is pending.
+
+Fixes: 16b0bde9a37c ("RISC-V: KVM: Add perf sampling support for guests")
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+ arch/riscv/kvm/vcpu.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/arch/riscv/kvm/vcpu.c b/arch/riscv/kvm/vcpu.c
+index e062ca1..c6eb3bd 100644
+--- a/arch/riscv/kvm/vcpu.c
++++ b/arch/riscv/kvm/vcpu.c
+@@ -487,12 +487,14 @@ int kvm_riscv_vcpu_unset_interrupt(struct kvm_vcpu *vcpu, unsigned int irq)
+ bool kvm_riscv_vcpu_has_interrupts(struct kvm_vcpu *vcpu, u64 mask)
+ {
+ 	unsigned long flags;
+-	unsigned long ie;
++	unsigned long ie, vsie;
+ 	bool ret;
+ 
+ 	raw_spin_lock_irqsave(&vcpu->arch.irqs_pending_lock, flags);
+-	ie = ((vcpu->arch.guest_csr.vsie & VSIP_VALID_MASK)
+-		<< VSIP_TO_HVIP_SHIFT) & (unsigned long)mask;
++	vsie = vcpu->arch.guest_csr.vsie & VSIP_VALID_MASK;
++	ie = ((vsie & ~SIP_LCOFIP) << VSIP_TO_HVIP_SHIFT) |
++	     (vsie & SIP_LCOFIP);
++	ie &= (unsigned long)mask;
+ 	ie |= vcpu->arch.guest_csr.vsie & ~IRQ_LOCAL_MASK &
+ 		(unsigned long)mask;
+ 	ret = vcpu->arch.irqs_pending[0] & ie;
+
