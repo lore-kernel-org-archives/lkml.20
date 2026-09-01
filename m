@@ -1,196 +1,383 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B4A2431A5C;
-	Tue,  1 Sep 2026 16:52:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788281534; cv=none; b=M24wioMrj3rx1uq422trQS4c+waEC3jEYYlXW9IEG5kgbSxjSAKWDIltEEUqHrgW8pfhDGk9PZ5nNBwqAFC7H7HmU/KFUkXfpCeTos0iJBI+uxUW3stt4R14cKlgFiFMwgKRw5blpIhs3Xshvr0wJAVxduYscwrHu1kOqD6pOgs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788281534; c=relaxed/simple;
-	bh=e0iOtQ+/oqvJpZxEdGjGR0FqEUTzGZftU37uLCnf7pE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PPflnNDNGrauuWBTrknjyIgYm9DMhLAOwKjG9/yCrlz+kHFa8m5gV6tx2/lbet1ufgqpySgadKzDmo4JrqZLfd5Q1wJ1fBnA9LhgqiQV/LjH2W7YE5qrilFkuKejnJCZpF98sHBPW6/yM+nSb1DVirF62Z7A3kUc2wPZFgOaQ4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J9gmyMqV; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7931485518
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 16:52:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788281540; cv=pass; b=KJ1g9V7it5ryaPnWL1+uDU1RY1UmETGGq4blGG/n9NT9WpHPmUEtdy7ij3NTjMIoVxHEgXkjDpF9HJ82/JYyRwN0VTiVM3NzNVIctzrG3uF6npaqY0xysw1rFg07/Q70K+1LeeHW1l5v7KQtS/+hHM0N+d6L5EGXT0/FSbc+Lbg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788281540; c=relaxed/simple;
+	bh=oiIv0r3xE+TFP5bqM6ciSFhWFdf9hUIfYxHHCLdczNI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DuXeNa2JN2qcO3OfIYZwlCpjUgBHCJp3wxsKaiwH0WnIbWwDp7d7wRwygCuXiM18oIho4h9h3L79K2yNvHpb1Ug89asQSp1mWh4ZZv9kTF6bCzrNqjZL9UZiN/qySpbh00mHNdPL7tlPKyMq2j2d7jEUR5mEVdpMXPhdyUVX7ts=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=aGQMMX0o; arc=pass smtp.client-ip=209.85.210.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J9gmyMqV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4994F1F000E9;
-	Tue,  1 Sep 2026 16:52:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788281533;
-	bh=0zEVzRhIJXMNQ2RRpE2WIb8rAbA3Zr/vj9+lnBtzPL8=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=J9gmyMqV/G5teKKN2aPRIUutUm54xTGXMJJXamPLi+0B1u/aItJRrzvJQGqxmGomT
-	 HizaPBA4eJ/cjG1y//ZoGvE77uuThQRijSULIAJNEbBQPT0j8Cyg7t5RTMstSxjj7S
-	 ZaqHP+y3pdVrkhkL9pjB+fZ2yXd81QcjRNsw0by+KKfbyEredgRwTB0RGQ2Y0WXDrZ
-	 5M/lMGN3528sVvQofIXnCJZbCM82PvQNdiN7Ro0YwBXKruQmBD9qdYhFlV3Wz1v7zm
-	 iOsO27UI3e0hpLTUkGdnGVWoZL2XWtcIGKXBy2fAGsSjI0YvBIt7bqOns61yyh7OBC
-	 aoMfQyiSFEyyw==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id 0EE04CE09F8; Tue,  1 Sep 2026 09:52:13 -0700 (PDT)
-Date: Tue, 1 Sep 2026 09:52:13 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: KunWu Chan <kunwu.chan@gmail.com>
-Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org,
-	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] srcutiny: Add atomic SRCU operation checks and state
-Message-ID: <e521bee4-e8ab-40a2-b22f-325d37fbcd63@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260831074937.2380914-1-kunwu.chan@linux.dev>
- <0eac36c5-acd2-4d8d-a498-f56a57cc3d6a@paulmck-laptop>
- <CAN_Opa_z4e8fLM0=+QV82r4oveKKUWitvNrBnsfJhXd+2-QQLQ@mail.gmail.com>
- <ce1789d4-7a78-456c-9e6e-e9af824e5285@paulmck-laptop>
- <CAN_Opa_AYw-KSA-u5=fjGLOP9z-Cf1Dk2Fba==MSLAX7TZSYWQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="aGQMMX0o"
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-7eb34c17b96so4369869a34.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 09:52:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788281535; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NfgJDAmsTUHML+Q9k28nusS09Cx56SGCEJA7R7+974IvJyXHn9AJe3LQ6OYrfWYfGT
+         Yf/T2lVr/eD+OKcO6UUXbQEJFutIZR1hKyswiW0Ttv4hkH6rLFMjSAjLpPzxIwVBno1c
+         ZliOWprdHKkSdrnt1wL6OUjPjYxoIzaZ97NM3zJ+xW1cZ6CQrw0iw9ZNlgsyJuPAYlj5
+         wCEXw4irWTVs1v4db8Vmfyt4Zr9ew1PF3znONqZQEl/Jj9Yav9fsYsnSf3xJ317Hsouy
+         oZk8M3tIyyqstdeurA5+hiaA59eWWO7HkChC6fhptpdI/us7KF7RuNTqiiPaNdDCB8mP
+         MH2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=euL/xYtykUYtPWLGN8VRQ8kl65n5FLCkcY3H4v1jlE8=;
+        fh=fW++PGzLv/t7+l1nUO56O86O5nMbUBcR/vn0YOCl3to=;
+        b=IdbEvFP6VXaVXmLbMN+mkhm3rq4pT8eVNqOIPlyWynfD6g3fz+8NiQudIdFmKBJ0Yo
+         ryihO9ygrHA+C+vPsICF33SaIAJAdNFNBmHnZC7ALjcGVy5de5FuN0Iw9lPfHXyUQ+mb
+         mqh9yQxCj7WfrcV8h2/f8ip98NbtDMhgYo6umSi4sGo/UA3gyOS4uuW2iC9IYC1QZi+M
+         hrMLjfbX68tmOlgUpRzemM89piw1cw4yGh81AAzUCRBse8wQriKIehJ/tFlvAzTF/9GN
+         jlQ24wkt+t1Jqb/CfPxi1jlX8tJ+YBvMo8Qzc86BHkjVwF5P4Tq6AgKqq001iPfp+fwD
+         Whyg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1788281535; x=1788886335; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=euL/xYtykUYtPWLGN8VRQ8kl65n5FLCkcY3H4v1jlE8=;
+        b=aGQMMX0oAIi4UTeHxGnxpDhMy95ikzV2st0PRIHZe3mFxTDBhLLs5rLnuJqAPDnKxn
+         vzGV9/kZJyzV77SHU4a2t/PDyOCqpGSa65abGYkhp1y9Ugs3lX6W8L2qagnG1FnDSOvP
+         voeOO9mXlvGPgbZ9xgkjc43Fd0ptaXOMxCicipmIVoX6USzTVy1YcL5MpxBt0c9yTQjW
+         S5yWf3rhfGUz/0u8Ov6xf3nUAhvvgYV8Ip89/omCV4ywTtb8wodWdFL0jhXNf2KAxs3M
+         VmEEcET+ONi5d2ZX16U6N7FsWfznQI2A5Xev0p66VGUrQYfVnMF6PA8GeLHtlov4xyFl
+         gwjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788281535; x=1788886335;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=euL/xYtykUYtPWLGN8VRQ8kl65n5FLCkcY3H4v1jlE8=;
+        b=O0vhtQhtuBSdsuZTfWcyp+iuzZAUwjNYbEmgrdooRE/Uph3cJhzCPRXHFWemQCPnQd
+         NuhFkrtRn7RcqO7e1Zg2ho9kMXqVeubQogerljuX6d1mmEEZCJFGYPrAN4ISo+O3Gvws
+         204HOUQqr++ipfBi8xQT3lajLz8O6CvHbsg2BLqnJ2RbZizxr6a9A6xCj1nFDKs/bfN3
+         PU4PSJ/PLYkMHGfOE57Wx53WoFfaJ5anYv6DK1ajyDkosZrQ/RKsI4G6KfQIbdQlHzmH
+         9AclqwKRJHZ15RS+qRGgjnhmeg/SVP7tartBL5FB/UmH3RG/mugMZKjYQSWwFbwP9a9p
+         Zlkg==
+X-Forwarded-Encrypted: i=1; AHgh+Roxi91xWQPVki6HNVM0vc6AJq6Z3PabHF18yzv0r1mAZkrDb33WhasOn+mqceVssC06vTc+HqPo9gWJc5s=@vger.kernel.org
+X-Gm-Message-State: AFuF++kIhTFnEpWsRjRkG3WQvUKq7xeo0IDpZDgA1ekIl6qqZrKM3n3X
+	eXgBomGTl9i0yamvAx7vzgc9gzUypMyZ6u+USOXJIKGRScfIfnTn44rXAVbzru0c9W9W2k7h9lb
+	/guUDNVZvmTshkbtIh8db7W2ztTJUT30DiBFfV/+FGiOhL/L3roHWvsY=
+X-Gm-Gg: AR+sD10cXPTVAaAykhFaJvfW9F2TmwrXu2meJhtNwF7S+yMhV1xUQP5XTqxAA39ps/y
+	ZrBQEaUE/HMD8yK1fQgpTjc6vcQ3xo9fDgiEkmwMY2b98/KH3JcJ7RgvBZkVaKgzfTRE5jaaO3X
+	YecfW2rWk6oTCJ59xSwBPrhNzUQ1NhHul26q4UIQzeW4wOqbJws0r3PqyX44HyMLGDWQM9u3uO6
+	/KB6bgoIfeIBngwpf10Irn9/ySuNBrLOI3AHjQhu0vAqpmZZ4zaA67fxQePPSg6nz8p0SJ39D7a
+	Bvw/SsEVd4PZ4RkoUGvg9nZpRKl01Z/KoyYaPf4xHRVi8Pf0a43R+seD6wWbXbW5ahFVfGMEgH6
+	1xz4NXz3e13ZJ0YfOrJKXG3SGDYgWLxIS6YKA18YUy10xd2uWnJsgsGiU+wO3yqqY44s7Al5Y
+X-Received: by 2002:a05:6820:e053:b0:6aa:e70f:301e with SMTP id
+ 006d021491bc7-6b1c6430419mr26708240eaf.8.1788281535383; Tue, 01 Sep 2026
+ 09:52:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAN_Opa_AYw-KSA-u5=fjGLOP9z-Cf1Dk2Fba==MSLAX7TZSYWQ@mail.gmail.com>
+References: <20260827-imx355-ccsify-v2-1-3a97bc708315@ixit.cz>
+In-Reply-To: <20260827-imx355-ccsify-v2-1-3a97bc708315@ixit.cz>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Tue, 1 Sep 2026 17:51:59 +0100
+X-Gm-Features: AcwNN1UyRrhkRo3vpz-3Dcmc2lSb4osssqDcngioM1tIid4NNPEtyPBD1aO9Mxc
+Message-ID: <CAPY8ntAWavYQ184V4vGzUGoV0Cp74BFN0qyG4KGBY24iV8i-rg@mail.gmail.com>
+Subject: Re: [PATCH v2] media: imx355: reuse existing CCS defines
+To: david@ixit.cz
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 01, 2026 at 04:29:05PM +0800, KunWu Chan wrote:
-> On Tue, Sep 1, 2026 at 11:10 AM Paul E. McKenney <paulmck@kernel.org> wrote:
-> >
-> > On Tue, Sep 01, 2026 at 10:00:24AM +0800, KunWu Chan wrote:
-> > > On Tue, Sep 1, 2026 at 9:04 AM Paul E. McKenney <paulmck@kernel.org> wrote:
-> > > >
-> > > > On Mon, Aug 31, 2026 at 03:49:37PM +0800, Kunwu Chan wrote:
-> > > > > From: Kunwu Chan <kunwu.chan@gmail.com>
-> > > > >
-> > > > > Add atomic SRCU operation checks and the associated state to Tiny
-> > > > > SRCU.
-> > > > >
-> > > > > An atomic SRCU domain does not use the normal SRCU callback and
-> > > > > grace-period machinery.  In particular, a callback queued with
-> > > > > call_srcu() would never be processed.  Use WARN_ON_ONCE() to reject
-> > > > > call_srcu() and srcu_barrier() on atomic SRCU domains.
-> > > > >
-> > > > > For synchronize_srcu(), redirect atomic SRCU domains to
-> > > > > synchronize_srcu_atomic().
-> > > > >
-> > > > > Add srcu_reader_flavor to the Tiny SRCU state for these checks.
-> > > > > Tiny SRCU does not currently set the flavor for atomic SRCU domains,
-> > > > > but keeping the flavor in the common state allows the operation
-> > > > > checks to enforce the restriction once atomic flavor tracking is
-> > > > > enabled.
-> > > > >
-> > > > > Also initialize srcu_atomic_gp_flag, which was previously left
-> > > > > uninitialized.
-> > > > >
-> > > > > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
-> > > > > ---
-> > > > >  include/linux/srcutiny.h |  1 +
-> > > > >  kernel/rcu/srcutiny.c    | 12 ++++++++++++
-> > > > >  2 files changed, 13 insertions(+)
-> > > > >
-> > > > > diff --git a/include/linux/srcutiny.h b/include/linux/srcutiny.h
-> > > > > index 47a368f945e3..2b293336525a 100644
-> > > > > --- a/include/linux/srcutiny.h
-> > > > > +++ b/include/linux/srcutiny.h
-> > > > > @@ -20,6 +20,7 @@ struct srcu_struct {
-> > > > >       u8 srcu_gp_running;             /* GP workqueue running? */
-> > > > >       u8 srcu_gp_waiting;             /* GP waiting for readers? */
-> > > > >       u8 srcu_atomic_gp_flag;         /* Serialize atomic GP work.*/
-> > > > > +     u8 srcu_reader_flavor;          /* Values: SRCU_READ_FLAVOR_.*  */
-> > > > >       unsigned long srcu_idx;         /* Current reader array element in bit 0x2. */
-> > > > >       unsigned long srcu_idx_max;     /* Furthest future srcu_idx request. */
-> > > > >       struct swait_queue_head srcu_wq;
-> > > > > diff --git a/kernel/rcu/srcutiny.c b/kernel/rcu/srcutiny.c
-> > > > > index 26ea4bfbeaf2..22f7716cbb0e 100644
-> > > > > --- a/kernel/rcu/srcutiny.c
-> > > > > +++ b/kernel/rcu/srcutiny.c
-> > > > > @@ -41,6 +41,7 @@ static int init_srcu_struct_fields(struct srcu_struct *ssp)
-> > > > >       ssp->srcu_cb_tail = &ssp->srcu_cb_head;
-> > > > >       ssp->srcu_gp_running = false;
-> > > > >       ssp->srcu_gp_waiting = false;
-> > > > > +     ssp->srcu_atomic_gp_flag = 0;
-> > > >
-> > > > Good catch!  I will be folding this into the base commit with attribution
-> > > > on my next rebase:
-> > > >
-> > > > 9a2e9996ccec ("srcutiny: Add an atomic Tiny SRCU")
-> > > >
-> > > > >       ssp->srcu_idx = 0;
-> > > > >       ssp->srcu_idx_max = 0;
-> > > > >       INIT_WORK(&ssp->srcu_work, srcu_drive_gp);
-> > > > > @@ -289,6 +290,9 @@ EXPORT_SYMBOL_GPL(srcu_defer_drain);
-> > > > >  void call_srcu(struct srcu_struct *ssp, struct rcu_head *rhp,
-> > > > >              rcu_callback_t func)
-> > > > >  {
-> > > > > +     if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC))
-> > > > > +             return;
-> > > > > +
-> > > > >       if (should_rcu_defer()) {
-> > > > >               /* A re-entrant call_srcu() during the drain would livelock it. */
-> > > > >               if (READ_ONCE(srcu_defer_draining) && !in_nmi()) {
-> > > > > @@ -319,6 +323,11 @@ void synchronize_srcu(struct srcu_struct *ssp)
-> > > > >  {
-> > > > >       struct rcu_synchronize rs;
-> > > > >
-> > > > > +     if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC)) {
-> > > > > +             synchronize_srcu_atomic(ssp);
-> > > > > +             return;
-> > > > > +     }
-> > > > > +
-> > > > >       srcu_lock_sync(&ssp->dep_map);
-> > > > >
-> > > > >       RCU_LOCKDEP_WARN(lockdep_is_held(ssp) ||
-> > > > > @@ -415,6 +424,9 @@ EXPORT_SYMBOL_GPL(synchronize_srcu_atomic);
-> > > > >  /* Register any deferred callbacks, then wait for all in-flight ones. */
-> > > > >  void srcu_barrier(struct srcu_struct *ssp)
-> > > > >  {
-> > > > > +     if (WARN_ON_ONCE(ssp->srcu_reader_flavor == SRCU_READ_FLAVOR_ATOMIC))
-> > > > > +             return;
-> > > > > +
-> > > > >       __srcu_defer_drain(ssp);
-> > > > >       synchronize_srcu(ssp);
-> > > > >  }
-> > > >
-> > > > The rest is good as far as it goes, but don't we need to set the value
-> > > > of ssp->srcu_reader_flavor somewhere for atomic srcu_struct structures?
-> > > >
-> > >
-> > > Hi Paul,
-> > >
-> > > Yes, agreed. I have the flavor tracking changes implemented locally
-> > > and am testing them now.
-> > > I’ll send the updated patch shortly.
-> > >
-> > > I also have draft patches for the documentation and the fast path, as
-> > > well as rcutorture testing for
-> > > tiny atomic srcu , which I’ll send separately.
-> >
-> > Sounds good, and I am looking forward to seeing them.
-> 
-> Hi Paul,
-> I’ve sent the flavor tracking changes as [1].
-> [1] https://lore.kernel.org/all/20260901074815.3145037-1-kunwu.chan@linux.dev/
-> 
-> >
-> > I will admit that I am curious as to why Tiny Atomic SRCU needs different
-> > rcutorture testing than does Tree Atomic SRCU, but I will ask myself
-> > that question again when I see your patches.  ;-)
-> 
-> You’re right that the existing SRCU torture configuration can exercise
-> the atomic path with rcutorture.reader_flavor=0x10. I had prepared
-> the Tiny atomic torture test as a separate draft, mainly adding local
-> configurations for convenience while validating the Tiny and Tree
-> atomic paths. There is no Tiny-specific torture model here.
-> 
-> I can adjust the final rcutorture configuration and naming based on your
-> preference.
+On Thu, 27 Aug 2026 at 10:26, David Heidelberg via B4 Relay
+<devnull+david.ixit.cz@kernel.org> wrote:
+>
+> From: David Heidelberg <david@ixit.cz>
+>
+> The driver may not be MIPI CCS compliant, but does use same address and
+> often set same values as compliant drivers. Do not redefine registers we
+> already know and are standard.
+>
+> No functional changes.
+>
+> Signed-off-by: David Heidelberg <david@ixit.cz>
 
-The best approach is to add a section to this script:
+Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
-tools/testing/selftests/rcutorture/bin/torture.sh
-
-This would require adding a command-line parameter such as
---do-atomic-srcu and friends.  The effect would be that people like
-me would run short tests of atomic SRCU frequently.
-
-							Thanx, Paul
+> ---
+> Changes in v2:
+> - Replaced all occurences with CCS ones.
+> - Link to v1: https://patch.msgid.link/20260819-imx355-ccsify-v1-1-0b6cef77e340@ixit.cz
+> ---
+>  drivers/media/i2c/imx355.c | 84 ++++++++++++++--------------------------------
+>  1 file changed, 25 insertions(+), 59 deletions(-)
+>
+> diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+> index 8eb8588cb71bb..2c845b7b3df4f 100644
+> --- a/drivers/media/i2c/imx355.c
+> +++ b/drivers/media/i2c/imx355.c
+> @@ -14,89 +14,55 @@
+>  #include <linux/unaligned.h>
+>
+>  #include <media/v4l2-cci.h>
+>  #include <media/v4l2-ctrls.h>
+>  #include <media/v4l2-device.h>
+>  #include <media/v4l2-event.h>
+>  #include <media/v4l2-fwnode.h>
+>
+> -#define IMX355_REG_MODE_SELECT         CCI_REG8(0x0100)
+> -#define IMX355_MODE_STANDBY            0x00
+> -#define IMX355_MODE_STREAMING          0x01
+> +#include "ccs/ccs-regs.h"
+>
+> -/* Chip ID */
+> -#define IMX355_REG_CHIP_ID             CCI_REG16(0x0016)
+>  #define IMX355_CHIP_ID                 0x0355
+>
+> -#define IMX355_REG_LANE_SEL            CCI_REG8(0x0114)
+> -
+>  /* PLL registers that depend on the external clock frequency */
+> -#define IMX355_REG_EXTCLK_FREQ         CCI_REG16(0x0136)
+>  #define IMX355_REG_PLL_OP_PREDIV       CCI_REG8(0x030d)
+> -#define IMX355_REG_PLL_OP_MUL          CCI_REG16(0x030e)
+>  #define IMX355_REG_PLL_IVT_PCK_DIV     CCI_REG8(0x0301)
+>  #define IMX355_REG_PLL_IVT_SYSCK_DIV   CCI_REG8(0x0303)
+>  #define IMX355_PLL_OP_PREDIV           2
+>  #define IMX355_PLL_IVT_PCK_DIV         5
+>
+>  /* V_TIMING internal */
+> -#define IMX355_REG_FLL                 CCI_REG16(0x0340)
+>  #define IMX355_FLL_MAX                 0xffff
+>  #define IMX355_VBLANK_MIN              20
+>
+> -#define IMX355_REG_LLP                 CCI_REG16(0x0342)
+>  #define IMX355_LLP_MAX                 0xffff
+>
+> -#define IMX355_REG_X_ADD_START         CCI_REG16(0x0344)
+> -#define IMX355_REG_Y_ADD_START         CCI_REG16(0x0346)
+> -#define IMX355_REG_X_ADD_END           CCI_REG16(0x0348)
+> -#define IMX355_REG_Y_ADD_END           CCI_REG16(0x034a)
+> -#define IMX355_REG_X_OUT_SIZE          CCI_REG16(0x034c)
+> -#define IMX355_REG_Y_OUT_SIZE          CCI_REG16(0x034e)
+> -
+>  /* Exposure control */
+> -#define IMX355_REG_EXPOSURE            CCI_REG16(0x0202)
+>  #define IMX355_EXPOSURE_MIN            1
+>  #define IMX355_EXPOSURE_STEP           1
+>  #define IMX355_EXPOSURE_DEFAULT                0x0282
+>  #define IMX355_EXPOSURE_OFFSET         10
+>
+>  /* Analog gain control */
+> -#define IMX355_REG_ANALOG_GAIN         CCI_REG16(0x0204)
+>  #define IMX355_ANA_GAIN_MIN            0
+>  #define IMX355_ANA_GAIN_MAX            960
+>  #define IMX355_ANA_GAIN_STEP           1
+>  #define IMX355_ANA_GAIN_DEFAULT                0
+>
+>  /* Digital gain control */
+>  #define IMX355_REG_DPGA_USE_GLOBAL_GAIN        CCI_REG8(0x3070)
+> -#define IMX355_REG_DIG_GAIN_GLOBAL     CCI_REG16(0x020e)
+>  #define IMX355_DGTL_GAIN_MIN           256
+>  #define IMX355_DGTL_GAIN_MAX           4095
+>  #define IMX355_DGTL_GAIN_STEP          1
+>  #define IMX355_DGTL_GAIN_DEFAULT       256
+>
+> -/* Test Pattern Control */
+> -#define IMX355_REG_TEST_PATTERN                CCI_REG16(0x0600)
+> -#define IMX355_TEST_PATTERN_DISABLED           0
+> -#define IMX355_TEST_PATTERN_SOLID_COLOR                1
+> -#define IMX355_TEST_PATTERN_COLOR_BARS         2
+> -#define IMX355_TEST_PATTERN_GRAY_COLOR_BARS    3
+> -#define IMX355_TEST_PATTERN_PN9                        4
+> -
+> +/* Link rate register: 16-bit wide, unlike the CCS 32-bit one */
+>  #define IMX355_REG_REQ_LINK_BIT_RATE   CCI_REG16(0x0820)
+>
+> -#define IMX355_REG_BINNING_MODE                CCI_REG8(0x0900)
+> -#define IMX355_REG_BINNING_TYPE                CCI_REG8(0x0901)
+> -#define IMX355_REG_BINNING_WEIGHTING   CCI_REG8(0x0902)
+> -
+> -/* Flip Control */
+> -#define IMX355_REG_ORIENTATION         CCI_REG8(0x0101)
+> -
+>  #define IMX355_PIXEL_ARRAY_TOP         0
+>  #define IMX355_PIXEL_ARRAY_LEFT                0
+>  #define IMX355_PIXEL_ARRAY_WIDTH       3280
+>  #define IMX355_PIXEL_ARRAY_HEIGHT      2464
+>
+>  struct imx355_reg_list {
+>         u32 num_of_regs;
+>         const struct cci_reg_sequence *regs;
+> @@ -616,39 +582,39 @@ static int imx355_set_ctrl(struct v4l2_ctrl *ctrl)
+>          * when power is up for streaming
+>          */
+>         if (!pm_runtime_get_if_in_use(imx355->dev))
+>                 return 0;
+>
+>         switch (ctrl->id) {
+>         case V4L2_CID_ANALOGUE_GAIN:
+>                 /* Analog gain = 1024/(1024 - ctrl->val) times */
+> -               ret = cci_write(imx355->regmap, IMX355_REG_ANALOG_GAIN,
+> +               ret = cci_write(imx355->regmap, CCS_R_ANALOG_GAIN_CODE_GLOBAL,
+>                                 ctrl->val, NULL);
+>                 break;
+>         case V4L2_CID_DIGITAL_GAIN:
+> -               ret = cci_write(imx355->regmap, IMX355_REG_DIG_GAIN_GLOBAL,
+> +               ret = cci_write(imx355->regmap, CCS_R_DIGITAL_GAIN_GLOBAL,
+>                                 ctrl->val, NULL);
+>                 break;
+>         case V4L2_CID_EXPOSURE:
+> -               ret = cci_write(imx355->regmap, IMX355_REG_EXPOSURE,
+> +               ret = cci_write(imx355->regmap, CCS_R_COARSE_INTEGRATION_TIME,
+>                                 ctrl->val, NULL);
+>                 break;
+>         case V4L2_CID_VBLANK:
+>                 /* Update FLL that meets expected vertical blanking */
+> -               ret = cci_write(imx355->regmap, IMX355_REG_FLL,
+> +               ret = cci_write(imx355->regmap, CCS_R_FRAME_LENGTH_LINES,
+>                                 format->height + ctrl->val, NULL);
+>                 break;
+>         case V4L2_CID_TEST_PATTERN:
+> -               ret = cci_write(imx355->regmap, IMX355_REG_TEST_PATTERN,
+> +               ret = cci_write(imx355->regmap, CCS_R_TEST_PATTERN_MODE,
+>                                 ctrl->val, NULL);
+>                 break;
+>         case V4L2_CID_HFLIP:
+>         case V4L2_CID_VFLIP:
+> -               ret = cci_write(imx355->regmap, IMX355_REG_ORIENTATION,
+> +               ret = cci_write(imx355->regmap, CCS_R_IMAGE_ORIENTATION,
+>                                 imx355->hflip->val | imx355->vflip->val << 1,
+>                                 NULL);
+>                 break;
+>         default:
+>                 ret = -EINVAL;
+>                 dev_info(imx355->dev, "ctrl(id:0x%x,val:0x%x) is not handled",
+>                          ctrl->id, ctrl->val);
+>                 break;
+> @@ -823,75 +789,75 @@ static int imx355_start_streaming(struct imx355 *imx355)
+>         crop = v4l2_subdev_state_get_crop(state, 0);
+>         mode = v4l2_find_nearest_size(supported_modes,
+>                                       ARRAY_SIZE(supported_modes),
+>                                       width, height, fmt->width, fmt->height);
+>         cci_multi_reg_write(imx355->regmap, mode->reg_list.regs,
+>                             mode->reg_list.num_of_regs, &ret);
+>
+>         /* Set readout crop and size registers  */
+> -       cci_write(imx355->regmap, IMX355_REG_X_ADD_START, crop->left,
+> +       cci_write(imx355->regmap, CCS_R_X_ADDR_START, crop->left,
+>                   &ret);
+> -       cci_write(imx355->regmap, IMX355_REG_Y_ADD_START, crop->top, &ret);
+> -       cci_write(imx355->regmap, IMX355_REG_X_ADD_END,
+> +       cci_write(imx355->regmap, CCS_R_Y_ADDR_START, crop->top, &ret);
+> +       cci_write(imx355->regmap, CCS_R_X_ADDR_END,
+>                   crop->width + crop->left - 1, &ret);
+> -       cci_write(imx355->regmap, IMX355_REG_Y_ADD_END,
+> +       cci_write(imx355->regmap, CCS_R_Y_ADDR_END,
+>                   crop->height + crop->top - 1, &ret);
+> -       cci_write(imx355->regmap, IMX355_REG_X_OUT_SIZE, fmt->width, &ret);
+> -       cci_write(imx355->regmap, IMX355_REG_Y_OUT_SIZE, fmt->height, &ret);
+> +       cci_write(imx355->regmap, CCS_R_X_OUTPUT_SIZE, fmt->width, &ret);
+> +       cci_write(imx355->regmap, CCS_R_Y_OUTPUT_SIZE, fmt->height, &ret);
+>
+>         binning_mode = ((crop->width / fmt->width) << 4) |
+>                         (crop->height / fmt->height);
+> -       cci_write(imx355->regmap, IMX355_REG_BINNING_MODE,
+> +       cci_write(imx355->regmap, CCS_R_BINNING_MODE,
+>                   binning_mode == 0x11 ? 0x00 : 0x01, &ret);
+> -       cci_write(imx355->regmap, IMX355_REG_BINNING_TYPE, binning_mode, &ret);
+> -       cci_write(imx355->regmap, IMX355_REG_BINNING_WEIGHTING, 0x00, &ret);
+> +       cci_write(imx355->regmap, CCS_R_BINNING_TYPE, binning_mode, &ret);
+> +       cci_write(imx355->regmap, CCS_R_BINNING_WEIGHTING, 0x00, &ret);
+>
+>         /* Set PLL registers for the external clock frequency */
+> -       cci_write(imx355->regmap, IMX355_REG_EXTCLK_FREQ,
+> +       cci_write(imx355->regmap, CCS_R_EXTCLK_FREQUENCY_MHZ,
+>                   imx355->clk_params->extclk_freq, &ret);
+> -       cci_write(imx355->regmap, IMX355_REG_PLL_OP_MUL,
+> +       cci_write(imx355->regmap, CCS_R_OP_PLL_MULTIPLIER,
+>                   imx355->clk_params->pll_op_mpy[lane_idx], &ret);
+>         cci_write(imx355->regmap, IMX355_REG_PLL_OP_PREDIV,
+>                   imx355->clk_params->pll_op_prediv[lane_idx], &ret);
+>         cci_write(imx355->regmap, IMX355_REG_PLL_IVT_SYSCK_DIV,
+>                   lane_idx ? 2 : 1, &ret);
+>
+>         /* Set MIPI configuration */
+> -       cci_write(imx355->regmap, IMX355_REG_LANE_SEL,
+> +       cci_write(imx355->regmap, CCS_R_CSI_LANE_MODE,
+>                   imx355->hwcfg->num_lanes - 1, &ret);
+>
+>         link_bitrate = imx355->link_freq->qmenu_int[imx355->link_freq->val] *
+>                        imx355->hwcfg->num_lanes * 2;
+>         do_div(link_bitrate, 1000000);
+>         cci_write(imx355->regmap, IMX355_REG_REQ_LINK_BIT_RATE, link_bitrate,
+>                   &ret);
+>
+>         /* set digital gain control to all color mode */
+>         cci_write(imx355->regmap, IMX355_REG_DPGA_USE_GLOBAL_GAIN, 1, &ret);
+>
+>         /* set line length */
+> -       cci_write(imx355->regmap, IMX355_REG_LLP,
+> +       cci_write(imx355->regmap, CCS_R_LINE_LENGTH_PCK,
+>                   imx355->hblank->val + fmt->width, &ret);
+>
+>         /* Apply customized values from user */
+>         if (!ret)
+>                 ret = __v4l2_ctrl_handler_setup(imx355->sd.ctrl_handler);
+>
+> -       cci_write(imx355->regmap, IMX355_REG_MODE_SELECT, IMX355_MODE_STREAMING,
+> +       cci_write(imx355->regmap, CCS_R_MODE_SELECT, CCS_MODE_SELECT_STREAMING,
+>                   &ret);
+>
+>         return ret;
+>  }
+>
+>  /* Stop streaming */
+>  static int imx355_stop_streaming(struct imx355 *imx355)
+>  {
+> -       return cci_write(imx355->regmap, IMX355_REG_MODE_SELECT,
+> -                        IMX355_MODE_STANDBY, NULL);
+> +       return cci_write(imx355->regmap, CCS_R_MODE_SELECT,
+> +                        CCS_MODE_SELECT_SOFTWARE_STANDBY, NULL);
+>  }
+>
+>  static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
+>  {
+>         struct imx355 *imx355 = to_imx355(sd);
+>         struct v4l2_subdev_state *state;
+>         int ret = 0;
+>
+> @@ -931,17 +897,17 @@ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
+>  }
+>
+>  /* Verify chip ID */
+>  static int imx355_identify_module(struct imx355 *imx355)
+>  {
+>         int ret;
+>         u64 val;
+>
+> -       ret = cci_read(imx355->regmap, IMX355_REG_CHIP_ID, &val, NULL);
+> +       ret = cci_read(imx355->regmap, CCS_R_SENSOR_MODEL_ID, &val, NULL);
+>         if (ret)
+>                 return ret;
+>
+>         if (val != IMX355_CHIP_ID) {
+>                 dev_err(imx355->dev, "chip id mismatch: %x!=%llx",
+>                         IMX355_CHIP_ID, val);
+>                 return -EIO;
+>         }
+>
+> ---
+> base-commit: 5453bc3279e9f8578ac3e534d476240e40c879e1
+> change-id: 20260819-imx355-ccsify-856c850575f1
+>
+> Best regards,
+> --
+> David Heidelberg <david@ixit.cz>
+>
+>
