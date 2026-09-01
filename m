@@ -1,94 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42CF53AEF4E;
-	Tue,  1 Sep 2026 01:41:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527823A6B8E
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 01:41:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788226913; cv=none; b=ZUWHhEypgDnhNmzwQPv7Vw6dssYc/K5Jq69ToNunojAzH0RpZv+rtV8eWS6XO8GdFci8mbwMFLwdMkiBK6QVeISiKcnHi1jwDAKMO5SOpm+Lcg453kco6yZLBreuCf4a6DQOay8MYu3pA5uK55nwxEVJ18dCMKXMRrvCj6i8V7k=
+	t=1788226915; cv=none; b=JDuESQ/18CyOA2CwBA0Drit/dbAZtx2fCpfSAqSW413ddREKHf4MuQ+LNo+qXipMCkEMnFM6cokcrC776CqImbfMhmUnKg8/1huOjiD9/mXbpKVxIAF09zVoYdvug3ShCKdq0V402sTJJtUOVVcjSekD21c2gs+MNXjOEnaFKMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788226913; c=relaxed/simple;
-	bh=LrCiT++5mOcKya2DAeDChXnaTBQgsAMo7COwSF6jtc0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dvfptSia0GWvD55iU+3xVm60d/AJkQD/PZfLh8ba76dwOj5jRTg3B4pcDMh6O6hAPg9L/oi6vxfFz+ibQ06o5EaH4WTfzuhtfAVTSzmFQjO2YY8k1i3tY3sG2gyMoGAnjhp7XFTdPUkWuahq8XnAgGxKtXyY+/cErxeUNiW/G7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DMsEtGDC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788226915; c=relaxed/simple;
+	bh=/IWTzbVOPmeH0fF1mbSmboQLIEEWZ5g1EYRkSS89PdM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TB0ilvoddHNfsPPhLj0LikRWwJJ8XJX1dRziUGNp0cqVbyDAV4o4hl0aBswiTbkPYq1s996hLwpK1P/fhVKZV8YG+dSKwKhsTcACdhqSSizzoy4sFaSrKEFOiBUynYd5haoTkRjuKKn2hTKYts+oliWZPxrmTTAFY7IUNxjOd0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IXoNY/kW; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DMsEtGDC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C71621F000E9;
-	Tue,  1 Sep 2026 01:41:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788226910;
-	bh=4tccQKCY16goyGLzWPSUt/pWN4uDuOLuqyh4DGb8V+M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DMsEtGDCZ9yp0FwxeMPBf68ttCxiQ84jZ3GrvQ9CEo6Wa7QlnchLpitCpQPi/evLb
-	 ekUtzpIcEoqLFDd8FG9WCXoNzt9+XnqxCOsTZNt3NSNLZh4aCNGz1CGITPD/NEY5qA
-	 UCQULaqBEpsi0TL5KIue5IIGf2wk11bnKCyAuprLgYWl/PRWoawkEX+RdgMfiEdUI7
-	 PdcawhKQ6PC23Q3OE9RIeHy7xDxh6eQosnzIuu/mIxVlVOdrGZPkdVqwfUni/cIGL3
-	 SbWK+FX1VnaavdjaptJyjB8uct6ojXqsExApTmKjRVW0KT5JPDhe5InPuyWYTSpYd8
-	 hefBWWDnMmylQ==
-Date: Mon, 31 Aug 2026 20:41:47 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: david@ixit.cz, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Petr Hodina <petr.hodina@protonmail.com>, 
-	Richard Acayan <mailingradian@gmail.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v7 1/2] arm64: dts: qcom: sdm845-google: Add dual front
- IMX355 cameras
-Message-ID: <apYtQQkrZB5gHqJy@baldur>
-References: <20260721-pixel3-camera-v7-0-82d323c6c5d2@ixit.cz>
- <20260721-pixel3-camera-v7-1-82d323c6c5d2@ixit.cz>
- <a5d6f840-3849-464d-a540-634dc3ec81b7@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IXoNY/kW"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2d942c7cc2fso2874535ad.3
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 18:41:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788226911; x=1788831711; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zxfqE4kEVSw43vLgWwAc6GNw7gmwVaFgoUtBMJjaqys=;
+        b=IXoNY/kWQ35ZewUoBWluuuB3bysaavJQbC1O9Q6GCPWo7bX9Fwlt37t3KG29sFDGEW
+         j2hJfh1dGjrQUuw812e7Y8CQiyp/W4tXn+S4XK0l61/+T6DwuRkU7xQuxbt22JVjqXQj
+         j87YGpNMkcV5+C3vT35hhaOU0Sq4gkhzW5ZEe95A7SYxa/QQf9Rwj19Klt7AxTOtcHLv
+         dVmEvWByTVhAsRhBIRsKNy4YhqI6uAvaH9BLhFOnXEDNlsCb80irj3ZV1W/8eK1EzY+b
+         vgWThtIncVkPgOzoDPqAOzfi944irad8Ciwi7LtZP0rWYakuA+PCXAzEFzdmg2MCK3mu
+         sePw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788226911; x=1788831711;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zxfqE4kEVSw43vLgWwAc6GNw7gmwVaFgoUtBMJjaqys=;
+        b=X2MBW6OzfmNXbyB4jVzuXt2qvGd5rNN83X41JkaXlijXAWrkQ6XfG61kQxljANqMmm
+         64C6lDCTLkau50RyZj07Df43QD//U9nABIBWn/9FfNdzzRD51YDzSSxorfuVlM351S+1
+         JVAqLDS9Phw8RCdvSdjahqgUxy4cc13FKUg1KelTUDQaR6/l+Ex4+qCWv1XKHqKa5F5q
+         yjgW6LWaqxwYmay3FjDO1/cTH0IunKz3oScJ0RdqcMDEtLMP5g1+/KwVe026ijDyGJVa
+         WmchXZltPzMD2CrLmAmwrvxuvcrrvKKgKfNbkaSARY39KCA2MJxdJMySEmPj1E7aBba5
+         x7rw==
+X-Gm-Message-State: AFuF++lYHwizz5CSnRW2zMvKRRWR/8ldys8UMog5m9+p0ip9590sI/GG
+	N2AGaheai4qH/RFCCE5ELfwzklNWFaRfXopMRxCb6Usu57GMIYcpDGwgPWvrXNFu95Q=
+X-Gm-Gg: AYBFou12/xY221dsYmMuqRYh9lLGSlr1ca3NLELGvCE4qRaKZfUSln6ZrSbU1vCAaGC
+	SA6TYwpOKD9stNc1ZmRhstblc9+hlb7/uufZPGUdLzBZarOLkowmjs/uvetCLYlpSlpDtFsnQUg
+	LggjJ3exWh/0Ew1uQHsbcvs25Phfqsfz5sew/Wio6+oAHIld09O4aI9Ql1IBZHhKZ5puJIqIkP1
+	VXakbu1YwFRrp+v6g2RAzpddNkL40vUvHtlr68ugwQBozX0AJ+68o32U8Ix2Bj7v4XSMBx5PxE4
+	7PyIYpZw1R+wpQqGGRqA1e7qci2bII6k0syjfRSaISx5LWfEUeUrgNUdWkRqDwskVSnb9iSpJdK
+	5Zn52k9gdoN1VWgcIeJpqU41+gWQonLl39YLpVuP3DSh4TpupXlcn2JnpRU2tVskjKs6guqsGcL
+	Yo9B+j1ndpXAhm7g+XG8Vsmk/JYX3wXL/pWVp4+L/l6eYaAzytacFGgXs=
+X-Received: by 2002:a17:903:38c3:b0:2c8:f34c:82c0 with SMTP id d9443c01a7336-2d74dbe9f23mr521167365ad.2.1788226910927;
+        Mon, 31 Aug 2026 18:41:50 -0700 (PDT)
+Received: from bloom.localdomain ([2604:3d09:178e:e100::3820])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d8f2aa02edsm32961835ad.39.2026.08.31.18.41.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 18:41:50 -0700 (PDT)
+From: Ivy Lopez <skunkolee@gmail.com>
+To: akpm@linux-foundation.org,
+	lasse.collin@tukaani.org
+Cc: linux-kernel@vger.kernel.org,
+	Ivy Lopez <skunkolee@gmail.com>
+Subject: [PATCH v2] lib: decompress_unxz: Make it obvious that there is no memory leak
+Date: Mon, 31 Aug 2026 19:41:38 -0600
+Message-ID: <20260901014138.22699-1-skunkolee@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260825191333.34276-1-skunkolee@gmail.com>
+References: <20260825191333.34276-1-skunkolee@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a5d6f840-3849-464d-a540-634dc3ec81b7@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Jul 21, 2026 at 02:36:49PM +0200, Konrad Dybcio wrote:
-> On 7/21/26 2:33 PM, David Heidelberg via B4 Relay wrote:
-> > From: David Heidelberg <david@ixit.cz>
-> > 
-> > The Pixel 3 features two front-facing Sony IMX355 sensors with
-> > different focal lengths (standard and wide-angle).
-> > 
-> > Sensors are connected via CSIPHY port 1 and 2 and controlled over CCI
-> > I2C1, using MCLK2 as the clock source.
-> > 
-> > This enables support for the dual front camera configuration.
-> > 
-> > Signed-off-by: David Heidelberg <david@ixit.cz>
-> > ---
-> >  arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 172 ++++++++++++++++++++-
-> >  1 file changed, 171 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-> > index 9368fd6b87515..c8a28133fb38d 100644
-> > --- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-> > +++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-> > @@ -1,16 +1,18 @@
-> >  // SPDX-License-Identifier: GPL-2.0-only
-> >  
-> >  /dts-v1/;
-> >  
-> >  #include <dt-bindings/arm/qcom,ids.h>
-> >  #include <dt-bindings/dma/qcom-gpi.h>
-> >  #include <dt-bindings/input/linux-event-codes.h>
-> >  #include <dt-bindings/interrupt-controller/irq.h>
-> > +#include <dt-bindings/media/video-interfaces.h>
-> > +#include <dt-bindings/media/video-interface-devices.h>
-> 
-> These should be flipped to be sorted.. if you smile very nicely,
-> Bjorn could prob fix it up
-> 
+Calling __decompress() or unxz() with fill == NULL && flush == NULL &&
+in == NULL is invalid, thus there were no memory leaks even though it
+might have looked like that. Move the conditional free() calls so that
+it's obvious that there are no leaks.
 
-Sure can do, but I don't have dt-bindings/media/video-interface-devices.h :(
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=207113
+Link: https://lore.kernel.org/lkml/20241006072542.66442-2-t.v.s10123@gmail.com/T/
+Link: https://lore.kernel.org/lkml/20260825191333.34276-1-skunkolee@gmail.com/T/
+Reviewed-by: Lasse Collin <lasse.collin@tukaani.org>
+Signed-off-by: Ivy Lopez <skunkolee@gmail.com>
+---
+ lib/decompress_unxz.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> Konrad
+diff --git a/lib/decompress_unxz.c b/lib/decompress_unxz.c
+index 05d5cb490a44..9ccded9934c6 100644
+--- a/lib/decompress_unxz.c
++++ b/lib/decompress_unxz.c
+@@ -342,13 +342,13 @@ STATIC int INIT unxz(unsigned char *in, long in_size,
+ 				b.out_pos = 0;
+ 			}
+ 		} while (ret == XZ_OK);
++	}
+ 
+-		if (must_free_in)
+-			free(in);
++	if (must_free_in)
++		free(in);
+ 
+-		if (flush != NULL)
+-			free(b.out);
+-	}
++	if (flush != NULL)
++		free(b.out);
+ 
+ 	if (in_used != NULL)
+ 		*in_used += b.in_pos;
+-- 
+2.55.0
+
