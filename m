@@ -1,319 +1,430 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 224B247D928
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:40:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF6047ACE4
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:40:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788255620; cv=none; b=jYTqMNZABdz8VvrrM9CLhv8UmSt2WvV65iSp34VxNrl3i6i+XgIdQuTTLDs5uPXlKDKO1a6PiOeITURatRFGKCr78lRYR3F7y1OcRqGbg90MuR9tOkV1Ku9ZZRmMCBCdhDW9L6sA+lBLKr31n4DA7yZbJL1bL/6Sizk/P3JWGEw=
+	t=1788255623; cv=none; b=mkNUpNKEiFlDHXmjAHQ89QVwmBQeWyI7hNlhCN7KPckbb13rMvOPChIoJkYw9iNhMweOhgge/CVbL+RdQWHQHmOlOEBz8/Fo4aOF30Pmv3ofCbKC9r32VrgbF/Ik0dGLJq50m5iaP9CygLQf92X1HQB5xqx/1tuk13M0R5JSsXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788255620; c=relaxed/simple;
-	bh=8APMAef5M9SrLIP+vBlgVZPxJkH5v1YicMDwKDG2Qik=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=McpHPqvii8q70CwpnXgcTL3oesEtxYndh/M2k6e2lqcjomV4Yo+svJeab4P+ynumZwhAyWfSPMEcg9ANgN97WmS3+W+cd4+KCISreX2xEboKzC97i184UlcaS8jeYYb/GdskzLIEPDD4JciNi5V4k5wMoQQ5mcQofQJBS65+vVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=S+rLnLkv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jr3IH4NO; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788255623; c=relaxed/simple;
+	bh=LYDyK4gBUGhJfGB+ZH+RtS0cX3I9N8ObCQUN7umLGYI=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=HjblUAdODMU57tGSG4HPQNNpWTpS7oK0PhS/KcJEUmYlxhrDU0kpbBGcb8iNT87a0Cpaq/SZpj8yemo87XhrclbPYaW9ueEt9MQxEZXwUaPTlVH+I1oegIMaIn/Qw6cTjlrz4inQdf9qERNnreBIuLw3gpNb8cBil9LZ2JtI27o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=jzHDncbD; arc=none smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="S+rLnLkv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jr3IH4NO"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68179FV12561920
-	for <linux-kernel@vger.kernel.org>; Tue, 1 Sep 2026 09:40:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	dEt4E8LFvA2RKOEkuMLy44P4JRUm+WvHjuvX24Q2FpU=; b=S+rLnLkvaxp7nMMw
-	jGkHfmS7RBwNn8Gixn+morA17iIWou/BPXEiVcMiUq+0if/ULdD0cVCdF4K6EN4c
-	V0VeJlWBg96XKvY16NubgmsPJbzLV7qcFlbRL63B8BcehCxYxID57WCDKeHHnZF0
-	PYzysJgBIdrwBY1V1KYqRh8XXOq6O7RsCMqRzE/81AYA74lllgF6nCR1Hz09HpL2
-	UN0zlYUpzyvPn4agl1oQhGZwUy8SbW1c9O454zAdNsx9nePDmHASGANHmq9CD5xo
-	idkBChsWlwYeoyq8x/WmoN/JYskM4evkcyAoCh4tyjZVZxwS8AUcCD5Hp0SsNM0L
-	YWxJ+A==
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdeg3bp2p-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 09:40:05 +0000 (GMT)
-Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-398dc3d8f0aso1379943a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:40:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="jzHDncbD"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c250c6a6a9aso715755466b.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:40:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788255605; x=1788860405; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dEt4E8LFvA2RKOEkuMLy44P4JRUm+WvHjuvX24Q2FpU=;
-        b=jr3IH4NOkN+FpL4NJf2vSwFU6iu5tSCJLMY1ymKoFBwPbQYPVdEOYBzGjbgQZwY+oI
-         +3ghh0veGdF3od0dyPyJBOsmqYp34dgjocOF2HYBEQXeFeDr8IwOnlZDpKxcpoUdYHlp
-         lToyIi2M7Ty9b6PW2Ep2gLVNsdF/Wtt7pZm5xQ+aSowOrIt5uhJJ3MpO2/NrEth/jBVQ
-         erREwH1KtOrBpPzUo72pGqo5jTPmjcg2RSR1ZK+evsXbmnGVkfFrxMD1q/nwuXswW6+B
-         QtT+p1It9hMW4t/2ydw2W/VnXustPMy1R86zE8L4+n+klTDzQitemCWnNOeY11NL6045
-         hSLA==
+        d=fairphone.com; s=fair; t=1788255613; x=1788860413; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gqaM/xWZrmjVxtHMuNbvYOFbikFpFhXJm1PCXoXTv1A=;
+        b=jzHDncbDaUVEuez2xI+8BYFonguSeHMlV0/XxYR0774hOK8hXQtuLIglaAvSE1NfPo
+         EckrXxo9MHPzrJUA+7hN3nHUVIGx1JCkm1hgv+P8r1zyw7jApjyNyRhdFKkiX4mv3g96
+         yL3u0d+gnHBmWP3MY0Rj174EC7lY6jVPvw66nV+goAYSNnOGCDmsNCCK+J5dKUxDfmnM
+         EOqdDY9+fwd6ajhRFhhhMdoZakIuLI0s5neCDEiW7pYjsg695Zan+7qSQUUlc4VK9idw
+         FI1OMe86a9VW9F7ir1on5bZRBFNGMyytaVUOmNCgsL2Azaa/T5wmEfc2yL5Y5qNUKxQx
+         ScqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788255605; x=1788860405;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dEt4E8LFvA2RKOEkuMLy44P4JRUm+WvHjuvX24Q2FpU=;
-        b=nwwEJu4yEimf0CcMy8vZnioJgF71aPdChATV4cO6UlGMynhtHWEZTS1/EC1ml6RkYn
-         HIwkcT7fofPu9qE6mrSNWpuViXV28yzmGEg9IC6NW1t578532zfMQqNHz7ExAugPN3Q9
-         c5eV0rL7z7I4Ye3Xnzfv6QiSJ+UEKRJvFNTVOJr61dB/BZ7EnIUbDTlYtk4ly8RE7spQ
-         J8WQa4nWRrmEPIAbHLjAsI5N/LQORn5cFHnPSIu/A77ebu5sLJSeEA7JODEuKiPH8hAM
-         I5/DSMuV/576xgGeE3e7ALeBD+WmIHRMOgtNLEUo45Ot0DQ3HjUKLSxwfFQ/4Fiu1hqS
-         zxsA==
-X-Forwarded-Encrypted: i=1; AKwUvBwdhFBgbV7w8qYDAZ79dmvBrkxDIbqA20mejekXr+JQI+fEGGeOUpI4uVIJoV1crARDU/sU0RDIF3y9P1E=@vger.kernel.org
-X-Gm-Message-State: AFuF++noJxkOSNZC/AOJIKqwh/0UY6eOY+KTPBRhbBFb41qGrmyTm5yD
-	RR1xqbhbCUs0UFaikWYJri5mscnQNCYLckD6pJ70fV1UFCubYfQHzpYjwybEBHF0wnRGSDicq3F
-	vO0MwDdqpSiO6wgXxioOZbLn6RLoIHDLaYeeccyRIte/LgPfkobpCynYEIwQ8PPLEGTI=
-X-Gm-Gg: AYBFou2MeFivgMaKhr+DQEO8vxzlCNW7jYLx8l2smFdiGWBic6/GAM3QCmsCwft9cHQ
-	LWFb4WrU8x4hRPfBS6nOUBPZtgOrDLdnttdmhh5PbxwwIsBWwfCOoEoaf+ONRTyDfQWtaS38AWy
-	Nzlevjv5SFOhmzlUCqLkjK5NBDpbssDrs7oz2dAYda6fXqXIJ66yv/sONeKqz4MOMQhZ8bReEWm
-	q1YM/gyQ4bdGq4+S/iXRzBYl+0WzOcD8/DtBmP1ECMHolc69qz08JpriFYlf/Rt2nwkrwZ/ui5r
-	u+ns0/yYuusiZ3/iXUVhNML5OYvn0oKzXh8xsBbmUdCFAba0EgmuN76r26sBGM9mF1Bd4oOMuwd
-	gBKdIc9zM+gZPB1yLclDNpbI97iFPuS4k24bolXyhCSNLWjW3ts5V3a12
-X-Received: by 2002:a17:90b:51c8:b0:394:ed5c:ff9f with SMTP id 98e67ed59e1d1-3990f890efamr4881836a91.17.1788255605051;
-        Tue, 01 Sep 2026 02:40:05 -0700 (PDT)
-X-Received: by 2002:a17:90b:51c8:b0:394:ed5c:ff9f with SMTP id 98e67ed59e1d1-3990f890efamr4881748a91.17.1788255604402;
-        Tue, 01 Sep 2026 02:40:04 -0700 (PDT)
-Received: from [10.110.34.210] (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e41837c6sm32385026c88.11.2026.09.01.02.39.58
+        d=1e100.net; s=20251104; t=1788255613; x=1788860413;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gqaM/xWZrmjVxtHMuNbvYOFbikFpFhXJm1PCXoXTv1A=;
+        b=hg5yyEnOtGSbnfqedd32g3FawV5nmFyULqUWVtB9QYSqwV5mqWf5TNwJ/PLdDFbaSu
+         oAkqpfAl/O4NX+RJer1RxoZ86sYZkSCvxKP4tzl+e9DfFxU09GB7FO3ViVc2L9VSNyVN
+         ckZjLeCknAa6cPCSUZjMxhd9BWHQAG0NJGrTDeTuYbwn0PPCg31Fc2HXjohhXgvjTeaM
+         1P3W8kKnXT2Hw2PK431XBBAxP6kDguSt4UKP5go5d6yPB35DGYyUa0Gl27OSTeqqHDKF
+         eVBuwqgq6UblDih0YJkLMddsvwMLy8d36VrKcerOS5KziwLnQaoDLAzdlrWWaV6W4ucj
+         qj6w==
+X-Forwarded-Encrypted: i=1; AHgh+RqoV9jVci8Y9QyOPdXoy6XZ7Q7luirPTyA6peo3YbeJit2Lyqa/5iKZ+hfhXUxyafQXsuU6dqNrNC/s8F0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nUJjixkvWl/BE09uteBqdCGnBe/3/nGSljTOTQHlf8CTsJKT0a
+	kQGgI6rsIrlyS225sD2U8BIYuN9Xk1kIooPFed2BkhHpxwnb1AvF133AUmEr3gBUqL4=
+X-Gm-Gg: AR+sD12EzLFkKic4zlg4vsuLDTdZoFb3kbOxrp6K31N9NiA7xl0d8VHH1rE2pOKvtXd
+	v5lDVKM/Cu8K/iQpq4EKVKHqBUPoFxTwo+S6EyA9dtD3wWWL1oQrViJQF1fCFGsoxjD+tGAfB+x
+	1J4BjNRXWWrh4NhYrkmnXea5kK2wML2L1N5rgmFxEuxTA5Sy2/pw6hiGasI3gnFUC7mlAjCS8xW
+	1JJ0ljnDbsxjpeEFd6bQGeKRTAMQ3ZPXpjUdwvzQX6ooGLZZ9nznsiYvEEaDLNQjvpxTx9jPTJr
+	VzLVfk7s5T/uTnTMZsqa1SKZk5rDYWhjDELOy2bLtMMKIXqugTXxDqLJZWX4xt/AOoTaTinCJ50
+	u4jEnEzwA+tYbr9Nqz0ZOSHs+9g7n0VQg6X9EueKwBjnUuAVJmy3mhyM0mkx1BKDUTLk2XpaGHn
+	mDXfCwDAVU6Y262pkcyXdXNpo1QlEzDNxQRbBHI7SbLMRgTIK4uEIk5Q3IpOSh9+3oVf87xKYBW
+	ewLXywmgq0NDO+P9meJP1Ka2LE1lq4weQ==
+X-Received: by 2002:a17:907:7ba3:b0:c20:56e8:5457 with SMTP id a640c23a62f3a-c25b3bb3c6amr406078866b.6.1788255612911;
+        Tue, 01 Sep 2026 02:40:12 -0700 (PDT)
+Received: from localhost (144-178-202-138.static.ef-service.nl. [144.178.202.138])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a670b25d7bsm405772a12.25.2026.09.01.02.40.12
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 02:40:04 -0700 (PDT)
-Message-ID: <03097984-fded-477e-82b6-f9b31fd2f1d3@oss.qualcomm.com>
-Date: Tue, 1 Sep 2026 17:39:55 +0800
+        Tue, 01 Sep 2026 02:40:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 02/11] soc: qcom: add crypto_virt backend for
- virtio-blk inline crypto
-To: Krzysztof Kozlowski <krzk@kernel.org>, ebiggers@kernel.org,
-        axboe@kernel.dk, mst@redhat.com, jasowangio@gmail.com,
-        James.Bottomley@HansenPartnership.com, martin.petersen@oracle.com,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        linux-block@vger.kernel.org, linux-crypto@vger.kernel.org,
-        linux-scsi@vger.kernel.org, virtualization@lists.linux.dev,
-        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Cc: neeraj.soni@oss.qualcomm.com, gaurav.kashyap@oss.qualcomm.com,
-        mani@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
-        bvanassche@acm.org, alim.akhtar@samsung.com, avri.altman@sandisk.com,
-        stefanha@redhat.com, pbonzini@redhat.com, eperezma@redhat.com,
-        xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
-References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
- <20260827160806.1295313-3-linlin.zhang@oss.qualcomm.com>
- <f5915133-ffac-4777-b7d9-cf38ba163d43@kernel.org>
-Content-Language: en-US
-From: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
-In-Reply-To: <f5915133-ffac-4777-b7d9-cf38ba163d43@kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA4NSBTYWx0ZWRfX2yxe11g/hdTS
- PYPVh7XfZ4zL9F+EtOOvpq3veqIpuQBOvn5nXH0vzod+xwjwPzIqzr4Nl+E66w4beJweIPNncv2
- /+D52PT7SEpgSHal614dOZwlvHwfggAJpubi20u04/mw2rVUvQP9mgHCF2JRbf38c8lsOJ9HIJ9
- YWLXPj814tblyDFf0AHuTdbNTQPtAXM2oYvRpcZigJXhByvfcfFO1LUE3/TWc198NaCWs4q1WKi
- B4rp6y7UreWsYYBL263bGokAvTD8lKRD022tyvzf5N37p5mk8pvFABUkINp/61le0kEdJ525ApA
- 8lopkX4tu5IR826Lv4xW4mt0MgVOyg/IgSKqSJGY8uO1V/QxyAh9TSdlxo6R47Eh2idpQ29vJUN
- Ef/TgWMbeIJ8icLCfXonG2KCc5tBE+r1acv7NwByn5z3i5U9vC5SiplZpMNtkn04PPrIQfxtwsj
- lx4NnpwFN/mxrX+gHVg==
-X-Proofpoint-GUID: Z1FKekgP3OyPBqpQdB-o0QcOULMgEKnn
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA4NSBTYWx0ZWRfX32LX1QcZjC5B
- F+7ofJWM8nEVFqTOjECJ499ztzQ98rwMWXIUbdikVMr/Lh5AnyfSBnv2TR4OVylMRbg7OPCXnM9
- J6yat/0AFk/IMNw9WGhmo6rzux+/QPg=
-X-Authority-Analysis: v=2.4 cv=NZnWEWD4 c=1 sm=1 tr=0 ts=6a969d75 cx=c_pps
- a=RP+M6JBNLl+fLTcSJhASfg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=zfqY7Qy--laD8oWU0cEA:9 a=QEXdDO2ut3YA:10
- a=iS9zxrgQBfv6-_F4QbHw:22
-X-Proofpoint-ORIG-GUID: Z1FKekgP3OyPBqpQdB-o0QcOULMgEKnn
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_02,2026-08-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 phishscore=0 priorityscore=1501 bulkscore=0
- malwarescore=0 adultscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010085
+Date: Tue, 01 Sep 2026 11:40:11 +0200
+Message-Id: <DL3VPJ03VPVL.3RPHCJKUC07YY@fairphone.com>
+Cc: "Theodore Ts'o" <tytso@mit.edu>, "Andreas Dilger"
+ <adilger.kernel@dilger.ca>, "Baokun Li" <libaokun@linux.alibaba.com>,
+ "Ojaswin Mujoo" <ojaswin@linux.ibm.com>, "Ritesh Harjani"
+ <ritesh.list@gmail.com>, "Zhang Yi" <yi.zhang@huawei.com>, "Zhang Yi"
+ <yi.zhang@huaweicloud.com>, "Bob Copeland" <me@bobcopeland.com>, "Namjae
+ Jeon" <linkinjeon@kernel.org>, "Sungjong Seo" <sj1557.seo@samsung.com>,
+ "Yuezhang Mo" <yuezhang.mo@sony.com>, "OGAWA Hirofumi"
+ <hirofumi@mail.parknet.co.jp>, "Mark Fasheh" <mark@fasheh.com>, "Joel
+ Becker" <jlbec@evilplan.org>, "Joseph Qi" <joseph.qi@linux.alibaba.com>,
+ "Andreas Gruenbacher" <agruenba@redhat.com>, <linux-ext4@vger.kernel.org>,
+ <ocfs2-devel@lists.linux.dev>, <gfs2@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, "Weidong Zhu" <weizhu@fiu.edu>
+Subject: Re: [PATCH v2 03/21] jbd2: point the shadow buffer at the frozen
+ data directly
+From: "Luca Weiss" <luca.weiss@fairphone.com>
+To: "Joseph Qi" <jiangqi903@gmail.com>, "Chao Shi" <coshi036@gmail.com>,
+ "Jan Kara" <jack@suse.cz>, "Christian Brauner" <brauner@kernel.org>,
+ "Alexander Viro" <viro@zeniv.linux.org.uk>, "Matthew Wilcox"
+ <willy@infradead.org>, <linux-fsdevel@vger.kernel.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <cover.1785951556.git.coshi036@gmail.com>
+ <6140cd23beb88e99f40eaeff4044a16213f6caab.1785951556.git.coshi036@gmail.com> <20d3b629-e052-492f-9a24-ee700b259c37@gmail.com>
+In-Reply-To: <20d3b629-e052-492f-9a24-ee700b259c37@gmail.com>
 
+Hi Joseph,
 
-
-On 8/31/2026 2:56 PM, Krzysztof Kozlowski wrote:
-> On 27/08/2026 18:07, Linlin Zhang wrote:
->> From: linlzhan <linlin.zhang@oss.qualcomm.com>
->>
->> In a Qualcomm GVM environment the ICE hardware is controlled by the
-> 
-> What is GVM?
-> 
-
-GVM means Guest Virtual Machine. This is designed for the virtualization
-platform.
-
->> host, GVM has no direct access to it. So, key operation in GVM is
->> done through SCM calls rather than direct register access. In this
->> way the access to ICE registers are offloaded to Trust Zone.
->>
->> Add QCOM_CRYPTO_VIRT, which implements struct virtblk_crypto_variant_ops
->> for the virtio_blk_crypto_ext dispatch layer. It maps keyslot
->> program/evict to qcom_scm_ice_set_key() and
->> qcom_scm_ice_invalidate_key(), and software-secret derivation to
->> qcom_scm_derive_sw_secret().
->>
->> Signed-off-by: linlzhan <linlin.zhang@oss.qualcomm.com>
+On Tue Sep 1, 2026 at 5:37 AM CEST, Joseph Qi wrote:
+>
+>
+> On 8/7/26 12:58 AM, Chao Shi wrote:
+>> When a metadata buffer has to be copied out before it can be journalled,
+>> jbd2_journal_write_metadata_buffer() writes jh->b_frozen_data rather tha=
+n
+>> the page cache copy.  b_frozen_data is kmalloc()ed, so folio_set_bh() ma=
+kes
+>> the shadow buffer point at a slab folio.
+>>=20
+>> That is not something the buffer_head layer can reason about.  A slab fo=
+lio
+>> overloads ->mapping, so a shadow buffer looks like it belongs to an
+>> address_space when it does not.  buffer_set_crypto_ctx() already has to
+>> work around this, and it is the reason mark_buffer_write_io_error() cann=
+ot
+>> be called on a shadow buffer today.
+>>=20
+>> Point the shadow buffer at the frozen data itself instead: leave b_folio
+>> NULL, which it already is out of alloc_buffer_head(), and set b_data.  T=
+he
+>> previous patch taught fs/buffer.c to submit such a buffer.  folio_set_bh=
+()
+>> is now needed on only one path - the one that journals the page cache co=
+py
+>> directly - so it moves there, and new_folio, new_offset and the flag tha=
+t
+>> used to pick between them all go away.
+>>=20
+>> The two commit-path checksum helpers reach the shadow buffer's contents
+>> through a new kmap_local_bh()/kunmap_local_bh() pair, which handle a buf=
+fer
+>> with or without a folio.  Memory outside the page cache is always mapped=
+,
+>> so for those there is nothing to map or unmap.  Mapping it anyway would =
+be
+>> worse than pointless: with CONFIG_DEBUG_KMAP_LOCAL_FORCE_MAP,
+>> kmap_local_page() hands back a one page mapping even for such memory, wh=
+ich
+>> is not enough for a buffer bigger than a page.
+>>=20
+>> Tested with ext4 mounted data=3Djournal,journal_checksum on a metadata_c=
+sum
+>> filesystem, writing files whose every block begins with the JBD2 magic s=
+o
+>> that escaping forces the copy-out, then crashing with sysrq-b without
+>> unmounting and replaying the journal on the next mount.  Recovery
+>> completed, the file contents matched, e2fsck -fn was clean, and an
+>> instrumented build confirmed the b_folio =3D=3D NULL path was taken.
+>>=20
+>> Suggested-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+>> Acked-by: Weidong Zhu <weizhu@fiu.edu>
+>> Signed-off-by: Chao Shi <coshi036@gmail.com>
 >> ---
->>  drivers/soc/qcom/Kconfig       | 12 +++++
->>  drivers/soc/qcom/Makefile      |  1 +
->>  drivers/soc/qcom/crypto_virt.c | 89 ++++++++++++++++++++++++++++++++++
->>  3 files changed, 102 insertions(+)
->>  create mode 100644 drivers/soc/qcom/crypto_virt.c
->>
->> diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
->> index 2b524154d9fb..6c632d114d45 100644
->> --- a/drivers/soc/qcom/Kconfig
->> +++ b/drivers/soc/qcom/Kconfig
->> @@ -298,6 +298,18 @@ config QCOM_INLINE_CRYPTO_ENGINE
->>  	tristate
->>  	select QCOM_SCM
->>  
->> +config QCOM_CRYPTO_VIRT
->> +	tristate "Qualcomm Technologies, Inc. Crypto Virt driver"
->> +	depends on VIRTBLK_CRYPTO_VIRTUALIZATION
->> +	depends on QCOM_SCM
->> +	default VIRTBLK_CRYPTO_VIRTUALIZATION if ARCH_QCOM
->> +	help
->> +	  GVM-side hardware-wrapped-key SCM operations exposed to
->> +	  virtio_blk's inline crypto layer: per-slot key programming and
->> +	  eviction, and key derive/generate/prepare/import.
->> +	  Say Y here to compile the driver as a part of kernel or M to compile
->> +	  as a module.
+>>  fs/jbd2/commit.c            |  8 ++++----
+>>  fs/jbd2/journal.c           | 29 +++++++++++++++++------------
+>>  include/linux/buffer_head.h | 29 +++++++++++++++++++++++++++++
+>>  3 files changed, 50 insertions(+), 16 deletions(-)
+>>=20
+>> diff --git a/fs/jbd2/commit.c b/fs/jbd2/commit.c
+>> index 3029cb6f6d64..0c85af91f9b2 100644
+>> --- a/fs/jbd2/commit.c
+>> +++ b/fs/jbd2/commit.c
+>> @@ -330,9 +330,9 @@ static __u32 jbd2_checksum_data(__u32 crc32_sum, str=
+uct buffer_head *bh)
+>>  	char *addr;
+>>  	__u32 checksum;
+>> =20
+>> -	addr =3D kmap_local_folio(bh->b_folio, bh_offset(bh));
+>> +	addr =3D kmap_local_bh(bh);
+>>  	checksum =3D crc32_be(crc32_sum, addr, bh->b_size);
+>> -	kunmap_local(addr);
+>> +	kunmap_local_bh(bh, addr);
+>> =20
+>>  	return checksum;
+>>  }
+>> @@ -357,10 +357,10 @@ static void jbd2_block_tag_csum_set(journal_t *j, =
+journal_block_tag_t *tag,
+>>  		return;
+>> =20
+>>  	seq =3D cpu_to_be32(sequence);
+>> -	addr =3D kmap_local_folio(bh->b_folio, bh_offset(bh));
+>> +	addr =3D kmap_local_bh(bh);
+>>  	csum32 =3D jbd2_chksum(j->j_csum_seed, (__u8 *)&seq, sizeof(seq));
+>>  	csum32 =3D jbd2_chksum(csum32, addr, bh->b_size);
+>> -	kunmap_local(addr);
+>> +	kunmap_local_bh(bh, addr);
+>> =20
+>>  	if (jbd2_has_feature_csum3(j))
+>>  		tag3->t_checksum =3D cpu_to_be32(csum32);
+>> diff --git a/fs/jbd2/journal.c b/fs/jbd2/journal.c
+>> index 09efa337649e..6e05dc47e20a 100644
+>> --- a/fs/jbd2/journal.c
+>> +++ b/fs/jbd2/journal.c
+>> @@ -327,8 +327,6 @@ int jbd2_journal_write_metadata_buffer(transaction_t=
+ *transaction,
+>>  {
+>>  	int do_escape =3D 0;
+>>  	struct buffer_head *new_bh;
+>> -	struct folio *new_folio;
+>> -	unsigned int new_offset;
+>>  	struct buffer_head *bh_in =3D jh2bh(jh_in);
+>>  	journal_t *journal =3D transaction->t_journal;
+>> =20
+>> @@ -348,24 +346,31 @@ int jbd2_journal_write_metadata_buffer(transaction=
+_t *transaction,
+>>  	/* keep subsequent assertions sane */
+>>  	atomic_set(&new_bh->b_count, 1);
+>> =20
+>> +	/*
+>> +	 * b_frozen_data is slab memory, not page cache, so when we use it the
+>> +	 * shadow buffer gets no folio at all: b_folio stays NULL from the
+>> +	 * allocation and b_data points straight at the copy.  Pointing it at
+>> +	 * the slab folio instead would hand its overloaded ->mapping to
+>> +	 * anything that goes looking for an address_space.
+>> +	 */
 >> +
->>  config QCOM_KRYO_L2_ACCESSORS
->>  	bool
->>  	depends on ARM64
->> diff --git a/drivers/soc/qcom/Makefile b/drivers/soc/qcom/Makefile
->> index 798643be3590..6d4b7546d1fb 100644
->> --- a/drivers/soc/qcom/Makefile
->> +++ b/drivers/soc/qcom/Makefile
->> @@ -39,5 +39,6 @@ obj-$(CONFIG_QCOM_KRYO_L2_ACCESSORS) +=	kryo-l2-accessors.o
->>  obj-$(CONFIG_QCOM_ICC_BWMON)	+= icc-bwmon.o
->>  qcom_ice-objs			+= ice.o
->>  obj-$(CONFIG_QCOM_INLINE_CRYPTO_ENGINE)	+= qcom_ice.o
->> +obj-$(CONFIG_QCOM_CRYPTO_VIRT)	+= crypto_virt.o
->>  obj-$(CONFIG_QCOM_PBS) +=	qcom-pbs.o
->>  obj-$(CONFIG_QCOM_UBWC_CONFIG) += ubwc_config.o
->> diff --git a/drivers/soc/qcom/crypto_virt.c b/drivers/soc/qcom/crypto_virt.c
->> new file mode 100644
->> index 000000000000..4ee2a36af6c1
->> --- /dev/null
->> +++ b/drivers/soc/qcom/crypto_virt.c
->> @@ -0,0 +1,89 @@
->> +// SPDX-License-Identifier: GPL-2.0-only
->> +
->> +#include <linux/module.h>
->> +#include <linux/types.h>
->> +#include <linux/blk-crypto.h>
->> +#include <linux/virtio_blk_crypto_ext.h>
->> +#include <linux/firmware/qcom/qcom_scm.h>
->> +
->> +static int crypto_virt_program_key(const struct blk_crypto_key *key,
->> +				   unsigned int slot)
+>>  	spin_lock(&jh_in->b_state_lock);
+>>  	/*
+>>  	 * If a new transaction has already done a buffer copy-out, then
+>>  	 * we use that version of the data for the commit.
+>>  	 */
+>>  	if (jh_in->b_frozen_data) {
+>> -		new_folio =3D virt_to_folio(jh_in->b_frozen_data);
+>> -		new_offset =3D offset_in_folio(new_folio, jh_in->b_frozen_data);
+>>  		do_escape =3D jbd2_data_needs_escaping(jh_in->b_frozen_data);
+>>  		if (do_escape)
+>>  			jbd2_data_do_escape(jh_in->b_frozen_data);
+>> +		new_bh->b_data =3D jh_in->b_frozen_data;
+>>  	} else {
+>> +		struct folio *folio =3D bh_in->b_folio;
+>> +		unsigned int offset =3D offset_in_folio(folio, bh_in->b_data);
+>>  		char *tmp;
+>>  		char *mapped_data;
+>> =20
+>> -		new_folio =3D bh_in->b_folio;
+>> -		new_offset =3D offset_in_folio(new_folio, bh_in->b_data);
+>> -		mapped_data =3D kmap_local_folio(new_folio, new_offset);
+>> +		mapped_data =3D kmap_local_folio(folio, offset);
+>>  		/*
+>>  		 * Fire data frozen trigger if data already wasn't frozen. Do
+>>  		 * this before checking for escaping, as the trigger may modify
+>> @@ -379,8 +384,10 @@ int jbd2_journal_write_metadata_buffer(transaction_=
+t *transaction,
+>>  		/*
+>>  		 * Do we need to do a data copy?
+>>  		 */
+>> -		if (!do_escape)
+>> +		if (!do_escape) {
+>> +			folio_set_bh(new_bh, folio, offset);
+>>  			goto escape_done;
+>> +		}
+>> =20
+>>  		spin_unlock(&jh_in->b_state_lock);
+>>  		tmp =3D kmalloc(bh_in->b_size, GFP_NOFS | __GFP_NOFAIL);
+>> @@ -391,7 +398,7 @@ int jbd2_journal_write_metadata_buffer(transaction_t=
+ *transaction,
+>>  		}
+>> =20
+>>  		jh_in->b_frozen_data =3D tmp;
+>> -		memcpy_from_folio(tmp, new_folio, new_offset, bh_in->b_size);
+>> +		memcpy_from_folio(tmp, folio, offset, bh_in->b_size);
+>>  		/*
+>>  		 * This isn't strictly necessary, as we're using frozen
+>>  		 * data for the escaping, but it keeps consistency with
+>> @@ -400,13 +407,11 @@ int jbd2_journal_write_metadata_buffer(transaction=
+_t *transaction,
+>>  		jh_in->b_frozen_triggers =3D jh_in->b_triggers;
+>> =20
+>>  copy_done:
+>> -		new_folio =3D virt_to_folio(jh_in->b_frozen_data);
+>> -		new_offset =3D offset_in_folio(new_folio, jh_in->b_frozen_data);
+>>  		jbd2_data_do_escape(jh_in->b_frozen_data);
+>> +		new_bh->b_data =3D jh_in->b_frozen_data;
+>>  	}
+>> =20
+>>  escape_done:
+>> -	folio_set_bh(new_bh, new_folio, new_offset);
+>>  	new_bh->b_size =3D bh_in->b_size;
+>>  	new_bh->b_bdev =3D journal->j_dev;
+>>  	new_bh->b_blocknr =3D blocknr;
+>> diff --git a/include/linux/buffer_head.h b/include/linux/buffer_head.h
+>> index 699970b4bbf2..20b8fca1abfa 100644
+>> --- a/include/linux/buffer_head.h
+>> +++ b/include/linux/buffer_head.h
+>> @@ -172,6 +172,35 @@ static inline unsigned long bh_offset(const struct =
+buffer_head *bh)
+>>  	return (unsigned long)(bh)->b_data & (folio_size(bh->b_folio) - 1);
+>>  }
+>> =20
+>> +/**
+>> + * kmap_local_bh - Map the data of a buffer.
+>> + * @bh: The buffer.
+>> + *
+>> + * Buffers usually live in the page cache, but a few are built over mem=
+ory
+>> + * which is not.  Those carry no folio and b_data is already a kernel a=
+ddress
+>> + * which is always mapped, so there is nothing to do for them.  Pair wi=
+th
+>> + * kunmap_local_bh().
+>> + *
+>> + * Return: A pointer to the buffer's data.
+>> + */
+>> +static inline void *kmap_local_bh(const struct buffer_head *bh)
 >> +{
->> +	u32 dus_512_units;
->> +	int ret;
->> +
->> +	if (!key || !key->size) {
->> +		pr_err("%s: invalid key\n", __func__);
->> +		return -EINVAL;
->> +	}
->> +
->> +	/* Only AES-256-XTS has been tested so far. */
->> +	if (key->crypto_cfg.crypto_mode !=
->> +	    BLK_ENCRYPTION_MODE_AES_256_XTS) {
->> +		pr_err_ratelimited("Unsupported crypto mode: %d\n",
->> +				    key->crypto_cfg.crypto_mode);
->> +		return -EINVAL;
->> +	}
->> +
->> +	/* qcom_scm_ice_set_key()'s data_unit_size is expressed in 512-byte units */
->> +	dus_512_units = key->crypto_cfg.data_unit_size / 512;
->> +
->> +	ret = qcom_scm_ice_set_key(slot, key->bytes, key->size,
->> +		QCOM_SCM_ICE_CIPHER_AES_256_XTS, dus_512_units);
->> +	if (ret)
->> +		pr_err("%s: slot=%u ret=%d\n", __func__, slot, ret);
->> +
->> +	return ret;
+>> +	if (!bh->b_folio)
+>> +		return bh->b_data;
+>> +	return kmap_local_folio(bh->b_folio, bh_offset(bh));
 >> +}
 >> +
->> +static int crypto_virt_invalidate_key(unsigned int slot)
+>> +/**
+>> + * kunmap_local_bh - Unmap the data of a buffer.
+>> + * @bh: The buffer.
+>> + * @addr: The address returned by kmap_local_bh().
+>> + */
+>> +static inline void kunmap_local_bh(const struct buffer_head *bh, void *=
+addr)
 >> +{
->> +	int ret;
->> +
->> +	ret = qcom_scm_ice_invalidate_key(slot);
->> +	if (ret)
->> +		pr_err("%s: slot=%u ret=%d\n", __func__, slot, ret);
->> +
->> +	return ret;
+>> +	if (bh->b_folio)
+>> +		kunmap_local(addr);
 >> +}
 >> +
->> +static int crypto_virt_derive_sw_secret_key(const u8 *eph_key, size_t eph_key_size,
->> +					    u8 sw_secret[BLK_CRYPTO_SW_SECRET_SIZE])
->> +{
->> +	int ret;
->> +
->> +	ret = qcom_scm_derive_sw_secret(eph_key, eph_key_size,
->> +					sw_secret, BLK_CRYPTO_SW_SECRET_SIZE);
->> +	if (ret == -EIO || ret == -EINVAL)
->> +		ret = -EBADMSG; /* probably invalid key */
->> +
->> +	if (ret)
->> +		pr_err("%s: ret=%d\n", __func__, ret);
->> +
->> +	return ret;
->> +}
->> +
->> +static struct virtblk_crypto_variant_ops virtblk_crypto_qcom_vops = {
-> 
-> Why is a crypto-handling code in drivers/soc/?
-> 
+>>  /* If we *know* page->private refers to buffer_heads */
+>>  #define page_buffers(page)					\
+>>  	({							\
+>
+> When tested ocfs2 on next-20260831, I've encountered the following NULL
+> pointer dereference:
+>
+>   BUG: kernel NULL pointer dereference, address: 0000000000000000
+>   RIP: 0010:__bh_submit.constprop.0+0x87/0x120
+>   Call Trace:
+>     jbd2_journal_commit_transaction+0x932/0x1b10
+>     kjournald2+0xb2/0x250
+>
+> Commit a2c924c240e7 ("buffer: set BIO_COMPLETE_IN_TASK for dropbehind
+> writeback") added an unconditional folio_test_dropbehind(bh->b_folio) in
+> __bh_submit(). But jbd2 shadow buffers have a NULL b_folio since commit
+> 5febcba29792 ("jbd2: point the shadow buffer at the frozen data
+> directly") made them point b_data at the kmalloced frozen data rather
+> than a folio. So submitting such a buffer during journal commit oopses.
+>
+> A simple fix:
+>
+> diff --git a/fs/buffer.c b/fs/buffer.c
+> index 427d8a817cd5..f46fa6413032 100644
+> --- a/fs/buffer.c
+> +++ b/fs/buffer.c
+> @@ -1106,7 +1106,8 @@ static void __bh_submit(struct buffer_head *bh, blk=
+_opf_t opf,
+> =20
+>  	bio =3D bio_alloc(bh->b_bdev, 1, opf, GFP_NOIO);
+> =20
+> -	if (folio_test_dropbehind(bh->b_folio) && op_is_write(opf))
+> +	if (bh->b_folio && folio_test_dropbehind(bh->b_folio) &&
+> +	    op_is_write(opf))
+>  		bio_set_flag(bio, BIO_COMPLETE_IN_TASK);
+> =20
+>  	if (IS_ENABLED(CONFIG_FS_ENCRYPTION))
 
-This driver is a Qualcomm vendor-specific driver, plays the similar role in the
-guest, like the ice driver in the host. so I place it in drivers/soc/.
+I'm seeing the same issue on my board with next-20260831.
 
->> +	.owner = THIS_MODULE,
->> +	.program_key = crypto_virt_program_key,
->> +	.evict_key = crypto_virt_invalidate_key,
->> +	.derive_sw_secret_key = crypto_virt_derive_sw_secret_key,
->> +};
->> +
->> +static int __init crypto_virt_init(void)
->> +{
->> +	virtblk_set_crypto_ops(&virtblk_crypto_qcom_vops);
->> +	return 0;
->> +}
->> +module_init(crypto_virt_init);
->> +
->> +#if IS_MODULE(CONFIG_QCOM_CRYPTO_VIRT)
->> +static void __exit crypto_virt_exit(void)
->> +{
->> +	virtblk_set_crypto_ops(NULL);
->> +}
->> +module_exit(crypto_virt_exit);
->> +#endif
-> 
-> How do you instantiate this driver exactly?
-> 
+[   21.833061] Unable to handle kernel NULL pointer dereference at virtual =
+address 0000000000000000
+[   21.833090] Mem abort info:
+[   21.833094]   ESR =3D 0x0000000096000004
+[   21.833099]   EC =3D 0x25: DABT (current EL), IL =3D 32 bits
+[   21.833104]   SET =3D 0, FnV =3D 0
+[   21.833109]   EA =3D 0, S1PTW =3D 0
+[   21.833113]   FSC =3D 0x04: level 0 translation fault
+[   21.833118] Data abort info:
+[   21.833121]   ISV =3D 0, ISS =3D 0x00000004, ISS2 =3D 0x00000000
+[   21.833125]   CM =3D 0, WnR =3D 0, TnD =3D 0, TagAccess =3D 0
+[   21.833130]   GCS =3D 0, Overlay =3D 0, DirtyBit =3D 0
+[   21.833135] user pgtable: 4k pages, 48-bit VAs, pgdp=3D000000011400a000
+[   21.833141] [0000000000000000] pgd=3D0000000000000000, p4d=3D00000000000=
+00000
+[   21.833153] Internal error: Oops: 0000000096000004 [#1]  SMP
+[   21.833160] Modules linked in:
+[   21.833174] CPU: 4 UID: 0 PID: 496 Comm: jbd2/loop0p2-8 Tainted: G      =
+  W           7.3.0-rc1-next-20260831-00014-g30164ed72bef #83 PREEMPTLAZY=
+=20
+[   21.833184] Tainted: [W]=3DWARN
+[   21.833188] Hardware name: Fairphone 4 (DT)
+[   21.833194] pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=
+=3D--)
+[   21.833201] pc : __bh_submit+0xa0/0x1fc
+[   21.833217] lr : __bh_submit+0x94/0x1fc
+[   21.833224] sp : ffff800086f23c00
+[   21.833229] x29: ffff800086f23c00 x28: ffff00008ba4b840 x27: 00000000000=
+00ce4
+[   21.833241] x26: ffff000086369188 x25: ffff000086369000 x24: fffffff0000=
+00000
+[   21.833252] x23: 0000000000000000 x22: 0000000000000000 x21: ffffac13e04=
+17880
+[   21.833263] x20: ffff000092a41500 x19: ffff00008fa86120 x18: ffff53ee15a=
+4c000
+[   21.833273] x17: 0000000000000000 x16: 0000000000000000 x15: 00000000000=
+00000
+[   21.833284] x14: 0000000000000000 x13: 0000000000000000 x12: ffff000081a=
+d6108
+[   21.833295] x11: 000000000000000d x10: ffff000092a41400 x9 : 00000000000=
+0000d
+[   21.833305] x8 : 0000000000000000 x7 : 0000000000000000 x6 : 00000000000=
+00000
+[   21.833315] x5 : 00000000000002b3 x4 : ffff53ee15a4c000 x3 : 00000000000=
+00001
+[   21.833326] x2 : 0000000000009801 x1 : 0000000000000000 x0 : 00000000000=
+00000
+[   21.833337] Call trace:
+[   21.833342]  __bh_submit+0xa0/0x1fc (P)
+[   21.833352]  bh_submit+0x1c/0x34
+[   21.833360]  jbd2_journal_commit_transaction+0x890/0x1674
+[   21.833372]  kjournald2+0xb0/0x220
+[   21.833379]  kthread+0x11c/0x13c
+[   21.833390]  ret_from_fork+0x10/0x20
+[   21.833403] Code: 94053530 aa0003f4 f9400a60 b9404fe2 (f9400003)=20
+[   21.833412] ---[ end trace 0000000000000000 ]---
 
-This driver is not instantiated per device. It acts as a provider of
-Qualcomm vendor-specific inline crypto operations, which is based on
-qcom_scm driver, and registers a global virtblk_crypto_ops instance
-during module initialization. So that, each blk_crypto_ll_ops from
-virtio block driver in common kernel can be sent via qcom_smc driver.
+With your patch applied, everything seems fine again.
 
-> Best regards,
-> Krzysztof
+Tested-by: Luca Weiss <luca.weiss@fairphone.com> # sm7225-fairphone-fp4
+
+Regards
+Luca
+
+>
+> Thanks,
+> Joseph
 
