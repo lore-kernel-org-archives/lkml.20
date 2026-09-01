@@ -1,116 +1,112 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73C56369224
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 07:45:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC12371887;
+	Tue,  1 Sep 2026 07:46:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248761; cv=none; b=n8lYsVKClQ1NG6kmwOYqwR2ibVYJI7zNwiSQO5dI96ra4876M1lg+Xrluw8ZdSYp9jwU/jDMO8ktHbc7CYDDLFOcwYUPmkLfqti2L0pKKemogdTfmAZ73apdwzcsikJL7PggTOb+FGOMxsjtzBgfYh1fm9jvOisP8hwrgSJTC3s=
+	t=1788248781; cv=none; b=tTwemuk5mYzb69Yh0xO80sNPPMfQHlE0FKlYDvb44lFJbMDOz0LoAC9dkzr4D0JE45A+Xi31O2QGInbk67rHKjv8Nz4da3SbycunJoDbH8hPLjYKqPVw4sNnnr7j8W2ZJQIaTVO5sM2u0EJ9oH9DmZVDpU2PqRPqlmBNLwwk+QQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248761; c=relaxed/simple;
-	bh=Mid89gYgVMubNd5SeLtGPKU9Eu9EvreEAN2NM2qvLSY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jX5wdCSgNy1e/r4kf4l1Zuhxuea2aTdV7VqGYvJyuKGRpUdQxF+XbnQLpdZ4hlOWJ1f8zS/04f0GAcqP3NOZ6FRNDnKefv9DrlQR5LEd/UXdxM+HH96gX9fzc7OAcKf8SLUiPtmQLxYPA6mFphdH7Wt4NAomD9+dsNbQ6FKjC+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=oQO8Ohoi; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788248781; c=relaxed/simple;
+	bh=+YV2Crc/2Pkj3Cgew2GC2h9KLioi59DQ7h35aF3CIdY=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KWYyQ00+rO62iDTgwuJIMjIC+mbYmjpvw/eJu9I044WZeNITubrxJqOKpakBtafmRGFhL4a8ZPn9xL5dKDF8uybt6FD1U9sR2a2FrkyiF8pV7KAWt6zg0YMYsgocpDgkBw25NNoa03AjyJoLFuifxP1MSUUguIitNqEX/oaYNWc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kgcra3RW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="oQO8Ohoi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=T92CL99kwa+djsSu7LsHukv/QHdIGeOl+96thK07VmU=;
-	b=oQO8OhoinXFC91NTvf/exFLREj/hsO9k8siVqYnmeupxoAzonLxfl986lx/fcE
-	f8geTizqlGP1sIAxa5+xyuNtWmmYEIO1EmTMGmtlPEwg9ngJaxP6Yrn52Jcdas+x
-	Md0tFFlgsxSSctn+Ij/gmLbpS/ISzF0Ewt9c0A2tAGRNY=
-Received: from [10.42.0.64] (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wDn96+VgpZqNaBQTQ--.50045S2;
-	Tue, 01 Sep 2026 15:45:26 +0800 (CST)
-Message-ID: <d112a566-eaf0-4db5-ad33-91208b98e82d@163.com>
-Date: Tue, 1 Sep 2026 15:45:24 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kgcra3RW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 417FC1F000E9;
+	Tue,  1 Sep 2026 07:46:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788248780;
+	bh=ppvYUZdPBmuaBv1YdwpjusxCdqJckL+Q48S47VSYESw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=kgcra3RW2Y0FmlVVaIMjCWPhG9oH8mn5lyDloXP2WiFqGhcpLyawUZasaZOBc6uCB
+	 b88wljyLeHQ4I8ratx5Tst/lzkCEP3KIqKfIhr4xslhdhAQIE4rP6mJI5x/ld9h9u9
+	 ZGuslPT4fCuVzTd8PE1bthyv6MkQ+r7MxgfI7nS2I6oR6bvwOXEBk2dL0/C+0tCxL+
+	 d8/X3DaIXIRma8/N6PDEmUoUm5pAV4mQ94qhZ/o7O3RCdTiaBU5aiWN7XvuSjnRCnK
+	 +EcSYt5WXqSutjqgiX6jYDANj0GnkapvxB2t25MEvuK/LBRYPRBc7VoMrWiilOgoI3
+	 v+mtzXfI8IpfQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x1JCD-00000003BOj-2WY3;
+	Tue, 01 Sep 2026 07:46:17 +0000
+Date: Tue, 01 Sep 2026 08:48:50 +0100
+Message-ID: <87wlt5mmxp.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Steffen Eiden <seiden@linux.ibm.com>
+Cc: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Andreas Grapentin <gra@linux.ibm.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Friedrich Welter <fritz@linux.ibm.com>,
+	Fuad Tabba <tabba@google.com>,
+	Gautam Gala <ggala@linux.ibm.com>,
+	Hariharan Mari <hari55@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Hendrik Brueckner <brueckner@linux.ibm.com>,
+	Ilya Leoshkevich <iii@linux.ibm.com>,
+	Janosch Frank <frankja@linux.ibm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Nico Boehr <nrb@linux.ibm.com>,
+	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+	Oliver Upton <oupton@kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Will Deacon <will@kernel.org>,
+	Zenghui Yu <yuzenghui@huawei.com>
+Subject: Re: [PATCH v2 02/20] KVM: arm64: Extract number of sys_reg_desc into a constant
+In-Reply-To: <20260831145536.913567-3-seiden@linux.ibm.com>
+References: <20260831145536.913567-1-seiden@linux.ibm.com>
+	<20260831145536.913567-3-seiden@linux.ibm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] exfat: speed up file creation in large directories
-To: Yang Wen <anmuxixixi@gmail.com>, linkinjeon@kernel.org,
- sj1557.seo@samsung.com, yuezhang.mo@sony.com
-Cc: exfat@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260831151539.1239134-1-anmuxixixi@gmail.com>
-From: Chi Zhiling <chizhiling@163.com>
-In-Reply-To: <20260831151539.1239134-1-anmuxixixi@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:_____wDn96+VgpZqNaBQTQ--.50045S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZFWDAFW5Xw4rZF1kur4xXrb_yoW8uw18pa
-	1rGa4ftw1kJ3W7Jan3uF18JFy5J395GF1fX34fCry5Grn8ur1vvr1fKryjgayDu3y5Wr1a
-	qa1jvr10gwnrCrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U20PhUUUUU=
-X-CM-SenderInfo: hfkl6xxlol0wi6rwjhhfrp/xtbC+BcGo2qWgpc5aAAA3y
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: seiden@linux.ibm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org, agordeev@linux.ibm.com, gra@linux.ibm.com, arnd@arndb.de, catalin.marinas@arm.com, borntraeger@linux.ibm.com, imbrenda@linux.ibm.com, david@kernel.org, fritz@linux.ibm.com, tabba@google.com, ggala@linux.ibm.com, hari55@linux.ibm.com, hca@linux.ibm.com, brueckner@linux.ibm.com, iii@linux.ibm.com, frankja@linux.ibm.com, joey.gouly@arm.com, nrb@linux.ibm.com, oss@nina.schoetterlglausch.eu, oupton@kernel.org, pbonzini@redhat.com, suzuki.poulose@arm.com, svens@linux.ibm.com, Ulrich.Weigand@de.ibm.com, gor@linux.ibm.com, will@kernel.org, yuzenghui@huawei.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On 8/31/26 11:15 PM, Yang Wen wrote:
-> Negative name lookups scan a directory from the beginning. Repeating
-> this scan before creating each file makes bulk file creation approach
-> O(N^2).
+On Mon, 31 Aug 2026 15:55:17 +0100,
+Steffen Eiden <seiden@linux.ibm.com> wrote:
 > 
-> Add a 64 KiB per-directory Bloom filter and retain the next empty entry
-> found during directory scans. A definite Bloom filter miss skips the
-> directory scan, while a possible match falls back to the normal lookup
-> path, preserving correctness in the presence of hash collisions.
+> Define the constant `num_sys_reg_descs` which stores the number of
+> elements in the sys_reg_descs array. Replace all occurrences of
+> ARRAY_SIZE(sys_reg_descs) with the new constant.
 > 
-> To avoid overhead for small directories, build the filter lazily when a
-> directory reaches 1024 on-disk directory entries. A filter reclaimed
-> under memory pressure is rebuilt on demand.
-> 
-> Manage the filters using a per-superblock LRU and shrinker so that filters
-> for inactive directories can be reclaimed under memory pressure.
-> 
-> Test environment:
->    QEMU TCG multi-thread, 4 vCPUs, 6 GiB RAM
->    4 GiB exFAT image, 32 KiB clusters
-> 
-> Test script:
->    mount -t exfat /dev/vda /mnt/test
->    time sh -c '
->            i=0
->            while [ "$i" -lt 20000 ]; do
->                    : > "/mnt/test/f.$i" || exit 1
->                    i=$((i + 1))
->            done
->    '
-> 
-> The measured results were:
-> 
->                           Before          After
->    real                   589.48 s         5.33 s
->    user                     4.72 s         2.28 s
->    sys                    584.63 s         3.03 s
-> 
-> The elapsed time was reduced by 99.10%, from 589.48 seconds to
-> 5.33 seconds, corresponding to a 110.6-fold speedup.
-> 
-> Signed-off-by: Yang Wen <anmuxixixi@gmail.com>
-> ---
-> 
-> Changes in v2:
-> - Move exfat_name_filter_free() from exfat_free_inode() to
->    exfat_evict_inode(), after truncate_inode_pages_final(), because
->    ->free_inode() may run from an RCU callback in softirq context.
-> - Link to v1: https://lore.kernel.org/all/20260828145838.1187356-1-anmuxixixi@gmail.com/
-> ---
->   fs/exfat/dir.c      | 280 ++++++++++++++++++++++++++++++++++++++++++++
->   fs/exfat/exfat_fs.h |  22 ++++
->   fs/exfat/inode.c    |   1 +
->   fs/exfat/namei.c    |  44 ++++++-
->   fs/exfat/super.c    |   9 ++
->   5 files changed, 355 insertions(+), 1 deletion(-)
+> This refactoring eases the integration of handling system registers for
+> arm on s390.
 
-This is a fairly large patch, which makes the review a bit more
-challenging. Perhaps next time you could consider splitting it into
-multiple patches in a patch series :)
+How? What is so different in the way you are handling the sysreg array
+that you need some arbitrary constant that is not the array size? Why
+is this the only array you care about? Why not the sys_insn_descs
+array, for example?
 
-Reviewed-by: Chi Zhiling <chizhiling@kylinos.cn>
+It feels like you are papering over some other design issue, and I'd
+like to understand that.
 
+Thanks,
 
+	M.
+
+-- 
+Jazz isn't dead. It just smells funny.
