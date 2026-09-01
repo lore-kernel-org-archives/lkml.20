@@ -1,102 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-68.mta0.migadu.com [91.218.175.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1457647AF6B;
-	Tue,  1 Sep 2026 09:44:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF03368964
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:44:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.68
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788255872; cv=none; b=KoPXFRiEGvpHh0ztucYIwi9T5tiII6RIlfVceDjsHACKD2lSSlgz31z6hzwutmtipvBFDOW70BTzEaVE+Or7kaqD0LogbdAxr+vJwbQmI4QJL11uxkJ1BhMmU8NIPe6K0ajlkjL0VoH1N6U+jHLoKTY3HVZ5AYLQah/u5BOUshY=
+	t=1788255885; cv=none; b=RKfon0ttup1iVcNOnOumsuPHSG1idt1tV3L5yag99/EYj49J1BZRtikqaEINLHGeLejvx02SkITDSSlQTIP7pU+NtiT06wLiLnNhYSR9hWQfZFO/5gIFLu3gsMfiAJpCKc069mKoVrOoR6sfEHxhNGcGzi8pWmrualBleJj+CGs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788255872; c=relaxed/simple;
-	bh=5C/+OtkBtARziD6KBU14ZJZloWoQmUFCnKqss1jNyz8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZnP1rZcUfV6YgJxaooOTbOIKwze5MigTSddMkNqFukxJLoqN/1Z80ZNJyEvABRjXoVx/tzZdj+ZwyoWQLwDMmFzevAZfqOXCnbeKlOkc0ylPpg3oaCLipC2gntjagVgnFVgj3BeojeHXqiF8RdSg3TpnNuP7J8YFwb5a8LM0t6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UK8SbdEg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788255885; c=relaxed/simple;
+	bh=U+tcZw15K68mlanjAK2UomlTuTP3P1oMlvmlSPrqeWc=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=omj7wvkaECp5eRgoeN3c6nQ71FiWv56iHfJoLqB4oIqua74ljohFl6D+AP0gZp556OUn5AfmcZs2ECxBcsN4e1fOWGeXvRll4v7YHSbjlHxcZ2w7170c5fY4dKEiIfk6bYBXqMLNs5Ymjo8859V5an91Rjr3Rq5nfTOYZScWbM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oWIWW9PC; arc=none smtp.client-ip=91.218.175.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UK8SbdEg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18A381F000E9;
-	Tue,  1 Sep 2026 09:44:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788255870;
-	bh=J3roHY+8j8dz6G+zhTJKPQ3Lehz65popD+XlPx0oLw4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UK8SbdEglVPb4Y08O373Qa8X4dllPaUbtxPMdmtvkC2bewhA2O+PIlPc/fFi1jI39
-	 HcfzPqFIGxu6sjmS/Sqo2LOgSZ0hYWYAKPuiHhqDFMYKo5yRWyOXkKN9jNr7wZaI5W
-	 J6Rk4CcCqrpvdGpR+P2hskO0QcjWbDkOxTROHxBc=
-Date: Tue, 1 Sep 2026 11:44:26 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: singh.supreet14@gmail.com
-Cc: Viresh Kumar <vireshk@kernel.org>, Rui Miguel Silva <rmfrfs@gmail.com>,
-	Johan Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>,
-	greybus-dev@lists.linaro.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] staging: greybus: spilib: Handle SPI device types
- with a switch statement
-Message-ID: <2026090143-skincare-slacks-540b@gregkh>
-References: <20260806101118.146685-1-singh.supreet14@gmail.com>
- <20260807071542.200192-1-singh.supreet14@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oWIWW9PC"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=U+tcZw15K68mlanjAK2UomlTuTP3P1oMlvmlSPrqeWc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788255879; v=1; x=1788860679;
+ b=oWIWW9PCmW0CL63T+bQYiIuVZzYQVXfduq6nRxjRNKreWJPn5zCr5NOQcf1mj0yTFm9JYka+
+ MHA/FhDp/WoQUKVYmtiTk7QsMgthPFYxDalhzDh52SCC++cZpm8vz3vwR+v0rPxAC/9321IYy0Z
+ 7HMnn46nscdo8N9uuqF12Y4U=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c7013bc8d2cf59a0;
+	Tue, 01 Sep 2026 09:44:29 +0000
+X-Mizu-Trace-ID: c7013bc8d2cf59a0
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <d8665587-a825-48d8-afb2-53fe10af0546@linux.dev>
+Date: Tue, 1 Sep 2026 17:44:19 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260807071542.200192-1-singh.supreet14@gmail.com>
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, tj@kernel.org, void@manifault.com,
+ changwoo@igalia.com, michalblk@google.com, liwanwu@kylinos.cn,
+ sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>
+Subject: Re: [PATCH 1/2] sched_ext: fix vtime priority queue inversion on wide
+ vtime spread
+To: Andrea Righi <arighi@nvidia.com>
+References: <20260901024038.730424-1-cui.tao@linux.dev>
+ <20260901024038.730424-2-cui.tao@linux.dev> <apZ06G_-oC5cTprM@gpd4>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <apZ06G_-oC5cTprM@gpd4>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 07, 2026 at 12:45:42PM +0530, singh.supreet14@gmail.com wrote:
-> From: Supreet Singh <singh.supreet14@gmail.com>
+Hello, Andrea, Tejun.
+
+在 2026/9/1 14:47, Andrea Righi 写道:
+> Hi Tao,
 > 
-> Replace the if/else chain that selects the SPI device type with a switch
-> statement. This makes the code easier to extend when additional device
-> types are introduced and improves readability.
-
-But let's deal with that when it happens, you are adding more code here
-than removing:
-
+> On Tue, Sep 01, 2026 at 10:40:37AM +0800, Tao Cui wrote:
+>> From: Tao Cui <cuitao@kylinos.cn>
+>>
+>> scx_dsq_priq_less() compares dsq_vtime with time_before64(), a cyclic
+>> comparison that is only valid when the values in the queue are less
+>> than 2^63 apart. Unlike CFS, which enforces that invariant with
+>> min_vruntime clamping, sched_ext takes dsq_vtime directly from the BPF
+>> scheduler and cannot bound the spread. A scheduler that inserts tasks
+>> with vtimes wider than 2^63 apart into one DSQ gets the order inverted:
+>> the tasks it placed last run first and the rest starve. Reproduced with
+>> a probe scheduler assigning half its tasks vtimes near 0 and the other
+>> half vtimes above 2^63 -- four of eight busy tasks monopolized the CPU
+>> while the other four starved.
+>>
+>> Compare with plain u64 < instead, which is a total order and always
+>> honors the order the scheduler asked for. The transient misordering
+>> around the natural 2^64 wrap is the same class of anomaly the cyclic
+>> comparison trades it for, but bounded.
 > 
-> Signed-off-by: Supreet Singh <singh.supreet14@gmail.com>
-> ---
-> Changes in v3:
-> - Fixed the memcpy indentation issue
-> - Removed the extra blank line in the commit message
+> I don't think switching to plain u64 ordering is safe here.
 > 
->  drivers/staging/greybus/spilib.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
-
-So it's not really a benefit overall, right?
-
+> The current scx_bpf_dsq_insert_vtime() documentation explicitly defines the
+> ordering in terms of time_before64(), including wraparound. For example:
 > 
-> diff --git a/drivers/staging/greybus/spilib.c b/drivers/staging/greybus/spilib.c
-> index e4d1ae8308aa..39d5bf234c61 100644
-> --- a/drivers/staging/greybus/spilib.c
-> +++ b/drivers/staging/greybus/spilib.c
-> @@ -458,17 +458,22 @@ static int gb_spi_setup_device(struct gb_spilib *spi, u8 cs)
->  
->  	dev_type = response.device_type;
->  
-> -	if (dev_type == GB_SPI_SPI_DEV)
-> +	switch (dev_type) {
-> +	case GB_SPI_SPI_DEV:
->  		strscpy(spi_board.modalias, "spidev",
->  			sizeof(spi_board.modalias));
-> -	else if (dev_type == GB_SPI_SPI_NOR)
-> +		break;
-> +	case GB_SPI_SPI_NOR:
->  		strscpy(spi_board.modalias, "spi-nor",
->  			sizeof(spi_board.modalias));
-> -	else if (dev_type == GB_SPI_SPI_MODALIAS)
-> +		break;
-> +	case GB_SPI_SPI_MODALIAS:
->  		memcpy(spi_board.modalias, response.name,
->  		       sizeof(spi_board.modalias));
-> -	else
-> +		break;
-> +	default:
->  		return -EINVAL;
-> +	}
+>   a = U64_MAX - 5
+>   b = 3
+> 
+> a is earlier than b in cyclic vtime ordering. time_before64(a, b) correctly
+> returns true, while plain a < b would place b first.
+> 
+> Moreover, this is not a short transient. If post-wrap tasks continue to be
+> reinserted with small vtimes, a can remain behind them until their vtime
+> traverses almost the entire u64 range, resulting in effective starvation.
+> 
+> Can we preserve time_before64() and document or enforce the half-range
+> requirement instead?
+> 
 
-thanks,
+You're both right, patch 1/2 was wrong. My probe fed values that
+violate the rolling-cursor assumption, and the "inversion" was the
+API behaving as documented. Dropping 1/2.
 
-greg k-h
+I'll send the documentation patch Tejun suggested.
+
+Thanks,
+Tao
+
+> Thanks,
+> -Andrea
+> 
+>>
+>> Fixes: 06e51be3d5e7 ("sched_ext: Add vtime-ordered priority queue to dispatch_q's")
+>> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+>> ---
+>>  kernel/sched/ext/ext.c | 3 ++-
+>>  1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+>> index 8041c87a3562..dd0ce01370d1 100644
+>> --- a/kernel/sched/ext/ext.c
+>> +++ b/kernel/sched/ext/ext.c
+>> @@ -1417,7 +1417,8 @@ static bool scx_dsq_priq_less(struct rb_node *node_a,
+>>  	const struct task_struct *b =
+>>  		container_of(node_b, struct task_struct, scx.dsq_priq);
+>>  
+>> -	return time_before64(a->scx.dsq_vtime, b->scx.dsq_vtime);
+>> +	/* dsq_vtime is arbitrary BPF input: keep a total order */
+>> +	return a->scx.dsq_vtime < b->scx.dsq_vtime;
+>>  }
+>>  
+>>  static void dsq_inc_nr(struct scx_dispatch_q *dsq, struct task_struct *p, u64 enq_flags)
+>> -- 
+>> 2.43.0
+>>
+
