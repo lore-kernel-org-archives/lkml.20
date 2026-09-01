@@ -1,93 +1,116 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C7CD46D577;
-	Tue,  1 Sep 2026 07:48:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA5835F182;
+	Tue,  1 Sep 2026 07:48:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248887; cv=none; b=Ca2QxoO5vk2i3q5htxnVrNoySMahfja2+wjw+xW+5xkOmV58JfhgxtK8TTpbjRT9Ct2V2u7N7iDvoHS7Sb4gYpRVkxlINCbcfnzZ9+16VyjJS2jsucn34Gqq7BrcBoh7T0707+89vXSAbv5nESNm2RhcCWExljcEsmGtLI5mnYI=
+	t=1788248915; cv=none; b=BYbTNjk/T4iPJmMuGjjz4fENCi8MOmODqoNQjNycuKICwNncbX6XNvIeiqfW++Lg7p4fdSVwOuUxNtetcKEtz95HWaNb3B0vZUxf+oWFTyoatfwpmp4eZSh04Jf1pV6cbSNW7pmzPw4kRQtFP9aKfuW6ZWK8r8b6OByIRn7BnWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248887; c=relaxed/simple;
-	bh=/1+KnC6kom6C1yqjapJkcF6QnEJCLghIc8zg6WD52QA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ja1BId0kmEqi3jg4KJuvZHb33+KWe6c/d5dRUV6hPbWWo4yz8rJQvDT9cYVMJGFTscUeKwvL9H45Wj/6XbNgmwRbsUFbyrQnsGbMxdUvV10eRon/0lepPOVhpQ8zOyC57zt+TIXi5s5d3j0RveV7ypzYr0nTqTDHHB6Znp49af0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RU6CC2Gi; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788248915; c=relaxed/simple;
+	bh=KPd50IAnmwgANUxRuXWXFO4sxkhqAQMPAoJdkTX6r7k=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SUNVvDHMZ5PwwbolngtE7hhLsTxf0ViPn3UUDfDyH1MKSgXU1DV6+Mp5qpfL+QHqgqBu3XA+43PbhrZ+z408SyGKtuV043fUV1xHzSyIANrSUxz4opT1E/B+BDKwJrRayBdckwfQclwGPaPN3Q0Wc6ZyonCOyxqMGXNwxBPlGec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bTKw+OT/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RU6CC2Gi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788248886; x=1819784886;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=/1+KnC6kom6C1yqjapJkcF6QnEJCLghIc8zg6WD52QA=;
-  b=RU6CC2GiCwKWIIvcbvPjyDq+sm+STfYkBXleVoxAs1v+UDVu5nSg+wWf
-   81JMq3sjz9VULse379FgKfdkIHGJazwFTynIBZnu/qfIBxlY77rqPA0u5
-   CN72dxwvGPTLWjXnvfoqLxbQDiXyT46nZGkFCZF+8KaZ0iaKevnNN7kpe
-   shuOaySqIZs9G3bAb4aFWYtO9I95IKDHweb2IP/LO+mrDHRNT/wY+ARQP
-   o6E+xR7agsOpk7SUaB4xFmA3rXpUhhnB/mHApHq+eL08TSaUmC00YYgKI
-   QpSTHPhJYQhGaSyY5I67bD1e8c90xNZL5fNu1mAE+8n+xfW2RFZ9uBAyb
-   Q==;
-X-CSE-ConnectionGUID: TPb3rvRFQJ+I+hzmZGRhSw==
-X-CSE-MsgGUID: 3S20JqhTS9S+x3YpcsP/7w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88429049"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="88429049"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 00:48:05 -0700
-X-CSE-ConnectionGUID: WYfYocJLS6O3hEFL7Tzpew==
-X-CSE-MsgGUID: gkTdQJ1eSHWzsP38YqkuZA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="269602282"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.222])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 00:48:01 -0700
-Date: Tue, 1 Sep 2026 10:47:59 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Guru Das Srinagesh <linux@gurudas.dev>
-Cc: Alex Lanzano <lanzano.alex@gmail.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Gustavo Silva <gustavograzs@gmail.com>,
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] iio: imu: bmi270: Use in_range_inclusive() in
- bmi270_write_event_value()
-Message-ID: <apaDLzXEvNU7APss@ashevche-desk.local>
-References: <20260831-minmax-in-range-incl-v3-0-30444a2fd2a5@gurudas.dev>
- <20260831-minmax-in-range-incl-v3-3-30444a2fd2a5@gurudas.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bTKw+OT/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA9311F000E9;
+	Tue,  1 Sep 2026 07:48:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788248913;
+	bh=UZB1OLP7prA7rwlGLIa5XRKyBZ1d7kf5fm2V6ZP76JY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=bTKw+OT/UwTVuABIiuKZ7SaC+N5dRiEp901CPG1h28Un6ph5XDeSJrrqZexbEoyWj
+	 90e61JGRfKsjntjQTGfLb9PR/jv5MKl8yTjXcS0cL39Dd/yAREBnTvqp4a6BVYhEXw
+	 XmlferqV+KPuveBHwgmdzWcMRNcyUhW/angxzNOFzAuIC4EDJEummrPZAl4QhYYIuX
+	 /M19kvrhdwA/aNR6//g/+g2mEagXzkR6szUgjwldGHyesUdoLHyxpBnxaHmr5LumvQ
+	 Y8vqCT2XdMhpAPvnYnLZc1SphxJQXWGXlS93oP3xxA6Lmf/psUZGmD/v4mC+CdrZrN
+	 ibng9DxMTFC0g==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x1JEN-00000003BRD-3HQ7;
+	Tue, 01 Sep 2026 07:48:31 +0000
+Date: Tue, 01 Sep 2026 08:51:04 +0100
+Message-ID: <87v78pmmtz.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Steffen Eiden <seiden@linux.ibm.com>
+Cc: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Andreas Grapentin <gra@linux.ibm.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Friedrich Welter <fritz@linux.ibm.com>,
+	Fuad Tabba <tabba@google.com>,
+	Gautam Gala <ggala@linux.ibm.com>,
+	Hariharan Mari <hari55@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Hendrik Brueckner <brueckner@linux.ibm.com>,
+	Ilya Leoshkevich <iii@linux.ibm.com>,
+	Janosch Frank <frankja@linux.ibm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Nico Boehr <nrb@linux.ibm.com>,
+	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+	Oliver Upton <oupton@kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Will Deacon <will@kernel.org>,
+	Zenghui Yu <yuzenghui@huawei.com>
+Subject: Re: [PATCH v2 03/20] arm64: sysreg: Define OSLSR_EL1_OSLK_MASK
+In-Reply-To: <20260831145536.913567-4-seiden@linux.ibm.com>
+References: <20260831145536.913567-1-seiden@linux.ibm.com>
+	<20260831145536.913567-4-seiden@linux.ibm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831-minmax-in-range-incl-v3-3-30444a2fd2a5@gurudas.dev>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: seiden@linux.ibm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org, agordeev@linux.ibm.com, gra@linux.ibm.com, arnd@arndb.de, catalin.marinas@arm.com, borntraeger@linux.ibm.com, imbrenda@linux.ibm.com, david@kernel.org, fritz@linux.ibm.com, tabba@google.com, ggala@linux.ibm.com, hari55@linux.ibm.com, hca@linux.ibm.com, brueckner@linux.ibm.com, iii@linux.ibm.com, frankja@linux.ibm.com, joey.gouly@arm.com, nrb@linux.ibm.com, oss@nina.schoetterlglausch.eu, oupton@kernel.org, pbonzini@redhat.com, suzuki.poulose@arm.com, svens@linux.ibm.com, Ulrich.Weigand@de.ibm.com, gor@linux.ibm.com, will@kernel.org, yuzenghui@huawei.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On Mon, Aug 31, 2026 at 09:26:30AM -0700, Guru Das Srinagesh wrote:
-> Replace the three "in_range(val, 0, MAX + 1)" checks with the new
-> in_range_inclusive() helper, expressing each as the inclusive [0, MAX]
-> range it actually validates.
+On Mon, 31 Aug 2026 15:55:18 +0100,
+Steffen Eiden <seiden@linux.ibm.com> wrote:
 > 
-> No functional changes are introduced by this change because @min <= @max
-> in the inclusive range in both signed and unsigned readings and hence
-> the check correctly continues to hold and is unchanged in behaviour.
+> Define the missing mask for the OLSK field of OSLSR_EL1 which is
+> required to safely write a value to that field.
+> 
+> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+> ---
+>  arch/arm64/include/asm/sysreg.h | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/arch/arm64/include/asm/sysreg.h b/arch/arm64/include/asm/sysreg.h
+> index 1c5c4df260be..5a439853b721 100644
+> --- a/arch/arm64/include/asm/sysreg.h
+> +++ b/arch/arm64/include/asm/sysreg.h
+> @@ -200,6 +200,7 @@
+>  #define OSLSR_EL1_OSLM_NI		0
+>  #define OSLSR_EL1_OSLM_IMPLEMENTED	BIT(3)
+>  #define OSLSR_EL1_OSLK			BIT(1)
+> +#define OSLSR_EL1_OSLK_MASK		BIT(1)
 
-Yes, this change makes code better (not only shorter, it makes it robust
-against theoretical wrap-around).
+Just move the required sysregs to the sysreg file, with the full bit
+description. This will sort this once and for all.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+	M.
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Jazz isn't dead. It just smells funny.
