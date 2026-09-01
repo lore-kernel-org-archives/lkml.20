@@ -1,123 +1,94 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2387143F8D7
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:46:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788291965; cv=pass; b=AP9oyAQVTrlYpqoUUHShir5h+CvNJT0376nJXrjUtFPtlFCnqUTaO3VRT4Y3awkfTCH0HluPmHNufyPtw9CnYgplBwCJ4zKF8uolYNLIBox+FDwgEc5HUehukEcagOxhp1I9WWYUpGHtwefvxjTey/OUnMn6cQTaF8dT7NLWgb8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788291965; c=relaxed/simple;
-	bh=EwRdv3H15Lg46ZE4qMWBFPfgUbPXiZ0nu+f7bpsc9EY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KvI/YGQqVEsEqIcGbFOvioJvGgAWufu8bBDHAWs6I8APejIggqDh7+1gYxhJ7Q3ZLNrFAGJsyUSJJWGqzCjmBACNDteNAWpqb0ElluCz0tlB+4+2KCeFckgGRhDrsQ/3oSI9ZxIEmtPeIkfZaDCz7p4Sye0nEK7iW0cImDXObpY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=sk3/037p; arc=pass smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F67443A97;
+	Tue,  1 Sep 2026 19:47:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788292058; cv=none; b=QOOG+Wt8v/u0HVB+OQF8NZ03O2rRF7G7WLr7ved5VCsasXpRypd/oVbuS1pek6N3WCBtomT7fBrL4M1+k8NcxKA72iLEiibTWeWue3LcJaSwyONvfP4zXgWul50cfEf/Z/xXvXG45hJpbB0zpRtNi9fGtFs34mHKR8LXKUIy/1E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788292058; c=relaxed/simple;
+	bh=S6Ze5dH30c1sk13lINsxsruT9DPKAtqX7682wKNvFoM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZY76xw/baSTX3dPcyhSibNs4OoTR1G8Xn1rt6ZkiawOajpbk7ntjHcWB2eQRrtDaGuX2ICPECuZwCg67FI3wW/6qP/zzxJ5JNyvYMji+ei4ToKjZRkfnLoEfRHjhSU+2l1NcDk3mLGW1uhY4uxFvcM65gBgeuKKq18l8dMToNTQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=KGQ6Sv5V; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=iMGMW1+A; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="sk3/037p"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-499add6348fso545e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:46:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788291959; cv=none;
-        d=google.com; s=arc-20260327;
-        b=YxHUi37KhRn4VfjmqPxXQ0LGtLb8I9kENvOx0lFueVbftiKM7erBZ4U3xlS2daRxj8
-         ud7nnHqxeOfP4O7M1KRSU2R9Y8pGAhWgTgaEt4weBo8IKP+VbIjFYMMbcILyiEOBfPmr
-         wTtjkMAJHtyXtWsM28A3N9MdkuZAhjr1bmismf7mfEcGbtSJsME0lIfSMrbEHRYwdPSn
-         FYeRDaUywncQ8a4h6ngD5aBAuOguvXQqlcMlkUx/rJVa1s05gthKZZ4ofRpZO0C8YIrL
-         eOFikTqJDBTjQc5ad1514wAf740n4sxqxhWIwUSxUfhStC9IMrysgpxEsxF8YkznJuuO
-         XBeQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=EwRdv3H15Lg46ZE4qMWBFPfgUbPXiZ0nu+f7bpsc9EY=;
-        fh=LTm1z3v2HuNiMOzGS4O2p1taUorMJL4lQYUkbXBiUww=;
-        b=iyBP525zTxkDkb6xde2NH33ub6WJPvGOgE2ejpY2oZo72owCeZ8HaTWblVK6exK/dG
-         Jnr01tJ/fI8PUGJge5rJmNSnrwVOezqwXY6UGj6N20A6HEcmnV37WFYmYRtIKk2jkwbX
-         MK5Mc7RFEiC+RP799JM2EXj4/xjlpsuMGfcLQgeXSXENLZ0+xphclNcqRy5nqTyEEWuX
-         UToZIuPVtcahFPU545aeqxcrEpTW7P7iPOGhSntl3WSnAR+h2rcN8g9gfSOieieAotHJ
-         i7TdwpSCGdFyG0XnbiEUUUzfucpWkmiupXJuH9nkMsiAbjOvUsX9nIL0ls5p9zOjwpko
-         j0WA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788291959; x=1788896759; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EwRdv3H15Lg46ZE4qMWBFPfgUbPXiZ0nu+f7bpsc9EY=;
-        b=sk3/037p1xVFHg27ePnJ4nbrMaH5KBBjVZag9Z5bfDGOpqeqJNhP5JbdVeR7Ipd6mE
-         2avpRWJkiDgixErhnZScLzS24YHGzW/cODShGFUVNYBrP4nP95VvOqF6XL+uCVGlMGVM
-         Lw27jJr9Le3xEkys/pjileijhD/reyFRyA4uBJQrarrO803TicIh8uPc2plsEeOdiOd3
-         FKLAqnlgjyW1+HKO9TZP1s7BuWgSdzwTbpwmHKZj69fhOkKKEWaK6tEl4sl/u9vwfiDR
-         FDO/Wea8ff4mwHdQJzKwOsdtnDqmrj4QJAqzBOucMVE0BN0KXZFmN+liSaiMtVwDbpai
-         qcxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788291959; x=1788896759;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EwRdv3H15Lg46ZE4qMWBFPfgUbPXiZ0nu+f7bpsc9EY=;
-        b=P9sQWuxw6fvgd3RMmy0FqXmGbgnwcoF4XjZtZ5xZ9eZV+r3L8WzXz01VWRlVcJYp07
-         de1+Vzu4YiwVv/LH6DPJ0frDrx9gPRVYYs07Ft4IeE87J7/Cigtl91bLaR6qS8CtXZzf
-         gQeDJcAjJcrKRPqqzyBj5umnuaMbJytYA7M2/EtVKzsR/wNlUe+23l2Nqnjak+uUjZVN
-         4+3nFN43FPcjUxNAdG0P3hHBI4jIPN8ezO1+lTlaAvPA+VnBVtzxv4+C/+0+heGXCpKR
-         ihlxskWQl6yWdsOkq3iaz80RVcWXJM7j+2sEsnsbsAcUknRaocVnaSNJrSsanBxNNTs9
-         jCjg==
-X-Forwarded-Encrypted: i=1; AHgh+RpydDZsx/5GcJClbL6RZ/VS3fGpWDPOPqsbbitW5CHvHrL3JPXuWH0VR6C7Aww2PYbRFpo3ZaikMZtvZbM=@vger.kernel.org
-X-Gm-Message-State: AFuF++lWOjr83oZ8BQ7kVh55hv7TJdlJ3Lz4ugBz+q1jEPGXV3vZeWz2
-	aKlE8JaUZ3qfqX5uih12Fe5Maqd6XKdRVJc1ZoGtvueZA/y4gFe3/CAtq7N6RZtPxiyonRq/RMF
-	Iqi5Evi63Jp44oBx3Puu+2l3zTdT8dl252BwoUTEM
-X-Gm-Gg: AR+sD13ysNJvd4Nom0XT+cRoczuoMKIJKoeDvpDRYyILFsYstcTdOGfThleGAgksn3I
-	jrJb8psH2g7+aKy7S0w8DSB6yxuxBXk63VeqPgQx/eghn+DvKTe+FXtoHN3j+sZmCV3wXiUeUwP
-	zkzSk6Y+N8dRJxXNhJUspy357trq377FdlQqkQcXDFqkPYfu897knHf3hGqmHqUWsB/I4D2gUJV
-	AaG9V5OMGfi3UWXuoOw2Tku5RlBRHOhBnnFhSQHVx6V61Mfa3y0vCmuKMzxR+OV3WAlbC0Y3Ayx
-	GbQNVlcmA2P2UIa0AR61MJGDmzI7RJucODYsiuf7X1jytPspWPWNDcVJa6gK6NKCETDEoDXFzQ1
-	OdQCcH2sAmKw=
-X-Received: by 2002:a05:600c:6050:b0:495:7a0b:3b4a with SMTP id
- 5b1f17b1804b1-49ce47dbac0mr115925e9.7.1788291958768; Tue, 01 Sep 2026
- 12:45:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="KGQ6Sv5V";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="iMGMW1+A"
+Date: Tue, 1 Sep 2026 21:47:29 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788292050;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8kVakSZKJ+/biQmo1FhyfgpI2TOx3aJuye+azQYfGnU=;
+	b=KGQ6Sv5V/WARQz5NH6d3Sb3JusTpH/c7YNqpIgnd9h+VIJikdiibfvsSkNPtm2bSP/sNrE
+	AvHRhw0oEpHKfBQZW28q8HHevQzjUQdV4cj7aH7bgegDqLPaMvv5rlmLb9YdaAASayjDzJ
+	xVlgYYJBlHfQhauHSraIKwBiw3GZR6FVxUYNYgUeeeBA0exkdQe8TVBBAh0RBWdGZWXBvF
+	h3NuDkP6SH5UBdfiI5GtXrMum8aDWrwZ4iiAoPmhDv2/N8lPNbi1ApDs+lQBJonjZYRdM7
+	zXdBN2cuHfTH8WIKTdW+KcAncRBjoEAr8ptEteLUVDWDo0bwvmdcdOyjZCGUcA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788292050;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8kVakSZKJ+/biQmo1FhyfgpI2TOx3aJuye+azQYfGnU=;
+	b=iMGMW1+AP/4HcbKeF6pbp3Co1it0nekDJR7mljsr5oAtbOpE4Avv74bSlvj0UHwdzmMNy2
+	/d0cJ8VUYMLn94Bw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Marek Vasut <marex@nabladev.com>
+Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Yicong Hui <yiconghui@gmail.com>, kernel@dh-electronics.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [net,PATCH v1] net: ks8851: Fix receiver error in 100BASE-TX
+ mode following software power-down
+Message-ID: <20260901194729.r9N1Z-4-@linutronix.de>
+References: <20260901173925.96183-1-marex@nabladev.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260718111340.159896-1-linux@yoavmoshe.com> <20260827194508.446733-1-linux@yoavmoshe.com>
- <CAKwvOdkSZBbq=e916=efx8G-CTzZ5b31AhyUytO6eJjjkEdMow@mail.gmail.com>
- <CABCJKuc0cWWdkA7zrCcuze4AE-qTSETuUi-eRewPnn_ivHEADQ@mail.gmail.com>
- <CAKwvOdnA7Ej_uppSL7U2xwxyUQoDMvO+RArj4HCUSOziH0rCqA@mail.gmail.com>
- <CABCJKuezb0HtOcMBsObczS=HBaRvMszagkOZGHyOVbXBqtJi5g@mail.gmail.com> <2bd0c842-d0cb-4ad7-b3a3-fed2000dea83@yoavmoshe.com>
-In-Reply-To: <2bd0c842-d0cb-4ad7-b3a3-fed2000dea83@yoavmoshe.com>
-From: Sami Tolvanen <samitolvanen@google.com>
-Date: Tue, 1 Sep 2026 12:45:21 -0700
-X-Gm-Features: AcwNN1Vx40LeKlkhxLn2rqkujAMnERf5APsKIrQ9ivuoQyg-T7s82dgNrM0lw9I
-Message-ID: <CABCJKudb5RegHcNPkXG5p1TcCFAe5_8+hqBP-2GyHVK19oB94g@mail.gmail.com>
-Subject: Re: [PATCH v4] ARM: imx: Fix suspend/resume crash with Clang CFI
-To: "Yo'av Moshe" <linux@yoavmoshe.com>
-Cc: Nick Desaulniers <ndesaulniers@google.com>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Russell King <linux@armlinux.org.uk>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Nathan Chancellor <nathan@kernel.org>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, llvm@lists.linux.dev, 
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260901173925.96183-1-marex@nabladev.com>
 
-On Sun, Aug 30, 2026 at 9:24=E2=80=AFAM Yo'av Moshe <linux@yoavmoshe.com> w=
-rote:
->
-> The sashiko-bot's comment on v5 indeed pointed out that imx5, at91 and
-> omap1 might suffer from the same bug: their suspend routines are also
-> fncpy()'d into SRAM without a type hash and called indirectly. They're
-> all ARM, so asm/linkage.h still seems like the right place for the
-> macro.
->
-> Do you think these need to be fixed as part of this patch, or as
-> follow-ups? I only have my one imx6 device (a Kobo Clara HD), so I'm not
-> sure how to test the fixes for the others.
+On 2026-09-01 19:39:14 [+0200], Marek Vasut wrote:
+> KSZ8851 errata sheet DS80000716D-page 4 Module 3 [1] states that,
+> when issuing a software power-down (PMECR[1:0] = 10) followed by a
+> power-on (PMECR[1:0] = 00), the receiver circuit can fail to start
+> properly preventing communication. The Transmitter will still send
+> data, but no data will be received.
+> 
+> The errata sheet also includes a workaround, which states that,
+> it is recommended that the software power-down feature not be used.
+> 
+> Implement that workaround and drop the entry into software power-down
+> mode. The ks8851_write_mac_addr() calls entry into normal power-on
+> mode at the very beginning of the function, therefore dropping the
+> second call to enter software power-down mode is sufficient here.
+> The ks8851_net_stop() can only be called after ks8851_net_start()
+> was already called, and ks8851_net_start() also makes the MAC enter
+> normal power-on mode, therefore it is also fine to drop the call to
+> enter software power-down mode from ks8851_net_stop().
+> 
+> This will lead to slight increase in power consumption, but it also
+> fixes a sporadic problem which occurs at least on KSZ8851-16MLL, on
+> which this fix is tested.
+> 
+> [1] https://ww1.microchip.com/downloads/en/DeviceDoc/80000716D.pdf
+> 
+> Fixes: 3ba81f3ece3c ("net: Micrel KS8851 SPI network driver")
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
 
-I think separate patches for the others should be fine.
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-Sami
+The patch description matches the errata document and the change.
+
+Sebastian
