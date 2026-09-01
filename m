@@ -1,221 +1,131 @@
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FF4485CC6
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:09:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69A8939E190;
+	Tue,  1 Sep 2026 17:09:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788282564; cv=none; b=MUeWk+ByB+1JP7WqSwQWVsLtTOIwO695a+8rRrvXHmwrOJpnqoCJ6rbCuX9zIpPgCc6tCPD8BzmTUiOBn3FgB2G13InWsae41iCF9a5GPG7MtgS0X8zyoCrRUOp8xcKSjtAHsOxCIoJjTJiRVJcmsKyKWL9ttN7ZmyiTgeAYEMo=
+	t=1788282579; cv=none; b=Z4kCf1FqHjPn1lIHBUSPrQfSq0yDdx6l8MaA1hrjNdMFSSFSrvudo8UyAZBytE5nloOdIO4IOWODB3E2h+Gh69K5avwf1VzGdpOe055qGCrKE08LItCKQVE8nz0hj/Owhxygx5l4Vzdlq9WKRIb+OjbEQuXXI3915M3hduEp4VY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788282564; c=relaxed/simple;
-	bh=zrnOF43taoerZ+b1qJhujsiK8novkLtc50y8hRyQ+78=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gO1Gko8/5T/MhvrEyYtOVDo43+CXbkJbfIWmrKMYRnAIckXsMOeOuTNXp9o/R4ZhnTk4bI0KqqStP3bYo4oGthQn9yWlqlACQGWa07KG0GjDwQ5ZanEGCyA6745Xg2WsblTLyx6LCnmzyj3bhYPCEdTmnEbErQaxKApAGHNdqJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co; spf=pass smtp.mailfrom=x6u.co; dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b=XVnErx++; arc=none smtp.client-ip=209.85.128.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=x6u.co
+	s=arc-20240116; t=1788282579; c=relaxed/simple;
+	bh=Xwp7BqTlFHU2+h5taJ1TupOHnudFKIttcSXgXudkONI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=GugUDCDCyXim0WfV+CdNyMZLovnWM2NNKD+cZMGlpsxl/jK+guHWtNAKnjFLDQVo4EaypQtYK1bSm1Qwyl3I/+pv2UeqQRHsR98i7f6IYWyoZDyM1FdBy/3IqDua135mHR0FxAv39vdlN7ESwiM8Z1egIq3o3RI85nCK3motSEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VUnq8FAf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b="XVnErx++"
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-861f30636f9so3188997b3.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 10:09:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=x6u.co; s=google; t=1788282561; x=1788887361; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+HsJ7WWSDXGGxM5KQ2N5tTmcNL3Nov2eFWn2UfdJVq4=;
-        b=XVnErx++WF+TV6L6C1ayZ3jY3i+BlWRIQ6ynbjaDesJZhjmamagdRryECV5+J66oNQ
-         IBeC58CHQjH2DxmcRQBMSpBk0Kirs50LAkZBGoWz6rmrdcTGXZUv04vXHA11N1wyPvhe
-         Vch7T0oahlcNnzkDhsp4phqpwsrqHhvPayHyBLxMWLTJFDtJYPtRchMjkYkHKpnbmrhq
-         DGMPOJwc2CYfZwy+nS80SBu44iFhXGTtwIRE7LkdD+6XqN/fLFJIMkCB1rcqHJbEDB9l
-         5Zv1bP1mBtzLUi5Z0vgkpP43hOmxTUTVts5wz8GtoR+y21MEuuG0rU1Nyb4u/N1kSqK6
-         hCSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788282561; x=1788887361;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+HsJ7WWSDXGGxM5KQ2N5tTmcNL3Nov2eFWn2UfdJVq4=;
-        b=Cnrn4CQrKWUAxQll24R0OKt5V1meDh8Cht7rnoRbTEEotFxzPStl8mgqBez8hKaXxb
-         HTsl6x6eFBWx1hgvttrepdI8oyRLxVLjrrukB9q1mnRv2122RAshYeIKzqEZYWNGwYJQ
-         s0AiRXVK6BvMTEtA/n1YcBdxGjSu1DpEylG7zDJQteCtgdVpPR9o/Dd7wazxmBJoHpSN
-         b72fwfvcJyu6x+PIa8jYrUyTT0i2fW31QiIatP5ijbjtIPn/2E7IP4T0Nyhu91bnOb8B
-         L/+JpxNDpkh9xT5ixdwC4v8PaWs9FlAc3StD7GR85msYBTc0D2vzTaCAnLz8ExW0LgLa
-         nf8g==
-X-Forwarded-Encrypted: i=1; AKwUvBwN1YjXyM+g9XKO91SH8e4/E3YKKRHd7jV+7587Ua6iElSWm+uxsBhw/8a+D0PmtI5SaA3kWKNH3i1XP6w=@vger.kernel.org
-X-Gm-Message-State: AFuF++n/YjfGGO9kBhvC+Q8VAwUhEQ/YIO3YILzf0z/vM2OnFujMzXTX
-	yollvwSMCZBYXiFXWMkS6niMWeG8NnkkBkoD51s0HG1m+2gx2/LMxvPGhuVp0ZEKTo8PF30wcFw
-	HG6MxEnjLOCs=
-X-Gm-Gg: AYBFou0J2iw2PqyvIUdV/JvjUbnGnkgL3dPMadsX8ZIVd+w6CseBN4/6xCPsXuesIez
-	He7Jq1Mh9TQ3Jm0Lbcgd/LGYjxNra+V756COwF1HmJqPghigWE5vr7B8CT1VevtRZnKxbBghLJ2
-	1rv+K5zrQZMAf728IYUbPcb6zfTOH/SWshKaVb4nGwhOiL3phQ5LvPZrICNASxGD4PeF9O+X/bB
-	NldYky69xX0OSHxvyewQBxNMKWyCnWck17Bqd6YRD3VjFeoIoIDNBKdfzAhduxXGX3wWQTjhpyF
-	zyQu2rIy4kihWb8g/WjYmZKrMUzTSbed95wdaSCgY0OUnjMbMSmo6Vm80aJ835uJKrJEZbJRjgq
-	/ZPY/kOldMcrmqYZC7UN0yDQ4rZpN1chdbUNQ/LPoTPic43XI6Qr70+dP+FBAkDbyo5I1Bl4ucw
-	eJDctl86BmECdfzLYZIu7Kjode5j9zQYgRU3sg9f93jPZHNbpEvdPhTiPYaAe8gfbIpVtlyAfOa
-	jvdcCSI7wq1PlqM7WC2TiBGgMO5UTL8+mpbKzWCcIel+3LBWFRmZAUTie9/kjNavbbjItrct5HA
-	3Bg=
-X-Received: by 2002:a05:690c:6603:b0:81f:e85b:f9f4 with SMTP id 00721157ae682-85d6b8472ebmr126795317b3.27.1788282561098;
-        Tue, 01 Sep 2026 10:09:21 -0700 (PDT)
-Received: from worldpeace10.c.googlers.com.com (109.243.150.34.bc.googleusercontent.com. [34.150.243.109])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e65f146edsm79761867b3.32.2026.09.01.10.09.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 10:09:20 -0700 (PDT)
-From: David Hu <dhu@x6u.co>
-To: sumit.semwal@linaro.org,
-	christian.koenig@amd.com
-Cc: alex@shazbot.org,
-	ankita@nvidia.com,
-	chriscli@google.com,
-	david.laight.linux@gmail.com,
-	dri-devel@lists.freedesktop.org,
-	iommu@lists.linux.dev,
-	jgg@ziepe.ca,
-	jmoroni@google.com,
-	kevin.tian@intel.com,
-	kpberry@google.com,
-	leon@kernel.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	nicolinc@nvidia.com,
-	praan@google.com,
-	sashiko-bot@kernel.org,
-	stable@vger.kernel.org,
-	viursachi@google.com,
-	xuehaohu@google.com,
-	Leon Romanovsky <leonro@nvidia.com>
-Subject: [PATCH v8 2/2] dma-buf: Split sgl by largest page-aligned chunk
-Date: Tue,  1 Sep 2026 17:08:49 +0000
-Message-ID: <20260901170849.4052816-3-dhu@x6u.co>
-X-Mailer: git-send-email 2.55.0.966.g6673acef38-goog
-In-Reply-To: <20260901170849.4052816-1-dhu@x6u.co>
-References: <20260901170849.4052816-1-dhu@x6u.co>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VUnq8FAf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5B761F000E9;
+	Tue,  1 Sep 2026 17:09:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788282578;
+	bh=niQ7ArXK839IrmojSZdpTuRGN/mclemr53y3+MdghMA=;
+	h=From:Subject:Date:To:Cc;
+	b=VUnq8FAfj663ahc0ckI3nHR/e3ZugmGsBJBVeF8BERfYywi18Zyyf6hPek2lOfHDf
+	 Y0zh/8p0sOqOIIq3Ef6N56fpZzyFjBHvGkg4/PZeAVIGRMxKvUumx296G8NOrdAeRE
+	 +HeZi3L4wL8oc3eHaTSvzXKTgg5g6mUMtl6+0tFkNlQehXDGzl8Kf95yJia4SHMHc1
+	 1Ryz73ZjxA+X1CpbjGH2ortW/nDstEV6ooH6INrEzLKl+XoEYG8PYd8jVhjQ4bP52W
+	 fpiDj1ECFQVC5id/WbPYGgaPNKI1T5d5oq0U0s6uKFy3GdHQjQ+PhIjUPBaGTAlwd+
+	 gWF/OoiQvWs/g==
+From: Mark Brown <broonie@kernel.org>
+Subject: [PATCH 00/11] kselftest/arm64: Add coverage of interactions with
+ KVM to fp-stress
+Date: Tue, 01 Sep 2026 18:06:40 +0100
+Message-Id: <20260901-arm64-fp-stress-kvm-v1-0-31bce995b49b@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACAGl2oC/x3MSwqAMAwA0atI1gZirQpeRVwUjRrED4kUQby7x
+ eVbzDxgrMIGbfaAchSTY08o8gyGJewzo4zJ4MhV5KnAoFvtcTrRLmUzXOOGvnE0hJKaMXhI5ak
+ 8yf1fu/59P3OD6NRlAAAA
+X-Change-ID: 20250401-arm64-fp-stress-kvm-4720ca307da4
+To: Catalin Marinas <catalin.marinas@arm.com>, 
+ Will Deacon <will@kernel.org>, Shuah Khan <shuah@kernel.org>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+ Fuad Tabba <fuad.tabba@linux.dev>, Mark Rutland <mark.rutland@arm.com>, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kselftest@vger.kernel.org, Mark Brown <broonie@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3591; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=Xwp7BqTlFHU2+h5taJ1TupOHnudFKIttcSXgXudkONI=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqlwbEW4G5k3XTrcrrjnQ6VikYu0epZZdzpf7Zu
+ 3yuXohU1AKJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCapcGxAAKCRAk1otyXVSH
+ 0HH2CACB9AgM+/rmCZPaNYdhQ4qDTGFaMf9BHn3DSRV5N9+nfKcaYAQXsPmZnB6zeeu0IMhrZpN
+ yOVcRQPc6GJhWAFSJ/Xtly+LRL0xEQky2SKMWYnSAH8n4ZQZYjWsn07lY6Gu9+WYXGE5PDqNoQG
+ HStVPlP9qftJhgwbzyw7KGaKyRx86bTIJkpOz/vlrIvJ1QNgK1R6dZSVQGkSfB9+JbUYhoJsxHJ
+ IIidx2fBJtc88fwIS+xsDDk/oMyN5CCf4t7sXbbTkkGbNGC0G4OxjAtuAE6D9F9CorKMnXxmN/V
+ 9QzgVYo+1drFqVwlliTfiQ5sV9USnimUgNdhM/aTq8+7NSsN
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-From: David Hu <xuehaohu@google.com>
+Presently we don't have any automatic stress testing for the handling of
+floating point save and restore with KVM, nor it's interaction with the
+host's management of the floating point registers.  The majority of the
+focused stress testing has been done by running the existing fp-stress
+selftest on the host, starting a guest and then running fp-stress in
+there too but this has been a manual process rather than something done
+as a matter of routine by CI.
 
-Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
-This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
-first entry, resulting in non-page-aligned DMA addresses for all
-subsequent entries.
+Plug this gap by reworking the test loads so that they can be run as KVM
+guests, using a simple VMM that provides the interface that fp-stress
+expects from it's test loads.  We run the FPSIMD and SVE tests in KVM
+guests for half the CPUs, if EL2 is available then half the KVM tests
+will use it.  The tests run in a minimal environment with the VMM and
+test binaries tightly coupled to each other.
 
-While the underlying IOMMU mapping may be contiguous, hardware
-DMA engines often require explicit address alignment (e.g., page,
-cacheline, or storage sector boundaries). Passing unaligned
-addresses and lengths can cause explicit failures in DMA descriptor
-creation or silent data corruption if lower unaligned bits are
-truncated.
+There's more coverage could be added, but this is an improvement over
+the current situation and can be built on in future.  Off the top of my
+head:
 
-In addition, a non-page-aligned sgl length will trigger an edge case
-in `ib_umem_find_best_pgsz()`. In case of a discontinuity in later
-buffers, we will have a `va` with lowest bit set to 1. That will lead
-to `ib_umem_find_best_pgsz()` always return 0, and break the promise
-to find best page size for the mapping on the NIC side.
+ - We only test nested guests running at EL2 with E2H set.
+ - We only run the guests at the highest VL they support.
+ - Enabling the MMU would avoid surprises due to the performance
+   differences.
+ - We do not run any protected guests (this currently taints the kernel
+   so should wait until the pKVM support is less experimental).
+ - It might be useful to have the VMM signal handler save and restore
+   the guest register state to exercise that path.
+ - Possibly it would be useful to disable irrelevant features so less
+   time is spent context switching non-FP state?
 
-Fix this by splitting the scatterlist by the largest possible page
-aligned chunk within `UINT_MAX` (`ALIGN_DOWN(UINT_MAX, PAGE_SIZE)`).
-This ensures all scatterlist DMA addresses and lengths remain page
-aligned, while minimizing the total number of sgl entries.
-
-Page-aligned entries allow the system to cleanly chunk payloads into
-PCIe MaxPayloadSize (MPS) (e.g., 128 bytes, 256 bytes, 512 bytes).
-As a result, this may help reduce TLP fragmentation in P2P transfers
-and alleviate potential congestion within a logical PCIe switch
-partition, especially when Relaxed Ordering is not possible due to
-hardware constraints.
-
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260609165431.778061F00893@smtp.kernel.org/
-Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
-Cc: stable@vger.kernel.org
-Reviewed-by: Leon Romanovsky <leonro@nvidia.com>
-Signed-off-by: David Hu <xuehaohu@google.com>
+Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- Changes in v3:
- - Removed the type cast for `min` (David Laight)
- - Reverted max ent size to be `ALIGN_DOWN(UINT_MAX, PAGE_SIZE)` and
-   updated commit message to reflect that (Jason Gunthorpe)
- - Updated commit message to reflect that this also fixes an edge case
-   in `ib_umem_find_best_pgsz()`
+Mark Brown (11):
+      kselftest/arm64: Factor Linux syscalls out of asm-utils.S
+      kselftest/arm64: Factor shared signal handlers out of fp-stress loads
+      kselftest/arm64: Move exit calls out of fp-stress loads
+      kselftest/arm64: Use exit_error() rather than SIGABRT in fp-stress
+      kselftest/arm64: Exit with an error code on data mismatches in fp-stress
+      kselftest/arm64: Factor startup code out of fp-stress load programs
+      kselftest/arm64: Remove the sched_yield()s from the fp-stress loads
+      kselftest/arm64: Add a very simple VMM for use in fp-stress
+      kselftest/arm64: Build KVM guest versions of the fp-stress loads
+      kselftest/arm64: Use execv() to start fp-stress test loads
+      kselftest/arm64: Run KVM guests from fp-stress
 
- Changes in v2:
- - Updated commit title and message to reflect the switch to 2G chunks
- - Switch to using 2G as the max sg entry size as it naturally aligns
-   with most hardware boundaries, while allowing compiler optimizations
-   with bit shifts (David Laight)
- - Optimized away division calculation for `nent`, and multiplication
-   calculation for sgl address, by dropping the `for` loop in favor of a
-   `while (length)` loop (David Laight)
- - Dropped `min_t` in favor of `min()` to maintain a strict type
-   checking safety net (David Laight)
+ tools/testing/selftests/arm64/fp/.gitignore        |   4 +
+ tools/testing/selftests/arm64/fp/Makefile          |  64 ++-
+ tools/testing/selftests/arm64/fp/asm-utils-kvm.S   |  86 +++
+ tools/testing/selftests/arm64/fp/asm-utils-linux.S | 181 +++++++
+ tools/testing/selftests/arm64/fp/asm-utils.S       |  36 --
+ tools/testing/selftests/arm64/fp/fp-pidbench.S     |   6 +-
+ .../testing/selftests/arm64/fp/fp-stress-kvm.lds.S |  58 ++
+ tools/testing/selftests/arm64/fp/fp-stress-vmm.c   | 596 +++++++++++++++++++++
+ tools/testing/selftests/arm64/fp/fp-stress-vmm.h   |  17 +
+ tools/testing/selftests/arm64/fp/fp-stress.c       | 230 +++++++-
+ tools/testing/selftests/arm64/fp/fpsimd-test.S     | 121 +----
+ tools/testing/selftests/arm64/fp/sve-test.S        | 139 +----
+ tools/testing/selftests/arm64/fp/za-test.S         | 138 +----
+ tools/testing/selftests/arm64/fp/zt-test.S         | 131 +----
+ 14 files changed, 1244 insertions(+), 563 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20250401-arm64-fp-stress-kvm-4720ca307da4
 
- drivers/dma-buf/dma-buf-mapping.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
-index 80f6ab2f4809..833be519e1e6 100644
---- a/drivers/dma-buf/dma-buf-mapping.c
-+++ b/drivers/dma-buf/dma-buf-mapping.c
-@@ -6,16 +6,17 @@
- #include <linux/dma-buf-mapping.h>
- #include <linux/dma-resv.h>
- #include <linux/overflow.h>
-+#include <linux/align.h>
-+
-+#define MAX_SG_ENT_SZ ALIGN_DOWN(UINT_MAX, PAGE_SIZE)
- 
- static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
- 					 dma_addr_t addr)
- {
--	unsigned int len, nents;
--	unsigned int i;
-+	size_t len;
- 
--	nents = DIV_ROUND_UP(length, UINT_MAX);
--	for (i = 0; i < nents; i++) {
--		len = min_t(size_t, length, UINT_MAX);
-+	while (length) {
-+		len = min(length, MAX_SG_ENT_SZ);
- 		length -= len;
- 		/*
- 		 * DMABUF abuses scatterlist to create a scatterlist
-@@ -25,8 +26,10 @@ static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
- 		 * does not require the CPU list for mapping or unmapping.
- 		 */
- 		sg_set_page(sgl, NULL, 0, 0);
--		sg_dma_address(sgl) = addr + (dma_addr_t)i * UINT_MAX;
-+		sg_dma_address(sgl) = addr;
- 		sg_dma_len(sgl) = len;
-+		addr += len;
-+		/* Unconditionally advance. On last segment, this becomes NULL */
- 		sgl = sg_next(sgl);
- 	}
- 
-@@ -42,7 +45,7 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
- 
- 	if (!state || !dma_use_iova(state)) {
- 		for (i = 0; i < nr_ranges; i++) {
--			unsigned int added = DIV_ROUND_UP(phys_vec[i].len, UINT_MAX);
-+			unsigned int added = DIV_ROUND_UP(phys_vec[i].len, MAX_SG_ENT_SZ);
- 
- 			if (check_add_overflow(nents, added, &nents))
- 				return 0;
-@@ -53,7 +56,7 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
- 		 * for whole IOVA address space, but we need to make sure
- 		 * that it fits sg->length, maybe we need more.
- 		 */
--		nents = DIV_ROUND_UP(size, UINT_MAX);
-+		nents = DIV_ROUND_UP(size, MAX_SG_ENT_SZ);
- 	}
- 
- 	return nents;
--- 
-2.55.0.897.gb25b4bd76c-goog
+Best regards,
+--  
+Mark Brown <broonie@kernel.org>
 
