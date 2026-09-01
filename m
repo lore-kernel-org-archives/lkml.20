@@ -1,97 +1,113 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EBFA4854EC
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 17:01:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B243D3B6C00;
+	Tue,  1 Sep 2026 17:01:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788282074; cv=none; b=JOL+VK+EGkaF2EXZTehH07sGSt5C1dl4yvZJ7k2v3pRDLKtVGd7v0TBylPMkxajUwjT6P9Je8X9/OVWxhA0LcbGUVDO3kvvclClLxuiIe/m/e+EJsAfRbwxtDaewoxjrv6KDYvlcOUCPkVHC4UwEZIupH/r/YC316PsX3W9pBqY=
+	t=1788282095; cv=none; b=VhzFsFEFAo1Uf8X0cSumtHSXlsgmtPob8SlqjPSVUi7UVVFI8LOMD/EOJGfwHbnLlk3wOt8OhwPgpOZggl4eVBuBiMVTMjYV0O3s3swrhwg6AfKH/+YsOc9eWHzbMAoBh0Jzqn2G89obt4DPEdfB64yyIFxghinLC0FuKw0ptkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788282074; c=relaxed/simple;
-	bh=EMdcL0zSeCYumVUIXEyGOkt8o2r4M/DhnNAQnHhJ7lQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ypot73w8UKXyQQ44QPe4Y4E6krf6Z0tbAwqz7vQv2cNTyQKOcAMIo2A4CjMjtzoHQAYr+OfgcnLoNEJPEyD7z+DPDu50RpwKu2mToxQx7UGm81QZNPWyOV+aA5TNV2hUtyhztRQgKjS6mDe+yN3Agloa9mTT8FTsD/1jo2kj2dc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZU52FRZo; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788282095; c=relaxed/simple;
+	bh=4gMocvSE1OWF6J9n/j4yFotrO6PAr/R3O4m97J9AAv0=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=ggt9irVCwqvcXS03oUigbXAPVKR00/YZNJg6Fvw5ALuDgcp6VIaVcsxClbmAGZNjDayDMFSF+YoAoBEk6NEvccVPbXHcHZEu8YtygOpoSMg9qFXOTBQ0MrT3Q6ZUZ0nB0crJDSQZc/xbdeF6guZScBuvnNFZ+jKwJp7psztSoLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QtwoZVG1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZU52FRZo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788282072; x=1819818072;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=EMdcL0zSeCYumVUIXEyGOkt8o2r4M/DhnNAQnHhJ7lQ=;
-  b=ZU52FRZon0ktO4X/GIZWmXwpdob9XxMv+sX0drLCz/cXMOlLqvYDVYIC
-   C+bJT57FKG0UveWjpDhPulXWszBO+kUAKitid3xH4+wm/64NFsY4rhJAq
-   kw59zQhA8eOHDBZP9nPCyhWlYfxOeOg1vars8P9HNiMPHdVyYYnUehUSr
-   jjlWnlUpDOaNlzrKAnZqJe5lBtxRX+uJzodloppET1Wa8gAoNy85VIfHY
-   we9kURffYHkXb43PtXNp85Q7+fea8wErI/vTJbqb7fraNb5qnAh8yt0wK
-   aVehw7fAhvAGqyW/z2QRUcja+d+xpoLDpzBEkneF/ZDY8q1XPR40bROTB
-   A==;
-X-CSE-ConnectionGUID: 2qJ+hfw4SP2qnL9pNaH2bg==
-X-CSE-MsgGUID: MAMDkTOlQkqm/7HtOG11qQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="88571962"
-X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
-   d="scan'208";a="88571962"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 10:01:11 -0700
-X-CSE-ConnectionGUID: wV4Z58raSy2kcgd8X45lbg==
-X-CSE-MsgGUID: lrXuDDYNTg6AjVyfJCoouQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
-   d="scan'208";a="267848219"
-Received: from guptapa-desk.jf.intel.com (HELO desk) ([10.165.239.46])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 10:01:10 -0700
-Date: Tue, 1 Sep 2026 10:01:03 -0700
-From: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
-To: Kim Phillips <kim.phillips@amd.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org, 
-	Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	K Prateek Nayak <kprateek.nayak@amd.com>, Nikunj A Dadhania <nikunj@amd.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, Michael Roth <michael.roth@amd.com>, 
-	Borislav Petkov <borislav.petkov@amd.com>, Borislav Petkov <bp@alien8.de>, Naveen Rao <naveen.rao@amd.com>, 
-	David Kaplan <david.kaplan@amd.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Nathan Fontenot <nathan.fontenot@amd.com>, stable@kernel.org
-Subject: Re: [PATCH v2] x86/bugs: Don't say no mitigation available if kernel
- not compiled with retpoline
-Message-ID: <xt7q2afly3l2ajlxkn2wi5rny6ka3nlmdq2642fc5hy2bkhljn@dtk7k54iwky4>
-References: <20260831210916.987152-1-kim.phillips@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QtwoZVG1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C85981F000E9;
+	Tue,  1 Sep 2026 17:01:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788282093;
+	bh=LAeVXgd1ZimbqqP9kzNpwF8gqCcgGG9RZxEcTde5m04=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=QtwoZVG10cLUAhsuReDww1AXmS3HBsD4DnOexUNJfgxoLVIuaQApZ3v/xAMiuQG3x
+	 f3ifO/cWU0dFt9xEbck0X6DBj8n5FXzk9sZAXoaMqflzHr3v7zoSOohCAqD4CQUPXn
+	 BAD2Nu6gIJP7uzXxfFlyJ6AyVehjRqteQGtO7VLTQnNFUaeEHDrqJPpMjYT1Lt08/Y
+	 pJW/4IxVGohE5wuHzrNe703hSy7kzbP34wEdfLdZjYv05cv88z41sjFHPTkuFsf+EN
+	 CU9JhM4TMfDUnWPUAd78NXJKW/bpAzDHt63ZJZuiAuNtCkQ3A2ASYeOZsFzyaTHJu8
+	 7WyJuhuECr6hQ==
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831210916.987152-1-kim.phillips@amd.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 01 Sep 2026 19:01:29 +0200
+Message-Id: <DL453EFS03T6.2VGI5TJEQ52QO@kernel.org>
+Subject: Re: [PATCH v5 05/11] drm: nova: Add an info ioctl
+Cc: "nova-gpu" <nova-gpu@lists.linux.dev>, "M Henning"
+ <mhenning@darkrefraction.com>, "Alice Ryhl" <aliceryhl@google.com>, "David
+ Airlie" <airlied@gmail.com>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ "Benno Lossin" <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot
+ Courtney" <ecourtney@nvidia.com>, "John Hubbard" <jhubbard@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>
+To: "Alistair Popple" <apopple@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260828033531.1117754-1-apopple@nvidia.com>
+ <20260828033531.1117754-6-apopple@nvidia.com>
+ <DL3WXUPD5JKE.2GZ1CNJH539ID@kernel.org>
+In-Reply-To: <DL3WXUPD5JKE.2GZ1CNJH539ID@kernel.org>
 
-On Mon, Aug 31, 2026 at 04:09:16PM -0500, Kim Phillips wrote:
-> When the kernel lacks retpoline support, spectre_v2_select_retpoline()
-> emits
-> 
->   "Kernel not compiled with retpoline; no mitigation available!"
-> 
-> before returning SPECTRE_V2_NONE to its callers.  SPECTRE_V2_NONE is not
-> the final answer, though: spectre_v2_update_mitigation() runs afterwards
-> and can still upgrade the mitigation.
-> 
-> On an Intel CPU affected by RETBleed, built with
-> CONFIG_MITIGATION_IBRS_ENTRY=y and CONFIG_MITIGATION_RETPOLINE=n, and
-> booted with spectre_v2=auto, retbleed_select_mitigation() picks
-> RETBLEED_MITIGATION_IBRS, and spectre_v2_update_mitigation() then promotes
-> SPECTRE_V2_NONE to SPECTRE_V2_IBRS.  The boot log claims no mitigation is
-> available immediately before reporting "Spectre V2 : Mitigation: IBRS",
-> and sysfs reports the machine as mitigated.  The message is alarming and
-> simply wrong.
-> 
-> Drop "no mitigation available!" because the final mitigation state is
-> printed afterwards in spectre_v2_update_mitigation() anyway.
-> 
-> Suggested-by: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
-> Fixes: 480e803dacf8 ("x86/bugs: Restructure spectre_v2 mitigation")
-> Cc: stable@kernel.org
-> Signed-off-by: Kim Phillips <kim.phillips@amd.com>
+On Tue Sep 1, 2026 at 12:38 PM CEST, Danilo Krummrich wrote:
+> On Fri Aug 28, 2026 at 5:35 AM CEST, Alistair Popple wrote:
+>> diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+>> index 0c12ef145981..740466af268d 100644
+>> --- a/drivers/gpu/nova-core/gpu.rs
+>> +++ b/drivers/gpu/nova-core/gpu.rs
+>> @@ -138,6 +138,11 @@ pub(crate) const fn arch(self) -> Architecture {
+>>          }
+>>      }
+>> =20
+>> +    /// Returns the implementation identifier of this chipset.
+>> +    pub(crate) const fn implementation(self) -> u32 {
+>> +        self as u32 & 0xf
+>> +    }
+>
+> I missed this part in my previous reply. Besides being a bit unfortunate =
+that we
+> have to reimplement what boot42.implementation() already gives us, I thin=
+k the
+> value is not overly useful anyway.
+>
+> I get the intent, architecture and implementation complement each other, =
+but in
+> practice we are not interested in the implementation bits, but either in =
+a
+> unique chip identifier or the architecture.
+>
+> If you look at the nova-core code you will find exactly that, we either c=
+heck
+> for a specific chip or an architecture and I think userspace will be inte=
+rsted
+> in the same.
+>
+> So, I think the uAPI should provide the architecture and a unique chip
+> identifier.
+>
+> Before we circle back, I know that the unique chip identifier in nova-cor=
+e
+> technically contains the architecture for obvious reasons, but my point h=
+as
+> always been that we can give the decoded architecture to userspace and no=
+t
+> require it to know about and extract it from the chip identifier we consi=
+der
+> opaque in the uAPI.
 
-Reviewed-by: Pawan Gupta <pawan.kumar.gupta@linux.intel.com>
+IOW, we should not think of this in terms of the numbers/values exposed by =
+some
+register. All the users (including nova-core itself) don't really care abou=
+t the
+values behind the enum, how it composes and how it is related to other valu=
+es,
+that's just an implementation detail.
+
+All users care about is that they have an architecture and chip identifier =
+to
+compare against. I.e. there's no value letting userspace think of the chip
+identifier as architecture/implementation tuple, since the implementation v=
+alue
+by itself is rather useless.
