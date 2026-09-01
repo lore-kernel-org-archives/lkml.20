@@ -1,123 +1,245 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-67.mta0.migadu.com [91.218.175.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796AC59B56
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:11:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03D8F3B52EE
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:12:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.67
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788261120; cv=none; b=J81bg4vpnRhNFXOUNGwxGxH4bI7UrMdTGzkOQQFj/691vWov2M2sB5SeBTaxsdk0hvOw8oaYeWzDvpGwMNjn41JVpN0FSCfgjlmmuJG/WhXjucOBb+9MiU1iaOSCmQ37cMkDiI50FAsKmXlLpdYdNcjDCT0nWko9yq8FFPG1VdE=
+	t=1788261131; cv=none; b=LotlVzVqEK1gPo3gI/2H5v8atBA5Cj1x7xt+WD0YogrrMrMJRxvHX/f0riigRU4bBE9cIvoSVLdSwg6OsJtPNqvFfopRqvU6cnH2qfW5OI3vjVqUkdZXa1dLwSgjYsQB1RWyA/g2+mbXfH60R/wQ+uOD1Mb0ei5BWydo8RGFKq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788261120; c=relaxed/simple;
-	bh=I0WjaWZlyCjT73mvK6eAJL0c4Q/k/gh1DgLDlEdtyco=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=YF1Brran7gUgKzWxB9XFQsua5dOgSG31p3fMHjW85BZY1daExxUuxQpXv+ttbDAlMCFYYiiRFse8Fx1qaNZ+x+2AB9h6ty18tXl76u3wVI31OnOy1HGSawvbe4gTJKn3g+W69KMzQj1Eq54qeQoXFqbii9mnVIGQ2MPtEJ/pGaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=EyfocO7f; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=O7msTL4W; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788261131; c=relaxed/simple;
+	bh=CsioD9lZ+yh5tHGXfu+MRuQR2cyaW3t4YdYHU6hudFc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=buDp2M/TueLB0Roa6CfRcYB9pLnHbSjiVwmi/cD04sq2LhpEPYoS94DR/nUTL5tRnx2oDAOUqSQzvBPKWOsHL1FtytgAxdgE0ncXt4SrB1hqws3jPLtFRuJTX0VYGWQDLpDEq0ifRGOFmmPfX9rFFavZGeH8oXbvDlMFj9eTkVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Y4r7+eDh; arc=none smtp.client-ip=91.218.175.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="EyfocO7f";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="O7msTL4W"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788261118;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=gi8zlUNdWCzsqZSiJ6mOTo+NkAOh4pwQ7EWq01VYbQA=;
-	b=EyfocO7fbRJPAAp/vHuLLmFFNcgy4bcr0FuHBYRb/viC0h1S+eYI9X8wHiWKUAgj/kLsf/
-	xNMzfV3a0TdjtAKu2BdHpvru8Ek8aa20x+cvaMvnZIZnLkCMAk5zg4FoY9pZxOM25BI3tU
-	s26fpZ3ZnFx/Jjp4UK610NIm+PFf+vs=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-639-3c6GtOc-NnWbYtewS6gXtA-1; Tue, 01 Sept 2026 07:11:56 -0400
-X-MC-Unique: 3c6GtOc-NnWbYtewS6gXtA-1
-X-Mimecast-MFC-AGG-ID: 3c6GtOc-NnWbYtewS6gXtA_1788261116
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-939281526e1so81218785a.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 04:11:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788261116; x=1788865916; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gi8zlUNdWCzsqZSiJ6mOTo+NkAOh4pwQ7EWq01VYbQA=;
-        b=O7msTL4W1LOKUu2FWkb/oSUp+h3t1N4f+8+HPtAjXVprwQgHsYYTlbnkI4AkAse6J9
-         V8WQNMrscM8IQ3T3an9DStP5MUuQhCXxPq0pE70HOy8ehW3Er3jadGj9tjcjo94ZJeiU
-         QaYZtJ8BdPvHgAsdQXzxgsuytL4aticjbLG397DZV9D7mxMHWI1njnXnGnY3IgvGEQJW
-         cXiUcG4SWMElj46kdHJG7nvQxpEvo76wjbuMNA6d4Ip0LzJUBsSIFF43gYBZDmVbVSOn
-         Mb6x3+Vl4PfFalbPi8MVGrVlVc04cU9+Dw+fLMEdT7rc+U2dOsaQ1Rmqasl9Oil6L2Ct
-         GfGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788261116; x=1788865916;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gi8zlUNdWCzsqZSiJ6mOTo+NkAOh4pwQ7EWq01VYbQA=;
-        b=oQwWFCooIG2r9DeBCcAj46bxG3lmonRvQwigNMeypltahTIfrwTJFQ+o5/6A0eFNgA
-         rVc3+odiFAb07qa03wBnUj1+oNmjcpTaH9Zx9F0Zr6o8zbv1qcempLaL/znvj6a8lwvs
-         +gqSjL42IjQ6t+TC0mni7wdntXnspuIYu1qOz6UP3zy+Mp324StQd6lOgNc3BQsT2Z+h
-         nrxjLAPl9lTegkT9z+BqfrAWM9TcmSOLfu3jzgAflqz1hURYOIrG0UvUYcGJYGoDkkG+
-         oBX+kJYNHYuns0LGV2yZHcFk0xC7+n6N9P+zc4iQ2yjdr3RMrCgYjvzVt3DiNbvIGiyf
-         Q6Bg==
-X-Forwarded-Encrypted: i=1; AHgh+RoZbHVYKiZ4elyiLNSqcy+/UuDcmC1HHQPPR9YVziLycaWhHsckq3VUhkssE+mYPPMNxIRHh9X6l5skj9A=@vger.kernel.org
-X-Gm-Message-State: AFuF++mghxtAc51fw/5JqQ1clqlk9RUoAOxPHrQSKgmUR2aBQT7ORIMN
-	5fki0lfDcCXangjAP0q1ZPXsNZ7Vc51N/c5Gh6TgwXi77q5EuRSBzabwVuM4kgKvCKQ13ksTWiE
-	zEgrBAAURbydfCMemmKDWOL4eFC2SqB5Ok8zKVkgm7eBASedbPvHYftBhItVYkib9Qg==
-X-Gm-Gg: AR+sD13GOplc/Xx5EzsKMbRZyP2g7tS7Po5tfqmTCCSgyHSTfmaEQUfPbGgJonH9SyL
-	fedtirun0rvTx0IMJ5RdwTc1GqI8wO+Ggq/eLbwGQgOgUAEeMP2D4CCWg2CdVShbKX4z30z2Gzd
-	bWIJm/9jLmw5aJ+areW8ZNThmPBo1iW2wDYo0obyDUsdpIpws9YkFn+O9vl36GVRnL6K+hahiV3
-	4MgT6lOQ6D/IhfZuc/qbYvw2N/dwGFsTZ5W5WLCKn7nMzgqnYhHZW4zvURSYMt/vsHAS97P0iyq
-	uHBdjMeqT8ialbhgAXlU2sWoJhhlgSnbNZOSWPt0mdbWhJPm5s/YgTMYahFlqIlM63IXvWoCUbH
-	Tt3aRqTu9WWqnZ6NSDcrpx9h02yto65Dev+E4QfKj
-X-Received: by 2002:a05:620a:6187:b0:934:97c1:ca5c with SMTP id af79cd13be357-939137d09eamr4145044685a.16.1788261116368;
-        Tue, 01 Sep 2026 04:11:56 -0700 (PDT)
-X-Received: by 2002:a05:620a:6187:b0:934:97c1:ca5c with SMTP id af79cd13be357-939137d09eamr4145038485a.16.1788261115913;
-        Tue, 01 Sep 2026 04:11:55 -0700 (PDT)
-Received: from [192.168.1.15] (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939173a734dsm1005142785a.26.2026.09.01.04.11.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 04:11:55 -0700 (PDT)
-From: Brian Masney <bmasney@redhat.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Russell King <linux@armlinux.org.uk>, 
- Jerome Brunet <jbrunet@baylibre.com>
-Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org
-In-Reply-To: <20260723-clk-provider-pinning-v2-1-8dad72eb79f0@baylibre.com>
-References: <20260723-clk-provider-pinning-v2-1-8dad72eb79f0@baylibre.com>
-Subject: Re: [PATCH v2] clk: fix self-consuming provider module pinning
-Message-Id: <178826109921.1923810.15249958200247349694.b4-ty@b4>
-Date: Tue, 01 Sep 2026 07:11:39 -0400
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Y4r7+eDh"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=CsioD9lZ+yh5tHGXfu+MRuQR2cyaW3t4YdYHU6hudFc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788261128; v=1; x=1788865928;
+ b=Y4r7+eDhd1LxClrS2QBkx2ZNhmITI1JMjs3J0foyAH6u0nZkaJybE03m+aSnQTKS13NqzhUh
+ 36ytSm700m0Gy+3vekPB2+StjLS/+8rh2Gkst518rVYSbLsOs8HMTq24cqe85JxKD3dRzr/sx4v
+ 3HXE/+Q/oGjR+Hnvm87iAEFk=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 55628610693fe877;
+	Tue, 01 Sep 2026 11:12:08 +0000
+X-Mizu-Trace-ID: 55628610693fe877
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5aeb688ae83so4890e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 04:12:07 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwxTkvrocjimySr+9V8HT1UcRrbdd2dQY1ACzsN5Fr+BCvVK0PUZAegQdtSXmNBgIBBORBOPU51XkVt3r8=@vger.kernel.org
+X-Gm-Message-State: AFuF++n2OKeHI/7ayrw7G6DRL5d360J/LcnkpnsqUBXm0xsR1IyMQ5yz
+	rmYFQeAmto1gKEKkIgFDLimbNvp7QZDy5eR0QEbOFWe5ctCmq+TY+VM/I8weHbaYhfP4sJqM638
+	kfKDlG1qs8AbZuE0lyoxdKQQkjoVKCsojHtRz+8ck
+X-Received: by 2002:a05:6512:b8d:b0:5aa:79d6:b559 with SMTP id
+ 2adb3069b0e04-5b5fefc86c9mr146222e87.0.1788261126243; Tue, 01 Sep 2026
+ 04:12:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=299; i=bmasney@redhat.com;
- s=20250903; h=from:subject:message-id;
- bh=O3JvY97otagHytxcUyGsTeDj2UPUf0B409ucB+po9zg=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLKmbfrqJ77ytoHk8SkPfgZsr3zSll1TzPhn29aw5bzHH
- mglSyYWdpSyMIhxMciKKbIsyTUqiEhdZXvvjiYLzBxWJpAhDFycAjAR98cM/8znH9/ygXXevcvn
- P6jqxnNVri5atM8i+vHb4Mn/Ap68WrmM4Q9f+R7NJDWJGQXse6/8aI8wZpEyD1xj7hfj236L5Wu
- fOg8A
-X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com> <20260830-gmem-inplace-conversion-v12-44-85e5fd25252a@google.com>
+In-Reply-To: <20260830-gmem-inplace-conversion-v12-44-85e5fd25252a@google.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 1 Sep 2026 12:11:00 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTz+nwFCn66MG2QjiB84_OyOoJowTHr-Ru2uSEpvO+yLCg@mail.gmail.com>
+X-Gm-Features: AcwNN1Ub9J3hFyuS9Dks6Hz8-OwxznQ12Dvlx31FuOxfKnRbAtrjNgxw2UfRugY
+Message-ID: <CA+EHjTz+nwFCn66MG2QjiB84_OyOoJowTHr-Ru2uSEpvO+yLCg@mail.gmail.com>
+Subject: Re: [PATCH v12 44/45] KVM: selftests: Update private_mem_conversions_test
+ for in-place conversions
+To: ackerleytng@google.com
+Cc: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
+	brauner@kernel.org, chao.p.peng@linux.intel.com, david@kernel.org, 
+	jmattson@google.com, jthoughton@google.com, michael.roth@amd.com, 
+	oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
+	rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
+	steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
+	yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org, 
+	suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org, 
+	Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
+	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
+	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
+	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
+	Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	linux-mm@kvack.org, linux-coco@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+
+On Mon, 31 Aug 2026 at 01:25, Ackerley Tng via B4 Relay
+<devnull+ackerleytng.google.com@kernel.org> wrote:
+>
+> From: Ackerley Tng <ackerleytng@google.com>
+>
+> Update private_mem_conversions_test for in-place conversions. In-place
+> conversions support is detected in selftests with kvm_has_gmem_attributes.
+>
+> With in-place conversions, specifying userspace_addr from some other memory
+> provider that is not the guest_memfd associated with the memslot is a user
+> error, since KVM will only use both shared and private memory from the
+> guest_memfd.
+>
+> Hence, when kvm_has_gmem_attributes, only test in-place conversions with
+> single backing, where guest_memfd provides both shared and private memory.
+>
+> For single backing, guest_memfd must be created with
+> GUEST_MEMFD_FLAG_MMAP. Initialize the guest_memfd as shared to align with
+> how memory would default to shared when shared/private state was tracked at
+> the VM level (the test expects this, it was written for
+> non-in-place-conversions).
+>
+> When handling a hypercall to set attributes, use
+> vm_mem_set_memory_attributes() to send the ioctl to the guest_memfd instead
+> of the VM.
+>
+> When testing in-place conversions (single-backing), don't allow the user to
+> configure src_type, since src_type will be ignored. Don't use src_type to
+> determine alignment for rounding up per-cpu test memory size, since
+> guest_memfd's backing page size is always the system PAGE_SIZE.
+>
+> Co-developed-by: Sean Christopherson <seanjc@google.com>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+
+Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+
+Cheers,
+/fuad
 
 
-On Thu, 23 Jul 2026 15:00:51 +0200, Jerome Brunet wrote:
-> clk: fix self-consuming provider module pinning
-
-Applied, thanks!
-
-[1/1] clk: fix self-consuming provider module pinning
-      commit: 5d334928586b7071bf7b3db19b04a2c0e8f4efe3
-
-Best regards,
--- 
-Brian Masney <bmasney@redhat.com>
-
+> ---
+>  .../kvm/x86/private_mem_conversions_test.c         | 57 +++++++++++++++++-----
+>  1 file changed, 44 insertions(+), 13 deletions(-)
+>
+> diff --git a/tools/testing/selftests/kvm/x86/private_mem_conversions_test.c b/tools/testing/selftests/kvm/x86/private_mem_conversions_test.c
+> index cf50e9a332c5b..33b610383693b 100644
+> --- a/tools/testing/selftests/kvm/x86/private_mem_conversions_test.c
+> +++ b/tools/testing/selftests/kvm/x86/private_mem_conversions_test.c
+> @@ -306,9 +306,12 @@ static void handle_exit_hypercall(struct kvm_vcpu *vcpu)
+>         if (do_fallocate)
+>                 vm_guest_mem_fallocate(vm, gpa, size, map_shared);
+>
+> -       if (set_attributes)
+> -               vm_set_memory_attributes(vm, gpa, size,
+> -                                        map_shared ? 0 : KVM_MEMORY_ATTRIBUTE_PRIVATE);
+> +       if (set_attributes) {
+> +               u64 attrs = map_shared ? 0 : KVM_MEMORY_ATTRIBUTE_PRIVATE;
+> +
+> +               vm_mem_set_memory_attributes(vm, gpa, size, attrs);
+> +       }
+> +
+>         run->hypercall.ret = 0;
+>  }
+>
+> @@ -352,8 +355,21 @@ static void *__test_mem_conversions(void *__vcpu)
+>                                 size_t nr_bytes = min_t(size_t, vm->page_size, size - i);
+>                                 u8 *hva = addr_gpa2hva(vm, gpa + i);
+>
+> -                               /* In all cases, the host should observe the shared data. */
+> -                               memcmp_h(hva, gpa + i, uc.args[3], nr_bytes);
+> +                               if (kvm_has_gmem_attributes &&
+> +                                   uc.args[0] == SYNC_PRIVATE) {
+> +                                       TEST_EXPECT_SIGBUS(READ_ONCE(*hva));
+> +                               } else {
+> +                                       /*
+> +                                        * If not testing in-place conversion
+> +                                        * (dual backing), the host should
+> +                                        * always observe shared data, since the
+> +                                        * shared memory is a separate page.
+> +                                        *
+> +                                        * For SYNC_SHARED, test that the host
+> +                                        * can see shared memory.
+> +                                        */
+> +                                       memcmp_h(hva, gpa + i, uc.args[3], nr_bytes);
+> +                               }
+>
+>                                 /* For shared, write the new pattern to guest memory. */
+>                                 if (uc.args[0] == SYNC_SHARED)
+> @@ -369,20 +385,29 @@ static void *__test_mem_conversions(void *__vcpu)
+>         }
+>  }
+>
+> +/* Align each vCPU's chunk of memory naturally to the size of the backing store. */
+> +static size_t compute_per_cpu_size(enum vm_mem_backing_src_type src_type)
+> +{
+> +       size_t alignment;
+> +
+> +       if (kvm_has_gmem_attributes)
+> +               alignment = getpagesize();
+> +       else
+> +               alignment = get_backing_src_pagesz(src_type);
+> +
+> +       return align_up(PER_CPU_DATA_SIZE, max_t(size_t, SZ_2M, alignment));
+> +}
+> +
+>  static void test_mem_conversions(enum vm_mem_backing_src_type src_type, u32 nr_vcpus,
+>                                  u32 nr_memslots)
+>  {
+> -       /*
+> -        * Allocate enough memory so that each vCPU's chunk of memory can be
+> -        * naturally aligned with respect to the size of the backing store.
+> -        */
+> -       const size_t alignment = max_t(size_t, SZ_2M, get_backing_src_pagesz(src_type));
+> -       const size_t per_cpu_size = align_up(PER_CPU_DATA_SIZE, alignment);
+> +       const size_t per_cpu_size = compute_per_cpu_size(src_type);
+>         const size_t memfd_size = per_cpu_size * nr_vcpus;
+>         const size_t slot_size = memfd_size / nr_memslots;
+>         struct kvm_vcpu *vcpus[KVM_MAX_VCPUS];
+>         pthread_t threads[KVM_MAX_VCPUS];
+>         struct kvm_vm *vm;
+> +       u64 gmem_flags;
+>         int memfd, i;
+>
+>         const struct vm_shape shape = {
+> @@ -397,12 +422,16 @@ static void test_mem_conversions(enum vm_mem_backing_src_type src_type, u32 nr_v
+>
+>         vm_enable_cap(vm, KVM_CAP_EXIT_HYPERCALL, (1 << KVM_HC_MAP_GPA_RANGE));
+>
+> -       memfd = vm_create_guest_memfd(vm, memfd_size, 0);
+> +       gmem_flags = 0;
+> +       if (kvm_has_gmem_attributes)
+> +               gmem_flags = GUEST_MEMFD_FLAG_MMAP | GUEST_MEMFD_FLAG_INIT_SHARED;
+> +
+> +       memfd = vm_create_guest_memfd(vm, memfd_size, gmem_flags);
+>
+>         for (i = 0; i < nr_memslots; i++)
+>                 vm_mem_add(vm, src_type, BASE_DATA_GPA + slot_size * i,
+>                            BASE_DATA_SLOT + i, slot_size / vm->page_size,
+> -                          KVM_MEM_GUEST_MEMFD, memfd, slot_size * i, 0);
+> +                          KVM_MEM_GUEST_MEMFD, memfd, slot_size * i, gmem_flags);
+>
+>         for (i = 0; i < nr_vcpus; i++) {
+>                 gpa_t gpa =  BASE_DATA_GPA + i * per_cpu_size;
+> @@ -462,6 +491,8 @@ int main(int argc, char *argv[])
+>         while ((opt = getopt(argc, argv, "hm:s:n:")) != -1) {
+>                 switch (opt) {
+>                 case 's':
+> +                       TEST_ASSERT(!kvm_has_gmem_attributes,
+> +                                   "src_type is only configurable when testing without in-place conversion");
+>                         src_type = parse_backing_src_type(optarg);
+>                         break;
+>                 case 'n':
+>
+> --
+> 2.55.0.897.gb25b4bd76c-goog
+>
+>
