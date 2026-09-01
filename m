@@ -1,71 +1,264 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C35318EC5;
-	Tue,  1 Sep 2026 12:45:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF2F35F5E4;
+	Tue,  1 Sep 2026 12:47:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788266760; cv=none; b=m2yEJd7EHWUnbNoJtTnwp7/vsdty/+EjQOMQWUK/hzP/RXrxMqL3G+AKBoJnp4sNUlIX545/qqVGSsDdj5kK+y5Ao8lGxn4tDCmNKXQxU138txdSXNLLavofJag99PRaqU3AlwvOb38jqhuiHQmkCGJJEMiVuG0knb6sWOjS/Jw=
+	t=1788266824; cv=none; b=rAvYfytFXYMw5/N/nQJ/5ZzlF31lGscXZ72UIARTTrjx9bQz0CtmtRefbZOSaiOnxfAhe9nwHOCK5VQY0LTJhT5leYGuBw66J5TysG7oiJfA+Qp7lhI24HumWyrGyt9nRgzdD9xsMfkbFLGMJ8bjl0F/1i+jOgcc2GJ4BkWlel4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788266760; c=relaxed/simple;
-	bh=MoCpk0/6q0hwvTP+Dqr3dVaVQHUMFmukWcDaSMjIQSc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eV4GyKZIj1ZYXPgenJ0sp9vNfh2xed2tD6eaeM1raL5CJcfVQrdtLo/AVlCf0za8dzN/h4EAj6+GK5G5ea9z61KDoGptUTgcZuRSpyPw1OtC3PguBHRvzlI9wgfnzWCniWIDI+R3ClzT2wrCHLlCxgsC/SM+unI1OxWPrf7Qcsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V+YyZM/9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788266824; c=relaxed/simple;
+	bh=daBI1gC+G2LYNVTL8IqZftF+7euB5ofnjjG485171D8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=seu4AbIsm/eP5zVyuWVXezihug7GTx/EKkjzvxB8bdFzEbt21p5pQnYmgIt0eMVfAFA8uzqzBC8adHAmkWJ/NyLExTYSVWyq78kkt/GkHQzaQa3lOJNyMd/k3b6jAbI+T7krGefHlZ6bCPuDRFo4Mvtewo37dyt839f8F+Sc1og=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P1PUljkM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V+YyZM/9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 214431F000E9;
-	Tue,  1 Sep 2026 12:45:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788266759;
-	bh=RazYKUpdfpPz7uZDCd2IAM5cS0JehNuksA95BlTXXuc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=V+YyZM/9th644UkgJhS0rwA1eOOguyJl/Tw6IS39JJv59oidGUPG4T0wKhj+d+Emn
-	 us/8pJFRJy3nhL5wCaCb6ceTXHaZEkPiKvLJ/G5Pls18N2jlxSbDIyP1I11Jk64jM8
-	 fRtIlpJxZNsdo6EwbJgav/sPrJjUzUL5inXm7GCtSioxGN4JeiT2qsv0mdjIwjEFoZ
-	 oa9vBhdnZdeJz22V3QLoFfNPDhl72YB/r3h/QkXA6YplT39J4m5mkjV257VfjILosC
-	 6bNJiu5MRFE0ELYQI8wy9aMfVr6YuEN4y72e8VszPBGHTgPy7KhRLt+mvyaBLdLJEP
-	 56bOhW9aru3tg==
-Date: Tue, 1 Sep 2026 14:45:42 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, usb4-upstream@oss.qualcomm.com, 
-	Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>, Mika Westerberg <westeri@kernel.org>, 
-	Sven Peter <sven@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: [PATCH v4 4/5] phy: qualcomm: qmp-combo: Add USB4/TBT3
- configuration data for Hamoa
-Message-ID: <ltdod75qfvs5mvuwx5wvqezj4nzwt76joszjksxjiejfg5qka2@drotnkjgrcui>
-References: <20260820-topic-usb4phy-v4-0-aec9d2cb31f6@oss.qualcomm.com>
- <20260820-topic-usb4phy-v4-4-aec9d2cb31f6@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P1PUljkM"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CA708C2BCF4;
+	Tue,  1 Sep 2026 12:47:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788266823;
+	bh=daBI1gC+G2LYNVTL8IqZftF+7euB5ofnjjG485171D8=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=P1PUljkMkA6VtWReTak3sygP/hhWP1gs0nYl6Hn5yroKXfCh2GXzRRs/raXRLUtoa
+	 XGjly1mHi0/QYxSrSIlZFZtoTNY994BfymofUOVbNxzsJcxFWG+eXoD8XUoZGoZmss
+	 fo2ui58koQn4GwbyTehdSlgGthNlm+9zPWfLIjudCGgHGdxJRZ+DL4Q9cwKERJ+jO5
+	 egWIsSea6bPS4e6LLsH/yvwyyr+IWF8OXZLI5KEnNW5RPpqKIdSO2AbqIebV8Bt4jg
+	 x2P/laQ1B2I55cDovnvRDTYacGAx/Sz3+HL3LSKLnzOdwoIrn/XsfE2gM+0FEcmUqx
+	 fwFYbVKxh8vFA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A6131C624D3;
+	Tue,  1 Sep 2026 12:47:03 +0000 (UTC)
+From: Johnathan Browall via B4 Relay <devnull+johnathan.browall.topgolf.com@kernel.org>
+Date: Tue, 01 Sep 2026 14:46:47 +0200
+Subject: [PATCH net v3] bnxt_en: avoid redundant RX mask updates in UC
+ overflow state
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260820-topic-usb4phy-v4-4-aec9d2cb31f6@oss.qualcomm.com>
+Message-Id: <20260901-bnxt-uc-overflow-v3-1-2ea7c42c013c@topgolf.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NwRKCIBRFf8VhHQ2iEbXqP5oWAg+lMXEAycbx3
+ 1NqUVPL+96950zIgzPg0TGbkINovLHdEopNhmRTdTVgo5aMKKGMcMqw6MaAB4ltBKdbe8e6EDu
+ +fCgTAi2z3oE2Y0KeUQcBXV5HP4gryLDC1lpjfLDukcQxT+W3Y//riDnOsaZElZyzUsPhFGxf2
+ 1Zvpb0lQaSfCP4HQVdEpZTMmSBQkW/EPM9PItzk/QwBAAA=
+X-Change-ID: 20260826-bnxt-uc-overflow-f3b5882626bb
+To: Michael Chan <michael.chan@broadcom.com>, 
+ Pavan Chebbi <pavan.chebbi@broadcom.com>, netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ =?utf-8?q?Pontus_H=C3=A5llstedt?= <pontus.hallstedt@topgolf.com>, 
+ Johnathan Browall <johnathan.browall@topgolf.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788266822; l=8587;
+ i=johnathan.browall@topgolf.com; s=20260826; h=from:subject:message-id;
+ bh=JXa4L36f5k63XQR1//4sj+78c5sshjpWcD0nSiXaRxY=;
+ b=ZnZZ6ZCn2hG6aXaTuLfzq91bzS+2Y7cuU5kZqp9rVJ5L+LY8/3xOKkaIdnsGPOl3I6u6OkrZ/
+ OMq1xnC2t8hCw6+2ZfTpOesqJ0k749NSfCr+9/X4e8O646dMz7WnyaD
+X-Developer-Key: i=johnathan.browall@topgolf.com; a=ed25519;
+ pk=w6Hvfd81SFSs3dF3Kpe2Y17SpDtiKU3eXu0RdWOCnZk=
+X-Endpoint-Received: by B4 Relay for johnathan.browall@topgolf.com/20260826
+ with auth_id=976
+X-Original-From: Johnathan Browall <johnathan.browall@topgolf.com>
+Reply-To: johnathan.browall@topgolf.com
 
-On Thu, Aug 20, 2026 at 04:24:13PM +0200, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> 
-> Add the offsets and configuration tables to support USB4 and
-> Thunderbolt 3 operation on the USB4-capable PHYs found on Hamoa chips.
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+From: Johnathan Browall <johnathan.browall@topgolf.com>
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+bnxt_cfg_rx_mode() stops programming individual L2 filters and turns
+on the promiscuous bit in the VNIC rx mask when the interface has more
+unicast addresses than the hardware has filter slots
+(BNXT_MAX_UC_ADDRS).  The driver state never becomes consistent after
+that: vnic->uc_filter_count stays at 1, so bnxt_uc_list_updated()
+keeps reporting the UC list as changed on every rx-mode callback, and
+bnxt_set_rx_mode() removes the promiscuous bit from the mask it
+computes (it only re-adds it for IFF_PROMISC), so the mask comparison
+also fails every time.
 
-- Mani
+As a consequence, every rx-mode callback resends the same
+HWRM_CFA_L2_SET_RX_MASK to the firmware, including for requests that
+change nothing, such as setting a link flag to the value it already
+has, or a macvlan going up or down.  That would only cost an
+unnecessary firmware call if SET_RX_MASK processing did not affect
+traffic, but on BCM57416 and BCM57504 (firmware 23.3 and 23.6) it
+does: each invocation causes a short interval in which incoming
+unicast traffic is dropped.  We observed this in production as
+sequence gaps in GigE Vision camera streams on a PF carrying 19
+secondary unicast addresses, with HWRM tracing showing a SET_RX_MASK
+(and no filter alloc/free) for every repeated "ip link set ... arp on"
+that changed nothing.
 
--- 
-மணிவண்ணன் சதாசிவம்
+Fix it by recording the overflow state in a new vnic flag.  While the
+flag is set, the UC list is only treated as updated once it has shrunk
+enough to fit the available filters (the content of the list does not
+matter while all unicast is accepted through promiscuous mode), and
+bnxt_set_rx_mode() keeps the promiscuous bit in the mask, subject to
+the same bnxt_promisc_ok() check that bnxt_cfg_rx_mode() applies.
+
+The flag is committed only after bnxt_hwrm_cfa_l2_set_rx_mask()
+succeeds, so a failed attempt leaves the state marked as changed and
+the next retry or rx-mode callback programs the mask again.  This
+matches the behavior before this patch, where the never-converging
+state retried until the firmware accepted the mask.  Committing the
+flag before the send would let a single failure end the retry
+sequence with the secondary filters already freed and the promiscuous
+bit not installed.
+
+An unchanged rx mode no longer causes any firmware call, and neither do
+UC list changes that stay above the limit.  Crossing the limit and
+real changes to the flags or the MC list are programmed as before.
+
+Tested with the equivalent patch on 6.12.y on BCM57416: the repeated
+SET_RX_MASK invocations no longer occur and the receive disruption is
+no longer reproducible.
+
+Fixes: c0c050c58d84 ("bnxt_en: New Broadcom ethernet driver.")
+Cc: stable@vger.kernel.org # needs adjustment for <= 6.18
+Co-developed-by: Pontus Hållstedt <pontus.hallstedt@topgolf.com>
+Signed-off-by: Pontus Hållstedt <pontus.hallstedt@topgolf.com>
+Signed-off-by: Johnathan Browall <johnathan.browall@topgolf.com>
+---
+The review also led us to two pre-existing defects in the same area,
+independent of this patch. vnic->rx_mask is committed before the
+firmware send, so any failed mask-only change retries without sending
+anything, including at open time. And the IFF_PROMISC branch in
+bnxt_set_rx_mode() lacks the bnxt_promisc_ok() gate that the skip_uc
+strip applies, so an untrusted VF with IFF_PROMISC resends an
+identical mask on every callback. We plan to send fixes for both
+separately after this patch is applied.
+
+Changes in v3:
+- Commit the overflow flag only after HWRM_CFA_L2_SET_RX_MASK succeeds,
+  so a failed send leaves the state marked as changed and the retry or
+  any later rx-mode callback programs the mask again (Paolo Abeni's
+  review). Without this, a single failure while entering overflow ended
+  the retry sequence with the secondary filters freed and no
+  promiscuous bit installed; a failure while leaving overflow silently
+  left the port promiscuous.
+- Reword the comment in bnxt_uc_list_updated(): on an untrusted VF the
+  promiscuous bit is not usable, so the previous wording overstated the
+  state (review finding on v1).
+- Drop the Reviewed-by from v2 because of the code change.
+- Link to v2: https://patch.msgid.link/20260828-bnxt-uc-overflow-v2-1-faddc16b0ea0@topgolf.com
+
+Changes in v2:
+- Wrap a line exceeding 80 columns (Pavan Chebbi)
+- Collect Reviewed-by (Pavan Chebbi)
+- Note on the stable Cc that trees <= 6.18 need an adjusted version.
+- Link to v1: https://patch.msgid.link/20260827-bnxt-uc-overflow-v1-1-f20d48864fe9@topgolf.com
+---
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c | 42 +++++++++++++++++++++++++++++--
+ drivers/net/ethernet/broadcom/bnxt/bnxt.h |  1 +
+ 2 files changed, 41 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+index 9c2cc5027..1e9e86934 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+@@ -13791,6 +13791,16 @@ static bool bnxt_uc_list_updated(struct bnxt *bp,
+ 	struct netdev_hw_addr *ha;
+ 	int off = 0;
+ 
++	/* In the overflow state no secondary L2 filters are programmed
++	 * and unicast RX relies on the promiscuous mask, so the list
++	 * only needs reprogramming once it fits the available filters
++	 * again.  Reporting an update here would resend an identical
++	 * SET_RX_MASK on every callback, which causes brief RX packet
++	 * loss on some chips.
++	 */
++	if (vnic->flags & BNXT_VNIC_UC_PROMISC_FLAG)
++		return netdev_hw_addr_list_count(uc) <= (BNXT_MAX_UC_ADDRS - 1);
++
+ 	if (netdev_hw_addr_list_count(uc) != (vnic->uc_filter_count - 1))
+ 		return true;
+ 
+@@ -13826,6 +13836,13 @@ static int bnxt_set_rx_mode(struct net_device *dev,
+ 	if (dev->flags & IFF_PROMISC)
+ 		mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
+ 
++	/* Keep the promiscuous bit while the UC list is longer than the
++	 * available L2 filters, so that an unchanged rx mode is not
++	 * treated as a mask change.
++	 */
++	if ((vnic->flags & BNXT_VNIC_UC_PROMISC_FLAG) && bnxt_promisc_ok(bp))
++		mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
++
+ 	uc_update = bnxt_uc_list_updated(bp, uc);
+ 
+ 	if (dev->flags & IFF_BROADCAST)
+@@ -13853,6 +13870,9 @@ static int bnxt_cfg_rx_mode(struct bnxt *bp, struct netdev_hw_addr_list *uc,
+ 	struct bnxt_vnic_info *vnic = &bp->vnic_info[BNXT_VNIC_DEFAULT];
+ 	struct netdev_hw_addr *ha;
+ 	int i, off = 0, rc;
++	bool uc_promisc;
++
++	uc_promisc = !!(vnic->flags & BNXT_VNIC_UC_PROMISC_FLAG);
+ 
+ 	if (!uc_update)
+ 		goto skip_uc;
+@@ -13869,7 +13889,12 @@ static int bnxt_cfg_rx_mode(struct bnxt *bp, struct netdev_hw_addr_list *uc,
+ 	netif_addr_lock_bh(dev);
+ 	if (netdev_hw_addr_list_count(uc) > (BNXT_MAX_UC_ADDRS - 1)) {
+ 		vnic->rx_mask |= CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
++		uc_promisc = true;
+ 	} else {
++		uc_promisc = false;
++		if (!(dev->flags & IFF_PROMISC))
++			vnic->rx_mask &=
++				~CFA_L2_SET_RX_MASK_REQ_MASK_PROMISCUOUS;
+ 		netdev_hw_addr_list_for_each(ha, uc) {
+ 			memcpy(vnic->uc_list + off, ha->addr, ETH_ALEN);
+ 			off += ETH_ALEN;
+@@ -13907,11 +13932,24 @@ static int bnxt_cfg_rx_mode(struct bnxt *bp, struct netdev_hw_addr_list *uc,
+ 		vnic->mc_list_count = 0;
+ 		rc = bnxt_hwrm_cfa_l2_set_rx_mask(bp, 0);
+ 	}
+-	if (rc)
++	if (rc) {
+ 		netdev_err(bp->dev, "HWRM cfa l2 rx mask failure rc: %d\n",
+ 			   rc);
++		return rc;
++	}
+ 
+-	return rc;
++	/* Commit the overflow state only once the mask is installed, so
++	 * that a failed attempt keeps the state marked as changed and the
++	 * next retry or rx-mode callback programs the mask again.
++	 */
++	netif_addr_lock_bh(dev);
++	if (uc_promisc)
++		vnic->flags |= BNXT_VNIC_UC_PROMISC_FLAG;
++	else
++		vnic->flags &= ~BNXT_VNIC_UC_PROMISC_FLAG;
++	netif_addr_unlock_bh(dev);
++
++	return 0;
+ }
+ 
+ static bool bnxt_can_reserve_rings(struct bnxt *bp)
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.h b/drivers/net/ethernet/broadcom/bnxt/bnxt.h
+index ab894f8ad..53ad39f44 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.h
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.h
+@@ -1332,6 +1332,7 @@ struct bnxt_vnic_info {
+ #define BNXT_VNIC_RFS_NEW_RSS_FLAG	0x10
+ #define BNXT_VNIC_NTUPLE_FLAG		0x20
+ #define BNXT_VNIC_RSSCTX_FLAG		0x40
++#define BNXT_VNIC_UC_PROMISC_FLAG	0x80
+ 	struct ethtool_rxfh_context *rss_ctx;
+ 	u32		vnic_id;
+ 	u16		default_rx_ring;
+
+---
+base-commit: f967455fb2a5a2079b9eb5823e9ccf359174bf9f
+change-id: 20260826-bnxt-uc-overflow-f3b5882626bb
+
+Best regards,
+--  
+Johnathan Browall <johnathan.browall@topgolf.com>
+
+
