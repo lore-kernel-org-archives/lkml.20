@@ -1,60 +1,52 @@
-Received: from mta1.migadu.com (out-79.mta1.migadu.com [95.215.58.79])
+Received: from mta1.migadu.com (out-91.mta1.migadu.com [95.215.58.91])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F4DD3C3F6A
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:04:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.79
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD803D5C0B
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:04:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.91
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788271449; cv=none; b=cwH0W+X/PM3Wi65vXcmh9ZHy7+LEl01A6VhBIliDx8hcZpLeOzRDSMyM23t8Cx6e5kfxVEaEjV24olH76XAJmN1pKf4PhjIfA4yTkRH1nTloBNIy27UxG7n4uXNfLJAh33Bnzr1vNN8DY+4KMKJqktm6hNw+0Oo6tmxTM6CSq8s=
+	t=1788271451; cv=none; b=a7PeaWdzlFecgrvUs37ijaWoEM7hJZQVc8ce0pLGLl8H5YPEd4SG5dHj+LFxWstmyTz1BT94/7Iv8TH1wgOvAq3D6zDzGiYsmJ6r4WA1gnbMEkBaW6fy5ZQTjir2sGvPCWSp2+2ScOVF90UdGthvarWY5mN0/89PDNHzpgNwJUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788271449; c=relaxed/simple;
-	bh=aVU75XT42/hoFARBw3KCuAe4snE6JpMOO83ThRddGtE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=kdQ9mzkCfcSvk3DFxgsFKcF5XG/snxViTh63n+2UKsdYSdRbUg4/+EuxHskoSkRePvMgWLORBbareBmj0/SkG+YkD0mm7nmvOop2Lo98h71lijt8a0RdrLF00IDiAv1tXQ/t4JGjE5AobBHGrfer7V/PHyJc7aD4CX8OypUWF3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=TEJK32QA; arc=none smtp.client-ip=95.215.58.79
+	s=arc-20240116; t=1788271451; c=relaxed/simple;
+	bh=o5SAqofTUL10q95P74ncak2ViAyJxj6F+FQApmfWBdA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=blxfVfmYi+V6Rmkg+lg7OaHBVl11T6xls9S7nk71/+RGNW3Bt4HWkbQfxI5x6aEjMVJByA+4uhkkdP6tjAe+Kxi/OdWEd/5m16DNqmIAGTbG32qhuNQcY/lSieHGKMdlGqFJc7fB6KgiPHzBXl5fQC0lvDCgZFQUGOCUOmTv5QM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sYXbwn6B; arc=none smtp.client-ip=95.215.58.91
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="TEJK32QA"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sYXbwn6B"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=aVU75XT42/hoFARBw3KCuAe4snE6JpMOO83ThRddGtE=;
+DKIM-Signature: a=rsa-sha256; bh=o5SAqofTUL10q95P74ncak2ViAyJxj6F+FQApmfWBdA=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788271444; v=1; x=1788876244;
- b=TEJK32QAnVRKxxgM2CoHvbaPH9Kc+9fhgwbcM+HlvyMfIXeMtZJYxWLc/caeCyl+lCtAo0ob
- TILOD7ee4F0/yyi37wfHx6F/xoht47y2RTgEAk/SL4Zg6cEwrUyd2Mxa5kYPHybM61BcUvJie8v
- 7pRLsCfp84LHxf5qG8/khgFc=
+ t=1788271447; v=1; x=1788876247;
+ b=sYXbwn6BbHiiKI2WcdNOWM1YbKQddE93024oTdwBRbfGvXbGxCYo1r+3qwZYloKqpLC4TC/0
+ elmCb6saDY+Pe3YN4JQ71o9gzG/V0YfzaZ5MY6KB/5SAVapK5287Qya9Ic0V2AF6JS4A4ph3mVh
+ spX3efxw+2w8Y4ts421CHHt0=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 64e57d984ad2e962;
-	Tue, 01 Sep 2026 14:04:04 +0000
-X-Mizu-Trace-ID: 64e57d984ad2e962
+Received: by smtp.migadu.com with ESMTPS id 7017fe8349925f4c;
+	Tue, 01 Sep 2026 14:04:07 +0000
+X-Mizu-Trace-ID: 7017fe8349925f4c
 X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Alexandru Elisei <alexandru.elisei@arm.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Quentin Perret <qperret@google.com>,
-	Ard Biesheuvel <ardb@kernel.org>,
+From: Tao Cui <cui.tao@linux.dev>
+To: tj@kernel.org,
+	arighi@nvidia.com
+Cc: void@manifault.com,
+	changwoo@igalia.com,
+	michalblk@google.com,
+	liwanwu@kylinos.cn,
+	sched-ext@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	Fuad Tabba <tabba@google.com>,
-	Fuad Tabba <fuad.tabba@linux.dev>
-Subject: [PATCH v4 06/11] arm64: pi: Run the source checker on the libfdt objects under C=2
-Date: Tue,  1 Sep 2026 15:03:21 +0100
-Message-Id: <20260901140326.3812068-7-fuad.tabba@linux.dev>
-In-Reply-To: <20260901140326.3812068-1-fuad.tabba@linux.dev>
-References: <20260901140326.3812068-1-fuad.tabba@linux.dev>
+	bpf@vger.kernel.org,
+	cui.tao@linux.dev,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: [PATCH v2 1/2] sched_ext: document the rolling-cursor requirement for dsq_vtime
+Date: Tue,  1 Sep 2026 22:03:42 +0800
+Message-ID: <20260901140343.764080-2-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260901140343.764080-1-cui.tao@linux.dev>
+References: <20260901140343.764080-1-cui.tao@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,31 +55,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The custom lib-%.o rule reuses rule_cc_o_c, which hooks the source
-checker only for C=1, and that only when the object is rebuilt. The
-C=2 hook, cmd_force_checksrc, hangs off the standard %.o rule, so
-"make C=2" silently skips the two libfdt objects. Call
-cmd_force_checksrc after the compile rule, as the standard rule does.
+From: Tao Cui <cuitao@kylinos.cn>
 
-Fixes: aacd149b6238 ("arm64: head: avoid relocating the kernel twice for KASLR")
-Reviewed-by: Marc Zyngier <maz@kernel.org>
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+scx_bpf_dsq_insert_vtime() orders tasks by time_before64(), which is
+only meaningful when the values within a given DSQ stay within a
+half-range (2^63) of each other. This is implicit in how a vtime
+scheduler works -- the cursor advances monotonically -- but not
+spelled out anywhere. Document it so BPF scheduler authors know the
+constraint.
+
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
 ---
- arch/arm64/kernel/pi/Makefile | 1 +
- 1 file changed, 1 insertion(+)
+ kernel/sched/ext/ext.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/arch/arm64/kernel/pi/Makefile b/arch/arm64/kernel/pi/Makefile
-index be92d73c25b21..96243c291e39d 100644
---- a/arch/arm64/kernel/pi/Makefile
-+++ b/arch/arm64/kernel/pi/Makefile
-@@ -34,6 +34,7 @@ $(obj)/lib-%.pi.o: OBJCOPYFLAGS += --prefix-alloc-sections=.init
- 
- $(obj)/lib-%.o: $(srctree)/lib/%.c FORCE
- 	$(call if_changed_rule,cc_o_c)
-+	$(call cmd,force_checksrc)
- 
- obj-y					:= idreg-override.pi.o \
- 					   map_kernel.pi.o map_range.pi.o \
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 8041c87a3562..9030962f4df1 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -8905,6 +8905,11 @@ struct scx_bpf_dsq_insert_vtime_args {
+  * wrapping. A numerically larger vtime may indicate an earlier position in the
+  * ordering and vice-versa.
+  *
++ * vtime is a rolling cursor and should be treated as a virtual timestamp
++ * that advances monotonically. Values used for ordering within a given DSQ
++ * should stay within half the u64 range (2^63) of each other so that
++ * time_before64() ordering remains well-defined.
++ *
+  * A DSQ can only be used as a FIFO or priority queue at any given time and this
+  * function must not be called on a DSQ which already has one or more FIFO tasks
+  * queued and vice-versa. Also, the built-in DSQs (SCX_DSQ_LOCAL and
 -- 
-2.39.5
+2.43.0
 
