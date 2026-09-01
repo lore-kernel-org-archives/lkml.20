@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 160EF43F8D9;
-	Tue,  1 Sep 2026 16:09:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15AA43F0A8;
+	Tue,  1 Sep 2026 16:09:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788278957; cv=none; b=bOGxfpXGDSVJ1uS7faYSsadw/pAW9x8JWPnK0+LMbnmTz/43VhVTInVv2NapsbmuU552PzBOc6GSGOsS6cEQcxYwXwAMI01yVlclO86Ef5PGxhDR4SlP0Z/n2/HIOrEz88P2u9tVJfJzEvmGsEzY8SXBMSyj1yJretQT6HH07cA=
+	t=1788278957; cv=none; b=ax3gp1MWsxGYg6WdnWHX3bMNH5fHxv4HlI1XiN73DSU/DRbhzTL0S2Y8H8nTTxXIA3AcQ/Y59qtx92TJBKjcOB65n8vsrku65uxtScOFmhq5Mj/Bfsui2TWKYK89AlhExipJw005goz+T9/DLUUejSnEnivzP3ZaXEy0yE5xWgs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788278957; c=relaxed/simple;
-	bh=2rDFcVDpVSOb7E7Q6WZ1n2yT0y1382pLRES1c4DMPSY=;
+	bh=PSLHqobnkdvMJe1tvr/RPViAu3hkoHIIG03CHceYiGM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=sCz3Rb/4q38/Xjkr/N77CMzW8DC6xhVa+kVU5Nt9UfFrBWeMeu05yvCuupnkWWlsaYvamPx/EXwjBdpY+15bFCVYmdx01D306Z0q6LkWvQRj9hyKl9y7m2t0RIc9gzGfPNbfcL+WNmOvT9vwxQBFVUwRKR8xUK4FFG/o2LMpDYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rox7nyIJ; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=ufSPMB9RX4k5oFBGDiD8O2yw4qCbl0Ocy3Xtf1Koc0fUfOO6n4b7atjR1TUbvgdP6KMXqDuhvkcqd/1Br1xIh7zF1LyygPo081oYcAEsTVueEWyAiIiQID98n4pfvo5mh/7jk2gZrnatRdYLyk+PtQgSaPSVXLKMO+iOjMR8azY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aUphgSgB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rox7nyIJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CDFBEC4AF0D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aUphgSgB"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8B46FC4AF0F;
 	Tue,  1 Sep 2026 16:09:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788278956;
-	bh=2rDFcVDpVSOb7E7Q6WZ1n2yT0y1382pLRES1c4DMPSY=;
+	bh=PSLHqobnkdvMJe1tvr/RPViAu3hkoHIIG03CHceYiGM=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Rox7nyIJz4XYUKSbtGWvHgHM43zJWFsnI5A216rQQkesWjf+9JviSQjRNYUoy4Dlt
-	 ZJXTqE2isLzWICxOQqtkaBCGlz+GbFVgDL18u8VpYRUqeNvFDMSW8w4mqmuco+vBTr
-	 9++A3jT/Orx2icuW+LOZ6Q8MqYYZW2LKmDiXwbln3EH5lH8rR64tgY1HzL7J+HlSVJ
-	 A1i2dVGlUgQB8cR/aKPN7eyYpcKHd3UlQURhbBU/B6IsSC1fWvUm9Cssjt/RzU7zSA
-	 uCWFLVjocFcvu6JnlZhqbGR2RhRMwXwlcQ//Kc28P//55lt7a6Uw/v9QfUfj64klry
-	 sh0UtKR46IHHQ==
+	b=aUphgSgB0v6k2Wq5pu7SiKno9bA7AtaV14w7RJAL8cvOGwtIhiY6Dfw+K7LD/zEi/
+	 jh+lSqgLh19b4L9EVGwa7rtl+XjjEYHwfmr78XOnZMAC8yaiYGQ8b7bTEBtZ5RVSfU
+	 FSjMTss5/j39T+SChUSHp7i03QA63hnLrkC7BaB1AuugedSxAjnMA/gaAYRmvx+C90
+	 OHNJujG73xf9AIqrxIdkqEXNMXdW6POg58lJmsUPKewTwIyfowjLDIFE0UO9CjYtWS
+	 3/d/RLxlXnWeS5CQA0qzD1MWueSz1mr0QUnL52/5C641jEq82xhV/xmCRxI4BnSeV2
+	 FDSCy8Z4qcgFg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B9F5FC624D3;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 74C1AC61DD6;
 	Tue,  1 Sep 2026 16:09:16 +0000 (UTC)
 From: Ke Sun via B4 Relay <devnull+sunke.kylinos.cn@kernel.org>
-Date: Wed, 02 Sep 2026 00:09:08 +0800
-Subject: [PATCH 9/9] drm/tyr: add BO-related ioctls
+Date: Wed, 02 Sep 2026 00:09:04 +0800
+Subject: [PATCH 5/9] drm/tyr: add user and MCU VM specifications
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-tyr-ioctls-v1-9-e0fdbf8bd108@kylinos.cn>
+Message-Id: <20260902-tyr-ioctls-v1-5-e0fdbf8bd108@kylinos.cn>
 References: <20260902-tyr-ioctls-v1-0-e0fdbf8bd108@kylinos.cn>
 In-Reply-To: <20260902-tyr-ioctls-v1-0-e0fdbf8bd108@kylinos.cn>
 To: rust-for-linux@vger.kernel.org
@@ -60,11 +60,11 @@ Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
  linux-mm@kvack.org, dri-devel@lists.freedesktop.org, 
  Ke Sun <sunke@kylinos.cn>, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788278954; l=4674;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788278954; l=8800;
  i=sunke@kylinos.cn; s=20260317; h=from:subject:message-id;
- bh=GB09PX+9tSC0xXDoB/KYTwCpkupIwMi/t6ujGhWMHCY=;
- b=3u5QXxhXzE8PTncHj0Olzvwbk36Gnj+5vmGi8iSqdmGh8w7HtluwATOet3QKkFSy3LnDcQ8F/
- ROMIFgAhZvfDBDlBA2bDnpKNn+XvzEDEHkHdnZeJP4HolUp8mxXyTEf
+ bh=2SBxoqBj8xjU52eYLbPgv6zsg5Z424qq5hzSskCeA58=;
+ b=lEifaEgkXm0ISzMuvaMYK9zl3QonHu4Ce8AA/bVbkJGYW8WMBH2HIyuEvsXxAWmIWfPDVbBoj
+ eLgQpug/RpnDdEO2EW/ISHVRrGbp9azDFYpzPSfDrpgUdi2EC/LtyqA
 X-Developer-Key: i=sunke@kylinos.cn; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for sunke@kylinos.cn/20260317 with
@@ -74,132 +74,261 @@ Reply-To: sunke@kylinos.cn
 
 From: Alvin Sun <alvin.sun@linux.dev>
 
-Expose buffer creation and BO mmap offset retrieval.
-
-- BO_CREATE page-aligns the size and returns a handle with
-  write-combined mapping.
-- BO_MMAP_OFFSET provides the offset for the DRM generic mmap
-  path, rejecting NO_MMAP objects and non-zero pad.
+Distinguish MCU VMs from user VMs, and compute the user/kernel
+GPU VA split for user VMs.
 
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- drivers/gpu/drm/tyr/driver.rs |  2 ++
- drivers/gpu/drm/tyr/file.rs   | 70 +++++++++++++++++++++++++++++++++++++++++++
- drivers/gpu/drm/tyr/gem.rs    |  7 +++++
- 3 files changed, 79 insertions(+)
+ drivers/gpu/drm/tyr/fw.rs |   8 +--
+ drivers/gpu/drm/tyr/vm.rs | 134 +++++++++++++++++++++++++++++++++++++++++++---
+ 2 files changed, 131 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index b3145526ada06..fc8d11c9ba1ca 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -224,6 +224,8 @@ impl drm::Driver for TyrDrmDriver {
-         (PANTHOR_VM_DESTROY, drm_panthor_vm_destroy, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_destroy),
-         (PANTHOR_VM_BIND, drm_panthor_vm_bind, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_bind),
-         (PANTHOR_VM_GET_STATE, drm_panthor_vm_get_state, ioctl::RENDER_ALLOW, TyrDrmFileData::vm_get_state),
-+        (PANTHOR_BO_CREATE, drm_panthor_bo_create, ioctl::RENDER_ALLOW, TyrDrmFileData::bo_create),
-+        (PANTHOR_BO_MMAP_OFFSET, drm_panthor_bo_mmap_offset, ioctl::RENDER_ALLOW, TyrDrmFileData::bo_mmap_offset),
+diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
+index 47d25c901bd01..9b4b488521b85 100644
+--- a/drivers/gpu/drm/tyr/fw.rs
++++ b/drivers/gpu/drm/tyr/fw.rs
+@@ -51,7 +51,6 @@
+         KernelBoVaAlloc, //
+     },
+     gpu::GpuInfo,
+-
+     mmu::Mmu,
+     regs::{
+         gpu_control::{
+@@ -66,7 +65,10 @@
+             JOB_IRQ_RAWSTAT, //
+         }, //
+     },
+-    vm::Vm, //
++    vm::{
++        Vm,
++        VmSpec, //
++    }, //
+ };
+ 
+ mod parser;
+@@ -220,7 +222,7 @@ pub(crate) fn new(
+         mmu: ArcBorrow<'_, Mmu<'drm>>,
+         gpu_info: &GpuInfo,
+     ) -> Result<Firmware<'drm>> {
+-        let vm = Vm::new(dev, ddev, mmu, gpu_info)?;
++        let vm = Vm::new(dev, ddev, mmu, gpu_info, VmSpec::Mcu)?;
+         vm.activate()?;
+ 
+         let result = (|| {
+diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
+index c5e307b1e2416..76c3d60bb2fe2 100644
+--- a/drivers/gpu/drm/tyr/vm.rs
++++ b/drivers/gpu/drm/tyr/vm.rs
+@@ -8,6 +8,7 @@
+ //! mapped into hardware address space (AS) slots for GPU execution.
+ 
+ use core::marker::PhantomData;
++use core::num::NonZeroU64;
+ use core::ops::Range;
+ 
+ use kernel::{
+@@ -43,6 +44,8 @@
+     new_mutex,
+     prelude::*,
+     sizes::{
++        LargeSizeConstants,
++        SizeConstants,
+         SZ_1G,
+         SZ_2M,
+         SZ_4K, //
+@@ -154,6 +157,109 @@ fn try_from(value: u32) -> Result<Self, Self::Error> {
      }
  }
  
-diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
-index 157bc40e1cac4..16abf2968299c 100644
---- a/drivers/gpu/drm/tyr/file.rs
-+++ b/drivers/gpu/drm/tyr/file.rs
-@@ -252,6 +252,76 @@ pub(crate) fn vm_get_state(
-             Ok(0)
-         })
-     }
++/// User VA size request for a user VM.
++pub(crate) enum UserVaRequest {
++    /// Split based on `task_size()` and the GPU VA range.
++    Auto,
++    /// Caller-specified size; construction guarantees `> 0`.
++    Fixed(NonZeroU64),
++}
 +
-+    pub(crate) fn bo_create(
-+        ddev: &TyrDrmDevice<Registered>,
-+        _reg_data: &TyrDrmRegistrationData<'_>,
-+        bocreate: &mut uapi::drm_panthor_bo_create,
-+        file: &TyrDrmFile,
-+    ) -> Result<u32> {
-+        if bocreate.size == 0
-+            || bocreate.pad != 0
-+            || bocreate.flags & !uapi::drm_panthor_bo_flags_DRM_PANTHOR_BO_NO_MMAP != 0
-+            || bocreate.exclusive_vm_id != 0
-+        {
-+            dev_err!(
-+                ddev.as_ref(),
-+                "Invalid BO_CREATE params: size={}, pad={}, flags={:#x}, exclusive_vm_id={}\n",
-+                bocreate.size,
-+                bocreate.pad,
-+                bocreate.flags,
-+                bocreate.exclusive_vm_id
-+            );
-+            return Err(EINVAL);
++impl UserVaRequest {
++    /// UAPI boundary normalization: `0` -> [`Auto`](Self::Auto).
++    pub(crate) fn from_uapi(v: u64) -> Self {
++        match NonZeroU64::new(v) {
++            Some(size) => Self::Fixed(size),
++            None => Self::Auto,
 +        }
-+
-+        let size = usize::try_from(bocreate.size).map_err(|_| {
-+            dev_err!(
-+                ddev.as_ref(),
-+                "BO_CREATE size {:#x} too large\n",
-+                bocreate.size
-+            );
-+            EINVAL
-+        })?;
-+        let bo = crate::gem::new_object(ddev, size, bocreate.flags)?;
-+        bocreate.handle = bo.create_handle(file)?;
-+        bocreate.size = bo.size() as u64;
-+
-+        Ok(0)
-+    }
-+
-+    pub(crate) fn bo_mmap_offset(
-+        ddev: &TyrDrmDevice<Registered>,
-+        _reg_data: &TyrDrmRegistrationData<'_>,
-+        bommap: &mut uapi::drm_panthor_bo_mmap_offset,
-+        file: &TyrDrmFile,
-+    ) -> Result<u32> {
-+        if bommap.pad != 0 {
-+            dev_err!(
-+                ddev.as_ref(),
-+                "BO mmap offset pad not zero: {}\n",
-+                bommap.pad
-+            );
-+            return Err(EINVAL);
-+        }
-+
-+        let bo = crate::gem::lookup_handle(file, bommap.handle).inspect_err(|_| {
-+            dev_err!(ddev.as_ref(), "Invalid BO mmap handle: {}\n", bommap.handle);
-+        })?;
-+        if bo.create_flags() & uapi::drm_panthor_bo_flags_DRM_PANTHOR_BO_NO_MMAP != 0 {
-+            dev_err!(ddev.as_ref(), "BO mmap offset on NO_MMAP object\n");
-+            return Err(EPERM);
-+        }
-+        bommap.offset = bo.create_mmap_offset().inspect_err(|_| {
-+            dev_err!(
-+                ddev.as_ref(),
-+                "Failed to create mmap offset for handle {}\n",
-+                bommap.handle
-+            );
-+        })?;
-+
-+        Ok(0)
-+    }
- }
- 
- fn vm_bind_exec_op(vm: &Vm<'_>, file: &TyrDrmFile, op: &VmBindOp) -> Result {
-diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
-index d9ddcb287f52b..f404139f54f32 100644
---- a/drivers/gpu/drm/tyr/gem.rs
-+++ b/drivers/gpu/drm/tyr/gem.rs
-@@ -38,6 +38,13 @@ pub(crate) struct BoData {
-     flags: u32,
- }
- 
-+impl BoData {
-+    /// Returns the flags the BO was created with.
-+    pub(crate) fn create_flags(&self) -> u32 {
-+        self.flags
 +    }
 +}
 +
- /// Provides a way to pass arguments when creating BoData
- /// as required by the gem::DriverObject trait.
- pub(crate) struct BoCreateArgs {
++pub(crate) enum VmSpec {
++    /// MCU/firmware VM, entirely kernel-managed.
++    Mcu,
++    /// User VM: full GPU VA range, split into user/kernel per `user_va`.
++    User { user_va: UserVaRequest },
++}
++
++/// Final user/kernel VA layout for a VM.
++pub(crate) struct VmLayout {
++    /// Full GPU VA range covered by this VM.
++    pub(crate) full: Range<u64>,
++    /// User-accessible VA range. Empty for MCU VMs.
++    pub(crate) user: Range<u64>,
++}
++
++impl VmLayout {
++    /// Kernel VA range, reserved for future kernel object allocation.
++    #[expect(dead_code)]
++    pub(crate) fn kernel(&self) -> Range<u64> {
++        self.user.end..self.full.end
++    }
++
++    /// Compute a user/kernel split for a user VM from the full GPU VA range and
++    /// a user request.
++    pub(crate) fn compute(full: Range<u64>, req: UserVaRequest) -> Result<Self> {
++        /// Minimum VA space reserved for kernel objects (heaps, ring buffers, ...).
++        const MIN_KERNEL_VA: u64 = u64::SZ_256M;
++
++        if full.end <= MIN_KERNEL_VA {
++            pr_err!(
++                "Invalid VA range {:#x}..{:#x}, kernel VA min required: >{:#x}\n",
++                full.start,
++                full.end,
++                MIN_KERNEL_VA
++            );
++            return Err(EINVAL);
++        }
++
++        let user_max = full.end - MIN_KERNEL_VA;
++
++        let user_end = match req {
++            UserVaRequest::Fixed(v) => {
++                let user_size = v.get();
++                if user_size > user_max {
++                    pr_err!(
++                        "Requested user VA range {:#x} exceeds maximum {:#x}\n",
++                        user_size,
++                        user_max
++                    );
++                    return Err(EINVAL);
++                }
++                user_size
++            }
++            UserVaRequest::Auto => {
++                let task_size = current!().mm().map(|mm| mm.task_size());
++                let candidate = match task_size {
++                    // `task_size()` returns usize; widen to u64 for the comparison.
++                    Some(t) if (t as u64) < full.end => t as u64,
++                    None | Some(_) => {
++                        // If the range exceeds 4G, split it in two so CPU and
++                        // GPU share the same addresses (SVM).
++                        if full.end > u64::SZ_4G {
++                            full.end / 2
++                        } else {
++                            user_max
++                        }
++                    }
++                };
++                candidate.min(user_max)
++            }
++        };
++
++        let delta = full.end - user_end;
++        // Pick a kernel VA range that's a power of two, to have a clear split.
++        let kernel_va_range = 1u64 << delta.ilog2();
++        let kernel_va_start = full.end - kernel_va_range;
++        let full_start = full.start;
++
++        Ok(Self {
++            full,
++            user: full_start..kernel_va_start,
++        })
++    }
++}
++
+ /// Arguments for a virtual memory map operation.
+ struct VmMapArgs<'drm> {
+     /// Access permissions and caching behavior for the mapping.
+@@ -329,8 +435,8 @@ pub(crate) struct Vm<'drm> {
+     /// Non-core part of the GPUVM. Can be used for stuff that doesn't modify the
+     /// internal mapping tree, like GpuVm::obtain()
+     gpuvm: ARef<GpuVm<GpuVmData<'drm>>>,
+-    /// VA range for this VM.
+-    va_range: Range<u64>,
++    /// VA layout for this VM.
++    pub(crate) layout: VmLayout,
+ }
+ 
+ impl<'drm> Vm<'drm> {
+@@ -343,6 +449,7 @@ pub(crate) fn new(
+         ddev: &TyrDrmDevice,
+         mmu: ArcBorrow<'_, Mmu<'drm>>,
+         gpu_info: &GpuInfo,
++        spec: VmSpec,
+     ) -> Result<Arc<Vm<'drm>>> {
+         let mmu_features = MMU_FEATURES::from_raw(gpu_info.mmu_features);
+         let va_bits = mmu_features.va_bits().get();
+@@ -351,6 +458,14 @@ pub(crate) fn new(
+         let range = 0..(1u64 << va_bits);
+         let reserve_range = 0..0u64;
+ 
++        let layout = match spec {
++            VmSpec::Mcu => VmLayout {
++                full: range.clone(),
++                user: 0..0u64,
++            },
++            VmSpec::User { user_va } => VmLayout::compute(range.clone(), user_va)?,
++        };
++
+         // dummy_obj is used to initialize the GPUVM tree.
+         let dummy_obj = gem::new_dummy_object(ddev).inspect_err(|e| {
+             dev_err!(dev, "Failed to create dummy GEM object: {:?}", e);
+@@ -380,7 +495,7 @@ pub(crate) fn new(
+                 mmu: mmu.into(),
+                 gpuvm,
+                 gpuvm_unique <- new_mutex!(gpuvm_unique),
+-                va_range: range,
++                layout,
+             }),
+             GFP_KERNEL,
+         )?;
+@@ -414,7 +529,10 @@ pub(crate) fn kill(&self) {
+         // TODO: Turn the VM into a state where it can't be used.
+         let _ = self.deactivate();
+         let _ = self
+-            .unmap_range(self.va_range.start, self.va_range.end - self.va_range.start)
++            .unmap_range(
++                self.layout.full.start,
++                self.layout.full.end - self.layout.full.start,
++            )
+             .inspect_err(|e| {
+                 dev_err!(self.dev, "Failed to unmap range during deactivate: {:?}", e);
+             });
+@@ -551,14 +669,14 @@ pub(crate) fn unmap_range(&self, va: u64, size: u64) -> Result {
+ 
+         let end = va.checked_add(size).ok_or(EINVAL)?;
+ 
+-        if va < self.va_range.start || end > self.va_range.end {
++        if va < self.layout.full.start || end > self.layout.full.end {
+             dev_err!(
+                 self.dev,
+                 "Unmap range {:#x}..{:#x} exceeds VM range {:#x}..{:#x}",
+                 va,
+                 end,
+-                self.va_range.start,
+-                self.va_range.end
++                self.layout.full.start,
++                self.layout.full.end
+             );
+             return Err(EINVAL);
+         }
+@@ -568,7 +686,7 @@ pub(crate) fn unmap_range(&self, va: u64, size: u64) -> Result {
+             region: va..end,
+         };
+ 
+-        let full_vm = va == self.va_range.start && end == self.va_range.end;
++        let full_vm = va == self.layout.full.start && end == self.layout.full.end;
+ 
+         let mut resources = VmOpResources {
+             preallocated_gpuvas: if full_vm {
 
 -- 
 2.43.0
