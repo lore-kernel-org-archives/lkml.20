@@ -1,114 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2307243C04D;
-	Tue,  1 Sep 2026 15:27:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2A8389116;
+	Tue,  1 Sep 2026 15:28:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788276467; cv=none; b=F33LTNABeEcmNU9C1WGJvXBSTD17me/mj1/pvFKRxzPJpsqgsWfAAgj/vopnB0Nk4oAUa90CaRoyHZjwjlDCz8kwAI6qAFDhDWT5YNHrBFlRWkbFXX3xbH7eOLs0MCqGzU4pB+g5ydUhrFS7emIjbaINfjUb1KyW/PkSKJBfkJ4=
+	t=1788276533; cv=none; b=VF/4QYI/zNn7W9O4NTCDmtbNj515BIKFrPrmuwrj/Z67c0gcaSxKc7p0jIdW7ax7ujm30s5ra8R2d5cy6LO7NOceD08M+w33ZJt4mP6ZN/gZOkMWsA7ey9Z0D6CXBGKvzyc1ADHPWlF5OFk7BKFiMs91NgyDnjoHvxUV4cnoNYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788276467; c=relaxed/simple;
-	bh=OuEeieU+V6Hv70haVoj7A7lwMd9n5Nm96UZgZOqvhug=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KnwWC5/OMtHfGA7kZxO+QUFCSiVk9Zgqm6Z1v47NrWa0TKf0qcUymA7fUSZw5XzIuQTvNDBEzOB3qyRdqYndhl6ip3lrPI3Wr/OyODVRxZi+XdYyrGu7e0lF0PCTBVNfFDc38InBchaEphlP6qZnnoFh+gnV64TVtL74SjyvEXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l9RtJ98t; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788276533; c=relaxed/simple;
+	bh=dP3jHBtlCykvsWTQPAkCN/U9940F3pgF1VMDJMBHgws=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KXM1nlnZuvnfThFYyBboG+UScq5Rfp/llHYa2omZjlXCay6Jyx/WBvkrkLYSe/msQUFFs30gZUr18XvaSfPyUoorWCSbuXx3t4xE4AZMdNL6aMnA1DDnt39stwUTrMES3bfkPxCNA/nqD8g6HgCHrFNewHwVD0YWmDATzT0z6dc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wn2yKhFE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l9RtJ98t"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C51D9C4AF18;
-	Tue,  1 Sep 2026 15:27:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788276466;
-	bh=OuEeieU+V6Hv70haVoj7A7lwMd9n5Nm96UZgZOqvhug=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=l9RtJ98t7H1IDdapibl0W/Z4iL9+fD6pIwu5gu5Engbzd3fFoGUTolpWRNHT81H//
-	 fjoOR6swbRWHMSI/5kxfF9vfgLaR2TDGhhoo79eqKVyrLDvoaoE+CaHS3BHYvx1HqM
-	 Ci9uvvKgFuBIcY+oqyQN68PHerDA/kFT2HtIdun9fdyw7u/WZ5gV6F6hEs0kANmemJ
-	 9KvktKEo+7OzXrJsiZFD+mafypcq8kgERxRVU7kqbSP0ZViHUt8muG0TZMtKeG9xkN
-	 PdrZzgazhxkCJRIeyS2RieHK4A9zVBD6KmpQEFdXEkegfYv9dksbtpm8A+5gtbCQ68
-	 QhpDfq0hXk1YQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AF270C624D7;
-	Tue,  1 Sep 2026 15:27:46 +0000 (UTC)
-From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Date: Tue, 01 Sep 2026 17:25:56 +0200
-Subject: [PATCH v10 5/6] arm64: dts: amlogic: t7: Add i2c controller node
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wn2yKhFE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39AF01F000E9;
+	Tue,  1 Sep 2026 15:28:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788276532;
+	bh=2FEhLESBrjQ7v3qhyn+5Qiqol0tw3sSajaykKFBK1Uo=;
+	h=From:To:Cc:Subject:Date;
+	b=Wn2yKhFEtGZGtdooiTnHwHFCjCkvC8CMshDspx1LRvhsxT+Riv5vngQmyvsNUPHtr
+	 y5ymntIkYiC2kL39elmbIXZDzG6oO+LpeqpajEGuz8DP2Qk5Ns4HNThUr1N2XB7hM5
+	 YJ65/p9Nz36nv7h3CnZFZZf8dXz+cE6hYL8giS0EMVmxc8OCS06uRgF9u5UW9snAtD
+	 lnASKhHh7iqmm2MZ9MyotGm7ej/OYLfArcrQX1E2iJwUM2lmriWp7IB3ro8FoeNGIy
+	 n95HtRKsMbenkK92Cr4kMVqtOOv5GR94b4VB1up6564glDI7x4e5qd/K32tupbzSCa
+	 c0z741SajCLqQ==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] ASoC: ak4642: Drop "clocks" property presence check
+Date: Tue,  1 Sep 2026 10:28:38 -0500
+Message-ID: <20260901152838.795864-1-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260901-add-mcu-fan-khadas-vim4-v10-5-aecdb9955a30@aliel.fr>
-References: <20260901-add-mcu-fan-khadas-vim4-v10-0-aecdb9955a30@aliel.fr>
-In-Reply-To: <20260901-add-mcu-fan-khadas-vim4-v10-0-aecdb9955a30@aliel.fr>
-To: Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Beniamino Galvani <b.galvani@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Liam Girdwood <lgirdwood@gmail.com>, 
- Mark Brown <broonie@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org, 
- mfd@lists.linux.dev, Ronald Claveau <linux-kernel-dev@aliel.fr>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1224;
- i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=aLYRKhvnbuah+/DuOuT+PfGuc1jyAXlae73BAxIufCo=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9a0d+/eZhodzvRNn6t8z4Ht04IrulaBQhpy018tV1u9V
- n5F5VLxjlIWBjEuBlkxRZb+uZYn3l0+eubrHvUUmDmsTCBDGLg4BWAiH7oZ/qdF7hCNOx/x4pqp
- WYh2zNG6icFdTz5MVSjoNJbufhq0/xDDX2n598UP9h/rPrRMfMrpB9uu7eK+5WHg2dVdfKJfmkV
- sHj8A
-X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
- fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
-X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
- auth_id=744
-X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Reply-To: linux-kernel-dev@aliel.fr
+Content-Transfer-Encoding: 8bit
 
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+of_property_read_bool() should only be used on boolean properties and
+not used as a presence check. The of_clk_get_parent_name() function
+returns NULL if the "clocks" property is not present, so there is no
+need to check for presence first.
 
-Add the T7 i2c controller node used by the Khadas VIM4
-for MCU communication.
-
-Use amlogic,meson-axg-i2c as fallback compatible.
-
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+v2:
+ - Just drop the presence check instead of using of_property_present()
+ - Split to separate patch
+---
+ sound/soc/codecs/ak4642.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-index c3dc479b137de..0f48e23077e99 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-@@ -724,6 +724,16 @@ pwm_ao_cd: pwm@60000 {
- 				status = "disabled";
- 			};
+diff --git a/sound/soc/codecs/ak4642.c b/sound/soc/codecs/ak4642.c
+index 08ec2035b270..4f86728cbe0a 100644
+--- a/sound/soc/codecs/ak4642.c
++++ b/sound/soc/codecs/ak4642.c
+@@ -607,14 +607,13 @@ static struct clk *ak4642_of_parse_mcko(struct device *dev)
+ 	struct device_node *np = dev->of_node;
+ 	struct clk *clk;
+ 	const char *clk_name = np->name;
+-	const char *parent_clk_name = NULL;
++	const char *parent_clk_name;
+ 	u32 rate;
  
-+			i2c_m_ao_a: i2c@76000 {
-+				compatible = "amlogic,t7-i2c", "amlogic,meson-axg-i2c";
-+				reg = <0x0 0x76000 0x0 0x48>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				interrupts = <GIC_SPI 330 IRQ_TYPE_EDGE_RISING>;
-+				clocks = <&clkc_periphs CLKID_SYS_I2C_AO_A>;
-+				status = "disabled";
-+			};
-+
- 			sd_emmc_a: mmc@88000 {
- 				compatible = "amlogic,t7-mmc", "amlogic,meson-axg-mmc";
- 				reg = <0x0 0x88000 0x0 0x800>;
-
+ 	if (of_property_read_u32(np, "clock-frequency", &rate))
+ 		return NULL;
+ 
+-	if (of_property_read_bool(np, "clocks"))
+-		parent_clk_name = of_clk_get_parent_name(np, 0);
++	parent_clk_name = of_clk_get_parent_name(np, 0);
+ 
+ 	of_property_read_string(np, "clock-output-names", &clk_name);
+ 
 -- 
-2.49.0
-
+2.53.0
 
