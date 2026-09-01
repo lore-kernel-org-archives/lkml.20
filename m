@@ -1,210 +1,187 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012039.outbound.protection.outlook.com [52.101.53.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EF722DF144;
-	Tue,  1 Sep 2026 12:24:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788265468; cv=fail; b=BdlHUq6zR6xZEc6PVmppfRJMItZnnIJP8kHGD+1uMYQmkUsBFyYhdleP5BtskNi+93skaKD0T6zbCriiDWSjajtO5MRTzs4zFjMPsQXBzET/cS62ok2Qn0gju20f6nOSGU5Xsqji12kK0UxhUJ3oXAgS84X6agRZkdG3u1n0C7E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788265468; c=relaxed/simple;
-	bh=N5wxRrMaelq4IHU3hS5Db7uh7S9xeRGFQVqR/2mdj04=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=UmwYeVFUP9sMgPWtxKMWdGO2uInbtJvwGTXWZCvI1xg0cLqzx1VNUQ8CJMvX4iSkatuaSgcHSF/Qmzf7TnMbd5oILuTIb+ARx2tq3RcS1puFgTOEVC9M1WG4JppLCHSVVL2rVx4FKuxpzoa6B/QWM+cbtTfXMKe99dR7HA1wBz0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=WSSPMZoJ; arc=fail smtp.client-ip=52.101.53.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3134023BD1D;
+	Tue,  1 Sep 2026 12:24:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788265488; cv=none; b=Nc8uN0AaHTmY/cqVqpeGOdP+7THjYpVnvWhV6zJB94ioxr3HzqsnGVpb5F7rM1TXIHx43czCDaF90PrBSup1gYm0OmVQOtkLoYNlQh/3maKjcNTVnlaQ54EGrx3zfItAgLMKg5PuAgys/V7HE698pKvrssRuRbVQpyICmZe5I2c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788265488; c=relaxed/simple;
+	bh=qftqCtjCBY7wKQMOoS6ap8jXNv4Qv/Kul7Lie0xCCFU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U5UDk5AFSfz2IKAgp1ucsfn8RskUnpEkU1yYWJHTRcP8xJ/41W7PrXpp1HbcD/JWuvLN3mC6iErKWhrIToWmFjHjbRNu7onYk00dSbFl0n1BFWD9adgVEKte59ycZe2c9THv1H95KOLMHPxHSD0WZiMaTgtSSNjk/RLkyqxx2go=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=imxBGETj; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=6O57BEOs; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=vx2QucMe; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=wp258brr; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="WSSPMZoJ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O3QcipJCDh6iEYJZs5bVtc7aytFFuy7MtyiKf3I+8pviXCloOygm9N9XhqGBpBS159LTq3fqGK0m15SniXFkTwIQ5iqjR4BoDgdAtgZGa0pI6iNnA+Av+za7ZFNxZ5N210cYUAnK/p5o4CHhTqbzVuvgSMgAseOi3LeK2yIFJe3EsOYZyYmICFBrq5t+k/W6u2kPK2gGw3192hzMBRhQcIEsl4Ar7h21UFpaOxAVajMHJwVf+SMjoqDF+cOeJGY38xwJ3iMgZaxjYx5eY+tTO6wGot6M7nIk1Ocxg5PTVA4Sepwb0Hg4kp3G+JIX0QeEodqVmkuGqjJ+SZ0Hi4UtKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0IvDss3URbNx6H1rXB50EI5hIfiFhW0ozX7MNjv/dbg=;
- b=lZyhjoGT5Z2QIDFXwk7BtVmriQZVyfM/0aUA7NcG9dnhN8JqEGoHHNU+8U1bsX8tFy8ltQZ1NEzfneTgggTkuV8tHlvm/hdHwsrTUIBZ1iFo4TeGZbqCoUlfCJLkyW1/Q+6hfHZsPQ/j6FNq7tkn8HVYKXi7ZIo3XB6GfTBP0hz2a13ZZTVLiuPd82DcT9lPZRIRbdHfRBR96v6f70ajTIBKFFmR7Nr8Frd3y4vLhe6wyBGN3njdd6S+LySBNufk0f1X8/vRYACVDA6pI2C0J3hWa/nfyEsdO3pW1c87tp0VCapZBfKnfYMbXaonBxP9hOBWCd+mQWHf4NJQtb63cw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0IvDss3URbNx6H1rXB50EI5hIfiFhW0ozX7MNjv/dbg=;
- b=WSSPMZoJIIxEp8xTmgR59RFOyRhh2zq5yF/rRzayeXh+p/HA6L0qd0CgF2rCgKQFH0zIWS5TT/HSQivjyB8yi/uDzZtmLJDg+DUKSLO0BbbrrEtlsczzR8x/iM9BDYVA+xvYLWUX5C3imuEGvdvp5ccSuuphjLEDBNeNjxTJO74=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by LV9PR12MB9757.namprd12.prod.outlook.com (2603:10b6:408:2ed::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 12:24:24 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 12:24:24 +0000
-Message-ID: <401f1265-553a-4738-952f-3c7199d206a1@amd.com>
-Date: Tue, 1 Sep 2026 07:24:22 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/4] platform/x86/amd/hsmp: Family 1Ah client support
-Content-Language: en-US
-To: Muralidhara M K <muralidhara.mk@amd.com>, ilpo.jarvinen@linux.intel.com
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260901045134.2833282-1-muralidhara.mk@amd.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260901045134.2833282-1-muralidhara.mk@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SA0PR11CA0021.namprd11.prod.outlook.com
- (2603:10b6:806:d3::26) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="imxBGETj";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="6O57BEOs";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="vx2QucMe";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="wp258brr"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id F270D1F794;
+	Tue,  1 Sep 2026 12:24:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788265481; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=u6ScYrcbTJ0tOAG5oiqEdXV2D1V4U1bKFlU+ezidy2Y=;
+	b=imxBGETjIXPzXwGCi6mjdjDo8jKbWk9UKuQeU+E3QmwMVacRAJROpwDuwC/dNrEFbZaWZ2
+	J3yeKqjriSmtcXfv2YZitC8uazaWjF3FFvN6pTcCb5L27SyBl70CSnUGVrKiQ/IKa/ONCr
+	8MnjUMRyeTb2U66VrNsG04/L7XSCFL4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788265481;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=u6ScYrcbTJ0tOAG5oiqEdXV2D1V4U1bKFlU+ezidy2Y=;
+	b=6O57BEOsOxEtstOMGA54zz4aA78XfZhuqcGwm6fN4pk846jngdnMmCMwQP0+UxCxvUdK5F
+	ypciR+xaZsil5/AQ==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=vx2QucMe;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=wp258brr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788265477; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=u6ScYrcbTJ0tOAG5oiqEdXV2D1V4U1bKFlU+ezidy2Y=;
+	b=vx2QucMeNZzCUfzdJ1Xec+hQwEUggMqVfkhtO43SgvPCFDAHpSn6mCusEJRLPephitlIXE
+	ulcOfklC/3FV6Mf+oyqVyCfzobuNEhTdExM6aZ46qw+eyd4Wx8kSbIQAgRgfryFyumVgWO
+	AEk3D60zYxdA+amX7ewLOGiN5XiXVJI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788265477;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=u6ScYrcbTJ0tOAG5oiqEdXV2D1V4U1bKFlU+ezidy2Y=;
+	b=wp258brrk9KL23SLnHI6TxhI4mDhgqovlh5shWnJ1TbfzxMFSoE2qzgh2M8uTnPsUBzi88
+	KSN5YJZTwKekyKDg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id ADAEC136A2;
+	Tue,  1 Sep 2026 12:24:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id rVNiKgTElmrdcwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Tue, 01 Sep 2026 12:24:36 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 37B8EA13B2; Tue, 01 Sep 2026 14:24:32 +0200 (CEST)
+Date: Tue, 1 Sep 2026 14:24:32 +0200
+From: Jan Kara <jack@suse.cz>
+To: Mikhail Rudenko <xyzzy@yandex-team.ru>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC 0/2] Defer final iputs for dirty-time inodes in
+ PF_MEMALLOC context
+Message-ID: <27v2ckdgybmvxog5b55sr3o6ri4bkbzu6ycwtjwckrhzyazxzd@7qruolrsu5t7>
+References: <20260813-deferred-dirtytime-iput-v1-0-ad2fb3ad6bdb@yandex-team.ru>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|LV9PR12MB9757:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9d651c58-84a8-46bc-7455-08df0823f512
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|3023799007|56012099006|5023799004|10067099003|11063799006|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	+NiJMneNI+cYR9uwooMf3ikzT+DqYqJrPwb0R7nTRjn1O6qGyPcau8YHDsCHkOFP/lQ7L8YBJSq7fHEkgIUrOquz7pIRFrRtjiGOScmX0zaEXteMmL8eLBTjvFTFMNp13d7EqcEs5j06Lhed2zRfYw2YEuOcjoIJ5w0pGhR05k6v3P7yuxOvIKPU9Llm9EVO0y5urbGVkah+TBnwbaIws5ZxWvPiTqZTb2cbJ6ucVSYdFASd22NLPzXx74WO+aQyESZi+/iEq6xRc9nwPMjqYeUDXWLQH1uX/sPqeNg7Bubh7DJlEYTJgt86Es7AeBhMbk9HagBOomyVnMfbb9ptqGoq/wTZa8l0IdWuJaG4GMGuZ9uZXm6m8HqPI9d0Gz3c4KBmSwiS4HLFGUMA4HWSfvrDF3ryb4eF0XdEh90UeFOGp/1tXeu7cQPON519b1Id406sVwUQu8PNez4w/fEXriXOy/y2cZ7EMU9W6PNKfA5IpbSyozUo+xP+sil/Fs3E0eYrpGHjCzTEzCHst+m7gEc0VTvmVvaOOHcJ/qT8ztw66sbnxZnDVleb65fj56mE1AzqbTPaxiNgATVHyBg9t5oTwJ8PbsTYYultJeplTifZlwP/KFuwhGpUaBfvWWgY3S80Ew0VM8Mt110yBte6wrVOxXCSTLlBCRyzokOOLpE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB6914.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(3023799007)(56012099006)(5023799004)(10067099003)(11063799006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TUpucGZ5dDYvdTdLV1U5T09MaStseGNUNmxoUTNYRE1lYXJHRE9mNHlzVVU3?=
- =?utf-8?B?SW5vZmZQN1MyemtvbFZXajdlRHBxS1pRVFlaV2tTbEtML1Nyak40OXhRY0l0?=
- =?utf-8?B?TjdDREpTR3ppRmlsdWM0NG1aR3luL2lpWkhQeEJ3Q3hxbGJxMitzazF2UG1q?=
- =?utf-8?B?VE9VN2pOY0xEdGtFdFBXajFDRHNSZjlWcXFpd2FUOWJtaG5kQ3ZnbnZCNFFY?=
- =?utf-8?B?MnF2Ujh4Rm41TzY3RWpEamt6MEg1RWZ5dS9rM1pxdmI0Vmpaa3hTSlc3UWps?=
- =?utf-8?B?QmFXTTVRZElRSDQ4MDlvZ1kvbm9yenloVXdsMTNQZ3JadWc4VmVoVU9NWlYr?=
- =?utf-8?B?bjUrNUtNVDhVSldGL3FyZDliZnpLM0xhYnlrYlBsUkpndWpySnV2ai96ODFy?=
- =?utf-8?B?ekRqQzRKdFVPNGtCU05xaGFldjBuMC9IZDlBdFBvRnRTdmttYVlweGV4Q0Ro?=
- =?utf-8?B?V3ZNUk0zdmQ2WG9TTGJDZ1VLZDRueEVyNDlVeGpuQ1A4Z0tSd2JIbUJ1QXNF?=
- =?utf-8?B?MkNic3YrR3pkMXdLYng4S0pGUWF4M29ZVlJ0S0VGMjFMZTdCYUxXamhmaURo?=
- =?utf-8?B?Ym4xOXVGdDZJSXIzUXJpczNSTGVzWm56ZW5ZSkZuMHF1V3lGSXpZMzhuUEI2?=
- =?utf-8?B?bzdUdk1YU0IrSVpXTlFLT3lEbzBNRXUwa0lydVF0b21wL0FLT25TMVpJRDQz?=
- =?utf-8?B?UHlHQldaQWlIQjhWeitDdHJPWG5TY3VJb3hTdFZxOW9tSWEzNkNZNHh0eGdS?=
- =?utf-8?B?cExuNTU0TlpJZTNhM2xNaGsvWmF2Z2pRMUNvSm01UFFYc0tHWm81ZzA1MHNJ?=
- =?utf-8?B?SnVrRFdWWkN0c0hyczB3R1lqTmxEb3dGRldjL2ZiS241QlBReDlrYXNQUXcz?=
- =?utf-8?B?K01SMUU0c3pLR3k1ZjdYUmhzT1pBdDU4R2xUamlQMDFWR3M4bE9EallmbGZG?=
- =?utf-8?B?cTNZR1B3N3AyWGVoVkxSMXdrd3ljR21WNHVCQk9EL0ppN09mSnJMTlRHM0Jz?=
- =?utf-8?B?V0ZYNE5BQjVJUlpWQXFKY3BNeWtSSDZkbWVFaGt0QUltaE5zSE9Ub0ZQTVN6?=
- =?utf-8?B?cEJSMG56OWR1cDNRaU1uL1VvZ0R4eGNEaTluMDRzNDdDTUx0eWtSWEVXMmpM?=
- =?utf-8?B?ZFpudkF5R285TTJQTXhtQUhmTkh3bEpMVXJsVU5OK1VIalVEZ3lQcHp0NHZs?=
- =?utf-8?B?VWNrbDlkS1d2WUFuVmpFRmE3OFByOThHakw4Yzd3b0xZZDFOdUYrdmJpMDVI?=
- =?utf-8?B?V2dEaWoyeU5HQkdmbmpnTEpPd3l3K1dsejJ1N09ZSzNWdHM4QmkwcTNJckdL?=
- =?utf-8?B?WHBlZzdUNElhR1JJd3JZQlhRSFZLN0JaTUVPYjBUQzlMV0Z1MWIrTUQ5VmRh?=
- =?utf-8?B?dDFaMVFtaHZlOFZtMmhQZjBRbTJ5UWQ0ZlRSOTJPTEsxY1Q2aG12b1lvVXA5?=
- =?utf-8?B?UGpYUlFWUDJpdU5mRmRvZCtsd2NYL2dES04rWisrbW9qVDlUbTlHS1JFbjNH?=
- =?utf-8?B?cjhURTdONTRQL3I2b1FydUZkVXlIRElZRVZ2RHZuUzNVU0pldUV0cklDRnJn?=
- =?utf-8?B?U1owVXplekFiZU5CVWxwdmRrdDFPS0JLK3lUNFNTZUdxR0l5K1d2MXpFSzdX?=
- =?utf-8?B?eXlTR0t1OGZrM1M5STB1TmN5NHUwYi9WUUFvSFpIbVhVamdnVVFiOWZSS0Qw?=
- =?utf-8?B?blZCdFpDMUNxS2V5aEFpbWx1SHYrcGFINjMxdDEvcXUxU2RsYVQ4bklvSktH?=
- =?utf-8?B?Uk9PL1ZwcEoxVlZFNHJ4THZ3Wk54ZHIxUUVUTXo5SC9ZVzNHRkUvZjNDa2Y0?=
- =?utf-8?B?eXFSWGRjQ3VMaE56MFJkWDNwdnZxNVVOZ0JUTWRrZmlFem5xR3dqMWZVQURC?=
- =?utf-8?B?TGsrZUw4RzN1dElRdEdWdFlQbEFLbGtaZkNKRUNONjZjNEZrK3BhVzVWNEp0?=
- =?utf-8?B?UHNkSlVabWc1OWR6YmpZZHlmV05EUnJDT3F4NWxWS3ZiY2ZOMjVZQkdrRE4y?=
- =?utf-8?B?SVZFeHdjQUJ1a3hzMHZ2UDFWRU5nQktaalNHZ3BWOTJPa1YyYVBiR1I3ZGM4?=
- =?utf-8?B?ZVFYcHJISW5jelpHTk9pQXF3ZHBUdXVkWVVCTXhyWHg5bUNVWlBmOG1JenM2?=
- =?utf-8?B?NmN5WmpXb1VjN0FIRlJUOC9hSzZQajB3UU1FSmREUUd2bFgyWHFIdUNJYklI?=
- =?utf-8?B?UU1adnZ4ZnlQYko5TGtsZ2x0UlEvUUJzRStvQk1QSldkZWp6REx5MDgyYjhI?=
- =?utf-8?B?WFlGNHNGbXRlYkE1QU9TM1VwME5ZRFprMnhFSTYzaVZVWlRSTFVoTzNaMUFC?=
- =?utf-8?B?Y0ttTStIcG1sa3NiTDBTYXZDWXFsMUV1Y2RUdGtpL1lBam4zaHd5dz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d651c58-84a8-46bc-7455-08df0823f512
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 12:24:24.0229
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lGzayrlYCiRU+mp0tu5QiTe25r9RFZR30EIMi0PnUexlv4Awy2IvVk44nW3nIwGfbt6b9LppjmYdNhezSwqyUg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9757
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260813-deferred-dirtytime-iput-v1-0-ad2fb3ad6bdb@yandex-team.ru>
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: F270D1F794
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Flag: NO
+X-Spam-Score: -4.01
 
+I'm sorry for the delayed reply. Due to vacation and backlog after it it
+took me long to get back to this.
 
+On Thu 13-08-26 12:43:28, Mikhail Rudenko wrote:
+> The motivation for this small series is the following kernel WARNING:
+> 
+> [  893.915584] ------------[ cut here ]------------
+> [  893.915589] WARNING: mm/page_alloc.c:4749 at __alloc_pages_slowpath.constprop.0+0xd4d/0x10f0, CPU#1: stress-ng-vm/3784
 
-On 8/31/26 23:51, Muralidhara M K wrote:
-> This series enables the HSMP driver on the Family 1Ah client platforms,
-> Models 80h-8Fh and E0h-E3h.
+<snip>
+ 
+> It was initially observed in the wild on linux 6.12.y, but later I
+> reproduced it in Qemu with linux 7.0.11. I believe it is still an
+> issue in the mainline master. Similar issue was reported earlier [1],
+> but looks like no real analysis was performed then.
 > 
-> The client parts drive a different mailbox from the server HSMP
-> interface, but the latest BIOS describes it through ACPI _CRS/_DSD the
-> same way a server socket's mailbox is described, and the parts speak
-> the Ryzen Master SMC message set instead of the server message IDs.
-> Patches 1-3 teach the driver the message set and let the client reach
-> its mailbox through the existing _CRS/_DSD-driven MMIO path, leaving
-> server behaviour unchanged, and patch 4 includes the telemetry table
-> those parts return. Only the ACPI driver probes them.
-> 
-> Changes in v5:
-> 
->    - Patch 3: hsmp_pdev->proto_ver holds the Ryzen Master SMC interface
->      version on client platforms, a separate numbering space from the
->      server protocol versions in enum hsmp_proto_versions.
+> The warning is triggered when a process with PF_MEMALLOC flag set
+> requests a __GFP_NOFAIL page allocation. In this case, the allocation
+> comes from ext4_dirty_inode() called when shrinker frees a dentry,
+> resulting in i_count of an inode going zero, which in it turn can
+> trigger sync_lazytime() if said inode has I_DIRTY_TIME flag, resulting
+> in inode becoming dirty. On ext4 this causes an immediate journal
+> transaction, which may lead to __GFP_NOFAIL allocation in the
+> slowpath.
 
-Thanks for this change.  My tags are still valid.
+Yes, we are well aware of this problem. It actually goes significantly
+further than just lazytime processing.
 
+> The proposed approach to fix this basically boils down to "if need to
+> do sync_lazytime() in PF_MEMALLOC context, defer instead".
 > 
-> Changes in v4:
+> Patch 1 adds basic per-superblock infrastracture for deferring iputs:
+> a workqueue, a work_struct, a list, a bool flag, a spinlock, and some
+> glue code. A tricky place is superblock shutdown: we should stop
+> accepting deferred iputs not too early, so that no legit cases fail to
+> defer, and not too late, so that superblock is still operational and
+> we can flush the workqueue. Since we cannot enter
+> deactivate_locked_super() from PF_MEMALLOC context, stopping after
+> shrinker_free() seems safe.
 > 
->    - SMU now answers the interface version query on client platforms,
->      so hsmp_desc_client.proto_ver_msg goes back to
->      HSMP_CLIENT_GET_INTERFACE_VER instead of
->      HSMP_CLIENT_GET_METRICS_TABLE_VER. Patch 3 is back down to just
->      the ACPI metric-table-DRAM-base change, since that was the only
->      other thing it did.
-> 
-> Changes in v3:
-> 
->    - is_client_platform() now tells client and server apart through the
->      ACPI-reported PM profile (FADT preferred_profile) instead of a
->      hardcoded Family 1Ah model range, the same signal amd-pstate
->      already keys off of. Future client generations are recognised as
->      long as firmware reports the right PM profile, with no driver
->      update needed.
->    - hsmp_desc() now resolves the running platform's descriptor once and
->      caches the pointer behind READ_ONCE()/WRITE_ONCE() instead of
->      recomputing it on every call. Concurrent first callers are benign,
->      since every one of them computes and stores that same pointer, so
->      the pair only needs to keep the load/store from being torn or
->      reordered by the compiler, not order it against anything else.
->    - The client message enum in amd_hsmp.h is now documented with
->      kernel-doc, one @member entry per message describing its inputs
->      and outputs, rather than a block comment plus a same-line comment
->      per enumerator. Noted there that not every platform supports every
->      message and that an unsupported one returns -ENOMSG.
->    - Patch 4: the Telemetry Table RM layout moved out of the .rst and
->      into amd_hsmp.h as real kernel-doc'd struct/enum declarations,
->      giving userspace one authoritative definition of the byte layout.
->      The .rst now just points at struct hsmp_telemetry_table_rm. The
->      structs are now also packed to a 4-byte boundary to match
->      firmware's actual layout, and the trailing NPU/PMF counters and
->      spare padding firmware carries after the overclocking fields are
->      no longer missing. Verified field-by-field against AMD's internal
->      metrics table header and end-to-end against a live snapshot off
->      Family 1Ah client hardware.
-> 
-> Each patch builds individually and is clean under checkpatch.pl.
-> 
-> Muralidhara M K (4):
->    platform/x86/amd/hsmp: Add HSMP client support for Family 1Ah
->    platform/x86/amd/hsmp: Route metric table through the client messages
->    platform/x86/amd/hsmp: Add ACPI client support for Family 1Ah
->    platform/x86/amd/hsmp: Document and expose client telemetry table in
->      UAPI
-> 
->   Documentation/arch/x86/amd_hsmp.rst  |  24 +-
->   arch/x86/include/uapi/asm/amd_hsmp.h | 407 +++++++++++++++++++++++++++
->   drivers/platform/x86/amd/hsmp/acpi.c |   3 +-
->   drivers/platform/x86/amd/hsmp/hsmp.c | 269 +++++++++++++++---
->   drivers/platform/x86/amd/hsmp/hsmp.h |  27 ++
->   5 files changed, 696 insertions(+), 34 deletions(-)
-> 
-> 
-> base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+> Patch 2 uses this infrastructure to defer iputs of inodes with
+> I_DIRTY_TIME, which would trigger sync_lazytime() otherwise, when
+> running in PF_MEMALLOC context. Clumping default and PF_MEMALLOC paths
+> together in iput() would have resulted in decreased readablity, so I
+> avoided that by setting up a separate iput_memalloc(), at cost of
+> slight code duplication.
 
+Thanks for your patches. I've actually submitted patches to address this
+problem back at the end of April [1]. In particularly the problem you
+report was addressed somewhat differently by patch 1. We've then discussed
+them at LSF/MM/BPF summit and people mostly agreed with the approach, just
+there were some requests for better parallelization of deferred inode
+reclaim (which I so far failed to implement). But it's currently high on my
+todo list so I should hopefully send v2 of the patches for the next merge
+window.
+
+								Honza
+
+[1] https://lore.kernel.org/all/20260429174850.18223-1-jack@suse.cz/
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
