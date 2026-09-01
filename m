@@ -1,216 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E173439478C;
-	Tue,  1 Sep 2026 08:46:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE1238F258
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:46:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788252381; cv=none; b=CpDBI//BQSnMZh8fkchLijaXa9n4vT4jRzOp2qh837lyjETLEh9QPEJp/Yzrp5AXoWqsKffKHcz/n3TF323IVat+ycN48cGu0yxfxaF+pCNbcObTrdveV7XtGrAcd6cThYAGSbBknHCkCVfLXJDkCgfNQVX6qIfmPrnI/amrTLM=
+	t=1788252420; cv=none; b=WXfM2YCe2cxaVHVuyMMmpOOevqb5Yqa+6W1p976ArR+LY02fAOMnDZcf+LvUiSRpwTLj3AaguKVAUN8LwB1scbM9sdehm+WQZP4T08MdKj1F87LwgAMT91TGzclHCXJ4gjeJ1ZVlR0z/NKcbAci2yETRKT2gavnt42OBdCbmjeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788252381; c=relaxed/simple;
-	bh=nOYr2/5KGhcoHzBT8RYwc4mrQKvfZhsOsi6k5J/+YeQ=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=T4JMR2SRwCtXIYw7FjJK31Nn1bJXDbT7MkAw4MeO2YYRheS5pLcBTCpw/EL4+cg55uGlFPy/sey+eEbgYMYKaBqwLvaOwfA6zIs/vHxwW2OeybpQ2SEPRQF4jFdIgnF8urjmw8uzL0S+agT1AtKF+LAY43rfTX19HG9Tm6csXww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kghze7x3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788252420; c=relaxed/simple;
+	bh=/8E37Xnx9YJaDh/U9Njjem3qyhhQUgKVn/5BMkzr+EU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=SOnnkUXtCi0SXS2/6rDqOrINEQ0YO7x7Lp8CIBvWFyGvFa6/ekBdne3fiISXzPBPcnEeysymXR968A8ngcizHc2GOQawMmAeWGSMQKTGb1Wfo8SaKjnxLPvuNltUO98gEqJe66F/Nf3XpOCll2L5P8MVfgEi8FyC/VRDWVhtLg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rP7mZBfk; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kghze7x3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3216B1F000E9;
-	Tue,  1 Sep 2026 08:46:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788252379;
-	bh=sSZ+W+gpyvva9DOkNjE72UDAxg//MujBrcnUpMW/QcY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=kghze7x3MwDDqCvHjx3ZgTrJRLG41aro+Xm0FE6b6M6N87BFrqfJiFQjdaNbyLjei
-	 /a0OGIdZv30zvjAUQNX00VUKHQKXCR2agw7Z3sq1Iz3YSvNGyKEtzmzcCh7n4KUmXG
-	 uz1hIO1S1ln18PVcx9PsArwCn61NTGEDT+6ibg3Jp48OI2ZzhY5p17nMoy8ky5yUg0
-	 KyGbFbwiDzGSs0LfbmSaPYcAZYNf4/wtrGpomumjEMkz6mpyTmY7z84nicptr3WT/8
-	 RxgbatJmc0fP+5PEruglqmQNsVmlcvcYnePVLmcPF5rhWlw9iSwFakTC14vEGovfKN
-	 zUZN80YOsQ3XA==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Nicolin Chen <nicolinc@nvidia.com>
-Cc: linux-coco@lists.linux.dev, kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Pranjal Shrivastava <praan@google.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Xu Yilun <yilun.xu@linux.intel.com>
-Subject: Re: [RFC PATCH v4 01/16] iommu/arm-smmu-v3: Discover RME support
- and realm IRQ topology
-In-Reply-To: <apMjUSbxcnlAKjks@nvidia.com>
-References: <20260427085344.941627-1-aneesh.kumar@kernel.org>
- <20260427085344.941627-2-aneesh.kumar@kernel.org>
- <apMjUSbxcnlAKjks@nvidia.com>
-Date: Tue, 01 Sep 2026 14:16:10 +0530
-Message-ID: <yq5aik4pnyul.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rP7mZBfk"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so44843375e9.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 01:46:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788252417; x=1788857217; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YQKFjfjuFL+0WhYIMnVIEjkhiF4ZkpnIVufK+2MKp5o=;
+        b=rP7mZBfkGza1vuXoFxFuEweNBGCTyGw1HdghBO7cVP1VHy7IT+mXHiOzcbvP25wirf
+         bncMjOHSdrPVybxdwo0+fU8cd/OqxauxT1udv0KXmIeiDifIOFx1sea6pShGS7qYeCdf
+         ZeudnB0GOLZQsdPGCzEg2PCoBQKaKYnUQjtfF0pYmh4NZ70Y+kaHXHnU2OQH/51DLPxj
+         6FE/V2QXOuT5jSnI4wG5FWF5r8rx19oMRY3YtSELck4FlE1BZIUrN/Fs55Gfhf4ZAtJI
+         cG+alw/f3apx+sOaJ562JfovPWJEHIfuVUbScFUCGHxrs9q+ciUu+2AFrImamvH4CaC1
+         NpVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788252417; x=1788857217;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YQKFjfjuFL+0WhYIMnVIEjkhiF4ZkpnIVufK+2MKp5o=;
+        b=gTTkG2BZxNYL/S48KfRIANS8wrEhhLFMtRwgUZQkJqX/5quhSv7cT0K6y9bgLV+DKr
+         9kyy8+4inXZ7rTxRx0nyIz0kxpNdminWjDWKSM/xadS0EVwm4Hv2buxB8rg6Y322nUw+
+         5DcvPdemdgMEV7SvZBS8TjXlJGpiIG8YxJzIGNretwbJRobr4HheIdbO7B6U+BQxavZZ
+         1LMGyv3/C4gI7eHDtPtJcQH9lW7t3u1Dq2ZOT71NLJrzqkvH4gabhC2GsviKAMbXuIlI
+         4QCMDZ/wi/tA5LNQ1ZDNtOhDbTowXGMWye06rFG8QOk18IuH6oHWwJhd2eELwrWhgRz0
+         cFAQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rp4OMD6wpcBYFO70zz6BYbu59uihi747HtGjF0oBJcviJ9iTAswe60AoPtM4EiuXbqlNFvt13az2ZA2xHw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyH8av+pjsAfEUJfJfryChAncMnSXrAn6BxhCNQ8NTL7fl2VnA
+	mFSjsQPKxSdYYDuLLPwaAlEKmCfojBoeHO8fDyLEqgEgszkOcIhcLW1y
+X-Gm-Gg: AR+sD12hQuqMxZPZqB9tcRo+vGddw0wDnrshzyMSNO9EVPbLjzQzltc1MCXKRS/d8na
+	IIuT/UP5MsTS2WQ9XHoT8z96GLjPhxWZiguwjrg9+oRDXpifFV/XgGfYnHDUbJH5xZjlLOiQ7aK
+	X0AD6h13zSeVl6G3RXtKmhkQaNw0yAtEt5U5d6GzgulLxxZcvMjQLvBfEGJmxftsHBd/H5A/7cT
+	wPxctYhIxwFREiD4LEf7mYcjqq/kC6yQFFjh0QmpphLKHKsdnTwPugiJTXaGyOCI8DAF2hrllku
+	/0HeHwYs8nO8hb3yWJM27Lvv1RpZEN3aJZEJRfp2tQZmbKxUPNCgd+YGjlfPnSet8MJDX6UCvSj
+	AqRMl04fbuD7DbHS5NzFDc7AO6i/24jmkDf7Rf0vFEdd/zrWZRMK9JWlGO+MBTNdfzqfDSU4dYJ
+	EeYvJBtBj8qLap1xTKoWX5L9Hri1WwIz6dwFzoliQQqPnm0JI0LT0qiK2Wm8GGyYD9mxhgdQJ8k
+	rfumK43nl0yWdZCD23iInTCDXx9X8kvlp+IS8g6KFdo+x9WjTu3QBLsUtN/S/VEoLxSmbSLJolM
+	+04sVF9o312DjSxQvNyUqhUOdT3ExEH5dYIlfEcySUSZaFrGa/2fnzNEavedvLirZub0
+X-Received: by 2002:a05:600c:3f10:b0:49c:d019:70c5 with SMTP id 5b1f17b1804b1-49cd01972c9mr332759145e9.0.1788252416362;
+        Tue, 01 Sep 2026 01:46:56 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a16a-7801-fd8c-4b37-36b4-e53a.310.pool.telefonica.de. [2a02:3100:a16a:7801:fd8c:4b37:36b4:e53a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b9266be71sm727447725e9.2.2026.09.01.01.46.55
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 01 Sep 2026 01:46:55 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: stable@vger.kernel.org
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	=?UTF-8?q?C=C3=A1ssio=20Gabriel?= <cassiogabrielcontato@gmail.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 6.6.y 0/2] ALSA: aloop: fix trigger/close UAFs
+Date: Tue,  1 Sep 2026 10:46:35 +0200
+Message-Id: <20260901084637.66106-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+In-Reply-To: <2026050445-detention-cussed-a8c0@gregkh>
+References: <2026050445-detention-cussed-a8c0@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Nicolin Chen <nicolinc@nvidia.com> writes:
+Backport the two ordered aloop fixes for the trigger/close peer-runtime
+races. Both carry Cc: stable and each fixes a separate syzbot-reported
+UAF, but neither reached this tree.
 
-> On Mon, Apr 27, 2026 at 02:23:29PM +0530, Aneesh Kumar K.V (Arm) wrote:
->> +++ b/drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3-realm.c
->> @@ -0,0 +1,124 @@
->> +// SPDX-License-Identifier: GPL-2.0-only
->> +/*
->> + * Copyright (C) 2026 ARM Ltd.
->> + */
->> +
->> +#include <linux/interrupt.h>
->> +#include <asm/rmi_smc.h>
->> +#include <asm/rmi_cmds.h>
->> +
->> +#include "arm-smmu-v3.h"
->> +
->> +#define	RMI_PSMMU_IRQ_GERROR	BIT(0)
->> +#define	RMI_PSMMU_IRQ_EVENTQ	BIT(1)
->> +#define	RMI_PSMMU_IRQ_PRIQ	BIT(2)
->> +#define	RMI_PSMMU_IRQ_CMDQ	BIT(3)
-> [...]
->> +	if (irq == smmu->realm_evtq_irq)
->> +		notify_flags =  RMI_PSMMU_IRQ_EVENTQ;
->> +	else if (irq == smmu->realm_gerr_irq)
->> +		notify_flags =  RMI_PSMMU_IRQ_GERROR;
->> +	else if (irq == smmu->realm_pri_irq)
->> +		notify_flags =  RMI_PSMMU_IRQ_PRIQ;
->
-> These are defined as BIT(x)...
->
->> +		if (rmi_psmmu_irq_notify(smmu->base_phys,
->> +					 notify_flags, &event)) {
-> [...]
->> +			rmi_psmmu_event_consume(smmu->base_phys, notify_flags);
->
-> .. and passed to RMI_PSMMU_IRQ_NOTIFY and RMI_PSMMU_EVENT_CONSUME.
->
-> RMI_PSMMU_IRQ_NOTIFY takes RmiPsmmuIrqSet type, which is a 4-bit
-> field that has a range of [BIT(0), BIT(3)]. So this is correct.
->
-> However, RMI_PSMMU_EVENT_CONSUME takes RmiPsmmuIrq type, which is
-> a 2-bit field that has a range of [0x0, 0x3]. So this seems wrong.
->
+826af7fa62e3 ("ALSA: aloop: Fix racy access at PCM trigger") covers the
+peer lookup and state checks with cable->lock. e5c33cdc6f40 ("ALSA:
+aloop: Fix peer runtime UAF during format-change stop") pins an in-flight
+peer stop across snd_pcm_stop(), which still runs after that lock is
+dropped, so it applies only on top of the first.
 
-Updated that to
+The failed-apply report for this branch named only the second fix.
 
-#define	RMI_PSMMU_IRQ_PEND_GERROR	BIT(0)
-#define	RMI_PSMMU_IRQ_PEND_EVENTQ	BIT(1)
-#define	RMI_PSMMU_IRQ_PEND_PRIQ		BIT(2)
-#define	RMI_PSMMU_IRQ_PEND_CMDQ		BIT(3)
+The series applies to v6.6.155 and v6.6.156-rc1. Patch 1 omits
+access-mode support absent from this tree; patch 2 matches the 6.12.y
+backport by patch-id. The identical 6.1.y backport is submitted
+separately. 6.12.y and newer already contain both fixes.
 
+KASAN/QEMU functional A/B tests passed: 4096 captured frames matched
+byte-for-byte; control notifications, mismatch handling, and 32
+open/close iterations passed; no KASAN, Oops, or WARNING was reported.
+As upstream, a prepared-but-idle capture remains PREPARED when
+mismatched playback starts instead of being forced to DRAINING.
 
-#define	RMI_PSMMU_IRQ_GERROR	0
-#define	RMI_PSMMU_IRQ_EVENTQ	1
-#define	RMI_PSMMU_IRQ_PRIQ	2
-#define	RMI_PSMMU_IRQ_CMDQ	3
+Cássio Gabriel (1):
+  ALSA: aloop: Fix peer runtime UAF during format-change stop
 
+Takashi Iwai (1):
+  ALSA: aloop: Fix racy access at PCM trigger
 
-and 
-	if (irq == smmu->realm.evtq_irq) {
-		notify_flags =  RMI_PSMMU_IRQ_PEND_EVENTQ;
-		psmmu_irq = RMI_PSMMU_IRQ_EVENTQ;
-	} else if (irq == smmu->realm.gerr_irq) {
+ sound/drivers/aloop.c | 98 +++++++++++++++++++++++++++----------------
+ 1 file changed, 62 insertions(+), 36 deletions(-)
 
-...
-	rmi_psmmu_event_consume(smmu->base_phys, psmmu_irq);
-
->
->> +void arm_smmu_setup_realm_irqs(struct arm_smmu_device *smmu)
->> +{
->> +	int irq, ret;
->> +
->> +	irq = smmu->realm_evtq_irq;
->> +	if (irq) {
->> +		ret = devm_request_threaded_irq(smmu->dev, irq, NULL,
->> +						arm_smmu_realm_notify_thread,
->> +						IRQF_ONESHOT,
->> +						"arm-smmu-v3-realm-evtq",
->> +						smmu);
->
-> These IRQ numbers are raw numbers forwarded by firmware and then
-> returned by RMI_PSMMU_INFO:
->
-> +		if ((psmmu_info->flags & RMI_PSMMU_IRQCFG_MASK) ==
-> +		    RMI_PSMMU_IRQCFG_IRQ_WIRED) {
-> +			smmu->realm_gerr_irq = psmmu_info->gerror_intr_num;
-> +			smmu->realm_evtq_irq = psmmu_info->eventq_intr_num;
-> +			smmu->realm_pri_irq = psmmu_info->priq_intr_num;
->
-> Should they be converted to Linux IRQ numbers before forwarded to
-> devm_request_threaded_irq?
->
-
-Yes, that needs conversion. I guess we can use the irq_domain associated
-with the non-Realm IRQ number to create the mappings?
-
-Something like:
-
-
-+static struct irq_domain *arm_smmu_get_wired_irq_domain(struct arm_smmu_device *smmu)
-+{
-+	int irqs[] = {
-+		smmu->combined_irq,
-+		smmu->evtq.q.irq,
-+		smmu->gerr_irq,
-+		smmu->priq.q.irq,
-+	};
-+	struct irq_domain *domain = NULL;
-+	struct irq_data *irq_data;
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(irqs); i++) {
-+		if (irqs[i] <= 0)
-+			continue;
-+
-+		irq_data = irq_get_irq_data(irqs[i]);
-+		if (!irq_data || !irq_data->domain)
-+			return ERR_PTR(-EINVAL);
-+
-+		if (domain && domain != irq_data->domain)
-+			return ERR_PTR(-EINVAL);
-+
-+		domain = irq_data->domain;
-+	}
-+
-+	return domain ?: ERR_PTR(-ENXIO);
-+}
-
->
->> @@ -782,6 +787,9 @@ struct arm_smmu_device {
->>  
->>  	int				gerr_irq;
->>  	int				combined_irq;
->> +	int				realm_gerr_irq;
->> +	int				realm_evtq_irq;
->> +	int				realm_pri_irq;
->
-> Nit: this series adds a few realm-specific things in the top SMMU
-> structure. Maybe a "struct arm_realm_psmmu" can make them clearer.
->
-
-Added
-
-struct arm_smmu_realm {
-	int				gerr_irq;
-	int				evtq_irq;
-	int				pri_irq;
-	struct mutex			mutex;
-	refcount_t			users;
-};
-
--aneesh
+-- 
+2.53.0
