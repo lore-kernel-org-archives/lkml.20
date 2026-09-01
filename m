@@ -1,184 +1,148 @@
-Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010008.outbound.protection.outlook.com [40.93.198.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com [209.85.160.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1508E43553D;
-	Tue,  1 Sep 2026 03:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D498D42CAFC
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 03:09:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.180
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788232157; cv=fail; b=T0OyzSXIPi15UyKLKTf3iB5BvCym8z6VlGg3ARVFoZuzVIcA7A8k1PXCOcn6EJJaFmvTXQFkw6r5DE0+Bab4L+A2uSdEnGA49IUT3yCc/zJ6e567Um3dONve3R+W3L2LkEyZ0alQFAvrLcjPec11gHeNUxrVM+hCzQ9TgHWSr7c=
+	t=1788232180; cv=pass; b=CppHg537DUm/FWLfPytQ9knvwxrqiSg8NnV3qf8EZFg9M2XKINo208YaPI5hqqYsfVGzEdStqNKqOE06NUErV50eH3vKSvDpnszq5jmXPiuHiKhxccIBH6/3pRGj4UCB9h2SocOl6knmpgLDCBjxpmZsfsI9iHfbKQzY6sEBfJ0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788232157; c=relaxed/simple;
-	bh=IMEEyZaKafVDZSemMKMDoQA0u9CN1XOnFDFx6KTVqn0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=TpSNZURREkIL5tnIYuEC0Nei2wsKd2AM9rR9RAEqpVzr2JSsa+rke/tbP/Dhl2jLe44LoHRjZjCR8swFv8MK2V8bRr9acRejSjYR0ias+aiCQua5FWXKwUGwKG5YjWRO6fsrEEiDnPpJ+1R01Ti2sZreTldyibBPaFhmBWDdVLE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=bnHSEERq; arc=fail smtp.client-ip=40.93.198.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1788232180; c=relaxed/simple;
+	bh=HIAZJiHtWz9+gMtzrM8NAa6vkGAgKVgfGJCpQqDbBwc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dJEHNmnxru2Kfl41xWUABK7zTUDzpLa7XUx3jlH48ro5o9Zblj9A/X54N8BnZ2tGsslGIcmXHCrHWTYvktGHUPGFCaYOlE14kCkKUWkXp8G2i17TiW72AXd9YratOHcRQF9rH6nT9U/Pv4ylihKIitxrqf60/GbtOdgInpwZLEY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mH405kOj; arc=pass smtp.client-ip=209.85.160.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="bnHSEERq"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m2W2keCGRkbAtvTTXxs/jc2ML+9R4vqsYxJkxORoa3JgI4ntPdouk8N78yfSSqfXKGl6V9qoUI2MVrEFpneTJFCZ+z9yb/4MlANoSlUwteQ7i5hKNYHXqZ7J2YT+mrdSCG/yORE8h8Rsw2hWTxke48bpNL08+Q5TTJFLypCYKWBK28k5p9sBtQSS2oACOY0VcV1QiCAFrPNLeNkNiHxMY0lum0OQxTR5Wu3/fTBA+Gf7R1fn6g/CNXBRsohqekNvULo7a7s8X4QNZCNi7s0mKxwdLO1djLlccxn+DKWQFLQGlsI9CHeGfqIuog2Yfj8E1tAML6Xw9m4QgVVA1H6kWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NUxVAsooR+2RFdhzhFi4V4gvOmewhBSgNTPp3whGNQM=;
- b=dwTv4dIepEffrOfSn9DJis8wLyvq2yyKMKARL9/OaEJ28lM/jyps46irxToHnEXYh4OTcrS3FoLRObz1kcMRsNC7ATic4ITZaFVl2okcceB62j0xbplmgZ4EN77op8CrZw5jnHM9B5T3GuR/anVl6+KR8nDkDaUWcM1v2p/qZWCS8aqH5wwygkpRkedHiauc6+5vsIHkwAQoFtMHCxI1FsW2EZzepnGeES1ghZdD3cMnW7EU85PUQnmuVDVTZVASEOBgMhEO/JxkLSMVbyy9LZ3BgGLpqKP9+zRb0zm13Z+afD2RH0re0j1o4pSd1caxW6jpPTRMeeFlh5p5iEjhfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NUxVAsooR+2RFdhzhFi4V4gvOmewhBSgNTPp3whGNQM=;
- b=bnHSEERqIC/PbGsoDGa1U0L4lsK96DCNCvpBrRcf03pfX98zeHJC0l1ProAYICQboV/4+/cjIhi2x2zmUgMEzK8VL2mrsfzPOOHZq0jbMDJviEkSQDEqreyZez2+KnW/ESvGMQFIhPnCi9/TpooPqi2ppzxe6jEBoeHsbJkrwKP2QbHnRMEKd3aXeh4lOrltPhcbxqpvStcIucVz0h8qS/NH7hEA87qThgScVrsG+exCApnDK88Z2lj8bFoTN7wMPvWQxnBG5Ro8ncSoVw/gbYoPyuqwmp69se6tkN/x52p9gUzPUBSQ87IzWgtxEjQTFrhYAA+zmojI5acjxBseeQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MN0PR12MB5977.namprd12.prod.outlook.com (2603:10b6:208:37c::22)
- by SJ2PR12MB8956.namprd12.prod.outlook.com (2603:10b6:a03:53a::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 03:09:11 +0000
-Received: from MN0PR12MB5977.namprd12.prod.outlook.com
- ([fe80::d8:f725:258:2f28]) by MN0PR12MB5977.namprd12.prod.outlook.com
- ([fe80::d8:f725:258:2f28%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 03:09:11 +0000
-Date: Tue, 1 Sep 2026 13:09:05 +1000
-From: Alistair Popple <apopple@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: nova-gpu <nova-gpu@lists.linux.dev>, 
-	M Henning <mhenning@darkrefraction.com>, Alice Ryhl <aliceryhl@google.com>, 
-	David Airlie <airlied@gmail.com>, Alexandre Courbot <acourbot@nvidia.com>, 
-	Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	Eliot Courtney <ecourtney@nvidia.com>, John Hubbard <jhubbard@nvidia.com>, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v5 09/11] drm: nova: Report GPU name in GPU info
-Message-ID: <apY_7wKQCENbNRfV@nvdebian.thelocal>
-References: <20260828033531.1117754-1-apopple@nvidia.com>
- <20260828033531.1117754-10-apopple@nvidia.com>
- <DL37BOJC2I73.1BK0RELPBUPY2@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DL37BOJC2I73.1BK0RELPBUPY2@kernel.org>
-X-ClientProxiedBy: SY5P282CA0096.AUSP282.PROD.OUTLOOK.COM
- (2603:10c6:10:204::11) To MN0PR12MB5977.namprd12.prod.outlook.com
- (2603:10b6:208:37c::22)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mH405kOj"
+Received: by mail-qt1-f180.google.com with SMTP id d75a77b69052e-52faa58bff5so144781cf.0
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 20:09:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788232177; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iilZ1EMhf/k6V3Yh0fBL7vzS7JI0cGEniaAoyhy0NLn+1YcC+eN8zfIK49q9Y5+TId
+         9WMOjaEvZ8QCInsANqBCUKZBZBTmCwvjh3AiuE6syb6s09Z2Gme3LIFsXSCxWyPP2L5R
+         ixRrUyDn/7ooRzAsA7nNiVC+NkZCB3eWi4P25BYe++Ra72AFi04//8yKPorl1/dZs9ge
+         oyZ9NGsszKmWKfajX7uDwYlVfHmxj1YpmsxVHlkwPHtxeR9M4Qf+inUKlnOXbFb+vrA/
+         qq/0tmusOZyW7M434KT3+ReG4Iu9WpnLGv7YRwd/AhOyw1LYz/AHFoAs1PjG61O4OQDf
+         BMsQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9vK9K2uO+ydqxGT6ll2fvxAZEy1YLj18ZKGE/a2jP08=;
+        fh=+M7TxIaNgJWzElIhy2ALtc6RTkcWKtkOHMO3qgAyYBY=;
+        b=eMZ1zJfFAIRzhbp5ElLKIPm+OFOrORurfbC3iYKKAdMmoCdc1U04b7T589N8LXBAlA
+         MLvFhM/f/HFp+WMmI8M05DB/s/musllhSigaGNNjFBMQAbOcADkiFTnrbvgS0INZBYh2
+         DOeqRiwsbwYoS748n5FW5DAMNBwOCeeIfL1YgBya1XMSxUEll/7mI/R49I3Syy45+8TY
+         6bV49dMI5QDcGF3P1bZzIQbe3bECW5h5KmPXuuo/rPY2i/CG+QYbXcPYChQ0sk6uuH4D
+         eUzE7x9v9lS0wZIoBhuLcjqtK399/yU6ffz+nH1nzAunQ6w9Q2yhl/edyigSJZOcwJMS
+         0O8Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788232177; x=1788836977; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9vK9K2uO+ydqxGT6ll2fvxAZEy1YLj18ZKGE/a2jP08=;
+        b=mH405kOjdL0gM1r8biyQcm643qo4ohVqvRmJQLKeVhkYw2ai/SuIXQD6Vsl3v5lIwp
+         LpRWBS1PZkVj7WntC2KZTOdOKlR2zW074eKD7CzaXeG+/XThuFV8pQ0Z53aO6b7nlQvO
+         QNPWzGzDXLgEbu3eClLjmAzhGvCPi0zlG89ANIRKpFEMndLrhbTNy8nrgFJTUocP+XOp
+         3+GaQbGWx1s/lmMAmhayzlleJnQ2vfvPmvdnHIj6t2Pn7BkcMS1XnBmNkNO1wdoX5xuw
+         U7aHfB0DWmy3Ppc1ELfSt18dLmsFbJDBcSKxRDA5QY7+Bjepq7RSdnqhsI4dcIgzmU+R
+         lI6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788232177; x=1788836977;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9vK9K2uO+ydqxGT6ll2fvxAZEy1YLj18ZKGE/a2jP08=;
+        b=WabIzR6jdokl6l0ykXK8N4CYj8YMLjYL5PDemTpnrhWGdSjRrhWiCGUPS1Zq1H7Z68
+         PzwDDv1GJRikrAvOh1JpvcE6m0cuewcoqIsTRfjE0eEwFjHt5+ONEwj6o+4UlsuP5A64
+         boyYwMCPAPbAGnRYDXytIfM6Y9Q+Iq5sgumuK7+fc3CBnhmzk5A7Je/w3PK/XWWPwDQW
+         qyNOkntCFzxDqEJR8zzLYVNI+0KQjqNJYa5dwrg3KtlqbA70hMXaln3a1o8c2XDSVUln
+         Mg7KXvGKtpI5iKXxk8iCO+2Ms0pwDNPwRLD+GWIlExHbsjkacPKsDgCTeOLor1yDqUpk
+         Uv2A==
+X-Forwarded-Encrypted: i=1; AHgh+RpFyNB/xi7aw9aWZNj/DehK45szUT5wsHg2cAtT8qrOWwHg+Lmj1jPCKllaOB6wUYoDNBzJy2yScgmUEjU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kqWG5w9K7eKi2F/YzeMHS8q+Rh4PwuB28bzDFGlqxhP9DbksQ+
+	Ea/y+WVmKd+A3m57XSqHLZkmb5KeiZehXex43VDzcVQDOv1jl5ekEl+j9+sshWJYFxlYIYg4EL5
+	nJwBiPs/VviYXhB0CtcGzz/c8Jp5J5nyiR8VuNcYr
+X-Gm-Gg: AR+sD13MyRZIqThkRYFoHgjtety84eL3CmP7HjtAeutGVvsP2wvSSv5g/Du2wfPng22
+	s3yw+C90r6C3iRoSJuTNYwCb8BBlAqQpI2xsL8DyLj6DJGZe83HhBUC6OcDzex0C7cVqTiRWlgY
+	e6tbveMhPLokdxFPRWFobqZ/7gd3GeEfusunL3xdTDrMS7lNt8ZxhcgNf4N1pQVLkAIXG2xuX5o
+	JeSM3J0Gazr0ubAJ/SsR8DGoo8Z9bbtWEgXn4/OtW37NAoFV6sDxpqf+veQaOSmFZ4OGep92CVs
+	WCsRWZHD5NmQKe6UmKosSKcSV+W6842R6g7oPaE9TVA=
+X-Received: by 2002:a05:622a:11c6:b0:519:b655:235 with SMTP id
+ d75a77b69052e-530274757acmr5868131cf.3.1788232176425; Mon, 31 Aug 2026
+ 20:09:36 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN0PR12MB5977:EE_|SJ2PR12MB8956:EE_
-X-MS-Office365-Filtering-Correlation-Id: 91c09bd4-6b4b-4576-e4e9-08df07d66551
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|56012099006|10067099003|11063799006|5023799004|4143699003|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	PBb4CThjWvkwYa60LXbJVLIXqxurCGVNtsvc+PUPqDMsX7wq1z55ydc/y3Q+smqVf7lXligezz3uIqwleA0K+Rp8v1CjwJsKaPQy/9S36gmxCP5B2Uxdt9iGgIILKb8yoJwzCvBxBxpIoMpy9r1rZM0UTaHUJSJ8Q4cQwlhYtojgZ1LLFGi00T7JhjaoWm0+aXVnCNrk2FUrr9NRqfuF+elRdKHSIKTNKbcAn3XT/Et14oU+lPTVmDpmYi/DjilepM/g7KOkPiywzesWMonpvysrmDznPlC3NVAfbDa8ULLNiGEknCQltVUTE/AAuukxXo2YcB3hHruw1c6tJNLVlL1ZDmpAR6aIAVHNwjCjQmaDg4zIzhnm2uYfdPRlp4jsVXioOOG3ZJrVy0RYLnDuwaEcC0z6jBi3lS+zIPzuHhs7/ceqeGnrcJ4TH+qN/YTsQEXmvm63rIJ2GIo0xv83uabTuA2jN44H2IHNeaePTWO9juTZ/Jk8xlIXuekRHTZEyiNVsSZ3N8G1GbNtX1UDskgsgr3QWKSmdFcSYiGMBSjnuuYPsFE4hvxLvgpF+RIuURaKukL3k1FfVi1ePkGDxszz0hgWZoR/wFf3ZrYK+lERYH+n3AZb0t1JtzddPfwmDQhi7GkUjkL1APMd6ntw+Y+HgxYkWDAMAvhOJBvisbs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB5977.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(56012099006)(10067099003)(11063799006)(5023799004)(4143699003)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?iMgnhP29JC8HopKwXT1a3gKFXF88rVHIDjHBIyRu1f+AXeRQYAC2zpvKhVdi?=
- =?us-ascii?Q?Ziob5E9qqGrKVaAMC6ve8G5yYpqosx2vvyJzUMDKojjLcNNSBSyDfSc+wSKD?=
- =?us-ascii?Q?5ZZnEQgpJYpqaa0U/oU4xLmxkYomOTtgwOR3HEkvd5xAHxPVGbWzSz8Sh+nP?=
- =?us-ascii?Q?KG4EFvx/S6fG+hubBJrFp6SI0qwepIq6BYHYfJ5cmRUIHT8pTqjBcA6737hD?=
- =?us-ascii?Q?1HfYqanXhSTXL4S2BnjfloOIGaRnrlQ2xDNTFSxYaoWjnkvsXYZRU2mnwUdN?=
- =?us-ascii?Q?HYsEwUic422Ft/UeSgQaW6B6Y5BKi3rdoZW/MnHLJTWUseNrqypGkCltsH0+?=
- =?us-ascii?Q?h/0gpMDaSYPwr8KgnuyxHKVb3FLuZo6Oacu54Jczy5sudMlukoEzBJSgT7Ca?=
- =?us-ascii?Q?wFw32XolKIHepPNH8gozc9JcZjzD+gNEiz7VYZQsRgkTzzkPL8KR+jJwPCCS?=
- =?us-ascii?Q?HKsK+rUfHSEGRdgXAZqFRQLSs//8TXQEGUyxLJExtR2Ofmo5OJlaIjVWYWbR?=
- =?us-ascii?Q?Ajw2RMR2+JVfl9R44jhfAAVGjK+1fpwkt52qYf2fXBgoYzitBcn6bQc7ECxz?=
- =?us-ascii?Q?CWnS3easquZ/OY23dS1m+wchfPSh4ofGvnRYm7ac6aPTBG2EYOa7YsQcDDu2?=
- =?us-ascii?Q?E/dukup/D8yMJOzsOtlJWwvKuueid0YSRltGudsytq4OSPsAYDY6ZppOxpRq?=
- =?us-ascii?Q?mf4F2/49PSCdAeSjPLnfT193BdTtsROBrhw6vATwxPtZUP5vf9oz1K9B3c6J?=
- =?us-ascii?Q?g3Ne4ds6zW8UZnlkKzI3iAyeNvGavIk1yL9WazJTsMCJYNhuUmBTXnwFoE3Z?=
- =?us-ascii?Q?tPLrRMw4c9Zm6kfEptGMEgOuGKp/NovM8b5p1oTVl2BFDiP1cfCoNO/WsVQ+?=
- =?us-ascii?Q?WQPLyp28kDKs4PfGgLxU6B+zug8QGDOpuOlMLZ2/Y5Xuf2ikHr2UQ2wFiCOx?=
- =?us-ascii?Q?e/Ms6ogz9Gj47XrDllGJc9bRsz4tGatRFQs0PaXd7iVj47ryDkr9ep6plO2X?=
- =?us-ascii?Q?zMbqYsHoC/yD21xhAmxM1BIe9kbplIejYXN8KjhYN/rCs/g0V4b9Ha6xY7/n?=
- =?us-ascii?Q?ahSlTvv9ubrMy8xULmrXJnu66crcr5EYQzh9CduMu7XZUrcpHOfYhngDuho/?=
- =?us-ascii?Q?3wBIiN/MydepJHhP7s1i+sfKUvm/K4QYQJCf97x77l1xpyQjqxBObbezvr/B?=
- =?us-ascii?Q?pLcBwxIgfgD1RThmVvGJyo1q+3j9j5OBmVSAxJu8qBYR9NR82Kt7Gwmhexav?=
- =?us-ascii?Q?jh/zBbdrvDNnG5QVYYp1EI6dB2X1wMtKm3nyiVt5P8yNwGeN+4e6J1Hptpol?=
- =?us-ascii?Q?k9Vu/YGpMZvMjz7tdA2RHf7i0eo8X9w4boGOahJvR6+yVntHVN9PpfkyedTN?=
- =?us-ascii?Q?RWXiy4pwmbYj09oGoULpjMo8CgfVGz5x46tuwq5QxEAMrAWoRqfGA7Li9/Fq?=
- =?us-ascii?Q?zRXENVNklbxJVnVBgfGn/hIHuawkG42chvijtQr/0D6hMSZ0/RbIViq56XWk?=
- =?us-ascii?Q?IWoD6XuHCxgReJnRVRETptN4Yxj56wyFwjuKWCu8zNzqGlTT9xVIwvheN0uC?=
- =?us-ascii?Q?jJ0Ri2ZA55TO6ALQWxK+G2xuk8l4kYnwc8PQEGRfT/I1iBLNIh0rpFUw/krV?=
- =?us-ascii?Q?rqhlkjWWD6cjnSBl1IFp0bbsmAVCxIGuH8231rphwtTUz9Cc5d236LQSg+hM?=
- =?us-ascii?Q?NIvZRCT7ljwoVKNjlqsS4IRbQ83h3fbESGGpNXgAqxxuD/SAB0bPDBfOSan+?=
- =?us-ascii?Q?AHpjqZLTtg=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 91c09bd4-6b4b-4576-e4e9-08df07d66551
-X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB5977.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 03:09:11.5108
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: o5lxqktKqrMOS4YNTYaH9SymyH66Qrf/bd74V7E7aL4sM85mW97pjSHAbmMj2BaW5ryulUje4hhZnRBYMaDrQw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8956
+References: <20260816161216.984580-1-avagin@google.com> <20260829180205.16dc4d5ed20150b79533f3c2@linux-foundation.org>
+In-Reply-To: <20260829180205.16dc4d5ed20150b79533f3c2@linux-foundation.org>
+From: Andrei Vagin <avagin@google.com>
+Date: Mon, 31 Aug 2026 20:09:25 -0700
+X-Gm-Features: AcwNN1Wh2sszCICdjIl_gd4o3uM6FwIu7k2r-iSFzyxyJ-uR0ZAHOEk8WlZuwtw
+Message-ID: <CAEWA0a5ysb2LVovme7BSdoZQq8ZMZaSsXJALc8bZyD1Rgzuc3A@mail.gmail.com>
+Subject: Re: [PATCH] proc: Report SIGEV_NONE in /proc/pid/timers if target
+ task has died
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org, criu@lists.linux.dev, 
+	Thomas Gleixner <tglx@linutronix.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 2026-09-01 at 00:33 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
-> On Fri Aug 28, 2026 at 5:35 AM CEST, Alistair Popple wrote:
-> >  impl NovaCoreApi<'_> {
-> > +    /// Returns the NUL-terminated full GPU name supplied by GSP-RM.
-> > +    pub fn gpu_name(&self) -> [u8; 64] {
-> 
-> I don't really like that we have two separate accessors for this, can't we just
-> use the one we already have, which also does all the validation already?
+On Sat, Aug 29, 2026 at 6:02=E2=80=AFPM Andrew Morton <akpm@linux-foundatio=
+n.org> wrote:
+>
+> On Sun, 16 Aug 2026 16:12:15 +0000 Andrei Vagin <avagin@google.com> wrote=
+:
+>
+> > When a posix timer is created targeting a specific thread (using
+> > SIGEV_SIGNAL | SIGEV_THREAD_ID), it takes a reference to the target
+> > struct pid in timer->it_pid. If the target thread subsequently
+> > terminates, its numeric tid is freed and can be recycled for an
+> > unrelated task. However, the timer holds its reference to the original
+> > struct pid.
+> >
+> > show_timer() in /proc/[pid]/timers previously called pid_nr_ns()
+> > directly on timer->it_pid without checking whether any task remained
+> > attached to that struct pid. As a result:
+> > 1. It reported the stale tid, which could mistakenly refer to a recycle=
+d
+> >    pid.
+> > 2. In the kernel, expired signals for dead target threads are dropped b=
+y
+> >    posixtimer_send_sigqueue() because posixtimer_get_target() returns
+> >    NULL, so the timer functionally acts as SIGEV_NONE.
+> > 3. Checkpoint/restore tools (CRIU) parsing /proc/[pid]/timers would try
+> >    to restore a timer with SIGEV_SIGNAL | SIGEV_THREAD_ID targeting a
+> >    non-existent or unrelated thread.
+>
+> This sounds like a somewhat significant issue for CRIU but that's just
+> me wildly guessing.
+>
+> > Check pid_has_task(timer->it_pid, timer->it_pid_type) in show_timer().
+> > If the target task has died, override notify to SIGEV_NONE and report
+> > PID 0 (e.g., 'notify: none/pid.0').
+>
+> No Fixes: and no cc:stable?  Maybe my guess was wrong?
 
-Yeah, I don't know how I forgot we already had an accessor for that. I've been
-carrying this patch on my own tree for quite a while, so guess just enough code
-moved around change that I missed it.
+I was not sure this "qualifies" as a regression, as this behavior has
+existed since /proc/[pid]/timers was introduced more than 10 years ago.
 
-Anyway I agree, a new acessor is totally unnecessary.
+In CRIU, we already have a workaround checking whether the process has a
+thread with the specified TID. The only edge case this workaround cannot
+handle is if the original thread dies and a new thread is later created
+reusing that same recycled TID. This is a reason why this kernel change
+is required.
 
-> The constructor of GpuInfo could look like this:
-> 
-> 	fn new(reg_data: &DrmRegData<'_>) -> Result<Self> {
-> 	    let mut info = uapi::drm_nova_gpu_info {
-> 	        architecture: reg_data.api.architecture(),
-> 	        implementation: reg_data.api.implementation(),
-> 	        ..Default::default()
-> 	    };
-> 	    let bytes = reg_data.api.gpu_name()?.as_bytes();
-> 	    info.gpu_name[..bytes.len()].copy_from_slice(bytes);
-> 	    Ok(Self(info))
-> 	}
-> 
-> Could also be infallible if we want to go with a fallback name, given that we
-> consider the firmware not providing something useful as non-fatal so far.
+The proper "fixes" tag is:
+Fixes: 57b8015e07a7 ("posix-timers: Show sigevent info in proc file")
 
-Yeah, I think keeping this infallible makes sense. 
-
-> > +        *self.gpu.gsp_static_info.gpu_name_bytes()
-> > +    }
-> > +
-> >      /// Obtain a [`NovaCoreApi`] handle from an auxiliary device registered
-> >      /// by nova-core.
-> >      pub fn of(adev: &auxiliary::Device<Bound>) -> Result<Pin<&NovaCoreApi<'_>>> {
-> > diff --git a/drivers/gpu/nova-core/gsp/commands.rs b/drivers/gpu/nova-core/gsp/commands.rs
-> > index 6453184af55b..b8dc64808620 100644
-> > --- a/drivers/gpu/nova-core/gsp/commands.rs
-> > +++ b/drivers/gpu/nova-core/gsp/commands.rs
-> > @@ -251,6 +251,11 @@ pub(crate) enum GpuNameError {
-> >  }
-> >  
-> >  impl GetGspStaticInfoReply {
-> > +    /// Returns the full GPU name as a NUL-terminated byte string.
-> > +    pub(crate) fn gpu_name_bytes(&self) -> &[u8; 64] {
-> > +        &self.gpu_name
-> > +    }
-> 
-> AFAICS there's nothing ensuring that this is actually NULL terminated? The
-> existing gpu_name() method already does this.
-
-Yep, relied on FW which is sub-optimal. The existing accessors obviously fix
-that.
-
- - Alistair
+Thanks,
+Andrei
