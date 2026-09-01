@@ -1,134 +1,100 @@
-Received: from mx0b-0016f401.pphosted.com (mx0b-0016f401.pphosted.com [67.231.156.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88596377A84;
-	Tue,  1 Sep 2026 04:50:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.156.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BC963793BB
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 04:50:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788238206; cv=none; b=YD7wKK/OAkZk72wgpWOUSTYi+icMqoPcappuE6cS3MzYekbXoLM9inPVkFVvXTSUfjvSajFOPyY3HQ72Wf3WucLjJ58BVXx0R9E5zWqTGxBdXUh1tZcC7MkbxCHdKVjBWsOc+0cwgvr3zKzg0lYMcpGQDZN6JWgDdGUI+p7JIkI=
+	t=1788238213; cv=none; b=Zh9IYKKyNo5vzVLiR34qYFRaCrIIvLAdGovBapO2pGlHUNF3nWSG89esUzC4JEcv/qVFnyHkV5svWQdchd63Ca5W+J0hATDgj+8wUHwVSWgDLeTy8jgicMp57wnzsy9lj3agBW8xfrsKzUmEwQVcb7c0rAAwAKfLn+7cjqRXOF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788238206; c=relaxed/simple;
-	bh=WVxocmgX9k+AeEIYfKvaUmFxJv+OP8R6EyLzP1Af+Nc=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=i4aMwC8LWpX+KrjH/bBAIHqtmvCVNkoSDRiP0h+SNmyWxLew3U5nde0cJ0YQnK2QjNbDTX3BVnJnjzDtGz/3q3iYlfa614oh2VXPzM4P89wuwfCcWCe69TR48wZbnnoVXCoiSKMwbbYVaDb+j+TJaGwC8hmHsPt7AgGwiOJpWUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=NdZ64jCX; arc=none smtp.client-ip=67.231.156.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1788238213; c=relaxed/simple;
+	bh=VGJGL8L9QC4kuEP/yBDXFyx7IFPt6JsipVhIMzL9c+I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SBm0u5Gcjs1FzmD1qX8kOoqj2HPi6LpVIF8FRjwCqO1djQBPnP3A4jX2J+ogmPX7Z1thHrRC8YzJnveKBu1oduTDkispYMWU28pU6YxR+wkzE4n2aDlUWkRjQsKCgZJcydCTGDPkXG9S64M4EBdBIyzRgR0pABK1sZ6woEwMLs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ofIwZ33e; arc=none smtp.client-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="NdZ64jCX"
-Received: from pps.filterd (m0045851.ppops.net [127.0.0.1])
-	by mx0b-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6810peVf2701693;
-	Mon, 31 Aug 2026 21:49:51 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pfpt0220; bh=nLp/EazTo4QMgElhv8T2Khx
-	FV83tBq3trTUvhs840wA=; b=NdZ64jCXE2qUBZWTkrlF6LW8V0llexYLglX82F/
-	6P+juM+IDdz/IFkTJOrNgznGCwwbQ972li0Emjdr21H2RakelIqn5c2VF0kpy+2o
-	8itZj5P/kJLu1T6lF8md4LCSC6S8kImT8ILqg4zAgccmXbGvBIB0ZsTcrv82GfPx
-	f4gdltMGVctBto2uTShVzmlasRRyY16b1B4v/AqMhZ8Y/yLutJGPcfUoRp7oEIIE
-	FbWfSafdACizD/wEvvoBkUKTJUxrXNggDHsR2cGjv1F6K1u/P/4Y7buZZ5SSjkQW
-	dRFQpkE1iHEWsScfYe0gvOBFaX6R6O/E73+0zvd4ekmkoaA==
-Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
-	by mx0b-0016f401.pphosted.com (PPS) with ESMTPS id 4gbxxj6rpr-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 31 Aug 2026 21:49:51 -0700 (PDT)
-Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
- DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Mon, 31 Aug 2026 21:49:50 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
- (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Mon, 31 Aug 2026 21:49:50 -0700
-Received: from rkannoth-OptiPlex-7090.. (unknown [10.28.36.165])
-	by maili.marvell.com (Postfix) with ESMTP id 189F35B6926;
-	Mon, 31 Aug 2026 21:49:46 -0700 (PDT)
-From: Ratheesh Kannoth <rkannoth@marvell.com>
-To: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>
-CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-        <kuba@kernel.org>, <pabeni@redhat.com>, <sgoutham@marvell.com>,
-        "Subbaraya
- Sundeep" <sbhatta@marvell.com>,
-        Ratheesh Kannoth <rkannoth@marvell.com>
-Subject: [PATCH net-next] octeontx2-af: fix PF/CGX debugfs PCI bus lookup
-Date: Tue, 1 Sep 2026 10:19:39 +0530
-Message-ID: <20260901044939.2772845-1-rkannoth@marvell.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ofIwZ33e"
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc1c73645a1so433634a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 31 Aug 2026 21:50:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788238212; x=1788843012; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=t4jQxeaDZy/Unn2ivO5mM9MmmCneCWF8T+UGXcYEy+U=;
+        b=ofIwZ33eVcIzBo88RXKqk+Y54XEtIYN+WWwh7wrANj35DhRg9AxnL7LaYdWuYuuGUg
+         eFpM+60u2SAc5JF8CpJTekemNh48CD2mvL/lcIS/GyqpxvFclJXQmzP+V8sJ8ZRUZRsv
+         3t8/V3hjk3mhuMNrd4P8mJ4XBo+fCS5WKr4HCP56jcmkkdVOYx502CmfYh82xvzM66cX
+         Jox6Im5bpZ6fRDYvIpy2QrWe437JEAlXVNzb6/Pz5P3D9OP8Rq30mAFwOL8AAi1cYyYi
+         ZbU3n3cTS7IPhQrGFdj896VB6AbagA5GrcgSMHIS0scPB8FnQf3x7oTmJGgE/d9Dd6Fp
+         AkzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788238212; x=1788843012;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t4jQxeaDZy/Unn2ivO5mM9MmmCneCWF8T+UGXcYEy+U=;
+        b=P0r7AfnfrYSkWSuaRuNLKcetbFHFoE4qN2bjMGNF3GYlm705916c84mRzSFtjuOf1c
+         d54uMxobCY2wXAlDGTWbtO5h/hWYrb8nRollpCvq4QefprYOeg4JN9GbQrUv5qzDOxbq
+         55NZWZr+DqV6e/Vq6UgrMSMGhkR60DzBCSO6sjc6PrVUxZT3f8gT4mDp4v9sUTgxEtES
+         2Fr2AH46udr4yKAXtIA25guvRkxP/dhOHwu0mVRY5aDBEHR3NtVMCLdNsgbpLXzE6Z4c
+         jgcogh2/H3y3IppOUe5PH8FjVBpMktr1sIpN0sB1rmle3pCLC+MuYX4YoQNb1L39oMkD
+         wOsA==
+X-Forwarded-Encrypted: i=1; AKwUvByfFTL0wPTHByi/RqDhC8DEyh6aJpI5rVbgYT9snp2xRJi/v7A7LVHFkcQAdqrgUKkPbe9Uzh7y43SHiE8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kkyI4iK9+sAfHOMg1UfYQ1SvN0FInKmVOJRWmooxpyqzQhlSWo
+	MJfulxUlVernS45cVfiFCX7PhLBAh89KOgh+Z9oBadiGdRVOZaLa3e8CGfQHZYYg0iw=
+X-Gm-Gg: AYBFou3pXo5HA/CWZCDKUoBJgIVqo2Td+/nILZJc34z114mbXluYQz1SO1EwQGORBdw
+	gapCVDBOdP0O1Ll0JbbpR+wickGZiZhsLbZsP/8xMPh2mJHwRIy1pfq9hf5ZcR/E59KUEcPU1B4
+	Tf6yitWdiAZaLfmt3hqZNo3FfPClBU6GkLVrqFPAa42vruyyMR0qYqn+CQWsjS227yQkWOXqiIB
+	Mu9Bs+YAfRCP/MANmQ46wfvHsfowQOshySeQYWLVkHwfZH0z+DMgIgdrZXjiS/PWF2c4MqSQ1Wq
+	grxoNrBO4lKy4KlZYLwab0DmfhXIaMi914w8wCDPToyqvX8kDuikBqUKm3HLD/d26TR0K2mCjAI
+	PMgdVL/e9HniLDjtYTWxR8Q2WDlGetWzas0ElU18ZLQrl/C9UoowQndLJCda1uykWtAnkKez6PL
+	FMDnResd8eGR5SlPdE6tGdfzfdehO3XWXUqEeCu+BMGB467CRTBHfC6V8OEWURemg=
+X-Received: by 2002:a17:90b:4a81:b0:399:1f8b:d255 with SMTP id 98e67ed59e1d1-3991f8bd96bmr1896599a91.5.1788238211608;
+        Mon, 31 Aug 2026 21:50:11 -0700 (PDT)
+Received: from localhost ([122.172.87.224])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-142e0d2e465sm51016251c88.4.2026.08.31.21.50.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 21:50:10 -0700 (PDT)
+Date: Tue, 1 Sep 2026 10:20:07 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>, rafael@kernel.org,
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	jianhao.xu@seu.edu.cn, stable@vger.kernel.org
+Subject: Re: [PATCH] cpufreq: initialize policy rwsem before sysfs publication
+Message-ID: <apZZf21vsqy3o_WQ@vireshk-B250M-D3H>
+References: <20260830155301.2713780-1-runyu.xiao@seu.edu.cn>
+ <83f87db8-fa13-41d0-ae52-544d22e228e6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA0MCBTYWx0ZWRfX8Tcc1nwimslX
- HXAEbOxh4JcJI9hgpA28det/W6m+kMFveHbcSxGj64nyX5CQ+OxD8hU/z31zdy7NdPGXpS99UHw
- ie41EEkUGw6AUhbW9vCcgYH+A1m9A+o=
-X-Proofpoint-GUID: Z_ZD28dT9mCF4UkEEIriVu1rXfWmCKrX
-X-Proofpoint-ORIG-GUID: Z_ZD28dT9mCF4UkEEIriVu1rXfWmCKrX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA0MCBTYWx0ZWRfX6pWbXU7nbJrs
- N+8uAgDuLE/BVNaIZLE5whKSa5EdUsdAZRY/TlxJR9Pqv5rFP+j1qW9oTHsymbOVlf7InsRZrck
- E6WMG6DX4N31fShkIEozga+71/iYBd78gWCgS/I08cCoc+R6WvbZWtYI8+EtD1Av1JNT7OVBCzw
- JZAtnHD7i0NvXNu7CvXLGfRmtBxFiQRJ2iPa62VjVdljaoT7TePc5YK7W90eBWFsjZ2Jz3F0UUu
- Ta7AWb/bhM2EG4NFe5Zr1QqDpe4dBMHJVHJdoaH+w08d0NpU8YFmugycRc5yWCp9XACHI2yryMx
- YuZy+v+cxvpnyu19BtVjHoVaYWxQRVEtqGJwzYif/zp8BbhQqvG1+md7kmOCu1yCMoW08RNXxBo
- TIAX78S10OaLsNgoIQMNpV5bSZm2cQaiFPMeXDnmXtao4abpT61PAIScdpfzq2IvioAaNulNUwJ
- yCbHtZYlsLr0RUIh7MA==
-X-Authority-Analysis: v=2.4 cv=QuJuG1yd c=1 sm=1 tr=0 ts=6a96596f cx=c_pps
- a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
- a=QXcCYyLzdtTjyudCfB6f:22 a=M5GUcnROAAAA:8 a=q3xMn_4gGrLeH3RnqAIA:9
- a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_01,2026-08-31_01,2025-10-01_01
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <83f87db8-fa13-41d0-ae52-544d22e228e6@oss.qualcomm.com>
 
-From: Subbaraya Sundeep <sbhatta@marvell.com>
+On 31-08-26, 20:13, Zhongqiu Han wrote:
+> On 8/30/2026 11:53 PM, Runyu Xiao wrote:
+> > cpufreq_policy_alloc() initializes policy->rwsem after
+> > kobject_init_and_add() has created the policy sysfs directory and its
+> > default attributes. A sysfs access can therefore reach a policy callback
+> > before the semaphore has been initialized.
+> > 
+> > Initialize policy->rwsem before publishing the policy kobject so sysfs
+> > callbacks always see an initialized semaphore.
+> > 
+> > Fixes: ad7722dab729 ("cpufreq: create per policy rwsem instead of per CPU cpu_policy_rwsem")
+> 
+> The tag should be 2fc3384dc75b ("cpufreq: Initialize policy->kobj while
+> allocating policy").
 
-rvu_dbg_rvu_pf_cgx_map_display() locates each RVU PF PCI device via
-pci_get_domain_bus_and_slot() when printing the PF-to-CGX map. It
-assumed PF0 always sits on PCI bus 1 and derived other PF bus numbers
-as pf + 1, but the AF device can be enumerated on a different bus.
+Right.
 
-Use rvu->pdev->bus->number as the base bus instead, so each PF lookup
-uses pf + start on systems where RVU functions are on contiguous buses
-but do not start at bus 1.
-
-Signed-off-by: Subbaraya Sundeep <sbhatta@marvell.com>
-Signed-off-by: Ratheesh Kannoth <rkannoth@marvell.com>
----
- drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c
-index 22ee99676879..bf0302c0c1fc 100644
---- a/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c
-+++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu_debugfs.c
-@@ -829,6 +829,7 @@ static int rvu_dbg_rvu_pf_cgx_map_display(struct seq_file *filp, void *unused)
- 	int pf, domain, blkid;
- 	u8 cgx_id, lmac_id;
- 	u16 pcifunc;
-+	u8 start;
- 
- 	domain = 2;
- 	mac_ops = get_mac_ops(rvu_first_cgx_pdata(rvu));
-@@ -837,11 +838,16 @@ static int rvu_dbg_rvu_pf_cgx_map_display(struct seq_file *filp, void *unused)
- 		return 0;
- 	seq_printf(filp, "PCI dev\t\tRVU PF Func\tNIX block\t%s\tLMAC\tCHAN\n",
- 		   mac_ops->name);
-+
-+	/* All the PF devices are on contiguous PCI bus numbers, but the PF0(AF)
-+	 * may not start from 1 always. Hence get bus number from PCI device.
-+	 */
-+	start = rvu->pdev->bus->number;
- 	for (pf = 0; pf < rvu->hw->total_pfs; pf++) {
- 		if (!is_pf_cgxmapped(rvu, pf))
- 			continue;
- 
--		pdev =  pci_get_domain_bus_and_slot(domain, pf + 1, 0);
-+		pdev =  pci_get_domain_bus_and_slot(domain, pf + start, 0);
- 		if (!pdev)
- 			continue;
- 
 -- 
-2.43.0
-
+viresh
