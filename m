@@ -1,238 +1,287 @@
-Received: from mta1.migadu.com (out-245.mta1.migadu.com [95.215.58.245])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56CCD47B437
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:03:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.245
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDEB4376A19;
+	Tue,  1 Sep 2026 11:04:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788260620; cv=none; b=AV5Q7nu9MBTfp7U5QaXV3dHR/VUxZ2H9qB9+B5pDwyFj0J4Piu56gijKbGbOiZkzcTdmyq0oABQJ2s9Ob5ZEvXufzV05A9YRhBGzAOIVD8sbz5SnYcXwSG8+aWDtSrVH7U/E7WgVr6KuMNLd5NyfSrDvOHBz2bDAcqivL1LspvY=
+	t=1788260645; cv=none; b=HgLS+d95e6dhdgg1jhTkK66bgWQgqOISEbINakIZpyu7lzTu4vQyzzsQ86SvklQsoV3mRqnJ0Dd+TI92FT3RnirMYrNpGpZ5Vr+JvdUHP+zv5shEfKS87xtBl01ImhH5aO3rVQODKeXKhf1MzmRBgDjlwM86D6XgZjZS9eg0pPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788260620; c=relaxed/simple;
-	bh=WyDimoZKuyTxJfpwGX971Wvc9+oQiBDBINkGgnAGP8g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IFipnln4yyYmewJBneHqvbGEU80U4InZTHYJUJv8ZDFkhST8Aza2LEGNEzlaDEVdET0thZPkI2CkwNKj+LGkDxWZqmWgrpI3yxGbNcpXjASlBDoHqM5+JQtuXXZ7/WCoAhiOf7FHSlsWKIZT3V5BLIMc0AxV3Va2fb5t+OFtK1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=K9DvgTUc; arc=none smtp.client-ip=95.215.58.245
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788260645; c=relaxed/simple;
+	bh=KPKGnDWeJWK45N5vGphm4dVDrmdjPRAG24QHvtUj+II=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=lzht9nqO9ZWaP9xsYkJ5xHG14OQHQEGHgozG/9RcBvIbKILqLJ1CCe4l+xHLrDI5AZ245R/ilOoPBB3bKDr6SbnYiXFkfGSZ1tm6/crZzp8//TdDV1QoPBkAtoBqYgL53XwaBT1DTAkOi/nyvrLh/K0HlOWci5XC94SS/jVNrMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Wl+vadAG; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="K9DvgTUc"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=WyDimoZKuyTxJfpwGX971Wvc9+oQiBDBINkGgnAGP8g=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788260616; v=1; x=1788865416;
- b=K9DvgTUc94VuhJ5dVcrUYoavjkUcZiqqYjSf6pivW+yX2mxkzEMoIWSJEe0FJ/cO3xT51r51
- e9idmjUH61thYnsytGBMG/PcvUiphJgY0My7pIzqCfo/fQsQHll8F3o4Gv7EypSgvgiImZDfiuE
- sxq6ecq3GV9OffzqiOByaQf8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b351eed8a82f2337;
-	Tue, 01 Sep 2026 11:03:36 +0000
-X-Mizu-Trace-ID: b351eed8a82f2337
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b2a73da7e1so6882e87.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 04:03:36 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxFz4/aaFiLr2bEU8Ow+Zx8FSgZ+qbqn9Yjb/uBiD3MJZDrkb5dho9gLwTtS9xkNVdZb5XEcysOgBieK28=@vger.kernel.org
-X-Gm-Message-State: AFuF++lVPNR2ec4xVH09D1+KELYsSp0pEEPxBUaGM0dhnJvi8efaf8vy
-	l+rAUD7RMOWbT4d6JytcRca+HeWUdmfwuZrg+ot6NpbR17Bst8JtTMpmVgVdYq8z0DHkAvRAfUq
-	b5ilFCiWd3E7waHOUWYNTMRQE0Adz58rsiJxVic3E
-X-Received: by 2002:a05:6512:b8d:b0:5b2:8963:e5d4 with SMTP id
- 2adb3069b0e04-5b600a42bd7mr115293e87.5.1788260614031; Tue, 01 Sep 2026
- 04:03:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Wl+vadAG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788260643; x=1819796643;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=KPKGnDWeJWK45N5vGphm4dVDrmdjPRAG24QHvtUj+II=;
+  b=Wl+vadAG/dy+Yjvhqtm1bJOnAHxPMW/4e0lnjTI7QvUEtjO3UKpmwWMQ
+   Ht8rMwS6tOmk5WPh3da7MRnugoo7+KLP6jI3A1M2AA9m27cnYDpzq261o
+   iIyg4Zt9Ed4bANXMsJ2phsFOUMNvsow+zxg+SAr26QXGWyNhketS3gCjF
+   fvT8r90+X+UZrrkIl35pMHtCM4YrXO8bGiwKHNiyYwSAdzXMKbSRxygMw
+   Z+OKtBZ40UHO7nZlFjRehJ/Vn/XJ5/PH56euVTVg+oqZIS0WbIT3Xeniq
+   V0ah2LdoK2dm8tWrCPbMmTl1HyMlCOYBebRAma8tB+zNTRk0JgZTdGbwB
+   Q==;
+X-CSE-ConnectionGUID: oCChpg38Q1WkFgBnO89Qkg==
+X-CSE-MsgGUID: aAy6pGXVT0ePz+rla3EXKw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88562302"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="88562302"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 04:04:01 -0700
+X-CSE-ConnectionGUID: ZjjNe1FCTsqMNz0iugM4eA==
+X-CSE-MsgGUID: uTdc6moQTImyh1qzhhcIDA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="269112183"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.37])
+  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 04:04:00 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Tue, 1 Sep 2026 14:03:56 +0300 (EEST)
+To: Priyank Rathod <rathodpriyank@google.com>
+cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] PCI: Add pcie_get_link_endpoints() helper
+In-Reply-To: <20260831-pcie-link-endpoints-v1-1-32c2fd893e9e@google.com>
+Message-ID: <03f0fedb-beeb-369a-47dc-e7ddc3b27aef@linux.intel.com>
+References: <20260831-pcie-link-endpoints-v1-1-32c2fd893e9e@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com> <20260830-gmem-inplace-conversion-v12-43-85e5fd25252a@google.com>
-In-Reply-To: <20260830-gmem-inplace-conversion-v12-43-85e5fd25252a@google.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Tue, 1 Sep 2026 12:03:00 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTy8-Otz2NpetF=GsgZ=PQ10KHuHhGKtDmi8NG9skDZP_g@mail.gmail.com>
-X-Gm-Features: AcwNN1XpQa0y8jS48DZXcNiZMD0Nb3-aLRIoorwIpEndtCPmsJSxZZnT6oLYZmg
-Message-ID: <CA+EHjTy8-Otz2NpetF=GsgZ=PQ10KHuHhGKtDmi8NG9skDZP_g@mail.gmail.com>
-Subject: Re: [PATCH v12 43/45] KVM: selftests: Set up page size and alignment
- independently for guest_memfd
-To: ackerleytng@google.com
-Cc: aik@amd.com, andrew.jones@linux.dev, binbin.wu@linux.intel.com, 
-	brauner@kernel.org, chao.p.peng@linux.intel.com, david@kernel.org, 
-	jmattson@google.com, jthoughton@google.com, michael.roth@amd.com, 
-	oupton@kernel.org, pankaj.gupta@amd.com, qperret@google.com, 
-	rick.p.edgecombe@intel.com, rientjes@google.com, shivankg@amd.com, 
-	steven.price@arm.com, willy@infradead.org, wyihan@google.com, 
-	yan.y.zhao@intel.com, forkloop@google.com, pratyush@kernel.org, 
-	suzuki.poulose@arm.com, aneesh.kumar@kernel.org, liam@infradead.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>, 
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
-	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, tarunsahu@google.com, 
-	Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-mm@kvack.org, linux-coco@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/mixed; boundary="8323328-698854999-1788260636=:1170"
 
-On Mon, 31 Aug 2026 at 01:25, Ackerley Tng via B4 Relay
-<devnull+ackerleytng.google.com@kernel.org> wrote:
->
-> From: Ackerley Tng <ackerleytng@google.com>
->
-> Currently, vm_mem_add derives the backing source page size, alignment
-> padding, and mmap size from the backing source type upfront before checking
-> if guest_memfd is being mmapped.
->
-> With shared memory also mmap()-ed from guest_memfd, the alignment of the
-> mmap-ed address needs to respect guest_memfd's backing page size.
->
-> Refactor the backing store setup to configure the backing source page
-> size, alignment, mmap flags, and mmap offset directly for guest_memfd
-> when it is mmapped, ignoring the backing source type.
->
-> Skip hugepage validation and anonymous memory madvise calls when mmapping
-> from guest_memfd, since those are not applicable when mmapping guest_memfd.
->
-> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
+--8323328-698854999-1788260636=:1170
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-Cheers,
-/fuad
+On Mon, 31 Aug 2026, Priyank Rathod wrote:
 
+> In PCIe topologies, physical links are point-to-point connections
+> between an Upstream Component (Downstream Port, such as a Root Port
+> or Switch Downstream Port) and a Downstream Component (Upstream Port,
+> such as an Endpoint or Switch Upstream Port), per PCIe Base Specification
+> r7.0/r6.0 sec 1.3.1.
+>=20
+> Currently, various drivers across drivers/pci/ independently infer the
+> two ends of a PCIe link using varied ad-hoc methods:
+>   - ASPM (drivers/pci/pcie/aspm.c): pcie_aspm_get_link(),
+>     alloc_pcie_link_state(), and pci_configure_ltr() resolve parent
+>     bridges and subordinate function 0.
 
+This is not the full picture. The aspm driver has to write the same config=
+=20
+to all functions (except L1SS that is only in func 0).
+
+>   - Precision Time Measurement (drivers/pci/pcie/ptm.c):
+>     pci_upstream_ptm() traverses pci_upstream_bridge() to validate
+>     upstream link partner capabilities.
+
+This looks something entirely different, and it's pure get (a certain)=20
+device upstream, not the get-my-link-partner query.
+
+>   - PCIe Link Retrain (drivers/pci/pci.c): pcie_retrain_link() and
+>     pcie_update_link_speed() coordinate link retraining from the
+>     Downstream Port across the subordinate bus.
+
+I don't entirely agree with this assessment. pcie_retrain_link() is given=
+=20
+a downstream port, mere looking into ->subordinate doesn't constitute as a=
+=20
+need for having access to the struct of the other end of the link.
+
+>   - AER/DPC Recovery (drivers/pci/pcie/err.c): pcie_do_recovery()
+>     identifies the parent bridge via pci_upstream_bridge() to trigger
+>     secondary bus reset and broadcast driver recovery callbacks.
+
+This seems to have some validity, though it must cover RCiEPs.
+
+>   - Lane Margining at Receiver (LMR): margin_enable_write() requires
+>     both link endpoints to establish hierarchical locking and runtime PM
+>     pinning.
+>=20
+> Ad-hoc subordinate bus iteration risks races with concurrent device
+> removal or hotplug if pci_bus_sem is omitted.
+>=20
+> Introduce pcie_get_link_endpoints() and pcie_put_link_endpoints() in the
+> PCI core to provide a standardized, symmetric, and race-safe helper:
+>   - For Endpoints: resolves the parent Downstream Port via
+>     pci_upstream_bridge(pdev).
+>   - For Downstream Ports: safely inspects the subordinate bus under
+>     down_read(&pci_bus_sem) and acquires a reference via pci_dev_get()
+>     on the child device.
+>=20
+> Callers release the acquired reference using pcie_put_link_endpoints().
+>=20
+> Signed-off-by: Priyank Rathod <rathodpriyank@google.com>
 > ---
->  tools/testing/selftests/kvm/lib/kvm_util.c | 74 ++++++++++++++++++------------
->  1 file changed, 45 insertions(+), 29 deletions(-)
->
-> diff --git a/tools/testing/selftests/kvm/lib/kvm_util.c b/tools/testing/selftests/kvm/lib/kvm_util.c
-> index cac5624e99774..3f559f207408f 100644
-> --- a/tools/testing/selftests/kvm/lib/kvm_util.c
-> +++ b/tools/testing/selftests/kvm/lib/kvm_util.c
-> @@ -1034,11 +1034,12 @@ void vm_mem_add(struct kvm_vm *vm, enum vm_mem_backing_src_type src_type,
->  {
->         int ret;
->         struct userspace_mem_region *region;
-> -       size_t backing_src_pagesz = get_backing_src_pagesz(src_type);
-> -       int mmap_flags = vm_mem_backing_src_alias(src_type)->flag;
->         size_t mem_size = npages * vm->page_size;
-> -       off_t mmap_offset = 0;
-> -       size_t alignment = 1;
-> +       size_t backing_src_pagesz;
-> +       off_t mmap_offset;
-> +       bool is_gmem_mmap;
-> +       size_t alignment;
-> +       int mmap_flags;
->
->         TEST_REQUIRE_SET_USER_MEMORY_REGION2();
->
-> @@ -1090,19 +1091,31 @@ void vm_mem_add(struct kvm_vm *vm, enum vm_mem_backing_src_type src_type,
->         /* Allocate and initialize new mem region structure. */
->         region = calloc(1, sizeof(*region));
->         TEST_ASSERT(region != NULL, "Insufficient Memory");
-> -       region->mmap_size = mem_size;
->
-> -       /*
-> -        * When using THP mmap is not guaranteed to returned a hugepage aligned
-> -        * address so we have to pad the mmap. Padding is not needed for HugeTLB
-> -        * because mmap will always return an address aligned to the HugeTLB
-> -        * page size.
-> -        */
-> -       if (src_type == VM_MEM_SRC_ANONYMOUS_THP)
-> -               alignment = max(backing_src_pagesz, alignment);
-> +       is_gmem_mmap = (flags & KVM_MEM_GUEST_MEMFD) &&
-> +                      (gmem_flags & GUEST_MEMFD_FLAG_MMAP);
+> Hi Bjorn, Ilpo, and PCI maintainers,
+>=20
+> During the review of the PCIe Lane Margining at Receiver (LMR) patch seri=
+es
+> (v7: https://lore.kernel.org/linux-pci/20260828-pcie-lmt-v7-1-6012e9e0940=
+a@google.com/),
+> Ilpo J=C3=A4rvinen pointed out that feature drivers (such as LMR) resolvi=
+ng link
+> partners duplicate link traversal logic that is already present in driver=
+s such
+> as ASPM:
+>=20
+>   "This feels like duplicating similar functionality with the aspm driver
+>    that also wants to infer ends of the link when giving a pci_dev in.
+>    The aspm driver currently does that within, but it kind of duplicating
+>    pci_bus. It would be nice to avoid the duplication and have something
+>    similar for this in PCI core."
+>=20
+> In PCIe topologies, physical links are point-to-point interconnects
+> between an Upstream Component (Downstream Port, such as a Root Port or Sw=
+itch
+> Downstream Port) and a Downstream Component (Upstream Port, such as an En=
+dpoint
+> or Switch Upstream Port), per PCIe Base Specification Revision 7.0 / 6.0
+> Section 1.3.1.
+>=20
+> Several subsystems across drivers/pci/ independently infer and coordinate=
+ both
+> ends of a PCIe link:
+>   1. ASPM (drivers/pci/pcie/aspm.c): pcie_aspm_get_link(),
+>      alloc_pcie_link_state(), and pci_configure_ltr() resolve parent brid=
+ges
+>      and subordinate function 0 to configure ASPMC and L1SS.
+>   2. Precision Time Measurement (drivers/pci/pcie/ptm.c): pci_upstream_pt=
+m()
+>      traverses pci_upstream_bridge() to validate upstream link partner
+>      capabilities.
+>   3. PCIe Link Retrain (drivers/pci/pci.c): pcie_retrain_link() and
+>      pcie_update_link_speed() coordinate link retraining from the Downstr=
+eam
+>      Port across the subordinate bus.
+>   4. AER & DPC Recovery (drivers/pci/pcie/err.c): pcie_do_recovery() iden=
+tifies
+>      the parent bridge via pci_upstream_bridge() to trigger secondary bus
+>      resets and broadcast driver error callbacks.
+>   5. Lane Margining at Receiver (LMR): margin_enable_write() requires bot=
+h
+>      link endpoints to establish hierarchical locking (pci_dev_lock) and
+>      runtime PM pinning.
+>=20
+> Currently, these drivers independently implement ad-hoc traversals via
+> pci_upstream_bridge() or subordinate bus device iteration. Ad-hoc subordi=
+nate
+> bus iteration is error-prone and risks races with concurrent hot-unplug o=
+r
+> device removal if pci_bus_sem is omitted.
+>=20
+> This patch introduces pcie_get_link_endpoints() and pcie_put_link_endpoin=
+ts()
+> in the PCI core (drivers/pci/pci.c and include/linux/pci.h) as a standalo=
+ne
+> helper:
+>   - For Endpoints: resolves the parent Downstream Port via
+>     pci_upstream_bridge(pdev).
+>   - For Downstream Ports: safely inspects the subordinate bus under
+>     down_read(&pci_bus_sem) and acquires a reference via pci_dev_get() on=
+ the
+>     child device.
+>=20
+> Callers release the acquired reference with pcie_put_link_endpoints().
+>=20
+> Validation:
+>   - Compiled clean on x86_64 defconfig (0 warnings, 0 errors).
+>   - Multi-architecture build validated for ARM64 and x86_64 targets.
+>   - Passed checkpatch.pl (0 warnings, 0 errors).
+>   - Passed Sashiko pre-commit test runner (ID: 46b5f8a3da1ca0056407b3db6c=
+82b001264f86b7).
+> ---
+>  drivers/pci/pci.c   | 50 +++++++++++++++++++++++++++++++++++++++++++++++=
++++
+>  include/linux/pci.h |  6 ++++++
+>  2 files changed, 56 insertions(+)
+>=20
+> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> index 77b17b13ee61..7bdfe7e5ab3a 100644
+> --- a/drivers/pci/pci.c
+> +++ b/drivers/pci/pci.c
+> @@ -4618,6 +4618,56 @@ int pcie_retrain_link(struct pci_dev *pdev, bool u=
+se_lt)
+>  =09return rc;
+>  }
+> =20
+> +/**
+> + * pcie_get_link_endpoints - Identify Upstream and Downstream ends of a =
+PCIe link
+> + * @pdev: Any PCIe device on the link (Downstream Port or Endpoint)
+> + * @downstream_port: Output pointer to Downstream Port (Upstream Compone=
+nt)
+> + * @upstream_port: Output pointer to Upstream Port (Downstream Component=
+)
+> + *
+> + * Identifies both ends of a point-to-point PCIe link. Increments refere=
+nce count
+> + * on @upstream_port if dynamically discovered on a downstream port. Cal=
+lers must
+> + * release with pcie_put_link_endpoints().
+> + *
+> + * Return: 0 on success, or -EINVAL if @pdev is NULL or not PCIe.
+> + */
+> +int pcie_get_link_endpoints(struct pci_dev *pdev,
+> +=09=09=09    struct pci_dev **downstream_port,
+> +=09=09=09    struct pci_dev **upstream_port)
+> +{
+> +=09if (!pdev || !pci_is_pcie(pdev))
+> +=09=09return -EINVAL;
 > +
-> +       if (is_gmem_mmap) {
-> +               backing_src_pagesz = getpagesize();
-> +               alignment = 1;
-> +               mmap_flags = MAP_SHARED;
-> +               mmap_offset = gmem_offset;
-> +       } else {
-> +               backing_src_pagesz = get_backing_src_pagesz(src_type);
-> +               /*
-> +                * When using THP mmap is not guaranteed to returned a hugepage aligned
-> +                * address so we have to pad the mmap. Padding is not needed for HugeTLB
-> +                * because mmap will always return an address aligned to the HugeTLB
-> +                * page size.
-> +                */
-> +               alignment = src_type == VM_MEM_SRC_ANONYMOUS_THP ? backing_src_pagesz : 1;
-> +               mmap_flags = vm_mem_backing_src_alias(src_type)->flag;
-> +               mmap_offset = 0;
-> +       }
->
->         TEST_ASSERT_EQ(gpa, align_up(gpa, backing_src_pagesz));
->
-> +       region->mmap_size = mem_size;
->         /* Add enough memory to align up if necessary */
->         if (alignment > 1)
->                 region->mmap_size += alignment;
-> @@ -1129,10 +1142,8 @@ void vm_mem_add(struct kvm_vm *vm, enum vm_mem_backing_src_type src_type,
->         }
->
->         region->fd = -1;
-> -       if (flags & KVM_MEM_GUEST_MEMFD && gmem_flags & GUEST_MEMFD_FLAG_MMAP) {
-> +       if (is_gmem_mmap) {
->                 region->fd = kvm_dup(gmem_fd);
-> -               mmap_flags = MAP_SHARED;
-> -               mmap_offset = gmem_offset;
->         } else if (backing_src_is_shared(src_type)) {
->                 region->fd = kvm_memfd_alloc(region->mmap_size,
->                                              src_type == VM_MEM_SRC_SHARED_HUGETLB);
-> @@ -1141,22 +1152,27 @@ void vm_mem_add(struct kvm_vm *vm, enum vm_mem_backing_src_type src_type,
->         region->mmap_start = __kvm_mmap(region->mmap_size, PROT_READ | PROT_WRITE,
->                                         mmap_flags, region->fd, mmap_offset);
->
-> -       TEST_ASSERT(!is_backing_src_hugetlb(src_type) ||
-> -                   region->mmap_start == align_ptr_up(region->mmap_start, backing_src_pagesz),
-> -                   "mmap_start %p is not aligned to HugeTLB page size 0x%lx",
-> -                   region->mmap_start, backing_src_pagesz);
-> -
->         /* Align host address */
->         region->host_mem = align_ptr_up(region->mmap_start, alignment);
->
-> -       /* As needed perform madvise */
-> -       if ((src_type == VM_MEM_SRC_ANONYMOUS ||
-> -            src_type == VM_MEM_SRC_ANONYMOUS_THP) && thp_configured()) {
-> -               ret = madvise(region->host_mem, mem_size,
-> -                             src_type == VM_MEM_SRC_ANONYMOUS ? MADV_NOHUGEPAGE : MADV_HUGEPAGE);
-> -               TEST_ASSERT(ret == 0, "madvise failed, addr: %p length: 0x%lx src_type: %s",
-> -                           region->host_mem, mem_size,
-> -                           vm_mem_backing_src_alias(src_type)->name);
-> +       if (!is_gmem_mmap) {
-> +               TEST_ASSERT(!is_backing_src_hugetlb(src_type) ||
-> +                           region->mmap_start ==
-> +                           align_ptr_up(region->mmap_start, backing_src_pagesz),
-> +                           "mmap_start %p is not aligned to HugeTLB page size 0x%lx",
-> +                           region->mmap_start, backing_src_pagesz);
+> +=09if (pcie_downstream_port(pdev)) {
+> +=09=09*downstream_port =3D pdev;
+> +=09=09down_read(&pci_bus_sem);
+> +=09=09*upstream_port =3D pdev->subordinate ?
+> +=09=09=09pci_dev_get(list_first_entry_or_null(&pdev->subordinate->device=
+s,
+> +=09=09=09=09=09=09=09     struct pci_dev, bus_list)) : NULL;
+
+Too much is crammed into one statement.
+
+> +=09=09up_read(&pci_bus_sem);
+> +=09} else {
+> +=09=09*downstream_port =3D pci_upstream_bridge(pdev);
+> +=09=09*upstream_port =3D pdev;
+
+Why complicate things with the unbalance?
+
+> +=09}
 > +
-> +               /* As needed perform madvise */
-> +               if ((src_type == VM_MEM_SRC_ANONYMOUS ||
-> +                    src_type == VM_MEM_SRC_ANONYMOUS_THP) && thp_configured()) {
-> +                       int advice = src_type == VM_MEM_SRC_ANONYMOUS ?
-> +                                    MADV_NOHUGEPAGE : MADV_HUGEPAGE;
+> +=09return 0;
+> +}
+> +EXPORT_SYMBOL_GPL(pcie_get_link_endpoints);
 > +
-> +                       ret = madvise(region->host_mem, mem_size, advice);
-> +                       TEST_ASSERT(ret == 0, "madvise failed, addr: %p length: 0x%lx src_type: %s",
-> +                                   region->host_mem, mem_size,
-> +                                   vm_mem_backing_src_alias(src_type)->name);
-> +               }
->         }
->
->         region->backing_src_type = src_type;
->
-> --
-> 2.55.0.897.gb25b4bd76c-goog
->
->
+> +/**
+> + * pcie_put_link_endpoints - Release references acquired by pcie_get_lin=
+k_endpoints
+> + * @pdev: Device passed to pcie_get_link_endpoints()
+> + * @downstream_port: Downstream Port pointer
+> + * @upstream_port: Upstream Port pointer
+> + */
+> +void pcie_put_link_endpoints(struct pci_dev *pdev,
+> +=09=09=09     struct pci_dev *downstream_port,
+> +=09=09=09     struct pci_dev *upstream_port)
+> +{
+> +=09if (pdev && pcie_downstream_port(pdev) && upstream_port)
+> +=09=09pci_dev_put(upstream_port);
+> +}
+> +EXPORT_SYMBOL_GPL(pcie_put_link_endpoints);
+
+--
+ i.
+--8323328-698854999-1788260636=:1170--
