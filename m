@@ -1,205 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 961FE43B6C4;
-	Tue,  1 Sep 2026 16:07:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB07043E078;
+	Tue,  1 Sep 2026 16:09:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788278867; cv=none; b=BT0mM0cUHOXCFMjr1zQi0npbkhgnKeb+tqZG/Ol+57Hr+1zw9/V0VF5JVmwI5UJINyVuTe0zJF21ODwqAOid159p+N5Jouv83SkPKkbbrSpPirx0slaI0Hx+IBBNeW2APuU1IHBVBASFsoA4ArlJpKRP7nTA1axtrRSMDXSjNmw=
+	t=1788278956; cv=none; b=e/rih2UNb9vS+/nGEqFp9EBcKGyVm8/eguwFTVCQGKq2Qt0w8tdTjvmQF5GYMiXDvdT40Rvc0uZyTGFiBGnuffbaptscBeZbjCTPeKIJggtw5TcN5pdUcApQrzfvZyl7eeIVjjV60sKqdD8a3Cv88OKZSTJ3NL9NGCf6gySjTIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788278867; c=relaxed/simple;
-	bh=W1kafMqDjOCUPInaEDPdnz/T7i9UzWQpYMS3IeahQyo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OOJ004QHdDYr/xFneJMb7RtcgaOTUU2Bw+eVmtYLHPc1bmO3TvE1AT1GMc1/MMF5TUV82HxKwCeWHowaV7tGKqD0cArh7G/Nd3JDTEf/0pxFCpY+MprmtvdpKLx/KusZLv9jQIup6nuVcv4ny3B1ZGKHJzuZuqrSUJ2Oqc87K3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SCRpMMXG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788278956; c=relaxed/simple;
+	bh=Wt41fk7XzYRzVaO2AD9iXe5dEZ1C2sk1KBdtD95Axko=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Bi8iDTmq7jUhhtjO2voBzJKDBub/9HLB7j4rsgmrWTJJY1ckGj+8xAgsbXLd4IhyGOhSoIHeiUdnm3BSWDZXkDltqs+eRMd3pAdoVY/teS0gS+7WEVUsShLnlYnX1892WJ33eqC67kXnvXsnbdc+20TFYo3GR3U4IEk2hsR7kCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PoHyfItD; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SCRpMMXG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 074371F000E9;
-	Tue,  1 Sep 2026 16:07:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788278866;
-	bh=T/2aUpJVcP4K5UuA+yMWg9r9rcG5CMYvek4Bzm6AV1A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SCRpMMXGP6roaFqulAGZDp41ZFF8B6X70ykI+UWYhpOv7jGA35GbvrODY2qxdBycf
-	 KcvWy4Grani8ffbVC/NhndwvqTKFUzBoB9E0VCPWMKqi9YGIDxDGn1tzjyKyhaR5R+
-	 KLUdVjKYOST6KfGZooYp5ZLaMhqpnuawYP8tooSqBughx3Slue+ion3S7/8m/M1pqa
-	 JzG0JHVnAN52KwAyDSTbfgOxHZl5xLg99OCK9B1kA+6bpP0B/W2PdB/esAnvvMQmV5
-	 FtQec1e26wbAck1gkTMqNx++vxBrSmBBsTjY3lApJmrE0+rfAxwVX2xeVfScs26yiE
-	 qG2qZeaKNIfhg==
-Message-ID: <c9cf1a69-9136-4f64-b223-aa038520a0a9@kernel.org>
-Date: Tue, 1 Sep 2026 18:07:42 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PoHyfItD"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 62C3CC2BCFA;
+	Tue,  1 Sep 2026 16:09:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788278956;
+	bh=Wt41fk7XzYRzVaO2AD9iXe5dEZ1C2sk1KBdtD95Axko=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=PoHyfItDv/cQMIf8jK0VhNkZYeFYGxny7MAWnM8rUzJjgoaRjj2fQtON9uWac2CBj
+	 PWYHpv37no8yuoRQ1eLjxPlaYw6MYUtaKTBzoT/Ftq2Tx2JYCpnaXWaHO5RbUcyXHk
+	 9tDk/aVmGdTf0kXSQ0xfh56ywP+yODcNuPWQ77Y3UXo0TM69gcA90JEKisNdG0PpYc
+	 OgexZXVp+JLqfIWXY86cvSX6fEhGixJOnKCWa8uOpVlV4NH+JpIONdNDnZDOmgIJoz
+	 UBmZlqPigqzooGA5gmlVY/Hq5TYh/ED2NIA1OKxG+EPFyUDxEYQ3CyoJZ0WRi9aiAH
+	 Rcv1BWNqOSEoQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 44897C624D5;
+	Tue,  1 Sep 2026 16:09:16 +0000 (UTC)
+From: Ke Sun via B4 Relay <devnull+sunke.kylinos.cn@kernel.org>
+Date: Wed, 02 Sep 2026 00:09:01 +0800
+Subject: [PATCH 2/9] rust: mm: add `task_size` helper
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] power: supply: core: Honor supplied-from with CONFIG_OF=y
-To: Maurizio Casciano <mauriziocasciano7@gmail.com>,
- Sebastian Reichel <sre@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Maurizio Casciano <maurizio.casciano@eng.it>, stable@vger.kernel.org
-References: <20260901145156.3177187-1-mauriziocasciano7@gmail.com>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20260901145156.3177187-1-mauriziocasciano7@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-tyr-ioctls-v1-2-e0fdbf8bd108@kylinos.cn>
+References: <20260902-tyr-ioctls-v1-0-e0fdbf8bd108@kylinos.cn>
+In-Reply-To: <20260902-tyr-ioctls-v1-0-e0fdbf8bd108@kylinos.cn>
+To: rust-for-linux@vger.kernel.org
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Lyude Paul <lyude@redhat.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, dri-devel@lists.freedesktop.org, 
+ Ke Sun <sunke@kylinos.cn>, Alvin Sun <alvin.sun@linux.dev>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788278954; l=891;
+ i=sunke@kylinos.cn; s=20260317; h=from:subject:message-id;
+ bh=qqWFYnkUdOvaxzK249OpGaOu6UGHYSzktFTqj4uM+pI=;
+ b=oHWDNasF+q42cZjuP7Vyzw0DKfYfsrBz1qiLDguWG+DGqzqQ2c8I3XwHLkj5Nv7tFARXpDbIw
+ aU+eSOJuPDQDe41AF9ZIFWnYyr5WukFdVIFMSsNJps+nQQeVcfZydmr
+X-Developer-Key: i=sunke@kylinos.cn; a=ed25519;
+ pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
+X-Endpoint-Received: by B4 Relay for sunke@kylinos.cn/20260317 with
+ auth_id=950
+X-Original-From: Ke Sun <sunke@kylinos.cn>
+Reply-To: sunke@kylinos.cn
 
-Hi,
+From: Alvin Sun <alvin.sun@linux.dev>
 
-Thank you for your patch.
+Expose the task's address space size. It is used by the Tyr driver
+for splitting a VM's GPU address space into user and kernel regions.
 
-On 1-Sep-26 16:51, Maurizio Casciano wrote:
-> From: Maurizio Casciano <maurizio.casciano@eng.it>
-> 
-> The supplied-from device property is the name-based counterpart to
-> firmware-node power-supplies references. It was added for non-DT platforms,
-> but its parser is compiled only when CONFIG_OF is disabled. CONFIG_OF is a
-> global kernel option, so x86 systems commonly enable it even when
-> individual power supplies are described by software nodes.
-> 
-> Consequently, these consumers never populate supplied_from and supplier
-> notifications do not reach their external_power_changed() callbacks. On a
-> Lenovo Yoga Book YB1-X91L, ftrace showed the Whiskey Cove supplier
-> notification running without invoking the BQ25892 callback, leaving the
-> input current limit at its boot-time value.
-> 
-> Move the generic supplied-from parser into an unconditional helper and try
-> it before firmware-reference power-supplies lookup. Keep an explicitly
-> supplied list at the highest priority and retain power-supplies as the
-> fallback. With the fix, ftrace shows the BQ25892 callback on hotplug and a
-> boot-offline test changes its input current limit from 500 mA to 2 A.
-> 
-> Fixes: 58a36bb06891 ("power: supply: core: Add support for supplied-from device-property")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Maurizio Casciano <maurizio.casciano@eng.it>
+Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+---
+ rust/kernel/mm.rs | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Interesting. This seems to be a new problem / development in 7.3-rc1
-where it seems CONFIG_OF now seems to get enabled on x86 configs.
+diff --git a/rust/kernel/mm.rs b/rust/kernel/mm.rs
+index 4764d7b68f2a7..d2dfbb7d43972 100644
+--- a/rust/kernel/mm.rs
++++ b/rust/kernel/mm.rs
+@@ -149,6 +149,13 @@ pub fn mmget_not_zero(&self) -> Option<ARef<MmWithUser>> {
+             None
+         }
+     }
++
++    /// The size of the process virtual address space.
++    #[inline]
++    pub fn task_size(&self) -> usize {
++        // SAFETY: `self.as_raw()` is a valid pointer to an `mm_struct` per the type invariants.
++        unsafe { (*self.as_raw()).__bindgen_anon_1.task_size }
++    }
+ }
+ 
+ // These methods require `mm_users` to be non-zero.
 
-This change has also lead to other problems, e.g. :
+-- 
+2.43.0
 
-https://bugzilla.redhat.com/show_bug.cgi?id=2523734#c7
-
-Still I agree that this code should do the right thing when CONFIG_OF
-is enabled on x86 which it currently clearly is not doing.
-
-But I don't taking that making the new power_supply_check_supplies_by_name()
-function higher priority then proper OF/devicetree node links is a good
-idea.
-
-IMHO this should be the fallback (in the CONFIG_OF enabled case)
-when no suppliers are found through looking at DT node links first.
-
-Sebastian, what do you think ?
-
-Regards,
-
-Hans
-
-
-
-
-> ---
->  drivers/power/supply/power_supply_core.c | 61 ++++++++++++++----------
->  1 file changed, 36 insertions(+), 25 deletions(-)
-> 
-> diff --git a/drivers/power/supply/power_supply_core.c b/drivers/power/supply/power_supply_core.c
-> index 00d8bc98d588..5101decebb7a 100644
-> --- a/drivers/power/supply/power_supply_core.c
-> +++ b/drivers/power/supply/power_supply_core.c
-> @@ -190,6 +190,35 @@ static void power_supply_deferred_register_work(struct work_struct *work)
->  		device_unlock(psy->dev.parent);
->  }
->  
-> +static int power_supply_check_supplies_by_name(struct power_supply *psy)
-> +{
-> +	struct device *parent = psy->dev.parent;
-> +	int nval, ret;
-> +
-> +	if (!parent)
-> +		return 0;
-> +
-> +	nval = device_property_string_array_count(parent, "supplied-from");
-> +	if (nval <= 0)
-> +		return 0;
-> +
-> +	psy->supplied_from = devm_kmalloc_array(&psy->dev, nval,
-> +						sizeof(*psy->supplied_from),
-> +						GFP_KERNEL);
-> +	if (!psy->supplied_from)
-> +		return -ENOMEM;
-> +
-> +	ret = device_property_read_string_array(parent, "supplied-from",
-> +						(const char **)psy->supplied_from,
-> +						nval);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	psy->num_supplies = nval;
-> +
-> +	return 0;
-> +}
-> +
->  #ifdef CONFIG_OF
->  static int __power_supply_populate_supplied_from(struct power_supply *epsy,
->  						 void *data)
-> @@ -262,19 +291,22 @@ static int power_supply_find_supply_from_fwnode(struct fwnode_handle *supply_nod
->  static int power_supply_check_supplies(struct power_supply *psy)
->  {
->  	struct fwnode_handle *np;
-> -	int cnt = 0;
-> +	int cnt = 0, ret;
->  
->  	/* If there is already a list honor it */
->  	if (psy->supplied_from && psy->num_supplies > 0)
->  		return 0;
->  
-> +	/* Check for the name-based "supplied-from" device property first. */
-> +	ret = power_supply_check_supplies_by_name(psy);
-> +	if (ret || psy->num_supplies)
-> +		return ret;
-> +
->  	/* No device node found, nothing to do */
->  	if (!psy->dev.fwnode)
->  		return 0;
->  
->  	do {
-> -		int ret;
-> -
->  		np = fwnode_find_reference(psy->dev.fwnode, "power-supplies", cnt++);
->  		if (IS_ERR(np))
->  			break;
-> @@ -304,28 +336,7 @@ static int power_supply_check_supplies(struct power_supply *psy)
->  #else
->  static int power_supply_check_supplies(struct power_supply *psy)
->  {
-> -	int nval, ret;
-> -
-> -	if (!psy->dev.parent)
-> -		return 0;
-> -
-> -	nval = device_property_string_array_count(psy->dev.parent, "supplied-from");
-> -	if (nval <= 0)
-> -		return 0;
-> -
-> -	psy->supplied_from = devm_kmalloc_array(&psy->dev, nval,
-> -						sizeof(char *), GFP_KERNEL);
-> -	if (!psy->supplied_from)
-> -		return -ENOMEM;
-> -
-> -	ret = device_property_read_string_array(psy->dev.parent,
-> -		"supplied-from", (const char **)psy->supplied_from, nval);
-> -	if (ret < 0)
-> -		return ret;
-> -
-> -	psy->num_supplies = nval;
-> -
-> -	return 0;
-> +	return power_supply_check_supplies_by_name(psy);
->  }
->  #endif
->  
 
