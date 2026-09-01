@@ -1,252 +1,136 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011060.outbound.protection.outlook.com [52.101.70.60])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B2103C3C02;
-	Tue,  1 Sep 2026 19:35:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.60
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788291323; cv=fail; b=cehNGVI9PLFYdK3xPsdP11EJN9mK5wokhiJOfmCT7KBmggXgBd1GLMk3rT7aTOT68yYw4p66vQIy3nA/bc6e1/69onLCqgApYLa5Zlu08AjaDmu84RimDCC669Bw5vbTxG8yf/tBovIhADip1RMrE+38PhPeY5nN+EqL2YzYGrc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788291323; c=relaxed/simple;
-	bh=5lAqrg+1ETVJqHLWk/f6LkFUX3Vi4boHjEU5HGl7xn0=;
-	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type; b=DYdsPrkhonlYtMgvv3c2MQJnmNbIgO66AMtsfKpKgC62PS8EM2g/x2SMHAXiRL4ut7OWoWjZqki0MJ1IKblWLFjmh4MWVe8Z3+M/Lo1wq9Ant9psLkZXewIfUuIXDU4qlTaX372aYzHuUxWozKi2OM/afquWPhqiDwQoCTqq3+M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=AtNVcvS3; arc=fail smtp.client-ip=52.101.70.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64AD925B092
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 19:35:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788291341; cv=none; b=TF9dRUrfkjAStSxAWmqxArf4QluxVmttC1ZkPwY2IwSXTgqfiH9omH1OtyQP4nbNOZuf5bv11EdWYeCv2zBL70TV1l32byOqmg2P5m0EShXEaVEMJ4Yx/5ex/Nj8tKkO7MRVKW32DcXrA+sOdFaqESYbkaGYY+6Zhjaxo4w64IM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788291341; c=relaxed/simple;
+	bh=J32nMN/QwrepL4sWsEoif8DuURtLZGiyOr7RSLQ4DCw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=F02rBas8m9rj15O97AzurN86DvcbfcQU+UeMnbDUaWuZ9t9uQSjmsF3KzULVQQ8SuICpWOYueapY7syFIAP0qfK9mGwh+i5aV1cuz0mcjTwBz3JCPzTaC31MnOj6WTT896iSnbAYaNU7p2CwbIPx9freJvdZ9L0xLoeFvxYPgSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=MxMYHWnX; arc=none smtp.client-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="AtNVcvS3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lu/5vcFFkJ/jF1aNyvvPK6ZqFWZPQjGjRyOxRNtd5aUEaBIWURNNis9ZZ/Ql3ieiel5B/pep4nvNGedzJSt/q6xdiUuM/10qgQX8hdACNzpAbfYRePedGyaRXIi+fcka9ItwXUVxsv9hffFlY79wlv12RMXEuigHdvjbPjlO/jllJpMQR70XWuQ0jkrS0BowgVP2gV/fOXp19jVgaUnE5igTZ1zVuFdZ32e+0lPnhmvU4pCYcCeg5gdTMDrn0JNzjD2h3unFDywUaKFyLH697hEl0ITE/kW9BoflR5rPSWJFvthilWjp7Tu9n0OsFVUBO1EYZx62F9R170828zqldQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZqvxhNpYK4poyd0c4aa0/j6jLcA/VVWzma+DLfmVVt4=;
- b=Ksgek3gm6cyGSqai32EH8xviGN6qfLKjPMBbS0l/BQpPl6/ILXslDypJnvGH+TPU0vRlJz5+x5P1ro77B93FsgTQtqP1O6xw15gcguuQRdJ/YWkFg4IsytdVhcz5JWPfLxzfHBpYi1Acz1t19QXX88xTM3BHFoDE7atPdcg7emV4zMAXtnEbKsYMNBG3yHqwGpWE7yHgowx9I49mTOI4efomBBuRMA6U1L2oxD3ZUzjojkagjxh4TSBV7Pyt5u64RoyWuXucEoqVGiFIeKePq8usiHWLTK1H2KXID+af8zQYP/3PwaaAmmPc4zztQK1cJv2zWQ+cSleilggQXQEQaQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 195.60.68.100) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=axis.com;
- dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZqvxhNpYK4poyd0c4aa0/j6jLcA/VVWzma+DLfmVVt4=;
- b=AtNVcvS3fz3dW9Tp4Z2RoB+eMZ9bta23oVxTeKqvgjNjtxmpbIu0HgJovtHVPEBTx3zJobXHADQWYVxizi8Rx71y4kgQpcRAAeToKZ4doZ/1rF9DpNbExd27KHQDMauERpQ6S8WCsj1UiVGQSqd0450lmE+PEk0FiG//EtEmoHs=
-Received: from AM0P309CA0028.EURP309.PROD.OUTLOOK.COM (2603:10a6:20b:28f::6)
- by GV1PR02MB8684.eurprd02.prod.outlook.com (2603:10a6:150:90::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 19:35:15 +0000
-Received: from AMS0EPF00000198.eurprd05.prod.outlook.com
- (2603:10a6:20b:28f:cafe::69) by AM0P309CA0028.outlook.office365.com
- (2603:10a6:20b:28f::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Tue, 1
- Sep 2026 19:35:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 195.60.68.100)
- smtp.mailfrom=axis.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=axis.com;
-Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
- 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
- client-ip=195.60.68.100; helo=mail.axis.com; pr=C
-Received: from mail.axis.com (195.60.68.100) by
- AMS0EPF00000198.mail.protection.outlook.com (10.167.16.244) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 19:35:15 +0000
-Received: from pc67007-2609 (10.4.0.13) by se-mail10w.axis.com (10.20.40.10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Tue, 1 Sep
- 2026 21:35:10 +0200
-From: Waqar Hameed <waqar.hameed@axis.com>
-To: Sebastian Reichel <sre@kernel.org>
-CC: <kernel@axis.com>, <linux-pm@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 8/8] power: supply: bq25630: Add support for BATFET control
-In-Reply-To: <cover.1788290289.git.waqar.hameed@axis.com>
-References: <cover.1788290289.git.waqar.hameed@axis.com>
-User-Agent: a.out
-Message-ID: <f9d62a7fbabb1a920b31f79438cc737df78d0140.1788290289.git.waqar.hameed@axis.com>
-Date: Tue, 1 Sep 2026 21:35:10 +0200
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="MxMYHWnX"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c2544ff970dso20472866b.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:35:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1788291336; x=1788896136; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AETTaEq1T3Xs19/mdy6ZVJDHY8UC6CXvW2WpS0LSv0g=;
+        b=MxMYHWnXxlDY6YzDLBZZTTDUnmGklSU1nCJJXSbKvzAZ4eRjLoBsgVZ17z7OztzZnK
+         zs/xaCPHbAlwwt2qR86MgMv1i9GlzBuUi/OKDJ5qRzm980ISyb/ToSeT9eyooe+k5Lee
+         E9O9nHCmjjQ90dk3wmS9Eqqq50VQsMdFFvb2s=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788291336; x=1788896136;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=AETTaEq1T3Xs19/mdy6ZVJDHY8UC6CXvW2WpS0LSv0g=;
+        b=kkPZ4CX8eHqYwZZNDNvk3/+z8qRLwQhqOp506E/8YWSfkvm6Z81YV2CxYxJUwUrS3Z
+         gH1z2/yEAsyA6A//KXkD2Vu+3sfry5Px38si6L5/FGMMxNViaRfRYpkhg+UsDSQdbY4q
+         Qyw6lE8rPW6ZdN73EvrIjafCcCoMDEUlEbzxXUHDQCchuOnKham3R13tK1t1hc3BycVH
+         STvksTtCwc0SCQ2rHjc79eZ8/yIdPSMa8dEshpfOmH7DwI8C8GZM7LGzdGyEHVSa4/oh
+         zoLMhL52khBFh50T1pqAtvrHtTj573fkI0hJneS1Kn/dh1ZEL58Grzwt9tS+SrjQOAVB
+         qk5Q==
+X-Forwarded-Encrypted: i=1; AHgh+RoVxEn9bljFo9Uj9+WxDWHNCGiGOqvwU5qlxLt7KK2va8B7a5ArLesC8t4HK0mFgF7GVFOAUn8dAXbGBAs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJCnpCuLjPCGA1MEXSkcNM9ZeRzE4iHZ5ts0bLAyC4mr297Fk4
+	D4yukor8/GkjTm3bcgkJT0p0gdT6L/fIO/Ed7mvGjKEoXBXeovW2iO/fgIwnkaLx7ZE2QmfFUYX
+	yZWcduuc=
+X-Gm-Gg: AR+sD13pxl1mhtA8Q/crQtifc53eDBPvvIYdTJ4uCHP/rTfTPOXJNJC9DIpVcZQmCRq
+	/l5xn7hWED9CXWT6ebO/ZQcTf7ar7TyItmaJWfv60LvIXVjy0wRb3JqA0sbSJq1HDL9PtBwLVLY
+	yllDeLpEj6vi81sW+MP1WvZWcFs8cZ3D53dftchGUA0/YYQciGa3GwdskJf4PJhqr8O5m3ZjjUO
+	VYKwoERekhViZ9h4Or66iuxjrw8z/qlibbyHdci2a2Z34hHYDC2Mlo+vk/UhhhliBRQGyQLi7eG
+	VpiY/j66ejuEA5S/lClFVTauMcQslvmk4Fg7rvXBWyYgFlOhPd/C0fFuiRNUGSl0wLY9w5eoPcQ
+	RIaDY7GWsaO7JQcQu4G2mZz9KadKW1IV04egpT045dHR97QdF8jd9i8VQ9ylneNr3FpomDyjHz3
+	cAJIMsG/jM4V12aJgvayX0bQVMJeFUh7ZeU0AVcG/6Fkc9BTOe5Bcc2RDbgl45QZZ1btWHsrFYX
+	NmmBqUs8O9hsz8joxtuHLz65L7t0WxmQYQvNQ==
+X-Received: by 2002:a17:907:d1e:b0:c25:8fb2:5e24 with SMTP id a640c23a62f3a-c25d133f1ebmr29762466b.15.1788291336481;
+        Tue, 01 Sep 2026 12:35:36 -0700 (PDT)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com. [209.85.208.46])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25cffc5cc3sm15752266b.7.2026.09.01.12.35.35
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 12:35:36 -0700 (PDT)
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a60f0dbeccso367191a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 12:35:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RpydTng0yiv+C96mJysBfB2ORSAbqmuQ5STxYPkijQqkGRho4LHf6YVgC3hY5PJKX8SKS3F4ZStlqvx8I0=@vger.kernel.org
+X-Received: by 2002:a17:907:7241:b0:c1c:5aa1:de57 with SMTP id
+ a640c23a62f3a-c25d1341557mr28012066b.13.1788291335346; Tue, 01 Sep 2026
+ 12:35:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: se-mail10w.axis.com (10.20.40.10) To se-mail10w.axis.com
- (10.20.40.10)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS0EPF00000198:EE_|GV1PR02MB8684:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3b62aa6f-2c29-47fb-6b97-08df08602607
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|10067099003|11063799006|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	de29ir+lh963ivs60MSdt07GibTtnIvSg6iJIXoMWw9+2buasES6MgFupOc8ZzCPn717NTvihrYyqJapc6JjjZB23QoJJLNwOMm6Yh9IaD892Qwnp3iI78Gb9osLM0H7lAQJxSm8NPdtpl4VN5Vy3uIUZat5YMblaH6t49GXyVxhxiVyEhS+IXyewrWQ7D7oC7BjYCFDIuCfGEGG8rvRcW6g6z1uGY58TUVqit9F+fs689H184/5lkodMIiO7eOUTl10Dtku9twPSsiHxgK9sFCHh3OJZI8HFayYbHIAhSVPJDolA7ZsU4PA0zb29aRlRMK6yhZXvmcn1bpl8eAu6sLsHYUimNRrhJ0BEjRlsd+9t6Q9RrIXXLhZf8Z5nrPmPC1CMOcHi3EQK5QIRSXlhcTPD1M3U+xZRObOI7V9Gt7TGo2gNHh8ilAGRD7S4c3va60A1qFIwG9kA1mU6A4dftLros6w0KcAwRydiYv+W8pc9plE7IoTjWk+or1ouMcZGzNt5Y/9mEg8vzdPXZ6vyMWfvkZgveNOz7bVb4kRT+28Hh+Kw1jCM9gDRUAljLGTuSZBJLmoM0078sKQztk0cbQwa8KU4QWWitTmwaOAWmYmUpJ1L1tGhmDEjHs7NkbfCmzQSC0HrrRpv4I8Oh5b/h4vefyROD24RXNTFt9+hs+5p2of7aNabR5FNbmW9gTh
-X-Forefront-Antispam-Report:
-	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	MfM7dA/A96D6yhwnR3gwYl5FidUToKSb2o0Qxh8wAOwEUaXgqk+I9VZMkabOO1lztfBUROJF0UHUjQSi6BeCT3Ofvg6JF6BKNZq/lIcNw4N3LjL3CyXSMwZI/rREizW5KamOiZ2dsWAETD1haWaCh07GX2DIbl9bcti0aD7XKHtP89eF1cOOko17yPItZmT+8w3ZNU7qbk29aSQFHfxLZ7voHNf51sftzEAh/awic8WYGBj+mDvcrJtFG+gBIdOhpVWESFrylAGirYwDmvKtU++CP9y+D9Fx0sf40mKHJch8qYnEKg0+pDPyWEpJJV1PHO+C+hi9HktMsQWYOyiVaKOBYwfJFvFAi2bqTEnwUiU5E8x+d7zMcybrql0SMrKCWy28kadIUuxPr3Pbg0iY6PzBlucJD/InNC5Dk88RAqg2zbCR5NQ9jOVPvcz3KlzE
-X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 19:35:15.7411
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3b62aa6f-2c29-47fb-6b97-08df08602607
-X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS0EPF00000198.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR02MB8684
+References: <bde573c1a758505339239f08be28788a34dfcb73.1786121949.git.bvanassche@acm.org>
+ <20260831214437.15d6ad34@pumpkin> <a771af57-40ee-433a-be84-9b7c3e6965c5@acm.org>
+ <20260901092043.7feaf5d7@pumpkin> <dca931ff-5995-444c-9f89-6d6cca4e71f3@acm.org>
+ <CAHk-=wgFEG7ZVaFAbo=bWWfsSh_weA4cOh6BV-xHWNSn6SwNBQ@mail.gmail.com> <737a4f62-f50a-40bd-a94a-1f42e9f3f54a@acm.org>
+In-Reply-To: <737a4f62-f50a-40bd-a94a-1f42e9f3f54a@acm.org>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Tue, 1 Sep 2026 12:35:18 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wiZog53-M8--_2m7HRk4XOQ+_jkh1XVuyQXXJgSwooQng@mail.gmail.com>
+X-Gm-Features: AcwNN1VR8J21-p_DXjxK-LRBI6NmPNcYJnCsckRfx8fJ7GPnksHwBJ4AwBYu7-c
+Message-ID: <CAHk-=wiZog53-M8--_2m7HRk4XOQ+_jkh1XVuyQXXJgSwooQng@mail.gmail.com>
+Subject: Re: [PATCH v2] tracing: Make is_signed_type() compatible with sparse
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: David Laight <david.laight.linux@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>, 
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Luc Van Oostenryck <luc.vanoostenryck@gmail.com>, 
+	Chris Li <sparse@chrisli.org>
+Content-Type: text/plain; charset="UTF-8"
 
-The framework supports controlling system load with
-`POWER_SUPPLY_PROP_LOAD_SWITCH`. Use this to select between the
-different supported BATFET control modes.
+On Tue, 1 Sept 2026 at 12:22, Bart Van Assche <bvanassche@acm.org> wrote:
+>
+> Four years ago the following sparse change was proposed:
+>
+>   static int restricted_value(struct expression *v, struct symbol *type)
+>   {
+> -       if (v->type == EXPR_CAST)
+> +       if (v->type == EXPR_CAST || v->type == EXPR_FORCE_CAST)
+>                  v = v->cast_expression;
 
-Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
----
- drivers/power/supply/bq25630_charger.c | 84 ++++++++++++++++++++++++++
- 1 file changed, 84 insertions(+)
+Oh, that's why I've not seen that issue. Because I still have that
+exact thing in my tree, and have had it forever:
 
-diff --git a/drivers/power/supply/bq25630_charger.c b/drivers/power/supply/bq25630_charger.c
-index 200f74f8eab61..bf54ff557a40f 100644
---- a/drivers/power/supply/bq25630_charger.c
-+++ b/drivers/power/supply/bq25630_charger.c
-@@ -112,6 +112,12 @@
- #define BQ25630_ITERM_MAX 1000000
- #define BQ25630_ITERM_STEP 10000
- 
-+/* BATFET control modes. */
-+#define BQ25630_BATFET_CTRL_IDLE	0x00
-+#define BQ25630_BATFET_CTRL_SHUTDOWN	0x01
-+#define BQ25630_BATFET_CTRL_SHIP	0x02
-+#define BQ25630_BATFET_CTRL_STANDBY	0x03
-+
- /* Charge types. */
- #define BQ25630_CHG_STAT_NOT_CHARGING	0x00
- #define BQ25630_CHG_STAT_TRICKLE_CHARGE 0x01
-@@ -587,6 +593,71 @@ static int bq25630_read_vbus(struct bq25630_data *data, int *val)
- 	return 0;
- }
- 
-+static int bq25630_read_batfet_ctrl(struct bq25630_data *data, int *val)
-+{
-+	unsigned int regval;
-+	int ret;
-+
-+	ret = regmap_field_read(data->regfields[BQ25630_REGF_BATFET_CTRL],
-+				&regval);
-+	if (ret) {
-+		dev_err(data->dev, "Could not read BATFET control (%d)\n", ret);
-+		return ret;
-+	}
-+
-+	switch (regval) {
-+	case BQ25630_BATFET_CTRL_IDLE:
-+		*val = POWER_SUPPLY_LOAD_SWITCH_ON;
-+		break;
-+	case BQ25630_BATFET_CTRL_SHUTDOWN:
-+		*val = POWER_SUPPLY_LOAD_SWITCH_OFF;
-+		break;
-+	case BQ25630_BATFET_CTRL_SHIP:
-+		*val = POWER_SUPPLY_LOAD_SWITCH_SHIP;
-+		break;
-+	case BQ25630_BATFET_CTRL_STANDBY:
-+		*val = POWER_SUPPLY_LOAD_SWITCH_STANDBY;
-+		break;
-+	default:
-+		*val = POWER_SUPPLY_LOAD_SWITCH_UNKNOWN;
-+	}
-+
-+	return 0;
-+}
-+
-+static int bq25630_write_batfet_ctrl(struct bq25630_data *data, int val)
-+{
-+	unsigned int regval;
-+	int ret;
-+
-+	switch (val) {
-+	case POWER_SUPPLY_LOAD_SWITCH_ON:
-+		regval = BQ25630_BATFET_CTRL_IDLE;
-+		break;
-+	case POWER_SUPPLY_LOAD_SWITCH_OFF:
-+		regval = BQ25630_BATFET_CTRL_SHUTDOWN;
-+		break;
-+	case POWER_SUPPLY_LOAD_SWITCH_SHIP:
-+		regval = BQ25630_BATFET_CTRL_SHIP;
-+		break;
-+	case POWER_SUPPLY_LOAD_SWITCH_STANDBY:
-+		regval = BQ25630_BATFET_CTRL_STANDBY;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	ret = regmap_field_write(data->regfields[BQ25630_REGF_BATFET_CTRL],
-+				 regval);
-+	if (ret) {
-+		dev_err(data->dev, "Could not write BATFET control (%d)\n",
-+			ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
- static int bq25630_get_status(struct bq25630_data *data, int *val)
- {
- 	unsigned int regval;
-@@ -845,6 +916,9 @@ static int bq25630_charger_get_property(struct power_supply *psy,
- 					 BQ25630_ITERM_MIN_REGVAL,
- 					 &val->intval);
- 		break;
-+	case POWER_SUPPLY_PROP_LOAD_SWITCH:
-+		ret = bq25630_read_batfet_ctrl(data, &val->intval);
-+		break;
- 	case POWER_SUPPLY_PROP_MODEL_NAME:
- 		val->strval = "BQ25630";
- 		break;
-@@ -913,6 +987,9 @@ static int bq25630_charger_set_property(struct power_supply *psy,
- 					  BQ25630_ITERM_MIN_REGVAL,
- 					  val->intval);
- 		break;
-+	case POWER_SUPPLY_PROP_LOAD_SWITCH:
-+		ret = bq25630_write_batfet_ctrl(data, val->intval);
-+		break;
- 	default:
- 		return -EINVAL;
- 	}
-@@ -932,6 +1009,7 @@ static int bq25630_charger_property_is_writeable(struct power_supply *psy,
- 	case POWER_SUPPLY_PROP_INPUT_VOLTAGE_LIMIT:
- 	case POWER_SUPPLY_PROP_PRECHARGE_CURRENT:
- 	case POWER_SUPPLY_PROP_CHARGE_TERM_CURRENT:
-+	case POWER_SUPPLY_PROP_LOAD_SWITCH:
- 		return true;
- 	default:
- 		return false;
-@@ -954,6 +1032,7 @@ static const enum power_supply_property bq25630_charger_properties[] = {
- 	POWER_SUPPLY_PROP_USB_TYPE,
- 	POWER_SUPPLY_PROP_PRECHARGE_CURRENT,
- 	POWER_SUPPLY_PROP_CHARGE_TERM_CURRENT,
-+	POWER_SUPPLY_PROP_LOAD_SWITCH,
- 	POWER_SUPPLY_PROP_MODEL_NAME,
- 	POWER_SUPPLY_PROP_MANUFACTURER,
- };
-@@ -972,6 +1051,11 @@ static const struct power_supply_desc bq25630_charger_psy_desc = {
- 		     BIT(POWER_SUPPLY_USB_TYPE_DCP) |
- 		     BIT(POWER_SUPPLY_USB_TYPE_CDP) |
- 		     BIT(POWER_SUPPLY_USB_TYPE_C),
-+	.load_switches = BIT(POWER_SUPPLY_LOAD_SWITCH_UNKNOWN) |
-+			 BIT(POWER_SUPPLY_LOAD_SWITCH_ON) |
-+			 BIT(POWER_SUPPLY_LOAD_SWITCH_OFF) |
-+			 BIT(POWER_SUPPLY_LOAD_SWITCH_STANDBY) |
-+			 BIT(POWER_SUPPLY_LOAD_SWITCH_SHIP),
- 	.properties = bq25630_charger_properties,
- 	.num_properties = ARRAY_SIZE(bq25630_charger_properties),
- 	.get_property = bq25630_charger_get_property,
--- 
-2.43.0
+commit 32eb1e2c4fa0ae77b72aeaff963d49c309ab867a
+Author: Linus Torvalds <torvalds@linux-foundation.org>
+Date:   Thu Oct 20 18:10:07 2022 -0700
 
+    Allow both regular casts and forced casts for restricted values
+
+    We probably should just just a single expression type for the two cases,
+    and distinguish forced casts some other way, but that's a separate
+    issue.
+
+    Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+
+but I think I stopped pushing out my own tree long ago I started
+rebasing things and others maintained sparse better.
+
+> Is that change still considered the best fix for sparse? If so, who can
+> apply that change to the sparse code base?
+
+Well, I pushed out my own random branch to my tree, but my sparse tree
+really is a horrible mess of rebased code. So it for example has been
+rebased on top of Al's __VA_OPT__ code from earlier this year, and
+then has my own random old local patches from four years ago on top of
+that.
+
+So no, that tree is *not* a good tree, but I pushed it out anyway
+since that horribly ugly tree is at least somewhat relevant to this
+discussion.
+
+Does that tree at least work for you? Maybe we can convince somebody
+who is a better maintainer than I clearly have ever been to make my
+messy branch be something actually palatable...
+
+            Linus
