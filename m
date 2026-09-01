@@ -1,617 +1,221 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010058.outbound.protection.outlook.com [52.101.193.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E91367B73;
-	Tue,  1 Sep 2026 17:01:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788282107; cv=none; b=nRz3BJxdy5kh8+JO02amReldKgYB9WsdikAivpn/fdDuiWpQbtAy4fUuIH0V7DAAjH7MiGMz4dnOPTp30szXK8bVL4O9h7pzq/BprjWEMQ2xhkJtBmi/AP1Z/VtS8Xxgn0ILsmMkzYX3MaiZOYe4k9UzF98v96nvcOz7z9PA4As=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788282107; c=relaxed/simple;
-	bh=qZwhwotQ/fNKgEH1EMxc0uXOl74DjMSswC1Y1WVKU6g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qiCgVb7KxYWQ8MczLWgNKI098InHDFW1+8xrd7uJPWkupgHZP5mI7f6g2lxwJb8N6tP8vHBG/jbWB/sp/nfF58w4AUSoqDV0OuCa1vP0KuDwPq3H6mbDAJanK8k8MgSZXQU9FuUYlK9T8QHAw/SCNcZMvsLgWD9vt5RPfOVzFdA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CZAzyaEf; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17747345EA2;
+	Tue,  1 Sep 2026 17:02:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.58
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788282126; cv=fail; b=L3pJ/7QzM3VDzqFWJdHdWPhLCw1fex1znmTigtKqQNdZgj86j7ioBQq7bCq3ScDqYqHZAvQh24wruqjc8RN2R+F7tZQgoSzF6A2UdFZkZ8EawAFND+yq+4Ipvn/+Y2KbpSqSCTAqa9dtszaiD6UmuVxQNiubmFFM141gcwSG/Ng=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788282126; c=relaxed/simple;
+	bh=ZV7iqFGrBjrrOEKOlmPztrsv4ewhBQotUhqIujczwhY=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=ezfmc/RXWzIIJk4Lva/lov0BVQIEbXBI1CEhcmpBtG8jB/FV2LvHk5GaUeGRGw7ghcPObqsysKHbc9gfMgQDDWWFeff2Cs0dJjHCErWh/NZHPbm3kEocPwG2e2O7YoA9qnRFCmWeV30lRe2kXvZeKUlGbkmnf3CCGdi5PtU/IgA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=5SAWdzqC; arc=fail smtp.client-ip=52.101.193.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CZAzyaEf"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 86A6C1F000E9;
-	Tue,  1 Sep 2026 17:01:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788282105;
-	bh=jjLG+PQZ47Hm0f3rhkRfvwiU5o5E2dISkJrvKrFO75o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CZAzyaEffmr3P2IoCAYoDKTk3KgAb33VPcPzb+D0S39DfS+pYW9su7+IVmFFCgDaQ
-	 e0laZpn423n0rPnDwclZ5pB5ngIsIr6yqJZ6etpBaiWkUvZ5Uno/VE79BL5ZJUxPJV
-	 mEnyq9ILRwDHvc9jz0hMMSahznVh4vLYc4jXSbRlPT25ds4/htMuSLnDf64/LLjK7k
-	 G/adEz776+15bVBCJJnjc+/ajsJgvym8j59ryzpjjUYm6hVTYWVwyToZtZpMUwLmw4
-	 2zwLGOAKjFRHA+9yFoT26iRJies17aq4uQZmDMMt7aHONnK643ezItL6OHDQy/MvlE
-	 DI9nAsHMIxQCA==
-Date: Tue, 1 Sep 2026 20:01:41 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Srish Srinivasan <ssrish@linux.ibm.com>
-Cc: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
-	James.Bottomley@hansenpartnership.com, zohar@linux.ibm.com,
-	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
-	nayna@linux.ibm.com, rnsastry@linux.ibm.com
-Subject: Re: [PATCH v5] keys/trusted_keys: move TPM-specific fields into
- struct trusted_key_tpm
-Message-ID: <apcE9YgRpplF39_1@kernel.org>
-References: <20260901154132.140741-1-ssrish@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="5SAWdzqC"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=re/GDW9XiaerK/a9a95GFks8+K6LB7QeGyKsyFKZ2/gYh3dRbYSvpd4cAWGEMeLBqVVJ3DMMPTXpTaYAYjiW6fkbtEZJ5yulex22+4R7XhUo7dCAqhLrvn6sp9HgbieZQZQIqdLFA4yqK6eCV+/r1QgjRWyST7O1ifbOu9aKadigWVc94XwRsISgoQkWJbPQaK5lQGDti2podSsQEuPBqGI6K/GsArCW5qzqI9AGjxAIdjsTCTNsgRLWa1tZRTNYGQdrcLFh1nudQjOLgWiPXFqgmC7G5WjBkGmsyZh/6bU3MVpddI2STxy6WDRnnB3Bphyr9FmYc61PyfpiHqtJmg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PLefIa8Mrh/aTZAMwrh+JCwyU3O8JQ9MIQ5ATlA7HxE=;
+ b=wzTDbIzp/WzG4rN9YqhOi6zBaoCAlvETtGRVJ4/fq4mdcpb09VhPvxA1Y0aUoPqQF7aMfk7UnvzF5P/7369EGI4yFXaClQCuqPge9J4WIIxaFh1cLqHjqmj0z+JRMlT2XRLbnsyR/EZ6/MUvX8var7+8PYdSD9SkiH9480qLzvFZR+7L5qtCmnlNxe+50QYTzGXax/3MGf6Adha5Xgv9bRgXTOHKiUn6Rpl2RoxJZUubL6vfZ+7enY7kx+KrP8HCWjwJOWPlY3Swmk8VurJNhVqp44zn+NZaSuFVYOyqFnbMSiutN/vEq0Vfbc1D3uTDGPLfZrBoTk9VdZyYCHPS3Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PLefIa8Mrh/aTZAMwrh+JCwyU3O8JQ9MIQ5ATlA7HxE=;
+ b=5SAWdzqCUFiw0lNLJQxQ5E7jFV2fYfG3GUpKpRE0G82VZIdO2lTS4uZhfTXpJLMl6mPeaOgP0nZG9ANrSCliWcLLrjYtTt4ASnqkNoZXmzu5wYYrMEMY1wij4F++65LNIdOhgEQO+k+tT/XWtt3co/n5tpLMhVgCgDRRGZTjqcI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA1PR12MB6798.namprd12.prod.outlook.com (2603:10b6:806:25a::22)
+ by SA1PR12MB7222.namprd12.prod.outlook.com (2603:10b6:806:2bf::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 17:01:56 +0000
+Received: from SA1PR12MB6798.namprd12.prod.outlook.com
+ ([fe80::e317:e4a3:6ae9:8c54]) by SA1PR12MB6798.namprd12.prod.outlook.com
+ ([fe80::e317:e4a3:6ae9:8c54%2]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 17:01:56 +0000
+Message-ID: <320e31b8-7e26-404e-a1bc-d19ecb59ff3d@amd.com>
+Date: Tue, 1 Sep 2026 22:31:47 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v3 2/6] dt-bindings: net: xlnx,xxv-ethernet: Add
+ Xilinx XXV 10G/25G Ethernet
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Michal Simek <michal.simek@amd.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260831150816.1020883-1-suraj.gupta2@amd.com>
+ <20260831150816.1020883-3-suraj.gupta2@amd.com>
+ <bb36094f-07d1-49fb-be2a-ffe126e1b919@lunn.ch>
+ <9717ad8d-0117-4320-9d6c-dda6b712ecee@amd.com>
+ <b5126d72-734b-4f4d-b953-807579c8583e@lunn.ch>
+Content-Language: en-US
+From: "Gupta, Suraj" <suraj.gupta2@amd.com>
+In-Reply-To: <b5126d72-734b-4f4d-b953-807579c8583e@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PNYPR01CA0038.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:25d::9) To SA1PR12MB6798.namprd12.prod.outlook.com
+ (2603:10b6:806:25a::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901154132.140741-1-ssrish@linux.ibm.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA1PR12MB6798:EE_|SA1PR12MB7222:EE_
+X-MS-Office365-Filtering-Correlation-Id: d0c8f8b9-4c53-41ce-4240-08df084abac2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|18002099003|22082099003|56012099006|6133799003|4143699003|10067099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	GGHkoFoWukGsBdp9WqQgmxbPXiIupEQCyPsGW9YwN8wnzoUXUtDxu9PMSBnJSvmRqLgUCPi9z7JqMtmBygwoLBA0m7BRdzBP4Ai8bxaVWoXbBFOKVjj6RYKYh/Mtn4xtXJxMqgzi6JUyYcpbyyO/qw3DCZdjBIabcAXnEnqPBAG4a8ABFhYR2rl7MYfUer0FWCsxUSCGBYV0irOTya/kH3SIRt3it4P7+sgN3cYjAqdHtMFQVzcn6W9id7wK5diKPWVhfB3dK7vy4APZI2eO72ZoDSuGwiAKDVneLQMBVu97bq4lLOe3C1JJS0ld1NxoGpFfsdIAJ/wBe+bnBO3Qs5Umz/KcLZuQuomuERBa1zR+OJUh3/9SfB2QBoKBRNxdW/1QhArKadu3Mp9HgpMmc3ILoFaEHWCuXLxDJhsfMrEn6488OquUrhLYARYPOuJaBe1pwzgfZ18ELGmcD++f4U6d3xuXqhCIFysKvNJcRfvb1Hagi+fWkrjr8kHAA9lT8e3hEMXAp/Y5kHHU/2wUd+Eqid8i1CoQp6CbJhADrFkczaVE5zY5pQMerxMKs4YBzBopUMOEud/LPVy4MSvqXnKBd8bPwhX+oADnMZQq9SZbhhfgPvPh8FbtVxfH5Xtf4wWVzkMzknVz+cR9rjrexHBOSF2/t9laBTWO59TvdeA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR12MB6798.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(18002099003)(22082099003)(56012099006)(6133799003)(4143699003)(10067099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NHhFeElETFQwb3dPMTNZdHdnYkNpdHBoaXY2V0ZOVTRtb1ByQlRUZ3FTVFNn?=
+ =?utf-8?B?b2ErbGQvVU0rVktLRkdzRjVFWjUxelExMFkyQVVJTFlyTXlFN1VVOTNrZTBH?=
+ =?utf-8?B?R25vVzY5OEtUZ3hWS0h4S0dYUnFLYXJNN2VEVzhTb09vaHFrQ0t5elJlRDcv?=
+ =?utf-8?B?RnFDblN4SHZqWkZzMGpKaFVNazJHaldYSkJSM3FlNkhtNDdIUEQrSktjclh3?=
+ =?utf-8?B?ZFNMY3hBL3FMYVdteWpJZk9uMGxwODV5VkFpUGhMZUthWVlIVHc4eGpIQ1FZ?=
+ =?utf-8?B?UEQxRE9sK3Jpc1FpR0tFd0ZwWXRHUnU1UGZJeE5QRHI3TmFaMlN5bXJhZ1V5?=
+ =?utf-8?B?SnFyZGRsdXZ4YkhTZTlMb3d0OExsaElkM0swUUtpeUNnSWgzM3FFQzRGV0do?=
+ =?utf-8?B?dkF5NjJDNndUSGR2bmlOc3I5Z1pwcENXNm5GRTRzQ0lETjNRR051dytGRm0r?=
+ =?utf-8?B?WjVNbXBkeU5LT0g3akJHS3A0Qlh5Sm5vMnhIS3FkZlFsWU9jd3VkS1B5ZmdU?=
+ =?utf-8?B?UXRwOTFPVjVGTTVRc0E3TkVMb2cvWFNWZUozbThYVHBLeFhxdmVpRGlBQVBC?=
+ =?utf-8?B?NitBWTJxQlNBMmV1MG96T2d5MUYxNVJXNGZsQ09CYkVMWFhlYlRPclEvKy9n?=
+ =?utf-8?B?dTlHc1Z1aCtmdXh5enVXUk53bnJzUjZrY2FQUFpaR1VQNE5yTW9kdzN4Z0VC?=
+ =?utf-8?B?enU4dzg0MVl5a25XVGt6NWZKeG5GM2dyOHd0dkVuZ0VWd2txc0JQaFdZOGxU?=
+ =?utf-8?B?Z3IrZk94VXFBTisrRm1qMGpZTzRDL0JVblNaRXM2Q20rU205SU5KOXc3dXJv?=
+ =?utf-8?B?cFVQMEk4Q256UGJRa3czZmxWTTBvbmtUeWNmandrSUJva2pOajZNQjVraFlq?=
+ =?utf-8?B?M2Fvc1VZQy9kVHdmYlFLL0pXWkJiMkR2OFMwa1JMM1NIZ0RPMlF2UmxHdnVu?=
+ =?utf-8?B?cjYyR2tMNkg2U0l2MngxTlJuZkxYL3RLMUMxbXRLRlFkb3RVR3kybHlMME1l?=
+ =?utf-8?B?SGJKVis1OU5mMjEyRnZhS29EQzA4ZitNYWlxL2NTY3FkdzhPZWd2czRYS2tK?=
+ =?utf-8?B?M1ZtdDRPVk5yVzhKMGFvL3pJWmZTajIxZnRaSDFGTWxWV3lySkNHdWlBNEE1?=
+ =?utf-8?B?dVJDTmJrYTlBQzZ1LzQyeVVGaC80c0N4OC84QWRjWGtjTVo3REZoOHhOYTda?=
+ =?utf-8?B?ck1JNTQ2TkN5bkFRYkExd3F3REpWb09yY3MwYTY2bzBDd2gwY21sS2VLV200?=
+ =?utf-8?B?N28raFVvSnBTb3BXZjlaNElHNDdWZVFSMlZhMHZ0WUJvcWFxd0RWS3h5ZWdj?=
+ =?utf-8?B?QXZkUXoxQkMzb2dNVDg1RHp0R2cxbVkvbXhEUU42djZVbDFBOUNUZ2xDSVBV?=
+ =?utf-8?B?UkJLTGIwNkVQdGJXT1NhQzEwOHJHbFBnVTVBS0puNEJZVmNPM3lMMHdtbHdS?=
+ =?utf-8?B?TXM5R1A2RkgreHBkOEc5Qjg4ZlorZEl6UW5BMVpYTHVQTG1ZbEtMYnVpNE0w?=
+ =?utf-8?B?c1htSGJvRFlYbUxZaXhRNDVySXM5M242Nk1CSVE4Q1FMZStxOXBueUpiNUpR?=
+ =?utf-8?B?dCtDbGs5NWdnb2tONkNIYWR1L3UyYmlJcGYrTlVZUU8vY0pmeGRkOW5Ybzcx?=
+ =?utf-8?B?WkZkMW8xb211TjV5K1NkM2VOU1lKTkJpWXFlbTU3V1Qyd1hxamNmdElYWnB4?=
+ =?utf-8?B?eS9oUGxyNzYydHFnTjlLTFBKRkhIZGlBMjNVVytvRTdYWW9XR1BKaG1IaE15?=
+ =?utf-8?B?QnBWZysvQkJ4Ui9IUUR6REU0VndrSzVRcDRZdU5uRjVzL0s2Qnp1cy9MZjhk?=
+ =?utf-8?B?TWl0RVJ0YWVDU2ZZSUNSRXVaL1VjOHBmYjVhQ04vQlJTWUZIMW1id25KSjBR?=
+ =?utf-8?B?RnpJWG1Hbkx0U2xlNGhwU01FYjBDelppNDd5ZWRTbTJRY2kvQTM0M1grQkhC?=
+ =?utf-8?B?Und1emFpYUJqMU11U0p2Y1ZuYjFIZ28yRnhBK0l4Rmd0b2p3a0hhYWdJUTh4?=
+ =?utf-8?B?T3J5Yi9SaHRUbWNNc3RiVXhEcGRPYUZjTTN2NFhsWXhFK0hlWGZvQ080cS9j?=
+ =?utf-8?B?bFlwbjdJQWZ4cmJySEVPU3dDR0Z0QkpyMkRvRTI0M2htcjA4QlRtaVYxSU5J?=
+ =?utf-8?B?b3ByRmVGU0ZQT0NkZnFzeEJIbkFQWllHc0VoWGlic3hTbE5yV3BhRDV4WGQ5?=
+ =?utf-8?B?UGQzM2NUYS9YeEVQVUlONllFeW1xQ0RSSEM0bWtNTFhYMUNJQkJmQUZMejBG?=
+ =?utf-8?B?a1cwQ0VpV1h5eE5rUmxScmVsdGEwOFBhMmdjNGFNNW1zS2FhR1h4ZVA2cEg4?=
+ =?utf-8?B?d29TV1RrS2ppSk9KMVJtY2syZEtqVnBWLzkvMlFhMC9XbjJZZHZTdz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0c8f8b9-4c53-41ce-4240-08df084abac2
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB6798.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 17:01:56.5698
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8VWPbA9Q4yvlGRfUTGOKP6XIO7sdclTD6tZxONs9wsz5B6izBnStdFpvAbXSDocx8pmug75Dvz8cTIcbHs8/vA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7222
 
-On Tue, Sep 01, 2026 at 09:11:32PM +0530, Srish Srinivasan wrote:
-> The trusted_key_options struct contains TPM-specific fields (keyhandle,
-> keyauth, blobauth_len, blobauth, pcrinfo_len, pcrinfo, pcrlock, hash,
-> policydigest_len, policydigest, and policyhandle). This leads to the
-> accumulation of backend-specific fields in the generic options structure.
-> 
-> Define struct trusted_key_tpm and move the TPM-specific fields there. Store
-> a pointer to it in the private member of struct trusted_key_options.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
-> Reviewed-by: Stefan Berger <stefanb@linux.ibm.com>
-> ---
-> Changelog:
-> 
->  v5:
->   - Rename struct trusted_tpm_options to struct trusted_key_tpm, as suggested
->     by Jarkko.
-> 
->  v4:
->   - Rebased onto mainline after tpm-buf memory-safe allocation changes were
->     merged
->   - Resolved the resulting merge conflicts
-> 
->  v3:
->   - Exclude the preparatory clean up patch as the problem has been addressed
->     in commit 9ec4175a30eb ("KEYS: trusted: Debugging as a feature")
-> 
->  v2:
->   - Exclude the bug-fix patch as it has already been applied to 6.19-rc7
->   - Rename instances of trusted_tpm_options from tpm_opts to private
->   - Use pr_debug and KERN_DEBUG for logging debug messages (preparatory clean
->     up patch)
->   - Address other minor comments from Jarkko
-> 
->  include/keys/trusted-type.h               | 11 ---
->  include/keys/trusted_tpm.h                | 14 ++++
->  security/keys/trusted-keys/trusted_tpm1.c | 96 ++++++++++++++---------
->  security/keys/trusted-keys/trusted_tpm2.c | 50 ++++++------
->  4 files changed, 102 insertions(+), 69 deletions(-)
-> 
-> diff --git a/include/keys/trusted-type.h b/include/keys/trusted-type.h
-> index 9f9940482da4..3db61b57cf73 100644
-> --- a/include/keys/trusted-type.h
-> +++ b/include/keys/trusted-type.h
-> @@ -39,17 +39,6 @@ struct trusted_key_payload {
->  
->  struct trusted_key_options {
->  	uint16_t keytype;
-> -	uint32_t keyhandle;
-> -	unsigned char keyauth[TPM_DIGEST_SIZE];
-> -	uint32_t blobauth_len;
-> -	unsigned char blobauth[TPM_DIGEST_SIZE];
-> -	uint32_t pcrinfo_len;
-> -	unsigned char pcrinfo[MAX_PCRINFO_SIZE];
-> -	int pcrlock;
-> -	uint32_t hash;
-> -	uint32_t policydigest_len;
-> -	unsigned char policydigest[MAX_DIGEST_SIZE];
-> -	uint32_t policyhandle;
->  	void *private;
->  };
->  
-> diff --git a/include/keys/trusted_tpm.h b/include/keys/trusted_tpm.h
-> index 3a0fa3bc8454..dafbd4a84ddd 100644
-> --- a/include/keys/trusted_tpm.h
-> +++ b/include/keys/trusted_tpm.h
-> @@ -6,6 +6,20 @@
->  
->  extern struct trusted_key_ops trusted_key_tpm_ops;
->  
-> +struct trusted_key_tpm {
-> +	uint32_t keyhandle;
-> +	unsigned char keyauth[TPM_DIGEST_SIZE];
-> +	uint32_t blobauth_len;
-> +	unsigned char blobauth[TPM_DIGEST_SIZE];
-> +	uint32_t pcrinfo_len;
-> +	unsigned char pcrinfo[MAX_PCRINFO_SIZE];
-> +	int pcrlock;
-> +	uint32_t hash;
-> +	uint32_t policydigest_len;
-> +	unsigned char policydigest[MAX_DIGEST_SIZE];
-> +	uint32_t policyhandle;
-> +};
-> +
->  int tpm2_seal_trusted(struct tpm_chip *chip,
->  		      struct trusted_key_payload *payload,
->  		      struct trusted_key_options *options);
-> diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
-> index bf0bf7f36970..d396f4267180 100644
-> --- a/security/keys/trusted-keys/trusted_tpm1.c
-> +++ b/security/keys/trusted-keys/trusted_tpm1.c
-> @@ -48,15 +48,17 @@ enum {
->  #ifdef CONFIG_TRUSTED_KEYS_DEBUG
->  static inline void dump_options(struct trusted_key_options *o)
->  {
-> +	struct trusted_key_tpm *private = o->private;
-> +
->  	if (!trusted_debug)
->  		return;
->  
->  	pr_debug("sealing key type %d\n", o->keytype);
-> -	pr_debug("sealing key handle %0X\n", o->keyhandle);
-> -	pr_debug("pcrlock %d\n", o->pcrlock);
-> -	pr_debug("pcrinfo %d\n", o->pcrinfo_len);
-> +	pr_debug("sealing key handle %0X\n", private->keyhandle);
-> +	pr_debug("pcrlock %d\n", private->pcrlock);
-> +	pr_debug("pcrinfo %d\n", private->pcrinfo_len);
->  	print_hex_dump_debug("pcrinfo ", DUMP_PREFIX_NONE,
-> -			     16, 1, o->pcrinfo, o->pcrinfo_len, 0);
-> +			     16, 1, private->pcrinfo, private->pcrinfo_len, 0);
->  }
->  
->  static inline void dump_sess(struct osapsess *s)
-> @@ -626,6 +628,7 @@ static int tpm_unseal(struct tpm_buf *tb,
->  static int key_seal(struct trusted_key_payload *p,
->  		    struct trusted_key_options *o)
->  {
-> +	struct trusted_key_tpm *private = o->private;
->  	int ret;
->  
->  	struct tpm_buf *tb __free(kfree) = kzalloc(TPM_BUFSIZE, GFP_KERNEL);
-> @@ -637,9 +640,10 @@ static int key_seal(struct trusted_key_payload *p,
->  	/* include migratable flag at end of sealed key */
->  	p->key[p->key_len] = p->migratable;
->  
-> -	ret = tpm_seal(tb, o->keytype, o->keyhandle, o->keyauth,
-> +	ret = tpm_seal(tb, o->keytype, private->keyhandle, private->keyauth,
->  		       p->key, p->key_len + 1, p->blob, &p->blob_len,
-> -		       o->blobauth, o->pcrinfo, o->pcrinfo_len);
-> +		       private->blobauth, private->pcrinfo,
-> +		       private->pcrinfo_len);
->  	if (ret < 0)
->  		pr_info("srkseal failed (%d)\n", ret);
->  
-> @@ -652,6 +656,7 @@ static int key_seal(struct trusted_key_payload *p,
->  static int key_unseal(struct trusted_key_payload *p,
->  		      struct trusted_key_options *o)
->  {
-> +	struct trusted_key_tpm *private = o->private;
->  	int ret;
->  
->  	struct tpm_buf *tb __free(kfree) = kzalloc(TPM_BUFSIZE, GFP_KERNEL);
-> @@ -660,8 +665,8 @@ static int key_unseal(struct trusted_key_payload *p,
->  
->  	tpm_buf_init(tb, TPM_BUFSIZE);
->  
-> -	ret = tpm_unseal(tb, o->keyhandle, o->keyauth, p->blob, p->blob_len,
-> -			 o->blobauth, p->key, &p->key_len);
-> +	ret = tpm_unseal(tb, private->keyhandle, private->keyauth, p->blob,
-> +			 p->blob_len, private->blobauth, p->key, &p->key_len);
->  	if (ret < 0)
->  		pr_info("srkunseal failed (%d)\n", ret);
->  	else
-> @@ -697,6 +702,7 @@ static const match_table_t key_tokens = {
->  static int getoptions(char *c, struct trusted_key_payload *pay,
->  		      struct trusted_key_options *opt)
->  {
-> +	struct trusted_key_tpm *private = opt->private;
->  	substring_t args[MAX_OPT_ARGS];
->  	char *p = c;
->  	int token;
-> @@ -712,7 +718,7 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
->  	if (tpm2 < 0)
->  		return tpm2;
->  
-> -	opt->hash = tpm2 ? HASH_ALGO_SHA256 : HASH_ALGO_SHA1;
-> +	private->hash = tpm2 ? HASH_ALGO_SHA256 : HASH_ALGO_SHA1;
->  
->  	if (!c)
->  		return 0;
-> @@ -726,11 +732,11 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
->  
->  		switch (token) {
->  		case Opt_pcrinfo:
-> -			opt->pcrinfo_len = strlen(args[0].from) / 2;
-> -			if (opt->pcrinfo_len > MAX_PCRINFO_SIZE)
-> +			private->pcrinfo_len = strlen(args[0].from) / 2;
-> +			if (private->pcrinfo_len > MAX_PCRINFO_SIZE)
->  				return -EINVAL;
-> -			res = hex2bin(opt->pcrinfo, args[0].from,
-> -				      opt->pcrinfo_len);
-> +			res = hex2bin(private->pcrinfo, args[0].from,
-> +				      private->pcrinfo_len);
->  			if (res < 0)
->  				return -EINVAL;
->  			break;
-> @@ -739,12 +745,12 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
->  			if (res < 0)
->  				return -EINVAL;
->  			opt->keytype = SEAL_keytype;
-> -			opt->keyhandle = handle;
-> +			private->keyhandle = handle;
->  			break;
->  		case Opt_keyauth:
->  			if (strlen(args[0].from) != 2 * SHA1_DIGEST_SIZE)
->  				return -EINVAL;
-> -			res = hex2bin(opt->keyauth, args[0].from,
-> +			res = hex2bin(private->keyauth, args[0].from,
->  				      SHA1_DIGEST_SIZE);
->  			if (res < 0)
->  				return -EINVAL;
-> @@ -755,21 +761,23 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
->  			 * hex strings.  TPM 2.0 authorizations are simple
->  			 * passwords (although it can take a hash as well)
->  			 */
-> -			opt->blobauth_len = strlen(args[0].from);
-> +			private->blobauth_len = strlen(args[0].from);
->  
-> -			if (opt->blobauth_len == 2 * TPM_DIGEST_SIZE) {
-> -				res = hex2bin(opt->blobauth, args[0].from,
-> +			if (private->blobauth_len == 2 * TPM_DIGEST_SIZE) {
-> +				res = hex2bin(private->blobauth, args[0].from,
->  					      TPM_DIGEST_SIZE);
->  				if (res < 0)
->  					return -EINVAL;
->  
-> -				opt->blobauth_len = TPM_DIGEST_SIZE;
-> +				private->blobauth_len = TPM_DIGEST_SIZE;
->  				break;
->  			}
->  
-> -			if (tpm2 && opt->blobauth_len <= sizeof(opt->blobauth)) {
-> -				memcpy(opt->blobauth, args[0].from,
-> -				       opt->blobauth_len);
-> +			if (tpm2 &&
-> +			    private->blobauth_len <=
-> +			    sizeof(private->blobauth)) {
-> +				memcpy(private->blobauth, args[0].from,
-> +				       private->blobauth_len);
->  				break;
->  			}
->  
-> @@ -787,14 +795,14 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
->  			res = kstrtoul(args[0].from, 10, &lock);
->  			if (res < 0)
->  				return -EINVAL;
-> -			opt->pcrlock = lock;
-> +			private->pcrlock = lock;
->  			break;
->  		case Opt_hash:
->  			if (test_bit(Opt_policydigest, &token_mask))
->  				return -EINVAL;
->  			for (i = 0; i < HASH_ALGO__LAST; i++) {
->  				if (!strcmp(args[0].from, hash_algo_name[i])) {
-> -					opt->hash = i;
-> +					private->hash = i;
->  					break;
->  				}
->  			}
-> @@ -806,14 +814,14 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
->  			}
->  			break;
->  		case Opt_policydigest:
-> -			digest_len = hash_digest_size[opt->hash];
-> +			digest_len = hash_digest_size[private->hash];
->  			if (!tpm2 || strlen(args[0].from) != (2 * digest_len))
->  				return -EINVAL;
-> -			res = hex2bin(opt->policydigest, args[0].from,
-> +			res = hex2bin(private->policydigest, args[0].from,
->  				      digest_len);
->  			if (res < 0)
->  				return -EINVAL;
-> -			opt->policydigest_len = digest_len;
-> +			private->policydigest_len = digest_len;
->  			break;
->  		case Opt_policyhandle:
->  			if (!tpm2)
-> @@ -821,7 +829,7 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
->  			res = kstrtoul(args[0].from, 16, &handle);
->  			if (res < 0)
->  				return -EINVAL;
-> -			opt->policyhandle = handle;
-> +			private->policyhandle = handle;
->  			break;
->  		default:
->  			return -EINVAL;
-> @@ -832,6 +840,7 @@ static int getoptions(char *c, struct trusted_key_payload *pay,
->  
->  static struct trusted_key_options *trusted_options_alloc(void)
->  {
-> +	struct trusted_key_tpm *private;
->  	struct trusted_key_options *options;
->  	int tpm2;
->  
-> @@ -844,14 +853,22 @@ static struct trusted_key_options *trusted_options_alloc(void)
->  		/* set any non-zero defaults */
->  		options->keytype = SRK_keytype;
->  
-> -		if (!tpm2)
-> -			options->keyhandle = SRKHANDLE;
-> +		private = kzalloc_obj(*private);
-> +		if (!private) {
-> +			kfree_sensitive(options);
-> +			options = NULL;
-> +		} else {
-> +			if (!tpm2)
-> +				private->keyhandle = SRKHANDLE;
-> +			options->private = private;
-> +		}
->  	}
->  	return options;
->  }
->  
->  static int trusted_tpm_seal(struct trusted_key_payload *p, char *datablob)
->  {
-> +	struct trusted_key_tpm *private = NULL;
->  	struct trusted_key_options *options = NULL;
 
-It would be leaner if you did:
 
-	struct trusted_key_options *options __free(kfree_sensitive) = NULL;
-
-Then you can just return instead of jumping to "out".
-
-Applies also to trusted_tpm_unseal at least.
-
->  	int ret = 0;
->  	int tpm2;
-> @@ -869,7 +886,8 @@ static int trusted_tpm_seal(struct trusted_key_payload *p, char *datablob)
->  		goto out;
->  	dump_options(options);
->  
-> -	if (!options->keyhandle && !tpm2) {
-> +	private = options->private;
-> +	if (!private->keyhandle && !tpm2) {
->  		ret = -EINVAL;
->  		goto out;
->  	}
-> @@ -883,20 +901,23 @@ static int trusted_tpm_seal(struct trusted_key_payload *p, char *datablob)
->  		goto out;
->  	}
->  
-> -	if (options->pcrlock) {
-> -		ret = pcrlock(options->pcrlock);
-> +	if (private->pcrlock) {
-> +		ret = pcrlock(private->pcrlock);
->  		if (ret < 0) {
->  			pr_info("pcrlock failed (%d)\n", ret);
->  			goto out;
->  		}
->  	}
->  out:
-> +	if (options)
-> +		kfree_sensitive(options->private);
->  	kfree_sensitive(options);
->  	return ret;
->  }
->  
->  static int trusted_tpm_unseal(struct trusted_key_payload *p, char *datablob)
->  {
-> +	struct trusted_key_tpm *private = NULL;
->  	struct trusted_key_options *options = NULL;
->  	int ret = 0;
->  	int tpm2;
-> @@ -914,7 +935,8 @@ static int trusted_tpm_unseal(struct trusted_key_payload *p, char *datablob)
->  		goto out;
->  	dump_options(options);
->  
-> -	if (!options->keyhandle && !tpm2) {
-> +	private = options->private;
-> +	if (!private->keyhandle && !tpm2) {
->  		ret = -EINVAL;
->  		goto out;
->  	}
-> @@ -926,14 +948,16 @@ static int trusted_tpm_unseal(struct trusted_key_payload *p, char *datablob)
->  	if (ret < 0)
->  		pr_info("key_unseal failed (%d)\n", ret);
->  
-> -	if (options->pcrlock) {
-> -		ret = pcrlock(options->pcrlock);
-> +	if (private->pcrlock) {
-> +		ret = pcrlock(private->pcrlock);
->  		if (ret < 0) {
->  			pr_info("pcrlock failed (%d)\n", ret);
->  			goto out;
->  		}
->  	}
->  out:
-> +	if (options)
-> +		kfree_sensitive(options->private);
->  	kfree_sensitive(options);
->  	return ret;
->  }
-> diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
-> index 67225dd562a9..29da1a3328ef 100644
-> --- a/security/keys/trusted-keys/trusted_tpm2.c
-> +++ b/security/keys/trusted-keys/trusted_tpm2.c
-> @@ -23,6 +23,7 @@ static int tpm2_key_encode(struct trusted_key_payload *payload,
->  			   struct trusted_key_options *options,
->  			   u8 *src, u32 len)
->  {
-> +	struct trusted_key_tpm *private = options->private;
->  	const int SCRATCH_SIZE = PAGE_SIZE;
->  	u8 *scratch = kmalloc(SCRATCH_SIZE, GFP_KERNEL);
->  	u8 *work = scratch, *work1;
-> @@ -45,7 +46,7 @@ static int tpm2_key_encode(struct trusted_key_payload *payload,
->  	work = asn1_encode_oid(work, end_work, tpm2key_oid,
->  			       asn1_oid_len(tpm2key_oid));
->  
-> -	if (options->blobauth_len == 0) {
-> +	if (private->blobauth_len == 0) {
->  		unsigned char bool[3], *w = bool;
->  		/* tag 0 is emptyAuth */
->  		w = asn1_encode_boolean(w, w + sizeof(bool), true);
-> @@ -68,7 +69,7 @@ static int tpm2_key_encode(struct trusted_key_payload *payload,
->  		goto err;
->  	}
->  
-> -	work = asn1_encode_integer(work, end_work, options->keyhandle);
-> +	work = asn1_encode_integer(work, end_work, private->keyhandle);
->  	work = asn1_encode_octet_string(work, end_work, pub, pub_len);
->  	work = asn1_encode_octet_string(work, end_work, priv, priv_len);
->  
-> @@ -101,6 +102,7 @@ static int tpm2_key_decode(struct trusted_key_payload *payload,
->  			   struct trusted_key_options *options,
->  			   u8 **buf)
->  {
-> +	struct trusted_key_tpm *private = options->private;
->  	int ret;
->  	struct tpm2_key_context ctx;
->  	u8 *blob;
-> @@ -120,7 +122,7 @@ static int tpm2_key_decode(struct trusted_key_payload *payload,
->  		return -ENOMEM;
->  
->  	*buf = blob;
-> -	options->keyhandle = ctx.parent;
-> +	private->keyhandle = ctx.parent;
->  
->  	memcpy(blob, ctx.priv, ctx.priv_len);
->  	blob += ctx.priv_len;
-> @@ -232,6 +234,7 @@ int tpm2_seal_trusted(struct tpm_chip *chip,
->  		      struct trusted_key_payload *payload,
->  		      struct trusted_key_options *options)
->  {
-> +	struct trusted_key_tpm *private = options->private;
->  	off_t offset = TPM_HEADER_SIZE;
->  	struct tpm_buf *buf __free(kfree) = NULL;
->  	struct tpm_buf *sized __free(kfree) = NULL;
-> @@ -240,11 +243,11 @@ int tpm2_seal_trusted(struct tpm_chip *chip,
->  	u32 flags;
->  	int rc;
->  
-> -	hash = tpm2_find_hash_alg(options->hash);
-> +	hash = tpm2_find_hash_alg(private->hash);
->  	if (hash < 0)
->  		return hash;
->  
-> -	if (!options->keyhandle)
-> +	if (!private->keyhandle)
->  		return -EINVAL;
->  
->  	rc = tpm_try_get_ops(chip);
-> @@ -274,18 +277,18 @@ int tpm2_seal_trusted(struct tpm_chip *chip,
->  
->  	tpm_buf_init_sized(sized, TPM_BUFSIZE);
->  
-> -	rc = tpm_buf_append_name(chip, buf, options->keyhandle, NULL);
-> +	rc = tpm_buf_append_name(chip, buf, private->keyhandle, NULL);
->  	if (rc)
->  		goto out;
->  
->  	tpm_buf_append_hmac_session(chip, buf, TPM2_SA_DECRYPT,
-> -				    options->keyauth, TPM_DIGEST_SIZE);
-> +				    private->keyauth, TPM_DIGEST_SIZE);
->  
->  	/* sensitive */
-> -	tpm_buf_append_u16(sized, options->blobauth_len);
-> +	tpm_buf_append_u16(sized, private->blobauth_len);
->  
-> -	if (options->blobauth_len)
-> -		tpm_buf_append(sized, options->blobauth, options->blobauth_len);
-> +	if (private->blobauth_len)
-> +		tpm_buf_append(sized, private->blobauth, private->blobauth_len);
->  
->  	tpm_buf_append_u16(sized, payload->key_len);
->  	tpm_buf_append(sized, payload->key, payload->key_len);
-> @@ -298,14 +301,15 @@ int tpm2_seal_trusted(struct tpm_chip *chip,
->  
->  	/* key properties */
->  	flags = 0;
-> -	flags |= options->policydigest_len ? 0 : TPM2_OA_USER_WITH_AUTH;
-> +	flags |= private->policydigest_len ? 0 : TPM2_OA_USER_WITH_AUTH;
->  	flags |= payload->migratable ? 0 : (TPM2_OA_FIXED_TPM | TPM2_OA_FIXED_PARENT);
->  	tpm_buf_append_u32(sized, flags);
->  
->  	/* policy */
-> -	tpm_buf_append_u16(sized, options->policydigest_len);
-> -	if (options->policydigest_len)
-> -		tpm_buf_append(sized, options->policydigest, options->policydigest_len);
-> +	tpm_buf_append_u16(sized, private->policydigest_len);
-> +	if (private->policydigest_len)
-> +		tpm_buf_append(sized, private->policydigest,
-> +			       private->policydigest_len);
->  
->  	/* public parameters */
->  	tpm_buf_append_u16(sized, TPM_ALG_NULL);
-> @@ -376,6 +380,7 @@ static int tpm2_load_cmd(struct tpm_chip *chip,
->  			 u32 *blob_handle)
->  {
->  	u8 *blob_ref __free(kfree) = NULL;
-> +	struct trusted_key_tpm *private = options->private;
->  	struct tpm_buf *buf __free(kfree) = NULL;
->  	unsigned int private_len;
->  	unsigned int public_len;
-> @@ -395,7 +400,7 @@ static int tpm2_load_cmd(struct tpm_chip *chip,
->  	}
->  
->  	/* new format carries keyhandle but old format doesn't */
-> -	if (!options->keyhandle)
-> +	if (!private->keyhandle)
->  		return -EINVAL;
->  
->  	/* must be big enough for at least the two be16 size counts */
-> @@ -439,11 +444,11 @@ static int tpm2_load_cmd(struct tpm_chip *chip,
->  	tpm_buf_init(buf, TPM_BUFSIZE);
->  	tpm_buf_reset(buf, TPM2_ST_SESSIONS, TPM2_CC_LOAD);
->  
-> -	rc = tpm_buf_append_name(chip, buf, options->keyhandle, NULL);
-> +	rc = tpm_buf_append_name(chip, buf, private->keyhandle, NULL);
->  	if (rc)
->  		return rc;
->  
-> -	tpm_buf_append_hmac_session(chip, buf, 0, options->keyauth,
-> +	tpm_buf_append_hmac_session(chip, buf, 0, private->keyauth,
->  				    TPM_DIGEST_SIZE);
->  
->  	tpm_buf_append(buf, blob, blob_len);
-> @@ -483,6 +488,7 @@ static int tpm2_unseal_cmd(struct tpm_chip *chip,
->  			   struct trusted_key_options *options,
->  			   u32 blob_handle)
->  {
-> +	struct trusted_key_tpm *private = options->private;
->  	struct tpm_header *head;
->  	struct tpm_buf *buf __free(kfree) = NULL;
->  	u16 data_len;
-> @@ -507,10 +513,10 @@ static int tpm2_unseal_cmd(struct tpm_chip *chip,
->  	if (rc)
->  		return rc;
->  
-> -	if (!options->policyhandle) {
-> +	if (!private->policyhandle) {
->  		tpm_buf_append_hmac_session(chip, buf, TPM2_SA_ENCRYPT,
-> -					    options->blobauth,
-> -					    options->blobauth_len);
-> +					    private->blobauth,
-> +					    private->blobauth_len);
->  	} else {
->  		/*
->  		 * FIXME: The policy session was generated outside the
-> @@ -523,9 +529,9 @@ static int tpm2_unseal_cmd(struct tpm_chip *chip,
->  		 * could repeat our actions with the exfiltrated
->  		 * password.
->  		 */
-> -		tpm2_buf_append_auth(buf, options->policyhandle,
-> +		tpm2_buf_append_auth(buf, private->policyhandle,
->  				     NULL /* nonce */, 0, 0,
-> -				     options->blobauth, options->blobauth_len);
-> +				     private->blobauth, private->blobauth_len);
->  		if (tpm2_chip_auth(chip)) {
->  			tpm_buf_append_hmac_session(chip, buf, TPM2_SA_ENCRYPT,
->  						    NULL, 0);
-> -- 
-> 2.53.0
+On 9/1/2026 8:01 PM, Andrew Lunn wrote:
+> On Tue, Sep 01, 2026 at 08:48:18AM +0530, Gupta, Suraj wrote:
+>>
+>>
+>> On 9/1/2026 7:57 AM, Andrew Lunn wrote:
+>>>> +  The Xilinx XXV Ethernet Subsystem implements a 10G/25G Ethernet MAC with an
+>>>> +  in-core PCS/PMA driving a high-speed serial transceiver. It supports the
+>>>> +  10GBASE-R and 25GBASE-R line rates, with 25G operation following the 25G
+>>>> +  Ethernet Consortium specification. It has no external MDIO PHY
+>>>
+>>> What about MDIO bus?
+>>>
+>>> 	Andrew
+>>
+>> The 10G/25G (XXV) Ethernet Subsystem IP does not provide an MDIO master.
 > 
 
-BR, Jarkko
+
+I'll try to make the overall architecture clear, please let me know if I 
+miss something and additional details needed. The datapath is:
+
+DMA (AXIDMA/ MCDMA) <-> (XXV MAC + PCS/PMA) <-> GT serial transceiver 
+<-> optical module / backplane.
+MAC's in-core PCS/PMA drives a hardened GT (SerDes) transceiver directly 
+at 10GBASE-R / 25GBASE-R, and the GT is configured over its DRP 
+interface (the "drp" clock in this binding). There is no discrete PHY 
+chip and no MDIO or I2C master inside the IP.
+
+XXV ethernet PG: https://docs.amd.com/r/en-US/pg210-25g-ethernet
+
+> O.K. Please change the wording to make that clear. There are plenty to
+> 10G PHYs available, but it seems like you do not consider that a use
+> case.
+> 
+
+Correct, the IP has no MDIO bus master, so an externally MDIO-managed 
+PHY is not a supported use case. I will reword the description in v4 to 
+state that explicitly, e.g.:
+"The subsystem has an in-core PCS/PMA that drives a GT serial 
+transceiver; it has no MDIO bus master and is therefore not managed 
+through an external MDIO PHY. Link state is taken from the MAC's own 
+status registers."
+
+> Has the MDIO bus master been replaced with I2C? I assume you intend
+> this device to be paired by an SFP cage, so an I2C bus will be
+> required. Is that a different IP which needs to be licensed?
+> 
+
+The XXV Ethernet core contains neither an MDIO nor an I2C master. When a 
+hardware design pairs it with an SFP/SFP+ cage, only the high-speed data 
+path runs through this IP: the in-core PCS/PMA drives the GT 
+transceiver, whose serial TX/RX lanes connect to the module. The module 
+management side-band -- I2C for the module EEPROM/diagnostics is not 
+part of this IP. It is provided by separate board logic, i.e. a 
+different IP: a standard AXI IIC controller. Those are general-purpose 
+soft cores from the standard Vivado IP catalog; each has its own 
+devicetree node and binding, so the SFP management path looks outside 
+the scope of this Ethernet binding.
+Please let me know if I should describe sfp in this binding.
+
+
+>> The contents of the appropriate MDIO registers are available in the IP control &
+>> status registers.
+> 
+> What does that mean?
+> 
+>       Andrew
+
+I meant that the PCS/link state a driver would normally read from a PHY 
+over MDIO (link up, resolved speed, block-lock/RX status) is exposed 
+directly in the XXV IP's control & status registers, because the PCS/PMA 
+is in-core.
+
+
+Thanks,
+Suraj
+
+
