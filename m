@@ -1,122 +1,83 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F7D15665C
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 00:08:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2001D220687;
+	Tue,  1 Sep 2026 00:09:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788221341; cv=none; b=E6UczEx6dZym3Z9xLur1eYZkC1QvyRzYp+mKW2Mx/deWi2FqEqODDUAghFjpVBjqdiPArtgW97Rjq1YzjJyHryX8krGU4b4hq1C9RF2jbxTgacEgTnTEaCWaQrtNWhvtK9gqLHyZyXI43qu+kuGPaD94mB4J0KBGboRVhlr0sV8=
+	t=1788221343; cv=none; b=cRd9xG9ev55gM80bmunSDypqFmZYWl3pfxteniw4iZE0Ms8eqfZ5Vc16fsHbccDkV4sl2buYGeMiHoigdds56X+B2+Q3Q8UZ8F4UoZ3SRZ71J7Li8bNAa/piICj8/eEq3b4JcauTVtGtbzCJWF4Fv/Us1FICDS5wxKdVWtp1zvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788221341; c=relaxed/simple;
-	bh=7C1mJL+d0RD9Sz8BFCniH1v8F4EmGh+fIvAplCZdQrI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YrgPpZYfIdH64iJZoW3SrVR/Os5d87tVtCQEUZ2gInpMtb35aKUWLu+q6VdGawnBNfP2dgfj0a6Djr4gXy8jWn6Jh8YARpVAJMDXe5lCUBH8CQ+lOZ0wwQ7gTWid4o+GZOIsxdjLv1BdAz6MJhgx9Gmi0EgTBCkbeTJCweSnhEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SjRG1asv; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788221343; c=relaxed/simple;
+	bh=AdhwX4+AlUR+yOn+TZD8JoDBz3Hdlh5o1W72Ag9ocjU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=nMpnC+IR/WHLeDStLaqkdBMF57KhFCrRBg7Y9JFHlWKJQUbZIcg90Wx046EnfmyjX1Wqyq2iBXGH6Bcb5KsFgBajT0FvOsGdA58F60UG+4ecn7H89GIGt3m5McfW/FeQjHYk+GEJionkDMbZU9bjxI+whj4Uk36Nhc0/bwACnS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TX3AkNbq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SjRG1asv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788221338;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cJFMEq80QkpWSaSDsjkZJUys8LK+Qc2YgMiiqzuhFRY=;
-	b=SjRG1asvRGgIzpMZ5MkQBkDlZGUknniJLJ+5a26KXyLwxXQ02VJxd92CAJRIHFL3ZYOkH2
-	SCXMexhh8rTSsNH6ovVVjNpzKlnsFg4IFfw5UKyKheUT1lGtgyF/d0OFe18LXcL48ZUwoy
-	/E6GTfiIPKUdSWlaM8767WZj6itzzK4=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-392-uRIloH20MoSLK8j0_x_Lxg-1; Mon,
- 31 Aug 2026 20:08:54 -0400
-X-MC-Unique: uRIloH20MoSLK8j0_x_Lxg-1
-X-Mimecast-MFC-AGG-ID: uRIloH20MoSLK8j0_x_Lxg_1788221332
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id EED9E19540E8;
-	Tue,  1 Sep 2026 00:08:51 +0000 (UTC)
-Received: from [100.91.18.181] (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4BDF87D8;
-	Tue,  1 Sep 2026 00:08:50 +0000 (UTC)
-Message-ID: <85411b3f-bcbd-4a7e-99a5-49a465ca2df8@redhat.com>
-Date: Mon, 31 Aug 2026 20:08:49 -0400
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TX3AkNbq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE4AA1F000E9;
+	Tue,  1 Sep 2026 00:09:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788221341;
+	bh=MOCnMiWwuAqeY7230RPEeGlPmrcMUY6HdWpI0w4hMDA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=TX3AkNbqanYf/UIUjrymI1W/9kEbYODsuEKCcVac0QFQGRRXvMVN2a6k4ib+zl02L
+	 4dp09cP7ahoQGjNCsqXtcXaFrithQUTh04xQeBPXot8wQCv9TS8AwMYLKarPmDo4wf
+	 JQpgQ3Qy5IbFW8obwGz+bkp8TYO8cE7Mlakf4hRnFAy62uK+fa+Zje7SPRSWjqiDGy
+	 ikBThDDtZowX62erg0MYRdiH0H7OXM3w4c78GKFzWXvBeB/0sFmAq4TaEK3ZhfTL9e
+	 moJ7m4a/a9eh0cWXOfpftQRl6gOiefrDNjJt0fpGwooDyr+QDzn0IJ9l06O+6lpFsg
+	 laXtW67OdYyeg==
+Date: Mon, 31 Aug 2026 17:08:58 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: netdev@vger.kernel.org, Linus Walleij <linusw@kernel.org>, Imre Kaloz
+ <kaloz@openwrt.org>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+ <pabeni@redhat.com>, linux-arm-kernel@lists.infradead.org (moderated
+ list:ARM/INTEL IXP4XX ARM ARCHITECTURE), linux-kernel@vger.kernel.org (open
+ list)
+Subject: Re: [PATCH net] net: ixp4xx_eth: handle probe deferral from
+ of_get_mac_address()
+Message-ID: <20260831170858.7e23643e@kernel.org>
+In-Reply-To: <20260827013634.167932-1-rosenp@gmail.com>
+References: <20260827013634.167932-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] cgroup/cpuset: Handle cpu hotplug race in
- guarantee_active_cpus()
-To: Ridong Chen <ridong.chen@linux.dev>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>
-Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
- Farhad Alemi <farhad.alemi@berkeley.edu>
-References: <20260828180322.730419-1-longman@redhat.com>
- <ba138f23-6972-44c8-8ce5-80de1f50891c@linux.dev>
-Content-Language: en-US
-From: Waiman Long <longman@redhat.com>
-In-Reply-To: <ba138f23-6972-44c8-8ce5-80de1f50891c@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On 8/30/26 9:50 PM, Ridong Chen wrote:
->
->
-> On 8/29/2026 2:03 AM, Waiman Long wrote:
->> With commit 2125c0034c5d ("cgroup/cpuset: Make cpuset hotplug
->> processing synchronous"), the cpuset hotplug operation becomes
->> synchronous. That commit also removes the code that handles the race
->> between cpuset_hotplug_work and cpu hotplug notifier with the assumption
->> that race is now gone. Later commit 7a0aabd9ce69 ("cgroup/cpuset:
->> Always use cpu_active_mask") updates the cpuset code to always use
->> cpu_active_mask instead of cpu_ohline_mask in various places including
->> guarantee_online_cpus() which is also renamed to guarantee_active_cpus()
->> in that commit.
->>
->> In the case of CPU offline operation, cpuset_active_mask is updated
->> first in sched_cpu_deactivate() to remove the offline CPU before
->> cpuset_handle_hotplug() is called to update the effective_cpus of the
->> affected cpusets. The cpu_online_mask is updated after that near the end
->> of the offline operation to remove the offline CPU. As a result, the 
->> race
->> comes back and the top cpuset may not have any active CPU leading to 
->> NULL
->> pointer dereference during the race window when guarantee_active_cpus()
->> is called after cpu_active_mask is updated to remove the CPU to be torn
->> down but before cpuset_handle_hotplug() is able to properly update the
->> effective_cpus of the top cpuset.
->>
->
-> Hi Longman,
->
-> Thank you for the patch. I believe it should resolve the issue.
-> Could Farhad please verify whether it works as expected?
->
->> Fix this by adding back the NULL cs check to avoid this problem. 
->> However,
->> the output of guarantee_active_cpus() will be unreliable during that
->> race window.
->>
->
-> If guarantee_active_cpus() can return unreliable results during that 
-> race window, should it instead return an error when it cannot 
-> guarantee that the active CPUs are usable? Otherwise, callers might 
-> use an incorrect 'pmask', which could lead to other issues downstream.
+On Wed, 26 Aug 2026 18:36:34 -0700 Rosen Penev wrote:
+> ixp4xx_of_get_platdata() returns NULL on failure, which the probe converts
+> to -ENODEV, discarding the real cause of the failure. Return ERR_PTR()
+> with the appropriate error so callers can distinguish cases such as
+> missing DT properties (-EINVAL) and, importantly, handle -EPROBE_DEFER
+> from of_get_mac_address().
 
-I am thinking about that too. However, the change will be more extensive 
-and it is that easy to figure out if we are the in the race window. So 
-more thought will be needed before we can make that change. In the mean 
-time, we have to fix the NULL pointer dereference and it has behaved 
-like that before.
+Doesn't seem like this should be treated as a fix, AI says:
 
-Cheers,
-Longman
+Can a device tree that actually reaches this new code path pass
+dtbs_check? -EPROBE_DEFER out of of_get_mac_address() only comes from
+the nvmem lookup:
 
+net/core/of_net.c:of_get_mac_address() {
+	...
+	return of_get_mac_address_nvmem(np, addr);
+}
+
+which needs nvmem-cells and nvmem-cell-names = "mac-address" in the node.
+Documentation/devicetree/bindings/net/intel,ixp4xx-ethernet.yaml ends with
+additionalProperties: false and pulls in ethernet-controller.yaml only via
+allOf/$ref, re-listing just phy-mode, phy-handle and fixed-link. It never
+lists nvmem-cells, nvmem-cell-names, mac-address or local-mac-address.
+
+Should the binding gain those properties (or switch to
+unevaluatedProperties: false) so the configuration this patch handles
+can be described?
+
+
+And if this goes to net-next there's a bunch of pre-existing
+bugs in the area which will conflict, so frankly let's just leave 
+this be.
