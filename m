@@ -1,213 +1,220 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C17F836A36B
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 14:20:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50AE0372663;
+	Tue,  1 Sep 2026 14:20:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788272415; cv=none; b=aD5a8ZCn1clwbyK72ZjnsRrEErNq66GElxm6BTXKi1X0bcvkKoZEm6fcjscgPSfi9ulslzDWxFaLcwXpJSbXDPLmcRWDGermH6MIh1CSBQtp14ssU5rpxEKuAptEzRZj6b5XXMGM4HhKoy3raaWqNQlLlrL+xS6XTHZuSsE4wxE=
+	t=1788272441; cv=none; b=K53mtgcv6lvgG53OIaEU4VtWexTFCBSmTD0yQdYB9isy4Ymxjiv3iPz9dZ+9IDcotFrXZRZ6dfMswryC1bg4WTksEH5n0nGVxEIOTV1iqKY84DuMxI8Vm5P7oDDFPs+InuiZnw/qW7PQmWQoNTv9awDPw3KxTlzX7rjpwP9w/xs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788272415; c=relaxed/simple;
-	bh=G9sBp1mVgaUE/l5rjm6ABkGFFWw70IL3CtMbcHYdHzo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aPHI5SQjbhGYVYU6XNIoJJjIXBTBcjlzxrk7K7pFkiyinXvzT8L1dDUtcGCc+tbBMBlUGQpPTm+O9OkiJ+1uLRxCm6NlDHpTiOJDy9zU538Bg25rMJpmAxLroyIDhsbxxPFJBtvda2o6iioJvAbtt2b5U5KAdAb5xDKMCvMWET4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rPgflv2i; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788272441; c=relaxed/simple;
+	bh=zd/fIEEYMnMH3UWLNBfAjaY+K6SztpiJkJuUGOBwOMQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AQ35fn47VLTiEhew9ULQ7WvI2OAzhwCRKUNfI+KEQWrRHu9rkreClvRY5bZtF/xEmjYUVYQFsfanhO0p63PGk0qfzx2Z0BI7fKz3Ls/vpGm+StOP6wj43Oz4wR8fET1moUYEsnkq4JEhjh3DDUfa373Gbzy/aVTmwEYEVlekkkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ByiWL7c4; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rPgflv2i"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-39682983a0fso6101365a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 07:20:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788272413; x=1788877213; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fsOksJSp0HAMqHBUB3OXoIzMa/zTjlvvkjoIYMW4xXE=;
-        b=rPgflv2iqBzzzQ8UwQy2mW48K2pFnOuDusH+ZYulL47IjeX2YvvkjL1WQb9BF60rP9
-         G8SQU2J2XpWCqTB3FP6Aq3URyGWNwE6v0UGRIlqS0XytpBKmZtU09G31QS4f7ud4n0Lz
-         /u00wNhE2ZC5tw1UQesJ1LaROqRQZD0pz+1MNxPM96BfycvTPTQVPNhJ+cEA0DwAm2Ys
-         Y/nvRKRzo1LKonGeWmgoAuerebW/9rPzA+fLIt44s1uSol1ZF66icIfdLDc2dwt1Rnbb
-         fErfCB/t+RjMFishnL3uCjIwVYFR01gLNFyebNLpImzbno7JcMeLCb2Mwaw/o46cchml
-         U2sQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788272413; x=1788877213;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fsOksJSp0HAMqHBUB3OXoIzMa/zTjlvvkjoIYMW4xXE=;
-        b=D80XfzBsIcrdTL2fHRfOEASogqXo5lbbq0bK7V9Pfgze9fXvbGUNocBTAKyyAkdDsj
-         Ddn1k7giQiC1p8O9o0vq5gSURgWNqONzqEo4MGN11c/mQOcSLKV26s5liMlIcIg761hF
-         arLAzE11Va2rzbcx4dQHt0xcMC2B+ZXvJATUTnFIWwvRdRxl+bqCyaI7FOYdbIlnxNA0
-         r3sOhMEUPViGsrBd44VwSeHTXNXn1LqgJT9x2Fk04AqDABr/6sc1hHsnwTTdxWJa9cFa
-         mtuu0SN4TVBYwSrbxPMvUVuucCQY5/T/7UKwwwk1FRMSUbfY0L0vRvfJJi6uxWtytExF
-         Dh1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzFcvNeYnjPKGtbCRFCHMdjrBGougS7Bv1Hk8QRFlAWKMx28NjsTMGx65bdIapZ3Wn5IW5LSfHZq/P1nBA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kHvQHGmh77g7NeB/k0hwVuc5jI6I2JP18VEg3ZAlVfeJFV2RW7
-	yzIpLeVGEoZhi2b4ADd0Ql099ZCXO51TY6byx270ZU/6Pt+PJNEBpW00
-X-Gm-Gg: AYBFou0/5Q2e+tM2Vmala6c8JnYcH9LuzxTlneQri45kmgZi2zQ5A0FvlY5bk5YYcyV
-	P3cUGuC0WYJ37XLkpAGz0omtZHIq2jkLGn6MlFtfAVTpvUOt/bZwLtdkRNYKPQEXLQ1n3Dptksl
-	7WA4an2RfD9HmHRSPgXlentBZ5UcOpdUqssLLvkMKJ3lZ3tDrsi3mUdmU2fyJGgL42SCyaMG0XO
-	j3+Ox0Z/f2eWU6Kfn9yCCfnyITGUPfR7ZMDqp88Yo8sxv1NdQSOUuAZO6ecLidHITDUN/2u6PXL
-	odcJMRMGFGoduyT6i4YVqFPlsWtCvGv046XGlPTT67ZyffT4ib4LqE3UEZ/Pj4HIPS6g79GiN95
-	JajTo8fqMQad7bf4uJmJ3XbTwcGBa8ndElmeg0uVxfC9/ZDuCE8Yryyy2OVvlTRcC4p8dMwMtfp
-	5nXKnxhGlFEtqEQSH4+OU+qw7AAxbrXbiIhp2KPEbCiuUvL8IhR9c14oHBT8b6CWyVvCnWPlsS9
-	6tl70n8HaWe3rrO+cOSRWzFGxtY
-X-Received: by 2002:a17:90b:4a8a:b0:399:e97:8d5a with SMTP id 98e67ed59e1d1-3990e97a0a4mr8920746a91.25.1788272412762;
-        Tue, 01 Sep 2026 07:20:12 -0700 (PDT)
-Received: from archlinux ([205.254.163.54])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32874498f9esm35589779eec.20.2026.09.01.07.20.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 07:20:12 -0700 (PDT)
-From: Suchit Karunakaran <suchitkarunakaran@gmail.com>
-To: andrii@kernel.org,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	eddyz87@gmail.com,
-	memxor@gmail.com,
-	shuah@kernel.org
-Cc: emil@etsalapatis.com,
-	ihor.solodrai@linux.dev,
-	jolsa@kernel.org,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	zhoufeng.zf@bytedance.com,
-	bpf@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Suchit Karunakaran <suchitkarunakaran@gmail.com>
-Subject: [PATCH] selftests/bpf: Fix map_lookup_percpu_elem on sparse CPU IDs
-Date: Tue,  1 Sep 2026 19:49:54 +0530
-Message-ID: <20260901141954.29449-1-suchitkarunakaran@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ByiWL7c4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788272439; x=1819808439;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=zd/fIEEYMnMH3UWLNBfAjaY+K6SztpiJkJuUGOBwOMQ=;
+  b=ByiWL7c434jx4L3HI3T9mIjM4wkyVNHcLUDzeAD/nYppdVhYXFaM4/JD
+   N0Rj1zqMLNxjFfHAESU3nB5/tUcLJvrj8KNo5mPApvX0BKUy8eliDd9L6
+   ez8eAAjAvKn84lCvUES+r4X9rLDZfSTT0hQmMDpie1jgIdCJAN3gZor7i
+   QWvqAkOSxbX+ckej+QvPmfJG1prcx/lqDCUI01P8oKSj76J8bGVVgvJdJ
+   ijF+yjuYaaMs8I3CTbacJrs0P/JlXTUTfDVj7GpnN/vr+lKhq9iPBIjbh
+   Uxvsu0l7sZeGVcbugfG9dwmCUERwnrgTBmLc3jQE5klq1xkPluBkvgM7n
+   w==;
+X-CSE-ConnectionGUID: u7EX+OyKRhWaOgrdktnHmQ==
+X-CSE-MsgGUID: 6NHn0GiVQlqh0tNA+d/ydA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88909617"
+X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
+   d="scan'208";a="88909617"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 07:20:38 -0700
+X-CSE-ConnectionGUID: F7cF9cMCQGG7mr2OPBMphA==
+X-CSE-MsgGUID: 7oUiwgDWTfKQdgg2VCkSrg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,256,1779174000"; 
+   d="scan'208";a="267803038"
+Received: from soc-cp83kr3.clients.intel.com (HELO [10.122.185.5]) ([10.122.185.5])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 07:20:38 -0700
+Message-ID: <8e9aeb61-30fc-4a1a-8a6d-9104f9ebdd6f@intel.com>
+Date: Tue, 1 Sep 2026 09:20:36 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 11/16] KVM: x86/pmu: Emulate the GLOBAL_STATUS_SET and
+ GLOBAL_INUSE MSRs
+To: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>,
+ Sean Christopherson <seanjc@google.com>, Paolo Bonzini
+ <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>
+Cc: kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>,
+ Jim Mattson <jmattson@google.com>, Stephane Eranian <eranian@google.com>,
+ linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
+ Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
+ Xudong Hao <xudong.hao@intel.com>
+References: <20260827223755.143247-1-zide.chen@intel.com>
+ <20260827223755.143247-12-zide.chen@intel.com>
+ <d2285a85-e5b5-4fd5-8f2f-68f2dee5763d@linux.intel.com>
+Content-Language: en-US
+From: "Chen, Zide" <zide.chen@intel.com>
+In-Reply-To: <d2285a85-e5b5-4fd5-8f2f-68f2dee5763d@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-libbpf_num_possible_cpus() returns the number of possible CPUs, which is
-appropriate for sizing packed per-CPU map value buffers. It is not the
-upper bound for logical CPU IDs.
 
-For a possible CPU mask such as 0,2-3, the test loops over CPU IDs 0
-through 2. This incorrectly visits CPU 1 and misses CPU 3. It also
-initializes packed per-CPU slots using their slot indexes rather than
-the corresponding logical CPU IDs.
 
-Parse the possible CPU mask and keep the packed slot count separate
-from the logical CPU ID range. Populate each dense per-CPU slot with
-its logical CPU ID, calculate the corresponding expected sum, and make
-the BPF program iterate over the full CPU ID range.
+On 9/1/2026 1:45 AM, Mi, Dapeng wrote:
+> 
+> On 8/28/2026 6:37 AM, Zide Chen wrote:
+>> Intel PerfMon v4 introduces IA32_PERF_GLOBAL_STATUS_SET (0x391) to
+>> allow software to set individual bits in the global status MSR. Reads
+>> of IA32_PERF_GLOBAL_STATUS_SET always return zero.
+>>
+>> IA32_PERF_GLOBAL_INUSE (0x392) is also introduced in v4, to track
+>> which counters and the PMI are currently claimed by other agents,
+>> allowing independent software agents to check counter availability
+>> without a shared scheduler arbitrating between them.
+>>
+>> IA32_PERF_GLOBAL_INUSE is an read-only MSR, and any write attempt
+>> results in a #GP.
+>>
+>> Neither MSR is part of the VM state, so they don't need to be
+>> advertised to userspace, nor saved and restored during live
+>> migration.
+>>
+>> Originally-by: Yang Weijiang <weijiang.yang@intel.com>
+>> Signed-off-by: Zide Chen <zide.chen@intel.com>
+>> ---
+>> v2:
+>> - Change intel_pmu_get_global_inuse() to return u64, to match the
+>>   surrounding code style.
+>> - Add the missing vmcs02 updates for these two MSRs.
+>> - Change "> 3" to ">= 4" to make the "v4-gated" more obvious and match
+>>   the existing code style.
+>> ---
+>>  arch/x86/include/asm/msr-index.h |  4 ++++
+>>  arch/x86/kvm/pmu.c               |  9 ++++++++
+>>  arch/x86/kvm/vmx/nested.c        |  2 ++
+>>  arch/x86/kvm/vmx/pmu_intel.c     | 37 ++++++++++++++++++++++++++++++++
+>>  arch/x86/kvm/vmx/vmx.c           |  4 ++++
+>>  5 files changed, 56 insertions(+)
+>>
+>> diff --git a/arch/x86/include/asm/msr-index.h b/arch/x86/include/asm/msr-index.h
+>> index 11b99d237e05..0b093cf41edf 100644
+>> --- a/arch/x86/include/asm/msr-index.h
+>> +++ b/arch/x86/include/asm/msr-index.h
+>> @@ -1240,6 +1240,10 @@
+>>  #define MSR_CORE_PERF_GLOBAL_CTRL	0x0000038f
+>>  #define MSR_CORE_PERF_GLOBAL_OVF_CTRL	0x00000390
+>>  #define MSR_CORE_PERF_GLOBAL_STATUS_SET	0x00000391
+>> +#define MSR_CORE_PERF_GLOBAL_INUSE	0x00000392
+>> +
+>> +/* Intel IA32_PERF_GLOBAL_INUSE MSR */
+>> +#define PERF_GLOBAL_INUSE_PMI_INUSE	BIT_ULL(63)
+>>  
+>>  #define MSR_PERF_METRICS		0x00000329
+>>  
+>> diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
+>> index 437a7bc49bf8..7c05cf5157bf 100644
+>> --- a/arch/x86/kvm/pmu.c
+>> +++ b/arch/x86/kvm/pmu.c
+>> @@ -832,6 +832,8 @@ bool kvm_pmu_is_valid_msr(struct kvm_vcpu *vcpu, u32 msr)
+>>  	case MSR_CORE_PERF_GLOBAL_CTRL:
+>>  	case MSR_CORE_PERF_GLOBAL_OVF_CTRL:
+>>  		return kvm_pmu_has_perf_global_ctrl(vcpu_to_pmu(vcpu));
+>> +	case MSR_CORE_PERF_GLOBAL_STATUS_SET:
+>> +		return vcpu_to_pmu(vcpu)->version >= 4;
+>>  	default:
+>>  		break;
+>>  	}
+>> @@ -865,6 +867,7 @@ int kvm_pmu_get_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
+>>  	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_CLR:
+>>  	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_SET:
+>>  	case MSR_CORE_PERF_GLOBAL_OVF_CTRL:
+>> +	case MSR_CORE_PERF_GLOBAL_STATUS_SET:
+>>  		msr_info->data = 0;
+>>  		break;
+>>  	default:
+>> @@ -931,6 +934,12 @@ int kvm_pmu_set_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
+>>  		if (!msr_info->host_initiated)
+>>  			pmu->global_status &= ~data;
+>>  		break;
+>> +	case MSR_CORE_PERF_GLOBAL_STATUS_SET:
+>> +		if (data & pmu->global_status_rsvd)
+>> +			return 1;
+>> +		if (!msr_info->host_initiated)
+>> +			pmu->global_status |= data;
+>> +		break;
+>>  	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_SET:
+>>  		if (!msr_info->host_initiated)
+>>  			pmu->global_status |= data & ~pmu->global_status_rsvd;
+>> diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+>> index 0cff369982ae..ae7dd3636e70 100644
+>> --- a/arch/x86/kvm/vmx/nested.c
+>> +++ b/arch/x86/kvm/vmx/nested.c
+>> @@ -719,6 +719,8 @@ static void nested_vmx_merge_pmu_msr_bitmaps(struct kvm_vcpu *vcpu,
+>>  	nested_vmx_merge_msr_bitmaps_rw(MSR_CORE_PERF_GLOBAL_CTRL);
+>>  	nested_vmx_merge_msr_bitmaps_read(MSR_CORE_PERF_GLOBAL_STATUS);
+>>  	nested_vmx_merge_msr_bitmaps_write(MSR_CORE_PERF_GLOBAL_OVF_CTRL);
+>> +	nested_vmx_merge_msr_bitmaps_write(MSR_CORE_PERF_GLOBAL_STATUS_SET);
+>> +	nested_vmx_merge_msr_bitmaps_read(MSR_CORE_PERF_GLOBAL_INUSE);
+>>  }
+>>  
+>>  /*
+>> diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
+>> index 4df55a3e21da..3070fba2687f 100644
+>> --- a/arch/x86/kvm/vmx/pmu_intel.c
+>> +++ b/arch/x86/kvm/vmx/pmu_intel.c
+>> @@ -194,6 +194,8 @@ static bool intel_is_valid_msr(struct kvm_vcpu *vcpu, u32 msr)
+>>  	switch (msr) {
+>>  	case MSR_CORE_PERF_FIXED_CTR_CTRL:
+>>  		return kvm_pmu_has_perf_global_ctrl(pmu);
+>> +	case MSR_CORE_PERF_GLOBAL_INUSE:
+>> +		return pmu->version >= 4;
+>>  	case MSR_IA32_PEBS_ENABLE:
+>>  		ret = vcpu_get_perf_capabilities(vcpu) & PERF_CAP_PEBS_FORMAT;
+>>  		break;
+>> @@ -341,6 +343,38 @@ static bool intel_pmu_handle_lbr_msrs_access(struct kvm_vcpu *vcpu,
+>>  	return true;
+>>  }
+>>  
+>> +static u64 intel_pmu_get_global_inuse(struct kvm_vcpu *vcpu)
+>> +{
+>> +	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
+>> +	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
+>> +	unsigned long gp_mask = kvm_gp_pmc_mask(pmu);
+>> +	bool pmi_inuse = false;
+>> +	u64 eventsel, data = 0;
+>> +	u32 fixed_ctrl;
+>> +	int i;
+>> +
+>> +	kvm_for_each_gp_counter(i, gp_mask) {
+>> +		eventsel = pmu->gp_counters[i].eventsel;
+>> +
+>> +		if (eventsel & ARCH_PERFMON_EVENTSEL_EVENT)
+> 
+> Why to check ARCH_PERFMON_EVENTSEL_EVENT instead of
+> ARCH_PERFMON_EVENTSEL_ENABLE here? Suppose only
+> ARCH_PERFMON_EVENTSEL_ENABLE is set, then the counter is in use.
 
-Fixes: 7aa424e02a04bba5ecc84afe9b58b16e9e0b34f8 ("selftests/bpf: Fix some bugs in map_lookup_percpu_elem testcase")
+This implementation strictly follows the SDM, which checks the event
+bits, not the enable bit. This is also verified on bare metal.
 
-Signed-off-by: Suchit Karunakaran <suchitkarunakaran@gmail.com>
----
- .../bpf/prog_tests/map_lookup_percpu_elem.c   | 34 ++++++++++++++-----
- .../bpf/progs/test_map_lookup_percpu_elem.c   |  8 ++---
- 2 files changed, 30 insertions(+), 12 deletions(-)
+"IA32_PERF_GLOBAL_INUSE.PERFEVTSEL0_InUse[bit 0]: This bit reflects the
+logical state of (IA32_PERFEVTSEL0[7:0] != 0)."
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/map_lookup_percpu_elem.c b/tools/testing/selftests/bpf/prog_tests/map_lookup_percpu_elem.c
-index bfb1bf3fd427..849f33259c00 100644
---- a/tools/testing/selftests/bpf/prog_tests/map_lookup_percpu_elem.c
-+++ b/tools/testing/selftests/bpf/prog_tests/map_lookup_percpu_elem.c
-@@ -2,29 +2,45 @@
- /* Copyright (c) 2022 Bytedance */
- 
- #include <test_progs.h>
-+#include "bpf/libbpf_internal.h"
- #include "test_map_lookup_percpu_elem.skel.h"
- 
- void test_map_lookup_percpu_elem(void)
- {
- 	struct test_map_lookup_percpu_elem *skel;
--	__u64 key = 0, sum;
--	int ret, i, nr_cpus = libbpf_num_possible_cpus();
-+	bool *possible = NULL;
-+	__u64 key = 0, sum = 0;
-+	int cpu, nr_cpu_ids, nr_cpus, ret, slot = 0;
- 	__u64 *buf;
- 
--	buf = malloc(nr_cpus*sizeof(__u64));
--	if (!ASSERT_OK_PTR(buf, "malloc"))
-+	ret = parse_cpu_mask_file("/sys/devices/system/cpu/possible", &possible,
-+				  &nr_cpu_ids);
-+	if (!ASSERT_OK(ret, "parse possible CPU mask"))
- 		return;
- 
--	for (i = 0; i < nr_cpus; i++)
--		buf[i] = i;
--	sum = (nr_cpus - 1) * nr_cpus / 2;
-+	nr_cpus = libbpf_num_possible_cpus();
-+	if (!ASSERT_GT(nr_cpus, 0, "libbpf_num_possible_cpus"))
-+		goto free_mask;
-+
-+	buf = malloc(nr_cpus * sizeof(*buf));
-+	if (!ASSERT_OK_PTR(buf, "malloc"))
-+		goto free_mask;
-+
-+	for (cpu = 0; cpu < nr_cpu_ids; cpu++) {
-+		if (!possible[cpu])
-+			continue;
-+		buf[slot++] = cpu;
-+		sum += cpu;
-+	}
-+	if (!ASSERT_EQ(slot, nr_cpus, "possible CPU mask weight"))
-+		goto exit;
- 
- 	skel = test_map_lookup_percpu_elem__open();
- 	if (!ASSERT_OK_PTR(skel, "test_map_lookup_percpu_elem__open"))
- 		goto exit;
- 
- 	skel->rodata->my_pid = getpid();
--	skel->rodata->nr_cpus = nr_cpus;
-+	skel->rodata->nr_cpu_ids = nr_cpu_ids;
- 
- 	ret = test_map_lookup_percpu_elem__load(skel);
- 	if (!ASSERT_OK(ret, "test_map_lookup_percpu_elem__load"))
-@@ -55,4 +71,6 @@ void test_map_lookup_percpu_elem(void)
- 	test_map_lookup_percpu_elem__destroy(skel);
- exit:
- 	free(buf);
-+free_mask:
-+	free(possible);
- }
-diff --git a/tools/testing/selftests/bpf/progs/test_map_lookup_percpu_elem.c b/tools/testing/selftests/bpf/progs/test_map_lookup_percpu_elem.c
-index ca827b1092da..d8da0696b97c 100644
---- a/tools/testing/selftests/bpf/progs/test_map_lookup_percpu_elem.c
-+++ b/tools/testing/selftests/bpf/progs/test_map_lookup_percpu_elem.c
-@@ -7,7 +7,7 @@
- __u64 percpu_array_elem_sum = 0;
- __u64 percpu_hash_elem_sum = 0;
- __u64 percpu_lru_hash_elem_sum = 0;
--const volatile int nr_cpus;
-+const volatile int nr_cpu_ids;
- const volatile int my_pid;
- 
- struct {
-@@ -57,17 +57,17 @@ int sysenter_getuid(const void *ctx)
- 
- 	map_ctx.map = &percpu_array_map;
- 	map_ctx.sum = 0;
--	bpf_loop(nr_cpus, read_percpu_elem_callback, &map_ctx, 0);
-+	bpf_loop(nr_cpu_ids, read_percpu_elem_callback, &map_ctx, 0);
- 	percpu_array_elem_sum = map_ctx.sum;
- 
- 	map_ctx.map = &percpu_hash_map;
- 	map_ctx.sum = 0;
--	bpf_loop(nr_cpus, read_percpu_elem_callback, &map_ctx, 0);
-+	bpf_loop(nr_cpu_ids, read_percpu_elem_callback, &map_ctx, 0);
- 	percpu_hash_elem_sum = map_ctx.sum;
- 
- 	map_ctx.map = &percpu_lru_hash_map;
- 	map_ctx.sum = 0;
--	bpf_loop(nr_cpus, read_percpu_elem_callback, &map_ctx, 0);
-+	bpf_loop(nr_cpu_ids, read_percpu_elem_callback, &map_ctx, 0);
- 	percpu_lru_hash_elem_sum = map_ctx.sum;
- 
- 	return 0;
--- 
-2.55.0
+That's why, in the reply above to Sashiko, I noted that on bare metal
+without a vCPU scheduled in, after a perf event is closed, the counter
+could still show as in use. perf/x86 clears the enable bit while keeps
+the event bits set.
 
