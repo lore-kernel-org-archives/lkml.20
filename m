@@ -1,120 +1,91 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 772C242DA5B;
-	Tue,  1 Sep 2026 07:18:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1949B456DF3;
+	Tue,  1 Sep 2026 07:18:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788247108; cv=none; b=VepHvcTXTuHkatixsS9oNuvTEg3kStcpUb8ja2fStobLxaeYc82itOHEVNVy57AutNqO8UOo4I2hXXkPmFh2w4/gkvXLX+/Q5OX4IrsMpk7EZRXqPuxeGGFnJEe3UT7BMJ2+s0P6DHfFTNp3tNNA7rhwDNg1Z3qsL8yCY37vGwc=
+	t=1788247110; cv=none; b=VhwH4pP1bMYeast4+kqD1v+F5gWCkO+8wVXObC1JDXT/n22Rx/w+l11ZB2ggnG3LzM2TfBACeh859YWy0JQXne1VMpwbtRGWcZ38ya7c7uv73V5rkCSZt7D7CF+k3Egyb7x0F0GoSt6dCBvVl7psnHAAFY/kYr7X5YO3SQE/rO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788247108; c=relaxed/simple;
-	bh=nQ1Txs5VtWwa3LV7R5SsGLj9IbDYJQeJmmceT7DdqFA=;
+	s=arc-20240116; t=1788247110; c=relaxed/simple;
+	bh=D5X5hp0rLD200qNbvd/0WTpE/bHAqMjL1dE7N4Uad30=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qG4kkrbhn27nFyjaNCQIu5Rk2yMsuo5kJ8hVNku+GxG1znn8ouDK+YxVreqbjnMscplbBIDuCO1KXusnJZZ6hya2UkwfnwcNGqyXppkEApu2YiUqytQivah+FUhr/nMPvL9COm1wWX96LI+lQ8tHEkRpf0auU6xnYgqyD4ueZNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=m70veq3G; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=bFn6nP810jJjRh0TWmBztAv7R+5Yvg/CinYSfdNO9gqgOEcMb/+c+MwtR0kOVRAVzHmmSpLK8j0s4T8FXc7dV5Wp9BVBx6jODOU7ncDr94oG+2iV/7a1p+FIY/GK2YDJWMJvt3X06L86BHTI4XRRxeNPBcRp6VtEQKYOpqSIMqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CvoXErb2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="m70veq3G"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788247105; x=1819783105;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=nQ1Txs5VtWwa3LV7R5SsGLj9IbDYJQeJmmceT7DdqFA=;
-  b=m70veq3GFbthuqwztB3F4+K393V4Ic5LeNXDRCt51YvQhraiADg8c9T5
-   Fd1BnTJzfcIZNKZ1ajpg0TAZMyTgc9d2EVlMmCrkENG3RC3DSQBQY3flX
-   nZ6jN+cT9DApQhU8aORD51EXbsSTJn8GAa4r+bFXJi+9jrYmG0/ue36UU
-   7l7Gj5WooRcGtHGzoy2tVjqyG+4W35ReMOxXWGhnBS/ZyHyviVm199133
-   eKYu4UYnUgJxnOTIKLYmQeFZkh4ZL8g5bmwIUrHr8oEhOpYsTkJehkMUB
-   OFqQByLTtdMNlC30Q/AyUETdwzxodwd3I3VL7mnp71Oc70BlwDXO6uiJ7
-   Q==;
-X-CSE-ConnectionGUID: 3PCgXjNwTfygnIp9UBh83w==
-X-CSE-MsgGUID: n/FwF+MlT9iODPKvAb/4gg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="92534044"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="92534044"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 00:18:24 -0700
-X-CSE-ConnectionGUID: 6fQWQPLNTsGsO9NeARB8fA==
-X-CSE-MsgGUID: KiNiqfY8RJGBKkD+8I7ZhA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
-   d="scan'208";a="292513211"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.222])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 00:18:20 -0700
-Date: Tue, 1 Sep 2026 10:18:17 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
-Cc: linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
-	linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	=?iso-8859-1?Q?Am=E9lie?= Delaunay <amelie.delaunay@foss.st.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v3 1/9] dmaengine: Support bus widths of 32 bytes and
- above
-Message-ID: <apZ8OSzG7bEpQylL@ashevche-desk.local>
-References: <20260831-dmaengine-support-wider-dma-masks-v3-0-507d97496f2d@analog.com>
- <20260831-dmaengine-support-wider-dma-masks-v3-1-507d97496f2d@analog.com>
- <apWFa4BFoAL2AhG3@ashevche-desk.local>
- <apWjMBvGA6yo_nCZ@nsa>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CvoXErb2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9692C1F00A3D;
+	Tue,  1 Sep 2026 07:18:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788247108;
+	bh=BliBlBY/rE2XXAfiz114Pf5LOVvfEPyRfjJ0ncDHxzU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CvoXErb2sAbM5eo5Z8hj41LsJXMSJ3CqDv9mbfoKuBKkC9Yiqxk0zhn0sOE2VHMx1
+	 +huckBkdkUb+v8BvRj2x6LSaexGExbNZXJQ387B/KCcLUPvI4rsPl1JwrLMe3+g72i
+	 bzGN6XjaNRoTT5SgvmllYakS2peRE6aocqfD1jHEKxpaWrSC9sv9B/a0hp9QoN1WfZ
+	 oBuibsVlhSIeJCSUk5lccBQcQ+QnIiT4n2DFPqG1YTfO1/CABLx4tG8JjBoXyqExbZ
+	 xT3uUaDK2BXqfMV1USdT9voFU1Q61JPRETne9TrLoNxHeNCtH5vLZZ7P2USZ/20Ff8
+	 I1eSZk8uLR++Q==
+Date: Tue, 1 Sep 2026 08:18:22 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-tip-commits@vger.kernel.org, 
+	Steffen Dirkwinkel <lists@steffen.cc>, Pedro Falcato <pfalcato@suse.de>, 
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Atish Patra <atishp@meta.com>, Nikunj A Dadhania <nikunj@amd.com>, stable@vger.kernel.org, 
+	x86@kernel.org
+Subject: Re: [tip: x86/urgent] x86/alternative: Exclude text poking against
+ change_page_attr()
+Message-ID: <apZ8AXqJBeI2BztN@gremlin>
+References: <20260813-cpa-fixes-v2-3-39b4ff90f91d@kernel.org>
+ <178821524520.3717435.12731475498671524229.tip-bot2@tip-bot2>
+ <4201eac9-297b-4672-8e7f-62e99dd13eb8@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <apWjMBvGA6yo_nCZ@nsa>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <4201eac9-297b-4672-8e7f-62e99dd13eb8@kernel.org>
 
-On Mon, Aug 31, 2026 at 04:56:18PM +0100, Nuno Sá wrote:
-> On Mon, Aug 31, 2026 at 04:45:15PM +0300, Andy Shevchenko wrote:
-> > On Mon, Aug 31, 2026 at 12:46:38PM +0100, Nuno Sá wrote:
+On Tue, Sep 01, 2026 at 08:16:28AM +0200, Jiri Slaby wrote:
+> On 01. 09. 26, 0:27, tip-bot2 for Pedro Falcato wrote:
+> > The following commit has been merged into the x86/urgent branch of tip:
+> >
+> > Commit-ID:     1c4d1c070d734b241728378c0f79950c23a10883
+> > Gitweb:        https://git.kernel.org/tip/1c4d1c070d734b241728378c0f79950c23a10883
+>
+> Was it dropped in the meantime? Gitweb says:
+> Object 1c4d1c070d734b241728378c0f79950c23a10883 is not reachable from any
+> reference in this repository
+>
+> $ git rev-parse tip/x86/urgent
+> 477cf5cd1f698053df7426b7b8d9339e85e00946
+> $ git branch -r --contains 1c4d1c070d734b241728378c0f79950c23a10883
+> $
+>
+> Despite I managed to download it at some point though:
+> $ git show --oneline -s 1c4d1c070d734b241728378c0f79950c23a10883
+> 1c4d1c070d73 x86/alternative: Exclude text poking against change_page_attr()
+>
+> What's going on with tip today?
 
-...
+Yup, I can't see this commit _at all_ in x86/urgent. Something's very
+broken here.
 
-> > >  F:	drivers/dma/
-> > >  F:	include/dt-bindings/dma/
-> > >  F:	include/linux/dma/
-> > > +F:	include/linux/dma/engine/
-> > >  F:	include/linux/dmaengine.h
-> > >  F:	include/linux/of_dma.h
-> > 
-> > Unneeded, previous entry includes recursively.
-> 
-> Checkpatch complains so I guess we assume it's a tool issue?
+>
+> > Author:        Pedro Falcato <pfalcato@suse.de>
+> > AuthorDate:    Thu, 13 Aug 2026 12:01:26 +03:00
+> > Committer:     Dave Hansen <dave.hansen@linux.intel.com>
+> > CommitterDate: Mon, 31 Aug 2026 15:17:35 -07:00
+> >
+> > x86/alternative: Exclude text poking against change_page_attr()
+> thanks,
+> --
+> js
+> suse labs
 
-Can you confirm that without this line get_maintainer.pl works? If it does,
-then the problem is in checkpatch.pl (false positive).
-
-...
-
-> > It's possible to split this patch to two:
-> > - move the existing type into a new types.h header
-> > - add support for the new API
-> 
-> Yeah I thought about that but this still looked simple enough to go
-> together but I can split in the next version.
-
-I think the split is needed as it makes better view on the changes
-(and accompanying justifications in the commit messages).
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+--
+Cheers, Lorenzo
