@@ -1,236 +1,189 @@
-Received: from mta0.migadu.com (out-202.mta0.migadu.com [91.218.175.202])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0567B3D093C
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 13:09:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.202
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F51E3B7772;
+	Tue,  1 Sep 2026 13:09:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788268146; cv=none; b=e3RzTDOATWtPliTW/zJIb1+Z23zfWZfyG04FLxa1tQxXzcRB8FRPAuw9VdJSG2Zhrji6p//U8gEPL68QQT3reIrpPJACdFbMYdFI/eDTVFcgSh94w13ywb0g+M1Ql/0GGWeae2Kt8ELdftb6VQjY9vvs3KGfV2bC2WDMObKNZvY=
+	t=1788268198; cv=none; b=l5U50EINrm+k7snhkyIsQKEpKarJtz3lYHWHjzHJZnEeyYB+HM0/u6+Yvj9aJ3fKvxw78GHX9vB/LXNjv3W3rKCpxxnuRTL6/KYC+chz4phMKHMORteoUfiekrg84TnfbjyNQ9hCh6ioCMxnibtH3LZXkJgXYlcnOMP6edyax1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788268146; c=relaxed/simple;
-	bh=I9p86zfEc0rxJVFc8bGyzgpJ2NfBzjwUd1RaEkL/cGk=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=ilIBvxj3VguiJhJ1xrPNEa2RoaBmsVt2XB5HkAE71ilsCppxal5+eylan4sOTFxyEPFXCnbi7qf1R50NLIp7LloEo780UTbJEE3Y36sxiVQeufyxmsIQQtjm1bBBYb+kchaWCcyPnEV4sQw3KKHE7I0Bzjtf05Qrr9Ven++1kug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=fZkK6VcH; arc=none smtp.client-ip=91.218.175.202
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788268198; c=relaxed/simple;
+	bh=X3/9YKE3xBinmEV1GhMgbWWOEofArSRsmpCB4eh3SG0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=nNCh2yE92MsKU+CEJcSdTVLWW/A5+WM653ZC7XgsHRJ6UqJ3vRjq0tSRkwztFUizIOiM7xsE6bvg0KKMy5477HAVcpewnwST6sGXtwCSxlNqFg5zj3/45WKLXQkseB1y/2s/U+khtBAB9k6igwASBKMGKEkGqshV8m9ozoeb/6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l2LKEPcr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="fZkK6VcH"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=I9p86zfEc0rxJVFc8bGyzgpJ2NfBzjwUd1RaEkL/cGk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788268142; v=1; x=1788872942;
- b=fZkK6VcHcWXc6/ummS3qr4RVvcxLaFevWOgOuRykRe/Klm1sphaVaNcPDXmJhYjokP45oK4Z
- kRXeA1gwAq4DQGO6T6H3m2RxmfU0fTDANGVFG2cGzZjfqNhVy0JXtLB8/GR6TpihBHpJ4MkAoh0
- 8IAhMOVEp95mx7hYnCv6NjZ4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7ec9b92416be4d2e;
-	Tue, 01 Sep 2026 13:09:01 +0000
-X-Mizu-Trace-ID: 7ec9b92416be4d2e
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <d1209b70-7e76-4415-92c9-6ddc192a3347@linux.dev>
-Date: Tue, 1 Sep 2026 21:08:49 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l2LKEPcr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C9481F000E9;
+	Tue,  1 Sep 2026 13:09:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788268197;
+	bh=fcZJwXoy1vxhyp3/EHTEhV3TKVx2/a3XYBdOKnUnH00=;
+	h=From:Date:Subject:To:Cc;
+	b=l2LKEPcrRxFxtVBkhim/FhfqcPE7cNryj8kQ7GW4c2No39IrHb73JE52nveGMruPs
+	 4Sg7E7nB7xegDtf3Lgk2PuDrcv8ANDyQXUq91yT6HODZGlCA/UEQlmAjP0NwZ5bKt1
+	 0VPAMUpkuM6M+dUHYytwbyIcd5BFx+6HbuQhgws1Yyko/KJbN/M2azPCOk1JgXg0SH
+	 PaQn+Eo/ant6HfPlaE3xDLmJFedPVqHVFqgCEKud0l4+q/rmJedhN7kXUIg8YH4c9z
+	 gSSX9B5mEDDyNo8wHGYwYDQe7lN2W+KkZPlDRxLN2/ZrORtvHDctIwgeid9hSa/+XA
+	 cL/qZ2JADlvhw==
+From: Jeff Layton <jlayton@kernel.org>
+Date: Tue, 01 Sep 2026 09:09:43 -0400
+Subject: [PATCH] nfsd: accept a backdated timestamp from a delegation
+ holder
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, Markus.Elfring@web.de, axboe@kernel.dk,
- broonie@kernel.org, bvanassche@acm.org, dlemoal@kernel.org,
- hch@infradead.org, hch@lst.de, hdanton@sina.com,
- linux-block@vger.kernel.org, linux-btrfs@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-next@vger.kernel.org, lkp@intel.com, oe-lkp@lists.linux.dev,
- oliver.sang@intel.com, torvalds@linux-foundation.org,
- viro@zeniv.linux.org.uk, Tao Cui <cuitao@kylinos.cn>
-Subject: Re: [PATCH v7] loop: Fix NULL pointer dereference in lo_rw_aio()
-To: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>, brauner@kernel.org
-References: <6a770a9c-2642-4392-9b9c-609836693f36@I-love.SAKURA.ne.jp>
- <20260831141143.704821-1-cui.tao@linux.dev>
- <30528b67-6ff9-4512-892b-f48d819e100f@I-love.SAKURA.ne.jp>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <30528b67-6ff9-4512-892b-f48d819e100f@I-love.SAKURA.ne.jp>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260901-delegts-v1-1-9937f7ee4370@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSwND3ZTUnNT0kmLdVEvDRDMTizRDEyNzJaDqgqLUtMwKsEnRsbW1AGk
+ LXr9ZAAAA
+X-Change-ID: 20260901-delegts-e91a648f1427
+To: Chuck Lever <cel@kernel.org>, NeilBrown <neil@brown.name>, 
+ Olga Kornievskaia <okorniev@redhat.com>, Dai Ngo <Dai.Ngo@oracle.com>, 
+ Tom Talpey <tom@talpey.com>
+Cc: Thomas Haynes <loghyr@gmail.com>, linux-nfs@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Jeff Layton <jlayton@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5040; i=jlayton@kernel.org;
+ h=from:subject:message-id; bh=X3/9YKE3xBinmEV1GhMgbWWOEofArSRsmpCB4eh3SG0=;
+ b=owEBbQKS/ZANAwAKAQAOaEEZVoIVAcsmYgBqls6fHAJqUA/5PG2cikuzcfp2wcvblXuXbCWgn
+ jqoe5l+L1mJAjMEAAEKAB0WIQRLwNeyRHGyoYTq9dMADmhBGVaCFQUCapbOnwAKCRAADmhBGVaC
+ FRsfD/0U0PVqe3WFr9WPr3/pqSi5Kl5X1kimR43J5yBB/vaMJMUw8GN2F80u4zkQP+MAIvEUahc
+ 0Rf/rXsshM2OzQH7ZICc+BCrbpOuL+WoGnOyxl32J5wf8p0F2Hb4yWnRdbs6GkZ1NUqeb8F2joF
+ +1noiUMqUCW48ddlS7M/uv3GAkrkzHxDaz/hDB4QC3WtLo3tGY68GETTRNrdC+vYhIhIrTl7stb
+ k6AZTUZEy+WaU3Nkjx1MSLClkuUVpzLSnN8AyT75QDZss2EzpwDMQc8yqZ7Rd4BPtxvqcJSag5J
+ KFeL7Ju1UHtcRJbNRea68cohxNvaDTVE3pT4QyFj0vul5bVhb0oxkKpWxE/QDy4kFivENZtynts
+ DIMnhdxfZPHNmF2i3bWvMDqfABoSPM1F21ShtF19UCrx0+zCOQgyZUSMXwqBWcR5DfgRDhma5dQ
+ /KxY8efMuYENFYPl6iRBwGDgmJX+vuSulxG3flglQN+QwWwkLkp1Y/eEN/lIbVVaPvdQOzfwH81
+ 9esU+S594TLjlS0UkzcG8a7/LUWJjBvxIdTvpTPo3rWCqoz1rR574bgPBwcqlw9ZYO/5uKa+xdK
+ U+X7pftEqzUA2h8kW0fkIVVNbzmyoCa01yZwCL/rnzYRCaqSMUiyhtUmwj1dStwJS9UOC6PW7Ni
+ WH0TurdRSr2voKA==
+X-Developer-Key: i=jlayton@kernel.org; a=openpgp;
+ fpr=4BC0D7B24471B2A184EAF5D3000E684119568215
 
-Hi Bart, Tetsuo,
+A client with an attribute delegation reports the file times in a
+SETATTR at DELEGRETURN. nfsd ignores a time that moves backwards. It
+then stamps the c/mtime with the current time, so the file keeps the
+DELEGRETURN time. cp -p, rsync -t and tar -x lose timestamps.
 
-Thanks for the detailed replies, and to Tetsuo for the sashiko
-log.
+The client applies an explicit utimensat() to its own inode. It sends no
+SETATTR while it holds the delegation, so the backdated value reaches
+nfsd only as TIME_DELEG_MODIFY. The client can send an RPC for each time
+change instead. That also works, but it loses the caching that the
+delegation allows.
 
-在 2026/8/31 23:49, Tetsuo Handa 写道:
-> Thank you for joining to this thread, Tao.
-> 
-> On 2026/08/31 23:11, Tao Cui wrote:
->> From: Tao Cui <cuitao@kylinos.cn>
->>
->> Hi Tetsuo, Bart,
->>
->>> +	/* Step 1: Flush all outstanding I/O, without open_mutex held. */
->>> +	/*
->>> +	 * Now that loop_queue_rq() sees lo->lo_state != Lo_bound,
->>> +	 * wait for already started loop_queue_rq() to complete.
->>> +	 */
->>> +	synchronize_rcu();
->>
->> Your reply to Bart says loop_queue_rq() is called with RCU read
->> lock, but I don't see one.  The two call sites of ->queue_rq() are
->> blk_mq_dispatch_rq_list() and __blk_mq_issue_directly(), and
->> neither is wrapped in rcu_read_lock().  Direct issue from
->> blk_mq_submit_bio() runs in process context with no RCU read-side
->> critical section, so synchronize_rcu() does not wait for a
->> loop_queue_rq() that is already running there.  Only the softirq
->> dispatch path is an implicit RCU reader.
-> 
-> You can read sashiko's raw logs at https://sashiko.dev/#/log/49552 .
-> 
->   Okay, let's break this down. My initial thought is to examine how the `blk_mq_run_dispatch_ops`
->   macro is implemented. Specifically, how does it handle RCU read locks? It wraps the provided
->   `dispatch_ops` in either `rcu_read_lock()` or `srcu_read_lock()`, depending on the `BLK_MQ_F_BLOCKING`
->   flag. The loop device, however, is set up *without* this `BLK_MQ_F_BLOCKING` flag. Therefore,
->   `loop_queue_rq` executes under the protection of `rcu_read_lock()`.
-> 
->   Now, the critical question: Does the `synchronize_rcu()` call in `__loop_clr_fd` effectively address
->   the potential race conditions? Since `loop_queue_rq()` is indeed RCU-protected, `synchronize_rcu()` will
->   correctly wait for all currently executing instances of `loop_queue_rq()` to complete. Furthermore,
->   the `lo_state` transition to `Lo_rundown` before calling `__loop_clr_fd` ensures that any *new* calls to
->   `loop_queue_rq()` will see this state and return an error. This perfectly fences the execution of
->   `loop_queue_rq()`. Moreover, `drain_workqueue()` then makes sure all queued works are completed, and
->   these are scheduled by `loop_queue_rq()`. This is great; all scheduled works are completed before
->   clearing `lo->lo_backing_file`.
-> 
+The delegation makes the client the authority for these times, so treat
+its SETATTR as a statement of fact. The client can set the same value
+with an ordinary SETATTR, which nfsd applies without a check.
 
-Bart, on 8/31 you wrote:
-> This is the code that protects .queue_rq() implementations like
-> loop_queue_rq() with an rcu_read_lock() / rcu_read_unlock() pair:
->
-> /* run the code block in @dispatch_ops with rcu/srcu read lock held */
-> #define __blk_mq_run_dispatch_ops(q, check_sleep, dispatch_ops)	\
-> ...
-> 	} else {						\
-> 		rcu_read_lock();				\
-> 		(dispatch_ops);					\
-> 		rcu_read_unlock();				\
-> 	}							\
-> } while (0)
+- nfsd accepts a backwards atime or mtime.
+- An mtime that moves backwards sets the ctime to the current time.
+  The ctime never moves backwards.
+- nfsd still clamps a future time.
+- The CB_GETATTR path keeps the old rule. A backwards time there shows
+  a stale report.
 
-You are both right and I was wrong.  I stopped at
-__blk_mq_issue_directly() and blk_mq_dispatch_rq_list() and missed
-that every caller goes through this macro.  So synchronize_rcu()
-does wait for a running loop_queue_rq() with the current loop
-setup.  I withdraw that comment.
+RFC 9754 says that the server ignores a time before the original time.
+This patch does not follow that sentence. The same section also says
+that the server MUST accept the change or MUST reject it with
+NFS4ERR_DELAY. A silent discard does neither. A retry after
+NFS4ERR_DELAY carries the same backdated value, so that option cannot
+succeed.
 
->>
->> The window is still closed by the steps below, so this is not a
->> correctness bug, but the synchronize_rcu() is not doing what the
->> comment claims.  blk_mq_quiesce_queue() +
->> blk_mq_wait_quiesce_done(), as Bart suggested, would express the
->> intent directly.
-> 
-> synchronize_rcu() + drain_workqueue() can be implied by blk_mq_freeze_queue() + blk_mq_unfreeze_queue().
-> But why are you talking about blk_mq_quiesce_queue() + blk_mq_wait_quiesce_done() ?
-> 
+There is still one gap: nfsd cannot tell an explicit utimensat() from a
+report of a write. An mtime after the delegation and before the current
+time therefore sets the ctime to that mtime, instead of to "now". RFC
+9754 requires this. Fixing that would require the client to issue an RPC
+for the mtime.
 
-That was Bart's suggestion from his earlier review, and I passed
-it on while assuming the synchronize_rcu() was unfounded.  With
-the RCU pairing confirmed, there is nothing left to replace and
-the quiesce suggestion is moot.
+Fixes: 3952f1cbcbc4 ("nfsd: fix SETATTR updates for delegated timestamps")
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Assisted-by: Claude:claude-opus-5
+---
+We could fix this more correctly on the client by making it always issue
+an RPC for a utimensat(), but I think that would hurt untar-type
+workloads (which often backdate timestamps).
+---
+ fs/nfsd/nfs4proc.c | 47 +++++++++++++++++++++++++++++++----------------
+ 1 file changed, 31 insertions(+), 16 deletions(-)
 
->>
->>> +	/*
->>> +	 * Now that no more AIO requests are scheduled by lo_rw_aio(),
->>> +	 * wait for already started AIO to complete.
->>> +	 */
->>> +	blk_mq_unfreeze_queue(lo->lo_queue, blk_mq_freeze_queue(lo->lo_queue));
->>
->> About this step, in your follow-up you wrote:
->>
->>>   (1) since we are in lo_release() with disk_openers(disk) == 0, the activity of
->>>       incrementing/decrementing q_usage_counter (incremented before loop_queue_rq()
->>>       is called, and decremented after loop_queue_rq() returned BLK_STS_IOERR)) will
->>>       cease shortly
->>
->> The decrement timing here is only true for the error path.  For
->> BLK_STS_OK the reference is held until the request is freed, which
->> is what makes blk_mq_freeze_queue() wait for requests that already
->> passed the state check, including the loop workqueue worker that
->> completes them.  That is the property step 1 relies on, and it is
->> worth stating in the comment.
->>
->> What is still open is Bart's question about io_uring fixed files:
->> if submissions can continue after the last close, "cease shortly"
->> does not hold, and it is the freeze wait that actually drains them.
-> 
+diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
+index bb74eef43938..fa3a43c20e95 100644
+--- a/fs/nfsd/nfs4proc.c
++++ b/fs/nfsd/nfs4proc.c
+@@ -1292,9 +1292,22 @@ nfsd4_secinfo_no_name_release(union nfsd4_op_u *u)
+ }
+ 
+ /*
+- * Validate that the requested timestamps are within the acceptable range. If
+- * timestamp appears to be in the future, then it will be clamped to
+- * current_time().
++ * A client holding a delegation with delegated timestamps is the authority for
++ * the file's timestamps, so a SETATTR from it asserts what they are rather than
++ * reporting that they have advanced. Honor a value that moves a timestamp
++ * backwards: the client could set the same value with an ordinary SETATTR, so
++ * refusing it here only loses data. Clamp a value in the future to the current
++ * time, as RFC 9754 permits.
++ */
++static void
++clamp_deleg_time(struct timespec64 *req, const struct timespec64 *now)
++{
++	if (timespec64_compare(req, now) > 0)
++		*req = *now;
++}
++
++/*
++ * Apply the timestamps that a delegation holder supplied in a SETATTR.
+  */
+ static void
+ vet_deleg_attrs(struct nfsd4_setattr *setattr, struct nfs4_delegation *dp)
+@@ -1302,21 +1315,23 @@ vet_deleg_attrs(struct nfsd4_setattr *setattr, struct nfs4_delegation *dp)
+ 	struct timespec64 now = current_time(dp->dl_stid.sc_file->fi_inode);
+ 	struct iattr *iattr = &setattr->sa_iattr;
+ 
+-	if ((setattr->sa_bmval[2] & FATTR4_WORD2_TIME_DELEG_ACCESS) &&
+-	    !nfsd4_vet_deleg_time(&iattr->ia_atime, &dp->dl_atime, &now))
+-		iattr->ia_valid &= ~(ATTR_ATIME | ATTR_ATIME_SET);
++	if (setattr->sa_bmval[2] & FATTR4_WORD2_TIME_DELEG_ACCESS)
++		clamp_deleg_time(&iattr->ia_atime, &now);
+ 
+ 	if (setattr->sa_bmval[2] & FATTR4_WORD2_TIME_DELEG_MODIFY) {
+-		if (nfsd4_vet_deleg_time(&iattr->ia_mtime, &dp->dl_mtime, &now)) {
+-			iattr->ia_ctime = iattr->ia_mtime;
+-			if (nfsd4_vet_deleg_time(&iattr->ia_ctime, &dp->dl_ctime, &now))
+-				dp->dl_setattr = true;
+-			else
+-				iattr->ia_valid &= ~(ATTR_CTIME | ATTR_CTIME_SET);
+-		} else {
+-			iattr->ia_valid &= ~(ATTR_CTIME | ATTR_CTIME_SET |
+-					     ATTR_MTIME | ATTR_MTIME_SET);
+-		}
++		clamp_deleg_time(&iattr->ia_mtime, &now);
++
++		/*
++		 * The ctime must not move backwards. Carry the mtime into it
++		 * only when that advances it; otherwise clear ATTR_CTIME_SET so
++		 * that notify_change() stamps the ctime with the current time,
++		 * which is what a local utimensat() would do.
++		 */
++		iattr->ia_ctime = iattr->ia_mtime;
++		if (!nfsd4_vet_deleg_time(&iattr->ia_ctime, &dp->dl_ctime, &now))
++			iattr->ia_valid &= ~ATTR_CTIME_SET;
++
++		dp->dl_setattr = true;
+ 	}
+ }
+ 
 
-The decrement part I would still reword: for BLK_STS_OK the
-reference is held until the request is freed, and that is the
-property blk_mq_freeze_queue() relies on.  But you are right that
-the activity ceases, and for a simpler reason than the freeze:
+---
+base-commit: cfebfd3db73d82143ac54b1b6c6dad1d13952d59
+change-id: 20260901-delegts-e91a648f1427
 
-> If submissions can continue _forever_ despite disk_openers(disk) == 0, what
-> mechanism was preventing this problem from occurring until Linux 7.0 ?
-> 
-
-An io_uring fixed file holds a reference to the struct file, so
-bd_openers never reaches zero and lo_release() does not start
-while such a submission path exists.  Any submission needs an
-open block device file (or a mount holding it), so "openers == 0
-but submissions continue" needs no additional mechanism.  I'll
-drop the io_uring part.
-
->>
->>> +	if (need_clear) {
->>> +		/*
->>> +		 * Grab all references that will be dropped as soon as
->>> +		 * returning from lo_release() and releasing disk->open_mutex.
->>> +		 */
->>> +		get_device(disk_to_dev(disk));
->>> +		__module_get(disk->fops->owner);
->>> +		queue_work(system_long_wq, &lo->lo_clr_work);
->>> +	}
->>
->> With teardown now asynchronous, between the last close()
->> returning and the work item finishing, lo_open() and
->> LOOP_CONFIGURE return -ENXIO.  That is the same behavior change
->> that led to the revert of the earlier attempt (bf23747ee053,
->> xfs/259).  Moving the xfstests side to the tests is one thing, but
->> userspace that closes a loop device and immediately reconfigures
->> it now needs to handle a transient -ENXIO.  Is that acceptable, or
->> should the retry happen in the kernel?
-> 
-> Does whether the teardown being synchronous or asynchronous matter so much?
-> 
-> I don't think we can control when e.g. udev-worker becomes the thread
-> who actually calls __loop_clr_fd()
-> ( https://lkml.kernel.org/r/9f8b5ab0-efbc-4cf3-a1f8-b43377416946@I-love.SAKURA.ne.jp ).
-> Even if an existing user app calls close() immediately followed by open(),
-> we can't prove that __loop_clr_fd() is synchronously called by that user app
-> because udev-worker can jump in and udev-worker becomes the thread who actually
-> calls __loop_clr_fd().
-> 
->    An user app     udev-worker
->    -----------     -----------
->                     open()
->     close()
->     open() // => succeeds due to Lo_bound state
->     ioctl(LOOP_CONFIGURE) // => fails with -EBUSY due to Lo_bound state
->     close() // <= gives up due to ioctl() failure
->                     close() // => becomes  Lo_rundown and __loop_clr_fd() is called
-> 
-> A claim that mentions that the kernel is unable to release forever due to a refcount
-> leak bug is valid. But a claim that mentions that the kernel cannot prove that
-> this -ENXIO or -EBUSY problem never happens is invalid. Programs that use the loop
-> device have to be prepared for transient errors.
-
-Your udev-worker sequence shows that synchronous completion was
-never guaranteed and -EBUSY or -ENXIO transients were already
-possible.  I accept that.  The remaining difference is only that
-the window now exists after every close instead of requiring an
-interleaving close from another opener, and if programs must
-tolerate transient errors anyway, that is not a blocker.
-
-Tao
+Best regards,
+-- 
+Jeff Layton <jlayton@kernel.org>
 
