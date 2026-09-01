@@ -1,87 +1,291 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD9747206D;
-	Tue,  1 Sep 2026 08:45:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788252325; cv=none; b=p+p67TLoZxub7NB4fGsvR6+LOukCn2ndQlJCMCYNBhDfntVLiCZaUkgPY7k1udXOEdKJuSzoPVjpoXJ4P/tRalKeMYKpl/yOXTYTMuFIlFgG8h79Q7rh87t+UbLMn0kP6o2FeKgDZ6GuS/IUsL/XqrKj1lmJaOzcZnwO51Vg9ms=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788252325; c=relaxed/simple;
-	bh=HYRefICZDyU2bXAC1tI4X0i9pcdKd9ZFcXth1lF0ysw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qTGRPg5qagthEBkqfnQM4KfCb8Lhn6M4Z6baNxflIlZNP3whgH6l2tRMreDzXc+s33FNFguoRQfOsmB5WkrrZ5mrAPD/tBD0s1gdLZ+7MSWAzxaRE+bWgG/g2bqPBM4Rza5zDg4vhLdIXG15z25iVOlwhbMd9Ryz1/Fsz1dtonk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=EoJibeTG; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0F443747E
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 08:45:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788252343; cv=pass; b=VRK+kOIO2zw5MPnlzUelH9ZNmM5sUKe8PcU6SXzifgyhGmv8xbiXK3eRlxUoZiiCfGNjwyV4GADDYTZwJa3HNcjB/1qrgOXxGbapfpLkTHBcGHHDIJ9Ev1vlYsQ+EMG3cv9GfQobXr2G0CxlFxPyXR/vu7RwpZsrgsq00X8ggSo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788252343; c=relaxed/simple;
+	bh=WGDd4qoUlJF6pNHRVdcMK8CvfS72uR+x1nJNYfTxDc4=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=o7nGtiEXTnx8q9gs/H2LtxDcuJtwd32w0D/O1/osWSQ/v44ehsU7If3/ZDOpIel27Li0aYVDopIm9wGqqt2WtC0HXIAo/MM5ebXwbPJPL91nHxZdrmLgPXzmEYzqvQv76ke5F5Wcp1cd+elLFTlE/m0CLctjwwWQxvOQ7wfzTqc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hdvJlhDc; arc=pass smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="EoJibeTG"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 86CAA11D362;
-	Tue, 01 Sep 2026 10:45:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1788252315;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=hGbfr143U2ZkrMfmE/u5PLs7/+u0I/323jZIXWJmqTA=;
-	b=EoJibeTG/uYa0KyVmMFDPpMRAxtNl0wO0aNG1y5RZMoeZ3XDI45lpSitAX14DMbuZZlkIj
-	7cTESs3MPL9oC87VYq8yaHAy2aSTiaFTDST1jNWuhLWZvgvOySWRvl3WkxaWiH6fCh1rq5
-	wV6XjVePtHCAQ4jF5NIYM17MDuz6ppcAsJO4FuWibU7BRBC17klFakL7fd6dmIf9UH1d6m
-	5OBA3+zSy9x8lKkKL9wTyREbVK83fMp7xMG1tjniHu/CeNdA1RsM8w2G+4xYaAc2nKXgrO
-	ymr6CcXTjH5t/pDRx82XgAtzjuJavJo694kp+E8Y93gNR+LksX1RnvjiBi7sog==
-Date: Tue, 1 Sep 2026 10:45:13 +0200
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.1 00/92] 6.1.187-rc1 review
-Message-ID: <apaQmY3uqPauyIFQ@duo.ucw.cz>
-References: <20260831133359.482388899@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hdvJlhDc"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c255acff671so628644666b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 01:45:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788252338; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aufyB/Ye+LPcOh5kFEYMsFGB1vhnhBRuhpb1N4+0klx8ws5Is9JgZUiVIjphChFgZj
+         3m4Gd9gwM7NnpOfVeXrdVKglPr0jzg4S9P5i6sk1Xzzn4atYBdpTy5F8YgCd4Z7GjCRa
+         ZNMP8TMrG+i5vbCyBSNNHZgQtVAWHPaUd0ES8kqj+J7G8zGQihJG8DPbjlJTIVaeiMg0
+         dMi5DOcdbQXVUO2wSv2QQ0NW0s8VRHuE1LMOu6OiIc7WYNuEWKXtIwUdIyXE/1egEcDv
+         WSfC8OAbVFarbm68eAXpLNaSIJ2ASjVBDL2X8Tyhi7RS1pa5FJs8OYyVW+bKDemrP5Lm
+         9HKw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=WGDd4qoUlJF6pNHRVdcMK8CvfS72uR+x1nJNYfTxDc4=;
+        fh=gtQXNMUv+d5XBmnIhaR5yd48q7DqCJoUCMYwI4pqK/4=;
+        b=FtkSxrGdOQY8Xs5BHojHf1RV61eRaLV1yglrSysOSI/b55dZV0bPMAP1N7lGuIfNax
+         txwCmKQUVxDWx403pcJJQUYo93HEN5tL0jC8xs9OJA4N9VhG//FIzQEx97N3cpOyfmSG
+         11z0mHIkp4vAzaJ3NUttG6TyDSN3cqRy7MV6czC4KaA/JzDD6nXiv5PUwpVkd8wpdFgE
+         ybszRwZLfRofOdzEiUwMruDK1QUh6gBpsj3SdCIdLQPnCSiWjYmWHswlq6ERMT3QOArX
+         /Ro6TqkVFjfp0DOckATtJzUYpY+6/rBcv4xDMzxwafQ8Wyz+UbG7PKcDuM/kIYOplJ6d
+         I6oA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788252338; x=1788857138; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WGDd4qoUlJF6pNHRVdcMK8CvfS72uR+x1nJNYfTxDc4=;
+        b=hdvJlhDcC2iX5CCLf+Yl+m+cEQYPQmDS0RKpsGCzuvGWyOROkiNaYJGL0QCp0NGHkc
+         qLm/itDrWDnR1NvwcmIfs4qUtHGyh2FI9T7HJr9QBLvj2023ldrLmPfE98rvcqgsNALs
+         4qgim5lV55woWowJGdAYokMk3XIzYN7yHLdZJlZhepu0CDeqDwgbRIkmSx9u9MbnYaCp
+         5kc3nRf58qE5hH/7TfSop7fOx97r5mKjapbIF451uDZk3u7XnDK+XCP+TxmQk+0c/TIL
+         n5NfUnFexHIgSvGqJniw8FYEgQAUhq5075lfx3e8C8+LA1F94AtDMmYgfAMnLCp7Y09L
+         JcaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788252338; x=1788857138;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=WGDd4qoUlJF6pNHRVdcMK8CvfS72uR+x1nJNYfTxDc4=;
+        b=jzhdTQjYBwyMwvoDXyTGBWV5gQg6EVvXMgZfhhz03QBJa8RZqD1rJCyaVeh8T+dqZ2
+         H70nZg6YWzIrJw13kTxkDOkjQQZgnL9PGXtJSzIcLN5QSr2MxQVykvyWrfzXoGc8YxGJ
+         fpqT4TyYQjihL3IjeedH53n9ryYSydRip2odGnoAgJyA8jEe5MJLpIUnqdJ0UCKy53h7
+         T4w04sBNk6kf8YOYSFwU0Iyt5QfB6tzeXsOrnHLzVbTAy3h4WRtGm9GXxtzTPJ8rAQiz
+         yDE6Yuk1u4/Tw75TyfP0gWj4XKri32s93wSfKyoPiMToExpwYMBR0Yxk4KQ+SD/FZJ64
+         JL/A==
+X-Gm-Message-State: AFuF++k0VwuvqET51qArydL2waeWEOeklzDzWgZOcVRqgbUw31W6ec9E
+	r3Hpfi8or6zfgsAIB3uuURlTJ5+Baj4rzO9IMIugzPEu2m4YDPFDUgRQ/yXrpEavBtnWPGgt7+y
+	S0HjDwCtwWD2FaIa2VdNTVhXhqqVVzV8ToQ==
+X-Gm-Gg: AR+sD11aoA02U5u6mMOUpHP0LVkp+v/coxTlCez8KRV6s8AJDHOh7NOsRyHyM7oVV21
+	06TNVEIReaSwrrXyRCOUGmfIOgakHXowkGHjhTiAJdUFsXpmD9bHKAc9+8bXF9or3KcqgPGJbvs
+	+D1/aVdNQBHBGocHVWeshaYh23k0YXNjWBrlsBr4vseDISHIs/wFRcv6TDtjvijUvizU4HvIFf3
+	w7uUZL81Q9N81/3NWbyqDuvYSHcexPp9rvOdKBdgDkEYe3GhxZT1DukZoyT1T3MuOjXfc3ri8zz
+	9dlupOJ55d3eWPL0eaRLwKjD1Ds5P0M/BjgaS07KI1k2ha4C9k968l4ZYP62/yZNt1hDg/i+4pe
+	kSOxpPYA4Bw5DQUezJ3i/a1f8Ln6+8HAyzMqsLJmYNUbFmS027vi1zccUUPsENwucLf/z
+X-Received: by 2002:a17:907:c48c:b0:c24:4128:c19f with SMTP id
+ a640c23a62f3a-c2557165b0emr1917585366b.11.1788252337448; Tue, 01 Sep 2026
+ 01:45:37 -0700 (PDT)
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Tue, 1 Sep 2026 03:45:35 -0500
+Received: from 77377267392 named unknown by gmailapi.google.com with HTTPREST;
+ Tue, 1 Sep 2026 03:45:35 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="+dMwnNUuTwGuzHC5"
-Content-Disposition: inline
-In-Reply-To: <20260831133359.482388899@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
+From: William Luther Zambo <wlz.litiaina@gmail.com>
+Date: Tue, 1 Sep 2026 03:45:35 -0500
+X-Gm-Features: AcwNN1X_tONmeLxfRUzmNghIYUu4b9O5AA6c4ZA6RiQjPbgwDRDb9Kar9OxWv2E
+Message-ID: <CAFw-f_1BYzUnXf=eD2sVe7RrJrtzwDrMrbmmPZvGKvYB53EUJQ@mail.gmail.com>
+Subject: ThinkPad L14 Gen 1 AMD: Synaptics LEN0411 cannot use RMI4/SMBus and
+ falls back to slow SynPS/2
+To: linux-input@vger.kernel.org, linux-i2c@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+Hello,
 
---+dMwnNUuTwGuzHC5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I would like to report a Synaptics InterTouch/RMI4 issue on a
+Lenovo ThinkPad L14 Gen 1 AMD.
 
-Hi!
+The touchpad advertises InterTouch capability, and LEN0411 is already
+included in the Linux Synaptics SMBus allowlist, but the RMI4/SMBus
+companion cannot initialize on this machine. Linux consequently falls
+back to SynPS/2.
 
-> This is the start of the stable review cycle for the 6.1.187 release.
-> There are 92 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+This is particularly noticeable during two-finger scrolling, where the
+effective event rate is roughly 40 Hz and scrolling feels significantly
+less responsive than when the same class of Synaptics hardware operates
+through RMI4/SMBus.
 
-CIP testing did not find any problems here:
+System
+------
 
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.1.y
+Machine:
+Lenovo ThinkPad L14 Gen 1 AMD
 
-Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
+Distribution:
+Debian 13 (Trixie)
 
-Best regards,
-                                                                Pavel
+Kernel:
+6.12.107+deb13-amd64
 
---+dMwnNUuTwGuzHC5
-Content-Type: application/pgp-signature; name="signature.asc"
+Touchpad:
+PNP ID: LEN0411
+Synaptics firmware: 10.32
+model: 1
+id: 0x1e2a1
+board id: 3471
+fw id: 2909640
 
------BEGIN PGP SIGNATURE-----
+SMBus controller:
+Advanced Micro Devices, Inc. [AMD] FCH SMBus Controller
+PCI ID: 1022:790b
+revision: 51
+driver: piix4_smbus / i2c_piix4
 
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCapaQmQAKCRAw5/Bqldv6
-8nT3AKCwcWEX6kvfGk8a2MTVhHVpku2SmwCgpDxII0DVAMN07covOJAzWio/Yus=
-=0KPc
------END PGP SIGNATURE-----
+Relevant boot log
+-----------------
 
---+dMwnNUuTwGuzHC5--
+piix4_smbus 0000:00:14.0: SMBus Host Controller at 0xb00, revision 0
+piix4_smbus 0000:00:14.0: Using register 0x02 for SMBus port selection
+piix4_smbus 0000:00:14.0: Auxiliary SMBus Host Controller at 0xb20
+
+psmouse serio1: synaptics: queried max coordinates: x [..5678], y [..4694]
+psmouse serio1: synaptics: queried min coordinates: x [1266..], y [1162..]
+psmouse serio1: synaptics: Trying to set up SMBus access
+psmouse serio1: synaptics: SMbus companion is not ready yet
+
+psmouse serio1: synaptics: Touchpad model: 1, fw: 10.32,
+id: 0x1e2a1,
+caps: 0xf014a3/0x940300/0x12e800/0x500000,
+board id: 3471,
+fw id: 2909640
+
+input: SynPS/2 Synaptics TouchPad
+
+Forcing InterTouch
+------------------
+
+I tested:
+
+psmouse.synaptics_intertouch=1
+
+as an actual kernel command-line option at boot.
+
+The parameter is successfully applied, and Linux attempts SMBus access,
+but the result remains:
+
+synaptics: Trying to set up SMBus access
+synaptics: SMbus companion is not ready yet
+input: SynPS/2 Synaptics TouchPad
+
+Therefore this does not appear to be an InterTouch allowlist or kernel
+parameter issue.
+
+SMBus capabilities
+------------------
+
+The AMD PIIX4 adapters expose SMBus operations but no Host Notify:
+
+Functionalities implemented by /dev/i2c-2:
+SMBus Quick Command yes
+SMBus Send Byte yes
+SMBus Receive Byte yes
+SMBus Write Byte yes
+SMBus Read Byte yes
+SMBus Write Word yes
+SMBus Read Word yes
+SMBus Block Write yes
+SMBus Block Read yes
+SMBus Host Notify no
+
+The auxiliary bus used here is:
+
+/sys/bus/i2c/devices/i2c-2/name:
+SMBus PIIX4 adapter port 1 at 0b20
+
+Firmware/ACPI information
+-------------------------
+
+The Lenovo DSDT explicitly exposes an SMBus device at 0x0b20 with IRQ 7:
+
+Device (SMB1)
+{
+Name (_HID, "SMB0001")
+
+Name (_CRS, ResourceTemplate ()
+{
+IO (Decode16,
+0x0B20,
+0x0B20,
+0x20,
+0x20
+)
+
+IRQ (Level, ActiveLow, Shared, )
+{7}
+})
+
+Method (_STA, 0, NotSerialized)
+{
+Return (0x0F)
+}
+}
+
+However, IRQ 7 is not claimed by the SMBus driver in /proc/interrupts.
+
+Observed input behavior
+-----------------------
+
+libinput identifies the devices as:
+
+SynPS/2 Synaptics TouchPad
+TPPS/2 Elan TrackPoint
+
+Two-finger touchpad motion produces usable reports at approximately
+40 Hz, which makes scrolling visibly/jarringly less smooth.
+
+Single-finger pointing is better, but both the touchpad and TrackPoint
+feel noticeably worse than ThinkPads where Synaptics RMI4/SMBus works.
+
+Comparison with another ThinkPad
+--------------------------------
+
+For comparison, a ThinkPad T480 running Linux successfully initializes
+its Synaptics touchpad through Intel i801 SMBus:
+
+i801_smbus ... SMBus using PCI interrupt
+synaptics: Trying to set up SMBus access
+rmi4_smbus 0-002c: registering SMbus-connected sensor
+rmi4_f01 ... found RMI device
+input: Synaptics TM3276-022
+
+The input quality on that system is significantly better.
+
+Existing related work
+---------------------
+
+LEN0411 was added to the Synaptics InterTouch SMBus list upstream, but
+the original L14 Gen 1 logs associated with that patch already showed:
+
+Trying to set up SMBus access
+SMbus companion is not ready yet
+
+and continued to instantiate SynPS/2.
+
+There are also closely related reports from AMD ThinkPad P14s/T14
+machines with board ID 3471 where RMI4/SMBus cannot be used successfully.
+
+This appears to point below psmouse itself, possibly toward missing
+SMBus Host Notify/interrupt support for this AMD FCH controller in
+i2c_piix4.
+
+Questions
+---------
+
+1. Is the lack of I2C_FUNC_SMBUS_HOST_NOTIFY in i2c_piix4 the expected
+reason the Synaptics RMI companion cannot initialize here?
+
+2. Is support for Host Notify on AMD FCH 1022:790b feasible using the
+SMB0001 ACPI resource (0x0b20 / IRQ 7)?
+
+3. Is there existing work toward supporting this controller, or another
+supported transport that should be used for LEN0411?
+
+4. I am willing to test proposed patches on this machine.
+
+I can provide the complete DSDT, dmesg, kernel configuration, libinput
+output, evtest traces, lspci output, and SMBus capability information if
+useful.
+
+Thanks.
