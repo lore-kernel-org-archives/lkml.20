@@ -1,121 +1,141 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81BBA39022A
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 11:40:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D07714A4CC;
+	Tue,  1 Sep 2026 11:40:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788262840; cv=none; b=TLQZa/wI6XKCEls3ErdPkNhhDtn4hxnO4IaoU/Z8Aai+NYigO4hs3GJ3p5ri6+25Pm5KcLoBlGaBkMRft231M1s2Mkgzv8wJBw9+WPvqgX3lqmrxATAnwE2cHZz6F9/h8jhiAEblJKIX372gdcc3BL/s82Ko9j8mxt2Je66N5z0=
+	t=1788262851; cv=none; b=usVACgNjtSCukvnhq6wsFnq/rXESkVE9zhUJt2KVUJ91qoQDUFa1FASHFZwholkqGfKmkGeVn+iO2xJ74R7u0AyYMo70UtsHDAWqVgEyfrAsCOHt9d1NTow6w13ck19771eG/iNneDjR9cPiG7/CVbK24fYG57bxNvmt6loYeAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788262840; c=relaxed/simple;
-	bh=P3hdtakuwRs8sGgX8SbTRg535OO9QDcChPnINsMgxSI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N+8nRLhQOUHY6VuiTHbxDQXfmpgdh0m5KqaI1moARm3TikDq/Z+JnbC6aoNMHbeZ60rgvF3XnbTVc4jXSEN8xpF/AA3P+jaOe7zqysmVtVaYKaNQov8wVQYXcDCuKDmhqwPMoVGGEiL+7TJ+gpeq7xd3+zjAZaUYxqxNU9XA2SA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q7t5Zjwn; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q7t5Zjwn"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d91ded8174so6519215ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 04:40:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788262839; x=1788867639; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NbJYqMSdfBVb+Q8QcPC8voCv5rVOzcHLGQSLMYKXoJs=;
-        b=Q7t5ZjwnMTl4U8MTQFe9FeEEbQfxsNXumEVXieQjXQVV+LMhjiPc8ZgZu4iqx1EzQ0
-         QqSaEB884GtaVuF/QAwB7qA4SjV+qRR6/mhP5DAUeU+WSN08HV8tPf+CAu9K1CWGNNh6
-         7qEGAxECy/VV1SFXATiCL5BB/6JR95IcOc8L3HeVzQt1DAdTcrHMP5i4mksng1rN75pw
-         2/lKQAFdVH8bC9PlooAFIOVDKp9IjU+zEIkNclJJR1FCGewyI88To4fEr3nV/dyH9AvD
-         KpxI0PiZECpY+3q2JLMi6mTJ4FHTHYwpb3PbcUPS9G4thtIiGpYKJt6eEN7go0yepQzL
-         WuDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788262839; x=1788867639;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NbJYqMSdfBVb+Q8QcPC8voCv5rVOzcHLGQSLMYKXoJs=;
-        b=M/Hjcm+xBCiLU4qOPmJRzVox+UGnD/cvxf5FWBVey6gK5uEqqJl8S2ZRyYbycP82xM
-         gnC1ngGouVP7B8TJDQBzbfnVeJng2fkLweoyXrgQytEphM4IqtwxfCyy6sR012L4y1P2
-         N3bB1CzRJ4JpTpGEdI+dLxmtpNvvHYq1Z7Qb7XMZYS0EQtfyRCtzTSKwvQOKNtmxr56d
-         uN4P4A3LsbtL/iAuPW9qaDBAZCI3DycGHNJt3zYB3ySUgIADGb3kKUBoEx0BfZUsTSAn
-         7SYDno12JHq3+XMHpLH/C6HhF1SbJfUYf0aGK0knUpmdS9m7sQwfiKejyQGhlcG8rb1E
-         zUsg==
-X-Forwarded-Encrypted: i=1; AHgh+RrUN2dX8nqxn+UKFiYdEVeqhrkmFvDbIB59miBMAC9GZd50/j2CmcdZO4uChLx36HMZ46Wt5Z+90RiCX+8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUK33nZT1boKpghUGJoV0lLTE39ur5pn+uwoW+5wAZXLrv0rGm
-	j/4+gdRGarSA4xW3e1dWGi5Cc7sq3F6J25qfKurqMRl4qSRvhztNAERq
-X-Gm-Gg: AYBFou18gEhq1EVlv8j1lM+4byqjYJhqYZ86GOWcvhBcIqkwE5pjODdliBiNyHbzR0T
-	KAi5ccCfI8bm3sx1mhpAb+goI0EeqWAEuF/SgYhzC9loIbEeH6GCHJC7YBcnErH+zEyGTe5RYDM
-	8/3UfG+kptAQwGfwJeRWDYCQPrUuGWeDqYyXYKJyzAgLvsauNuGnhzE54YmrXzLMWBylh/0iPXA
-	ww11W9rh1zJCmfEKtR+8hIAsfqiXHnsp2IuTYxzQwIBCemWzMc5R9Xf57+HtUJnVDWPGdMTHn6X
-	unqgUiG8oaqKC8m39a6HODGE+ne+aOTF1xwbNXyt1CPgo/AHK3OL3YrgNRqFGJcEmRn4VsGhNrI
-	7kyUdSnZuiRXElxE/A69xsQS2c0DNRTTGVJCWimMQi/Jc6+sZMkE55dij+OE2F2FWnZBntEwGkN
-	T2NDyqga0Cq7DabOj3NQqAGPWb8WQCTqLUdT8QdOAQtayCYP+N5MQqUZKLfH96ldqDSIl2lNM90
-	0QcT6GIMmNqNjcY0IoFohjnUEItNJ6bHRedYukPzJuN
-X-Received: by 2002:a17:903:42cc:b0:2bf:27b2:4b80 with SMTP id d9443c01a7336-2d74e1386bcmr327790875ad.14.1788262838570;
-        Tue, 01 Sep 2026 04:40:38 -0700 (PDT)
-Received: from localhost.localdomain ([2a12:a304:100:1e0::500e])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d75988b6c7sm49316075ad.60.2026.09.01.04.40.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 04:40:38 -0700 (PDT)
-From: Sun Jian <sun.jian.kdev@gmail.com>
-To: kees@kernel.org,
-	viro@zeniv.linux.org.uk,
-	brauner@kernel.org
-Cc: jack@suse.cz,
-	linux-mm@kvack.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
-	tasos.papagiannnis@gmail.com,
-	Sun Jian <sun.jian.kdev@gmail.com>
-Subject: [PATCH bpf-next] exec: Drop bprm loader before closing bprm->file
-Date: Tue,  1 Sep 2026 04:40:11 -0700
-Message-ID: <20260901114011.112375-1-sun.jian.kdev@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1788262851; c=relaxed/simple;
+	bh=6FNYMuIcfyXeEFAvGyrxQVzcQ7QcTPfutEiaqj247O8=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=A5YBrvGHYMsujbWej4MyN6+XMfQ5ki6lXfAfJ1HSdOHtsWmk+eM7bNV5Ezk8sXS9a+imxpLwxlCTBUubqiXyeGA6U1JNtAo12Z6I5n871qBSoOJ0MbdyunYDh7COX/zW0WmRclrCt2CMWg1AJQ+xAWZ/sLADFZpCpin3D4Joueg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Tue, 1 Sep
+ 2026 19:35:38 +0800
+Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
+ (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
+ Transport; Tue, 1 Sep 2026 19:35:38 +0800
+From: Billy Tsai <billy_tsai@aspeedtech.com>
+Subject: [PATCH 0/8] i3c: mipi-i3c-hci: Add Aspeed AST2700 support
+Date: Tue, 1 Sep 2026 19:35:27 +0800
+Message-ID: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAH+4lmoC/x3MPQqAMAxA4atIZgNpLBa8ijj0J2oWlVZEEO9uc
+ fyG9x4oklUKDM0DWS4tum8Vpm0grn5bBDVVAxP35IzFYFG7iGtU9OVkR4TBJ8e9MEUyUMMjy6z
+ 3Px2n9/0ATBpH5GQAAAA=
+X-Change-ID: 20260714-b4-i3c-hci-ast2700-bad726e20c01
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
+	<Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
+	<joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, Philipp Zabel
+	<p.zabel@pengutronix.de>
+CC: <linux-i3c@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-aspeed@lists.ozlabs.org>,
+	<linux-kernel@vger.kernel.org>, Billy Tsai <billy_tsai@aspeedtech.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788262538; l=4156;
+ i=billy_tsai@aspeedtech.com; s=20251118; h=from:subject:message-id;
+ bh=6FNYMuIcfyXeEFAvGyrxQVzcQ7QcTPfutEiaqj247O8=;
+ b=JSuRqICd5+CuJSS7QslnzoOY4wJMdTnNieoLv80R4Qr4ynq8wNsYgtHhu6eQ+Cu1kZLMZXUUV
+ 13DizEFAJhPC9hSC7Mq9LSrlAsyAWsET0ZmxCzLeRRAszNc+16zTndV
+X-Developer-Key: i=billy_tsai@aspeedtech.com; a=ed25519;
+ pk=/A8qvgZ6CPfnwKgT6/+k+nvXOkN477MshEGJvVdzeeQ=
 
-free_bprm() currently drops what may be the final reference to
-bprm->file before calling bprm_drop_loader(). Since
-bprm_drop_loader() is attachable via BPF fentry and bprm->file is
-exposed as a BTF_TYPE_SAFE_TRUSTED pointer, the file can be observed
-after its reference has been released.
+The Aspeed AST2700 SoC integrates an I3C host controller based on the
+MIPI I3C HCI v1.1 programming model, extended with an in-house control
+block and a PHY programming window. Both extra register regions are
+advertised through a standard HCI vendor extended capability. This
+series teaches the existing mipi-i3c-hci driver to drive the AST2700
+controller without forking the driver.
 
-Move bprm_drop_loader() before do_close_execat(bprm->file), keeping
-the file reference held while the hook runs. This preserves the
-existing trusted BTF contract without changing verifier behavior.
+The AST2700 specifics are expressed in two ways:
 
-The loader file and bprm->file have independent references, so this
-reordering does not change their required teardown ordering.
+ - Deviations from generic HCI protocol behavior are expressed as
+   individual quirks in the match data: the existing
+   HCI_QUIRK_DMA_ABORT_REQUIRES_PIO_RESET, plus three new quirks for
+   address-indexed DAT slots (HCI_QUIRK_DAT_INDEX_IS_ADDR), 64-bit DMA
+   addressing (HCI_QUIRK_DMA_64BIT) and clearing the TX start threshold
+   in DMA mode (HCI_QUIRK_TX_START_THLD).
 
-Link: https://sashiko.dev/#/patchset/20260831092305.42062-1-tasos.papagiannnis@gmail.com?part=3
-Signed-off-by: Sun Jian <sun.jian.kdev@gmail.com>
+ - Everything that depends on the ASPEED vendor capability actually
+   being present -- programming the vendor register blocks (master
+   mode init, PHY timing, the interrupt summary path, the IBI
+   termination threshold and the DAA index registers), and selecting
+   the IRQ handler and IRQF_SHARED at request_irq() time -- is keyed to
+   is_aspeed(), a single explicit check set from the devicetree
+   compatible in probe().
+
+Generic MIPI I3C HCI controllers are unaffected.
+
+The series is organised as follows:
+
+ - Patch 1 documents the devicetree binding.
+
+ - Patches 2-4 add the generic HCI quirks AST2700 needs --
+   address-indexed DAT slots, 64-bit DMA addressing, and clearing the
+   TX start threshold in DMA mode -- with no AST2700-specific code yet;
+   nothing sets these quirks until patch 5.
+
+ - Patch 5 ties it together: it recognizes the ASPEED vendor extended
+   capability, brings the controller up for transfers (master mode,
+   PHY timing, reset/clock resources, the interrupt summary path,
+   master clock stall), and enables the quirks from patches 2-4 plus
+   HCI_QUIRK_DMA_ABORT_REQUIRES_PIO_RESET for the
+   "aspeed,ast2700-i3c-hci" compatible.
+
+ - Patch 6 adds the IBI termination threshold, a safeguard against a
+   misbehaving device that never terminates a payload IBI on its own.
+
+ - Patches 7-8 tune bus behaviour: PIO TX queue utilization, and the
+   PHY's built-in pull-ups for boards without external resistors.
+
+Tested on an AST2700 EVB: the controller probes in DMA/PIO mode,
+completes DAA and runs CCC, IBI and private transfers.
+
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
 ---
- fs/exec.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Billy Tsai (8):
+      dt-bindings: i3c: Document the AST2700 I3C controller
+      i3c: mipi-i3c-hci: Support address-indexed DAT slots
+      i3c: mipi-i3c-hci: Add a quirk for 64-bit DMA addressing
+      i3c: mipi-i3c-hci: Add a quirk to clear the TX start threshold
+      i3c: mipi-i3c-hci: Add support for the AST2700 I3C controller
+      i3c: mipi-i3c-hci: Program AST2700 IBI termination threshold
+      i3c: mipi-i3c-hci: Improve AST2700 PIO TX queue utilization
+      i3c: mipi-i3c-hci: Support the AST2700 internal pull-ups
 
-diff --git a/fs/exec.c b/fs/exec.c
-index a14f28b15607..263b1f67f1f8 100644
---- a/fs/exec.c
-+++ b/fs/exec.c
-@@ -1469,9 +1469,9 @@ static void free_bprm(struct linux_binprm *bprm)
- 	/* exec swapped the mm but failed before setup_new_exec() freed it */
- 	if (bprm->old_mm)
- 		exec_mm_put_old(bprm->old_mm);
--	do_close_execat(bprm->file);
- 	/* An unconsumed PT_INTERP substitute from a binfmt_misc loader entry. */
- 	bprm_drop_loader(bprm);
-+	do_close_execat(bprm->file);
- 	do_close_execat(bprm->executable);
- 	/* If a binfmt changed the interp, free it. */
- 	if (bprm->interp != bprm->filename)
+ .../bindings/i3c/aspeed,ast2700-i3c-hci.yaml       | 133 +++++++
+ drivers/i3c/master/mipi-i3c-hci/Makefile           |   2 +-
+ drivers/i3c/master/mipi-i3c-hci/cmd_v1.c           |  56 ++-
+ drivers/i3c/master/mipi-i3c-hci/core.c             | 229 ++++++++++--
+ drivers/i3c/master/mipi-i3c-hci/dat.h              |   5 +-
+ drivers/i3c/master/mipi-i3c-hci/dat_v1.c           |  63 +++-
+ drivers/i3c/master/mipi-i3c-hci/ext_caps.c         |  15 +
+ drivers/i3c/master/mipi-i3c-hci/ext_caps.h         |   1 +
+ drivers/i3c/master/mipi-i3c-hci/hci.h              |   3 +
+ drivers/i3c/master/mipi-i3c-hci/pio.c              | 122 ++-----
+ drivers/i3c/master/mipi-i3c-hci/pio.h              | 109 ++++++
+ drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.c    | 383 +++++++++++++++++++++
+ drivers/i3c/master/mipi-i3c-hci/vendor_aspeed.h    | 191 ++++++++++
+ 13 files changed, 1167 insertions(+), 145 deletions(-)
+---
+base-commit: 97f3c8379f91af507cbc3d491b87633f0583febc
+change-id: 20260714-b4-i3c-hci-ast2700-bad726e20c01
 
-base-commit: d761934c9483ecde93fe99d8705282f716dfee50
+Best regards,
 -- 
-2.43.0
+Billy Tsai <billy_tsai@aspeedtech.com>
 
