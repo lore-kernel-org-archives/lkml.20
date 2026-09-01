@@ -1,309 +1,128 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCBE8472082
-	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:22:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788254564; cv=none; b=VNi4ZHWWmktGVJ/xZ/9PyhRpqiR1YaprygoRkayKcxxnXAQLqvAOJkzVvl73+axUpAwqELfgJSUmPrJP7wpSKhK9a/jRt/uQDe5yZVPadr4IkEhZ6z91tGUhWbEwzAtJbGDTwpdtTPciWCgWgRX0HGXYRYcoPlayH7DxOHAAWDQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788254564; c=relaxed/simple;
-	bh=cfOxurItlOD63dYB0+QIWr75aYWgMZadczJEoqnGu0Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dMdEmhdM+0AHYFzvJLdDI2nkTRQd1wVsZ2b03fJya0hMVMU0Po166hQyn++qyNSKxun1Pqkk3w6kRleY1zns2PQ3kXIIULv/cM7a4GlB6zhyX4Is24yTAIQNKzkDxTC1zTer9UDM+ceOOj1m3kMl/JVr8FzHooOXWXeWmIRRxpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=cFjKAgpa; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F1B476CC7
+	for <linux-kernel@vger.kernel.org>; Tue,  1 Sep 2026 09:23:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788254621; cv=pass; b=LqDO7KW9xOC65tmD8MCqrfeENCIPamXacpnOaK64/68BmYYFeZMmSRH9aBZZB0uobSsXdNl6eEZppSgRzQ29fMmhzV26tmI9STq/oUslkGNEoghLOsx1jsrZtSruX5u9Zp4PrClhCXSQWdL5+4sSSNuBMcpAI5WzRLvHLeZMk9E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788254621; c=relaxed/simple;
+	bh=M7TiQIW8+cJsyynzgkeqfPBJpl/8j8qB8G1CWNyAP40=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eJdmqqueI02B4f0J6rXOOTEjqlC2eVttUKCSEYBC+UKMhGeOWCSepvcz2r/ItZVIVrqhaOaEijdpqcneSojS+MBcOCCh6OzHC+/z0bzo5p9aosG5MzQsy3Gm/MshIyDerrKMN8PQNCNZyHXUlNJxMByMfRRc+OUMDRMztRWEXxE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=senALdi9; arc=pass smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="cFjKAgpa"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6817VVI9579083;
-	Tue, 1 Sep 2026 09:22:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=Cszh5p
-	rrL1zyQXAPeN3bqmwaFZvGTsP+Y3ukAG08csQ=; b=cFjKAgpaI0g0GmBC1vuMvK
-	3AUmqF+EzSYroWEHyIYsblNEEue+/oNfJqVcoFbrZq2PzbmPcGXfx7oCnuMuGaEg
-	a7NIBarU2NYQCdfY3gy/0HK5CAhHEBaV8TAfD4/PbPFkKlTqjbaRxntIi6j+n/nr
-	9GQdeq7LAlZbRTfpVLOrvXScmgHAG80aBYdfCvaHgkU+/th7VCqrtx0Z/VJy9Igy
-	6Zul6lCnXsrJek706RaiVrdf2KcGZPmGhI6ZCp7js3OTAn2j3BND8Quu4nSbt6/N
-	3kYF3YKB1c7HtZvC1tO/Hw6McAMCa75gvYUjYImI5WIfGAtdYhziV/Tly8d06c0A
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx5evb3-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 01 Sep 2026 09:22:13 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6819BOxO005108;
-	Tue, 1 Sep 2026 09:22:11 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcark2vju-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 01 Sep 2026 09:22:11 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
-	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6819M7ur15335872
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Tue, 1 Sep 2026 09:22:07 GMT
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id AA8EB20043;
-	Tue,  1 Sep 2026 09:22:07 +0000 (GMT)
-Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id F381E20040;
-	Tue,  1 Sep 2026 09:22:04 +0000 (GMT)
-Received: from [9.123.14.142] (unknown [9.123.14.142])
-	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Tue,  1 Sep 2026 09:22:04 +0000 (GMT)
-Message-ID: <1abcf248-0d93-4d2d-a3e2-867b0b3dea16@linux.ibm.com>
-Date: Tue, 1 Sep 2026 14:52:04 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="senALdi9"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2cf110997efso5765805ad.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 02:23:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788254618; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IrzSKSDPdLE5JJkvrwwPAWBqyXIaBOSoyF/m219yL8NOwlzLJW0IkXroOFAgfjmtRP
+         4+YejnLEJzRqWxo4Nec6kZEbY/5dpKU/KOhZlRY1Z7Fh+5WnyOx/aU6Wt5ORBasv4dlK
+         Zti98DuwQ214Gi2FxWHGWId7l8uRB1E1uDI/UR7Hkr3Fr/1ngJOsZapvYmwLnkT82Fxe
+         qU/Jqq2lJdP3ztat4mk1BDllCbBeDbIkS+M9aW3Em/5zD+pxJe1OtsKnVonn0rqMu3nk
+         //RFSTT429l6W67NCu0sIEsdA5DVzPEQ/dhBXlLM9WrD/ARcoBAfoXCtDP8y4hAUuvqZ
+         l8rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=M7TiQIW8+cJsyynzgkeqfPBJpl/8j8qB8G1CWNyAP40=;
+        fh=7xDhkH8MV0aZ6ufc/1nw5DOBL+JBxRVy0briffu3AhM=;
+        b=O1eRZlzd76nMFIHp+dpBn/798deHtREN/TZ+A65I8ZZ97dBL4XgSjD4sS1nJJvmGSH
+         FnduWWaE3FhRoesYOdL29ez4QVtAvYRS0TS2yFORZWC/dArkZRFR5cYBdiQDXIHqKFSQ
+         zksneoIJXi4/7iCQeDp8TXwiQfiib/3e7i+WH5sVpsMaULthIoIsZflLAuE94sOoZYKi
+         O0Yl+7kUn4XT82y7zaLfKWzq3dqVSzkua+QNvRL8n48BTbuarMGAG1X9K9UYaMDL1LDl
+         /l0pVps/NfN2oM2Wqv0KzW89/PIY5dd58W+IgD5my4+6aeArOuZDcjwmh9m02yTjEPGo
+         QiaQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788254618; x=1788859418; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=M7TiQIW8+cJsyynzgkeqfPBJpl/8j8qB8G1CWNyAP40=;
+        b=senALdi9UDiZ7KHDcZ5OeDSz+2y25j4HCX1m1YaJgn1RrfDCOR5G3jzqvQUWDQSqgK
+         HctasnLiDhC8+WMbjV8JdfLzaNXRPNFMqfCheHiIR6LeDucxaYWqXZzL/UHzi/+ZliJ5
+         fyXiOlKHA0ZVV/kO09gGzNjG3mbBSrWgA4H6Gcm+TaTtFIDKx6kz1gelLPWkFIi9/7lJ
+         T13p8aRf1VtP8WRximdeXpH9zFE+HZfmaRRX4wdvggD6mVXBAMAuoFpwAILTojvoqUY+
+         /pyXVXDdgYtopq4sUoZN98ZbXnBDaNF/lo5bgwt8xWZnp7nuioUwJmnsnCDiskoz8qbJ
+         NJpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788254618; x=1788859418;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M7TiQIW8+cJsyynzgkeqfPBJpl/8j8qB8G1CWNyAP40=;
+        b=YbVJoiXzgEkE6joSqslrqW8y/rCuFg3sX4yxQxaiyXuhINcKjwOM3mM49uZkbKnLTt
+         jC0OgxEJVLX9sECYu2meVAL/l3nmlN74w4MBxtBIUCSglVP+6gXr+T7B5mWbHNk2g7yk
+         t2V6FSeRFGdfbOHY4BWS8+AAGEcBCBjU/VT3BDIaeh4VoWgMMTpoOj2XT0Oyf1i9GFvW
+         zzvm+AFDIReu0Ik2eZiUTkOfHJnuH7oY5z4clOdpSqTbLSlDCkoOpa1FIFerYgz8YKLK
+         j0HTfkEh2bwH61/bHCLuQ60PYHINE01YMz3ztvNPszgEBUp/2IJUebi9BLdiVajPgkZR
+         to/Q==
+X-Forwarded-Encrypted: i=1; AHgh+RohwZaiegJLF4GAqdR9DnAe75GtFVSKzHzpcb9eFgsENi/fy0FPcwSmxQjxxLYXvB+2Tzkbi+sNDwx++Cg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nOremYDZ7wXQiCCyfiHV0+lsuLcLx88ozL/JWt/8ZxQgpmEAbx
+	25jU13l0Vrg2ye5Vz35PW9wLTYa6gmq2/4V/FhQbSgqtidxMJP9anRYZrSM/tQ6Es2sfeMK66ie
+	zOSn73k23PX065WxaWCk/mwHiwCNjHOQ=
+X-Gm-Gg: AR+sD13+1twXd1DD5axrifJi7WyVBqCekwvM3P5fQ8I3B4W7KE92sftdmTnC9f+mELk
+	0EAgbmpzY4AKHfx1ZpUWPxfCslsUyblhX11AKpp7RWweKPKClqXK1sFOExJGcH2naVOwpx5MYIH
+	LeC0ghSnAmx7ls7TeiHIyZ/a6HX8AY2sPDLo4CtEjwWo71bwI34KzIhPC5h/1D3ZNhlrL6Cd1HH
+	F4ZhClAeWhY6EAH/PZ/euaxq14o9F09dzQkyRvN0KmLpKprkvSJXYnal6zovH0W+uQvabezVblb
+	mSbPSYhLH3PbuXOIjdPD/pjL46msCGz/qCZ0wAUle1L4Qe7Uhzd5yd/b2KfhAQ8ylfl3rDWri6x
+	1lGy2UEWGAuWoqMjkIMmC16DaHqzQK4NAMU56SdadG8v8G5P5DL0+2M4aMNfh
+X-Received: by 2002:a17:902:ec82:b0:2d2:a952:2628 with SMTP id
+ d9443c01a7336-2d74def63efmr287603465ad.2.1788254618249; Tue, 01 Sep 2026
+ 02:23:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/5] powerpc/rtas: Handle ibm,open-errinjct return
- format
-To: Narayana Murty N <nnmlinux@linux.ibm.com>, mahesh@linux.ibm.com,
-        maddy@linux.ibm.com, mpe@ellerman.id.au, christophe.leroy@csgroup.eu,
-        oohall@gmail.com, npiggin@gmail.com, tpearson@raptorengineering.com,
-        alex@shazbot.org, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-        sbhat@linux.ibm.com, harshpb@linux.ibm.com
-References: <20260831065441.48654-1-nnmlinux@linux.ibm.com>
- <20260831065441.48654-2-nnmlinux@linux.ibm.com>
-Content-Language: en-US
-From: Sourabh Jain <sourabhjain@linux.ibm.com>
-In-Reply-To: <20260831065441.48654-2-nnmlinux@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a969945 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=1mVJ_uiqAAAA:8
- a=gdoT5VGXAAAA:20 a=VnNF1IyMAAAA:8 a=RZXp2JS0KY0MtV1H3CIA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=h67g7WpEjx8dfGT80pje:22 a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-GUID: eGDBC5Gk52YprrQwdpj-kG76IkFeZBqJ
-X-Proofpoint-ORIG-GUID: -o-qD3rsNYY1o7EnCkYFXMH2SxQOzo9B
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA4MCBTYWx0ZWRfX4B/IesFi+VOs
- 9F2prsAl6JP2AXnlS15zzjeTyo/n3VaLKwmk+Uu7idv83qzpe4bB+yyvFKvyaQcBUvPwqIr7X9f
- TJ5cI3Ulqu8KVt6GHZbZ2eLZ/5ctJtc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA4MCBTYWx0ZWRfXw/QsRJEwRrtn
- V9eCdxsxgS7Tjz+9WmcvbZsJQnr70pzqKBORCDMdrXXfgIknG3LGhQPj6lHuUW1lPyv90V7aIkT
- G6tgRn4ga+PO63HfBZK73sSbVJv8RNpL+jDQplzK2pM41Q+0E+ZLBuGDu8QBWB4EPO8SbkDS/W5
- t2VlOVIrqIevVQ5Nqckb5lH3oz/P40EjANSgGDWfAHF2BjfpogcS9OaFzeIZEZdTDuvm+mEgqBJ
- 1abhxj0HigHFVeGvC2ce/6zGIihNrleaAPNnUu8ikvP7s9szZxUZd1Wru+yFj1wekT786kROogp
- BYVMUPchcak5PHiKS1avT0Oi7Y5PNkXvuFEyiuCmAK6TSvzKf17EJxjSzrU4jNHa9ieiL/EvOS9
- rbHwPjwpVbcDViEWq0fspqg4IACHlCvOL6JEsuYbZnxKEGLwQzyEs4XI2Ew8hYyle0oNSmPQJVC
- 9D2MQtIEz2JT2mogXKg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_02,2026-08-31_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
- spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609010080
+References: <20260831222857.1402608-1-nico.antinori.7@gmail.com> <apaDisOTtL5r5a3I@google.com>
+In-Reply-To: <apaDisOTtL5r5a3I@google.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 1 Sep 2026 11:23:25 +0200
+X-Gm-Features: AcwNN1Wu5eB_orv1F9sI6JCQIgW-VSYn5Wsv7lEuNcyDT35EUe2cbQX4qrZM2lA
+Message-ID: <CANiq72kZ7+fhEY3f-j-OkoYQexeBYpnNsrkDtFuovkPgBpn9zA@mail.gmail.com>
+Subject: Re: [PATCH] rust_binder: simplify Result<()> uses
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: =?UTF-8?Q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+	Todd Kjos <tkjos@android.com>, Christian Brauner <christian@brauner.io>, 
+	Carlos Llamas <cmllamas@google.com>, Brigham Campbell <me@brighamcampbell.com>, 
+	Jori Koolstra <jkoolstra@xs4all.nl>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kernel-mentees@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Sep 1, 2026 at 9:49=E2=80=AFAM Alice Ryhl <aliceryhl@google.com> wr=
+ote:
+>
+> I don't really think this matters, but shrug.
 
-On 31/08/26 12:24, Narayana Murty N wrote:
-> ibm,open-errinjct uses a non-standard RTAS return layout:
->
->    rets[0] = session token  (output parameter)
->    rets[1] = status code
->
-> Unlike all other RTAS functions which use:
->
->    rets[0] = status code
->    rets[1..] = output parameters
->
-> Add rtas_token_is_open_errinjct() to identify this call, and
-> rtas_status_from_args() to extract status from the correct position.
->
-> Add an early guard in rtas_call() that rejects ibm,open-errinjct
-> invocations where nret < 2, since reading rets[1] would be out of
-> bounds:
->
->    if (rtas_token_is_open_errinjct(token) && nret < 2) {
->            WARN_ON_ONCE(1);
->            return RTAS_INVALID_PARAMETER;
->    }
->
-> Adjust the output-copy loop so that for ibm,open-errinjct:
->
->    return value = rets[1]   (status)
->    outputs[0]   = rets[0]   (session token)
->
-> For all other functions the existing convention is preserved:
->
->    return value = rets[0]   (status)
->    outputs[0..] = rets[1..] (non-status outputs)
->
-> Move the "/* A -1 return code... */" comment immediately before the
-> ret == -1 check so it documents the check it guards.
->
-> Also fix sys_rtas() last-error status detection: ibm,open-errinjct
-> places status at rets[1], so the -1 sentinel check must use rets[1]
-> for that function rather than always using rets[0].
->
-> Reference: OpenPOWER PAPR documentation
->             https://files.openpower.foundation/s/XFgfMaqLMD5Bcm8
-> Signed-off-by: Narayana Murty N <nnmlinux@linux.ibm.com>
-> ---
->   arch/powerpc/kernel/rtas.c | 78 +++++++++++++++++++++++++++++++++-----
->   1 file changed, 68 insertions(+), 10 deletions(-)
->
-> diff --git a/arch/powerpc/kernel/rtas.c b/arch/powerpc/kernel/rtas.c
-> index 8d81c1e7a8db..7131870655c6 100644
-> --- a/arch/powerpc/kernel/rtas.c
-> +++ b/arch/powerpc/kernel/rtas.c
-> @@ -1117,6 +1117,28 @@ static bool token_is_restricted_errinjct(s32 token)
->   	       token == rtas_function_token(RTAS_FN_IBM_ERRINJCT);
->   }
->   
-> +/*
-> + * ibm,open-errinjct uses a non-standard return layout:
-> + *   rets[0] = session token  (output parameter)
-> + *   rets[1] = status code
-> + *
-> + * All other RTAS functions use the standard layout:
-> + *   rets[0] = status code
-> + *   rets[1..] = output parameters
-> + */
-> +static inline bool rtas_token_is_open_errinjct(int token)
-> +{
-> +	return token == rtas_function_token(RTAS_FN_IBM_OPEN_ERRINJCT);
-> +}
-> +
-> +static int rtas_status_from_args(int token, struct rtas_args *args, int nret)
-> +{
-> +	if (rtas_token_is_open_errinjct(token))
-> +		return be32_to_cpu(args->rets[1]);
-> +
-> +	return nret > 0 ? be32_to_cpu(args->rets[0]) : 0;
-> +}
-> +
->   /**
->    * rtas_call() - Invoke an RTAS firmware function.
->    * @token: Identifies the function being invoked.
-> @@ -1198,6 +1220,16 @@ int rtas_call(int token, int nargs, int nret, int *outputs, ...)
->   			return -1;
->   	}
->   
-> +	/*
-> +	 * ibm,open-errinjct returns rets[0]=session_token, rets[1]=status.
-> +	 * We need nret >= 2 to read status from rets[1].  Reject early if
-> +	 * the caller forgot to account for the extra return cell.
-> +	 */
-> +	if (rtas_token_is_open_errinjct(token) && nret < 2) {
-> +		WARN_ON_ONCE(1);
-> +		return RTAS_INVALID_PARAMETER;
+It is the style we have used since 2021, so it is for consistency, and
+it preemptively cleans the `useless_default_generic_parameters` lint
+Benno requested:
 
-Nit: I would prefer -EINVAL instead. RTAS_INVALID_PARAMETER is RTAS 
-error code but here kernel is validating the parameter so I think 
--EINVAL would be better.
-> +	}
-> +
->   	if ((mfmsr() & (MSR_IR|MSR_DR)) != (MSR_IR|MSR_DR)) {
->   		WARN_ON_ONCE(1);
->   		return -1;
-> @@ -1213,15 +1245,33 @@ int rtas_call(int token, int nargs, int nret, int *outputs, ...)
->   	va_rtas_call_unlocked(args, token, nargs, nret, list);
->   	va_end(list);
->   
-> +	ret = rtas_status_from_args(token, args, nret);
-> +
->   	/* A -1 return code indicates that the last command couldn't
-> -	   be completed due to a hardware error. */
-> -	if (be32_to_cpu(args->rets[0]) == -1)
-> +	 * be completed due to a hardware error.
-> +	 */
-> +	if (ret == -1)
->   		buff_copy = __fetch_rtas_last_error(NULL);
->   
-> -	if (nret > 1 && outputs != NULL)
-> -		for (i = 0; i < nret-1; ++i)
-> -			outputs[i] = be32_to_cpu(args->rets[i + 1]);
-> -	ret = (nret > 0) ? be32_to_cpu(args->rets[0]) : 0;
-> +	/*
-> +	 * Copy non-status outputs to the caller's buffer.
-> +	 *
-> +	 * For ibm,open-errinjct the layout is:
-> +	 *   rets[0] = session token  -> outputs[0]
-> +	 *   rets[1] = status         (returned, not copied)
-> +	 *
-> +	 * For all other RTAS functions:
-> +	 *   rets[0] = status         (returned, not copied)
-> +	 *   rets[1..nret-1] -> outputs[0..nret-2]
-> +	 */
-> +	if (outputs != NULL) {
-> +		if (rtas_token_is_open_errinjct(token)) {
-> +			outputs[0] = be32_to_cpu(args->rets[0]);
-> +		} else if (nret > 1) {
-> +			for (i = 0; i < nret - 1; ++i)
-> +				outputs[i] = be32_to_cpu(args->rets[i + 1]);
-> +		}
-> +	}
->   
->   	lockdep_unpin_lock(&rtas_lock, cookie);
->   	raw_spin_unlock_irqrestore(&rtas_lock, flags);
-> @@ -1942,10 +1992,18 @@ SYSCALL_DEFINE1(rtas, struct rtas_args __user *, uargs)
->   	do_enter_rtas(&rtas_args);
->   	args = rtas_args;
->   
-> -	/* A -1 return code indicates that the last command couldn't
-> -	   be completed due to a hardware error. */
-> -	if (be32_to_cpu(args.rets[0]) == -1)
-> -		errbuf = __fetch_rtas_last_error(buff_copy);
-> +	/*
-> +	 * A -1 return code indicates that the last command couldn't
-> +	 * be completed due to a hardware error.  ibm,open-errinjct
-> +	 * places status at rets[1] rather than rets[0]; check the
-> +	 * correct position for the -1 sentinel.
-> +	 */
-> +	{
-> +		__be32 status_cell = (token == rtas_function_token(RTAS_FN_IBM_OPEN_ERRINJCT) &&
-> +				      nret >= 2) ? args.rets[1] : args.rets[0];
-> +		if (be32_to_cpu(status_cell) == -1)
-> +			errbuf = __fetch_rtas_last_error(buff_copy);
+Link: https://github.com/rust-lang/rust-clippy/issues/14848
+Link: https://github.com/rust-lang/rust-clippy/pull/16123
 
-Do we know what happens when the ibm,open-errinjct RTAS call is made
-with nret < 2?
+Most of the cases are in Binder at the moment, so this one cleans a
+good % of them.
 
-The reason I’m asking is that, even with the above changes,
-args.rets[0] is used as the return code if the ibm,open-errinjct call
-is made with nret < 2.
+I hope that clarifies.
 
-I like the approach you took in rtas_call() of pre-validating nret for
-the ibm,open-errinjct RTAS call and returning early if it is less than
-2. I think we can use a similar approach here as well. If we do that,
-the above code changes will be much cleaner. In that case, we don't
-have to figure out how RTAS processes ibm,open-errinjct with nret < 2.
-
-The only concern I have is that this change would alter the system
-call behavior. Right now, the kernel accepts nret < 2 for
-ibm,open-errinjct and makes the RTAS call, but with the above suggested
-change, the kernel would return early if nret < 2.
-
-The prominent user of this system call is librtas, which passes
-nret = 2 for ibm,open-errinjct:
-
-https://github.com/ibm-power-utilities/librtas/blob/d321a1f5ae3d528ba027fc748d1cc1123dd4ae29/librtas_src/syscall_calls.c#L488
-
-Also, as per PAPR, users are supposed to pass nret = 2 for this RTAS
-call. So I think it should be fine to validate nret in sys_rtas for
-ibm,open-errinjct and return early if it is found to be less than 2.
-
-Since this is a change in system call behavior, I want to be a
-little cautious. So, I’d like to hear your thoughts and would also
-like to know what others think about making the above change.
-
-Thanks, Sourabh Jain
-> +	}
->   
->   	lockdep_unpin_lock(&rtas_lock, cookie);
->   	raw_spin_unlock_irqrestore(&rtas_lock, flags);
-
+Cheers,
+Miguel
