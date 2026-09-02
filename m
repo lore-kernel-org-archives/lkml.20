@@ -1,373 +1,159 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCD70233721
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:36:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B7332FA30
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:36:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.173
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788320175; cv=pass; b=gHOLBFJSNb+91742UxrUBbKBYrS0BAzY9CdYtV7Vvkp1mHOUrHHEZs9LJfCc14HC8v382JnhPirj1Wi5iilDfCh7xqXWfGgx8aq+XtrZBTBdXohwSjFIBydq35TCWkLiRTCJ/IWo8G48RKIIZ/6N4ewDKfCvKAuutcFZ2PURIgI=
+	t=1788320178; cv=pass; b=LKj2LfHFCZNr8Mz2xloPlXLfOVvw7bww8rLZqYom0hhKUlky0CfaWYraUpD7HEByS6PqCW1Gxf4DbrcAptqHzlWeUMd5Tn3BXFcW/lAUnDVPrx9ZaeOnQEfvnI99YuvpdNHi9EJcnFWmqkZ9ZKUCWWzsVafMAlY1YZCVi49DJWo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788320175; c=relaxed/simple;
-	bh=MBRR2QE/1sl+Ph3CpG18ShB2Bzi1dIhs75byozISlGc=;
+	s=arc-20240116; t=1788320178; c=relaxed/simple;
+	bh=76NXQShZ73vzhWxjJQ0j7zqbp54gjiB/2hR4sJHXnRk=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NybBjqN6XSUBjBA1pVWhlNCRP/USBmeOzu75FYIB8xKx6S5ta0zVwzCecFazkmT0fQqP3S98DoZmvrpnCzvtTzrwiKq6Mkud3GR26RgbOn35kiISk4StP3gZvwGgKdT1GrllcqupUUf8MFuvibr3OSOWOoNUlnxTXSOe97wBpe8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=eUk0uQe2; arc=pass smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
+	 To:Cc:Content-Type; b=nWLJbx0kqAludZmRrKsSGg7/RX7J8s5nzIvu1LROXTm5RBtO3R+GjhEPGkmxwYDSpBlwD2inLBWE0D6XONj83NpQ+z7ctwzMIIdsXchhZXz89LnbqJpfBmyH6nbmlNrKVu4/HgFR1hV67PBS1S+OwB06HEq48kWoCooErPpWy/M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=KkeglZ/Z; arc=pass smtp.client-ip=209.85.160.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="eUk0uQe2"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b5607bd3b5so440508e87.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 20:36:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788320171; cv=none;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="KkeglZ/Z"
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-51c01c79467so188931cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 20:36:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788320175; cv=none;
         d=google.com; s=arc-20260327;
-        b=nxG/OgpqsNOjR3MfC0vVhMHC4/GJwMDjW0BIUexY+HQL54pYnzHlVZkBTWeMC8vsQy
-         GchWZo6VxOI2PUOxIvXZR8b7jfNAGOZZ8LbRnZgSy7ZY2c5IZNA9L2fFqIdkrgBMV6kN
-         T+a03vUh1+Esi1r3fpvCRedkIwd5RYKz9brLHiBMw6fMEFNCB8LBt828FR47omYpT80R
-         0KzSvnBnNBvEtqRZloIj462qHy4Asli+JDvHaHIiTY5zQb2Hxn8p0/VWs9WTGq9qynZs
-         h/E/FbRbknbnV5TGLGwx2PATCXMxXUAJrMLoNPyXvwzeUBC8bFn6N/bxA1LPhdUPr0WK
-         DH1Q==
+        b=ibC2csZJgoedlmQBsrP0g7YFdJyQKtw63jakvTy0dgu4TRN+PlXPhzGCf3cTl2iRcj
+         wZKYtG/xfCuB0yYUrEcD7Jo02WCNXzqw6ahm8gnNO5XaJ1XOe5PZS/lS+1KKBHHcxCrh
+         pG0fSjyMjruQRieeIECXc1I8aPMsLWr8YzFeLjX3XziWS0NgWHLlrpzu6DtjU/qv47XV
+         aqnL9fbcFreNcmqBt+zMqjjG5SLU5H3Z3wFpXJmR6p3jI59cCg5oAxx8cYfA2xqxSjnG
+         YR1lClniu4PBflmFo6zMhigusp+Dr/pKNtXR5k//tpq/xrJDVb+yxD/6Bjb1yER1OzZ0
+         pUTA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=WZJ6GV0DqGuA2eo3lm1kA/JjLv1Db3xa1qf9KZGwzIg=;
-        fh=WQ8vA2y4O8hx5VL09QG/VQpw9xG4+u5j5Jh+NljpkZI=;
-        b=htUT9Xn5OYEpVovvlihcwOXcDnpzp+VEToOtHWmPrkBALRi4Xxppa17fDctjwVEzXx
-         6jsKWYSwrgM/MPOURtMgDY/wbaNt6Pabi3pGYCVr3xNqh3PA261FF6qxsYK2wt/pDeZK
-         lsPTZ1/+HusS7ym+vdmtVippqhvLS7yxFXmpWXNwequSiLACVkhCjIFcHfnqUd/TEX73
-         A83G1EO6BAnYBaey/XKDXyoIn7Eyb2yhZfFzIMKC5loKusbNi+w2tkl2aozL42SHMAQ3
-         CMNHLH5/FySBjQE6N2IV9M23VuNfR+NWxP0/zL9hoqWBbaRgv7SATUgPF7vHAZ2EmypB
-         IdHg==;
+        bh=76NXQShZ73vzhWxjJQ0j7zqbp54gjiB/2hR4sJHXnRk=;
+        fh=JfmpcuqI9nKWrB7fPYapv4HaQ1rJnvjrAfCL6bx46wQ=;
+        b=WHPTVDMl8uRyYTnIgzyyWoHiSsaf1ybST8jjEDBpSf2Ak7eheSo8/FpcWervRftyuM
+         7ZWsTffkRTYBotZ6494r/UrGupEbVUSPbD5sfv5ID56TDyAZdqON3FYWyQ3rVDUxq0t6
+         nG+UbgeYVwWdSC2Cly+m4K2zC4DZP1DLINEGxhB5RIJVZRP0lfObf2hL2I0UbWxrL2zA
+         otNPVma9h0/Lo0JLC9qM62Dmp/enwV9fZXG/5qFoLTSZf8M1/PdgdGYIMzCtbxTZR3Ac
+         KU2dymqSz0wMzXGmgJ/jPemfVLebEkywABHR9MIg7A78gkAYpeHaSNuZYg9qk3HMaSSZ
+         z2ng==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nebusec.ai; s=google; t=1788320171; x=1788924971; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788320175; x=1788924975; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=WZJ6GV0DqGuA2eo3lm1kA/JjLv1Db3xa1qf9KZGwzIg=;
-        b=eUk0uQe2K6FS5t6Jz9GmN81BGc3O2SX+h8bX/YLofBc0DfZw2ofuWCo3Pw8lR1Ir7g
-         5PFkPzR1clDLy+CxJvudjebxuUIxK+OBW7CvXazrbDKsHTRpE2jk+DNNf4frp5eejekX
-         6QqkC1fbs1SXBrvlKPgsirUT648RKKcwyu0kV+LRGAEVyg2BKtzX5PBrSVhYGD6Mp9jM
-         m+1IqIBSyEGi6iy38HZY+34bfIpGMMtOgfkR0jkEyUjmNxXuHBAUiOJTOeb8a3F2AAhi
-         IcXVI6Gzk3lJ8oicQu+Ju92KAFG41ohE+N8SV0axq8S3uO7b8HIlVeAn/KBmRldlnClh
-         VH5g==
+        bh=76NXQShZ73vzhWxjJQ0j7zqbp54gjiB/2hR4sJHXnRk=;
+        b=KkeglZ/ZTSO1YaQfEfX1Foq0beIc4AqiL15dpbfgw3vejcWeupvEQAhjGXoe9fZHCd
+         FwTwL8cebNrVllETNERZTuYX/rUwk6IfRfrBODBiELrwFtuOwYX9VmoMr6Wt2wSW40Vb
+         /RbXfhnYAcjO6ttXgPtYeAVxVCTMAYtJKuXIJh3BA1kHGdj6hxTfyUoTq+gsMNuOG5OR
+         4eCH7cEhiw9kzoYY7HiN0ZDZziYOitn5KRxG25mm6ftEVCn8zX5rRA15IL81DccZZHjz
+         DjIG1uQ2y6U9wbspCH/BwFP3ZjXr+QBisbvT7zYJS01yMbg/R/LTGL32h8Xz708nsOvw
+         pQSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788320171; x=1788924971;
+        d=1e100.net; s=20251104; t=1788320175; x=1788924975;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WZJ6GV0DqGuA2eo3lm1kA/JjLv1Db3xa1qf9KZGwzIg=;
-        b=m/GiaFge2FwSSJQpsCpkobhYKJNNPAZ0Ca0aWipgTR/SiGUj8YhUaoPAXF8yzaKey8
-         P2uD0SDYho8bIdT18fitTftXbIzqo/jfrVuaNAn3y8/en5C9Ti8yVZn92uHsQUkRwQ48
-         9syvzPxeKlw/0Pcgnx9/lcilrp3Vh/U8ZSGxfN3WXOi/jyOrLlD1oZOnN82mlXJQVILU
-         NeO8cnENGnMRig/i/a6xQnG+1x+anfXsSgOkjkiWMU1uL5H0T3wZKddyndBmvxbrna3k
-         wSLjno78rLvYZ5C+T32JvjkskBFjw7z59W53W5mEZ9gAvAfESAsU42weua7nH+jbqLmH
-         PoDw==
-X-Forwarded-Encrypted: i=1; AKwUvBy4wrzm7EOsgD/YunJ1VAaKXBB4kLBW+wXvB9zWL8ezENJq6iN8Y4pB4YN/VJph0kuY9pTE5D1ZWv5Aqfc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lEHIw6/usPlSbQUMMS1OBDRLeGXMYgaTlo18fII/5A+ihpRkc8
-	SPTDG2YdHohhbxnsEuZj5JtlXbiq/PxRVUMSYmw9k7yqNpx4xUxDavDX8RdOBO4ADjXh1t+DRo9
-	BloFQwOVSjFWizxfZtZ9i0PMNPtFchLtEzgslUFnfikA=
-X-Gm-Gg: AYBFou0yAExQlTjfD2KzinDm1KAXsM2Ati/9PohO6TFGSLthtMOCskHO9L0HPwD/u/X
-	IPuFYQ+a9lxmQEY8xtdewdlWl5DfvdWdQAProoA/EK4TzWmuY8wIIqYtXgCZPkceBdJqAACHUdT
-	0X32b6PfZirmtNpwZ7/zX4+vxjVCU4mQJATySQGayXx9j1lQU4V47FKY2PpMRhmXUP6ZN6bXaji
-	8QW06/bBiMda+rGFbYrLJIemQG7zr3DMqruZolXmDB19BoudWgfSIRwFPvrWe5tgz89u0hXJZiL
-	4QU/tLm6j5IhAwbabl/YWecoKqpcBrCfNgrAoIqRy0N7LHojiB2xeBQMC4aWU7TaPiNRT/3oWi6
-	09K1DwMURCsO592MwfwD+E9antPVB2Fw=
-X-Received: by 2002:a05:651c:1544:b0:3a1:7eff:413c with SMTP id
- 38308e7fff4ca-3a35013ab1fmr3450211fa.10.1788320170983; Tue, 01 Sep 2026
- 20:36:10 -0700 (PDT)
+        bh=76NXQShZ73vzhWxjJQ0j7zqbp54gjiB/2hR4sJHXnRk=;
+        b=SP/NbP9Nugif2S6MBpRtlUNKX/n2F3oTfYzIq1FSjH8S81imckzRDTsgQkjUlV2uv6
+         LMowKeC8+9yr1V9ytoyK/rw7bHY2wTgFK90OCCVsQlz4MknGAlHoHz8+/w5VYp+e4T/u
+         PF1ZiPqEZWVwzDul59fvSJvcKFL+fHxq+b7RtPAO+dmskct3RBBKuxqIwpSMFBJoDQy3
+         XNi+jx45vUrWjc+mTtEaADhY34mdWzyegXyATJn9fv5Jfl1kMhpILkP7+jonJ86YmPTU
+         94rryTsqih/EjTkF+b2Aip4PwdO4ieWl3PnMI3dBdyNZ2uKu/yrV6Ub0SV9H9SHRmQdq
+         JpiA==
+X-Forwarded-Encrypted: i=1; AHgh+Romq7ngmsLNLRbpf/SAHxHdyWNpf7WyAZGvrVLaMhy/oTM6NldmVPrteYzJbEt3wWDHNwOohrbszqZzVjk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lGpUAYVXpZTAjdWn5Yurzpqhbwu4c03JBJDjrwHLHC7H0U5pz2
+	8sUYykmI9dwX0Jr7l1inv6t4bfWcTy6/RKtY1Ie6jazlyeAT9qN8WX/N3bxM/q1ggk7NH9R1+v4
+	TLVV1aXCSEM8WiN26wMtRVNfqwRjzNMHnIXy7R5TW
+X-Gm-Gg: AR+sD13q7qjMCHl1DKk4TO4lKsdt6WXuvyTsyTAjEvRXcRBFpFg6iPRqZh12vv5LC6D
+	ewwKcVIXJePiHSFwDQv7Ms68Cm7CZ65XvWOo5aGbeIyIgbmcgWJcrikhIIfJF5a51dxFPGAm4OI
+	cZbK6oF+mrVtNka6VdU7p6klWooN0EvGViZQeeqqBYJgjzpoT3NjdUBaLbwBKP9Cb1eEAQvEIC1
+	wpGUXfUKS2VWyFXWLNO8mqedvB7jPUweRzYKX/Dp8GCSCsrgR7jFH2Q5rW4vb3zc6IQAaNZb0EE
+	VLkgmK6ajj7wTCpzKFsGOUKF/aYN6loq00y/dWlEYJ/aoU88jxgJ72hJrr3dJ2nU+tgmEkL8dOB
+	M6fgwKmVwWIlgTXxjRPWuvctOGkm0
+X-Received: by 2002:a05:622a:1b21:b0:50f:b69a:f4a8 with SMTP id
+ d75a77b69052e-53035b635edmr5765381cf.7.1788320174962; Tue, 01 Sep 2026
+ 20:36:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <8fa3c9e6d5dcf328979ed2bdc27817c11a5eff91.1787752861.git.zihanx@nebusec.ai>
- <20260902010052.2297527-1-kuba@kernel.org>
-In-Reply-To: <20260902010052.2297527-1-kuba@kernel.org>
-From: zihan xi <zihanx@nebusec.ai>
-Date: Wed, 2 Sep 2026 11:35:58 +0800
-X-Gm-Features: AcwNN1W5A5Vr5_mfUAJhRgWg73KHuqbWAvozEtCFXeIQlCxjhsSFewh8gZGNXlA
-Message-ID: <CAANe3eS3knCks0avTO87C_Qg+FL4=NDi-xwFWyNhGPpQU-rKzw@mail.gmail.com>
-Subject: Re: [PATCH net v6 2/2] llc: reject out-of-service state before state lookup
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: davem@davemloft.net, edumazet@google.com, pabeni@redhat.com, 
-	horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, vega@nebusec.ai, kees@kernel.org
+References: <20260813002618.3755631-1-tweek@google.com> <39f53732-dc89-43b6-bf50-2ba5c64adf38@iogearbox.net>
+In-Reply-To: <39f53732-dc89-43b6-bf50-2ba5c64adf38@iogearbox.net>
+From: =?UTF-8?Q?Thi=C3=A9baud_Weksteen?= <tweek@google.com>
+Date: Wed, 2 Sep 2026 13:35:56 +1000
+X-Gm-Features: AcwNN1UK8iToxVRYZbB0QJOeCKOrbeItGVVek4Zgwjy2T1K6oHlYjRUdS1Q2Ww8
+Message-ID: <CA+zpnLeAag+YBtD1Pe=8UPc4Veq4k1yGkwtaJacz+vB4mwbFqw@mail.gmail.com>
+Subject: Re: [PATCH bpf-next 0/5] bpf: Introduce LOADER_LOAD_FD
+To: Daniel Borkmann <daniel@iogearbox.net>
+Cc: Paul Moore <paul@paul-moore.com>, Stephen Smalley <stephen.smalley.work@gmail.com>, 
+	Alexei Starovoitov <ast@kernel.org>, Andrii Nakryiko <andrii@kernel.org>, 
+	Jeffrey Vander Stoep <jeffv@google.com>, Ondrej Mosnacek <omosnace@redhat.com>, 
+	Eric Suen <ericsu@linux.microsoft.com>, 
+	Blaise Boscaccy <bboscaccy@linux.microsoft.com>, Sid Nayyar <sidnayyar@google.com>, 
+	Neill Kapron <nkapron@google.com>, Eric Biggers <ebiggers@google.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, KP Singh <kpsingh@kernel.org>, bpf@vger.kernel.org, 
+	selinux@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 2, 2026 at 9:00=E2=80=AFAM Jakub Kicinski <kuba@kernel.org> wro=
-te:
+On Tue, Aug 18, 2026 at 2:11=E2=80=AFAM Daniel Borkmann <daniel@iogearbox.n=
+et> wrote:
 >
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> ---
-> llc: reject out-of-service state before state lookup
->
-> This adds a lower-bound check on llc->state in llc_conn_service() so that=
- a
-> socket sitting in LLC_CONN_OUT_OF_SVC is rejected before llc_qualify_conn=
-_ev()
-> indexes llc_conn_state_table[state - 1].  A few questions about the new
-> check below.
->
-> > diff --git a/net/llc/llc_conn.c b/net/llc/llc_conn.c
-> > index 885a5c33024c3..4a34f240ad2cc 100644
-> > --- a/net/llc/llc_conn.c
-> > +++ b/net/llc/llc_conn.c
-> > @@ -362,7 +362,8 @@ static int llc_conn_service(struct sock *sk, struct=
- sk_buff *skb)
-> >       struct llc_sock *llc =3D llc_sk(sk);
-> >       int rc =3D 1;
+> On 8/13/26 2:26 AM, Thi=C3=A9baud Weksteen wrote:
+> > The bpf subsystem supports a signed-bpf infrastructure to guarantee the
+> > authenticity of programs [1, 2]. While this infrastructure is ideal for
+> > dynamic environments or enterprise deployments where untrusted binaries
+> > are loaded post-boot, it introduces unnecessary complexity for static
+> > platform use cases.
 > >
-> > -     if (llc->state > NBR_CONN_STATES)
-> > +     if (llc->state < LLC_CONN_STATE_ADM ||
-> > +         llc->state > NBR_CONN_STATES)
-> >               goto out;
->
-> [Severity: High]
-> Does this check actually protect the table access, given that the validat=
-ed
-> value is not latched?  llc_qualify_conn_ev() re-reads llc->state twice to=
- do
-> the indexing:
->
-> net/llc/llc_conn.c:llc_qualify_conn_ev() {
->         struct llc_conn_state *curr_state =3D
->                                         &llc_conn_state_table[llc->state =
-- 1];
->         ...
->         for (next_trans =3D curr_state->transitions +
->                 llc_find_offset(llc->state - 1, ev->type);
->              (*next_trans)->ev; next_trans++) {
->                 if (!((*next_trans)->ev)(sk, skb)) {
->         ...
-> }
->
-> The store that produces state 0 is done with no socket lock at all:
->
-> net/llc/llc_conn.c:llc_sk_free() {
->         llc->state =3D LLC_CONN_OUT_OF_SVC;
->         /* Stop all (possibly) running timers */
->         llc_sk_stop_all_timers(sk, sync);
->         ...
-> }
->
-> and llc_ui_release() calls it after dropping the socket lock and before t=
-he
-> timers are synchronized:
->
-> net/llc/af_llc.c:llc_ui_release() {
->         ...
->                 llc_release_incoming_children(sk);
->                 release_sock(sk);
->         ...
->         llc_sk_free(sk, true);
-> }
->
-> So can this interleaving happen for a socket closed while an ack timer is
-> still armed (for example a non-blocking connect() left in
-> LLC_CONN_STATE_SETUP, where llc_send_disc() returns early because sk_stat=
+> > In the Android ecosystem, platform BPF programs reside exclusively on
+> > read-only partitions that are strictly verified at the block level via
+> > dm-verity. Because the kernel has already guaranteed the authenticity o=
+f
+> > the underlying file, parsing and validating a secondary signature insid=
 e
-> is not TCP_ESTABLISHED and stops nothing)?
+> > the BPF subsystem is redundant, complex (because it requires X509 and
+> > PKCS#7 parsing) and necessitates introducing additional signing flows
+> > during build.
 >
-> CPU0 (softirq, ack timer)
-> llc_conn_ack_tmr_cb() -> llc_conn_tmr_common_cb()
->         bh_lock_sock(sk);          /* excludes nothing here */
->         llc_process_tmr_ev()       /* sees state 2, !sock_owned_by_user()=
- */
->           llc_conn_state_process() -> llc_conn_service()
->                 reads llc->state =3D=3D 2, passes the new bound check
+> Note that the BPF subsys doesn't implement any X.509 or PKCS#7 parsing,
+> rather we reuse the same mechanism as the module loader has been using.
 >
-> CPU1 (close(2))
-> llc_ui_release() -> release_sock(sk) -> llc_sk_free()
->         llc->state =3D LLC_CONN_OUT_OF_SVC;     /* unlocked store of 0 */
+> > Furthermore, relying on signatures forces the kernel to manage a
+> > dedicated public key keyring. In a decentralized ecosystem comprising
+> > various OEMs and SoC vendors, managing these keys specifically for
+> > infrastructure BPF programs presents an operational hurdle.
 >
-> CPU0 continues into llc_qualify_conn_ev()
->         &llc_conn_state_table[llc->state - 1]   /* now index -1 */
->         llc_find_offset(llc->state - 1, ev->type)
->         (*next_trans)->ev(sk, skb)              /* indirect call */
+> There is no dedicated BPF keyring.. an OEM key built into a kernel image
+> has no additional runtime key management.
 >
-> Since bh_lock_sock() in llc_conn_tmr_common_cb() does not exclude a write=
-r
-> that holds no lock, is the negative index and the indirect call through t=
-he
-> pointer read from before the tables still reachable after this patch?
+> > Thanks to light skeletons, it is possible to embed the loading steps
+> > within a wrapping BPF program (also known as loader). In turns, the
+> > loading of the loader only requires a limited, well-defined number of
+> > steps. This series introduces the bpf command LOADER_LOAD_FD for the
+> > kernel to directly load an ELF file which contains a loader with its
+> > data. By moving the loading within the kernel, the authenticity of the
+> > loader and its content can be guaranteed by existing kernel mechanisms.
 >
-> Would latching the value once, for example
->
->         u8 state =3D READ_ONCE(llc->state);
->
-> and passing that value down to llc_qualify_conn_ev() and llc_find_offset(=
-),
-> or moving the llc_sk_free() state store under the socket lock, be a bette=
-r
-> fit for the problem described in the changelog?
->
-> >       rc =3D 0;
-> >       trans =3D llc_qualify_conn_ev(sk, skb);
->
-> [Severity: Medium]
-> The goto out here leaves rc at its initial value of 1, which was previous=
-ly
-> unreachable for a state of 0.  Where does that 1 end up?
->
-> net/llc/llc_conn.c:llc_conn_state_process() {
->         rc =3D llc_conn_service(skb->sk, skb);
->         if (unlikely(rc !=3D 0)) {
->                 printk(KERN_ERR "%s: llc_conn_service failed\n", __func__=
-);
->                 goto out_skb_put;
->         }
->         ...
-> }
->
-> net/llc/llc_if.c:llc_establish_connection() {
->         ...
->                 rc =3D llc_conn_state_process(sk, skb);
->         }
-> out_put:
->         sock_put(sk);
->         return rc;
-> }
->
-> net/llc/af_llc.c:llc_ui_connect() {
->         rc =3D llc_establish_connection(sk, llc->dev->dev_addr,
->                                       addr->sllc_mac, addr->sllc_sap);
->         if (rc) {
->                 sock->state  =3D SS_UNCONNECTED;
->                 sk->sk_state =3D TCP_CLOSE;
->                 goto out;
->         }
->         ...
-> out:
->         release_sock(sk);
->         return rc;
-> }
->
-> Can connect(2) then return +1 to userspace on a socket that was just rese=
-t
-> to SS_UNCONNECTED and TCP_CLOSE?  Callers testing for a negative return
-> would read that as success.
->
-> Is the printk also a concern, since it is not ratelimited and now fires o=
-nce
-> per event for a state this patch treats as expected?
->
-> The sequence I believe reaches it on a still-hashed socket:
->
->   1. socket(AF_LLC, SOCK_STREAM) + bind() leaves llc->state at
->      LLC_CONN_STATE_ADM
->   2. a failing connect() leaves state at ADM with llc->daddr set and the
->      socket still in the SAP list
->   3. any further frame from the peer matches the ADM catch-all transition
->
-> net/llc/llc_c_st.c:
-> static const struct llc_conn_state_trans llc_adm_state_trans_5 =3D {
->         .ev            =3D llc_conn_ev_rx_any_frame,
->         .next_state    =3D LLC_CONN_OUT_OF_SVC,
->         .ev_qualifiers =3D NONE,
->         .ev_actions    =3D llc_adm_actions_5,
-> };
->
->      which sets llc->state to 0
->   4. connect(2) again (sock->state is SS_UNCONNECTED, so it is accepted)
->      reaches the new reject path
->
-> Would it be more consistent to translate out-of-service into -ECONNABORTE=
-D
-> at the llc_if.c entry points?  llc_send_disc() already does an explicit
-> check:
->
-> net/llc/llc_if.c:llc_send_disc() {
->         if (sk->sk_type !=3D SOCK_STREAM || sk->sk_state !=3D TCP_ESTABLI=
-SHED ||
->             llc_sk(sk)->state =3D=3D LLC_CONN_STATE_ADM ||
->             llc_sk(sk)->state =3D=3D LLC_CONN_OUT_OF_SVC)
->                 goto out;
->         ...
-> }
->
-> while llc_establish_connection() has no such check.  On a related note, t=
-he
-> kernel-doc for llc_build_and_send_pkt() still documents only 0,
-> -ECONNABORTED and -EBUSY, although state 0 is filtered there only
-> incidentally by llc_data_accept_state().
->
-> [Severity: Medium]
-> This isn't a bug introduced by this patch, but while looking at the calle=
-rs
-> of llc_conn_service() there is an asymmetry in llc_backlog_rcv() worth
-> mentioning.  The fallback branch tests the owner socket's state and then
-> dispatches on it, while llc_conn_state_process() operates on skb->sk:
->
-> net/llc/llc_conn.c:llc_backlog_rcv() {
->         ...
->         } else if (likely(llc->state > 1)) {
->                 rc =3D llc_conn_rcv(sk, skb);
->         } else {
->                 goto out_kfree_skb;
->         }
->         ...
-> }
->
-> The two branches above it take bh_lock_sock_nested(newsk) before touching=
- a
-> child, this one does not.  For a listener-owned backlog skb whose skb->sk=
- is
-> a child, the child's state machine runs without the child's lock, even
-> though llc_conn_state_process() documents that the socket lock has to be
-> held.
->
-> Every child reachable through this branch appears to have already been
-> released by llc_release_incoming_sock(), whose state store the new check =
-now
-> rejects, so this looks defused for the concretely reachable case.  What
-> remains is the publication order in that function:
->
-> net/llc/llc_conn.c:llc_release_incoming_sock() {
->         if (atomic_xchg(&llc->incoming_state, LLC_INCOMING_NONE) =3D=3D
->             LLC_INCOMING_NONE)
->                 return;
->
->         WRITE_ONCE(llc->state, LLC_CONN_OUT_OF_SVC);
->         ...
-> }
->
-> Can a drainer in the fallback branch observe incoming_state as
-> LLC_INCOMING_NONE while still seeing the child's pre-teardown non-zero
-> state, and then run the child's state machine concurrently with
-> llc_release_incoming_sock() on another CPU?  Both fields are read there
-> without the child's bh lock.  Reaching the branch at all also needs the
-> listener's own llc->state above 1, which seems possible only through a
-> listen() followed by connect() on the same socket, since llc_ui_listen()
-> leaves sock->state at SS_UNCONNECTED and llc_ui_connect() has no TCP_LIST=
-EN
-> check.  I could not confirm that all of these hold at the same time, so t=
-his
-> may not be reachable in practice.
-> --
-> pw-bot: cr
+> Same issue still holds as described in [0]. Also, this sounds more like
+> convenience for Android offloaded to the kernel.. (you stated redundant
+> given the signature validation and complexity wrt keyring.. so what?
+> don't you have the latter anyway for vendor kernel modules?)
 
-Thanks for the review. The points on 2/2 look valid, especially the
-unlatched llc->state check versus llc_sk_free(), and the connect(2)
-return of +1 / unratelimited printk path.
+Thanks for the feedback Daniel.
 
-I'll drop 2/2. Kees's net-next series covers the same out-of-service
-lookup more completely, including the state machine guard and the
--ECONNABORTED translation:
+Vendor kernel modules are verified as described in the 'precedent'
+section: there are no signatures per module. Instead the combination
+of dm-verity and SELinux policy ensures the modules' authenticity.
 
-  https://lore.kernel.org/all/20260901210300.i.590-kees@kernel.org/
+> We're not
+> adding yet another scheme/alternative for addressing signed BPF via
+> separate loader mechanism.
 
-I'll leave that bug to his series.
-
-1/2 is a separate listener child-socket leak and is not addressed
-there. I'll reroll that alone as v7.
-
-The remaining note about llc_backlog_rcv() / llc_release_incoming_sock()
-belongs to 1/2; I'll look at the publication order there in the reroll.
-
-Thanks,
-Zihan
+I understand your position. Thanks for taking the time to reply.
