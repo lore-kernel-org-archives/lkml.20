@@ -1,114 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF2354A5C37;
-	Wed,  2 Sep 2026 14:58:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D57C4A49A5;
+	Wed,  2 Sep 2026 14:58:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788361125; cv=none; b=gSCgqLMzLt6Bjr72Vd2jGIMKHuKVX5VC1T3evfMmye+HNKYVSEYtTmsnX2QdFNTJtTbZzt0To0xzJR0lp0D1O0k10FroXzYiv8mDQxPMP7ZsJONHAmA3YwMQ9LUk5LH/tMDQ1zxefgf8RZI+MtLwNPyStUjkz28daDP971Lty08=
+	t=1788361128; cv=none; b=eR1b8I1ue2MrdNjhN6/CQdM4/FAPZ4Cee7DMyfi1XQqagzsEL0kjkSfMqB3dDYlZ/HihKs7O0DWI9M0rv8WAuKanuouqLqm/F2Sw9Xy3Tix/D9WUs3G+LlbFpgr++XWtKi0hmk/25ME077MBWWws6ifFHLRL+sukBbNO6tf+u7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788361125; c=relaxed/simple;
-	bh=Bq/pn6qLDuCOy4q6Inih1M/7CWb1GJrhoAlaFxB0hWY=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=f0b0fqiXHHM3rHjV4N1zGZA6x0kwAES5IIIzhG+7RCDnF/g1uT5QsrCAtQaSWWiifBqy2cP8MuJl1kFxckWLEfWZLI5fQlFE9sBLPaFyWwk8RofNhWgunYZjeSH9NIWeX2W8EiP2zmckChZlpC15CnAEX4DWJCDq0zXLq3wKnL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HEJxl0xx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788361128; c=relaxed/simple;
+	bh=vpggP7lwsnCu6s/sqVOT2I8xNLpL8MOaBeFDV9e/ajY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IbyIo/BbzG+uyoEfJFKYEn5l62TyEVZ516Bm1aZ4tjFZVdkT4XHc1T347ff9X1cwc52T5dTg9cQUYbFs/aa/hciiz3ulLdkLu59h6r7PyQFocgv+jIESiv+DVS+RwR0GUJuK7pfWrUdjHV9sXhZVMOB2LZcAlBzQy47M98C7ak0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=yB4II0i0; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=vw6IATGV; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=aYHKtq46; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=HrSxe+Yz; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HEJxl0xx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EF2A1F00A3A;
-	Wed,  2 Sep 2026 14:58:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788361117;
-	bh=pbIrjoPs4ESo8HvfZjuo4ycyazh6Toox1T+Kj5d6QcE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=HEJxl0xx2PoI0ldW+z7GFqEaW59vDMByEeAsuScGUDUHeurh0tzYybo2czdJkc+ZV
-	 XBJovFDlVFCxsAF/xK+q5MoMVfSf6hqTdvlJKP4rBSU5cXan3mozQ09wMu7fXM6/3v
-	 5cnEfBR/GHKBo/hP8DvnjaWH3vOefm0M5EGcDtWP6/75t1nixQx8GEx7wJmX+gseOe
-	 4MzL9RpDBWupoGqSqTmFU1XQLTWJqr8PdT9fFH16BKNOrrY4R+9/ft2OHlXdKC26AT
-	 rUOWpXsdSHfY8QdDaUU+tqWgaTSTbWrWfaxy6j3OqGaVNjiMfYabc7/Pf+19lSsVJ3
-	 UzmY6Qq52RvPA==
-Date: Wed, 2 Sep 2026 23:58:33 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: Donglin Peng <dolinux.peng@gmail.com>
-Cc: rostedt@goodmis.org, mhiramat@kernel.org, dolinux.peng@gmai.com,
- linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org,
- pengdonglin <pengdonglin@xiaomi.com>, Xiaoqin Zhang
- <zhangxiaoqin@xiaomi.com>
-Subject: Re: [PATCH v5 1/3] ftrace: Build trace_btf.c when
- CONFIG_DEBUG_INFO_BTF is enabled
-Message-Id: <20260902235833.542376d81082fe54c6057b37@kernel.org>
-In-Reply-To: <20260901134604.4052265-2-dolinux.peng@gmail.com>
-References: <20260901134604.4052265-1-dolinux.peng@gmail.com>
-	<20260901134604.4052265-2-dolinux.peng@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="yB4II0i0";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="vw6IATGV";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="aYHKtq46";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="HrSxe+Yz"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id C79D21FB1F;
+	Wed,  2 Sep 2026 14:58:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788361117; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P+gn1TAUO4/JHYqM9pNukdAnd9lWGs9C3oFxBr7I6LA=;
+	b=yB4II0i0MBU7zS5j/xSWF32ik8O3RA4ImGCMDSNFcDBim5FAi39Ct4aiKMAlX9GYiQWUKv
+	J1QGJiIepDAM01WetOkL0vRXo8+005nUmeHYkDMih2Sq6ZSSAc2p5fEGRAu1ylMSDJyteR
+	utJa7+yyDoBT+i+2XC/CqVMVQ4Imbcc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788361117;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P+gn1TAUO4/JHYqM9pNukdAnd9lWGs9C3oFxBr7I6LA=;
+	b=vw6IATGV16sYLj6IghrydJ+GqQCy5ZVQKXab/WOFjQ2LyXuM6cgtZjGsJZ7jWb0GBsIyUR
+	8dPEaIzX6Fh8chBg==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=aYHKtq46;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=HrSxe+Yz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788361112; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P+gn1TAUO4/JHYqM9pNukdAnd9lWGs9C3oFxBr7I6LA=;
+	b=aYHKtq46F2CoMksVaFbUxgiNgtz9AbZkmUClCqqE396U4EUGEbYSl3zNVpN/sA6a25lUQC
+	1TXgWtZkNiaRGyr7/C5HUEGSdp31OWorBUnvGvCx1hi2eQEf5viaOOKmGJqtwMCGpgjiad
+	p9N8O0zhhVkEV/Zzomxm4z1V+54Si4o=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788361112;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P+gn1TAUO4/JHYqM9pNukdAnd9lWGs9C3oFxBr7I6LA=;
+	b=HrSxe+Yz7nWi5vVuEcn9hTc530rXE1eyHhw7KCmGkEXyK9qmghZAyJQAzp3zxbQaUn+/aU
+	QHMeV6nuqe0t2vBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2DB4613888;
+	Wed,  2 Sep 2026 14:58:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Q9wUC5c5mGq1NAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 02 Sep 2026 14:58:31 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 3F442A13B5; Wed, 02 Sep 2026 16:58:30 +0200 (CEST)
+Date: Wed, 2 Sep 2026 16:58:30 +0200
+From: Jan Kara <jack@suse.cz>
+To: Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>, 
+	Jan Kara <jack@suse.cz>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] docs: locking: Fix bracket
+Message-ID: <ffoup27vuua4yo5weeyhgdjevtb4c2nkoz45lkk5kzipnnhzsn@wckefd3i2vv4>
+References: <20260902143936.703665-4-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902143936.703665-4-manuelebnerli@mailbox.org>
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: C79D21FB1F
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email,mailbox.org:email,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Flag: NO
+X-Spam-Score: -4.01
 
-On Tue,  1 Sep 2026 21:46:02 +0800
-Donglin Peng <dolinux.peng@gmail.com> wrote:
-
-> From: pengdonglin <pengdonglin@xiaomi.com>
+On Wed 02-09-26 16:39:38, Manuel Ebner wrote:
+> Remove needless '(' from code block.
 > 
-> The trace_btf.c file provides BTF helper functions used by the ftrace
-> subsystem. Make the compilation of trace_btf.c solely depend on
-> CONFIG_DEBUG_INFO_BTF, allowing features like funcgraph-retval to also
-> utilize these helpers.
-> 
-> Additionally, the redundant dependency on CONFIG_PROBE_EVENTS_BTF_ARGS
-> is removed, as CONFIG_DEBUG_INFO_BTF already depends on
-> CONFIG_BPF_SYSCALL.
+> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
 
-OK, nowadays BPF requires BTF. This looks good to me.
+Looks good. Feel free to add:
 
-Acked-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Thanks,
-
-> 
-> Cc: Steven Rostedt (Google) <rostedt@goodmis.org>
-> Cc: Masami Hiramatsu <mhiramat@kernel.org>
-> Cc: Xiaoqin Zhang <zhangxiaoqin@xiaomi.com>
-> Signed-off-by: pengdonglin <pengdonglin@xiaomi.com>
 > ---
->  kernel/trace/Kconfig  | 2 +-
->  kernel/trace/Makefile | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
+> Should I also replace ')(' with ') (' as it is in the second code block?
+> It would improve readability in my opinion.
+
+Dunno, at least I'm used to the way which is written here :)
+
+								Honza
+
+> ---
+>  Documentation/filesystems/locking.rst | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/kernel/trace/Kconfig b/kernel/trace/Kconfig
-> index 0ab5916575a9..d8faeb659cfc 100644
-> --- a/kernel/trace/Kconfig
-> +++ b/kernel/trace/Kconfig
-> @@ -770,7 +770,7 @@ config FPROBE_EVENTS
->  config PROBE_EVENTS_BTF_ARGS
->  	depends on HAVE_FUNCTION_ARG_ACCESS_API
->  	depends on FPROBE_EVENTS || KPROBE_EVENTS
-> -	depends on DEBUG_INFO_BTF && BPF_SYSCALL
-> +	depends on DEBUG_INFO_BTF
->  	bool "Support BTF function arguments for probe events"
->  	default y
->  	help
-> diff --git a/kernel/trace/Makefile b/kernel/trace/Makefile
-> index f934ff586bd4..28b08f31e7e5 100644
-> --- a/kernel/trace/Makefile
-> +++ b/kernel/trace/Makefile
-> @@ -119,7 +119,7 @@ obj-$(CONFIG_KGDB_KDB) += trace_kdb.o
->  endif
->  obj-$(CONFIG_DYNAMIC_EVENTS) += trace_dynevent.o
->  obj-$(CONFIG_PROBE_EVENTS) += trace_probe.o
-> -obj-$(CONFIG_PROBE_EVENTS_BTF_ARGS) += trace_btf.o
-> +obj-$(CONFIG_DEBUG_INFO_BTF) += trace_btf.o
->  obj-$(CONFIG_UPROBE_EVENTS) += trace_uprobe.o
->  obj-$(CONFIG_BOOTTIME_TRACING) += trace_boot.o
->  obj-$(CONFIG_FTRACE_RECORD_RECURSION) += trace_recursion_record.o
+> diff --git a/Documentation/filesystems/locking.rst b/Documentation/filesystems/locking.rst
+> index 844d65eb4..1598cf555 100644
+> --- a/Documentation/filesystems/locking.rst
+> +++ b/Documentation/filesystems/locking.rst
+> @@ -27,7 +27,7 @@ prototypes::
+>  	int (*d_init)(struct dentry *);
+>  	void (*d_release)(struct dentry *);
+>  	void (*d_iput)(struct dentry *, struct inode *);
+> -	char *(*d_dname)((struct dentry *dentry, char *buffer, int buflen);
+> +	char *(*d_dname)(struct dentry *dentry, char *buffer, int buflen);
+>  	struct vfsmount *(*d_automount)(struct path *path);
+>  	int (*d_manage)(const struct path *, bool);
+>  	struct dentry *(*d_real)(struct dentry *, enum d_real_type type);
 > -- 
-> 2.34.1
+> 2.54.0
 > 
-
-
 -- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
