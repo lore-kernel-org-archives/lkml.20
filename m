@@ -1,74 +1,75 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC21326928
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 01:53:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC0321B4257
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 01:53:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788314002; cv=none; b=GzKNlFDBI9SMe9COqV6WE7DSWza+ZOHQkSG1J8bbKcCEjLoopawMMcZuNHgUdty4uvTa/73gBnPJ4p63r5lanFZySZQlqyXDjuu1y9pw2ikLugUTwB+7avTnG8XwYOxc3fkErMoToK8AJATaWg8cs1v1IoPeuARq7Uk+WPqNrDc=
+	t=1788314018; cv=none; b=jP2mtrN+oRTJF2y3aWo8uzLL+hE86I24oMm3CGzfWJ3G3u0EAhletFPGbUdx4xPPJtnxtTmLqMznRUethqG9pBh0Y1J7eaEYiynFCk0GC0BUHA2/9WvddzwpFV5KteRIJOVEQvam7dutZla+ffvQC/p3z9rh8XY8vJgLbQ3n5Qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788314002; c=relaxed/simple;
-	bh=U1WmY9roIWOAlngME8p/4681it92uLDHXzUx3irgDl0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ICt3NFJTlja/SW0RwjV4/U1832LIRTUS5DSlrilaCHDVxyKhwxp5Sjb/Qh//2qJ39cynORGPSoGQVqW96I9UQ4j9Wzfrm/9hisXqDkPWkuO13pzfDPj7cbKHF98vsLUUqiUApWvdiUJS0RW1qImqAdz/ObJwViajONoFnKVXjKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LsgKt37W; arc=none smtp.client-ip=209.85.216.49
+	s=arc-20240116; t=1788314018; c=relaxed/simple;
+	bh=0inVXbYiGxiGXy6j7SvTUy//4zaCBXiLbcknOERUIVg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WieqIFRSozq48+pk7gTMMna/oiHVPgjPIIycCcH+JVQwGhejsR1lnkoDkPyeGW/clpZLm1G9eE5VJkEEnfGq36Y7lh7A5V4vRtXSHvYdT9E4+T8GPU0x+MiyOUtzPhUNw3OcGfhZtfUSKgeGR2XwsdOe2JnFx0IzzFQcKacP83Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZxBMJDFh; arc=none smtp.client-ip=209.85.216.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LsgKt37W"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-39682983a0fso628624a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 18:53:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZxBMJDFh"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38dfe910e9dso538299a91.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 18:53:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788313994; x=1788918794; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IvVGub2hsicLqXSI/3c3voFU7S2m/xG+KP69Hl1dWlU=;
-        b=LsgKt37Wz7qQ4HuErL3stzt1cmeILX7ThZ4+5omaVB0Dm4KA6SyuszMdP+wAkHDy/p
-         wEifI/0+zjqM94PUPnrYwACPcxJtxJoOwlCm3kbmiucNW7fTLlINdZ96180tRM7Xjp2j
-         HE55rR6lUQ0W7Z2r5hwglczHdPZmL4zlG2YMxVevC8qFy+StWBjN7zKaM751HC5vSdj4
-         FUHRyEeeQsXkB27m6x9SVJ6y5DuOdpEgc6Fr47SNop0vgtXDSNWKEZLLn/AYV4NIYbul
-         Fw8zqfYVL5mOHCjQdXZS3bncSKMtcbsgElmTItStaeiEoziH0lm8MCUmHltkO66ECY3/
-         j8cA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788313994; x=1788918794;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788314007; x=1788918807; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IvVGub2hsicLqXSI/3c3voFU7S2m/xG+KP69Hl1dWlU=;
-        b=N6/H2pDfkPMFmxxv1QTFW10dIj09eszPBU6xu/7nTA5Egt5vE7svTohEY/HPRLv/9L
-         u/CV/kQFKqpxp8qjIeBQYZgfMbmBltpVDwTMLd1xklNfegzLRgILJY+UsidK64RlAfKZ
-         wpRe7mLQvCBMhoZ3HwwY8CSrrvY6WJ2dbgxZ2o6agRoy/TasJ5yctE2jClqAf56habY8
-         hU5kvcKerQ5/+jANmBeuInhQrVMIAykYk0hOsMnUor1yMAqO9xE2yzy+ahPql5uABQm1
-         PCchKt8uFmq8LZyfjaHDl+/xnLi1a/n7bHbDZHyTEKiih0XoZr4m3igR1VuPcCMDe/8X
-         yPmA==
-X-Forwarded-Encrypted: i=1; AKwUvBwsZt+a+mlVHrolU5irG28jfMoQ9hU89nmSVbhWeWRdL0GIooyEIwFiMpH7I6/LAeIGJ663eaTWl0x0PBs=@vger.kernel.org
-X-Gm-Message-State: AFuF++n7wD0cFAYLN/wvsxuyFifO9VTdaT2jMa5AizAxObuUu6DAb8MT
-	CDiOSgEoXUznJOgfWwDe1WKTX7orvRA1+VhKtHS0Vk8MbKX8jaNDiIHA
-X-Gm-Gg: AYBFou0cp/7/A8N5kYzPaCcAn6amfEwi6rx0fKyGhmIw/u6p9a2G35fTji/p1e7lEKh
-	XIdtOCkRPuuHX42ii63FK/R/89OqoieKI46waB1PUnRSA8G50WyNlVQSBTj6q/XKy2VEkSVreiz
-	8a2L6BrwCakRNfoG2T99ig4AEvxfjoRU774fQJzuvBuryjfHpoqxhyWveXaX1PVEybiTrmLykyZ
-	Okofj9iqej8VWWrPR5a48uOyK31UAs2/hT5VAyUnh/GfQ+8BO2OjQkeU7I+V7w5Df0OKA3zzADu
-	fzO/KKgnV8WULbnXfqiahX+tfXVcFXDC1wNVyrugDDfmw15bNhsqSrQDnLrzude4DtA3pvpizDU
-	eaC0SHZy05EYHdGnid/NnskI+6N3zfJt7ohIlXSqot3iEpdF+jQS291NL9qiSaoVQQ/3a46eD6S
-	WFlNjKRJ/dfsH+0fkdV4kvGXjBgh+INZVF+lKXB9m6ZoQoBhi+GOU=
-X-Received: by 2002:a17:90b:46:b0:38e:ad9d:1161 with SMTP id 98e67ed59e1d1-39aedbfe60amr2194340a91.0.1788313994349;
-        Tue, 01 Sep 2026 18:53:14 -0700 (PDT)
-Received: from mizar ([182.10.129.37])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d76622csm8861666a91.11.2026.09.01.18.53.11
+        bh=OYKtlERduPFiYIX1bfhWeBK1L/1dAk0lE32+h0N/XY8=;
+        b=ZxBMJDFht5DFN0nY61QZ3BxEzEno80BUHCZw4zQUdt8YIcyCfVPAWUIly3t0Dj6UN9
+         s8BMq7+/rwCTv69Ls6LNh/HRb19ihcmJKJIPB+wJX4Fb9G0DbJ8ADYMepDOW25n0pjmB
+         QTeVJGyNJBx0uvUIVCLM8SzU8OWZ4NPcw24ekvo7FjpoqY0xxMK/4ttVLMKi0nKaiWEE
+         2rK8S3r+pF3NbPpmROqC+/Hmwe8b0B+2wyQ6yGn0K6EmdMF+O/YuTLe2YA/GkAZhXocW
+         jc0OeuIrNph5Me6gFkhF4l0mg8pUqOw95NIbZnY6xfffZavyHjVT06FcdwqcFYjCVQHs
+         XHTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788314007; x=1788918807;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OYKtlERduPFiYIX1bfhWeBK1L/1dAk0lE32+h0N/XY8=;
+        b=NwGYzW1BeSreAwVkYBNzoSlpLraKivQzrUEveyDovlYnu4Waq3ml9r6WvADuEDwIjF
+         0z5s9SP7hPhLRypsAlW1JdMPQWFpIJRAWqPzMUkhdxrHrJ2fQrWzukjeCPKV29UVQ6N/
+         /xhc7kVVA4fC3KXyG109gEDz/dtOJznfcyruDGSQzGOERgTl8V/93ALForU3PvbvZA2t
+         JRDDw+XAiX9EvH5Ll3wWyS3Qcmnk9W73dsvwEIkM+vr085soJWJtW4poyggGasbJFs4Q
+         V9HEjMNxe1QZjijUHo805WIZdxpe2ou0dBHIGaWIZFe96pKGg8thBid94Uua1PgguodS
+         G0sA==
+X-Forwarded-Encrypted: i=1; AKwUvBxXzcvB5WJQuxXhB4MfkqAu63OCUUU+Xg0JEBRLWJSYBi79flYdjmEUAzNamqKM8MtDrXZfG2MoPmmU33I=@vger.kernel.org
+X-Gm-Message-State: AFuF++m46p7V+dxSQw0bVr14rZsOhnOG9uP9jzRaZp1RvP1BOiUBl1pV
+	xxaYI7FTMmr27L3zMaD2oCI4LlhxkD22PY0qt0NOWI9fOSSggIwFa2LN
+X-Gm-Gg: AYBFou2VeV9m7caXLWoGi3vKb7HO0mlYaPOYSWdbS4n5L5FSxMyr5k18lfs70osilJ5
+	iFPkw1wBIM9AmcXbKpciDWWwgV3z3vcO+deNttnot57xc77KJ/NWsxXhdsgMm6Hxr5jbJ8Sj4DH
+	Lmb+uVqMDTWgEHuYRgMrnznxbRIzQH9KjNS10dQG+qYLaqgs7AlsJsV3bVmsaV3VVwOCHtqIi1c
+	IulXZpCJLlXdC9vlYU1FYIKBNZmIrTfiuKzelG4JznX9NKUSzMHJcChUCdsAJy77bm7IQQh0ngC
+	VbSGqa5ADWvoZj89E+RnjcEqcFurUwRSBAf915wLfDyBRAq76BY/wL7R+NUbCn7Lp0afk9t/nGy
+	ZvA7b9mw3+T1nmuRLZBwq9WiElTLwNUMwhM6sXDbiEFuBWtivMDs1eSnoe1pBioOll/sp7kv+Jr
+	RpNLbXCeN0OblhgPlH0bkvMne8S10QkjnCeoKL+/7IxmRIN97xyfWjZg==
+X-Received: by 2002:a17:90b:524c:b0:390:8361:a532 with SMTP id 98e67ed59e1d1-39aedfb8ebcmr1963259a91.7.1788314006989;
+        Tue, 01 Sep 2026 18:53:26 -0700 (PDT)
+Received: from bloom.localdomain ([2604:3d09:178e:e100::3820])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae62cfe43sm467404a91.1.2026.09.01.18.53.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 18:53:13 -0700 (PDT)
-From: Idotoho Reimon Simanjuntak <idotohors@gmail.com>
-To: Corentin Chary <corentin.chary@gmail.com>,
-	"Luke D. Jones" <luke@ljones.dev>,
-	Denis Benato <denis.benato@linux.dev>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Idotoho Reimon Simanjuntak <idotohors@gmail.com>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] platform/x86: asus-wmi: fix FA401 series keyboard sleep strobe
-Date: Wed,  2 Sep 2026 08:52:55 +0700
-Message-ID: <20260902015256.23434-1-idotohors@gmail.com>
+        Tue, 01 Sep 2026 18:53:25 -0700 (PDT)
+From: Ivy Lopez <skunkolee@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	error27@gmail.com,
+	Ivy Lopez <skunkolee@gmail.com>
+Subject: [PATCH v2] staging: rtl8723bs: use kfree_sensitive() for key material in rtw_set_key()
+Date: Tue,  1 Sep 2026 19:53:14 -0600
+Message-ID: <20260902015314.21525-1-skunkolee@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260730231315.79688-1-skunkolee@gmail.com>
+References: <20260730231315.79688-1-skunkolee@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -77,155 +78,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The FA401 series accepts the TUF keyboard RGB power-state command but does
-not advertise the device through the normal DSTS presence probe. Register
-the state attributes for this series and re-assert keyboard brightness in
-the PM prepare callback so the EC enters S0ix with the correct state.
+psetkeyparm holds WEP/TKIP/AES key material copied in via memcpy
+from psecuritypriv before being freed. Use kfree_sensitive() instead
+of kfree() so the key bytes are zeroed before the memory is released,
+consistent with how psetstakey_para is already handled elsewhere in
+this driver.
 
-Without the brightness re-assertion, the display server blanks the keyboard
-before the kernel suspend path runs, leaving the EC with brightness=0 and
-preventing the sleep strobe from activating. Because kbd_led_wk may already
-be zeroed by the display server at prepare time, always re-assert level 3
-(max) brightness; the sleep strobe requires a non-zero brightness to
-activate.
+Fixes: 554c0a3abf21 ("staging: Add rtl8723bs sdio wifi driver")
 
-Use a quirk flag (kbd_rgb_state_quirk) set via DMI match table rather than
-ad-hoc dmi_match() calls. Use the standard dev_pm_ops .prepare callback
-rather than overloading the Ally-specific LPS0 ops. Define self-documenting
-macros for the TUF RGB state bitfields at file scope.
-
-Signed-off-by: Idotoho Reimon Simanjuntak <idotohors@gmail.com>
+Signed-off-by: Ivy Lopez <skunkolee@gmail.com>
 ---
- drivers/platform/x86/asus-nb-wmi.c | 14 ++++++++++
- drivers/platform/x86/asus-wmi.c    | 43 +++++++++++++++++++++++++++++-
- drivers/platform/x86/asus-wmi.h    |  1 +
- 3 files changed, 57 insertions(+), 1 deletion(-)
+v2: add Fixes: tag
+---
+ drivers/staging/rtl8723bs/core/rtw_mlme.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
-index aeb461b16..fb06013ca 100644
---- a/drivers/platform/x86/asus-nb-wmi.c
-+++ b/drivers/platform/x86/asus-nb-wmi.c
-@@ -155,6 +155,11 @@ static struct quirk_entry quirk_asus_z13 = {
- 	.tablet_switch_mode = asus_wmi_kbd_dock_devid,
- };
- 
-+static struct quirk_entry quirk_asus_fa401 = {
-+	.wapf = 0,
-+	.kbd_rgb_state_quirk = true,
-+};
-+
- static int dmi_matched(const struct dmi_system_id *dmi)
- {
- 	pr_info("Identified laptop model '%s'\n", dmi->ident);
-@@ -163,6 +168,15 @@ static int dmi_matched(const struct dmi_system_id *dmi)
- }
- 
- static const struct dmi_system_id asus_quirks[] = {
-+	{
-+		.callback = dmi_matched,
-+		.ident = "ASUSTeK COMPUTER INC. FA401",
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
-+			DMI_MATCH(DMI_BOARD_NAME, "FA401"),
-+		},
-+		.driver_data = &quirk_asus_fa401,
-+	},
- 	{
- 		.callback = dmi_matched,
- 		.ident = "ASUSTeK COMPUTER INC. Q500A",
-diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-index a65090429..8d7c9e8bd 100644
---- a/drivers/platform/x86/asus-wmi.c
-+++ b/drivers/platform/x86/asus-wmi.c
-@@ -129,6 +129,14 @@ module_param(fnlock_default, bool, 0444);
- #define ASUS_SCREENPAD_BRIGHT_MAX 255
- #define ASUS_SCREENPAD_BRIGHT_DEFAULT 60
- 
-+/* TUF RGB power state bitfields for DEVS(ASUS_WMI_DEVID_TUF_RGB_STATE) */
-+#define TUF_RGB_STATE_CMD		0xbd
-+#define TUF_RGB_STATE_SAVE		BIT(8)
-+#define TUF_RGB_STATE_BOOT		(0x03 << 16)
-+#define TUF_RGB_STATE_AWAKE		(0x0c << 16)
-+#define TUF_RGB_STATE_SLEEP		(0x30 << 16)
-+#define TUF_RGB_STATE_KEYBOARD		(0xc0 << 16)
-+
- #define ASUS_MINI_LED_MODE_MASK		0x03
- /* Standard modes for devices with only on/off */
- #define ASUS_MINI_LED_OFF		0x00
-@@ -5153,7 +5161,6 @@ static int asus_wmi_add(struct platform_device *pdev)
- 
- 	asus->egpu_enable_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_EGPU);
- 	asus->dgpu_disable_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_DGPU);
--	asus->kbd_rgb_state_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_TUF_RGB_STATE);
- 
- 	if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_MINI_LED_MODE))
- 		asus->mini_led_dev_id = ASUS_WMI_DEVID_MINI_LED_MODE;
-@@ -5166,6 +5173,15 @@ static int asus_wmi_add(struct platform_device *pdev)
- 		asus->gpu_mux_dev = ASUS_WMI_DEVID_GPU_MUX_VIVO;
- #endif /* IS_ENABLED(CONFIG_ASUS_WMI_DEPRECATED_ATTRS) */
- 
-+	/*
-+	 * FA401 series accepts the TUF RGB-state DEVS command but does not
-+	 * advertise the device through DSTS. Keep the normal DSTS probe for
-+	 * other models and force registration when the quirk is set.
-+	 */
-+	asus->kbd_rgb_state_available =
-+		asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_TUF_RGB_STATE) ||
-+		asus->driver->quirks->kbd_rgb_state_quirk;
-+
- 	asus->oobe_state_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_OOBE);
- 
- 	if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_THROTTLE_THERMAL_POLICY))
-@@ -5396,11 +5412,36 @@ static int asus_hotk_restore(struct device *device)
- 
- static int asus_hotk_prepare(struct device *device)
- {
-+	struct asus_wmi *asus = dev_get_drvdata(device);
-+
- 	if (use_ally_mcu_hack == ASUS_WMI_ALLY_MCU_HACK_ENABLED) {
- 		acpi_execute_simple_method(NULL, ASUS_USB0_PWR_EC0_CSEE,
- 					   ASUS_USB0_PWR_EC0_CSEE_OFF);
- 		msleep(ASUS_USB0_PWR_EC0_CSEE_WAIT);
+diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme.c b/drivers/staging/rtl8723bs/core/rtw_mlme.c
+index 1196ec011455..fb45f7295386 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_mlme.c
++++ b/drivers/staging/rtl8723bs/core/rtw_mlme.c
+@@ -1926,14 +1926,14 @@ signed int rtw_set_key(struct adapter *adapter, struct security_priv *psecurityp
+ 		break;
+ 	default:
+ 		res = _FAIL;
+-		kfree(psetkeyparm);
++		kfree_sensitive(psetkeyparm);
+ 		goto exit;
  	}
-+
-+	/*
-+	 * The display server may blank the keyboard backlight before the
-+	 * kernel suspend path runs. Re-assert brightness and power-state
-+	 * flags so the EC enters S0ix with the correct state. Always use
-+	 * level 3 (max) because kbd_led_wk may already be zeroed by the
-+	 * display server at this point, and the sleep strobe requires a
-+	 * non-zero brightness to activate.
-+	 */
-+	if (asus && asus->driver->quirks->kbd_rgb_state_quirk &&
-+	    asus->kbd_rgb_state_available) {
-+		u8 brightness = 0x80 | 0x03; /* level 3 (max) + light-on bit */
-+
-+		asus_wmi_set_devstate(ASUS_WMI_DEVID_KBD_BACKLIGHT,
-+				      brightness, NULL);
-+		asus_wmi_evaluate_method3(ASUS_WMI_METHODID_DEVS,
-+					  ASUS_WMI_DEVID_TUF_RGB_STATE,
-+					  TUF_RGB_STATE_CMD | TUF_RGB_STATE_SAVE |
-+					  TUF_RGB_STATE_BOOT | TUF_RGB_STATE_AWAKE |
-+					  TUF_RGB_STATE_SLEEP | TUF_RGB_STATE_KEYBOARD,
-+					  0, NULL);
-+	}
-+
- 	return 0;
- }
  
-diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asus-wmi.h
-index 5cd4392b9..69d224774 100644
---- a/drivers/platform/x86/asus-wmi.h
-+++ b/drivers/platform/x86/asus-wmi.h
-@@ -52,6 +52,7 @@ struct quirk_entry {
- 	 */
- 	int no_display_toggle;
- 	u32 xusb2pr;
-+	bool kbd_rgb_state_quirk;
- };
- 
- struct asus_wmi_driver {
+ 	if (enqueue) {
+ 		pcmd = kzalloc_obj(*pcmd);
+ 		if (!pcmd) {
+-			kfree(psetkeyparm);
++			kfree_sensitive(psetkeyparm);
+ 			res = _FAIL;  /* try again */
+ 			goto exit;
+ 		}
+@@ -1949,7 +1949,7 @@ signed int rtw_set_key(struct adapter *adapter, struct security_priv *psecurityp
+ 		res = rtw_enqueue_cmd(pcmdpriv, pcmd);
+ 	} else {
+ 		setkey_hdl(adapter, (u8 *)psetkeyparm);
+-		kfree(psetkeyparm);
++		kfree_sensitive(psetkeyparm);
+ 	}
+ exit:
+ 	return res;
 -- 
 2.55.0
-
 
