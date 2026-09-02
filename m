@@ -1,114 +1,98 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E13B93B0ACC;
-	Wed,  2 Sep 2026 07:10:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 732843AA507;
+	Wed,  2 Sep 2026 07:10:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788333012; cv=none; b=VTyswzKsuJVmj4o24OOKJbVvLT5bwKUWoDGNmH0tZ38yGfLTc6p4Kl+HqsFdQt5ztoXCYS6g3nJbhS7dqnjxYYwXCBQ4mDAM/hmYGx9Ae5+9KuGzC2V+J+TjfsWpKUzfBm9ChODIPFcpiJgSiYKPSlmfN7CvHiZDNMm7EBGFctI=
+	t=1788333052; cv=none; b=QlXwzZIOckIG+0rjIjV4dya6xlM0Br/vpw4tsRsfmDhP+duI9prob9l46ZphF/33AsP+5pId7PuZfVMpGrGI/XvQf/emE+G6pIMcKnmk1sXGHackwPMWue6502TpW/c0EN5428Pz3BWGAw9zN/ONU04Iam35KPSjoSlsZDWD/Ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788333012; c=relaxed/simple;
-	bh=CUioBGAgghsebrVo+V7sooNS7Q/AzGLAa9moociFkkk=;
+	s=arc-20240116; t=1788333052; c=relaxed/simple;
+	bh=/QkyG+EW56yb91W7GpHwkIW7ZpFcQkBMg7os0TFdp40=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CU51jsWYU8KHapDQ65euoWxbW/22BVW8dYdP8lh9/ZhMlYulNZZ9JMPU8aylnYcelGvq38sBED9+ovUhrL3OcHzVy7LB6l0Vqch/5FwRty32YT6Ic2NHpDMxxebGAyhszo45ZG2Sov4LwG9I8QQXLotAmkkS/6bXqHpmdnezUqg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=emBAASwS; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=g3QFmnP7MLIuPXX7TenEJTz31gw9UZAOesyvwc3p1p41zr4SPw9gHBRLuZfQESpFkXEFXMehtvzLEdIh0uVLbuaN4yH9ZrNHUo9+TfXdj0jp7/n34C6TumT2qKS29jvnHjX6+thUl/XpM55XFGwjqFBAkRaiuFKp4HoUiKIngdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fgf4am5j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="emBAASwS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788333010; x=1819869010;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=CUioBGAgghsebrVo+V7sooNS7Q/AzGLAa9moociFkkk=;
-  b=emBAASwSgGEGnJPkDI0dlfiV910jgRQyo5HhhDJ86KsJAERdJEdzbRIv
-   TXurRJca6aP14LmWpbh3DSFyEjKQlTYgnkwxOQVKeQwXp3fKA8jNgUjfY
-   QRWIK8Zfq8n0z9BcX+0G54O33dRObQ1XlNNuDsFkv+tyMHBx4hvmrPvNj
-   YDV290MD33oypPX6xDk1qQ0D5G6gNxwdNV32NGhfu23/m7zW2Yy80BlTx
-   wy9I0AXwN+qgRJHEYjXQLWdJwL6s8vsSUYKFUFhKXBgEBGxDD0zi2nMEN
-   RbTySXHFoBPj4FWckVrIktRmXaQccDuLUv5+1fFwsAS1+gc2mxpTpMctm
-   w==;
-X-CSE-ConnectionGUID: kjC7xNtIT0mkX39Hd3mDaw==
-X-CSE-MsgGUID: qADL4lE/Ts+1wcq6qJODog==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="111550849"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="111550849"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 00:10:10 -0700
-X-CSE-ConnectionGUID: 5d+UJ45fSr6YDx2EVoGTzQ==
-X-CSE-MsgGUID: V93PDic6QaKTGsJNcamaxg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="269344913"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by orviesa007.jf.intel.com with ESMTP; 02 Sep 2026 00:10:08 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id 7CBEC99; Wed, 02 Sep 2026 09:10:06 +0200 (CEST)
-Date: Wed, 2 Sep 2026 09:10:06 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: Fedor Pchelkin <pchelkin@ispras.ru>
-Cc: Mika Westerberg <westeri@kernel.org>, linux-usb@vger.kernel.org,
-	Andreas Noever <andreas.noever@gmail.com>,
-	Yehezkel Bernat <YehezkelShB@gmail.com>,
-	linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] thunderbolt: fix NULL dereference in tb_remove_work()
-Message-ID: <20260902071006.GJ106095@black.igk.intel.com>
-References: <20260831075836.16038-1-pchelkin@ispras.ru>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fgf4am5j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84F0B1F000E9;
+	Wed,  2 Sep 2026 07:10:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788333051;
+	bh=mkNkOka81TvpWCQXQjDjyJBfSTFlkGAdLKmI+ByzmA8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Fgf4am5jJyE90OYVghPGqx5FnXVzC3IblXws4qY6hJm0WyQefrF4575MQL3G/l4MY
+	 N/JKZ5NxbpGHS4wd16VXnd05KQVIMyQFlwul74Aj5sQaVryHgIG+xOz2TAYZ2EXGF3
+	 i/IG9NXREMeP94enEFmcBKJ1S6aBlBhUnl7yQWrX6f74T12zNIIWNRg+O6K4+MDsPn
+	 HzaA6XUF/1pviVzCLux4iZxYmsMY0090vUbYnTF2TA0NrtFJQ2VviYRpuIWwr1KhKE
+	 up/Fb5Dd/FQ+4qvJbBQeLjkFmrtRVn0hgyMxtHEA8n4zboXeFMIXeily+BOf+XUXvf
+	 5zBo04c2/Buug==
+Date: Wed, 2 Sep 2026 10:10:46 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Konstantin Sinyuk <ksinyuk@kernel.org>, dri-devel@lists.freedesktop.org,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Francois Dugast <francois.dugast@intel.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Donald Hunter <donald.hunter@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Ilia Levi <ilia.levi@intel.com>,
+	linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 0/12] drm/fabric: vendor-neutral topology
+ infrastructure for scale-up accelerator interconnects
+Message-ID: <20260902071046.GO24140@unreal>
+References: <cover.1787552412.git.ksinyuk@kernel.org>
+ <20260826093222.GC42790@unreal>
+ <fabric-leon-reply.1787844400.ksinyuk@kernel.org>
+ <20260827170911.GG42790@unreal>
+ <apGzqP6cEZ1miNmR@intel.com>
+ <20260901110120.GJ24140@unreal>
+ <apbuUsS_3RVbB5vh@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260831075836.16038-1-pchelkin@ispras.ru>
+In-Reply-To: <apbuUsS_3RVbB5vh@intel.com>
 
-Hi,
+On Tue, Sep 01, 2026 at 11:25:06AM -0400, Rodrigo Vivi wrote:
+> On Tue, Sep 01, 2026 at 02:01:20PM +0300, Leon Romanovsky wrote:
+> > On Fri, Aug 28, 2026 at 12:13:28PM -0400, Rodrigo Vivi wrote:
+> > > On Thu, Aug 27, 2026 at 08:09:11PM +0300, Leon Romanovsky wrote:
+> > > > On Wed, Aug 26, 2026 at 06:38:58PM +0300, Konstantin Sinyuk wrote:
+> > > > > On Wed, Aug 26, 2026 at 12:32:22PM +0300, Leon Romanovsky wrote:
+> > 
+> > <...>
+> > 
+> > > > The wording alone is not sufficient. Your proposal should be backed by
+> > > > real devices representing different architectures from different
+> > > > vendors.
+> > > 
+> > > Future Intel (and other vendors) hardware will include UALink.
+> > 
+> > I guess that, like most of us, you are not authorized to discuss or
+> > comment on Intel's non-public roadmap. Can you point to any public
+> > commitment from Intel to implement UALink in its devices?
+> 
+> That's the only public support commitment you will find for now:
+> 
+> https://ualinkconsortium.org/blog/intel-supports-ualink-for-scale-up-networking-829/
+> 
+> as an active member of the consortium
+> https://ualinkconsortium.org/members/
 
-On Mon, Aug 31, 2026 at 10:58:09AM +0300, Fedor Pchelkin wrote:
-> There is a slight race between tb_remove_work() and tb_domain_remove()
-> which leads to dereferencing a NULL tb->root_switch pointer inside
-> tb_free_unplugged_xdomains():
-> 
->         Thread A                            Thread B
-> 
->   tb_remove_work()
->                                     tb_domain_remove()
->                                       mutex_lock(&tb->lock)
->                                       tb_stop()
->                                         /* doesn't cancel a running callback */
->                                         cancel_delayed_work(&tcm->remove_work)
->                                         ...
->                                         tb_switch_remove(tb->root_switch)
->                                         tb->root_switch = NULL
->                                       mutex_unlock(&tb->lock)
->     mutex_lock(&tb->lock)
->     ...
->     /* without checking ->root_switch */
->     tb_free_unplugged_xdomains(tb->root_switch)
->     mutex_unlock(&tb->lock)
-> 
-> Commit a8937f35cf39 ("thunderbolt: Remove XDomain from the bus without
-> holding tb->lock") doesn't seem right to move tb_free_unplugged_xdomains()
-> out of the &tb->lock section and the check for tb->root_switch, in
-> particular.  It states:
-> 
->   For this reason separate removing the XDomain from the topology data
->   structures (where we need the lock) from unregistering the device from
->   the bus (where remove callbacks of the drivers are being called).
-> 
-> tb_free_unplugged_xdomains() belongs to the former group of functions
-> requiring the lock.  And it also calls tb_xdomain_remove() which should
-> only be called with &tb->lock held.
-> 
-> Found by Linux Verification Center (linuxtesting.org) with Svace static
-> analysis tool.
-> 
-> Fixes: a8937f35cf39 ("thunderbolt: Remove XDomain from the bus without holding tb->lock")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Fedor Pchelkin <pchelkin@ispras.ru>
+I saw that PR article, but I couldn't find anything on the Internet stating
+that "future Intel (or other vendors') hardware will include UALink."
 
-Applied to thunderbolt.git/fixes, thanks!
+So, for now, this RFC can be considered an academic project.
+
+Thanks
