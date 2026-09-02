@@ -1,196 +1,272 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CC3349DB91
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4E6443231D
 	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:22:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788355362; cv=none; b=LLkMkEkpJo1p1NDlf4c3EIeCwLeu9igEIOJMsqf8oaup/a0Z9fHRtbaELJKbo12E46QlBf7SryW51yO4Zy+lajPbcu3V3z6h2djnVYUnWtlrgETHC33fl1FxAVtyjS56oaU65YIXMl0145tDqaUva5lz3yWznegPiDSSSYaFNoE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788355362; cv=fail; b=B6xbcFI6W2XTmACQfRgivp1399VLprgh5lxFlTLrsUzQU17ViKp+91Y8tfhcqTNr9hj4c4WHs4skAoM3/w0OelISdZtBuiVYU83hURiLbENagq2Bdveiehymd5SvfLOM2uFmkWVng/sE+nJNFf08KPUuwFNiDU5QlNgbOA2B2tc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788355362; c=relaxed/simple;
-	bh=j3CWAWUl8j20gvrMWzwPLAHuKWnZJAop7WNcGJxwH2I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b1EQdNrZuHizt3S6JXp2AKV/6IRU6xijEZ5qQM4eAyUOa4njEd/Sgdwq+HAeZ0tjsLd703qHuZyjkILaot+WMs44m80w1oorG/P1JE0ES/uG/KKnNqgU54jMTct/6fujsEjpdsCzLUId2ttq2QXn/dO7M43NgNevUfZUyd2E1qU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XlOUo5pv; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	bh=Xxd85coYt2mBxrdmNoJMJlI4jTINpfih4i2lB+Hh3Hk=;
+	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=rlH6KLcKWwAzzNwtHzf1klTyEjSUsyqz49u/Iyne99ewg6ohoeGR3JvscqpUGqy6LMR61hfQLbotybhfCbDgag/ps5EYa90WDmDuV2M1P1kibA56whQ4pBtJShyYC3+ysX4nKMGYPu3ydRamkaLIxQb5sBmKvi2xMLx4FTdQO7Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UDA4/Lso; arc=fail smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XlOUo5pv"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49b8e527d63so11531345e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 06:22:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788355359; x=1788960159; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nkZh/ve/cgf20umwfOvUdi7ulchyjCFeGzRhN//m5sY=;
-        b=XlOUo5pvEgZRxWjg6eGKlL38RroPslxpcansirBoJgD5zDrWh28Onyo2SA+ybYyGRY
-         rcUloOqEQRUW8gXlHojcR2Rq4pSRNyQFUZsKun0H16HkZOR6oJkVsX+b3XVhSi9yMDBP
-         J88NMP3DgGRjD3yTho6mBlQXpAKp8KC3QJR+4oirvKbpe+C9icsTE39N26YdR68E/vYJ
-         cCXps2+y2lyYPditnT8x7tZ7XYxkz+7W+VwFisy5kuAA0P6iN6w/P6uwz4mtoNvDsfhA
-         2DbPuQX/Y0Ls9fyQfccAIIyd166/Rj5f4jqFyHwblO7MyMZxAkPa9pxRIZ17eTrZm3S4
-         07vA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788355359; x=1788960159;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nkZh/ve/cgf20umwfOvUdi7ulchyjCFeGzRhN//m5sY=;
-        b=hu2KM/s34ICRqOxYD30LqFNt3EjCwUJ7OapDLCNcP3Bsjd63OagCN2hvPOHOUZTY2E
-         zzOp/S2CGxAiphUpszVJf7+SbvIUpncoDPZ2oI+3i3s66BA3dA1ZTbmrA2sidDZ17lzu
-         Yu2/CrLj9cEqyzRvCuIyF+Gov1sYo+Oa8JtAYnhyLOEHaYrWH9uOjTvot1ABJMAXwyOp
-         drLwytsFWqT9RjdtsePv8I95n2eBhhJaXPVcF6nccMxqlIl1l4/yNvdvwYPyKmhojTZ6
-         OgolBBSbLMbdty2qGg5BFhxfXU3G2ujjIfJguFu52Z4ZfwIc3gM9mOQMdQXBUXE0lYKG
-         NJQQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoSQNnZ7wJHl9A8wqjvcJiDK5Vy/88OihxqvcvgArFdTbp/npvpAtPyDJQpx7X+MIA1qIeSmfe7sYXjHxI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nFsCg+R/aAI+ZfoeIlRgutNAK+SI/ZwZ80vd42CmbW1FNw1N/R
-	pni/CerQK5uzaBxyYwj64OwkWAwLLzvFC1MmWvujxIVgVL9S1vGKmlNS
-X-Gm-Gg: AR+sD10bfHnv0SBP5ym34ZB76d+oWvjunvv33F58tqV4mFiGwoy2pZ0lENnlXZUsLoy
-	4XAIIYssto+JwFkbkq1HwmsBZwC+h6tVOtDyev6pW90214ZT+Axk4xKmaUPA95pUlB/K4ZKS31d
-	r6NcP3fIIV22P/dzCiAMZTpHaNSMa2jVTpp/AENv3lTdXj6C3JfVUleIduN7klxwzH936VCgKB0
-	tAyUwOZp5ttrxZ9FpgEjm7Qw3/zYuNYheC2R6iO9uOdIn/FB4vskUwIEnSb6Ctxaa5d2FrdIep0
-	N/org555a4JnQyQWZgDEVN1Apv8JXQeTcP98DA2TPoW0CKyYSqtOeacJ23PwZWlSC7KYzX03P90
-	GhStA2mT9WB+M4Xg0uc9ONSwh4iWhjmhqM542Nhprn/u9q1dxUCwDD6wWq9izb4DPSPYGzY4sjc
-	AbH8BLSMGeYf+p/e1+KFDjrpT0ca4EELuPz2E6HCEs68oGDE9lE/HqXi6ViGmR7hm+KDRP5jmgD
-	4ZqBIid1p1VqMcv0LQ8UdxOLPxTRQUh5qENDVrDcvrPGCSVeyUXnT7CnJVePX4/
-X-Received: by 2002:a05:600c:1395:b0:495:4d88:e630 with SMTP id 5b1f17b1804b1-49ce5812c52mr74768615e9.10.1788355358736;
-        Wed, 02 Sep 2026 06:22:38 -0700 (PDT)
-Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce10148sm149528255e9.5.2026.09.02.06.22.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 06:22:37 -0700 (PDT)
-Date: Wed, 2 Sep 2026 15:22:36 +0200
-From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	"Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li <Frank.li@oss.nxp.com>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
-	Linus Walleij <linusw@kernel.org>, Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
-	Herve Codina <herve.codina@bootlin.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Leonardo Costa <leonardo.costa@toradex.com>, 
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, linux-pwm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH RFC 1/2] of: property: fw_devlink: Follow GPIO nexus maps
-Message-ID: <qg2nemg4mlxpancg7az2vsnjkfc4anxkieozoxh3mj3zgkyifd@b5b6yiz4uew3>
-References: <20260902-fw-devlink-nexus-ready-v1-0-68fe1996e78a@toradex.com>
- <20260902-fw-devlink-nexus-ready-v1-1-68fe1996e78a@toradex.com>
- <CAMRc=MfN73=K1nZrqUbhrMSijjpzhF_z_U9JU4_H163W0vRpqA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UDA4/Lso"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788355360; x=1819891360;
+  h=date:from:to:cc:subject:message-id:references:
+   content-transfer-encoding:in-reply-to:mime-version;
+  bh=Xxd85coYt2mBxrdmNoJMJlI4jTINpfih4i2lB+Hh3Hk=;
+  b=UDA4/Lso7EhBeGVilBEn672g9s9Vv4NJ7/tXQWPFptvjykPPX4ALl5J7
+   eVANgTxw9z2wjF/E2n/VhhPKr93pWDyh10+m+yp4uKAESWDmB0en+0zuv
+   EzZ02fW7JDos70D7jGg63Tr5yaVFX1jxEJhB76VvPtOo7O+eO+9TBsN8B
+   vv6ARdhRgm4tXURlCs4Y8JtVbn+gCdza2xsSN8g7vgz+WDPF03QRY9e64
+   uuPh3vxNPwKzKc743S299FtD7CP6voLb0EkVdUobgQvj0Ydt6duuu8Gnu
+   Lya13TiI0S/hce3R5Ukh5eAOCntaF8nnZo1FnnKwci/YjH/hR4Hq3SkBN
+   A==;
+X-CSE-ConnectionGUID: XWdO1lVTS2qn179SKHoh+A==
+X-CSE-MsgGUID: 51grfmYcSvehhS7iQyz+gg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="99975097"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="99975097"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 06:22:40 -0700
+X-CSE-ConnectionGUID: NneAtBdmSP+orD/+m2oCKg==
+X-CSE-MsgGUID: HcKuhgmlQByuuJ73x2LgZg==
+X-ExtLoop1: 1
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 06:22:40 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 2 Sep 2026 06:22:39 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Wed, 2 Sep 2026 06:22:39 -0700
+Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.40) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 2 Sep 2026 06:22:39 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DzB/NCcN6wefw+zMmSFeHmqg1pFRJu3e8loDTmJoPwDM83nTT0ntzY82Jcr4Do83/valhnVZYyMzb5WNn+jGyndN8zHAzLzqGZqfM3hIOO/LvVGVyKnKPC5kNqejdsWSUXPS4171F+Ujn45ZaxJtdJlpfWm/Npl+Ut8xW2tYmEmbiuSok5/bQAjkZrJP5amtlN1nP6ycuMcY7p+VCPHutgdZBqblmGUZL340HSHLQ7Liwg6fLKRr0VEmRYTXAgXwZUjC4c0kg/yFoszZ/sAFJNLfC2unxtKdjzmjGLTrb9z9Y659hrt9z+89GvKtJ9hEnY9z/7reCwOjSRuMl05WZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CALGTPC/j4tj+wxLKp++1dFjPaNK4LSDI+W9Xy7K2k8=;
+ b=FxCHd+80G+17Ul77+pPhGDtIMaU2dFwikAax7dCjwsBUtzLAKQKxgxnOwGf/KJxQLmw/6yuOb82iPNTqESNxYQL3dL57fpB+B5ZaNLJfqqNdZFpPxS6n2gJCXqp7xZsRmAtIi3gmqDqfk3xn/Pr28KYcPCa3Ma+C1WjU9z6P258r3CxJMenjPP8XWqc6VHSMaRUFm7o3BuXVvnuM1L2dNVS49bA8Dz+ugZ56YgrIcV+SuUyQ1WmuR5Laih6cwzEpZshvF/uHbkhQLd7XPmGszLUqOp181P2e776aze7MeEabONqtPgUQUUMZATJEbAE4eXvxIZ2WIpgs0DWtpBLNGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com (2603:10b6:208:441::12)
+ by SA1PR11MB5946.namprd11.prod.outlook.com (2603:10b6:806:23a::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 13:22:34 +0000
+Received: from IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565]) by IA0PR11MB7187.namprd11.prod.outlook.com
+ ([fe80::be96:3f58:953d:6565%4]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 13:22:32 +0000
+Date: Wed, 2 Sep 2026 09:22:28 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: "Hogander, Jouni" <jouni.hogander@intel.com>
+CC: "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
+	"j@metarealtyinc.ca" <j@metarealtyinc.ca>, "intel-xe@lists.freedesktop.org"
+	<intel-xe@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+	<dri-devel@lists.freedesktop.org>, "Kahola, Mika" <mika.kahola@intel.com>,
+	"intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] drm/i915/psr: clear the Panel Replay error status
+ register
+Message-ID: <apgjEwl47mLM4vPJ@intel.com>
+References: <20260901203633.92628-1-j@metarealtyinc.ca>
+ <20260901205956.130779-1-j@metarealtyinc.ca>
+ <7840f6ad7fd6621d33d2651618acb2b23b5b9b8b.camel@intel.com>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <7840f6ad7fd6621d33d2651618acb2b23b5b9b8b.camel@intel.com>
+X-ClientProxiedBy: SJ2P220CA0001.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:a03:5da::12) To IA0PR11MB7187.namprd11.prod.outlook.com
+ (2603:10b6:208:441::12)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAMRc=MfN73=K1nZrqUbhrMSijjpzhF_z_U9JU4_H163W0vRpqA@mail.gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR11MB7187:EE_|SA1PR11MB5946:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7403e1a1-bcb5-4548-0f60-08df08f53ebf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|10067099003|11063799006|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: ml+D3M1Wt5aTmqPFHAKuY0z3ZlauIZVAiZee5D4H4QYwZuJLSig9cLSWw3TbSTILW+cf/6jVJ/hXFAUgVfyC4N76FH1QEHo8HsskpWwW/oZPR7g42Y7f7fkENiPkrHS9WQur0KC3E4aN3Kmx4/My/6zBx7nH7wOXRc8CsTNHBi1lM6e+58FWIJ2HGgwnFqIao86NwB3YFLaAXGqNAVy8iXtke3nNMB4GhE4W/86049iJL3A8Nd6uSklUX575iWYvNt1crA+S8scjmjcqiOi5amjfHvTuJLU7gsLUEMD/FN+BlgKSOmjmk0wvqHXDthBTkZ9gc0+3CB+tSeojfnvnATVBCvZnkXWtqxuO7GZPkW7GNAFFSa9j0eGqzfJ28Vg1hVOTaHPmdjF806SQ/fmMxVeTqWamjy4B3A4vkzwEygDndHwDunaPChsPN32ZQJsc2Urh1GCNBAZnEcnrnBQMR/wuXK7vwZfGXIvYQ+NAuD/xjzluEPU9S9LfCivEZKUuUKJaVTQy+ecQ+3zC0p70mw8L9s1+J10cXm0j0sQrjhbIs9FfAPt2oTeb81WcWVSlCn1NJ8CSJz8pIVNETwgE5Mq5rmtbhnAdZR3PLoFB0K5OBYjVMDnb6WbOHK4uhRH87Xr07Up/JK+ssuwgaQtJXJd3OoG7taRQ+8wZWFJ19Eg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR11MB7187.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(10067099003)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?7cBwFI9PB2vaiBXEyJU1BZuMkQXh2aFkxnvTNwc7FCVgn0z0q9wMSzV0oH?=
+ =?iso-8859-1?Q?pXC3GcX/ARr0f5kSp0MU8HxGhkVkwCvLvSUGbZxq8Swc84Wq/iTcJDG5Pw?=
+ =?iso-8859-1?Q?em/QNHtM9PNg/vx02JQGjE5ihlkEfFkPYZtJKVPEaIBFsobbX6GOjpf/rd?=
+ =?iso-8859-1?Q?tgenoJxAs66pwZXLMSllVyK7nK1LmGRtk0efRMkcrQniGTYwmTMEV/pXt/?=
+ =?iso-8859-1?Q?WYXeHz82PcQmdjTqTA3c+MEDzAfk+YCh92HrBdOZozeqnL68yWjBqzdqvz?=
+ =?iso-8859-1?Q?dLmVWk/q9RRhSCq+qPeO6+95AhyEC6RceoS0FOUykatQUjdKz90LKwo2aj?=
+ =?iso-8859-1?Q?0NBtFddeioFkLz7tzfLafO9qDGH5WcM9VUpfG3qG2b0eMLI0mIgg6OIFVS?=
+ =?iso-8859-1?Q?ocTFbpFzpLSVzecySjBhwAUJT+aL1HPi/418wIWuaSgfeNW+v1z397rN/a?=
+ =?iso-8859-1?Q?9VvoxVwgGC2QJ3paYO0mGvOmWEmF//MzcsQo4dJdi8WC1qJrS7hmUq+2B7?=
+ =?iso-8859-1?Q?TWtzCkzzLnb4sSBkMEcAo5+hiOi8hANQKj99FebjPCfoIQVhL+tDIWTDiM?=
+ =?iso-8859-1?Q?kw9NiDlMfAQHL5zuRZM3wdUIQkQNU/loe7P8yU/PdDUD78EEIxtsn41B9v?=
+ =?iso-8859-1?Q?NY6dpX9Rm5LbYjRlMtGnNd5GdqmaUXb8vbzcgluhRzteWXIF/yZXBZz5+j?=
+ =?iso-8859-1?Q?YifnOXWpGIe9E2377qKo50PB7hj8gUjixgs+GNtshSxsAEnmEyPMyj2E+y?=
+ =?iso-8859-1?Q?RLavPfWELPDk2EdzKjonTTnBC7Kdos8HKWSeGFCJOlfSfzQBKkUD2nlHqs?=
+ =?iso-8859-1?Q?4/wH9QljZN/tuBUlEvgfVxKlyNaTc2ACh9nDZEgWnJTcHN9HsYHtLZXixu?=
+ =?iso-8859-1?Q?ClIQs1f3tEhKUCC3H1FrjLcsYd2K2IAioaRlbsoXNpnHECmuV1uw7T0JB+?=
+ =?iso-8859-1?Q?O3ioPXNbgjrIX9WuU8ahafKKgS0P+P03+epaR72ktACSmeGUKBhVmnw2uY?=
+ =?iso-8859-1?Q?4rql6XMeRMMS2B24nGnN51sS/p+pq7RzrZts1xF0SPYePc9wePPXUk3FTg?=
+ =?iso-8859-1?Q?CBDx+dkt5wiedu/JAalVl3pdLeKAckMOCX+4exxAkrU/SW0q/Rkl2Y5Bws?=
+ =?iso-8859-1?Q?sXT4+VfqeHlKJFX/gR759NaCEPgz/JGiYfWbKrjw6C+OjkIaA0dndaUvWy?=
+ =?iso-8859-1?Q?Ia+CxBlUydSpRRtI0YJzxukWA5Ixtkf1QAlZGkkF1sZ6b/D426dZrT2Eyi?=
+ =?iso-8859-1?Q?43WyRs6vscmqyPX5ZM4d45XOJp7qS/QdzWKDXyr9J1YmpR4GIAhc5SwMx5?=
+ =?iso-8859-1?Q?q0lnq6mYJRbs2X6JaEdu2EUssdYzKboJ7+WDK5vonsMkc8bcZyXZ64rqw4?=
+ =?iso-8859-1?Q?yhhRVVlM1Z0sPNhCMlQ/j2fwVz/98lWMzfgegK/01n0H9RaCn5j9nNLTVI?=
+ =?iso-8859-1?Q?arzhnmwAJFhG2IP5u1Rmr38tFzm3MPrMiZF/VNRr/5mumAVyDK+tOJw/h5?=
+ =?iso-8859-1?Q?A+hFp2ZESvKX7/FcSf0/mOVoZoVm1L6yDFX8iQ7Llr/bBzu6zf/ZXQQruG?=
+ =?iso-8859-1?Q?4NIhfRHa5OTWRaQFCB8VDr2PHaKN7d9Q0xl8CktJdZB+dYe/5Qzl7qeD/+?=
+ =?iso-8859-1?Q?o7CKF31okMJUSMwLjSs/tG5BpMCqEZZITAnrKmF1x9A3cn//iPOMkwSI5c?=
+ =?iso-8859-1?Q?b6YqjV8NnW4yT1JbW3HegoijmXiF10WtbK3FO7w3bAKbqyf/2xnBVCYjrm?=
+ =?iso-8859-1?Q?A1UYawLKqeVILfWwsMPnAtyqLjENQl/Ldsjx8etlekNFSFyJtzYFuX4tPv?=
+ =?iso-8859-1?Q?CSI9Pc3Ubw=3D=3D?=
+X-Exchange-RoutingPolicyChecked: OPUoYAKWZpd+DlN4vmNL7w0Qeq4bTeMmROyPCRw+Tb4GdTo/9zrwj0o51FburI4FLOdW98NtUgg8I5XcdcUBUTyLLhORN7QSsoTrIeam2zDk7Y3E0nIlqRaS9rA3GVwvICCaGjdoEyT5JOAch5nXiJsvJaquAJaC3XdWEgHXyGK2A5l1c2UVLnoRZxOfdBxTOqScQvNEsGl8o2fASIc3O4w3iwtpz2cqPG8KwiRDuVe542DwUsx31YdAnBuKZDH8Q8oGt9dT0VGCYC9vxXd9dFa8E9CUlmrwePMiPhuTZGcdkmQPTlGQ7JSkBBdcBWghIjNLWsMqgO3MEy6RfU7Okg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7403e1a1-bcb5-4548-0f60-08df08f53ebf
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7187.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 13:22:32.6045
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: V6pM7a2jc8YCc+3meEEOkdPIxGTdy4r37h/B0d5e5BwzNKhQiTTvU5IhJ4zbWykmLtFGWJICyfoFNG2mPeF8Kw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR11MB5946
+X-OriginatorOrg: intel.com
 
-On Wed, Sep 02, 2026 at 05:30:19AM -0700, Bartosz Golaszewski wrote:
-> On Wed, 2 Sep 2026 13:41:39 +0200, Ernest Van Hoecke
-> <ernestvanhoecke@gmail.com> said:
-> > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> >
-> > GPIO consumers use of_parse_phandle_with_args_map() to resolve specifiers
-> > through gpio-map properties. fw_devlink instead parses GPIO properties as
+On Wed, Sep 02, 2026 at 05:05:32AM +0000, Hogander, Jouni wrote:
+> On Tue, 2026-09-01 at 16:59 -0400, Jake Steinman wrote:
+> > psr_get_status_and_error_status() selects the DPCD offset to read the
+> > error
+> > status from based on whether Panel Replay is enabled:
+> > 
+> > 	offset = intel_dp->psr.panel_replay_enabled ?
+> > 		 DP_PANEL_REPLAY_ERROR_STATUS : DP_PSR_ERROR_STATUS;
+> > 
+> > but intel_psr_short_pulse() acknowledges it unconditionally to the
+> > PSR
+> > register. Under Panel Replay the error is therefore read from
+> > DP_PANEL_REPLAY_ERROR_STATUS (0x2020) and the acknowledgement written
+> > to
+> > DP_PSR_ERROR_STATUS (0x2006). DP_PANEL_REPLAY_ERROR_STATUS is never
+> > written
+> > anywhere in the tree; it appears only in the read above and in its
+> > own #define.
+> > 
+> > The sink's Panel Replay error latch can consequently never be
+> > cleared. Once it
+> > latches, every subsequent short pulse re-reads the same errors, so
+> > PSR is
+> > disabled with sink_not_reliable set permanently, and until a short
+> > pulse
+> > arrives the driver keeps Panel Replay enabled while the sink is
+> > reporting
+> > errors it cannot see.
+> > 
+> > Observed on a Dell XPS 16 DA16260 (Panther Lake, Arc B390, display
+> > version
+> > 30.00) with the eDP Panel Replay quirk from commit cb8d155b0806
+> > removed
+> > locally so the feature could be exercised. The sink reports a
+> > persistently
+> > latched error:
+> > 
+> > 	Sink PANEL-REPLAY status: 0x2 [active, display from RFB]
+> > 	Sink PANEL-REPLAY error status: 0x1:
+> > 		PANEL-REPLAY Link CRC error
+> > 
+> > which survives across reads indefinitely, while dmesg stays silent
+> > and Panel
+> > Replay Selective Update remains enabled.
+> > 
+> > Use the same conditional offset when clearing. psr-
+> > >panel_replay_enabled
+> > cannot be used at that point because intel_psr_disable_locked()
+> > clears it
+> > earlier in the same function whenever an error was detected, which is
+> > exactly
+> > the case that needs the Panel Replay offset, so save it beforehand.
+> > 
+> > v2: use a copy of panel_replay_enabled taken before
+> >     intel_psr_disable_locked() clears it. In v1 the condition was
+> > evaluated
+> >     after the disable, so it selected DP_PSR_ERROR_STATUS in the
+> > error path
+> >     and the patch was a no-op there. Caught by Sashiko AI review.
+> > 
+> > Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
 > 
-> Unlike PWM, there's no such thing as "gpio-map" properties.
-> 
-Hi Bartosz,
+> Reviewed-by: Jouni Högander <jouni.hogander@intel.com>
 
-bd6f2fd5a1d5 ("of: Support parsing phandle argument lists through a
-nexus node") added support for nexus nodes, and then c11e6f0f04db ("gpio:
-Support gpio nexus dt bindings") added support for "gpio-map".
+I made small adjustments in the commit message to make checkpatch happy
+then I pushed to drm-intel-next.
 
-Herve later added support for pwm nexus dt bindings modeled on the GPIO
-support in e71e46a6f19c ("pwm: Add support for pwm nexus dt bindings").
-
-Please let me know if I misunderstood something.
-
-> > direct phandle references, so it records the nexus node as the supplier
-> > rather than the mapped GPIO provider.
-> >
-> 
-> Can you point me to an example? I'm not sure what a nexus node is in the
-> context of GPIO.
-
-Stephen gave an example usage in his commit message implementing
-of_parse_phandle_with_args_map():
-	soc {
-	        soc_gpio1: gpio-controller1 {
-	                #gpio-cells = <2>;
-	        };
-	
-	        soc_gpio2: gpio-controller2 {
-	                #gpio-cells = <2>;
-	        };
-	};
-
-	connector: connector {
-	        #gpio-cells = <2>;
-	        gpio-map = <0 0 &soc_gpio1 1 0>,
-	                   <1 0 &soc_gpio2 4 0>,
-	                   <2 0 &soc_gpio1 3 0>,
-	                   <3 0 &soc_gpio2 2 0>;
-	        gpio-map-mask = <0xf 0x0>;
-        	gpio-map-pass-thru = <0x0 0x1>
-	};
-
-	expansion_device {
-        	reset-gpios = <&connector 2 GPIO_ACTIVE_LOW>;
-	};
-
-Admittedly, this hasn't seen much (any?) actual use in the device trees
-yet.
-
-We (Toradex) would like to use it to specify a LVDS connector on our
-boards. This connector appears on different carrier boards that all mate
-with the same display and have the same pinout. The only potential
-difference is which PWMs and GPIOs are connected to the connector.
-
-There, specifying the LVDS connector as a nexus node on the relevant
-carrier board DTS/DTSI would allow us to reuse the same display overlay.
-That example usage is given by Leonardo Costa here:
-https://lore.kernel.org/all/juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4jbauradujrre@gc5nbdhhixaf/
-Note how we have the connector on imx8mp-verdin-dev.dtsi but could also
-add it to other boards, i.e: imx8mp-verdin-mallow.dtsi
-
-Note that in that example we used the "tdx,verdin-lvds-connector"
-compatible for the connector. Since this is a nexus node and just a
-dumb connector without driver, not having a compatible would make sense.
-In a final implementation we could specify a compatible + binding if
-that specifies the ABI better. It is not entirely clear to me what is
-preferred at the moment, but that is disconnected from this patch
-series.
+Thanks for the patch and review.
 
 > 
-> > A nexus is a translation node, not the GPIO provider, and need not be
-> > populated as a device. The resulting fwnode link can therefore remain
-> > unresolved and indefinitely defer the consumer while
-> > device_links_check_suppliers() waits for the nexus.
-> >
-> > Use the map-aware parser for all supported GPIO property spellings. This
-> > makes fw_devlink resolve the same provider as the GPIO consumer API. Direct
-> > GPIO references continue to work because the map-aware parser returns the
-> > original provider when no gpio-map property is present.
-> >
-> > Add OF unittest coverage for mapped and direct GPIO suppliers, including
-> > the deprecated singular and unprefixed property spellings.
-> >
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_psr.c | 14 ++++++++++++--
+> >  1 file changed, 12 insertions(+), 2 deletions(-)
+> > 
+> > --- a/drivers/gpu/drm/i915/display/intel_psr.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_psr.c
+> > @@ -3840,6 +3840,7 @@
+> >  	struct intel_display *display = to_intel_display(intel_dp);
+> >  	struct intel_psr *psr = &intel_dp->psr;
+> >  	u8 status, error_status;
+> > +	bool panel_replay_enabled;
+> >  	const u8 errors = DP_PSR_RFB_STORAGE_ERROR |
+> >  			  DP_PSR_VSC_SDP_UNCORRECTABLE_ERROR |
+> >  			  DP_PSR_LINK_CRC_ERROR;
+> > @@ -3860,6 +3861,12 @@
+> >  		goto exit;
+> >  	}
+> >  
+> > +	/*
+> > +	 * Save this before intel_psr_disable_locked() clears it;
+> > the error
+> > +	 * status is acknowledged to a different DPCD address
+> > depending on it.
+> > +	 */
+> > +	panel_replay_enabled = psr->panel_replay_enabled;
+> > +
+> >  	if ((!psr->panel_replay_enabled && status ==
+> > DP_PSR_SINK_INTERNAL_ERROR) ||
+> >  	    (error_status & errors)) {
+> >  		intel_psr_disable_locked(intel_dp);
+> > @@ -3885,7 +3892,10 @@
+> >  			"PSR_ERROR_STATUS unhandled errors %x\n",
+> >  			error_status & ~errors);
+> >  	/* clear status register */
+> > -	drm_dp_dpcd_writeb(&intel_dp->aux, DP_PSR_ERROR_STATUS,
+> > error_status);
+> > +	drm_dp_dpcd_writeb(&intel_dp->aux,
+> > +			   panel_replay_enabled ?
+> > +			   DP_PANEL_REPLAY_ERROR_STATUS :
+> > DP_PSR_ERROR_STATUS,
+> > +			   error_status);
+> >  
+> >  	if (!psr->panel_replay_enabled) {
+> >  		psr_alpm_check(intel_dp);
 > 
-> Since this is a fix that we may want to backport, the unit tests should go in
-> a separate, follow-up commit.
-> 
-> Bart
-
-Thanks for the feedback, if we want to go with the direction proposed
-here I'll make sure to split it off in future series, I was unsure about
-that.
-
-Since usage of this nexus system seems limited, I'm also not sure if we
-need to backport but it technically is a fix.
-
-Kind regards,
-Ernest
