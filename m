@@ -1,124 +1,100 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 912243E7BAD
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 22:40:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99F2143F8DF
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 22:40:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788388844; cv=none; b=YjRgz0erUJbaalPRZdu9Acb3/bseLzAXNppCJ2qjSSiMxhml6vUFFbHsQG1/77y9wQ57BEnTeyZcJvyb/kR9PTic7BBz2WpSG0P5jcTMNVxz4SVp6+mR5MZeX2tojf+mKgmPjQ19QpsE1k/j22W4MYFPW6hfm4puU5ieIaKxBHI=
+	t=1788388855; cv=none; b=VdU2iVM3VD6QupCprIy43Y59NY9X4YitQN9X8BBQ4XkOC+AAvZNxEHxX2EHPognyql546nudelkvYpLOOi4JlmMNIwtYQ3+h/2UnMNiwZxYLSqkTAwgzl16y8wXo0+Jy8PhwhK3Csr2mmU3mESp9hWUDBxHSLN61HMaYDY6lgGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788388844; c=relaxed/simple;
-	bh=nB9MtG/jZH/uKfPVqmTLfUSN14X89SFk7Mqq+TvM9Gs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=RRcz/IouetHss1CO8iMeAad/AhvgwU47c0+8kT5DqcUenbTDyeWBC1F4AiYhpYwShq/3ewke/ZVzweZ01yT0eLxgXlo9hjZiDc8BNQDo8GwCvfpmmDinwzHtf6ETpv4BVH3Qc5w8HLSDRW7aRNG/nWBCwXxt7h6pcOy/qtdovOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dih0RLJ1; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=jA8k7jCI; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788388855; c=relaxed/simple;
+	bh=6/ApdvEo054oJD9zxvKZxfV67502RTI/kpp+dFUfCyM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RcwJauaCdojf0VzELSykAM3VN0nd7XaJPApYC1NPehl5t1xmHHtEQT4Do0OKmmR3KQ1TTZW3j4AZFpcx//wff54YPSA28k2Hcivl1Brxna6i/3jzmK3UkCKo5Ra46KDjZ86BcT/mf4TO/raUAyArD+iqCLpjWeelaHOm3nnG0j0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=KbSdRQQp; arc=none smtp.client-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dih0RLJ1";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="jA8k7jCI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788388833;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wNcn++DDYySJZokz8/3409CMhSq8WdyhJVAopZOy+GM=;
-	b=dih0RLJ1KB0O87kJuuyG+ge31C5JzDR6Ux0hZnlUe6PzK2aQiebDrLXe0pSaOg1xeVtxFW
-	e4XYEGqpGM4vKBblyBczo369LkcJF9xyD6jh+gWzq/t/LHcGWRNKudf2HTOxnERt57qfn7
-	+eItnp4S76Jp0UkSvq5du1waJ23KOxM=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-628-SIUH6j7HPziEMeY4kNg_gA-1; Wed, 02 Sep 2026 18:40:32 -0400
-X-MC-Unique: SIUH6j7HPziEMeY4kNg_gA-1
-X-Mimecast-MFC-AGG-ID: SIUH6j7HPziEMeY4kNg_gA_1788388832
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-938153538caso334015985a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 15:40:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788388832; x=1788993632; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wNcn++DDYySJZokz8/3409CMhSq8WdyhJVAopZOy+GM=;
-        b=jA8k7jCIqblZVvwWTgOER5ByvxjceImXPYmnCzO9IQ2siUd4cikAdb+ytX16HEqP7u
-         7pMTHAwSr1KyWWuTdTlXL6Aj0rP3giXWymYFjsGPorPFI2jIDB1SppjTe/zCbEqsUd1T
-         Yt3llcqFhZ2js1j5JMwvs90oRfBQlSLh74IdkBFp9V+EC6m+laGRFDzndtMNLstAmQiX
-         VjsZZNWSjxt4uI/fjwrbzN+TNIgarv1bkzCwuNS9ShzUz0XUTgBCJyNCCOpUNm/cLo1F
-         pc18nRtC/5xmCnVLmHaDLAxMi3Re8oGf5nP9N4mjZ1UB3yp0dUahzNtd033vd0c0wOJ7
-         4rsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788388832; x=1788993632;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wNcn++DDYySJZokz8/3409CMhSq8WdyhJVAopZOy+GM=;
-        b=chGHFG6WB1lOVn5cC3P3YFDIIdrp55o00dcITGualWt/0Ge61eCLPFCOPZsReC6KkV
-         yQnR164kHeYcyZolaJIgpK9JU8lZqkKD4TA2st+nL6UxhSVg+VjTyXL4nLhQewc71Za2
-         hJjhYcO4n6yLJqQJSWLLtukPBdYnycMLR5IX4z7YkBog1Vj3hO5+aj622f+sR1nquSSL
-         HXfjNmBFzwFDtV+4ah0RiJoal/NBsqKw4+PWsr9xyArqQ/JMtq4sQ7tnRp1GNoguyl3h
-         BU4ZlrDzXmtvGbO8b0v/lofHYLfIXq3ychpJSWGpAnDF5b1H1yl2Jx8NdcePS4COmsqQ
-         ISTg==
-X-Forwarded-Encrypted: i=1; AKwUvBwqZIwJqbLEWMdXApg7P+o10CtQZp7AWItUiRrXhCBOhjK9ELCC20Wd9jRBDWuBJSUkPnW2XHY7TbK2fn8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQgwCvSJP1o9/trpIwiYS5KnWMjt9JjMKYXfnU+yANCECQX95X
-	5h4vMouq6hTT9X/tMpCpC8/HpoLzHjd9w+02/sftTxDrmhLDNUlV8Iqz1pPaM+GH1IocYZn/c3d
-	D5yyawx/j0MbeFz0M8jRL7fKO6h3CbHOAI+FgaHRRAlBUfV2MjZdzT5+3D3vYzk7B5Q==
-X-Gm-Gg: AYBFou3grvOAgb76p1SSyjzrrck+x/sRXlqHibmoTmwTy35WjCX84Qc/PCXOGhtwkgm
-	yHV2vFo0j97acrafPHWqsR1TJLzw5AfC/5pp42EECQL03b41ktWKXAPfqfD10EQzrwz2Vkwgd2u
-	ltUB8NQT1SzQbJ09g5BGJj4veApWXQ+oBSvUC4myW3nvFbor8ngPCJyhqRTkQSP58g5CQfL9OXO
-	mxLbSsVTzvw0iCGOV7NmsAnuRBq0yd9mNat7PaM3JmdlFhmd5PV1EIHkV4MpzdGmHCckWESD+Df
-	CYNybgkZ774Q+x4NQVk1A5+4aQr96Q3IddpVAsC50v22+pv1TjgfPidMky2E10l6Sjk7iFHAhp1
-	SZw==
-X-Received: by 2002:a05:620a:5ee1:b0:939:6de9:4cff with SMTP id af79cd13be357-9396de96ebbmr234854385a.45.1788388829989;
-        Wed, 02 Sep 2026 15:40:29 -0700 (PDT)
-X-Received: by 2002:a05:620a:5ee1:b0:939:6de9:4cff with SMTP id af79cd13be357-9396de96ebbmr234852385a.45.1788388829633;
-        Wed, 02 Sep 2026 15:40:29 -0700 (PDT)
-Received: from [10.239.101.46] ([69.43.42.202])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9395f157ec6sm325731685a.7.2026.09.02.15.40.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 15:40:29 -0700 (PDT)
-From: Brian Masney <bmasney@redhat.com>
-To: mturquette@baylibre.com, Triet Hoang <triet.hoang.dev@gmail.com>
-Cc: sboyd@kernel.org, luca.ceresoli@bootlin.com, krzk@kernel.org, 
- s.nawrocki@samsung.com, cw00.choi@samsung.com, peter.griffin@linaro.org, 
- alim.akhtar@samsung.com, michal.simek@amd.com, shubhrajyoti.datta@amd.com, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-In-Reply-To: <20260820065904.2032536-1-triet.hoang.dev@gmail.com>
-References: <20260820065904.2032536-1-triet.hoang.dev@gmail.com>
-Subject: Re: [PATCH] drivers/clk: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
-Message-Id: <178838882032.2062832.5940694093369397743.b4-ty@b4>
-Date: Wed, 02 Sep 2026 18:40:20 -0400
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="KbSdRQQp"
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4hZyNv6NkLzlfvqJ;
+	Wed,  2 Sep 2026 22:40:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1788388828; x=1790980829; bh=6/ApdvEo054oJD9zxvKZxfV6
+	7502RTI/kpp+dFUfCyM=; b=KbSdRQQpwUpt9M978gjHJ1Px1c23kF/N7/110ClU
+	W+Ptx2YC0mx8qIn3ZTDtnz/Oszdkm6zABO9IXdrCepv0axZ3dhg5QLrQ/EEEEkmH
+	VT42pIv+1VtvLh3e2wa73vWVtM+11+xmGIDJppKH7owVbLeuXhNFV/3qX7SOYRY3
+	P7wXXpglrGumlUirSnyub7fxjvGwoKttJ6+NCDy5z12Li/m0W5n+u+u0wFg0NfwK
+	7mwKGYFg4Cp1WIcBUx1KWBsvMhE+PSp8W9xIQ9rbUiFYN7p0UM900cYSUZCheyn3
+	mJa+xZ++UQdUW006uobCJW3VWKogP1eKweO2cN4z1DntXQ==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id L53rch36e4NT; Wed,  2 Sep 2026 22:40:28 +0000 (UTC)
+Received: from [192.168.50.14] (c-73-231-117-72.hsd1.ca.comcast.net [73.231.117.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4hZyNn3CMLzlfvpK;
+	Wed,  2 Sep 2026 22:40:25 +0000 (UTC)
+Message-ID: <cac520d3-6d3e-4695-9d10-ebd14dc4e398@acm.org>
+Date: Wed, 2 Sep 2026 15:40:24 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] tracing: Make is_signed_type() compatible with sparse
+To: David Laight <david.laight.linux@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+ linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
+ Chris Li <sparse@chrisli.org>
+References: <bde573c1a758505339239f08be28788a34dfcb73.1786121949.git.bvanassche@acm.org>
+ <20260831214437.15d6ad34@pumpkin>
+ <a771af57-40ee-433a-be84-9b7c3e6965c5@acm.org>
+ <20260901092043.7feaf5d7@pumpkin>
+ <dca931ff-5995-444c-9f89-6d6cca4e71f3@acm.org>
+ <20260901222909.05d6239f@pumpkin>
+ <1b86ccbf-4e41-4a26-9d22-8bd93bacb043@acm.org>
+ <CAHk-=wi_3xdtBrDgUxw5xtq8a=CdyRJnceo7YJg59wqqdXwiMQ@mail.gmail.com>
+ <20260901192523.0e989b10@robin> <20260902092437.00dfaa25@pumpkin>
+ <20260902093644.5b0e8a64@gandalf.local.home>
+ <a5aea1c4-3e29-4bba-8cd2-d4ccbeda008c@acm.org>
+ <20260902123933.5c3c8fa3@gandalf.local.home>
+ <e75964e2-6b46-4594-8bfb-ce0c0ed620a7@acm.org>
+ <20260902190632.16e9c66d@pumpkin>
+ <20260902142107.511e71f3@gandalf.local.home>
+ <20260902215019.5d0c930a@pumpkin>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20260902215019.5d0c930a@pumpkin>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=303; i=bmasney@redhat.com;
- s=20250903; h=from:subject:message-id;
- bh=zL0boMPnZXSvjvuLkbS1bHkmEeflCn7eOnBIJo/+CW4=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJmLL0VV+h7R0zPm9dX9HPSGX61EsfIdw9vtRTN/i5/t
- j/WaLZpRykLgxgXg6yYIsuSXKOCiNRVtvfuaLLAzGFlAhnCwMUpABMJW8fIsH36qdUPmP4Wzj0q
- rGyUEmQd/uuT83qbiGs/py98ZH52/wlGhteCFQ9jr3uHZX69fKc99RrbBgm9fRUeH5YsUXdtrLG
- 6xA4A
-X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
 
+On 9/2/26 1:50 PM, David Laight wrote:
+> It seems to be an attempt to generate strongly typed integers, but it doesn't
+> stop you mixing up the values between the fields - there is only one kind
+> of __bitwise.
 
-On Thu, 20 Aug 2026 13:59:04 +0700, Triet Hoang wrote:
-> drivers/clk: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
+That's wrong. Every __bitwise type is treated as a different type by
+sparse. Otherwise e.g. __le32 and __be32 would be treated as the same
+type by sparse.
 
-Applied, thanks!
+$ git grep 'typedef.*__bitwise.*__[lb]e.*;' include
+include/uapi/linux/types.h:typedef __u16 __bitwise __le16;
+include/uapi/linux/types.h:typedef __u16 __bitwise __be16;
+include/uapi/linux/types.h:typedef __u32 __bitwise __le32;
+include/uapi/linux/types.h:typedef __u32 __bitwise __be32;
+include/uapi/linux/types.h:typedef __u64 __bitwise __le64;
+include/uapi/linux/types.h:typedef __u64 __bitwise __be64;
 
-[1/1] drivers/clk: Convert to DEFINE_SIMPLE_DEV_PM_OPS()
-      commit: 48bec6fd8ec32ffdf65a5ccf268428a9f79ea210
-
-Best regards,
--- 
-Brian Masney <bmasney@redhat.com>
-
+Bart.
