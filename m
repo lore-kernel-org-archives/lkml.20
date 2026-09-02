@@ -1,81 +1,95 @@
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 347AA42122E;
-	Wed,  2 Sep 2026 12:24:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2BBE485517;
+	Wed,  2 Sep 2026 12:24:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788351895; cv=none; b=KqyFhR82tTfqrWC320rCsAXuaDDS+zYPueQEdxOCgeyEpJfeyjMW2j1EX+g2Tbg9lG/nN72hFq691bVOKdbPBI137+j2/r4pMkJteHWKGnT/sc5k+58YeanWhR9RTbNjB45BjWOyuyIMo5tCnZM3trahJaBuJGLZ/YaawGR5exY=
+	t=1788351899; cv=none; b=BhdTT/cYdKvhsl2Oa1QolTEKu4WL9en3luZ8EGarmZ5YlizAnKAHVLAcvzYW4DkDeKdE+v81cNxmSw0B9ruWZOuM3mFHD1FKJsNaGL8cn4WfFlgeP3Mgy+aze5E/euc+uaxXsT2zmCCRHzQLWNycO5JgZXNEGUwcul2C+pCilWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788351895; c=relaxed/simple;
-	bh=ej4p0qa74jnkFOGU5Qewu1Sjfz4nOHxMv+LHJ8EzW14=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=s0JUJlcNIyBEPIg4j+aSrfnRQfKwsuw+Vf9x+TP4Ttpee1g0NRhzlwbVk8dla8s/8gjm+Nvmh6MCTlr9iUDBTPW4gaelcFBxIFge5QbGFQGAG0z0Oqkx3/OIsV4kSxYJlaBwvtT9SGEOMOUMpUvwnHGLC7ZnAOpE23DwWbsIUNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=ppkuMep4; arc=none smtp.client-ip=216.40.44.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788351899; c=relaxed/simple;
+	bh=eYchmAyvkWBPpO7ov+ftOpPh+6JoX4c467XrQA/YUGo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FgCb5qyR4c21qgvTEXue1Yb31JIrJiRf6uuvpIplqDNe4E2DCZD7mWv9notKED9v/ydA/U30B23FVy+2tzbQfaUXQUdPg6pSluYIXw1j/bhTL/SDdgtn1432UBtBSS23wJHqy5oej37VnCpLZF8YJWAgz5z0HcT/fwz32U0Y3jU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=K3iA5QWT; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="ppkuMep4"
-Received: from omf11.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id 38BD3A2D70;
-	Wed,  2 Sep 2026 12:24:52 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf11.hostedemail.com (Postfix) with ESMTPA id 2E8092002C;
-	Wed,  2 Sep 2026 12:24:50 +0000 (UTC)
-Date: Wed, 2 Sep 2026 08:25:50 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Lee Jones <lee@kernel.org>
-Cc: Greg KH <gregkh@linuxfoundation.org>, Vincent Donnefort
- <vdonnefort@google.com>, stable@vger.kernel.org, mhiramat@kernel.org,
- linux-trace-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com,
- kernel-team@android.com, linux-kernel@vger.kernel.org
-Subject: Re: STABLE REQ: [PATCH v5 06/10] tracing: Fix subbuf resize races
- with trace_pipe_raw readers
-Message-ID: <20260902082550.4644fe91@gandalf.local.home>
-In-Reply-To: <20260902082141.00583dfc@gandalf.local.home>
-References: <20260813131152.3589632-1-vdonnefort@google.com>
-	<20260813131152.3589632-7-vdonnefort@google.com>
-	<20260901123444.GA1350131@google.com>
-	<20260901094656.487b278f@gandalf.local.home>
-	<20260902082717.GM2943942@google.com>
-	<2026090230-entryway-acquaint-d12e@gregkh>
-	<20260902095744.GN2943942@google.com>
-	<2026090221-riverbank-overlay-704c@gregkh>
-	<20260902115944.GS2943942@google.com>
-	<20260902082141.00583dfc@gandalf.local.home>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="K3iA5QWT"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9393511CCAE;
+	Wed, 02 Sep 2026 14:24:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1788351891;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=ZePXJxfXIDFvhKYYoLzBZNdhyl64+xPx76X9iCv/PaA=;
+	b=K3iA5QWTIoQWZp5B+wIxIxE9Z9k7fOXIZm9e0lutmfbXuVdVu8LbQR21K39ZJAeoo1xrf4
+	pfNz15JWcXYLuHUve3r5HeGBsJfOT5TDzoQzYxSZiKswkZ5YKVKTYlUZNkJf8wMsDkbJ6I
+	+bsbwT01REInXBRerxRUCtyPnErs70LIWCH5NZw/skaBHtwrvLFKOFgcxsgVShMnf22y1I
+	aiO2DOjga41F3nT3fN/5kmkbnb7IPrz5NvndVttiqzX43rsq1oddxK7kVapEWRkdtwT+i6
+	wy9tAl/QlNkVgJm513K1K1B9JG2KOJ3ArsuBs2vRIdLcN6f9bRUVB34ZmAk6zg==
+Message-ID: <42c3cb51-c8db-4edb-be10-92f2cba7c945@nabladev.com>
+Date: Wed, 2 Sep 2026 14:24:49 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/2] dt-bindings: arm: stm32: Document
+ st,stm32mp23/25-syscfg subnodes and cells
+To: Conor Dooley <conor@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Rob Herring <robh@kernel.org>, Yannick Fertre <yannick.fertre@foss.st.com>,
+ devicetree@vger.kernel.org, kernel@dh-electronics.com,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20260831231359.136475-1-marex@nabladev.com>
+ <20260901-smolder-debug-e37fdd2b3d20@spud>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <20260901-smolder-debug-e37fdd2b3d20@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout01
-X-Rspamd-Queue-Id: 2E8092002C
-X-Stat-Signature: 1px7os6pxgffm8pa9bxe3ascm1amsno7
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX18VmYHVcSK8qCijeiH9Xv0m2nzQycbwqjw=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=ej4p0qa74jnkFOGU5Qewu1Sjfz4nOHxMv+LHJ8EzW14=; b=ppkuMep46KNbWgKUxRUeLSRe++AJdx/skL1WVV5WPZZP3EDCjUTyTLrNV5yWEQOGSzHXgxep65E+HiZ7Ss2CioAzIgBsxmXe+x/LyT0+qyRaWMlVlpG2f9nRN0k0Nhp6ZjM7qrAIG6pvmrI/JxNo1dASC8FGVg5f1qxxxaw3t7E=
-X-HE-Tag: 1788351890-601368
-X-HE-Meta: U2FsdGVkX19pZWjB+gdQpmznQcfOz7UQ49dQknVK5f+wC6C4T3Z6LhYbWrN5JKQSe9fUXtSImFvjMyQlfyq8cjhI2arASpgeSTLWHGogJQfjneOoVTTR2CePGbzN5ihZHrek11h1KHffJseO75ZuudkwEAG4rlOWUsmCgEHKX4eO1V7UZzDg11JN+ESz7N2qQw0GPWWwhPNI/MzLa73ve97IQnzzcGKliUkg6H7ir11538+tq3fJdM+Q4gbWZBFUC6LIFbaa0V5xvKggnoEs2HlzPcaPUkse57T8RC165J6jgS4PcO6nKHusYlGpa4rC/4o5PsVCQmdfJLJoc6KaI+oa3nxsnDE7e1ws+Shg/IPLaia6uzaXS+NF+NdP/XrS
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, 2 Sep 2026 08:21:41 -0400
-Steven Rostedt <rostedt@goodmis.org> wrote:
+On 9/1/26 8:11 PM, Conor Dooley wrote:
 
-> There's even been times that I *removed* a Cc to stable because I did not
-> think it was worth the backport. Of course, I still keep the Fixes tag,
-> which means it will likely be backported anyway. But that's up to the
-> stable maintainers to decide ;-)
+Hello Conor,
 
-The big difference between a commit with the Fixes tag and a Cc to stable
-verses one with the Fixes tag without the Cc stable, is that the one with
-Cc stable will give me a "FAILED" message if it fails to apply. One with
-just the Fixes tag and no Cc stable, will not generate that message to me
-if it doesn't apply back to the version with the Fixes commit sha.
+>> @@ -57,10 +68,17 @@ allOf:
+>>     - if:
+>>         properties:
+>>           compatible:
+>> -          const: st,stm32mp25-syscfg
+>> +          contains:
+>> +            enum:
+>> +              - st,stm32mp23-syscfg
+>> +              - st,stm32mp25-syscfg
+>>       then:
+>>         required:
+>>           - "#clock-cells"
+>> +        - "#address-cells"
+>> +        - "#size-cells"
+>> +        - phy@2400
+>> +        - phy@2800
+> 
+> This looks good now, thanks.
+> 
+> I got hung up last time though and maybe didn't notice - in addition to
+> requiring these things here, should we also not forbid them on other
+> platforms that don't have them? IOW, adding "else: properties: foo: false".
 
-I do like to know what I marked as stable and fails to apply. Unfortunately
-I don't have the time to go fix them. But I keep them in a mail folder in
-case I need to do it one day.
+I did add this, and reduced the pattern in patternProperties to match 
+only on phy@2400 and phy@2800 so I can disable those too.
 
--- Steve
+> With that, if appropriate,
+> Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+I will send a V6 without this tag, please have a look one more time.
+
+Thank you for your help !
