@@ -1,36 +1,55 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF46377EC2;
-	Wed,  2 Sep 2026 07:05:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8261F38E8CE
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:07:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788332759; cv=none; b=SP8OkU+ncXgzWmh5LJqhMkoRkZSe/KulFPB/XT/Hw0gDP6qpnRTv1i4YfWa4uwhc+CdzF2Nrq/m+XbVpz412IybTX/tldvIXJzRYjljvGv/5yXAFmLpSivWhYHyOkhCJiLJcEjo0Ci5zQt8/Imp+hLXIAeU1Od/VtDQ1QNreYUs=
+	t=1788332842; cv=none; b=u7vuiZHz1U5bkjNklGmfb/p2jjkociBlgi1tP9Fb/mIwwyBCL487vyN2v346WUPdS9kXV8J13vHDJ2Gx9oyQPgZm7LPIgx32uyvGmCS7w9ykQDtNGI/jzwpWWTkWa22+1pnr8yOTVJc0+6K8DqbajHBQs/yr3uJSg1ZSHitbzlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788332759; c=relaxed/simple;
-	bh=X5smk5m4c/0Qb7uJ+Q9zZGtk0FDn9O2GrWMCg1RN7b0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ezl3PhrTTm8dhmUwdVLSH7PWs1yts+f0MIZBA9pAzAEQtjPJGbKqdPV2mI7v955tU0pqihYCn+zSd5oNMFr83RJzuh/DFB7Fh2pcBbclOJzqeHe7SWmeVmEHGnGkNvcX4MKKFzb7niIbo6Iwn4d+CM+cxEu1o54bUG7wUnofT5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=d7OPUNb3; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1788332842; c=relaxed/simple;
+	bh=PDLxLdlP5gcJOxrz6bWr488d4FTMZXtPkhHYlG53cKA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lqhegEu3mKUegg0OeJKtOliIWAFwormOmOzqqO/0auyP8B02pEJHOc9TcvSy3VNVwf4DDl2d1oK1pakLtNQaw5U1ycT0k+M0WVV205ieCbQQQrciwMi509ZfONEaWWQnv8GppPN0H3CGVeHagEHOlNVyx811fUGQT8gw7CKbHKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Md37+K2V; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="d7OPUNb3"
-Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4c3a2356d;
-	Wed, 2 Sep 2026 15:05:50 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Richard Weinberger <richard@nod.at>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	linux-mtd@lists.infradead.org,
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Md37+K2V"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788332839;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=MP9PYHiaewFfh82ToUlmgBTheClxMuVqhAl5IkjZgAA=;
+	b=Md37+K2VhFnarlA+KAiXX6ECX1Z0R77h5bPtANsHpyOZzdysxctNpFo2X9fdP/5QYkxtuV
+	mTiGn9UdmAMegdmloQwG8d/bEGeo5lopAJG7klD2kn4R8rj6sKCMbt/2jwuXfjoYXigRX0
+	Fsemqlc+h6iSrpBOCU6JNBvqcSGZFgM=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-663-2c0rhef8OcSr82ddPNd26w-1; Wed,
+ 02 Sept 2026 03:07:18 -0400
+X-MC-Unique: 2c0rhef8OcSr82ddPNd26w-1
+X-Mimecast-MFC-AGG-ID: 2c0rhef8OcSr82ddPNd26w_1788332837
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E11EB1800146;
+	Wed,  2 Sep 2026 07:07:16 +0000 (UTC)
+Received: from hpa-thinkpadx1carbongen12.taipei.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E17071800577;
+	Wed,  2 Sep 2026 07:07:13 +0000 (UTC)
+From: Kate Hsuan <hpa@redhat.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] mtd: rawnand: cadence: Initialize IRQ state before requesting IRQ
-Date: Wed,  2 Sep 2026 15:05:42 +0800
-Message-Id: <20260902070542.3485515-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	Kate Hsuan <hpa@redhat.com>
+Subject: [PATCH] media: i2c: imx471: Set max analog gain to 960
+Date: Wed,  2 Sep 2026 15:06:53 +0800
+Message-ID: <20260902070653.29186-1-hpa@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -38,54 +57,32 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa060f034f303a1kunmf845d501199cbc
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSEoYVktOT0oYTh5PSBkfSlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=d7OPUNb3F7IFjgZDDDZlrJpC4LQHmUSt52A22+keUTpatCnMuSTXC8M32Rr8pyabBMgFYf4hXcwk4IkB8gpS9Dn884aUuW0uCFEnUJR78Sc+1xJ/SzclqzVgakdEEVNl2sv8ixhG8+TiChm+Tx/UNI1b1mWdffBM1B1z4R4emz0=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=UKVt8CRyy8NuzNyQNeB1dgvHDG2t7AG0+OHEbcD2evA=;
-	h=date:mime-version:subject:message-id:from;
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-The Cadence NAND interrupt handler uses both the IRQ lock and completion
-object. Registering the IRQ before initializing them leaves a window in
-which a pending interrupt can access uninitialized synchronization state.
+The maximum analog gain was previously restricted to resolve image
+flickering and overexposure issues. With recent developments in
+libcamera, this limit can now be restored to its original value of
+960 to ensure image brightness is properly evaluated and adjusted.
 
-Initialize them before registering the handler.
-
-Fixes: ec4ba01e894d ("mtd: rawnand: Add new Cadence NAND driver to MTD subsystem")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Link: https://raw.githubusercontent.com/intel/ipu6-drivers/refs/heads/master/drivers/media/i2c/imx471.c
+Signed-off-by: Kate Hsuan <hpa@redhat.com>
 ---
- drivers/mtd/nand/raw/cadence-nand-controller.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/media/i2c/imx471.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/mtd/nand/raw/cadence-nand-controller.c b/drivers/mtd/nand/raw/cadence-nand-controller.c
-index d53b35a8b..cff36ea3a 100644
---- a/drivers/mtd/nand/raw/cadence-nand-controller.c
-+++ b/drivers/mtd/nand/raw/cadence-nand-controller.c
-@@ -3143,6 +3143,9 @@ static int cadence_nand_init(struct cdns_nand_ctrl *cdns_ctrl)
- 		goto free_buf_desc;
- 	}
+diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
+index 4053aed84340..8d9c3d0723c0 100644
+--- a/drivers/media/i2c/imx471.c
++++ b/drivers/media/i2c/imx471.c
+@@ -41,7 +41,7 @@
+ /* Analog gain control */
+ #define IMX471_REG_ANALOG_GAIN			CCI_REG16(0x0204)
+ #define IMX471_ANA_GAIN_MIN			0
+-#define IMX471_ANA_GAIN_MAX			800
++#define IMX471_ANA_GAIN_MAX			960
+ #define IMX471_ANA_GAIN_STEP			1
+ #define IMX471_ANA_GAIN_DEFAULT			0
  
-+	spin_lock_init(&cdns_ctrl->irq_lock);
-+	init_completion(&cdns_ctrl->complete);
-+
- 	if (devm_request_irq(cdns_ctrl->dev, cdns_ctrl->irq, cadence_nand_isr,
- 			     IRQF_SHARED, "cadence-nand-controller",
- 			     cdns_ctrl)) {
-@@ -3151,9 +3154,6 @@ static int cadence_nand_init(struct cdns_nand_ctrl *cdns_ctrl)
- 		goto free_buf;
- 	}
- 
--	spin_lock_init(&cdns_ctrl->irq_lock);
--	init_completion(&cdns_ctrl->complete);
--
- 	ret = cadence_nand_hw_init(cdns_ctrl);
- 	if (ret)
- 		goto disable_irq;
 -- 
-2.34.1
+2.55.0
+
