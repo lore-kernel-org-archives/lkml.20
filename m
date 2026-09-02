@@ -1,232 +1,245 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F2D339397;
-	Wed,  2 Sep 2026 09:36:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81063416870
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:36:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788341778; cv=none; b=WDL5x9dlrMRGfHQRc34ZLjVpqF5aZzQ+4lV8XUkgIWmQv3l+kauCRHB3VVRKoA9qBykt79YYbz/aSMSY0i3c8IKCxnAOawTeiD+FPQPU9Z1Eoy4ZbjcDKU4SyCViJv/9JK5liKmed80LyDwEcWQzxqhwvDob7Dst+FZonzDLlOo=
+	t=1788341785; cv=none; b=Wqu0tZkjGYIReb/KaZpkfQZ3V30aOgRe9tUTZ/Syyc5Z52EVHJE3ZmYRaMb9iFNurHjTRDhkp7Rm4r/+/gLwSS4tupZYApd7QJhWBbtnoBxvBFpbCADfqJIYN833PJZPjsI2zkqz1li1JXqqT4LOe44sDfipAjroHASUq4dgxYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788341778; c=relaxed/simple;
-	bh=8Mi/Z2pGNgDvVuDHmYnb5BGvJMNX4auQxR1sSTTaE3Q=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=WywQJrqMXNmylH/sA353XL1EMrYNUHNSrOqQbY/MMKJ0sGaB0gSSMKo94mhejtLYwTVSMfDkuh0Ogd36KCxTaGA1vjffXH6cq7t2rN8Vli7zEX57OP4ls2tms4uE2RGfZv518HQB1WE8il7OfjPYgMzGLGj+lf/sPZgZSDrIOng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=d/HRVi18; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="d/HRVi18"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788341776; x=1819877776;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=8Mi/Z2pGNgDvVuDHmYnb5BGvJMNX4auQxR1sSTTaE3Q=;
-  b=d/HRVi18QnJgrZGWqnfc4nBdNGM2lcTO1hudYXDItiHPVMFzSyQkAIaR
-   HALXZwWtV/xXsCPwS1fkcWcith7GnPmITiI+I0Htfi8MCdjc2T3BgIj6s
-   RL7o5hXFeCA5LU3DJCGJMIcY9lS5WzHdpezF1u12bB/k39Nc0Zx7ULpcO
-   lJ7N2yJvHZufOJ2o4BqplLfpIKrr7osZ9yyWVY0IoXenkGhMbq8dB2eDY
-   JHU5NONX/WjZyB7iOtVkMFvveLyB5qKWVqJbdtxmm1E8kpa8cgxrOk0o4
-   0559pxLRzIeXKBdeIjR441pUjNs7kdBWUpEOqR2c+KsaKtqxcxlMl/7IV
-   A==;
-X-CSE-ConnectionGUID: OSHURAvtTMeespTo2ZD0HA==
-X-CSE-MsgGUID: YT2euCyvT2uS/OCXKYn7+A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="106314244"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="106314244"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 02:36:15 -0700
-X-CSE-ConnectionGUID: E7QJ/EU/T2mJ/0k3/Oejmg==
-X-CSE-MsgGUID: KcsWaen2T2a1IjjasSxmhw==
-X-ExtLoop1: 1
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.185])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 02:36:13 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 2 Sep 2026 12:36:09 +0300 (EEST)
-To: Idotoho Reimon Simanjuntak <idotohors@gmail.com>
-cc: Corentin Chary <corentin.chary@gmail.com>, 
-    "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
-    Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] platform/x86: asus-wmi: fix FA401 series keyboard sleep
- strobe
-In-Reply-To: <20260902015256.23434-1-idotohors@gmail.com>
-Message-ID: <a429f57e-0e3d-65b3-09a6-748760fa86e2@linux.intel.com>
-References: <20260902015256.23434-1-idotohors@gmail.com>
+	s=arc-20240116; t=1788341785; c=relaxed/simple;
+	bh=BRHdmvPvLetVJoA6O66cZxb5vCnNViCoz33PfhdMIDs=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=aSW7HwEt3y4XKHNtZem+geBJ1D9cEgYvqbv2hvUY0CS1GtH6HJI2L56vdZTekIReS9ifpNZMz+4S7uAmGj6zUGal3PcJ95fhB09ZXFurKPiZJwOAr+yS1mVedt3xdsDa6efcagM6qlsmj4NiEj9JzkyiKiqj+OTL6OcXPt9NYjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: bf4f3bb0a6b111f19a56ed5b684f684d-20260902
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:8cf952e3-2dc0-4e83-9b64-586c283f70a0,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+	ON:release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:4a51ba0777dc56cd1452aa64d8ee7779,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|865|898,TC:nil,Content:0|15|50,EDM:5,IP:
+	nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:
+	0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: bf4f3bb0a6b111f19a56ed5b684f684d-20260902
+X-User: liwanwu@kylinos.cn
+Received: from kylinos.cn [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <liwanwu@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1353554484; Wed, 02 Sep 2026 17:36:17 +0800
+From: Wanwu Li <liwanwu@kylinos.cn>
+To: tj@kernel.org
+Cc: arighi@nvidia.com,
+	changwoo@igalia.com,
+	emil@etsalapatis.com,
+	linux-kernel@vger.kernel.org,
+	liwanwu@kylinos.cn,
+	sched-ext@lists.linux.dev,
+	void@manifault.com
+Subject: [PATCH v3] sched_ext: Reject NMI calls to lock-taking kfuncs
+Date: Wed,  2 Sep 2026 17:36:11 +0800
+Message-Id: <20260902093611.52651-1-liwanwu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <49faaba5039a29f38ab6f254da6fb8dc@kernel.org>
+References: <49faaba5039a29f38ab6f254da6fb8dc@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2 Sep 2026, Idotoho Reimon Simanjuntak wrote:
+commit e06ece82d7b0 ("sched_ext: Report NMI kicks with scx_error()") made
+scx_bpf_kick_cpu() reject NMI calls, and its cover letter describes the
+reachability: sched_ext kfuncs in the "any" category "are callable from
+tracing progs that can attach to functions running in NMI", and an unlucky
+call from there "could deadlock the machine". The fix in that series made
+the error/exit path lock-free so scx_error() is safe to call from NMI. That
+closes the *error* path of every kfunc, but not a kfunc's own
+business-logic lock acquisition on its success path.
 
-> The FA401 series accepts the TUF keyboard RGB power-state command but does
-> not advertise the device through the normal DSTS presence probe. Register
-> the state attributes for this series and re-assert keyboard brightness in
-> the PM prepare callback so the EC enters S0ix with the correct state.
-> 
-> Without the brightness re-assertion, the display server blanks the keyboard
-> before the kernel suspend path runs, leaving the EC with brightness=0 and
-> preventing the sleep strobe from activating. Because kbd_led_wk may already
-> be zeroed by the display server at prepare time, always re-assert level 3
-> (max) brightness; the sleep strobe requires a non-zero brightness to
-> activate.
-> 
-> Use a quirk flag (kbd_rgb_state_quirk) set via DMI match table rather than
-> ad-hoc dmi_match() calls. Use the standard dev_pm_ops .prepare callback
-> rather than overloading the Ally-specific LPS0 ops. Define self-documenting
-> macros for the TUF RGB state bitfields at file scope.
-> 
-> Signed-off-by: Idotoho Reimon Simanjuntak <idotohors@gmail.com>
-> ---
->  drivers/platform/x86/asus-nb-wmi.c | 14 ++++++++++
->  drivers/platform/x86/asus-wmi.c    | 43 +++++++++++++++++++++++++++++-
->  drivers/platform/x86/asus-wmi.h    |  1 +
->  3 files changed, 57 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
-> index aeb461b16..fb06013ca 100644
-> --- a/drivers/platform/x86/asus-nb-wmi.c
-> +++ b/drivers/platform/x86/asus-nb-wmi.c
-> @@ -155,6 +155,11 @@ static struct quirk_entry quirk_asus_z13 = {
->  	.tablet_switch_mode = asus_wmi_kbd_dock_devid,
->  };
->  
-> +static struct quirk_entry quirk_asus_fa401 = {
-> +	.wapf = 0,
-> +	.kbd_rgb_state_quirk = true,
-> +};
-> +
->  static int dmi_matched(const struct dmi_system_id *dmi)
->  {
->  	pr_info("Identified laptop model '%s'\n", dmi->ident);
-> @@ -163,6 +168,15 @@ static int dmi_matched(const struct dmi_system_id *dmi)
->  }
->  
->  static const struct dmi_system_id asus_quirks[] = {
-> +	{
-> +		.callback = dmi_matched,
-> +		.ident = "ASUSTeK COMPUTER INC. FA401",
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
-> +			DMI_MATCH(DMI_BOARD_NAME, "FA401"),
-> +		},
-> +		.driver_data = &quirk_asus_fa401,
-> +	},
->  	{
->  		.callback = dmi_matched,
->  		.ident = "ASUSTeK COMPUTER INC. Q500A",
-> diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-> index a65090429..8d7c9e8bd 100644
-> --- a/drivers/platform/x86/asus-wmi.c
-> +++ b/drivers/platform/x86/asus-wmi.c
-> @@ -129,6 +129,14 @@ module_param(fnlock_default, bool, 0444);
->  #define ASUS_SCREENPAD_BRIGHT_MAX 255
->  #define ASUS_SCREENPAD_BRIGHT_DEFAULT 60
->  
-> +/* TUF RGB power state bitfields for DEVS(ASUS_WMI_DEVID_TUF_RGB_STATE) */
-> +#define TUF_RGB_STATE_CMD		0xbd
-> +#define TUF_RGB_STATE_SAVE		BIT(8)
-> +#define TUF_RGB_STATE_BOOT		(0x03 << 16)
-> +#define TUF_RGB_STATE_AWAKE		(0x0c << 16)
-> +#define TUF_RGB_STATE_SLEEP		(0x30 << 16)
-> +#define TUF_RGB_STATE_KEYBOARD		(0xc0 << 16)
+The remaining lock-taking kfuncs that scx_kfunc_context_filter() exposes to
+BPF_PROG_TYPE_TRACING have the same hazard: if an NMI lands on a CPU whose
+interrupted context already holds the lock, the kfunc's raw spinlock
+acquisition spins forever and hard-locks the CPU:
 
-Can those values be somehow named? Is there a field that could then use 
-FIELD_PREP() or are these individual bits that could be named and or'ed 
-together?
+ - scx_bpf_destroy_dsq()                    -> dsq->lock
+ - scx_bpf_dsq_reenq()                      -> rq's deferred_reenq_lock
+ - scx_bpf_cpuperf_set() / scx_bpf_cidperf_set() -> rq->lock
+ - scx_bpf_sub_grant() / scx_bpf_sub_revoke()     -> pshard lock
+   (via the shared sub_cap_preamble())
+ - bpf_iter_scx_dsq_next() / bpf_iter_scx_dsq_destroy() -> dsq->lock
+   (the reject is placed in bpf_iter_scx_dsq_new(), which is otherwise
+    lockless, so next() and destroy() are no-ops while it leaves kit->dsq
+    NULL)
 
-Alternatively, if no better naming exists for these, convert them to 
-GENMASK().
+As things stand, there is no scenario for reenqueueing, iterating a DSQ,
+setting a performance target or granting sub-caps from NMI. The guards
+defend against a buggy or malicious BPF program turning an "any"-category
+kfunc into a machine-wide hard-lockup through the door that
+scx_kfunc_context_filter() already opens. This matches the intent of
+scx_bpf_kick_cpu()'s NMI check, which the commit cited above added not to
+enable an NMI use case but to surface such a bug as a clean abort.
 
-> +
->  #define ASUS_MINI_LED_MODE_MASK		0x03
->  /* Standard modes for devices with only on/off */
->  #define ASUS_MINI_LED_OFF		0x00
-> @@ -5153,7 +5161,6 @@ static int asus_wmi_add(struct platform_device *pdev)
->  
->  	asus->egpu_enable_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_EGPU);
->  	asus->dgpu_disable_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_DGPU);
-> -	asus->kbd_rgb_state_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_TUF_RGB_STATE);
->  
->  	if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_MINI_LED_MODE))
->  		asus->mini_led_dev_id = ASUS_WMI_DEVID_MINI_LED_MODE;
-> @@ -5166,6 +5173,15 @@ static int asus_wmi_add(struct platform_device *pdev)
->  		asus->gpu_mux_dev = ASUS_WMI_DEVID_GPU_MUX_VIVO;
->  #endif /* IS_ENABLED(CONFIG_ASUS_WMI_DEPRECATED_ATTRS) */
->  
-> +	/*
-> +	 * FA401 series accepts the TUF RGB-state DEVS command but does not
-> +	 * advertise the device through DSTS. Keep the normal DSTS probe for
-> +	 * other models and force registration when the quirk is set.
-> +	 */
-> +	asus->kbd_rgb_state_available =
-> +		asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_TUF_RGB_STATE) ||
-> +		asus->driver->quirks->kbd_rgb_state_quirk;
-> +
->  	asus->oobe_state_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_OOBE);
->  
->  	if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_THROTTLE_THERMAL_POLICY))
-> @@ -5396,11 +5412,36 @@ static int asus_hotk_restore(struct device *device)
->  
->  static int asus_hotk_prepare(struct device *device)
->  {
-> +	struct asus_wmi *asus = dev_get_drvdata(device);
-> +
->  	if (use_ally_mcu_hack == ASUS_WMI_ALLY_MCU_HACK_ENABLED) {
->  		acpi_execute_simple_method(NULL, ASUS_USB0_PWR_EC0_CSEE,
->  					   ASUS_USB0_PWR_EC0_CSEE_OFF);
->  		msleep(ASUS_USB0_PWR_EC0_CSEE_WAIT);
->  	}
-> +
-> +	/*
-> +	 * The display server may blank the keyboard backlight before the
-> +	 * kernel suspend path runs. Re-assert brightness and power-state
-> +	 * flags so the EC enters S0ix with the correct state. Always use
-> +	 * level 3 (max) because kbd_led_wk may already be zeroed by the
-> +	 * display server at this point, and the sleep strobe requires a
-> +	 * non-zero brightness to activate.
-> +	 */
-> +	if (asus && asus->driver->quirks->kbd_rgb_state_quirk &&
-> +	    asus->kbd_rgb_state_available) {
-> +		u8 brightness = 0x80 | 0x03; /* level 3 (max) + light-on bit */
+Route all of them through a new scx_kf_allowed_ctx() helper and reuse
+scx_bpf_kick_cpu()'s existing in_nmi() check - now shared with its cid
+equivalent scx_bpf_kick_cid() through scx_kick_cpu() - so the rule is
+stated once and the coverage is auditable from one place. scx_error() is
+already NMI-safe (commit f883dbb64ca5 ("sched_ext: Make exit claiming
+lock-free")), so the reject-abort cannot deadlock the lock acquisition.
+Kfuncs with an error return report -EDEADLK, the situation being avoided.
 
-Please use a named define for "light-on bit" instead of the literal.
+Read-only members of the reachable sets (dsq_peek, dsq_nr_queued,
+cpuperf_cur/cap, sub_caps, the idle cpumask helpers and the cid lookups)
+take no scheduler lock on the path a tracing program reaches them, and were
+audited to that effect; they are correctly left unguarded. The select_cpu
+kfuncs do take pi_lock, but scx_kfunc_context_filter() only exposes the
+any/idle/cid sets to BPF_PROG_TYPE_TRACING, and struct_ops run in task
+context, so no lock-taking path here is reachable from NMI.
 
-As level 3 is mentioned also in the other comment, you can drop this 
-comment.
+Link: https://lore.kernel.org/r/20260901095652.1009104-1-liwanwu@kylinos.cn
+Acked-by: Andrea Righi <arighi@nvidia.com>
+Signed-off-by: Wanwu Li <liwanwu@kylinos.cn>
+---
+V2 -> V3:
+ - Collapse the __scx_kf_allowed_ctx() inline + scx_kf_allowed_ctx() macro
+   into a single macro that takes the function name implicitly (Tejun Heo).
+ - Guard DSQ iteration once in bpf_iter_scx_dsq_new(); drop the redundant
+   checks in bpf_iter_scx_dsq_next()/destroy() (Tejun Heo).
+ - Use unlikely(!sch) in scx_bpf_destroy_dsq() (Tejun Heo).
 
-> +
-> +		asus_wmi_set_devstate(ASUS_WMI_DEVID_KBD_BACKLIGHT,
-> +				      brightness, NULL);
-> +		asus_wmi_evaluate_method3(ASUS_WMI_METHODID_DEVS,
-> +					  ASUS_WMI_DEVID_TUF_RGB_STATE,
-> +					  TUF_RGB_STATE_CMD | TUF_RGB_STATE_SAVE |
-> +					  TUF_RGB_STATE_BOOT | TUF_RGB_STATE_AWAKE |
-> +					  TUF_RGB_STATE_SLEEP | TUF_RGB_STATE_KEYBOARD,
-> +					  0, NULL);
-> +	}
-> +
->  	return 0;
->  }
->  
-> diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asus-wmi.h
-> index 5cd4392b9..69d224774 100644
-> --- a/drivers/platform/x86/asus-wmi.h
-> +++ b/drivers/platform/x86/asus-wmi.h
-> @@ -52,6 +52,7 @@ struct quirk_entry {
->  	 */
->  	int no_display_toggle;
->  	u32 xusb2pr;
-> +	bool kbd_rgb_state_quirk;
->  };
->  
->  struct asus_wmi_driver {
-> 
+v2: https://lore.kernel.org/r/20260902023124.1422942-1-liwanwu@kylinos.cn
+v1: https://lore.kernel.org/r/20260901095652.1009104-1-liwanwu@kylinos.cn
 
+ kernel/sched/ext/ext.c      | 30 +++++++++++++++++++++---------
+ kernel/sched/ext/internal.h | 16 ++++++++++++++++
+ kernel/sched/ext/sub.c      |  3 +++
+ 3 files changed, 40 insertions(+), 9 deletions(-)
+
+diff --git a/kernel/sched/ext/ext.c b/kernel/sched/ext/ext.c
+index 10af28a9f2c0..3f8bde1dbb4c 100644
+--- a/kernel/sched/ext/ext.c
++++ b/kernel/sched/ext/ext.c
+@@ -9518,14 +9518,8 @@ void scx_kick_cpu(struct scx_sched *sch, s32 cpu, u64 flags)
+ 	struct rq *this_rq;
+ 	unsigned long irq_flags;
+ 
+-	/*
+-	 * The per-cpu kick list is guarded only by local_irq_save(), which does
+-	 * not mask NMIs, so kicking from NMI could corrupt it and is unsupported.
+-	 */
+-	if (unlikely(in_nmi())) {
+-		scx_error(sch, "scx_bpf_kick_cpu() called from NMI");
++	if (!scx_kf_allowed_ctx(sch))
+ 		return;
+-	}
+ 
+ 	local_irq_save(irq_flags);
+ 
+@@ -9693,8 +9687,13 @@ __bpf_kfunc void scx_bpf_destroy_dsq(u64 dsq_id, const struct bpf_prog_aux *aux)
+ 
+ 	guard(rcu)();
+ 	sch = scx_prog_sched(aux);
+-	if (sch)
+-		destroy_dsq(sch, dsq_id);
++	if (unlikely(!sch))
++		return;
++
++	if (!scx_kf_allowed_ctx(sch))
++		return;
++
++	destroy_dsq(sch, dsq_id);
+ }
+ 
+ /**
+@@ -9731,6 +9730,9 @@ __bpf_kfunc int bpf_iter_scx_dsq_new(struct bpf_iter_scx_dsq *it, u64 dsq_id,
+ 	if (unlikely(!sch))
+ 		return -ENODEV;
+ 
++	if (!scx_kf_allowed_ctx(sch))
++		return -EDEADLK;
++
+ 	if (flags & ~__SCX_DSQ_ITER_USER_FLAGS)
+ 		return -EINVAL;
+ 
+@@ -9857,6 +9859,9 @@ __bpf_kfunc void scx_bpf_dsq_reenq(u64 dsq_id, u64 reenq_flags,
+ 		return;
+ 	}
+ 
++	if (!scx_kf_allowed_ctx(sch))
++		return;
++
+ 	/* not specifying any filter bits is the same as %SCX_REENQ_ANY */
+ 	if (!(reenq_flags & __SCX_REENQ_FILTER_MASK))
+ 		reenq_flags |= SCX_REENQ_ANY;
+@@ -10244,6 +10249,9 @@ __bpf_kfunc void scx_bpf_cpuperf_set(s32 cpu, u32 perf, const struct bpf_prog_au
+ 	if (unlikely(!sch))
+ 		return;
+ 
++	if (!scx_kf_allowed_ctx(sch))
++		return;
++
+ 	scx_cpuperf_set(sch, cpu, perf);
+ }
+ 
+@@ -10269,6 +10277,10 @@ __bpf_kfunc s32 scx_bpf_cidperf_set(s32 cid, u32 perf,
+ 	sch = scx_prog_sched(aux);
+ 	if (unlikely(!sch))
+ 		return -ENODEV;
++
++	if (!scx_kf_allowed_ctx(sch))
++		return -EDEADLK;
++
+ 	cpu = scx_cid_to_cpu(sch, cid);
+ 	if (cpu < 0)
+ 		return cpu;
+diff --git a/kernel/sched/ext/internal.h b/kernel/sched/ext/internal.h
+index 27bbf5e04d90..ca8ebb11f03c 100644
+--- a/kernel/sched/ext/internal.h
++++ b/kernel/sched/ext/internal.h
+@@ -2091,6 +2091,22 @@ extern struct scx_sched *scx_enabling_sub_sched;
+ #define scx_error(sch, fmt, args...)						\
+ 	scx_exit((sch), SCX_EXIT_ERROR, 0, fmt, ##args)
+ 
++/*
++ * Tracing progs can call kfuncs from NMI. Kfuncs that take scheduler locks or
++ * touch the kick lists, which are only protected by irq masking, can't run
++ * there, so abort the scheduler instead. scx_error() is NMI-safe.
++ */
++#define scx_kf_allowed_ctx(sch)						\
++({										\
++	bool __allowed = true;							\
++										\
++	if (unlikely(in_nmi())) {						\
++		scx_error((sch), "%s called from NMI", __func__);		\
++		__allowed = false;						\
++	}									\
++	__allowed;								\
++})
++
+ /**
+  * scx_root_protected_live - Root sched for paths that only run while live
+  *
+diff --git a/kernel/sched/ext/sub.c b/kernel/sched/ext/sub.c
+index 0554448835bd..78349acd0a67 100644
+--- a/kernel/sched/ext/sub.c
++++ b/kernel/sched/ext/sub.c
+@@ -2265,6 +2265,9 @@ static s32 sub_cap_preamble(u64 cgroup_id, u64 caps, const struct bpf_prog_aux *
+ 	if (unlikely(!parent))
+ 		return -ENODEV;
+ 
++	if (!scx_kf_allowed_ctx(parent))
++		return -EDEADLK;
++
+ 	if (!scx_is_cid_type()) {
+ 		scx_error(parent, "sub-cap kfuncs require a cid-form scheduler");
+ 		return -EOPNOTSUPP;
 -- 
- i.
-
+2.25.1
