@@ -1,194 +1,92 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F19E8489866
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:31:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B51347FB1C
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:31:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352274; cv=none; b=lBaD0wuPGDacuv0MJ25HkDVdTZzmVDiKpWAbAxiEBk+k4anmQ/D0nvEkXyuI4IFtqDMN6RgtgDViiZviumJiJdxzjA/Tt3Mi0PwOPAHOfIzeer3Ecn/pub4+3qmOEgvnYSlySjWnncWNdn9t7VmaBrOqMhdlAKN8sehPE2FsTBg=
+	t=1788352278; cv=none; b=OVCMDjRQ6bL/heAhu9gcCTz6nQVhRGrfzptXmSN314ontKKjwA42Hm8WYi6kEZyeirbBUy0ZOiie+5PTxNBwey2IZ52IYqxFaLcplhbSEQmLmjqtBG+7guZhTCBmq3KYGxiUM8/gr2od9Wk/21H2LXxJTPtjIqB81uVwcVjeYHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352274; c=relaxed/simple;
-	bh=5yEV4XnolTA4d1Bxi7KrwZxByDjfSzCc7FhIPl9sFLw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OL4GyajFShAa1Vmj4vpOUEgwg2Q6WDiV0pC3TGSBDiRl5N5c4COluer31d6qRuVrmaktr3adXptFawtDGcbudC8BCzx8ts7iXluOznEHIgd/RdT5lFF8v6xuk+BVwgYNhy1qetecqFZLJg1Vhl3j203inzPIblb90tz/guy5OQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WDXNqA4g; arc=none smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788352278; c=relaxed/simple;
+	bh=vzQswhFxPN4EWJHWN1VVDXS4QWb3TXLwrlRGynd7pPM=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=IBcj0z78Q3EJKD6hJlrQNCxjOWwFV6/YwlTfAb1Q+M0YeE8rYUYRS3rhLe52E4ueesnmfuAK9x1Kx4A6n2YhE/a6+RfSP15kTNuCmLp2VDVkW2TXN20aOr5NooJpasJec2oW+RZ/BWv6iQ3EPnK6FVH6pqoGhu/Akdzr2XmMqDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works; spf=pass smtp.mailfrom=empyreal.works; dkim=pass (2048-bit key) header.d=empyreal.works header.i=@empyreal.works header.b=BGEGXopu; arc=none smtp.client-ip=185.70.43.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=empyreal.works
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=empyreal.works
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WDXNqA4g"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c207cb16cf5so130853566b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:31:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788352271; x=1788957071; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TI6pUAVn6iqJfgwPq0UA4Qme1N3xxMZKcN9f4ke5Y84=;
-        b=WDXNqA4gKHZ8fvHAhapFVFGqnYhMhs6wjQ8ZBYfa8Hlnr8Q8d7EtCqyE8/V0g8Hxn5
-         sABRD4+MkTbtGiZX1x9IsJ1Hm0XoFuhKoXaHSCDFZC0ZMYjvTTfkClxD6K+CshpgtyVv
-         rfkD1/shnCAAle7h5qjVLD7bIj1FLC+2eIuGuUMP6Qj+aHqZWs1Culaj4EKUSwE2mchk
-         rUWQ/0akLqViDQ4VDZU8clelVpP6bFbF/ITRDlTRz+x8X36AnR008tuSgvssP3nFR327
-         Kx6t40Q/1YlLLgB/LybnV5KSkfSdrf/0ko80hYDhF2A4n7eLqzwq3DJTtWyLPWRQNdvb
-         8LcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788352271; x=1788957071;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TI6pUAVn6iqJfgwPq0UA4Qme1N3xxMZKcN9f4ke5Y84=;
-        b=LX153uTo/Bm712Ki+PJoJB6iPH+I9TvYXwxMoRH/QsjpiBow4pqSRRd4hAFlt6g7TU
-         GuotitMCMuk6pdklSz/XKUe1ywAIQOmenakF1hmeyOlb2Qd9zse6EYcjiHgo5TYM7wOy
-         sAccqnoVMk1IFw0CX8NxpBFpjAZcr64y4TtxzZ1iHiynCm8IBnyVFODGOtY+BX2IIlld
-         IH2kDwUhZNsKmbG8iZUKOeszM1d05+jOVCH7DxsaUDz7gzEHz87ckYDXRh4JE89pj4dX
-         XGNkNBKZV7YTZ4ZpBP+ZlGAjU7IgYji44wVdkpwNwsVm7szAZHmlBk/P+qxp+2kz9TcS
-         vF6A==
-X-Forwarded-Encrypted: i=1; AKwUvBxZCflkj4NXMYlp5yDkcWEPTj/VdcN2YsvU6E7I1ZqV3cMuY8mg0s5aPEcgaSvUC1YFFblxtoaWPmHXmuU=@vger.kernel.org
-X-Gm-Message-State: AFuF++nQYi/3z5yFCJTxrPARYrpYKRNGChNShIMTeLQmYIlaI95yTAc4
-	VqKqK3CiRkXSFHZA+nf57wtVqO39mJSWlufefO6rzC5K4dVDta9ounumC4Gs
-X-Gm-Gg: AYBFou3j95vnatfxhYLi/m2XBS/Wc6ipufQPD1RupwcwN7pQnb30zr6drDwd0adMlfx
-	tjRBJiqnbfGMF8JtkMvSmLv24fzb/f3Wr77yWbkotgc96xc68jwglA/SGDLylpSuqvmz0bAygRP
-	p640okkPFdWWzzctjC5qYWDY1dKHLwMc4Cyu1nr3Fuk5SV4Sf9kKUV4Z6J+xOkKS8Ixl3wj8CR9
-	EYLU13TP5/e0PaBi+APwNJs+NLiCsWJYEOtBhKLsqtQbGCuMNrK7ebyfr2P/nnZbdiffmvK9qic
-	zEOTv6JlBnYDdmjHKQ1xRSG/TZULx+xGQKLceMna8zVibe/VpnOYkydZFfXBXdHprgPVuA1T8YK
-	WXs27RxupsKTKn7vd3KZlKtGKLlYVLpPFoJhPDfLV1aksBoaVExw8R0WcxXC7yYoHKK1iEXA+ZQ
-	ZhjLisoIBkDrH+mLGmjisA3d5ewqVkRw==
-X-Received: by 2002:a05:600c:3e10:b0:49b:9433:ea44 with SMTP id 5b1f17b1804b1-49ce57fe002mr86704775e9.4.1788352243385;
-        Wed, 02 Sep 2026 05:30:43 -0700 (PDT)
-Received: from debian.. ([2001:41d0:303:db6b::])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce0b401sm145048515e9.3.2026.09.02.05.30.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 05:30:41 -0700 (PDT)
-From: Tristan Madani <tristmd@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	Mahesh Bandewar <maheshb@google.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: [PATCH net v4] net: reduce XMIT_RECURSION_LIMIT under KASAN
-Date: Wed,  2 Sep 2026 12:30:40 +0000
-Message-ID: <20260902123040.2172805-1-tristmd@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260727200454.4048141-1-tristmd@gmail.com>
-References: <20260727200454.4048141-1-tristmd@gmail.com>
+	dkim=pass (2048-bit key) header.d=empyreal.works header.i=@empyreal.works header.b="BGEGXopu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
+	s=protonmail2; t=1788352272; x=1788611472;
+	bh=OKxNGCoL9yieoK3Ws2lDA86IF7zj6L6ly9tSa8jimQE=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=BGEGXopu67VBpaYnmqAVSucBFOZgRwPKzh1KMjIQqQUd9/0XoKfiWJof1ngxOhZMJ
+	 J1VIwNjg9z+nsUM5jmjKSefRnn/yVzYjQHcyyhISrgoJBPOcNrqk2nltUk4UuJDfj+
+	 KoN3u1BIowUCfyTHAJZJxCRAjS0R1rjHlbyubq7Sb5rhy+HtSSGk1zjZNMcgVvKz/7
+	 CswyitX/tXuW9alxZKCyGUXWQOXoPi49DK0alBqBfmZJBFpxgETJPlvIm7Uxszh1nO
+	 3g7dU35oS1I5z79bDg4ET9WGP80K5LhsVI6afIROzzusO1s8w+Gy0Ms2MOk1hDHVUD
+	 iEzq3xSqtpx2g==
+Date: Wed, 02 Sep 2026 12:31:05 +0000
+To: amd-gfx@lists.freedesktop.org
+From: Andrei Rusu de Castro <arc@empyreal.works>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com, mario.limonciello@amd.com, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, chen-yu.chen@amd.com, ray.wu@amd.com
+Subject: [PATCH 0/4] drm/amd/display: fix brightness ownership through power module
+Message-ID: <20260902-brightness-cover-abf809f2@empyreal.works>
+Feedback-ID: 182420409:user:proton
+X-Pm-Message-ID: e25d1b5c28e864151b6e2d411f4edd74bae9fadd
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Tristan Madani <tristan@talencesecurity.com>
+Linux passes PWM eDP brightness through two owners. The display manager
+maps the request into the firmware range and applies the ATIF custom
+curve. The power module then derives a percentage from that hardware
+value and applies the same curve and range again. A non-zero firmware
+minimum consequently prevents zero from reaching the panel minimum.
+The split also leaves the custom-curve disable policy and final PWM mask
+attached to the wrong owner.
 
-Virtual network devices (ipvlan, macvlan, bonding) can enter legitimate
-transmit recursion when combined with packet forwarding configurations
-such as IPVS NAT.  The existing XMIT_RECURSION_LIMIT (8) in
-__dev_queue_xmit() detects and breaks these loops, but the allowed
-depth is too high for KASAN-instrumented kernels: each recursion level
-consumes significantly more stack due to KASAN inline instrumentation,
-and the cumulative usage overflows the kernel stack before the limit
-fires.
+Patch 1 keeps pre-power-module custom-curve output in the userspace
+domain, which also fixes affected stable kernels. Patch 2 covers that
+conversion with a non-zero firmware minimum. Patch 3 passes zero-anchored
+millipercent into the power module and moves the panel policy, curve,
+range, trace units, and final effective-PWM mask to that owner. Patch 4
+covers ordinary PWM, forced PWM, AMD-AUX fallback, true AUX, multiple
+panels, endpoints, interior values, clamping, and invalid ranges.
 
-On x86_64, CONFIG_KASAN_GENERIC doubles THREAD_SIZE from 16KB to 32KB
-(KASAN_STACK_ORDER=1), but KASAN per-access checks inflate individual
-function frames by roughly 2-3x.  For an ipvlan L3 + IPVS NAT routing
-loop, objdump measurements on a non-KASAN kernel show ~1.4KB of stack
-consumed per recursion level (across 17 functions from __dev_queue_xmit
-through the full IP output path and back).  At KASAN ~2.3x inflation
-factor that becomes ~3.3KB per level.  Eight levels -- the current
-limit -- consume ~26KB plus the initial call chain (~8KB), which
-exceeds the 32KB KASAN stack.  The overflow hits the VMAP_STACK guard
-page and causes a non-recoverable kernel panic (BUG: stack guard page
-was hit).
+The complete series passed all 85 AMD backlight UML KUnit cases on the
+current base and after clean application to Linux 7.3-rc1. It was built
+into one kernel, booted on two Strix Halo systems, and produced the same
+AMDGPU module on both. An instrumented physical panel test observed:
 
-On non-KASAN kernels the same loop is safely caught by the existing
-limit: the "Dead loop on virtual device" message fires and the packet
-is dropped without any stack overflow.
+  request 0     -> 0 millipercent      -> PWM 3084  -> success
+  request 65535 -> 100000 millipercent -> PWM 65535 -> success
 
-Reduce XMIT_RECURSION_LIMIT to 4 when CONFIG_KASAN is enabled.
+The panel visibly reached minimum and maximum brightness, then returned
+to its starting level. No fatal kernel event followed. The true AUX path
+was covered by KUnit but was not available for a physical test. The
+existing LUT-unaware hardware readback inverse is unchanged.
 
-The deepest legitimate transmit recursion observed in the kernel
-selftests is 5 levels of __dev_queue_xmit nesting, in VXLAN symmetric
-routing topologies with VRF (vxlan_symmetric, vxlan_asymmetric):
+Andrei Rusu de Castro (4):
+  drm/amd/display: keep custom brightness curve in userspace domain
+  drm/amd/display: test custom brightness with non-zero minimum
+  drm/amd/display: pass userspace brightness to power module
+  drm/amd/display: test power module brightness input domain
 
-  __dev_queue_xmit(vrf)             depth 1
-    __dev_queue_xmit(vlan-svi)      depth 2
-      __dev_queue_xmit(bridge)      depth 3
-        __dev_queue_xmit(vxlan)     depth 4
-          __dev_queue_xmit(veth)    depth 5
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   6 +-
+ .../display/amdgpu_dm/amdgpu_dm_backlight.c   |  59 ++-
+ .../display/amdgpu_dm/amdgpu_dm_backlight.h   |   5 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   |   3 +-
+ .../tests/amdgpu_dm_backlight_test.c          | 447 +++++++++++++++++-
+ .../drm/amd/display/modules/inc/mod_power.h   |   1 +
+ .../gpu/drm/amd/display/modules/power/power.c |   2 +
+ .../drm/amd/display/modules/power/power_abm.c |   6 +-
+ .../amd/display/modules/power/power_helpers.h |   1 +
+ 9 files changed, 494 insertions(+), 36 deletions(-)
 
-Since the recursion check fires when the counter exceeds the limit
-(strictly greater than), a limit of 4 permits 5 levels of nesting
-while blocking the 6th.  At ~3.3KB per level, five levels consume
-~16.5KB; combined with the ~8KB initial call chain, total usage is
-~24.5KB -- well within the 32KB KASAN stack with ~7.5KB of margin.
-
-A limit of 3 (v2/v3 of this patch) allows only 4 levels, which broke
-the VXLAN symmetric selftests: the 5th __dev_queue_xmit call was
-incorrectly dropped, as reported by Jakub Kicinski and the kernel test
-robot.
-
-The recursion path triggering this is:
-
-  __dev_queue_xmit -> dev_hard_start_xmit -> ipvlan_start_xmit
-  -> ipvlan_queue_xmit -> ipvlan_process_outbound -> ip_local_out
-  -> nf_hook (IPVS) -> ip_vs_in_hook -> ip_vs_nat_xmit -> ip_output
-  -> ip_finish_output2 -> neigh_resolve_output -> __dev_queue_xmit
-
-Tested:
-  - KASAN kernel (6.8.12 x86_64): panic before fix, "Dead loop"
-    drop after fix (at recursion level 4 instead of 8).
-  - Non-KASAN kernel (6.8.12 x86_64): "Dead loop" drop both before
-    and after fix (no behavior change for production kernels).
-  - Measured max __dev_queue_xmit nesting depth via bpftrace in a
-    VXLAN symmetric cross-VLAN topology (VRF + VLAN + bridge + VXLAN +
-    veth underlay): 5 levels, confirming limit=4 is sufficient.
-
-Fixes: 2ad7bf363841 ("ipvlan: Initial check-in of the IPVLAN driver.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
----
-v4: Raise the KASAN limit from 3 to 4 after investigating the recursion
-    depth of VXLAN symmetric forwarding selftests.  Measured max nesting
-    depth of 5 via bpftrace (VRF + VLAN + bridge + VXLAN + underlay),
-    which requires limit >= 4.  Limit 3 (v2/v3) incorrectly dropped the
-    5th call, breaking cross-VLAN tests, as reported by Jakub Kicinski
-    and the kernel test robot.
-
-v3: Resend as new thread per Jakub Kicinski request (no code change
-    from v2).
-
-v2: Switch from per-driver recursion guard in ipvlan_core.c to
-    reducing the global XMIT_RECURSION_LIMIT under CONFIG_KASAN,
-    as suggested by Eric Dumazet.
-    https://lore.kernel.org/20260711204700.1760374-1-tristmd@gmail.com
-
-v1: https://lore.kernel.org/20260711134732.1385563-1-tristmd@gmail.com
- include/linux/netdevice.h | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-index 87cafc932e9e6..3ccd1e65bcd9e 100644
---- a/include/linux/netdevice.h
-+++ b/include/linux/netdevice.h
-@@ -3669,7 +3669,11 @@ struct page_pool_bh {
- };
- DECLARE_PER_CPU(struct page_pool_bh, system_page_pool);
- 
-+#ifdef CONFIG_KASAN
-+#define XMIT_RECURSION_LIMIT	4
-+#else
- #define XMIT_RECURSION_LIMIT	8
-+#endif
- 
- #ifndef CONFIG_PREEMPT_RT
- static inline int dev_recursion_level(void)
--- 
-2.47.3
 
