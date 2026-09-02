@@ -1,174 +1,159 @@
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E745420E89;
-	Wed,  2 Sep 2026 16:18:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 925E43955C1;
+	Wed,  2 Sep 2026 16:19:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788365902; cv=none; b=rdlSfSjKmvYUHEiOSEVEru4dd5J/MQWh2Bi9rY/AdKmY1De1CA1d47tBJKlP/oNuep2D++EHNpiOzD0SbFN5XA+hgNKztM5C/A0chzQs3OzeQW+f26F/4k8XWvpC8ev1hPNF7oeBvhiqzpWEzrfzXvD+rxP5tVLLngrybJ70vyQ=
+	t=1788365982; cv=none; b=hYwJE2PJzrJfGJjFLtn7xC3V1iNze2YcGaBZ/dbAs2qtbhrBi2EHTJW+L/rKItP/Axrcl4pIQqafe1fvMNLMCfXdxvkpsn9pNgxSD7ROZ7AuafYkOi363KNWTE1Sq1He3Aw3fh75H73r2mOcWFc7SUnbozrJZ5yZm80K64tWWAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788365902; c=relaxed/simple;
-	bh=9bfkU3piEPZ2AYc1xqoEHGzpUcTGmfrcewEql0zFcu4=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=pK9MC6JM+Ms70lNb2QXpEKx6pCT7DjSMh5d+ZmfBj+3EUXb7HmSLp8BgUwxqFIp7zhWKClzVQL0wZcnh9Kib2qGbc5aRXe0L3tTgN0pAawejO4UTlTTkiNAu7GQF7Glsevvru5UGab6Nt1CGEBa1sr+TFk8RgL/LaZvwYFVsfx4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=qb8nTvGv; arc=none smtp.client-ip=216.40.44.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788365982; c=relaxed/simple;
+	bh=3BBmes8xSovB/lspbQ81wgCI2fsXolHtlAzXULwDkr8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Tvq6/0kgekKRHuQg3bb/7IV2LJZrBnVOD03fHZB+IYIlmw2V8QIb/7ixFXpfLt1SfXh7D7hL9spBmy2XnV38E8cjNi/sR06BAXkR1yUwFzECQQTQQSAVD075DAlZphCfPe56spWU+oDulFEbw0Jt+FUHRMj8rVBgvTt1scEA8BY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nfgFGmnb; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="qb8nTvGv"
-Received: from omf12.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id 669EEA3F25;
-	Wed,  2 Sep 2026 16:18:19 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf12.hostedemail.com (Postfix) with ESMTPA id 9EE1A18;
-	Wed,  2 Sep 2026 16:18:17 +0000 (UTC)
-Date: Wed, 2 Sep 2026 12:19:18 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: LKML <linux-kernel@vger.kernel.org>, Linux Trace Kernel
- <linux-trace-kernel@vger.kernel.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>
-Subject: [PATCH v3] tracing: Take trace_array reference when opening options
- file
-Message-ID: <20260902121918.5a9e9d1b@gandalf.local.home>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nfgFGmnb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788365980; x=1819901980;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=3BBmes8xSovB/lspbQ81wgCI2fsXolHtlAzXULwDkr8=;
+  b=nfgFGmnbI+t71+Y87wzwvb5LCbrmPc3UEg/dJ/GUipu8m9aAWxfBzUim
+   4IwcNLbZPhAdofW5L5EY98f7f69PsUzx6Gk3q3RgUkVIhJoCH8C+9+KNW
+   di0WbH/Ms3NVY2oNIMpJ1ehZV9MTVsGa0raETBhq3yogFDUuuIju7r3eO
+   VvClX4F2nxz3Wof+qF27UQeLU8wveI6iM4uI2QFT9feWWPaJsmfhUBsnD
+   GRm1n2fhGfg833eKO+DaXgdJgc6I655IHMhnsqTq98bycN+75hX5JZvR+
+   2FJlprS8iySYbT8xXITapSU+CuY+gj2yeEMD1UhYgsIy9Ivg1Z95TQGYT
+   A==;
+X-CSE-ConnectionGUID: bPSC2N6hR2ixCtL78tbcDQ==
+X-CSE-MsgGUID: TrJdzHmxQOS7rEt1KY4Weg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="100346072"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="100346072"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 09:19:33 -0700
+X-CSE-ConnectionGUID: SQdRLClwQ5OV4RYBwZiGnw==
+X-CSE-MsgGUID: hG2J2EvFShiZdA5beuNLhQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="273620778"
+Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 09:19:30 -0700
+Message-ID: <84891108-55be-48c1-9993-c730a5334d5b@linux.intel.com>
+Date: Thu, 3 Sep 2026 00:19:28 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: 9EE1A18
-X-Stat-Signature: 4dg8jcdmhcr95y634rtehs58bh8rte6g
-X-Rspamd-Server: rspamout03
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1//XBQSpKTvgZgysxrArnYntSkLa4DdqMw=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=mX3v9TrQu4w/vyFOqMHhNw0dKXXE3EzPt/swGummXdA=; b=qb8nTvGvqJqA2s23Nxth1ViQ0W/gxeoWS2Yakgn4uo/jFIvqeipwrk3fT/AhRlPjuc2MXMu8+vbkwYTOAyXtfr83ENipMFJesjvxQHdjZ09GFLi7Qw2Y3xg/eojSVg6Nd3AhqKcrIEiBZ9c3lpwHVhUx+EuhY3MpGKfiPb/khO4=
-X-HE-Tag: 1788365897-285665
-X-HE-Meta: U2FsdGVkX18utJZ3qqgMCxWeZ0JLomnRlm0ETHAxxp6owYQME8HzJQtLFCIVCCAi9IKrV350QPrxuCr5D/opSZ3kOm6T0Z0YeZ8u+8pSZzZNfNQGY/DEmMnZdZc27B+OJ3+YU6hiKmmYo3iBm76DM69ZQkJ5Ko9ClKzIY+eLSEhMKFxp9pHkVf4cLa4EmU3ahaURS/ta/XG4UhZljJw06vJGtupgcLM8OD8InxLOGeNWMdWMC5y9taRIlpn9frGTIXDrbnSdP/MNhHjDHqthxb1VxVC/xe0bjlvoK2cYTzzvO8G4PO6siMHJbsb/oANklTIMf7snvYrS7ndyOdxcEoVYguAL0mFAFnLhhCpJR8U++upd930LhFKjkb8Ni19lrMThG4Z5sYpU6jUrOeoLVEZ+cFSEPKENoSnZTnEC6Edu/c8HeNaD+NY1SeKFcJkuQN8yllLfhKFh7JYaWwWvQx7uiyk2ahzpSh4SGTCywpw=
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/4] KVM: TDX: Track configurable CPUID bits allowed by
+ KVM
+To: Xiaoyao Li <xiaoyao.li@intel.com>, linux-kernel@vger.kernel.org,
+ kvm@vger.kernel.org
+Cc: seanjc@google.com, pbonzini@redhat.com, dave.hansen@linux.intel.com,
+ andrew.cooper3@citrix.com, nik.borisov@suse.com, kas@kernel.org,
+ rick.p.edgecombe@intel.com, chao.gao@intel.com
+References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
+ <20260827031837.2863609-2-binbin.wu@linux.intel.com>
+ <55488b92-66a8-45e5-ad0f-8fed63ce1187@intel.com>
+ <a30741f8-b99b-4f36-80a5-4688c2578d99@linux.intel.com>
+ <6b565572-b316-4e86-906d-f150c896fe21@intel.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <6b565572-b316-4e86-906d-f150c896fe21@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Steven Rostedt <rostedt@goodmis.org>
+On 9/2/2026 11:09 PM, Xiaoyao Li wrote:
+> On 9/2/2026 8:33 AM, Binbin Wu wrote:
+>>>> +static void __init tdx_initialize_cpu_cfg_caps(void)
+>>>> +{
+>>>> +    tdx_cpu_cfg_cap_init(CPUID_1_ECX,
+>>>> +        TDX_CFG_EXTRA_F(MWAIT),
+>>>> +        TDX_CFG_F(TSC_DEADLINE_TIMER),
+>>>> +        TDX_CFG_F(AVX),
+>>>> +        TDX_CFG_F(F16C),
+>>>> +    );
+>>> TDX 1.5.24 on SPR report configurable bits of CPUID_1_ECX as
+>>> 0x31044988, which have
+>>>
+>>> - bit 3        MWAIT
+>>> - bit 7        EST
+>>> - bit 8        TM2
+>>> - bit 11    SDBG
+>>> - bit 14    XTPR
+>>> - bit 18    DCA
+>>> - bit 24    TSC_DEADLINE_TIMER
+>>> - bit 28    AVX
+>>> - bit 29    F16C
+>>>
+>>> but EST/TM2/SDBG/XTPR/DCA are not list here. I guess the reason is kvm_cpu_cap[] doesn't support it. If so, it seems to guard twice:
+>>> 1. mentally/manually check if it a feature is supported in kvm_cpu_caps[]
+>>>
+>>> 2. kvm_cpu_caps guarding in tdx_cpu_cfg_cap_init().
+>>>
+>>> I think 1) is not necessary, we can rely on 2)
+>> In general, if a feature is not supported by the common KVM CPU caps, 
+> 
+> For kvm-intel.ko, kvm_cpu_caps[] just means the supported CPUID features
+> for VMX VMs. Treat it as the common KVM CPU caps is a bit arguable.
+> 
+>> I prefer not
+>> to add it to the list to save a few lines of code, which probably is dead code,
+> 
+> I don't think it's dead code. It shows that these features are
+> virtualizable to TDs from the POV. of TDX.
 
-The options files do not take the trace_array reference for the options
-they represent. This could cause a use-after-free kernel crash if one of
-these files is opened by one task and another task removes the instance
-that the option is for. Because it doesn't take a reference upon opening,
-it will not stop the removal which will free the options descriptor that
-is being used.
+It depends on whether KVM allows userspace to set features for TDs that are not support
+for non-TDX VMs (,except for a few exceptions).
 
-As the options are somewhat dynamic in their creation at boot up, each
-file represents a flag in the trace_array. The trace_array has an array of
-indexes to represent each of these flags that is stored in the
-trace_flags_index array. The address of the index array element is used to
-pass to the inode->i_private pointer. Then that element is read which
-holds the index (which represents the flag) and then the index is used to
-calculate the trace_array descriptor from its trace_flags_index array.
+In this version, TDX_CFG_F() already check against kvm_cpu_caps[], if these features
+are not in kvm_cpu_caps[], it will not be exposed to userspace anyway.
 
-One issue is that the index element can not be referenced until the
-trace_array's reference is taken. To handle this, create a new helper
-function called: trace_array_options_get() that will iterate all the
-existing trace_arrays in the ftrace_trace_arrays list (under the
-trace_types_lock), and compare the passed in address of the index element
-with the entire array of the trace_array's trace_flags_index array.
-If it matches, then up the corresponding trace_array's reference and
-return.
+> 
+> In the end, they might be disallowed to be configured to TDs because KVM
+> doesn't allow them for VMX VMs. This is also the point I want to discuss.
+> Do we really want to make such restriction that KVM cannot enable/allow a
+> feature for TDs unless KVM first enables/allows it for VMX VMs? What's
+> reason behind it?
 
-Cc: stable@vger.kernel.org
-Fixes: 577b785f55168 ("tracing: add tracer dependent options to options directory")
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/linux-trace-kernel/20260828135858.2AC501F000E9@smtp.kernel.org/
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
----
-Changes since v2: ??
-  Ignore it. I resent v1 because I didn't add the "-a" to my "git commit --amend"
-  before sending.
+Sean mentioned it that "generally speaking, KVM shouldn't allow features
+that KVM doesn't support for non-TDX VMs" in
+https://lore.kernel.org/kvm/aj1fi_0SBxMK5WOB@google.com/
 
-Changes since v1: https://patch.msgid.link/20260901163620.6cbe0ada@gandalf.local.home
+> 
+>> unless people find it too confusing.
+>> I can add a comment to clarify this.
+>>
+>>> BTW, this seems also breaks the current userspace after this series.
+>>> - Before, EST/TM2/SDBG/XTPR/DCA are allowed to be exposed to TD
+>>> - After, they are not.
+>> This does change the values returned by KVM_TDX_CAPABILITIES. However, my
+>> understanding is that userspace is generally expected to only configure
+>> features supported by both KVM and TDX, i.e. except for the features initialized
+>> via TDX_CFG_EXTRA_F(), userspace is not expected to configure features not advertised
+>> by kvm_cpu_caps[].
+>> I can call this out in the changelog, and maybe also the doc for KVM_TDX_CAPABILITIES.
+> 
+> yeah. This changes KVM's behavior and we definitely need to call it out,
+> and provide justification.
+> 
+>>> If we cares CORE_CAPABILITIES in patch 2, why EST/TM2/SDBG/XTPR/DCA don't matter?
+>> Because CORE_CAPABILITIES was previously defined as fixed-1 in some old spec and
+>> the QEMU marks it as fixed1. EST/TM2/SDBG/XTPR/DCA are not the case.
+> 
+> I see. You added patch 2 because without it QEMU breaks. While for
+> EST/TM2/SDBG/XTPR/DCA, QEMU doesn't break after they are turned to
+> non-configurable. QEMU cannot represent all the userspace VMM. It still has
+> the potential to breaks other userspace VMMs.
 
-- Added (void *) typecast to comparison. (kernel test robot)
-
- kernel/trace/trace.c | 67 +++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 63 insertions(+), 4 deletions(-)
-
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index a946e0183fd1..722d0ba2d233 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -7842,11 +7842,70 @@ trace_options_core_write(struct file *filp, const char __user *ubuf, size_t cnt,
- 	return cnt;
- }
- 
-+/*
-+ * The tr_index is the address of a trace_array->trace_flags_index[]
-+ * element that holds the index of the trace flag. But since the
-+ * trace_array reference has not been taken yet, it cannot be referenced
-+ * as it could have been freed by a rmdir of the instance the trace_array
-+ * represents.
-+ *
-+ * Search the list of trace_arrays and compare the tr_index to the
-+ * address of the entire trace_array trace_flags_index array for each
-+ * trace_array in the list. If one is matched, then take the reference
-+ * and return it. If not, the trace_array no longer exits.
-+ */
-+static int trace_array_options_get(void *tr_index)
-+{
-+	struct trace_array *tr;
-+	int ret;
-+
-+	ret = security_locked_down(LOCKDOWN_TRACEFS);
-+	if (ret)
-+		return ret;
-+
-+	if (tracing_disabled)
-+		return -ENODEV;
-+
-+	guard(mutex)(&trace_types_lock);
-+	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
-+		if (tr_index >= (void *)&tr->trace_flags_index[0] &&
-+		    tr_index < (void *)&tr->trace_flags_index[TRACE_FLAGS_MAX_SIZE])
-+			return __trace_array_get(tr);
-+	}
-+	return -ENODEV;
-+}
-+
-+static int trace_options_open(struct inode *inode, struct file *filp)
-+{
-+	void *tr_index = inode->i_private;
-+
-+	if (trace_array_options_get(tr_index) < 0)
-+		return -ENODEV;
-+
-+	filp->private_data = tr_index;
-+
-+	return 0;
-+}
-+
-+static int trace_options_release(struct inode *inode, struct file *filp)
-+{
-+	void *tr_index = filp->private_data;
-+	struct trace_array *tr;
-+	unsigned int index;
-+
-+	get_tr_index(tr_index, &tr, &index);
-+
-+	trace_array_put(tr);
-+
-+	return 0;
-+}
-+
- static const struct file_operations trace_options_core_fops = {
--	.open = tracing_open_generic,
--	.read = trace_options_core_read,
--	.write = trace_options_core_write,
--	.llseek = generic_file_llseek,
-+	.open		= trace_options_open,
-+	.read		= trace_options_core_read,
-+	.write		= trace_options_core_write,
-+	.llseek		= generic_file_llseek,
-+	.release	= trace_options_release,
- };
- 
- struct dentry *trace_create_file(const char *name,
--- 
-2.53.0
+I think the risk is pretty low.
+I am not sure if Sean could provide some insight about this in google's userspace
+VMM.
 
