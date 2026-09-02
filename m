@@ -1,266 +1,174 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2E034AC156
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 20:43:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8830F3876B2
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 20:44:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788381842; cv=none; b=lC6YDRGf5NXDafeynEQ2YnKX/vvCCqouL179Kw78HBHoSJf+h7NvbdbJosinSn9KIHJu+gitMnpPWLjZBjO4gBQ+LnpVWLzwfhg/k3Ac19/d1WRKtIbf8WkbQodErYqeUh7mhoz1qG/B+dALXYQtjefBVDvfIpbzt/8xy+5+2LQ=
+	t=1788381867; cv=none; b=dCDIgqtv8IUfYedSnLTADvm5YMEe2pAomSc3sc6tvyhrtsziH8cuDwm5/MEeIaHvgiiJfLbl/bd3XESUolhtAvxW+obLkXk1JHaf74mNx0m/GMf6GngsJ6pp04zSV/fG3c033ZNdfmFg180JnJQBMrAI88I9ScbBBk/YODLaUdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788381842; c=relaxed/simple;
-	bh=1z4hVKzisxhIRAyUw1nUzgWZ8W2mVCExFvXktTWACio=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BAAUPIYaIt9UdFWRO2VT0XwfFGTHheahVymidHbRkhVmKqts7TqQuQiXcKQ8msX4ptlDhTWt8cqFJiuWT7NZv/AiXoRWBnt6AYgiyVtmjnjI+AL6ZLCE0+FRw2aGnOPpt6W3EatbVH9PQ6wPzZKDx8bQf8nifHwbCjgpm9Ze69k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FV1B1HSm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XRXsCEvv; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788381867; c=relaxed/simple;
+	bh=t4ZEzWp1y1W9VaBiAdoym+vJF/RLWhP7llUrcF76EdI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iIvOftZ36Mp8tEBNnbiNvot9QMAW2D6Aqe5aY7nZPjnGmLSFt8LCPWLYH5s+F8QVLUPdCBhJMzWbfw6yRSMf8PTAaZLcH3SIQpmJPq8M1ZlQtp+e6CyzjhjeKFj+MgNmR5p+zxiApq4eQYxoh3MrDs/ZmV7/XAGHa3QbtoP9XQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=XVQzb6Tn; arc=none smtp.client-ip=209.85.215.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FV1B1HSm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XRXsCEvv"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682KHBdq1382959
-	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 20:43:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=anNy8s/uZds
-	UFbHr0PSErFrn5JflynV/wHlQiG06h5o=; b=FV1B1HSm06f0R/HNIafhtB49I5c
-	YN09Aw27Q6EyVsunlo5GvQWhlWrza+Pz/pl1CtiaSy9KFIWjoTDAmXAkLRJroE3W
-	4QZgKDMswho5MH/nsJgXZgjrB63WGYT049TbkZQuNyZ9CDj+flYSDrxgvqsrbLwT
-	glfptu35bZ/mdigTHDmmJ0MI4yF7QgUJ37x0SNwYiDkkr3NW3fUMjVFMwo3eAtud
-	oitv64Y2zOYmE4bcUlJpklm2q32WTy6rvwoB9N0uqR1KVWnpK2ITHlvOAAxV1wwR
-	nQLEKEyukJy4ldCoqrYK97IvIrYrtpDcOqLnZQmgne75bSASPW/YZyhvhsg==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gemja1vd4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 20:43:56 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39906175917so2038758a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 13:43:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788381836; x=1788986636; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=anNy8s/uZdsUFbHr0PSErFrn5JflynV/wHlQiG06h5o=;
-        b=XRXsCEvvm/Q1EMLZ3zVnlQKcMY5/bOnnxXp4o41W9goBcODfGxP5NZLIta0D5IiUlE
-         +5C8qyJZGfWGkDB9uZmx4lJyaTXX7Rbys7Kfv0vKL9ezcM/A9fQHwAu0LgzXQRpEEGTs
-         bwzh4TaRiGxzHGsAUtPivMARY7WSR1Re8zN2xETx+e159vxEkzw2hUx3s3Tqyj86vWqq
-         rDUWnmwnXoBglAV354EjcWbC58C6EL2MiurdPuxR+uGenKSJ1vA6Mrpog7Qx9UxQoX3y
-         Xx04nnfWYcFeosADRtJssy9k6IPoX2cQzgW/WvOqB0Bvq5+mwrCwRLTPptQEggNRgI2J
-         WUWw==
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="XVQzb6Tn"
+Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cc147d86bebso351398a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 13:44:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788381836; x=1788986636;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=anNy8s/uZdsUFbHr0PSErFrn5JflynV/wHlQiG06h5o=;
-        b=sdGAPbBEs8/KLAolLdGmSGXYehnvddI6+jkPF/afWXSSMZIrK+M2Q9DeisNFgMlXY8
-         8YPyxsER8mliEHwLe8aH3CjayoNJOQMLfZyfCvQ0SmLSEOgx7gxxefVAcwAdraA5vdcY
-         j4sfgqzjO9XfJXbRSbsTwAeAkfDpndDLb0KCG+a7p3kTtt6j13CrPL3X5qLnB8+jRRDa
-         fXLopAanOJSOPXbjvpx8QvWkV+VtSMGmpl1zCWU1t7oyWP+aF5X/9gJNVyalWlC4JuVC
-         X+X7E7YwPsC19og/tfCanF1YritAeY36OvLQtZmDpaH1jPU069zIXcjdPbPSelWJj24s
-         iJkA==
-X-Forwarded-Encrypted: i=1; AKwUvBybXfz3aDhCqNmWa4Xj9jJt5qZCm44HVDLOzgsTB1WDfxJixk8iZv7a1DOwNtdekdFJTSvLGDIMqifmRyI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kq/05ldv2xc/Ebi3+pndyubOxb2XQ4PAVB2UQX8tY6IA1OLmzJ
-	XBO0Zta7FG854U3+8iZpUQSdN8CEEmrLuan9XsRlXVJGz911jzmkajok8AOmaVh1xoGroG9pq/v
-	JEVeGEpN/YUtHvn0O9nYAgNmdu2HUWAkPLoxFN2UmoKvgOAm/GKVOU20ZR1Nm1YzNcJ4=
-X-Gm-Gg: AYBFou2SoTHt+QQ+BRPCTeeXKGv0HbecNOx9uKVf8w9rkWQl0Touyz4kYHfKmvyv3hS
-	YA7pvXvN50Q4ZIckdSnpuFkAFEFYWvHWU3216YG+NmYqUBDpWqNbk+MuW4N0hHERF0iymRq7aiW
-	WouQdT8Ddk7n4uXUDj7EsyFoviUAbsmKtTiR3CcsQWY3I7XGEFqRT5GPPhNznRohQ9TcLSR/5vo
-	9cj8ct+a9wJVO1OZMns8CjnuT2rOowVnAt2+nIbKp7tztqaVPiVIUI8jto9EyShvP1RqhRsOi8b
-	4xCJIjd7AOCPOcXhJ6p9e2d+IfdzvMtOSlJTNJDHA9hVoBbgm/XNi53BSXgX/IFbKOsifrPFvLE
-	Arp7HpMDvDuFoAIrE7TxaGVOLooc=
-X-Received: by 2002:a17:90b:280a:b0:38e:250b:122f with SMTP id 98e67ed59e1d1-39aee085053mr11007119a91.16.1788381835982;
-        Wed, 02 Sep 2026 13:43:55 -0700 (PDT)
-X-Received: by 2002:a17:90b:280a:b0:38e:250b:122f with SMTP id 98e67ed59e1d1-39aee085053mr11007070a91.16.1788381835393;
-        Wed, 02 Sep 2026 13:43:55 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33255d39d21sm613338eec.16.2026.09.02.13.43.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 13:43:54 -0700 (PDT)
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Subject: [PATCH v2 3/3] remoteproc: qcom_q6v5_pas: add per-PD proxy performance states for Hawi CDSP
-Date: Thu,  3 Sep 2026 02:13:34 +0530
-Message-ID: <20260902204334.2061226-4-mukesh.ojha@oss.qualcomm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260902204334.2061226-1-mukesh.ojha@oss.qualcomm.com>
-References: <20260902204334.2061226-1-mukesh.ojha@oss.qualcomm.com>
+        d=1e100.net; s=20251104; t=1788381865; x=1788986665;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PD094jSE9LfhMHsvJNe0MdQ7eQ98KtiXjUQDqdbLmUE=;
+        b=oekTypehvSmMzMfw6DDjsMwNSBknz1Fmd116PecnCLgMJLOUmuHzFib184z9ixWsV2
+         dHEqCOmQ1ZlFKw2Bq0ivE53f+KeUawjY56HZMEdvJ3G83RzrKHfzwjarWdtqE8CVyELq
+         uL09/uB9mn93BnF1n/eNMY/nLNDcdkBxBsteQzuLz/gHnZ8lXoGbJNo3lq4L0sFlus5F
+         2VrfjoL1qAp2OyVLmk8uYo6vONlgnq1QelviEcHJXcnR4LydBpa9O/RhmuSIqzmDuScq
+         NI1iL4Zxroc+5A759Y8O1dLba5c4pqs1eyDNB1WldGvqbH77Fk0P96t94Pr+qwVHvoee
+         Dqag==
+X-Forwarded-Encrypted: i=1; AKwUvBzI8iHk8qr45MU6cCcJuPmh/Tg8TwI9I4DApRUbpDw5d7Wob1l4W+pBrMQqnAdj7v8HTWBszwtEzNCIzl0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lCGIN/8LTSczWOPgTsu5aDJrnI4HkKQR2QZAcdUgLEFaiUjm/m
+	nSD2PJr/9TxXrX7keLi8MnifiTSQBFhauYPZOMDZWSO08J8ovdWihnjT1UxlrUS0o3nNgUapiXp
+	hw9aT/Fm7m/US293o+qDF1Ij24lZjjyhXydW0HRifoPN9LcbPvMHZKZFvQNtVoyimD0ONNyva/2
+	nV+ZcFakpOpahJauXjFzLGDHTKAp6jyu3O5l5ipyNVVzpa3ng8JCjqHopCHy0HeD+Yb4FnLjn2K
+	d2RcbbdzyA5R3XDjc0LmdQr
+X-Gm-Gg: AYBFou0bKUfGQnLSKuMPUCSi13q0EiRhNyIPhSQfB1MThbwexscjjlUpD5rb76CYboe
+	9lCGsiu6XBsgGxF8THbRe4iZCambhtOwMcwbVZrQihN2LnB6hq9wVDgGZGIxGGti34KK9FmQbyT
+	L1EbcZ6R9KYINcW28URXenm+rCz0nYXU9CODkx3fCu3S1S3ADzQPpvNaRmQWL324EkjrfXSO3Fx
+	X6tVALPmmXZJnJf0rsKZNFywd6rt/QNhbh9UmzjcKDjs7NeaPyOVzF8WKQBP3Qq0qUw177OEK+r
+	zCiybb2Fn0BCUs9lh517IQjVIKaViVXl2hTCQcYyZxlbbh/IjtEibuAgc1epPASqVhLLBX7RxRP
+	TDRDScgcfp3SHG9ULF1nZHJTXYBhDXCBzGO4Ray4oCoUQT7WJdxvvfntWCBSaQjlBkTx22MBEHO
+	wn4Dlt4kmryrYjlDfGkAYjOmcvs+lcXeDor7ifl5A8
+X-Received: by 2002:a17:90b:2e46:b0:38f:a81:15b1 with SMTP id 98e67ed59e1d1-39b08653554mr1802302a91.19.1788381864595;
+        Wed, 02 Sep 2026 13:44:24 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
+        by smtp-relay.gmail.com with ESMTPS id 5a478bee46e88-33258cbda19sm11275eec.11.2026.09.02.13.44.24
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Wed, 02 Sep 2026 13:44:24 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1cade6b71so281521a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 13:44:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1788381862; x=1788986662; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PD094jSE9LfhMHsvJNe0MdQ7eQ98KtiXjUQDqdbLmUE=;
+        b=XVQzb6TnVQN9NYDcHInTlkNuvhdPZyaPRUdK8js1PqYN9IMvrJrIXNSJm9USjKmdJG
+         GbmsVNN7+h4QMc66SiLah71IWrd+QIkGzrccAFoET+cZUJQB+kxazM3ygA7WRh7jJWME
+         G1UatDltCCG6xwA2BjL9p2ZvGbFne/0X6hodE=
+X-Forwarded-Encrypted: i=1; AKwUvBwbmtqH6WkA1ccsknFeQpXsM8oeCKUfR8NSLBDMnsMirt7atyJPs2ArPHiM9ap+8/MQJPcOEkePw8OHaKs=@vger.kernel.org
+X-Received: by 2002:a17:90a:d446:b0:395:c3f7:2895 with SMTP id 98e67ed59e1d1-39b07f2f50amr1792410a91.7.1788381862372;
+        Wed, 02 Sep 2026 13:44:22 -0700 (PDT)
+X-Received: by 2002:a17:90a:d446:b0:395:c3f7:2895 with SMTP id 98e67ed59e1d1-39b07f2f50amr1792375a91.7.1788381861863;
+        Wed, 02 Sep 2026 13:44:21 -0700 (PDT)
+Received: from [10.211.247.235] ([192.19.50.250])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3325534cd65sm635205eec.6.2026.09.02.13.44.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 13:44:21 -0700 (PDT)
+Message-ID: <e84774ae-b49d-4df5-923d-ae2cde480aaf@broadcom.com>
+Date: Wed, 2 Sep 2026 13:44:27 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: stccog3wmjy6F4UE09PDn4l0RqcWE7-R
-X-Authority-Analysis: v=2.4 cv=FeAHAp+6 c=1 sm=1 tr=0 ts=6a988a8c cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=EzEDkhfgfUAEW4_RwPsA:9 a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE4MyBTYWx0ZWRfXxukMtywXJfnE
- HR/qLrlvc5UefbbXbNebTiHu48at1DreFTCK7NeYj2nXotkFhNxy5NSqdm52dNTw4h2IUhSheSd
- bgkFf6CdCkFh/qDjFdqFJo+uiLupaWM=
-X-Proofpoint-ORIG-GUID: stccog3wmjy6F4UE09PDn4l0RqcWE7-R
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE4MyBTYWx0ZWRfX42qp8FXbhPSI
- rN3FaFdYDWDMUeaIkTeYFQ4sB0PiYFZdX7YqK79hxnYI5qhnBo5sV2d2zj7PPxMUCaulcBYTwxO
- KW4yuIpS2AuKCnbdcjo+mYCkyYhnxgmgxudRZNovzhqNRKdnQsU4iM5vOZDMf15Lbohb8pLdWVe
- 8v4whMyX5RwdDfpr0gts+wtHzCiBbxwLSiaT1MzdxbFgh2ss59FaCvaXoh/1sCWfrdhozpfX0yG
- nd2QAD/byte0z+2vITce0YJqrpiEeUp7MCE0MdRXSyJAus0yU2JGmBM6fuI5K/yz7wuaPfULhAK
- eEHzWWxX+n5d+foV6uZmfpLfvuDhl8BIOQqiHKJhaAySD0SjHoVqspmtOpT01XHf+loNKP7BAlo
- A7gIPaqegBgziw7UBEb/Y756NgZUlGoD7mVTg1ah1U/P98rAyJRrqYuAciAoQwJY6lJvqlDq5ZZ
- uiG29Kj93/T6Z+IFfQQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_05,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 impostorscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
- priorityscore=1501 bulkscore=0 phishscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020183
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] drm/vmwgfx: Treat zero SVGA_REG_CURSOR_MAX_DIMENSION
+ as unset
+To: fausten <yunfeng.li.nb@gmail.com>, dri-devel@lists.freedesktop.org,
+ zack.rusin@broadcom.com
+Cc: bcm-kernel-feedback-list@broadcom.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ linux-kernel@vger.kernel.org
+References: <ef11cc4a-fbaa-415a-bda1-2ac491f3b5e2@broadcom.com>
+ <20260830151619.2452307-1-yunfeng.li.nb@gmail.com>
+From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+Content-Language: en-US
+In-Reply-To: <20260830151619.2452307-1-yunfeng.li.nb@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-The proxy power domain enable path requests INT_MAX performance
-state for every proxy PD. On Hawi, the NSP proxy power domain's
-RPMH power domain has no OPP at INT_MAX, while CX and MXC accept
-INT_MAX, mapping to their maximum supported level.
+On 8/30/26 8:16 AM, fausten wrote:
+> The cursor plane code validates cursor dimensions against
+> SVGA_REG_CURSOR_MAX_DIMENSION before every cursor update, and
+> rejects the update with -EINVAL if the cursor is larger than the
+> reported maximum.
+> 
+> However, this register is only available on hardware versions 18
+> and above, which introduced cursor MOBs. Older hardware (e.g. a
+> VMware Fusion guest with SVGA version 2) returns 0 for it.
+> In that case every cursor update is rejected,
+> and the log is spammed with:
+> 
+>   [drm] Cursor dimensions (64, 64) exceed device max 0
+> 
+> The visible symptom is that the hardware cursor never appears at
+> all on VMware Fusion guests (SVGA version 2), making the mouse
+> pointer invisible even though the input devices work fine.
+> 
+> Treat a reported maximum of 0 as "not implemented" and skip the
+> dimension check in that case, restoring the pre-existing behaviour
+> of accepting the cursor.
+> 
+> Tested on VMware Fusion with an SVGA version 2 device where the
+> cursor previously did not show up.
+> 
+> Fixes: d5ed8749168a ("drm/vmwgfx: enforce cursor size limits for MOB cursors")
+> Signed-off-by: Yunfeng Li <yunfeng.li.nb@gmail.com>
+> ---
+>  drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
+> 
+> ---
+> Changes in v3:
+> - Use an explicit cursor_max_dim > 0 comparison (Maaz).
+> - Fix the comments: the register requires cursor MOBs which exist
+>   only on hw version 18 and above; it is not Fusion-specific
+>   (Maaz).
+> 
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
+> index d1e7df500..3d4660684 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
+> @@ -237,8 +237,10 @@ static int vmw_cursor_mob_get(struct vmw_cursor_plane *vcp,
+>  	mob_max_size = vmw_read(dev_priv, SVGA_REG_MOB_MAX_SIZE);
+>  	cursor_max_dim = vmw_read(dev_priv, SVGA_REG_CURSOR_MAX_DIMENSION);
+>  
+> -	if (size > mob_max_size || vps->base.crtc_w > cursor_max_dim ||
+> -	    vps->base.crtc_h > cursor_max_dim)
+> +	/* Cursor MOBs, and thus this register, exist only on hw version 18+. */
+> +	if (cursor_max_dim > 0 &&
+> +	    (size > mob_max_size || vps->base.crtc_w > cursor_max_dim ||
+> +	     vps->base.crtc_h > cursor_max_dim))
+>  		return -EINVAL;
+>  
+>  	if (vps->cursor.mob) {
+> @@ -748,8 +750,10 @@ int vmw_cursor_plane_atomic_check(struct drm_plane *plane,
+>  		u32 cursor_max_dim =
+>  			vmw_read(vmw, SVGA_REG_CURSOR_MAX_DIMENSION);
+>  
+> -		if (new_state->crtc_w > cursor_max_dim ||
+> -		    new_state->crtc_h > cursor_max_dim) {
+> +		/* Cursor MOBs, and thus this register, exist only on hw version 18+. */
+> +		if (cursor_max_dim > 0 &&
+> +		    (new_state->crtc_w > cursor_max_dim ||
+> +		     new_state->crtc_h > cursor_max_dim)) {
+>  			drm_warn(&vmw->drm,
+>  				 "Cursor dimensions (%d, %d) exceed device max %u\n",
+>  				 new_state->crtc_w, new_state->crtc_h,
 
-Introduce a proxy_pd_performance_states array in qcom_pas_data
-to allow per-PD RPMH levels to be declared explicitly. Platforms
-that omit this field retain the existing INT_MAX behaviour.
+This patch bricked my testing VM, investigating..
 
-Add Hawi CDSP remoteproc support with the following proxy PD
-performance states:
 
-  CX:  RPMH_REGULATOR_LEVEL_TURBO
-  MXC: RPMH_REGULATOR_LEVEL_TURBO
-  NSP: RPMH_REGULATOR_LEVEL_NOM
-
-Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
----
- drivers/remoteproc/qcom_q6v5_pas.c | 50 ++++++++++++++++++++++++++++--
- 1 file changed, 48 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-index 01dc0194e130..c8bba2418d0d 100644
---- a/drivers/remoteproc/qcom_q6v5_pas.c
-+++ b/drivers/remoteproc/qcom_q6v5_pas.c
-@@ -28,6 +28,7 @@
- #include <linux/soc/qcom/mdt_loader.h>
- #include <linux/soc/qcom/smem.h>
- #include <linux/soc/qcom/smem_state.h>
-+#include <dt-bindings/power/qcom,rpmhpd.h>
- 
- #include "qcom_common.h"
- #include "qcom_pil_info.h"
-@@ -51,6 +52,8 @@ struct qcom_pas_data {
- 	bool decrypt_shutdown;
- 
- 	char **proxy_pd_names;
-+	const unsigned int *proxy_pd_performance_states;
-+	unsigned int num_proxy_pd_performance_states;
- 
- 	const char *load_state;
- 	const char *ssr_name;
-@@ -79,6 +82,7 @@ struct qcom_pas {
- 	struct regulator *px_supply;
- 
- 	struct device *proxy_pds[3];
-+	const unsigned int *proxy_pd_performance_states;
- 
- 	int proxy_pd_count;
- 
-@@ -167,11 +171,16 @@ static int qcom_pas_pds_enable(struct qcom_pas *pas, struct device **pds,
- 	int i;
- 
- 	for (i = 0; i < pd_count; i++) {
--		ret = dev_pm_genpd_set_performance_state(pds[i], INT_MAX);
-+		unsigned int state = INT_MAX;
-+
-+		if (pas->proxy_pd_performance_states)
-+			state = pas->proxy_pd_performance_states[i];
-+
-+		ret = dev_pm_genpd_set_performance_state(pds[i], state);
- 		if (ret)
- 			dev_warn(pas->dev,
- 				 "failed to set proxy PD %d state %u: %d\n",
--				 i, INT_MAX, ret);
-+				 i, state, ret);
- 		ret = pm_runtime_get_sync(pds[i]);
- 		if (ret < 0) {
- 			pm_runtime_put_noidle(pds[i]);
-@@ -877,6 +886,7 @@ static int qcom_pas_probe(struct platform_device *pdev)
- 	pas->info_name = desc->sysmon_name;
- 	pas->smem_host_id = desc->smem_host_id;
- 	pas->decrypt_shutdown = desc->decrypt_shutdown;
-+	pas->proxy_pd_performance_states = desc->proxy_pd_performance_states;
- 	pas->region_assign_idx = desc->region_assign_idx;
- 	pas->region_assign_count = min_t(int, MAX_ASSIGN_COUNT, desc->region_assign_count);
- 	pas->region_assign_vmid = desc->region_assign_vmid;
-@@ -912,6 +922,14 @@ static int qcom_pas_probe(struct platform_device *pdev)
- 		goto unassign_mem;
- 	pas->proxy_pd_count = ret;
- 
-+	if (WARN(desc->proxy_pd_performance_states &&
-+		 desc->num_proxy_pd_performance_states != pas->proxy_pd_count,
-+		 "proxy_pd_performance_states count %u != pd count %d\n",
-+		 desc->num_proxy_pd_performance_states, pas->proxy_pd_count)) {
-+		ret = -EINVAL;
-+		goto detach_proxy_pds;
-+	}
-+
- 	ret = qcom_q6v5_init(&pas->q6v5, pdev, rproc, desc->crash_reason_smem,
- 			     desc->load_state, qcom_pas_handover);
- 	if (ret)
-@@ -1802,6 +1820,33 @@ static const struct qcom_pas_data glymur_soccp_resource = {
- 	.needs_tzmem = true,
- };
- 
-+static const struct qcom_pas_data hawi_cdsp_resource = {
-+	.crash_reason_smem = 601,
-+	.firmware_name = "cdsp.mdt",
-+	.dtb_firmware_name = "cdsp_dtb.mdt",
-+	.pas_id = 18,
-+	.dtb_pas_id = 0x25,
-+	.minidump_id = 7,
-+	.auto_boot = true,
-+	.proxy_pd_names = (char*[]){
-+		"cx",
-+		"mxc",
-+		"nsp",
-+		NULL
-+	},
-+	.proxy_pd_performance_states = (const unsigned int[]){
-+		RPMH_REGULATOR_LEVEL_TURBO,
-+		RPMH_REGULATOR_LEVEL_TURBO,
-+		RPMH_REGULATOR_LEVEL_NOM,
-+	},
-+	.num_proxy_pd_performance_states = 3,
-+	.load_state = "cdsp",
-+	.ssr_name = "cdsp",
-+	.sysmon_name = "cdsp",
-+	.ssctl_id = 0x17,
-+	.smem_host_id = 5,
-+};
-+
- static const struct qcom_pas_data eliza_cdsp_resource = {
- 	.crash_reason_smem = 601,
- 	.firmware_name = "cdsp.mbn",
-@@ -1831,6 +1876,7 @@ static const struct of_device_id qcom_pas_of_match[] = {
- 	{ .compatible = "qcom,eliza-adsp-pas", .data = &sm8550_adsp_resource },
- 	{ .compatible = "qcom,eliza-cdsp-pas", .data = &eliza_cdsp_resource },
- 	{ .compatible = "qcom,glymur-soccp-pas", .data = &glymur_soccp_resource },
-+	{ .compatible = "qcom,hawi-cdsp-pas", .data = &hawi_cdsp_resource },
- 	{ .compatible = "qcom,kaanapali-soccp-pas", .data = &kaanapali_soccp_resource },
- 	{ .compatible = "qcom,milos-adsp-pas", .data = &sm8550_adsp_resource },
- 	{ .compatible = "qcom,milos-cdsp-pas", .data = &milos_cdsp_resource },
 -- 
-2.55.0
-
+Maaz Mombasawala <maaz.mombasawala@broadcom.com>
