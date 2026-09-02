@@ -1,164 +1,393 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010008.outbound.protection.outlook.com [52.101.46.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51FDD2798F8;
-	Wed,  2 Sep 2026 14:17:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788358622; cv=fail; b=N9ZYqQ5Bx2Vh3Qcl7VPBVyW9nKMIA2Ryb4jvSe9Ju1IDN89oW89UsMUAQXmxJ6/SoP771F5MFHNNpsFeA3e2HIZi6K3o2SQ2ymfjgE1wZuD1/VifgYzuxGvfs0Y4PhDwylBJ8QnEXuDF1C/Xkauwju20EhJNga/7u/UNr9GlR6E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788358622; c=relaxed/simple;
-	bh=RvjEFnVgLs+8jTbnFDFEWi72YS9zWiflLATxhfZ3fdc=;
-	h=Content-Type:Date:Message-Id:Cc:To:From:Subject:References:
-	 In-Reply-To:MIME-Version; b=XeSWs472V91XrwUtgpSSwcmCh5RDsYqiMbtgYLH/8os3HWqV2m3pnlZg/sQKqOYPYV9oEx/ubEjtCUuYQ/aLWWyhiI/Sjctd4NuZPbSJfJw+KH244f7CpoxyTp5oUO2Q9Yi9tqwMkuxGReXH3+tFm0NOE8BYUKlk2g4qWRajsjw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=cUo0FRXg; arc=fail smtp.client-ip=52.101.46.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D33359A99;
+	Wed,  2 Sep 2026 14:17:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788358648; cv=none; b=AX97d92ySEL2VPiC0zGl/nOzlCT7q7fvcpONY+bb8pvIA4M/59gutEqCiFlKohzsiePSgtZqWMDWPBRqIlyuKbaszzfjAvRlTHnpqdLv3gHg0kd8UuJWR+cdGuXjFYTbXlqyxeudU9iYQ3HrvcBK1Tc+6pXyf0pqkqxkxy2kxiM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788358648; c=relaxed/simple;
+	bh=FwPVBjM6WDtr4igzSsFDhNcXUCB70q4BO8C4Rz5MH0I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kijDktGjYUlrL1Lnm9ZBgy2xCTe5ccGCcbVhYdVHE7A+vIqDBe2kr46HQN+qUK4IwSJXE5iGxEVfLE0ntzLaN0/3Kgo0QWMGPXmRNvlt2JBT3vYwzR58GIOycRQFCB1Pd/yaJywfML3JgvfKkBTa6FYR1tsYj9OkA97xMytvbvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=L3wFQr/b; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=1/ij3B4c; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=NZnqSHuZ; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=bJGOY14I; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="cUo0FRXg"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F6lUbXQgSk2iR5q3TSZC7Kb6VSUUF/SRE6LF+fvpIJ3sZgEOc4hzZg+jQZ314RiLYDHE4i4iZoVhRunupZ+bxxEhpuTNaqM1Y0hGn5RUdBmTVf4JuTedLt4KvdfP0IYD/kM1uqiqT2OzrqXs1dCqLdUTYsAEbMgBfRC+fg2hEl/urie6RfpNZtWmc3zHhJ4rwFuhRV+wHAxfbvOM4UVksBemoo1l4TjDz4MZdNhlbWFAlQims8SEGrHGliEdywkzhsy+bqN8tHFwVbo9LqTZYayFAJEPPEps/T41jjVvcVvPV/FeeB6kW30hRd2/dL3WGcgJYu1vaBoS44jO8gG7lg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2Miuf6NFFGDj/xeqju29xmDwUM2Do9Wc8EizonD2Orw=;
- b=dHooAkDBagZWhKgguf27dfMYuNrDEU+AXBxNGyKzjRRcstLRyTPbCQRQ5F2UKlfXd/36gHXz90N0P7vZrt0p4KOvk27Og7xQ9yCk2TdQeoMVGnKuT8AP/n9+Acxx9Irt/Xd0Qbo5weu+t51WqzOggBweUKpvckLgtaHUIhWVJTW4TNpCbG5mJrkBCiC4jD8nYhs2vXsTwfeaCmE18NqeSKPh+oyQTyN9KmQcdpBpFGdHJiJe6k3QB9HUiip2XX9IpKETpMHyQoST4I7vf4dPFXCNjjRmw57CCp+kjwRMZ4p6u/7PAW9A+Os3SOmZtpdPSEF71srQwFWa4VxIoTGTIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2Miuf6NFFGDj/xeqju29xmDwUM2Do9Wc8EizonD2Orw=;
- b=cUo0FRXgedvCTuRtNN0zmQ4eMxCdqUsshW5VSD6wsbwv0qv4av0xZW7y/qdxeZwogi6fLDnQW9edwtbvBufuHun1mgZoK0+l5K3+s9pTi/jsZjD7VSIgYRYFA7WAlu6CSDsWddztWmZCYe7jpyQjs+qDkbseVJPU8HNP+7BDQUd4bMLxWtuz+3Y+0GHS/NzT49yO7viAngdQoVN9AXGXsPheakmCbAmtVUvzoMDJ8K26U9YyYrIQKnLI7ut4vbqT5P3AAVtKkOd4f0YJ+DYuZm/bndAMB5ATTKU8trZ/p+tMA/gGCbxzT06WXaDwR/6SSl2Ac6FkXOsO2IoOcVstsQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by LV3PR12MB9214.namprd12.prod.outlook.com (2603:10b6:408:1a4::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Wed, 2 Sep
- 2026 14:16:53 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 14:16:53 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 02 Sep 2026 10:16:51 -0400
-Message-Id: <DL4W7WD7HX8H.2SFIEJUGT6QCA@nvidia.com>
-Cc: <linux-mm@kvack.org>, <linux-kselftest@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-To: "Yeoreum Yun" <yeoreum.yun@arm.com>, "Andrew Morton"
- <akpm@linux-foundation.org>, "David Hildenbrand" <david@kernel.org>,
- "Lorenzo Stoakes" <ljs@kernel.org>, "Baolin Wang"
- <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>,
- "Nico Pache" <nico.pache@linux.dev>, "Ryan Roberts" <ryan.roberts@arm.com>,
- "Dev Jain" <dev.jain@arm.com>, "Barry Song" <baohua@kernel.org>, "Lance
- Yang" <lance.yang@linux.dev>, "Usama Arif" <usama.arif@linux.dev>,
- "Vlastimil Babka" <vbabka@kernel.org>, "Mike Rapoport" <rppt@kernel.org>,
- "Suren Baghdasaryan" <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>,
- "Shuah Khan" <shuah@kernel.org>, "Kevin Brodsky" <kevin.brodsky@arm.com>
-From: "Zi Yan" <ziy@nvidia.com>
-Subject: Re: [PATCH v4 1/3] kselftest: mm: prevent random failure of huge
- page split for khugepaged
-X-Mailer: aerc 0.22.0
-References: <20260902-fix_split-v4-0-85f03905f7b1@arm.com>
- <20260902-fix_split-v4-1-85f03905f7b1@arm.com>
-In-Reply-To: <20260902-fix_split-v4-1-85f03905f7b1@arm.com>
-X-ClientProxiedBy: YQBPR0101CA0232.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:66::13) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="L3wFQr/b";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="1/ij3B4c";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="NZnqSHuZ";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="bJGOY14I"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 9F82921D3F;
+	Wed,  2 Sep 2026 14:17:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788358640; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=p4RQwWuyLKt+grbW0xzASr3HAd7YWAOvVZAb7y/By+M=;
+	b=L3wFQr/bXr26CAMIfuqfeP189/TLFsQIdNXXJW/hieMKMZT2HqQ8ANy8ckp3/2GpcCdIuH
+	sdJdEb7WYar1uRkJQfUdM8dK96OXDaVmAvhOsBGEbhG+MatB7gkdVKiOHa/wa1FJPQPxXy
+	ECWtbLKyUOE1HaV0w//UqNkF4uzzf/4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788358640;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=p4RQwWuyLKt+grbW0xzASr3HAd7YWAOvVZAb7y/By+M=;
+	b=1/ij3B4cxBjZb0X9Gowa/Ps9VYZtS5dpa08RwVCTfrYsPhmqOqqXk1LUdk+zAknlMsX6qW
+	qsWi7EJ1Q5DJTeDA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=NZnqSHuZ;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=bJGOY14I
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788358636; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=p4RQwWuyLKt+grbW0xzASr3HAd7YWAOvVZAb7y/By+M=;
+	b=NZnqSHuZFUZUrgf/+N1vBEl+Nr1mSXYfvsuXPiBKLXULuFKCVDSiD0uEqAHowgjfCjoBGy
+	8zqdCVJmWPy4sngdOKdlEfUbFbkJuZb/bQMSCIqnn3WDU5Up+Lcj2Lu0cveccJqmksj5mm
+	docMP/i+1nKGknqf/ynsF/GrPaZZ1JM=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788358636;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=p4RQwWuyLKt+grbW0xzASr3HAd7YWAOvVZAb7y/By+M=;
+	b=bJGOY14Ig7XO6uTM/+RlZU/ROgz/5xsIbKUgqGsZGPeqWh/kNcjNLKJlCpv9QfyG5wkZyP
+	uWwzNl650OrhG3CA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 727FB13736;
+	Wed,  2 Sep 2026 14:17:16 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id qCTyG+wvmGo6CgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 02 Sep 2026 14:17:16 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 1B98AA13B5; Wed, 02 Sep 2026 16:17:08 +0200 (CEST)
+Date: Wed, 2 Sep 2026 16:17:08 +0200
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Christoph Hellwig <hch@lst.de>, 
+	Seth Forshee <sforshee@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+	linux-security-module@vger.kernel.org, Mimi Zohar <zohar@linux.ibm.com>, 
+	linux-integrity@vger.kernel.org, Ilya Dryomov <idryomov@gmail.com>, ceph-devel@vger.kernel.org, 
+	Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, Miklos Szeredi <miklos@szeredi.hu>, 
+	Amir Goldstein <amir73il@gmail.com>, linux-unionfs@vger.kernel.org, 
+	Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 08/27] fs: port privilege checking helpers to const
+ mnt_idmap
+Message-ID: <djoty5t2d4uwprvtcbjilfzvo6xqbojrm36ckkep3mbqps7vsq@hnybw6gztpgl>
+References: <20260901-work-idmap-const-v1-0-54ccd48e100b@kernel.org>
+ <20260901-work-idmap-const-v1-8-54ccd48e100b@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|LV3PR12MB9214:EE_
-X-MS-Office365-Filtering-Correlation-Id: 10be5b8f-29cc-4aab-16ad-08df08fcd677
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|7416014|921020|6133799003|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	acnNfCV06qa3MYkaCrFRCWU762rioB+9rer9BxMEpR//IIyhNy1aaAzFjcCRfOYt65oosQwX9OudYBNcmVWp0BMWVegelsSTKxP6Y7oScHb3uWnLOMoABwdz/desta21yBUqT52+YBKoOolFy1KhT2tQSU7uUwzkZ3XEP83p8FL+lMCqQhoB8YCSdVE3B+XgPgqaLQY+00RjwevzLwB2P0Tq723Subq35d5qQDVTW9Ot4qVI/KKJC58WSijmTWND4OfVKjibLjlXM9V2ZS3LyEsePThN6n2gLK5RoX3A2k87MQiyWswABqcp3hUM6PQsMBoExHAMChhNdJlblTyaULtgkIEO5bUP+Qhp1/69ALx11iJ203V8vZJM9G+KRCiRJlRCLvQ/DkGIM3/4BUeqpi56HftUsgsIga9XVkIfZelFj+MylndHZY0Y4KtKMYAzdazaaXhT9w0yr4etb/asgODuIaFbykofOfXKitiJRZWVnNT5rgBFSIfLSR0idXvWaHvtNV/a/+TRofjVSmpZd/K1m9uH5z7WevCO0FIXvPHVT+w3pqY4ZY8V7NJioVkwgwloZCPzyt5KwayFn9eGRd8+LRKUPdQq8cIZejsk0AA5SjYzGnDhE36fFy2ZnUEi3VACeTw5yhvcu9oy5PMRLXbfnQk4tkKFodObRsRwRJabEcawx9xE7MwQ+p/zi4HDlO+lYLQyyB154LBsX3jLsA==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(7416014)(921020)(6133799003)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UWs3TTRteU1mR1M4MnRRQWcvamtxWVBFSUhhS1ZHaU1pMTRSQWEwaWpEa1Js?=
- =?utf-8?B?ci9OMk9HVEdvNEZwLzVGWkNjd3paM0Mza0xHSWNldEtoV2V1UDUzeDhxNVZR?=
- =?utf-8?B?WGtwZ2NQTldJZE9iNkJoSmNoZmw1d2ROMVBrd1g1c3pNZDZJL05EK1FTR0hi?=
- =?utf-8?B?TzdkWStTZnEyalJJY3djM2plUGk2clNtZ1lXaUtOMy9PL1ZDRjNuRXgzK25h?=
- =?utf-8?B?T1FaUFdPU3h2TjZjcnoxNmt5bEo5NzNUblJRQ25VQWptVWcwY2QrV295blhJ?=
- =?utf-8?B?cHB4Z1BqZWFzM2kyL2dsT3FXdWsySlVqY3RNb21nVFJ5Rzc0U0ZxTll2UlhU?=
- =?utf-8?B?VlUraUhvdHNqNlR1REErZjc3dFRtVmFpV2hicEU5TUIzbXltSU16a1Y1aWVk?=
- =?utf-8?B?cEdsbzhCS0tQNm5Wd1dTbTFZS2o1Mis5S3JFaWg1Y1JpK1JFVUt2S3ZZdGRv?=
- =?utf-8?B?UDlzRThrR3huYVp0YmZTRWRTUjhHY1ExRlBNQmhURGhnYVEzYUZRdkJCaXNr?=
- =?utf-8?B?YThManc2ZGFRalhFTGhvM0Z2UWsxTWhrRVpuTWtxdG9wdXNicTdya2Q2a2dP?=
- =?utf-8?B?TlFXUVBvWTBnQzRiOGRqVGlTUXVDU1dFQUNBNlVEdGxPSEZpczNwMlFxdlBT?=
- =?utf-8?B?U1ZUdkxlcllCZWRnNjk4TElsMEM3NXBoRGhWZzhldCtTN1hxWnk4U0J3K2dI?=
- =?utf-8?B?QzkxT1hYSW1PYW5LMmN6ZnM2NStkc2gybnZURzl5YUFWcXYvWnNTUjRBVkJi?=
- =?utf-8?B?TXVFR3hGOG1TcnY3RE11MVFwN3c1Mk0yV1o2MHBhVzhnaER5QzdoNUhqNjhM?=
- =?utf-8?B?R1AyL2RObzBqdHZ3YVNoWVdaK25NTFYzOVRaamVpUFpoUytmQ2pBRXk3aXl0?=
- =?utf-8?B?eFIrMExEUE1ZT2VDazVnc1I4cVRxc1IrT2QzOU5uNXNtT05PQzdXOGpVTmdZ?=
- =?utf-8?B?amNtOGVialQxS2x5QUhHb2ZkRDhXdStYOW9GWVE3RVdNNHZLVFlwMTFUdGFR?=
- =?utf-8?B?RklKVklsVjZBeVdSb2NVYWM1NnU2dGROZUthRFZlZitTVXFiWWpNNkVhMVFW?=
- =?utf-8?B?b0YxSXVrc21hL2UyRlBJVXg1a0dvakFWTEppaWNDWDZuaitXQ2ZIcUNoR0ti?=
- =?utf-8?B?MFNqckV5Nm1qWDNabzhtKzFyVUo1ZXJod0psQmJGUitzSGYrWlVmNkc1ZSta?=
- =?utf-8?B?TUJqSFZOSjh6eUk3RnpJaDdFcERJanZ6NVVIQ1lJWFZkckpCTitlZWJSd3RH?=
- =?utf-8?B?MjI1TTVQMlBhSG96WUMrazBrWDl5S1QvUk80K1BQS0l1LzVSMVh6czdhT0Zv?=
- =?utf-8?B?SWk1MXpuUjh5OWdrZXhKa1pFUXhUTFNDVWcwL1RLUnVUWEd5MThRcnZWTDY1?=
- =?utf-8?B?OW82SVlyTFhzZGNydisyK28wQXFMdWxDakJLNzUxUUlzWXkvdFpJNnJqTDRC?=
- =?utf-8?B?Ujl5eXFxeUo0YnZjTmoyK2lkb28rUy9uR0ZBWWNtN01sRnRCaE1ZRmRiTHls?=
- =?utf-8?B?Yk1iMHpBdVV3WlcrWHdYdnB2OFBERVlYWGNIZ29LVjVwamk2ekpsS0NUZ1FG?=
- =?utf-8?B?WmFMZ0oyanJ1S0IxN0xaSGpuc2VxNG45UENrWTVTNnYxYlc2SE9PTVpsYkRL?=
- =?utf-8?B?ZjhlR082RTlnbHBXNHNrNExsY0hxcDlBNzRJL201YXpyT2dudUNrL1pMR1R3?=
- =?utf-8?B?VjhzR0xKdDkyMDBvcGRmVmRDRVlISS83SEdST1JQazgvckFOODJIVHc2S2lv?=
- =?utf-8?B?T3Q1MnExaFErMHFMOXFqdTc0ZmtxOWc5QVNRcUZNbjV2akpUT0ZNZmZmUXRi?=
- =?utf-8?B?eWZqeEU4K0RqRGNJMldGc0ZURkJFU3IwbFVnUnV6WGZDV3B6NjR3a3R3OXU5?=
- =?utf-8?B?UytrVWZVODU5ODhOQm53Mzh3amwyUE05R1luTU1Gd1hlYjQ0aCtnQmo0VHl5?=
- =?utf-8?B?OHFMOUpzL1dyc09SNmczU1ozellIZTE1cVpKSUFBV3pBQjlEOVJiM0ZDeWRy?=
- =?utf-8?B?Ym5MZUFSdXJZQnE0VEJvdEllZlNqcE5pUjIzSS9HMWlVaWQ0V3VyczBaMG5W?=
- =?utf-8?B?QXpiTEpFT3psTnBMeGJwMlJhNHh0WjZwRFQzR0VTdG1yN3BrMklFTWE4NnFR?=
- =?utf-8?B?UEpaNUI4NHNnMFVVOUppTUJKUWRQUkRlTHNlWnVVUkgyZWJ5U1YzK3VZWExL?=
- =?utf-8?B?NllCZ1JSODM1bXBmRnRPRlBHcEVSM201UTY1K2dEVlNmTU1TMnB5QUt0VDA3?=
- =?utf-8?B?QVE5MTBqWXNqcVNoWXZDODB5djRabGZwNXFTOUFuNmZ2dmpmZHF4TFpHdzFB?=
- =?utf-8?Q?5/mcW+CtMYkttN9RZS?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 10be5b8f-29cc-4aab-16ad-08df08fcd677
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 14:16:53.4034
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hiwtKtt/Yn96h6Daa0RVykYBAgsSiz3Pm04hpThgo/JewTjOOOgrhE0LyW2Uj4dH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9214
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901-work-idmap-const-v1-8-54ccd48e100b@kernel.org>
+X-Spam-Score: -4.01
+X-Rspamd-Queue-Id: 9F82921D3F
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-4.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[20];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,zeniv.linux.org.uk,suse.cz,lst.de,kernel.org,paul-moore.com,linux.ibm.com,gmail.com,szeredi.hu];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:dkim,suse.cz:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Flag: NO
 
-On Wed Sep 2, 2026 at 8:09 AM EDT, Yeoreum Yun wrote:
-> There're some random failure for split_huge_page_test when khugepaged
-> collapses pages into pmd again which had split by the test.
->
-> Prevent the khugepaged's collapses for split page by setting the
-> mapped pmd-huge-page with MADV_NOHUGEPAGE before split.
->
-> Suggested-by: Kevin Brodsky <kevin.brodsky@arm.com>
-> Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+On Tue 01-09-26 14:14:33, Christian Brauner wrote:
+> Convert to const struct mnt_idmap.
+> 
+> A mount's idmapping is immutable. The only thing that is allowed to be
+> modified afterwards is the reference count and that is hidden behind
+> mnt_idmap_get() and mnt_idmap_put(). Everything else only ever reads
+> from the idmapping. This is the same model that struct cred uses and the
+> idmapping is also rather sensitive.
+> 
+> So make the idmap argument const wherever we can. The conversion is done
+> from the bottom up so callers can continue to pass a non-const pointer
+> to a const parameter until the conversion is finished.
+> 
+> No functional changes.
+> 
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+
+Looks good. Feel free to add:
+
+Reviewed-by: Jan Kara <jack@suse.cz>
+
+								Honza
+
 > ---
->  tools/testing/selftests/mm/split_huge_page_test.c | 19 +++++++++++++++++=
-++
->  1 file changed, 19 insertions(+)
->
-LGTM.
-
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-
-
---=20
-Best Regards,
-Yan, Zi
-
+>  fs/attr.c                  | 10 +++++-----
+>  fs/f2fs/acl.c              |  4 ++--
+>  fs/f2fs/file.c             |  2 +-
+>  fs/inode.c                 |  4 ++--
+>  fs/internal.h              |  4 ++--
+>  include/linux/capability.h |  4 ++--
+>  include/linux/fs.h         |  8 ++++----
+>  include/linux/security.h   |  2 +-
+>  kernel/capability.c        |  4 ++--
+>  security/commoncap.c       |  2 +-
+>  10 files changed, 22 insertions(+), 22 deletions(-)
+> 
+> diff --git a/fs/attr.c b/fs/attr.c
+> index 71888ac903c2..23f1347ff240 100644
+> --- a/fs/attr.c
+> +++ b/fs/attr.c
+> @@ -30,7 +30,7 @@
+>   *
+>   * Return: ATTR_KILL_SGID if setgid bit needs to be removed, 0 otherwise.
+>   */
+> -int setattr_should_drop_sgid(struct mnt_idmap *idmap,
+> +int setattr_should_drop_sgid(const struct mnt_idmap *idmap,
+>  			     const struct inode *inode)
+>  {
+>  	umode_t mode = inode->i_mode;
+> @@ -60,7 +60,7 @@ EXPORT_SYMBOL(setattr_should_drop_sgid);
+>   * Return: A mask of ATTR_KILL_S{G,U}ID indicating which - if any - setid bits
+>   * to remove, 0 otherwise.
+>   */
+> -int setattr_should_drop_suidgid(struct mnt_idmap *idmap,
+> +int setattr_should_drop_suidgid(const struct mnt_idmap *idmap,
+>  				struct inode *inode)
+>  {
+>  	umode_t mode = inode->i_mode;
+> @@ -91,7 +91,7 @@ EXPORT_SYMBOL(setattr_should_drop_suidgid);
+>   * permissions. On non-idmapped mounts or if permission checking is to be
+>   * performed on the raw inode simply pass @nop_mnt_idmap.
+>   */
+> -static bool chown_ok(struct mnt_idmap *idmap,
+> +static bool chown_ok(const struct mnt_idmap *idmap,
+>  		     const struct inode *inode, vfsuid_t ia_vfsuid)
+>  {
+>  	vfsuid_t vfsuid = i_uid_into_vfsuid(idmap, inode);
+> @@ -118,7 +118,7 @@ static bool chown_ok(struct mnt_idmap *idmap,
+>   * permissions. On non-idmapped mounts or if permission checking is to be
+>   * performed on the raw inode simply pass @nop_mnt_idmap.
+>   */
+> -static bool chgrp_ok(struct mnt_idmap *idmap,
+> +static bool chgrp_ok(const struct mnt_idmap *idmap,
+>  		     const struct inode *inode, vfsgid_t ia_vfsgid)
+>  {
+>  	vfsgid_t vfsgid = i_gid_into_vfsgid(idmap, inode);
+> @@ -339,7 +339,7 @@ static void setattr_copy_mgtime(struct inode *inode, const struct iattr *attr)
+>   * that for "simple" filesystems, the struct inode is the inode storage.
+>   * The caller is free to mark the inode dirty afterwards if needed.
+>   */
+> -void setattr_copy(struct mnt_idmap *idmap, struct inode *inode,
+> +void setattr_copy(const struct mnt_idmap *idmap, struct inode *inode,
+>  		  const struct iattr *attr)
+>  {
+>  	unsigned int ia_valid = attr->ia_valid;
+> diff --git a/fs/f2fs/acl.c b/fs/f2fs/acl.c
+> index d3253549173e..e7e0084d0a5f 100644
+> --- a/fs/f2fs/acl.c
+> +++ b/fs/f2fs/acl.c
+> @@ -219,7 +219,7 @@ struct posix_acl *f2fs_get_acl(struct inode *inode, int type, bool rcu)
+>  	return __f2fs_get_acl(inode, type, NULL);
+>  }
+>  
+> -static int f2fs_acl_update_mode(struct mnt_idmap *idmap,
+> +static int f2fs_acl_update_mode(const struct mnt_idmap *idmap,
+>  				struct inode *inode, umode_t *mode_p,
+>  				struct posix_acl **acl)
+>  {
+> @@ -240,7 +240,7 @@ static int f2fs_acl_update_mode(struct mnt_idmap *idmap,
+>  	return 0;
+>  }
+>  
+> -static int __f2fs_set_acl(struct mnt_idmap *idmap,
+> +static int __f2fs_set_acl(const struct mnt_idmap *idmap,
+>  			struct inode *inode, int type,
+>  			struct posix_acl *acl, struct folio *ifolio)
+>  {
+> diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+> index edc352569e87..03bb3a9a449f 100644
+> --- a/fs/f2fs/file.c
+> +++ b/fs/f2fs/file.c
+> @@ -1096,7 +1096,7 @@ int f2fs_getattr(struct mnt_idmap *idmap, const struct path *path,
+>  }
+>  
+>  #ifdef CONFIG_F2FS_FS_POSIX_ACL
+> -static void __setattr_copy(struct mnt_idmap *idmap,
+> +static void __setattr_copy(const struct mnt_idmap *idmap,
+>  			   struct inode *inode, const struct iattr *attr)
+>  {
+>  	unsigned int ia_valid = attr->ia_valid;
+> diff --git a/fs/inode.c b/fs/inode.c
+> index ba7da39be4a3..72a8bbe38d62 100644
+> --- a/fs/inode.c
+> +++ b/fs/inode.c
+> @@ -2337,7 +2337,7 @@ EXPORT_SYMBOL(touch_atime);
+>   * response to write or truncate. Return 0 if nothing has to be changed.
+>   * Negative value on error (change should be denied).
+>   */
+> -int dentry_needs_remove_privs(struct mnt_idmap *idmap,
+> +int dentry_needs_remove_privs(const struct mnt_idmap *idmap,
+>  			      struct dentry *dentry)
+>  {
+>  	struct inode *inode = d_inode(dentry);
+> @@ -3033,7 +3033,7 @@ EXPORT_SYMBOL(inode_set_ctime_deleg);
+>   *
+>   * Return: true if the caller is sufficiently privileged, false if not.
+>   */
+> -bool in_group_or_capable(struct mnt_idmap *idmap,
+> +bool in_group_or_capable(const struct mnt_idmap *idmap,
+>  			 const struct inode *inode, vfsgid_t vfsgid)
+>  {
+>  	if (vfsgid_in_group_p(vfsgid))
+> diff --git a/fs/internal.h b/fs/internal.h
+> index 72244e5f4e57..161b0cafe17f 100644
+> --- a/fs/internal.h
+> +++ b/fs/internal.h
+> @@ -210,8 +210,8 @@ extern int vfs_open(const struct path *, struct file *);
+>   * inode.c
+>   */
+>  extern long prune_icache_sb(struct super_block *sb, struct shrink_control *sc);
+> -int dentry_needs_remove_privs(struct mnt_idmap *, struct dentry *dentry);
+> -bool in_group_or_capable(struct mnt_idmap *idmap,
+> +int dentry_needs_remove_privs(const struct mnt_idmap *, struct dentry *dentry);
+> +bool in_group_or_capable(const struct mnt_idmap *idmap,
+>  			 const struct inode *inode, vfsgid_t vfsgid);
+>  
+>  /*
+> diff --git a/include/linux/capability.h b/include/linux/capability.h
+> index 37db92b3d6f8..c39a2bbefc47 100644
+> --- a/include/linux/capability.h
+> +++ b/include/linux/capability.h
+> @@ -181,9 +181,9 @@ static inline bool ns_capable_setid(struct user_namespace *ns, int cap)
+>  }
+>  #endif /* CONFIG_MULTIUSER */
+>  bool privileged_wrt_inode_uidgid(struct user_namespace *ns,
+> -				 struct mnt_idmap *idmap,
+> +				 const struct mnt_idmap *idmap,
+>  				 const struct inode *inode);
+> -bool capable_wrt_inode_uidgid(struct mnt_idmap *idmap,
+> +bool capable_wrt_inode_uidgid(const struct mnt_idmap *idmap,
+>  			      const struct inode *inode, int cap);
+>  extern bool file_ns_capable(const struct file *file, struct user_namespace *ns, int cap);
+>  extern bool ptracer_capable(struct task_struct *tsk, struct user_namespace *ns);
+> diff --git a/include/linux/fs.h b/include/linux/fs.h
+> index 154f2c976a0a..7c82d7aaa775 100644
+> --- a/include/linux/fs.h
+> +++ b/include/linux/fs.h
+> @@ -1835,7 +1835,7 @@ void inode_init_owner(struct mnt_idmap *idmap, struct inode *inode,
+>  extern bool may_open_dev(const struct path *path);
+>  umode_t mode_strip_sgid(struct mnt_idmap *idmap,
+>  			const struct inode *dir, umode_t mode);
+> -bool in_group_or_capable(struct mnt_idmap *idmap,
+> +bool in_group_or_capable(const struct mnt_idmap *idmap,
+>  			 const struct inode *inode, vfsgid_t vfsgid);
+>  
+>  /*
+> @@ -3045,9 +3045,9 @@ static inline struct inode *new_inode_pseudo(struct super_block *sb)
+>  }
+>  extern struct inode *new_inode(struct super_block *sb);
+>  extern void free_inode_nonrcu(struct inode *inode);
+> -extern int setattr_should_drop_suidgid(struct mnt_idmap *, struct inode *);
+> +extern int setattr_should_drop_suidgid(const struct mnt_idmap *, struct inode *);
+>  extern int file_remove_privs(struct file *);
+> -int setattr_should_drop_sgid(struct mnt_idmap *idmap,
+> +int setattr_should_drop_sgid(const struct mnt_idmap *idmap,
+>  			     const struct inode *inode);
+>  
+>  /*
+> @@ -3401,7 +3401,7 @@ int may_setattr(struct mnt_idmap *idmap, struct inode *inode,
+>  		unsigned int ia_valid);
+>  int setattr_prepare(struct mnt_idmap *, struct dentry *, struct iattr *);
+>  extern int inode_newsize_ok(const struct inode *, loff_t offset);
+> -void setattr_copy(struct mnt_idmap *, struct inode *inode,
+> +void setattr_copy(const struct mnt_idmap *, struct inode *inode,
+>  		  const struct iattr *attr);
+>  
+>  extern int file_update_time(struct file *file);
+> diff --git a/include/linux/security.h b/include/linux/security.h
+> index 153e9043058f..4598a13657ee 100644
+> --- a/include/linux/security.h
+> +++ b/include/linux/security.h
+> @@ -185,7 +185,7 @@ extern int cap_capset(struct cred *new, const struct cred *old,
+>  extern int cap_bprm_creds_from_file(struct linux_binprm *bprm, const struct file *file);
+>  int cap_inode_setxattr(struct dentry *dentry, const char *name,
+>  		       const void *value, size_t size, int flags);
+> -int cap_inode_removexattr(struct mnt_idmap *idmap,
+> +int cap_inode_removexattr(const struct mnt_idmap *idmap,
+>  			  struct dentry *dentry, const char *name);
+>  int cap_inode_need_killpriv(struct dentry *dentry);
+>  int cap_inode_killpriv(struct mnt_idmap *idmap, struct dentry *dentry);
+> diff --git a/kernel/capability.c b/kernel/capability.c
+> index 829f49ae07b9..ae3b03703148 100644
+> --- a/kernel/capability.c
+> +++ b/kernel/capability.c
+> @@ -453,7 +453,7 @@ EXPORT_SYMBOL(file_ns_capable);
+>   * Return true if the inode uid and gid are within the namespace.
+>   */
+>  bool privileged_wrt_inode_uidgid(struct user_namespace *ns,
+> -				 struct mnt_idmap *idmap,
+> +				 const struct mnt_idmap *idmap,
+>  				 const struct inode *inode)
+>  {
+>  	return vfsuid_has_mapping(ns, i_uid_into_vfsuid(idmap, inode)) &&
+> @@ -470,7 +470,7 @@ bool privileged_wrt_inode_uidgid(struct user_namespace *ns,
+>   * its own user namespace and that the given inode's uid and gid are
+>   * mapped into the current user namespace.
+>   */
+> -bool capable_wrt_inode_uidgid(struct mnt_idmap *idmap,
+> +bool capable_wrt_inode_uidgid(const struct mnt_idmap *idmap,
+>  			      const struct inode *inode, int cap)
+>  {
+>  	struct user_namespace *ns = current_user_ns();
+> diff --git a/security/commoncap.c b/security/commoncap.c
+> index 3399535808fe..9361393fd756 100644
+> --- a/security/commoncap.c
+> +++ b/security/commoncap.c
+> @@ -1063,7 +1063,7 @@ int cap_inode_setxattr(struct dentry *dentry, const char *name,
+>   * This is used to make sure security xattrs don't get removed by those who
+>   * aren't privileged to remove them.
+>   */
+> -int cap_inode_removexattr(struct mnt_idmap *idmap,
+> +int cap_inode_removexattr(const struct mnt_idmap *idmap,
+>  			  struct dentry *dentry, const char *name)
+>  {
+>  	struct user_namespace *user_ns = dentry->d_sb->s_user_ns;
+> 
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
