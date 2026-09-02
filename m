@@ -1,31 +1,60 @@
-Received: from hqu.edu.cn (hqu.edu.cn [210.34.240.11])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 869151E98E3;
-	Wed,  2 Sep 2026 03:14:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.34.240.11
+Received: from pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.155.198.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81CC71B808
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:17:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.155.198.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788318857; cv=none; b=giYh1aq/EmxUlJrs5aDJs2ofukGf8OzBoD6KcMRkp7Fj12BiRZfLm5y2r0l0aqyxF2QznnvciamRrGD4Tm0J45xD+EGJGyfYXh3aT+ndB8MneezDtbAmPm6E4WOmdbzzjqS/FcBKhE+ekrSsa+IFKfLxbIsJxPGwqbH12Qiwm/U=
+	t=1788319025; cv=none; b=puWhdgDPHfYrsvvYdpp8XgASW0hACybK6XTeG+i2JIj4Ko7hYVOwEAZGrUzEiarQ49CBrQZyWxPW5axQh7tGMTDHDVFRQSgp8gBO58rpv9rbyOHJXHEf5QdMfD97bEFtwlIL5B8ygWNtw51N4XsT25kDcaMq6zJyJwL6CnuNiKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788318857; c=relaxed/simple;
-	bh=jFHv3W2G7YXo76CgZ/Be7FLQW6T2KPEoP89YguzR63U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a00IRnxh4wd3A3S6m8g0DIyFgg7sfPPtcrUAmHeKQk1unKRtbjuFtJBYXZpiamhBqqi2NhpJV8G63hYBYCePRpIvqVrvr2VmhL6SeAx8pW9h0hCPJqxCEPzHNSVC2m2hjtjCRR9ijmcpOvi04dHYChfwql0Cbi/nSnmF8qULBUw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.hqu.edu.cn; spf=pass smtp.mailfrom=stu.hqu.edu.cn; arc=none smtp.client-ip=210.34.240.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.hqu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.hqu.edu.cn
-Received: from raspberry-nas (unknown [27.42.228.181])
-	by cmweb (Coremail) with SMTP id C_Ai0gAXe9qClJdq6ygFAA--.10449S2;
-	Wed, 02 Sep 2026 11:14:11 +0800 (CST)
-From: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
-To: linux-wireless@vger.kernel.org
-Cc: pkshih@realtek.com,
-	linux-kernel@vger.kernel.org,
-	YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
-Subject: [PATCH v3] wifi: rtw88: use firmware MAC address as fallback
-Date: Wed,  2 Sep 2026 11:14:08 +0800
-Message-ID: <20260902031408.4155609-1-raspberrykan@stu.hqu.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260902024622.4149279-1-raspberrykan@stu.hqu.edu.cn>
-References: <20260902024622.4149279-1-raspberrykan@stu.hqu.edu.cn>
+	s=arc-20240116; t=1788319025; c=relaxed/simple;
+	bh=9SX2b9a80TY14ABAJL6S91tKo6KqQ31H+7Zk1g3Gn8c=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=PONIRscTEmph3Nhc2a8hRmEZlyVfetgDpneAlvnBipE7gRK625ZahIzexOE42+MPkFrmfa2ms2IpXV5gsgLejBcs5wv1cUQlplwXSvqM7vXHIzkDE8pEm4eMyFh8BBBbL5yLHNbSqt0wH9HhOSJHRkbtLG/wGsSm4qE6Cx7ZabM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=XOwgpbYF; arc=none smtp.client-ip=35.155.198.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="XOwgpbYF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1788319024; x=1819855024;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=1nCArtEkFHsetVE9HyV3SWkRXMjEedc6y2E/MROxKuc=;
+  b=XOwgpbYFHdjsZbUeUJ46TBQMlJH/xh2RV8g2YQl83zLxwscSv6W1HZK9
+   BaH6NiSebgcVSqJAIVP5p1rau3A8lhl2leav0amaALK0nBv4ZZdEQk5NS
+   cOk123GL81DSCL6CmHUFEskOqnovqbPaIu0wRsDTx6dQnGNWwroVE4Edn
+   jYCW11/X5sDSKMbYYDM8MU69Kndkf8G5fn66xSMaJ1OvJR02T/sFw4Cha
+   5xWgE1EOBBF0snEIK5PtfadN9sLyV8W0iU2mcXqHJgQn7O/QkBCZm+Id8
+   KLE6JT7zbKWED6/NSLNlTJFafv5OxKpju21tGVzwSjA2d1vCS/mVvgMgO
+   w==;
+X-CSE-ConnectionGUID: ddspb9w1RqWyZOaLdv6KsQ==
+X-CSE-MsgGUID: K6gsVCLcS5izi2wOuZbiyA==
+X-IronPort-AV: E=Sophos;i="6.25,257,1779148800"; 
+   d="scan'208";a="27466435"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 03:17:03 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:12458]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.48.113:2525] with esmtp (Farcaster)
+ id de3e0a65-3892-4861-a6e8-836a9a4f846d; Wed, 2 Sep 2026 03:17:03 +0000 (UTC)
+X-Farcaster-Flow-ID: de3e0a65-3892-4861-a6e8-836a9a4f846d
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
+ Wed, 2 Sep 2026 03:17:03 +0000
+Received: from 6c7e67c92ceb.amazon.com (10.187.171.39) by
+ EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
+ Wed, 2 Sep 2026 03:17:02 +0000
+From: Nathan Gao <zcgao@amazon.com>
+To: <sj@kernel.org>, <akpm@linux-foundation.org>
+CC: <damon@lists.linux.dev>, <linux-mm@kvack.org>,
+	<linux-kernel@vger.kernel.org>, <baolin.wang@linux.alibaba.com>,
+	<david@kernel.org>, <ryan.roberts@arm.com>
+Subject: [PATCH v4] mm/damon/ops-common: use a page-aligned address in damon_ptep_mkold()
+Date: Tue, 1 Sep 2026 20:16:55 -0700
+Message-ID: <20260902031655.84721-1-zcgao@amazon.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -33,62 +62,132 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:C_Ai0gAXe9qClJdq6ygFAA--.10449S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kr18tw4fur1kJF47tr1fJFb_yoW8XF1xpa
-	y8JaySkFnrJr45ua1fWa1S9F1rGan3JayUAr9Yy3s09rn8XryFvrWDKF9Fvr1jgFWDZF42
-	yr15tr9rKFZ0vF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUym14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r1j
-	6r4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCF04k20xvY0x0EwIxG
-	rwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
-	vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IY
-	x2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26c
-	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAF
-	wI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUywZ7UUUUU=
-X-CM-SenderInfo: ysvskiyqsqlko6vw3hxktxhvlgxou0/1tbiAQAQBGqVmGMDTgAJsV
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D039UWB002.ant.amazon.com (10.13.138.79) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Some devices provide the Wi-Fi MAC address through firmware instead of
-storing a valid address in the Wi-Fi chip efuse.
+__damon_va_prepare_access_check() picks a random byte address within the
+region and stores it in r->sampling_addr. damon_va_mkold() passes it into
+a page table walk, which hands it to damon_ptep_mkold() as the address of
+the page to sample:
 
-This is the case on the Xiaomi Mi Box 4, which uses an Amlogic S905L
-SoC and an RTL8723DS Wi-Fi chip. The Wi-Fi MAC address is stored in the
-S905L efuse rather than the RTL8723DS efuse and is provided to the
-device through firmware.
+  damon_va_mkold(mm, r->sampling_addr)
+    damon_va_walk_page_range(mm, addr, addr + 1)
+      damon_mkold_pmd_entry()
+        damon_ptep_mkold(pte, vma, addr)
+          ptep_test_and_clear_young(vma, addr, pte)
+          mmu_notifier_clear_young(mm, addr, addr + PAGE_SIZE)
 
-Try to read the MAC address from firmware before falling back to a
-randomly generated address.
+For arm64, before commit 6f0e1142173a ("arm64: mm: support batch
+clearing of the young flag for large folios"), the contpte helper walked
+exactly CONT_PTES entries from the aligned-down page table pointer and
+used @addr only to pass down to each entry, so an unaligned value was
+harmless:
 
-Signed-off-by: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
+        ptep = contpte_align_down(ptep);
+        addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
+        for (i = 0; i < CONT_PTES; i++, ptep++, addr += PAGE_SIZE)
+
+Now the range to walk is derived from @addr instead: end = addr +
+nr * PAGE_SIZE, rounded up to CONT_PTE_SIZE. For a sample in the last
+page of a contpte block, the sub-page offset puts end just past the
+block boundary, so the round-up lands a whole block further and the
+walk clears PTE_AF in CONT_PTES entries beyond the sampled block. For
+the last block in a page table page, those entries are past the end of
+that page, so the walk writes into the page that follows.
+
+Triggered by the full 7.1/7.2 kernel selftest suite on arm64 (EC2
+c/m6g.4xlarge). The kernel sometimes crashes at or shortly after the
+DAMON test.
+
+What the overrun does depends on the page that happens to follow the
+page table, so there is no single signature. If that page is read-only,
+the write faults in the sampling path itself:
+
+  Unable to handle kernel write to read-only memory at virtual address ffff0003c5d2d000
+    FSC = 0x0f: level 3 permission fault
+    CM = 0, WnR = 1, TnD = 0, TagAccess = 0
+  CPU: 10 UID: 0 PID: 3487 Comm: kdamond.2
+  pc : contpte_test_and_clear_young_ptes+0x70/0xc0
+  lr : damon_ptep_mkold+0x1e8/0x1f8
+  Call trace:
+   contpte_test_and_clear_young_ptes+0x70/0xc0 (P)
+   damon_mkold_pmd_entry+0x150/0x170
+   walk_pmd_range+0x110/0x2b0
+   walk_pud_range+0x10c/0x208
+   walk_pgd_range+0x134/0x258
+   __walk_page_range+0x98/0x1b0
+   walk_page_range_vma_unsafe+0x90/0x148
+   walk_page_range_vma+0x28/0x40
+   damon_va_walk_page_range+0x114/0x2b8
+   damon_va_prepare_access_checks+0xec/0x1a8
+   kdamond_fn+0x534/0x770
+   kthread+0x128/0x138
+   ret_from_fork+0x10/0x20
+
+Otherwise the page is writable, the PTE_AF clearing succeeds silently
+and the damage only surfaces later, in whatever happened to own the
+page, so the backtrace is unrelated to DAMON and differs between runs.
+
+Pass a page-aligned address to the ptep_test_and_clear_young() call in
+damon_ptep_mkold(), which is the only place DAMON can reach
+contpte_test_and_clear_young_ptes() from. Nothing else sees the aligned
+address, and r->sampling_addr itself is left as is, so the sampling and
+region bookkeeping semantics are unchanged.
+
+Fixes: 6f0e1142173a ("arm64: mm: support batch clearing of the young flag for large folios")
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Nathan Gao <zcgao@amazon.com>
 ---
-Changes in v3:
-- Add Xiaomi Mi Box 4, Amlogic S905L and RTL8723DS hardware details
-  to the commit message.
+V3 -> V4:
+- Align only the address that is passed to ptep_test_and_clear_young(),
+  rather than @addr for the whole of damon_ptep_mkold(), so the
+  mmu_notifier_clear_young() call keeps seeing the sampled address (SJ)
 
- drivers/net/wireless/realtek/rtw88/main.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+V2 -> V3:
+- Move the alignment into damon_ptep_mkold(), instead of aligning in
+  damon_va_mkold() and damon_va_young().  The ptep_test_and_clear_young()
+  call in damon_ptep_mkold() is DAMON's only path to
+  contpte_test_and_clear_young_ptes(), so damon_ptep_mkold() is the
+  closest place in DAMON to the function that requires an aligned
+  address (SJ)
 
-diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
-index cd9254370fcc..0f23498b5c96 100644
---- a/drivers/net/wireless/realtek/rtw88/main.c
-+++ b/drivers/net/wireless/realtek/rtw88/main.c
-@@ -2060,8 +2060,11 @@ static int rtw_chip_efuse_info_setup(struct rtw_dev *rtwdev)
- 	efuse->ext_lna_5g = efuse->lna_type_5g & BIT(3) ? 1 : 0;
- 
- 	if (!is_valid_ether_addr(efuse->addr)) {
--		eth_random_addr(efuse->addr);
--		dev_warn(rtwdev->dev, "efuse MAC invalid, using random\n");
-+		if (device_get_mac_address(rtwdev->dev, efuse->addr)) {
-+			eth_random_addr(efuse->addr);
-+			dev_warn(rtwdev->dev,
-+				 "failed to get valid MAC address, using random\n");
-+		}
- 	}
- 
- out_disable:
+V1 -> V2:
+- Align inside damon_va_mkold() and damon_va_young() rather than aligning
+  r->sampling_addr itself, so that sub-page sampling addresses remain
+  possible for future non-PTE access check primitives (SJ)
+- Point Fixes: at 6f0e1142173a instead of 3f49584b262c, since the
+  unaligned address was harmless before that commit (SJ)
+- Describe how the issue was noticed and what it does to the kernel (SJ)
+
+v3: https://lore.kernel.org/all/20260901201001.33271-1-zcgao@amazon.com/
+v2: https://lore.kernel.org/all/20260831221151.50561-1-zcgao@amazon.com/
+v1: https://lore.kernel.org/all/20260827193821.46115-1-zcgao@amazon.com/
+
+ mm/damon/ops-common.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
+index fbda70d8ea4d..8fc61d06d358 100644
+--- a/mm/damon/ops-common.c
++++ b/mm/damon/ops-common.c
+@@ -61,7 +61,12 @@ void damon_ptep_mkold(pte_t *pte, struct vm_area_struct *vma, unsigned long addr
+ 	 * device aspects.
+ 	 */
+ 	if (likely(pte_present(pteval)))
+-		young |= ptep_test_and_clear_young(vma, addr, pte);
++		/*
++		 * Arch implementation of ptep_test_and_clear_young() may
++		 * require aligned @addr
++		 */
++		young |= ptep_test_and_clear_young(vma, PAGE_ALIGN_DOWN(addr),
++				pte);
+ 	young |= mmu_notifier_clear_young(vma->vm_mm, addr, addr + PAGE_SIZE);
+ 	if (young)
+ 		folio_set_young(folio);
 -- 
-2.53.0
+2.50.1
 
