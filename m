@@ -1,56 +1,56 @@
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424414A92C6
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:49:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7A914A92F3
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:49:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788364149; cv=none; b=eUa3am1sMb5scOUols59Hv9zBEDgE/UBD4SWWLaaYoZ+unv9luYC0agFIGg/i5u+sd8UStjryyqfiKJ8GlS6cSfjxnkgvlXNFJDZ1ZLA40I6/eShDNnFvFrjnx/ihvEm8RNgpdsd5X8V3DfPKsQdRIZBspXPU2cAkC7Ua5sUfkE=
+	t=1788364150; cv=none; b=OafIKP47M9riK7+ZAnh8XoTarBodggtfEoFAGoyCjnuRVx83ZVfrYiIq9xBd+5L4JpnEmpFjV0f3OQZ+9sI1+EGiZph8sRSQzkmhkhZCyg2dpdIEB5k4qV7OkjLl63ZgdDba1uQFTrVyttgN8IKFii8UZKZXSsT+4ZgK6u9VyMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788364149; c=relaxed/simple;
-	bh=5PqBUztHFiiSoVV0MnGN6JdwtV6U4uYa4tZnZmnCjsk=;
+	s=arc-20240116; t=1788364150; c=relaxed/simple;
+	bh=MXekJXZ5T2i1lOP5yjKvUmgkVu177dnr4EEiTiMxEyo=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Content-Type; b=FhdJQ4B5rHUXbYWmC5XhCiR75VBICSYqfnJXwNWtHmae8FgMTxOl1eAPSkI8+ZZYGj7Roj0Iext4AEpkBfE1+YFIr4OGKLcz9yXs5JckxiredQXtzjaHYTSPu8tlpVHl7St3R5HZ6FBOvkAmAMlxKohzv7hflUQVPkRZG7hVOhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PXNKTGlH; arc=none smtp.client-ip=209.85.214.200
+	 To:Content-Type; b=uaf7TDAzWIzawBoodPtxXINBF//qhOvw+B5GbXteCVvCeldlGu2mrlzBy2ynvOGO6TynenYiI18YU0yxTHNL7T26rFpRSk91FHBuVyF9VbPoazNFjQMFXpYBvS/ByXzFZ8hDf5go0a6z10nGHc8T7bunKKFgM/ibmV+ZMVXLd64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ZgTayEbk; arc=none smtp.client-ip=209.85.216.72
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PXNKTGlH"
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d959904658so23429075ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 08:49:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ZgTayEbk"
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-381250979d5so1593007a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 08:49:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788364146; x=1788968946; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788364148; x=1788968948; darn=vger.kernel.org;
         h=content-type:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4ts6pjVv6aTNbBmIw4be3JQNIqlAOqk8kSdpUdbRFXk=;
-        b=PXNKTGlHTsK6WdBiOOBR/4hiVmgzIk8mM8Zn0L+GEof3AHKx8LdMd6kbl1TYGMkkex
-         SJSbRmpRAG0BKuWfyFfZpxTgTsck+EN6NSlPV2fdO6teSVfDKsSXt3MKn/1CoGw87+W/
-         SCLv2teKkhLgpgm75RO1zH8iNVMicvmLckD+KJ3utYoLCHZU5IAyHdk4Swb8GychCKAs
-         p6O2DNmiazYrTuuBeIcr0f+nGHkZD2CAQkdByKFQU7OYtcuuM61fChbrpDrlHeu6+qnI
-         UvYlohHlZZscI7MjYr9T09zeJaTL3SlJhhDaeIiv7uChrzWkNJaJHgz62jJCJgx/4jYl
-         3wLg==
+        bh=tUrm+ROxdJ59YfAdcXGaIH4WCqzrRXNZfGKynOJVM1Q=;
+        b=ZgTayEbk4mi76BuvDGlNvumMkosB0pvqVbWpfSIZJwLEip9T0WHsg3NYqzrDn1GNRF
+         YcaXoSfjJU+13X50nRtA9Im1Si/S76ncNtofn3PzlZWL7Wceo2fUJWIGKkerwAEp5xJC
+         RRpl+QHy0psxeuOB1PKGPuOHH7tZM03T9GyoHqEEaLWDVpBtkqMzdLaTnAH6rnjxgwYm
+         a/oaaTRHg2mjECEmO8uIFWhYMog/qdR9wB/bT4jSb2cw01uY6xRbYOjJLJVMhyswi4i+
+         IKzGNAjw5eA7638LRuhHHPnO6l87bx1cppnN3DpkfIvvn/eLremswpfs5P2VX8uq5oZz
+         YuUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788364146; x=1788968946;
+        d=1e100.net; s=20251104; t=1788364148; x=1788968948;
         h=content-type:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4ts6pjVv6aTNbBmIw4be3JQNIqlAOqk8kSdpUdbRFXk=;
-        b=a17A8KlVfcFGRdCvMMMDQxKi6w4WUW6b7XHYfYqZYMC7aonUNV4nJLfhDaRmwwlene
-         A1r/vmrNu2variZpouOs2/+BcjoaxDEyhB37onrc41feOe/i1XEVoF8GGF7/eNuHvPdM
-         fgHiqsaJFsEYnlZmVG6PSaoBxDGeHbgmqLuhWXjNskJN6Gi/31JLKR0lPO4h9f0yV1AL
-         OA2O+JwuZJ5SfZgwfzpHPfrewFg62zlo2Xdxw22ePqN7XNjhaz67ODg7/EYdqjqSEnbS
-         Uz6cos7+TeRiDbS8b13+iuPRJ4RtW3WrgsKE9lsoAfNGOZeR523jDcI6bbH6UpRddf2M
-         tMtQ==
-X-Forwarded-Encrypted: i=1; AKwUvByDwg4nImZEaf93UjKrbgwtnpsCOQhyQlVJegDrfr2ddQB4eysQWSI6scSUpMr7eY2pSOuNl5r+5in/PHg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mTe1oQE0yzG4imOjsOaRQRXMiZYiI84Vfj/rY4vpqdq64+kS0k
-	BgUk19qVkmRjSTSrhTMnw7htpHVAokaO90yYupT1MXitLJt/bCsCOV0PfSUs/GH3F3w5VvOgU0g
-	WqxhyDGMaqw==
-X-Received: from dyz5.prod.google.com ([2002:a05:693c:4085:b0:322:f0d3:b9f1])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e749:b0:2d8:de9f:9a44
- with SMTP id d9443c01a7336-2daec732f99mr71539485ad.19.1788364145497; Wed, 02
- Sep 2026 08:49:05 -0700 (PDT)
-Date: Wed,  2 Sep 2026 08:48:54 -0700
+        bh=tUrm+ROxdJ59YfAdcXGaIH4WCqzrRXNZfGKynOJVM1Q=;
+        b=rLDl4HbqJoMPeRF2Dtwhk/q+tcvWhTUpCLehIA0vWXn31Jw6acNUdH3K5zfmhzt4Q4
+         aukAD97fh2zMp/pLXShpw3N0sOkr0nKbEPyjAeToUsVKFQna9RyN/C6a9FnOJc+LctmQ
+         W9s4ZXXPWmUJ/FzPaCzqIFAIAK5F+h5cNU08O0Pmc2XTGHkbFXHjyXgaSFug5l4DYsf9
+         eBRzcjb9Of+FcAUOoS1wWm5WbZ/UxHyeALxUE20ATsbL86QpY7CAIaymOfEE3bDp2i3M
+         0LkBEc80+92YJvGv5ne9TBrg/iy3vPgrmUNxFMBOkLFUR8V9vfpqDeb7+Dplobmr8Zl5
+         fggA==
+X-Forwarded-Encrypted: i=1; AKwUvBxF91GbazRvdTC0nAWlI+LtnLz5wvRfcFJ61E3371o6NuV7aYr47TJSyu5F4Sfdd/kDXpN8SjcNKX+hb0k=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMgepxRFz1pBku1GEq+i3g05ypZ+Y1pEQwCFQ7jmB1OyePZN9F
+	IKQoX3gOrkXB/poEUaJyfQU4am9M5Ssm0Fk7K1koLPglM6ZjNLBLqO4Y9QGHN/YZsxlTyi4s+Rb
+	30JKy1gWHWw==
+X-Received: from dybmh46.prod.google.com ([2002:a05:7301:f2e:b0:30f:2f43:117b])
+ (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:2d4f:b0:37f:e1b6:4c7d
+ with SMTP id 98e67ed59e1d1-39aedf1aec2mr9151888a91.6.1788364147549; Wed, 02
+ Sep 2026 08:49:07 -0700 (PDT)
+Date: Wed,  2 Sep 2026 08:48:55 -0700
 In-Reply-To: <20260902154858.2078885-1-irogers@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260902154858.2078885-1-irogers@google.com>
 X-Mailer: git-send-email 2.55.0.966.g6673acef38-goog
-Message-ID: <20260902154858.2078885-3-irogers@google.com>
-Subject: [PATCH v3 2/6] perf tool: Tidy up util/cache.h header file users
+Message-ID: <20260902154858.2078885-4-irogers@google.com>
+Subject: [PATCH v3 3/6] perf tool: Remove unused includes in perf.c
 From: Ian Rogers <irogers@google.com>
 To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
 	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
@@ -73,396 +73,46 @@ To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
 	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Use git clang-format to sort header files. Review header file includes
-removing those that were unnecessary or adding explicit includes in
-cases where transitive dependencies were be using.
+Remove perf-sys.h, internal/lib.h (page_size), signal.h, and perf.h
+since their exports are not used directly in perf.c.
 
 Signed-off-by: Ian Rogers <irogers@google.com>
 Assisted-by: Antigravity:gemini-3.1-pro
 ---
- tools/perf/builtin-annotate.c      | 53 ++++++++++++++----------------
- tools/perf/builtin-config.c        | 18 +++++-----
- tools/perf/builtin-help.c          | 31 ++++++++---------
- tools/perf/perf.c                  | 45 +++++++++++--------------
- tools/perf/util/config.c           | 39 ++++++++++++----------
- tools/perf/util/help-unknown-cmd.c |  9 +++--
- tools/perf/util/path.c             |  8 ++---
- tools/perf/util/path.h             |  3 +-
- tools/perf/util/strbuf.c           |  9 ++---
- 9 files changed, 109 insertions(+), 106 deletions(-)
+ tools/perf/perf.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/tools/perf/builtin-annotate.c b/tools/perf/builtin-annotate.c
-index 75cbea567196..f208ff513238 100644
---- a/tools/perf/builtin-annotate.c
-+++ b/tools/perf/builtin-annotate.c
-@@ -6,48 +6,45 @@
-  * look up and read DSOs and symbol information and display
-  * a histogram of results, along various sorting keys.
-  */
--#include "builtin.h"
--#include "perf.h"
-+#include <errno.h>
-+#include <inttypes.h>
- #include <stdbool.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
- 
--#include "util/color.h"
-+#include <dlfcn.h>
-+#include <linux/bitmap.h>
-+#include <linux/err.h>
- #include <linux/list.h>
- #include <linux/rbtree.h>
--#include "util/symbol.h"
- 
--#include "util/debug.h"
-+#include <subcmd/parse-options.h>
- 
--#include "util/evlist.h"
--#include "util/evsel.h"
--#include "util/annotate.h"
-+#include "arch/common.h"
-+#include "builtin.h"
-+#include "perf.h"
-+#include "ui/progress.h"
-+#include "ui/ui.h"
- #include "util/annotate-data.h"
-+#include "util/annotate.h"
-+#include "util/block-range.h"
-+#include "util/branch.h"
-+#include "util/data.h"
-+#include "util/debug.h"
-+#include "util/dso.h"
- #include "util/event.h"
--#include <subcmd/parse-options.h>
--#include "util/parse-events.h"
--#include "util/sort.h"
-+#include "util/evlist.h"
-+#include "util/evsel.h"
- #include "util/hist.h"
--#include "util/dso.h"
- #include "util/machine.h"
- #include "util/map.h"
-+#include "util/map_symbol.h"
- #include "util/session.h"
-+#include "util/sort.h"
-+#include "util/symbol.h"
- #include "util/tool.h"
--#include "util/data.h"
--#include "arch/common.h"
--#include "util/block-range.h"
--#include "util/map_symbol.h"
--#include "util/branch.h"
- #include "util/util.h"
--#include "ui/progress.h"
--#include "ui/ui.h"
--
--#include <dlfcn.h>
--#include <errno.h>
--#include <linux/bitmap.h>
--#include <linux/err.h>
--#include <inttypes.h>
--#include <stdio.h>
--#include <stdlib.h>
--#include <string.h>
- 
- struct perf_annotate {
- 	struct perf_tool tool;
-diff --git a/tools/perf/builtin-config.c b/tools/perf/builtin-config.c
-index 845a8af67fc5..cefd042e4f85 100644
---- a/tools/perf/builtin-config.c
-+++ b/tools/perf/builtin-config.c
-@@ -5,19 +5,21 @@
-  * Copyright (C) 2015, Taeung Song <treeze.taeung@gmail.com>
-  *
-  */
--#include "builtin.h"
--
--#include <subcmd/parse-options.h>
--#include "util/debug.h"
--#include "util/config.h"
--#include "util/path.h"
--#include <linux/string.h>
- #include <limits.h>
-+#include <stdbool.h>
- #include <stdio.h>
- #include <stdlib.h>
--#include <stdbool.h>
- #include <string.h>
- 
-+#include <linux/string.h>
-+
-+#include <subcmd/parse-options.h>
-+
-+#include "builtin.h"
-+#include "util/config.h"
-+#include "util/debug.h"
-+#include "util/path.h"
-+
- static bool use_system_config, use_user_config;
- 
- static const char * const config_usage[] = {
-diff --git a/tools/perf/builtin-help.c b/tools/perf/builtin-help.c
-index f0e95d741892..5bbdb4d9b9c0 100644
---- a/tools/perf/builtin-help.c
-+++ b/tools/perf/builtin-help.c
-@@ -4,29 +4,30 @@
-  *
-  * Builtin help command
-  */
--#include "util/config.h"
--#include "util/path.h"
--#include "util/strbuf.h"
--#include "builtin.h"
--#include <subcmd/exec-cmd.h>
--#include <subcmd/parse-options.h>
--#include <subcmd/run-command.h>
--#include <subcmd/help.h>
--#include "util/debug.h"
--#include "util/util.h"
--#include <linux/kernel.h>
--#include <linux/string.h>
--#include <linux/zalloc.h>
- #include <errno.h>
- #include <limits.h>
-+#include <stdbool.h>
- #include <stdio.h>
- #include <stdlib.h>
--#include <stdbool.h>
- #include <string.h>
--#include <sys/types.h>
-+
-+#include <linux/string.h>
-+#include <linux/zalloc.h>
- #include <sys/stat.h>
- #include <unistd.h>
- 
-+#include <subcmd/exec-cmd.h>
-+#include <subcmd/help.h>
-+#include <subcmd/parse-options.h>
-+#include <subcmd/run-command.h>
-+
-+#include "builtin.h"
-+#include "util/config.h"
-+#include "util/debug.h"
-+#include "util/path.h"
-+#include "util/strbuf.h"
-+#include "util/util.h"
-+
- static struct man_viewer_list {
- 	struct man_viewer_list *next;
- 	char name[0];
 diff --git a/tools/perf/perf.c b/tools/perf/perf.c
-index 8ad01a78fdd5..53c50cfd92d6 100644
+index 53c50cfd92d6..7e2e667b011f 100644
 --- a/tools/perf/perf.c
 +++ b/tools/perf/perf.c
-@@ -6,41 +6,36 @@
+@@ -6,10 +6,8 @@
   * This is the main hub from which the sub-commands (perf stat,
   * perf top, perf record, perf report, etc.) are started.
   */
--#include "builtin.h"
- #include "perf.h"
+-#include "perf.h"
  
--#include "util/build-id.h"
--#include "util/env.h"
--#include <internal/lib.h> // page_size
--#include <subcmd/exec-cmd.h>
--#include "util/config.h"
--#include <subcmd/run-command.h>
--#include "util/parse-events.h"
--#include <subcmd/pager.h>
--#include <subcmd/parse-options.h>
--#include <subcmd/help.h>
--#include "util/debug.h"
--#include "util/event.h"
--#include "util/util.h" // usage()
--#include "ui/ui.h"
--#include "perf-sys.h"
--#include <api/fs/fs.h>
--#include <api/fs/tracing_path.h>
--#include <perf/core.h>
  #include <errno.h>
--#include <pthread.h>
- #include <signal.h>
-+#include <stdbool.h>
- #include <stdio.h>
- #include <stdlib.h>
- #include <string.h>
--#include <stdbool.h>
- #include <time.h>
--#include <sys/types.h>
--#include <sys/stat.h>
--#include <unistd.h>
--#include <linux/kernel.h>
-+
- #include <linux/string.h>
- #include <linux/zalloc.h>
-+#include <sys/stat.h>
-+
-+#include <api/fs/tracing_path.h>
-+#include <internal/lib.h> // page_size
-+#include <perf/core.h>
-+#include <subcmd/exec-cmd.h>
-+#include <subcmd/help.h>
-+#include <subcmd/pager.h>
-+#include <subcmd/parse-options.h>
-+#include <subcmd/run-command.h>
-+
-+#include "builtin.h"
-+#include "perf-sys.h"
-+#include "ui/ui.h"
-+#include "util/build-id.h"
-+#include "util/config.h"
-+#include "util/debug.h"
-+#include "util/util.h" // usage()
- 
- #define CMD_EXEC_PATH "--exec-path"
- #define CMD_DEBUGFS_DIR "--debugfs-dir="
-diff --git a/tools/perf/util/config.c b/tools/perf/util/config.c
-index 5b696139f655..b2972c35c1ec 100644
---- a/tools/perf/util/config.c
-+++ b/tools/perf/util/config.c
-@@ -9,31 +9,34 @@
-  * Copyright (C) Johannes Schindelin, 2005
-  *
-  */
-+#include "config.h"
-+
- #include <errno.h>
-+#include <stdbool.h>
-+#include <stdio.h>
-+#include <stdlib.h>
-+#include <string.h>
-+
-+#include <linux/ctype.h>
-+#include <linux/string.h>
-+#include <linux/zalloc.h>
- #include <sys/param.h>
-+#include <sys/stat.h>
-+#include <unistd.h>
-+
-+#include <subcmd/exec-cmd.h>
-+
-+#include "build-id.h"
- #include "callchain.h"
-+#include "debug.h"
- #include "header.h"
--#include <subcmd/exec-cmd.h>
--#include "util/event.h"  /* proc_map_timeout */
--#include "util/hist.h"  /* perf_hist_config */
--#include "util/stat.h"  /* perf_stat__set_big_num */
--#include "util/evsel.h"  /* evsel__hw_names, evsel__use_bpf_counters */
- #include "path.h"
- #include "srcline.h"
--#include "build-id.h"
--#include "debug.h"
--#include "config.h"
- #include "unwind.h"
--#include <sys/types.h>
--#include <sys/stat.h>
--#include <stdio.h>
--#include <stdlib.h>
--#include <stdbool.h>
--#include <string.h>
--#include <unistd.h>
--#include <linux/string.h>
--#include <linux/zalloc.h>
--#include <linux/ctype.h>
-+#include "util/event.h" /* proc_map_timeout */
-+#include "util/evsel.h" /* evsel__hw_names, evsel__use_bpf_counters */
-+#include "util/hist.h" /* perf_hist_config */
-+#include "util/stat.h" /* perf_stat__set_big_num */
- 
- #define MAXNAME (256)
- 
-diff --git a/tools/perf/util/help-unknown-cmd.c b/tools/perf/util/help-unknown-cmd.c
-index f1cd9d4746f3..64dbe6e514f5 100644
---- a/tools/perf/util/help-unknown-cmd.c
-+++ b/tools/perf/util/help-unknown-cmd.c
-@@ -1,13 +1,16 @@
- // SPDX-License-Identifier: GPL-2.0
--#include "config.h"
--#include <poll.h>
- #include <stdio.h>
- #include <stdlib.h>
- #include <string.h>
-+
-+#include <linux/zalloc.h>
-+#include <poll.h>
-+
- #include <subcmd/help.h>
-+
- #include "../builtin.h"
-+#include "config.h"
- #include "levenshtein.h"
--#include <linux/zalloc.h>
- 
- static int autocorrect;
- 
-diff --git a/tools/perf/util/path.c b/tools/perf/util/path.c
-index 5ba7861a3e65..b7592e16718d 100644
---- a/tools/perf/util/path.c
-+++ b/tools/perf/util/path.c
-@@ -1,14 +1,14 @@
- // SPDX-License-Identifier: GPL-2.0
- #include "path.h"
--#include <linux/kernel.h>
-+
- #include <limits.h>
- #include <stdarg.h>
- #include <stdio.h>
- #include <string.h>
--#include <sys/types.h>
--#include <sys/stat.h>
-+
- #include <dirent.h>
--#include <unistd.h>
-+#include <linux/kernel.h>
-+#include <sys/stat.h>
- 
- static char *cleanup_path(char *path)
- {
-diff --git a/tools/perf/util/path.h b/tools/perf/util/path.h
-index e7cdb0cb1097..62e86d390589 100644
---- a/tools/perf/util/path.h
-+++ b/tools/perf/util/path.h
-@@ -2,8 +2,9 @@
- #ifndef _PERF_PATH_H
- #define _PERF_PATH_H
- 
--#include <stddef.h>
+-#include <signal.h>
  #include <stdbool.h>
-+#include <stddef.h>
-+
- #include <linux/compiler.h>
- 
- struct dirent;
-diff --git a/tools/perf/util/strbuf.c b/tools/perf/util/strbuf.c
-index df3f9c4123fd..4080bc02a533 100644
---- a/tools/perf/util/strbuf.c
-+++ b/tools/perf/util/strbuf.c
-@@ -1,15 +1,16 @@
- // SPDX-License-Identifier: GPL-2.0
--#include "debug.h"
- #include "strbuf.h"
--#include <linux/kernel.h>
--#include <linux/string.h>
--#include <linux/zalloc.h>
-+
- #include <errno.h>
  #include <stdio.h>
  #include <stdlib.h>
- #include <string.h>
-+
-+#include <linux/zalloc.h>
- #include <unistd.h>
+@@ -21,7 +19,6 @@
+ #include <sys/stat.h>
  
-+#include "debug.h"
-+
- /*
-  * Used as the default ->buf value, so that people can always assume
-  * buf is non NULL and ->buf is NUL terminated even for a freshly
+ #include <api/fs/tracing_path.h>
+-#include <internal/lib.h> // page_size
+ #include <perf/core.h>
+ #include <subcmd/exec-cmd.h>
+ #include <subcmd/help.h>
+@@ -30,7 +27,6 @@
+ #include <subcmd/run-command.h>
+ 
+ #include "builtin.h"
+-#include "perf-sys.h"
+ #include "ui/ui.h"
+ #include "util/build-id.h"
+ #include "util/config.h"
 -- 
 2.55.0.966.g6673acef38-goog
 
