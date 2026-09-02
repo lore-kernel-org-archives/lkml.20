@@ -1,89 +1,83 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D1346C842
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:47:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E52E46C4CD;
+	Wed,  2 Sep 2026 10:47:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788346047; cv=none; b=sBspp0zl54NIS0/iqgvn11ojHLXh/Q4To9AM+YAuaojJmFL7V0tKT3uW6Ek/tBzrKwpcBBRadRXCedAX+bds+E/KwQvgSbUrjXRuoWHm0Dw7LRmxcS8SSi+wUPFMTdhvj1lGb9uvVpkDlo33k1v80IHEWia7nmSoZHbhAw4pnbM=
+	t=1788346068; cv=none; b=eDu6FnNnGgqcLl1QOvxRaIsMgPAuiR+FYbAlqjId3Kdr5h1q94a8V0g6T2dYNO5wFK4aktR22JfYMaXeEJY5HPgvzCMUaUhI4ml/yHeA7dBEqt/2if9ATVloSaF2PkF+Ns6qpIDjbvS0OgK5YrTy6TpCwMFSz2VAwuVqxbjwJH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788346047; c=relaxed/simple;
-	bh=3NXgDAM6X7ufNmQeHJM/b8Ioo2uj0aZZ5gWb/eQ4eJ0=;
+	s=arc-20240116; t=1788346068; c=relaxed/simple;
+	bh=T1eX0M1hUR91onB6YIMO4/r3htVRzHdZDrQE0+m3g/E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EEiybU6uLRK8cUwHF+CuPTJ5TEmjyHmzV+tWuLFdUq7zfppBQaKXb5vYKvG87RzsDTaLeLf+2gl/kx+GAvEJ+gTTewq73bMhJOW1+uajTPxsk1JuTqEfOii95n8r4cCR5QXtLexhXtNlBqlA3xC4CF0H4fNTowdz9Fo4mbxyvN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=kJp05MZu; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=mjGlkGbZ4PwfBsq52v90PRWnj/AQVNkDu+CEhAmuI19h0dzixpcqdWp3RLy2M1KLgak5J4XJAcaZ5LsNLmBfCvpA0NqAUU+Hvn3n5oehWuoYdRp7gEhmOqI5eVvPUkXq5qkVaOUIeccW89r70nsY7B5Zm/yjIKSbQqxEZZB8e8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ECMn3hjr; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="kJp05MZu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=nbby
-	bObcL4ujd+0a7x0/LfEWoOFg2vW3ANTr8SnrMdA=; b=kJp05MZu0Ye9vuUcFMJk
-	5tcUZZMXKvbJ1/Ls9vLnN2ML+48HuADq7MhXVbMtKd2oel4KYI4ch7WPD2vLlaID
-	Nwkxzor/dwt5z7j3I4MnWLTzvC6XL4DI020RQZ696oxIECA5Hdk4UVMUFV5/mwiY
-	7WU88gqK0juqJdVa1GuA1004zuJDQzH3UuDZv5y2JC++qqttpCU1vLgdbUcL8edY
-	SjVqKtu92PLEZNz3aTbJSwz0/F0ouLhB+XuecRW1PU2dhg0+aMIodA5rDKMPQVUJ
-	H9HYrXYHyujk3Fwd3tbl9q2KYJvHTF0l6zWq7vsMs6Ypp4nkzeD5IkLXbYWFtROT
-	Mg==
-Received: (qmail 601074 invoked from network); 2 Sep 2026 12:47:18 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 2 Sep 2026 12:47:18 +0200
-X-UD-Smtp-Session: l3s3148p1@61BQwn1aOoYujnuD
-Date: Wed, 2 Sep 2026 12:47:17 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Biju <biju.das.au@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-mmc@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v24 02/15] mmc: renesas_sdhi: Clean up whitespace and add
- OF table sentinels
-Message-ID: <apf-tTkYstvbe9YP@shikoro>
-References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
- <20260820171657.62815-3-biju.das.jz@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ECMn3hjr"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=Qt/W3DSxMQKIwG+yUDdW7Q2R2X7cicnF1/L0NrB0XIs=; b=ECMn3hjrfpjO+4jRc0BJUqRldG
+	C8pEzEh7EAe2mFlZ6f4a2lleEZ7PEM+QsgJr346Sy8Fy/yhlby7UPNX3JhH1RG+Y5AglE0pJP1FQy
+	wEj9lzPR40rM2WqAV0+LcLKb0PSBk/tMtNVuqB72N0v3kDMjMuem2dvLAxeuBxP+RsmhRb2ArqGUw
+	5UgHEtIj9vrq/1vzPHMU3avyhWXV/1RKw9VnXlqJPiLcjnE2RnjlGo/miLnynKIaZ8l8J0zIKOg7r
+	BY0TlTJCCVDapg6RVFC8yj5UgAK9J4pV2nD4kZYPaoKZv5FgVy8YG3V9NISPx/tukGxMyTiUVd8AV
+	zHiq5Pow==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x1iV8-0000000EOUL-1SWG;
+	Wed, 02 Sep 2026 10:47:30 +0000
+Date: Wed, 2 Sep 2026 03:47:30 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Salvatore Dipietro <dipiets@amazon.it>
+Cc: vbabka@kernel.org, hannes@cmpxchg.org, willy@infradead.org,
+	abuehaze@amazon.com, akpm@linux-foundation.org, alisaidi@amazon.com,
+	blakgeof@amazon.com, rvvandan@amazon.com, brauner@kernel.org,
+	dgc@kernel.org, dipietro.salvatore@gmail.com, djwong@kernel.org,
+	hch@infradead.org, jackmanb@google.com,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, linux-xfs@vger.kernel.org, mhocko@suse.com,
+	ritesh.list@gmail.com, stable@vger.kernel.org, surenb@google.com,
+	ziy@nvidia.com
+Subject: Re: [PATCH v3] mm/page_alloc: avoid direct compaction for costly
+ __GFP_NORETRY allocations
+Message-ID: <apf-wsCj_5QvAPcV@infradead.org>
+References: <7ddb704c-76a9-4071-8969-06fa1403eb07@kernel.org>
+ <20260827092100.3988386-1-dipiets@amazon.it>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7EE1SMXBVZtMZWHm"
-Content-Disposition: inline
-In-Reply-To: <20260820171657.62815-3-biju.das.jz@bp.renesas.com>
-
---7EE1SMXBVZtMZWHm
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20260827092100.3988386-1-dipiets@amazon.it>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
+On Thu, Aug 27, 2026 at 09:21:00AM +0000, Salvatore Dipietro wrote:
+> 
+> On Wed, Jul 22, 2026 at 02:35:00PM +0200, Vlastimil Babka (SUSE) wrote:
+> > AFAICS both your v3 and the implemented Johannes' suggestion effectively
+> > make all the compact_first logic dead code - at least for the intended THP
+> > use case based on costly_order. It will only continue to do something for
+> > the non-movable order>0  case. So that's a significant change which will not
+> > show up in your results, but might affect other workloads (I'd expect mainly
+> > by having fewer THPs).
+> 
+> Right - the change above modifies THP allocation requests as well. So instead
+> of applying it to every costly __GFP_NORETRY allocation, I restrict it to
+> callers that do not ask for __GFP_THISNODE. That leaves the local-node THP
+> attempt untouched: the same bit pair is already tested further down the function 
+> to bail out of the compact_first block (page_alloc.c:4899), and alloc_pages_mpol()
+> sets both flags on the local-node-first attempt (mempolicy.c:2476-2478).
+> 
+> I tested this with my PostgreSQL workload on kernel v7.2-rc7 and results look good:
+> 
+> Baseline:       70,735 tps
+> This version:  144,670 tps  (145,280 / 144,037 / 144,694)  +104.5%
 
->  static const struct renesas_sdhi_of_data of_default_cfg = {
-> -	.tmio_flags = TMIO_MMC_HAS_IDLE_WAIT,
-> +	.tmio_flags	= TMIO_MMC_HAS_IDLE_WAIT,
->  };
+This looks really nice.  Can you turn this into a formal patch?
 
-This one gets worse, or?
-
-
---7EE1SMXBVZtMZWHm
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqX/rUACgkQFA3kzBSg
-Kba87hAAmMVpoQEKrUptoNRG8N08lSYup+QCg1P7ZKXtW6fD9ts25U7HWfZfrLL4
-W3CiDaC5uluog4yYhFdpL2eca+JUWiKQqo5NbDRy2x5+8CM/TXPzgSoF5IYDw87k
-7qvuOuv6qvXKRJVqiud+B6Oq5ZE33hkv2O1Dc+ItvXt3vgzH7UqYAT5gGXZxGMNg
-YuQ1Y7tRoL/Qb1jmZGyvfsRghkJHfEDA2ir8uOTqXmeqIk6BHf/Rz7pe6D10xOMD
-gdacXXs7lXORPhJiz0eF+rUP41mKWW9XYNwBlF1C2pLniANDfwCiPKfBwG+8c5Qw
-AQRULyZzTxrm1ebzLUNPCX6IOv9kLvguJS8wBlWFHJHSiQpJ+gHJUQcr6csQ43OE
-1+JwyP4KFgTimTnadGYZHKzQjjCl4mruBM1UikzK5dLV3/7ttcfG4NgsGSyr6J0K
-uObeYIpICv9EQbsj5h3fkL24+RVGiuIKonu/LnkPxPbzqHgRaFjHJ6Mjo/Q6QHXi
-OE8l7uc0dXF6mjQ7Rd321yTmPDC3W0ZUHxPUKF4EeyBq0igMmcSyQjK3LYNMZe8n
-yO4D3P/6fivUjK/f3H/12JL7R7QG7VVCYxTrcJ2GtmLU65C7t1Qqd/cPpwq6GT6w
-8rn/U7w9kIBCpf0/HCRpraB/lgty8ozFcJVdphWXkj6AMO2RtNc=
-=XGHI
------END PGP SIGNATURE-----
-
---7EE1SMXBVZtMZWHm--
