@@ -1,123 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD4A33BBCF;
-	Wed,  2 Sep 2026 07:38:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3709635CB6F;
+	Wed,  2 Sep 2026 07:39:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788334738; cv=none; b=hZuDUPfuzKn7d2BhqH+WsZrhhsOALzKeOsd1ga/vRxyWf9WTZkOefbhG0TfJw1ttcDeECb6xV3U/herg69x7Suiy+7IFXc9wLzEQdMGn3X2IQmdqmdTLxJANf4tLmuaGH42watCJewrcrKNbQJKL9JfKKjic6jE8qx0qBxuCAro=
+	t=1788334782; cv=none; b=ZTI/AIYRRiKs2BKjudEV11FGo7iWtrCo8UFX/IQfK9kXMn9Ylx1aRTfOWBzlG5D6C5ZMCa6PgyOuU2NeDjC8YCxAgGg2UB8+cbcXN4diBlX3xmE61GF1V5APBwzv9sVhAJtdOG8ruCvD4Nv66sKsm72u6ZBEdpiN90agtVkQ6oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788334738; c=relaxed/simple;
-	bh=peNBa6XWTvXD5voM6K/4tnfDdD3edZYStWDuoe7amfw=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LU05H30fXIb8RIGKzFndwZtNmrJMDWNi5K7pIEbQz8t6e28GHVORjiJ8YiSBm3/OaDcHhen3Mqa1S70kvSlGFSGMsqIuB7fDneqB1qSp9MYnmovzIrDiRTeTgc7pChgrr0tSxAkU5EON2evf8tf7FtJtUm5pb0WP6XOLMtc8el4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AXX26wr8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788334782; c=relaxed/simple;
+	bh=sI2I4okyxDQ1HgkFwksdivRgzckLgjuRUcbgD8P11/0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jgSIEqMseg/1YbbRZy5nhUqVUGovLDYFDbSsHcZSuo+uGd0hfXMTajit46J5GhGRde4gSrrIQTiiKVxDIy8ckg57SOb19k6e85rLwlRcMxSpj8VRGQWmGmdbVxudHTkDFNfP7vgXHNZiLrwjF9hrNCBD2iz/7plxT1Ey1rZiaD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SVevXqP8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AXX26wr8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1729D1F00A3A;
-	Wed,  2 Sep 2026 07:38:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SVevXqP8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10CDF1F000E9;
+	Wed,  2 Sep 2026 07:39:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788334737;
-	bh=NtFIjwHWOM2KySxyK2jN5lsJXS7iV2NXSRl0dq3VPfM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=AXX26wr8KvCG2QZcfUAqR2Dpzs2Uuq6jgvM57rxgHHBUtsTqCueEKpUbANEZmZDcM
-	 maq551oR8ZMENXN+/udtxaaNwWLPAMcz1DLsYO37wcn8/w72gxqB75vH876jegGJ9P
-	 AJd/kV4r9rvIFxqaZ4UBIio+HPnyaEk8XCnCdk3xtZzH+OAmqoa9slxW78NNWmwprJ
-	 gxQexz9Bc8W/nS0fGe6RtQOv9hUMKVB15b0LP9HocvJFUgBOL59wjsBXW65X9/qPHi
-	 PsucUsjIgB1FR5GAVA38qCBibV7U8Np8iXZl4NqDfL24T62E9A2crzNh43+4fSdjc5
-	 hOZqttRyWIbBA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x1fYc-00000003lb4-2BeN;
-	Wed, 02 Sep 2026 07:38:54 +0000
-Date: Wed, 02 Sep 2026 08:41:27 +0100
-Message-ID: <87mru0m76g.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Steffen Eiden <seiden@linux.ibm.com>
-Cc: kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Andreas Grapentin <gra@linux.ibm.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Friedrich Welter <fritz@linux.ibm.com>,
-	Fuad Tabba <tabba@google.com>,
-	Gautam Gala <ggala@linux.ibm.com>,
-	Hariharan Mari <hari55@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Hendrik Brueckner <brueckner@linux.ibm.com>,
-	Ilya Leoshkevich <iii@linux.ibm.com>,
-	Janosch Frank <frankja@linux.ibm.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Nico Boehr <nrb@linux.ibm.com>,
-	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-	Oliver Upton <oupton@kernel.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Will Deacon <will@kernel.org>,
-	Zenghui Yu <yuzenghui@huawei.com>
-Subject: Re: [PATCH v7 11/23] KVM: arm64: Share arm64 code with s390
-In-Reply-To: <20260901084037.185345-C-seiden@linux.ibm.com>
-References: <20260831144802.834315-1-seiden@linux.ibm.com>
-	<20260831144802.834315-12-seiden@linux.ibm.com>
-	<87se3tmlrv.wl-maz@kernel.org>
-	<20260901084037.185345-C-seiden@linux.ibm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1788334780;
+	bh=Zmj6Pl4DI8aaARUoVXtREi8xmgkB7kHiiAcvl0t361M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SVevXqP8uk4G2qfUr4fRwo9Xv9i/jYjJ+Hift6ITqhh0R31kK+7v5WOiOo9/0ie7j
+	 4sOXgFXmks/B/0h/21DcWitUMKDWxZYTLiyRsIbbyZZZpO+nouiDx+4eAKL3bch964
+	 Z0ITjST2BqJve2jB5bjPfpMiqhwbV+7s5F4A2fofmPN494nOQZjDhr0n7HKxZeRvBB
+	 yfEtheDm5PrO5mtXXpRM3Bx6CPq/6gY14VOKrtpn77K0Fbgi6LM5j3nbK0pUgMpnnU
+	 2tbzJBXwpgQ2gxvoVNI2PhV6fP7prCxJ05MvzwtMjBEiZwd+CPTJ5WYN4VsnP3/wkq
+	 UWLcYuhjXx0uQ==
+Date: Wed, 2 Sep 2026 10:39:36 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org, alex@shazbot.org,
+	ankita@nvidia.com, chriscli@google.com,
+	david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
+	iommu@lists.linux.dev, jgg@ziepe.ca, jmoroni@google.com,
+	kevin.tian@intel.com, kpberry@google.com,
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
+	sashiko-bot@kernel.org, stable@vger.kernel.org,
+	viursachi@google.com, xuehaohu@google.com
+Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
+Message-ID: <20260902073936.GR24140@unreal>
+References: <20260901170849.4052816-1-dhu@x6u.co>
+ <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: seiden@linux.ibm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org, agordeev@linux.ibm.com, gra@linux.ibm.com, arnd@arndb.de, catalin.marinas@arm.com, borntraeger@linux.ibm.com, imbrenda@linux.ibm.com, david@kernel.org, fritz@linux.ibm.com, tabba@google.com, ggala@linux.ibm.com, hari55@linux.ibm.com, hca@linux.ibm.com, brueckner@linux.ibm.com, iii@linux.ibm.com, frankja@linux.ibm.com, joey.gouly@arm.com, nrb@linux.ibm.com, oss@nina.schoetterlglausch.eu, oupton@kernel.org, pbonzini@redhat.com, seanjc@google.com, suzuki.poulose@arm.com, svens@linux.ibm.com, Ulrich.Weigand@de.ibm.com, gor@linux.ibm.com, will@kernel.org, yuzenghui@huawei.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
 
-On Tue, 01 Sep 2026 09:40:37 +0100,
-Steffen Eiden <seiden@linux.ibm.com> wrote:
+On Wed, Sep 02, 2026 at 09:00:46AM +0200, Christian König wrote:
+> On 9/1/26 19:08, David Hu wrote:
+> > From: David Hu <xuehaohu@google.com>
+> > 
+> > This series address two related issues in scatter-gather mapping,
+> > specifically for the MMIO based dma-buf mapping. The fixes ensure
+> > sgt mapping is correct, and proper for large MMIO regions.
+> > 
+> > Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
+> > (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
+> > phys vec to sgt)
+> > https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
+> > 
+> > Patch 2 Splits sgl by largest page aligned chunk
+> > (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
+> > https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
 > 
-> On Tue, Sep 01, 2026 at 09:13:56AM +0100, Marc Zyngier wrote:
-> > Why the exit handler, and not the EC handlers aside from the UNKNOWN
-> > one? Yes, you probably aren't there yet in this series, but I can tell
-> > you are going to add more and more of these.
-> > 
-> > But the EC array is absolutely architectural, and there is no good
-> > reason to maintain your own.
-> > 
-> > So instead of this, why not keep the EC array altogether, and
-> > implement stubs for the ECs you don't support?
-> > 
-> > 	M.
-> > 
-> 
-> There was no specific reasson to define our own EC array as far as I
-> remember. I will try reusing the array and find out if there are any
-> issues with that. But I do not expect any. 
-> 
-> I assume the stubs probably just forward to handle_unknown_ec, or do you
-> have a different suggestion?
+> *sigh* such issues are exactly the reason why I didn't wanted the dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
 
-Probably. This is an indication of something being deeply wrong in the
-implementation (HW or SW). On reflection, kvm_handle_unknown_ec()
-should result in a KVM_BUG().
+And this is why so many in the kernel community want to get rid of SG
+lists. It would be great if DMA-BUF could also eliminate the need to
+convert to an SGL, like Jason proposed.
 
-	M.
+The DMA layer no longer needs SGL. These bugs belong to the DMA-BUF layer,
+which is the one that depends on it.
 
--- 
-Jazz isn't dead. It just smells funny.
+Thanks
