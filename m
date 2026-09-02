@@ -1,143 +1,118 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE284ADD90;
-	Wed,  2 Sep 2026 22:24:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61A923806AD
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 22:25:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788387895; cv=none; b=gGJnHI/xwl7BL2Mlcu337jbrSXXX0hIl1tAX6XE0q/K3DpuCkiZB8ISIX6PyfSSYw5/uDVppTEQ4dc3Nf+5gdXpzAKxD5+FolxCDLwB9YxaRhq5LzjmiCITbG2MlzWxSunHbLKkYvxkYtMXsaADaJQeZh5KmPDCx4W9C5wis3BU=
+	t=1788387929; cv=none; b=Ldvx8mPzC0Y1KTGp3Xd8d14b4O8U8AlQiZmN34WUe78fFfaaLEV1zNh2ghthiOfaSy4605hOJOBChHiVO7CmUoYK/WvYiTHA9KQJTg7YAf8mzp/9OxAN/0jn6TdFrWS1vcp/FI8WNgRl7k8IuyRdDIz/Gke5xXEkSpLM6zBMQDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788387895; c=relaxed/simple;
-	bh=D6bkpoIpcIYOnZZyO6lK4ItdOwuknHRlO1Z8sHXjL6M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AP8epyQOCcV0rZwrGYow22L6YGfSBiBaoH8j5Eo7HuCwjLSmTMtqDw2O8Ub65Qi2o4ywXAqvYRFR2ABUvhhg/vdp7RpsHkJ1aDzkEB8tLsy3wacZZ7+MuscMp8iAccZg351L8Tofazu6Ef0HG+/kJz8g02OzVyJtLuTQO/NFAm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=X4Vu2QtD; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788387929; c=relaxed/simple;
+	bh=szYdDO84PxRayQDTK6zsyyf+Yvx7xqhACB6SYVnCYkM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=W/Kx9Ox9b3bvU2i2DnsUMQN3eC1M4qXN0alKTQYSqsqdyUpP10sH4eQn3CISc3ZtNsSkLp7Wl5XAyUI9UhE796gMU9KMIMLYfEgZsP24Bs509B/3RX/As6wsfVYP9k37jAVMk1A3KuVOSnyKjel3PUoCDWIc3iN1+iN0Kdc8t88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yb3Ayo9K; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="X4Vu2QtD"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682KVV4u3367009;
-	Wed, 2 Sep 2026 22:24:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=jxIqqe
-	Ksku6ms7BZZ9tYTyFuKkIPq5UjiX6SWrdx6hk=; b=X4Vu2QtDEpA7K9cWhaKhY4
-	Z6PJzwo+j71oQttr8O2b7fuY4p/1nLwsaHCreY/M1XGAxiWFROOsAg/gEVPDZRA0
-	g2NmOFvu7v+shALYBhI9RuOYD8fRPkez/SZqYJp0gN6ZJM0tqfpDuR7jhM3Feywx
-	wrfePnmWoR2IU6H2doo6kPT0IEQmgQh0AX+zrObeOjDChW0CYr4EmYXLkWP3yWDm
-	dYxg0mQAZHPs9PKv3EraJUDRU57AaCDaCeNTiNIsan8B4OGL8QxQ7YAQBI8i+4Do
-	VzJm4tyxy11j1GJcYhsmurc1vThUbsfWLB4Z7BMlCw4IQ5OQwYUKPCoXjGy5pe3Q
-	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq3rhua9-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 22:24:44 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 682LuY4W030585;
-	Wed, 2 Sep 2026 22:24:43 GMT
-Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gecjan46x-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 22:24:43 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
-	by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 682MOgwR19989100
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 2 Sep 2026 22:24:42 GMT
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 630A758056;
-	Wed,  2 Sep 2026 22:24:42 +0000 (GMT)
-Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9959E58063;
-	Wed,  2 Sep 2026 22:24:39 +0000 (GMT)
-Received: from [9.67.98.186] (unknown [9.67.98.186])
-	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  2 Sep 2026 22:24:39 +0000 (GMT)
-Message-ID: <b2d390dd-3ba0-4faf-967b-d1188da12e62@linux.ibm.com>
-Date: Thu, 3 Sep 2026 03:54:38 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yb3Ayo9K"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49b8ce9b733so12394885e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 15:25:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788387923; x=1788992723; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=szYdDO84PxRayQDTK6zsyyf+Yvx7xqhACB6SYVnCYkM=;
+        b=Yb3Ayo9KHdIKe4V+rNGUL0qGvJHx9YBFlAjjC36OB/kyCg5rawY1Wr1W9U4m6D//YY
+         Pxkfnpne3X4nD/2kalDcInPobDGDgSQMjVjWUWUPNvCTi3FWdaSD2z4ACZ3hOe0xfKKZ
+         E3Mqp9hn+Qm5+/DzAiuW2BUDO51EBp9yq4FsGErFFdSPpcZU2e7IMk/Gu3+NkYOtVAaK
+         yM18jTIZg22G0UpgTYQLosojkYDuqUq9+nPazXblvo095cT2RF2RQvhytfWHnS4DfNns
+         8qPEi9noAtnvdPmtueBEvFwLjpclJnvlleluikP3JikvXE4ExFGeA/qrQU1FkmxRCX9I
+         w5Og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788387923; x=1788992723;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=szYdDO84PxRayQDTK6zsyyf+Yvx7xqhACB6SYVnCYkM=;
+        b=OS/fPNT7vrRxGmiwyY8547D0rMToW3I5h8SX2tKDtfDE8I4qiUXIOpQ6MHjFFdm/7R
+         siX7WTBGdKBCz0Z7Go0hx0mMrBRn9UEBi0OTMqqjcuyRydyRNSdSNkpyF1kBmg7dQ/iA
+         P0Se9o0jI5SF0KnDPeu4MvJAxUPmpVAIYbiT5xfrTeHM7frgy4cYua6jW8C2XxuFN93v
+         fD6vkBGf8H+xA0FrNNI9uKmhKQRFeFFf8M8G7ob+M5TbHU3nd+OMTOw28AH+aI1sbmlv
+         c3FrSV1xZNBbPZJnRATuX4nOwo/WTzpdEwwLzowp9UvZX9EdModEk6tfHvYuYT6heBn1
+         T9kg==
+X-Forwarded-Encrypted: i=1; AKwUvBytORM0mrrjoxpKjj4kTr3rTzUklT7qBTngI3V6hxolEY4W18YgHLvAntG8CHP2tZdgNhCqzgYPzTYWpeo=@vger.kernel.org
+X-Gm-Message-State: AFuF++k5cYT3wfI6J/i2C9oXiW0HOX9ngWT0deIOH3hWMPYzV+/7yTp3
+	ImboE1cZe5/XJhA4n3/+hP0OdalHE1+/dKH23Gxmm6jN2rFuP7WzSeO/
+X-Gm-Gg: AYBFou1G7yzjyK5pEEg9CtVn6co8p5e3stug2vhSltN9wFB3SYgmFkbqLfFNiGqpzaz
+	fSMaof6Ib20+S2zWsf9CgG4c4vPZ70zjHrv04J/dg4o9d+KhXWKGFHfHE6qxPid+Ph8YCy1odnA
+	j3Oj2sTtU78tECx0J58Kb8Xa5BDeS/2fLGNX7IKtGPZ7WZyHxsF26s9JEU2ZdZP/Sh3tzULfFYy
+	7gzbM4hF5/aaY1uCcEx1D2ZahXASs2ChJooJTcYcTPNYl3pIQk3k4ktPBE+zC1GoENncO5Pyqhy
+	16EbDfjq++wOmn/9IAX1dG7JNK/m1DVdgAVyyjHNwppMlhAyIZ5vvEgjkFSbm0WTVFtrqYxzURD
+	oJxMkBtI9xwxA/YjO1/bbSN6XXESxfQcXBWMumGFfAQVxssw0fH6wSmJJZZnnDuSHQJNFsrh1va
+	wz7xBVOhhmJZqH2d8K6cpblx6ZMk5qGsjDzGwXFZ2fjQjQhvDCharo4WDPTPYJOrXB4LD+Fe/bQ
+	/b7
+X-Received: by 2002:a05:600c:530f:b0:499:bdf1:7578 with SMTP id 5b1f17b1804b1-49ce55ecdf2mr157349195e9.3.1788387922631;
+        Wed, 02 Sep 2026 15:25:22 -0700 (PDT)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee6023d6sm20916915e9.8.2026.09.02.15.25.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 15:25:22 -0700 (PDT)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: Dong Aisheng <aisheng.dong@nxp.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Jacky Bai <ping.bai@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	imx@lists.linux.dev,
+	linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Mehmet Fide <mehmet.fide@screeningeagle.com>
+Subject: Re: [PATCH v3 2/2] gpio: mmio: track the direction of chips without direction registers
+Date: Thu,  3 Sep 2026 00:25:21 +0200
+Message-ID: <20260902222521.1752085-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <CAD++jLmJ1+ZT=j_L79SuOzZS3PjOBgrCwhO8egaHfOU1ScLPkg@mail.gmail.com>
+References: <20260902154525.4090276-3-mehmet.fide@gmail.com> <CAD++jLmJ1+ZT=j_L79SuOzZS3PjOBgrCwhO8egaHfOU1ScLPkg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] keys/trusted_keys: return immediately after TPM
- unseal failure
-To: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org
-Cc: James.Bottomley@HansenPartnership.com, jarkko@kernel.org,
-        zohar@linux.ibm.com, linux-kernel@vger.kernel.org,
-        linux-security-module@vger.kernel.org, nayna@linux.ibm.com,
-        rnsastry@linux.ibm.com
-References: <20260902103120.222326-1-ssrish@linux.ibm.com>
- <20260902103120.222326-2-ssrish@linux.ibm.com>
-Content-Language: en-US
-From: Srish Srinivasan <ssrish@linux.ibm.com>
-In-Reply-To: <20260902103120.222326-2-ssrish@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=EIc2FVZC c=1 sm=1 tr=0 ts=6a98a22d cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=Y-y2Im-bRa9duunfRGsA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE5NSBTYWx0ZWRfX3PxBAJMX5NU1
- YKCe2YMNrQeY54PsYfBlvCKv28mWayPk8iRBmEnM1baoCAtPfuvoXn30rYRGAK7fQ7QD4mLJCeD
- SB8H6xRe3NCmJjFH2jslQUVos+NNZ4EtxiRTg8aj/Pbq9DnCHUDFJtifPovPeZ/GLAeXom2j15t
- grt9Xs9iWn8rp47FzBwCFIv43r1KqFJe+HugzZ/vKlA6e3HKrg3E1WvMwmEIUQ8gnKXEpRSK4Eb
- upVIaxDHUpi9Mg9elYidDWX5CgqBFBw4iG/X+L3rMYhSW961l2W+I/LEOahO6Oqbxi9BFNEkp7Y
- fda7IYZ4B+1G5ok039CmzVSjne7puMG4yHJDoHFvL97xAulwXVKvnJSvNsgr07Gk/ojvbHYpI5Y
- Lh66xFuN2aXm3Oy3r4nmWILRWfMam07vXrtRsG4lQoMLZXrMGnbrPEym3ad67+aqWpYxEZfBA3/
- 6I9MmMoTvcu5s8NafGg==
-X-Proofpoint-GUID: a4VYTaxDfaTffOkljByhbbMBZnHapPtp
-X-Proofpoint-ORIG-GUID: a4VYTaxDfaTffOkljByhbbMBZnHapPtp
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE5NSBTYWx0ZWRfXzGkBGzAc61jh
- MEFbVliPiV+D965upWYoi/s6Ena9FYRLqig6LuTdPpAYENTmWUfBDAqM2oAxi0MxNkhfcFX6wX1
- 6JkTIRUlsONS7vN8VAoJehHVt3vKjaY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_05,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
- phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020195
+Content-Transfer-Encoding: 8bit
 
+From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-On 9/2/26 4:01 PM, Srish Srinivasan wrote:
-> trusted_tpm_unseal() proceeds to pcrlock() when the TPM unseal operation
-> fails. If pcrlock() succeeds, its return value overwrites the unseal error,
-> causing key instantiation to succeed.
->
-> Return immediately when unseal fails to preserve the original error.
->
-> Fixes: 5d0682be3189 ("KEYS: trusted: Add generic trusted keys framework")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
-> ---
->   security/keys/trusted-keys/trusted_tpm1.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
-> index bf0bf7f36970..1168ca235205 100644
-> --- a/security/keys/trusted-keys/trusted_tpm1.c
-> +++ b/security/keys/trusted-keys/trusted_tpm1.c
-> @@ -923,8 +923,10 @@ static int trusted_tpm_unseal(struct trusted_key_payload *p, char *datablob)
->   		ret = tpm2_unseal_trusted(chip, p, options);
->   	else
->   		ret = key_unseal(p, options);
-> -	if (ret < 0)
-> +	if (ret < 0) {
->   		pr_info("key_unseal failed (%d)\n", ret);
-> +		return ret;
+> What about just implementing generic optional get_config()
+> in struct gpio_chip, implement a likewise generic
+> gpiochip_generic_get_config() in gpiolib and use that as
+> the fallback?
 
+Yes, that is cleaner: gpio-mmio then knows nothing about pinctrl, the
+same way it does not for set_config today. v4 will add the callback and
+gpiochip_generic_get_config() as a mirror of gpiochip_generic_config(),
+with gpio-mmio installing it for the pinctrl backend and seeding the
+shadow through gc->get_config.
 
-This should be "goto out;"
-will fix this in my next version
+One detail for the generic helper: with CONFIG_PINCTRL off the
+pinctrl_gpio_get_config() stub returns 0 and leaves *config alone, so
+the helper returns -ENOTSUPP there instead of pretending it answered,
+like gpiochip_generic_config() does for a chip without pin ranges.
 
+> I don't think it is necessary to provide any consumer API for this
+> such as gpiod_get_config(gpiod); as no-one really needs it, we can
+> keep it as a private thing in struct gpio_chip for now.
 
-> +	}
->   
->   	if (options->pcrlock) {
->   		ret = pcrlock(options->pcrlock);
+Agreed, nothing outside the chip needs it.
+
+Patch 1 stays as it is, minus the npins check I already told the
+Sashiko bot was redundant.
+
+Thanks,
+Mehmet
