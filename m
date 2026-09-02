@@ -1,281 +1,151 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B54EF41D13D
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:27:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A980415B6B
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:27:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788341240; cv=none; b=cJU2xkGb2NoIGha8KjzPbLzY/lwTkry/AwoMVN0EwVunxzIIKjdlk3VAwZZiH/Z3DqjTsqK4+UnJht1idukYhrT0WXXL0j4veohis6BP9KyBfiBZ+2YnyU84MLzFrvq+8ZPLQaPx49sWUfRDELWIJSFhMsdkoK4vLBDfw+PBK9I=
+	t=1788341246; cv=none; b=U5OsWMlVAklJ81KtjySjAQITS5Gp9Rjg3+i4TxSZyJLMKtUJZ0LyRq4VaS6OhS+kKpYSL46GbmxUgUnxNWf9cPJ/2Xr0zeqY0W7NRSZoI+DhNBQMiLpMB+r66B0TJpXde109eTMU6ruPVxXFs5KgHItTCu5pfOJmY1eUYMQk2DI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788341240; c=relaxed/simple;
-	bh=Ufx/Na5ud9+HB4KmgqLZ2egUUb8IbKIAGqt4GKt4yFc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Q+Ig6+EJUhb2kOKyqMUPuKczkIjU6VNwGsc4gzhjKqHm6xAy3YZrBNyARCR7juAzPblmUw6P+Q9I0LHr4xtVGpb+veRPW+yuD3MWGC+lguTsN1/A2BAUrKQZXAWmsqbxTWnpDYSOt+cKWiOnOdkZG/TRUfEJHY6t7/0Ia8kadDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PKXyDqkf; arc=none smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788341246; c=relaxed/simple;
+	bh=4RrWg3YRAeHPQUzHKjgVo28GNnYT956K15imGLTP8yk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZLH9VTaBU/0JxAi/vmaSMu1U50IbnCoFeS8kKZPTRua/gGDCeM314KxpMIKY1az9Vsj10kcbwS/8c8XJf+rVbekflm+jGyx/jImcko7P3qEKzDUuB2HrFl7guxmEhiHLu05KwWMiUM8nH2Qy2QdmWOgutlUGOqsdG5Q8iKOdEj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CVF1nDol; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZRlhJpLX; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PKXyDqkf"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-853c401326eso536722b3a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 02:27:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CVF1nDol";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZRlhJpLX"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6829NEt8463929
+	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 09:27:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	gNLzMLJZKI7OImu+XuzOnLBC17S6dnkYMkkwnpIHzgw=; b=CVF1nDol+hpZwsFS
+	MOgvCBfb1EwOK0kpu/Z3JNm/mxhLAgh54XhaeCGkXwlxAj2rRKgmNudMadzRAUB6
+	6VIahtjrGJKoReOrZVYXLEGFRr340+g4JsWIFwWZl2yCIersIw0MU7Bnw//mavuL
+	OoTVWoM5YAztEdwdxd0tLDEnFQIeZ/iIuIuyGb3gMKKvSXd43IpYyfj5PZ2a24Vt
+	PyLbKWBXkxzhRWd6YLdV0QtDLb/OhlYfmF0+BJplbFO+QH6WDUNfJ51h3pEwYY5U
+	UyToNEgTyeLhWpkb0DJIjqLj5adDzsiqMKWdNWSDFmnc9pGRy0KLjsp4mSavnPiK
+	41ffjQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ge35k3738-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:27:20 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-398fe469aa0so1470310a91.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 02:27:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788341234; x=1788946034; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eRUAOAdoeg0ACoOZGqt1RM6QAFvC+MmIu2Q8vR/OfzI=;
-        b=PKXyDqkf6VbnIabTAHzLjJVq4JNAhEiCnK0lcWXV4L2nZp/oFBEZ2BR3zlIFmm+QaA
-         GAOUDw4YZSku9pbqjcXRRuHPO98U5+PjZG/wOBfFn5bdE3CIX7kl6Nb0ZTc7DRJ6ZPiY
-         re5BbwC4H2SpHCG3BWyByu1c2wTR87pJ7UDkY9VgZp5eg+BuyQs+tGb6+AnCsZa1vCuY
-         4cqjM6Yvg+rpS86Vtp776VIE0mJv7eGkRyOdNZfLNlgER1SBgjVxCXhfZd5OhlKMX+TR
-         s9aPzll71lJFrvjdSeFInKEl61r7mJ/zR7NTjCH59DN2jgRJHLIfMRlppWm9HaHNJWka
-         cCeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788341234; x=1788946034;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1788341240; x=1788946040; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=eRUAOAdoeg0ACoOZGqt1RM6QAFvC+MmIu2Q8vR/OfzI=;
-        b=nNkwDggV21VBKXK6tfZR6DaikukWL8SmsudsXwA7AE98nfp2gCTPgLrZR1fsDpG+Bq
-         xscELdWYry+WSX2AOKUAj0WltYusXQqrkL88vW8CnAgawd1kQefqgenRRfYPoPPFD3UK
-         2DCtG8Z4u7PqJavZXS8DS5afQJgwBIydAdyPe84y8kdUJFVTO+TcFjMIG2+0ttVFajuz
-         lSfa61QIumzWqo3WVQeE332o/qDozLVbW2R0XqVhHx77aeruN64VcO4IzR2qsGGnC35X
-         BgLW9qB/yDhHVcc9Ph8st/4soXvOlC+BDZkZii/V/3HfftT2FzDhf5w6Lox5Hs5aPXUj
-         0bTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwiebvbDh9uobTvYLXNObRefoIu8115SymaLv32B5kzJBxxurQr2VpGa3t7STeSvGw4GKwQtwKvSgGmcNA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kCjLUzCfu6T/2AiDWOfNZURy6iJgBjk9xaRKc5Q1TsR8zRegcT
-	Fy4ootyWsmA7g+xYXinx87WtdzEoHmYAb2XoPnyWjqUskjGdM1rLNV0J
-X-Gm-Gg: AYBFou0pwG+hp90bdj3IWJJF0I8nEFebZz/FZiHtbHk539JhwE0A8fUFJ47pvlrgZep
-	UNNsHuR9XZDklT9JMc/9dpqk50Odabx2oVo9O2RJAkDteNsZaKJ1+aLdJatll9O5ia6fgoikq5V
-	XTHx1Ifmq6gkGjbA3Ori9/VGiMpLwQSJJlkbqV5oO8zT1IIBRswZFJUCX9rLuXj4mkP5sO7oXol
-	D46ECTZUNLyVE8mkXHlKEFjNBkOb1hRYYaJ898fMJm38Y9jGzwIaPjXfaXNHXGs1exVYCndyke2
-	8pinKw6DdgrX98fKvAU9rFeHu0uqai7bMOiuypmlJ+CDwXWbh2dRkORsDT+jRMki1BGTMUeHP2t
-	Lq9ad8gVQA9R9V5JGbdwYeA4pwZRNtdwjl83iw2mocZ1RiG36iNTYXnxP8hgGbdrxNvGGFrtCSl
-	PGgcWZ6Wr5/Hjfd90sUmExl5c3KvsTYSNxOOI9PMIXTBsFrjSyVsd62pzx6iKdlhwxqwGqEENfS
-	K3wE7MT+n7jlGFpEGJn
-X-Received: by 2002:a05:6a00:2183:b0:857:7384:b5f6 with SMTP id d2e1a72fcca58-85ed464053cmr5298268b3a.18.1788341233701;
-        Wed, 02 Sep 2026 02:27:13 -0700 (PDT)
-Received: from 192.168.50.3 ([183.193.115.0])
-        by smtp.googlemail.com with ESMTPSA id d2e1a72fcca58-85dc11fae83sm1055963b3a.59.2026.09.02.02.27.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 02:27:13 -0700 (PDT)
-Sender: Weiming Shi <thebestswings@gmail.com>
-From: Weiming Shi <bestswngs@gmail.com>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Eliad Peller <eliad@wizery.com>,
-	Emmanuel Grumbach <emmanuel.grumbach@intel.com>,
-	Ilan Peer <ilan.peer@intel.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	co+36935f8953d6874a@bugs.sh,
-	Xiang Mei <xmei5@asu.edu>,
-	Weiming Shi <bestswngs@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] wifi: mac80211: fix link STA group key use-after-free
-Date: Wed,  2 Sep 2026 17:26:58 +0800
-Message-ID: <20260902092658.792735-2-bestswngs@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260902092658.792735-1-bestswngs@gmail.com>
-References: <20260902092658.792735-1-bestswngs@gmail.com>
+        bh=gNLzMLJZKI7OImu+XuzOnLBC17S6dnkYMkkwnpIHzgw=;
+        b=ZRlhJpLXs7m2BLsfe5ikECyZQNjqrMn8jUttE8rx9qJyObr/lq6glYak2a81N2C1Dv
+         gkivVdC9B4eOubxt2jmTu1OYQP+UytQAMwLoiWP5yzITcKA3xt372P2x1h1jkCkDvzM3
+         0GxlzVN5AfdKqE6hEE8V09MJV0Q7UuiD/jOt9mxC+Pmmi5ERmhq3el/ITPHg8t/M9tRG
+         y3OOlsOuPDcWq4au6zvYci4yzAVAxWLJLNxDXdknE9fZsWYkBXkrdh71vyPe0OPD9OPN
+         H00AlQt0BRjfkxx/Rfs++Jos8AU4n0Q10lPhl80vnjwndQjV/UflW5g3CyATvX8rntfD
+         0HFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788341240; x=1788946040;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gNLzMLJZKI7OImu+XuzOnLBC17S6dnkYMkkwnpIHzgw=;
+        b=Aqnarzkq8sKraiemVfkUwYBkCgmTTk0BrtTEI7iMCwdqUFNkTW6WZDr3Ewq1pm19IR
+         00r1UR9YSiGVTz3RdtZ7X5LRuOPnG8I959hLdquhKMbGaJrddokcA/zVyIqEYovtR1su
+         ZlwZMwJLPn2xbaOTUwXzIyzwdJitpRJa5kMmggV/AudiK7af4/uwtbTRHrT6ZAaK2X8F
+         dTmrqflfl32vznK58htilEYSanIEHICI/7BpaGxe7oFP8ymC4BUvcO4z1KvnOiO1N+jN
+         wExX611QfxtxumikuMM5dScnnwLOAjqntzCvpbf+aANuapfSXycEXiZjhHC3zX9nRkX4
+         RbnA==
+X-Forwarded-Encrypted: i=1; AKwUvBwassD19xRWlsR9ES80x47omALeQB0NQUV0+qP4/znE3pHneCIsbqbZx4ViLDK4yFJ9/BL7jfHdadl/14o=@vger.kernel.org
+X-Gm-Message-State: AFuF++l7YKz2XiMRyyYAweOiVCxCOZ3H4TqMAIeIy6vLdKbk5Jr313Wq
+	ssu/jySOPLIAN4clA6Sq8uqKmXCzTPfpFncT0yfYq7BPngc/cck45lMKTMkH2mq5lpyryidNGEs
+	yd0hpmd+CSFpHOoPRImH7QRpSr30tBsUjyT8EPLkAqXs8AuVNL1wNf2Qmusw7KvAIh9o=
+X-Gm-Gg: AYBFou3/06aACWn2n57Zrh0JAFc6YXq0Inl66KVAPCtPl4CFibHaUULZd/ZJCKzM7Lt
+	byZ5K9iBUdQanAqn1UMe9xOpNW/Yeq1+3eBbc2rhJ7sLBh7FiG0jw/5L3QHC0j/8ai8WKG6Rq8C
+	L3mYMWYfy/m8B4iugaDmyhTjLxfZU+vM/TQBd4r3r76JOu+d9sbhDlScybYSglAvHz2+Hlp2aMM
+	TcO1p/Pmcw4Tf/taxxRvhglUaW8CXL+8lMePMszO8cUchB9Uu2jh6TSDgQr8uOLpPn6KvM2yziX
+	tB+7gzCH6I6JYeGMhsVx3HJtCuxEn/9X4bMl59jF42jgStyd0cYqLu7rWVnxrymXsrmDjPOaNNf
+	+Z7wIq9AeGeJx8sz7OCnTl5Th+LmMmnQ=
+X-Received: by 2002:a17:90a:f94f:b0:398:bacb:1137 with SMTP id 98e67ed59e1d1-39aee21a4demr5659443a91.19.1788341239433;
+        Wed, 02 Sep 2026 02:27:19 -0700 (PDT)
+X-Received: by 2002:a17:90a:f94f:b0:398:bacb:1137 with SMTP id 98e67ed59e1d1-39aee21a4demr5659371a91.19.1788341239018;
+        Wed, 02 Sep 2026 02:27:19 -0700 (PDT)
+Received: from [10.218.31.125] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1430e9eb4dasm8445304c88.2.2026.09.02.02.27.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 02:27:18 -0700 (PDT)
+Message-ID: <54de34e2-cbe1-4464-b186-3ba242ffe3fd@oss.qualcomm.com>
+Date: Wed, 2 Sep 2026 14:57:13 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] tee: qcomtee: Register qcom.tz.tpm service for
+ discovery
+To: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
+        Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
+        Peter Huewe <peterhuewe@gmx.de>, Jarkko Sakkinen <jarkko@kernel.org>,
+        Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-arm-msm@vger.kernel.org, op-tee@lists.trustedfirmware.org,
+        linux-kernel@vger.kernel.org, linux-integrity@vger.kernel.org
+References: <20260831-tpm_qcom_driver-v1-0-6f16fa6924fa@oss.qualcomm.com>
+ <20260831-tpm_qcom_driver-v1-1-6f16fa6924fa@oss.qualcomm.com>
+Content-Language: en-US
+From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+In-Reply-To: <20260831-tpm_qcom_driver-v1-1-6f16fa6924fa@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA4MiBTYWx0ZWRfX0j+h/SOG0NDd
+ ywpapdxQqgXh24rwHGFDfgopbS2ZhFZ02dYx2Aunm71QirZaLNl3AYo3BgOR0pVrKkcTAODv9XF
+ zqO7NC5QbTyP8IOmmsRXazpRWtqxaAOnR+NikT3uNiOrhcAWWk/NBpL6qcf434y3pmv4KskjJjn
+ ljt5tOsW7wGxHI7KQW/ComfG2OEILos1nb4GSQkIJiuAK4xSWBjBuqbqvrc4XrmBjGNqflSxf+o
+ dKTk2rrv6PFxgijJq2O4iRaC1Ikv9dUABXyNZ/qG//6b6WjC2MfGJGvqLuWS7imaZCYjSXN08WC
+ L7ShxptCOiIcixayP0sII5HIzv/dxC+JaKjv2H26TPhyV8umpvZ8qlk/EfLOPlG5as5KQ+Qgg5F
+ YbWdKhynDqO3JUH+Ddd5Q8UhPXIm7nWrBn2nDrH7m6vhUkioIipxoLiDl4Xx9zfXtDpyKX0sJRJ
+ o4Eub2ZQ4TmURx1f6dw==
+X-Proofpoint-GUID: YOdZ0AxrA8Gypvddah_IieaSmnmhVF1M
+X-Proofpoint-ORIG-GUID: YOdZ0AxrA8Gypvddah_IieaSmnmhVF1M
+X-Authority-Analysis: v=2.4 cv=VLrtWdPX c=1 sm=1 tr=0 ts=6a97ebf8 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=3Mugy72lF2TQ84n-Z4MA:9 a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA4MiBTYWx0ZWRfX/EzoRTm9aq3p
+ j1OvFlrE9pRNkp9MhjGetPWEkmOEtbHY/xbC7nlLaJtUVX+HgHrFGJOocAVhc8d9EdqgX2VE3fv
+ K2ZByKmhqQ9gE8BVGFUNwdO47MstvB4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_02,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0
+ malwarescore=0 adultscore=0 priorityscore=1501 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020082
 
-A group key installed for an MLO link STA is stored in link_sta->gtk[] and
-sdata->key_list. Link STA removal currently frees the link STA without
-removing these keys. A later key teardown then returns -ENOLINK before
-unlinking the key, while its caller still queues the key for destruction.
-This leaves a freed node on sdata->key_list and can also leave key->sta
-dangling.
+> diff --git a/drivers/tee/qcomtee/qcomtee_msg.h b/drivers/tee/qcomtee/qcomtee_msg.h
+> index ecaf8db67d45..888611b801c8 100644
+> --- a/drivers/tee/qcomtee/qcomtee_msg.h
+> +++ b/drivers/tee/qcomtee/qcomtee_msg.h
+> @@ -106,6 +106,8 @@ union qcomtee_msg_arg {
+>  #define QTEE_VERSION_GET_PATCH(x) ((x) >> 0 & 0xfffU)
+>  
+>  #define QCOMTEE_UEFI_SEC_UID            413
+> +#define QCOMTEE_TPM_UID			489
+There's discussion ongoing in QTEE side on keeping idl with uid 81 and
+not a new idl(uid 489).
 
-Remove a link STA's group keys while the link STA and driver link are still
-present. During full station teardown, collect GTKs from every link
-together with the pairwise keys, unlink all of them, wait for one
-post-unlink network grace period, and then destroy the batch.
+I'll update if needed in my next patch.
 
-Also let removal of an already orphaned key reach the list unlink
-bookkeeping when the link or link STA is gone. Keep -ENOLINK unchanged for
-key installation.
-
-BUG: KASAN: slab-use-after-free in ieee80211_remove_link_keys
-Read of size 8 at addr ffff888028c3c818 by task exploit/5192
-ieee80211_remove_link_keys (net/mac80211/key.c:1114)
-ieee80211_vif_update_links (net/mac80211/link.c:192 net/mac80211/link.c:351)
-ieee80211_vif_set_links (net/mac80211/link.c:408)
-cfg80211_remove_link (net/wireless/util.c:2894)
-nl80211_remove_link (net/wireless/nl80211.c:16312)
-genl_family_rcv_msg_doit (net/netlink/genetlink.c:1117)
-netlink_sendmsg (net/netlink/af_netlink.c:1889)
-Kernel panic - not syncing: KASAN: panic_on_warn set ...
-
-Fixes: ccdde7c74ffd ("wifi: mac80211: properly implement MLO key handling")
-Reported-by: co+36935f8953d6874a@bugs.sh
-Closes: https://lore.kernel.org/linux-wireless/s6BRFbJoyNpjUBu6NC9TdJxvXM9vpQsN1FcY@bugs.sh/
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5
-Signed-off-by: Weiming Shi <bestswngs@gmail.com>
----
- net/mac80211/key.c      | 55 +++++++++++++++++++++++++++++++++++------
- net/mac80211/key.h      |  3 +++
- net/mac80211/sta_info.c |  6 +++++
- 3 files changed, 56 insertions(+), 8 deletions(-)
-
-diff --git a/net/mac80211/key.c b/net/mac80211/key.c
-index a69617d8d1c7..b907258829f0 100644
---- a/net/mac80211/key.c
-+++ b/net/mac80211/key.c
-@@ -475,7 +475,7 @@ static int ieee80211_key_replace(struct ieee80211_sub_if_data *sdata,
- 		return -EINVAL;
- 
- 	if (link_id >= 0) {
--		if (!link) {
-+		if (!link && !sta) {
- 			link = sdata_dereference(sdata->link[link_id], sdata);
- 			if (!link)
- 				return -ENOLINK;
-@@ -484,7 +484,7 @@ static int ieee80211_key_replace(struct ieee80211_sub_if_data *sdata,
- 		if (sta) {
- 			link_sta = rcu_dereference_protected(sta->link[link_id],
- 							     lockdep_is_held(&sta->local->hw.wiphy->mtx));
--			if (!link_sta)
-+			if (!link_sta && new)
- 				return -ENOLINK;
- 		}
- 	} else {
-@@ -535,7 +535,7 @@ static int ieee80211_key_replace(struct ieee80211_sub_if_data *sdata,
- 			if (new &&
- 			    !(new->conf.flags & IEEE80211_KEY_FLAG_NO_AUTO_TX))
- 				_ieee80211_set_tx_key(new, true);
--		} else {
-+		} else if (link_sta) {
- 			rcu_assign_pointer(link_sta->gtk[idx], new);
- 		}
- 		/* Only needed for transition from no key -> key.
-@@ -1183,23 +1183,57 @@ void ieee80211_free_keys(struct ieee80211_sub_if_data *sdata,
- 	}
- }
- 
--void ieee80211_free_sta_keys(struct ieee80211_local *local,
--			     struct sta_info *sta)
-+static void ieee80211_remove_link_sta_keys(struct ieee80211_local *local,
-+					   struct link_sta_info *link_sta,
-+					   struct list_head *keys)
- {
- 	struct ieee80211_key *key;
- 	int i;
- 
- 	lockdep_assert_wiphy(local->hw.wiphy);
- 
--	for (i = 0; i < ARRAY_SIZE(sta->deflink.gtk); i++) {
--		key = wiphy_dereference(local->hw.wiphy, sta->deflink.gtk[i]);
-+	for (i = 0; i < ARRAY_SIZE(link_sta->gtk); i++) {
-+		key = wiphy_dereference(local->hw.wiphy, link_sta->gtk[i]);
- 		if (!key)
- 			continue;
- 		ieee80211_key_replace(key->sdata, NULL, key->sta,
- 				      key->conf.flags & IEEE80211_KEY_FLAG_PAIRWISE,
- 				      key, NULL);
-+		list_add_tail(&key->free_list, keys);
-+	}
-+}
-+
-+void ieee80211_free_link_sta_keys(struct ieee80211_local *local,
-+				  struct link_sta_info *link_sta)
-+{
-+	struct ieee80211_key *key, *tmp;
-+	LIST_HEAD(keys);
-+
-+	ieee80211_remove_link_sta_keys(local, link_sta, &keys);
-+	if (list_empty(&keys))
-+		return;
-+
-+	synchronize_net();
-+	list_for_each_entry_safe(key, tmp, &keys, free_list)
- 		__ieee80211_key_destroy(key, key->sdata->vif.type ==
- 					NL80211_IFTYPE_STATION);
-+}
-+
-+void ieee80211_free_sta_keys(struct ieee80211_local *local,
-+			     struct sta_info *sta)
-+{
-+	struct ieee80211_key *key, *tmp;
-+	LIST_HEAD(keys);
-+	int i;
-+
-+	lockdep_assert_wiphy(local->hw.wiphy);
-+
-+	for (i = 0; i < ARRAY_SIZE(sta->link); i++) {
-+		struct link_sta_info *link_sta;
-+
-+		link_sta = wiphy_dereference(local->hw.wiphy, sta->link[i]);
-+		if (link_sta)
-+			ieee80211_remove_link_sta_keys(local, link_sta, &keys);
- 	}
- 
- 	for (i = 0; i < NUM_DEFAULT_KEYS; i++) {
-@@ -1209,9 +1243,14 @@ void ieee80211_free_sta_keys(struct ieee80211_local *local,
- 		ieee80211_key_replace(key->sdata, NULL, key->sta,
- 				      key->conf.flags & IEEE80211_KEY_FLAG_PAIRWISE,
- 				      key, NULL);
-+		list_add_tail(&key->free_list, &keys);
-+	}
-+
-+	if (!list_empty(&keys))
-+		synchronize_net();
-+	list_for_each_entry_safe(key, tmp, &keys, free_list)
- 		__ieee80211_key_destroy(key, key->sdata->vif.type ==
- 					NL80211_IFTYPE_STATION);
--	}
- }
- 
- void ieee80211_delayed_tailroom_dec(struct wiphy *wiphy,
-diff --git a/net/mac80211/key.h b/net/mac80211/key.h
-index f5a97213a559..e4ee89de9438 100644
---- a/net/mac80211/key.h
-+++ b/net/mac80211/key.h
-@@ -24,6 +24,7 @@
- struct ieee80211_local;
- struct ieee80211_sub_if_data;
- struct ieee80211_link_data;
-+struct link_sta_info;
- struct sta_info;
- 
- /**
-@@ -167,6 +168,8 @@ void ieee80211_free_keys(struct ieee80211_sub_if_data *sdata,
- 			 bool force_synchronize);
- void ieee80211_free_sta_keys(struct ieee80211_local *local,
- 			     struct sta_info *sta);
-+void ieee80211_free_link_sta_keys(struct ieee80211_local *local,
-+				  struct link_sta_info *link_sta);
- void ieee80211_reenable_keys(struct ieee80211_sub_if_data *sdata);
- int ieee80211_key_switch_links(struct ieee80211_sub_if_data *sdata,
- 			       unsigned long del_links_mask,
-diff --git a/net/mac80211/sta_info.c b/net/mac80211/sta_info.c
-index 22eba0e6e54c..cebfb2c4c0cc 100644
---- a/net/mac80211/sta_info.c
-+++ b/net/mac80211/sta_info.c
-@@ -3444,10 +3444,16 @@ int ieee80211_sta_activate_link(struct sta_info *sta, unsigned int link_id)
- void ieee80211_sta_remove_link(struct sta_info *sta, unsigned int link_id)
- {
- 	struct ieee80211_sub_if_data *sdata = sta->sdata;
-+	struct link_sta_info *link_sta;
- 	u16 old_links = sta->sta.valid_links;
- 
- 	lockdep_assert_wiphy(sdata->local->hw.wiphy);
- 
-+	link_sta = wiphy_dereference(sdata->local->hw.wiphy,
-+				     sta->link[link_id]);
-+	if (link_sta)
-+		ieee80211_free_link_sta_keys(sta->local, link_sta);
-+
- 	sta->sta.valid_links &= ~BIT(link_id);
- 
- 	if (!WARN_ON(!test_sta_flag(sta, WLAN_STA_INSERTED)))
 -- 
-2.55.0
+Regards
+Kuldeep
 
