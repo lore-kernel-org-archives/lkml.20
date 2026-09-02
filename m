@@ -1,172 +1,119 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD79648820D;
-	Wed,  2 Sep 2026 14:53:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788360810; cv=none; b=FDUR5Q6HDlImKgnW0cpTQoCK3zWSeNr4zfa49uxcGHOqZYk2KQpZYWm3kEiKqjbnhEuwcX8IJmKUpak4fsXYIie370xRqTPqX3SBVD+UAl/yjPmfHzp4uZ3P2LoxRIX3+5xxrSB043GvIxMQgsatEagZ48L7R3eE8XIIhImDLLs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788360810; c=relaxed/simple;
-	bh=QZNlpbHzqGu67GTCDPymcI6jZrf5t3k7ROAW5RILhNQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SrjKMG9W32XexygUnXGVfrPff/RVR9GJP2IwoD+sURfd5H2RXhW9vhR8BeSe9PI3ojXBSO8l0/XIPyMJtMqvkw1xS4tONCeYgf2XgJ/rfBCNEeWiHZ59oJJWEDtYNoA+OV6BxWzh0W3GuHv8yRCsw2XvIiYxUbpMjJiKAVlsX1k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=LyN2hMe/; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A43154A4845
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:53:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788360813; cv=pass; b=UXeUATCsWv/SGGT1NTmpsxgnTvpsM/DoVrFgctFBmSBu6eX3Fp5b1nlPI9EO5Hk6X1Lx+3xAJcixL7nBcmYNvpGe/M/Zp6ym5MNqrQNsEjUAXxSwAWMYWe7IBPvxEGr9YXnQ2WdR6vB+n3Fu4pgtAX/3UafOfgn5Xl3RMd11nSM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788360813; c=relaxed/simple;
+	bh=LE7CbjR5pflUmJQsDyeScHoohLPNlix0SavkfVNasZc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cLq+EynUHyRDaMmaRlndY7olRn6PJnoxqazJGGK9zphv7M9frod4nwhV1nih0JkGB3SRYtbJrTe42fYvcdfaWkcpWZswbWeMhtQ+Kn6JLTm5lclyLpcqoQymig3rdaFwJyVCiGhDUtdgLAgO5BGEksA3ybkIa7ibQz3oOPNInvo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mC4f04G+; arc=pass smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="LyN2hMe/"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682CVtfI046984;
-	Wed, 2 Sep 2026 14:53:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=5Xs7Mu
-	6jnbGPV8UltG0ZSUs2j/TcJCLYMEpH07v+Iqg=; b=LyN2hMe/qpHb7dbgo09vaj
-	SlxO3cdJTT7yP2mv5NsUrAjIozgf5npqbpuUgh+oxFUJU9HLQ9LNI+IZpMJiFOKr
-	aX8ThXG7vof+Ek2qbKODtAfzH0Bo1AI2hJk7UNFLX+tiIgMeCM4ZS3xHpRIUJKvd
-	jhGg/ThNd7hKooVJUQ3MzaxSQZzkQnK8NlF63wKMR16Ssx+6kf7RKUMpC34BgcHN
-	RkDkGXWx5SyRRmaCU1AXQYfG2+I/YZSTi5YlCLCdB/2luX9HKEC0pZ1/sFSjJT4S
-	GT0aRB6qlapVWLb2ZcBbkQ2IbjhpeKy/soejKhXo074OFxwGo5nimWbgjsAOSstQ
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq2tevgj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 14:53:22 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 682EfIQS020342;
-	Wed, 2 Sep 2026 14:53:22 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcb8hjcgm-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 14:53:22 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 682ErIgo42729956
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 2 Sep 2026 14:53:18 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0FF3520043;
-	Wed,  2 Sep 2026 14:53:18 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CABF720040;
-	Wed,  2 Sep 2026 14:53:17 +0000 (GMT)
-Received: from p-imbrenda (unknown [9.224.75.30])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Wed,  2 Sep 2026 14:53:17 +0000 (GMT)
-Date: Wed, 2 Sep 2026 16:53:15 +0200
-From: Claudio Imbrenda <imbrenda@linux.ibm.com>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Janosch Frank
- <frankja@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        David
- Hildenbrand <david@kernel.org>,
-        Heiko Carstens <hca@linux.ibm.com>,
-        Sven
- Schnelle <svens@linux.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>, Vlastimil Babka <vbabka@kernel.org>,
-        kvm@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-        linux-s390@vger.kernel.org
-Subject: Re: [PATCH 0/4] KVM: s390: replace page allocator calls with
- kzalloc()
-Message-ID: <20260902165315.06996af6@p-imbrenda>
-In-Reply-To: <apghz4XAgv0ro15t@kernel.org>
-References: <20260902-s390-kvm-v1-0-3bc0986550b1@kernel.org>
-	<20260902130612.41500808@p-imbrenda>
-	<apghz4XAgv0ro15t@kernel.org>
-Organization: IBM
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mC4f04G+"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-499ae1c6471so6890075e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:53:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788360810; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ddvL0XXz+StfD3qxf5xv81zaJ+o5E4wAzxRlxE5uuKN2CC2b9Zmf0ZQ0eug3r9ky4+
+         wDJwAtIfVwX7DetleKgdtwILTQuQmTelkW879oEUoy56fS8gAllmTsYm7yXyidlNI1gl
+         +pNmuIQHMD+4ST+M3bbJQO9VZ6V5w4/WiVybK5kxl8EkM3+pVaGT9PTlvvrcfRtK/OGN
+         mOnedJEKXqmsLBYICA0cn1PLTkV0MR55VrknQC1WF0ynOBfRnhjAiSaLddfiQAzn/qLe
+         t2tjjvBkJhPJbFwS7M6aBqQJp3bf3nX3AiV/OmVAlCAs4xL7EJJJQ1qbK33O4R93ys4x
+         /9FQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=cz1/Y0DZddHarQG1HOQ6HanJnePLmDeFZMT4+NnMnkw=;
+        fh=PfR99usUxvYWTnH/a+kOZbbQDzTdSog7uy0fvOrlLTQ=;
+        b=YxyB/2HkSAenunC9cr5APOS4w8uQqojBfWpGRUrxvs+JihNYKeBQ1419x7uEmFoFsm
+         YN7w1dFIlQJS5HPlCtzytMBl+OTR639KMPlEYztcQmxKsPthhE8O2GQKXsNU+NuIZxxA
+         5/2/aDLkO2jNX5ZM3DuGQg5UrqErXa4thajfs4PbZBU/eDXKjapmwP3x1cDwYKZCZIUk
+         kxNvvNdqgmgJpfP2trXjOPBcLsznbUnrz4qdyaLaPxWIlkFg/iqpQU8GCD3fOxKonZeU
+         W76rNyYgYgW3G4kDZ7v+RAu4cmCo3UwexwTJ3BdSCVgCrtWA2nckvunHrmavSADCHUU1
+         hEgw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788360810; x=1788965610; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cz1/Y0DZddHarQG1HOQ6HanJnePLmDeFZMT4+NnMnkw=;
+        b=mC4f04G+qSgtW4AxmpcRFTfvp7fL3RCRFSIDcfMz7dciNmSM9CP0z7oLMknotlJTII
+         rIl4LPreq3kg+G738wCSGJCm64rRZjf9l2C2oVDwyxN9cpwbZl9kzaRe4B/94fp8gB1k
+         h181NE++b9i8LJ/IxqotBPr+5ypiHNoacM55gn+bGkkYl3ffe3xFuk4nc7OkDmVZnuPF
+         VpMWLt6ZZsEE6d3hVRrrHWnL4t4GmrphrKDp+diucYvHDTv6SjEbvi5bp47QCCVUdIYl
+         yZgzG2AWI91rLXpwhFICZNxmQgz3cGNlJodIVGVILp1Y6T2BQ4Z/xF2dNoxe0/c/pSnz
+         OwXQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788360810; x=1788965610;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cz1/Y0DZddHarQG1HOQ6HanJnePLmDeFZMT4+NnMnkw=;
+        b=oT+nP7wC+xX98eVNLEV1biCeabi96c67mg4vKcS926NFCzB8efEVco/9db9N3dm9JH
+         +XYoSLAohWgx48CF5I2zsVcTorOw15upj5j7sUskB+i/fYGpq1VXfegetq1EJ08C6bJw
+         OYyC6XaiJEcjxtf0tCdG6ceP2Cx/yRtmkW2cthmUNI+py7ievQu+vRY6EegT7t6O64xD
+         Ws/UBvyJoFF5AH+28eBVxMzH9vKjAJPI8s3srzcjHeWtnQiEHn9lo11zQ/b9/owGZoXF
+         KSctL0Tj/A/MJp5Pk49FmBw11NLRkLDvjnRXvpizmW9lO7gPuT2Du3BIlWG0uh2+VlT4
+         AhVg==
+X-Forwarded-Encrypted: i=1; AHgh+Ro+P+6PthR5TKivE4n2f8nYcCHYskc/KheiZDGRDVUne0tSIrQpmrqyhXPwRR5pb6UxEbKt/YlMQj06YxU=@vger.kernel.org
+X-Gm-Message-State: AFuF++m2aOjchHTYcIoZY7EcB+nh/plh+QYzKGou7JcTwkb7HH2kYcaL
+	ZQcJhILnmzukPLvUc/Cev7AAaibbIoa4JntqKJDPIMsMVbCRtqBt6QVFstxqVWOfai1kr908JPr
+	bcL7JbQp0r6YtGTnNTdnnLJspq0mZ3jg=
+X-Gm-Gg: AR+sD10POjbSqQKV6qIjT1LVSKb/qtld/VXC1fWX6g6LttQKkdmA8L6+5D1wyzfauM/
+	C+HkVh9fUQU8gnAwpDXqQ05HZdzNc6lBSHiYE1bXv7HKsxj6XR89xMPzEkWd9NNbRRB5HR4Jtw3
+	wT4vv3FQrRdhsaCksNLst0skPMrTedQZEGxvhnURIsp7i9hWuwdKPzXX9Zj6ezoKkSxxBPgG46b
+	2mxhSFvLc6fJ1oosEa+IL+N/gQF1HDDcB2dzM6IBYFVqgLJs0Hmd/wLt8dpH1q3BKFOfm/KCJ3X
+	+o/LAyhfYEOHMonjjl9wuALyqyCC9uF29uoH9OoR7kBOzRKCyFr5UArYVI2cCF6/GL1SFczahRz
+	awORDTrpwLxoU
+X-Received: by 2002:a05:600c:8b86:b0:49c:d27e:8f7c with SMTP id
+ 5b1f17b1804b1-49ce5843b42mr98947975e9.12.1788360809577; Wed, 02 Sep 2026
+ 07:53:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=bc1bluPB c=1 sm=1 tr=0 ts=6a983862 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=iT-jVQeAxx133_sytAwA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDEyOCBTYWx0ZWRfX3r5DrU+hPIcW
- +R/pcZv/kteCuUDX2LkaT6ApUjlBhLWtyovKwsaAQQoCGwbvcZDWmqnSSXphaVBMLn8tgVmCh0y
- RJBe5VAU3V5bEOioIpfs67jwI44Qu2A=
-X-Proofpoint-ORIG-GUID: MZWJC2roP1BPdcqri1p0hvQ2eJSxf6mS
-X-Proofpoint-GUID: MZWJC2roP1BPdcqri1p0hvQ2eJSxf6mS
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDEyOCBTYWx0ZWRfX1jzB8OFQsNHP
- mjQXWPCaYr4kLevRUJ8A0C4QPOmEvs9DcOwbiDUAF0tIAMgGJnPR2eEmVCRJxzJBTsTBr7wyr95
- 7s7iCuKdY4BcRNmF4dGL/yskgrL3qLP9Q5e5TjuiXzmleig4QBjQYjALbQer+FpVG/7uC6tc/ku
- UWodck2j3oE5uQ2t9eDlyw6guvf1fwL0H055vP1eV+PEc+vR/bvnS3ZEgqGiRn9ijCL4Xb226Sv
- ohoO/C6W5QBjLbf2e008GPpsDo7+y7A53ldHa+e5tiaFJSDdy6YwvR7nvYzJr4SsfFw8SUXC14+
- Pc3z3rM4FttqIc42CCCQWiV/XYeQ8+VBYa5ATVkR1z/HOy+xmhYacFkQB80BpTeyMO5qyaEzYtg
- w2rKsi85ctxTEqGCCi6jlMgo4XoWg6AF5PZq8VgJ4dKBYrbUCm/qqWkq3fiKoIkFgIetVSx55cm
- e5ua7KLfza1fnn7nOJA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_03,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 adultscore=0 malwarescore=0 spamscore=0
- lowpriorityscore=0 phishscore=0 clxscore=1015 priorityscore=1501
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609020128
+References: <20260827094509.1016740-1-hebaoquan@kylinos.cn> <20260827094509.1016740-2-hebaoquan@kylinos.cn>
+In-Reply-To: <20260827094509.1016740-2-hebaoquan@kylinos.cn>
+From: Nhat Pham <nphamcs@gmail.com>
+Date: Wed, 2 Sep 2026 10:53:17 -0400
+X-Gm-Features: AcwNN1W9lD2KQqogdRdP50s00M41nMSGQxjnOM7hJApnRWk36-ObH5j8nvh2NWY
+Message-ID: <CAKEwX=MqTYpZAwBDOOzdkuo7NP0JFRjFdQaedtrjk_HCNmTSXA@mail.gmail.com>
+Subject: Re: [PATCH 01/16] mm: zswap: return -ENOENT when the swap device is gone
+To: Baoquan He <hebaoquan@kylinos.cn>
+Cc: linux-mm@kvack.org, akpm@linux-foundation.org, chrisl@kernel.org, 
+	kasong@tencent.com, baohua@kernel.org, youngjun.park@lge.com, 
+	hannes@cmpxchg.org, yosry@kernel.org, shikemeng@huaweicloud.com, 
+	chengming.zhou@linux.dev, baoquan.he@linux.dev, david@kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2 Sep 2026 16:17:03 +0300
-Mike Rapoport <rppt@kernel.org> wrote:
+On Thu, Aug 27, 2026 at 5:45=E2=80=AFAM Baoquan He <hebaoquan@kylinos.cn> w=
+rote:
+>
+> zswap_writeback_entry() returns -EEXIST when get_swap_device() finds no
+> device.  -EEXIST is the shrinker's "page already in swap cache" signal,
+> which makes zswap_shrinker_scan() stop shrinking entirely.  A NULL
+> get_swap_device() instead means the device is being swapped off, so the
+> entry is simply stale.
+>
+> Return -ENOENT so the shrinker skips the stale entry and keeps scanning.
+> Independent of xswap; affects all swap devices.
+>
+> Signed-off-by: Baoquan He <hebaoquan@kylinos.cn>
 
-> On Wed, Sep 02, 2026 at 01:06:12PM +0200, Claudio Imbrenda wrote:
-> > On Wed, 02 Sep 2026 09:15:12 +0300
-> > "Mike Rapoport (Microsoft)" <rppt@kernel.org> wrote:
-> >   
-> > > This is a (small) part of larger work of replacing page allocator calls
-> > > with kmalloc.
-> > > 
-> > > My initial intention a few month ago was to remove ugly casts [1], but then
-> > > willy pointed out that Linus objected to something like this [2] and it
-> > > looks like more than a decade old technical debt.
-> > > 
-> > > Largely, anything that doesn't need struct page (or a memdesc in the
-> > > future) should just use kmalloc() or kvmalloc() to allocate memory.
-> > > kmalloc() guarantees alignment, physical contiguity and working
-> > > virt_to_phys() and beside nicer API that returns void * on alloc and
-> > > doesn't require to know the allocation size on free, kmalloc() provides
-> > > better debugging capabilities than page allocator.
-> > > 
-> > > Another thing is that touching these allocation sites gives the reviewers
-> > > opportunity to see if a PAGE_SIZE buffer is actually needed or maybe
-> > > another size is appropriate.
-> > > 
-> > > For larger allocations that don't need physically contiguous memory
-> > > kvmalloc() can be a better option that __get_free_pages() because under
-> > > memory pressure it's is easier to allocate several order-0 pages than a
-> > > physically contiguous chunk with the same number of pages.
-> > > 
-> > > And last, but not least, removing needless calls to page allocator should
-> > > help with memdesc (aka project folio) conversion. There will be way less
-> > > places to audit to see if the user was actually using struct page.  
-> > 
-> > I have some objections to this series, but not because of what you are
-> > trying to do (which is actually nice).
-> > 
-> > I understand that you probably wanted to touch as little code as
-> > possible,  
-> 
-> Yep :)
-> 
-> > but now since you're rewriting the allocations to use
-> > kmalloc.... I'd like them to be converted to use the __free(kvmalloc)  
-> 
-> You mean __free(kfree)? Sure, I can look into it.
+I think this should be submitted independently of this patch series!
+It's a small, self-contained fix for an existing issue, no?
 
-yep :)
-
-> 
-> > system. It will make the code smaller, easier to read and understand,
-> > less prone to future errors, etc.
-> > 
-> > In some places the whole code flow can be simplified a lot.  
-> 
-
+Acked-by: Nhat Pham <nphamcs@gmail.com>
