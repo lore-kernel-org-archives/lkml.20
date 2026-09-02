@@ -1,113 +1,141 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4614A0F1E
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:23:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C4E4A2A78;
+	Wed,  2 Sep 2026 14:23:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788359036; cv=none; b=Nun+YDB1I47QnE4jr5vkEWVF7EUaOiP4MiY3T3lE6D0ejw/Bttw0qtRdnwvPGBPyI1D3eieLTYdTyXvwhdNYe1Kc/72G2Zh4S49Sr5S7f03b3WZceq6UvGqEtBdTjAIm3+hdhAbWYjp2WVwmYo9UrIZX8Y+Gmjysd+sf8aMH+rs=
+	t=1788359037; cv=none; b=o+/HRMvoYzSmKe8jgLIPLb59JUGjib0PS3VzgxtKuRIvoUM1tz3LnE+btAoSKtPM7amAEkADsNOm4N1GGpIckhvzPWs25pp+viEuh37HPL9f+qcY+g7biAYmixoc66crCJF0Pylgp4F1CQFJj8qhnlfYWFYr0sdroNpIt+FjntE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788359036; c=relaxed/simple;
-	bh=eLcLdB61xgQPGp9TGH/pxR0qtBZ/5ekjEqwjdW1d3UU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=I+76pt7JwVDWmhzhv4h+NH38ENmQUM2l5Nw46OFKrC5WSibJxBUNL/QRfEMqhxNvR/1AvpzeIeh80EtIXGTMRmSsTIIbyiesHN8+wNrLLwhpeEJSbKHXTNsNryrUEoD5cU2UueMjM/VUzV9M4IaA40RdPxKugmmBCaiut8cXDiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FC7rUtWe; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788359037; c=relaxed/simple;
+	bh=rCMoliIvaDVxJcnz+gIOPgwILGhhyEMldwt7qupmWqU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bIhpvMd3GFPXKCdXLXUodW6SBVqSzvy+oSfgnGMgx8+ii1UZmL4SPqF2w23eeKW6NVsXDK0SlW2KgJ3q8mKo//FCVdk3MiVK9thWtpIP3tGqQUblhHAhYhAMmst1PmaDqDl19zP7O8eWAwskXi6tCAa7gy0lKAPp2Ki7Lap7e1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N5v8vvl2; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FC7rUtWe"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4980fe6b3beso17954915e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:23:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788359033; x=1788963833; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5YoW1Jzw+xb5Cvou5QkbkZo1EXSEsUxy2Wyof2lysEI=;
-        b=FC7rUtWeocOH0+p6IP5JWUcQx6SEIuTbOJP3QMwEJooMIo5LWixMg625cjeNqfcic4
-         KQFV49YTZSojD0EMjHVBxTLcjkpK7ma5HmXMBk2aAtc6U7uGDPHIvSnUCLvEs2fLU2iS
-         7XobeHjuHEf4Pc+pD5nqQGWJzz5QyXwVK8PWzCXipSNQwozOLYd0wOiEZt/kqwTKjTn6
-         NgpyzV9QlEsGoeHlReSzN2pYhMY2lp+xr66amynNdDGSd+FrMxhVzjlUuOKZmzzwCh4d
-         kUxBnWIubU4UjTMV2lSTDthnp9hDBRVlbKHSVx4SVvZfgW8kMCO3YxMR3oFC6u70sCf9
-         GBeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788359033; x=1788963833;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5YoW1Jzw+xb5Cvou5QkbkZo1EXSEsUxy2Wyof2lysEI=;
-        b=F/+ZnDAG9jQc0UwJGQC2umWZA4JVx41CCyczBktHz4E7wbh5Y4bEzW/KM1zpS+xu7G
-         VquyMLf+6izLZ4hyRvt38tGaOTh0lTHDMhM28xtjOWBbbbRvGrFJyL3HhxTjuWZXGuug
-         RLHZb4ZHFlcXYoYf+Kf7TBxBBRpDIcJH0AkTzhZE21egCgawMRlH4CT+VmWARLGju5NG
-         H9om3fD+Z5QHucPGPUn/gDuQ0ZU1qdVs9sgblqltLYCsaZr08+UHn7ZgL+o1i9sxTMbl
-         eAd9hUhCjR75RvW4FWCUQcXZhqE1q7I7vR3PznSsGsOx+NBTjft4NrcdxRQU7RQJIOq3
-         pbqw==
-X-Forwarded-Encrypted: i=1; AHgh+RpodNlqyDYqq/GxciRawmU92s5lXnTYsPwG5sDhwxFYw6VwOpUlyNxdkD5JaNK7/W4LcT1raanjDLXPh3Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++kaMoRHWNdUkMjWIdhIv5MquKkEK+lm1exTIgqgJxA61jYJmX1/
-	D9h47rIkbXLyhUV5cjv74zJmjATR0csLMNHcCfblDuTBkmXrtXvw6rIW
-X-Gm-Gg: AR+sD128Qjx+2O/Ax3Yf4v3U4YcjpXog2tyxd8k5HlvdD4LDViA3ag1oQRzdFtXqPpm
-	1Yz13Uqp0iAU3lBaqEeJaE5GmCC4feNZmZTVUVe6oq5z60DQakVXcHgvbA+AIkodMLZKbU9E4OL
-	NZhiHPNexQEa+o65lCZ278HCHVYe1kD1kjh/OzL2OufmHFIQFI2ZWhR8AmB+g3C013wxJgtcI9D
-	U86++odWGtrqHD+TW1jMeExhyz9mCrYDcuisxvBNkFgGg3mRwtbtwPWOFquz2uVOC9z11eraNq1
-	4ESsOqk9JRiDAoxY4H+sQBkJgjfEZQyRT5lASoW3jY0tfllYNcIGhjBr5t/l38FwGLPzQxtPvDQ
-	A/KecfUd5I4kKHHN/6oNzXORwlz8826TuSVwNfWzgelymVomj1ljsPrxP0MpQ0DQNuvpB3YmVuH
-	EJ5mJzmqy2tW3wMXeiJ/ASXvYZuEB572J3sKBrqLm87eGGL1j58ooxP8nIS837ID8b+lo97DZB7
-	prWW2s8cSePipTsRibYiAO1gmEPfvfmJOKyQqwZbExX/PwVgWjJwOwIUwo=
-X-Received: by 2002:a05:600c:a10a:b0:49c:eded:44e with SMTP id 5b1f17b1804b1-49ceded0475mr11064115e9.7.1788359033274;
-        Wed, 02 Sep 2026 07:23:53 -0700 (PDT)
-Received: from raviolimobile.tail5f26fd.ts.net (mob-83-225-30-215.net.vodafone.it. [83.225.30.215])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5927b68sm58999265e9.1.2026.09.02.07.23.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 07:23:52 -0700 (PDT)
-From: Fernando Rimoli <fernandorimoli11@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: sakari.ailus@linux.intel.com,
-	dan.scally@ideasonboard.com,
-	linux-kernel@vger.kernel.org,
-	Fernando Rimoli <fernandorimoli11@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Tommaso Merciai <tomm.merciai@gmail.com>,
-	devicetree@vger.kernel.org
-Subject: [PATCH v5 3/7] dt-bindings: media: ov5693: Add clock-noncontinuous
-Date: Wed,  2 Sep 2026 16:23:17 +0200
-Message-ID: <20260902142322.73523-4-fernandorimoli11@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260902142322.73523-1-fernandorimoli11@gmail.com>
-References: <20260831181858.325109-1-fernandorimoli11@gmail.com>
- <20260902142322.73523-1-fernandorimoli11@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N5v8vvl2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788359034; x=1819895034;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=rCMoliIvaDVxJcnz+gIOPgwILGhhyEMldwt7qupmWqU=;
+  b=N5v8vvl2wE+ptdTvFMbkvnE1Z4uNW4hBecuaEJUtOoHgAq2E2lR1s7XS
+   7xyitZuoPGqgQoqmvzkuMZTpM1tyGJXFiKdPxdaSCq26BFXtNxiJ1HLKz
+   xG+JvKQqGv6dVgXaMDtyxfNOoPNbDukot3iOhYc7YfbGFBRl307mYXMVB
+   +qHcqIdoaQ6Mytd3idF2b1xs7Z+pqWaEo3FIr3gCfczDnWRT27WOA0nC7
+   g9F1fR/4JbzSPTwQXjFpAzsy/6T2xrTjGUXBmf/hHTPpMpITYBiH0/eWJ
+   h1/07n72YfX+EF/Lym5CpfeO2z847kolCcNNpsxAMSJoVFBkAVXkQ08oz
+   g==;
+X-CSE-ConnectionGUID: Kp8C1vSzRcSFEgr9Mc2itg==
+X-CSE-MsgGUID: +heZ9xvFRQOXXsBmplyOKA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="111589546"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="111589546"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 07:23:54 -0700
+X-CSE-ConnectionGUID: tLMNHySdRleUHQO17kDM5w==
+X-CSE-MsgGUID: Jp9or/KzRvmEGsX4kpi7WQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="307636256"
+Received: from vverma7-desk1.amr.corp.intel.com (HELO [10.125.110.100]) ([10.125.110.100])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 07:23:54 -0700
+Message-ID: <1814c678-8c4c-47a2-a0d6-a97cf5b388d0@intel.com>
+Date: Wed, 2 Sep 2026 07:23:53 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/8] x86/microcode/intel: Reject problematic loading on
+ GNR systems
+To: "Chang S. Bae" <chang.seok.bae@intel.com>, linux-kernel@vger.kernel.org
+Cc: x86@kernel.org, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, hpa@zytor.com, andrew.cooper3@citrix.com,
+ arjan.van.de.ven@intel.com, stable@vger.kernel.org
+References: <20260901231634.714144-1-chang.seok.bae@intel.com>
+ <20260901231634.714144-2-chang.seok.bae@intel.com>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <20260901231634.714144-2-chang.seok.bae@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The sensor can gate its MIPI clock lane while idle, which the CSI-2
-receivers on some platforms require. Allow the endpoint property that
-asks for it, as ov5647 already does.
+On 9/1/26 16:16, Chang S. Bae wrote:
+> Revision 0x1000405 contains internal microcode changes that are required
+> by subsequent revisions to avoid #MC during loading. This dependency
+> logically fits the minimum revision requirement.
+> 
+> The minimum revision check, however, currently applies only to the late
+> loading path, since the dependency was primarily intended for OS-visible
+> changes. The early loading path is therefore still vulnerable to this
+> issue.
 
-Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
----
- Documentation/devicetree/bindings/media/i2c/ovti,ov5693.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+Honestly, I think minrevs are a distraction here. Let's keep this short
+and sweet:
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov5693.yaml b/Documentation/devicetree/bindings/media/i2c/ovti,ov5693.yaml
-index 3368b3bd8..0d8ca0a51 100644
---- a/Documentation/devicetree/bindings/media/i2c/ovti,ov5693.yaml
-+++ b/Documentation/devicetree/bindings/media/i2c/ovti,ov5693.yaml
-@@ -82,6 +82,8 @@ properties:
-         unevaluatedProperties: false
- 
-         properties:
-+          clock-noncontinuous: true
-+
-           link-frequencies: true
- 
-           data-lanes:
--- 
-2.43.0
+Microcode updates can usually jump revisions. However, there is an
+erratum on Granite Rapids systems. If they "jump over" revision
+0x1000405, they machine check <or whatever, I forget how they die>.
 
+> Furthermore, one of the subsequent revisions does not correctly specify
+> the minimum revision, so unfortunately the late loading cannot rely on
+> that check either in this case.
+> 
+> Prevent loading 0x1000405 or later when the system has not yet been
+> updated to 0x1000405 or later. Apply this blocking to both early- and
+> late-loading paths.
+> 
+> Rename is_blacklisted() to is_late_loading_denied() so the new function
+> that covers both loading paths is not confused with the late-load only
+> one.
+
+Whee, and get rid of a chunk of old terminology while we're at it.
