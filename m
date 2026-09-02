@@ -1,117 +1,114 @@
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F07A4A92E4
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:50:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46F54AA039
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:50:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788364245; cv=none; b=sUMU2IeWf5jWcGL03AY6rLBV3AZgbgvVMGmOTToBH36ezq5AOBrk4/IalGgjfJgjKfMw9lSuhHqsT06zM1BLFK7PVBWjiW1bXi2QEBBkAPqlO2JW9J01BjVIQ/fR57U/joayerHsRXv2nkXgoVkG8rhvLDeoZjVblzsXr3KUfnk=
+	t=1788364253; cv=none; b=MW93QVCm+o6aUmdO40FNoTiWT5kXEn3+7hPdEqWoWVQv7ZLUe+QcKOlkyId7yIifhFrkpBJJw3zIA3t6CQy3DOrRpswZR4dA3s5Ftc1cLtMwhVj8eFdxZYZuJ8kGYPHh+oYJ1a4KnTwMJ7qMP178fY4sGWO2E+CTjVxi8UnZhic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788364245; c=relaxed/simple;
-	bh=x/aSspVi1izw2ohQt29OQIs4Z647EroW5SPSwlyZz80=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=qhKtlUSyhKBEgenvuT/y6X/c+ZRjaJdnvNqOdAROxW9vtBXBNXzpRstfzNcAtwWmP8biRfWU2SLH5MIKkxA7uUsyBBxHbx7S0fkirO9Uv6wAoNWlAyVsHunNfzbm20mUIIvJjEzBIhSJtC+0YjmM83MNHLW4pzpI9zsCiRcc418=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PyZC6T/L; arc=none smtp.client-ip=209.85.210.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1788364253; c=relaxed/simple;
+	bh=FTXyX+fojJWqGK+Vw1fyMbaNujEYnLgIYsatUW63mts=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cQXuHrHw+mSrTZ4fZp0MX5iLDHskhx1huAE/neMWa+vHmsDqvqih4pBQrvEqbNtwWsACPtrsRmQhGVmOUosMG70vWTKSvOY9esKLE/+20QMpxUsUX3yGpT9DV1B9IkGLRawv6r49obf/p0O3XCjsXQVt90CKrs5OUrzv+g7bGt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=CEhYOO2f; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PyZC6T/L"
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-85f1f3620bcso8693b3a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 08:50:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788364242; x=1788969042; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2atBUez5/3AnWCQ3IY6Ohn5PAS7hQON2CkUYdFYqUoU=;
-        b=PyZC6T/LQtiadLBf3zv8wSlRiingp+XWfEoQTB5Ct0FiAEYY21mNcg2a9nb1QrVVww
-         dXYQg2SKiKYFEoBeVxLVhlaHBgNiYdEcLe4RK5mZFQNW0te78CvsndhPQ/eOAktA9lrZ
-         vfzDe+rhHDt50oUagkKTXegnv4+Z8AN4IyV6x+t365miWB3Gv+U94Y/4Mp/EdsQIemiS
-         j2A/n2cTlTBcesT1+r2CGy43t9pyE5R+Gc0UFygeGiXRg6FX1I743wjRPI1ImVf05E+9
-         e3K2g/9Yl79P0GxEauN41BVa2BQ2xy9SB8cVq7X/g9rrGzDFKRgJMpUzLvrQZNDgp7TY
-         14Kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788364242; x=1788969042;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2atBUez5/3AnWCQ3IY6Ohn5PAS7hQON2CkUYdFYqUoU=;
-        b=g89Z7C5CWpkfGqyt+fWiY8ZGUJJ0EFjmaAJ/stLceYXqXaIitplsa5sw15z17LVP3O
-         ZPXnuWfy1KUQ6seoAUb7Bwmt0lOsG+4sRtWCAVksN0XFiTx40VYNVZsiMM4nvdl7DLkA
-         x0vyX0Iz00stQpm78IAZDvStTLajP73ZaNrkhJ/8qqTXjSjh5IUiNkq1T7Qaeup37Ykp
-         j811eBG+5k5b0/zbilGUWhWPbvvnKy9T9/7HuhhRQp4vFiNKVk/W9va6yLWn454UThNA
-         ZMJjUWzBUgErGjnjyMDxo3LR8z3BQjaKgEayHOnga4BVjELv8n3YUADAaySjzdI6Z4gA
-         sIvg==
-X-Forwarded-Encrypted: i=1; AKwUvBwqbZ0CSyIpamP9OOlMRiujqHQ74TnPSczit79A0EXPf1wjWkGXd70KeslHn5+Bcoochy+PmncMpVlb9wM=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8g+8XndqTEEv6F1Kz9Knibv3PkMEDzfau2rYoG0IDmSEUoPze
-	/hqIOn6PQVcTwyx2IUm8FJI71CtT0Kx5oNdJVhe7XdlW0S+aLe+4z3qfN2Oj37kYAl//1Jr6nCS
-	55ZIgBg==
-X-Received: from pgp19-n2.prod.google.com ([2002:a05:6a02:62d3:20b0:cc4:337d:af34])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:1449:b0:3d3:aed2:6f29
- with SMTP id adf61e73a8af0-3da2168db67mr89360637.29.1788364242090; Wed, 02
- Sep 2026 08:50:42 -0700 (PDT)
-Date: Wed, 2 Sep 2026 08:50:41 -0700
-In-Reply-To: <apgeAJKF--dZvKvF@google.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="CEhYOO2f"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1788364248;
+	bh=FTXyX+fojJWqGK+Vw1fyMbaNujEYnLgIYsatUW63mts=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=CEhYOO2fWJHLsMwh/JijslQU9FftvUH6P00KV9MOVJi9LKLRDE8+4bgNnraXZ8ZUX
+	 6rEyGct0vV4f0NWSJL+2p5ZQ8SY/MNuewM67nA0qp8yJXwI8ZbMTCdrfNe7md7FUGl
+	 4DzDFBSftymcpt7RsHoLJltw53YloNe1GYed1ZyYqrzzQZqmKOqm/Sc2vsUYOLJLyd
+	 P0b8nzz1GYUfMYRirZKLlcDt6PjrLj5RzICrRGO2nmaM/FCK+7lDpyKjypzxn7fsrw
+	 gz4b1tqoYNNnBK9ndDxJV+HVtWZVHhT51JOvkm1B2CO4SLEhmST609udyQSjwk5Jad
+	 EuV2vnLEyLYIQ==
+Received: from fedora-21.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2A2FA17E0DD8;
+	Wed, 02 Sep 2026 17:50:48 +0200 (CEST)
+Date: Wed, 2 Sep 2026 17:50:43 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v7 02/17] drm/panfrost: Move all DRM device
+ initialisation into device_init()
+Message-ID: <20260902175043.58e68317@fedora-21.home>
+In-Reply-To: <aphC0QRm5MricnRp@sobremesa>
+References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
+	<20260828-claude-fixes-v7-2-72a13b2c125d@collabora.com>
+	<20260901134951.1e1d7fda@fedora-21.home>
+	<aphC0QRm5MricnRp@sobremesa>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260831144802.834315-1-seiden@linux.ibm.com> <20260831144802.834315-4-seiden@linux.ibm.com>
- <apdwHcdy2iYRTrww@google.com> <87ik4om4x2.wl-maz@kernel.org>
- <20260902091351.438647-B-seiden@linux.ibm.com> <apgeAJKF--dZvKvF@google.com>
-Message-ID: <aphF0ewDGuZxsrJz@google.com>
-Subject: Re: [PATCH v7 03/23] KVM: Allow KVM implementations to switch off
- MMIO independent of Kconfig
-From: Sean Christopherson <seanjc@google.com>
-To: Steffen Eiden <seiden@linux.ibm.com>
-Cc: Marc Zyngier <maz@kernel.org>, kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>, 
-	Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
-	Claudio Imbrenda <imbrenda@linux.ibm.com>, David Hildenbrand <david@kernel.org>, 
-	Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>, 
-	Gautam Gala <ggala@linux.ibm.com>, Hariharan Mari <hari55@linux.ibm.com>, 
-	Heiko Carstens <hca@linux.ibm.com>, Hendrik Brueckner <brueckner@linux.ibm.com>, 
-	Ilya Leoshkevich <iii@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
-	Joey Gouly <joey.gouly@arm.com>, Nico Boehr <nrb@linux.ibm.com>, 
-	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>, Oliver Upton <oupton@kernel.org>, 
-	Paolo Bonzini <pbonzini@redhat.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Sven Schnelle <svens@linux.ibm.com>, Ulrich Weigand <Ulrich.Weigand@de.ibm.com>, 
-	Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>, Zenghui Yu <yuzenghui@huawei.com>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 02, 2026, Sean Christopherson wrote:
-> On Wed, Sep 02, 2026, Steffen Eiden wrote:
-> > On Wed, Sep 02, 2026 at 09:30:17AM +0100, Marc Zyngier wrote:
-> > > On Wed, 02 Sep 2026 01:38:53 +0100,
-> > > Sean Christopherson <seanjc@google.com> wrote:
-> > > > 
-> > > > On Mon, Aug 31, 2026, Steffen Eiden wrote:
-> > > > > Only defining KVM_MMIO is not flexible enough for multi-KVM systems
-> > > > > where one KVM implements MMIO but others do not. Solve this by
-> > > > > additionally testing for the non-existence of KVM_NO_MMIO before
-> > > > > including MMIO code to KVM.
-> > > > 
-> > > > Ewwwww.  IIUC, s390 ends up with two KVM modules, i.e. there really are two different
-> > > > KVMs being built.  Rather than have a KVM_MMIO and NO_KVM_MMIO, I vote very
-> > > > strongly to drop CONFIG_KVM_MMIO entirely and replace it with __KVM_HAVE_ARCH_MMIO,
-> > > > a la __KVM_HAVE_ARCH_VM_FREE and others.  Tracking two separate macros is going
-> > > > to be annoying to maintain, and will definitely be confusing for non-s390 people.
-> > > > 
-> > > > It'll mean linking in an emtpy coalesced_mmio.o on s390 when building without arm64
-> > > > support, but I'm guessing that won't be at all common for s390 builds.
-> > > > 
-> > > 
-> > > I ended-up doing something very similar locally, because I couldn't
-> > > really make head or tail of the logic while being in holiday mode
-> > > (which doesn't help). However, I kept the negative logic, so that we
-> > > don't need to add anything to any architecture but S390 (they are the
-> > > odd one out here).
-> > negative makes sense. 
-> 
-> Ya, an opt-out for s390 works for me.
+On Wed, 2 Sep 2026 16:38:25 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-Actually, I have a better idea.  I'll explain more in the subthread about tracepoints.
+> > > +	pm_runtime_disable(pfdev->base.dev); =20
+> >=20
+> > I think you need a pm_runtime_dont_use_autosuspend() call before
+> > pm_runtime_disable().
+> >  =20
+> > > +	panfrost_gem_fini(pfdev);
+> > >  out_perfcnt:
+> > >  	panfrost_perfcnt_fini(pfdev);
+> > >  out_job:
+> > > @@ -304,11 +331,15 @@ int panfrost_device_init(struct panfrost_device=
+ *pfdev)
+> > >  	panfrost_reset_fini(pfdev);
+> > >  out_pm_domain:
+> > >  	panfrost_pm_domain_fini(pfdev);
+> > > +	pm_runtime_set_suspended(pfdev->base.dev); =20
+> >=20
+> > Do we have a good reason for not flagging the device suspended just
+> > after the pm_runtime_disable() call in the error path? I mean, sure
+> > it's not truly suspended until the clks/regulators have been turned
+> > off, but it also wasn't suspended the before the initial
+> > pm_runtime_set_active() call, and I like the idea of undoing things in
+> > reverse init order. =20
+>=20
+> That was my thought when I put it at the end, although since we manually
+> manage device power down here rather than going through the RPM runtime
+> suspend callback, I guess it makes no difference.
+>=20
+> > but it also wasn't suspended the before the initial pm_runtime_set_acti=
+ve() call =20
+>=20
+> I think devices begin their lifetime with power.runtime_status set to RPM=
+_SUSPENDED:
+> drivers/base/power/runtime.c::pm_runtime_init
+
+Yes, the SW state is RPM_SUSPENDED at probe time, but my point is that
+the device is actually active before pm_runtime_set_active() is called,
+so the disconnect between the SW state and the HW state already exists
+and is accepted. I think, as long as we manipulate the state while RPM
+is disabled, and we make sure to restore the resources into their
+suspended-state before leaving, it doesn't matter when exactly we call
+pm_runtime_set_suspended(). If my understanding is correct, I'd rather
+have this call just after the pm_runtime_disable() to respect the
+reversed-init-order convention we have in error paths.
