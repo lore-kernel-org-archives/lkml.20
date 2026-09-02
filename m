@@ -1,161 +1,413 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012036.outbound.protection.outlook.com [40.93.195.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA6424A64E2;
-	Wed,  2 Sep 2026 14:57:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788361032; cv=none; b=Ee+hZUaBzVMJPupHUm5Gvtu7T6w6MIFQLl9EQ88hUqsRm/hLdLch3GlxQfOBia+FNAJ9MoIaLp2BmGa++iPK6yujPrkQTw7wf0/NxxqvkD+J9Ouz8TTslqNb/JNgAs7lPgzfiz+zm898r1joLeJzqsmpv/gUQsDkA0Blogd5/nM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788361032; c=relaxed/simple;
-	bh=EcwD6RySu+Vi2oDqb/Cbh6fRw3TVgFdZSMuq+8Ytg2M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mPbwC4Bej2qL3WuwPOvj0sA6kSMgxNVh6uBRB+0L8p4TWIjK2XivK2mu8+y53URbQ5fbugDaqWfJl3HSMLXNSPsDCdycZKkuAeXkT3RqJ6wCx6dV5ej3Ex81A69LuAJVQVl0rw2Z2hZWWGdxG4hwEZDR2i3jTXMf/ZwH/jiPqdg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=dnew6nRR; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=0GCEvP3q; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=j0wxN3AO; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=78uO1DIs; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27664A6CE1
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:57:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.36
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788361047; cv=fail; b=YNBD69+UW9In0UDyZWyDS1DPs+UNfTSxv8Mq/q095fu9CZEFEe0t8Ii57ZUmGXYdotCRkNPAn19sReayB+uuDcjB7j43DJtLpmsZmzZzZon1/ASbO3IGLM7lbwAYlzJWb3SFfpXw1rk6Fo2gRObKa7FHQkwOHb7kOX723s+vh7E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788361047; c=relaxed/simple;
+	bh=8lPE3x346Ix1oyY29PwH2+JaINySDXHmaaWpIrFDcrI=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=j1Dj160v1Vmg4p8TCD52zITvOpmDomxBwj1IiiuOlUbK5sFh5q96m+s89qkgJRZBu1V7OztA1yNTMFxmZYxTmqOMYHu+mT1t7rxlcmxtJA+4ytEhaHzG6r8dNY7Dxnt/QrEVuZ1znACvVF1djIeglrrKn/ip3NPWSidXh8MbmWY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=0/0AmWy5; arc=fail smtp.client-ip=40.93.195.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="dnew6nRR";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="0GCEvP3q";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="j0wxN3AO";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="78uO1DIs"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 1C14D21E1D;
-	Wed,  2 Sep 2026 14:56:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788361021; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DTaZRJF7E4m58tGqejqLU6yBS1jXF76V0QMjhTNpg4Q=;
-	b=dnew6nRRFMVUUnPTU9/EgOMTHioW2Im9zA1C+04uczxq7Utx3JpDraGG7gzkXzG/kd/gi+
-	HPloynMmdaN1yn4Dxz90wI89y336ROXi0VlbribVpDR/ktva4faIx4VmPNB2J8mvXl4TBx
-	Lcl4MyBnyjQxbfk7mLken7q1CmDMQ/o=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788361021;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DTaZRJF7E4m58tGqejqLU6yBS1jXF76V0QMjhTNpg4Q=;
-	b=0GCEvP3qrP0fKlUWajRZaHdGGoT0BQqsoeJP0GrydZIZ2pLhbCPeCKCn+wRNDYwzsbWCJw
-	T/lFI7ApXD4hF0Bg==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=j0wxN3AO;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=78uO1DIs
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788361017; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DTaZRJF7E4m58tGqejqLU6yBS1jXF76V0QMjhTNpg4Q=;
-	b=j0wxN3AORIKe5x2jl87BHtIXAy6f4dUHvX9ZHHJefH8cb24dOoVbg2+vLyeNztiwd55rq7
-	4FtVjWk2JsBc39dRWhEJMsPkDFpqcKjhROQQ/pRW0FDOfnIm/RLHA4zIQ5AAyAGT/e1Nnf
-	8B6KlM9KJc3owZfR+SJYSfeD9A50jBo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788361017;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DTaZRJF7E4m58tGqejqLU6yBS1jXF76V0QMjhTNpg4Q=;
-	b=78uO1DIsTGApubBflfpR3ncPUKEQuHfpKm2hKgyiUtbzFh5P+6n3CUVpXij89iY7gzm5Go
-	nS8UrkX6dcYp7IBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EEEA3136E6;
-	Wed,  2 Sep 2026 14:56:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id aIlBOjg5mGqjMgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 02 Sep 2026 14:56:56 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 8692DA13B5; Wed, 02 Sep 2026 16:56:56 +0200 (CEST)
-Date: Wed, 2 Sep 2026 16:56:56 +0200
-From: Jan Kara <jack@suse.cz>
-To: Theodore Tso <tytso@mit.edu>
-Cc: Jinjie Ruan <ruanjinjie@huawei.com>, bcrl@kvack.org, 
-	viro@zeniv.linux.org.uk, brauner@kernel.org, jack@suse.cz, adilger.kernel@dilger.ca, 
-	libaokun@linux.alibaba.com, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
-	yi.zhang@huawei.com, sforshee@kernel.org, akpm@linux-foundation.org, pmladek@suse.com, 
-	rostedt@goodmis.org, andriy.shevchenko@linux.intel.com, linux@rasmusvillemoes.dk, 
-	senozhatsky@chromium.org, kees@kernel.org, tglx@kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-aio@kvack.org, linux-kernel@vger.kernel.org, linux-ext4@vger.kernel.org
-Subject: Re: [PATCH v3 0/8] Convert barrier pairs to acquire/release for
- better performance
-Message-ID: <mamuiutepiyntod2mjigirx4bpn7kadrbtn74i3f4egl5wcg7t@ubixnvgdntie>
-References: <20260902074805.398540-1-ruanjinjie@huawei.com>
- <apgv5w116frzutwH@mit.edu>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="0/0AmWy5"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mslHl7SxNdPMnHA2l78WSE6H7eohOJHfBL1MF9dh6k239WgzfD6fYWBfIJYj9Njux1ywiPKisHMmrH8O54BWK4Iq4a74D8xaqu0iXEB7hQvVAafe59DSgHpnyD0WAHpH/tzDEI4XrFsDgwuA33caGJpvYVFq5nYoxz299HERecM1oH3jTRwYxp7iZW0tsbA7u3THIyGwRSF1hAIhoRMxdHvkKrVYGILbW0Ges9M/T0viFPlo+7YV+gpJlR0nXRint6e0A+WsixNCsSRyyVZwsbCT+6gnru17HubbCPwzKNCrpQLU6mndE/wsabIIuYDqSoiH4x+LPre2JDNUCM/cRA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TQ8xdHqLAmHz0xeMMBVvJRLwrpBXTcQCfgKdJYi/7pc=;
+ b=xzTszt3sX/UU/nZi9frWJhTOyA39iEfquUxZFWIbkXND5w0Afx6DS4HmBlnDisgPe1Z+ZJUKjMaS+IXRSnH7LTuC7xsRjhmHTuifQORFD2W83bEMRARenx7WT3nHwj5s9IsTkc9zMcVT10L2AP8rMw18uPjvjvIqhu0+vTq3kMPsqZdyqWfXMS465IQpyb9SSXLvKnfd3slb59n3aJBL+RCx1nIBzQyJo5bxdidyTTBC/L3fitTrTOwjebX6d8GpxeLdg2MKQoxzhNVSe9SA2B/UuFlHwMO5zpDW6ytfKT+88zzClh9Q/wIbDf8MUcU54K8KupCYBPpDFq2L5aDABQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TQ8xdHqLAmHz0xeMMBVvJRLwrpBXTcQCfgKdJYi/7pc=;
+ b=0/0AmWy5cGXTC4xc5q0xQ4Rm4uo+WN0ZbVfYQ8Gkxssbz4IgHcDUZnGg1kWUIpb5gwKufUZcS+WhtXTpoG2hQhgTvm6I4AtJwrw+Q5/DoakJjuCSXtOnHpx/JXIcqAaS0D5r9FdZyjNmbPKOgByG8sGb2Doaf//8X3JJaieQIug=
+Received: from SJ0PR13CA0154.namprd13.prod.outlook.com (2603:10b6:a03:2c7::9)
+ by MN2PR12MB4173.namprd12.prod.outlook.com (2603:10b6:208:1d8::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 14:57:13 +0000
+Received: from SJ1PEPF0000231A.namprd03.prod.outlook.com
+ (2603:10b6:a03:2c7:cafe::68) by SJ0PR13CA0154.outlook.office365.com
+ (2603:10b6:a03:2c7::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
+ Sep 2026 14:57:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF0000231A.mail.protection.outlook.com (10.167.242.231) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 14:57:13 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 2 Sep 2026 09:57:11 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: <linux-kernel@vger.kernel.org>
+Subject: [PATCH 1/4] drm: Add drm_work_fence helper
+Date: Wed, 2 Sep 2026 20:26:55 +0530
+Message-ID: <20260902145658.183267-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apgv5w116frzutwH@mit.edu>
-X-Spam-Score: -2.51
-X-Rspamd-Queue-Id: 1C14D21E1D
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-2.51 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	ARC_NA(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCPT_COUNT_TWELVE(0.00)[24];
-	MIME_TRACE(0.00)[0:+];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[huawei.com,kvack.org,zeniv.linux.org.uk,kernel.org,suse.cz,dilger.ca,linux.alibaba.com,linux.ibm.com,gmail.com,linux-foundation.org,suse.com,goodmis.org,linux.intel.com,rasmusvillemoes.dk,chromium.org,vger.kernel.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.cz:dkim];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from]
-X-Spam-Flag: NO
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231A:EE_|MN2PR12MB4173:EE_
+X-MS-Office365-Filtering-Correlation-Id: aa934aac-ef28-4a12-712e-08df090278df
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|36860700016|82310400026|56012099006|10067099003|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	LyL4T5F7w/IUpyj6VwpXShClWzdWH9iELd3TTmuf7dUF8g0RhO4qcw9UIhY8ttK8rYA/2sbWK/8TsCV1QhEdJPOouwa1Wijq6iwgo3al5m2pmCjHf7gXzE7MgW77c+kAbfKB72UR0e9oHDHNtfZlN3q3T+V6RKJN8A4eh1jJPDRXUIppJX9/MSlLLShVyc3Gx9Ln0wmwuASUAfODBQX3FUKIdCrd0k/QLztlAHBeMkO2nK3+Bwn8AoVW4Gv6Ow439vnR7K8GHEfxFCMCWlhwev20qJM7hhlgTcmLPYu3fDE2MH5U1Qjm5iKjseJGff4dlGYSNl0T43xVFtGL8VA6yxXK2uKkTYfvHj+5hs4gGdSMe/cyIl4RH2++MgLWRmsl1lKLfON0CD+m8GcJUM7SGaeZHQ0xF4ZozgyIz+wqFbktWUSE09kFGiCcAuu2K2o5hleb/DSWnf9wg8fefEmjcCBAQ8OEkvMRsLxnQv1hA8nDHXFj51SbOO/fYh+q0SUKvUu6hnHVGIU3bRTggtyxuELtIDI5TPIT8mO49dBg54TfwwpdolNC8DcxfsnEQ/0gVuE3WIs8x5yS80CKCriqhejN+WxfsXjuTi0niMF+F8fzxhaZqphVR3UqFk0vZvKT48TBBovCQaeLiAX9eXTPSQOyMTG/bjPqL1CVr6RPBSuyB8GZpqEKtH0vlJeRIEhC5fnz5dJ3zS7pyXSShZvzjw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(36860700016)(82310400026)(56012099006)(10067099003)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	eGxoQloniJUtn8Fgvst14zm0gnIz6wZSbt0qbvieMusg52FD6oGqDcPk+NIxx1pjHiFh0ic7Vco1+tTAI4LU6OCMIrQ3NcbkEnqpPD4FpRz3Hbraxo6VGQZukXGjGRpHfBqqgCcYnQNRKP96pm//Gx2d2O4ikIfTVPtMWF1hr0Upv64O1AOZGFBr6086cZgHJh1IYfV7XrLq2QP1eWZMpDY67eAwELEq1pGKdhkBx6tv+Ui66TRpfswNLxUNpmMkrq1Q+0AOaJYEtHcmViijl6rQb+brUMzaWcEQSOXMncT0YVW76H9+a6kAjOJNUiJKWdfioVb1IIZhHDvwVwaUysIjvWOIeLHrhY6WMdQf7SGO3GnO+E+c2yd3A4JEdDVWUa6aoB2tNapEeuV67lpxLG0O8WxjyBGZgzVdRXsNXRTQL7wQagb5XaTnLNM4zD69
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 14:57:13.1106
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa934aac-ef28-4a12-712e-08df090278df
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF0000231A.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4173
 
-On Wed 02-09-26 10:19:46, Theodore Tso wrote:
-> On Wed, Sep 02, 2026 at 03:47:57PM -0500, Jinjie Ruan wrote:
-> > 
-> > This series converts some existing smp_wmb()/smp_rmb() barrier pairs to
-> > smp_store_release()/smp_load_acquire() across various subsystems.
-> 
-> I would like to land the ext4 related patches through the ext4 tree,
-> so please detach them from this patch series.  That's because I want
-> to be able to monitor the regression testing before sending a pull
-> request to Linus.
-> 
-> More generally, I think we should be looking at this kind of barrier
-> conversion on a per site basis.  If there is a bug that isn't notice,
-> it can result in a very hard to debug problem.  And if the benefit of
-> speeding up a particular code path isn't particularly that great,
-> maybe the cost vs benefit vs risk calculation might cause us to decide
-> to take a pass on the change.
+GPU drivers often need to queue work when a dma-fence signals
+because certain operations (copy_to_user, eventfd_signal, memory
+allocation) cannot run in IRQ context. This pattern is currently
+open-coded in multiple drivers.
 
-FWIW I believe each patch in this series is standalone so you can just pick
-the ext4 ones yourself. Regarding the benefit, I actually find load_acquire
-/ store_release more self-documenting, what exactly they are protecting, so
-generally I'm in favor of such conversions if they logically make sense
-(i.e., it's really the "prepare some data + store to publish" pattern) -
-which was the case in the patches I've reviewed in this series.
+Introduce drm_work_fence — an embeddable base structure that handles the
+dma-fence-callback-to-workqueue pattern in one place. Drivers embed this
+in their own structure and implement ops->writeback() for the deferred
+work and ops->destroy() for cleanup.
 
-								Honza
+The helper manages:
+ - kref lifetime
+ - dma-fence callback registration
+ - workqueue dispatch on fence signal
+ - safe cancellation before driver teardown
+
+For work that additionally requires borrowing the process MM via
+kthread_use_mm(), see drm_user_fence which builds on top of this.
+
+Suggested-by: Matthew Brost <matthew.brost@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/Makefile         |   1 +
+ drivers/gpu/drm/drm_work_fence.c | 184 +++++++++++++++++++++++++++++++
+ include/drm/drm_work_fence.h     |  69 ++++++++++++
+ 3 files changed, 254 insertions(+)
+ create mode 100644 drivers/gpu/drm/drm_work_fence.c
+ create mode 100644 include/drm/drm_work_fence.h
+
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index e97faabcd783..c5be8e80d0c8 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -72,6 +72,7 @@ drm-y := \
+ 	drm_vblank.o \
+ 	drm_vblank_work.o \
+ 	drm_vma_manager.o \
++	drm_work_fence.o \
+ 	drm_writeback.o
+ drm-$(CONFIG_DRM_CLIENT) += \
+ 	drm_client.o \
+diff --git a/drivers/gpu/drm/drm_work_fence.c b/drivers/gpu/drm/drm_work_fence.c
+new file mode 100644
+index 000000000000..482eb3d4475f
+--- /dev/null
++++ b/drivers/gpu/drm/drm_work_fence.c
+@@ -0,0 +1,184 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright © 2024 The Linux Foundation
++ *
++ * Common DRM work fence helper.
++ *
++ * When a GPU dma-fence signals, drivers often need to perform work that
++ * cannot run in IRQ context (e.g., memory allocation, copy_to_user,
++ * eventfd_signal). This helper queues a work item when a dma-fence
++ * signals, allowing that work to run safely in a workqueue context.
++ *
++ * NOTE: This helper consumes dma_fences but CANNOT implement
++ * dma_fence_ops. Work items queued here may sleep; dma_fence_ops
++ * callbacks are called under the fence spinlock and must not sleep.
++ *
++ * For work that additionally requires accessing userspace memory via
++ * kthread_use_mm(), see drm_user_fence which builds on top of this.
++ */
++
++#include <linux/workqueue.h>
++
++#include <drm/drm_work_fence.h>
++
++static void drm_work_fence_destroy(struct kref *kref)
++{
++	struct drm_work_fence *wfence =
++		container_of(kref, struct drm_work_fence, refcount);
++	struct dma_fence *fence = wfence->fence;
++
++	wfence->ops->destroy(wfence);
++	dma_fence_put(fence);	/* NULL-safe */
++}
++
++/**
++ * drm_work_fence_get - Acquire a reference to a work fence
++ * @wfence: work fence
++ */
++void drm_work_fence_get(struct drm_work_fence *wfence)
++{
++	kref_get(&wfence->refcount);
++}
++EXPORT_SYMBOL_GPL(drm_work_fence_get);
++
++/**
++ * drm_work_fence_put - Release a reference to a work fence
++ * @wfence: work fence
++ */
++void drm_work_fence_put(struct drm_work_fence *wfence)
++{
++	kref_put(&wfence->refcount, drm_work_fence_destroy);
++}
++EXPORT_SYMBOL_GPL(drm_work_fence_put);
++
++static void drm_work_fence_work(struct work_struct *w)
++{
++	struct drm_work_fence *wfence =
++		container_of(w, struct drm_work_fence, work);
++
++	wfence->ops->writeback(wfence);
++	drm_work_fence_put(wfence);
++}
++
++static void drm_work_fence_queue(struct drm_work_fence *wfence)
++{
++	queue_work(wfence->wq, &wfence->work);
++}
++
++static void drm_work_fence_cb(struct dma_fence *fence, struct dma_fence_cb *cb)
++{
++	struct drm_work_fence *wfence =
++		container_of(cb, struct drm_work_fence, cb);
++
++	drm_work_fence_queue(wfence);
++	/* Single ref: wfence->fence released in drm_work_fence_destroy(). */
++}
++
++/**
++ * drm_work_fence_init - Initialize a work fence
++ * @wfence: work fence to initialize
++ * @wq: workqueue to run the worker on (must be ordered if sequencing matters)
++ * @ops: driver operations
++ */
++void drm_work_fence_init(struct drm_work_fence *wfence,
++			 struct workqueue_struct *wq,
++			 const struct drm_work_fence_ops *ops)
++{
++	kref_init(&wfence->refcount);
++	wfence->wq = wq;
++	wfence->ops = ops;
++	wfence->fence = NULL;
++	INIT_WORK(&wfence->work, drm_work_fence_work);
++}
++EXPORT_SYMBOL_GPL(drm_work_fence_init);
++
++/**
++ * drm_work_fence_add_callback - Attach a work fence to a dma-fence
++ * @wfence: work fence; caller retains their reference and must release
++ *          it via drm_work_fence_put() when no longer needed
++ * @fence: dma-fence to watch; one reference is consumed on any return value
++ *
++ * When @fence signals, a work item is queued that calls ops->writeback().
++ * If @fence has already signaled, the work item is queued immediately.
++ *
++ * Return: 0 on success, negative errno on error.
++ */
++int drm_work_fence_add_callback(struct drm_work_fence *wfence,
++				struct dma_fence *fence)
++{
++	int err;
++
++	drm_work_fence_get(wfence);
++	wfence->fence = fence;	/* transfer caller's ref — single ref, no get */
++
++	err = dma_fence_add_callback(fence, &wfence->cb, drm_work_fence_cb);
++	if (err == -ENOENT) {
++		drm_work_fence_queue(wfence);
++		err = 0;
++	} else if (err) {
++		wfence->fence = NULL;
++		dma_fence_put(fence);
++		drm_work_fence_put(wfence);
++	}
++
++	return err;
++}
++EXPORT_SYMBOL_GPL(drm_work_fence_add_callback);
++
++/**
++ * drm_work_fence_cancel - Cancel a pending work fence callback
++ * @wfence: work fence
++ *
++ * Attempts to remove the pending callback before driver context teardown.
++ * The caller must hold a reference to @wfence across this call.
++ *
++ * If the callback has already fired this returns false and all cleanup
++ * has been handled internally.
++ *
++ * If removal succeeds the callback reference is released internally.
++ * The caller must still release its own reference via drm_work_fence_put().
++ *
++ * This function is safe to call from atomic context as it only acquires
++ * the dma-fence spinlock internally. If the caller also needs to wait
++ * for the worker to finish, use drm_work_fence_cancel_sync() instead,
++ * which may sleep.
++ *
++ * Return: true if callback was removed, false if it had already fired.
++ */
++bool drm_work_fence_cancel(struct drm_work_fence *wfence)
++{
++	struct dma_fence *fence = wfence->fence;
++
++	if (!fence)
++		return false;
++
++	if (dma_fence_remove_callback(fence, &wfence->cb)) {
++		drm_work_fence_put(wfence);	/* drop ref from add_callback */
++		return true;
++	}
++
++	return false;
++}
++EXPORT_SYMBOL_GPL(drm_work_fence_cancel);
++
++/**
++ * drm_work_fence_cancel_sync - Cancel callback and wait for worker to finish
++ * @wfence: work fence
++ *
++ * Calls drm_work_fence_cancel() then cancel_work_sync() to guarantee
++ * the worker has fully completed before returning.
++ *
++ * This function may sleep. Must not be called from atomic or interrupt
++ * context. Use drm_work_fence_cancel() instead when sleeping is not allowed.
++ *
++ * Drivers must call this during teardown before freeing any resources
++ * accessed by ops->writeback().
++ */
++void drm_work_fence_cancel_sync(struct drm_work_fence *wfence)
++{
++	if (drm_work_fence_cancel(wfence))
++		return;
++	if (cancel_work_sync(&wfence->work))
++		drm_work_fence_put(wfence);
++}
++EXPORT_SYMBOL_GPL(drm_work_fence_cancel_sync);
+diff --git a/include/drm/drm_work_fence.h b/include/drm/drm_work_fence.h
+new file mode 100644
+index 000000000000..c8e3c5b9f0c4
+--- /dev/null
++++ b/include/drm/drm_work_fence.h
+@@ -0,0 +1,69 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright © 2024 The Linux Foundation
++ */
++
++#ifndef __DRM_WORK_FENCE_H__
++#define __DRM_WORK_FENCE_H__
++
++#include <linux/dma-fence.h>
++#include <linux/kref.h>
++#include <linux/workqueue.h>
++
++struct drm_work_fence;
++
++/**
++ * struct drm_work_fence_ops - driver callbacks for a DRM work fence
++ */
++struct drm_work_fence_ops {
++	/**
++	 * @writeback: Called from workqueue context when the dma-fence signals.
++	 *
++	 * Perform the deferred work here (copy_to_user, eventfd_signal, etc.).
++	 * May sleep. Must not requeue the fence.
++	 */
++	void (*writeback)(struct drm_work_fence *wfence);
++
++	/**
++	 * @destroy: Called when the last reference is dropped.
++	 * Free the containing structure here.
++	 */
++	void (*destroy)(struct drm_work_fence *wfence);
++};
++
++/**
++ * struct drm_work_fence - DRM dma-fence-to-workqueue helper
++ *
++ * Embeddable base structure that queues a work item when a dma-fence signals.
++ * Drivers embed this in their own structure and implement ops->writeback()
++ * for the deferred work and ops->destroy() for cleanup.
++ *
++ * Call drm_work_fence_init() at creation and drm_work_fence_add_callback()
++ * to arm on a dma-fence. Call drm_work_fence_cancel_sync() before teardown.
++ */
++struct drm_work_fence {
++	/** @refcount: Reference count. */
++	struct kref refcount;
++	/** @wq: Workqueue on which to run the worker. */
++	struct workqueue_struct *wq;
++	/** @ops: Driver operations. */
++	const struct drm_work_fence_ops *ops;
++	/** @fence: The watched dma-fence; holds a single reference. */
++	struct dma_fence *fence;
++	/** @work: Work item queued when the fence signals. */
++	struct work_struct work;
++	/** @cb: Callback registered on the dma-fence. */
++	struct dma_fence_cb cb;
++};
++
++void drm_work_fence_init(struct drm_work_fence *wfence,
++			 struct workqueue_struct *wq,
++			 const struct drm_work_fence_ops *ops);
++void drm_work_fence_get(struct drm_work_fence *wfence);
++void drm_work_fence_put(struct drm_work_fence *wfence);
++int  drm_work_fence_add_callback(struct drm_work_fence *wfence,
++				 struct dma_fence *fence);
++bool drm_work_fence_cancel(struct drm_work_fence *wfence);
++void drm_work_fence_cancel_sync(struct drm_work_fence *wfence);
++
++#endif /* __DRM_WORK_FENCE_H__ */
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.34.1
+
