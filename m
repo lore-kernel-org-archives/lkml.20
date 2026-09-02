@@ -1,158 +1,174 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F348131D362
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:52:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25AD83A8758;
+	Wed,  2 Sep 2026 06:52:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788331970; cv=none; b=duvL6eOdXpbWBfjxDjIhgNTa6J6bhmwqGkdRog1MkrW5XfYrWGMJYlz6ZNK+lrZhS9JiqdyxU1iWSp/4kSPywf7UknTQwrC1cTSSm4dKTbJtXiZkdTcsMVfcLkxoP6NINeYYBcGgOq3r6hQ0yoLJeYnKYIDMuIrSpl/PmuEPFJw=
+	t=1788331977; cv=none; b=TBPXbqQZdUSJl+QTWmNSr8q+nf1IJ64jQLgAwhoUVX7OeTGJZnKwe/cQ+i1l20Uh2Up2ibqUO5B1EZJNta2GC8TlQTynh1/Qzp9D6J71c6oMGft9StsLHTRzGtccG77gyl7zOHcNabOodt2xcxE9bpLmMMpgTOOKCx6rhb7YXkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788331970; c=relaxed/simple;
-	bh=tdQPXAEy+8QdspuTOxqFKJnA9qsJ6Jve5TAJj3j51Gg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=myPs7FjdmiV0926yGJ2E6q7hEdMCd9Lf3eFwhBGlvCzWrxeh9wXlOTBabWPN/iFM0z2PZEzQBalUBNIWgvvqPNNx+XFWl53iTwYMScK0dEWY6tUvmf+sX/KsfK8/Y3AJa0CYPzz6Xp5SmPWkpwE6mM1U2RagAGP/eLxK7MILWo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MSp1vqO/; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=aCDAjlz4; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MSp1vqO/";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="aCDAjlz4"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788331956;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=tdQPXAEy+8QdspuTOxqFKJnA9qsJ6Jve5TAJj3j51Gg=;
-	b=MSp1vqO/ZibK6ld1XBbb8ArbgUqz+TbkLcPvPYSRHtg/ocjYynHE5nOX0RvJCTLiezpzkU
-	q0qtsUSA88RqKwQuKNh+jkAihf6ZPrmXeWlrG2xwErI+CX/+8IJnWcBVQzFvZ8T3AKZJVB
-	wD//rJyXO+MD5NduFpHzRkGkVgQMVEk=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-128-b_we6Dg8OQOOvOfi2oWQMQ-1; Wed, 02 Sept 2026 02:52:35 -0400
-X-MC-Unique: b_we6Dg8OQOOvOfi2oWQMQ-1
-X-Mimecast-MFC-AGG-ID: b_we6Dg8OQOOvOfi2oWQMQ_1788331954
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49991beee7aso5744495e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 23:52:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788331954; x=1788936754; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tdQPXAEy+8QdspuTOxqFKJnA9qsJ6Jve5TAJj3j51Gg=;
-        b=aCDAjlz4ftZsvneFN34rA4lQUiKWl2z3xolxh3a9cjT4knGEHvAGMslDaPcbTTdBpB
-         MWzwLFGBXodqAXwS/mQszHCw/lQNCL3mitv4vOS9UVrarsHFWfCcGAsums1URKuNP9LQ
-         Hk4nr4UrgCN+dQJx2CQ7HxJD9pvTx48cTP4NwevJZlG2ttfqJdl6E+rB2UGRIT/fsGAy
-         yYVOb7EzMnyw7wkdL16ZRxF/VwndqiCW4k55lnegblI7Wqy/Bl731UPYXp8XlOq/JlX0
-         4SXJmbQuRoavivLkzIYZ44hULkyXFbR0uveEYhuv3gQZHiFf+2pzwuvLLw1ZnP+90vgH
-         /C7g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788331954; x=1788936754;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=tdQPXAEy+8QdspuTOxqFKJnA9qsJ6Jve5TAJj3j51Gg=;
-        b=ptO4ecKqiPT0teiFDU9EMgL25jwcL0joReplvPXZiayQYSOmN9pVX8HTnqmHiS6jdv
-         bGLGcj79pGh6XYG4FIgsJCgqeyUta8CCf3ei2Erx0wWgYqtBlXMeC9mnAlkptelo2CA+
-         35jj745jZMn9XPe32oZd75sBuMoajHTnC8gaIhQRpA0AI1Q+7hnZGPo11fw5St5ysCsY
-         48W6QYwNEnu07hqor524fOLGizgJv4k2gqTzX2Q2cUP2urGLVXz11ubMqTtdtONP2HWX
-         pHxKhgmX0NjgTUcliOWxmufqp3Q1+d/7CY4RsH+er/La40FP9lRnPUBa0b+1xe/VI0tu
-         m2+w==
-X-Forwarded-Encrypted: i=1; AHgh+RrzKOxLwUITbC+/m2u0ZAzQNB9I0eakVLbvNclTKoU14eWvuRBUz8qYSAqXeiA4U3WSyp96ZruFZEz+xLs=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6VWWTDxhffWyNXsUWTWZAS6GOwtrX0IeCwpasIkqiFy2Pqy9j
-	lVQpYqTV465BxCzCEaV0Usurr1qcIJRGvBh1YE2vDzWWDMjVM6tgVT7ZavQe13jw1oXueKA67yH
-	x7nGcSJuDGAcIL0HzYHKgo/B+XxfWzilP23vruk6vllgN5P/kEE1GLUbdxwU2ws+0MQ==
-X-Gm-Gg: AR+sD10zDY+1tscyHysfFHjhy4UW/E31GyyLGP7Cn38rs524slhZQodvB0UdZiE3NrR
-	+OpuKh8XET4hKjW7JWOiRk3eVw5AcPBTi+c3D5E9hKkhpW7+wndteYIjgRVI/28S6EYmqKE6JOB
-	3r9bY1uacxUCauHWYgJixMiBizbq3jsK13f4MZpeo8DJ4DaL5XEOlhPmz88893om8VqHmDFB3aN
-	kBB/k1jvI4DeaDqvTazylogKc+D3f9W6JsG891ZnLQirVXhZM9P0C/pePQhicgusEdbPbaeRt3g
-	O6KXQj/4WJB0edKCGl+kgFl5TxZVa8q3TxY/CO6xqfXB/Bt1bgYcr3czZrLjSFCCFqyq4uBgyFp
-	P5Ms4gXXOR41ae02QV3/rXIQOkP+efw==
-X-Received: by 2002:a05:600c:1c29:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-49ce584c93amr42599065e9.16.1788331953838;
-        Tue, 01 Sep 2026 23:52:33 -0700 (PDT)
-X-Received: by 2002:a05:600c:1c29:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-49ce584c93amr42598525e9.16.1788331953447;
-        Tue, 01 Sep 2026 23:52:33 -0700 (PDT)
-Received: from gmonaco-thinkpadt14gen3.rmtit.csb ([195.174.135.130])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce4642382sm47964965e9.3.2026.09.01.23.52.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 23:52:33 -0700 (PDT)
-Message-ID: <df6e9168cb06c35e21db7f9d17cfbca6bd87005b.camel@redhat.com>
-Subject: Re: [RFC PATCH 00/20] rv: Add support for BPF monitors
-From: Gabriele Monaco <gmonaco@redhat.com>
-To: Nam Cao <namcao@linutronix.de>, linux-kernel@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org
-Cc: Steven Rostedt <rostedt@goodmis.org>, Wen Yang <wen.yang@linux.dev>, 
- Tobias Schaffner <tobias.schaffner@siemens.com>, Viktor Malik
- <vmalik@redhat.com>
-Date: Wed, 02 Sep 2026 08:52:31 +0200
-In-Reply-To: <87se3sakgi.fsf@yellow.woof>
-References: <20260831090524.106845-1-gmonaco@redhat.com>
-	 <87se3sakgi.fsf@yellow.woof>
-Autocrypt: addr=gmonaco@redhat.com; prefer-encrypt=mutual;
- keydata=mDMEZuK5YxYJKwYBBAHaRw8BAQdAmJ3dM9Sz6/Hodu33Qrf8QH2bNeNbOikqYtxWFLVm0
- 1a0JEdhYnJpZWxlIE1vbmFjbyA8Z21vbmFjb0BrZXJuZWwub3JnPoiZBBMWCgBBFiEEysoR+AuB3R
- Zwp6j270psSVh4TfIFAmjKX2MCGwMFCQWjmoAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgk
- Q70psSVh4TfIQuAD+JulczTN6l7oJjyroySU55Fbjdvo52xiYYlMjPG7dCTsBAMFI7dSL5zg98I+8
- cXY1J7kyNsY6/dcipqBM4RMaxXsOtCRHYWJyaWVsZSBNb25hY28gPGdtb25hY29AcmVkaGF0LmNvb
- T6InAQTFgoARAIbAwUJBaOagAULCQgHAgIiAgYVCgkICwIEFgIDAQIeBwIXgBYhBMrKEfgLgd0WcK
- eo9u9KbElYeE3yBQJoymCyAhkBAAoJEO9KbElYeE3yjX4BAJ/ETNnlHn8OjZPT77xGmal9kbT1bC1
- 7DfrYVISWV2Y1AP9HdAMhWNAvtCtN2S1beYjNybuK6IzWYcFfeOV+OBWRDQ==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	s=arc-20240116; t=1788331977; c=relaxed/simple;
+	bh=bIacrkSfXQ+4gO3WEx9zrSJUgIWx0XvFnBXIHeIb8XA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QREVC8AktXP+ty4KURpjov3yZgHm5Idj+KBsQXh84DsNZvCN0IfyXYK8zKqHRkIXUkEfeOGKDFiqZYbXqfiKF3zqrmggOy0NmvnSV//p2L5tivTvB+QLEsI7i2ZKO6PQ5wdRJ9+4uU4HmuSMfL6jk2HAYeqS1b++TM6nqeSjFFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: e37f55f4a69a11f19a56ed5b684f684d-20260902
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:d1aa2c6a-b0f4-4894-a647-16fa581cb0e4,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:ded06c49fd58b92344748250acdd7992,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
+	il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
+	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: e37f55f4a69a11f19a56ed5b684f684d-20260902
+X-User: yanlonglong@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <yanlonglong@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1056093679; Wed, 02 Sep 2026 14:52:39 +0800
+From: longlong yan <yanlonglong@kylinos.cn>
+To: trenn@suse.com
+Cc: shuah@kernel.org,
+	skhan@linuxfoundation.org,
+	jwyatt@redhat.com,
+	sageofredondo@gmail.com,
+	jkacur@redhat.com,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	longlong yan <yanlonglong@kylinos.cn>
+Subject: [PATCH] cpupower: idle_monitor: add NULL check after calloc()
+Date: Wed,  2 Sep 2026 14:52:24 +0800
+Message-ID: <20260902065224.1392-1-yanlonglong@kylinos.cn>
+X-Mailer: git-send-email 2.47.1.windows.2
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-09-01 at 20:35 +0200, Nam Cao wrote:
-> Gabriele Monaco <gmonaco@redhat.com> writes:
-> > Extend the rv userspace tool to load BPF monitors, those can be found i=
-n
-> > specific locations (e.g. /usr/share/rv/bpf_monitors/) and are plain
-> > object files including BTF data.
-> >=20
-> > This type of BPF monitors can be generated from rvgen using the -b flag
-> > just like in-kernel monitors and, after manual adaptation, can be built
-> > and run transparently by the rv userspace tool.
->=20
-> I am not familiar with BPF. What is the benefit of BPF monitors,
-> compared to the existing DA monitors?
+Twenty calloc() calls across five idle monitor files lack NULL return
+checks, leading to potential NULL pointer dereferences on allocation
+failure:
 
-I should definitely have included it in the cover letter.. I'm writing it
-everywhere (will present at LPC) but forgot it here.
+  - mperf_monitor.c mperf_register(): nine consecutive calloc() calls
+    for per-CPU counters are used directly without any NULL check.
+  - snb_idle.c snb_register(): is_valid and per-CSTATE previous/current
+    counters are allocated without NULL checks.
+  - nhm_idle.c intel_nhm_register(): same pattern as snb_idle.
+  - hsw_ext_idle.c hsw_ext_register(): same pattern as snb_idle.
+  - amd_fam14h_idle.c amd_fam14h_register(): per-state previous/current
+    counters are allocated without NULL checks.
 
-Essentially BPF monitors can be pluggable, folks writing their own monitors
-won't need to submit a patch or maintain a separate tree, which is useful f=
-or
-domain-specific models.
-By being pluggable you also don't need to reboot to use a new/updated monit=
-or.
+Add NULL checks after each allocation, returning NULL on failure,
+consistent with existing error handling in the same functions (e.g.,
+hardware capability checks already return NULL on failure).
 
-Think of being able to distribute a more granular set of rules for RTapp, I
-remember we had conversation along those lines, not all rules apply to all
-contexts and what you send upstream has to be general, what you keep for
-yourself doesn't.
+Signed-off-by: longlong yan <yanlonglong@kylinos.cn>
+---
+ tools/power/cpupower/utils/idle_monitor/amd_fam14h_idle.c | 2 ++
+ tools/power/cpupower/utils/idle_monitor/hsw_ext_idle.c   | 4 ++++
+ tools/power/cpupower/utils/idle_monitor/mperf_monitor.c  | 5 +++++
+ tools/power/cpupower/utils/idle_monitor/nhm_idle.c      | 4 ++++
+ tools/power/cpupower/utils/idle_monitor/snb_idle.c       | 4 ++++
+ 5 files changed, 19 insertions(+)
 
-Having monitors in BPF brings also other perks over kernel modules: a whole
-bunch of readily available probe types (uprobes, fprobes, all unexported
-tracepoints that are cumbersome for modules), the map infrastructure for
-allocation is arguably easier and the code is verified when loaded against
-common issues (NULL pointer access, unbound loops, etc.).
-
-That said, I try to mimic as much as possible the in-kernel functionality, =
-but
-some things are not the same (event/error tracepoints).
-
-These support DA only because BPF loading needs a userspace component and t=
-he RV
-tool doesn't support LTL and HA yet, there shouldn't be any technical reaso=
-n not
-to extend to those in the future.
-
-Gabriele
+diff --git a/tools/power/cpupower/utils/idle_monitor/amd_fam14h_idle.c b/tools/power/cpupower/utils/idle_monitor/amd_fam14h_idle.c
+index 5edd35bd9ee9..6112161f7d5e 100644
+--- a/tools/power/cpupower/utils/idle_monitor/amd_fam14h_idle.c
++++ b/tools/power/cpupower/utils/idle_monitor/amd_fam14h_idle.c
+@@ -295,6 +295,8 @@ struct cpuidle_monitor *amd_fam14h_register(void)
+ 					      sizeof(unsigned long long));
+ 		current_count[num]  = calloc(cpu_count,
+ 					      sizeof(unsigned long long));
++		if (!previous_count[num] || !current_count[num])
++			return NULL;
+ 	}
+ 
+ 	/* We need PCI device: Slot 18, Func 6, compare with BKDG
+diff --git a/tools/power/cpupower/utils/idle_monitor/hsw_ext_idle.c b/tools/power/cpupower/utils/idle_monitor/hsw_ext_idle.c
+index f5a2a326b1b7..28cbe91b106b 100644
+--- a/tools/power/cpupower/utils/idle_monitor/hsw_ext_idle.c
++++ b/tools/power/cpupower/utils/idle_monitor/hsw_ext_idle.c
+@@ -159,11 +159,15 @@ static struct cpuidle_monitor *hsw_ext_register(void)
+ 	}
+ 
+ 	is_valid = calloc(cpu_count, sizeof(int));
++	if (!is_valid)
++		return NULL;
+ 	for (num = 0; num < HSW_EXT_CSTATE_COUNT; num++) {
+ 		previous_count[num] = calloc(cpu_count,
+ 					sizeof(unsigned long long));
+ 		current_count[num]  = calloc(cpu_count,
+ 					sizeof(unsigned long long));
++		if (!previous_count[num] || !current_count[num])
++			return NULL;
+ 	}
+ 	intel_hsw_ext_monitor.name_len = strlen(intel_hsw_ext_monitor.name);
+ 	return &intel_hsw_ext_monitor;
+diff --git a/tools/power/cpupower/utils/idle_monitor/mperf_monitor.c b/tools/power/cpupower/utils/idle_monitor/mperf_monitor.c
+index 5ae02c3d5b64..5039716b591d 100644
+--- a/tools/power/cpupower/utils/idle_monitor/mperf_monitor.c
++++ b/tools/power/cpupower/utils/idle_monitor/mperf_monitor.c
+@@ -350,6 +350,11 @@ struct cpuidle_monitor *mperf_register(void)
+ 	tsc_at_measure_end = calloc(cpu_count, sizeof(unsigned long long));
+ 	time_start = calloc(cpu_count, sizeof(struct timespec));
+ 	time_end = calloc(cpu_count, sizeof(struct timespec));
++	if (!is_valid || !mperf_previous_count || !aperf_previous_count ||
++	    !mperf_current_count || !aperf_current_count ||
++	    !tsc_at_measure_start || !tsc_at_measure_end ||
++	    !time_start || !time_end)
++		return NULL;
+ 	mperf_monitor.name_len = strlen(mperf_monitor.name);
+ 	return &mperf_monitor;
+ }
+diff --git a/tools/power/cpupower/utils/idle_monitor/nhm_idle.c b/tools/power/cpupower/utils/idle_monitor/nhm_idle.c
+index 6b1733782ffa..ce745dac74cc 100644
+--- a/tools/power/cpupower/utils/idle_monitor/nhm_idle.c
++++ b/tools/power/cpupower/utils/idle_monitor/nhm_idle.c
+@@ -178,11 +178,15 @@ struct cpuidle_monitor *intel_nhm_register(void)
+ 
+ 	/* Free this at program termination */
+ 	is_valid = calloc(cpu_count, sizeof(int));
++	if (!is_valid)
++		return NULL;
+ 	for (num = 0; num < NHM_CSTATE_COUNT; num++) {
+ 		previous_count[num] = calloc(cpu_count,
+ 					sizeof(unsigned long long));
+ 		current_count[num]  = calloc(cpu_count,
+ 					sizeof(unsigned long long));
++		if (!previous_count[num] || !current_count[num])
++			return NULL;
+ 	}
+ 
+ 	intel_nhm_monitor.name_len = strlen(intel_nhm_monitor.name);
+diff --git a/tools/power/cpupower/utils/idle_monitor/snb_idle.c b/tools/power/cpupower/utils/idle_monitor/snb_idle.c
+index 5969b88a85b4..76d9986b0ecc 100644
+--- a/tools/power/cpupower/utils/idle_monitor/snb_idle.c
++++ b/tools/power/cpupower/utils/idle_monitor/snb_idle.c
+@@ -164,11 +164,15 @@ static struct cpuidle_monitor *snb_register(void)
+ 	}
+ 
+ 	is_valid = calloc(cpu_count, sizeof(int));
++	if (!is_valid)
++		return NULL;
+ 	for (num = 0; num < SNB_CSTATE_COUNT; num++) {
+ 		previous_count[num] = calloc(cpu_count,
+ 					sizeof(unsigned long long));
+ 		current_count[num]  = calloc(cpu_count,
+ 					sizeof(unsigned long long));
++		if (!previous_count[num] || !current_count[num])
++			return NULL;
+ 	}
+ 	intel_snb_monitor.name_len = strlen(intel_snb_monitor.name);
+ 	return &intel_snb_monitor;
+-- 
+2.43.0
 
