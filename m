@@ -1,66 +1,67 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013013.outbound.protection.outlook.com [40.93.196.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C2443552B
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:21:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788344502; cv=none; b=e8q/xHKybeZJWSmZ3mnp9d5pK+DSrHQ8mKfSmrYC8FwksYZaUuNeTyZ90U26ceyXAVvr3qspL9iOoZjUfb80SzyDAH4N9arpvhG0QGg/73cV1tY4mbcA+npAPNctVmzqcESyKzLYP6+SN4TxOdn4zevStIea17xpIFA9fzgDYYk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788344502; c=relaxed/simple;
-	bh=PN0SQykzwIuDfzW7cM7x9d6iOw/F95MiQoWSfYFmBhc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ui4Q+PaGnXnslCGkhp2DboAFsiNHmCTI+EZBSD6RcT85YqYs+tbzT0ob0J5EOgED9Az9fMFI/N+LimSRt6CwFd0LPDzTestZtGX7Z4d4gYdMFNfa5W2nF1PZYSSOUOoDkFscxn6jF99LvzL1Fu/wF+QHv1pRuCeIYKSLncbWo+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A8WNoy0u; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC4F24307AB;
+	Wed,  2 Sep 2026 10:22:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788344535; cv=fail; b=RrVFOgbDI9EmilLcSgV3xl5PF3Uejf79Bn9vxZDQBatCya6JzUpa4Kioh/+Q2m07SxUWr1ZhgGTul/kOm9HyRzK1XXuUPOjFTxcTHdi5QWvz1FZOT/UIutHsM60oMYlPyA8ORkK0sxkJw8G/oXIHn69yMbY1ZZh4FM2YSaCJsCM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788344535; c=relaxed/simple;
+	bh=Ar+d4mb5Bb58qe4Oy6QHvm7Is/Mxy2hZWcbg+BROmgE=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=U7UixJTqM3CsPKBpPL/B0xiNdd1z7mjkbEuAy0MC4A3srjfeYdiDxupWyhzl95+KyBXK7nAyaZnE38ot+2NEKgwkEzD9obIY0JPctEQHmgP8XbZzsNGdUtGKTzMA43WTGHI1fvCJXFvyMihmHGJ6AtFezWwLUey1QIHC5EyUl0g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=2Ev2g5+V; arc=fail smtp.client-ip=40.93.196.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A8WNoy0u"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-4843f205a5bso607019f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 03:21:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788344494; x=1788949294; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=RyNaTqC+dGU5WjZ4HH9rH2GXhsS16BNv7gX+HI8+RH4=;
-        b=A8WNoy0uVJwnW3LaN8FnwQtPyz7kK6JVqgatnLc0ZgTFOgkHclSNGBZTT/MGaN5aBv
-         jJXSYGc2qXijkt/RuZBGHeI0GH4STWo6em2+i6C6/hXLTxB5viub7YP7/kMYHbYG+9RA
-         pjgqj9l+jXHSJ1q/A2WGi2WBATLrzYPvVobeyTnIag9dmktRCK5IQfNrG+NvFFaWhtiQ
-         o7AIqAw9SwiovOp95ZMQl11I8zyqgdOBc+bvR17K9n4nBzWTwyRZ2tzvzXctc5KcNjT5
-         3w3ckbC5dYPt5mWCozVZpZKSBdJlPad+qcGPvYyGMKrUgMVOc/GcpId4zXL8w6sGcm+M
-         aVsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788344494; x=1788949294;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=RyNaTqC+dGU5WjZ4HH9rH2GXhsS16BNv7gX+HI8+RH4=;
-        b=OqczrGc+A1+q8cT7d9TviL+dWJztBP/DPN6vxU8OTEjnUuB56pPvbVdl2/QnSXbJDn
-         GxUFa7ShID+6jeVBugpf0e2fkPwgNyN7ov7AO+2C5L+u9LclkeXUaXiZqeEZ71CDfHwa
-         ja11SVA0iUwAoMl8/49DdUKhNqBN1QtZJJzb4v64qcqNqi1OdxO5rmaIStSPuKd2eABZ
-         a+2+jbwd0w0/ilxf0Z3v9ptkNP1AvD5inNzTHytMrUAmlwBw5RFAhKitA7AcHIk55VIR
-         7cVHE9YBu9oVHWsoztyZSqCEHSy3ZX9EEvjQ5GCdDBQB2036kkQ12Gso9J05cHcfOLCS
-         GT8w==
-X-Forwarded-Encrypted: i=1; AKwUvBzqr8Wcz8lxZfONdtcSo20Q7qsf2MkVvZFrY8V9VtSXfgpQ2+MAapqZga3ADjUcUB/8hr0lE4wwew/RxgA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgS4QTX/Uo6/DwBBxIGx1zIPIqsIOQXWneOKCTFXyim56CEZ3b
-	n/mlUhlYBq3mmSGSOVwUH48huiBhpAHCa67mH08yJuPbz8b1YHVNDjNl
-X-Gm-Gg: AYBFou0N/jkMnAjatSMgZFBQplnfA32eEi1AMvoKad6N1hLBrTI6WQS/yCPC2jrNulS
-	reth3+lxsVS1rVVqtFD57eRWCaqdw/DUM+ixHgp2d3nw1KNAA3y98mPEmWleYTvWSBGskNE4dth
-	UK/JV43sS8GmsbbK/7ld0/NqJ6t/Z9k9mWgk86h0dvZY6SDYeTaRJc4AhP2MFcPTfIabm+kt+1F
-	Re4O5tdtW9DTmhzHPBFxT/WSGHZzBFs7VZJiD8W56+ERl/75N7RqkCiErWUbxhDG2ZEA9AaLFD3
-	LS3q/MhC7+SwRUuFMHE37IfK5eGIWAWmdbtrfnjDFKijte7pR+cC/9d8AzrCetqH2Hfhlq0hk25
-	XkkEbJREBHQ82glHpgna9Brbl7N3dFVOFpiZ6UI15hZc5MjAyilipP3Ine1ridNF3Q2JKp9UCt9
-	U0+NKuoc+FU38uC/NFu+BKn4PkYqHMoDLRPHGhmxgKsPTtNanioQwEpvwvFZ0ESeXPxSjy3fYgg
-	EU2P7eIrZyrc46uGF08eEnKFO71zpUpug==
-X-Received: by 2002:a05:6000:4698:b0:485:4277:fbab with SMTP id ffacd0b85a97d-4854277fc83mr3594765f8f.27.1788344493846;
-        Wed, 02 Sep 2026 03:21:33 -0700 (PDT)
-Received: from valmpani.valmpani ([2a02:587:f24:b00:967a:9200:4108:5b68])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-484492cdbfbsm5485625f8f.33.2026.09.02.03.21.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 03:21:33 -0700 (PDT)
-From: Vasileios Almpanis <vasilisalmpanis@gmail.com>
-Date: Wed, 02 Sep 2026 12:21:19 +0200
-Subject: [PATCH] ihex: Fix 16 bit truncation in ihex_binrec_size()
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="2Ev2g5+V"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PGXCrlFWzJqx/4wWjurJTpCIshBU5OkAl4xozPRC1JqdN4v3B5Qrydh0lfftDWh+RokCrDGOKw8jqT5CIi2pVXB1qvo/3Es+P8cMLCoCg9/o2epGmAf0Ajf/SqVEsvZSGdb/cBgdwKatIT4GoTnphioRg+lq+XTh0JcgiXM4IfQRXy0qYj7FLvblJuGoTmnnWKPei0/ISxNFSDaGgbSJWJVfmaGTkmu3crk5fQcYmVRtOmI8OIwQkBjUFiFpcKifbm//XxV2n2kl0VsKFRKzUF2WJTibURY/wCzCamW6obIeMNCWulmw3HKD/JRkY1wR2rlF3iPuEHEwHEiY5oZIrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6wmzsCPF0VUsO41zOBFakLqO8T3bwqWZUXiNYOXTJRQ=;
+ b=zMNlnu2im4ViqRYUkx9R0gS4LloFXGdxE5KaUOCVoqNStzOKVwt0JjlzOuvmAU9xM7AmAuxHntRa5iVsrODPVcEi1ATwOsmeirfUazavjZe8GWrS8p1WRHTEioESkawKI3tygt6Go2A8jG4UJFyUo3rMwfDKTOQ2xvLCpmUvDsTq5b2XYAq4YrfNpm3SRA4Gef5r9aXdXQSpwheI/9bN3cKH+SXAIO552oFDrf105t2hPaLrj9YKwAoS6QfDoZogEA4XTWH27GlvzGhDDadMT6WAjXrQga8n5IRMchzWexC6EfTg3qxa6rLa/0f1222XEQ63wliYX7KxLrOjA2rzVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=aspeedtech.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6wmzsCPF0VUsO41zOBFakLqO8T3bwqWZUXiNYOXTJRQ=;
+ b=2Ev2g5+VKv1AJVj0Iitq/4JTvXdq4YLabJCN2STVK+OLWPmqTjQSjmcZ99B0azC1A9eeCHkbFwI5Vjglwzp5uj7v+XjmDi0fFC5OhnD9Q4y4mYvVoDkXcSHrzoC6xXE4RtiC7+WbtkmOt9BzpbPTcsRy36Qs6gP/EFVngcQOO1U=
+Received: from CH0PR03CA0270.namprd03.prod.outlook.com (2603:10b6:610:e5::35)
+ by SN7PR12MB7228.namprd12.prod.outlook.com (2603:10b6:806:2ab::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 10:22:03 +0000
+Received: from BN2PEPF0000449E.namprd02.prod.outlook.com
+ (2603:10b6:610:e5:cafe::94) by CH0PR03CA0270.outlook.office365.com
+ (2603:10b6:610:e5::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Wed, 2
+ Sep 2026 10:22:03 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN2PEPF0000449E.mail.protection.outlook.com (10.167.243.149) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 10:22:02 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
+ 2026 05:22:02 -0500
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Wed, 2 Sep 2026 05:21:58 -0500
+From: Colin Huang <colin.huang2@amd.com>
+Subject: [PATCH v8 00/11] ARM: dts: aspeed: anacapa: restructure devicetree
+ for development-phase
+Date: Wed, 2 Sep 2026 18:21:12 +0800
+Message-ID: <20260902-anacapa-devlop-phase-devicetree-v8-0-69c8eb2a7cda@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,75 +70,159 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-ihex-v1-1-67fdbf8d97ff@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAJ74l2oC/yXMyw5AMBSE4VeRs9akzqIuryIWyuBYIC3SRLy7Y
- vkl/8xFHk7gqUoucjjFy7pEZGlC3dQuI5T00cSajS41K5kQlGFrCpuDbQuK6eYwSPhu6ua3P+y
- Mbn+3dN8PutCOp2gAAAA=
-X-Change-ID: 20260902-ihex-62b68b7e2bae
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Andrey Smirnov <andrew.smirnov@gmail.com>, 
- David Woodhouse <dwmw2@infradead.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-usb@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org, Vasileios Almpanis <vasilisalmpanis@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788344492; l=1905;
- i=vasilisalmpanis@gmail.com; s=20260731; h=from:subject:message-id;
- bh=PN0SQykzwIuDfzW7cM7x9d6iOw/F95MiQoWSfYFmBhc=;
- b=7erELQ4frAoctqDjCU/gaAu4a4a4lUMXAJuFpt7OJYsRYu05Yi9tqSjwxwMVXn9UUIOrI+pMK
- bC9tpR4iQwjAoHvaXbK/7xE0aNNRFgQnb6qy6HlWuKngX9XfBtQxPCf
-X-Developer-Key: i=vasilisalmpanis@gmail.com; a=ed25519;
- pk=gn5Uo6yL8Tlpq5uATxA3nqoq+U8eWLRbjD+bOk0qSpU=
+X-B4-Tracking: v=1; b=H4sIAJj4l2oC/43RwW6DMAwG4Fepcl4mJyEO6WnvMe0QHFMitYCgQ
+ psq3n2hFxg70OPvw/fb8kOMPCQexfn0EANPaUxdm0P5dhLUhPbCMsWchQaNUICToQ0U+iAjT9e
+ ul30TRl5CIr4PzLJQoKKpjdIEIiv9wHX6fjZ8fuXcpPHeDT/Pwkkt09ftSUmQ3lUeDToKZD4ut
+ 5Cu79TdxGJPeuv5Y09nD8va6BKdQvvPM6uHoI89kz1H3pCNdRl9tfeK1SvBHntF9mxEx8B1QLJ
+ 7z248ZY49mz1yYMsaTSR0ew83nn5hP1z+AdYHHbTzxHvPrZ4Hdey57EEVnYqaQcGfe+d5/gXSj
+ hpPrgIAAA==
+X-Change-ID: 20260407-anacapa-devlop-phase-devicetree-4101d3f312c0
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Andrew
+ Jeffery" <andrew@codeconstruct.com.au>, Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>
+CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
+	<colin.huang2@amd.com>, Colin Huang <u8813345@gmail.com>, Carl Lee
+	<carl.lee@amd.com>, Rex Fu <rex.fu.amd@gmail.com>, Andy Chung
+	<Andy.Chung@amd.com>, Peter Shen <peter.shen@amd.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788344509; l=5239;
+ i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
+ bh=Ar+d4mb5Bb58qe4Oy6QHvm7Is/Mxy2hZWcbg+BROmgE=;
+ b=/J6VZUvQFPu2C8WKNoIMMoFK146LCwU17Ji7ZHasFP4jbdsmkNKw9O6NtfI8OuiWUxM2T2Hm5
+ iqvYDdXXlCHAL1OEPXoqIx2rDb/yLQ9frGZRt9DWbUa56in4eFJbFiF
+X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
+ pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449E:EE_|SN7PR12MB7228:EE_
+X-MS-Office365-Filtering-Correlation-Id: 13da894d-e253-4e4f-d5bc-08df08dc07fe
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|1800799024|7416014|376014|13003099007|56012099006|10067099003|11063799006|3023799007|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	F7dI65Lf2KdzhrFZ9LfozQCvTMc6UpSiWj3S9gRKHHLgwlbWueEzYkluDgulB6yuyJz1ydI2uW42EmFRQUhgtD2QqQlBubK+fAGwHUQZHgewCv1ONX2FltfX5YEzzVuG5W9AFM/NpSqPsM7iuDnBxoMPzjwiT6khtw9nHZUs7wWGijZTmR/+pJOhXrK9/gzdsJQ1mzUtRbA0fkxQ1ATZst/+azuVjrIdmmibhH0kqwpJ7pEhwFQSqtnRpXEebQE0jSSrW0GWVs4CdmFTexTm65HStdP0atln09EYl7FDfPWoNWvlrqPf9X0yNR6mqG8EAy2J5ueyuCO3Hq3Yorp0xI7R2BXOVBE7RnoQL7yZKovFWg59JCv5HjpIcgxdVj8VE9qwr0VGbrnnlDL6XsO7gWJ4gZBqTSJdTOsNoU8TyyaEjlVzuhFR0txiucbaAILDbwQbrt5xkCvtAxSmJqntx9pDK5p0wOgAO0cNHuisK3Dr6sQGyYOIKav8xGraJacI6oNTnFYRBd3Sy9TOzNDb35OiTsT0cPGCDe1CjxrGyGUPdGetA5toyiXGAeTqsn7JYYUwBskuIabOp2Wizrl4QBuMdrKn6RjMJmG02va9E1TQCPDLK9IW6MhJTslnlAr/3x9DDo6x5hxg5uBfHcP3jtynXWaIVQW/M8wqGw0WEDnWzUBVgluhrdaAm97GPwsuDLoV+LGsdP25GpStr/mH3A==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(7416014)(376014)(13003099007)(56012099006)(10067099003)(11063799006)(3023799007)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ALm916Uy8Ao73gsPJEHeS9BSGOcSd+op60O3USLSxXJTw8HRVqG0np8ajt7WpHzZ5BsSkXBdJOmobszj/5Hh18iP2ta/Rwb+Huum/hCH3IC08FlN5TnJApp1ObCfbkPFv8+ulaXomD9deZJbSqPWEIHFi8u6FjXzlirL0tILvvJuqlWK/ACVBFhB2B4mp9L32ppHt1WJRWZqb13GBxj367uUFoXnfDWHStTTh6VNaVL46Rt6sGvl5EMHTcMWuy2d/FoCn+c5d/eBzP44R9BjO41alRwnFT3JCY6rymoi7XBDq92P2iqdHJ3I6Zuhkj1C4Lh2iwwhgr8+p30CzeOLyJT8b62VVDf8vxCelADx9HVe/3jGTTnbmV9eTLvoIY5SjI+b7ysTd7vl16yBHYgmxZ5MzGXMlOKhghfw2NkM0uWHSZDOkc79KAOnAqczd+YT
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 10:22:02.9435
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 13da894d-e253-4e4f-d5bc-08df08dc07fe
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF0000449E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7228
 
-ihex_binrec_size() returns uint16_t while computing be16_to_cpu(p->len) +
-sizeof(struct ihex_binrec), so record lengths of 65530 and above wrap.
-__ihex_next_binrec() uses the result as the offset to the next record. A
-length of 65530 gives an advance of zero, so ihex_validate_fw() spins on
-the same record forever. Lengths of 65531 to 65535 advance by 4 or 8
-instead of 65544, so a 14 byte image passes validation while its first
-record claims 65535 bytes of payload. emi26_load_firmware() passes it to
-emi26_writememory(), which kmemdup()s 65535 bytes out of a 14 byte buffer
-producing the following splat:
+This series refactors the Anacapa BMC devicetree layout to better support
+development-phase hardware revisions (EVT1/EVT2/DVT) while keeping a platform
+entrypoint.
 
-  BUG: KASAN: vmalloc-out-of-bounds in kmemdup_noprof+0x3b/0x50
-  Read of size 65535 at addr ffffc90000075006 by task kworker/11:1/174
-  Workqueue: usb_hub_wq hub_event
-  Call Trace:
-   <TASK>
-   kasan_check_range+0x10f/0x1e0
-   __asan_memcpy+0x23/0x60
-   kmemdup_noprof+0x3b/0x50
-   emi26_writememory+0x29/0xd0
-   emi26_probe+0x2d1/0xb64
-
-Return size_t so neither the addition nor the following ALIGN() can wrap.
-
-Fixes: 9fb4ab4d3dd6 ("ihex: Simplify next record offset calculation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vasileios Almpanis <vasilisalmpanis@gmail.com>
+Signed-off-by: Colin Huang <u8813345@gmail.com>
 ---
- include/linux/ihex.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v8:
+- Fix [Critical] The board compatible string was silently changed from "facebook,anacapa-bmc" to "facebook,anacapa"
+  , breaking dt-bindings and backward compatibility.
+- Fix [Low] The /dts-v1/ directive is improperly placed inside a .dtsi include file instead of the top-level .dts file.
+  Move "/dts-v1/" into aspeed-bmc-facebook-anacapa.dts
+- Link to v7: https://lore.kernel.org/r/20260901-anacapa-devlop-phase-devicetree-v7-0-0bd71d2e0105@gmail.com
 
-diff --git a/include/linux/ihex.h b/include/linux/ihex.h
-index b824877e6d1b..0da1c4e3e693 100644
---- a/include/linux/ihex.h
-+++ b/include/linux/ihex.h
-@@ -21,7 +21,7 @@ struct ihex_binrec {
- 	uint8_t data[];
- } __attribute__((packed));
- 
--static inline uint16_t ihex_binrec_size(const struct ihex_binrec *p)
-+static inline size_t ihex_binrec_size(const struct ihex_binrec *p)
- {
- 	return be16_to_cpu(p->len) + sizeof(*p);
- }
+Changes in v7:
+- Fix [Critical] Devicetree ABI breakage due to removal of generic compatible string
+  keep to use compatible string "facebook,anacapa-bmc".
+- Fix [Low] Redundant redefinition of inherited properties in the `evt2.dts` file.
+- Fix [Low] Included devicetrees use `.dts` extension instead of `.dtsi`
+  aspeed-bmc-facebook-anacapa-evt1.dts -> aspeed-bmc-facebook-anacapa-evt1.dtsi
+  aspeed-bmc-facebook-anacapa-evt2.dts -> aspeed-bmc-facebook-anacapa-evt2.dtsi
+  aspeed-bmc-facebook-anacapa-dvt.dts -> aspeed-bmc-facebook-anacapa-dvt.dtsi
+- Link to v6: https://lore.kernel.org/r/20260825-anacapa-devlop-phase-devicetree-v6-0-9059a2a279ce@gmail.com
+
+Changes in v6:
+- Fold the following fixes into this series: 
+   - Remove redundant vhub pinctrl-names
+   - Use default SPI2 memory mapping
+   - Fix dt-check-style strict violations
+- Move p3v3_bmc_aux node from evt1.dts to evt2.dts for dt-check-style
+- Fix the patch author information
+- Link to v5: https://lore.kernel.org/r/20260813-anacapa-devlop-phase-devicetree-v5-0-c7058f63dc67@gmail.com
+
+Changes in v5:
+- Remove redundant vhub pinctrl-names
+- Use default SPI2 memory mapping
+- Fix dt-check-style strict violations
+- Add Acked-by from Conor Dooley
+- Sort compatible strings in alphabetical order
+- More commit message for ARM: dts: aspeed: anacapa: Add EVT1 devicetree and point wrapper to it.
+- Update commit message to describe both LPDB and RPDB GPIO expanders  
+- Link to v4: https://lore.kernel.org/r/20260805-anacapa-devlop-phase-devicetree-v4-0-5d67e0efa6c5@gmail.com
+
+Changes in v4:
+- Capitalize the first word of the short description.
+- Rework the Anacapa development-phase devicetree hierarchy.
+- Ensure that anacapa-evt1 generates an identical devicetree to the existing aspeed-bmc-facebook-anacapa.dts.
+- Add SPI flash VCC supply.
+- Simplify leakage GPIO line names.
+- Add LPDB fuse monitor GPIO expander.
+- Link to v3: https://lore.kernel.org/r/20260602-anacapa-devlop-phase-devicetree-v3-0-7c93c5df8d9b@gmail.com
+
+Changes in v3:
+- Restructure the EVT2 devicetree to inherit from the EVT1 devicetree, making it incremental rather than standalone.
+- Add the DVT devicetree, inheriting from the EVT2 devicetree.
+- Enable MCTP and FRU support for the NIC.
+- Align PDB fan GPIO numbering.
+- Add an EEPROM device node for the NFC adaptor board.
+- Add an additional EEPROM device node for the SCM.
+- Add shunt resistor values for HSC monitors
+- Link to v2: https://lore.kernel.org/r/20260409-anacapa-devlop-phase-devicetree-v2-0-68f328671653@gmail.com
+
+Changes in v2:
+- Fix dtbs_check fail.
+  Validated by following command:
+    make dt_binding_check DT_SCHEMA_FILES=arm/aspeed/aspeed.yaml
+    make CHECK_DTBS=y DT_SCHEMA_FILES=arm/aspeed/aspeed.yaml aspeed/aspeed-bmc-facebook-anacapa.dtb
+    make CHECK_DTBS=y DT_SCHEMA_FILES=arm/aspeed/aspeed.yaml aspeed/aspeed-bmc-facebook-anacapa-evt1.dtb
+    make CHECK_DTBS=y DT_SCHEMA_FILES=arm/aspeed/aspeed.yaml aspeed/aspeed-bmc-facebook-anacapa-evt2.dtb
+- Link to v1: https://lore.kernel.org/r/20260407-anacapa-devlop-phase-devicetree-v1-0-97b96367cac3@gmail.com
 
 ---
-base-commit: 89a312991dc6e638a36adc43ccb91dbc25504c04
-change-id: 20260902-ihex-62b68b7e2bae
+Andy Chung (1):
+      ARM: dts: aspeed: anacapa: Enable MCTP and FRU for NIC
+
+Carl Lee (1):
+      ARM: dts: aspeed: anacapa: Add eeprom device node for NFC adaptor board
+
+Colin Huang (4):
+      ARM: dts: aspeed: anacapa: Add EVT1 devicetree and point wrapper to it
+      ARM: dts: aspeed: anacapa: Add EVT2 devicetree inheriting EVT1
+      ARM: dts: aspeed: anacapa: Add DVT devicetree inheriting EVT2
+      ARM: dts: aspeed: anacapa: Add additional EEPROM node for SCM
+
+Peter Shen (1):
+      ARM: dts: aspeed: anacapa: evt2: Add shunt resistor values for HSC monitors
+
+Rex Fu (4):
+      ARM: dts: aspeed: anacapa: Align PDB fan GPIO numbering
+      ARM: dts: aspeed: anacapa: Add LPDB fuse monitor GPIO expander
+      ARM: dts: aspeed: anacapa: Simplify leakage GPIO line names
+      ARM: dts: aspeed: anacapa: Add SPI flash VCC supply
+
+ .../aspeed/aspeed-bmc-facebook-anacapa-dvt.dtsi    |  259 +++++
+ .../aspeed/aspeed-bmc-facebook-anacapa-evt1.dtsi   | 1130 ++++++++++++++++++++
+ .../aspeed/aspeed-bmc-facebook-anacapa-evt2.dtsi   |  407 +++++++
+ .../dts/aspeed/aspeed-bmc-facebook-anacapa.dts     | 1077 +------------------
+ 4 files changed, 1797 insertions(+), 1076 deletions(-)
+---
+base-commit: cd7d1ef7d74ed5f5a1790a40389bc38382924556
+change-id: 20260407-anacapa-devlop-phase-devicetree-4101d3f312c0
 
 Best regards,
---  
-Vasileios Almpanis <vasilisalmpanis@gmail.com>
+-- 
+Colin Huang <u8813345@gmail.com>
 
