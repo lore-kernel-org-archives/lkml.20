@@ -1,199 +1,116 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 114FC49C4BB;
-	Wed,  2 Sep 2026 11:59:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0990047CA80;
+	Wed,  2 Sep 2026 11:59:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788350372; cv=none; b=RTRE/b/Tht0BlQKeofbCq+b8i+tDT3xJyWQK6Y7bdq3suBJDBWKxbCoCxPd9p+y5OBovo+ioCsKPZt+zgfK2rhdy+LR5iF24qiEG6k/FiPC3DMgp3gg/9Ug65Mux1x0br2YlnxnKS0U26toEZrgZ4j6WXoWVTdZV5vhllwqvMPM=
+	t=1788350402; cv=none; b=j++o4+ybGc2tuxH9V6lbgRPopgVB41btOG2ca5aFiXIIZ4d6vk+B1riAM7+0WRIHxfD2IZWKRnWMwRh+n2777rjnjTND9Snsc2UdUrINUoRf9/jKEdYYw0yEgWsVXLyfynEsR9c7irhHuwjGmNWBfv9yTt0yJinx0hsTCcuRd2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788350372; c=relaxed/simple;
-	bh=WQgZINIb4cT81Qa+2S8JCeILW5BK0Ti2MUqMysl2vTk=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=ZBUrlBfmRtR/65Y5RBfyC+mDDtPa7+BNGgneHgWd98rx+I+eVSfEKT5BLxIIeItnEnZJkUK7aJ8mMMPFMgJn1NGM8+af2CtKWzxhVBA2+uhAkusScWq19efZjSMu17SqyeaRU5g0M7E23GUIfsfhJEc7FGLB/Hhq6iFHwUANKhs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=Eil+nx/n; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1788350402; c=relaxed/simple;
+	bh=kd+Yyc7NYCeNgqH4h5WwvcyPFp8KPW7JVTHUROcl4h0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IAkk11q9c9FWtXdjMi7c0buNReBWJ8FDT6j7cji01AkrlSYUj1WgTt8Myeuf2kHr7p2IqEEMo04tMdEyWQWg4zIRpWlKhfckrSVRabSMyphFQ563kFQb5n11x4Wa017b660lS9AloUoIP4VInqVyOQi0IroGUG4pS2M+T9yEjNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ai0rW35e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="Eil+nx/n"
-Received: from sahil.mshome.net (unknown [4.213.232.23])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 5637020B712D;
-	Wed,  2 Sep 2026 04:58:25 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5637020B712D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788350309;
-	bh=NbTpxWy4eTngSJB5iCZ1UgAbNhWcWwhmt9T2M+RrWzM=;
-	h=From:To:Subject:Date:From;
-	b=Eil+nx/n2+lN5Bbx33eo53U4es1T8TEK/1drmpTThnGNOtqyJm0LAteUUC4THyrBG
-	 JAL8lYrM3DNkCpmFjafnydCdTurgXaVQfk9abgt4TPqMvgOLg1TinTQPZVUo0/3fcR
-	 9h5IuPHZywpcWWTUU2vjTpB5uN5aQigyvClvg54A=
-From: Sahil Chandna <sahilchandna@linux.microsoft.com>
-To: kys@microsoft.com,
-	haiyangz@microsoft.com,
-	namjain@linux.microsoft.com,
-	mhklinux@outlook.com,
-	hamzamahfooz@linux.microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	longli@microsoft.com,
-	lpieralisi@kernel.org,
-	kwilczynski@kernel.org,
-	mani@kernel.org,
-	robh@kernel.org,
-	bhelgaas@google.com,
-	linux-hyperv@vger.kernel.org,
-	linux-pci@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ai0rW35e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F6EC1F000E9;
+	Wed,  2 Sep 2026 11:59:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788350389;
+	bh=+GMRGtPJF0kOjxkPGpdOGJ/QQcsY+spD3Byr8n5Cdoo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ai0rW35e84q7etisLcAs5i6HERQJohghziR7l5ol5kcffn5Qoh7e/xvcAQFHAGgVA
+	 Ds837SY2DJ8Kd6gXpX3FcjK9T+gRmse6EwTAvKVx/9HoF54ONBIhpeqG4PiTzZt6Yr
+	 aKve9vr+z4VMKeVXRZA4x3EcUxekF9sL+9Ax2vdSKSZWJgcJsyKde9IqfYId5PnYJi
+	 L/T33YLulOGN82Bh45wOzUkBzc8iD3z9XrlPK9xo370FUzRpokrVBFN9YRN1tng9sg
+	 u8fyKUbbzFCEDUQ2ECTDHKu0CIQZ7c9jKD4jC3M+JY1QzzdwCo5kBYhSGlx2kq/6RU
+	 UPhlqJc9/0g+g==
+Date: Wed, 2 Sep 2026 12:59:44 +0100
+From: Lee Jones <lee@kernel.org>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Vincent Donnefort <vdonnefort@google.com>, stable@vger.kernel.org,
+	mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
+	mathieu.desnoyers@efficios.com, kernel-team@android.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] PCI: hv: warn when wait_for_response() waits indefinitely
-Date: Wed,  2 Sep 2026 04:58:51 -0700
-Message-ID: <20260902115854.2629164-1-sahilchandna@linux.microsoft.com>
-X-Mailer: git-send-email 2.53.0
+Subject: Re: STABLE REQ: [PATCH v5 06/10] tracing: Fix subbuf resize races
+ with trace_pipe_raw readers
+Message-ID: <20260902115944.GS2943942@google.com>
+References: <20260813131152.3589632-1-vdonnefort@google.com>
+ <20260813131152.3589632-7-vdonnefort@google.com>
+ <20260901123444.GA1350131@google.com>
+ <20260901094656.487b278f@gandalf.local.home>
+ <20260902082717.GM2943942@google.com>
+ <2026090230-entryway-acquaint-d12e@gregkh>
+ <20260902095744.GN2943942@google.com>
+ <2026090221-riverbank-overlay-704c@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026090221-riverbank-overlay-704c@gregkh>
 
-A guest can wait indefinitely in wait_for_response() for the host to
-send either a rescind message or a packet completion. If the
-host does not send either, the guest can remain blocked with no
-diagnostic indicating a reason.
-This was observed during a guest kernel upgrade in which the
-host-side application handling the PCI channel faulted, causing the
-guest to never receive the completion request.
-Add a warning in wait_for_response() when the wait exceeds
-a timeout so that such a hang is visible in the guest's kernel log
-and can be correlated with host-side state.
+On Wed, 02 Sep 2026, Greg KH wrote:
 
-Suggested-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-Suggested-by: Naman Jain <namjain@linux.microsoft.com>
-Suggested-by: Michael Kelley <mhklinux@outlook.com>
-Signed-off-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
----
-Changes since v1:
-- Removed periodic warning to one time warning in 2 minutes
-- Include vmbus relid and stuck PCI msg.
-Link to v1: https://lore.kernel.org/all/20260825051850.2438816-1-sahilchandna@linux.microsoft.com/
----
- drivers/pci/controller/pci-hyperv.c | 48 +++++++++++++++++++++++------
- 1 file changed, 38 insertions(+), 10 deletions(-)
+> On Wed, Sep 02, 2026 at 10:57:44AM +0100, Lee Jones wrote:
+> > On Wed, 02 Sep 2026, Greg KH wrote:
+> > 
+> > > On Wed, Sep 02, 2026 at 09:27:17AM +0100, Lee Jones wrote:
+> > > > On Tue, 01 Sep 2026, Steven Rostedt wrote:
+> > > > 
+> > > > > On Tue, 1 Sep 2026 13:34:44 +0100
+> > > > > Lee Jones <lee@kernel.org> wrote:
+> > > > > 
+> > > > > > Could we have this applied to Stable please:
+> > > > > > 
+> > > > > > 8a5f63637890 ("ring-buffer: Fix subbuf resize race with ring buffer readers")
+> > > > > 
+> > > > > It's marked for stable so it should automatically be backported (if it
+> > > > 
+> > > > Where was it marked for Stable?
+> > > 
+> > > It has:
+> > > 	Cc: stable@vger.kernel.org
+> > > in the patch itself.  It is in my queue to get to, along with over 1000+
+> > > other patches that people decided to tag for stable and yet wait for the
+> > > -rc1 merge window to get to Linus.
+> > 
+> > Am I losing the plot?  The patch that I replied to [0] did not Cc:
+> > Stable.  If it had, I wouldn't have made the request.
+> > 
+> >   From: Vincent Donnefort <vdonnefort@google.com>
+> >   To: rostedt@goodmis.org, mhiramat@kernel.org,
+> >   	 linux-trace-kernel@vger.kernel.org
+> >   Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com,
+> >   	 linux-kernel@vger.kernel.org,
+> >   	Vincent Donnefort <vdonnefort@google.com>
+> >   Subject: [PATCH v5 06/10] tracing: Fix subbuf resize races with trace_pipe_raw readers
+> > 
+> >   [...]
+> > 
+> >   Fixes: bce761d75745 ("ring-buffer: Read and write to ring buffers with custom sub buffer size")
+> >   Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+> 
+> 
+> I'm lost, I was referring to the above git id that was asked about,
+> sorry.
 
-diff --git a/drivers/pci/controller/pci-hyperv.c b/drivers/pci/controller/pci-hyperv.c
-index 89816a2bd7cd..ca9d8efd748c 100644
---- a/drivers/pci/controller/pci-hyperv.c
-+++ b/drivers/pci/controller/pci-hyperv.c
-@@ -1040,19 +1040,40 @@ static void put_pcichild(struct hv_pci_dev *hpdev)
+Ah, so Steven must have added it to the commit on application.
 
- /*
-  * There is no good way to get notified from vmbus_onoffer_rescind(),
-- * so let's use polling here, since this is not a hot path.
-+ * so let's use polling here, since this is not a hot path. If
-+ * wait_for_response() has been polling for PCI_RESPONSE_HANG_TIMEOUT_SEC
-+ * without either a rescind or completion, add a warning.
-  */
-+#define PCI_RESPONSE_HANG_TIMEOUT_SEC 120
-+
- static int wait_for_response(struct hv_device *hdev,
--			     struct completion *comp)
-+			     struct completion *comp,
-+			     const char *msg_type)
- {
-+	unsigned long delay = secs_to_jiffies(PCI_RESPONSE_HANG_TIMEOUT_SEC);
-+	u64 timeout = get_jiffies_64() + delay;
-+	bool warned = false;
-+
- 	while (true) {
- 		if (hdev->channel->rescind) {
- 			dev_warn_once(&hdev->device, "The device is gone.\n");
- 			return -ENODEV;
- 		}
+That makes sense now.  As you were!
 
--		if (wait_for_completion_timeout(comp, HZ / 10))
-+		if (wait_for_completion_timeout(comp, HZ / 10)) {
-+			if (warned)
-+				dev_warn(&hdev->device,
-+					 "Late %s completion arrived.\n", msg_type);
- 			break;
-+		}
-+
-+		if (!warned && time_after64(get_jiffies_64(), timeout)) {
-+			dev_err(&hdev->device,
-+				"%s stuck waiting for response, relid = %u\n",
-+				msg_type, hdev->channel->offermsg.child_relid);
-+
-+			warned = true;
-+		}
- 	}
+> > > It will get there eventually...
+> > 
+> > This wasn't an urgent request or a request to expedite.  Take your time.
+> 
+> Back to the never-ending-queue...
 
- 	return 0;
-@@ -1518,7 +1539,8 @@ static int hv_read_config_block(struct pci_dev *pdev, void *buf,
- 	if (ret)
- 		return ret;
+Enjoy!
 
--	ret = wait_for_response(hbus->hdev, &comp_pkt.comp_pkt.host_event);
-+	ret = wait_for_response(hbus->hdev, &comp_pkt.comp_pkt.host_event,
-+				"PCI_READ_BLOCK");
- 	if (ret)
- 		return ret;
-
-@@ -1607,7 +1629,8 @@ static int hv_write_config_block(struct pci_dev *pdev, void *buf,
- 	if (ret)
- 		return ret;
-
--	ret = wait_for_response(hbus->hdev, &comp_pkt.host_event);
-+	ret = wait_for_response(hbus->hdev, &comp_pkt.host_event,
-+				"PCI_WRITE_BLOCK");
- 	if (ret)
- 		return ret;
-
-@@ -2624,7 +2647,8 @@ static struct hv_pci_dev *new_pcichild_device(struct hv_pcibus_device *hbus,
- 	if (ret)
- 		goto error;
-
--	if (wait_for_response(hbus->hdev, &comp_pkt.host_event))
-+	if (wait_for_response(hbus->hdev, &comp_pkt.host_event,
-+			      "PCI_QUERY_RESOURCE_REQUIREMENTS"))
- 		goto error;
-
- 	hpdev->desc = *desc;
-@@ -3256,7 +3280,8 @@ static int hv_pci_protocol_negotiation(struct hv_device *hdev,
- 				(unsigned long)pkt, VM_PKT_DATA_INBAND,
- 				VMBUS_DATA_PACKET_FLAG_COMPLETION_REQUESTED);
- 		if (!ret)
--			ret = wait_for_response(hdev, &comp_pkt.host_event);
-+			ret = wait_for_response(hdev, &comp_pkt.host_event,
-+						"PCI_QUERY_PROTOCOL_VERSION");
-
- 		if (ret) {
- 			dev_err(&hdev->device,
-@@ -3476,7 +3501,8 @@ static int hv_pci_enter_d0(struct hv_device *hdev)
- 			       (unsigned long)pkt, VM_PKT_DATA_INBAND,
- 			       VMBUS_DATA_PACKET_FLAG_COMPLETION_REQUESTED);
- 	if (!ret)
--		ret = wait_for_response(hdev, &comp_pkt.host_event);
-+		ret = wait_for_response(hdev, &comp_pkt.host_event,
-+					"PCI_BUS_D0ENTRY");
-
- 	if (ret)
- 		goto exit;
-@@ -3553,7 +3579,8 @@ static int hv_pci_query_relations(struct hv_device *hdev)
- 	ret = vmbus_sendpacket(hdev->channel, &message, sizeof(message),
- 			       0, VM_PKT_DATA_INBAND, 0);
- 	if (!ret)
--		ret = wait_for_response(hdev, &comp);
-+		ret = wait_for_response(hdev, &comp,
-+					"PCI_QUERY_BUS_RELATIONS");
-
- 	/*
- 	 * In the case of fast device addition/removal, it's possible that
-@@ -3644,7 +3671,8 @@ static int hv_send_resources_allocated(struct hv_device *hdev)
- 				VM_PKT_DATA_INBAND,
- 				VMBUS_DATA_PACKET_FLAG_COMPLETION_REQUESTED);
- 		if (!ret)
--			ret = wait_for_response(hdev, &comp_pkt.host_event);
-+			ret = wait_for_response(hdev, &comp_pkt.host_event,
-+						"PCI_RESOURCE_ASSIGNED");
- 		if (ret)
- 			break;
-
---
-2.53.0
+-- 
+Lee Jones
