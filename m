@@ -1,135 +1,109 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ABE84A0909
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:59:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EFE24A0915;
+	Wed,  2 Sep 2026 13:59:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788357574; cv=none; b=hYZZBJ7r0Czn6YRNAfLM9VAXls2vGc+JAoQw9pFe6rDMQdto6yNvXwYchzeIhT+BwAM0t9pk6m4oR300r85hlL8IoP+cUz5DkBdnR9lR+kxQpVhBvzEYuhHlz8wtMserBkUS2fglqfUSi4nFQ0GAvnLgU3u416GN6cMD2DQmg5M=
+	t=1788357585; cv=none; b=MyP1t4Pc7SSY6wPgK4gPRkKOlIAjsZe6jpwcssuLkutx9DdfEC30HDy7IQ4qINgAMuqu8TJFt669fDjgZQ4H60+N5gqK0w/qhoIcFf3xPlGs163ykcclPUsQm1OwwsmLeB+UX2wPBK0BJENgUiqyY79+K5/JfKNERxhoCZq6PHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788357574; c=relaxed/simple;
-	bh=/9eZmU2D0hbNHb92ePV2OaMpbatPpO6xeRcbdoGIcR4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M6WT1/kJLwi5D2p96uehn63wqMBPsjJbTAFzxBGlxL07lpWLm5cGveqsNxJqWLna7sn6ZNBS3/zJtzXSJ7DBLGclhdt21Pv+ZmK46RV4K0o6lGNpZerHc6wf9jWfmOXYF/piOrnTW4gJtAHunR0liox+SZMc33MdLWnd68TZ6fg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XnA6rvNU; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788357585; c=relaxed/simple;
+	bh=UF7+JWjJfiZBKxZYEwiJvR1rEPN/TsJAZMrZ29KgOcE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ISCAtEkmctNozXlMK3vj/HNRV2UKzrNbjoBYDJwy9M6udv7u+ujp5udIS5zvBk/nGts6HX6CAWIAQ/GOXL9tZAqW8pA+hbqf1QbNPlZsNMwWQjs1HffuIVyPTu8dv638jUDP6hs9l6993C35f0+VMqgX1/aBIUQnLVbT3LJpdt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=btcZLTPY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XnA6rvNU"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-39682983a0fso1387734a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 06:59:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788357572; x=1788962372; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hrAS7URR96Vhxqaift3zBbsgPvJL26DLyKnxdnXVft4=;
-        b=XnA6rvNUeg5GKgp5saQqJIwI/nqFJpjDlylEZM/agR/kSXe5e3c6bAVMt1Gvk7VCCf
-         vqBr3XK+fIVZ87BXPBpvtxlKsdyPDqWLZLnJ3108EsAVM4z+sphU+MpLyWQDwz7ZiZTn
-         GzE0CfBpO6a1kMheOlupfokE1Mi90LO7hUL0zm8jo+8MBi5GaOQDYzDbi3IjLCbT1PbL
-         l4KMCI+uHc1qZAw7sIXEArNwsVgnAYG27s7ebDePdgiJbWs/GUCmNJLSkhSCT533fhl4
-         yQa6dsRYkLvH71UcEr2dlq0gvvrc/c8fq1cuxQsueEU3aQAn1eD+6Ul01GcnOAfoxBzn
-         Wj2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788357572; x=1788962372;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hrAS7URR96Vhxqaift3zBbsgPvJL26DLyKnxdnXVft4=;
-        b=Zy3JFRdZLKB4O6PbSpddWmnvHV3XrVXnxWWxY2ab6D+tNGtKnaIont83AcakE3xsbD
-         Jo/5EhXzNWXgiT8hWvR3dt2qEiDQDFpoFu20nvui7XDDD4N1d3wXbmmC6LxVbV1nvvEM
-         zzjCa0hmoDwPT79MEBSCkt4EvCxcK6SLQ1A147k9UzCq6fbeYdGJOJZV7aM2RXcOXPxo
-         M2PtMu2la2UzyvbBOPtRbebzt6LEsuAV/M3AgezYw/QUU61VTGTLVrP01jIvFx7QT/FE
-         2qgwa2xO9P06g+6kXW9L20IWUVRGY/vRww3Z4ysDWRDMT3lkfXzmHLadhrGPJ+HZ+8pz
-         FPFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwb1Z9dvz/heakeu6cZ1XLCj7TENLERpRrXtfsqXE55sQru0bi6Jc7wcIk1W9+J+BxuE761YhOEsQ3kyMs=@vger.kernel.org
-X-Gm-Message-State: AFuF++njUePKtM1r4x8XfC0Y/NwPUvcZm1ZLDCDNEMnCaGMwpBJezVTi
-	9PjWk7O8HOJ+3TCoWPHchLEs+AnsagT3fs2J7RcpBXCFNH4+/tFY6Fsk
-X-Gm-Gg: AYBFou3ch9lbRtzyZ73nNbmN2LrTxGeDdeFa1XHQvsKgz8JjAGY0tCTvgnTJeeBw3rN
-	U9brvsFUZk8F+z3K9NujHG5AZomWfSzBTcyb8n8dT2ssZ/39TomUn/STzI4nfoahXVwXxEXS+sY
-	51dTSD/cCopM0w7GQPUU+eizPUCQttVH6+URkj0tMlWXEo+/FKwTDaNc2KJVvujbG+SIizho7B2
-	6dLjLzUoVofvPX21XybaXWoMJmL3Qat9/165IpDkAQKYmvHCQfP7iW3+U73E+rf1LW6jij5o3hb
-	dDz+pjEpONhd87qQF/7j12g6CFu8Fer0Hdkc+IAN7h2UCmfJxcke8KVbP8M4Ujld1agg2yxz2F4
-	rWoF+eOpVS1/yjFmiE6lr2SvSOnIG/xj4F09+zhX0PC1jn6ctWf5YCoUi7WxAslHVLJDH1HKrDk
-	7h22X28/8L1nmSeMesj/bcr1eQpTzWQS7pBQ7cKeF3mpIqJjuFsaldM+dxHWjWA+Kw4AkQGjreF
-	eCEmiGTfIB46qvY9vcez8Sxy9UPWhvcTjpgi3WIPKETzovzw4FKj96sCcbQPrSRB71Ev9qsvkmZ
-	i0WOplJSDxvjb12BNHj5t9pvaGpKWoIPWrZkq2mUOwo=
-X-Received: by 2002:a17:90a:ec8c:b0:38e:5964:97a8 with SMTP id 98e67ed59e1d1-39aee04ace5mr8324115a91.16.1788357571759;
-        Wed, 02 Sep 2026 06:59:31 -0700 (PDT)
-Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990bd21e9dsm12123595a91.4.2026.09.02.06.59.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 06:59:31 -0700 (PDT)
-From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="btcZLTPY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7F6A1F000E9;
+	Wed,  2 Sep 2026 13:59:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788357583;
+	bh=PuphFSC7VAMjp85LyxvriESmpHI+9IcgHqoIy3SrDVg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=btcZLTPYW0oBuA+vzca7/mRE9EOrZWeTRyYpbwmjPEWbs/tjuDdXa91fE9y7Lt3nS
+	 dxAShpufQHz+zsK6xei/UgqTZEmvlcIWDuSsOxnbJYW0ctyf1I+TWY7xMDO1019hnL
+	 IneJoM5YseQhyupEXj713qGoaDifKa0lP1jpdZBjXGP+r/20aZtnmbh/gpPGvYdtbr
+	 BIjuOg+71oZ6qIPBFh8ee+3mFTEzzTWVGvObvOWJ8N53mx7V+tNfOWcptaDlfIDMwt
+	 uDz39d4SdgzKee0FOSACWzebI3ADtgIO2BN2Jh5QW0wJJfpXx0gjKes9+iFLcSzoQp
+	 kBGMBZI+JTcuQ==
+From: Chuck Lever <cel@kernel.org>
+To: NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
+	Trond Myklebust <trondmy@kernel.org>,
+	Anna Schumaker <anna@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>
+Cc: Slawomir Stepien <sst@poczta.fm>,
+	linux-nfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-Subject: [PATCH v2] dma-buf: fix stale return value documentation for dma_buf_set_name()
-Date: Wed,  2 Sep 2026 21:59:23 +0800
-Message-ID: <20260902135923.3599022-1-alan.tseng.cs@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	netdev@vger.kernel.org,
+	Trond Myklebust <trondmy@gmail.com>,
+	linux-kselftest@vger.kernel.org
+Subject: Re: [PATCH v5 00/15] nfsd/sunrpc: harden the netlink listener set interface
+Date: Wed,  2 Sep 2026 09:59:39 -0400
+Message-ID: <178835756055.1975665.3585993273106020658.b4-ty@b4>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260901-nfsd-nl-hang-v5-0-a540d86668b0@kernel.org>
+References: <20260901-nfsd-nl-hang-v5-0-a540d86668b0@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-The kernel-doc for dma_buf_set_name() still documents an -EBUSY return
-for the case where the dma-buf is already attached to devices:
+On Tue, 01 Sep 2026 09:39:38 -0400, Jeff Layton wrote:
+> This version just fixes up some errno handling confusion that was in v3
+> that Chuck pointed out. This version also drops ENAVAIL as a special
+> error code -- we can use EIO for that instead.
+> 
+> Please consider these for v7.4.
+> 
+> 
+> [...]
 
-  Returns 0 on success. If the dma-buf buffer is already attached to
-  devices, return -EBUSY.
+Applied to nfsd-testing, thanks!
 
-That has not been true since commit e73c317efbf9 ("dma-buf: remove
-restriction of IOCTL:DMA_BUF_SET_NAME"), which dropped the
-dma_resv_lock() and the !list_empty(&dmabuf->attachments) check that
-produced -EBUSY. That commit updated the description paragraph above,
-but left the return value description behind.
+[01/15] NFSD: cap the number of listeners accepted in listener_set
+        commit: 196e48772ea60dc35adf57341e09e4bdf8f4212c
+[02/15] NFSD: validate transport name in listener_set before serv creation
+        commit: 85d7bca4afc7db07cedb612457fda195468cdb2d
+[03/15] SUNRPC: keep the first error in svc_register()
+        commit: d6c53650eb4aea422e6cf18b99428ff314ae7dd2
+[04/15] SUNRPC: bound the local rpcbind client timeout to 1s
+        commit: a607970b7003acf07157aae2f4c928af92b175d8
+[05/15] NFSD: report listener creation failures through extack
+        commit: 9dbaebcec682cc4c032c7a24ca4f04bdde287935
+[06/15] SUNRPC: report local rpcbind calls that get no answer
+        commit: f8ee183cb6123784cb4ffc2facb309d17bc896e9
+[07/15] SUNRPC: stop svc_register() once rpcbind stops answering
+        commit: 53fbfe00e9615496002b7e045b681fed45006634
+[08/15] SUNRPC: stop the svc_unregister() sweep once rpcbind stops answering
+        commit: 1ef5f3076a52482510c5afd4e816db33599f1341
+[09/15] SUNRPC: stop unregistering listeners once rpcbind stops answering
+        commit: e3d28a4c7f71946635ff6900aad6876e87332aa4
+[10/15] NFSD: stop registering with rpcbind after a failure in listener_set
+        commit: ce39bbabbe205b50b66ac935bd54036d86d86ba3
+[11/15] SUNRPC: check rpc_sockaddr2uaddr() for failure when registering
+        commit: 3349f8b6b9a938405275c232cf441fbff23d61b5
+[12/15] selftests/nfsd: exercise listener_set request validation
+        commit: 213294f2e2548c6d837cbc55ba0731c90a7a45e2
+[13/15] selftests/nfsd: add a per-netns rpcbind stub and the listener round-trips
+        commit: 61222d2dca7b03ecd3a590afed804f2324f4df82
+[14/15] selftests/nfsd: check that listener_set asks rpcbind once
+        commit: 3c9de315b3f85a67b4c54650c28ead94faad726f
+[15/15] selftests/nfsd: check that listener removal asks rpcbind once
+        commit: f56be2f4966b31fd60c379a30d8c83e89db7bc62
 
-The only failure the function can report now comes from strndup_user(),
-propagated via PTR_ERR(); every other path returns 0. Document that
-instead, using a Return: section so kernel-doc picks it up.
-
-No functional change.
-
-Fixes: e73c317efbf9 ("dma-buf: remove restriction of IOCTL:DMA_BUF_SET_NAME")
-Signed-off-by: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
----
-Changes in v2:
- - Use a "Return:" section so kernel-doc actually parses the return
-   value description; scripts/kernel-doc -none -Wall reported "No
-   description found for return value of 'dma_buf_set_name'" before
-   this change and is quiet after it.
- - Reference the commit that made the -EBUSY text stale, and add a
-   Fixes: tag for it.
- - Resend to the dma-buf maintainers and dri-devel; v1 only reached
-   linux-media, where it was marked "Not Applicable".
-
-v1: https://lore.kernel.org/linux-media/20260730003153.4030818-1-alan.tseng.cs@gmail.com/
-
- drivers/dma-buf/dma-buf.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index d504c636dc..6ee3c254d7 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -413,9 +413,8 @@ static __poll_t dma_buf_poll(struct file *file, poll_table *poll)
-  * @buf:    [in]     A piece of userspace memory that contains the name of
-  *                   the dma-buf.
-  *
-- * Returns 0 on success. If the dma-buf buffer is already attached to
-- * devices, return -EBUSY.
-- *
-+ * Return: 0 on success, or a negative error code from strndup_user() on
-+ * failure.
-  */
- static long dma_buf_set_name(struct dma_buf *dmabuf, const char __user *buf)
- {
--- 
-2.43.0
+--
+Chuck Lever
 
