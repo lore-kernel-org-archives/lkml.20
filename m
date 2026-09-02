@@ -1,120 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9413DDDD9
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:43:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A794A2065;
+	Wed,  2 Sep 2026 15:44:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788363835; cv=none; b=WbknnNSkzcntivTLwpHwqFrsDZVpKrPY5zAuHN9e6tlCvnZCI8wODs8S4q2GobCYWBZZh4g78SR1geHYi1ujFXNT+SVWvgNe6zzvF+y/25HKUlXUqLhoVV5xwzibLYKxoRPWUHueYFwv4KM5JixrItmLZxJRpTt2iQWdJh0zcr4=
+	t=1788363854; cv=none; b=N9GGKplyeauqVfKWcATNmp1LkDDaL31ObawglfTZ0Fyp7BmY3t09vlQzXGhPD2BvdtAchucJJhe0oDH+XyynPmk/uKZTHhDSfAG0gp18L4BqrpuZ/a0BvAGnuubZkF3uUXwOXugWeWYH81XDh8yE0yu3Kl3415WeyF3GnVPnQ4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788363835; c=relaxed/simple;
-	bh=GMNoKQ4iI14wgb4xbEIi1f0vSyV3mDDNdm51wnCdk7o=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=MVOzsHTX+0Q9x2Mf4m4bKSsyXQIeMRcrx0Zs88Fh0x80weCflqDSKOByyZ21sXenu9Rs1Lq82WTRvO+VwYFj15ovzHC1WCBnavtOaMBm00X6llPDEozRsTAmshczugl20bYwFSfK94D2n1DiK1MvSvVq5VP906Ybf0bbWJYOv2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cNl1Nz/f; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788363854; c=relaxed/simple;
+	bh=Fw01rL7riqwZdjiKWEKmz/l2BwDbbv84wKasnKUZOLY=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=CksU1mrSgYGCjzu2cfxNBka+TD4jHL8Sh6nJvTstpG/40O5xcOHg0gecsOVndhzQ69JH3DocHnfbEKKYUuPslKrwNs9bOIEHRXSKoVxfnewg9vzIn1U2O0puEgvJ+aFmIMxKonyQUMJNhlUtc4fzGiNJmAwaJ6PL7yU5WF851Ek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=46B78Ajj; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cNl1Nz/f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E7CD1F000E9;
-	Wed,  2 Sep 2026 15:43:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788363831;
-	bh=8K6qSSkutj6pHrLKr8EdXfF4sFAFJUQ/1Pxv7+fdLuo=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=cNl1Nz/finRQJOlIDT3sLZRAZNUGCeeYqqQ76b/jcj22lscfj8dE9BqOl89cS9EAr
-	 ZIcH8+UWVuW4XryEjFUi4fKDNCMJ2o9xJEerpyLTDFUInTJ6Lf7nJvb0Br2mj1gZS0
-	 GOJTHzFsujX9WgSPf+UsCZSF16jWHGQyeaDL3plVO0EqKwOzXDMe+k8W7ZUsZbj1WB
-	 p3W+1rrrL41YTSslhYMRCb6yE3n9UwRBAkfGKolHb3ETnDr3nMGSdEQuHvIV3MmhMw
-	 sWM1D4IknomZWvWC5tLLidfxt0IKp5fiCFby+CHsxK9Z0/ViqUSi/8/79D5Bou6CKH
-	 DbSbP8D9TTmnA==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id B36CF198006E;
-	Wed,  2 Sep 2026 11:43:48 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Wed, 02 Sep 2026 11:43:48 -0400
-X-ME-Sender: <xms:MUSYasiouvoLo_9NAHnyqixhOebbOOXlWTCsnLCHOdWhFIV3jLXrFQ>
-    <xme:MUSYav1gDFmOdMrJcOCDzL9PUS2UOsnqvsUXX-dvR36CNMjP4UY-MH9Zr6GoKeOrN
-    hpeiy-zqhxsw-D3jcUnAN0mJBpNUY0SlUDiBL2qBNsED9s3-TkpkTwz>
-X-ME-Proxy-Cause: dmFkZTGuZY3YmSAQEImWFPYnyorhNYUb/v0Di+W8WVPYg7Fl/RZt9RzYjXTwFbme7148L1
-    bqmZ6fDFUVXfLmTp9N6OpeCKGq61vrGRg4ONRES9dnu+d1YvTg9FuKC6HL8QWOEbDWqsX6
-    91mMSLi6tWdsaYfL8z9MvpqGn6fEUoBbdz4EIdsZFNiPf/Br/tIyGslcNbcxxLEnBLQ45r
-    i83yR6mIlKrOs+FzxBfTXNJu9wHIzdBihnO/bJdfDsOnsJeiGWl3nZ384tYea3OZ+DeczC
-    i4z73NDFvdtWYfwAYE7JZoRQNXizD222qlNfC8eVNnh3ajaShYREzBoGgsDFqy1xCFOPW0
-    yxrMW1LMLiP7q/GCoF6HLDi2oZGtycEn1eUX+pArVRoUjMBbrbBP3jxHGp0z7EBPt9gB4D
-    HAaqTxbVQD0WU9X4YMllwkW6HvFw1+BzXLI+7Fw7uOkwOS104SnAHha227+ZixB2PCXluB
-    a1rs8RRVGanhWNWiTyvHrqYkfNyO10Gk0FtVQSEJ2acG+QniqL3SVdsjgCFXwLRa7TCSuG
-    9Qo4IoMwpCLlw5LTIa3saXO+2jCkbUVp5jQDgNLmeFI6BGNQ/Pk/gEmPd5GYot0LL4oOEj
-    aowffjDANTli1zAA78e5GVWxUhr2PrPt6lrwxUePOcej7BF0veGFU5pYf5JQ
-X-ME-Proxy: <xmx:NESYavjUtu9qCB30mQv0hCqp4A0Ly3CBszpClSc5BCFx52bwMjDaTg>
-    <xmx:NESYaoVHUWYVmS7ajLhhgHJboUdm1P1G0VKtgMefPg6cBPu4Lx-www>
-    <xmx:NESYaguUbpXHu7FZpynYdRqB_Dirrv5JFhKbpKcyFRSlYoCyA9_Jhw>
-    <xmx:NESYapapf0aLgZQyhafeI75rCPDTe8EMtEyB5t9rtTWqHspSDunDEA>
-    <xmx:NESYah6V4eN6S-LGudl8dTMYFH4mXRYtf7B2KBLKBYD98zLz_m1ZCiFi>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 9391AF8007A; Wed,  2 Sep 2026 11:43:45 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="46B78Ajj"
+Received: from omf19.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay01.hostedemail.com (Postfix) with ESMTP id 848A11C1781;
+	Wed,  2 Sep 2026 15:44:03 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf19.hostedemail.com (Postfix) with ESMTPA id EA76A2002C;
+	Wed,  2 Sep 2026 15:44:01 +0000 (UTC)
+Date: Wed, 2 Sep 2026 11:45:02 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: LKML <linux-kernel@vger.kernel.org>, Linux Trace Kernel
+ <linux-trace-kernel@vger.kernel.org>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>
+Subject: [PATCH v2] tracing: Take trace_array reference when opening options
+ file
+Message-ID: <20260902114502.723d8243@gandalf.local.home>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 02 Sep 2026 17:43:25 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: "Yeoreum Yun" <yeoreum.yun@arm.com>, "Breno Leitao" <leitao@debian.org>
-Cc: "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
- "Borislav Petkov" <bp@suse.de>, "Andy Lutomirski" <luto@kernel.org>,
- "Kees Cook" <kees@kernel.org>, "Tony Luck" <tony.luck@intel.com>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
- "Thomas Gleixner" <tglx@kernel.org>, "Ingo Molnar" <mingo@redhat.com>,
- "Borislav Petkov" <bp@alien8.de>,
- "Dave Hansen" <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H . Peter Anvin" <hpa@zytor.com>, linux-efi@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel-team@meta.com
-Message-Id: <d32dc46a-c677-41eb-9406-5f41decbe58c@app.fastmail.com>
-In-Reply-To: <apftwY062XjcV5-K@e129823.arm.com>
-References: <20260616-efi_timeout-v3-0-76dd1d26657b@debian.org>
- <20260616-efi_timeout-v3-5-76dd1d26657b@debian.org>
- <ak9GEtPuFv_1Sqcw@e129823.arm.com> <alDJNWZdBpkIZrcM@gmail.com>
- <alDMRabP9s6Pqhxq@e129823.arm.com> <alDTjHtL5Q4ormKb@gmail.com>
- <alDW8vjjU_f7dkIK@e129823.arm.com> <alD3ZFgfgMj0_qoT@gmail.com>
- <af81fe18-d246-4bd7-b32e-c61ec2e7c856@app.fastmail.com>
- <alS2izWImqj0N_IZ@gmail.com> <apftwY062XjcV5-K@e129823.arm.com>
-Subject: Re: [PATCH v3 5/7] efi/runtime-wrappers: bound the wait for EFI runtime
- service calls
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout01
+X-Rspamd-Queue-Id: EA76A2002C
+X-Stat-Signature: tjtjco3rogwfwjqkso3o7jhwxb4phfbe
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1/sLCS4HK3W3ZRkz5eXZUfH7XNedD/o3Co=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=zRIa+gyahkEBV/0rqC86lizCEufj5BJfSy7NLH11Y48=; b=46B78AjjDsqUZCgm15zXmzQeS4GOR3cUJ78l0Vpv7GGdmKYF7A3jD3aJXHGPxjqh06L0WyvpFNGirnl0NNeJWHmhqnybma+DQG6SvpUEoOygxxnVvPwhcvODIr5SxVQugkwoIs1sYOMEkzp2jKarBAJbAoSN1apj9At8WtEcSlI=
+X-HE-Tag: 1788363841-679979
+X-HE-Meta: U2FsdGVkX1846+rh4RNQpNcAGUtH09NSDbiUvd3URnopZbBVk0VLegHSdNXerkFYNAdepMygfwfz34CScHZtbYVsoGA5rrxfopL0+APYH9LKViKMQfXhyotG0nrw++wlIN2P3M9hxYpF4+Rj2CMAZ+kS41HOp06KXC+eLXfHoNcRfuU7M6QPuuIpWMdJ3yaNrwCkXgYdScYtx/2u1ztEDEEVilG9UL/HlqobnuhaUQ9gafwYBtGG/if8cdYozXyI6mVzrJEGmYee6fvswvDKuerQNahqggnRywDNmMKQjuEPh1Jbn+7enwYzkabF6vWIWg5obUCZtOX6X47AsRTlY3JX+FQvTwbFlmQQNWI6igWtd8cHJWBrax47YcfrimnafpL5ciL1vq3Q5QclYMobvnYZf4TUKwFc72NVxraLwHx1/g7JO3e+lautwYlRh4Bvm6rNx1oRdGnVTU40TM3POqaYhvNKbrpFeAVy0/s+mhk=
 
+From: Steven Rostedt <rostedt@goodmis.org>
 
-On Wed, 2 Sep 2026, at 11:34, Yeoreum Yun wrote:
-> Hi Breno,
->
->> Hello Ard,
->> 
->> On Sun, Jul 12, 2026 at 07:25:19PM +0300, Ard Biesheuvel wrote:
->> 
->> > > Sounds good. Let's wait for Ard's feedback on the additional patches
->> > > [1], and we can decide how to proceed from there.
->> > >
->> > > Link: https://lore.kernel.org/all/alDDv3XGXVdd1mri@gmail.com/ [1]
->> > 
->> > Please send patches against efi/next, I will apply them promptly. 
->> 
->> Acknowledged. I'll rebase the fixes on efi/next and send them shortly.
->> 
->> > UpdateCapsule is a special case that we can deal with separately
->> 
->> Understood. I understand I should defer the configurable timeout work
->> for now.
->
-> If you don't mind, Could I send the patch?
-> TBH, If we handle the UpdateCapsule seperately,
-> I think it seems good to make a exception for capsule update to wait unlimit.
->
+The options files do not take the trace_array reference for the options
+they represent. This could cause a use-after-free kernel crash if one of
+these files is opened by one task and another task removes the instance
+that the option is for. Because it doesn't take a reference upon opening,
+it will not stop the removal which will free the options descriptor that
+is being used.
 
-Yes, feel free to send a patch. We'll continue the discussion there.
+As the options are somewhat dynamic in their creation at boot up, each
+file represents a flag in the trace_array. The trace_array has an array of
+indexes to represent each of these flags that is stored in the
+trace_flags_index array. The address of the index array element is used to
+pass to the inode->i_private pointer. Then that element is read which
+holds the index (which represents the flag) and then the index is used to
+calculate the trace_array descriptor from its trace_flags_index array.
 
+One issue is that the index element can not be referenced until the
+trace_array's reference is taken. To handle this, create a new helper
+function called: trace_array_options_get() that will iterate all the
+existing trace_arrays in the ftrace_trace_arrays list (under the
+trace_types_lock), and compare the passed in address of the index element
+with the entire array of the trace_array's trace_flags_index array.
+If it matches, then up the corresponding trace_array's reference and
+return.
 
+Cc: stable@vger.kernel.org
+Fixes: 577b785f55168 ("tracing: add tracer dependent options to options directory")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/linux-trace-kernel/20260828135858.2AC501F000E9@smtp.kernel.org/
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+---
+Changes since v1: https://patch.msgid.link/20260901163620.6cbe0ada@gandalf.local.home
 
+- Added (void *) typecast to comparison. (kernel test robot)
 
+ kernel/trace/trace.c | 67 +++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 63 insertions(+), 4 deletions(-)
+
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index a946e0183fd1..61ca05ee991d 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -7842,11 +7842,70 @@ trace_options_core_write(struct file *filp, const char __user *ubuf, size_t cnt,
+ 	return cnt;
+ }
+ 
++/*
++ * The tr_index is the address of a trace_array->trace_flags_index[]
++ * element that holds the index of the trace flag. But since the
++ * trace_array reference has not been taken yet, it cannot be referenced
++ * as it could have been freed by a rmdir of the instance the trace_array
++ * represents.
++ *
++ * Search the list of trace_arrays and compare the tr_index to the
++ * address of the entire trace_array trace_flags_index array for each
++ * trace_array in the list. If one is matched, then take the reference
++ * and return it. If not, the trace_array no longer exits.
++ */
++static int trace_array_options_get(void *tr_index)
++{
++	struct trace_array *tr;
++	int ret;
++
++	ret = security_locked_down(LOCKDOWN_TRACEFS);
++	if (ret)
++		return ret;
++
++	if (tracing_disabled)
++		return -ENODEV;
++
++	guard(mutex)(&trace_types_lock);
++	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
++		if (tr_index >= &tr->trace_flags_index[0] &&
++		    tr_index < &tr->trace_flags_index[TRACE_FLAGS_MAX_SIZE])
++			return __trace_array_get(tr);
++	}
++	return -ENODEV;
++}
++
++static int trace_options_open(struct inode *inode, struct file *filp)
++{
++	void *tr_index = inode->i_private;
++
++	if (trace_array_options_get(tr_index) < 0)
++		return -ENODEV;
++
++	filp->private_data = tr_index;
++
++	return 0;
++}
++
++static int trace_options_release(struct inode *inode, struct file *filp)
++{
++	void *tr_index = filp->private_data;
++	struct trace_array *tr;
++	unsigned int index;
++
++	get_tr_index(tr_index, &tr, &index);
++
++	trace_array_put(tr);
++
++	return 0;
++}
++
+ static const struct file_operations trace_options_core_fops = {
+-	.open = tracing_open_generic,
+-	.read = trace_options_core_read,
+-	.write = trace_options_core_write,
+-	.llseek = generic_file_llseek,
++	.open		= trace_options_open,
++	.read		= trace_options_core_read,
++	.write		= trace_options_core_write,
++	.llseek		= generic_file_llseek,
++	.release	= trace_options_release,
+ };
+ 
+ struct dentry *trace_create_file(const char *name,
+-- 
+2.53.0
 
