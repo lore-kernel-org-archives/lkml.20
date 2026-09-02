@@ -1,120 +1,175 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012008.outbound.protection.outlook.com [52.101.43.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C88DF374A17
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:00:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788332435; cv=none; b=b5RlaAwHJlVA2ZmiNIl2J3BdxzieeWZHSkqHRROioO88gvcPSe4hmZuabtimg+HBvC6eigr7PfM+jh6S0ikepWdZqOhJ5YEL3luC7WRDQG4DMnIx3RPnsuWzGGLWK73E3UBsCYWClYH+aQgOLqy2BuLolXNjoJeTQMVHw0Wo6+0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788332435; c=relaxed/simple;
-	bh=fER+gMxgMdx84eTSstOteI3BKITvhY58vYW6TD5RMpI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fRQ0fOX3JPUjH2PuxMX8Gq4kKvk9n3FjY22LRnlsYfU3svnqgrMZj2/5WzI2reT9Xw/xnJyI+vtuT31OBZYXXb/Yar2o1SFxnLC+BEt9Y5H8dXfp/z6dYyTdcIu9ledarBvtdmgJiDbpYjcZGwjAeZioJsmgmhOFVHiKprWa6j8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AjAPJRyD; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1919935B632;
+	Wed,  2 Sep 2026 07:01:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.8
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788332469; cv=fail; b=EKHS+GSL7W/Jdci2UzdI1fJ6vKVF+x9qZfDrIuQJduEqaXyq//bwpr4gERGD0GJ74wMTS5QKCeCciFZQUZZzUPntVMjmiQvFXUgIzjPwHOuTmB81tji62UamUWduKSRxg8sRzaVtHbxTBIldvSdAa/B4gCP9h8HoQqfX4aCw0HM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788332469; c=relaxed/simple;
+	bh=I0CBiSXcsXzIcii/s/txvo+jZNEj4lMydrJoAvHCVQw=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=qm7NeOaeL+LlvP6IrUWBOoXCYwRzblwJaNz6Bf68s6+3JHNSkHNLTppkIkh51GXPp4tp1DXl6ICVt6zkzFTj8uonqyjrbkUgwA38OtYEfDbsLa+HNpHNfnEejWSaA50GNlyzVkkPcQoMFtEFvRaFB4Ap74ut6Z3IndwlNww0VF8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=OmcJRcdR; arc=fail smtp.client-ip=52.101.43.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AjAPJRyD"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2cfbbdfa60bso7486655ad.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 00:00:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788332433; x=1788937233; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fER+gMxgMdx84eTSstOteI3BKITvhY58vYW6TD5RMpI=;
-        b=AjAPJRyDgHRjtTBNA9l65GsYfuKflDaGRNAYGFaHES0XOxIayMh9OoZuf8X0pvHwjA
-         o4mfiqTt527jh9Y0FFQVAEVubDPBQGPAxdju2wNvNQr57NrZtNU+wXVirXFtOeG0JcLR
-         OfGAcnI21l+yTgzxGfacScURNlXyzq4cIOyTZGb4BrL4hbGUj05OgICnAGxMIbPvVVJN
-         EM60EVVxXNJeWm+tMycj8YIo0m6K1WPTgv30R6BAAt68HzZWSlojUhZqCKMuvH2ZSyZ+
-         vkrTvDEQ5ANiB27OZ8gvW49v3fzxdk28t+slNBoPTkphtzUloKZZ2mzzzGLSO5xsxmhR
-         dsxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788332433; x=1788937233;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fER+gMxgMdx84eTSstOteI3BKITvhY58vYW6TD5RMpI=;
-        b=BSk3Y7jHXmgbF9VT9ebEBgf8EQzOmGNjqztRHtRul/7Xpt3Jtzmk1rxOblO2bk3Rcs
-         3tMi7wWaHD3eam2FPErl/bBd5NRIJzBGbCU+7ZanZdvFywvLX23MU0s8kqnBzs20zh+L
-         hNVqEar+Ah9CTis+m41OCmZb9h3WkoLr4a0Sg78gy3fLjABseQozDU5EFFolj1rTboTN
-         vAPByzCZqsFvjqcL80no50a+5YNT7a0/y4SFjpWYYMTQtwPwFi2Ojb8A3JENU3g20i08
-         4XCY1Ycn23/1IkVrP+Cxo3zojg5rRaCk8fLdbGLErzKaEdwLChW4WYg5a+wG6zWWCe4u
-         JW1w==
-X-Forwarded-Encrypted: i=1; AKwUvBybBwIr6IUisq67jNnldJDGErC7AgqvWQKMa1thOJhHs9vbmwatBOBCLkIt0voYAhg9TsN9oyhguRegseo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kDl+81L7/1+aA8NargPsD5IiVTqeYLRs8WWkxEPliSkq+qwhRf
-	gKOYMjRfVKzfOAfDeeGrcLvG8OKhU1dG0Q1QW/nj/J8y+nL+fqAnU7mE
-X-Gm-Gg: AR+sD11M8IirlAZXZE4Dmw21tMgI9lPOGO1DQrtYWRluIn4J8sBuEnwsUjumSQXN7h0
-	pgl9cTmAITTt73bLQKCYG/1C9X8Vd08KhGoWL/jUnGhiB8PchnL6gxaF1J4f8/uvhSqNaWhYu8W
-	zpCdo56xWHOy5qbZn0S+JSj6YUaxzBPt7cPb+0XtKbiZ6fiDEKly0vhTOZde8eiRJnGbPbjK1ok
-	GtyyVqoy60Pe4a4r0pgui68ye02GPH3Nb6j6wATs7sw7jlp+aoKLsZjtJJRuC62L0k3/5+BpDMf
-	7VKYWY+CNS0nk0GYlURd1NKrsVHWLDJliEL9PA2yINSY4zwi114AFMAneXNdv3YdIVe32Og1aFu
-	DyxSVBrNJ9Sjjryx4hyWNJZTSwTRXS7q/3OcnHHKXsqam/CPwBFRmcQfibBt8BLgZbI1yvF/zjg
-	H4BdJWaq07vKm00+Js2MxRlQVbRI7SVxas7bwLfdZCn1QW2hycpFPF9WVCr0cnY2Nqx1iTkb+Gr
-	dORGX3QP3MmiSmCqQP254QN7wQSRnITmSR5zT9NF0OQt2bHyFuw
-X-Received: by 2002:a17:903:324c:b0:2da:e553:c70f with SMTP id d9443c01a7336-2daec7bc931mr42090935ad.22.1788332432973;
-        Wed, 02 Sep 2026 00:00:32 -0700 (PDT)
-Received: from secrnd-cstp.tailb7f510.ts.net ([125.131.91.97])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dadd4a7f1fsm8113065ad.63.2026.09.02.00.00.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 00:00:32 -0700 (PDT)
-From: Sanghyun Park <sanghyun.park.cnu@gmail.com>
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: Sanghyun Park <sanghyun.park.cnu@gmail.com>,
-	netdev@vger.kernel.org,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	David Stevens <dlstevens@us.ibm.com>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net] vxlan: use one headroom snapshot for neighbour replies
-Date: Wed,  2 Sep 2026 15:59:12 +0900
-Message-ID: <20260902065911.1177698-3-sanghyun.park.cnu@gmail.com>
-X-Mailer: git-send-email 2.48.1
-In-Reply-To: <53a67f9a-b8a0-4967-b2c6-be4ee3a09735@redhat.com>
-References: 
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="OmcJRcdR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BvA7yoonWupkJKzwfxfZkBfLnTzzk8h+aEVQRift9Fr4S3mPxUlIL05AQHcOBt0PEG50aQg3Qv9tv3zNK77DchJZ2s9QmyDFtL8oKLBmcVgoBf3kMfOv8HUKsM14Gb/qlIYLm+l3xbHpuURnAzpZisIpI3aJDdSDtCMAJNvuA/WYtPik109y1Jeu7p8wfZb52F834+H9ILeYUvcmiZoNDE7DiVbKaMHiM/RTk2b3zMEpOiXKmBOysXpNPIWIphtOhiHXd2r1xDBxsAcB7fy1rHf5aALy3cgaV/eCIPnKIRPI8VW6qDmBKeVguao4OmqNrH7p6XN+AuWO1IAbxKWhTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vf6wwMPwlWMZrXz4ZL1yAc1mP8vVfrc88R5rHdNY7Gw=;
+ b=ypFYt2vj4ZFEzY9Ty8Omefdg5GAZ73go9PAYVmYltKhTw8/v2+YwPTcxabDcDFrg8vBhYYt9lF2LrgHeELXHJ78Sm6jeJ3FUEXBmIxHG6lnmlEuD1+Ldk5ID1TZPbN2EGAfGMG9gozfIuBWQYehryya8JkBDRi3VhwjHGJ7LmMmOZuABgXZ01brItYDYuBHVpBBFkx3P/LQUbXRq8IN78BkP9uRFAbCPt0Wa26dOveeRv2fIuqlCAjTamP6Zo8bGYkZFAQdBhIcscFWmJAuhyjpJf/IdvNuo6lQwYb8sCftyDe2uGuZ7f3I6+7gDnoV4HCAENGIy7l8U/dfuU12Z3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vf6wwMPwlWMZrXz4ZL1yAc1mP8vVfrc88R5rHdNY7Gw=;
+ b=OmcJRcdRWHVQazFlOm7UnIS6afJ+ZFzA+sOHHGmiFp9X8fwjDRfTrJhMl/GHFzazInt+Cc82TSybVf8oIXDyLMxcaP6iwm55HFbs9+gjatXft2rvnvV8TE44x93TTzbvheeTPUAVLN1mQQnORnyMDzhi5q7JanNcI4kk7mK8jZg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by IA0PR12MB8302.namprd12.prod.outlook.com (2603:10b6:208:40f::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 07:00:53 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Wed, 2 Sep 2026
+ 07:00:53 +0000
+Message-ID: <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
+Date: Wed, 2 Sep 2026 09:00:46 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
+To: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org
+Cc: alex@shazbot.org, ankita@nvidia.com, chriscli@google.com,
+ david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev, jgg@ziepe.ca, jmoroni@google.com,
+ kevin.tian@intel.com, kpberry@google.com, leon@kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
+ sashiko-bot@kernel.org, stable@vger.kernel.org, viursachi@google.com,
+ xuehaohu@google.com
+References: <20260901170849.4052816-1-dhu@x6u.co>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260901170849.4052816-1-dhu@x6u.co>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MN2PR22CA0018.namprd22.prod.outlook.com
+ (2603:10b6:208:238::23) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB8302:EE_
+X-MS-Office365-Filtering-Correlation-Id: 35a62942-64d2-4bd5-83d5-08df08bfedbf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|22082099003|18002099003|10067099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	5eQbdpSIvG4I0wIDrp1rmkseJwf9WsMl3IfAYONaNdY8uJcenJ5LfAC8paV66MlGTsaGGEX3PMtc4kc2lpBOQZbmBGGr7n9cl3s4RwvZEi0MyNNCxovTAKWJUojaP4SiY4l9rOjmJLsifP1o47uw1s7QfKxwqi5bw3R+4j4LibOdARtk1R1ihjdUmTgIOqX1ocEHAqfhhr60z2sJjehefsX7jr7QEHTjeE4F9Lm2mlEvSQluyQoUux6hdljKRx7Cn+GEK6lENOUHn/8XQ46Nwo7HPlBXQBzSkTbR9OcuJtaIwHHL5IlskJ6TIMug1a5JeEkAwW89vkFfwClRpujIz1LkQEEFz3EhfMwj3qAPX1gZlBeAOlzyXUczHgh1UCpysLr2Z7ZdStobxAGz78j5FYDpBZoVYg5bSRChR7CJtZwbRmDy9rIYoX/Wzn0Gpyg1MQO0KOXM6YEfPdV+vhepp+r0SLhN713E7BpfI4OQJDBL9yuPS//SFiEpYzPBCwHZuceAbyvLwah2hPT5KIBEtETaXEQAfm5YliFvh9bPgoflv7XbCsEtO3qDtEvuIASBlBNgBZ+hTMg18Q/ExWAHnVvgXxNxpAMfZt55QTGp9QBeVd6zgUprTYUt8ZPaptjnpyf8Ck7ShUANefNWslKExtTPmQujFM0ZF25ROQ1K3eo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S1RpdzlwMjZzL2ovTFZyZk5SWkNNeng3NDN6R3ZSM2FDelg3eldqeEpuMFBs?=
+ =?utf-8?B?a29uOUNJeUkwUnQ2VDRielJKYlhoenFmTGxmVVRTd003eThSN05GenJnanpa?=
+ =?utf-8?B?aHZWVEFKclVWWlB4QUdYK1Q4clBwUFdNK2RwOG13UldJVVU1NDd4ZlRWOWll?=
+ =?utf-8?B?VG1FbmtzbG9jOU9qcDh2eGFJcGhFWnJFSUpMbXlIT29pSER5ZlgxMXJYZjJz?=
+ =?utf-8?B?bWZxMkowY2VYcVovblJOdlpSQm1sUHV6WVRzN2pKa1dxd3QwRjNwRlJxdTI1?=
+ =?utf-8?B?SlpBTUV2VlNoK1JPbVJBbTVXZ0U2SGJFM1F6MDZuZmg0MTZublhLVzllWSs2?=
+ =?utf-8?B?WHJsQW1zV3NKbDBLY2JrWTd5Mk1vam9CbWVpYW9sVmNaVjlwMWhUQUtETlZ4?=
+ =?utf-8?B?bDZ3bGc3djRjdmhTaFpMYkxXVUxORkd3L2dCbjZWNHpyUnVyUkREZUFGUUJs?=
+ =?utf-8?B?ckh3VkxUOTUza1FSRW5jUjlLWGhpR25jdG8wMVZTUkJCYjRMenVJb3NqV3FM?=
+ =?utf-8?B?KzRwWTdOMTB3ZjhNS1RHZjRaWGlhOFdEQkY4VnA0T0N3OVFackxuOS94MXhD?=
+ =?utf-8?B?d0pGTlJJcWMwMGxBcWVEcXp0L25Xekk1MjZwekxtOW02eWx5SmkvdStBUzQ3?=
+ =?utf-8?B?d1lvSVBYTG9Fak9VVkVHcE5TaHAzZzFleGNDdjZZbnNFeU05b3lITmdCYkk4?=
+ =?utf-8?B?ZzdZa2tJNi8zYmpqcUVsTmo5czRCcEZlNzdkS2QycFIrMUpFeE1YRTkvK3VL?=
+ =?utf-8?B?ZE5xeHY1VWVWR1FpNEw5azgxQi9zaTRveXJNLzNHRXdBQVBZcVVhbVRSN1Fl?=
+ =?utf-8?B?Y1JuRjVEQ1liWmx5cFRtUEZEcW03U3NZOXdNa1djRmNUbVg5WmVtVHBKSjh5?=
+ =?utf-8?B?RGxtUmo4WGlmaUxBRkgweUMwZnNuQnVYb1JwZVVzdDlzRzRnMGFkTUN2RUVE?=
+ =?utf-8?B?bnFDQnUvTjJNbEtwMHk2bkI0QkhORXl1N1dJUWJZby9zazNBb3VBMHdId2c3?=
+ =?utf-8?B?bzFOR2g1VTVMMnRZcmlUZzNraStzSFRPcXhCdnVkY3I2bXBmMGlPZ29Pck80?=
+ =?utf-8?B?T2NWV1hDOXIwVEx0ME5BMkRhbVVpTWdkZDhqSlgwWUlUYmxLU1lkN3Z1dk1H?=
+ =?utf-8?B?MDBONmpDblprdlcvWGpNSnNEUmtjYU1MZG5relVFRlJmcEpRVnFYZkIzNHdF?=
+ =?utf-8?B?TFNCOHRjRGluditLMWhuc1Blbzc5TjlsRW5sR1dQYlBscWlmN0loRzAreENx?=
+ =?utf-8?B?OGloUVBrUDhCWk5lMmdWcGFqeTBoNXV3Z0UvSWQ4YzhNYXZIUFJEVUR6eHpU?=
+ =?utf-8?B?RzdjNllka1YyM21FK0gzWWw4cVBrNmN6VFRKZ1BJcDkwekVJVWVWMndCY29a?=
+ =?utf-8?B?cVJyNTNrRzN1eStPU3VCOTFwMDJOYjVaWmUrdDdZMnBERE5BdEdERlBmSVQ3?=
+ =?utf-8?B?MmM3NmxscENFMkxFL0R0cHd0S0Z1TlRWVUd3VnNFbEdJNTA4dnB4ZFJ6MEtB?=
+ =?utf-8?B?bFJPU2lKbGo0bFJxcWQ5bzVtZVQ1VTNFdk8vVGtzdnlOYkZNbGpheXRVd0pL?=
+ =?utf-8?B?SExFeGF0QmEvYUZGSXV3ejhwdWZ3bmJsTVUvMW1hNkRwb1RaVUlpbmFvNzFQ?=
+ =?utf-8?B?eWl3SitjTW5pSjBVN1M3NUViTEhrNTBKeElabGRxUVFsVW5KMXJFNDlrS1Bk?=
+ =?utf-8?B?M1BQTjJYSVY4ODhsaFN2Tzd0eGpIYjFwajF4TDFtQ3pKVXhJdEFRdXY5Vk0w?=
+ =?utf-8?B?WWhzMVJETG1HNGMrZlJMU0xEaVlVMFVMRUZMdkRRazNZRUNhRW5mcEswdk5a?=
+ =?utf-8?B?OVBUTmpNbkloUFRrQ1Y0WUZEcnl2UGp4ZVRwMFpSekMwTGR1ck0zVWxpdU9q?=
+ =?utf-8?B?SFFPd2QvSkU2aWxBdXNVcEZBU3lmTTVXQ3dDUG9zd1pxTjJ0anhOR1dGZDNY?=
+ =?utf-8?B?NVJ4YTlXazlPVmNyMWxwQmluK1NvYktDMTRLUVpBenp6QzcrQS9BdDJSYm5Q?=
+ =?utf-8?B?RUVyOURCckx3OVlYMU0xQkZHcWhySUZTMTdkeXVGaHltTElaSmpEQThmUlU4?=
+ =?utf-8?B?bVg5cHkraVFMdlN4UXZYUDVIeThRL2tnMEMyQy84Y1BmZkpDMlNzQmxPS09m?=
+ =?utf-8?B?RDc1cEU3ZkZqRXBjQ2ZyZHAxTER4SUFhTFRFOEVlNmhmR1FIdko0RVNRY25i?=
+ =?utf-8?B?YXUyTnpuZmNFUmpwQkZwMHdmVUlwWUdvSU9URWZjL2ZZeUJ0amlZckNMcWR5?=
+ =?utf-8?B?bC9pZGQxRmh5RHRlSXJMakUzZ1QrRnZLQ1VBRWZZUVQ2Q2FWKy9kcXEzVGxw?=
+ =?utf-8?Q?n377lXyE8MSy7aIlWV?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35a62942-64d2-4bd5-83d5-08df08bfedbf
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 07:00:53.3687
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: r5Dm6Ery9wZ16ZM7HVDRgoGDidZOlHF/Vxwv70obn12Lcy2jDjBNGao9rKB3n2y9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8302
 
-Thanks for the review, Paolo.
+On 9/1/26 19:08, David Hu wrote:
+> From: David Hu <xuehaohu@google.com>
+> 
+> This series address two related issues in scatter-gather mapping,
+> specifically for the MMIO based dma-buf mapping. The fixes ensure
+> sgt mapping is correct, and proper for large MMIO regions.
+> 
+> Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
+> (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
+> phys vec to sgt)
+> https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
+> 
+> Patch 2 Splits sgl by largest page aligned chunk
+> (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
+> https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
 
-> if you can observe a splat on the unpatched kernel, please include it,
-> otherwise please explain why the issue is not just a theoretical one.
+*sigh* such issues are exactly the reason why I didn't wanted the dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
 
-I thought it would make the changelog verbose by putting the evidences of the
-bugs (some people like concise changelogs).
+I'm going to push those fixes to drm-misc-next now, but when there are more issues like that will mark the code as abandoned and not maintained.
 
-If you prefer splats in there, let me add some in v2.
+Regards,
+Christian.
 
-It would be like:
+> 
+> Changes in v8:
+>  - Combined the two patches into one unified series to avoid merge
+>    conflicts.
+>  - Collected Reviewed-by tag from Leon Romanovsky for Patch 2.
+> 
+> David Hu (2):
+>   dma-buf: Fix silent overflow for phys vec to sgt
+>   dma-buf: Split sgl by largest page-aligned chunk
+> 
+>  drivers/dma-buf/dma-buf-mapping.c | 31 +++++++++++++++++++++----------
+>  1 file changed, 21 insertions(+), 10 deletions(-)
+> 
+> --
+> 2.55.0.897.gb25b4bd76c-goog
+> 
 
-```
-/* vxlan_na_create() samples ... */
-
-The race is reproducible on the unpatched kernel. It occurred when
-vxlan_na_create() generated a neighbour reply while vxlan_changelink() changed
-the link headroom. KASAN caught a four-byte write two bytes beyond a 704-byte
-skbuff_small_head allocation.
-
-/* Snapshot the headroom once ... */
-```
-
-JFYI, every patch I make is done only after I get real evidence :)
-
-> Also please specify if some LLM has been used.
-
-I used LLM assistance during bug discovery, analysis, etc, but try to review
-with my eyes as much as I can.
-
-
-Plz check the new paragraph of the changelog whether it is ok for v2.
-
-Thanks,
-Sanghyun
