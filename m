@@ -1,117 +1,161 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74EBE3EC689
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:36:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AC553E7BA0;
+	Wed,  2 Sep 2026 08:37:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788338209; cv=none; b=oqOZiN4nbRystj/ttPfw/Onj2iYkCXqYnDzFymop6YcuWUaw7ZQN3WYpjU9EY9wQsRZhIS/jOBYyKTBQ2YJKRfP4lLFe8EDKvVGKy/zhrcSIIBZRWffaGl1VZfNTkL4b5XsHMXH4rD+GVGmuvBoMvX/CV4sWIL4kTUIGYYp5NWU=
+	t=1788338277; cv=none; b=TAvZIyUDc+9CAnnA7J1Qgf3nEzNl+NPaa5j1xrWdgGiKxnXPzF2zYQsn88cKPX/h+T0fZaOIchjWcbGArvDmSeT/+0GewjnGKtGkJ8A//wofEwCsNhNehHU5dIH9IxJ27vCdiNIrBsH0iqayS1wdv+TT2/C0WtagpL5AchE48xk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788338209; c=relaxed/simple;
-	bh=Kxz59BJ0hxJYWChLEvYY+8PUms5s5db/jIEzSv+icD8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=NUWf3b2h+cEt1Rj2JKEqM8jX0RXAo78A1m7j4If54dexsKA43nF9IOboRw2aizJ7eG+IuagMIEgkzZQs9e/+YuGZV9GU6CMojhnhKcbxGBRufsiiDtAXKdbN676i0yIEXDcE8Cb4smcz2kzaVwXcc9yw5mfErF7EaVv2Ybf8GuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=LgPDbMm9; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1788338277; c=relaxed/simple;
+	bh=mUq1NKP1kM7w3wLboHMj99aKGstkkbr4FcbOlWlzudM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Tz/RZ6dBGGLbis6B2qAZSaJ8ZxPgQhRD+askBWIGcIQCyjj8V887Yyr2uNnmHpF28BBWBb9w3WMz2hByE8H4CbfaoujXzLebiD4NTnjJ/WOPZrr0903grq/pfX8iod1+rrlm6wQ5NU6VdoCmR54QEoJOloAQADdC/Z1okTXe4Vs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=qTCCoyYG; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=wJS6+/Qw; arc=none smtp.client-ip=103.168.172.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="LgPDbMm9"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260902083644euoutp015afbce5afd3ef8185b1eae4145abbe3a~RdB81uhmk0672306723euoutp01D
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:36:44 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260902083644euoutp015afbce5afd3ef8185b1eae4145abbe3a~RdB81uhmk0672306723euoutp01D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1788338204;
-	bh=Sh2rMx7cK5+XuDK7V8W5ht1k2uQ0fYdr83rbG25d8TQ=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=LgPDbMm9Pidk3GVqcL7oJwvugm3ixmfXh5yFyggtxj0I3XKHQ9s8PAB5lx7axrgpQ
-	 tuNdWUK2BIrWhZCqzlu2DHoXkV1O90sAPfeJLlUiyMOwPI+N6+f+qEVYWv0hXUreLW
-	 18b6qBMfQn+MHwM0cJJtlYZePteZQacFlT2hS0Qg=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260902083644eucas1p1fce4b2ee4029aef393c1ca7093a59136~RdB8rV5xn0650106501eucas1p1R;
-	Wed,  2 Sep 2026 08:36:44 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260902083643eusmtip1a34544f9adf254c73b7d8f7d986b9998~RdB8DyUy50891008910eusmtip1s;
-	Wed,  2 Sep 2026 08:36:43 +0000 (GMT)
-Message-ID: <6e319291-72b8-4a43-b953-8a9f0a6049c8@samsung.com>
-Date: Wed, 2 Sep 2026 10:36:43 +0200
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="qTCCoyYG";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="wJS6+/Qw"
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 618B4140019E;
+	Wed,  2 Sep 2026 04:37:54 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-09.internal (MEProxy); Wed, 02 Sep 2026 04:37:54 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1788338274;
+	 x=1788424674; bh=pxWh6c57JPvLZQHcjbN7tBOqCkuOu0wNZnT/jaAcRo8=; b=
+	qTCCoyYGfcuexmQjXfkymQyvVDECxjIbx867Ax4IIQh1YhCWlAw53HEOQMobMdoX
+	rZBeQpnuEUeUQWkxIKGaq+OPOPbeTl/7xG9/JaqRhviLyEXHOFakZSSQgeUxBfjt
+	vURKo2tPeH5jEmTmkMdXkEOti78E8L3nYaH6fGHW1o/TbAP0xUG8kFjBv448qfyh
+	mnFfxZ885Wzx+j3dDo4Rx4hKEZSHIrv1lWUXyVQ7+97v3LMsjMWzoVy0kFmi9C8j
+	2UeuEmamD6rRO7Ui2Irf5ypINodmJnxY8lXtQzOVJ+7U/AJ8HgNAE6U9FS4Z1xrP
+	dypTgp/OXyHSLFUjdtPjzw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788338274; x=
+	1788424674; bh=pxWh6c57JPvLZQHcjbN7tBOqCkuOu0wNZnT/jaAcRo8=; b=w
+	JS6+/QwctN9rQBJ9VLQqgqFHP3FgLQUZzwBlQ0VwY2CEMUCCx1IaHZ2LCS2StRWm
+	5xVhvrECM57v5HYlYMiz5mbBGehzcJuw1lqZUxVNS61KPcaDWlm4IQ7T22yKvvEa
+	53l7fril1Gcb7K7xKOPsQxd0Xq45u7/ijqf6mdJgMkc2M0JeRwQf39HbB3y4lFZj
+	olTElADLdEQncpoxm6QihFtxy+NviqmMhF84oN/4Moa6SQyGvArjj+IDGwYZR2i+
+	MWCEFC3LSHb2N8dPRdTq8bK+jrNwZ3uNnmLJTWoQCDIGa4U5K7QJ2hYCkHE9p7kG
+	c6WYD7770/fWYrPLluxQw==
+X-ME-Sender: <xms:YeCXasAi8_HShvcwOrCY9XnbtWUYoKBJGMwNkB0L58CLbvkRKJ5TDQ>
+    <xme:YeCXalniGb-Rd0H3Z5wGf2wTiXNimladGsC7Y1Wql1S8OEhk7UXhN2BgCzwEy9NPa
+    l8pR3wFfRKBU05qFdcca5-5hB25BbzRccVfh7CC8-LjNpvQg6o68y5w>
+X-ME-Received: <xmr:YeCXanR3N4GVldEl10rIk7T2qxZuUWvRVOunTkzlcjoI8O9Mni4yyYF6rdwTPr4OSxwttccsLy1YNGbAocYB0N0s0wCWpSI>
+X-ME-Proxy-Cause: dmFkZTEhLSo8c+qmnpPDrYkwDUhLiaeLsVwvsscELmFvJWpopJFxNtJ92HpIsuxk5n5kpF
+    lRWjP+eYlgL+TWp2lDg2QpN5MGsZlvfLXYjGB7sym5gOC7U6RjxjhRL11s9ZMRQzNMg60k
+    JIHenuF9gyvSvtBsIRgtqwNFZGxuavogoztBa8clLJPqZhzpokoUZaDbrTBEiC5v9e96SS
+    9dXVmckb2DMeDxLoms+DPeIhFltqC2/mGof/LhXbAevvZgySc9vjRt1pSnSj9K7g4o1N+E
+    r8oG5vt/KTshJtixl+XSphTatYiTq8Wo7LlR3l3GxCIzptrmZ9dgOssAM/5FNcIwgCh7Sw
+    hgkX8VKhSHx9mp/LL9HL0h0Ova8dopLjR5Q81+OMv8NJcA0cFEcFw5wp7Fdjc5IeE1MNE3
+    qs52UcfhMugc4CVARinw0dlNqFPSxGmdOkjicGFH+ry80SZRispsqOGp2uJdF/ARwp69L+
+    +HXJppD8UDZ7Isa03FMs1PVmCjDFZSjtzsrMcDiHITB6RkZXSPY+IBlVpyLiWJ2D4XcHkA
+    tAByPZ3KlXlNmzhkHymwJrvO92EcGXu9r/dK9dzmtfUGLar09Mgdta0bNHBuKx5MC2w4aq
+    +T+iRrmMOPiNrK/9Fz0FKMbhla35g7J4f06f9n1KTJyksp1AOl5Rv/DRcCFA
+X-ME-Proxy: <xmx:YeCXapLI7lqJ1uAeOZJdDA1aWK1_jr_M6x4cknKvo7m36wNIjwKccQ>
+    <xmx:YeCXat-fMEGirPxnbo6-kK79scAE78_I_nqOESdBr2r3SnR3XfBH3Q>
+    <xmx:YeCXajAdvNLZhuMM-z9egzE8pGIPpUjzZj7UadFHPLLPb69NRKNDRA>
+    <xmx:YeCXavqRwN8UVUiL807FRy_-bFH0kQoBOkZROWxbVTGNCygyRAJ9Ug>
+    <xmx:YuCXanyg3GUEcH2qeoAItAEW5o4-FMGTWc7BxoVbzQJp3iYC3pLY0Q5f>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 2 Sep 2026 04:37:52 -0400 (EDT)
+Date: Wed, 2 Sep 2026 10:37:50 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Ceclan Dumitru <mitrutzceclan@gmail.com>, dumitru.ceclan@analog.com,
+	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Julien Massot <julien.massot@collabora.com>,
+	Rob Herring <robh@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-gpio@vger.kernel.org, Martin Hecht <Martin.Hecht@avnet.eu>,
+	Andrian Suciu <Adrian.Suciu@analog.com>,
+	Cosmin Tanislav <demonsingur@gmail.com>,
+	Vivekananda Dayananda <vivekana@amd.com>,
+	Cory Keitz <ckeitz@amazon.com>
+Subject: Re: [PATCH v16 00/22] media: i2c: add Maxim GMSL2/3 serializer and
+ deserializer drivers
+Message-ID: <20260902083750.GC1116206@ragnatech.se>
+References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
+ <20260831170303.GB1116206@ragnatech.se>
+ <65b703e7-e4a0-4046-9d35-7d0ff1057f96@gmail.com>
+ <16626ec7-d1ec-4a54-ad1b-a59790cd33e8@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v2] ARM: dts: samsung: exynos4210-i9100: Enable RTS/CTS
- in Bluetooth node
-To: Paul Cercueil <paul@crapouillou.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar
-	<alim.akhtar@samsung.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20260829101509.138284-1-paul@crapouillou.net>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260902083644eucas1p1fce4b2ee4029aef393c1ca7093a59136
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260829101532eucas1p29f4e04d4dfd169377793c276221059a6
-X-EPHeader: CA
-X-CMS-RootMailID: 20260829101532eucas1p29f4e04d4dfd169377793c276221059a6
-References: <CGME20260829101532eucas1p29f4e04d4dfd169377793c276221059a6@eucas1p2.samsung.com>
-	<20260829101509.138284-1-paul@crapouillou.net>
+In-Reply-To: <16626ec7-d1ec-4a54-ad1b-a59790cd33e8@ideasonboard.com>
 
-On 29.08.2026 12:15, Paul Cercueil wrote:
-> The BCM4330 is connected using CTS/RTS too, so add the 'uart-has-rtscts'
-> property.
->
-> Signed-off-by: Paul Cercueil <paul@crapouillou.net>
+On 2026-09-01 10:43:44 +0300, Tomi Valkeinen wrote:
+> Hi,
+> 
+> On 01/09/2026 10:39, Ceclan Dumitru wrote:
+> > 
+> > 
+> > On 8/31/26 8:03 PM, Niklas Söderlund wrote:
+> > > Hello,
+> > > 
+> > > Thanks for  your continued effort pushing this work forward!
+> > > 
+> > > On 2026-08-31 16:21:19 +0300, Dumitru Ceclan via B4 Relay wrote:
+> > > > This series adds new drivers for multiple Maxim GMSL2 and GMSL3 devices,
+> > > > replacing the few GMSL2 drivers already in upstream, and introducing a
+> > > > common framework that can be used to implement such GMSL chips, which
+> > > > avoids code duplication while also adding support for previously
+> > > > unsupported features.
+> > > > 
+> > > > While the normally acceptable and polite way would be to extend the
+> > > > current mainline drivers, the choice was made here to add a totally new
+> > > > set of drivers. The current drivers support only a small subset of the
+> > > > possible features, and only a few devices, so the end result after
+> > > > extending them would in any case be essentially fully rewritten, new
+> > > > drivers.
+> > > > 
+> > > > This series depends on support for internal pads, for which a patch has
+> > > > been added.
+> > > 
+> > > It also depends on enabling the streams API right? At least I need to do
+> > > so to be able to use the TPG. Out of curiosity do you know the plan to
+> > > enable it by default upstream?
+> > > 
+> > 
+> > I do not know when default enable is planned, but series could make it
+> > so VIDEO_MAXIM_SERDES selection causes v4l2_subdev_enable_streams_api=1.
+> >    I am not sure that such a hack would be acceptable by Sakari or
+> > upstream in general.
+> I haven't tested with this driver, but in theory these kind of drivers
+> should work with the Streams API still disabled. The Streams API is a uAPI,
+> so the driver itself works without it. If the default routing for the
+> drivers provides a sensible single route, one can use the drivers with a
+> single camera. This is what the FPD-Link drivers do (although it's been a
+> long time since I verified it with Streams API disabled).
 
+Indeed, but to enable the TPG I need to non-default routing ;-) Nothing 
+big I'm just impatient for the streams API to be enabled by default in 
+general.
 
-Indeed the CTS/RTS pins are used for BT on most of the ARM Exynos boards,
-as the "<&uartX_fctl>" property is assigned for pinctl-0. This is not really
-specific to i9100, so maybe this property should be added to other dts?
+> 
+>  Tomi
+> 
 
-
-However I wonder if Samsung UART driver actually use this "uart-has-rtscts"
-DT property? A quick "git grep uart-has-rtscts drivers/tty" shows nothing
-related to Samsung Exynos...
-
-
-> ---
->
-> Notes:
->     Changes:
->     
->     V1 was: "ARM: dts: samsung: exynos4210-i9100: Fix Bluetooth node"
->     
->     -v2: Drop max-speed property. It's only supposed to be used in some
->          cases, which don't apply here. As this was the "fix" for getting
->          Bluetooth to work on my device, which will be applied to the
->          driver instead, the Fixes: tag was removed.
->
->  arch/arm/boot/dts/samsung/exynos4210-i9100.dts | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/arch/arm/boot/dts/samsung/exynos4210-i9100.dts b/arch/arm/boot/dts/samsung/exynos4210-i9100.dts
-> index 8a635bee59fa..95964be7daa8 100644
-> --- a/arch/arm/boot/dts/samsung/exynos4210-i9100.dts
-> +++ b/arch/arm/boot/dts/samsung/exynos4210-i9100.dts
-> @@ -875,6 +875,7 @@ &serial_0 {
->  	status = "okay";
->  
->  	pinctrl-names = "default";
-> +	uart-has-rtscts;
->  	pinctrl-0 = <&bt_en>, <&bt_res>, <&uart0_data>, <&uart0_fctl>;
->  
->  	bluetooth {
-
-Best regards
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
-
+Kind Regards,
+Niklas Söderlund
