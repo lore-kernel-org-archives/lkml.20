@@ -1,89 +1,231 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com [209.85.160.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24A5F28CF4A
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:57:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1635F471269
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:58:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788346676; cv=none; b=FMsBYzVY5lK0KLcJ/vQ4d1LBW8/aXywDxP9gTnWaGyYSivznXhTFEQS2otn/1yp/vLGENA7QPb4wKdIsYXGv8lJjyDqyKYb4Rfcj6/asmhZGZhtdLSHgEqCWqyxMG37kYsYjd+V1QdmxODHQQs+478yheomwqSPRNo82rEKNqyo=
+	t=1788346684; cv=none; b=Gj/g2KlKsTdsTJbMNvthuaulc/AdTQEmG+LWhdoc/vJNZMO/BGk9n6ebFGaJIQjfUDZQ7hYbo0yB5U4dfMMctT88jyWa+t8DuNJrMvYvCPqTq3IwXSPVqdK8C9yNna5yk/Rroman+3/Ia69qhh+Dn2RmuZlZQU/YhwIXNl/UpmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788346676; c=relaxed/simple;
-	bh=3kVKj2W9nbBQa0jpyyn55rDKRsOkknfjoFAkPleTJfs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=h6iGZ7moCUVTjsdeWs9IK9L/qveC1vadezswO2RZc7KDdSEMYhSfhY8AL798TSVRvfD3wY3LUXd2OGCARRtgayBoaC2oHAgu3z7AHn3aVRfVl5aRHqRRjeC/oO+s1EWk+mFQpw4xl/3Z9pQ4v1Cl6i14efegRabwGnGuj4Ixa88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LKKLD5oY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788346684; c=relaxed/simple;
+	bh=prBIn1Zi26UBYqISNr+MVBWvz3Hb+qJJqMn9iobb4Sc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OQqdWRKJUpx5ZJSDiI5EMI3aA02sk4xeJnXGTquhcN9jQURrw1BIKT6L0Oh3ZZ3VEQG0QZMUc+COU/yq0ZcWXuiQ3JmbTLITGMyyHKNRpPDsCv22ae4KHvym0dwkp3zghC2pmW3Te/VFJ4nGwCfOUg9Ycr4DtkdA2HZEzGJk+yo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=Aij9Y9XW; arc=none smtp.client-ip=209.85.160.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LKKLD5oY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA70D1F000E9;
-	Wed,  2 Sep 2026 10:57:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788346674;
-	bh=8SDeXPzme9XNtVAmGgZ6IOyZxuKvpCr7/TsRoDa5Fq4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=LKKLD5oYSvbA9VSyoxqTQYiBrt3kKOxSS/lqEm7GrXe0gmEdkF8aiqLzHORHlH0qH
-	 0LhiQx6LImtcoN9t1HBfnig9aIUaUypMomgwALhlCZ6Fyf7PB+W1Hx+Q4+jU9TT+GW
-	 px7YBZ3zVApBpaAQdyLu6cRQZuQrUDyOTqZFHQ5UmnqBhk01Yav2fcyjQrnPFSf6oP
-	 5c4fpogwn5EsHscDT4gXbFT5P4lPnLciJScmlVPZGt3TQrza5F9ecltYLp2Jq7piJX
-	 dJ5E7kY5+V+QAyWLuyG7+5iONb6yO2ChA+yzUvgpJjRApsVTkFsUOGvS5HTxh9Qt3k
-	 pdZgdKSgolXUQ==
-From: Mark Brown <broonie@kernel.org>
-To: linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
-Cc: Farhad Alemi <farhad.alemi@berkeley.edu>, 
- Thomas Gleixner <tglx@kernel.org>
-In-Reply-To: <20260901-regmap-irq-deallocate-domain-v1-1-4bfed4aff559@kernel.org>
-References: <20260901-regmap-irq-deallocate-domain-v1-1-4bfed4aff559@kernel.org>
-Subject: Re: [PATCH] regmap: irq: Free the irqdomain we create
-Message-Id: <178830297893.33904.41103574820669431.b4-ty@b4>
-Date: Tue, 01 Sep 2026 23:49:38 +0100
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="Aij9Y9XW"
+Received: by mail-qt1-f176.google.com with SMTP id d75a77b69052e-52d8679c149so8227911cf.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 03:58:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cs.unc.edu; s=google; t=1788346680; x=1788951480; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lqzIA+CU3COvPsJdqe8AGN0DPM1FFqYKmN1H42pjbPc=;
+        b=Aij9Y9XWoXNx97CO2JxSrSpSTF54J5bbs0J7acVYeH77URr1PfQY3rjqj7EIweaJfs
+         9TwJz7l1H/YKcz9rPeFJPbu8mZXCwn63mHWtl5TrSK6Hj+1V9zdZNF9KJ4owXhVmFzmu
+         OIUyXmNTbNZunPqtISwuoYhK3QCZhFKbCrI381VNu4AMG111ZswA29heKXXvbr/xitFk
+         bP3S4BuT6s+TTZPVgT5nluQINgZftKZu0Q66W0PaTtMgsgBXxFPfI7Lwlf0N8ZOhyKvG
+         6wR3XyZj+OvmXXtPDF62kapYrpI9b2qA2OakJpkUEroYKO3F09oociidbswPQQsjqQpD
+         eNZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788346680; x=1788951480;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lqzIA+CU3COvPsJdqe8AGN0DPM1FFqYKmN1H42pjbPc=;
+        b=EVejlZudt8iZuYQdu6Jxxb+M01u7nVKrhuibM7nMIavuhdIr5OoTKm4hcMXjaBD6g+
+         sbaRxwKqjVTx26fPiSzE1Lpm2D+xXwrL60Yr1borsKWHQMnjfoOzFfZWINhnXu111AiI
+         wu0646mqmY8Rkel+8zL1iU5uDm+BHk2+UKAqkbSKlF0siRawMvhtjolDZntqXnSyx7Bs
+         /zAwtODA9LwRnXlCwZG2DnmEExNUUc4K3ZhiqGllms1g5S//cWxE845xW5QSC5i9qsee
+         xjChHxZdtnx8aKULL0kjRKeapVgUezbZZNn531I3zEQ3u00svVEoa06s9815xSO7fYNy
+         7FgQ==
+X-Gm-Message-State: AFuF++ny4r71zvYB2UZlnr866J4DSVGoRDmYBtIeXC0bhbdw/+fSlgDM
+	+s25ocnd4vQ257ytn8RdF2Xb1I/Fi9hOkGeh53Ax5irNJSW/ab8XQ9iNcGHr1fMx+gtKvCe8nl8
+	f93K43g==
+X-Gm-Gg: AR+sD10mkjA3ImopvZUsinjfbZMn8cwKvX6lPBd8u7UMwY7N8svkTOMyCtFeC1oTw+n
+	YXswDY1GNZeAXW3iGeM0HWMvQUvhNurk5UXh8nlABSfDq6lj3hxAYbEWkZ8Wvoujcj/VivODdQJ
+	ytbClXHuLYOVO5wFUuUIZQyteFfwr6nGINto6lTak/DZzuZrmJxJKUAEicKgdakqxrkl0uEgflS
+	mj58k2qV7s5Uyj11TXXRkZhsKRTBW+W1VeekUWubKc2yUOA7slhmy6cJuIvr8UjSAKryG+CutrF
+	woCthpohtXWyagWJYmeWgo44GytsUUOLxZdKrQacRaD4AxRmXFakgh0uOY5kDPqSlAS7L2/fN0r
+	Z1dvNSEt3POeS743EBPCYDhTq6zl6ii+2llDMeiyLgX+FbYQChMNN8+apx2tfTdgK7NCiDRYBdh
+	CcxjeOqJA8A5yEKonGUo14EZNuJfh9xpXI4LgYtVq46C562f1LNN3NVgLDukK4vaYpU6pIRcXrE
+	G6uQpw2yuU=
+X-Received: by 2002:a05:622a:309:b0:530:849:4696 with SMTP id d75a77b69052e-53036cefd25mr41504141cf.31.1788346680608;
+        Wed, 02 Sep 2026 03:58:00 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9eec8482sm15344676d6.31.2026.09.02.03.58.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 03:58:00 -0700 (PDT)
+From: hengyul@cs.unc.edu
+To: hirofumi@mail.parknet.co.jp
+Cc: linux-kernel@vger.kernel.org,
+	Hengyu Liang <hengyul@cs.unc.edu>
+Subject: [PATCH] fat: calculate data area start without overflow
+Date: Wed,  2 Sep 2026 06:57:16 -0400
+Message-ID: <20260902105716.3972118-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1100; i=broonie@kernel.org;
- h=from:subject:message-id; bh=3kVKj2W9nbBQa0jpyyn55rDKRsOkknfjoFAkPleTJfs=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqmAEvqRd3LhwoH9GKNGqhniBBC4TiCndzdpag4
- mzNFaFhVLGJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCapgBLwAKCRAk1otyXVSH
- 0FUbB/4mPLEC3cj/Cpb2Uuu980o0xJzAknI7FkAPtr861ow3zc5QIPO4Soi4WWxMcpYNtulpRSg
- SItQ1jbDe+rZufdYyToxfP1HE5N1ZcBuxQKctsT44hxHVpHy69vpg3zrmyJwSUQtYR5dTtrwf8/
- tIt2MsHSiARmJt04Rrx4ZnZ15a1kjuOH83cjepssVDS3BpNZeljUifM+JJKfiD3BBPCXCZIkyuU
- 52Fr4I8GcPE1oJ3QrFx7y+xNLkiWCTqYNXZzGpK6cbd/hC6IqhHOEHHRfOWhUla2YtVO4z9k+H6
- Cb5+xPOvrfyQKlg4eH13k8Q3WtEM70n17lvAecAJZy3IXeQo
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Tue, 01 Sep 2026 22:55:42 +0100, Mark Brown wrote:
-> regmap: irq: Free the irqdomain we create
+From: Hengyu Liang <hengyul@cs.unc.edu>
 
-Applied to
+On 32-bit architectures, sbi->fat_length, sbi->dir_start and
+sbi->data_start are unsigned long. The number of FATs is an 8-bit BPB
+field, while the FAT32 length is a 32-bit BPB field. Therefore, the
+calculation
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regmap.git for-7.3
+    sbi->fat_start + sbi->fats * sbi->fat_length
 
-Thanks!
+can wrap before data_start is checked against total_sectors.
 
-[1/1] regmap: irq: Free the irqdomain we create
-      https://git.kernel.org/broonie/regmap/c/2e42cade8ff1
+For example, with fat_start=32, fats=2 and fat_length=0x80000001,
+the unwrapped data area start is 0x100000022 (4294967330), but the
+calculation wraps to 34 on i386. With total_sectors=36, the
+validation then incorrectly passes.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+The following script creates an image that demonstrates the problem:
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+    python3 - <<'PY'
+    import struct
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+    S = 512
+    b = bytearray(36 * S)
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+    def p(off, fmt, value):
+        struct.pack_into(fmt, b, off, value)
 
-Thanks,
-Mark
+    # FAT32 BPB
+    b[0:3] = b'\xeb\x58\x90'
+    b[3:11] = b'MSWIN4.1'
+    p(11, '<H', 512)
+    b[13] = 1
+    p(14, '<H', 32)             # reserved sectors
+    b[16] = 2                   # number of FATs
+    p(17, '<H', 0)
+    p(19, '<H', 0)
+    b[21] = 0xf8
+    p(22, '<H', 0)
+    p(24, '<H', 1)
+    p(26, '<H', 1)
+    p(32, '<I', 36)             # total sectors
+    p(36, '<I', 0x80000001)     # FAT32 length
+    p(44, '<I', 2)              # root cluster
+    p(48, '<H', 1)              # FSINFO sector
+    b[64] = 0x80
+    b[66] = 0x29
+    p(67, '<I', 0x12345678)
+    b[71:82] = b'OVERFLOW   '
+    b[82:90] = b'FAT32   '
+    b[510:512] = b'\x55\xaa'
 
+    # FSINFO
+    p(S, '<I', 0x41615252)
+    p(S + 484, '<I', 0x61417272)
+    p(S + 488, '<I', 0xffffffff)
+    p(S + 492, '<I', 0xffffffff)
+
+    # Wrapped FAT starts at sector 32
+    fat = 32 * S
+    p(fat + 8, '<I', 0x0fffffff)   # FAT[2]
+    p(fat + 12, '<I', 0x0fffffff)  # FAT[3]
+
+    # Wrapped data_start == 34
+    root = 34 * S
+    b[root:root + 11] = b'ESCAPE  TXT'
+    b[root + 11] = 0x20
+    p(root + 26, '<H', 3)
+    p(root + 28, '<I', 4)
+    b[35 * S:35 * S + 4] = b'OOB!'
+
+    open('fat-overflow.img', 'wb').write(b)
+    PY
+
+Attach fat-overflow.img as /dev/sdb and run:
+
+    mount -t vfat -o ro /dev/sdb /mnt
+    cat /mnt/ESCAPE.TXT
+
+On an unpatched i386 kernel, the mount succeeds and reading the file
+returns:
+
+    OOB!
+
+On an x86-64 kernel and on a patched i386 kernel, mounting is rejected
+with:
+
+    mount: mounting /dev/sdb on /mnt failed: Invalid argument
+
+Calculate dir_start and data_start in u64 using mul_u32_u32(), and
+perform the total_sectors check before storing them in the existing
+unsigned long fields. Since a successful check guarantees that
+data_start, and therefore dir_start, does not exceed the u32
+total_sectors value, assigning them to unsigned long is safe on both
+32-bit and 64-bit architectures.
+
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+---
+ fs/fat/inode.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+diff --git a/fs/fat/inode.c b/fs/fat/inode.c
+index f775a004cae1..b09185d204ce 100644
+--- a/fs/fat/inode.c
++++ b/fs/fat/inode.c
+@@ -20,6 +20,7 @@
+ #include <linux/blkdev.h>
+ #include <linux/backing-dev.h>
+ #include <linux/unaligned.h>
++#include <linux/math64.h>
+ #include <linux/random.h>
+ #include <linux/iversion.h>
+ #include <linux/fs_struct.h>
+@@ -1577,6 +1578,7 @@ int fat_fill_super(struct super_block *sb, struct fs_context *fc,
+ 	struct msdos_sb_info *sbi;
+ 	u16 logical_sector_size;
+ 	u32 total_sectors, total_clusters, fat_clusters, rootdir_sectors;
++	u64 dir_start, data_start;
+ 	long error;
+ 	char buf[50];
+ 	struct timespec64 ts;
+@@ -1752,7 +1754,6 @@ int fat_fill_super(struct super_block *sb, struct fs_context *fc,
+ 	sbi->dir_per_block = sb->s_blocksize / sizeof(struct msdos_dir_entry);
+ 	sbi->dir_per_block_bits = ffs(sbi->dir_per_block) - 1;
+ 
+-	sbi->dir_start = sbi->fat_start + sbi->fats * sbi->fat_length;
+ 	sbi->dir_entries = bpb.fat_dir_entries;
+ 	if (sbi->dir_entries & (sbi->dir_per_block - 1)) {
+ 		if (!silent)
+@@ -1763,19 +1764,23 @@ int fat_fill_super(struct super_block *sb, struct fs_context *fc,
+ 
+ 	rootdir_sectors = sbi->dir_entries
+ 		* sizeof(struct msdos_dir_entry) / sb->s_blocksize;
+-	sbi->data_start = sbi->dir_start + rootdir_sectors;
++	dir_start = sbi->fat_start +
++		mul_u32_u32(sbi->fats, sbi->fat_length);
++	data_start = dir_start + rootdir_sectors;
+ 	total_sectors = bpb.fat_sectors;
+ 	if (total_sectors == 0)
+ 		total_sectors = bpb.fat_total_sect;
+ 
+-	if (total_sectors < sbi->data_start) {
++	if (total_sectors < data_start) {
+ 		if (!silent)
+ 			fat_msg(sb, KERN_ERR,
+-				"data area starts beyond volume (%lu > %u)",
+-				sbi->data_start, total_sectors);
++				"data area starts beyond volume (%llu > %u)",
++				(llu)data_start, total_sectors);
+ 		goto out_invalid;
+ 	}
+ 
++	sbi->dir_start = dir_start;
++	sbi->data_start = data_start;
+ 	total_clusters = (total_sectors - sbi->data_start) / sbi->sec_per_clus;
+ 
+ 	if (!is_fat32(sbi))
