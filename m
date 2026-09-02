@@ -1,84 +1,121 @@
-Received: from mx3.wp.pl (mx3.wp.pl [212.77.101.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA3F83A59A2
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 21:01:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.77.101.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A5BA3EC69C
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 21:01:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788382920; cv=none; b=TYVLvPRRHcqlaWFI30FoJL8tvfZEBZHJpbHQuChXvOtCYe9kxmMulUgDThBuAWwo7S5ZJkd0rS5RGgQt8x603fQ811rPx+Xuk7CSg2WdY9eWBf2vFATCacxKab24iyxV4tNuq92xxMO+4rjcFJr2iB3Seo+zpvdmEiLCDPsHzXo=
+	t=1788382920; cv=none; b=cDclztjYtO2Z+vJSnTNVeB8fL2kt/GTEfq3QB5rPD5kSvPczdXy/R21FpgmzNk4xrGME40oFIWMevC5KBVhqoUd/FbNFtTFexvE4Es1ahRULeTOJFll09BAihyc7qW56hfbpZ4lLhlF3yuUctLtN8W4b0Mpa7uq02v2yexuiIh0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788382920; c=relaxed/simple;
-	bh=BpqPKUhSE1WKOFXP2SHgk6cDXOVHrVbPgvH4lLphOP4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XfnJZsmasg3nnn9ySF8zpfamJ4ZGZ6aTBD3CRNBZkEVxx9jtKnoiNUTCUf3EoW4I6HPwBCSOnBxDRx/X1Jy6Pxp2rD93MyuQem7YF48Bt6H+DDGXBf65RYvkhz7ArrLspk5rw8n3h/KvtNwRa9S9ao+hMdhPRP+VXUh2+wEvVRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl; spf=pass smtp.mailfrom=wp.pl; dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b=OsHkNsg5; arc=none smtp.client-ip=212.77.101.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
+	bh=gq4kjcf/C/dd4dpRmzn9Mq+VpkBb4cxOn+4FIo7f0E8=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=YCg1qzBtZF56ejVADZqbNY+hlB+16cG/TU3FeMSaVlmHYS6zfQF6nn6wuoukM3WK7DdArY0xZehzfBHBUxFS16LQT/P5QBwhLqQbVYtoqri+t7DANyrRWC4oaFMddWEwb1nkuk1Fo6xPz06Y458VWqmXgZw2OsmdNfHb36T2DHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--ndesaulniers.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=D9Uyu8Uh; arc=none smtp.client-ip=209.85.216.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ndesaulniers.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wp.pl header.i=@wp.pl header.b="OsHkNsg5"
-Received: (wp-smtpd smtp.wp.pl 5974 invoked from network); 2 Sep 2026 22:55:11 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=20241105;
-          t=1788382511; bh=PCKb4U0bctkL3frsFsYpcJYe2me73Tjlalj8huLwC7w=;
-          h=From:To:Cc:Subject;
-          b=OsHkNsg5flz3vKBBUzDMTJz5OIb+fYV08QBubEfHwjHj9tcs3k8jf9nv1fU7BUN7l
-           LOy8vSib33i0tg6XUsv2O21ol9NOkJX2p6IEyMefJm9QWEV6+5GwuHcttmL9DNE2M/
-           /Jrp+PFF0uzWf2quGJudtnKpGQ/2MGbYRovdAuAn0XpQ+6RvICCEdWvzraqc8Pqnbq
-           eyEp7aTzjSSdKO+EcKP23LihlKeCcfvG5znOYoP95L2EQMaO40Jv99eQiLy0rYGF2y
-           W+Vl8lHc8XdUaZe6c7TBp6/vrX7CRab161JqqacmYWRu2XV0gh1tJAJnA5pn24L84M
-           gPIbpJf2z337w==
-Received: from abajkowski.enigma.com.pl (83.5.244.153.ipv4.supernova.orange.pl [83.5.244.153])
-          (envelope-sender <olek2@wp.pl>)
-          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
-          for <ansuelsmth@gmail.com>; 2 Sep 2026 22:55:11 +0200
-From: Aleksander Jan Bajkowski <olek2@wp.pl>
-To: ansuelsmth@gmail.com,
-	atenart@kernel.org,
-	herbert@gondor.apana.org.au,
-	davem@davemloft.net,
-	vschagen@icloud.com,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Aleksander Jan Bajkowski <olek2@wp.pl>
-Subject: [PATCH] crypto: eip93 - fix ssl mac bit field definition
-Date: Wed,  2 Sep 2026 22:54:28 +0200
-Message-ID: <20260902205509.84019-1-olek2@wp.pl>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="D9Uyu8Uh"
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38f57e31b6eso1827738a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 14:01:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788382916; x=1788987716; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=I8LP+AgpfQU95pkQ4A0U0JkV/VZeB+yKww2C95uXxms=;
+        b=D9Uyu8Uhw1X7aBf7NQVRkSHZ1umibqMZCzcIKQJI3sWB5wgYuyC2L9SMcbI6FwhCAb
+         HDLrK4vWG6xq6+2qiRg6UjQtwo+M7/7+CT3kNqwo1YCIH2v+RjBG148V7qUaVzqe8m9J
+         eHr9qhut/Kndx3L0Rs8iIRSrv5rXBx9r84lA0Uammu7FVflSYDDkq8Te+CVWKLYrXhKE
+         Bq2jQa+Ngh8Gqf0DFCXQqp7hoNRA+CzjQIiBc3OjG5yOp3FIkeHPXsOwJKHz2+W1OXNN
+         sKQr5ptbRz8gKT+Ih1Y0kkyGu+w4C7qPGvHltXx25Myyk9xTOBjVyX0GZBgzG29JA5nL
+         wkIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788382916; x=1788987716;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=I8LP+AgpfQU95pkQ4A0U0JkV/VZeB+yKww2C95uXxms=;
+        b=gbXKX28BOarQL8Vj0X/hyN1LRKPq/QLD79b+lm23NmsZaPPbsRS9Uxz10crzsHgkH1
+         y2CNcwdMFTAnfZqEQzj1ox8tZrfAIfMtYMxvEH46pbVdBADItyY/+BLBmnFoc4c3vPrV
+         0ZiA+9VThua9l2u2zQPPoyx8unezZZsoELtIGkf+/zX6KijFfY7g1gXqqHcRdWT1jJgt
+         fGgUxJWVtq+dLr7j3CbCMCmbpqOi4Vi2KBkfuNT1oP+Tusvs/2GnMFNhi17b+SLgQBzA
+         +VZ08Jo3NJwq+1Sdhkow3wVm2qyF67P1pcGQtPWOcQTirbdmGlBcR2iQfaFNJ46H2BRj
+         7FXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzQKgvJp04uHt+ar1db9SZhEUU+1ZlGR84xPsl4PU8rYPcdEgxE7QrRwaMq807sMvYuzGx3jylZUlnP334=@vger.kernel.org
+X-Gm-Message-State: AFuF++mYzdmiK7JwCX1S+dXCD92FDpIE2A9fdlzSDLhYW1WvS993a6mP
+	x/apPBVLUA/zM11wbYADrtASHzAOFRKH/36p14n6bce6UOI+5T4H/y7l1ybrTLZsrZTTkaMUd9R
+	f3JQLUj6GP5R9Vln7lfduVQ7etisBsA==
+X-Received: from dlg33.prod.google.com ([2002:a05:7022:7a1:b0:13b:8289:9a55])
+ (user=ndesaulniers job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:4a8e:b0:38f:18f9:785 with SMTP id 98e67ed59e1d1-39aedf73060mr10160241a91.8.1788382916176;
+ Wed, 02 Sep 2026 14:01:56 -0700 (PDT)
+Date: Wed, 02 Sep 2026 14:01:53 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-WP-DKIM-Status: good (id: wp.pl)                                                      
-X-WP-MailID: d22fa32db910380bd08dcc35a2712f73
-X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
-X-WP-SPAM: NO 0000008 [wetz]                               
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAMCOmGoC/x3MTQ5AMBBA4avIrDWposRVRKTawfhtWkQi7q6x/
+ BbvPeDREXqoogccXuRp3wKSOAI9qm1ARiYYBBeSl0IyPaKe/aH03C7LtbZ7N5lztSzjMk8xMYW SBkJtHfZ0/+e6ed8PJSl6GmkAAAA=
+X-Change-Id: 20260826-checkstack_llvm_objdump-40653e1d7a6d
+X-Developer-Key: i=ndesaulniers@google.com; a=ed25519; pk=O0COsmvrvggwIeEq7bAuRbULbXScoJmbNMYaRi6RFIw=
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788382914; l=1872;
+ i=ndesaulniers@google.com; s=20260611; h=from:subject:message-id;
+ bh=gq4kjcf/C/dd4dpRmzn9Mq+VpkBb4cxOn+4FIo7f0E8=; b=EJh/KS2VLyFue0lj8LwiVxwj/XEC0g8ttHV+j4VKiPE2AWW1oeq3VQ3mETSpw0OAgRgjfZHZs
+ jZp5vWI0QPzAa+MnNVYC8CPcWGQbP5tiyluG2VQF1RdSy9sN8O1JfTc
+X-Mailer: b4 0.14.3
+Message-ID: <20260902-checkstack_llvm_objdump-v1-1-edb4eca5f163@google.com>
+Subject: [PATCH] scripts/checkstack.pl: support llvm-objdump disassembly for x86
+From: Nick Desaulniers <ndesaulniers@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>, Nathan Chancellor <nathan@kernel.org>
+Cc: Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, 
+	Nick Desaulniers <ndesaulniers@google.com>
+Content-Type: text/plain; charset="utf-8"
 
-Checked the register definitions with the documentation[1]. Turns out
-that the EIP93_SA_CMD_SSL_MAC bit field has a bad value. It's used in
-SSL offload mode. This driver doesn't support SSL offload yet, so this
-causes no problems.
+When running `make LLVM=1 checkstack`, OBJDUMP is set to llvm-objdump.
+llvm-objdump outputs disassembly with instruction size suffixes (such as
+subq/addq/subl/addl), tabs/whitespace differences, spaces after commas,
+and trailing comments (e.g. `# imm = 0x...`).
 
-1. MT7621 ProgrammingGuide DMA
-Fixes: 9739f5f93b78 ("crypto: eip93 - Add Inside Secure SafeXcel EIP-93 crypto engine support")
-Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
+Because scripts/checkstack.pl used rigid regular expressions specifically
+tuned to GNU objdump format (e.g. requiring exactly four spaces, no
+suffix, and no space after comma), checkstack.pl failed to match any
+stack adjustment instructions and yielded no output when using
+llvm-objdump on x86.
+
+Update the regular expressions for x86 to match optional suffixes,
+variable whitespace, and trailing comments.
+
+Assisted-by: LLM Gemini
+Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
 ---
- drivers/crypto/inside-secure/eip93/eip93-regs.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ scripts/checkstack.pl | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/crypto/inside-secure/eip93/eip93-regs.h b/drivers/crypto/inside-secure/eip93/eip93-regs.h
-index 96d28c6651bd..1d726bcdd77f 100644
---- a/drivers/crypto/inside-secure/eip93/eip93-regs.h
-+++ b/drivers/crypto/inside-secure/eip93/eip93-regs.h
-@@ -281,7 +281,7 @@
- #define   EIP93_SA_CMD_HASH_CRYPT_OFFSET	GENMASK(23, 16)
- #define   EIP93_SA_CMD_BYTE_OFFSET		BIT(13) /* 0: CRYPT_OFFSET in 32bit word 1: CRYPT_OFFSET in 8bit bytes */
- #define   EIP93_SA_CMD_HMAC			BIT(12)
--#define   EIP93_SA_CMD_SSL_MAC			BIT(12)
-+#define   EIP93_SA_CMD_SSL_MAC			BIT(11)
- /* This mask can be either used for ARC4 or AES */
- #define   EIP93_SA_CMD_CHIPER_MODE		GENMASK(9, 8)
- /* AES or DES operations */
+diff --git a/scripts/checkstack.pl b/scripts/checkstack.pl
+index 14ce31f732ee..f8011e789a9b 100755
+--- a/scripts/checkstack.pl
++++ b/scripts/checkstack.pl
+@@ -66,8 +66,10 @@ my (@stack, $re, $dre, $sub, $x, $xs, $funcre, $min_stack);
+ 		#c0105234:       81 ec ac 05 00 00       sub    $0x5ac,%esp
+ 		# or
+ 		#    2f60:    48 81 ec e8 05 00 00       sub    $0x5e8,%rsp
+-		$re = qr/^.*[as][du][db]    \$(0x$x{1,8}),\%(e|r)sp$/o;
+-		$dre = qr/^.*[as][du][db]    (%.*),\%(e|r)sp$/o;
++		# or
++		#       0: 48 81 ec e8 05 00 00          subq   $0x5e8, %rsp
++		$re = qr/^.*[as][du][db][ql]?\s+\$(0x$x{1,8}),\s*\%(e|r)sp/o;
++		$dre = qr/^.*[as][du][db][ql]?\s+(%.*),\s*\%(e|r)sp/o;
+ 	} elsif ($arch eq 'm68k') {
+ 		#    2b6c:       4e56 fb70       linkw %fp,#-1168
+ 		#  1df770:       defc ffe4       addaw #-28,%sp
+
+---
+base-commit: 502d45774af09f1c681c754c4b7cdfb5d7f72fd9
+change-id: 20260826-checkstack_llvm_objdump-40653e1d7a6d
+
+Best regards,
 -- 
-2.53.0
+Nick Desaulniers <ndesaulniers@google.com>
 
