@@ -1,117 +1,109 @@
-Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 670CC370AF5
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 05:47:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F96632F764;
+	Wed,  2 Sep 2026 05:47:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788328042; cv=none; b=jzdUvhfQdhWbAZNYfJfOtPdIc9NSU0WrmoLujCtMTPFXfGvdhRhOXZC8VJmxSNsgBP6FdwR1PKzKzHwrGFxn+CvFWXWvAKUr18GFH4yuAY4ZUaCPc3FUvQu9qXuJgh5eQDGTJm0JDMWdBNhKNMjUnIXgdbH25j3haCqo5hu60ik=
+	t=1788328075; cv=none; b=aIKaLXcQHxT3m4inV5RWFVL3o/YWBTIO5mlJoGT4UPJQV9ORS+9F+9l3tYi68/7BHqpDYhzbqDi/vvfng0+/yNEOteuQS43sFS+lVR8klbUcKvj3u7PZlwwq+Qd321iTloxPFDKQmRLb1euVmTdpfhu6rzqlRL4E9jyfhwLm478=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788328042; c=relaxed/simple;
-	bh=krRo7FtC1rquekV/lVVspFNsdqDtO+e9ElrBqOuu3uY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Pr2d8x46PN5B/FaYrXtDopUVzlZXYsntBKALGyC7lPWKxYlCNFu3Ru2DE4sTtAIdp+1MmRzOMrYWXwtHOCt1G0G28DcRpC5NaNkrFB1P2xv7g6IQ+kKFsVsB/wFWlec7dd9Wxi8hfuMfkR84/YuYSGyIjaKIJ11KFzZ5fMzF/LI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hZWvT2gDjz2LvWy;
-	Wed,  2 Sep 2026 13:47:01 +0800 (CST)
-Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hZWvQ4pSJz2LvX2;
-	Wed,  2 Sep 2026 13:46:58 +0800 (CST)
-Received: from cncheex05.Hygon.cn (unknown [172.23.18.115])
-	by maildlp1.hygon.cn (Postfix) with ESMTPS id 28E3116E4;
-	Wed,  2 Sep 2026 13:46:53 +0800 (CST)
-Received: from cncheex04.Hygon.cn (172.23.18.114) by cncheex05.Hygon.cn
- (172.23.18.115) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.36; Wed, 2 Sep
- 2026 13:46:59 +0800
-Received: from cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d]) by
- cncheex04.Hygon.cn ([fe80::1b6f:6c58:58a4:430d%10]) with mapi id
- 15.02.1544.036; Wed, 2 Sep 2026 13:46:59 +0800
-From: Jianyong Wu <wujianyong@hygon.cn>
-To: Peter Zijlstra <peterz@infradead.org>
-CC: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>, Chen Yu <yu.c.chen@intel.com>,
-	Tim Chen <tim.c.chen@linux.intel.com>, Dietmar Eggemann
-	<dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, Ben Segall
-	<bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin Schneider
-	<vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, "Shrikanth
- Hegde" <sshegde@linux.ibm.com>, Phil Auld <pauld@redhat.com>, Andrew Morton
-	<akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-mm@kvack.org" <linux-mm@kvack.org>, "jianyong.wu@outlook.com"
-	<jianyong.wu@outlook.com>, Yuan Zhong <zhongyuan@hygon.cn>, Huangsj
-	<huangsj@hygon.cn>, Fengyu Wang <wangfengyu@hygon.cn>, Zhiwei Ying
-	<yingzhiwei@hygon.cn>, "justin.he@arm.com" <justin.he@arm.com>
-Subject: RE: [RFC PATCH v2 11/23] sched/cache: Introduce helpers for task
- migration decisions
-Thread-Topic: [RFC PATCH v2 11/23] sched/cache: Introduce helpers for task
- migration decisions
-Thread-Index: AQHdNiBFF6wQCkMonke4aXPvTe8F7La5GKyAgAG3MCA=
-Date: Wed, 2 Sep 2026 05:46:59 +0000
-Message-ID: <89add08a0761429a851196d7ea5a10a2@hygon.cn>
-References: <20260827122816.756234-1-wujianyong@hygon.cn>
- <20260827122816.756234-12-wujianyong@hygon.cn>
- <20260901113207.GZ687043@noisy.programming.kicks-ass.net>
-In-Reply-To: <20260901113207.GZ687043@noisy.programming.kicks-ass.net>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	s=arc-20240116; t=1788328075; c=relaxed/simple;
+	bh=bgHiJ3hrICbXSwbvFkN24uoEdLa9MwhS+qn9Ov4apko=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hDNhOOo4fyBoJXh7+hd8Md3xdBylvfx0HRBrba/nCZC/uXD+9+K8v1m2r9e37BvD37I107KD95WidyvA+J4VU/BQocn3eULNV9d3Z9wUq4nxIgVRtI7weLiZstak6jhqIkJfYXS9sGA57LS0m2Ureu4nQdkNYFQXJDUb8ojrDFU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nmr8Tapk; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nmr8Tapk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0B9D1F000E9;
+	Wed,  2 Sep 2026 05:47:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788328074;
+	bh=xyVBn1leruni8Keulp+lVKAKdJp5Y+Dj/l28v3PKPmU=;
+	h=From:To:Cc:Subject:Date;
+	b=Nmr8TapkJLpq3LiZ50wQjliwtU5ueiy7PCUbVtFZup6daOCWOMBPEi2992dEg3DIN
+	 b3hmVw5bw4+9tXpzdcuBFO76dTtOML0lTwjBOLp1SBNvIi0XGcaXG7RRgnWEqbtqQs
+	 bBX1MOcKsiIZuEC1NPcI8QC3GNooaBLRiyFAwC3ehnIAF3dkj7qxRAY2agHzJLnjMn
+	 Q1t3GqJ6Kl91TVUU+6J6DoHZv8IyjMXEa9Zv80QnjuDRbmeDjzsiJd8xmz+DKuhmI9
+	 xkp86K0xkYf50MX4IjSCzNH/ZPYog8twgwaA1aoVfscEr/SH4j0qlr6ZLi+nH4BBic
+	 k3h+OGLsfotlA==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	David Gow <davidgow@davidgow.net>,
+	David Hildenbrand <david@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	damon@lists.linux.dev,
+	kunit-dev@googlegroups.com,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH 00/12] mm/damon: cleanup code, add test cases, and update guidances in docs
+Date: Tue,  1 Sep 2026 22:47:33 -0700
+Message-ID: <20260902054747.99370-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+
+Misc cleanup, improvements and updates of code, test, and documents.
+
+Patches 1-5 cleanup DAMON code.  Patches 6-10 adds kunit and selftest
+test cases for recently fixed bugs and a new feature.  Patches 11 and 12
+update guidelines for AI review and what document to read, on DAMON
+documents.
+
+Changes from RFC v1.2
+- RFC v1.2: https://lore.kernel.org/20260729140253.87753-1-sj@kernel.org
+- Drop RFC tag.
+- Rebase to latest mm-new.
+Changes from RFC v1.1
+- RFC v1.1: https://lore.kernel.org/20260729033751.131213-1-sj@kernel.org
+- Fix a typo: s/alingment/alignment/.
+- Add damon probes parameter validation cleanup (patches 4 and 5).
+Changes from RFC
+- RFC: https://lore.kernel.org/20260728052811.192712-1-sj@kernel.org
+- Remove ctx parameter of __damon_va_init_regions().
+- Fix damon_nr_samples_per_aggr() overflow kunit test.
+- Rebase to the latest mm-new.
+
+SJ Park (12):
+  mm/damon/core: use damon_nr_samples_per_aggr() for max merge threshold
+  mm/damon/core: remove debug messages
+  mm/damon/vaddr: remove a debug message
+  mm/damon/core: validate number of probes in valid_probe_params()
+  mm/damon/sysfs: remove probes number validation
+  mm/damon/tests/core-kunit: extend set_regions() test for error case
+  mm/damon/tests/core-kunit: test <=0 size damon_set_regions() inputs
+  mm/damon/tests/core-kunit: test overlapping ranges for set_regions()
+  mm/damon/tests/core-kunit: test damon_nr_samples_per_aggr()
+  selftests/damon/sysfs.sh: test hugepage_mem_bp quota goal
+  Docs/mm/damon/maintainer-profile: update AI review for Sashiko replies
+  Docs/ABI/damon: recommend subsystem doc instead of admin-guide
+
+ .../ABI/testing/sysfs-kernel-mm-damon         |  2 +-
+ Documentation/mm/damon/maintainer-profile.rst | 19 ++----
+ mm/damon/core.c                               | 19 +++---
+ mm/damon/sysfs.c                              |  2 +-
+ mm/damon/tests/core-kunit.h                   | 65 ++++++++++++++++---
+ mm/damon/vaddr.c                              | 16 +----
+ tools/testing/selftests/damon/sysfs.sh        |  1 +
+ 7 files changed, 76 insertions(+), 48 deletions(-)
 
 
-
-> -----Original Message-----
-> From: Peter Zijlstra <peterz@infradead.org>
-> Sent: Tuesday, September 1, 2026 7:32 PM
-> To: Jianyong Wu <wujianyong@hygon.cn>
-> Cc: Ingo Molnar <mingo@redhat.com>; Juri Lelli <juri.lelli@redhat.com>;
-> Vincent Guittot <vincent.guittot@linaro.org>; Chen Yu
-> <yu.c.chen@intel.com>; Tim Chen <tim.c.chen@linux.intel.com>; Dietmar
-> Eggemann <dietmar.eggemann@arm.com>; Steven Rostedt
-> <rostedt@goodmis.org>; Ben Segall <bsegall@google.com>; Mel Gorman
-> <mgorman@suse.de>; Valentin Schneider <vschneid@redhat.com>; K
-> Prateek Nayak <kprateek.nayak@amd.com>; Shrikanth Hegde
-> <sshegde@linux.ibm.com>; Phil Auld <pauld@redhat.com>; Andrew
-> Morton <akpm@linux-foundation.org>; David Hildenbrand
-> <david@kernel.org>; linux-kernel@vger.kernel.org; linux-mm@kvack.org;
-> jianyong.wu@outlook.com; Yuan Zhong <zhongyuan@hygon.cn>; Huangsj
-> <huangsj@hygon.cn>; Fengyu Wang <wangfengyu@hygon.cn>; Zhiwei Ying
-> <yingzhiwei@hygon.cn>; justin.he@arm.com
-> Subject: Re: [RFC PATCH v2 11/23] sched/cache: Introduce helpers for task
-> migration decisions
->=20
-> On Thu, Aug 27, 2026 at 08:28:04PM +0800, Jianyong Wu wrote:
->=20
-> > +static bool get_span_stats(const struct cpumask *span, unsigned long
-> *util_out,
-> > +					unsigned long *cap_out)
-> > +{
-> > +	cpumask_var_t mask;
-> > +	int cpu;
-> > +	unsigned long util_tmp, cap_tmp, util =3D 0, cap =3D 0;
-> > +	struct sched_domain *sd_tmp;
-> > +
->=20
-> We prefer inverse xmas ordering -- where possible. So please go through
-> the code and re-arrange things. Eg. the above becomes:
->=20
-OK, I'll go through the patch and re-order the variable declarations into
-inverse christmas tree style.
-
-Thanks
-Jianyong
-> > +	unsigned long util_tmp, cap_tmp, util =3D 0, cap =3D 0;
-> > +	struct sched_domain *sd_tmp;
-> > +	cpumask_var_t mask;
-> > +	int cpu;
-
-
+base-commit: 52315e1a031f7370a286d6f6c805e2c8eab5abbc
+-- 
+2.47.3
