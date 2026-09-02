@@ -1,97 +1,81 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012004.outbound.protection.outlook.com [52.101.48.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 159443A48C5
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 19:34:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788377687; cv=none; b=A6faAf9SwDmZPr+Fsk2OegtSX30VfIhpSjBhgKpbh3S3rqLrP2U4f6RjwLrlFvgPz8KmPFE7DYQPCQkYNLMBrJEHCEgJdHcYpTix1qrE/UTgrO/v8oRnhcwXS5b767TklWEHH1d4N4UuiV7LTxe3dbB17SjK4RCU5J9WW23Treg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788377687; c=relaxed/simple;
-	bh=dCN4MSGnNu9qg2o82cMQqSPCzo+02NG8UMe2Xwsmd1A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AYvxCI52PVzt9nkIs8bOWZ9tp0x7h2OKsu0wilaspqN015gZlhrqdF7sB/7N+M8vWIyTpPjIxKuOju+x0c7rGCOV6yH+rbqDkUzYLpMV2VxtlV2X2CebQ7SqRKm/+lKEhRZW84ZQu6I8PtA7gXDRRyWiM+j3W8GbqgNQ9yt1YDQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ru+rMLAj; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D1823C8C77;
+	Wed,  2 Sep 2026 19:34:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.4
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788377691; cv=fail; b=eyDQY5Si9s1MPSLq5DE65r3KnbhGSZOFDv3pF82IB3+0IqgR7wj9bp4ZGbgO15SEtXrNDr43EyPU4mnNag2pGESoaLuUubol01l8Nrv467pSRILiEM18E7K2l58/x7+ljzJf8ngNvSw4SqWupa73O3r7aP0k7Kx7Jipw/1o0vPQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788377691; c=relaxed/simple;
+	bh=K2HS2xjVjwAvSXog9oJPy/ktJHZYBL6f89D7Ga+fskk=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jRUIyQmcWWqRBzaIV9ONs44CEusGk8flncQ6Xul6eEIrD1xuWJtl03eVOTS5w3tesdEPvT8KNcKehEPtnIcLzLM/UDIvQ55j/ELKbPN+04JAw+pI6YDnv2+R6XHt8KfKrLguwtEnqIw+ic50F6B/HgAfG3CKIN8Q+zJBQM3mAH8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=PFswV18n; arc=fail smtp.client-ip=52.101.48.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ru+rMLAj"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-4843e9c5960so1475984f8f.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 12:34:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788377669; x=1788982469; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=caCex+BmvEH7ghZImY6FVecBuOi80GskXDf2a1gswus=;
-        b=ru+rMLAjiINO7EaHjU814dGHl+ynYGkwqDSOqR2J6F7nxjMDgXiN63Ulp40yzY6SBP
-         /8onhapFUKnQcpemxMjb3P6iJJtZvG/05JX6hGiHhwlid31rId401GjRmELfEOjntnax
-         Jh5h2LvMYSD/h43tttfJ4mMpSUD2S/9VKA38qZPZLde8uQkihvnMNkCZsAsykdBbTnz5
-         GspW2VD64CvwT852vtSrumyjAlwLUaH7vqieCgDh2lhzMDhITet3oFSNCSYn9y+9V3HR
-         tra8l9W+vOip+RCwFKVuF3C18qW+dechV7mTQsaUzZAKIjWSV9DG8j1pzzEFvogODY58
-         wfhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788377669; x=1788982469;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=caCex+BmvEH7ghZImY6FVecBuOi80GskXDf2a1gswus=;
-        b=XRLu/2JVSa5cKj92LywesSMrpu9GdnHPoq2TIUyhTsbYHPdckk6wmeek5MqnkfFk5X
-         +qxbZI9VPFbvO4qlWAeIVT5IkyFHFRGajjeG7jBmwaOu2wa05m4EjKnVc2bRkYp608Mg
-         JIWPI/JFK0wQok++GCZPlwxOnFiLDb/gYs9MUDlfeoAfl6Y8homtP46R+6n6Az6A7Cn+
-         5wZDXZNyRYqfMB2x9hy9fFt5wl34mFfcj0ikZmPpmQ5O9/md2cUKp/wi9zSd6d8vWiJw
-         yUwrhYMjsFOxgaFiozXLAwJaRw75YDg3oWSCDsjlmOUUjBLGDsSOT9KROlmnfoSLFkYA
-         YeNQ==
-X-Forwarded-Encrypted: i=1; AKwUvByxtQA+8YZJW6vPa5LMQH+VmXJPQ5L8LG5jDmq6/Dt91O/xjnUUQzrtqN372L2hENQYeRr9MGLGF5lcZM4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nEimBnrf8m2VWJkpiqbQs1Cd72XLOZGgZ/Y8oVO1SLShp65ZF4
-	gXUIhYcNJqT3OOrQVHDOqYjKU/b1+53Kqq51Xj+h7ADZcg48Wjn5fI8L
-X-Gm-Gg: AYBFou2K23HvREG/Gdd24yVu/OKtMXOYcwrvGGpjrP/Ay/LkZ+/NU/QVpBbxqfNRXRy
-	fkCWftheIp4yx7KiiAH/tklsmdT2RbdlY6zIMzReWmKZdPjUcnahObAsi85oX50cKLDNHJV08QN
-	/EPmLCqfjaXROjMgi5aXFVdEf/Gp91YEmcLmdvra8jT5cWgR2ga0GUBvI4W+IB79ldEX8x8q3nU
-	SNLWHTvqqsZpMuhDM6rJARnhXcxhK0rjKjbnG1MFvoksIkV3p0rVFKuCY8k8SI9v5TlglRrbjJw
-	cHgjTmMQpyiwBHslNjyoMsxaski0gxvitKpk/miR1DzviyZ64bBmSsg7iUXdX2tVRs81hC/miuK
-	OPBeyOCRlTMdRUG1mBIVJeZ+7JLpZGaIrY9gYZ9noRJazw15mwDZGoePlLwehxYXxlBIUMnNROp
-	DqqaxHMYHuMJOoF9w4ylVt6TPhopQmjfbgf62qyDSdO/t4JG3Cj2IYp8xm
-X-Received: by 2002:a05:6000:4819:b0:47f:e748:3ae3 with SMTP id ffacd0b85a97d-48488deedc7mr13797916f8f.3.1788377668785;
-        Wed, 02 Sep 2026 12:34:28 -0700 (PDT)
-Received: from luca-vm.lan ([154.61.61.58])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-484492cdc37sm8889191f8f.34.2026.09.02.12.34.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 12:34:28 -0700 (PDT)
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-To: linux-mediatek@lists.infradead.org
-Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sen Chu <sen.chu@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Macpaul Lin <macpaul.lin@mediatek.com>,
-	Lee Jones <lee@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Julien Massot <julien.massot@collabora.com>,
-	Val Packett <val@packett.cool>,
-	Fabien Parent <parent.f@gmail.com>,
-	Akari Tsuyukusa <akkun11.open@gmail.com>,
-	Chen Zhong <chen.zhong@mediatek.com>,
-	linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	mfd@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-gpio@vger.kernel.org
-Subject: [PATCH v10 1/9] dt-bindings: mfd: mt6397: Add MT6392 PMIC
-Date: Wed,  2 Sep 2026 21:25:37 +0200
-Message-ID: <20260902193351.185771-2-l.scorcia@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260902193351.185771-1-l.scorcia@gmail.com>
-References: <20260902193351.185771-1-l.scorcia@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="PFswV18n"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KUBWIvaiUJMD1j6m5a9EtJtf0yNI5hHlzkwgAhKKoSvuoW9sRa/IooQqys+CcGj8FV0DOLv++ozdDp3TB6CXNdPrNZczoidg0Kn5TAA26hNXFNL1bNH1uGQQqt3pSWq5kKcc2bpE1m/+s2kQto1jegpMJj4BadiBc88LRGT65fQfj5auqa4sYFPW0NDP9lKvaDv7SOm47yn3Fl6g94etYzA2BUeyawr670kHyIdDBpkit16CE4it9XFwWC5R+ocDwRdNKMwOz47z8QlI4ifesN1Yect8zDOCl6zkoKOVsB0LA2OYTNtPrcl80BuUZ9MKIOypeHsDr/+8IOKKSZNtNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=psRQhAweGTAVyBiHaEsj+rDkSRRsoK4ZgM0mg7NgPYY=;
+ b=dBDh2n9A61oadRkm/YZV8iVkx00qX0fLUYgTqCF/EeOb6wy3k8XYVL+A39Jng9C+hCOwRtN4qCXwQly7h1ruKnAxk+5YpyVawkVfBtdiNnKcH2gjXUzLfn7a9do9KpedWMtVGwa9Kc8YIlppHFaeqFn/GrbWX6jk94BwM1597B7YamiFBlAs0iHdZ2iR04CNYp1415H4z9be3Z0a8FrMRuyn+Bw6nVY9kC3joa7uP++JiFq4zFh54noq6j5K5zvAUAo/GH57Nsl453VzLDqSt7grQ7EtFtZS58xC3Cyv0GAV8w8SIjhbEpEsacMsb7WW9/5ommoBXmznHnytyS31Tw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.233) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=psRQhAweGTAVyBiHaEsj+rDkSRRsoK4ZgM0mg7NgPYY=;
+ b=PFswV18ndn1K+nCQUXBXMJhb1TEfOmL7eWltDeDpzRUxkcpsMBeOIg8H2rR85FuJ1+7ip7FVRuaixw6P3kfSljy0qGQplc9jduVIh0yYNDcCZEMhcqFOeyc9WJjpfjHDIhFTAyIufasrY1Mth7ZujiGKV0ajhX3dXGLGTknH8oyOVkyxv0KSf1UxjE3n1Bpk93rV5SjhueNKp/QszIe/cqOoIL4cuVoM3VXgJoyb3q898EroiWQ2McBqzcgJivHditu8FwoDbvACjdwevofqYrVJzpDNFBwCzjY/s01sO/xRbUmm0UpQaQIdkyeiiMEkBFkhKRrX1Ueugq5QlpZ6QA==
+Received: from CH0PR13CA0018.namprd13.prod.outlook.com (2603:10b6:610:b1::23)
+ by SA1PR12MB9514.namprd12.prod.outlook.com (2603:10b6:806:458::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 19:34:29 +0000
+Received: from MN1PEPF0000ECDA.namprd02.prod.outlook.com
+ (2603:10b6:610:b1:cafe::9a) by CH0PR13CA0018.outlook.office365.com
+ (2603:10b6:610:b1::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Wed, 2
+ Sep 2026 19:34:29 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.233)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.233) by
+ MN1PEPF0000ECDA.mail.protection.outlook.com (10.167.242.134) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 19:34:28 +0000
+Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
+ (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
+ 2026 12:33:58 -0700
+Received: from drhqmail201.nvidia.com (10.126.190.180) by
+ drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 2 Sep 2026 12:33:58 -0700
+Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com
+ (10.126.190.180) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Wed, 2 Sep 2026 12:33:54 -0700
+From: Tariq Toukan <tariqt@nvidia.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
+CC: Carolina Jubran <cjubran@nvidia.com>, Chris Mi <cmi@nvidia.com>, "Gal
+ Pressman" <gal@nvidia.com>, Kees Cook <kees@kernel.org>, Leon Romanovsky
+	<leon@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-rdma@vger.kernel.org>, Mark Bloch <mbloch@nvidia.com>, Oz Shlomo
+	<ozsh@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>, Shahar Shitrit
+	<shshitrit@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>
+Subject: [PATCH net] net/mlx5e: Fix use-after-free race in sample_restore_put()
+Date: Wed, 2 Sep 2026 22:33:41 +0300
+Message-ID: <20260902193341.3668809-1-tariqt@nvidia.com>
+X-Mailer: git-send-email 2.44.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -99,129 +83,75 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECDA:EE_|SA1PR12MB9514:EE_
+X-MS-Office365-Filtering-Correlation-Id: f973cf59-2561-4b70-a0bd-08df09293479
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|82310400026|36860700016|1800799024|11063799006|10067099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	2ohUlAdCousy9vHp0gULoCOonrxrkufV5l+Lvu7AP7ejMkk1PPxhsSBM8l7nEdofy6wzcEWPuPIxtku9hhjOSpBQlGprbKQ2s0Dl3BnvYpI6z1gKSTvSa+vs2w1BV8VQeg8WFn5eDwBNJaYbM94CMJRwwfwJnBA8gmoIGH9fR8V36Zppse9INhk6U76GxeCuQDQaa5aU2sHUhVeQVD0y3S0bKjM7yFZYvwvGoSI2J3WNjaD74bU6k1YEwj0VBl6YMVC6Ba49976Ug921u+xszPBBIzulxCLcQI89U1fkLdyeURo2uFZeD4tGpDpFGJzaYWNQaDLVxfayAldBo71tKKuM8lXBgwZ5xsC58+rXlpK3ebQ9GPABpG6F5DPPr5tMquC2kjygBEd76nB5IuYUI2PB07CRcWOKeTSzGdqlNVnORBIpurhqeYgTTcySBxy7T0UOIz8qYccT053A99mHeFJ4mvQWRf3NmVAVtRnuonBlAQ8oqO3dyOZNj8zOkaEkNYzuFRTN4lEaXyTZYYzQ7jazpCh/RVsXQrNUYf1EquHodHneb3uV7E1z1Z4ozgHVHwfxzrDqeKHMenhluNjQxU1RBHM64e2V8tLYkfWtJYxEGPVT5ryyPEi74LF8sArkXx/P2VSOMqBZlQCrVNR6unsQDgRaURr+h3jP45aliWJ30r0BAWhcKmf3wNIN7hmol/0DgsKJaYWMdhV1P1lCcQ==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(82310400026)(36860700016)(1800799024)(11063799006)(10067099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	iBiRK2ifMUaKX4UKEz9oY3l8/QMwNEqcAzjEx3EkC6JRzKOjJ41wpPHyOOvsCx/dnnLeYkaXWfeciZI7ZIdoY1H3sdSpEtzGZCpQgGG0NluZ52l246LauFbvOpkkZzlDTmK8mpLWs6y1jRSwEZ+8cjE9m/ofrJXvL3WPRMrwKwapZzpwVGaIqUd3ZT8kwUxQZP85sNFCLjNLZ7GWPUdY1iOrz45bkI3YxR5L0kFtCg7Y6Ls0tvjtiyREnkATgqghFwVK1fpraDkPrU1q3W39DxyUY5TUHbbyc3tKbGwSAPWoLeVKI5WmsUNmZvk0Vec5mNgoT48LonUgDGrJjOhucJ9nfhS6m6UCQzpfqg644qeVC5HuqdGrEA8dgc0B9u2bWYWz7T04TiR09fjw7ibLJkcb1kp3tG+vxmcuSZ6rrLO2PXGnuUjbMHqCbrcuEE1z
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 19:34:28.6686
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f973cf59-2561-4b70-a0bd-08df09293479
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MN1PEPF0000ECDA.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9514
 
-Describe the MT6392 PMIC and its RTC and regulator devices. This device
-is mostly based on MT6323 with some similarities to MT6397 and is usually
-found on boards using the MT8516/MT8167 SoC.
+From: Carolina Jubran <cjubran@nvidia.com>
 
-Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Concurrent teardown of TC sample rules sharing the same restore
+context may re-read restore->count after dropping restore_lock.
+At that point another thread may already have completed cleanup and
+freed the restore object.
+
+Use the result of the refcount decrement while holding restore_lock to
+determine whether cleanup is needed.
+
+Fixes: 36a3196256bf ("net/mlx5e: TC, Add sampler restore handle API")
+Signed-off-by: Carolina Jubran <cjubran@nvidia.com>
+Reviewed-by: Shahar Shitrit <shshitrit@nvidia.com>
+Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
 ---
-Previous version of this patch had the PMIC device declared with a
-fallback compatible to "mediatek,mt6323". Sashiko pointed out in [1]
-that it would have been wrong as the fallback device is not really
-compatible with the new PMIC.
+ drivers/net/ethernet/mellanox/mlx5/core/en/tc/sample.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-Since the change is significant I have not included the Reviewed-by tag
-that Krzysztof Kozlowski kindly provided in v9 of this patch, I hope
-this is the right thing. I really want to get the bindings right as they
-are harder to fix in later commits if the need arises.
-
-[1] https://sashiko.dev/#/message/20260820125850.3B34D1F000E9%40smtp.kernel.org
-
- .../bindings/mfd/mediatek,mt6397.yaml         | 72 +++++++++++++++++++
- 1 file changed, 72 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
-index 3cbc0dc12c31..06e93c545e3b 100644
---- a/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
-+++ b/Documentation/devicetree/bindings/mfd/mediatek,mt6397.yaml
-@@ -39,6 +39,7 @@ properties:
-           - mediatek,mt6328
-           - mediatek,mt6358
-           - mediatek,mt6359
-+          - mediatek,mt6392
-           - mediatek,mt6397
-       - items:
-           - enum:
-@@ -72,6 +73,10 @@ properties:
-               - mediatek,mt6331-rtc
-               - mediatek,mt6358-rtc
-               - mediatek,mt6397-rtc
-+          - items:
-+              - enum:
-+                  - mediatek,mt6392-rtc
-+              - const: mediatek,mt6323-rtc
-           - items:
-               - enum:
-                   - mediatek,mt6359-rtc
-@@ -99,6 +104,7 @@ properties:
-               - mediatek,mt6331-regulator
-               - mediatek,mt6358-regulator
-               - mediatek,mt6359-regulator
-+              - mediatek,mt6392-regulator
-               - mediatek,mt6397-regulator
-           - items:
-               - enum:
-@@ -663,3 +669,69 @@ examples:
-             compatible = "mediatek,mt6397-rtc";
-         };
-     };
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/tc/sample.c b/drivers/net/ethernet/mellanox/mlx5/core/en/tc/sample.c
+index 89490f687a9c..93c62d3f3e5b 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en/tc/sample.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en/tc/sample.c
+@@ -311,12 +311,15 @@ sample_restore_get(struct mlx5e_tc_psample *tc_psample, u32 obj_id,
+ static void
+ sample_restore_put(struct mlx5e_tc_psample *tc_psample, struct mlx5e_sample_restore *restore)
+ {
++	bool last;
 +
-+  - |
-+    #include <dt-bindings/input/input.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    pmic {
-+        compatible = "mediatek,mt6392";
-+
-+        interrupts-extended = <&pio 28 IRQ_TYPE_LEVEL_HIGH>;
-+        interrupt-controller;
-+        #interrupt-cells = <2>;
-+
-+        keys {
-+          compatible = "mediatek,mt6392-keys";
-+
-+          key-power {
-+            linux,keycodes = <KEY_POWER>;
-+            wakeup-source;
-+          };
-+
-+          key-home {
-+            linux,keycodes = <KEY_HOME>;
-+            wakeup-source;
-+          };
-+        };
-+
-+        pinctrl {
-+          compatible = "mediatek,mt6392-pinctrl";
-+
-+          gpio-controller;
-+          #gpio-cells = <2>;
-+        };
-+
-+        regulators {
-+          compatible = "mediatek,mt6392-regulator";
-+
-+          vproc {
-+            regulator-allowed-modes = <0 1>;
-+            regulator-initial-mode = <0>;
-+            regulator-min-microvolt = < 700000>;
-+            regulator-max-microvolt = <1350000>;
-+            regulator-always-on;
-+            regulator-boot-on;
-+          };
-+
-+          // ...
-+
-+          vadc18 {
-+            regulator-allowed-modes = <0 2>;
-+            regulator-initial-mode = <0>;
-+            regulator-min-microvolt = <1800000>;
-+            regulator-max-microvolt = <1800000>;
-+            regulator-boot-on;
-+            regulator-always-on;
-+          };
-+
-+          vefuse {
-+            regulator-min-microvolt = <1800000>;
-+            regulator-max-microvolt = <2000000>;
-+          };
-+        };
-+
-+        rtc {
-+          compatible = "mediatek,mt6392-rtc", "mediatek,mt6323-rtc";
-+        };
-+    };
+ 	mutex_lock(&tc_psample->restore_lock);
+-	if (--restore->count == 0)
++	last = --restore->count == 0;
++	if (last)
+ 		hash_del(&restore->hlist);
+ 	mutex_unlock(&tc_psample->restore_lock);
+ 
+-	if (!restore->count) {
++	if (last) {
+ 		mlx5_del_flow_rules(restore->rule);
+ 		mlx5_modify_header_dealloc(tc_psample->esw->dev, restore->modify_hdr);
+ 		kfree(restore);
 -- 
-2.43.0
+2.44.0
 
