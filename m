@@ -1,130 +1,132 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA06A385D9C;
-	Wed,  2 Sep 2026 06:01:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DCB32F39C2
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:01:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788328873; cv=none; b=Dp37it8PX83+5Gs3cQTUqsDo8nC2pelgeDR78EhTA54z9RLZMt8zvmYuSsjok5js55LHK9miaPNhdDCMsDxQuvEgjVDPdfLQseiHaC+ftYmkhyMI69YKjNmH3Jch0Wj8cJY5e4RfJ+Ez1xiIYOGDk2IWwfyMJMdev0tTQmqMAKI=
+	t=1788328895; cv=none; b=YuK5MXdIeutiI9C6T5Ia5nYcqVqGQosSRva7iLhawCgFY50Ry0nSIHk2+phttsY75cyYBdrkzhoYwykQ9TAbZl2lKwJSSP3Y8Aw4S0RVyD89B6H2yrIRvAx1NrZ7u9S5HAonnmyg44v6xtbK3kkHM3VEx5tspu9YyyWEXAAAKNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788328873; c=relaxed/simple;
-	bh=wodlJBhhDq6XlgK0pYCVcn+VALi8hcSEbRDEccKfps4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NzJ3GYIxbL2JmLn9tF+pAS4xZn7QuSgyYPI/JQLKg2SDImRoLAbC2/uZyacwP0y5kVW/B5om9wNWUMDqZRJsiqWv4D+xinh2Yo2jx/6QsXiXjMrNS6Y7TjfC+6dOffkBb41HicGuyL2uMfvLTGSu4zy6HOa2dnruooZXyGg9298=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=i7py9ARB; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788328895; c=relaxed/simple;
+	bh=yYJkD9mqW5bqZ88BxOeJ6Hi++gOW0jBDcsthzHZC4aA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PPZqLqxeMSidjvZzqbYEy2XhQcPD7hWZE76qt0ZifeTpgIEyr8S5sw2254k2il5fDs4qgpx6QTHYizcr7drGWnmWA8eMVdbElPVPrzl/5ZVsIGXHESINFNhZWyfPPdkDVPA7O1+lmUiPat4ZUAZ1Ir+YWbZLbdsIjtmok+x5iag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k6LNHMS4; arc=none smtp.client-ip=74.125.227.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="i7py9ARB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788328870; x=1819864870;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=wodlJBhhDq6XlgK0pYCVcn+VALi8hcSEbRDEccKfps4=;
-  b=i7py9ARBXeYXd2z0ZiwcXhnEEuRAgjUnXN3sGUQzZ4StaMv0kDar3Q4k
-   V54OQBVIhT75VZVnnthv9F/2A79y0mTrKNcFVqNW9FjYr8DG1RUW7K1Fz
-   Mt7ok1DO2ZTcZPv0CijJBsGk1exEWeC3QPNs/Gm+BnGjC+BhznlFLhsCU
-   OaFhA1aB9VNTGXzmbIhUC7Khm9a2bC5idGg96mQrJLJjP17TrsJFZWMwY
-   fOfaePhQ0N9tqYKQ5B2mriGr4MWpRNqdcH5bOwt2S/KN3cO7IUH+okWZw
-   zqUJqnO0OtXh61HdFOdiclOVavM3XbEcVWH9DuB3QjhcY4MbF0mpwZ/kN
-   g==;
-X-CSE-ConnectionGUID: uLzxjKZLQD2w0eO2KCfhmw==
-X-CSE-MsgGUID: G+9W/iT1ReiyI8RTCdnWjA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="91287111"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="91287111"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 23:01:09 -0700
-X-CSE-ConnectionGUID: 8BboPIKiQX60QPFL8h1p+Q==
-X-CSE-MsgGUID: J34KwcEYSM6A4SahyVFplw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="294141256"
-Received: from unknown (HELO [10.238.2.33]) ([10.238.2.33])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 23:00:55 -0700
-Message-ID: <7f524b1e-8a3a-401e-9e33-f655b7fc0cc4@linux.intel.com>
-Date: Wed, 2 Sep 2026 14:00:52 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k6LNHMS4"
+Received: by mail-pj2-f11.google.com with SMTP id d9443c01a7336-2ceb5a39c48so1764505ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 23:01:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788328894; x=1788933694; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XWX0Z0XhP6kZ3ued+eAJhd1QUL93rSNRpXL2eH5Zlds=;
+        b=k6LNHMS4+0valRP6IJDcW2gJQcqp4RcpWYyx4lVlNzrrRPcNYArOSR16l5pvPHBp/T
+         rUuUHVX2I5CQjJCvxMYdbyUTxZ3+8WVP+UT2CKscee7AU5JSnrTiInTGpqncnxaLoqMO
+         rKgspI8O9rcVhZSYqDbE2pBMDUrQKrqp5T0wWf/6RGO+uJ5zNHkNF+SHt9aS2EZzE3y3
+         7FVoFdoSf8oKrxNHCyG6LbmZwOw6WZNILoczaoNfs+g28CCEQZY+suh21buATm+hK2id
+         wqW1kdHZjC1sUCGg5yUwT99H823G1sUaaV0aDwZDDJyU3wYAqTF489mEYwcQTbHak+qq
+         swgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788328894; x=1788933694;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XWX0Z0XhP6kZ3ued+eAJhd1QUL93rSNRpXL2eH5Zlds=;
+        b=kUr7zlWsy5Ffg5QUEjW8Dpf9iJ2Xeteu+UO8wCTTcKCmCG92haShkDC/7PEccPc/8a
+         3maPgVVqtj6/Ku9Xl281hdj5baOYw6UpPbkLWV173hlMUi1HrqV5xPVYC9r0QiCE332u
+         ESRzOuFkUGD5AdUhK1zOz5At7eta9SjGPabbcXiWSzT1P4Gl6rq3u5B2lKXIwLvNja1n
+         AdtKrpslzf1JpB5cL125GAJOTjb/y3uLFNHZjjoi4UpciboUkjZYUHx/r+e/xNV3gqOU
+         WKUahS2IoV6le02eh16ResOY8ZOYne/InKaKNo65aktIkt5B7rQW3g+4QWbV0B+9d/VD
+         kORQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxXJWZVidWRd1VdQLhUY7Zs7o7kwWXEkDUKK/cYE8kM5yiYaJG1B/qyxT/ZJ/V3TUs7aLjlt1+VDkN7f/8=@vger.kernel.org
+X-Gm-Message-State: AFuF++mNYtWT15j47e0ZURHtNM0KDNhhU0YLIfjslPtX/oqnYcn0l+n/
+	2fmEEIe9Q1UJ134pmHR21DZIXi6evzmhcIwPa+IU1xuZfljyxlkgt0j2
+X-Gm-Gg: AYBFou0H+26z+Xa7320Kdxrt8ghgrrZckEUuQbStI1UE7o0yaoNzji6o9iJv/VbjV5G
+	+//29p4JNd6I/kpjyPZ9MBmGsK76c15TspGMfbWg/DX2Q+uMMJ17BU7Vpv30wbwKkGO4VW2wJgh
+	TVvM67q1uMm7yPN3RU9XevyrQKaxyGLixxHSvFNBjNMz7ofq9P6LvGA5vC20LmazmaE1qNeYAfv
+	GPkMmq6ZRxV34JaZYLzw3kwgKGsr6LsmCgO6D+0QFoNnByfn3Vx0ugraqogFoMGmethHU50UCgt
+	bGRupV6Qc2CltXTn3f2hjhhaQCaK8bgLpqvgRZ8AD0QRrZR0zckg93D/FTtvRs+MFIyaq6fyhJE
+	J1I/s0Pvdv6tD5jMgYZ2WOTul+T5S5m1oa3+r6AVx/3hdap6FgtTY3BHvGl4/Ata5gEfP7t4ibO
+	cwObwpc9ngXC/VR20hP1oxbZAyuvwIcKUSZPW0BgCYjDVM4XRZvi5G0u8VQQ==
+X-Received: by 2002:a17:902:e78f:b0:2d9:56dd:f804 with SMTP id d9443c01a7336-2daec71e483mr36829135ad.13.1788328893615;
+        Tue, 01 Sep 2026 23:01:33 -0700 (PDT)
+Received: from fedora ([59.172.176.172])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dadd382116sm7488205ad.26.2026.09.01.23.01.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 23:01:33 -0700 (PDT)
+From: XingWang Xiang <v3rdant.xiang@gmail.com>
+To: jk@codeconstruct.com.au,
+	matt@codeconstruct.com.au,
+	netdev@vger.kernel.org
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-kernel@vger.kernel.org,
+	XingWang Xiang <v3rdant.xiang@gmail.com>
+Subject: [PATCH net] net: mctp: i3c: serialize probe with bus removal
+Date: Wed,  2 Sep 2026 15:01:18 +0900
+Message-ID: <20260902060118.4025762-1-v3rdant.xiang@gmail.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 12/45] KVM: guest_memfd: Always fault from guest_memfd
- if in-place conversion is enabled
-To: ackerleytng@google.com
-Cc: aik@amd.com, andrew.jones@linux.dev, brauner@kernel.org,
- chao.p.peng@linux.intel.com, david@kernel.org, jmattson@google.com,
- jthoughton@google.com, michael.roth@amd.com, oupton@kernel.org,
- pankaj.gupta@amd.com, qperret@google.com, rick.p.edgecombe@intel.com,
- rientjes@google.com, shivankg@amd.com, steven.price@arm.com,
- willy@infradead.org, wyihan@google.com, yan.y.zhao@intel.com,
- forkloop@google.com, pratyush@kernel.org, suzuki.poulose@arm.com,
- aneesh.kumar@kernel.org, liam@infradead.org,
- Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
- <seanjc@google.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Shuah Khan <shuah@kernel.org>, Vishal Annapurve <vannapurve@google.com>,
- Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>, Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>,
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>,
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>, tarunsahu@google.com,
- Randy Dunlap <rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Fuad Tabba <fuad.tabba@linux.dev>, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-mm@kvack.org, linux-coco@lists.linux.dev
-References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
- <20260830-gmem-inplace-conversion-v12-12-85e5fd25252a@google.com>
-Content-Language: en-US
-From: Binbin Wu <binbin.wu@linux.intel.com>
-In-Reply-To: <20260830-gmem-inplace-conversion-v12-12-85e5fd25252a@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+mctp_i3c_probe() drops busdevs_lock after finding the matching bus. A
+concurrent I3C_NOTIFY_BUS_REMOVE can then unregister and free the bus
+netdev before probe passes its private data to mctp_i3c_add_device().
+The latter consequently adds a list node through a freed mbus pointer.
 
+Keep busdevs_lock held until the device has been added. This also
+satisfies the __must_hold annotation on mctp_i3c_add_device().
 
-On 8/31/2026 8:25 AM, Ackerley Tng via B4 Relay wrote:
-> From: Ackerley Tng <ackerleytng@google.com>
-> 
-> If a guest_memfd memslot is created but the guest_memfd does not have the
-> GUEST_MEMFD_FLAG_MMAP set, KVM still fulfils guest faults by looking up the
-> memslot's userspace_addr.
-> 
-> Set KVM_MEMSLOT_GMEM_ONLY if in-place conversion is enabled so that the
-> guest_memfd's memory will be used for both shared and private memory. With
-> in-place conversion, guest_memfd will be the only backing memory for the
-> memslot.
-> 
-> No validation is performed to require userspace_addr to be a mapping from
-> the associated guest_memfd because even after validation, userspace is free
-> to remap something else at the provided userspace_addr.
-> 
-> userspace_addr will still be used by functions like kvm_read_guest(), and
-> if userspace_addr does not match up with the corresponding memory in the
-> memslot's guest_memfd (whether userspace_addr points to the wrong offset or
-> some non-guest_memfd memory, etc), that is a user error.
-> 
-> Requiring both shared and private memory to come from the only associated
-> guest_memfd simplifies invalidation in stage 2 page tables. On a PUNCH_HOLE
-> operation on a guest_memfd, the invalidation is now guaranteed to be
-> invalidating only memory mapped from the given guest_memfd.
-> 
-> Suggested-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+Fixes: c8755b29b58e ("mctp i3c: MCTP I3C driver")
+Signed-off-by: XingWang Xiang <v3rdant.xiang@gmail.com>
+---
+ drivers/net/mctp/mctp-i3c.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
+diff --git a/drivers/net/mctp/mctp-i3c.c b/drivers/net/mctp/mctp-i3c.c
+index 88d9e36cd..4e857dd5d 100644
+--- a/drivers/net/mctp/mctp-i3c.c
++++ b/drivers/net/mctp/mctp-i3c.c
+@@ -288,6 +288,7 @@ __must_hold(&busdevs_lock)
+ static int mctp_i3c_probe(struct i3c_device *i3c)
+ {
+ 	struct mctp_i3c_bus *b = NULL, *mbus = NULL;
++	int rc;
+ 
+ 	/* Look for a known bus */
+ 	mutex_lock(&busdevs_lock);
+@@ -296,14 +297,16 @@ static int mctp_i3c_probe(struct i3c_device *i3c)
+ 			mbus = b;
+ 			break;
+ 		}
+-	mutex_unlock(&busdevs_lock);
+ 
+ 	if (!mbus) {
+ 		/* probably no "mctp-controller" property on the i3c bus */
+-		return -ENODEV;
++		rc = -ENODEV;
++	} else {
++		rc = mctp_i3c_add_device(mbus, i3c);
+ 	}
++	mutex_unlock(&busdevs_lock);
+ 
+-	return mctp_i3c_add_device(mbus, i3c);
++	return rc;
+ }
+ 
+ static void mctp_i3c_remove_device(struct mctp_i3c_device *mi)
+
+base-commit: 70f3995830d3f1e79faa14eb0605914f778feca9
+-- 
+2.52.0
+
