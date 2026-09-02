@@ -1,274 +1,287 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011013.outbound.protection.outlook.com [40.93.194.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3B2231E858
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:33:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 133E33AFD19
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:33:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.13
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788359625; cv=pass; b=d4gSMzcLAZYutzvfxBYKnlLZzoOJxAAOUI46dRnwIEVjsIeyuFFA1iekHCprNIqu6zU7Dme6sl6Xzl/w2g/6MQ1n9lGfGI8jsZsPoZ7dy90uCrJOZi5bOL3xslAb6AHAuUbzV6DufZohmEMiLmfTgl00yBFBExRSZZcvJMZRI2s=
+	t=1788359638; cv=fail; b=Sk/ghfG3zL3vfZD6PY88CCNChzxycxHZGLCF/j3Y3xV8AkOvNZGF5419JCqsm0vvtHdJSFJmN8PnTQMJ+JnPzVhaOBhnMdIfv+7nF+ZLKMJ+wE6chLogGyil0+tWupxe6itI2D0xlTq+xg8JRH+IKUyIDRY16GfITQGNw9m5oD4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788359625; c=relaxed/simple;
-	bh=gXGQ1PRnced6t6nD7RpTlC1VJv+UpeMU37rVlCwhA/0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=j1+m8mACPkgGGpYVonExxtPW8Mzk1KQ8/5X1j0RHOtAc/MsqoGAQTX4htKKVpTPfpe3L5Sbci4E4iQfYZJbuFZxasQRiMqA1uIyK/ILa/uNU5p4+owWlJv537BRakRv2fFwtHEAJ+FxhtQDP4slj0IgUJRmbmtiTE0/c54U3QM4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kwNNtAdu; arc=pass smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788359638; c=relaxed/simple;
+	bh=YRQ3oUiy01fZN01YCHCB2jb4w2GR4kza9nZFnozvEis=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=XLu/4H+sexqRpfKFF5Ugd1wXsc02mXFvJuJ6dCgkuBVJlx1sLHgvrrQAgnJKBDJg2TF51RmfWTGL7kLLU9I30dACvAbSWBODunrTvUv9xj1IC2g3LHi1AIKpaxRGxZxLYxSF081wUXZ2eZAJEYBBvAp3+SKTr8930tD7t1dKsGg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=kh1726RK; arc=fail smtp.client-ip=40.93.194.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kwNNtAdu"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49954b88fffso8502985e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:33:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788359622; cv=none;
-        d=google.com; s=arc-20260327;
-        b=MAZCUgLWVu0v0KvfxhDusLanjaY7+xdZOw5Sm1WqjkHrNm/RRfGi60Qk9gTBGHc6+1
-         SCib4Tu3d86X+wCuDsvc4k5qKWOpyyHfzSQUPNKq/mSWiFHfANI2ujmtKGMpca5S4zz0
-         XfbwtryiBaCcXOIZ6nztZkhGLBgnRyttXMae9CRtB7kRETNnqbShEz8xXsksQKENmOav
-         hlhGAwED8SWgA4fu4RMcHUPV5MIZR1nA7Q1tDkyf+i+sm5GqmT6R3p2XzkRIqHomUPSV
-         TQKmZkyd62Ua0qfym/edFOXTMUdklH9FbO/rZkm7Zw2PVdHstbU2gR7gMJKUWXcmI812
-         RZ6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gqyxGctT5FdtxpqEQF1rjk19nIvIrXbfFFAKolYzW0I=;
-        fh=s7jNEtQfLDx14obw+50UnPl25UXFrLJCqQwQP9o1rco=;
-        b=WTzFbpcxX/ui+4GBL8V3nozBcrlC5QdpXTH9emt/myCEAS1lI2kPTRhu+Aw5ejUgDh
-         VAnWb9O3Zi5JATHXzDUbEKErF+QO0m7rwWyF1J5yDOW1VX6wT0rOAYK5yOku9UB+6ChJ
-         Q+FHtOLzwsilZLJukcKilICHr5WxhDNiADoB5JbYgy2LcjCCIPb4iwFlhpHQ2FZhE8We
-         WkZ+u7Zq/Gv839x61+DwpYhz4Eey0zJqyuSLJ8RUNhDulYwQ6SghA28SHPkAJGEUKuKJ
-         wsHL499IYZnRUXgPOPxUkw/PpAlxUXrS9mn13ofkN5vxeUQgfM+4uKUJTdSKlmv3g2vi
-         1uDw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788359622; x=1788964422; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gqyxGctT5FdtxpqEQF1rjk19nIvIrXbfFFAKolYzW0I=;
-        b=kwNNtAdu2dO777SeUI041pgin0PiZo9trVtmoZFslEbEzBc8tfX+55o86T91DXqN94
-         Rri91fU0CjiaR8lodQykzEEkT9w/HQHHd4eMezLwrOy+rewvpL+ti7sv8oaB7Xs3ztqD
-         1DdEd7lKc43zd4tfvbXkuPohEXDEEG760SuDnwe+Nw/APZUdehGtlQTDkagFR8VEutqU
-         UZFDEH2QOYZKd5HPBwx5onR4tZQKmppZRq8UkplEg5PUTqXxLeDZM/KG+OZkDvw5aJLl
-         oJyfH717DbGNjnETZ7+vUnO+9Mfp5PmoQFD37Q+QbKXReJaULRO10Gvtzv0FP33iQmoP
-         POhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788359622; x=1788964422;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gqyxGctT5FdtxpqEQF1rjk19nIvIrXbfFFAKolYzW0I=;
-        b=M8PyS3SrNMuLx3k4sa4Aqm5Zza/G7QR0EPB+gxmD9pLBWCuoLbG+Vi5Zi3U4VHn/5a
-         f4BsckLAmQMVI3IWqWAwHd6l0y7YqBzhLXQku7bX2RFmUSr1qsMbcu+330FWGPAu9dI3
-         PqIOYAFg4OeaMv+Psy2lyoDiScUmUQb5brTyfHgt0YGBeLmROYYdyfNO+00mYSThg9nv
-         RGjVlokhJmTtp+wZt09cd6fpf9diz3fwxcqbVbGG4U62fnsIs1sNDAcoHPXoY4A+6HnC
-         gyvPTpzXPAaL7wQyvmcaMTacJwPfjo99upvIQDp+j5lDZRzzP+ZOI1tjnsUUqotcjbT3
-         0/XQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro2N81XzWbr+IEgy5KgFCdi3lashnrw1KfYy/rNv6LY2+cveYI0SFjq8hc1/nz5OSsQa1ik4AKkFWTHiRQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMtvxdaFSTLIHqc7YikMsE/0D8DbNkXLxNClME5mOqyPeXB8tJ
-	B8Q/GgOeEpzJM97E33cX4GtJQrBgKc8eXYvS08R0Kz4ZBmBZspu5tHVc5Cgn7zCOvmDvTEzVZcV
-	PB0+neLGV5tCx6GWh9hsZ5NEn8l1UHYA=
-X-Gm-Gg: AR+sD100qjdYTtp6WPq6FLORqONyt1Me74iKxwo7gQZ5IPW4TFq/Fe5poPjvphNopyB
-	g2usZ2ZZFD0uU4Xohraf8QMor9B5Q+74Pjgo0GR+o/76f6Nv0L7cjkqzpVq+N5J42kdIZmv1WS1
-	c3E697Q4kEyD48DC1eJbqNXOXiBVzYfr8uF6/2gQD3oiJKk4FsKF9pMH23/DxLt2kYq52lmIjoI
-	5kUw3bfq2gZmGaqZ+8JDe1ZgZakH35kXQcXHy5vM3giwDWqnZksO+U1+o6VN7Wo5A3YMKoWuIMk
-	z7euSmq59xh+wFVlC9kaaK/QGJ6dUDsXZMrT1npqxo9zyZ59V2f0g/lgCJmL7jIynevSV3RdlIm
-	75g==
-X-Received: by 2002:a05:600c:621b:b0:499:dbae:86be with SMTP id
- 5b1f17b1804b1-49ce58352ccmr109404795e9.14.1788359621781; Wed, 02 Sep 2026
- 07:33:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="kh1726RK"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sjvc1U2jVkfGQ7KQvoLU78B9tRoM3SI9/+JI1Sj3B5fhzxOHrG4Rh/AVJCW1+IuFzNuofmMKvA+DyLWfn6VWJqMZVqo3tfB//iRLQIwdnNfn5bjh7ABpkheHUWOi+MEWyImFthM7NeqAVEiY5Jz4I4uy+4+yw2xZ9lHaQdLZeaVYuN0US6AuFLKodX9TDJxzsdODmUfh3IECsSykdiD3uN+NuJ7Qlye1NLRhNqnDt9/x5siQ2OWYZ0H8hPntjlHNFcLNF4n+1XNFiwcvZHn+idVhJncL2cJQUG0NeWsteyESdK1O23EuW2VF41+4mHgPlTf4tUtH890Iw/3F4qUAlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=deiBicsp+D06oJqt+Os7gDto3c8bGphHgYJdttFeaMk=;
+ b=ODXgLWLT9Ll6Yy9Scac5Lxl9ao+U55wMNM0AvXqnTFWCyG38genfgwba3C8omlxRnzGZBgoSWJQCA0U9owfR2cx4Q30PFZKtcMLCLJWDfAqE7rIQ6fgDuP5B//RVm4QD+jYI+ulVOLfB+XXbgUliSWRjtpgiXhxKQSRzj6S4bm7Isfr5cCDH8YZz5OhuU2hfJWSP8y7WgET9KnOZM5iPpnzvLHUE/S9HMhmuAF5D1XuHuhwKPwcWI1DDAQrjypJ5xsRaYB9LnstMwYDJdTe5a2Ii2AK3bj2APpDlUqrT9Dlt+yk1WbZ69LW/nSuA0rBUEjISTgs8cBU4tc5IwGHRDQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=deiBicsp+D06oJqt+Os7gDto3c8bGphHgYJdttFeaMk=;
+ b=kh1726RKlpkHJsRWdJa1uuMQrzWp/+3y7E7A6mLuJCGfKL7xH+vPYLwqrOVt0MEBt+4ewNTVNEH4n6IivWI9sRwsFJDdDqdVkuod2A5leFtrFZ5fa64eLx+4AyleeY7RNZtJyerK0d5gq5xVYjqqdDgtkDmgCS5AH83SB18dpUrhzycDhxoAngLHPJVsTScaGC6ZePlK7Xm7D6z4/l6T6jH5Os9K4Hny644aSWS4FIxPd5MGe+DCf6grm1ItJCrasvxRvwuzi9NTFTpsi82M8UIfqKbEge3X1DiOh3bhTMEcssBI/CCLs+niQWj4GERBxPMTj5Ip2ck2CFPvJ9g0fA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by IA1PR12MB6066.namprd12.prod.outlook.com (2603:10b6:208:3ee::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 14:33:48 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0382.007; Wed, 2 Sep 2026
+ 14:33:48 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 02 Sep 2026 23:33:45 +0900
+Message-Id: <DL4WKU4TOA0C.2FGP44BOVFHLV@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
+ "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor"
+ <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
+ <linux-kernel@vger.kernel.org>, "Will Pierce" <wpierce@nvidia.com>
+Subject: Re: [PATCH v2 12/15] gpu: nova-core: drive GSP events with the
+ SWGEN0 interrupt
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "John Hubbard" <jhubbard@nvidia.com>
+Content-Transfer-Encoding: quoted-printable
+References: <20260829012243.496697-1-jhubbard@nvidia.com>
+ <20260829013324.499542-17-jhubbard@nvidia.com>
+In-Reply-To: <20260829013324.499542-17-jhubbard@nvidia.com>
+X-ClientProxiedBy: TY6PR01CA0020.jpnprd01.prod.outlook.com
+ (2603:1096:405:3bb::12) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260827094509.1016740-1-hebaoquan@kylinos.cn>
-In-Reply-To: <20260827094509.1016740-1-hebaoquan@kylinos.cn>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Wed, 2 Sep 2026 10:33:30 -0400
-X-Gm-Features: AcwNN1UFWiuIst1_M2Ly-qV46cbouLxe69zvYrfE_S4pNwJojMnhxWhVG9iKlpo
-Message-ID: <CAKEwX=NNzX=sXdqPATrWw7cw7sdG-vOO5LqjH=JnV1YiZLO5MA@mail.gmail.com>
-Subject: Re: [PATCH 00/16] xswap: extendable swap device backed by zswap
-To: Baoquan He <hebaoquan@kylinos.cn>
-Cc: linux-mm@kvack.org, akpm@linux-foundation.org, chrisl@kernel.org, 
-	kasong@tencent.com, baohua@kernel.org, youngjun.park@lge.com, 
-	hannes@cmpxchg.org, yosry@kernel.org, shikemeng@huaweicloud.com, 
-	chengming.zhou@linux.dev, baoquan.he@linux.dev, david@kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA1PR12MB6066:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5d6154fb-3692-4bf3-8307-08df08ff3378
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|10070799003|7416014|376014|366016|23010399003|10067099003|5023799004|4143699003|56012099006|11063799006|6133799003|7136999003|18002099003|22082099003|11062099010;
+X-Microsoft-Antispam-Message-Info:
+	cVE1J56PM/ZG1L4t9E67gkpcDN5hSLsNG8c81wviGuKalYJUVGd+czRNsCDyp6BgIxawdA0ZO2aHhPq/8q0+rAXsI51XfSu2b9uhuIMT28W20JjZGDfsTpKiIgJGS4Xkezd9FJS+7ueEE/WuTzjR39GmeuGR2ig6vPF7SVzF/rraic5jWs9DYeLWZrMwjMbcLIJIYzckuzi3OMQKAPY3soAzVfBtMw1g+m+JeridL2+2L1R0t73oyxCSpF72wUqoD6zLKTnvfj926UQh5qrMwdMg+ENOdozzKfA/FzA1vOIr0ezLeiSbFS5nUzUQwwrri5pgUyA2HVREzLE/nlXE75rk09GQBLjLFkN0aKoAR5CbpXEUawnPnZuP0N7BVdHxDXe7ohrJFIQppiXE2RASykS5GZiAmHJjDsxFs53l8F4cp1XGOTmzx3p+gknUQpNxC1kbRWaqg9O9cXKWG0ApbdmXnpgrPTRPSSQuI2+tQK4q1j0yVPw9C1EG8bfZbuHRrrf0kHDRSA0DXCXDq3YCp3DsfjSqAj21fi3wuLHQhY4XXXrDydpZHeTidX7BJPISLuVepTZGYNUw4wFBA8ckadi2JfWq3tC1YVvqOfVynejvmoWmLo5Kh5PCtuHhSnuHPhuFLCU16fjvJzxKKM8QF79ZKD3bQ/8NeVZ7QB3I2Ds=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(7416014)(376014)(366016)(23010399003)(10067099003)(5023799004)(4143699003)(56012099006)(11063799006)(6133799003)(7136999003)(18002099003)(22082099003)(11062099010);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TkxhWjVJZ1p3RlZqaHR5NkFDelhzZTQvc2hYdllqOThuanhjcEgrK2pnVklI?=
+ =?utf-8?B?SkFaVTQ0cW9xekNpS1JyREo5ZTlHSld6TFNSYW1ETnh3Sks5ZFducTg4M21I?=
+ =?utf-8?B?R3JwVlU5bm1rYm5LV1M1NVhxN3RRU3gyUUtwVnhLRmw4aVBwSlh1eGVmRS9V?=
+ =?utf-8?B?YTVBVnhaY1NvS3pXZC9sTU5XcitOUHRsc1I2bnpKM0l1dytXNnduMUtqclZH?=
+ =?utf-8?B?WERtTUNsYlY4NUFpRjV5bVBOUGQ0VHZJRFRRZlE4K2MrRU9XRDVPTWltblVp?=
+ =?utf-8?B?cTFUbVZISkR4ZC9pMkc5TDA5WEIvT1NmVy9OZkNsdHFxdVY4dXE4ZG5HQWRU?=
+ =?utf-8?B?Qm5YK0lJdXZwRG9SejFJdmkxemozSU1PaFhsWWViNEl1SkdYbWR1aXhxNWxX?=
+ =?utf-8?B?aXAvamJmbHU1dzByNmFYa212NVBNa2hJRWxzQnRDNVBxcTJaWldhZlJ5ajcr?=
+ =?utf-8?B?c2V6ODBSbjdPb2VDbXErR1VvVW12Wk4vUTNMQjZJSWlhckJlWWxGaGkvVGwz?=
+ =?utf-8?B?Y0xwR1AvbW9hcW1DcnhtTDlVU0ZHNXkyOThXaC9PT3pWWC9ZZTNOL1E1T2ln?=
+ =?utf-8?B?OEhJZzhsQllzN1J6VE10YW9lM1FMandXRlY0ZzdjcXFleTAxNUpRdWF6RnVn?=
+ =?utf-8?B?OWVjb282c0RsblNIR01mZUx0N1N3Zk9Id3JnbVhLNXVjclUzTk1vMjlSTWRY?=
+ =?utf-8?B?K05vRkFvcVBWblB3NEJHUTlsb21WS2ZEdm9LSyt0cm02aE1hZDVxVTFxdzF6?=
+ =?utf-8?B?N3V6REM0OFNSb2ZWWHZWNi9vNDltR1FTeEhZUk51aGMyaWJ4SG1QTnhUSUpP?=
+ =?utf-8?B?NzNzdE1USXdqMkhVTGJlOWJrcXJzWVpxQzBFNUpVSGplOXZwbUVwdFIvZEFr?=
+ =?utf-8?B?VE5JMHpnb3lJVFNUTExaZU9RWEJzcXdPS1lLMXdocTBKdzI2Zk5xV29TREwr?=
+ =?utf-8?B?WUI3czBzVGg3TTBSYnkvc05yVHVYd3F6Z2JkamovVTdPMkZhOFpYZ2tONTV1?=
+ =?utf-8?B?U1paL0dXQ1QyY1R6djJVOXRiVVNJTlRjWE1FQ1RESDc1Qms3VHMzS3lLRm5N?=
+ =?utf-8?B?M2wrUVVQRE11ejhOWjkxZmlwNVJSWVV3V0VzQ3FtSlNsNGo0Y0FLbzlxVTNQ?=
+ =?utf-8?B?VWg3Y0wvNk9tR3NYU1F3a1BpY0huOVRxeEEzK3A4V2hKL2owK2tabG9BSmhH?=
+ =?utf-8?B?WFpHODhMRVVxOG9SU21tN3ZJY3FXSU40djBCaGtCbjRBMUNnREhRcWZXazd0?=
+ =?utf-8?B?Rk5SbTVBUXpJSnpFYUxaUVlVQ1IwOG05ZjA0U0tXQUdFNC9UN20yOW85dkF4?=
+ =?utf-8?B?V2ZKRGlSdUxUSC9mS2xSNWp0cjQ1TDRyZTh4MmNZWWFrNitZbWlrbU9WSXJL?=
+ =?utf-8?B?YTJLQ0FRTE5NaUtzczBhaHJLRzNMUjFiOWV2Z2RCUDdMVlBOaERoNXBIYlFF?=
+ =?utf-8?B?MVhESTN3YjdhcEdJRDdibXdFRVp4VGU4VEovUnpoWFpteDF3dWg1MlpMdTBT?=
+ =?utf-8?B?S2dIRDRvQ016bWNMcWRFa0tTc2hDemZuVkUzNjg0RzNwM3FqV25IMW1iM3lz?=
+ =?utf-8?B?VGpTb1pIbWpsbTZGcEhXak8vYm81U0hOQmE1bjUwYzgyVWUwUUkvbHpXNTFm?=
+ =?utf-8?B?eEZRZm5Ob09sTjN4T0xienNuWGxNZnFMcFRIeXlRZC9Fa1A2K0hCd00xN0lo?=
+ =?utf-8?B?cXpOZ3FraDZhYit3dzlFb1BoQnVUQ1ljSEJ6TExGOU9SNjZtYS8yd3ZJTFdM?=
+ =?utf-8?B?OVRMNzA0QXRQK2FxbzNmMCtHYjNCZkd2U0w0U0ZBeC9oMEo1R2JteS9yOUph?=
+ =?utf-8?B?MjRVbFY1RHE3Z2ZQN013ZVZkYTJKSjY5QjBQb2R1YVNTeE01Um1PSXdOR1Ja?=
+ =?utf-8?B?a3FzbHdMaGhBZFo2S1Vkd2ZmQko2Wm1UOFR2ZGZEaWRuTm1KVFVVaWxLR0Z0?=
+ =?utf-8?B?UmJlekNTaGZnMElsMENienlTakxZOG96NURJenJiU2M2RUJtMzVNR0VEejA5?=
+ =?utf-8?B?TWRHWnhHV25sMERKRFROSnVnTWxoT1NkbUhBamhmNlVXZEdlY2ZIby9MQTJD?=
+ =?utf-8?B?M0trWWFnWUVKTjExVE03dlhabnJuRGR6WnZsOENkUFgvVVoxMkdVaW5NdGFS?=
+ =?utf-8?B?dHFMb0dYMFdLUDN1dk1iL2IvVHlVSHdjMUhpaWRPeFU0NDFGenFMbVF4NVJ2?=
+ =?utf-8?B?WHhzdVVDeVRrVGx1M0J6Y0VLTzNtUnpHYjMrY3AxVDlrYWdTUmNxSFhuL3lr?=
+ =?utf-8?B?NkM1OWJjT0k5M3FXd1JWeUxIcjM3S0s4TmNmYXJWaFM0TTEzNm1hOHRjUkd1?=
+ =?utf-8?B?Sy81eEtBTkRvbXEreGpwd3FvR3lHQmhCK0hyL3F0cnd0djBtbWNoSVpvZjV3?=
+ =?utf-8?Q?ChRBpBAtRz2EYYjKE2O34gz9TtQLFCxqXsGkwRd3DDlC2?=
+X-MS-Exchange-AntiSpam-MessageData-1: 3wd/LFyc4xISCQ==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5d6154fb-3692-4bf3-8307-08df08ff3378
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 14:33:48.4867
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SjEB9ln6YOBGgUuOWejbBehGIIdZezZQ/y2Ih+f55mFNeAkDh8YN+ewZgIRxbT3n03ycNoa66h48gPIi57TIbQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6066
 
-On Thu, Aug 27, 2026 at 5:45=E2=80=AFAM Baoquan He <hebaoquan@kylinos.cn> w=
-rote:
+On Sat Aug 29, 2026 at 10:33 AM JST, John Hubbard wrote:
+<...>
+> @@ -79,13 +97,42 @@ fn probe<'bound>(
+>              pdev.set_master();
+> =20
+>              Ok(try_pin_init!(NovaCore {
+> +                vectors: crate::irq::alloc_vectors(pdev, crate::irq::gsp=
+::GSP_SUBTREE.into())?,
+> +                // SAFETY: `vectors` is initialized above, lives at a pi=
+nned stable address, and
+> +                // is dropped after all fields that use `vectors_ref` (s=
+truct field drop order).
+> +                vectors_ref: unsafe { &*core::ptr::from_ref(vectors.as_r=
+ef().get_ref()) },
+>                  bar: pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core=
+/bar0")?,
+>                  // TODO: Use `&bar` self-referential pin-init syntax onc=
+e available.
+>                  //
+>                  // SAFETY: `bar` is initialized before this expression i=
+s evaluated
+> -                // (`try_pin_init!()` initializes fields in declaration =
+order), lives at a pinned
+> -                // stable address, and is dropped after `gpu` (struct fi=
+eld drop order).
+> -                gpu <- Gpu::new(pdev, unsafe { &*core::ptr::from_ref(bar=
+) }),
+> +                // (`try_pin_init!()` initializes fields in the order th=
+ey appear here), lives at a
+> +                // pinned stable address, and is dropped after `gpu` (st=
+ruct field drop order).
+> +                gpu <- Gpu::new(pdev, unsafe { &*core::ptr::from_ref(bar=
+) }, vectors_ref),
+> +                // Quiesce the interrupt tree before registering the han=
+dler below.
+> +                _: {
+> +                    // SAFETY: as for the `bar` borrow above.
+> +                    let bar =3D unsafe { &*core::ptr::from_ref(bar) };
+> +                    crate::irq::gsp::quiesce(bar, gpu.chipset(), vectors=
+_ref.irq_type());
+> +                },
+> +                // Register the permanent GSP SWGEN0 handler, which enab=
+les the interrupt.
+> +                //
+> +                // SAFETY: `bar` and `vectors` are initialized and pinne=
+d (see above). `_gsp_irq`
+> +                // is declared before `vectors` in the struct, so it is =
+dropped first, ensuring
+> +                // `free_irq` runs before the vectors are freed. The reg=
+istration is stored in
+> +                // `NovaCore` and never leaked.
+> +                _gsp_irq <- unsafe {
+> +                    GspIrq::new(
+> +                        pdev,
+> +                        vectors_ref,
+> +                        &*core::ptr::from_ref(bar),
+> +                        gpu.cmdq(),
+> +                        gpu.chipset(),
+> +                    )
+> +                },
+> +                // Drain the messages the GSP posted during boot, before=
+ relying on the interrupt.
+> +                _: {
+> +                    gpu.cmdq().drain()?;
+> +                },
 
-Ah I think I used the wrong msg-id in my other response:
+Can't these last 3 blocks (quiesce, _gsp_irq, and cmdq drain) be moved
+inside `Gpu`? It seems to make sense in terms of ownership, as the `Gpu`
+would own its interrupt handler, and things would be much cleaner as
+well: there would be no need for the unsafe `bar` lifetime conversion,
+`vectors_ref`, or the `chipset` and `cmdq` accessor methods.
 
-https://lore.kernel.org/all/CAKEwX=3DOW6M5n8u3L_oigD3Ffn_BcB2L7p=3DROfmJCxM=
-KQFH7tXg@mail.gmail.com/
+Just gave it a quick try locally and it builds fine (with a net -20
+LoCs), and AFAICT drop order is also preserved.
 
-My bad. I'll recap my comments here for your convenience.
+Pushing a bit further I could also put `vectors` into `Gpu`, which again
+makes sense to me ownership-wise (because the set of interrupts we want
+to serve might depend on e.g. the GPU architecture). The only drawback
+is that I had to reintroduce `vectors_ref`, but that's a small and
+temporary hack. I'd say this belongs in `gpu.rs` as well.
 
->
-> xswap is an extendable swap device with no backing storage. Swapped-out
-> pages live only in zswap, so the device wastes no disk space and its
-> size is independent of any physical device.
->
-> xswap decouples PTE swap entries from physical backing storage. The
-> cluster_info array is backed by a sparse vmalloc (VM_SPARSE) area that is
-> grown and shrunk on demand:
->
-> - Grow: when cluster allocation runs out of free clusters and the device
->   is below its ceiling, more physical pages are mapped into the VM_SPARSE
->   area and their clusters are added to the free list.
->
-> - Shrink: when contiguous free clusters accumulate at the tail of the
->   mapped range (tracked in O(1) via nr_free_tail), they are unmapped and
->   the backing pages freed.  Shrink is deferred to a workqueue to avoid
->   lock recursion.
->
-> A per-device ceiling (nr_clusters) bounds growth and is adjustable at
-> runtime via debugfs.
->
-> Interface:
->
->   /sys/kernel/mm/xswap/create           write "<percent> [<prio>]" to
->                                         create a device; percent is a
->                                         percent of RAM (0 for the default=
-),
->                                         prio is an optional swap priority
->                                         (default DEF_SWAP_PRIO)
->   /sys/kernel/mm/xswap/destroy          write a swap type to tear down
->                                         a device
->   /sys/kernel/debug/xswap/type<N>_cluster_limit
->                                         read/write the per-device
->                                         cluster ceiling
->
-> Since xswap has no backing, swapped-out pages are stored compressed in
-> zswap: physical writeout is skipped, and zswap writeback is disabled when
-> every swapfile in the system is an xswap device.  xswap requires zswap, s=
-o
-> device creation is refused when zswap is unavailable.
->
-> Naming:
-> =3D=3D=3D=3D=3D=3D
-> I'm going with "xswap" (the "x" for extendable/extension) rather than "vs=
-wap".
-> Chris suggested this name, and this aligns with the "VFS-like swap layers=
-"
-> direction Chris Li described in the first swap abstraction LPC talk
-> (co-hosted with Yosry) the swap ops and the xswap extension interfaces in
-> this series are moving toward exactly that. I don't have a strong prefere=
-nce
-> between xswap and vswap, so if reviewers object to the name, please comme=
-nt.
->
-> Note:
-> =3D=3D=3D=3D=3D
-> This patchset only build the base. On top of this, the subsequent core co=
-de
-> implementation of xswap writeback, rmap etc can be done more easily. E.g,=
- we
-> only need add one field in struct swap_cluster_info to let xs_table point=
- to
-> physical swap entry, or zswap entry etc. On top of this patchset, no need=
- to
-> stir core data structure too much or introduce extra data structure.
+(after looking some more at the code) Ok, I'm now completely convinced
+this belongs here. We could put these blocks right after `gsp_resources`
+(which boots the GSP), with the benefit that the GSP interrupts will be
+working to build `gsp_static_info`, which is obtained by sending a
+regular GSP message! Right now we are still polling to build it, but
+with the IRQ handler ready we could just wait for the signal to read the
+reply. I am not saying this should be done for this series (let's do it
+as a follow-up), but this is to illustrate that this is where the IRQ
+setup should be done, not in `driver.rs`.
 
-It's functionally equivalent. I think it looks cleaner to separate
-vswap-only bits into a vswap-only struct (technically saving 1 word
-for the cluster that doesnt need it too).
+<...>
+> +/// Clears the interrupt state that GSP boot left behind.
+> +///
+> +/// Disables every vector in every implemented leaf, clears the falcon's=
+ SWGEN0 latch, clears the
+> +/// tree's pending bits, and rearms PCI interrupt delivery. On return no=
+ vector is enabled, so the
+> +/// tree delivers nothing.
+> +pub(crate) fn quiesce(bar: Bar0<'_>, chipset: Chipset, irq_type: pci::Ir=
+qType) {
+> +    let tree =3D Tree::new(bar, chipset, irq_type, GSP_SUBTREE.into());
+> +    tree.disable_all_leaves();
+> +    // GSP boot consumes its notifications by polling the queue, which l=
+eaves SWGEN0 latched.
+> +    // Clear it before the tree drain below, so the drain clears the tre=
+e state the clear sets.
+> +    // Messages already posted raise no interrupt of their own, and the =
+caller's queue drain
+> +    // covers them.
+> +    GspFalcon::clear_swgen0_intr(bar);
+> +    tree.drain();
+> +    // The `TOP_EN` cycle in `drain` is the rearm for the two enable-cyc=
+le methods, but pre-Hopper
+> +    // MSI rearms through a configuration-space write instead. An interr=
+upt delivered before probe
+> +    // leaves delivery un-armed on that path, with no handler to have re=
+armed it.
+> +    tree.rearm_pci_irq(GSP_SUBTREE);
+> +}
 
-That aside, how would writeback, rmap be simpler? The complexity comes
-from the operations around it, not the actual vtable/xs_table
-operations itself.
+The `clear_swgen0_intr` bit is interesting - note that we already do it
+in `Gpu::new` (I had no idea why, now I understand! :)), so that
+vestigial one can be removed (which should also simplify `falcon/gsp.rs`
+a bit).
 
+It also looks like this function could become a method of
+`SubtreeVectors` that resets the tree covered by the allocation.
 
->
-> --- a/mm/swap.h
-> +++ b/mm/swap.h
-> @@ -57,6 +57,9 @@ struct swap_cluster_info {
->         u8 order;
->         atomic_long_t __rcu *table;     /* Swap table entries, see mm/swa=
-p_table.h */
->         unsigned int *extend_table;     /* For large swap count, protecte=
-d by ci->lock */
-> +#ifdef CONFIG_XSWAP
-> +       unsigned long *xs_table;
-> +#endif
->
-> Testing (taken on qemu kvm guest with 8G memory):
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D
-> 1. enable zswap and create/destroy xswap device
-> ~# echo 0 > /sys/kernel/mm/xswap/create
-> -bash: echo: write error: Operation not supported
-> ~# echo 1 > /sys/module/zswap/parameters/enabled
-> ~# echo 0 > /sys/kernel/mm/xswap/create
-> ~# swapon
-> NAME   TYPE  SIZE USED PRIO
-> xswap0 xswap 2.3G   0B   -1
-> ~# echo 0 > /sys/kernel/mm/xswap/destroy
-> ~# swapon
->
-> 2. create xswap device and tune the zswap size
->
-> ~# echo "50 10" > /sys/kernel/mm/xswap/create
-> ~# echo 0 > /sys/kernel/mm/xswap/create
-> ~# swapon
-> NAME   TYPE  SIZE USED PRIO
-> xswap0 xswap 3.9G   0B   10
-> xswap1 xswap 2.3G   0B   -1
->
-> ~# cat /sys/kernel/debug/xswap/type0_cluster_limit
-> 1990
-> ~# cat /sys/kernel/debug/xswap/type1_cluster_limit
-> 1194
-> ~# echo 2048 > /sys/kernel/debug/xswap/type0_cluster_limit
-> ~# echo 2048 > /sys/kernel/debug/xswap/type1_cluster_limit
-> ~# swapon
-> NAME   TYPE  SIZE USED PRIO
-> xswap0 xswap   4G   0B   10
-> xswap1 xswap   4G   0B   -1
->
-> 3. under heavy memory pressure tune swap size or destroy xswap device
->
-> ~# stress-ng --vm 1 --vm-bytes 8G --vm-keep --timeout 120s &
->
-> ~# echo 1024 > /sys/kernel/debug/xswap/type0_cluster_limit
-> ~# swapon
-> NAME   TYPE  SIZE USED PRIO
-> xswap0 xswap   2G 2.6G   10
-> xswap1 xswap   4G 182M   -1
-> ~# echo 1024 > /sys/kernel/debug/xswap/type1_cluster_limit
-> ~# swapon
-> NAME   TYPE  SIZE   USED PRIO
-> xswap0 xswap   2G   1.4G   10
-> xswap1 xswap   2G 315.4M   -1
->
-> ~# echo 0 > /sys/kernel/mm/xswap/destroy
-> ~# swapon
-> NAME   TYPE  SIZE USED PRIO
-> xswap1 xswap   2G 1.1G   -1
->
-> I tried create/destroy and grow/shrink xswap device under heavy
-> memory pressure, all passed.
+> +
+> +/// Threaded IRQ handler for the GSP SWGEN0 event.
+> +///
+> +/// The top half clears the GIN leaf and reads the falcon SWGEN0 latch. =
+The IRQ thread drains the
+> +/// GSP-to-CPU message queue, which takes the command-queue lock.
+> +#[pin_data]
+> +pub(crate) struct GspInterrupt<'a> {
 
-We have something that has performance benchmarks, including on a
-real, production workload:
+This type doesn't need `#[pin_data]`. Its constructor can also return
+just `Self` - you will just need to wrap its call as a parameter of
+`irq::ThreadedRegistration::new` into an `Ok(...)` to make it happy, but
+it's simpler overall.
 
-https://lore.kernel.org/all/20260825153238.2695446-1-nphamcs@gmail.com/
-
-And somehow, we decide to implement a different data structures,
-without concrete numbers to show that it is more efficient than xarray
-(only intuitions)?
-
-At the risk of sounding like a broken record - I have to ask: why
-don't we land use case first, optimize later? Especially since, we
-have data showing that performance is fairly close (better in some
-aspects in fact), AND users who do not want to risk it still have the
-old code and can do A/B testing before they decide to switch?
-
-A lot of the complexity in this patch series comes from the fact that
-you don't get a lot of what xarray gives you out of the box. Which is
-fine for an optimization, but I don't see any A/B data to compare?
-Doesn't that sound like pre-mature optimization?
+I'll stop here for this revision - I suppose there are more minor
+things, but it will be easier to discover them with the bigger cleanups
+applied.
