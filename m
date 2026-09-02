@@ -1,190 +1,101 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8586D42FCA9
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:57:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D3384322E1;
+	Wed,  2 Sep 2026 09:57:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788343069; cv=none; b=M+45iJjo3HpuRD4UfhubE3kxE8m+aAiBMjfMg5Xr+ZC7NOefXoSmzwsc7oOXKpMSflOVAP1/YRhZ0YIk+nfe6x0Y306tcvd47AGr70Xjx4UjN9Q6j+WnqdoeVGYVTHIeVYHaA995stYC8mjqOR2UVuFdjsqW0jlG5wdhelOimIQ=
+	t=1788343071; cv=none; b=WUDjxzTUl7+b2wnn8OPTNulP8gGhpUm8GMhxuW4aCrZF2OKwBLWiPdTrDecMNNTdjXesPg0zLDrlhh6pt6DzouLB5Qgck6jekVoeOYZDRl67keHu7jnZhbDc/6kedDOGBNxmJJ0+tmsxnLA3qvvvsWjivFbl4zuMl1PI9NIo49A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788343069; c=relaxed/simple;
-	bh=wCstbV9bNtWGDbgW8FKQ9+urva+r4J4zQUILUT5ok8U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pF6S1M6ASBYOP6JioLSkBzXebB+4BJIWx9qqPyYscJg5GiNTnh9qpGaMKoXIrREWHCIFErRIRaUuw41JhIY2zztHgQlfNKnGQcm22BswBizeUx4DiH03s8zLL2rS6L14esUTLvSPZzmBbd18RL3TqjdE4DTr1hpVY+s2A0RI6V8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=1vqY+pgY; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788343071; c=relaxed/simple;
+	bh=FmPs1AaC4HTx+4ATgO0Atnqy8ii7miSREtPj7fQifn8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LLKFuC61S27mepvkLVYyor7lG6WbzMUe5Ry1kBzn5Uo1Ew5J+SH2da0i8dI5QOuffa82LlMF1cb+Dn0+oz7hIT5ujmJ8mosROPXNys5ODplAQSLhhklC93jmS1gHCla8z2sgDQElOzeq/80vkRDYpF6Po+h9CU6Fro/J72SHWaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ViFJ1IU2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="1vqY+pgY"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 837034E414CE;
-	Wed,  2 Sep 2026 09:57:45 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4F6E76053C;
-	Wed,  2 Sep 2026 09:57:45 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 972D611C79321;
-	Wed,  2 Sep 2026 11:57:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788343064; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=BlT4DlPDgE82qA3Y46UcHC0kXIZUrf5Dya5wq4mWlu8=;
-	b=1vqY+pgYs9WMcy7HdEVlKB7LoCtsYChJ85A0+/sp922fVp9I8+PYj97t87qHmnX2F4E3WA
-	LylUQIwCjjnWznWHAfSLdz6xJExpF4wdGKyf8R9s9Bt8sZyQ0yWnJ9t3muDfoaErmzBlqm
-	EGOwpjEHVKgcLg26xwm6ZMqOJvacXPNjVBniEZvAfgglLIjv7nbCNzcyYvucB+FIEAbJmk
-	XRDwv3G27RpUzzKN0DD4Gaoi0C8nZNgm1xpX3ecYD94RbgR18wZ0KoAPIual2KaczuUrxy
-	fleZvbA2ZDyuyyv8KlYUgka4LJdjFMjS7a6BdunUNhpmbf/0DRe+reCeVxRhIw==
-From: "Bastien Curutchet (Schneider Electric)" <bastien.curutchet@bootlin.com>
-Date: Wed, 02 Sep 2026 11:57:32 +0200
-Subject: [PATCH net-next v2 02/10] net: dsa: microchip: add the number of
- periodic signals to chip infos
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ViFJ1IU2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B53A1F000E9;
+	Wed,  2 Sep 2026 09:57:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788343069;
+	bh=q+9hqza9dyhnBNhxd9WKxgckCAvxjsSs3YHiVEje4Jw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ViFJ1IU2hH+2KHfYSGYtdUuc6hr9bUXkkeevJoRiXmLoNI06xgV/lhgRnrzS/tdLE
+	 IUOfrv20g1snbWGfh+mCHI2mnejYiVSRR/9nDB3YddowNbAlJPLBFhSryDS4HZUC0A
+	 DWbsM+NrjVqyk5nbIxwEmcHuxrGpvQtj/D88MU3+L8RdsGkJBykbujIrqmqLu/2WOH
+	 OqeqhfpnmsqbzPs8qvi9zrUd8yWMn8lgGtvttwPMps1l1BSyYxrp4q+nSDeM/UcKGL
+	 IRP3bhY6oSgMKVLBdQ0IiMnMdTeKAbLmdb5OG48RWeVDUbQmNJP8FfM9YFOJT8d8ko
+	 62UARpYSIbY7w==
+Date: Wed, 2 Sep 2026 10:57:44 +0100
+From: Lee Jones <lee@kernel.org>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Vincent Donnefort <vdonnefort@google.com>, stable@vger.kernel.org,
+	mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
+	mathieu.desnoyers@efficios.com, kernel-team@android.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: STABLE REQ: [PATCH v5 06/10] tracing: Fix subbuf resize races
+ with trace_pipe_raw readers
+Message-ID: <20260902095744.GN2943942@google.com>
+References: <20260813131152.3589632-1-vdonnefort@google.com>
+ <20260813131152.3589632-7-vdonnefort@google.com>
+ <20260901123444.GA1350131@google.com>
+ <20260901094656.487b278f@gandalf.local.home>
+ <20260902082717.GM2943942@google.com>
+ <2026090230-entryway-acquaint-d12e@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-ksz-perout-v2-2-6f277fcc9e68@bootlin.com>
-References: <20260902-ksz-perout-v2-0-6f277fcc9e68@bootlin.com>
-In-Reply-To: <20260902-ksz-perout-v2-0-6f277fcc9e68@bootlin.com>
-To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
- Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Richard Cochran <richardcochran@gmail.com>
-Cc: Pascal Eberhard <pascal.eberhard@se.com>, 
- =?utf-8?q?Miqu=C3=A8l_Raynal?= <miquel.raynal@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- "Bastien Curutchet (Schneider Electric)" <bastien.curutchet@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2026090230-entryway-acquaint-d12e@gregkh>
 
-The number of periodic signals available is hardcoded to 3 while
-KSZ8463 can produce 12 different periodic signals.
+On Wed, 02 Sep 2026, Greg KH wrote:
 
-Add an n_per_out attribute to the struct ksz_chip_data to make this
-setting configurable.
-Set it to 3 for all the PTP-capable switches.
+> On Wed, Sep 02, 2026 at 09:27:17AM +0100, Lee Jones wrote:
+> > On Tue, 01 Sep 2026, Steven Rostedt wrote:
+> > 
+> > > On Tue, 1 Sep 2026 13:34:44 +0100
+> > > Lee Jones <lee@kernel.org> wrote:
+> > > 
+> > > > Could we have this applied to Stable please:
+> > > > 
+> > > > 8a5f63637890 ("ring-buffer: Fix subbuf resize race with ring buffer readers")
+> > > 
+> > > It's marked for stable so it should automatically be backported (if it
+> > 
+> > Where was it marked for Stable?
+> 
+> It has:
+> 	Cc: stable@vger.kernel.org
+> in the patch itself.  It is in my queue to get to, along with over 1000+
+> other patches that people decided to tag for stable and yet wait for the
+> -rc1 merge window to get to Linus.
 
-Signed-off-by: Bastien Curutchet (Schneider Electric) <bastien.curutchet@bootlin.com>
----
- drivers/net/dsa/microchip/ksz_common.c | 10 ++++++++++
- drivers/net/dsa/microchip/ksz_common.h |  1 +
- drivers/net/dsa/microchip/ksz_ptp.c    |  2 +-
- 3 files changed, 12 insertions(+), 1 deletion(-)
+Am I losing the plot?  The patch that I replied to [0] did not Cc:
+Stable.  If it had, I wouldn't have made the request.
 
-diff --git a/drivers/net/dsa/microchip/ksz_common.c b/drivers/net/dsa/microchip/ksz_common.c
-index d01fba253af5..041bb4f96365 100644
---- a/drivers/net/dsa/microchip/ksz_common.c
-+++ b/drivers/net/dsa/microchip/ksz_common.c
-@@ -1195,6 +1195,7 @@ const struct ksz_chip_data ksz_switch_chips[] = {
- 		.wr_table = &ksz8563_register_set,
- 		.rd_table = &ksz8563_register_set,
- 		.n_pins = 2,
-+		.n_per_out = 3,
- 	},
- 
- 	[KSZ8795] = {
-@@ -1416,6 +1417,7 @@ const struct ksz_chip_data ksz_switch_chips[] = {
- 		.wr_table = &ksz9477_register_set,
- 		.rd_table = &ksz9477_register_set,
- 		.n_pins = 2,
-+		.n_per_out = 3,
- 	},
- 
- 	[KSZ9896] = {
-@@ -1547,6 +1549,7 @@ const struct ksz_chip_data ksz_switch_chips[] = {
- 		.gbit_capable = {true, true, true},
- 		.ptp_capable = true,
- 		.n_pins = 2,
-+		.n_per_out = 3,
- 	},
- 
- 	[KSZ8567] = {
-@@ -1585,6 +1588,7 @@ const struct ksz_chip_data ksz_switch_chips[] = {
- 				   true, true},
- 		.ptp_capable = true,
- 		.n_pins = 2,
-+		.n_per_out = 3,
- 	},
- 
- 	[KSZ9567] = {
-@@ -1620,6 +1624,7 @@ const struct ksz_chip_data ksz_switch_chips[] = {
- 		.gbit_capable	= {true, true, true, true, true, true, true},
- 		.ptp_capable = true,
- 		.n_pins = 2,
-+		.n_per_out = 3,
- 	},
- 
- 	[LAN9370] = {
-@@ -1652,6 +1657,7 @@ const struct ksz_chip_data ksz_switch_chips[] = {
- 		.internal_phy = {true, true, true, true, false},
- 		.ptp_capable = true,
- 		.n_pins = 2,
-+		.n_per_out = 3,
- 	},
- 
- 	[LAN9371] = {
-@@ -1684,6 +1690,7 @@ const struct ksz_chip_data ksz_switch_chips[] = {
- 		.internal_phy = {true, true, true, true, false, false},
- 		.ptp_capable = true,
- 		.n_pins = 2,
-+		.n_per_out = 3,
- 	},
- 
- 	[LAN9372] = {
-@@ -1720,6 +1727,7 @@ const struct ksz_chip_data ksz_switch_chips[] = {
- 				   false, false, true, true},
- 		.ptp_capable = true,
- 		.n_pins = 2,
-+		.n_per_out = 3,
- 	},
- 
- 	[LAN9373] = {
-@@ -1756,6 +1764,7 @@ const struct ksz_chip_data ksz_switch_chips[] = {
- 				   false, false, true, true},
- 		.ptp_capable = true,
- 		.n_pins = 2,
-+		.n_per_out = 3,
- 	},
- 
- 	[LAN9374] = {
-@@ -1792,6 +1801,7 @@ const struct ksz_chip_data ksz_switch_chips[] = {
- 				   false, false, true, true},
- 		.ptp_capable = true,
- 		.n_pins = 2,
-+		.n_per_out = 3,
- 	},
- 
- 	[LAN9646] = {
-diff --git a/drivers/net/dsa/microchip/ksz_common.h b/drivers/net/dsa/microchip/ksz_common.h
-index c678fc6597dc..1155b39350c2 100644
---- a/drivers/net/dsa/microchip/ksz_common.h
-+++ b/drivers/net/dsa/microchip/ksz_common.h
-@@ -140,6 +140,7 @@ struct ksz_chip_data {
- 	const struct regmap_access_table *wr_table;
- 	const struct regmap_access_table *rd_table;
- 	const u8 n_pins;
-+	const u8 n_per_out;
- };
- 
- struct ksz_irq {
-diff --git a/drivers/net/dsa/microchip/ksz_ptp.c b/drivers/net/dsa/microchip/ksz_ptp.c
-index c92936bf78d3..f80015250e5a 100644
---- a/drivers/net/dsa/microchip/ksz_ptp.c
-+++ b/drivers/net/dsa/microchip/ksz_ptp.c
-@@ -1051,7 +1051,7 @@ int ksz_ptp_clock_register(struct dsa_switch *ds)
- 	ptp_data->caps.enable		= ksz_ptp_enable;
- 	ptp_data->caps.verify		= ksz_ptp_verify_pin;
- 	ptp_data->caps.n_pins		= dev->info->n_pins;
--	ptp_data->caps.n_per_out	= 3;
-+	ptp_data->caps.n_per_out	= dev->info->n_per_out;
- 
- 	ret = ksz_ptp_start_clock(dev);
- 	if (ret)
+  From: Vincent Donnefort <vdonnefort@google.com>
+  To: rostedt@goodmis.org, mhiramat@kernel.org,
+  	 linux-trace-kernel@vger.kernel.org
+  Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com,
+  	 linux-kernel@vger.kernel.org,
+  	Vincent Donnefort <vdonnefort@google.com>
+  Subject: [PATCH v5 06/10] tracing: Fix subbuf resize races with trace_pipe_raw readers
+
+  [...]
+
+  Fixes: bce761d75745 ("ring-buffer: Read and write to ring buffers with custom sub buffer size")
+  Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+
+> It will get there eventually...
+
+This wasn't an urgent request or a request to expedite.  Take your time.
+
+[0] https://lore.kernel.org/all/20260813131152.3589632-7-vdonnefort@google.com/
 
 -- 
-2.55.0
-
+Lee Jones
