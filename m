@@ -1,190 +1,216 @@
-Received: from sonic310-30.consmr.mail.ne1.yahoo.com (sonic310-30.consmr.mail.ne1.yahoo.com [66.163.186.211])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 048F52F9C37
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:51:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=66.163.186.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB31372ECA;
+	Wed,  2 Sep 2026 17:52:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788371515; cv=none; b=L4o4cp5bZTvt7UGHHOPz80Zvl3l2s5dpEByKME7VS60R972CB5gGAuxSKvndgB1MGJQIEHFjJGFwwP1qwYgKiwAZ8T285kSlVEh36Caf9ZmiHDGDXNwmij6Tdg7/760dqQ4kyarDBU5+vwtwi6mKCt1fwRBVGCRFr+jO3w0Scgc=
+	t=1788371541; cv=none; b=WLFJQxKeEUFffBOp2NBRY5JEgdloXHqqyZYt7tD+9+l5nhldhVjj1qvN1QXJbPR0dbFHZ3r0DkK77XkokwMp3BgEvB/BbLcHru5vM9Cg44A9DO+cgr1ejqYlPLq3QgMyHuh+khfh6b/rrKrjxUGHXWCsReQm/CcUMqkrkGbhzKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788371515; c=relaxed/simple;
-	bh=01NkgqPri9QkZt8yaSdJzejO678xz3mKkHHLIIRZaBU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ugdsmPHe0mIRn79gs4ayiy0h+WhuXQcUy6nWeDW/4mnb7Tn8aNNJU0siFCfNbZTTkOzFC1AR4vj2TJcyl+VtW28H3UwpH5p7GM2WdrOV1s9LcxphpxIGZ4kNpttP79HK47x/A4KE6HGP4AVLf6sNSBPb5EGqOn2Z/3u2vLV48sg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=schaufler-ca.com; spf=none smtp.mailfrom=schaufler-ca.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=lUhZw/xA; arc=none smtp.client-ip=66.163.186.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=schaufler-ca.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=schaufler-ca.com
+	s=arc-20240116; t=1788371541; c=relaxed/simple;
+	bh=1yFTXr3FakOW4n307MMxxE6owyWUX9ZHF4bTdcczcDc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FYwbEn4xiRKtY+/iQ7lsldJ64/4g4avxAKUlIQ90sbJAQrSBgBrnimB4SNsJPJfsYBhSbkFHxipYGuvO7Mb75qtS7QuqJXtVywn1QogmXu80orCFwD8BIKodC350H0HKG3wz9IyQTSiwfIj+A7Tj4VMOrUpuiI2GlVwzhGTvsAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=hv/Gdkwl; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="lUhZw/xA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1788371506; bh=gxFsNRHXXLDwPQyvTSmN22wePZIGILSYZV1ZgD67Y3Q=; h=Date:Subject:To:Cc:References:From:In-Reply-To:From:Subject:Reply-To; b=lUhZw/xAhamUj5gXhYnjtXvQP9DPt331BaDVNTmXtFt717keYzG355M0GqRwZhTdjhLLNgjgLlxvQPMaLEOFZucy0oWM6xE4HU2WukjWc5xXjlaJv2m7VBTM3Uvq/Y3LhuGnyeJzrxSVVIYj2XuCP97rAwH4eHX1jIW9hkccEO/ymYOh6URhLkkwvQ6dyYjLIAP0Ql8cwF3p63WC1BBxomJ4JBFL4qvhrVUNjcVfmt5FUNq8AkpqUtwaK6olhGx2sqBLdCTMdTCKOro23tIFP5tsodRnXoCseBvMj1ZaC9rdglbCSwxRXO6wOv5Koq8wyujFkJx67EUx+bsUdvX2rg==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1788371506; bh=Bt9vHBpXIdOR2+BLZxcPit/xrxbEz3TjLATb0a1XYie=; h=X-Sonic-MF:Date:Subject:To:From:From:Subject; b=MudORhLPehutG8Ew8IQm0BW6a+on/g0nSzH0khBa4SbMnCCGT7PWQ5lQCGKo6UduVzGmeTAYJLIJ52/V2ZaHKWeG3q4QGnRv3Eb9ezegjXHWe5tah2jWSAH7gXgPe/GxChWKuaXWoyBheoXGT7OhLN/qXRF87k1B12CK8Uw4GJRt++vEMPt+kEoC6RTguyq/UGjVCR+b/fLbuLKm5BePXQQDkIbAlz9z6XdWdKHDTus9Kv2LS434VRf9roknibNfCONiYF+U3orVpCdZ5ubREzFgBuTR7ssOnaekaBDFMUXY+JQeW2FZhl78NipRVKVDVaeQRgv87vSVc6JC0h/9nQ==
-X-YMail-OSG: f5eTvrAVM1m6N.3lr8gB0_BLRtAL9nxzWg4FkZ9CR4WaB5DGbQomPpLFZQ85Xe4
- YfHe0CM0a4H3jucJl6ExfnjeG3o2IMfLolc3rZPLLcUVgCYtdBtrkHOfLAg0TDAdTPVTn3PkKJYE
- 4Xsa..qINRIzrl2BnDpipZgH_p5PrVBciMr66yF6jYFg.lLSQBDYJ1r58HUXinXgGiWxP8qoS4Xc
- T2P_f61SpCQGM3TJFLBbI88pEPwlCayzwt2EL4Bl1vypoxgoiMVObCXy6NrRW.2P7fYkCuQQZqgY
- HgW9eE9X2_rfTKqXMClnMSOJqHgRSCtf7HNNiJoVQx7xF.lRs1wzyPwSqqSEkQQxxY5j9uM74N4M
- AkMzk3M.lbSnfWVO0hPvme4AhE0lh76tVz2vycPJA10eNc9_iK3TiwppMmkrO65dbmg5F2Lup6dm
- HyIp9uUkEGjsYpdboIo15mYrFwtRCgX4eBxEOJlRAwVkYpXnrVv.eBaC60lJoNMrsVy98s4OOhNE
- PMkHOQeC6MjNciLtjsHHlrKJD.Nd3txmT9vxqOhU7RmFbeRH0uPhOja.xAl8ShAg2zgIr2Ybu0qw
- eoYJqovHOwcr5aPLrb0Mh0T1y5.HYIPG4Y_1hIUB0e_S0_OLw6ez2nPzQDeAHD8GgjXsnb14jW7f
- 7lVqj0REaN65I3gfseRMiHZQVaxAKYo3haeTsgBt6c0wXTL0j.mGEwGwuN8oMTedRvz8uftq_OJc
- ks8lmMIIUPt0sAx.X3JxAZ7LYqfP2Hsp1ICgyHo5m8ORBSu3sOI2Pwdbu8WgS0ENq7tdHSdsTd0O
- cZ3zREMP9X7nZuNKXE2gVgvqnx_L4QwRTdT3HTvftMDT74bSbC8DFqd2i0mc7xBiKG8wqJi61R__
- xbdnJ.AtPMdsrndb0c20gO4TwUOYlngsHW1Cd26iL8HztcLkY9KBpOLZgcl10oJ3p2elHXkNEyZd
- KRIPCijKcJ5VLNMjsujUbsk5SJJnVhxnDKr5eDnzeRc4SMKbDhrFZTqn.ZgT5wtxyBD5NcZ.FROt
- IZiaMxcvY1NrDGtcH5bu3jEc6PPU_aNZw7Pnpsrz_T97pZjRvhDz0iOicAPI8OJvlvbctxOQjlKO
- r_8bMDA3SRAY3qwLLHgPZrqmHAqBxr0tB1voZjuuJqimbC.UpnH0p_m3rCh77nHODc1yOOdEYfnD
- cx.aLMXiGYUgK7l_NsrEWF2qVNZieXV0fPB7jNkMrkTNyJealLUiVir18.D4JW0PzjNLSt8eEuAp
- a.HHJEomKbiMz.zO.yenhjnEB5qxCc0BXYaJqZdS8KjDaxh5BAbttFuT7f0wltduh2vn13oxWAmt
- mM9g7CCRqrhtGObxJks8f_vCHrOMkph_0Mm.PjU5a5J_lFbpnUAhiGZM3S5IDobNQXEYHHFsumFV
- e26zRS5iC4ZPlBJ.u0Khhhj018wx_jHX3IzAW80SoKBJkf1r3NXr60SH2Ff320IoENQ4dPqgdcFf
- hAPX73rShL2wEDXwSvWL62uAEU.1EWlwqeLlmCd15qlw6eDHFV2Dvu2ktYP6MGKu9sUvRHjVy_vY
- Py0615tZPeTcE4C1X8qO07mQIfnkrPii57EXPlhfeWWOfsidAMCurDv.UTbYVqjA0nun_ZxOTVQI
- XgWJsprh6mjdBVHjmTGzuSKbBqhIdiQ.RlkFLBk6i0VKTHmHvUxy5PRHOzjAVwXhitxXzPXdwe4P
- 9zuEv7ARZmGIjU199YjErafVxheZwF6uOrZwK_vyCRWCbxVatZk3vXmj6MNSvmDTxLpymLL_gJ00
- RtvQ5RzMAK7FKYhTCe35jXn_6E4HHOWAV.W7T8SlC7CBjF8HdgcsCKo72Zj5.KEP2CMBlPPKLN_p
- r_sG0ZfJ5XYnc02DNfFMBiFWuJhMdFUnwa5PsbWDlarB6N1kZuav91KhkfuC8VqXrhOsN9YnrCmu
- ZbTQlwkY2Sjkly3Qgk2EmdrrgJLwjhJeqQuU2coAn7Hv6Jzonr5faFWzF5OmYyZHXa42wtjb9rbC
- SEgeiTbOPVO63zk6MfqRZwculCD8NUAVDt4XaCfS2M9F6Hog.1m6WnKXsY2kP7fl3A8_EPr1NfXy
- 9IFaf6kNBLGBWDvOOkHoqVk9klKQtV98vM6OYlXk4QopwACFDmmYfYCDdtjXoTc.hCkIOFz1LPwj
- NwFoTdnxXvws7jbSlWw0ZjCegX40.vEKpB3l3opBM7aQkhvBNtDO_It49Ad4M2bn2Z6l_ha3lX7C
- QLjnUaGbGR.nhUB3j8z0cbSMFxwp4DuHxpj7C60UydsxaPyU_MV9eeVKVPq7txNigHvwZ4OfEy69
- hy1M-
-X-Sonic-MF: <casey@schaufler-ca.com>
-X-Sonic-ID: acc49913-98b6-46d2-91e7-1c67ced76d18
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic310.consmr.mail.ne1.yahoo.com with HTTP; Wed, 2 Sep 2026 17:51:46 +0000
-Received: by hermes--production-gq1-678d9dd684-wb2f9 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 058aaa057072eb9ecb352bc480c66559;
-          Wed, 02 Sep 2026 17:51:40 +0000 (UTC)
-Message-ID: <298197df-1f92-40b8-8baf-8f52a3dcec20@schaufler-ca.com>
-Date: Wed, 2 Sep 2026 10:51:37 -0700
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="hv/Gdkwl"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682HVTgF657513;
+	Wed, 2 Sep 2026 17:51:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=1Kt38hV6jAEseIGwgVdNa4BQtAC3iD
+	yKZSvGEA9UtZg=; b=hv/GdkwlGGl3+b8PAWu2F21+/nmJWroT7uO+aZ8TeKl0cw
+	slAufum0QsXAGipp554vBhibz54eKVl9RL/1Oczg5x6djLsPslvisr7tCDDK5zKL
+	WytPj3iFh9iS39v9RjfhCRHDykNmBOe79QJ8w/mxWpQnT+MiYS+5BPdhSnoaYBem
+	nJMKM/us898hyBoHAa4siz9YJT7XxRGlurGjbQyvhLb3I1Hy2WQsFOuSi5vcCa0b
+	p+AE7KgIPscNnplp/4wyK5Qj3TtjZZmvEpHX1/X14b2zkKyWMJ7dG4IMtB7Z2Nkx
+	Bc/S1hyZWvZAEEiXNtqtSPIlsrvCtLCIrq1uoVZg==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq550f1a-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 17:51:52 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 682HfGGG022064;
+	Wed, 2 Sep 2026 17:51:51 GMT
+Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gcceyb733-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 17:51:51 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 682HplTK46924124
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 2 Sep 2026 17:51:47 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 85A352004B;
+	Wed,  2 Sep 2026 17:51:47 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A9D4120040;
+	Wed,  2 Sep 2026 17:51:40 +0000 (GMT)
+Received: from Gautams-MacBook-Pro.local (unknown [9.124.221.176])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Wed,  2 Sep 2026 17:51:40 +0000 (GMT)
+Date: Wed, 2 Sep 2026 23:21:37 +0530
+From: Gautam Menghani <gautam@linux.ibm.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+        Paolo Bonzini <pbonzini@redhat.com>,
+        Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>,
+        Huacai Chen <chenhuacai@kernel.org>, Anup Patel <anup@brainfault.org>,
+        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+        Albert Ou <aou@eecs.berkeley.edu>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
+        Steffen Eiden <seiden@linux.ibm.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Zenghui Yu <yuzenghui@huawei.com>, Atish Patra <atish.patra@linux.dev>,
+        Alexandre Ghiti <alex@ghiti.fr>, David Hildenbrand <david@kernel.org>,
+        linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+        kvm@vger.kernel.org, loongarch@lists.linux.dev,
+        kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+        linux-kernel@vger.kernel.org, Nicholas Piggin <npiggin@gmail.com>,
+        Ritesh Harjani <ritesh.list@gmail.com>
+Subject: Re: [PATCH 10/20] KVM: selftests: Add a wrapper API to allocate
+ multiple page table pages
+Message-ID: <aphiKWCg25KlTzBr@Gautams-MacBook-Pro.local>
+References: <20260826230511.972824-1-seanjc@google.com>
+ <20260826230511.972824-11-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/15] lsm: Add the LSM policy object lifetime hooks
-To: Justin Suess <utilityemal77@gmail.com>, ast@kernel.org,
- daniel@iogearbox.net, andrii@kernel.org, kpsingh@kernel.org,
- paul@paul-moore.com, mic@digikod.net, viro@zeniv.linux.org.uk,
- brauner@kernel.org, kees@kernel.org
-Cc: gnoack@google.com, jack@suse.cz, song@kernel.org,
- yonghong.song@linux.dev, martin.lau@linux.dev, m@maowtm.org,
- bpf@vger.kernel.org, linux-security-module@vger.kernel.org,
- linux-kernel@vger.kernel.org, Casey Schaufler <casey@schaufler-ca.com>
-References: <20260831145858.3869191-1-utilityemal77@gmail.com>
- <20260831145858.3869191-2-utilityemal77@gmail.com> <apgX1HKQ7b973YV-@zenbox>
-Content-Language: en-US
-From: Casey Schaufler <casey@schaufler-ca.com>
-In-Reply-To: <apgX1HKQ7b973YV-@zenbox>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Mailer: WebService/1.1.26460 mail.backend.jedi.jws.acl:role.jedi.acl.token.atz.jws.hermes.yahoo
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826230511.972824-11-seanjc@google.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE1NCBTYWx0ZWRfXyf1u6IYc2hOD
+ HmvfNvAyUk95t5QTH2cMxetu/We6j+kPbhupTrnpN32bTFIE9LgzFFaTqGwbW8i+M91ngy0nf3T
+ d75TcerHu0AX5C9USa638XqEHCorDcrGEPPQxuZAt/FYpdMWkjZ53+U8QM7+w3FnwAQubENDHc3
+ v0mZHr/vE0g3P42g0/9II1CycQdeeYpkmm9nNOaK/WCI6lOsZtoUhuH7AA1H+0/3+Bo6/ePVNZI
+ hnJ7qsHHVR+SlZkd5HztYKPGKolBj1xd9KF6mSiTyWibiskSw91y4choFbT+a+tWybaumA9wZCz
+ oPlh1XKOrGMaBcIPG7OD7VJyUB582XrkFb+X+DPBPSTmr41DmgEOxTTzhVKU1bORhfdVnKTlrDW
+ uWTE1YpRqfIOMMh27rgNouUkQofz2UcHJOOFO0h5lNr7cv8NaBEz3K9YavAPODXYewFPHNByGQa
+ FM7K7D+YsgzvTitVx8g==
+X-Proofpoint-ORIG-GUID: zFVgvT-7CoBEOwdyuohz2ScoLGnGrE_2
+X-Authority-Analysis: v=2.4 cv=CNgamxrD c=1 sm=1 tr=0 ts=6a986238 cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=1XWaLZrsAAAA:8
+ a=VnNF1IyMAAAA:8 a=HrPU0JxBsmNSCajw4d0A:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: zyQFxHNURnBKOCDEgr-_aVglRkwxlL0R
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE1NCBTYWx0ZWRfX18/ZgHaO/yHW
+ tvDoCM6AE6SUBlOus0tkis5Bm8dqXWffNvgvrRTgTV01YaqcdBOmhtG6aaevlcZ9BlakhmOR8y2
+ YYc12JqwwsAW5Wg/eMTZjZjFz0M+7wA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_04,2026-09-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020154
 
-On 9/2/2026 6:05 AM, Justin Suess wrote:
-> On Mon, Aug 31, 2026 at 10:58:43AM -0400, Justin Suess wrote:
->> Add struct lsm_policy_object, the identity an LSM embeds in a policy
->> object it shares with BPF programs, and the three hooks managing such
->> an object's lifetime:
->>
->>   policy_object_from_fd(fd, &object)
->>   policy_object_get(object)
->>   policy_object_put(object)
->>
->> The object records the owning LSM's LSM_ID_* value.  The BPF kfuncs
->> built on these hooks dispatch each call on an object to the one LSM
->> matching its lsmid, which resolves the containing object with
->> container_of(); the framework never interprets an object beyond its
->> lsmid.  The type field discriminates between the owning LSM's own
->> policy object kinds and is private to it, with 0 reserved as "unset"
->> so a zeroed, untagged object fails every type check.
->>
->> from_fd has no object to route by: the fd refers to a file set up
->> through the owning LSM's own userspace interface, so the fd itself
->> identifies its LSM.  The framework offers the fd to every
->> implementation in turn; an LSM declines a fd that is not one of its
->> policy objects with -EOPNOTSUPP, and any other error is a definitive
->> translation failure.
->>
->> The hooks back referenced BPF kptrs, which imposes the same lifetime
->> contract on every implementation: from_fd returns a reference on a
->> live object, get acquires with inc-not-zero semantics and fails with
->> -ENOENT once the count dropped to zero, put may be called from
->> contexts that cannot sleep (BPF drives it from map destructors), and
->> the containing object is freed only after an RCU grace period, as
->> programs load policy object kptrs from maps under RCU and may examine
->> an object concurrently with its last put.
->>
->> The hooks are excluded from the "bpf" LSM's attachment points.  The
->> object-routed hooks are unreachable there, as LSM_ID_BPF policy
->> objects cannot exist; for from_fd, whose walk visits every
->> implementation, a BPF program cannot fill the object out parameter,
->> so an attachment returning 0 would hand the caller an uninitialized
->> pointer.
->>
->> Cc: Paul Moore <paul@paul-moore.com>
->> Cc: Casey Schaufler <casey@schaufler-ca.com>
->> Signed-off-by: Justin Suess <utilityemal77@gmail.com>
->> ---
->>  include/linux/lsm_hook_defs.h |  4 ++++
->>  include/linux/security.h      | 11 +++++++++++
->>  kernel/bpf/bpf_lsm.c          |  3 +++
->>  3 files changed, 18 insertions(+)
->>
->> diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
->> index 65c9609ec207..d7684407737a 100644
->> --- a/include/linux/lsm_hook_defs.h
->> +++ b/include/linux/lsm_hook_defs.h
->> @@ -452,6 +452,10 @@ LSM_HOOK(int, 0, bpf_token_create, struct bpf_token *token, union bpf_attr *attr
->>  LSM_HOOK(void, LSM_RET_VOID, bpf_token_free, struct bpf_token *token)
->>  LSM_HOOK(int, 0, bpf_token_cmd, const struct bpf_token *token, enum bpf_cmd cmd)
->>  LSM_HOOK(int, 0, bpf_token_capable, const struct bpf_token *token, int cap)
->> +LSM_HOOK(int, -EOPNOTSUPP, policy_object_from_fd, int fd,
->> +	 struct lsm_policy_object **object)
->> +LSM_HOOK(int, -EOPNOTSUPP, policy_object_get, struct lsm_policy_object *object)
->> +LSM_HOOK(void, LSM_RET_VOID, policy_object_put, struct lsm_policy_object *object)
->>  #endif /* CONFIG_BPF_SYSCALL */
->>  
->>  LSM_HOOK(int, 0, locked_down, enum lockdown_reason what)
->> diff --git a/include/linux/security.h b/include/linux/security.h
->> index 153e9043058f..5e423bea080e 100644
->> --- a/include/linux/security.h
->> +++ b/include/linux/security.h
->> @@ -168,6 +168,17 @@ struct lsm_prop {
->>  	struct lsm_prop_bpf bpf;
->>  };
->>  
->> +/*
->> + * Identity of a policy object an LSM shares with BPF programs,
->> + * embedded in the LSM's own object.  @lsmid identifies the owning
->> + * LSM; @type discriminates that LSM's policy object types, with 0
->> + * reserved as "unset".
->> + */
->> +struct lsm_policy_object {
->> +	u64 lsmid;
->> +	u32 type;
->> +};
-> For some clarity:
->
-> lsm_policy_object is just a handle to a refcounted lsm-private struct.
->
-> It can't be forged / created manually because it's a trusted kernel
-> pointer, so the only way to get it is through policy_object_from_fd.
-> And you cannot mutate any part of it from BPF.
->
-> But it's what enables the generic model. Calling it a "policy object"
-> may be short sighted though, that term is heavily overloaded in the LSM
-> space. I don't want to prescribe any restrictions on what an LSM can use
-> it for, after all some LSM have no notion of "policy" at all or have a
-> different meaning for it.
->
-> For SELinux, this "lsm_policy_object" could be an sid, for AppArmor an aa_label,
-> for Smack a label, etc. The intention was to allow writing programs that
-> don't care about any details of a particular LSM.
+On Wed, Aug 26, 2026 at 04:05:01PM -0700, Sean Christopherson wrote:
+> Add vm_alloc_page_table_pages() and use it throughout arch code to replace
+> open coded equivalents.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> ---
+>  tools/testing/selftests/kvm/include/kvm_util.h    | 9 +++++++--
+>  tools/testing/selftests/kvm/lib/arm64/processor.c | 4 +---
+>  tools/testing/selftests/kvm/lib/riscv/processor.c | 4 +---
+>  tools/testing/selftests/kvm/lib/s390/processor.c  | 8 ++------
+>  4 files changed, 11 insertions(+), 14 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/kvm/include/kvm_util.h b/tools/testing/selftests/kvm/include/kvm_util.h
+> index 2525c2cacc22..21354434de0a 100644
+> --- a/tools/testing/selftests/kvm/include/kvm_util.h
+> +++ b/tools/testing/selftests/kvm/include/kvm_util.h
+> @@ -1013,10 +1013,15 @@ static inline gpa_t vm_phy_page_alloc(struct kvm_vm *vm, gpa_t min_gpa,
+>  	return vm_phy_pages_alloc(vm, 1, min_gpa, memslot);
+>  }
+>  
+> +static inline gpa_t vm_alloc_page_table_pages(struct kvm_vm *vm, size_t nr_pages)
+> +{
+> +	return vm_phy_pages_alloc(vm, nr_pages, KVM_GUEST_PAGE_TABLE_MIN_PADDR,
+> +				  vm->memslots[MEM_REGION_PT]);
+> +}
+> +
+>  static inline gpa_t vm_alloc_page_table(struct kvm_vm *vm)
+>  {
+> -	return vm_phy_page_alloc(vm, KVM_GUEST_PAGE_TABLE_MIN_PADDR,
+> -				 vm->memslots[MEM_REGION_PT]);
+> +	return vm_alloc_page_table_pages(vm, 1);
+>  }
+>  
+>  /*
+> diff --git a/tools/testing/selftests/kvm/lib/arm64/processor.c b/tools/testing/selftests/kvm/lib/arm64/processor.c
+> index 01325bf4d36f..2dcaa2c4a038 100644
+> --- a/tools/testing/selftests/kvm/lib/arm64/processor.c
+> +++ b/tools/testing/selftests/kvm/lib/arm64/processor.c
+> @@ -115,9 +115,7 @@ void virt_arch_pgd_alloc(struct kvm_vm *vm)
+>  	if (vm->mmu.pgd_created)
+>  		return;
+>  
+> -	vm->mmu.pgd = vm_phy_pages_alloc(vm, nr_pages,
+> -					 KVM_GUEST_PAGE_TABLE_MIN_PADDR,
+> -					 vm->memslots[MEM_REGION_PT]);
+> +	vm->mmu.pgd = vm_alloc_page_table_pages(vm, nr_pages);
+>  	vm->mmu.pgd_created = true;
+>  }
+>  
+> diff --git a/tools/testing/selftests/kvm/lib/riscv/processor.c b/tools/testing/selftests/kvm/lib/riscv/processor.c
+> index ded5429f3448..c175dcd14114 100644
+> --- a/tools/testing/selftests/kvm/lib/riscv/processor.c
+> +++ b/tools/testing/selftests/kvm/lib/riscv/processor.c
+> @@ -69,9 +69,7 @@ void virt_arch_pgd_alloc(struct kvm_vm *vm)
+>  	if (vm->mmu.pgd_created)
+>  		return;
+>  
+> -	vm->mmu.pgd = vm_phy_pages_alloc(vm, nr_pages,
+> -					 KVM_GUEST_PAGE_TABLE_MIN_PADDR,
+> -					 vm->memslots[MEM_REGION_PT]);
+> +	vm->mmu.pgd = vm_alloc_page_table_pages(vm, nr_pages);
+>  	vm->mmu.pgd_created = true;
+>  }
+>  
+> diff --git a/tools/testing/selftests/kvm/lib/s390/processor.c b/tools/testing/selftests/kvm/lib/s390/processor.c
+> index fb9dab92d4d1..33f49d743b5f 100644
+> --- a/tools/testing/selftests/kvm/lib/s390/processor.c
+> +++ b/tools/testing/selftests/kvm/lib/s390/processor.c
+> @@ -20,9 +20,7 @@ void virt_arch_pgd_alloc(struct kvm_vm *vm)
+>  	if (vm->mmu.pgd_created)
+>  		return;
+>  
+> -	gpa = vm_phy_pages_alloc(vm, PAGES_PER_REGION,
+> -				   KVM_GUEST_PAGE_TABLE_MIN_PADDR,
+> -				   vm->memslots[MEM_REGION_PT]);
+> +	gpa = vm_alloc_page_table_pages(vm, PAGES_PER_REGION);
+>  	memset(addr_gpa2hva(vm, gpa), 0xff, PAGES_PER_REGION * vm->page_size);
+>  
+>  	vm->mmu.pgd = gpa;
+> @@ -38,9 +36,7 @@ static u64 virt_alloc_region(struct kvm_vm *vm, int ri)
+>  {
+>  	u64 taddr;
+>  
+> -	taddr = vm_phy_pages_alloc(vm,  ri < 4 ? PAGES_PER_REGION : 1,
+> -				   KVM_GUEST_PAGE_TABLE_MIN_PADDR,
+> -				   vm->memslots[MEM_REGION_PT]);
+> +	taddr = vm_alloc_page_table_pages(vm, ri < 4 ? PAGES_PER_REGION : 1);
+>  	memset(addr_gpa2hva(vm, taddr), 0xff, PAGES_PER_REGION * vm->page_size);
+>  
+>  	return (taddr & REGION_ENTRY_ORIGIN)
+> -- 
+> 2.55.0.887.g758fc8c411-goog
+> 
 
-Why aren't you using an lsm_prop pointer? What if the operation you're
-planning to perform is relevant to multiple active LSMs? Today you can't
-use SELinux and AppArmor together on an upstream Linus kernel, but that
-should be changing sometime this decade.
-
+Acked-by: Gautam Menghani <gautam@linux.ibm.com>
