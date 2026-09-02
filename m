@@ -1,147 +1,243 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 64DDD1B6D08
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 04:39:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788323945; cv=none; b=ZoC9Iua977tmgb3xmzD6tuP0GR0K3MUJDhjSHYCDHVM/6h5Un5Ko+GpEI5jM2JRBkRF+wPyS1bHTzwjJOGG9NE5kHT0Ys9bOXfa74aSXD8yXJlJSNIEqYg7jBHtB2qHIHMS3SbKg7CsCBdnY3UICiUN1mqojmP0KncjNwAbjKpA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788323945; c=relaxed/simple;
-	bh=lsYDvIHWzI7Z9foYuzRf+3oBreuXwlUShNlsSn4ADPM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YN4Ms+0it8RWo5QYxrgtMgd8eUCGUbkMQsor6rsOgRyovbmKtheat1oPOHo6AnQNEo1P0C5Jsyc3V3ZKrIiiTf2zovam0J7HdU9Yg1lrXYaOqS2x7dgNAvmQGI4ap5E6La2hNmGYuM/KuS4KLmwG/BBaHV8Kj5bvYfPsSHCDw7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=uL0K6Pk8; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012066.outbound.protection.outlook.com [52.101.48.66])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3EBC1B6D08;
+	Wed,  2 Sep 2026 04:39:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.66
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788323952; cv=fail; b=s2JAoWuD554coPC6g+VpOCO4rcBczbZQJos4Mb20Z5xOSJkersCIfWRb+o/B7/swEwrewvoai+S8pcvL9U+23nd1mcmJtVLuQ/nIQkvSKExDs2HUwE+M6e2Y7+gp/JCb+utY7tUuJUpLseEvw64KXyRIAvC6vDdOCES6ga3FNzo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788323952; c=relaxed/simple;
+	bh=il+t2pkPPUktYxYHPGGzYI/qkLqmOVY3v3Ky3f7oyYg=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=PZhRdkQbeHGxEaZilbiTZOiOB1gQacCjVTBEz2VS7CK5QkN2P4MIMl5vzld4379FzG48/x3JaqsRhKDG+hBDd/c7Hi6MsTztdJQCP6g0WTS8bLtFsfpbMfLnNnbGo5lRneS6V8AiyIr/QP34Vz56OYGsttw2eheaVBhF5gYv460=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=afW5gdVR; arc=fail smtp.client-ip=52.101.48.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="uL0K6Pk8"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 78ADE1596;
-	Tue,  1 Sep 2026 21:38:58 -0700 (PDT)
-Received: from localhost (a085714.arm.com [10.164.19.28])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7692D3F7D8;
-	Tue,  1 Sep 2026 21:39:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788323942; bh=lsYDvIHWzI7Z9foYuzRf+3oBreuXwlUShNlsSn4ADPM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=uL0K6Pk8Tssm6JHp0t8VZ4HINef7UJdYngfT3+Wl0ltc3Z0oEPcirHdU2lPXKwQTH
-	 Fdq8I9j6i/SHqQ7ILgZ9Bm2Fk1YEoHiN9nlM0NIl7tfOIEzvCErbM5DC0yL0MukMlF
-	 U+5WcylKG0URS5kCkwvLgmPSmzaOPqyRsyPuy6NA=
-Date: Wed, 2 Sep 2026 10:08:58 +0530
-From: Anshuman Khandual <anshuman.khandual@arm.com>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, linux-arm-kernel@lists.infradead.org, 
-	Ryan Roberts <ryan.roberts@arm.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Muchun Song <muchun.song@linux.dev>, 
-	Oscar Salvador <osalvador@suse.de>, David Hildenbrand <david@kernel.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: hugetlb: fix BBM for mprotect() on contiguous PTEs
-Message-ID: <xwyaihtgvjonk4wqmllsnzkq2ch63bhfzmvh6353ds6tpjuaww@lmu7ltps4il5>
-References: <20260901131823.15799-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="afW5gdVR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UMOICXM86u6PArFRP/v9suSKC6kmnid1jku8t9n0ursMAcTx5QzlcbgHOS591JTzQ7pAfIWSQNYLRWMhIC2gMVdhWgZDKDKupSvvaS2dfJn/XUaNlBZw5nz2uWoWruR48PBAB/dO0MBaOCECd08FDHcJp0e3kriH4t0YRRG9eTKNCd3hsObp61ECzkI2hr+u2t1TvDB4CjRyPBituwZ1/Tw9TvNuOigBWy2coQTMAMYsgKMNcBOtrMjjwlRgZ1giOzlZ709DKdyQRbANaPf9tZlb5VcfL2tgO3W+soPyuTJj3c+yzUv0VRbJKUUn5qqW0P97snaREmzcwYWcLaJhEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/1va3lBMVO1YPnDIJ7jw6qiuQm1pGwr9A+3+2vr6JKk=;
+ b=irpA8/9oNBFEe0pD+/MH0oOP1hlbsJPPpnzukqbsMqeIP6x4WhUxbvKqqGiicilLkmnIQtRxX/g4A1zr4q9D5DTRwaHExRz1DyDgxXtRs/HBB83TjYfUMyyY/0WJO/bTkYRcjS8SQqiPpfQbbW2sMIDO/4kVLzBvMT/00r7NKy5KjK4b90qny93nSEaFhRm6YnEt+epbQNJkRuw0qHoFUOJe6j0Lu+t9ucwUmlNvlRRq6yuLoHZm5YFkEIXURwDfxTwIiQ6h6M4m5ipgtaIwgjUwPQNjy72UjKJRlfI48GFS2U82EkRfbJNNcZ4e7p1DAeXDq4+tEI3C10/ujwhJQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/1va3lBMVO1YPnDIJ7jw6qiuQm1pGwr9A+3+2vr6JKk=;
+ b=afW5gdVRtNoF3IOsQqF65F74lrc25jRr+ukU1CFmgpcBvg0qJLq3NZ7Jpu23DYkl7ufapOrtZs5g0lUvvTQvjem6qMHoQy6KP93sAZ89bIHxKxP7OtSmRcZAdzzV0yAvZKAtiR5ED7eEr7Z20RUdgWJMkp+B/EuKlqZ5opQmsAipZHCjoLK2+wjC66rjz6vqeTUZ06Y4VWfvl+kC2ClbHd4b3oU3b+DGKlPagPsHJUPu/7PmH7AGpH21+3mFacTEbVHa/7CHfFvgPWJqlO/05sIV2HiPaNvBI5TAu32QOkpFdl3DtIAplxkDp4tmIbPzP/FWu0T92Q0hOoPlz6SecA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS7PR12MB9474.namprd12.prod.outlook.com (2603:10b6:8:252::17)
+ by IA5PR12MB999326.namprd12.prod.outlook.com (2603:10b6:208:608::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 04:39:07 +0000
+Received: from DS7PR12MB9474.namprd12.prod.outlook.com
+ ([fe80::31ad:931:ef07:8ad7]) by DS7PR12MB9474.namprd12.prod.outlook.com
+ ([fe80::31ad:931:ef07:8ad7%4]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 04:39:07 +0000
+Message-ID: <95385898-6e8b-4eef-9135-23605feea614@nvidia.com>
+Date: Tue, 1 Sep 2026 21:39:05 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 07/12] cxl: Validate HDM ranges before CXL reset
+To: Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
+ Ira Weiny <ira.weiny@intel.com>, Jonathan Cameron <jic23@kernel.org>,
+ Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
+ alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
+ Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
+ Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org
+References: <20260804192958.1823952-1-smadhavan@nvidia.com>
+ <20260804192958.1823952-8-smadhavan@nvidia.com>
+ <2b6302e6-18e6-42de-9489-014c4beb25c4@intel.com>
+Content-Language: en-US
+From: Srirangan Madhavan <smadhavan@nvidia.com>
+In-Reply-To: <2b6302e6-18e6-42de-9489-014c4beb25c4@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SJ0PR03CA0194.namprd03.prod.outlook.com
+ (2603:10b6:a03:2ef::19) To DS7PR12MB9474.namprd12.prod.outlook.com
+ (2603:10b6:8:252::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901131823.15799-1-kmehltretter@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS7PR12MB9474:EE_|IA5PR12MB999326:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7e1cbdde-1816-49d7-2ca3-08df08ac2020
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|921020|4143699003|11063799006|10067099003|56012099006|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	LOdvFNAPjXNAqmEtNNZC4kCyjYHwshGOwkOeKi1DzqYg809+Fzw9T23rlnAHPWqaEXcO+esY4SoOZ1KaGTEeeYoDscTa1Fb6Lm62iDBRLYj+IqrI+GBb7pM5YJjj9RqtABUvj+rbq83+FPkNPRa+ou9wlV+D9T6ml8vDJleD8chY1WGVhxaFyckw1lb2SLN6XRbgdVkQsuCVX01gLfzS3gXFFJl/jCzAY8BC9oNn7JQHBqzM6uQvomPw3Sh5Wj+2eshBXCR5FQaSwpY8mK9JkvnAHEFBe6AG8D0/xrwPCAV8mMEobgd3CRJWWELae03E3MvKpXDYd7VnBXo8ZDZpBEk1VtlZNpYgpBmFDrGGGq/WjVd+K5GdJHca1XoWl2KqtudaFIt07k4ufDsdvzYEynvK4njTiinddeDIkW2nkC4xD6uAqdamQ7kq5Ggdo5dmRvtZ1Eh7388jx2YO4jB6d2pU/xN/xIqb/6oOI/gBFoSMDnsc2+IVo9TKAU/TkOJFAHdx50wI7THeNcfYzXAPeyi2UispNOvY69m1Ka2JLoef8CkgC+453APBnDpfRXNT2mh+OJuI+7flmYuRsZF9HdZ7XhYvp1bepUnOx0/IV00lZ4M8XYbifDqgrfJprX+kU9lhH4D7u9sOoppI2c+me0rEFvzGLZZ1Y4HmYy1S4FwW3FOtrrRmMR5vJsxcVDKq1jkcDVQXxIt/IBkS5rG4VQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR12MB9474.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(921020)(4143699003)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NnY4OHgyamZlSW1vc2dIejhwRTlVQ0RDQlE2ZlIzSEcvZ0ZpVG5rY2NpNzdr?=
+ =?utf-8?B?Q2FyRExyaHpFMmV0YzJWckNtZ2REcTFuTnI0S1RLRVNYSFpobzhaMUJoK2xr?=
+ =?utf-8?B?Vml5UDAxY2FzVTFvTFliV3hDOENSUmJ6WTFjdHhTRkk5Qm9Kb2pVZFBSY2Vt?=
+ =?utf-8?B?OGdicWR2YU9BL0dESmtzalYzMW9xYU9GbGoxb0g5V0pNcWpVRGtERVQ3UTQ1?=
+ =?utf-8?B?ZnhaZUlLNDJCTVllUks0QnNMd2gzTHFuZXZDdGE3Vzd1eVdhQmZEYUU3WXNP?=
+ =?utf-8?B?QVdaMXhxL0xaVUJ3STU3NEFsZTNHZVU1dVhBdVJkTmo5SERJaU50cFZYaW9t?=
+ =?utf-8?B?ZVpZSi9DQW5iV1g0M0VZdnpnQmhGNldkZDNPMjY5OWxOT1hxMTVHYUtmTWhM?=
+ =?utf-8?B?Z2lERTl2aTExcnBkWlltMnVHNzB2dm5nUFdQa2MrM3psQUFPVEgyMU1sV2k5?=
+ =?utf-8?B?ZEJ5YU5KOU9ZVittdi95MUxlc2hxSjBiWG1rTFk1K1gvdmdMNG5kNnF3VnF5?=
+ =?utf-8?B?dFIrRlVsSlZZeCtUTVZRWFhwVnlITXh2cDR5bzdZWnBmWE9ueXFPNnhkL0xE?=
+ =?utf-8?B?VzU0a2xVZUh0OTdXWnpYZlFtT3NYR2M1WU1DditGNXpMcjYrYUxqWTVMZnll?=
+ =?utf-8?B?KzFjbjUxaUVIV2t1aGQ5WE8vNFg4U1NEKzVYSjVOdC9ZWWJYbjE5RXFqTjZk?=
+ =?utf-8?B?S01sY2ZFNW90cm5lWUxiT2I4NTRZSmZjS3FJcVRYenNUVkN0eEpjWldXZTRh?=
+ =?utf-8?B?dVphNkd6YmorZmJ1clNLaUFGVGliSGFwMmxTTEg0QlpMeFZVUE9oOUlwSVNa?=
+ =?utf-8?B?QWRIRk5JRDcwSlRnbjlvUW9wQ043dkk1NnNtTldXMi9sRm9vUnJTenNBcU5z?=
+ =?utf-8?B?NmtnbXNUcUpiVFJuaVkrcGZRQlZqSFpHQUNsZzI5b2tNY0IxVEFDdE42MFBk?=
+ =?utf-8?B?UnpobjU4cDQxM0RxejFqN2hJSGdqZk5ENlFSdzVYN3ZNb3JWcmZsQXZ5ZzEz?=
+ =?utf-8?B?ZUJuZUQvL0xLOGdZaHB3T1UySFQvbUYvMXRqOVpkVFErZ2RyU3BnSmF6THJY?=
+ =?utf-8?B?cTZ4R1JtdzBRSTlUblNrNnAzMXI2Z3hlZjFtTnhnVDM3YThBRHdGdWxrOW5E?=
+ =?utf-8?B?N3FoOWMvY2VabkNKTmtoNlVmZWdDOFBFNndDK2MvUzYrYjJVaHI5cFBEUjF4?=
+ =?utf-8?B?NnBpeWFiazVVVGZJN3RDVHF2TC9lUjdOK3pubExJQm53VTdONGZuc0k2ckhM?=
+ =?utf-8?B?YkIzSFk1cVllcU40b1czalE4SnBmYTVHblk5TFBJNXpRUjVOZ0RjSDJkZWJm?=
+ =?utf-8?B?WjdtdE4vT2E4SU5XVW1uZk4xck9xT3YveHhXWHh2TWowWlVwZGZEY2ovcVlr?=
+ =?utf-8?B?NkRvWmg1aDNSQ3QwZnpyb0NsNmpRZU1PUm1VRmdPdDRZTmtrN2Z3eFM3ZHhp?=
+ =?utf-8?B?V3ZXaGlCQkVSN3pLS3RUQVZDVDV5WThKdzJTSjMwTGVHQ3Q3UlV6cmg1NU16?=
+ =?utf-8?B?QTVLaTVOMXc2aUZIM3JHQlArNHZoYzJpTVc5Qk15eVQyZTZFdDRjMHk1Uk9w?=
+ =?utf-8?B?bGlqaFFWL2ZuUnRhNlhKenAxRFY4U2pWVXdZbVZnMW1OOWpRSm01dW9BUVdN?=
+ =?utf-8?B?UFhoWWMxallmZGF3V1A3RFBTeGkvZnArTmYyb0VBamtlZFh3bjNmdDd4Nnor?=
+ =?utf-8?B?Lys3aFFnT3kyLzIvNEtkaVY5akZOVFVTcnJsdU44clBqUHowdzA0c1I3ejNu?=
+ =?utf-8?B?cGJEWFRSWjVJWUFYY2RpOWwwdE11QmhVS0NQYzgxR20wK0FkMkVNRUU1SXB0?=
+ =?utf-8?B?VXRrMk5tM1d0NTlxY1lrWWtkSTFWV0YzODhIY0ozRkZRY1dWWHY5K1lEZXRv?=
+ =?utf-8?B?ZzVxcjBWU2thNWl2RUxNbWhCc0FGbjBERmEzTXA1T2tBRzhUYWFQNGxjSEI0?=
+ =?utf-8?B?blljYmgvYm9ERzRab0NBTG84NFhHdnFxcjdmSFBPR2lXbnFjeTF5OVU5cXUw?=
+ =?utf-8?B?TDRtQVhJWVJjV1ArUFc4MjJDKzZ3dmkrcXJxd210RG12YlkrTzBYY0xDUlY0?=
+ =?utf-8?B?YmZrQmQ2eUoxdk1wYUFkcWN1V0l3QlRNMXFwei9GREJ2MlEzNmhUVUNiL1Y0?=
+ =?utf-8?B?Sm9iUXk1VjdPSS9tT0FIY1pwZk5BTHFnK21uS2MzcjFlRUpPZWpsQnhiUGpm?=
+ =?utf-8?B?UXBBOHE4eE1LRVA2WVZvOWM4cTJ3VlFKWVQyWVdraGRrajM4aExaclFyeWtj?=
+ =?utf-8?B?U25vdTBYd2dUNHVBZExuVXBqeFU0dTRtL1FzZld5ZEpQYUQ4NDhkVGt4TlpS?=
+ =?utf-8?B?d2NtanRXUm83TGFqSE1qekRRbTAwM2E3dFF5cFZnaFh4TlpGWGpYZz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7e1cbdde-1816-49d7-2ca3-08df08ac2020
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB9474.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 04:39:07.7631
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Qrn45xLajgD3fz7V5Fe7jIh2oJ1FLjW6wasEHju1RFKLUWtIZmDLiwqcqzGBbpWLFYlMwsLHvQANVmGX4n1QmA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA5PR12MB999326
 
-On Tue, Sep 01, 2026 at 03:18:23PM +0200, Karl Mehltretter wrote:
-> huge_ptep_modify_prot_start() clears a hugetlb entry before changing its
-> permissions. For contiguous PTE mappings, break-before-make (BBM)
-> requires a TLB invalidation after clearing the set and before making any
-> entry valid again.
+On 8/25/26 1:30 PM, Dave Jiang wrote:
+>> +                 range->hpa_range.end == hpa_range->end)
+> I think range_contains() would work here?
 
-Agreed.
+  Wouldn’t range_contains() also match a subrange? Is it okay to treat a 
+contained but non-identical decoder range as a duplicate as well?
+
+>> +                     return 0;
+>> +
+>> +     range = kzalloc_obj(*range);
+>> +     if (!range)
+>> +             return -ENOMEM;
+>> +
+>> +     range->pdev = pdev;
+>> +     range->hpa_range = *hpa_range;
+>> +     list_add_tail(&range->list, &ctx->ranges);
+>> +
+>> +     return 0;
+>> +}
+>> +
+>> +static int cxl_hdm_ranges_collect(struct cxl_hdm_range_context *ctx,
+>> +                               struct pci_dev *pdev)
+>> +{
+>> +     struct cxl_hdm_info *info;
+>> +     int rc;
+>> +
+>> +     guard(rwsem_read)(&cxl_rwsem.dpa);
+>> +     info = pdev->hdm;
+>> +     if (!info) {
+>> +             pci_err(pdev, "CXL HDM decoder state unavailable\n");
+>> +             return -ENXIO;
+>> +     }
+>> +
+>> +     for (int i = 0; i < info->decoder_count; i++) {
+>> +             struct cxl_decoder_settings *settings = &info->settings[i];
+>> +
+>> +             if (!(settings->flags & CXL_DECODER_F_ENABLE))
+>> +                     continue;
+>> +
+>> +             if (settings->flags & CXL_DECODER_F_NORMALIZED_ADDRESSING) {
+>> +                     pci_err(pdev,
+>> +                             "CXL reset does not support normalized address decoders\n");
+>> +                     return -EOPNOTSUPP;
+>> +             }
+>> +
+>> +             rc = cxl_hdm_range_add(ctx, pdev, &settings->hpa_range);
+>> +             if (rc)
+>> +                     return rc;
+>> +     }
+>> +
+>> +     return 0;
+>> +}
+>> +
+>> +static int cxl_hdm_range_len(struct pci_dev *pdev,
+>> +                          const struct range *hpa_range, u64 *len)
+>> +{
+>> +     if (hpa_range->end < hpa_range->start)
+>> +             return -EINVAL;
+>> +
+>> +     if (hpa_range->start > RESOURCE_SIZE_MAX ||
+>> +         hpa_range->end > RESOURCE_SIZE_MAX) {
+> Given that above you established that (end >= start) couple lines above, you really only need to test end here.
+> 
+>> +             pci_err(pdev,
+>> +                     "CXL reset range [%#llx-%#llx] exceeds resource address size\n",
+>> +                     hpa_range->start, hpa_range->end);
+>> +             return -EOVERFLOW;
+>> +     }
+>> +
+>> +     *len = range_len(hpa_range);
+>> +     if (!*len || *len > RESOURCE_SIZE_MAX) {
+>> +             pci_err(pdev,
+>> +                     "CXL reset range [%#llx-%#llx] exceeds resource size\n",
+>> +                     hpa_range->start, hpa_range->end);
+>> +             return -EOVERFLOW;
+>> +     }
+>> +
+>> +     if (*len > SIZE_MAX) {
+>> +             pci_err(pdev,
+>> +                     "CXL reset range [%#llx-%#llx] exceeds cache flush size\n",
+>> +                     hpa_range->start, hpa_range->end);
+>> +             return -EOVERFLOW;
+>> +     }
+>> +
+>> +     return 0;
+>> +}
+> This function is doing too much. I suggest you rename it cxl_hdm_range_validate() and drop the *len parameter. And just assign len from range_len(hpa_range) once it's validated. I'll paste a diff at the end as a suggestion.
+
+  I applied this refactor in v11: the helper is now 
+cxl_hdm_range_validate(), it no longer has a len output parameter, and 
+the caller assigns range_len() after validation.
 
 > 
-> Commit fb396bb459c1 ("arm64/hugetlb: Drop TLB flush from
-> get_clear_flush()") removed this invalidation, relying on the deferred
-> flush from the core code. Commit 410982303772 ("arm64: hugetlb: Restore
-> TLB invalidation for BBM on contiguous ptes") restored it for
-> huge_ptep_set_{access_flags,wrprotect}(), since a deferred flush is too
-> late for the break step. The modify-prot path has the same problem.
+>> +
+>> +static int cxl_hdm_range_request(struct cxl_hdm_range *range)
+>> +{
+>> +     struct pci_dev *pdev = rang
 
-The commit 410982303772 ("arm64: hugetlb: Restore TLB invalidation for BBM
-on contiguous ptes") should also have fixed huge_ptep_modify_prot_start()
-while at it ?
 
-> 
-> Use huge_ptep_clear_flush() for contiguous entries so that the TLB is
-> invalidated during the break step. Leave huge_ptep_get_and_clear()
-> unchanged because it is also used by teardown paths, where the deferred
-> flush is sufficient.
-
-Makes sense.
-
-> 
-> Fixes: fb396bb459c1 ("arm64/hugetlb: Drop TLB flush from get_clear_flush()")
-
-Probably OK as the earlier commit 410982303772 also blames the same.
-
-> Assisted-by: LLM
-
-So you did not actually see this problem on a system ?
-
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
-> An instrumented QEMU detected the missing break-step TLBI on an unpatched
-> kernel and none with this change. A fork() control exercising
-> huge_ptep_set_wrprotect() remained clean. No user-visible failure was
-> reproduced.
-
-No user-visiable failure was reported even without this change ?
-Missing TLBI as seen in QEMU is the only clue here ?
-
-> 
-> The QEMU checker was exercised with 4K and 64K base-page kernels. The
-> patched kernel passed the LTP hugetlb tests with both -cpu max and -cpu
-> cortex-a72 (16 TPASS and no failures).
-> 
-> Testing on Neoverse N1 hardware would be welcome, as it can use the
-> contiguous hint and can be configured to report TLB conflicts.
-
-But you have not seen any real TLB conflicts even on custom QEMU ?
-
-> 
->  arch/arm64/mm/hugetlbpage.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
-> index 8e799c1fe0aa..bb53a04b73b2 100644
-> --- a/arch/arm64/mm/hugetlbpage.c
-> +++ b/arch/arm64/mm/hugetlbpage.c
-> @@ -517,6 +517,11 @@ bool __init arch_hugetlb_valid_size(unsigned long size)
->  pte_t huge_ptep_modify_prot_start(struct vm_area_struct *vma, unsigned long addr, pte_t *ptep)
->  {
->  	unsigned long psize = huge_page_size(hstate_vma(vma));
-> +	pte_t pte = __ptep_get(ptep);
-> +
-> +	/* The break step for contiguous PTEs must include the TLB flush. */
-
-Probably helpful to mention here that subsequent huge_ptep_get_and_clearI()
-in the function depends on deferred TLB flush mechanism which would not be
-accurate for contig HugeTLB pages.
-
-> +	if (pte_cont(pte))
-> +		return huge_ptep_clear_flush(vma, addr, ptep);
->  
->  	if (alternative_has_cap_unlikely(ARM64_WORKAROUND_2645198)) {
->  		/*
-> @@ -524,7 +529,7 @@ pte_t huge_ptep_modify_prot_start(struct vm_area_struct *vma, unsigned long addr
->  		 * when the permission changes from executable to non-executable
->  		 * in cases where cpu is affected with errata #2645198.
->  		 */
-> -		if (pte_user_exec(__ptep_get(ptep)))
-> +		if (pte_user_exec(pte))
->  			return huge_ptep_clear_flush(vma, addr, ptep);
->  	}
->  	return huge_ptep_get_and_clear(vma->vm_mm, addr, ptep, psize);
-> 
-> base-commit: 786262be6048deab760f68c8acc2c85607165894
-> -- 
-> 2.53.0
-
-Overall LGTM but will need some more testing.
+-- 
+Regards,
+Srirangan
