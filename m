@@ -1,378 +1,206 @@
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010053.outbound.protection.outlook.com [52.101.84.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10DC64ACC86
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 19:13:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.199
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788376410; cv=none; b=LRA80PBgNrA5842Si2bdLJcQ+5EgQ4zAeG5Nvhicf++U5nhj7G4vZ8wl3rv9Z3/LUSsIo5HlWUI1O6g8ReOplO6KPViTOfbUldW/41xblKlEu0uhwiVO6v82m72kTmMHrNWSYc+dtoZPjC9VYHhsskwlQ68giSzU//reYBDJqvg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788376410; c=relaxed/simple;
-	bh=heFBTe4Azj4loNK0+guseUepFSEbMsjiIjxwRabDFvk=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=lA+NFyy75/+XNjX6hBVWrqfHdkJ59M4aLV0r5B+qo44d3eRCUL2Vf4yEz7X1qH/7YEVU1FDaRkGOFH/y77kQSMjEGWKinwUGH/85q9sP5Ug2asseLdbUfCPfZ2I1fQiC7EI2mCVyeZgYTomPGokWr2ehEaghZIBT4Vy5gWVM/cU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nVro9Cha; arc=none smtp.client-ip=209.85.210.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12DA14AC164;
+	Wed,  2 Sep 2026 19:13:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788376417; cv=fail; b=EOvshO6XZFMS7WyGlwfjjIPH0QBmg95EIl2mNVk4RE3modPOA9Z3hj69LfL3IDPgaefv9tf+an8jYaHbk/EIy+2KBigjHITUlWvyijij31bl2swsI3ZniA7bU7i29h0hHnOL7uBME1Ygl71DCcJYZgSAq76WkW8Iws58ZXuXCaM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788376417; c=relaxed/simple;
+	bh=wZvKAvpHuiiO2rG0Znn7ts+X+Gp+epdcuk/KIkhpvrw=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=MXbu942vmZqnlmr0jNBGCpfl8WWUcBLkMppk2yFxA2zJYVkAt5me9CnSVDlJopsLHPoikqOjUxreGJO/zUW6lKz+2S4bRdN3/cJKzAXNbvFHhUjpQZO4Do4b6KOWv1Rm5yXbKMnlLiEg4ZbAHb9b8txgCl4mSQMeMN1m6jpoWGw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=xYx+js1t; arc=fail smtp.client-ip=52.101.84.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nVro9Cha"
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-84a67b16217so2432501b3a.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 12:13:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788376407; x=1788981207; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=FR4OS7s1XbcA2FA5sOcuBurTuZ/ng9SBzZ/wefEfnhg=;
-        b=nVro9ChaGMFPcL3LaOZgEFYwMy+Isud+a24GCgLUOji9ZzKIkwEWtYg5w1tC/SWAOY
-         fO7gauZw+qEqP7/GAq7eNjgorAyMdmrZM/qKLYO7CnDlXyRec/BEACAZmV+HpSKWpSd3
-         TRUWZ9rhJ9mTmtF/sU6DkXR1B4fZzjckexvZK89Bz4M0DWmYqtiqNRCAu6SmUkV9AWcy
-         j8clz7a4kUdao9x9NwgAo+I82vux8BDM9mgmEbPSY1S1VtYI/yMz7uPAmNzeLt8JsHX4
-         8YgoE7pIs7mgeRTeME2OIc1MGRVhknBvX/ovjzF5BCu/qMsG75ge6Ou/4y13/d7yi4JP
-         x5sg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788376407; x=1788981207;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FR4OS7s1XbcA2FA5sOcuBurTuZ/ng9SBzZ/wefEfnhg=;
-        b=Y2Xf6LsKI0y5clzrL4svbwbv56QdOlafBaPf6HEAZZ5ZainZpJjuhkWPY3I8DMkm9M
-         uLuY6Eirzp9ezL2YLEElB1dQ3f+rDpTYUnO0qwOp3Qvx2Fzj5Wef87ih1sfT6UBI0Dfd
-         NbrUBbYlCczS3rLJPefhFGaePt+FdIeF66W2ENxl7cE6MrZw7GEbLrpsQv5ZefjDeT/+
-         IbLNaPGChRce+SiPE8MOAwhGtMJbCj9it+5Iwpx1jBcSCAZDZkIhzk2CLP7HdxjHKnjZ
-         UZApMvcVx+OlVuXNDCaAhldNXnS4sNmtbDnMCx9ewtsg6z14DTOCro3LBQexIyDrVGvn
-         um6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzCZdCaCfIq8o0tOb66si82c5yiS8431UZz5Ml4AaOdQHiIsofAjH6ATRJI01jf8W/lmTwc+AFta0yZIyk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kEcUiK/vpUm/e3/A564z00cLU94VOp1nAJKcoOpUkExn8c9pMm
-	mWWaWPpMHT1wGgpX7b7hEpkJlpxgV8nychhKyo5ZN6Mmg9hpzFwipzUJkI9lB3aIctnlQx5euGu
-	KCZTGFQ==
-X-Received: from pfj21.prod.google.com ([2002:a05:6a00:a415:b0:84a:3bc9:3bcd])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:4287:b0:857:7337:5db5
- with SMTP id d2e1a72fcca58-85ed98b4d7amr11675821b3a.19.1788376407043; Wed, 02
- Sep 2026 12:13:27 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed,  2 Sep 2026 12:13:21 -0700
-In-Reply-To: <20260902191321.2644150-1-seanjc@google.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="xYx+js1t"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KeWNS3CkyXy9Ye5yRauF6E3ZQpjcftXSNoMkbhxUxQhx6338iM5MliG52unMZ9UlwAYZLUX5iLrJeoESnjxtLfnqwv7kzBseD+JJ0F/O9cgIYk3uCkwFxeRMjCgTPU/0me7pzFAlOb3+a2GFfQsCMWeGRj4R1/jAuyTzxZrFZ9WbutqVQ/iVAX9NFU1BcwRy7G/0cScuTH2ozzFNxwJ0sc4+hOWyaSUshE0AEdXg0PUkzmHbRXt46mCCAE+PiIKPwcfV57bG7kvb/LStbfWrvT5spGlmLkQyXszuEU+/WZ32WQArKfA+fSQRYEJpdPbFaOrTA1TTNlCDA09w41FJ+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fSUKYQu4N3EO4hDc5YKygoFAwmLy2r+nEvS1YSH4AzI=;
+ b=qJKu4X4Gn5AWkaXQjZxpDGIoPq9sfLqpQMIdk8MKKUCPk7PNBSU0IY1kaPM9wXTTX79KTBsPeBXWfzStSM2jT0PhkpKNyiprdIUV5NwOWaqSwNv4s6JF9sBcDZHtosMjuX7nWhQ9j6kZbfY3bVWSWKKe7lvRefwLJJ6VKRH09ycm27UXAAd2EexSyEvCxVt8n7QTRSCWh/8hIoIfP9Wf/puT3vMKbw0k4OF17zHu7olC/n2j49JkycgZSyPO3aHV1vjLDImJa23yUD6EdCdHBQ9WhStoKDnPS7Z5qZggnAlNcjVaxYdMbyjXuWSBo8F9uQq3+IH0C4TNIz8fbf/16Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fSUKYQu4N3EO4hDc5YKygoFAwmLy2r+nEvS1YSH4AzI=;
+ b=xYx+js1t9zGYyVjThFt8gA3I1bVZhJrET1doKfDHs2Y19YMiu6gg2920YaZ6cDiwlLCy7SMLNPZSG2UFKaiB9wMPmgaVk8eZiJkc3mOYimbFN16EErwh867C72yhSoG6To51sKM4Kkwr3hf+Wo12CX0c6gj1YsH4MtfVIT8E5qa48gpD2v6FXmIOcQiRBh4z+ODKJ5Mkw8HxnQm1KpTDAEUE+xHzIshYZAi8frzzkdMDEQ631IjSOUzyrJfGLcCuDHm159qO5AqX6wQkEXCCpsCrp7EgdHlY89NeSIK/LwqrtP9+bpXq9ar0hly8F4mK4rk8yhPgP0nE4ZbnbDk8mw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM9PR04MB8779.eurprd04.prod.outlook.com (2603:10a6:20b:40a::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 19:13:32 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 19:13:32 +0000
+From: Frank.Li@oss.nxp.com
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	imx@lists.linux.dev (open list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT...),
+	linux-arm-kernel@lists.infradead.org (moderated list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT...),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev,
+	Conor Dooley <conor@kernel.org>
+Subject: [PATCH v2 1/1] ARM: dts: imx53: drop fallback compatible "dlg,da9052"
+Date: Wed,  2 Sep 2026 15:13:20 -0400
+Message-ID: <20260902191324.2084035-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PH7P220CA0098.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:32d::9) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260821-stable-item001-snp-builtin-kvm@kernel.org> <20260902191321.2644150-1-seanjc@google.com>
-X-Mailer: git-send-email 2.55.0.970.g62bdec98f9-goog
-Message-ID: <20260902191321.2644150-3-seanjc@google.com>
-Subject: [PATCH 6.12.y 2/2] x86/sev: Fix broken SNP support with KVM module built-in
-From: Sean Christopherson <seanjc@google.com>
-To: stable@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Sasha Levin <sashal@kernel.org>
-Cc: "H. Peter Anvin" <hpa@zytor.com>, Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>, 
-	Robin Murphy <robin.murphy@arm.com>, linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
-	Gao Shiyuan <gaoshiyuan@baidu.com>, Vasant Hegde <vasant.hegde@amd.com>, 
-	Joerg Roedel <jroedel@suse.de>, Sean Christopherson <seanjc@google.com>, Stable@vger.kernel.org, 
-	Ashish Kalra <ashish.kalra@amd.com>, Paolo Bonzini <pbonzini@redhat.com>, 
-	Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
-	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB8779:EE_
+X-MS-Office365-Filtering-Correlation-Id: 20e8786e-3861-4557-f4bb-08df0926472b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|1800799024|23010399003|366016|376014|7416014|921020|10067099003|11063799006|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	Xcx9YcEkihD+oPTgN46qg80G/0c7DeswL7o0tOu8+1SCVyWYe5fs4pldLWG2Ujs7jGka8nDcidHZyStIfB4ALrtsD5HlgJI5hVSbrKBrFeLvcQD1A7XeXcbLBylFTq/VBUWrlrrh6dwk9vllON4z4SaMqmUdtYoVrVwDSi1OlJbdY44isk6je9naVeTPIBhpxOjrQzmAFzDs390Kfw9tBS07whEj5cgKPvYhHUAYUFrvK3mFIqwsgzDsg0v1tCGengP0pdPOLzGbI30Ia5k9F4BdVRDU7B4ydWt8CBuxu4tBbf4/LhGpi1GmZDtitcal9Kuh2xAyvggyhg1z4vlkibBV3Zc7n4/uKm9RPEmcfy8YXgEUSSF+JV921O+mMzq7Mvle2MGp7OY4jUvbSHNjfY1gQHrBE+LhQU3bYD8ABw/dhavk1W7W+gCp7/G6D62bB7fDFZeTE2P/yQenFFOVOPlOXpJCpFdZOrfjIArWItn5Z4ufVyOuzrGaOnq1jmYqBhOxhEvfxXBIDg77I+RWj6MEnLnD5zGWdEhGkRo81Ats88Z2zKEJXgvuYkzkqpj2e0WdnWYjGcANCSVDoLdC6QHHPCKZoheFtdXEiFJunZQuUaQ933Hq84V2wws0wZ7Tnylo8/GOrFcERV1CTReclFrLe6EdlggYHQraUTig89n+ZSFIsWD3mBRbS2rhVkC7DxC9AmhEHe80fS182UYJmA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(1800799024)(23010399003)(366016)(376014)(7416014)(921020)(10067099003)(11063799006)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?fXSuCgmzX9kFKune1RA5EDXR9EFG72Bizq+PAM2e9/1SSDka2QQVkfdxlTEa?=
+ =?us-ascii?Q?owaIm0MY7bhc/OOUDIF0Fg9+6bz8SHd9lP+jdAoEnc/iweYy1VQjOUhsovbB?=
+ =?us-ascii?Q?/vzFD4CKe+oCZRCcoX5nBG0Gznx3KK6Annj+Jw6RiOhr0gxKbViaaI5QkMcR?=
+ =?us-ascii?Q?p4S4+Ia2BE8Y2hwtOeikBaK25FHffaSCMxz2t0jNrNht83FdMkZJyxNrZN7o?=
+ =?us-ascii?Q?Fdj8TG09SewCUkIai30zFsZ3/UWoixcwu3vJ7C5paC0XI25uh98zgXkrTGVu?=
+ =?us-ascii?Q?WuzTjV0HUAuCrOWY5evnrAp86RbfsgwDVPShH4xx4BMAXqaQecjxg+fc6si4?=
+ =?us-ascii?Q?C/Fc8UEVREYe0UvjTEUMXJCtFb0fgDqfuSeJH3OHmM+msoh70+BlFFt+6ypg?=
+ =?us-ascii?Q?FWJlktF+M0FUUGrGj3F9IDOiztYMKq+mg5YzokKE2NGgYWqo1iGAL73USoUL?=
+ =?us-ascii?Q?QwGhizm3Em1QINW7rqlEkhyUKFV+3C/64noaVmyddb6Ke60TcpGePsla+ucn?=
+ =?us-ascii?Q?McCa4bCP8BLlWFCl0+naz5KiuZpoisdaW4MC47u3w/E8i/MKUka2XP+t6xZ4?=
+ =?us-ascii?Q?0wQCG1WHV4M0RLdEGvivfQhAdwcaiNJ30nuyD6B1YYI1ZrRxT3IWAs9UWKv7?=
+ =?us-ascii?Q?xDBpAET4CmwRci7NUKAFxlMzFNU/D+Vx4OafYehy4zu6NVcV3QRCVvQXiEVU?=
+ =?us-ascii?Q?PNNUh+Uw2PT43JU4p8EThxj1wRNMnFRUFF7VczEYAunLIT73iP4uJzvvJThT?=
+ =?us-ascii?Q?IXYcdyoWpAdDcANWFhjbPGj8irHf6H2EmP6EMQ+Aj+43lczVsoZf/6N3i6ZR?=
+ =?us-ascii?Q?ZkhZi4JHVIvfg7bG1F1PtkQuy5CgSUN9xAXtXq3AQ9yrephJkaMmmRRSSEg0?=
+ =?us-ascii?Q?K6/J74iAy8R26KHG+5pZfOQYsYIhwFlw0jtoOQSExclUpMG3kAtRlJfTcb58?=
+ =?us-ascii?Q?kLiqKpYl6ueBROR8D64o2rs+Ib7lJAcC3OgcrjdXgDfrf5FHJ69yhP0s/dx4?=
+ =?us-ascii?Q?QO5uutDrBIn+k2t61TIr3lY4E6TR/AP5qTbjwrHl8K6L+pLc/8xAXU2v1S+8?=
+ =?us-ascii?Q?943eMKgevSNLJfpnqsBjHQyJEyNUdmMit7bwrOurc/dpILTtizZT68tSsPqC?=
+ =?us-ascii?Q?uZWDMucj9Pyr8ZQUGlfL6GKJOgam41/2z50xArGk1Ob/gEVScEKCZFXgMoEB?=
+ =?us-ascii?Q?Af572RcmwbDAdIgxUZMbVQN+FH6/nd587mZr031K5dCbR9QQj6LHDr65Hbr0?=
+ =?us-ascii?Q?MxZxhnwnNppq3zYjqfpO1k8jeAf4Jv8nZh3l9zqdDF9SuNiuAyNRCjNIPpTU?=
+ =?us-ascii?Q?6RfHfJNX6VvG0Ye31SiEPebpFxyBh/ipTwycFrBW6AnvPHm/rMVUoCuSiqtw?=
+ =?us-ascii?Q?hAxj5IEVEtwIxGXQNdciKSVGuIEi8+Te2TW63gukw9vQrWJsjSkNEnZZT88R?=
+ =?us-ascii?Q?eH2SitKNNmsoWIlKNj3aL9cmT+nbC5/fSITKoZAfuFUUaQHxsCxYDpdgX66g?=
+ =?us-ascii?Q?3YNd29YYLS1QFCKZaAU9HTsJMQfhoaX1O9VCUkh/BWLfSEt1QwaeuXZhWRD5?=
+ =?us-ascii?Q?YmEB0Bkm/1QLRtkLLZMqSvjJT5UT7SrpcpeEtf8VmvPLJvWk5kU1jiL7e+pu?=
+ =?us-ascii?Q?10JY6N6mJ7xQt1wWH0hBE67K+j3jUqZKdLFTVu4q19u0qVRX+2tdI42vaoeK?=
+ =?us-ascii?Q?f/LMZODXNjUA5eNWij3PiZZqKxdzDia5BgNk9CkAf7Fr1JvP6nUXnZoDMdCx?=
+ =?us-ascii?Q?HUpWAf4/Vzras12U+rbUY0KgaBVUDuq0c9o0In70JovLKUrL+W9B?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 20e8786e-3861-4557-f4bb-08df0926472b
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 19:13:31.9078
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nTWb3qzm/RTMlvWrlgYWQmwIjJofOpKw9iAS+4Jf4eWqZ8rfxh6xUdIx+Ofk3e95FwbZPCfl6tebxWdfCwKjYeH60NfbrYg75+z/0b9GUEYtLY98jpgTVqOeOM0CYjmL
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8779
 
-From: Ashish Kalra <ashish.kalra@amd.com>
+From: Frank Li <Frank.Li@nxp.com>
 
-[ Upstream commit 409f45387c937145adeeeebc6d6032c2ec232b35 ]
+The "dlg,da9053-aa" compatible string is not compatible with "dlg,da9052".
 
-Fix issues with enabling SNP host support and effectively SNP support
-which is broken with respect to the KVM module being built-in.
+DA9052 vs DA9053-AA Differences (from da9052-regulator.c)
+1. BUCK4 Voltage Range (only regulator table difference)
+		DA9052 BUCK4	DA9053-AA BUCK4
+Min voltage	1800 mV		950 mV
+Max voltage	3600 mV		2525 mV
+Step size	50 mV		25 mV
 
-SNP host support is enabled in snp_rmptable_init() which is invoked as
-device_initcall(). SNP check on IOMMU is done during IOMMU PCI init
-(IOMMU_PCI_INIT stage). And for that reason snp_rmptable_init() is
-currently invoked via device_initcall() and cannot be invoked via
-subsys_initcall() as core IOMMU subsystem gets initialized via
-subsys_initcall().
+DA9052 BUCK4 also has a non-linear voltage mapping above 3V (step increases
+to 100 mV for selector >= 24). DA9053-AA BUCK4 has no such special mapping.
 
-Now, if kvm_amd module is built-in, it gets initialized before SNP host
-support is enabled in snp_rmptable_init() :
+2. BUCK Current Limits
+Level	DA9052 (all BUCKs)	DA9053-AA BUCK1		DA9053-AA BUCK2/3/4
+0	700 mA			1600 mA			800 mA
+1	800 mA			2000 mA			1000 mA
+2	1000 mA			2400 mA			1200 mA
+3	1200 mA			3000 mA			1500 mA
 
-[   10.131811] kvm_amd: TSC scaling supported
-[   10.136384] kvm_amd: Nested Virtualization enabled
-[   10.141734] kvm_amd: Nested Paging enabled
-[   10.146304] kvm_amd: LBR virtualization supported
-[   10.151557] kvm_amd: SEV enabled (ASIDs 100 - 509)
-[   10.156905] kvm_amd: SEV-ES enabled (ASIDs 1 - 99)
-[   10.162256] kvm_amd: SEV-SNP enabled (ASIDs 1 - 99)
-[   10.171508] kvm_amd: Virtual VMLOAD VMSAVE supported
-[   10.177052] kvm_amd: Virtual GIF supported
-...
-...
-[   10.201648] kvm_amd: in svm_enable_virtualization_cpu
+DA9053-AA BUCK1 supports up to 3A (vs 1.2A on DA9052).
 
-And then svm_x86_ops->enable_virtualization_cpu()
-(svm_enable_virtualization_cpu) programs MSR_VM_HSAVE_PA as following:
-wrmsrl(MSR_VM_HSAVE_PA, sd->save_area_pa);
+Drop the fallback compatible to fix the following CHECK_DTBS warning:
 
-So VM_HSAVE_PA is non-zero before SNP support is enabled on all CPUs.
+  dialog@48 (dlg,da9053-aa): compatible: ['dlg,da9053-aa', 'dlg,da9052'] is too long
 
-snp_rmptable_init() gets invoked after svm_enable_virtualization_cpu()
-as following :
-...
-[   11.256138] kvm_amd: in svm_enable_virtualization_cpu
-...
-[   11.264918] SEV-SNP: in snp_rmptable_init
-
-This triggers a #GP exception in snp_rmptable_init() when snp_enable()
-is invoked to set SNP_EN in SYSCFG MSR:
-
-[   11.294289] unchecked MSR access error: WRMSR to 0xc0010010 (tried to write 0x0000000003fc0000) at rIP: 0xffffffffaf5d5c28 (native_write_msr+0x8/0x30)
-...
-[   11.294404] Call Trace:
-[   11.294482]  <IRQ>
-[   11.294513]  ? show_stack_regs+0x26/0x30
-[   11.294522]  ? ex_handler_msr+0x10f/0x180
-[   11.294529]  ? search_extable+0x2b/0x40
-[   11.294538]  ? fixup_exception+0x2dd/0x340
-[   11.294542]  ? exc_general_protection+0x14f/0x440
-[   11.294550]  ? asm_exc_general_protection+0x2b/0x30
-[   11.294557]  ? __pfx_snp_enable+0x10/0x10
-[   11.294567]  ? native_write_msr+0x8/0x30
-[   11.294570]  ? __snp_enable+0x5d/0x70
-[   11.294575]  snp_enable+0x19/0x20
-[   11.294578]  __flush_smp_call_function_queue+0x9c/0x3a0
-[   11.294586]  generic_smp_call_function_single_interrupt+0x17/0x20
-[   11.294589]  __sysvec_call_function+0x20/0x90
-[   11.294596]  sysvec_call_function+0x80/0xb0
-[   11.294601]  </IRQ>
-[   11.294603]  <TASK>
-[   11.294605]  asm_sysvec_call_function+0x1f/0x30
-...
-[   11.294631]  arch_cpu_idle+0xd/0x20
-[   11.294633]  default_idle_call+0x34/0xd0
-[   11.294636]  do_idle+0x1f1/0x230
-[   11.294643]  ? complete+0x71/0x80
-[   11.294649]  cpu_startup_entry+0x30/0x40
-[   11.294652]  start_secondary+0x12d/0x160
-[   11.294655]  common_startup_64+0x13e/0x141
-[   11.294662]  </TASK>
-
-This #GP exception is getting triggered due to the following errata for
-AMD family 19h Models 10h-1Fh Processors:
-
-Processor may generate spurious #GP(0) Exception on WRMSR instruction:
-Description:
-The Processor will generate a spurious #GP(0) Exception on a WRMSR
-instruction if the following conditions are all met:
-- the target of the WRMSR is a SYSCFG register.
-- the write changes the value of SYSCFG.SNPEn from 0 to 1.
-- One of the threads that share the physical core has a non-zero
-value in the VM_HSAVE_PA MSR.
-
-The document being referred to above:
-https://www.amd.com/content/dam/amd/en/documents/processor-tech-docs/revision-guides/57095-PUB_1_01.pdf
-
-To summarize, with kvm_amd module being built-in, KVM/SVM initialization
-happens before host SNP is enabled and this SVM initialization
-sets VM_HSAVE_PA to non-zero, which then triggers a #GP when
-SYSCFG.SNPEn is being set and this will subsequently cause
-SNP_INIT(_EX) to fail with INVALID_CONFIG error as SYSCFG[SnpEn] is not
-set on all CPUs.
-
-Essentially SNP host enabling code should be invoked before KVM
-initialization, which is currently not the case when KVM is built-in.
-
-Add fix to call snp_rmptable_init() early from iommu_snp_enable()
-directly and not invoked via device_initcall() which enables SNP host
-support before KVM initialization with kvm_amd module built-in.
-
-Add additional handling for `iommu=off` or `amd_iommu=off` options.
-
-Note that IOMMUs need to be enabled for SNP initialization, therefore,
-if host SNP support is enabled but late IOMMU initialization fails
-then that will cause PSP driver's SNP_INIT to fail as IOMMU SNP sanity
-checks in SNP firmware will fail with invalid configuration error as
-below:
-
-[    9.723114] ccp 0000:23:00.1: sev enabled
-[    9.727602] ccp 0000:23:00.1: psp enabled
-[    9.732527] ccp 0000:a2:00.1: enabling device (0000 -> 0002)
-[    9.739098] ccp 0000:a2:00.1: no command queues available
-[    9.745167] ccp 0000:a2:00.1: psp enabled
-[    9.805337] ccp 0000:23:00.1: SEV-SNP: failed to INIT rc -5, error 0x3
-[    9.866426] ccp 0000:23:00.1: SEV API:1.53 build:5
-
-Fixes: c3b86e61b756 ("x86/cpufeatures: Enable/unmask SEV-SNP CPU feature")
-Co-developed-by: Sean Christopherson <seanjc@google.com>
-Signed-off-by: Sean Christopherson <seanjc@google.com>
-Co-developed-by: Vasant Hegde <vasant.hegde@amd.com>
-Signed-off-by: Vasant Hegde <vasant.hegde@amd.com>
-Cc: <Stable@vger.kernel.org>
-Signed-off-by: Ashish Kalra <ashish.kalra@amd.com>
-Acked-by: Joerg Roedel <jroedel@suse.de>
-Message-ID: <138b520fb83964782303b43ade4369cd181fdd9c.1739226950.git.ashish.kalra@amd.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-[sean: handcode/port the sev.c changes]
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
 ---
- arch/x86/include/asm/sev.h |  2 ++
- arch/x86/virt/svm/sev.c    | 21 ++++++---------------
- drivers/iommu/amd/init.c   | 34 ++++++++++++++++++++++++++++++----
- 3 files changed, 38 insertions(+), 19 deletions(-)
+Changes at v2
+- update commit message.
 
-diff --git a/arch/x86/include/asm/sev.h b/arch/x86/include/asm/sev.h
-index ee34ab00a8d6..2524ada3708e 100644
---- a/arch/x86/include/asm/sev.h
-+++ b/arch/x86/include/asm/sev.h
-@@ -440,6 +440,7 @@ static inline void snp_update_svsm_ca(void) { }
+Cc: Conor Dooley <conor@kernel.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+
+at thread
+https://lore.kernel.org/imx/20260902-varied-unsent-b99f9f007685@spud/
+Conor Dooley DA9052-AA is NOT compatible with DA9052.
+
+I missed check da9052-regulator.c.
+
+prevous kyrz ask drop the same patch at
+https://lore.kernel.org/imx/20260404-thoughtful-placid-boobook-da26da@quoll/
+
+Add commit message show why not compatible.
+---
+ arch/arm/boot/dts/nxp/imx/imx53-qsb.dts             | 2 +-
+ arch/arm/boot/dts/nxp/imx/imx53-voipac-dmm-668.dtsi | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/boot/dts/nxp/imx/imx53-qsb.dts b/arch/arm/boot/dts/nxp/imx/imx53-qsb.dts
+index 6831836bd726c..e7e15d2b82c44 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx53-qsb.dts
++++ b/arch/arm/boot/dts/nxp/imx/imx53-qsb.dts
+@@ -13,7 +13,7 @@ / {
  
- #ifdef CONFIG_KVM_AMD_SEV
- bool snp_probe_rmptable_info(void);
-+int snp_rmptable_init(void);
- int snp_lookup_rmpentry(u64 pfn, bool *assigned, int *level);
- void snp_dump_hva_rmpentry(unsigned long address);
- int psmash(u64 pfn);
-@@ -450,6 +451,7 @@ void kdump_sev_callback(void);
- void snp_fixup_e820_tables(void);
- #else
- static inline bool snp_probe_rmptable_info(void) { return false; }
-+static inline int snp_rmptable_init(void) { return -ENOSYS; }
- static inline int snp_lookup_rmpentry(u64 pfn, bool *assigned, int *level) { return -ENODEV; }
- static inline void snp_dump_hva_rmpentry(unsigned long address) {}
- static inline int psmash(u64 pfn) { return -ENODEV; }
-diff --git a/arch/x86/virt/svm/sev.c b/arch/x86/virt/svm/sev.c
-index 9a6a943d8e41..738698390ebf 100644
---- a/arch/x86/virt/svm/sev.c
-+++ b/arch/x86/virt/svm/sev.c
-@@ -189,7 +189,7 @@ void __init snp_fixup_e820_tables(void)
-  * described in the SNP_INIT_EX firmware command description in the SNP
-  * firmware ABI spec.
-  */
--static int __init snp_rmptable_init(void)
-+int __init snp_rmptable_init(void)
- {
- 	u64 max_rmp_pfn, calc_rmp_sz, rmptable_size, rmp_end, val;
- 	void *rmptable_start;
-@@ -197,11 +197,11 @@ static int __init snp_rmptable_init(void)
- 	if (!cc_platform_has(CC_ATTR_HOST_SEV_SNP))
- 		return 0;
+ &i2c1 {
+ 	pmic: dialog@48 {
+-		compatible = "dlg,da9053-aa", "dlg,da9052";
++		compatible = "dlg,da9053-aa";
+ 		reg = <0x48>;
+ 		interrupt-parent = <&gpio7>;
+ 		interrupts = <11 IRQ_TYPE_LEVEL_LOW>; /* low-level active IRQ at GPIO7_11 */
+diff --git a/arch/arm/boot/dts/nxp/imx/imx53-voipac-dmm-668.dtsi b/arch/arm/boot/dts/nxp/imx/imx53-voipac-dmm-668.dtsi
+index 6dc70a92d831b..6eed683d92a83 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx53-voipac-dmm-668.dtsi
++++ b/arch/arm/boot/dts/nxp/imx/imx53-voipac-dmm-668.dtsi
+@@ -128,7 +128,7 @@ &i2c1 {
+ 	status = "okay";
  
--	if (!amd_iommu_snp_en)
--		goto nosnp;
-+	if (WARN_ON_ONCE(!amd_iommu_snp_en))
-+		return -ENOSYS;
- 
- 	if (!probed_rmp_size)
--		goto nosnp;
-+		return -ENOSYS;
- 
- 	rmp_end = probed_rmp_base + probed_rmp_size - 1;
- 
-@@ -218,13 +218,13 @@ static int __init snp_rmptable_init(void)
- 	if (calc_rmp_sz > probed_rmp_size) {
- 		pr_err("Memory reserved for the RMP table does not cover full system RAM (expected 0x%llx got 0x%llx)\n",
- 		       calc_rmp_sz, probed_rmp_size);
--		goto nosnp;
-+		return -ENOSYS;
- 	}
- 
- 	rmptable_start = memremap(probed_rmp_base, probed_rmp_size, MEMREMAP_WB);
- 	if (!rmptable_start) {
- 		pr_err("Failed to map RMP table\n");
--		goto nosnp;
-+		return -ENOSYS;
- 	}
- 
- 	/*
-@@ -261,17 +261,8 @@ static int __init snp_rmptable_init(void)
- 	crash_kexec_post_notifiers = true;
- 
- 	return 0;
--
--nosnp:
--	cc_platform_clear(CC_ATTR_HOST_SEV_SNP);
--	return -ENOSYS;
- }
- 
--/*
-- * This must be called after the IOMMU has been initialized.
-- */
--device_initcall(snp_rmptable_init);
--
- static struct rmpentry *get_rmpentry(u64 pfn)
- {
- 	if (WARN_ON_ONCE(pfn > rmptable_max_pfn))
-diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
-index 0e270533bf12..54f3c17520d5 100644
---- a/drivers/iommu/amd/init.c
-+++ b/drivers/iommu/amd/init.c
-@@ -3219,7 +3219,7 @@ static bool __init detect_ivrs(void)
- 	return true;
- }
- 
--static void iommu_snp_enable(void)
-+static __init void iommu_snp_enable(void)
- {
- #ifdef CONFIG_KVM_AMD_SEV
- 	if (!cc_platform_has(CC_ATTR_HOST_SEV_SNP))
-@@ -3244,6 +3244,14 @@ static void iommu_snp_enable(void)
- 		goto disable_snp;
- 	}
- 
-+	/*
-+	 * Enable host SNP support once SNP support is checked on IOMMU.
-+	 */
-+	if (snp_rmptable_init()) {
-+		pr_warn("SNP: RMP initialization failed, SNP cannot be supported.\n");
-+		goto disable_snp;
-+	}
-+
- 	pr_info("IOMMU SNP support enabled.\n");
- 	return;
- 
-@@ -3381,6 +3389,19 @@ static int __init iommu_go_to_state(enum iommu_init_state state)
- 		ret = state_next();
- 	}
- 
-+	/*
-+	 * SNP platform initilazation requires IOMMUs to be fully configured.
-+	 * If the SNP support on IOMMUs has NOT been checked, simply mark SNP
-+	 * as unsupported. If the SNP support on IOMMUs has been checked and
-+	 * host SNP support enabled but RMP enforcement has not been enabled
-+	 * in IOMMUs, then the system is in a half-baked state, but can limp
-+	 * along as all memory should be Hypervisor-Owned in the RMP. WARN,
-+	 * but leave SNP as "supported" to avoid confusing the kernel.
-+	 */
-+	if (ret && cc_platform_has(CC_ATTR_HOST_SEV_SNP) &&
-+	    !WARN_ON_ONCE(amd_iommu_snp_en))
-+		cc_platform_clear(CC_ATTR_HOST_SEV_SNP);
-+
- 	return ret;
- }
- 
-@@ -3489,18 +3510,23 @@ void __init amd_iommu_detect(void)
- 	int ret;
- 
- 	if (no_iommu || (iommu_detected && !gart_iommu_aperture))
--		return;
-+		goto disable_snp;
- 
- 	if (!amd_iommu_sme_check())
--		return;
-+		goto disable_snp;
- 
- 	ret = iommu_go_to_state(IOMMU_IVRS_DETECTED);
- 	if (ret)
--		return;
-+		goto disable_snp;
- 
- 	amd_iommu_detected = true;
- 	iommu_detected = 1;
- 	x86_init.iommu.iommu_init = amd_iommu_init;
-+	return;
-+
-+disable_snp:
-+	if (cc_platform_has(CC_ATTR_HOST_SEV_SNP))
-+		cc_platform_clear(CC_ATTR_HOST_SEV_SNP);
- }
- 
- /****************************************************************************
+ 	pmic: dialog@48 {
+-		compatible = "dlg,da9053-aa", "dlg,da9052";
++		compatible = "dlg,da9053-aa";
+ 		reg = <0x48>;
+ 		interrupt-parent = <&gpio7>;
+ 		interrupts = <11 IRQ_TYPE_LEVEL_LOW>; /* low-level active IRQ at GPIO7_11 */
 -- 
-2.55.0.970.g62bdec98f9-goog
+2.43.0
 
