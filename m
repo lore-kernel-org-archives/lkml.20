@@ -1,161 +1,130 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD563B42FC
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:07:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A8793D45EF
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:07:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788332861; cv=none; b=kM9kb5PbpkRzIjASWhGC6S2G1wKdoRwO+rgrcbaa7AwVO5D8qWvEYwmJtKsEB75RyJ4j4vKyPT0LRqcgT7LPeozov7yEBTAICTzOo6okF32pAQxubXwTgLxuCo7qhIycWQQCIEsMxR/MXlu+mVZA++zAKyk55FYf4riVeREAlSs=
+	t=1788332866; cv=none; b=XO0jPCyAlt7exNqNQiy4azblbjn9MPKuvlv+xHqQsnLFsplTI7cYe4Us+eafUwBv0Z8N7dSqrCLjv5r09ACQEoPzRrvoEAa3gBRGrDVtlm4Bw6tVPgWHEOpEuSgz1cDD3gU8kMyYTuVKnRKc5IpFpelKTzP1Zz2OwuGxrVE5UHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788332861; c=relaxed/simple;
-	bh=FedWjQDFkhAuQzFzf4Nf1k2L0r5/SaGP2n+Z680dXvo=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=qPP8OajAeppkfLTHuBiiJnbRV7HJVLDyzlbOw5QuO0WHo6a251G17s0ltj1EY6mJ/R35Neezo+OLQSND+GCIywoEUfk7DQnY86cdyY2Zaamysd9PWOtpcrWmYkQCL75G3Ut+3njbxbD2sn06PRZ/6DbMafTtYsPaQ5PGMGAG7O8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Lzl98Kbp; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1788332866; c=relaxed/simple;
+	bh=E8kneu2xkHnm37YD035uh928QAzihNqmk/fd94fujuo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HK6aQIaki4x+nFIrPQGyU6JwTIjf43F+TUyRhJuSe/x1sPVXZyKs8ocdmwUsut75Wdy0BC3cch8XbIiuquUbo9xE5QqZL8UDDqg6YsYF5p1wTwzVFQncWmrqSLsopZ0uQIN3weqeVbezRZv8K/Qao8XkfqQBlSxlsLUaq9opwUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZNWZom/V; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Lzl98Kbp"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47fe89fb333so420501f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 00:07:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZNWZom/V"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-398b1e63c49so1898559a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 00:07:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788332857; x=1788937657; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788332864; x=1788937664; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8Vfu72tBiiNU8XcM6XXnBVHaiA2eAANag0f1nJhi2+U=;
-        b=Lzl98KbpqgcNS592TLTSehZ2I5f2PNgBtpeXHG52yr4RiDTtGDw18M7/dzDZuGuOp+
-         eJ88Gwt2Ie5rpbm5wSC3DNj/OtvCN3m03gddAxBCyShumPqz4U0gjLZtUPE2E8R6xlBb
-         o9pP9OeAraM7y2kYO6//pdlYnt2NLKjiaE+SYbzMhV90vz9w4SOfRkOGhclvdu0naaNc
-         EC08+6C1bzBjwwguj26j3UdkngKZN1EEPjKKasII17PpYyZTjxvA6JXy9bytJbNgY1mj
-         0uuM2xdO4KeHVjs8STgUkm7p5aPpIsSDzILe6pj4PgzFq+aD+CUq2CLggCZDPZ45A9ls
-         XHOg==
+        bh=pjw7Yj8C+EGcBYthQYN8Kf9YjAONN+Q724TMv0sxgAw=;
+        b=ZNWZom/V/0BwPLynEOF8C438L+CQsBpw0GFQVsSSgw5wUIvQKrwH73MlosJRA4IpqD
+         weVIpuUUzZRIGdOVHmM1aURHLDUnY/sD1kAvLi4wwPTp97XgrZp3BmiX1TFxCO1ATKp3
+         8wRfiRxZF/YpEG7kvRgUtyX3TxU1a27dK5fjFJpsFMnT4/c5sDq2kbN4IIWwnjMEO4UW
+         NqIhyRp2j/OyZ716HwUSBE2xPSF0hfYdLOXoPipq26PYEC9p1k7WmbanSruQzxKM2NXJ
+         uVoNmiaQ4EWgz5BOUjehUHhf1aPVmyQt8kdTOFfzjnu4V/QWVa6NYFZA2KB/hJlgp0N8
+         70lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788332857; x=1788937657;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8Vfu72tBiiNU8XcM6XXnBVHaiA2eAANag0f1nJhi2+U=;
-        b=CLamQ//qNgJNKKJOQYU7DJ+9GpBE7fXYaYf3raSSTsjtCcLKxCBrzCtseGLLOIuk2V
-         CumQakQjNl+ZVq0s9ne+g5PcH4SqbUnBQ76IvTIuw4cVNc5xvJYEqLqxV2GZk0jBX1px
-         PR7i1nZOGT8x8WQ4i1S5+7Qda6ROUVNdrdUXtKufvN7fkD5Ge4mYlmHndEU/hvkPBV3r
-         IkJGmObywF9/0b8vu56RZvJKLo/Y64rA0OiqEm+MjmM8N8UOwSOdtdcf4rKDOMwZr0GC
-         +LeeDRPItb0Me5Gq9EZyRVcLYx3mDsgOGJ2AdGPLvstoMQDrg+avR37r/ZbgOI4cS0VZ
-         gEhA==
-X-Forwarded-Encrypted: i=1; AKwUvBxwnUAi4vW9yQsDqrKMvJWpL1jDukN7mZEvW/PtHnefqL7YDqh4r81j3im+qLqMVLZoo+nbdInnaNhDRD0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZfukKtZE3nWI5okQEmyYXri+6wM8PMPX3fgqVu7jUmdZdQJ0e
-	kDdddxv07ITCbKEyajwcpaHB9hbXXu3AVIo01DOf92cTbaBQl1JkwREcFFmZz6jBQ+k=
-X-Gm-Gg: AYBFou3uK4Xvgqb3l6QQADSKg5hwA48x+l6d5Mj3hA+jSN13wI8fbWL27EqbUVYR+iv
-	oNivLZSP7yQbhLMoA6BhwgDMEKW7M4OY9seUSx2wnGlgGA7uOQWlG/UH8uQj1mmoT4lQDMpgoNp
-	u/4zSBXaU8ae3STZXAUDRIdnBylY/sQ6mbd18mxerL3lH189BeshF0qcSYB5RJUpvjsXK7TYMY3
-	aqEYfQodLmC7rKCTbBV44iyk66yJk5T32JFpHQ0Btb4i500E6lJke7gG0RChM0kh/lgZEQ7f7AX
-	ic82oYRcTVo19wcjzCNL2lxesk1mAVXq55jvxIRirr06xb1sRr6SHuXQ+qN8mM1XKv4fJJRfN9l
-	K+azINTl9Uf0E/MwYRqYABjjLKDMzypm1EUaUrxk5DQlWfIotDJ9A0cjCXFShJOHnDzpD3GqI5h
-	o8jVs4Ao+Ag+5l8rjqjKubgmJ3wsXrTPQCWQQhlLNoXNvFcYgE2q1N1LSX65ixrtw9lJUPPP0xP
-	lESrjt3KaoQihnQO30ZGOsxUNXWwlqfgsc/PFuJVgY=
-X-Received: by 2002:a05:6000:4a11:b0:484:3f43:4914 with SMTP id ffacd0b85a97d-484914b7e15mr4452356f8f.20.1788332857515;
-        Wed, 02 Sep 2026 00:07:37 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:526b:98c6:2fb7:c242? ([2a01:e0a:106d:1080:526b:98c6:2fb7:c242])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e72df2sm4746752f8f.1.2026.09.02.00.07.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 00:07:37 -0700 (PDT)
-Message-ID: <60c230e4-d138-4522-afa5-07d579c8db5b@linaro.org>
-Date: Wed, 2 Sep 2026 09:07:35 +0200
+        d=1e100.net; s=20251104; t=1788332864; x=1788937664;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pjw7Yj8C+EGcBYthQYN8Kf9YjAONN+Q724TMv0sxgAw=;
+        b=UNJMFYAgZsNfj8Tdpyc6ftexKtw9gRbDXnjGBh4HbNlDVYpxwGYxVbPrGvdKiZytv7
+         XIByKIypEYEPirICAihA400OtENbowo9wWKfBvAZ6CmwSLg46KuqL5fUTHPZwSsFXKMS
+         QVqByYl2sRZIV7/RMRmzOHkObE8qpwjXBRV8HjycrKHN7B3tCNBrlBK88B9TIs5jkYcC
+         tvZpMXbh0lN7/Xam1+MPt3bRyyim18nV4yBq/rMpcf4/iwAZEdkYkCX0MHxWLNTK3eqw
+         oJa0Bqxgyc0/k/HV9hj2hTyao3CFwIGdru061lagq1OINQDZElwUKWL/DsoGokR2SQYi
+         kstg==
+X-Forwarded-Encrypted: i=1; AKwUvBwb05X4jI1JGE232fWusk0Zt28ycx164vwvTEmawjOoC11xX8sD0M8AViD/Zjvd0KMP799eZkYJdSvkpPA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kiV1IJbB9+NRQa5SL4pMm/cVcopAuyeOBVShAYuRgaH8MmZ218
+	8KwUC+PokHOuJX1UwQR8RIJfj5K7XPVoa8FsfqLO81QrYKRIwRKFWrvW
+X-Gm-Gg: AYBFou0ow0I38hGFiU+Ez6S3a266A+24MEl+aco/b9uAzprUWwwkC0JsYp+2/4vuXOG
+	46xlFWV9FbXpgdpeFI4e6VTA5Y/b2z+qpRsiP74OjuRX284f9I+7Ttx4warNd/9sPKtLjWSb11B
+	2uWZQyAOhTgX3aPFCGE0HWF3W4CUhWok1ZmfAH19iEzpWqpUfgmP6xT66VTeN1HDNmvTzQraiy4
+	O76DmrmwOqG+UllABGrwUrPEakfEbLg7AQe6Lmo6EdWkL8DBnDcjNtVgnIvYdMe7B84myMTXcTV
+	MO+ogMMeJfgrH/9J9pUhKoAJBjierTWCbH/gVcCOaZRaxTVyQF+bAE/s7c9tcU36V924FoOBXgd
+	V5bQoGM6xssXpiCVivOeIwlb4GEvs3RN1K5524RX7dqfC/CnU15D/zmYptTYS6DFaBZYI1z1aFZ
+	UfLxMz3R2QkDK69ijg7hpMntsyEj27omwLOMxFN69+1I/3JFYVbwFYICl0cmJCzo12/Cstushq7
+	Q==
+X-Received: by 2002:a17:90b:3c09:b0:398:c0a2:8f8e with SMTP id 98e67ed59e1d1-39af64f9205mr1192783a91.26.1788332864187;
+        Wed, 02 Sep 2026 00:07:44 -0700 (PDT)
+Received: from amd.ban-spse ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f079c33f4sm4173256eec.1.2026.09.02.00.07.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 00:07:43 -0700 (PDT)
+From: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
+To: zhaotianrui@loongson.cn,
+	maobibo@loongson.cn,
+	chenhuacai@kernel.org
+Cc: kernel@xen0n.name,
+	lixianglai@loongson.cn,
+	kvm@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
+Subject: [PATCH v2 0/2] LoongArch: KVM: Fix kvm_loongarch_env_init() error path
+Date: Wed,  2 Sep 2026 07:07:21 +0000
+Message-ID: <20260902070724.3459457-1-nagachaithanya9911@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260817115847.2705791-1-nagachaithanya9911@gmail.com>
+References: <20260817115847.2705791-1-nagachaithanya9911@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v16 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260901-x1e-csi2-phy-v16-0-dd863b929080@linaro.org>
- <20260901-x1e-csi2-phy-v16-2-dd863b929080@linaro.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260901-x1e-csi2-phy-v16-2-dd863b929080@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/1/26 22:15, Bryan O'Donoghue wrote:
-> Add a new MIPI CSI2 driver in DPHY mode initially. The entire set of
-> existing CAMSS CSI PHY init sequences are imported in order to save time
-> and effort in later patches.
-> 
-> The following devices are supported in this drop:
-> "qcom,x1e80100-csi2-phy"
-> 
-> In-line with other PHY drivers the process node is included in the name.
-> Data-lane and clock lane positioning and polarity selection via newly
-> amended struct phy_configure_opts_mipi_dphy{} is supported.
-> 
-> The Qualcomm 3PH class of PHYs can do both DPHY and CPHY mode. For now only
-> DPHY is supported.
-> 
-> In porting some of the logic over from camss-csiphy*.c to here its also
-> possible to rationalise some of the code.
-> 
-> In particular use of regulator_bulk and clk_bulk as well as dropping the
-> seemingly useless and unused interrupt handler.
-> 
-> The PHY sequences and a lot of the logic that goes with them are well
-> proven in CAMSS and mature so the main thing to watch out for here is how
-> to get the right sequencing of regulators, clocks and register-writes.
-> 
-> The register init sequence table is imported verbatim from the existing
-> CAMSS csiphy driver. A follow-up series will rework the table to extract
-> the repetitive per-lane pattern into a loop.
-> 
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
->   MAINTAINERS                                        |  10 +
->   drivers/phy/qualcomm/Kconfig                       |  15 +
->   drivers/phy/qualcomm/Makefile                      |   5 +
->   drivers/phy/qualcomm/phy-qcom-mipi-csi2-3ph-dphy.c | 385 +++++++++++++++++
->   drivers/phy/qualcomm/phy-qcom-mipi-csi2-core.c     | 462 +++++++++++++++++++++
->   drivers/phy/qualcomm/phy-qcom-mipi-csi2.h          |  97 +++++
->   6 files changed, 974 insertions(+)
-> 
-LGTM when bindings are reviewed
+kvm_loongarch_env_init() leaves everything it has already acquired behind
+when one of the IPI/EIOINTC/PCH-PIC/DMSINTC device registrations fails, and
+kvm_loongarch_init() does not call kvm_loongarch_env_exit() on that error,
+so nothing else cleans up either.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+v1 unwound only the memory and the perf callbacks. Bibo Mao pointed out
+that the device registrations should be undone through wrapped unregister
+helpers, so patch 1 adds those and patch 2 uses them to unwind the error
+path in reverse order of registration. Patch 2 also uses them in
+kvm_loongarch_env_exit(), so that the device ops are unregistered on normal
+teardown as well.
 
-Thanks,
-Neil
+Link: https://lore.kernel.org/all/20260817115847.2705791-1-nagachaithanya9911@gmail.com/ [v1]
+
+v2:
+ - Add unregister helpers as suggested by Bibo Mao
+ - Unwind device registrations in reverse order
+ - Use unregister helpers in kvm_loongarch_env_exit()
+ - Split into two patches, so the fix only uses the helpers
+ - Reword commit message to avoid implementation-specific details, and
+   retitle from "memory leak" to "resource leak"
+
+Compile-tested only, no LoongArch hardware: loongson64_defconfig with
+CONFIG_KVM=m and CONFIG_KVM=y, W=1, each patch built individually, no new
+warnings.
+
+Chaithanya Lagisetty (2):
+  LoongArch: KVM: Add unregister helpers for the KVM interrupt devices
+  LoongArch: KVM: Fix resource leak in kvm_loongarch_env_init() error
+    path
+
+ arch/loongarch/include/asm/kvm_dmsintc.h |  1 +
+ arch/loongarch/include/asm/kvm_eiointc.h |  1 +
+ arch/loongarch/include/asm/kvm_ipi.h     |  1 +
+ arch/loongarch/include/asm/kvm_pch_pic.h |  1 +
+ arch/loongarch/kvm/intc/dmsintc.c        |  5 ++++
+ arch/loongarch/kvm/intc/eiointc.c        |  5 ++++
+ arch/loongarch/kvm/intc/ipi.c            |  5 ++++
+ arch/loongarch/kvm/intc/pch_pic.c        |  5 ++++
+ arch/loongarch/kvm/main.c                | 32 +++++++++++++++++++++---
+ 9 files changed, 52 insertions(+), 4 deletions(-)
+
+-- 
+2.43.0
+
