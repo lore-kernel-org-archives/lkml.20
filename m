@@ -1,205 +1,170 @@
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8171B34CFD0
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:51:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788335473; cv=pass; b=IBBpLMANqVvt6MlsMVaHa48LQdWSTribLIAMKEffiHgipMlWyq7DatzeVNz4pTjEAV1x9fzzhUDtWZ/Ud0XR6UqeS+AlZIwz94uMnIPwJqIB/txWCNzU85ugkq9m9enH5ubW8kdvcuA181yG/nVzuSPgQwEQvytdI0wRekplt8I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788335473; c=relaxed/simple;
-	bh=rM7qgsXqJrjfU1zB9wCetpM9b1jjkKWvMBpIbuQxQ48=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aWHKFnRLaMi3YT0Smt0rgCIYyq9BH10ok/rtI4YmunQptCzsuSIoDbfZ36K03pAHL0rDup6geQfyTUKgaSw1r1D6BL/gJEH4X6B5ZG6xuGGGs5UWnikM5nVgJm5xq7ASmwbGsLo3IMXBfK2N1JxB6Uuk9JwGnzLLNf4NmMY3TgE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=T5kwj20T; arc=pass smtp.client-ip=209.85.160.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A66A93542F6
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:52:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788335562; cv=none; b=QLDLxy8wqjdKtkjg6cb/qKv1dDdSazFsGiPI14SPg0fgiFsiEyn81+Y5BY7AhdXbqYWijNXRDE/RHk2QqcQmaZP3bfuDslKFPPC5lNynzaI7Sc6t1CijjJTaRP5k1Aos6hxUgzQcwwVRVUFemwZFdvAA7Wa7z1ofRT/Yx8xUaPg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788335562; c=relaxed/simple;
+	bh=vS/n6FpRvsfmcwxTkH9S/ll+Yj5BUUp5Nnnp42lgrTs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jVtSnEGunp4JuoGGj0yKefILjewI7Wng9CAoOLGlk4wxZ5zIjou7VfJuPOzflV8UJFUAdZbVoPgqrv36EePjY8bPLcXCD4bS2GgUUI3ZEBx4DA112ArK3D12V+YGRCY/ZQwnNLzae1G9OoOnR667qMmcOIQ3JftcVIn1WF7E9VY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jTy54Byw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GGeolsm1; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="T5kwj20T"
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-52d5bfa4bafso7724741cf.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 00:51:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788335470; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Xews5nWzjPFeJfpoytWlDGUthkc601ynEEhAU6vg9mLTUMsBWfOLAXU1I0rVPl+Y5q
-         ThDXxs3pMh8khGmhkN/sdDYQym8TKieo0GEnloqgysESeEa9k5wjcl3vDPEWr2M1ZfGf
-         hVfqml9rs4JgVRygpumHnMUWyJSMszyVMJuK/ORDcU4WNjWkidXayUln/2knVBEvhLA2
-         AWVgHqHfXy7FTh7iHGJodByrnA7Dpv9WSrkd1TXupaFW7MbR+V9yvQnWKfU+Hlblu9Re
-         z+zW5Dr+FzeNwl0AEtv/LaiIUVFuVV5hfJ0jBefHsh7q7yoU4Jx7lwn0EAjD853GKyBY
-         oc7w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/6EqtbHhJWvHC684npzEjTJ8zJmtURSOlMpn6WZ7NE0=;
-        fh=1k4wcJFNEltmF55BoFuYOpYIxxIDvbv/E3ABmU/EuYQ=;
-        b=UqsxmKeXLXrPHhnE/qWFU3Cey2Wr/y2LOrQF4oA87dL87d0PrSTRaxNAykWqtrm5YS
-         pqPkgjnpVt+UB//YPNiyTdO0aX4NYpgryOsonpfFMIUjSY3SQSHv8Q/+6ZegzJDCxojQ
-         sUDVLaiSgZQjYsiFO5lYv8aYrgEmguQn3+AAyQoe+bW5eLxvYBICpHKQatfQIeFOjNbE
-         e0DY2XNLKAzrZkR3oqXnqeWaGcOn6rA3oPZrXcHgzEY6EP1vfLvZvqXP0Fdzqs5Ax087
-         je4SFuGmPOuzbBh0TjETqMV+yn4zJzsg1gblbXTzFsk04ukRDWazPjZKgPrByA9b8rVp
-         ba0w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jTy54Byw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GGeolsm1"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6826WRae695460
+	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 07:52:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	wzl3ufzAnU4HEYD54uRhJuX7P8cpp0TpUhmprYF889o=; b=jTy54BywqPTSFTKc
+	e10Qd5SSwa9PnvhTAt1zP1ZQkTHhlG6wPONubZB4v6pvi83tQIvJsJosNTTjsYd0
+	mZmaeefAc6KB8nKYtcCVjsyQuZb7nP1/pNgulX5vZcBCc9HGvTso/tOIPAmd+kKF
+	KW/tZPufHJACpn+wID9h/eKFaMhMfZDiZncxeBvA17kTOYD5l5EYjnpIbjlAudbW
+	2dl5ORNL/ZG83GGhOqa4/5ZUbUjavBDF9xRu+cIlNhMlbyI60Ospx5C+IiALoiOI
+	N7N5haY+5kg4ueqbph1lGUMAIGXCaE9SeBqiStfqpgP6pdnq0yOwLejysdLh32R5
+	3b4FSg==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4geb5612ek-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:52:37 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cf1c86963bso20029755ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 00:52:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788335470; x=1788940270; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/6EqtbHhJWvHC684npzEjTJ8zJmtURSOlMpn6WZ7NE0=;
-        b=T5kwj20TQIZXhUAc9gfIyCMmCYSzDRgXz/Ja+2Vy1Sbjrgnud2JMjkcgyep6s3XJ7U
-         /jDUmeTXDNfkujKXpQijBHRY4FNGmAEXxG4Px3gylj6xDAv6j/lIa7LauKCxZifGwtrl
-         7zGmHqz9bDDUhxZTu+ZtJhBz/6W3b9rX6LRuU+dyNBh5jVAj9UYWHsaO4T7Ev820tNj0
-         LRvI5X/WF7Ei/Som++cSXSaSSwhVCbLe5wIen05VebYw1tTXsrLQyB9CAF4RCnsrFPmk
-         2FvdjjCmSOeWi7ZjRPIKE4DpJZ006jQZYq8UacAxSgvZLXWiW2FksS6XsOvj1CZ3ekHA
-         OlDQ==
+        d=oss.qualcomm.com; s=google; t=1788335556; x=1788940356; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wzl3ufzAnU4HEYD54uRhJuX7P8cpp0TpUhmprYF889o=;
+        b=GGeolsm1BCZ9IBJgiv+7sv8cHwR/Ij7ukEERws7/6nuQVotcbOoTUfbc4rAcBgRza8
+         Uf9+sNZ28J81eOqisn1jCOQMbpbm3Rqc7ucPYuVevbDBfAYjZqx6DGSqXUJdDSEjzdlv
+         9HJafe6jlo54IXGyWkQpe10AeatmHh4W8ljSKl7Ts32zgY8jsBhh9By0+x4dgQHjEodP
+         E74k2qcrhOFL6SjJb4fOjkqPlJhR/pzoYN2N1mxYo0ZlKqv8K2hywXGPoY2VXcVmzhLH
+         PnEcJek0Gpole1mdvBlJGf8BrnQHxG8MxNTTAjGsxK+mujoZj5P8XSy1MACNSDsJSGti
+         gjpA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788335470; x=1788940270;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/6EqtbHhJWvHC684npzEjTJ8zJmtURSOlMpn6WZ7NE0=;
-        b=MODEyC39g1eul4uXB2m4TjWj2kNlFkn6YFZkHUIe4RyVomaKJztn3pZydFoYqw7+r0
-         gEd/gCElmYt514ugKwCZxlvzylj/9KEFT4GpBXvDXAtWuEmaH35AoweoCcVZxG+O1NPR
-         5e+8euwby1sfugckH/j9U5SOBwX1teiwHktrwUaYOE4YGm6rAQk7Ms5OvUpQB50XLun3
-         iWHg34J1oc+Yw8QTwDq6a4dbDKAvsWBwpdgFnxa8LNaM+C7uyAz3PzC0q5BgPNWIrd+t
-         JStsUJ5h+8G53RAAjtuM4ADTP+FXmBSc3KMrt6yG9x4oXXTU0s5NguWka/dJ5w/pCGdH
-         hV6g==
-X-Forwarded-Encrypted: i=1; AHgh+RokyvZ+Lh8/5LawTJaz1AD+uVEoWygq3EKzuV//kS4qhDDp1RMab0Q1POPqrs8BAbCWWyAVCeOlE9HF8dQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++m6GGOvT6Mm9HJkK1VU5akDweud/EoVdKc0RFd8pMEALIZbYCo0
-	o79npn6t/uNEcO+7oKDGphWE59Ty+3i1sPdVrJISCBrHY2FoNqzUaZzy3okZkB+RWhJSLW4mRSr
-	8ve5m1BqX8rlWzK88j306w3ULha7dYFRCWcbh9Wm3
-X-Gm-Gg: AR+sD10LTwFQsXCv1VeiuuK6Co3h/5WrrSmeLdbWHeYD3ChfA4q3DKaqP0bszJuNM2r
-	RWUS8i2DSkobnFvXw1FO25XlXfQB1opxjfu06yfPInRZPvlrv/6dyhyNHmRSYa1oSTuSOXUH9L3
-	hr5ABZA2KMOkDsl56XfRyM/wFnu9MybfQtLbTMMJwJo+Y+ZFtS7AcZOTanlKVGX1USgOmOXAkIA
-	KjdL9FLEEqtA1VBsPUgs9T2+F18LfpwHb2SPriNdvlwVpUAN/o/tSMZFOgAXSBcrsu1BQfNXCVd
-	mb1ptubfmXfnf3STg1YQkwdfiVqK4imwrPrCd42OMktc8Sm/skX2WOaMlmAmPKdklkJcU7DcBkr
-	7ksbZdX+HiCE9GyZmi6+BDXf2Ftn1kwdvL0a1+PQ3wRNKjrYNsA8I525o1w==
-X-Received: by 2002:ac8:7fcd:0:b0:52f:4cd:13f6 with SMTP id
- d75a77b69052e-53036bd4ca4mr26722281cf.12.1788335458266; Wed, 02 Sep 2026
- 00:50:58 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788335556; x=1788940356;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=wzl3ufzAnU4HEYD54uRhJuX7P8cpp0TpUhmprYF889o=;
+        b=VcliwBzgbX1UfkRFJlfTJ8eUUzX4CcjvR27qjvuiGBk7J/Os93/WA+Z/6qCd/kaeYk
+         h8YAP2IsyfxwWKZUMbmgWsHJgpnKvg7qzLM1jw9CT/czyQuBSeUZEdU4qEBj8DN+5bTe
+         gEANvktvNhKU74jH87ZhJEvCWwVKTldSiOHn7jp5noiiq1y05wOV5u3UoXx/5AUOERBh
+         Aapt2J2HGyitUzCSQEtSZeJ7nlK/P6NvOp1N5vBGcfGO18A4sDL+SJrUbzCOHlF8xSdY
+         8srJFxXOGwWIo8aSPXheMm18f/Umrqc1VXZvXpW4HDr2RqPo7aA5ma2Q+o05C9i5LgF3
+         77nA==
+X-Forwarded-Encrypted: i=1; AKwUvBxR1kF4t9N4y7ZDfUcsPWZQGW79+JyQOg/pJIoWpo3kVq480HMngb00tZpGRADUb1Qf8tFSZcOiMF4ux4k=@vger.kernel.org
+X-Gm-Message-State: AFuF++kLeJYfY4A/kiwO3VFN+Ys3cRrpsb3oYTwPB01KNDz+sxKefUmQ
+	j+u6jPymqG/Thpo5gDTw9jgYXIp5OXdF3T/MhbQEgOvvU/kYhkDwDohr/jhQq4B0VXKnPsll3iD
+	oyxgzMLS/EZRzZLdhFG078kr5/eax9hRgYOzO3a9r0rzmD4IOfzMye6/B/ZDkVLiRyWI=
+X-Gm-Gg: AYBFou01tNrYD26fXCGfyj5b6SX0vCc6L+D5RaVtTDoCvTBFuMOti0nP2r3xtC+jrVx
+	YE++VQ57uPXrsFG5/vLEVqzr/jE9mNM4eZYIjmuK7mkSEbmZESCJulC3eeT0YaecU8K3UwuuUyH
+	zS67vMNe9DcSGct70vyJxEAuIUQiu5Qdnxwd+yOR7QAJifq2CASKEIAVfKBlF9hp8Ar78eNrqh2
+	QstQcdmcvF8xEvP1RYNmwjioFUD2tGTFLLbkr0AI9vYnhxQTHh7+VhUn3XROnDz1CiKtHuaWmEf
+	KjBFVpA3q6FGY5sVrfZw7/OnxrL/TcWY3eAInQ5iTape2Rxxfjvh+P90FjT7A8bmzxi3vrd7GTB
+	TH5Z8LUlImC6/Ku7GkT5ew2Girjms8YGYPTK1MVlzgHY=
+X-Received: by 2002:a17:903:230b:b0:2d9:2ff6:246e with SMTP id d9443c01a7336-2daf13b31d8mr10641825ad.23.1788335556368;
+        Wed, 02 Sep 2026 00:52:36 -0700 (PDT)
+X-Received: by 2002:a17:903:230b:b0:2d9:2ff6:246e with SMTP id d9443c01a7336-2daf13b31d8mr10641525ad.23.1788335555939;
+        Wed, 02 Sep 2026 00:52:35 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f07b79898sm5004359eec.15.2026.09.02.00.52.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 00:52:35 -0700 (PDT)
+Date: Wed, 2 Sep 2026 15:52:29 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] Add NMXC power domain for Nord SoC
+Message-ID: <apfVvXLAW0j7g3pD@QCOM-aGQu4IUr3Y>
+References: <20260826135454.658615-1-shengchao.guo@oss.qualcomm.com>
+ <CAPx+jO8RVUv=mqDZ-GeJa=dEYdNCK9L8Vi=UCDY9GqQ1TefCsQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902071900.395567-1-ruanjinjie@huawei.com>
-In-Reply-To: <20260902071900.395567-1-ruanjinjie@huawei.com>
-From: Eric Dumazet <edumazet@google.com>
-Date: Wed, 2 Sep 2026 09:50:46 +0200
-X-Gm-Features: AcwNN1VS4Ys1X8Nn9iYxHLdlNe4U2Ir54BIpZqJLNxyaWNxqdLeIIbBPDo0rEuI
-Message-ID: <CANn89iJ2ppM6+MZhLP0Lu5k1Yka2qXqMvBMVL1ZzEK3nHx0iBA@mail.gmail.com>
-Subject: Re: [PATCH net-next v3] soreuseport: publish num_socks with acquire/release
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: kuniyu@google.com, pabeni@redhat.com, willemb@google.com, 
-	davem@davemloft.net, kuba@kernel.org, horms@kernel.org, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPx+jO8RVUv=mqDZ-GeJa=dEYdNCK9L8Vi=UCDY9GqQ1TefCsQ@mail.gmail.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA2OSBTYWx0ZWRfXyT9aShchbCHI
+ YKclIM3u9c5ghWbA0sTCg1zQEGsCrhWkj5OwUd2jrb0nYqr3ZkxDS+cDMxblSStZ69KsH2gsek2
+ RcmvEAFavkoafSC2LkD/kz/0x6t6VV+FheR1fWhVlv8lkvQNMv72kU/LN7/rtPZiCutJbyXWlii
+ Vk7F/0vV3XRiEwWSNFHuyh4T1gj0J5u1KJG9YEhWao0VA10IWL+l3XJ4R5TPwG3At9/VKqazAK5
+ zUEhpiBibxhwo70FTF3Kk5jewQsF/DnNWIPbWDDrJuBZ7RBmbxi9Lr2xYEN1RdANxHBt9vyX/pj
+ SVOXTdI8XCPkvW8C8QHh+eUbP1U7RkYcv5nQ0iHO/w/jCJ9rTpgjiDKOhC641ZOrAbNVeOBAr4Y
+ eom2Z3qW9gUFazlVSJ3XR6GLsFjbHRZPNf0mDJ7IqIrV+FiOw8cZ9cqmuzYZL3dT3/w8dQjq42U
+ +va1FPxgLhNXopByq5Q==
+X-Proofpoint-GUID: UW7XuRmY4KVINrA5nsiX3iXTtDSIgwpw
+X-Authority-Analysis: v=2.4 cv=D8N37PRj c=1 sm=1 tr=0 ts=6a97d5c5 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=aF_vd5NMXLjnXWj9f7cA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-ORIG-GUID: UW7XuRmY4KVINrA5nsiX3iXTtDSIgwpw
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA2OSBTYWx0ZWRfX5UnER3qZhOlS
+ HHIAhow5yD8QZ4zHV+wTGad/XTJ0Lgb+6YI8Qi+oyFpdMhy2F0RAkkRz9+c0zUB5KAot/puFPWx
+ XGt5Qqqvgu3Vid3bqxfjCkWaUTME18M=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_01,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 spamscore=0 phishscore=0 adultscore=0
+ malwarescore=0 clxscore=1015 impostorscore=0 priorityscore=1501
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609020069
 
-On Wed, Sep 2, 2026 at 9:18=E2=80=AFAM Jinjie Ruan <ruanjinjie@huawei.com> =
-wrote:
->
-> Replace the smp_wmb()/smp_rmb() barrier pair with
-> smp_store_release()/smp_load_acquire() on reuse->num_socks.
-> Writers publish socks[] updates via release before incrementing
-> or decrementing the count; readers acquire the count before
-> accessing socks[], ensuring they observe a consistent view.
->
-> The detach path gains proper ordering between the socks[] write and
-> the decrement, which was previously unordered.
->
-> No functional change intended.
->
-> Cc: Eric Dumazet <edumazet@google.com>
-> Cc: Kuniyuki Iwashima <kuniyu@google.com>
-> Cc: Paolo Abeni <pabeni@redhat.com>
-> Cc: Willem de Bruijn <willemb@google.com>
-> Cc: "David S. Miller" <davem@davemloft.net>
-> Cc: Jakub Kicinski <kuba@kernel.org>
-> Cc: Simon Horman <horms@kernel.org>
-> Assisted-by: DeepSeek:DeepSeek-V3
-> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-> ---
-> v3:
-> - Split out from following patch set as Kuniyuki suggested.
-> Link: https://lore.kernel.org/all/20260901024234.135119-1-ruanjinjie@huaw=
-ei.com/
-> ---
->  net/core/sock_reuseport.c | 20 ++++++++------------
->  1 file changed, 8 insertions(+), 12 deletions(-)
->
-> diff --git a/net/core/sock_reuseport.c b/net/core/sock_reuseport.c
-> index 29948cb44b7d..6d3c511d1def 100644
-> --- a/net/core/sock_reuseport.c
-> +++ b/net/core/sock_reuseport.c
-> @@ -125,9 +125,8 @@ static void __reuseport_add_sock(struct sock *sk,
->                                  struct sock_reuseport *reuse)
->  {
->         reuse->socks[reuse->num_socks] =3D sk;
-> -       /* paired with smp_rmb() in reuseport_(select|migrate)_sock() */
-> -       smp_wmb();
-> -       reuse->num_socks++;
-> +       /* paired with smp_load_acquire() in reuseport_(select|migrate)_s=
-ock() */
-> +       smp_store_release(&reuse->num_socks, reuse->num_socks + 1);
->         reuseport_get_incoming_cpu(sk, reuse);
->  }
->
-> @@ -140,7 +139,8 @@ static bool __reuseport_detach_sock(struct sock *sk,
->                 return false;
->
->         reuse->socks[i] =3D reuse->socks[reuse->num_socks - 1];
+On Tue, Sep 01, 2026 at 05:46:09PM +0200, Ulf Hansson wrote:
+> On Wed, Aug 26, 2026 at 3:55 PM Shawn Guo
+> <shengchao.guo@oss.qualcomm.com> wrote:
+> >
+> > The Nord CDSP subsystems do not take their memory rail from the shared
+> > MX rail like all other Qualcomm SoCs, but from a dedicated NMXC RPMh
+> > resource. Add the nmxc.lvl RPMh resource and register it in the Nord
+> > power domain table.
+> >
+> > Changes for v2:
+> > - Drop remoteproc changes since "mx" of remoteproc is just the name of
+> >   memory rail input which can be wired up to NMXC power domain in DT
+> > - Link to v1: https://lore.kernel.org/all/20260826102746.633076-1-shengchao.guo@oss.qualcomm.com/
+> >
+> > Anurag Pateriya (2):
+> >   dt-bindings: power: qcom,rpmhpd: Add NMXC power domain index
+> >   pmdomain: qcom: rpmhpd: Add NMXC power domain for Nord
+> >
+> >  drivers/pmdomain/qcom/rpmhpd.c          | 6 ++++++
+> >  include/dt-bindings/power/qcom,rpmhpd.h | 1 +
+> >  2 files changed, 7 insertions(+)
+> >
+> 
+> Applied for next, thanks!
 
-OK, but I think we should fix these problematic accesses to reuse->socks[X]
-to avoid load/store tearing before your patch?
+Thank you, Ulf!
 
-This might avoid some KCSAN / AI-review reports.
+Could you maintain a immutable branch for qcom,rpmhpd.h patch? I have
+dependant DTS patches planned, so an immutable branch would help Bjorn
+to resolve the dependency.
 
-Please squash the following parts (shown before your changes) into
-your v4 patch:
-
-I think that this could target the net tree, with
-Fixes: ef456144da8e ("soreuseport: define reuseport groups")
-
-Please wait ~24 hours before sending a V4.
-
-Thanks.
-
-diff --git a/net/core/sock_reuseport.c b/net/core/sock_reuseport.c
-index 29948cb44b7d1a8864ff680aaeb2b4582ede5ff4..8380936fae736337b902f70f0f5=
-ebc1155a3bf37
-100644
---- a/net/core/sock_reuseport.c
-+++ b/net/core/sock_reuseport.c
-@@ -139,7 +139,7 @@ static bool __reuseport_detach_sock(struct sock *sk,
-        if (i =3D=3D -1)
-                return false;
-
--       reuse->socks[i] =3D reuse->socks[reuse->num_socks - 1];
-+       WRITE_ONCE(reuse->socks[i], reuse->socks[reuse->num_socks - 1]);
-        reuse->num_socks--;
-        reuseport_put_incoming_cpu(sk, reuse);
-
-@@ -521,7 +521,7 @@ static struct sock *run_bpf_filter(struct
-sock_reuseport *reuse, u16 socks,
-        if (index >=3D socks)
-                return NULL;
-
--       return reuse->socks[index];
-+       return READ_ONCE(reuse->socks[index]);
- }
-
- static struct sock *reuseport_select_sock_by_hash(struct sock_reuseport *r=
-euse,
-@@ -532,7 +532,7 @@ static struct sock
-*reuseport_select_sock_by_hash(struct sock_reuseport *reuse,
-
-        i =3D j =3D reciprocal_scale(hash, num_socks);
-        do {
--               struct sock *sk =3D reuse->socks[i];
-+               struct sock *sk =3D READ_ONCE(reuse->socks[i]);
-
-                if (sk->sk_state !=3D TCP_ESTABLISHED) {
-                        /* Paired with WRITE_ONCE() in
-__reuseport_(get|put)_incoming_cpu(). */
+Shawn
