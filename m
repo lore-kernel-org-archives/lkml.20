@@ -1,159 +1,206 @@
-Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com [209.85.222.46])
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E1A3C8713
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 23:56:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788393396; cv=pass; b=elj4QwkttlK2v9WAGo0U4uveS3WpgcAMakP0JlwzK0LMy79vTD05p3cZcXkbqCAMFIKP+S1jmb8VJRVlQmvT+jB3NdipEDyJGbyiAi1d6trPbG37TFI0j5Blj7cyLMEe7yNpHckQsh288D6sMCJqXMSf03fPRYmDDp0JXVz2pT4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788393396; c=relaxed/simple;
-	bh=IJhDGleDTgY91qpLvvE+dNdvhrQblJ9A1FgCmk4NQj0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uzczCmuj132vkyv+/ehz/6Fum29+3QAoIY1Z9Ck5eGgJpmRHzYoto3Xyy4Qcyz7ZQeJZhnEah/3yOPpYoXf6LAoBgEhCuTdPUMmnWZ6IXl49IGpu2E1pGeyBSXot1KmXEJY1h70fXj30WbbK3y1yT33u4Di7wUNNPUMHEsFLORE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NLXKUxor; arc=pass smtp.client-ip=209.85.222.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1654646AF08
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 23:58:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788393505; cv=none; b=u/H0PQNTXE9dxzsjtcKCTFU8/f9RUZWPql6FdbkPx8LFvt5KbrqP/aYebPZp7FL/fwHoHGTd5i5aUw+P3Bz5HcKSou5nRz/6yK7QervTq9MFWhBDf0XsaApOLqyWaTVWmzuUp+Auaa6zeLB6DcOZobJPjMGaUmlBSKu+qbeK0es=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788393505; c=relaxed/simple;
+	bh=y0BmfY76mN/0WPfH4Hr0Ikh4CCr4ip0xHhPT2cF1Sd0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XUVqYnWM7A5JZup4vVe+oyUshVTusqAdSTHWBns0sc0ixxW9+RCwv/wV1nI7HNgTubRG3alSreGiWktLHtWBKRfM7olTWeeloxdlWDWw8qiuHjaIDD+p6pKtVtp7QdxbNtsPfCFvUHlln63wnJIhPnbTtFy+HGrmpdUx4C2dzbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UEdOUHVf; arc=none smtp.client-ip=209.85.160.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NLXKUxor"
-Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-97ea365dd68so760079241.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 16:56:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788393394; cv=none;
-        d=google.com; s=arc-20260327;
-        b=o0htGiuqo6Sg29/lXjsvUyyczWjG9avXyfD9V1sKCIk+29dt880BI6pFfgCkq5qrFY
-         WpvszAHkOA/kREa9ApeB5tbweaLssLDgL04GHTIqN2GLlUKn4GDs0BBnCKWSigLUFv6z
-         TXxqthr8grxZ3Ohrwl9JEiAKjA5TNjVNxPr30yYJG3PwNTnSnF5/vJeFSAQlqJw7pmGX
-         qbSVxWVKjHLrHM7I2275LehoIvGgLGw5WP0Il5ZBXjtOUDdkIf494wCorXs5hS99+8g1
-         /+NVenR38u9/uNaqdXzx4SnfQNZaB0QGzANwZXimMtFZY6rEqQq4oteMRaN2uUc84yVS
-         DPkQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=UJZSL+LFGxz2Sekirt7LIG9bYUqyGPk6CPn0ZxX1C8E=;
-        fh=QeuafHJlVet2Nghp1ccF/bz7vkaGlEsSQTy6JJcxxKg=;
-        b=M6V8hgJ9xnTkIZwjqnnDFSVtHViqHgdBIX/Par29z7pzbgsBfQSEEjWcNVtGVkZIJM
-         kBDx32YfN/iI0J9Ez30/19nAzGn60N3Freny5dvk0iKL0xIcM7G0070TeaeCm8oOGm8B
-         gMTFPlZCMJmGQVvZECjXBn6trQppGt7+ubG4rvLb/xxAkEmef2/nySBUynveW+CGTiqR
-         GC2ueTzwhh5752nK3EsUs61afdfFqcCNfcYJ/mMYRgpKlXEF4+99XaKqzuMqJ8TIBL+m
-         sCj7aWckD2Sc3ATfP9hKWx0Udo5CkRPq055rkoeLo/NZQlfK2AKCnzG5wkdzUW4Ja5/N
-         tndA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UEdOUHVf"
+Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-459281bc13bso1224948fac.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 16:58:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788393394; x=1788998194; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788393499; x=1788998299; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=UJZSL+LFGxz2Sekirt7LIG9bYUqyGPk6CPn0ZxX1C8E=;
-        b=NLXKUxordYUWHxGMlOvnnCatP122WgGsb7IqHJ7IxC6FstavyqnUOS7faXIOjABSRt
-         6J54Rg0S4grLZD6h9nOCTUn/kIdvJjA1BUVSt7+BeiFs9jIyM3gugRrwVPjF0mEb/kf1
-         EJs5ixYiEH02LSyCaGuX5ngg6OC5zf/auyuHwrIS5kt8XhV8D3IeBof8X9+7m0Xkqz9G
-         XU7QwMLNelqJcBt3Vapli8Iu0mx5a+ZQ1FSDPtVY/LyOPk7uDjMHsfjbeyPuk3EgBD8J
-         kgeEKkhpeg/d7EC0eCUkW7fp9M6zjNzQc1AhW+TxF3kDnwZsvmLIICOjO/68JzA7ufMi
-         bAKg==
+        bh=o6TxE/PuYRNxck14tJMx6uhlVO4Uxr/vKzSJJkM4qzE=;
+        b=UEdOUHVfSio8B+/4dM4jV06dcybCNduoYcyLhiSa7adKNY4niM8QiLriUdwA83jyjZ
+         CmwYdf8FH4RwJ2KeSlBbbF/BIJcKBZaow2l2Ly5TaZ4ly+GHSrLdlYTmCH3RP+WjdG/q
+         P+NmQnMi6eTff/mH6Ufkx396ThYmRiziHf3skgb3TvqJHxHOi8rMRwF/dU8RF+kYeVnE
+         Q0823yATERFU7Prvd5NdqsktbGuC6jSmEji3NSc0SsS+kDt/+MIPrXsD8+ZhfRzC4gkf
+         uxYr1h1xizIUWxEm2gThxF5+1MFl7LrerD8/IM5xJLTW+XurNJCcetK3Jn0Tcutulgfv
+         CXUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788393394; x=1788998194;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788393499; x=1788998299;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UJZSL+LFGxz2Sekirt7LIG9bYUqyGPk6CPn0ZxX1C8E=;
-        b=F70LPFqol+DZUKLbxm0yW+zWR9Uqii80apX9zfJKSbdf6OyNq1GaPLVbnKr+m3j6LZ
-         G9jKwchCg+LfqBK9PK/1jEqKLM2ZhShr8MnGl0lBH+BJYL+WOMQSswQKeqppLG/Gtmkx
-         TLtjJiVH84f7w40a8XrUPE8k/ErTEGeZRGPadZadg9ZMQXsli6MpFF6DnIgrvO2S8gdr
-         O8lukvT3e9HlTxnKKJqNZuI2forBvAJzqFlrCGLZ9v9ah/TAvREvzCMs+BqdOPOI7vjG
-         2YPvl9EsEyhtTabCi62gJDu1LTDObYZLMhze+qi273nEqe+h27BAUD16I8uZcutSa7E+
-         hAnA==
-X-Forwarded-Encrypted: i=1; AKwUvBxCcSoqmpsUzx84Jl903SgTifMsGS/fk9Fg/DpA75+XHx7M4ZXIzs97B4tClv6F7ikJNn+vD1KXjkR7KlA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mT+b16Ueg1vzrP+2gfzl6ACSGunHs01oSLjK6IzjD0i5dVHX8A
-	WW41NxNHgd2d1h7yiJdJiD2hI1Bh+4HkLiChrdOMRxStCiG1x97cwZKZ+pxvbOhrQHUl57IRGUh
-	geEon7FZFdKCMLR4OTytPB0jhKb0QG5I=
-X-Gm-Gg: AYBFou2/TCZaWXnw4oOsI/5tS9dTrgGzefY2Cy6SuHdrrl8rQNYgdTqaJz1pDzMgw9b
-	GgWa7Vg9+xP/IfxUN5tPG7KQgUKV8+CJnmnRJ/+E+yuh9z7ljz9RClBktfMFETFg5uvRPeWeor2
-	Nz0ciueLgfGk0Su5t710eFUajh+48UodH1kpKO9SlkycRnDNJaR2N0AmKPkUHUp/Xq6JOtk32CE
-	2zVlRpNDMm2TjZlGPbCVnNZjSLXKgbEyTqri5UurWeb1agVwQEZMw9g4uReCMMM9Jvw9KjQpDf1
-	h8BzRb6sRS8ExyNjH9QKFNBxjSNuOQqmx3N9d0Wvxk7pbg==
-X-Received: by 2002:a67:e704:0:b0:77c:6bdc:824f with SMTP id
- ada2fe7eead31-78a1f1d4903mr3745636137.1.1788393394099; Wed, 02 Sep 2026
- 16:56:34 -0700 (PDT)
+        bh=o6TxE/PuYRNxck14tJMx6uhlVO4Uxr/vKzSJJkM4qzE=;
+        b=q7cT5vxY0tPEe+2n74CSwY6wwc562z3bKxCdNBf59RIBzQNImCs4RwMjkuruJF5FQv
+         JcDQurVjVlzBFrOZQXdD3rvpmrvmuR3vwo9Vxlsgk5zRzmFxY4uqC/cOiqTiT+0eFvav
+         z2HxVWpCI+L7/0PjFOvCdcH0X6NkatDiLc7k8FpbqZQ9QMfAHBVm0B6lrkTpR/+ckfTB
+         FV37t0lC5WW4D+P4jnmsjzRsko0XtiU7MUyHyfebmjqYLDacPYC0wYgauzVlBpwlkNzU
+         NlUZ8uQkDM/DN3PkV8SKUR6MdK2xRiJPY3Gv10H8wOJCwvwu9kxBFljtGoTCilrp+uMB
+         yfPg==
+X-Forwarded-Encrypted: i=1; AKwUvBxOBvbHCfHGWB5NNyYNZCDTc3orgMKiWNiKBF1n0a+5TpuxBNxwFxDyjb6zRVPMuTR7v2h8beQnSsoCgMA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nuLpay3ciMNrPwZLpj/alpnyWQGhvt5juXfIyQN1Xzvt54t98j
+	f6fSGj10WiiAl8zSagzCJDahECsrpkSD00VFtjST9RA/917/EHhphXRq
+X-Gm-Gg: AYBFou1LrpyOjSMqOUVvCl2laQGyW1YpghhNaMUJLncan4Ox1FOtJv4up/a5ZGSC2Xb
+	2r6LoNbGaYxwQ63ke6vOyHH7aFvP50iJeQ5ZuDELQO6FqmOAqDO5/O72Ivndt9F80BWAQBZYn4A
+	Q1SPSPAFkEm29G5TgGeQPIv2/Z1IX6AmDzTtkeUDBdBjuLXa6TDPO7YgTuy+1PHZgiXYa1uBesm
+	UCzHoWidT4fL1iP8LuT7/cp+A7g5+rNwuVx2xntZ6DdpcHHMeo3XwIf5v6knPICwdEjN8FHY/hU
+	qYmkdG2zIOxZoYAvGhUa5VfDNxq3CEqXdVwFyMRHdBq5x5oVVdcKcWywToZSvdr0qjaJDrkmMCR
+	6SlzL+c9I+4u5ct/+Q1vxnmZQhJoJfeLQ46oWxAAd/P/gDJt3Ksr97q5tVcOnQP+BkopTxPd92j
+	TdQrBONj27VzMuhzq6S5SUEXz5otjGzzb/hBOOQMiIgeqKiMgZj3rbI2nu+hCaI2DlmzmzGzbV1
+	5DhHRvhu8ea24/q/rOx
+X-Received: by 2002:a05:6871:c8dc:b0:465:8554:94b7 with SMTP id 586e51a60fabf-46f87ca935fmr7744412fac.12.1788393499274;
+        Wed, 02 Sep 2026 16:58:19 -0700 (PDT)
+Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:58::])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-46f330822basm5626041fac.15.2026.09.02.16.58.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 16:58:18 -0700 (PDT)
+Date: Wed, 2 Sep 2026 16:58:06 -0700
+From: Bobby Eshleman <bobbyeshleman@gmail.com>
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: Stefano Garzarella <sgarzare@redhat.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Shuah Khan <shuah@kernel.org>, virtualization@lists.linux.dev,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, kvm@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, sargun@sargun.me, jlinbox@meta.com,
+	Bobby Eshleman <bobbyeshleman@meta.com>
+Subject: Re: [PATCH net-next 2/6] vsock: add IOCTL_VM_SOCKETS_ASSIGN_G2H_NETNS
+Message-ID: <api4Du1bQzieFvA9@devvm29614.prn0.facebook.com>
+References: <20260902-vsock-guest-ns-v1-0-9995383e9a8b@meta.com>
+ <20260902-vsock-guest-ns-v1-2-9995383e9a8b@meta.com>
+ <3a581439-6664-4339-8627-f1704db35bb0@infradead.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826191033.162320-1-fredric.cover.lkernel@gmail.com>
- <20260826191033.162320-3-fredric.cover.lkernel@gmail.com> <7f87f15e7136147297a33a540f0880f3@manguebit.org>
-In-Reply-To: <7f87f15e7136147297a33a540f0880f3@manguebit.org>
-From: Fredric Cover <fredric.cover.lkernel@gmail.com>
-Date: Wed, 2 Sep 2026 16:56:23 -0700
-X-Gm-Features: AcwNN1XDlDR860Z9DX-queudep_V0W64AlYD126lzdzAWwbcoUccmxpaxtcDA0s
-Message-ID: <CAAk_H6H=YG4+ZpJRHGaNJC7AWBEHFFJrfy3z=93sh4-rPHcNJw@mail.gmail.com>
-Subject: Re: [PATCH 2/2] smb: client: prevent out-of-bounds dfs_info3_param
- access in copy_ref_data()
-To: Paulo Alcantara <pc@manguebit.org>
-Cc: Namjae Jeon <linkinjeon@kernel.org>, ChenXiaoSong <chenxiaosong@chenxiaosong.com>, 
-	Tom Talpey <tom@talpey.com>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, 
-	Shyam Prasad N <sprasad@microsoft.com>, Bharath SM <bharathsm@microsoft.com>, 
-	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3a581439-6664-4339-8627-f1704db35bb0@infradead.org>
 
-Hi Paulo,
+On Wed, Sep 02, 2026 at 04:35:59PM -0700, Randy Dunlap wrote:
+> Hi,
+> 
+> On 9/2/26 4:00 PM, Bobby Eshleman wrote:
+> > From: Bobby Eshleman <bobbyeshleman@meta.com>
+> > 
+> > Namespaces let a host isolate a VM's vsock traffic to a specific
+> > namespace, but in a guest vsock traffic cannot be isolated to a
+> > namespace. The vsock device is hardcoded to global mode and can't be
+> > moved into a local-mode namespace.
+> > 
+> > Introduce ioctl IOCTL_VM_SOCKETS_ASSIGN_G2H_NETNS on /dev/vsock that
+> > gives userspace a way to move the device to the calling pid's namespace.
+> > The call requires CAP_NET_ADMIN in the root user namespace. A privileged
+> > user wishing to "unassign" the device can move it to the init_netns,
+> > which is hardcoded to global mode (so no unassign call is necessary).
+> > 
+> > A getter to read the current assignment back was considered, returning
+> > either the namespace's net_cookie or its nsfs inode number, but neither
+> > seemed useful enough to bake into the uAPI now. It can be added later if
+> > a user turns up that needs it.
+> > 
+> > Add a transport hook to indicate support for guest namespacing, so that
+> > transports may opt in/out. A transport that opts out keeps the
+> > reachability rules it had before this ioctl existed.
+> > 
+> > Sockets are reset when the underlying device moves to a different
+> > namespace, so as to prevent reachability from the previous and now
+> > disallowed namespace.
+> > 
+> > Following the approach of netdevs, the device returns to init_net when
+> 
+> I'm confused by the use of "init_net" several times and "init_netns" at
+> least 2 times. "init_net" is the initial, boot-time net namespace.
+> 
+> And is one of these what is referred to in the Documentation/ file below
+> as "initial namespace"?
 
-That makes sense. I originally added the check as purely defensive programm=
-ing
-because refs[0] is accessed unconditionally at the end of the function, and=
- I
-wanted to guard against potential future caller bugs.
+Good point, init_netns should be init_net everywhere here (and in the
+Documentation/).
 
-However, as you noted, parse_dfs_referrals() already guarantees that numref=
-s > 0
-on success.
+> 
+> > its namespace is removed. Care is taken to not break flows when the
+> > device is inside a global namespace that is being torn down and alive
+> > sockets are in a different global namespace. In this scenario, the
+> > device's netns getter pre-emptively falls back to the init_net (always
+> > global) so that these flows are not disrupted. If init_netns ever
+> 
+>                                            maybe    init_netns()
+> if you are referring to a function...
 
-I'll drop patch 2/2 and send patch 1/2 as a standalone v2 shortly, which wi=
-ll
-also include the removal of the redundant ce->numtgts assignment in
-update_cache_entry_locked().
+Same here, should be init_net.
 
-Thanks,
-Fredric
+> 
+> > supports local-mode in the future, this logic will have to be changed.
+> > 
+> > Suggested-by: Stefano Garzarella <sgarzare@redhat.com>
+> > Link: https://lore.kernel.org/all/20200427142518.uwssa6dtasrp3bfc@steredhat/
+> > Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
+> > ---
+> >  Documentation/admin-guide/sysctl/net.rst |  18 +++
+> >  include/net/af_vsock.h                   |   7 ++
+> >  include/uapi/linux/vm_sockets.h          |   6 +
+> >  net/vmw_vsock/af_vsock.c                 | 198 ++++++++++++++++++++++++++++++-
+> >  4 files changed, 228 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/Documentation/admin-guide/sysctl/net.rst b/Documentation/admin-guide/sysctl/net.rst
+> > index e586e17fc7a5..1e9c0d2be7b8 100644
+> > --- a/Documentation/admin-guide/sysctl/net.rst
+> > +++ b/Documentation/admin-guide/sysctl/net.rst
+> > @@ -515,6 +515,24 @@ their hosts. The behavior of VSOCK sockets in a network namespace is determined
+> >  by the namespace's mode (``global`` or ``local``), which controls how CIDs
+> >  (Context IDs) are allocated and how sockets interact across namespaces.
+> >  
+> > +In a guest, the vsock device owned by the guest-to-host (G2H) transport belongs
+> > +to one network namespace at a time. The ``IOCTL_VM_SOCKETS_ASSIGN_G2H_NETNS``
+> > +ioctl on ``/dev/vsock`` moves it to the namespace of the calling process, which
+> > +requires ``CAP_NET_ADMIN`` in the initial user namespace. The namespace's mode
+> 
+>                               Is this the caller's namespace?
 
+Yes. I'll clarify that in the next revision.
 
+> 
+> > +decides who may then use the device:
+> > +
+> > +- ``global`` - every ``global`` mode namespace may use it.
+> > +- ``local`` - only that namespace may use it, which reserves the connection to
+> > +  the host for it alone.
+> > +
+> > +The device starts out in the initial namespace, so until the ioctl is issued
+> > +nothing has moved and no mode has changed.
+> > +
+> > +Connections made before the move, from a namespace that can no longer reach the
+> > +device, are reset. The device returns to the initial namespace when the
+> > +namespace it was moved to is deleted, so assigning it to the initial namespace
+> > +is how an assignment is undone.
+> > +
+> >  ns_mode
+> >  -------
+> >  
+> thanks.
+> -- 
+> ~Randy
+> 
 
-On Wed, Sep 2, 2026 at 10:48=E2=80=AFAM Paulo Alcantara <pc@manguebit.org> =
-wrote:
->
-> Paulo Alcantara <pc@manguebit.org> writes:
->
-> > Fredric Cover <fredric.cover.lkernel@gmail.com> writes:
-> >
-> >> Currently, copy_ref_data() assumes that numrefs > 0, and unconditinall=
-y
-> >> accesses refs[0]. If copy_ref_data() somehow is passed an empty list,
-> >> this would cause major out-of-bounds write and read problems.
-> >>
-> >> Enforce numrefs > 0.
-> >>
-> >> Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
-> >> ---
-> >>  fs/smb/client/dfs_cache.c | 3 +++
-> >>  1 file changed, 3 insertions(+)
-> >>
-> >> diff --git a/fs/smb/client/dfs_cache.c b/fs/smb/client/dfs_cache.c
-> >> index b0388c460499..b51c8355d73d 100644
-> >> --- a/fs/smb/client/dfs_cache.c
-> >> +++ b/fs/smb/client/dfs_cache.c
-> >> @@ -389,6 +389,9 @@ static int copy_ref_data(const struct dfs_info3_pa=
-ram *refs, int numrefs,
-> >>      struct cache_dfs_tgt *target;
-> >>      int i;
-> >>
-> >> +    if (WARN_ON_ONCE(numrefs <=3D 0))
-> >> +            return -EINVAL;
-> >
-> > I don't understand why this check is necessary.  All target referrals
-> > come from get_dfs_referral(), and in case @numrefs < 0,
->                                             ^ @numrefs <=3D 0
->
-> Sorry for the typo.
+Thanks for the review.
+
+Best,
+Bobby
