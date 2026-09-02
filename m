@@ -1,250 +1,303 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011009.outbound.protection.outlook.com [40.107.130.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683AD2D2385
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:38:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788331121; cv=none; b=MwbgRRrBYLGFmMpjTzEc90ULDHRQWIuS0UUOxR3Fdy/jgi9NZ0/giNWNxcHfBgYx4kwiZpCXE3NN7LzBQUHFhJWWQedHt6XiJ2iKpAmAjQZLs0tolrWJCp/ZQ+epch9EdLqX1TpKbSQAotBgQYn6HgHIIkPkFPpo/NIiovxtboY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788331121; c=relaxed/simple;
-	bh=d4vLhITn+jR/h6W3zj3Hov9b+bUcb/iUnGTEbg+K46g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bj472QfMReliZ2I3SlIzodq1HMoQz3XnyhYHlXgxtQKD5K/46096R/XJ23So1r3zMYCiyIu7warBTQ+RKgcAR/aSOZfxXEoYzdM//TzDm4ycVkJcOVszAh2B/ezv747aWzs60KBXca/AnilgegYp3JA73Kv1JRPObNfm4mtnNLc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=TmRnmujS; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93841382F15;
+	Wed,  2 Sep 2026 06:39:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788331145; cv=fail; b=a7C3E89QAKiPLarPM5rPl+PRfllhYyuA1PShCoEOJM9Lu+RHKQx0bxCWUTyFIfLE9FA8aTaRg1CHJD6gNc3lTfyIzRRORPGzUkIPOWBsE7WJwVdiSN3urKo3S4KOxyGIopcdRb64kItZdRReT8YcI16aqFa2eLcK/XTybeCw36U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788331145; c=relaxed/simple;
+	bh=g/tspJdnIjaYPLnhYruDKhmk89UURmZxtfy22fiiEOA=;
+	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
+	 To:Cc:MIME-Version; b=czDvg/vLUH0a0ZFFJxUXZEcMpPskEO3w044ytxSLU3BtroQ1Fua0BjQYC4yx5UFl4sSof8jFs1aLv4DXk/pq2t51LnGnL9lb+zT8IfZX4zhxFolk0GEn0Co7xsEYRjpCfagLc+gHLn8G3T0m7w56zHfvYANzF4vhlmx8uMHosA4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=szHrv6MR; arc=fail smtp.client-ip=40.107.130.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="TmRnmujS"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so640642a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 23:38:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788331120; x=1788935920; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xpQcfp2zeHT8RNQwdlP8Z2qS1OhmNqrs1OuEaNbmbws=;
-        b=TmRnmujSA8vNCa5dCV03mLsUZN8Hf/cd3buVo0sz/sBUDvxMLs41+NUZXlbCQGeXPt
-         XQHuyN2HHRggGCQLDjRbyc//qNLW6fDgR5/oqEVd2nXD/ex0TvWzbK5ztS4etxl9FtDQ
-         GPuqmybs7vI3kRheN6fz8QWB0PjIq8kKxLPyU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788331120; x=1788935920;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=xpQcfp2zeHT8RNQwdlP8Z2qS1OhmNqrs1OuEaNbmbws=;
-        b=a+THBCftq6RVfNMRAQ6dytDYzUmPkjgyZGY+YwmjyWKtoMRHrKU8bqYNU5aZuYRrlI
-         GN0f4aTOmbYgaE7TvCURhiRL3IgkaUayJ5cx5CPJorXgxAOgaRN6XYL0x04BSGNmPhfR
-         4q1QImfD1rAEMmEXquC3XrtjzDHNMeV5yExf457AlQLsnyTcy9/ph6DpkTE+Mdazmptj
-         N23gmb7943dRPNdVbkB05bb9fDIr82wDn+Ip9o6QORNX8AhPtnXCx3NeL/7Ox10WNqar
-         HDNjzyCnjErq1RV/BN21FNRPpvOSpAovO6mTiRtVq7F2CVTWlszl5UHYYkVUD7KGGoKQ
-         OIWA==
-X-Forwarded-Encrypted: i=1; AKwUvBwqzPR6DdTeF0ldpGKyvcPNKBI2cnGZZIUwDnX/WZXra2fl84tIQapFsGhorjhM+Q4YR5MqQuwur7ocMWI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mARQvzZru32rsZknHM7o4ehyXYRuB4wj8annMZWvvI4kBgQvIw
-	LIBxtEtJn9VTVtZuaveb1kpDzel/zJmN7Fvhy3Hdc/t4cotcd4Z0ACFxlERzYB1FXmm6qIwA8bp
-	EdOI=
-X-Gm-Gg: AYBFou0VIEcM6LxEdlsKfVUM3LdcwM0VEb62rDeX120wJcc4EVHLp++C7rl5FpYXrAG
-	V2skPjDfw8wAGMzDAwTN/4mzZfoeYvHqZ4OXLLX6vOEkw7Qz3HdlWUvl2qA0A5upD/9aMpK9kCl
-	BMwjk5E+NGCkzVuegRivLri0YndBKNP5ow09WLI6MG15MYEw0ztmxwCPlmD2ARH9wj6INPHPv0b
-	vEH2s9J+pLLe2Mgakoq4kvmgMTGtWQSWigq+Y53P9cRjejPOAiEu3dbmRWLi5xgyqXskGInKMgz
-	wXNK+0hWWsMbj3WfDtcifUZJFLleI8/LIJIPd2qKr0UopcVcuU3UoAcXV0xmK+JLTjJKg5LuMqs
-	xvqXaGvVlubwUltJ9TqU93JwyUvnzH0YlRVEeqD4OAxbKBFt3v6mh6NuHe++XEtiGycpivRcssQ
-	wlxAY1STMSWEHwOvzZjkwZtxily4XBAuAXbrsCBe4Tl2j9xlF0MraVXszcUEA2WkY4TTHGtapKE
-	+ZbRGAFBiMG8iFc0mx8ew2jnQ==
-X-Received: by 2002:a17:90b:4b89:b0:398:c3ca:1ebc with SMTP id 98e67ed59e1d1-39aee105a46mr3426695a91.18.1788331119765;
-        Tue, 01 Sep 2026 23:38:39 -0700 (PDT)
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com. [209.85.216.47])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990baaeec3sm10015534a91.0.2026.09.01.23.38.38
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 23:38:39 -0700 (PDT)
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3990fe066ebso535553a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 23:38:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy198NPoa4o/cpohD6GN9gkS7dH+McJLJnNK0/3XZOgnMC/Qc7CjMnFte/Kn5iU7HoKI8GEoTknwK8DA3g=@vger.kernel.org
-X-Received: by 2002:a17:90b:4a:b0:398:9be9:ab92 with SMTP id
- 98e67ed59e1d1-39aee17ab22mr4098888a91.23.1788331117973; Tue, 01 Sep 2026
- 23:38:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="szHrv6MR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rC15jx670J1P2Lgottb/mK+e2yAp6KA2PXqAiHw2Q2zN1JKFJ47eRQvITYLwwIuziwl7H7uMF7L+MGJkUcwz+5P+N+fDv6F7D+HXJhS2kPDHWd3GZO04bQqPmss9AqzcEZ477kTZDgmF3jdf8mGt/sqFTCRXmU1Q8p7n3KjHAlaTPZPmua8tMjbiLTZGbbV86eg7LqHiRSTt0wY2SdpwRc+ci78sfKgI4+N/UULfnMSnVNuQplg8lXPIoIXD4GMj10YLEFRtzVIb5xHn6w9S072A5u+FswdGiJs5zC+FrGXlGATJpMste/Wo5Z9WlckxGHPTtCnidStpTY0LYM7beA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=v0gFZIF2db8KJGG1tEkguhOHK5K/jZjmuXvyiKIoMp0=;
+ b=yyhTE6xjB5oABdRivThe1AhSV8C1T5msE6GD8PY5CCGBtg3Eau7QaJkBoNd+7DgX7od3HDZQR0MMZknSr43IozjRMagWN0lmMA3a8NPTLACEHcsUaeYzWEfkAnbE0x/m5hUvqwTGH5oj84FpIRMKFLj4y9rqnB7ptSvUnKnKWlhoaSkeOczGydhDUpxCD6cO7T1n19dFq0TUbQ9dCa4+OmLj2PRjGcn/P2q7hgtV4cqL5bInsN5eyyZHg+ynbFmCLQykutSt1QA8vAd2a7WKsu35nRprBZe58WbYb618sVjf+KqlOXhX+KMUHHYXhFAh2M7ZU//jYNwzXZByb5djkg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=v0gFZIF2db8KJGG1tEkguhOHK5K/jZjmuXvyiKIoMp0=;
+ b=szHrv6MR7od1UCx8ByqWogUPuaEGlyz56EtO1Bxj3SMkIQYTYiKJO+jBT9i3mjD0feqjSe+0zSM+2A+CegT0XDIAtTSsxGECeNArB89aOY6fHKJEJ4or82k7BsHhF8p6fPkbjeZcHVws+wDF55TzdXRt5acTfZ6YqRBcKQxjNFiihmvLz2ZLfnqwjwWSjZ+e4izxJJFwq50X55u3UYX3GIqxtqp+Opw479oi41M6ahEEIWKJQHromdr6Zh3imRELGwvw9Kmzk5cX5r1pDC+z2IK9/5lTXoCoX53yQqOzFEiR8gJCBi4fN0I7ayG6GSXCe4vJUlQDjpKRM+sQwrghYw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM9PR04MB8469.eurprd04.prod.outlook.com (2603:10a6:20b:414::15)
+ by AM7PR04MB6840.eurprd04.prod.outlook.com (2603:10a6:20b:10f::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 06:38:57 +0000
+Received: from AM9PR04MB8469.eurprd04.prod.outlook.com
+ ([fe80::1f31:d3d0:6150:b49c]) by AM9PR04MB8469.eurprd04.prod.outlook.com
+ ([fe80::1f31:d3d0:6150:b49c%3]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 06:38:57 +0000
+From: pankaj.gupta@oss.nxp.com
+Date: Wed, 02 Sep 2026 17:38:53 +0530
+Subject: [PATCH v44 1/7] Documentation/firmware: add imx/se to
+ other_interfaces
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-imx-se-if-v44-1-104658bf941a@nxp.com>
+References: <20260902-imx-se-if-v44-0-104658bf941a@nxp.com>
+In-Reply-To: <20260902-imx-se-if-v44-0-104658bf941a@nxp.com>
+To: Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Pankaj Gupta <pankaj.gupta@nxp.com>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788350933; l=7403;
+ i=pankaj.gupta@nxp.com; s=20260817; h=from:subject:message-id;
+ bh=ZSAmXRvPjYNeGEa/I9hefXFuALx9geFcXzYMsSoJmHQ=;
+ b=qk1bs214z0q6DqppM8FvYIyZtD0o7MvOhTVq/hOuznOGhhfUoL+BE8MBRHzoP/aenPfgEYjgQ
+ w71UVV7VhKTDvF0gY7/PQaIL23yRrONzKNUFu4m0Rm+myPglyU5Hx7H
+X-Developer-Key: i=pankaj.gupta@nxp.com; a=ed25519;
+ pk=g4ZgzIWbpXnSxRsoH+l6PWLP78a+Mzpl8e6RQe74d5Y=
+X-ClientProxiedBy: SI3PR02CA0001.apcprd02.prod.outlook.com
+ (2603:1096:4:295::8) To AM9PR04MB8469.eurprd04.prod.outlook.com
+ (2603:10a6:20b:414::15)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902002553.34839-1-jordan.mymail@gmail.com> <20260902002553.34839-3-jordan.mymail@gmail.com>
-In-Reply-To: <20260902002553.34839-3-jordan.mymail@gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Wed, 2 Sep 2026 08:38:20 +0200
-X-Gmail-Original-Message-ID: <CANiDSCtNb1YE1CgUCx4a+WFbjrNDbuoSRN_Y2F+fyWH7zae5oA@mail.gmail.com>
-X-Gm-Features: AcwNN1VaVnNnO0ABGaKnSfEvaKXGYoxdBD-bQsnkN8Htq1fDqUxdpnpCBKWudIg
-Message-ID: <CANiDSCtNb1YE1CgUCx4a+WFbjrNDbuoSRN_Y2F+fyWH7zae5oA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] media: uvcvideo: generalise the XU flags fixup to
- all controls
-To: Michael Jordan <jordan.mymail@gmail.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8469:EE_|AM7PR04MB6840:EE_
+X-MS-Office365-Filtering-Correlation-Id: c784ee17-c9fd-463e-175c-08df08bcdd59
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|19092799006|23010399003|366016|56012099006|11063799006|6133799003|10067099003|3023799007|22082099003|18002099003|921020;
+X-Microsoft-Antispam-Message-Info:
+	Ql7yiCksLzyoUBHi6jA28lpu8MdpH6I0Dz42yw0nITEczepa6b7ugTZYs9VdlWn/gyKy52d2nbqQt+zNl9HK5pGmzpPSNXH1W7lBhBZ1myzaB7cogiGRMdO+gKKt8A6cYS6GX10uQ7MXky9o9QNJwde1Bnd4TPfJATcU3XR7WA7AD7t/+K5yT+X9EW2Hanz1T8ds6pJkzMUxAuo72AwCEOqN3RDGEIKWf+RBEkTaoRVZHR99U88NfzdLOXCt0SsGu3IJQbLdEV9s4qAuBFSFnbQIq/6XtFRZepW02c9oK7pL8AuhjG4pWYMS8zcYuqbT0Cxhc1xjVqwtMf/4P0OykNGrIvRdkmzTO+AEo1UN4PXIGOqjNvi4NM5/mYf1rrjzr3F18hjpooe5byjjIpBEdHpkH/vHOk4snwvaH80xxME8PnIwTDa6HTj8ssF4vl8hM+K9z1brrWRnI9mj2hDwYqHTzNqA0RHUkI1Gjkoj22b9+P7B1NOD5Jebi2PnSzUdro92/qLfbACOdquzXZkCsHWXn4HIbKqRmmBeN7za+HY27tDTuUEdzjjh/+MQp4OlnX5AGNEcDOZYSJo+fjL6VA0lROi4nENioBy7S+7uIAHBowtAcO2jdCWxgi/QNg/GNKn6RpO+NEaVZvN9C0H0xu6EwJG1pkwO7lNbBpVtBGN9U6k9qt8XRBAOSk+5lm21vecZymTt9474eSZl+ILW8A==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8469.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(19092799006)(23010399003)(366016)(56012099006)(11063799006)(6133799003)(10067099003)(3023799007)(22082099003)(18002099003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RDNwTGFrUkN6SG42eWdlTTdnb1RlNG9BTWZmMEZSRFdRZnFxTkc3UG43cDJH?=
+ =?utf-8?B?YVh3RXFWUXE2cmlUcEVhQ1loVzNqKzJRZW12VVhlUnIwUmxKMEVPWXNqZGg2?=
+ =?utf-8?B?SktmNXJjczFKOVJzTXVNVjNVSXR3WGxJQmduWGgybU04ZW1lM2NsT0FCaEU1?=
+ =?utf-8?B?aVpOL1dlUDVraTdlSFZzUDdYenRmVUMwV1puTGxIaTVieUN4SjM4QTdwdXE0?=
+ =?utf-8?B?ZmtPNXd3Q3gweHo5Sksrb3NyNWJhTTJmSFl4NnpUVXgxS1oxZGlGbUJUWDJi?=
+ =?utf-8?B?amNnUXZ6dVBkeUcrVzlCaVJJdTk1eGZrL3EvYTNEUmdOSDE1MGRWTXozVjRM?=
+ =?utf-8?B?WWdjYXczL3pXc3NBQ2E4MlFaYzZEU0w4THU0SHBBN2t3dlduOStFRjVzb0o5?=
+ =?utf-8?B?elZkRDFCekRLWUxOcGY2bituenJ3S2g2Nmo2akxndWNUb0dLTXN4bzVoWEgz?=
+ =?utf-8?B?ZjBBZVdtZktmcStJdlBKOWtJVnVUcnJtU2RBSU95YlhJN0NweHNwMERyMFZ0?=
+ =?utf-8?B?ZGJyUWQyRmZYajRXY0YyVkFiMFIzNzlWWlY2V3JGMS9GSGQ0dXovRGdmSWZW?=
+ =?utf-8?B?R241NC9wMHNMcHRDeVRSdUtpY0RxclFZaGxTeTUrTWVWQTNOZEMwVm50a3o0?=
+ =?utf-8?B?NkdCQllXVTZpMXFPc2dRREYxSWNUcHhFRHpuZEllUkl0ZWRCT1Z4S2lwdVZq?=
+ =?utf-8?B?VGIxY0twd3U2cGJtcEVrcnhyQmJDNXBhTldTTXVVUFFZeEZEdkt4cVdReE1q?=
+ =?utf-8?B?QmVOaXFvakxJVkJpRlYyM2plTUhzMVpxQWo3cXlPdFUrRFgrMlVQb3pHdC8w?=
+ =?utf-8?B?OFd1VEtKSUx6aSt1OExaRklYYk53b0h3QnArd1hPNk9FQ09nZklFR0Z1TFdY?=
+ =?utf-8?B?VHpkbFdqUmRpd203d3BoM2RZQ3lWWDUxMmVHbmsxYU9yZVlkQWFqMVVGN21u?=
+ =?utf-8?B?RndXZUFWdm5HcjJ2NFZ6T0x4TVMvUzQ4WTY1ZlA5U0FyNkJtNHpuWjRYMTN2?=
+ =?utf-8?B?R3BpR0JkNzNrY0tmNWg4ZVlLSXU5bGhVRFQxSm5ra1dnZkRLb3ZDVUREUno5?=
+ =?utf-8?B?OXdqczE5RGwwcXRBMVNoMlFtMkNwREp3WU90bm5sckVMQVhlZG85a1dOZUky?=
+ =?utf-8?B?Q1c0WUtVaUU5dXArMjcvcmxQOW9YbzJPU0o1TnlkVUtzM3ZDNkVCNllvTXho?=
+ =?utf-8?B?eThpQXR0VExCcC9XWUkwc1ltT21UWEhmQzh3UnNoUFdCY1pmVFlCeGxiTUNT?=
+ =?utf-8?B?ZWR4eFBIcWNOT2hpZ01lRlBvZ2N4NVd6QStqNEQ1d01aekNhdkhHaGR4bkRD?=
+ =?utf-8?B?Sk1GRDRWQ3pnMlZJbHRUSytKcTFlMEJTWlJIVVlSNk5Va3N4ZTZjU1VmOHpR?=
+ =?utf-8?B?dVl3M3d1d2pRbko2V3g3YURUbm8wZ2dpSVdDK0t1dXZTTGxtS2tYTENPRGZv?=
+ =?utf-8?B?YmNYcUV1TExDdlcxQ0J6b29YZ1ZLL0xhY2ZEaFNzWkUxams2WGtRcXFoWGx6?=
+ =?utf-8?B?emwrQkhjL0s2bUJCcjJmY1Q0Y0daV0dDbU1MNU50RVcycTV1TlVoSnFxSTMw?=
+ =?utf-8?B?Vml0R2RUcTZZREdmQ1MxMmxEemFZQVFmRXM4Y24zdkNUd3FsZkNlRDZoVnhi?=
+ =?utf-8?B?QU04YWRYSGtOZmxETkhENzhvYy9mR291aUpsb01sYStOeVVtK1Irem9ZU3FP?=
+ =?utf-8?B?QXV2K3NZNUg2TUNRRWE3MHhVYkRpS2VFQmhxK0crZ0xOYi9QTis4bkQ3aEc3?=
+ =?utf-8?B?b3plT2liaEJBV3dyRmlRaEVrZUFZbzFtY1ZWU3p1OTJoeDRtNmYzSXdxbVdF?=
+ =?utf-8?B?a2xzRHNwdXhSMU05R0pac0doeWxkSlRZT05VM3VneGNUa3drQ0EwNy80dnRQ?=
+ =?utf-8?B?NkwrV3IwbDNsOXBlS0pFV21qa24wcndnWGp6OGo5VkY1YTQ2WEdrWE5xUWly?=
+ =?utf-8?B?eHNhbGl6K0FMZ3R6aWlLQ3RUQW5LdGcrUi9rcVl5M01YU2Zwc3dlK0dKVkxS?=
+ =?utf-8?B?Qm9lb3A2WUJOaGVVc1hRYksrTVZFS3BUNEphYXA2S3hzTGZNM2ZGdGxjS0cz?=
+ =?utf-8?B?SG1YRk91ak1EYmkxWWZuN1ZiYmtxS2hsbGZJb25PbFZReVdxeFAwVXNPc2pZ?=
+ =?utf-8?B?RG1oRHpENU85ai9IQUVucmM3TzY2T2l5Y0UxZVljeUMxcjRUN3I5VzZrUGtX?=
+ =?utf-8?B?SksvNTJqRE1Cd2wybHc0dHN1M0VrNkRJYU1mYkY5SW1YME5sYUtKaEZDTGp4?=
+ =?utf-8?B?UXFsNHE4VDl2OTkzY0R2OUg4bHRGNDlVZ2xxbnNpUk1Id1MvNjJKZlZ3WkxX?=
+ =?utf-8?B?VGFORGJoNEZMRkxocWhQbVBQWVo0Zm5sV0ZXZ2FGUU9hS3pESEdnajk5TTRa?=
+ =?utf-8?Q?Ojumbb7ZqZuBEJmT6jibzGDunNw0HQHE4HTSI?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c784ee17-c9fd-463e-175c-08df08bcdd59
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8469.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 06:38:57.3005
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RVlXFk1UjipvRfBrVXYflNymR4jDIcsrrQDJvMq0oIiSkevbuj4/Pj0LS7NEiHHtp0PH6nCwzFWOXyHNDFSUdovlmt93TzwJwaQRT9JU3esNlmMDyWrZXOeW+3Tb7ISi
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR04MB6840
 
-Hi Michael
+From: Pankaj Gupta <pankaj.gupta@nxp.com>
 
-On Wed, 2 Sept 2026 at 02:25, Michael Jordan <jordan.mymail@gmail.com> wrote:
->
-> uvc_ctrl_fixup_xu_info() holds a per-device table of controls whose
-> GET_INFO reply is wrong, and overrides the flags for them. It only runs
-> from uvc_ctrl_fill_xu_info(), so it can only correct extension unit
-> controls, but standard controls suffer from the same class of firmware
-> bug: a device can report a wrong capability byte for a Camera Terminal
-> or Processing Unit control just as easily.
->
-> Rename it to uvc_ctrl_fixup_flags() and call it at the start of
-> uvc_ctrl_get_flags(), where the flags are derived from GET_INFO for
-> every control, standard and XU alike. The fixup replaces the flags
-> wholesale, so when the table covers a control there is no point in
-> querying a device we already know gives a wrong answer: return early
-> and skip the GET_INFO request altogether. The call in
-> uvc_ctrl_fill_xu_info() is dropped, as uvc_ctrl_get_flags() now handles
-> the fixup for XU controls too.
->
-> No functional change for the devices already in the table: their
-> entries are XU controls, matched by entity and selector before as they
-> are now, and their flags come from the table either way. The only
-> difference is one GET_INFO request no longer issued per fixed-up
-> control.
->
-> Suggested-by: Ricardo Ribalda <ribalda@chromium.org>
-Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
-> Signed-off-by: Michael Jordan <jordan.mymail@gmail.com>
-> ---
->  drivers/media/usb/uvc/uvc_ctrl.c | 91 ++++++++++++++++++--------------
->  1 file changed, 50 insertions(+), 41 deletions(-)
->
-> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-> index aceb26310..64c90c380 100644
-> --- a/drivers/media/usb/uvc/uvc_ctrl.c
-> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-> @@ -2852,6 +2852,48 @@ int uvc_ctrl_set(struct uvc_fh *handle, struct v4l2_ext_control *xctrl)
->   * Dynamic controls
->   */
->
-> +static bool uvc_ctrl_fixup_flags(struct uvc_device *dev,
-> +                                const struct uvc_control *ctrl,
-> +                                struct uvc_control_info *info)
-> +{
-> +       struct uvc_ctrl_fixup {
-> +               struct usb_device_id id;
-> +               u8 entity;
-> +               u8 selector;
-> +               u8 flags;
-> +       };
-> +
-> +       static const struct uvc_ctrl_fixup fixups[] = {
-> +               { { USB_DEVICE(0x046d, 0x08c2) }, 9, 1,
-> +                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> +                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> +                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> +               { { USB_DEVICE(0x046d, 0x08cc) }, 9, 1,
-> +                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> +                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> +                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> +               { { USB_DEVICE(0x046d, 0x0994) }, 9, 1,
-> +                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> +                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> +                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> +       };
-> +
-> +       unsigned int i;
-> +
-> +       for (i = 0; i < ARRAY_SIZE(fixups); ++i) {
-> +               if (!usb_match_one_id(dev->intf, &fixups[i].id))
-> +                       continue;
-> +
-> +               if (fixups[i].entity == ctrl->entity->id &&
-> +                   fixups[i].selector == info->selector) {
-> +                       info->flags = fixups[i].flags;
-> +                       return true;
-> +               }
-> +       }
-> +
-> +       return false;
-> +}
-> +
->  /*
->   * Retrieve flags for a given control
->   */
-> @@ -2862,6 +2904,14 @@ static int uvc_ctrl_get_flags(struct uvc_device *dev,
->         u8 *data;
->         int ret;
->
-> +       /*
-> +        * Some devices report bogus capabilities through GET_INFO. If the
-> +        * fixup table covers this control, take the flags from the table and
-> +        * skip the query altogether.
-> +        */
-> +       if (uvc_ctrl_fixup_flags(dev, ctrl, info))
-> +               return 0;
-> +
->         data = kmalloc(1, GFP_KERNEL);
->         if (data == NULL)
->                 return -ENOMEM;
-> @@ -2893,45 +2943,6 @@ static int uvc_ctrl_get_flags(struct uvc_device *dev,
->         return ret;
->  }
->
-> -static void uvc_ctrl_fixup_xu_info(struct uvc_device *dev,
-> -       const struct uvc_control *ctrl, struct uvc_control_info *info)
-> -{
-> -       struct uvc_ctrl_fixup {
-> -               struct usb_device_id id;
-> -               u8 entity;
-> -               u8 selector;
-> -               u8 flags;
-> -       };
-> -
-> -       static const struct uvc_ctrl_fixup fixups[] = {
-> -               { { USB_DEVICE(0x046d, 0x08c2) }, 9, 1,
-> -                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> -                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> -                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> -               { { USB_DEVICE(0x046d, 0x08cc) }, 9, 1,
-> -                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> -                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> -                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> -               { { USB_DEVICE(0x046d, 0x0994) }, 9, 1,
-> -                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> -                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> -                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> -       };
-> -
-> -       unsigned int i;
-> -
-> -       for (i = 0; i < ARRAY_SIZE(fixups); ++i) {
-> -               if (!usb_match_one_id(dev->intf, &fixups[i].id))
-> -                       continue;
-> -
-> -               if (fixups[i].entity == ctrl->entity->id &&
-> -                   fixups[i].selector == info->selector) {
-> -                       info->flags = fixups[i].flags;
-> -                       return;
-> -               }
-> -       }
-> -}
-> -
->  /*
->   * Query control information (size and flags) for XU controls.
->   */
-> @@ -2972,8 +2983,6 @@ static int uvc_ctrl_fill_xu_info(struct uvc_device *dev,
->                 goto done;
->         }
->
-> -       uvc_ctrl_fixup_xu_info(dev, ctrl, info);
-> -
->         uvc_dbg(dev, CONTROL,
->                 "XU control %pUl/%u queried: len %u, flags { get %u set %u auto %u }\n",
->                 info->entity, info->selector, info->size,
-> --
-> 2.43.0
->
+Documents i.MX SoC's Service layer and C_DEV driver for selected SoC(s)
+that contains the NXP hardware IP(s) for Secure Enclaves(se) like:
+- NXP EdgeLock Enclave on i.MX93 & i.MX8ULP
 
+Signed-off-by: Pankaj Gupta <pankaj.gupta@nxp.com>
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+ .../driver-api/firmware/other_interfaces.rst       | 133 +++++++++++++++++++++
+ 1 file changed, 133 insertions(+)
+
+diff --git a/Documentation/driver-api/firmware/other_interfaces.rst b/Documentation/driver-api/firmware/other_interfaces.rst
+index 06ac89adaafb..6c6fa9a0ba1d 100644
+--- a/Documentation/driver-api/firmware/other_interfaces.rst
++++ b/Documentation/driver-api/firmware/other_interfaces.rst
+@@ -49,3 +49,136 @@ of the requests on to a secure monitor (EL3).
+ 
+ .. kernel-doc:: drivers/firmware/stratix10-svc.c
+    :export:
++
++NXP Secure Enclave Firmware Interface
++=====================================
++
++Introduction
++------------
++The NXP's i.MX HW IP like EdgeLock Enclave, V2X etc., creates an embedded secure
++enclave within the SoC boundary to enable features like:
++
++- Hardware Security Module (HSM)
++- Security Hardware Extension (SHE)
++- Vehicular to Anything (V2X)
++
++Each of the above features is enabled through dedicated NXP H/W IP on the SoC.
++On a single SoC, multiple hardware IP (or can say more than one secure enclave)
++can exist.
++
++NXP SoCs enabled with the such secure enclaves(SEs) IPs are:
++i.MX93, i.MX8ULP
++
++To communicate with one or more co-existing SE(s) on SoC, there is/are dedicated
++messaging units(MU) per SE. Each co-existing SE can have one or multiple exclusive
++MUs, dedicated to itself. None of the MU is shared between two SEs. Communication
++of the MU is realized using the mailbox driver. Each secure enclave can cater to
++multiple clients by virtue of these exclusive MUs. Also, they can distinguish
++transactions originating from these clients based on the MU used and core security
++state. The communication between the clients and secure enclaves is in the form of
++a command/response mechanism. Each client could expose a specific set of secure enclave
++features to the higher layers, based on the commands supported by that client. For
++example, the secure enclave could simultaneously support an OPTEE TA and Linux
++middleware as clients. Each of these clients can expose a specific set of secure
++enclave features based on the command set supported by them.
++
++NXP Secure Enclave(SE) Interface
++--------------------------------
++MU(s) is/are not shared between SE(s). But for an SoC like i.MX95 which has
++multiple SE(s) like HSM, V2X-HSM, V2X-SHE, all the SE(s) and their interfaces 'se-if'
++that is/are dedicated to a particular SE will be enumerated and provisioned using the
++single compatible node("fsl,imx95-se").
++
++Each 'se-if' comprises two layers:
++
++- (C_DEV Layer) User-Space software-access interface.
++- (Service Layer) OS-level software-access interface.
++
++::
++
++   +--------------------------------------------+
++   |            Character Device(C_DEV)         |
++   |                                            |
++   |   +---------+ +---------+     +---------+  |
++   |   | misc #1 | | misc #2 | ... | misc #n |  |
++   |   |  dev    | |  dev    |     | dev     |  |
++   |   +---------+ +---------+     +---------+  |
++   |        +-------------------------+         |
++   |        | Misc. Dev Synchr. Logic |         |
++   |        +-------------------------+         |
++   |                                            |
++   +--------------------------------------------+
++
++   +--------------------------------------------+
++   |               Service Layer                |
++   |                                            |
++   |      +-----------------------------+       |
++   |      | Message Serialization Logic |       |
++   |      +-----------------------------+       |
++   |          +---------------+                 |
++   |          |  imx-mailbox  |                 |
++   |          |   mailbox.c   |                 |
++   |          +---------------+                 |
++   |                                            |
++   +--------------------------------------------+
++
++- service layer:
++  This layer is responsible for ensuring the communication protocol that is defined
++  for communication with firmware.
++
++  FW Communication protocol ensures two things:
++
++  - Serializing the messages to be sent over an MU.
++  - FW can handle one command message at a time.
++
++- c_dev:
++  This layer offers character device contexts, created as '/dev/<se>_mux_chx'.
++  Using these multiple device contexts that are multiplexed over a single MU,
++  userspace application(s) can call fops like write/read to send the command message,
++  and read back the command response message to/from Firmware.
++  fops like read & write use the above defined service layer API(s) to communicate with
++  Firmware.
++
++  Misc-device(/dev/<se>_mux_chn) synchronization protocol::
++
++                                Non-Secure               +   Secure
++                                                         |
++                                                         |
++                +-----------+      +-------------+       |
++                | se_ctrl.c +<---->+imx-mailbox.c|       |
++                |           |      |  mailbox.c  +<-->+------+    +------+
++                +-----+-----+      +-------------+    | MU X +<-->+ ELE |
++                      |                               +------+    +------+
++                      +----------------+                 |
++                      |                |                 |
++                      v                v                 |
++                  logical           logical              |
++                  receiver          waiter               |
++                     +                 +                 |
++                     |                 |                 |
++                     |                 |                 |
++                     |            +----+------+          |
++                     |            |           |          |
++                     |            |           |          |
++              device_ctx     device_ctx     device_ctx   |
++                                                         |
++                User 0        User 1       User Y        |
++                +------+      +------+     +------+      |
++                |misc.c|      |misc.c|     |misc.c|      |
++   kernel space +------+      +------+     +------+      |
++                                                         |
++   +---------------------------------------------------- |
++                    |             |           |          |
++   userspace   /dev/ele_muXch0    |           |          |
++                          /dev/ele_muXch1     |          |
++                                        /dev/ele_muXchY  |
++                                                         |
++
++When a user sends a command to the firmware, it registers its device_ctx
++as waiter of a response from firmware.
++
++Enclave's Firmware owns the storage management over a Linux filesystem.
++For this c_dev provisions a dedicated slave device called "receiver".
++
++.. kernel-doc:: drivers/firmware/imx/se_ctrl.c
++   :export:
 
 -- 
-Ricardo Ribalda
+2.43.0
+
