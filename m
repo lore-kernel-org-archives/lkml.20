@@ -1,55 +1,51 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net [217.70.183.194])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF398403AE6;
-	Wed,  2 Sep 2026 09:07:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BBEB40B110;
+	Wed,  2 Sep 2026 09:07:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.194
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788340039; cv=none; b=oPbeBCPNj5ZjG62b0zumkzxrObL92d5L31RNeANY+D+CSo5m7bsHyaCJB2uShO+x/VYqyvocCTf/6mgmmA7N+a1sQiSE72BAPWKA0p4Jo2SFOQM7c/jrDMnOdfiUQ98gkD6k7bzuL0CLl17udoZURiSOttc4nKVXvrfLdDEZ2ig=
+	t=1788340077; cv=none; b=rF8BM4b1fxVclCHpdQpVtFj6zG6adDksZUH9GTHU8ci4eOEgeB0pScudgk8ZzClQdg9BPJ1zC6llMwLyPu+/PEjBISLBNTV7oRpBioTI732ojlO6VSCYrMEc1qPro3WZi+AUTJmIG4uyBpYkPpMOynIGDhpYbYhIWWHAUXeuyNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788340039; c=relaxed/simple;
-	bh=vTlXc27lZ80Fed9p8Ygxf4DjRviYOeZ8Wywm+0B4+2E=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cFlvQgefk3kSnb2pfpkwxh/+1EWfEUYsAu7HjD5K/FM00OclAGOLpBY6AltPT9jvIZnVWxjgOm0kFABvF3Vy23JMw0X8Bu32o8rFPWWkBiszO4kdD2EpVwD/fQzsF1xxSQSNlGNsiL41vscU+wf9QsMaE/IhIu775lWwRml2bPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=HtPePJzW; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1788340077; c=relaxed/simple;
+	bh=cfWg5+p97016GiwrCIqJWqS5rTlagMS92tVFTMrwCAg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UvFQMVtOHDPIi4+IqsjxcUePH5lrXJNAQno/vWm6A91wF76qv6Iql8eIArAeBR4z314J0PBSoY5/0XRKh9m3q2n6iIgu8vWmiHNzGuqWF4VjNG7vXL2ZxzBcVEAN+dyorJJZo3p+18hdevcyHpfjQImTzDRyIvaFjRElJhW1nDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io; spf=pass smtp.mailfrom=gtucker.io; dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b=Gq/C5N6D; arc=none smtp.client-ip=217.70.183.194
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gtucker.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="HtPePJzW"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68296gWA22526929, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1788340002; bh=ct093FtyWohlG7fpVxhw2kH2h3iUynPM40v2zS1tBLA=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	b=HtPePJzWaTJEl8e4mIY1JO+PuhDPWt+mGEbd2zSiGMPDl7Y0UNbN0WEnsjfvV6h9o
-	 9/EZUm4KHVYmRdU1KGab76ShPIHA6EnseFYTUn70o7KhGWgFfOkmfMacOggavUn4hq
-	 8aJHwsB6wb5EpIwk236UA2Etx74LYtPoFpxbLaIcmW14NOHxmmvmHabWDZ6/UzeEOq
-	 WTUfYfavfGIF0R0TMMDXBIGWEX+8FlHix2Pelhpb2dLBOX4fxhCCQQ/u2PwpjPajMo
-	 9SCUOBmoxGyZfnpTuz78lneQk0vHCmWM7ZmjnZ8iH1093O9JIh/KZkws/JpyuQJc+e
-	 yOYjhHmK6pq6A==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68296gWA22526929
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 2 Sep 2026 17:06:42 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Wed, 2 Sep 2026 17:06:41 +0800
-Received: from fc44.realtek.com.tw (172.22.241.7) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server id
- 15.2.2562.43 via Frontend Transport; Wed, 2 Sep 2026 17:06:41 +0800
-From: Chih Kai Hsu <hsu.chih.kai@realtek.com>
-To: <davem@davemloft.net>, <kuba@kernel.org>
-CC: <netdev@vger.kernel.org>, <nic_swsd@realtek.com>,
-	<linux-kernel@vger.kernel.org>, <linux-usb@vger.kernel.org>,
-	<edumazet@google.com>, <bjorn@mork.no>, <pabeni@redhat.com>,
-	<hsu.chih.kai@realtek.com>, <andrew+netdev@lunn.ch>
-Subject: [PATCH net-next 1/8] r8152: refactor r8156_init
-Date: Wed, 2 Sep 2026 17:06:25 +0800
-Message-ID: <20260902090632.41844-2-nic_swsd@realtek.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260902090632.41844-1-nic_swsd@realtek.com>
-References: <20260902090632.41844-1-nic_swsd@realtek.com>
+	dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b="Gq/C5N6D"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id B73243EBC9;
+	Wed,  2 Sep 2026 09:07:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gtucker.io; s=gm1;
+	t=1788340067;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=oZP+A0n98BfuBE0AUiB3iqBbwQhW4ivURHCwOjzVYA0=;
+	b=Gq/C5N6D1u2hLnVPqlW/V2H49g/8wCV2kSkqXUQL+2wQ14YhkKJErCkROpEEF9rY3PMm4Z
+	OtNuY593efCsGhgkPR80M9L1Z+XKYOaMJKW40Na9X6XZb9/DW/k8mPyiEkiBKaq+tms6zu
+	eQi5gQB7Zvyhcj/l5Lq6jze1MFMZ5xvSxk4LmxikzpnI6fiTrZQSipD9zbZSiTDjgSlQVK
+	k5Ldj4KpyBWhwcMLZPO1mhoErar3hRXWrhxGuB8VI/8UAIRyEVXMQZqmAN0Blwsz7NYrva
+	V1pwFX6hiDgTx4ExoljlERPj93HKXUDDDXiqGurZy6krEdZaaddnYbBriwQ+Fg==
+From: Guillaume Tucker <gtucker@gtucker.io>
+To: Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>
+Cc: Guillaume Tucker <gtucker@gtucker.io>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	linux-doc@vger.kernel.org,
+	workflows@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kbuild@vger.kernel.org,
+	kernelci@lists.linux.dev,
+	automated-testing@lists.yoctoproject.org
+Subject: [PATCH v3 1/3] scripts: add TOML config to container tool
+Date: Wed,  2 Sep 2026 11:07:37 +0200
+Message-ID: <570dac1c8d7a2befb5578cdd8a2ed63b3769c4c8.1788340031.git.gtucker@gtucker.io>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,576 +53,203 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+X-GND-Sasl: gtucker@gtucker.io
+X-GND-Score: -100
+X-GND-Cause: dmFkZTGZs2DBi1gzoOEk4RtCAWtdw4Cv+0DxuMhV6gYoQ9Th9iMmC8kM/H1XElxdwiZO/pTyL3/zIyKk0lwAUwYPoHP6k1iThI0MUAlKwrdZWMQ9mpDXlWcFvjL4xGi9W4tHHREumLbpiVLnO/X70rG8SkBw2SZBikyyB4mwSklpDxQtMccj5W9Hz3h8QZ13u93EVu5+IeJqYg1MaXK/mOQiemkeVc2CmjMjQd6gFhZa+x0QNTZki2A4jGPsCTyBxagmDPepPoci8xEWzjaaxeWsnll6pLWTWCq7KDMr5qgMau3IKs9dwCcQkWDSTv9wmJZLOV+moGI/NoRg4bGTkaPfxFdOWs1Q+hMoN58KU6yOhc9g3VT2FQYlQDbNP9IlmKsrYWiax6X6XgsijNPN2Oky27dKNlGuFxGwe8RfTP0LFywBI/mjHzfRG72jjcq5oLM+1YyAMU0XsGAWfyI9u1YqA/Mmf/D4hfoklF6JUmrBr8NtT+S437Df7wYlPK0IXN/sFjkP4CxzXUMvtlAhz8UuhqwmUUOMm4/aBJ5WE9cxTSvS4p6bUyrLuZoUzzF1Fot6BGFts8DML4XOqdAMchlKV2ZxxKm5HCVv24O3OPvQp1NUpq1N8Z7Ard3LxpR+HBzp9d/lhuVan3/P0EzU/+aokHb0Rnh/EylpNw3SKaYRpRtvFg
+X-GND-State: clean
 
-Refactor r8156_init into four functions:
-- r8156_init() for RTL_VER_10/11
-- r8156b_init() for RTL_VER_12/13/15
-- r8157_init() for RTL_VER_16
-- r8159_init() for RTL_VER_17
+Add support for a TOML configuration file to the scripts/container
+tool.  This improves user experience by not having to keep passing the
+same command line options all the time or overly relying on built-in
+default values.  Include the concept of 'profiles' with different
+named sections in the file to cover various use cases.
 
-Signed-off-by: Chih Kai Hsu <hsu.chih.kai@realtek.com>
+Command line options take precedence over the config file, and values
+defined in profile sections take precedence over the default one.
+
+Add a -c option to override the location of the .container.toml config
+file which should otherwise be located in the current working
+directory.  If not found, the file is silently ignored as it is not
+strictly required unless the -c option is used.
+
+Add a -p option to choose a particular profile section in the config
+file rather than the default.
+
+Signed-off-by: Guillaume Tucker <gtucker@gtucker.io>
 ---
- drivers/net/usb/r8152.c | 424 ++++++++++++++++++++++++++++++++--------
- 1 file changed, 346 insertions(+), 78 deletions(-)
 
-diff --git a/drivers/net/usb/r8152.c b/drivers/net/usb/r8152.c
-index 57d04af6368c3..0a06c947e381a 100644
---- a/drivers/net/usb/r8152.c
-+++ b/drivers/net/usb/r8152.c
-@@ -78,6 +78,7 @@
- #define PLA_EEE_TXTWSYS_2P5G	0xe058
- #define PLA_EEEP_CR		0xe080
- #define PLA_MAC_PWR_CTRL	0xe0c0
-+#define PLA_RMT_WAKE		0xe0c8
- #define PLA_MAC_PWR_CTRL2	0xe0ca
- #define PLA_MAC_PWR_CTRL3	0xe0cc
- #define PLA_MAC_PWR_CTRL4	0xe0ce
-@@ -371,6 +372,9 @@
- #define MCU_CLK_RATIO_MASK	0x0f0f0f0f
- #define ALDPS_SPDWN_RATIO	0x0f87
+Notes:
+    Changes in v2:
+    - fix uid / gid handling when set to 0 (root)
+    
+    Changes in v3:
+    - fix logic when loading config profiles using None
+    - fix typo with missing whitespace in help message
+    - clarify how UID gets used as default value for GID
+
+ scripts/container | 89 ++++++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 77 insertions(+), 12 deletions(-)
+
+diff --git a/scripts/container b/scripts/container
+index b05333d8530b..e56bff7ccd3f 100755
+--- a/scripts/container
++++ b/scripts/container
+@@ -1,17 +1,19 @@
+ #!/usr/bin/env python3
+ # SPDX-License-Identifier: GPL-2.0-only
+-# Copyright (C) 2025 Guillaume Tucker
++# Copyright (C) 2025-2026 Guillaume Tucker
  
-+/* PLA_RMT_WAKE */
-+#define RMT_WAKE_EN		BIT(0)
-+
- /* PLA_MAC_PWR_CTRL2 */
- #define EEE_SPDWN_RATIO		0x8007
- #define MAC_CLK_SPDWN_EN	BIT(15)
-@@ -417,6 +421,7 @@
+ """Containerized builds"""
  
- /* PLA_INDICATE_FALG */
- #define UPCOMING_RUNTIME_D3	BIT(0)
-+#define PREBOOT_OPTION		BIT(1)
+ import abc
+ import argparse
++import dataclasses
+ import logging
+ import os
+ import pathlib
+ import shutil
+ import subprocess
+ import sys
++import tomllib
+ import uuid
  
- /* PLA_MACDBG_PRE and PLA_MACDBG_POST */
- #define DEBUG_OE		BIT(0)
-@@ -542,6 +547,7 @@
- #define RX_AGG_DISABLE		0x0010
- #define RX_ZERO_EN		0x0080
- #define RX_DESC_16B		0x0400
-+#define RX_END_TRANSFER_EN	BIT(11)
  
- /* USB_U2P3_CTRL */
- #define U2P3_ENABLE		0x0001
-@@ -8358,19 +8364,97 @@ static void r8157_hw_phy_cfg(struct r8152 *tp)
- 	set_bit(PHY_RESET, &tp->flags);
- }
+@@ -20,10 +22,17 @@ class ContainerRuntime(abc.ABC):
  
--static int r8159_wait_backup_restore(struct r8152 *tp)
-+static void r8156_init(struct r8152 *tp)
- {
--	u32 ocp_data;
-+	u16 data;
-+	int i;
+     name = None  # Property defined in each implementation class
  
--	ocp_data = ocp_read_word(tp, MCU_TYPE_USB, USB_MISC_0);
--	if (!(ocp_data & PCUT_STATUS))
--		return 0;
-+	if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
-+		return;
+-    def __init__(self, args, logger):
+-        self._uid = args.uid or os.getuid()
+-        self._gid = args.gid or args.uid or os.getgid()
+-        self._env_file = args.env_file
++    def __init__(self, args, config, logger):
++        def _first_not_none(*args):
++            return next((item for item in args if item is not None))
++
++        self._uid = _first_not_none(
++            args.uid, config.uid, os.getuid()
++        )
++        self._gid = _first_not_none(
++            args.gid, config.gid, args.uid, config.uid, os.getgid()
++        )
++        self._env_file = args.env_file or config.env_file
+         self._shell = args.shell
+         self._logger = logger
  
--	return poll_timeout_us(ocp_data = ocp_read_word(tp, MCU_TYPE_USB, USB_GPHY_CTRL),
--			       ocp_data & BACKUP_RESTRORE, 200, 20000, false);
-+	ocp_byte_clr_bits(tp, MCU_TYPE_USB, USB_ECM_OP, EN_ALL_SPEED);
-+
-+	ocp_write_word(tp, MCU_TYPE_USB, USB_SPEED_OPTION, 0);
-+
-+	ocp_word_set_bits(tp, MCU_TYPE_USB, USB_ECM_OPTION, BYPASS_MAC_RESET);
-+
-+	r8153b_u1u2en(tp, false);
-+
-+	for (i = 0; i < 500; i++) {
-+		if (ocp_read_word(tp, MCU_TYPE_PLA, PLA_BOOT_CTRL) &
-+		    AUTOLOAD_DONE)
-+			break;
-+
-+		msleep(20);
-+		if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
-+			return;
-+	}
-+
-+	data = r8153_phy_status(tp, 0);
-+	if (data == PHY_STAT_EXT_INIT)
-+		ocp_reg_clr_bits(tp, 0xa468, BIT(3) | BIT(1));
-+
-+	r8152_mdio_test_and_clr_bit(tp, MII_BMCR, BMCR_PDOWN);
-+
-+	data = r8153_phy_status(tp, PHY_STAT_LAN_ON);
-+
-+	r8153_u2p3en(tp, false);
-+
-+	/* MSC timer = 0xfff * 8ms = 32760 ms */
-+	ocp_write_word(tp, MCU_TYPE_USB, USB_MSC_TIMER, 0x0fff);
-+
-+	/* U1/U2/L1 idle timer. 500 us */
-+	ocp_write_word(tp, MCU_TYPE_USB, USB_U1U2_TIMER, 500);
-+
-+	r8153b_power_cut_en(tp, false);
-+	r8156_ups_en(tp, false);
-+	r8153_queue_wake(tp, false);
-+	rtl_runtime_suspend_enable(tp, false);
-+
-+	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_INDICATE_FALG, PREBOOT_OPTION);
-+
-+	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_RMT_WAKE, RMT_WAKE_EN);
-+
-+	if (tp->udev->speed >= USB_SPEED_SUPER)
-+		r8153b_u1u2en(tp, true);
-+
-+	usb_enable_lpm(tp->udev);
-+
-+	r8156_mac_clk_spd(tp, true);
-+
-+	ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL3,
-+			  PLA_MCU_SPDWN_EN);
-+
-+	if (rtl8152_get_speed(tp) & LINK_STATUS)
-+		ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_EXTRA_STATUS,
-+				  CUR_LINK_OK | POLL_LINK_CHG);
-+	else
-+		ocp_word_w0w1(tp, MCU_TYPE_PLA, PLA_EXTRA_STATUS, CUR_LINK_OK,
-+			      POLL_LINK_CHG);
-+
-+	set_bit(GREEN_ETHERNET, &tp->flags);
-+
-+	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_USB_CTRL,
-+			  RX_AGG_DISABLE | RX_ZERO_EN);
-+
-+	ocp_byte_set_bits(tp, MCU_TYPE_USB, USB_BMU_CONFIG, ACT_ODMA);
-+
-+	r8156_mdio_force_mode(tp);
-+	rtl_tally_reset(tp);
-+
-+	tp->coalesce = 15000; /* 15 us */
- }
+@@ -131,6 +140,43 @@ class Runtimes:
+         raise ValueError("no runtime found")
  
--static void r8156_init(struct r8152 *tp)
-+static void r8156b_u2phy_backup(struct r8152 *tp)
-+{
-+	ocp_write_word(tp, MCU_TYPE_USB, 0xd3ce, 0x181b);
-+	ocp_write_dword(tp, MCU_TYPE_USB, 0xd3d0, 0x616ccd99);
-+	ocp_write_dword(tp, MCU_TYPE_USB, 0xd3d4, 0x08fc8101);
-+	ocp_write_dword(tp, MCU_TYPE_USB, 0xd3d8, 0x159b1100);
-+	ocp_write_word(tp, MCU_TYPE_USB, 0xd3dc, 0x0a00);
-+}
-+
-+static void r8156b_init(struct r8152 *tp)
- {
- 	u32 ocp_data;
- 	u16 data;
-@@ -8379,28 +8463,19 @@ static void r8156_init(struct r8152 *tp)
- 	if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
- 		return;
  
--	if (tp->version == RTL_VER_16 || tp->version == RTL_VER_17) {
--		ocp_byte_set_bits(tp, MCU_TYPE_USB, 0xcffe, BIT(3));
--		ocp_byte_clr_bits(tp, MCU_TYPE_USB, 0xd3ca, BIT(0));
--	}
--
- 	ocp_byte_clr_bits(tp, MCU_TYPE_USB, USB_ECM_OP, EN_ALL_SPEED);
++@dataclasses.dataclass
++class Config:
++    """Container configuration"""
++    image: str = None
++    runtime: str = None
++    registry: str = None
++    env_file: str = None
++    uid: int = None
++    gid: int = None
++
++    @classmethod
++    def from_toml(cls, config_file_path, profile_name):
++        """Create a config object from a TOML file"""
++        if not config_file_path:
++            config_file_path = '.container.toml'
++            if not os.path.exists(config_file_path):
++                return cls()
++        elif not os.path.exists(config_file_path):
++            raise ValueError(f"config file not found: {config_file_path}")
++        with open(config_file_path, 'rb') as config_file:
++            config = tomllib.load(config_file)
++        default = config.get('DEFAULT', {})
++        if not profile_name:
++            profile = {}
++        else:
++            profile = config.get(profile_name)
++            if profile is None:
++                raise ValueError(f"unknown profile: {profile_name}")
++        kwargs = {
++            name: type(value) for (name, type, value) in (
++                (op.name, op.type, profile.get(op.name, default.get(op.name)))
++                for op in dataclasses.fields(cls)
++            ) if value is not None
++        }
++        return cls(**kwargs)
++
++
+ def _get_logger(verbose):
+     """Set up a logger with the appropriate level"""
+     logger = logging.getLogger('container')
+@@ -147,13 +193,21 @@ def main(args):
+     """Main entry point for the container tool"""
+     logger = _get_logger(args.verbose)
+     try:
+-        cls = Runtimes.get(args.runtime) if args.runtime else Runtimes.find()
++        config = Config.from_toml(args.config_file, args.config_profile)
++        runtime = args.runtime or config.runtime
++        cls = Runtimes.get(runtime) if runtime else Runtimes.find()
+     except ValueError as ex:
+         logger.error(ex)
+         return 1
+     logger.debug("runtime: %s", cls.name)
+-    logger.debug("image: %s", args.image)
+-    return cls(args, logger).run(args.image, args.cmd)
++    image = args.image or config.image
++    if not image:
++        logger.error("no image specified")
++        return 1
++    if config.registry:
++        image = '/'.join((config.registry, image))
++    logger.debug("image: %s", image)
++    return cls(args, config, logger).run(image, args.cmd)
  
--	if (tp->version < RTL_VER_16)
--		ocp_write_word(tp, MCU_TYPE_USB, USB_SPEED_OPTION, 0);
-+	ocp_write_word(tp, MCU_TYPE_USB, USB_SPEED_OPTION, 0);
  
- 	ocp_word_set_bits(tp, MCU_TYPE_USB, USB_ECM_OPTION, BYPASS_MAC_RESET);
- 
--	if (tp->version >= RTL_VER_12 && tp->version <= RTL_VER_15)
--		ocp_word_set_bits(tp, MCU_TYPE_USB, USB_U2P3_CTRL, RX_DETECT8);
-+	ocp_word_set_bits(tp, MCU_TYPE_USB, USB_U2P3_CTRL, RX_DETECT8);
- 
- 	r8153b_u1u2en(tp, false);
- 
- 	switch (tp->version) {
- 	case RTL_VER_13:
- 	case RTL_VER_15:
--	case RTL_VER_16:
--	case RTL_VER_17:
- 		r8156b_wait_loading_flash(tp);
- 		break;
- 	default:
-@@ -8417,31 +8492,20 @@ static void r8156_init(struct r8152 *tp)
- 			return;
- 	}
- 
--	if (tp->version == RTL_VER_17 && r8159_wait_backup_restore(tp)) {
--		rtl_set_inaccessible(tp);
--		dev_err(&tp->intf->dev, "init failed, backup-restore timed out\n");
--		return;
--	}
--
- 	data = r8153_phy_status(tp, 0);
- 	if (data == PHY_STAT_EXT_INIT) {
- 		ocp_reg_clr_bits(tp, 0xa468, BIT(3) | BIT(1));
--		if (tp->version >= RTL_VER_12)
--			ocp_reg_clr_bits(tp, 0xa466, BIT(0));
-+		ocp_reg_clr_bits(tp, 0xa466, BIT(0));
- 	}
- 
--	data = r8152_mdio_read(tp, MII_BMCR);
--	if (data & BMCR_PDOWN) {
--		data &= ~BMCR_PDOWN;
--		r8152_mdio_write(tp, MII_BMCR, data);
--	}
-+	r8152_mdio_test_and_clr_bit(tp, MII_BMCR, BMCR_PDOWN);
- 
- 	data = r8153_phy_status(tp, PHY_STAT_LAN_ON);
- 
--	if (tp->version >= RTL_VER_16)
--		r8157_u2p3en(tp, false);
--	else
--		r8153_u2p3en(tp, false);
-+	r8153_u2p3en(tp, false);
-+
-+	/* Disable Auto Speed up */
-+	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_FW_CTRL, AUTO_SPEEDUP);
- 
- 	/* MSC timer = 0xfff * 8ms = 32760 ms */
- 	ocp_write_word(tp, MCU_TYPE_USB, USB_MSC_TIMER, 0x0fff);
-@@ -8449,73 +8513,277 @@ static void r8156_init(struct r8152 *tp)
- 	/* U1/U2/L1 idle timer. 500 us */
- 	ocp_write_word(tp, MCU_TYPE_USB, USB_U1U2_TIMER, 500);
- 
--	if (tp->version >= RTL_VER_16)
--		r8157_power_cut_en(tp, false);
--	else
--		r8153b_power_cut_en(tp, false);
-+	r8156b_u2phy_backup(tp);
- 
-+	r8153b_power_cut_en(tp, false);
- 	r8156_ups_en(tp, false);
- 	r8153_queue_wake(tp, false);
- 	rtl_runtime_suspend_enable(tp, false);
- 
-+	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_INDICATE_FALG, PREBOOT_OPTION);
-+
-+	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_RMT_WAKE, RMT_WAKE_EN);
-+
- 	if (tp->udev->speed >= USB_SPEED_SUPER)
- 		r8153b_u1u2en(tp, true);
- 
- 	usb_enable_lpm(tp->udev);
- 
--	if (tp->version >= RTL_VER_12 && tp->version <= RTL_VER_15) {
--		ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_RCR, SLOT_EN);
-+	ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_RCR, SLOT_EN);
- 
--		ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_CPCR, FLOW_CTRL_EN);
-+	ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_CPCR, FLOW_CTRL_EN);
- 
--		/* enable fc timer and set timer to 600 ms. */
--		ocp_write_word(tp, MCU_TYPE_USB, USB_FC_TIMER, CTRL_TIMER_EN | (600 / 8));
-+	/* enable fc timer and set timer to 600 ms. */
-+	ocp_write_word(tp, MCU_TYPE_USB, USB_FC_TIMER,
-+		       CTRL_TIMER_EN | (600 / 8));
- 
--		ocp_data = ocp_read_word(tp, MCU_TYPE_USB, USB_FW_CTRL);
--		if (!(ocp_read_word(tp, MCU_TYPE_PLA, PLA_POL_GPIO_CTRL) & DACK_DET_EN))
--			ocp_data |= FLOW_CTRL_PATCH_2;
--		ocp_data &= ~AUTO_SPEEDUP;
--		ocp_write_word(tp, MCU_TYPE_USB, USB_FW_CTRL, ocp_data);
-+	ocp_data = ocp_read_word(tp, MCU_TYPE_PLA, PLA_POL_GPIO_CTRL);
-+	if (!(ocp_data & DACK_DET_EN))
-+		ocp_word_set_bits(tp, MCU_TYPE_USB, USB_FW_CTRL,
-+				  FLOW_CTRL_PATCH_2);
- 
--		ocp_word_set_bits(tp, MCU_TYPE_USB, USB_FW_TASK, FC_PATCH_TASK);
--	}
-+	ocp_word_set_bits(tp, MCU_TYPE_USB, USB_FW_TASK, FC_PATCH_TASK);
- 
- 	r8156_mac_clk_spd(tp, true);
- 
--	if (tp->version < RTL_VER_16)
--		ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL3, PLA_MCU_SPDWN_EN);
-+	ocp_word_clr_bits(tp, MCU_TYPE_PLA, PLA_MAC_PWR_CTRL3,
-+			  PLA_MCU_SPDWN_EN);
- 
--	ocp_data = ocp_read_word(tp, MCU_TYPE_PLA, PLA_EXTRA_STATUS);
- 	if (rtl8152_get_speed(tp) & LINK_STATUS)
--		ocp_data |= CUR_LINK_OK;
-+		ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_EXTRA_STATUS,
-+				  CUR_LINK_OK | POLL_LINK_CHG);
- 	else
--		ocp_data &= ~CUR_LINK_OK;
--	ocp_data |= POLL_LINK_CHG;
--	ocp_write_word(tp, MCU_TYPE_PLA, PLA_EXTRA_STATUS, ocp_data);
-+		ocp_word_w0w1(tp, MCU_TYPE_PLA, PLA_EXTRA_STATUS,
-+			      CUR_LINK_OK, POLL_LINK_CHG);
- 
- 	set_bit(GREEN_ETHERNET, &tp->flags);
- 
--	/* RX aggregation / 16 bytes RX descriptor
--	 * BIT(11) is specific to RTL8159, with unknown meaning
--	 */
--	if (tp->version == RTL_VER_17)
--		ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_USB_CTRL,
--				  RX_AGG_DISABLE | RX_DESC_16B | BIT(11));
--	else if (tp->version == RTL_VER_16)
--		ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_USB_CTRL, RX_AGG_DISABLE | RX_DESC_16B);
-+	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_USB_CTRL,
-+			  RX_AGG_DISABLE | RX_ZERO_EN);
-+
-+	r8156_mdio_force_mode(tp);
-+	rtl_tally_reset(tp);
-+
-+	tp->coalesce = 15000;	/* 15 us */
-+}
-+
-+static void r8157_init(struct r8152 *tp)
-+{
-+	u16 data;
-+	int i;
-+
-+	if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
-+		return;
-+
-+	/* Enable SW reset */
-+	ocp_byte_set_bits(tp, MCU_TYPE_USB, 0xcffe, BIT(3));
-+	ocp_byte_clr_bits(tp, MCU_TYPE_USB, 0xd3ca, BIT(0));
-+
-+	ocp_byte_clr_bits(tp, MCU_TYPE_USB, USB_ECM_OP, EN_ALL_SPEED);
-+
-+	ocp_word_set_bits(tp, MCU_TYPE_USB, USB_ECM_OPTION, BYPASS_MAC_RESET);
-+
-+	r8153b_u1u2en(tp, false);
-+
-+	for (i = 0; i < 500; i++) {
-+		if (ocp_read_word(tp, MCU_TYPE_PLA, PLA_BOOT_CTRL) &
-+		    AUTOLOAD_DONE)
-+			break;
-+
-+		msleep(20);
-+		if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
-+			return;
-+	}
-+
-+	r8156b_wait_loading_flash(tp);
-+
-+	data = r8153_phy_status(tp, 0);
-+	if (data == PHY_STAT_EXT_INIT) {
-+		ocp_reg_clr_bits(tp, 0xa468, BIT(3) | BIT(1));
-+		ocp_reg_clr_bits(tp, 0xa466, BIT(0));
-+	}
-+
-+	r8152_mdio_test_and_clr_bit(tp, MII_BMCR, BMCR_PDOWN);
-+
-+	data = r8153_phy_status(tp, PHY_STAT_LAN_ON);
-+
-+	r8157_u2p3en(tp, false);
-+
-+	/* Disable Interrupt Mitigation */
-+	ocp_byte_clr_bits(tp, MCU_TYPE_USB, 0xcf04,
-+			  BIT(0) | BIT(1) | BIT(2) | BIT(7));
-+
-+	/* Disable Auto Speed up */
-+	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_FW_CTRL, AUTO_SPEEDUP);
-+
-+	/* MSC timer = 0xfff * 8ms = 32760 ms */
-+	ocp_write_word(tp, MCU_TYPE_USB, USB_MSC_TIMER, 0x0fff);
-+
-+	/* U1/U2/L1 idle timer. 500 us */
-+	ocp_write_word(tp, MCU_TYPE_USB, USB_U1U2_TIMER, 500);
-+
-+	r8157_power_cut_en(tp, false);
-+	r8156_ups_en(tp, false);
-+	r8153_queue_wake(tp, false);
-+	rtl_runtime_suspend_enable(tp, false);
-+
-+	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_INDICATE_FALG, PREBOOT_OPTION);
-+
-+	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_RMT_WAKE, RMT_WAKE_EN);
-+
-+	/* Clear Warm RST / Bus RST event flag */
-+	ocp_word_clr_bits(tp, MCU_TYPE_USB, 0xcd06, BIT(11));
-+
-+	if (tp->udev->speed >= USB_SPEED_SUPER)
-+		r8153b_u1u2en(tp, true);
-+
-+	usb_enable_lpm(tp->udev);
-+
-+	r8156_mac_clk_spd(tp, true);
-+
-+	if (rtl8152_get_speed(tp) & LINK_STATUS)
-+		ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_EXTRA_STATUS,
-+				  CUR_LINK_OK | POLL_LINK_CHG);
- 	else
--		ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_USB_CTRL, RX_AGG_DISABLE | RX_ZERO_EN);
-+		ocp_word_w0w1(tp, MCU_TYPE_PLA, PLA_EXTRA_STATUS,
-+			      CUR_LINK_OK, POLL_LINK_CHG);
- 
--	if (tp->version < RTL_VER_12)
--		ocp_byte_set_bits(tp, MCU_TYPE_USB, USB_BMU_CONFIG, ACT_ODMA);
-+	set_bit(GREEN_ETHERNET, &tp->flags);
- 
--	if (tp->version >= RTL_VER_16) {
--		/* Disable Rx Zero Len */
--		rtl_bmu_clr_bits(tp, 0x2300, BIT(3));
--		/* TX descriptor Signature */
--		ocp_byte_clr_bits(tp, MCU_TYPE_USB, 0xd4ae, BIT(1));
-+	/* RX aggregation / 16 bytes RX descriptor / Bulk In End transfer */
-+	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_USB_CTRL,
-+			  RX_AGG_DISABLE | RX_DESC_16B | RX_END_TRANSFER_EN);
-+
-+	/* Disable Rx Zero Len */
-+	rtl_bmu_clr_bits(tp, 0x2300, BIT(3));
-+
-+	/* TX descriptor Signature */
-+	ocp_byte_clr_bits(tp, MCU_TYPE_USB, 0xd4ae, BIT(1));
-+
-+	r8156_mdio_force_mode(tp);
-+	rtl_tally_reset(tp);
-+
-+	tp->coalesce = 15000;	/* 15 us */
-+}
-+
-+static int r8159_wait_backup_restore(struct r8152 *tp)
-+{
-+	u32 ocp_data;
-+
-+	ocp_data = ocp_read_word(tp, MCU_TYPE_USB, USB_MISC_0);
-+	if (!(ocp_data & PCUT_STATUS))
-+		return 0;
-+
-+	return poll_timeout_us(ocp_data = ocp_read_word(tp, MCU_TYPE_USB, USB_GPHY_CTRL),
-+			       ocp_data & BACKUP_RESTRORE, 200, 20000, false);
-+}
-+
-+static void r8159_init(struct r8152 *tp)
-+{
-+	u16 data;
-+	int i;
-+
-+	if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
-+		return;
-+
-+	/* Enable SW reset */
-+	ocp_byte_set_bits(tp, MCU_TYPE_USB, 0xcffe, BIT(3));
-+	ocp_byte_clr_bits(tp, MCU_TYPE_USB, 0xd3ca, BIT(0));
-+
-+	ocp_byte_clr_bits(tp, MCU_TYPE_USB, USB_ECM_OP, EN_ALL_SPEED);
-+
-+	ocp_word_set_bits(tp, MCU_TYPE_USB, USB_ECM_OPTION, BYPASS_MAC_RESET);
-+
-+	r8153b_u1u2en(tp, false);
-+
-+	for (i = 0; i < 500; i++) {
-+		if (ocp_read_word(tp, MCU_TYPE_PLA, PLA_BOOT_CTRL) &
-+		    AUTOLOAD_DONE)
-+			break;
-+
-+		msleep(20);
-+		if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
-+			return;
- 	}
- 
-+	if (r8159_wait_backup_restore(tp)) {
-+		rtl_set_inaccessible(tp);
-+		dev_err(&tp->intf->dev,
-+			"init failed, backup-restore timed out\n");
-+		return;
-+	}
-+
-+	r8156b_wait_loading_flash(tp);
-+
-+	data = r8153_phy_status(tp, 0);
-+	if (data == PHY_STAT_EXT_INIT) {
-+		ocp_reg_clr_bits(tp, 0xa468, BIT(3) | BIT(1));
-+		ocp_reg_clr_bits(tp, 0xa466, BIT(0));
-+	}
-+
-+	r8152_mdio_test_and_clr_bit(tp, MII_BMCR, BMCR_PDOWN);
-+
-+	data = r8153_phy_status(tp, PHY_STAT_LAN_ON);
-+
-+	r8157_u2p3en(tp, false);
-+
-+	/* Disable Interrupt Mitigation */
-+	ocp_byte_clr_bits(tp, MCU_TYPE_USB, 0xcf04,
-+			  BIT(0) | BIT(1) | BIT(2) | BIT(7));
-+
-+	/* Disable Auto Speed up */
-+	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_FW_CTRL, AUTO_SPEEDUP);
-+
-+	/* MSC timer = 0xfff * 8ms = 32760 ms */
-+	ocp_write_word(tp, MCU_TYPE_USB, USB_MSC_TIMER, 0x0fff);
-+
-+	/* U1/U2/L1 idle timer. 500 us */
-+	ocp_write_word(tp, MCU_TYPE_USB, USB_U1U2_TIMER, 500);
-+
-+	r8157_power_cut_en(tp, false);
-+	r8156_ups_en(tp, false);
-+	r8153_queue_wake(tp, false);
-+	rtl_runtime_suspend_enable(tp, false);
-+
-+	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_INDICATE_FALG, PREBOOT_OPTION);
-+
-+	ocp_byte_clr_bits(tp, MCU_TYPE_PLA, PLA_RMT_WAKE, RMT_WAKE_EN);
-+
-+	/* Clear Warm RST / Bus RST event flag */
-+	ocp_word_clr_bits(tp, MCU_TYPE_USB, 0xcd06, BIT(11));
-+
-+	/* Disable FW u1u2 patch option */
-+	ocp_byte_clr_bits(tp, MCU_TYPE_USB, 0xb9a6, BIT(0));
-+
-+	if (tp->udev->speed >= USB_SPEED_SUPER)
-+		r8153b_u1u2en(tp, true);
-+
-+	usb_enable_lpm(tp->udev);
-+
-+	r8156_mac_clk_spd(tp, true);
-+
-+	if (rtl8152_get_speed(tp) & LINK_STATUS)
-+		ocp_word_set_bits(tp, MCU_TYPE_PLA, PLA_EXTRA_STATUS,
-+				  CUR_LINK_OK | POLL_LINK_CHG);
-+	else
-+		ocp_word_w0w1(tp, MCU_TYPE_PLA, PLA_EXTRA_STATUS,
-+			      CUR_LINK_OK, POLL_LINK_CHG);
-+
-+	set_bit(GREEN_ETHERNET, &tp->flags);
-+
-+	/* RX aggregation / 16 bytes RX descriptor / Bulk In End transfer */
-+	ocp_word_clr_bits(tp, MCU_TYPE_USB, USB_USB_CTRL,
-+			  RX_AGG_DISABLE | RX_DESC_16B | RX_END_TRANSFER_EN);
-+
-+	/* Disable Rx Zero Len */
-+	rtl_bmu_clr_bits(tp, 0x2300, BIT(3));
-+
-+	/* TX descriptor Signature */
-+	ocp_byte_clr_bits(tp, MCU_TYPE_USB, 0xd4ae, BIT(1));
-+
-+	/* Enable u3phy patch backup */
-+	ocp_write_word(tp, MCU_TYPE_USB, 0xb9a2, 0x0448);
-+
- 	r8156_mdio_force_mode(tp);
- 	rtl_tally_reset(tp);
- 
-@@ -9846,7 +10114,7 @@ static int rtl_ops_init(struct r8152 *tp)
- 		tp->eee_en		= true;
- 		tp->eee_adv		= MDIO_EEE_1000T | MDIO_EEE_100TX;
- 		tp->eee_adv2		= MDIO_EEE_2_5GT;
--		ops->init		= r8156_init;
-+		ops->init		= r8156b_init;
- 		ops->enable		= rtl8156_enable;
- 		ops->disable		= rtl8153_disable;
- 		ops->up			= rtl8156_up;
-@@ -9885,7 +10153,7 @@ static int rtl_ops_init(struct r8152 *tp)
- 		tp->eee_en		= true;
- 		tp->eee_adv		= MDIO_EEE_1000T | MDIO_EEE_100TX;
- 		tp->eee_adv2		= MDIO_EEE_2_5GT | MDIO_EEE_5GT;
--		ops->init		= r8156_init;
-+		ops->init		= r8157_init;
- 		ops->enable		= rtl8156_enable;
- 		ops->disable		= rtl8153_disable;
- 		ops->up			= rtl8156_up;
-@@ -9907,7 +10175,7 @@ static int rtl_ops_init(struct r8152 *tp)
- 		tp->eee_en		= true;
- 		tp->eee_adv		= MDIO_EEE_100TX | MDIO_EEE_1000T | MDIO_EEE_10GT;
- 		tp->eee_adv2		= MDIO_EEE_2_5GT | MDIO_EEE_5GT;
--		ops->init		= r8156_init;
-+		ops->init		= r8159_init;
- 		ops->enable		= rtl8156_enable;
- 		ops->disable		= rtl8153_disable;
- 		ops->up			= rtl8156_up;
+ if __name__ == '__main__':
+@@ -162,18 +216,28 @@ if __name__ == '__main__':
+         description="See the documentation for more details: "
+         "https://docs.kernel.org/dev-tools/container.html"
+     )
++    parser.add_argument(
++        '-c', '--config-file',
++        help="Path to the config file.  If not specified, the default is to "
++        "look for .container.toml in the current working directory."
++    )
+     parser.add_argument(
+         '-e', '--env-file',
+         help="Path to an environment file to load in the container."
+     )
+     parser.add_argument(
+-        '-g', '--gid',
++        '-g', '--gid', type=int,
+         help="Group ID to use inside the container."
+     )
+     parser.add_argument(
+-        '-i', '--image', required=True,
++        '-i', '--image',
+         help="Container image name."
+     )
++    parser.add_argument(
++        '-p', '--config-profile',
++        help="Profile section to use in the config file.  This will override "
++        "any values defined in the DEFAULT section."
++    )
+     parser.add_argument(
+         '-r', '--runtime', choices=Runtimes.get_names(),
+         help="Container runtime name.  If not specified, the first one found "
+@@ -184,9 +248,10 @@ if __name__ == '__main__':
+         help="Run the container in an interactive shell."
+     )
+     parser.add_argument(
+-        '-u', '--uid',
++        '-u', '--uid', type=int,
+         help="User ID to use inside the container.  If the -g option is not "
+-        "specified, the user ID will also be set as the group ID."
++        "specified and no group ID is defined in the configuration file, the "
++        "user ID will also be set as the group ID."
+     )
+     parser.add_argument(
+         '-v', '--verbose', action='store_true',
 -- 
-2.34.1
+2.47.3
 
