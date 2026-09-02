@@ -1,212 +1,194 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 175DF3CBE86
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:07:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE753CFF46
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:07:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788332874; cv=none; b=DU19UcDvCu+85E/vkeVZc6WK2wn3sglSCZmM3lJf+ltTClCp6zxLVbxFo1B5VnneQygCprG/UH+ZDLRGlK1dUqEAQbRjFRbGQzFc7TGq5SAzUyugO4+WNexELfmsws71+1Z32wn7zxpu88b0Q4GHnVXDhSCCV8ivp3AZ/BwKAM4=
+	t=1788332878; cv=none; b=JVXewX6IRoyz4f9bQuE7eJcF70NO8AsznHtnxRPapQGSinqpekOtg9YzLLUeWd9iIE3VP8uaRoawB1cdgl+7gEjtR6y6pE3BAEs7PBmYpjY15rexpXcANtGgfSbY+GRpVpxVDxqoYZMkX2UViByO7PcnM3uIdW/n+/C1dp2d41Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788332874; c=relaxed/simple;
-	bh=9X6dzoz0gufvGfDdL8yiPtKZ2y0zu/PY1AlP1BteYb4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TujU/DEpGqtod5mfFxZgebI5X6sAe+kP8CqXRZ1UJBMq1/d6AJG1FjTwGj94tSOieV5uLuemAON4la5k9nyMib9aeCRZh10F7xCf6+vJ9kbsKjd1Nd4x6onx2wq/rogAoscLa/FfR0soZ0zPihmq0CDlkMLgLpGPpDQYPJcRKlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AP/C12UR; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788332878; c=relaxed/simple;
+	bh=/TJ2H8gdyaK1NYkQQvBX+IYLM0z/aFm7QycIaKs34Gc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JRIR/aiJRlZUZId0N5YekiZD4OKs/UcuNM/0HNUcdS7zER89f6f8z62Io12HUA/BI0YcYWOS4r0m+JFixITuvXBd3CMpAi/QZE9IZhD0KyfJpQXKfylrhN8iX830j8T+l4qyf6qHgkFJ8LXE+NHFcF2frnYF/CojkuQQCi56dlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=UpURxqan; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AP/C12UR"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-85c9a79590aso863129b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 00:07:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788332871; x=1788937671; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PqvESrdu/9YfjO79/sFoUA4cGKOp555BY5zNyUvnMY4=;
-        b=AP/C12UR9t1diZy+7YRrRRPzVpXLd7LphRr824cMJG1QP6jgUskFvYqlpICB7+wKcu
-         v5VUp4KBqTBa3Pc59kL13mM5sjNmr76NCpVfTeaodwlKnBLrD5xpa+xZUU6azo7Ex5f/
-         krxm5Xf4UWl2jGuQAdOTAgcasid1ER2TWg0QbnRe7ia3qWNSneuV5IcaokvsZ8PuRODH
-         J5t39IAI6ca6SreQRYKVMTZqqWzj7oc+/626oysMYP5/56/ijjGP7YXm1YWiB9LhasZ8
-         oLnrmurHckb238JH4iCxWrPVqy3BHZZAYYLpF/b7JA4iJNgRt+o0qeovAwwC+oFlp/sm
-         w0Kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788332871; x=1788937671;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PqvESrdu/9YfjO79/sFoUA4cGKOp555BY5zNyUvnMY4=;
-        b=U9bPHERSBEemcAHaYSx0dREUxtMWYTW2cBbAAEQkVoq9VI9g5MOcoKFc/oSxQUkvUT
-         R61KQBkxhiX14IaLVqLRg4elIjtBcddCMj8Xj4IZCercqEcb7KD90QzvkeKIz86a4pXG
-         xSeSmp7rqOpvK4V9nZiJCscYLEstgggWkUlUaQ6S8tLZT3RRHNdmMw7xCka/SDeDetal
-         0GY3bThGRm6FLvIxk38/IPkE/tv8qBJCoTFDKwJV7kNnIYOb85cOqPP8lfo39Jd02/ip
-         nZuVZDYZHc3fyTvL408ytmUePRGNJuddGRnjBr0lsE7ijXrwZGdPJQAs5l9mhQkRL8FP
-         lV+Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqFxqqmRzSTaRkuuxIMZdXItwvUe6Z2OLMunmQ6/hh/P4/Rn9B3iHWyMIDwqJa2hw/wUsOVjrDO7jeONkY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nHxfCj4cPdI7d3K6+aYcFrsyK7Lr3uzjUZKuGUyTCDMG15lZ7Q
-	uHjC2zw1ShSE+myVkI+9WrIGlx4p+RlYSnqatVAJIz+ybOqJo3i42NYR
-X-Gm-Gg: AR+sD10Rng9WnoqIjch/rBS4qhUuBZ43pgiCnf7KHSy/spGllr/bHF1S5Tr86BNCv2w
-	ygHgo6z2Joi2k0qSuI08+bk543i4WTJd7FGPWbB3A6ef+Lze5KciyoRd6HSZhEIL2r5eIE18aKu
-	3WlScESh8TVW9qtCmcNIESRIbxisGordg6RsFkQ5leLU59DeXJZJVkpGKMeGQnWoXUniBx1pgzX
-	zd0meVry+V1ItQA+2tNCZgTHk3en+5knhF46HPJoMYsuLNBqIKdQE+4HqMydrVmn4i/S2L9jYDq
-	wXSEaJa57pcHm9xRSui3V7Kob5lMNcaSlqYCCk+eBXNZVE6Etp8AeEEeAibuUVxvjxk/4VNOkUg
-	UcFBkgQha5rhy6UY5G+sqxinbLfRgcUcCyZX0yxODDvE0ACv9lsAe6lKmm0feD6Ad419GtJsp/R
-	4pIldmibmgmeWTH3e1sMhd/rMxsJhulthy/NCTrQaV8vATzNnvu/s6I3fNgjdkFV5SHijz0W3Eh
-	g==
-X-Received: by 2002:a05:6a21:33a8:b0:3d0:6c90:5a33 with SMTP id adf61e73a8af0-3d9ad9a2a0bmr4564485637.4.1788332871373;
-        Wed, 02 Sep 2026 00:07:51 -0700 (PDT)
-Received: from amd.ban-spse ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f079c33f4sm4173256eec.1.2026.09.02.00.07.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 00:07:51 -0700 (PDT)
-From: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
-To: zhaotianrui@loongson.cn,
-	maobibo@loongson.cn,
-	chenhuacai@kernel.org
-Cc: kernel@xen0n.name,
-	lixianglai@loongson.cn,
-	kvm@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
-Subject: [PATCH v2 1/2] LoongArch: KVM: Add unregister helpers for the KVM interrupt devices
-Date: Wed,  2 Sep 2026 07:07:22 +0000
-Message-ID: <20260902070724.3459457-2-nagachaithanya9911@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260902070724.3459457-1-nagachaithanya9911@gmail.com>
-References: <20260817115847.2705791-1-nagachaithanya9911@gmail.com>
- <20260902070724.3459457-1-nagachaithanya9911@gmail.com>
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="UpURxqan"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6826VcLJ3438291;
+	Wed, 2 Sep 2026 07:07:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=jqueDm
+	lp8fVGFacTH4x/TdtvGeQ72hJzCbIm5n2gLLQ=; b=UpURxqan4JVDSXa7mRyaR6
+	4iAx9QTE4Xfu0uoA4rISI/syCuQFRQ+HRhKtIdaRHR8uWQsHYCMVyVG0mUzu1Rk6
+	u+1Mbpu21AgvxBijqcbnnHLQbrpUfCAc+wwQZBIaJiGxMIJAU0PGV6N/ZMdi2HfR
+	o7YeiRPhH96uk0Uy1r/zot7wN6/E+LlQq0ME/FMrEwUFBl4xJk8lXvcKxG4iqRNi
+	8ZQ/YVs582/flc/A6qT71Cb5Q8LPJUPsGQDEuMU29NBHKyHek2Sc/Bn4zat1xHrf
+	Pw3uYWLA+AmdGgzWYc/yBPK9BppHDsWtzHRHZK9PxM6VcO5c3CO+onGh+HYWddWw
+	==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq54vwb4-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 07:07:51 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6826uLuW016566;
+	Wed, 2 Sep 2026 07:07:50 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcark8a8a-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 07:07:49 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68277jnv40370622
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 2 Sep 2026 07:07:46 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id C4B152004B;
+	Wed,  2 Sep 2026 07:07:45 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 2488820043;
+	Wed,  2 Sep 2026 07:07:44 +0000 (GMT)
+Received: from [9.39.25.199] (unknown [9.39.25.199])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  2 Sep 2026 07:07:43 +0000 (GMT)
+Message-ID: <95913fca-5631-40ff-abed-4afad99722e6@linux.ibm.com>
+Date: Wed, 2 Sep 2026 12:37:43 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] powerpc/entry: Fix double accounting of user time on
+ interrupt entry
+To: Aboorva Devarajan <aboorvad@linux.ibm.com>
+Cc: Christophe Leroy <chleroy@kernel.org>, linux-kernel@vger.kernel.org,
+        Ritesh Harjani <ritesh.list@gmail.com>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        linuxppc-dev@lists.ozlabs.org,
+        Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>
+References: <20260902050628.2553909-1-aboorvad@linux.ibm.com>
+Content-Language: en-US
+From: Shrikanth Hegde <sshegde@linux.ibm.com>
+In-Reply-To: <20260902050628.2553909-1-aboorvad@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA2MSBTYWx0ZWRfX2Fda2uFh0mNG
+ Dx7s6ISwy9TyVB0kzxIc67JganGID/Ng0dslNR86GsV9P/tUWs79XrES6ptWIh7Y5BMPcn7ZX70
+ V6P6yFRK1NAFFWeO0coHBjz12765J3TaOR6Bbz93wilXaloyZiqjCYmODwn7/A7q2MiMfkbLTV8
+ eJONL1nFbKEwQMKW3Eve7bL4kjhHGXnRBwW/jPIKVxkBto1bjFHA5B6/P5aDUPp+aMSjSYnuPnm
+ ZO01ha0oy+vJDBXN2dp7zk/WwQD93cuW9fypyAEhQkEOClyV/kBZ5lhG1xLjovJ+KYuoK40BHDj
+ PPmLoyx71sBTJoAU6CXjiyMbfoVJvucYfc6UM+7TmE4DAjJTzBC41ff1z6ANzY7eX9C3NfhMzgF
+ ASv8/RXCErHbbI47RgD7OgeZ6YzltQ3XKbXXAp+ZhZ6138esVeGeitIKXtXaYQm4lN2aAoEWjhu
+ 72WvTQJj5/ZUXGTK2kg==
+X-Proofpoint-ORIG-GUID: LQW84XvbQ_PUEs1dWVIOnTFBkar7WEEq
+X-Authority-Analysis: v=2.4 cv=CNgamxrD c=1 sm=1 tr=0 ts=6a97cb47 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
+ a=bNR6VrasG_76KyUd1lwA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: 8GkaAx_EtORrXSo561M-B6fTQh91EG14
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA2MSBTYWx0ZWRfX2UHp73/8tJcV
+ HpYBDvSzAxoF/ArzfHscHq1fu0P/qDeDQu4G4/TxPO/3lq3F6FH59KFyNPjvHCtDgWy9GyyFd1C
+ cgJnXJpV0AXv1Lzab7ugiGUSEzHL7TM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_01,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 clxscore=1015 impostorscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020061
 
-The IPI/EIOINTC/PCH-PIC/DMSINTC KVM devices each have a helper that
-registers their kvm_device_ops, but there is no counterpart to remove
-them again, so a caller that needs to undo a registration has to
-open-code kvm_unregister_device_ops() with the matching device type.
+Hi Aboorva.
 
-Add kvm_loongarch_unregister_{ipi,eiointc,pch_pic,dmsintc}_device()
-next to the existing register helpers. kvm_unregister_device_ops() is a
-no-op when the corresponding device type is not currently registered.
+On 9/2/26 10:36 AM, Aboorva Devarajan wrote:
+> Since the switch to generic entry, an interrupt taken from user mode
+> accounts user time twice: once in arch_interrupt_enter_prepare() and
+> again in arch_enter_from_user_mode(), which irqentry_enter() invokes
+> for the same interrupt:
+> 
+>    arch_interrupt_enter_prepare()
+>        account_cpu_user_entry()
+>    irqentry_enter()
+>      arch_enter_from_user_mode()
+>        account_cpu_user_entry()
+> 
+> account_cpu_user_entry() accumulates the time spent in user mode
+> since the last return to user space, so the second call charges the
+> same interval again.
+> 
+> With CONFIG_VIRT_CPU_ACCOUNTING_NATIVE=y this roughly doubles the
+> reported user time of any workload that takes interrupts. On a
+> pseries LPAR, ps/top show ~200% CPU for a single-threaded CPU-bound
+> loop, and time(1) reports user time about twice the elapsed time.
+> 
 
-No functional change, as there are no callers yet.
+Could you please run mpstat with 50% or less loading workload like stress-ng
+and document the difference in changelog.
 
-Suggested-by: Bibo Mao <maobibo@loongson.cn>
-Signed-off-by: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
----
- arch/loongarch/include/asm/kvm_dmsintc.h | 1 +
- arch/loongarch/include/asm/kvm_eiointc.h | 1 +
- arch/loongarch/include/asm/kvm_ipi.h     | 1 +
- arch/loongarch/include/asm/kvm_pch_pic.h | 1 +
- arch/loongarch/kvm/intc/dmsintc.c        | 5 +++++
- arch/loongarch/kvm/intc/eiointc.c        | 5 +++++
- arch/loongarch/kvm/intc/ipi.c            | 5 +++++
- arch/loongarch/kvm/intc/pch_pic.c        | 5 +++++
- 8 files changed, 24 insertions(+)
+> Remove the accounting from arch_interrupt_enter_prepare() and rely on
+> arch_enter_from_user_mode(), which runs for both syscalls and
+> interrupts. The duplicate account_stolen_time() call is removed the
+> same way.
+> 
+> Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
+> Signed-off-by: Aboorva Devarajan <aboorvad@linux.ibm.com>
+> ---
+> Verified on a pseries LPAR (CONFIG_VIRT_CPU_ACCOUNTING_NATIVE=y),
 
-diff --git a/arch/loongarch/include/asm/kvm_dmsintc.h b/arch/loongarch/include/asm/kvm_dmsintc.h
-index 5a71b9ccbe78..7c0158764d84 100644
---- a/arch/loongarch/include/asm/kvm_dmsintc.h
-+++ b/arch/loongarch/include/asm/kvm_dmsintc.h
-@@ -20,6 +20,7 @@ struct dmsintc_state {
- };
- 
- int kvm_loongarch_register_dmsintc_device(void);
-+void kvm_loongarch_unregister_dmsintc_device(void);
- void dmsintc_inject_irq(struct kvm_vcpu *vcpu);
- int dmsintc_set_irq(struct kvm *kvm, u64 addr, int data, int level);
- int dmsintc_deliver_msi_to_vcpu(struct kvm *kvm, struct kvm_vcpu *vcpu, u32 vector, int level);
-diff --git a/arch/loongarch/include/asm/kvm_eiointc.h b/arch/loongarch/include/asm/kvm_eiointc.h
-index 8b7a2fa3f7f8..9633fbfc066d 100644
---- a/arch/loongarch/include/asm/kvm_eiointc.h
-+++ b/arch/loongarch/include/asm/kvm_eiointc.h
-@@ -79,6 +79,7 @@ struct loongarch_eiointc {
- };
- 
- int kvm_loongarch_register_eiointc_device(void);
-+void kvm_loongarch_unregister_eiointc_device(void);
- void eiointc_set_irq(struct loongarch_eiointc *s, int irq, int level);
- 
- #endif /* __ASM_KVM_EIOINTC_H */
-diff --git a/arch/loongarch/include/asm/kvm_ipi.h b/arch/loongarch/include/asm/kvm_ipi.h
-index 060163dfb4a3..d1d72d4bb8d1 100644
---- a/arch/loongarch/include/asm/kvm_ipi.h
-+++ b/arch/loongarch/include/asm/kvm_ipi.h
-@@ -41,5 +41,6 @@ struct ipi_state {
- #define IOCSR_ANY_SEND		0x158
- 
- int kvm_loongarch_register_ipi_device(void);
-+void kvm_loongarch_unregister_ipi_device(void);
- 
- #endif
-diff --git a/arch/loongarch/include/asm/kvm_pch_pic.h b/arch/loongarch/include/asm/kvm_pch_pic.h
-index e74b3b742634..887b0431fd20 100644
---- a/arch/loongarch/include/asm/kvm_pch_pic.h
-+++ b/arch/loongarch/include/asm/kvm_pch_pic.h
-@@ -70,6 +70,7 @@ struct loongarch_pch_pic {
- 
- struct kvm_kernel_irq_routing_entry;
- int kvm_loongarch_register_pch_pic_device(void);
-+void kvm_loongarch_unregister_pch_pic_device(void);
- void pch_pic_set_irq(struct loongarch_pch_pic *s, int irq, int level);
- int pch_msi_set_irq(struct kvm *kvm, struct kvm_kernel_irq_routing_entry *e, int level);
- 
-diff --git a/arch/loongarch/kvm/intc/dmsintc.c b/arch/loongarch/kvm/intc/dmsintc.c
-index bb7285c49df3..c7d8841df96f 100644
---- a/arch/loongarch/kvm/intc/dmsintc.c
-+++ b/arch/loongarch/kvm/intc/dmsintc.c
-@@ -180,3 +180,8 @@ int kvm_loongarch_register_dmsintc_device(void)
- {
- 	return kvm_register_device_ops(&kvm_dmsintc_dev_ops, KVM_DEV_TYPE_LOONGARCH_DMSINTC);
- }
-+
-+void kvm_loongarch_unregister_dmsintc_device(void)
-+{
-+	kvm_unregister_device_ops(KVM_DEV_TYPE_LOONGARCH_DMSINTC);
-+}
-diff --git a/arch/loongarch/kvm/intc/eiointc.c b/arch/loongarch/kvm/intc/eiointc.c
-index 84d84bd432d7..80f78e07c74a 100644
---- a/arch/loongarch/kvm/intc/eiointc.c
-+++ b/arch/loongarch/kvm/intc/eiointc.c
-@@ -695,3 +695,8 @@ int kvm_loongarch_register_eiointc_device(void)
- {
- 	return kvm_register_device_ops(&kvm_eiointc_dev_ops, KVM_DEV_TYPE_LOONGARCH_EIOINTC);
- }
-+
-+void kvm_loongarch_unregister_eiointc_device(void)
-+{
-+	kvm_unregister_device_ops(KVM_DEV_TYPE_LOONGARCH_EIOINTC);
-+}
-diff --git a/arch/loongarch/kvm/intc/ipi.c b/arch/loongarch/kvm/intc/ipi.c
-index fcfaf1a66790..7b333a4a0430 100644
---- a/arch/loongarch/kvm/intc/ipi.c
-+++ b/arch/loongarch/kvm/intc/ipi.c
-@@ -463,3 +463,8 @@ int kvm_loongarch_register_ipi_device(void)
- {
- 	return kvm_register_device_ops(&kvm_ipi_dev_ops, KVM_DEV_TYPE_LOONGARCH_IPI);
- }
-+
-+void kvm_loongarch_unregister_ipi_device(void)
-+{
-+	kvm_unregister_device_ops(KVM_DEV_TYPE_LOONGARCH_IPI);
-+}
-diff --git a/arch/loongarch/kvm/intc/pch_pic.c b/arch/loongarch/kvm/intc/pch_pic.c
-index e7b77705c516..83fa2386cf81 100644
---- a/arch/loongarch/kvm/intc/pch_pic.c
-+++ b/arch/loongarch/kvm/intc/pch_pic.c
-@@ -500,3 +500,8 @@ int kvm_loongarch_register_pch_pic_device(void)
- {
- 	return kvm_register_device_ops(&kvm_pch_pic_dev_ops, KVM_DEV_TYPE_LOONGARCH_PCHPIC);
- }
-+
-+void kvm_loongarch_unregister_pch_pic_device(void)
-+{
-+	kvm_unregister_device_ops(KVM_DEV_TYPE_LOONGARCH_PCHPIC);
-+}
--- 
-2.43.0
+Usual default is VIRT_CPU_ACCOUNTING_GEN, selected by NO_HZ_FULL.
+Most distros usually enable NO_HZ_FULL=y.
+
+At hindsight, I don't see the issue dependency on it. But better to be sure.
+> 7.3.0-rc1, single-threaded CPU-bound loop:
+> 
+> Before:
+> 
+>    $ python3 -c 'while True: pass' &
+>    $ sleep 3; ps -p $! -o pid,etime,time,pcpu
+>        PID     ELAPSED     TIME %CPU
+>       4980       00:03 00:00:06  210
+> 
+> After:
+> 
+>    $ python3 -c 'while True: pass' &
+>    $ sleep 3; ps -p $! -o pid,etime,time,pcpu
+>        PID     ELAPSED     TIME %CPU
+>       4951       00:03 00:00:03  105
+> 
+>   arch/powerpc/include/asm/entry-common.h | 6 ++++--
+>   1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/powerpc/include/asm/entry-common.h b/arch/powerpc/include/asm/entry-common.h
+> index c5adb5006361..984294e62568 100644
+> --- a/arch/powerpc/include/asm/entry-common.h
+> +++ b/arch/powerpc/include/asm/entry-common.h
+> @@ -222,8 +222,6 @@ static inline void arch_interrupt_enter_prepare(struct pt_regs *regs)
+>   
+>   	if (user_mode(regs)) {
+>   		kuap_lock();
+> -		account_cpu_user_entry();
+> -		account_stolen_time();
+>   	} else {
+>   		kuap_save_and_lock(regs);
+>   		/*
+> @@ -426,6 +424,10 @@ static __always_inline void arch_enter_from_user_mode(struct pt_regs *regs)
+>   #endif
+>   	kuap_assert_locked();
+>   	booke_restore_dbcr0();
+> +	/*
+> +	 * User and stolen time is accounted here for every entry from
+> +	 * user mode. The interrupt prepare hooks must not account again.
+> +	 */
+>   	account_cpu_user_entry();
+>   	account_stolen_time();
+>   
+> 
+> base-commit: fb442a6673ff1046bf67754957d95880fdb394b5
 
