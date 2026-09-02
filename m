@@ -1,85 +1,71 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA0C3DDB1D;
-	Wed,  2 Sep 2026 17:48:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EEE038551D;
+	Wed,  2 Sep 2026 17:48:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788371289; cv=none; b=WG4mZocWwQUstqf3e7+2Tsk0Cw6cykUf/SwR1z480c7I49Nwggvntp1OpnswwDa/AG1VDf/2RNp3DZjUIojVGw0TWMRboTv4Q5psOsTI5vWocNoDI0HvLpsQ0ES1j4uYiHF8nWMW6aGOOD8M9BpVmkU6JFXCYcabWwG3aehGVno=
+	t=1788371299; cv=none; b=Wo8Oh3UF5Kbvn3RVgtAxGz8fYEYd94mP2LIfaIoKEvZrJFhOeju2+f+Z1q6ephGBYjj/JSAtDOZsqSCq4fZvTy1a7qAGnIS/LATCoFzTDUgZCAxT02/jccGZM9foqno5RHJv9xfZcrSouLWcOGo6UMJWiSm8hdIpRx/IwTRj8CY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788371289; c=relaxed/simple;
-	bh=96bnf5Ay0NWyRYE3n5heQ5d+s0k6AzcgMD0wv30tl8s=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type; b=HbnLgYhxem5rgxzwzz1ml29t59MlA9xjPXnVRpwXsDWDaBkg3qug63nGrND2J7no/2eF5kg6zGFmoWbSL6R5jLGakFxUZ/4kNyugo+cSTHLALIfFufJ3iuxBgByrns3Yp6TdWkeHKZzGXCLJkKTAgS42UlXdGgncMZJX4g626SM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=m7G7k1iq; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	s=arc-20240116; t=1788371299; c=relaxed/simple;
+	bh=vPmsoIF7ixKnh5khR0zbHIXVjt+NXsgyyIJm81TB6pk=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References; b=P1K0qFrEM2Z9TKA4EFTU/lsqDwTkBT55dahYReetWqC248mJHD7gLXorJ3PP6wTLfTZKrI7QqPw00G+76hHD0rmQrmQF9v55uF14WbsMJxqvK8Xo8ZQBXbnsueDVUwWRfT9Dm1k4GzJq5KIW1+m10+7vXOvWVN4gbzy5pYGK06w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=arheDYgT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="m7G7k1iq"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=+zGqViqajbDVzzs6i/KKRDonBemKHDWDXGoETv6wS5U=; b=m7G7k1iqcuCOa+ZtzTSgIObzpE
-	51iK6QjHhb6VRLRp6JQFueRhdV35DR/Uld/NWWufep/yzJeXWejecCqx4h0EtHfa1J/2pkW8m8atx
-	uP4/SDOTfgZUMYzWB+RATX/10+8m0mBeXcrDF9hroFKOto9Yb0ujZYIChTqd8QDMaQ2JWMTR8bFF2
-	RZ77+1Nz9u1U/ejl0aDoHwrzt5icaRYVeAbm3y8KQMlAZXLKjQyNVPV6Lkj0EQWiEWynoz3YWgNEJ
-	o833gmiUc0MxTsnmao+dGmz812wUm3fqGfwWXrkI32wktQfp5KsgccWqXQKBmUbGW3FKld+2Xt+Bm
-	Q1UyBDNA==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1x1p49-00000000X4Z-0cV6;
-	Wed, 02 Sep 2026 14:48:05 -0300
-Message-ID: <7f87f15e7136147297a33a540f0880f3@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: Fredric Cover <fredric.cover.lkernel@gmail.com>, Namjae Jeon
- <linkinjeon@kernel.org>
-Cc: ChenXiaoSong <chenxiaosong@chenxiaosong.com>, Tom Talpey
- <tom@talpey.com>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad
- N <sprasad@microsoft.com>, Bharath SM <bharathsm@microsoft.com>,
- linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, Fredric Cover
- <fredric.cover.lkernel@gmail.com>
-Subject: Re: [PATCH 2/2] smb: client: prevent out-of-bounds dfs_info3_param
- access in copy_ref_data()
-In-Reply-To: <notmuch-sha1-3e5d257ab3acfa72da7284e13dd0c817fac4b88c>
-References: <20260826191033.162320-1-fredric.cover.lkernel@gmail.com>
- <20260826191033.162320-3-fredric.cover.lkernel@gmail.com>
-Date: Wed, 02 Sep 2026 14:48:04 -0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="arheDYgT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1D251F000E9;
+	Wed,  2 Sep 2026 17:48:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788371297;
+	bh=jbM1AZIWfVPk3R5iLOrXk3OwomZn57qgixjPv6pYWRk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=arheDYgT3Rb9jHbvU7pjNglMZhG0dUBCxoE4HkJ18p28+FII72nCIxXg7z4GjL2TS
+	 ZW3Xk8RVDKCxFvRXakxkU0gfT2Zzy63LRgR2dqz3Ko7+hIyl96kLqjTSE29IrO7T8T
+	 hEZayjGg1mJzTfsqU92zuuut5ssMNyI2zLnTMt9uYA7yLy+3EDSISaeLlDTa7Vgjtb
+	 vuAzHq3Hz/kjjAGnTutGdYPQO+0wTKdZDGouNQT6zWFtcoUBrVZRdEvoJoL3+nk65A
+	 YxC8CpRndx5Y0c+BvHnXufkYyMPVkzxV95NrIFZfhytNKditjPiAhie9RL8xwH6Onl
+	 a0r69d5nw4kFg==
+Date: Wed, 02 Sep 2026 07:48:16 -1000
+Message-ID: <a8b5c606e0e52a93f8bee7e6d6a7f78c@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Tao Cui <cui.tao@linux.dev>
+Cc: arighi@nvidia.com,
+	void@manifault.com,
+	changwoo@igalia.com,
+	michalblk@google.com,
+	emil@etsalapatis.com,
+	sched-ext@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	cuitao@kylinos.cn
+Subject: Re: [PATCH v2] sched_ext: don't deliver duplicate
+ ops.cgroup_set_idle() for same value
+In-Reply-To: <20260901124347.755904-1-cui.tao@linux.dev>
+References: <20260901124347.755904-1-cui.tao@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain
 
-Paulo Alcantara <pc@manguebit.org> writes:
+> ops.cgroup_set_idle() is documented to be invoked when a cgroup
+> transitions between idle and non-idle states, and scx_group_set_weight()
+> already skips value-preserving writes. scx_group_set_idle() delivers
+> every write unconditionally, so rewriting an already-correct cpu.idle
+> value feeds the BPF scheduler a transition callback each time, which
+> toggle- or accounting-based schedulers miscount. Mirror the weight
+> guard and only deliver on an actual change.
 
-> Fredric Cover <fredric.cover.lkernel@gmail.com> writes:
->
->> Currently, copy_ref_data() assumes that numrefs > 0, and unconditinally
->> accesses refs[0]. If copy_ref_data() somehow is passed an empty list,
->> this would cause major out-of-bounds write and read problems.
->>
->> Enforce numrefs > 0.
->>
->> Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
->> ---
->>  fs/smb/client/dfs_cache.c | 3 +++
->>  1 file changed, 3 insertions(+)
->>
->> diff --git a/fs/smb/client/dfs_cache.c b/fs/smb/client/dfs_cache.c
->> index b0388c460499..b51c8355d73d 100644
->> --- a/fs/smb/client/dfs_cache.c
->> +++ b/fs/smb/client/dfs_cache.c
->> @@ -389,6 +389,9 @@ static int copy_ref_data(const struct dfs_info3_param *refs, int numrefs,
->>  	struct cache_dfs_tgt *target;
->>  	int i;
->>  
->> +	if (WARN_ON_ONCE(numrefs <= 0))
->> +		return -EINVAL;
->
-> I don't understand why this check is necessary.  All target referrals
-> come from get_dfs_referral(), and in case @numrefs < 0,
-                                            ^ @numrefs <= 0                                        
+Applied to sched_ext/for-7.3-fixes with the subject capitalized and the
+new comparison changed to tg->scx.idle, which is the field's name there:
 
-Sorry for the typo.
+-	    tg->scx.sched_idle != idle)
++	    tg->scx.idle != idle)
+
+The rename to tg->scx.sched_idle is on for-7.4 and the for-next merge
+switches the comparison back.
+
+Thanks.
+
+--
+tejun
