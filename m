@@ -1,192 +1,172 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1262348C75
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:29:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2B7340407
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:30:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788319796; cv=none; b=DemPHeGnGOoqoG7QZ7VKDGIHWwdGKYb4s65ruYYis3YlSOosJoDHU2vHZYkZlxqGZxlknPb+eE9YQBNc7+DzoaTrwfuiqlpYfyonJx13M/NzZKj5JD8Sa67e0IJ/AT/UWd0WJzFkKc7DVCz2wFItt/vSMw8BZWeeAIIJtBiGI14=
+	t=1788319847; cv=none; b=MsD873Rnkj0aSTwztu6P5xk4WFWlVNCIsnXu0v/e3M3QlbhwVSCMSxFHFPiSq1rW5XNuHSqD8qY2X0+WEsOC5mRODyiAkC/LrQFHxZOpEq31UMmAT8et4DZqNf0CEGvxw4ET1QU7oxFu8HTel4PEJrrYAUFtXJQIpk3MWyyp3gk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788319796; c=relaxed/simple;
-	bh=J4/PepV8PBz6sQAShbl8+v2xr61BId7+YnU/sMtjwl0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BjZuqFigo8FP5Gkub/AFWVquIrzVsbfvlK3BQ7EzV9Ihop71B4I/Z6TtOAQG234upEskH4LegnOaPBEsMqQBZyT/tQp3BxUs5U6DIK1Is2bOyDJ36YKWXmeer/Uf1vuIBSPXMmgQ96d2lHhgWjcfQIJIBy/xCm5QNDg8mpL4WkQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LzGChSv2; arc=none smtp.client-ip=209.85.214.169
+	s=arc-20240116; t=1788319847; c=relaxed/simple;
+	bh=JDiIo6AmLoeHaCku9tkhf0FJ/rQnb5by0XJWkhTOruw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=arXgN/GIRKzXsmWqEH4BD//E3fyx3q+F1A0jgnz9ay/CsdhK9SA/jImdUrXrzrpdJ0B0X80YcGl5fLq2X+ahTIMUYt26ptd5dP1LtoY7M6QcQOxHEoSgHpC+dUgJjDlIEVuY+nV8hH8AskXvmWTti0k6ADjhD/bavqeHlNHUEpw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sFQvBgL8; arc=none smtp.client-ip=209.85.214.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LzGChSv2"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2cfbbdfa60bso5813275ad.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 20:29:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sFQvBgL8"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d9201076b3so6474925ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 20:30:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788319792; x=1788924592; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pGpqtN0vRq8epNdTDKQRGvsPqQN+AJIy2e00tUkEjAI=;
-        b=LzGChSv2YAMXI+FhA0TKp6zLEcqtRYUhHWxyOqLMHJ/1i4LV53b1H0wx6YNfP1lazh
-         vYYGQg9/l8XQSCrEN08Lxf0SQCGE7dDi9G+asTTnHXfBI/5X0Hd3BwHKsuOZGEvog4cW
-         1mDDU40CHcbdLlFmFM+yn609Q7fkdijlMUk9li66SR0qPNsYf284Eb7q6GaybTIoBokU
-         tNsChVg8XP3qMysmd7OG8pRPuZUe36zgsiet66yNB/u5rGRFIg6k8QjOA4+XgTlHk7kM
-         JzpJp2egjUFi0VEgnwBzIbUjophMrgRugDV9OExEI0I59Cv9lGG2qOOyvT4uEEdx4A7B
-         9Q0A==
+        d=gmail.com; s=20251104; t=1788319845; x=1788924645; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GODtbRlK4Wp21PCNPXyrIzdJnHuDBWO22e7/FknLe3w=;
+        b=sFQvBgL8GfI1w7lttQip5UYbSAiQDD6JOq+4+sdw72uTN3AJgAViH146vloEV0e7LR
+         shYQkrbuGG88dkwCxGLfhrGh5fmvMfgmA5a8rm8EFXpMBmn8rWQ6MsOM0lIlp+YWpM4v
+         NpguyPN03RVSaj4kHWzvh5L2+wRUbi87TzRDomdb5RorHMin71+GhMuURDbuxAQIloFu
+         xO4z5JsJQ3JtJHFvvzq/5qyceZHN9CDUEzETtJFk3q6ejuoatSGSqBBKPqf90O34UiNi
+         dmn/zQMGMYYb4ZKQc7Q02E+2D9CPfI6LhwU4PRCoSAjhepiQ2N6oYrCE1EfYS7/V0ii4
+         dFVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788319792; x=1788924592;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pGpqtN0vRq8epNdTDKQRGvsPqQN+AJIy2e00tUkEjAI=;
-        b=DEa3vSv3tAtqxZcc+qBnY+vAqggCD++LuJF7g41YMkjISrKJP7xjJ+FlirN4349FZn
-         +C2/37V7Pzjop6hVTD+JVcqireXdi5eLV1lZEMlVVMUyoOseXEH5S0Zrdj7wXJlWuxP3
-         smcHARQiHKWps4TX3aBGiRABknVauC6fbrWF8C57Vz5W4BG32/c/1saN60OfYAVdAU+V
-         AbjYGwPOeoERO4fdn7/fGMAxLEHoCbREipVfdqV9iBVDcyBlvdjuBbb3KdN5fq4nnoLP
-         HXDQvDjVUkxyqCD0N8GeEZWUf+I35fwrIduT6IRjRpgSeqIVBCr7WSMt2GipEaQaIBh+
-         x8Qw==
-X-Forwarded-Encrypted: i=1; AKwUvBxArlZPukiIOV+mO0ylthlsDy3JkvSWrPw8bzJS7QjWyGgP6G7HYNVGMN71+d9CAUrAH88jNvSr1UaEPbg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgxmXdB51PXKKchdKKm8BpoFMsp2he/x5bXIJiZm59nliuno/Q
-	ZfObcK9dL/1bMsfdqfgmTx66KLxmiyM6XWsF6Fi1HzlZrRresfKHIEth
-X-Gm-Gg: AYBFou1crNQ7Iv7k1J6LSHoAidvOiSbNSOLOk5k/Ac9Dk2vAV8R94WtClfWbE9A9CBC
-	QUVuKQs1aF7k81xHJdEx9Y4GGQaKax0Cytz2q7VwoHVE0oT4EaiENCPc2i/ACh+QnUH29C5uxX2
-	sq3qWeYqIseeULYtN3li5ua+VO8sJ2ImBpiJDwZy7f6OLDiWnucpvwY28vvsjtuvaAzSjJ3s3IF
-	WHSHqujZ4laDdFKdcIEcYxMGBDaPhBPouJD8svGzHB+WZziEfRxqvjormrd5wQaDJC0ImwYmG6+
-	47naqWN8KBb8cI1iL41aFmqFn/cd6e9KLyz5Wgg/LJJvKx8ePUjiasOxdMT4yEGaSF/uDJo2asx
-	fZzJqeknfLd542YAnys1R8dEB2bLOwnYIvM9oaAbIs2bwcvHWAK5y711u+c4Bam480U97bgNDGY
-	6T9QjmmJuOx+hdfUqpvrF5fM4ohVg00ZYLjgOUjZWA
-X-Received: by 2002:a17:90b:2552:b0:38e:c232:9d3f with SMTP id 98e67ed59e1d1-39aedec7bbbmr2766953a91.5.1788319792006;
-        Tue, 01 Sep 2026 20:29:52 -0700 (PDT)
-Received: from devobuntu.lan ([2600:6c5c:6b00:316::23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f07baa594sm3099307eec.22.2026.09.01.20.29.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 20:29:51 -0700 (PDT)
-From: Matt Vollrath <tactii@gmail.com>
-To: intel-wired-lan@lists.osuosl.org
-Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Matt Vollrath <tactii@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH iwl-net 3/3] e1000e: fix NETIF_F_RXALL buffer overrun
-Date: Tue,  1 Sep 2026 23:29:13 -0400
-Message-ID: <20260902032913.661570-4-tactii@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260902032913.661570-1-tactii@gmail.com>
-References: <20260902032913.661570-1-tactii@gmail.com>
+        d=1e100.net; s=20251104; t=1788319845; x=1788924645;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GODtbRlK4Wp21PCNPXyrIzdJnHuDBWO22e7/FknLe3w=;
+        b=W17+zEZnTAb2euys8c7+0B9B+HIGwyYIV1wfgE1UeJyvjCsWRMfxCxdqAcu76iT6T+
+         h9l8Uj+toD1oIwS0sKQWptKZ3H77fjZ8tELNQLnkqd4d0OmdDF2G4uDfP2hoy7MvAbf4
+         xCsx6n0/D5AV3X/y684rbi46U0ZPSCf57NtCKLJPE7wZLthKvFB0tbhcefc9BXdz2KsF
+         PddCrAngjszdFUHFlav7X0P8lVrEZ01+KOu3+sJHrIK0Hq91fgmiXVVB1fgQsmo1a6gx
+         EIwHKbnazUjkVHyneeLF64eKXoH65GrNuf/aO0d0jHkpvxCStUA58jIwVD9Bmylb+2tO
+         y9yQ==
+X-Gm-Message-State: AFuF++lO9KzwEGBKieHcKfi4HIxCDwSAQmMpYKR/vkgy14IuQ8um3DeZ
+	L/DDAOJYRs6lU10RL+ViKLCUjAC1fCV0V8Sr+pexyfojrycS5oqWVSBG
+X-Gm-Gg: AR+sD12RIhDsvhWZdTf0ifx3HQl/9H/v7aauiBeDRazknSDdq/gPBgOKHVK/mLa8CXe
+	mkv1Mc2fNOedYC/5N2C9At8Iymw7ULXMOFhcBCB4IimmnZmVE4MUDW9OlAF4C/7oCzyLD1A05OX
+	rbC3tf0Q5fZ7QvqvRvHj0PZ5ylmuoUDciISuwdPP460219E+BdhStnzcvPKxcW3qL5KglFghGoW
+	HdMWQVcsMxi9xEtqmeXqsrCpSuWJipKYm23vzTrCzurGEkmWJsr8FRq4RzJy4Q70aRGe4DsRFe/
+	5mi7wdi+iAHCc3VXJjNny5CQdLQKgUZj6OfVvIltq7GrOhOAVKKre6GrrkfKdNN5O0aAczMptA5
+	mXi/aNE8klOB9T5JVfy0ZhS5UCzoh0uXnBw884B3/BlihOOqlx16JDPYnwV/6Dbn+Cad4ZGONyN
+	J4bfmx5Dspv6MyAcUT/LuHEphdElHgwtvP6+e0QrxDLb2hO0FL2iLo9BPTn1tZ1WR/slyTKcw77
+	XxePIKDY5x4OKYaxbcQC3CmottIEYYPBBc=
+X-Received: by 2002:a17:902:ce8e:b0:2d9:4871:393d with SMTP id d9443c01a7336-2daec79d31amr22255655ad.21.1788319845120;
+        Tue, 01 Sep 2026 20:30:45 -0700 (PDT)
+Received: from [192.168.21.192] ([24.18.106.4])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f07b79cf9sm2402381eec.18.2026.09.01.20.30.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 20:30:44 -0700 (PDT)
+Message-ID: <5b920b1d-a32b-494e-b97c-8672a8371dd3@gmail.com>
+Date: Tue, 1 Sep 2026 20:30:41 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH v2] sparc64: increase kernel thread stack size to 32K
+To: Stian Halseth <stian@itx.no>, andreas@gaisler.com, davem@davemloft.net,
+ sparclinux@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, david.laight.linux@gmail.com,
+ glaubitz@physik.fu-berlin.de, thuth@redhat.com, regressions@lists.linux.dev,
+ nroach44@nroach44.id.au
+References: <20260519075809.8993-1-unixpro1970@gmail.com>
+ <20260831172928.3082853-1-stian@itx.no>
+ <afaa8ced-0717-4d62-8ea6-4ecdbf489694@gmail.com>
+ <680606d594645568c21afcc552558882c4f59a96.camel@itx.no>
+ <b46209d5-e518-4289-9b3a-5854a2512278@gmail.com>
+ <18d7ea80efbb5dd3d81acbae926da4e027ebfed9.camel@itx.no>
+Content-Language: en-US
+From: Tony Rodriguez <unixpro1970@gmail.com>
+In-Reply-To: <18d7ea80efbb5dd3d81acbae926da4e027ebfed9.camel@itx.no>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-When SBP is set, the card may deliver frames which would otherwise be
-filtered out by LPE being unset. This would allow the device to write
-up to 526 bytes beyond the skb's data allocation: over its own shinfo,
-and beyond. This bug is reachable only when MTU <= 1500 and
-NETIF_F_RXALL is set ("ethtool -K <dev> rx-all on").
+Thanks again for the details, but I already had those CONFIG and 
+stacktrace options defined based on previous debugging sessions.
 
-Ensure that buffers are large enough for an entire 2048 byte chunk when
-NETIF_F_RXALL is set. Do this by moving final rx_buffer_len
-determination to one place, right before RCTL.BSIZE is determined. This
-will correctly re-evaluate every time the adapter is configured, not
-just on MTU change.
+32K should be fine based on the output (see the link below), and I have 
+not noticed any crashes with a 32K stack).  These results are against 
+kernel v7.1.0-rc3 using my original patches on the S7-2.
 
-Signed-off-by: Matt Vollrath <tactii@gmail.com>
-Suggested-by: Jakub Kicinski <kuba@kernel.org>
-Assisted-by: Claude:claude-5-fable
-Fixes: cf955e6c96cb ("e1000e: Support RXALL feature flag.")
-Cc: stable@vger.kernel.org
----
- drivers/net/ethernet/intel/e1000e/netdev.c | 53 +++++++++++++---------
- 1 file changed, 32 insertions(+), 21 deletions(-)
+https://github.com/unixpro1970/Sparc64-Kernel-Debugging-Dumps/blob/main/kernel-v7.1.0-rc3-depth-stack-trace-sparc64-s7-2.txt
 
-diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ethernet/intel/e1000e/netdev.c
-index 063fc8cd2673..80d5a0010df8 100644
---- a/drivers/net/ethernet/intel/e1000e/netdev.c
-+++ b/drivers/net/ethernet/intel/e1000e/netdev.c
-@@ -3036,6 +3036,33 @@ static void e1000_configure_tx(struct e1000_adapter *adapter)
- #define PAGE_USE_COUNT(S) (((S) >> PAGE_SHIFT) + \
- 			   (((S) & (PAGE_SIZE - 1)) ? 1 : 0))
- 
-+/**
-+ * e1000_set_rx_buffer_len - determine the Rx buffer size
-+ * @adapter: Board private structure
-+ **/
-+static void e1000_set_rx_buffer_len(struct e1000_adapter *adapter)
-+{
-+	struct net_device *netdev = adapter->netdev;
-+	u32 max_frame = adapter->max_frame_size;
-+
-+	/* NOTE: netdev_alloc_skb reserves 16 bytes, and typically NET_IP_ALIGN
-+	 * means we reserve 2 more, this pushes us to allocate from the next
-+	 * larger slab size.
-+	 * i.e. RXBUFFER_2048 --> size-4096 slab
-+	 * However with the new *_jumbo_rx* routines, jumbo receives will use
-+	 * fragmented skbs
-+	 */
-+	if (max_frame <= 2048)
-+		adapter->rx_buffer_len = 2048;
-+	else
-+		adapter->rx_buffer_len = 4096;
-+
-+	/* adjust allocation if LPE protects us, and we aren't using SBP */
-+	if (max_frame <= (VLAN_ETH_FRAME_LEN + ETH_FCS_LEN) &&
-+	    !(netdev->features & NETIF_F_RXALL))
-+		adapter->rx_buffer_len = VLAN_ETH_FRAME_LEN + ETH_FCS_LEN;
-+}
-+
- /**
-  * e1000_setup_rctl - configure the receive control registers
-  * @adapter: Board private structure
-@@ -3102,6 +3129,8 @@ static void e1000_setup_rctl(struct e1000_adapter *adapter)
- 		e1e_wphy(hw, 22, phy_data);
- 	}
- 
-+	e1000_set_rx_buffer_len(adapter);
-+
- 	/* Setup buffer sizes */
- 	rctl &= ~E1000_RCTL_SZ_4096;
- 	rctl |= E1000_RCTL_BSEX;
-@@ -6087,30 +6116,12 @@ static int e1000_change_mtu(struct net_device *netdev, int new_mtu)
- 
- 	pm_runtime_get_sync(netdev->dev.parent);
- 
--	if (netif_running(netdev))
-+	if (netif_running(netdev)) {
- 		e1000e_down(adapter, true);
--
--	/* NOTE: netdev_alloc_skb reserves 16 bytes, and typically NET_IP_ALIGN
--	 * means we reserve 2 more, this pushes us to allocate from the next
--	 * larger slab size.
--	 * i.e. RXBUFFER_2048 --> size-4096 slab
--	 * However with the new *_jumbo_rx* routines, jumbo receives will use
--	 * fragmented skbs
--	 */
--
--	if (max_frame <= 2048)
--		adapter->rx_buffer_len = 2048;
--	else
--		adapter->rx_buffer_len = 4096;
--
--	/* adjust allocation if LPE protects us, and we aren't using SBP */
--	if (max_frame <= (VLAN_ETH_FRAME_LEN + ETH_FCS_LEN))
--		adapter->rx_buffer_len = VLAN_ETH_FRAME_LEN + ETH_FCS_LEN;
--
--	if (netif_running(netdev))
- 		e1000e_up(adapter);
--	else
-+	} else {
- 		e1000e_reset(adapter);
-+	}
- 
- 	pm_runtime_put_sync(netdev->dev.parent);
- 
--- 
-2.43.0
 
+Should I try your revised 32k stack and timer patches on the S7-2 and 
+T7-1?  If so, which kernel version did you validate against 7.2 or 7.3?
+
+
+Regards,
+
+Tony
+
+On 8/31/26 2:05 PM, Stian Halseth wrote:
+> Hi Tony,
+>
+> On Mon, 2026-08-31 at 13:18 -0700, Tony Rodriguez wrote:
+>> Hi Stian,
+>>
+>> Just please continue to give me a
+>> mention in any patches related to this work, since I spent a
+>> considerable amount of time debugging, researching, and validating
+>> the fixes.
+> Sure. For now, no real changes have been made to your patches, so as
+> far as I'm concerned, this is entirely your work.
+> Will try help with the last mile, alongside some other patches I've
+> submitted.
+> And yes, the debugging, researching and validation is the hard part.
+> Writing a fix is often _relatively_ easy, when you have all the facts.
+>> When I last tested on 7.0 and 7.1, both of my patches worked:
+>>
+>> A)    sparc64: increase kernel thread stack size to 32K
+>>
+>> B)    sparc64: Fix comparator problem with timer interrupts
+>>
+>> I was able to debug and validate these issues on S7‑2 and T7‑1
+>> hardware.
+> Yes, and that's a very important data point. My analyzis is based on
+> the change itself, _and_ your validation/testing.
+>> I’m not sure if others have reported similar problems on T4 or T5
+>> systems.
+> Not that I'm aware of, and I haven't seen it on my T4-1.
+>> If you have a quicker or better methodology for reviewing stack
+>> usage—or
+>> any general suggestions—I’m definitely open to seeing them, along
+>> with
+>> your config and exact procedure. And if you need help validating
+>> against
+>> S7‑2 and T7‑1 hardware, I can try to allocate some time to assist.
+> I think that would be very helpful. Let's try to settle the 32K-vs-64K
+> question with more data.
+>
+> The kernel has stack measurement built in.
+>
+> The in-kernel method:
+>    CONFIG_STACK_TRACER=y
+>    CONFIG_DEBUG_STACK_USAGE=y
+>    CONFIG_SCHED_STACK_END_CHECK=y
+>
+> Boot with "stacktrace" on the kernel command line (arms the tracer
+> before built-in drivers probe). Then:
+>
+>    cat /sys/kernel/tracing/stack_max_size   # worst case seen, bytes
+>    cat /sys/kernel/tracing/stack_trace      # that path, frame by frame
+>
+> Reset with "echo 0 > stack_max_size" before a workload to isolate it.
+>
+> For the 32K-vs-64K question, the most valuable data you could gather
+> is a stack_trace snapshot on the S7-2/T7-1 under your real workload
+> with mlx5 active, on a 32K kernel.
+>
+> On our T4-1 the worst case is 12616 bytes, but doesn't have mlx5. If
+> your machines stay well under 32K, we have comfortable margin. But if
+> something approaches the limit, the trace will name the exact frames,
+> and we can judge whether the right answer is 64K or a targeted fix in
+> that driver.
+> Thanks!
+>
