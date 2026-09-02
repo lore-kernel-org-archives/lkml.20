@@ -1,120 +1,98 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F16257855
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:25:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6589314D34;
+	Wed,  2 Sep 2026 06:27:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788330301; cv=none; b=Yn2ReRu528jMEg5iRZOsKpfN8GmlKJ/0ATFS9XhU/SrKTpZEUr0AzWC3M9bni/cmyMeTTgFzOQ3N+i7/e2vmY3jPWCKpJZkgDC+H/cHAohlnMJjTx/8GH/lsD0/KaEuSxnwYrxJt178ngIaRtGv3x0CrxusUJDt/f47ju/i84Cc=
+	t=1788330423; cv=none; b=E574hw6MSlyL0J6bicRcc7qbZmHQKxzSTyGcFPya5Lfen8MY8Xw7jkxkZ1hu4Grqh6d8jNB5R2Oio1LRDdzZcT5Ahs6ypyYRk4BHnKjxclqggbCRoQgbCYMSzl06Ok39g3re0drSH0qgg21OWiAAQm4Z1mRVgjxPAkF3bb2Z72E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788330301; c=relaxed/simple;
-	bh=+9WVtePxyc1YGLLA0sPGLdbtBaT6Ojt4x5bVpPLtDXo=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=sTeAL/Puaprze7JzVRzYzX0Rp3bjfoTtua4fdKDBlccbMQcUGhH0uMBOZ17kltG+CDytNoPywBgusxCxLIldGu8ZVk2jLC2/j6gYyVZLWqk9O0SQRzGh7gzac969ORiMGMvCHy7D3Ki1KlZMAuL72oDhO29ubz5Q/lqMwdsb6HQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oyfboyT5; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788330423; c=relaxed/simple;
+	bh=EwgEK/M4R+ibVLOsyxFFIoPegK+UlLukoar6tG6T180=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cTiegaxwO+/4EHhnQ2BISGMePtbzBg79c137K13rnSZfSXV9rgSPm+uH2+R7bvVmawD9zDrvrtYgEEWszn3vMZ9T8MAg2CAKXU0FnsctFebopswEZK0ZGQtW4jL6G8xtz5IEzKeWIjPLi/ojNW6aX2E3ROrW5eZ8uih2KWRkZIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=GQgPH4vD; arc=none smtp.client-ip=178.238.236.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oyfboyT5"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so7052095e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 23:25:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788330298; x=1788935098; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=tWJyN3i/V1hy+bh8hawCPCJ0S6kVzHf5TYVU3e2rRUc=;
-        b=oyfboyT5oo4wv5ZVuJFhklRgfLC15EmSsQJAw/BEr73kVQLgfzNqlOSKo3vYFxWN21
-         d94w7LDMgDu8lqRIqcMSLyLkE5Q7jyuoqupsns+8uf4Y+WTdkcgI14xi4ivxgA5VneM7
-         QKWO0Ah+FLfeyIwAsgE5fGFOf8HVy28su9G/0IxCoFqERO8P2toZa/T9EcnyJj8rUWpL
-         wvCmA4UGtxWgrpvR6JDgHBDGxk4t6EoY9oW6WHgVQ2p5DsWFy8CMwj+PR6ZDVZot2ToD
-         1s2o85jzOhAZYoZjlJu+V66uUh/SNv7mxEG9IZnrEcge4cAOeCHcaTjYUHS2YbFNS15W
-         OYrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788330298; x=1788935098;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tWJyN3i/V1hy+bh8hawCPCJ0S6kVzHf5TYVU3e2rRUc=;
-        b=cm+SHTMGJ081W92UlhncXEzALczhnoqc5TfB8wJ9bLUDU3alQjlZtOdikPhpM1APvu
-         O2Vu1oxnDYUJUvcewarm+wci/C5V+INeWhFvAwNrkqPTsngnwy0mD3qsB2DXZCSJBimf
-         9cj4WQ/E9rMCpSsj2U5kCL2xLu3+JRnGLrClTlZ7532dgCV0jZgSCXcYfGKigtFWrbLN
-         0s1mXwdXBAOqrVsI9AW0H+r/BLHtqYk2kDeUV1zKJGSdoPzZ99KhxOns508slYm5erx/
-         /5s9EHNstdiexDWJZVBwKNdzv7LnYsmuAHv9l/JTNDUZQQG9sps3aU45J4iQCfnx1xaW
-         go+g==
-X-Forwarded-Encrypted: i=1; AHgh+Rok2AHAFVrx5dtSDeic/L1Vgr2pM809lTxU6z0wY/lfYeemKMNfmCDyIA8tph1uzRxHGbc6DcZGAdSUCpA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lUydcLT1w/Ax0tVY7mN0M0SpJASr7UMH2/UWKnOLhHWkkpedyU
-	A6E0agnNCm2fo7itxjOt0OIUL2v3tdNQUIMXsFrnqIRbegs2qcRpmHYy
-X-Gm-Gg: AR+sD12rtJaZMDgcZXhN+RvOmrM2MSzbJ5mHwlIB3vbUH+/lbs85vEkl1XaZZAembLE
-	r+srWP78DXvX8+EW76kHU9Co+UmVpayLhQvwoBwCZg2u1m0I6xhRJGzxmkOM0Pp6iHySYgqc3nH
-	NHIfo/VlxRoczyWjkXdVagHJ5GfLFFrdCn1N+cQ11JZ1qA5mkUZlP4v0mnQuB7O/rMLOpNYLgf0
-	H7nZvVH78ShdtAe98Gu5WnaDnvUNxoozM+Qp3ezrZUVUjYaT/fgGgWfRNRiKuKayTJhqxoXqEv4
-	qN/UXsDSQbNFya5mHPQwjT71psr/ig3DVrpasvAU3UISBAM4OYrCghLOjFiIHBR8m2hVayD/CrJ
-	ftUigtpewxMPt2TxbnU70OWZ431P3d/NNW2YWG3h+BL08s/rq7bfzFaWSsda7DodKkkfIJz21ON
-	ZZP7nXLCLwRlNY4SsW/EWHgNCGKIWLuMpRezV21NK5kycYNXS37VEOk4B0pewQ9ds3A+h5S16fv
-	3PHWepMrokdfvkNDZ529OLJ06D0g5zd7A==
-X-Received: by 2002:a05:600c:4ed0:b0:499:726a:a017 with SMTP id 5b1f17b1804b1-49ce57ec163mr42888105e9.1.1788330298294;
-        Tue, 01 Sep 2026 23:24:58 -0700 (PDT)
-Received: from valmpani.valmpani ([2a02:587:f24:b00:967a:9200:4108:5b68])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce47820e2sm44777905e9.13.2026.09.01.23.24.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 23:24:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="GQgPH4vD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
+	Reply-To:Content-ID:Content-Description;
+	bh=5ryKsfyArI7gxOFDLJhCI89EQrP756HMoQ9H0TpnbAw=; t=1788330422; x=1789540022; 
+	b=GQgPH4vDT6KVbnNjNWU2oIQa0NjlhPoGtkp+kWFKY07EAUc1256XNykqcJOGjij4gunXLzJkJlo
+	Yc4kD/EBaoRTd6wuW+YmSg6YygrJKIvaVv8YvRiE0OOpvb543Kp3wwp/zd1RVl10/cUdLDsRO0cdv
+	ZbuQc+uAc93cQtr+XGtNL8WZf+VvqGVOhHqxktaHvzLYSLbamjkY1gEQSnvvAR3EPVZO5nNr6SELz
+	OPcf01kVdecmwh+2a54JR43FrLe01kjRFkGTtPFp9HEjfm3bsqa7mi1WYYDfQ73D1Ovea+9T3McDC
+	t+qOHw3013ZfS0uockMRy6/JsGEHMVA93qRA==;
+Date: Wed, 2 Sep 2026 08:26:39 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+Cc: Tero Kristo <kristo@kernel.org>, Michael Turquette
+ <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
+ <bmasney@redhat.com>, Tony Lindgren <tony@atomide.com>, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>, =?UTF-8?B?VGjDqW8=?= Lebrun
+ <theo.lebrun@bootlin.com>, =?UTF-8?B?R3LDqWdvcnk=?= Clement
+ <gregory.clement@bootlin.com>, linux-omap@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, hns@goldecilo.com
+Subject: Re: [PATCH v2 0/2] clk: ti: mux: resolve parent clocks by DT index,
+ not by name
+Message-ID: <20260902082639.69643254@kemnade.info>
+In-Reply-To: <20260727-mathieu-wdt-clock-theo-v2-0-c048a6394436@bootlin.com>
+References: <20260727-mathieu-wdt-clock-theo-v2-0-c048a6394436@bootlin.com>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] usb: gadget: pch_udc: don't call pch_udc_remove() from
- the probe error path
-From: Vasileios Almpanis <vasilisalmpanis@gmail.com>
-To: Vasileios Almpanis <vasilisalmpanis@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Felipe Balbi <balbi@ti.com>, Mike Frysinger <vapier@gentoo.org>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Greg Kroah-Hartman <gregkh@suse.de>, linux-usb@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- syzbot+3e2e533aa1b2a75525e7@syzkaller.appspotmail.com
-In-Reply-To: <20260811-pch-v1-1-f79801c1cd91@gmail.com>
-References: <20260811-pch-v1-1-f79801c1cd91@gmail.com>
-Date: Wed, 02 Sep 2026 08:24:52 +0200
-Message-Id: <178833029261.756768.6158388330855906762.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788330294; l=1074;
- i=vasilisalmpanis@gmail.com; s=20260731; h=from:subject:message-id;
- bh=+9WVtePxyc1YGLLA0sPGLdbtBaT6Ojt4x5bVpPLtDXo=;
- b=QMuDtdCXLmQa4xf202Kki0S9AqujJXwQ93dllJw6Q6bu+WYGtU1msskCdtIwpfhdQsMShJ6N5
- qivCyMinjqlBxJoy0ChnEI3tHkMywjUn3DMNimjy5Ljak2sDvkUWaV3
-X-Developer-Key: i=vasilisalmpanis@gmail.com; a=ed25519;
- pk=gn5Uo6yL8Tlpq5uATxA3nqoq+U8eWLRbjD+bOk0qSpU=
 
-> Probe error paths go to finished label which calls phc_udc_remove. It in
-> turn starts with an unconditional usb_del_gadget_udc(). If probe fails
-> before the gadget is added then we put a non-initialized kobject
-> (gadget.dev) and a WARN is triggered in kobject_put().
-> 
->   WARNING: lib/kobject.c:734 at kobject_put+0x252/0x640 lib/kobject.c:734
->   Call Trace:
->    put_device+0x1f/0x30 drivers/base/core.c:3880
->    pch_udc_remove+0x47/0x510 drivers/usb/gadget/udc/pch_udc.c:2986
->    pch_udc_probe+0xcc6/0x1130 drivers/usb/gadget/udc/pch_udc.c:3109
-> 
-> If usb_add_gadget_udc() in turn fails, it has already dropped the gadget
-> reference, so the extra usb_del_gadget_udc() is a double put.
-> 
-> Split the hardware/DMA teardown out into pch_udc_cleanup() and call
-> only that from the probe error path.
-> 
-Hi everyone!
+Hi,
 
-A gentle ping on this patch. It's already tested by syzbot so it
-should be good to go. Please let me know if there is something
-I could do differently.
+this seems to produce on OMAP3 (DM3730), even with the init fix.
 
-Kind regards,
+[    0.000000] clocksource: 32k_counter: mask: 0xffffffff max_cycles: 0xffffffff
+, max_idle_ns: 58327039986419 ns                                                
+[    0.000030] sched_clock: 32 bits at 33kHz, resolution 30517ns, wraps every 65
+535999984741ns                                                                  
+[    0.013488] clk: failed to reparent gpt1_fck to omap_32k_fck: -22            
+[    0.019805] Failed to initialize '/ocp@68000000/target-module@48318000/timer@
+0': -19                                                                         
 
--- 
-Vasileios Almpanis <vasilisalmpanis@gmail.com>
+Regards,
+Andreas
+
+On Mon, 27 Jul 2026 09:41:39 +0200
+Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com> wrote:
+
+> This commit aims to solve an issue I've been describing a few months ago
+> on AM335x SoC [1]. I believe using the parent_data field of
+> clk_init_data structure is now the preferred way to convey that data,
+> and it should be more reliable than string comparisons.
+> 
+> [1]: https://lore.kernel.org/all/DI4RUFQNSSNP.2QMSSQWJW9I2O@bootlin.com/
+> 
+> Signed-off-by: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+> ---
+> Changes in v2:
+> - Also use clk_parent_data structure in composite.c.
+> - Rebase on v7.2-rc5.
+> - Link to v1: https://lore.kernel.org/r/20260715-mathieu-wdt-clock-theo-v1-1-da65bba1828b@bootlin.com
+> 
+> ---
+> Mathieu Dubois-Briand (2):
+>       clk: ti: mux: resolve parent clocks by DT index, not by name
+>       clk: ti: composite: resolve parent clocks by DT index, not by name
+> 
+>  drivers/clk/ti/composite.c | 26 ++++++++++++++------------
+>  drivers/clk/ti/mux.c       | 20 +++++++++++---------
+>  2 files changed, 25 insertions(+), 21 deletions(-)
+> ---
+> base-commit: f5098b6bae761e346ebcd9da7f95622c04733cff
+> change-id: 20260713-mathieu-wdt-clock-theo-f0c5ba58e258
+> 
+> Best regards,
+
