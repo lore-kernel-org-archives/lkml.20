@@ -1,156 +1,123 @@
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799A741D230
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 22:05:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2741E4399CC
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 22:05:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788386727; cv=none; b=swya/hRDMPQmLHzD95JUpt9t5UnLQOvMG9+w5I3mFTnsrGTgIWFFN0E9gcy8VCD+SB0epyRFVRcCQUL3SMXrceDhaPmymk6f82Wu6TrWUV8Um4qst0I0vaIPmQqHkmAYjM0Q5IC27av7bOivRzHpGpBIym3uI0H61VTRDiBa5yI=
+	t=1788386737; cv=none; b=jc8Xx33RfzIithXsqmUHKtNIC2vzJw8X9vMlA/XoCjeb9vGZXo9P3J5mDeOJYqrH53L+KIGARjMDSHyLGmzuYEM1hdo98Hoa3cs0K3nbIMT28A0Vd8eesdmFh5SKa/Vx16I7imOtx6v4gePg7NYHW9HCTXky1WBy12nAuwsqQgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788386727; c=relaxed/simple;
-	bh=WrNsgg1LDugEtKCJojlK1pSJgViIdBqsDBJpxyfRqe0=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=nxj84e3JSWrxASmvLonMGZ5USbrAmR0/ty77HqhbilK9Rm1fQKI8GMKP03lSWE1CUzfaCEDmqmAPG8CD4JuWVT5ZLK7ByZl0an7fGNV29oEibKnP4s9w4Jir499gJTyDUgS3h94rymb0klPWnvM7+Z1n9NOJH0r+fgsFfNvK16I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7f4f0a1f4f2so2085349a34.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 15:05:23 -0700 (PDT)
+	s=arc-20240116; t=1788386737; c=relaxed/simple;
+	bh=5VUr1g1wC1nEP/ami6aHb3Q2voXt0cHbG0PQMdsphZk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=q0wbbA5cZ7eh6hdr9+2I9v8tsXJ7uhI/CNQ4+rsg6qI2uL1yI3P94vlogpnF8JbL7V4oimGf3oCmojYGWrVjimOkoKa58Qt/2itH2q0G53I32wV/pXuWNAF2Rq6wLxIsH9yPzULY4QbQheGKc1GL3wJfKfnUsBUQe69QZvtC6tA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=F/ju5XkU; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=lfFTCqdM; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="F/ju5XkU";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="lfFTCqdM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788386729;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+Di8U2A7Z3tpZBcs42uVo91xChtGCHTKjzJEmp7OKOE=;
+	b=F/ju5XkUl3GPVFZW8gAVNZVe0gNaaq2hG07bHEjarUhESRknjOYp4W9FLydmaX/Oo+lo8H
+	BdssTn/sMBRCNpIASRWdcfjJMHRG4hTI63qyrlQoqmLX2bi5L33/A/02guMnFA7DcNxWwd
+	CuGsd8CzgfI90RuQ6KEbC+Sbi+CoDlo=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-335-07r-uCf2MQOs3J2JS4uUcQ-1; Wed, 02 Sep 2026 18:05:28 -0400
+X-MC-Unique: 07r-uCf2MQOs3J2JS4uUcQ-1
+X-Mimecast-MFC-AGG-ID: 07r-uCf2MQOs3J2JS4uUcQ_1788386728
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9375d92d8cdso375922585a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 15:05:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788386728; x=1788991528; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=+Di8U2A7Z3tpZBcs42uVo91xChtGCHTKjzJEmp7OKOE=;
+        b=lfFTCqdMJTb2AThMBaq904fJoQRhJX0JpJY8VEz9dgXR+gvQPqIl2vv/fIx6w4dk/G
+         Dk6CwG3ssBMZOEkJBbRCqieZru8ofhljQiNMIct/orUQ3xvoZ7OX+c67pHvj4iPqQ/lI
+         oh0ysk4lAn0wGToid3LcLDSzSQXBv2b3cTTWhNkpHFNGNV6rw/Yff6CUYc2aJ27jCIcC
+         wwQ/ac2yqiTRPj9ru6KFBq6yDl0uMQrgCrliWBliSrAjc918Sx5CjFa/FFqUcgsh2bKa
+         jKBPlqHMkJ76OpnsJKYHXBPhia3GK88/yDcgap9TxHEF9FdbA0EZzYsoenHHk3TACXOr
+         BYTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788386722; x=1788991522;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=LfKD6ngQRTKOJI4e0mUBdk+l6HtVu+CazLqp1wl6LGY=;
-        b=lKBO3+THRYWNdLavnvbo7OdV619atmbSmicjbDOoLVLIuySSS07OYAc0QTBiZROd+m
-         s+bK5mCz+E98k9Grct25r5eQyL4yaJdJKFadm/ISfc6gnACM61p4dmEqK3+Lg93wsMSQ
-         UBYASVcQDswXStwSG28pbpgdzgw0jXfNzsutJgk9JVM43yoluJ68sX3l5LRkBZpkcI92
-         n5OTeShqJ1PpG5OgRncydUZzwisNaDpzwAT6m6s4lQ6RpzuNccp4/IhkACzmRBUfl0lV
-         JffphP+w6Hn1RVw5jaenUFSsVBM04xznu+8+w8/l05QQGvoXP7b0RE7W0n/qd5L0WAYW
-         31KQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrLHd42kFhEjAOb2k4DhSaYyT37A+h/zViBPW8wUHuWAeqvRtTc3iaSvrx+jxsCbbnWOQy1D4NFuOYk8CI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nbwFILb3uevXVFq1zTFuxVLAvlTei0Zz1bJTmAv63SiD9f8cRH
-	USRI33Bu00yEaV+3huWxPKTm7ATqh99sI9hNWiyq4ZW+QG9oJvujIOdouwZgAs3QW3vUsMCH2Fu
-	kMpS/yFOHTjDfkXXRduy2R5Houo3A7wqZkdZZMnw6Q1pBHnrO+Ar/WUDihjE=
+        d=1e100.net; s=20251104; t=1788386728; x=1788991528;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+Di8U2A7Z3tpZBcs42uVo91xChtGCHTKjzJEmp7OKOE=;
+        b=hUXrfrhGkUruNnahP5GJ0fKiXFqmN8w2xXxa8F+rXZ0j8SVfnenW/roGHV/J2+di+b
+         mDn3czi1hdNTRb9vb8YQ4jNS+9S/+gOqx1em3oAC845P7L7hEbzVfeADHvYd5HiXDTsc
+         UTttrG2iFfcZFNiMl57JXEVdb219S1QCQdt1uUP/c8+/Pd2WoLyFzlHHrcYQJPO5SDoL
+         alZYu9BTfonV1eClpLBmVegEdab8q3iUfLuWMBSpZSBcjLlCzhyiR247oJWMUmtvFsCn
+         5Kh/i6nZQWc7KBndWw0bUP/so1XrypF9UaBKpj0mvPz1FtcSN2HiAPKBx0WTdRTRof2q
+         se7w==
+X-Forwarded-Encrypted: i=1; AKwUvBwY8WUPI61q/rS78NZfCd+EblCmTC8h63mzSkdFrdFrp2gVIQk7XipzVyxh6pPuPPLUMHfafjeYQtOY/E0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mYtJnHwHkvcBusbwgh+gRXl4isWc0Oi1Z07R8lb5UpRKacR4eT
+	ONlQ7r+TH2k6ueXvHE81WIm0L7igvd+3kXgk/59EPqghkg4OYDuG6ZuE+VybMN0ZHXkb/wF//y2
+	22NwHTq83TK3laIOaqHDmBCSIQSLv9PAsIU2bPBd7ZXYCSEPX8o6Ng1uZgY7VNnOkSA==
+X-Gm-Gg: AYBFou0WaLrpxfVSXnCpF/kWZlPK0BEfQF/4wJ2vGC1uPEhWJ3JfEQMmWtB0nC4uiwS
+	28f6xIO6G66A1kxIcu8qQwObYTPhSaWPzbTFPSrfV33UGUNR5CIqI0glhXtGTt7bG/lVvEri0xp
+	HG8fdGTNTeHOoW/E2KidW7gPd8HUrtMONjtS3hd+m34zSux0i+wV3lKRacfei86Pyn5xuuTvM4v
+	SXUc9Amgs/bo4YEYbhMB9vrNYqz+axUnJIEtWBz+wb3teBiNU8Japo9xGc2onX/ICNdiL/bxf94
+	VZUV69kR58UdsDBn6IyytJnKG7d/WyvGg11Cs6nEFSlCaw6BXiQCQTJU8feAcTq/YLwUf5Y=
+X-Received: by 2002:a05:620a:29d2:b0:939:6de9:4cf9 with SMTP id af79cd13be357-9396de968e1mr286043285a.44.1788386722607;
+        Wed, 02 Sep 2026 15:05:22 -0700 (PDT)
+X-Received: by 2002:a05:620a:29d2:b0:939:6de9:4cf9 with SMTP id af79cd13be357-9396de968e1mr286036685a.44.1788386722116;
+        Wed, 02 Sep 2026 15:05:22 -0700 (PDT)
+Received: from redhat.com ([69.43.42.202])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9395f1ae7f8sm321649685a.18.2026.09.02.15.05.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 15:05:20 -0700 (PDT)
+Date: Wed, 2 Sep 2026 18:05:19 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-clk@vger.kernel.org, Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	David Lechner <david@lechnology.com>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCHv3] clk: davinci: add COMPILE_TEST support
+Message-ID: <apidn5onRt_p4FOL@redhat.com>
+References: <20260812184001.75093-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:199a:b0:6b3:619f:25ce with SMTP id
- 006d021491bc7-6b47eed806amr6317636eaf.30.1788386722094; Wed, 02 Sep 2026
- 15:05:22 -0700 (PDT)
-Date: Wed, 02 Sep 2026 15:05:22 -0700
-In-Reply-To: <20260902055802.3724915-1-4ncienth@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a989da2.2e567484.299ffc.0001.GAE@google.com>
-Subject: [syzbot ci] Re: ip: validate options before echoing them
-From: syzbot ci <syzbot+cid466e4e888be6037@syzkaller.appspotmail.com>
-To: 4ncienth@gmail.com, davem@davemloft.net, dsahern@kernel.org, 
-	edumazet@google.com, horms@kernel.org, idosch@nvidia.com, kuba@kernel.org, 
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org, pabeni@redhat.com
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260812184001.75093-1-rosenp@gmail.com>
+User-Agent: Mutt/2.4.0 (2026-06-19)
 
-syzbot ci has tested the following series
+Hi Rosen,
 
-[v3] ip: validate options before echoing them
-https://lore.kernel.org/all/20260902055802.3724915-1-4ncienth@gmail.com
-* [PATCH net v3] ip: validate options before echoing them
+On Wed, Aug 12, 2026 at 11:40:01AM -0700, Rosen Penev wrote:
+> Add a driver-scoped Kconfig symbol for the DaVinci clock drivers so
+> they can be built through COMPILE_TEST without selecting the ARM
+> DaVinci platform symbols.
+> 
+> Keep the existing ARM platform behavior by defaulting the new symbol
+> from ARCH_DAVINCI, and use it for the davinci clock Makefile entries.
+> ARCH_DAVINCI_DA850 is the only remaining DaVinci platform symbol, so a
+> single COMMON_CLK_DAVINCI symbol suffices; the whole directory builds
+> together just fine.
+> 
+> Assisted-by: Codex:GPT-5.5
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> Reviewed-by: Brian Masney <bmasney@redhat.com>
 
-and found the following issue:
-WARNING in __ip_options_echo
+This doesn't apply against the latest clk tree. Can you post a new
+version that applies? I'll be able to pick it up.
 
-Full report is available here:
-https://ci.syzbot.org/series/58d17295-c695-49b2-826d-b0fe305808e9
+Thanks,
 
-***
+Brian
 
-WARNING in __ip_options_echo
-
-tree:      linux-next
-URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/next/linux-next
-base:      70f3995830d3f1e79faa14eb0605914f778feca9
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/9a250d6c-0a45-4565-bbc0-cac6bc3e42ee/config
-syz repro: https://ci.syzbot.org/findings/5fa937c9-0c72-4a82-8221-cd01d8dc83d5/syz_repro
-
-------------[ cut here ]------------
-len > ((int)(~0U >> 1))
-WARNING: ./include/linux/skbuff.h:2864 at pskb_may_pull_reason include/linux/skbuff.h:2864 [inline], CPU#1: syz.0.17/5791
-WARNING: ./include/linux/skbuff.h:2864 at pskb_network_may_pull_reason include/linux/skbuff.h:3294 [inline], CPU#1: syz.0.17/5791
-WARNING: ./include/linux/skbuff.h:2864 at pskb_network_may_pull include/linux/skbuff.h:3299 [inline], CPU#1: syz.0.17/5791
-WARNING: ./include/linux/skbuff.h:2864 at __ip_options_echo+0x10e4/0x1870 net/ipv4/ip_options.c:115, CPU#1: syz.0.17/5791
-Modules linked in:
-CPU: 1 UID: 0 PID: 5791 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-RIP: 0010:pskb_may_pull_reason include/linux/skbuff.h:2864 [inline]
-RIP: 0010:pskb_network_may_pull_reason include/linux/skbuff.h:3294 [inline]
-RIP: 0010:pskb_network_may_pull include/linux/skbuff.h:3299 [inline]
-RIP: 0010:__ip_options_echo+0x10e4/0x1870 net/ipv4/ip_options.c:115
-Code: 00 00 00 fc ff df 43 0f b6 04 3c 84 c0 0f 85 64 07 00 00 41 88 1e 4c 8b 64 24 10 41 83 c4 04 e9 a7 fe ff ff e8 7d 13 84 f7 90 <0f> 0b 90 e9 35 f1 ff ff 44 89 e7 44 89 f6 e8 79 15 84 f7 45 39 f4
-RSP: 0018:ffffc90004efef40 EFLAGS: 00010293
-RAX: ffffffff8a43a023 RBX: ffff8881b89a6b58 RCX: ffff888111125a00
-RDX: 0000000000000000 RSI: 00000000fffffff8 RDI: 0000000000000000
-RBP: ffffc90004eff070 R08: ffffc90004eff2c7 R09: 0000000000000000
-R10: ffffc90004eff2b8 R11: fffff520009dfe59 R12: 00000000fffffff8
-R13: ffff8881b89a6a80 R14: ffff8881b89a6b00 R15: 000000000000001c
-FS:  00007f39f8af86c0(0000) GS:ffff8882a8cdf000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f39f8af7ff8 CR3: 0000000112830000 CR4: 00000000000006f0
-Call Trace:
- <TASK>
- ip_options_echo include/net/ip.h:798 [inline]
- icmp_reply+0x2da/0xc90 net/ipv4/icmp.c:429
- icmp_timestamp+0x246/0x370 net/ipv4/icmp.c:1430
- icmp_rcv+0xd33/0x1290 net/ipv4/icmp.c:1543
- ip_protocol_deliver_rcu+0x2dc/0x440 net/ipv4/ip_input.c:207
- ip_local_deliver_finish+0x3bb/0x6f0 net/ipv4/ip_input.c:241
- NF_HOOK+0x336/0x3c0 include/linux/netfilter.h:325
- NF_HOOK+0x336/0x3c0 include/linux/netfilter.h:325
- __netif_receive_skb_one_core net/core/dev.c:6264 [inline]
- __netif_receive_skb net/core/dev.c:6377 [inline]
- netif_receive_skb_internal net/core/dev.c:6463 [inline]
- netif_receive_skb+0x45b/0xbf0 net/core/dev.c:6522
- tun_rx_batched+0x1de/0x790 drivers/net/tun.c:1571
- tun_get_user+0x2be0/0x44d0 drivers/net/tun.c:2045
- tun_chr_write_iter+0x113/0x200 drivers/net/tun.c:2091
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x612/0xba0 fs/read_write.c:687
- ksys_write+0x150/0x270 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f39f7b5e98e
-Code: 08 0f 85 a5 a8 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 80 00 00 00 00 48 83 ec 08
-RSP: 002b:00007f39f8af7fb8 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007f39f8af86c0 RCX: 00007f39f7b5e98e
-RDX: 000000000000003e RSI: 0000200000000780 RDI: 00000000000000c8
-RBP: 00007f39f7c35024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f39f7e26038 R14: 00007f39f7e25fa0 R15: 00007fff66b2b028
- </TASK>
-
-
-***
-
-If these findings have caused you to resend the series or submit a
-separate fix, please add the following tag to your commit message:
-  Tested-by: syzbot@syzkaller.appspotmail.com
-
----
-This report is generated by a bot. It may contain errors.
-syzbot ci engineers can be reached at syzkaller@googlegroups.com.
-
-To test a fix for this bug, please reply with `#syz test`
-(on a separate line) and attach the patch to the email.
-
-Notes:
-- The patch will be applied on top of the tested series (as an
-  incremental fix).
-- To test a new version of the whole series, please send it directly
-  to syzbot@lists.linux.dev.
-- Arguments like custom git repos and branches are not supported.
