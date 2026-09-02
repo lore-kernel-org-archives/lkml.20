@@ -1,155 +1,122 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A72347B425;
-	Wed,  2 Sep 2026 14:59:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4EE14A8A30
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:59:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788361171; cv=none; b=pKh17dpIXBbDlVDV6mvzd+k86YeB4peKAbKoOVbIPUyRVZzv2p0gR6zzIF1/V+s0DuSUo/I/5oW39icNZtGxfvd2R8yQYe222UXuk6kSmy5Xl2hyihZsp0WQVpu9EiayAmgGsOw2Alo7MnQktpvx6UeOHzH9F8g1LlfPFsk2dBs=
+	t=1788361188; cv=none; b=E9zqr3OE61afuCb2j2DTKBlkq5qCK6MJz792qq8PrV17dNVxmn2j16wOr6975Ba/2qAouCIKoNbNFoyP7IJXnVOfhkL1bUnGSzQ2oopw3pDUi2A4QZnHOSsP4d6RDquwHXtUxSSp4ufu8fP6t33YXQUiUS4AdnKGkdN0QPhTzQA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788361171; c=relaxed/simple;
-	bh=79ZxtgMv4NtZbp2/OToanKGcKXjFhCALuvVZpUrfRRg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k0jDyBcuDgeyrhReNiMqRjuaR7xeONrW2nIrWRcSGzEqNV7NiN5u1lI9hl3UYm8KrgugDD/g94aUQ3dxKHBY4AK+u/FMsQ1KcSmSGR+IPqKPeHlNhYdRH3HxQ7NXNGodjmNqp/r1MofH154m2CdbXHy+91Qc9a/nHg6iLs+1JmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=Ye+KcZzH; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=8LHFpd4D; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=il77Q9/Q; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=PQMq6emw; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1788361188; c=relaxed/simple;
+	bh=3jk9MR+gg94VuaJqZwFitBFG7fXNnuN6p8vbOCicha4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BX6ZcxVy1F1kneoDdFvD8mpojPhSFhmkJACsq9gRnSQMz1ZBrRpLgK5z8fpMbY+yRigfLvFsBO6g767UGmqVpggEakFiRHnEePW2P75DRElzBOgxdqlSJtYIJqhl06wxzkM75y7fnIRKnvTHTKDA8sG6x28f7sUmc/ZwGPtmfDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IJCIrPdx; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="Ye+KcZzH";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="8LHFpd4D";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="il77Q9/Q";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="PQMq6emw"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 8299D21DE5;
-	Wed,  2 Sep 2026 14:59:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788361156; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Rrq0m+HpGXXCKOHD8vYL63/0Jp51xgD11AWzQyOtLh4=;
-	b=Ye+KcZzH6C25h2rb12yiRsA33cCyesJCa4EPOnzh0s7RSpONffDqMgANPguqT03npvVSdP
-	MDWPG6l9zGF+1VrMQlJVAwpYH59T0byU+/czyJTGDl8RVz1L730vvUwpcKEf1eAzdcHHgh
-	64Xrb7j1GhRinD5XICsvQsrRyRm/aJ0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788361156;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Rrq0m+HpGXXCKOHD8vYL63/0Jp51xgD11AWzQyOtLh4=;
-	b=8LHFpd4DpKfQ4VV2Fh1MBbbffLaJayqqXrTp8ZAMEI35tkBYNC0NXDU8k0RrdeH7eQy2dv
-	h52SpK4g2/soYbCw==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788361152; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Rrq0m+HpGXXCKOHD8vYL63/0Jp51xgD11AWzQyOtLh4=;
-	b=il77Q9/QcJi2QRCjtr8DfcjCAs53huDVRyJp/ohg7Kwadxuq+Qru2064JwKUiw9vj7LLV6
-	YNliM1flKCQ1ki4mw1eRias0q6DXUslVI0UVwMWSeHl7o/9WaF+Np2Trtr7pL1lY9EsiFA
-	8PkgdmOnF7ohETkD93PQRFFyGyCXtL8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788361152;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Rrq0m+HpGXXCKOHD8vYL63/0Jp51xgD11AWzQyOtLh4=;
-	b=PQMq6emwpFzRUYNqla/u/fcB1VH4fFl0BQ+i+xFR9kTNbKZbZ/otbd7zKw/HjYy4EmrRbj
-	gm81YZ8GZQgJIlAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 62BC713736;
-	Wed,  2 Sep 2026 14:59:12 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id qjsgGMA5mGqENQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 02 Sep 2026 14:59:12 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 0861BA13B5; Wed, 02 Sep 2026 16:59:08 +0200 (CEST)
-Date: Wed, 2 Sep 2026 16:59:08 +0200
-From: Jan Kara <jack@suse.cz>
-To: Manuel Ebner <manuelebnerli@mailbox.org>
-Cc: Theodore Ts'o <tytso@mit.edu>, 
-	Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>, 
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>, "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	Zhang Yi <yi.zhang@huawei.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, linux-ext4@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ext4, doc: remove unnecessary bracket
-Message-ID: <j2ygt4o6ydaa7htu6q5oiady244tniyojbk7xbqth2ggqkx5da@e6aiky7cuyhk>
-References: <20260902143254.702971-2-manuelebnerli@mailbox.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IJCIrPdx"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1c73645a1so978122a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:59:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788361174; x=1788965974; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+Yp/oXL3p1lajPvtDy021s7SwzqfNxCxh9EVSkIB80c=;
+        b=IJCIrPdxknZ11SJzJi+ju2Nqy0YMekTG8G3jkW4E77GiEAtZz9e1ghPvI35RM1dlnP
+         llVFTWxq/w7N3OgwYUgpIU/XuwT4aElFCe5GEVrDpwyqmW+VcChzcvgkRnKEWiiQF4bG
+         hwOEWsdv1Uw9JpXy9CH5smxupcM+PqhOzJHkeigANQ1+RpaYr6VSeLPflStpapCGBs1K
+         6+FdDpy4qWk5Qnmcx2YHc43d1WnZhQGGEWig7mh6gv3GCmQ6p04LsaOwzeZmkJXCwbU/
+         eu8aZ7sQIxp6Fm6/fGD4B5JZj2PmmCRbxE5lecdWs0N4DalxmfW9saq2ASrsRrn9sN6p
+         tW6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788361174; x=1788965974;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+Yp/oXL3p1lajPvtDy021s7SwzqfNxCxh9EVSkIB80c=;
+        b=gAxto5RfkpnIFI8SRfLgPuyhLUvD8lzvCq/OcyIAP2s3LzgZUmlaoCEOzHGCCkXIh3
+         AtT13CAr07h8RqpQsgmInwRWmZPtDvmBZDZd43PM44XON6qyKbQZNJaCK9F2/Mx8k+6p
+         4Gm8GL2uIK04Wnwvvxebpp89j01f/jTDdDZgeemLdKL95SFoNoeC6eyzeCLOHO7T4NYS
+         K2ypJP8bLV/MRdz5e2Oj2ELj0b8iFHhojB9wEo+jLXFF9azIH60wFXMA3Tyl4PDH76zB
+         kqS51VoYdMGn1E/wrFIUidqVrxjoEYzSSEsqxnYxgNqSpqqH2TqddGr/rNMEuARTKlAa
+         Wl6w==
+X-Forwarded-Encrypted: i=1; AKwUvBysgHB+7+CLTjcLzov7k/QhfDg1AtEze/ndiQ7ebRYDc3ObF/1Ee/+CmyT7W3ZsAfxbdlnMXyO8ouuCXpI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lhqrRiVIlBPYiMYoT/YJDj4vh04pkpKuT/YZE9QWEHNL8DTV8o
+	sFKAal0liP38QsVDmRo9+ZQfaE8KBXy6+LRiumzRAAkFJFv7wJqPjO0t
+X-Gm-Gg: AYBFou1nY4g8Z1IJK0xZ3AzOAGnf31YhsymKR6Q7S5T2VzQLy5ASaJIlwxChPsPvNGA
+	J/AdgtT8/JCL121OKolnEuMegZcJoIIVYNbBwZ06Dkxa8QofFu9PJaT2CT1KMEfPvr0PIFacWC/
+	NFufeuPvGja6Z0X7awEyHd5B/GGP+TLuHHW0Ics7sk7ESZNT/rcxaFZ1rdoloq+r1dh18u0JLQ2
+	n9grVhyJcKmH4DN/bA9seIM+f3MrQ9hxPL+cuvTUeMyLzTxori4nZopkh9BijGUokl42FBh3dOB
+	F16jAW0PXqCH/pgQKzxAORLLarjGa2kXy1Gp8TsQTWuQ3WMvfQIxned3jlYnWFAKpyTSBn/QMBc
+	FphBUAZTOOnZU4xGUy4gbn2wMrBI1fFK59aQEh5P5VJOrb2UEnDgz6J8O5CwXTTanYgsrwWWcjO
+	GfMvmhQ2s8NsypHtOFuAOyVksLYDBmDIsfLghzl5a7TAQmv7xGo3CKWf8OYVf1ZJs=
+X-Received: by 2002:a17:90a:d44e:b0:398:ceed:6d44 with SMTP id 98e67ed59e1d1-39aee1bdb29mr8533173a91.25.1788361173832;
+        Wed, 02 Sep 2026 07:59:33 -0700 (PDT)
+Received: from adriano ([186.41.178.203])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f07bd6777sm7534895eec.25.2026.09.02.07.59.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 07:59:33 -0700 (PDT)
+From: Adriano Cordova <adrianox@gmail.com>
+To: johan@kernel.org
+Cc: elder@kernel.org,
+	gregkh@linuxfoundation.org,
+	greybus-dev@lists.linaro.org,
+	linux-kernel@vger.kernel.org,
+	Adriano Cordova <adrianox@gmail.com>,
+	stable@vger.kernel.org,
+	syzbot+2fd6aefc361af86911d5@syzkaller.appspotmail.com
+Subject: [PATCH v2] greybus: operation: fix out-of-bounds write in message allocation
+Date: Wed,  2 Sep 2026 10:59:16 -0400
+Message-ID: <20260902145916.63052-1-adrianox@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902143254.702971-2-manuelebnerli@mailbox.org>
-X-Spam-Level: 
-X-Spam-Score: -2.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	MISSING_XM_UA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	TAGGED_RCPT(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,lwn.net,linuxfoundation.org,vger.kernel.org];
-	RCVD_COUNT_THREE(0.00)[3];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mailbox.org:email,suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email]
+Content-Transfer-Encoding: 8bit
 
-On Wed 02-09-26 16:32:53, Manuel Ebner wrote:
-> Remove needless '('.
-> 
-> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+The incoming message size from the device header (header.size) is
+trusted without checking that it is at least the size of the message
+header itself, but a value smaller than sizeof(struct gb_operation_msg_hdr)
+underflows request_size in gb_operation_create_incoming(), wraps around
+in gb_operation_message_alloc(), and results in a tiny buffer that is
+then written past its end in gb_operation_message_init().
 
-Sure. Feel free to add:
+Reject undersized messages before parsing the message header.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Fixes: 87d208feb74f ("greybus: embed message buffer into message structure")
+Reported-by: syzbot+2fd6aefc361af86911d5@syzkaller.appspotmail.com
+Link: https://syzkaller.appspot.com/bug?extid=2fd6aefc361af86911d5
+Cc: stable@vger.kernel.org
+Assisted-by: opencode:deepseek v4 pro
+Signed-off-by: Adriano Cordova <adrianox@gmail.com>
+---
+v2: point the Fixes tag at the proper commit (87d208feb74f), and add an
+    Assisted-by tag.
+ drivers/greybus/operation.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-								Honza
-
-> ---
->  Documentation/filesystems/ext4/directory.rst | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/filesystems/ext4/directory.rst b/Documentation/filesystems/ext4/directory.rst
-> index 9b003a4d4..f3eeca844 100644
-> --- a/Documentation/filesystems/ext4/directory.rst
-> +++ b/Documentation/filesystems/ext4/directory.rst
-> @@ -429,7 +429,7 @@ block (precisely the length of one dx_entry) are used to store a
->  ``count`` entries in the dx_root/dx_node structures are adjusted as
->  necessary to fit the dx_tail into the block. If there is no space for
->  the dx_tail, the user is notified to run e2fsck -D to rebuild the
-> -directory index (which will ensure that there's space for the checksum.
-> +directory index which will ensure that there's space for the checksum.
->  The dx_tail structure is 8 bytes long and looks like this:
->  
->  .. list-table::
-> -- 
-> 2.54.0
-> 
+diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
+index 7e12ffb2dd..df6daee4fb 100644
+--- a/drivers/greybus/operation.c
++++ b/drivers/greybus/operation.c
+@@ -1047,6 +1047,14 @@ void gb_connection_recv(struct gb_connection *connection,
+ 	/* Use memcpy as data may be unaligned */
+ 	memcpy(&header, data, sizeof(header));
+ 	msg_size = le16_to_cpu(header.size);
++	if (msg_size < sizeof(header)) {
++		dev_err_ratelimited(dev,
++				    "%s: malformed message 0x%04x of type 0x%02x received (%zu < %zu)\n",
++				    connection->name,
++				    le16_to_cpu(header.operation_id),
++				    header.type, msg_size, sizeof(header));
++		return;
++	}
+ 	if (size < msg_size) {
+ 		dev_err_ratelimited(dev,
+ 				    "%s: incomplete message 0x%04x of type 0x%02x received (%zu < %zu)\n",
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.51.0
+
