@@ -1,176 +1,67 @@
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E9CD37204A
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 23:48:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE0D346AA6C
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 23:49:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788392918; cv=none; b=hXZNsZstWcI9o1K0mbvHHn+rhU0fd0IqXV/HNGYCeu2J56Q/jXfNG9Rcux8VYf83kZr+TfJeYnhZEeKJXnKvl7VQWLBli/1oU9RmM4lbtUzy59hjOxFVSiOZbpRkYosRGjKQTivMP1pURli33GYmMBFY3l626GFCWazz/K7V4eY=
+	t=1788392942; cv=none; b=tVUwFt+51dMGvHimoBH9G/z+AHtFS8Sg6+rs8kdBahvRnBPO3szSV4naugpGZEmrDKn3GpgTGRGyrEaSjUpOYPPkLBhguBBlvUw4IPqX1xwdkyH36ElszcWVUCenEQvvBmMUo9UcNajjvLrJhreGFfCkcn/eA/wutp+offdR0cw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788392918; c=relaxed/simple;
-	bh=o3HsFeQw1RRyMRRsQQkYpLCVx8+G1m4vFCYryGoS/Xo=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=iqINI+kJd/isBD3BjW5xLpf/TS9oNUKyXvk7wlMSahiL2932Id6m9s4wtjeN+Rd2Hzx7Cyz77f+1ycPLskeazyhLkGG4Bq9SHMZQEACt1pGN8dfeUjC3KACjtUiiO8ZLUVzyPq5jD85ATSBoJGVWTbBGrxvC8Ib0At9preV5z1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b28d9952a5so1953489b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 16:48:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788392915; x=1788997715;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=khu+90EbyKakPh+AEzLpxA1wJEZkV3aMHoPKv1nM4nE=;
-        b=VIZP+XcDiCQxecoIyCDuW9uT9vuyKpj0HWO4WD6YCCUDof2/yPiSEu6kpH5kn/zeOx
-         p6lUBVwBtOzMtlDoGtvqqBqbcJvdmaUvOwXPyozTmItutBFM0u2tHSLkn9EtQFboy3Yj
-         V/v9eUK82icgtuQYRhLTkuv4xyQChaHGewZb0w45IzEB+vlJejs1i5DU8PhraoZagqky
-         YzJp7tJGew4TnQ+6AaX5euK8EjvNa7wOI5eeJ4mPPUmaiVXHKKF88SyQq2aCOuRnVM0w
-         +lf7MT0Oq80tEVDz49qme7aFjSylmLouhOxA9CFcfhOfyxWpZAozww1HzAkWOYBvhWIt
-         urDg==
-X-Gm-Message-State: AFuF++mNrtjnqvMI5KtX/NdmMxQI2l8WhLly2edgqNQzMtogEP/QEjh9
-	qDDURqPsYtmKbIUcfcGbUyAC7yKls5f1mFLK4wuRXolXyIAb1lwx3CGq7weEJR98FEBpM2GHz9s
-	zyNVknNnK3IhExHzEfVaGBN5xfQvW85w9mAZg7tz2Y/sZSSAudq4iULVO5qk=
+	s=arc-20240116; t=1788392942; c=relaxed/simple;
+	bh=BgRVRxL6ZL67u+VQlczVaswQgh2gspDJGLIDfhaG7GA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Vq+J1EsrbtPzGW06glsF7GB6obmyDjwSZWBrAw7CuqYMEYPlYs/ZinFyBJVtzPr3ngxr6DjLHmnt2zPviycml2sN0/rdGIfsD/5DAQckpPUKLXhm4B/q0n/6gfRRi7DkQVNSm1C81ZlXnjjl+fvLbqnrzH/rRQpEZfnJRB//2i0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AvtB7aKe; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AvtB7aKe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 660941F000E9;
+	Wed,  2 Sep 2026 23:49:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788392940;
+	bh=VuK7Ny/cT+4GKAWxsI+MqljE9VygwNeU6/2zY4d2f0k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AvtB7aKeIu4bzGDyFkNku9Gz2cu81uLIThsNIx8NMCxcYETay6k3ZU+6Z3DI3eIDv
+	 GzObyM5CdwfAvSdR4DUvKBwSm+hEurWY69kYzuJtlFQJdafSH7dHivPq5TfRbF7pFA
+	 GHoBrmagaqgdSnyTAToXaDD+i9e2XzjLPRpge7EYxSW1H6uA9u8NSGIlvV3uZMm75j
+	 FD8ZzjK7GMeckhADIkYVAcXLb+YfZydebq+yrPNGoAvAI5FMzkxCru8Y/gbXxGk1pu
+	 /RjbHNu7HMwF5XM3GkmW/0dWmL0z/CneJa9rprEhLA0qlodyxugat247GgDgr01qgf
+	 7lBGDAGSS705A==
+Date: Wed, 2 Sep 2026 16:49:00 -0700
+From: Kees Cook <kees@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>
+Subject: Re: [GIT PULL] hardening fix for v7.3-rc2
+Message-ID: <202609021647.3F67F66B@keescook>
+References: <202609020931.48FF902461@keescook>
+ <CAHk-=whZQzNuBZdV1b1TBxRf+asBGtvnC=Ggu755GaOg_TYXgw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1693:b0:6b3:5475:4861 with SMTP id
- 006d021491bc7-6b480a48973mr5533031eaf.18.1788392915098; Wed, 02 Sep 2026
- 16:48:35 -0700 (PDT)
-Date: Wed, 02 Sep 2026 16:48:35 -0700
-In-Reply-To: <6a987197.9266084e.bf0d7.000d.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a98b5d3.2e567484.299ffc.0004.GAE@google.com>
-Subject: Forwarded: [PATCH] HID: roccat: fix use-after-free and
- uninitialized-mutex races
-From: syzbot <syzbot+c492a9e154f81127551f@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=whZQzNuBZdV1b1TBxRf+asBGtvnC=Ggu755GaOg_TYXgw@mail.gmail.com>
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
+On Wed, Sep 02, 2026 at 04:07:46PM -0700, Linus Torvalds wrote:
+> On Wed, 2 Sept 2026 at 09:31, Kees Cook <kees@kernel.org> wrote:
+> >
+> > - Default randstruct off with rust for better allmodconfig coverage
+> >   (Mark Brown)
+> 
+> Should we just default randstruct off entirely?
+> 
+> It defaults to off for any *real* build for good reasons. I'm not
+> convinced it should be on for build testing either. Maybe the active
+> compiler bugs are gone, but this whole commit is just an example of
+> how RANDSTRUCT_FULL really isn't a good default - not for real life,
+> and not for build test coverage.
 
-***
+I have a fix for it with Rust, and it'll be in -next after -rc2 is out.
+We still have real-world users that depend on randstruct, so I'd like to
+continue to make breakage visible via all*config builds, etc.
 
-Subject: [PATCH] HID: roccat: fix use-after-free and uninitialized-mutex races
-Author: kartikey406@gmail.com
-
-#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-
-
-roccat_disconnect() dropped devices_lock between reading device->exist
-and later checking device->open to decide whether to free the device,
-letting a concurrent roccat_release() free it first and turning the
-later check into a use-after-free. Fix by keeping the whole lookup,
-state update, and free-or-keep decision inside one devices_lock
-critical section.
-
-roccat_connect() also published the device via devices[minor] and
-device_create() before initializing device->readers_lock and
-device->cbuf_lock, letting a racing open() on the newly created node
-take an uninitialized mutex. Fix by completing all initialization
-before publishing the device.
-
-Reported-by: syzbot+c492a9e154f81127551f@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=c492a9e154f81127551f
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
----
- drivers/hid/hid-roccat.c | 34 +++++++++++++++++-----------------
- 1 file changed, 17 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/hid/hid-roccat.c b/drivers/hid/hid-roccat.c
-index 4f15eb951039..00499d6fa748 100644
---- a/drivers/hid/hid-roccat.c
-+++ b/drivers/hid/hid-roccat.c
-@@ -316,6 +316,14 @@ int roccat_connect(const struct class *klass, struct hid_device *hid, int report
- 	if (!device)
- 		return -ENOMEM;
- 
-+	init_waitqueue_head(&device->wait);
-+	INIT_LIST_HEAD(&device->readers);
-+	mutex_init(&device->readers_lock);
-+	mutex_init(&device->cbuf_lock);
-+	device->hid = hid;
-+	device->exist = 1;
-+	device->cbuf_end = 0;
-+	device->report_size = report_size;
- 	mutex_lock(&devices_lock);
- 
- 	for (minor = 0; minor < ROCCAT_MAX_DEVICES; ++minor) {
-@@ -324,37 +332,30 @@ int roccat_connect(const struct class *klass, struct hid_device *hid, int report
- 		break;
- 	}
- 
--	if (minor < ROCCAT_MAX_DEVICES) {
--		devices[minor] = device;
--	} else {
-+	if (minor >= ROCCAT_MAX_DEVICES) {
- 		mutex_unlock(&devices_lock);
- 		kfree(device);
- 		return -EINVAL;
- 	}
- 
-+	device->minor = minor;
-+
- 	device->dev = device_create(klass, &hid->dev,
- 			MKDEV(roccat_major, minor), NULL,
- 			"%s%s%d", "roccat", hid->driver->name, minor);
- 
- 	if (IS_ERR(device->dev)) {
--		devices[minor] = NULL;
- 		mutex_unlock(&devices_lock);
- 		temp = PTR_ERR(device->dev);
- 		kfree(device);
- 		return temp;
- 	}
- 
--	mutex_unlock(&devices_lock);
-+	/* Only publish once fully initialized, so roccat_open()/
-+	* roccat_disconnect() never see a half-built device. */
-+	devices[minor] = device;
- 
--	init_waitqueue_head(&device->wait);
--	INIT_LIST_HEAD(&device->readers);
--	mutex_init(&device->readers_lock);
--	mutex_init(&device->cbuf_lock);
--	device->minor = minor;
--	device->hid = hid;
--	device->exist = 1;
--	device->cbuf_end = 0;
--	device->report_size = report_size;
-+	mutex_unlock(&devices_lock);
- 
- 	return minor;
- }
-@@ -369,15 +370,12 @@ void roccat_disconnect(int minor)
- 
- 	mutex_lock(&devices_lock);
- 	device = devices[minor];
--	mutex_unlock(&devices_lock);
- 
- 	device->exist = 0; /* TODO exist maybe not needed */
- 
- 	device_destroy(device->dev->class, MKDEV(roccat_major, minor));
- 
--	mutex_lock(&devices_lock);
- 	devices[minor] = NULL;
--	mutex_unlock(&devices_lock);
- 
- 	if (device->open) {
- 		hid_hw_close(device->hid);
-@@ -385,6 +383,8 @@ void roccat_disconnect(int minor)
- 	} else {
- 		roccat_free_device(device);
- 	}
-+
-+	mutex_unlock(&devices_lock);
- }
- EXPORT_SYMBOL_GPL(roccat_disconnect);
- 
 -- 
-2.43.0
-
+Kees Cook
