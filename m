@@ -1,190 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 038FE4A5C22;
-	Wed,  2 Sep 2026 15:03:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B37EC4A64D1
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:04:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788361440; cv=none; b=DMZ/sM+osuUOOnWip1Srour8WwLgeM6cQyPsByZu6PTLbc4JogU7Z9bwhiCNTIMY8j1TujTSncPuOgRXC20p9M4OOJl3lU49BTYEbiv06JyIEhRPSkgQ4e45U/OEGayB+H0vnxfRMSgZhF49C/FOAbS7Pad8zfI+lE1rXblLiJw=
+	t=1788361451; cv=none; b=Tv847dVwIdnsL26Dfkdu3APnOyB1E1IYrX4YUZ5p9G0Rl+HzgBDBNZp56iYh2M/wrJfghB0WW03BnzD0WnQdy2L/Aq030HtpX82uwbnPVbNborR/w+K7Cm5sVHlZNLd57NvSBZTBdIivLim0+Lo9GAUn18Owy7wPXUjMLzCJ1js=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788361440; c=relaxed/simple;
-	bh=Ws3Z5T4B5h/j/Ky5vE9ZeELQf9GKQhg1Hkap4tQrH1s=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=kNe0K7f+t/eO96Wi1Yyu/qwvDUJa4dGXqo7pjWxv9cCI/KyQL0X6eF1mV6IFwE8mgNDf+CDvjkNM0ZBQkikEGHLXElwUk/0fQ/7pu1I/cvcVhlqClxHrOx+dzJ2o6hQKn2DdYstorrgvxpiXdIga0wMpgHKywt7mVDM9fRqB1Zg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fsKHoTIo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788361451; c=relaxed/simple;
+	bh=wCCHaHjAyebRsmsmEX2icSW1s+oMksjOOy7EFoGCWjw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=g9n7uIqM/4Jf8EmlvTXCVDgo/wczOhdTT3m4jwnfWtvXW7WGSySVtdDwQg10fv0yp85hANBeHwiMJ1AwbWAO1/sNVTNhtk7BDf8+cDP72eOemmbOBoqXUeJ7gboZ8mnfE0w/5WVihmZjFH9vJxnoAbuGdT2TmyexW1QZbViZ/aY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Gslt+rWg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eFTrziXi; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fsKHoTIo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDE1C1F000E9;
-	Wed,  2 Sep 2026 15:03:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788361438;
-	bh=K8+j06Fqip6iZWZjHjHOXpmDpD5M1F9ioEXxsNpOIsg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=fsKHoTIoqikf/YmtYi1EdBCB2TyN+LZUJrxK2VeUiOQ/JVtk0shlqdIJJPXDvEO3K
-	 QpS8cWpatzsRyZtwmeDPiaAFhJMrs0CIsEmQ9Kzw8n6wmOt/dLu73FnHvHiUzpJIXv
-	 gov1KwXoXcPjNh0McqixU04OvRA5UjNbQD31pk4QTpglmcU031gLRHzJbPqJKVSKD6
-	 w3Roiqhe7wINNwh76NT31jsQ9p/xC/wmF5nISvoUMyr3TiWd9gKYZTMVz0WWZjdYNj
-	 eXUGDa18Mzyxj7XJNXkDB1L5QeiD1thcpLTnAYYuBfrpe4d89gQEfJ1YrX2/8Lt9iP
-	 gzxlVdGJ3RtNQ==
-Subject:
- Re: [net] vxlan: vnifilter: validate the VNI range in vni_filter_entry_policy
-From: netdev-bot+sashiko@kernel.org
-To: alishmery18@gmail.com
-Cc: netdev@vger.kernel.org, kuba@kernel.org, pabeni@redhat.com,
- davem@davemloft.net, edumazet@google.com, andrew+netdev@lunn.ch,
- idosch@nvidia.com, razor@blackwall.org, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 02 Sep 2026 15:03:57 +0000
-Message-ID: <178836143725.3394541.12588453860403453088@kernel.org>
-In-Reply-To: <20260829030041.940594-1-alishmery18@gmail.com>
-References: <20260829030041.940594-1-alishmery18@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Gslt+rWg";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eFTrziXi"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682EcrUX1675952
+	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 15:04:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	8d/HYLVaYKgSu6VLD4TUXAuT+WMimsoAlFLEDX6rbHM=; b=Gslt+rWgaEkn8Wtt
+	/GY4xVCimRHa2DbrI8POvL6E7qeLQdytf4vC+D7M9SyKb63Zk/egQ/aHObhm5XSu
+	34V9wJoSKIIdXswfhBcglWSNWtlppU0yMF0W8bzoiG+2wlczpOXtKelwdMeoD7kG
+	d2XmgIofGoxkaz/bwRWU2k0qB2J8ejlZxWBqPkI9Ixy6ZmNh3yRWAZ43JOXZ+/Hn
+	ORx3Onu4LCsoqeCGG3G6B246sbXK2ZAX9tO4Ur3C7Qn/lcj48kj66sch0Cd5xSB0
+	JlKyaBGQHkbbv7QF0r0IxAZU9Hy5IWzu3aVlynpWBl4F4bzz+a15q0OtyyAOOMPc
+	y+04jA==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4genrdr33d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 15:04:08 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-38e8fee6af3so1714308a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 08:04:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788361448; x=1788966248; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8d/HYLVaYKgSu6VLD4TUXAuT+WMimsoAlFLEDX6rbHM=;
+        b=eFTrziXi3Lluc9XUB+MReoZbYQTEm4pDzXfbXQlpZly6DRQ0p9QjNwKa9fq9J8vapQ
+         yH1wrzWjVUheLnprhKlVQFoAtVGnxy4cbw80LsYjGv0ZOS897Qoi6vJ25seQl9yuBJqU
+         zb479x3Q9CsGOl+DbYmIWMfQbjqZ6SL/yA+aURBAih1B3y+XUH/gns9W8KlkI2EzrHtb
+         LagNjp8QAL5V4j/3fGzHFHFc+7mh7hcYH3p/4fLqebWvHFAKNoAhh1TR81LTtEAJMhPl
+         0Ys0zxCOIpj2qenXBS0p5YzE76r0hSL6Q27E04V42c9Cdyl7SnHdRgxfD8LLutUOmY2T
+         XxbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788361448; x=1788966248;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8d/HYLVaYKgSu6VLD4TUXAuT+WMimsoAlFLEDX6rbHM=;
+        b=bgzIO6u+vwBhIqQmgNsjuvvpK06ZpRzPyGv29x327kBr7tFiCiGh4KvQdCqBTkWEly
+         ghePM236qzJGEuk+J+uhh7axR5iQupKsk+hvZAGTlZ9ULH7PaPoVf+DkI8OAzTZZknZv
+         mI34k+JIpN6rCDlEH1QEJdRlRryziZ8VLoQ4mR5lRPPag6P0LnWiknH5Xevpy7LqNyIP
+         36BCgMurPpWmhC58YqXhjpvtTmT1YzchoemTOyZT695lgGGx+sRHL9lVeJRY2KlZ9nVU
+         4q/HYL0BTVasE66QM9/mrgPNUlkNHWaV1N03gsj+A7hM4TLJQEakcKlEqCr6qIxURLuT
+         QY8g==
+X-Forwarded-Encrypted: i=1; AKwUvBxYKDuHyl/B8UhNH3Lf58U81bt2Slp6V5fkfPPTd9YRQWnmGL4Yt3oP6UCySdX7904oLHH4kIskGLNhac4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nD0GRnmUPW+LsirHE6xf9Y/PhfUMbHF6V4Ms5HIFiqHSa5vEIg
+	1QsWdXWP15n7AjobmWq8+N8BkbSTKNIWpEnF3sKmpGzJP5etVWLGIN9ba1P5YjlmD1S9+ojan38
+	EuADhQdpsqP9faP24JdlQhd0eKYXZtp6G6Q+HdpIlcEC1OsY7GgrCxlbe1EadCbYWK1g=
+X-Gm-Gg: AYBFou2ikABo+QunDj4WYuKVJESXZGF9v7GZf0X2IG3L59GLXhioWCafjI5vTa04QCq
+	tsNQ+RGI+YOt39xGn8fJV4zOiJ1AXdmlb62SSCFs11cOwCLuMpEabYl4zFcbFYG+cfWZ+0WJ+51
+	3eTuM9JvlSPuo8FRnpChJDM8AZ+ghmOgUvqHOAqySqWJVxxBcMlQI8wsvySfphEHEHiurFeY4pT
+	xlRtVnVeeqwppb625LoFR1RcgwnQ2Wl77AZSJTz5PwSKHcFN9foWU6dlCMBkORiE2OKk5kwMGd3
+	0j4cmiBNnM/6D50fzN3yhHE1ZrQuiCXrNReR/ZeiPJL0m29nilVqryZu5or1ZaGM8+55+Nt9MXb
+	u5y9Ixsb1TdfAJl0yAjf7zeRBjMFRoUFYZLwN3uPiMuW3cKXiwFAHLSEUGQ==
+X-Received: by 2002:a17:90b:2ccd:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-39aedf77333mr8400167a91.11.1788361446276;
+        Wed, 02 Sep 2026 08:04:06 -0700 (PDT)
+X-Received: by 2002:a17:90b:2ccd:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-39aedf77333mr8399969a91.11.1788361445459;
+        Wed, 02 Sep 2026 08:04:05 -0700 (PDT)
+Received: from [10.110.114.54] (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f079f1f4fsm7552713eec.11.2026.09.02.08.03.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 08:04:05 -0700 (PDT)
+Message-ID: <d530f962-4fd0-4897-8022-c7335167f450@oss.qualcomm.com>
+Date: Wed, 2 Sep 2026 23:03:57 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 11/11] scsi: ufs: ufs-qcom: support ICE keyslot
+ partitioning for guest VMs
+To: Krzysztof Kozlowski <krzk@kernel.org>, ebiggers@kernel.org,
+        axboe@kernel.dk, mst@redhat.com, jasowangio@gmail.com,
+        James.Bottomley@HansenPartnership.com, martin.petersen@oracle.com,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        linux-block@vger.kernel.org, linux-crypto@vger.kernel.org,
+        linux-scsi@vger.kernel.org, virtualization@lists.linux.dev,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Cc: neeraj.soni@oss.qualcomm.com, gaurav.kashyap@oss.qualcomm.com,
+        mani@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+        bvanassche@acm.org, alim.akhtar@samsung.com, avri.altman@sandisk.com,
+        stefanha@redhat.com, pbonzini@redhat.com, eperezma@redhat.com,
+        xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
+References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
+ <20260827160806.1295313-12-linlin.zhang@oss.qualcomm.com>
+ <046e4b62-6d25-40fc-baa3-2978eb96eb70@kernel.org>
+ <b571ea8a-4434-45e0-958f-20b2f83ced24@oss.qualcomm.com>
+ <ff869d8a-85d1-4148-b19d-af3a70fcc904@kernel.org>
+Content-Language: en-US
+From: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
+In-Reply-To: <ff869d8a-85d1-4148-b19d-af3a70fcc904@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=H4/rBeYi c=1 sm=1 tr=0 ts=6a983ae8 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=Vihkso_W4dyqxCYGQKUA:9 a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-GUID: jKRm3tkOQ36ODWnIQfyFjVtVFIEHAjdk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDEzMyBTYWx0ZWRfX0Lk9jA2uxp5R
+ 388FV7miWEjGaIIWR9Hq55xUioaIh5I1/qHgN0QWPLaiiIn5v28JdzthRPmC5uIuFIEGFG0AJBP
+ wPA8B2bOiiSf+9kuBr/AzjFEkL4dUXbojKnnWDtjGpu4h+HV16GsYlwFdUHGiWGfp+g2RB0NMp0
+ /5bOtHABsBJa7u7D/WewcT2fCLDUyH9vryrZ9h2xv9eFHOgaHQXDtUbHMri0CmuwSlNZvvRKlk5
+ aI6nh9aWEN7QCwDr/ts0PeDOuQPUr+vyJCDg7R9uv0DXJ9YnwWWd5pvYrmEylWxy3aeBxZwChkN
+ 3S4epSoSRBu48fWKFoxQSChRd4zzIdRGI48txP8/pKv+8/8fI55nBGr/N4I0WW/upudlO2gUhb4
+ s8OWQzDReQrPOGvgryJU0jSoVN7AcD7XELGHM6L3hJFCnH/kK9olg8H191GZqvUiI7Q4KiqPHA2
+ AbcDZB63v386hV5BLaQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDEzMyBTYWx0ZWRfX7ZhYWLW7QCNY
+ 9A7Y/AiHOEFHOPGyVNaHyxzuK4HA5wzMaHDE1vcBJLEQSwLZs86QSF0IXZZDAIALpX68QVOdVI3
+ tshN5ad7XPM14M6pcFbaLZ6SWTs+oWg=
+X-Proofpoint-ORIG-GUID: jKRm3tkOQ36ODWnIQfyFjVtVFIEHAjdk
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_03,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015
+ malwarescore=0 spamscore=0 phishscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020133
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0 (2)
 
-- [High] Incomplete fix: the added netlink range validation bounds only
-  the individual VXLAN_VNIFILTER_ENTRY_START/END values (to…
+On 9/1/2026 10:02 PM, Krzysztof Kozlowski wrote:
+> On 01/09/2026 12:54, Linlin Zhang wrote:
+>>>> +		u32 off, max;
+>>>> +
+>>>> +		if (of_property_read_u32(child, "qcom,ice-slot-offset", &off) ||
+>>>> +		    of_property_read_u32(child, "qcom,max-ice-slots", &max))
+>>>
+>>> No, there is no such ABI.
+>>>
+>>
+>> ACK
+>>
+>> This is submitted for visibility. It may be revised in a future version to use
+>> a TZ SCM query interface if current out-of-band key operation in the guest is
+>> approved.
+> 
+> Don't submit downstream code for visibility. It just clutters review and
+> wastes our time.
+> 
 
-Pre-existing issues:
-- [Low] The newly added vni_filter_vni_range leaves .min unset (0), so
-  the policy formally advertises VNI 0 as a valid…
-- [Low] vxlan_vni_alloc() allocates the vxlan_vni_node with kzalloc_obj()
-  (plain GFP_KERNEL, no __GFP_ACCOUNT) at…
+ACK, thanks for pointing that out.
 
---
+> Such code IS NOT ACCEPTED to upstream, thus posting it is absolutely
+> pointless.
+> 
+> Best regards,
+> Krzysztof
 
-vxlan: vnifilter: validate the VNI range in vni_filter_entry_policy
-
-This adds netlink range validation to VXLAN_VNIFILTER_ENTRY_START and
-VXLAN_VNIFILTER_ENTRY_END so each value is capped at VXLAN_N_VID - 1,
-matching the constraint already used by the MDB code in the same driver.
-The stated goal is to stop an unprivileged netlink request from driving an
-unbounded allocation loop in vxlan_vni_add_del().
-
-> diff --git a/drivers/net/vxlan/vxlan_vnifilter.c b/drivers/net/vxlan/vxlan_vnifilter.c
-> index dd94085e0886..9e86ac39cf9d 100644
-> --- a/drivers/net/vxlan/vxlan_vnifilter.c
-> +++ b/drivers/net/vxlan/vxlan_vnifilter.c
-> @@ -459,9 +459,15 @@ static int vxlan_vnifilter_dump(struct sk_buff *skb, struct netlink_callback *cb
->  	return err;
->  }
->  
-> +static const struct netlink_range_validation vni_filter_vni_range = {
-> +	.max = VXLAN_N_VID - 1,
-> +};
-
-[Severity: High]
-This bounds each endpoint but not the distance between them.  Does that
-still leave the scenario described in the changelog reachable?
-
-A single RTM_NEWTUNNEL with START=0 and END=0xFFFFFF passes the new
-policy, and vxlan_process_vni_filter() forwards both values unchanged:
-
-	if (vattrs[VXLAN_VNIFILTER_ENTRY_START]) {
-		vni_start = nla_get_u32(vattrs[VXLAN_VNIFILTER_ENTRY_START]);
-		vni_end = vni_start;
-	}
-
-	if (vattrs[VXLAN_VNIFILTER_ENTRY_END])
-		vni_end = nla_get_u32(vattrs[VXLAN_VNIFILTER_ENTRY_END]);
-	...
-	err = vxlan_vni_add_del(vxlan, vni_start, vni_end, &group, cmd,
-				extack);
-
-which then runs 2^24 iterations in vxlan_vni_add_del():
-
-	for (v = start_vni; v <= end_vni; v++) {
-		switch (cmd) {
-		case RTM_NEWTUNNEL:
-			err = vxlan_vni_add(vxlan, vg, v, group, extack);
-
-Each iteration reaches vxlan_vni_alloc(), which does one slab allocation
-plus one per-CPU stats block:
-
-	vninode = kzalloc_obj(*vninode);
-	if (!vninode)
-		return NULL;
-	vninode->stats = netdev_alloc_pcpu_stats(struct vxlan_vni_stats_pcpu);
-
-struct vxlan_vni_stats_pcpu is 64 bytes per CPU, so on a 4-CPU host that
-is roughly 2^24 * (192 + 4 * 64), several gigabytes from one message.
-There is still no __GFP_ACCOUNT on either allocation, and no
-cond_resched() in the loop.
-
-The RTM_NEWTUNNEL handler is also still registered with flags 0:
-
-	{THIS_MODULE, PF_BRIDGE, RTM_NEWTUNNEL, vxlan_vnifilter_process, NULL, 0},
-
-so the whole loop still executes under the host-global rtnl_lock, which is
-the stall the changelog describes.  Nothing else caps growth either:
-vg->num_vnis is only adjusted in __vxlan_vni_add_list() and
-__vxlan_vni_del_list() and is never compared against a limit.
-
-The one case this patch does remove is end_vni == U32_MAX, where v wraps
-and the loop condition never becomes false.  Would it make sense to say
-that explicitly in the changelog, and additionally bound the number of
-VNIs created per request, add a reschedule point in the loop, or account
-the memory, before claiming the OOM and rtnl stall are closed?
-
-[Severity: Low]
-This is a pre-existing inconsistency rather than something introduced
-here, but the new range leaves .min at 0, so the policy now formally
-advertises VNI 0 as a valid START/END value, while
-vxlan_process_vni_filter() treats 0 as "attribute absent":
-
-	if (!vni_start && !vni_end) {
-		NL_SET_ERR_MSG_ATTR(extack, nlvnifilter,
-				    "vni start nor end found in vni entry");
-		return -EINVAL;
-	}
-
-A request carrying only START=0 passes the new validation and is then
-rejected with an extack saying neither start nor end was found, while
-START=0 with END=10 installs VNI 0 without complaint.  Is it worth
-setting .min explicitly, or reworking the sentinel so the extack matches
-the actual reason?
-
->  static const struct nla_policy vni_filter_entry_policy[VXLAN_VNIFILTER_ENTRY_MAX + 1] = {
-> -	[VXLAN_VNIFILTER_ENTRY_START] = { .type = NLA_U32 },
-> -	[VXLAN_VNIFILTER_ENTRY_END] = { .type = NLA_U32 },
-> +	[VXLAN_VNIFILTER_ENTRY_START] = NLA_POLICY_FULL_RANGE(NLA_U32,
-> +							      &vni_filter_vni_range),
-> +	[VXLAN_VNIFILTER_ENTRY_END] = NLA_POLICY_FULL_RANGE(NLA_U32,
-> +							    &vni_filter_vni_range),
-
-[Severity: Low]
-This isn't a bug introduced by this patch, but the changelog calls out the
-missing memcg accounting as part of the problem, and vxlan_vni_alloc() is
-unchanged:
-
-	vninode = kzalloc_obj(*vninode);
-	if (!vninode)
-		return NULL;
-	vninode->stats = netdev_alloc_pcpu_stats(struct vxlan_vni_stats_pcpu);
-
-kzalloc_obj() uses plain GFP_KERNEL and netdev_alloc_pcpu_stats() ends up
-at alloc_percpu_gfp(..., GFP_KERNEL), so neither carries __GFP_ACCOUNT and
-neither is charged to the requesting task's cgroup.  A caller inside a
-user plus net namespace can still ask for the full legitimate 24-bit range
-and get one node plus one per-CPU block per VNI, scaled by nr_cpus,
-outside its memcg limit.  Should the changelog stop listing the accounting
-gap among the things being addressed, or should the allocations gain
-__GFP_ACCOUNT as part of this change?
-
->  	[VXLAN_VNIFILTER_ENTRY_GROUP]	= NLA_POLICY_EXACT_LEN(sizeof_field(struct iphdr, daddr)),
->  	[VXLAN_VNIFILTER_ENTRY_GROUP6]	= NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)),
->  };
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260829030041.940594-1-alishmery18%40gmail.com
