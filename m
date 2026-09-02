@@ -1,141 +1,182 @@
-Received: from mail.zytor.com (terminus.zytor.com [198.137.202.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9384B2798F8
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:19:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.136
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788358788; cv=none; b=Ki/hDaxuXpGk4UiKjtrjdC2sVX5IaunfY9/33IcaPEN/OAorcgaeTIrTSlgq1ew4jeCwl5seP4C+uzjZxGeJtlgyL+yVOaNm7h2yJsLXHFzt+Y3SSr900Lf74GqpghPvcsqR8/CsJx6BkrcEtLBg/RWjrs7KCbm5WoST3wNMNGs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788358788; c=relaxed/simple;
-	bh=g/28rqhhbb/QWuUvNaBiA0mGQOWJc3+mDX14bIzW5Lk=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=FY9UwZpMbANwdLHLZ1VkMOvRHwgYiPQjlihBm7H459RPmCoZ05ZcDp3PMwZ3f7xbRhy0jx630BUJPs88LbI5ouyb2jgm2VJijqrUX5aem4e6xE1lpoaBIqTMHWeZGn1nVBy1qF1TXIiHK6Vfq5oDqoMnmyMQ3cTZk3tkAaWma/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com; spf=pass smtp.mailfrom=zytor.com; dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b=i6t+zDaz; arc=none smtp.client-ip=198.137.202.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zytor.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zytor.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88288359A99
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:19:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788358793; cv=pass; b=Hf1oD3BqlhkzU6e4me1Ds5bCSdscpvIlpgzYIjHyX6xxETKY9Og1ymjPEey7fSwQWAT+1snIvwixAb8ICZeupxixVZtc9glQGJDch0qkR2YZD63vY+nBqp72m5PyNz4C2bbfx5Q/yPTh1VITzA9LhlIRiWcRZ2maDw0Ga53R8Wg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788358793; c=relaxed/simple;
+	bh=7WVcDCeNoNJVJ62VGmwppvZiYM7vvnUPgQp7fjZ7D6M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GzySTpAyalTXDgXwmk+V0a0NC5/d8j7r6VSPZ+hVaixqIURqdqVzTU7WXO8XFG/GWW4gtZfVnH2jgq/XASqM53GngxfJHA4kbMwcFf6EhC+FkNyNYRwjqUfVMYiGrYFy9ert0MYfHWnJ38GaHlAED9pTDe39My2ybBPP9nZ0F2U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=COeQ1iYH; arc=pass smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zytor.com header.i=@zytor.com header.b="i6t+zDaz"
-Received: from ehlo.thunderbird.net (c-76-133-66-138.hsd1.ca.comcast.net [76.133.66.138])
-	(authenticated bits=0)
-	by mail.zytor.com (8.18.1/8.17.1) with ESMTPSA id 682EIqnL3615183
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NO);
-	Wed, 2 Sep 2026 07:18:53 -0700
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.zytor.com 682EIqnL3615183
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=zytor.com;
-	s=2026082801; t=1788358734;
-	bh=9+cci75UmAKXSNYbyFNOPFn1zAmcIFOxmoM0RCeSqSw=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:From;
-	b=i6t+zDazNQW/PHul8N3EVpOl+Ov5fNuUkBVtoSR96j4zTguKq+uvxrLMleTcAGviV
-	 3Mtu+gx5FV9r4Arst1+QPkPDetNgvsmYxLWSxtCNdND7H7i4l4TN8AbEVPdHHvwWT9
-	 C83QjPihUd+f+E4Aazn/xY1ByIB5tHu6SwqqYDUy4PwsYog4+PEE1hp99z1s/4uqRd
-	 8PCWy8im7IQZbugf0CQXdn9qdoSi5XV+lT6rsstlfcHgOOmKE4J4jHuXCVDGRZ6GWj
-	 2MzmIbyciLU6ilAXSQ/ZqZDfHKSxtge7HiWQ/3m1dbrBOntoRybH212bSXMjouFGJv
-	 r9tXB1rf68wdg==
-Date: Wed, 02 Sep 2026 07:18:47 -0700
-From: "H. Peter Anvin" <hpa@zytor.com>
-To: David Laight <david.laight.linux@gmail.com>,
-        Jan Beulich <jbeulich@suse.com>
-CC: Mauricio Faria de Oliveira <mfo@igalia.com>, kernel-dev@igalia.com,
-        linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
-        Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-        Borislav Petkov <bp@alien8.de>,
-        Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-        Juergen Gross <jgross@suse.com>, Alexey Dobriyan <adobriyan@gmail.com>,
-        Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-        Brian Gerst <brgerst@gmail.com>
-Subject: Re: [PATCH v9 1/5] x86/boot: Remove "cc" clobber from memcmp()
-User-Agent: K-9 Mail for Android
-In-Reply-To: <20260902093354.582c2f07@pumpkin>
-References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com> <20260822-pvh-kasan-inline-v9-1-e70ef3b75b6a@igalia.com> <16110ecc-fc0d-4b9d-a958-2a75ca60b69f@suse.com> <20260902093354.582c2f07@pumpkin>
-Message-ID: <F6CBA8E9-F901-47C8-982D-F23F38247D8C@zytor.com>
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="COeQ1iYH"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-852c481415fso1354697b3a.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:19:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788358791; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sSKX58+2aqOUo7wC9KmFIQCpBLBjNhonkTEJTW9fdbxHEP+dgLRh42BLOybKBtpj7g
+         9tmKcPVK6fJNj/69PWkMv0WKZdtH9dUCZKsC8XafOIT4mWnIPs8lFjA+4fbzrjsP467J
+         9EA0kAVSKOE6Q4d4rDyW7sN9xDcFdsE5pwb4lu/n2muV9/OJXipb7H642+fAj+O0VOJ6
+         fBdqQiq9/3Z6J7ysci+O/nur7K3t5a5uBVaI69tHxmp1MXJzhW/x8PcJKX3E8YWl53LA
+         RFmE4Q6BNNQho0DYsw96Fqu2ZZrLT6t8ac/QYvOB3k2lznlN8WDmn2x83Rugj+p2qwoS
+         wEmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Hvqo7YFW1dqU5IF1koaoFEnQPCsWNf4SP2mwIABHbpg=;
+        fh=yXlVQ4UL6iy+U7yl95oVccqRJPjgwre36w/NR+HGxHc=;
+        b=B/3unbZX1s3zCq265zTF6JEd65M0fByaxZHCXFPa/IzmxkxKYJdtTo/O2BHaVgsmBq
+         2EVq30ozfRBIRDXhKLIbW2ZpQYtnL8IjnB5spu+tyEcmjGrSCFvJdT9//tl8mubqgG3C
+         eYHWBuzoBj0ETr9ZhAKkNozrz0ciO+0f1e+kp+5ghEXtas+9OAs/Ss5CHFF1gpj+xbos
+         cEWbDR+QaQq9n+Cek9Y4X9UMCiEsHa9CRH0CSaya6egF55BGarP8D/JZUuRl1rzfy1Ii
+         40nvkEbazXSBPAK4XjWVmkLZ5/GIIdwJalDxISDB9/uUb7ddLOC3/5ZiAtku7ruxu1RN
+         mHwQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=mojatatu.com; s=google; t=1788358791; x=1788963591; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Hvqo7YFW1dqU5IF1koaoFEnQPCsWNf4SP2mwIABHbpg=;
+        b=COeQ1iYH8q7opTb4W8XHhS7W9wHBDXm3BIZl6oy7/DiHVZB9dDla9T//zGHeJMEjD2
+         CZ/GGpy7Xp5rDd8vcSA9wQoPicOxEOa6rMqN1aCc5yHQceJOJ/pEnYIMXJexDkrmWd/5
+         Od9Ql9diFhkysjpD4YZiiHUCJqbM+OT/3ZWvo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788358791; x=1788963591;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Hvqo7YFW1dqU5IF1koaoFEnQPCsWNf4SP2mwIABHbpg=;
+        b=Ur/M7hqgIZBzuodLy4dPiB0bPixN5t+XFGiH06Gf7S2jF22V85TUAg3yzGG03ZwfIJ
+         KET3yoaeFcc4+tbDB+Lwkp1lxiqR2L0chjyo7veS+oci1YRh3rWTBkHaUu5LZdcR48X5
+         eSqTcfyMXUxSXfuhpeKBPrm2OeQ9Q79VnprqEvPa29Lu6dib8jO2balvH0cASwaMpDTK
+         amc9sF1Lshr9jJf0px2m2NxjXygnvRZ5WfSyImpIcPA8xmXjmile/it/wke8KCZKkWFN
+         tnRyh7klwIBneS7BtQGcrOLXboCYCMK91Ji31C+KlO0LiVM4mp1X+Hge0TvGxuW8Mx3v
+         92VQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxHANQKTpSg65CnjT0CDxzm/DvumR8ibTQ73XwzcSWu7j4ZA06NYKg0SdVuB/Z3kVJN0quJpcXUCb1/Qlw=@vger.kernel.org
+X-Gm-Message-State: AFuF++km62eyHC9gTDyigRAd6MSdZbfm+AG6KTzv9rzi8pJyCjSTQu3P
+	waUcB2T9ZaBC0k9QYtM7CPco3/WSRQDeidnA+VeQdcZWekPnE3VuRc6nX0wylgLauKUaHdU7kwr
+	MRYGRRVy5xd6b0fo44Tv7Mj45vZ3dX4rjaz8oyFXx
+X-Gm-Gg: AYBFou2QQxJC/zT51XDh4gRFbmM560X6ObwmqG561+UjfrXxgEmB7eIYwWgUK0jWMHV
+	H0tdrwmnNR+V3edjvZkiU4m0PoncjXHkMbVBTYp9pOzV3oxZLw7kOff7r5iG268SSRd3rGIu8x5
+	7CWZsh8HiKERX5PEbx2YLL6+Fodz0YcQMpCYFK3B/s/3Oc20ctra/7Y7NzGWmU39lO0befC+mDs
+	Qom83mxmYz8gFPaoXnEV2wxw8+Wbwa+g95Uv+yd3sXI3SU7Nlp1uF8uApKe9LZqmi10+sx80yaR
+	Wk54NpwSzUUTh7uVVRbdpx8dOSweEqn1mn3gFBjYbY0lNz+gWlUUt4fyqQwN1L0qPnvkw4McgBZ
+	pnoWiVKMt794Hp7JQrld3GnZZ0uOO
+X-Received: by 2002:a05:6a00:1d06:b0:84f:b01d:3693 with SMTP id
+ d2e1a72fcca58-85ed92cba5fmr8148322b3a.15.1788358790569; Wed, 02 Sep 2026
+ 07:19:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
+References: <20260902071659.395509-1-ruanjinjie@huawei.com>
+In-Reply-To: <20260902071659.395509-1-ruanjinjie@huawei.com>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Wed, 2 Sep 2026 10:19:38 -0400
+X-Gm-Features: AcwNN1UvCsBsrszWjzjo6WrPU1fBJsPuCIdttqUJvXgZUZvTNhdH0Wjh-Ea6nbY
+Message-ID: <CAM0EoMnZMUxc+gq_3xt9jT=Nb8x9NjXXXhp6JRjgOo0Dx530YQ@mail.gmail.com>
+Subject: Re: [PATCH net-next v3] net: sched: act_gact: use acquire/release for tcfg_ptype
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: jiri@resnulli.us, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On September 2, 2026 1:33:54 AM PDT, David Laight <david=2Elaight=2Elinux@g=
-mail=2Ecom> wrote:
->On Tue, 1 Sep 2026 15:16:58 +0200
->Jan Beulich <jbeulich@suse=2Ecom> wrote:
+On Wed, Sep 2, 2026 at 3:16=E2=80=AFAM Jinjie Ruan <ruanjinjie@huawei.com> =
+wrote:
 >
->> On 22=2E08=2E2026 20:33, Mauricio Faria de Oliveira wrote:
->> > According to the GCC documentation, conditions in the flags register
->> > (e=2Eg=2E, "=3D@ccnz") are output operands [1] and the compiler is aw=
-are [2]=2E
->> >=20
->> > Also, clobbers (e=2Eg=2E, "cc") may not overlap with an output operan=
-d [2]=2E
->> >=20
->> > Thus, remove the "cc" clobber as it is redudant, and overlaps with, t=
-he
->> > "=3D@ccnz" output operand=2E
->> >=20
->> >     """
->> >     6=2E11=2E2=2E4 Flag Output Operands
->> >=20
->> >         On some targets, a special form of output operand exists by w=
-hich
->> >         conditions in the flags register may be outputs of the asm=2E=
- [=2E=2E=2E]
->> >=20
->> >     6=2E11=2E2=2E6 Clobbers and Scratch Registers
->> >=20
->> >         While the compiler is aware of changes to entries listed in t=
-he
->> >         output operands, [=2E=2E=2E]
->> >=20
->> >         Clobber descriptions may not in any way overlap with an input=
- or
->> >         output operand=2E [=2E=2E=2E]
->> >     """
->> >=20
->> > Reported-by: "H=2E Peter Anvin" <hpa@zytor=2Ecom>
->> > Link: https://lore=2Ekernel=2Eorg/all/5e19b195-0ca2-4510-81cb-497b40e=
-4aaf5@zytor=2Ecom/
->> > Fixes: a8c171c107c0 ("x86/boot: Add volatile, clobbers and zero-lengt=
-h test in memcmp()")
->> > Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia=2Ecom>
->> > Link: https://gcc=2Egnu=2Eorg/onlinedocs/gcc/Extended-Asm=2Ehtml#Flag=
--Output-Operands [1]
->> > Link: https://gcc=2Egnu=2Eorg/onlinedocs/gcc/Extended-Asm=2Ehtml#Clob=
-bers-and-Scratch-Registers-1 [2] =20
->>=20
->> Reviewed-by: Jan Beulich <jbeulich@suse=2Ecom>
->>=20
->> > --- a/arch/x86/boot/string=2Ec
->> > +++ b/arch/x86/boot/string=2Ec
->> > @@ -40,7 +40,7 @@ int memcmp(const void *s1, const void *s2, size_t l=
-en)
->> >  	asm volatile("test %3, %3\n\t"
->> >  		     "repe cmpsb"
->> >  		     : "=3D@ccnz" (diff), "+D" (s1), "+S" (s2), "+c" (len)
->> > -		     : : "cc", "memory");
->> > +		     : : "memory"); =20
->>=20
->> In fact I'm using a modified gcc which properly rejects such conflictin=
-g
->> uses of output and clobber=2E ("cc" clobbers are redundant on x86 anywa=
-y=2E)
+> Replace the smp_wmb()/smp_rmb() barrier pair with
+> smp_store_release()/smp_load_acquire() on gact->tcfg_ptype.
+> tcf_gact_init() publishes tcfg_ptype via release after writing
+> tcfg_pval/tcfg_paction; tcf_gact_act() acquires it before
+> dispatching to gact_net_rand()/gact_determ(), ensuring the probability
+> parameters are visible.
 >
->And, if "cc" clobber wasn't redundant, you'd need clobbers for the cc fla=
-gs
->that weren't being used as output values=2E
+> No functional change intended.
 >
->David
->
->>=20
->> Jan
->>=20
->
+> Cc: Jamal Hadi Salim <jhs@mojatatu.com>
+> Cc: Jiri Pirko <jiri@resnulli.us>
+> Cc: "David S. Miller" <davem@davemloft.net>
+> Cc: Eric Dumazet <edumazet@google.com>
+> Cc: Jakub Kicinski <kuba@kernel.org>
+> Cc: Paolo Abeni <pabeni@redhat.com>
+> Cc: Simon Horman <horms@kernel.org>
+> Assisted-by: DeepSeek:DeepSeek-V3
+> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 
-No=2E The condition codes aren't orthogonal like that=2E There is only one=
- flags register=2E=20
+Reviewed-by: Jamal Hadi Salim <jhs@mojatatu.com>
 
-(On x86 I believe asm statements are assumed to clobber the flags uncondit=
-ionally, because it is so common=2E)
+cheers,
+jamal
+
+> ---
+> v3:
+> - Split out from following patch set as Kuniyuki suggested.
+> Link: https://lore.kernel.org/all/20260901024234.135119-1-ruanjinjie@huaw=
+ei.com/
+> ---
+>  net/sched/act_gact.c | 12 ++++--------
+>  1 file changed, 4 insertions(+), 8 deletions(-)
+>
+> diff --git a/net/sched/act_gact.c b/net/sched/act_gact.c
+> index 565860cccba6..d4f39f98e2cf 100644
+> --- a/net/sched/act_gact.c
+> +++ b/net/sched/act_gact.c
+> @@ -25,7 +25,6 @@ static struct tc_action_ops act_gact_ops;
+>  #ifdef CONFIG_GACT_PROB
+>  static int gact_net_rand(struct tcf_gact *gact)
+>  {
+> -       smp_rmb(); /* coupled with smp_wmb() in tcf_gact_init() */
+>         if (get_random_u32_below(gact->tcfg_pval))
+>                 return gact->tcf_action;
+>         return gact->tcfg_paction;
+> @@ -35,7 +34,6 @@ static int gact_determ(struct tcf_gact *gact)
+>  {
+>         u32 pack =3D atomic_inc_return(&gact->packets);
+>
+> -       smp_rmb(); /* coupled with smp_wmb() in tcf_gact_init() */
+>         if (pack % gact->tcfg_pval)
+>                 return gact->tcf_action;
+>         return gact->tcfg_paction;
+> @@ -133,11 +131,8 @@ static int tcf_gact_init(struct net *net, struct nla=
+ttr *nla,
+>         if (p_parm) {
+>                 gact->tcfg_paction =3D p_parm->paction;
+>                 gact->tcfg_pval    =3D max_t(u16, 1, p_parm->pval);
+> -               /* Make sure tcfg_pval is written before tcfg_ptype
+> -                * coupled with smp_rmb() in gact_net_rand() & gact_deter=
+m()
+> -                */
+> -               smp_wmb();
+> -               gact->tcfg_ptype   =3D p_parm->ptype;
+> +               /* Pairs with smp_load_acquire() in tcf_gact_act(). */
+> +               smp_store_release(&gact->tcfg_ptype, p_parm->ptype);
+>         }
+>  #endif
+>         spin_unlock_bh(&gact->tcf_lock);
+> @@ -160,7 +155,8 @@ TC_INDIRECT_SCOPE int tcf_gact_act(struct sk_buff *sk=
+b,
+>
+>  #ifdef CONFIG_GACT_PROB
+>         {
+> -       u32 ptype =3D READ_ONCE(gact->tcfg_ptype);
+> +       /* Pairs with smp_store_release() in tcf_gact_init() */
+> +       u32 ptype =3D smp_load_acquire(&gact->tcfg_ptype);
+>
+>         if (ptype)
+>                 action =3D gact_rand[ptype](gact);
+> --
+> 2.34.1
+>
