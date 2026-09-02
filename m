@@ -1,51 +1,64 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E52E46C4CD;
-	Wed,  2 Sep 2026 10:47:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 180AB320CBE
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:47:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788346068; cv=none; b=eDu6FnNnGgqcLl1QOvxRaIsMgPAuiR+FYbAlqjId3Kdr5h1q94a8V0g6T2dYNO5wFK4aktR22JfYMaXeEJY5HPgvzCMUaUhI4ml/yHeA7dBEqt/2if9ATVloSaF2PkF+Ns6qpIDjbvS0OgK5YrTy6TpCwMFSz2VAwuVqxbjwJH0=
+	t=1788346082; cv=none; b=NHHWuMkeBgbf3QyhOotllsCmFnBUPbWyGQAXDienv8erS4a9AWBoSLSQ7oDm+Ik8w+Yvrm23q9ROe5RHuLiSFfWzSY2lqLv//xrcd2q3D7SbHUXcx+qrUGfi6alXbZrwamG0dvILQQNBN3+Fd9oaVJQjv9N+zbfgrncaagpuzuw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788346068; c=relaxed/simple;
-	bh=T1eX0M1hUR91onB6YIMO4/r3htVRzHdZDrQE0+m3g/E=;
+	s=arc-20240116; t=1788346082; c=relaxed/simple;
+	bh=vZlG5m1ZAQCyWaYN4HLngxXQ5Pq996ykeeql5eKTPlw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mjGlkGbZ4PwfBsq52v90PRWnj/AQVNkDu+CEhAmuI19h0dzixpcqdWp3RLy2M1KLgak5J4XJAcaZ5LsNLmBfCvpA0NqAUU+Hvn3n5oehWuoYdRp7gEhmOqI5eVvPUkXq5qkVaOUIeccW89r70nsY7B5Zm/yjIKSbQqxEZZB8e8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ECMn3hjr; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=YzdN7X7Tfw2/T76llCWcSqG97Le9r8xf0LL7n5tHbYYOq7MvwFvbpcvS9mialN9PoqWNwrhEtLxhK0j0cJAPPMH0Jhy+WJISahoYJp1m5SxsuPN0StmhqCy2iEeYrdz7B3I0YOUFHeUKWoxhDDhGQ0IKp3a2e7y/TCHPYz/cQHU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Hb4ZwIvU; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ECMn3hjr"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Qt/W3DSxMQKIwG+yUDdW7Q2R2X7cicnF1/L0NrB0XIs=; b=ECMn3hjrfpjO+4jRc0BJUqRldG
-	C8pEzEh7EAe2mFlZ6f4a2lleEZ7PEM+QsgJr346Sy8Fy/yhlby7UPNX3JhH1RG+Y5AglE0pJP1FQy
-	wEj9lzPR40rM2WqAV0+LcLKb0PSBk/tMtNVuqB72N0v3kDMjMuem2dvLAxeuBxP+RsmhRb2ArqGUw
-	5UgHEtIj9vrq/1vzPHMU3avyhWXV/1RKw9VnXlqJPiLcjnE2RnjlGo/miLnynKIaZ8l8J0zIKOg7r
-	BY0TlTJCCVDapg6RVFC8yj5UgAK9J4pV2nD4kZYPaoKZv5FgVy8YG3V9NISPx/tukGxMyTiUVd8AV
-	zHiq5Pow==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x1iV8-0000000EOUL-1SWG;
-	Wed, 02 Sep 2026 10:47:30 +0000
-Date: Wed, 2 Sep 2026 03:47:30 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Salvatore Dipietro <dipiets@amazon.it>
-Cc: vbabka@kernel.org, hannes@cmpxchg.org, willy@infradead.org,
-	abuehaze@amazon.com, akpm@linux-foundation.org, alisaidi@amazon.com,
-	blakgeof@amazon.com, rvvandan@amazon.com, brauner@kernel.org,
-	dgc@kernel.org, dipietro.salvatore@gmail.com, djwong@kernel.org,
-	hch@infradead.org, jackmanb@google.com,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, linux-xfs@vger.kernel.org, mhocko@suse.com,
-	ritesh.list@gmail.com, stable@vger.kernel.org, surenb@google.com,
-	ziy@nvidia.com
-Subject: Re: [PATCH v3] mm/page_alloc: avoid direct compaction for costly
- __GFP_NORETRY allocations
-Message-ID: <apf-wsCj_5QvAPcV@infradead.org>
-References: <7ddb704c-76a9-4071-8969-06fa1403eb07@kernel.org>
- <20260827092100.3988386-1-dipiets@amazon.it>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Hb4ZwIvU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788346078; x=1819882078;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=vZlG5m1ZAQCyWaYN4HLngxXQ5Pq996ykeeql5eKTPlw=;
+  b=Hb4ZwIvU9a2MP8owNhp3NCO6mMMrhs8IuPXhr/InHuqmHKcUl1HkqEFr
+   Hr7vA64RKQ7fy+L0tV14uvNgxMETl6N96u/qONfv+VtxQx3j3LGEc4V5T
+   X3Ul3s1ug8FOFUlY4XCBTG5IgXFqY+q+/EhU7icKaGdLMDWHBqdBG2aAK
+   2MCtKXCCCcZ6k4ZMjrny1q7ItG9ou33XqQnx1XaW8XTH68kjNXESO+yBR
+   EsGm/PSo2nuL/UL6kfcNC/PTaoNmZ6QBD2qYxfyRpGMDOwbmen7XRb+t7
+   QCWbCNigeOSz+tImIufOyc/8L7rqoHh9wsPRBryPQqRzqwhk7SEeMTuTC
+   A==;
+X-CSE-ConnectionGUID: Ol+G78FXRGuvkz+IxRRF6A==
+X-CSE-MsgGUID: DqPdXr/UQoiK4oXx/vI2JQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="88726024"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="88726024"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 03:47:54 -0700
+X-CSE-ConnectionGUID: OAkEpfk3SP6H+5N8rxKlbg==
+X-CSE-MsgGUID: 98th5GGNQhWMXTtoR3GliQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="292884431"
+Received: from lkp-server01.sh.intel.com (HELO bfac249b2189) ([10.239.97.150])
+  by fmviesa002.fm.intel.com with ESMTP; 02 Sep 2026 03:47:52 -0700
+Received: from kbuild by bfac249b2189 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x1iVR-000000002Qk-1U2L;
+	Wed, 02 Sep 2026 10:47:49 +0000
+Date: Wed, 2 Sep 2026 18:47:14 +0800
+From: kernel test robot <lkp@intel.com>
+To: Qingfang Deng <qingfang.deng@linux.dev>,
+	Robin Murphy <robin.murphy@arm.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, Qingfang Deng <qingfang.deng@linux.dev>
+Subject: Re: [PATCH] dma-mapping: use exact allocation for DMA pages
+Message-ID: <202609021852.48BS9Wph-lkp@intel.com>
+References: <20260901085348.53140-1-qingfang.deng@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,30 +67,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260827092100.3988386-1-dipiets@amazon.it>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <20260901085348.53140-1-qingfang.deng@linux.dev>
 
-On Thu, Aug 27, 2026 at 09:21:00AM +0000, Salvatore Dipietro wrote:
-> 
-> On Wed, Jul 22, 2026 at 02:35:00PM +0200, Vlastimil Babka (SUSE) wrote:
-> > AFAICS both your v3 and the implemented Johannes' suggestion effectively
-> > make all the compact_first logic dead code - at least for the intended THP
-> > use case based on costly_order. It will only continue to do something for
-> > the non-movable order>0  case. So that's a significant change which will not
-> > show up in your results, but might affect other workloads (I'd expect mainly
-> > by having fewer THPs).
-> 
-> Right - the change above modifies THP allocation requests as well. So instead
-> of applying it to every costly __GFP_NORETRY allocation, I restrict it to
-> callers that do not ask for __GFP_THISNODE. That leaves the local-node THP
-> attempt untouched: the same bit pair is already tested further down the function 
-> to bail out of the compact_first block (page_alloc.c:4899), and alloc_pages_mpol()
-> sets both flags on the local-node-first attempt (mempolicy.c:2476-2478).
-> 
-> I tested this with my PostgreSQL workload on kernel v7.2-rc7 and results look good:
-> 
-> Baseline:       70,735 tps
-> This version:  144,670 tps  (145,280 / 144,037 / 144,694)  +104.5%
+Hi Qingfang,
 
-This looks really nice.  Can you turn this into a formal patch?
+kernel test robot noticed the following build warnings:
 
+[auto build test WARNING on linus/master]
+[also build test WARNING on v7.3-rc1 next-20260901]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Qingfang-Deng/dma-mapping-use-exact-allocation-for-DMA-pages/20260901-165347
+base:   linus/master
+patch link:    https://lore.kernel.org/r/20260901085348.53140-1-qingfang.deng%40linux.dev
+patch subject: [PATCH] dma-mapping: use exact allocation for DMA pages
+config: xtensa-allnoconfig (https://download.01.org/0day-ci/archive/20260902/202609021852.48BS9Wph-lkp@intel.com/config)
+compiler: xtensa-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260902/202609021852.48BS9Wph-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609021852.48BS9Wph-lkp@intel.com/
+
+All warnings (new ones prefixed by >>, old ones prefixed by <<):
+
+>> WARNING: modpost: vmlinux: section mismatch in reference: check_ram_in_range_map+0xc0 (section: .text) -> alloc_pages_exact_nid_noprof (section: .init.text)
+WARNING: modpost: vmlinux: section mismatch in reference: __dma_direct_alloc_pages.isra.0+0xab (section: .text) -> alloc_pages_exact_nid_noprof (section: .init.text)
+WARNING: modpost: vmlinux: section mismatch in reference: try_to_run_init_process+0x24 (section: .text.unlikely) -> initcall_level_names (section: .init.data)
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
