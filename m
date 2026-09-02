@@ -1,161 +1,279 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2FCC32B126
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:06:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D95E536308F;
+	Wed,  2 Sep 2026 14:06:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788357983; cv=none; b=IGlLpdSopyCjbn0oTaRJy1vVGrAzCiaOseSYt8mGL7kWmQp7rmxOXVP/ozNRtnJ6YV6sQjs2Z7oAGnG8osh3sAkXs9uR9kTYmnA+S6ewbQxpJJePWoa20Az+enezE403yoIFIsLDKyS33fyZbegNiHVJa7gmvdV9Yk2pxewsmUE=
+	t=1788357998; cv=none; b=hsStTv/1q9voCwc7BVEr/tPWyd2ygYO5ec4Q9xVci/TXh3gSL7D7yN4E8Cphwy5u9LEfvMT02F0IlK/VFFT/PHV3dhYQ9AUoSROTdNHIw76LInyFwEVLxdEpfdpIWGjqAyk4OPW17X2dpDYLBspJIzpX7Aj1zkL4HnYUhU/2W7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788357983; c=relaxed/simple;
-	bh=bPEh0Z/lnGL26i8mxJWhAdRns6x2B78RqoBO0c4kkQc=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=NnkJOdrJYFLZjPhu/m5giHF82u93G1qQ9F8Pu1KcgITKBZGQ5uHsMcDuJN7irHoZVRrtyJolsSIugr5e0lxr6mGDto9jxq+pPaPtxn2Mui912pCIdw0dJ4Sdl8DCMKF21A1lAZAra3+8R8bI1c1cbj3w+oDRZkpiduWdPCGrJOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=kEApHB3L; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=SjnLnZzJ; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1788357998; c=relaxed/simple;
+	bh=EIoe2mqPEJ5mgn/d4f/HDwaO1aLOzjVQ4OAM5V7D67s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ii8+pA+DQl1cOy4mVv+UBjxzEylLCMT0xtwaGg3uic8C8HC/5qw+9fkFDlNVCVJfk28h8DqQX4nKxZ3KZUXgo16AN7LitDSiYNXu8o8vMu/Shtww7CmdtuSUYwHtuHWFmktdCo0qNhLIHtHZSzWrzU80BsRSafKLLgBhjCQRVXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ov933JCl; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=DoezQ8Ri; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=NIME0esV; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=SIyIcNby; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="kEApHB3L";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="SjnLnZzJ"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788357974; bh=Yh0jUY/UkhTVKIwfR038cHy
-	Umi536MDRjqIhfBHdV9Y=; b=kEApHB3L3c/2qU7Q4iTJk1lqcnvdFlaCI2FzwKYIgUUiq8y9Yv
-	d71Wynez6A7XQlCwi13FIFsvXC5ui+VYstPiyzkZ0ED9A+sME9W4rJYsTd/DVexZcX+eAfLH2bX
-	JlKcE2wtN1QhXIpuxmfXaO+Ev13m7TupHejZ5Ni0gds863Fx0KM1tsrysWG3Ri0vu0wPadJVOyH
-	3QkBUIZs0dU/ddjEAgzGsEH6fgFsWaehE5Iwa0RyKnfs7IYD7ipuwcvShKAxXJlL7lIJ5Kql8nn
-	nsZPLYj8m5W+cyHqVhQKg8MpZOsxv1zHM/VFVVMUj1vaBiuK3JVxMNWuU1ysC7aGd9Q==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788357974; bh=Yh0jUY/UkhTVKIwfR038cHy
-	Umi536MDRjqIhfBHdV9Y=; b=SjnLnZzJB5zntGpbKnTzVZ8PAALKCHQGdxUjt9BZddML87CET/
-	LNhOo5CqaDZr8KNMlO9ePlKzdptTqczXDxBw==;
-Date: Wed, 02 Sep 2026 15:06:12 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Mark Rutland <mark.rutland@arm.com>
-CC: Will Deacon <will@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
- James Morse <james.morse@arm.com>, Marc Zyngier <maz@kernel.org>,
- Ard Biesheuvel <ardb@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/7] arm64: hibernate: dust off the suspend/cleanup rework
-In-Reply-To: <apgsm92KtXA7xh6H@J2N7QTR9R3.cambridge.arm.com>
-References: <20260825205839.14571-1-brads@mainlining.org> <apgpnjnJ4suhHh-v@J2N7QTR9R3.cambridge.arm.com> <B23E199A-2D3D-48B4-A7E9-9664371A7361@mainlining.org> <apgsm92KtXA7xh6H@J2N7QTR9R3.cambridge.arm.com>
-Message-ID: <8294D170-3378-4411-8771-CB7D9ACBC38E@mainlining.org>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ov933JCl";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="DoezQ8Ri";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="NIME0esV";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="SIyIcNby"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A162F21D17;
+	Wed,  2 Sep 2026 14:06:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788357990; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZbCDMIEfZFVatzaEEPp9gAsGk6EPyPCn6tMVBkwZzS4=;
+	b=ov933JClDQxCLII8uvFH82uzA0D7QF9xrNWMxCKvsnfyEHd1k2bBIkZdVR4LnLclFavPyp
+	Q33OLOi23RVosk0PKCgMKZN5EljSHHoaSoLCtcT7B05Zp3r/IXxNN+GIO1NpcA18j7dbuw
+	cXJQqqUyQpo/piTBpSkRIAE78TvNc7M=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788357990;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZbCDMIEfZFVatzaEEPp9gAsGk6EPyPCn6tMVBkwZzS4=;
+	b=DoezQ8RitsWz+7sIQVTS50EnlsFhD8ttkA7dWRCTIkAHGBgl4t9sYkdv5+ak641PLwlpJv
+	+W7wDZ8SsaUDKnAA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788357986; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZbCDMIEfZFVatzaEEPp9gAsGk6EPyPCn6tMVBkwZzS4=;
+	b=NIME0esVzi5zNshnI5Tuo9JjESdFmxlh4Y6pYS8Xw5Vv0QjtguF4r8EZlRqhotaQj+nzLY
+	DU4DfxbXmKbCTzrPgO/mZlXhScJK78edrSeWIZN6QeE5ppNnZMKVg5KwtbYUqfG+B+7Bkn
+	nqMxy4IzqFKxKTwbm33wG8mHc/7UPLg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788357986;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZbCDMIEfZFVatzaEEPp9gAsGk6EPyPCn6tMVBkwZzS4=;
+	b=SIyIcNbyXMy+y+uWsHCZjysVfdpxmR4IybhFpzzB//aFy5zWq0fyYQpYcudwcYxY3PQ7mY
+	cgBr5HlW5PahMiAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7964213515;
+	Wed,  2 Sep 2026 14:06:26 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id TMqdHWItmGq0fQAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 02 Sep 2026 14:06:26 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+	id 04131A13B5; Wed, 02 Sep 2026 16:06:21 +0200 (CEST)
+Date: Wed, 2 Sep 2026 16:06:21 +0200
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Christoph Hellwig <hch@lst.de>, 
+	Seth Forshee <sforshee@kernel.org>, Paul Moore <paul@paul-moore.com>, 
+	linux-security-module@vger.kernel.org, Mimi Zohar <zohar@linux.ibm.com>, 
+	linux-integrity@vger.kernel.org, Ilya Dryomov <idryomov@gmail.com>, ceph-devel@vger.kernel.org, 
+	Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, Miklos Szeredi <miklos@szeredi.hu>, 
+	Amir Goldstein <amir73il@gmail.com>, linux-unionfs@vger.kernel.org, 
+	Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 01/27] userns: pass const uid_gid_map in lookup helpers
+Message-ID: <622txnxnjbd4hezoqqwf7kyfqfxuon7oapf7n4pmx2pdltb4km@riyz7tb7vzs6>
+References: <20260901-work-idmap-const-v1-0-54ccd48e100b@kernel.org>
+ <20260901-work-idmap-const-v1-1-54ccd48e100b@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901-work-idmap-const-v1-1-54ccd48e100b@kernel.org>
+X-Spam-Score: -3.80
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.80 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.com:email];
+	RCPT_COUNT_TWELVE(0.00)[20];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,zeniv.linux.org.uk,suse.cz,lst.de,kernel.org,paul-moore.com,linux.ibm.com,gmail.com,szeredi.hu];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Flag: NO
 
-On 2 September 2026 15:03:07 BST, Mark Rutland <mark.rutland@arm.com>
-wrote:
->On Wed, Sep 02, 2026 at 02:51:22PM +0100, Bradley Morgan wrote:
->> On 2 September 2026 14:50:22 BST, Mark Rutland <mark.rutland@arm.com>
->> wrote:
->> >On Tue, Aug 25, 2026 at 08:58:32PM +0000, Bradley Morgan wrote:
->> >> This comes out of the hibernate resume discussion where Will asked if
->> >> the restored kernel's hyp vectors are reinstalled before we come back
->> >> from swsusp_arch_suspend() and free the reserved pages. Rather than
->> >> answer with a one off fix, this series reworks resume to look like a
->> >> resume from idle, which makes the answer fall out on its own.
->> >> 
->> >> The series leans on Mark Rutland's old work for inspiration, he had
->the
->> >> same end goal in a branch from back then:
->> >> 
->> >>  
->>
->>https://git.kernel.org/pub/scm/linux/kernel/git/mark/linux.git/log/?h=arm64/suspend/cleanup
->> >
->> >Most of the series seems to be a rebased of those patches, just with
->> >paraphrased commit messages and my S-o-B lines dropped. As commented on
->> >patch 4, I do not think that is appropriate.
->> 
->> Same question as patch 2
->> 
->> If you want your S-O-B added, ok fine, but yeah.
->
->As on patch 2, please read the documentation before continuing futher.
->
+On Tue 01-09-26 14:14:26, Christian Brauner wrote:
+> map_id_down(), map_id_up() and map_id_range_up() search the extents
+> of an idmapping and never modify it. Let all relevant helpers pass a
+> const struct uid_gid_map. Callers can now pass pass struct mnt_idmap as
+> const and pass down &idmap->uid_map and &idmap->gid_map.
+> 
+> No functional changes.
+> 
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Ack.
+Looks good. Feel free to add:
 
->> Do you think this series itself is good? 
->
->No. At present I think it's in a worse state than it was in my branch,
->because portions have changed, with no rationale and no clear benefit.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Sorry. I'm sure the points you will bring up on review will go into V2,
-andthen it should be better then.
+								Honza
 
->
->Hence my ask to Catalin and Will to NOT pick this up for now.
->
->Mark.
->
->> 
->> >
->> >I'll take a more in-depth look shortly.
->> 
->> thanks!
->> 
->> >
->> >Catalin, Will, for the moment please do not pick these up.
->> >
->> >Mark.
->> >
->> >> The short answer to the question: yes, but only because the rework
->makes
->> >> resume look like a resume from idle. We enter cpu_resume() at the
->> >highest
->> >> available EL with the MMU off, and the resumed kernel installs its
->own
->> >> hyp stub vectors into VBAR_EL2 through init_kernel_el() before
->anything
->> >> else runs, so by the time swsusp_free() releases the trans_pgd copies
->> >> nothing points at them anymore.
->> >> 
->> >> The series is structured so the first patch stands alone as a stable
->> >> worthy fix for the missing hvc arguments. The rest is the cleanup:
->the
->> >> stale init_kernel_el() comment gets corrected, MTE tag pages get
->freed
->> >> after save instead of leaking on failed hibernates, the fragile
->> >> _cpu_resume() calling convention gets split, and the last patch
->reworks
->> >> hibernate to use the regular cpu_resume() logic end to end.
->> >> 
->> >> Everything object compiles and passes checkpatch and sparse. I could
->not
->> >> boot or run a hibernate cycle on real hardware here, so that still
->wants
->> >> doing before anyone gets excited.
->> >> 
->> >> Bradley Morgan (7):
->> >>   arm64: hibernate: pass HVC_SET_VECTORS args to the resume hvc
->> >>   arm64: head: correct comment for init_kernel_el()
->> >>   arm64: hibernate: free MTE tag pages after saving
->> >>   arm64: hibernate: fix _cpu_resume() calling convention
->> >>   arm64: hibernate: use dcache_by_myline_op
->> >>   arm64: hibernate: only clean to PoC
->> >>   arm64: hibernate: use regular cpu_resume() logic
->> >> 
->> >>  arch/arm64/include/asm/suspend.h  |  1 -
->> >>  arch/arm64/kernel/head.S          |  6 +--
->> >>  arch/arm64/kernel/hibernate-asm.S | 87
->+++++++++++++++++++------------
->> >>  arch/arm64/kernel/hibernate.c     | 66 +++++++++++------------
->> >>  arch/arm64/kernel/sleep.S         |  6 +--
->> >>  5 files changed, 88 insertions(+), 78 deletions(-)
->> >> 
->> >> -- 
->> >> 2.47.3
->> 
->> --- Thanks!
->>
->https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
-
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+> ---
+>  include/linux/uidgid.h  | 12 ++++++------
+>  kernel/user_namespace.c | 28 ++++++++++++++--------------
+>  2 files changed, 20 insertions(+), 20 deletions(-)
+> 
+> diff --git a/include/linux/uidgid.h b/include/linux/uidgid.h
+> index 2dc767e08f54..02403629b49f 100644
+> --- a/include/linux/uidgid.h
+> +++ b/include/linux/uidgid.h
+> @@ -130,9 +130,9 @@ static inline bool kgid_has_mapping(struct user_namespace *ns, kgid_t gid)
+>  	return from_kgid(ns, gid) != (gid_t) -1;
+>  }
+>  
+> -u32 map_id_down(struct uid_gid_map *map, u32 id);
+> -u32 map_id_up(struct uid_gid_map *map, u32 id);
+> -u32 map_id_range_up(struct uid_gid_map *map, u32 id, u32 count);
+> +u32 map_id_down(const struct uid_gid_map *map, u32 id);
+> +u32 map_id_up(const struct uid_gid_map *map, u32 id);
+> +u32 map_id_range_up(const struct uid_gid_map *map, u32 id, u32 count);
+>  
+>  #else
+>  
+> @@ -182,17 +182,17 @@ static inline bool kgid_has_mapping(struct user_namespace *ns, kgid_t gid)
+>  	return gid_valid(gid);
+>  }
+>  
+> -static inline u32 map_id_down(struct uid_gid_map *map, u32 id)
+> +static inline u32 map_id_down(const struct uid_gid_map *map, u32 id)
+>  {
+>  	return id;
+>  }
+>  
+> -static inline u32 map_id_range_up(struct uid_gid_map *map, u32 id, u32 count)
+> +static inline u32 map_id_range_up(const struct uid_gid_map *map, u32 id, u32 count)
+>  {
+>  	return id;
+>  }
+>  
+> -static inline u32 map_id_up(struct uid_gid_map *map, u32 id)
+> +static inline u32 map_id_up(const struct uid_gid_map *map, u32 id)
+>  {
+>  	return id;
+>  }
+> diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
+> index 0bed462e9b2a..55b6bd75624b 100644
+> --- a/kernel/user_namespace.c
+> +++ b/kernel/user_namespace.c
+> @@ -278,8 +278,8 @@ static int cmp_map_id(const void *k, const void *e)
+>   * map_id_range_down_max - Find idmap via binary search in ordered idmap array.
+>   * Can only be called if number of mappings exceeds UID_GID_MAP_MAX_BASE_EXTENTS.
+>   */
+> -static struct uid_gid_extent *
+> -map_id_range_down_max(unsigned extents, struct uid_gid_map *map, u32 id, u32 count)
+> +static const struct uid_gid_extent *
+> +map_id_range_down_max(unsigned extents, const struct uid_gid_map *map, u32 id, u32 count)
+>  {
+>  	struct idmap_key key;
+>  
+> @@ -296,8 +296,8 @@ map_id_range_down_max(unsigned extents, struct uid_gid_map *map, u32 id, u32 cou
+>   * Can only be called if number of mappings is equal or less than
+>   * UID_GID_MAP_MAX_BASE_EXTENTS.
+>   */
+> -static struct uid_gid_extent *
+> -map_id_range_down_base(unsigned extents, struct uid_gid_map *map, u32 id, u32 count)
+> +static const struct uid_gid_extent *
+> +map_id_range_down_base(unsigned extents, const struct uid_gid_map *map, u32 id, u32 count)
+>  {
+>  	unsigned idx;
+>  	u32 first, last, id2;
+> @@ -315,9 +315,9 @@ map_id_range_down_base(unsigned extents, struct uid_gid_map *map, u32 id, u32 co
+>  	return NULL;
+>  }
+>  
+> -static u32 map_id_range_down(struct uid_gid_map *map, u32 id, u32 count)
+> +static u32 map_id_range_down(const struct uid_gid_map *map, u32 id, u32 count)
+>  {
+> -	struct uid_gid_extent *extent;
+> +	const struct uid_gid_extent *extent;
+>  	unsigned extents = map->nr_extents;
+>  	smp_rmb();
+>  
+> @@ -335,7 +335,7 @@ static u32 map_id_range_down(struct uid_gid_map *map, u32 id, u32 count)
+>  	return id;
+>  }
+>  
+> -u32 map_id_down(struct uid_gid_map *map, u32 id)
+> +u32 map_id_down(const struct uid_gid_map *map, u32 id)
+>  {
+>  	return map_id_range_down(map, id, 1);
+>  }
+> @@ -345,8 +345,8 @@ u32 map_id_down(struct uid_gid_map *map, u32 id)
+>   * Can only be called if number of mappings is equal or less than
+>   * UID_GID_MAP_MAX_BASE_EXTENTS.
+>   */
+> -static struct uid_gid_extent *
+> -map_id_range_up_base(unsigned extents, struct uid_gid_map *map, u32 id, u32 count)
+> +static const struct uid_gid_extent *
+> +map_id_range_up_base(unsigned extents, const struct uid_gid_map *map, u32 id, u32 count)
+>  {
+>  	unsigned idx;
+>  	u32 first, last, id2;
+> @@ -368,8 +368,8 @@ map_id_range_up_base(unsigned extents, struct uid_gid_map *map, u32 id, u32 coun
+>   * map_id_up_max - Find idmap via binary search in ordered idmap array.
+>   * Can only be called if number of mappings exceeds UID_GID_MAP_MAX_BASE_EXTENTS.
+>   */
+> -static struct uid_gid_extent *
+> -map_id_range_up_max(unsigned extents, struct uid_gid_map *map, u32 id, u32 count)
+> +static const struct uid_gid_extent *
+> +map_id_range_up_max(unsigned extents, const struct uid_gid_map *map, u32 id, u32 count)
+>  {
+>  	struct idmap_key key;
+>  
+> @@ -381,9 +381,9 @@ map_id_range_up_max(unsigned extents, struct uid_gid_map *map, u32 id, u32 count
+>  		       sizeof(struct uid_gid_extent), cmp_map_id);
+>  }
+>  
+> -u32 map_id_range_up(struct uid_gid_map *map, u32 id, u32 count)
+> +u32 map_id_range_up(const struct uid_gid_map *map, u32 id, u32 count)
+>  {
+> -	struct uid_gid_extent *extent;
+> +	const struct uid_gid_extent *extent;
+>  	unsigned extents = map->nr_extents;
+>  	smp_rmb();
+>  
+> @@ -401,7 +401,7 @@ u32 map_id_range_up(struct uid_gid_map *map, u32 id, u32 count)
+>  	return id;
+>  }
+>  
+> -u32 map_id_up(struct uid_gid_map *map, u32 id)
+> +u32 map_id_up(const struct uid_gid_map *map, u32 id)
+>  {
+>  	return map_id_range_up(map, id, 1);
+>  }
+> 
+> -- 
+> 2.53.0
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
