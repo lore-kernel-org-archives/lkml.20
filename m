@@ -1,74 +1,64 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 207D2494805
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:40:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1758494A0B
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:40:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352838; cv=none; b=DyctcdTfkoc8lXpF2sJE2odpIlgCFYtPaJEI0UjnV/LDVAQmlacUZIDeVod9jp7nyGKyw7nYNbLCid7ATfbiBfVlMZffp2UDJond5j5FtAUKHMEe82BYs6osDRbEcG/hsxVAs7p21iwwJo73eBiOVOe9KDOtD5mv+qO2ZcBNlBQ=
+	t=1788352839; cv=none; b=ajXDrArAtoz/YHvS7OoM7jnu1x4QHZcgCdKbFcI7KGsSvyJxlMlswfQGu12wEsDvDlxTdYYgVcJGOwdnZeAU1SmSw8Q8Bb3AYCSpX3PBTKV0qYEtmxgxsmZHmDXOVZAj1egnbOsnNyr2EBEFCtYtIRiPHAebeMnxMXj/yd8OxJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352838; c=relaxed/simple;
-	bh=KbRa9OXMvWHbzr+Yyu5aHHJkUVl5pkx6HyWv8NOq5RY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=igls0xNc9Ztc9R09csXNcYj5F+NdW1twJdp9PjnlVs5CNfl/DcWuiprSCOIbB8FsZZsYLdDpUfC6K1dt+c3NjC2PznIQkgSgmKc7xbnCT8H848qxrXJMqaxCOxssHwwPHlSP+QTuASHGFsDkmkieOwp0nAXDiZqN35RQXSsEn28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b=hJzghgaQ; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ionos.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
+	s=arc-20240116; t=1788352839; c=relaxed/simple;
+	bh=APOsm8JAmb4xKko1LI/DErr6AxacMhKSZv2IlIg/kzw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OQ3SyMp+OSHkbdZ3F+sY91SCvC7so2T1nTSMHA2nV0rNqSW4A4ss1qpMvJ+qZzn4gmbXpZVh6C37lzmcuxRoGL0v1bO6TiPPxYmPV87pLGS+Yt1/iA742PbtvfzZxHcncNSQBWTpSaG8UUWRb0amfovKQpEnVGZ/Vn2o/G0TR0M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JCenzcQ7; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ionos.com header.i=@ionos.com header.b="hJzghgaQ"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49ccfae359fso6906725e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:40:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ionos.com; s=google; t=1788352833; x=1788957633; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dduSWCdsI4IWacKJ2a51JLCsc2/3qyPJmTbv/oB0hkY=;
-        b=hJzghgaQoHUSsm/XrXDPfiaHYSJCe2yYOQedKFbBkrfUqhO1OpszszTM/1YickVNoh
-         MlcBLrurF1LDKE9isyOsrw9WQSQL+Fguij+onxURhVXFODPTbFPRNu5+XMFVzQFzhTFm
-         Y03anrgCXOzkeC9ddHJJBKZ7PPtidn3pd4SN3o0E9otTScr59SzFYL1qQgPWvFzDUOHF
-         JGX1sDSffYDHk6DhtIqQtlZAQOMP5Unw8gGtiSJvATUZQJ3S7ub9Ce0hu+Uk6zfApaCI
-         S4d1lu1NCM5jxH4O3+OFX7cQbcVk2YwNsxX28ULWhWG8P6BpwZGIeWi+fMmgU7dqPoc0
-         gJsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788352833; x=1788957633;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dduSWCdsI4IWacKJ2a51JLCsc2/3qyPJmTbv/oB0hkY=;
-        b=lKGVRpgUCfr6C4wZcefetmMyEK7iimRRuSZ+Ky1UquwYPe35HMkTRmGvdbcXVvjqpx
-         HaTWxRPK+sGUbqynWXWXAxpzbdqqQ8S2MxYdYmFj1zlKcylrBfsYyO/MH6ZZUMLVRDgY
-         a8bysA5E4JkOH3JR4svzLO5/6TX+1bUKptajdX1S1Lr5+XUdg6oqr0KI2jZd/TSJBaVO
-         OJvt1sa6W7opca90LDu8RDpptH3y/cwO1lFkjUG+9vCzBtBByuZt8kp1Sks6RamI8w+M
-         JpSR9TinHB/eehoBxmEOyNItWUMxCJeWWdECNMX0gOx4EKgB/R51jXaw7GCMDe27EAKO
-         BM1A==
-X-Forwarded-Encrypted: i=1; AHgh+Rraurc0HGUrJRVudPX2nyIVphL5VZ1FfgRrqn+m0QUyyfYUulVFSKK9/0DiD6X7XqwA19++Q41uyIu++PA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kUzNtppjHkX2377r6RhsY2YY3zxsWpFriiL0SAwd8mkvSN34CP
-	UuDn3zXP65Zbc3+krGBW6sj3IfbdAs2PknxF8cEPVT2dt1DBpvc474cZX7PaO1xwNw0=
-X-Gm-Gg: AR+sD11F89QTP4XJQxBGV0KgYgk+PbJsGdVWJGfyKpii/Z4Kl4mlEZpiBKm98d3KDfp
-	xDnAhUz7n9Ol0cbr2WusoyVJmRoKJUnikGrg9KF82isXOk8FCerb6tW2AbZXUMpUe9oAVigqpsb
-	+guBDf0JqiHTAJA6d2MZuSdW8orpHvb359xfSQUwS0GE48ZEUjw1kRt+pzxnkJUwp4uxX43m649
-	+G691H5MYuAwE9xnrdi05G/a09TqRhRT+06HF/l8c77Jaq6Cpuamz3wvDjvy6KMwkjfHw3+8aUB
-	hn80NicOh4rXjszf7EjX/EZXopdeozMSFgNUVLB2JgpQzBVpqtgzeY3lT9gwH9iKvqfthRIvyHF
-	DM5Yqsge4jNsxcxL/x0RCKsDMqt4zyGw6p0B8XNngF8mg1YfVn6dHy9Zvn6kbycIO7hZUeLioEC
-	ZaZG9B2OoVaB+ydJmn85pNIndROVNXREenvdfkiwKP+qlWOUoWT6fNCgci7olyyGEeEhQvt9Bar
-	IKVulhER0KPYnKRyzZlOPNIBIxm03W62ci+Myk+aP4yjmvF2cJszzwQfOeEfs3k
-X-Received: by 2002:a05:600c:c170:b0:49b:d45:703e with SMTP id 5b1f17b1804b1-49ce57f072fmr99509425e9.8.1788352833093;
-        Wed, 02 Sep 2026 05:40:33 -0700 (PDT)
-Received: from raven.intern.cm-ag (p200300dc6f02b200023064fffe740809.dip0.t-ipconnect.de. [2003:dc:6f02:b200:230:64ff:fe74:809])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce7d04c69sm33742725e9.8.2026.09.02.05.40.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 05:40:32 -0700 (PDT)
-From: Max Kellermann <max.kellermann@ionos.com>
-To: idryomov@gmail.com,
-	amarkuze@redhat.com,
-	xiubo.li@clyso.com,
-	ceph-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Max Kellermann <max.kellermann@ionos.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] ceph: acquire caps for read_folio requests without an rw context
-Date: Wed,  2 Sep 2026 14:40:26 +0200
-Message-ID: <20260902124026.1774575-1-max.kellermann@ionos.com>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JCenzcQ7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788352836;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=UCxPgKyWjQRuxjOhKVOZFlCvpZ99tG2XrAFjK938emU=;
+	b=JCenzcQ786FWPo7t2V7UhNOfyWtWtyO6+FII7jKJ8TMpo6vk7jakl3E31F35ToZ9PscN+8
+	yldYMQvuYJtgvqhfL6lodPm0BU2YhvHUBtLRK3AIt9ZLrSLprkOVc/tNQ7CoQr/txcmCFv
+	SJGOI2sffqsqI/DuCSVDLxgEL6s0MDE=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-383-R92UWmuJNqy746IuVZLbwA-1; Wed,
+ 02 Sept 2026 08:40:34 -0400
+X-MC-Unique: R92UWmuJNqy746IuVZLbwA-1
+X-Mimecast-MFC-AGG-ID: R92UWmuJNqy746IuVZLbwA_1788352832
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id B1D9E1802149;
+	Wed,  2 Sep 2026 12:40:32 +0000 (UTC)
+Received: from vschneid-thinkpadt14sgen2i.remote.csb (unknown [10.44.33.19])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C5C1B1955F72;
+	Wed,  2 Sep 2026 12:40:28 +0000 (UTC)
+From: Valentin Schneider <vschneid@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org
+Cc: Tomas Glozar <tglozar@redhat.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Costa Shulyupin <costa.shul@redhat.com>,
+	Crystal Wood <crwood@redhat.com>,
+	John Kacur <jkacur@redhat.com>,
+	Ivan Pravdin <ipravdin.official@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>
+Subject: [PATCH v5 4/8] rtla/osnoise: Allow IPI filters to gracefully fail
+Date: Wed,  2 Sep 2026 14:39:33 +0200
+Message-ID: <20260902123942.695822-5-vschneid@redhat.com>
+In-Reply-To: <20260902123942.695822-1-vschneid@redhat.com>
+References: <20260902123942.695822-1-vschneid@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -76,169 +66,125 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-This fixes a data corruption problem that leaked permanently into
-fscache.  File-backed erofs images are read using
-read_mapping_folio(), and the Ceph implementation of this call forgets
-to acquire Ceph caps.  Therefore, mounting an erofs image file from a
-Ceph mount that was just written (but not yet committed to the OSD)
-would fail because the erofs code saw only zero-filled pages.  These
-zero-filled backes were then copied to the fscache, making this data
-corruption permanent (on this host).
+Kernels pre v6.6 won't have:
 
-Usually, Ceph checks/acquires caps at its own entry points and not in
-the `address_space_operations`: ceph_read_iter() and
-ceph_filemap_fault() acquire Fr/Fc before calling filemap_read() or
-filemap_fault(), and ceph_write_iter() holds Fw/Fb around write_begin.
+  39f7c41c908b ("tracing/filters: Enable filtering a cpumask field by another cpumask")
 
-Only readahead, which the VM can invoke without a Ceph entry point
-above it, checks caps itself.  That check was added by commit
-2b1ac852eb67 ("ceph: try getting buffer capability for readahead/fadvise")
-in 2016 to the readpages path, converted to the rw
-context list by commit 5d988308283e ("ceph: track read contexts in
-ceph_file_info"), and moved into ceph_init_request() for
-`origin==NETFS_READAHEAD` by commit a5c9dc445139 ("ceph: Make
-ceph_init_request() check caps on readahead").
+and thus won't be able to filter events using a user-provided cpumask, but
+will still be capable of recording IPI events.
 
-The single-folio read path never had such a check, neither in the old
-ceph_readpage() nor in netfs_read_folio() via ceph_init_request().  It
-assumes that the `read_folio` method is only ever reached from
-filemap_read() or filemap_fault(), both of which Ceph wraps.
+Make failing to set a filter for IPI events an acceptable error and fall
+back to event handlers that do the filtering job themselves.
 
-However, since Linux 6.12, erofs file-backed mounts
-(commit ce63cb62d794 ("erofs: support unencoded inodes for fileio"))
-read all metadata (including the superblock) by calling
-read_mapping_folio() directly on the backing file's mapping.  On Ceph,
-this issues an OSD read without holding any caps.
-
-The result is silent data corruption.  Ceph clients do not write back
-dirty pages on close(); a writer keeps Fb and its dirty data until the
-MDS revokes the cap.  When another client opens the file, the MDS
-initiates that revoke and replies to the open immediately.  A read()
-would now block in ceph_get_caps() until the writer has flushed and
-acked the cap-revoke, but the erofs superblock read goes to the OSD
-without acquiring caps and thus races with the writeback.  If the
-object does not exist yet, the OSD returns -ENOENT, which
-finish_netfs_read() treats as "success, no data", and netfs zero-fills
-the folio.  The folio is marked uptodate and, because it counts as
-downloaded from the server, is also copied into fscache.  This never
-recovers because Ceph invalidates the page cache and fscache only when
-Fc is revoked, but gaining Fc later will not invalidate it.
-
-My patch fixes this in ceph_init_request() by reusing the existing
-`NETFS_READAHEAD` code for `NETFS_READPAGE`, but uses
-__ceph_get_caps() instead of ceph_try_get_caps() to make it blocking
-(something which would be undesirable for readahead).
-
-Fixes: ce63cb62d794 ("erofs: support unencoded inodes for fileio")
-Cc: stable@vger.kernel.org
-Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
+Suggested-by: Tomas Glozar <tglozar@redhat.com>
+Signed-off-by: Valentin Schneider <vschneid@redhat.com>
 ---
- fs/ceph/addr.c | 69 ++++++++++++++++++++++++++++++++------------------
- 1 file changed, 45 insertions(+), 24 deletions(-)
+ tools/tracing/rtla/src/osnoise_top.c | 49 +++++++++++++++++++++++++---
+ 1 file changed, 45 insertions(+), 4 deletions(-)
 
-diff --git a/fs/ceph/addr.c b/fs/ceph/addr.c
-index 657c2cb0f881..580b45a68a75 100644
---- a/fs/ceph/addr.c
-+++ b/fs/ceph/addr.c
-@@ -468,6 +468,7 @@ static int ceph_init_request(struct netfs_io_request *rreq, struct file *file)
- 	struct inode *inode = rreq->inode;
- 	struct ceph_fs_client *fsc = ceph_inode_to_fs_client(inode);
- 	struct ceph_client *cl = ceph_inode_to_client(inode);
-+	struct ceph_file_info *fi = file ? file->private_data : NULL;
- 	int got = 0, want = CEPH_CAP_FILE_CACHE;
- 	struct ceph_netfs_request_data *priv;
- 	int ret = 0;
-@@ -475,45 +476,65 @@ static int ceph_init_request(struct netfs_io_request *rreq, struct file *file)
- 	/* [DEPRECATED] Use PG_private_2 to mark folio being written to the cache. */
- 	__set_bit(NETFS_RREQ_USE_PGPRIV2, &rreq->flags);
+diff --git a/tools/tracing/rtla/src/osnoise_top.c b/tools/tracing/rtla/src/osnoise_top.c
+index 353b435fefcf8..afab2f341a1e9 100644
+--- a/tools/tracing/rtla/src/osnoise_top.c
++++ b/tools/tracing/rtla/src/osnoise_top.c
+@@ -313,6 +313,30 @@ osnoise_ipi_cpu_handler(struct trace_seq *s, struct tep_record *record,
+ 	return 0;
+ }
  
--	if (rreq->origin != NETFS_READAHEAD)
-+	if (rreq->origin != NETFS_READAHEAD && rreq->origin != NETFS_READPAGE)
- 		return 0;
++/*
++ * osnoise_ipi_cpu_unfiltered_handler - this is the handler for single CPU IPI
++ *                                      events. Slightly less optimized than
++ *                                      the filtered variant.
++ */
++static int
++osnoise_ipi_cpu_unfiltered_handler(struct trace_seq *s, struct tep_record *record,
++		     struct tep_event *event, void *context)
++{
++	struct osnoise_tool *tool;
++	unsigned long long dst_cpu;
++	struct osnoise_params *params;
++	struct trace_instance *trace = context;
++
++	tool = container_of(trace, struct osnoise_tool, trace);
++	params = to_osnoise_params(tool->params);
++	tep_get_field_val(s, event, "cpu", record, &dst_cpu, 1);
++
++	if (CPU_ISSET(dst_cpu, &params->common.monitored_cpus))
++		account_ipi(tool, dst_cpu);
++
++	return 0;
++}
++
+ static cpu_set_t cpumask_tmp_cpus;
  
- 	priv = kzalloc_obj(*priv, GFP_NOFS);
- 	if (!priv)
- 		return -ENOMEM;
+ /*
+@@ -343,7 +367,7 @@ osnoise_ipi_cpumask_handler(struct trace_seq *s, struct tep_record *record,
+ 	}
  
--	if (file) {
--		struct ceph_rw_context *rw_ctx;
--		struct ceph_file_info *fi = file->private_data;
--
-+	if (fi) {
- 		priv->file_ra_pages = file->f_ra.ra_pages;
- 		priv->file_ra_disabled = file->f_mode & FMODE_RANDOM;
+ 	/*
+-	 * Despite already filtering for such an intersection, we need to compute
++	 * Even if already filtering for such an intersection, we need to compute
+ 	 * the intersection here as the @cpumask field may contain non-monitored
+ 	 * CPUs.
+ 	 */
+@@ -368,6 +392,7 @@ osnoise_ipi_cpumask_handler(struct trace_seq *s, struct tep_record *record,
+  */
+ struct osnoise_tool *osnoise_init_top(struct common_params *params)
+ {
++	bool ipi_filters_enabled = false;
+ 	struct osnoise_tool *tool;
+ 	int retval;
  
--		rw_ctx = ceph_find_rw_context(fi);
--		if (rw_ctx) {
-+		/*
-+		 * ceph_read_iter() and ceph_filemap_fault() hold caps and
-+		 * register an rw context before entering the page cache.
-+		 */
-+		if (ceph_find_rw_context(fi)) {
- 			rreq->netfs_priv = priv;
- 			return 0;
+@@ -402,6 +427,8 @@ struct osnoise_tool *osnoise_init_top(struct common_params *params)
+ 	/*
+ 	 * If tracing on a subset of possible CPUs, leverage the kernel filtering
+ 	 * infrastructure to only generate events on traced CPUs.
++	 * Older kernels (pre v6.6) may have the IPI events but not the ability
++	 * to filter them, so allow that to fail gracefully.
+ 	 */
+ 	if (params->cpus) {
+ 		char filter[MAX_PATH];
+@@ -411,8 +438,8 @@ struct osnoise_tool *osnoise_init_top(struct common_params *params)
+ 						  "ipi", "ipi_send_cpu", "filter",
+ 						  filter);
+ 		if (retval < 0) {
+-			err_msg("Could not set ipi_send_cpu CPU filter\n");
+-			goto out_err;
++			debug_msg("Could not set ipi_send_cpu CPU filter\n");
++			goto no_filter;
  		}
+ 
+ 
+@@ -421,13 +448,27 @@ struct osnoise_tool *osnoise_init_top(struct common_params *params)
+ 						  "ipi", "ipi_send_cpumask", "filter",
+ 						  filter);
+ 		if (retval < 0) {
++			/*
++			 * If we managed to set up the previous filter but not
++			 * this one, something's really wrong
++			 */
+ 			err_msg("Could not set ipi_send_cpumask CPU filter\n");
+ 			goto out_err;
+ 		}
++
++		ipi_filters_enabled = true;
  	}
++no_filter:
  
--	/*
--	 * readahead callers do not necessarily hold Fcb caps
--	 * (e.g. fadvise, madvise).
--	 */
--	ret = ceph_try_get_caps(inode, CEPH_CAP_FILE_RD, want, true, &got);
--	if (ret < 0) {
--		doutc(cl, "%llx.%llx, error getting cap\n", ceph_vinop(inode));
--		goto out;
--	}
-+	if (rreq->origin == NETFS_READAHEAD) {
-+		/*
-+		 * readahead callers do not necessarily hold Fcb caps
-+		 * (e.g. fadvise, madvise).  Readahead is optional, so do
-+		 * not block; without caps the VM falls back to read_folio.
-+		 */
-+		ret = ceph_try_get_caps(inode, CEPH_CAP_FILE_RD, want, true,
-+					&got);
-+		if (ret < 0) {
-+			doutc(cl, "%llx.%llx, error getting cap\n",
-+			      ceph_vinop(inode));
-+			goto out;
-+		}
++	/*
++	 * If no filtering is available and we're tracing all CPUs, we can still
++	 * use the filtered callback since stats are collected for all CPUs.
++	 */
+ 	tep_register_event_handler(tool->trace.tep, -1, "ipi", "ipi_send_cpu",
+-				   osnoise_ipi_cpu_handler, NULL);
++				   (!params->cpus || ipi_filters_enabled) ?
++				   osnoise_ipi_cpu_handler :
++				   osnoise_ipi_cpu_unfiltered_handler,
++				   NULL);
  
--	if (!(got & want)) {
--		doutc(cl, "%llx.%llx, no cache cap\n", ceph_vinop(inode));
--		ret = -EACCES;
--		goto out;
--	}
--	if (ret == 0) {
--		ret = -EACCES;
--		goto out;
-+		if (!(got & want)) {
-+			doutc(cl, "%llx.%llx, no cache cap\n", ceph_vinop(inode));
-+			ret = -EACCES;
-+			goto out;
-+		}
-+		if (ret == 0) {
-+			ret = -EACCES;
-+			goto out;
-+		}
-+	} else {
-+		/*
-+		 * Make sure we have caps, just in case read_folio was
-+		 * called directly (e.g. by erofs) which may have
-+		 * bypassed the usual Ceph cap checks.  This branch
-+		 * uses __ceph_get_caps() which blocks until the
-+		 * required cap has been granted.
-+		 */
-+		ret = __ceph_get_caps(inode, fi, CEPH_CAP_FILE_RD, want, -1,
-+				      &got);
-+		if (ret < 0) {
-+			doutc(cl, "%llx.%llx, error getting cap\n",
-+			      ceph_vinop(inode));
-+			goto out;
-+		}
- 	}
- 
- 	priv->caps = got;
+ 	tep_register_event_handler(tool->trace.tep, -1, "ipi", "ipi_send_cpumask",
+ 				   osnoise_ipi_cpumask_handler, NULL);
 -- 
-2.47.3
+2.55.0
 
