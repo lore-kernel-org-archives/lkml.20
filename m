@@ -1,156 +1,182 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8E13B5318
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:14:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7354647F2C8
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:17:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788351283; cv=none; b=hVZpcS3xFeNBbcHaYCpHWai36XqI9XxIzesOry7Bs7fy+NQCfkne0YMAxaKKTZ8iBCkskTBZCTZWPHBWTkWaBrJnRNoLYW9+wYnuqW5HdDgdg01eTEScKY1jk7WYWmiHKw+d2RjYOwmDM3iYPI9Jov6uJ9dcn3quNBAqZFAwooc=
+	t=1788351426; cv=none; b=Ppir1ZnxXVxTTMp1T2yRUGcGmfzhYZbfySRJwn88XOk7/PTQmu7HgXp/ewHAqIUMsV47WdWcbQJubUzxlRcmT0CaJf8pamHcmF1kxFy0CfjDFhzADM/PSJZLfE0/W+8sZnEIvptOsJCEOXlVOTi5WupEMTPuZ8gl+ZKaMu9XxSE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788351283; c=relaxed/simple;
-	bh=4Qglmckg5ZZOC4FNuS9plcraHgT9WetBEDqCdkvpzIQ=;
-	h=From:Message-ID:Date:MIME-Version:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=XddFvZlwBdKVYDbabO0xOjkcX8q3IM6VmPUdPRBsi6NqWaFItI07OT/QbvT3DAk4AkoIGur+1XaRU9EuwyjofgH+S9sWsZc8bn/BOayoWZqOhylFjUlFqMF3PKoInzkNoSyyWPBLGivZ2w26E1OHNAJwp78PrGifk0/7ORMCmWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qDES0Utt; arc=none smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788351426; c=relaxed/simple;
+	bh=KiuQi7KyeiZxotF4pe9yz/R7uxutNRVzafURAOqLelg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tXTA98WL/0ijOr8jktUeWdzl0fIvq5722IkbdpNbIuDS7mtVg7p6y5j73nshLWa9As0VrMhE6QCebffLfk+VT8ca1k74T4aAb/1Z1SDJiZi5Dt30FIenfIEaqzoLhYW+SAXioESSrNbl1hH9NXC7NIyD2Tn5QC28f/sIYLuy3KQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=SpmL80vs; arc=none smtp.client-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qDES0Utt"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c2533d83e3bso132755166b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:14:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="SpmL80vs"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-517dc520840so10896741cf.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:17:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788351278; x=1788956078; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F/JVKCwTpBvW1MaS3JQ86ucWRa6O3vTXyHiZVvmohp0=;
-        b=qDES0Utt0CZI0iv+P+sgYdjhW4dEYISulRW9H73cnMOgU7jMvXc/Ms3pByM/68yU74
-         cjFsCFALvCAtSkOULDO5sa2dxtWBMKIevwYHor2MJZiz9hkFtcee3teFQJt9OzUEyCbm
-         dSMlHXTXq2DfFmtMchrPSM7JNSWHKk4iSn2N06cmH/YhVcwSVV2BMUNpMZLKlo7eO22I
-         AXDX0kDUUcMqXUACZU3vbSCfnfW3RSXkppCdh0tkUjI2ANnZJMr5v0xGbHt98cKrK9bj
-         BCHPMZDzNAvDCZDdV7F17OI1De6dmd2kTrzWomA+X6auDuXu4S4BchqqMGtLsEXqMEiD
-         uckA==
+        d=ziepe.ca; s=google; t=1788351423; x=1788956223; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WlwW9UoqChuDQG8Ubc8yfsDP24EvYv1xxnKt9rNQ+co=;
+        b=SpmL80vsb+J9AHbR5AUFpou/JKMuzavAKxeGa3xXoh9/bQeYRocZtohwpLFIvcjPnq
+         R6S+BsEQEaKVVqee1PgowGrsH25+oDOX+jit8bpTRP3tto0zMh67amp7mL+YrMZpC5fI
+         FpTpF78vgigFcx4Jg8LqxcrECcXbsqh5AfpMOni4YzCGjU65711jBvRK1F5pHvmn3md4
+         Rz8zTLynsiDOfwmFNx6rBwKx5v0a9OWHBDd7CV+XyzRJCF2p+3s2IkLNV8+LuGuFd30H
+         PS1Kaf7sEBaA+3CAVxAnoogZNXdHrthjX/G4+6OYQybfO/n4wLIzWXbG3d89h5qJDXwo
+         BQRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788351278; x=1788956078;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=F/JVKCwTpBvW1MaS3JQ86ucWRa6O3vTXyHiZVvmohp0=;
-        b=PlaY+7G+2rh5CFUHm0X3v+YwmpR1cZn6iWs2untOnZIZU8yJ9YzVOzVqjGWkrm/O4T
-         pn1/e6n5Q3a35WUf1/bHqg1v3Hek3d/LaQrjol2Xer1WXelH61BmZ1ztuIRXW3HpVuRq
-         czYFncP2AIMlJDU61PcBat77DnxdqfcO7F2UoJEodJzPosYdp3RoBLCFY2DWOwD19wtO
-         06vQOShA7wdMAgox6Am38FnupDVebD5JB6a4ooaC6W92y+3BOWjRi50/M8C2Me6bhWGv
-         kiXd3IfodCVBUMF2oKAr6eTPA3NT2ISwb2aVCKd+s8T8L6kadTCzuZfSxzUgc55wqflR
-         h/NQ==
-X-Forwarded-Encrypted: i=1; AKwUvByIHoeuu4AMG9RlX0ZxrImD57oHeuD15+D1TtOaS+FYWWIxVCQkShDFjGuH6PnLASt+A4QzNxY0kBVazUQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++l4DLgwpF5qTPOAVFX4yIwXIdy13tNEMiBCcE3A3Woq39wI1kSd
-	EpjHjP5eatHTzuVJDvPgDYMmv4SqnXmEgHKl52y+mhpffxPcc9fEX24J
-X-Gm-Gg: AYBFou2W5UVQ/7rrPHW0tRIzCXNe/G3FPFn4PX3VgFUZ7r7uCpgvjWvoXnwP53B8Zik
-	IJ5dc3ru01rbRcrdoRI38lEHyj2DC8kiBX4UQ45TY5Gz/w+BjOzymP2lShmEjksMKQnd8Nl7bxh
-	7pb/aRndcBkCOeEYJzfojeyW0MByU/ZdCCZRYFh0PaniqyJQGveW6GaCR5mi+Lyz/8QvZ8Cf9JQ
-	1FZYkQRBmwq6qkf4y3OtXzqdvd3co6bg7Lp1W2veeMw80e2Vncigci2bRj/s4LDNNTv+E+AcoIX
-	uYuBnZ1QeDvCYDXLRHymipyiE7tx+ViwCWQ/RbSytLoC7DwwqzrupHKu2q0sSkKtU5EDF6nFg0j
-	HqMftUZHidw47qFN2hCCUlcde1Ebx1Ml0IReo/gO0XuXtNo0KXGO2lt5stmoH+EpDqn46HE4281
-	pPVe0alDNieTIzeuTqKtks6GSDVMEF94OL66+utlIzVuoydg47IL6Vh7xbRVMnd1cL
-X-Received: by 2002:a17:907:3e8f:b0:c21:3fa7:5a6f with SMTP id a640c23a62f3a-c25d554fea1mr275552166b.24.1788351277323;
-        Wed, 02 Sep 2026 05:14:37 -0700 (PDT)
-Received: from [10.45.18.37] ([15.248.3.93])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25d002f2absm124158266b.17.2026.09.02.05.14.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 05:14:36 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: Paul Durrant <paul@xen.org>
-Message-ID: <d182ef29-a049-4013-95ce-07405f13167a@xen.org>
-Date: Wed, 2 Sep 2026 13:14:34 +0100
+        d=1e100.net; s=20251104; t=1788351423; x=1788956223;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WlwW9UoqChuDQG8Ubc8yfsDP24EvYv1xxnKt9rNQ+co=;
+        b=iAzzvi4+bMYcd4xQku3NmpCcQMJzi9BNbSKyPpRkLpnlirWxEycaw+LfRZTcARc2QX
+         mt1wC+a3YRQbFJld9Fw4DiBIg9GEBbLWI/kpdmlHhg69QhOVhVQszTVNtuF08vY0bcDB
+         ipNdU3BpD/5uwWmCnHciIiuY4mYBlE/7vZPP38Iygpk2Lemdd81tj4y8sEft1wCjMzsz
+         MLY0RCwTa2KNy+NoDNFwnH4S3HgC/XNgpWHPKb6e1+igQqfRpUdvufQKUsUyP0TtaJCy
+         2Zed51c0CZvJuKSxbDeuZ5MVHQ+RnuivKHs97SuGsumTV6Rn/sJoT2Cmzisvkvm5Aq13
+         /E8A==
+X-Forwarded-Encrypted: i=1; AHgh+RobLhH3e3vv1zVohqnhOgF/BzVcFo9NoS/0rz6Ht9sPdEOauG1AS7bKZBa1EIjlDW4JVGiLu3zBcwxo+FQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nS36dD0Cd0u8smDh32YFYFf4BieaatKQWJ5ef9L4sWJT0AkgDC
+	dE6B4v4zAakUzevxbxL3TBd+K+V0JH+pKg7PFNp6ERPkWHdwA912woEjkOYkUxOdkKY=
+X-Gm-Gg: AR+sD13ctPyOx6nwyhbQMDLQYw0EI9izbUeO37MlDFP2P9CHABQjThYOVphMauLDWhG
+	e21UaiizCJCWiAj3P2kDWy2sL+Lz9gxB0mYUOsuWcwrcSqyCflan2KeKcoF/88asZtd6oRx8CLM
+	vJVxywiUcjOOfIFoQymPRjJf8ucD5V2D0JVJ4KOGh6KxhCA6bS2lCqqIh9waGp6DdvyFdcHyFw+
+	4oCZBhmvB/q+1JFLZOLpdZnWeP7cLOkuUKPp2bi1mKNFHWQI5augvwF7UAgFd7PerQwqnHc7044
+	ODwWRlMug7oTm14kWn/mmBl3LnNSzVTpdTNFpxtTt3d87+aDRKh56ra0B1M63477t6A6yzqADPC
+	yNOJQGBxC2fyj1r6tms8SEY98j/Fy2DJhGGGabqUQO0EC7qfYLcfu5iN4CUSKBPYJe2motvWXpY
+	nf131U7Ybjwhkl0c76tD1YY3f/8vv72x9x9dHrcQiSaUQgpOKBgLTvYn9xGGIXC6Zk8frmC3UU5
+	T3JHvE/NVNBlqOxa0Di1MJsDNiiB8x8Mx+bBK3q5rx/YQ==
+X-Received: by 2002:ac8:5d49:0:b0:527:7a5b:ca67 with SMTP id d75a77b69052e-53036cc7263mr48464101cf.20.1788351423074;
+        Wed, 02 Sep 2026 05:17:03 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53032ff4e90sm17590961cf.2.2026.09.02.05.17.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 05:17:01 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1x1jtk-0000000EB68-1U6I;
+	Wed, 02 Sep 2026 09:17:00 -0300
+Date: Wed, 2 Sep 2026 09:17:00 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+Cc: Nicolin Chen <nicolinc@nvidia.com>, linux-coco@lists.linux.dev,
+	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Alexey Kardashevskiy <aik@amd.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Joerg Roedel <joro@8bytes.org>, Jonathan Cameron <jic23@kernel.org>,
+	Marc Zyngier <maz@kernel.org>,
+	Pranjal Shrivastava <praan@google.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Samuel Ortiz <sameo@rivosinc.com>,
+	Steven Price <steven.price@arm.com>,
+	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
+	Will Deacon <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>
+Subject: Re: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
+ viommu plumbing
+Message-ID: <20260902121700.GC2890729@ziepe.ca>
+References: <20260427085344.941627-1-aneesh.kumar@kernel.org>
+ <20260427085344.941627-4-aneesh.kumar@kernel.org>
+ <apM6dOHcEI2ztWS0@nvidia.com>
+ <yq5a8q5lz5yn.fsf@kernel.org>
+ <yq5aecfdnv4i.fsf@kernel.org>
+ <20260901143445.GC56830@ziepe.ca>
+ <yq5a8q5kkoz3.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 12/13] KVM: pfncache: use a dedicated invalidation
- sequence for cache refresh
-To: David Woodhouse <dwmw2@infradead.org>, seanjc@google.com,
- pbonzini@redhat.com
-Cc: joao.m.martins@oracle.com, boris.ostrovsky@oracle.com,
- ankur.a.arora@oracle.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, hpa@zytor.com, x86@kernel.org,
- syzbot+208f7f3e5f59c11aeb90@syzkaller.appspotmail.com,
- syzkaller-bugs@googlegroups.com, suryasaimadhu369@gmail.com, lkp@intel.com,
- nicoyip.dev@gmail.com, frn1furkan10@gmail.com, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, imv4bel@gmail.com
-References: <20260831213632.81023-1-dwmw2@infradead.org>
- <20260831213632.81023-13-dwmw2@infradead.org>
-Content-Language: en-US
-In-Reply-To: <20260831213632.81023-13-dwmw2@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <yq5a8q5kkoz3.fsf@kernel.org>
 
-On 31/08/2026 22:26, David Woodhouse wrote:
-> From: David Woodhouse <dwmw@amazon.co.uk>
+On Wed, Sep 02, 2026 at 02:30:00PM +0530, Aneesh Kumar K.V wrote:
+> Jason Gunthorpe <jgg@ziepe.ca> writes:
 > 
-> The gfn_to_pfn_cache refresh path guards against mmu notifier
-> invalidations which complete while it has dropped gpc->lock for the
-> HVA->PFN lookup: hva_to_pfn_retry() samples kvm->mmu_invalidate_seq
-> and retries if it changed, or if mn_active_invalidate_count is still
-> elevated.
+> > On Tue, Sep 01, 2026 at 03:36:37PM +0530, Aneesh Kumar K.V wrote:
+> >
+> >> @@ -463,14 +460,13 @@
+> >>  	vsmmu->vmid = s2_parent->s2_cfg.vmid;
+> >>  
+> >>  	if (viommu->type == IOMMU_VIOMMU_TYPE_ARM_SMMUV3) {
+> >> +		if (arm_smmu_is_realm_viommu(viommu))
+> >> +			return arm_realm_smmu_v3_init(viommu, user_data);
+> >> +
+> >
+> > I think the realm vsmmu is going to require a different info struct
+> > than the normal psmmu case, isn't it?
+> >
+> > If so it needs its own enum value.
+> >
+> > It would be nice to see a draft patch showing how the real vsmmu works
+> > on top of the RMM spec for it. If we are using a viommu object then
+> > non-vsmmu case should be identical just with an option in the info
+> > struct to not create the vsmmu object.
 > 
-> That is insufficient for HVA-based caches. mmu_invalidate_seq is only
-> advanced by kvm_mmu_invalidate_end() when the invalidated range
-> overlaps a memslot, and an HVA-based cache (e.g. the Xen shared_info
-> page mapped with KVM_XEN_ATTR_TYPE_SHARED_INFO_HVA) need not be backed
-> by any memslot at all. An invalidation of the cached HVA which starts
-> and ends entirely within the lookup window is thus invisible to the
-> retry check: mn_active_invalidate_count is back to zero and the
-> sequence never moved. The refresh then publishes a mapping of a page
-> which has already been freed, and the next reader dereferences it:
+> Based on feedback on other emails in this thread, I have now implemented
+> this without using a vdevice or viommu. This should make the CCA and
+> non-CCA cases similar.
+
+That wasn't the feedback. The feedback was to use the viommu and not
+make a bunch of new stuff..
+
+> +int arm_smmu_realm_tsm_bind(struct device *dev, struct kvm *kvm)
+> +{
+> +	struct arm_smmu_master *master = dev_iommu_priv_get(dev);
+> +	int ret;
+> +
+> +	if (!kvm_is_realm(kvm))
+> +		return 0;
+> +
+> +	ret = arm_realm_smmu_get(master->smmu);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = arm_realm_smmu_stream_get(master);
+> +	if (ret)
+> +		arm_realm_smmu_put(master->smmu);
+> +	return ret;
+
+It still makes no sense this doesn't do the VDEV_CREATE too.
+
+> iommufd_device_tsm_op_ioctl()
 > 
->    BUG: KASAN: use-after-free in kvm_xen_shared_info_init+0x3c6/0x440
->    Read of size 4 at addr ffff8880599c2900 by task syz.2.383/7257
-> 
-> Since gfn_to_pfn_cache_invalidate_start() deliberately skips caches
-> which are not currently valid (including one whose refresh is in
-> progress, as the refresh clears the valid flag before dropping the
-> lock), the retry check is the only line of defence, and it must fire
-> for *any* invalidation, not just those hitting a memslot.
-> 
-> Add a dedicated kvm->gpc_invalidate_seq, incremented by every
-> kvm_mmu_notifier_invalidate_range_end() under mn_invalidate_lock
-> before mn_active_invalidate_count is decremented, and check it in
-> hva_to_pfn_retry() instead of mmu_invalidate_seq. Incrementing in
-> range_end() in the same critical section as the in-progress count
-> also closes the variant where the cache is activated with the
-> contested HVA only after invalidate_range_start() has run.
-> 
-> The same bug is also reachable through the per-vCPU vcpu_info cache
-> (KVM_XEN_VCPU_ATTR_TYPE_VCPU_INFO_HVA), where the stale mapping is
-> then dereferenced by kvm_setup_guest_pvclock() on the next KVM_RUN:
-> 
->    BUG: KASAN: use-after-free in kvm_setup_guest_pvclock+0x5bf/0x660
-> 
-> This intentionally makes refresh retry on *unrelated* mmu notifier
-> events; restoring precision (and reworking the GPC locking more
-> generally) is left for a subsequent series.
-> 
-> Reproducers: https://david.woodhou.se/xen_shinfo_race.c
->               https://david.woodhou.se/vcpu_info_race.c
-> 
-> Suggested-by: Sean Christopherson <seanjc@google.com>
-> Reported-by: syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com
-> Closes: https://lore.kernel.org/all/6a0c5f2c.a00a0220.2c7954.0000.GAE@google.com/
-> Tested-by: syzbot+0948c82180d475ad24e2@syzkaller.appspotmail.com
-> Reported-by: syzbot+fb7c2dd166d3ea63df2a@syzkaller.appspotmail.com
-> Closes: https://lore.kernel.org/all/6a426dd2.854d4ab9.360e1d.0008.GAE@google.com/
-> Fixes: b9220d32799a ("KVM: x86/xen: allow shared_info to be mapped by fixed HVA")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> Assisted-by: Claude:claude-mythos-5
-> ---
->   include/linux/kvm_host.h |  2 ++
->   virt/kvm/kvm_main.c      | 10 ++++++++++
->   virt/kvm/pfncache.c      | 18 +++++++++---------
->   3 files changed, 21 insertions(+), 9 deletions(-)
-> 
-Reviewed-by: Paul Durrant <paul@xen.org>
+> 	switch (cmd->type) {
+> 	case IOMMU_DEVICE_TSM_BIND:
+> 		if (!idev->tsm_iommu_bound && ops->tsm_bind) {
+> 			if (WARN_ON_ONCE(!ops->tsm_unbind)) {
+> 				ret = -EOPNOTSUPP;
+> 				break;
+> 			}
+> 			ret = ops->tsm_bind(idev->dev, kvm);
+> 			if (ret)
+> 				break;
+> 			idev->tsm_iommu_bound = true;
+> 			iommu_bound = true;
+> 		}
+> 		ret = tsm_bind(idev->dev, kvm, cmd->tdi_id);
+
+Yuk! Now this uAPI doesn't make any sense when you have an actual
+viommu involved, we can't take tdi_id from userspace, it must come
+from the vdevice.
+
+I don't want two confusingly different flows, this stuff is hard
+enough to keep straight.
+
+Your first version was better, we just need to commit to using the
+viommu for everyone on every arch and drop the the tsm_bind() API and
+IOMMU_DEVICE_TSM_BIND interface.
+
+The only draw back is the VMM has to manage a litte bit more.
+
+Jason
