@@ -1,349 +1,113 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BCAB476040
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:42:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B9C54766A6;
+	Wed,  2 Sep 2026 11:42:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788349351; cv=none; b=gvqNJaYPAGoUlTMsB75Pumd80ZFTIpuNm9XYm2alR77Fj5riGJhrS+4Re6ol8HPtwqbDy7Cc6s1WzDQBw/vamJmHPeAhglqra67jcxN3N0UzB7xHJcBVfzB8fsU696ueN80D3d7iXwFs+E6rJ8T74ksHwQMvhUv/zDrpkiGOdZ8=
+	t=1788349369; cv=none; b=RoP96BlfsDxlWv4d7v7vIcSmQFSPRhjWI5TP4fIC38Apsi8tiTAFKK0SdlN0cAxt6KfrqTSvKfbSvf05toOujNxBb2Czg1D8pEbw1xVMG9aKXmYnf9amjd78d3Fp6UvC5Y9LT472ggTEkioP/6IJl7o6m4yAzo6jz3LvovuWBiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788349351; c=relaxed/simple;
-	bh=0YfZ6I8/xNI370aVrOszFzEznLcSoEqSHveLG9FC+Xk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ScFhzygfOiFGCL7yYJkpj3X/AHFNBSnytpN2/+/abFuYtCVa4ArqYbGEIIdkATS4kUq85c3pc+nhCjm+hmTb5TzRRJaJbynIuSzhgRvjTql8PXRF3P/II8t64bYq1T0r9YALySVaUbEg1GQfeGn6sx3lLPd/TWakgbBh7bRTSYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b82Tp/lX; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788349369; c=relaxed/simple;
+	bh=cOhOX6uZKlbmXxScLPKfL/HWlAEx46ZVmWRg4qmf85s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k+lN112ikLwvuhfsC4kND/waHznm6X/ZDnN+p/zrPX3O7nbko/ukSM3F6fBWOroCR/JETXGjaDddSQUZaqdZ5PMEpbRg9R9UfbsGoDIssdGzHyfjqarnNW6k2PO8oIr5zknLOzYmd2xR53qor6O1KP82nqhcj0jNfRgOxJCf6KI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UFtbLdlB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b82Tp/lX"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4957eefd361so6249115e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:42:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788349347; x=1788954147; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tNaIMy3FNUffxv5Y47n7ZPK6WMtaZg+3IuJCsW/mzGY=;
-        b=b82Tp/lXgLcznDS/HjsGDU9Ko3ygh7w+HD6ig7ZkW3bSxsxEC5an7kiqeMe5fCAuJk
-         JDLO3Nc22yKib636FvVlsvCINHY21o9Lbgkjj2EvCdc6U6rnEEhbCoB881DotVDXQs9c
-         vju5q+98sWloz6OnU7WdCdgfICUK5Mx89s7y1dERG3dt7JQCzMCt3ge/uoaRz0BJlhVw
-         NINOyzqZRQbexTYKtVfzgqbFEBEAzJzQuNkg5IrfPMFPx2jGLil0h3H7KR9wbwYAjWtz
-         0+uEiXvz04WsF91rPrdCsG2JfdImmIWq4X82yf42sylNx1osT8hewEbbc0vHcc7qRZEi
-         cq8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788349347; x=1788954147;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tNaIMy3FNUffxv5Y47n7ZPK6WMtaZg+3IuJCsW/mzGY=;
-        b=UPEp7mEjHF8qu1kzSwbiRTQCnGBmhysjMpCpXQeop7gmPkivYZsH2mI1TyLpZSPFvt
-         n8AQ5/N8gbMmLHGivcpqVr7aJJTrRQuPf30+sOotuIwJDl0osU0EZJA2iHVnpH9x4B3e
-         tj/NtN1PhIT8gMRMYK1Y2wn2tGPRUOATXA6+ty6FQyXX+ekefl5s5VdzM8rKdNuFLMKb
-         wwTdanqfCI9TrDC1r6/zs31Dx0FNkMiMTgeqop4JY3mHQwQNTS1vKG8VVNiG/Ym1M/fy
-         PigGrtSlFdbMigKDjN5ZRfbXmwKhxUzqO4meHFLoj3BTMz7ejRhjwd3okQ2Qc91pnubm
-         e7OQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoHnW2DUYaJbUSlfxFu6RBxlGLvQ9Ff9Yk7Ixxlm8wn9+j6uUu1ULawz2cZ5aLLq7vdzV+Nx7cmvWTmj80=@vger.kernel.org
-X-Gm-Message-State: AFuF++m73St/7qSdAHE3UydE9oF2YWTDarjNFJ5X03VUEVqfRSEP35ms
-	+uXUbYis1WYJ8TWfFK+dMjm4A4+T/iVMlv6HVmE66Fz34S1c5WAeC47b
-X-Gm-Gg: AR+sD13gXdr2lnWmyzR4vrI7rLB9bTBFWzybqQxTr3buBHeT8y0N6jHzEMSzMIyOw3J
-	hBRL4eybjzw7bdvDeoXemrgAIZmkEGK+Wle9weHa055vtLJUDQky9R57QWP7T0UQCgQY9CTJlLU
-	rGJ7qbAycF+jddIVmgnXBNvBrZOZ9NvRSXLQMdWXF+2l2WbWyHNYhBNlVhY8xHQ7ZCk9IrkwCDg
-	knk6BZ+GdMwDNubTQMgyw89b9wwK3FpmZ4E2aGKS0QJl3MN04VCNYr8Cset2TUKr8VOsuJmnEGy
-	P3d0OoGkBASoF/jqNLIkFStMrcNpqyGnNXr5Hm2kWlfH2MclhnigXXSfWzHIZIRmjRXKjKHv7su
-	JFa28Bw5gU+5euTfqT+w/cfEfq/r2UQdwyDgTlFX11VhQZRgJrkQtxI0sFpeTFEwPkvrsN/xR8T
-	brICbuZHm57RlaGZaaf3+UQAQ/Pc9vUpKE74HzmRbTH0OoV5dXd/cslDTQOtPiidhuW4LIMy1Zm
-	sythGEkCI5fQkqMvifCMDDHy7fwGvOelhy8G3rbVnZ0GAIsGyseYvID6myKsso=
-X-Received: by 2002:a05:600c:3f08:b0:49c:e1ed:26b1 with SMTP id 5b1f17b1804b1-49ce5850cefmr77892325e9.16.1788349346888;
-        Wed, 02 Sep 2026 04:42:26 -0700 (PDT)
-Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5952560sm40390935e9.3.2026.09.02.04.42.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 04:42:26 -0700 (PDT)
-From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Date: Wed, 02 Sep 2026 13:41:39 +0200
-Subject: [PATCH RFC 1/2] of: property: fw_devlink: Follow GPIO nexus maps
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UFtbLdlB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0A051F000E9;
+	Wed,  2 Sep 2026 11:42:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788349367;
+	bh=cFFPJ4hUOzzDlJRQ41DwpLzXzqerXelk+5anGyTnowc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UFtbLdlBlM7WFQSqLSMx8+G0ECZNG+Be0uAM9IlweuG2hYWsKyA4j+qR0N/5Bby7z
+	 HLgCBNH5fVk4VklCspvFJi1JsBmwiVhP4kvM5E0+9XDmwJlMzYz6lpe6b7hwzYvGJ9
+	 bzNjDnk2CRifv45QmtsHP2sqQA4ZDtyQXWq+kog4CMq1IZ0socfUmOYcdAliw8fcaU
+	 DQpxB6gv+l2RY1T9seDTbDH2gLKEK76ZnQK/g937Tvyg7Ev4BjorPNQQeZ5MZ2Udg1
+	 gMQwr1FXxk6SmJyGqA8Ig9p1qhN7DQbHk9oRHk8NzbAXdOt6Ac/PNOYnP0y98Q7JSC
+	 mVo2Dpbs5duFQ==
+Date: Wed, 2 Sep 2026 19:42:36 +0800
+From: Gao Xiang <xiang@kernel.org>
+To: Greg KH <greg@kroah.com>
+Cc: Jingbo Xu <jefflexu@linux.alibaba.com>, xiang@kernel.org,
+	chao@kernel.org, linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3] erofs: add sysfs feature entry for xattr prefixes
+Message-ID: <apgLrJqst_kGUq1D@XiangdeMacBook-Pro.local>
+Mail-Followup-To: Greg KH <greg@kroah.com>,
+	Jingbo Xu <jefflexu@linux.alibaba.com>, xiang@kernel.org,
+	chao@kernel.org, linux-erofs@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260902015039.54190-1-jefflexu@linux.alibaba.com>
+ <2026090256-impart-headstand-7d29@gregkh>
+ <apgAHPzvGe4bEPJx@XiangdeMacBook-Pro.local>
+ <2026090249-rework-vividly-5abb@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-fw-devlink-nexus-ready-v1-1-68fe1996e78a@toradex.com>
-References: <20260902-fw-devlink-nexus-ready-v1-0-68fe1996e78a@toradex.com>
-In-Reply-To: <20260902-fw-devlink-nexus-ready-v1-0-68fe1996e78a@toradex.com>
-To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
-Cc: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, 
- Frank Li <Frank.li@oss.nxp.com>, 
- Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Herve Codina <herve.codina@bootlin.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Geert Uytterhoeven <geert@linux-m68k.org>, 
- Leonardo Costa <leonardo.costa@toradex.com>, devicetree@vger.kernel.org, 
- linux-gpio@vger.kernel.org, linux-pwm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, stable@vger.kernel.org
-X-Mailer: b4 0.13.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <2026090249-rework-vividly-5abb@gregkh>
 
-From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+On Wed, Sep 02, 2026 at 01:38:16PM +0200, Greg KH wrote:
+> On Wed, Sep 02, 2026 at 06:53:16PM +0800, Gao Xiang wrote:
+> > Hi Greg,
+> > 
+> > On Wed, Sep 02, 2026 at 07:36:13AM +0200, Greg KH wrote:
+> > > On Wed, Sep 02, 2026 at 09:50:39AM +0800, Jingbo Xu wrote:
+> > > > Let /sys/fs/erofs/features/xattr_prefixes advertise that this kernel
+> > > > supports the EROFS_FEATURE_INCOMPAT_XATTR_PREFIXES on-disk format.
+> > > > 
+> > > > Fixes: 6a318ccd7e08 ("erofs: enable long extended attribute name prefixes")
+> > > > Cc: <stable@vger.kernel.org> # 6.4+
+> > > > Reviewed-by: Gao Xiang <xiang@kernel.org>
+> > > > Signed-off-by: Jingbo Xu <jefflexu@linux.alibaba.com>
+> > > > ---
+> > > > changes since v2:
+> > > > - add Reviewed-by tag (Gao Xiang)
+> > > > - update list in Documentation/ABI/testing/sysfs-fs-erofs
+> > > > (https://sashiko.dev/#/patchset/20260901062243.109172-1-jefflexu%40linux.alibaba.com)
+> > > > ---
+> > > >  Documentation/ABI/testing/sysfs-fs-erofs | 2 +-
+> > > >  fs/erofs/sysfs.c                         | 2 ++
+> > > >  2 files changed, 3 insertions(+), 1 deletion(-)
+> > > 
+> > > Why is adding a new feature a stable thing?
+> > 
+> > It's not a new feature (Also, this patch has 3 lines diff):
+> > This is a bugfix to address the missing part of
+> > commit 6a318ccd7e08 ("erofs: enable long extended
+> > attribute name prefixes"") since every on-disk features
+> > should be shown in `/sys/fs/erofs/features/*` according to
+> > the definition of:
+> > 
+> > What:           /sys/fs/erofs/features/
+> > Date:           November 2021
+> > Contact:        "Huang Jianan" <huangjianan@oppo.com>
+> > Description:    Shows all enabled kernel features.
+> > ...
+> > 
+> > IOWs, this sysfs entry should be part of commit 6a318ccd7e08
+> > to indicate this feature is supported since Linux 6.4+
+> 
+> Ok, but as this has not been present for a very long time, did anyone
+> even notice and need this now in stable kernels?  :)
 
-GPIO consumers use of_parse_phandle_with_args_map() to resolve specifiers
-through gpio-map properties. fw_devlink instead parses GPIO properties as
-direct phandle references, so it records the nexus node as the supplier
-rather than the mapped GPIO provider.
+I think Jingbo needs it (btw, I'm no longer in Alibaba Cloud
+anymore).
 
-A nexus is a translation node, not the GPIO provider, and need not be
-populated as a device. The resulting fwnode link can therefore remain
-unresolved and indefinitely defer the consumer while
-device_links_check_suppliers() waits for the nexus.
+Also it would be better to port this into stable kernels so
+that users can get the supported on-disk features in a more
+unique obvious way.
 
-Use the map-aware parser for all supported GPIO property spellings. This
-makes fw_devlink resolve the same provider as the GPIO consumer API. Direct
-GPIO references continue to work because the map-aware parser returns the
-original provider when no gpio-map property is present.
+Thanks,
+Gao Xiang
 
-Add OF unittest coverage for mapped and direct GPIO suppliers, including
-the deprecated singular and unprefixed property spellings.
-
-Fixes: 7f00be96f125 ("of: property: Add device link support for interrupt-parent, dmas and -gpio(s)")
-Reported-by: Leonardo Costa <leonardo.costa@toradex.com>
-Link: https://lore.kernel.org/all/juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4jbauradujrre@gc5nbdhhixaf/
-Tested-by: Leonardo Costa <leonardo.costa@toradex.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
----
- drivers/of/property.c                       | 38 +++++++++++-----
- drivers/of/unittest-data/tests-phandle.dtsi | 33 ++++++++++++++
- drivers/of/unittest.c                       | 67 +++++++++++++++++++++++++++++
- 3 files changed, 128 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/of/property.c b/drivers/of/property.c
-index 72cf12907de0..380df0861ab9 100644
---- a/drivers/of/property.c
-+++ b/drivers/of/property.c
-@@ -1311,6 +1311,19 @@ static struct device_node *parse_prop_cells(struct device_node *np,
- 	return sup_args.np;
- }
- 
-+static struct device_node *parse_nexus_prop(struct device_node *np,
-+					    const char *prop_name, int index,
-+					    const char *stem_name)
-+{
-+	struct of_phandle_args sup_args;
-+
-+	if (of_parse_phandle_with_args_map(np, prop_name, stem_name, index,
-+					   &sup_args))
-+		return NULL;
-+
-+	return sup_args.np;
-+}
-+
- #define DEFINE_SIMPLE_PROP(fname, name, cells)				  \
- static struct device_node *parse_##fname(struct device_node *np,	  \
- 					const char *prop_name, int index) \
-@@ -1361,6 +1374,15 @@ static struct device_node *parse_##fname(struct device_node *np,	     \
- 	return parse_suffix_prop_cells(np, prop_name, index, suffix, cells); \
- }
- 
-+#define DEFINE_SUFFIX_NEXUS_PROP(fname, suffix, stem)			     \
-+static struct device_node *parse_##fname(struct device_node *np,	     \
-+					const char *prop_name, int index)    \
-+{									     \
-+	if (!strends(prop_name, suffix))				     \
-+		return NULL;						     \
-+	return parse_nexus_prop(np, prop_name, index, stem);		     \
-+}
-+
- /**
-  * struct supplier_bindings - Property parsing functions for suppliers
-  *
-@@ -1416,7 +1438,7 @@ DEFINE_SIMPLE_PROP(pses, "pses", "#pse-cells")
- DEFINE_SIMPLE_PROP(power_supplies, "power-supplies", NULL)
- DEFINE_SIMPLE_PROP(mmc_pwrseq, "mmc-pwrseq", NULL)
- DEFINE_SUFFIX_PROP(regulators, "-supply", NULL)
--DEFINE_SUFFIX_PROP(gpio, "-gpio", "#gpio-cells")
-+DEFINE_SUFFIX_NEXUS_PROP(gpio, "-gpio", "gpio")
- 
- static struct device_node *parse_pinctrl_n(struct device_node *np,
- 					   const char *prop_name, int index)
-@@ -1436,8 +1458,10 @@ static struct device_node *parse_gpios(struct device_node *np,
- 	if (strends(prop_name, ",nr-gpios"))
- 		return NULL;
- 
--	return parse_suffix_prop_cells(np, prop_name, index, "-gpios",
--				       "#gpio-cells");
-+	if (!strends(prop_name, "-gpios"))
-+		return NULL;
-+
-+	return parse_nexus_prop(np, prop_name, index, "gpio");
- }
- 
- static struct device_node *parse_iommu_maps(struct device_node *np,
-@@ -1452,8 +1476,6 @@ static struct device_node *parse_iommu_maps(struct device_node *np,
- static struct device_node *parse_gpio_compat(struct device_node *np,
- 					     const char *prop_name, int index)
- {
--	struct of_phandle_args sup_args;
--
- 	if (strcmp(prop_name, "gpio") && strcmp(prop_name, "gpios"))
- 		return NULL;
- 
-@@ -1464,11 +1486,7 @@ static struct device_node *parse_gpio_compat(struct device_node *np,
- 	if (of_property_read_bool(np, "gpio-hog"))
- 		return NULL;
- 
--	if (of_parse_phandle_with_args(np, prop_name, "#gpio-cells", index,
--				       &sup_args))
--		return NULL;
--
--	return sup_args.np;
-+	return parse_nexus_prop(np, prop_name, index, "gpio");
- }
- 
- static struct device_node *parse_interrupts(struct device_node *np,
-diff --git a/drivers/of/unittest-data/tests-phandle.dtsi b/drivers/of/unittest-data/tests-phandle.dtsi
-index 554a996b2ef1..163ef07be16d 100644
---- a/drivers/of/unittest-data/tests-phandle.dtsi
-+++ b/drivers/of/unittest-data/tests-phandle.dtsi
-@@ -79,6 +79,39 @@ consumer-b {
- 				phandle-list-bad-args = <&provider2 1 0>,
- 							<&provider4 0>;
- 			};
-+
-+			fw-devlink-tests {
-+				gpio_provider: gpio-controller {
-+					#gpio-cells = <2>;
-+				};
-+
-+				test_nexus: nexus {
-+					#gpio-cells = <2>;
-+					gpio-map = <0 0 &gpio_provider 1 0>;
-+					gpio-map-mask = <0xffffffff 0>;
-+					gpio-map-pass-thru = <0 0xffffffff>;
-+				};
-+
-+				gpio-compat-consumer {
-+					gpios = <&test_nexus 0 0>;
-+				};
-+
-+				gpio-compat-singular-consumer {
-+					gpio = <&test_nexus 0 0>;
-+				};
-+
-+				gpio-consumer {
-+					test-gpios = <&test_nexus 0 0>;
-+				};
-+
-+				gpio-direct-consumer {
-+					test-gpios = <&gpio_provider 1 0>;
-+				};
-+
-+				gpio-singular-consumer {
-+					test-gpio = <&test_nexus 0 0>;
-+				};
-+			};
- 		};
- 	};
- };
-diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-index e255f54f4d76..487f3b629a73 100644
---- a/drivers/of/unittest.c
-+++ b/drivers/of/unittest.c
-@@ -10,6 +10,7 @@
- #include <linux/dma-direct.h> /* to test phys_to_dma/dma_to_phys */
- #include <linux/err.h>
- #include <linux/errno.h>
-+#include <linux/fwnode.h>
- #include <linux/hashtable.h>
- #include <linux/libfdt.h>
- #include <linux/of.h>
-@@ -710,6 +711,71 @@ static void __init of_unittest_parse_phandle_with_args_map(void)
- 	}
- }
- 
-+static void __init of_unittest_fw_devlink_supplier(struct device_node *tests,
-+						   const char *consumer_name,
-+						   const char *supplier_name)
-+{
-+	struct device_node *consumer, *supplier;
-+	struct fwnode_handle *consumer_fwnode;
-+	struct fwnode_link *link;
-+	unsigned int link_count = 0;
-+	bool found = false;
-+	int rc;
-+
-+	consumer = of_get_child_by_name(tests, consumer_name);
-+	supplier = of_get_child_by_name(tests, supplier_name);
-+	if (!consumer || !supplier) {
-+		pr_err("missing consumer %s or supplier %s\n", consumer_name, supplier_name);
-+		goto put_nodes;
-+	}
-+
-+	consumer_fwnode = of_fwnode_handle(consumer);
-+	fwnode_links_purge(consumer_fwnode);
-+	rc = fwnode_call_int_op(consumer_fwnode, add_links);
-+	if (unittest(!rc, "failed to add links for %pOF: %d\n", consumer, rc))
-+		goto purge_links;
-+
-+	/*
-+	 * fwnode_link_lock is private to the driver core. These test nodes are
-+	 * isolated and no one should modify their links now, so it is safe to
-+	 * inspect the supplier list without the lock here.
-+	 */
-+	list_for_each_entry(link, &consumer_fwnode->suppliers, c_hook) {
-+		link_count++;
-+		if (link->supplier == of_fwnode_handle(supplier))
-+			found = true;
-+	}
-+
-+	unittest(link_count == 1, "%pOF has %u suppliers, expected 1\n", consumer, link_count);
-+	unittest(found, "%pOF is not linked to supplier %pOF\n", consumer, supplier);
-+
-+purge_links:
-+	fwnode_links_purge(consumer_fwnode);
-+put_nodes:
-+	of_node_put(consumer);
-+	of_node_put(supplier);
-+}
-+
-+static void __init of_unittest_fw_devlink(void)
-+{
-+	const char *gpio_supplier = "gpio-controller";
-+	struct device_node *tests;
-+
-+	tests = of_find_node_by_path("/testcase-data/phandle-tests/fw-devlink-tests");
-+	if (!tests) {
-+		pr_err("missing fw_devlink test data\n");
-+		return;
-+	}
-+
-+	of_unittest_fw_devlink_supplier(tests, "gpio-compat-consumer", gpio_supplier);
-+	of_unittest_fw_devlink_supplier(tests, "gpio-compat-singular-consumer", gpio_supplier);
-+	of_unittest_fw_devlink_supplier(tests, "gpio-consumer", gpio_supplier);
-+	of_unittest_fw_devlink_supplier(tests, "gpio-direct-consumer", gpio_supplier);
-+	of_unittest_fw_devlink_supplier(tests, "gpio-singular-consumer", gpio_supplier);
-+
-+	of_node_put(tests);
-+}
-+
- static void __init of_unittest_property_string(void)
- {
- 	const char *strings[4];
-@@ -4533,6 +4599,7 @@ static int __init of_unittest(void)
- 	of_unittest_dynamic();
- 	of_unittest_parse_phandle_with_args();
- 	of_unittest_parse_phandle_with_args_map();
-+	of_unittest_fw_devlink();
- 	of_unittest_printf();
- 	of_unittest_property_string();
- 	of_unittest_property_copy();
-
--- 
-2.43.0
-
+> 
+> thanks,
+> 
+> greg k-h
+> 
