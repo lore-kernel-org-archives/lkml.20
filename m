@@ -1,148 +1,112 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C165331EC0
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:28:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DF60483BF4;
+	Wed,  2 Sep 2026 12:28:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352123; cv=none; b=uOfSgyQctQVUczv2z4zS1DWBHeyYa5AFXaAXqDPPvt6FocsIvAWnHjLw2THB2bQaTl5zIja0LMX9QSmmE0sM0Jg0DSjR1Q+3GZ4ndR2wnszk8Ee3Dugb6Jreg1tR9ES7lZ/Or4w5sCqHpnEyaz+fITILQKR5Vk8mTdf1nJ2zMvg=
+	t=1788352125; cv=none; b=lMe676ngC32aO7RD+sEkW2sVCRf228waYJANJtDoxTvOTLiZyF9jek1Wgu/M/LYjkHd2SAHB3Pg0nuZqaBSXFze6Lo0R3REjKIPztWJkRPBSp+7GeF9uB0SkG6axL9rvy8cII2TYEOUW6oZROQU4EIxCs2+NwDLmCn6F+paJsek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352123; c=relaxed/simple;
-	bh=hmh8EjF3HLSYa/gyqj5gS2rSugOb8h1KFM42D3FVfyQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kZ96UzkPl2JS6FcTd1AGNbKIn469vvARttKnZ0gilxfTogFo7WEc977A9SgxRUt1imestiheQyJQ8FIXHLkm2cS6J90wy7Kp5S8tunpq7E7nDQ6XZYrQRi4zy2XWxMcSClTA0foXRasRbipPrsal1t5UHkRBGbYVMqlSNKycO5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pPwMJsjt; arc=none smtp.client-ip=209.85.218.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788352125; c=relaxed/simple;
+	bh=N7m+wWf0Q9Y2kqGKdmWCKlZlP+MbTCjlTRwZjbRz5Lk=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=B+iU4ZyYyUcwRgwBLeq5fpz8t7jxSLREqeMTAQVwatcICnBelRjStw5j72iC1IjbOhKR9rCkrdGRiBZdAAH9wPT0TrZ3S/hIR029x4xOUtDG6ADqvripnI5c18El9ldC2OIcu0uLSEdXYJqqQGf1Uuj71c50sf7RmBKjooQy62Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fdFFO7Q3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pPwMJsjt"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c250a2bc3b3so118742666b.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:28:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788352120; x=1788956920; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6NzEuOlmG1N6RZ+zTmMfDE2f0Li6dNShSm/jiydeaI8=;
-        b=pPwMJsjtchOiCSnZc5BSTQ1TD8eQJI7YEbNsutyuKV0aGRWHQaPRHsoXygmCcD8oZ3
-         5QWYzURRSuGsh/bYQQi4gvhxpEHHJzFgjpMNPqti0xkAFvVza4lsXfd39R+/rmu+6B6X
-         S95ShdHj0c34pE6ZB4OIBfwMAtz08AbAwri9DHm1ogAQL4tIDjogL1+R9je2t9S5DhPY
-         HANJlo3q2bBflzRXKbF666+Qop8In5E2CKc1W4TiMHi54JjlQ2dlouxPT0dwg4XvOsHN
-         5r6ugtQJBWGIBVy92grArIkmaAW1NLZwvYvgGnnPI4f+6jLSq6P6uhTOFTWkTiqgpyx9
-         yGKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788352120; x=1788956920;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6NzEuOlmG1N6RZ+zTmMfDE2f0Li6dNShSm/jiydeaI8=;
-        b=Heo7qqtpk7JAUrOgv3oyX3OhILCEpxNmo+jX6sIHB5uIDHtXahfu++W5z7PsUe3oEp
-         a8RDYE4rJTtQq6fehd1D1fNu2wQ1LkThfN8QF1Ah6+3G0c1guWPo3QdqX9eBKlDoaOKR
-         2+AXXsks87ZwXmW01t7fZsdbF3SBPrP2SMruT8RzCA8AxHsF37jGxCjjKcK0wny+Zx1U
-         NYfpNkvjP7qgZVNrtNLw+DTzSP5i16ZH0rETevO/18pUlEXXb5VNuEcLRQpt+3BJs1cD
-         BVD9oW4bqeGM7b3AMHOm7i0YMeJsplGL1NBQClpcOA5ZQwEXBxm1G3evS/YrU4DKLCJd
-         5iDA==
-X-Forwarded-Encrypted: i=1; AKwUvBzLTgOpd4ItOzNsj+7bBXWPbp2Hw/IW8Tf+54NdTpCkoPtFUX07fOKFA9KufqtBAZsQAo+dLxkYrJ5TmTE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lXnLwPnbwDwqbbkhCWRCP6Y80WiKMjax/2RcW1836dm3UAWDN3
-	F2+SWKuOclkFa0cVcUpXguXkBKTuutZ1hpDvjiPTdvhIz2txfkuOUq3AUyjeWwbU
-X-Gm-Gg: AYBFou2aNj0coI+EppMe6ZWO9HoFEEJUwi1zvT6eLvQR/rGPwLRuHoDrNKrd6xLt+jA
-	DinCSOm5dx5PtY13I8Cucb3viGirMMw62zcTKrRWKf0QvDOcS7dtmUvlTMgff0TTjmEY6xcaEIP
-	0b6KqQlslJ20FbedKjN+JJ93l2hTD/kqUtGFiLrCNffl+pYhtoDFW+acYcn1kesBubDQ/ha+7EZ
-	Ub1/NjZLp/NhbeBQF0dl5lpvyifI0PXuecHThx3yWeVa1aRqcUqp2njUDK7pxZkVwJjRATrMXeY
-	4LxCElw133Z/7snL3rTUhr+oDyG1ukLpKyOZWj7hGh5fYhoTMMHl8NdtmwgmUr8cFlXvLeTGJNQ
-	W3yyhEzKOYz7/Ylw/GrMqLZ08BxwOcDr1mn5jlSjDXRBSFj69xCz/RaJv2DP7xJYQNns6K5jW2b
-	zML+LDfDtbDVcXDtgp25n9jTy48b1SwkoEeheHtY0E/TdkPU5YyvvrJMasnNHbqmXFtXpiTTs=
-X-Received: by 2002:a17:907:7247:b0:c25:c54d:d1a2 with SMTP id a640c23a62f3a-c25d54fe6e3mr285533466b.18.1788352120261;
-        Wed, 02 Sep 2026 05:28:40 -0700 (PDT)
-Received: from grower.astralinux.ru ([82.22.172.205])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25d03fbb75sm123305866b.49.2026.09.02.05.28.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 05:28:39 -0700 (PDT)
-From: Alexander Martyniuk <alexevgmart@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Alexander Martyniuk <alexevgmart@gmail.com>,
-	lvc-project@linuxtesting.org,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ingo Molnar <mingo@kernel.org>,
-	Karol Herbst <karolherbst@gmail.com>,
-	Pekka Paalanen <ppaalanen@gmail.com>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	linux-kernel@vger.kernel.org,
-	nouveau@lists.freedesktop.org,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Subject: [PATCH 5.10] tracing/mmiotrace: Add NULL check for mmio_trace_array in logging functions
-Date: Wed,  2 Sep 2026 15:28:29 +0300
-Message-ID: <20260902122830.447370-1-alexevgmart@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fdFFO7Q3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DD7D1F000E9;
+	Wed,  2 Sep 2026 12:28:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788352124;
+	bh=utQjPpj8FM1uqJwF14GGRswgo6ul2luFDaEAxY2Jm30=;
+	h=Date:From:To:Cc:Subject;
+	b=fdFFO7Q3moqXjNM6f+V8g9F9sd6LTnUbvU281/S5yR0i2Qfuah6N1HGs2cHGE8GIW
+	 zNMleD9AvmvgGoSshI1NPL6nf8fLTGqnHzHfeIO0tt6Ij+lcASVRpYRHtQcYLzu8gK
+	 93+QAbsuRkeKxC/R7TTYr2NTT/6Q+S5QWWkW/ThG48Coko412DQT9BztvrRedJ9RMa
+	 gavJYjFizIJwjMumiv3EoVkCIs8SBF6Yu3ImJctDGxwXBXPJmphDOLUEW6bB8UKxJy
+	 V3Cnx79kHL1IuVrQFHIIJbpLaFgTnDDiEKjWcx3oiwrQi1VF+tXhgOaBcPVRuh6zur
+	 T2wXOggMF2WRQ==
+Date: Wed, 2 Sep 2026 13:28:40 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Linux Next Mailing List <linux-next@vger.kernel.org>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: linux-next: Tree for Sep 2
+Message-ID: <apgWeHvdb5Ta9IE4@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1XoHWedcBw+qpSk0"
+Content-Disposition: inline
 
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-commit 12b80cdbc54cf615b4717a4e8180063408091ea2 upstream.
+--1XoHWedcBw+qpSk0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-mmio_trace_rw() and mmio_trace_mapping() retrieve mmio_trace_array into
-tr and pass it to __trace_mmiotrace_rw() and __trace_mmiotrace_map().
-If these functions are invoked while mmio_trace_array is NULL (e.g. before
-initialization or after disabled), accessing tr->array_buffer.buffer will
-result in a NULL pointer dereference crash.
+Hi all,
 
-Fix this by adding an explicit NULL check for tr at the beginning of
-__trace_mmiotrace_rw() and __trace_mmiotrace_map().
+Changes since 20260901:
 
-Link: https://patch.msgid.link/178524300062.56416.8362487250709962380.stgit@devnote2
-Fixes: f984b51e0779 ("ftrace: add mmiotrace plugin")
-Assisted-by: Antigravity:gemini-3.6-flash
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-Signed-off-by: Alexander Martyniuk <alexevgmart@gmail.com>
----
-Backport fix for CVE-2026-80689
- kernel/trace/trace_mmiotrace.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+The mm-nonmm-unstable tree acquired a conflict with the mm tree.
 
-diff --git a/kernel/trace/trace_mmiotrace.c b/kernel/trace/trace_mmiotrace.c
-index e8ae2d92a678..da63add45faa 100644
---- a/kernel/trace/trace_mmiotrace.c
-+++ b/kernel/trace/trace_mmiotrace.c
-@@ -298,11 +298,15 @@ static void __trace_mmiotrace_rw(struct trace_array *tr,
- 				struct mmiotrace_rw *rw)
- {
- 	struct trace_event_call *call = &event_mmiotrace_rw;
--	struct trace_buffer *buffer = tr->array_buffer.buffer;
-+	struct trace_buffer *buffer;
- 	struct ring_buffer_event *event;
- 	struct trace_mmiotrace_rw *entry;
- 	int pc = preempt_count();
- 
-+	if (!tr)
-+		return;
-+
-+	buffer = tr->array_buffer.buffer;
- 	event = trace_buffer_lock_reserve(buffer, TRACE_MMIO_RW,
- 					  sizeof(*entry), 0, pc);
- 	if (!event) {
-@@ -328,11 +332,15 @@ static void __trace_mmiotrace_map(struct trace_array *tr,
- 				struct mmiotrace_map *map)
- {
- 	struct trace_event_call *call = &event_mmiotrace_map;
--	struct trace_buffer *buffer = tr->array_buffer.buffer;
-+	struct trace_buffer *buffer;
- 	struct ring_buffer_event *event;
- 	struct trace_mmiotrace_map *entry;
- 	int pc = preempt_count();
- 
-+	if (!tr)
-+		return;
-+
-+	buffer = tr->array_buffer.buffer;
- 	event = trace_buffer_lock_reserve(buffer, TRACE_MMIO_MAP,
- 					  sizeof(*entry), 0, pc);
- 	if (!event) {
--- 
-2.43.0
+The mm-nonmm-unstable tree acquired a conflict with the mm,mm-fixes tree.
 
+The iio tree acquired a conflict with the iio-fixes tree.
+
+The gpio-brgl tree acquired a build failure, I used the version from
+next-20260901 instead.
+
+Non-merge commits (relative to Linus' tree): 2510
+ 2745 files changed, 167264 insertions(+), 27011 deletions(-)
+
+----------------------------------------------------------------------------
+
+I have created today's linux-next tree at
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+(patches at https://www.kernel.org/pub/linux/kernel/next/ ).  If you
+are tracking the linux-next tree using git, you should not use "git pull"
+to do so as that will try to merge the new linux-next release with the
+old one.  You should use "git fetch" and checkout or reset to the new
+master.
+
+You can see which trees have been included by looking in the Next/Trees
+file in the source.  There is also the merge.log file in the Next
+directory.  Between each merge, the tree was built with a defconfig
+for arm64, an allmodconfig for x86_64, a multi_v7_defconfig for arm,
+an arm64 build of various kselftests, a KUnit build and run on arm64,
+and a native build of tools/perf.  After the final fixups (if any), I do
+an x86_64 modules_install followed by builds for x86_64 allnoconfig,
+arm64 allyesconfig, powerpc allnoconfig (32 and 64 bit),
+ppc44x_defconfig and pseries_le_defconfig and i386, s390, sparc and
+sparc64 defconfig and htmldocs.
+
+Below is a summary of the state of the merge.
+
+I am currently merging 426 trees (counting Linus' and 132 trees of bug
+fix patches pending for the current release).
+
+Stats about the size of the tree over time can be seen at
+http://neuling.org/linux-next-size.html .
+
+Thanks to Paul Gortmaker for triage and bug fixes.
+
+--1XoHWedcBw+qpSk0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqYFncACgkQJNaLcl1U
+h9B9ugf+OSYljyxbsu6jnh0/ELnIxY1VFZnTtBKH9cIZDUpW3GeK3Zf6/xHNRS/Q
+hmDCosY0dXYsnWEny3R9zAVvSqmnMxmTc+BTaX03pMcrCSkYwIqR1ihARn2UWfZa
+k9oPdG7kUKWojbJtTq/VTJosh5t9X62Uq5VcvfFbJ5RefmzrU83ImVByVbdsq66c
+gyRgFAQG3klYAQ0/H45lFoO77uBvswLKmh+jbCjONV2ZIE0SPhoSKHHmPxD8YLNQ
+9XCskMAXsPaiZaeSJ0mtfUnJpJ84oKklXC0gPEiEWSEj06ildUov8ahpe3lSeD61
+Dyc75he+sw9lv6WnKGcOqG6lZRGSoA==
+=FG4Q
+-----END PGP SIGNATURE-----
+
+--1XoHWedcBw+qpSk0--
