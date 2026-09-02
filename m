@@ -1,104 +1,94 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55AC74A8FD7
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:25:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B4B4AA02A;
+	Wed,  2 Sep 2026 16:25:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366312; cv=none; b=ZabEABCtO+eFsPb+RcELVJ347iXxY7b+byfd3zu19Dt6lo85bNmHqjv+xp2N2Wvyyg4XKuXgAlfjTrBF8TRCwyboOhuujjifcb/WKgGxB4ng16zzaGZBAvwYN9i9PL0bn13hEuT/F5UVVKSx5rwLQ+bvsfuRhwZwpkK4RWwfc9E=
+	t=1788366313; cv=none; b=gOcuwfXqNTTJGrM4b/I05Xf72qtB7HZkmTvtpGVPQ2NgZRo+pMqdZvudUm5Hk4mTaGwqHDX2VFOjJBxlCa80fciOxMOqH9L7dwFGHwlj2Jpe/uzY/lBEPlbFSo6N6m+Y4RcpKu3z7Z5ixTI5Y9PW+xQNQv1hWyOyzYP6vsiPskc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366312; c=relaxed/simple;
-	bh=4UNriAhWDuhDAQW/1mZEubEniEm8ODyjqLC9FNbc4cI=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=R+wZr2tgeiariLBDAtr8vXSPIddZJYMHx8iY6Af38LvaVowp8AtChn0PCGlEU4LKEuBNbkSLGSzP0cPp0a8mP9csEPB4qkawVzGxoeJiYqhxIkwJZ9sxi1If25isGixDbsbZtUXVa+GhgBVO/i36m6kNKZWwWALQmvmFpeHAtRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4ad778bacbeso1654670b6e.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:25:10 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788366310; x=1788971110;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=U87nkd347QSLGeItHXGLweuZJ+vsbb3H25a7voypVNU=;
-        b=LR8vJM2T+ZYcEEwVG4W8V+VfxrJQNvVcW76LQQ3YAfTp4GrOXTKYZe09kYXuUitwv1
-         L42uwrNK1eC9jrVya3qeUK9POeFq3t7i/OwDA1oLEpA7NhW0XJPa1H9ejzshigdpxClx
-         085W20DjnFAfE4LQstUsGBaGhqdHO4ZM+TNZocY2cj5zy1FuLxVGUU5rVfunI4SZI7S/
-         FiHdd+AYuQWFCXjZhedMx9NIdiUDkq+K0XmAgeIKsoaR/Q2JIhA+EYf7fIHOFNxMLVNe
-         uZGD3VU4MrJgSr+H9mRTSq06Bux4EajGTKJ4oVTLoC27qg10CLr9YJKLm9LGx6H2KXTw
-         480g==
-X-Gm-Message-State: AFuF++nr1cPzVl/xUpjmTgR0TRMh4rgueIHbmvQQaVksDFTTzlI4skJ6
-	ijcNdz0+kRGgtq8pVZb2+tY2e6yOHWFctYLjEcrB0iQuOJpq+NULte+DIJZ5G7erZmmw6IKfYUo
-	LXniETP/4j4KpyNumMjuR/ua+rv5bCrZVGwRQkL69zo0r93uMKapgMkVItlk=
+	s=arc-20240116; t=1788366313; c=relaxed/simple;
+	bh=ySYYcwlClxp/Mkrb0eAVLiKUcceiCcG4UM6cRTF2EYM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=R+BLiQ1jfo3LdIn6X578EbBdXhusWB7a0gnaGK1Kt8+csiJYco3UpKhPoB/NNIS3NZYB/vJ6AWbZThYtC7cav1G94u5EGFpnoB0c5+0jMpLce2w86t/LzysWX7037u7mUsoQw9wzfM/BKfBJQh/VB4y/F3kKx/xkGUHnqWQbhwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NgQjYyLP; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NgQjYyLP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788366312; x=1819902312;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=ySYYcwlClxp/Mkrb0eAVLiKUcceiCcG4UM6cRTF2EYM=;
+  b=NgQjYyLPYKKkWh3ic97G0Iu/SISPNdAYY/fPtZWjzcFumHZ6EjWUo1Mi
+   brbK97Q69I7zCwNo46oNBM99ByuMI916l4uLX8olTCGwQCd+oo9O54mhW
+   Y8e2T2Rzr9+X0AOZk9mAqMgDKR/Rjg28ueXCwU9tNaDp+0RgdXLy+Bq1N
+   Lrzq6iwXa+LgrfpUn3sifUmQtRSut8x5GcGkdG1DsQgn4XqJHlbuZbRza
+   gVxr6bv7rrmw8gl6XlyOYjrBb6uFM83j2H/+7hAwkz3s5dztB/uFoWJRy
+   9rYgFFdWPtvsSrFl+s9jz7NZxjPv4MxztsdydtO4SfqXaQM56WujjJ/Vw
+   w==;
+X-CSE-ConnectionGUID: amqKp9UERgOcvtp4slqIjw==
+X-CSE-MsgGUID: 1E98HUrZSM2zLlz4yFZG5Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="88881447"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="88881447"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 09:25:11 -0700
+X-CSE-ConnectionGUID: GbzBxvqnT8e+19c8F1v4og==
+X-CSE-MsgGUID: 63y2m2ghQC6izEIgTw+7GA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="271424957"
+Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 09:25:08 -0700
+Message-ID: <a018a58f-76af-43a7-930b-943a9a5c0a9d@linux.intel.com>
+Date: Thu, 3 Sep 2026 00:25:05 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:988:b0:6b1:b68e:5109 with SMTP id
- 006d021491bc7-6b47f204dedmr4515002eaf.33.1788366310163; Wed, 02 Sep 2026
- 09:25:10 -0700 (PDT)
-Date: Wed, 02 Sep 2026 09:25:10 -0700
-In-Reply-To: <6a908733.1d9ded08.62e62.00d8.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a984de6.27a413cd.1e878c.0009.GAE@google.com>
-Subject: Forwarded: [PATCH] greybus: operation: fix out-of-bounds write in
- message allocation
-From: syzbot <syzbot+2fd6aefc361af86911d5@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/4] KVM: TDX: Track configurable CPUID bits allowed by
+ KVM
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+ "Li, Xiaoyao" <xiaoyao.li@intel.com>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: "kas@kernel.org" <kas@kernel.org>,
+ "pbonzini@redhat.com" <pbonzini@redhat.com>,
+ "nik.borisov@suse.com" <nik.borisov@suse.com>,
+ "seanjc@google.com" <seanjc@google.com>, "Gao, Chao" <chao.gao@intel.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
+ "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
+References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
+ <20260827031837.2863609-2-binbin.wu@linux.intel.com>
+ <55488b92-66a8-45e5-ad0f-8fed63ce1187@intel.com>
+ <a30741f8-b99b-4f36-80a5-4688c2578d99@linux.intel.com>
+ <6b565572-b316-4e86-906d-f150c896fe21@intel.com>
+ <84891108-55be-48c1-9993-c730a5334d5b@linux.intel.com>
+ <249dcccf2353181f595547d19a07232fded71023.camel@intel.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <249dcccf2353181f595547d19a07232fded71023.camel@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-For archival purposes, forwarding an incoming command email to
-linux-kernel@vger.kernel.org.
+On 9/3/2026 12:22 AM, Edgecombe, Rick P wrote:
+> On Thu, 2026-09-03 at 00:19 +0800, Binbin Wu wrote:
+>>> I see. You added patch 2 because without it QEMU breaks. While for
+>>> EST/TM2/SDBG/XTPR/DCA, QEMU doesn't break after they are turned to
+>>> non-configurable. QEMU cannot represent all the userspace VMM. It still has
+>>> the potential to breaks other userspace VMMs.
+>>
+>> I think the risk is pretty low.
+>> I am not sure if Sean could provide some insight about this in google's
+>> userspace VMM.
+> 
+> Can't we fix the issue if we are wrong?
 
-***
-
-Subject: [PATCH] greybus: operation: fix out-of-bounds write in message allocation
-Author: adrianox@gmail.com
-
-#syz test
-
-The incoming message size from the device header (header.size) is
-trusted without checking that it is at least the size of the message
-header itself, but a value smaller than sizeof(struct gb_operation_msg_hdr)
-underflows request_size in gb_operation_create_incoming(), wraps around
-in gb_operation_message_alloc(), and results in a tiny buffer that is
-then written past its end in gb_operation_message_init().
-
-Reject undersized messages before parsing the message header.
-
-Fixes: 87d208feb74f ("greybus: embed message buffer into message structure")
-Reported-by: syzbot+2fd6aefc361af86911d5@syzkaller.appspotmail.com
-Link: https://syzkaller.appspot.com/bug?extid=2fd6aefc361af86911d5
-Cc: stable@vger.kernel.org
-Assisted-by: opencode:deepseek v4 pro
-Signed-off-by: Adriano Cordova <adrianox@gmail.com>
----
- drivers/greybus/operation.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
-index 7e12ffb2dd..df6daee4fb 100644
---- a/drivers/greybus/operation.c
-+++ b/drivers/greybus/operation.c
-@@ -1047,6 +1047,14 @@ void gb_connection_recv(struct gb_connection *connection,
- 	/* Use memcpy as data may be unaligned */
- 	memcpy(&header, data, sizeof(header));
- 	msg_size = le16_to_cpu(header.size);
-+	if (msg_size < sizeof(header)) {
-+		dev_err_ratelimited(dev,
-+				    "%s: malformed message 0x%04x of type 0x%02x received (%zu < %zu)\n",
-+				    connection->name,
-+				    le16_to_cpu(header.operation_id),
-+				    header.type, msg_size, sizeof(header));
-+		return;
-+	}
- 	if (size < msg_size) {
- 		dev_err_ratelimited(dev,
- 				    "%s: incomplete message 0x%04x of type 0x%02x received (%zu < %zu)\n",
--- 
-2.51.0
+I think it could be fixed to add the missing bits (if any) as bug fix.
 
