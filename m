@@ -1,141 +1,173 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+Received: from mta0.migadu.com (out-96.mta0.migadu.com [91.218.175.96])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E484323E25B
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:12:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788340324; cv=pass; b=FysWwLAIkKzX0meMfaoou0+iN6GZ8WqsDBS2E3Mu2My7R3qMTqq4V+imswAOCnJlX48TPXFxcgWsUVTS+xYpWjblcb06tX4Pjny6WHYCsN7fhqb6fnZHFeAaw4CVT68A+Av9W2BtD3RIJR1vXE8a+rhRkMAfFGBbD1MhUEBzwa0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788340324; c=relaxed/simple;
-	bh=zPIeU2nyncnp4qwag62RzVvPwiBDgS0DFxIK2uUgu98=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OjMVjp9xvbrCGeeWlUF5D/4ju6LPrUA2Bbs1yuHAN36IF3Z54EzEGEEivhLxVfueW33hw591ov221TMUx9A2gIOBe9f+5hu/4X1M/Ut/tO1u1A27BdIgCH78sPTfWfspOy5rGhmoj6NJkvYe8G0apG6LBBip8/jvxRi65b8hf9s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KE/lWrTh; arc=pass smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9148E40B0E7
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:12:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.96
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788340329; cv=none; b=OOusq0FYLxqcQnv4xoVzi3p0letfELNgbSd43DDBA2k8Rl6G8gFcctRW83ZiGJ5+a8B+S4rlDRWKx9R2cdjdrwppxIMo/Dc9+WvqFqeaBha3OIkXcG8IpBJHPZc9xVT/p/h0gc9kDlZSm98WOZrK0EzOAQhisdLkZfyx+W8GPJs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788340329; c=relaxed/simple;
+	bh=vjtUhJMEfixNV5GdVj21HxMSfKmeVVOYFnonEejTGgg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YVQHsA5TcKdzaPsNvgx2I7LKEsp8QRL7sAeddpVQq90qEpCcp04slSJQT5BstvyiQKfU5Xa8DL8Ob/6WFkuGRAILBkSxLQy+SLNLr5vW3xWJbsHf0yQN/o+aJfB89euaaHSKvJ2DcMcRkI343i0NxKzwEfD4/z+cpaLHzk1RX8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=Pd3bDnjo; arc=none smtp.client-ip=91.218.175.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KE/lWrTh"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a6868f18aeso706080a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 02:12:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788340321; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sdIPV/BmqmvtlLNdLxgY6kqfNbrqaN1CXpcfeG2nRHykb4LGs2Gsck0CnU5ocWVp1G
-         InDUYj9V+tmWCaHjvu5sqGUvARaWSqVVtpwhmNCS/EVK0ipvSBD+hdp8lMbHCC9pNeYp
-         LddHpE9QlWiG0MmbdAk3ohBiI0lGwpaGkk2TQ0HGIDTzIJj5CTvLABxC6gLkanl1BcwZ
-         1k7Dd9Q/+uXpMrcbzXKF9GNDQT7Ysnqhp6MpXSlks8fq542PJ6WMEzQTanvq7yMHkj0A
-         y7bUbWC7NIW3H1ac7yuGSAmX4lyfGBs9yGlOujTmgt0NIbUJ6Uu+PQCRs4jv7mjkRo4p
-         OqcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=w6ZzURnfoAOg1rVh3HCbKIn42FKY1C5XP5qqd+lFbxk=;
-        fh=1Fw7dFIwPgisyqB1FNFsvJbRdmsJTxT6lxHOzRAMPN4=;
-        b=D0gZRJavuRRcrEUl7e1mNlMSDPZSnR8UPrR+4vIqOS3mhgmUsCp/qqJa+Ee0LUEdfm
-         0W3CTFsOBgXOT311kl8IZBQioIvNOwc60rWt71Si12PiTNH5kTzqzErRUSXXSoqcTusS
-         Dyl5I4Mw3qkRvMbOh9PSOzCY863JRBYdoY4ro0o9sdExlfO2nU3aMEVxDGK54ZAUljGD
-         LZZRvu+fKYNXRxC3V0Ntr4DNiEK+Ukd8ilabFD3kXncFj2vI3eDub7fyeD212cztl/Oz
-         +WwFwKp1aAael5VnrhJM0x5GWmHKNBJb3B0BvmxGVenionfH8yXFRV5V6T6exRotrT9O
-         O6oA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788340321; x=1788945121; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=w6ZzURnfoAOg1rVh3HCbKIn42FKY1C5XP5qqd+lFbxk=;
-        b=KE/lWrThBxJyVm4GN2jHMT81bex6vHo4GDXQnYEtBkeJrtnwvydRcItsnXnWoblue+
-         rpKH43hSbly4WZT+MjqghRwu4tzjoEbvW0FVmmrd6Waxd/A/0JR/f5HbjYVmlUUspWsr
-         RKaKKHJIG0EiSP1j4VtolYUf0tyNPvxCmB60H+rlgWkhCL1fmKNOounegBlMeUTL7O67
-         ldnfRDgbzu5+NihF5FxFDDo/lBPFqpE5/nCPl/Fqfen0jbqs73P6X+qCRDHnVChx2EzT
-         +f7K+U9ZYis2e5xPUiiONchedxEK2KPiHj29m/4HiFukUhKmUXPyjgHIpCpG+yeR1SM9
-         8H4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788340321; x=1788945121;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w6ZzURnfoAOg1rVh3HCbKIn42FKY1C5XP5qqd+lFbxk=;
-        b=qwIKqrKtyhfy1FFSTE1VfMwfDgmCN23o8JzMnu+aHptMqTCnARjXhyCv9rhnu34rpB
-         xemVvhN8RaE8lDRgcol55tn4f+UR/CgKrzyc+NO5LxUqH3OA+FZJRltqnIm4s9So6HYb
-         NUmAGcmb14jwWRvXom7SdSpoxLRERH1IfOWLK0rCrWGjKOwKdIXsI6guOEoDyZMlNbhb
-         kdPiz2cHyLQxeKgZxjBj3Q74LcGCBOAZTCRv2l6WXrS8aZEROEJs+QBC66nP5cizjj/O
-         7zD+8dUE/ZxZFnCQYlKCzoqzJhJdipNZKvezv78o1Xou2iS4ZdmLuC0nDCzUu07/3hvw
-         SDyw==
-X-Forwarded-Encrypted: i=1; AKwUvBzrHyhmsYyreISYVPLGEnL7/APs4fT1AaQVL7r3EtxB50mCyDzO9gJI1nmf4hDI00QPykTAMWdhaykYMiM=@vger.kernel.org
-X-Gm-Message-State: AFuF++klFT0HD6kTwjcmqwNonDq148u8SEMn7lb8uXuOP6hCEZA/K97i
-	XIGVwlhHo/lkso6v1gHheiEfMA9+XffyIpFXWK2xX6h9Z5p/ZhcEmsgfCPn9BdbuNa8fMQiJpdE
-	Iv6NUq8vAudClomkBI9vzVuqbCZRLpHSYG1qh
-X-Gm-Gg: AYBFou09n6N1k/5QdorzUbcxu9ZUsJNQ3lZrRvEOfAk4uKWUDbE/qOVYhB05GxZnt1Q
-	AMg55r0UvbRgLUvIbhxKw4cx8K0MfcudzQYLT3xy0PWKjFBm8kpF1hTzrNisVoGWHq7RhchzrHH
-	fKAdlhRUCreKJBoqTQKT+FIJirGvlxK02wUNQsA5M19TL6qq+8hcO1TByqCSox8Osvt1o+/ODHb
-	f4y/sI4DCJ9tUQJCSg19j3uQOBnTlW1Lu2O0N0TJ+4ypLcnwYFZJ1bAM/6xMovzdg7CQuTfR6pL
-	XqgvGFLm48UcFY17wdcYfAaRgSqW4pd4G61xL3MHgdDKYaTqZ2V0gPOmDph7Fp9bgY+3pCNI4kg
-	pSysAIIFaOfTON5JcJM1yGDd3p/GSwx8=
-X-Received: by 2002:a05:6402:21d4:b0:6a3:f63a:4997 with SMTP id
- 4fb4d7f45d1cf-6a682567131mr2177249a12.3.1788340320712; Wed, 02 Sep 2026
- 02:12:00 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="Pd3bDnjo"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=vjtUhJMEfixNV5GdVj21HxMSfKmeVVOYFnonEejTGgg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788340324; v=1; x=1788945124;
+ b=Pd3bDnjo7AjK8iRCyRsHFqapX0RMm14z4eqMwouhvDL+64GJsZfXl/z6y5nsSAdgNz8NkwI9
+ L1nL8ERqD2oMsHa16rYFj06cC5dI3f8mwJZ80vO4SjEKbGwY0xfYVMSF1OB3Gwku4cRSP4tnsDP
+ QIJJJSN5gTIVE1HNvmOJWNPg=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9dc51a52a9da3238;
+	Wed, 02 Sep 2026 09:12:03 +0000
+X-Mizu-Trace-ID: 9dc51a52a9da3238
+X-Migadu-Flow: FLOW_OUT
+From: "Hui Zhu" <hui.zhu@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Kairui Song <kasong@tencent.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>
+Subject: [PATCH RESEND mm-stable v5 0/2] mm/vmscan: fix NR_ISOLATED accounting and throttle MGLRU eviction
+Date: Wed,  2 Sep 2026 17:11:24 +0800
+Message-ID: <cover.1788339549.git.zhuhui@kylinos.cn>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788277742.git.mattst88@gmail.com> <dc9ec3ff88fd895cc4daf846bdebe9ed2a58d507.1788277742.git.mattst88@gmail.com>
-In-Reply-To: <dc9ec3ff88fd895cc4daf846bdebe9ed2a58d507.1788277742.git.mattst88@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Wed, 2 Sep 2026 11:11:49 +0200
-X-Gm-Features: AcwNN1W-bysK_UU6D1gNJGL4hkeLn89fMcgmtQ7gQeFBsPWL2yf6N6O3MoMWeZ8
-Message-ID: <CA+=Fv5S=N849_UN2AS-Q1aY-34wvVaY56gWY1ULG8hpNV1kuVg@mail.gmail.com>
-Subject: Re: [PATCH 10/24] alpha: select HAVE_ARCH_COMPILER_H
-To: Matt Turner <mattst88@gmail.com>
-Cc: linux-alpha@vger.kernel.org, richard.henderson@linaro.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Matt,
+From: Hui Zhu <zhuhui@kylinos.cn>
 
-On Tue, Sep 1, 2026 at 5:51=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
-te:
->
-> Alpha already provides asm/compiler.h (wrapping uapi/asm/compiler.h)
-> which defines architecture-specific compiler intrinsics like
-> __kernel_cmpbge, __kernel_cttz, __kernel_ctlz, and __kernel_ctpop.
->
-> Selecting HAVE_ARCH_COMPILER_H causes linux/compiler_types.h to include
-> asm/compiler.h, making these definitions available consistently.
+Previously the patch was based on mm-unstable, which caused issues during
+Sashiko apply.
+So I rebased it onto mm-stable and resend.
+Thanks Andrew for the heads-up.
 
+The legacy reclaim path has two mechanisms around isolated folios that
+MGLRU lacks:
 
-I tested this on an AlphaServer ES40. The kernel built and booted
-successfully with CONFIG_HAVE_ARCH_COMPILER_H=3Dy, and the in-tree
-test_bitops module completed without errors.
+1. NR_ISOLATED_ANON/FILE counters are updated when folios are isolated
+   from the inactive lists. Compaction's too_many_isolated() relies on
+   them to decide when to back off. The MGLRU reclaim path never
+   updates them, so compaction cannot see MGLRU's in-flight isolation.
 
-While testing this patch, the FFS KUnit suite exposed a separate,
-pre-existing issue in the EV67 Alpha fls64() implementation. The
-zero-input tests failed with the contradictory diagnostic:
+2. shrink_inactive_list() throttles direct reclaim via
+   too_many_isolated() when isolated folios pile up. MGLRU's
+   evict_folios() isolates folios without any such check, so many
+   concurrent reclaimers can over-isolate the same (oldest) generation,
+   leading to unnecessary swapping, thrashing and premature memcg OOM.
 
-  Expected fls64(input) =3D=3D 0, but
-      fls64(input) =3D=3D 0 (0x0)
+Patch 1 fixes the counter accounting in the MGLRU isolation path.
+Patch 2 adds a per-lruvec throttle, mirroring the legacy behavior but
+adapted to MGLRU's per-lruvec contention and its dynamic type
+selection/fallback.
 
-The EV67 implementation passes zero to __kernel_ctlz(), which GCC maps
-to __builtin_clzl(). The result of __builtin_clzl(0) is undefined, so
-the compiler can optimize the comparison inconsistently with the value
-returned by the Alpha ctlz instruction.
+Testing
+=======
+Two test scripts are provided to reproduce the problem and validate
+the fix. Both are available at:
+https://gist.github.com/teawater/3ef51251f2e91a5a600e3d26bb477e34
+Test environment: 10 CPU / 8GB QEMU guest, MGLRU enabled, a 16MB
+memory cgroup, anonymous working set, swap backed by dm-delay (50ms
+read/write delay) to slow swap-out and lengthen the isolation window.
 
-I verified the diagnosis by changing fls64() to handle zero explicitly:
+mglru_iso_repro.sh (64 threads, 48MB working set, 60s):
+Drives concurrent direct reclaim inside the memcg and measures scan
+efficiency, throttle events, in-flight isolation and throughput.
+Neither kernel OOMs at this concurrency; the value of the patch shows
+in reclaim quality:
+                        unpatched       patched
+  OOM kills             0               0
+  mm_vmscan_throttled   0               35645 (all
+                                        VMSCAN_THROTTLE_ISOLATED)
+  nr_isolated peak      0 (invisible)   230
+  total touches         246,499,132,369 301,456,426,692
+  scan efficiency       0.0261          0.0194
 
-  return word ? 64 - __kernel_ctlz(word) : 0;
+The patched kernel completes ~22% more work in the same 60s: the
+throttle keeps concurrent reclaimers from trampling the same
+generation, so less CPU is burned in reclaim. Note nr_isolated is
+always 0 on the unpatched kernel - the over-isolation is invisible
+there, which is exactly what patch 1 fixes.
 
-With that change, the FFS KUnit result improved from 8/9 to 9/9 tests
-passing.
+mglru_iso_repro_v2.sh (192 threads, 48MB working set, 60s):
+Raises concurrency to the point where over-isolation becomes fatal:
+                        unpatched       patched
+  OOM kills             1 (task killed) 0
+  memcg oom events      51              0
+  mm_vmscan_throttled   0               512292 (all
+                                        VMSCAN_THROTTLE_ISOLATED)
+  total touches         0 (killed)      682,300,003,972
 
-This appears unrelated to this patch, since asm/bitops.h already
-included asm/compiler.h directly before HAVE_ARCH_COMPILER_H was
-selected. I am mentioning it here since this patch led to the issue
-being discovered.
+With 192 threads the unpatched kernel cannot keep reclaim ahead of
+allocation and the task is OOM-killed; the patched kernel survives the
+full run and keeps reclaim making progress.
 
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+Changelog:
+v5:
+According to the comments of Kairun and feedback from the test scripts,
+make the throttle check per lruvec (new nr_isolated counter) and skip
+empty types in the allowed mask.
+v4:
+According to the commens of Baolin and Barry, rework patch 2:
+drop the throttle_is_throttled() helper extracted
+from shrink_inactive_list() and leave the legacy path untouched.
+The new MGLRU-only throttle_evictable_types() only sleeps when all
+evictable types are over-isolated - v3 throttled as soon as any of
+them was, which unnecessarily blocked the reclaim of the other type
+and passes the mask of the remaining types to isolate_folios(),
+which restricts both its initial choice and its fallback, so that
+isolation never lands on a throttled type.  The v3 gate did not
+constrain the type actually isolated, so the fallback could still
+pick the over-isolated one.
+Re-run the tests and update the test log.
+v3:
+According to the commens of Baolin, remove the redundant nr_isolated
+check before restoring the NR_ISOLATED_* counters in evict_folios().
+rename the extracted helper to throttle_is_throttled() to avoid
+confusion with the existing wake_throttle_isolated() naming space.
+Use for_each_evictable_type() in the MGLRU throttle to check each
+evictable type's isolation instead of only the type returned by
+get_type_to_scan(), since isolate_folios() may fall back to the
+other type.
+Re-run the tests and update the test log.
+v2:
+According to the commens of Kairun, Rebased on mm-unstable.
+Split into two patches; patch 2 is new and adds the
+too_many_isolated() throttling to the MGLRU eviction path, which v1
+did not cover.
+Add test infomations.
+
+Hui Zhu (2):
+  mm/vmscan: fix missing NR_ISOLATED counter update in MGLRU reclaim
+    path
+  mm/vmscan: throttle MGLRU eviction when isolated folios pile up
+
+ include/linux/mmzone.h |   2 +
+ mm/vmscan.c            | 173 +++++++++++++++++++++++++++++++++++++----
+ 2 files changed, 162 insertions(+), 13 deletions(-)
+
+-- 
+2.53.0
+
