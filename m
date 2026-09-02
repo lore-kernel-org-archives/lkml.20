@@ -1,287 +1,125 @@
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3CC43CEB99
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:55:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788335718; cv=pass; b=aiCmzqvO3GK6DpWSR3rTnNw7I9LdM0w9xd8Ow+XX1v/FvNpetH3wKJ8/SRd/SnxkxPZ/FjsMRsG0H9OvzFW4VmUW6PvYk7dVoncIZYwbAFfHBMF3Qvks4KHJitItBmOwe4rZ5qdVPrgHYoYhDOYb8rVzGBSsKi5en1jkgolHb5g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788335718; c=relaxed/simple;
-	bh=B496ZWE8lTS6e9XujVEQppvyzLhvQxrwFbtpSbh/IVE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qbAmSBs3+tWQT4G/V6yc5nY0JvAjXw35Snh7/UkDjoraRCV7YOZtP7IbBoc90Ri6PItcNtV8MW1pnb8XPJZfz+DEn0qWb+fT5L1iwzjvSlm3lXYE1Yv0/C/6SdcKq4tQzqir4jtg8dEVJ0rnlbNf3Gb94YDzJd1H7pnSdK13884=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fq6BliAn; arc=pass smtp.client-ip=209.85.218.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4B03DB97A
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:55:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788335721; cv=none; b=Xcp949WKVVEF1RzJpurQRyoz1oelFZXexiiqSvqAfbq/u6tyeBvlW0owPU9V9I1NKBzMv05fzH9u2HSj0NhehqtcbIpJor1p5C7uL5sK4sLzihjLOf7+A2WdCyxgjgvoOuo5uGEl0sf7+Qj/STIaG0D0HZ+I6M29Ns7dsNImR2Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788335721; c=relaxed/simple;
+	bh=LqmhBA2Uaqj96r7IoqhILAq5dspdgOGcSa9hyKEtVSc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dFJe5Sa5jtciJsAUI75kUwMe/K5wtkmXAZY7mfJivrBjWLq0ks17NugBrUqUY/nq7L2vAP+lXVfvuAMpq0LGHQVYErFD3JI2tge7uPuMsjYq3vEQfd8kIwCx1RhFApiKWcPOp6S1weDNoCI0QUvRt7ZInIGeEeXvKpDELT6pYaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jnd9SLym; arc=none smtp.client-ip=209.85.221.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fq6BliAn"
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c250c6a6a9aso102918966b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 00:55:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788335715; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jlqnR3rtkgfS3fA49VzkheU1GSZkFCtMXlortYVA6DaDyx8K2z0jTe4qPro5ViXfz4
-         +ALC5j2pikslGHAv5KJlb2F91q0kg++FvBUYKjGV+qi4M8MM1yaXXEhaThzCPQXpJZbj
-         2TBTVJ7QPchXwZRWhdRvZhQf0ROOfSktSkbUfLgQMp90a97RlA8fQyH29NiVD6hKY7+F
-         ikvqHH4W0oKusNHwIDnzifKF9CxK5mIAYdBSGm6oQbLNtMLf5s7IYIYeuqQ7/OZbqjtZ
-         mn/6II4cqdJLTqwn4iAUYz7agM2uUKXpVAfpuqNL2x7c0Rb6VZpND1U7NlLd6/LdpEE/
-         b9xw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=i0TA8mNqju4M5C15rH1fVoSuW9TL+HQXP6xEiDU8GW8=;
-        fh=czxUECl3MFaRB9x8tqx+shPWuvznh921MXalQMdCyzI=;
-        b=jR85uBqqYNRqASQMxjgi4prgvhcAD8cVpFzqiopWnRFQtvnkOwKw3O/xZ/+VyGqMQa
-         cyU7GALmZNhlpcERhCA02mGbXpcGtsJJLHLCn37jiuJzkc0ow4BP+BNs6Y7Fhvtf1oSS
-         mNifwYV85LLd8debCVE7g1vqY1PTK2qIlu8zUWwzkMuy7JTqzKIc4ZCT2lVH8sSjiq/5
-         SfPbj8KNbO3XDzG/xMFLflXE8SSApwAb+2gXcVhxYGjxsNMmj74oZLM6jXCdE9pny6tG
-         obyVe/o5XfQD4TgsIawc23S1ApxiH35cHxTO+tz5r7ywP24rQDvAk2Jj/4HhNUKD2IvU
-         4QRg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jnd9SLym"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so751351f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 00:55:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788335715; x=1788940515; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=i0TA8mNqju4M5C15rH1fVoSuW9TL+HQXP6xEiDU8GW8=;
-        b=Fq6BliAnb7jLIVrsoENBAbsEvSWYAix7pVxIYW6r1liBFmdJ7MqCkFHj7Kcuq0RPq1
-         7LXsdWOMKl3pbsmJh+tgggsMeldwHPpNC/OMv40rdzSeNPWELDY81Uv2pMfacJFpYa+t
-         qQ+acS669B9N7GMwfwsBfwxdXurK8bOZtl4xQsYgj9ygW6Z+A1ovw6dhMqO64nejXHdf
-         Gh4pmjP/2n9fR7udTwljaFksZufhzOX83+Yr51SQJt02td6cqbcVXY/RLgUC2oyCW7Da
-         hXSKQlfipcKR6pLDb5PpGZJFO0ANS/S/jxgREsPZ/x25SoIR/FRDtqFlgQRrr9QINBB3
-         v+vQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788335715; x=1788940515;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788335718; x=1788940518; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=i0TA8mNqju4M5C15rH1fVoSuW9TL+HQXP6xEiDU8GW8=;
-        b=nyBTAMWGYcRFP2rd5RtixX0Eu9U5CBQnhff8CS/EP3F8Ov4urfNyr4SwuZMrK7ctwv
-         iXpr7NRWlec6RM7M8hcnfU8ZmmvhythPvYXVHQeVgb51USpxcLKYtAswdhNd5UHL8dac
-         d1cMuOm+UUszjZ+aBISJfHIVWukJ1Qqr/DFnvjJUxYqO/x5wNsyCZtXicfmPfwQPEir+
-         tt4yc0EhKPlzlr1mS2yElgXM/4yN4WtAfgifXntto1NeXaF3CpaDv7EoyXIdprOtd1VW
-         Up5gXegbO0Lb9I20lzpIxAziRHvCnRGhd48z+8JJmaKg/wah/JXaeeRGnYaKzC7v797S
-         wdUA==
-X-Forwarded-Encrypted: i=1; AKwUvBwmc1PUedsNc22q/IQ3cZfLqjVCGyw/rxHeVmGY9V9toxjuO5qNnln12azVtsr8fLQpdUA5+C5XM/WwrvA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mqfiJM087KDfU9tzxwerSdbH7CexWSIxYE+Arp5gXOHttIpAoN
-	o8ND3HZHKOslAV62bWiGCoq7JeFXlwinWdi5Pdowp+uWakPDW00CprqiePx8PvioywV1w7hdBmL
-	/momEljpszAu/JJRv+z/Bh5U7T0l884pOEtd8Yqs=
-X-Gm-Gg: AYBFou1n4Z899qxGS8MUcykEv4WZAexPYkqpINIelXa1oS2rrhwzdecTpTTYARWYGuY
-	GmTZW9iNS9+el7zZ+6BEjhISBJXr4EK4eLYmUNnY1gXkqvJrd6WtZOGJFd2wFII9ubyt3fD/RcH
-	ErkbpzoAS1UcnGSPB27tIJ+iTIAqefQ8cOOHkTDYoGoCUk0Un61f2dJcNkCIi0TaDhrojmaAXTN
-	mG4Ke8BJBT3hXIebk5pShmC7bWygMDFTBhPLYVSbXp6kaIqK2Wq2SnGKTuv8Hhx5/GggGHU8+kz
-	X7gNuJlCw/0tY6VglLeHjZ/n7NCnGERb+2CiAli7hwZ+bw==
-X-Received: by 2002:a17:907:94c5:b0:c19:49ee:19b9 with SMTP id
- a640c23a62f3a-c25d54753c1mr143038366b.15.1788335714598; Wed, 02 Sep 2026
- 00:55:14 -0700 (PDT)
+        bh=6YX0g1ltOeVRJXePTRjTJXJYLcoS+wQGBHQ9Rhr0r0g=;
+        b=jnd9SLymUfbnTIvOXekvWtxAKvJ+p84oG/hHo+EX1YZkWYmbNQ3SIGJkIfSDFh43Y1
+         z9F5uIp4TV39aFT1R52bQ2yl8XOkO0Jtd+IB/aYjpUSNGRvGf+rAogncAGoOtA/xBbKI
+         98/hCtbrzraUX1KA7/zJvglLQ/R93mvnsAdKmfr10CltQfYz7Yq/PcLLUiwMRTm2Ktgw
+         pcVqe9MsN9i+5e2JjF2gcfyj7NMbOclTNk0+I/9EMpkbBHpS4K+wBw3EARNzuHidGZyF
+         gsba11uQnjLt6vrmU3rPY0dXjJxxA+RZAIMNRJOmyF//Iw1GgfnhHRz/0N4HsdLCsGvq
+         8uEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788335718; x=1788940518;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6YX0g1ltOeVRJXePTRjTJXJYLcoS+wQGBHQ9Rhr0r0g=;
+        b=XNZiecyXpJduDZEaCje8wojQWcvomE9CK3XvIUW0laRv+cPk54t/xKJVn8rLZJMtfd
+         ak+tdrjXnfjDrTqX+RjQwcNrtnx03SvJzY9NxVkHfB39UdK7Kx2gpUIli6z7LQT88/rJ
+         BbykrSHbDZYBEUV0BhB1Jp7tvh/6ccIQhN8ZP5JUqcEvgxtKtfTSMTJ22nLqBROsmeCg
+         uWImPX7brz8mtpOmH4ywtDdGSYTwrpXBdgdOqPPb+xoYa0iwD1ApOLJqxCML7Vy1WCa6
+         BR6MEKRtkHtQyIluQb1lNaGd/0YeJDeovDSmwjx0yE/D8P6rFsTzUhwuZtu1spDM7ldY
+         QIxg==
+X-Forwarded-Encrypted: i=1; AKwUvBxUpVXi8T+wne+YCQmYmUS5wQi3Lb2X80wpXLwp1XFKeA49g+kddfEOggBIwTrb97KimeuOYTsGGT23Wkw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPluIH86SEF9zM7njPnowV11APeqFXS1aTINGTpQN2Sttg5CiM
+	gGWqrt2V7qL9RqbjHOWl87TIXh2K2qN2vk1pqeG8h3yGbTzvVdTPXlX3
+X-Gm-Gg: AYBFou15vTYzm7EIifzMeXt1YA+i98MeZl00rgYsFB0U4eQKTH/shpdKCn08lgTR9Yu
+	2TCoyNtn1UbBwQckksF0eMMxgVjaUrVWxKHOYfEzu9nrQletaVXAkP76qIWEXmNQtvuJozw9N3c
+	ymqy/EdSkbMDoLNDT7u9jO4wU7zSOTNLKH0GaSX6nAgou869zvJ1VlRjhFX66oNo6SIRw+v7J7u
+	t6MKPFkTkPI+ZPQEdzI/g2iWPxnjVeOjkBjC40pEUiX5l4v4nw2J0R8YW1j446E72Ugx4LzifZ5
+	2Q4lxena+CTFxppTiDznNOge0Z3jlBXnif7I+dDEe07SxR7/nJ2+5THgPLvmhaLMI17iz0YUNoF
+	rdG0g02RFXffMbVtE2AUwCC8DEu5zFWrdyEvo3UjGY1rLYr9AFGTS3o1mgiJKJS6dAzR6XOqT9G
+	68aa2COoBu4JIYbVdhAM+A6aqcxmCdJrqUUHuc78Kz9m49zqs2s0i/UGOpt2/ycZVw3rQEbOfxU
+	l+B1UHLVWYxAh5NHCe+el3MkKO0DavUmwGnr6t3J+YGwqv4AKbS4kKM
+X-Received: by 2002:adf:e196:0:b0:482:e451:6810 with SMTP id ffacd0b85a97d-48488dee050mr5700746f8f.1.1788335717956;
+        Wed, 02 Sep 2026 00:55:17 -0700 (PDT)
+Received: from [10.0.1.42] (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448ed30c0sm4797705f8f.24.2026.09.02.00.55.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 00:55:17 -0700 (PDT)
+Message-ID: <fe9a266d-695a-4379-9aaf-8ed9ce02efa2@gmail.com>
+Date: Wed, 2 Sep 2026 09:55:15 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CANypQFZSYrtcshnUzOPiqatyLd-M8_OReOewQoAi_V5yY0dTtg@mail.gmail.com>
- <CAKFNMo=GevQ+76gNdPvaQf4rP7=UbiPipRYj6BD3tCaSYj_hcQ@mail.gmail.com>
-In-Reply-To: <CAKFNMo=GevQ+76gNdPvaQf4rP7=UbiPipRYj6BD3tCaSYj_hcQ@mail.gmail.com>
-From: Jiaming Zhang <r772577952@gmail.com>
-Date: Wed, 2 Sep 2026 15:54:31 +0800
-X-Gm-Features: AcwNN1XM8oOzL5Q4z8g0EObHic-iVpGn799hzbqs-z-pxgjTcsYjf95sqfrUYjc
-Message-ID: <CANypQFaUfeXU7S9N0PpJP343h1ibRxSJ27oJxhJ0Jd5ChpiDcw@mail.gmail.com>
-Subject: Re: [Linux Kernel Bug] WARNING in nilfs_copy_back_pages
-To: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Cc: linux-nilfs@vger.kernel.org, slava@dubeyko.com, 
-	linux-kernel@vger.kernel.org, syzkaller@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH] crypto: caam: map job ring registers without claiming
+ region
+To: Rosen Penev <rosenp@gmail.com>
+Cc: linux-crypto@vger.kernel.org, =?UTF-8?Q?Horia_Geant=C4=83?=
+ <horia.geanta@nxp.com>, Pankaj Gupta <pankaj.gupta@nxp.com>,
+ Gaurav Jain <gaurav.jain@nxp.com>, Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>,
+ open list <linux-kernel@vger.kernel.org>,
+ Francesco Dolcini <francesco@dolcini.it>,
+ Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
+References: <20260901203736.13248-1-rosenp@gmail.com>
+ <20260902061059.GA7187@francesco-nb>
+Content-Language: en-US
+From: Emanuele Ghidoli <ghidoliemanuele@gmail.com>
+In-Reply-To: <20260902061059.GA7187@francesco-nb>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Ryusuke Konishi <konishi.ryusuke@gmail.com> =E4=BA=8E2026=E5=B9=B49=E6=9C=
-=881=E6=97=A5=E5=91=A8=E4=BA=8C 23:11=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Tue, Sep 1, 2026 at 9:58=E2=80=AFPM Jiaming Zhang wrote:
-> >
-> > Dear Linux kernel developers and maintainers,
-> >
-> > We are writing to report an issue discovered in the NILFS2 subsystem.  =
-The
-> > issue is reproducible on the latest version of linux (v7.3-rc1, commit
-> > cee9395acd8043be0644b25c34bfa86623f2b935).  Below is the kernel report:
-> >
-> > NILFS (loop0): error -2 preparing GC: cannot delete virtual blocks from=
- DAT file
-> > ------------[ cut here ]------------
-> > folio_test_dirty(dfolio)
-> > WARNING: fs/nilfs2/page.c:331 at nilfs_copy_back_pages+0x639/0x810
-> > fs/nilfs2/page.c:331, CPU#0: syz-executor887/9521
-> > Modules linked in:
-> > CPU: 0 UID: 0 PID: 9521 Comm: syz-executor887 Not tainted 7.3.0-rc1
-> > #37 PREEMPT(full)
-> > Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix,
-> > 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-> > RIP: 0010:nilfs_copy_back_pages+0x639/0x810 fs/nilfs2/page.c:331
-> > Code: 44 89 fe e8 39 8e 12 fe 45 84 f6 74 25 e8 9f 8a 12 fe 48 89 df
-> > e8 67 9a 55 fe 4c 8b 7c 24 10 e9 e5 fe ff ff e8 88 8a 12 fe 90 <0f> 0b
-> > 90 e9 1d fe ff ff e8 7a 8a 12 fe 4c 8b 7c 24 10 e9 c8 fe ff
-> > RSP: 0018:ffffc9000854f4c0 EFLAGS: 00010293
-> > RAX: ffffffff83a8e928 RBX: ffffea00013cf3c0 RCX: ffff888026619f80
-> > RDX: 0000000000000000 RSI: 0000000000000010 RDI: 0000000000000000
-> > RBP: ffffc9000854f6e8 R08: ffffea00012db607 R09: 1ffffd400025b6c0
-> > R10: dffffc0000000000 R11: fffff9400025b6c1 R12: ffffc9000854f548
-> > R13: ffffea00012db600 R14: 0000000000000010 R15: 1ffffd4000279e79
-> > FS:  000055558d08a380(0000) GS:ffff8880985d9000(0000) knlGS:00000000000=
-00000
-> > CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> > CR2: 000055558d08aca0 CR3: 0000000044f02000 CR4: 0000000000752ef0
-> > PKRU: 55555554
-> > Call Trace:
-> >  <TASK>
-> >  nilfs_mdt_restore_from_shadow_map+0x127/0x260 fs/nilfs2/mdt.c:652
-> >  nilfs_clean_segments+0xab8/0xba0 fs/nilfs2/segment.c:2552
-> >  nilfs_ioctl_clean_segments fs/nilfs2/ioctl.c:938 [inline]
-> >  nilfs_ioctl+0x242a/0x2590 fs/nilfs2/ioctl.c:1368
-> >  vfs_ioctl fs/ioctl.c:51 [inline]
-> >  __do_sys_ioctl fs/ioctl.c:597 [inline]
-> >  __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
-> >  do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
-> >  do_syscall_64+0x170/0x540 arch/x86/entry/syscall_64.c:84
-> >  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> > RIP: 0033:0x7fa00bf4d42d
-> > Code: b3 66 2e 0f 1f 84 00 00 00 00 00 66 90 f3 0f 1e fa 48 89 f8 48
-> > 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d
-> > 01 f0 ff ff 73 01 c3 48 c7 c1 c0 ff ff ff f7 d8 64 89 01 48
-> > RSP: 002b:00007ffd36ab1678 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-> > RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007fa00bf4d42d
-> > RDX: 0000200000000300 RSI: 0000000040786e88 RDI: 0000000000000004
-> > RBP: 0000000000000000 R08: 0000000000000000 R09: 00007ffd36ab16c0
-> > R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffd36ab169c
-> > R13: 00007ffd36ab16e0 R14: 000000000000000c R15: 431bde82d7b634db
-> >  </TASK>
-> >
-> > Following is the root cause analysis for this issue, note that the
-> > analysis is performed with the assistance of LLM, but we try our best t=
-o
-> > ensure the accuracy.
-> >
-> > The WARNING triggers because a folio of the DAT metadata file is still
-> > dirty where nilfs_copy_back_pages() expects a clean one.  That function
-> > runs when garbage collection fails, which the reproducer causes by aski=
-ng
-> > it to free a virtual block number the DAT file does not map.  nilfs2 th=
-en
-> > restores the DAT page cache to a snapshot taken before the collection
-> > started: it first clears the dirty state of the folios in that cache, t=
-hen
-> > copies the snapshot back over them, assuming the first step left nothin=
-g
-> > dirty.
-> >
-> > The clearing step can skip a folio.  Since commit ca76bb226bf4 ("nilfs2=
-: do
-> > not force clear folio if buffer is referenced") nilfs_clear_folio_dirty=
-()
-> > returns without clearing if any buffer head of the folio is busy, to av=
-oid
-> > clobbering the state of a buffer somebody else is using.  A buffer head=
- is
-> > busy here: reading a metadata block goes through nilfs_mdt_read_block()=
-,
-> > which also submits read-ahead for the blocks that follow and waits only=
- for
-> > the first.  When the block size is smaller than the page size, several
-> > metadata blocks share one folio, so a locked read-ahead buffer can be
-> > adjacent to a dirty buffer and keep the whole folio dirty.
-> >
-> > nilfs_copy_folio() then copies the snapshot over that folio and clears
-> > BH_Dirty on all of its buffer heads, leaving the folio dirty with no di=
-rty
-> > buffer under it, which no later segment construction cleans up.  On a
-> > kernel booted with panic_on_warn, the WARNING can lead to a system cras=
-h.
-> >
-> > To fix this issue, the dirty flag of the destination folio should be
-> > cleared before the folio is overwritten:
-> >
-> > diff --git a/fs/nilfs2/page.c b/fs/nilfs2/page.c
-> > index cf4f1c6798f5..b26d9c3bda6d 100644
-> > --- a/fs/nilfs2/page.c
-> > +++ b/fs/nilfs2/page.c
-> > @@ -328,7 +328,8 @@ void nilfs_copy_back_pages(struct address_space *dm=
-ap,
-> >   dfolio =3D filemap_lock_folio(dmap, index);
-> >   if (!IS_ERR(dfolio)) {
-> >   /* overwrite existing folio in the destination cache */
-> > - WARN_ON(folio_test_dirty(dfolio));
-> > + if (unlikely(folio_test_dirty(dfolio)))
-> > + __nilfs_clear_folio_dirty(dfolio);
-> >   nilfs_copy_folio(dfolio, folio, false);
-> >   folio_unlock(dfolio);
-> >   folio_put(dfolio);
-> >
-> > After applying the above patch, the reproducer no longer triggers the i=
-ssue
-> > on our machine.  If this solution is acceptable, we are happy to submit=
- a
-> > formal patch.
-> >
-> > The kernel console output, kernel config, syzkaller reproducer, and C
-> > reproducer are available at google drive:
-> > https://drive.google.com/drive/folders/1R6EqqLPh5vgylKRPvO2ji5Q8Tsf0x8Q=
-Y?usp=3Dsharing
-> >
-> > Please let us know if any further information is required.
->
-> Thanks for the report, Jiaming Zhang!
->
-> I think the issue is that commit ca76bb226bf4 changed the expected
-> behavior of nilfs_clear_dirty_pages(), which is called before
-> nilfs_copy_back_pages().
->
-> Originally, nilfs_clear_dirty_pages() was implemented for
-> nilfs_mdt_restore_from_shadow_map() to restore the pre-GC state from
-> the DAT shadow page cache. It was designed to forcefully clear dirty
-> pages/folios in the DAT page cache, assuming complete synchronization
-> with the log writer.
->
-> However, over time, it started being called to resolve page/folio
-> dirty states when the filesystem degrades to read-only during a
-> page/folio writeback request.
->
-> Since this page/folio dirty state clearing was asynchronous with the
-> log writer, it caused unpredictable bugs in various places after the
-> filesystem fell back to read-only. Commit ca76bb226bf4 is one of the
-> essential workarounds introduced to avoid this.
->
-> The root cause is that the same helper function is being used for
-> calls with two entirely different premises. I believe the solution is
-> to restore the original semantics of nilfs_clear_dirty_pages() only
-> when it is called from nilfs_mdt_restore_from_shadow_map().
->
-> Specifically, how about adding a bool force flag argument to
-> nilfs_clear_dirty_pages() and nilfs_clear_folio_dirty(), and having
-> the call from nilfs_mdt_restore_from_shadow_map() set this flag to
-> clear the dirty state regardless of the buffer head's reference state,
-> just like the original implementation?
->
-> Would it be possible for you to propose a fix using this approach?
 
-Thank you for the explanation! I agree that your proposal sounds more
-reasonable. I will send v2 patch later, add a bool force argument on
-nilfs_clear_dirty_pages() and nilfs_clear_folio_dirty(), it is only
-set true on the two calls in nilfs_mdt_restore_from_shadow_map(), and
-keep the WARN_ON().
 
->
-> Alternatively, since their premises differ, we could separate the
-> implementations entirely, but I expect that adding a boolean option to
-> switch modes would be simpler.
->
-> Adjusting the WARN_ON in nilfs_copy_back_pages() would break the
-> original design (premise) and is therefore undesirable, in my view.
->
+On 9/2/26 08:10, Francesco Dolcini wrote:
+> + Emanuele
+> 
+> On Tue, Sep 01, 2026 at 01:37:36PM -0700, Rosen Penev wrote:
+>> devm_platform_ioremap_resource() ends up calling request_mem_region(),
+>> which fails with -EBUSY on i.MX SoCs:
+>>
+>> There the job rings are modelled as sub-regions of their parent
+>> fsl,sec-v4.0 register window, and caam_probe() already reserves the
+>> whole window exclusively via devm_of_iomap() before the children are
+>> populated.  Every job ring therefore collides with its own parent and
+>> fails to probe, taking the hardware RNG offline (seen on i.MX6, i.MX7
+>> and i.MX8 boards such as colibri-imx7 and verdin-imx8mp).
+>>
+>> Map the job ring registers with devm_ioremap() instead, which does not
+>> claim the (already owned) region.
+>>
+>> Fixes: 9a955c0a7d11 ("crypto: caam - simplify probe resource and IRQ handling")
+>> Assisted-by: opencode:big-pickle
+>> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> 
+> Reported-by: Emanuele Ghidoli <ghidoliemanuele@gmail.com>
+> Closes: https://lore.kernel.org/lkml/20260901194524.908240-1-ghidoliemanuele@gmail.com/
+> 
 > Thanks,
-> Ryusuke Konishi
->
-> >
-> > Best Regards,
-> > Jiaming Zhang
+> Francesco
+
+Tested on colibri-imx7.
+
+Tested-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
+
+Thanks,
+Emanuele
