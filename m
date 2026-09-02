@@ -1,118 +1,112 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1170D3769F9
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:50:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 236613769F9
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:50:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788371403; cv=none; b=OgU2X5Rh9NOgAV6CxcnhT4foW2KIFq6YL3/W5yPqer26wg3/QewIjetiFX2VU3VRgqfc42LzMNLcuKOSnCh2xpcruxYLBhyj91RM8XhVL+m6HUSsDhfe69Ga+v8mrwCA4/bg6+eOnfAw99rjCkvPtUSIWVH10gIrMZSAWzWXmqc=
+	t=1788371415; cv=none; b=OZSVvNpYRM5W0y+tJqxqUYfQaGnAVEHSFVxeh6wQT++b4hzrtUOGxEKP93H2oAxEJ/cgga6MrciIi17O/jBN3dZhPP9R9fkMwJm6HRkwrwHpeO596ybc0ZEXRHCKet6+jmhHdl2S3MZwkFNAu9tghSOVLy/d0akUivHyGqdv8jY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788371403; c=relaxed/simple;
-	bh=1pAy6kKMkATvkj+AU3EcJaBus59hBYFwa7SSmE3+JAU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Y51DJdysx8sEFVJwO6Bt9WWtrs1BzrLtr+S22lYmawSxYvES0cJ+EDmXR1/ErSQA9Gs/6Dtd/rQMUOOW5cH/7KrX5CP10dvNWo7K1qvOSpqVbFpzoFIodC46mmYugXsw8XPtV/G7eCbzbI0LSODr/7JxIydxlqPlaeeXURQueHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HioRwMIO; arc=none smtp.client-ip=209.85.128.47
+	s=arc-20240116; t=1788371415; c=relaxed/simple;
+	bh=AOKSnDP9CtAhuZxY1NyLmcZ9XK56/YQAFAYhf3QHJnA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=draQ/uJBADjBuf308fDDpxbHfe36HaqBezmiKcp+6ZSUvjifUbiC4Ou1jJfiQdT4ypvS4GXTGoaiwPNHnAd00SzmUfp9Hs8umCzX7xrQBjPKjRg9kBpg3X0VHkIOP8bcluzpFLvjiPOMcMuaR2aPz6hfzeo08isVCFnCnTv4e+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q0cittjY; arc=none smtp.client-ip=209.85.221.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HioRwMIO"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49b9320423cso13966395e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:50:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q0cittjY"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48442ea8f59so97200f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:50:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788371400; x=1788976200; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JFmVCM/E9QWkXdxb1N7Xv4jQDK8JhocN0d9+kOjKq0g=;
-        b=HioRwMIOfxItzS2QqjfGWfqJAEwjqwyCuw/qTuiTA96re9vB8KynZwYq2kVlawWP5P
-         OZebXvvYzmzkQLqKWOVVKKBdD2zg4y6/Z+oGIjbZS7vC1OItZ8tR7TXCA7Q2y5MdRqSV
-         jBq7YEoRVwjRP14dylWMGz5XEz9k76XR5gKz9RHJxXJsXTNd9JW9aA1HhDmI1ipQRWbs
-         1qp7baaFdshs54QY3SeEdkNTYQ1Rfo3rcR7vjB6McqZen4MaX30XJ+YwqL5aUoW+dYU0
-         GptmjQWHHHuOZRCdgKVh3fiN8LbrOJAqMrhapA7iOWkqYlSsjLHFpsO4AVWdWquJkjMM
-         dM7g==
+        d=gmail.com; s=20251104; t=1788371409; x=1788976209; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JHwrxD7gPXHTQiD45cH94X7t8jEBXhwWQNdUs9NRWSE=;
+        b=Q0cittjYqakDW0KRWYruUS1B4E4SY43FvlAGbnP18pFIYpk9Aq5cNTsaupBH+phUD0
+         ElBOiDgdhhVZzYwTaWol2zEzWlOr/Ty3lOT1rfnpgjyAL79xKAT3Iu6JLwTNdWu3oFF9
+         wbKZaFkaNVq4ulllcifqrxB+9Ud/z0zlBG9juXaP46bOeEBOzYJjGIVjPao+OE5an1+V
+         1abx+oR16n/q44UYwNf20AqPHMRobeAu66qmbdQDqiq1joYG25GlqEqu5t1aqWNZFMR5
+         CoQHp0Milu/JJxQbmqpWRwfsOwP83MWrcx2n9iElFOk8p1JBA5LJJYkE7nd1vsSuQvpz
+         aBlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788371400; x=1788976200;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JFmVCM/E9QWkXdxb1N7Xv4jQDK8JhocN0d9+kOjKq0g=;
-        b=V8qR4mkiLiwqK00OajYiZF6CkuG1b52IsnANNx3vAWBbDpma3VB9xvdfNM/ZyX1BWf
-         TD8O8r8vwKsIwnKVP+xAIs1DzKUzvhnOSwM5vD9r1t8eXNtGd1MWv4PTwYJ/aKyVdp99
-         Z3BzgdrgARMaI/revdosFhTHzo/9Uk9norKPfZDWOd1V3tdegovYdnXD+Hek5lfRHREh
-         aqnnEeNrM7NVOR66vNfLqW/4lbGjdEaRMIsaXBVyvw93thw+iXhV2W1GCneZmEB7yl93
-         fESyCH/BkaQpUiISvI0QZsMvE/7wJ6+2D628aqZ6d6xJ94Bmux/p5KClhUfxV7B1qZke
-         aJ0g==
-X-Forwarded-Encrypted: i=1; AHgh+RoHb/fUZig+nRW05GZKGqWEguvmR4Wx742vcsLeOYRZSFiCJRVa9Qae+yY/Z4PDxOMMBEgeFzSG3ZuKxTg=@vger.kernel.org
-X-Gm-Message-State: AFuF++ltUa4bwdAnZOPBmcOiF+WrjDgQRPU6ou7o/DWS1DMwfX/mL0OC
-	IjZPcPOH9DZtq5BkkuUKNYp1b3t1Fp/MJFVqN0dmL3iIbif70BV0iyBA
-X-Gm-Gg: AR+sD106mv/PxoxfCRSMm5c+CMFlr/LAxPIqOvtCwX5xWorFwVJoTDheCeNsxdaChri
-	8LxSsZUB+/I2NWYfJhRj7h9HsvUCSK1Qz9CCjEEervctZd4ovtJXz6HhAKmkaW9DgVQbs0//scO
-	StS5/f4NHCMjF//qsu+RQSLLrLt0dEXmvr5xFv6F0HQ6q0/MeKdW/GaCbIhP5A2IbW7UUzN2RQ0
-	VNNEK6Wqc5jBT4GRRg6BYVEE02yFKx3VH5kAMSqtvIf1C8Q84wb9+k0sfJBccUcAcf7oIrBp8PW
-	Bf8z/O/t2s5Cki44WddNe1qvGh/zZN0rHBuW0zut8MDA8A3wlrvHrV3jPm4fo4v+rYikACyam8E
-	2rOWHofCIu0s5QaVEaNgIf3iQuVl92nuzNVz43iMj8qU7EbHGok54qb9QPJfXpdBUD313iaYQON
-	32nBQipeR3+n20yrgKCUkoLK6MtUa63mxBHLJp0y8sM8WDNwIDTW9/Z0XWyEgFjCcuGm3YnJCiP
-	2vs53NcdLkzX6BI/RstD60gOBGp6eScFF3aS55PnrU3c4NI/V4nBoUWWoxHbLdu5JwYylZO0i3d
-	6WmJjfJd+7NZOYwfQs2tO3BBV6qMMdUyoDt7vhDUopgc9BVtvlLXBl+IuU2SiYhV9xoGVDdLUZl
-	J8zwVEQ==
-X-Received: by 2002:a05:600c:83c8:b0:49c:d52e:d0ea with SMTP id 5b1f17b1804b1-49ce581779dmr127859415e9.4.1788371399822;
-        Wed, 02 Sep 2026 10:49:59 -0700 (PDT)
-Received: from workstation ([85.186.165.159])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce58da3acsm141698465e9.0.2026.09.02.10.49.58
+        d=1e100.net; s=20251104; t=1788371409; x=1788976209;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JHwrxD7gPXHTQiD45cH94X7t8jEBXhwWQNdUs9NRWSE=;
+        b=U7OJgk0Zxo469cy1Z1cm2BxMeRWHqCQWJy2QQRfzkSD3oS3y+UdzJm2UF/VvHcYegG
+         H2TB/0ABGg6F8NLZ9SMU/7cv+ShBTuwjjP0mVcr76VcoTqHvxC6rslyM6NxOBPQ/CMPZ
+         WI2R58bR3SKDFXich4UHwj+3iSaCCOW9weQGYCTbwoIGPg4ha7uOCZ3tkSmIrJ2GYNPV
+         Qj+cMpv+6KausA4s1a8ujH3FR3Qd3HIUYI694L0c2XLJeWKO9nMj+B+BkoCZCjzoCJNT
+         u9zTq8QIG7BllpwyzcsgH2kH/umQFuwj33xc1sCHvVWD5yszArF1hfH58VMeBbpboOI7
+         FMrg==
+X-Gm-Message-State: AFuF++k/5rYXfQSI4o79vv8TWg99Na1w3G2qV+ivIj5ZnGoZTESxuNzb
+	a8faSXYiVx0Qj8GCpEdM8DBAHwgUr0yxc50+n9vNeSdq/Ek1yYbZVsYH
+X-Gm-Gg: AYBFou0BKWgsBwWGGGA+Tetjc9jAVQ7MSzsxoAiKFgudB8zC8yrEvmiaW7H39w6VSXk
+	QA/vcVuX0rJoJ5/fvR2Gd/fgtuM0/lnNbZgt/B8KFD+cA9DpmSqFplTcsw/1YDGLKttZc/sUZsh
+	PSl5gdUv+XNJMGC+uApxgiNRx8uAGLWfTr+REy3G96+i1PQZEpAuJuOndezQqjVZ+HpbAVd5asr
+	cOurZdnqXJpZrfSMSwwckjfR5HpQRIIoxJKqlLUa0LKVNvHIGPkplvXHN4wmoKanMNooDghmKrW
+	Yc4nnBrzpC5IapyPd0j28C/sJsXwtcROiulnCZhoiGCrMYP/9gGbg3BB87ubYnSS7swFo1J1ES/
+	XvlsHRNayPavTnkJPPvtn81rxJ56Y1hlaShxytN8A/FJ9EolFvByBKiXMm9nQEwpxfn7pEhO15i
+	4f8DcAj+kwTFB/68fwtvU4N42DtsxhK3X0KowbXOgqPejymOUDEpuTFS2qVyWINBZqN+sj1p4=
+X-Received: by 2002:a05:600c:19c8:b0:493:f783:c46a with SMTP id 5b1f17b1804b1-49cee5e8fe7mr19299725e9.6.1788371408631;
+        Wed, 02 Sep 2026 10:50:08 -0700 (PDT)
+Received: from fedora ([93.107.91.249])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5e6115sm7883315e9.14.2026.09.02.10.50.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 10:49:59 -0700 (PDT)
-From: =?UTF-8?q?=C8=98tefan=20Ghe=C8=9Bu?= <stefanghetu9@gmail.com>
-To: lgirdwood@gmail.com,
-	peter.ujfalusi@linux.intel.com,
-	yung-chuan.liao@linux.intel.com,
-	daniel.baluta@nxp.com,
-	broonie@kernel.org
-Cc: kai.vehmanen@linux.intel.com,
-	pierre-louis.bossart@linux.dev,
-	perex@perex.cz,
-	tiwai@suse.com,
-	sound-open-firmware@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?=C8=98tefan=20Ghe=C8=9Bu?= <stefanghetu9@gmail.com>
-Subject: [PATCH] ASoC: SOF: imx8: remove unused regmap field from imx8m_chip_data
-Date: Wed,  2 Sep 2026 20:49:55 +0300
-Message-ID: <20260902174955.207878-1-stefanghetu9@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Wed, 02 Sep 2026 10:50:08 -0700 (PDT)
+From: Paul Dolan <paul.dolan.dev@gmail.com>
+To: Christian Brauner <brauner@kernel.org>,
+	Shuah Khan <shuah@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org
+Subject: [PATCH] selftests/clone3: tighten CLONE_CLEAR_SIGHAND conflict test
+Date: Wed,  2 Sep 2026 18:49:39 +0100
+Message-ID: <20260902174939.15135-1-paul.dolan.dev@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The regmap member of struct imx8m_chip_data became unused in
-commit a71b261c19a4 ("ASoC: SOF: imx8m: Use reset controller API to control the DSP"),
-which converted the runstall handling to the reset controller API and
-removed all accesses to it. The struct member was left behind.
+The CLONE_CLEAR_SIGHAND test intends to verify that
+CLONE_CLEAR_SIGHAND and CLONE_SIGHAND are mutually exclusive. However,
+CLONE_SIGHAND without CLONE_VM is independently invalid, so the test
+input has another reason to fail with EINVAL.
 
-imx8m_probe() only assigns dap and run_stall, and the imx8ulp path
-stores its regmap directly in common->chip_pdata rather than in this
-struct.
+Add CLONE_VM so that CLONE_SIGHAND is otherwise valid, and require
+clone3() to fail with EINVAL. This ensures the test exercises the
+intended flag conflict and does not accept an unrelated failure.
 
-Signed-off-by: Ștefan Ghețu <stefanghetu9@gmail.com>
+Fixes: de5287235631 ("tests: test CLONE_CLEAR_SIGHAND")
+Signed-off-by: Paul Dolan <paul.dolan.dev@gmail.com>
 ---
- sound/soc/sof/imx/imx8.c | 1 -
- 1 file changed, 1 deletion(-)
+ tools/testing/selftests/clone3/clone3_clear_sighand.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/sof/imx/imx8.c b/sound/soc/sof/imx/imx8.c
-index 7e9eab2e30347..c2b4d379a3a3a 100644
---- a/sound/soc/sof/imx/imx8.c
-+++ b/sound/soc/sof/imx/imx8.c
-@@ -36,7 +36,6 @@
+diff --git a/tools/testing/selftests/clone3/clone3_clear_sighand.c b/tools/testing/selftests/clone3/clone3_clear_sighand.c
+index de0c9d62015d..0ad62b80ada2 100644
+--- a/tools/testing/selftests/clone3/clone3_clear_sighand.c
++++ b/tools/testing/selftests/clone3/clone3_clear_sighand.c
+@@ -50,12 +50,12 @@ static void test_clone3_clear_sighand(void)
+ 	 * Check that CLONE_CLEAR_SIGHAND and CLONE_SIGHAND are mutually
+ 	 * exclusive.
+ 	 */
+-	args.flags |= CLONE_CLEAR_SIGHAND | CLONE_SIGHAND;
++	args.flags |= CLONE_VM | CLONE_CLEAR_SIGHAND | CLONE_SIGHAND;
+ 	args.exit_signal = SIGCHLD;
+ 	pid = sys_clone3(&args, sizeof(args));
+-	if (pid > 0)
++	if (pid != -1 || errno != EINVAL)
+ 		ksft_exit_fail_msg(
+-			"clone3(CLONE_CLEAR_SIGHAND | CLONE_SIGHAND) succeeded\n");
++			"clone3(CLONE_CLEAR_SIGHAND | CLONE_SIGHAND) did not fail with EINVAL\n");
  
- struct imx8m_chip_data {
- 	void __iomem *dap;
--	struct regmap *regmap;
- 	struct reset_control *run_stall;
- };
- 
+ 	act.sa_handler = nop_handler;
+ 	ret = sigemptyset(&act.sa_mask);
 -- 
-2.53.0
+2.55.0
 
