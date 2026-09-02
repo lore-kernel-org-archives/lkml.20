@@ -1,141 +1,168 @@
-Received: from mail-pz2-f8.google.com (mail-pz2-f8.google.com [74.125.228.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 232433E3C73
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:33:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF8A370ACD;
+	Wed,  2 Sep 2026 07:36:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788334425; cv=none; b=rD3cvEsbH5mf4zcRFsAnNy0eV0FQVBRsduGl+M2F+uSYim7Rw5uJqnLIvZaR1BgamaYPaQmB2AVrrz6Mlv+R/9yGjPeG8BZXkDEJ1kwsf1Pp6v/mlXNziVsTdW8okbJDNCrQuDbsfsJbrXr49E5NUFO8C9eZcvRrNXbQ/PM9/5o=
+	t=1788334565; cv=none; b=BD9MTLhRJu4uwI6I35Dq305aCusVY7cmdkuccwxL278gxwixWPCIHjlSBRrCVSHwhUxmiIqmWZHrVGdtN8fMOhk8vYXp4d9SYZDeqy7CJZHofhcTMYEoNB4Vn4+KbFni1I0tY24HRseAsC275l85VE+5DJzrt9uFl+gaW1wgf7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788334425; c=relaxed/simple;
-	bh=6GXqlO1brxizpptoYGP5WQbPTfAaEuWm5XYjrZWlTlk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RB6NQQ8qYTkvs3QAB+gMxmZzw3/X/DyVCnxJ6bV54S/ixsyUFwJmzlY8MbQXcXV2Bf1aTKWwtZIctfrB2PLGo9Fbnop3N+p56NQNxAKKY6XO8adUk08P0JZdh8/bNnUqKfOOC9WFi8Rk/zzSuboksd+n31nbP5Z3+Z7O0EguFYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r2cPHsO1; arc=none smtp.client-ip=74.125.228.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r2cPHsO1"
-Received: by mail-pz2-f8.google.com with SMTP id 41be03b00d2f7-cc2085ecd44so201099a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 00:33:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788334423; x=1788939223; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Nb5Q2Se78rLq0fXFEmBN2MgTVK3UgvxyIXmhlVfKh+w=;
-        b=r2cPHsO1+mAnuAdH0ZRXPUSAGsvppdextrVgS2DwqI5+EHhsoK9CfA7m4msvyzRmsG
-         ebUept9LEKTJ/HkAI5mtkoCv/CBgcgP9hzbK4WSrIo+v6bTTXkZIRMayBRPjRu4BQFGY
-         r5iVPtXjnMsjfMPCod//DO4J1gFj/8nl4QwMAc0ddu5zKAJPbBv6XQUlvjBTifZ1T7ST
-         0BqAPJGMBmLxQRfwuWeX2pBCqF2GRTCYODSyuO1doyraVd9NdyrL35M4pl80lzNTn14d
-         sCs3EUL0qhzbRxOvYqt58S7isjSS+c+AfkF1C8DfAN8ozcaSZ75G6HNkOoNoXMA7NR3u
-         WVCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788334423; x=1788939223;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Nb5Q2Se78rLq0fXFEmBN2MgTVK3UgvxyIXmhlVfKh+w=;
-        b=bzTIk/dvtElTjNNntW7tIYUm3zuqveV+6m3aw2FU59QBPJPNEPrSC1c42ascCzDS7A
-         IZcUeIdZbZXKxAb2WEWrghij2r+Kt93eMgkQa70mrEvCiRVirk+bObJWGh3QwUWBMNhw
-         SBtnrprrBnvJ+gfqd2gUB6yG4tJ3hOc9N6QNpxAe9jksO1o41WEjCHXCjERdFMlY1ifc
-         Z8E3dER3x6T6a35pqizE5uf8BM0dFMJtLCX64vgvrUxu1QUbxoWWM44jHuEzohP4pCjr
-         yeLF1GWnrK9pJMFdRonNe9KXjbBCuCIIHo+uy3Q92Gzv5ndOFc71nNI/t1Q6K7MdfA+D
-         rVMg==
-X-Forwarded-Encrypted: i=1; AKwUvBw+kLHG7U0FMRyizdZsdmmdpzZFhpDwB/9XWVxidUbntKcsSxyRaIJMN1F9hEguwfGQko/starD5eZrBl8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mKWfxN/RxIRkui2JeGFJZj4nrHxJ9cAAzmsi/4O9QaQRI59ohi
-	O+BdTO1JZLBV5aTAYtFOnEc8L3tgsi7Ec2xDc9sT4yyPy47daPTP6q6c
-X-Gm-Gg: AYBFou1AYkxsdLXC5n2HBGX4SoIPoOh/DvQ7SOBSKXHTUAGZUXXIHoe8ZxJek8cWwj/
-	5AvRMm8ujeyWaUdNIiQD9eUhOUTWE0rU+qza+mV+3XOCeknjzRl53VtTphBiz+2djC7Z2zFP5MH
-	LLvTiGv0GO2YYY8a++/b8YzzDlWHhqW2Nd46T/dLfB9u6v7RkMCWAxxNQShjGmfQfJ2eVHl6uwg
-	iJuFTr+SVDdb7w1ttGD4jYlobYjkU+vcrWBiDLpr4Pxr3TEhrT3zZ1evn5hhejW2ESt2XfnyACN
-	rf1Xl4uQAhILIMf9UAEPWvvofM8ILIdY11gn09tMVXMcs7SicUFt6icdLf2T2lYbSua5Z1jm+7h
-	nCkMdKspQ4lc5Gz+mUavluORVHLy3IO8FR1X66ceceEh+gQyvdlASXec9L99uuAkTpwgbdfuJZo
-	L7zvZFUg9QiJS6VHKAw6ksLDj7o3o5JaN1MsfFQ1OlNhREjN1Wta4qGJtLBt1FWqn7tPbsMxkn
-X-Received: by 2002:a05:6a00:6ca9:b0:84f:77cc:63cd with SMTP id d2e1a72fcca58-85ed4449927mr5116039b3a.17.1788334423379;
-        Wed, 02 Sep 2026 00:33:43 -0700 (PDT)
-Received: from intel.company.local ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db2adcbedsm926914b3a.20.2026.09.02.00.33.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 00:33:41 -0700 (PDT)
-From: Wandun Chen <chenwandun1@gmail.com>
-To: catalin.marinas@arm.com,
-	will@kernel.org,
-	chenhuacai@kernel.org,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	robh@kernel.org,
-	saravanak@kernel.org,
-	akpm@linux-foundation.org,
-	baoquan.he@linux.dev,
-	rppt@kernel.org,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	m.szyprowski@samsung.com
-Cc: mark.rutland@arm.com,
-	kernel@xen0n.name,
-	alex@ghiti.fr,
-	hpa@zytor.com,
-	ruirui.yang@linux.dev,
-	robin.murphy@arm.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-mm@kvack.org,
-	iommu@lists.linux.dev
-Subject: [PATCH v6 10/10] crash_core: skip MEMBLOCK_NODUMP regions when building vmcore ELF header
-Date: Wed,  2 Sep 2026 15:31:16 +0800
-Message-ID: <20260902073116.802752-11-chenwandun1@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260902073116.802752-1-chenwandun1@gmail.com>
-References: <20260902073116.802752-1-chenwandun1@gmail.com>
+	s=arc-20240116; t=1788334565; c=relaxed/simple;
+	bh=K2Pdj40MMClLlgpd7cUZ3Gmz6Ox+gIzS41fDorJtPdI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ja1+ZKH4CQkG7GphFdZye2W4HJ36H0hrGmB9rJMZdSjuH/1xfsXjQgHQIbwQCwQEgZvnp3l+7mAOt7+jMbv6hmFs6sMPPG8Tszp7WNRtPh8AZ1EYbmzuSWJakCSAos9fU3LQpylQp688OIr1tW9QOzeNtw+8c9WPwrCnyWjtN/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id BD86168BEB; Wed,  2 Sep 2026 09:35:56 +0200 (CEST)
+Date: Wed, 2 Sep 2026 09:35:56 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Dave Chinner <dgc@kernel.org>
+Cc: Ran Hongyun <ranhongyun1@huawei.com>, catherine.hoang@oracle.com,
+	chandan.babu@oracle.com, djwong@kernel.org, hch@lst.de,
+	linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+	chengzhihao1@huawei.com, yangerkun@huawei.com, yi.zhang@huawei.com,
+	Wangyang Guo <wangyang.guo@intel.com>,
+	Tim Chen <tim.c.chen@linux.intel.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Chuck Lever <cel@kernel.org>
+Subject: Re: [QUESTION] xfs: Can we remove flush_workqueue from
+ xlog_cil_push_now?
+Message-ID: <20260902073556.GA27223@lst.de>
+References: <20260827033654.1172495-1-ranhongyun1@huawei.com> <apSnC9p0X04cKxDj@dread>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <apSnC9p0X04cKxDj@dread>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-From: Wandun Chen <chenwandun@lixiang.com>
+On Mon, Aug 31, 2026 at 07:56:27AM +1000, Dave Chinner wrote:
+> > nr_cpus pool_workqueue entries, instead of per-NUMA nodes. On large SMP
+> > systems (e.g. 128 CPUs, 4 NUMA nodes), this adds significant overhead.
+> > Even after 85f0d8e39aff ("workqueue: Reduce expensive locks for unbound
+> > workqueue") reduced lock cost, the per-CPU iteration remains costly.
+> > This seems contrary to the original performance intent of the flush.
 
-Reserve regions (for GPU, DSP, ...) carry no data useful for crash
-analysis. Exclude MEMBLOCK_NODUMP regions from the vmcore ELF header to
-reduce vmcore size and capture time. crash_should_skip_region() now also
-returns true for MEMBLOCK_NODUMP.
+Adding the authors/reviwers and maintainers relevant to this commit and
+Chuck as he has been looking into different unbound workqueue overhead
+lately.
 
-Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
----
- kernel/crash_core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > Below is a bpftrace test result on a 128-CPU system with 4 NUMA nodes,
+> > 16 threads doing sequential writes with fsync per write.
+> > 
+> > Function                    remove flush          with flush
+> >                             per-CPU pwqs     per-CPU      per-NUMA
+> > -------------------------  --------------   ----------   -----------
+> > xfs_fsync_flush_log          32-256 us      256-1000 us    32-256 us
+> > flush_workqueue_prep_pwqs      N/A           2-64 us        2-8 us
+> > 
+> > With flush_workqueue() removed, xfs_fsync_flush_log latency drops
+> > back to the per‑NUMA range (32‑256 us).
+> 
+> Ok, but how does the IO performance change? Does this result in a
+> measurable increase in RWF_OSYNC write throughput? (write + fsync ==
+> pwritev2(RWF_OSYNC)).
+> 
+> However, behavioural changes like this seem like an infrastructure
+> regression, and trying to modify callers to hide that regression is
+> a bandaid. This affects all UNBOUND workqueues, not just this one,
+> and we do not need per-cpu scheduling for workqueues with such low
+> work and concurrency counts - there can only be 4 pushs scheduled
+> and running concurrently at any time on this work queue. Hence we
+> don't even need NUMA queuing - a single global queue would work just
+> fine...
 
-diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-index bd64cf585795..b0e618e13588 100644
---- a/kernel/crash_core.c
-+++ b/kernel/crash_core.c
-@@ -270,10 +270,10 @@ int crash_prepare_elf64_headers(struct crash_mem *mem, int need_kernel_map,
- 	return 0;
- }
- 
--/* Exclude NOMAP regions from the vmcore. */
-+/* Exclude NOMAP and NODUMP regions from the vmcore. */
- static bool crash_should_skip_region(struct memblock_region *reg)
- {
--	return memblock_is_nomap(reg);
-+	return memblock_is_nomap(reg) || memblock_is_nodump(reg);
- }
- 
- static struct crash_mem *alloc_cmem(unsigned int nr_ranges)
--- 
-2.43.0
+Yeah, a lot of the recent workqueue changes had a lot of adverse effects.
+We really need to come up with a way to queue work to task context (or a
+different task context) that doesn't require reverse engineering "smart"
+behavior in the backend.  This has become a never ending whack-a-mole
+unfortunately.
 
+Not sure what we can do here, but a simply "just queue things up on a
+fixed queue" interface would be really helpful.  Even better with just a
+double or even singly linked list as overhead, as the work_struct is
+way to big due to the function pointer not even needed in most cases
+as typically every item in the queue uses the same one.
+
+[leaving the rest of the context in place for the new readers]
+
+
+> Hence it seems to me that this overhead problem should be fixed at
+> the WQ infra level, not worked around in the caller context...
+> 
+> > The removal relies on the assumption that flush_workqueue is just a
+> > performance optimization, not a correctness requirement. Without it,
+> > xlog_cil_force_seq already provides a reliable completion guarantee via
+> > xlog_wait(&cil->xc_commit_wait), which blocks until the target sequence
+> > has been committed. The caller will eventually observe the completion
+> > regardless of whether flush_workqueue was called. In addition, ordering
+> > is enforced by xlog_cil_order_write, which ensures all records are
+> > written in strict sequence order. Therefore, removing flush_workqueue
+> > does not weaken any ordering or completion semantics.
+> 
+> And wait latency goes up because now there is nothing to expedidite
+> the scheduling of the work we are waiting to complete.
+> 
+> i.e. you might see a drop in CPU time in flush heavy workloads by
+> removing it, but the trade off is an increase in wait time variance
+> and long tail latencies, especially under light load.
+> 
+> > If this analysis is correct, the change can be applied broadly to all
+> > sync force callers through xlog_cil_push_now(), as they all share the
+> > same completion and ordering guarantees provided by the existing CIL
+> > infrastructure. The per-CPU iteration overhead would be eliminated on
+> > every sync log force without affecting correctness.
+> > 
+> > But there are several concerns I'd like to confirm:
+> > 
+> > Is flush_workqueue just about performance, or does it hide any
+> > correctness dependency I'm missing?
+> 
+> It may well hide implicit correctness bugs.
+> 
+> > Without it, the "if (!ctx->commit_lsn) { goto restart; }" loop in
+> > xlog_cil_force_seq may be triggered more often. Is that acceptable,
+> > or is it a concern?
+> 
+> That's additional context switches and latency. i.e. CPU overhead
+> that we are trying to avoid...
+> 
+> > Are there any ordering guarantees provided by flush_workqueue that
+> > xc_push_lock + waitqueues don't already provide?
+> 
+> Removing the flush will change the order in which concurrent push
+> pipelines order in the journal. This could change the inherent order
+> of checkpoints in the journal, so there could be visible artifacts
+> during crash recovery compared to an flushing implementaiton. None
+> of that would be a correctness issue, but from an application POV it
+> would be like the concurrent fsync operations completing in a
+> different order across different kernel versions.
+> 
+> A lakc of flushing could also simply move the ordering latency
+> bottleneck to journal IO completion where checkpoints have to be
+> completed in ascending LSN order. Whether that causes a problem or
+> not is a complete unknown, but it could increase overall wait times
+> as waiting seqeunces always get woken in ascending order, and hence
+> everything will wait if a low sequeunce flush submission gets held
+> up because the kworker isn't scheduled immediately...
+> 
+> > I'd appreciate any thoughts on whether this change is safe.
+> 
+> Probably safe, but there is lots of potential for performance
+> regressions by removing it. Better would be to provide a low
+> overhead work queue implementation for callers that don't need
+> scale-out performance from their unbound workqueues....
+> 
+> -Dave.
+> -- 
+> Dave Chinner
+> dgc@kernel.org
+---end quoted text---
