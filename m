@@ -1,125 +1,114 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-218.mta0.migadu.com [91.218.175.218])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218E04A3F1C
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:49:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A064A440E
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:49:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788360564; cv=none; b=s59w+7bprmoiLIsS+rsHgOiWlGUaBs8ntQSda6kJZbsoqHvlBqNf8+AKsLtF6bhgHDEAdMFqu/nzMbn4f5A8rndc2fAObFOvQew4BkQvy9BIBLH7Q1DpwprsXGk8x5N6KaHPWBoKSZZscw/5KdW9dhwDJVt1GfQ7DQsFaOP7QrE=
+	t=1788360569; cv=none; b=QLa+0nyzGgJrY4vHhLPZG0va0G1BW8LsJz3r6EDaYFLfRu7lp9DxthnRAW0tEtYiuduJIocPAjwhCz+0dcjJVzKyzD+8TlS6SJ8xebgx+ijKtzf5WSdEg9Fkee3Xrgcj0VtthwH7Rr6Z/h2UDzmTl0VHm2xsDFwkiJS0QKk2aI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788360564; c=relaxed/simple;
-	bh=o3ilph5W2vSVFluZzVmnRj0Zf/2T3yXy4uJ/eJj36UI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=poEexRM+qJjLNh+hhxSBnSH4fP82KLry7AU0qxTJ2lOrWlnUcq1/yPAUB6hyD5sUV96/nMMjcxNDc3xvCjYDOKE4Y8L24ijZ6Q2oQ9H1Hb/Lh7gPw++5dawTcBqZMbLVuHaw6+L57N07JoOod5BORiDA57gsrbpTvNPPIrKn4xk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=L9kbnnbO; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Nck7uxVb; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788360569; c=relaxed/simple;
+	bh=PNTYEsienLPJUy1uoqn4OKAXtUVXa5IiTiSzsYklAZw=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=jJ49AfCYRW0PF5YkTIV9UExwLdpCFk5+aUvb/5yeuSeutfTWvb9A5FoMYF486gUyibe55S7jsTcptAC6hQLZp6NRpVN8MnkTJ2wCfKf/okBAX/yOAC4zkabLKwFtb11HgZALz/BFrshXEg9FUuDubyBS05pz1Dfv/P1vFHL84HM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jUagR789; arc=none smtp.client-ip=91.218.175.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="L9kbnnbO";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Nck7uxVb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788360560;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bqFrysN/+2cVNmsG8C/cGiUNyDrof3Ao3d+7KzBs1dg=;
-	b=L9kbnnbOMr4eZBelfYGJ9k0y1oVeppzlgx9iYz1l8M6CrnjvDu0AIh2Av2aM7QH2SmSi1u
-	sRBOoG43v/R1VaPVK7z1vqegltmPRSwwO7RjNn1cg6TovIFU9LL1WE0Ol4/ngyJ/C1b3ae
-	nsGHi7hqdtqvzu7Z1MGEeeh+b2sok/o=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-339-EhvOdkAKPwmctF1AQAR1rw-1; Wed, 02 Sep 2026 10:49:18 -0400
-X-MC-Unique: EhvOdkAKPwmctF1AQAR1rw-1
-X-Mimecast-MFC-AGG-ID: EhvOdkAKPwmctF1AQAR1rw_1788360558
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-90cd2cadc62so13947266d6.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:49:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788360558; x=1788965358; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bqFrysN/+2cVNmsG8C/cGiUNyDrof3Ao3d+7KzBs1dg=;
-        b=Nck7uxVbOT95Jisqv+FV1qhJppIYU8HSPkF0c+Orl7YSQ6B4HthA7OgZdudlVZQrm4
-         iD02DQ9ApI0tuTDAruumtpohojgVu970JHvdZbtwhWwpIqGJWFlnSZkSb5sc8nnN/epH
-         wK5skCoXn78Hak25qB3wDsu0cFw47nB9aj8aaBQGfXIluarxXHvQ3wXXE9Gr4rL4TZOU
-         Hk3JKWdjmVE7VgheHcS2gGGyXVywQ8SyXJ1yIE0K8hW8c84OgEAMddRb8/MYbWlVE4jH
-         tbrG+xEsjU31QZhbmntKBmAWgK+kwKGglvr5B0iHbFxEIa1ay5750wE7DKi+ADIT5nM5
-         l64A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788360558; x=1788965358;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bqFrysN/+2cVNmsG8C/cGiUNyDrof3Ao3d+7KzBs1dg=;
-        b=pQtdFmGbBsGx49HOPNNJOquP2HWzB2NQyq2dMc/dyYxq9jsjHpr6+JYV+YsFm/XMIf
-         RM7B4mH6jcV5nJoosKB6MmSALEZcmym9wrH2crVcoUHakKXR7o2qKILrsfTVFpJ5DPJX
-         7/MAqOG8FD9ePhQcyTXjX+ZIfdq5HehyX1aGiL3VxBNylrXBJM/ejIwLdRAsh3i6AHsD
-         E4vomSVfcmxm8MWCY/xJNT1kv8Gcj1/q3XhEaC9tZWwRWXVwWYvJyu1xoN0Ag1ixTBJK
-         OYtOxMZ4MFTKcwGIGERWC+0aQ3t0XDHYMXAkSGsvf/fXyY1lCJ3r+/F+MZc76+mXQ/2y
-         y9Bw==
-X-Forwarded-Encrypted: i=1; AKwUvBwEMRO48mfJeYwaptFAjMPxP252h4uSQtz1vGit6hPd0jzH05kdyN89PX1OwR5z+ipPBnRqc1YqOWK3PS0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mIrgfjon2QVTs5MUxSD3zdeEiVONf2LLYqVoFBCUue4vG+vvAK
-	duW2t95ejLu7q0d8U1ykS+S09VapJssJzlYXShuzKhkZJ95yr1FpMlEmco8MOKsLSWxt4HvYKdN
-	xT0qJeiZUBPN7b9ZspKWMZ5lz+Iipi4HhhmO+KQ+nM620i2JCLGOk2nKVDrhu8Q6WgQ==
-X-Gm-Gg: AYBFou19J4f3GFIGlzW8YbXkzGfEr9v/KhDTNrUg0g0db1cAZ/qaMjBNhp1jubUWVJS
-	akRAy0VMyaA5Tmy6AfVxoK14jyORmdyhgnhxsam36JZx501JWZAizQXetuxh4J+eAQcZfXJ/bii
-	YkGYirEBHtiN+aT9o1hnrc/MqsDM737QuNst6D8TE1JAAy/5+wfL5c/Gon20M8dG+11A3yGleIg
-	sWu8oIIXK4f7wdlHwhcVRe5tXBxupNKOuhJxOIXcnheunzgkP00De24ZFIc5Ktr8gXOGJ01h8SH
-	0y/+04cg3iV154drjjyUB1HT9wQm2byt2Q0uia95j7537NvTat/QFv8Vsqe77ZCY61Ul6qk27gD
-	6jWccz8Bmm7g/nU0VJmcLPGEI5VPVOi84tz7Ceqc=
-X-Received: by 2002:a05:6214:2b0a:b0:90e:8dcc:4e5 with SMTP id 6a1803df08f44-90ebafb8fefmr72182206d6.28.1788360558157;
-        Wed, 02 Sep 2026 07:49:18 -0700 (PDT)
-X-Received: by 2002:a05:6214:2b0a:b0:90e:8dcc:4e5 with SMTP id 6a1803df08f44-90ebafb8fefmr72181126d6.28.1788360557564;
-        Wed, 02 Sep 2026 07:49:17 -0700 (PDT)
-Received: from [192.168.1.3] (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9eec8482sm19647986d6.31.2026.09.02.07.49.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 07:49:16 -0700 (PDT)
-From: Brian Masney <bmasney@redhat.com>
-To: Daniel Palmer <daniel@thingy.jp>, 
- Romain Perier <romain.perier@gmail.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, hanzhijian <hanzhijian1991@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20260824142800.3497263-1-hanzhijian1991@gmail.com>
-References: <20260824142800.3497263-1-hanzhijian1991@gmail.com>
-Subject: Re: [PATCH v2] clk: mstar: msc313-mpll: fix off-by-one in clock
- array allocation
-Message-Id: <178836054100.2017040.16035095251394555993.b4-ty@b4>
-Date: Wed, 02 Sep 2026 10:49:01 -0400
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jUagR789"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=PNTYEsienLPJUy1uoqn4OKAXtUVXa5IiTiSzsYklAZw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788360564; v=1; x=1788965364;
+ b=jUagR789yRGahvWwsgQXiUG58bR+xrlRnzuKn6JisQPPYt7DHLQy0RyzGtZCqqCpYnd3h9mD
+ q2BMoXjz+/RmxXGilozq7jJT8vDNo1+gjP8dSBDDbekbPE3SnUSLVzXTzP3BCjZIdJRGSClG6Kc
+ ugXws4UDIgrOFb1/Abhbg7I4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3fe4aa4587650eab;
+	Wed, 02 Sep 2026 14:49:14 +0000
+X-Mizu-Trace-ID: 3fe4aa4587650eab
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Date: Wed, 02 Sep 2026 14:49:14 +0000
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=332; i=bmasney@redhat.com;
- s=20250903; h=from:subject:message-id;
- bh=idLPkDsA8mhI1Ih+j5hSWIEMKho7R3PzR+kQbEfB5mg=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLJmmKdNeOt2NXwvq8a0uXzTGK91flEzf1zEn9/tJ7lxd
- uxx2eagjlIWBjEuBlkxRZYluUYFEamrbO/d0WSBmcPKBDKEgYtTACaS94jhn36ndiwDS89kU/kU
- 4xW5Rw2qK/X+qds+mnL19/FU5s3S6xgZGm8m+nMnrD7x/5+EmK2SqqDHZFsBaaMLxtKucwwemrY
- xAQA=
-X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+Content-Transfer-Encoding: quoted-printable
+From: "Zqiang" <qiang.zhang@linux.dev>
+Message-ID: <2ff0e6ca8e1e05078a69dbd2b2ccd1e62fc4650f@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH] dlm: wait for outstanding SRCU callbacks to complete in
+ exit paths
+To: "Alexander Aring" <aahringo@redhat.com>
+Cc: teigland@redhat.com, gfs2@lists.linux.dev, linux-kernel@vger.kernel.org,
+ rcu@vger.kernel.org
+In-Reply-To: <CAK-6q+gET5NPczHYexcGXgptGTVnynYuVWzdbDkpsuvnbrymLA@mail.gmail.com>
+References: <20260901091836.16906-1-qiang.zhang@linux.dev>
+ <CAK-6q+jFXsZpWHrm0CSa8Tr+P3qHDmWVQA+9stXViyUf48CuvA@mail.gmail.com>
+ <b530646295a64f5e1cec5bfec5064f1fc79d3d9d@linux.dev>
+ <b686c4e5066aa11d7d868097b35e04db58190103@linux.dev>
+ <CAK-6q+gET5NPczHYexcGXgptGTVnynYuVWzdbDkpsuvnbrymLA@mail.gmail.com>
 
+>=20
+>=20Hi,
+>=20
+>=20On Wed, Sep 2, 2026 at 10:30 AM Zqiang <qiang.zhang@linux.dev> wrote:
+>=20
+>=20>=20
+>=20> >
+> >  > Hi,
+> >  >
+> >  > On Tue, Sep 1, 2026 at 5:19 AM Zqiang <qiang.zhang@linux.dev> wrot=
+e:
+> >  >
+> >  >
+> >  > The dlm_lowcomms_exit() and dlm_midcomms_exit() iterate over the
+> >  > srcu protected connection and node hash tables and hand each
+> >  > element to call_srcu() for deferred freeing (connection_release()
+> >  > and midcomms_node_release()). call_srcu() is asynchronous: the
+> >  > callbacks are invoked only after an SRCU grace period, which may
+> >  > happen after the exit function has already returned.
+> >  >
+> >  > These exit functions are reached from exit_dlm() on module unload.
+> >  > Once they return, module teardown continues and the module text
+> >  > may be unloaded while call_srcu() callbacks are still pending. Whe=
+n
+> >  > such a callback finally runs, it executes freed module code and
+> >  > touches the static SRCU domains that are being torn down, resultin=
+g
+> >  > in a use-after-free.
+> >=20
+>=20>  I should rephrase it:
+> >=20
+>=20>  Due to missed call to the srcu_barrier(), when invoke cleanup_srcu=
+_struct()
+> >=20
+>=20Then there need to be a MUST call of srcu_barrier() before
+> cleanup_srcu_struct() every time.
 
-On Mon, 24 Aug 2026 22:28:00 +0800, hanzhijian wrote:
-> clk: mstar: msc313-mpll: fix off-by-one in clock array allocation
+If there are some call_srcu() call, the srcu_barrier() should be called b=
+efore cleanup_srcu_struct().
+usually, when the cleanup_srcu_struct() run, we should ensure that there =
+are no pending SRCU callbacks
+or ongoing SRCU grace periods at this time.
 
-Applied, thanks!
+there are another reason:
 
-[1/1] clk: mstar: msc313-mpll: fix off-by-one in clock array allocation
-      commit: 712b75152c00a8ab0c56dbfe34caf88e3870ddde
+The midcomms_node_release() srcu callback can call call_rcu(), we must wa=
+it the all
+call_rcu() to complete, because rcu_barrier() which in dlm_memory_exit() =
+is required
+to successfully intercept these RCU callbacks.
 
-Best regards,
--- 
-Brian Masney <bmasney@redhat.com>
+Thanks
+Zqiang
 
+>=20
+>=20I am confused here.
+>=20
+>=20- Alex
+>
