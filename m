@@ -1,35 +1,35 @@
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D66349CF0;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F6A34AB19;
 	Wed,  2 Sep 2026 01:33:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788312793; cv=none; b=I/c3e9jaOyOeFrn/pkXAFYp+ZkKK8pE3tKnd9GgrcBUN7zEyBw8u1F/jlA/2C6zjDJiohaiXhH3OTwFSh5nEMsNaTjQfgz4LuwnvYJHehn3uJffV8iaDNu8fnxJtGrWiMlbRKbATzAZaSmVc/yQ10ZU8AXq7tkW9TB0+SwTP7m8=
+	t=1788312793; cv=none; b=iEL+9bNI1baCfVWnv7sCh87GHCcBEqQdLJsFgD8rBp5YBzYPuAlQhXi7egnnYfcPjHO2VX9PzqzlGoL0Jq5kMZ8F3XUMPRUR5GKdaxySH0qhSqNjpfdgahvm7jib+MyPk6SQ/+o/ZTvz2cmQN7dZAKbNubP23HzdCKvQDXuAzpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788312793; c=relaxed/simple;
-	bh=CixlhkYDmdGMEPjXREXM8B6EwOC4WxaMMaOJJo6xU3I=;
+	bh=rwoFA7b9ec/6BxRg1LsfUPnQ1yVu8MpjKrExulsfmjE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DHYSmdJuEnaCOTzAv32LlDlX31g3gh4p1LcpcCNaDHBP2xnMvwjW66qhDQ7B41fEQNoV4RwQ1y9LZXAhgeywQyZyrR6vPca+P6hl2Lj+0wkKWMn2AeNTs57/o/6sC4f+xUBVryIKZPbbPXAN7pgjfTuSKL9ItN6mXa5niPgl9d4=
+	 MIME-Version; b=Y4+/zWMoRbU2qFYC9sTmQ7RHZ00giBI3ST66jCyQzwXLydSbcsFS5gVM1c+m794XBitRq20Qv/CDmFyyOcOzbOyUajAy6ichwtvQWeepoHpICuijsrDEFTimrwAXM+KnkAwnXDhALTTqmSj1Uh9ZQSRcCr3NLYl/3HNtzAsi/TI=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-01 (Coremail) with SMTP id qwCowADnvvLKfJdq8VoHBw--.39350S12;
-	Wed, 02 Sep 2026 09:33:02 +0800 (CST)
+	by APP-01 (Coremail) with SMTP id qwCowADnvvLKfJdq8VoHBw--.39350S16;
+	Wed, 02 Sep 2026 09:33:04 +0800 (CST)
 From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 To: Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>
 Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
 	Oder Chiou <oder_chiou@realtek.com>,
-	Jack Yu <jack.yu@realtek.com>,
+	Bard Liao <bardliao@realtek.com>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 10/14] ASoC: rt1318: return cache sync errors from resume
-Date: Wed,  2 Sep 2026 09:32:46 +0800
-Message-ID: <20260902013256.93072-11-pengpeng@iscas.ac.cn>
+Subject: [PATCH 14/14] ASoC: rt5665: return cache sync errors from resume
+Date: Wed,  2 Sep 2026 09:32:50 +0800
+Message-ID: <20260902013256.93072-15-pengpeng@iscas.ac.cn>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260902013256.93072-1-pengpeng@iscas.ac.cn>
 References: <20260902013256.93072-1-pengpeng@iscas.ac.cn>
@@ -40,10 +40,10 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowADnvvLKfJdq8VoHBw--.39350S12
-X-Coremail-Antispam: 1UD129KBjvJXoW7KFy3tF4UCFyrtFWUGF1kGrg_yoW8GFy8pF
-	sxK39Ygry2qw48AFWjyr4Fqa1fCFy3Ca13A345K34kAF13Gr18u3WUtr1jvF4DXr48ursx
-	Zr4Ut3yYkF45AaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:qwCowADnvvLKfJdq8VoHBw--.39350S16
+X-Coremail-Antispam: 1UD129KBjvJXoW7KFy3tF4UCFyrtFWUGF1kGrg_yoW8GF1fpF
+	ZIkFZ5t3yjqr47AFWqyr4Fq3Z3CrZxAFW3J34UK34vyr15Gr18ur18tr4jvF4qgr48urnr
+	ZrsFv3yrGF15AaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUUPa14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
 	kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
@@ -60,7 +60,7 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7KFy3tF4UCFyrtFWUGF1kGrg_yoW8GFy8pF
 	OyIUUUUUU
 X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-rt1318_resume() restores cached registers during component resume but
+rt5665_resume() restores cached registers during component resume but
 discards the regcache_sync() result and returns success. A failed replay
 can therefore leave the hardware register state stale without reaching
 the component error reporting path.
@@ -74,27 +74,28 @@ The successful resume path is unchanged.
 
 The issue was found by a tool we developed.
 
-Fixes: fe1ff61487ac ("ASoC: rt1318: Add RT1318 audio amplifier driver")
+Fixes: 33ada14a26c8 ("ASoC: add rt5665 codec driver")
 Assisted-by: gpt 5
 Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
- sound/soc/codecs/rt1318.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/codecs/rt5665.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/sound/soc/codecs/rt1318.c b/sound/soc/codecs/rt1318.c
-index 55607f1b9a1e..3dcec7564b82 100644
---- a/sound/soc/codecs/rt1318.c
-+++ b/sound/soc/codecs/rt1318.c
-@@ -1075,8 +1075,7 @@ static int rt1318_resume(struct snd_soc_component *component)
- 	struct rt1318_priv *rt1318 = snd_soc_component_get_drvdata(component);
+diff --git a/sound/soc/codecs/rt5665.c b/sound/soc/codecs/rt5665.c
+index 1d987472ba42..6e4967ed12c3 100644
+--- a/sound/soc/codecs/rt5665.c
++++ b/sound/soc/codecs/rt5665.c
+@@ -4388,9 +4388,7 @@ static int rt5665_resume(struct snd_soc_component *component)
+ 	struct rt5665_priv *rt5665 = snd_soc_component_get_drvdata(component);
  
- 	regcache_cache_only(rt1318->regmap, false);
--	regcache_sync(rt1318->regmap);
+ 	regcache_cache_only(rt5665->regmap, false);
+-	regcache_sync(rt5665->regmap);
+-
 -	return 0;
-+	return regcache_sync(rt1318->regmap);
++	return regcache_sync(rt5665->regmap);
  }
  #else
- #define rt1318_suspend NULL
+ #define rt5665_suspend NULL
 -- 
 2.50.1 (Apple Git-155)
 
