@@ -1,88 +1,69 @@
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87988395ADB
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 19:28:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.139.74
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF6B39A05D
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 19:28:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788377330; cv=none; b=EeLmEXyiaIVjtQVbLqefgY6q4w9J8PZwWmCh9N/SAdhrxPrFWOttwRPK0T/dn3mNjvDt3lfLjMtFWBxRQZlYtllMAF1PQQeIO6+jFDJn4/N9X3WYNO2gRm4bt1IiscZF1C4goCMwCRE0ecR7Cd/PWit5pK0XQbSMoBtO0Gxte1A=
+	t=1788377337; cv=none; b=PkyIvGd02aFGJnnv3LsYlhs8zPZXH+Glikxv5Ngh9m9Tq3cK8CCjVZEplgPXnNMGDwhhxm1Q97Y6x6TcCXs2a0XulaGTiwzj6cUJogeQZWZzVu7I0K3pQ0Xb7oVYa6eO1w7XDK+2SWHcxrcuq3kI/O9zxUH1jG1q/s+sbBwUSwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788377330; c=relaxed/simple;
-	bh=puRmIXD1Ve7ElQt9KP4DSIyIaDfy+iHVy11lX8uUHlg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ErJaalkMnq7+pOZR9em2Rc7BgqUrddwR0Gl2Bt8AwFR1K0Zk/aFgHRppuK61QqwUjwMDMdsLkJ8D8wBq+H246JShpXLZndR7kfjv3wLCr2yxNllPvE8+WcPQmbgt5g8HqSiewpWSkQLQRBowHXsnHe18yP/x+eRwiVPflSMRCYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu; spf=pass smtp.mailfrom=columbia.edu; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=cyp4TDkJ; dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b=JDPyE/Ge; arc=none smtp.client-ip=148.163.139.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	s=arc-20240116; t=1788377337; c=relaxed/simple;
+	bh=PN7g6f8q4rSe1aDYWdm44A7DdQCKh0cTB6fHIX0phH0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=j9JIwyhrfPWC0J8cFfVGCVkzamSWunYR5AOQuGj+5wSRFXC85Aih2YcozvOcrmJN78uxvOsPt3k55c1DnTXKXXh+eR1ReK+jAdizw8d0JkG6Z9wMagz5GUBrV62YvamEeJxRajk0JOxyZoNfvGPU3dJKSqJaz34GQcCkRYrFiJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IpiRoY3f; arc=none smtp.client-ip=209.85.161.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="cyp4TDkJ";
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.b="JDPyE/Ge"
-Received: from pps.filterd (m0167076.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682J5WGY1027098
-	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 15:28:24 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=W+SY
-	Tc9YgTwbyvQtPG0l4mF2QbsfRfThQCH4AEEmni8=; b=cyp4TDkJ/oQOm+m66PZI
-	il+NOHHVuNNz2gQNwdXPGNEWWpTrOs1GBJhDaoSJv8d72xfPywp+rtCgZ57E69YW
-	gboVG3IA8fyYSTjVKaA3c/AWVKakwWikrxM3emur4TII9I5G4yDWyieQNZUWBtkx
-	dtkvRHE5BvLIf22UUryNiYdFZWjfUm860IfIf3COFuAkZJfU3Rw1B6j9jS1s6w5p
-	Kr639PsuoUn5LjYTk00BKLQIY1PDzVoMZ5RELLqMAryoDlj6dLBH+v3rFriRTY/L
-	XF7B/9GHbhjZNds+5S2FCxe0COjjolet0Xc6UzeL0getQ8U+v1IYvq+MafORGNrY
-	Ng==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4gesner52x-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 15:28:24 -0400 (EDT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91030f96c70so9374266d6.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 12:28:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IpiRoY3f"
+Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-6b1a1a442c1so888306eaf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 12:28:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1788377304; x=1788982104; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=W+SYTc9YgTwbyvQtPG0l4mF2QbsfRfThQCH4AEEmni8=;
-        b=JDPyE/GeURL17RW7BChJAs+NBt5TA47FyTnaxqMilk9t1cBswGb0YS2OaLkqHrcAMW
-         eD67T130j2KmO7dpbupl2rWNOm/IWwx8phmePJ8GrvvsNqCL+n/r4KYwuhGyVt0FP0Xu
-         Lu8AX1lTEBMpDcrTVVF5Pyk7c+ul0+iLddGoGVQBqugn4fgVTO5rg7ULxZKNhdOgZ5B3
-         wLK2CoeWNsPNinkUMBCPpaMzLpBo7auNXz70J9eMHmzAiCEvGUH45XSJkzfz/E9X3YgI
-         rFzf8i13HF/iEccSeMdAqspvcZhjs1k5GibCE2+hBqIbBAZCGbjTChigry7HdVWC4Arj
-         ZBuA==
+        d=gmail.com; s=20251104; t=1788377317; x=1788982117; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=BW8pn0cJ7xlLT4nbmLaz0pA0nlL+jRYhrPKHSPcS2Ws=;
+        b=IpiRoY3ffPrZpoo5zhUDtQ9c8tQsIQN1qbdqskpBzHRsO6BxSmWIW80qfd4TNgppdp
+         +OBeRW9sCLPIQ5aQjXV9E8Ta5aSVVKspDUm2Le8nfkvkHCQ6nymqk/J1Jlthw6K5mmTz
+         ZMBSShTvBtU5NiGEDAwdc6D3D7uHLzB8nOPigvx5ScgCu74BZSmX0IW7pJQ7De4yPJOW
+         PSGZivWXRJlH0AMouG12fwm7BN1HpN1pHe9lf7c6qRQabC4V05iKYQcpaoIPVKe5qX6m
+         EudN5KMRYxLisiorC2sa+tW0/jcm0uxeKVBbe8pVrae2PGqgkXwYQTGWb78Yq39SEKIc
+         k4QQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788377304; x=1788982104;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=W+SYTc9YgTwbyvQtPG0l4mF2QbsfRfThQCH4AEEmni8=;
-        b=ZRZmLBPj6LC5L3FV2zxKDsevbkYkw1GRtQ8DpxhKxQ5+AiqBluDeuPOu4znScItMaR
-         +J+O2ISOog+mRvyg5hJo6RiTygP++g0OOglwR6T3nORfDwBOQxLFO6Eh/Zgrrz5BghNs
-         aWHNEz94siep28fwmf3p1cEGvTwsRtQ+4ibbc/SJgpwiUBg5tct+te7ghk5RE59Ecsyi
-         Fh2yFi7k1wxcwGypoqkCHAwS8EfMCTEH5wQh7JNCcW3LXNkv7v5eWUFbwgP62IwxJTkv
-         IrvLEIoFX2VTFfn1/JQyFl6T+uRcR5cJv43+TlLXjyzmU81bXze1N8oY+byvAWUeFGn3
-         VT2w==
-X-Forwarded-Encrypted: i=1; AKwUvBx0vrU9xeTih6SvkWtW5gKO64woHzOFAfGLGak+9CZlSUKReKk9dF1qMenK83+tu3lgGi1NK9ufeaJ9Rug=@vger.kernel.org
-X-Gm-Message-State: AFuF++mVXWSuy38+LKG9Ukt5CBHYCGb5MrCosATBzdorC4yoaof4SqgI
-	nAnXJORHGNUNyWABGW5CHkSiHEEAvj3KzUEaCEsJx2qTyYZ9tLp4gwqUnEvO7X8zK9TNP5R6Iq+
-	tRnO8WeX4z9tPbVKVpLoAtYtQJEIQLBJGYsbFh3/REo52S+mLCwBqHCsTvllpBw==
-X-Gm-Gg: AYBFou06G7BZWzswd2X8bXkJMd2Ng/VDiGMEPQUmLCHmpXb7mHbHRgBgz3VoaqA4Hqs
-	KQXAzN2ixEp96QYGvv2Ky4S7NDSKb5BX9WimgA09QIIRQ4S/8exaSRjmalMRXXNbu9JFpksWj90
-	x3Es12nh0xRz96X38qkBE0FSwmCNOagW72zm+gkNxib2fimBp9rwUplDSm5cHf9gzhW/8CTygVe
-	OhBUeWLD99hApTyAHod7blce1ywIUcOng6vTQfUfXxU06mRgvxBKZtG3kfWdV9zlGhr3/4a8flv
-	PehW/Kcyw39t4s5poT8Utc6Gx56v9Z3PqvgEWmAALPhuLdf8wMuqImv++Miun63TLnVias6w4cn
-	HQjDSmhgzxU9ztZmjOKUcxRAhf43X41cp9u3aMAsWCEhFEBDqyo7b9A==
-X-Received: by 2002:a05:6214:5098:b0:910:345b:4c5e with SMTP id 6a1803df08f44-9103475047emr16906986d6.37.1788377303502;
-        Wed, 02 Sep 2026 12:28:23 -0700 (PDT)
-X-Received: by 2002:a05:6214:5098:b0:910:345b:4c5e with SMTP id 6a1803df08f44-9103475047emr16906256d6.37.1788377302941;
-        Wed, 02 Sep 2026 12:28:22 -0700 (PDT)
-Received: from [127.0.1.1] (nat-128-59-178-193.net.columbia.edu. [128.59.178.193])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9eec85a0sm25420936d6.29.2026.09.02.12.28.21
+        d=1e100.net; s=20251104; t=1788377317; x=1788982117;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=BW8pn0cJ7xlLT4nbmLaz0pA0nlL+jRYhrPKHSPcS2Ws=;
+        b=QiFmDebcyfJXKFSMGXABvPs678srglO6KLvVLfGci7n9kRKqOon/uwiJ5LYZyBF61C
+         pjVZgyylmoseRe6EaLNBRyi6q1k0ScIbY5zJRlxIpQkJz/b2PytFar50hIhDohREQQ6u
+         VyavvivHmEd9NkjNdGImS1TfQX1TIKXmbYaMxq8mXsOL/mWZV4KYfUG/c2ZQdQx1YYxk
+         UJKnXCj3/aBxzGaTA0YoFQljysTb3gCyC+G8rJ55Teo9bzjyDJ3Tx2ABloJvoFm2wlpt
+         eAtcc8dKeX9MEv0s980UXi/eFs0FKebQJVavseIHCwtllwNIMa/Y7ZBBQU/onOVibdAk
+         8blQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqLwvmGcQQ7mE+pMMxcTlWRdYnrN4L4YWnDxOJlOWghOwqMKPe9Ma3QukcbVigA34h4DKDeC2yii0vWxh0=@vger.kernel.org
+X-Gm-Message-State: AFuF++mj9qmvg1xTogYRkbsD4ee4Qbr6bsra21fAVWyqAr2ed4JYGPln
+	A9fCxVQLnnVzFW9vDFsiVIK6S+cZZ8oatb3VPBaZJnvYcROslgFM78IE
+X-Gm-Gg: AR+sD13tuo0CghNDus4IvVFPlVJjrrxugmLMxLZna6j+hh698NXbYg1A63+9XnmS8zg
+	QNcdGjubSQaow3QfvACG0LdCDzo9p7oS6fDf7TeeBuHRP+XOvaMRdERbnf6+HdTOv6zcJ+WXY+g
+	eSiuhjw79g7nZMu8ZasryWKWFHtDpR0Uw2k80rpkotJwul8p3h9p+xViDmv5Hd9f+bwTOWRdMDp
+	ZHwcFoUmiOhxGao3Rd0uVxVAxULzcpGS1GWArlNqr2i6nTqXbKlas9Hf2SX0XmGZvDxAgDXYIy8
+	4pToWT7idgpeH5vIt8x3JdoCGAIB772FZAXismxkPBTWVX4+B0do6Ym+T2ACSjuQj7p/1wvOudc
+	V8uJvJqM3lAGy+eiPqysjam9mGdtGveyyiXmU6TCETM+8SshXVEST/DQmqyib9Y5+cT9Q4VeTVx
+	gKjN8Zgi+qfaHNd9W4MAEztdJnJJ3OahAx7yExnr8LjAASXe6UO5stL97ao3DtY6szO1UEZpv/5
+	fBHCTyoykkqiybKt8AJgwRxEXHWGo0fjCouAHIIrTRb79B7twNjG/v6pvGC97u0gJM0rhczLBFS
+	m/onPQeU+M4xudJVcPNKO6uQdYtPlXnvJKFB8qrV77uYcigwlX8aIvhegGZ1bW/FSY5DlXW+iR2
+	ghlblY5iW3q4T27ziyvM=
+X-Received: by 2002:a05:6820:4c83:b0:6b1:be9f:ce6c with SMTP id 006d021491bc7-6b47ecca88cmr6183827eaf.4.1788377316798;
+        Wed, 02 Sep 2026 12:28:36 -0700 (PDT)
+Received: from [127.0.1.1] (184-96-151-165.hlrn.qwest.net. [184.96.151.165])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-46f30baa0d4sm4932181fac.6.2026.09.02.12.28.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 12:28:22 -0700 (PDT)
-From: Tal Zussman <tz2294@columbia.edu>
-Date: Wed, 02 Sep 2026 15:27:50 -0400
-Subject: [PATCH 04/11] mm/page_io: take a const folio in
- bio_associate_blkg_from_folio()
+        Wed, 02 Sep 2026 12:28:35 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH v8 0/2] mfd: add X-Powers AC200 support
+Date: Wed, 02 Sep 2026 13:28:23 -0600
+Message-Id: <20260902-submit-ac200-mfd-v8-0-2aa06720b8ac@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -91,116 +72,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-folio_memcg-const-v1-4-e2c1da22246d@columbia.edu>
-References: <20260902-folio_memcg-const-v1-0-e2c1da22246d@columbia.edu>
-In-Reply-To: <20260902-folio_memcg-const-v1-0-e2c1da22246d@columbia.edu>
-To: Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
-        Roman Gushchin <roman.gushchin@linux.dev>,
-        Shakeel Butt <shakeel.butt@linux.dev>,
-        Muchun Song <muchun.song@linux.dev>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
-        Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
-        Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
-        Youngjun Park <youngjun.park@lge.com>,
-        David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
-        "Liam R. Howlett" <liam@infradead.org>,
-        Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
-        Suren Baghdasaryan <surenb@google.com>, Qi Zheng <qi.zheng@linux.dev>,
-        Axel Rasmussen <axelrasmussen@google.com>,
-        Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
-        "Matthew Wilcox (Oracle)" <willy@infradead.org>
-Cc: cgroups@vger.kernel.org, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        Tal Zussman <tz2294@columbia.edu>
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788377294; l=1933;
- i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=puRmIXD1Ve7ElQt9KP4DSIyIaDfy+iHVy11lX8uUHlg=;
- b=A79pQGpgugQaXZD+f5+rppwy1Fv88nCcpGb/S1P2ZfVpepR1h1m5T9Di6kxQiDuaJ1FmnPSw3
- +1svIpVjpKoBJsZ2VcU6UrLXchG5TP4f1m+DgNt8wfr2isRQsjzGTdP
-X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
- pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-GUID: LHPA4uYvOOZuo5ajNIsqSAgwp4NZuMn9
-X-Proofpoint-ORIG-GUID: LHPA4uYvOOZuo5ajNIsqSAgwp4NZuMn9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE3MiBTYWx0ZWRfXwR2jxh5yBK6h
- h8tiLlsVEoBNgJUZKXhsBPkhPdO21ypyGQOKqXZRUvQ7I1NbdIGnAAubTf+oJ0hQHiUt4glKU/Y
- W32nIp1fCmaaZQfAk59xSqeD4WaDk7k0CMFLNkODBdpJUFP1hwok
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE3MiBTYWx0ZWRfX2Iqb1pvjmVUs
- j+9MzQnFxritB0lxkc2ghS9SFYyLhiIUhx1vZLBP30do1RT4JpJGInR3DKoxIGwOqt1sviOs2PJ
- r1hUUXGlXHNhshUFSd34jCdh92f/W0XyCL+8hYqPsWGq4dt4utPk354b63QVwinN5Vbn3eVvlZv
- rqEQKH4EkKBD1pGKmY8NEE3axbxpMhyKcngSqkbIyPcoNRLMLP6UdS8mfndTxRPcbJpTxwjzRbd
- XEFTzJqwsbwyWfFgy5z48inszNCRANkcjEhvxgv7MwbXPcKKo7SaGrL1QoEwxqbgnNRCnCHNWoZ
- glSFV9dlA9bi+B1ZBFvPRaBLG8Z7LIGAZi7evqbqAW5Vx1GxoP/LNWjvWmo/x6hRIGNOjIluSO2
- 61efFn/2kN1/MKpFWLsHT2pfy06wtK1q4yl8OyUjnfZtVZGJYe1tQYdHQs1BTSc793BdHF7sU2v
- hc0HcnmsB5kVJiS2B7g==
-X-Authority-Analysis: v=2.4 cv=LsSiDHdc c=1 sm=1 tr=0 ts=6a9878d8 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=XwBYxoxBwSosfWEfMcqm5A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=Qm0qsxP7aFY2tkT6R2MF:22
- a=4JVmFDg4bpWGYAirTr4A:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11894
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 bulkscore=10 lowpriorityscore=10 impostorscore=10
- phishscore=0 clxscore=1015 adultscore=0 priorityscore=1501 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020172
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XO3YrCMBAF4FeRXDuSBJNOvfI9ZC/yqyOmlaYbF
+ Om7b+oKCgpeHjjznbmxHAYKmW0WNzaEQpn6rgZcLpg7mG4fgHzNTHKpOQoB+dcmGsE4yTmk6AG
+ t8drzNkhUrJ6dhxDpcid3P/+53hyDG2dnbhwoj/1wvW8WNfcePG+f/KXyfQR/7UwiB0VAUcDBR
+ iMiKoFW4nafDJ1Wrk9sHir6hfr0adEVcMoK2UqH6/YNaL4BTQXQch2Vkmbtm1dgmqY/Bjsxtk4
+ BAAA=
+X-Change-ID: 20260811-submit-ac200-mfd-8bad6d09e285
+To: Lee Jones <lee@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ James Hilliard <james.hilliard1@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, 
+ "Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>, 
+ Andre Przywara <andre.przywara@arm.com>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, linux-sunxi@lists.linux.dev, 
+ mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
 
-bio_associate_blkg_from_folio() and its helpers only read from the
-folio. Constify their folio arguments.
+The X-Powers AC200 is an I2C-controlled mixed-signal companion IC with
+a paged register map shared by its audio, video, RTC and Fast Ethernet
+PHY functions.
 
-Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+Add the parent binding and an I2C provider which enables and rate-locks
+the shared input clock, initializes the paged regmap and controls the
+common reset. Audio, video and RTC functions can be added as MFD
+children.
+
+The current regmap consumer is the separately submitted AC200/AC300
+Ethernet PHY series:
+
+  https://patch.msgid.link/20260818-submit-acx00-of-dynamic-v1-v9-0-b8c8d9ad0d83@gmail.com
+
+The PHY remains enumerated on MDIO, its primary management bus. Its
+AC200 package node follows the x-powers,ac200 phandle for ancillary I2C
+register access, adds a managed device link and obtains the regmap with
+dev_get_regmap(). This series and the PHY series can be merged in either
+order; AC200 Ethernet support requires both.
+
+This work builds on earlier AC200 work by Jernej Skrabec and Andre
+Przywara:
+
+  https://github.com/jernejsk/linux-1/commits/ac200-v4
+
+Public AC200 documentation is linked from:
+
+  https://linux-sunxi.org/AC200
+
+Validation included an x86_64 W=1 object build, dt_binding_check, and a
+combined W=1 build with the PHY series. On AC200 hardware, the provider
+and PHY completed 100 overlapping bind cycles while preserving both
+device links and recovering a 100 Mbps full-duplex link.
+
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- mm/page_io.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+Changes v7 -> v8:
+- identify the PHY series as the current regmap consumer
+- describe future MFD children and the MDIO/I2C split
+- store the regmap directly as driver data  (suggested by Lee Jones)
+- reset the chip from the remove callback  (suggested by Lee Jones)
+- drop the revision log and inherited-driver attribution  (suggested by Lee Jones)
+- add Krzysztof's Reviewed-by tag to the binding
+- rebase on the current MFD for-mfd-next branch
+- Link to v7: https://patch.msgid.link/20260811-submit-ac200-mfd-v7-0-8b06f552a4d7@gmail.com
 
-diff --git a/mm/page_io.c b/mm/page_io.c
-index 1da4ff484f09..5f7756e370f7 100644
---- a/mm/page_io.c
-+++ b/mm/page_io.c
-@@ -256,12 +256,13 @@ int swap_writeout(struct swap_io_ctx *ctx, struct folio *folio)
- }
- 
- #if defined(CONFIG_MEMCG) && defined(CONFIG_BLK_CGROUP)
--static struct cgroup_subsys_state *folio_memcg_blkg_css(struct folio *folio)
-+static struct cgroup_subsys_state *folio_memcg_blkg_css(const struct folio *folio)
- {
- 	return cgroup_e_css(folio_memcg(folio)->css.cgroup, &io_cgrp_subsys);
- }
- 
--static bool folio_blkg_can_merge(struct folio *folio, struct folio *prev_folio)
-+static bool folio_blkg_can_merge(const struct folio *folio,
-+				 const struct folio *prev_folio)
- {
- 	bool can_merge = true;
- 
-@@ -277,7 +278,8 @@ static bool folio_blkg_can_merge(struct folio *folio, struct folio *prev_folio)
- 	return can_merge;
- }
- 
--static void bio_associate_blkg_from_folio(struct bio *bio, struct folio *folio)
-+static void bio_associate_blkg_from_folio(struct bio *bio,
-+					  const struct folio *folio)
- {
- 	struct cgroup_subsys_state *css;
- 
-@@ -294,11 +296,13 @@ static void bio_associate_blkg_from_folio(struct bio *bio, struct folio *folio)
- 		css_put(css);
- }
- #else
--static bool folio_blkg_can_merge(struct folio *folio, struct folio *prev_folio)
-+static bool folio_blkg_can_merge(const struct folio *folio,
-+				 const struct folio *prev_folio)
- {
- 	return true;
- }
--static void bio_associate_blkg_from_folio(struct bio *bio, struct folio *folio)
-+static void bio_associate_blkg_from_folio(struct bio *bio,
-+					  const struct folio *folio)
- {
- }
- #endif /* CONFIG_MEMCG && CONFIG_BLK_CGROUP */
+Changes v6 -> v7:
+- drop the managed external-syscon helper and AC200 syscon registration
+- leave the regmap attached to the I2C provider for direct device lookup
+- reduce the MFD series from three patches to two
+- Link to v6: https://patch.msgid.link/20260811-submit-ac200-mfd-v6-0-c5b1292c8498@gmail.com
 
--- 
-2.39.5
+Changes v5 -> v6:
+- split the MFD work from the independently mergeable networking series
+- put the merge routing and shared DT design at the start of the cover letter
+- rebase on the MFD for-mfd-next branch
+- Link to v5: https://patch.msgid.link/20260809-submit-acx00-of-dynamic-v1-v5-0-bfa1f8518b28@gmail.com
+
+To: Lee Jones <lee@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: mfd@lists.linux.dev
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+James Hilliard (2):
+      dt-bindings: mfd: x-powers: Add AC200
+      mfd: ac200: Add X-Powers AC200 support
+
+ .../devicetree/bindings/mfd/x-powers,ac200.yaml    |  49 ++++++++
+ drivers/mfd/Kconfig                                |  11 ++
+ drivers/mfd/Makefile                               |   1 +
+ drivers/mfd/ac200.c                                | 136 +++++++++++++++++++++
+ 4 files changed, 197 insertions(+)
+---
+base-commit: 9d0e4b1ae5b045a2c92b0b9a1c3b268191c219d9
+change-id: 20260811-submit-ac200-mfd-8bad6d09e285
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
