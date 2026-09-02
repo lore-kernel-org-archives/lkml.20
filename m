@@ -1,279 +1,218 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C88AE3246E8
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 04:31:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C40A1B6D08;
+	Wed,  2 Sep 2026 04:35:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788323480; cv=none; b=TbD12yfp6qR9Cifj8nKKsbu+PJo7XHjdUqCCy0B0wJrc5Ok4A/0ep27CLcI+m2TL1gJWmvxBu+fx/I+2kJAJG4PzSZBSHoLU/sC8ViwiK3ZlJGr1Qlh7drQzLDymzEVsayHWk0597hyO1Kg9uG4eMMZZO6xuTegmATH7Owisr0E=
+	t=1788323749; cv=none; b=VplNYFTOyoVwjUODVfyNenisCQxRoGOlbg5+kuOK7dAgaQbEdUkNzf2bnDsWeybtvmnhKOvx06zNDfEV40h76vSPFqfjiUT43EvvfD4cbz0t9N95iGbxSFU57ztaJe00JRrTUfFHfJf8YQykxoWxbYt18PG9/m8s3kCLdVSlizA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788323480; c=relaxed/simple;
-	bh=DvhAqyMZEAE6hMWjH1OG4Gf63XX1X25bMKQ9gvEIbXA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Bw3J/hEJY1y8LD+sVNl1pSkoMwYkLzoOs9BPVt3QOS9sDtOs/gKT/akOlwuecB1j7ziyOKv1NaFtrfvRni1hXmdkpiAIy4Ryuvg6mNiGllFiLPL5tpHMAjerfhiJU83EkDoKrxYc++hDkyv96RvttGUZ8APSQ1mYFL6bQ13gMPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=JhdQnC9v; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788323749; c=relaxed/simple;
+	bh=0Qdzli+qJp3FOabq/THj8Atm7xH7luM+jagflvB2Src=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=fLK3E5hV1wInNh5Rbe0fVwLaIDMQd8A0wBDciSf3LaN8VQgc3bRHlo/E9pgxNWtJeObS2GhCYU/KGrA3NSLod4iTyQkpTvWXAYuAc7k8VquCqyR71z1hu4X4VwGOJK2lQAhUBXm4k3FIm04EkjULaeUbUdooAzj43TfnlFNiG+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=esLXqLgv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="JhdQnC9v"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D14E61596;
-	Tue,  1 Sep 2026 21:31:11 -0700 (PDT)
-Received: from [10.164.148.40] (MacBook-Pro-3.blr.arm.com [10.164.148.40])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C2AE93F7D8;
-	Tue,  1 Sep 2026 21:31:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788323475; bh=DvhAqyMZEAE6hMWjH1OG4Gf63XX1X25bMKQ9gvEIbXA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=JhdQnC9vUNH9SMsR7ARDISMkwDkTMKASJonQiTuboHjwMjWFrjD9h51kDllYk9Q18
-	 fwhcnfBUdXA/VzLfMIOvUSspIIvdBP6zEyS6LhS+lyPtuTq5rxV7uYRRo7basLSanX
-	 DOKZCoROL7ed+h9Zi2yItAAwYyffh1MvRaxl+1ys=
-Message-ID: <c88d035a-cf81-4431-bc28-bb09878e09d7@arm.com>
-Date: Wed, 2 Sep 2026 10:00:57 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="esLXqLgv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E08221F000E9;
+	Wed,  2 Sep 2026 04:35:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788323747;
+	bh=3+aNzt7+vR8uvvRPwWe1grwPlvO+Ou8ltA+L0ejnOWs=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=esLXqLgvcPxUITP7luIajV9bgLZ5yzoX2XFHM6+gDi/B7h1L3BB5D7dNqDbaeIJ5C
+	 rtmBdRFErxZa78OPVY/dTrbs3ydZ/I/My3uunWpQWBS6Zf/ftpIFivOEu4KLWoCI3m
+	 O3+bJnvsm6L1b40xfBQzp8HpF4bM8Z5GL9+9NNzyC8h0ysUSKqXj+nds+hwphEaZrB
+	 TwV0BOOFIM0xLZT216bnhgSVBeA9i/GwMDNTQ7T0cvdqDGvfehCJsJCBNMNsilhwLa
+	 yI5THRjiwy4FuFqBJ5c9d4kMgHv9+mD98YWr9WXbDck0V/0UX0VkvsTfZ0XrygUrVT
+	 pEYOx+rOKJ1iw==
+Subject: Re: [RESEND,nf-next] netfilter: nf_conntrack_h323: fix double cursor
+ advance in decode_int()
+From: netdev-bot+sashiko@kernel.org
+To: l1138897701@163.com
+Cc: pablo@netfilter.org, fw@strlen.de, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, phil@nwl.cc,
+ horms@kernel.org, zhaojignmin@hotmail.com, kaber@trash.net,
+ netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 02 Sep 2026 04:35:46 +0000
+Message-ID: <178832374645.3394541.7615305682823291426@kernel.org>
+In-Reply-To: <20260831013315.95231-1-l1138897701@163.com>
+References: <20260831013315.95231-1-l1138897701@163.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm: vmalloc: fix vmap_purge_lock livelock under memory
- pressure
-To: Uladzislau Rezki <urezki@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Ye Liu <ye.liu@linux.dev>, Ye Liu <liuye@kylinos.cn>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20260828091753.299295-1-ye.liu@linux.dev>
- <20260828110503.e1eff32a9b7df9a8b2ddd4d6@linux-foundation.org>
- <bec5eaef-d084-467f-9bfd-43f7dedc1aa7@arm.com> <apVPTt9Xw8kSgmTU@milan>
- <54bd749f-04f5-4665-bd5f-d485e7197132@arm.com>
- <2e9488bb-feb6-4994-92e3-e5ef0c1ff5ec@linux.dev> <apcAvwXe89M20mGs@milan>
- <apcEh4iuYa6_47TJ@milan>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <apcEh4iuYa6_47TJ@milan>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
+Critical: 0 · High: 0 · Medium: 1 (1) · Low: 1
 
-On 01/09/26 10:29 pm, Uladzislau Rezki wrote:
-> On Tue, Sep 01, 2026 at 06:43:43PM +0200, Uladzislau Rezki wrote:
->> On Tue, Sep 01, 2026 at 05:07:30PM +0800, Ye Liu wrote:
->>>
->>>
->>> 在 2026/9/1 14:22, Dev Jain 写道:
->>>>
->>>>
->>>> On 31/08/26 3:24 pm, Uladzislau Rezki wrote:
->>>>> On Mon, Aug 31, 2026 at 11:39:14AM +0530, Dev Jain wrote:
->>>>>>
->>>>>>
->>>>>> On 28/08/26 11:35 pm, Andrew Morton wrote:
->>>>>>> On Fri, 28 Aug 2026 17:17:53 +0800 Ye Liu <ye.liu@linux.dev> wrote:
->>>>>>>
->>>>>>>> From: Ye Liu <liuye@kylinos.cn>
->>>>>>>>
->>>>>>>> The vmap_purge_lock mutex can be held for an extended period by
->>>>>>>> __purge_vmap_area_lazy() which calls flush_work() to wait for
->>>>>>>> purge_vmap_node workers while holding the lock.  Under memory
->>>>>>>> pressure, those workers may themselves be blocked in direct
->>>>>>>> reclaim trying to acquire the same lock via the
->>>>>>>> vmap_node_shrink_scan() shrinker callback, creating a circular
->>>>>>>> dependency that deadlocks the entire system.
->>>>>>>>
->>>>>>>> Two places acquire vmap_purge_lock from paths that can be reached
->>>>>>>> during direct reclaim:
->>>>>>>>
->>>>>>>> 1. vmap_node_shrink_scan(): replace blocking guard(mutex) with
->>>>>>>>    mutex_trylock().  This is a shrinker that only decays the vmap
->>>>>>>>    pool and returns SHRINK_STOP without freeing memory; skipping a
->>>>>>>>    decay cycle when the lock is contended is harmless and prevents
->>>>>>>>    tasks from piling up on the mutex in the direct reclaim path.
->>>>>>>>
->>>>>>>> 2. reclaim_and_purge_vmap_areas(): replace mutex_lock() with
->>>>>>>>    mutex_trylock().  This is called from the vmalloc allocation
->>>>>>>>    overflow path; if trylock fails, another thread is already
->>>>>>>>    purging and the allocator's retry will find freed space.  The
->>>>>>>>    notifier chain provides a fallback if the retry still fails.
->>>>>>>>
->>>>>>>> Both trylock failures break the circular dependency: the lock
->>>>>>>> holder's flush_work() can complete because workers are no longer
->>>>>>>> blocked on vmap_purge_lock in the direct reclaim path.
->>>>>>>
->>>>>>> Thanks.  AI review expressed a couple of concerns:
->>>>>>> 	https://sashiko.dev/#/patchset/20260828091753.299295-1-ye.liu@linux.dev
->>>>>>
->>>>>>
->>>>>> Sounds legit to me. Now there is no guarantee of purge being successful, and we
->>>>>> can get a spurious failure.
->>>>>>
->>>>>> How about using a WQ_RECLAIM workqueue:
->>>>>>
->>>>>> vmap_purge_wq = alloc_workqueue("vmap_purge",
->>>>>> 				WQ_MEM_RECLAIM | WQ_PERCPU, 0);
->>>>>>
->>>>>> I see the same pattern in __lru_add_drain_all() and kmem_cache_init_late().
->>>>>>
->>>>> WQ_MEM_RECLAIM makes sense but this is another patch.
->>>>>
->>>>> I copied here AI comment:
->>>>>>
->>>>>> Does replacing this blocking lock with a trylock break synchronization for
->>>>>> the callers?
->>>>>>
->>>>> No it does not. If someone is doing reclaim we do not wait and do not try
->>>>> to do it again thus fail allocation.
->>>>>
->>>>>> When vmalloc space is exhausted, alloc_vmap_area() calls
->>>>>> reclaim_and_purge_vmap_areas() and relies on its blocking behavior to ensure
->>>>>> that free space has actually been reclaimed before looping back to retry:
->>>>>> mm/vmalloc.c:alloc_vmap_area() {
->>>>>>    ...
->>>>>> overflow:
->>>>>> 	if (!purged) {
->>>>>> 		reclaim_and_purge_vmap_areas();
->>>>>> 		purged = 1;
->>>>>> 		goto retry;
->>>>>> 	}
->>>>>>    ...
->>>>>> }
->>>>>> With this patch, if another thread holds vmap_purge_lock, mutex_trylock()
->>>>>> fails and the function returns immediately.
->>>>>>
->>>>> If reclaim is in progress and trylock fails a caller repeats only one
->>>>> time to retry an allocation. There is no any infinite loop.
->>>>>
->>>>>>
->>>>>> The allocator then retries
->>>>>> instantly without waiting for the concurrent purge to complete.
->>>>>> Because the retry fails and purged is already 1, could this cause the
->>>>>> allocation to abort and return a spurious vmalloc allocation failure
->>>>>> (-EBUSY or -ENOMEM)?
->>>>>>
->>>>> vmap space can be fragmented and not avail for 32-bit systems. For
->>>>> 64-bit system it is likely impossible.
->>>>>
->>>>> But, i think we can overt mutex_lock() into mutex_trylock() just only
->>>>> in the:
->>>>>
->>>>> static unsigned long
->>>>> vmap_node_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
->>>>> {
->>>>> 	struct vmap_node *vn;
->>>>>
->>>>> 	guard(mutex)(&vmap_purge_lock);
->>>>> 	for_each_vmap_node(vn)
->>>>> 		decay_va_pool_node(vn, true);
->>>>>
->>>>> 	return SHRINK_STOP;
->>>>> }
->>>>>
->>>>> so the reclaim path is not blocked. It should also address an issue
->>>>> reported by the Ye Liu <ye.liu@linux.dev>.
->>>>
->>>> IIUC you are suggesting mutex_trylock() only in the shrinker path. But
->>>> then, the following is possible no: take purge lock, try to get a
->>>> worker thread, worker thread is stuck in vmalloc -> alloc_vmap_area
->>>> -> reclaim_and_purge_vmap_areas -> take purge lock?
->>>>
->>>>
->>>
->>> Personally, I lean toward the WQ_MEM_RECLAIM workqueue solution. 
->>> After taking a closer look at the code, I noticed a subtle but 
->>> potentially problematic scenario:
->>>
->>> When drain_vmap_area_work acquires vmap_purge_lock and calls into 
->>> __purge_vmap_area_lazy, it may subsequently invoke queue_work/queue_work_on 
->>> on the same CPU's system_wq. If the newly queued work ends up waiting 
->>> for an available worker on that same CPU, while the current worker is
->>> blocked waiting for that very work to complete (via flush_work), 
->>> we could end up with a self-deadlock on a single CPU.
->>>
->>> Theoretically, this seems possible. I suspect the reason we don't 
->>> see widespread reports of such deadlocks is that the nr_purge_helpers 
->>> logic limits the number of asynchronous workers; when resources are tight, 
->>> it falls back to synchronous execution (purge_vmap_node directly), 
->>> which avoids queuing additional work. 
->>>
->>> Using a dedicated workqueue with WQ_MEM_RECLAIM would provide a clean, 
->>> explicit isolation—ensuring forward progress under memory pressure and 
->>> eliminating the risk of interfering with other subsystems' workqueues. 
->>> I believe this approach is more robust in the long run.
->>>
->>> Perhaps like the code below：
->>> the dedicated queue eliminates the self‑deadlock risk, and the trylock 
->>> in the shrinker prevents recursive lock attempts from reclaim contexts.
->>>
->>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
->>> index bea9f76ed7e7..68fc1f5acb2f 100644
->>> --- a/mm/vmalloc.c
->>> +++ b/mm/vmalloc.c
->>> @@ -2218,6 +2218,9 @@ static unsigned long lazy_max_pages(void)
->>>   */
->>>  static DEFINE_MUTEX(vmap_purge_lock);
->>>  
->>> +/* Workqueue for lazy vmap purging; WQ_MEM_RECLAIM guarantees progress. */
->>> +static struct workqueue_struct *vmap_purge_wq;
->>> +
->>>  /* for per-CPU blocks */
->>>  static void purge_fragmented_blocks_allcpus(void);
->>>  
->>> @@ -2408,9 +2411,9 @@ static bool __purge_vmap_area_lazy(unsigned long start, unsigned long end,
->>>                                 INIT_WORK(&vn->purge_work, purge_vmap_node);
->>>  
->>>                                 if (cpumask_test_cpu(i, cpu_online_mask))
->>> -                                       schedule_work_on(i, &vn->purge_work);
->>> +                                       queue_work_on(i, vmap_purge_wq, &vn->purge_work);
->>>                                 else
->>> -                                       schedule_work(&vn->purge_work);
->>> +                                       queue_work(vmap_purge_wq, &vn->purge_work);
->>>  
->>>                                 nr_purge_helpers--;
->>>                         } else {
->>> @@ -5519,10 +5522,14 @@ vmap_node_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
->>>  {
->>>         struct vmap_node *vn;
->>>  
->>> -       guard(mutex)(&vmap_purge_lock);
->>> +       if (!mutex_trylock(&vmap_purge_lock))
->>> +               return SHRINK_STOP;
->>> +
->>>         for_each_vmap_node(vn)
->>>                 decay_va_pool_node(vn, true);
->>>  
->>> +       mutex_unlock(&vmap_purge_lock);
->>> +
->>>         return SHRINK_STOP;
->>>  }
->>>  
->>> @@ -5575,6 +5582,17 @@ void __init vmalloc_init(void)
->>>          * Now we can initialize a free vmap space.
->>>          */
->>>         vmap_init_free_space();
->>> +
->>> +       /*
->>> +        * A dedicated workqueue for lazy vmap purging.  WQ_MEM_RECLAIM
->>> +        * reserves a rescue worker so queued purge work items are executed
->>> +        * even under memory pressure, when workers of the system workqueue
->>> +        * may be stuck in direct reclaim.
->>> +        */
->>> +       vmap_purge_wq = alloc_workqueue("vmap_purge",
->>> +                                       WQ_MEM_RECLAIM | WQ_PERCPU, 0);
->>> +       WARN_ON(!vmap_purge_wq);
->>> +
->>>         vmap_initialized = true;
->>>
->> I agree. We should have it and it should be as separate patch, i.e.
->> split vmap_node_shrink_scan() and dedicated per-cpu WQs per vmap drain.
->>
-> And i sent out already the WQ_UNBOUND | WQ_MEM_RECLAIM and separate WQ
-> for vmap drain logic. It looks like Andrew/me forgot about it:
-> 
-> https://lore.kernel.org/all/20260331202352.879718-1-urezki@gmail.com/
+- [Medium] Commit message mischaracterizes the impact of the fixed double
+  cursor advance in decode_int().
+- [Low] The patch is a user-visible bug fix to
+  net/netfilter/nf_conntrack_h323_asn1.c but carries no `Fixes:` tag, so…
 
-Great! Perhaps resend it and we can review it?
+Pre-existing issues:
+- [Medium] The RAS timeToLive value decoded by the CONS/DECODE branch is
+  fully remote-controlled (nf_conntrack_h323_types.c:1594/1646 define it…
 
+--
 
-> 
-> --
-> Uladzislau Rezki
+netfilter: nf_conntrack_h323: fix double cursor advance in decode_int()
 
+In the CONS case of decode_int(), get_uint() already advances the bitstream
+cursor, so the following unconditional bs->cur += len consumed the value
+bytes twice.  The patch moves the manual advance into an else branch so the
+bytes are consumed exactly once.  The code change itself looks correct.
+
+A few questions about the changelog and about one pre-existing item in this
+area.
+
+>     All fields following such an integer are decoded from a wrong bit
+>     position.  This affects the timeToLive field in RAS
+>     RegistrationRequest/RegistrationConfirm messages: subsequent fields
+>     (e.g. transport addresses) end up being parsed from arbitrary offsets
+>     inside the message, so the helper may create expectations based on
+>     bogus addresses/ports.
+
+[Severity: Medium]
+Is this description of the impact accurate?
+
+The only fields that reach the CONS plus DECODE branch are the two
+timeToLive entries in _RegistrationRequest and _RegistrationConfirm in
+nf_conntrack_h323_types.c.  Every other CONS integer is SKIP or STOP and
+takes the (unchanged) manual advance path.
+
+In both tables timeToLive is an extension component, so decode_seq() wraps
+it as an open type and resets the cursor after the decoder returns:
+
+net/netfilter/nf_conntrack_h323_asn1.c:decode_seq() {
+	...
+	beg = bs->cur;
+	if ((err = (Decoders[son->type]) (bs, son, base, level + 1)) < H323_ERROR_NONE)
+		return err;
+	bs->cur = beg + len;
+	bs->bit = 0;
+	...
+}
+
+Doesn't that discard the over-advanced cursor, so parsing resumes at the
+correct offset?
+
+Also, the entry immediately following timeToLive in both tables carries
+STOP:
+
+net/netfilter/nf_conntrack_h323_types.c:_RegistrationRequest[] = {
+	{FNAME("timeToLive") INT, CONS, 1, 0, DECODE | OPT,
+	 offsetof(RegistrationRequest, timeToLive), NULL},
+	{FNAME("tokens") SEQOF, SEMI, 0, 0, STOP | OPT, 0, NULL},
+
+decode_seq() returns H323_ERROR_STOP at the STOP son, so no later field is
+decoded at all.  The DECODE'd transport addresses (callSignalAddress,
+rasAddress) are root components parsed before timeToLive.  Can a bogus
+address or port expectation actually be produced by this bug?
+
+The one effect that does escape decode_int() looks like the trailing
+boundary check:
+
+	if (nf_h323_error_boundary(bs, 0, 0))
+		return H323_ERROR_BOUND;
+
+When fewer than len bytes follow the timeToLive value, the doubled advance
+pushes bs->cur past bs->end and DecodeRasMessage() fails, so ras_help()
+takes the accept path and skips the whole RRQ/RCF:
+
+net/netfilter/nf_conntrack_h323_main.c:ras_help() {
+	ret = DecodeRasMessage(data, datalen, &ras);
+	if (ret < 0) {
+		pr_debug("nf_ct_ras: decoding error: %s\n", ...);
+		goto accept;
+	}
+
+That means no TTL based nf_ct_refresh() and no Q.931 expectation timeout
+update for that message.  Could the changelog be reworded to describe this
+spurious out-of-bound decode failure instead of the bogus address/port
+expectation scenario?  As written it reads like a security relevant misparse
+and may drive an urgent stable backport on the wrong grounds.
+
+>     Assisted-by: LLM
+>     Signed-off-by: Qing Luo <luoqing@kylinos.cn>
+
+[Severity: Low]
+Should this carry a Fixes: tag?
+
+git blame at the baseline shows the unconditional bs->cur += len and the
+surrounding CONS case in decode_int() came in with 5e35941d9901
+("[NETFILTER]: Add H.323 conntrack/NAT helper"), so the defect has been
+there since decode_int() was added.  Since decode_int() is reachable
+remotely through DecodeRasMessage() from ras_help(), stable tooling would
+need the tag to pick the affected trees:
+
+Fixes: 5e35941d9901 ("[NETFILTER]: Add H.323 conntrack/NAT helper")
+
+> diff --git a/net/netfilter/nf_conntrack_h323_asn1.c b/net/netfilter/nf_conntrack_h323_asn1.c
+> index 6830c9da3507..a51275cc4d0f 100644
+> --- a/net/netfilter/nf_conntrack_h323_asn1.c
+> +++ b/net/netfilter/nf_conntrack_h323_asn1.c
+> @@ -336,8 +336,9 @@ static int decode_int(struct bitstr *bs, const struct field_t *f,
+>  			unsigned int v = get_uint(bs, len) + f->lb;
+>  			PRINT(" = %u", v);
+>  			*((unsigned int *)(base + f->offset)) = v;
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but while looking at the value
+produced here: is the decoded timeToLive bounded anywhere?
+
+nf_conntrack_h323_types.c declares it as {INT, CONS, 1, 0, DECODE | OPT} in
+both _RegistrationRequest and _RegistrationConfirm, and get_uint(bs, len)
+with len up to 4 covers the whole u32 range, so v is fully remote
+controlled.
+
+process_rrq() and process_rcf() then copy it straight into info->timeout
+with no upper limit, unlike the default_rrq_ttl module parameter path:
+
+net/netfilter/nf_conntrack_h323_main.c:process_rcf() {
+	if (rcf->options & eRegistrationConfirm_timeToLive) {
+		pr_debug("nf_ct_ras: RCF TTL = %u seconds\n", rcf->timeToLive);
+		info->timeout = rcf->timeToLive;
+	}
+
+	if (info->timeout > 0) {
+		nf_ct_refresh(ct, info->timeout * HZ);
+		...
+			WRITE_ONCE(exp->timeout,
+				   nfct_time_stamp + (info->timeout * HZ));
+
+Does info->timeout * HZ wrap in u32 arithmetic here, and can a peer keep the
+RAS conntrack entry and its Q.931 expectation alive for an arbitrarily long
+time, or wrap the product down to a near-zero timeout?
+
+__nf_ct_refresh_acct() in nf_conntrack_core.c applies no upper clamp on
+extra_jiffies:
+
+	if (nf_ct_is_confirmed(ct))
+		extra_jiffies += nfct_time_stamp;
+
+	if (READ_ONCE(ct->timeout) != extra_jiffies)
+		WRITE_ONCE(ct->timeout, extra_jiffies);
+
+so the helper looks like the only place a bound could be applied.  Note this
+predates the patch: before the change the correct TTL bytes were still read
+and decode_seq() reset the cursor, so the value already reached
+process_rrq()/process_rcf() whenever bytes followed the TTL field.
+
+>  		}
+> -		bs->cur += len;
+>  		break;
+>  	case UNCO:
+>  		BYTE_ALIGN(bs);
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260831013315.95231-1-l1138897701%40163.com
