@@ -1,112 +1,132 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF5AF47F794
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:21:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0AE947F794;
+	Wed,  2 Sep 2026 12:21:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788351684; cv=none; b=BnYi16NbKi9GWqD3kRpHINrPA9Yny9xlxa+IGBUpjwrvpKqZmrfAjtipJELkCzT2fvvZ2Ip0QOm2lN5Gq0IsPy4TdEI9o5NhgjUY0Kmsvbfd9KHFAEN1HHzEapUCloSbV2v692P9FIedz8E4ga6/vmn3jkyT0eH6zxYWWmTN5XM=
+	t=1788351708; cv=none; b=VTzVQtDoPRFbLxA0BGyuZtud/Qglaz3UgW4U2unRCKMY2RURz9ILPzSv23QCB65r7CoYRKFsehYfLgyadqj0A7POfeIcSd4rlQQPy4LWSxrX3qkYE+mG1Lb6fO+wOkcw2ogDMHhNexvBLyGu/mlPerLKXoS4OG1dR2lL7RT3cEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788351684; c=relaxed/simple;
-	bh=9fqEfRKgUMJWyOe5ZNAMkjiVee0f/Gw/F2S06frt78Q=;
-	h=From:Message-ID:Date:MIME-Version:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=qvQbbt9uiB8DiNvr9x52/9UaeGUdg7yXrltSMG3UuHmLL/Fj/6DZex3L+4gd7EyGSW9741FoBVf27nT/MS7wOcoTXpNB4FmqVqEHuwzhzTOf6F1gUmJt7iOM5TGgs7iJswvv/dX8jc2YD+X+jb9uvtu6cZQVV8+1zLvHe6mTK9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qs0v8pf8; arc=none smtp.client-ip=209.85.218.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788351708; c=relaxed/simple;
+	bh=GGmVS2JaA+qTkb4ZBzBzV0czpxciN7kZWeDdJ0FbVXQ=;
+	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=W88aYpyPB1tj5MJ3T3ifJMTFFgnuwPeSauj2w6vRCmi5gz/hoPorC+4OL9WRVT5rn8/8cscrUcP4uebTU0Rqn6azToM4asEsTp//phE+4nu1MKIdDr9VmTsO++N9GTpCQ2cbo0eCcIL5jb8ThvToeXoThryYslsdfa1yv3ZKQ0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=tOqeyw0Q; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qs0v8pf8"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c2531f453eeso131312066b.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:21:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788351681; x=1788956481; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+YtppFXPJvnaOnAk6ks95iIPAquAZkAVzmmLnfe8b94=;
-        b=Qs0v8pf8GFPWB4JsWj0ZkMouJUGDOCg/wKdVq5zefebovi4tGw6h7mhPtBbjraeneU
-         WYJ3VvvIMYtHhbs5ZtixVdQGSODSaymWQRSPRkukMdlDOGTWt7v+TyAPYiT9V5gxF1TO
-         HhGivD+/0S3GgYpvcEXHbV72AodsWGZDe5+53xy7mdLS2GpX9UBmY7xFmvlp8jQ9fiZq
-         iAqkHrX8G93YNbT3EMpAsNTVRRE8re4J+Fj5fCYzlDyx9WMJcZ8zy/8N2x+/Yg3w/i1o
-         soTlP8Sb/LhuM0Uqm+/TY8uY4ED1/PhTsgi3WVe/8u87DQ+B4WtcfmbQb8MMBMURq+d+
-         bblA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788351681; x=1788956481;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=+YtppFXPJvnaOnAk6ks95iIPAquAZkAVzmmLnfe8b94=;
-        b=hs14+9Ku3zKUktmYTr35pvHcZdHYhOB/eTwZSOLh8D12NZMzPlP5eKI5iUO5y4dcGs
-         42yNd5tsrq8UOnBqYySTQmfZrSnkyICG/hjyR9LPbH8AA43O6Zbi4jXA0c7hMOpUd/tQ
-         BMr33NqTIu4R1XV/EMG5Fr9MhfnvyEGrPVj+9tIU1KRKzPDADTGJc5q1lo7Xpa+DWa98
-         xPpePAQ+rRu3jE81Hfx2RbmeUqPhY2ygP68Pg+cKRRtJWls2ZlGDMpC8zHR+Wl8WoSs/
-         bhCd38yHX5YTxT6vraLA6EPeukHT5a5slVWyQDElTEpo0wzS9Dmrs040AJe96iQq3K/q
-         7VuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxZJxVupC3jcqLNK25BmwyVQNuQIA/JIHXrKk3Qxk2Zu6rfSMvBfAtxirWN+VGe8gk9YANC7wlNtOoI+8o=@vger.kernel.org
-X-Gm-Message-State: AFuF++nU5nmYhZLqaSYiLXpfwrFBZmQE/O+EC20TbEZT3MT+YOdb8txb
-	u2rLOkit569nBAt85aDaWB1xfuHCQUCnsSPTVsbLZmTKPgcxurSlmztc
-X-Gm-Gg: AYBFou1QiH2TrAg72xbljiIoFROOlTu8wr+kgTIxGt8f5VDDW5aFmmiwe842+z/jENj
-	l0KXOc/02kLWKB8KtCz7ToDvAodQ+a8H1ZqxTGJ+mZJKXHrS8fQQuqvVSbZ1sO75expdlgq3XsO
-	xhWqI6/6SASzDzCPj6CdBK9ibRQW9AxpBAMfMUlWsqQUwBrPuKSsokQcfF7HHVl2/I6pxlq2FxU
-	B6AXXylQ+gt52G8uN5yEiQBvrwkixO+Qr4razZdULLPPznmm3kj2HZAfs1/vmH4+1pLXWQnScGw
-	GCKMpgreGFYi7BnN931yV7DgrybAjssWH94Oyutoxd415Mm103eYZoXbQHD0yay62uLemjSuKZf
-	b0SO5v+r+EObQN0o8VuvNVT9PfU9MOr8HU4kSk+GRZ3Gj/oJqs1fO3TsprNk3QGzorCph6SITzv
-	rj796RKVNjlayb8v08m6MPQ8rjxLo6baW1avjPVoGTbVm9D3wdqS2iWgXuEKAnLEgV
-X-Received: by 2002:a17:907:3d49:b0:c25:c7a9:7b8a with SMTP id a640c23a62f3a-c25d54b6d03mr288409066b.12.1788351680630;
-        Wed, 02 Sep 2026 05:21:20 -0700 (PDT)
-Received: from [10.45.18.37] ([15.248.3.93])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25d03f4d39sm123342066b.47.2026.09.02.05.21.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 05:21:20 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: Paul Durrant <paul@xen.org>
-Message-ID: <d5d6a854-bdaa-4d69-87d1-c7a1731e8690@xen.org>
-Date: Wed, 2 Sep 2026 13:21:18 +0100
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="tOqeyw0Q"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6829Vbuh3810373;
+	Wed, 2 Sep 2026 12:21:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=EmRAOE
+	NCn3z/TkdCL3AO3GgcjO7Z7WviRahN4fsbw+s=; b=tOqeyw0QJ0lLZZlqPlkayA
+	DT6HOt6X2+nERLzNMk2mQWpf+xwUq9B3gy4Fnvcrs6pDylGX7nsGP/iG41dzVmpM
+	Pcowjh6VFU/LhqZRbrK3iDgC+Y8TcZMiJ9KjK+Nn8a6RVOr5fVM1WcMl/t65Rg6C
+	nUUXc3362yKIPqbzed+m4bouso7smOJ67v6tpLqnboBIUPtYRHXP4mcMUfS1Yo3x
+	EE2pHL8lpAfFZPIKVcNxvPZ8orHslMv2aDd68adX6+VIZUoz0PFmGO6bDRY2X/R4
+	1rIR1dscrtvRqe8c88+Via4NLlAp10zfL+8/9nhzOlOk5ruZqFZOhjFPKi2StUmg
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq54xb0t-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 12:21:38 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 682CBI4T002102;
+	Wed, 2 Sep 2026 12:21:37 GMT
+Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gc9rqhqs8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 12:21:37 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (smtpav05.dal12v.mail.ibm.com [10.241.53.104])
+	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 682CLbm426018374
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 2 Sep 2026 12:21:37 GMT
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 575575805D;
+	Wed,  2 Sep 2026 12:21:37 +0000 (GMT)
+Received: from smtpav05.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D72C758052;
+	Wed,  2 Sep 2026 12:21:36 +0000 (GMT)
+Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.35.47])
+	by smtpav05.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  2 Sep 2026 12:21:36 +0000 (GMT)
+Message-ID: <2a4b80e4e1912183ba4a5d1046d718b4f455720f.camel@linux.ibm.com>
+Subject: Re: [PATCH] ima: Check for ERR_PTR from dentry_path() in
+ validate_hash_algo()
+From: Mimi Zohar <zohar@linux.ibm.com>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        syzbot+5ebeb3089ea6439c37be@syzkaller.appspotmail.com
+In-Reply-To: <20260827174339.1729-1-brads@mainlining.org>
+References: <20260827174339.1729-1-brads@mainlining.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 02 Sep 2026 08:21:36 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/13] KVM: x86/xen: Introduce
- kvm_xen_has_64bit_shinfo() macro
-To: David Woodhouse <dwmw2@infradead.org>, seanjc@google.com,
- pbonzini@redhat.com
-Cc: joao.m.martins@oracle.com, boris.ostrovsky@oracle.com,
- ankur.a.arora@oracle.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, hpa@zytor.com, x86@kernel.org,
- syzbot+208f7f3e5f59c11aeb90@syzkaller.appspotmail.com,
- syzkaller-bugs@googlegroups.com, suryasaimadhu369@gmail.com, lkp@intel.com,
- nicoyip.dev@gmail.com, frn1furkan10@gmail.com, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, imv4bel@gmail.com
-References: <20260831213632.81023-1-dwmw2@infradead.org>
- <20260831213632.81023-3-dwmw2@infradead.org>
-Content-Language: en-US
-In-Reply-To: <20260831213632.81023-3-dwmw2@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDEwNyBTYWx0ZWRfX++4PPuAPGAVm
+ rZjN0H25/VOmlrqOVs3SXeUtQvm7EFSj+k5bVLaFxn364EiJ8FtjHUZRQB+9JitxMpqzmlDx3XB
+ ovtb8tBq3FZugD8/vamTIbRGyc89VokgbZbr1anNhOZa7/wl5iG+oEFNNkDXZo/52S7rzyB0vIk
+ v6Tsapw1OqU9UqSD5PuerBmaemke7csDiW6i5SwvBl6OI7tKheFOMAX1Jsgg+GaTv0yzLBJKpMp
+ qHHFayEqXrru1pYWi4mHJw4mAXVYrU2N9/NNYPsnpu9I+rfesZD/v5BsezQyXyIfrU7AENnV91M
+ uPuX3wJFMtZZX5ib7tQIed/BQct5rfdxTtMeHc2k32K3m97GlnCYMqA4/NQoy4nxp+OpePR+Ot0
+ AwNb3cPzS3MjV4DQ2fHBHFp7KB2gOyRgeaFvTtYSCYpdtcJd5e3s/9CIUcCMkUcpafdPg0LENAk
+ csIgNyyLbKwgM8OVfrA==
+X-Proofpoint-ORIG-GUID: 2XIn3zFsB1El5m1jQlahP9Tk70oW9W6w
+X-Authority-Analysis: v=2.4 cv=CNgamxrD c=1 sm=1 tr=0 ts=6a9814d2 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=1XWaLZrsAAAA:8 a=hSkVLCK3AAAA:8 a=OuZLqq7tAAAA:8 a=ZfC5JQsLA5OFHaLsyRcA:9
+ a=QEXdDO2ut3YA:10 a=cQPPKAXgyycSBL8etih5:22 a=AKGiAy9iJ-JzxKVHQNES:22
+X-Proofpoint-GUID: 2XIn3zFsB1El5m1jQlahP9Tk70oW9W6w
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDEwNyBTYWx0ZWRfXz57ABnoej3aj
+ MR4i+Wa7l8dU7olZ2fiG03VMXJCMdw9ztXP0EEdjbu0XO/jdbBSCXJ9B09TN36QZwyxZ0AwP9VI
+ Segv5JoD0etN7iEtwGU6cfYE207Djw8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_02,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 clxscore=1011 impostorscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020107
 
-On 31/08/2026 22:26, David Woodhouse wrote:
-> From: David Woodhouse <dwmw@amazon.co.uk>
-> 
-> Add a kvm_xen_has_64bit_shinfo() helper macro to replace the repeated
-> pattern of 'IS_ENABLED(CONFIG_64BIT) && kvm->arch.xen.long_mode'
-> throughout the Xen emulation code. The macro uses READ_ONCE() to
-> ensure a consistent snapshot of the flag, which can be changed by
-> another vCPU at any time.
-> 
-> This is the KVM equivalent of Xen's !has_32bit_shinfo().
-> 
-> Assisted-by: Kiro:claude-opus-4.6-1m
-> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> ---
->   arch/x86/kvm/xen.c | 16 ++++++++--------
->   arch/x86/kvm/xen.h |  5 +++++
->   2 files changed, 13 insertions(+), 8 deletions(-)
-> 
-Reviewed-by: Paul Durrant <paul@xen.org>
+On Thu, 2026-08-27 at 17:43 +0000, Bradley Morgan wrote:
+> dentry_path() returns ERR_PTR(-ENAMETOOLONG) when the path exceeds the
+> buffer. validate_hash_algo() passes the result straight to
+> integrity_audit_msg() without checking. ERR_PTR is not NULL, so
+> integrity_audit_message() sees a valid pointer and calls strlen() on
+> it, which faults:
+>=20
+>     BUG: unable to handle page fault for address: ffffffffffffffdc
+>     RIP: 0010:strlen+0x30/0xa0
+>     Call Trace:
+>      audit_log_untrustedstring+0x19/0x30
+>      integrity_audit_message+0x366/0x4f0
+>      ima_inode_setxattr+0x512/0x5f0
+>=20
+> Check for IS_ERR() and use NULL instead, which makes the audit message
+> skip the name=3D field instead of crashing.
+>=20
+> Fixes: 4f2946aa0c45 ("IMA: introduce a new policy option func=3DSETXATTR_=
+CHECK")
+> Cc: stable@vger.kernel.org
+> Reported-by: syzbot+5ebeb3089ea6439c37be@syzkaller.appspotmail.com
+> Link: https://lore.kernel.org/all/6a8f89e5.1d9ded08.62e62.00bf.GAE@google=
+.com/
+> Signed-off-by: Bradley Morgan <brads@mainlining.org>
 
-...although adding kvm_xen_has_32bit_shinfo() for consistency with Xen 
-might be slightly neater.
+Thanks, Bradley.  The patch is now queued in next-integrity.
+
+Mimi
