@@ -1,78 +1,50 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 795F9344D88
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:50:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B40194A64F3;
+	Wed,  2 Sep 2026 16:50:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788367852; cv=none; b=hUFBlRKOkngduQ8d3iZCY0x4Vnhn4pvr358mkkjZMJv4KgNq+0Bxn31O1jXrAl4UGkHgfQ8cLiB4HlnhYopTzzaX9S+3JtinKmi1zMn1cYc6svwFEEeZ3RGuSR427vHmwCVWBddMUsH2sx6u2gfkR2s5cXlLxn/HcSVMprYLd7Q=
+	t=1788367855; cv=none; b=CfBzYJxkXHihtTw8+OrjFtgWN8Bvb3ZmzGMmmYZ7IOIs8DroezHbN2X0ks/x3zrbdP8AaudSTOJhVD8eviG+nsD5x4TrOdtkmxyFREUZW1ntMeZB5LFKG+bcFI6FUbnMHZ1hHpilIiL+XCrytWBythgERw4iweXo48I6s7+zTZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788367852; c=relaxed/simple;
-	bh=k5rRICqrRTgGgXTc3CHRsg0Ro1RiUscjPIEybIB//jU=;
+	s=arc-20240116; t=1788367855; c=relaxed/simple;
+	bh=VDERqC/8E1fr5wLOAz/MQmcomAlN476K9ODA2RkWYnw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k61mLkz6coYcXe2GzDFmvNsACwbRqMhPp9FfUc/xtAqs+Usq5IK8ZJRdO8B2525SqV1+Z5TP+rTdQ2Ejm/98/OccOzMfb61mKqhxEbzACRHSrxdaIoct3KosZMGRTksgqob8tGPpfLnW+5h8/SPuRDYNVDDfgiMtYX3JXUV/SZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=YEqzZQMc; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=RMl/xlg2EwRD/bS4qu6Q769JU64kdS10RDi0ERDlFN7v0NrlvyLke7Vly3qmvEgy4gHR5byJX6bD+Ep7BMZ6nY6PY6W80L56Wzh+joRpitCGNwIUlnbwRlvbOIg1U0hbft48+Lpzj8dcqsDIOSBbDNbgqBdZhR4ZDfSR6v3aATI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uu8Of3nv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="YEqzZQMc"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc1cc97b84bso1155452a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:50:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788367851; x=1788972651; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wr9VDmGb5yutuZyn7tNWBbCb4I+bZ4roesyQfz760To=;
-        b=YEqzZQMc8jd+4hkdFfpRzucoHFSAhnlu2z0N7je+l6HjjbVhDRGJKLnqNN3DjiijsO
-         N+T6JFLBEUVsA6Knb1EoOynl/pAq9i+GO4REhFd3CnILzvzf2gXtjlGWDWLU8YGRrlgw
-         zyMvKp/+k72AaI/+8NjgYyv4VyOQn9qff//T83qaDie7cNTFQ91HSB/7hvyqGLVTBwpY
-         VGgMmwp1Vw7dGUny0GKdt1vwvnOp3wb6gFwpMn5oESYOnspXZjlyG5NJbSdmY1DFaplR
-         v0NpMVzX2z6HGgQcTrBylEUMMU680bzH7YaI1MoN72IoXkVI5SMPAWXIxd+pYby1Asj/
-         aI7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788367851; x=1788972651;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wr9VDmGb5yutuZyn7tNWBbCb4I+bZ4roesyQfz760To=;
-        b=VU7EkmwBMm19zpOQFTPl3D7J5HJV9yR+Vx0EopVF7T95j6Y3qePlTzUZZF+fZEVVsR
-         0/ZnQF/f4HZJG9BQeB3ZdKMGRbRQpODZF2WW56EXOvzttWtxeD+iOYxmHUoV1O/lNkB6
-         paeWWl7NhtE2gutG/HUmmLsRJEOmHNDlWJeOJ3SSZH1o1rwnye1BlIq35jdBGfQ4OCoG
-         joQNtdqtYlJs3DwEK2GAlL0oyQRPTWBbe6O6/CcpBycjmEzETl6DBNCcaVgrqPK9a0oA
-         Q6YgyKv/DSpn1A/bNudm7IH4SnSVT77aetM0ClkiepmVCCPhAuGDCcI7lz0yny9/rQg6
-         i5Ow==
-X-Forwarded-Encrypted: i=1; AKwUvBytWPGzoAuiRytKIvZCLk6JXQFixYO55soB2QGwudIU2RH03zE7vRqg7DHOm3svYgsazBZAqo2TFzfx+LE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mAZ0fQK5zCOE8kYpFlJkPqans2iRjYXIlsRmrQb6MFlwOShTLM
-	HvuztLRw9R2UNVLMpNFrstH32UuJfP6xHQy8gOEHkQj0CNBXAEIjb/e3rGKNhivwAGK/LTUPU3f
-	ksInp
-X-Gm-Gg: AYBFou3ix4fweaYR+Wsf4cktUBCqbbw6YWGWXZyAHJxAZtsl34aJqFr3SBcyutmXFQc
-	MPo5q56ABWoXV48loYvBAea+RV61FUQTuqO9flXctQfSWjRi0Jn+8FY4w6SLyrutU3siIVNCSOc
-	beGRwQ41vPLLGXGcDfxDvpaoi2//klLAEM26dizERaIxDQvb3YGQRsFDsXBmPYCAiApZO7JzO2J
-	B6O3LdDmJ/LwzCmt2P0YMtCRlLG/PjnESzGjFf1wP1H17LxtFbobvCc2Kes3GeON+2N1W/adA8t
-	3Uc2cQN0ROGeo0obdzHNNWkxUDjzJspxXZJexo5PoDeDcpRCR4dEonVR4CU9YpsGBD1hhATgDgF
-	zafb1Ui8/jHdU3xLagYJ7+sOksWm8i2q1sgCOV3ufzM5nKxEGI6hTLCKCSbDxlyQnv61OB8Pwfn
-	OMpruyGZNJOTLgVbO9svJjgkxa6CrfXp+Ip0XefN2n4VEZAOgMxQlsj1JpBC/80R4y
-X-Received: by 2002:a17:90a:d604:b0:398:9be6:f999 with SMTP id 98e67ed59e1d1-39aee16a169mr9561954a91.24.1788367850624;
-        Wed, 02 Sep 2026 09:50:50 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:fff4:86c5:8d86:9e93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b07ac1174sm341938a91.0.2026.09.02.09.50.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 09:50:50 -0700 (PDT)
-Date: Wed, 2 Sep 2026 10:50:47 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Cc: Bjorn Andersson <andersson@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	linux-remoteproc@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] remoteproc: imx_dsp: acquire runtime PM before adding
- carveouts
-Message-ID: <aphT5wHTNcGvbkjq@p14s>
-References: <20260830133310.6926-1-pengpeng@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uu8Of3nv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32F881F000E9;
+	Wed,  2 Sep 2026 16:50:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788367853;
+	bh=dk1n0Erkc0W7OsAdxs9vZFLbW6YpiKCTSDoFkUjUt4I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Uu8Of3nv5/EhKJvFp+Nf+C/I0KTX3sKpymAjpunKGLpoQryDZak+20DW7G9VqX4u1
+	 UdvLyLLJewORRON1T8BBTbjLMBYxNoJMjkii57vZkYgpHxyOrMXjtp0pKdLnDIq4s4
+	 6YntJPZYs9YDn4JxKyhXjQfNRkt2Yl9m1q+Q29Bjln0cSOW4HQfRXdytj1Y55ZdWP7
+	 5S5mI6nzIVSPRXBP8/LCv9n/ruW8TgIsct9Qap0YXdmA5vkBKHzxA6NYm+4y45a523
+	 qYH9FqTdAFq1kXW1Ax9pjSfyQ6RfFChSSqWeHzGw3nrPBSd4bAso8mE471RRsABLAq
+	 V17/i/vrmB/zw==
+Date: Wed, 2 Sep 2026 06:50:52 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Chuck Lever <cel@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, Dave Chinner <dgc@kernel.org>,
+	Ran Hongyun <ranhongyun1@huawei.com>, catherine.hoang@oracle.com,
+	chandan.babu@oracle.com, "Darrick J. Wong" <djwong@kernel.org>,
+	linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Zhihao Cheng <chengzhihao1@huawei.com>,
+	yangerkun <yangerkun@huawei.com>, yi.zhang@huawei.com,
+	Wangyang Guo <wangyang.guo@intel.com>,
+	Tim Chen <tim.c.chen@linux.intel.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>
+Subject: Re: [QUESTION] xfs: Can we remove flush_workqueue from
+ xlog_cil_push_now?
+Message-ID: <aphT7DIGHK1Og0jr@slm.duckdns.org>
+References: <20260827033654.1172495-1-ranhongyun1@huawei.com>
+ <apSnC9p0X04cKxDj@dread>
+ <20260902073556.GA27223@lst.de>
+ <21557715-124e-40dc-a470-82904374fc44@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,55 +53,73 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260830133310.6926-1-pengpeng@iscas.ac.cn>
+In-Reply-To: <21557715-124e-40dc-a470-82904374fc44@app.fastmail.com>
 
-On Sun, Aug 30, 2026 at 09:33:10PM +0800, Pengpeng Hou wrote:
-> The prepare callback publishes DSP carveouts before acquiring the
-> runtime-PM reference that establishes required clocks and mailbox state.
-> A PM failure therefore leaves the prepare transaction partially
-> published.
-> 
-> Acquire runtime PM first and drop that reference if carveout
-> construction fails, so a failed prepare does not add resources before
-> its hardware prerequisite.
-> 
-> Fixes: ec0e5549f358 ("remoteproc: imx_dsp_rproc: Add remoteproc driver for DSP on i.MX")
-> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-> ---
->  drivers/remoteproc/imx_dsp_rproc.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/remoteproc/imx_dsp_rproc.c b/drivers/remoteproc/imx_dsp_rproc.c
-> index fd60c67ba8a9f..96d619daf3f5b 100644
-> --- a/drivers/remoteproc/imx_dsp_rproc.c
-> +++ b/drivers/remoteproc/imx_dsp_rproc.c
-> @@ -726,14 +726,17 @@ static int imx_dsp_rproc_prepare(struct rproc *rproc)
->  	struct device *dev = rproc->dev.parent;
->  	int ret;
->  
-> +	ret = pm_runtime_resume_and_get(dev);
-> +	if (ret < 0)
-> +		return ret;
-> +
->  	ret = imx_dsp_rproc_add_carveout(priv);
->  	if (ret) {
->  		dev_err(dev, "failed on imx_dsp_rproc_add_carveout\n");
-> +		pm_runtime_put_sync(dev);
->  		return ret;
->  	}
->  
-> -	pm_runtime_get_sync(dev);
-> -
+Hello,
 
-Applied.
-
-Thanks,
-Mathieu
-
->  	return 0;
->  }
+On Wed, Sep 02, 2026 at 10:23:14AM -0400, Chuck Lever wrote:
 > 
-> base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
-> -- 
-> 2.50.1
+> On Wed, Sep 02, 2026 at 09:35:56AM +0200, Christoph Hellwig wrote:
+> > On Mon, Aug 31, 2026 at 07:56:27AM +1000, Dave Chinner wrote:
+> > > However, behavioural changes like this seem like an infrastructure
+> > > regression, and trying to modify callers to hide that regression is
+> > > a bandaid. This affects all UNBOUND workqueues, not just this one,
+> > > and we do not need per-cpu scheduling for workqueues with such low
+> > > work and concurrency counts - there can only be 4 pushs scheduled
+> > > and running concurrently at any time on this work queue. Hence we
+> > > don't even need NUMA queuing - a single global queue would work just
+> > > fine...
+> >
+> > Yeah, a lot of the recent workqueue changes had a lot of adverse effects.
+> > We really need to come up with a way to queue work to task context (or a
+> > different task context) that doesn't require reverse engineering "smart"
+> > behavior in the backend.  This has become a never ending whack-a-mole
+> > unfortunately.
 > 
+> Agreed.
+
+Well, the changes aren't gratuituous. They're mostly driven by the
+increasing number of cpus in systems. Hardware has been scaling pretty fast
+and workqueue needs to keep up. Sure, there may be things that could have
+gone smoother but you'd need to solve the same problems no matter what.
+
+> So, I've been chasing the other end of this trade-off. On the NFS client,
+> rpciod, nfsiod, and xprtiod see sustained completion traffic from many
+> CPUs, and with the default WQ_AFFN_CACHE_SHARD scope they lose a large
+> fraction of their cycles to the pool lock on enqueue and dequeue. The
+> fix there is a finer affinity scope (WQ_AFFN_SMT), so more pools and
+> fewer CPUs per lock:
+> 
+>   https://lore.kernel.org/linux-nfs/20260831-performance-v1-0-8d9fd9b67f96@kernel.org/
+
+And this was worse before because we had a single pool per node for all
+unbound workqueues. You're using exactly the new feature that's made
+available to solve scalability problems.
+
+> That is the converse of Ran's problem. flush_workqueue_prep_pwqs()
+> walks every pwq and takes the pool lock once per pool change along the
+> way, so a finer scope makes each flush take more locks, and a coarser
+> scope makes the producers contend more. The pwq walk itself is
+> per-CPU at every scope, which is the part no scope setting removes.
+> 
+> For Ran's immediate purpose, patch 5/8 of that series may be useful:
+> 
+>   https://lore.kernel.org/linux-nfs/20260831-performance-v1-5-8d9fd9b67f96@kernel.org/
+> 
+> It exports alloc_workqueue_attrs(), apply_workqueue_attrs(), and
+> free_workqueue_attrs(), so a module can set affn_scope on its own
+> workqueue after alloc_workqueue().
+> 
+> With that, xfs_cil could set WQ_AFFN_SYSTEM on xc_push_wq and get the
+> single global pool Dave describes, without touching the boot-time
+> default or relying on WQ_SYSFS, which XFS_WQFLAGS() adds only in
+> DEBUG builds. That would let Ran measure the flush cost against a
+> one-pool walk directly rather than through the per-NUMA proxy in the
+> table.
+
+Try http://lkml.kernel.org/r/20260901210929.3092513-1-tj@kernel.org first?
+
+Thanks.
+
+-- 
+tejun
