@@ -1,223 +1,155 @@
-Received: from mta1.migadu.com (out-72.mta1.migadu.com [95.215.58.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012068.outbound.protection.outlook.com [40.107.209.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856534A92C0
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:47:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788367637; cv=none; b=d8ghmcx9rbBY3wplKhvrGIQivtPsgX34XRUTyaYr+NEg9qNGpGd9mdro6Hy7Bx8G4JiTR51LRV2WToeKqnUbs4L5dQTgU5RZ798hPUe7ornOrila+xOSzMKYkRh6pAc89feskC52rnQ7XZDUxqGdJjxP2TAEi0+0f2OW+3NiqhI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788367637; c=relaxed/simple;
-	bh=Y4pHs4Y3EiBbkU7VVftsLC18a5d9QR/DWz6/s/ZFOvw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h1u3vEDyieaTg6Z4O4o/UouueXqyNMq6tf+lXKn+q+qrqWdE8qUOVpm2YF1igbw15SSqsb3XSuJ5ip/e0am3cDBNWY8+rEVHi2ofeDlwljojHrTZDOAI8y9YExkT5J/mgnw/4TWBJawoHzUvO38JhdA5pY90uiySw6TghlmhZQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=f0XoB4DU; arc=none smtp.client-ip=95.215.58.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45E2E47F782;
+	Wed,  2 Sep 2026 16:47:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.68
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788367667; cv=fail; b=OOLsfBHIP1oS6eXESnJtjyBdrbbfwK/g1KU1K4Lx4Ie00kdlA6o7xD/FRJ63nGP0x4uAGQo4e/OBNnpHxkxpw9E/qiEePDLYf92QZ4ZraxaunPNccBCbZZQKaiLnjjwWyM+sNg4ulqB5SwkZduqmHaHWNxB9GhosMUrwqfNX+t8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788367667; c=relaxed/simple;
+	bh=6lpnV6ObLMGOH8BKRUkrCgpi9QBueBFsaBzEzMcm5zk=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=duMKCqyiaIXF7KlgRLH34OZuy5bjl1qF9lwReu1EiageC03Sary9FYght1pgdyHPOaQiD6hbv4l+I9BkiJrhw894l96jYkzJJxRGYevnz+VamJQLtbmIDixKIQMsBKlicVbvXUgLQrObTxEVX18ieEVGOIMheDBAfLWE8pKFPlc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=b65/C9+J; arc=fail smtp.client-ip=40.107.209.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="f0XoB4DU"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Y4pHs4Y3EiBbkU7VVftsLC18a5d9QR/DWz6/s/ZFOvw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788367633; v=1; x=1788972433;
- b=f0XoB4DUONwwosIt9VVgUyLKwM8B/LT1Cav6ciQpYXg9QlGL1BAMqNUWPpetB+fJKjkrhUv+
- cdgOaOnYzX9sRFk6V41dMHJEUyBmn5JCQ6wQzS3xPgITKehWiS8PsOVnrigs4YIIx5wVWGoLivo
- 95pMQp6opvv0JKKwzivrf01A=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b46acf156380a251;
-	Wed, 02 Sep 2026 16:47:12 +0000
-X-Mizu-Trace-ID: b46acf156380a251
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <583c4718-f763-41f0-b757-02b46655c0b5@linux.dev>
-Date: Wed, 2 Sep 2026 17:47:10 +0100
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="b65/C9+J"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mF/x6Jk//xz42i6CRXjtRkGPIrSBj0gcHcm9/6iBrRXocG6CgC5OLWQPJCthoCGKnrwn807tOzdiA+w4VYOY0jNzax/uRUoSYz6Et/tB2wQyagO3wrYtqqbIWwjd7EzvkFUtPtXvb07gfMjmmG355Er1XsCOjcJZoMA9o22NVG4Hi9OmhMWueLT1EgFTE4YPmHVT5gG/CjbWj0GLR/ktE+SqiYYKUQbb8hFS2gU/R+xVp8OwEsMzt+4y42Stm5J6GroooO/YorjnBUCEpS30hlP2QYuTJdqChr/VGDbo7CaExbUuc7lnrDa+uVoX5kHYch5psaVxWilwjzZcgL48nQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=C9ny1+aT0nCe90ULX407QVwHl0F3iJ1br2JHleobQfE=;
+ b=QIsK+v5bJfru1zgZCQciOfdGHWEs8WyHvBEnIgwizIf0zKFXUA8B/kW+t6/DxNMuPLxvkggDOao2eC/xttP4XsgORnnrhK5AykvyRg37uFlUnpqfHUS7HIfVGa5/gjsv2OR0ydKZO2rpdfo5KUW8kNsnHcxo79bA2Mm6sPKTfEGwGRVp3xRV3qgV4A5/yf9EWjy91iJ7jhAny7KYJewR3qkr7OMNZyXG7Wuo5qxLdsiqKtSklgDnltoe9zcaq2HKFsO6Aj0XbNQkB6m/uHepGQUBqk54iMekOHQFtaV+lZfva+AEkwib32uY7TzyLcvsWBBGRjTLvtKzxYN1IcSzdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.232) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C9ny1+aT0nCe90ULX407QVwHl0F3iJ1br2JHleobQfE=;
+ b=b65/C9+JQv66SuAg2tX8iDNtCtbQVOd1FBTnDf4OvhOVmjSTMQckjiUOe84qEKG1G4akgigqrV+clecGldgPjMV52u35gulO5XiEAYyd2Gp7A0AkL82d66FZs6Bww3RwP6/AH2UVQ8MIG7g+wD2OFtzXe8iNaVgHexgb2/l3jIZxOEx2o4H6aChyggZLZ6Ml1b6HJBai6qVBjl1ag4CbdWRlTViyEkYr2nKtpY/4rF2APhFx093myiS41TK+Lwx9ws5VAxR/FFtlBk53ywEFvg2knYKunnxhRnhWqAKYgIIkOY8vJJNy2zzAWruk+iyQfwK7hM5sHWc1jgj7uR89qw==
+Received: from BN9PR03CA0373.namprd03.prod.outlook.com (2603:10b6:408:f7::18)
+ by SJ0PR12MB6965.namprd12.prod.outlook.com (2603:10b6:a03:448::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Wed, 2 Sep
+ 2026 16:47:41 +0000
+Received: from BN7PEPF00000095.namprd03.prod.outlook.com
+ (2603:10b6:408:f7:cafe::99) by BN9PR03CA0373.outlook.office365.com
+ (2603:10b6:408:f7::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Wed, 2
+ Sep 2026 16:47:40 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.232)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.232) by
+ BN7PEPF00000095.mail.protection.outlook.com (10.167.245.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 16:47:40 +0000
+Received: from drhqmail201.nvidia.com (10.126.190.180) by mail.nvidia.com
+ (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
+ 2026 09:47:14 -0700
+Received: from drhqmail202.nvidia.com (10.126.190.181) by
+ drhqmail201.nvidia.com (10.126.190.180) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 2 Sep 2026 09:47:13 -0700
+Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com
+ (10.126.190.181) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Wed, 2 Sep 2026 09:47:09 -0700
+From: Tariq Toukan <tariqt@nvidia.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
+CC: Dragos Tatulea <dtatulea@nvidia.com>, Eran Ben Elisha <eranbe@nvidia.com>,
+	Gal Pressman <gal@nvidia.com>, Jianbo Liu <jianbol@nvidia.com>, "Leon
+ Romanovsky" <leon@kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-rdma@vger.kernel.org>, Mark Bloch <mbloch@nvidia.com>, Moshe Shemesh
+	<moshe@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>, Shahar Shitrit
+	<shshitrit@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>, Yael Chemla
+	<ychemla@nvidia.com>
+Subject: [PATCH net 1/3] net/mlx5e: Fix missing FEC mode mapping for RS_544_514_INTERLEAVED_QUAD
+Date: Wed, 2 Sep 2026 19:46:32 +0300
+Message-ID: <20260902164634.3657606-2-tariqt@nvidia.com>
+X-Mailer: git-send-email 2.44.0
+In-Reply-To: <20260902164634.3657606-1-tariqt@nvidia.com>
+References: <20260902164634.3657606-1-tariqt@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
-To: Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>
-Cc: Nimrod Oren <noren@nvidia.com>, Andrew Morton
- <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Brendan Jackman <brendan.jackman@linux.dev>, Hugh Dickins
- <hughd@google.com>, Nirmoy Das <nirmoyd@nvidia.com>,
- Dragos Tatulea <dtatulea@nvidia.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20260901190123.3511535-1-noren@nvidia.com>
- <20260901204449.GK3004@cmpxchg.org>
- <C8541A2F-D6A9-41B0-A3FE-52339A6601F0@nvidia.com>
- <20260901220917.GM3004@cmpxchg.org>
- <69C018F5-A1C8-47AD-9567-3497AA6808EC@nvidia.com>
- <20260902160417.GN3004@cmpxchg.org>
-Content-Language: en-US
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <20260902160417.GN3004@cmpxchg.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PEPF00000095:EE_|SJ0PR12MB6965:EE_
+X-MS-Office365-Filtering-Correlation-Id: a34d3eb1-640a-4a91-8e77-08df0911e701
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|23010399003|1800799024|376014|10067099003|18002099003|22082099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	Qk/faABke+ytKuTE7UD+z0z49rkUi6jqRz1YYw3WG6gYGgvAXDaWNeYTMRNYrC9GHVlEsL5V1u5FQER8dbA6tK/oLZYPNxReL/aBpZ3nAI7ytsQB/Iq+F8zNCv6QB3X3t5G59+jBQR5pW1GC9plkQeki4oVA/MIJj23tVGqzSLTJYU3LUZn4BWvWffnfpEXl+qCCdJlK7EZodzJeKvTX6fsUuitifUqzYtTYLnNd1MUKw/mtXImsAda3DBfSAjjUTNCh9WT/hcDZjYdGm16emc4NzKpSCaIJhUmT1/4vIga/bN71Wi0YS8qGWVW6Qz26nDldcCaOGMTj1Nc1ma16dMNmntkTFqehAuDGoMpz6pYWIi8dPe8nXP0l75zXyrZVQrLi4dTSthhpsSHCu+C8VbWlfWl+G5t/CrhmDsJmWkPoQyVFV5Q69tvMQqCo0m4KTeDAbwidb1GUiMr5u9Fm2DN/FQZDQc0ab/0z+usVhUddxQrVpCG5/RBjaUcflfSvsL7H4klfJW7bK5M1trxBi9MVO7sc/QBmFz886NhFAyHAC52QAUznf2oWPH1zhAWW6bVjmchQnX4ihAJltXRmwIIMsysHW8MpjNXerRMwKpMi1A6YiPfjhAbo9WFi1iOVkZOnXUMngvTbJzAJ/cCC9rJDfAS3CHtwG9acIyqqdIAYhs/xn9Dcar99V3+0G2mfS8jmsNnIPigDSJmLFr1ODw==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(23010399003)(1800799024)(376014)(10067099003)(18002099003)(22082099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	A25TG4TP3TmGWaVlsRxdYKQ5SVigfRFGMQQGUbWTLyJanKgoaujMN+Ve9rKLQtDBfKUbEiuqCJGJL084lYeVJoc7Agf361kccv5YNcm3yqMCaZFkjHHPbmsBtW14RaONiYhMxZGOw05RwOCmgq/DOBqoj0YVwL8/0w0a7vpGdwJDFvzvzC3pQk1bJmGKYAzolJrat1r1h5NT6L/9XD3wG2xLJR5KH3kGyMi//e5aj2l1A1v7khbKINMU/wXAmkdNdpVd4V6aXjN28xAZKfm4xGRxenaSDVLTE+XbBkKwug1vzBPxQUI8vD2k/Uos8Hk54HuAvZ3bzXmlWs49yuQ0n0UT0u1OGzh5lVZ4OV6QgpH8ZrbLPf9wqXQE998rsYhL8YqYNiMmZNWgk80S6fnNOtIQHqKpuF649JV6TLrG+8gi1ocgBeSirxgKNDlbG9j+
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 16:47:40.2680
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a34d3eb1-640a-4a91-8e77-08df0911e701
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN7PEPF00000095.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6965
 
+From: Shahar Shitrit <shshitrit@nvidia.com>
 
+MLX5E_FEC_RS_544_514_INTERLEAVED_QUAD is missing from
+pplm_fec_2_ethtool_linkmodes[], leaving index 4 zero-initialized.
+As a result, when this FEC mode is active, find_first_bit() returns
+index 4, causing __set_bit() to set bit 0
+(ETHTOOL_LINK_MODE_10baseT_Half_BIT) instead of
+ETHTOOL_LINK_MODE_FEC_RS_BIT. Consequently, ethtool reports:
 
-On 02/09/2026 17:04, Johannes Weiner wrote:
-> On Tue, Sep 01, 2026 at 09:49:58PM -0400, Zi Yan wrote:
->> On 1 Sep 2026, at 18:09, Johannes Weiner wrote:
->>
->>> On Tue, Sep 01, 2026 at 05:09:52PM -0400, Zi Yan wrote:
->>>> On 1 Sep 2026, at 16:44, Johannes Weiner wrote:
->>>>
->>>>> On Tue, Sep 01, 2026 at 10:01:23PM +0300, Nimrod Oren wrote:
->>>>>> When THP is enabled, set_recommended_min_free_kbytes() may raise
->>>>>> min_free_kbytes using a heuristic that scales with pageblock_nr_pages.
->>>>>> Commit f000565adb77 ("thp: set recommended min free kbytes") added this
->>>>>> heuristic to help keep pageblocks free and reduce fragmentation for THP
->>>>>> allocations.
->>>>>
->>>>> We've had problems with compaction before when min_free_kbytes was too
->>>>> small on large machines. Competing free space scanners do a lot of
->>>>> work only to fight over a very small set of possible target pages.
->>>>>
->>>>> So I'm a bit uneasy that you didn't include any benchmark numbers with
->>>>> this that prove basic functionality on larger hosts isn't regressed.
->>>>>
->>>>>> The recommendation scales poorly with larger base page sizes. With the
->>>>>> default arm64 pageblock sizes, the contribution per eligible zone
->>>>>> before applying the existing cap of 5% of low memory is:
->>>>>>
->>>>>>   4 KiB pages:   2 MiB pageblock,   22 MiB per zone
->>>>>>  16 KiB pages:  32 MiB pageblock,  352 MiB per zone
->>>>>>  64 KiB pages: 512 MiB pageblock,  5.5 GiB per zone
->>>>>
->>>>> I question whether pageblocks need to be 512M on those machines to
->>>>> begin with. After this patch, you're still asking the page allocator
->>>>> to optimize grouping such that 512M pages can be allocated at
->>>>> runtime. Only now you took away part of the mechanism to do so.
->>>>>
->>>>> If you're using 512M THPs, I would kind of assume it's on machines
->>>>> with a memory size where 5.5G for defrag purposes isn't devastating.
->>>>>
->>>>> And if you're not, it would make more sense to lower the pageblock
->>>>> size to the mTHP size you're actually using. And that would fix the
->>>>> "excessive" min_free_kbytes issue as well.
->>>>
->>>> But lowering pageblock size requires a kernel compilation. That means
->>>> maintaining two sets of kernels for different needs.
->>>
->>> That depends on whether anyone actually wants 512M pageblocks...
->>>
->>>> The ultimate solution is to enable better compaction to generate
->>>> THPs bigger than a pageblock size, like Rik's super-pageblock
->>>> proposal.
->>>
->>> ...or whether we can say, at that point, use gigablocks/cma+hugetlb.
->>>
->>> And then the static pageblock size for the fallback logic etc. can be
->>> a smaller, saner default for everybody.
->>>
->>> Because the point you didn't address: it doesn't make really sense to
->>> have 512M pageblocks on smaller machines, beyond the min_free_kbytes
->>> issue: Fragmentation events will poison half a gig at once,
->>> should_try_claim_block() becomes harder which results in less
->>> conversions and more allocations falling through to stealing, page
->>> isolation is more likely to fail, compaction locks and operates on
->>> oversized chunks which is bad for latency and concurrency...
->>
->> I actually wonder why such a big pageblock would still result in a lot
->> of fallbacks.
-> 
-> If you look at try_to_claim_block(), you need half of a block to be
-> free or compatible with the requested migratetype in order to convert
-> it. When memory is full, LRU pages are scattered all over, and
-> compaction is not involved (order-0), this gets more difficult the
-> bigger the block is. You can get into a situation where LRU reclaim
-> will not clear sufficient room for conversion in any given pageblock
-> anymore and you're stuck with the type distribution. A large share of
-> buddy requests then go permanently through the slower fallback path.
-> 
-> Usama knows more about this, but we have seen this on GB300 hosts, and
-> have JUST started to deploy kernels with smaller pageblocks (2M).
+  Advertised FEC modes: Not reported
 
-Yes, just to confirm above, unfortunately, there were too many problems
-we were seeing in Meta production with 512M pageblock size for arm 64K
-base page size and just had to switch to 2M.
+Add the missing mapping to ETHTOOL_LINK_MODE_FEC_RS_BIT.
 
-> 
->> Basically it indicates at some point kernel allocates a lot of
->> unmovable pages that use many 512MB pageblocks and the life time of
->> these unmovable pages are so diverse, leading to all these
->> pageblocks remain unmovable and free pages spread across all these
->> pageblocks. I thought bigger pageblocks can keep unmovable pages
->> constrained within fewer pageblocks, leaving more contiguous free
->> memory.
-> 
-> The idea is that the pageblock maintains contiguity for the largest
-> size you routinely expect to allocate.
-> 
-> The page allocator is very passive right now, and it doesn't work
-> super reliably. But even in the current regime, smaller blocks have a
-> better chance of containment.
-> 
-> For example, when the ever-growing page cache runs out of movable
-> block space, it spills into unmovable free space. When the next
-> unmovable request finds no space, it runs LRU reclaim - which is more
-> likely to free space in one of the many movable blocks. And so the
-> next block is poisoned. Smaller blocks have a better chance of filling
-> up natively, means less pressure to spill into incompatible ones.
-> 
-> And the higher min_free_kbytes, the more likely there are still native
-> options when the zones are down to the watermarks. E.g. better odds
-> there is still unmovable free space, you just need to reclaim some
-> movable/reclaimable space elsewhere to satisfy the watermarks.
-> 
-> I've been working on making this more robust with the huge page
-> allocator / defrag_mode stuff: instead of falling back and poisoning a
-> block, invoke reclaim/compaction to produce a neutral block that can
-> be converted entirely.
-> 
-> It's the same idea as the higher min_free_kbytes and watermark
-> boosting, but it is more targeted at the end result: readily available
-> space in compatible or convertible blocks.
-> 
-> But with that active regime, oversized pageblocks are even
-> worse. You'd pay ongoing compaction work to produce a level of
-> contiguity that you don't actually need.
-> 
->>> Seems to me the excessive min_free_kbytes is just a symptom of a
->>> deeper problem.
->>
->> Yes, our anti-fragmentation mechanism does not work as we expected,
->> so that we need an excessive min_free_kbytes to get khugepaged working.
->> I wonder why reclaim cannot get the extra free memory instead of
->> reserving it via min_free_kbytes. Maybe we need a watermark boost
->> when some consecutive THP allocations are seen to achieve similar
->> effect of boosting min_free_kbytes?
-> 
-> I'm just wondering what the easiest way forward is to fix the ARM 64k
-> page problem.
-> 
-> Yes, optimally, reclaim would work to satisfy compaction space by
-> itself. We've seen it fail at that before, though.
-> 
-> How critical set_recommended_min_free_kbytes() is today is a question
-> that neither of us has a clear answer to. It's from 2011 and a lot has
-> changed. However, knowing Andrea, I'm willing to bet he added this
-> based on seeing a need in testing data. And I would actually expect it
-> to work better now with proactive compaction, since that has a better
-> chance of turning low-order chunks of that volume into pageblocks that
-> can be converted instead of needing a poisoning steal.
-> 
-> It's a change of long-standing behavior for everybody. It has a
-> regression risk and requires careful evaluation and testing.
-> 
-> Meanwhile, adjusting the pageblock size on 64k page arm configs has a
-> much smaller blast radius, appears to be the right move ANYWAY given
-> what pageblocks are for, and makes the min_free_kbytes a non-issue.
+Fixes: 4e343c11efbb ("net/mlx5e: Support FEC settings for 200G per lane link modes")
+Signed-off-by: Shahar Shitrit <shshitrit@nvidia.com>
+Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
+Reviewed-by: Yael Chemla <ychemla@nvidia.com>
+Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
+---
+ drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c b/drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c
+index 112926d07634..f285ad88b6d5 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c
+@@ -1013,6 +1013,7 @@ static const u32 pplm_fec_2_ethtool_linkmodes[] = {
+ 	[MLX5E_FEC_NOFEC] = ETHTOOL_LINK_MODE_FEC_NONE_BIT,
+ 	[MLX5E_FEC_FIRECODE] = ETHTOOL_LINK_MODE_FEC_BASER_BIT,
+ 	[MLX5E_FEC_RS_528_514] = ETHTOOL_LINK_MODE_FEC_RS_BIT,
++	[MLX5E_FEC_RS_544_514_INTERLEAVED_QUAD] = ETHTOOL_LINK_MODE_FEC_RS_BIT,
+ 	[MLX5E_FEC_RS_544_514] = ETHTOOL_LINK_MODE_FEC_RS_BIT,
+ 	[MLX5E_FEC_LLRS_272_257_1] = ETHTOOL_LINK_MODE_FEC_LLRS_BIT,
+ };
+-- 
+2.44.0
 
