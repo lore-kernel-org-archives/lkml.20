@@ -1,140 +1,198 @@
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0756332628
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:52:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25A36374186;
+	Wed,  2 Sep 2026 17:53:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788371577; cv=none; b=r7kEnpxFC5Ptf+uwsl1n59o6f5AZEZ4WXJz+daIBp9Xvp2R4xVRIT+pFj4Hhp/oeKlCKcNq+U9HECp0/Xl3Dgj/EFpFxQhKmK6uV2gl90uA4FrNqArp+cqQBEcQChi1rR2hWLhQDyZ5CAKeZ7CdZ4lwURSULXd2F2fnuVeTgLsQ=
+	t=1788371614; cv=none; b=rdMI4sGBf2hmQaDS7RioasM2ucsLYhSG9pNIQWJm3LwIAnwCzkKN1B8FJo9+7zdjL+GaEoijjRtAmQey4EUMrIi6p1DVvqmaX2YfiacSQhdSbhiAJaKMkHOd7QWHjqZcwncVxtaD58kgU80R+bsA1KMoLEPl4wXNlQFvCKCo9mM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788371577; c=relaxed/simple;
-	bh=Op3pEBC74wC9sWP9+NxhIXNFQ44q9dB5/PdUhfkeL0M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UYqyqQkUvmSWfkXL5cuLdzHKgG41eLucNeA93XypUFjWZBtr06lXSPY36/i1tJucqIJxQdup1EGxgvEoRnRLdDaztawIdHFhflOrqau0Tl4aRyDwoU0lRQaR5XcGeLDpS7GuoSoskd8YXNJpGTe5h3OL9oBNf8YJip+0ulcINSk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Lo2lBxwh; arc=none smtp.client-ip=209.85.218.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1788371614; c=relaxed/simple;
+	bh=dyh7ILGt/5bnqrxN/82cJKg11APh3cjiuInQFL4QqTA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=V8fba3D6B1dbw66mQ72AM9eURcG3i5qyTp9rKyxpkoeHOGALIQruox/gzxadOg1VeIrixVrKAhv6YBf+VroXzRwCNugpAHPcyqRVtWOcnPGnU0viC0PbyNyXpQmOEF1J5ILuWQP0fbtP3cMn55INH6xS1ehIXpWzGUzkvuNofa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=Kl7F9Iaj; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Lo2lBxwh"
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c2531f453eeso194142666b.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:52:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788371574; x=1788976374; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dqcEgnSp496NGWBXKeWsq6JvKnN2nbWQ3UmoRMRb+5w=;
-        b=Lo2lBxwhPKjouN9heyah2Je19T+aaDpt0W5KXI7E0ZrdMVsqI5OMUpjTP2EcCmKnOP
-         DlfLhvVRqQ3mKUQrk+bPuQcb6u+CcBv40GS+bidBCRc4HP8CEXVaXV0Bzw2pGb+SuxTp
-         jaobuYvokdyx+VlRmD5MK46H3gAfJpiGcfg8c=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788371574; x=1788976374;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dqcEgnSp496NGWBXKeWsq6JvKnN2nbWQ3UmoRMRb+5w=;
-        b=SBazoLfNYyWEC79JH8qGSGhWDxKCuUHxFBSV8zWTQtMFN1nGNEyFfSaCyKKjsFnk3I
-         PPz+k0kxmSDAEzdax4XGWzXdKQcYzIql0htJ3EvY6O856NJXtkcqbqfnKIka1uJ8Q4uU
-         mehSss6hAwS0Pykj/QhStl+xkXfTHetPZALSVfvSZ4q+8hv2+d+SbK+69VvVB40BEuQ5
-         gxo1OJZmy1NTicxWMoha7IvvFBUj9V6fct1lfl3Pq4uY26fbyHcERlR6A8Sj7ZKrUUCB
-         Nn+6UeSVrFgqlKej0m2Q6suq4D/KmK/5hYXnlLGUgHNaOuA6MbRrsiK5m8gtMtZMEQdG
-         d0Yg==
-X-Forwarded-Encrypted: i=1; AKwUvBwkD3h4UiFavLyz/YLNklVF9yyn0dqyggOOvJdND0FiafJiydVKDcZBU6ifQMp+gAdl7cJtdyfVCROP+Dc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kLy6iyGFQSqK2NUC+HC+WSt5aXieNZeRN3hgai2g5GZpszNgRD
-	2oXYZ8s/3psxt0AuPZjFMiFKT5P2qaJSqu6G0h5+zXmOn8wTUO6H+k8F+TO5a2wCsN/xIK1I/Fe
-	ilVDb6w==
-X-Gm-Gg: AYBFou2ruOnBH1tS5uYTUGtEZ6LM/vfHFuQD7lZXNdlp47XmOxOmMwBHN66S/RzKFK0
-	viNWgYaLLc+RnzXxQsRQe2LHf3GRa+bVGVlQwjqcPdJj7VnuFwc5S282d4Hp5sI05oyI1IMxVtm
-	gbTXYsC2QkqU9hQMFX2yn93p8e93jYfn9cNFs+zzdB9HGO1sBSfVKlkr9EwFiuL/f1gMgAe/+th
-	ST5No/DeoWucAKadoZBZorORjJEL8PTizedjy/OWFtiN70lI98jYvXFgVs2ANrwBsc/VSE77IJs
-	TOb78dVBkCJqx4D7Vv6MPApyUcg98U2S7QW6WTjDJ8whvAvxHXTbqKbo6ky6EURpIJ6oBaagNA9
-	c7zSxnefCD0JfeHmDXMMu6LI0rrKpspdZnhH/vnrqlc5QbzqUwoMC9btz8+l5GUvnGhqK3id8nn
-	TWMMG+gRAvCEFXFvcKl81By/Mhp8LdYpqLg5ub/BoycDm0kmfOJE5gxqBBjcbprqwej8vijxqc6
-	UJd8TOJhdD1mxNQSBPYOHqHoSU=
-X-Received: by 2002:a17:907:1c92:b0:c20:23f8:99a5 with SMTP id a640c23a62f3a-c25d54b7f64mr418667766b.15.1788371573576;
-        Wed, 02 Sep 2026 10:52:53 -0700 (PDT)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com. [209.85.128.41])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25d039c9fasm168355266b.31.2026.09.02.10.52.51
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 10:52:51 -0700 (PDT)
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49cdc81f40eso9826325e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:52:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwP2O+4QS/QYY7w2nFyietwNRTt6/9/j4A4sBrV7IBFs/RQo9QQCbbN2A/0usZfvrO1+pp8x/zy6AccEl4=@vger.kernel.org
-X-Received: by 2002:a05:600c:1987:b0:49b:4d64:bbc4 with SMTP id
- 5b1f17b1804b1-49ce58211demr106617935e9.8.1788371569940; Wed, 02 Sep 2026
- 10:52:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Kl7F9Iaj"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682HVXkT661027;
+	Wed, 2 Sep 2026 17:53:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=Z5Mx7pUcQEWw6958PrVztMt4sVddKW
+	IBqx2O5XqkO4g=; b=Kl7F9Iaj1Wj0WVPY06x0K3s7OieHalr8udYeelTcQj4IFg
+	QspF/kV6Coe4W9VNbHy3XurvuE9Hz5jM0eeuW1HZiNd5BnP+as1p+pWzfKD2mVUw
+	fA0JQRaJq1R57yWL9CQGSZmp3ddzzd1l/eZ8zbS0s0CcDee7NYl/4bIE7l9+jEDL
+	J4HvH6BIO1L6PbHpxpYmOzvuzZ2IOalt3EeNOxxTczPPt9sYR9XRFRESVfmPJfcw
+	Rd/6yHCDMOBuIDMyI7EsqSmipPcFhX0pL0KiVXR1Y8hR+dcoVOtOZ4+lshw006HJ
+	pR6tmyyMqvMpXuK0SR4L4yVbLjgtIe+RckoK7TnQ==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx5reet-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 17:53:09 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 682HQqsN023357;
+	Wed, 2 Sep 2026 17:53:08 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gc9rqkk9g-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 17:53:08 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 682Hr5jQ41025946
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 2 Sep 2026 17:53:05 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 23BAA20043;
+	Wed,  2 Sep 2026 17:53:05 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 94A1020040;
+	Wed,  2 Sep 2026 17:52:58 +0000 (GMT)
+Received: from Gautams-MacBook-Pro.local (unknown [9.124.221.176])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Wed,  2 Sep 2026 17:52:58 +0000 (GMT)
+Date: Wed, 2 Sep 2026 23:22:55 +0530
+From: Gautam Menghani <gautam@linux.ibm.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+        Paolo Bonzini <pbonzini@redhat.com>,
+        Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>,
+        Huacai Chen <chenhuacai@kernel.org>, Anup Patel <anup@brainfault.org>,
+        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+        Albert Ou <aou@eecs.berkeley.edu>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
+        Steffen Eiden <seiden@linux.ibm.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Zenghui Yu <yuzenghui@huawei.com>, Atish Patra <atish.patra@linux.dev>,
+        Alexandre Ghiti <alex@ghiti.fr>, David Hildenbrand <david@kernel.org>,
+        linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+        kvm@vger.kernel.org, loongarch@lists.linux.dev,
+        kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+        linux-kernel@vger.kernel.org, Nicholas Piggin <npiggin@gmail.com>,
+        Ritesh Harjani <ritesh.list@gmail.com>
+Subject: Re: [PATCH 11/20] KVM: selftests: Initialize vm->memslots[] with
+ invalid memslots during creation
+Message-ID: <aphidyVJw_j5b8pL@Gautams-MacBook-Pro.local>
+References: <20260826230511.972824-1-seanjc@google.com>
+ <20260826230511.972824-12-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901-edp-id-boe-v1-1-f5e2c44255f7@oss.qualcomm.com>
-In-Reply-To: <20260901-edp-id-boe-v1-1-f5e2c44255f7@oss.qualcomm.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 2 Sep 2026 10:52:38 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=UXC4VyCdohiRVj52bavaQtesW13uyyXj-Li-ij7vo4Vg@mail.gmail.com>
-X-Gm-Features: AcwNN1W_4cKZwuAryLEB2kcdCtNaHsnbG0L3B66rdonHzP6OA6JFUqslcE83jio
-Message-ID: <CAD=FV=UXC4VyCdohiRVj52bavaQtesW13uyyXj-Li-ij7vo4Vg@mail.gmail.com>
-Subject: Re: [PATCH] drm/panel-edp: Add support for BOE panel used in KD116N36-30NB-A001
-To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826230511.972824-12-seanjc@google.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a986286 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=1XWaLZrsAAAA:8
+ a=VnNF1IyMAAAA:8 a=j0vlev5UKZ0XSpOR6SEA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: B-26trKXd9pVuyMcjGDdunnEDwdCRBn4
+X-Proofpoint-ORIG-GUID: SVpS2ZNVk7INULrkMzze52nCa4H5mh38
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE1NCBTYWx0ZWRfX5veu8oVSGtFL
+ favKqRfMMPGUpjq4PTqJ18XSkuPQYzWpfq5wf2GXUmfefiq71VDO1NarNlp3jSmkqF61O7ekxl+
+ A1nCjtO2k+K0ZXc18KRI2vfHVH3745s=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE1NCBTYWx0ZWRfX5d6AwSpOb0Y/
+ FyBCcxlZIE+eC4Sp0qMzuoS0AMYRuLuOT2NyASUAT4cImQEIJ7uoRRwzgZ/65UUcs9wQH1OBaNy
+ CRDTAA+QRJWF3llei9ZPnAJvxvirdYRiW1kMgZE0fSSHjibvUNi5yvxIszacfXkkB+Wx5m6Lp19
+ T2GwOgxzrFlM8A0dAiEJHCmZEz36KUxIp6PSqV4qrHPuDOa8PtdbzANtBnkWsNGVXW+FXvJoVtJ
+ cKE6OVQNNvIiWjGgixQQI/4gY0XLIgdSwrpaAQ+Ke4YZxbw2eTVviJHQM9EXkj3tu25Uj3Ox217
+ BH8DCTfoGr+bQuoOrMtFMA8A7pUPwIcmiHEKA78S3VpIpq+02I98RAhGPA1o8UXOrK2MZ9tuQ++
+ kZ2mumsQFns9oz1g9ozsENzDL9svHMSymwm9SC7489wKpmLu3DVoOqWn1r85Ws3vxwd/2nb8+N7
+ JDV3Gtusc99qmVIYp/w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_04,2026-09-02_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609020154
 
-Hi,
-
-On Tue, Sep 1, 2026 at 2:14=E2=80=AFAM Yongxing Mou
-<yongxing.mou@oss.qualcomm.com> wrote:
->
-> Add the BOE 0x0b21 panel entry used in the K&D Technology
-> KD116N36-30NB-A001 eDP LCM, place the EDID here for subsequent
-> reference. Timing values come from the KD116N36-30NB-A001 spec.
->
-> 00 ff ff ff ff ff ff 00 09 e5 21 0b 00 00 00 00
-> 01 1e 01 04 a5 1a 0e 78 0a 24 10 97 59 54 8e 27
-> 1e 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
-> 01 01 01 01 01 01 b2 39 80 d4 70 38 4b 40 30 20
-> 36 00 04 8c 10 00 00 1a 00 00 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 1a 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fe
-> 00 51 56 31 31 36 46 48 42 2d 4e 38 31 0a 00 b3
->
-> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+On Wed, Aug 26, 2026 at 04:05:02PM -0700, Sean Christopherson wrote:
+> Initialize vm->memslots[] with an invalid memslots value during very
+> initial VM creation so that failure to configure the core memory regions
+> generates an immediate assert instead of potential weirdness, e.g. if slot0
+> is coincidentally valid.  This will also allow hardening the region APIs to
+> guard overriding a region's memslot multiple times.
+> 
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
 > ---
->  drivers/gpu/drm/panel/panel-edp.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/pa=
-nel-edp.c
-> index 2b455369ed70..591e0ed03612 100644
-> --- a/drivers/gpu/drm/panel/panel-edp.c
-> +++ b/drivers/gpu/drm/panel/panel-edp.c
-> @@ -2060,6 +2060,7 @@ static const struct edp_panel_entry edp_panels[] =
-=3D {
->         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0af2, &delay_200_500_e50_p2e80, =
-"NE140QDM-NX2"),
->         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b09, &delay_200_500_e50_po2e200=
-, "NV140FHM-NZ"),
->         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b1e, &delay_200_500_e80, "NE140=
-QDM-N6A"),
-> +       EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b21, &delay_200_500_e80, "QV116=
-FHB-N81"),
->         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b34, &delay_200_500_e80_d50, "N=
-V122WUM-N41"),
->         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b43, &delay_200_500_e200, "NV14=
-0FHM-T09"),
->         EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b56, &delay_200_500_e80, "NT140=
-FHM-N47"),
+>  tools/testing/selftests/kvm/include/kvm_util.h  | 2 ++
+>  tools/testing/selftests/kvm/lib/kvm_util.c      | 5 +++++
+>  tools/testing/selftests/kvm/lib/x86/processor.c | 5 ++++-
+>  3 files changed, 11 insertions(+), 1 deletion(-)
+> 
+> diff --git a/tools/testing/selftests/kvm/include/kvm_util.h b/tools/testing/selftests/kvm/include/kvm_util.h
+> index 21354434de0a..70e77992dd2f 100644
+> --- a/tools/testing/selftests/kvm/include/kvm_util.h
+> +++ b/tools/testing/selftests/kvm/include/kvm_util.h
+> @@ -33,6 +33,8 @@
+>  
+>  #define NSEC_PER_SEC 1000000000L
+>  
+> +#define KVM_INVALID_MEMSLOT UINT_MAX
+> +
+>  struct userspace_mem_region {
+>  	struct kvm_userspace_memory_region2 region;
+>  	struct sparsebit *unused_phy_pages;
+> diff --git a/tools/testing/selftests/kvm/lib/kvm_util.c b/tools/testing/selftests/kvm/lib/kvm_util.c
+> index ce0d8fba4624..56df5b1d9c79 100644
+> --- a/tools/testing/selftests/kvm/lib/kvm_util.c
+> +++ b/tools/testing/selftests/kvm/lib/kvm_util.c
+> @@ -288,6 +288,7 @@ __weak void vm_populate_gva_bitmap(struct kvm_vm *vm)
+>  struct kvm_vm *____vm_create(struct vm_shape shape)
+>  {
+>  	struct kvm_vm *vm;
+> +	int i;
+>  
+>  	vm = calloc(1, sizeof(*vm));
+>  	TEST_ASSERT(vm != NULL, "Insufficient Memory");
+> @@ -296,6 +297,8 @@ struct kvm_vm *____vm_create(struct vm_shape shape)
+>  	vm->regions.gpa_tree = RB_ROOT;
+>  	vm->regions.hva_tree = RB_ROOT;
+>  	hash_init(vm->regions.slot_hash);
+> +	for (i = 0; i < NR_MEM_REGIONS; i++)
+> +		vm->memslots[i] = KVM_INVALID_MEMSLOT;
+>  
+>  	vm->mode = shape.mode;
+>  	vm->type = shape.type;
+> @@ -1190,6 +1193,8 @@ memslot2region(struct kvm_vm *vm, u32 memslot)
+>  {
+>  	struct userspace_mem_region *region;
+>  
+> +	TEST_ASSERT(memslot != KVM_INVALID_MEMSLOT, "vm->memslots[] unpopulated?");
+> +
+>  	hash_for_each_possible(vm->regions.slot_hash, region, slot_node,
+>  			       memslot)
+>  		if (region->region.slot == memslot)
+> diff --git a/tools/testing/selftests/kvm/lib/x86/processor.c b/tools/testing/selftests/kvm/lib/x86/processor.c
+> index d31fa81ea075..ea5fa59888af 100644
+> --- a/tools/testing/selftests/kvm/lib/x86/processor.c
+> +++ b/tools/testing/selftests/kvm/lib/x86/processor.c
+> @@ -529,7 +529,10 @@ void tdp_identity_map_default_memslots(struct kvm_vm *vm)
+>  
+>  	/* Only memslot 0 is mapped here, ensure it's the only one being used */
+>  	for (s = 0; s < NR_MEM_REGIONS; s++)
+> -		TEST_ASSERT_EQ(vm->memslots[s], 0);
+> +		TEST_ASSERT(!vm->memslots[s] ||
+> +			    vm->memslots[s] == KVM_INVALID_MEMSLOT,
+> +			    "Unhandled memslot '%u' for type '%u'",
+> +			    vm->memslots[s], s);
+>  
+>  	i = (region->region.guest_phys_addr >> vm->page_shift) - 1;
+>  	last = i + (region->region.memory_size >> vm->page_shift);
+> -- 
+> 2.55.0.887.g758fc8c411-goog
+> 
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-
-Pushed to drm-misc-next:
-
-[1/1] drm/panel-edp: Add support for BOE panel used in KD116N36-30NB-A001
-      commit: e7dee5c0ff819034092befc1cdba2e008a5c5ee3
+Acked-by: Gautam Menghani <gautam@linux.ibm.com>
