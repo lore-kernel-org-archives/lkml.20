@@ -1,97 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com [209.85.222.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F29C93AAF62;
-	Wed,  2 Sep 2026 12:11:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AA2344E66A
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:11:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788351092; cv=none; b=qWVuA9gnl0KnB6QaiSGVjUiUeKiT3NedUriMMb9hYW/XiORfNGAX22EF8RE+Cv7oCh7SOq/zo0DDJXzgcpkv1GCDC9nTYj85YGxfUjpOA+KCDuaDdTE23hcA7dqLxYRMvtu8/W4nsBbpncqsZl0xbZbHGesABQOr9Dj+R9yQV2k=
+	t=1788351095; cv=none; b=khNxyql/VU40tFmJ8mZu4/Na0AceE5QVWFQbv+pbFN5nYRa9zt5eInsPbJMijLItosd7XbkNgcIz9WOC12SSGIKErr3xZd4TJ+DvB6J1AK7SbnlIT1RbrHLXRKLuZTqA3kZckKfYOKLK78+OZZ2sYnXOnaMvpx7K724Vd3Kv6nw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788351092; c=relaxed/simple;
-	bh=XMbIoouHhEHobeMNjktuEmq7HBDFT54hB5VH4UV8c18=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NfKpXnOeTcD80WJ+jQqngWmdoQ1U8oLOx+obrYbnU6EhcGwfjTpm/RGygP3gnT//7s98JYLuCp8mi8MZIJLFNQ45ylzdnt9KUZ8HxaNN0Lm1wPm1PQGgEVeIOj+zKYfYjFO8/DgOPGEYDV5EXbHxkwkGtXbMkRIfDF40mhFKMFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J5gAWdxS; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J5gAWdxS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41D471F000E9;
-	Wed,  2 Sep 2026 12:11:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788351085;
-	bh=XwpTOnFpFlsR2IVVNgUhsYAsd1JKHnUT72fEns1VyDk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=J5gAWdxSbtz7dP1JzTLOnxnAJOhAgY2MQnAmvKT59vnDS3SEApgcm9S8d0qj7qoP3
-	 4lnWz3ClvHf7lYNCO/2Zwgwi4LSUrmXo9Soeu8mAUnck0kILcMmShlCdFtg9squIY+
-	 q6CmXwQZ9UixX552ode1kvcO6x572+2Tr1mlJ+DrlcLsLpBSl7LP2blMgp28ukS5yB
-	 0C7s1kuhwMtHweFVnFYVwr2khieCmSH5SijKuModD9gnHBB6utuMaDVDE8ZtYuQDPw
-	 wFM3FX2IY171fpBn8XL/Av4APOehNb2BaVqzbdpn15tWBOehvZX0kB/zP/c5GssCep
-	 4ULDVF9+wll6w==
-Date: Wed, 2 Sep 2026 13:11:20 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-Cc: Simona Vetter <simona.vetter@ffwll.ch>,
-	Intel Graphics <intel-gfx@lists.freedesktop.org>,
-	DRI <dri-devel@lists.freedesktop.org>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Jarkko Nikula <jarkko.nikula@bitmer.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: Re: linux-next: build failure after merge of the drm-misc tree
-Message-ID: <64bdb5bc-ced6-490c-b4c8-fd3dcabbbd4c@sirena.org.uk>
-References: <apbbvQSfUbzYRFaw@sirena.org.uk>
- <3cd2c640-3ce8-4163-9f7b-3abba46ae072@gmail.com>
+	s=arc-20240116; t=1788351095; c=relaxed/simple;
+	bh=BGVT6NiiPBGrDzAWTCenC1f6pOP4TmMvoz1BBe+v1UE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rc57y1gnR2/hZ3pZ7GeUAwbbH1lmDkfQQsxqBXm1fce623LZ5tejfxUIo3J0+rn21lwSs8mGndVspUWdrN685qJ9gGhlf5us8bTYkBLA+upPvYqWSSeb6qK/G50WhLW7ASC6+v5cSYAwlmlsrKnRcvRm2WUM95+0Zi+jPdmMmAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-qk1-f169.google.com with SMTP id af79cd13be357-93906e8a5feso112222085a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:11:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788351089; x=1788955889;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=zZuEv2ob4j8Zh+WhkA/MTuPTTESwfEtjHWVWham0Lxc=;
+        b=fZTLD+RGYKo6KQIbXP3OO/6pwIPQyD/gnpZrkBqnitoGgGlp5FcEol0p26jb+qFiRV
+         AJITXH0fp5RqU3HYS2arX73OfSSgWiQQ11onjR0kFCNMlAqYPippOv3i1N+xgYhVp4Mt
+         dZ6rZum8zPO/hCnXczd9U7PNA0vJMbSHEmKQL1ZLNyg5n7wOu8YNnX8o78k+znRqzVtg
+         2B51/LynoG03EBeGZbji7x0I7LVNzJw0qd6ZhoelqKJIfqLkBXOQbpMZkJWNmyIzWvhS
+         GRUjvitijwWjFCGY8vDLaWAZEXXkTFMhvHk2AguVd4rgM6Sk9IjMfTSosJznRitVEhdz
+         1kOg==
+X-Forwarded-Encrypted: i=1; AKwUvBzxHG4SV3QmunKmNNe1ajg9SW3ShPve0mmAGX/L6hQtqCt4E2FO1hHlcn++q/chVI6IM/U/kk1wdYRcDFg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nsNtCLJqbfPp5U+ZdM4GDOCAa6IP4AVLpVt/xbvK9NH/DFwUhH
+	JQr2X4pWyA7xHftlnsFchso6MeipRMLXvWgGuTEqxKJuUfn1zriwmvr3Q6Y0BM4+
+X-Gm-Gg: AR+sD13NdW+gNkXhqsAEXGlQK8vACVBZscOTrYkmahT6i3wN/PxIOTg6ngV19qPrEE2
+	8Fr/3IwxLkAD1HRDikTiwaeFJE6iaKETSrQfSM26JHYDKIwA52bO3GvPNgEbeIYyeXsNiyiHEaz
+	2O8PeOzIV3kjFY4crLrh2OjZ5ouss1T3fq6GPk6o35QuoFt64VVTjpMQJKq0TNw2bj7ZvttVwXb
+	n3DecyAxZyjZ5FQbt0C0di3TPJ7SMlH+Kom2wEZrdstuEwbeWkA9QgtDrjcPfLGIHK9Q2PJkN8J
+	3k+TWC/fUQI7VSx7l0zUSH5IBHLDGbZXVWOeMLTA99v4wcMuBBHcGTOYxMRXKfAI7e12XFKNIDS
+	sjoTBuQUO+SANb9KatlpOR1keBQu20p8rzgwSs5abvEkLgBdLfjWtX99AWV87mNLtTXLdZIYn04
+	+jdESYKAdKNDeZkQ4q4zN6VtaB5HpKoP/BCxiatgyKyM9MM+ClcpFcXXOGSDViKVI2Y5DnilJVK
+	vdGayci8dDPEqEE4glxRpZagA==
+X-Received: by 2002:a05:620a:8eca:b0:939:3f4f:324d with SMTP id af79cd13be357-93960fe57c0mr357716485a.43.1788351089507;
+        Wed, 02 Sep 2026 05:11:29 -0700 (PDT)
+Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com. [209.85.219.50])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9395f157807sm192174185a.9.2026.09.02.05.11.29
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 05:11:29 -0700 (PDT)
+Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-90cc372d6b2so12440916d6.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:11:29 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwAfv6RcenRHyX7n7aeqrdkHVRJE6g3zx8qrX1Z1tFH6QbxY1gVYzjv5gvseH+gunGMegqljmFS9KTynYo=@vger.kernel.org
+X-Received: by 2002:a05:6102:14a5:b0:784:94dd:5389 with SMTP id
+ ada2fe7eead31-78a1f3954bfmr1187932137.13.1788350628203; Wed, 02 Sep 2026
+ 05:03:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Sh0NKln0pLxJxfm6"
-Content-Disposition: inline
-In-Reply-To: <3cd2c640-3ce8-4163-9f7b-3abba46ae072@gmail.com>
-X-Cookie: Prevent forest fires.
+References: <20260902-rzg2-sr-boards-v4-0-4a456a422fee@solid-run.com>
+In-Reply-To: <20260902-rzg2-sr-boards-v4-0-4a456a422fee@solid-run.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 2 Sep 2026 14:03:37 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVZfH5rzN-xFvyfERt=j+c0aF7ZSbAn7XTM=R_u55+3MQ@mail.gmail.com>
+X-Gm-Features: AcwNN1W7aL6kq2Ib0xjLGz4RQRE9m6dme2IHxODeY3IaF54CXwsKAcwLlCow_cY
+Message-ID: <CAMuHMdVZfH5rzN-xFvyfERt=j+c0aF7ZSbAn7XTM=R_u55+3MQ@mail.gmail.com>
+Subject: Re: [PATCH v4 0/7] arm64: dts: renesas: Add various SolidRun RZ/G2
+ based boards
+To: Josua Mayer <josua@solid-run.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Benjamin Bara <benjamin.bara@skidata.com>, 
+	Linus Walleij <linusw@kernel.org>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	Jon Nettleton <jon@solid-run.com>, Mikhail Anikin <mikhail.anikin@solid-run.com>, 
+	Yazan Shhady <yazan.shhady@solid-run.com>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-usb@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	Conor Dooley <conor.dooley@microchip.com>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Joshua,
 
---Sh0NKln0pLxJxfm6
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Wed, 2 Sept 2026 at 13:50, Josua Mayer <josua@solid-run.com> wrote:
+> Add support for a variety of SolidRun RZ/G2 based SoMs and the
+> HummingBoard IIoT Evaluation board.
 
-On Wed, Sep 02, 2026 at 09:52:24AM +0300, Ivaylo Dimitrov wrote:
-> On 1.09.26 =D0=B3. 17:05 =D1=87., Mark Brown wrote:
+Thanks for your series!
 
-> > /tmp/next/build/sound/soc/ti/omap-hdmi.c:408:6: error: no member named =
-'card' in 'struct hdmi_audio_data'
-> >    408 |         ad->card =3D card;
-> >        |         ~~  ^
+> Changes in v7:
 
-> This seems to be due to an interaction between two patches:
-> 1. 9af2c1d4f847 (ASoC: ti: omap-hdmi: remove unused *card) / 875e906efdc4
-> (ASoC: ti: preparation for Card capsuling)
+Oops, subject says v4?
+Fortunately b4 is not confused, and does The Right Thing(tm)...
 
-Those are in -rc1...
+Gr{oetje,eeting}s,
 
-> 2. 699e5975e2a53 (drm/omap: Report HDMI hotplug events to the ASoC HDMI
-> codec)
+                        Geert
 
-=2E..which the drm-misc tree has now merged so I don't expect it to build
-independently of any other tree.  I'm a bit surprised this wasn't caught
-when merging up -rc1.
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
---Sh0NKln0pLxJxfm6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqYEmcACgkQJNaLcl1U
-h9CEEQf9Hk/LuaEd+ZaphNyNmIa5ksIVwyIWx4i/IKB/nh2G137vfaU8FFpD/vhj
-8WKJSFftQk6eVmdAsWmCM25R5loZcWfm8V5L13khKtvU1L4v47HyYKLj5PmGgUTn
-DQ8uVo3aXmGo8KZNmhraFEvy+5bFzMfZHXLxHoDDSARdX+/TvDRkt6za2HJCqU/a
-+QVCadknLQdCuP0tqXuR0xu1iS3K3vrKzGGNL84Gb5yKX3REFNUZpc92p7FY/tDs
-SSrzi7yQ7Cpihkb3N7Opn/CHgslSso627hKcTcdxaDBWAahBaN7W7+3KnGLE88Ow
-5Kz5rXtGyIsruw0tdirhWAr/SEOQew==
-=xwIZ
------END PGP SIGNATURE-----
-
---Sh0NKln0pLxJxfm6--
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
