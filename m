@@ -1,70 +1,81 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com [209.85.222.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48913493630
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:51:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 037514968FD
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:51:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788353496; cv=none; b=AD7K+9pqxQDA//v6Y5EO4bmNj3V8SSLpzLrxwXnDFdJb4q+Ltee6Au/WXmQDhADXnqEHLomnhFwuwDqKRowGRz8Qe8JejvylL1NjWRceHoZw3naImNilyQLRm+7jhTXNKU08gOyVgR9QzWLkitwVm6x+m3FYFQytw52WEeuioxw=
+	t=1788353507; cv=none; b=HL356aF2sm11ZmlI3RvHEvo7Nwl3mc4Zd1eEtrA2oDhysggZKo3+9bs8pJmVdwBiGqfAIc0aNzy4sAiWDhZqu5lmqKcltjQCcUrkFpojvG5ZOVVnX+3KR2q1PkDZUeGMaDG/DCG/hvw1To3f2AlFkzO0oYpvZU1ok7sRL8k9PQg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788353496; c=relaxed/simple;
-	bh=W2kJtw4O5e76N7BAD/qieLlPtSIegOOZE5GoZ8N5R1w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qggy9PnHORLgcwErBb3AKv35y3ChHqDqzx5AgBx1E5niKhQUn0IcPAfE8XcYER84vQM3aPzLIHNCjBnZhfg+Rr60P7fzJo6mIjQKzIM4Y4BMT5JnpWi7xwgBmGzok+GR4tm2pz7pA1yVDUjpJ5Nfr35WrvsBla33cWLMc+cXc6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=YXUvaHM5; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788353507; c=relaxed/simple;
+	bh=+y+47c37F4DPDLDMUi9M4DCcyjsBthCXYAq7Hd4lqhc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pVtACCmnwP308MGg7IoNSYY0MMLeWoyD3WG2iXBZyyjEARNayfSiS+RJDxJjPaUA7XFW3u+5t2hgukgRxFHcXHIAPJUmG3rqN0HIdVHSLSeNwaz09DlN1hS1BbR9/6pn/wAindeAS9V+le6w0WiNkz10xISmoAB97+42cJoNBYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ss7Clx+Z; arc=none smtp.client-ip=209.85.222.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="YXUvaHM5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788353493;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U94jvVdcc6M9sU+UqV//7PJqOhUXEq707LDKv62Ascg=;
-	b=YXUvaHM5PBvAnKTCngMc1vrgdVG3VKiK6eGRpd13z8ijmAmJFRXAXmSooL8IrvXqulL6oQ
-	Q7dXBPWNlhxeDnFJaZ9JuZOPTk+zxuedjN96KhY1ndX2Y0jUClluXQ48A8/9vNkSvfhmVx
-	KV+qWiCoVaos2Ks+u+DQViVPpfVokRI=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-674-gRM1hhEVPAWA3Yxmuxs9oQ-1; Wed,
- 02 Sept 2026 08:51:30 -0400
-X-MC-Unique: gRM1hhEVPAWA3Yxmuxs9oQ-1
-X-Mimecast-MFC-AGG-ID: gRM1hhEVPAWA3Yxmuxs9oQ_1788353487
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 377F11830517;
-	Wed,  2 Sep 2026 12:51:27 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.158])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id C33C93000223;
-	Wed,  2 Sep 2026 12:51:21 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Al Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <christian@brauner.io>
-Cc: David Howells <dhowells@redhat.com>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	Jeffrey Altman <jaltman@auristor.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	linux-afs@lists.infradead.org,
-	openafs-devel@openafs.org,
-	linux-cifs@vger.kernel.org,
-	linux-nfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ss7Clx+Z"
+Received: by mail-qk1-f172.google.com with SMTP id af79cd13be357-9392aa26b25so113873985a.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:51:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788353503; x=1788958303; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=o6QIrF2Yp0RPJAeeACAyBLGkspKOCeNb15ukntUyn84=;
+        b=ss7Clx+ZjMNW0968lkcsW9RJPE3BvYRyNB1KaMW6j5yjCpixcP45uIijPCZe+6xyjw
+         +Yz2JhIB+NnI4tFgf5uTSCUEHERXeaxtX6KhmAl1iAYE7sp2CWvliNp0ivTTnaB0E5kq
+         seaUhp0Gxi9HXSap3+oRTPtKDqXvu2a+aL7onBPbovYAroiuWB58+xmq79lkdMn+zU56
+         VkE4N7skHeGDohmT/jWVDH7++ejWST1+b7aq9S2M8Mp8F/LjgMyB3zmW+JyB5juUFKxO
+         A8+g99D1RuOyCWl5vGRsT5ThkGP5p2Dn5x8EIYGXhpSleiEVxTWcSPSPpshMkChnVpqO
+         npfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788353503; x=1788958303;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o6QIrF2Yp0RPJAeeACAyBLGkspKOCeNb15ukntUyn84=;
+        b=qnIMBKQpsxbsxHlWqfGnJCC4BwJUxU70wx4CjD9U5+BTty1EzTdH5nHyfCtL+grBlu
+         DPmMgk0sULgh9rzRQFs8BQN7xisc2uZgG224uNoVDMshL6rYszZSPs6QRXej1DWj7wYY
+         ej/qTuh6CaoIRvTZ3OvfRhBqX0QbsyIcMS9yBOx72mB03kBHyPeo3/R6/L8/MWHwLoIv
+         Xdr8bzw6MLgez1iTL3W+QnuPMyRWwaxNlaF0E8VnWB6TFVq6olqU+xzB5cQXXYXWF1SQ
+         LodAgCmgBAn8vVe49VUeU7coDYjb/9OcTGz3UPjH8Z4mri9A5gWI0iOIvzy5ZwZ1qEU1
+         pp9Q==
+X-Forwarded-Encrypted: i=1; AHgh+RrBOvDTIIMpdkYwkvne2n4d3/M7gmoHcF7UcjJIKnRGZCwpMwsRbATMXa9m07EBcFRFtMpD8ObIQGziZQ0=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/Myc8Et/c9X7QNHI4tbSV6AzzQ7hLh0lcNIy9iHf9D9J0J640
+	s1LRuf+xkXovrinDChD11lU12R90kxEZpn3k1qiBou8byTk0gdiyx5z4VhFsMLl8
+X-Gm-Gg: AR+sD11Ms4/fCl9eOjRzh6m7usUHUHb0Hhg0FfxG0S2BHDB3Nz/9tBQKq7LgM9xJVlJ
+	QN53vZTiBCjCTiz5Ygwx7BR9dtBdfdcmkjrKth8ddugAyRzAQNLq0waJ9FDJa5D56DFMr47P4fh
+	mmHJKSo10ig54cx6Eh+5bHf0j78D6lmA2QfCY+fnxKN4b8AXy1MGz5autwe48Rj+D4xWea3sTdm
+	2fOutG/MofQ311mYI0nN9cIRrnmOUIP4LO/LnOHDTolMYFUmRMMZ+vqJDuvty/t4toBN9lItcaC
+	5yai5fOO0/yWbnS1WmDsxBWilinzHVAWc2n7Sqw2aC5VXyqvc7+HaNKyMrxwBJVRmh64ffSUhKa
+	ykLHwbIMVrUXwWNvO9Na6W/XKeondF58yauD+J//yKN0v6zK6n+PtSKmPFauKNYnm0DfUzcgEEX
+	sk3wd/Rlb+e+p8Xp+YUZ1n8QrmFRvVD9cEo8Wb6vRNiGiktcakXVMY
+X-Received: by 2002:a05:620a:4151:b0:936:ce17:dac3 with SMTP id af79cd13be357-93961019498mr501183085a.40.1788353503162;
+        Wed, 02 Sep 2026 05:51:43 -0700 (PDT)
+Received: from houminxi ([61.170.217.176])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9395f35d823sm198612785a.25.2026.09.02.05.51.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 05:51:42 -0700 (PDT)
+From: Minxi Hou <houminxi@gmail.com>
+To: netdev@vger.kernel.org
+Cc: aconole@redhat.com,
+	davem@davemloft.net,
+	dev@openvswitch.org,
+	echaudro@redhat.com,
+	edumazet@google.com,
+	i.maximets@ovn.org,
+	i.maximets@redhat.com,
+	kuba@kernel.org,
 	linux-kernel@vger.kernel.org,
-	Etienne Champetier <champetier.etienne@gmail.com>,
-	Chet Ramey <chet.ramey@case.edu>,
-	Cheyenne Wills <cwills@sinenomine.net>,
-	Christian Brauner <brauner@kernel.org>,
-	Steve French <sfrench@samba.org>
-Subject: [PATCH v4 2/2] afs, bash: Fix open(O_CREAT) on an extant AFS file in a sticky dir
-Date: Wed,  2 Sep 2026 13:50:51 +0100
-Message-ID: <20260902125054.3380685-3-dhowells@redhat.com>
-In-Reply-To: <20260902125054.3380685-1-dhowells@redhat.com>
-References: <20260902125054.3380685-1-dhowells@redhat.com>
+	linux-kselftest@vger.kernel.org,
+	pabeni@redhat.com,
+	shuah@kernel.org,
+	horms@kernel.org,
+	Minxi Hou <houminxi@gmail.com>
+Subject: [PATCH net-next v2 0/2] selftests: openvswitch: SCTP flow key coverage (IPv6 + NAT)
+Date: Wed,  2 Sep 2026 08:51:31 -0400
+Message-ID: <20260902125133.1828572-1-houminxi@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -72,221 +83,33 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-Since version 1.11 (January 1992) Bash has a work around in redir_open()
-that causes open(O_CREAT) of a file to be retried without O_CREAT if open()
-fails with an EACCES error if bash was built with AFS workarounds
-configured:
+The SCTP flow key test merged in August covers only IPv4 and only the
+plain forwarding path. This series extends coverage to the two paths a
+regression would otherwise ship silently on: SCTP over IPv6, and SCTP
+across conntrack NAT (where OVS re-extracts L3/L4 on the recirculated
+skb).
 
-        #if defined (AFS)
-              if ((fd < 0) && (errno == EACCES))
-            {
-              fd = open (filename, flags & ~O_CREAT, mode);
-              errno = EACCES;    /* restore errno */
-            }
+Both tests verify the association and then push a known payload across
+and confirm the listener received it, so a flow-key bug that matches
+handshake packets but breaks DATA chunks is caught rather than passing
+on the handshake alone.
 
-        #endif /* AFS */
+Full OVS selftest suite runs 19/19 green on a freshly built kernel.
 
-The ~O_CREAT fallback logic was introduced to workaround a bug[1] in the
-IBM AFS 3.1 cache manager and server which can return EACCES in preference
-to EEXIST if the requested file exists but the caller is neither granted
-explicit PRSFS_READ permission nor is the file owner and is granted
-PRSFS_INSERT permission on the directory.  IBM AFS 3.2 altered the cache
-manager permission checks but failed to correct the permission checks in
-the AFS server.  As of this writing, all IBM AFS derived servers continue
-to return EACCES in preference to EEXIST when these conditions are met.
-Bug reports have been filed with all implementations.
+v2:
+  - no code changes; rebased onto current net-next after the tree
+    reopened (v1 was deferred while net-next was closed)
 
-As an unintended side effect, the Bash fallback logic also undermines the
-Linux kernel protections against O_CREAT opening FIFOs and regular files
-not owned by the user in world writeable sticky directories - unless the
-owner is the same as that of the directory - as was added in commit
-30aba6656f61e ("namei: allow restricted O_CREAT of FIFOs and regular
-files").
+Minxi Hou (2):
+  selftests/net/openvswitch: add SCTP flow key test over IPv6
+  selftests/net/openvswitch: add SCTP flow key test across conntrack NAT
 
-As a result the Bash fallback logic masks an incompatibility between the
-ownership checks performed by may_create_in_sticky() and network
-filesystems such as AFS where the uid namespace is disjoint from the uid
-namespace of the local system.
+ .../selftests/net/openvswitch/openvswitch.sh  | 183 +++++++++++++++++-
+ 1 file changed, 182 insertions(+), 1 deletion(-)
 
-However, the bash work around has been removed in bash-5.3[2].
 
-Fix this in the kernel by using a preceding patch that allows the user ID
-comparisons to be overridden by:
-
- (1) Implement the ->is_owned_by_me() inode op for kafs to determine if the
-     caller owns the file by checking to see if the server indicated the
-     ADMINISTER bit was set in the access rights returned by the
-     FS.FetchStatus and suchlike instead of checking the i_uid to
-     current_fsuid().
-
-     Unfortunately, this check doesn't work for directories, but none of
-     the ops should require that.
-
-     Note that anonymous accesses to AFS will never see the ADMINISTER bit
-     being set and so will not be perceived as owning an anonymously-owned
-     file.
-
- (2) Implement the ->have_same_owner() inode op, for kafs to compare the
-     AFS owner IDs retrieved by FS.FetchStatus (which are 64-bit integers
-     with AuriStor's YFS server and, as such, won't fit in a kuid_t).
-
-     Note that whilst an anonymously-owned file will match an
-     anonymously-owned parent directory, an anonymously-owned directory
-     cannot have the sticky bit set.
-
-This can be tested by creating a sticky directory (the user must have a
-token to do this) and creating a file in it.  Then strace bash doing "echo
-foo >>file" and look at whether bash does a single, successful O_CREAT open
-on the file or whether that one fails and then bash does one without
-O_CREAT that succeeds.
-
-Fixes: 30aba6656f61 ("namei: allow restricted O_CREAT of FIFOs and regular files")
-Reported-by: Etienne Champetier <champetier.etienne@gmail.com>
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Marc Dionne <marc.dionne@auristor.com>
-cc: Jeffrey Altman <jaltman@auristor.com>
-cc: Chet Ramey <chet.ramey@case.edu>
-cc: Cheyenne Wills <cwills@sinenomine.net>
-cc: Alexander Viro <viro@zeniv.linux.org.uk>
-cc: Christian Brauner <brauner@kernel.org>
-cc: Steve French <sfrench@samba.org>
-cc: linux-afs@lists.infradead.org
-cc: openafs-devel@openafs.org
-cc: linux-cifs@vger.kernel.org
-cc: linux-fsdevel@vger.kernel.org
-Link: https://groups.google.com/g/gnu.bash.bug/c/6PPTfOgFdL4/m/2AQU-S1N76UJ [1]
-Link: https://git.savannah.gnu.org/cgit/bash.git/tree/redir.c?h=bash-5.3-rc1#n733 [2]
----
- fs/afs/dir.c      |  2 ++
- fs/afs/file.c     |  2 ++
- fs/afs/inode.c    |  1 +
- fs/afs/internal.h |  3 +++
- fs/afs/security.c | 46 ++++++++++++++++++++++++++++++++++++++++++++++
- fs/afs/symlink.c  |  2 ++
- 6 files changed, 56 insertions(+)
-
-diff --git a/fs/afs/dir.c b/fs/afs/dir.c
-index 81565366d937..013030b64a55 100644
---- a/fs/afs/dir.c
-+++ b/fs/afs/dir.c
-@@ -69,6 +69,8 @@ const struct inode_operations afs_dir_inode_operations = {
- 	.permission	= afs_permission,
- 	.getattr	= afs_getattr,
- 	.setattr	= afs_setattr,
-+	.is_owned_by_me	= afs_is_owned_by_me,
-+	.have_same_owner = afs_have_same_owner,
- };
- 
- const struct address_space_operations afs_dir_aops = {
-diff --git a/fs/afs/file.c b/fs/afs/file.c
-index 0467742bfeee..ba44493ccaf6 100644
---- a/fs/afs/file.c
-+++ b/fs/afs/file.c
-@@ -49,6 +49,8 @@ const struct inode_operations afs_file_inode_operations = {
- 	.getattr	= afs_getattr,
- 	.setattr	= afs_setattr,
- 	.permission	= afs_permission,
-+	.is_owned_by_me	= afs_is_owned_by_me,
-+	.have_same_owner = afs_have_same_owner,
- };
- 
- const struct address_space_operations afs_file_aops = {
-diff --git a/fs/afs/inode.c b/fs/afs/inode.c
-index 14f39a9bea6c..af85a88d943d 100644
---- a/fs/afs/inode.c
-+++ b/fs/afs/inode.c
-@@ -91,6 +91,7 @@ static int afs_inode_init_from_status(struct afs_operation *op,
- 	inode->i_flags |= S_NOATIME;
- 	inode->i_uid = make_kuid(&init_user_ns, status->owner);
- 	inode->i_gid = make_kgid(&init_user_ns, status->group);
-+	inode->i_opflags |= IOP_OWNERSHIP_OVERRIDE;
- 	set_nlink(&vnode->netfs.inode, status->nlink);
- 
- 	i_size_write(inode, status->size);
-diff --git a/fs/afs/internal.h b/fs/afs/internal.h
-index 290873bac89b..f15dbbc8dd26 100644
---- a/fs/afs/internal.h
-+++ b/fs/afs/internal.h
-@@ -1531,6 +1531,9 @@ extern struct key *afs_request_key(struct afs_cell *);
- extern struct key *afs_request_key_rcu(struct afs_cell *);
- extern int afs_check_permit(struct afs_vnode *, struct key *, afs_access_t *);
- extern int afs_permission(struct mnt_idmap *, struct inode *, int);
-+int afs_is_owned_by_me(struct mnt_idmap *idmap, struct inode *inode);
-+int afs_have_same_owner(struct mnt_idmap *idmap, struct inode *inode1,
-+			struct inode *inode2);
- extern void __exit afs_clean_up_permit_cache(void);
- 
- /*
-diff --git a/fs/afs/security.c b/fs/afs/security.c
-index 6d00d62a65ed..7092f5acdcd6 100644
---- a/fs/afs/security.c
-+++ b/fs/afs/security.c
-@@ -510,6 +510,52 @@ int afs_permission(struct mnt_idmap *idmap, struct inode *inode,
- 	return ret;
- }
- 
-+/*
-+ * Determine if an inode is owned by 'me' - whatever that means for the
-+ * filesystem.  In the case of AFS, this means that the file is owned by the
-+ * AFS user represented by the Rx Security Class token held in a key.  Returns
-+ * 0 if owned by me, 1 if not; can also return an error.
-+ */
-+int afs_is_owned_by_me(struct mnt_idmap *idmap, struct inode *inode)
-+{
-+	struct afs_vnode *vnode = AFS_FS_I(inode);
-+	afs_access_t access;
-+	struct key *key;
-+	int ret;
-+
-+	if (S_ISDIR(inode->i_mode))
-+		return 1; /* The ADMIN right check doesn't work for directories. */
-+
-+	key = afs_request_key(vnode->volume->cell);
-+	if (IS_ERR(key))
-+		return PTR_ERR(key);
-+
-+	/* Get the access rights for the key on this file. */
-+	ret = afs_check_permit(vnode, key, &access);
-+	if (ret < 0)
-+		goto error;
-+
-+	/* We get the ADMINISTER bit if we own the file. */
-+	ret = (access & AFS_ACE_ADMINISTER) ? 0 : 1;
-+error:
-+	key_put(key);
-+	return ret;
-+}
-+
-+/*
-+ * Determine if a file has the same owner as its parent - whatever that means
-+ * for the filesystem.  In the case of AFS, this means comparing their AFS
-+ * UIDs.  Returns 0 if same, 1 if not same; can also return an error.
-+ */
-+int afs_have_same_owner(struct mnt_idmap *idmap, struct inode *inode1,
-+			struct inode *inode2)
-+{
-+	const struct afs_vnode *vnode1 = AFS_FS_I(inode1);
-+	const struct afs_vnode *vnode2 = AFS_FS_I(inode2);
-+
-+	return vnode1->status.owner != vnode2->status.owner;
-+}
-+
- void __exit afs_clean_up_permit_cache(void)
- {
- 	int i;
-diff --git a/fs/afs/symlink.c b/fs/afs/symlink.c
-index 16b4823cb7b7..ed834ba90e85 100644
---- a/fs/afs/symlink.c
-+++ b/fs/afs/symlink.c
-@@ -271,6 +271,8 @@ int afs_symlink_writepages(struct address_space *mapping,
- const struct inode_operations afs_symlink_inode_operations = {
- 	.get_link	= afs_get_link,
- 	.readlink	= afs_readlink,
-+	.is_owned_by_me	= afs_is_owned_by_me,
-+	.have_same_owner = afs_have_same_owner,
- };
- 
- const struct address_space_operations afs_symlink_aops = {
+base-commit: d0ec95a8a4e79f2fd6063fc8932415db8c227689
+-- 
+2.55.0
 
