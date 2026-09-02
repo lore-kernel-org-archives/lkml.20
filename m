@@ -1,86 +1,33 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DAFC1E1A3D
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 04:30:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C88AE3246E8
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 04:31:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788323457; cv=none; b=fwk4kCgX2LbYvW7Pb/qmjcp66wav3p7zWsEL9JKfAZxoS/yFExiItMMIaNaiXL82uKaIRZESiu3vdhM1QnvqM427i1zbv8FqMyoC4dPVhikZL4iGdHkFYt656Z/b73G1ObMzThBwZ7f3Lk2gHSNkAftuY1fJOR6AxhSNquCHpbg=
+	t=1788323480; cv=none; b=TbD12yfp6qR9Cifj8nKKsbu+PJo7XHjdUqCCy0B0wJrc5Ok4A/0ep27CLcI+m2TL1gJWmvxBu+fx/I+2kJAJG4PzSZBSHoLU/sC8ViwiK3ZlJGr1Qlh7drQzLDymzEVsayHWk0597hyO1Kg9uG4eMMZZO6xuTegmATH7Owisr0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788323457; c=relaxed/simple;
-	bh=w6PyGQ2uPOu0Esq/H+Vxfjp0d1XNjwm0X8KwlSx7QkQ=;
+	s=arc-20240116; t=1788323480; c=relaxed/simple;
+	bh=DvhAqyMZEAE6hMWjH1OG4Gf63XX1X25bMKQ9gvEIbXA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ep8rCLkonRbESytFK+rdAks3hsjxkZUpxQP4uuyL65ECgPXo7MTh8ZGrcgY+MBhxd8fffbNeNsSDmIr4bYCqxADj05Qd6C3jSiLESXA8Y/+UsLsvhwcygbF4ubR5oVas3Mn9Ya+iJxkOWEFSuJlYvmlyi1bmrlVt9Akn+yT2rL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=l7MvdqsJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=j/dl6q2Z; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=Bw3J/hEJY1y8LD+sVNl1pSkoMwYkLzoOs9BPVt3QOS9sDtOs/gKT/akOlwuecB1j7ziyOKv1NaFtrfvRni1hXmdkpiAIy4Ryuvg6mNiGllFiLPL5tpHMAjerfhiJU83EkDoKrxYc++hDkyv96RvttGUZ8APSQ1mYFL6bQ13gMPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=JhdQnC9v; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="l7MvdqsJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="j/dl6q2Z"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681KTWEq3048762
-	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 04:30:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Ud9saGnEUiaPi066PcmmDohkjNWdPAj8p1Y71AxMxXQ=; b=l7MvdqsJAj0KmQrt
-	atsXu4ukatetYPB1J+T2ghBiFU9aeJjypZ4kUzrXSHU40Z9BupUd8p4lD3+ElBNC
-	lLQtFntUZbEtuPJdYbM8Cx//vAzjOZ6Pg8cuEVTjJvJAAvvt3SY+Rk9oiguuE3OF
-	hD+CArD2GApojftGhszRu0VOnZ1cV1Z6pm3Q2vsCxVFqbglL8atHw5p1JNos4y5j
-	3hsGUrakv9Oz/6I1B1PPs8IUlpskZnv/1MxM9smmSzoyuZ1U0RpEAvnBJmiGyi+M
-	nI64LUunllZJIbt53c5Tu/39I8mOFZy0owIUthZp+1nui3CjzKTxHuGQrSJIEjl2
-	rdrGWg==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ge397a40d-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:30:55 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8544b721ce9so883673b3a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 21:30:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788323454; x=1788928254; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ud9saGnEUiaPi066PcmmDohkjNWdPAj8p1Y71AxMxXQ=;
-        b=j/dl6q2ZCSldqdHEVVPXK+n2q8izZQnq+qDnlcR4QykDM02M7GxgLDPOwR5THlS5iO
-         q08UTq6JMlCM4WHLgwr4AwvOcRv0cWjDKSPmHyvS4UYFKsJZVe6CaQGhRzwzf31OWk02
-         51xwQUltlq9IJRRplsvfcbdb+y44xPHoP4+WBahJdZl+LnwM4lzniKOLPC6aeve08bvh
-         l4hfPL3PRC/N6/MyEIb/56l54tKTW+8JgG7qbGoDMdIDIl30+zn0++9U3CuTXmhnjchl
-         0SapgK6RMPWcvZWsqsZTcLi4h3SwT+hce/sFoWIAYoVer8d/R7VhYKpfNfpQ/3XzSLS3
-         rX2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788323454; x=1788928254;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ud9saGnEUiaPi066PcmmDohkjNWdPAj8p1Y71AxMxXQ=;
-        b=gpzZ6da14gdMPV1xIHn0WzN23jK6v1QO4fwEs8xEfXoTf6H08xgt53L65/qso4EDFC
-         2eg1j/7FxUl641kmhmvEl24mCSZvLujMH9/Fi4R1SnuYugeqia2B2eoNquZxQq990VLr
-         OLQUZdV1gEo14AOA8qqF+GRz1sIRsttYgLWjwtF3jQfWcRtCzCfkTFbCrTWzC+4+Na5a
-         LQt4Lq7PHy0F0Y8DBHE4tLTprQG1WQSoyXzwGEHvog6bRwSYJU/sXzJQbo/+yofkufUY
-         3rR3TR/V8ZZ2WW3+nSoFd9nZQcaYv6iwdH21xfmnsSKTn9I5cpGMDpjF6g3LyyclcfbF
-         2zTw==
-X-Gm-Message-State: AFuF++nD0GZ54FoSsbcXRiMdTkGJf6Eh1BiqgiH9Kk/hNXmVuILZDC0G
-	tB5Bx8doJJmtdPQpBKAN6vt6G2GrCNtexU3F7KFqNos5hSvoWhCOiq7x6+7g29h8kRgZXMdjfoz
-	rk+B0lomjhEtd+MLL44xCy6+UjPVeHgNGCvSHtAylQp7tPANGMvO3TN+4BRSwMCtsxJg=
-X-Gm-Gg: AYBFou0fgDQFjs4AaVYXqHMyRZTU2ctYceMePEzkYpSJR4QSqQdOHzh4TVAB15PmhZA
-	N4Ba8LMtgG3c730V7UdpSvC1cpNjoipAeioOf75mnkVePVmwh90zV1UlgKga9jxzaBzH1hBMzEG
-	fdIyRZFdeCWdU5WObrasPgd4rEQTNnj2gwPseqZdlMJJTYYQaYShyUrxwxYnTYVUQBDo6ExyG04
-	NRzuLZ5iTIem2DXQtEDfevOq8a+SKqWQHj6JqR5dZGNJFh/kbHzkxaoC/XevzfwXxmqjqRxEz9f
-	sEFrG5r+0KhTf5lqsXymGP/qQjfBlgfoVPPu0gKHEFD04BtGcIPExEeyTjpvcGtvJtS+CYtdkkU
-	VuzcazbyMmP3GbpgYetlpzG1w7w/CMLSXnrj2yG7SV3KHx/SO+TPj0h+UYRE3xK1yGTn0nuGq
-X-Received: by 2002:a05:6a00:1d27:b0:857:7337:5db6 with SMTP id d2e1a72fcca58-85ed98b54fcmr3799442b3a.20.1788323454272;
-        Tue, 01 Sep 2026 21:30:54 -0700 (PDT)
-X-Received: by 2002:a05:6a00:1d27:b0:857:7337:5db6 with SMTP id d2e1a72fcca58-85ed98b54fcmr3799384b3a.20.1788323453791;
-        Tue, 01 Sep 2026 21:30:53 -0700 (PDT)
-Received: from [10.133.33.209] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc11f80bbsm689504b3a.57.2026.09.01.21.30.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 21:30:53 -0700 (PDT)
-Message-ID: <86e3f919-869a-40a9-9691-7090f943e2b1@oss.qualcomm.com>
-Date: Wed, 2 Sep 2026 12:30:49 +0800
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="JhdQnC9v"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D14E61596;
+	Tue,  1 Sep 2026 21:31:11 -0700 (PDT)
+Received: from [10.164.148.40] (MacBook-Pro-3.blr.arm.com [10.164.148.40])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C2AE93F7D8;
+	Tue,  1 Sep 2026 21:31:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788323475; bh=DvhAqyMZEAE6hMWjH1OG4Gf63XX1X25bMKQ9gvEIbXA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=JhdQnC9vUNH9SMsR7ARDISMkwDkTMKASJonQiTuboHjwMjWFrjD9h51kDllYk9Q18
+	 fwhcnfBUdXA/VzLfMIOvUSspIIvdBP6zEyS6LhS+lyPtuTq5rxV7uYRRo7basLSanX
+	 DOKZCoROL7ed+h9Zi2yItAAwYyffh1MvRaxl+1ys=
+Message-ID: <c88d035a-cf81-4431-bc28-bb09878e09d7@arm.com>
+Date: Wed, 2 Sep 2026 10:00:57 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,77 +35,245 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: qcom: iris: add firmware debug logging support
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org,
-        Wangao Wang <wangao.wang@oss.qualcomm.com>
-References: <20260815-media-qcom-iris-fw-log-v1-1-c8a70eb08849@oss.qualcomm.com>
- <80a8ce4c-cebe-154e-71f3-d12fa88c9de6@oss.qualcomm.com>
- <c169738e-33b0-4e06-8c9f-587f5c1afc46@oss.qualcomm.com>
- <594345ef-4e64-4932-590f-02dfd6d96349@oss.qualcomm.com>
+Subject: Re: [PATCH v2] mm: vmalloc: fix vmap_purge_lock livelock under memory
+ pressure
+To: Uladzislau Rezki <urezki@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Ye Liu <ye.liu@linux.dev>, Ye Liu <liuye@kylinos.cn>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20260828091753.299295-1-ye.liu@linux.dev>
+ <20260828110503.e1eff32a9b7df9a8b2ddd4d6@linux-foundation.org>
+ <bec5eaef-d084-467f-9bfd-43f7dedc1aa7@arm.com> <apVPTt9Xw8kSgmTU@milan>
+ <54bd749f-04f5-4665-bd5f-d485e7197132@arm.com>
+ <2e9488bb-feb6-4994-92e3-e5ef0c1ff5ec@linux.dev> <apcAvwXe89M20mGs@milan>
+ <apcEh4iuYa6_47TJ@milan>
 Content-Language: en-US
-From: Renjiang Han <renjiang.han@oss.qualcomm.com>
-In-Reply-To: <594345ef-4e64-4932-590f-02dfd6d96349@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDAzNyBTYWx0ZWRfX7ibGCZNdrYNY
- bLMV/gix/AEbexX+MqsoXKxB9HeTAEZojZe7NX6UcbDM9uotGm/qiuXvTN5gjqMNboH+ZEPbkAi
- TYDMlFqZAZ0C+VprRm+276sSxPEECBrhdES4FfaddQp6I04rlIqnM7hGZy0oyNHv0KLR0GaZJHy
- hTMd2rsRHcNkquP4FLVtF04ElsUyc3m01YiR64msR36vdy4buUMkZTmH6i0b/OnRUuqh/1OZY/A
- WJ2uhDE0aEH4o6sZogvCrFuGdslTPHRO9D69z7ZN/CivMt5hKCSFUQzBETlnJm9L4PkCaSdyoQ4
- DtFB1gSymKQRLQz1QSiVZvRABq6u7uMMRk7GZ6FtHAjz3C26zVI2kx8J57Y5U1Vp2J5+a6fmk2e
- 41O8+1wGHeodYG5s8DCqyWbulDgnRzv2+YmXELCTChokSjdmrM7RrEfqA1MI8kerRRKgy17WupG
- 0/nUD6Dt+B4p4eem16w==
-X-Proofpoint-GUID: iKsm4SarF0hhDodPy7ubfjKEay59Ch3P
-X-Proofpoint-ORIG-GUID: iKsm4SarF0hhDodPy7ubfjKEay59Ch3P
-X-Authority-Analysis: v=2.4 cv=Re6gzVtv c=1 sm=1 tr=0 ts=6a97a67f cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=7yhRQfLDYlHaR4BYWSUA:9 a=QEXdDO2ut3YA:10 a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDAzNyBTYWx0ZWRfX80b4DOw3vr6h
- b7Yu8RxmqUShzrpWkMJEN43eHyWosynhq7oALQpO1a44huosxEMF0LeagBg2A1hYr/lw/R/hocB
- c3Xe3yUDaGLwqpnyI+cwVwgMc6O7zX8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_06,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 adultscore=0 impostorscore=0 malwarescore=0
- suspectscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609020037
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <apcEh4iuYa6_47TJ@milan>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 
-On 9/2/2026 12:15 PM, Vishnu Reddy wrote:
-> On 9/2/2026 9:32 AM, Renjiang Han wrote:
->> On 9/1/2026 12:13 PM, Vishnu Reddy wrote:
->>> Setting the firmware log level to 0x0000003f may cause hardware response
->>> timeouts due to excessive serial logging. HW_RESPONSE_TIMEOUT_VALUE should
->>> be increased accordingly.
->> Yes, but this patch is for fw log feature, response timeout value is
->> performance issue.
->> I think we'd better use another patch to fix it. What do you think of it?
+
+On 01/09/26 10:29 pm, Uladzislau Rezki wrote:
+> On Tue, Sep 01, 2026 at 06:43:43PM +0200, Uladzislau Rezki wrote:
+>> On Tue, Sep 01, 2026 at 05:07:30PM +0800, Ye Liu wrote:
+>>>
+>>>
+>>> 在 2026/9/1 14:22, Dev Jain 写道:
+>>>>
+>>>>
+>>>> On 31/08/26 3:24 pm, Uladzislau Rezki wrote:
+>>>>> On Mon, Aug 31, 2026 at 11:39:14AM +0530, Dev Jain wrote:
+>>>>>>
+>>>>>>
+>>>>>> On 28/08/26 11:35 pm, Andrew Morton wrote:
+>>>>>>> On Fri, 28 Aug 2026 17:17:53 +0800 Ye Liu <ye.liu@linux.dev> wrote:
+>>>>>>>
+>>>>>>>> From: Ye Liu <liuye@kylinos.cn>
+>>>>>>>>
+>>>>>>>> The vmap_purge_lock mutex can be held for an extended period by
+>>>>>>>> __purge_vmap_area_lazy() which calls flush_work() to wait for
+>>>>>>>> purge_vmap_node workers while holding the lock.  Under memory
+>>>>>>>> pressure, those workers may themselves be blocked in direct
+>>>>>>>> reclaim trying to acquire the same lock via the
+>>>>>>>> vmap_node_shrink_scan() shrinker callback, creating a circular
+>>>>>>>> dependency that deadlocks the entire system.
+>>>>>>>>
+>>>>>>>> Two places acquire vmap_purge_lock from paths that can be reached
+>>>>>>>> during direct reclaim:
+>>>>>>>>
+>>>>>>>> 1. vmap_node_shrink_scan(): replace blocking guard(mutex) with
+>>>>>>>>    mutex_trylock().  This is a shrinker that only decays the vmap
+>>>>>>>>    pool and returns SHRINK_STOP without freeing memory; skipping a
+>>>>>>>>    decay cycle when the lock is contended is harmless and prevents
+>>>>>>>>    tasks from piling up on the mutex in the direct reclaim path.
+>>>>>>>>
+>>>>>>>> 2. reclaim_and_purge_vmap_areas(): replace mutex_lock() with
+>>>>>>>>    mutex_trylock().  This is called from the vmalloc allocation
+>>>>>>>>    overflow path; if trylock fails, another thread is already
+>>>>>>>>    purging and the allocator's retry will find freed space.  The
+>>>>>>>>    notifier chain provides a fallback if the retry still fails.
+>>>>>>>>
+>>>>>>>> Both trylock failures break the circular dependency: the lock
+>>>>>>>> holder's flush_work() can complete because workers are no longer
+>>>>>>>> blocked on vmap_purge_lock in the direct reclaim path.
+>>>>>>>
+>>>>>>> Thanks.  AI review expressed a couple of concerns:
+>>>>>>> 	https://sashiko.dev/#/patchset/20260828091753.299295-1-ye.liu@linux.dev
+>>>>>>
+>>>>>>
+>>>>>> Sounds legit to me. Now there is no guarantee of purge being successful, and we
+>>>>>> can get a spurious failure.
+>>>>>>
+>>>>>> How about using a WQ_RECLAIM workqueue:
+>>>>>>
+>>>>>> vmap_purge_wq = alloc_workqueue("vmap_purge",
+>>>>>> 				WQ_MEM_RECLAIM | WQ_PERCPU, 0);
+>>>>>>
+>>>>>> I see the same pattern in __lru_add_drain_all() and kmem_cache_init_late().
+>>>>>>
+>>>>> WQ_MEM_RECLAIM makes sense but this is another patch.
+>>>>>
+>>>>> I copied here AI comment:
+>>>>>>
+>>>>>> Does replacing this blocking lock with a trylock break synchronization for
+>>>>>> the callers?
+>>>>>>
+>>>>> No it does not. If someone is doing reclaim we do not wait and do not try
+>>>>> to do it again thus fail allocation.
+>>>>>
+>>>>>> When vmalloc space is exhausted, alloc_vmap_area() calls
+>>>>>> reclaim_and_purge_vmap_areas() and relies on its blocking behavior to ensure
+>>>>>> that free space has actually been reclaimed before looping back to retry:
+>>>>>> mm/vmalloc.c:alloc_vmap_area() {
+>>>>>>    ...
+>>>>>> overflow:
+>>>>>> 	if (!purged) {
+>>>>>> 		reclaim_and_purge_vmap_areas();
+>>>>>> 		purged = 1;
+>>>>>> 		goto retry;
+>>>>>> 	}
+>>>>>>    ...
+>>>>>> }
+>>>>>> With this patch, if another thread holds vmap_purge_lock, mutex_trylock()
+>>>>>> fails and the function returns immediately.
+>>>>>>
+>>>>> If reclaim is in progress and trylock fails a caller repeats only one
+>>>>> time to retry an allocation. There is no any infinite loop.
+>>>>>
+>>>>>>
+>>>>>> The allocator then retries
+>>>>>> instantly without waiting for the concurrent purge to complete.
+>>>>>> Because the retry fails and purged is already 1, could this cause the
+>>>>>> allocation to abort and return a spurious vmalloc allocation failure
+>>>>>> (-EBUSY or -ENOMEM)?
+>>>>>>
+>>>>> vmap space can be fragmented and not avail for 32-bit systems. For
+>>>>> 64-bit system it is likely impossible.
+>>>>>
+>>>>> But, i think we can overt mutex_lock() into mutex_trylock() just only
+>>>>> in the:
+>>>>>
+>>>>> static unsigned long
+>>>>> vmap_node_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
+>>>>> {
+>>>>> 	struct vmap_node *vn;
+>>>>>
+>>>>> 	guard(mutex)(&vmap_purge_lock);
+>>>>> 	for_each_vmap_node(vn)
+>>>>> 		decay_va_pool_node(vn, true);
+>>>>>
+>>>>> 	return SHRINK_STOP;
+>>>>> }
+>>>>>
+>>>>> so the reclaim path is not blocked. It should also address an issue
+>>>>> reported by the Ye Liu <ye.liu@linux.dev>.
+>>>>
+>>>> IIUC you are suggesting mutex_trylock() only in the shrinker path. But
+>>>> then, the following is possible no: take purge lock, try to get a
+>>>> worker thread, worker thread is stuck in vmalloc -> alloc_vmap_area
+>>>> -> reclaim_and_purge_vmap_areas -> take purge lock?
+>>>>
+>>>>
+>>>
+>>> Personally, I lean toward the WQ_MEM_RECLAIM workqueue solution. 
+>>> After taking a closer look at the code, I noticed a subtle but 
+>>> potentially problematic scenario:
+>>>
+>>> When drain_vmap_area_work acquires vmap_purge_lock and calls into 
+>>> __purge_vmap_area_lazy, it may subsequently invoke queue_work/queue_work_on 
+>>> on the same CPU's system_wq. If the newly queued work ends up waiting 
+>>> for an available worker on that same CPU, while the current worker is
+>>> blocked waiting for that very work to complete (via flush_work), 
+>>> we could end up with a self-deadlock on a single CPU.
+>>>
+>>> Theoretically, this seems possible. I suspect the reason we don't 
+>>> see widespread reports of such deadlocks is that the nr_purge_helpers 
+>>> logic limits the number of asynchronous workers; when resources are tight, 
+>>> it falls back to synchronous execution (purge_vmap_node directly), 
+>>> which avoids queuing additional work. 
+>>>
+>>> Using a dedicated workqueue with WQ_MEM_RECLAIM would provide a clean, 
+>>> explicit isolation—ensuring forward progress under memory pressure and 
+>>> eliminating the risk of interfering with other subsystems' workqueues. 
+>>> I believe this approach is more robust in the long run.
+>>>
+>>> Perhaps like the code below：
+>>> the dedicated queue eliminates the self‑deadlock risk, and the trylock 
+>>> in the shrinker prevents recursive lock attempts from reclaim contexts.
+>>>
+>>> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+>>> index bea9f76ed7e7..68fc1f5acb2f 100644
+>>> --- a/mm/vmalloc.c
+>>> +++ b/mm/vmalloc.c
+>>> @@ -2218,6 +2218,9 @@ static unsigned long lazy_max_pages(void)
+>>>   */
+>>>  static DEFINE_MUTEX(vmap_purge_lock);
+>>>  
+>>> +/* Workqueue for lazy vmap purging; WQ_MEM_RECLAIM guarantees progress. */
+>>> +static struct workqueue_struct *vmap_purge_wq;
+>>> +
+>>>  /* for per-CPU blocks */
+>>>  static void purge_fragmented_blocks_allcpus(void);
+>>>  
+>>> @@ -2408,9 +2411,9 @@ static bool __purge_vmap_area_lazy(unsigned long start, unsigned long end,
+>>>                                 INIT_WORK(&vn->purge_work, purge_vmap_node);
+>>>  
+>>>                                 if (cpumask_test_cpu(i, cpu_online_mask))
+>>> -                                       schedule_work_on(i, &vn->purge_work);
+>>> +                                       queue_work_on(i, vmap_purge_wq, &vn->purge_work);
+>>>                                 else
+>>> -                                       schedule_work(&vn->purge_work);
+>>> +                                       queue_work(vmap_purge_wq, &vn->purge_work);
+>>>  
+>>>                                 nr_purge_helpers--;
+>>>                         } else {
+>>> @@ -5519,10 +5522,14 @@ vmap_node_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
+>>>  {
+>>>         struct vmap_node *vn;
+>>>  
+>>> -       guard(mutex)(&vmap_purge_lock);
+>>> +       if (!mutex_trylock(&vmap_purge_lock))
+>>> +               return SHRINK_STOP;
+>>> +
+>>>         for_each_vmap_node(vn)
+>>>                 decay_va_pool_node(vn, true);
+>>>  
+>>> +       mutex_unlock(&vmap_purge_lock);
+>>> +
+>>>         return SHRINK_STOP;
+>>>  }
+>>>  
+>>> @@ -5575,6 +5582,17 @@ void __init vmalloc_init(void)
+>>>          * Now we can initialize a free vmap space.
+>>>          */
+>>>         vmap_init_free_space();
+>>> +
+>>> +       /*
+>>> +        * A dedicated workqueue for lazy vmap purging.  WQ_MEM_RECLAIM
+>>> +        * reserves a rescue worker so queued purge work items are executed
+>>> +        * even under memory pressure, when workers of the system workqueue
+>>> +        * may be stuck in direct reclaim.
+>>> +        */
+>>> +       vmap_purge_wq = alloc_workqueue("vmap_purge",
+>>> +                                       WQ_MEM_RECLAIM | WQ_PERCPU, 0);
+>>> +       WARN_ON(!vmap_purge_wq);
+>>> +
+>>>         vmap_initialized = true;
+>>>
+>> I agree. We should have it and it should be as separate patch, i.e.
+>> split vmap_node_shrink_scan() and dedicated per-cpu WQs per vmap drain.
 >>
-> It's better to include it in this patch, since this change can directly trigger
-> response timeouts when high FW log levels are enabled.
-If this level is not enabled, it will not introduce any performance
-impact. Even when enabled, any performance overhead caused by the
-logging at this level would only occur during debugging.
+> And i sent out already the WQ_UNBOUND | WQ_MEM_RECLAIM and separate WQ
+> for vmap drain logic. It looks like Andrew/me forgot about it:
+> 
+> https://lore.kernel.org/all/20260331202352.879718-1-urezki@gmail.com/
 
-However, without the current patch, the functionality of the Iris
-driver is incomplete. When a firmware issue occurs, there is essentially
-no way to perform root cause analysis or identify the problem. Therefore,
-this patch is necessary to ensure proper debugging and issue localization
-when firmware-related problems are encountered.
+Great! Perhaps resend it and we can review it?
 
--- 
-Best regards,
-Renjiang Han
+
+> 
+> --
+> Uladzislau Rezki
 
