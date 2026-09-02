@@ -1,261 +1,129 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23C3933F383
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 04:27:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C191C35AC12
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 04:30:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788323255; cv=none; b=dtka2XgCg+aqbUKIPVpzXMXukhD8PeBMv/tbqqoxcS50pjXaL3RiXlql7xLUGlQjav60I9+iOGzxa2FM2oRfLGCiiZiqsUGDs0O8i0tnMDfgdT9cwnxTs3xchoIDDVzp/wtdMzEVhpKzjtyFzcoQTwZGwjkxacHCUFk2FF/uQqs=
+	t=1788323407; cv=none; b=m0XlHm18Y7okVlbY2gZ9q36S9Jxy0/MzI7CMg4FuYs72Wsa53ekXhL2FZbGBI7/APqXYZGy18tTWLYPIrRsr5s7if4b+JkndfVomq3Fud8PCwwu+jlFw43k+5Bh03iNPurHFNS2ar2WqYOCNALFLanZCsbyQUaAC9KYJNzRdAx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788323255; c=relaxed/simple;
-	bh=+0aKnwE0cYb8LEDeXlWtDjpQ2NsO17mZ5j+Abdva+cQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=UHB5knHo94Buv4Yy+6PaM4eiZQKV5cdRk5ogNL3D5UcMepyqdaFTsFmSnDPjcjTreo3KcN1CTYXo6ZACuP041zvpuvA4om2Hz0sTr7JcdpHoxCRBYfF2gzm7IBaQ7lDDINqDfmRzVAA9f6mWA877bs4R+z7Dqz+kqe0ZrVJtON8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nQh4M3e1; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788323407; c=relaxed/simple;
+	bh=mdgPcZlJL3HWscq7fjKdXipWCBSy4NPqNPPDd1WmTxo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RH6k1luP93l7/NmaQIY3XBm0olx9aSWlh9Jdgtl0e9Usl6gUgv74Kmv0VzFhFncoQZ9lxhBLr9o24ib+dQ6PhQLMtlgV5f/IV7u4jGLTpsvBcaJFIuWPBXWEPR39U5zlgxIqjuMhwAMexzHrNHOZPO7x6ExxS2zkrGmG+XghTyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=kylzrvcP; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nQh4M3e1"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84faf0fa17eso698431b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 21:27:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="kylzrvcP"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d032846c95so6594245ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 21:30:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788323253; x=1788928053; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pDFz9QgN63ldT/xXJR2rd56NWcctZLpsj24mvleysac=;
-        b=nQh4M3e19+3NaVZsOBkkL1Le2QukzP4NS2vz/ODzuSsDOQYedlC4/envKns4SbLr9t
-         wL9KdXpdOaxSVdt8Bshu4e41Eb/H/yznSSFle5Gtogs8o5g5wucAYToUGCxD6p9lFQJF
-         wU5otZE6DPGRZRY2tiOzfeJwUNIKfFN8wXHQ51nf4tnRGncrMXx8lejLCvwSQJg3njsI
-         csWvymsz3c38jJafSoFgKVK7oB2dV2asmo3RuNJoP+ULusZCTCGo+uPNu9t2n2MQTlFa
-         utdPc/9h9Q5Mp2La11YVKj907Z1pXBxwC4wKWapNIqGnO35bT1cD5cd01Pg5Z4bCd0PY
-         laSA==
+        d=linaro.org; s=google; t=1788323405; x=1788928205; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=loEECbV+1/PD6+b04t7A4hFCdkNgi7Lwbp3peMcWJ+A=;
+        b=kylzrvcPW8My5uGhAq8czS7VAOEfT8rkcQe94tAojm3tHSRNYNryv6HN4D3qIN+WWK
+         w6Dnb8dUN35NtcaUQy350VObn+ygPV8wP5ug6Qawvk8SLLDrQovJdAvr6mslghmzitoP
+         rt8iSVzjiWBakSYlLVSA+P0jMLGSzHYFquAvs60MR8LNb3Xspa8orIjnD4eNNrVwXz65
+         Ze5oqM4LPHNL5iAWhb6kMSBrRWCsYr3qtiwnF1//7nX2ovn4rD6pWgJjatQC+kIMeCfb
+         T7Oz2JeUucqB85AuTM2OVMJzRqWRT0IDnvoWgd+9wDQTyO8k6OAL1Kp557nikhFGJSEj
+         NlaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788323253; x=1788928053;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pDFz9QgN63ldT/xXJR2rd56NWcctZLpsj24mvleysac=;
-        b=SWdOxF9XYZ+OsVAQQ1Wse5EuG8e+++KTdSqRJAlf+upeST2oO7xbNktiwHSpe+LaZR
-         uSN7ZgSfCEbdwIzkCtnU3MVgbWA8JMXTleSyxBw9XyKzQ9bvyflDi9qwUOK6S0wRpmoV
-         Y9VHAzwWsbHsthF3iUg6ZSPxcED0duqR8P1ni5sJQqYosxrBV7VUrWVFAXtGvHnwmitP
-         rmCOCyBIwsuO3/mNHxExOczW+1eDnNGsi0Z4Vgqhz72OdBwk1ILzWpmziBnOuQS+eDnj
-         12tmuvwIVtFvt9ENiXer99NN7Zgy6LWcH82rC3rlqDijfzHjlhW32xhI8uRe/F9sWCsH
-         OrZg==
-X-Forwarded-Encrypted: i=1; AKwUvBzn+nWoVeTbPlmcegh3VhtoycmxaSXC3ySt4uQZhI5uvit66+9dH63qe/et0RhfzLID9I+5JlxtoyVMXKk=@vger.kernel.org
-X-Gm-Message-State: AFuF++meCA5AbkN1adzOdHNALWvWMvtVNwFix7U2QVW/n+pNuyoYCWd0
-	QDynnNJOkX8kvTb74IyTAq0sGiM27mC+VAffCMGp+I+fg+gevOhNwV9oyPs/8Y6e
-X-Gm-Gg: AYBFou2Ee6RFN/bL0EjALCDj1+viYP6No92QO4h9qoAafRA7kiSUSIA7+p4bAjf2lR5
-	0z+l1H6xbCY85lRxtz0TOfU/rvdP/8lJstChKfGVUdzr6SPoMlUplfaAJg9Afp9+2Jg0+YyGQ40
-	5l1RpSI3/xCkjUGarrujc/IdmYWex7bBbIDvgbffmwFg7loRhQeyB/LWBOYzHoDHAADU8dJbqjs
-	IQ15ifB6pmtTB69/906o+7VQd4r7MdbieeYtmgo563u8Tze4PzVYQHCdJdR2QGKb1N4AZLdkdTT
-	Wi4MpElzC+MouFRFtPb9Lj3EybPKGSJmpyndyrIC0bcobBGoGtzCbUvaof6kmzOgiQ4S33Nd1iR
-	lJYAnvUNXVRDxvuwGzfih+3JJ8gvv7sOk9o15Iw8Bw8zZbqqfrxZjdwFdGOOY+QrJG4rNdr2Ygt
-	q+ogeS4lGS/Wv+GPUQk3liz67MMQRDPbBvT9AGjYDxkt6Xw5ts0F329YzvusM97gTWNE2gz1fWx
-	YfDmNMp8cBPwKThNuR7RvNdvWDfXuW5GTYYKJI8Ob8R4Q==
-X-Received: by 2002:a05:6a00:4287:b0:857:7337:5db5 with SMTP id d2e1a72fcca58-85ed98b4d7amr4377515b3a.19.1788323253266;
-        Tue, 01 Sep 2026 21:27:33 -0700 (PDT)
-Received: from lima-xfs.. (174-126-236-85.cpe.sparklight.net. [174.126.236.85])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc071665dsm699841b3a.40.2026.09.01.21.27.32
+        d=1e100.net; s=20251104; t=1788323405; x=1788928205;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=loEECbV+1/PD6+b04t7A4hFCdkNgi7Lwbp3peMcWJ+A=;
+        b=VBkpnfkChC7aKR9LKaUoJpQXndMq4mO7WFJ6mE0tEZMcXl7qb1xK/Sa/XUMy1BFajG
+         otwCmi9uT95ZgDlV86qR0jwzg+pK66Bwdz9kttzn9pOEnJRqF27xt7BH/yhr3QznmvmX
+         1BbFgJAZVOGdiCBL8p3iMmGAw9nRL5uurtiWGYV3yGMmN78c2YNnZ3mkaREz9j9fgnDK
+         CA/9Um/ekpvosrSlyaJpbjoxVxYLeZzRJDexxxY1PN/xRwWvKV5/ijP0A2WMK2FzW8FK
+         w1GmPOa4xH1T7z6eWcodW29SEhUn7q26qKhJsr8oQd/ZjftbEFMQFhXJOTXQs3UPPf3R
+         0yPw==
+X-Forwarded-Encrypted: i=1; AKwUvBx/7e2zHHuJHJCU2U62LsJD8subR9BHaOv/qbwi66m40+f5rzE1vMUZN16u0QEethXMYEzIDSb1fgzzopw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVcoqXU+9mO8HJTJ2qjpxrc7fuS7or4Q7YnF7yb3Y8VS6yqmOd
+	epk5xRVs/oOgqHLaTEcKRsIdy8RaSDfRqORfj4ciFPVH5XatvukPMaGS36vB+6l/tXs=
+X-Gm-Gg: AYBFou1+HlNXQnF9WwKjeSefz9h+WWo1yIZdYo3HMJNhHl6USroFmSuM8EsHZyuqqbd
+	CmwTN0SlNKLhAi/AWtDK5wadJX3PoMvRuf2x6elVy++z9/po4uNlh1jYV64JIVtwwahaWBrKBqs
+	gqzEG+/HCfJO+GOfxFah+fFEg2OUagcY0iGv9bY6D95Jebfxllf6Z6ZhZ5cVeuVQLX0OB+KleiZ
+	IhnaOkPlCK+dKbX7oFlIQT0fPUC82Ep3E+9mGob3FYjmpIviVhRnA8dN962ILC0opVhqxtesSy5
+	VYlzobWYwz4ml92tJR6FjGg4FJWj+f3HN0N/nmBiMbxB/CJoccdsjbmkmHelCB5lcDVvhaByB3h
+	OURDP1FdlZosl33hLyLLKoTwichD7J6/6R9UKAS8UVxDRhdAjkMCA6uCgIZQr1+1ShlLxCRmTxJ
+	9/uJRK4zSw1MC8ArGJOV5/6eL2XwZ2trhCSrdAIuqM8sOj+5oMeNW65Knt3HUD0dQ=
+X-Received: by 2002:a17:903:1aab:b0:2da:f1b1:56c4 with SMTP id d9443c01a7336-2daf1b16445mr2465215ad.3.1788323404935;
+        Tue, 01 Sep 2026 21:30:04 -0700 (PDT)
+Received: from localhost ([122.172.87.224])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f079c6aa4sm2617066eec.5.2026.09.01.21.30.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 21:27:32 -0700 (PDT)
-From: Eric Peterson <linuxinstalled@gmail.com>
-To: Carlos Maiolino <cem@kernel.org>,
-	linux-xfs@vger.kernel.org
-Cc: Dave Chinner <dgc@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	eric.peterson@hpe.com
-Subject: [PATCH v2] xfs: add per-mount read/write I/O completion counters
-Date: Tue,  1 Sep 2026 22:25:39 -0600
-Message-Id: <20260902042539.4073566-1-linuxinstalled@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <apUh22V-i99HtgGN@andromeda.toxiclabs.cc>
-References: <apUh22V-i99HtgGN@andromeda.toxiclabs.cc>
+        Tue, 01 Sep 2026 21:30:03 -0700 (PDT)
+Date: Wed, 2 Sep 2026 10:00:01 +0530
+From: Viresh Kumar <viresh.kumar@linaro.org>
+To: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+Cc: rafael@kernel.org, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] cpufreq: zero-initialize policy cpumask before sysfs
+ publication
+Message-ID: <apemScUaVXUn8sR6@vireshk-B250M-D3H>
+References: <20260901143635.4106960-1-zhongqiu.han@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901143635.4106960-1-zhongqiu.han@oss.qualcomm.com>
 
-From: Eric Peterson <eric.peterson@hpe.com>
+On 01-09-26, 22:36, Zhongqiu Han wrote:
+> cpufreq_policy_alloc() allocates policy->cpus with alloc_cpumask_var(),
+> i.e. without __GFP_ZERO, unlike the sibling related_cpus and real_cpus
+> masks. With CONFIG_CPUMASK_OFFSTACK=y the mask is a separate
+> kmalloc_node() allocation, so its bitmap holds whatever the slab allocator
+> left behind:
+> 
+>   cpufreq_online()
+>     cpufreq_policy_alloc()
+>       alloc_cpumask_var(&policy->cpus)    /* bitmap is uninitialized */
+>       kobject_init_and_add()              /* policy%u/ appears in sysfs */
+>     cpufreq_policy_online()
+>       cpumask_copy(policy->cpus, cpumask_of(cpu))  /* first valid value */
+> 
+> This leaves a window in which the sysfs attributes are already reachable
+> while policy->cpus is still garbage. show()/store() gate on
+> policy_is_inactive(), i.e. cpumask_empty(policy->cpus), so a non-zero
+> bitmap makes them run the attribute callbacks on a policy that is not
+> initialized yet.
+> 
+> Fix this by using zalloc_cpumask_var() for policy->cpus.
+> 
+> Fixes: 2fc3384dc75b ("cpufreq: Initialize policy->kobj while allocating policy")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+> ---
+> This patch is based on https://lore.kernel.org/all/83f87db8-fa13-41d0-ae52-544d22e228e6@oss.qualcomm.com/
+> 
+>  drivers/cpufreq/cpufreq.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
+> index 0d0df986fa3d..3b1b2ed86cc3 100644
+> --- a/drivers/cpufreq/cpufreq.c
+> +++ b/drivers/cpufreq/cpufreq.c
+> @@ -1249,7 +1249,7 @@ static struct cpufreq_policy *cpufreq_policy_alloc(unsigned int cpu)
+>  	if (!policy)
+>  		return NULL;
+>  
+> -	if (!alloc_cpumask_var(&policy->cpus, GFP_KERNEL))
+> +	if (!zalloc_cpumask_var(&policy->cpus, GFP_KERNEL))
+>  		goto err_free_policy;
+>  
+>  	if (!zalloc_cpumask_var(&policy->related_cpus, GFP_KERNEL))
 
-Add two per-mount statistics counters, xs_read_completions and
-xs_write_completions, to complement the existing xs_read_calls and
-xs_write_calls counters. The existing counters count I/O submissions
-(entries); the new counters count I/O completions. The pair (calls,
-completions) lets a consumer compute outstanding I/O as a queue depth
-(calls - completions) and, via Little's law, derive an approximate
-response time in userspace without any hot-path timestamping.
+Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
 
-Block device stats expose device queue depth, but that is a different
-quantity from filesystem outstanding I/O. There are cases where the
-filesystem queue depth is not what the block layer sees:
-
-1. Cache hits never reach the block layer. Under a heavy read workload
-   with a warm cache, a large share of ops are serviced from the page
-   cache and are never seen at the block level. Device queue depth can
-   sit near zero while the filesystem is servicing a very high op rate.
-
-2. Filesystem ops don't map 1:1 to block I/O. A single read or write can
-   produce one block I/O, several (metadata, readahead, writeback
-   coalescing), or none at all. So device queue depth isn't the
-   filesystem's outstanding-operation count.
-
-3. Work can be outstanding inside the filesystem before any block I/O is
-   issued - waiting on locks, log space/reservation, delalloc, etc.
-   Such I/O has entered the filesystem but is invisible at the bdev.
-
-The counters are plain monotonic increments (no clock reads), so they
-add negligible cost to the read/write path. Per-op timestamping was
-deliberately not used: a clock read on the hot path costs ~20-30 ns on
-TSC but hundreds of ns to ~1 us on HPET, which would be a regression for
-general users. Queue depth from completion counters is an approximation
-(instantaneous depth, not time-weighted); this is a deliberate design
-choice, not a placeholder.
-
-Completions are accounted at exactly the same sites where XFS already
-accounts the xs_*_bytes counters, so their semantics match the existing
-byte counters per path:
-
-  - Reads are counted at the frame in xfs_file_read_iter and
-    xfs_file_splice_read.
-  - Buffered writes are counted at the frame, i.e. when data reaches
-    the page cache, mirroring how xs_write_bytes is accounted for
-    buffered writes -- not at physical writeback.
-  - DAX writes are counted at the frame after the synchronous
-    dax_iomap_rw copy returns, mirroring xs_write_bytes for DAX.
-  - Direct I/O writes are counted at true completion in
-    xfs_dio_write_end_io, which is async-safe and fires for both sync
-    and async DIO, mirroring xs_write_bytes for DIO.
-
-Caveat: async O_DIRECT reads are counted at submission, not completion,
-because XFS has no read end_io today (iomap_dio_rw is called with NULL
-ops for reads). This matches the existing read-byte semantics. Adding a
-read end_io for async-DIO-read precision is a larger change, deliberately
-deferred.
-
-The counters are uint32_t and wrap like the existing xs_*_calls
-counters; userspace diffs handle wrap.
-
-The per-mount stats file gains a new appended "rwcmpl" line printing
-write and read completions. The existing "rw" line is unchanged, so
-positional parsers of "rw" are unaffected:
-
-  rw     <write_calls>       <read_calls>
-  rwcmpl <write_completions> <read_completions>
-
-Signed-off-by: Eric Peterson <eric.peterson@hpe.com>
----
-
-v2:
-- Expand the commit message with the rationale for why filesystem
-  outstanding I/O differs from block-device queue depth (cache
-  hits, no 1:1 op-to-block mapping, and work outstanding inside the
-  filesystem before any block I/O). No code change from v1.
-  (Carlos Maiolino)
-
-Notes for reviewers (not part of the commit log):
-
-* Placement: the new "rwcmpl" group is inserted between "rw" and
-  "attr" in the xstats[] table. The "rw" line itself is unchanged,
-  and "rwcmpl" is appended after it, but lines below "rw" in
-  /proc/fs/xfs/stat shift by one for strictly positional parsers. I
-  can instead append the group at the END of the table if preferred.
-
-* checkpatch --strict reports two CHECKs preferring u32 over
-  uint32_t for the new fields. They are kept as uint32_t to match
-  struct __xfsstats, whose every field is uint32_t; changing only
-  these two would break local consistency.
-
-* Testing: fstests -g auto shows baseline and patched fail the
-  identical tests -- zero regressions. The rwcmpl interface was
-  verified on hardware (rw >= rwcmpl, counters advance under load).
- fs/xfs/xfs_file.c  | 11 +++++++++--
- fs/xfs/xfs_stats.c |  3 ++-
- fs/xfs/xfs_stats.h |  2 ++
- 3 files changed, 13 insertions(+), 3 deletions(-)
-
-diff --git a/fs/xfs/xfs_file.c b/fs/xfs/xfs_file.c
-index 426a67b813..3ecd4ed534 100644
---- a/fs/xfs/xfs_file.c
-+++ b/fs/xfs/xfs_file.c
-@@ -347,8 +347,10 @@ xfs_file_read_iter(
- 	else
- 		ret = xfs_file_buffered_read(iocb, to);
-
--	if (ret > 0)
-+	if (ret > 0) {
- 		XFS_STATS_ADD(mp, xs_read_bytes, ret);
-+		XFS_STATS_INC(mp, xs_read_completions);
-+	}
- 	return ret;
- }
-
-@@ -375,8 +377,10 @@ xfs_file_splice_read(
- 	xfs_ilock(ip, XFS_IOLOCK_SHARED);
- 	ret = filemap_splice_read(in, ppos, pipe, len, flags);
- 	xfs_iunlock(ip, XFS_IOLOCK_SHARED);
--	if (ret > 0)
-+	if (ret > 0) {
- 		XFS_STATS_ADD(mp, xs_read_bytes, ret);
-+		XFS_STATS_INC(mp, xs_read_completions);
-+	}
- 	return ret;
- }
-
-@@ -663,6 +667,7 @@ xfs_dio_write_end_io(
- 	 * for it on submission.
- 	 */
- 	XFS_STATS_ADD(ip->i_mount, xs_write_bytes, size);
-+	XFS_STATS_INC(ip->i_mount, xs_write_completions);
-
- 	/*
- 	 * We can allocate memory here while doing writeback on behalf of
-@@ -1032,6 +1037,7 @@ xfs_file_dax_write(
-
- 	if (ret > 0) {
- 		XFS_STATS_ADD(ip->i_mount, xs_write_bytes, ret);
-+		XFS_STATS_INC(ip->i_mount, xs_write_completions);
-
- 		/* Handle various SYNC-type writes */
- 		ret = generic_write_sync(iocb, ret);
-@@ -1098,6 +1104,7 @@ xfs_file_buffered_write(
-
- 	if (ret > 0) {
- 		XFS_STATS_ADD(ip->i_mount, xs_write_bytes, ret);
-+		XFS_STATS_INC(ip->i_mount, xs_write_completions);
- 		/* Handle various SYNC-type writes */
- 		ret = generic_write_sync(iocb, ret);
- 	}
-diff --git a/fs/xfs/xfs_stats.c b/fs/xfs/xfs_stats.c
-index c13d600732..5b276666b6 100644
---- a/fs/xfs/xfs_stats.c
-+++ b/fs/xfs/xfs_stats.c
-@@ -40,7 +40,8 @@ int xfs_stats_format(struct xfsstats __percpu *stats, char *buf)
- 		{ "log",		xfsstats_offset(xs_try_logspace)},
- 		{ "push_ail",		xfsstats_offset(xs_xstrat_quick)},
- 		{ "xstrat",		xfsstats_offset(xs_write_calls)	},
--		{ "rw",			xfsstats_offset(xs_attr_get)	},
-+		{ "rw",			xfsstats_offset(xs_write_completions)	},
-+		{ "rwcmpl",		xfsstats_offset(xs_attr_get)	},
- 		{ "attr",		xfsstats_offset(xs_iflush_count)},
- 		{ "icluster",		xfsstats_offset(xs_inodes_active) },
- 		{ "vnodes",		xfsstats_offset(xb_get)		},
-diff --git a/fs/xfs/xfs_stats.h b/fs/xfs/xfs_stats.h
-index 57c32b86c3..608d12d0c6 100644
---- a/fs/xfs/xfs_stats.h
-+++ b/fs/xfs/xfs_stats.h
-@@ -93,6 +93,8 @@ struct __xfsstats {
- 	uint32_t		xs_xstrat_split;
- 	uint32_t		xs_write_calls;
- 	uint32_t		xs_read_calls;
-+	uint32_t		xs_write_completions;
-+	uint32_t		xs_read_completions;
- 	uint32_t		xs_attr_get;
- 	uint32_t		xs_attr_set;
- 	uint32_t		xs_attr_remove;
 -- 
-2.39.5
-
+viresh
