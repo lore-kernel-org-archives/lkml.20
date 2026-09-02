@@ -1,87 +1,234 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010000.outbound.protection.outlook.com [52.101.85.0])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4221C42E424
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:59:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788343199; cv=none; b=l3zBAHVXmKAqVXmbLnsr2x2uEhoCAI+rcW8gZyF37gTx6fQiRwiuVxRPHv9r4B1xBatb3bwcd/YBMIdEHFKVEhqcwgNOS3KiFkSg8/iTMrpYlkwhozyEhKClOF6mGsUXy/8Asc7LaswL+YA8SfNMaHYsy74Jq5GHPKSgRKJHXaE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788343199; c=relaxed/simple;
-	bh=I40ty9yglW6ETiDTNrAhmrRoixlM5bIx3S9RD4G6+Iw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=L9UxGZlwWqfCIvQEAP97arfNhEeS6LOzhUflL4cROa+5MkBOoG8AY6zwGASS/8P05q8M5btZ5QVYUCeKPIdtADCUieIMlaUV15Fm79d+sBe2nsaqGu/pI9yhkp0V3t6dyD0z3FQz02umREgj8ZulxYogqju67F/onjIsyrh71gw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n+x7Zp22; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C6141DDFA;
+	Wed,  2 Sep 2026 10:00:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.0
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788343240; cv=fail; b=QmdcOcZQpBJm0IRCPYsZt5fVuqJwJeqVINCsPp3bT3h28tpmcb2/L/CEdZFRVHNnbQLmwmHMuGT5Mu2AnK0m4/XM0QSF4G7m1WyplGTNGgaB+/ujMFTIgoYOWL8hSeVwK9tSQ8Mxv2dt5F1Z0P2KTz3U7VidWwICWgKywNLKf9o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788343240; c=relaxed/simple;
+	bh=p1IBVH65GAqh9n4XfrLEv9lJZhZANT7r1t/Rq0/G30Y=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=QH+tTxd52IcVKqFOoeHZLH6cgvEVem0Hm2suv3zXUNnxy+YbiPbCSPVdB1ARpNTX+u4qaxrMcm5S2HWTzXTfN4uiRaWp8pGiudQFVujKjDLuiNna15kN3HFx6CG0fihWHeUclwDhPOXtfGI/HfegMLvxDemfRc6fEfTVQFvfjtg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=GAVMRQ6D; arc=fail smtp.client-ip=52.101.85.0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n+x7Zp22"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-4843e2b290bso149598f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 02:59:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788343195; x=1788947995; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=I40ty9yglW6ETiDTNrAhmrRoixlM5bIx3S9RD4G6+Iw=;
-        b=n+x7Zp229ip0n0Y68GUjj9CZHciOtj3M7J10Yw1lRJuUg+N7NSf9ENh4aI42vs49jA
-         on31SwW6mEL7qt8nL0T5bhF68IZofqnJ1s27DKYhmzer3rddcP7zTuFW6H12/9G3E9+C
-         s6yq+1QlpKzTD3Zirgith1h/jtuzP4X4If8XM2L/l11sz/IhfGpemfGtka3+hJlNRTTX
-         okA9wb4/tAe95M5zVuReEPelqmimJB9trpQ/ob0wANz7R8WvGIJD0VbP0IqeL+PIsJDz
-         kr+RVhRvROaQr9HqGB6Cr+0kCqFjA0IM8IwpCeh7qpkYtkesGGIr2vFiSuniXi4CCta0
-         8ABA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788343195; x=1788947995;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I40ty9yglW6ETiDTNrAhmrRoixlM5bIx3S9RD4G6+Iw=;
-        b=eugfOK/f6kY7AbcwFalm+ZxfS53Fv7Oh4GDjliMFh6ETqYyEbdu2OojqVnrtjKR8h/
-         jD4rh99vzlRZX1VDVu22x9ATKNSl2ddppcegOkIz+ijzhLxGkkSnLuQRWFOn4zzQJjzP
-         j5hfPmQZpcRCKMkHSdBqCGr1eqjTVOJ44ny98AKduKbWXrWtfKrGRPKB4rVL7KKHYRoV
-         XH5yX5nujMsFlrBriC5H63RzEnBgupNBuIAHDiPl06UaBnSgqdQHlfFDjwgwc8WCZQRQ
-         3tN4qzwX/HTXHs+B9RtgspY4w40bB62LOFDid94PVRr/mw9CuNLJxhR1OLRUoR8ZbEUk
-         FcDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwdAmkoVD+mK9AewTl92bYv0fHybP9bE3ifGAeY3aVCbiZp6Fc+HkGaZrsIKYE8nYl7EY2HaFsgTp2346M=@vger.kernel.org
-X-Gm-Message-State: AFuF++niLcjh7L6F87atc3Hg2szGobxkD0XTuVQTpFZm8rwlyHDoWbrU
-	7XOlZ6bSKGUvrn4KhLBUq7SXoCeZ6Fy/Q/5JOtP7csnIfVxawNw+Tq+17trRoLJl6wo=
-X-Gm-Gg: AYBFou35q4eXaKaqbFk/u4j5M9aQo49VKKMENyQVANs0yRKZOGF96RlQPmgveuPakxO
-	hUuV0HRfbdqJwTKgYb5NE6n3MicnUvkMhTfe9DAZq1JTFS0l36NZ4e1NUqC7HzJBm3jfC3jstFh
-	Wkw6swNJbql60cxZJS3a8Y2VZC+Cwvf4ZZqiWNlQpFAywNvnC7HAah5EaGn2jrpup5CCNJNBFvN
-	7ltNSUEtYL3WvYwqIfB1feWbUvtypGVqemrSuGPAnewlHjqtqPlHWVEmx0EB0YJbtw/2kx7/2+j
-	y17e3kU8m1e6+RQL1zVoIpBowya0oVrENEXYwDQ1mZKiLn2/Y40Xl1AAZzxz/nSn7a0YExJ3iBN
-	xDOi3p2NIkdhUCfwxqpOsQ6rNklxdhww7i8iAYEicssymBltmDGwMgor6AXfSc0eCMwVgejmgTM
-	FA9xMfh8QFqjbHiDad7qq5Go7ybD6sh8A7BBBrCR2BZfxpX2cFQ19qLeBQTXywNy+khx+LgQeqy
-	AG/LBnK+vaRrQPDa8/4/rZh8qITIsHahxnC3vVj8KVgJarD4aeFOdx9N/N0R7eMAcW6PCm/Qple
-	YhxOEDWOC9Lo4q4xFmKLFPM=
-X-Received: by 2002:a05:6000:2903:b0:484:3313:a046 with SMTP id ffacd0b85a97d-484914f1683mr3231063f8f.6.1788343195303;
-        Wed, 02 Sep 2026 02:59:55 -0700 (PDT)
-Received: from [192.168.1.144] (98.102.222.87.dynamic.jazztel.es. [87.222.102.98])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e736a6sm5127715f8f.5.2026.09.02.02.59.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 02:59:54 -0700 (PDT)
-From: Miguel Garcia <miguelgarciaroman8@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: netdev@vger.kernel.org, jacob.e.keller@intel.com,
- syzbot+372a7d84708b07f64d9b@syzkaller.appspotmail.com,
- linux-kernel@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org
-Subject:
- Re: [PATCH net v3] devlink: use direct firmware requests for flash updates
-Date: Wed, 02 Sep 2026 11:59:53 +0200
-Message-ID: <178834319365.3590598.1559493927150458484@gmail.com>
-In-Reply-To: <46ae913f-39e8-4041-b15a-8e7363cd2fd4@lunn.ch>
-References: <20260830111700.1799255-1-miguelgarciaroman8@gmail.com>
- <20260901123819.2035064-1-miguelgarciaroman8@gmail.com>
- <46ae913f-39e8-4041-b15a-8e7363cd2fd4@lunn.ch>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="GAVMRQ6D"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AJwBgJXk/Hp05jXOwlY0v/1Gv8HHoEprCiO6lTADncbrxcWC/4vpJ2TznVBSMFXGRJJvHKmkiGTfvumSiT4Wx/GOgthbpQV7XCJKoVKJ6bkTjWBVgfJkMkbXdDCZkpyySjdoRmrea2945NZecJ7IXlTZXDJ0ngMes9mInhZyJzG4zC6g4tOKiwy28VfXrKHFL2lnRygjN58szpi7vN7mje3fRHoy8af+VZL7QNrUTCgy1Z5r4r06r3+X7zgTHPXkn5Jh5fRdHJjoz5/vC4xmudRLNLfkpEHtd312+Zb2F9bMQ37fPzuZKKDjpDSWbUyBZ5kLB51pewkn2oDBOlJuPg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eIFNRqKXnOZJHzE6OX0NTZjnHdjH4ecpiQl6Sgc9nZM=;
+ b=ANipPF1eG35z+vBTWSc+YrdshNJ2xt4o8sBffrSusFk3gq9UHA3JQY3vGQNI8j0HhsdINc8hSbDWDQJ4AEdl8/0+3uxKxnd1bi0Cg8kfr/v557/PYXHM2lPup5xmjEetjD4TQE/AYQ4AId3mOCcf2s6nR3W2pm2w7lreRHLwnNacTNPn2Ol0fcMYX/ye2lJ/5axbHFynxfQgK3sylDjw8YdwFErNfOC51K9Lor+ox/9L3wigcIc+EPoAmZaxc+sjfeY/hmIDmZ1CeILRAGEsr74nPOpSn8SPmO1PrSnBLU8zld7Jbk1ftW2P4er3uor5LV3QvWOnWItPm5Zcd0ZUiQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eIFNRqKXnOZJHzE6OX0NTZjnHdjH4ecpiQl6Sgc9nZM=;
+ b=GAVMRQ6D1cgAd+S1G2kn607SLed+0x5d3pX+wHfbhJvZq7kt2nSq65I9lqKHxSXlSHfgtB5yHTswzC/DNtBcfufET5UFQppAPzmddT5cIuz31zScJAlW0M5+tdLYaMc/VdIZBuIfFDA9rTSC/Xo/Glh6+CsMEy/R5VoeFPULVXk=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH2PR12MB9458.namprd12.prod.outlook.com (2603:10b6:610:280::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 10:00:32 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Wed, 2 Sep 2026
+ 10:00:31 +0000
+Message-ID: <65dc4ca1-6882-490d-baad-3e0abd708af3@amd.com>
+Date: Wed, 2 Sep 2026 12:00:25 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
+To: Leon Romanovsky <leon@kernel.org>
+Cc: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org, alex@shazbot.org,
+ ankita@nvidia.com, chriscli@google.com, david.laight.linux@gmail.com,
+ dri-devel@lists.freedesktop.org, iommu@lists.linux.dev, jgg@ziepe.ca,
+ jmoroni@google.com, kevin.tian@intel.com, kpberry@google.com,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
+ sashiko-bot@kernel.org, stable@vger.kernel.org, viursachi@google.com,
+ xuehaohu@google.com
+References: <20260901170849.4052816-1-dhu@x6u.co>
+ <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
+ <20260902073936.GR24140@unreal>
+ <aed39f83-6340-4fe9-890c-6d5f340c97d6@amd.com>
+ <20260902083232.GT24140@unreal>
+ <aae19599-2ba8-41fd-b3a9-b1f80107f563@amd.com>
+ <20260902095338.GU24140@unreal>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260902095338.GU24140@unreal>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BLAPR03CA0159.namprd03.prod.outlook.com
+ (2603:10b6:208:32f::34) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH2PR12MB9458:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7568e83e-7d44-4567-eb0d-08df08d9063b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|10067099003|56012099006|22082099003|18002099003|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	jcUe6roz4DwyyRo7qAym0hPigAPtavDhyj4P04XRJkRlx1S/Rc/wQj0eAW/0ykPdvOEHji9il/YhsSyN2guS0JC79mKFTr8TqtqhUFTTRUkTPxQRK90N7VMKwyEZw1cH/HxchcQsvtDqZewZdz0y5OcqIsG9qMNqTgu/f7SN0xHh54eESfiC77un1LARbHVgALbK273IVIbh6gU8/fugQlSmENA00xQw0IWQ0Sjc77Bo/RqzMl4duwdLHcnNHiQGs4YKuwVmKVSOjVHKCg2ntzjqEIfUMd0qt2VEgX40mf67EwsNGvy6uW8woPnbl+Z6VY0P5IiJJ4299E4rfNobevR+cJVNr/mMXfq20Br4Rw+utNbTMQaQNnTlBYsb+1WKx/WkWYvBvBs+4uPDpy0J3mp3SW8WefBXWZIeMOZ5e8Cvmnn2uLPcZkNMAKd/A6f2ry7yWxnDjJLa3qwIvtUS6/DKc8X60giJGzPrCN/PCvbLTPFCQq5dRvNQc+J4rEhpHO1CwGzTKxyqxNfMT5H0zXzn0tiXP8HcKrSpBBfHBOyPRd+yxu/uFmt2G7bsTtz/xUY0wntrSxHR03xi0cg/mWFcIv05/On1BEXGu3ox1sYFbFARu0/9mO9MCyKXdQhn
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(10067099003)(56012099006)(22082099003)(18002099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WVJpS0tvOGRKUURVaStEaXlxOUdibmdURkZ5M3JxZzdQTmcyOXhhSCt1NlNt?=
+ =?utf-8?B?WFBCK3V3M2NIN2ZsM09abkFjRi9BRTZZTXFQNmVOUDdiZmJiRktyUmNIVExW?=
+ =?utf-8?B?NEJrSUtGQ1N1Wk1kV3RJTGNNOVNsMFRHU0FVWjBzdkRYWUdBUVc5bUoreG5n?=
+ =?utf-8?B?S2FmSzdjaU9wQXhHMDk5dEpTazRvcGtraENUYlBRaFBYUXZjOFhXRlZvU0l4?=
+ =?utf-8?B?d1VhUXZJdG5xWE92V3RWUVlwbG5PQzZTenFKK0xvUnFDaUV1MUxML2c3VlpO?=
+ =?utf-8?B?RkRpaUcyeUljd2ZuSkxiZ1ZBMWtaa0crdTR2Slp3SHdJUnJkK3VRVWFTMU40?=
+ =?utf-8?B?eG91YVVreEU2aTdhZXNCbWo0dHFNclJ1Tzh5eE5iN28wM2tHWVZIM1BSWDVC?=
+ =?utf-8?B?UlNKbktiVmpqLzNTSElzWVhEYUVWOVZDNmRMTnNDZnRoTnZuTXQ2c1Arb0ZY?=
+ =?utf-8?B?Rm5ZQ0R4aG9qSmk5L282ZFJqaG0vZmo3aFFLaUQxRVFvRTJZclRSbDNTZnFB?=
+ =?utf-8?B?OGc2OGo0OTNmZHBxa2VTUTVIcnBhbHhBc25GeEYzNEhFWjIrM1pqdEF5NnR3?=
+ =?utf-8?B?WFk3Zld5MjlvU3FCN1VZbThjYnorcndhNFNLSEwrKzRVcTdWZUpXUWYxMjdB?=
+ =?utf-8?B?TjZRNXhIZmlGMkRTWi9McVE5MXZlZVBYWXdLWm9KY242UXFtdmFPcTR6Mm5B?=
+ =?utf-8?B?czZwM2dNM2IxVFpLR1ZMZjJsQ2loWkJjaklKVmZmS1BqdmtESXUrb0FaRXNZ?=
+ =?utf-8?B?dVpaVWs1QmNDaEFReXhTWWRUdkY3S0cyeUp6THJhQmg1bHp3bkJyTXVoaEp4?=
+ =?utf-8?B?Q3NKNk5MRVdPeWZpVnNWV2p1cmRXVnZvRE5EaEdSZ1FTMEZudVdrN1pmNzUr?=
+ =?utf-8?B?Q0tmaFl0YVYrajdGeVo3djA5aWN5SWNWTGpFcTAvQUlrK0I1WCtOWUE0Mk9m?=
+ =?utf-8?B?clAyY3ZWenBUWXJPOXFrYlMzZ25qYkRTZHZjaXdTeHNrQnNlK0RCQ3J3N1pJ?=
+ =?utf-8?B?Z3B6SlRUdmNnT2kzVUFUMU1mckl3MGhPeXFoeDYwcStkMDRnUFMzbi80RWhS?=
+ =?utf-8?B?bmlycElmNThhUngrRCt3aEgwcGhVN0theEN3TXlQL1E4N1JEeDFIRk5zNHpP?=
+ =?utf-8?B?U1d3NnExRk9DR1dDRmpnU2V0T0N1NXVEb2x2bFdjSjVzT2V0UENWV2liYmhN?=
+ =?utf-8?B?cUZ4bktOb2t2NmtGWm5ieDYrRXEralVQUW1SYzFkSHd1bzlkY01Jc3UxalJv?=
+ =?utf-8?B?ditSNyswZUZEV0V2eFVyVGt6Ui9pcVpMcW4zajVIcHQxRG9RRTRFYnRGTzBi?=
+ =?utf-8?B?YzNjT1dKRmxRSXg3MEV3VEN0RlNzREhreHNMTit3a2lmamIvNGZHU3BvVmZ1?=
+ =?utf-8?B?UkZCQ0p4ODN2QmwwOGwxUkFtWEZHRHIyZitOVVcwU2pXbTk4UU0yYVp3blla?=
+ =?utf-8?B?bkEycjE5UFg2OVdlQm1JOHI2ZlNXMWdsRjlhYmdBc0JPUlNpbnlKbWhjYStX?=
+ =?utf-8?B?SVk3ZUhLbTREd2VGM05TUVE5TEhzSk50aVFqdkk3Q3FvNVp4Z3VrVjgzSVk2?=
+ =?utf-8?B?LzlJOVJ5eUtVRkNpZmVON2JUb2FGdlMwcHZIUXVlZmtQNEEwVzhKbmowUlVU?=
+ =?utf-8?B?VnlXcGNjNVArcS9MdXVCR0xoYUdKTEpNQzFvS21YWkZjTzNXeFM4R2dmeFky?=
+ =?utf-8?B?Tkd0bnNna0pBSk54ZkpVK1pCTmRYaEN5cnRHYWNEWnpOZzFDS1h0VW53Z0xN?=
+ =?utf-8?B?eVFhZjlDQVZKclFxSFBEWFdYUXlNWC84em83VW13MkFOOXgwNGdEWWdYVjk3?=
+ =?utf-8?B?MThXLzNNMUd6d0hrNDdZUjVHMDhhNFFyc2tzMGoxMzZZbmplMGlHanlRY2Zz?=
+ =?utf-8?B?bEhIYVpOOXdZU3grZTAvdXRHTFhXbmdoK0pXcm93SHNVc3o3YWVkbXVndmE1?=
+ =?utf-8?B?djZOaCtUV2kzbVNaV0xPdkVaTUVWUzAwM2praGtWY3VSVmNyN1d1Y1RhaGZ6?=
+ =?utf-8?B?V1FPekFMWU5uWFY1M3ZxeDdWMzhyaFdoeklCbHdIMVJmclQyUFg3aGs4aEpF?=
+ =?utf-8?B?Z0pCek0wL0JVRS9TK0ZKbS96U2lUQ3Z0U2R6bkdXUXpwQmZ5MCthczNCekxX?=
+ =?utf-8?B?L0dhMlB3TGQzTjJLa1FyL1BKWndta0lPLyt4a1I4NXhTNzQ5MEtvMmp4Tm1s?=
+ =?utf-8?B?aWUwa2VjYXRhalVLVlBuRWNMWmc1QWRRdFViQlhUVjVuWjVjY1N6WDFNOFM5?=
+ =?utf-8?B?amRHcVdWRjR2ajI0TXRqMkxmQ1BpQjRXd3h6QnRSTEhLMXZCVXNTdWF3ekll?=
+ =?utf-8?Q?NU8hc/dCm/WoC9S91V?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7568e83e-7d44-4567-eb0d-08df08d9063b
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 10:00:31.6861
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uIXPPRdO5+mY8QMcOzABY6Mi2Tt/ov+lFCPu9hL6yzxFsW5AbNnBvKOb1/JW9MaJ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9458
 
-Thanks, I've resent v4 as a new thread.
+On 9/2/26 11:53, Leon Romanovsky wrote:
+> On Wed, Sep 02, 2026 at 10:44:59AM +0200, Christian König wrote:
+>> On 9/2/26 10:32, Leon Romanovsky wrote:
+>>> On Wed, Sep 02, 2026 at 09:56:06AM +0200, Christian König wrote:
+>>>> On 9/2/26 09:39, Leon Romanovsky wrote:
+>>>>> On Wed, Sep 02, 2026 at 09:00:46AM +0200, Christian König wrote:
+>>>>>> On 9/1/26 19:08, David Hu wrote:
+>>>>>>> From: David Hu <xuehaohu@google.com>
+>>>>>>>
+>>>>>>> This series address two related issues in scatter-gather mapping,
+>>>>>>> specifically for the MMIO based dma-buf mapping. The fixes ensure
+>>>>>>> sgt mapping is correct, and proper for large MMIO regions.
+>>>>>>>
+>>>>>>> Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
+>>>>>>> (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
+>>>>>>> phys vec to sgt)
+>>>>>>> https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
+>>>>>>>
+>>>>>>> Patch 2 Splits sgl by largest page aligned chunk
+>>>>>>> (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
+>>>>>>> https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
+>>>>>>
+>>>>>> *sigh* such issues are exactly the reason why I didn't wanted the dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
+>>>>>
+>>>>> And this is why so many in the kernel community want to get rid of SG
+>>>>> lists. It would be great if DMA-BUF could also eliminate the need to
+>>>>> convert to an SGL, like Jason proposed.
+>>>>>
+>>>>> The DMA layer no longer needs SGL. These bugs belong to the DMA-BUF layer,
+>>>>> which is the one that depends on it.
+>>>>
+>>>> I'm all fine using an array/xarray of dma_addr_t in DMA-buf, just phys_vec is a clear no-go.
+>>>
+>>> You are proposing the same thing as an SGL, just in a different format.
+>>
+>> Yes, because that is the right thing todo as far as I can see.
+>>
+>>> It does not address the issue that dma_addr_t is expected to hold a DMA
+>>> address, while that is not always the case. For example, in the P2P case,
+>>> the addresses are not DMA addresses.
+>>
+>> Yes they are. They must be DMA addresses because that is the only thing the importer needs to do it's DMA.
+> 
+> They can perform DMA, but that still does not make them suitable for the
+> dma_addr_t type. For the PCI_P2PDMA_MAP_BUS_ADDR flow, these addresses
+> follow completely different rules: they are not unmapped, require no cache
+> synchronization, are valid only for peer access, and require separate error
+> handling.
+
+The PCI_P2PDMA_MAP_BUS_ADDR is not supported by DMA-buf and as far as I can see is a complete dead end.
+
+> All of this information is lost if only the dma_addr_t is stored.
+
+Yes and that is fully intentional.
+
+DMA-buf handles that cleanly on the buffer object level and not like PCI_P2PDMA_MAP_BUS_ADDR as a completely broken design on a per address/page basis.
+
+Technical background is that the PCI_P2PDMA_MAP_BUS_ADDR approach can only be handled by a very very small subset of HW.
+
+Regards,
+Christian.
+
+> 
+>>
+>> It can be that those are DMA addresses on private interconnects between devices, but it should *never* be a phys_addr_t because that is limited to the address space the CPU can see.
+>>
+>>> Jason's proposal:
+>>> https://lore.kernel.org/all/0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com/
+>>
+>> Yeah, I have commented quite a bit on that.
+> 
+> Right, I posted it for reference.
+> 
+> Thanks
+> 
+>>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> Thanks
+>>>
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>>
+>>>>> Thanks
+>>>>
+>>>>
+>>
+>>
+
