@@ -1,111 +1,95 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A7E5A328B7B;
-	Wed,  2 Sep 2026 08:04:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C4C2DB791;
+	Wed,  2 Sep 2026 08:05:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788336297; cv=none; b=cLSS/AKgXjII7tJGnQ9T523Huo36nOaYTAyOGBywZbpyjFumZu+n9mIfao92WCzA8jfIyNkmTVEZnPr2kEWhrko2JKFFIo9SaygH7sr83HY5d1SXZ3nRImqbU5QaAEgdWfP6E9udSLCItF6fLuM6gx0ocQk2JKRk1vuDa5wsty4=
+	t=1788336302; cv=none; b=c69cYYUnGB836h7AHiocY1q5UqCenq49xtpDf27vXltqxcc5PtLBEHthQJdn3HMseFXccwODCc+ZiKLt1okRP1qqalGG1jZdCX3l+zWeHWtmElxHnQatNU44SK/7HPuWX+5ssS4zY+tBP6AZ9Y5CSqVf3P67PNU9X2Yd3tm+sKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788336297; c=relaxed/simple;
-	bh=iaX4bSY8tECv0GJk95N9F797wm7D0nwMhGAYdtcSszs=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=mqf7SA6Dhae1BagEPDunCsGeyKxb6m39Pbpr8qF8pVWI4vXjuyF/lWSDNOgctACRowrpP/NtU3lgHhskNcPyaRKgQyKmk/n1ujcB6K01k8WkHSDScZc/mDNyov0Ew5a5mKTBYX1z3RSixQUjBB1AFI62W4Mst3+o9J0FLp+2l28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.62])
-	by gateway (Coremail) with SMTP id _____8AxHNKl2Jdq_K8HAA--.21730S3;
-	Wed, 02 Sep 2026 16:04:53 +0800 (CST)
-Received: from [10.20.42.62] (unknown [10.20.42.62])
-	by front1 (Coremail) with SMTP id qMiowJDxRs2g2Jdq9mwZAA--.41017S2;
-	Wed, 02 Sep 2026 16:04:50 +0800 (CST)
-Subject: Re: [PATCH v2 0/2] LoongArch: KVM: Fix kvm_loongarch_env_init() error
- path
-To: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>,
- zhaotianrui@loongson.cn, chenhuacai@kernel.org
-Cc: kernel@xen0n.name, lixianglai@loongson.cn, kvm@vger.kernel.org,
- loongarch@lists.linux.dev, linux-kernel@vger.kernel.org
-References: <20260817115847.2705791-1-nagachaithanya9911@gmail.com>
- <20260902070724.3459457-1-nagachaithanya9911@gmail.com>
-From: Bibo Mao <maobibo@loongson.cn>
-Message-ID: <0fa4066b-81b5-d0e9-36f1-9f0cbadf1e2c@loongson.cn>
-Date: Wed, 2 Sep 2026 16:04:32 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1788336302; c=relaxed/simple;
+	bh=RekbWYYSIhRmOI7Xf07ekTwqNLkhgD+mZEct3lEXPyo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lQ4+3rSDuv36yKu0VBz6RyEd+DQTaYw87wsNWu33VdhoQySsT0rAoHF/E/AMaYzG0l9mzFI8245H98Y+WXjL01JwIAZJvHB6XxfJKBIyXSS2C9GR4lgGe4w1JVp1DZafQyUM31Z4yeIOaftojPdtElsIJxA9sV23TEsi7pfFSpA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XcDa5P2A; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XcDa5P2A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED0931F000E9;
+	Wed,  2 Sep 2026 08:04:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788336300;
+	bh=96ghYr0ZPRNX0SyCe3YbnY6934jg3ns8SdHr3LhspW0=;
+	h=From:Subject:Date:To:Cc;
+	b=XcDa5P2AlpeA3lCBCmkr30dwPO0A1Nho2aY/n8ya+RQdYC8g8Ne4ux+m1adDwT5AF
+	 2G9H0xpmzfSFlRMkhICBP9pugf8LrAyqyp3EribTaJqzZv6lx4aBWUmz6MAyOB/o/s
+	 KncGDO+KGEGOBRjf9GLyY/H5vcd+1YS1iMbcEOZqUuRePRDDEZlY2ukjiED+wVMJdF
+	 0OGsyFT9SUZq9PltaKaQ4xp9/Df3rgOxZone/crrRHLEIwnIcaVRv6m/dFqnuVjcXD
+	 6qCCCwRDposqxZyni1LU89dZZtzlng5xSuemSABzv/jPuZ0/s31X/mrxqv+Y3hjoCz
+	 AxJHKQ+nz0JUg==
+From: Yixun Lan <dlan@kernel.org>
+Subject: [PATCH 0/7] mmc: spacemit: improve clock and tuning logic
+Date: Wed, 02 Sep 2026 08:04:21 +0000
+Message-Id: <20260902-07-k3-sdhci-fix-v1-0-b15c5d0f64fd@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260902070724.3459457-1-nagachaithanya9911@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxRs2g2Jdq9mwZAA--.41017S2
-X-CM-SenderInfo: xpdruxter6z05rqj20fqof0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7KryfWw1DJF17Cry8Gw48AFc_yoW8uFyUpF
-	y3uws8Kr4kKr1fArZIka4Duas8Xr4fGr4aqa42y345Cws8Xry0vr18tr9rZFyqv3y8GFW0
-	qr1Sg34YgF1UZagCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r106r15M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
-	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE
-	14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCYjI0SjxkI62AI1c
-	AE67vIY487MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
-	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8Zw
-	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
-	67AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
-	0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8cz
-	VUUUUUU==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAIXYl2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSwNDXQNz3Wxj3eKUjORM3bTMCt3kVFNz8xTDlCTzJDMloK6ColSgMNj
+ E6FgIv7g0KSs1uQRkjFJtLQD6l7gYcwAAAA==
+X-Change-ID: 20260901-07-k3-sdhci-fix-ce577d1db7b6
+To: Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>
+Cc: Long Wan <long.wan@linux.spacemit.com>, linux-mmc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, Yixun Lan <dlan@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=993; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=RekbWYYSIhRmOI7Xf07ekTwqNLkhgD+mZEct3lEXPyo=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBql9iREqcrHdqHC1dL7zbIsY8qNpeuZg2zC5Z9k
+ tRYbLzJ/k+JAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCapfYkRsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+0oDxAAh8B/B+4HJ/2P/17kMsUM85/l3r8nkEK3sPjbNRk2qx4hfK3FFsaSy
+ vz3l1cuekRFtmE5BQEKCV+swAqJp4l0DILsCgB7qMjel3S9uOfbWpICbBQpYzfZjxUEpVmqKG/j
+ HPq47J9gh7lsIysCQIE8JOOznUTmy116gpsIDVCTn2hhBiQVK5tzvXjIZv36iXO0WMyY024Fobo
+ egOsu4DDocXFIB7cGYhNNAqD7/YspgW4OtNQ6jstIkjmNar2j6zF5YUMQPCDPGNpF80tUFM9wWw
+ ne08Uf3sXiWZjgWSRyKbv4sa7tLXQYW/74vUuDF+mUczFaIAt0Zd15y58RZMOfaxkZiMQJ9KG8f
+ L64gNvRrWj8wgr1N09ZMVKtxwaJCxhJDchNTxGyk5tYCLkm9Dd8On0ik4KjU/xVxUVhgnuBgVp/
+ V/gZaSVGSr/T6YBacdD0+9lK4UeeYalTL+XafKH9OD7TQWYB64i+27uZ94S/ZnFVntd03PNeuYQ
+ K04cPvK2kSRw2KQgMrYugNjC8tLIFi9umS3lyDPv8sRdx9cKaoWKS+BRWoWzgoBojWVbRs7j8Q6
+ 038OgiTW7vK6xiBbmr0o1tZiL47wiVYHIEN5zXuB/F4I36MAqtqu6X8TbiUI0V9gP4fM459Hkr4
+ MC4Axhtl53OTpZ5BdjpmmhfxaEr8c8=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
+This series includes some bug fixes and improvement to
+SpacemiT SDHCI driver, which relate to pinctrl, PHY,
+clock, tuning logic. Most of them are quite independent,
+but put them together here for people to easy review.
 
+Signed-off-by: Yixun Lan <dlan@kernel.org>
+---
+Long Wan (6):
+      mmc: sdhci-of-k1: no pinctrl state switching
+      mmc: sdhci-of-k1: configure PHY mode
+      mmc: sdhci-of-k1: Improve power control
+      mmc: sdhci-of-k1: Use finest delay granularity for RX tuning
+      mmc: sdhci-of-k1: Improve RX tuning window
+      mmc: sdhci-of-k1: Implement SD clock gating for voltage switch
 
-On 2026/9/2 下午3:07, Chaithanya Lagisetty wrote:
-> kvm_loongarch_env_init() leaves everything it has already acquired behind
-> when one of the IPI/EIOINTC/PCH-PIC/DMSINTC device registrations fails, and
-> kvm_loongarch_init() does not call kvm_loongarch_env_exit() on that error,
-> so nothing else cleans up either.
-> 
-> v1 unwound only the memory and the perf callbacks. Bibo Mao pointed out
-> that the device registrations should be undone through wrapped unregister
-> helpers, so patch 1 adds those and patch 2 uses them to unwind the error
-> path in reverse order of registration. Patch 2 also uses them in
-> kvm_loongarch_env_exit(), so that the device ops are unregistered on normal
-> teardown as well.
-> 
-> Link: https://lore.kernel.org/all/20260817115847.2705791-1-nagachaithanya9911@gmail.com/ [v1]
-> 
-> v2:
->   - Add unregister helpers as suggested by Bibo Mao
->   - Unwind device registrations in reverse order
->   - Use unregister helpers in kvm_loongarch_env_exit()
->   - Split into two patches, so the fix only uses the helpers
->   - Reword commit message to avoid implementation-specific details, and
->     retitle from "memory leak" to "resource leak"
-> 
-> Compile-tested only, no LoongArch hardware: loongson64_defconfig with
-> CONFIG_KVM=m and CONFIG_KVM=y, W=1, each patch built individually, no new
-> warnings.
-> 
-> Chaithanya Lagisetty (2):
->    LoongArch: KVM: Add unregister helpers for the KVM interrupt devices
->    LoongArch: KVM: Fix resource leak in kvm_loongarch_env_init() error
->      path
-> 
->   arch/loongarch/include/asm/kvm_dmsintc.h |  1 +
->   arch/loongarch/include/asm/kvm_eiointc.h |  1 +
->   arch/loongarch/include/asm/kvm_ipi.h     |  1 +
->   arch/loongarch/include/asm/kvm_pch_pic.h |  1 +
->   arch/loongarch/kvm/intc/dmsintc.c        |  5 ++++
->   arch/loongarch/kvm/intc/eiointc.c        |  5 ++++
->   arch/loongarch/kvm/intc/ipi.c            |  5 ++++
->   arch/loongarch/kvm/intc/pch_pic.c        |  5 ++++
->   arch/loongarch/kvm/main.c                | 32 +++++++++++++++++++++---
->   9 files changed, 52 insertions(+), 4 deletions(-)
-> 
-For this series:
-Reviewed-by: Bibo Mao <maobibo@loongson.cn>
+Yixun Lan (1):
+      mmc: sdhci-of-k1: drop duplicated voltage settings
+
+ drivers/mmc/host/sdhci-of-k1.c | 80 ++++++++++++++++++++++++++++++++----------
+ 1 file changed, 61 insertions(+), 19 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260901-07-k3-sdhci-fix-ce577d1db7b6
+
+Best regards,
+--  
+Yixun Lan <dlan@kernel.org>
 
