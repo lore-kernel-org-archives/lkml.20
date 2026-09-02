@@ -1,124 +1,176 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4BD04ACC85
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 21:24:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B5C54AE8A3
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 21:25:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788384272; cv=none; b=NiRcSbIoU2i1kFknM3EziLDlgBRiHKmK3xXo8dantE32o97Lk50hdr+NujJo1RE1QHiygyaYpD19ab7j3NqGZ80utBalu951/RgffKshRQRH3PV2pLP1YhpDyH2In1iYK216e1ketkiZuG0371rimvs6W+xPYWuhEmnbCovth0A=
+	t=1788384312; cv=none; b=f0yu9nkE8nGjgef48q73Nmo1qju2MIxYsc17Khd7TqQ4q4Xvx59+7W9fdfD733D4OXEQ5qdyJkIehvHF24xSnGTdrLQhGxksOxFMr4LUj+zdOfCT1PSdjPGl0iLsroim5PaKnxcIFOblSaaXg3rOryJ5PzjGu4TDb+JLImpNvVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788384272; c=relaxed/simple;
-	bh=v/HpaKadoYW3H3dqFWTG0yyc6tDzyTXTA/JVahq5GtY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jauUfGZVJhhbDX8+lKwFDxIYjWpJW2UW2GpY0RKW4lfVy2niRfDN28OfXf40QY16P28jOMz/dxuRaagKUJLU06AnD2hiPjEiAep+eJCmn1/vOuvDWzd61g/Fd/PsuZysiTlVuqEYj3lZPa3bUm7gsePeIPWx4k6gTJHDn6N6pjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jevK2SmG; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788384312; c=relaxed/simple;
+	bh=LHhpRWV64svn2PO2cWWQEY87EXmjPNDpiKNVs+iud0M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bIL5IFoefAtmScfHuUzfhnyE5j64V5DGYHHX2HV93O0/9uxiVMS8oqQurPlyBdrCmRvNF/UYAUJ/KXcjRwPUNyEiMoLTB464ek6OhjVeiVTUC+ZuNhzb7NhlNFORz6no/uUN+ZY/Qo2Q45Dh2BSBXZq0Vag8uBpXsxOFu4KK5pc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l+sA/duF; arc=none smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jevK2SmG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788384263; x=1819920263;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=v/HpaKadoYW3H3dqFWTG0yyc6tDzyTXTA/JVahq5GtY=;
-  b=jevK2SmGKzmwC6T94Fc944XCL0t5LtWgLYcwh0XgSL9mweC03I+Y/5Xl
-   Wi+EoF4aF7DNtjAYWhEiO0QZ/a65ETsYo9ceWgJRhydRC0NHHch5MgloW
-   bGX10HwXh0fzWXRapzAfi3720Novu5vMG0Acdqmhn4gcDh2hDfkUVh11k
-   D466aDUGhBRCt+nR6dwOnmZ/Ng1k1SaJYN98czTCpbC2E2NuDGneXk1Dt
-   x4M3UPPw8z/3Zb+oC2002RIsv139er7FeJg5VVz7M6cXUEXKYtkUOaYDB
-   6ihei2b1fZB99U7Qc/EAWyh9wVZTxy+JO8XHAP7YSMQNUy/nIdp0MJxpl
-   g==;
-X-CSE-ConnectionGUID: tVyCSjXyT0CdmiiZiKkb/g==
-X-CSE-MsgGUID: m8+pLrsMRq6UcfgUaER4HQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="100372379"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="100372379"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 14:24:18 -0700
-X-CSE-ConnectionGUID: sI421YcMQImxK8T+gQpzyQ==
-X-CSE-MsgGUID: q5GxC6zgTxKPT6gbx4G9HQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="266925085"
-Received: from cjhill-mobl.amr.corp.intel.com (HELO [10.125.110.134]) ([10.125.110.134])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 14:24:17 -0700
-Message-ID: <97887aeb-4454-4cb9-91ad-d0477d3ea5dd@intel.com>
-Date: Wed, 2 Sep 2026 14:24:16 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l+sA/duF"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-84f38f3b36eso1364670b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 14:25:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788384303; x=1788989103; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+/0STUVLZsyjAhQiRBiOnwe+jugMD4ztFWpPC89Ywfo=;
+        b=l+sA/duF0T2zjwzPyElfx3MCquLfsCm0EzAlixgBgUDMzim60RT+4LCxp1Rfcjih2l
+         A99b6dwyDMljOctKwGv9mZVApFXD6E1IxHMvALyFnbUU9NGJEx9cJ1ZkREkL04htSFxM
+         9yvL8enAD7uKi2zvGKE0Psvd7LcgIxcA3KWNkcRwkQkDzuIzi1mJNNFR0yGui/DMVvuL
+         tDznS40ksF41Q6/9mdlJ7jZzCCWNC+MZIFCY2TV/FtCSxfhYx6bh396YbdEB4YVhpo1D
+         1oAJq90YUsfE99AhQX2IjGkl62sl4fH6zlLIQNOJIklHf3zNuTN4rlx5wzxuy+9scqrI
+         5Rqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788384303; x=1788989103;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+/0STUVLZsyjAhQiRBiOnwe+jugMD4ztFWpPC89Ywfo=;
+        b=qtCngnh7pmNntnuINMLoALyeytF0Psb8d1B4GK++huaoxDdvduV0LSqiPeguQrKHmU
+         YxAej+UA6tfPCmkcib+avLvtwUFzqY0X8a1zQHzwYO7/8BjaBRpRdiUOPRJFjvUfLUDK
+         csw3CDDuO1ZsxdBwCUNqrOuxoCfQENfBMbLIC5GWZ9eeiu7lw92gY6RJYP+SQ2QTuCW7
+         wZfSCtTWeqpqpI+yHfYnjik8/mq2SCuDOgExD/AnIxr8tzJuH+YtlTPTFSula9h3Kr9z
+         0nIlRdk1V0fRQecoTMBa6MqniQ8YPVMObVX+HDaiOCSkNVqX06Fqx2ML/iKjSp6JPYh2
+         UhWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzGKV5ZqIZkjm3FmDD+iJjCvnBNWBMOOEkqe53+ZyTerlYmX0hMtsQ3c67xYzKaUuy10ucyLiJkQqgtfw8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nHsU7uJLvIicMzs+Q4pl1C6gCcHHJNAB0C1IhsuOGvU+BWUzhZ
+	hGwreRg9er91BlQBQTpZF9MOHsAPSUn+aVk97zNEYc6vhFXZZUb62D97
+X-Gm-Gg: AYBFou3gfElO7BfukKQ+LhPH4yXNAGG51efGygydXnS4tuUEOPYw5H88G/qeIXBee+0
+	AyByPgka7ba3sIR4Pe5kp5LQpS27AhirKn1SgsFD/lKNB8A8zTeKZjDWEyBSoQM0+dRyhCbY+s2
+	5p+BBrQLUYCQ5eOJIkxI7mMgFyAX7Hoci+XKi1rDt+2ae1K7dnH2yKzTYoKH4tt1FgHkdyZur+v
+	nb6YnKsO+0oqQBzGFl+IzmpyMPLGpi5hMQKviTrrFFSw9s/8kh8bWxOKSYqo6L15ErzU3NEcrf8
+	+0BgcYZl7XiAxWy2KJ22FxUR7otGg0P2LSM15zbAUbmm7S3GgfOxAMfoaobm87VIwPX3PgmrN8j
+	c5BBu1Hz4l+PGWMMUzcFJNLLRnwvoEXeHktsTJIGlxkyLLDZfF19Q07bse2fMDCb0rxDpoWDhKn
+	lrRiq3Cd5/WX41I1GZ+4v+icS4kNlS169FYJqQfmkIWVxZJDJW3JeJVM9IQdz1O2RteEvquOJhG
+	2UULEiiI8b04+7WaqDs9xlsyoW7qIZy4xUwWjjg0mBLUkrE3JmCF9jEzo8H84bsMkg81mmRXfNh
+	dAGZGDvSxAw/xOFcDXMXqzJCksSboTIEwOUZpw==
+X-Received: by 2002:a05:6a00:ad0b:b0:857:4dea:e1dd with SMTP id d2e1a72fcca58-85ed3c7d7b6mr11974426b3a.14.1788384302556;
+        Wed, 02 Sep 2026 14:25:02 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc43d40c55fsm90890a12.19.2026.09.02.14.25.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 14:25:01 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-i2c@vger.kernel.org
+Cc: Andi Shyti <andi.shyti@kernel.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCHv2 2/3] i2c: ibm_iic: get the irq early in probe
+Date: Wed,  2 Sep 2026 14:24:55 -0700
+Message-ID: <20260902212456.289608-3-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260902212456.289608-1-rosenp@gmail.com>
+References: <20260902212456.289608-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] x86/crash: reserve elfcorehdr for CONFIG_NR_CPUS,
- not CONFIG_NR_CPUS_DEFAULT
-To: "Ionut Nechita (Wind River)" <ionut.nechita@windriver.com>,
- x86@kernel.org, kexec@lists.infradead.org
-Cc: tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, hpa@zytor.com, akpm@linux-foundation.org,
- baoquan.he@linux.dev, rppt@kernel.org, pasha.tatashin@soleen.com,
- pratyush@kernel.org, ruirui.yang@linux.dev, eric.devolder@oracle.com,
- hbathini@linux.ibm.com, sourabhjain@linux.ibm.com, ruanjinjie@huawei.com,
- brads@mainlining.org, linux-kernel@vger.kernel.org
-References: <20260901071041.16311-1-ionut.nechita@windriver.com>
- <20260901071041.16311-2-ionut.nechita@windriver.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20260901071041.16311-2-ionut.nechita@windriver.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/1/26 00:10, Ionut Nechita (Wind River) wrote:
-> Assisted-by: LLM
+Use platform_get_irq() which can return -EPROBE_DEFER, unlike
+irq_of_map_and_parse().
 
-This seems a _bit_ opaque and imprecise. Could you take a quick look
-through:
+Check for iic_force_poll before doing so to avoid pointless work.
 
-https://docs.kernel.org/process/generated-content.html
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/i2c/busses/i2c-ibm_iic.c | 43 ++++++++++++++++++--------------
+ 1 file changed, 24 insertions(+), 19 deletions(-)
 
-and try to err a bit more on the side of transparency for the next one?
+diff --git a/drivers/i2c/busses/i2c-ibm_iic.c b/drivers/i2c/busses/i2c-ibm_iic.c
+index 20421ebe73ab..8af666442952 100644
+--- a/drivers/i2c/busses/i2c-ibm_iic.c
++++ b/drivers/i2c/busses/i2c-ibm_iic.c
+@@ -648,31 +648,22 @@ static inline u8 iic_clckdiv(unsigned int opb)
+ }
+ 
+ static int iic_request_irq(struct platform_device *ofdev,
+-				     struct ibm_iic_private *dev)
++			   struct ibm_iic_private *dev)
+ {
+-	struct device_node *np = ofdev->dev.of_node;
+-	int irq;
+-
+-	if (iic_force_poll)
+-		return 0;
+-
+-	irq = irq_of_parse_and_map(np, 0);
+-	if (!irq) {
+-		dev_err(&ofdev->dev, "irq_of_parse_and_map failed\n");
+-		return 0;
+-	}
++	int ret;
+ 
+ 	/* Disable interrupts until we finish initialization, assumes
+ 	 *  level-sensitive IRQ setup...
+ 	 */
+ 	iic_interrupt_mode(dev, 0);
+-	if (request_irq(irq, iic_handler, 0, "IBM IIC", dev)) {
+-		dev_err(&ofdev->dev, "request_irq %d failed\n", irq);
++	ret = request_irq(dev->irq, iic_handler, 0, "IBM IIC", dev)
++	if (ret) {
++		dev_err(&ofdev->dev, "request_irq %d failed\n", dev->irq);
+ 		/* Fallback to the polling mode */
+-		return 0;
++		return ret;
+ 	}
+ 
+-	return irq;
++	return ret;
+ }
+ 
+ /*
+@@ -685,12 +676,23 @@ static int iic_probe(struct platform_device *ofdev)
+ 	struct i2c_adapter *adap;
+ 	void __iomem *vaddr;
+ 	const u32 *freq;
++	int irq;
+ 	int ret;
+ 
+ 	vaddr = devm_platform_ioremap_resource(ofdev, 0);
+ 	if (IS_ERR(vaddr))
+ 		return PTR_ERR(vaddr);
+ 
++	if (iic_force_poll) {
++		irq = 0;
++	} else {
++		irq = platform_get_irq(ofdev, 0);
++		if (irq == -EPROBE_DEFER)
++			return irq;
++		if (irq < 0)
++			dev_warn(&ofdev->dev, "using polling mode\n");
++	}
++
+ 	dev = kzalloc_obj(*dev);
+ 	if (!dev)
+ 		return -ENOMEM;
+@@ -701,9 +703,12 @@ static int iic_probe(struct platform_device *ofdev)
+ 
+ 	init_waitqueue_head(&dev->wq);
+ 
+-	dev->irq = iic_request_irq(ofdev, dev);
+-	if (!dev->irq)
+-		dev_warn(&ofdev->dev, "using polling mode\n");
++	dev->irq = irq;
++	if (dev->irq > 0) {
++		ret = iic_request_irq(ofdev, dev, irq);
++		if (ret)
++			dev->irq = 0;
++	}
+ 
+ 	/* Board specific settings */
+ 	if (iic_force_fast || of_get_property(np, "fast-mode", NULL))
+-- 
+2.55.0
+
