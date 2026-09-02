@@ -1,88 +1,111 @@
-Received: from mta1.migadu.com (out-238.mta1.migadu.com [95.215.58.238])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61BDD4A8FF1
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:31:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.238
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E6884A8A2E;
+	Wed,  2 Sep 2026 15:31:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788363109; cv=none; b=Z2AyMr97dxqhY++BGFSY0JApFT7VQRPZiQilpzjhEay58ktFy3sVZH8o0iNf6TuuGG98PIxt1fAtZp47/afz11uqaUTMoW57Nizk9K6sGybPY+c/GyFVXQ3qAGqmun3QOU/XBzkh1nWr1PzwAx3sgDhi9EjdR40ITYrjN3Pid6k=
+	t=1788363113; cv=none; b=DkvBaH4cVulIZoq3yd/H60Hvkc6s164mBQHaordQ3SAc3qAiVRdeFlsI4S9dLrdpHgPDq4+SkGZYGjrTDK7QxfAwOtiCgdncsMGpwBf6qjf/mYQvL5etLo5l+QApMWKU0mwhLaRBtHfztH98Md4P5ajN0II16hoq+90HZpFNk8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788363109; c=relaxed/simple;
-	bh=CjPSCnsUpLK56lUaqG6IE2GGQkTEEaEXfOtMPY3v6+I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IYsywNB7okkAMPbLB8Kom2uP7PiqaR9PZVHuDzHhBTlJ/6mxSNSG+WjG8xO8e2HmchlxPNdmHoQqK8iSw64dTyZeSe6JMhisfE3AR8a5Xa/lXSdZ0Iy4vJhmnY2VHqaFy0ejf6sMZSi2K2B0Hbn+kW/iefeShKkDWtdaB8zEwQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=QIE00KxH; arc=none smtp.client-ip=95.215.58.238
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788363113; c=relaxed/simple;
+	bh=Rq9sKEDoRg3H6dC7gETSpO8+0hysTO5oe4Trrc1hhN0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dLG0SZdR05vjEfPDW9po9riSXJAn9bEZCjU+CrvPhv3GE2MxshtBf4DXHSSfftl6ehn07JOQfBPRtr70tG+nZTTOEDDuFRDFx8scQXlekHpxaStdtySbU8YgMFJfcfWAvXQ0+cld5aMwNNCcqnN3uAd4fjDOMc0rmsuIw+VdbPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=I2yAKBD9; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=TmbIq2+Q; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="QIE00KxH"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=CjPSCnsUpLK56lUaqG6IE2GGQkTEEaEXfOtMPY3v6+I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788363104; v=1; x=1788967904;
- b=QIE00KxH2c4QY/lpkQ2IC58iiEiFDIsuzEvGHQCebqbaxb2RhdTf23Zm3tEKDZXaMhaylS7z
- BClYadv7IyqxvNZcBPG98j2CMmzWp2F7BTH4tsi53eAn5QveYATUk2U98om83j1KH/o8uiD18do
- Yg3ytF9nG1VGgACbJxbUPlh4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 2ea74c8b1f02b032;
-	Wed, 02 Sep 2026 15:31:44 +0000
-X-Mizu-Trace-ID: 2ea74c8b1f02b032
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b4a0b17358so2715e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 08:31:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwr1fTPmSnxLrvL+RTGqYdWHBEVppZGmOOJy0KkTU4zoy2Fx6oS5MOO1CEbIVHsEbVuzKaNL4YSzwC34vo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lkqLgNY1uV9EwWw9Q1BomcxUPFOEwbIStDalxQEWhP0EGaEJSK
-	2GcD6mOXKHUUFDtaSQRtmVROQrBuFouzrQcRj8btKtRe533CXlxEiengdYYBgJRQ9DP11tBKEsT
-	pEN9jMBJRyLMVWfQuKmkuHqZ9Df5Xzwyk71fTuT+1
-X-Received: by 2002:a05:6512:3e15:b0:5b6:4ae:3fef with SMTP id
- 2adb3069b0e04-5b60d6a45ddmr57115e87.14.1788363098958; Wed, 02 Sep 2026
- 08:31:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="I2yAKBD9";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="TmbIq2+Q"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hZmtD6bNszKmV7;
+	Wed, 02 Sep 2026 17:31:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788363108;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=bvsM39KczBLIjGuxVSHxraQicZUkMaj+LEuLvdGR7hc=;
+	b=I2yAKBD9VYJwkFWzfeknxXtS1GO/qL8CF+nZM4v+lV99LKFBb0Ha+2azSKvjVHWxVNbaIZ
+	MtnGi4xSS4YJAIYSiuygcEl3NmAHtK5KZ1PEHm6aAbIq78tftHpjyVM3MctOguAbAFnwny
+	Y43dtrv7sJnaJd1eBxpJQ6L3u4xMLCv/vWMoDLy0pGNXoKQW1n4MBHJnW6e/O8QL0Pf2Z5
+	uaQCkmwlVE1GONrR6gawo8s3XMG+wZ8MtTRUYJvNsOAZX8t0X47WJTUCUS/0YhiN5C6Auk
+	M5tMv0lKtfnkjI8IG6IYKe/giYD1RvXE5+sU0beB9GpmbDHHrob2z7lnPmNp3Q==
+From: Manuel Ebner <manuelebnerli@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788363107;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=bvsM39KczBLIjGuxVSHxraQicZUkMaj+LEuLvdGR7hc=;
+	b=TmbIq2+QD4dCaHvC3hOo8CFUVpM05uRyrPZj/TN9GVRPn6p2h6qbtwmEe+AkaC1CYjunxz
+	NZbVn4O8N6mkqgHCJn/n9WfJ0c0Q0ECGiRrihbb/gbO9rEfmEMeQzfi5NE3el+IMnj8UNi
+	zeOMvcNf+nR7SQ+T7WihRXjjnSEes0gOXefqT+cSckaxNk2TJNDOir3WPc4x6Q7ozzAlSG
+	bB5rSGlV6gvHTAVIXB5cFPi4z/q9HwjEiU5jeLiOOzB07rT4aT94CFPpP3kD8wsp6XGtOf
+	BrR3HOmxm7zqCYxmRn0cDi81Wf7PFykq3NqdaLXFwB2oUEMHRsbD3CGk0N29ig==
+To: Fan Wu <wufan@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Deven Bowers <deven.desai@linux.microsoft.com>,
+	Paul Moore <paul@paul-moore.com>
+Cc: Manuel Ebner <manuelebner@mailbox.org>,
+	Fan Wu <wufan@linux.microsoft.com>,
+	linux-security-module@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3] ipe: fix invalid sgid value in audit event documentation
+Date: Wed,  2 Sep 2026 17:29:10 +0200
+Message-ID: <20260902152910.708743-3-manuelebnerli@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <2368f72ea9a447057456eb37450e1c25f4bdddff.camel@xry111.site> <452D9DEB-606C-4B54-B8B6-27E03573A9DE@mainlining.org>
-In-Reply-To: <452D9DEB-606C-4B54-B8B6-27E03573A9DE@mainlining.org>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Wed, 2 Sep 2026 16:31:02 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTxrJB_3ks_rqGAFyihyFwKJEEJYk2ZTMLLXgoMWM+GO_w@mail.gmail.com>
-X-Gm-Features: AcwNN1Uh6KYsOOsxtA_g_cWeHELqZIqPYdvMlWKW3UeD8dEbrY5PhG97CKJlpGI
-Message-ID: <CA+EHjTxrJB_3ks_rqGAFyihyFwKJEEJYk2ZTMLLXgoMWM+GO_w@mail.gmail.com>
-Subject: Re: arm64: MPAM2_EL2 and MPAMHCR_EL2 are left UNKNOWN under arm64.nompam
-To: Bradley Morgan <brads@mainlining.org>
-Cc: xry111@xry111.site, ben.horgan@arm.com, catalin.marinas@arm.com, 
-	james.morse@arm.com, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, maz@kernel.org, will@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: 657zaatswpaz3q38ky71cysykop6d7zu
+X-MBO-RS-ID: e79fe7bcf32eeddbfba
 
-On Wed, 2 Sept 2026 at 16:29, Bradley Morgan <brads@mainlining.org> wrote:
->
-> On 2 September 2026 16:26:55 BST, Xi Ruoyao <xry111@xry111.site> wrote:
-> >On Thu, 2026-08-27 at 09:41 +0100, Ben Horgan wrote:
-> >> > not, could the caveat go the other way round: arm64.nompam is for
-> >> > systems where firmware ignores MPAM, and should only be set on a
-> >> > machine that does not boot without it?
-> >>
-> >> Yes, seems fine.
-> >
-> >Sorry for the late reply.  This is indeed the original purpose for
-> >arm64.nompam, a dirty hack when we have no other ways to make the system
-> >boot.  If you think it causes an inconsistent state I'd not complain
-> >against adding a loud warning or something.
->
-> Sorry to impede in the discussion, would you like me to submit a patch for
-> that?
+From: Manuel Ebner <manuelebner@mailbox.org>
 
-No, thanks. It's written already in the form Ben suggested. Will send it soon.
+The audit event example in the IPE documentation contains 'sgid=)',
+which is not a valid Set Group ID value. Fix it to use 'sgid=0'.
 
-/fuad
+Fixes: ac6731870ed9 ("documentation: add IPE documentation")
+Signed-off-by: Manuel Ebner <manuelebner@mailbox.org>
+---
+[v3]
+ Really fix commit message.
+ 
+[v2]
+ Add Fixes tag.
+ Fix commit message
 
->
-> >
-> >
->
-> --- Thanks!
-> https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+Thanks for the help Fan Wu.
+---
+ Documentation/admin-guide/LSM/ipe.rst | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/admin-guide/LSM/ipe.rst b/Documentation/admin-guide/LSM/ipe.rst
+index a756d8158531..bebf14fc2411 100644
+--- a/Documentation/admin-guide/LSM/ipe.rst
++++ b/Documentation/admin-guide/LSM/ipe.rst
+@@ -502,11 +502,11 @@ The following table lists the error codes that may appear in the errno field whi
+ Event Examples::
+ 
+    type=1404 audit(1653425689.008:55): enforcing=0 old_enforcing=1 auid=4294967295 ses=4294967295 enabled=1 old-enabled=1 lsm=ipe res=1
+-   type=1300 audit(1653425689.008:55): arch=c000003e syscall=1 success=yes exit=2 a0=1 a1=55c1065e5c60 a2=2 a3=0 items=0 ppid=405 pid=441 auid=0 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=)
++   type=1300 audit(1653425689.008:55): arch=c000003e syscall=1 success=yes exit=2 a0=1 a1=55c1065e5c60 a2=2 a3=0 items=0 ppid=405 pid=441 auid=0 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0
+    type=1327 audit(1653425689.008:55): proctitle="-bash"
+ 
+    type=1404 audit(1653425689.008:55): enforcing=1 old_enforcing=0 auid=4294967295 ses=4294967295 enabled=1 old-enabled=1 lsm=ipe res=1
+-   type=1300 audit(1653425689.008:55): arch=c000003e syscall=1 success=yes exit=2 a0=1 a1=55c1065e5c60 a2=2 a3=0 items=0 ppid=405 pid=441 auid=0 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=)
++   type=1300 audit(1653425689.008:55): arch=c000003e syscall=1 success=yes exit=2 a0=1 a1=55c1065e5c60 a2=2 a3=0 items=0 ppid=405 pid=441 auid=0 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0
+    type=1327 audit(1653425689.008:55): proctitle="-bash"
+ 
+ This record will always be emitted in conjunction with a ``AUDITSYSCALL`` record for the ``write`` syscall.
+-- 
+2.54.0
+
