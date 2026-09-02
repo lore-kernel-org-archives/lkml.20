@@ -1,362 +1,160 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B218E481FCF
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:51:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A71C480961;
+	Wed,  2 Sep 2026 11:52:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788349923; cv=none; b=jcEhtRMfYkdVciYVlsunmq6b6Nb336pTkYEgIX9rGCKM10iMuuSw2ZeBxgLVJ+EKHb3kmBLFeycQBTPhlxTXSkNQuvsHUe0uP1WoxqvoSaW2ya2SQD5gSKyK84QEdCqBBws471+9PV+3pKNYqg+h5hjbgdj3OqwFGfpOwQnMADE=
+	t=1788349971; cv=none; b=BtRDDa+pyokcdnqSVvhYKZ9ezjc2o2jp9cvlkLL7d0VdH9bj9m3U+Oo/BP++nZy8WMTJHFdbuVPkU93O4DelN+IZyBGjxmwQtMnqs+Xh9mOx5dRPTruyF3mP8XBmyE8efEq3Cz3IKMxzOKgBk1vuP/pQrvtwTgKmNP5zoBVC1c0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788349923; c=relaxed/simple;
-	bh=OjkabxlGKBl4aBEOm+nXp42/GtJAc32K6YElqplzSCg=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=fvxK8YA71dmYZdiwALzaA9weC02+x03j9WqDfTQYu4shMUS1Gteu/z4oLunj1FrQnZvRaAWc83n1IkPPbjNbsR0A6EVzGKboTxbYRxG1x5WCLPwb2kdPWfGMcarz7WvMTAtO1DI5caeXnQajNxxip5v5DCMzZ5UAe5Xs1POxEPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=utU69Eaw; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788349971; c=relaxed/simple;
+	bh=YX1NPWs6FV974EVrTDtOXUy907YnzU3q+7+Jbye+wSM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aOhwyqhTh8HsFZZybbszOtSFDhmt2lm5jWeUEZL0KqO0f5SrE7zFXbOv2SeaKYO8k5qp/dmMqSWeJY3ypdOYHAynPi04CQtsIsHfkh8JSSsXlqQ+uvpxQ8UaGHPpkS7idt2XIgq0zJ+05u2u1Zvza9y0lIPaYXhJPHcOoSvTMD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=B1wLlVfQ; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="utU69Eaw"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0E86A1596;
-	Wed,  2 Sep 2026 04:51:41 -0700 (PDT)
-Received: from [10.2.198.93] (e142334-100.cambridge.arm.com [10.2.198.93])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AF1183F85F;
-	Wed,  2 Sep 2026 04:51:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788349904; bh=OjkabxlGKBl4aBEOm+nXp42/GtJAc32K6YElqplzSCg=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To:From;
-	b=utU69EawSHaIa7SifqAKJTpR/T+bsUhLWBR5ZKDTTro4gizFsDJp84nnp/c6rT1g/
-	 KXukxy0jCqxIlB9g/21gg997lnhA5oFhGl4LMkVGHiLaXosfvT49e6vfe9+RX91dW2
-	 GBKKtOLaBMm9VvvsIRdmomZxT8uVg7leae7lIwQQ=
-Message-ID: <afe6eac4-c8db-4ec7-98be-1c7cb0d3c1de@arm.com>
-Date: Wed, 2 Sep 2026 12:51:41 +0100
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="B1wLlVfQ"
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6829VkxI3863477;
+	Wed, 2 Sep 2026 11:52:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=cNX/j8DNW9uKSYLIL46phjDK2EmDiwlhDu/CiIBV1
+	M0=; b=B1wLlVfQilzojbt/oF2MopOqu7M8F/sHICIOLHzRhl+RERkdEZ5aC0lnP
+	2A/1EYF+s2NLpqhFwBf3PPVPu1JNxrbKIPokKd7UushgmjPNghl1O767v09MM3Nd
+	gtMW52RdLKaeRl6yJtKRAcTJyXvbVl0PMdXLSsFpxvIXFRTCrrOcfaofOilNuvzK
+	Ed29d6tZK0OlZBinl/BBHTqL1moVy1v+v9LIh5WjpcGVoCVLpUwgryTvmPCCD4Kt
+	6I2Z19nH1GXFTo1WDMnziE2/z6sqwPze3tctN0aF30d5Ca4WWt31Br/Q8pfXyIPD
+	i8ukwJ8yCBH282ifJF7OafbYkkZ5w==
+Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq2tdqb2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 11:52:31 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 682BfLZ0008556;
+	Wed, 2 Sep 2026 11:52:30 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gccey97wr-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 11:52:30 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 682BqQmT16318880
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 2 Sep 2026 11:52:26 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id B3B182004B;
+	Wed,  2 Sep 2026 11:52:26 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7BBCD20043;
+	Wed,  2 Sep 2026 11:52:26 +0000 (GMT)
+Received: from tuxmaker.lnxne.boe (unknown [9.87.85.9])
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  2 Sep 2026 11:52:26 +0000 (GMT)
+From: Thomas Richter <tmricht@linux.ibm.com>
+To: linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
+        linux-perf-users@vger.kernel.org, acme@kernel.org, namhyung@kernel.org,
+        atomlin@atomlin.com, irogers@google.com
+Cc: agordeev@linux.ibm.com, iii@linux.ibm.com, sumanthk@linux.ibm.com,
+        hca@linux.ibm.com, japo@linux.ibm.com,
+        Thomas Richter <tmricht@linux.ibm.com>
+Subject: [PATCH] perf test: perf stat tests fails on s390
+Date: Wed,  2 Sep 2026 13:52:18 +0200
+Message-ID: <20260902115218.2977412-1-tmricht@linux.ibm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: usama.anjum@arm.com, linux-mm@kvack.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC v2 PATCH 0/16] Optimize this_cpu_*() ops for non-x86 (ARM64
- for this series)
-To: Yang Shi <yang@os.amperecomputing.com>, cl@gentwo.org, dennis@kernel.org,
- tj@kernel.org, urezki@gmail.com, catalin.marinas@arm.com, will@kernel.org,
- ryan.roberts@arm.com, david@kernel.org, akpm@linux-foundation.org,
- hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com
-References: <20260715180455.515692-1-yang@os.amperecomputing.com>
-From: Usama Anjum <usama.anjum@arm.com>
-Content-Language: en-US
-In-Reply-To: <20260715180455.515692-1-yang@os.amperecomputing.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=bc1bluPB c=1 sm=1 tr=0 ts=6a980dff cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=RzCfie-kr_QcCd8fBx8p:22 a=j-LfP5YGAAAA:8 a=1XWaLZrsAAAA:8 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=gXY4od2GetYiyHjr92cA:9 a=pci6KG57UX3UzFLC8IW4:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDEwMiBTYWx0ZWRfX68jKN83nq8j3
+ wFU07EYDyoeCOmGsaKlCkmlvNhTF/0el0kmRCoOD1xSQrOR6Ko5z1koW0itLD3hjkW0ui4Yzi7c
+ qZ3RIPkw3w9z9/2/bSNvDtridPpxrtc=
+X-Proofpoint-ORIG-GUID: djzGPUIwo3JNYCVu7J89RXhFe58NqgmE
+X-Proofpoint-GUID: mYeFIZvTCciJYZpm3kFYvJaPDobuxxtm
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDEwMiBTYWx0ZWRfX2WDT/qydb3Za
+ 00qvs8UtLvANhyeeXcjTRfyeYna7vNKh2J+L6WvhmBae6aX6tJQfy8TRLkkkW5rcsPy7dP/DQhs
+ t4B4mrkiEpCaweZ88QeiezW+4umXxnDbjC9fQyxp807UKbLmDSetXiM+zJ7/0/Zh4oJndEwMUNf
+ eMID/GzqSYhC6IKXUZYsfe8UkOvhTelgJ24gZgTwtSMOuall2NT7zYzBuMKH6XFSn0hjUZTKW3N
+ r09v6JvTneQlM6yF85Q/5U2ZCrSogc0zMmlRmUjgu0AH047kua8Q25I5jO5YkPzF0V5HzpuX510
+ fa+zilpXhf50s4nyXV6dUreXpH/7d07EPbG0P9jBUtr5yj6Weh2FMxSStnG/FsNY57WjVfTCk6s
+ EPWiNoMcWPM0iaAKhiW320ZWYepTp1pK+fOsr6uJqJ+rU7rjqdW94Cxiv36QZRvdA1TVVSKkWc1
+ qKP78ZoXl5vC9z+Gryw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_02,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0 adultscore=0 malwarescore=0 spamscore=0
+ lowpriorityscore=0 phishscore=0 clxscore=1011 priorityscore=1501
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609020102
 
-On 15/07/2026 7:04 pm, Yang Shi wrote:
-> 
-> Hi,
-> 
-> This is v2 RFC. In v2 a lot problems found out by Sashiko were fixed and more
-> feature gaps were closed (please see the below changelog for the details).
-> Although there are still some open issues, for example, it just can support
-> 48 bits VA (for 4K and 64K) and 47 bits VA (for 16K), KPTI support has not
-> been solved yet, etc, but I think the delta should be big enough and worth
-> a new RFC to gather comments in order to make sure I'm on the right track.
-> 
-> Some more benchmarks were done, for example, some latency related benchmarks
-> that I mentioned at LSFMM because I thought responsiveness should be improved
-> due to the removal of preempt_disable. Collected more PMU counters as well.
-> Please refer to the benchmark section for more details. 
-> 
-> Look forward to comments.
-> 
-> 
-> Changelog
-> v2: * Added 3-level and 2-level page table support.
->     * Tested with 16K and 64K page size. But we just support 48 bits VA (4K
->       and 64K) and 47 bits VA with 16K for now.  Please refer to the below
->       "known issue" section for the detail reason.
->     * Added support for memory hotplug.
->     * Added support for KASAN (generic).
->     * Treated percpu and local percpu area address as vmalloc address.
->     * Fixed build failure for x86.
->     * Fixed build failure for !CONFIG_NUMA.
->     * Added KASAN support for local percpu area.
->     * Some other misc bug fixes found out by Sashiko.
->     * More code refactor and cleanup.
->     * Regorganized the patches.
->     * More benchmarks, refer to benchmark section for more details.
->     * Rebased to v7.2-rc1.
-> 
-> 
-> Introduction
-> ============
-> This patch series implemented the LSFMM 2026 proposal for optimizing
-> this_cpu_*() ops on ARM64. For the details of the proposal, Please refer to:
-> https://lore.kernel.org/linux-mm/CAHbLzkpcN-T8MH6=W3jCxcFj1gVZp8fRqe231yzZT-rV_E_org@mail.gmail.com/
-> I didn't repeat it in the cover letter because there is no change to the
-> proposal.
-> 
-> The series is based on 7.1-rc1. It is basically minimum viable patches.
-> There are still a few hacks in this series and it may break something,
-> for example, KPTI, SMT machines which shared TLB, etc. But it shoule be
-> good enough for now to demonstrate the core idea. The main purpose of the
-> RFC is to gather feedback, figure out missing parts and risks, and make sure
-> we are on the right track, as well as hopefully it can help the discussion
-> for the upcoming LSFMM.
-> 
-> I broke the patches down to arch-dependent and arch-independent parts so that
-> hopefully the interested persons can do experiments on other architectures,
-> for example, S390, easier.
-> 
-> A new kernel config is introduced, HAVE_LOCAL_PER_CPU_MAP. The architectures
-> which can support this feature will select it. Allocating and freeing percpu
-> local mapping is protected by this config so that others won't pay the cost.
-> 
->  
-> Known Issues
-> ============
-> 1. KPTI
-> -------
-> We need determine what CPU we are on, then switch to the right page table.
-> Currently arm64 kernel fetches tramp_pg_dir via swapper_pg_dir - fixed_offset,
-> and fetches swapper_pg_dir from ttbr1. But ttbr1 may not hold swapper_pg_dir
-> anymore except CPU #0. So we need to figure out the other way to handle it.
-> Switching to tramp_pg_dir should be easy, but the reverse seems harder because
-> tramp_pg_dir just maps the trampoline vectors.
-> Maybe we can do two steps switch. Switch to swapper_pg_dir at the first step,
-> then switch to per cpu page table (for entry) or tramp page table (for exit).
-> Nobody should call this_cpu_*() at either userspace -> kernel entry stage or
-> kernel -> userspace exit stage.
-> 
-> 2. SW PAN
-> ---------
-> Has the similar issue as KPTI. It installs reserved_pg_dir to TTBR0 when running
-> in kernel space, but fetching reserved_pg_dir via swapper_pg_dir - fixed_offset.
-> Maybe we can save the physical address of swapper_pg_dir in a variable, then load
-> it from that variable instead of ttbr1.
-> 
-> 3. Shared TLB machines
-> ----------------------
-> Some machines may share TLB between CPUs, for example, SMT machines may share
-> TLB between the two hardware threads in one core.
-> The per cpu page table just can't work with it. Maybe we need a new
-> cpufeature to indicate whether per cpu page table is allowed or not. Then
-> just enable it for not-shared-TLB machines.
-> 
-> 4. Don't support all VA bits
-> ----------------------------
-> We just support 48 bits VA (4K and 64K) and 47 bits VA (16K) for now. For 4K
-> and 64K, supporting other VA bits is not hard, we just need to determine the
-> size for percpu and local percpu area.
-> But it is harder for supporting 48 bits VA + 16K page size. We just have two
-> top level kernel page table entries with this configuration, but we assume we
-> just need to sync up kernel page table at the top level for now. We need to
-> sync up kernel page table at the second level in order to support it. I'm not
-> sure whether it is worth it or not.
-> 
-> 
-> Benchmark
-> =========
-> The benchmarks are done on 160 core AmpereOne machine. The baseline is
-> v7.2-rc1 kernel.
-> 
-> 1. Reduction of kernel text size
-> --------------------------------
-> The patchset can reduce at least 11 instructions for this_cpu_*() ops. Both
-> preempt_disable() and preempt_enable() need 4 instructions to manipulate
-> the preempt count, and preempt_enable() needs more instructions (compare +
-> READ + compare) to determine whether reschedule is needed or not.
-> Because this_cpu_*() ops are inlined and called in a lot of places so we
-> can save a lot of instructions.
-> 
-> The size of kernel text is reduced by ~184KB with default Fedora kernel
-> config. This also helps reduce kernel icache miss rate and stalled frontend
-> cycles as kernel build benchmark result showed.
-> 
-> 2. Kernel Build
-> ---------------
-> Run kernel build (make -j160) with the default Fedora kernel config in a
-> memcg.
-> 13% - 18% sys time improvment
-> 3% - 7% wall time improvement
-> 
-> 5% fewer kernel icache miss, 5% fewer executed kernel instructions and
-> 15% fewer stalled frontend cycles for kernel.
-> 
-> 3. stress-ng vm ops
-> -------------------
-> stress-ng --vm 160 --vm-bytes 128M --vm-ops 100000000
-> 8.5% improvement
-> 
-> 4. stress-ng vm ops + fork
-> --------------------------
-> stress-ng --mmapfork 160 --mmapfork-bytes 128M --mmapfork-ops 500
-> 15% improvement
-> 
-> 5. Specjbb
-> ----------
-> The specjbb test latency curves showed the patched kernel has consistently
-> lower p99 latency (the lower the better) than the baseline.
-> 
-> 2.5% improvement on max-jOPS and 4% - 5% improvement on critical-jOPS.
-> The specjbb benchmark is quite sensitive to latency and responsiveness, 
-> particularly critical-jOPS result. The patches are supposed to improve the
-> responsiveness due to the reduction of preempt-disabled critical sections.
-> 
-> 6. MySQL
-> --------
-> 1% - 2% gains on read-only test, 2% - 4% gains on write-only test. Also see
-> 15% decrease on frontend cache stall.
+The test case 'perf stat tests' fails on s390 z/VM machines. The
+root cause is the unsupported CPU measurement facility on z/VM.
+Therefore the events cycles and instructions do not exist and
+are unsupported. This cause the subtest
+  Hide zero events stat test
+to fail.
 
+Output before:
+ # perf test 116
+ 116: perf stat tests  : FAILED!
 
-tl;dr
-Comparing GPR approach [1] with this series gives 8 improvements and 3 regressions.
+ === Test Summary ===
+ Passed main tests : 0
+ Passed subtests   : 0
+ Skipped tests     : 0
+ Failed tests      : 1
+ List of failed tests:
+  116: perf stat tests
+ #
 
-Fastpath is a Linux kernel performance benchmarking service. The table
-compares the both patched kernels: positive values are faster, negative
-values are slower, and (I)/(R) indicate statistically significant
-improvements/regressions. Unmarked differences are not significant after
-accounting for confidence and noise thresholds.
+Output after:
+ # ./perf test 116
+ 116: perf stat tests  : Ok
 
-+---------------------------------+--------------------+-----------------+-----------------------+
-| Benchmark                       | percpu-pgtable [2] |   gpr-fixup [3] |         gpr-fixup [3] |
-|                                 |    vs baseline [1] | vs baseline [1] | vs percpu-pgtable [2] |
-+=================================+====================+=================+=======================+
-| lmbench/lat-mem-rd              |             -0.26% |       (I) 1.24% |             (I) 1.50% |
-| micromm/fork                    |          (I) 1.10% |       (I) 2.46% |             (I) 1.35% |
-| micromm/munmap                  |         (I) 18.10% |      (I) 19.78% |             (I) 1.43% |
-| micromm/vmalloc                 |         (I) 11.92% |      (I) 14.68% |             (I) 2.47% |
-| mmtests/hackbench               |              0.27% |       (I) 1.09% |                 0.81% |
-| mmtests/kernbench               |          (I) 1.19% |       (I) 1.18% |                -0.01% |
-| mmtests/sysbench-cpu            |              0.01% |           0.06% |                 0.05% |
-| mmtests/sysbench-mutex          |             -0.85% |          -0.14% |                 0.72% |
-| mmtests/sysbench-thread         |         (R) -4.49% |       (I) 3.02% |             (I) 7.86% |
-| perf/futex                      |              0.55% |      (R) -2.80% |            (R) -3.34% |
-| perf/sched                      |          (I) 1.61% |          -0.39% |            (R) -1.97% |
-| perf/syscall                    |          (I) 1.54% |           0.98% |                -0.55% |
-| pts/memtier-benchmark           |          (I) 2.37% |       (I) 2.51% |                 0.14% |
-| pts/nginx                       |              0.42% |           0.96% |                 0.54% |
-| pts/perl-benchmark              |          (I) 1.83% |       (I) 1.63% |                -0.20% |
-| pts/pgbench                     |             -0.09% |           0.55% |                 0.65% |
-| pts/pybench                     |             -0.05% |          -0.07% |                -0.02% |
-| pts/redis                       |             -0.00% |          -0.04% |                -0.04% |
-| pts/sqlite-speedtest            |              0.15% |           0.44% |                 0.28% |
-| repro-collection/mysql-workload |              0.73% |           0.25% |                -0.48% |
-| schbench/thread-contention      |              0.42% |       (I) 1.04% |                 0.61% |
-| sockperf/echo-lat-tcp           |          (I) 2.88% |       (I) 1.69% |            (R) -1.16% |
-| sockperf/echo-lat-udp           |          (I) 3.93% |       (I) 5.11% |             (I) 1.14% |
-| sockperf/packet-tp-tcp          |             -0.41% |       (I) 1.37% |             (I) 1.79% |
-| sockperf/packet-tp-udp          |          (I) 1.45% |       (I) 1.49% |                 0.04% |
-| specjbb/composite               |          (I) 1.39% |       (I) 1.65% |                 0.26% |
-| speedometer/v2.0                |         (R) -1.04% |      (R) -1.04% |                 0.00% |
-| speedometer/v2.1                |             -0.10% |           0.10% |                 0.20% |
-| syscall/getpid                  |             -0.98% |           0.52% |             (I) 1.51% |
-| syscall/getppid                 |             -0.43% |           0.14% |                 0.57% |
-| syscall/invalid                 |          (I) 3.06% |       (I) 3.56% |                 0.48% |
-+---------------------------------+--------------------+-----------------+-----------------------+
+ === Test Summary ===
+ Passed main tests : 1
+ Passed subtests   : 0
+ Skipped tests     : 0
+ Failed tests      : 0
+ #
 
-[1] v7.2
-[2] v7.2-percpu-pgtable (this series)
-[3] v7.2-percpu-gpr [1] (Based on email review, we fixed SDEI to restore x26
-    instead of corrupting x22, and adjusted this_cpu_write() helpers to
-    avoid GCC overflow warnings.)
+Fixes: 64724095a33f ("perf stat: Add --hide-zero-events option to suppress zero-count events")
+Cc: Aaron Tomlin <atomlin@atomlin.com>
+Cc: Ian Rogers <irogers@google.com>
+Cc: Namhyung Kim <namhyung@kernel.org>
+Signed-off-by: Thomas Richter <tmricht@linux.ibm.com>
+---
+ tools/perf/tests/shell/stat.sh | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-The constraints/workarounds for the per-CPU page-table series were supplied as
-this Kconfig fragment for all the different runs.
-
-CONFIG_EXPERT=y
-CONFIG_ARM64_4K_PAGES=y
-CONFIG_ARM64_VA_BITS_48=y
-CONFIG_ARM64_VA_BITS_39=n
-CONFIG_ARM64_VA_BITS_52=n
-CONFIG_ARM64_PA_BITS_48=y
-CONFIG_ARM64_PA_BITS_52=n
-CONFIG_UNMAP_KERNEL_AT_EL0=n
-CONFIG_ARM64_SW_TTBR0_PAN=n
-CONFIG_KASAN=n
-
-[1] https://lore.kernel.org/all/20260804170503.3513916-19-mark.rutland@arm.com/
-
-> 
-> 
-> Regression test
-> ===============
-> 1. memcg creation
-> -----------------
-> Create 10K memcgs. Each memcg creation needs to allocate multiple percpu
-> variables, for example, percpu refcnt, rstat and objcg percpu refcnt.
-> 
-> Consumed 2112K more virtual memory for percpu “local mapping” and a few
-> more mega bytes consumed by per cpu page tables.
-> No noticeable regression was found for elapsed time.
-> 
-> 2. fork test
-> ------------
-> stress-ng --fork 160 --fork-ops 10000000
-> fork() needs to allocate multiple percpu variables, for example, rss
-> counters and mm_cid_cpu.
-> 
-> Roughly 1% regression was found. However stress-ng fork test has quites
-> small address space, the real life workloads typically have much larger
-> address space and do more complicated works. The stress-ng mmapfork
-> benchmark saw 15% improvement.
-> 
-> 
-> The organization of patches
-> ===========================
-> The refactor and prepatory patches (patch 1 - patch 4)
-> Percpu page table support patches (patch 5 - patch 8)
-> Local percpu area support patches (patch 7 - patch 15)
-> Use local percpu area for this_cpu ops (patch 16)
-> 
-> 
-> Yang Shi (16):
->       drivers: arch_numa: move percpu set up code to arch
->       arm64: kconfig: make percpu related configs not depend on NUMA
->       mm: pgalloc: introduce {pud|pmd}_populate_sync()
->       vmalloc: pass in pgd pointer for vmap{__vunmap}_range_noflush()
->       arm64: mm: enable percpu kernel page table
->       arm64: mm: defined {pud|pmd}_populate_sync()
->       arm64: mm: sync percpu page table for memory hotplug/unplug
->       arm64: kasan: sync up kasan shadow area page table
->       arm64: mm: define percpu virtual space area
->       mm: percpu: prepare to use dedicated percpu area
->       arm64: mm: map local percpu first chunk
->       mm: percpu: set up first chunk and reserve chunk
->       arm64: mm: introduce __per_cpu_local_off
->       mm: percpu: allocate and free local percpu vm area
->       arm64: kconfig: select HAVE_LOCAL_PER_CPU_MAP
->       arm64: percpu: use local percpu for this_cpu_*() APIs
-> 
->  arch/arm64/Kconfig                   |  12 +++++++---
->  arch/arm64/include/asm/mmu.h         |   5 ++++
->  arch/arm64/include/asm/mmu_context.h |   9 +++++++-
->  arch/arm64/include/asm/percpu.h      |  37 ++++++++++++++++++++++++++++-
->  arch/arm64/include/asm/pgalloc.h     |  24 +++++++++++++++++++
->  arch/arm64/include/asm/pgtable.h     |  37 ++++++++++++++++++++++++++---
->  arch/arm64/kernel/setup.c            |   3 +++
->  arch/arm64/kernel/smp.c              |  44 +++++++++++++++++++++++++++++++++++
->  arch/arm64/mm/kasan_init.c           |  47 +++++++++++++++++++++++--------------
->  arch/arm64/mm/mmu.c                  | 165 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++----------------------
->  arch/arm64/mm/ptdump.c               |   4 ++++
->  arch/riscv/kernel/smp.c              |  51 ++++++++++++++++++++++++++++++++++++++++
->  drivers/base/arch_numa.c             |  51 +---------------------------------------
->  include/linux/mm.h                   |  11 +++++++++
->  include/linux/percpu.h               |   4 +++-
->  include/linux/pgalloc.h              |  13 +++++++++++
->  include/linux/vmalloc.h              |   3 +++
->  mm/Kconfig                           |   9 ++++++++
->  mm/internal.h                        |   5 +++-
->  mm/kmsan/hooks.c                     |  14 +++++------
->  mm/percpu-internal.h                 |  14 +++++++++++
->  mm/percpu-vm.c                       |  94 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
->  mm/percpu.c                          |  58 +++++++++++++++++++++++++++++++++++++---------
->  mm/sparse-vmemmap.c                  |   4 ++--
->  mm/vmalloc.c                         | 138 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++---------------
->  25 files changed, 712 insertions(+), 144 deletions(-)
-> 
-> 
-> Thanks,
-> Yang
-> 
-> 
+diff --git a/tools/perf/tests/shell/stat.sh b/tools/perf/tests/shell/stat.sh
+index 298ce454b45a..41bac99300a1 100755
+--- a/tools/perf/tests/shell/stat.sh
++++ b/tools/perf/tests/shell/stat.sh
+@@ -583,6 +583,11 @@ test_hide_zero_events_stat() {
+   # Check that --metric-only works with --hide-zero-events
+   if ! perf stat --hide-zero-events --metric-only -e instructions,cycles true > "${stat_output}" 2>&1
+   then
++    grep -q 'No supported events found' "${stat_output}"
++    if [ $? -eq 0 ]; then
++      echo "Hide zero events stat test [Skipped - events not supported]"
++      return
++    fi
+     echo "Hide zero events stat test [Failed - metric-only command failed]"
+     err=1
+     return
+-- 
+2.55.0
 
