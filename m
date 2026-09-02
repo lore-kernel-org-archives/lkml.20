@@ -1,147 +1,83 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013024.outbound.protection.outlook.com [40.107.162.24])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5140364038;
-	Wed,  2 Sep 2026 01:43:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788313424; cv=fail; b=lQhT5XA7wvI4N0hudR6IjLctZaqAjeVFzxYZELv9m1lyzqO+eO+dgQKwQsVLX+oE/LtZJe2Gc3T6PafKYVBLyprBNADMQeIMuxBV9z8+EdtfTwPzOhXmvJ8IeMJE+bXVY+dltoY90i39FfAB+PlIQAXpELTg95ZbreZ3BVMu9BM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788313424; c=relaxed/simple;
-	bh=AQaLT2zZCFDWN2vwwfUKQXLUXtpMPHPvIGpOsySFKns=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=cqkKUkG5iEt7Gr4QwLvR1M9Kd6q2tLbLmAx74tf/w+PWD0kVHZQS081sNcgHk0mrjoxaGmdi8Kz9FuSEpnAltLRkBmYgI7Bv7/VRifZUb8yp6lpJmLXQFVtrfE98UMnWt3hPHeCMO+wak8pTLzYUQ3lNA2smdee6AkwPQw1jUi8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=Dcz3EJk/; arc=fail smtp.client-ip=40.107.162.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D924D343D75
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 01:44:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788313483; cv=none; b=bLCkbG95NsIAUuOqi+DulXNb9uLvOQmA0mOK+l0wv9vbUMlp8HAu4CuBVnOJ7cBhcuEP+OtCbFrgxDfSAXxS0YhCbR1dBQk0Z6nisvEOVvt0LCevBnCl/DKfjtD0bq59YlblDf5HD5MqDqmR+0ZZOWx+kXL11yZWwxgYySe3KFw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788313483; c=relaxed/simple;
+	bh=6Tx2jbQpZb4pjjc18kFbL7eRyEbpEfeFJNctoP0lrd4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pFpgCeK1hLUKGPEVjPqfKA/UvDx9ndZfk64KYq9pFG+mMl1mAmoJbTvnvItBQzx8mte/mkAG3lU5EwxKXWHxvCDGCPACyEJuwkEoY81N9L63PkA/nBWtQS2fdgguscm8nAE1hEbJeUrsLotg4mpiAE3/67PVFNiFhQtGOs4LuqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RwSarZ6T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="Dcz3EJk/"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qBZqaWaSU3ryvaPTCUQP435oqYWDrq5vubPZDA3TVjkzRlfMRXiKrcdUugiLcZ7lQVRu3T+Rh61/5glm2P+dM9D4zshx14GPoNkjS4I+qR1qQn/qwvk+GZ3UsvaKP0WOKxR1dBwVVR3n7h7BLE9Y+JFzJdDp+RyC5haF90jWT96XMLeqwLD2nqucNM8AOfCLLvhs2aw7PFps7a2dPciRtrN5VYaLlijuuw3XhqD9SgjbNage9aytSqz8sjI0Qi/mxVelBTF2uxzagZEsGj0Y9qHNyu3nhXYIOB7X/nw+YCe9hOdZXTa/A8VD8/N5rtpTbB2hIR0Or6xETnJNBZB/mQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AQaLT2zZCFDWN2vwwfUKQXLUXtpMPHPvIGpOsySFKns=;
- b=UpIKFqJWVnpOA/HKdR3opTuH0N00Ea2YgcWmakk2eUpw1/wVIQQRXrrz6YwLhrM65hWnPD5D56rpFcU8Eed2mX9GOvhWw31AH0Lh9+p/MyGmcfgrSOuFy3OSsngre7BbPrmSBpE4UuXRcn8M2JniKIH2PNXaP8Opu4h2MwZmsxqHY1AtPSlFC3CfW6388hWekXQQ8HNykIRi0XEiIXbkkQdXz0GdJmuieDx2b+YQozRrVKAvprhuSUBEinyrZGPcWBNtVkJ7toUVAVhovbXJ08g2y7z//tcTWBZ+mZ4rjW4gg9tglsoR4Tui1V+7E05OXsDv2l55xJhIC5U7+XDGiQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AQaLT2zZCFDWN2vwwfUKQXLUXtpMPHPvIGpOsySFKns=;
- b=Dcz3EJk/tiXpP/2aZA0SHoYEQ+M41gd0u1mufTLOtioSUgfU1q4YNZhjugHa4LYKWN7mkd4w1MQOKeRh/sD6q7dU1j1BgwfZyS96OYv29z3adbZSsls8vdfi8GLlagXj+bgz785KAJ5iUwnMh0SMNmD9WzY6n4zTHXzLzsQhcVhD0jsaScuiWNKkNS6ah/AtPLXtVSusEByoF2ZQSiwiU5JSKJGbOvTNu/eqNZNWCXT4IZCtcgUdw0yhNeEW0/uiN2JFano1yLCiHPrjmpa6EMFX2p3Gcl9pg+C+bfx4qXnFkHmZFTCVpx+E8x4r1uJLYxlWlJl8gMwXCIGb9PBHxQ==
-Received: from GV2PR04MB11739.eurprd04.prod.outlook.com
- (2603:10a6:150:2fc::18) by GVXPR04MB10202.eurprd04.prod.outlook.com
- (2603:10a6:150:1c2::20) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 01:43:30 +0000
-Received: from GV2PR04MB11739.eurprd04.prod.outlook.com
- ([fe80::71c2:937b:d466:174a]) by GV2PR04MB11739.eurprd04.prod.outlook.com
- ([fe80::71c2:937b:d466:174a%6]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 01:43:30 +0000
-From: Wei Fang <wei.fang@nxp.com>
-To: Jakub Kicinski <kuba@kernel.org>, "Wei Fang (OSS)" <wei.fang@oss.nxp.com>
-CC: Clark Wang <xiaoning.wang@nxp.com>, "andrew@lunn.ch" <andrew@lunn.ch>,
-	"olteanv@gmail.com" <olteanv@gmail.com>, "andrew+netdev@lunn.ch"
-	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
-	"edumazet@google.com" <edumazet@google.com>, "pabeni@redhat.com"
-	<pabeni@redhat.com>, "horms@kernel.org" <horms@kernel.org>,
-	"richardcochran@gmail.com" <richardcochran@gmail.com>, "imx@lists.linux.dev"
-	<imx@lists.linux.dev>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
-	"linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: RE: [PATCH v3 net-next 0/8] net: dsa: netc: add PTP support for NETC
- switch
-Thread-Topic: [PATCH v3 net-next 0/8] net: dsa: netc: add PTP support for NETC
- switch
-Thread-Index: AQHdOSFyxDnezHhky0Oua7JIEybwnLa51ZsAgACwmjA=
-Date: Wed, 2 Sep 2026 01:43:30 +0000
-Message-ID:
- <GV2PR04MB11739E3BACC0BAA6DE3E1461D88B72@GV2PR04MB11739.eurprd04.prod.outlook.com>
-References: <20260831082335.1184605-1-wei.fang@oss.nxp.com>
- <20260901080950.63e28bab@kernel.org>
-In-Reply-To: <20260901080950.63e28bab@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: GV2PR04MB11739:EE_|GVXPR04MB10202:EE_
-x-ms-office365-filtering-correlation-id: 9a6a347b-0636-4312-540f-08df0893975e
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|19092799006|376014|7416014|23010399003|1800799024|366016|38070700021|10067099003|11063799006|4143699003|18002099003|22082099003|56012099006;
-x-microsoft-antispam-message-info:
- TN+VY7AUOFwSsVzrlhJ2EPzi9Tpm1SAJiVfIILb9abEzyBZI+UL3GkAG3eaKOW5C5D5gKcI06f7F9wk86O7z4NknUZCjlrT2sIF3JP9/KiiVRpwEd/YKz5Pub2G83rqsLso/9iad79KpEuwu/tfHhhR1iKk0UBSqVmFgMDBTyq7CHtS7oHExr4PyFksoJ2eOji8Siv+p1cY2gi1++rlEgiRb0oDHt27xaldh5EnHdxaafm6Kh809mAv4+y0bdJ8H6KYLKAwtEtkWSVIFC9BDt2lRC3eo2gOiKQKGPwZNa8gfGFli/R5dzm6tE9htVDCvWY8g31rPijAvOjn44EZE0Ivpxc5y08RPtEb7W7QY6NfvXCdVNMBCPfd28M2LPoWxujqrkFrMQxuDRO1cZwUEKFvXVyHTNBlU02Tbr6IFMpAZE5LwganEfEozA0XAsKIV/d4qOq7MdLW0GbP9AZV14pxzdMowphZz0ioSiufL3h4KZ7xj835K9IqNpzVKekMb6k5sC+cVXXbx+WYDEQyIuR5jbpty+229XHP4cYT5xcq6xtr77BUCGJkpssIsvQYH5QGjkzwh77RUEXF2TXwGpbo0HV2yg/LcO3gM9kgZya/3iHJvcBUscr9lL+XqSgk2iO8PzeX5Mp3Q+asEYQ2oNl0g4S88adWiJTkfeaFygvhL+MuZ+E3jLgBL0kn14JhXbP8j4a9gE5uO+gJd4BDhPMIJcnH/5m2smX03OeWa4zA=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11739.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(376014)(7416014)(23010399003)(1800799024)(366016)(38070700021)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?4cVFDfVSYojDMiejlpGEjHh1GMSwPiC1BpFYx5wvyN/h+KO0cVq1uUUP2ICF?=
- =?us-ascii?Q?Qhc4jgve2e2k+FKYe9O5jCjt3yq8aBMgn7U4Zisw2a0uj4w7GAtov+l/IjQY?=
- =?us-ascii?Q?5va7ORJ6a3gxPkIwqx/f/hDqxFpoH/woYWiIQVDlbXVvumzL2KDtCgS+pQlo?=
- =?us-ascii?Q?giYzMIT9d6Qscla7qqwBuZuC6c31CyfQmcQhUtHPSO9VC8KtW7XT5sHtHWWZ?=
- =?us-ascii?Q?LFgfstBpBSgU6nWx9F50h37kMb0OPylF9mJ/XlLBBun9GJ+oFaIBPwnfz1RQ?=
- =?us-ascii?Q?NTeZP+8TPTXJiojT38lAi1YQPQOxe769mH21PSYIOg1ggg1wtKrTVheChOpe?=
- =?us-ascii?Q?NQRWIdXxJvZ91Paun41PapA0v40ayVuZkJGCfY4uEIH0bQjTUwoDwTsr9aIp?=
- =?us-ascii?Q?SGlXAcFKHd3ZsEniys8kC65ntAZKt52CtuBGYrQxzcxQZ94fgsvTvN1OveBX?=
- =?us-ascii?Q?ky/mYBrgULsUnIUVfHnmYXf1/B5cnUiTF1AoWEFQQ0B7ZPTL8xzaGnpEsB3K?=
- =?us-ascii?Q?Rl8gQmgLPQLH/0BEV1PFDYKCY4q5gvoikisbCtIQ2JlsqzAIaHec7l1+JQFW?=
- =?us-ascii?Q?X1tSY1ijcRogOuQDHLa/d9bo/qL6/Ia9WfyEgm8hUxy02kl8oj80m6U2r9gq?=
- =?us-ascii?Q?18LLTMLGZz5+JRsg/6tpDv7kv8fZJ6VioaMnAo0cxmKIPsxDkuyUiJdQ6Vq5?=
- =?us-ascii?Q?s0Os8Mw/pBEtuxdSnm+NN+7f0LJYrSylris8fMZr3EnG6osZNOfSolWeOPd/?=
- =?us-ascii?Q?0rjzhcd+Ks9vcYK/y0Sf1cZ9Efq57cUAlF7idp5gOXJAlAn2R2htHbVRc6p5?=
- =?us-ascii?Q?IcjGIsM6nQdiE3AZ5WhXWEv+MDJTBfQV4t42Ov0O5RHp2ztPLjRnFZyCbMEO?=
- =?us-ascii?Q?uESZh8ykQWCjsW1fw4XXfzA4poBty7cMJZNaiuafePnfo5EsQGK9F/BaqAqY?=
- =?us-ascii?Q?+y/3AfW2ZDhdnE0mr+r9oAdnGeumc5WmQX/WeXTxNe28y/W0fF6gMY+4e96a?=
- =?us-ascii?Q?LYzxMAPS+NI65rEMb+eDDPzclZj/d1lx3t8TVkwwYPXD87QoCbtpqFVN2s9P?=
- =?us-ascii?Q?iLLGAaTii8pdZ5Y5T9n6sp5uxB8PifsIrBSSF7XmXAA4plR1LpQ/CBHf5bSv?=
- =?us-ascii?Q?FXXg83Y7QXTuNXiiLdJg4IPjXmQ8riu09z9DnQcYh0Dz7Mo1zniFLf0d+NuS?=
- =?us-ascii?Q?ryhvVkhW+08Lky9/89Annx1GwLkySbR8H9pRTB36Z4i/2JyKv26PQh/bo1yS?=
- =?us-ascii?Q?oiPvkPgKGMyq1OI2qU8NfLQ8d0I7WiyLY2v8TnG7X6et966V2VZ6a4CYijYQ?=
- =?us-ascii?Q?ZnWHJQXDi4pnCnl/HbdvYTqBZtwhR9yqMn55i8hAjYbjMRkVy4gdbeH2sRH8?=
- =?us-ascii?Q?RzR2gSjTMD7s4XsjtesOGSCt0uOaDP0AkfzGqy4CCcrnxXKbT6qgRJpCuYqN?=
- =?us-ascii?Q?1c0HsEWyx+W3jOHd3p+/n3en5/r3j/9fN9PZgfiWPQwEVFy0MxGCvFGBIvN9?=
- =?us-ascii?Q?qxA9xSk03Q3b7Z5G46S6YlwlF/GK4L/btTTUZJRvWJgPsa8qR2Lg92jIKKHT?=
- =?us-ascii?Q?MYHms0nPWLpZYU+wpLpxJ7F+7yld2xrU/a3xf94G7Tg3w0z/bAKb4KdBRG19?=
- =?us-ascii?Q?BeHM58ZbbsIX1nlORqYgyzNnA8iUp3Nqa70Pm1P2D6unyxw3E5W+X5H7Ulpq?=
- =?us-ascii?Q?mLlVQbuTIsHDHc8fSbbK7S/gXsX+eKliJBNX9xeIsMM5ZljR?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RwSarZ6T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7A0E1F000E9
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 01:44:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788313469;
+	bh=6Tx2jbQpZb4pjjc18kFbL7eRyEbpEfeFJNctoP0lrd4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=RwSarZ6TK2q8G7a50xbCCalEHEADpCULH21oI/msIafGburrUks1i4hhju9cXpqIl
+	 mShZpWti6FHaX9e4MB3NyHl4FCYLV5hbW4C2ZaL8WpZPvtDyJ0ASCb7RVtLd6i3UMo
+	 qCKlzMfucjtSRJQ7zt9HSVNfE2q0EmAkulOpaZsKsuPzJF8PMdw459sEcnBW/2i1AA
+	 wN2vVJ8ed5lQwlfwL5wFWQQzOEioS+ef+Kg3ZsG1/lMxMOLpttXliT43bE5ppZwHym
+	 emBFylmVnasKQ1MMdo3PaeutmEo9dSQhBja2GI4Cp6V2EBHv45epegLMtPV2bOXgV2
+	 6mVRBg2ikpNjw==
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c250a2bc3b3so50050266b.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 18:44:29 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrQPwjLjLYlvduDwo/Y0qg+xmbZ8EMHMxCuz+qPDev8bFt7t+Zhuh8W+j663wn3CbTa4jzTtrodwWo/lBA=@vger.kernel.org
+X-Gm-Message-State: AFuF++nZlTzayReYfV90+hStvAZ12xut1f1LtMZaryKwvac8F3E79mhr
+	vzFAlTn7Uvt5X0GJjnnZMInmO8NyafYklIW2/LNmsa41G4dhSL7D5ApHMRShRxzGbksnxlCGcrd
+	QGCcOTA3Insm+7SWDMw6+bIA8XiEuemc=
+X-Received: by 2002:a17:906:c150:b0:c25:afb6:2d91 with SMTP id
+ a640c23a62f3a-c25d527a4a2mr66915366b.2.1788313468566; Tue, 01 Sep 2026
+ 18:44:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11739.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a6a347b-0636-4312-540f-08df0893975e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Sep 2026 01:43:30.2036
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: VurXMC6kxp/XhKIX1xxKhMbKKrA98VGYIITlmDtN2ZQSRbUe3ZdlYWUgDRSXJeYdufHW/3BAjJS2ZcpE5ZJbeg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10202
+References: <20260901091519.2885376-1-liubaolin12138@163.com>
+In-Reply-To: <20260901091519.2885376-1-liubaolin12138@163.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Wed, 2 Sep 2026 10:44:16 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9HVhS8K3zXhcfUz1H09CDaqADpDzXt0dO9FV3Pa7Rs0Q@mail.gmail.com>
+X-Gm-Features: AcwNN1Vh8Eukc5_QZyUCoB7E93Huedt8u5opetwzz8vO6r48cbxPYRn2NqpDhxM
+Message-ID: <CAKYAXd9HVhS8K3zXhcfUz1H09CDaqADpDzXt0dO9FV3Pa7Rs0Q@mail.gmail.com>
+Subject: Re: [PATCH 0/2] ntfs: wire up the fileattr API
+To: Baolin Liu <liubaolin12138@163.com>
+Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Baolin Liu <liubaolin@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> On Mon, 31 Aug 2026 16:23:27 +0800 wei.fang@oss.nxp.com wrote:
-> > Subject: [PATCH v3 net-next 0/8] net: dsa: netc: add PTP support for NE=
-TC
-> switch
->=20
-> Please be advised that the limit of 15 patches applies across
-> the series. You posted 2 large series to net-next at once.
->=20
-> See "Limit patches outstanding on mailing list" in the docs.
-> If this happens again we'll be forced to start discarding your patches.
-
-Oh, sorry, I was not aware of the rule has been updated. I will repost
-this series when the ENETC VF series is applied to net-next tree, thanks.
-
+On Tue, Sep 1, 2026 at 6:15=E2=80=AFPM Baolin Liu <liubaolin12138@163.com> =
+wrote:
+>
+> From: Baolin Liu <liubaolin@kylinos.cn>
+>
+> This series implements fileattr_get and fileattr_set for ntfs so that
+> lsattr(1) and chattr(1) work on ntfs.
+>
+> Patch 1 wires up the fileattr inode operations and implements support
+> for FS_IMMUTABLE_FL and FS_APPEND_FL. These flags map to inode->i_flags
+> (S_IMMUTABLE, S_APPEND), so the VFS enforces them. fileattr_get also
+> reports the compressed and encrypted state, which the driver already
+> exposes through STATX_ATTR_* in ntfs_getattr().
+>
+> Patch 2 adds FS_NODUMP_FL support, which dump(8) and other backup tools
+> use to mark files to skip. The flag is stored in a new ntfs_inode field
+> and reported through both fileattr_get (for lsattr) and ntfs_getattr()
+> (as STATX_ATTR_NODUMP, for statx), so the two interfaces stay consistent.
+>
+> All three accepted flags (immutable, append-only, nodump) are kept in
+> memory and do not survive a remount, matching ntfs3 behavior.
+This patch-set does not persist these flags on disk. So, the settings
+survive only while the corresponding inode remains cached. inode
+reclaim caused by memory pressure or drop_caches can discard them
+before unmount. Could you find a way to persist immutable, append, and
+nodump in metadata without causing compatibility issues?
