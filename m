@@ -1,215 +1,113 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59FC1320CBE;
-	Wed,  2 Sep 2026 04:55:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECE8A33D4E2;
+	Wed,  2 Sep 2026 04:56:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788324907; cv=none; b=S6XsYkjNYcwKy13PwQcAoHxsslU+EqiQdQ1r9yOvis1qNw1UVB68HgtlwkcvGEm9+ACBB1qxUW2M9F3DXWn76uwRi70A1H5SuCa0EhaLPVbn8tfUgskJSYgUcVCbG0O29N10ihErJM8p4CWLr/DbKOSVPcIbYnaVgfh6kuGL7CE=
+	t=1788324992; cv=none; b=c88jG/eoJGjKqZM2JoOKTxnvzhebaTwS1XwL1YZWH9aPG7QLYOaqu5KTY7zPWf7p/h2q0Rs82TsYAUSz1AjKmMLzoNAdGeyr4hOWkAoKD2ewiMX7kBy9/ITw74KnPyBHbIw84PwAKGtzEys3To2pyZOiH2AiV65XrH21D36K6xc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788324907; c=relaxed/simple;
-	bh=1WBbhbWHoeUJbZJJHlfXyXJ/zuakGcnf+FKHxBBOZmA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TAzELBzEX1FfzojNX8eXIhAOR7S6USgHFvf2diwdGpPSZLBCuoxevhNFDC0TE7A9Ou1LvxNVqca5jtOB6sPHCmFmMIAVNghGUu1aZDIdkIpQ0HKamixFeQTXnCaLjhy2/L66j+AnXs9prCxgQ89vnwS4ofMhUwVpvkkIocS8JHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=SGde+sPN; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1788324992; c=relaxed/simple;
+	bh=9H2NsKcatxlkN4UpoKa0kMyWhmzXbWvQuSasJ4GGAF8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=QvHWpqcNnV/ctCWeUE1u2WX4dg1hI3ylHQa93cuL5zbf+2zbT8yiN8eVs7jfGWsW6wlLEUzA38ovQv4BnL9dl7cDOdbMDn6FyAOw+uEjSRgUBiXzCuFFzzjuFC/55OxJyYdcqF1ECv8+8SLMrCtw2JQIvqLjwVG4dTbj/YGqukU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LspGvBhQ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="SGde+sPN"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1188A11D4B1;
-	Wed, 02 Sep 2026 06:54:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1788324898;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=0Bq3n+d6CqRiWka+r6Puyq82APtewnlh2hBeOLFbC3w=;
-	b=SGde+sPNe3xV7Zvq3omYCHqKEviYf3ImreWf67FsFcpVfK8ba7uKTmKD/t1cdTz7OBrDVr
-	xDwsRYs1brjC8zgueF/G26DeI5AKj0IKpD6k5SwN/0iDw2A4AdE11CpxEsKCEHQbNOjXqN
-	th+7z0KqS1s2tFAVNq1FGi9kifc/xwjMJEyFzJjtnSnQL2RgsdxgHnHVUrzGDlBUvsgkM6
-	4898Cb3e+yA9hcnVgpCpahwgM917+137PJfNH9wQmi8v6qO1m3jTraWv5zq/APdqcQiYQM
-	V2rUwv9+cB7C1dNdcTsHb3LRc3MGi+tKLqLbCLUYG/5T8Xlnuuu2Tyi/9n8EMA==
-Message-ID: <ba70e613-0be8-2655-f750-c96f1e35b87a@nabladev.com>
-Date: Wed, 2 Sep 2026 06:54:13 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LspGvBhQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 789D7C2BCC7;
+	Wed,  2 Sep 2026 04:56:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788324991;
+	bh=9H2NsKcatxlkN4UpoKa0kMyWhmzXbWvQuSasJ4GGAF8=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=LspGvBhQMh3gxx0Q+YxJPFKRO/6MarOn3OU5cbgXRxTobMe5cyetBtGXAS7AqqpM9
+	 uPMNsu+z/KghSP4qXxISBvvLxLFGQsc7GM6s3Z72ote44VMOzy65EN/OTkHbTWdD25
+	 XViqNLDSOj6BUyVSyk6lOgIO3/c2DfcaONwaj2RXsDE3Wml6nT7w+sy4oVdpbgJ3q7
+	 yFZ+w69PcfUwKOOPzKpcd0bQcZZbYpgdUsS+Ld0gVOv5r3PWtEk/PAy66rbncDlJ2s
+	 TrYchX1x/mFSa9Ltt+dm2JkTqb5FAUEs2awS5C94EWdh35fxXxfQxRJLZ9r8D5FYgC
+	 iRwjEnfMG24Kg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 56F59C61DD6;
+	Wed,  2 Sep 2026 04:56:31 +0000 (UTC)
+From: Sperrbert via B4 Relay <devnull+sperrbert.proton.me@kernel.org>
+Date: Wed, 02 Sep 2026 06:56:13 +0200
+Subject: [PATCH] wifi: iwlwifi: mvm: fix VHT NSS reporting for legacy RX
+ API
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.2.0
-Subject: Re: [PATCH v4] driver: fpga: xilinx-selectmap: add csi and rdwr
- support
-Content-Language: en-US
-To: linux-kernel@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org, linux-fpga@vger.kernel.org,
- Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Michal Simek <michal.simek@amd.com>, Moritz Fischer <mdf@kernel.org>,
- Tom Rix <trix@redhat.com>, Xu Yilun <yilun.xu@intel.com>,
- linux-gpio@vger.kernel.org
-References: <20260810062105.299808-1-hs@nabladev.com>
-From: Heiko Schocher <hs@nabladev.com>
-In-Reply-To: <20260810062105.299808-1-hs@nabladev.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-master-v1-1-a2cc0a65ce12@proton.me>
+X-B4-Tracking: v=1; b=H4sIAGysl2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSwMj3dzE4pLUIl2DxOQUgzRzk5Q0Y0sloOKCotS0zAqwQdGxEH5xaVJ
+ WanIJSLdSbS0A+QIyhWoAAAA=
+X-Change-ID: 20260902-master-0acd0f74df39
+To: Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
+ Johannes Berg <johannes.berg@intel.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Sperrbert <sperrbert@proton.me>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788324990; l=1903;
+ i=sperrbert@proton.me; s=20260902; h=from:subject:message-id;
+ bh=/4vIsjR1iXuI+GVen+yjkyDz9ZsAQbCF2/9KiJ5Y6q4=;
+ b=ZGRpShq2jaDCmTRs/2rwAYCGEwyDQ+V0mYpd3peVBHM8zxMpbVdIrRzZoT7VpP7vJtiyIj5wR
+ 45Pnal/sF3HApAcor6gbCdTTd5dJsqsW4vuShHEBQp6/YWyrBxGWSxJ
+X-Developer-Key: i=sperrbert@proton.me; a=ed25519;
+ pk=I4XYiGGbh8WAF7fk5prqJ3RawLcpmMRrm1y+qO0YOf8=
+X-Endpoint-Received: by B4 Relay for sperrbert@proton.me/20260902 with
+ auth_id=996
+X-Original-From: Sperrbert <sperrbert@proton.me>
+Reply-To: sperrbert@proton.me
 
-Hi!
+From: Sperrbert <sperrbert@proton.me>
 
-On 10.08.26 08:20, Heiko Schocher wrote:
-> The current driver requests the optional CSI_B and RDWR_B GPIOs but
-> only configures their initial output state and never changes them
-> afterwards. As a result, CSI_B and RDWR_B remain inactive or active
-> throughout the configuration process.
-> 
-> This may work on systems with a single FPGA where these signals do not
-> need to be controlled by software, or where the signals are configured
-> to their active state. But this does not not support systems with
-> multiple FPGAs sharing a SelectMAP interface.
-> 
-> On systems with multiple FPGAs sharing the same SelectMAP data bus,
-> the driver must deassert this signals in probe, and actively control
-> them during configuration.
-> 
-> CSI_B (Chip Select, active low) selects the target FPGA. It is asserted
-> before configuration data is transferred and deasserted afterwards so
-> that only the intended device responds to bus transactions.
-> 
-> RDWR_B (Read/Write, active low) controls the transfer direction on the
-> SelectMAP interface. A low level selects write cycles, while a high
-> level selects read cycles. During FPGA configuration the driver drives
-> RDWR_B low before transferring the bitstream and restores it to its
-> reading (high state) afterwards.
-> 
-> With that info from the datasheet the driver is now changed to:
-> 
-> - deassert the CSI_B and RDWR_B pin on probe and store the
->    optional GPIO descriptors in private driver data.
-> 
-> - toggle both signals around the configuration data transfer
-> 
-> This allows multiple FPGAs to safely share a single SelectMAP interface.
-> 
-> Signed-off-by: Heiko Schocher <hs@nabladev.com>
-> ---
-> 
-> Changes in v4:
-> - add comments from Xu Yulin
->    replace wrong gpiod_set_raw_value() with gpiod_set_value()
->    deassert CSI_B and RDWR_B in probe as in patch version 2
->    rework commit message (correct the description what current
->    driver do on probe), why this is not a problem with one
->    FPGA, and why it needs a change if you have N FPGAs
->    sharing the same selectmap Interface (clk and data pins).
-> 
-> Changes in v3:
-> - use 0 (deasserted state) and 1 (asserted state) in gpio_set_value()
->    as commented from Micahl
-> - rewrite commit message as requested from Xu Yilun
->    - describe what rdwr_b and csi_b do, and why this change is needed
->      for more than one FPGA.
-> - add comment before asserting the signals, why they are asserted
->    in this order.
-> 
-> Changes in v2:
-> - add comments from Michal
->    - skip check if gpio descriptor variables csi_b/rdwr_b are valid,
->      as validate_desc() checks this in gpiod_set_value() call.
->    - initialize the gpio variables csi_b/rdwr_b immediately with
->      the return value from devm_gpiod_get_optional(), so we can
->      drop local gpio variable at all
-> 
->   drivers/fpga/xilinx-selectmap.c | 36 ++++++++++++++++++++++++---------
->   1 file changed, 27 insertions(+), 9 deletions(-)
+Commit 774302d2d3ad ("wifi: iwlwifi: mvm: clean up duplicated defines")
+replaced the explicit legacy VHT NSS decoding with
+RATE_MCS_NSS_MSK, which was equivalent at the time.
 
-gentle ping.
+Commit dabc88cb3b78 ("wifi: iwlwifi: handle v3 rates") later changed
+RATE_MCS_NSS_MSK for the v3 rate format, where NSS is encoded at a
+different bit position. The legacy RX path, however, still handles
+VHT rate_n_flags using the v1 format.
 
-Any updates, comments on this patch?
+As a result, two-stream VHT RX rates on older devices can be reported
+as NSS 1. Use RATE_VHT_MCS_NSS_MSK when decoding VHT NSS in the
+legacy RX path.
 
-Thanks!
+On an Intel Wireless-AC 7260, an unmodified kernel reports VHT NSS 1
+while receiving about 460 Mbit/s. With this change the same connection
+is correctly reported as VHT NSS 2, with unchanged throughput.
 
-bye,
-Heiko
-> 
-> diff --git a/drivers/fpga/xilinx-selectmap.c b/drivers/fpga/xilinx-selectmap.c
-> index d0cbb5fdfe3a..e9b1d15ca054 100644
-> --- a/drivers/fpga/xilinx-selectmap.c
-> +++ b/drivers/fpga/xilinx-selectmap.c
-> @@ -19,6 +19,8 @@
->   struct xilinx_selectmap_conf {
->   	struct xilinx_fpga_core core;
->   	void __iomem *base;
-> +	struct gpio_desc *csi_b;
-> +	struct gpio_desc *rdwr_b;
->   };
->   
->   #define to_xilinx_selectmap_conf(obj) \
-> @@ -30,16 +32,30 @@ static int xilinx_selectmap_write(struct xilinx_fpga_core *core,
->   	struct xilinx_selectmap_conf *conf = to_xilinx_selectmap_conf(core);
->   	size_t i;
->   
-> +	/*
-> +	 * Assert CSI_B and select write mode.
-> +	 *
-> +	 * UG570 states in note 4 in Figure "Continuous x8 SelectMAP Data
-> +	 * Loading", RDWR_B should be asserted before CSI_B to avoid
-> +	 * causing an ABORT on the next CCLK.
-> +	 *
-> +	 * To be sure, set first RDWR_B pin before activate CSI_B
-> +	 */
-> +	gpiod_set_value(conf->rdwr_b, 1);
-> +	gpiod_set_value(conf->csi_b, 1);
-> +
->   	for (i = 0; i < count; ++i)
->   		writeb(buf[i], conf->base);
->   
-> +	gpiod_set_value(conf->csi_b, 0);
-> +	gpiod_set_value(conf->rdwr_b, 0);
-> +
->   	return 0;
->   }
->   
->   static int xilinx_selectmap_probe(struct platform_device *pdev)
->   {
->   	struct xilinx_selectmap_conf *conf;
-> -	struct gpio_desc *gpio;
->   	void __iomem *base;
->   
->   	conf = devm_kzalloc(&pdev->dev, sizeof(*conf), GFP_KERNEL);
-> @@ -55,16 +71,18 @@ static int xilinx_selectmap_probe(struct platform_device *pdev)
->   				     "ioremap error\n");
->   	conf->base = base;
->   
-> -	/* CSI_B is active low */
-> -	gpio = devm_gpiod_get_optional(&pdev->dev, "csi", GPIOD_OUT_HIGH);
-> -	if (IS_ERR(gpio))
-> -		return dev_err_probe(&pdev->dev, PTR_ERR(gpio),
-> +	/* CSI_B is active low, deassert signal */
-> +	conf->csi_b = devm_gpiod_get_optional(&pdev->dev, "csi",
-> +					      GPIOD_OUT_LOW);
-> +	if (IS_ERR(conf->csi_b))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(conf->csi_b),
->   				     "Failed to get CSI_B gpio\n");
->   
-> -	/* RDWR_B is active low */
-> -	gpio = devm_gpiod_get_optional(&pdev->dev, "rdwr", GPIOD_OUT_HIGH);
-> -	if (IS_ERR(gpio))
-> -		return dev_err_probe(&pdev->dev, PTR_ERR(gpio),
-> +	/* RDWR_B is active low, deassert signal */
-> +	conf->rdwr_b = devm_gpiod_get_optional(&pdev->dev, "rdwr",
-> +					       GPIOD_OUT_LOW);
-> +	if (IS_ERR(conf->rdwr_b))
-> +		return dev_err_probe(&pdev->dev, PTR_ERR(conf->rdwr_b),
->   				     "Failed to get RDWR_B gpio\n");
->   
->   	return xilinx_core_probe(&conf->core);
-> ---
-> base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
-> 
+Fixes: dabc88cb3b78 ("wifi: iwlwifi: handle v3 rates")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sperrbert <sperrbert@proton.me>
+---
+ drivers/net/wireless/intel/iwlwifi/mvm/rx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
--- 
-Nabla Software Engineering
-HRB 40522 Augsburg
-Phone: +49 821 45592596
-E-Mail: office@nabladev.com
-Geschäftsführer : Stefano Babic
+diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/rx.c b/drivers/net/wireless/intel/iwlwifi/mvm/rx.c
+index ab1eb2eb0c3cd..124a5f52c53d1 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mvm/rx.c
++++ b/drivers/net/wireless/intel/iwlwifi/mvm/rx.c
+@@ -502,7 +502,7 @@ void iwl_mvm_rx_rx_mpdu(struct iwl_mvm *mvm, struct napi_struct *napi,
+ 		u8 stbc = (rate_n_flags & RATE_MCS_STBC_MSK) >>
+ 				RATE_MCS_STBC_POS;
+ 		rx_status->nss =
+-			FIELD_GET(RATE_MCS_NSS_MSK, rate_n_flags) + 1;
++			FIELD_GET(RATE_VHT_MCS_NSS_MSK, rate_n_flags) + 1;
+ 		rx_status->rate_idx = rate_n_flags & RATE_VHT_MCS_RATE_CODE_MSK;
+ 		rx_status->encoding = RX_ENC_VHT;
+ 		rx_status->enc_flags |= stbc << RX_ENC_FLAG_STBC_SHIFT;
+
+---
+base-commit: 786262be6048deab760f68c8acc2c85607165894
+change-id: 20260902-master-0acd0f74df39
+
+Best regards,
+--  
+Sperrbert <sperrbert@proton.me>
+
+
