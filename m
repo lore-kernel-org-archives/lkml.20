@@ -1,433 +1,274 @@
-Received: from mail-43101.protonmail.ch (mail-43101.protonmail.ch [185.70.43.101])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF0C74AE114;
-	Wed,  2 Sep 2026 21:22:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1DE74AC16D;
+	Wed,  2 Sep 2026 21:22:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788384165; cv=none; b=oLe9r74PiPehSz8ydUqFpa54r5rIW3Qoy9Th1LUMhixBdrEfp/odTBWuTdtfx8oLyj+ioi078/S+uNHf0/ygeVYaqy7MbmOK8ZgMFXXU48BaKTGILMhOx/7Dh8AIPJUxAi+HLq5/7YbLaegPa343kvxMQvQwhaOSLY5dpXKYs1A=
+	t=1788384187; cv=none; b=Uw0QxBnU1BEU/LMxK8byNseXc1S/j+kZDKwddY/z4ZtaQLoit0Xc4goxCDeJD/RiVSNY6xLhN+uwdfNoDXU0icvLZEjeewXUfISmwfL/8v4UIqi0lOePnDPGk8QzdjbvQ68XweYRhaj9FnIr8Zmhqt/j8mhv5jY74quWLw7ZoYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788384165; c=relaxed/simple;
-	bh=mwupkeZkdl3euysvPkd79p+pLqU5ZEaCA50ubsrKRlc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=I5G6KFZAH6Ul6iQKTYti7XFhfTzFF1lKZ1/6pZPWJZF78demn32neMsdvc5TciL43jj9zfkyvb3Z1idMgSB9CA/OAalhjomO4oMmXdd8I+QcDh8BNYYl/PyGRMXwv5mQekPRBmczQJkmVapgXgnluaVCOlPLDITlVWu81or25e8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=aTedbZFx; arc=none smtp.client-ip=185.70.43.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1788384187; c=relaxed/simple;
+	bh=p2ZxY3EOMzzJNYpyG8OmaF+k9ByB2w7EHcBq1yjj1x8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=U6k5/nFXn8tzOcNwghfFXeUE1oY/NJZUbgaptzxH3xs/dJuhWnBVvfsXSJA1gkSiwkl1MLTY9P3U9H08UIdB4bb88dVX7QOmqVc2wgk2d28a5i126gExBNTqWwA/JEXg5/PWh0hwWPCCsVbIMKsFD2d+W5KjcuLg9CopfsZ81h8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xxJVLbO1; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="aTedbZFx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=vdezpkdcs5cahhga3wrt3ksiie.protonmail; t=1788384145; x=1788643345;
-	bh=dTuz6/9KXziUH8uCWYyIJsDjJtRw0Lr8UlTTR79Pf0E=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=aTedbZFxlHsO2w+IavPuB6GsHRN8sXnpf0qZIrRknw/hASmZ5kgO+qeMq/MFInZSc
-	 IgIQ72NBgSQDR+mCon1yUpTYrRk/V6bgI/buRSLIQsz8gSw/kbav6lQ92Yyu/DLxmD
-	 3G4ewbJHPFw6oKgi5LM3ODEySwtBIsJHset8QvLd2E5UaKbt7GiA9Eh8wCAhJAA0zF
-	 7lAqD5dtx+bAxUlaHPNZQCqcSB6bMoO9px8Lp7EuCZSrgI6Io1Ec1bxvh01qIVvyoG
-	 RAWjA4IioDWV7JqgWOPX1T9+cldtctAMdkpoxmqa+nkfIxy3LMie/Dydo1LXrUaIzv
-	 aCV0ArR6tm4BQ==
-Date: Wed, 02 Sep 2026 21:22:22 +0000
-To: David Heidelberg <david@ixit.cz>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
-From: Kristian Brox <isyourbrainfoss@proton.me>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Luca Weiss <luca.weiss@fairphone.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, Kristian Brox <isyourbrainfoss@proton.me>
-Subject: [PATCH v4 2/3] nfc: st-nci: add raw NCI path for ST21NFCD
-Message-ID: <20260902-fp5-st21nfcd-v4-v4-2-ded2f1c501be@proton.me>
-In-Reply-To: <20260902-fp5-st21nfcd-v4-v4-0-ded2f1c501be@proton.me>
-References: <20260902-fp5-st21nfcd-v4-v4-0-ded2f1c501be@proton.me>
-Feedback-ID: 203906395:user:proton
-X-Pm-Message-ID: 29b8da9f2a8d352c21944c75c3fd37adcae0aea2
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xxJVLbO1"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id BFF0C4E414C9;
+	Wed,  2 Sep 2026 21:22:52 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 93DE36053C;
+	Wed,  2 Sep 2026 21:22:52 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7805211C79331;
+	Wed,  2 Sep 2026 23:22:43 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788384167; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=y+pBdWECO3S9thQ0dHEfQH5NJypSJMkWNK1S93bZjdQ=;
+	b=xxJVLbO1fA223TMrAVZ15V9TsEKOGKd3UElWRVYDzAlyV974AFewEJ6Ec4Zs/wKlS9Jr2R
+	AUyNj7K3Dh+RMbIjKUXvp3Q2Msma1QByAyCmkl5GQgnJxEe+RwCTvxGNR+nihKhZkehPKo
+	kYF7RqAjiFiidEK/3uRTJS7pf8V9FOaVyCnxy/70Eqpq2AkKdqzv+tVDlKR7M0Oj55je+0
+	uPnD93iUv0uj+GxkPkVAeOYlIQeAZXGRVoEbJwmuZFnj8eKFYqQ65wlrKvXfzLuk1p+8th
+	N6W802B2NRoqostKL3b0nwJ4bAIDyaQkjhIFC2Dh8qMApXWS8nAeJ3Ory3XS2Q==
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: davem@davemloft.net,
+	Andrew Lunn <andrew@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Heiner Kallweit <hkallweit1@gmail.com>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	thomas.petazzoni@bootlin.com,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	=?UTF-8?q?K=C3=B6ry=20Maincent?= <kory.maincent@bootlin.com>,
+	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	=?UTF-8?q?Nicol=C3=B2=20Veronese?= <nicveronese@gmail.com>,
+	Simon Horman <horms@kernel.org>,
+	mwojtas@chromium.org,
+	Romain Gantois <romain.gantois@bootlin.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Dimitri Fedrau <dimitri.fedrau@liebherr.com>,
+	Frank Wunderlich <frank.wunderlich@linux.dev>,
+	Pietro Ameruoso <p.ameruoso@live.it>
+Subject: [PATCH net-next v16 08/10] netlink: specs: Add ethernet port listing with ethtool
+Date: Wed,  2 Sep 2026 23:21:32 +0200
+Message-ID: <20260902212135.1805948-9-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260902212135.1805948-1-maxime.chevallier@bootlin.com>
+References: <20260902212135.1805948-1-maxime.chevallier@bootlin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-ST21NFCD does not use NDLC. When the compatible is st,st21nfcd,
-talk raw NCI:
+Ethernet network interfaces may have more than one front-facing port.
+The phy_port infrastructure was introduced to keep track of
+these ports, and allow userspace to know about the presence and
+capability of these ports. Add a ethnl netlink message to report this
+information.
 
-- do not add or strip an NDLC PCB
-- do not run the T1/T2 ACK timers
-- I2C reads are a 3-byte NCI header plus payload
-- skip proprietary SET_NFC_MODE and HCI SE discovery
-- consume proprietary RF NTF 0xf02 (GID 0xf, OID 0x02)
-
-Set the raw_nci flag before nci_register_device so ndlc_send does
-not push an NDLC PCB into a 0-headroom skb. Enable optional vdd-io
-(VPS_IO) and SYS_CLK before driving reset.
-
-Reset is active-low. Existing boards describe it as GPIO_ACTIVE_HIGH
-and the driver treats gpiod_set_value(reset, 1) as chip-running.
-Keep that path so old DTS is unchanged. If the GPIO is active-low,
-pulse logical 1 then 0 (assert, then deassert).
-
-Existing st21nfcb / st21nfcc boards keep the NDLC path and do not
-need those properties.
-
-Tested on Fairphone 5: adapter powers up and reads an NTAG 215.
-
-Signed-off-by: Kristian Brox <isyourbrainfoss@proton.me>
+Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 ---
- drivers/nfc/st-nci/core.c   | 22 ++++++++++++
- drivers/nfc/st-nci/i2c.c    | 82 +++++++++++++++++++++++++++++++++++++++++=
-+---
- drivers/nfc/st-nci/ndlc.c   | 27 +++++++++++----
- drivers/nfc/st-nci/ndlc.h   |  5 ++-
- drivers/nfc/st-nci/se.c     |  3 ++
- drivers/nfc/st-nci/spi.c    |  2 +-
- drivers/nfc/st-nci/st-nci.h |  2 ++
- 7 files changed, 129 insertions(+), 14 deletions(-)
+ Documentation/netlink/specs/ethtool.yaml      | 55 +++++++++++++++++++
+ Documentation/networking/ethtool-netlink.rst  | 34 ++++++++++++
+ .../uapi/linux/ethtool_netlink_generated.h    | 19 +++++++
+ 3 files changed, 108 insertions(+)
 
-diff --git a/drivers/nfc/st-nci/core.c b/drivers/nfc/st-nci/core.c
-index a367136d4330..d7802434abda 100644
---- a/drivers/nfc/st-nci/core.c
-+++ b/drivers/nfc/st-nci/core.c
-@@ -18,8 +18,13 @@
-=20
- static int st_nci_init(struct nci_dev *ndev)
- {
-+=09struct st_nci_info *info =3D nci_get_drvdata(ndev);
- =09struct nci_mode_set_cmd cmd;
-=20
-+=09/* ST21NFCD has no NDLC proprietary SET_NFC_MODE */
-+=09if (info->ndlc->raw_nci)
-+=09=09return 0;
+diff --git a/Documentation/netlink/specs/ethtool.yaml b/Documentation/netlink/specs/ethtool.yaml
+index 5dd4d1b5d94b..35e028c0be29 100644
+--- a/Documentation/netlink/specs/ethtool.yaml
++++ b/Documentation/netlink/specs/ethtool.yaml
+@@ -210,6 +210,11 @@ definitions:
+       -
+         name: discard
+         value: 31
++  -
++    name: port-type
++    doc: type of physical connector
++    type: enum
++    entries: [mdi, sfp]
+ 
+ attribute-sets:
+   -
+@@ -1905,6 +1910,32 @@ attribute-sets:
+         name: link
+         type: nest
+         nested-attributes: mse-snapshot
++  -
++    name: port
++    attr-cnt-name: --ethtool-a-port-cnt
++    attributes:
++      -
++        name: header
++        type: nest
++        nested-attributes: header
++      -
++        name: id
++        type: u32
++      -
++        name: supported-modes
++        type: nest
++        nested-attributes: bitset
++      -
++        name: supported-interfaces
++        type: nest
++        nested-attributes: bitset
++      -
++        name: type
++        type: u32
++        enum: port-type
++      -
++        name: upstream-port
++        type: u32
+ 
+ operations:
+   enum-model: directional
+@@ -2859,6 +2890,30 @@ operations:
+             - worst-channel
+             - link
+       dump: *mse-get-op
++    -
++      name: port-get
++      doc: Get ports attached to an interface
 +
- =09cmd.cmd_type =3D ST_NCI_SET_NFC_MODE;
- =09cmd.mode =3D 1;
-=20
-@@ -84,12 +89,29 @@ static int st_nci_prop_rsp_packet(struct nci_dev *ndev,
- =09return 0;
- }
-=20
-+/*
-+ * ST21NFCD emits proprietary NCI NTFs (GID 0xf, OID 0x02) on CORE_RESET
-+ * and during each RF poll loop. The payload is an RF trace; tags are
-+ * still reported with the standard RF_INTF_ACTIVATED_NTF. Consume the
-+ * packet so nci_ntf_packet does not log "unsupported ntf opcode 0xf02".
-+ */
-+static int st_nci_prop_rf_ntf_packet(struct nci_dev *ndev,
-+=09=09=09=09     struct sk_buff *skb)
-+{
-+=09return 0;
-+}
++      attribute-set: port
 +
- static const struct nci_driver_ops st_nci_prop_ops[] =3D {
- =09{
- =09=09.opcode =3D nci_opcode_pack(NCI_GID_PROPRIETARY,
- =09=09=09=09=09  ST_NCI_CORE_PROP),
- =09=09.rsp =3D st_nci_prop_rsp_packet,
- =09},
-+=09{
-+=09=09.opcode =3D nci_opcode_pack(NCI_GID_PROPRIETARY,
-+=09=09=09=09=09  ST_NCI_PROP_RF_NTF),
-+=09=09.ntf =3D st_nci_prop_rf_ntf_packet,
-+=09},
++      do:
++        request:
++          attributes:
++            - header
++            - id
++        reply: &port-get-op-reply
++          attributes:
++            - header
++            - id
++            - supported-modes
++            - supported-interfaces
++            - type
++            - upstream-port
++      dump:
++        request:
++          attributes:
++            - header
++        reply: *port-get-op-reply
+ 
+ mcast-groups:
+   list:
+diff --git a/Documentation/networking/ethtool-netlink.rst b/Documentation/networking/ethtool-netlink.rst
+index e92abf45faf5..b4326c89b075 100644
+--- a/Documentation/networking/ethtool-netlink.rst
++++ b/Documentation/networking/ethtool-netlink.rst
+@@ -2537,6 +2537,39 @@ Within each channel nest, only the metrics supported by the PHY will be present.
+ See ``struct phy_mse_snapshot`` kernel documentation in
+ ``include/linux/phy.h``.
+ 
++PORT_GET
++========
++
++Retrieve information about the physical connection points of a network device,
++referred to as "ports". User needs to specify a PORT_ID for the DO operation,
++in which case the DO request returns information about that specific port.
++
++As there can be more than one port, the DUMP operation can be used to list the
++ports present on a given interface, by passing an interface index or name in
++the dump request.
++
++Request contents:
++
++  ===================================== ======  ===============================
++  ``ETHTOOL_A_PORT_HEADER``             nested  request header
++  ``ETHTOOL_A_PORT_ID``                 u32     port id
++  ===================================== ======  ===============================
++
++Kernel response contents:
++
++  ======================================= ======  =============================
++  ``ETHTOOL_A_PORT_HEADER``               nested  request header
++  ``ETHTOOL_A_PORT_ID``                   u32     the port's unique identifier,
++                                                  per netdevice.
++  ``ETHTOOL_A_PORT_SUPPORTED_MODES``      bitset  bitset of supported linkmodes
++  ``ETHTOOL_A_PORT_SUPPORTED_INTERFACES`` bitset  bitset of supported MII
++                                                  interfaces
++  ``ETHTOOL_A_PORT_TYPE``                 u32     the port type
++  ``ETHTOOL_A_PORT_UPSTREAM_PORT``        u32     If any, the index of the MII
++                                                  port that feeds into this
++                                                  port.
++  ======================================= ======  =============================
++
+ Request translation
+ ===================
+ 
+@@ -2647,4 +2680,5 @@ are netlink only.
+   n/a                                 ``ETHTOOL_MSG_PHY_GET``
+   ``SIOCGHWTSTAMP``                   ``ETHTOOL_MSG_TSCONFIG_GET``
+   ``SIOCSHWTSTAMP``                   ``ETHTOOL_MSG_TSCONFIG_SET``
++  n/a                                 ``ETHTOOL_MSG_PORT_GET``
+   =================================== =====================================
+diff --git a/include/uapi/linux/ethtool_netlink_generated.h b/include/uapi/linux/ethtool_netlink_generated.h
+index 8134baf7860f..f9d8794eabc1 100644
+--- a/include/uapi/linux/ethtool_netlink_generated.h
++++ b/include/uapi/linux/ethtool_netlink_generated.h
+@@ -78,6 +78,11 @@ enum ethtool_pse_event {
+ 	ETHTOOL_PSE_EVENT_SW_PW_CONTROL_ERROR = 64,
  };
-=20
- static const struct nci_ops st_nci_ops =3D {
-diff --git a/drivers/nfc/st-nci/i2c.c b/drivers/nfc/st-nci/i2c.c
-index 152c20b6bb01..2ec029f31c67 100644
---- a/drivers/nfc/st-nci/i2c.c
-+++ b/drivers/nfc/st-nci/i2c.c
-@@ -10,10 +10,13 @@
- #include <linux/i2c.h>
- #include <linux/gpio/consumer.h>
- #include <linux/acpi.h>
-+#include <linux/clk.h>
- #include <linux/interrupt.h>
- #include <linux/delay.h>
- #include <linux/nfc.h>
- #include <linux/of.h>
-+#include <linux/property.h>
-+#include <linux/regulator/consumer.h>
-=20
- #include "st-nci.h"
-=20
-@@ -22,10 +25,17 @@
- /* ndlc header */
- #define ST_NCI_FRAME_HEADROOM 1
- #define ST_NCI_FRAME_TAILROOM 0
-+#define ST_NCI_RAW_FRAME_HEADROOM 0
-=20
- #define ST_NCI_I2C_MIN_SIZE 4   /* PCB(1) + NCI Packet header(3) */
-+#define ST_NCI_NCI_HDR_SIZE 3   /* raw NCI: MT/PBF/GID + OID + len */
- #define ST_NCI_I2C_MAX_SIZE 250 /* req 4.2.1 */
-=20
-+enum st_nci_i2c_proto {
-+=09ST_NCI_I2C_PROTO_NDLC =3D 0,
-+=09ST_NCI_I2C_PROTO_RAW_NCI,
+ 
++enum ethtool_port_type {
++	ETHTOOL_PORT_TYPE_MDI,
++	ETHTOOL_PORT_TYPE_SFP,
 +};
 +
- #define ST_NCI_DRIVER_NAME "st_nci"
- #define ST_NCI_I2C_DRIVER_NAME "st_nci_i2c"
-=20
-@@ -34,6 +44,7 @@ struct st_nci_i2c_phy {
- =09struct llt_ndlc *ndlc;
-=20
- =09bool irq_active;
-+=09bool raw_nci;
-=20
- =09struct gpio_desc *gpiod_reset;
-=20
-@@ -44,9 +55,20 @@ static int st_nci_i2c_enable(void *phy_id)
- {
- =09struct st_nci_i2c_phy *phy =3D phy_id;
-=20
--=09gpiod_set_value(phy->gpiod_reset, 0);
--=09usleep_range(10000, 15000);
--=09gpiod_set_value(phy->gpiod_reset, 1);
-+=09/*
-+=09 * Existing DTS uses GPIO_ACTIVE_HIGH and treats logical 1 as
-+=09 * chip-running. GPIO_ACTIVE_LOW: logical 1 asserts reset
-+=09 * (physical LOW).
-+=09 */
-+=09if (gpiod_is_active_low(phy->gpiod_reset)) {
-+=09=09gpiod_set_value(phy->gpiod_reset, 1);
-+=09=09usleep_range(10000, 15000);
-+=09=09gpiod_set_value(phy->gpiod_reset, 0);
-+=09} else {
-+=09=09gpiod_set_value(phy->gpiod_reset, 0);
-+=09=09usleep_range(10000, 15000);
-+=09=09gpiod_set_value(phy->gpiod_reset, 1);
-+=09}
- =09usleep_range(80000, 85000);
-=20
- =09if (phy->ndlc->powered =3D=3D 0 && phy->irq_active =3D=3D 0) {
-@@ -111,6 +133,42 @@ static int st_nci_i2c_read(struct st_nci_i2c_phy *phy,
- =09u8 buf[ST_NCI_I2C_MAX_SIZE];
- =09struct i2c_client *client =3D phy->i2c_dev;
-=20
-+=09if (phy->raw_nci) {
-+=09=09r =3D i2c_master_recv(client, buf, ST_NCI_NCI_HDR_SIZE);
-+=09=09if (r < 0) {
-+=09=09=09usleep_range(1000, 4000);
-+=09=09=09r =3D i2c_master_recv(client, buf, ST_NCI_NCI_HDR_SIZE);
-+=09=09}
-+=09=09if (r !=3D ST_NCI_NCI_HDR_SIZE)
-+=09=09=09return -EREMOTEIO;
-+
-+=09=09len =3D buf[2];
-+=09=09if (len > ST_NCI_I2C_MAX_SIZE) {
-+=09=09=09nfc_err(&client->dev, "invalid frame len\n");
-+=09=09=09return -EBADMSG;
-+=09=09}
-+
-+=09=09*skb =3D alloc_skb(ST_NCI_NCI_HDR_SIZE + len, GFP_KERNEL);
-+=09=09if (!*skb)
-+=09=09=09return -ENOMEM;
-+
-+=09=09skb_put(*skb, ST_NCI_NCI_HDR_SIZE);
-+=09=09memcpy((*skb)->data, buf, ST_NCI_NCI_HDR_SIZE);
-+
-+=09=09if (!len)
-+=09=09=09return 0;
-+
-+=09=09r =3D i2c_master_recv(client, buf, len);
-+=09=09if (r !=3D len) {
-+=09=09=09kfree_skb(*skb);
-+=09=09=09return -EREMOTEIO;
-+=09=09}
-+
-+=09=09skb_put(*skb, len);
-+=09=09memcpy((*skb)->data + ST_NCI_NCI_HDR_SIZE, buf, len);
-+=09=09return 0;
-+=09}
-+
- =09r =3D i2c_master_recv(client, buf, ST_NCI_I2C_MIN_SIZE);
- =09if (r < 0) {  /* Retry, chip was in standby */
- =09=09usleep_range(1000, 4000);
-@@ -211,6 +269,8 @@ static int st_nci_i2c_probe(struct i2c_client *client)
- =09=09return -ENOMEM;
-=20
- =09phy->i2c_dev =3D client;
-+=09phy->raw_nci =3D (uintptr_t)device_get_match_data(dev) =3D=3D
-+=09=09=09ST_NCI_I2C_PROTO_RAW_NCI;
-=20
- =09i2c_set_clientdata(client, phy);
-=20
-@@ -218,6 +278,14 @@ static int st_nci_i2c_probe(struct i2c_client *client)
- =09if (r)
- =09=09dev_dbg(dev, "Unable to add GPIO mapping table\n");
-=20
-+=09r =3D devm_regulator_get_enable_optional(dev, "vdd-io");
-+=09if (r && r !=3D -ENODEV)
-+=09=09return dev_err_probe(dev, r, "failed to enable vdd-io\n");
-+
-+=09r =3D PTR_ERR_OR_ZERO(devm_clk_get_optional_enabled(dev, NULL));
-+=09if (r)
-+=09=09return dev_err_probe(dev, r, "failed to enable clock\n");
-+
- =09/* Get RESET GPIO */
- =09phy->gpiod_reset =3D devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
- =09if (IS_ERR(phy->gpiod_reset)) {
-@@ -231,8 +299,10 @@ static int st_nci_i2c_probe(struct i2c_client *client)
- =09=09=09=09device_property_read_bool(dev, "uicc-present");
-=20
- =09r =3D ndlc_probe(phy, &i2c_phy_ops, &client->dev,
--=09=09=09ST_NCI_FRAME_HEADROOM, ST_NCI_FRAME_TAILROOM,
--=09=09=09&phy->ndlc, &phy->se_status);
-+=09=09=09phy->raw_nci ? ST_NCI_RAW_FRAME_HEADROOM :
-+=09=09=09=09       ST_NCI_FRAME_HEADROOM,
-+=09=09=09ST_NCI_FRAME_TAILROOM,
-+=09=09=09&phy->ndlc, &phy->se_status, phy->raw_nci);
- =09if (r < 0) {
- =09=09nfc_err(&client->dev, "Unable to register ndlc layer\n");
- =09=09return r;
-@@ -273,6 +343,8 @@ static const struct of_device_id of_st_nci_i2c_match[] =
-=3D {
- =09{ .compatible =3D "st,st21nfcb-i2c" },
- =09{ .compatible =3D "st,st21nfcb_i2c" },
- =09{ .compatible =3D "st,st21nfcc-i2c" },
-+=09{ .compatible =3D "st,st21nfcd",
-+=09  .data =3D (void *)ST_NCI_I2C_PROTO_RAW_NCI },
- =09{ }
+ enum {
+ 	ETHTOOL_A_HEADER_UNSPEC,
+ 	ETHTOOL_A_HEADER_DEV_INDEX,
+@@ -840,6 +845,18 @@ enum {
+ 	ETHTOOL_A_MSE_MAX = (__ETHTOOL_A_MSE_CNT - 1)
  };
- MODULE_DEVICE_TABLE(of, of_st_nci_i2c_match);
-diff --git a/drivers/nfc/st-nci/ndlc.c b/drivers/nfc/st-nci/ndlc.c
-index be4808859cfa..13026c4facb3 100644
---- a/drivers/nfc/st-nci/ndlc.c
-+++ b/drivers/nfc/st-nci/ndlc.c
-@@ -62,8 +62,9 @@ void ndlc_close(struct llt_ndlc *ndlc)
- =09/* toggle reset pin */
- =09ndlc->ops->enable(ndlc->phy_id);
-=20
--=09nci_prop_cmd(ndlc->ndev, ST_NCI_CORE_PROP,
--=09=09     sizeof(struct nci_mode_set_cmd), (__u8 *)&cmd);
-+=09if (!ndlc->raw_nci)
-+=09=09nci_prop_cmd(ndlc->ndev, ST_NCI_CORE_PROP,
-+=09=09=09     sizeof(struct nci_mode_set_cmd), (__u8 *)&cmd);
-=20
- =09ndlc->powered =3D 0;
- =09ndlc->ops->disable(ndlc->phy_id);
-@@ -72,11 +73,13 @@ EXPORT_SYMBOL(ndlc_close);
-=20
- int ndlc_send(struct llt_ndlc *ndlc, struct sk_buff *skb)
- {
--=09/* add ndlc header */
--=09u8 pcb =3D PCB_TYPE_DATAFRAME | PCB_DATAFRAME_RETRANSMIT_NO |
--=09=09PCB_FRAME_CRC_INFO_NOTPRESENT;
-+=09if (!ndlc->raw_nci) {
-+=09=09/* add ndlc header */
-+=09=09u8 pcb =3D PCB_TYPE_DATAFRAME | PCB_DATAFRAME_RETRANSMIT_NO |
-+=09=09=09PCB_FRAME_CRC_INFO_NOTPRESENT;
-=20
--=09*(u8 *)skb_push(skb, 1) =3D pcb;
-+=09=09*(u8 *)skb_push(skb, 1) =3D pcb;
-+=09}
- =09skb_queue_tail(&ndlc->send_q, skb);
-=20
- =09schedule_work(&ndlc->sm_work);
-@@ -103,6 +106,10 @@ static void llt_ndlc_send_queue(struct llt_ndlc *ndlc)
- =09=09=09ndlc->hard_fault =3D r;
- =09=09=09break;
- =09=09}
-+=09=09if (ndlc->raw_nci) {
-+=09=09=09kfree_skb(skb);
-+=09=09=09continue;
-+=09=09}
- =09=09time_sent =3D jiffies;
- =09=09*(unsigned long *)skb->cb =3D time_sent;
-=20
-@@ -154,6 +161,10 @@ static void llt_ndlc_rcv_queue(struct llt_ndlc *ndlc)
- =09=09pr_debug("rcvQlen=3D%d\n", ndlc->rcv_q.qlen);
-=20
- =09while ((skb =3D skb_dequeue(&ndlc->rcv_q)) !=3D NULL) {
-+=09=09if (ndlc->raw_nci) {
-+=09=09=09nci_recv_frame(ndlc->ndev, skb);
-+=09=09=09continue;
-+=09=09}
- =09=09pcb =3D skb->data[0];
- =09=09skb_pull(skb, 1);
- =09=09if ((pcb & PCB_TYPE_MASK) =3D=3D PCB_TYPE_SUPERVISOR) {
-@@ -251,7 +262,8 @@ static void ndlc_t2_timeout(struct timer_list *t)
-=20
- int ndlc_probe(void *phy_id, const struct nfc_phy_ops *phy_ops,
- =09       struct device *dev, int phy_headroom, int phy_tailroom,
--=09       struct llt_ndlc **ndlc_id, struct st_nci_se_status *se_status)
-+=09       struct llt_ndlc **ndlc_id, struct st_nci_se_status *se_status,
-+=09       bool raw_nci)
- {
- =09struct llt_ndlc *ndlc;
-=20
-@@ -263,6 +275,7 @@ int ndlc_probe(void *phy_id, const struct nfc_phy_ops *=
-phy_ops,
- =09ndlc->phy_id =3D phy_id;
- =09ndlc->dev =3D dev;
- =09ndlc->powered =3D 0;
-+=09ndlc->raw_nci =3D raw_nci;
-=20
- =09*ndlc_id =3D ndlc;
-=20
-diff --git a/drivers/nfc/st-nci/ndlc.h b/drivers/nfc/st-nci/ndlc.h
-index c24ce9b0df52..0b12e12e47d2 100644
---- a/drivers/nfc/st-nci/ndlc.h
-+++ b/drivers/nfc/st-nci/ndlc.h
-@@ -39,6 +39,8 @@ struct llt_ndlc {
- =09 */
- =09int hard_fault;
- =09int powered;
-+=09/* ST21NFCD: raw NCI on the wire, no NDLC PCB / ACK timers */
-+=09bool raw_nci;
- };
-=20
- int ndlc_open(struct llt_ndlc *ndlc);
-@@ -47,6 +49,7 @@ int ndlc_send(struct llt_ndlc *ndlc, struct sk_buff *skb)=
-;
- void ndlc_recv(struct llt_ndlc *ndlc, struct sk_buff *skb);
- int ndlc_probe(void *phy_id, const struct nfc_phy_ops *phy_ops,
- =09       struct device *dev, int phy_headroom, int phy_tailroom,
--=09       struct llt_ndlc **ndlc_id, struct st_nci_se_status *se_status);
-+=09       struct llt_ndlc **ndlc_id, struct st_nci_se_status *se_status,
-+=09       bool raw_nci);
- void ndlc_remove(struct llt_ndlc *ndlc);
- #endif /* __LOCAL_NDLC_H__ */
-diff --git a/drivers/nfc/st-nci/se.c b/drivers/nfc/st-nci/se.c
-index 607ec768eb7b..44cc102bcde2 100644
---- a/drivers/nfc/st-nci/se.c
-+++ b/drivers/nfc/st-nci/se.c
-@@ -621,6 +621,9 @@ int st_nci_discover_se(struct nci_dev *ndev)
- =09int se_count =3D 0;
- =09struct st_nci_info *info =3D nci_get_drvdata(ndev);
-=20
-+=09if (info->ndlc->raw_nci)
-+=09=09return 0;
+ 
++enum {
++	ETHTOOL_A_PORT_HEADER = 1,
++	ETHTOOL_A_PORT_ID,
++	ETHTOOL_A_PORT_SUPPORTED_MODES,
++	ETHTOOL_A_PORT_SUPPORTED_INTERFACES,
++	ETHTOOL_A_PORT_TYPE,
++	ETHTOOL_A_PORT_UPSTREAM_PORT,
 +
- =09r =3D st_nci_hci_network_init(ndev);
- =09if (r !=3D 0)
- =09=09return r;
-diff --git a/drivers/nfc/st-nci/spi.c b/drivers/nfc/st-nci/spi.c
-index 7948c7e0c88c..1ce80a85bfe6 100644
---- a/drivers/nfc/st-nci/spi.c
-+++ b/drivers/nfc/st-nci/spi.c
-@@ -246,7 +246,7 @@ static int st_nci_spi_probe(struct spi_device *dev)
-=20
- =09r =3D ndlc_probe(phy, &spi_phy_ops, &dev->dev,
- =09=09=09ST_NCI_FRAME_HEADROOM, ST_NCI_FRAME_TAILROOM,
--=09=09=09&phy->ndlc, &phy->se_status);
-+=09=09=09&phy->ndlc, &phy->se_status, false);
- =09if (r < 0) {
- =09=09nfc_err(&dev->dev, "Unable to register ndlc layer\n");
- =09=09return r;
-diff --git a/drivers/nfc/st-nci/st-nci.h b/drivers/nfc/st-nci/st-nci.h
-index 5286071e52cf..aa8782c95d2f 100644
---- a/drivers/nfc/st-nci/st-nci.h
-+++ b/drivers/nfc/st-nci/st-nci.h
-@@ -15,6 +15,8 @@
-=20
- #define ST_NCI_CORE_PROP                0x01
- #define ST_NCI_SET_NFC_MODE             0x02
-+/* ST21NFCD proprietary RF activity / poll-trace notification (GID 0xf) */
-+#define ST_NCI_PROP_RF_NTF=09=090x02
-=20
- /*
-  * ref ISO7816-3 chap 8.1. the initial character TS is followed by a
-
---=20
++	__ETHTOOL_A_PORT_CNT,
++	ETHTOOL_A_PORT_MAX = (__ETHTOOL_A_PORT_CNT - 1)
++};
++
+ enum {
+ 	ETHTOOL_MSG_USER_NONE = 0,
+ 	ETHTOOL_MSG_STRSET_GET = 1,
+@@ -893,6 +910,7 @@ enum {
+ 	ETHTOOL_MSG_RSS_CREATE_ACT,
+ 	ETHTOOL_MSG_RSS_DELETE_ACT,
+ 	ETHTOOL_MSG_MSE_GET,
++	ETHTOOL_MSG_PORT_GET,
+ 
+ 	__ETHTOOL_MSG_USER_CNT,
+ 	ETHTOOL_MSG_USER_MAX = (__ETHTOOL_MSG_USER_CNT - 1)
+@@ -954,6 +972,7 @@ enum {
+ 	ETHTOOL_MSG_RSS_CREATE_NTF,
+ 	ETHTOOL_MSG_RSS_DELETE_NTF,
+ 	ETHTOOL_MSG_MSE_GET_REPLY,
++	ETHTOOL_MSG_PORT_GET_REPLY,
+ 
+ 	__ETHTOOL_MSG_KERNEL_CNT,
+ 	ETHTOOL_MSG_KERNEL_MAX = (__ETHTOOL_MSG_KERNEL_CNT - 1)
+-- 
 2.55.0
-
 
