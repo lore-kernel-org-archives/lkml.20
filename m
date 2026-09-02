@@ -1,93 +1,143 @@
-Received: from relay.hostedemail.com (smtprelay0016.hostedemail.com [216.40.44.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1934A8A38
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:23:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA1C94AA59E;
+	Wed,  2 Sep 2026 17:23:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788369813; cv=none; b=mt5xnGWoqRnrICwzjzaD9F/vLlS7gEguIYtlb+cPODpuz9pP0jKQmFWJY+FkWdWBzOeV3xCSxwrccEtkQRfDDG1XmVl9xdUwPFq46aCYndOGUQj7rjMoP1OCXXrPCvwlUqOF7FgaBwNmK3ac0Y2KfCpoDsmU4o46Ws7P6sA4V3U=
+	t=1788369814; cv=none; b=VAz/cql547sFTttoAARWmgRdLgss71+FB6mqYgwLwB1cmu9u5xyOttv1krTTfoQMUQohZVZnXcGL+kFZTaLq6W+FJ9TZxptQIq7ZzgS4zvfZtpKtFjeT4e5WnKjt4IKz4vxOFHBcxRhJSVFNYydOATKDeOgVYOb/rGu/Jc9vY78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788369813; c=relaxed/simple;
-	bh=ByteCMSs7J2QOE5s9G8KXv8atwv1vFC3TmmtiyRh5mo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=REFag/waG9AqJoY+8K4+dswECnAfB4r+Z22lpAvnRGvxg+5CWaUpFHQtldSiUAA7C4UvNBvT8fNMocx08UDdU50+HxVefelyA9gF9waeMCS70L8+UxsJFeLJUfxS3YrZYjLZWRcwGZOK8ye+wdrJ4jGernywOhE5uUfnIgjL0I0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=e9lQB000; arc=none smtp.client-ip=216.40.44.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	s=arc-20240116; t=1788369814; c=relaxed/simple;
+	bh=YVgUIxC4qvnn0Vv9lVwgjAu8cVfniffOqE/RSreBVFQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fAQ/idqwNPrubeneWBrD6UwrhX4FzJ+FG8CLbd3DMs0VyHSSDpI8oQblZ30lZ0DxA7gbvzN6qy5JZ7I5P7FAWW2g1E8haHR8PQezg8x6DBY8GWO8D3kaXQ2UC6+Nx+F00fp7wdhneTMB2iqxG09qVYfrTj0C/kpt8fCQEtgVDXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SQ/e64IL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="e9lQB000"
-Received: from omf04.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay10.hostedemail.com (Postfix) with ESMTP id C36CEC0333;
-	Wed,  2 Sep 2026 17:23:27 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf04.hostedemail.com (Postfix) with ESMTPA id A219720024;
-	Wed,  2 Sep 2026 17:23:25 +0000 (UTC)
-Date: Wed, 2 Sep 2026 13:24:26 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Bart Van Assche <bvanassche@acm.org>, David Laight
- <david.laight.linux@gmail.com>, linux-kernel@vger.kernel.org, Christoph
- Hellwig <hch@lst.de>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, Luc Van
- Oostenryck <luc.vanoostenryck@gmail.com>, Chris Li <sparse@chrisli.org>
-Subject: Re: [PATCH v2] tracing: Make is_signed_type() compatible with
- sparse
-Message-ID: <20260902132426.0f616240@gandalf.local.home>
-In-Reply-To: <CAHk-=wjLqvhj6TkjPHq2WFsHa1s9MVjEZyoHiWOwgHY97Ls7kg@mail.gmail.com>
-References: <bde573c1a758505339239f08be28788a34dfcb73.1786121949.git.bvanassche@acm.org>
-	<20260831214437.15d6ad34@pumpkin>
-	<a771af57-40ee-433a-be84-9b7c3e6965c5@acm.org>
-	<20260901092043.7feaf5d7@pumpkin>
-	<dca931ff-5995-444c-9f89-6d6cca4e71f3@acm.org>
-	<20260901222909.05d6239f@pumpkin>
-	<1b86ccbf-4e41-4a26-9d22-8bd93bacb043@acm.org>
-	<CAHk-=wi_3xdtBrDgUxw5xtq8a=CdyRJnceo7YJg59wqqdXwiMQ@mail.gmail.com>
-	<20260901192523.0e989b10@robin>
-	<20260902092437.00dfaa25@pumpkin>
-	<20260902093644.5b0e8a64@gandalf.local.home>
-	<a5aea1c4-3e29-4bba-8cd2-d4ccbeda008c@acm.org>
-	<20260902123933.5c3c8fa3@gandalf.local.home>
-	<e75964e2-6b46-4594-8bfb-ce0c0ed620a7@acm.org>
-	<20260902125408.1e86282a@gandalf.local.home>
-	<CAHk-=wjLqvhj6TkjPHq2WFsHa1s9MVjEZyoHiWOwgHY97Ls7kg@mail.gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SQ/e64IL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B05C1F00A3A;
+	Wed,  2 Sep 2026 17:23:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788369812;
+	bh=XmNQ6WKBMzr8oIBSZDnJlW7h+ZrhoZOuFj83Jzmbsfo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SQ/e64ILDN1pnMgED8ssh6q9/0rLdHgxDHqnOBlzw92WYCiWJaT5cTvF+TPGYNpsX
+	 MX3S60psaFTPn+grPZ3LvrWhFEpGNfvppk5aC/ydk2gk7hv3FHidWSHch5Tghbqtnt
+	 BLiitH1a1HWIYSaP7P14oDJzjpjM2XT6PYZw4KxZrFOErwOxMcfQxwIQk56lhejnjk
+	 qv0z3nBoKeZH/L4lNhlM/6jirLe1WCUqP2JogwSOPRgGzo3aYZq8Nas0eyO455mxcs
+	 jJv1M6Zjvwe/9CiiQzd8B8PuXrz3OsZgV0HQNShSz7a8MGhj6HQElRLPKoLifUjQH1
+	 rGVz9fCVKnzcQ==
+Date: Wed, 2 Sep 2026 20:23:22 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Ard Biesheuvel <ardb+git@google.com>
+Cc: linux-kernel@vger.kernel.org, Ard Biesheuvel <ardb@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Adrian =?utf-8?Q?Barna=C5=9B?= <abarnas@google.com>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Kevin Brodsky <kevin.brodsky@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-trace-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-modules@vger.kernel.org
+Subject: Re: [RFC PATCH 0/9] arm64: Allocate .text and .init.text together
+Message-ID: <aphbiuSzIrM6vhJt@kernel.org>
+References: <20260822135323.795946-11-ardb+git@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Queue-Id: A219720024
-X-Stat-Signature: mwm176jbsceixwzpim765rigcycdab3z
-X-Rspamd-Server: rspamout03
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1+YwXBips4Y6NQucfY6G4tQIYzNtJZ/4I0=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=1Sfgu6vSMnsLpay0UXVSBpbtDE9UPcYEBUUGnZf+zmY=; b=e9lQB000RGbkC6k9luu9jg2IG8WGgK7NizOFp4ovYzOOJg+yM0buMEsH4ClT/5VeRcXWAJwzuNT8ZeK2Wmle6n+gUQCeZoFqEzN3e+Lms+IrAQMIyKN5aF+TdcsTZ9MSSA3ayqVR0xiVUIw9/Lv7RnoEXJ5F0efPp38jvEpXURQ=
-X-HE-Tag: 1788369805-459744
-X-HE-Meta: U2FsdGVkX1+8Iazzv4DHNq4KGHNlt7xHcM6SvifPlQkgBUiGmgML+wJVuLcQu0JLxUAj7NRTHE31zYzFIMDJyvGKz004qpnVbSJmXiB35bi3jUHEtWhK7q7gHJsZvrdWMSsdpTBz0uxHIqgEYHeo/VcgYabiz8epfsITqGUKSKWldCMhZrkbxE46N/8zh4+mjfkF8HRlLfMcFkIg5/Yz+d/0s/ZzS6IaSWQEFGHzwXn22FUN0FewfGbx6xYv3+3dexenkL3na9yXbYSr32+SDnXCgWM6086SpAB5UwKIhb0w5lWA+Lpa3WuunM8olvNSJdlCrMX2QKfZWmbZNQ14rjQSayKmglnSRCjwc3ACK8BG0IdD7g3jYNMjp4Wvgp0rhENBPE1Q7TuDb1J84LoqVNfKTC6a/xwRZC3Qa8cFcUmigjRAFvAgyx43oVwAJ63o
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260822135323.795946-11-ardb+git@google.com>
 
-On Wed, 2 Sep 2026 10:04:48 -0700
-Linus Torvalds <torvalds@linux-foundation.org> wrote:
+Hi Ard,
 
-> On Wed, 2 Sept 2026 at 09:53, Steven Rostedt <rostedt@goodmis.org> wrote:
-> >
-> > If anything, using __bitwise in the field makes things much worse, as you
-> > are finding out now.  
+On Sat, Aug 22, 2026 at 03:53:22PM +0200, Ard Biesheuvel wrote:
+> From: Ard Biesheuvel <ardb@kernel.org>
 > 
-> Stop it. __bitwise makes absolutely nothing worse. It's the right
-> type. If you are recording a value with any type at all, the type
-> should either match the original, or the original type shouldn't
-> matter AT ALL.
+> The arm64 module loader has to deal with a couple of corner cases that
+> may occur when .init.text is placed out of direct branch range of .text:
+> 
+> - ordinary direct branches from .init.text into .text may require the
+>   use of a PLT entry (i.e., a trampoline aka veneer), which means not
+>   only that additional PLT entries need to be allocated for
+>   cross-section calls, but also that .init.text needs its own PLT
+>   reservation, as the one in .text will be out of range as well;
+> 
+> - dynamic patching of the ftrace handler into .init.text code needs its
+>   own dedicated trampoline as the one in .text may be too far away.
+> 
+> - recent compilers may omit BTI veneers for static functions that never
+>   have their address taken, and so additional veneers will need to be
+>   added to .text in case cross-section direct branches from .init.text 
+>   require a PLT entry (and therefore a landing pad at the target end).
+> 
+> This is unfortunate, because it is actually somewhat unusual for .text
+> and .init.text to be so far away from each other: only when allocating
+> either of them (but not both) exhausts the 'near' (PLT-less) module
+> region, the other will be allocated from the spillover region, which is
+> not in direct branching range, and therefore requires PLT entries for
+> cross-section calls.
+> 
+> This series addresses this wart by allocating both of them as a single
+> chunk, and freeing the .init.text part along with the other init
+> sections at the appropriate time. This ensures that the two regions will
+> never require veneers for cross-section calls, allowing the arm64 module
+> loader to be simplified.
+> 
+> Ard Biesheuvel (9):
+>   mm: execmem: Add API to split an existing execmem cache allocation
+>   mm: execmem: Allow huge vmappings to be avoided for execmem caches
+>   module: Place MOD_TEXT before MOD_INIT_TEXT in enumeration
+>   module: Allocate MOD_INIT_TEXT from the MOD_TEXT ROX allocation
+>   arm64: mm: Permit permissions changes on huge vmappings
+>   arm64: Enable the execmem ROX cache for module text
+>   arm64: ftrace: Revert "fix unreachable PLT for ftrace_caller ..."
+>   arm64: module: Combine init and core PLT entries again
+>   arm64: ftrace: Simplify PLT handling
 
-Relax. I was thinking this was more than for sparse, as I was confused by
-David's comment of:
+I can't say I like the idea of tying the single chunk allocation of
+modules .text and .init.text to the ROX cache.
 
-  And, in this case, the value is __bitwise so the 'tooling' doesn't know
-  how to display/compare them and you get a compile error. Doesn't seem
-  wrong :-)
+The goal of the cache is to have executable code mapped at higher page
+table levels. Letting it use base-page mappings completely dismisses it.
 
-And was under the impression there was something here that caused a
-compiler error. If it's just a sparse bug, then I don't care about it
-either.
+I'm not against having execmem_split() or something along these lines, but
+it should work without the ROX cache as well.
 
--- Steve
+Another question I had is did you consider splitting the area on free
+rather than on alloc?
+
+In this case it could be execmem_shrink() that immediately frees the
+.init.text part.
+ 
+>  arch/arm64/Kconfig                  |  1 +
+>  arch/arm64/include/asm/module.h     |  2 -
+>  arch/arm64/include/asm/module.lds.h |  3 -
+>  arch/arm64/kernel/ftrace.c          | 13 +---
+>  arch/arm64/kernel/module-plts.c     | 63 +++++---------------
+>  arch/arm64/kernel/module.c          | 20 +------
+>  arch/arm64/mm/init.c                | 19 +++++-
+>  arch/arm64/mm/pageattr.c            | 13 +++-
+>  include/linux/execmem.h             | 11 ++++
+>  include/linux/module.h              |  4 +-
+>  kernel/module/main.c                | 22 +++++--
+>  mm/execmem.c                        | 47 ++++++++++++++-
+>  12 files changed, 124 insertions(+), 94 deletions(-)
+> 
+> -- 
+> 2.55.0.860.g4b6b3295ed-goog
+> 
+
+-- 
+Sincerely yours,
+Mike.
