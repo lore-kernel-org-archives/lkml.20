@@ -1,90 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77E30476CD8;
-	Wed,  2 Sep 2026 12:13:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C9247FAE7;
+	Wed,  2 Sep 2026 12:14:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788351235; cv=none; b=kQ+k0zLKACXUYXCupvDOVgvqxKVuyPlFE2zidwSHxl9sSYyeXjHG6bGjqtm5e8BHwYmv+ZIqPnnmQyPplcrpAoBsmSHXwYVk6eW40elWxeshmZy6e9d7Pb0rIuNREWawDxJghrkLetBjv+NO9NhIte9Ao+YVqkHvsqMvOqVG0Gs=
+	t=1788351244; cv=none; b=VFBIjRPMo6bj+EffZCYb85/Q406Tt5Bcf6+t0Yxr9pNP9+Wh67xt7wvSZX9pCTowogtBvbC3TNiHgn3/kAqbOjnRbdacedHb4gWhRkuZHuM9Gi9Q6LBKlEzL5LkSXNIXW4vAUWVwqj2Q2DB2hZCZnz5BWlxn2sCE2Hpc3lIRm14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788351235; c=relaxed/simple;
-	bh=od4PSKrAZa8RBy09FjlrGIRvWgmhYP8ZtWooLSpb+PI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Yj8PGDzpO9sfgR6C5kwQ6JyZETkmFeZZuw264k4gNZr+DoYLahFb6xrM2qP1HEPap5cG6eyBpyVHl+VYf+zpTMjwBggyJONYlMLaP4jVUsTtK1wSiXQz5kV3ZNT/zH5BUbA+q+LbTrlKv/jzG/Zc6iO7lAFvQk9AeNwn66ADpxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fayqkXs9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788351244; c=relaxed/simple;
+	bh=ZDcOggslxCVkJ8daW/g8vyDbXApQQ0+Iaaqgg/9yIdQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=r+c0WPJsW+BJDrByfzBLTz9zbTYsxDtoBY87GuHAAnml8mcHsSlwpd9o1h8sbAGtcX/qwhC98WFR4ZJmtv19ZaH7P/ZLoLT2QxHvrkRVOsoa5OvV4PbPxGXqn4yMb5jSxM+fGcjqo2RuJXZqQk8j+QWeoW3gmma9if54xRem4I8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bj4L9/Bu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fayqkXs9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 386461F000E9;
-	Wed,  2 Sep 2026 12:13:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bj4L9/Bu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB8FF1F000E9;
+	Wed,  2 Sep 2026 12:13:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788351231;
-	bh=s2O1Tsm7w/qpAB8pn4EvmwDfGE5HdPYvnYladWk1CtE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fayqkXs9CaWLk0bUat06OK86QlbZi3Yl4vMRs6Dnm62G9zecTNg59PXX0UwMbu5e1
-	 vgm/uPH72MCSIm/XAuFCs/64UUfT/oZE0XDD2fOuoKqki/2ZpvCc4hOV2OqKcAYcdV
-	 bxdrsA0Gc2PoPn1RV5KvAA05GyGCxg5VsCW+Si461MSIbA72ktO1NQvR64yv1WUm2G
-	 fo4OgUEb9QmkezKIVtaYktwGmT5cN6WxFFDeOfVxicuIbZyNcGxYxRXuhGCe5auyWf
-	 1OGa3fr3V4mZxqLmv/X91Lgs2wfQJ4+8nNCdjJxUZ7patkfkJdPvgy0vKdoy5IR8dv
-	 UVWvAnuoYimKQ==
-Date: Wed, 2 Sep 2026 13:13:47 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>
-Subject: Re: linux-next: manual merge of the mm-nonmm-unstable tree with the
- mm,mm-fixes tree
-Message-ID: <b76cab9b-8e50-4d84-8b93-8d1161542689@sirena.org.uk>
-References: <apf4WaZ8D0P6W-FX@sirena.org.uk>
- <apgRMUMN6DVFmJ8u@kernel.org>
+	s=k20260515; t=1788351240;
+	bh=ajQ5Fb8+rIem6vBhUF78M4psB5Abho1rTJe15gUk4K4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bj4L9/Bu3HfhCcrFa5F6oBAnckAeIIqCUz/xSXVfc9nDR9+ozeUGRIVEVMyTSwOHc
+	 sAlyC1UhLF1VigIiWYoOu11tunhyve+q79nUH1nNbVAGMnb6twlAYbY0flY2X5a9pv
+	 KSVShCz8XGnKzqBgw7FQGBhNAKonAL18M4rB9JSxhy3DP4GvRFbyHAGIbYUkP4VCmx
+	 Qvn3r6c0A8HbBCPmz5ZezISbAU2A8zE0K/62Bt8W/sg0N2y7euxB5lT3rVaZL1HkeF
+	 ZBn0orzK6uIsSLzNvuzK5The3evJHhQAsjAEiSAenay1dhrP5Im+Wg95Qg196NGisl
+	 6gH0feS1Telig==
+From: Christian Brauner <brauner@kernel.org>
+To: Christian Brauner <brauner@kernel.org>,
+	David Howells <dhowells@redhat.com>
+Cc: Marc Dionne <marc.dionne@auristor.com>,
+	linux-afs@lists.infradead.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] afs: Miscellaneous fixes
+Date: Wed,  2 Sep 2026 14:13:53 +0200
+Message-ID: <20260902-hirnbotenstoff-lernen-haselnuss-96e280463c84@brauner>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260902121024.3328255-1-dhowells@redhat.com>
+References: <20260902121024.3328255-1-dhowells@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="clcZ1kR12U/lsiEc"
-Content-Disposition: inline
-In-Reply-To: <apgRMUMN6DVFmJ8u@kernel.org>
-X-Cookie: Prevent forest fires.
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1415; i=brauner@kernel.org; h=from:subject:message-id; bh=ZDcOggslxCVkJ8daW/g8vyDbXApQQ0+Iaaqgg/9yIdQ=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWTNEGbmWFJodjtvuQ2HTqH06vlT18omSJ+2ZeF5u3XVt R0SM6IaOkpZGMS4GGTFFFkc2k3C5ZbzVGw2ytSAmcPKBDKEgYtTACYiqsXIsPSawr6fvRtLVf44 Ta8v+7L3462FES+uVxrIBXRYVdxk+8TwV4TDUX9fwH25sLoV8842XcnVa1R52potdsG/8lRERos 4KwA=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
 
+On Wed, 02 Sep 2026 13:10:18 +0100, David Howells wrote:
+> Can you pick up these miscellaneous AFS fixes, please?  Three were found by
+> Sashiko[1][2] and one was a posted patch.
+> 
+>  (1) Fix missing kunmap in afs_dir_search_bucket().
+> 
+>  (2) Fix double-unmap of directory block.
+> 
+> [...]
 
---clcZ1kR12U/lsiEc
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-On Wed, Sep 02, 2026 at 03:06:09PM +0300, Mike Rapoport wrote:
-> On Wed, Sep 02, 2026 at 11:20:09AM +0100, Mark Brown wrote:
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-> > between commits:
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
-> >   0d171c47f2be6 ("mm/secretmem: properly account locked pages")
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
 
-> > from the mm,mm-fixes tree and commit:
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
 
-> >   d2c5e077cbeaf ("mm/secretmem: properly account locked pages")
-
-> > from the mm-nonmm-unstable tree.
-
-> Thanks, Mark!
-
-There's some more duplicated commits here BTW.
-
---clcZ1kR12U/lsiEc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqYEvoACgkQJNaLcl1U
-h9Dy2Af/XzzskNwfTNml5w8LTNn+0WID1cRZtRW+8fHIh8KuYuy7myLbgCbqS53J
-qF1ysBlnzPQaKWRxz0wrLL+CRD34A+JXsszW9IPWlkrBFeBfsaPAWSVx42+EyL7W
-o3l+H/8GKaW/+TEMYJmuApLPAfHK8O1IRGCsoWt0VF5mI8+zTF7KN9PmDnhrGDCq
-pz5afpMDzd0hXqvVFnBZkpCHs7TMNgiRcZ5SR/Z2gMKyfXcVnv/MhbC8LKkfC511
-c1umYhxJOqRnj/FVN/kizgUAbJG3OK9TXv3ImD8gNOdPc09FLJl80rhY97ugyCgO
-WvKR9nYb3NbVqOPq7Zybl5rVqUfe6g==
-=s8ay
------END PGP SIGNATURE-----
-
---clcZ1kR12U/lsiEc--
+[1/4] afs: Fix missing kunmap in afs_dir_search_bucket()
+      https://git.kernel.org/vfs/vfs/c/950ae84b5cc9
+[2/4] afs: Fix double-unmap of directory block
+      https://git.kernel.org/vfs/vfs/c/e3cfd3eb7d5b
+[3/4] afs: Fix incorrect free in candidate cleanup in afs_lookup_server()
+      https://git.kernel.org/vfs/vfs/c/044d596094af
+[4/4] afs: Clear stale peer app data after address list changes
+      https://git.kernel.org/vfs/vfs/c/ba0623fc19a4
