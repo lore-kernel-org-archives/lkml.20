@@ -1,154 +1,175 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012071.outbound.protection.outlook.com [40.93.195.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f8.google.com (mail-oo2-f8.google.com [74.125.231.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69A947E0FF
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 00:22:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.71
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788308529; cv=fail; b=KnF+MflDXT3FpeLqCsfN0zjabOQhhT1ol1Qxrk5068bhCRhF9xJAYA5gBP7CrljgttSowEHk5fCpQcaOb0rWwY2928KoD2bmpUKXd+z10kJYKbXVLDHpJKVBfhE63eKggyEgZrDhHFVRccEMNt5pHkDxqjjdSHZWU/OWUto52y8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788308529; c=relaxed/simple;
-	bh=nIyWSCXSugazvjbYjRO5ivtVtsPX66rHnVw6kK3Qj4Q=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jlApoIOEn5TDfQXMd3Qh0rexgxnAZT6IMzEPYzbiwAPzRJ0MKUhpHi2keg0c0jyloSRKCAlFrAH2FUafh1zfatKqT3+6x4EELTSgZT2F8YNFUhQmlcj8ZtXMBAEC6oXHdr+Ika2VNxPKOH790XCgDgZ1N81cYx/DWePLs04E92s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=NTaZmBOZ; arc=fail smtp.client-ip=40.93.195.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="NTaZmBOZ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z1/q4qp9LD/zwgJecauSYs4xAnoMOqla1jt8i3MLN1FmcpADCzg91XyuFbv590KZ2k5AsipzN63rDELRiMWSc9XIcD1E0ugjSsxjNF8jkYkmvp+Ro6gDMNAaJMtBpjfpmjaMoRp5CQaWlliujy4T7poyTFE+8NMCE1/WUY5RF/yLjetgaD8DfLCpA7fLML6t+IU0jdx3MpUjdArxh5bvMuq+snUxBqmHcx/0JXOSWvn90DWoAeNrXnzyxfo12ZDsJNLwxfoDmgt2eFxsMMhwpZa7p9l9mnZBGB1VZ+RAZpTrAdv2hK5FVSY+uz3tLdz/80FykXZeo0ClCRYhZ+c9dQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9jMvwE5g3ALVvJ4jSDfLCZVvwbR1h06wEfsXWvNrdmM=;
- b=iHrl9DgtVU7lxBtZdp/7gB8zg/XD6zxOckC4Wl9Z2ne8v0DxaQOBeY00XZjM/ObkLUJLyYTpYJ7TLPj/PmI/MGpEgt7YvUGSPJ9qX7LHbNpZngDPoq6HnFspLGAAcEhSGZ1eypDwc2n7qnWFSmEC5PxRE5RQtyuh3U+7ko5rGg1w/TRhWi0JL56QdcYypzLsrhmT5aGL3rNgQO8w25Tm8o+YtBYNi8xXdIf2CDDEgDLeiYYOYjDN3f2uzxJSH163nghOF6IX0173a0pZ+tHac+qDyqZ8FbMmGDSt379HPApSjSwvcVRseB7KpdBnumAiKVgE6MWHH+Tx1O2LxcFwLg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.118.232) smtp.rcpttodomain=ziepe.ca smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9jMvwE5g3ALVvJ4jSDfLCZVvwbR1h06wEfsXWvNrdmM=;
- b=NTaZmBOZBfy24HrEVAR0b6PsRC0TDBe6802slG1hooBUVqBmwpZkahE9EtAfVBsGHIWq0q5QDEM7dtxwB1LQlnu0lkgEdb0GKB/o34MTEWGjox2e73RWlcW+60sjFiWtcAOttuzIAg8zt1DKKB6lH7lCyK1HtBWF8Wn6BSsWBNtxalM+pSlvl+AIMTSZomD/SiVmUWypkdOsQ+I9Qcv9KQuC/d6+nuUo3bbRzkk1023/dnZlLsHf5Gqc9Qgd8Berr0sQWFsmtNMN5Va6fXuY6h0tNe2uWJmZjcdYN/h3JbEPWghgU5ZVjVzGNf5NYORFgNCmyuapV82w7zfMVgKixw==
-Received: from CH2PR04CA0022.namprd04.prod.outlook.com (2603:10b6:610:52::32)
- by CY8PR12MB7244.namprd12.prod.outlook.com (2603:10b6:930:57::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Wed, 2 Sep
- 2026 00:22:04 +0000
-Received: from BL02EPF00021F6B.namprd02.prod.outlook.com
- (2603:10b6:610:52:cafe::65) by CH2PR04CA0022.outlook.office365.com
- (2603:10b6:610:52::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Wed, 2
- Sep 2026 00:22:03 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.232)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.118.232 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.118.232; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.118.232) by
- BL02EPF00021F6B.mail.protection.outlook.com (10.167.249.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 00:22:03 +0000
-Received: from drhqmail202.nvidia.com (10.126.190.181) by mail.nvidia.com
- (10.127.129.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 1 Sep
- 2026 17:21:43 -0700
-Received: from drhqmail201.nvidia.com (10.126.190.180) by
- drhqmail202.nvidia.com (10.126.190.181) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 1 Sep 2026 17:21:42 -0700
-Received: from nvidia.com (10.127.8.10) by mail.nvidia.com (10.126.190.180)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46 via Frontend
- Transport; Tue, 1 Sep 2026 17:21:41 -0700
-Date: Tue, 1 Sep 2026 17:21:39 -0700
-From: Nicolin Chen <nicolinc@nvidia.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-CC: Aneesh Kumar K.V <aneesh.kumar@kernel.org>, <linux-coco@lists.linux.dev>,
-	<kvmarm@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, Alexey Kardashevskiy <aik@amd.com>, "Catalin
- Marinas" <catalin.marinas@arm.com>, Dan Williams <dan.j.williams@intel.com>,
-	Joerg Roedel <joro@8bytes.org>, Jonathan Cameron <jic23@kernel.org>, "Marc
- Zyngier" <maz@kernel.org>, Pranjal Shrivastava <praan@google.com>, "Robin
- Murphy" <robin.murphy@arm.com>, Samuel Ortiz <sameo@rivosinc.com>, "Steven
- Price" <steven.price@arm.com>, Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	"Will Deacon" <will@kernel.org>, Xu Yilun <yilun.xu@linux.intel.com>
-Subject: Re: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
- viommu plumbing
-Message-ID: <apdsEz7ipT3ABd6K@nvidia.com>
-References: <20260427085344.941627-1-aneesh.kumar@kernel.org>
- <20260427085344.941627-4-aneesh.kumar@kernel.org>
- <apM6dOHcEI2ztWS0@nvidia.com>
- <yq5a8q5lz5yn.fsf@kernel.org>
- <yq5aecfdnv4i.fsf@kernel.org>
- <20260901143445.GC56830@ziepe.ca>
- <apcHoHKGoI7WNFXp@nvidia.com>
- <20260901174230.GA2847102@ziepe.ca>
- <apcitkpASOREamQs@nvidia.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B16F97E0FF
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 00:23:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.136
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788308614; cv=none; b=ZCDjTkeNkkfuf/ERGum9+WW4vrr7znpMSNLVwCha6MThMn0yQhjFNz6fWgkxrkl02907+qAsuIlfRmZXHze1g/jAno61WRt3iiMLq4zpsowfxL7gOYbhgwTBq1siWpfWx0kVW66tYRkMrXske9eXgLowhV/DQT8LIyspltc1kNY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788308614; c=relaxed/simple;
+	bh=/y6NWVFREyIb7dyi4XE6+zQbOzqGko5Ub0NX5ovQpYY=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=cYpY1dX9XfPCUH48DYQjNnVa6bZbwgK+wwcfrxFaRqUOlYp5U2MP+AN4NU0j6y/B29GBZG45GM5BqguCn8uFECc9O2tfae9bUC6/AEJczPLfcexJNQMKKTFluUMqg/8Y5kbB/U5pwQAayKizFstZOx1oDLOv4SodARhk3K3z3Ag=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f8.google.com with SMTP id 006d021491bc7-6b1bf394d3bso72613eaf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 17:23:32 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788308611; x=1788913411;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8JSmnxQApi8XjQdw22ipTDSC+e2v8+0n5C7epgLYDig=;
+        b=IjFEZ0zgiwbvCAoQwTRpYU64roFQ4WxFBVKIaQjU9QuGHYG1YLv0Jv52Kg3TFaUjR1
+         KDUvjXXH7fgqABmDwgX2K/Uqw9tgGyoDC3XLSRwVoyaDZnJx8aN6cGm6J7dKGcbkMgxm
+         gcTYaFXpxdRUzKrYxREMdcz1nROJJBSrpsri9ZpZcw7TSU8Kjk3P0HbOqpdh36ZXtrfr
+         YeCcuC3H6ypPot+Q61bIg7XOV1l8aq/JwpBtHJv2T5V/3g5aHMOwfO8xB84UvxcMrrMQ
+         I6UWWbp32NWyvtHq6lN2yX1QwU1CD93SOXdF4KAJLveoxhZCLeJkYoHT/JWAw1nurl1Z
+         a/lw==
+X-Forwarded-Encrypted: i=1; AHgh+RrdabBDepkGHYNtwyy2UpQB4N3RRhO3r13qGWmI33k0sxokjB9vygyQleL4YczoAm0haX3+0/wj2JafV10=@vger.kernel.org
+X-Gm-Message-State: AFuF++nA8VSdq5YQBYXfC7rbW/ZAmQA4859tKudN2PLSAe1FNow4xdGc
+	rOLTwRciA5vQ+3JBqkiO9KvP32kw8DLH2xNi9nAXLszCYhpqHBjrPtIP1XMAQHcidK2Q0PPSrIM
+	d91Z3aP8reUS+vgiMeRe40lLy23S95dLf9d0p9JKbnKJrzw6xVR/HzUeb+Cc=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <apcitkpASOREamQs@nvidia.com>
-X-NV-OnPremToCloud: ExternallySecured
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6B:EE_|CY8PR12MB7244:EE_
-X-MS-Office365-Filtering-Correlation-Id: 634f601d-89ee-4319-3299-08df088836cf
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|7416014|376014|82310400026|23010399003|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	Ee+s44j+mQo+a7Nvk+Ew4aIV3isD+Jrk+5Zw+ls9H6ZJVkcj6ZplHp5/LIk1AVubUCTNcZlClGa/rTKDeAZELusBoELwkH4BTIlIfo2MIowYdf8P+NxMFUMQOyLPf73z7NZp18geOpmxQgWfb8u+c9L+1k4/BA3LoyoW+1P4fSDaLWEetXvwCwdRvwY2AqvwlwiZgEcXe1Vi0cMyHp6f8tqSrmy1BRG/q/6o40lvAMsdM8Dolm5ekj84y0d4AOH2CSiZ6hkKBb+qFjPggkNb2Ys+hy86ODfmVeonxSO3UZzbjZ4EgxB/Qe3CJU30s6FzXrKTk2nsrBcR8jB7Aqt6nwtlu7xGXRPf9dyOqI7IOyuHkFkc+kQZ4LKtjtS5+6Lb5lVmpDw1P+alnkl2/KAVHuIHbO2LzeoD+koA/fj0OchD2HDx4bzOuzJDBiJkvkTUTeF6awpOis7A98qLdB1U3E6gslqerFVrZm2SRqfMVNkfqIfcjN85dgg6TBZ/PuTRk9BE9kdB17fjSmz1uYBP/RxDhsA6VyMIva6/jgeYIbjsc1QwWwwIwRCBadUNpTKJektpcc/5Ve0DgAx/emBuzUQJDEmaz1p0atWA7pmIgVHvA4wQAimLMgriqctHpWEX1PUNwIZxLoJGOp/RxBefz27HUmrcIR6iKTEqJb62PKQDmzGeP9AqUsOUVWJSWLwWPAwcLs5L+OP2xz3hwQ/pGA==
-X-Forefront-Antispam-Report:
-	CIP:216.228.118.232;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(7416014)(376014)(82310400026)(23010399003)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	uHVlPydCjn/f2Gw40iHis/iGTwSS8eyMH7fcL2rK2e/WknzD3cOT4C1QEfuxXw+izpOUfeMg0Y68nwU0nKW8V5z2M0DxM7bKe+CSuslnKDHf04fO4rzyfeJUkFCsqxTqyLSCdjXvcn5OW8q5clY1HPujs5BgYoFRdi0v2OD5oziftu+xAIcg0QzTU5Mf5g5jI3ryOu7w7GSgE1czxlg22jpxMJxcBsThKUM06IUiqArTEh4hu3kqAX9F+Ry9RTGK4vBsEEZNALTs/wq4M4JVWdQ2yiQJKaAqgNbuqp6CsNSinDquTxqPpV4ZrA7LcoNRQ3YaGUapGS1FYHniECEufbBo1VRg6FCrmdMLXuW9EqSqCGgHjK4EdPiW20unFyiMk1jpQCUKGeUIF9dTMN6KnWawb5ixSEz41RL4J5UQaQWNafmZdbWgr9PtY1+n/mM3
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 00:22:03.6180
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 634f601d-89ee-4319-3299-08df088836cf
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.232];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL02EPF00021F6B.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7244
+X-Received: by 2002:a05:6820:161e:b0:6ac:b178:97f9 with SMTP id
+ 006d021491bc7-6b48193f585mr620743eaf.31.1788308611663; Tue, 01 Sep 2026
+ 17:23:31 -0700 (PDT)
+Date: Tue, 01 Sep 2026 17:23:31 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a976c83.9266084e.bf0d7.0003.GAE@google.com>
+Subject: [syzbot] [rdma?] WARNING: refcount bug in iwpm_find_nlmsg_request
+From: syzbot <syzbot+bd317784d628820741b5@syzkaller.appspotmail.com>
+To: jgg@ziepe.ca, leon@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-rdma@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 01, 2026 at 12:12:22PM -0700, Nicolin Chen wrote:
-> On Tue, Sep 01, 2026 at 02:42:30PM -0300, Jason Gunthorpe wrote:
-> > On Tue, Sep 01, 2026 at 10:13:04AM -0700, Nicolin Chen wrote:
-> > Is there anything more than RMI_VSMMU_CREATE needed from a RMM
-> > perspective? What about that dpt/ats stuff?
-> 
-> DPT is a bit hacky currently..
-> 
-> Prior to RMM v2.0 ABI, DPT was allocated statically in RMM; there
-> was no RMI command for DPT allocations.
-> 
-> Now, with RMM v2.0 ABI, DPT can be managed via RMIs. I am making
-> it follow GPT at this point, similar to the static idea. But, in
-> the long run, I will think of decoupling, but I haven't looked at
-> that closely.
+Hello,
 
-Did a quick check. It's clear.
+syzbot found the following issue on:
 
-DPT is a system-wise global thing, not per SMMU or per realm. Each
-table or entry is indexed by part of 48-bit in PA corresponding to
-to a protected IPA. One thing that is related to a realm is a VMID
-in the leaf entry. So, it should unlikely be coupling with VSMMU.
+HEAD commit:    548e7bcd0c54 Merge tag 'ceph-for-7.3-rc1' of https://githu..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=11644c15580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=85bc5cc2fc7394d9
+dashboard link: https://syzkaller.appspot.com/bug?extid=bd317784d628820741b5
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
 
-The other stuff is to map VSMMU's MMIO region in its IPA space but
-it should be a part of the VSMMU-CREATE package.
+Unfortunately, I don't have any reproducer for this issue yet.
 
-Nicolin
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-548e7bcd.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/33981fd8947d/vmlinux-548e7bcd.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/d17bd4bd3299/bzImage-548e7bcd.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+bd317784d628820741b5@syzkaller.appspotmail.com
+
+netlink: 16 bytes leftover after parsing attributes in process `syz.2.3511'.
+iwpm_mapping_error_cb: Received msg seq = 0 err code = 5 client = 2
+------------[ cut here ]------------
+refcount_t: addition on 0; use-after-free.
+WARNING: lib/refcount.c:25 at refcount_warn_saturate+0x111/0x130 lib/refcount.c:25, CPU#0: syz.2.3511/18531
+Modules linked in:
+CPU: 0 UID: 0 PID: 18531 Comm: syz.2.3511 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:refcount_warn_saturate+0x111/0x130 lib/refcount.c:25
+Code: 06 e8 53 6d e3 fc 48 8d 3d dc 53 28 0c 67 48 0f b9 3a e8 42 6d e3 fc 5b 5d c3 cc cc cc cc e8 36 6d e3 fc 48 8d 3d cf 53 28 0c <67> 48 0f b9 3a e8 25 6d e3 fc 5b 5d e9 ce 8f a8 06 48 89 df e8 46
+RSP: 0000:ffffc90007ddf448 EFLAGS: 00010087
+RAX: 0000000000001c55 RBX: ffff888024890878 RCX: ffffc9000c001000
+RDX: 0000000000080000 RSI: ffffffff8527c5fa RDI: ffffffff915019d0
+RBP: 0000000000000002 R08: 0000000000000005 R09: 0000000000000004
+R10: 0000000000000002 R11: 000000000000001f R12: ffff888024890878
+R13: dffffc0000000000 R14: 0000000000000283 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff888096968000(0063) knlGS:00000000f5456b40
+CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+CR2: 00000000f73d8568 CR3: 00000000774e3000 CR4: 0000000000352ef0
+DR0: 0000000000000009 DR1: 0000000000000009 DR2: 0000000000000003
+DR3: 0000000000000008 DR6: 00000000ffff0ff0 DR7: 0000000000000400
+Call Trace:
+ <TASK>
+ __refcount_add include/linux/refcount.h:289 [inline]
+ __refcount_inc include/linux/refcount.h:366 [inline]
+ refcount_inc include/linux/refcount.h:383 [inline]
+ kref_get include/linux/kref.h:45 [inline]
+ iwpm_find_nlmsg_request+0x13d/0x160 drivers/infiniband/core/iwpm_util.c:360
+ iwpm_mapping_error_cb.cold+0x97/0x277 drivers/infiniband/core/iwpm_msg.c:794
+ netlink_dump+0x532/0xd00 net/netlink/af_netlink.c:2331
+ __netlink_dump_start+0x6d6/0x990 net/netlink/af_netlink.c:2446
+ netlink_dump_start include/linux/netlink.h:341 [inline]
+ rdma_nl_rcv_msg+0x568/0x6f0 drivers/infiniband/core/netlink.c:190
+ rdma_nl_rcv_skb.constprop.0.isra.0+0x2cb/0x410 drivers/infiniband/core/netlink.c:239
+ netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
+ netlink_unicast+0x585/0x850 net/netlink/af_netlink.c:1345
+ netlink_sendmsg+0x8b0/0xda0 net/netlink/af_netlink.c:1900
+ sock_sendmsg_nosec net/socket.c:800 [inline]
+ __sock_sendmsg net/socket.c:815 [inline]
+ ____sys_sendmsg+0xa4d/0xbe0 net/socket.c:2713
+ ___sys_sendmsg+0x190/0x1e0 net/socket.c:2767
+ __sys_sendmsg+0x160/0x210 net/socket.c:2799
+ do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+ __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
+ do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
+ entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+RIP: 0023:0xf7f94fec
+Code: Unable to access opcode bytes at 0xf7f94fc2.
+RSP: 002b:00000000f545650c EFLAGS: 00000292 ORIG_RAX: 0000000000000172
+RAX: ffffffffffffffda RBX: 0000000000000007 RCX: 0000000080000100
+RDX: 0000000000000004 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000292 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+----------------
+Code disassembly (best guess), 1 bytes skipped:
+   0:	e8 53 6d e3 fc       	call   0xfce36d58
+   5:	48 8d 3d dc 53 28 0c 	lea    0xc2853dc(%rip),%rdi        # 0xc2853e8
+   c:	67 48 0f b9 3a       	ud1    (%edx),%rdi
+  11:	e8 42 6d e3 fc       	call   0xfce36d58
+  16:	5b                   	pop    %rbx
+  17:	5d                   	pop    %rbp
+  18:	c3                   	ret
+  19:	cc                   	int3
+  1a:	cc                   	int3
+  1b:	cc                   	int3
+  1c:	cc                   	int3
+  1d:	e8 36 6d e3 fc       	call   0xfce36d58
+  22:	48 8d 3d cf 53 28 0c 	lea    0xc2853cf(%rip),%rdi        # 0xc2853f8
+* 29:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2e:	e8 25 6d e3 fc       	call   0xfce36d58
+  33:	5b                   	pop    %rbx
+  34:	5d                   	pop    %rbp
+  35:	e9 ce 8f a8 06       	jmp    0x6a89008
+  3a:	48 89 df             	mov    %rbx,%rdi
+  3d:	e8                   	.byte 0xe8
+  3e:	46                   	rex.RX
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
