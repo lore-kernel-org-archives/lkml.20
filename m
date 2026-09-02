@@ -1,211 +1,301 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f78.google.com (mail-oo1-f78.google.com [209.85.161.78])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F2C49CF58;
-	Wed,  2 Sep 2026 18:24:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16DB44A3EF
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:25:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.78
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788373485; cv=none; b=qqEzqp5reZazaPeOKM+wHtHEbU8PwpYR4jBL2Oao5PerTThnaUVufXEtW2FrTVkWk2bcfElx/aCAi2iNyCwz17Jd0kDVsqxXIlrh+77jlBuuSfycYo7HWCiFXbpSaPeHkcjRJsjVsrHxKnz/fdX2vQF6JojSvVOQ+3PlD86gDx0=
+	t=1788373537; cv=none; b=ewzDUo8ZH0lzhMk7xCzcxMGl/+2wSjYNiW0YgIhTraq20U4n5tu5AzgAEc64xCKszNzUNPc3S2TuQnrt2gdC9RT04oJIEfZzPhyWL+uWHslDqjvcY4D0tMqhkvXy9amfzMfVOSsxbji7nmO2v8VcBnmtQLKihk4Bu6R/uK+jU+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788373485; c=relaxed/simple;
-	bh=Y4bt8OjgWnv3RlpBjSlLuPo/aSM5wDfS9PJwHr2p/dU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=e2YGhec7jn01WlmYu22o2MipuryZ2fUuWWT7HqDTknZgqhtkH7fth4KCe0zxDdN4+eIamS7DX2rp3emPC1wjFleM2B48fTrnKSZQyn6O98oCQj+44Sui9OIrNN5dqSCRiU5I3fxSiOW99xg9MbMF/MlXo8fqUVrdCThSDcfEPiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=EhSxc0w6; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="EhSxc0w6"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
-	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Y4bt8OjgWnv3RlpBjSlLuPo/aSM5wDfS9PJwHr2p/dU=; b=EhSxc0w6mdOVY2tCxrZlzG0YWZ
-	DnO8tLbc8l1+o5ATkhFXJ5Qo3SQwv5dnWIeoL2cu1criQZHZ/2ocJ1H0K2u2u/LAL62LPkmq/9hDy
-	avD5Xr1EaDavL2iJ/HWctV31e9T9whls9Iy6sFF9/oDjISie/+7QtaTEf/qOYjFlKNuknya5HalG9
-	QXSnGlRuk4BKQqXL7vFShxBg8XznaaBQzZAh1Qs3EPDP8C44P8OdlInL3CPAJLlhPz17aMyuwj4Ae
-	voShU7oRATs7HbwBCs2rCcUcQpyIwHE8h8qyRaeCNR3coCKTBv0XOQSGQrNJZeewPOuAq8nh0Be/M
-	uvS/VySw==;
-Received: from [2001:8b0:10b:5:a7b1:57c5:dd61:87e3] (helo=u09cd745991455d.ant.amazon.com)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x1pdI-00000007fsH-2ryL;
-	Wed, 02 Sep 2026 18:24:24 +0000
-Message-ID: <586448da19d357ac6914fe100e5f09f22c5c9de8.camel@infradead.org>
-Subject: Re: [PATCH v3 01/13] KVM: x86/xen: Rename 'longmode' to 'is_64bit'
- in hypercall handling
-From: David Woodhouse <dwmw2@infradead.org>
-To: Paul Durrant <xadimgnik@gmail.com>, seanjc@google.com,
- pbonzini@redhat.com
-Cc: joao.m.martins@oracle.com, boris.ostrovsky@oracle.com, 
-	ankur.a.arora@oracle.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
-	dave.hansen@linux.intel.com, hpa@zytor.com, x86@kernel.org, 
-	syzbot+208f7f3e5f59c11aeb90@syzkaller.appspotmail.com, 
-	syzkaller-bugs@googlegroups.com, suryasaimadhu369@gmail.com, lkp@intel.com,
- 	nicoyip.dev@gmail.com, frn1furkan10@gmail.com, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, imv4bel@gmail.com
-Date: Wed, 02 Sep 2026 19:24:03 +0100
-In-Reply-To: <3590c47d-302a-4a24-9953-828eb9b38c38@xen.org>
-References: <20260831213632.81023-1-dwmw2@infradead.org>
-	 <20260831213632.81023-2-dwmw2@infradead.org>
-	 <3590c47d-302a-4a24-9953-828eb9b38c38@xen.org>
-Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
-	boundary="=-IvkDzayGlaphqOgKmjf6"
-User-Agent: Evolution 3.60.3-0ubuntu1~ppa9~24.04 
+	s=arc-20240116; t=1788373537; c=relaxed/simple;
+	bh=AAr6+E1y4y2pBBf5f/au/7TNHvKoFu+cwfQlgDm8heE=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=fVOU0A3T3O5Ntqh/xYsItziT4ggfdHAeSFvpw/+ON+Ci2GNF42CLVxqf0JSQuwz1NEeIK0RzCUOUzCyDIIW349OZKuumy24o5CwOdGLbqndf3LVExSzIhKJ3axAX1/YLCoyDm9XJ1DMsVpOyH2by05aIf9LfAWV9l51iJU7ghek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.78
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f78.google.com with SMTP id 006d021491bc7-6b0e7370be1so206635eaf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 11:25:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788373534; x=1788978334;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4SnPbsxDO3W40hbAE1g6nz4DIsFHz/xmSs6V4dMsXXg=;
+        b=rpoqu1pU5UBfoV4zC7F7EK3iFVnpFnGVQzvGGuicE43NSqIFJn+a4K4Yv9WYmrdgGR
+         YhZtUw8llaNIRlodQtmxKD8D53ky7lOf0+sFGjJNw0XVzU2ilnRM3TiqyzgGbEB2iiLz
+         BTbOeypCgd2Jg1i+kKXbG7pCK0v1TOiWTUgQur959f7vTYjshY3cpogaV1dLNGJQ5wZC
+         U+BICzD6tn13rADkiRv/8NjE/TcZvj6DvM1JwCy/mf7Pd1EBvsm2362BuPyiz1+18ffD
+         yJQRDovLzqL/NxXYsQxJAjBb+MkhEs6uWMAo41QPYhCOMwZFuCIXD4r/axYlOlzeL/U9
+         XCrA==
+X-Forwarded-Encrypted: i=1; AHgh+RpznOZ0BRtatpXK4WV3MVwrhEenpsvllPa4QxsxQNORamxHlubcGc5Iok5ab/0jlDzqQV0xbYMBC60yghM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mxQNkU5kLbMMMVQjBCjnRRQ/CVjaLBVSIqENltUUbHmorQ080j
+	FB6tw/vPQSAeh3WvOO/LsyOjTjLUuJSQcGXD7RSTTAEP6hRkSrE+lMIwbrgEGvk0wEHa2wcmCfP
+	ieVPjebbgIIrrSTUBE8VxJGGsOVn9kkbK0pIWNbN95+7VZr59uZq8I/L3CsY=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
-
-
---=-IvkDzayGlaphqOgKmjf6
+X-Received: by 2002:a05:6820:a06:b0:6b1:a146:1297 with SMTP id
+ 006d021491bc7-6b582a61ba0mr1096925eaf.1.1788373534597; Wed, 02 Sep 2026
+ 11:25:34 -0700 (PDT)
+Date: Wed, 02 Sep 2026 11:25:34 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a986a1e.27a413cd.1e878c.000e.GAE@google.com>
+Subject: [syzbot] [block?] possible deadlock in queue_requests_store (3)
+From: syzbot <syzbot+65e679ca2c660840635a@syzkaller.appspotmail.com>
+To: axboe@kernel.dk, linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2026-09-02 at 13:18 +0100, Paul Durrant wrote:
-> On 31/08/2026 22:26, David Woodhouse wrote:
-> > From: David Woodhouse <dwmw@amazon.co.uk>
-> >=20
-> > Rename the local 'longmode' variable and function parameter to
-> > 'is_64bit' throughout the Xen hypercall handling code. This
-> > distinguishes it from the VM-wide kvm->arch.xen.long_mode which
-> > represents the Xen shared_info layout mode.
-> >=20
-> > The 'is_64bit' parameter indicates whether the vCPU was in 64-bit
-> > mode when it made the hypercall, which determines how to parse the
-> > hypercall arguments. The UAPI field name (vcpu->run->xen.u.hcall.longmo=
-de)
-> > is unchanged.
-> >=20
->=20
-> Given that 'longmode' is the term used in the UAPI I'm not sure I really=
-=20
-> see the point in this change (particularly since there is not even a=20
-> name clash with 'long_mode').
+Hello,
 
-The difference between 'longmode' and 'long_mode' is subtle, and *has*
-caused confusion which IIRC is what led to part of this series.
+syzbot found the following issue on:
 
-Having to keep 'longmode' in the UAPI for KVM_EXIT_XEN_HCALL is sad,
-but at least the context is very clear there (xen.u.hcall.longmode).
-The code itself avoids the confusion.
+HEAD commit:    45c13f3f9e3b Merge tag 'hwlock-v7.3' of git://git.kernel.o..
+git tree:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux master
+console output: https://syzkaller.appspot.com/x/log.txt?x=1755ae25580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=d6a4e008e57a0e64
+dashboard link: https://syzkaller.appspot.com/bug?extid=65e679ca2c660840635a
+compiler:       aarch64-linux-gnu-gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: arm64
 
---=-IvkDzayGlaphqOgKmjf6
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Transfer-Encoding: base64
+Unfortunately, I don't have any reproducer for this issue yet.
 
-MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
-ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
-AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
-BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
-MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
-AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
-DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
-q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
-S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
-Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
-72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
-CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
-mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
-h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
-CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
-GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
-AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
-v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
-MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
-CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
-b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
-Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
-A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
-vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
-0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
-jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
-FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
-HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
-IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
-MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
-MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
-sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
-tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
-EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
-6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
-ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
-bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
-Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
-02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
-sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
-ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
-JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
-LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
-BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
-LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
-hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
-SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
-c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
-RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
-AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
-EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
-ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
-+3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
-+icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
-McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
-LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
-nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
-gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
-Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
-CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
-QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
-Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
-SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
-YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
-kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
-pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
-v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
-vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
-PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
-REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
-lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
-aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
-D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
-bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
-MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
-oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
-TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
-bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
-BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
-MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
-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
-KLD6+x/Kaaajns9D1GyUCscAAAAAAAA=
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/fa3fbcfdac58/non_bootable_disk-45c13f3f.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/de92b7834d98/vmlinux-45c13f3f.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/cc3fde89c915/Image-45c13f3f.gz.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+65e679ca2c660840635a@syzkaller.appspotmail.com
+
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Tainted: G        W    L     
+------------------------------------------------------
+syz.4.3610/13943 is trying to acquire lock:
+ffff000015008580 (&q->elevator_lock){+.+.}-{4:4}, at: queue_requests_store+0x28c/0x4e0 block/blk-sysfs.c:124
+
+but task is already holding lock:
+ffff000015008060 (&q->q_usage_counter(io)#51){++++}-{0:0}, at: blk_mq_freeze_queue_nomemsave+0x18/0x30 block/blk-mq.c:206
+
+which lock already depends on the new lock.
 
 
---=-IvkDzayGlaphqOgKmjf6--
+the existing dependency chain (in reverse order) is:
+
+-> #4 (&q->q_usage_counter(io)#51){++++}-{0:0}:
+       lock_acquire kernel/locking/lockdep.c:5886 [inline]
+       lock_acquire+0x3d0/0x44c kernel/locking/lockdep.c:5843
+       blk_alloc_queue+0x4e0/0x640 block/blk-core.c:504
+       blk_mq_alloc_queue+0x148/0x224 block/blk-mq.c:4420
+       __blk_mq_alloc_disk+0x20/0x120 block/blk-mq.c:4467
+       null_add_dev+0x9bc/0x17a8 drivers/block/null_blk/main.c:2017
+       null_create_dev drivers/block/null_blk/main.c:2114 [inline]
+       null_init+0x248/0x2f4 drivers/block/null_blk/main.c:2178
+       do_one_initcall+0x134/0xb20 init/main.c:1357
+       do_initcall_level init/main.c:1419 [inline]
+       do_initcalls init/main.c:1435 [inline]
+       do_basic_setup init/main.c:1455 [inline]
+       kernel_init_freeable+0x5ec/0x670 init/main.c:1670
+       kernel_init+0x2c/0x14c init/main.c:1560
+       ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
+
+-> #3 (fs_reclaim){+.+.}-{0:0}:
+       lock_acquire kernel/locking/lockdep.c:5886 [inline]
+       lock_acquire+0x3d0/0x44c kernel/locking/lockdep.c:5843
+       __fs_reclaim_acquire mm/page_alloc.c:4375 [inline]
+       fs_reclaim_acquire+0x130/0x158 mm/page_alloc.c:4389
+       might_alloc include/linux/sched/mm.h:316 [inline]
+       slab_pre_alloc_hook mm/slub.c:4636 [inline]
+       slab_alloc_node mm/slub.c:4974 [inline]
+       __kmalloc_cache_node_noprof+0x6c/0x634 mm/slub.c:5578
+       _kmalloc_node_noprof include/linux/slab.h:1196 [inline]
+       __get_vm_area_node+0x118/0x2ec mm/vmalloc.c:3238
+       __vmalloc_node_range_noprof+0x198/0x1024 mm/vmalloc.c:4065
+       __vmalloc_node_noprof+0xe4/0x14c mm/vmalloc.c:4166
+       vmalloc_noprof+0x24/0x30 mm/vmalloc.c:4201
+       mtdblock_writesect+0x41c/0x5b8 drivers/mtd/mtdblock.c:242
+       do_blktrans_request drivers/mtd/mtd_blkdevs.c:88 [inline]
+       mtd_blktrans_work drivers/mtd/mtd_blkdevs.c:152 [inline]
+       mtd_queue_rq+0x744/0x1694 drivers/mtd/mtd_blkdevs.c:179
+       blk_mq_dispatch_rq_list+0x2e0/0x177c block/blk-mq.c:2117
+       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
+       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
+       __blk_mq_sched_dispatch_requests+0x830/0xe60 block/blk-mq-sched.c:307
+       blk_mq_sched_dispatch_requests+0x7c/0x114 block/blk-mq-sched.c:329
+       blk_mq_run_work_fn+0xf0/0x278 block/blk-mq.c:2531
+       process_one_work+0x830/0x1c00 kernel/workqueue.c:3387
+       process_scheduled_works kernel/workqueue.c:3470 [inline]
+       worker_thread+0x42c/0xc90 kernel/workqueue.c:3551
+       kthread+0x2ec/0x384 kernel/kthread.c:436
+       ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
+
+-> #2 (&new->lock){+.+.}-{4:4}:
+       lock_acquire kernel/locking/lockdep.c:5886 [inline]
+       lock_acquire+0x3d0/0x44c kernel/locking/lockdep.c:5843
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x150/0x1530 kernel/locking/mutex.c:821
+       mutex_lock_nested+0x24/0x30 kernel/locking/mutex.c:874
+       mtd_blktrans_work drivers/mtd/mtd_blkdevs.c:151 [inline]
+       mtd_queue_rq+0x2a4/0x1694 drivers/mtd/mtd_blkdevs.c:179
+       blk_mq_dispatch_rq_list+0x2e0/0x177c block/blk-mq.c:2117
+       __blk_mq_do_dispatch_sched block/blk-mq-sched.c:168 [inline]
+       blk_mq_do_dispatch_sched block/blk-mq-sched.c:182 [inline]
+       __blk_mq_sched_dispatch_requests+0x830/0xe60 block/blk-mq-sched.c:307
+       blk_mq_sched_dispatch_requests+0x7c/0x114 block/blk-mq-sched.c:329
+       blk_mq_run_work_fn+0xf0/0x278 block/blk-mq.c:2531
+       process_one_work+0x830/0x1c00 kernel/workqueue.c:3387
+       process_scheduled_works kernel/workqueue.c:3470 [inline]
+       worker_thread+0x42c/0xc90 kernel/workqueue.c:3551
+       kthread+0x2ec/0x384 kernel/kthread.c:436
+       ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
+
+-> #1 (set->srcu){.+.+}-{0:0}:
+       lock_sync+0xf0/0x16c kernel/locking/lockdep.c:5934
+       srcu_lock_sync include/linux/srcu.h:210 [inline]
+       __synchronize_srcu+0xa8/0x280 kernel/rcu/srcutree.c:1462
+       synchronize_srcu_expedited kernel/rcu/srcutree.c:1502 [inline]
+       synchronize_srcu+0x168/0x7d0 kernel/rcu/srcutree.c:1558
+       blk_mq_wait_quiesce_done block/blk-mq.c:284 [inline]
+       blk_mq_wait_quiesce_done block/blk-mq.c:281 [inline]
+       blk_mq_quiesce_queue block/blk-mq.c:304 [inline]
+       blk_mq_quiesce_queue+0xf4/0x160 block/blk-mq.c:299
+       elevator_switch+0x118/0x430 block/elevator.c:576
+       elevator_change+0x294/0x420 block/elevator.c:681
+       elevator_set_default+0x210/0x2b8 block/elevator.c:754
+       blk_register_queue+0x36c/0x500 block/blk-sysfs.c:992
+       __add_disk+0x510/0xb48 block/genhd.c:524
+       add_disk_fwnode+0x110/0x3e0 block/genhd.c:593
+       device_add_disk+0x14/0x20 block/genhd.c:623
+       add_disk include/linux/blkdev.h:798 [inline]
+       nbd_dev_add+0x5f8/0x9b4 drivers/block/nbd.c:2026
+       nbd_init+0x190/0x1b0 drivers/block/nbd.c:2743
+       do_one_initcall+0x134/0xb20 init/main.c:1357
+       do_initcall_level init/main.c:1419 [inline]
+       do_initcalls init/main.c:1435 [inline]
+       do_basic_setup init/main.c:1455 [inline]
+       kernel_init_freeable+0x5ec/0x670 init/main.c:1670
+       kernel_init+0x2c/0x14c init/main.c:1560
+       ret_from_fork+0x10/0x20 arch/arm64/kernel/entry.S:854
+
+-> #0 (&q->elevator_lock){+.+.}-{4:4}:
+       check_prev_add+0x114/0xca0 kernel/locking/lockdep.c:3181
+       check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+       validate_chain kernel/locking/lockdep.c:3924 [inline]
+       __lock_acquire+0x13f4/0x1a5c kernel/locking/lockdep.c:5253
+       lock_acquire kernel/locking/lockdep.c:5886 [inline]
+       lock_acquire+0x3d0/0x44c kernel/locking/lockdep.c:5843
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x150/0x1530 kernel/locking/mutex.c:821
+       mutex_lock_nested+0x24/0x30 kernel/locking/mutex.c:874
+       queue_requests_store+0x28c/0x4e0 block/blk-sysfs.c:124
+       queue_attr_store+0x1f8/0x260 block/blk-sysfs.c:906
+       sysfs_kf_write+0xc4/0x10c fs/sysfs/file.c:145
+       kernfs_fop_write_iter+0x2a4/0x460 fs/kernfs/file.c:345
+       do_iter_readv_writev+0x3d8/0x6dc fs/read_write.c:828
+       vfs_writev+0x258/0x6e8 fs/read_write.c:1058
+       do_writev+0xfc/0x280 fs/read_write.c:1104
+       __do_sys_writev fs/read_write.c:1172 [inline]
+       __se_sys_writev fs/read_write.c:1169 [inline]
+       __arm64_sys_writev+0x74/0xa4 fs/read_write.c:1169
+       __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+       invoke_syscall+0x74/0x240 arch/arm64/kernel/syscall.c:49
+       el0_svc_common.constprop.0+0xac/0x230 arch/arm64/kernel/syscall.c:121
+       do_el0_svc+0x40/0x58 arch/arm64/kernel/syscall.c:140
+       el0_svc+0x58/0x2a4 arch/arm64/kernel/entry-common.c:758
+       el0t_64_sync_handler+0xa0/0xe4 arch/arm64/kernel/entry-common.c:777
+       el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:590
+
+other info that might help us debug this:
+
+Chain exists of:
+  &q->elevator_lock --> fs_reclaim --> &q->q_usage_counter(io)#51
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&q->q_usage_counter(io)#51);
+                               lock(fs_reclaim);
+                               lock(&q->q_usage_counter(io)#51);
+  lock(&q->elevator_lock);
+
+ *** DEADLOCK ***
+
+locks held by syz.4.3610/13943: 7, last CPU#0:
+ #0: ffff00001466cef0 (&f->f_pos_lock){+.+.}-{4:4}, at: fdget_pos+0x1e4/0x294 fs/file.c:1259
+ #1: ffff00002894a460 (sb_writers#7){.+.+}-{0:0}, at: percpu_down_read_freezable include/linux/percpu-rwsem.h:83 [inline]
+ #1: ffff00002894a460 (sb_writers#7){.+.+}-{0:0}, at: __sb_start_write include/linux/fs/super.h:19 [inline]
+ #1: ffff00002894a460 (sb_writers#7){.+.+}-{0:0}, at: sb_start_write include/linux/fs/super.h:125 [inline]
+ #1: ffff00002894a460 (sb_writers#7){.+.+}-{0:0}, at: file_start_write include/linux/fs.h:2754 [inline]
+ #1: ffff00002894a460 (sb_writers#7){.+.+}-{0:0}, at: vfs_writev+0x3c8/0x6e8 fs/read_write.c:1056
+ #2: ffff000015b25c80 (&of->mutex){+.+.}-{4:4}, at: kernfs_fop_write_iter+0x1e4/0x460 fs/kernfs/file.c:336
+ #3: ffff00001554ce18 (kn->active#61){.+.+}-{0:0}, at: kernfs_get_active_of fs/kernfs/file.c:73 [inline]
+ #3: ffff00001554ce18 (kn->active#61){.+.+}-{0:0}, at: kernfs_fop_write_iter+0x22c/0x460 fs/kernfs/file.c:337
+ #4: ffff0000155951f8 (&set->update_nr_hwq_lock){++++}-{4:4}, at: queue_requests_store+0xe4/0x4e0 block/blk-sysfs.c:88
+ #5: ffff000015008060 (&q->q_usage_counter(io)#51){++++}-{0:0}, at: blk_mq_freeze_queue_nomemsave+0x18/0x30 block/blk-mq.c:206
+ #6: ffff000015008098 (&q->q_usage_counter(queue)#34){+.+.}-{0:0}, at: blk_mq_freeze_queue_nomemsave+0x18/0x30 block/blk-mq.c:206
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 13943 Comm: syz.4.3610 Tainted: G        W    L      syzkaller #0 PREEMPT 
+Tainted: [W]=WARN, [L]=SOFTLOCKUP
+Hardware name: linux,dummy-virt (DT)
+Call trace:
+ show_stack+0x18/0x24 arch/arm64/kernel/stacktrace.c:499 (C)
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x7c/0xb0 lib/dump_stack.c:120
+ dump_stack+0x1c/0x28 lib/dump_stack.c:129
+ print_circular_bug+0x23c/0x284 kernel/locking/lockdep.c:2059
+ check_noncircular+0x174/0x194 kernel/locking/lockdep.c:2191
+ check_prev_add+0x114/0xca0 kernel/locking/lockdep.c:3181
+ check_prevs_add kernel/locking/lockdep.c:3300 [inline]
+ validate_chain kernel/locking/lockdep.c:3924 [inline]
+ __lock_acquire+0x13f4/0x1a5c kernel/locking/lockdep.c:5253
+ lock_acquire kernel/locking/lockdep.c:5886 [inline]
+ lock_acquire+0x3d0/0x44c kernel/locking/lockdep.c:5843
+ __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+ __mutex_lock+0x150/0x1530 kernel/locking/mutex.c:821
+ mutex_lock_nested+0x24/0x30 kernel/locking/mutex.c:874
+ queue_requests_store+0x28c/0x4e0 block/blk-sysfs.c:124
+ queue_attr_store+0x1f8/0x260 block/blk-sysfs.c:906
+ sysfs_kf_write+0xc4/0x10c fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x2a4/0x460 fs/kernfs/file.c:345
+ do_iter_readv_writev+0x3d8/0x6dc fs/read_write.c:828
+ vfs_writev+0x258/0x6e8 fs/read_write.c:1058
+ do_writev+0xfc/0x280 fs/read_write.c:1104
+ __do_sys_writev fs/read_write.c:1172 [inline]
+ __se_sys_writev fs/read_write.c:1169 [inline]
+ __arm64_sys_writev+0x74/0xa4 fs/read_write.c:1169
+ __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+ invoke_syscall+0x74/0x240 arch/arm64/kernel/syscall.c:49
+ el0_svc_common.constprop.0+0xac/0x230 arch/arm64/kernel/syscall.c:121
+ do_el0_svc+0x40/0x58 arch/arm64/kernel/syscall.c:140
+ el0_svc+0x58/0x2a4 arch/arm64/kernel/entry-common.c:758
+ el0t_64_sync_handler+0xa0/0xe4 arch/arm64/kernel/entry-common.c:777
+ el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:590
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
