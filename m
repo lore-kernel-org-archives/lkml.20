@@ -1,79 +1,202 @@
-Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DB3930E85B
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:36:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0EF386C3D;
+	Wed,  2 Sep 2026 06:37:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788331007; cv=none; b=H8MZj5NFKSg6lSOKRZMTZ7BP9eAv73aKaYknBLhVAhCBQcWn2kqGN9WrSQD5m/h+NRiXUC9nUlFbMUtfxqn0tlkHZmIPdY0VF7qzJjAY3Ha085n0P3TvBhJpJRpCrLj1EM0w9SESLUMz4ZU4WQc456XkhUkEgXhPA35SXCpEiUY=
+	t=1788331032; cv=none; b=EmWG726n/b1HZPMtT7r+0yfgScMagF9Hp2bYLj76DErN9ZKM14HLYEL+S3vf0BY+xJCpJq2gWM0msqhPIzdCjXOk/j9ZrBLOoXm91H0kbn7mVxI126zaMyFlbUyQEvQDxutq7zLOz0/yADo0zaOIT9VmjIg8TyPD/g68YTOR+1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788331007; c=relaxed/simple;
-	bh=YwH9ABw/DM5LWNp+iWqHtTnGq3exluZ0De94TCsyzWw=;
-	h=Message-ID:Date:From:To:Cc:Subject:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:References; b=Rr2Iul3Od3pw5JIWEZVUygqWyey33AeRw3Min6QZUPE2E8gbteZWfCWUeAkyloBjmaNSzSDWgALFr/+8dGqd3CYuZz/IGE9tCoJimqFQzvO79w+bmHcuAbf+PVAWWjOTRgZw7SvBAV/h7g907ZgXuyUtVyvTJLNT6SOEjNScYN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=w1/cV5p3; arc=none smtp.client-ip=162.62.57.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1788331032; c=relaxed/simple;
+	bh=n4vJoyyZZZTKzi0kIm7EN0WAdICOZIsRG9XUjSqsbyw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fj6AnLpmgibECUfwiuwaE6GbwGuhK6ox7Urz22HwzlXOaegBWwLh97nHKwO8N7VkRi1iRWumIWdoxagE1De9jHpb0zYgASnWiD69MowBldehayg3CsfnnpOv6oOjaYqgs+35aSOyT6UwV4yzc+aNo4qBcj3ZBVU68/SeeI52gck=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=edRi/DVR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="w1/cV5p3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1788330995; bh=YwH9ABw/DM5LWNp+iWqHtTnGq3exluZ0De94TCsyzWw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=w1/cV5p3fsE5UuV9zjWetDpZ3ykeGTxz26kwZTtizs8ljbBrAabwHRj1iD/IrvXyL
-	 0y3G94zRTzKzU+v50bwN2czAT3j6+Z7ax+X+PPqs0DT4tCIxC4JeREn4MdHv56kuaW
-	 AHbDu9ahCvo8HtprJA6l5o17VCx6yPHOkDeSEsHc=
-Received: from localhost ([58.240.122.156])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 8D5AE878; Wed, 02 Sep 2026 14:35:21 +0800
-X-QQ-mid: xmsmtpt1788330921tfwguak9h
-Message-ID: <tencent_BD8B7DCB7F9C5B07D7EDF04E47DE1F41A208@qq.com>
-X-QQ-XMAILINFO: MqswyhUqVe0C0RtcQUTbRaXR+/SrHTTmTaLeaKKyUG76GETP49CR7iM9aOyiYr
-	 z/lHjInZ/qyrDzNHVbd+LPoea2AUlKHvWUTQeYElUSvxB4MLbk0XSlsJ7Sa/9czd3TI4J20Ru+YO
-	 ScGs9Ji2fCX8CsIuunCIgcB4aaiuhpWVYrVUfiogvl9EB5tRupaFPo9NdfK5Jj3ahHB0m5BSRz72
-	 GzU5/umsJMtqifR0iaHA10oePvH5gmHtKDWhkaytzrPHa/1HXnSuVLSmc67HyqOY713XqTXLwdfq
-	 JynDa+P5UnWYx8DlN9GGHqXcMe3m6utGeTvmW498c1/gmSSYHHCwsQXA+WWq7TAzhZcj8xyaeXc+
-	 rMGJNCHHY1wm9zNj4BmEyPAi1mGKfrJAkmx0iDcl2lAHany4i4DDkriGftMRefUN4BvFwOg1qLBW
-	 +M0/YcwlOrHt8/MZJqlv9jFbWgWCjP+vclwWpXSJm4gsyziXivaHxCrR3YwJljYuuqll/TK7GKJS
-	 YwYVKXtMD6Zw6c43drrFQFlHJBaNa84wULKaBK4if5gk3cHmu6su5Lm7cs9nmQRI9qr2ZFOa6bWg
-	 yOH7D5TYkw1qGAOyftoDp/GyDgGb2xUNXdRa/N3kPzYq79GNvJgEsbwjxVn1WoDF4QSL96j+03Ga
-	 4Bkc4dDWGZ6JklNPjSvsngHsSr85+CSz1gC1RIjdAWbS5tUPf/ORaO4RLx4lMC6eFCQu2HgEDHwm
-	 WQh//+zqYpQJ5YcIB5eQK7cQLVpSpJ8hdY0ZSV2wX8rIeTYP+uRmMNXbs3sza5sHt79Qz6Gxup+Q
-	 6qFU/sYhVv/duQg8m/kbh29CWd+32dVr5vcXOmOzZT5HwGq+BpVzQkG8ZtEb31KcSa9Ys9vf8MFB
-	 UaHJe+egqpLn32gIT6HrhCzxzLh5AtX6NoIZrPDktpPHEHAiM7oKJFJLZfiC7paMfs94qMikIQVh
-	 eumCxbdJXJGgU0BgA9hwuuL9kQympreXAte8PGIeOzsWNBFL6GxEs/B7hTeP7pt9ckLt/iIN4u5J
-	 Sda3pdG3wdHN7l8o02XB9oKvRRgsON1aIfZQ21BMHWIuy3qfSOs2B6CCp6u0lT1Ec6DfeB4Q==
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-Date: Wed, 2 Sep 2026 14:35:21 +0800
-From: Zhengping Zhang <aquapinn@qq.com>
-To: ryder.lee@mediatek.com, lpieralisi@kernel.org, kwilczynski@kernel.org,
-	mani@kernel.org, robh@kernel.org, bhelgaas@google.com,
-	matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com
-Cc: linux-pci@vger.kernel.org, linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	zhengping.zhang@airoha.com, lei.dong@airoha.com, hui.ma@airoha.com,
-	upstream@airoha.com
-Subject: Re: [PATCH] PCI: mediatek: Find INTx controller by property
-X-OQ-MSGID: <apfDqZZJv7PN8cBu@PC24010019>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="edRi/DVR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21C371F000E9;
+	Wed,  2 Sep 2026 06:37:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788331030;
+	bh=yaV9+mmFhJ8GvWA0OLuH6CZzZgW/+vhynYlQ7CIJRRw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=edRi/DVRnwAUrTUVWOxnz4Fe5g8c2h+vMV8JzZeUQDrVC12q6Nku9s/DAqRGbE6L1
+	 oQdSdn0/bkB2LUE/nFHJOVefphrolpCaFcC1vh5GoAmVW0SMV9q6/18aFg8Mv+6Uw0
+	 qXYIbQZQdC4r7A7zzkUiews8zrknjZQgcnkcy/kw/qB5U4L3Tu4zQF1UC2UxIlzUEO
+	 YANELdd9xYYxkoTBJIMsCytrdwWxkxJty+5tX2AZcqemvq6bxPfDpazE9x3ZE95y4V
+	 shcDBC5K0i0URWcNRCLc4YmHKcYUNos97p+CpsO7ZzjxoaegmtdlA8UtBbFHPMnHY+
+	 1FKWipxwZhQ3g==
+Date: Wed, 2 Sep 2026 08:37:06 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: tomm.merciai@gmail.com, linux-renesas-soc@vger.kernel.org, 
+	biju.das.jz@bp.renesas.com, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, 
+	Magnus Damm <magnus.damm@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 1/9] dt-bindings: display: renesas,rzg2l-du: Document
+ RZ/G3E SoC
+Message-ID: <20260902-heavenly-ambrosial-trogon-b7ab03@quoll>
+References: <20260828122113.1426778-1-tommaso.merciai.xr@bp.renesas.com>
+ <20260828122113.1426778-2-tommaso.merciai.xr@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <tencent_5E7D6E7FB25B4CD732F08547C11F5DA24808@qq.com>
-References: <tencent_5E7D6E7FB25B4CD732F08547C11F5DA24808@qq.com>
+In-Reply-To: <20260828122113.1426778-2-tommaso.merciai.xr@bp.renesas.com>
 
-Hi all,
+On Fri, Aug 28, 2026 at 02:21:04PM +0200, Tommaso Merciai wrote:
+> The RZ/G3E Soc has 2 LCD controller (LCDC), contain a Frame Compression
+> Processor (FCPVD), a Video Signal Processor (VSPD), Video Signal
+> Processor (VSPD), and Display Unit (DU).
+> 
+>  - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
+>  - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
+> 
+> Add new SoC-specific compatible string 'renesas,r9a09g047-du'.
+> 
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> ---
+> v7->v8:
+>  - Rebased on top of RZ/G3L du support [1]
+>  - Modelled using ports/port instead of port/ep.
+>    [1] https://lore.kernel.org/all/20260826174854.199139-1-biju.das.jz@bp.renesas.com/
+>  - Improved commit msg and commit body.
+> 
+> v6->v7:
+>  - Rebased on top of [1]
+>    [1] https://lore.kernel.org/all/20260429170012.366537-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
+>  - Use single DRM device aggregating both DU instances (1 DU dt node),
+>    modelling single port for each DU0, DU1 and multiple endpoints for
+>    outputs.
+> 
+> v5->v6:
+>  - Extend patternProperties from "^port@[0-1]$" to "^port@[0-3]$" and
+>    explicitly disable port@2 and port@3 for existing SoCs that do not expose
+>    them.
+>  - Reworked ports numbering + improved/fixed ports descriptions in the
+>    bindings documentation.
+>  - Improved commit body.
+> 
+> v4->v5:
+>  - Dropped renesas,id property and updated bindings
+>    accordingly.
+> 
+> v2->v3:
+>  - No changes.
+> 
+> v2->v3:
+>  - No changes.
+> 
+> v1->v2:
+>  - Use single compatible string instead of multiple compatible strings
+>    for the two DU instances, leveraging a 'renesas,id' property to
+>    differentiate between DU0 and DU1.
+>  - Updated commit message accordingly.
+> 
+>  .../bindings/display/renesas,rzg2l-du.yaml    | 95 ++++++++++++++++++-
+>  1 file changed, 91 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> index 5c9b15a09dee..d44c7c0add8d 100644
+> --- a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> +++ b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> @@ -21,6 +21,7 @@ properties:
+>            - renesas,r9a07g043u-du # RZ/G2UL
+>            - renesas,r9a07g044-du # RZ/G2{L,LC}
+>            - renesas,r9a08g046-du # RZ/G3L
+> +          - renesas,r9a09g047-du # RZ/G3E
+>            - renesas,r9a09g057-du # RZ/V2H(P)
+>            - renesas,r9a09g077-du # RZ/T2H
+>        - items:
+> @@ -35,25 +36,51 @@ properties:
+>            - const: renesas,r9a09g077-du # RZ/T2H fallback
+>  
+>    reg:
+> -    maxItems: 1
+> +    minItems: 1
+> +    maxItems: 2
+> +
+> +  reg-names:
+> +    items:
+> +      - const: du.0
+> +      - const: du.1
 
-Gentle ping on this patch:
+du is the name of the device, thus calling items "0" and "1" is pretty
+pointless - indices already define that. Please drop the reg-names.
 
-[PATCH] PCI: mediatek: Find INTx controller by property
+>  
+>    interrupts:
+> -    maxItems: 1
+> +    minItems: 1
+> +    maxItems: 2
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: du.0
+> +      - const: du.1
 
-This patch has been pending since August 5. Could a maintainer or
-reviewer please take a look when you have time?
+Same here
 
-Thanks,
-Zhengping
+>  
+>    clocks:
+> +    minItems: 3
+>      items:
+>        - description: Main clock
+>        - description: Register access clock
+>        - description: Video clock
+> +      - description: Main clock for DU1
+> +      - description: Register access clock for DU1
+> +      - description: Video clock for DU1
+>  
+>    clock-names:
+> +    minItems: 3
+>      items:
+>        - const: aclk
+>        - const: pclk
+>        - const: vclk
+> +      - const: aclk1
+> +      - const: pclk1
+> +      - const: vclk1
+>  
+>    resets:
+> -    maxItems: 1
+> +    minItems: 1
+> +    maxItems: 2
+> +
+> +  reset-names:
+> +    items:
+> +      - const: resetn
+> +      - const: resetn1
+
+Drop reset-names
+
+>  
+>    power-domains:
+>      maxItems: 1
+> @@ -66,7 +93,7 @@ properties:
+>        model-dependent. Each port shall have a single endpoint.
+>  
+>      patternProperties:
+> -      "^port@[0-2]$":
+> +      "^port@[0-3]$":
+>          $ref: /schemas/graph.yaml#/properties/port
+>          unevaluatedProperties: false
+>  
+> @@ -110,6 +137,7 @@ allOf:
+>                description: DPI
+>              port@1: false
+>              port@2: false
+> +            port@3: false
+
+Best regards,
+Krzysztof
 
