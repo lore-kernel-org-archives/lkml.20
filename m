@@ -1,85 +1,35 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DCD247F2C8
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:58:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2C7F94963CA;
+	Wed,  2 Sep 2026 11:58:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788350339; cv=none; b=HNS2omX88wir+kiuPABpJejfD7wVJQnwFObFbIiT/OY6kTnHlmiSBaacmg55NLHp6qiDE0du5G35tuOqc2WW6xHNo+5tB9SAnnoyIoJKgqZEDfh48j2zz5/yLPx4YazdtWysXcyWl/urz4EkZOrG/ZQUwr2rfbO7AZ0YtFfj+m8=
+	t=1788350342; cv=none; b=YJaAqAH4MpRX77oaPyXWwaGXXzs/fCOjq+JwLwinuMK1AN8QwYquxxbFKjQmMg8RcybJ6+kn0mJ75VEBfv+VQ0x62MC/yeXDjc+ERnA6eX2MaN+yJG/vVNGACUhB2K+4wVVjQLLJJ4BL2SbxOZIjlUuoKNm6pLqUGRhgJzDOxhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788350339; c=relaxed/simple;
-	bh=JnRa08bIcjzzxfGRPFAlp0578fFiCK2SswzFgr9x5/k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=nFOaVSwmvxAPvC5LpnBWpDkQDj58Msbom2QtZ3mLDfKwb9JoqoiT5Jn45pKQiX1PSUUrZHQeRl40sI+NMNGbhv1wR8uQ9tQQhAD6g2fdc5RvDLYrMn8QyHaRmdSgdTlCGuXHCQmpizc6gy1/9POudldKdx/998U5dFuZPLygYgU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Yl/sYjzP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gJohobs3; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788350342; c=relaxed/simple;
+	bh=0+RGd1WUzwslPu+CdgBC9gX6GwYxt16ZdPDUpjU7PKA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=j0RISJwlQvhu+oZDtADfc3BvOy9qZWSSs35EiCjcjbMoxvCVDIovPfbCZLA91uIkdg/A7sGmstniK8ADudgDckfiKZdsiVDK2GwKB2Ph54qJI/zBYqt6r4Amqk889qtvfhv9gTwxWHSAHudLtJK6RVK5EnBgsqf4kHTtCF7nTx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=KmR0bcAH; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Yl/sYjzP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gJohobs3"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6829NCLX974988
-	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 11:58:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=iRI/+ArwwE+ptZgIHtQ+03
-	bm2VmcwrmWGTw0xv8R8iw=; b=Yl/sYjzPUfwC/Pn/Erux80RVVae4RH0Sda5dqH
-	7OHU9IJITRbEOmhz5rd9nghBaC89Yq3begQWoUigxm36EwVMz11IcZAZ8e8ThTkq
-	Fxyaud9YHRwZ2PR9lUsqUZju82hTZybiwlfPdfhgU3rQPAprlkM7K6N7njtt/clP
-	OYJxqttttrBdfAXnBqUZDqOCYgoazjqAkcdh4+1dsRCuTERXbp6iE3awZ6g+9ehD
-	hq5zkndkcrgDt7WSpp12V0MdgWtqepJS88w3qPhBj1uAeqmOtnR9ErPXDqUCe3Ia
-	wB+r1Ka8ALvsX86KMk6PdnmIG/J+OWNLpHaw0ATumIixSILA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ge435uger-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 11:58:37 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-939694871aaso42235985a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:58:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788350317; x=1788955117; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=iRI/+ArwwE+ptZgIHtQ+03bm2VmcwrmWGTw0xv8R8iw=;
-        b=gJohobs3IPJSqEEzeMvOFqHV4/t6eU6wogTA1O/7TomcuOgXWN3neHma+YtVD7r8cE
-         iT0gHNclhUhaFudU3rPxCs/UBC7Fjmx8WiGj6H4cPxo7+aDNn6jNGXHZH6m9dUirfNDu
-         nkxmZqqrjo5uhDtwHGeIQucCH1eEfY9/lTOz1T/yT1slkOk1VRfX76CchM0qGSVu58UH
-         syaeJlV54+o3WK2ogtDLM3bTD+iIgM31STVb5VfEzzqAUaTdLVMDK9bwG5v1ypJ48yMa
-         0J6I0kEE1qDJ123sHxg8lqWQeYDw8yS+z90uYsWZ4U+IhDzecsEgDstoxpCpwXXdh0AO
-         BLyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788350317; x=1788955117;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=iRI/+ArwwE+ptZgIHtQ+03bm2VmcwrmWGTw0xv8R8iw=;
-        b=U84ytPT6GQIye69QDHCInoj+P+XuE8susFsf3kGWwdsqidG+igrBJmxqoxY8C9Zd6h
-         Su+zafD7IieHT3+2f7m6z1C6mYp3fM2CrJoCMsM/5p1uLp7lPQeJAfwOmqVSqk+hwr/N
-         LNiwb0Ngumwkpmc0VtdjeW45DCR22w9uMKi6wgbR8/2voW7hcgM0uF+3u8FdJ1oLjiEl
-         Y0CqgiULSxbz2dLIz/iqKQ8X4BJ1vs9tTRzSCNXQLbYe+0NCdN3ZjiEW/6IZ6jnNML5l
-         1feOQrCM2mIqBIwsYLynkpqZwceO+uJmM0a4NTqHyalV/eEbng3bWn+8/OcS/o2kWegQ
-         EaKA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro4ph792i3mOrPko+bHX0bL7CkQmjyAEUJP3oByxeu40lZDXTUI0a7RLLREkys2HLNLISw4RvFHwJJNDII=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXMFkWsksh7cXbkyZYFAPoYrVdWrLkcpgiM8iIPMOt3f1fPnHk
-	teUYDOpHWQtsmE1abfXP5qC/WRwEE3lRorGUTjkOrRqCngv03mqj95zya8lBy68M0y0lkfaWNKT
-	i/KzwXowSMSeV0DiCc/9DwmBArfWS14JBJcvdEVNOjCkFwIrRDDwijQD1mDjJFGlgkCA=
-X-Gm-Gg: AR+sD11hxBMmGInk92wiP9ljBjPYgSjLpUazoV47Hv+4xnpMXW/81XQWRgTRrfgKJtM
-	C8fQ3PD4HgB7vZRdyiEYaSMUht5bpN56FKHg6AqXn1Abxj9+cd3spVYFOJr1T9UUqfU9uZ9pBHz
-	a68h3waUzgHAi2+Nwnf+jrVFMqTGETux03azcDeRCJRqwSiUVPGC8MZV3DZ945KKOhSc9Cbn7ZP
-	0C1E9DKT6prbKdeONMuIqVQPBsUb7mEZKp9o56dwbmPI7OTRM3HrHsSY5ZjbUmjontTc9YQ3Y3X
-	sQOZmn6P3tIGuDX0zbEtwBFQk7mKSfactdg7nZ7scQKpTBjXfJ6vy9fJHBcGdLSujZCIqgDlDVA
-	rGK/g7Sw=
-X-Received: by 2002:a05:620a:688e:b0:938:e95e:9377 with SMTP id af79cd13be357-93960fafb8emr542369385a.30.1788350316609;
-        Wed, 02 Sep 2026 04:58:36 -0700 (PDT)
-X-Received: by 2002:a05:620a:688e:b0:938:e95e:9377 with SMTP id af79cd13be357-93960fafb8emr542364185a.30.1788350316068;
-        Wed, 02 Sep 2026 04:58:36 -0700 (PDT)
-Received: from [127.0.1.1] ([86.121.170.178])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448eeabbfsm5673815f8f.31.2026.09.02.04.58.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 04:58:35 -0700 (PDT)
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Date: Wed, 02 Sep 2026 14:58:23 +0300
-Subject: [PATCH] MAINTAINERS: add Abel as reviewer for Qualcomm clocks
- drivers
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="KmR0bcAH"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 33EBE1D70;
+	Wed,  2 Sep 2026 04:58:40 -0700 (PDT)
+Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D13C03F85F;
+	Wed,  2 Sep 2026 04:58:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788350324; bh=0+RGd1WUzwslPu+CdgBC9gX6GwYxt16ZdPDUpjU7PKA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=KmR0bcAHILHjedlQjFxN3H0O2IL/HeCO1m5KAeW+TSw3E0WU1i8EPRjWwIE5ADH4w
+	 tJ2R63dVf9VQDXCJo+VKDGslgzqRK+HlMCqNmzRfOtvvt9DXpOpbevWxiOb/LXm/v3
+	 VD1Z/B1ulDvukFzXH4GAQ/CizeIzt8235ZjEHw+8=
+From: Yeoreum Yun <yeoreum.yun@arm.com>
+Date: Wed, 02 Sep 2026 12:56:19 +0100
+Subject: [PATCH RFC v3 17/21] mm/pgtable: optimize pmdp_get() and friends
+ for folded pagetable levels
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,88 +38,194 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-maintainers-clk-qcom-add-reviewer-v1-1-dd6b6799b494@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAF4PmGoC/yWNyQrCQBBEfyX02YZxwPVXxMMspbaaiemJC4T8u
- x09VME71KuRKlRQad+MpHhJla4YLBcNpUsoZ7BkY/LOr93OeW6DlMECrZzuN+5T13LImec13lD
- erCK20drnQOZ5KE7y+X0cjn+uz3hFGmYxTdMXt99dKYUAAAA=
-X-Change-ID: 20260902-maintainers-clk-qcom-add-reviewer-75be8b75b2da
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.16-dev-0e65f
-X-Developer-Signature: v=1; a=openpgp-sha256; l=811;
- i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
- bh=JnRa08bIcjzzxfGRPFAlp0578fFiCK2SswzFgr9x5/k=;
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBqmA9plxkZmxskLaVdZmpr+MI6QvMX3sJUaD5nB
- bCr5zYwPwCJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCapgPaQAKCRAbX0TJAJUV
- ViMAD/91ZzG9rjKWH7icSFiZBE439+2dyXxRg9/PTP4A9dXcG6GP3yv2rJ5EphkeZvXA94+dh99
- HLliDIpZDqrFZm/rultE8r9ZmcHO01zHR295CGfJJgRobaDDdoZ8hlFvTKFXL3QOZ7rUVV5B2tx
- WNr7iS6uACDIqN7L4lfcnSm+tg9+ysFLM6U7QQhvdtlkDCJEGVdLd1coeNMcv//hMKH6RFm9oRI
- sHdFu+GIKoHg4hd7TKichRYNjUuZbcUIn62LiSFr5hXeC6E8OE7VjqxGyOhscm6864mztYzsE6n
- yuRaR1kMbX8PttX5sPkLzwtXTDvcD3Go2ZDE+ydWStS616VN+JuB7CfMJ5g9nWF1gEsQwntOPC2
- MQrAwvV3v36WIpkhj+D/tqE1N+RZaVFfHy6IGCHAA+iJXF9BlsGEltaqDjiuV0XHbrkodmcZCPR
- oXSm4b9eVeSnvJwgUy5GAjLM4rDNCfxBJuidlrAHuYqUGhmfLh+3lONZOFjm7j0uRRFzShRTpVm
- iFza1+bxsQXS1vOliImXKwpBAKfVPxNyp7/4PUW1A19y+WvIfBxGC5bllbc6bg8yiiRV68zQtW5
- wmMumGrm2mIlnbsuSDv+aiakLvIytcm3siw/oE7IaIz0v71XdsvkckxFhCAnK8Kjt3HGy0dbTPr
- gEUFGjxcm1NfqfQ==
-X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDEwNiBTYWx0ZWRfXw9JzZMZV0aFr
- mgDlVGyrDYAbWVJ2Pzg/v6zdnR6bUfNmnXis9UJ4lJXF4a4NCmXtRpj/gDURkAFIKyZoXmrPoDB
- gEFuubO/sc9fL/dyQQog/mrlsh7Wbhc7YGlNsZ1JG8c6wHf/o5/KTN/UEz5ZLPw5AbFkmIIelxP
- Irc7fKUNSgrDDDgJJsoP94WtUy1BcNYWWLfoje0RMHM6diecitJKE5ui8ZmsX0/lbc88F0wGplO
- YkHhU8G3gxhhBW8f9f6N1zQxCYifXx2OaVNHc5FZj+1CHAX6hx5S7yGNnFYAdsu68RsnSiBkEL/
- 8Mbn1EAt6zqPDX4/8+1BkaIEqVkLHiueRuhSPb/GQ7+4r2yErhuNMGPwy+8nibA2Sas8kd6VFxn
- e7SyEoKnMemnWW8m6kZIOVzptD8uHucobOpN27suMTvcC/8Zoft6JVF3YUMuEJJ0D94RyajBQxa
- 7crsFKqCtKMr/COoI+A==
-X-Proofpoint-GUID: 0Ty0uvUchjYPSoDAHLLuvEMJNYGrQ6mS
-X-Proofpoint-ORIG-GUID: 0Ty0uvUchjYPSoDAHLLuvEMJNYGrQ6mS
-X-Authority-Analysis: v=2.4 cv=JpnBas4C c=1 sm=1 tr=0 ts=6a980f6d cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=G5ilVN+faPP2Ze1SHB4iFQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=-9fcZNnhvz7DZAqVOBgA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDEwNiBTYWx0ZWRfX9egnaOGS2Ydr
- F+KYtL3Ib4L0ueL6QMP8VQ9TcSGMvNL16JcVPRVv9eVTAn2K6Ih6Ovc11D0VcLJHWd2HN9b638c
- WwCkzOTYp95xw/6U4JKFiOV849VBjKI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_02,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0
- spamscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609020106
+Message-Id: <20260902-dummy_ptxp3-v3-17-5d8f5b17c25c@arm.com>
+References: <20260902-dummy_ptxp3-v3-0-5d8f5b17c25c@arm.com>
+In-Reply-To: <20260902-dummy_ptxp3-v3-0-5d8f5b17c25c@arm.com>
+To: Russell King <linux@armlinux.org.uk>, 
+ Huacai Chen <chenhuacai@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Arnd Bergmann <arnd@arndb.de>, Andrew Morton <akpm@linux-foundation.org>, 
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Tianrui Zhao <zhaotianrui@loongson.cn>, 
+ Bibo Mao <maobibo@loongson.cn>, Anup Patel <anup@brainfault.org>, 
+ Atish Patra <atish.patra@linux.dev>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Jonas Bonn <jonas@southpole.se>, 
+ Stefan Kristiansson <stefan.kristiansson@saunalahti.fi>, 
+ Stafford Horne <shorne@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ loongarch@lists.linux.dev, linux-mips@vger.kernel.org, 
+ linux-arch@vger.kernel.org, linux-mm@kvack.org, kvm@vger.kernel.org, 
+ kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+ linux-openrisc@vger.kernel.org
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5353; i=yeoreum.yun@arm.com;
+ h=from:subject:message-id; bh=fLSiexxG1byoWlowumv9uBq/Zg1ftsD/4XRX3kdR66I=;
+ b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBqmA7p3aH31DaXcr/MYcmL2RFei83Cs5fJVqlMx
+ D7SpE4yXeuJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCapgO6QAKCRBt1cPRWsUx
+ M+3tDAC2Fr3lGl6zBTwCTZOonnwySG9bnX2Yks07B0tgpjnaeVBShMK4BTIMWdK7+l24w44EuI6
+ lNA8Dqv0OI1iUfpii59oOelJTbxGGsxnzX9GTqe/6wNyNgXwqWTbqG8PxmkLGesb5OG0swbbcM9
+ bt0QNqrXKvPY4Mp9Gd0p1jHKaa2NjChd9nCJFXVM9DdvwMpr2LS3nIFkltTg+uYQEuh335HoFnH
+ gCVW1YcRtgZ6ujtoNROVc/ICV/p9VbTDNC1QoVQrmGUhHFuCeUwLmRqdBp3D5Y1m1pqx8HxFAOO
+ a5YTCPu75A1ETF33IIp6EtsLykwrpfS3NYM6Rf6ayUKhCuNaqQ4plPgE2d4j2bCyzK+WA1qYCBP
+ xRCNOg88QEMrOoviLOa+lx4cVnbBUb//MQ7+hGcZDRW4vsp3f40yk9EbU1OHa8rS47KnkuRvgAw
+ Dp+7p1+tVepwH69kufcwG0PBCJYH9Fivp5IiTt9jal+54G2HOGpA8YGE6/DBvailHKvT0=
+X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
+ fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
 
-As agreed with Bjorn off-list, I'm stepping up as reviewer
-for Qualcomm clocks drivers.
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Using pmdp_get() and friends in common code on a kernel config with
+folded page tables is suboptimal: they default to a READ_ONCE(), forcing
+the compiler to actually read that value even though it will not actually
+be used afterwards.
+
+This was recently reported by Christophe Leroy [1] and block conversion
+of more common code to pmdp_get() and friends.
+
+(using pgdp_get() as one example)
+
+Most of the code ignores the result from pgdp_get() on configs with
+folded page tables entirely, as it's hardcoded:
+
+        pgd_present()==1 && pgd_leaf()==false
+
+Common code will just treat it as a "this is a page table" and call
+p4d_offset() or p4d_offset_lockless() for the next lower level, where
+the obtained pgdp_get() result is ignored entirely.
+
+So, return a dummy value and avoid any memory reads.
+
+There is a catch, though:
+
+1) If code calls pgd_val() and somehow relies on the data, it would now
+   see dummy values. The code really must be aware of folded page table
+   levels. Fortunately, code usually ignores pgd_val() completely for
+   page tables (with ptdump being one exception when calculating
+   effective permissions). it's checked + fixed the x86 ptdump mechanism.
+
+2) If code passes the pgd_t to a function that would work on the result,
+   it would now see dummy values. The only concern is really passing
+   the pgd_t on the stack as a pointer to p4d_offset(). Most code that
+   would do that, should actually use p4d_offset_lockless(), which
+   handles this properly. it's checked + fixed problematic instances.
+
+3) Calling set_pgd() / pgd_page() / pgd_page_vaddr() with a pgd_t obtained through
+   pgdp_get(). There was once such case in riscv code with set_pgd(), which
+   is fixed.
+
+As an example, this is the generated code for perf_get_page_size() with
+PGTABLE_LEVELS=3 on arm64:
+
+Before:
+00000000000052a0 <perf_get_page_size>:
+    ...
+    52dc: d53b4234      mrs     x20, DAIF
+    52e0: d50343df      msr     DAIFSet, #0x3
+    ...
+    52fc: d35e9a69      ubfx    x9, x19, #30, #9        /* pud_offset_lockless() */
+    5300: f9403508      ldr     x8, [x8, #0x68]
+    5304: f869790a      ldr     x10, [x8, x9, lsl #3]   /* pudp_get() */
+    5308: f90007ea      str     x10, [sp, #0x8]
+    530c: f8697908      ldr     x8, [x8, x9, lsl #3]    /* pudp_get() */
+    ...
+    5360: 90000009      adrp    x9, 0x5000 <perf_prepare_sample+0x548>
+    5364: 92746908      and     x8, x8, #0x7ffffff000
+    5368: d3557675      ubfx    x21, x19, #21, #9       /* pmd_offset_lockless() */
+    ...
+    5394: f8757ac8      ldr     x8, [x22, x21, lsl #3]  /* pmdp_get() */
+
+After:
+0000000000052a0 <perf_get_page_size>:
+    ...
+    52dc: d53b4234      mrs     x20, DAIF
+    52e0: d50343df      msr     DAIFSet, #0x3
+    ...                                                 /* no pud_offset_lockless() and pudp_get() */
+    5318: 90000009      adrp    x9, 0x5000 <perf_prepare_sample+0x548>
+    531c: 92746908      and     x8, x8, #0x7ffffff000
+    5320: d3557675      ubfx    x21, x19, #21, #9       /* pmd_offset_lockless() */
+    ...
+    5334: f8757ac8      ldr     x8, [x22, x21, lsl #3]  /* pmdp_get() */
+
+[1] https://lore.kernel.org/all/0019d675-ce3d-4a5c-89ed-f126c45145c9@kernel.org/
+
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- MAINTAINERS | 1 +
- 1 file changed, 1 insertion(+)
+ include/asm-generic/pgtable-nop4d.h | 8 ++++++++
+ include/asm-generic/pgtable-nopmd.h | 8 ++++++++
+ include/asm-generic/pgtable-nopud.h | 8 ++++++++
+ 3 files changed, 24 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index eb4e5a61056e..e1b97740f20a 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -22386,6 +22386,7 @@ F:	drivers/media/platform/qcom/camss/
+diff --git a/include/asm-generic/pgtable-nop4d.h b/include/asm-generic/pgtable-nop4d.h
+index 019c3f074b77..acd62ee23353 100644
+--- a/include/asm-generic/pgtable-nop4d.h
++++ b/include/asm-generic/pgtable-nop4d.h
+@@ -34,6 +34,14 @@ static inline bool pgd_leaf(pgd_t pgd)		{ return false; }
+  */
+ #define set_pgd(pgdptr, pgdval)	set_p4d((p4d_t *)(pgdptr), (p4d_t) { pgdval })
  
- QUALCOMM CLOCK DRIVERS
- M:	Bjorn Andersson <andersson@kernel.org>
-+R:	Abel Vesa <abelvesa@kernel.org>
- L:	linux-arm-msm@vger.kernel.org
- S:	Supported
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git
++static inline pgd_t pgdp_get(pgd_t *pgdp)
++{
++	pgd_t dummy = { 0 };
++
++	return dummy;
++}
++#define pgdp_get pgdp_get
++
+ static inline p4d_t *p4d_offset(pgd_t *pgd, unsigned long address)
+ {
+ 	return (p4d_t *)pgd;
+diff --git a/include/asm-generic/pgtable-nopmd.h b/include/asm-generic/pgtable-nopmd.h
+index 1dd5b165234b..9322f07ddf1e 100644
+--- a/include/asm-generic/pgtable-nopmd.h
++++ b/include/asm-generic/pgtable-nopmd.h
+@@ -43,6 +43,14 @@ static inline void pud_clear(pud_t *pud)	{ }
+  */
+ #define set_pud(pudptr, pudval)			set_pmd((pmd_t *)(pudptr), (pmd_t) { pudval })
+ 
++static inline pud_t pudp_get(pud_t *pudp)
++{
++	pud_t dummy = { 0 };
++
++	return dummy;
++}
++#define pudp_get pudp_get
++
+ static inline pmd_t * pmd_offset(pud_t * pud, unsigned long address)
+ {
+ 	return (pmd_t *)pud;
+diff --git a/include/asm-generic/pgtable-nopud.h b/include/asm-generic/pgtable-nopud.h
+index 5a2b0a81ae19..8f01abbb0050 100644
+--- a/include/asm-generic/pgtable-nopud.h
++++ b/include/asm-generic/pgtable-nopud.h
+@@ -41,6 +41,14 @@ static inline bool p4d_leaf(p4d_t p4d)		{ return false; }
+  */
+ #define set_p4d(p4dptr, p4dval)	set_pud((pud_t *)(p4dptr), (pud_t) { p4dval })
+ 
++static inline p4d_t p4dp_get(p4d_t *p4dp)
++{
++	p4d_t dummy = { 0 };
++
++	return dummy;
++}
++#define p4dp_get p4dp_get
++
+ static inline pud_t *pud_offset(p4d_t *p4d, unsigned long address)
+ {
+ 	return (pud_t *)p4d;
 
----
-base-commit: 8b72f6626dc39b9e7e82b2721d4f7c3b86286012
-change-id: 20260902-maintainers-clk-qcom-add-reviewer-75be8b75b2da
-
-Best regards,
---  
-Abel Vesa <abel.vesa@oss.qualcomm.com>
+-- 
+2.43.0
 
