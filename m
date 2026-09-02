@@ -1,145 +1,163 @@
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B71083E7150
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:43:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9AC53EEAEA
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:44:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788338616; cv=none; b=svwnqopXbQWYNDa5lbND+58klB/nRBoltY6OdHqFDd8QRWbBx1jDAmQctbNgZORQyiQGIU+qnhepXLvnckn9fs1FuHuWhgNmmNZynYXgYIyXuO28IiZWiO69DGUIPKqdFw6DSE5jmGcQvPqFC2vhOVlJk/Ks9QJAnRsMyU2zVxw=
+	t=1788338651; cv=none; b=ke6UUyA+vJ1kgruUKD4G86/rVqAh/qIbIaFuGnRiM3wKfm7hinYdnYvks6Ux8xTvYir760b8GOl1OmdQcCCVJyh7orNWoMVHAVRnPsMWg8mtmey1IEfW1raaTzS0QPsW8yG5GwzpCddJFlZmMvCdmHvAeIFaB1Ftnv9uY5joGOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788338616; c=relaxed/simple;
-	bh=pmBICbqDZ5ndY8g5s8sjBS+yRkZNsDVHROMv+bbKOrE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PKSJEZGEoJ+OLgsyQFehec0DGyIEC67KNOj4ZJ5MW1dRGjNvNcA9w8vORxNsUbe5yL85EFH7Srr+A5xYZAMIYmDxn10aCWwpX0bEF5vK7Zr7Q+MianS1EEi4bnrpXXdDBN9yo23kjxKgF+YOg+P3NtfUcMrFzQc3t2trQrZ/KvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lvnUj/Oe; arc=none smtp.client-ip=209.85.210.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788338651; c=relaxed/simple;
+	bh=GstLgIHtvyFTm90ArYuPevwty0lzfMMUujZRrcj/Sfs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LecG3BYB7wm3GD2HlF6LNsA6iiuvTrxGnfjF3Tbdeqd23uzlYMoxm7QvNPJWQjmzlWDs9Dww9TwVGiQAeEwzNP2L9ToOMVGwpE4A4PQGbedCPoEDc5DooF3fhKH230NchpymBWRKdEwfMoQqvvNXgr/LVGWvv2wIEd/R/+W9Qa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h0JcRGmO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iT9LiAzu; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lvnUj/Oe"
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8485b358552so665436b3a.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 01:43:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h0JcRGmO";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iT9LiAzu"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6826WQ0w695457
+	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 08:44:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	i4OzhxkrdUBOFLLFsotE5mVozTuaUx95en4vSNcnE/g=; b=h0JcRGmOW3yXBfJ3
+	Jwg/N1/SmEx2X+CMj+1kJeGOLtnZ0m3Hzy7ubZpgM3LSK5QO8HNKhvVDxFOTFL+n
+	cdKpYpumJFH8c12HE2yzjcbcsPSkXkpYoHbCx6wqEzWdGOad2n3eYt/By4kq8tsm
+	qXgWaWidssOkHkYai8YrCFKBDW3Lnrmj8tiwsYd5vzPPMq+xZuMBQUsNZtiGvdpa
+	mwVGB9FXu2w5aUUaxzAuIKl6Ssexe97sB8v3UzobuhuBSunsQ87miV0XuqtsCw7s
+	uSXJ0Se2Xbu5nXqkmc31W5BnQ793GX4bG38y+9NTNTkNPD0zie7MiSPiUNCfr8XH
+	TjG6ng==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4geb5618kk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 08:44:06 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c9e97b626so1558201cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 01:44:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788338614; x=1788943414; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=s+QMrkcuBf0aVbydtE8xfe+6EmPlSZfZnXnx55x6XxQ=;
-        b=lvnUj/OeVHOOL+g1gnnOMPVDPmhQiacAjY657eXCmgPJqZfPXwaTAnWr6TqpwSwJ3b
-         EqhG8EvavPPlM8iI64a5PMDck+1ycXv8H5pIEezhGMZ/QbbdrjFfUF+61PtFqYPLjHXW
-         09lIyG6iFfROsaXUQMywprtRV6MRK3qV8Sv+Pt/GH/4GOWCPR6XmfiKBwCRv6mmyT8U7
-         7mCB8KHacfkH5kW6DNp4gCwuNxZctSuGFsFd5WxVR7eqiB3WF+3Y5TbQV6BQjH+C2w9r
-         kI/VA5FvUObpORokiO+Sg2wFOAflys8dJmaCMg1O0tTAEmvx/QBIuesehBgFfNS1k4H+
-         rFRA==
+        d=oss.qualcomm.com; s=google; t=1788338646; x=1788943446; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=i4OzhxkrdUBOFLLFsotE5mVozTuaUx95en4vSNcnE/g=;
+        b=iT9LiAzuyI8jwF2nWSLcnoIVYJ/Sp6Tgv73j1Ktqc32aoCW05qkWQq5J8zXunGpr/X
+         +jkjIW++kvOektaYWpLP2wgNBqsINVDt01JWXmzkuU90e0Fx9II3E3aJNIv2oQSBC3Tg
+         T/qVQ9uDzca/9jWx7DRWgHkiUIGi0A78FniPiJ+EbgesdeOch9xcH4NsKAZZ8FUsTZa+
+         QTUUy00ahjeuLX3Rf4RNasHaIF2F8rRGk71oF1Fz6jS6aMqWKkSAiVU5h/D22KNVa6Ql
+         TlbRCKbsk7OIu1S7lg4dcVu5E9MVnUR7FznXfuJ+VE8YjW+qNHaOYlrJ4Bme4IzQrEa3
+         XbXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788338614; x=1788943414;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788338646; x=1788943446;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=s+QMrkcuBf0aVbydtE8xfe+6EmPlSZfZnXnx55x6XxQ=;
-        b=n2oum1p3L/i4BPDUcSTSQxlq2fPJg6ylgFDPCsB/nlI3sI0Qu7TnbU6QmAKPnncoQt
-         zhd4eM9nAUsWdwnfhwkSmO6T6gsktBhLlsupb6kdlqShR9t0Elh/WmA7bj+jEKoncxZG
-         KBxrfJWlVo52PnRhp25mDcIX4vkedu3lyM0wxgPo08fqevVl17QAOROwqTb3q6mp3thS
-         xM5dGkTWLKREJ8u1RKsT6SkLAZqTm/rxyYY2BIejuXx7vEbGLEmeMamhA1FPIc36YxUk
-         zjPXgTk74tB1bOpkxr7RMkW1QS+fQkPnjR2XVAOxyO8NNm/f1fvan3bRtPyJ9jTS11E+
-         wGOA==
-X-Forwarded-Encrypted: i=1; AKwUvBzPZn4isbUNqbClqayXoiD805BfhXOyms3jDFYBUcAxECQhz5dbuw1k4REd7lB+lwjF4yoMaPjIWPuC1Ks=@vger.kernel.org
-X-Gm-Message-State: AFuF++k9Fx9TfE3l8/4TNPVdqAZuiRQ2G1iRhhEHIf9JERZxDw35/cJd
-	NpP7F8CWtbsO2JqHd559Bw5Bijzg5IR4gyCydymBUvlC9RlsLRt4WolM
-X-Gm-Gg: AYBFou1HG1xSFXCwybL9woWhpLPM5avGH0tbbtLwv55FQkTIiyF+YCitpsSBK50gPLt
-	dZGZTBTZN5YuFAmK2gK78F2onPdt0e/sSfhfbu9/yc+uMBBtHJrQezu5lyfAjbqY6VMGIMB9VAA
-	CT4rcuTtB00je06IR1XMt/gSXD6WgsWnyW/iBvTRu8v8S1GsZ0Olpwgbk6bwxyRMnjJyQSNYxQU
-	Pc2Q6BVZJLodqcX2QWb1zzyIW60wjugkNj62fqorItbm9BhI9z07wLwp7/ZxkwwYpr561BicfPI
-	A0hS7Ep9Ufbu0d6rEwBoyWUA655tnC0vmOdLbKEUj7hSR8hLmpayN27SyaNNNCZZk2V0NwcTJB1
-	KkaIDSzMneg8pIWuDc9vwzX3PmPEhRRDICVHgoY8tjeiEE5GFnongeNXj5FraXxn/kPg9gbIS94
-	MZgcOAFdbfylCaTterOR7hDTNziUcm1pecwVgg7pkSNBuon7gzZHJWejfE/PnTK0ZYLqhE6BHe/
-	WpkrpMw3cmVow0b88FyVtGGHM3olg==
-X-Received: by 2002:a05:6a00:10d5:b0:852:38ff:b4b6 with SMTP id d2e1a72fcca58-85ed3f6cd26mr4920805b3a.17.1788338613613;
-        Wed, 02 Sep 2026 01:43:33 -0700 (PDT)
-Received: from localhost.localdomain ([222.254.211.218])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc07157e0sm997498b3a.43.2026.09.02.01.43.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 01:43:33 -0700 (PDT)
-From: Nguyen Duc Thinh <ducthinh100812@gmail.com>
-To: Jonathan Corbet <corbet@lwn.net>
-Cc: Weijie Yuan <wy@wyuan.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	workflows@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nguyen Duc Thinh <ducthinh100812@gmail.com>
-Subject: [PATCH v2 0/5] Documentation: process: Clean up grammar, tone, 
-Date: Wed,  2 Sep 2026 15:43:24 +0700
-Message-ID: <20260902084324.16498-1-ducthinh100812@gmail.com>
-X-Mailer: git-send-email 2.50.1
+        bh=i4OzhxkrdUBOFLLFsotE5mVozTuaUx95en4vSNcnE/g=;
+        b=fK49I9V8fNW/c+2DmD+uvDE5Npm2l8IT4o4d6NdAF/Pnofrm0hree7hcaoHvSLkhfQ
+         7ahxD9nonjvtqyX3lRmtbArhS5Z3IcLQyNnNYmMh8HR21jbjG5rL2DTddoPN7vOFlwlb
+         txb0iwlO7mv2TnO/DghVL+AEiAEqrDpyeIODzY0xEx7nI5C6nustHEYbOT55o6AZDI9p
+         i50LUo3uBf0UsPli9u6gDRguTgs0S8DiJLN+zrUDyAg3Px+V47Mku1w0hhEBlDw/6gxo
+         ZV/yUx6gF6UDvgnR27RuJP5htJ6tnELayvhazboxCm148r0Xgz1yxMW9+MRaUI7hSgEM
+         ySAA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro+yb6yh6mfNUWGS3UtK1CLIHQOk5fQDZzQMeSKCLwAhqmXl2E/78gP/uhPnUH824EGjfAoZx64/jTiA9A=@vger.kernel.org
+X-Gm-Message-State: AFuF++mCewmnxH5unRXmtb8PGsic49u2ydFdeKiOw8ah15uoblhNGEhq
+	tXFK/tG4dtCf/RYUWjAxbCQMYwkfIjARAR+Rsxpb4CsC9+qSIQC2tvllsSU3bzv64hNkNn3ddwM
+	SJj5cISq95NjZpnGgZiD/SSwx1Hv/3nayl7HGW1NelxWiMlIHScmo4NeiA6tS78qaS78=
+X-Gm-Gg: AR+sD10lSdl2VCLCq8yyU9jSXXyHbKi7SyqtSi46Lddz+H4IKPYeyLYDhUd67L7dDhD
+	5Bm8iWX7mfwq+3nTutq7N7lp3gQtDbNzABObq8aZSxGt2FudboA7d9+P2i/n9VLKoimJnTJptUU
+	wHlk8s7iQiz19x17R/wfn/kjpoMYx/9/AuLDx/j1WxRIqcaFeaU7YV5EQCL0OIdmYWhT3InyKvx
+	7KwvA0QJ2wQ5oI7olOxHdROelVPzKzxvdtTx5Oie9VcQ37ivEsFZpo1ypyh++Gsm644pADZm5eS
+	8g2ad0v7sxXIQ/5DyFzj41bNmzAoPwNO6ODNj7K9Ien3Z5+XGbm5PyxSQcQcS7WoVdtgrfhWm9C
+	xClowDdz3YxZwm+xUIZ2gAw==
+X-Received: by 2002:a05:622a:115:b0:52d:9a83:419d with SMTP id d75a77b69052e-53036992976mr22277061cf.0.1788338645710;
+        Wed, 02 Sep 2026 01:44:05 -0700 (PDT)
+X-Received: by 2002:a05:622a:115:b0:52d:9a83:419d with SMTP id d75a77b69052e-53036992976mr22276031cf.0.1788338643648;
+        Wed, 02 Sep 2026 01:44:03 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a67f895e14sm673780a12.3.2026.09.02.01.43.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 01:44:02 -0700 (PDT)
+Message-ID: <8c2eaba0-c1bd-4db0-bbc8-5ae3b3d9a13c@oss.qualcomm.com>
+Date: Wed, 2 Sep 2026 10:43:56 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] PCI: of: Avoid config reads for disabled bridge nodes
+To: Xilin Wu <sophon@radxa.com>, Bjorn Helgaas <bhelgaas@google.com>,
+        Andrzej Hajda <andrzej.hajda@intel.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Robert Foss <rfoss@kernel.org>,
+        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+        Jonas Karlman <jonas@kwiboo.se>,
+        Jernej Skrabec <jernej.skrabec@gmail.com>,
+        Luca Ceresoli <luca.ceresoli@bootlin.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Bartosz Golaszewski
+ <brgl@kernel.org>,
+        Linus Walleij <linusw@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>
+References: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
+ <20260901-q8b-dts-v1-1-7de0b6a73d08@radxa.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260901-q8b-dts-v1-1-7de0b6a73d08@radxa.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA3NiBTYWx0ZWRfX1Jh0L72t+9LR
+ HE6nvUAyfEWn7YV1gC8Q7yPQV4jU02rxdCdHLtzftCdQ/8M2gS7Hg3qjpVSTT9Cd7ZkK8Z8R+yt
+ vOszKAZp35M/uN08B4aCPHwCXYxsfOMwAtydUSF4RfoC9NAR5myrHJTA3OmJpnBCv7ydyrYtjMI
+ 830M/1HHPFvNCzEGI+lHaYdKsUvarqz1aJK/o/sFW6Ow5zMYSw3iIS7GwlvxfYu9I/VVKmaaYXf
+ Ffww0Wpp8xOdWYqJDK8nD9s63MExKHx8PS+k1vTjOemZHtMfuccoAT0CtWPI4VeETN6jJ6a4eZF
+ nQ9GFFNtuvsTIRkfGtvJBBOpgSu3YMIByW3T/fpJ6W+d6ei8PCEzCq5r/IyPk6if3RatezkKRn/
+ pdMMnIP7vSOYGJTSO0JWsvmG5a8UK2IfsXdhklz56kSLHg//rMxRtFg8QKYnY0SyjLB+9Gd9Elk
+ 8gcLfKSvbYMEr7Y9fNg==
+X-Proofpoint-GUID: uxM0-yFoGCjpeVl4zUM23KMkhDmHhfDJ
+X-Authority-Analysis: v=2.4 cv=D8N37PRj c=1 sm=1 tr=0 ts=6a97e1d6 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=i7MDaAbus5dcvw8aKywA:9 a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-ORIG-GUID: uxM0-yFoGCjpeVl4zUM23KMkhDmHhfDJ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA3NiBTYWx0ZWRfX6azbnw/zRmjP
+ TRxZ1VIg2tQXt2rIpH4tjilgKsIRlnGz5I5H6n2uIU6uXl0xwBlvTadajWy3SmzDqAUm0wKH1CE
+ tWz+wbsDNN08a3pTpCenR7zZ0oyL4J4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_01,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 spamscore=0 phishscore=0 adultscore=0
+ malwarescore=0 clxscore=1015 impostorscore=0 priorityscore=1501
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609020076
 
-This patch series performs a thorough pass across several files 
-in the Linux kernel process documentation directory. The primary focus
-is to improve readability and maintain a professional tone throughout 
-the guides for a global developer audience.
+On 9/1/26 10:47 AM, Xilin Wu wrote:
+> The TC9563 PCI power-control driver powers off external downstream ports
+> whose device tree nodes have status = "disabled".
+> 
+> On the Radxa Dragon Q8B, reading the Vendor ID from one of these
+> powered-off port functions during PCI enumeration raises an Arm SError
+> instead of returning an all-ones PCI error response. This prevents the
+> board from completing boot.
 
-Core changes include:
-- Expanding conversational contractions (e.g., "don't" to "do not").
-- Rectifying minor punctuation oversights and grammatical typos.
-- Standardizing terminology formatting to elevate professional voice.
+I agree with the premise of the patch, but I'd like to understand why
+that happens - do you have any details?
 
-Extra notes:
-- I originally intended to send a 12-patch series to cover the whole
-  directory, but decided to scale it back to these 5 high-quality
-  patches to ensure thorough accuracy and a manageable review cycle.
-  
-  Also I want to know the current progress of the patch titled 
-  "Capitalize Git, Quilt, and Mercurial consistently".
-
-  And I would like to thank everyone for welcoming me to the community
-  and I hope everyone can forgive me for my mistakes in the past, 
-  present, and in the future.
-
-v2:
-  - Resending the complete 5-patch series together as a single cohesive 
-    thread. (Apologies, the v1 submission suffered a terminal wildcard 
-    argument error that accidentally truncated the transmission 
-    after 1/5).
-
-Nguyen Duc Thinh (5):
-  Documentation: process: Clean up grammar, tone, and contractions in
-    core files
-  Documentation: process: Clean up grammar and tone in next guide files
-  Documentation: process: Refine language, tone, and grammar in
-    subsequent files
-  Documentation: process: Refine language, tone, and grammar in
-    subsequent files
-  Documentation: process: Clean up grammar and tone across multiple
-    files
-
- Documentation/process/1.Intro.rst             | 18 ++---
- Documentation/process/2.Process.rst           | 22 +++---
- Documentation/process/3.Early-stage.rst       | 14 ++--
- Documentation/process/4.Coding.rst            | 48 ++++++-------
- Documentation/process/5.Posting.rst           | 34 +++++-----
- Documentation/process/6.Followthrough.rst     | 16 ++---
- Documentation/process/7.AdvancedTopics.rst    | 32 ++++-----
- Documentation/process/8.Conclusion.rst        |  4 +-
- Documentation/process/applying-patches.rst    | 20 +++---
- Documentation/process/backporting.rst         | 68 +++++++++----------
- Documentation/process/botching-up-ioctls.rst  | 54 +++++++--------
- Documentation/process/changes.rst             | 20 +++---
- .../code-of-conduct-interpretation.rst        | 14 ++--
- Documentation/process/code-of-conduct.rst     |  2 +-
- Documentation/process/coding-assistants.rst   | 12 ++--
- Documentation/process/conclave.rst            |  6 +-
- .../process/contribution-maturity-model.rst   |  4 +-
- Documentation/process/cve.rst                 |  8 +--
- Documentation/process/deprecated.rst          | 14 ++--
- Documentation/process/development-process.rst |  6 +-
- Documentation/process/email-clients.rst       | 32 ++++-----
- 21 files changed, 224 insertions(+), 224 deletions(-)
-
--- 
-2.50.1 (Apple Git-155)
-
+Konrad
