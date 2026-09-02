@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F5D42BEB0;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685B142D777;
 	Wed,  2 Sep 2026 09:51:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788342660; cv=none; b=bgbKQDUwdg1aGz8gXhLxbkmvqUM3xAayhj1UMtvPkosoVytmDayGMWJ7yMdl55Z6/NPFPcuS3d+LL++wv41eniPh9Mh+ShAYnneRwzzkWO3xC6O2KHVEzxJs+ojwUc1QLp7Csi9zD1NnUuhODfIXImdKh8Z+MSg1MtPJtsOFWec=
+	t=1788342660; cv=none; b=ObgHV46L+92AKawY9/Z2afJa1mbkkUuR42SKSJDR4e9dVjwB9p3r1HYier3pzxTih02yojh5C8ypdfrMv/nE83fky4n5u9r8ugnbFInizSE7rDpZiSe0q+qc7jIV7UlnP3wFT0WPMkjDQV+Aa5zVJmUT/QqgGLCiIr82n35IJF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788342660; c=relaxed/simple;
-	bh=vtnU28IgD/9fgw3eMgLAM3NVwlFuTiAvZXPJld3OpeU=;
+	bh=Mo3+8RFfppINKIARqVbgEULhQ/6q8Q5E73vtDdVsNaQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=d0Rio9bXSNgsD2fU1Isk3qtq+xufzMFnBxUReIWsHknx860OsKWXnygNmA0z3PbRRfnTlWhMyAagW1VDoztI4T8HZOwGL9nWq1n57rpWh4heJOVCc9pbHw3dAGp//Nx5ZNa1siDT522uvLce/g9PKFZKQvdLhIOa9ve1Kbku9Qg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gByp5JTp; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=JQF3e3/2tqhiRFMnhpkDj2z09XUWHYauncTD5WroGAQg0MBHbAttlw6cB6kTL3wAGMX4XjOM9xXRTbZIDUUTdkvplxVPflw+5YAPL9bnP0jvE5/+k2dvgVBhk8j2eY9aMUO7eRlEeBGvLOx75/hj0CxX2tLOsdkP2Gv8r8srdu8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LjN8Jh71; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gByp5JTp"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CD5F4C2BCF7;
-	Wed,  2 Sep 2026 09:50:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LjN8Jh71"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2B516C2BD04;
+	Wed,  2 Sep 2026 09:51:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788342659;
-	bh=vtnU28IgD/9fgw3eMgLAM3NVwlFuTiAvZXPJld3OpeU=;
+	s=k20201202; t=1788342660;
+	bh=Mo3+8RFfppINKIARqVbgEULhQ/6q8Q5E73vtDdVsNaQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=gByp5JTpDlVjfW5kz0pfLwTAfCAariuUpiKFZtmgw8E9BcB+R1A1jNKcU6+4HExwC
-	 B77g6ObRdX5yrtpzLB1+ZtODjNoEHqpGsBPhRUBxBzx2UkOFWO4mPlER6TKcZvk1xa
-	 y5OiBKOiayTOJ9fxnWVGGTOXbKYq5ae/BvZqIa3eYqjARogmmFjgagsS4RktK0BgCN
-	 lrVbz/VpSqNy8rycuVlV6d26TDdDHlJqvGvf16a96ImNRzXPyI3ESutqL5/tnujd3D
-	 ct0ahjylmIr3RuwZlRAXIH9HkClgmnNjItWy8xSnhAyz7y/I4e+9psM8itACE9J4fm
-	 zXezbIcNEpwpQ==
+	b=LjN8Jh71ESTtrz0II1QkWFMR6Ekn10yjUiU5wrtpB83llUdV/2TXESJKlYxXGJbFK
+	 BjL/hqJHbUqLQ+xQ7JKPNusWEkPdY3H3tSO0Tripls89K0PunwIWQZJCzgkJ01O9VE
+	 MF0jUHlUj8tq8RKt4PsFv4Ve+bB3kLb14TmcN12pef+qAjOXu9J5M6q/6aHQAvub+I
+	 wtL7Ub+pGmIsjG3jKL3/mxnsnakHKDJj4Ck/bM7+uPcLyFOxE0xC076uHuPhnmg5Ob
+	 +JvXfQKRavAYb/WERikZtdLsVUbzNO0i9U6pMdIidmI4xXF5ULRIzKAX1hAGCvxddi
+	 o+jRgTBAC38xg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B5A10C624D0;
-	Wed,  2 Sep 2026 09:50:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 15FB7C61DD6;
+	Wed,  2 Sep 2026 09:51:00 +0000 (UTC)
 From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Date: Wed, 02 Sep 2026 17:50:54 +0800
-Subject: [PATCH v5 1/6] mm/memcontrol: move the lru_zone_size sanity check
- to the reader side
+Date: Wed, 02 Sep 2026 17:50:58 +0800
+Subject: [PATCH v5 5/6] mm/mglru: use explicit tier range in
+ read_ctrl_pos()
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-mglru-flags-cleanup-v5-1-9db761d779ef@tencent.com>
+Message-Id: <20260902-mglru-flags-cleanup-v5-5-9db761d779ef@tencent.com>
 References: <20260902-mglru-flags-cleanup-v5-0-9db761d779ef@tencent.com>
 In-Reply-To: <20260902-mglru-flags-cleanup-v5-0-9db761d779ef@tencent.com>
 To: linux-mm@kvack.org
@@ -61,11 +61,11 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  linux-kernel@vger.kernel.org, Kairui Song <ryncsn@gmail.com>, 
  Kairui Song <kasong@tencent.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788342657; l=4138;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788342657; l=3649;
  i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=QI6bvhReGHb4fOvBljBjwiJV5Y8Bw1C5l29qeBm+tPA=;
- b=zq0mgu+IKjbAnDIaSkFgx6KtQr5EysUe2PZDWpe8eFGP89GdZJw9RhoxJ5PBrmbNBR5CRJC7N
- NNim/6E9hoaCYsBGaC7VgOuRQeEsD+geKaWaOzKjSEnNcKCREhoD5eE
+ bh=oVmtU7RtLEHATDqO9A5jftz8sm6P6wAktfihxMqJ5Tw=;
+ b=dPPzLe7vps/4tFzAt1JpcbiW7bZLRHQCFNYaCQ4sCRNhFfKoV8rZMZJk4dpFzSA1X0k61uup7
+ ZtSlanhdkEYCfpC+U1UuJBSbBsreUiJ79Z2nOzSwDx7LLDmkPwdeE/2
 X-Developer-Key: i=kasong@tencent.com; a=ed25519;
  pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
 X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
@@ -75,112 +75,96 @@ Reply-To: kasong@tencent.com
 
 From: Kairui Song <kasong@tencent.com>
 
-Instead of using an unsigned long and checking the counter value at
-the updater side, turn the counter into a signed long and check at the
-reader side. This reduces overhead and simplifies the code.
+read_ctrl_pos() encodes the tier range in a single "tier" parameter
+via "tier % MAX_NR_TIERS" as the start and "min(tier, MAX_NR_TIERS-1)"
+as the end. This is hard to follow, maintain, or extend. Tier values
+0..3 select a single tier, while tier == MAX_NR_TIERS selects the
+full range.
 
-commit ca707239e8a7 ("mm: update_lru_size warn and reset bad lru_size")
-added a sanity check for memcg counter underflow: lru_zone_size is
-unsigned, so an underflow wraps it around and returns an enormously
-large number, then the memcg shrinker loops almost forever as the
-calculated number of folios to shrink is huge. It also checked if a
-zero value matches the empty LRU list, so the positive and negative
-deltas had to be handled separately. However that emptiness check was
-already removed by commit b4536f0c829c ("mm, memcg: fix the active list
-aging for lowmem requests when memcg is enabled"), so handling the
-deltas separately is no longer needed.
+Replace it with explicit (tier_min, tier_max) parameters using a
+closed [tier_min, tier_max] interval, and add LRU_TIER_MIN and
+LRU_TIER_MAX for the tier bounds. The call sites now become
+self-documenting:
 
-The remaining update-side check is costly and cannot really catch the
-leak it is after anyway. It runs on every LRU folio, and if a folio was
-removed without updating the counter while other folios remain on the
-LRU, the WARN only triggers much later, from a likely innocent
-callsite. While readers are much rarer than writers, only the reclaim
-and reparenting paths read it, once per batch.
+  - get_tier_idx:   (LRU_TIER_MIN, LRU_TIER_MIN) for the first tier,
+                    (tier, tier) for each subsequent tier
+  - get_type_to_scan: (LRU_TIER_MIN, LRU_TIER_MAX) for the full range
 
-Checking at the reader side instead leaves the update path a plain
-addition, and puts the warning where the value is actually consumed.
+No functional change.
 
-Note this changes the behavior on underflow: the correction is removed
-and a negative value is kept. A massive leak of the LRU size counter
-would indicate that something else has gone very wrong, and one should
-fix that leaking site instead. Besides, the original behavior might
-cause false positives, or make things worse if the accounting happens
-after the actual insertion: the value is not leaked, just delayed, so
-force-fixing it would cause a bigger problem. The warning now only kicks
-in when a consumer actually uses it, in which case the reader gets zero.
-
-Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Reviewed-by: Baoquan He <baoquan.he@linux.dev>
 Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
 Signed-off-by: Kairui Song <kasong@tencent.com>
 ---
- include/linux/memcontrol.h |  9 +++++++--
- mm/memcontrol.c            | 18 +-----------------
- 2 files changed, 8 insertions(+), 19 deletions(-)
+ include/linux/mmzone.h |  2 ++
+ mm/vmscan.c            | 18 ++++++++++--------
+ 2 files changed, 12 insertions(+), 8 deletions(-)
 
-diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
-index 7d1c0ce189a8..86780ef65eaf 100644
---- a/include/linux/memcontrol.h
-+++ b/include/linux/memcontrol.h
-@@ -113,7 +113,7 @@ struct mem_cgroup_per_node {
- 	/* Fields which get updated often at the end. */
- 	struct lruvec		lruvec;
- 	CACHELINE_PADDING(_pad2_);
--	unsigned long		lru_zone_size[MAX_NR_ZONES][NR_LRU_LISTS];
-+	long			lru_zone_size[MAX_NR_ZONES][NR_LRU_LISTS];
- 	struct mem_cgroup_reclaim_iter	iter;
+diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
+index c9ecf370cd9f..9b27cf53bdbc 100644
+--- a/include/linux/mmzone.h
++++ b/include/linux/mmzone.h
+@@ -492,6 +492,8 @@ enum lruvec_flags {
+  * folio->flags, masked by LRU_REFS_MASK.
+  */
+ #define MAX_NR_TIERS		4U
++#define LRU_TIER_MIN		0U
++#define LRU_TIER_MAX		(MAX_NR_TIERS - 1)
  
- 	/*
-@@ -902,10 +902,15 @@ static inline
- unsigned long mem_cgroup_get_zone_lru_size(struct lruvec *lruvec,
- 		enum lru_list lru, int zone_idx)
+ #ifndef __GENERATING_BOUNDS_H
+ 
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 96fdfc14f615..714a3f273f49 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -3198,8 +3198,8 @@ struct ctrl_pos {
+ 	int gain;
+ };
+ 
+-static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier, int gain,
+-			  struct ctrl_pos *pos)
++static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier_min,
++			  int tier_max, int gain, struct ctrl_pos *pos)
  {
-+	long val;
- 	struct mem_cgroup_per_node *mz;
+ 	int i;
+ 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
+@@ -3208,7 +3208,7 @@ static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier, int gain,
+ 	pos->gain = gain;
+ 	pos->refaulted = pos->total = 0;
  
- 	mz = container_of(lruvec, struct mem_cgroup_per_node, lruvec);
--	return READ_ONCE(mz->lru_zone_size[zone_idx][lru]);
-+	val = READ_ONCE(mz->lru_zone_size[zone_idx][lru]);
-+	if (WARN_ON_ONCE(val < 0))
-+		return 0;
-+
-+	return val;
+-	for (i = tier % MAX_NR_TIERS; i <= min(tier, MAX_NR_TIERS - 1); i++) {
++	for (i = tier_min; i <= tier_max; i++) {
+ 		pos->refaulted += lrugen->avg_refaulted[type][i] +
+ 				  atomic_long_read(&lrugen->refaulted[hist][type][i]);
+ 		pos->total += lrugen->avg_total[type][i] +
+@@ -4809,9 +4809,9 @@ static int get_tier_idx(struct lruvec *lruvec, int type)
+ 	 * This value is chosen because any other tier would have at least twice
+ 	 * as many refaults as the first tier.
+ 	 */
+-	read_ctrl_pos(lruvec, type, 0, 2, &sp);
+-	for (tier = 1; tier < MAX_NR_TIERS; tier++) {
+-		read_ctrl_pos(lruvec, type, tier, 3, &pv);
++	read_ctrl_pos(lruvec, type, LRU_TIER_MIN, LRU_TIER_MIN, 2, &sp);
++	for (tier = LRU_TIER_MIN + 1; tier <= LRU_TIER_MAX; tier++) {
++		read_ctrl_pos(lruvec, type, tier, tier, 3, &pv);
+ 		if (!positive_ctrl_err(&sp, &pv))
+ 			break;
+ 	}
+@@ -4832,8 +4832,10 @@ static int get_type_to_scan(struct lruvec *lruvec, int swappiness)
+ 	 * Compare the sum of all tiers of anon with that of file to determine
+ 	 * which type to scan.
+ 	 */
+-	read_ctrl_pos(lruvec, LRU_GEN_ANON, MAX_NR_TIERS, swappiness, &sp);
+-	read_ctrl_pos(lruvec, LRU_GEN_FILE, MAX_NR_TIERS, MAX_SWAPPINESS - swappiness, &pv);
++	read_ctrl_pos(lruvec, LRU_GEN_ANON, LRU_TIER_MIN, LRU_TIER_MAX,
++		      swappiness, &sp);
++	read_ctrl_pos(lruvec, LRU_GEN_FILE, LRU_TIER_MIN, LRU_TIER_MAX,
++		      MAX_SWAPPINESS - swappiness, &pv);
+ 
+ 	return positive_ctrl_err(&sp, &pv);
  }
- 
- void __mem_cgroup_handle_over_high(gfp_t gfp_mask);
-diff --git a/mm/memcontrol.c b/mm/memcontrol.c
-index 856a7d07586c..0a65ab8df27a 100644
---- a/mm/memcontrol.c
-+++ b/mm/memcontrol.c
-@@ -1529,28 +1529,12 @@ void mem_cgroup_update_lru_size(struct lruvec *lruvec, enum lru_list lru,
- 				int zid, long nr_pages)
- {
- 	struct mem_cgroup_per_node *mz;
--	unsigned long *lru_size;
--	long size;
- 
- 	if (mem_cgroup_disabled())
- 		return;
- 
- 	mz = container_of(lruvec, struct mem_cgroup_per_node, lruvec);
--	lru_size = &mz->lru_zone_size[zid][lru];
--
--	if (nr_pages < 0)
--		*lru_size += nr_pages;
--
--	size = *lru_size;
--	if (WARN_ONCE(size < 0,
--		"%s(%p, %d, %ld): lru_size %ld\n",
--		__func__, lruvec, lru, nr_pages, size)) {
--		VM_BUG_ON(1);
--		*lru_size = 0;
--	}
--
--	if (nr_pages > 0)
--		*lru_size += nr_pages;
-+	mz->lru_zone_size[zid][lru] += nr_pages;
- }
- 
- /**
 
 -- 
 2.55.0
