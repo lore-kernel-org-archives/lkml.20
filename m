@@ -1,96 +1,110 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03FFF36EA93
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:45:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BB6237B036
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:45:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788331524; cv=none; b=i3DA3ri+ROLFOYPJ3YBXUKq7r4TUR5t4zFDXvxa99ug+4ncbxDhHQKvrCnJ8e/gzBL47pP8aj+Na4inaTPzv9RTslJ1nVU/NxLq4vIwi2fr4SAZ7fIFrtip29OL6NJdz05aCatF0kYk1zindzeRo/VVbtZV6LnwCoO3F4GKu0kM=
+	t=1788331533; cv=none; b=roCexQFzlAANL9N8a8AHOVUlWomIGbuiQAsqISe1mTpLoxoXGvuWYFvilRI3XnvsqgGXVbS+WgxTggwcNwrP/Ro3v9b5Tx3OJTSraUsvmtVUBmjGf1XQ05Fu/SJJ+OIS4Rgx6QjqGhfkII6hXDiHOIMn44FPUnqPPHmmlcgv/Lo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788331524; c=relaxed/simple;
-	bh=GgAdxwkkk41/uwfxZ2ES24qbG6JzfhzWY0JMutbCZhI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qyNAhP9DYgpfS6rnW3Np9kCmo4pzHYfFfaJYltGz6o6Z6LMFYsAIY+6YOj5JOp76r35494boAOLyjxdC5uiwvJgMUq4mECaDt+U8jt8FqGzOAgxCbRXhvlCiq/AsVsF84g5c8IfofAvyRo8B7pflLTewQrXB1eiQZT80h1J5J5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=DkzbRBjg; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788331533; c=relaxed/simple;
+	bh=qkpzPnGgNjozNVl/OQ4FxMb8JZeE4UQpJXJz079VkrE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=erv6mNfL3cCs3nUo6vsxoIVH4X4AZsS1ff3ot3xGB69xhdUZ6wkdjBs2POzMoXq8HsHXAl14IixD/R7DGmL3GVv5+Jn9MK3KcorEVrFld/85i0N+cMr+uC9t6TVgxE1J3sfhZOGpZO8q11b/xCOsawVIO6gBODz/B/RNLuha58Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LzdevgID; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="DkzbRBjg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=kctKcD064GAsrzHHvliOKYeQjxpgDbB8xDJ1Z98T0a0=;
-	b=DkzbRBjgKf8RJniAcZJzQ17MMAiFWjANM7c4qouvhuYoKUT2oFsFH4G62jjbrg
-	HpEmiN3bJOZOq9ftbBtR7qEycM2Ic6COTn9HIdX/fqWPZ6hSHl5nmAGxWCU/DhuJ
-	n9PvbXg26F8jvIX90wEcj2GB2Zd5L8gZQnI28xVC3spZ8=
-Received: from [IPV6:2409:8900:1ef4:8f82:6ff7:7c40:6535:9660] (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgCHaADdxZdqkh3MQQ--.55522S2;
-	Wed, 02 Sep 2026 14:44:47 +0800 (CST)
-Message-ID: <9105aa5d-7390-490a-8336-5dba6b97895b@163.com>
-Date: Wed, 2 Sep 2026 14:44:45 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LzdevgID"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so968953a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 23:45:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788331531; x=1788936331; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A1Ijfwz6wl79jsZ8nek7Aw8mUO11NOUio6A8OmunRuU=;
+        b=LzdevgIDv0QVC96lRAogWGBEqylEn/nkYJ71V/fCkv+d6rTcGvcd/UCcaqzYcLq/6o
+         vY96JnjaH/tek6cI0AzhJMEIxO7hX5bKPFVxGuPpsGGcusaY6UvggvteZhsYXtQswADf
+         +CmlFb9ULGuxJS2jxF8FD8eNF87Y290l5Kiq0OfQu4oTVM9NcDHod/VbYhiX848O56dZ
+         n0NmHnWaD69djq5/7evaXOTW55lkP2VH9Yra37Ruc9trfUzKJBgE/d5nGRn4yCh100bg
+         tARYUR378AWMYGIZ/DmT75hyk9JMP1XMA8WxD5RJIM6//zYYo97sgtLvCWqo7bnyavWV
+         jREA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788331531; x=1788936331;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A1Ijfwz6wl79jsZ8nek7Aw8mUO11NOUio6A8OmunRuU=;
+        b=VLejTBP/E+g3N91kusNJHvDbddcg32J4J+tnSYYuOEyZPGKOVU+0vZE7lQQy9Ql8Jo
+         /r85lnlcsZnN0Ov67jfUnfKFKFLGiEqRs0VXdHiDun1vZC7cJkWrRbkNP8fwJg/f1zC6
+         dZOsopnzPHvZ/+eit6phZwCsFauuDhanB83z7cTrJQljDyOgGXojxReXAvrfw6SSsLdI
+         iDNhMW7+fdM8cByqo9/DJPtdBxHXzscS4my8zAnJbJtN9dZhE++L6BdmVlTs8FX9n+li
+         f+y9A8wH8F1Zy6auxeByDgNWRhc73pupoeYH8VDC3pDybW6536gyPePzxxcMFtXbdx8S
+         anAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwrUpNgAM+NolFGol5c8Kxm9faHqCqDk9sFnFRSWdnmDJHTb17c+RElbMmaBOgcfBU5+kpQkmyOppTfsPM=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/QO4Tn25NYN+PE2inXy2sgNwfFK3SaDUFx/QqPkdwXmA9wvn1
+	G4woIYXTiRYRDvQYmsv3yBAV06MHsZkdOmvlZ/bFiwC0/zv98hqKuhtG6trNHw==
+X-Gm-Gg: AYBFou06dfwE+sZ3seEAfacznGmbwVyOo+XVZVuoN8scpRrCi1t7+hR92qJRspXvfKt
+	CBZABC8M/Z01B6Z71jzpGDFYCne0yn/dMDUxJE9RUXNVjaU8kyq6wpubqae3l48Y5Ln2r92woHT
+	e07oF4/xGORay9kuuRNmzrZaoS64lmaFjEwxystvLod6+oMgjbF5gu5PBbO18Cy9cFEAo7a9U6A
+	tETPBH8UJL7EiWvTs+OWvOaoIRNsfxezu1MBIBEIW5yYqVTOv9zFq1O+Z3KJ/wbWadKzZmTyval
+	IzRoxwZdzEOQ88cNfvfwjSPZmZ6YSWfoYykeopNxMJm9NV5d6CnCum43kVb0igcmqcP1voMtyA6
+	zwQNT79DJqesDtABF3PXKMFgl59vFXIiRHVHtkd2wbdwpXYTAV7Jm+nLxFx8Sq1y0Rwof1i2wic
+	QaSuTKCIcWeYW94z8JfJEnljVgOPi7cW9ToquUNNW8l52zXPRHf3VoJY0iu+cYi6r54beJiyIZ/
+	FUZ0obON7cW2VfD
+X-Received: by 2002:a17:90b:4a8e:b0:38e:4114:d8c7 with SMTP id 98e67ed59e1d1-39aedcfc81bmr3925777a91.0.1788331531419;
+        Tue, 01 Sep 2026 23:45:31 -0700 (PDT)
+Received: from PC-2B0BA31200898.company.local ([122.11.210.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990bd1b395sm11051480a91.1.2026.09.01.23.45.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 23:45:30 -0700 (PDT)
+From: Meijing Zhao <zhaomeijing100@gmail.com>
+To: Lorenzo Stoakes <ljs@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Meijing Zhao <zhaomeijing@lixiang.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Wandun Chen <chenwandun@lixiang.com>,
+	linux-mm@kvack.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/3] mm: trace: decode architecture-specific VMA flags
+Date: Wed,  2 Sep 2026 14:45:07 +0800
+Message-Id: <cover.1788330432.git.zhaomeijing@lixiang.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] ntfs: implement fileattr_get and fileattr_set
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- Baolin Liu <liubaolin@kylinos.cn>
-References: <20260901091519.2885376-1-liubaolin12138@163.com>
- <20260901091519.2885376-2-liubaolin12138@163.com>
- <CAKYAXd94Hy-cEXAsfibh+B66774rg9wALwPWGfir91dqJWTtgg@mail.gmail.com>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <CAKYAXd94Hy-cEXAsfibh+B66774rg9wALwPWGfir91dqJWTtgg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgCHaADdxZdqkh3MQQ--.55522S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tF1Uury8CFykCryUJryxZrb_yoW8Xw1UpF
-	WrGayxKFs7Cry7G3s29w13WayFqw18Xr45ZryqgryxC3ZxC342vryxKr13uFWqyr1fAw12
-	qFyjqa47AF1YvrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRS_MhUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6R8p82qXxd8bPQAA3t
 
+From: Meijing Zhao <zhaomeijing@lixiang.com>
 
+show_vma_flags(), which is used by VMA tracepoints and %pGv, names
+generic VM_* bits but does not fully decode architecture-specific flag
+positions.  As a result, trace output and VMA dumps can show a generic
+"arch_1" name or a raw hexadecimal value instead of the meaning assigned
+by the target architecture.
 
-在 2026/9/2 09:22, Namjae Jeon 写道:
-> On Tue, Sep 1, 2026 at 6:15 PM Baolin Liu <liubaolin12138@163.com> wrote:
->>
->> From: Baolin Liu <liubaolin@kylinos.cn>
->>
->> Wire up the fileattr inode operations so that lsattr(1) and chattr(1)
->> work on ntfs.
->>
->> fileattr_get reports the compressed and encrypted state of the attribute
->> and the immutable and append-only flags, the same states ntfs_getattr()
->> already reports through STATX_ATTR_*.
->>
->> fileattr_set accepts only FS_IMMUTABLE_FL and FS_APPEND_FL. Compression
->> and encryption are rejected because changing them would require
->> rewriting the attribute data. Both accepted flags go to inode->i_flags,
->> so the VFS enforces them.
->>
->> Neither flag has an on-disk representation of its own, so a value set
->> through fileattr_set only lives for the lifetime of the mount. Note also
->> that S_IMMUTABLE is re-derived on every mount, from FILE_ATTR_SYSTEM when
->> mounted with sys_immutable and unconditionally for system files, so
->> clearing it on such a file does not survive a remount either.
-> NTFS forces S_IMMUTABLE on system metadata files such as $MFT, but
-> this patch allows userspace to clear that protection. The patch should
-> reject clearing immutable for these files and for files made immutable
-> by the sys_immutable mount option.
+This series adds symbolic names for the arm64 and sparc64 meanings of
+VM_ARCH_1, arm64 MTE flags, user shadow stack flags, and protection-key
+encoding bits under their corresponding configuration guards.
 
-Hi Namjae,
+Changes in v2:
+- Rebase onto v7.3-rc1.
+- Fix the patch 1 changelog: "bti" and "adi" are descriptive trace
+  names, but do not match the two-character smaps mnemonics.
+- Cc Lorenzo Stoakes.
 
-   You are right, that is a hole. The driver forces S_IMMUTABLE on those
-   files for a reason and userspace should not be able to clear it.
+Meijing Zhao (3):
+  mm: trace: decode arm64 and sparc64 VM_ARCH_1 flags
+  mm: trace: decode MTE and shadow stack VMA flags
+  mm: trace: name protection key encoding bits
 
-   I will add the check and send a v2.
+ include/trace/events/mmflags.h | 43 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 43 insertions(+)
 
-   Thanks for the review.
-
-Thanks,
-Baolin
-
+-- 
+2.25.1
