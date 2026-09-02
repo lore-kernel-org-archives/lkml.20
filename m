@@ -1,152 +1,130 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A08484A4402
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:46:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 510864A43F1
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:46:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788360406; cv=none; b=iW6cWfFH0CIdP+o/U3XmUI5YuyKi6xjUOrJN0akwjvXvssnkId1DPLPBMy2OILDKEYYRPyLf5vL9lU/n828Dh2xZrjDNjHYcbm6RshIRShrQ4K0bIXAmZw0O+jl1eGkFcxyeoD2QkDw31ruwzn2SKut0GLeRLUAOxA3GkL2Q3aY=
+	t=1788360408; cv=none; b=CGrssl9fmbYATR9m1OIXomzjICWJ/dGpKPBqUuJeqXYa/CQUV8zLw2V22/leR/HbIt9C7cEXRl+inpiYoe1pMv82CWS8xY4/laOQTVnz4RZ1vdsuqIA4SyNCMs8f/NNK8tMLBfQlGGoO8PqsFAT5Fc1jkjVFujsOcBy1bEQRuxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788360406; c=relaxed/simple;
-	bh=4kU6Krr/DSsOOXv7Su9Lbn9NoAbl1D9sLwJpgDYFVDc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CLqW5StQyVYfnzeOZeT6qWd1qF/y/kjwL8/jf9+QQQmS+lA6+NaridlCOaSvWV/vNLq+EhZfc7l8KUglYS2qESOTcIzwX6xfhk77QZPUboOxcAtrs91mnTjrPnYD4DjbLD4XKagaezwuANB3KNife2CuW/Q2hpw/3tu2jwduFTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jvI70JcD; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788360408; c=relaxed/simple;
+	bh=g/z2c0uejjbvW+bTUcXx6A5unb4ZHFpYUUEpYX5hIYw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=oItr0NrPOXlMP//2GV3tvI2dbzbPefx5FvQeKuCxvrieSkjMEVW3wBl37Pf2Vi6N1BNQbJdIsHYHcWVOTWoX+E0FHlD7UnXAGcN36jGmPe8uZHzlBUl0+qsAVxvP3tnf9d+vZ86INGBUDuyLJXuyXBdKo21UOQs3wEvqk9JFj9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TMJyK/d/; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jvI70JcD"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DC121165C;
-	Wed,  2 Sep 2026 07:46:39 -0700 (PDT)
-Received: from [10.163.139.162] (unknown [10.163.139.162])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BC2563F882;
-	Wed,  2 Sep 2026 07:46:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788360403; bh=4kU6Krr/DSsOOXv7Su9Lbn9NoAbl1D9sLwJpgDYFVDc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=jvI70JcDjiBJBSzybsRgh2PieiSUiVJBFEdooazcZU6T5xFX1kVI4K0rNLoO5rZ7C
-	 CWRj3jIQFnuyBFv96ufuwwBCeKU+nTGj/gCBnt3Zy0B/UOjmPa8TQrFnDorqKajuwQ
-	 9N3rXcYDbqICpZhxQm6nR2RvB9KmJucomXGwDR4Q=
-Message-ID: <551663b9-d031-4755-af7f-dc6c22524b35@arm.com>
-Date: Wed, 2 Sep 2026 20:16:36 +0530
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TMJyK/d/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788360404;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=d+wbQbDqSGkxHemqbPjciPTDnnklfXLc74JSqQp6y6I=;
+	b=TMJyK/d/UnjOWmj+2vMZDGSBY19zXzzvmRarEhaMZfSMNorCbCB5wtEI6Ljc0HzJGqLCak
+	UzWI7QNJosUdMQxPYwXmaw1ODDbv/ZBZAJLqGNChGo+0OTZHUzaPB3PItPzvSLk8y8HV8C
+	WeUK1yJzDXObsu+IKUm1V1rxyycxeyg=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-446-O9slN2rfNGSVNs8IHLvaPA-1; Wed,
+ 02 Sep 2026 10:46:40 -0400
+X-MC-Unique: O9slN2rfNGSVNs8IHLvaPA-1
+X-Mimecast-MFC-AGG-ID: O9slN2rfNGSVNs8IHLvaPA_1788360395
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 3C6021954AF4;
+	Wed,  2 Sep 2026 14:46:35 +0000 (UTC)
+Received: from wsxc.redhat.com (unknown [10.96.134.11])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 8846F1800641;
+	Wed,  2 Sep 2026 14:46:23 +0000 (UTC)
+From: Ricardo Robaina <rrobaina@redhat.com>
+To: audit@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-alpha@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-csky@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	linux-openrisc@vger.kernel.org,
+	linux-parisc@vger.kernel.org,
+	linux-sh@vger.kernel.org,
+	sparclinux@vger.kernel.org,
+	linux-um@lists.infradead.org,
+	bpf@vger.kernel.org
+Cc: paul@paul-moore.com,
+	eparis@redhat.com,
+	sgrubb@redhat.com,
+	oleg@redhat.com,
+	richard.henderson@linaro.org,
+	mattst88@gmail.com,
+	linmag7@gmail.com,
+	linux@armlinux.org.uk,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	guoren@kernel.org,
+	monstr@monstr.eu,
+	tsbogend@alpha.franken.de,
+	jonas@southpole.se,
+	stefan.kristiansson@saunalahti.fi,
+	shorne@gmail.com,
+	James.Bottomley@HansenPartnership.com,
+	deller@gmx.de,
+	ysato@users.sourceforge.jp,
+	dalias@libc.org,
+	glaubitz@physik.fu-berlin.de,
+	davem@davemloft.net,
+	andreas@gaisler.com,
+	richard@nod.at,
+	anton.ivanov@cambridgegreys.com,
+	johannes@sipsolutions.net,
+	chris@zankel.net,
+	jcmvbkbc@gmail.com,
+	tglx@kernel.org,
+	peterz@infradead.org,
+	luto@kernel.org,
+	Ricardo Robaina <rrobaina@redhat.com>
+Subject: [PATCH v2 11/13] sparc64: pass pt_regs to audit_syscall_entry()
+Date: Wed,  2 Sep 2026 11:43:44 -0300
+Message-ID: <336fa8f8d896ca7989bc483b53fdefe2152a16f9.1788351089.git.rrobaina@redhat.com>
+In-Reply-To: <cover.1788351089.git.rrobaina@redhat.com>
+References: <cover.1788351089.git.rrobaina@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: hugetlb: fix BBM for mprotect() on contiguous PTEs
-To: Karl Mehltretter <kmehltretter@gmail.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- linux-arm-kernel@lists.infradead.org
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Mark Rutland <mark.rutland@arm.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- David Hildenbrand <david@kernel.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20260901131823.15799-1-kmehltretter@gmail.com>
-Content-Language: en-US
-From: Dev Jain <dev.jain@arm.com>
-In-Reply-To: <20260901131823.15799-1-kmehltretter@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
+audit_syscall_entry() now takes a pointer to pt_regs and extracts
+the syscall arguments itself via syscall_get_arguments(). Drop the
+individual argument registers from the call and pass regs instead.
 
+Signed-off-by: Ricardo Robaina <rrobaina@redhat.com>
+---
+ arch/sparc/kernel/ptrace_64.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-On 01/09/26 6:48 pm, Karl Mehltretter wrote:
-> huge_ptep_modify_prot_start() clears a hugetlb entry before changing its
-> permissions. For contiguous PTE mappings, break-before-make (BBM)
-> requires a TLB invalidation after clearing the set and before making any
-> entry valid again.
-> 
-> Commit fb396bb459c1 ("arm64/hugetlb: Drop TLB flush from
-> get_clear_flush()") removed this invalidation, relying on the deferred
-> flush from the core code. Commit 410982303772 ("arm64: hugetlb: Restore
-> TLB invalidation for BBM on contiguous ptes") restored it for
-> huge_ptep_set_{access_flags,wrprotect}(), since a deferred flush is too
-> late for the break step. The modify-prot path has the same problem.
-> 
-> Use huge_ptep_clear_flush() for contiguous entries so that the TLB is
-> invalidated during the break step. Leave huge_ptep_get_and_clear()
-> unchanged because it is also used by teardown paths, where the deferred
-> flush is sufficient.
-> 
-> Fixes: fb396bb459c1 ("arm64/hugetlb: Drop TLB flush from get_clear_flush()")
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
-
-The transition happening here is:
-
-old_prot+cont -> zero -> new_prot+cont ... (i)
-and then TLB flush.
-
-Arm Arm rule R_JQQTC says:
-"For a TLB lookup in a contiguous region mapped by translation table entries
-that have consistent values for the Contiguous bit, but have the OA, attributes,
-or permissions misprogrammed, that TLB lookup is permitted to produce an OA,
-access permissions, and memory attributes that are consistent with any one
-of the programmed translation table values."
-
-This implies that a live update like
-old_prot+cont -> new_prot+cont then TLB flush ... (ii)
-
-is safe. Which should also imply that the transition (i) is safe,
-since the configurations the PE can observe for (ii) is the same
-for (i), except that in (ii) the PE can fault too, which is fine.
-
-Upon discussing with Ryan I got to know, he was implementing the
-contpte stuff for non-hugetlb user mappings and that basically
-drove a clarification on the semantics of contiguous bit and
-this rule was added.
-
-If you see currently for non-hugetlb mprotect() we do not flush
-during contpte teardown.
-
-So if the above reasoning makes sense, I can infact audit and
-remove the flushes in the hugetlb helpers.
-
-> An instrumented QEMU detected the missing break-step TLBI on an unpatched
-> kernel and none with this change. A fork() control exercising
-> huge_ptep_set_wrprotect() remained clean. No user-visible failure was
-> reproduced.
-> 
-> The QEMU checker was exercised with 4K and 64K base-page kernels. The
-> patched kernel passed the LTP hugetlb tests with both -cpu max and -cpu
-> cortex-a72 (16 TPASS and no failures).
-> 
-> Testing on Neoverse N1 hardware would be welcome, as it can use the
-> contiguous hint and can be configured to report TLB conflicts.
-> 
->  arch/arm64/mm/hugetlbpage.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/mm/hugetlbpage.c b/arch/arm64/mm/hugetlbpage.c
-> index 8e799c1fe0aa..bb53a04b73b2 100644
-> --- a/arch/arm64/mm/hugetlbpage.c
-> +++ b/arch/arm64/mm/hugetlbpage.c
-> @@ -517,6 +517,11 @@ bool __init arch_hugetlb_valid_size(unsigned long size)
->  pte_t huge_ptep_modify_prot_start(struct vm_area_struct *vma, unsigned long addr, pte_t *ptep)
->  {
->  	unsigned long psize = huge_page_size(hstate_vma(vma));
-> +	pte_t pte = __ptep_get(ptep);
-> +
-> +	/* The break step for contiguous PTEs must include the TLB flush. */
-> +	if (pte_cont(pte))
-> +		return huge_ptep_clear_flush(vma, addr, ptep);
->  
->  	if (alternative_has_cap_unlikely(ARM64_WORKAROUND_2645198)) {
->  		/*
-> @@ -524,7 +529,7 @@ pte_t huge_ptep_modify_prot_start(struct vm_area_struct *vma, unsigned long addr
->  		 * when the permission changes from executable to non-executable
->  		 * in cases where cpu is affected with errata #2645198.
->  		 */
-> -		if (pte_user_exec(__ptep_get(ptep)))
-> +		if (pte_user_exec(pte))
->  			return huge_ptep_clear_flush(vma, addr, ptep);
->  	}
->  	return huge_ptep_get_and_clear(vma->vm_mm, addr, ptep, psize);
-> 
-> base-commit: 786262be6048deab760f68c8acc2c85607165894
+diff --git a/arch/sparc/kernel/ptrace_64.c b/arch/sparc/kernel/ptrace_64.c
+index 825ddf55fece..b162585b4a74 100644
+--- a/arch/sparc/kernel/ptrace_64.c
++++ b/arch/sparc/kernel/ptrace_64.c
+@@ -1098,9 +1098,7 @@ asmlinkage int syscall_trace_enter(struct pt_regs *regs)
+ 	if (unlikely(test_thread_flag(TIF_SYSCALL_TRACEPOINT)))
+ 		trace_sys_enter(regs, regs->u_regs[UREG_G1]);
+ 
+-	audit_syscall_entry(regs->u_regs[UREG_G1], regs->u_regs[UREG_I0],
+-			    regs->u_regs[UREG_I1], regs->u_regs[UREG_I2],
+-			    regs->u_regs[UREG_I3]);
++	audit_syscall_entry(regs->u_regs[UREG_G1], regs);
+ 
+ 	return ret;
+ }
+-- 
+2.55.0
 
