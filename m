@@ -1,110 +1,171 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C8449483F
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:41:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BBE449483F
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:41:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.165.32
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352887; cv=none; b=c34QlY9U+ZeJWEuhU4LkklCUhzR4A80ET/1g3CEwY+6OA9x+tlIbR3AHuyxGeH+mT6omHwV/eGv7tW83oD78q/QtumcJuXR+w0Vvv1LIApWXc1/VgZJ5IVadGyI1ky5aiN6QoGwtUtax2Yl2uZm0sXwIOsIU3afLxnGqNQmIVKY=
+	t=1788352892; cv=none; b=gzJNMHtoY48qqZtySqiavvnUM1wMN1GSbUwnt7D1GFYZxFkSRjl4Y6tP8uDdX/5eFH9pA0tRUuc+/ZTQcXeX5eFwYiLQ9syIoMHmQ0MtB8gJO2IVJ+z6EBTIvQ1/pdu6RDgKj0MR6wpRGRPHpzlKuvx3RzwhPKpdfqwyojbMvIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352887; c=relaxed/simple;
-	bh=G+lYeOOKmDDA7vGsZcnldrVLSAUqszDTx32jDkEhPlw=;
-	h=From:Message-ID:Date:MIME-Version:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=ElKVit3v39KgUMhhVfJfr4g/HAV2Oew2p70F1q75lD9IsNsyx8mq/cwsS4dDPZmt2clMNLaZ71iZBLIMUCLKFfZhe3NemLUn6n7t3h4yNmOWsAReJWK8JDnRr0OdnQ9IU5BalP2YFmTpRliaQezbLciE5W59lmRmPdeKQql8Rlg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qbpWcDm6; arc=none smtp.client-ip=209.85.218.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788352892; c=relaxed/simple;
+	bh=y7PRpZbgoBm5tkmSmY3DPe1d1KFai+ynj5Yq8MdGQEc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=vBSkjbUGUQ68VKKwyAWVvcs92C8p/NDeIv1SaibZbgC+/jmv61dmfHfIhhBBxNdnRbG5Zc68E0vB24T19i8XBIEReaoiIES5cQMszF3pu3HM7hR2NfTAdnHHWujGdrQoxv2/nUVtGA6tsFI2fshv0GPFUQ+BD78bNAkSi2buk+0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=hzauJHYF; arc=none smtp.client-ip=205.220.165.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qbpWcDm6"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c250f28f1cdso163658166b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:41:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788352884; x=1788957684; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mxFp9sQLUO1dX2aGvnd0BTgUuZ5fJWW6y/rR0ghk3rQ=;
-        b=qbpWcDm6qQmmEfqES8ga9anX9VIeGZ9ZWVyzagDBEnsdhwbRNp8hfnmJt3QPGDif/m
-         3O+MJPSRyQjnznB8u3dBfrhBi606rYcH6goZKpobVZXx6Vey1ZHQLPGRb7mBkMG6XAG5
-         9GIHbzqyXcOXEl9GPp52l9446BTnpiZeSg9Cii2U2xt0uCsX9l80rueQmDWtJXsUzpSh
-         lWZ9i/W+0i0LftGZtTIns6UkoXSTEwVMM1BqJKye/w3vWMScaUrgIEKEupe3HX2mq1vB
-         7Qq92Ol9AZXG2VK2ylJ+LsOZGuhyDs95ivk6I8Hsw7yl90xycvFO+lhWVYQwdikufTx4
-         JLlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788352884; x=1788957684;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=mxFp9sQLUO1dX2aGvnd0BTgUuZ5fJWW6y/rR0ghk3rQ=;
-        b=NCh8uTYKKgFKuCo1QDpr+HGXg9gtX/6ln0oZamtY8QRzQD2GAa+jY0dgzcPGCHKFkN
-         9DOqDvUQNaJBok2/SSVMQvEZXwqSpKwYxMD/krNCflmcUvps0dlmo1ItKY5qrYabnMzJ
-         K79wsuVK052EdedNeNwzIW8a81q0mRp836Uzm8/N6w0L62HEPSudZ47F26Lzh64h/kJt
-         D8bwzqM4/Q3DKhEkGNybU/zivmPIZujOBysz3jYdte4JNCFxGso06596kjDW2w92qhcU
-         qgGXwOYLFAgAHmFNd2GJBsuU5Yp354OZDClxaAOng/d5h5o7A4pwusRyxjx3uP2tW0lW
-         o7eQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoQm/fICIVRvm62JdxFxIjv+4BIQ6KnyEoUMi2lMwEvoS0el7q6vNAhaA+yOCcTrl188pkYQ8FEkkyM1o4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lTvnGp1v0mreQnO04Pl8Ch9Noqr2ArrjnyFPVIVOhkcVAg1gEB
-	cBIQRaOQfDeVqpPgXMeH61PIvT30rX+FhXK+grUVzSSW9wahqMy8B6lN
-X-Gm-Gg: AYBFou0moaCk+tlR/p30w03bj+ELSDkuHMD9ejJ7E4dS/rWDWP1WlFtaelgg+TSd9rZ
-	NgaAGGpEEzfjaqD9Lr6vCsliakpSGQF05hM9UKMVLtZlOkvAslwkUrzpYNWIq0eVTTWEVPGBMTZ
-	71W34ORnxnqMZCNa/4WYgnZX4JUTdMjSUyGPsrOxAT7rU9kOBhqzXTNhdoDesedY9ckxH0YlM48
-	ptQTVsOopgtPXob+61EaRi0f9T6LU6eq5/f07BC3mID6QED9vrlXO4nfyMh7oFEXznIftFDkg3U
-	AJ1OWvJou4KXjrjzy/dLzCqjs9tPYfIA6Wxq2ys2OS8qx32bK9GJPa0eqkzNe50jUMBhIGJAzLX
-	YVa8o8rafOuKYqlhrMnJujTV8D7FlaeUY6QIzOfNocdWDZJ9e7pwyj1F2l4KRIynFPAywPjKoUx
-	2SAaiyo8zgmOZ87w6oZp1LG2rr4d6W+sbDT2wQBdvTpPtMY+H741WR1ksWVvg4wZzFqXk=
-X-Received: by 2002:a17:907:9445:b0:c24:e1e9:69c with SMTP id a640c23a62f3a-c25d4de3f33mr302715266b.0.1788352883908;
-        Wed, 02 Sep 2026 05:41:23 -0700 (PDT)
-Received: from [10.45.18.37] ([15.248.2.233])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25d002f1dcsm127213466b.19.2026.09.02.05.41.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 05:41:23 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: Paul Durrant <paul@xen.org>
-Message-ID: <37f8d783-3305-44de-8ba0-ab0d2134a83e@xen.org>
-Date: Wed, 2 Sep 2026 13:41:21 +0100
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="hzauJHYF"
+Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682CZLKR231367;
+	Wed, 2 Sep 2026 12:41:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=corp-2025-04-25; bh=06lN3Fwz4twftnr0
+	zpISiGj0PUcp5NbI3v0D+O/XXkI=; b=hzauJHYF2mmcLCABy2HO4h/orNlSUYVM
+	F+OTpXSKmF10C5oIVtTQ9Eps5bomOivXwFd1RCRMvQplTIo1bZKCPFWbFtTZFSHd
+	mocNaQpgZK55LBgeKDljxVN2lVCxYnJyR1NQ9UdHdxedmHMhBBUKfEYuWrO6lg+O
+	dXnpmlu28LWsdS2Y9RWPrQjvD5ybXY0RtzAtG3twmNbeyaLLOyRuSmH4Sd7yfcPo
+	WXxonZo4cnbpBaP6Y25JfozSV9DBNlIUopG2zXRdZkHhrI9ZF+N57dm/X4yD5C4Y
+	r153n5HklMopLytJzeiZ08HgK/lN25jCs2yTRZPkNHJoUb/1S8tB/g==
+Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gbqa7ppyy-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 02 Sep 2026 12:41:13 +0000 (GMT)
+Received: from pps.filterd (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 682CZ671034095;
+	Wed, 2 Sep 2026 12:41:13 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4gbnvffu7x-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 02 Sep 2026 12:41:13 +0000 (GMT)
+Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 682Cduq9017648;
+	Wed, 2 Sep 2026 12:41:12 GMT
+Received: from lab61.no.oracle.com (lab61.no.oracle.com [10.172.144.82])
+	by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id 4gbnvffu6n-1;
+	Wed, 02 Sep 2026 12:41:12 +0000 (GMT)
+From: =?UTF-8?q?H=C3=A5kon=20Bugge?= <haakon.bugge@oracle.com>
+To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+        Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+        Waiman Long <longman@redhat.com>
+Cc: John Stultz <jstultz@google.com>,
+        =?UTF-8?q?H=C3=A5kon=20Bugge?= <haakon.bugge@oracle.com>,
+        linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] test-ww_mutex: Report whether stress failures are isolated or mixed
+Date: Wed,  2 Sep 2026 14:40:36 +0200
+Message-ID: <20260902124040.2017477-1-haakon.bugge@oracle.com>
+X-Mailer: git-send-email 2.43.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 09/13] KVM: x86/xen: Use atomic*() APIs instead of open
- coded equivalents
-To: David Woodhouse <dwmw2@infradead.org>, seanjc@google.com,
- pbonzini@redhat.com
-Cc: joao.m.martins@oracle.com, boris.ostrovsky@oracle.com,
- ankur.a.arora@oracle.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, hpa@zytor.com, x86@kernel.org,
- syzbot+208f7f3e5f59c11aeb90@syzkaller.appspotmail.com,
- syzkaller-bugs@googlegroups.com, suryasaimadhu369@gmail.com, lkp@intel.com,
- nicoyip.dev@gmail.com, frn1furkan10@gmail.com, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, imv4bel@gmail.com
-References: <20260831213632.81023-1-dwmw2@infradead.org>
- <20260831213632.81023-10-dwmw2@infradead.org>
-Content-Language: en-US
-In-Reply-To: <20260831213632.81023-10-dwmw2@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_03,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
+ mlxscore=0 phishscore=0 suspectscore=0 lowpriorityscore=0 adultscore=0
+ spamscore=0 malwarescore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.19.0-2606160000 definitions=main-2609020112
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDExMiBTYWx0ZWRfX0w8wyHS/UREX
+ 1aiLLZKlkqAkyA1D8t5w0bhfgK/RVmMPSAX8ktU+q/DgwZ5fxvU9T76+zKozc3ngxB+FAqE5MC4
+ 5SjFaoz9FVQS5xiJDxsRHSmtB7xndqN8PYoGA7flPop84dift9he
+X-Proofpoint-GUID: D8TkSSYXYCGpavB0FNRNjIVfD7eeasyB
+X-Authority-Analysis: v=2.4 cv=DPu/JSNb c=1 sm=1 tr=0 ts=6a981969 cx=c_pps
+ a=XiAAW1AwiKB2Y8Wsi+sD2Q==:117 a=XiAAW1AwiKB2Y8Wsi+sD2Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=M51BFTxLslgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=jiCTI4zE5U7BLdzWsZGv:22 a=EIcjfB9IiI4px24ztqRk:22
+ a=yPCof4ZbAAAA:8 a=ndBhsA4XpGziXSlQFrwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: D8TkSSYXYCGpavB0FNRNjIVfD7eeasyB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDExMiBTYWx0ZWRfX8N25/bl76qoW
+ wX+Ozq8j7doOZJGa870r+IxkRidTvhI8yxNLpOXS9NqNqLBa5k6Egc6hc2ZuyNLIPieqgnKjjyO
+ WoxqZz5/eeEgLtkX5JsvLv1BxRW2Er9Vld/GkO/criCogAwgWnP3rI7IAsnWrHq0bLMXqzUcGZC
+ sDZimW/baetvl9ESeJH96FCqjNkK3PmAL4KyRNsnwW5mNHfUPvDhKReASuK/tkraUstz1jtZTzD
+ 5W2tVJFLb/ZQmtXiQpMQRr5V00TG5iF98xcVORegWaReviiC0dQYzux1tOmCw0xeXenEOdKIaQT
+ 1CyfsZYWku/Ug93kUFjgF8F+IC3/yXzZIZc0pnvpJypBKn9OxTRkb2+hCRfI9p8yB+4Qn5BgGse
+ fNOZUUCYZiA0GklvqLDUsE5TpsPvGoNQEqz3Dcpsg6JNfIxzV2rQRn6UfQzRleJ6Ad6FB1bNycC
+ 6h//3J9M4B3Xowelqkw==
 
-On 31/08/2026 22:26, David Woodhouse wrote:
-> From: Sean Christopherson <seanjc@google.com>
-> 
-> Replace the open coded atomic asm blobs in the Xen event injection code
-> with equivalent atomic{,64}_xxx() operations.  Casting the event channel
-> to atomic types is ugly, but not as ugly as asm blobs.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> ---
->   arch/x86/kvm/xen.c | 35 ++++++++++++-----------------------
->   1 file changed, 12 insertions(+), 23 deletions(-)
-> 
-Not entirely clear why going to the trouble of replacing the asm blobs 
-in patch 8 was necessary only to remove them here but, if that's 
-preferable to squashing this into patch 8...
+The stress tests can run an individual stress worker type in isolation or
+together with the other stress worker types.
 
-Reviewed-by: Paul Durrant <paul@xen.org>
+Include this information in the error message so that failures can be
+distinguished between isolated and mixed workloads.
+
+Signed-off-by: Håkon Bugge <haakon.bugge@oracle.com>
+---
+ kernel/locking/test-ww_mutex.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
+
+diff --git a/kernel/locking/test-ww_mutex.c b/kernel/locking/test-ww_mutex.c
+index e11f6b869b4d4..01af56b0bb6c0 100644
+--- a/kernel/locking/test-ww_mutex.c
++++ b/kernel/locking/test-ww_mutex.c
+@@ -408,6 +408,7 @@ struct stress {
+ 	unsigned long timeout;
+ 	int nlocks;
+ 	int result;
++	bool run_in_isolation;
+ };
+ 
+ struct rnd_state rng;
+@@ -449,6 +450,11 @@ static void dummy_load(struct stress *stress)
+ 	usleep_range(1000, 2000);
+ }
+ 
++static const char *in_isolation_or_mixed(bool in_isolation)
++{
++	return in_isolation ? "in isolation" : "mixed workload";
++}
++
+ static void stress_inorder_work(struct work_struct *work)
+ {
+ 	struct stress *stress = container_of(work, typeof(*stress), work);
+@@ -497,8 +503,8 @@ static void stress_inorder_work(struct work_struct *work)
+ 
+ 		ww_acquire_fini(&ctx);
+ 		if (err) {
+-			pr_err_once("stress (%s) failed with %d\n",
+-				    __func__, err);
++			pr_err_once("stress (%s; %s) failed with %d\n",
++				    __func__, in_isolation_or_mixed(stress->run_in_isolation), err);
+ 			break;
+ 		}
+ 	} while (!time_after(jiffies, stress->timeout));
+@@ -551,8 +557,9 @@ static void stress_reorder_work(struct work_struct *work)
+ 				ww_mutex_unlock(ln->lock);
+ 
+ 			if (err != -EDEADLK) {
+-				pr_err_once("stress (%s) failed with %d\n",
+-					    __func__, err);
++				pr_err_once("stress (%s; %s) failed with %d\n",
++					    __func__,
++					    in_isolation_or_mixed(stress->run_in_isolation), err);
+ 				break;
+ 			}
+ 
+@@ -588,8 +595,8 @@ static void stress_one_work(struct work_struct *work)
+ 			dummy_load(stress);
+ 			ww_mutex_unlock(lock);
+ 		} else {
+-			pr_err_once("stress (%s) failed with %d\n",
+-				    __func__, err);
++			pr_err_once("stress (%s; %s) failed with %d\n",
++				    __func__, in_isolation_or_mixed(stress->run_in_isolation), err);
+ 			break;
+ 		}
+ 	} while (!time_after(jiffies, stress->timeout));
+@@ -653,6 +660,7 @@ static int stress(struct ww_class *class, int nlocks, int nthreads, unsigned int
+ 		stress->locks = locks;
+ 		stress->nlocks = nlocks;
+ 		stress->timeout = jiffies + 2*HZ;
++		stress->run_in_isolation = flags != STRESS_ALL;
+ 
+ 		queue_work(wq, &stress->work);
+ 		nthreads--;
+-- 
+2.43.5
+
