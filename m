@@ -1,139 +1,237 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010057.outbound.protection.outlook.com [40.93.198.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58063E6DF7
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 21:29:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788384588; cv=none; b=BT2owIs8w0na60TE4SSc7I8PBdJwgb38DjiyFxZO/uO3ik5x1ggeV0D4bEwDX1R+7fOpv6A0Mk2nc7C27D0MlwcHPEtWtg0Tm+XTH3IPg701s9njelVWDRledXevCfHz0d/an39cHmeouZMuGO6ccGajv+COchQHu5wFKfWDF00=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788384588; c=relaxed/simple;
-	bh=8ikXXU9gsjnfuEXFFzMc/pFblMUMmoXuqRxxynzibiU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PvVDxz639mE8MlqVDoaQMgv6JzEoDcVj9i4e4aFPqxyl6qrXWpgavLp20dii6xDSSpVnyuuVuNOzse3rRX5cgw9KOi6Om4SiZtxlWr72YMEgBIPayrUksnVxp1+F12EWcC4xKtuoObkl2KK1hhaQOUMi7NNUJ5FUsbvl7m2EcKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=jNMPCC2K; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=KbmpHe36; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D843E39E18F;
+	Wed,  2 Sep 2026 21:29:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.57
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788384591; cv=fail; b=JIto66THA9jJX6Lf9DZZC/nbMPnTihupyb/GaDSBHrlwtSgoIqvHFjOoDPIcPAVhUH7QEsKxyuR+SImNBWZvU46B6h5IaODbryeKFdun6PkC+S7zsyQLESLRqTcIJq91zofzJtQ8nRnN6KzIoGj+A8hpE6cxvpSlOpw35Xqy6wk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788384591; c=relaxed/simple;
+	bh=drURAFQcUo3hIdw1hSaaWJmPEGxZwRXQgLK9XwYEfA8=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Adxa1Evu5YTZuSQhPgcUnFaMWr7c0RIkf/PqDLwmTc8ABJDGD9HN9XKuuX8Qrga8wg2uzezNPZQCxXthN/YcJpWeNwVngm+r0AWvNj7SgohfYlNoB/STc5oxakQSiRZnY7kHJgPn7ZLyqyVKALLhvLrmRdsCZaVECPmk7aRZyYE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=uVubqQGz; arc=fail smtp.client-ip=40.93.198.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="jNMPCC2K";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="KbmpHe36"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788384581;
-	h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G8/HZmSzxqzTAQEUn1qQz/Y2InSJgtncXySHZ9oVOAU=;
-	b=jNMPCC2KRie8FteS/HkAkbruhz3+dqgQZ0E+RYzui2kldYgOWNoVLX79QerWzRBlvvQOOM
-	vZspMSy5n7PvW1qiZ4BSvtK/IX68F5u8fXa9CN5vcq8eLVLR6DfmSH5qlwE+QAk87sswSb
-	1hCohIXGMT+b017sTgSDHe7IdXYYPI4=
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-682-KJTX5KAzOnqZjrJpySTVWQ-1; Wed, 02 Sep 2026 17:29:39 -0400
-X-MC-Unique: KJTX5KAzOnqZjrJpySTVWQ-1
-X-Mimecast-MFC-AGG-ID: KJTX5KAzOnqZjrJpySTVWQ_1788384579
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-90c8da50f4fso22520056d6.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 14:29:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788384579; x=1788989379; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:reply-to:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G8/HZmSzxqzTAQEUn1qQz/Y2InSJgtncXySHZ9oVOAU=;
-        b=KbmpHe36MvHM4vN5Z5GNR6NQOO1S74rStLC38fu6jFzOnCph+eX81jygU/x49mjbku
-         0QOD/xYu0W3GBkyKX51b1T5pHWjDtLlXzqjmuew7/Bm/3K6wpMb4wk2KIgA5y6AnoA73
-         2jYsLW3FI6dKcM26j2Yyqr2GDOgo1P4gPNfr8FAVnq/cKHVdOnfH3rnxxa+Yi4GlSuXN
-         j5bPb2g5WkuqGgnosgp9/g4gKzVJieaSJXHAPmV/OPyAx3EkEvxPl50iQ4fpZkCbPq/h
-         l3K0DZuFU9uSD8InK+rddmjQDT41UOX3BUff9zqBTGCdhYAIy5G/tpXlbNldkX3vfBsQ
-         7rhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788384579; x=1788989379;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:reply-to:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=G8/HZmSzxqzTAQEUn1qQz/Y2InSJgtncXySHZ9oVOAU=;
-        b=Tfz514gQym4rJevNThSIi38oqTIvCeC4os/+6dFYS5t5RcUUWr4tr+J3j2GVt7j8k8
-         fNp0oubvBO+aIxwNFw8Tjuf8sm0RTDqx4Nz6pGUVbwKQIBQ10NduHpA6nZkTyA9NDtPV
-         jqx2KYYtjuHFVLtYqS6Ui8ulFmvuoAzxGXCyL0HwEXpMP/bSOJ57U4eGvdNYZkmW4KP6
-         aVfp3SrX0buhPPSBJnzkAuYMB1WNKll0RmospPnXg4gF+vNd8pvoKhueVZY76Dqi65Yl
-         yjJnog3baA5X4uL5cdh5M5ZeF3b+IwXVLZ+uYyEL/d8u5DIbxGAXVgWWVoImJ6bHWfgC
-         w0fg==
-X-Forwarded-Encrypted: i=1; AKwUvBxuM6LrkzkY8xmSqLuJhlDlyDXlwQ9OFDPlYnd3n2klhC4gy+FGsAe1+PEDxvxx9p53WOekBZjS/M6eHD4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mFR4F3wz81VMQSB00bluIykwse8BqCSjBmCt8z0t+Su9E82zvx
-	ZkZ7cx6Qt5bGBP6041hROguJe92zrGqiLAVTZ6p204z7YjK9RMrvWonqxvxPWS14zqxFBmgxMPr
-	Q9sluEYXLEJEyClN0RcQtuNrnpeXXgDaflH8KfYBc2RYs1NaT29qSsKwDvgWbErKAfQ==
-X-Gm-Gg: AYBFou1oDhZ0x/Hhlk+FeTcFaU0oNNH6QQcqesRLY0i/tvy5vUCJx9WmLo+T6PZe8S4
-	VOypXNxEeGb9Hed+x6Ptw4nEaT3W5Govf9rPcSBSGLh2XwCLoJZSEvZ66r+uw0ZC3/33p6skMo0
-	o/BIMPYQMuxVE8QsV3JdGHiomQOGjXadc9yHWsx3JfubWwSyn3wKSAtX61PkVX4/u+on19ywqmV
-	lRJdcDqnIxo8KHaLnKL9MFOJMzqPXHr3gNv9JA2jt6HAKABsRP0lvl+aWaIldpx32osv3/BHTQi
-	Gku7p+p6Pg2b3mozrQGMrhApnlhts0mhJAyCyU9mZMLoOWTvt80J0HrMQ+cH9TD+Lpiz5zHb3ii
-	2RUB3HtLM4+xAUsNtRAxTXWXQAn69lvLWPid16dfT
-X-Received: by 2002:ad4:5769:0:b0:90e:8e21:475c with SMTP id 6a1803df08f44-90ebab7cf42mr100561446d6.21.1788384579241;
-        Wed, 02 Sep 2026 14:29:39 -0700 (PDT)
-X-Received: by 2002:ad4:5769:0:b0:90e:8e21:475c with SMTP id 6a1803df08f44-90ebab7cf42mr100560936d6.21.1788384578608;
-        Wed, 02 Sep 2026 14:29:38 -0700 (PDT)
-Received: from [172.16.0.69] (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9f0d998dsm27152966d6.9.2026.09.02.14.29.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 14:29:38 -0700 (PDT)
-Message-ID: <e5dec57a-0186-4087-9de4-5037f0a09879@redhat.com>
-Date: Wed, 2 Sep 2026 16:29:36 -0500
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="uVubqQGz"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=C3zkwnzGQO3foXEp4RJkoFA1ONvUxAoj5odQmmGM6AmhGmMhgLX3DRsGHmQimBoXSvP2oWYDJwHx4Qzj2FPq0fXsyB/0RxzTj05k30jmGLm0c33HK1u6JSm11o3Ju8KrWZjU0x2Iz4bTdbizK0nUgcc2NmGd16OguXi4K2tCdh2q5phH8ejS7M/ZkBjoWDN0BYroBHrqObaExgbt1tX280HQwtF1AURQgWfPGWpIR45859M7GtrUwqMuCOzr2+FlvcGU1iWXCeT+ExI63htTWGU8rTnmEYxHNJh/t61B0kDcHUhoa3m5cH32Xg0pCBmP32UExizsCXYu2peKer6BMw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=P0yVhsuxHyVY6tx5PUwkVqtsa5YN61Y871A7sXvmIpU=;
+ b=msH/9ij/K79/Ioj6i1l2KqFMT48WIgi9vvI+hbAF71Jqu0wb4tUmCdoLO5o3vazvX6omMQ0XQ4/LTxHM2WK8KnnZDnXeeeiK5PusfH8ckh0HSKVYgsmeCfP8zKkzgBvFvXWtA39iUFOw5fANTYmTdkHjcrS6TvL9NE0Z6QJ5elRCGIZq9Uhl9OOxJYNHjKtnmXh/3HIMz6ZQ22Bc54ezdZy0ZbxZ/vrUN7p9If/Ii9RbIbPBHcBPwhy/rAbu5ngkGuSoZ0uXADuaG342z/fd+mgGtPsxm4VcHFi91Bp+UxGKf0GVz2zIU5RngrLWBP72D0u8TKW7oQLhRNmI49EByA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=P0yVhsuxHyVY6tx5PUwkVqtsa5YN61Y871A7sXvmIpU=;
+ b=uVubqQGzx9JfE4+9/Qn1yV1bf6DLk6k+EuyG1eKm7T8SBz00eWSEDztclDzg2ZiD0ApVhMhcasBgmTGYCByJzGRj3Zp/D+SWu0lT52A00MQoDZZsDgViYwtOP1yuxCbEWfdOw+SwKDFLf8bYem5QRCyeeg39FLhLZjg0OBRxIhk=
+Received: from PH8PR07CA0009.namprd07.prod.outlook.com (2603:10b6:510:2cd::27)
+ by PH7PR12MB5951.namprd12.prod.outlook.com (2603:10b6:510:1da::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 21:29:38 +0000
+Received: from SA2PEPF00003F68.namprd04.prod.outlook.com
+ (2603:10b6:510:2cd:cafe::6f) by PH8PR07CA0009.outlook.office365.com
+ (2603:10b6:510:2cd::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
+ Sep 2026 21:29:38 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF00003F68.mail.protection.outlook.com (10.167.248.43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 21:29:37 +0000
+Received: from nigeria-2635-os.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
+ 2026 16:29:36 -0500
+From: Ashish Kalra <Ashish.Kalra@amd.com>
+To: <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
+	<seanjc@google.com>, <peterz@infradead.org>, <thomas.lendacky@amd.com>,
+	<herbert@gondor.apana.org.au>, <davem@davemloft.net>, <ardb@kernel.org>
+CC: <pbonzini@redhat.com>, <aik@amd.com>, <Michael.Roth@amd.com>,
+	<KPrateek.Nayak@amd.com>, <Tycho.Andersen@amd.com>,
+	<Nathan.Fontenot@amd.com>, <ackerleytng@google.com>, <jackyli@google.com>,
+	<pgonda@google.com>, <rientjes@google.com>, <jacobhxu@google.com>,
+	<xin@zytor.com>, <pawan.kumar.gupta@linux.intel.com>, <babu.moger@amd.com>,
+	<dyoung@redhat.com>, <nikunj@amd.com>, <darwi@linutronix.de>,
+	<linux-kernel@vger.kernel.org>, <linux-crypto@vger.kernel.org>,
+	<kvm@vger.kernel.org>, <linux-coco@lists.linux.dev>
+Subject: [PATCH v13 5/5] x86/sev: Re-enable RMP optimizations on SNP guest shutdown
+Date: Wed, 2 Sep 2026 21:29:21 +0000
+Message-ID: <e8a8d0ec63bda2db61cde7cf298a4ccb6a502c20.1788296083.git.ashish.kalra@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1788296083.git.ashish.kalra@amd.com>
+References: <cover.1788296083.git.ashish.kalra@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: sorenson@redhat.com
-Subject: Re: [PATCH v3 0/2] smb: client: fix out-of-bounds reads in
- CIFSSMBRead()
-To: Diego Oliva <diego@bynar.io>, Paulo Alcantara <pc@manguebit.org>,
- Namjae Jeon <linkinjeon@kernel.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>,
- Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
- Bharath SM <bharathsm@microsoft.com>, linux-cifs@vger.kernel.org,
- samba-technical@lists.samba.org, linux-kernel@vger.kernel.org
-References: <20260902104207.1820332-1-diego@bynar.io>
-From: Frank Sorenson <sorenson@redhat.com>
-Content-Language: en-US
-In-Reply-To: <20260902104207.1820332-1-diego@bynar.io>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003F68:EE_|PH7PR12MB5951:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7ad825a8-6763-41e5-f05c-08df09394a92
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|7416014|376014|1800799024|23010399003|10067099003|11063799006|5023799004|56012099006|6133799003|921020|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	HkmwsicCpSahHQeP65qFn9cDVDT3WZNfguuXEmUzkj9dY1yYolJDOt+zuL5joOvewZT4gBPRT7sN8kG45OYEkhxE+O0YdvUUtiif/Lwepb7aDE2quo2E/vMZzYfsQM+yWHZwKFXwEz9g4fXCk0Sy+TK1Sqz2FC8fuCE4xtNwAzRfNcq+gpqjQrRtB68HNb2GMdQRUwHjpCxjghtfeoIhD+g7ZzfuZGZas8YUXKFG3EmiBcwiuBParRqCsX+OgCERuQSGMIfd8W+30zk+M+Y5pKQDRJuP0/2eQ/VC6PJ1VAlFJoeS8HrPnKez7Ri49IyBS7BmWu7ocw2uUrtyIiC30nuKavWbfRLV1wwIbIX+7tLpnlUnJo+mtipPjyJQVdmAOJ8kPluwLigDhMLCgOzsrMCo0HnC3CyN/tuNKASQCdhs9SLSkGiwZv5UNI2qpN8y7Eo88HjQC/h13LC5j74GbFsGfHwXFTDwqbcT35K3Tj3mT5oxupms2JIvjNjpkBWGsyQZKZFPboUWBRj8W84+4H7UiWH3LL52EmLQh/0GPn/Yx0vs6FAcC2dS2ZMesxeVb8nqUsqlJuJXMNtsJa3OgGJE+1azupuNejJEB5LDt/h34w/K3/XabvGjvjaQKPOT3tkAVRuR9jTACh/TsPi2OEe5anv8yEBJxwRph80J9LdyUJFt4Q69ramdqmuphQgihuiHSPirqiLadll0N1+mqwYATTZASESbXrFIyfcgbaGQDBKK8a+8dnu7tkJ9TFNE
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(376014)(1800799024)(23010399003)(10067099003)(11063799006)(5023799004)(56012099006)(6133799003)(921020)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	+6sXNaU1KduA3m7Pubhk067yuG5tDFM/xfVqkReuk46Tbw5o/DFkFhi2WmCHttJpFex2wewF3loYDD7sOCeBIKnpYeKhdhoVD6jnECW2YP133x1tZfUes+SNyzkRU0oHGrYxdNJQ5waUuXV5am3bE+VhwjOmvsM+dWPIbHMENfM16hSAfG4i4wxJSbNcA3OHAWwrraCpRikqFxyc2x0lkfMNawv22jadWXTYpBUvRJucUB6AZ5XrNW+HYXwMeCTLGkfHN3fAFmSppltZDYXAlwQGNC/b+iZp5DNShEk7E0Z0CjT3mTtPQyfD5oSXtDqB/Q+yRYFTEo9wkGw6s8z9zaStPvQB1KONUXHzEckQa17Tq7VlHyyl9YYfCzCZanBe5eSRQ/4i4SaMTAhhRBMN0kNHc5sZR+MG0I6sNf7Stf+1MfGFDxmn38jZNp8Q8eOy
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 21:29:37.8207
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ad825a8-6763-41e5-f05c-08df09394a92
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF00003F68.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5951
 
-Hi Diego,
+From: Ashish Kalra <ashish.kalra@amd.com>
 
-On 9/2/26 5:42 AM, Diego Oliva wrote:
-> CIFSSMBRead() parses the server's READ_RSP without validating either
-> the length of the response or the DataOffset it carries. A malicious
-> or compromised SMB1 server can exploit either to read past the end of
-> the receive buffer, leaking adjacent kernel heap into the caller's
-> read buffer or oopsing on unmapped memory. SMB1 is not negotiated by
-> default; reaching this code requires an explicit vers=1.0 mount.
->
-> Patch 1 rejects responses too short to contain a whole READ_RSP, so
-> the header fields can be dereferenced safely. Patch 2 ejects a
-> DataOffset/DataLength pair that falls outside the received response.
+The RMPOPT table is a per-CPU table which indicates whether 1GB regions
+of physical memory are entirely hypervisor-owned.
 
-Your patch 2 checks that data_offset + data_length fit:
+When performing host memory accesses in hypervisor mode as well as
+non-SNP guest mode, the processor may consult the RMPOPT table to
+potentially skip an RMP access and improve performance.
 
-+		} else if ((size_t)data_offset + data_length > rsp_iov.iov_len) {
+Normal guest events disable RMP optimizations: pages are converted from
+shared to private as SNP guests are launched, and large pages are split
+and collapsed during guest operation -- both disable the RMPOPT
+optimizations for the affected 1GB regions.
 
-but I think you may also need a lower-bound check to make sure
-data_offset is at least sizeof(READ_RSP):
+When guests are torn down, their pages are converted back to shared, so
+those regions may become eligible for RMPOPT optimization again. Without
+some intervention, all RMP optimizations would eventually be lost, so
+re-optimize all of physical memory on SNP guest teardown.
 
-+               } else if (data_offset < sizeof(READ_RSP)) {
+Perform the re-optimization after a delay, using mod_delayed_work() so
+that the delay timer is reset on each call. This batches multiple guest
+terminations into a single pass: the re-optimization runs 10 seconds
+after the *last* termination rather than after the first.
+mod_delayed_work() also re-queues work that is already in-flight, so a
+re-scan request during an active scan is not silently dropped.
 
-otherwise, the data would overlap the response header itself.
+Guest teardown is currently the only event that returns guest memory to
+hypervisor ownership: SNP guests do not support ballooning or memory
+hotplug, so pages freed during a guest's lifetime remain guest-owned.
+It is therefore the only point at which memory becomes eligible for RMP
+re-optimization, which is why re-optimization is driven by guest
+teardown rather than by a periodic scan.
 
-Frank
+Reviewed-by: Ackerley Tng <ackerleytng@google.com>
+Reviewed-by: Tom Lendacky <thomas.lendacky@amd.com>
+Signed-off-by: Ashish Kalra <ashish.kalra@amd.com>
+---
+ arch/x86/include/asm/sev.h |  2 ++
+ arch/x86/kvm/svm/sev.c     | 10 ++++++++++
+ arch/x86/virt/svm/sev.c    | 27 +++++++++++++++++++++++++++
+ 3 files changed, 39 insertions(+)
 
+diff --git a/arch/x86/include/asm/sev.h b/arch/x86/include/asm/sev.h
+index 5638d09b5132..3235e171647d 100644
+--- a/arch/x86/include/asm/sev.h
++++ b/arch/x86/include/asm/sev.h
+@@ -662,6 +662,7 @@ static inline void snp_leak_pages(u64 pfn, unsigned int pages)
+ 	__snp_leak_pages(pfn, pages, true);
+ }
+ int snp_prepare(void);
++void snp_rmpopt_all_physmem(void);
+ void snp_setup_rmpopt(void);
+ void snp_shutdown(void);
+ #else
+@@ -681,6 +682,7 @@ static inline void snp_leak_pages(u64 pfn, unsigned int npages) {}
+ static inline void kdump_sev_callback(void) { }
+ static inline void snp_fixup_e820_tables(void) {}
+ static inline int snp_prepare(void) { return -ENODEV; }
++static inline void snp_rmpopt_all_physmem(void) {}
+ static inline void snp_setup_rmpopt(void) {}
+ static inline void snp_shutdown(void) {}
+ #endif
+diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+index 5705723f1f41..0babf96e38c6 100644
+--- a/arch/x86/kvm/svm/sev.c
++++ b/arch/x86/kvm/svm/sev.c
+@@ -3032,6 +3032,16 @@ void sev_vm_destroy(struct kvm *kvm)
+ 		 */
+ 		if (snp_decommission_context(kvm))
+ 			return;
++
++		/*
++		 * Perform RMP optimizations on memory freed by terminating
++		 * guests.  The scan is deferred, so it normally runs after
++		 * sev_gmem_invalidate() has converted this guest's pages back to
++		 * shared, and picks them up then.  A very large guest whose
++		 * conversion has not finished by then is picked up by a later
++		 * teardown's scan.
++		 */
++		snp_rmpopt_all_physmem();
+ 	} else {
+ 		sev_unbind_asid(kvm, sev->handle);
+ 	}
+diff --git a/arch/x86/virt/svm/sev.c b/arch/x86/virt/svm/sev.c
+index a4c0fe49b9ec..fb66a1aa6fc3 100644
+--- a/arch/x86/virt/svm/sev.c
++++ b/arch/x86/virt/svm/sev.c
+@@ -659,6 +659,33 @@ static void do_rmpopt_work(struct work_struct *work)
+ 	on_each_cpu_mask(cpu_primary_thread_mask, rmpopt_scan_range, NULL, true);
+ }
+ 
++/*
++ * Delay, in milliseconds, before the RMP re-optimization pass runs after an
++ * SNP guest is torn down.  snp_rmpopt_all_physmem() re-arms the delayed work
++ * with mod_delayed_work() on each teardown, so the pass fires this long after
++ * the last teardown.  This coalesces a burst of teardowns into a single scan
++ * and gives each guest's pages time to be converted back to the shared,
++ * hypervisor-owned state before the scan re-optimizes their 1GB regions.  The
++ * 10 second value is a heuristic trading re-optimization latency against
++ * scanning too eagerly.
++ */
++#define RMPOPT_WORK_TIMEOUT	(10 * MSEC_PER_SEC)
++
++void snp_rmpopt_all_physmem(void)
++{
++	if (!rmpopt_capable())
++		return;
++
++	guard(mutex)(&rmpopt_wq_mutex);
++
++	if (!rmpopt_wq)
++		return;
++
++	mod_delayed_work(rmpopt_wq, &rmpopt_delayed_work,
++			 msecs_to_jiffies(RMPOPT_WORK_TIMEOUT));
++}
++EXPORT_SYMBOL_FOR_MODULES(snp_rmpopt_all_physmem, "kvm-amd");
++
+ void snp_setup_rmpopt(void)
+ {
+ 	u64 rmpopt_base;
 -- 
-Frank Sorenson
-sorenson@redhat.com
-Principal Software Maintenance Engineer, filesystems
-Red Hat
+2.43.0
 
