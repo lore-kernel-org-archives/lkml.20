@@ -1,148 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 628D03612DB;
-	Wed,  2 Sep 2026 01:46:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B360A3515F4
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 01:48:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788313585; cv=none; b=uxJo+Xg7UQU3Jthh7clh7ABf238Ox/gTwj66pw8WCBpU2DFnS9o4ipTbP3nxUGz807Ve8XZGIMKZbyJMlvHkt0HGTubzKzvLhJAd/wvhAsQi1o7lvrFBb9/wQGMCNfMn6f4gH1TiQ0v8NNm+tCaS+/d04K9Stf2v/AHBlkzv+I0=
+	t=1788313735; cv=none; b=Pvhsg2T9G7A5Ez2x06exDPmqdwQswcu2azJimThxvJcBjI0j6HMfIU9KVKvlvRH4z4Jvrtr6IKWJcpc/1BRbxvK2l2mjgMTPjYISVOAsg0hQQKuH3uugmRX0jw2X9qBhd1sMf/iTnLZikSLBHQHbGAIpzSL9ImUfMfF4e6PLj70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788313585; c=relaxed/simple;
-	bh=rhgLIydweYB3C2eCloR0SIfdz8oK13fVGGg42bd/WUo=;
-	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
-	 Subject:From:To:Cc:Date; b=o8Krf+wqjRd8i2WfKqC1wrt/0KLGS1W6YT3xA3WcGjtfRdJBHMQeQlXHVo4Dgzs4V/nTEPIOnATED9djGKBgV7BsZ2P0PR8y+4QgGJ1yQf6e+YI11tlejhv1HnvZTSOOvxgLsBfWAQfoz2rgkaFxnkm045bXhhcrhDh2fmbBMRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CLW60DQe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788313735; c=relaxed/simple;
+	bh=765FEkqjqfncj2e8tNjNINC9WzEJSkP54Gvf2N8P1k0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BMrN4W4ugrC600zC0gJ7OC+r56U008F+SYGqVp+CKkGlFqMrmMm/shGxdFiX6vC2J4mEbblPmkoDKWrFv6a6b7yjAHh+2F6XFth9ywmitIAwNM4HUWVDiT/ZF0cyJTTZM4xo+JI4K/+Zh8+ilsU+tChYGDFoh5mXiK6spS7zNmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PjsUZ/wH; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CLW60DQe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB6BF1F000E9;
-	Wed,  2 Sep 2026 01:46:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788313573;
-	bh=C9WLwLDbKgyZLCZxRbFHIxNue4hIyGibfsJd6J+TsqU=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=CLW60DQe8J5q5ZHfZND+coyuC5Gpwb+c5R67iauv83ua5ZtnJDJlnBsJm8JX32Hj4
-	 6PsMONuprxnpxoy6F6lFfUMQy066iEuZIB2vnOzSG+54RiB8yjfE9WYht8dLHsev06
-	 lN3Vzb/iU0wumseSmDA7VGL1uj8eyv9z3MdXhD09zVNMjcpU6m2Nz5+neQ1FJLmOHd
-	 dEjmtDlV9btK/ioMXboSzg6LlTFVXPT5gcegPHT3rt7IiZJsR1lBv/ijtI+Uegj9rq
-	 anMIU+uYWDxjhnp4d8Yh+8whr+65wvUuOJy3CFEh90zR/ZsvHRkOTHTWxPkx8ADvIe
-	 hZ2qxJ+wB1sKQ==
-Content-Type: multipart/mixed; boundary="===============8589649180634845869=="
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PjsUZ/wH"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc1d57602e8so563677a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 18:48:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788313727; x=1788918527; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hUpOiVvuBNOuviz0gomL/IYfiXGNzacKn2pjup1W4dQ=;
+        b=PjsUZ/wH+Qq+GO3WJBXI5iLJaAiLEpAVRUSu052Hy6+3A07B7PMdaVe4k+/cosf9hs
+         zinSsnidAc4woYP4aGBoXsNgNuYkDufGXu09R02IhxNeHRDHeTVfsnxfT7xLLQMS81c/
+         dPY02KywmSeVLw93c2aC2Tq1nmFlmBqEIM5BIRRUzWOx6PAHSe7/T1xndGfBn6UbXcg6
+         0dgOMgRmriuvv+FiZ/anLtBIBLHYWqfR5FiRiQ20NDSEEvn3OiJBrGMTTOMWSORD8HqE
+         G3pPJ73tGXUkOZaRkXyymNYJ0fzP5bIGK0SZbkoQ6ISCX56WtgSlUUVSkpTmVZEABiYh
+         c8Lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788313727; x=1788918527;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hUpOiVvuBNOuviz0gomL/IYfiXGNzacKn2pjup1W4dQ=;
+        b=g9EAPw104b4ObX8HQLbnRDNZY9EEiVGiAxzZRpAHXrk67GWukQJBn6D7Ax1+GF/raz
+         H7gMbR9QQ5Ql+Tsrro1Y2SOpYiEhpDzYYg2cwmtFjSo29925COdMmvu98WN/QYcl/NPo
+         EL5ZEFOd2Olq/g5MIsK1KdCMh8jWYVWVPgYEMkh83rX5W6L5yFVpoXcEUXgGslKHN1fZ
+         NMgzif2vN5m2Lcj1ZWqrUwpyOL7Mt37y8qkceemGt/bwLBW5t5i5Bl+yWItGHNPtAsRW
+         GEzicT8wWXqFrlLz1/mfqWQTMICQnUmeJEJX2FpA10csav2xCsrpepvYrjqBG/u56XDy
+         In5w==
+X-Forwarded-Encrypted: i=1; AKwUvBxw/63ik708VgoBxvN5J0VTbHxsF36Ktoevq3U9oaHQwrAXtDWAbTDvfXc0/clvEpKiLR4xyNe4GNXXjHk=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/suIXnEtdkD4Ny207h+FpDZqFwBv+VQL7rW8yz1Mx0AFBbANE
+	L2g0YfJ3n37rnS0mzm0M6xOu0SlBrdQ21d0AaDM0TAynoePO07x9AH8M
+X-Gm-Gg: AYBFou39XGda+LETHWBS6gRD0CQqa/ARKSC1iiRYeZuoqC9f4WF1Tn970JxJxmKmF/w
+	+67APvsCIxZvC6sCL4t+tlJ/MZ/rnTgmn/I9/1ZE0Hl3YHnlvCXmV4uq/PJAlZQWzzMJH35bIQT
+	2/wPOlXzLSxig5FtGM69YXSerTmYbjnSXzNAMf/CKdBMLns/8aauAVseBjeKSZPbMVQH2ZPpu9U
+	Vw/t9cpuh2uzVNCPhNAVdW0MuqCaEiaqSFl39L2YkkQ+ww2qZp6c1kEu/qmoILKXNcKPen/dVHJ
+	nH2+O0hWmlZAVAsMDtABZwD1jwSdiE5vZtW1F+mH1Hkv7QlftQvAWoAksr0f5i9pYceuFbgQHo3
+	1Ngwdl+h0DeNTAvuK0QdRlycomcM6bqMgQ5uVmCz+hmo/6oEpYLQQux1ZwG1wtpfHji9I2bD6xJ
+	NdCBam2LtSp1spYYxvEu6CK+JF+uqX+u42JCjHae2XFctCcyKO5Tj0SA==
+X-Received: by 2002:a17:90b:6cc:b0:398:9bd5:490d with SMTP id 98e67ed59e1d1-39aee0eafb9mr1919630a91.20.1788313726853;
+        Tue, 01 Sep 2026 18:48:46 -0700 (PDT)
+Received: from bloom.localdomain ([2604:3d09:178e:e100::3820])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d76463csm8477285a91.9.2026.09.01.18.48.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 18:48:46 -0700 (PDT)
+From: Ivy Lopez <skunkolee@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	error27@gmail.com,
+	Ivy Lopez <skunkolee@gmail.com>
+Subject: [PATCH v3] staging: rtl8723bs: define EEPROM_DEFAULT_DIFF as -2 directly
+Date: Tue,  1 Sep 2026 19:48:32 -0600
+Message-ID: <20260902014832.17625-1-skunkolee@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260817210507.26168-1-skunkolee@gmail.com>
+References: <20260817210507.26168-1-skunkolee@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-Id: <c3f457ea1e335eaf3c4cc867c467adc5ebf33a3481f7bd37c93c8d4d427cd40f@mail.kernel.org>
-In-Reply-To: <20260902005106.22187-1-yangtiezhu@loongson.cn>
-References: <20260902005106.22187-1-yangtiezhu@loongson.cn>
-Subject: Re: [PATCH bpf v1 RESEND] bpf: Fix timer_lockup deadlock using atomic_fetch_inc()
-From: bot+bpf-ci@kernel.org
-To: yangtiezhu@loongson.cn,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev
-Cc: loongarch@lists.linux.dev,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Wed,  2 Sep 2026 01:46:12 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
 
---===============8589649180634845869==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+EEPROM_DEFAULT_DIFF is defined as the bare integer literal 0xFE
+(254) but is only ever assigned into s8 (signed char) fields used
+to store signed TX power calibration offsets. The value -2 is the
+intended default offset; expressing it as -2 directly instead of
+0xFE avoids relying on implicit truncation of an unsigned-looking
+hex literal into a signed field.
 
-> diff --git a/kernel/bpf/helpers.c b/kernel/bpf/helpers.c
-> index b3cc5c8fc875..7d89dc143883 100644
-> --- a/kernel/bpf/helpers.c
-> +++ b/kernel/bpf/helpers.c
-> @@ -1591,9 +1591,7 @@ BPF_CALL_1(bpf_timer_cancel, struct bpf_async_kern *, async)
->  	 */
->  	if (!cur_t)
->  		goto drop;
-> -	atomic_inc(&t->cancelling);
-> -	/* Need full barrier after relaxed atomic_inc */
-> -	smp_mb__after_atomic();
-> +	atomic_fetch_inc(&t->cancelling);
->  	inc = true;
->  	if (atomic_read(&cur_t->cancelling)) {
->  		/* We're cancelling timer t, while some other timer callback is
+No functional change.
 
-The commit message states:
-
-> Instead of relying on arch-specific macro implementations which may vary
-> in strictness, fix this issue directly in the BPF core helper by replacing
-> atomic_inc() and smp_mb__after_atomic() with a single atomic_fetch_inc()
-> to provide full ordering natively.
-> ...
-> making the lockless deadlock detection logic immune to any
-> platform-level barrier interpretation variations.
-
-Is this rationale consistent with the atomic API documentation?
-Documentation/atomic_t.txt:208-216 states that atomic_fetch_inc() is
-equivalent to:
-
-    smp_mb__before_atomic();
-    atomic_fetch_add_relaxed();
-    smp_mb__after_atomic();
-
-The generic implementation in include/linux/atomic/atomic-arch-fallback.h
-shows that atomic_fetch_inc() expands to __atomic_pre_full_fence() +
-relaxed RMW + __atomic_post_full_fence(), where those fences are defined
-as smp_mb__before_atomic() and smp_mb__after_atomic() in
-include/linux/atomic.h:50-55.
-
-On architectures that only supply the *_relaxed RMW variants, the new line
-re-expands to exactly the sequence the patch deleted. The claim that this
-makes the code "immune to any platform-level barrier interpretation
-variations" and provides "full ordering natively" does not follow from the
-API contract.
-
-The patch does fix the reported LoongArch lockup, but only because
-arch/loongarch/include/asm/atomic-amo.h emits the fully-ordered fetch
-variant as amadd_db.w when CONFIG_CPU_HAS_AMO is set.
-
-The actual contract violation appears to be in the architecture.
-Documentation/atomic_t.txt:190-206 defines smp_mb__after_atomic() as a
-barrier that augments the ordering inherent to the op, with
-smp_mb__after_atomic() ordering all later accesses against the RMW op.
-arch/loongarch/include/asm/barrier.h:60-61 defines both as plain
-barrier(), while arch/loongarch/include/asm/atomic-amo.h's void-returning
-ATOMIC_OP emits am<op>.w with no _db suffix - unordered. That combination
-breaks the documented contract for every user, and there are approximately
-270 smp_mb__after_atomic() call sites under kernel/, mm/, net/, fs/, lib/
-and drivers/ that rely on it.
-
-Fixing only this one BPF helper hides the arch bug rather than fixing it.
-Should the fix go to arch/loongarch/include/asm/barrier.h instead, or does
-the commit message need to justify why the arch macro is considered
-permissibly weak?
-
-The patch also deletes the only in-code record of the ordering requirement:
-
-> -	atomic_inc(&t->cancelling);
-> -	/* Need full barrier after relaxed atomic_inc */
-> -	smp_mb__after_atomic();
-> +	atomic_fetch_inc(&t->cancelling);
-
-Nothing in the resulting code indicates that the value-returning variant
-was chosen purely for its full-ordering semantics, so the line reads as a
-plain refcount bump with a discarded return value. The store-load pairing
-is the whole mechanism: t->cancelling must be globally visible before
-cur_t->cancelling is read, otherwise two callbacks cancelling each other
-both read 0 and both enter the unbounded wait in hrtimer_cancel()
-(kernel/time/hrtimer.c hrtimer_cancel()).
-
-A discarded-return-value RMW is an obvious target for a later unused
-result cleanup back to atomic_inc(), which would silently reintroduce
-exactly the lockup this commit fixes. Discarding a fetch op's result is
-rare in core code - the only other instances are plain counters
-(drivers/gpu/drm/drm_file.c:383, drivers/accel/drm_accel.c:129), none of
-them ordering-motivated.
-
-Would it make sense to keep a one-line comment on the new statement
-explaining that atomic_fetch_inc() is used (return value ignored) for its
-full ordering against the atomic_read() of cur_t->cancelling that follows?
-
-
+Signed-off-by: Ivy Lopez <skunkolee@gmail.com>
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+v2: express the value as -2 directly instead of casting 0xFE to s8,
+    per Dan Carpenter's suggestion
+v3: rebase against staging-testing
+---
+ drivers/staging/rtl8723bs/include/hal_pg.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33578169526
---===============8589649180634845869==--
+diff --git a/drivers/staging/rtl8723bs/include/hal_pg.h b/drivers/staging/rtl8723bs/include/hal_pg.h
+index 32e66fe451b0..6f8c8307eaa7 100644
+--- a/drivers/staging/rtl8723bs/include/hal_pg.h
++++ b/drivers/staging/rtl8723bs/include/hal_pg.h
+@@ -38,7 +38,7 @@
+ 
+ #define	EEPROM_RF_BOARD_OPTION_8723B		0xC1
+ #define	EEPROM_RF_BT_SETTING_8723B		0xC3
+-#define EEPROM_DEFAULT_DIFF			0XFE
++#define EEPROM_DEFAULT_DIFF			-2
+ 
+ /* RTL8723BS */
+ #define	EEPROM_MAC_ADDR_8723BS			0x11A
+-- 
+2.55.0
+
