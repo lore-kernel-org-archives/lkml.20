@@ -1,225 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-201.mta1.migadu.com [95.215.58.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9881C330B09;
-	Wed,  2 Sep 2026 08:17:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A3D137A827
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:17:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788337037; cv=none; b=rIlmullz79msjmsyOPxfBIkCXqA0u+Oaxt30GcxYJQPQdtlDPrZtIRLDpsrFG513G0S4guYOSjlY4aKpzkqbXG0OIAIzD0Q4TXVidQ7hAt79IKyJO7ti9RCtrcHX4BHiVybv1oK4jL4SssIOadk/JfK06qarzgRoyTee33EE6wI=
+	t=1788337054; cv=none; b=HF4ZxRuhxRmiNnozRx5Yn1VOQXpX90zyG5zzFq/+AdzFAM7QAtKdh3NzU5kxWSagm8poZCHJ869ViC9BLVzPlbCqs9DefDbtykcVV9BoOi2jm6fZ9zWtN8dkiU2Ig4leG+TEYs+gnHVJoif4+/Vq3guN3LlR8u8AOrj2EFZc+6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788337037; c=relaxed/simple;
-	bh=Ovo5Mcq/jYwM8ezUqUEBJTNujsmMpJ978tHQdMnoGg8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MskHkhAOB/T633gfp++EaAj3vR3Iz+QcXaFPlQ7s2LAbEh8Ql6qHWnN69FnmfNLhanP+a272OjVmrEFdkzngXnNLzGqzZHyExTtC7/N2OqWQPaWRh/Nth5OCNeV9oNzeHR1dQgGHXuA1Snacj7jvhQPS/zgWkt/ZKve3B4j8Pm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M+gx8d/w; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788337054; c=relaxed/simple;
+	bh=AHq5uwpwna5WtqCl9L8/HfyXXSRhiGwW726UtUgZVvo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=NN/m34NhGKFaRMrxQx/BaJ7EdqmIv7/hFTYWBngZGTaCaQfXL62VE7Vum6PrBxwsyCkgTyXzpnZLJBOWXv3UvmEfrnqgrcooT9e70nST7lrHDCu8a2vyXDJz+q28SrClop/svbAVedt2x72Nj6ImIW6v3pYGgDwh7hOuJCMfYyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kAfoEyAV; arc=none smtp.client-ip=95.215.58.201
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M+gx8d/w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF79E1F000E9;
-	Wed,  2 Sep 2026 08:17:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788337036;
-	bh=pVE2qTsB0mK6s2rRiXMfL8ZarYqiiXhFuJg8Bj9f++c=;
-	h=From:Date:Subject:To:Cc;
-	b=M+gx8d/w06R2s4CJEPm2iclJUby+/xjc+h7L6rm79z17Za2E6fgQuAPOfjwadeTYV
-	 jeDiyVFEB0+enpjCaG6YC3M21ckM4Deco+8SNcjXGkSnown/Ovm6r0xrPhrQOBnweR
-	 MhOMeuZ3vxImdPMFg77smOZYVd5shz4RRFZCp+Rgg2Fwq//VP61dWdaImhhK7B1ayV
-	 oXlZv4GykMhqQaHfs2P0QSqNjv+5sj1+0O8qenXY4wWeQ53EVqtvl0isXEjSReHBHa
-	 Xh2gcqoBufHR6FUc18wuojm5Q8mIw3I+MmOASaCsJorq5t6mcRkR2ugadDtwC8+n6U
-	 aiPhbTJdKul4w==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Wed, 02 Sep 2026 10:17:09 +0200
-Subject: [PATCH] drm/ci: Add CI pipeline for drm-misc branches
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kAfoEyAV"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=AHq5uwpwna5WtqCl9L8/HfyXXSRhiGwW726UtUgZVvo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788337047; v=1; x=1788941847;
+ b=kAfoEyAVjzB4KN/GUdF3rKbxCIAgcoNS54Jk8fRfM+qiB7/uuwPRuJS7n81HQx3f3jo3D7Is
+ GG9CVnWir8o1HIIYpRNk2ZLuIPjRvvT10b8DbRUrLthASWf5ejfXBksXoZ09JGXqJ8Fekr3QDSc
+ He1YnRzcR/3lriLJFk5HGwK0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3113f6cdaea4f218;
+	Wed, 02 Sep 2026 08:17:27 +0000
+X-Mizu-Trace-ID: 3113f6cdaea4f218
+X-Migadu-Flow: FLOW_OUT
+From: Hao Ge <hao.ge@linux.dev>
+To: Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Hao Ge <hao.ge@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-modules@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [PATCH v7 0/4] alloc_tag and module codetag section fixes
+Date: Wed,  2 Sep 2026 16:17:58 +0800
+Message-Id: <20260902081802.146145-1-hao.ge@linux.dev>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-drm-drm-misc-ci-v1-1-49d05e228eab@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDSwMj3ZSiXDDOzSxO1k3O1E1NNks2szQ1MANKKwF1FRSlpmVWgE2Mjq2
- tBQAg1iAAYQAAAA==
-X-Change-ID: 20260902-drm-drm-misc-ci-ec6c69506609
-To: Helen Koike <helen.fornazier@gmail.com>, 
- Vignesh Raman <vignesh.raman@collabora.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Nathan Chancellor <nathan@kernel.org>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- llvm@lists.linux.dev, Maxime Ripard <mripard@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5559; i=mripard@kernel.org;
- h=from:subject:message-id; bh=Ovo5Mcq/jYwM8ezUqUEBJTNujsmMpJ978tHQdMnoGg8=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnTb3f8NH+t5vz4Bb9yItuO7+aSV6dmVHBv0F3YM+d0X
- 62GZWdTx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjIRxPGhq+renbp3zz9b1Nt
- Ut1JCffXf79/mv1DIGO5nMpuO4s9e8ydxJjCXOsO8Ys/n6x8b9mUnYwNuz4z7WPSMF5g4SHTVe2
- 8r/f7EdVTaie2Ty3mDbsZ/2b+nG+mQve+HQopDt7G217iENgKAA==
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Content-Transfer-Encoding: 8bit
 
-The DRM CI infrastructure [1] builds upon Mesa's CI to run IGT tests
-on hardware. Its focus is on functional testing on a selected number
-of targets.
+I ran into an overflow problem in the module tag area. With profiling
+toggled off, the overflow check in reserve_module_tags() did not
+run, a module could load with more tags than the page flags can
+address, and re-enabling profiling then silently corrupted
+/proc/allocinfo. On overflow the fix shuts profiling down, releases
+the reservation and returns -EAGAIN, and the codetag section lands
+as regular module data in the same load, so the module loads without
+profiling.
 
-The concern for drm-misc is different: it merges a large number of
-patches across many platforms, and build or unit test breakages happen
-on a regular basis. Adding build and unit testing for drm-misc has
-been on the back of our minds, and a first attempt was made last year.
-The feedback was to rely more on the existing infrastructure.
+Review of the earlier series by Sashiko turned up two more problems.
 
-Introduce a CI entry point for merge requests targeting drm-misc-next,
-drm-misc-fixes, and drm-misc-next-fixes. It reuses kunit.yml and the
-freedesktop ci-templates, while defining build templates inline to
-avoid pulling in the Mesa pipeline.
+One is a race. layout_sections() and move_module() both asked
+codetag_needs_module_section() where a codetag section goes, and
+mem_profiling_support can change between the two calls, for instance
+when another module load overflows the tag index and shuts profiling
+down. move_module() then copied the codetag section to offset 0 of
+its regular destination and clobbered the first section placed in
+that region.
 
-A single Debian container with LLVM handles cross-compilation to all
-three architectures. The pipeline compiles the kernel using defconfigs
-from the drm/tip rerere-cache branch and runs the DRM KUnit tests.
+v7 reworks where codetag sections are allocated, on a prototype by
+Petr Pavlu [1]. The allocation runs before layout_sections() and the
+placement is decided in one step, so nothing re-asks the question
+and the race is gone. The retry is gone too, on -EAGAIN the section
+is laid out as regular module data right in the same load.
 
-Link: https://lore.kernel.org/all/20250319-greedy-sturgeon-from-avalon-ac758f@houat/
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- drivers/gpu/drm/ci/drm-misc-ci.yml | 123 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 123 insertions(+)
+Following review feedback from Petr and Suren the series is now
+split into four patches.
 
-diff --git a/drivers/gpu/drm/ci/drm-misc-ci.yml b/drivers/gpu/drm/ci/drm-misc-ci.yml
-new file mode 100644
-index 000000000000..40c6d7ba1afb
---- /dev/null
-+++ b/drivers/gpu/drm/ci/drm-misc-ci.yml
-@@ -0,0 +1,123 @@
-+# CI pipeline for drm-misc-next, drm-misc-fixes, and drm-misc-next-fixes.
-+#
-+# Runs on merge requests only. Compiles the kernel for arm, arm64, and
-+# x86_64, and executes the DRM KUnit tests on each architecture.
-+#
-+# A single container image is built using freedesktop ci-templates with
-+# the packages needed for kernel compilation and LLVM for
-+# cross-compilation. QEMU is installed at runtime by the KUnit jobs.
-+#
-+# build.yml and the Mesa container/build pipelines are not included
-+# here: they pull in hundreds of Mesa-specific jobs and templates that
-+# would each need to be individually stubbed or disabled. The few
-+# templates we need (.build:arm32, .build:arm64, .build:x86_64) are
-+# simple enough to define inline.
-+
-+variables:
-+  CI_TEMPLATES_COMMIT: &ci-templates-commit aec7a6ce7bb38902c70641526f6611e27141784a
-+  # Project whose container registry stores the built images
-+  FDO_UPSTREAM_REPO: mripard/kernel
-+  KERNEL_BUILD_CONTAINER_TAG: "2026-09-02-01"
-+  LLVM_VERSION: "19"
-+
-+default:
-+  before_script: []
-+
-+include:
-+  - project: 'freedesktop/ci-templates'
-+    ref: *ci-templates-commit
-+    file:
-+      - '/templates/debian.yml'
-+  - local: drivers/gpu/drm/ci/kunit.yml
-+
-+stages:
-+  - container
-+  - build
-+  - kunit
-+
-+# --- Pipeline rules ---
-+workflow:
-+  rules:
-+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^drm-misc-(next|fixes|next-fixes)$/
-+      when: always
-+
-+# kunit.yml's jobs inherit .build-rules through the .build:* chain.
-+# Pass everything through since the pipeline is already gated by
-+# workflow:rules.
-+.build-rules:
-+  rules:
-+    - when: on_success
-+
-+# --- Container build job ---
-+# Single container with all build tools. LLVM handles cross-compilation
-+# to arm and arm64, so no architecture-specific containers are needed.
-+debian/kernel-build:
-+  extends: .fdo.container-build@debian
-+  stage: container
-+  variables:
-+    FDO_DISTRIBUTION_VERSION: trixie
-+    FDO_DISTRIBUTION_TAG: "${KERNEL_BUILD_CONTAINER_TAG}"
-+    FDO_DISTRIBUTION_PACKAGES: >-
-+      bc bison ca-certificates cpio curl
-+      clang-${LLVM_VERSION} flex gzip
-+      lld-${LLVM_VERSION} llvm-${LLVM_VERSION}
-+      libelf-dev libssl-dev
-+      make perl pkg-config python3
-+      xz-utils
-+
-+# --- Build templates ---
-+.build-base:
-+  image: "${CI_REGISTRY}/${FDO_UPSTREAM_REPO}/debian/trixie:${KERNEL_BUILD_CONTAINER_TAG}"
-+  needs: ["debian/kernel-build"]
-+
-+.build:arm32:
-+  extends: .build-base
-+  variables:
-+    KERNEL_ARCH: "arm"
-+    DEFCONFIG_ARCH: "arm"
-+
-+.build:arm64:
-+  extends: .build-base
-+  variables:
-+    KERNEL_ARCH: "arm64"
-+    DEFCONFIG_ARCH: "arm64"
-+
-+.build:x86_64:
-+  extends: .build-base
-+  variables:
-+    KERNEL_ARCH: "x86_64"
-+    DEFCONFIG_ARCH: "x86"
-+
-+# --- Kernel-wide build jobs (LLVM) ---
-+.kernel-build:
-+  stage: build
-+  timeout: 45m
-+  variables:
-+    GIT_DEPTH: 1
-+    DEFCONFIG_URL: https://gitlab.freedesktop.org/drm/tip/-/raw/rerere-cache/drm-misc-${DEFCONFIG_ARCH}_defconfig
-+  artifacts: {}
-+  before_script:
-+    - drivers/gpu/drm/ci/setup-llvm-links.sh
-+    - curl -L --retry 4 -f --retry-all-errors --retry-delay 60 -o .config "${DEFCONFIG_URL}"
-+
-+kernel-build:arm32:
-+  extends: [.build:arm32, .kernel-build]
-+  script:
-+    - make ARCH=arm LLVM=1 olddefconfig
-+    - make ARCH=arm LLVM=1 -j$(nproc)
-+
-+kernel-build:arm64:
-+  extends: [.build:arm64, .kernel-build]
-+  script:
-+    - make ARCH=arm64 LLVM=1 olddefconfig
-+    - make ARCH=arm64 LLVM=1 -j$(nproc)
-+
-+kernel-build:x86_64:
-+  extends: [.build:x86_64, .kernel-build]
-+  script:
-+    - make ARCH=x86 LLVM=1 olddefconfig
-+    - make ARCH=x86 LLVM=1 -j$(nproc)
-+
-+# --- KUnit jobs ---
-+# kunit:arm32, kunit:arm64, and kunit:x86_64 are defined in kunit.yml
-+# and implicitly enabled here through the .build:* templates above.
+Patch 1 moves release_module_tags() above reserve_module_tags(),
+since the failure paths now have to call it.
 
----
-base-commit: 0116f19db5931348c937eafa1f76a9a19bf82c81
-change-id: 20260902-drm-drm-misc-ci-ec6c69506609
+Patch 2 introduces SH_ENTSIZE_STANDALONE to mark sections with a
+separate allocation, per the ELF spec SHF_ALLOC means a section
+occupies memory during execution, and the percpu section does, only
+outside the regular module layout. It was previously excluded from
+the layout by clearing its SHF_ALLOC, overloading the flag with a
+loader-internal meaning. The mark lives in sh_entsize now,
+find_sec(".data..percpu") gives stable results again and
+apply_relocations() goes back to testing only SHF_ALLOC.
 
-Best regards,
+Patch 3 moves the codetag allocation out of move_module() in front
+of layout_sections(). On overflow reserve_module_tags() shuts
+profiling down, releases the reservation and returns -EAGAIN, and
+the section is laid out as regular module data, so the module loads
+without profiling instead of failing. Any other error fails the
+load. The release and the fallback belong together, without the
+release rmmod hits the stale entry and panics.
+
+Patch 4, split out per Suren's suggestion, releases the reservation
+when vm_module_tags_populate() fails, so that path stops leaking on
+its own.
+
+Tested on an x86_64 virtual machine:
+
+Booted without sysctl.vm.mem_profiling=1,compressed:
+# cat /proc/allocinfo is fine
+
+Booted with sysctl.vm.mem_profiling=1,compressed:
+# cat /proc/allocinfo is fine
+# insmod overflow_tag.ko
+# dmesg
+  With module overflow_tag there are too many tags to fit in 13 page
+  flag bits. Memory allocation profiling is disabled!
+# rmmod overflow_tag
+The module loads without profiling and unloads cleanly.
+
+Changes in v7:
+- split the rework following review feedback (Petr Pavlu, Suren
+  Baghdasaryan)
+- new patch 2 marks separately allocated sections with
+  SH_ENTSIZE_STANDALONE instead of clearing SHF_ALLOC
+  (suggested by Petr Pavlu)
+- split the populate failure release into its own patch (suggested
+  by Suren Baghdasaryan)
+
+Changes in v6:
+- rework on Petr's prototype and allocate codetag sections before
+  layout_sections(), the retry and its state resets are gone
+- fix the layout_sections()/move_module() race (Found by Sashiko)
+- release the reservation on populate failure as well (Found by
+  Sashiko)
+- only -EAGAIN keeps the fallback, other errors fail the load
+
+Changes in v5:
+- add Fixes: and Cc: stable to patch 1/2 as well, since 2/2 does not
+  compile without it (Andrew Morton)
+- restore frob-adjusted mem[type].size on retry instead of zeroing,
+  as s390 and parisc add GOT/PLT space there in
+  module_frob_arch_sections() (Reported by Sashiko)
+- drop the load_module() mem_profiling_support check; the percpu
+  counter leak is pre-existing and orthogonal to this fix
+
+Changes in v4:
+- add a new patch (1/2) to move release_module_tags() above
+  reserve_module_tags(); the overflow fix is 2/2
+- release the reservation on the -EAGAIN path
+- return -EAGAIN instead of -ENOMEM so the module can still load
+  without profiling (Suren)
+- reset sh_addr, mem[type].size and sym/str SHF_ALLOC before retry
+- skip percpu counters in load_module() when profiling is off
+
+Changes in v3:
+- use pr_warn_once() instead of pr_warn()
+- return -ENOMEM instead of -ENOSPC (Suren)
+- expand the commit message to describe the /proc/allocinfo impact
+  (Andrew)
+
+Changes in v2:
+- return an error after shutdown_mem_profiling() to skip
+  vm_module_tags_populate()
+
+v1: https://lore.kernel.org/all/20260804064408.105033-1-hao.ge@linux.dev/
+v2: https://lore.kernel.org/all/20260804122038.190270-1-hao.ge@linux.dev/
+v3: https://lore.kernel.org/all/20260805090633.141001-1-hao.ge@linux.dev/
+v4: https://lore.kernel.org/all/20260810093955.153015-1-hao.ge@linux.dev/
+v5: https://lore.kernel.org/all/20260812054105.102637-1-hao.ge@linux.dev/
+v6: https://lore.kernel.org/all/20260831072104.120197-1-hao.ge@linux.dev/
+
+Hao Ge (4):
+  alloc_tag: move release_module_tags() above reserve_module_tags()
+  module: introduce SH_ENTSIZE_STANDALONE for separately allocated
+    sections
+  module: allocate codetag sections before the regular module layout
+  alloc_tag: release the reservation when populate fails
+
+ include/linux/module.h   |   2 +
+ kernel/module/internal.h |   8 +++
+ kernel/module/main.c     | 130 +++++++++++++++++++--------------------
+ mm/alloc_tag.c           | 101 +++++++++++++++---------------
+ 4 files changed, 127 insertions(+), 114 deletions(-)
+
 -- 
-Maxime Ripard <mripard@kernel.org>
+2.25.1
 
