@@ -1,239 +1,190 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B7C40C5C5
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 21:16:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0EF40F731
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 21:18:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788383797; cv=none; b=FzbeCr4ylzJ+wljejhDVL+7TygUoCk8fyo8h1oZF7sX+UnQ9QRh5uozECHohwwfVK6u4RhewOMXQILpjEkSOXbofzyuYLDhy+ZwN05Wce+E0g7HJwFJ8z/52jRjsHYWhSTtoSreDAjKyzNE/JrHnytN9XU1uYr2wScRF53xVMKE=
+	t=1788383889; cv=none; b=hV9aPygPqbKW7uUVH8Fs6hdQehTWo+BM50Z2TQKc1KuEnSD+gaD3+OK3Quf7d/cbdELYunCWelmkDlqbr9ofKIJlol/N129kxwvzPG5w7xs2Folg884hqLilG1WkLG7+lnc0M9K2KnuuPwdGoweRxLtsYdKoAry+zbysZmeypqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788383797; c=relaxed/simple;
-	bh=wfnSJYezHVptWVeIUjof3zlv6RSwe2Fg37Z2C7ov+lY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CfLjKyT9R3m3T9wsVHCPlEgYHwdryD6uIna6l3Au1un8kkB19BB6xy2SFvfibDZi7aRkFBpSPHyxaaWyxWNTKBOinwGNb04ydn/9awz2SvC8UtHP97fzrGw+rJStITm7oX8Gu4nVn+ozJivfOq1WQ5nkwfFUTeDUPosc/NeWwjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sL037w78; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788383889; c=relaxed/simple;
+	bh=eYvevfxDnAxcmy44UUuZzmZ9wB5AFgyZP1RXBL1JECg=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=cvs5JJrAniEOkJCbd5ChDpne3HtCst+zyzTyg+j2dQAAX1MtcrvPAPopa7nFukFbp+bJ5EAn4Mw8nSluawwqwG97uXuXMPNRmjG0HiI6NAciqGnD2gbzj/8kG2UsSv/0fXMQM22xUKr5e5Y52o8UAWBBa7F90kYvfaWHE3+NPrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=St087wfT; arc=none smtp.client-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sL037w78"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso16647515e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 14:16:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="St087wfT"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cfe48ca1efso19624885ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 14:18:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788383787; x=1788988587; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2FbcCt4oC+dx3pyx/2hfw60zNfjrZFxgpFIvEM7YZ4k=;
-        b=sL037w78EfLtX83d48XFST46TUQBI4pC9WiKm8SEvhi0ZU1VLy8g9xKN6+SckUtVD9
-         rHyx9dUNDCC4O14YkT2UbNEXsW5h2IxZVxQtdKsARE76204jgm8b2H33dojq5wbpxTWd
-         TCX4TipTvOGEQ3Gx1uaWCFVD19OFLNlA/v5gmAoeF8Jg+27wfTwT5GywBhBQeV5/11Gx
-         JPhkQy8Gh+GEKrQHou31UWGlwuvQqc5KQVlYbnHJJ0b8PYA+7QPWHQGpk77qgyZZvLOo
-         vyUNeZXqNLVcDWEceXVJkdArwLQaDCQKPCdpCPM1KuFoo0tBZieA320/Fsa2uT+jVxLc
-         9yjA==
+        d=google.com; s=20251104; t=1788383881; x=1788988681; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6y9fwvpjUYJt1hBuBQzU6qlITBbfBdcaCvq8FbYjsUY=;
+        b=St087wfTYqglTrqIKprWEIaR0pVGx2FcIAUOMM13rpvv0Fw+Co30J1PMdms6iBZBhW
+         Unec3nJf6xAFhE1+nvQIXl9MPBJecQMGCN7C1oFZRxeC6d8jzxrj0ngzOqD5znbjsYKG
+         u71+e0MOxfvQXLBs0hL4clQ+S8GHnu3mPEceIvJNlomUi8j9n+xnjfSB7mcsG9jR/av8
+         q9FM8imHRofBkJdVNcB0sjzTgG0jJdwhG0fdDVqbhF/vyCj6rdzeLgVqruAxLreKIrPP
+         qRCsOZ6Pt9JfRQYIdbeOZCgJWLqHBManNNk5LX6H+LN/w+Tw0raDzKs7KbUs+fYdVKA+
+         3t5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788383787; x=1788988587;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2FbcCt4oC+dx3pyx/2hfw60zNfjrZFxgpFIvEM7YZ4k=;
-        b=GRFThxRra60iZ4gatbwT8bbpftW1RCrkADG9YcrdoVCye0En0vMbC6657mSiLWEraC
-         L4Vj4K/Klkc/fdWNMOa4vSynPkZMqP1B1IXD+UY2+IE8SkkuzztJB+YJHM9TpdbHwo0r
-         EOuk1e5hbBSaLy7FQPRv/gptYwZSMXJKfztDvHab1C4EvBXYP8EpZ5z0KNPHKzFD0ue4
-         8f2T6s0ZylZuSAghCp/z5Ju5z8dY8MEzvdIYwkdasVCVAQupzKXM+1NhJ+0cH/QqCVF6
-         bAGTsLkvv4cwGQW9qrML5y9oKQMVJVhDtqLxZFABX3E9HgQyAtHXt6qmogm0MP1o9hL5
-         tofw==
-X-Forwarded-Encrypted: i=1; AKwUvBxC4lfySXXH/4v+sVyH9Qi81M+6EgsSnbEao8BDVTGgJtED8K4rbPEyqlSlwUC9lUlJFTF5eOtdjzqgt4w=@vger.kernel.org
-X-Gm-Message-State: AFuF++kX83bwW0FPvEEt33iOrYwCyWwTfpAnVIP4W9c7zgJEjPhbdekX
-	NVr9dHDI/xBQtXI46JtEkOfjvTWWPuiLKEdiVEo05hAuCyOzEZq0lic=
-X-Gm-Gg: AYBFou3eUN9bSgJSlIGPpxr0W6wWqhXBk+dtiZ5gd90e4HRtzytlgrpLD1ezTQ/e15Z
-	bgRS0OmQyyRRPc94cxPaVC/MEvlYtbI7Nii2Afb4xva0/UjQSOrZ826ca7WxEiDvSltJvgMXFb4
-	tK5BSyyYzNmkuvQN636BGJN5BHf5wZDXa3iUS57rDu8hDTSatsuVa4+tH9v5ZtSQ67W/yjQXrdq
-	u9MRRn9jKjxRPsMQZy8ClWZdiRASqz5Ywv0DF6GQj0KaZuVH95953zqUCCpx9pn5Mto4THV8Iad
-	C3EYhtWx48vD8ylvHEzgyRZrzGDliV3qsf2tJdJPlF+sSmdzrzG0V8HrQ90zFm7Likb/In2LboO
-	g2ntM6Hzg+PzYUi9ggb6/xW6vz9NqU89eVTiznPtg7TNsawS9mOzYAgYEqvuJ4uc2Fs7NV/Vzww
-	9uTJlgTPwfdTkl2/nciAY45EeKOFR2Y74cWEAHk6FIX9zOusm3M9sgyNB6nG1402hQQa4kwEQv/
-	tgrbEPvvZSU3VffAsg+2gXgS1M+xjNJj/X/4bdPhpGvYGbyXRnSVmGRATmiuVYOCaE8WksFpm8X
-	bVWiTNcE
-X-Received: by 2002:a05:600c:699b:b0:49b:9205:45b3 with SMTP id 5b1f17b1804b1-49ce584c6femr140872125e9.15.1788383786582;
-        Wed, 02 Sep 2026 14:16:26 -0700 (PDT)
-Received: from chateau.lan ([2001:818:e240:a500:b099:b999:e510:5bb4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d4938sm19143335e9.2.2026.09.02.14.16.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 14:16:23 -0700 (PDT)
-From: Sergey Zagursky <gvozdoder@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Miguel Vadillo <miguel.vadillo@intel.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev,
-	Sergey Zagursky <gvozdoder@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] media: ipu-bridge: do not use the CVS device lookup for IVSC
-Date: Wed,  2 Sep 2026 22:15:24 +0100
-Message-ID: <20260902211524.5572-1-gvozdoder@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1788383881; x=1788988681;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6y9fwvpjUYJt1hBuBQzU6qlITBbfBdcaCvq8FbYjsUY=;
+        b=DEGfs+7fAtG5iUcHkiqHevwGKGBm/EEWZHJh1LMBW7pTIMrC0qnhQNojsMQoN8Cw7t
+         4yVULWVGXphprjSMxs51UnxKoQuroStVqW6K165zIV5dFXis8jatZ9JitAQMOPYI/7Xx
+         rD+sEqMUb+fKb7j8nmk/jn+2Zgt4x47A3G50LuPssD3tf3ufXpHbvY7oHqYS2a1UkU1R
+         OXeadMO2xiSHuuzH00x7BxUADg7sO7j9BEtiJ5az9cyoK4xSxh5Z56Si91wkKLGf9O5e
+         ZhWzo2G3wHrVtiRDLseOlmgIWtkWBLDfyeFzb/ayItSJlx/bA52ZaoyFak4yUaL17JI+
+         K1gg==
+X-Forwarded-Encrypted: i=1; AKwUvBxpZRBBUAqZlIjUE2GzyQ2XY7fqtanZXN9ivYUkX6CeXvxhpi4ijuJsTBNIMo+TVVTIy8/DhZ9fBfdtxjM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mrkiqVGmYVjJ8oLKCeQye+OFghRZRX1t9El+pidFdUG8sinGSQ
+	8tGl8YOvmjJr3Y8CKbmZ1CAgcrfyKJ0tUNOqZuh+q80jD47OqktYF5vRDlYbAALCMW8RU+j+bik
+	DJymHZA==
+X-Received: from pjqo10.prod.google.com ([2002:a17:90a:ac0a:b0:396:1f9d:c3c7])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:5384:b0:398:ceef:edbd
+ with SMTP id 98e67ed59e1d1-39aee1bbae0mr11888078a91.18.1788383880600; Wed, 02
+ Sep 2026 14:18:00 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Wed,  2 Sep 2026 14:17:59 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.970.g62bdec98f9-goog
+Message-ID: <20260902211759.2700289-1-seanjc@google.com>
+Subject: [PATCH] KVM: x86/mmu: Always guard rmaps with mmu_lock on
+ PREEMPT_RT=y kernels
+From: Sean Christopherson <seanjc@google.com>
+To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	David Woodhouse <dwmw2@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Since commit c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU
-bridge driver") the internal camera no longer works on laptops where the
-sensor sits behind an IVSC, for example a Dell XPS 16 9640 (IPU6,
-INTC10CF, ov02c10):
+For all intents and purposes, revert KVM's ability to walk rmaps outside of
+mmu_lock when running on a realtime (PREEMPT_RT=y) kernel.  I.e. don't use
+a non-sleepable bit-spinlock to protect rmap entries, as realtime kernels
+are highly unlikely to benefit from increased aging throughput and reduced
+jitter for memory-overcommitted nested VMs, whereas using a non-sleepable
+lock is currently buggy and goes against the spirit of realtime kernels.
 
-  intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
-  intel-ipu6 0000:00:05.0: Connected 1 cameras
-  ivsc_csi intel_vsc-92335fcf-3203-4472-af93-7b4453ac29da: mei-csi probed
-      without device fwnode!
+Because KVM's rmap locks are hand-crafted bit-spinlocks, preemption must be
+disabled before acquiring the lock, otherwise a preempted lock holder will
+result in all other walkers of the locked rmap to spin and wait, with no
+tracked owner for PI to boost.  For non-RT kernels, acquiring mmu_lock
+suffices, as mmu_lock is a non-sleepable rwlock.  But on RT, where mmu_lock
+becomes sleepable, preemption is left enabled for rmap writers:
 
-No sensor subdevice is registered, the media graph has no sensor entity
-and userspace finds no camera at all.
+  WARNING: arch/x86/kvm/mmu/mmu.c:920 at __kvm_rmap_lock+0x1a7/0x1e0 [kvm], CPU#16: vmx_apic_update/3708
+  CPU: 16 UID: 0 PID: 3708 Comm: vmx_apic_update Not tainted 7.2.0-rc7 #52 PREEMPT_{RT,LAZY}
+  RIP: 0010:__kvm_rmap_lock+0x1a7/0x1e0 [kvm]
+  Call Trace:
+   pte_list_add+0x67/0x4d0 [kvm]
+   __link_shadow_page+0x249/0x480 [kvm]
+   ept_fetch+0x4d5/0x1220 [kvm]
+   ept_page_fault+0x60b/0x850 [kvm]
+   kvm_mmu_do_page_fault+0x252/0x690 [kvm]
 
-ipu_bridge_get_ivsc_csi_dev() first looks for the platform device named
-"intel_vsc" and returns its mei-csi child. That device is created by
-mei_vsc, which on this machine only appears once the LJCA USB bridge and
-its SPI controller have probed, about a second after the IPU6 probe that
-runs the bridge:
+Alternatively, KVM could manually disable preemption when grabbing an rmap
+lock, but as above, that isn't what RT kernels generally want, and it's
+actually more complex to implement (cleanly).
 
-  07:59:29.297  platform INTC10CF:00 created (ACPI scan)
-  07:59:41      intel-ipu6 probe -> ipu_bridge_init()
-  07:59:42.391  platform intel_vsc created (mei_vsc)
+To not completely lose the scaling advantage of per-rmap locks, take
+mmu_lock for read in the aging path, i.e. allow multiple concurrent aging
+tasks, as the aging code needs to use atomic SPTE accesses no matter what,
+i.e. no extra code/work is required to guard against concurrent aging of
+SPTEs.
 
-The commit above added two fallbacks for CVS which match on the ACPI
-companion alone. They are reached for every entry of ivsc_acpi_ids[],
-IVSC IDs included. The IVSC ACPI device has two physical nodes:
-
-  INTC10CF:00/physical_node  -> platform/INTC10CF:00  (no driver bound)
-  INTC10CF:00/physical_node1 -> platform/intel_vsc    (mei_vsc)
-
-so bus_find_device_by_acpi_dev(&platform_bus_type, adev) returns the bare
-platform device. ipu_bridge_instantiate_ivsc() then attaches the IVSC
-software node to that device instead of to the mei-csi client, the bridge
-reports success, and the probe is never retried. mei_csi later probes
-without a fwnode, the CSI-2 link is never described, and the sensor ACPI
-device, which has an honoured _DEP on the IVSC device, is never
-enumerated.
-
-Before those fallbacks existed the lookup returned NULL here, the bridge
-failed with -ENODEV and the probe was retried once the IVSC device had
-shown up.
-
-Skip those fallbacks for IVSC devices, keying on the IVSC IDs rather than
-the CVS ones: new CVS IDs keep being added, whereas the IVSC list is
-complete. CVS binds a driver to the ACPI device itself, so matching on the
-companion stays unambiguous there.
-
-Fixes: c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU bridge driver")
-Link: https://lore.kernel.org/linux-media/20260901194526.6369-1-gvozdoder@gmail.com/
-Cc: stable@vger.kernel.org
-Assisted-by: Claude Code:claude-opus-5
-Signed-off-by: Sergey Zagursky <gvozdoder@gmail.com>
+Reported-by: David Woodhouse <dwmw2@infradead.org>
+Closes: https://lore.kernel.org/all/8d47b43e1829ac92703723e6a1a4afc7a2eaacb5.camel@infradead.org
+Fixes: 4834eaded91e ("KVM: x86/mmu: Add infrastructure to allow walking rmaps outside of mmu_lock")
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
-Changes since v2:
-- Match the IVSC IDs rather than the CVS ones, as Sakari suggested: new CVS
-  IDs keep being added (INTC10FA arrived after v7.2), whereas the IVSC list
-  is complete, so keying on IVSC does not rot.
-- Drop the ipu_bridge_is_cvs_dev() helper introduced in v2 and go back to
-  the flat condition of v1.
+ arch/x86/kvm/mmu/mmu.c | 39 +++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 37 insertions(+), 2 deletions(-)
 
-Changes since v1:
-- v2 wrapped the ACPI ID match in a helper for readability. Superseded by
-  the above.
-
-Not addressed here: separating the CVS and IVSC parsing so that no CVS
-fallback is needed at all. That looks like a separate series rather than
-part of this fix.
-
-v1: https://lore.kernel.org/linux-media/20260901195036.7648-1-gvozdoder@gmail.com/
-v2: https://lore.kernel.org/linux-media/20260902145440.1786297-1-gvozdoder@gmail.com/
-
-The functional testing below was done with v1 on the affected machine (Dell
-XPS 16 9640, IPU6 + IVSC + ov02c10) on top of 7.2.2, where
-drivers/media/pci/intel/ipu-bridge.c is byte-identical to v7.2. v3 changes
-which ID list the condition keys on, so it was rebuilt and booted again on
-the same machine with the same results. Without the patch libcamera finds
-no camera at all; with it:
-
-  $ cam -l
-  1: Internal front camera (\_SB_.PC00.LNK1)
-
-  $ cam -c1 --capture=5
-  202.794954 (30.05 fps) cam0-stream0 seq: 000003 bytesused: 8386560
-  202.828224 (30.06 fps) cam0-stream0 seq: 000004 bytesused: 8386560
-
-The media graph gains the entities that were missing:
-
-  - entity 349: Intel IVSC CSI (2 pads, 2 links, 0 routes)
-  - entity 368: ov02c10 21-0036 (1 pad, 1 link, 0 routes)
-
-and the restored retry is visible in dmesg:
-
-  pci 0000:00:05.0: deferred probe pending: intel-ipu6: IPU6 bridge init failed
-  intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
-  intel-ipu6 0000:00:05.0: Connected 1 cameras
-
-"mei-csi probed without device fwnode!" is gone, ov02c10 binds to
-i2c-OVTI02C1:00, and eight v4l-subdev nodes appear.
-
-This patch is against v7.3-rc1. The version tested on 7.2.2 is the same
-change; 7.2.x has no INTC10FA in ivsc_acpi_ids[], which does not affect the
-IVSC list this patch adds. Building with W=1 produces no new warnings.
-
-Not covered: I have no CVS hardware, so the CVS path is only reasoned
-about, not tested, and I have not booted v7.3-rc1 itself.
-
-This patch was produced with the help of an AI coding assistant; see the
-Assisted-by tag above and Documentation/process/generated-content.rst.
-
- drivers/media/pci/intel/ipu-bridge.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 1bb3a3e98d6b..bd64c0400c0d 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -232,6 +232,19 @@ static const struct acpi_device_id ivsc_acpi_ids[] = {
- 	{ "INTC10FA" }, /* NVL */
- };
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 064ecc33b926..5bf833550f84 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -895,6 +895,7 @@ static struct kvm_memory_slot *gfn_to_memslot_dirty_bitmap(struct kvm_vcpu *vcpu
+  */
+ #define KVM_RMAP_MANY	BIT(0)
  
-+/*
-+ * The subset of ivsc_acpi_ids[] which are IVSC, rather than CVS, devices. The
-+ * CVS IDs are deliberately not listed here: new ones keep being added, whereas
-+ * this list is complete.
-+ */
-+static const struct acpi_device_id ivsc_only_acpi_ids[] = {
-+	{ "INTC1059" },
-+	{ "INTC1095" },
-+	{ "INTC100A" },
-+	{ "INTC10CF" },
-+	{ }
-+};
-+
- static struct acpi_device *ipu_bridge_get_ivsc_acpi_dev(struct acpi_device *adev)
++#ifndef CONFIG_PREEMPT_RT
+ /*
+  * rmaps and PTE lists are mostly protected by mmu_lock (the shadow MMU always
+  * operates with mmu_lock held for write), but rmaps can be walked without
+@@ -1008,7 +1009,8 @@ static unsigned long kvm_rmap_get(struct kvm_rmap_head *rmap_head)
+  * actual locking is the same, but the caller is disallowed from modifying the
+  * rmap, and so the unlock flow is a nop if the rmap is/was empty.
+  */
+-static unsigned long kvm_rmap_lock_readonly(struct kvm_rmap_head *rmap_head)
++static unsigned long kvm_rmap_lock_readonly(struct kvm *kvm,
++					    struct kvm_rmap_head *rmap_head)
  {
- 	unsigned int i;
-@@ -283,6 +296,17 @@ static struct device *ipu_bridge_get_ivsc_csi_dev(struct acpi_device *adev)
- 		return csi_dev;
- 	}
+ 	unsigned long rmap_val;
  
-+	/*
-+	 * The lookups below match on the ACPI companion alone. That is fine for
-+	 * CVS, which binds a driver to that very device, but not for IVSC: there
-+	 * the ACPI device also has a driverless platform device, which would be
-+	 * returned instead of the mei-csi client. Return NULL for IVSC so that
-+	 * the caller fails and the probe is retried once the IVSC device shows
-+	 * up.
-+	 */
-+	if (!acpi_match_device_ids(adev, ivsc_only_acpi_ids))
-+		return NULL;
+@@ -1032,6 +1034,35 @@ static void kvm_rmap_unlock_readonly(struct kvm_rmap_head *rmap_head,
+ 	__kvm_rmap_unlock(rmap_head, old_val);
+ 	preempt_enable();
+ }
++#else
++static unsigned long kvm_rmap_get(struct kvm_rmap_head *rmap_head)
++{
++	return atomic_long_read(&rmap_head->val);
++}
++static unsigned long kvm_rmap_lock(struct kvm *kvm,
++				   struct kvm_rmap_head *rmap_head)
++{
++	lockdep_assert_held_write(&kvm->mmu_lock);
++	return kvm_rmap_get(rmap_head);
++}
 +
- 	/* Try to locate CVS device on the I2C bus */
- 	csi_dev = bus_find_device_by_acpi_dev(&i2c_bus_type, adev);
- 	if (csi_dev)
++static void kvm_rmap_unlock(struct kvm *kvm,
++			    struct kvm_rmap_head *rmap_head,
++			    unsigned long new_val)
++{
++	atomic_long_set_release(&rmap_head->val, new_val);
++}
++
++static unsigned long kvm_rmap_lock_readonly(struct kvm *kvm,
++					    struct kvm_rmap_head *rmap_head)
++{
++	lockdep_assert_held_read(&kvm->mmu_lock);
++	return kvm_rmap_get(rmap_head);
++}
++
++static void kvm_rmap_unlock_readonly(struct kvm_rmap_head *rmap_head,
++				     unsigned long old_val) { }
++#endif
+ 
+ /*
+  * Returns the number of pointers in the rmap chain, not counting the new one.
+@@ -1745,11 +1776,15 @@ static bool kvm_rmap_age_gfn_range(struct kvm *kvm,
+ 	gfn_t gfn;
+ 	int level;
+ 
++#ifdef CONFIG_PREEMPT_RT
++	guard(read_lock)(&kvm->mmu_lock);
++#endif
++
+ 	for (level = PG_LEVEL_4K; level <= KVM_MAX_HUGEPAGE_LEVEL; level++) {
+ 		for (gfn = range->start; gfn < range->end;
+ 		     gfn += KVM_PAGES_PER_HPAGE(level)) {
+ 			rmap_head = gfn_to_rmap(gfn, level, range->slot);
+-			rmap_val = kvm_rmap_lock_readonly(rmap_head);
++			rmap_val = kvm_rmap_lock_readonly(kvm, rmap_head);
+ 
+ 			for_each_rmap_spte_lockless(rmap_val, &iter, sptep, old_spte) {
+ 				if (!is_accessed_spte(old_spte))
+
+base-commit: 76671054f9a1ff6abb976583cd8da37650acdc97
 -- 
-2.55.0
+2.55.0.970.g62bdec98f9-goog
 
