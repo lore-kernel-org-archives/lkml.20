@@ -1,106 +1,114 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4D23B0594;
-	Wed,  2 Sep 2026 07:09:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E13B93B0ACC;
+	Wed,  2 Sep 2026 07:10:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788332995; cv=none; b=jaZEzBPiTIqLMF5W9iIiasg22l71ZgfMDAO8TyOJDGlnBpBQ0lM1g1Os5bHGH+ss0OaqQG1z9BNhyLouJdfDEXzoyesTe4ogor/qE/ZMw0NP5rf27DgPQ76wl42RsbdUc+dcCboMFWZZ+Rnj0zxi22O5TDQTOcR8QnlPqiUtAHg=
+	t=1788333012; cv=none; b=VTyswzKsuJVmj4o24OOKJbVvLT5bwKUWoDGNmH0tZ38yGfLTc6p4Kl+HqsFdQt5ztoXCYS6g3nJbhS7dqnjxYYwXCBQ4mDAM/hmYGx9Ae5+9KuGzC2V+J+TjfsWpKUzfBm9ChODIPFcpiJgSiYKPSlmfN7CvHiZDNMm7EBGFctI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788332995; c=relaxed/simple;
-	bh=0v2y6vQENo6sJh4uuDiyE1cuxNO5uR3RBtk+/HF/cMA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bBqDErZ5EtrA9MLD7fp4nU4R7sjnxHdFL4A/bW/tmgwxONh3emhKP5wPhsXd9A41Tnc5Wma7UC2Ei/8ELioP49bxSWdUuVVT0Qpk1FyRfkSPRNYrsu9OSOaStfeK2F/hkFGQHQjbDF2zJ5bjSWKBGzJ98EPNWM+0TZP7ZXYGKRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 47e99f8ea69d11f19a56ed5b684f684d-20260902
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:7853a2d5-c7f2-4105-9f65-0d8660d0d804,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:c095a5e44064e4b369170979ddb95acf,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
-	il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
-	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 47e99f8ea69d11f19a56ed5b684f684d-20260902
-X-User: yanlonglong@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <yanlonglong@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1510329629; Wed, 02 Sep 2026 15:09:47 +0800
-From: longlong yan <yanlonglong@kylinos.cn>
-To: valentina.manea.m@gmail.com
-Cc: shuah@kernel.org,
-	skhan@linuxfoundation.org,
-	i@zenithal.me,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	longlong yan <yanlonglong@kylinos.cn>
-Subject: [PATCH] usb: usbip: add NULL check after calloc()
-Date: Wed,  2 Sep 2026 15:09:31 +0800
-Message-ID: <20260902070932.1440-1-yanlonglong@kylinos.cn>
-X-Mailer: git-send-email 2.47.1.windows.2
+	s=arc-20240116; t=1788333012; c=relaxed/simple;
+	bh=CUioBGAgghsebrVo+V7sooNS7Q/AzGLAa9moociFkkk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CU51jsWYU8KHapDQ65euoWxbW/22BVW8dYdP8lh9/ZhMlYulNZZ9JMPU8aylnYcelGvq38sBED9+ovUhrL3OcHzVy7LB6l0Vqch/5FwRty32YT6Ic2NHpDMxxebGAyhszo45ZG2Sov4LwG9I8QQXLotAmkkS/6bXqHpmdnezUqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=emBAASwS; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="emBAASwS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788333010; x=1819869010;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=CUioBGAgghsebrVo+V7sooNS7Q/AzGLAa9moociFkkk=;
+  b=emBAASwSgGEGnJPkDI0dlfiV910jgRQyo5HhhDJ86KsJAERdJEdzbRIv
+   TXurRJca6aP14LmWpbh3DSFyEjKQlTYgnkwxOQVKeQwXp3fKA8jNgUjfY
+   QRWIK8Zfq8n0z9BcX+0G54O33dRObQ1XlNNuDsFkv+tyMHBx4hvmrPvNj
+   YDV290MD33oypPX6xDk1qQ0D5G6gNxwdNV32NGhfu23/m7zW2Yy80BlTx
+   wy9I0AXwN+qgRJHEYjXQLWdJwL6s8vsSUYKFUFhKXBgEBGxDD0zi2nMEN
+   RbTySXHFoBPj4FWckVrIktRmXaQccDuLUv5+1fFwsAS1+gc2mxpTpMctm
+   w==;
+X-CSE-ConnectionGUID: kjC7xNtIT0mkX39Hd3mDaw==
+X-CSE-MsgGUID: qADL4lE/Ts+1wcq6qJODog==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="111550849"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="111550849"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 00:10:10 -0700
+X-CSE-ConnectionGUID: 5d+UJ45fSr6YDx2EVoGTzQ==
+X-CSE-MsgGUID: V93PDic6QaKTGsJNcamaxg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="269344913"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa007.jf.intel.com with ESMTP; 02 Sep 2026 00:10:08 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 7CBEC99; Wed, 02 Sep 2026 09:10:06 +0200 (CEST)
+Date: Wed, 2 Sep 2026 09:10:06 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Fedor Pchelkin <pchelkin@ispras.ru>
+Cc: Mika Westerberg <westeri@kernel.org>, linux-usb@vger.kernel.org,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>,
+	linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] thunderbolt: fix NULL dereference in tb_remove_work()
+Message-ID: <20260902071006.GJ106095@black.igk.intel.com>
+References: <20260831075836.16038-1-pchelkin@ispras.ru>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260831075836.16038-1-pchelkin@ispras.ru>
 
-Two calloc() calls in the usbip driver lack NULL return checks, leading
-to potential NULL pointer dereferences on allocation failure:
+Hi,
 
-1. usbipd.c do_standalone_mode(): the allocated `fds` array is
-   immediately dereferenced in the following for-loop via fds[i].fd
-   without checking for NULL.
+On Mon, Aug 31, 2026 at 10:58:09AM +0300, Fedor Pchelkin wrote:
+> There is a slight race between tb_remove_work() and tb_domain_remove()
+> which leads to dereferencing a NULL tb->root_switch pointer inside
+> tb_free_unplugged_xdomains():
+> 
+>         Thread A                            Thread B
+> 
+>   tb_remove_work()
+>                                     tb_domain_remove()
+>                                       mutex_lock(&tb->lock)
+>                                       tb_stop()
+>                                         /* doesn't cancel a running callback */
+>                                         cancel_delayed_work(&tcm->remove_work)
+>                                         ...
+>                                         tb_switch_remove(tb->root_switch)
+>                                         tb->root_switch = NULL
+>                                       mutex_unlock(&tb->lock)
+>     mutex_lock(&tb->lock)
+>     ...
+>     /* without checking ->root_switch */
+>     tb_free_unplugged_xdomains(tb->root_switch)
+>     mutex_unlock(&tb->lock)
+> 
+> Commit a8937f35cf39 ("thunderbolt: Remove XDomain from the bus without
+> holding tb->lock") doesn't seem right to move tb_free_unplugged_xdomains()
+> out of the &tb->lock section and the check for tb->root_switch, in
+> particular.  It states:
+> 
+>   For this reason separate removing the XDomain from the topology data
+>   structures (where we need the lock) from unregistering the device from
+>   the bus (where remove callbacks of the drivers are being called).
+> 
+> tb_free_unplugged_xdomains() belongs to the former group of functions
+> requiring the lock.  And it also calls tb_xdomain_remove() which should
+> only be called with &tb->lock held.
+> 
+> Found by Linux Verification Center (linuxtesting.org) with Svace static
+> analysis tool.
+> 
+> Fixes: a8937f35cf39 ("thunderbolt: Remove XDomain from the bus without holding tb->lock")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fedor Pchelkin <pchelkin@ispras.ru>
 
-2. usbip_host_common.c usbip_exported_device_new(): the allocated
-   `edev` is immediately dereferenced via edev->sudev without checking
-   for NULL.
-
-Add NULL checks after each calloc(), returning -1 in do_standalone_mode()
-and using the existing goto err path in usbip_exported_device_new(),
-consistent with the error handling already present in both functions.
-
-Signed-off-by: longlong yan <yanlonglong@kylinos.cn>
----
- tools/usb/usbip/libsrc/usbip_host_common.c | 2 ++
- tools/usb/usbip/src/usbipd.c               | 4 ++++
- 2 files changed, 6 insertions(+)
-
-diff --git a/tools/usb/usbip/libsrc/usbip_host_common.c b/tools/usb/usbip/libsrc/usbip_host_common.c
-index 01599cb2fa7b..8ad367e09e78 100644
---- a/tools/usb/usbip/libsrc/usbip_host_common.c
-+++ b/tools/usb/usbip/libsrc/usbip_host_common.c
-@@ -71,6 +71,8 @@ struct usbip_exported_device *usbip_exported_device_new(
- 	int i;
- 
- 	edev = calloc(1, sizeof(struct usbip_exported_device));
-+	if (!edev)
-+		goto err;
- 
- 	edev->sudev =
- 		udev_device_new_from_syspath(udev_context, sdevpath);
-diff --git a/tools/usb/usbip/src/usbipd.c b/tools/usb/usbip/src/usbipd.c
-index 3e22b651c754..cc707dea2882 100644
---- a/tools/usb/usbip/src/usbipd.c
-+++ b/tools/usb/usbip/src/usbipd.c
-@@ -544,6 +544,10 @@ static int do_standalone_mode(int daemonize, int ipv4, int ipv6)
- 	dbg("listening on %d address%s", nsockfd, (nsockfd == 1) ? "" : "es");
- 
- 	fds = calloc(nsockfd, sizeof(struct pollfd));
-+	if (!fds) {
-+		err("calloc for fds");
-+		return -1;
-+	}
- 	for (i = 0; i < nsockfd; i++) {
- 		fds[i].fd = sockfdlist[i];
- 		fds[i].events = POLLIN;
--- 
-2.43.0
-
+Applied to thunderbolt.git/fixes, thanks!
