@@ -1,168 +1,321 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011071.outbound.protection.outlook.com [52.101.62.71])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6973343885;
-	Wed,  2 Sep 2026 02:06:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.71
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788314789; cv=fail; b=bbvazsDsaEN8VPLFa+11F0UMmi1QQKgHFvPdnmaX6IqqqtlqEDTJd8+COAmBpuQcxPmh/J0oMRzYg0OnpDBuXTbtWfH1+ELZdcECZr9tHfl6VWOgFYgnW2GfdSVf7S3zoI1lVmzVdISEthqkNnMi1cs1nu5R8MfBuNjN5eoj3Zw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788314789; c=relaxed/simple;
-	bh=y40GZ2yL6CakBUKs0pyp55BdmAf4azP0emTIoxIrh6M=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=npDBjFCeH3xreMd/JixmAf7KpqvBxQMyW8vsbfZPbZp+lZ4MciFWqFLMK8dj1HYcBWkpHx5xZSa1axKy1ZU8JlXzyGOXyVXDPG6huBBjvZX5gP4ZZJjNplXn5p6zEGaKOFmNfSY+THmducqFrM4HtnyTNdJg1QHsfP7VH+sxscA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=mjX/+Odc; arc=fail smtp.client-ip=52.101.62.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20582296BBC
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 02:06:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788314817; cv=none; b=GILm6vZ0XlBcLiaSlWwL1z9LXM98GIP4E2g97NTIMw3xGOZ8Gt25DfcvvsFuggLsrT7wnOOXADAqgQYuMiql9b8PdykaiUS/BL7oetXOUjQJNhKGB4Gc4Mpy2uNxbLRezaDaIt4MEmqWAnJVmL0FsO8n3NBizD4lKe6KtPbQA8Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788314817; c=relaxed/simple;
+	bh=W+UV8TiDB9hxCbUmT2Z+NnTHOSsKdjCuL9atiZ/pwTE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=tK6GgM6pUxbrA1vuq/Y7bK7LoJ7nPQGVndmCNYTbnyaOIdFsbZthdQfe7qsSoT+mZczWEgnY7Vv/lqaB+X7OOwfSofg6xjOxNo48WP909QyLrNMWkvz5dcLEfwr+nksbish9BQVKb3FKe7naSNp7KriECiUsbNQqTVsF0x2ZXKY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c7w+hL4c; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="mjX/+Odc"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XdIfdZPN4zoFudNh0j/uonDbSYVR2HymHkgm/hYsQ51oU1mBSK5BC8/sdvxi2JuwBikJ/YZoslOn1qbv8rJOBiALP2JcifFP7za+6jS6qPKGqKMuO4Z43KecCzblAqXFZK+ZBYeiNz+9zGBa/Q6rUqV8AONPfCrMVXo9yys/8iZHSaVxT0Ircz5nz2rnmUDum9fsed2BzohZC81uQD21CaVuduow4Eou2slQeIZLFwbECp7Ukx76I39w38j/ZuUk5fFJiV20lBe7P9MgcgyXa5iDbrtN39RtSc/i11C9EUIlEfrisXyEHK4tY86TT6+6vjplWm73MFsoRPnoFO+iTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DDL8KdAjBE+4ZP9plVrAohc6IfPvGJHZXiPrS2QvEnY=;
- b=GO03K2reu2ehdsGQY6A4lSzwFMBQlvc/gK4ANJHecTG3wk/dEsso+F1o5ONsDf7ZoK2SZiEcOH8jGsTSmOYajiqCcQK4wQ3tD6A0s4HpVocKaOaUdfghjMqsW4ieFCwtDLaHUX5sBEPVBCKLaykvu4GqUXwexCgKKglVWq7YDXNBgOCQ1Bc+J0BWng8NOotgf6oiYKK8SCF933qZBvXTNpfkDoeoL/mC+g3R0s5s/hQrYpTyd6zNvOag2qxlR+M8nODx2cVuO/IPJA8MXCSvYlGBNSZRvHieOwygKAQCI3uKDasyDks5mS6GcFeVImnVQOEv7knQ5jk0gie8bWsK3w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DDL8KdAjBE+4ZP9plVrAohc6IfPvGJHZXiPrS2QvEnY=;
- b=mjX/+Odc9tTv88NIbbuWhAPKdv7VxdCV492XmUx3yI/pVFHM/+fOsyx0oAqHfoVaYA6TxWXFTgxfWcrMZP3dwf0hFpXVsrlKBuKIZgIkf6YZcq7F76CCvsIPZz0YLhufEfv0iPUoTqlySsHcSbFYx0nHWmt8TYG/SEoBafnz4PN8Fqw7dg0I/kuM5e8UHX15kS+ssOKFRIv3m5g0MSXhF6PnSfqMqNX8FsL7gvpUMcwUsWQubIbSfGcfi8M+gVeLxR/VBXutqi4dd3mCD4Mt/T+8GxiFSPA1al971po+s/5EAyenZJuWMweWcxn7queyx3BWuH0HgkjOttFG9i5iSQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS7PR12MB9474.namprd12.prod.outlook.com (2603:10b6:8:252::17)
- by PH7PR12MB5880.namprd12.prod.outlook.com (2603:10b6:510:1d8::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 02:06:17 +0000
-Received: from DS7PR12MB9474.namprd12.prod.outlook.com
- ([fe80::31ad:931:ef07:8ad7]) by DS7PR12MB9474.namprd12.prod.outlook.com
- ([fe80::31ad:931:ef07:8ad7%4]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 02:06:17 +0000
-Message-ID: <cc6ac9e0-8f2b-4e4f-bb9f-3badd46e9499@nvidia.com>
-Date: Tue, 1 Sep 2026 19:06:15 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 03/12] cxl: Share HDM decoder decode logic
-To: Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
- Ira Weiny <ira.weiny@intel.com>, Jonathan Cameron <jic23@kernel.org>,
- Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
- alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
- Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
- Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-References: <20260804192958.1823952-1-smadhavan@nvidia.com>
- <20260804192958.1823952-4-smadhavan@nvidia.com>
- <37454d24-5a79-4162-95ba-74ec709a2c11@intel.com>
-Content-Language: en-US
-From: Srirangan Madhavan <smadhavan@nvidia.com>
-In-Reply-To: <37454d24-5a79-4162-95ba-74ec709a2c11@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR03CA0074.namprd03.prod.outlook.com
- (2603:10b6:a03:331::19) To DS7PR12MB9474.namprd12.prod.outlook.com
- (2603:10b6:8:252::17)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c7w+hL4c"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 21A8CC2BCFA;
+	Wed,  2 Sep 2026 02:06:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788314816;
+	bh=W+UV8TiDB9hxCbUmT2Z+NnTHOSsKdjCuL9atiZ/pwTE=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=c7w+hL4crM7ahLXqISQQNg2oF7dv7MfiH0BjQg4I6dZc4a7X6l3apCW6x2C1srNR0
+	 V96GCPjxMweYug1wmSo6OmqzcJCF5iWguiHSq2AUAptdEWEWYE5VaFCssINoNH8xrC
+	 EE69A5SBp94UDyNCkGvq9WWA67Kr6az7c9MbdU9qcqwnbod5YYi5lzpf3HrZw2VcFn
+	 m7c5eL6DDcGd8UjExzBlPFo+FZKKhONMO3Eqp5zureF5YTyUVGn7dTSy+0yqWYc4Nt
+	 DX0R1TyzmSWG6487Jn1Jn/sKZUYxf8+KP7IumJAPUr+2An3iwnX3lZEflzS42p6sWx
+	 06tLoA+LVEyQw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EF3DEC624D0;
+	Wed,  2 Sep 2026 02:06:55 +0000 (UTC)
+From: Bingfang Guo via B4 Relay <devnull+bingfangguo.tencent.com@kernel.org>
+Date: Wed, 02 Sep 2026 10:06:46 +0800
+Subject: [PATCH v3] mm/memcg: clear folio memcg after changing per memcg
+ stats
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS7PR12MB9474:EE_|PH7PR12MB5880:EE_
-X-MS-Office365-Filtering-Correlation-Id: 989872af-2877-489e-7b9f-08df0896c5f7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|366016|921020|22082099003|10067099003|4143699003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	02vrEwSOv/iXrzO1Y9MHLHlgykPLYMRfIzyrJbXcEDtaELTDjH8qI9Q82zFjrUt3H2GK53/+TUY1ft6WLgt20TmSGXYeneEU6nnbowSbfQxhSvrz6zvUBDvQ4QWVl+5w4JLlJf8ps8yOfHx97FOfuZxtpbSvBRhtyVp6QrkEySI8xs075IfNYsVS7zDTuO4n9lEXxukkjFulIj64TISSUQHL1aI5QdenOMqIk4vFkytm07eoeusV7m76498u4it3+Zn+5BUFnTw9WBn8b60M5iYcVB+wMyTZ+ZsAx43dFN71SH4D6ZmmbMT0B+5nWjbHr9k3jJxLkyXemgKZ+EZBcvBVanWZWSMtLK98Mbb2zPgXYGTVdkSVw6rTbaV8TVz3mGyR6CQ6ok5nghy11ioD3tWfkwaUgyhbBrB1xtM4nmG36w0Ny+gvu2OD87hD+ZEo0yLjsHahGgRD/YGixNTyb62dDGXSL54jMMixlG7RJY8/t5qcouI+0KPsPcve4cutmLstDsc68GjSHk/Y/luJzAddZ6kkWDLaJG5+ZEvQ+Ui8dLizkgtpXi2P76jUnVI57pk2c/drKEgBqcmoySe6XmT6P5iZ+9xpSraI2/zU7UTnty2AaxgcNH/hJcrdqAtoa2/gJASy6TA00jl13Zj4c32ta1dEMK5t2R/oxJFeYxEIGkNt4XvPRv3U7yNtnLr3nLuZkF0tZlmrMUJ1NGuHbw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR12MB9474.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(366016)(921020)(22082099003)(10067099003)(4143699003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dzJVM2sxdTF2RXA1T0pRRUxhTGx5clZOUCtKSjBZaSt1STNxaFZlWWVUU1pC?=
- =?utf-8?B?UG5IWndBbmppdzFHbWRFa0dUZldadjFxTU9wQWQ2QTBlWEFmZi9xSythbUd5?=
- =?utf-8?B?VHJ1Z1FhRkFxeDdzWm1yVEtsUEFLNEk3QTVVK2JhY3dlaGgrVGE5T1NBS05j?=
- =?utf-8?B?dE85SFZoZUovZVBjVGFIYzc5V1h5ek54YTFnalhZcUJrVHJjWDBPZ2h2b0xp?=
- =?utf-8?B?bWVLamgwTFJLQVh6THQzaUszZmhDZjBBTDQ0am1UTS96UENUb0IwbEwyR01w?=
- =?utf-8?B?TW82U09GSWpXSHgweVd1TjhXNmcwWVFWS1RlbkVnVG5CVDRVcjdwalgxdFhF?=
- =?utf-8?B?WFlCaGVQaGgwUm1xaVhyeEZvV0U2dDd5VHNuTjlzMkd0UFRoNlRaT3ZrelN1?=
- =?utf-8?B?YTlaZlVXN1V4UG81bUlsUEYxekJvSFdXZHdVS2Z5TG5GalFQS09iS0hsRXBz?=
- =?utf-8?B?MkxqSHRjc3hNS3dDb1h5VTBzeS8yRVVQNndBL2l2OGJPdnpmSThqZVpLakgx?=
- =?utf-8?B?dTI0eXdaVm5FZ3UvMWk4Mm1BL2N0T252MXJZQm9yNm5SMEF4S1ZkeWlsclk4?=
- =?utf-8?B?ekZ2eGFKNFdSSGI5OUtBc0xRRXNlUUY2T1hFZFFSMVhCS3ErejBqM1o1S2ZY?=
- =?utf-8?B?TVgzTFZLcUlsSzRUbGZCQllJK1lPL25GVW1WUlBwWmlRT0ZXTTBQVzdVNHlM?=
- =?utf-8?B?VG4vZmxLS3FwVEtTZFJzR2VUTlYxa05oZkRkaXB5RURsQ1RPZkVzM0tMTVIv?=
- =?utf-8?B?aWQ2c002Sy9HU0s5aTlKNkhKcGZQVm1MRUIrMkpNWGlpNGpWakh0eTZzMHhS?=
- =?utf-8?B?U2dBTmNzaGx4L2RaREJ3bnFQdFBjbkhzajlKYkxOWjFMdmc2M210UGpnbXhZ?=
- =?utf-8?B?MXc1ZFlDL09CSXVEUUVveVFJOERjbVdITjBrWkNYdk8rNUI3cEdFNmpsUWpM?=
- =?utf-8?B?WkQwV1NVSGZJbVRBSWc5a09lS2J1K2JKSEl2QlJyMHhOV0JGc0JvUGhEai9u?=
- =?utf-8?B?SSs5T0U3aExhT0lBN3FiQmhlR2YrLzVtcVBQUkZVZWd2TmEvdjErTllrdE1r?=
- =?utf-8?B?T2dPK01PUTA5RDhleFpNdzFweStlSzFQZUlQRlYweTdUQkprVEJxWWIvZzNM?=
- =?utf-8?B?Ykx3amNId0dUN3NqbVVZZWY2L1NHTEdWVTczdUFwdzFtYVA1N2pTM2VtOE90?=
- =?utf-8?B?blhPUnlhMlBsOGNzY0FHK21wRWsrdVpyUTZ5blhkRzVFUnM3VzFsT2xiN2Vr?=
- =?utf-8?B?cUNUR0tlWGpVQjhORXR4eFc5VmRSbE81TjJncHRWblBHRHZXc2oxUTNYem16?=
- =?utf-8?B?V0RjaVFEL3Q3VTVjckRKNVpFbytrQk9UMkVPVTBTY3NlSmNHenE2cENRakRw?=
- =?utf-8?B?dUhLS3BudW9SK0YrMTNJSjFpcjNadWFCYTIxOHZuc3NaRmwxb0tSTTBKTE1O?=
- =?utf-8?B?UUVoWW1JVGRuYWhQdm9Gc08vQzlyUWpQTVJmcFkrUGphTzFyTGZ0dEJPZnBh?=
- =?utf-8?B?a1NtendNcnZUeU9TZjZPdGQ4RFZhbVVJQlNMYXN2dkJsQW5vSWVSS2JFWEVm?=
- =?utf-8?B?SWtoOUtsbytvQlhPdCtOTkgzc0hsMWowN1FOcXdOd040MDBiUVZuRk9OTzUw?=
- =?utf-8?B?TFlaMFZLSEFYSTBhWEdYdEY2NGFnNWpmQVRKQlJVbkFiYlFHMTdZV2FBVHZl?=
- =?utf-8?B?VkhqbU5KNloyMFdlREo4RzZRREh5blJENmtDNVQ3WW43dEtXQ1Y5UHBIaEFY?=
- =?utf-8?B?aUE2MVJVZXhNMFVBRzFTampKZ2thbGpGbzZweWdRTnloRGxNYWRGT2Y0MzBt?=
- =?utf-8?B?RjVKRkhuOWd5NmdObFNZQ3ZrQUhqaDBJbHJ6Vkwwdi9SNEdUWlpWUGZ6Q1ho?=
- =?utf-8?B?ajM4YVFpWjl5cWczZzJkdmcreHdjOWdhK3dpeUJ1dzZwZ3AvakpaRjZTcWpK?=
- =?utf-8?B?TmlyeWZYdkd3VjZoQ3pSK3EvRGdlN0N6NHFEVkZLS1RTZUJsLzBKWDRleEU5?=
- =?utf-8?B?Z0pVY1dJZWhhVHp6d2Fsc044dElkaW0wSHZCNDNJUDM2aHFsUlB4Uy8wa3VX?=
- =?utf-8?B?QkYwNk5RNEs1RWxYenpwTXhZTnBYVzhmdkhHTGRsb1RPNjVobklzdzFtaXd4?=
- =?utf-8?B?OGdjSlVJL0JoRktrVDE0WUNmNEtwNkVuSTdaTWY1MzBDMDFpek5RQjdDKzZ4?=
- =?utf-8?B?WVJKazhmZkgvekVSZitIMDk0dGx4d05sTmZRcXNmcUp3OGhYd3ZySytISm9U?=
- =?utf-8?B?QmMxZWY4Rm9FL3hCc2ZCd09wSmdldHBpQVhmaWw4NjFUY25aNDdEKzI3VXk4?=
- =?utf-8?B?TCtSV09MQkpOWjYvU1YwdnN6K1lrL1FFOEk3aTBzNGFSaUVTNGhXZz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 989872af-2877-489e-7b9f-08df0896c5f7
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB9474.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 02:06:17.0563
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0OPUghP+oj0y/HzcV5mYQUxDMcfegP7ucHkv8FrVWEnhRVCboDtrRXiaP22Bp1fVzar5Yh+F9XnxntTBrTP2pg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5880
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-memcg-swapcache-stats-fix-v3-1-795f5d455f7b@tencent.com>
+X-B4-Tracking: v=1; b=H4sIALWEl2oC/33NTQrCMBAF4KtI1kbyoyVx5T3ERTKZtlk0LUmIS
+ undTYsgbsqs3oP3zUwSRo+JXA8ziVh88mOoQR4PBHoTOqTe1UwEEw1TQtEBB+hoepoJDPRIUzY
+ 50da/KLeIrXQgTWtJ3U8Ra73Z90fNvU95jO/tVeFr+1Ul31ELp/WAKa7ROquaW8YAGPIJxoGsb
+ hE/S7NdS1RLgzFOSna+aPtvLcvyARjIpw8QAQAA
+To: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+ Wei Xu <weixugc@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+ David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Bingfang Guo <bfguo@icloud.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ Bingfang Guo <bingfangguo@tencent.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788314815; l=8591;
+ i=bingfangguo@tencent.com; s=20260812; h=from:subject:message-id;
+ bh=2wL0CIVj+NumZ4jS21cH6aQlJclRk7X+OAm/clFB4c8=;
+ b=fcHvD8Ml1Jpyd2jCE8ru20/mr66E0sgeh97kx0WqWyL3elbRz4LPQfUYPousj2Yc44IpoNrGC
+ PBf/irpcQR3AAqRw4MxgkGay3OVc2OiZIytxK0zwy5z5Arco2INWCYq
+X-Developer-Key: i=bingfangguo@tencent.com; a=ed25519;
+ pk=q7u9S7d5e7VijWrYF9O+vv9/XvqWduVGtwGtuCObAHE=
+X-Endpoint-Received: by B4 Relay for bingfangguo@tencent.com/20260812 with
+ auth_id=942
+X-Original-From: Bingfang Guo <bingfangguo@tencent.com>
+Reply-To: bingfangguo@tencent.com
 
-On 8/20/26 4:25 PM, Dave Jiang wrote:
-> I'm concerned about here modifying cxled->skip without the DPA write lock. Should it be:
->          skip = settings.target_or_skip;
-> 
-> And leave modification of cxled->skip to exclusively with devm_cxl_dpa_reserve()?
-> 
-> Also this change isn't mentioned by the commit log.
-> 
-> DJ
-Thank you, addressed in v11.
+From: Bingfang Guo <bingfangguo@tencent.com>
 
-   - Changed the decoder-count check to return bool and renamed the 
-internal and wrapper helpers to __cxl_pci_hdm_decoder_count_match() and 
-cxl_pci_hdm_decoder_count_match().
-   - Renamed the switch helper to cxl_switch_get_target_list().
-   - Renamed the cache update helper to cxl_hdm_save_decoder_info().
-   - Initialize the settings ID before the enabled-decoder check, 
-removing the multi-line else.
-   - Added a lock assertion to cxl_decoder_snapshot() using a 
-lockdep_assert_held().
+I notice extremely high swapcached count in the per memcg level
+memory.stat when running tests with cgroupv1 setup by swapping pages in
+and out.  It seems that the counter never gets decreased so the value is
+rather useless and confusing to users reading it. So I think fixing it
+so that the value can reflect the actual swapcache usage correctly could
+be helpful.
 
-   After the refactor, the snapshot and switch-target changes now appear 
-in patch 1. The PCI HDM cache updates remain in patch 4.
+__memcg1_swapout() transfers the memsw charge of a folio to its swap
+entry and clears folio->memcg_data as part of that.  In the vmscan
+swapout path it runs before __swap_cache_del_folio(), which then
+decrements the swapcache stats through lruvec_stat_mod_folio().  Since
+folio->memcg_data has already been cleared, folio_memcg() returns NULL
+and the NR_SWAPCACHE decrement only updates the node-level counter
+instead of the memcg's lruvec, leaking the per-memcg swapcache count.
 
+Move the __memcg1_swapout() call into __swap_cache_del_folio(), after
+the NR_FILE_PAGES and NR_SWAPCACHE updates but before
+__swap_cache_do_del_folio() removes the folio from the swap cache.  This
+keeps the stats attributed to the folio's memcg while still recording
+the swap cgroup with a valid folio->swap.  Add a swapout parameter so
+the plain swap_cache_del_folio() path is left unchanged.
+
+Fixes: b197d41462c20 ("mm/memcg, swap: store cgroup id in cluster table directly")
+Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
+---
+The problem is reproducible using the following script and program:
+
+```
+#!/bin/bash
+set -e
+
+CG=/sys/fs/cgroup/memory/swapcache-leak-test
+SIZE=$((256 * 1024 * 1024))   # 256 MiB of anon memory
+
+[ "$(id -u)" -eq 0 ] || { echo "must run as root"; exit 1; }
+grep -q . /proc/swaps <<<"$(tail -n +2 /proc/swaps)" || { echo "no swap active; run: swapon <dev>"; exit 1; }
+
+cleanup() { rmdir "$CG" 2>/dev/null || true; }
+trap cleanup EXIT
+
+cc -O2 swapout.c -o swapout
+
+mkdir -p "$CG"
+echo "+memory" > /sys/fs/cgroup/cgroup.subtree_control 2>/dev/null || true
+
+echo "== before reclaim =="
+grep -E '^(swapcached|anon) ' "$CG/memory.stat"
+
+# Put ourselves in the cgroup, allocate & touch anon memory, then wait to be reclaimed.
+(
+        echo $BASHPID > "$CG/cgroup.procs"
+        # Allocate and dirty SIZE bytes of anonymous memory.
+        ./swapout
+) &
+WORKER=$!
+sleep 2
+
+echo "== after reclaim (swap cache should drain to ~0) =="
+grep -E '^(swapcached|anon) ' "$CG/memory.stat"
+
+SWAPCACHED=$(awk '/^swapcached /{print $2}' "$CG/memory.stat")
+echo
+if [ "$SWAPCACHED" -gt $((1024 * 1024)) ]; then
+        echo "LEAK DETECTED: swapcached = $SWAPCACHED bytes (expected ~0)  [BUGGY kernel]"
+        RC=1
+else
+        echo "OK: swapcached = $SWAPCACHED bytes  [FIXED kernel]"
+        RC=0
+fi
+
+kill "$WORKER" 2>/dev/null || true
+wait "$WORKER" 2>/dev/null || true
+exit $RC
+```
+
+swapout.c:
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/mman.h>
+
+int main(int argc, char **argv)
+{
+        size_t mib = (argc > 1) ? strtoul(argv[1], NULL, 10) : 256;
+        size_t size = mib * 1024UL * 1024UL;
+        long page = sysconf(_SC_PAGESIZE);
+        char *buf;
+        size_t i;
+
+        buf = mmap(NULL, size, PROT_READ | PROT_WRITE,
+                   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+        if (buf == MAP_FAILED) {
+                perror("mmap");
+                return 1;
+        }
+
+        /* Fault in and dirty every page so it becomes reclaimable anon. */
+        for (i = 0; i < size; i += page)
+                buf[i] = 1;
+
+        printf("allocated and dirtied %zu MiB, paging out...\n", mib);
+
+        /* Force the whole range out to swap. */
+        if (madvise(buf, size, MADV_PAGEOUT)) {
+                perror("madvise(MADV_PAGEOUT)");
+                return 1;
+        }
+
+        /* Give reclaim a moment, then stay alive so the cgroup can be inspected. */
+        printf("paged out; sleeping so memory.stat can be read. pid=%d\n", getpid());
+        sleep(30);
+
+        munmap(buf, size);
+        return 0;
+}
+```
+
+Test result:
+
+before:
+```
+== before reclaim ==
+swapcached 0
+allocated and dirtied 256 MiB, paging out...
+paged out; sleeping so memory.stat can be read. pid=4778
+== after reclaim (swap cache should drain to ~0) ==
+swapcached 268435456
+
+LEAK DETECTED: swapcached = 268435456 bytes (expected ~0)  [BUGGY kernel]
+```
+
+after the patch:
+```
+== before reclaim ==
+swapcached 0
+allocated and dirtied 256 MiB, paging out...
+paged out; sleeping so memory.stat can be read. pid=2601
+== after reclaim (swap cache should drain to ~0) ==
+swapcached 0
+
+OK: swapcached = 0 bytes  [FIXED kernel]
+```
+---
+Changes in v3:
+- Add doc for the new parameter.
+- Link to v2: https://lore.kernel.org/r/20260901-memcg-swapcache-stats-fix-v2-1-9caad330459b@tencent.com
+
+Changes in v2:
+- Update the commit message to describe the problem in the beginnning.
+- Change function declaration for !CONFIG_SWAP as well.
+- Link to v1: https://lore.kernel.org/r/20260831-memcg-swapcache-stats-fix-v1-1-1c0819ebdb86@tencent.com
+---
+ mm/swap.h       |  6 ++++--
+ mm/swap_state.c | 11 ++++++++---
+ mm/vmscan.c     |  3 +--
+ 3 files changed, 13 insertions(+), 7 deletions(-)
+
+diff --git a/mm/swap.h b/mm/swap.h
+index 0b5d507739bcb..b3b54c28929a1 100644
+--- a/mm/swap.h
++++ b/mm/swap.h
+@@ -319,7 +319,8 @@ struct folio *swap_cache_alloc_folio(swp_entry_t target_entry, gfp_t gfp_mask,
+ void __swap_cache_add_folio(struct swap_cluster_info *ci,
+ 			    struct folio *folio, swp_entry_t entry);
+ void __swap_cache_del_folio(struct swap_cluster_info *ci,
+-			    struct folio *folio, swp_entry_t entry, void *shadow);
++			    struct folio *folio, swp_entry_t entry, void *shadow,
++			    bool swapout);
+ void __swap_cache_replace_folio(struct swap_cluster_info *ci,
+ 				struct folio *old, struct folio *new);
+ 
+@@ -452,7 +453,8 @@ static inline void swap_cache_del_folio(struct folio *folio)
+ }
+ 
+ static inline void __swap_cache_del_folio(struct swap_cluster_info *ci,
+-		struct folio *folio, swp_entry_t entry, void *shadow)
++		struct folio *folio, swp_entry_t entry, void *shadow,
++		bool swapout)
+ {
+ }
+ 
+diff --git a/mm/swap_state.c b/mm/swap_state.c
+index 305877e1f4d7b..99985208b529b 100644
+--- a/mm/swap_state.c
++++ b/mm/swap_state.c
+@@ -306,6 +306,7 @@ static void __swap_cache_do_del_folio(struct swap_cluster_info *ci,
+  * @folio: The folio.
+  * @entry: The first swap entry that the folio corresponds to.
+  * @shadow: shadow value to be filled in the swap cache.
++ * @swapout: whether this operation swaps out the folio.
+  *
+  * Removes a folio from the swap cache and fills a shadow in place.
+  * This won't put the folio's refcount. The caller has to do that.
+@@ -314,13 +315,17 @@ static void __swap_cache_do_del_folio(struct swap_cluster_info *ci,
+  * using the index of @entry, and lock the cluster that holds the entries.
+  */
+ void __swap_cache_del_folio(struct swap_cluster_info *ci, struct folio *folio,
+-			    swp_entry_t entry, void *shadow)
++			    swp_entry_t entry, void *shadow, bool swapout)
+ {
+ 	unsigned long nr_pages = folio_nr_pages(folio);
+ 
+-	__swap_cache_do_del_folio(ci, folio, entry, shadow);
+ 	node_stat_mod_folio(folio, NR_FILE_PAGES, -nr_pages);
+ 	lruvec_stat_mod_folio(folio, NR_SWAPCACHE, -nr_pages);
++
++	if (swapout)
++		__memcg1_swapout(folio, ci);
++
++	__swap_cache_do_del_folio(ci, folio, entry, shadow);
+ }
+ 
+ /**
+@@ -339,7 +344,7 @@ void swap_cache_del_folio(struct folio *folio)
+ 	swp_entry_t entry = folio->swap;
+ 
+ 	ci = swap_cluster_lock(__swap_entry_to_info(entry), swp_offset(entry));
+-	__swap_cache_del_folio(ci, folio, entry, NULL);
++	__swap_cache_del_folio(ci, folio, entry, NULL, false);
+ 	swap_cluster_unlock(ci);
+ 
+ 	folio_ref_sub(folio, folio_nr_pages(folio));
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index b4c9b8f3dfe99..af7dfa905cb50 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -735,8 +735,7 @@ static int __remove_mapping(struct address_space *mapping, struct folio *folio,
+ 
+ 		if (reclaimed && !mapping_exiting(mapping))
+ 			shadow = workingset_eviction(folio, target_memcg);
+-		__memcg1_swapout(folio, ci);
+-		__swap_cache_del_folio(ci, folio, swap, shadow);
++		__swap_cache_del_folio(ci, folio, swap, shadow, true);
+ 		swap_cluster_unlock_irq(ci);
+ 	} else {
+ 		void (*free_folio)(struct folio *);
+
+---
+base-commit: 88297631d4d42f6004cb39c0ba3da7d2d10a616f
+change-id: 20260828-memcg-swapcache-stats-fix-1beef3dc3afb
+
+Best regards,
 -- 
-Regards,
-Srirangan
+Bingfang Guo <bingfangguo@tencent.com>
+
+
