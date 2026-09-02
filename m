@@ -1,188 +1,139 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2000240A93E
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:24:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+Received: from smtph3-05.21cn.com (smtph3-05.21cn.com [150.223.194.107])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0F08A41684A;
+	Wed,  2 Sep 2026 09:24:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.223.194.107
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788341069; cv=none; b=osfGhMxhBaqASV9Bd3hY4Y2vnF2R+9PJnoPb3iMrI8ns3c1xHusIyeRaULMgn4B9x5N49sKyH70AZQ/6UteusP/75oT/ANqtdRHh9aR3rkSEDm2euSL4nKxj0By5ehmf4mLvLD6zG4hop+iRNTkHFSD+EHOgU63OwP67XRxMr9g=
+	t=1788341077; cv=none; b=r1bbrV1GMcIJhpxWpDb80Qz5qcArVc3CBbua7Bo3g4aytN2D/RXuEgv+qYx1KPyatxWVosjJOzH5ZaesMLkqzx+TqwUrLXjncj5TsBPAw/JZyx3WWPUXYgPNIq7QKUuBwlRljK7wQxvunT9gjC+az6AbvZJCa4LqZbg1wB1VXfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788341069; c=relaxed/simple;
-	bh=dv1csfbz3+AfIisrDWKM/LTeMZoRYy6BRCz9NaDNXI0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rPJDGsWQ97hZDXXTOlJhMSUGDfWK1Lm+HpBUvRgCzj8O3KBtf+K+HNnFe5JKgbxOb7xx1jlG9fGc3TfXlXKvh2s50/JjAjGWlNPHiqkMkDSFuysML8ktfForsApxHEw+ifimQY64a4tqDnbT++fcbOwOB+EVX8FVwj9DunJUkMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DKn3S1rS; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=JyYnDxPi; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DKn3S1rS";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="JyYnDxPi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788341066;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8QzyTGdGmNYHVJq7S368eFIeE6Ma1yvkdBRAoiX3kKc=;
-	b=DKn3S1rSZRpSyl3FHhGxt3ILEWTihqGI/rG0tNTwpxCT7Yqj3fv6irbbb6Wcf6z9koP/go
-	xZ2HkSvkh68ax3doeLn5uZHmhe7bzTaDLCMIJYUhmjkutd30ZTtA8kMSTSY9ZA29zX3NLk
-	pJbHWyr3iB/ajVRzqIGSH1j+WKarnfw=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-138-tUtAiO4RPm-o-i35LRioQw-1; Wed, 02 Sept 2026 05:24:25 -0400
-X-MC-Unique: tUtAiO4RPm-o-i35LRioQw-1
-X-Mimecast-MFC-AGG-ID: tUtAiO4RPm-o-i35LRioQw_1788341064
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-47f2de3ba47so575467f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 02:24:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1788341064; x=1788945864; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8QzyTGdGmNYHVJq7S368eFIeE6Ma1yvkdBRAoiX3kKc=;
-        b=JyYnDxPiF2rPoE7R5j1x2Lv3ODL7MDYcdYu/6e58kZl+6RlY6Xk5w4my4eaCxLUYA8
-         zPlAzzeAtMOv9B13xii8ynINbejCEVTZjtFmzgIlM9LLp776aO9BZeLI9HHlCFvRGXvH
-         eKAZum0oe1RalaQrh1p30bYM8fFtx1+DgVrDJR9yhHpyI74zEWFp3Fyir9pnbouy5sy1
-         R+DTB3gg7Y+paqAb2us/ns8Bg7zrtA7avzLIYuCaY43ld/hcPy64idGwDHsxUr3UbesB
-         S/t5UG4GMdr43+9hepMt0/NnfZCzknTiNeEG1rgqH62X5uOCW5ZtzLDFzWdj9anitwgq
-         /CUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788341064; x=1788945864;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8QzyTGdGmNYHVJq7S368eFIeE6Ma1yvkdBRAoiX3kKc=;
-        b=F3Nrj5CVzrp0rGao3LDq/wd/rpFctBVKcKV16RmwBsZUTITmW8sTRxNr4QovwHbLU+
-         rCsBDorAZmtuFx+RuIQ/4JzJUxiggCgbSnIADht37JeSI8KLlLmUYzhLoitbIJhqFLGc
-         rQvC9pA64JbADb1i5gf073EIrf0txFVdofz/QxhzY0OZo/wmLvrC+xGF4V2sfw/3Wylw
-         pPjzxbjccR+JDUyyt2lZJkmoz9RauGr1o0QhDVF/Agflm1r0yDPLK9hM/MUUa5p6+FNX
-         T2w2oyoLoXcn7hYjZ1DH1e01L9UnRuteaBytzkxPrmQz7z7i0l7JKHuQQkuyrMn3pJ+e
-         8hbA==
-X-Forwarded-Encrypted: i=1; AKwUvBxPzmOEEv306oDzDOq/hEMPZQ98HAmCDtwhvbH7gIt3ATMrVGFBDou2vr4lc2Zew0LNnd6BRKtjaC9gnRE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nA7Y6EDDN4/Fz8SWWiSpw0/P3gwR1xzE0f/jUSQAYcC/WPB2/C
-	Cp7VZg1Xgr3pCtqBEQVXMGhIAD14c2IRNkMHn3JxtwT8kzd06frkxQitPhZvE5fgpO/pytC0OIB
-	+I1OGGIRYj3URT/f6KkUf9b7IOciMYdBRV22zbrhkhNsnlrtc16hiBb9mjwnHj8b34Q==
-X-Gm-Gg: AYBFou1/Obtc0e3zECZJ+M4Mfx9RurOazalNCOgRDKpzApVde72ZZPKWOmo2qAoHxlf
-	pJ7GIFpPT5iKxcAMDEcBk0fP/PF02bb6K6s5N6AnwrwLTonMMFy2ty8zAd8qLy42cwuuHiUyXPL
-	z0RRsdbZnNedtQenWKptlDB24SKpqOu/slHUPHPRAEwvTUfteIYNkiOzu0GQug5q9fuzXJg/R9M
-	NIdfemK1m/rEevEy1Mz2S0jE4A/D3cj6F+eRYoI+3KXGNvylhuWNIhhPlWS9VFP6+sPvtSWWgpm
-	ZDG0zAZFxxdrWCsyioVXuel4h7tPQZW4uwNl0OAFrPCxuZArKtxRS2KZxGrOHT8oceb3VcCYjm2
-	CyqjOoqLT4bTTA84GIvMSTbHGfb2M9LWyupYaQ6BGNHpdQg==
-X-Received: by 2002:a05:6000:454c:b0:485:1bcc:67f8 with SMTP id ffacd0b85a97d-4851bcc69c1mr3651063f8f.13.1788341064193;
-        Wed, 02 Sep 2026 02:24:24 -0700 (PDT)
-X-Received: by 2002:a05:6000:454c:b0:485:1bcc:67f8 with SMTP id ffacd0b85a97d-4851bcc69c1mr3650988f8f.13.1788341063712;
-        Wed, 02 Sep 2026 02:24:23 -0700 (PDT)
-Received: from sgarzare-redhat (host-79-53-30-11.retail.telecomitalia.it. [79.53.30.11])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e80388sm6406811f8f.14.2026.09.02.02.24.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 02:24:22 -0700 (PDT)
-Date: Wed, 2 Sep 2026 11:24:16 +0200
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: linux-integrity@vger.kernel.org, stable@vger.kernel.org, 
-	co+6a581c4284f721d4@bugs.sh, James Bottomley <James.Bottomley@hansenpartnership.com>, 
-	Mimi Zohar <zohar@linux.ibm.com>, David Howells <dhowells@redhat.com>, 
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, Jonathan McDowell <noodles@meta.com>, 
-	Ross Philipson <ross.philipson@gmail.com>, Stefan Berger <stefanb@linux.ibm.com>, 
-	Srish Srinivasan <ssrish@linux.ibm.com>, keyrings@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] KEYS: trusted: Fix tpm2_load_cmd() boundary check
-Message-ID: <apfoKo-BdwaLXtkT@sgarzare-redhat>
-References: <20260901205809.2028454-1-jarkko@kernel.org>
+	s=arc-20240116; t=1788341077; c=relaxed/simple;
+	bh=Hk9PncUX78o+Z3x1c1F+sVM7U9AlFTJxz/WKfIrbhuM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TutgSWJZ3uXfs6WrKeZXD02/hDeezjT4t4e7WZab2HkSL4qj+WauKoiHXrdRZSUQyFw2f7iioA7Oz6qKaiy+UGjBbzGXMgAyLbSjC583JxYVuPjOGN+uCWMZ7T2uzsuD5Vv1PTXBl+NGynXNnfRX/Et30MouNN1Wq48xGYTbatc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chinatelecom.cn; spf=pass smtp.mailfrom=chinatelecom.cn; arc=none smtp.client-ip=150.223.194.107
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=chinatelecom.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chinatelecom.cn
+HMM_SOURCE_IP:172.27.0.100:0.404078716
+HMM_ATTACHE_NUM:0000
+HMM_SOURCE_TYPE:SMTP
+Received: from clientip-139.200.108.11 (unknown [172.27.0.100])
+	by smtph3-05.21cn.com (HERMES) with SMTP id E0FF51402F0DF;
+	Wed,  2 Sep 2026 17:24:16 +0800 (CST)
+X-189-SAVE-TO-SEND: +pengqh1@chinatelecom.cn
+Received: from  ([139.200.108.11])
+	by gateway-ssl-dep-7c9d777cd6-4x4jl with ESMTP id 177ced25826e43ab9a4f0348442c340c for hangbin.liu@linux.dev;
+	Wed, 02 Sep 2026 17:24:26 CST
+X-Transaction-ID: 177ced25826e43ab9a4f0348442c340c
+X-Real-From: pengqh1@chinatelecom.cn
+X-Receive-IP: 139.200.108.11
+X-MEDUSA-Status: 0
+Sender: pengqh1@chinatelecom.cn
+From: Qianheng Peng <pengqh1@chinatelecom.cn>
+To: hangbin.liu@linux.dev
+Cc: broonie@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	liuhangbin@gmail.com,
+	pengqh1@chinatelecom.cn,
+	rbm@suse.com,
+	shuah@kernel.org,
+	skhan@linuxfoundation.org
+Subject: Re: [PATCH] selftests: runner.sh: avoid overriding kselftest_cmd_args with empty variable
+Date: Wed,  2 Sep 2026 17:24:15 +0800
+Message-Id: <20260902092415.1459044-1-pengqh1@chinatelecom.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <apfAjBBaSG6Bs2M9@fedora>
+References: <apfAjBBaSG6Bs2M9@fedora>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260901205809.2028454-1-jarkko@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 11:58:06PM +0300, Jarkko Sakkinen wrote:
->tpm2_load_cmd() does boundary checks against the ASN.1 size i.e.,
->payload->blob_len. Address this by passing the decoded blob size to
->tpm2_load_cmd(), and use it for the boundary checks.
+On Wed, 2 Sep 2026 14:22:04 +0800, Hangbin Liu wrote:
+>Hi Qianheng,
+>On Wed, Sep 02, 2026 at 11:05:42AM +0800, Qianheng Peng wrote:
+>> >Oh, I see what you mean now.
+>> >
+>> >    kselftest_cmd_args_ref="KSELFTEST_${BASENAME_SANITIZED}_ARGS"
+>> >
+>> >This is used to retrieve parameters for a *specific* test. When a test does not
+>> >require extra parameters, `KSELFTEST_${BASENAME_SANITIZED}_ARGS` is not set.
+>> >This has the same effect as when a user exports it but does not assign a value.
+>> >
+>> >Therefore, I do not think we need to add a check for this case. Users should
+>> >understand the semantics when exporting the `KSELFTEST_${BASENAME_SANITIZED}_ARGS`
+>> >variable.
+>> >
+>> >Thanks
+>> >Hangbin
+>> 
+>> Yes, if just only adding a check, that really makes no sense.
+>> But there is a issue for the follow case:
+>> ---------------------------------------------------------------------------
+>> User wrote "cmd_args=nice_value" in settings file and want to use the
+>> `nice_value` as arguments for a test program.So the user didn't need to
+>> export something like `KSELFTEST_XXXX_ARGS` because kselftest_cmd_args should
+>> get the `nice_value` as we can see
+>> 
+>>     eval "kselftest_$field"="$value"
 >
->Cc: stable@vger.kernel.org # v5.13+
->Fixes: f2219745250f ("security: keys: trusted: use ASN.1 TPM2 key format for the blobs")
->Reported-by: co+6a581c4284f721d4@bugs.sh
->Closes: https://bugs.sh/b/6a581c4284f721d4/
->Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
->---
-> security/keys/trusted-keys/trusted_tpm2.c | 12 +++++++-----
-> 1 file changed, 7 insertions(+), 5 deletions(-)
+>AFAIK, the setting file is usually used for setting timeout value. As
+>you can see in runner.sh, it checks kselftest_timeout after reading setting
+>file.
 >
->diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
->index 67225dd562a9..01f18bb37047 100644
->--- a/security/keys/trusted-keys/trusted_tpm2.c
->+++ b/security/keys/trusted-keys/trusted_tpm2.c
->@@ -99,7 +99,7 @@ struct tpm2_key_context {
+Yes, I see it. Basically I did similar things to kselftest_cmd_args like things that
+runner.sh did to kselftest_timeout.
+>> But in current runner.sh, kselftest_cmd_args has always been set up by
+>> `KSELFTEST_XXXX_ARGS` as we can see
+>> 
+>>     kselftest_cmd_args_ref="KSELFTEST_${BASENAME_SANITIZED}_ARGS"
+>>     eval kselftest_cmd_args="\$${kselftest_cmd_args_ref:-}"
+>> 
+>> As `KSELFTEST_XXXX_ARGS` was empty, the user unexpectedly lost `nice_value`
+>> written in settings file.
+>> ---------------------------------------------------------------------------
+>> 
+>> According to the implement of runner.sh, it may want to give users two choices:
+>> 1) using arguments in settings file
 >
-> static int tpm2_key_decode(struct trusted_key_payload *payload,
-> 			   struct trusted_key_options *options,
->-			   u8 **buf)
->+			   u8 **buf, unsigned int *blob_len)
-> {
-> 	int ret;
-> 	struct tpm2_key_context ctx;
->@@ -120,6 +120,7 @@ static int tpm2_key_decode(struct trusted_key_payload *payload,
+>I’m not sure if this was the original intention. The configuration file
+>lives under the test directory, which typically holds multiple tests.
+>What if individual tests require different parameters? How would you
+>supply distinct arguments in the config file using only a single
+>`cmd_args` variable?
+>
+Yeah, settings file can't cover every different parameter(maybe neither timeout).
+So `cmd_args` in settings file is only fit for single test which needs special
+parameter such as setting `test_range=1,976` for test_kmod.sh of bpf directory,
+however other bpf tests can ignore the parameter.
+>> 2) or using arguments by export `KSELFTEST_${BASENAME_SANITIZED}_ARGS`
+>> But now users has been forced to use `KSELFTEST_${BASENAME_SANITIZED}_ARGS`.
+>
+>In contrast, `KSELFTEST_${BASENAME_SANITIZED}_ARGS` can target each specific
+>test case individually.
+>
+>Perhaps I have misunderstood the design. Please feel free to correct me.
+>
+I think you are right. I am also not sure the original intention as I just found
+current runner.sh had the feature which can retrieve cmd_args from settings file.
+This feature made me think it can be convenient for users who didn't want to
+export `KSELFTEST_${BASENAME_SANITIZED}_ARGS` everytime they start one test.
 
-	blob = kmalloc(ctx.priv_len + ctx.pub_len + 4, GFP_KERNEL);
+Anyway, glad to recieve more advice whatever next step has more work to do or
+nothing to do.
 
-Pre-existing, but is `+ 4` here useless?
+Thanks and regards,
+Qianheng
 
-I'm not asking to fix here, just noticed while reviewing.
-Maybe we can set *blob_len earlier and use it also in the kmalloc().
-Not a strong opinion, that said this LGTM:
-
-Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
-
-	if (!blob)
-> 		return -ENOMEM;
->
-> 	*buf = blob;
->+	*blob_len = ctx.priv_len + ctx.pub_len;
-> 	options->keyhandle = ctx.parent;
->
-> 	memcpy(blob, ctx.priv, ctx.priv_len);
->@@ -384,10 +385,11 @@ static int tpm2_load_cmd(struct tpm_chip *chip,
-> 	int rc;
-> 	u32 attrs;
->
->-	rc = tpm2_key_decode(payload, options, &blob);
->+	rc = tpm2_key_decode(payload, options, &blob, &blob_len);
-> 	if (rc) {
-> 		/* old form */
-> 		blob = payload->blob;
->+		blob_len = payload->blob_len;
-> 		payload->old_format = 1;
-> 	} else {
-> 		/* Bind for cleanup: */
->@@ -399,17 +401,17 @@ static int tpm2_load_cmd(struct tpm_chip *chip,
-> 		return -EINVAL;
->
-> 	/* must be big enough for at least the two be16 size counts */
->-	if (payload->blob_len < 4)
->+	if (blob_len < 4)
-> 		return -EINVAL;
->
-> 	private_len = get_unaligned_be16(blob);
->
-> 	/* must be big enough for following public_len */
->-	if (private_len + 2 + 2 > (payload->blob_len))
->+	if (private_len + 2 + 2 > blob_len)
-> 		return -E2BIG;
->
-> 	public_len = get_unaligned_be16(blob + 2 + private_len);
->-	if (private_len + 2 + public_len + 2 > payload->blob_len)
->+	if (private_len + 2 + public_len + 2 > blob_len)
-> 		return -E2BIG;
->
-> 	pub = blob + 2 + private_len + 2;
->-- 
->2.47.3
->
-
+>Thanks
+>Hangbin
+>> 
+>> For the case above and making users happy, I did two things in the patch:
+>> 1) If `KSELFTEST_${BASENAME_SANITIZED}_ARGS was empty, keep the value from settings file
+>> 2) If not, set kselftest_cmd_args by `KSELFTEST_${BASENAME_SANITIZED}_ARGS` 
+>> 
+>> Thanks and regards,
+>> Qianheng
