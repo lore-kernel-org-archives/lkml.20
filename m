@@ -1,118 +1,129 @@
-Received: from mta1.migadu.com (out-206.mta1.migadu.com [95.215.58.206])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m1973175.qiye.163.com (mail-m1973175.qiye.163.com [220.197.31.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E94435C1AD
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 01:53:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C73035CB7F;
+	Wed,  2 Sep 2026 01:55:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788314036; cv=none; b=WoWC7V2G9nhThrDxcVJ0uagiok6lCmSNWtIcyw6E/B2mGrllgU53RKY5fODkI6bs901QeOIxD1xFzXFtwzXbkq63AcThAFRWq+1Blf9K7hDzvDN/Z3pjqncLvmnk9xn/F4Px42Wpj9+ovDAFESYlKcQqwgS4ZguB7qx6Jos7xI0=
+	t=1788314133; cv=none; b=VID3W8Pq2ylNpVmTRsDqKMPXFZcbGVe0DKCEDcQgzxt+X8P5CB9bbzw+8O+NIa1lguv4d4WpDJ0DkOtyBdZjXaYG+ohmTInddn03f6bqi0C2UfCS+Jzo//g/Jcwz6ybaQsAkRAvdefoUm5iARcE6a3+o3o/4UkSj0AVRREO6q78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788314036; c=relaxed/simple;
-	bh=sANjPEpEpLPepnknarqjCmElJF9xDw1LQMYHFsbseqc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jeYohct7zfmBYuZ4Tiot2hAbMgJV/dDFu+zSIP0Uq7ATVW/Ck1OkGCpEtKpSmTMhs8Nr5/HCqKKUeFRVvZN3hjTjw5kC2ny3hefaa6dEq5lwFs+IrJ3Bwqzf10moXR3borP4H1sOrLz/k7u8nnAcEL147GqWreJBzcDlk3kkQI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=GQ+NdCPp; arc=none smtp.client-ip=95.215.58.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788314133; c=relaxed/simple;
+	bh=2w3Kv0IkBiFoQ0r/sF0oZdyEMhJ/GKDTKyP9z4kDN+4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Tw9Dy0gEHNYo4C4571JyKGr0jidOFuzxVG1s/c0uncg5OwmpsDESvepWHfMDuqV0HbGZK4/XQ47kN1JaX7nC9yJDN0BFZ7CaKwaMwZToqFzDoXrahjvmYXBaHFbhg2hL5vW4opvypyuDcCudzFBJ+nTWR/GX8vroEUj1y/GYYUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=LYgXzsjW; arc=none smtp.client-ip=220.197.31.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="GQ+NdCPp"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=sANjPEpEpLPepnknarqjCmElJF9xDw1LQMYHFsbseqc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788314027; v=1; x=1788918827;
- b=GQ+NdCPpapvnQSsuw6oVsJepHNPRUSkvpnHnWSBbB4u4k9Hue4vLBptLvK5GK18aA2t7NqhR
- H/V+fodYKDPdyDmzS0Op1rklgkBPyXZjDXklKfoQRKY+F2D2jnIYb4Bq+IYaZM7H4jkFkpaA5+H
- S4ljvkWKFekiy9cYJodpLH/0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a71c7360aea84011;
-	Wed, 02 Sep 2026 01:53:47 +0000
-X-Mizu-Trace-ID: a71c7360aea84011
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 2 Sep 2026 09:53:39 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	Hangbin Liu <liuhangbin@kylinos.cn>
-Subject: Re: [PATCH net-next 1/2] netdevsim: add link speed support
-Message-ID: <apeBoyP1G93wW_VZ@fedora>
-References: <20260831-nsim_speed-v1-0-7a651ee65738@kylinos.cn>
- <20260831-nsim_speed-v1-1-7a651ee65738@kylinos.cn>
- <53215678-05bb-4191-b5ff-aa236b16a96a@lunn.ch>
- <apZzJDVtENpAluhT@fedora>
- <18c7a000-97ad-459a-bb9c-5c821274e9f3@lunn.ch>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="LYgXzsjW"
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4c2d816b7;
+	Wed, 2 Sep 2026 09:39:53 +0800 (GMT+08:00)
+Message-ID: <e419efae-da7c-4766-94f9-4021125bd218@rock-chips.com>
+Date: Wed, 2 Sep 2026 09:39:03 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <18c7a000-97ad-459a-bb9c-5c821274e9f3@lunn.ch>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] usb: onboard_dev: add the Rockchip rk1808
+To: Rudi Heitbaum <rudi@heitbaum.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>
+Cc: Matthias Kaehlcke <mka@chromium.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <aouw7rH6FZxscUTO@0d3a7a881997> <5096877.GXAFRqVoOG@phil>
+ <apFpPP1O45BWXDv5@5be1eda4e59e> <4512468.iIbC2pHGDl@diego>
+ <apGMEsCwly8TCOww@5be1eda4e59e>
+ <84A6832DFD4B9FF2+64806113-d65e-448a-b2c4-ee83e125a665@airkyi.com>
+ <apa6PKthz_vMv3XP@649ea4ce1770>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <apa6PKthz_vMv3XP@649ea4ce1770>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0aa05fc5cbe003a7kunm6f9d1f9f758db1
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGBkYVhpLHk8fSU9NH08ZSlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=LYgXzsjWBJSLWVrpHcoTEHvfZCqyfTpvw27cThFxaxfv+/JZTueYpbZ7RtZAe0igqtVGLYWwIfdFHuCP0pH+z174t6s/zFGIrI7SJ1nndbktJh45Uqe6I+fj5+rnAwMT1JHHn1sSvG04MNdmdzgpize/KSAEq/KwAM/rTahZuqQ=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=ep+oq+yHnM/WBMJtlCFUdAjPKEh0uJ3B/SDc5WqQzHc=;
+	h=date:mime-version:subject:message-id:from;
 
-On Tue, Sep 01, 2026 at 02:43:39PM +0200, Andrew Lunn wrote:
-> On Tue, Sep 01, 2026 at 02:39:32PM +0800, Hangbin Liu wrote:
-> > On Mon, Aug 31, 2026 at 02:16:46PM +0200, Andrew Lunn wrote:
-> > > >  static void nsim_ethtool_ring_init(struct netdevsim *ns)
-> > > > @@ -250,12 +276,16 @@ void nsim_ethtool_init(struct netdevsim *ns)
-> > > >  	ns->ethtool.fec.active_fec = ETHTOOL_FEC_NONE;
-> > > >  
-> > > >  	ns->ethtool.channels = ns->nsim_bus_dev->num_queues;
-> > > > +	ns->ethtool.duplex = DUPLEX_FULL;
-> > > > +	ns->ethtool.speed = SPEED_5000;
-> > > >  
-> > > >  	ethtool = debugfs_create_dir("ethtool", ns->nsim_dev_port->ddir);
-> > > >  	ns->ethtool_ddir = ethtool;
-> > > >  
-> > > >  	debugfs_create_u32("get_err", 0600, ethtool, &ns->ethtool.get_err);
-> > > >  	debugfs_create_u32("set_err", 0600, ethtool, &ns->ethtool.set_err);
-> > > > +	debugfs_create_u32("speed", 0600, ethtool, &ns->ethtool.speed);
-> > > > +	debugfs_create_u8("duplex", 0600, ethtool, &ns->ethtool.duplex);
-> > > 
-> > > debugfs_create_bool() ?
-> > 
-> > I'm not sure if anyone want to set nsim duplex to unknown for testing.
-> > Do you think that we should disable this behavior?
-> 
-> Ah, i did not think of DUPLEX_UNKNOWN.
-> 
-> We need to consider Jakubs reply, what are you actually testing here,
-> do such tests make any sense?
+Hello Rudi,
 
-I'm fixing a bug in bonding that need to test with different speed slaves.
-So I add this feature for netdevsim.
+On 9/1/2026 7:42 PM, Rudi Heitbaum wrote:
+> On Mon, Aug 31, 2026 at 09:41:08AM +0800, Chaoyi Chen wrote:
+>> Hello Rudi,
+>>
+>> On 8/28/2026 9:24 PM, Rudi Heitbaum wrote:
+>>> Hi Heiko,
+>>>
+>>> I hadn't looked in to these from the mainline viewpoint. I had been
+>>> using an adapted vendor script based on the radxa npu_powerctl binary
+>>> which reimplements the npu_reset sequence over GPIO.
+> ... 
+>>> I have the schematics and the working N10 here, so let me look into
+>>> describing these in the .dts and update the onboard_usb_dev.h.
+>>>
+>>
+>> Perhaps we should first check whether the power-on sequence in
+>> onboard_usb_dev.c meets the requirements, as it enables all
+>> regulator supplies at the same time.
 > 
-> If they do, i think some validation would be good here. We already
-> have:
+> Hi Chaoyi and Heiko,
 > 
-> static inline int ethtool_validate_duplex(__u8 duplex)
-> {
-> 	switch (duplex) {
-> 	case DUPLEX_HALF:
-> 	case DUPLEX_FULL:
-> 	case DUPLEX_UNKNOWN:
-> 		return 1;
-> 	}
+> I have done some work on the bringup of the rk1808, and can confirm that
+> it needs six rails up and its reset released before it appears on the
+> bus. There are no ordering requirements, issuing the reset 25 ms later
+> is reliably working. The supply names being "vdd", "vddlog", "vddcpu",
+> "vdd0v8", "vcc1v8", "vccio". This moves the power-on into the kernel
+> and not the userland script. 
 > 
-> 	return 0;
-> }
+> The MAX_SUPPLIES fixed size array needs to be expanded from 2 to 6 to
+> accommodate the rails.
 > 
-> We don't expect a driver to set duplex to 42, so why should the user
-> be allowed to do that?
+> The rock-pi-n10 and the on-die rk1808 (including the onboard VIP8000Nano-Q
+> NPU) are now both running on the 7.2 mainline kernel. The
+> rock-pi-n10/rk3399pro-vmarc-som is booting with the mainline .dts and
+> the rk1808 is booting with an adapted vendor .dts.
+> 
+> The required changes to the drivers/usb/misc/onboard_usb_dev.h are now:
+> 
+>     @@ -6,1 +6,1 @@
+>     -#define MAX_SUPPLIES 2
+>     +#define MAX_SUPPLIES 6
+> 
+>     @@ -134,6 +134,6 @@ static const struct onboard_dev_pdata xmos_xvf3500_data = {
+>     +static const struct onboard_dev_pdata rockchip_rk1808_data = {
+>     +       .reset_us = 25000,
+>     +       .num_supplies = 6,
+>     +       .supply_names = { "vdd", "vddlog", "vddcpu", "vdd0v8", "vcc1v8", "vccio" },
+>     +       .is_hub = false,
+>     +};
+> 
+>     @@ -167,2 +167,2 @@ static const struct of_device_id onboard_dev_match[] = {
+>     +       { .compatible = "usb2207,1808", .data = &rockchip_rk1808_data, },
+>     +       { .compatible = "usb2207,180a", .data = &rockchip_rk1808_data, },
+> 
+> Hoping to get your direction on this, and if this can go through as a
+> single patch, or should be raised as a series. I will raise a v2 of
+> the above if this is suitable.
+> 
+> https://github.com/heitbaum/linux/commits/rock-pi-n10/
+> https://github.com/heitbaum/linux/commits/rk1808/
+> 
 
-The user interface (ethtool) setting is already handled by
-ethtool_virtdev_set_link_ksettings(). Here is the debugfs issue.
-Since no one is asking for setting DUPLEX_UNKNOWN, I can use
-debugfs_create_bool first.
+I took a quick look at your submission. Since it spans multiple
+subsystems, I'd suggest splitting it into separate series by subsystem
+so that maintainers can review them more easily.
 
-> 
-> Also, SPEED_UNKNOWN is -1, so you need debugfs_create_s32().
-
-Ah, yes. Thanks
-
-Hangbin
+-- 
+Best, 
+Chaoyi
