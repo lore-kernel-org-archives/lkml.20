@@ -1,194 +1,170 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE753CFF46
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:07:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42DA0377EC2
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:07:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788332878; cv=none; b=JVXewX6IRoyz4f9bQuE7eJcF70NO8AsznHtnxRPapQGSinqpekOtg9YzLLUeWd9iIE3VP8uaRoawB1cdgl+7gEjtR6y6pE3BAEs7PBmYpjY15rexpXcANtGgfSbY+GRpVpxVDxqoYZMkX2UViByO7PcnM3uIdW/n+/C1dp2d41Y=
+	t=1788332880; cv=none; b=eR8/JBPfqVcEE2PmLyVaAO4vW69ELhZU6qKqA1yqxM91vTkoriSZ0nyImLpI5EyCbjUQ9xZN79DA+gcamkQty9cQvjVsXBzb6w+35EIkhFyBIR3eZnlcHSDTeCC8J76wkopRYtmQg9B7NxQAreGmVnDjKqYUaHZydcQuGn4+99U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788332878; c=relaxed/simple;
-	bh=/TJ2H8gdyaK1NYkQQvBX+IYLM0z/aFm7QycIaKs34Gc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JRIR/aiJRlZUZId0N5YekiZD4OKs/UcuNM/0HNUcdS7zER89f6f8z62Io12HUA/BI0YcYWOS4r0m+JFixITuvXBd3CMpAi/QZE9IZhD0KyfJpQXKfylrhN8iX830j8T+l4qyf6qHgkFJ8LXE+NHFcF2frnYF/CojkuQQCi56dlw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=UpURxqan; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788332880; c=relaxed/simple;
+	bh=E2z5VxL5Xw3RGt5v4/KEBpw/NCagZi+Ml/JNW74PJmc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iqVwrPBUNRfwp2HeRDPyS9jQwFHmFGKmV0I9bx6CNFAg3mMMbT1gi/9TL4bfNXG+LBEyK0MFXWMmji5Cn3WmHnaasF//NsVgUZdvE+cZtqGXgC/GDWmsIvEiBAc0JnFJ3m/0vjcPcHddpPlikcaZZcpifuKn0XtuAR7OiBsgxQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GmLC+OXa; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="UpURxqan"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6826VcLJ3438291;
-	Wed, 2 Sep 2026 07:07:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=jqueDm
-	lp8fVGFacTH4x/TdtvGeQ72hJzCbIm5n2gLLQ=; b=UpURxqan4JVDSXa7mRyaR6
-	4iAx9QTE4Xfu0uoA4rISI/syCuQFRQ+HRhKtIdaRHR8uWQsHYCMVyVG0mUzu1Rk6
-	u+1Mbpu21AgvxBijqcbnnHLQbrpUfCAc+wwQZBIaJiGxMIJAU0PGV6N/ZMdi2HfR
-	o7YeiRPhH96uk0Uy1r/zot7wN6/E+LlQq0ME/FMrEwUFBl4xJk8lXvcKxG4iqRNi
-	8ZQ/YVs582/flc/A6qT71Cb5Q8LPJUPsGQDEuMU29NBHKyHek2Sc/Bn4zat1xHrf
-	Pw3uYWLA+AmdGgzWYc/yBPK9BppHDsWtzHRHZK9PxM6VcO5c3CO+onGh+HYWddWw
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq54vwb4-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 07:07:51 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6826uLuW016566;
-	Wed, 2 Sep 2026 07:07:50 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcark8a8a-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 07:07:49 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68277jnv40370622
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 2 Sep 2026 07:07:46 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C4B152004B;
-	Wed,  2 Sep 2026 07:07:45 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2488820043;
-	Wed,  2 Sep 2026 07:07:44 +0000 (GMT)
-Received: from [9.39.25.199] (unknown [9.39.25.199])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  2 Sep 2026 07:07:43 +0000 (GMT)
-Message-ID: <95913fca-5631-40ff-abed-4afad99722e6@linux.ibm.com>
-Date: Wed, 2 Sep 2026 12:37:43 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GmLC+OXa"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d53197d8b5so6340055ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 00:07:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788332878; x=1788937678; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=klWnmBIl39G/xBabfLBKbtaRH5w80OJ8IP172c6Po0A=;
+        b=GmLC+OXaQkUQKH9o7JvNF/QxnOtodotPOa0yapEg9tTYgUnHdU26+fsukFU8MsWttC
+         ewOLgaRLJi7mbiuib+qeO++dvLoZb5BUJcNRxSPQ1I897NYHVayddoR/hJ7pBhbGbU/u
+         j8SDXcxBc0BplYWiruJk0pe91OciHaNamRa6jAoRprdN+hinq26gWiEM9svF0t6qLbRS
+         vtRg8MKCbgDRMSlsasdTHOSsCLZl3ZR4MXI5XM6izKxaDjmbIKdXh9LdXQjb7cC5ZXVE
+         S/u/qxtw6qNMzJ3DyVJh0htheevJjzYgQuHOTsRP1OVe7knzG6+Ru+nWwkhRg0gV0mxn
+         2f+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788332878; x=1788937678;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=klWnmBIl39G/xBabfLBKbtaRH5w80OJ8IP172c6Po0A=;
+        b=PMgFwfv2c8WHstf4BGryOQbwo4SD3tdni+J7esPJM5VhiAHStNI08rdtL52bPFjIi4
+         7I+jyQNAFDs+sui671z9z2pFHorHQoRGnF3dz2NhfY3Xx+NGrR7mrK0rWAgL0JoHqgIa
+         slX2VojfzFNYtPffHqikjKVrXvllAgehuhYBrxF3sOLGN6ysFG1GE4/7iUjoT6BcvFD0
+         mTZDnx7INuRycjWA863Z5hmeVmlQlxaAvkVnCSqXt3yP5GBnBWSAkjYaW/AhSP93C11L
+         FCXhOVlVhlOo/8cDXt2Qqik6RqeSBKL/UKnTFaBfdDyZak+QNRBn3H3YMyNSSlYANkdU
+         JicA==
+X-Forwarded-Encrypted: i=1; AKwUvBzrzAqq2QbRFjrgd2CJkDTjrTdZD/JMEjZlwkQLCY0sxAIAY9PDook95oTUCPRX6FLKzQdYVAeHdonJKLI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nK+/U93Iev56cxp0rFk6/MR2Lgr+FRybsTsURvt60euYzcnlGp
+	HZCPFCweVdySN0P/O6AAdNXbTj+XLf96L/kKMsXpTM0gw288mnGNbQ1Y
+X-Gm-Gg: AYBFou2NGXBLjL6pb5HdESsranbASyMniy5Zhfdbquxnyzjsw1RRXL1FCXIp9k72kxd
+	TcRMVKmnWBSwNnjs6xNz/irLInrYyNXXn2o1sfHhuNN3RcEJC5GWtKo8EAC9UaxqTVXiQASw3Lv
+	3ApCJZWRmGXcVK3pKYVYZCmesqSITVjJYZ1RErHetaPZ91J37JdBFy/G78nUy8yQip9WZx5tp6D
+	zhl6h84wGLBSv5FZws8YLUzdJeyxPfgIrehQsskA+QkdJ/UR9ODVr4w7T2K7/Dw4REwmFlFljCK
+	SC76QbglZF2/29Vmxi0GKmgMSOVKos93PYLZyf4Qzju6FKpLTwBaWz2f5Ej/6Xrlh9RDW0rjkWG
+	wrsVk8YBUVWxj+7qzTr8+xGCNZdtX1gZdxdUK01qLkA4MbXAKcb+hqJnhXZ5hBtppu6bmbkjuB2
+	2d3S6PEPHChQlb/Gh6D9uulgyd+WWTW/+xwRy64KLqOeX8pQA1g50p85VPa2o6SNN4Yux8EvZnB
+	w==
+X-Received: by 2002:a17:90b:57eb:b0:393:19a3:4f1 with SMTP id 98e67ed59e1d1-39aedfcc06amr4377236a91.6.1788332878001;
+        Wed, 02 Sep 2026 00:07:58 -0700 (PDT)
+Received: from amd.ban-spse ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f079c33f4sm4173256eec.1.2026.09.02.00.07.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 00:07:57 -0700 (PDT)
+From: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
+To: zhaotianrui@loongson.cn,
+	maobibo@loongson.cn,
+	chenhuacai@kernel.org
+Cc: kernel@xen0n.name,
+	lixianglai@loongson.cn,
+	kvm@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
+Subject: [PATCH v2 2/2] LoongArch: KVM: Fix resource leak in kvm_loongarch_env_init() error path
+Date: Wed,  2 Sep 2026 07:07:23 +0000
+Message-ID: <20260902070724.3459457-3-nagachaithanya9911@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260902070724.3459457-1-nagachaithanya9911@gmail.com>
+References: <20260817115847.2705791-1-nagachaithanya9911@gmail.com>
+ <20260902070724.3459457-1-nagachaithanya9911@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] powerpc/entry: Fix double accounting of user time on
- interrupt entry
-To: Aboorva Devarajan <aboorvad@linux.ibm.com>
-Cc: Christophe Leroy <chleroy@kernel.org>, linux-kernel@vger.kernel.org,
-        Ritesh Harjani <ritesh.list@gmail.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        linuxppc-dev@lists.ozlabs.org,
-        Mukesh Kumar Chaurasiya <mchauras@linux.ibm.com>
-References: <20260902050628.2553909-1-aboorvad@linux.ibm.com>
-Content-Language: en-US
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-In-Reply-To: <20260902050628.2553909-1-aboorvad@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA2MSBTYWx0ZWRfX2Fda2uFh0mNG
- Dx7s6ISwy9TyVB0kzxIc67JganGID/Ng0dslNR86GsV9P/tUWs79XrES6ptWIh7Y5BMPcn7ZX70
- V6P6yFRK1NAFFWeO0coHBjz12765J3TaOR6Bbz93wilXaloyZiqjCYmODwn7/A7q2MiMfkbLTV8
- eJONL1nFbKEwQMKW3Eve7bL4kjhHGXnRBwW/jPIKVxkBto1bjFHA5B6/P5aDUPp+aMSjSYnuPnm
- ZO01ha0oy+vJDBXN2dp7zk/WwQD93cuW9fypyAEhQkEOClyV/kBZ5lhG1xLjovJ+KYuoK40BHDj
- PPmLoyx71sBTJoAU6CXjiyMbfoVJvucYfc6UM+7TmE4DAjJTzBC41ff1z6ANzY7eX9C3NfhMzgF
- ASv8/RXCErHbbI47RgD7OgeZ6YzltQ3XKbXXAp+ZhZ6138esVeGeitIKXtXaYQm4lN2aAoEWjhu
- 72WvTQJj5/ZUXGTK2kg==
-X-Proofpoint-ORIG-GUID: LQW84XvbQ_PUEs1dWVIOnTFBkar7WEEq
-X-Authority-Analysis: v=2.4 cv=CNgamxrD c=1 sm=1 tr=0 ts=6a97cb47 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8
- a=bNR6VrasG_76KyUd1lwA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: 8GkaAx_EtORrXSo561M-B6fTQh91EG14
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA2MSBTYWx0ZWRfX2UHp73/8tJcV
- HpYBDvSzAxoF/ArzfHscHq1fu0P/qDeDQu4G4/TxPO/3lq3F6FH59KFyNPjvHCtDgWy9GyyFd1C
- cgJnXJpV0AXv1Lzab7ugiGUSEzHL7TM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_01,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 clxscore=1015 impostorscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020061
+Content-Transfer-Encoding: 8bit
 
-Hi Aboorva.
+kvm_loongarch_env_init() allocates the per-CPU kvm_context (vmcs) and
+kvm_loongarch_ops, registers the perf callbacks, and then registers the
+IPI/EIOINTC/PCH-PIC/DMSINTC KVM devices. If any of those device
+registrations fails, the function returned the error directly, leaving
+everything acquired so far in place: vmcs and kvm_loongarch_ops are
+never freed, the perf callbacks stay registered, and previously
+registered KVM device ops remain registered. kvm_loongarch_init()
+propagates the error without calling kvm_loongarch_env_exit(), so
+nothing else cleans up either.
 
-On 9/2/26 10:36 AM, Aboorva Devarajan wrote:
-> Since the switch to generic entry, an interrupt taken from user mode
-> accounts user time twice: once in arch_interrupt_enter_prepare() and
-> again in arch_enter_from_user_mode(), which irqentry_enter() invokes
-> for the same interrupt:
-> 
->    arch_interrupt_enter_prepare()
->        account_cpu_user_entry()
->    irqentry_enter()
->      arch_enter_from_user_mode()
->        account_cpu_user_entry()
-> 
-> account_cpu_user_entry() accumulates the time spent in user mode
-> since the last return to user space, so the second call charges the
-> same interval again.
-> 
-> With CONFIG_VIRT_CPU_ACCOUNTING_NATIVE=y this roughly doubles the
-> reported user time of any workload that takes interrupts. On a
-> pseries LPAR, ps/top show ~200% CPU for a single-threaded CPU-bound
-> loop, and time(1) reports user time about twice the elapsed time.
-> 
+Unwind the error path in reverse order of registration, so that each
+failure only undoes what had actually been set up. Use the same helpers
+in kvm_loongarch_env_exit() to remove the device registrations during
+normal teardown as well.
 
-Could you please run mpstat with 50% or less loading workload like stress-ng
-and document the difference in changelog.
+Fixes: c532de5a67a7 ("LoongArch: KVM: Add IPI device support")
+Signed-off-by: Chaithanya Lagisetty <nagachaithanya9911@gmail.com>
+---
+ arch/loongarch/kvm/main.c | 32 ++++++++++++++++++++++++++++----
+ 1 file changed, 28 insertions(+), 4 deletions(-)
 
-> Remove the accounting from arch_interrupt_enter_prepare() and rely on
-> arch_enter_from_user_mode(), which runs for both syscalls and
-> interrupts. The duplicate account_stolen_time() call is removed the
-> same way.
-> 
-> Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
-> Signed-off-by: Aboorva Devarajan <aboorvad@linux.ibm.com>
-> ---
-> Verified on a pseries LPAR (CONFIG_VIRT_CPU_ACCOUNTING_NATIVE=y),
-
-Usual default is VIRT_CPU_ACCOUNTING_GEN, selected by NO_HZ_FULL.
-Most distros usually enable NO_HZ_FULL=y.
-
-At hindsight, I don't see the issue dependency on it. But better to be sure.
-> 7.3.0-rc1, single-threaded CPU-bound loop:
-> 
-> Before:
-> 
->    $ python3 -c 'while True: pass' &
->    $ sleep 3; ps -p $! -o pid,etime,time,pcpu
->        PID     ELAPSED     TIME %CPU
->       4980       00:03 00:00:06  210
-> 
-> After:
-> 
->    $ python3 -c 'while True: pass' &
->    $ sleep 3; ps -p $! -o pid,etime,time,pcpu
->        PID     ELAPSED     TIME %CPU
->       4951       00:03 00:00:03  105
-> 
->   arch/powerpc/include/asm/entry-common.h | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/powerpc/include/asm/entry-common.h b/arch/powerpc/include/asm/entry-common.h
-> index c5adb5006361..984294e62568 100644
-> --- a/arch/powerpc/include/asm/entry-common.h
-> +++ b/arch/powerpc/include/asm/entry-common.h
-> @@ -222,8 +222,6 @@ static inline void arch_interrupt_enter_prepare(struct pt_regs *regs)
->   
->   	if (user_mode(regs)) {
->   		kuap_lock();
-> -		account_cpu_user_entry();
-> -		account_stolen_time();
->   	} else {
->   		kuap_save_and_lock(regs);
->   		/*
-> @@ -426,6 +424,10 @@ static __always_inline void arch_enter_from_user_mode(struct pt_regs *regs)
->   #endif
->   	kuap_assert_locked();
->   	booke_restore_dbcr0();
-> +	/*
-> +	 * User and stolen time is accounted here for every entry from
-> +	 * user mode. The interrupt prepare hooks must not account again.
-> +	 */
->   	account_cpu_user_entry();
->   	account_stolen_time();
->   
-> 
-> base-commit: fb442a6673ff1046bf67754957d95880fdb394b5
+diff --git a/arch/loongarch/kvm/main.c b/arch/loongarch/kvm/main.c
+index 3e1005526f4b..c9cb3fc2e560 100644
+--- a/arch/loongarch/kvm/main.c
++++ b/arch/loongarch/kvm/main.c
+@@ -385,27 +385,51 @@ static int kvm_loongarch_env_init(void)
+ 	/* Register LoongArch IPI interrupt controller interface. */
+ 	ret = kvm_loongarch_register_ipi_device();
+ 	if (ret)
+-		return ret;
++		goto err_env;
+ 
+ 	/* Register LoongArch EIOINTC interrupt controller interface. */
+ 	ret = kvm_loongarch_register_eiointc_device();
+ 	if (ret)
+-		return ret;
++		goto err_ipi;
+ 
+ 	/* Register LoongArch PCH-PIC interrupt controller interface. */
+ 	ret = kvm_loongarch_register_pch_pic_device();
+ 	if (ret)
+-		return ret;
++		goto err_eiointc;
+ 
+ 	/* Register LoongArch DMSINTC interrupt contrroller interface */
+-	if (cpu_has_msgint)
++	if (cpu_has_msgint) {
+ 		ret = kvm_loongarch_register_dmsintc_device();
++		if (ret)
++			goto err_pch_pic;
++	}
++
++	return 0;
++
++err_pch_pic:
++	kvm_loongarch_unregister_pch_pic_device();
++err_eiointc:
++	kvm_loongarch_unregister_eiointc_device();
++err_ipi:
++	kvm_loongarch_unregister_ipi_device();
++err_env:
++	kvm_unregister_perf_callbacks();
++	kfree(kvm_loongarch_ops);
++	kvm_loongarch_ops = NULL;
++	free_percpu(vmcs);
++	vmcs = NULL;
+ 
+ 	return ret;
+ }
+ 
+ static void kvm_loongarch_env_exit(void)
+ {
++	if (cpu_has_msgint)
++		kvm_loongarch_unregister_dmsintc_device();
++	kvm_loongarch_unregister_pch_pic_device();
++	kvm_loongarch_unregister_eiointc_device();
++	kvm_loongarch_unregister_ipi_device();
++
+ 	if (vmcs)
+ 		free_percpu(vmcs);
+ 
+-- 
+2.43.0
 
