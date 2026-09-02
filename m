@@ -1,218 +1,378 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010015.outbound.protection.outlook.com [52.101.69.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38F0377A96;
-	Wed,  2 Sep 2026 16:08:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820344A1DFF;
+	Wed,  2 Sep 2026 16:09:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.15
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788365331; cv=fail; b=OdWwG7/+8TJB9NEiCGLPFSKbL87UmhRQDI1PlQtMhJ4L87rP7qz4divqWDWnkgwCdr7VzF4pfnPMtapwR/rpv736XbY6ZWg9h9G6xwwXwB6WFyf9eiHnLyac0CKK9SYwWbHTbat4KLiMVOgZvWlmYjRyruQKMvbJ1GH9dzFvct0=
+	t=1788365348; cv=fail; b=S4FRuE5ektOyZvJj2sQ7QQoohxctdDAIhu8U/6y2t4qz7mSnH3n3ziBWtYOEkN9IrXOmVJRH4n4VDQndLmkmRwSN/Rd96l851AnOEgAmSGjaPXwYT34QjK1yBoXyq8/3vdv0PyihxsNLoiPnYWPkpypSG5b57/li9AssQ50sFKo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788365331; c=relaxed/simple;
-	bh=fSRK2MyD3Y1JAUNq5hStC2Ts1q1b02n3wqjkjPPLEOU=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=BbcqWcfFQNME2WyQ83S7l0paiYYzpDhJksieV8Awkny49TD9KQ9G6ec4+McKENIxBkrY0YZWY0Xfe/ADcqq5bkAQ1VcKROXgEVjrEW7kEan5eparyXn4MzUTvMdoE9Kw3eBSgex65Ox2yu1tGMrsU8DQ8LIY6ZW0AgU5TdKi46Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RgA47Cft; arc=fail smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788365348; c=relaxed/simple;
+	bh=ZePrjdY+sMwxY/Ouww7mQYku3lsjx2Wtt4ffuBCJRyA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=YwmeJt94jvijfNVikPM7dwg2nRQiCn+NemWMCu0T9dlSl714HebPtz6/Fn8w4Ucsqlsk/kI65wMEdigtlw5l6iC0jxwvFAcvmBI8TNSsbOQ6OpIITWFwFIM37r257Mf30KocTawlPU/XSGVeJAQwtBMMXqwEgVKegxUlhNAhjWU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=TtXiWllm; arc=fail smtp.client-ip=52.101.69.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RgA47Cft"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788365329; x=1819901329;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=fSRK2MyD3Y1JAUNq5hStC2Ts1q1b02n3wqjkjPPLEOU=;
-  b=RgA47Cft0UrkrtIHpwBmzuUj8tzUDDuyO1Stb3Z6mWJm6u8a/ALxhojg
-   iGcf6ZndMbNe2T67loLLoIL90zU3ZWn+OtQ+N8OTsicFilSv7e6qEgOKp
-   yEfUTXMMC8wV8Vheuld51vM49RjdymgGG+ZTA/Quar5Dw5jJ/hHy71U5Z
-   VKsYPoxzWncqU7OAxiCQ8Q8rLtsPHJh5YULuP+7tN4Wz1+VbKjO6maSxZ
-   6jITsbhOY6tV7h0ZqIW53ygWyVE59ffObfXo9ural5JwsKrrsacilDVtY
-   zMpjAync35CZA7jBnzgHpAyv1EI2+jk9w/WGolwVN3O2khYNqjuYPEgRb
-   g==;
-X-CSE-ConnectionGUID: YVuhtCGxQoyM8fKggc3PYA==
-X-CSE-MsgGUID: J1nHGtEmQseeS3DrHKt9HQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="89039138"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="89039138"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 09:08:48 -0700
-X-CSE-ConnectionGUID: FQp+BExXR+amUMKYZ9MHNg==
-X-CSE-MsgGUID: go3MoRUGQeiub+bDHAypvQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="299321087"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
-  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 09:08:48 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 2 Sep 2026 09:08:47 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Wed, 2 Sep 2026 09:08:47 -0700
-Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.4) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 2 Sep 2026 09:08:46 -0700
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="TtXiWllm"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QRcoENxBE0nlvnOwQ/l2WUJdEkoXn0InbKAESbBfuEbFh1KN1ha9Wpqw4KMva+noiwbA0CEkRUIGwDLpR0oSPKmcjNkJEZEyssiqKsOK7PxQUwZM84LiPUhX5lj5tvR2Yea4DKfQwshN+Sostd3RWKUxVoNqHpbf6Y5dn8nIbr1JOa9SqQok6RuuRKZmcCdO2ea3tTukTdyG1HP2RAsZThnSardHs+KMM6W4yvzOzgERhTUGicjL3LVRhe+kI9pTqsP2W3hIHLY6vztFaMAeUtJXTO/G7wF8gSZsj2JkkYcuSw/Z2UjwqvHcRvqaN70VDlp0TyV7ZIkGGhn564HtBg==
+ b=ut1IMTMjAN0dsE92xUfmoLSv35cEZDDnXM+csE0qT1o/EuMFr02ephvL+f7o+DlaGDZPaBXnm1p+jbqVXUWVEjzD2kFcwmd3yBwUpZt9BT9BoamE5iZ2R4kFmu0F3MJNHl3ModsDZwUgisvvzyNeUTpFmx0NHCoqLmgZd5Ybrg0hyNSS9NEEceFtUj/p285BvHUkbuZwbZw9tUy6pRB2oTTP8TazcYAN4Mp3APjwlIxy5snuiA+qjNOEcB/IIkDBZZXzBKYOC0/N9/Y7goFZnNN1dkUbomNtlrZS/0n4IzcaLtdBF64BsPUQLbQZ6S2AF9x2MJTvAMJeatZu5jj3ig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=g8RsbM5unjDporY3ERvV2PvfbxuTTafEz3aqPX+36Vw=;
- b=uqXQzEgmQH2WS3Y6eLacRsOApCG81Lo8breCvLExk/KXdpPdynKMg/KtIddlUI4IEm3JaSxqGGyReUrJNsesxkTZSx3PudBT+CeuJbl1mSVH0Dl7NOmbHpAaHLGzckQ15wiK2cLn785ZA8iZkHOK667clS+5eosPlc/h7SuxbWuFOVlEK5wHoXGi7oVe+MngoWg/iw+VLLugH7nkUuAfKXYWVRRc7srY3kIqtgahNSNixDU7RrXgs9WcZZdoH1K/aB29Ty8J1TFh4o5hVawnHjBys/USZXmWvwkYIJcSx0iRmoWNRVlrlXrcj1StrvM4WpKUVnQk1IKKUCShtpf3pQ==
+ bh=oFJd72ZwP/9KqtiFoTdLAkVig2RwokgAJ/e7KmoU8i8=;
+ b=YjYdhFx9V98Wzj9YID4tYqEu/yoPTZNPh4KyveOUXy7+UkKmv3FZnvyIjTgvn7hhxOjW/Hk2+YAGwFfyZrqu+h0h2UlM97hzmMHtbvNCrtxf0bzw9tAdDpPQgiGV8CuG9UEIWPqd18tXSYEpX99W7o4HCFcsMBUnNq/ZcE+P+S/NxvBXwioz42qrXHQOAfGNPcBO0tfLxckN7QxcDr71yGbSmr7jrim0ruaginMLMGQBHOENt9ZZWIVuRceiSQ0r9ePjmmae+OqabHoFGwk+mW3mZFdLUcuV8hFpPu6fRjKoZjeavoWGP1DmgGMugqAvpOmtISLRSQLsVvVzG67uaA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from LV1PR11MB8790.namprd11.prod.outlook.com (2603:10b6:408:2b1::16)
- by LV8PR11MB8486.namprd11.prod.outlook.com (2603:10b6:408:1e8::14) with
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oFJd72ZwP/9KqtiFoTdLAkVig2RwokgAJ/e7KmoU8i8=;
+ b=TtXiWllm3SDaFARuCjfqV/rU5zXwWiZzRQuhpft+ozfwzBZqLRYjfDJkm4X8to8dOPwamLMa5FjkagBqimfcyYi5qT6TRt3SYcFHXcDqj8txrM9vgxzrDzMJT2TOi1epqxuOY598AyqZ3PszD1MlQH7ACJzO1Rl4nd4OLNgVn+VEGBxzxw/Jtykq0rDz+XQ7yESau+25g9mlExhNSuwUDRLo/CCOog5MN1yjlHWgYuqkzwTlGxCgFCkfjUWxB4c1bQloae7YpAQazTjh6GDeJOjaMOk3okylN97NS8spVMmtOzvYzjpJTkgwk4Mgeo1kyJfa475ckwLHTsa+TMPz/Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PR3PR04MB7211.eurprd04.prod.outlook.com (2603:10a6:102:93::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 16:08:43 +0000
-Received: from LV1PR11MB8790.namprd11.prod.outlook.com
- ([fe80::27cb:7a60:19bb:584a]) by LV1PR11MB8790.namprd11.prod.outlook.com
- ([fe80::27cb:7a60:19bb:584a%5]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 16:08:43 +0000
-From: "Nowlin, Alexander" <alexander.nowlin@intel.com>
-To: "Nitka, Grzegorz" <grzegorz.nitka@intel.com>,
-	"intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>
-CC: "Kitszel, Przemyslaw" <przemyslaw.kitszel@intel.com>,
-	"richardcochran@gmail.com" <richardcochran@gmail.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Kubalewski,
- Arkadiusz" <arkadiusz.kubalewski@intel.com>, "Korba, Przemyslaw"
-	<przemyslaw.korba@intel.com>, "andrew+netdev@lunn.ch"
-	<andrew+netdev@lunn.ch>, "edumazet@google.com" <edumazet@google.com>,
-	"Nguyen, Anthony L" <anthony.l.nguyen@intel.com>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "kuba@kernel.org" <kuba@kernel.org>,
-	"pabeni@redhat.com" <pabeni@redhat.com>, "davem@davemloft.net"
-	<davem@davemloft.net>
-Subject: RE: [Intel-wired-lan] [PATCH v3 iwl-next 1/3] ice: monitor TSPLL lock
- from PTP periodic worker
-Thread-Topic: [Intel-wired-lan] [PATCH v3 iwl-next 1/3] ice: monitor TSPLL
- lock from PTP periodic worker
-Thread-Index: AQHdIz0LkQ6MApPOYkyoKerJWosWA7a7o5sw
-Date: Wed, 2 Sep 2026 16:08:42 +0000
-Message-ID: <LV1PR11MB87909453CC6E1C6AD24CEFAD90B72@LV1PR11MB8790.namprd11.prod.outlook.com>
-References: <20260803113507.1858083-1-grzegorz.nitka@intel.com>
- <20260803113507.1858083-2-grzegorz.nitka@intel.com>
-In-Reply-To: <20260803113507.1858083-2-grzegorz.nitka@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: LV1PR11MB8790:EE_|LV8PR11MB8486:EE_
-x-ms-office365-filtering-correlation-id: b8ce2d4a-fc69-401a-4777-08df090c75d2
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|6133799003|18002099003|22082099003|56012099006|3023799007|38070700021|10067099003|11063799006|5023799004|4143699003;
-x-microsoft-antispam-message-info: PArCgSg/b2Rx/5BmZ7jSCX0hUE6uUPnYsZsE8eBbwHpnwj4D5UX2xBzTCNE47Wth3qoy37v77EmM1JQB8Sj8G9fFJHu9mB8/9BSNCbiOx8kRZB9jgpA/e2RzNGoEyeiBVL0b3bluUvIYvGKZoLa97ivMVXuUzp0JVA0hjbXLMflhJMbSNmdAkj+/rCOogTGy5o/gt9NgECTgV0KHeuoW1eFuRVIzdE6eVx/GVMqB/QNsBPFvbsO1aY9muGB9tIfATJJZ7n9rAI6hZIGBensDc+MTLgajagXN9emf468Q3qiGFIlTs2HS0mRwzb6VwothS8NJjgzsr6PjsVTOBpWVFOnTD0qMgAjTRVPL+QG3S9Ro6c8dXqRuviWqDUYdk2hZesyMUY8p6HqcG237a2tW86RYDBz1vlDpzszuNhOE61KBoUydmYivyKQQpScUNMP/R984Nj+Aw21OFaGAZMwX0KVilyAeoHfywa+a+7XQ0EF63F1ajZWlTGQxiK1v556a49QLAPJQyqFlLf8kqDHAxC1n7kmXNgCLmrAsxinmxH5+2lUeAJvbjj07chrD36RyzvDPmTt0IsnHgjaLlw/JtSXrhcJPRSOH0+ElZmZLVyQ8TcBqYFUgWuW7SDxLkAis0jPbT0UI5m8qPvP4qitnpmJ1+AyQlCUsdnUZasxjuWyGv9rRbtrJ0xEl0jQ2sVbXhEiJk4NmmH+f1IKLwoHCDS3nhHTJn4gdJHaCx5q1QEA=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV1PR11MB8790.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(6133799003)(18002099003)(22082099003)(56012099006)(3023799007)(38070700021)(10067099003)(11063799006)(5023799004)(4143699003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Cq2n3SymvQV/jatMLkoj2tTRHFnVsF7JVu0ZO5DCIgwQ6L4co+/z7V/DPs4B?=
- =?us-ascii?Q?MrjK9ZQTbIE/JS2WsIWeHD3NatsCdQZJZwrGEGgN46irA+JwZ3ZUbuZ3fe38?=
- =?us-ascii?Q?nYG9jr6M/ZblSl/kjzK96GwvMkbH/JaDOqaIFjp5uDsO/nEQVJB4NuWeleA0?=
- =?us-ascii?Q?TUeiJkg0swNxvPPVqimJRMOsfs+eRbFwA837+lJ6UYF7iU7jK5ZTiq8MflmF?=
- =?us-ascii?Q?rjf2oFChQw41ZUPQ0vscsWIvHWaJB5hB0PoxzqKdtFqA+/Hl8IIh5cnHR50c?=
- =?us-ascii?Q?Psdltom7xluAuXUd+KUMSSpNsL34LGnoB5HNPa2EInkuZFD9CmZrrJQ+v5j4?=
- =?us-ascii?Q?r3kli5CJOE6AQH4gm9Npfvhj1jb830tKM2SFGNixh/wmHlpsYXACr7EokGPh?=
- =?us-ascii?Q?a4RTGZi8a28/Abjcc4PvmeWJ9g8Tm2BljXy70BKLYEwCtNcPi4Lyn8XMIeCU?=
- =?us-ascii?Q?8Em1r6GTuKbMwcneXw3Hv67vkSZXjsEjPoQDtbKIhSkT5EFrIEurVUb354i7?=
- =?us-ascii?Q?oR/PuCKA7WzZgRVK2wpWIGfM6ccTSmDlBeyEIb58yT4m924j3f/wBs/jwruN?=
- =?us-ascii?Q?bOMYinS4AjEUugwoomIekvVr4f971NCq28T2H1s+2mayLXLNn1dZPtE0ob9h?=
- =?us-ascii?Q?5GcBOK5PinNmY6p6vVJnL0fVldUnIh+iH7TvsAr8KIuhcahqyfFYlN2pJFHZ?=
- =?us-ascii?Q?6iX5RgqOc6zXbIhnOk9gam8MP+zbY4FdfgjdsyfOMSDql1LQtzvcIBbGlZwp?=
- =?us-ascii?Q?gApJsbS7+w5P5a4uiPhq6jfQ5AJ9pmPPnAD8mRZ/H8tS3QeV2yGpKUi1gAaZ?=
- =?us-ascii?Q?oonhPDdV8nnmfsgB70teXMzJF4R+ap9k5lP7ghkwHAD8DhfrN8zZRIweLbEn?=
- =?us-ascii?Q?pvNHmTo3i+NCk+819FZxR8XJteCjfDk4zS63wY19MFbynkonHIoCWxRsbVRg?=
- =?us-ascii?Q?VIWUiTFata/WRnhVvU02y61NZplRT5A+XH1KmdBODZnAWrIx2c45Hfwh9L1i?=
- =?us-ascii?Q?TViowO7yNNAWAnjv+HUfiNLau+8OLfWeC4+sHzoCE4NxRvrYuZoycECjfUpN?=
- =?us-ascii?Q?CrL2kFKC0Rh434rhjxPERafS0sWB/c3ovFnNJrcEKbbXW/xdEVtiuJ1w8SS9?=
- =?us-ascii?Q?DvPIjojnClSsI/t5FNTvJ18nk1SjhHECcv8JX4Eijy6Jw4X0KaebFU26mRjj?=
- =?us-ascii?Q?/ELnvMzAguB1a2W3Fw5i3z3wBHVi0VqQR1VKW+NYJ5PEPjkF781P40SMopIW?=
- =?us-ascii?Q?fl9eofLjjn9dHgPf80YPXppPVmUnW3LgxR6VSA0oXX6oLpnnpX3w35nIqKAw?=
- =?us-ascii?Q?LfXTLonDGwWb3fszgL4dZXpvNS5RLT/Q0VnyiVEHk6fzXGG7B0tGnQflaw7o?=
- =?us-ascii?Q?2XD2JOwSwrM8/8jQKDqnk4HbK0jpO3FAP5fb3yQ7bCoDOwD0PbSe8lJcOp+W?=
- =?us-ascii?Q?jEDlTcAhAAp3n6Decyo6/oXLbIOu/pLQ0ZiKNlr7NyRK9bckuIZMk7r7kw11?=
- =?us-ascii?Q?4ACywKQKsM666DwX3ksAY/P6IVtz3B0v2eqqi0WEde/tgvzMYB9a1CIOKtHU?=
- =?us-ascii?Q?RNFieix8qs/XhxpRxIwVVWjiN5yQnXo/pBwA5Qa3HQDbL7OaOg9CtTdJiDNh?=
- =?us-ascii?Q?KxNIHPZKRJSpg4e7zbM21jde+DLrNsZrjNkb0vIdgySYMnT1F/VeDL4j4/ju?=
- =?us-ascii?Q?1fyN3pxClV6W5p3tFWeOOHP14aMDynlNFfOuWIMt8glts5fe+VWqyGYuB6ST?=
- =?us-ascii?Q?7G2cLra3Gg=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ 2026 16:09:02 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 16:09:02 +0000
+Date: Wed, 2 Sep 2026 11:08:53 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Jia Wang <wangjia@ultrarisc.com>
+Cc: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Pandith N <pandith.n@intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Sia Jee Heng <jee.heng.sia@intel.com>, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 4/4] dmaengine: dw-axi-dmac: Use bitfield helpers for
+ registers
+Message-ID: <aphKFW_klyNwOU21@SMW015318>
+References: <20260902-dma-fix-v3-0-414c6449fbcc@ultrarisc.com>
+ <20260902-dma-fix-v3-4-414c6449fbcc@ultrarisc.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902-dma-fix-v3-4-414c6449fbcc@ultrarisc.com>
+X-ClientProxiedBy: PH1PEPF000132FB.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:518:1::2c) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: 3hUzBCptgEbjMq2AVTiY1CBnReGAoL4go5U2DH9qIpLNMfpH9tmLjJX50Zm1sEHMhRj0c7XAC8fNFfkVZ7HYOvaSq0/Ykl+O/rQhrX4wQZ296KNj/m9gBKxkbLHKDu+ugSc+myGRKIZ+sAg0hqGrBjyb3PNxuSIdyFVhL44KA5liFO6rg3cgI0nctBkz//Ph3O9LR5Xhce293Z76eySVe8SjnHidSio2myO4HMTD/WE6sl0h3LgU+MnAPR4BDpQLQPwVgjZBPUXfRZspyONW4AQ9F0yiiVsXe6WjMU4MeLiW93rk7y39Ikete0P9vOxrPnYTScQxZS5qQll94Ta7+w==
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PR3PR04MB7211:EE_
+X-MS-Office365-Filtering-Correlation-Id: 140881b9-e273-443e-1167-08df090c80f9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|376014|1800799024|23010399003|11063799006|6133799003|56012099006|10067099003|22082099003|4143699003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	WTw7eNPqOYmzooU+t6X2DfkzapJuztrM/R3CdTGPRHBF6NQgvSNRrIF17KMnSNbw+G3ua+meWUj1byPnCwTdkq5mxKbf8iRtq9qGdOQtEWse7M5f8QBz+9Wooug4Xa5QCsGuar0ND+ZdCa391lrBYd02uXnxZbRJpqx2tSXR0cdi279D1cFu5oywxuZWyUo8lK/LAD3UTrBhERlWGCCTxaCONXt0a48rjlk5oDEtyMIljZplUFnjMdbidHuXRkYJOAEecctNqE1uW2Xs0ES67VDMsNRhkpOkuwj/3MUXxpzOGLZxGbSTR/T8g8urZh5Bg/7R88dYFrWiKSS6ed6uOT55ylNhxmMmhKnaWmDgsXtbQdxJ10CYDW2pKgrd8K9X2bELRC5uXvBtvRy84Z97IjYM6h1CLhYY0pUGySDl46fRkaRimhe+IhTWiOn3JDwHwovKlZblQhYozkpGpKApD3IW4iOXmALCWjHgBUyTorvUBSwa23OfE+wSX+O5ZCWz56vG4gr6ZBJH4EtJceWUFOlUiH5F0dxUvtDrZpyyLiUCSfZgTSk7rbz+JIba0o2NhpELmw4q3ivTQDXHd/mCNcbqvjOBsKEBl8h/EO3LiqnxxzXCLUhS1W267QrPchy6iOjBj0T/PJGN0Oev8D967fUl2x68GWnY7WKAaTc2fK0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(1800799024)(23010399003)(11063799006)(6133799003)(56012099006)(10067099003)(22082099003)(4143699003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?cW100CsJDCPBWpKmpQ4SrTTI1q1sr9ppD+M8uUdBBtk7VHba8pbI9IHbbDj9?=
+ =?us-ascii?Q?gMPkxxQ5I5SL/sexBkNMwo6+goab/wAUyqrmzCmsJmLgHAP7hxhqiQDAHu6O?=
+ =?us-ascii?Q?utWMlX2y/g+iEJvOXlkmXSNWUHgEFuQpdkH9FspMUJM/xItTPKOizK4PGe8O?=
+ =?us-ascii?Q?UQo/D4tS7EKGpekw8/YGSrplQRsl+3WcasETIoca0ivRVU26Z72IVl9l1Tm1?=
+ =?us-ascii?Q?lgrmi+AiEXiJFgo2xjfuUiASUmOaLQnBzTu66KLykFB/GTA7gPrVHUAgPNaG?=
+ =?us-ascii?Q?In9cKOqxSmOHjPF9zff46UAUyPYzjdT2VC8ZxK6kM5QTo42W0tqqz7IOZDFS?=
+ =?us-ascii?Q?tynU/uv9IY+1pTpud7O7lP+iWhWhJXX5ZMaBLMLwOQZJsryUABWJtJKJkEG9?=
+ =?us-ascii?Q?J/wg5lpWG2D5WzxX2q3Lsdy/5m3QBFodNqzPksD+JfzJ/Q3pJBcqRJn5ZwpF?=
+ =?us-ascii?Q?q56Gg21ju6L62hftPnlmXSADEEa3YlhrbPKJv86rPRvP3q9SSYP+4deXvdkp?=
+ =?us-ascii?Q?smUqy+WT3L/gKkTnrosM9f8KrHX//oe56WCZ7eo6b38OfRA28VBniAu1KLS4?=
+ =?us-ascii?Q?+wV+MsNjNBybCcwh08+jQyA+vJUb1thL1FgcUdJ1hcpMb1sdMczyIq1CjYsY?=
+ =?us-ascii?Q?RyaG9FnBIfZ+hn4bm6JdE2RsK03GaKvlzUTyUtUUp/DIwgeYWVL2JHXJZ5yQ?=
+ =?us-ascii?Q?87L8X/3hodKSq9z+EUf2oxBW9sp2tSmBgqIJSwGk2SZrXyOCx4c20y4Y8aON?=
+ =?us-ascii?Q?4NjRcWWYvmPosjnt2PxF+u7wiK5OgXoxcZkc9/gunE2Kx5/319sv+cOgBhoD?=
+ =?us-ascii?Q?4LvnhMwa5UCRRD93VRg7d7QOCoziDHh5tzohJUcB1NgelgezIB7keq4/2gYx?=
+ =?us-ascii?Q?kLfluvTEKn4wT3xgzK5n2JY4nMLuDXc7Eh4WhzxfPDZsP2tHb5C81fKkJyWy?=
+ =?us-ascii?Q?RWYypgXaDAQcWhHaw+tqA9NMPGTpbkVkFx1Y8pBBOBD4SpdFbJVWQQs5vzzd?=
+ =?us-ascii?Q?8kLnYpnEQDLHCETVaqKX8mluFr6N9DwyHEttJGvbPt4vyVx7KiI0ssQR1BNK?=
+ =?us-ascii?Q?lfojLN0QfHe6tbyvxXs+y17LM257+f/oWzApWR5flTMTNn3SvSt0zox/BG6B?=
+ =?us-ascii?Q?qjeRQOCdrQvBPVt2LVcn45i2zudvTxtp/PxtDbksMthzliKnYUbjxQbhSZDJ?=
+ =?us-ascii?Q?xtnegGNZ55PIJa6lW5VLW0iFgV39a0M4+66MInBvfe+hdOtjgWatcnBcPBms?=
+ =?us-ascii?Q?GcVoYweZkWdH7trIErD6o95BHW+bp0y02E3RKAkZjy7C9XglOWhLxvCtfWff?=
+ =?us-ascii?Q?g3IBYf56dlv34b5Bg7ZnDOTZ/zfyx4qYx/LDJMRx21mGcL6hkVvxn7f/GGKi?=
+ =?us-ascii?Q?YFDDjML8Xu7qL0DMJ4YiigUMQh458O499WidDORH9vVSo7yAXV5OZwYz2ZiF?=
+ =?us-ascii?Q?eLqy4bjPUQkiNH9dW9MaiX84yrVyWaSxF0lmMLTTwe4s8YRnbzqIOpbkl6VD?=
+ =?us-ascii?Q?DaEC0TL/YoWnDPRPVbYa6mzAlhG0uEWlF2Mo5AmSy0e4Msss3H3+HfZXlTkf?=
+ =?us-ascii?Q?/XUj+H8mIMeNjrdkemgUQbMxLlmCdIrCGuMuSadzCTXuI/eIDtKPJTtLCR9l?=
+ =?us-ascii?Q?MHtuyGZgZ8qhCFmdJfuhlqk5cHB2qwB1heiiEljzDVd68SxHPbLBMPl2yOXH?=
+ =?us-ascii?Q?19SKXPwLMQ72D7sRWk4cbX+zE7CAQa94KnHov5/AqVYuuVJlEKktwdG0U3c6?=
+ =?us-ascii?Q?h8xwwX00lnI4xMTQpRrClChpqsd++ZRajr+NLD1VyT+XcoZy8kYq?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 140881b9-e273-443e-1167-08df090c80f9
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: LV1PR11MB8790.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8ce2d4a-fc69-401a-4777-08df090c75d2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Sep 2026 16:08:43.0355
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 16:09:02.0761
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 22e4r1fPc4vevxfTqZAqIbboPCHliL+kxof4G82Kio0xdp+gtnv/94reFUHBa8ffZxUTvGA6/IfZpxu4HqQhQUTkS+kuZS/oFIzRM0ZBFX0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR11MB8486
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RBzesF8RpPF20jB+wYR7LxDbYiNQ0xknUL1TEsfssT+UhEqvoHRRrx5YcW22FpJHRMQh/QradyDCJBSefAI3lTi62RAZCQCJM9/eYTfgATPcKimYLL9klWkBYXwGDvdk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR04MB7211
 
-> -----Original Message-----
-> From: Intel-wired-lan <intel-wired-lan-bounces@osuosl.org> On Behalf Of G=
-rzegorz Nitka
-> Sent: Monday, August 3, 2026 4:35 AM
-> To: intel-wired-lan@lists.osuosl.org
-> Cc: Kitszel, Przemyslaw <przemyslaw.kitszel@intel.com>; richardcochran@gm=
-ail.com; linux-kernel@vger.kernel.org; Kubalewski, Arkadiusz <arkadiusz.kub=
-alewski@intel.com>; Korba, Przemyslaw <przemyslaw.korba@intel.com>; andrew+=
-netdev@lunn.ch; edumazet@google.com; Nguyen, Anthony L <anthony.l.nguyen@in=
-tel.com>; netdev@vger.kernel.org; kuba@kernel.org; pabeni@redhat.com; davem=
-@davemloft.net
-> Subject: [Intel-wired-lan] [PATCH v3 iwl-next 1/3] ice: monitor TSPLL loc=
-k from PTP periodic worker
->=20
-> On E825 devices that own the source timer, the TSPLL can lose lock when t=
-he TCXO or TIME_REF signal is disrupted. Recovery requires re-enabling the =
-TSPLL via CGU register writes; without it, the PHC keeps running on a degra=
-ded reference indefinitely.
->=20
-> The DPLL periodic worker (ice_dpll_periodic_work()) would be a natural ho=
-me for this monitoring, but placing it there has two problems:
->=20
->   1. ice_dpll_init_e825() sets ICE_FLAG_DPLL only after all initializatio=
-n
->      steps succeed. If any earlier step fails, the driver would run
->      without any TSPLL recovery mechanism.
->=20
->   2. When CONFIG_DPLL=3Dn, the DPLL worker is compiled out and TSPLL
->      recovery would be silently absent.
->=20
-> Add the monitor to ice_ptp_periodic_work() instead, which always runs on
-> E825 owner PFs regardless of DPLL init state or config. Introduce two sma=
-ll helpers, ice_tspll_lost_lock_e825c() and ice_tspll_restart_e825c(), whic=
-h encapsulate the CGU register reads/writes required to observe and recover=
- the TSPLL.
->=20
-> Cache the observed lock state in pf->ptp.tspll_locked using
-> WRITE_ONCE()/READ_ONCE() so a follow-up change can consume it from the DP=
-LL periodic worker (for user-space notification via
-> dpll_device_change_ntf()) and drop the redundant poll+recovery from that =
-path. Precise synchronization is not required: both workers converge on the=
- same value within one poll period.
->=20
-> Reviewed-by: Przemyslaw Korba <przemyslaw.korba@intel.com>
-> Signed-off-by: Grzegorz Nitka <grzegorz.nitka@intel.com>
+On Wed, Sep 02, 2026 at 05:26:14PM +0800, Jia Wang wrote:
+> The driver open-codes several channel configuration and descriptor
+> control bitfield writes with left shifts. Define masks for those fields
+> and use FIELD_PREP() when programming the registers.
+>
+> Valid field values keep the same encoding. FIELD_PREP() confines values
+> to their respective fields, but does not validate handshake numbers
+> supplied through DMA specifiers.
+>
+> Suggested-by: Frank Li <Frank.Li@nxp.com>
+> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
 > ---
->  drivers/net/ethernet/intel/ice/ice_ptp.c   | 70 +++++++++++++++++
->  drivers/net/ethernet/intel/ice/ice_ptp.h   | 11 +++
->  drivers/net/ethernet/intel/ice/ice_tspll.c | 88 +++++++++++++++++++++-  =
-drivers/net/ethernet/intel/ice/ice_tspll.h |  4 +
->  4 files changed, 172 insertions(+), 1 deletion(-)
 
-Tested-by: Alexander Nowlin <alexander.nowlin@intel.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+
+>  drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 75 +++++++++++++-------------
+>  drivers/dma/dw-axi-dmac/dw-axi-dmac.h          | 44 +++++++--------
+>  2 files changed, 61 insertions(+), 58 deletions(-)
+>
+> diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+> index 61230d2b1c56..b4aa6461684c 100644
+> --- a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+> +++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+> @@ -7,6 +7,7 @@
+>   * Author: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>
+>   */
+>
+> +#include <linux/bitfield.h>
+>  #include <linux/bitops.h>
+>  #include <linux/delay.h>
+>  #include <linux/device.h>
+> @@ -101,23 +102,25 @@ static inline void axi_chan_config_write(struct axi_dma_chan *chan,
+>  {
+>  	u32 cfg_lo, cfg_hi;
+>
+> -	cfg_lo = (config->dst_multblk_type << CH_CFG_L_DST_MULTBLK_TYPE_POS |
+> -		  config->src_multblk_type << CH_CFG_L_SRC_MULTBLK_TYPE_POS);
+>  	if (chan->chip->dw->hdata->reg_map_8_channels &&
+>  	    !chan->chip->dw->hdata->use_cfg2) {
+> -		cfg_hi = config->tt_fc << CH_CFG_H_TT_FC_POS |
+> -			 config->hs_sel_src << CH_CFG_H_HS_SEL_SRC_POS |
+> -			 config->hs_sel_dst << CH_CFG_H_HS_SEL_DST_POS |
+> -			 config->src_per << CH_CFG_H_SRC_PER_POS |
+> -			 config->dst_per << CH_CFG_H_DST_PER_POS |
+> -			 config->prior << CH_CFG_H_PRIORITY_POS;
+> +		cfg_lo = FIELD_PREP(CH_CFG_L_DST_MULTBLK_TYPE, config->dst_multblk_type) |
+> +			 FIELD_PREP(CH_CFG_L_SRC_MULTBLK_TYPE, config->src_multblk_type);
+> +		cfg_hi = FIELD_PREP(CH_CFG_H_TT_FC, config->tt_fc) |
+> +			 FIELD_PREP(CH_CFG_H_HS_SEL_SRC, config->hs_sel_src) |
+> +			 FIELD_PREP(CH_CFG_H_HS_SEL_DST, config->hs_sel_dst) |
+> +			 FIELD_PREP(CH_CFG_H_SRC_PER, config->src_per) |
+> +			 FIELD_PREP(CH_CFG_H_DST_PER, config->dst_per) |
+> +			 FIELD_PREP(CH_CFG_H_PRIORITY, config->prior);
+>  	} else {
+> -		cfg_lo |= config->src_per << CH_CFG2_L_SRC_PER_POS |
+> -			  config->dst_per << CH_CFG2_L_DST_PER_POS;
+> -		cfg_hi = config->tt_fc << CH_CFG2_H_TT_FC_POS |
+> -			 config->hs_sel_src << CH_CFG2_H_HS_SEL_SRC_POS |
+> -			 config->hs_sel_dst << CH_CFG2_H_HS_SEL_DST_POS |
+> -			 config->prior << CH_CFG2_H_PRIORITY_POS;
+> +		cfg_lo = FIELD_PREP(CH_CFG_L_DST_MULTBLK_TYPE, config->dst_multblk_type) |
+> +			 FIELD_PREP(CH_CFG_L_SRC_MULTBLK_TYPE, config->src_multblk_type) |
+> +			 FIELD_PREP(CH_CFG2_L_SRC_PER, config->src_per) |
+> +			 FIELD_PREP(CH_CFG2_L_DST_PER, config->dst_per);
+> +		cfg_hi = FIELD_PREP(CH_CFG2_H_TT_FC, config->tt_fc) |
+> +			 FIELD_PREP(CH_CFG2_H_HS_SEL_SRC, config->hs_sel_src) |
+> +			 FIELD_PREP(CH_CFG2_H_HS_SEL_DST, config->hs_sel_dst) |
+> +			 FIELD_PREP(CH_CFG2_H_PRIORITY, config->prior);
+>  	}
+>  	axi_chan_iowrite32(chan, CH_CFG_L, cfg_lo);
+>  	axi_chan_iowrite32(chan, CH_CFG_H, cfg_hi);
+> @@ -677,19 +680,19 @@ static int dw_axi_dma_set_hw_desc(struct axi_dma_chan *chan,
+>  	case DMA_MEM_TO_DEV:
+>  		reg_width = __ffs(chan->config.dst_addr_width);
+>  		device_addr = chan->config.dst_addr;
+> -		ctllo = reg_width << CH_CTL_L_DST_WIDTH_POS |
+> -			mem_width << CH_CTL_L_SRC_WIDTH_POS |
+> -			DWAXIDMAC_CH_CTL_L_NOINC << CH_CTL_L_DST_INC_POS |
+> -			DWAXIDMAC_CH_CTL_L_INC << CH_CTL_L_SRC_INC_POS;
+> +		ctllo = FIELD_PREP(CH_CTL_L_DST_WIDTH, reg_width) |
+> +			FIELD_PREP(CH_CTL_L_SRC_WIDTH, mem_width) |
+> +			FIELD_PREP(CH_CTL_L_DST_INC, DWAXIDMAC_CH_CTL_L_NOINC) |
+> +			FIELD_PREP(CH_CTL_L_SRC_INC, DWAXIDMAC_CH_CTL_L_INC);
+>  		block_ts = len >> mem_width;
+>  		break;
+>  	case DMA_DEV_TO_MEM:
+>  		reg_width = __ffs(chan->config.src_addr_width);
+>  		device_addr = chan->config.src_addr;
+> -		ctllo = reg_width << CH_CTL_L_SRC_WIDTH_POS |
+> -			mem_width << CH_CTL_L_DST_WIDTH_POS |
+> -			DWAXIDMAC_CH_CTL_L_INC << CH_CTL_L_DST_INC_POS |
+> -			DWAXIDMAC_CH_CTL_L_NOINC << CH_CTL_L_SRC_INC_POS;
+> +		ctllo = FIELD_PREP(CH_CTL_L_SRC_WIDTH, reg_width) |
+> +			FIELD_PREP(CH_CTL_L_DST_WIDTH, mem_width) |
+> +			FIELD_PREP(CH_CTL_L_DST_INC, DWAXIDMAC_CH_CTL_L_INC) |
+> +			FIELD_PREP(CH_CTL_L_SRC_INC, DWAXIDMAC_CH_CTL_L_NOINC);
+>  		block_ts = len >> reg_width;
+>  		break;
+>  	default:
+> @@ -708,8 +711,8 @@ static int dw_axi_dma_set_hw_desc(struct axi_dma_chan *chan,
+>  	if (chan->chip->dw->hdata->restrict_axi_burst_len) {
+>  		burst_len = chan->chip->dw->hdata->axi_rw_burst_len - 1;
+>  		ctlhi |= CH_CTL_H_ARLEN_EN | CH_CTL_H_AWLEN_EN |
+> -			 burst_len << CH_CTL_H_ARLEN_POS |
+> -			 burst_len << CH_CTL_H_AWLEN_POS;
+> +			 FIELD_PREP(CH_CTL_H_ARLEN, burst_len) |
+> +			 FIELD_PREP(CH_CTL_H_AWLEN, burst_len);
+>  	}
+>
+>  	hw_desc->lli->ctl_hi = cpu_to_le32(ctlhi);
+> @@ -724,8 +727,8 @@ static int dw_axi_dma_set_hw_desc(struct axi_dma_chan *chan,
+>
+>  	hw_desc->lli->block_ts_lo = cpu_to_le32(block_ts - 1);
+>
+> -	ctllo |= DWAXIDMAC_BURST_TRANS_LEN_4 << CH_CTL_L_DST_MSIZE_POS |
+> -		 DWAXIDMAC_BURST_TRANS_LEN_4 << CH_CTL_L_SRC_MSIZE_POS;
+> +	ctllo |= FIELD_PREP(CH_CTL_L_DST_MSIZE, DWAXIDMAC_BURST_TRANS_LEN_4) |
+> +		 FIELD_PREP(CH_CTL_L_SRC_MSIZE, DWAXIDMAC_BURST_TRANS_LEN_4);
+>  	hw_desc->lli->ctl_lo = cpu_to_le32(ctllo);
+>
+>  	set_desc_src_master(hw_desc);
+> @@ -977,19 +980,19 @@ dma_chan_prep_dma_memcpy(struct dma_chan *dchan, dma_addr_t dst_adr,
+>  		if (chan->chip->dw->hdata->restrict_axi_burst_len) {
+>  			u32 burst_len = chan->chip->dw->hdata->axi_rw_burst_len - 1;
+>
+> -			reg |= (CH_CTL_H_ARLEN_EN |
+> -				burst_len << CH_CTL_H_ARLEN_POS |
+> -				CH_CTL_H_AWLEN_EN |
+> -				burst_len << CH_CTL_H_AWLEN_POS);
+> +			reg |= CH_CTL_H_ARLEN_EN |
+> +			       FIELD_PREP(CH_CTL_H_ARLEN, burst_len) |
+> +			       CH_CTL_H_AWLEN_EN |
+> +			       FIELD_PREP(CH_CTL_H_AWLEN, burst_len);
+>  		}
+>  		hw_desc->lli->ctl_hi = cpu_to_le32(reg);
+>
+> -		reg = (DWAXIDMAC_BURST_TRANS_LEN_4 << CH_CTL_L_DST_MSIZE_POS |
+> -		       DWAXIDMAC_BURST_TRANS_LEN_4 << CH_CTL_L_SRC_MSIZE_POS |
+> -		       xfer_width << CH_CTL_L_DST_WIDTH_POS |
+> -		       xfer_width << CH_CTL_L_SRC_WIDTH_POS |
+> -		       DWAXIDMAC_CH_CTL_L_INC << CH_CTL_L_DST_INC_POS |
+> -		       DWAXIDMAC_CH_CTL_L_INC << CH_CTL_L_SRC_INC_POS);
+> +		reg = FIELD_PREP(CH_CTL_L_DST_MSIZE, DWAXIDMAC_BURST_TRANS_LEN_4) |
+> +		      FIELD_PREP(CH_CTL_L_SRC_MSIZE, DWAXIDMAC_BURST_TRANS_LEN_4) |
+> +		      FIELD_PREP(CH_CTL_L_DST_WIDTH, xfer_width) |
+> +		      FIELD_PREP(CH_CTL_L_SRC_WIDTH, xfer_width) |
+> +		      FIELD_PREP(CH_CTL_L_DST_INC, DWAXIDMAC_CH_CTL_L_INC) |
+> +		      FIELD_PREP(CH_CTL_L_SRC_INC, DWAXIDMAC_CH_CTL_L_INC);
+>  		hw_desc->lli->ctl_lo = cpu_to_le32(reg);
+>
+>  		set_desc_src_master(hw_desc);
+> diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac.h b/drivers/dma/dw-axi-dmac/dw-axi-dmac.h
+> index 97451bb8b16a..b4ed241e87e2 100644
+> --- a/drivers/dma/dw-axi-dmac/dw-axi-dmac.h
+> +++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac.h
+> @@ -234,9 +234,9 @@ static inline struct axi_dma_chan *dchan_to_axi_dma_chan(struct dma_chan *dchan)
+>
+>  /* CH_CTL_H */
+>  #define CH_CTL_H_ARLEN_EN		BIT(6)
+> -#define CH_CTL_H_ARLEN_POS		7
+> +#define CH_CTL_H_ARLEN			GENMASK(14, 7)
+>  #define CH_CTL_H_AWLEN_EN		BIT(15)
+> -#define CH_CTL_H_AWLEN_POS		16
+> +#define CH_CTL_H_AWLEN			GENMASK(23, 16)
+>
+>  enum {
+>  	DWAXIDMAC_ARWLEN_1		= 0,
+> @@ -258,8 +258,8 @@ enum {
+>  /* CH_CTL_L */
+>  #define CH_CTL_L_LAST_WRITE_EN		BIT(30)
+>
+> -#define CH_CTL_L_DST_MSIZE_POS		18
+> -#define CH_CTL_L_SRC_MSIZE_POS		14
+> +#define CH_CTL_L_DST_MSIZE		GENMASK(21, 18)
+> +#define CH_CTL_L_SRC_MSIZE		GENMASK(17, 14)
+>
+>  enum {
+>  	DWAXIDMAC_BURST_TRANS_LEN_1	= 0,
+> @@ -274,11 +274,11 @@ enum {
+>  	DWAXIDMAC_BURST_TRANS_LEN_1024
+>  };
+>
+> -#define CH_CTL_L_DST_WIDTH_POS		11
+> -#define CH_CTL_L_SRC_WIDTH_POS		8
+> +#define CH_CTL_L_DST_WIDTH		GENMASK(13, 11)
+> +#define CH_CTL_L_SRC_WIDTH		GENMASK(10, 8)
+>
+> -#define CH_CTL_L_DST_INC_POS		6
+> -#define CH_CTL_L_SRC_INC_POS		4
+> +#define CH_CTL_L_DST_INC		BIT(6)
+> +#define CH_CTL_L_SRC_INC		BIT(4)
+>  enum {
+>  	DWAXIDMAC_CH_CTL_L_INC		= 0,
+>  	DWAXIDMAC_CH_CTL_L_NOINC
+> @@ -288,17 +288,17 @@ enum {
+>  #define CH_CTL_L_SRC_MAST		BIT(0)
+>
+>  /* CH_CFG_H */
+> -#define CH_CFG_H_PRIORITY_POS		17
+> -#define CH_CFG_H_DST_PER_POS		12
+> -#define CH_CFG_H_SRC_PER_POS		7
+> -#define CH_CFG_H_HS_SEL_DST_POS		4
+> -#define CH_CFG_H_HS_SEL_SRC_POS		3
+> +#define CH_CFG_H_PRIORITY		GENMASK(19, 17)
+> +#define CH_CFG_H_DST_PER		GENMASK(15, 12)
+> +#define CH_CFG_H_SRC_PER		GENMASK(10, 7)
+> +#define CH_CFG_H_HS_SEL_DST		BIT(4)
+> +#define CH_CFG_H_HS_SEL_SRC		BIT(3)
+>  enum {
+>  	DWAXIDMAC_HS_SEL_HW		= 0,
+>  	DWAXIDMAC_HS_SEL_SW
+>  };
+>
+> -#define CH_CFG_H_TT_FC_POS		0
+> +#define CH_CFG_H_TT_FC			GENMASK(2, 0)
+>  enum {
+>  	DWAXIDMAC_TT_FC_MEM_TO_MEM_DMAC	= 0,
+>  	DWAXIDMAC_TT_FC_MEM_TO_PER_DMAC,
+> @@ -311,8 +311,8 @@ enum {
+>  };
+>
+>  /* CH_CFG_L */
+> -#define CH_CFG_L_DST_MULTBLK_TYPE_POS	2
+> -#define CH_CFG_L_SRC_MULTBLK_TYPE_POS	0
+> +#define CH_CFG_L_DST_MULTBLK_TYPE	GENMASK(3, 2)
+> +#define CH_CFG_L_SRC_MULTBLK_TYPE	GENMASK(1, 0)
+>  enum {
+>  	DWAXIDMAC_MBLK_TYPE_CONTIGUOUS	= 0,
+>  	DWAXIDMAC_MBLK_TYPE_RELOAD,
+> @@ -321,13 +321,13 @@ enum {
+>  };
+>
+>  /* CH_CFG2 */
+> -#define CH_CFG2_L_SRC_PER_POS		4
+> -#define CH_CFG2_L_DST_PER_POS		11
+> +#define CH_CFG2_L_SRC_PER		GENMASK(9, 4)
+> +#define CH_CFG2_L_DST_PER		GENMASK(16, 11)
+>
+> -#define CH_CFG2_H_TT_FC_POS		0
+> -#define CH_CFG2_H_HS_SEL_SRC_POS	3
+> -#define CH_CFG2_H_HS_SEL_DST_POS	4
+> -#define CH_CFG2_H_PRIORITY_POS		15
+> +#define CH_CFG2_H_TT_FC			GENMASK(2, 0)
+> +#define CH_CFG2_H_HS_SEL_SRC		BIT(3)
+> +#define CH_CFG2_H_HS_SEL_DST		BIT(4)
+> +#define CH_CFG2_H_PRIORITY		GENMASK(19, 15)
+>
+>  /**
+>   * DW AXI DMA channel interrupts
+>
+> --
+> 2.34.1
+>
