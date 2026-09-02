@@ -1,128 +1,120 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67383416CFA
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:26:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788341165; cv=pass; b=pufT6STnkjXhOxTNLhUBbLzCWdKevcM4f3UGsyO0YI7AGtclxrxAum5NsLKIKtBbRJJUuNZH4H7aPT+HqaaPuKSGRUF+QsCK/NRMdp1rHSdiemrDi3UqNwNfDmYldpmtOx+JQgXvJ0r1Y6RAbtdFmGxawJbCpb0UKf2HJmMo5uA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788341165; c=relaxed/simple;
-	bh=cCUWfn06UMRU6TRNAb8tmxA0a3adzcLoZTCZNoCsaoA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YPr2Sh5r1JB7nAPPXeNxnUDFzUdOqqZJ1IeIU2c42S0GbIzsxRFYFZznPcHM9ibRsgpWv7R9qYuzsU2BXGhUsT63vJNq+CO0iNqHymSNcGGZnBshH1nAzNHLsN8pA50kpg6MQhFsYg/nrMxTZbQA3VdNdQD6L1ylTKRll5xh9co=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tJTy3tKf; arc=pass smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E8D74417BE2;
+	Wed,  2 Sep 2026 09:26:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788341215; cv=none; b=jNUG4CBRH6IoefGJy3GzCeD2jzZ835j1Z3g08I5VGjYo/a9QNOr+dRWuT433aSxNeqUw10ut51251IG77saG0K4B8ifu1wIVkmpzVBzJmhpj/gT7Jg+4bHWWVQWps/BAgW0EbPjZgKoTgcAP2Fkz3VJuWRp0XMiFcX+qG0Z/ic8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788341215; c=relaxed/simple;
+	bh=bOofOIoyu7nVYi6NenUtKXuZTckxrh/YWOiFdf8W5n4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=TnaQuYgGJAIC3ZaaS4MQIbkJNruflQpEBoMN79vtgnXecmW0KeCEhhS2Yt8uhSsUEp2VVcQvsECaS6h+cl2gi+8p2AnhcJZ/9WagxGNDL5c3GJvQ4d448sTqeqFXqplhSGiLUOWyJus9MOx4UZSOVacT6ZMsdGakb+/Dz63EnFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=none smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=KOCmd/Fq; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tJTy3tKf"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a0c8283146so1490125a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 02:26:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788341161; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QJb+des1n8lNjysKdkhfHj02Xaspxkk5lBnvLoGLH9SUaIChkYT7TUo7BK1/+S3DE9
-         Jl3KHiAYxoKRAdfA3aLZ1zSkuhZ0VHtfyXrFlurmXe0XC4H1a0cPBZKfgdSCH0o2Ih+a
-         lwKWQqdWIl3edM33c/d37j5VOfmkRqMDUWllDTDx+TMUkBOssTKHQ99qdTkn5JLzyEHI
-         amrGlCzB3dngSrdwhM+J1x+3U8swycSom51jouh/gyXpjVBgFrwP1mIZ87nEwHkwoOQe
-         gREgNQQNH0Fa3Ou0x4TQs+PZbQJI6CjF2m/HENzIj4ncbWXmGBN4xhPVF1lh7MlxnL9N
-         87JQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Hle8i6U5Zki0AeMEcz+0X3ReRhMA1qAerae52zLL4jU=;
-        fh=KL/NjOa04L9ruC0+8WhsLl3JQ28jLS2PMo/T3d9nWY0=;
-        b=FE61ZwqFW3oWOIwvozMheJvrOXB4sD9cVTvmeYGeDwZI0i7llDYYHhaLU9QA/u7yZV
-         aMxW9J5IwKvlwtASzbYrZlgwpJ/v0KRVPLxqMV+jjPqJ+omSU9rK3/xv85PWhQ04K6KU
-         eX/rUZ3if3H+PIb4AxJUzR7zPhssk+GgQMNMyH0IXrlT30Ifrz3RZMUerOyt6FM0bxeT
-         fb0pYna4SM8waxLEz2ncKGjpPXtJwETJkR/6IyYGlxG7h3EA/VkFbCO0FxfhKAcJM9EJ
-         +zs9rfQL6gOxBAEI0wtLp22YTtOAZlo+W8OpbjhB6GRzW0LaQT9cG7EWRGtOZkna7SgY
-         XXhA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="KOCmd/Fq"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788341161; x=1788945961; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Hle8i6U5Zki0AeMEcz+0X3ReRhMA1qAerae52zLL4jU=;
-        b=tJTy3tKfo6CdOzYaFoRb8dtOF4vPhSskwFJf6NiD/oPdgvNaUoOeluD2V7ee1sMRJI
-         b5g1zx3sgptRSd6f5473Xd4bJFfrSveSKYVcTvQ8pIPju0sbsDOm0zy45hiUC4h+RBJr
-         zJKiC2XrXYEi3GrsBphYSKyDrbIZURCq13NEVxG8w6tJmgAjdWOxJ30jwT4cFT/RG4aQ
-         13sYqKivNDP5lsD5kesfrKcBQWQAIPoi//d60YqkvVHZnRW6Lkem8dx8j/aj2IfqR+qZ
-         WO5ZgeTi+ESIVmaGs4tM+snI6o8qGcoMdAurqpDh5gfBUvaKDthYYNEvts91qu9Zyjka
-         rrwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788341161; x=1788945961;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Hle8i6U5Zki0AeMEcz+0X3ReRhMA1qAerae52zLL4jU=;
-        b=OkAG17tLoT54EoySooP6mYNqeDqu4zgf+6B0WktFViltbFSBe9YJoCNUtHLVSO1+Ye
-         ahvV8sePJ/3v7lpF0VxdLDh/taKE0Hf8LpLXKtYID5Qxp1+2TjSBvdeMtz7HN7pGXK9Q
-         13jN7h1s2HHYykxAsuqlMcVGn8uy5fqWLKNXKEnIDTcjvnLcl/sjlEaueUOU0EJ9xa+b
-         JUVKxk8zi9jlrtdLbR+wvwhkr3plB0N1OUY53PpD5pPrbLphakMyLDhbLmDq4NIDYuaA
-         mWpAzA+T+rBEDXAehYSswlk596bbAoGDiHlP9tzShgSGzghVLOCaan9Mvz/FWtFQDyvV
-         775A==
-X-Forwarded-Encrypted: i=1; AKwUvBxugIPXeHXMlHuhKT2Ee6AlnYq4Uv3MlXE7gJDSqbW/EAeOnqRw1FMw2qTZNwXig9ZvnsP/LxU2XO5uETg=@vger.kernel.org
-X-Gm-Message-State: AFuF++nCak63o8OMNaRZW3VjYEOhmB7mX3AD75jYv77ettEVBIj8xmxC
-	pWf37RVyN9sQ6okYsOnSWu521YmIK8Ebvr9d/t4PfBgicM05VeC9E1zz19jUmlkyiWf9wwdPKrw
-	yGAS2hH+e0BlH0ZbRIZIm70dDps4oDgs=
-X-Gm-Gg: AYBFou1XjB/xAcVI5dn8ZAcXhITpzbunsoxkp0Y/CC4Ykyfimj0Xdykim+KVcX3KP+F
-	U+juzERpmWKx0HEFf4/04nF96wPAXlZ6PwteBZJs6N3fvNPt6EEZF5yzMwZXtZrXMI8h4S2wFZ6
-	2+k+ja3No1+Gm43eyjIE2OFmT3bgttkuy/TsHIEavvGBFFqyf9G5jGNj+uxCDjgCjHt4zbklm16
-	5P9wVGZHAhsYUjdn8kM01xw7R2Of2k/fbF/MlLSYtmvOUR3ZFpedz0j2djZ4HK9GI7igcUc20QI
-	/3g33JquaYiDE3gCW/qNxj4T7PubTKgHx/PH4gzpomKdNmVZCEYcxnVCLmu4rp0dXpWx7Kw1t8C
-	7PDU65u61JOmtLbIYzkaNOaKD6zoyQtk=
-X-Received: by 2002:a05:6402:44db:b0:6a6:6346:af03 with SMTP id
- 4fb4d7f45d1cf-6a68234c350mr2119123a12.5.1788341161195; Wed, 02 Sep 2026
- 02:26:01 -0700 (PDT)
+	d=ultrarisc.com; s=dkim; h=Received:From:Date:Subject:
+	MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	References:In-Reply-To:To:Cc; bh=NMLRxRJLMK5HDpwcoJZdra6d5ORXjPE
+	RdZnGUWgsmkA=; b=KOCmd/FqSArVov9bTIqOH0Cs3YbhLO1a9+g1RPQHbkzaxdT
+	uUle1jJTBs0OTYu9c4XfJUzMqYxEyzVZr5celDBzwGq1ghCRUl8vaG9IZ1kb2uo+
+	lEhhdKhaTr5MRjCjp3eKZhYMKgwCGKMXaZQsLnZ4ize5v/DR1d63piybG5iM=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwDHQAfU65dqiy0AAA--.195S3;
+	Wed, 02 Sep 2026 17:26:47 +0800 (CST)
+From: Jia Wang <wangjia@ultrarisc.com>
+Date: Wed, 02 Sep 2026 17:26:11 +0800
+Subject: [PATCH v3 1/4] dmaengine: dw-axi-dmac: Fix AXI burst length
+ encoding
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788277742.git.mattst88@gmail.com> <a24c28c35c32335822ceb977dc3e860609c50ca7.1788277742.git.mattst88@gmail.com>
-In-Reply-To: <a24c28c35c32335822ceb977dc3e860609c50ca7.1788277742.git.mattst88@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Wed, 2 Sep 2026 11:25:48 +0200
-X-Gm-Features: AcwNN1VHt8YKe3SoQU8DzJLTk-9J9GLSJswVYEvwz3fWJMFoEX6-Et02RNfO27A
-Message-ID: <CA+=Fv5SbH+Qtr9R7O7ujth3pYQp4W6x9ZOX15Sf96rRYUT=wYg@mail.gmail.com>
-Subject: Re: [PATCH 11/24] alpha: select ARCH_HAS_NON_OVERLAPPING_ADDRESS_SPACE
-To: Matt Turner <mattst88@gmail.com>
-Cc: linux-alpha@vger.kernel.org, richard.henderson@linaro.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-dma-fix-v3-1-414c6449fbcc@ultrarisc.com>
+References: <20260902-dma-fix-v3-0-414c6449fbcc@ultrarisc.com>
+In-Reply-To: <20260902-dma-fix-v3-0-414c6449fbcc@ultrarisc.com>
+To: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Pandith N <pandith.n@intel.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Sia Jee Heng <jee.heng.sia@intel.com>
+Cc: dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jia Wang <wangjia@ultrarisc.com>, Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788341193; l=1915;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=bOofOIoyu7nVYi6NenUtKXuZTckxrh/YWOiFdf8W5n4=;
+ b=ebT7NhzYQlERNwALzx1s6tl15BIFs0Gtnud6R72IlV4RTDyVjPNOJlsrrfc2E4BJZ+5La4sTz
+ jQEZtOjMFDJBobd35ZoxgoXymjXO2ScYUl0dbaNYfW69fb+XQo+6AW7
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwDHQAfU65dqiy0AAA--.195S3
+X-Coremail-Antispam: 1UD129KBjvJXoW7ZF1rKryfZFy7CFy3tr1fJFb_yoW8Zryfpa
+	n5Kw4rJFyDtw1qka1kJa47uFyUtFy5KrWIvFW8Zw1S9rZ8X34Svr1kKw1F9r1kAF4rJr4f
+	tF4fJFyrZF1kZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUmm14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
+	x26xkF7I0E14v26r1I6r4UM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+	Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84
+	ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AI
+	xVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20x
+	vE14v26r1Y6r17McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xv
+	r2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04
+	v7MxkF7I0En4kS14v26r1q6r43MxkIecxEwVCm-wCF04k20xvY0x0EwIxGrwCFx2IqxVCF
+	s4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r
+	1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWU
+	JVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r
+	1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1U
+	YxBIdaVFxhVjvjDU0xZFpf9x0JUk3ktUUUUU=
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAREWqVJKMAYAA5sg
 
-Hi Matt,
+The snps,axi-max-burst-len property describes the number of beats in an
+AXI burst, while the ARLEN and AWLEN fields encode that value minus one.
 
-On Tue, Sep 1, 2026 at 5:51=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
-te:
->
-> Alpha has a clean split between user and kernel address spaces: user
-> space occupies 0x0000000000000000-0x000003ffffffffff (TASK_SIZE), while
-> kernel space uses KSEG and vmalloc regions near the top of the 64-bit
-> address space. These are strictly non-overlapping.
->
-> This enables optimizations in BPF and tracing that can skip address
-> range checks when user and kernel pointers are distinguishable by
-> address alone.
->
+The driver keeps axi_rw_burst_len as the actual burst length so that
+dma_device.max_burst reports the correct value. However, it also programs
+that unencoded value directly into the hardware fields. A value of 256
+therefore overflows the 8-bit fields and can cause AXI decode errors.
 
-I tested this on an AlphaServer ES40. The kernel built and booted
-successfully with CONFIG_ARCH_HAS_NON_OVERLAPPING_ADDRESS_SPACE=3Dy.
+Subtract one only when constructing hardware descriptors, while keeping
+the actual value for dma_device.max_burst.
 
-I verified that userspace mappings were below TASK_SIZE
-(0x0000040000000000), while the kernel text was in the high Alpha
-kernel address range:
+Fixes: c454d16a7d5a ("dmaengine: dw-axi-dmac: Burst length settings")
+Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+---
+ drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-  0x000002000025a000  highest observed userspace mapping
-  0xfffffc0000310000  _stext
+diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+index eebed2474210..742e08cfab43 100644
+--- a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
++++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+@@ -706,7 +706,7 @@ static int dw_axi_dma_set_hw_desc(struct axi_dma_chan *chan,
+ 	ctlhi = CH_CTL_H_LLI_VALID;
+ 
+ 	if (chan->chip->dw->hdata->restrict_axi_burst_len) {
+-		burst_len = chan->chip->dw->hdata->axi_rw_burst_len;
++		burst_len = chan->chip->dw->hdata->axi_rw_burst_len - 1;
+ 		ctlhi |= CH_CTL_H_ARLEN_EN | CH_CTL_H_AWLEN_EN |
+ 			 burst_len << CH_CTL_H_ARLEN_POS |
+ 			 burst_len << CH_CTL_H_AWLEN_POS;
+@@ -975,7 +975,7 @@ dma_chan_prep_dma_memcpy(struct dma_chan *dchan, dma_addr_t dst_adr,
+ 
+ 		reg = CH_CTL_H_LLI_VALID;
+ 		if (chan->chip->dw->hdata->restrict_axi_burst_len) {
+-			u32 burst_len = chan->chip->dw->hdata->axi_rw_burst_len;
++			u32 burst_len = chan->chip->dw->hdata->axi_rw_burst_len - 1;
+ 
+ 			reg |= (CH_CTL_H_ARLEN_EN |
+ 				burst_len << CH_CTL_H_ARLEN_POS |
 
-This confirms that the observed user and kernel virtual address ranges
-are non-overlapping.
+-- 
+2.34.1
 
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
