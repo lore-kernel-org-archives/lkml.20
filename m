@@ -1,149 +1,107 @@
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A15B48C8CA;
-	Wed,  2 Sep 2026 22:26:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1AA0391E44
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 22:27:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788388003; cv=none; b=qvhEyJecdkX3TTh44/3kZHNEWB5Y10qurRfV0TdwisByw8eWw7XUDgSb5/VKCUd2N10zklXFtK1qu7pTPPZKbdVeN40xc/KtlWnVgiEJRdtp+q81ZZhdJrvcQpGz/4W4ekmJOdJAdTmfmlG9SDFjAE6Vct8aJxPxP2T7+095AbA=
+	t=1788388045; cv=none; b=teX3S/tgRuic7GNmLm2PkE4J+bnA0gDylTCRWQBz+PuFhLUSPF8yT21o7eqby+yu35KwJUnKJJjK7Hkg/GG01fElgIJTJww/FB/8vuoPahj29OLy0Rqx7QUWqqYwnY7IRGjyK0ZzJP7PSHpQha6akLI9JaK26cbuDUuIesDdRZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788388003; c=relaxed/simple;
-	bh=i4XnAdPCSCXXhlSSpAFj+EABq9LYqe29rBAXKjPTtJo=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SpyR0ojgLciMLntqscmEUXKx0B7ijE0yN9upyHJld8mQ9XAU/Bsi7NFKgLyAMIqKBPPCTyi/UBvSar/5hG+lrLFB2Xf8l/0Y0m0+ZYa5gZbEim+DEDae8csZn7gYHalD/xl4AYdfsVDUPUTZftloSJhMZT0AHikc3BUpn1+hdGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=EhG5mpwG; arc=none smtp.client-ip=178.238.236.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	s=arc-20240116; t=1788388045; c=relaxed/simple;
+	bh=qod8uFD5X0LYO+b4+CI9/2lX83GXDXi4jB0ZmbicHE4=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=KacPZkj+NKbueCfMgXLCo1zHQTV3zGxqqW3bBPqAha+AsGMJeNu8tu94K4qxKK6L1EQyAR+3hrBpMTr8ezP+D5wmlyAUgNa4Or08jK8YZCxbaxEq4KTX94enaZu23HDv8J8ROa6K2ooJ+UnFsSZIEKs6nkq7Tu33O0hXx1vLbf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fU5LhYal; arc=none smtp.client-ip=209.85.210.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="EhG5mpwG"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Subject:Cc:To:From:
-	Reply-To:Content-ID:Content-Description;
-	bh=ctmXGPbo7OIYgEQDCW0LBaFoEMOTs0bTZttwnqakCXk=; t=1788388001; x=1789597601; 
-	b=EhG5mpwGlSDJoqKN5nlA+/2UikZT6n1iK9cj6RE6QOC1SO/DzBLeIZ3E8H08YTlW+TREcymap28
-	bKLEUKk6m0DHsi36lL7mD4HPehRrGCgFVRMRhfigBUjoUWH3zhZzBxxR4GZ94dINqh1PmLDfkTDt1
-	tDqAxMQHW9U35VAPuLkGX7iP46okTXW+B3XzORyclfmArv47nwVbY8xLDDhf+impTcb+O0EcT1AxO
-	LLryjoUy+Q88IFxF+Qhlu/vq1BWYcuvYni7MGx6ZPY9W0ERkQUSEa0tUp98ra0+GW/MH89IQNfis8
-	8hN2irxEY9zpN3RBlVQa+C0mLHnuxb+qGcFA==;
-Date: Thu, 3 Sep 2026 00:26:26 +0200
-From: Andreas Kemnade <andreas@kemnade.info>
-To: "Mathieu Dubois-Briand" <mathieu.dubois-briand@bootlin.com>
-Cc: "Tero Kristo" <kristo@kernel.org>, "Michael Turquette"
- <mturquette@baylibre.com>, "Stephen Boyd" <sboyd@kernel.org>, "Brian
- Masney" <bmasney@redhat.com>, "Tony Lindgren" <tony@atomide.com>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>, =?UTF-8?B?VGjDqW8=?= Lebrun
- <theo.lebrun@bootlin.com>, =?UTF-8?B?R3LDqWdvcnk=?= Clement
- <gregory.clement@bootlin.com>, <linux-omap@vger.kernel.org>,
- <linux-clk@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <hns@goldelico.com>
-Subject: Re: [PATCH v2 0/2] clk: ti: mux: resolve parent clocks by DT index,
- not by name
-Message-ID: <20260903002626.18f51816@kemnade.info>
-In-Reply-To: <20260902111556.38645f32@kemnade.info>
-References: <20260727-mathieu-wdt-clock-theo-v2-0-c048a6394436@bootlin.com>
-	<20260902082639.69643254@kemnade.info>
-	<DL4OUCXRGBEA.2G2WHI4FH2AY8@bootlin.com>
-	<20260902111556.38645f32@kemnade.info>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fU5LhYal"
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8544b721ce9so2131984b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 15:27:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788388040; x=1788992840; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=EuGXYbNcTKTCYbduX6+7f7tE5bAUclJinuJ3l4QV8iI=;
+        b=fU5LhYals+QTGXIkIHfKJVEcIxI9lOdeSMCllmBaCHtUbsT2DFPiEifpHGd+yhvQcx
+         d7fgC+AUdW4E73DX2i+uj0l3slVQwHRSVY7uCxk41Ccd9uYMnmmUEzBbKqnE8W5hvmsK
+         h7jr7cqfdI+mdp8bjjm0vAJcBg6nlEGQQ3hyr2nXLBpJr89hb+7kKFvO0LgUwfKHEV/x
+         1Ybe1Nr2By7UfIzl0irpX55SSAf4YSSad82W+31aVZr8NamEyY2Z4G5o00UEI1bV2ZQl
+         P0H1PHwsdqkb3JOZ5PF6tbi/jHFDPfwRlP6ytMogBsDtuNzqqtCysPAvhQV2laVhaK4f
+         f/7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788388040; x=1788992840;
+        h=content-transfer-encoding:content-type:cc:to:from:subject
+         :message-id:references:mime-version:in-reply-to:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EuGXYbNcTKTCYbduX6+7f7tE5bAUclJinuJ3l4QV8iI=;
+        b=c7uoKsq4eob2NVAbLBzw4K+xQbJzwa/rWfyFT9bAUPIijCPL6oo3Mz98db9f1SK/vv
+         HFNipd0uFhDxNlY3uw9QYDBHJ32uQeIUzBP/hrGU0si8qEXc6KOaGYIzUKUTDf5HbG4+
+         L1z3l8CEvQBPP0KfmEZtf8sjsP9EWvfzVD3HGpRtZdOcJ1MR2bUfRbjeyDNzs5BNb0JN
+         TkPWjoNpJi1gjz7jfTQSPP227zNfIpVANvMSD3tNUNhATz9xuhQufqm5k7b5RKjpiaMD
+         2rvOV/UvdE14gxfOXUbw/rqnwmdhqpJJgfBagim99OJIctV2gN3fhzyie7zv+oqAuDBi
+         MttQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzc7P7YIy0B7iQnw6f5diGuYkUrjcrS7djKvnvPdNwi3H5YFJ5uGccDqyE73ZY4KTj6pdNOzQhmZx7m0tI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mo9aYkLBTGBIlqzVg7IaB907e6L3CWZhFfAzyp31dBdqrH3wCb
+	9MGoB08WDt+obyPxxs+dBISgw3DI2Wuq5jqDJcxCIAr7J6wRwV+EoryRjYVlDKLVrbIYB/jhWWk
+	6zO5swQ==
+X-Received: from pfei16-n2.prod.google.com ([2002:a05:6a00:c050:20b0:84a:2e0d:e14f])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:17a3:b0:857:7337:5dbc
+ with SMTP id d2e1a72fcca58-85ed9f9eea9mr11940373b3a.26.1788388039795; Wed, 02
+ Sep 2026 15:27:19 -0700 (PDT)
+Date: Wed, 2 Sep 2026 15:27:19 -0700
+In-Reply-To: <CADrL8HULbB2HUSOJ0ivZnkz7V4Ok_jgDQk3hAc0tR6NKHp+6-g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20260902211759.2700289-1-seanjc@google.com> <CADrL8HULbB2HUSOJ0ivZnkz7V4Ok_jgDQk3hAc0tR6NKHp+6-g@mail.gmail.com>
+Message-ID: <apiixwndH6vY_BQX@google.com>
+Subject: Re: [PATCH] KVM: x86/mmu: Always guard rmaps with mmu_lock on
+ PREEMPT_RT=y kernels
+From: Sean Christopherson <seanjc@google.com>
+To: James Houghton <jthoughton@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	David Woodhouse <dwmw2@infradead.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2 Sep 2026 11:15:56 +0200
-Andreas Kemnade <andreas@kemnade.info> wrote:
+On Wed, Sep 02, 2026, James Houghton wrote:
+> On Wed, Sep 2, 2026 at 2:29=E2=80=AFPM Sean Christopherson <seanjc@google=
+.com> wrote:
+> > @@ -1745,11 +1776,15 @@ static bool kvm_rmap_age_gfn_range(struct kvm *=
+kvm,
+> >         gfn_t gfn;
+> >         int level;
+> >
+> > +#ifdef CONFIG_PREEMPT_RT
+> > +       guard(read_lock)(&kvm->mmu_lock);
+> > +#endif
+>=20
+> Future me would be happier if there were a comment here. :)
+>=20
+> Also, how about BUILD_BUG_ON(!CONFIG_KVM_MMU_LOCKLESS_AGING)?
 
-> On Wed, 02 Sep 2026 10:30:02 +0200
-> "Mathieu Dubois-Briand" <mathieu.dubois-briand@bootlin.com> wrote:
-> 
-> > On Wed Sep 2, 2026 at 8:26 AM CEST, Andreas Kemnade wrote:  
-> > > Hi,
-> > >
-> > > this seems to produce on OMAP3 (DM3730), even with the init fix.
-> > >
-> > > [    0.000000] clocksource: 32k_counter: mask: 0xffffffff max_cycles: 0xffffffff
-> > > , max_idle_ns: 58327039986419 ns                                                
-> > > [    0.000030] sched_clock: 32 bits at 33kHz, resolution 30517ns, wraps every 65
-> > > 535999984741ns                                                                  
-> > > [    0.013488] clk: failed to reparent gpt1_fck to omap_32k_fck: -22            
-> > > [    0.019805] Failed to initialize '/ocp@68000000/target-module@48318000/timer@
-> > > 0': -19                                                                         
-> > >
-> > > Regards,
-> > > Andreas    
-> > 
-> > Hi Andreas,
-> > 
-> > That one will be a bit harder for me to debug, as I'm not sure I can
-> > easily get this hardware. But looking at the device tree and the
-> > reference manual, I suspect something is wrong in the omap3 device tree.
-> > 
-> > In omap3.dtsi, we have this node [1]:
-> > 
-> > &timer1_target {
-> > 	ti,no-reset-on-init;
-> > 	ti,no-idle;
-> > 	timer@0 {
-> > 		assigned-clocks = <&gpt1_fck>;
-> > 		assigned-clock-parents = <&omap_32k_fck>;
-> > 	};
-> > };
-> > 
-> > I suspect that's the source of the error: __set_clk_parents() in
-> > drivers/clk/clk-conf.c will try to set &omap_32k_fck as a parent of
-> > &gpt1_fck. But looking at omap3xxx-clocks.dtsi [2], &omap_32k_fck is not
-> > a valid parent:
-> > 
-> > 	gpt1_fck: gpt1_fck {
-> > 		#clock-cells = <0>;
-> > 		compatible = "ti,composite-clock";
-> > 		clocks = <&gpt1_gate_fck>, <&gpt1_mux_fck>;
-> > 	};
-> >   
-> the composite clock is meant to combine the two clocks into one,
-> so you have one single clock with enable/disable functions and
-> parents. At least that seems to be the idea.
-> 
-> If the system fully boots, you see:
-> localhost:/sys/kernel/debug/clk/gpt1_fck# cat clk_possible_parents 
-> omap_32k_fck sys_ck
-> 
-> > Yet the &gpt1_mux_fck is a mux, and one of the parent is indeed
-> > &omap_32k_fck [3]. So I suspect the correct assigned clock parent in
-> > timer@0 should be &gpt1_mux_fck.
-> > 
-> > Can you try it that way?
-> >   
-> [    0.000000] OMAP clocksource: 32k_counter at 32768 Hz                        
-> [    0.000000] clocksource: 32k_counter: mask: 0xffffffff max_cycles: 0xfffffffs
-> [    0.000000] sched_clock: 32 bits at 33kHz, resolution 30517ns, wraps every 6s
-> [    0.013458] dmtimer_systimer_setup: clock source init failed: -517           
-> 
-> The system does not boot much further.
-> 
-I got this a bit further by fully replacing this composite clock.
-With the system having a system timer, it boots till login prompt.
-But:
+I completely forgot we even had that Kconfig.  I'm somewhat tempted to gate=
+ the
+alternative implementation on KVM_MMU_LOCKLESS_AGING=3Dn, not take mmu_lock=
+ here,
+and then "select KVM_MMU_LOCKLESS_AGING if PREEMPT_RT=3Dn".
 
-[   32.069946] omap_dm_timer_set_source: failed to set timer_32k_ck as parent
-[   32.094116] omap-dmtimer-pwm pwm-11: invalid pmtimer fclk rate
-[   32.094146] pwm-backlight backlight: error -EINVAL: failed to apply initial PWM state
-[   32.094177] pwm-backlight backlight: probe with driver pwm-backlight failed with error -22
+My main hesitation is that taking mmu_lock for read would be impossible wit=
+hout
+extending kvm_handle_hva_range() even further, which IMO isn't worth doing =
+unless
+multiple architectures want to take mmu_lock for read.
 
-This clock comes from here:
-clk/ti/clk-3xxx.c:	DT_CLK(NULL, "timer_32k_ck", "omap_32k_fck"),
+Ugh, I shouldn't have thought those thoughts.  s390 does exactly that.
 
-So same pattern. A composite clock cannot get its parent because there
-is the expection that such behave like a combined clock made from mux + gate clock.
-
-
-I have not found out if the early registration stuff in timer-ti-dm-systimer.c
-is part of the mess. OMAP4 devicetrees I use, use assigned-clock-parents in
-combination with ti,clkctrl clocks. That seems to work.
-
-Regards,
-Andreas
+Oh, wait, never mind.  That doesn't work for x86, because we want truly loc=
+kless
+aging for the TDP MMU.  So ignore that train of thought, this patch is the =
+way
+to go.  +1 to adding a BUILD_BUG_ON() and comment thought.
