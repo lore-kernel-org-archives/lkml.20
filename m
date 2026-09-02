@@ -1,89 +1,348 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65102F6565;
-	Wed,  2 Sep 2026 02:49:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D3212F12DA
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 02:52:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788317344; cv=none; b=FpFH30/qkIMtFnF2mJyxbiav4oIoeIkZ2q8hukVilq+Za6LAM/wPW/w3Q6OLOv6iXI9CCk3TLWCqjTHyQetj1AAiOZzmm2vOOynk0sMEEvVA8Qukvxr1vuMS6M9bpRnS62HKtJUgsxvtF0A+p1TZMRoeu0Qi5f1NlhSuMKFSOt8=
+	t=1788317539; cv=none; b=jrD0R32cdr0cKhSbKnTwqiuS8o/K5LxDP94ZHKphAkcZfk2Kflt1hu0f0Rha5VyxYmdKcpf7BFjGMPYh35/B3r8TIrNJNz0dgUHeXbyR/d04soHZSxvMjlWwOJjmkHRRLAALMI9+qoUWPuAaGU/SrGtWvh2nNvJVl2FEMhFTqs0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788317344; c=relaxed/simple;
-	bh=CDAJzbYFopNuEjEPfB4EVEmiwJ+X3rMUurCQCJyw9jQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oglSF99HjDp0iQtxE441FflXx6ijtgrKFGFAMgWUo9tIif44lzCvq3rlQAOhzH7bhZtL6sZffhCr1Si0uqzBlldfoaoTAYXFqGSyfT5/7VQ1AouoNN3vuZuqp1v2hCyTXjAkuF2DjvIaDkuf/Xy1J7OWCHIuYFFnZx+aH2oS5k0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=WcQI6P17; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1788317539; c=relaxed/simple;
+	bh=YeV15R2lDRiVzc/laEc1ZaaizGWz3jJF/D0Qx6RqRec=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PI5+HDKNeVX+DZn3aF3Klub4TShvyAF7cactXFYmHgshdcdYwoOL6TlEVbBGCaJ+CuiEYocMhn9P/wRlz9rmdmvIL+ZBjNPb1IdT4MRPkWY9ewUeALvCoi/wQvP+xH1gNWcoUPee0ySWq0aZv3/McwdZATcSq0IK6fgw/Aa06yk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r/7I0AbV; arc=none smtp.client-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="WcQI6P17"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 084FE40E027F;
-	Wed,  2 Sep 2026 02:48:59 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id 7NmeUwCEEEgc; Wed,  2 Sep 2026 02:48:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1788317328; bh=8FhQLUNASJhKidoY+QLjPNwf1uqxBH4I+mVz4+wIwkY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=WcQI6P17kwI2Vjis9arQDZz/G1Camb4d2mbkT5zFvrQM08FAfptsDyIb9LXijboQQ
-	 Hd19o/BuIg4IVY4fr1CvDQSjkzoG8GovSjbgTnVuxQ+hJOHyhW5V/xTlwkzT4LL6eF
-	 WloHiqD+koeBQdgfA083JmlrxuCfP7AHqRMAz+/PsZgyFhVA9K4NfIntlEZiedjZwL
-	 6UJxBZnkJ1aCjzIBJdbqZvyQlAh2Tlm3T7Ad5otlksk7iibN9NlVTGXgBeOgEMxw/e
-	 f0WRgHoa2AQ5O8RNXI35ILgaBBGe1y6b/sCP5WsR6EgIP68QnG719Uleklqoaxkhq4
-	 rnU1V9rwtZdWc5msq+dH31yOjRWAfyjAErTKpnP2lXC2Nrk2rQgJlR4FXQ7TIOuIqq
-	 bGuNjdC88fMmIAcy6+/JnBNuqUlRTOeLpnwuZZMnHC5UdRX8MaoF3QnU+8Px13TYSy
-	 nW3Q8K9YY0BBYbls9NA97v9LBPAOFnbjkbJn76hkAWzaddGXlRSx7URGULdPdEEi4m
-	 LuSiq5xZvSmanCzXW4Bmxy9SZKyZUhfjB0XYLZyyNLZYOEZMR5+pp4xrp5V78vXhwH
-	 FxEEJsEA4jdfZ4o6mfGSeTZcJmd9rF3/YoS0059YIzA4A3ji6CGYN3QPmpIoJIHVIR
-	 1VuxgDtgRzpniDdaSWG4xfJE=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 0F94F40E024B;
-	Wed,  2 Sep 2026 02:48:36 +0000 (UTC)
-Date: Tue, 1 Sep 2026 19:48:33 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Lin Wang <wanglin@open-hieco.net>
-Cc: yazen.ghannam@amd.com, mario.limonciello@amd.com, tglx@linutronix.de,
-	mingo@redhat.com, dave.hansen@linux.intel.com,
-	"H. Peter Anvin" <hpa@zytor.com>, bhelgaas@google.com,
-	x86@kernel.org, linux-pci@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r/7I0AbV"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc147d86bebso719515a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 19:52:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788317537; x=1788922337; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yzTJ93PCaEZ5D5jmlYA5kUGeF6TKHbLfz1jwc+xMCyE=;
+        b=r/7I0AbVBo3d8GKzPF22GrmiLD4h7cwcx2qnft4p/akNjwJoLEDFz5BGIAAOsWMbDG
+         m7cPx3LfbCdzovd2UXIxVqXfGRtnZIe8vf3FFrrrcsIZm84FhGrkGo57nRKwM4v9K0xS
+         JoP2pAY7PIf1y291nzCg1nS1tkRFgTU0j6djqCYkkuAOnf4S/b6/RQkPfnKd93SH8sIB
+         NlTzoyzOwpPpzAs56kGsTm7AoyVgyLcSaEWuunUQwmCFz5RfpLr0ffCIFhy8gLyl3C5K
+         3e7ceYvkbmpZyCIDg1gZwxW+K8DM4wv94yastM6jRN/MjAAiolP1GTsalaeG/71nwAJ0
+         +G+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788317537; x=1788922337;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yzTJ93PCaEZ5D5jmlYA5kUGeF6TKHbLfz1jwc+xMCyE=;
+        b=bmnmsg0mOSkzIeRQbwI2jCp3lvl0UbucgMNVlZRKKphCQBXrWA0FFBgbGZ+XRziEQM
+         N/x+DQ6KWkGz91/gWqHeO8ENUMKhfBrY2iegJA6pSPl/FD0n0TJrDgyVdkazhCRHA093
+         C+OSKb0iEs/4xfpxncJOFp/3YvLwkmBd2g+3cRKeosBsBoYXa9pMYcbhkuPkRB+VFr75
+         zJYw6gFyLjKSvzGpANr0NbeWNIdIr3u8acqxXFb+uqQDvYPTE6ea4Yvtxjazz4GGJ2Sq
+         5YdraUrPZ8xnoERx79Vi6Ab1+FzRvUZpyoHSu1GiQJcazk44/K6groi7h9BOR2jDK8e3
+         Dg5A==
+X-Forwarded-Encrypted: i=1; AKwUvBziDzFhHu1mceblSBTU7BLfvdVqn5Xh3LUUm9BIJMPzPhV2VruqFrXD0rLorxfjAqIs5R4lpqj/BdBz6LA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKrSWSCYTnonqswLDjeZ4gf3KFMdFKCAV4kD63FGea2mkBF8MJ
+	Q48WrNk2yxf/SzhSuN8eki7Vxf1sx3qI7E6wSK6xBP052cZhvpjTntKr
+X-Gm-Gg: AYBFou1ldAzWYuPDWdWoFYQFPJwLJT0RXaH5me1y6qOEioXGnMpNvaHjEtVTDMXCVDf
+	i+WeHAw2bTmxvQCre1DFG6LGxtLVt2nyLhB2j5STRUobVfvGAT/c3WUztMW6PLS7oVEjPE0rvE9
+	Y+oLK/CoU9uhlQwnW5Z/NOisYc7w3Com60XjxLaUUCyyhjRmWcgA4N8jl7Dk6mEQlNRp/EF1Liw
+	PzfRna6vrCq0JhTkQr+/kBkJtXfCXnz/Fym87xAl4PkWnNBvP2OgTR7YWmxcijdmJBSZIoVf++6
+	GL0k7HVu1mAi6C0TC2tUHbbMD81a3JnQW3rnlM95wdo663jvO97fNbOQKZwyFGX2ccaBfxjRpx8
+	Dks6eD7gwAu29Bq7Vr9pgEqIX2aGE5MCR0T55xtkDNIkM3cgyYuzqgy381b+/N3RACkPPSEXRHb
+	6pBbX1c9TcwIzDJhfl2mNCCBoq/uQn9dnb04Q8SaeUOKHVCGGnBsQtM6IlJD5KSz4miEQ3Jo2j7
+	aySt+JfnrUlTQ/2aVxzlpag4eR45H9M0N8KR00u
+X-Received: by 2002:a17:90b:52cf:b0:384:927f:3db9 with SMTP id 98e67ed59e1d1-39af57d22cemr27654a91.1.1788317537183;
+        Tue, 01 Sep 2026 19:52:17 -0700 (PDT)
+Received: from localhost.localdomain ([2409:891f:1d85:2435:e053:31e9:f73:7a2a])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae60a8e61sm531263a91.0.2026.09.01.19.52.11
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 01 Sep 2026 19:52:16 -0700 (PDT)
+From: Chuang Wang <nashuiliang@gmail.com>
+To: 
+Cc: Chuang Wang <nashuiliang@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Stanislav Fomichev <sdf.kernel@gmail.com>,
+	Hangbin Liu <liuhangbin@gmail.com>,
+	Samiullah Khawaja <skhawaja@google.com>,
+	Neal Cardwell <ncardwell@google.com>,
+	Martin KaFai Lau <martin.lau@kernel.org>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 4/5] x86/amd_node: Skip SMN setup on Hygon Fam18h
- models 0x04-0x08
-Message-ID: <20260902024833.GJapeOgRJ50RAZvI3e@fat_crate.local>
-References: <20260901071700.3255382-1-wanglin@open-hieco.net>
- <20260901071700.3255382-5-wanglin@open-hieco.net>
+Subject: [PATCH net-next v8] net: reduce RFS/ARFS flow updates by checking LLC affinity
+Date: Wed,  2 Sep 2026 10:51:50 +0800
+Message-ID: <20260902025203.4741-1-nashuiliang@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260901071700.3255382-5-wanglin@open-hieco.net>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 01, 2026 at 03:16:59PM +0800, Lin Wang wrote:
-> @@ -252,6 +252,18 @@ static int __init amd_smn_init(void)
->  	if (!cpu_feature_enabled(X86_FEATURE_ZEN))
+The current implementation of rps_record_sock_flow() updates the flow
+table every time a socket is processed on a different CPU. In high-load
+scenarios, especially with Accelerated RFS (ARFS), this triggers
+frequent flow steering updates via ndo_rx_flow_steer.
 
-This driver should exit on Hygon right here.
+For drivers like mlx5 that implement hardware flow steering, these
+constant updates lead to significant contention on internal driver locks
+(e.g., arfs_lock). This contention often becomes a performance
+bottleneck that outweighs the steering benefits.
 
-Why doesn't it do that?
+This patch introduces a cache-aware update strategy: the flow record is
+only updated if the flow migrates across Last Level Cache (LLC)
+boundaries. This minimizes expensive hardware reconfigurations while
+preserving cache locality for the application. A new sysctl,
+net.core.rps_feat_llc_affinity, is added to toggle this feature.
 
-I know why - you set X86_FEATURE_ZEN.
+Additionally, export sock_rps_record_flow_hash() and
+sock_rps_record_flow(). This resolves a symbol visibility compilation
+error triggered by 'tun' using sock_rps_record_flow_hash() in
+tun_flow_update() when CONFIG_TUN is built as a module. The same logic
+is applied to SCTP, allowing it to use sock_rps_record_flow() safely
+when built as a module.
 
-Why?
+Performance Test Results:
+The patch was tested in a K8s environment (AMD CPU 128*2, 16-core Pod
+with CPU pinning, mlx5 NIC) using brpc[1] echo_server and rpc_press.
 
-What do you really need it for?
+rpc_press Commands:
 
+  for i in {1..8}; do
+    ./rpc_press -proto=./echo.proto -method=example.EchoService.Echo
+    -server=<IP>:8000 -input='{"message":"hello"}'
+    -qps=0 -thread_num=512 -connection_type=pooled &
+  done
+
+Monitor mlx5e_rx_flow_steer frequency:
+
+  /usr/share/bcc/tools/funccount -i 1 mlx5e_rx_flow_steer
+
+Frequency of mlx5e_rx_flow_steer (via funccount[2]):
+
+  Before: ~335,000 counts/sec
+  After:   ~23,000 counts/sec (reduced by ~93%)
+
+System Metrics (after enabling rps_feat_llc_affinity):
+
+  CPU Utilization: 38% -> 32%
+  CPU PSI (Pressure Stall Information): 20% -> 10%
+
+These results demonstrate that filtering updates by LLC affinity
+significantly reduces driver lock contention and improves overall
+CPU efficiency under heavy network load.
+
+[1] https://github.com/apache/brpc/
+[2] https://github.com/iovisor/bcc/blob/master/tools/funccount.py
+
+Signed-off-by: Chuang Wang <nashuiliang@gmail.com>
+---
+v6 -> v8:
+- simplify code and fix errors in AI submissions by Simon Horman
+v5 -> v6:
+- remove the multi-check 'old_val == new_val' by Xuan Zhuo
+- fix 'modpost: "sock_rps_record_flow_hash" [drivers/net/tun.ko] undefined!' by kernel
+  test robot
+- fix 'tcp.c:(.text+0x3e90): undefined reference to `sock_rps_record_flow'' by kernel test
+  robot
+v4 -> v5: fix 'modpost: "rps_llc_check" [net/sctp/sctp.ko] undefined!' by kernel test robot
+v3 -> v4: add rps_llc_check by Eric Dumazet
+v2 -> v3: patch net -> net-next by Jakub Kicinski
+v1 -> v2: add rps_feat_llc_affinity; add brpc tests
+ include/net/rps.h          | 28 +++++-----------
+ net/core/dev.c             | 66 ++++++++++++++++++++++++++++++++++++++
+ net/core/sysctl_net_core.c |  8 +++++
+ 3 files changed, 82 insertions(+), 20 deletions(-)
+
+diff --git a/include/net/rps.h b/include/net/rps.h
+index e33c6a2fa8bb..6dacf0888a6c 100644
+--- a/include/net/rps.h
++++ b/include/net/rps.h
+@@ -12,6 +12,7 @@
+ 
+ extern struct static_key_false rps_needed;
+ extern struct static_key_false rfs_needed;
++extern struct static_key_false rps_feat_llc_affinity;
+ 
+ /*
+  * This structure holds an RPS map which can be of variable length.  The
+@@ -55,11 +56,14 @@ struct rps_sock_flow_table {
+ 
+ #define RPS_NO_CPU 0xffff
+ 
++bool rps_llc_check(u32 old_val, u32 new_val);
++
+ static inline void rps_record_sock_flow(rps_tag_ptr tag_ptr, u32 hash)
+ {
+ 	unsigned int index = hash & rps_tag_to_mask(tag_ptr);
+ 	u32 val = hash & ~net_hotdata.rps_cpu_mask;
+ 	struct rps_sock_flow_table *table;
++	u32 old_val;
+ 
+ 	/* We only give a hint, preemption can change CPU under us */
+ 	val |= raw_smp_processor_id();
+@@ -68,7 +72,8 @@ static inline void rps_record_sock_flow(rps_tag_ptr tag_ptr, u32 hash)
+ 	/* The following WRITE_ONCE() is paired with the READ_ONCE()
+ 	 * here, and another one in get_rps_cpu().
+ 	 */
+-	if (READ_ONCE(table[index].ent) != val)
++	old_val = READ_ONCE(table[index].ent);
++	if (old_val != val && rps_llc_check(old_val, val))
+ 		WRITE_ONCE(table[index].ent, val);
+ }
+ 
+@@ -136,25 +141,8 @@ static inline bool rfs_is_needed(void)
+ #endif
+ }
+ 
+-static inline void sock_rps_record_flow_hash(__u32 hash)
+-{
+-#ifdef CONFIG_RPS
+-	if (!rfs_is_needed())
+-		return;
+-
+-	_sock_rps_record_flow_hash(hash);
+-#endif
+-}
+-
+-static inline void sock_rps_record_flow(const struct sock *sk)
+-{
+-#ifdef CONFIG_RPS
+-	if (!rfs_is_needed())
+-		return;
+-
+-	_sock_rps_record_flow(sk);
+-#endif
+-}
++void sock_rps_record_flow_hash(__u32 hash);
++void sock_rps_record_flow(const struct sock *sk);
+ 
+ static inline void sock_rps_delete_flow(const struct sock *sk)
+ {
+diff --git a/net/core/dev.c b/net/core/dev.c
+index 38336858c168..b27839eb594d 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -5052,6 +5052,8 @@ struct static_key_false rps_needed __read_mostly;
+ EXPORT_SYMBOL(rps_needed);
+ struct static_key_false rfs_needed __read_mostly;
+ EXPORT_SYMBOL(rfs_needed);
++struct static_key_false rps_feat_llc_affinity __read_mostly;
++EXPORT_SYMBOL(rps_feat_llc_affinity);
+ 
+ static u32 rfs_slot(u32 hash, rps_tag_ptr tag_ptr)
+ {
+@@ -5263,6 +5265,48 @@ static int get_rps_cpu(struct net_device *dev, struct sk_buff *skb,
+ 	return cpu;
+ }
+ 
++/**
++ * rps_llc_check - determine if RPS flow table should be updated.
++ * @old_val: previous flow record value.
++ * @new_val: target flow record value.
++ *
++ * Return: true if the record needs an update, false otherwise.
++ */
++bool rps_llc_check(u32 old_val, u32 new_val)
++{
++	u32 old_cpu = old_val & net_hotdata.rps_cpu_mask;
++	u32 new_cpu = new_val & net_hotdata.rps_cpu_mask;
++
++	/*
++	 * RPS LLC Affinity Feature:
++	 * Reduce RFS/ARFS flow updates by checking LLC affinity.
++	 *
++	 * Frequent flow table updates can trigger constant hardware steering
++	 * reconfigurations (e.g., ndo_rx_flow_steer), leading to significant
++	 * contention on driver internal locks (like mlx5's arfs_lock).
++	 *
++	 * This strategy only updates the flow record if it migrates across LLC
++	 * boundaries. This minimizes expensive hardware updates while preserving
++	 * cache locality for the application.
++	 */
++	if (static_branch_unlikely(&rps_feat_llc_affinity)) {
++		/* Force update if the recorded CPU is invalid or has gone offline */
++		if (old_cpu >= nr_cpu_ids || !cpu_active(old_cpu))
++			return true;
++
++		/*
++		 * If CPUs do not share a cache, allow the update to prevent
++		 * expensive remote memory accesses and cache misses.
++		 */
++		if (!cpus_share_cache(old_cpu, new_cpu))
++			return true;
++
++		return false;
++	}
++
++	return true;
++}
++
+ #ifdef CONFIG_RFS_ACCEL
+ 
+ /**
+@@ -5318,6 +5362,28 @@ static void rps_trigger_softirq(void *data)
+ 
+ #endif /* CONFIG_RPS */
+ 
++void sock_rps_record_flow_hash(__u32 hash)
++{
++#ifdef CONFIG_RPS
++	if (!rfs_is_needed())
++		return;
++
++	_sock_rps_record_flow_hash(hash);
++#endif
++}
++EXPORT_SYMBOL(sock_rps_record_flow_hash);
++
++void sock_rps_record_flow(const struct sock *sk)
++{
++#ifdef CONFIG_RPS
++	if (!rfs_is_needed())
++		return;
++
++	_sock_rps_record_flow(sk);
++#endif
++}
++EXPORT_SYMBOL(sock_rps_record_flow);
++
+ /* Called from hardirq (IPI) context */
+ static void trigger_rx_softirq(void *data)
+ {
+diff --git a/net/core/sysctl_net_core.c b/net/core/sysctl_net_core.c
+index eb35da3556f4..9b6702f5eab1 100644
+--- a/net/core/sysctl_net_core.c
++++ b/net/core/sysctl_net_core.c
+@@ -210,6 +210,7 @@ static int rps_sock_flow_sysctl(const struct ctl_table *table, int write,
+ 	kvfree_rcu_mightsleep(tofree);
+ 	return ret;
+ }
++
+ #endif /* CONFIG_RPS */
+ 
+ #ifdef CONFIG_NET_FLOW_LIMIT
+@@ -554,6 +555,13 @@ static struct ctl_table net_core_table[] = {
+ 		.mode		= 0644,
+ 		.proc_handler	= rps_sock_flow_sysctl
+ 	},
++	{
++		.procname	= "rps_feat_llc_affinity",
++		.data		= &rps_feat_llc_affinity.key,
++		.maxlen		= sizeof(rps_feat_llc_affinity.key),
++		.mode		= 0644,
++		.proc_handler	= proc_do_static_key
++	},
+ #endif
+ #ifdef CONFIG_NET_FLOW_LIMIT
+ 	{
 -- 
-Regards/Gruss,
-    Boris.
+2.47.3
 
-https://people.kernel.org/tglx/notes-about-netiquette
