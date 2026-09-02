@@ -1,213 +1,71 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2023449F123
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:45:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABBD648035F;
+	Wed,  2 Sep 2026 13:46:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788356715; cv=none; b=rVenSY6SJFWdjoiff0vENZj8+OwZL1svUesXshnILkdZAG3gTIAjIVBJd81VhorqWZwC04YiBwtVqYYt2HUjBPU0l8odoAh93exTAfGvvtFgjvjdl9jfF555Ib0Elc7ST8yOPw7J6Bf4CvULRr/df4Xus7CviDhoqmgAKalPUEA=
+	t=1788356801; cv=none; b=DzlF4oxrw3Omr+cEL5Ik+fQvzy0D3JhkjP+Kz+I79Xz79i9Zj60fXfR3UaU5maPxBz9oNU5ZDJMM4A/cb322xaSAFqRBJBSEfxPulHn/NKcLv1QEZA3ir5NMxegfRGJpw1gb137opZhvJqJYBOux3tH/cZ0ESOztLxRysdbSJ3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788356715; c=relaxed/simple;
-	bh=C69HowosxwI+DvbfkRWRUw3gFx8QRv6O1GWh8H8N2Dg=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=dfsS2q5gaUVMzt8St5oeVOnfdcNjxKoObGDqtmpZBnhsY6pBSs9dnjKzRzFD6Bgqqkz9Zd3x++edna7GKgDDTDIuBefiuaqGKLCyjJb3DtRLtzrNpzrx3S2+fBMoutimCKlpA1za7v8PKsZIle/s4ORb8rL1G69efXlB7/yQpPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=AAB4xO/P; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788356801; c=relaxed/simple;
+	bh=P2j+lKDQZ1G5aGLG5JoEI2eXCL7Dy1YBHIlPymGrNoA=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rxlZXl2INVY9Jd78CMDjBtuX+AssDfskjY4CCPjvG2ZJ/6JJcUcTfaf3U0/CXzzE7KKlMTDc8fVlhRNRbiE+H2N8Dti40a1lPJETGeX/QaVIKCIqaYcFYPwb3Mkx40Orey4YNOhr/bXHiVjPWK7xqpAXLjrkdhGbgBwP21NSrmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=yzaxrYqc; arc=none smtp.client-ip=216.40.44.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="AAB4xO/P"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 456611A1960;
-	Wed,  2 Sep 2026 13:45:09 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 170536053C;
-	Wed,  2 Sep 2026 13:45:09 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8E65511C792E0;
-	Wed,  2 Sep 2026 15:44:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788356704; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=iU9ImLgzVltXFd6TizbmWiIgsFa/BUTz4MV21Co9U9w=;
-	b=AAB4xO/Ps5PSNKXT0lqZEePwcXAdETpm6nfEnQ3CgJBU8fDvheasI93DfBDTVi1F3LTnvJ
-	l4DsmJlb+zfG+tEU34OelW+MRdkjyKbnKiewkYFsx1LQFGoSSC7mk8XiQtVhQjeuZvT4H9
-	+oRhXevmtDBTx3OgmGMOp/dzpGbt1b5nTNL+yomleSoCRMeCKRryhBF6kXLsw0jT0jtISQ
-	Cc7mivRXJpCkKEgXa4MQmU7J1bjgvNTn4g1jPp3MryrPj1gHVqSDQVai0kSnYLgwW7CjPe
-	VQcwU+VqKX481RK1fP+ZwIIK8OHTgtV5xlA9Ste6CChpQafvjv/300sIiRc+vQ==
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="yzaxrYqc"
+Received: from omf12.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay05.hostedemail.com (Postfix) with ESMTP id BD21540202;
+	Wed,  2 Sep 2026 13:46:37 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf12.hostedemail.com (Postfix) with ESMTPA id D72421B;
+	Wed,  2 Sep 2026 13:46:35 +0000 (UTC)
+Date: Wed, 2 Sep 2026 09:47:36 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: kernel test robot <lkp@intel.com>
+Cc: LKML <linux-kernel@vger.kernel.org>, Linux Trace Kernel
+ <linux-trace-kernel@vger.kernel.org>, oe-kbuild-all@lists.linux.dev, Masami
+ Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>
+Subject: Re: [PATCH] tracing: Take trace_array reference when opening
+ options file
+Message-ID: <20260902094736.2fcd3d5e@gandalf.local.home>
+In-Reply-To: <202609021814.YH14WR0q-lkp@intel.com>
+References: <20260901163620.6cbe0ada@gandalf.local.home>
+	<202609021814.YH14WR0q-lkp@intel.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 02 Sep 2026 15:44:55 +0200
-Message-Id: <DL4VJG42D5IG.32LF3WUGUPSOI@bootlin.com>
-Subject: Re: [PATCH 04/11] drm/panel: merge the drm_kms_helper module into
- the drm module
-Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas
- Zimmermann" <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>,
- "Simona Vetter" <simona@ffwll.ch>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Jessica Zhang"
- <jesszhan0024@gmail.com>, "Linus Walleij" <linusw@kernel.org>, "Inki Dae"
- <inki.dae@samsung.com>, "Jagan Teki" <jagan@amarulasolutions.com>, "Marek
- Szyprowski" <m.szyprowski@samsung.com>, "Dmitry Baryshkov"
- <dmitry.baryshkov@oss.qualcomm.com>, "Hui Pu" <Hui.Pu@gehealthcare.com>,
- "Ian Ray" <ian.ray@gehealthcare.com>, "Thomas Petazzoni"
- <thomas.petazzoni@bootlin.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-To: "Maxime Ripard" <mripard@kernel.org>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <DKR7VTBLRBQW.2LLJMDO74KXNO@bootlin.com>
- <20260824-cuddly-aardwark-of-reward-0d93d4@houat>
- <DKX8KDDOTPM7.3OS616IO3E4UA@bootlin.com> <apBGjqt9GI5egQW6@houat>
- <DL3ZJBN3TALE.XBW7KL51XGBO@bootlin.com>
- <DL41VXI6IT94.CXUS4CYX1WJO@bootlin.com> <apgW0P4drLEZUB7s@houat>
-In-Reply-To: <apgW0P4drLEZUB7s@houat>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout05
+X-Rspamd-Queue-Id: D72421B
+X-Stat-Signature: dshprnfczjbzjc4xdy9s1ky8e933ysma
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19YOE1xz9XKIH0iIdcwPJfH1GpYiFczEew=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=PQ4uVyoFqfhmwHdEmgX9n8s1dQPgnO3UwApcxrO8s6w=; b=yzaxrYqcePIS5Dmo9O4NUpkJxVbaLezMebMvUrWI9uzKHHsN+YVUra8nHM3RsUkmTStOkRCOhlP93W7ZHpQxUnAblyneml5di/Nv3h7Bn/s35PWHkxA3wh5MqL47O1sj77g5wqXJK5o6dNa6cmoY4cBorr8EzMG7lEP/EzQPJYE=
+X-HE-Tag: 1788356795-802407
+X-HE-Meta: U2FsdGVkX19CpEm06zOi2rUcJstNRaxzk9mqigs+f3c8hzlfQGJnvSjHs/ZhNUub1lEvJvzYtMrXf9N5fRU7E9MRLouMvBk6Bw/2z+cp6W80N494WQaR2VekFpRMo7rw62icYljM35DApdupTISxnsx7bYzhrhsHoWd+CuiLrVc9mNnIOt4J+wSturgq/IaohIy7Tp44ZnEloMiY+C2UAi9kW0JzP0cWzHPR75eSIoqbWirkPX/txN/yR6lUM39nsccx6oZEbFphgD6iYpxfi/Q7kyS2CgGmRDzc8ozmMbMgWmDR9NvBXhDWRCEdj9zgEBuT7KX2qlvAF9JfgRdj0YJsKciDIwoM
 
-Hi Maxime,
+On Wed, 2 Sep 2026 18:36:45 +0800
+kernel test robot <lkp@intel.com> wrote:
 
-On Wed Sep 2, 2026 at 2:36 PM CEST, Maxime Ripard wrote:
-> On Tue, Sep 01, 2026 at 04:30:40PM +0200, Luca Ceresoli wrote:
->> On Tue Sep 1, 2026 at 2:40 PM CEST, Luca Ceresoli wrote:
->>
->> [...]
->>
->> >>> >> > And we'd essentially move drm_panel_bridge into drm_panel.c, an=
-d make it
->> >>> >> > private.
->> >>> >>
->> >>> >> Yes in theory, but the panel_bridge code uses other parts of the
->> >>> >> drm_kms_helper module: drm_atomic_helper and drm_probe_helper, ma=
-ybe more,
->> >>> >> so we'd have to move them into the drm module too.
->> >>> >
->> >>> > Ah, right. What would happen if we were doing it the other way aro=
-und
->> >>> > then? Move drm_panel out of the main drm module?
->> >>>
->> >>> Into the drm_kms_helper module?
->> >>>
->> >>> I had a look and did some experiments and I found at least one user =
-in the drm
->> >>> module calling a drm_panel API, and guess who:
->> >>>
->> >>>  drm_of_find_panel_or_bridge() (in drm_of.c, drm module)
->> >>>     -> calls of_drm_find_panel (in drm_panel.c, drm_kms_helper modul=
-e)
->> >>>
->> >>> Based on our discussion after patch 3, I'm not sure
->> >>> drm_of_find_panel_or_bridge() will disappear soon. If it doesn't, I =
-guess
->> >>> we can try to move drm_of_find_panel_or_bridge() into bridge/panel.c=
- which
->> >>> is in the drm_kms_helper module (and from drm_of.h info
->> >>> drm_bridge.h?). That however might trigger build failures for driver=
-s which
->> >>> currently don't select DRM_KMS_HELPER and which would have to select=
- it.
->> >>>
->> >>> I'll give it a try, and if I see major drawbacks I will get back to =
-moving
->> >>> all the drm_kms_helper code into the main drm module.
->> >>
->> >> No, I meant into its own module.
->> >
->> > Looks like a good idea indeed, making the design more modular and
->> > dependencies cleaner.
->> >
->> >> Do we have any dependency from the main
->> >> drm module into drm_panel?
->> >
->> > As far as I can see there is only the one mentioned above:
->> >
->> >   drm_of_find_panel_or_bridge() (in drm_of.c, drm module)
->> >      -> calls of_drm_find_panel (in drm_panel.c, would-be the new drm_=
-panel module)
->> >
->> > And while drm_of_find_panel_or_bridge() is possibly going to disappear=
- at
->> > the end of my series, moving drm_panel.c to its own module would make =
-the
->> > series non-build-bisectable, which would be very annoying.
->> >
->> > However there seem to be no calls from the drm module to
->> > drm_of_find_panel_or_bridge(), so we could move it out as well. What a=
-bout
->> > a series doing, in this order:
->> >
->> >  - move drm_of_find_panel_or_bridge() from the drm module to the
->> >    drm_kms_helper module
->> >  - move drm_panel.c to a new drm_panel module
->> >  - Main change: embed a drm_bridge into every panel
->> >  - convert drivers to stop using the panel_bridge, hopefully removing =
-all
->> >    calls to drm_of_find_panel_or_bridge()
->> >  - remove drm_of_find_panel_or_bridge()
->>
->> Ah, no, that won't work. There would be a circular module dependency loo=
-p
->> later on when we embed a drm_bridge into evern drm_panel: indeed at that
->> point drm_panel will use the atomic and probe helpers to implement the
->> embedded drm_bridge, resulting in:
->>
->>  * the panel_bridge code in bridge/panel.c [drm_kms_helper module]
->>    already depends on the drm_panel.c code (it manipulates a drm_panel, =
-OK)
->>  * additionally, the drm_panel.c code, in order to create a drm_bridge,
->>    will depend on the helpers in drm_atomic_helper and drm_probe_helper
->>    code [drm_kms_helper module]
->>
->> The loop is only between kernel modules (.ko), not in actual code. So I
->> think this revised plan should work (the 2nd bullet is key):
->>
->>  - move drm_of_find_panel_or_bridge() from the drm module to
->>    bridge/panel.c [currently drm_kms_helper module]
->>  - move bridge/panel.o to a new drm_panel_bridge module (NEW)
->>  - move drm_panel.c to a new drm_panel module
->
-> Looks good on principle, but iirc the starting point of that discussion
-> was to move bridge panel into the new panel module,
+> All warnings (new ones prefixed by >>):
+> 
+>    kernel/trace/trace.c: In function 'trace_array_options_get':
+> >> kernel/trace/trace.c:7871:30: warning: comparison of distinct pointer types lacks a cast [-Wcompare-distinct-pointer-types]  
+>     7871 |                 if (tr_index >= &tr->trace_flags_index[0] &&
+>          |                              ^~
+>    kernel/trace/trace.c:7872:30: warning: comparison of distinct pointer types lacks a cast [-Wcompare-distinct-pointer-types]
+>     7872 |                     tr_index < &tr->trace_flags_index[TRACE_FLAGS_MAX_SIZE])
+>          |                              ^
 
-That was the starting point, but working on it I realized it was very
-tricky. So I tried instead copying the relevant bridge/panel.c code into
-drm_panel.c, but with more suitable function names, and the result is way
-cleaner.
+Hmm, I thought void pointers could compare to anything. Oh well, I'll
+typecast the address too.
 
-This changed the steps, but not the end result: remove
-drm_of_find_panel_or_bridge() and bridge/panel.c entirely.
-
-> so I guess we could:
->
-> 1) Move drm_of_find_panel_or_bridge() to drm_panel.c. Both are still in
-> the drm module at this point, so it should be ok.
-> 2) Create a new panel module, with a dependency on bridge
-> 3) Move the bridge/panel.c code into the new panel module to create the
-> bridge at the same time we create the panel.
->
-> Would that work?
-
-Maybe, but as above, my plan has changed a bit.
-
-My opinion is that for this tricky task we should focus more on the end
-result (embed a bridge into every panel, remove
-drm_of_find_panel_or_bridge() and bridge/panel.c) than on finding the most
-optimal path to get there. So I'm aiming at a path that is
-build-bisectable, clean and understandable.
-
-What do you think about this principle?
-
-I'm sending a RFC v2 soon, so we can discuss on a specific proposal.
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+-- Steve
