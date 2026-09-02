@@ -1,70 +1,72 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B7CCE3F7869
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:52:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4624D39D6FA;
+	Wed,  2 Sep 2026 09:52:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788342753; cv=none; b=rIAfaogV6VWCQFLX1Da2tf9V1hLHIGtVdiumqvDgA36gxTpzRe/nO0BlC4Eo8cEWYbndzRnXc2PzeRfj3ko9sm/zeYZS/PWfrTLOyQrV9Ze2UnTbgJnm5U2xaZ70D2Jc1kTQioXnOxtioA6fSgQo/xtRNayzxwri3HiTJDnSv98=
+	t=1788342768; cv=none; b=Pg57kcXngGyS1bNawiNrY9nsu4R0I3QwsQofJ+yyqwImxkOJ2uZOgEpGKKhsrNujVTQPVntTV/abyJWFTflbvm8zuH9uAyJmpDczVekjpuVvF+Bfa2HCDbzueMASpboGCUKZ/H5shfkmEZMOMZ3rBm1Ve/EmbtBe6BvJbfEu/Ic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788342753; c=relaxed/simple;
-	bh=vj1d2Hjcr0LTR9YKWkQUvHNJIp5hxBB7jPIEGGLJ+IE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SKlPsRZvg2/CQTDNH64siwkSN9rDMR4rJl4lZ+F6wCZnkkeOuDhO94ZHEIu0EfEgW4uTaJOgFjfz3iSX4WY4UPWQrllCJbSJIrFRczAIeRhrcUQ2DmzENsd70QL4ej9mnB9X0PyXWLbuMeBxDLCrW2rAW6eETIYqk3QgnOkAUCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=AISmhtUO; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788342768; c=relaxed/simple;
+	bh=4AfJ18AV6GBXUnVRHnLPSGQiIB9Q9q+xfCZ7qHgNZRg=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=NK67bZHwzjgzln1W7fi4pM0EGOfPKGwtyLpb/UkZHSCs91MZUhaGzf2wFM02RHJJOsar1rMxT0Y6zcUqDc2jvpSRVmTuDHr2jQv6LKSjO99oaWjZ3D5OsCpKGezpkbB90LngaShZgPQyI6GIpIOFriv/PCvtcvXLPTm9t9kMqyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K3r8/HWr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="AISmhtUO"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4E73B165C;
-	Wed,  2 Sep 2026 02:52:27 -0700 (PDT)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9C12B3F85F;
-	Wed,  2 Sep 2026 02:52:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788342751; bh=vj1d2Hjcr0LTR9YKWkQUvHNJIp5hxBB7jPIEGGLJ+IE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=AISmhtUOoPLVaPnw4xik8vp0nRlAZ6FnZ8yIu8D5dNxky4l3GNuToxt6+kyh451sp
-	 B53F0ch3P9VhuqeQsXctnzEjN3PYED58wlaaBdbDRZYxm2PKtMk2pKz5qe9oeUldOL
-	 J9BC71uzBuw53LkAszGnAB2DmtADvJLq8jVjALqI=
-Date: Wed, 2 Sep 2026 10:52:28 +0100
-From: Leo Yan <leo.yan@arm.com>
-To: Jie Gan <jie.gan@oss.qualcomm.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
-	Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
-	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] coresight: tnoc: fix trace ID path assignment failure
- on non-AMBA tnoc
-Message-ID: <20260902095228.GV8904@e132581.arm.com>
-References: <20260902-fix-trace-id-error-in-tnoc-driver-v2-1-73669a947297@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K3r8/HWr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECA6B1F000E9;
+	Wed,  2 Sep 2026 09:52:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788342766;
+	bh=/xj3Ixi1TMtvXOywwex226RRsIdVIK4kUSLfMCveMPU=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=K3r8/HWr/pKEHD3m/ZMuP/71c/Ll+9nwvrzDkFqbYnCOGuEl4dt44kobph/m2pN70
+	 7rFqFvMVeKcyLBn0ZS7o0kpbrF/bf3sHN4EVu9gfVn6n7cuoEnVw49qZn9h3iZXjlJ
+	 zjipszXr8gvu8XFz4Ks5/Cadv02po4qUzvizFrToLcqJRurz2j2EcqQQxruVgO58hS
+	 kbOmC1Mklf4bs50dUcZlmQsHEo08wJI6c5Ru9tSIZuCAAFOy6lWydekHQrJ1icdlXA
+	 TJb/d556FahXEXO13GNUtdON6GbcFOU3XaiRxyPNVAEpWHh7hMMWHZ5qjtjg+mbOVF
+	 s0rUkQA4XcAGw==
+Content-Type: multipart/mixed; boundary="===============8561549741085370300=="
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260902-fix-trace-id-error-in-tnoc-driver-v2-1-73669a947297@oss.qualcomm.com>
+Message-Id: <bb0be5fe0febe96dd7a31501655a1b27bca3035b2c95a80b5f46fd0134e0ffa4@mail.kernel.org>
+In-Reply-To: <20260902090220.16395-1-liujing@cmss.chinamobile.com>
+References: <20260902090220.16395-1-liujing@cmss.chinamobile.com>
+Subject: Re: [PATCH] bpf: cgroup: fix null-ptr-deref in __cgroup_bpf_attach
+From: bot+bpf-ci@kernel.org
+To: liujing@cmss.chinamobile.com,ast@kernel.org
+Cc: daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com,martin.lau@linux.dev,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,emil@etsalapatis.com,ihor.solodrai@linux.dev,bpf@vger.kernel.org,linux-kernel@vger.kernel.org,liujing@cmss.chinamobile.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Wed,  2 Sep 2026 09:52:45 +0000 (UTC)
 
-On Wed, Sep 02, 2026 at 05:41:43PM +0800, Jie Gan wrote:
-> For a tnoc device not on the AMBA bus, atid was set to -EOPNOTSUPP.
-> trace_noc_id() returns this value directly to
-> coresight_path_assign_trace_id(), which only treats a literal 0
-> return as "this device has no ID, keep searching the path" -
-> any other value is checked against IS_VALID_CS_TRACE_ID() and
-> rejected. A negative atid therefore made path assignment fail with
-> -EINVAL instead of falling through to the next device in the path
-> that could supply a valid trace ID.
-> 
-> Use 0, the same sentinel coresight_path_assign_trace_id() already
-> recognizes as "not allocated", instead of -EOPNOTSUPP.
-> 
-> Fixes: 5799dee92dc2 ("coresight-tnoc: add platform driver to support Interconnect TNOC")
-> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
+--===============8561549741085370300==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Reviewed-by: Leo Yan <leo.yan@arm.com>
+>     bpf: cgroup: fix null-ptr-deref in __cgroup_bpf_attach
+>
+>     In __cgroup_bpf_attach(), the expression "prog ? : link->link.prog"
+>     dereferences link before validating that link is non-NULL. If both
+>     prog and link are NULL (a contract violation by the caller), this
+>     causes a null pointer dereference.
+>
+>     Add a safe ternary fallback and a NULL check for new_prog before
+>     it is used further.
+>
+>     Signed-off-by: Liu Jing <liujing@cmss.chinamobile.com>
+
+This looks like a bug fix. Should this include:
+
+  Fixes: af6eea57437a ("bpf: Implement bpf_link-based cgroup BPF program attachment")
+
+
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/33613365877
+--===============8561549741085370300==--
