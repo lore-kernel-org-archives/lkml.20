@@ -1,92 +1,325 @@
-Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA998471404
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:41:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F109F49481F;
+	Wed,  2 Sep 2026 12:41:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352876; cv=none; b=tDCQ9JEITHgnSiNqsKYen/r8S2QHKTQH1f1HPbntGc/ByU/BjUOp7v3V8zARBXCJ8xd++iL9Z4PK4NrDuqT5icPyv8oE9newCUS4dFfArsGRjLJkcbDiHXaBp5OXC7LgbJT9BHGOV3aR4Uj9wCMS/JY0vrdTtdpkoPq2Mxg32S4=
+	t=1788352883; cv=none; b=Ij/CpsXucm+6QgEOG/21PmnSh8Bc4CnNfu3BenIgOJPBEYvb8GkEDDo9+d5/q2j5wmFT8WduFmplYO7hXj0vvvSlOJNMwaz45FifYVZNUdKilKyUH7LwGiA6bg0O++6njSOhMJ3g1AUhtb2gp2qofkDVSf31wdurFC59Z5+CKZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352876; c=relaxed/simple;
-	bh=KaPsbpcvVQswWwzAhO+0povn4bTp/xVzNTLdjwbsh8E=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=R4PfBihyekFt8Fla9vIb5FSWWCCzmn4pIWdqpv+Qr4JmteIdCi20j8FK1gpVe5fTdLdJ5TsB/kczOkOv0RXYO2o2VR/06v5ijmlEn/tp7x0KfFX0N62xFuzaeejSZGXI2NZO+vE0J6TK9ZqqcxApQV7INBHilRjzrBdI9d2pO0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=ik/h+d1+; arc=none smtp.client-ip=115.124.30.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788352883; c=relaxed/simple;
+	bh=1cS1gN+BWyYHzp8jemmZyS/c3JcwIy4vJruWAODDv7U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=gFaN/cUX0DG1kQPgUcL8OL691yXv2fO4e6WwJXb7FFBObH9fckFWoK7D4RpVxIhMDeRf6ssxpxUmfmVQ4xfqv3fmYIboRwFUfjMnqTwTT5+j6m9KoH6QODLGCzJ0huPqNUdbE3ha2TRjXqPiJKmh8HbMKAzqyMOZRnhJROgmeoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WtAXv/DA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="ik/h+d1+"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788352871; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=IjSwswSbVJ59LUR4S1FB7rVUxhTmzFzHw6cz0sTJxRo=;
-	b=ik/h+d1+zC0FjEgFsXep6iknJkixus7wdNP97QLnz4EobHhoAJHZKCrss5jcUpQYDiqDnTkvTna9yRt2Qp6MjFWUoQlY2J4HW3b4+IMBhnJ6q9c3a0LQbaQtI5Mhxu92IRfoZOcXhhZuq+VLWw5p14jx1CCTk1O8Z7mW3de6ynA=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R531e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=6;SR=0;TI=SMTPD_---0XACjwKa_1788352870;
-Received: from localhost(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XACjwKa_1788352870 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 02 Sep 2026 20:41:10 +0800
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Heming Zhao <heming.zhao@suse.com>
-Cc: Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
-	ocfs2-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] ocfs2: allow xattr bucket entries to span multiple blocks
-Date: Wed,  2 Sep 2026 20:41:09 +0800
-Message-Id: <20260902124109.27775-1-joseph.qi@linux.alibaba.com>
-X-Mailer: git-send-email 2.39.3
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WtAXv/DA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFEC91F000E9;
+	Wed,  2 Sep 2026 12:41:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788352881;
+	bh=HLy4bd/CW6s7twSeTuh/tANQXUiL6pwji6bDtlJ0IJY=;
+	h=From:To:Cc:Subject:Date;
+	b=WtAXv/DAxm0oQ3tMkS4pkRnnftpMAu6veWNgzryJmnclJDl8HFIGC0F4iKPA6H2o4
+	 dWR/ANtO9HZiBBcujg8pzX08OqGfQLkA071jl0hsLTgYJokNCfOyx/XQplPx334LpW
+	 b+VmMZs1QozmIriy9zwqoYcrv9LnFh6oR7ULl9S4=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	torvalds@linux-foundation.org,
+	stable@vger.kernel.org
+Cc: lwn@lwn.net,
+	jslaby@suse.cz,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: Linux 7.1.13
+Date: Wed,  2 Sep 2026 14:41:13 +0200
+Message-ID: <2026090223-evil-aneurism-8ffc@gregkh>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-ocfs2_validate_xattr_bucket() limits the entry array to the first
-bucket block, but the write path stores entries across the whole
-OCFS2_XATTR_BUCKET_SIZE region.  With 512-byte blocks a bucket spans
-eight blocks, and a bucket filled with small xattrs places its last
-entries past offset 512.  Reading such a bucket back errors out:
+-------------------
+Note, the 7.1.y kernel series is now end-of-life.  Please move to the
+7.2.y kernel series at this point in time.
+-------------------
 
-  OCFS2: ERROR (device loop0): ocfs2_validate_xattr_bucket: Invalid xattr bucket 86072: entry count 32 exceeds maximum 31
-  On-disk corruption discovered. Please run fsck.ocfs2 once the filesystem is unmounted.
-  OCFS2: File system is now read-only.
+I'm announcing the release of the 7.1.13 kernel.
 
-This is reproducible by setting ~33 xattrs with 100-byte values on a
-file on a blocksize-512 volume; fsck.ocfs2 reports the resulting
-image clean.
+All users of the 7.1 kernel series must upgrade.
 
-Check the entry count against the full bucket region instead.  The
-per-block bounds checks for names and values stay as they are, since
-ocfs2_bucket_align_free_start() keeps each name+value pair within a
-single block.
+The updated 7.1.y git tree can be found at:
+	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git linux-7.1.y
+and can be browsed at the normal kernel.org git web browser:
+	https://git.kernel.org/?p=linux/kernel/git/stable/linux-stable.git;a=summary
 
-Fixes: 2cf82b46d5e4 ("ocfs2: validate external xattr entries when reading metadata")
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
----
- fs/ocfs2/xattr.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+thanks,
 
-diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
-index 34f102db2a0e..c73628484b50 100644
---- a/fs/ocfs2/xattr.c
-+++ b/fs/ocfs2/xattr.c
-@@ -1153,7 +1153,13 @@ static int ocfs2_validate_xattr_bucket(struct ocfs2_xattr_bucket *bucket,
- 	struct ocfs2_xattr_header *xh = bucket_xh(bucket);
- 	u16 xattr_count = le16_to_cpu(xh->xh_count);
- 	size_t region_size = (size_t)sb->s_blocksize * bucket->bu_blocks;
--	size_t entries_limit = sb->s_blocksize;
-+	/*
-+	 * The entry array grows up from the header across the whole
-+	 * bucket region, so it may extend beyond the first bucket block
-+	 * when the blocksize is smaller than OCFS2_XATTR_BUCKET_SIZE.
-+	 * Name/value pairs, however, always live within a single block.
-+	 */
-+	size_t entries_limit = region_size;
- 	size_t nv_limit = sb->s_blocksize;
- 	size_t max_entries;
- 	int i, ret;
--- 
-2.39.3
+greg k-h
+
+------------
+
+ Documentation/filesystems/fscrypt.rst                        |    4 
+ Makefile                                                     |    2 
+ arch/s390/kvm/vsie.c                                         |    1 
+ arch/x86/kvm/mmu/page_track.c                                |   32 +
+ arch/x86/kvm/svm/sev.c                                       |   76 ++-
+ arch/x86/kvm/svm/svm.c                                       |    8 
+ arch/x86/kvm/svm/svm.h                                       |   13 
+ crypto/krb5/krb5_api.c                                       |    8 
+ drivers/accessibility/speakup/main.c                         |    1 
+ drivers/crypto/Kconfig                                       |    1 
+ drivers/crypto/atmel-tdes.c                                  |    5 
+ drivers/crypto/intel/iaa/iaa_crypto_main.c                   |  111 ++--
+ drivers/crypto/intel/iaa/iaa_crypto_stats.c                  |    9 
+ drivers/crypto/intel/iaa/iaa_crypto_stats.h                  |    2 
+ drivers/crypto/mxs-dcp.c                                     |    2 
+ drivers/crypto/qce/aead.c                                    |   58 --
+ drivers/crypto/qce/common.c                                  |   55 --
+ drivers/crypto/qce/common.h                                  |   16 
+ drivers/crypto/qce/regs-v5.h                                 |    4 
+ drivers/crypto/qce/sha.c                                     |   30 -
+ drivers/crypto/qce/sha.h                                     |    1 
+ drivers/crypto/qce/skcipher.c                                |   97 ----
+ drivers/crypto/qcom-rng.c                                    |  156 +-----
+ drivers/crypto/virtio/virtio_crypto_akcipher_algs.c          |    3 
+ drivers/fpga/dfl-fme-perf.c                                  |    2 
+ drivers/infiniband/sw/rxe/rxe_qp.c                           |   18 
+ drivers/net/gtp.c                                            |   21 
+ drivers/net/vxlan/vxlan_core.c                               |    9 
+ drivers/net/wireless/mediatek/mt76/mt7925/mac.c              |    4 
+ drivers/nvme/host/tcp.c                                      |    8 
+ drivers/target/target_core_fabric_configfs.c                 |    8 
+ drivers/usb/c67x00/c67x00-sched.c                            |    4 
+ drivers/usb/core/devio.c                                     |    2 
+ drivers/usb/core/hub.c                                       |    7 
+ drivers/usb/gadget/function/f_tcm.c                          |    2 
+ drivers/usb/host/xhci-dbgtty.c                               |   15 
+ drivers/usb/host/xhci-ring.c                                 |   20 
+ drivers/usb/host/xhci.c                                      |   11 
+ drivers/usb/misc/usbtest.c                                   |    1 
+ drivers/usb/serial/option.c                                  |   20 
+ drivers/usb/serial/spcp8x5.c                                 |   13 
+ fs/ext4/ext4.h                                               |    8 
+ fs/ext4/extents.c                                            |  166 +++++--
+ fs/ext4/file.c                                               |    3 
+ fs/ext4/inode.c                                              |   36 +
+ fs/fuse/dir.c                                                |    9 
+ fs/fuse/file.c                                               |    4 
+ include/kunit/run-in-irq-context.h                           |   10 
+ include/linux/skbuff.h                                       |   24 +
+ include/net/ip.h                                             |   25 +
+ include/net/ip6_route.h                                      |   37 +
+ include/net/tcp.h                                            |    5 
+ include/target/target_core_fabric.h                          |    2 
+ kernel/bpf/verifier.c                                        |    6 
+ mm/swapfile.c                                                |    7 
+ net/batman-adv/tvlv.c                                        |    5 
+ net/bridge/br_multicast.c                                    |    4 
+ net/ipv4/route.c                                             |    4 
+ net/ipv4/tcp_ao.c                                            |   19 
+ net/ipv4/tcp_ipv4.c                                          |    2 
+ net/ipv4/tcp_minisocks.c                                     |    2 
+ net/ipv4/tcp_output.c                                        |    6 
+ net/ipv6/ah6.c                                               |   29 -
+ net/ipv6/route.c                                             |    2 
+ net/ipv6/seg6_local.c                                        |    7 
+ net/ipv6/tcp_ipv6.c                                          |    2 
+ net/netfilter/nf_tables_api.c                                |   36 -
+ net/netfilter/nft_set_pipapo_avx2.c                          |   17 
+ net/packet/af_packet.c                                       |   96 +++-
+ net/tls/tls_device.c                                         |    3 
+ net/xfrm/espintcp.c                                          |    9 
+ net/xfrm/xfrm_nat_keepalive.c                                |   53 +-
+ net/xfrm/xfrm_user.c                                         |    2 
+ security/selinux/include/security.h                          |    1 
+ security/selinux/ss/avtab.c                                  |   35 +
+ security/selinux/ss/avtab.h                                  |   13 
+ security/selinux/ss/conditional.c                            |   22 
+ security/selinux/ss/constraint.h                             |    1 
+ security/selinux/ss/policydb.c                               |  254 +++++++++--
+ security/selinux/ss/policydb.h                               |   31 -
+ security/selinux/ss/services.c                               |    8 
+ sound/usb/card.c                                             |   14 
+ sound/usb/midi.c                                             |    2 
+ sound/usb/quirks-table.h                                     |   10 
+ tools/testing/selftests/bpf/progs/verifier_global_subprogs.c |   17 
+ 85 files changed, 1183 insertions(+), 725 deletions(-)
+
+Aleksandr Nogikh (1):
+      usb: usbtest: disable dynamic ID support
+
+Asim Viladi Oglu Manizada (1):
+      xfrm: ah6: validate routing header segments_left
+
+Baokun Li (2):
+      fuse: fix invalidate lock leak on setattr writeback failure
+      fuse: fix invalidate lock leak on open O_TRUNC DAX failure
+
+Bartosz Golaszewski (1):
+      crypto: qce - Remove unsafe/deprecated algorithms
+
+Breno Leitao (1):
+      usb: xhci: bail out of setup if the controller is inaccessible
+
+Bryam Vargas (3):
+      selinux: reject a permission value exceeding the class permission count
+      selinux: require a class's permission values to cover its permission count
+      crypto: virtio - bound the akcipher result length
+
+Christian Borntraeger (1):
+      KVM: s390: vsie: zero stale crypto bits
+
+Christian Göttsche (2):
+      selinux: use u16 for security classes
+      selinux: more strict policy parsing
+
+Devin Wittmayer (1):
+      wifi: mt76: mt7925: ensure tx headroom in usb_sdio_tx_prepare_skb
+
+Dmitry Bogdanov (1):
+      nvme-tcp: fix usage of page_frag_cache
+
+Eric Biggers (6):
+      netfilter: nft_set_pipapo_avx2: add missing vzeroupper
+      mm/swap: reject swapon() on filesystem-level encrypted files
+      kunit: irq: Continue increasing hrtimer interval for longer
+      crypto: qcom-rng - Enable clock in hwrng case
+      crypto: qcom-rng - Remove crypto_rng interface
+      crypto: qcom-rng - Allow zero as a random number
+
+Fourie Zhang (1):
+      netfilter: nf_tables: don't queue packet path object notifications
+
+Giovanni Cabiddu (1):
+      crypto: iaa - fall back to software for multi-entry scatterlists
+
+Greg Kroah-Hartman (1):
+      Linux 7.1.13
+
+Griffin Kroah-Hartman (3):
+      fpga: dfl: fme: add error handling
+      usb: core: Add lock to usb_wakeup_notification()
+      usb: core: Strengthen error handling in hub_hub_status()
+
+Haoxiang Li (1):
+      accessibility: speakup: unregister tty ldisc on later init failures
+
+Hyunwoo Kim (1):
+      net/tcp-ao: fix use-after-free of current_key on reconnect to another peer
+
+Ibrahim Hashimov (1):
+      RDMA/rxe: Fix responder UAF on IB_QP_MAX_DEST_RD_ATOMIC modify_qp
+
+Jan Sebastian Götte (1):
+      crypto: krb5 - use kfree_sensitive() for derived key buffers
+
+Jiale Yao (1):
+      USB: serial: option: fix slab OOB read in interrupt URB callback
+
+Jiayuan Chen (2):
+      tls: device: fix out-of-bounds write in tls_append_frag()
+      net: advertise TCP MSS from the configured MTU, not the learned PMTU
+
+Jinu Kim (1):
+      KVM: x86/mmu: Check write tracking in all address spaces
+
+Johan Hovold (1):
+      USB: serial: spcp8x5: drop broken carrier detect support
+
+Kyle Zeng (4):
+      net/packet: defer vmalloc TX_RING free until skbs finish
+      ipv6: seg6: clear IPv4 control block on IPIP decapsulation
+      batman-adv: reject unrepresentable multicast TVLV offsets
+      vxlan: keep the last remote linked during FDB flush
+
+Lucas De Marchi (2):
+      xhci: dbgtty: Fix unregister on tty_register_driver() failure
+      xhci: dbgtty: Fix unregister on tty_alloc_driver() failure
+
+Marouane El Moufid (1):
+      ALSA: usb-audio: fix OOB write in snd_usbmidi_novation_output()
+
+Md Sadre Alam (1):
+      crypto: qce - fix CCM AAD buffer underallocation
+
+Michal Pecio (1):
+      usb: xhci: Handle bogus TRB pointers in Missed Service Error events
+
+Miguel Peñaranda (1):
+      usb: usbfs: fix use-after-free of usb_device in usbdev_release()
+
+Norbert Szetei (1):
+      net: bridge: mcast: fix use-after-free of a master VLAN's multicast context
+
+Pankaj Gupta (1):
+      KVM: SEV: Drop FOLL_WRITE for encrypted region registration
+
+Peiyang He (1):
+      RDMA/rxe: Fix OOB in free_rd_atomic_resources()
+
+Qing Ming (2):
+      gtp: serialize PDP context updates
+      tcp: fix AO info use-after-free in tcp_ao_connect_init()
+
+Rastislav Szabo (1):
+      net/tcp: fix TCP-AO key deletion in VRFs
+
+Sabrina Dubroca (1):
+      xfrm: espintcp: fix UAF during close
+
+Sean Christopherson (4):
+      KVM: SEV: Track the GPA of the guest-controlled VMSA used for SNP guests
+      KVM: SEV: Extract loading of guest-provided VMSA to a separate helper
+      KVM: SEV: Mark vCPU RUNNABLE after AP_CREATE, even if VMSA is unusable
+      KVM: SEV: Wire up kvm_x86_ops.gmem_xxx() if and only if CONFIG_KVM_AMD_SEV=y
+
+Semih Baskan (1):
+      usb: xhci: Handle USB3 port events when there is one roothub
+
+Shuangpeng Bai (2):
+      usb: gadget: f_tcm: keep port count until LUN teardown completes
+      USB: c67x00: fix use-after-free in c67x00_add_iso_urb()
+
+Stephen Smalley (1):
+      selinux: switch two allocations to use kzalloc_objs()
+
+Taegu Ha (1):
+      bpf: reject overlarge global subprog argument sizes
+
+Thorsten Blum (2):
+      crypto: atmel-tdes - use scatterlist length before DMA mapping
+      crypto: mxs-dcp - fix source scatterlist length access
+
+Trevor Vorhees (1):
+      ALSA: usb-audio: Fix sample rates for PreSonus AudioBox USB
+
+Wentao Guan (1):
+      Revert "selinux: reject a permission value exceeding the class permission count"
+
+Will Porter (1):
+      ALSA: usb-audio: Complete cleanup after system-resume errors
+
+Yong Wang (1):
+      tcp: clamp route advmss to TCP_MIN_MSS
+
+Zhang Yi (6):
+      ext4: export converted block count from ext4_convert_unwritten_extents()
+      ext4: protect WRITE_ZEROES written extents with orphan list
+      ext4: move partial block zeroing earlier in ext4_zero_range()
+      ext4: write back partial-zeroed edges in WRITE_ZEROES
+      ext4: track partial-zero outcome per edge in ext4_zero_partial_blocks()
+      ext4: zero out whole block for clean edges in WRITE_ZEROES
+
+Zhiling Zou (1):
+      xfrm: drop ESP-in-TCP packets with no ingress device
+
+Zihan Xi (3):
+      xfrm: avoid lock inversion in nat keepalive work
+      xfrm: fix xfrm_state_construct() auth-trunc leak
+      xfrm: bound nat keepalive state collection
 
