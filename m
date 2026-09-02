@@ -1,47 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D471A4AF697
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 21:25:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 915182594BD
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 21:26:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788384365; cv=none; b=V2pRPE2xaZLN5fjgVHJIuJvXBcZJ/ObRKf0nBYTnOlA+FL0YqYdmwfCKhDPCs6YUsL29HSNRkSVL0z3Y2kS9VVxAkXaGMi0Nt8imLVWTOBXhf5t2BWGh9U9rvEaNDIpZbCm84dXs2ZnsTfRi06v40QaL/5NkzXLo4qX87fb/RdQ=
+	t=1788384365; cv=none; b=atCN5cIxX1HGgiezi5mf8kj4CdDfM64MdKTn/OKq7oRExwNarOi7/P5i5J0+yF154gCDAPtWuplXKrgi4GTvNNCZqXN/s6pcKnX4RUPG5TF6IyeDkfviRtDD63MhiyIdbFVQQkK/KCNkVLhE0zLXFfJP+OtcEi228ol7ILLA4r4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788384365; c=relaxed/simple;
-	bh=9plz0XMHhAyOu2ZX1hqD1SDBlhuggjIuIAitC4JszVY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=sGvWKvZ0gkAXB1s/jINowQeTVvq2toRezDIoyOvJPVZTraZWyoCoHOf6U1fPWJrTZw69gjNTqIUsASTMgCW5T2FyE3qeClGol9P56X29GU6DffHy7+6phhzKdidT6DBsE2WJfmPmx/S37tmk1oFcKK6xo1fBJtOdrd8MJwckXQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TGpK/Vc0; arc=none smtp.client-ip=198.175.65.9
+	bh=ZnHFCr8A9NdipWQvbtve3hmunYAdJZPzubcyHdsfdxA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KdKKrvPog25/Hr7cLPsK5IDrhZds9BOh9zKHW3uHNWkwaStLXsqku6qWhzkUqW5hnjClIV7GmjrNou/4YO9N007sSiniVdKH0FhlgQX/p6ExaoDwiylpvwJqHGk8WcqvtKlJkgoJnPuGzKjCnUiA022gEy5fZsvyWCq/kZ6I3Ls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AJHtPxLu; arc=none smtp.client-ip=198.175.65.9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TGpK/Vc0"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AJHtPxLu"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788384358; x=1819920358;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=9plz0XMHhAyOu2ZX1hqD1SDBlhuggjIuIAitC4JszVY=;
-  b=TGpK/Vc0bl/SUxRm/8zXVu/iiqSvfRKTsKhAWsyk2lHIk9tYoXuAT90X
-   skP+24ZKwOm2kfSs8nPhP7/D0XO0G0db9Pa2MvFnApRIZgQdGt3zbWGoQ
-   AQNpTW3jtImj6AKnN1+7Ww/UouI0/nNOjj+qG27v0uU7hIdGJy0AZtgA5
-   AS1HX6XBeaCtAEk27e5eSEujFT4iO39h/4VHOj04uFQRvy1fgk9pzV2Te
-   zO/eI2TSgozY/C7jtTPaZ64SrXL8Nhp+sH5CCgB7daJXgROCBOJEMyMZx
-   Wsoe1pQ+NjoKxk0hAk+y02PUeg1ATQAmuArSOmfpFahlsuXQfzcmZY1VB
-   g==;
-X-CSE-ConnectionGUID: 8u4SoCDgSf+C0xfeWqVJZA==
-X-CSE-MsgGUID: BaYcDjMRTimKRPnLgQwDWQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="111629916"
+  t=1788384360; x=1819920360;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=ZnHFCr8A9NdipWQvbtve3hmunYAdJZPzubcyHdsfdxA=;
+  b=AJHtPxLu6eHzX4/1zIxg31STqoSZr0yiVxVquC6VUFwAc7dDQE/MrLz5
+   viwJpt+w1xt1q/O5ZUNW+V9fPCIv6m7J88HAKnpjZqJNcomYOUdcXDDEL
+   mlAWqtMpKRw4Z4AaLnM3rnzvtPdAGjPRo8Q4owc+2gC3kov4mq7juZ4dq
+   cV4IBN3iK62rLAtbdNGQuvFsYnLSSicSvq0p+pwY7IvusUpVDqUxnRsi3
+   9l9AbLEY9Jx3hPxQTm5EKpixmJ0oL1yxOTAdbKBKD1YFzzJUoBr9lis2u
+   7jihWxPwrtHLWZOAgCmxXN/4/6qn7q6uCdSZxBtC7paf8teUEpouYqSNX
+   Q==;
+X-CSE-ConnectionGUID: 9iLkoO7EQO+kzA12zisovA==
+X-CSE-MsgGUID: HWlSNbfyRsOZCfkffKfVuw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="111629921"
 X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="111629916"
+   d="scan'208";a="111629921"
 Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 14:25:54 -0700
-X-CSE-ConnectionGUID: GozhQi6dRBC5wsqgsYHdEg==
-X-CSE-MsgGUID: 6u0LtjKlR4e62Cr8+nXZjQ==
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 14:25:57 -0700
+X-CSE-ConnectionGUID: KXzL0OzaRSaG4FvaX85JPA==
+X-CSE-MsgGUID: 1l7ZibWzRFKhPjSvsrj2mg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="273682838"
+   d="scan'208";a="273682842"
 Received: from osgc-sh-dragon.sh.intel.com ([10.239.81.44])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 14:25:52 -0700
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 14:25:55 -0700
 From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 To: dri-devel@lists.freedesktop.org
 Cc: alex.zuo@intel.com,
@@ -56,10 +57,12 @@ Cc: alex.zuo@intel.com,
 	maarten.lankhorst@linux.intel.com,
 	thomas.hellstrom@linux.intel.com,
 	tzimmermann@suse.de
-Subject: [PATCH v6 0/2] drm/xe/pagefault: Add SRCID to pagefault reporting
-Date: Thu,  3 Sep 2026 05:25:47 +0800
-Message-ID: <20260902212549.347805-1-jonathan.cavitt@intel.com>
+Subject: [PATCH v6 1/2] drm/xe/pagefault: Add SRCID to pagefault struct
+Date: Thu,  3 Sep 2026 05:25:48 +0800
+Message-ID: <20260902212549.347805-2-jonathan.cavitt@intel.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260902212549.347805-1-jonathan.cavitt@intel.com>
+References: <20260902212549.347805-1-jonathan.cavitt@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,39 +72,154 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add SRCID to the xe_pagefault struct, which reports the ID of the
-faulting hardware unit.  This will be passed on to the
-xe_vm_get_property_ioctl for reading per-vm faults and will assist in
-diagnosing pagefaults.
+Add SRCID information to pagefault struct for the purpose of reporting
+the hardware unit that resulted in the pagefault.
 
 v2:
-- Readd pad check, as the pad in the ioctl struct was not changed
-  (jcavitt)
-
-v3:
-- Rebase
-
-v4:
 - Squash SRCID with ASID to keep the struct compact (Matthew)
 
-v5:
+v3:
 - Use BUILD_BUG_ON and move ASID definition in one function (Matthew)
 
-v6:
-- Rebase
-
-Jonathan Cavitt (2):
-  drm/xe/pagefault: Add SRCID to pagefault struct
-  drm/xe/vm: Add srcid to xe_vm_get_property_ioctl fault report
-
+Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+---
  drivers/gpu/drm/xe/xe_guc_pagefault.c   |  8 +++++++-
  drivers/gpu/drm/xe/xe_pagefault.c       | 24 +++++++++++++++---------
  drivers/gpu/drm/xe/xe_pagefault_types.h |  9 +++++++--
- drivers/gpu/drm/xe/xe_vm.c              |  8 ++++++++
- drivers/gpu/drm/xe/xe_vm_types.h        |  2 ++
- include/uapi/drm/xe_drm.h               |  4 ++--
- 6 files changed, 41 insertions(+), 14 deletions(-)
+ 3 files changed, 29 insertions(+), 12 deletions(-)
 
+diff --git a/drivers/gpu/drm/xe/xe_guc_pagefault.c b/drivers/gpu/drm/xe/xe_guc_pagefault.c
+index 8f8210a732e98..036175faadd4a 100644
+--- a/drivers/gpu/drm/xe/xe_guc_pagefault.c
++++ b/drivers/gpu/drm/xe/xe_guc_pagefault.c
+@@ -108,7 +108,13 @@ int xe_guc_pagefault_handler(struct xe_guc *guc, u32 *msg, u32 len)
+ 				      << PFD_VIRTUAL_ADDR_HI_SHIFT) |
+ 		(FIELD_GET(PFD_VIRTUAL_ADDR_LO, msg[2]) <<
+ 		 PFD_VIRTUAL_ADDR_LO_SHIFT);
+-	pf.consumer.asid = FIELD_GET(PFD_ASID, msg[1]);
++
++	BUILD_BUG_ON(XE_MAX_ASID > XE_PAGEFAULT_ASID_MASK);
++
++	pf.consumer.id = FIELD_PREP(XE_PAGEFAULT_ASID_MASK,
++				    FIELD_GET(PFD_ASID, msg[1])) ||
++			 FIELD_PREP(XE_PAGEFAULT_SRCID_MASK,
++				    FIELD_GET(PFD_SRC_ID, msg[0]));
+ 	pf.consumer.access_type = FIELD_GET(PFD_ACCESS_TYPE, msg[2]) |
+ 		(FIELD_GET(PFD_PREFETCH, msg[2]) ? XE_PAGEFAULT_ACCESS_PREFETCH : 0);
+ 	if (FIELD_GET(XE2_PFD_TRVA_FAULT, msg[0]))
+diff --git a/drivers/gpu/drm/xe/xe_pagefault.c b/drivers/gpu/drm/xe/xe_pagefault.c
+index 2e415995f067b..e81ca24df37fc 100644
+--- a/drivers/gpu/drm/xe/xe_pagefault.c
++++ b/drivers/gpu/drm/xe/xe_pagefault.c
+@@ -252,12 +252,13 @@ static int xe_pagefault_service(struct xe_pagefault *pf)
+ 	struct xe_vma *vma = NULL;
+ 	int err;
+ 	bool atomic;
++	u32 asid = FIELD_GET(XE_PAGEFAULT_ASID_MASK, pf->consumer.id);
+ 
+ 	/* Producer flagged this fault to be nacked */
+ 	if (pf->consumer.fault_type_level == XE_PAGEFAULT_TYPE_LEVEL_NACK)
+ 		return -EFAULT;
+ 
+-	vm = xe_pagefault_asid_to_vm(xe, pf->consumer.asid);
++	vm = xe_pagefault_asid_to_vm(xe, asid);
+ 	if (IS_ERR(vm))
+ 		return PTR_ERR(vm);
+ 
+@@ -374,7 +375,7 @@ static bool xe_pagefault_match(struct xe_pagefault *pf, u64 start,
+ {
+ 	struct xe_device *xe = gt_to_xe(pf->gt);
+ 	u64 page_addr = pf->consumer.page_addr;
+-	u32 pf_asid = pf->consumer.asid;
++	u32 pf_asid = FIELD_GET(XE_PAGEFAULT_ASID_MASK, pf->consumer.id);
+ 
+ 	xe_assert(xe, pf->consumer.alloc_state !=
+ 		  XE_PAGEFAULT_ALLOC_STATE_FREE);
+@@ -499,7 +500,7 @@ static bool xe_pagefault_queue_pop(struct xe_pagefault_queue *pf_queue,
+ 		align = SZ_4K;
+ 	pf_work->cache.start = ALIGN_DOWN(lpf->consumer.page_addr, align);
+ 	pf_work->cache.end = pf_work->cache.start + align;
+-	pf_work->cache.asid = lpf->consumer.asid;
++	pf_work->cache.asid = FIELD_GET(XE_PAGEFAULT_ASID_MASK, lpf->consumer.id);
+ 	pf_work->cache.pf = lpf;
+ 	lpf->consumer.alloc_state = XE_PAGEFAULT_ALLOC_STATE_ACTIVE;
+ 
+@@ -545,14 +546,16 @@ static void xe_pagefault_print(struct xe_pagefault *pf)
+ 	u8 engine_class = FIELD_GET(XE_PAGEFAULT_ENGINE_CLASS_MASK,
+ 				    pf->consumer.engine_class_instance);
+ 
+-	xe_gt_info(pf->gt, "\n\tASID: %d\n"
++	xe_gt_info(pf->gt, "\n\tASID: %lu\n"
+ 		   "\tFaulted Address: 0x%08x%08x\n"
+ 		   "\tFaultType: %lu\n"
+ 		   "\tAccessType: %lu\n"
+ 		   "\tFaultLevel: %lu\n"
+ 		   "\tEngineClass: %d %s\n"
+-		   "\tEngineInstance: %lu\n",
+-		   pf->consumer.asid,
++		   "\tEngineInstance: %lu\n"
++		   "\tSRCID: 0x%02lx\n",
++		   FIELD_GET(XE_PAGEFAULT_ASID_MASK,
++			     pf->consumer.id),
+ 		   upper_32_bits(pf->consumer.page_addr),
+ 		   lower_32_bits(pf->consumer.page_addr),
+ 		   FIELD_GET(XE_PAGEFAULT_TYPE_MASK,
+@@ -564,7 +567,9 @@ static void xe_pagefault_print(struct xe_pagefault *pf)
+ 		   engine_class,
+ 		   xe_hw_engine_class_to_str(engine_class),
+ 		   FIELD_GET(XE_PAGEFAULT_ENGINE_INSTANCE_MASK,
+-			     pf->consumer.engine_class_instance));
++			     pf->consumer.engine_class_instance),
++		   FIELD_GET(XE_PAGEFAULT_SRCID_MASK,
++			     pf->consumer.id));
+ }
+ 
+ static void xe_pagefault_save_to_vm(struct xe_device *xe, struct xe_pagefault *pf)
+@@ -577,7 +582,8 @@ static void xe_pagefault_save_to_vm(struct xe_device *xe, struct xe_pagefault *p
+ 	 * mode, return VM anyways.
+ 	 */
+ 	down_read(&xe->usm.lock);
+-	vm = xa_load(&xe->usm.asid_to_vm, pf->consumer.asid);
++	vm = xa_load(&xe->usm.asid_to_vm,
++		     FIELD_GET(XE_PAGEFAULT_ASID_MASK, pf->consumer.id));
+ 	if (vm)
+ 		xe_vm_get(vm);
+ 	else
+@@ -611,7 +617,7 @@ static void xe_pagefault_queue_work(struct work_struct *w)
+ 		const struct xe_pagefault_ops *ops = pf->producer.ops;
+ 		void *private = pf->producer.private;
+ 		struct xe_gt *gt = pf->gt;
+-		u32 asid = pf->consumer.asid;
++		u32 asid = FIELD_GET(XE_PAGEFAULT_ASID_MASK, pf->consumer.id);
+ 		int err = 0;
+ 		bool invalidated = false;
+ 
+diff --git a/drivers/gpu/drm/xe/xe_pagefault_types.h b/drivers/gpu/drm/xe/xe_pagefault_types.h
+index efeba5c3a58ba..f16bab29bfc30 100644
+--- a/drivers/gpu/drm/xe/xe_pagefault_types.h
++++ b/drivers/gpu/drm/xe/xe_pagefault_types.h
+@@ -112,8 +112,13 @@ struct xe_pagefault {
+ 				u8 engine_class_instance;
+ #define XE_PAGEFAULT_ENGINE_CLASS_MASK		GENMASK(3, 0)
+ #define XE_PAGEFAULT_ENGINE_INSTANCE_MASK	GENMASK(7, 4)
+-				/** @consumer.asid: address space ID */
+-				u32 asid;
++				/**
++				 * @consumer.id: address space ID and SRCID, folded into one
++				 * to keep size compact
++				 */
++				u32 id;
++#define XE_PAGEFAULT_ASID_MASK	GENMASK(23, 0)
++#define XE_PAGEFAULT_SRCID_MASK	GENMASK(31, 24)
+ 			};
+ 			/**
+ 			 * @consumer.end_addr: end address of page fault,
 -- 
 2.53.0
 
