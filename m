@@ -1,168 +1,219 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from flow-a8-smtp.messagingengine.com (flow-a8-smtp.messagingengine.com [103.168.172.143])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 792761DF980
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 20:18:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58163383987;
+	Wed,  2 Sep 2026 20:19:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.143
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788380308; cv=none; b=Mmz0uqxHM6dKiZs2sx0Q6+qY7hyeRbi/hyatZo6gtGKhkbTy37tpIia+6e9L0fthAoFXczZ4a5wncUKff7tcAyvrY+nyX2Zxeo7reYYsOon7ojJAqkouBDkAkKqqRg0EqKRfYrvFti6PY4cidWgh4D5+5nHSwPCG3Q/RWUbG00w=
+	t=1788380362; cv=none; b=T2HPVX3St+2/ypHlDGB99qsTO5BtALUcS6E/DIVa95/3jDc8zn6Bb1NH7T1C2NBhCncBFUt1cMdJwq22JxktzbcwklJxtAwEkgL6VQf37TAtIVY9tbsra7Z6CbgpAaFFjMAMp0Bsq4ltmHqte5gE4PO6eMhsKKALpgVfzpTBDV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788380308; c=relaxed/simple;
-	bh=vCwMOyKhSya1QsNSc8kio0O3YCBUNVMjPg5E/k/BEuM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kwtlLRyRBVNxrlgI3tr5Adot0EDaPdWLqkKt3gFW3HvybVz/Bsqb78wPm8+BA1NMO95P0CsodVtCBqPKdrDiB7v4C5shEoQtoHYMfmNiNYPaeu9jvG5hI0gc0MjX7b6uoOya48tWoGcpBgGK8mY8svsHsxIdipTBkBb63Kgi0+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=n5T54Ehs; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ITxHFcqx; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788380362; c=relaxed/simple;
+	bh=vXyA8eKvyWRBp/K6V0k9Rd35E94JwkahGZdlw+yf8dQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Rl6pp/INgyiBVOTSi71R8vrS0xbXVD1ugjSkZTCk+2oLPHXDRMZB3Xcu6sG+S/IOMyS5yk7YFrJDB4reAkCAAruUTlP0fqVu4qW2x0erETFlJK9vyTslYy4yEohI9PU6+GLoQ4NklNHD+grb5OCuXNi+D1y+ZDcd44ZgvoFTUC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=ZZ/oL0fF; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=YOQKMyi3; arc=none smtp.client-ip=103.168.172.143
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="n5T54Ehs";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ITxHFcqx"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682KHCcI2417867
-	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 20:18:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=nQGNtigd/fh
-	Qj8k99E1cXDjPd48Xc/BcsE7CCfKWZIU=; b=n5T54EhsFCac0SeU5D97p7M0YyQ
-	OQP1d0SiagH2QmIaJgTg0EzJqAasz7GbSsSPgUw2R5IJKN5KyjDdv+DO0Rik54jE
-	Bw2ZYVdQ/cPd0iB5Rya3x6gJSo0zOOi5xs+R2+lI1ZraYlDfpII2Kju77CMQhqq1
-	kK2P51HgZ7pos/Fkkp4EMGCSK6kQA/B3WSACwICogt3xvn0rRFQCCjtomCESoywQ
-	hdJHu110huHjIB6qTqqapo0sKyxDfgmizZ5IWbyX/yMQ0sY/FvNGJGoNx8oXqqAr
-	mXJHiTmzb2USb616HCS79zAQNlYwqyhwmVHKR2UWQd2CiF/orhDCnJuwgcA==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4genrdses3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 20:18:26 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ce8a76df2dso28365925ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 13:18:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788380305; x=1788985105; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nQGNtigd/fhQj8k99E1cXDjPd48Xc/BcsE7CCfKWZIU=;
-        b=ITxHFcqxMt+nxUbtuIhyBzYwrf82BfahXl82oY9LVDd3Ki0kV3e9jGdAxHrRizkzKv
-         t+9UdsZhJoMSpu5GFfvzeHQtFYAxhvbz67v4mFCoOahL+DwQx7YTGRPOzdlUE9vrnOzG
-         8VIAW5QOB8rhsXhNblrEWlSMNdIsG7RSOZAB59y6D5DZcsdlaRQyZLeUYQ5hvfeXiyF5
-         c230pkgo09YlVX89dfLfCvIHH8j4EQFn1xIxQ6/rISOBICAjYz6Zz8RQCJa+d8wT6UAR
-         X31Ji2ZD2vz2rcF3rdjG8yKMLYLRv5xbaYV4xM8Kt/vFHXrMIm3ttBv7a0j864HeFaH2
-         aAXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788380305; x=1788985105;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nQGNtigd/fhQj8k99E1cXDjPd48Xc/BcsE7CCfKWZIU=;
-        b=pOoxKE2qt0KKMZX6qbOKSIkinjIoplWdnFCrmdKex5URNENXSS+YoHn7/eEAGlcIZR
-         jhXdFTMPrtVc2LeBPz2gR/ecbhCXhTvszZcs9dhmsQip2ThouV9mlkcNfXXbxttEd9nW
-         x+fdDOyij+E8tM7kDGQ3MQxVESfknEfvFEWmyyx5EJg5xqeubdTJGvDFoBMzqdjlJ+JK
-         28Lb1umdWuquMWuMLGybj1dHX9B16d+4T9wlL1Z0QPsodF5mVFfhysHbOV1ARzVLKE2b
-         YavNfJOfP33y9T9cSukeptlKIMDNSG2HnrF6vdn2dEqMJaArzWeuLfok5QwQFon3Fn1y
-         69Ww==
-X-Forwarded-Encrypted: i=1; AKwUvBxC7EXRHlgiM1xDALGrDo3hpeGcxXli/USNW8dtXPFn9dUMowU/trSIY2EI4zM5Ss0YkZKLcPSkXbisGwQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/SKX4nJg2EpS96yM4vgjvU1ukXyDyZeudVXf+/AGwByX5Rs/d
-	RjZvpZCZSVrMKFsFKZ2JI/DHtTW5wA0YSY8WQN0ZblVoxVtF3CFlDpF0i04VJ4l9L1g84Hz034I
-	7E3J4jonYRnbYfD0+o+IBoIFNL9AWyab9cZ8xRqvV0tVM9x4BgZCdNpeDn+K52hYy4Mg=
-X-Gm-Gg: AYBFou1HFdTjsJWj/XanlDUYQsFJkSIhkOmgUWNKi1aBC8Kz7hVfIRGsU9kgKgjqOTv
-	81X9vtJ6JmybhzDHsGhivjfySSRrCKh1ims16OtrvsB/N/AKwXV8k0fFHMvBW91Qmzbq61aObsK
-	KgIF5Wpb4kWWxZcUB8GTtzp62p9t+VruQebAXARupd7XWfHLlJ0D8sz9HB4AqRDKpf3XtHj8F29
-	hBM/2bTR49qfRFix7pD9IFjpsC+SjN2POCkOTAv9IeD6wqUnGfmm0Dj1uKY8YfWURLJ2rDInEMw
-	+n1+Yc2xrRyZ9OFL2vH8k4Aq16Ka/ZYyK+/i2ow66jYg07No4Jh8/ULlYEESX81gF2YtniVsI9e
-	9voPLswdrn9QxpikmXW6YHXoBktE=
-X-Received: by 2002:a17:903:32c2:b0:2c9:bf82:dd11 with SMTP id d9443c01a7336-2daec646e99mr78475635ad.7.1788380305424;
-        Wed, 02 Sep 2026 13:18:25 -0700 (PDT)
-X-Received: by 2002:a17:903:32c2:b0:2c9:bf82:dd11 with SMTP id d9443c01a7336-2daec646e99mr78474985ad.7.1788380304847;
-        Wed, 02 Sep 2026 13:18:24 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33256414c60sm497205eec.24.2026.09.02.13.18.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 13:18:24 -0700 (PDT)
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Liviu Dudau <liviu.dudau@arm.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Joel Stanley <joel@jms.id.au>,
-        Andrew Jeffery <andrew@codeconstruct.com.au>,
-        Paul Cercueil <paul@crapouillou.net>,
-        Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
-        Paul Kocialkowski <paulk@sys-base.io>,
-        Linus Walleij <linusw@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-        Jernej Skrabec <jernej.skrabec@gmail.com>,
-        Samuel Holland <samuel@sholland.org>,
-        Alexey Brodkin <abrodkin@synopsys.com>,
-        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-        Michal Simek <michal.simek@amd.com>
-Cc: Ryan Chen <ryan_chen@aspeedtech.com>,
-        Billy Tsai <billy_tsai@aspeedtech.com>,
-        dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
-        linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
-        linux-mips@vger.kernel.org, linux-sunxi@lists.linux.dev,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Subject: [PATCH v2 11/11] drm: arcpgu: Use devm_of_reserved_mem_device_init()
-Date: Thu,  3 Sep 2026 01:46:40 +0530
-Message-ID: <20260902201640.2024648-12-mukesh.ojha@oss.qualcomm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260902201640.2024648-1-mukesh.ojha@oss.qualcomm.com>
-References: <20260902201640.2024648-1-mukesh.ojha@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="ZZ/oL0fF";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="YOQKMyi3"
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailflow.phl.internal (Postfix) with ESMTP id 38C7A13802B7;
+	Wed,  2 Sep 2026 16:19:18 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-12.internal (MEProxy); Wed, 02 Sep 2026 16:19:18 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1788380358;
+	 x=1788387558; bh=Vz9quh9nvRJcQM3CzvMjGEPr3bSdixOFEm0bNlRkrO0=; b=
+	ZZ/oL0fFJfM06bLBWKqfF51tay77Ozbj7KUCYvnDD4aesbtfsdJtamNItiA5OUGa
+	UFyReTB76y4MCbK4iHVlSTFiw5MQNnxmlYIHapPZ6q9WXF6kFNvj/YLbrHJqK0+0
+	dhNmUYO4wzskV1G9rLf9az60taKzXf/nTTxlssOL7sMPBCLvBKXu0VMThkTrhMoa
+	o5IaATe7jEEU4Hk9LYuDBKfJMU21F5L6xtGSoatpeibfGF9U4wrT64V64erwseJx
+	3gP+gPwbp9fY5WlyawY2k+F7H83ZOCOXRGpRCAk1O+M6esgN32DrXYtRzLZ3DKTZ
+	SHTymqJTAblPS+XTUGZNQA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788380358; x=
+	1788387558; bh=Vz9quh9nvRJcQM3CzvMjGEPr3bSdixOFEm0bNlRkrO0=; b=Y
+	OQKMyi311nAd/mqiNJV6ioXgS/xGjTVNeyqQsE4VmGMopFRWAHngL/AOkxB9Itzf
+	6mwnzWMquSoAsDnWJ4OTlPt2pVTFb5Ktd7k0zvhdDwuFW/V6AJ2jjnNosD9OdILE
+	7lnoXF3znzUqXW6UPmZWBXn9iICK432x1ceiTbqje09tR/jzVAP6TAgkfIJcl+nS
+	i1fmxgWPK6XRPv/Ta8iRjUhbBjdEh9DbsXw33NGPQPmKPGuE0gFX41MPWS8dgbeu
+	ZEPe9bF0mvNyixzMh9Vm8nmoN9OxypgC/orN4F7hEH/G7Y1cvGfHXUjMABd+x40+
+	B6tN9G0KkB4lUQt8Ak9jg==
+X-ME-Sender: <xms:xYSYasVMGSFZUbc_xKp1d80iKJUf8oOAnOEOedjXKkCp52QiP-V2zg>
+    <xme:xYSYak16gkAaPFj_Lo0-ZDnPg5y7qYZCftlSltamu6EPPddeRsk3bC1VdFyZp9SF3
+    S3zb2k0vh2x5MtUK5N0pWca-wJpsG2ITaqSieDy2bqrHlZmG99kt9U>
+X-ME-Received: <xmr:xYSYatX4UkC3b5W2nBs5WM5QEbktFpS05n1MTj86HXSGEOgiYuo1TCljn6ifnw>
+X-ME-Proxy-Cause: dmFkZTFDPnGKjj96XPPfptgd57/UcEhtbx2v3FA1uJyozmap57p8WrmU6i68nMmSieeH6C
+    2QfQhdON/c0RpQshQ9lDgC4CqOne/nSPw5my63jFMyB92Lhrwhb/mBbVRgQQfY3wpx0oaf
+    T4bGrvxjMYkHDvjmA9MCbxPninh1qk4D92ZSL3HcI+USIIdNQO0in5ZhgMvm3tNNoAZujN
+    MTv88bmpvyrFbeHcleUhdPLwslNEI1ELKI+99Hw5XXj6CjQLLZTOFcBalFQMi4T6w2A0hU
+    U85ttGNB4nOYeH2GbGypnletvvGxPMxzoeijCMzhJ+lr6tDwvHd8g0BCJT0e9mP03uWdeo
+    Q3MJZah/5/AAE3fgKFhhd/+NP8EmKKAJtH8mv02acvChwOdMue4ysS6GPHrmQtCNawMXGB
+    kdc+eFiMciyhhKI5z6SyXJRIj8F/cFJ9FHWAAs4I8P+I4Tcu3LpeOZs5pLg22OJRDz2Mvt
+    Rg5fFIdA1rrbwlkw+xn85h2Lj+Bxu9Wv90qTD1qXCsfvtMnz4UPbfYI4YOxkjSe38zutpA
+    bICCrDiT+omIUXz8Px9EBW65T8wDt26i7FzX5uVdjQB1Wldo5cuQ3j1a4Up8cQ51Cg87Kz
+    OIJGrygxD6OryfiOWU/mURjE0iumH8cqH0o5EVzIHXn+SKHjHLy2iL3a9SOg
+X-ME-Proxy: <xmx:xYSYaqDRzuyHC1aCzKRyrUdEW_rKlHeQ3r9XAHizO0sptxPUtE7Kgw>
+    <xmx:xYSYagpMw66uCsmInbiPbyfC3PPZTwydQJYNI-h_WbqwdFZT6GFTjw>
+    <xmx:xYSYam14BWIxLjQy6Y8Q7DlY_qMUDaqbfx1KiJ1Qt5SCOOVS1LIsHQ>
+    <xmx:xYSYan2Z5YTqhysqaK0h18Cz6CD01-aEEcDpoYpOFb31SSyRIqhXVA>
+    <xmx:xoSYavBGO8yOzmhhBz-FRvWc6LYzXx4mufSs4DYR60NXNYTtO90oZwks>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 2 Sep 2026 16:19:15 -0400 (EDT)
+Date: Wed, 2 Sep 2026 14:19:14 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Steffen Eiden <seiden@linux.ibm.com>
+Cc: Sean Christopherson <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, Tony Krowiak <akrowiak@linux.ibm.com>,
+ Halil Pasic <pasic@linux.ibm.com>, Jason Herne <jjherne@linux.ibm.com>,
+ Harald Freudenberger <freude@linux.ibm.com>,
+ Holger Dengler <dengler@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>,
+ Matthew Rosato <mjrosato@linux.ibm.com>,
+ Farhan Ali <alifm@linux.ibm.com>, Eric Farman <farman@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>, kvm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
+ Jason Gunthorpe <jgg@ziepe.ca>, alex@shazbot.org
+Subject: Re: [PATCH] vfio: Use file-based reference counting for KVM
+Message-ID: <20260902141914.15a30449@shazbot.org>
+In-Reply-To: <20260812-vfio-v1-1-5cfe0b1fa4e7@linux.ibm.com>
+References: <20260812-vfio-v1-1-5cfe0b1fa4e7@linux.ibm.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=H4/rBeYi c=1 sm=1 tr=0 ts=6a988492 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=lEtn7xO9CsvGDZioIccA:9 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-GUID: jLvNsNUYZMch2mxvWdCDj32g5EY8xTu_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE3OSBTYWx0ZWRfX8Rct9bLStXs2
- YlDYIBN4iPWmuVxs1xu/spcoVAJ+/Z9PFuqxNAXA1es8SvFYYTwBrhWlI4Uj5HPbu6v2pJXDqc8
- 6uLb0W2giiP9xMavkKRL2jPva6dgHNat4FFtp1QCEB7NUaBWo3kspmeSOD/1q4+Vjj5NLhdo5H0
- DQY/fM22ORKFuAjljtKhczxRDSQ3GT0uzW363wELUqlvSg+usTS9mohsbN+cPlnTRIrQfmT6CFv
- hWQef4iMb4UDj/msx7S50GP+GSYeuHqD0K7avX2AVblydIePAdwJXIoS1NSZ6tXUrEqw5sFDQFe
- omMcV37m78i8mWc+snj2F/uMPT1+g2ZUWQwj2lM09y3YcEFG+L0Up6ehX1QZ/SLO4Rv0ihU5OeT
- GvOwtwAV+szumMfOGjdH1nbY+R3FZ1s89K88/r+mWzZWWSHQXTLsViT9lZr7ejklRjQTeELw6Tq
- t3qrSLMAUGx827UrzhA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE3OSBTYWx0ZWRfX7nOqY4CUfPSS
- KbpwznMBSZ6HsBRrk4/8FkKOakL6wYUIh7w2QoMdrSoMBDvz4NEhYWWBsFeyIEfgSkiLB7p9FcH
- VVm2wFMx7PmSYuYZbWWdmgv7n088qUE=
-X-Proofpoint-ORIG-GUID: jLvNsNUYZMch2mxvWdCDj32g5EY8xTu_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_05,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015
- malwarescore=0 spamscore=0 phishscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020179
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Use the devres-managed devm_of_reserved_mem_device_init() to ensure
-the optional reserved memory region is released on device removal,
-fixing a missing cleanup in the original code.
+On Wed, 12 Aug 2026 20:55:30 +0200
+Steffen Eiden <seiden@linux.ibm.com> wrote:
 
-Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
----
- drivers/gpu/drm/tiny/arcpgu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> Replace manual module reference counting with file-based reference
+> counting for KVM integration. Previously, VFIO used symbol_get() to
+> obtain function pointers for kvm_get_kvm_safe() and kvm_put_kvm(),
+> then manually tracked module references through these symbols. This
+> approach required storing the put_kvm function pointer in each device
+> and carefully managing symbol references. Remove the put_kvm field in
+> struct vfio_device as is it no longer used.
+> 
+> Pass struct file pointers instead of struct kvm pointers throughout the
+> VFIO-KVM interface. This leverages the kernel's existing file reference
+> counting mechanism via get_file()/get_file_active() and fput(),
+> eliminating the need for manual module reference tracking. The
+> file->private_data field provides access to the underlying struct kvm
+> when needed.
+> 
+> group->kvm and df->kvm hold a reference of their own, taken when the
+> pointer is stored and dropped when it is overwritten or cleared. They
+> have to: the kvm-vfio device fd holds a VM reference of its own, so the
+> VM file can be closed and released while the kvm-vfio device is still
+> alive and still pointing at it. filp_cachep is SLAB_TYPESAFE_BY_RCU, so
+> a stale pointer left in those slots could be made to reference a
+> recycled, unrelated file.
+> 
+> kvm->file itself carries no reference, so that it does not pin the VM.
+> It is only ever read with get_file_active(), which is safe because
+> kvm_vm_release() clears it, i.e. before the struct file is freed.
+> 
+> This simplifies the code and removes all remaining externally exported
+> symbols for KVM, paving the path for a second concurrent KVM module.
+> 
+> Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
+> Co-developed-by: Sean Christopherson <seanjc@google.com>
+> Signed-off-by: Sean Christopherson <seanjc@google.com>
+> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
+> ---
+> This is a spin-off for the arm-on-s390 series for fast-lane merging
+> requested by sean[0]. It is based on patch 1 [1] of the v6 of the
+> arm-on-s390 series but with some fixes for some issues pointed out by
+> sashiko. The useless rcu protection of kvm->file is removed and
+> the getting-the-file-handle process is streamlined.
 
-diff --git a/drivers/gpu/drm/tiny/arcpgu.c b/drivers/gpu/drm/tiny/arcpgu.c
-index c93d61ac0bb7..fa01407570a8 100644
---- a/drivers/gpu/drm/tiny/arcpgu.c
-+++ b/drivers/gpu/drm/tiny/arcpgu.c
-@@ -278,7 +278,7 @@ static int arcpgu_load(struct arcpgu_drm_private *arcpgu)
- 		 arc_pgu_read(arcpgu, ARCPGU_REG_ID));
- 
- 	/* Get the optional framebuffer memory resource */
--	ret = of_reserved_mem_device_init(drm->dev);
-+	ret = devm_of_reserved_mem_device_init(drm->dev);
- 	if (ret && ret != -ENODEV)
- 		return ret;
- 
--- 
-2.55.0
+We'll need a shared branch to merge this across two subsystems and the
+vfio-ap driver.  Based on $Subject and LoC I can volunteer to provide
+that once we're settled.  A couple minor issues below...
 
+> diff --git a/drivers/vfio/pci/vfio_pci_zdev.c b/drivers/vfio/pci/vfio_pci_zdev.c
+> index 0990fdb146b7..d3a110101353 100644
+> --- a/drivers/vfio/pci/vfio_pci_zdev.c
+> +++ b/drivers/vfio/pci/vfio_pci_zdev.c
+> @@ -144,6 +144,7 @@ int vfio_pci_info_zdev_add_caps(struct vfio_pci_core_device *vdev,
+>  int vfio_pci_zdev_open_device(struct vfio_pci_core_device *vdev)
+>  {
+>  	struct zpci_dev *zdev = to_zpci(vdev->pdev);
+> +	struct kvm *kvm;
+>  
+>  	if (!zdev)
+>  		return -ENODEV;
+> @@ -151,8 +152,12 @@ int vfio_pci_zdev_open_device(struct vfio_pci_core_device *vdev)
+>  	if (!vdev->vdev.kvm)
+>  		return 0;
+>  
+> +	kvm = vdev->vdev.kvm->private_data;
+> +	if (!kvm)
+> +		return -ENOENT;
+> +
+>  	if (zpci_kvm_hook.kvm_register)
+> -		return zpci_kvm_hook.kvm_register(zdev, vdev->vdev.kvm);
+> +		return zpci_kvm_hook.kvm_register(zdev, kvm);
+
+There are conflicts here with Farhan's 9f240376d034 ("s390/pci: Store
+PCI error information for passthrough devices"), we need to maintain
+the error exit funnel through stop mediation.
+  
+>  	return -ENOENT;
+>  }
+> diff --git a/drivers/vfio/vfio.h b/drivers/vfio/vfio.h
+> index 7728bc99b63d..f76504d707e1 100644
+> --- a/drivers/vfio/vfio.h
+> +++ b/drivers/vfio/vfio.h
+> @@ -23,7 +23,7 @@ struct vfio_device_file {
+>  	u8 access_granted;
+>  	u32 devid; /* only valid when iommufd is valid */
+>  	spinlock_t kvm_ref_lock; /* protect kvm field */
+> -	struct kvm *kvm;
+> +	struct file *kvm;
+>  	struct iommufd_ctx *iommufd; /* protected by struct vfio_device_set::lock */
+>  };
+>  
+> @@ -88,7 +88,7 @@ struct vfio_group {
+>  #endif
+>  	enum vfio_group_type		type;
+>  	struct mutex			group_lock;
+> -	struct kvm			*kvm;
+> +	struct file			*kvm;
+>  	struct file			*opened_file;
+>  	struct iommufd_ctx		*iommufd;
+>  	spinlock_t			kvm_ref_lock;
+> @@ -107,7 +107,7 @@ void vfio_device_group_unuse_iommu(struct vfio_device *device);
+>  void vfio_df_group_close(struct vfio_device_file *df);
+>  struct vfio_group *vfio_group_from_file(struct file *file);
+>  bool vfio_group_enforced_coherent(struct vfio_group *group);
+> -void vfio_group_set_kvm(struct vfio_group *group, struct kvm *kvm);
+> +void vfio_group_set_kvm(struct vfio_group *group, struct file *kvm);
+>  bool vfio_device_has_container(struct vfio_device *device);
+>  int __init vfio_group_init(void);
+>  void vfio_group_cleanup(void);
+
+There's a stub in the !CONFIG_VFIO_GROUP set of declarations below this
+that isn't updated to the new prototype, build breaks.  Thanks,
+
+Alex
