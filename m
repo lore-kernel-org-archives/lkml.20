@@ -1,32 +1,33 @@
-Received: from mta0.migadu.com (out-93.mta0.migadu.com [91.218.175.93])
+Received: from mta0.migadu.com (out-103.mta0.migadu.com [91.218.175.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D86B4AD4D8
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:43:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.93
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 888814AD7DA
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:43:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.103
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788371016; cv=none; b=PiGxd1N8GSgCKx+8hgIFIC+cTxNpM6jV0ioJCtbexfgNuze9MPQJhWwv/f+5Z/RmKooqFMvqzRz440e8WjP9Ss+hmiEWUMPla+P0TrGFmKlybM1dVi+nvF646cMX9YYgO/ZPkAnuOHMmCCnxDyPBzpo4F6RpMnf+RCcDORJg+/s=
+	t=1788371018; cv=none; b=itHKW80TdHyxrqUR/ynaxKNP2WwKSzysugVRnCTgn4jpyv+SCuMQOb+ko7MSKSM+6oQHviNkhBPAcyliDKs69wqrbKmyDWpqmT/TzmCPbU6iAUH/Wmi/aPsKHYuVkNIrI4WFwjLrCMqd7QIFAKfCi6Sh7ZIXy8feCSEksuswp1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788371016; c=relaxed/simple;
-	bh=dbMEz1JHYuKrPhG1IXsUKT9HXwJuTLvgviFN/ZwRb6U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PfYxIv//7ko02/Dro24Z86iQBvvArOGwl4XhJHNLTTNh0yI0ere9jbaZzgOh1SFs0ZJTvMErTOPgMeqhWaNBjt4TG8OTiY932rZusbHNkGKYMwKWHnZxoA/pnLZCZYrbT9JbfNCSn2XMtGbhryhQzgXc6p1ZBb1HPnaxgytUezg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qGWHhZGb; arc=none smtp.client-ip=91.218.175.93
+	s=arc-20240116; t=1788371018; c=relaxed/simple;
+	bh=yb0bO+jMr8HKLSvckBXSyVmp7KoF8OjxYY9x1SSRZYA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=poSPA1a0lYYsGNxxNZjxBRUBM8FWH867P+2lLDIT1HW34S1pMA6JIb9bmkxaGDvday0kropg2GPiG5Nr+SYg2gSGIFabbgN4XUXUdD0EuPznLlBTHniclKpc6FXB0zBMcj3D6AHggg9f0zZmYJupHX7KhUcsoRcYaw97kEagjQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=qPkpbEWq; arc=none smtp.client-ip=91.218.175.103
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qGWHhZGb"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="qPkpbEWq"
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=dbMEz1JHYuKrPhG1IXsUKT9HXwJuTLvgviFN/ZwRb6U=;
+DKIM-Signature: a=rsa-sha256; bh=yb0bO+jMr8HKLSvckBXSyVmp7KoF8OjxYY9x1SSRZYA=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788371012; v=1; x=1788975812;
- b=qGWHhZGbo2LzF3DO9kknlbs2X7qXCisREyuW9CQd7bP8d3CaOC4JILczONwcc8cfmEUdOubm
- lU5cKr90f5wQMLnBnpPnFPe8oFECbh1PO0qMWgpIMAmhBC/VwDGXD30J/XGwYaxEwaMlwkABzTN
- sPNY0OCSpEuAXfEMY+LgfGfc=
+ t=1788371014; v=1; x=1788975814;
+ b=qPkpbEWqSPfFlplLW/5zTmAGsK+Jgvw2LuSv7x9rDbxggeSRB3s6CVgDIsfoeI7oeCwMd7W5
+ kiruYEpW/cDGYTJ6M09RoGkjeK8tmrMZ2d+bAvXNYSqgayxFYsggEzS1P8+XSgYY0YrHpwGBqGG
+ 4GH68oM3b307PecVmXl2tV5o=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 65786b149d393ad8;
-	Wed, 02 Sep 2026 17:43:22 +0000
-X-Mizu-Trace-ID: 65786b149d393ad8
+Received: by smtp.migadu.com with ESMTPS id ea98a50b791055b0;
+	Wed, 02 Sep 2026 17:43:34 +0000
+X-Mizu-Trace-ID: ea98a50b791055b0
 X-Migadu-Flow: FLOW_OUT
 From: Shakeel Butt <shakeel.butt@linux.dev>
 To: Andrew Morton <akpm@linux-foundation.org>
@@ -45,10 +46,12 @@ Cc: Michal Hocko <mhocko@suse.com>,
 	linux-mm@kvack.org,
 	cgroups@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/8] memcg: remove the v1 soft limit
-Date: Wed,  2 Sep 2026 10:43:03 -0700
-Message-ID: <20260902174311.1772372-1-shakeel.butt@linux.dev>
+Subject: [PATCH v2 6/8] memcg: remove the per-node soft limit tree fields
+Date: Wed,  2 Sep 2026 10:43:09 -0700
+Message-ID: <20260902174311.1772372-7-shakeel.butt@linux.dev>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260902174311.1772372-1-shakeel.butt@linux.dev>
+References: <20260902174311.1772372-1-shakeel.butt@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,57 +60,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The v1 soft limit was deprecated in v6.12 by commit 569c4f62d84a ("memcg:
-initiate deprecation of v1 soft limit") and nobody has reported depending
-on it in the ~21 months since. memory.low and memory.min in v2 have
-covered the same ground for far longer.
+tree_node, usage_in_excess and on_tree only existed for the soft limit
+rbtree. They also doubled as the buffer between the read-mostly head of
+struct mem_cgroup_per_node and its update-often tail, so replace them
+with the explicit padding that CONFIG_MEMCG_V1=n already used.
 
-The knob has since been made inert by "memcg: make the v1 soft limit knob
-inert", already queued in mm-hotfixes as a backportable fix for a syzbot
-report [1]. Nothing can enter the soft limit rbtree anymore, so this
-series just deletes the machinery that is now dead: the reclaim pass in
-kswapd and direct reclaim, mem_cgroup_shrink_node() and its tracepoints,
-the per-node rbtree, lru_gen_soft_reclaim() and the MEMCG_LRU_HEAD op, the
-per-node tree fields, mem_cgroup->soft_limit, and finally the v1 event
-ratelimiting which is now down to a single target.
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+Acked-by: Michal Hocko <mhocko@suse.com>
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ include/linux/memcontrol.h | 13 -------------
+ 1 file changed, 13 deletions(-)
 
-memory.soft_limit_in_bytes itself is untouched: writes stay ignored and
-reads keep returning the maximum value.
-
-Changes since v1 [2]:
-- Dropped "memcg: make the v1 soft limit knob inert" (1/9 in v1), which is
-  already queued in mm-hotfixes, making this an 8-patch series.
-- Collected the acks and review tags. No code changes.
-
-Sashiko's v1 review [3] asked whether the softlimit tracepoints,
-lru_gen_soft_reclaim(), the per-node tree fields and the
-MEM_CGROUP_TARGET_SOFTLIMIT ratelimiting could go too. They all can and
-they all do, in patches 3/8, 5/8, 6/8 and 8/8 of this same series.
-
-[1] https://lore.kernel.org/all/6a7a6929.b50370da.49fe0.005e.GAE@google.com/
-[2] https://lore.kernel.org/all/20260811203203.3456029-1-shakeel.butt@linux.dev/
-[3] https://sashiko.dev/#/patchset/20260811203203.3456029-1-shakeel.butt@linux.dev
-
-Shakeel Butt (8):
-  memcg: remove v1 soft limit reclaim
-  memcg: remove mem_cgroup_shrink_node()
-  memcg: remove the soft limit reclaim tracepoints
-  memcg: remove the soft limit rbtree
-  memcg: remove lru_gen_soft_reclaim()
-  memcg: remove the per-node soft limit tree fields
-  memcg: remove mem_cgroup->soft_limit
-  memcg: simplify v1 event ratelimiting
-
- include/linux/memcontrol.h    |  27 ---
- include/linux/mmzone.h        |  30 +--
- include/trace/events/vmscan.h |  14 --
- mm/internal.h                 |   4 -
- mm/memcontrol-v1.c            | 392 ++--------------------------------
- mm/memcontrol-v1.h            |  12 +-
- mm/memcontrol.c               |   7 +-
- mm/vmscan.c                   |  96 +--------
- 8 files changed, 34 insertions(+), 548 deletions(-)
-
+diff --git a/include/linux/memcontrol.h b/include/linux/memcontrol.h
+index 11c1fa88d6fd..1eababed16f5 100644
+--- a/include/linux/memcontrol.h
++++ b/include/linux/memcontrol.h
+@@ -95,20 +95,7 @@ struct mem_cgroup_per_node {
+ 	struct lruvec_stats			*lruvec_stats;
+ 	struct shrinker_info __rcu	*shrinker_info;
+ 
+-#ifdef CONFIG_MEMCG_V1
+-	/*
+-	 * Memcg-v1 only stuff in middle as buffer between read mostly fields
+-	 * and update often fields to avoid false sharing. If v1 stuff is
+-	 * not present, an explicit padding is needed.
+-	 */
+-
+-	struct rb_node		tree_node;	/* RB tree node */
+-	unsigned long		usage_in_excess;/* Set to the value by which */
+-						/* the soft limit is exceeded*/
+-	bool			on_tree;
+-#else
+ 	CACHELINE_PADDING(_pad1_);
+-#endif
+ 
+ 	/* Fields which get updated often at the end. */
+ 	struct lruvec		lruvec;
 -- 
 2.53.0-Meta
 
