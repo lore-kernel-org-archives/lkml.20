@@ -1,184 +1,739 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3FAD493632
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:27:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788355628; cv=fail; b=CUTTLgArOfQmzf3UbCbJs+3qZdaN6+rmvXoMMtf9cu2jXiGbKslUcungOdlWZFrbNWo7S19zATceoXknGa7JphQFac2IK50XPhZLm8QynxPAZk7SAvnAiAPGXDBmxsAuuIq5gCwBrrOdn0ME3a2wOgUKceccWOIeAtLZ2bMEras=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788355628; c=relaxed/simple;
-	bh=ZnqGbnt9+0eYAVJa9vE9eZXQEuKySRGaMKFLVHxiiec=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YcZd2dXpZJ5qnBdgye+8NSKC/ID9tnhKK/4/n8APzXCBUC5wGF6xpt1vIDojVxwE1kQje2rr4tTrfqUt03jYzVsBBXNFFClOLAgb4SneA/ZMsMlBx+8SDL+n2lsRc4yXYa3+Jc2pfHQbiYIdDgAu09Y7+6eCNqZ14kD6Hmcgdg4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=LSW3drRh; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=oGd50ADR; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B09E49F123;
+	Wed,  2 Sep 2026 13:27:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788355646; cv=none; b=PNQvKmczxUZPe85uQnk0bqG8YYLmadd8/TRYoXQKc+hKpwF2LUKsVmuccIb6/aa5LQeX2Pi/2ftZHSKZSFfqg9PlZ2VQ1nZwR9Duh0cI9oW8y4Id/Sfyu38gAqKB0imjxurv5H1RbQBb/dtv143aKdxKpfVlG0I+nKIUJ6gYlLk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788355646; c=relaxed/simple;
+	bh=hSXv4LMWQCbypjAASJ+FoyrW2+2FNqHfuDlOIPK3ZZg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=UmFKlF1RSazaELRX90eE+vGJNSCF7DQePKlxHGqESx2/d6pYsWilEWaWIJeDIvqJwy85lEdjkCh9Cv4fZZ1fY96l8nRT8EWO7C/drbnhEqhHeXYrih0jcrRUIYAqMvUSlykXMfAFbPw0mhzEJ5G9B9AwNZ2t5wdoftLFuDfX+PM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SSqE9wxP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="LSW3drRh";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="oGd50ADR"
-Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
-	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 682CUGwU2332276;
-	Wed, 2 Sep 2026 08:26:55 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=proofpoint-05-2026; bh=ZtlYABq5fCpzQ4P
-	d/+3JE4lw7alkI2EoMvZbDaDzwmA=; b=LSW3drRhq4zrqJ9Ptxzc26vJQlUUC5T
-	HkvGu1bUfPwhlEhXo1Wy0BvjOfqvtauag36Ord36jelHZJzJFmcuDGX00dKfJaae
-	nwuO8PWYyNJBbdBeloxvNaRmIce48RSOqZT9K/vH4ow3B5GwP+wD5xERcPcs8Zzo
-	E+XvCsD8qquqVvhIRhcCjYcGH1zV0SQ7n5V9IGGQEVXaeziazwSjtd5vhVp5ZVj7
-	ALr+G7c4YTI2SY4N1vTv050B4ARPJ4iXNbHTYE9ai1QYNJ0cDU0dg8mj6T5odTC+
-	qF+XBjPhpZRXgvduWq5701AIGIzi4+QEYYE7GpORvcmEKjUHs+tMjjA==
-Received: from ch5pr02cu005.outbound.protection.outlook.com (mail-northcentralusazon11012014.outbound.protection.outlook.com [40.107.200.14])
-	by m0380145.ppops.net (PPS) with ESMTPS id 4ge7gqcaxx-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 08:26:55 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=H3KCBDrW6+RgekREfGpqZJWLmbYT4E8HCny2jKSe9EHx2KeI3Clf/PUWZtmWTxD6BVftmduhmTzCFbgRtI3sC5xJR4HbWSRjnhAmoruIzegq+uJIRZzU9LVDalkiWTsYJPRieOoEeVRiUO3nNURNCOucujRTAhFRukOGXCoy/fJM1hhBiINozr+cZXF4ov9Mag181PydMD4MmQF3s9TjXGhzRRKZRKBGY8frHdHZ3MXQKbLidwvka86Lggz9amqk3p4/sYpeQyU3KlDgCzG7OPndG88cjHO8dbhv6D4eyiSjEcCww5FU0N6n69e8wkeB7MLTwRoTyNpxM8TLlCNQPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZtlYABq5fCpzQ4Pd/+3JE4lw7alkI2EoMvZbDaDzwmA=;
- b=UuVDwYCGIEdnUVTvM75Nt8N5ZvO4XYRO2Dz2xNW0WGa++lBl18lWUDN2O1XQP0i0qelhABCoZhjORZ9hTv0KZWtYyYpzvOBp5SLanMYV4ytBD7r4Ha7fiLKUfihc5ruQypTvdiz+EyUQGuXFyVaPceBZJjT+UmpzqpeNdrfk2eQ2e9XgDmzzTGTyXd/O0M8QEyllL8n2ZNPLZrToFV6GEzKZYMvI2vL+6LYrFrXY57wDcDYztaDwGWyahqLq2odhliJasQRerkUuqKY933TraStkOSUTRzJPUBOaDaocvm/ib58VNj2gMRJj4+TkIKnK8LIWeOs7mZz3LH4rmyvpIA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=toradex.com smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZtlYABq5fCpzQ4Pd/+3JE4lw7alkI2EoMvZbDaDzwmA=;
- b=oGd50ADRkK59HgD5aojw+t7SPSQ3Yge3fdFfjSu09e3LfI+fmQAka7Rp6zmzJLlb9FGvo43CyjEQQDr2QjqDOgwMTLqw6rhtzXMWNhreIGTECCtQfiMHSdhIIjTeUHD04dwH5usHvwxCVUhLJsimKkXCjhez3EcZlsrdB+xm2HQ=
-Received: from MW4PR04CA0217.namprd04.prod.outlook.com (2603:10b6:303:87::12)
- by IA1PR10MB5972.namprd10.prod.outlook.com (2603:10b6:208:3ec::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Wed, 2 Sep
- 2026 13:26:48 +0000
-Received: from BY1PEPF000264B3.namprd02.prod.outlook.com
- (2603:10b6:303:87:cafe::24) by MW4PR04CA0217.outlook.office365.com
- (2603:10b6:303:87::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
- Sep 2026 13:26:47 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- BY1PEPF000264B3.mail.protection.outlook.com (10.167.242.120) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 13:26:47 +0000
-Received: from DLEE203.ent.ti.com (157.170.170.78) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 2 Sep
- 2026 08:26:16 -0500
-Received: from DLEE215.ent.ti.com (157.170.170.118) by DLEE203.ent.ti.com
- (157.170.170.78) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 2 Sep
- 2026 08:26:16 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE215.ent.ti.com
- (157.170.170.118) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Wed, 2 Sep 2026 08:26:16 -0500
-Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232] (may be forged))
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 682DQGht678811;
-	Wed, 2 Sep 2026 08:26:16 -0500
-Date: Wed, 2 Sep 2026 08:26:16 -0500
-From: Nishanth Menon <nm@ti.com>
-To: Francesco Dolcini <francesco@dolcini.it>
-CC: Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-        Francesco Dolcini <francesco.dolcini@toradex.com>
-Subject: Re: [PATCH v1] MAINTAINERS: Add git tree for TI K3 ARCHITECTURE
-Message-ID: <20260902132616.xrtqgrztojlvzynn@bankable>
-References: <20260615132640.161584-1-francesco@dolcini.it>
- <178275222394.2162147.13459463877313723046.b4-ty@b4>
- <20260901163443.GA122104@francesco-nb>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SSqE9wxP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FA3C1F00A3A;
+	Wed,  2 Sep 2026 13:27:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788355639;
+	bh=Un9ds6+NKCC6oaj+ZnxMv2FssWRr9ogFaViHgOUc1jY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=SSqE9wxP38nP9gBIp4pO/g3IPIw1XL1Sxhh1NhA3N/XrzabRY0P+vX9fzkCGlsZtj
+	 0ZBvEhDk3k5MW9wTyqWV7c4T+Ef3KTjy+8SLl2m39gkT0tXUawBh3fRTGvKyZFLd8n
+	 0rt6ee1T4lOld3znaGrM1osxkelBSGuvgcJckmlbkzLJf6+eGNUcUdRpwcicpRFAUs
+	 JMRm7h3YpmxUUZxzvM2x8x72ieBvXyMAgWHETNQtWzg1dqfFJCZvpGVnFUsQeK+A0J
+	 g8NlvFqBHHCIxrkC/sldU1oKa+rk5DwVexvRt+Ok8pGKKaqRfJsDvuCLkJUpFyNnI1
+	 7CUzDckSYkMeQ==
+From: Andreas Hindborg <a.hindborg@kernel.org>
+Date: Wed, 02 Sep 2026 15:26:05 +0200
+Subject: [PATCH v5 09/12] rust: mm: sheaf: allow use of C initialized
+ static caches
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260901163443.GA122104@francesco-nb>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF000264B3:EE_|IA1PR10MB5972:EE_
-X-MS-Office365-Filtering-Correlation-Id: 168baa2b-914b-4048-de6c-08df08f5d6dd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|18002099003|22082099003|13003099007|56012099006|10067099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	0yETG/YtcFBZE1gqyS07IBBAvd7vXgWSgXEFcfjOTCc/YnNWpUb+mJE9oC0tL+X/ZhC1F0Pol4ZSv9lFQDBARr1HwHIaFXgZ15GdmzjLz8H5ZMZTsAom6p5ySHlxUx2V8qVVSdPZKb1t9O8aK3e1SjeuR3vP41odbxoMHk3qpz35Bg1BF16bPSYmP8khB7mUVkgNxaIMLc/9j5A1LuEYcrJUESyR859VRd+WBvykmyh/jp+CZ2/sYjnCDktweXJZZUGG/f2TDYsyQ8YWxzO+oBY2R4KhXzMCyQ98T0rbL1NTSJ2jItksuWpQ6FmG+wkqps9/4FqDDu2tZ93t6DD02PnIuMZDerz5mW1420CjBVQTZGN7d4wI9lytSYBNQKBmtpbAh3zrhUfFDaQPyDixCpGY0zSkPwcmL9Vu17u36x6dXIkaSQc6UDE37aeIEA3+UAgJFzjnsif/3pkObod0Y1XOhXAWJYVQxYArJocnF0X4Vhj/Hv7D8tNx7ckLUG1njvjRPocnCBvWNpRNs25cdCElfCysv7LQBOyzhloCyFSqVYz4UiBYzt014fNpRn/yUPAwCjiv43QsJ8JvawWQBKHZmtStxar7sBid1MffuEJ1HlRZWkN57A7ZQzadMERgaEcw5DRvjFM6FTG671wM+rZIBtlWEzEJykD0zOpbhFjRkAodSnqm0QysJ3/GWQz6aiecX8T+ODe95AgGb0Vmsg==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(18002099003)(22082099003)(13003099007)(56012099006)(10067099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	yHzTgs+i41MelEv4QZAaCbya+f/c+0jga0E5qVr1+PyDLOJgLMz2cux6Tjh04ihKuIoukrBZeI+Fr6ExSYFNXo9h2dyYP4/z0fCM5GolooNb8mCoXw9M5oKe+4LY8hspoARjcsoVAV6CgbE0zkExcUFWnc/G37zwbbpdamJZFZIQ0/8tQr0Bu7ji8xRfpQMu0ULRIKtfT00SJrXHv3lropCHFadbn5/SPME+Bh3m3kp1gHzQjoQsPGnxEBZcEHYPZjYsMrIgnpADXqy8NYBCiAFuGwphxXFwsl2VKBR5cHzaGH/s1ICnd6H1df+5aNnlbFUy/LquF6uZ7iHJYk2lEm7n9r5uiJaH9PY4mpiLbPovXyVm0xLbwINdJnsf8LGMTR7GbPPuSRM14ofseUHBKtRjkgez/wkMFJt0AOHuM/q/kIW6WWFrepAWorPOGUD7
-X-Exchange-RoutingPolicyChecked:
-	GyTTLvNoXkCBPLCsKwgj9AN7UDwEy7cU1oVpL14EsJWXKVS+Kcm0ZrpDUdgT9ahEj0uNFwE3vR215vR3ZDYFux8A7LyotbVWKlw/1yfW9/oTAx0vtwxF2deb/IWRvQsaXTfQ4jdYlXYv5GJKpfCyz/H284lMT+5v/sGavLGV7ONzK3lZKzXZs6k6p6EwpCqWwu9VUKEkqQNIru0qa8LzkNWsbOS5jJUoMO1Kg3s2KDVuusU3T4bXp1iuuFkQFRM08W9+wBCCuZUHztMqF2zvDF6tO9n9+Xwn1nsBmBlOLnH/jfcs1byMkwNJBukqu4t3x9+HbNeO2rKTEwwQ6lQSzQ==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 13:26:47.3519
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 168baa2b-914b-4048-de6c-08df08f5d6dd
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF000264B3.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR10MB5972
-X-Authority-Analysis: v=2.4 cv=fZ6dDUQF c=1 sm=1 tr=0 ts=6a98241f cx=c_pps
- a=3EeCZaq8L1ZepF5DamB/SA==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22 a=sozttTNsAAAA:8
- a=eLhntcxe93hylMjpXPUA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-GUID: vyjQjZND0WuD4dxW8SBpyiiY9h7QxgEq
-X-Proofpoint-ORIG-GUID: vyjQjZND0WuD4dxW8SBpyiiY9h7QxgEq
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDExOSBTYWx0ZWRfX2jhYWI6r4Xk3
- viogJ+uNjkDpXwp836R6j7tIPHyamhTYRpURbThhbr/6HUqNY1gzS+Z7QzJOWz394RtGNIlh0rW
- gih+3IQ57gewDR2jRi66r2lv+/55a9M=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDExOSBTYWx0ZWRfXypnJKqa9Dvyc
- rWv6er2WucpAPSNIUXHfZrvmG0AMntv3at4tgnVvzWc4KVoEgZeNJCe0up7uzR9u9/HcwYwZCif
- 4e5NRJduPrysm9f2nDUjzI/YZ7YdTW0Wj8WdVS2W92mqZvF0Kb8LDjO1fVc7yfnV4O925ZkoXzV
- upC3JgcACSyfMCyAadFqln+4DkCMDH5GhRJKcfieGNwcY/KaDzbujBT6A4PlWrdRvGPFiKK8MMu
- 2O3FMurlj0cG+nA4baK7RM9UiyKWxbERCutEvIs7iqrVgLKRG2Ug9deyoSRteLaHsfT4zB+3qkF
- CQYiiHx7bmmp2Ct0/hqqdUQYE2E8tay07zaZxPiVkbjuZwn8RaZpCrNNomNCNdY6+2FmoGMFkOG
- HcSQg7xPsl4VazExevuYSia8E6ovDGLkKrHI7EWqZld2K0EZVrg86SKKZpjl0pZqAPUdwQ5TgOb
- 2gLdBd+go6oaLIsAhvA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_03,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 impostorscore=0 priorityscore=1501 malwarescore=0
- adultscore=0 bulkscore=0 phishscore=0 suspectscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020119
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-xarray-entry-send-v5-9-d18adae40708@kernel.org>
+References: <20260902-xarray-entry-send-v5-0-d18adae40708@kernel.org>
+In-Reply-To: <20260902-xarray-entry-send-v5-0-d18adae40708@kernel.org>
+To: Tamir Duberstein <tamird@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Matthew Wilcox <willy@infradead.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Harry Yoo <harry@kernel.org>, Hao Li <hao.li@linux.dev>, 
+ Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
+ Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Andreas Hindborg <a.hindborg@kernel.org>, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-mm@kvack.org, 
+ Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=26935;
+ i=a.hindborg@kernel.org; h=from:subject:message-id;
+ bh=hSXv4LMWQCbypjAASJ+FoyrW2+2FNqHfuDlOIPK3ZZg=;
+ b=owEBbQKS/ZANAwAKAfpQKQiqxb3QAcsmYgBqmCQhKOoD7Qw+Ml02pCZuMIZj7noY1O3xY70OM
+ w1v6apvx5+JAjMEAAEKAB0WIQRXitnI2WZ2JirAaob6UCkIqsW90AUCapgkIQAKCRD6UCkIqsW9
+ 0P/cEACp9buFkbtrQ2WUArAz/OwpG3jFQJPlt9CmqVhv2q/mMGeD+OMXW5IzS807+a5dIKcs0xD
+ HL+77/wxWy9/GPUo2DA8l8yxfu0EdFEV530ul4WzXr/yg+W/9WYccghL7g3w5SbeYq3QQWmDciR
+ iW1vZ4B1mpxYfKMwCCpTZAiQk3Qd68/7dkdqpIdqGIJVPxXzWsVr6f7hzVTHYccDXmztw5FEHi5
+ 8a3MkYaZoiBKIL/QwbbvF1XIxHIuZDnuMGS9pNbUAygcooroJehYx755axryK39qgxIdAbJKQ31
+ zA2pYr5bimBf/ijQPi/vdQCydDkQLQjWV84EC4nItDKDz6Tsv5fTGjmh52O1yuZ2t2XM/p0EG+F
+ bf0bI37HR1jBd8gJR+kcvtodncEX9htXSqO7vfG6HMR85UWXYRcEyOVvioO8EVPxehZy8l8sv9L
+ ++D379qatS+hzoW2w4gbk5/LYulj4AMwsoxlMQVsNwe7WZukspkdakzOTWAahSiC+Gnf7dhuaW/
+ yjOMKZUY+8gw5gyxwgVlxs1Tk0vAT8dkIqouu0UZEoZcQziy2M/vvDQ5Hk886t/BbHx5CkM37Sg
+ HJ3RJRUi7ZMdrcXFHUliqsaQKaz2FAdhFwcnAUGplCVFsdKdctlpWqT14WRixzstOGVjYs/noX7
+ aDeVMMaZGhNNf9A==
+X-Developer-Key: i=a.hindborg@kernel.org; a=openpgp;
+ fpr=3108C10F46872E248D1FB221376EB100563EF7A7
 
-On 18:34-20260901, Francesco Dolcini wrote:
-> Hello Nishanth,
-> 
-> On Mon, Jun 29, 2026 at 11:57:21AM -0500, Nishanth Menon wrote:
-> > Hi Francesco Dolcini,
-> > 
-> > On Mon, 15 Jun 2026 15:26:38 +0200, Francesco Dolcini wrote:
-> > > Add git tree for TI K3 architecture.
-> > 
-> > I have applied the following to branch ti-k3-maintainer-next on [1].
-> > Thank you!
-> > 
-> > [1/1] MAINTAINERS: Add git tree for TI K3 ARCHITECTURE
-> >       commit: 4fb6763ec70d49f592cc6e684bfc5f17a7db7133
-> 
-> What happened to this? I do not see in 7.3-rc1, just in next.
+Extend the sheaf abstraction to support caches initialized by C at kernel
+boot time, in addition to dynamically created Rust caches.
 
-Missed sending it out for 7.3-rc1, my bad. will have this wrapped up.
+Introduce `KMemCache<T>` as a transparent wrapper around `kmem_cache` for
+static caches with `'static` lifetime. Rename the previous `KMemCache<T>`
+to `KMemCacheHandle<T>` to represent dynamically created, reference-counted
+caches.
+
+Add `Static` and `Dynamic` marker types along with `StaticSheaf` and
+`DynamicSheaf` type aliases to distinguish sheaves from each cache type.
+The `Sheaf` type now carries lifetime and allocation mode type parameters.
+
+Add `SBox::into_ptr()` and `SBox::static_from_ptr()` methods for passing
+allocations through C code via raw pointers.
+
+Add `KMemCache::from_raw()` for wrapping C-initialized static caches and
+`Sheaf::refill()` for replenishing a sheaf to a minimum size.
+
+Export `kmem_cache_prefill_sheaf`, `kmem_cache_return_sheaf`,
+`kmem_cache_refill_sheaf`, and `kmem_cache_alloc_from_sheaf_noprof` to
+allow Rust module code to use the sheaf API.
+
+Cc: Vlastimil Babka <vbabka@suse.cz>
+Cc: "Liam R. Howlett" <Liam.Howlett@oracle.com>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+Cc: linux-mm@kvack.org
+Assisted-by: LLM
+Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+---
+ mm/slub.c               |   4 +
+ rust/kernel/mm/sheaf.rs | 401 ++++++++++++++++++++++++++++++++++++++++++------
+ 2 files changed, 356 insertions(+), 49 deletions(-)
+
+diff --git a/mm/slub.c b/mm/slub.c
+index 0337e60db5ac..d81dbf2abb86 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -5101,6 +5101,7 @@ kmem_cache_prefill_sheaf(struct kmem_cache *s, gfp_t gfp, unsigned int size)
+ 
+ 	return sheaf;
+ }
++EXPORT_SYMBOL(kmem_cache_prefill_sheaf);
+ 
+ /*
+  * Use this to return a sheaf obtained by kmem_cache_prefill_sheaf()
+@@ -5156,6 +5157,7 @@ void kmem_cache_return_sheaf(struct kmem_cache *s, gfp_t gfp,
+ 	barn_put_full_sheaf(barn, sheaf);
+ 	stat(s, BARN_PUT);
+ }
++EXPORT_SYMBOL(kmem_cache_return_sheaf);
+ 
+ /*
+  * Refill a sheaf previously returned by kmem_cache_prefill_sheaf to at least
+@@ -5211,6 +5213,7 @@ int kmem_cache_refill_sheaf(struct kmem_cache *s, gfp_t gfp,
+ 	*sheafp = sheaf;
+ 	return 0;
+ }
++EXPORT_SYMBOL(kmem_cache_refill_sheaf);
+ 
+ /*
+  * Allocate from a sheaf obtained by kmem_cache_prefill_sheaf()
+@@ -5249,6 +5252,7 @@ kmem_cache_alloc_from_sheaf_noprof(struct kmem_cache *s, gfp_t gfp,
+ 
+ 	return ret;
+ }
++EXPORT_SYMBOL(kmem_cache_alloc_from_sheaf_noprof);
+ 
+ unsigned int kmem_cache_sheaf_size(struct slab_sheaf *sheaf)
+ {
+diff --git a/rust/kernel/mm/sheaf.rs b/rust/kernel/mm/sheaf.rs
+index 8f310a06d840..f6df856c7f4b 100644
+--- a/rust/kernel/mm/sheaf.rs
++++ b/rust/kernel/mm/sheaf.rs
+@@ -23,17 +23,26 @@
+ //!
+ //! # Architecture
+ //!
+-//! The sheaf system consists of three main components:
++//! The sheaf system supports two modes of operation:
++//!
++//! - **Static caches**: [`KMemCache`] represents a cache initialized by C code at
++//!   kernel boot time. These have `'static` lifetime and produce [`StaticSheaf`]
++//!   instances.
++//! - **Dynamic caches**: [`KMemCacheHandle`] wraps a cache created at runtime by
++//!   Rust code. These are reference-counted and produce [`DynamicSheaf`] instances.
++//!
++//! Both modes use the same core types:
+ //!
+-//! - [`KMemCache`]: A slab cache configured with sheaf support.
+ //! - [`Sheaf`]: A pre-filled container of objects from a specific cache.
+ //! - [`SBox`]: An owned allocation from a sheaf, similar to a `Box`.
+ //!
+ //! # Example
+ //!
++//! Using a dynamically created cache:
++//!
+ //! ```
+ //! use kernel::c_str;
+-//! use kernel::mm::sheaf::{KMemCache, KMemCacheInit, Sheaf, SBox};
++//! use kernel::mm::sheaf::{KMemCacheHandle, KMemCacheInit, Sheaf, SBox};
+ //! use kernel::prelude::*;
+ //!
+ //! struct MyObject {
+@@ -47,7 +56,7 @@
+ //! }
+ //!
+ //! // Create a cache with sheaf capacity of 16 objects.
+-//! let cache = KMemCache::<MyObject>::new(c_str!("my_cache"), 16)?;
++//! let cache = KMemCacheHandle::<MyObject>::new(c_str!("my_cache"), 16)?;
+ //!
+ //! // Pre-fill a sheaf with 8 objects.
+ //! let mut sheaf = cache.as_arc_borrow().sheaf(8, GFP_KERNEL)?;
+@@ -76,7 +85,114 @@
+ 
+ use kernel::prelude::*;
+ 
+-use crate::sync::{Arc, ArcBorrow};
++use crate::{
++    sync::{Arc, ArcBorrow},
++    types::Opaque,
++};
++
++/// A slab cache with sheaf support.
++///
++/// This type is a transparent wrapper around a kernel `kmem_cache`. It can be
++/// used with caches created either by C code or via [`KMemCacheHandle`].
++///
++/// When a reference to this type has `'static` lifetime (i.e., `&'static
++/// KMemCache<T>`), it typically represents a cache initialized by C at boot
++/// time. Such references produce [`StaticSheaf`] instances via [`sheaf`].
++///
++/// [`sheaf`]: KMemCache::sheaf
++///
++/// # Type parameter
++///
++/// - `T`: The type of objects managed by this cache. Must implement
++///   [`KMemCacheInit`] to provide initialization logic for allocations.
++#[repr(transparent)]
++pub struct KMemCache<T: KMemCacheInit<T>> {
++    inner: Opaque<bindings::kmem_cache>,
++    _p: PhantomData<T>,
++}
++
++// SAFETY: The C `kmem_cache` is internally synchronized and has no thread
++// affinity, so a `KMemCache<T>` may be sent to another thread if the objects
++// it manages can.
++unsafe impl<T: KMemCacheInit<T> + Send> Send for KMemCache<T> {}
++
++// SAFETY: All operations available through `&KMemCache<T>` (creating sheaves
++// and allocating objects) are internally synchronized by the C side, so the
++// cache may be used from multiple threads concurrently if the objects it
++// manages can be sent between threads.
++unsafe impl<T: KMemCacheInit<T> + Send> Sync for KMemCache<T> {}
++
++impl<T: KMemCacheInit<T>> KMemCache<T> {
++    /// Creates a pre-filled sheaf from this cache.
++    ///
++    /// Allocates a sheaf and pre-fills it with `size` objects. Once created,
++    /// allocations from the sheaf via [`Sheaf::alloc`] are guaranteed to
++    /// succeed until the sheaf is depleted.
++    ///
++    /// # Arguments
++    ///
++    /// - `size`: The number of objects to pre-allocate. Must not exceed the
++    ///   cache's `sheaf_capacity`.
++    /// - `gfp`: Allocation flags controlling how memory is obtained. Use
++    ///   [`GFP_KERNEL`] for normal allocations that may sleep, or
++    ///   [`GFP_NOWAIT`] for non-blocking allocations.
++    ///
++    /// # Errors
++    ///
++    /// Returns [`ENOMEM`] if the sheaf or its objects could not be allocated.
++    ///
++    /// # Warnings
++    ///
++    /// The kernel will warn if `size` exceeds `sheaf_capacity`.
++    pub fn sheaf(
++        &'static self,
++        size: usize,
++        gfp: kernel::alloc::Flags,
++    ) -> Result<Sheaf<'static, T, Static>> {
++        // SAFETY: `self.as_raw()` returns a valid cache pointer, and `size`
++        // has been validated to fit in a `c_uint`.
++        let ptr = unsafe {
++            bindings::kmem_cache_prefill_sheaf(self.inner.get(), gfp.as_raw(), size.try_into()?)
++        };
++
++        // INVARIANT: `ptr` was returned by `kmem_cache_prefill_sheaf` and is
++        // non-null (checked below). `cache` is the cache from which this sheaf
++        // was created. `dropped` is false since the sheaf has not been returned.
++        Ok(Sheaf {
++            sheaf: NonNull::new(ptr).ok_or(ENOMEM)?,
++            // SAFETY: `self` is a valid reference, so the pointer is non-null.
++            cache: CacheRef::Static(unsafe {
++                NonNull::new_unchecked((&raw const *self).cast_mut())
++            }),
++            dropped: false,
++            _p: PhantomData,
++        })
++    }
++
++    #[inline]
++    fn as_raw(&self) -> *mut bindings::kmem_cache {
++        self.inner.get()
++    }
++
++    /// Creates a reference to a [`KMemCache`] from a raw pointer.
++    ///
++    /// This is useful for wrapping a C-initialized static `kmem_cache`, such as
++    /// the global `radix_tree_node_cachep` used by XArrays.
++    ///
++    /// # Safety
++    ///
++    /// - `ptr` must be a valid pointer to a `kmem_cache` that was created for
++    ///   objects of type `T`.
++    /// - The cache must remain valid for the lifetime `'a`.
++    /// - The caller must ensure that the cache was configured appropriately for
++    ///   the type `T`, including proper size and alignment.
++    pub unsafe fn from_raw<'a>(ptr: *mut bindings::kmem_cache) -> &'a Self {
++        // SAFETY: The caller guarantees that `ptr` is a valid pointer to a
++        // `kmem_cache` created for objects of type `T`, that it remains valid
++        // for lifetime `'a`, and that the cache is properly configured for `T`.
++        unsafe { &*ptr.cast::<Self>() }
++    }
++}
+ 
+ /// A slab cache with sheaf support.
+ ///
+@@ -92,9 +208,9 @@
+ ///
+ /// # Context
+ ///
+-/// Dropping the last reference to a `KMemCache` destroys the cache via
++/// Dropping the last reference to a `KMemCacheHandle` destroys the cache via
+ /// `kmem_cache_destroy`, which may sleep. [`Sheaf`] and [`SBox`] instances
+-/// created from the cache each hold a reference, so the last reference may
++/// created from the handle each hold a reference, so the last reference may
+ /// be dropped when one of those is dropped. The last reference must not be
+ /// dropped from a context where sleeping is not allowed.
+ ///
+@@ -103,23 +219,23 @@
+ /// - `cache` is a valid pointer to a `kmem_cache` created with
+ ///   `__kmem_cache_create_args`.
+ /// - The cache is valid for the lifetime of this struct.
+-pub struct KMemCache<T: KMemCacheInit<T>> {
+-    cache: NonNull<bindings::kmem_cache>,
+-    _p: PhantomData<T>,
++#[repr(transparent)]
++pub struct KMemCacheHandle<T: KMemCacheInit<T>> {
++    cache: NonNull<KMemCache<T>>,
+ }
+ 
+-// SAFETY: `KMemCache<T>` owns a `kmem_cache`, which is internally
++// SAFETY: `KMemCacheHandle<T>` owns a `kmem_cache`, which is internally
+ // synchronized and has no thread affinity. The cache may be destroyed from a
+ // thread other than the one that created it.
+-unsafe impl<T: KMemCacheInit<T> + Send> Send for KMemCache<T> {}
++unsafe impl<T: KMemCacheInit<T> + Send> Send for KMemCacheHandle<T> {}
+ 
+-// SAFETY: All operations available through `&KMemCache<T>` are
++// SAFETY: All operations available through `&KMemCacheHandle<T>` are
+ // internally synchronized by the C side, so the cache may be used from
+ // multiple threads concurrently if the objects it manages can be sent between
+ // threads.
+-unsafe impl<T: KMemCacheInit<T> + Send> Sync for KMemCache<T> {}
++unsafe impl<T: KMemCacheInit<T> + Send> Sync for KMemCacheHandle<T> {}
+ 
+-impl<T: KMemCacheInit<T>> KMemCache<T> {
++impl<T: KMemCacheInit<T>> KMemCacheHandle<T> {
+     /// Creates a new slab cache with sheaf support.
+     ///
+     /// Creates a kernel slab cache for objects of type `T` with the specified
+@@ -171,8 +287,7 @@ pub fn new(name: &CStr, sheaf_capacity: u32) -> Result<Arc<Self>>
+         // `kmem_cache_destroy` is called in `Drop`.
+         Ok(Arc::new(
+             Self {
+-                cache: NonNull::new(ptr).ok_or(ENOMEM)?,
+-                _p: PhantomData,
++                cache: NonNull::new(ptr.cast()).ok_or(ENOMEM)?,
+             },
+             GFP_KERNEL,
+         )?)
+@@ -199,11 +314,11 @@ pub fn new(name: &CStr, sheaf_capacity: u32) -> Result<Arc<Self>>
+     /// # Warnings
+     ///
+     /// The kernel will warn if `size` exceeds `sheaf_capacity`.
+-    pub fn sheaf(
+-        self: ArcBorrow<'_, Self>,
++    pub fn sheaf<'a>(
++        self: ArcBorrow<'a, Self>,
+         size: usize,
+         gfp: kernel::alloc::Flags,
+-    ) -> Result<Sheaf<T>> {
++    ) -> Result<Sheaf<'a, T, Dynamic>> {
+         // SAFETY: `self.as_raw()` returns a valid cache pointer, and `size`
+         // has been validated to fit in a `c_uint`.
+         let ptr = unsafe {
+@@ -215,18 +330,19 @@ pub fn sheaf(
+         // was created. `dropped` is false since the sheaf has not been returned.
+         Ok(Sheaf {
+             sheaf: NonNull::new(ptr).ok_or(ENOMEM)?,
+-            cache: self.into(),
++            cache: CacheRef::Arc(self.into()),
+             dropped: false,
++            _p: PhantomData,
+         })
+     }
+ 
+     #[inline]
+     fn as_raw(&self) -> *mut bindings::kmem_cache {
+-        self.cache.as_ptr()
++        self.cache.as_ptr().cast()
+     }
+ }
+ 
+-impl<T: KMemCacheInit<T>> Drop for KMemCache<T> {
++impl<T: KMemCacheInit<T>> Drop for KMemCacheHandle<T> {
+     fn drop(&mut self) {
+         // SAFETY: `self.as_raw()` returns a valid cache pointer that was
+         // created by `__kmem_cache_create_args`. As all objects allocated from
+@@ -239,13 +355,13 @@ fn drop(&mut self) {
+ /// Trait for types that can be initialized in a slab cache.
+ ///
+ /// This trait provides the initialization logic for objects allocated from a
+-/// [`KMemCache`]. When the slab allocator creates new objects, it invokes the
+-/// constructor to ensure objects are in a valid initial state.
++/// [`KMemCache`]. The initializer is called when objects are allocated from a
++/// sheaf via [`Sheaf::alloc`].
+ ///
+ /// # Implementation
+ ///
+-/// Implementors must provide [`init`](KMemCacheInit::init), which returns
+-/// a in-place initializer for the type.
++/// Implementors must provide [`init`](KMemCacheInit::init), which returns an
++/// infallible initializer for the type.
+ ///
+ /// # Example
+ ///
+@@ -270,13 +386,34 @@ fn drop(&mut self) {
+ pub trait KMemCacheInit<T> {
+     /// Returns an initializer for creating new objects of type `T`.
+     ///
+-    /// The initializer is applied to newly allocated objects when they are
+-    /// allocated from a sheaf via [`Sheaf::alloc`]. The cache itself has no
+-    /// constructor. The initializer should set all fields to their default or
+-    /// initial values.
++    /// The initializer is applied to newly allocated objects when they are allocated from a sheaf
++    /// via [`Sheaf::alloc`]. The initializer should set all fields to their default or initial
++    /// values.
+     fn init() -> impl Init<T, Infallible>;
+ }
+ 
++/// Marker type for sheaves from static caches.
++///
++/// Used as a type parameter for [`Sheaf`] to indicate the sheaf was created
++/// from a `&'static KMemCache<T>`.
++pub enum Static {}
++
++/// Marker type for sheaves from dynamic caches.
++///
++/// Used as a type parameter for [`Sheaf`] to indicate the sheaf was created
++/// from a [`KMemCacheHandle`] via [`ArcBorrow`].
++pub enum Dynamic {}
++
++/// A sheaf from a static cache.
++///
++/// This is a [`Sheaf`] backed by a `&'static KMemCache<T>`.
++pub type StaticSheaf<'a, T> = Sheaf<'a, T, Static>;
++
++/// A sheaf from a dynamic cache.
++///
++/// This is a [`Sheaf`] backed by a reference-counted [`KMemCacheHandle`].
++pub type DynamicSheaf<'a, T> = Sheaf<'a, T, Dynamic>;
++
+ /// A pre-filled container of slab objects.
+ ///
+ /// A sheaf holds a set of pre-allocated objects from a [`KMemCache`].
+@@ -287,17 +424,28 @@ pub trait KMemCacheInit<T> {
+ /// Sheaves provide faster allocation than direct allocation because they use
+ /// local locks with preemption disabled rather than atomic operations.
+ ///
++/// # Type parameters
++///
++/// - `'a`: The lifetime of the cache reference.
++/// - `T`: The type of objects in this sheaf.
++/// - `A`: Either [`Static`] or [`Dynamic`], indicating whether the backing
++///   cache is a static reference or a reference-counted handle.
++///
++/// For convenience, [`StaticSheaf`] and [`DynamicSheaf`] type aliases are
++/// provided.
++///
+ /// # Lifecycle
+ ///
+-/// Sheaves are created via [`KMemCache::sheaf`] and should be returned to the
+-/// allocator when no longer needed via [`Sheaf::return_refill`]. If a sheaf is
+-/// simply dropped, it is returned with `GFP_NOWAIT` flags, which may result in
+-/// the sheaf being flushed and freed rather than being cached for reuse.
++/// Sheaves are created via [`KMemCache::sheaf`] or [`KMemCacheHandle::sheaf`]
++/// and should be returned to the allocator when no longer needed via
++/// [`Sheaf::return_refill`]. If a sheaf is simply dropped, it is returned with
++/// `GFP_NOWAIT` flags, which may result in the sheaf being flushed and freed
++/// rather than being cached for reuse.
+ ///
+-/// A sheaf holds a reference to the [`KMemCache`] it was created from.
+-/// Dropping the sheaf may thus drop the last reference to the cache and
+-/// destroy the cache, which may sleep. See the `# Context` section of
+-/// [`KMemCache`].
++/// A sheaf created from a [`KMemCacheHandle`] holds a reference to the
++/// handle. Dropping the sheaf may thus drop the last reference to the handle
++/// and destroy the cache, which may sleep. See the `# Context` section of
++/// [`KMemCacheHandle`].
+ ///
+ /// # Invariants
+ ///
+@@ -305,10 +453,11 @@ pub trait KMemCacheInit<T> {
+ ///   `kmem_cache_prefill_sheaf`.
+ /// - `cache` is the cache from which this sheaf was created.
+ /// - `dropped` tracks whether the sheaf has been explicitly returned.
+-pub struct Sheaf<T: KMemCacheInit<T>> {
++pub struct Sheaf<'a, T: KMemCacheInit<T>, A> {
+     sheaf: NonNull<bindings::slab_sheaf>,
+-    cache: Arc<KMemCache<T>>,
++    cache: CacheRef<T>,
+     dropped: bool,
++    _p: PhantomData<(&'a KMemCache<T>, A)>,
+ }
+ 
+ // SAFETY: A prefilled sheaf is exclusively owned by the caller and has no
+@@ -316,13 +465,13 @@ pub struct Sheaf<T: KMemCacheInit<T>> {
+ // does not touch percpu state, and `kmem_cache_return_sheaf` reattaches the
+ // sheaf to the CPU that is current at return time. Thus the sheaf may be sent
+ // to another thread if the objects it manages can.
+-unsafe impl<T: KMemCacheInit<T> + Send> Send for Sheaf<T> {}
++unsafe impl<T: KMemCacheInit<T> + Send, A> Send for Sheaf<'_, T, A> {}
+ 
+ // NOTE: `Sheaf` is deliberately not `Sync`. The C side mutates sheaf state
+ // without synchronization, relying on the caller's exclusive ownership. The
+ // mutable receivers of the methods on `Sheaf` enforce this exclusivity.
+ 
+-impl<T: KMemCacheInit<T>> Sheaf<T> {
++impl<'a, T: KMemCacheInit<T>, A> Sheaf<'a, T, A> {
+     #[inline]
+     fn as_raw(&self) -> *mut bindings::slab_sheaf {
+         self.sheaf.as_ptr()
+@@ -346,6 +495,39 @@ pub fn return_refill(mut self, flags: kernel::alloc::Flags) {
+         drop(self);
+     }
+ 
++    /// Refills the sheaf to at least the specified size.
++    ///
++    /// Replenishes the sheaf by preallocating objects until it contains at
++    /// least `size` objects. If the sheaf already contains `size` or more
++    /// objects, this is a no-op. In practice, the sheaf is refilled to its
++    /// full capacity.
++    ///
++    /// # Arguments
++    ///
++    /// - `flags`: Allocation flags controlling how memory is obtained.
++    /// - `size`: The minimum number of objects the sheaf should contain after
++    ///   refilling. If `size` exceeds the cache's `sheaf_capacity`, the sheaf
++    ///   may be replaced with a larger one.
++    ///
++    /// # Errors
++    ///
++    /// Returns an error if the objects could not be allocated. If refilling
++    /// fails, the existing sheaf is left intact.
++    pub fn refill(&mut self, flags: kernel::alloc::Flags, size: usize) -> Result {
++        // SAFETY: `self.cache.as_raw()` returns a valid cache pointer and
++        // `&raw mut self.sheaf` points to a valid sheaf per the type invariants.
++        kernel::error::to_result(unsafe {
++            bindings::kmem_cache_refill_sheaf(
++                self.cache.as_raw(),
++                flags.as_raw(),
++                (&raw mut (self.sheaf)).cast(),
++                size.try_into()?,
++            )
++        })
++    }
++}
++
++impl<'a, T: KMemCacheInit<T>> Sheaf<'a, T, Static> {
+     /// Allocates an object from the sheaf.
+     ///
+     /// Returns a new [`SBox`] containing an initialized object, or [`None`]
+@@ -382,7 +564,44 @@ pub fn alloc(&mut self) -> Option<SBox<T>> {
+     }
+ }
+ 
+-impl<T: KMemCacheInit<T>> Drop for Sheaf<T> {
++impl<'a, T: KMemCacheInit<T>> Sheaf<'a, T, Dynamic> {
++    /// Allocates an object from the sheaf.
++    ///
++    /// Returns a new [`SBox`] containing an initialized object, or [`None`]
++    /// if the sheaf is depleted. Allocations are guaranteed to succeed as
++    /// long as the sheaf contains pre-allocated objects.
++    ///
++    /// The `gfp` flags passed to `kmem_cache_alloc_from_sheaf` are set to zero,
++    /// meaning no additional flags like `__GFP_ZERO` or `__GFP_ACCOUNT` are
++    /// applied.
++    ///
++    /// The returned `T` is initialized as part of this function.
++    pub fn alloc(&mut self) -> Option<SBox<T>> {
++        // SAFETY: `self.cache.as_raw()` and `self.as_raw()` return valid
++        // pointers. The function returns NULL when the sheaf is empty.
++        let ptr = unsafe {
++            bindings::kmem_cache_alloc_from_sheaf_noprof(self.cache.as_raw(), 0, self.as_raw())
++        };
++
++        let ptr = NonNull::new(ptr.cast::<T>())?;
++
++        // SAFETY:
++        // - `ptr` is a valid, non-null pointer as it was just returned by the
++        //   cache.
++        // - The initializer is infallible, so an error is never returned.
++        unsafe { T::init().__init(ptr.as_ptr()) }.expect("Initializer is infallible");
++
++        // INVARIANT: `ptr` was returned by `kmem_cache_alloc_from_sheaf_noprof`
++        // and initialized above. `cache` is the cache from which this object
++        // was allocated. The object remains valid until freed in `Drop`.
++        Some(SBox {
++            ptr,
++            cache: self.cache.clone(),
++        })
++    }
++}
++
++impl<'a, T: KMemCacheInit<T>, A> Drop for Sheaf<'a, T, A> {
+     fn drop(&mut self) {
+         if !self.dropped {
+             // SAFETY: `self.cache.as_raw()` and `self.as_raw()` return valid
+@@ -399,6 +618,40 @@ fn drop(&mut self) {
+     }
+ }
+ 
++/// Internal reference to a cache, either static or reference-counted.
++///
++/// # Invariants
++///
++/// - For `CacheRef::Static`: the `NonNull` points to a valid `KMemCache<T>`
++///   with `'static` lifetime, derived from a `&'static KMemCache<T>` reference.
++enum CacheRef<T: KMemCacheInit<T>> {
++    /// A reference-counted handle to a dynamically created cache.
++    Arc(Arc<KMemCacheHandle<T>>),
++    /// A pointer to a static lifetime cache.
++    Static(NonNull<KMemCache<T>>),
++}
++
++impl<T: KMemCacheInit<T>> Clone for CacheRef<T> {
++    fn clone(&self) -> Self {
++        match self {
++            Self::Arc(arg0) => Self::Arc(arg0.clone()),
++            Self::Static(arg0) => Self::Static(*arg0),
++        }
++    }
++}
++
++impl<T: KMemCacheInit<T>> CacheRef<T> {
++    #[inline]
++    fn as_raw(&self) -> *mut bindings::kmem_cache {
++        match self {
++            CacheRef::Arc(handle) => handle.as_raw(),
++            // SAFETY: By type invariant, `ptr` points to a valid `KMemCache<T>`
++            // with `'static` lifetime.
++            CacheRef::Static(ptr) => unsafe { ptr.as_ref() }.as_raw(),
++        }
++    }
++}
++
+ /// An owned allocation from a cache sheaf.
+ ///
+ /// `SBox` is similar to `Box` but is backed by a slab cache allocation obtained
+@@ -408,10 +661,10 @@ fn drop(&mut self) {
+ /// The contained `T` is initialized when the `SBox` is returned from alloc and
+ /// dropped when the `SBox` is dropped.
+ ///
+-/// An `SBox` holds a reference to the [`KMemCache`] it was allocated from.
+-/// Dropping the `SBox` may thus drop the last reference to the cache and
+-/// destroy the cache, which may sleep. See the `# Context` section of
+-/// [`KMemCache`].
++/// An `SBox` allocated from a [`KMemCacheHandle`] backed sheaf holds a
++/// reference to the handle. Dropping the `SBox` may thus drop the last
++/// reference to the handle and destroy the cache, which may sleep. See the
++/// `# Context` section of [`KMemCacheHandle`].
+ ///
+ /// # Invariants
+ ///
+@@ -420,7 +673,7 @@ fn drop(&mut self) {
+ /// - The object remains valid for the lifetime of the `SBox`.
+ pub struct SBox<T: KMemCacheInit<T>> {
+     ptr: NonNull<T>,
+-    cache: Arc<KMemCache<T>>,
++    cache: CacheRef<T>,
+ }
+ 
+ // SAFETY: `SBox<T>` owns a `T`. Sheaf allocated objects are ordinary slab
+@@ -432,6 +685,56 @@ unsafe impl<T: KMemCacheInit<T> + Send> Send for SBox<T> {}
+ // threads only shares `&T`.
+ unsafe impl<T: KMemCacheInit<T> + Sync> Sync for SBox<T> {}
+ 
++impl<T: KMemCacheInit<T>> SBox<T> {
++    /// Consumes the `SBox` and returns the raw pointer to the contained value.
++    ///
++    /// The caller becomes responsible for freeing the memory. The object is not
++    /// dropped and remains initialized. Use [`static_from_ptr`] to reconstruct
++    /// an `SBox` from the pointer.
++    ///
++    /// This method is only intended for objects allocated from a static cache.
++    /// Calling it on an `SBox` backed by a [`KMemCacheHandle`] leaks a
++    /// reference on the handle, preventing the cache from ever being
++    /// destroyed, as [`static_from_ptr`] cannot restore the reference.
++    ///
++    /// [`static_from_ptr`]: SBox::static_from_ptr
++    pub fn into_ptr(self) -> *mut T {
++        debug_assert!(matches!(self.cache, CacheRef::Static(_)));
++        let ptr = self.ptr.as_ptr();
++        core::mem::forget(self);
++        ptr
++    }
++
++    /// Reconstructs an `SBox` from a raw pointer and cache.
++    ///
++    /// This is intended for use with objects that were previously converted to
++    /// raw pointers via [`into_ptr`], typically for passing through C code.
++    ///
++    /// [`into_ptr`]: SBox::into_ptr
++    ///
++    /// # Safety
++    ///
++    /// - `cache` must be a valid pointer to the `kmem_cache` from which `value`
++    ///   was allocated.
++    /// - `cache` must be a statically allocated cache that is never destroyed.
++    /// - `value` must be a valid pointer to an initialized `T` that was
++    ///   allocated from `cache`.
++    /// - The caller must ensure that no other `SBox` or reference exists for
++    ///   `value`.
++    pub unsafe fn static_from_ptr(cache: *mut bindings::kmem_cache, value: *mut T) -> Self {
++        // INVARIANT: The caller guarantees `value` points to a valid,
++        // initialized `T` allocated from `cache`.
++        Self {
++            // SAFETY: By function safety requirements, `value` is not null.
++            ptr: unsafe { NonNull::new_unchecked(value) },
++            cache: CacheRef::Static(
++                // SAFETY: By function safety requirements, `cache` is not null.
++                unsafe { NonNull::new_unchecked(cache.cast()) },
++            ),
++        }
++    }
++}
++
+ impl<T: KMemCacheInit<T>> Deref for SBox<T> {
+     type Target = T;
+ 
+
 -- 
-Regards,
-Nishanth Menon
-Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
-https://ti.com/opensource
+2.51.2
+
+
