@@ -1,243 +1,274 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012066.outbound.protection.outlook.com [52.101.48.66])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3EBC1B6D08;
-	Wed,  2 Sep 2026 04:39:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90D451A76BB
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 04:40:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788323952; cv=fail; b=s2JAoWuD554coPC6g+VpOCO4rcBczbZQJos4Mb20Z5xOSJkersCIfWRb+o/B7/swEwrewvoai+S8pcvL9U+23nd1mcmJtVLuQ/nIQkvSKExDs2HUwE+M6e2Y7+gp/JCb+utY7tUuJUpLseEvw64KXyRIAvC6vDdOCES6ga3FNzo=
+	t=1788324023; cv=pass; b=S1l9tzbwx2hP2+UFfzk+/FQF36NuG2eolndCwUHStZolk6QWp/2Hbma1Pu0rDPvEeT6RM7ghM3h/sd2UQzLqydOcQBVQkATaXoz4OQc/BUFm2niM5tQ1vOURZnIRoH+cDIES2KJLbtwtEhqk1ytp+A+wwmS9rsHLMkjDLMjJQLY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788323952; c=relaxed/simple;
-	bh=il+t2pkPPUktYxYHPGGzYI/qkLqmOVY3v3Ky3f7oyYg=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=PZhRdkQbeHGxEaZilbiTZOiOB1gQacCjVTBEz2VS7CK5QkN2P4MIMl5vzld4379FzG48/x3JaqsRhKDG+hBDd/c7Hi6MsTztdJQCP6g0WTS8bLtFsfpbMfLnNnbGo5lRneS6V8AiyIr/QP34Vz56OYGsttw2eheaVBhF5gYv460=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=afW5gdVR; arc=fail smtp.client-ip=52.101.48.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1788324023; c=relaxed/simple;
+	bh=hHNM4gxQiQ1/uHUdrt/M8J8zXYcLwE2qjO3Da4m97Os=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Qh9pA2usetoiR9FKRSYaofyiU0P/hKU7VXnJgiwyUVQK0V4q/IWUnsdb6vryumPQUJEBD2HHKKlhuo9n0etHkSWX89qv8fBtlDdgfBuFo4ImGzq4VcxDcNiR7BrL1HkxcG9gKQKOUbsARVHc07RcDDR/YjICDQh+dwr1U7SoA6s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FUxJwOsY; arc=pass smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="afW5gdVR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UMOICXM86u6PArFRP/v9suSKC6kmnid1jku8t9n0ursMAcTx5QzlcbgHOS591JTzQ7pAfIWSQNYLRWMhIC2gMVdhWgZDKDKupSvvaS2dfJn/XUaNlBZw5nz2uWoWruR48PBAB/dO0MBaOCECd08FDHcJp0e3kriH4t0YRRG9eTKNCd3hsObp61ECzkI2hr+u2t1TvDB4CjRyPBituwZ1/Tw9TvNuOigBWy2coQTMAMYsgKMNcBOtrMjjwlRgZ1giOzlZ709DKdyQRbANaPf9tZlb5VcfL2tgO3W+soPyuTJj3c+yzUv0VRbJKUUn5qqW0P97snaREmzcwYWcLaJhEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/1va3lBMVO1YPnDIJ7jw6qiuQm1pGwr9A+3+2vr6JKk=;
- b=irpA8/9oNBFEe0pD+/MH0oOP1hlbsJPPpnzukqbsMqeIP6x4WhUxbvKqqGiicilLkmnIQtRxX/g4A1zr4q9D5DTRwaHExRz1DyDgxXtRs/HBB83TjYfUMyyY/0WJO/bTkYRcjS8SQqiPpfQbbW2sMIDO/4kVLzBvMT/00r7NKy5KjK4b90qny93nSEaFhRm6YnEt+epbQNJkRuw0qHoFUOJe6j0Lu+t9ucwUmlNvlRRq6yuLoHZm5YFkEIXURwDfxTwIiQ6h6M4m5ipgtaIwgjUwPQNjy72UjKJRlfI48GFS2U82EkRfbJNNcZ4e7p1DAeXDq4+tEI3C10/ujwhJQA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/1va3lBMVO1YPnDIJ7jw6qiuQm1pGwr9A+3+2vr6JKk=;
- b=afW5gdVRtNoF3IOsQqF65F74lrc25jRr+ukU1CFmgpcBvg0qJLq3NZ7Jpu23DYkl7ufapOrtZs5g0lUvvTQvjem6qMHoQy6KP93sAZ89bIHxKxP7OtSmRcZAdzzV0yAvZKAtiR5ED7eEr7Z20RUdgWJMkp+B/EuKlqZ5opQmsAipZHCjoLK2+wjC66rjz6vqeTUZ06Y4VWfvl+kC2ClbHd4b3oU3b+DGKlPagPsHJUPu/7PmH7AGpH21+3mFacTEbVHa/7CHfFvgPWJqlO/05sIV2HiPaNvBI5TAu32QOkpFdl3DtIAplxkDp4tmIbPzP/FWu0T92Q0hOoPlz6SecA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS7PR12MB9474.namprd12.prod.outlook.com (2603:10b6:8:252::17)
- by IA5PR12MB999326.namprd12.prod.outlook.com (2603:10b6:208:608::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 04:39:07 +0000
-Received: from DS7PR12MB9474.namprd12.prod.outlook.com
- ([fe80::31ad:931:ef07:8ad7]) by DS7PR12MB9474.namprd12.prod.outlook.com
- ([fe80::31ad:931:ef07:8ad7%4]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 04:39:07 +0000
-Message-ID: <95385898-6e8b-4eef-9135-23605feea614@nvidia.com>
-Date: Tue, 1 Sep 2026 21:39:05 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 07/12] cxl: Validate HDM ranges before CXL reset
-To: Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
- Ira Weiny <ira.weiny@intel.com>, Jonathan Cameron <jic23@kernel.org>,
- Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
- alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
- Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
- Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-References: <20260804192958.1823952-1-smadhavan@nvidia.com>
- <20260804192958.1823952-8-smadhavan@nvidia.com>
- <2b6302e6-18e6-42de-9489-014c4beb25c4@intel.com>
-Content-Language: en-US
-From: Srirangan Madhavan <smadhavan@nvidia.com>
-In-Reply-To: <2b6302e6-18e6-42de-9489-014c4beb25c4@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SJ0PR03CA0194.namprd03.prod.outlook.com
- (2603:10b6:a03:2ef::19) To DS7PR12MB9474.namprd12.prod.outlook.com
- (2603:10b6:8:252::17)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FUxJwOsY"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so5420825e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 21:40:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788324020; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Pv19+lc/cQIgNfLoKMv5BuuDHnKBXk3MSaE1bXbq1LsPAxCGfRLjYtF7nkXLkd0pcE
+         NxCOzRaFQ77XcPbr35nc+BqZqxQ9r3LWPYGIVXnD9LWlfJgz0bDkROPA/qItbj0hF/ZZ
+         2PF7rH7lXAP0GN9YdE5tV9eN2t4YYIlwbR/lBTijmYYigwDiXWONF1NLxxPwYGoUdaVC
+         P7aeTWUKOLZjQhHmTXfaZ+3zKwb+DVITUaVlB4HcoWFfhoOYlqjBga+KbgovS1p/hDRd
+         78+WXrKFTQYuS7DRGbG41fUEZfrvwBD3PsPtf629huG3EqAZ1FTVsmwfNJlI0inPU1OO
+         vm9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pz2W0TKevSUy9BHCvdkAF/hP9udXJxfarvbcQC/ZVQk=;
+        fh=cbvB357I95kMKxLagBFz9gwMStKz9uCpOCo46c7kvGE=;
+        b=cwWcYbwpgi7h2kUeeyb6fO14rY3bVuuMjeGZKc3u7hs5XEDoYiFdLPKn3XVy3X9lQJ
+         N9hJdjF1t9dlfTxS0Izmj5oZWVqXEyMZyQ1kU/0E2nK6NEZgF0cxQDbEjQTnCyDp65ta
+         it+C9PJM02THh6/k1KpicjvgpjulmIZfuU0SDeuJzecjVOAZlpzd2uFi0Bm+9hd2DXAi
+         eQAQessxyQNdB/HmB2aqe5h+LDDjasea9XJ4YnUuhwr2aFyaPDpLGyY3MiP/uE2vX8zk
+         ohs8TgQ/lQRCzjqs154EzAMEoBRqT2fOmWJA2JZGqTu+a4srG7TmOcCvAayaUpg5wOkg
+         CPWA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788324020; x=1788928820; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pz2W0TKevSUy9BHCvdkAF/hP9udXJxfarvbcQC/ZVQk=;
+        b=FUxJwOsYnGr7EwgPK2Q4O1afq8GQP/XlNQxr2oHYnYZd1J5yYXgWFW6SdkhGDDFYmQ
+         kUm1BY9uTBH9nEzAut0Vf/ua1POCsrY0vVkuG8b/lV6PR6TnZ9D2F8GtuQwG8p7BVG0Q
+         WRxnP82nmGw9WamSTUZd2fhNab8Fbe/KbQ777+9Mg2yJZ2VPbvWpB3eivao1YNJMl5ia
+         8u4J7lhGpfy5aa4YKXJsakFbNoTEq4OOg9Q6iVVrWD5sVjl1QFUZdZkmv5sVvqG5iNsi
+         3WYeYc1Tm52IN5IESnn6qXqZ7f+Brpeajnc4SHK7okc8WWGu8MfsAWSEr1qhHB8V17Oh
+         /Xyg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788324020; x=1788928820;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pz2W0TKevSUy9BHCvdkAF/hP9udXJxfarvbcQC/ZVQk=;
+        b=lV/Qh/tX9lucmjYUFZyi/l8kYWyUVKYZ/S6gMolKdugsgnFC2fj8qSvqOEI5zRtgbd
+         7nMBrpooDZm1SAF/ZwbS9HhbkJZomRTcXbxyXE7vAe+LOyJiNHSs/LLnAtjVDJT8Vdh3
+         gMxzt5muDKBRyv22ZYdA5s2UHPLZXP7GvvfflElvJ31oLbCIh/SIySokGQ4KL9RjTxjo
+         8ForXNim45iRMeDry3v/bdYz1CQ4XeZ7kh4Z4tZHCCHEV4flNN5+md8mTwpCiWprXoJj
+         lH3qmo8LkMGfkfAuGU0MD6U08LRLxbYZThrIxegnOAjTAaVB4M5311geSsMFOo8NDsii
+         OBlg==
+X-Forwarded-Encrypted: i=1; AHgh+RpwVSGhcLblK+L7UpVpDvmo23wtOdwZdC3EUDSJWO7ECaDBtBwG9OJ62jCuWcHfbeqee7RUKHT/mLLRSCg=@vger.kernel.org
+X-Gm-Message-State: AFuF++ng0Cyhs2K1f9Asp2Wsf/MGdQfwicaTbsFFGT37DE1bF/XwJuA0
+	IL8fU7K/CTlEvEW3G71KIfpaG3RslcPVqT33oL/lGrbKsPRLV/Rc7oGJsJuMO1UP2OGZzdfqNf5
+	UPGOM7MRF3QXz1kNj6e+WpiNA1npM7TI=
+X-Gm-Gg: AR+sD10lFnE9WG9xttlaXcMm/Ra0kf0qOKknS76HyCbThzbPhJBwPqWFPWJxfapgT2I
+	lp7rzknaemDBuphvhUwmj9dp210bvZYeJO7T+dh70eAQiq/w+Q6fLsiuXSF7I1bjghgqLHNU4it
+	aIlMdJ7aE9DM8tCUBa7AOhSePEmkNMxmvFHEEFg/7xS3b06VoHGB/uPhmg2nhSvEI5mprN2esQI
+	NRF0lz6XNsj8XmJ9Z4qb7/biVgfCSUQgm21fJ7ui2ECHa9YSPxcjaSodhxzPBr09VnRRa8EGdQf
+	mOON46jjXc+J9GOWpFimdiAYOd4kSwDRCm37S9VqmhcKaDomVvQW2/nWZppiLTODde7tNQ8wOBd
+	Y0J+9T4Zqlkc1UDY9iGBGAaE4khFsoi0Q2Nly7Q==
+X-Received: by 2002:a05:600c:4e8e:b0:49c:dada:f57f with SMTP id
+ 5b1f17b1804b1-49ce57f06edmr28175155e9.7.1788324019587; Tue, 01 Sep 2026
+ 21:40:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS7PR12MB9474:EE_|IA5PR12MB999326:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7e1cbdde-1816-49d7-2ca3-08df08ac2020
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|921020|4143699003|11063799006|10067099003|56012099006|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	LOdvFNAPjXNAqmEtNNZC4kCyjYHwshGOwkOeKi1DzqYg809+Fzw9T23rlnAHPWqaEXcO+esY4SoOZ1KaGTEeeYoDscTa1Fb6Lm62iDBRLYj+IqrI+GBb7pM5YJjj9RqtABUvj+rbq83+FPkNPRa+ou9wlV+D9T6ml8vDJleD8chY1WGVhxaFyckw1lb2SLN6XRbgdVkQsuCVX01gLfzS3gXFFJl/jCzAY8BC9oNn7JQHBqzM6uQvomPw3Sh5Wj+2eshBXCR5FQaSwpY8mK9JkvnAHEFBe6AG8D0/xrwPCAV8mMEobgd3CRJWWELae03E3MvKpXDYd7VnBXo8ZDZpBEk1VtlZNpYgpBmFDrGGGq/WjVd+K5GdJHca1XoWl2KqtudaFIt07k4ufDsdvzYEynvK4njTiinddeDIkW2nkC4xD6uAqdamQ7kq5Ggdo5dmRvtZ1Eh7388jx2YO4jB6d2pU/xN/xIqb/6oOI/gBFoSMDnsc2+IVo9TKAU/TkOJFAHdx50wI7THeNcfYzXAPeyi2UispNOvY69m1Ka2JLoef8CkgC+453APBnDpfRXNT2mh+OJuI+7flmYuRsZF9HdZ7XhYvp1bepUnOx0/IV00lZ4M8XYbifDqgrfJprX+kU9lhH4D7u9sOoppI2c+me0rEFvzGLZZ1Y4HmYy1S4FwW3FOtrrRmMR5vJsxcVDKq1jkcDVQXxIt/IBkS5rG4VQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR12MB9474.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(921020)(4143699003)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NnY4OHgyamZlSW1vc2dIejhwRTlVQ0RDQlE2ZlIzSEcvZ0ZpVG5rY2NpNzdr?=
- =?utf-8?B?Q2FyRExyaHpFMmV0YzJWckNtZ2REcTFuTnI0S1RLRVNYSFpobzhaMUJoK2xr?=
- =?utf-8?B?Vml5UDAxY2FzVTFvTFliV3hDOENSUmJ6WTFjdHhTRkk5Qm9Kb2pVZFBSY2Vt?=
- =?utf-8?B?OGdicWR2YU9BL0dESmtzalYzMW9xYU9GbGoxb0g5V0pNcWpVRGtERVQ3UTQ1?=
- =?utf-8?B?ZnhaZUlLNDJCTVllUks0QnNMd2gzTHFuZXZDdGE3Vzd1eVdhQmZEYUU3WXNP?=
- =?utf-8?B?QVdaMXhxL0xaVUJ3STU3NEFsZTNHZVU1dVhBdVJkTmo5SERJaU50cFZYaW9t?=
- =?utf-8?B?ZVpZSi9DQW5iV1g0M0VZdnpnQmhGNldkZDNPMjY5OWxOT1hxMTVHYUtmTWhM?=
- =?utf-8?B?Z2lERTl2aTExcnBkWlltMnVHNzB2dm5nUFdQa2MrM3psQUFPVEgyMU1sV2k5?=
- =?utf-8?B?ZEJ5YU5KOU9ZVittdi95MUxlc2hxSjBiWG1rTFk1K1gvdmdMNG5kNnF3VnF5?=
- =?utf-8?B?dFIrRlVsSlZZeCtUTVZRWFhwVnlITXh2cDR5bzdZWnBmWE9ueXFPNnhkL0xE?=
- =?utf-8?B?VzU0a2xVZUh0OTdXWnpYZlFtT3NYR2M1WU1DditGNXpMcjYrYUxqWTVMZnll?=
- =?utf-8?B?KzFjbjUxaUVIV2t1aGQ5WE8vNFg4U1NEKzVYSjVOdC9ZWWJYbjE5RXFqTjZk?=
- =?utf-8?B?S01sY2ZFNW90cm5lWUxiT2I4NTRZSmZjS3FJcVRYenNUVkN0eEpjWldXZTRh?=
- =?utf-8?B?dVphNkd6YmorZmJ1clNLaUFGVGliSGFwMmxTTEg0QlpMeFZVUE9oOUlwSVNa?=
- =?utf-8?B?QWRIRk5JRDcwSlRnbjlvUW9wQ043dkk1NnNtTldXMi9sRm9vUnJTenNBcU5z?=
- =?utf-8?B?NmtnbXNUcUpiVFJuaVkrcGZRQlZqSFpHQUNsZzI5b2tNY0IxVEFDdE42MFBk?=
- =?utf-8?B?UnpobjU4cDQxM0RxejFqN2hJSGdqZk5ENlFSdzVYN3ZNb3JWcmZsQXZ5ZzEz?=
- =?utf-8?B?ZUJuZUQvL0xLOGdZaHB3T1UySFQvbUYvMXRqOVpkVFErZ2RyU3BnSmF6THJY?=
- =?utf-8?B?cTZ4R1JtdzBRSTlUblNrNnAzMXI2Z3hlZjFtTnhnVDM3YThBRHdGdWxrOW5E?=
- =?utf-8?B?N3FoOWMvY2VabkNKTmtoNlVmZWdDOFBFNndDK2MvUzYrYjJVaHI5cFBEUjF4?=
- =?utf-8?B?NnBpeWFiazVVVGZJN3RDVHF2TC9lUjdOK3pubExJQm53VTdONGZuc0k2ckhM?=
- =?utf-8?B?YkIzSFk1cVllcU40b1czalE4SnBmYTVHblk5TFBJNXpRUjVOZ0RjSDJkZWJm?=
- =?utf-8?B?WjdtdE4vT2E4SU5XVW1uZk4xck9xT3YveHhXWHh2TWowWlVwZGZEY2ovcVlr?=
- =?utf-8?B?NkRvWmg1aDNSQ3QwZnpyb0NsNmpRZU1PUm1VRmdPdDRZTmtrN2Z3eFM3ZHhp?=
- =?utf-8?B?V3ZXaGlCQkVSN3pLS3RUQVZDVDV5WThKdzJTSjMwTGVHQ3Q3UlV6cmg1NU16?=
- =?utf-8?B?QTVLaTVOMXc2aUZIM3JHQlArNHZoYzJpTVc5Qk15eVQyZTZFdDRjMHk1Uk9w?=
- =?utf-8?B?bGlqaFFWL2ZuUnRhNlhKenAxRFY4U2pWVXdZbVZnMW1OOWpRSm01dW9BUVdN?=
- =?utf-8?B?UFhoWWMxallmZGF3V1A3RFBTeGkvZnArTmYyb0VBamtlZFh3bjNmdDd4Nnor?=
- =?utf-8?B?Lys3aFFnT3kyLzIvNEtkaVY5akZOVFVTcnJsdU44clBqUHowdzA0c1I3ejNu?=
- =?utf-8?B?cGJEWFRSWjVJWUFYY2RpOWwwdE11QmhVS0NQYzgxR20wK0FkMkVNRUU1SXB0?=
- =?utf-8?B?VXRrMk5tM1d0NTlxY1lrWWtkSTFWV0YzODhIY0ozRkZRY1dWWHY5K1lEZXRv?=
- =?utf-8?B?ZzVxcjBWU2thNWl2RUxNbWhCc0FGbjBERmEzTXA1T2tBRzhUYWFQNGxjSEI0?=
- =?utf-8?B?blljYmgvYm9ERzRab0NBTG84NFhHdnFxcjdmSFBPR2lXbnFjeTF5OVU5cXUw?=
- =?utf-8?B?TDRtQVhJWVJjV1ArUFc4MjJDKzZ3dmkrcXJxd210RG12YlkrTzBYY0xDUlY0?=
- =?utf-8?B?YmZrQmQ2eUoxdk1wYUFkcWN1V0l3QlRNMXFwei9GREJ2MlEzNmhUVUNiL1Y0?=
- =?utf-8?B?Sm9iUXk1VjdPSS9tT0FIY1pwZk5BTHFnK21uS2MzcjFlRUpPZWpsQnhiUGpm?=
- =?utf-8?B?UXBBOHE4eE1LRVA2WVZvOWM4cTJ3VlFKWVQyWVdraGRrajM4aExaclFyeWtj?=
- =?utf-8?B?U25vdTBYd2dUNHVBZExuVXBqeFU0dTRtL1FzZld5ZEpQYUQ4NDhkVGt4TlpS?=
- =?utf-8?B?d2NtanRXUm83TGFqSE1qekRRbTAwM2E3dFF5cFZnaFh4TlpGWGpYZz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7e1cbdde-1816-49d7-2ca3-08df08ac2020
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB9474.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 04:39:07.7631
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Qrn45xLajgD3fz7V5Fe7jIh2oJ1FLjW6wasEHju1RFKLUWtIZmDLiwqcqzGBbpWLFYlMwsLHvQANVmGX4n1QmA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA5PR12MB999326
+References: <CAKJ0_LewRz32U+QCVBJJ0UWeoghGdwNADZp6U32HaGnAjdaoKA@mail.gmail.com>
+In-Reply-To: <CAKJ0_LewRz32U+QCVBJJ0UWeoghGdwNADZp6U32HaGnAjdaoKA@mail.gmail.com>
+From: Joanne Koong <joannelkoong@gmail.com>
+Date: Tue, 1 Sep 2026 21:40:07 -0700
+X-Gm-Features: AcwNN1VAz3Oj0q5N9K4ERR2nE8r6LdeRc7mPttTPsG_m3dIM7uzM41vTOLHUN_Y
+Message-ID: <CAJnrk1Z7ef0eCo0zmXwvTyfZ75HE1ayJQ3o-NgKaEGyw07kLEg@mail.gmail.com>
+Subject: =?UTF-8?Q?Re=3A_=5BFUSE=5D_Two_latent_data=2Dintegrity_defects_in_the_?=
+	=?UTF-8?Q?7=2E2_iomap_read_integration_=E2=80=94_pre=2Ddisclosure_before_large=2Df?=
+	=?UTF-8?Q?olio_enablement?=
+To: Kanishka De Silva <kpskanna1915@gmail.com>
+Cc: mszeredi@redhat.com, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 8/25/26 1:30 PM, Dave Jiang wrote:
->> +                 range->hpa_range.end == hpa_range->end)
-> I think range_contains() would work here?
+On Sat, Aug 29, 2026 at 9:32=E2=80=AFPM Kanishka De Silva
+<kpskanna1915@gmail.com> wrote:
+>
+> Hi Miklos and Joanne,
 
-  Wouldn’t range_contains() also match a subrange? Is it okay to treat a 
-contained but non-identical decoder range as a duplicate as well?
+Hi Kanishka,
 
->> +                     return 0;
->> +
->> +     range = kzalloc_obj(*range);
->> +     if (!range)
->> +             return -ENOMEM;
->> +
->> +     range->pdev = pdev;
->> +     range->hpa_range = *hpa_range;
->> +     list_add_tail(&range->list, &ctx->ranges);
->> +
->> +     return 0;
->> +}
->> +
->> +static int cxl_hdm_ranges_collect(struct cxl_hdm_range_context *ctx,
->> +                               struct pci_dev *pdev)
->> +{
->> +     struct cxl_hdm_info *info;
->> +     int rc;
->> +
->> +     guard(rwsem_read)(&cxl_rwsem.dpa);
->> +     info = pdev->hdm;
->> +     if (!info) {
->> +             pci_err(pdev, "CXL HDM decoder state unavailable\n");
->> +             return -ENXIO;
->> +     }
->> +
->> +     for (int i = 0; i < info->decoder_count; i++) {
->> +             struct cxl_decoder_settings *settings = &info->settings[i];
->> +
->> +             if (!(settings->flags & CXL_DECODER_F_ENABLE))
->> +                     continue;
->> +
->> +             if (settings->flags & CXL_DECODER_F_NORMALIZED_ADDRESSING) {
->> +                     pci_err(pdev,
->> +                             "CXL reset does not support normalized address decoders\n");
->> +                     return -EOPNOTSUPP;
->> +             }
->> +
->> +             rc = cxl_hdm_range_add(ctx, pdev, &settings->hpa_range);
->> +             if (rc)
->> +                     return rc;
->> +     }
->> +
->> +     return 0;
->> +}
->> +
->> +static int cxl_hdm_range_len(struct pci_dev *pdev,
->> +                          const struct range *hpa_range, u64 *len)
->> +{
->> +     if (hpa_range->end < hpa_range->start)
->> +             return -EINVAL;
->> +
->> +     if (hpa_range->start > RESOURCE_SIZE_MAX ||
->> +         hpa_range->end > RESOURCE_SIZE_MAX) {
-> Given that above you established that (end >= start) couple lines above, you really only need to test end here.
-> 
->> +             pci_err(pdev,
->> +                     "CXL reset range [%#llx-%#llx] exceeds resource address size\n",
->> +                     hpa_range->start, hpa_range->end);
->> +             return -EOVERFLOW;
->> +     }
->> +
->> +     *len = range_len(hpa_range);
->> +     if (!*len || *len > RESOURCE_SIZE_MAX) {
->> +             pci_err(pdev,
->> +                     "CXL reset range [%#llx-%#llx] exceeds resource size\n",
->> +                     hpa_range->start, hpa_range->end);
->> +             return -EOVERFLOW;
->> +     }
->> +
->> +     if (*len > SIZE_MAX) {
->> +             pci_err(pdev,
->> +                     "CXL reset range [%#llx-%#llx] exceeds cache flush size\n",
->> +                     hpa_range->start, hpa_range->end);
->> +             return -EOVERFLOW;
->> +     }
->> +
->> +     return 0;
->> +}
-> This function is doing too much. I suggest you rename it cxl_hdm_range_validate() and drop the *len parameter. And just assign len from range_len(hpa_range) once it's validated. I'll paste a diff at the end as a suggestion.
+>
+> I am reporting two latent data-integrity defects in the FUSE iomap
+> read integration introduced in Linux 7.2. Both defects are unreachable
+> in stock 7.2.2 today, but activate the moment partially-uptodate
+> folios exist in FUSE =E2=80=94 which is precisely what the announced "fus=
+e:
+> support large folios" series (Joanne) and any sub-page-blocksize
+> invalidation semantics will create. I'm reporting now, before that
+> series merges, so the fixes can land alongside or before the
+> enablement.
+>
+> Full report, suggested fixes patch, PoC source, and runtime evidence
+> logs are attached as plain text files.
+>
+> Summary:
+>
+> The 7.2 series "fuse: use iomap for buffered reads + readahead"
+> introduced, for the first time, FUSE read paths where a folio read can
+> be a sub-range of that folio (desc.offset > 0 and/or desc.length <
+> folio_size). Two legacy helpers were not adapted:
+>
+> Defect A =E2=80=94 fuse_copy_folio() whole-folio zeroing (fs/fuse/dev.c):
+> When zeroing is set and count < folio_size, the function calls
+> folio_zero_range(folio, 0, size) =E2=80=94 zeroing the ENTIRE folio befor=
+e
+> copying the reply at [offset, offset+count). With sub-folio read
+> ranges this destroys valid, cached, uptodate data located before the
+> requested range in the same folio. Demonstrated end-to-end: 1024 bytes
+> of valid cached data silently replaced by zeros.
+>
+> Suggested fix (one line):
+> - folio_zero_range(folio, 0, size);
+> + folio_zero_range(folio, offset, size - offset);
 
-  I applied this refactor in v11: the helper is now 
-cxl_hdm_range_validate(), it no longer has a len output parameter, and 
-the caller assigns range_len() after validation.
+I think the fix needs to be folio_zero_range(folio, offset,
+ap->descs[i].length); else there's the case where writing to the last
+block of a folio and then reading in the entire folio will overwrite
+the last block. This is what I had in my local tree, after sashiko
+mentioned this a few months ago in [1]:
 
-> 
->> +
->> +static int cxl_hdm_range_request(struct cxl_hdm_range *range)
->> +{
->> +     struct pci_dev *pdev = rang
+diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+--- a/fs/fuse/dev.c
++++ b/fs/fuse/dev.c
+@@ -1240,17 +1240,11 @@
+  * done atomically
+  */
+ int fuse_copy_folio(struct fuse_copy_state *cs, struct folio **foliop,
+-                   unsigned offset, unsigned count, int zeroing)
++                   unsigned offset, unsigned count)
+ {
+        int err;
+        struct folio *folio =3D *foliop;
+-       size_t size;
+-
+-       if (folio) {
+-               size =3D folio_size(folio);
+-               if (zeroing && count < size)
+-                       folio_zero_range(folio, 0, size);
+-       }
++       size_t size =3D folio ? folio_size(folio) : 0;
 
+        while (count) {
+                if (cs->write && cs->pipebufs && folio) {
+@@ -1308,10 +1302,25 @@
 
--- 
-Regards,
-Srirangan
+        for (i =3D 0; i < ap->num_folios && (nbytes || zeroing); i++) {
+                int err;
++               struct folio *folio =3D ap->folios[i];
+                unsigned int offset =3D ap->descs[i].offset;
+-               unsigned int count =3D min(nbytes, ap->descs[i].length);
++               unsigned int length =3D ap->descs[i].length;
++               unsigned int count =3D min(nbytes, length);
++
++               /*
++                * The reply may be shorter than what was asked for, in whi=
+ch
++                * case the tail of the requested range needs to be zeroed.
++                * Only [offset, offset + length) may be touched here: the
++                * rest of the folio can hold blocks that are already uptod=
+ate
++                * or dirty, and clearing those would lose data.
++                *
++                * Clear the range up front, so that a failed copy leaves
++                * zeroes rather than stale folio contents.
++                */
++               if (folio && zeroing && count < length)
++                       folio_zero_range(folio, offset, length);
+
+-               err =3D fuse_copy_folio(cs, &ap->folios[i], offset,
+count, zeroing);
++               err =3D fuse_copy_folio(cs, &ap->folios[i], offset, count);
+                if (err)
+                        return err;
+
+diff --git a/fs/fuse/dev.h b/fs/fuse/dev.h
+--- a/fs/fuse/dev.h
++++ b/fs/fuse/dev.h
+@@ -90,7 +90,7 @@
+
+ int fuse_copy_one(struct fuse_copy_state *cs, void *val, unsigned size);
+ int fuse_copy_folio(struct fuse_copy_state *cs, struct folio **foliop,
+-                   unsigned offset, unsigned count, int zeroing);
++                   unsigned offset, unsigned count);
+ void fuse_copy_finish(struct fuse_copy_state *cs);
+
+ #ifdef CONFIG_FUSE_IO_URING
+diff --git a/fs/fuse/notify.c b/fs/fuse/notify.c
+--- a/fs/fuse/notify.c
++++ b/fs/fuse/notify.c
+@@ -190,7 +190,7 @@
+                folio_offset =3D offset_in_folio(folio, pos);
+                nr_bytes =3D min(num, folio_size(folio) - folio_offset);
+
+-               err =3D fuse_copy_folio(cs, &folio, folio_offset, nr_bytes,=
+ 0);
++               err =3D fuse_copy_folio(cs, &folio, folio_offset, nr_bytes)=
+;
+                if (!folio_test_uptodate(folio) && !err && folio_offset =3D=
+=3D 0 &&
+                    (nr_bytes =3D=3D folio_size(folio) || file_size =3D=3D =
+end)) {
+                        folio_zero_segment(folio, nr_bytes, folio_size(foli=
+o));
+
+I'll prioritize sending this upstream this week.
+
+>
+> Defect B =E2=80=94 fuse_send_readpages() ignores descs[0].offset (fs/fuse=
+/file.c):
+> The readahead sender computes the FUSE_READ request start as
+> folio_pos(ap->folios[0]), ignoring ap->descs[0].offset. If the first
+> folio of a batch is prefix-partial, the kernel asks the server for
+> data beginning at the folio start instead of the first invalid block.
+> The reply is copied at the wrong position =E2=80=94 every byte of the bat=
+ch is
+> silently shifted. Both sibling paths handle this correctly:
+> - writeback: folio_pos(folio) + offset (fuse_writepage_args_setup)
+> - sync read: folio_pos(folio) + off (fuse_do_readfolio)
+> The readahead path is the odd one out.
+>
+> Suggested fix (one line):
+> - loff_t pos =3D folio_pos(ap->folios[0]);
+> + loff_t pos =3D folio_pos(ap->folios[0]) + ap->descs[0].offset;
+>
+> Reachability today (why latent):
+> Stock 7.2.2 cannot construct a partially-uptodate folio in FUSE =E2=80=94
+> order-0 folios only, no code path clears per-block uptodate bits, and
+> the VFS readahead core only hands freshly-allocated fully-non-uptodate
+> folios to ->readahead(). Both defects activate exactly when the
+> large-folio series lands or any sub-page invalidation semantics are
+> introduced.
+>
+
+Even with large folios enabled, this isn't reachable since
+page_cache_ra_unbounded() never adds an already-present folio to the
+rac. Every folio that ->readahead() sees is freshly allocated / wholly
+non-uptodate.
+
+Large folios aren't enabled yet but a patch for that will be sent out
+for inclusion in the next (7.4) merge, which would only land after the
+above patch for the zeroing lands.
+
+Thanks,
+Joanne
+
+[1] https://sashiko.dev/#/patchset/20260717032835.922433-1-lihaofeng%40kyli=
+nos.cn
