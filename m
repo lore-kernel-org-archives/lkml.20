@@ -1,162 +1,105 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 022DE1E98E3;
-	Wed,  2 Sep 2026 03:13:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA952E8B64
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:13:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788318803; cv=none; b=CUavuTtX85YKovcov5NW9XWTeL+ZjbnyXNCVVdYZ8lLL1BHG+8dN6/pQbPCnSSvyBDtb/o+DRqOr0S8lX73QcBZpPRV1SATFif8d+9AtZ5iFTlXBpMK0fipqaOoTxm0ePGjdv6a+ICMQ95qxeq1mSF29AFzZLKE1lUpIhQ9K1WY=
+	t=1788318812; cv=none; b=TnE6flnN7ZueZbqGYLRjqsgi2VWhLS1Gq2sWz8Y+0LXpnIP3pxqp8Qdqi9fOrtHkQmQfB5KDOA8w9vIKrxAh2k2o8N3KoalVraHmjRAlDZK54vWkMJCsyv6thor+ECN98OTzSS9EAxQRqs854AQJTGn7JJDt/39MSF1f0xezGHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788318803; c=relaxed/simple;
-	bh=C+Uo2kt5ZOqlw8/33V+ZcOjMsJv6LTfRgew/gLDOF+s=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=jwOlzWFZKXHG8c2EQN9tCq6OK3PC44bDxRApuoRLwZZI9iFYVoQefkql9IMQF1BmtvDpYwcg1+o25rgSiLtlp81lg/85Ly8pM8nKtmvb/TONzwIdmQo4TTULUi05K8VGlobOnHd47MbgugXJJnI7Rnjftf/2Jaj1K1+y8r3rLQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8CxPtMMjZdqhZsHAA--.21507S3;
-	Wed, 02 Sep 2026 10:42:20 +0800 (CST)
-Received: from [10.130.40.83] (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJAx3c4JjZdq3EcZAA--.53851S2;
-	Wed, 02 Sep 2026 10:42:18 +0800 (CST)
-Subject: Re: [PATCH bpf v1 RESEND] bpf: Fix timer_lockup deadlock using
- atomic_fetch_inc()
-To: Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>,
- Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>,
- Emil Tsalapatis <emil@etsalapatis.com>,
- Ihor Solodrai <ihor.solodrai@linux.dev>
-Cc: loongarch@lists.linux.dev, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260902005106.22187-1-yangtiezhu@loongson.cn>
- <DL4FK2P8LMEQ.216J5ZMX9B7VC@gmail.com>
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-Message-ID: <7d0bd14f-d13e-6735-92f3-68f474c66a73@loongson.cn>
-Date: Wed, 2 Sep 2026 10:42:17 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1788318812; c=relaxed/simple;
+	bh=ZCFXqD0qH+frJd8FQxXIN9FL/o/eJwoHGHcxHsrk2GI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qLUKD6UGN5m2lNt8fL7Hisb5Fvp1LKMpU+aiXA9NMTQGajPlkTxxkhpvUHd/iFuAWMvOdr6En64RM5G9MieZ4Kp7AXBh3Vihb7HvaPoFc1KH8j+he5uMAfUQjdkF0wsqfhXmZrJ4nTvjI7+PIeeMxWURdkHFn8D/1THA4itx7dk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=gM0QXyEC; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="gM0QXyEC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Xd
+	Olvnf0kNLdmnj7QhhCR0Qpd7tZIaYX8X0Qtv2j1ls=; b=gM0QXyEC+cBDkj+xBQ
+	PxOl9R32S26qR4laebtgHMsPbH+/KrZ7lwIqUUOsH+7gEXFKGHcxN4EfS8Oshf9c
+	CGxnu9gZQu/oqnriKLiTq896cBOnMhO1l/IGUN+DOGnMpzJIyFBiWeHlglkZ2Xbf
+	8F4SaqNdw25qrHOgwknzyVs7I=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgDnrxQilJdqv626OA--.15776S2;
+	Wed, 02 Sep 2026 11:12:35 +0800 (CST)
+From: oushixiong1025@163.com
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Shixiong Ou <oushixiong@kylinos.cn>
+Subject: [PATCH] drm/modeset-helper: Add blend mode property to the legacy primary plane
+Date: Wed,  2 Sep 2026 11:12:32 +0800
+Message-Id: <20260902031232.165532-1-oushixiong1025@163.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <DL4FK2P8LMEQ.216J5ZMX9B7VC@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAx3c4JjZdq3EcZAA--.53851S2
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxAF4DZF18GrWkXw4kAw1xXrc_yoWrZr4kpr
-	WxCF47Kr4kXr48Xw1kJa1UuF1F939Yka43Jr4rGr1Uu3W5Kr1YyF409r43WFy5Cws8Jry2
-	yry0q3sagFn8JagCm3ZEXasCq-sJn29KB7ZKAUJUUUUx529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUPFb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2kKe7AKxVWUAVWUtwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
-	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWU
-	twAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMx
-	k0xIA0c2IEe2xFo4CEbIxvr21lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l
-	4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jw0_GFylx2IqxVAqx4xG67AKxV
-	WUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI
-	7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r
-	4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI
-	42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUcApnDUUUU
+X-CM-TRANSID:PSgvCgDnrxQilJdqv626OA--.15776S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WFy5ArW7Cw4DJrW3ZFW5Jrb_yoW8CryrpF
+	sxCFZ8tw1rtFs3Ja4rC392ya15Wan3Ga48Kry2q3sI93ZxKry3Arn8Gr17KFy7Jr4xJr1a
+	g39rAr1DZF1UuaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jFa0PUUUUU=
+X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC-QOtvGqXlCNMxAAA3t
 
-On 2026/9/2 上午9:13, Kumar Kartikeya Dwivedi wrote:
-> On Wed Sep 2, 2026 at 2:51 AM CEST, Tiezhu Yang wrote:
->> When testing the BPF selftest "sudo ./test_progs -t timer_lockup", there
->> is a kernel lockup and panic on LoongArch:
->>
->>    watchdog: BUG: soft lockup - CPU#1 stuck for 8s! [test_progs:39601]
->>    Kernel panic - not syncing: softlockup: hung tasks
->>    ...
->>    Call Trace:
->>    ...
->>    [<9000000000c40e98>] panic+0x44/0x48
->>    [<9000000000e8b000>] watchdog_timer_fn+0x500/0x520
->>    [<9000000000dfd9a4>] __hrtimer_run_queues+0xc4/0x530
->>    [<9000000000dffe90>] hrtimer_interrupt+0x140/0x320
->>    ...
->>    [<9000000002ad9e4c>] _raw_spin_unlock_irqrestore+0x8c/0xc0
->>    [<9000000000dfe9e0>] hrtimer_try_to_cancel.part.0+0x70/0x350
->>    [<9000000000dfed58>] hrtimer_cancel+0x38/0x80
->>    [<9000000000f6d944>] bpf_timer_cancel+0x94/0x1e0
->>    [<ffff80000200fad0>] bpf_prog_108ab87b32f22e44_timer_cb1+0xb0/0xfc
->>    [<9000000000f6b838>] bpf_timer_cb+0x98/0x170
->>    [<9000000000dfdaac>] __hrtimer_run_queues+0x1cc/0x530
->>    [<9000000000dfde94>] hrtimer_run_softirq+0x84/0xd0
->>    ...
->>    [<900000000271d9e0>] bpf_test_run+0x1c0/0x5c0
->>    [<900000000271f548>] bpf_prog_test_run_skb+0x6e8/0xe20
->>    [<9000000000f39940>] __sys_bpf+0x1690/0x2c50
->>    [<9000000000f3af28>] sys_bpf+0x28/0x40
->>    [<9000000002ac2d68>] do_syscall+0x108/0x5e0
->>    [<9000000000c6a850>] handle_syscall+0xd0/0x170
->>
->> In bpf_timer_cancel() of kernel/bpf/helpers.c, it explicitly notes that
->> "Need full barrier after relaxed atomic_inc" to ensure global visibility
->> of the cancelling state before performing the lockless dependency checks.
->>
->> However, on weakly-ordered architectures such as LoongArch, the current
->> combination of a relaxed atomic_inc() followed by smp_mb__after_atomic()
->> fails to guarantee the physical store-load ordering because the latter
->> currently expands to an empty compiler barrier rather than a hardware
->> data barrier on LoongArch.
->>
->> This allows a subsequent read to bypass the prior write due to store-load
->> reordering, enabling concurrent CPUs to simultaneously bypass the software
->> deadlock detection, enter hrtimer_cancel(), and then trigger a severe ABBA
->> deadlock in the hrtimer core.
->>
->> Instead of relying on arch-specific macro implementations which may vary
->> in strictness, fix this issue directly in the BPF core helper by replacing
->> atomic_inc() and smp_mb__after_atomic() with a single atomic_fetch_inc()
->> to provide full ordering natively.
-> 
-> This paragraph is completely bogus. LoongArch's smp_mb__after_atomic() had a
-> bug. The specification in LKMM for smp_mb__after_atomic() is that it should be a
-> full barrier, which can be relaxed if the prior atomic operation already
-> provides the necessary ordering.
-> 
-> As I already said, there is no point in changing or "optimizing" this atomic
-> inc. Just let it be. You will see no measurable difference for this function.
-> 
-> Just accept that it was a bug, and fix the lowering for your arch. Plenty of
-> other logic in the kernel uses this primitive, so I think you folks were just
-> lucky this wasn't hit before by something else.
+From: Shixiong Ou <oushixiong@kylinos.cn>
 
-Thanks for your feedback.
+The primary plane created by drm_crtc_init() exposes ARGB8888, which
+has an alpha channel, but never gets a "pixel blend mode" property, so
+drm_mode_config_validate() warns for every driver using this helper
+(radeon, gma500, legacy amdgpu DCE). Advertise only
+DRM_MODE_BLEND_PREMULTI, the mode userspace always assumed when the
+property was absent.
 
-I looked into tools/memory-model/Documentation/ordering.txt,
-as it explicitly clarifies, atomic_inc() does not guarantee
-full ordering on weakly-ordered architectures, therefore
-smp_mb__after_atomic() must emit a hardware data barrier to
-comply with the LKMM specification, rather than expanding to
-a plain compiler barrier.
+Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
+Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+---
+ drivers/gpu/drm/drm_modeset_helper.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-I also noticed there are hundreds of smp_mb__after_atomic()
-call sites across the core kernel (kernel/, drivers/, mm/,
-net/, fs/) that currently lack necessary hardware data barriers
-on LoongArch, which have potential risks.
+diff --git a/drivers/gpu/drm/drm_modeset_helper.c b/drivers/gpu/drm/drm_modeset_helper.c
+index e54584da4c3d..4c59e82af2f1 100644
+--- a/drivers/gpu/drm/drm_modeset_helper.c
++++ b/drivers/gpu/drm/drm_modeset_helper.c
+@@ -23,6 +23,7 @@
+ #include <linux/export.h>
+ 
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_blend.h>
+ #include <drm/drm_client_event.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_framebuffer.h>
+@@ -160,6 +161,17 @@ int drm_crtc_init(struct drm_device *dev, struct drm_crtc *crtc,
+ 	 */
+ 	primary->format_default = true;
+ 
++	/*
++	 * safe_modeset_formats[] includes ARGB8888, which has an alpha
++	 * channel. Advertise the blend mode userspace has always assumed
++	 * for such planes when the "pixel blend mode" property was absent,
++	 * to satisfy drm_mode_config_validate().
++	 */
++	ret = drm_plane_create_blend_mode_property(primary,
++						   BIT(DRM_MODE_BLEND_PREMULTI));
++	if (ret)
++		goto err_drm_plane_cleanup;
++
+ 	ret = drm_crtc_init_with_planes(dev, crtc, primary, NULL, funcs, NULL);
+ 	if (ret)
+ 		goto err_drm_plane_cleanup;
+-- 
+2.25.1
 
-So please disregard this bpf patch, I will send a v2 patch to
-remove the definition of __smp_mb__{before,after}_atomic() in
-arch/loongarch/include/asm/barrier.h, so that these two macros
-can automatically fall back to the generic definition in
-include/asm-generic/barrier.h:
 
-#ifndef __smp_mb__before_atomic
-#define __smp_mb__before_atomic()	__smp_mb()
-#endif
-
-#ifndef __smp_mb__after_atomic
-#define __smp_mb__after_atomic()	__smp_mb()
-#endif
-
-Thanks,
-Tiezhu
+No virus found
+		Checked by Hillstone Network AntiVirus
 
