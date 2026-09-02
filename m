@@ -1,212 +1,143 @@
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F33C4AEBE7
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 22:24:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE284ADD90;
+	Wed,  2 Sep 2026 22:24:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788387892; cv=none; b=ZbG9i3yiTvP7qeB7gqMJXef2+V41syYZscXG+5dIT93r3hgTuiDgnruEUmmyx/kqDVqk/r+7bWXYVrdgRQLAreW8zTA0KxbQ79LxI30RpKNsqkLPif1g4l7U/6DTFX4wXCmjEpBx+pnrUG6/tv8mdRnI0FaNErrMdgou12/t8b8=
+	t=1788387895; cv=none; b=gGJnHI/xwl7BL2Mlcu337jbrSXXX0hIl1tAX6XE0q/K3DpuCkiZB8ISIX6PyfSSYw5/uDVppTEQ4dc3Nf+5gdXpzAKxD5+FolxCDLwB9YxaRhq5LzjmiCITbG2MlzWxSunHbLKkYvxkYtMXsaADaJQeZh5KmPDCx4W9C5wis3BU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788387892; c=relaxed/simple;
-	bh=2+xvpsSLAnGLVs/p2neoZdpd1irchwRpTrO6e27974s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=KL8r72mGupCeRX6dW7UqQmtEiSgfai8LvopEpunKX56mit5LQy+DSHwJ2rTJoxPaTuRp01o5v1dd9A7GGzXeX5pJ6rV9WYPavwW85ZbpG99NoatXlLFxIeN92P5NyCxJHHu5yWnSbDZzGqJ9FdII4+qs4ZvDU4LsZilkxzL+bWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MIoFxNV6; arc=none smtp.client-ip=209.85.210.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788387895; c=relaxed/simple;
+	bh=D6bkpoIpcIYOnZZyO6lK4ItdOwuknHRlO1Z8sHXjL6M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AP8epyQOCcV0rZwrGYow22L6YGfSBiBaoH8j5Eo7HuCwjLSmTMtqDw2O8Ub65Qi2o4ywXAqvYRFR2ABUvhhg/vdp7RpsHkJ1aDzkEB8tLsy3wacZZ7+MuscMp8iAccZg351L8Tofazu6Ef0HG+/kJz8g02OzVyJtLuTQO/NFAm4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=X4Vu2QtD; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MIoFxNV6"
-Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7f3ece23165so1248605a34.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 15:24:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788387885; x=1788992685; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=n5rCfQVWj8V00nMIMl18yNILIGrHQT/mE2GeDtDPrJI=;
-        b=MIoFxNV6f1KUWzXGGhk7IED9+0sytyb0wgeWfIb7sM2Ert7RSnYWlfIy2YymqykMP3
-         eJRpr4uzqse+DOzMfBrZ9Pm9Ckzd86PXpmx4QCy+0oi0r/brGMszSvfjbsyT22TnNiYh
-         m+YsnDnn8q+w8EgSmF44hdOI/rTrUcJC5q1kHyjqd+QHAFj1fuivPbx0ID2HeZFctMP/
-         l0jyqEjBs47MRojgWNPQfcFB/ZapbeZSOjnRKyqcEJsoWDlb5boYxX+jxsQRqFrJWY4B
-         9HkjEbX+pe5QGrjznTvWap8PsDLyXpOr0HNh16VTlyCnDkMJstj9tFEXhc2Syt/lObdS
-         /6Aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788387885; x=1788992685;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=n5rCfQVWj8V00nMIMl18yNILIGrHQT/mE2GeDtDPrJI=;
-        b=HBL8/mR7mV1WI5Fmlu7GHuAld7uNe/ceMGVNPhbGCp3iWx8Gz1DwOjlqkSTTTNZc3V
-         GB6MEG0h817cNxEaWzJ9J6vsMrxYSIzO3JdN6Yds86ALy8n+UV5sApbnpDjYZmkbHm2a
-         sMRmhwfC52ae3Xw+VOKy09i9reRF54QShTefv1pKHDDvZmz6POeEABwWlJBMfU4F0S5f
-         JjAx0S0bdFF/xJVinHdslug7JK8vMIL3ueRTGDz/CzO+UZIJ4EYTC7H+Fwub5lLd7sQ4
-         VaG5T0JF7tCL+tYRUmsgQiyC/mJGeTLFWQjbnlW/P76Lr4mThq/vU8kWWpNcWfXNYQna
-         hleQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw44R+8KWiyT1cNpRNswb68oYSZFv/hZQcwyy9VDgEqg3LbN+f1epKufJlv6t5eliHJHhTsEu+wqrXzXbk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nOJaJkq2b88QfxmyJ4C2amFeOa1OAYv1gNK+daxjEi0ybiBpan
-	SgrfHcqB+wow1/ueFbFT3iepqKjOaHyK0auIJ9y/mS04qLxOv/Si5pWZ
-X-Gm-Gg: AYBFou28rD3tyWmi1DSOgaGkjzIFNKjIaXWonnqx7fUexGNrGeqEG1v+VlsvaAGnw9F
-	VKAiCwtgqYvzA76zP5KKrvu4SkHhYPUqH1NgOujtCYj49aqv8zhadDoa49z1kU443vXJwVNpz4y
-	Gcpy4YbCp7zutDLi/ABE0H6r4n6VCp+x7gtxNxSgMw5CEpXreyFketrZQPvg0zXeyx66yaOVIU1
-	o6dvQj6dXVyV79Fwwk1yWeR+pQAEts8C1NbzCXQSJ+UTX6R2Fg7muvCEmx7CKM/d1N5UUbLGhgf
-	jd1Lf+fV6jGSgvO2r0o7j7bZcsSya+eZ06g/ur0Oodl0XBiPsWDMteEm2NaiZnbUsGzQY2BtpEf
-	ynPKoz+jXu6fwWppry8p+98j8y2AEudd09BdfYxgszVXAaYDM3GzUDARAnNhEdXUqzZO9ODCQC1
-	stYPwsqm4MCKU2aOnERNGRMDjgBK82Tq3WTOJtEC0jRCAH4QiyWQu/25M=
-X-Received: by 2002:a05:6830:6b0a:b0:7f4:e011:6b3f with SMTP id 46e09a7af769-7f781cb30e3mr7433643a34.14.1788387885153;
-        Wed, 02 Sep 2026 15:24:45 -0700 (PDT)
-Received: from localhost ([2a03:2880:ff:4::])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f74d1b206dsm3206049a34.10.2026.09.02.15.24.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 15:24:43 -0700 (PDT)
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-Date: Wed, 02 Sep 2026 15:24:19 -0700
-Subject: [PATCH net-next] tcp: devmem: only pre-allocate tokens the
- receiver can consume
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="X4Vu2QtD"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682KVV4u3367009;
+	Wed, 2 Sep 2026 22:24:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=jxIqqe
+	Ksku6ms7BZZ9tYTyFuKkIPq5UjiX6SWrdx6hk=; b=X4Vu2QtDEpA7K9cWhaKhY4
+	Z6PJzwo+j71oQttr8O2b7fuY4p/1nLwsaHCreY/M1XGAxiWFROOsAg/gEVPDZRA0
+	g2NmOFvu7v+shALYBhI9RuOYD8fRPkez/SZqYJp0gN6ZJM0tqfpDuR7jhM3Feywx
+	wrfePnmWoR2IU6H2doo6kPT0IEQmgQh0AX+zrObeOjDChW0CYr4EmYXLkWP3yWDm
+	dYxg0mQAZHPs9PKv3EraJUDRU57AaCDaCeNTiNIsan8B4OGL8QxQ7YAQBI8i+4Do
+	VzJm4tyxy11j1GJcYhsmurc1vThUbsfWLB4Z7BMlCw4IQ5OQwYUKPCoXjGy5pe3Q
+	==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq3rhua9-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 22:24:44 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 682LuY4W030585;
+	Wed, 2 Sep 2026 22:24:43 GMT
+Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gecjan46x-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 22:24:43 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (smtpav03.dal12v.mail.ibm.com [10.241.53.102])
+	by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 682MOgwR19989100
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 2 Sep 2026 22:24:42 GMT
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 630A758056;
+	Wed,  2 Sep 2026 22:24:42 +0000 (GMT)
+Received: from smtpav03.dal12v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 9959E58063;
+	Wed,  2 Sep 2026 22:24:39 +0000 (GMT)
+Received: from [9.67.98.186] (unknown [9.67.98.186])
+	by smtpav03.dal12v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  2 Sep 2026 22:24:39 +0000 (GMT)
+Message-ID: <b2d390dd-3ba0-4faf-967b-d1188da12e62@linux.ibm.com>
+Date: Thu, 3 Sep 2026 03:54:38 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] keys/trusted_keys: return immediately after TPM
+ unseal failure
+To: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org
+Cc: James.Bottomley@HansenPartnership.com, jarkko@kernel.org,
+        zohar@linux.ibm.com, linux-kernel@vger.kernel.org,
+        linux-security-module@vger.kernel.org, nayna@linux.ibm.com,
+        rnsastry@linux.ibm.com
+References: <20260902103120.222326-1-ssrish@linux.ibm.com>
+ <20260902103120.222326-2-ssrish@linux.ibm.com>
+Content-Language: en-US
+From: Srish Srinivasan <ssrish@linux.ibm.com>
+In-Reply-To: <20260902103120.222326-2-ssrish@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-b4-net-next_devmem-token-refill-v1-1-81d8990e5e17@meta.com>
-X-B4-Tracking: v=1; b=H4sIABSimGoC/zXN4QqCMBSG4VsZ328PTLNsu5UIme1Uh/QY2xBBv
- Pco6O8LD++GzEk4w5sNiRfJMiu8qSuD2zPog0kivEFjm5N1tqahJeVCymvpIy8TT1TmFyslvss
- 4knVhcIeuC/F4RmXw/vb1d7jgL3Hd9w9e4IheewAAAA==
-X-Change-ID: 20260901-b4-net-next_devmem-token-refill-09ab9377ad58
-To: Eric Dumazet <edumazet@google.com>, 
- Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, 
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Stanislav Fomichev <sdf@fomichev.me>, Mina Almasry <almasrymina@google.com>, 
- David Wei <dw@davidwei.uk>, Bobby Eshleman <bobbyeshleman@meta.com>
-X-Mailer: b4 0.14.3
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=EIc2FVZC c=1 sm=1 tr=0 ts=6a98a22d cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=Y-y2Im-bRa9duunfRGsA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE5NSBTYWx0ZWRfX3PxBAJMX5NU1
+ YKCe2YMNrQeY54PsYfBlvCKv28mWayPk8iRBmEnM1baoCAtPfuvoXn30rYRGAK7fQ7QD4mLJCeD
+ SB8H6xRe3NCmJjFH2jslQUVos+NNZ4EtxiRTg8aj/Pbq9DnCHUDFJtifPovPeZ/GLAeXom2j15t
+ grt9Xs9iWn8rp47FzBwCFIv43r1KqFJe+HugzZ/vKlA6e3HKrg3E1WvMwmEIUQ8gnKXEpRSK4Eb
+ upVIaxDHUpi9Mg9elYidDWX5CgqBFBw4iG/X+L3rMYhSW961l2W+I/LEOahO6Oqbxi9BFNEkp7Y
+ fda7IYZ4B+1G5ok039CmzVSjne7puMG4yHJDoHFvL97xAulwXVKvnJSvNsgr07Gk/ojvbHYpI5Y
+ Lh66xFuN2aXm3Oy3r4nmWILRWfMam07vXrtRsG4lQoMLZXrMGnbrPEym3ad67+aqWpYxEZfBA3/
+ 6I9MmMoTvcu5s8NafGg==
+X-Proofpoint-GUID: a4VYTaxDfaTffOkljByhbbMBZnHapPtp
+X-Proofpoint-ORIG-GUID: a4VYTaxDfaTffOkljByhbbMBZnHapPtp
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE5NSBTYWx0ZWRfXzGkBGzAc61jh
+ MEFbVliPiV+D965upWYoi/s6Ena9FYRLqig6LuTdPpAYENTmWUfBDAqM2oAxi0MxNkhfcFX6wX1
+ 6JkTIRUlsONS7vN8VAoJehHVt3vKjaY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_05,2026-09-02_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 clxscore=1015
+ phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020195
 
-From: Bobby Eshleman <bobbyeshleman@meta.com>
 
-tcp_recvmsg_dmabuf() derives its token allocation amount directly from
-the skb's nr_frags. After filling the user's receive buffer
-tcp_xa_pool_commit() erases any tokens that were not used. When the
-receive buffer is significantly smaller than the skb size, much of the
-token allocation work is wasted.
+On 9/2/26 4:01 PM, Srish Srinivasan wrote:
+> trusted_tpm_unseal() proceeds to pcrlock() when the TPM unseal operation
+> fails. If pcrlock() succeeds, its return value overwrites the unseal error,
+> causing key instantiation to succeed.
+>
+> Return immediately when unseal fails to preserve the original error.
+>
+> Fixes: 5d0682be3189 ("KEYS: trusted: Add generic trusted keys framework")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
+> ---
+>   security/keys/trusted-keys/trusted_tpm1.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
+> index bf0bf7f36970..1168ca235205 100644
+> --- a/security/keys/trusted-keys/trusted_tpm1.c
+> +++ b/security/keys/trusted-keys/trusted_tpm1.c
+> @@ -923,8 +923,10 @@ static int trusted_tpm_unseal(struct trusted_key_payload *p, char *datablob)
+>   		ret = tpm2_unseal_trusted(chip, p, options);
+>   	else
+>   		ret = key_unseal(p, options);
+> -	if (ret < 0)
+> +	if (ret < 0) {
+>   		pr_info("key_unseal failed (%d)\n", ret);
+> +		return ret;
 
-Bound the token allocation amount by the remaining user receive buffer
-size, and consequently reduce wasted xarray work. Introduce the helper
-tcp_xa_pool_max_frags() to compute the token amount based on number of
-frags and their sizes but capped when the accumulated size exceeds the
-user buffer.
 
-Testing on a CX7 w/ GRO and a steady sendmsg() flow of 1MB per send, we
-see a typical RX-side skb touch upwards of ~32KB. With a 4KB recvmsg
-size, probing shows that ~75% of the allocated tokens are not used.
+This should be "goto out;"
+will fix this in my next version
 
-Mean +- stdev over 5 reps:
 
-    read size    base Gbps        patched Gbps      delta
-    ---------    -------------    -------------    ------
-    4K             29.7 +- 0.5       42.4 +- 2.7    +42.9%
-    8K             47.0 +- 3.1       61.9 +- 4.8    +31.8%
-    16K            69.6 +- 3.4       80.2 +- 6.7    +15.3%
-    32K            88.3 +- 0.8       87.1 +- 0.8     -1.4%
-    64K            87.5 +- 1.2       87.0 +- 0.8     -0.6%
-    256K           88.2 +- 0.7       86.5 +- 0.8     -1.9%
-    1M             88.5 +- 0.8       87.5 +- 1.9     -1.1%
-    4M             88.5 +- 0.8       88.0 +- 0.7     -0.6%
-    8M             88.6 +- 0.9       88.7 +- 0.7     +0.1%
-    16M            88.7 +- 0.6       88.0 +- 0.7     -0.8%
-    32M            88.4 +- 1.1       88.3 +- 0.6     -0.1%
-
-perf over the RX cores, at 4KB reads and 1MB writes (before left, after
-right):
-
-    10.94%  xas_store                5.06%  xas_store
-     3.74%  xas_find_marked          1.49%  xas_find_marked
-     2.33%  __xa_alloc               0.91%  __xa_alloc
-     0.96%  __xa_erase               0.25%  __xa_erase
-     0.80%  __xas_nomem              0.43%  __xas_nomem
-     0.49%  xas_load                 0.74%  xas_load
-     0.45%  __xa_cmpxchg_raw         0.74%  __xa_cmpxchg_raw
-                                     0.28%  __xa_cmpxchg
-
-The gain is only for reads below the typical GRO receive size for the
-system (32KB on this system). Above that the user buffer covers the skb
-size, so waste is already minimal.
-
-Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
----
- net/ipv4/tcp.c | 31 ++++++++++++++++++++++++++++++-
- 1 file changed, 30 insertions(+), 1 deletion(-)
-
-diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
-index b4237d0e994d..c35277439386 100644
---- a/net/ipv4/tcp.c
-+++ b/net/ipv4/tcp.c
-@@ -2494,6 +2494,32 @@ static int tcp_xa_pool_refill(struct sock *sk, struct tcp_xa_pool *p,
- 	return k ? 0 : err;
- }
- 
-+/* Return the number of fragments of @skb deliverable from byte @offset, capped
-+ * by @remaining_len. Returns 0 only when no fragment holds @offset.
-+ */
-+static unsigned int tcp_xa_pool_max_frags(const struct sk_buff *skb,
-+					  unsigned int offset,
-+					  int remaining_len)
-+{
-+	unsigned int start = skb_headlen(skb);
-+	unsigned int max_frags = 0;
-+	int i;
-+
-+	for (i = 0; i < skb_shinfo(skb)->nr_frags; i++) {
-+		int end = start + skb_frag_size(&skb_shinfo(skb)->frags[i]);
-+		int copy = end - offset;
-+
-+		if (copy > 0) {
-+			max_frags++;
-+			if (copy >= remaining_len)
-+				break;
-+		}
-+		start = end;
-+	}
-+
-+	return max_frags;
-+}
-+
- /* On error, returns the -errno. On success, returns number of bytes sent to the
-  * user. May not consume all of @remaining_len.
-  */
-@@ -2503,6 +2529,7 @@ static int tcp_recvmsg_dmabuf(struct sock *sk, const struct sk_buff *skb,
- {
- 	struct dmabuf_cmsg dmabuf_cmsg = { 0 };
- 	struct tcp_xa_pool tcp_xa_pool;
-+	unsigned int max_frags;
- 	unsigned int start;
- 	int i, copy, n;
- 	int sent = 0;
-@@ -2554,6 +2581,8 @@ static int tcp_recvmsg_dmabuf(struct sock *sk, const struct sk_buff *skb,
- 		/* after that, send information of dmabuf pages through a
- 		 * sequence of cmsg
- 		 */
-+		max_frags = tcp_xa_pool_max_frags(skb, offset, remaining_len);
-+
- 		for (i = 0; i < skb_shinfo(skb)->nr_frags; i++) {
- 			skb_frag_t *frag = &skb_shinfo(skb)->frags[i];
- 			struct net_iov *niov;
-@@ -2591,7 +2620,7 @@ static int tcp_recvmsg_dmabuf(struct sock *sk, const struct sk_buff *skb,
- 				dmabuf_cmsg.frag_offset = frag_offset;
- 				dmabuf_cmsg.frag_size = copy;
- 				err = tcp_xa_pool_refill(sk, &tcp_xa_pool,
--							 skb_shinfo(skb)->nr_frags - i);
-+							 max_frags);
- 				if (err)
- 					goto out;
- 
-
----
-base-commit: 1bb784eb6e38fd73143f021608e4ef3095d0c0d7
-change-id: 20260901-b4-net-next_devmem-token-refill-09ab9377ad58
-
-Best regards,
--- 
-Bobby Eshleman <bobbyeshleman@meta.com>
-
+> +	}
+>   
+>   	if (options->pcrlock) {
+>   		ret = pcrlock(options->pcrlock);
