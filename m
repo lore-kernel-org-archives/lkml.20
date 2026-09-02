@@ -1,95 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011020.outbound.protection.outlook.com [40.107.74.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE6143E073
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:49:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788346146; cv=none; b=OrzheBW5m4ThUtnIJdaPk1vClIMTqAldSwkMrnCrrKkoq6g2bHytbcbEgGopTDv+fUnC2ZlQbEg/HIslh6O0RV52IB1lBqnrX8IqOlOH2bccJ2ygt7a+39v192Zb49PZebjgcznix+3gyZIFyzTLtFtuaY429Y3lYA8RplsvHbE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788346146; c=relaxed/simple;
-	bh=5EzZXQ8V6NL9RxhHhxukzNsAZVvijkybCPLoUlAjCho=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Iu2Uh7cwyS5zpcyhMcGx27fKj7MjwHHl/EePClh6mvFd2/7sHooSBgYIkwpyTDR8K4o14AMw6IiFX/Qb7BSW+pzAYWxjaRKsvC7yYJE/BQgZEIeEmYPH1LN/I+HYwFMmLCzeFCfsG6w3GjGYQm8YOpd11x9x5ItBksyaG8R12EY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dzt+Favm; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2981469830;
+	Wed,  2 Sep 2026 10:50:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.20
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788346221; cv=fail; b=mYLfN2eEDmu7M9K08CCE/EUgsfWzf5uL6Ynd7MgxIp3t5C8dqvrH8jPM9sZGuu4vyTTA3/xXp/q35zn+m6XrVPVRmJSKZfRRn1upYghqjpodKcGY4qSQpYGtP63Lu4hmq9acgztbgJehXiLxP9l/zIzRwK2kKvt0qtCs2zTWWrg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788346221; c=relaxed/simple;
+	bh=BjmnOelQKI2Zq9SAUTee5mNYPBfsh5x97nM8LiqyWAQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=nzqSgZTtdc3RDm4v+tCNRZNA/atxM08kNf3P6z7Wcecal6TX+z3TeMK4Gzi4Zh1rTlQRU+HJi+jdQa2Eh6NumCH+xsB6/4BMhcXkwZSQtBSB1+Vek9TWustoH1ZmhIphQe9keNpUA3SiOkhYHjipemoXvhGbb2bNA746/ALU0Q8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=nA+4zVUN; arc=fail smtp.client-ip=40.107.74.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dzt+Favm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 943131F00A3F
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:49:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788346141;
-	bh=5EzZXQ8V6NL9RxhHhxukzNsAZVvijkybCPLoUlAjCho=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=dzt+FavmypQFbF3qJ6JG4U6E/zBRcrrTLQ61YXbv5f2vnYH4c9yr1Smk68WJuY2j8
-	 f7UwQqcQm2o4ToSbrbyHBDe5THvP2/W8D7Ii91G/SCCAystq+Xc6EVq9X0jgFv9k8U
-	 h7Z5l73rBoRUfMm7VRYPXowmjoxkG45LjDCCTNYnmPVAzvnaZavSvosIf3JfX0u6If
-	 hE7eTQ3YOadPWPNs0Z7WeuUghwRRFrZT9oeGBglqjr9KXxaylnCw+8sfHZWysB/HTb
-	 xVQk2CdyZy9yTsRzQG9hlnWvKECb0Ii6MPmrZCLoNhhAFhW0ZHMhfmpgVsp6zy/E63
-	 C+yubQc8KLOTw==
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5aeb98460c6so1214643e87.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 03:49:01 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxBUeTVzuaEOqRMxWQsrs5KrtfMio47Sniz4Lp0ZRsf+3RafFj9EDgLUTY/GhkVtF737f1akM9nYqdSP2s=@vger.kernel.org
-X-Gm-Message-State: AFuF++muxpx5Nc4Oxee2QEpusp2kB2/gvfFEi8En4edM+I38vL8Prfk/
-	floe+iKxhz9zyv5f79siOnNNiRMnufWDP8Qg1maG83yAsTnEOTfzmVFc5/SckB4pNDjLwzKayvO
-	lfNGFeI0Q+tzmk5AMarj0/UImj1ssmjM7HaIDHq/HmA==
-X-Received: by 2002:a05:6512:131f:b0:5b6:4b2:45b4 with SMTP id
- 2adb3069b0e04-5b6087ed44dmr1265412e87.32.1788346140221; Wed, 02 Sep 2026
- 03:49:00 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 2 Sep 2026 03:48:59 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 2 Sep 2026 03:48:59 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <CAMuHMdXmn7B_UOb8f2j0_BOx3d55nA0-0Auay-HLFYWtziS+6Q@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="nA+4zVUN"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=OYe6Hb3VD0STEGM2hXK/kYxny4Lau5LYDUUvx0qRHNgoGouzta+1W7TD3oQcjEhrR7G4RELbQknqo5X8dLolMVm69jT2Xp80dG87ZjYs7vWUnNAU/5f2hDhLg4q/mWP7Gw2voYjXyks8e9SwpvsE5MwxqcSb5ENGOi3Se9+M4pvDPRyjL0tkbspzLcgkP1xdXFjIMoJ87bZk5dqCFdAfljVbG/e4T5/OuYaXlZDQSVkJNBMEunsr+QyZU2B5WYG+pJbwhEl8ab6/fyFNEE8eIkoiilrHxBM0rG8kWXmZ2aGu6bozIU1e0osPYmIaowzHi9SXJKrBw9E6g+aDYhv9HQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=B9p7cyw6CbDmHehQ5LfONpDUsrTcA7D6UYbfR0usBuI=;
+ b=HezXRTIgHtvg99t2Hqot0GDZ1mHgeBiHs9NHfjW4T7OalIIAa/Wj2S1WMCamEcjN6Xp76BZWDTK/mIUt9fo/lgyHly2Y4QrSPKFMB/BVvZwkjvFvZm02wApldjLEBfz8KOucjI1zHk6RdTrqQN1SaT8Ou+ihpX7k1b4CLHaZD4Kle0DtxWRgDqwb481dBi2HD628pQy1cdyGwDcUc1PYmI37VaEovcLeTbyAlohZOUGX7SAauBR7J1eGrnUcfG7RoiJzOp8cdQR1dc7x88ncPiVa7V7+ZeUmp9L9gch/71Ld9h96BnV75GVPhuxDCmYy/Bb1xOefFbgWxMD8Czl27Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 8.62.32.50) smtp.rcpttodomain=baylibre.com smtp.mailfrom=renesas.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=renesas.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=B9p7cyw6CbDmHehQ5LfONpDUsrTcA7D6UYbfR0usBuI=;
+ b=nA+4zVUNaPZHqvYEy8m0rcXzRjy/KQ5TceCp0SYSAKKp2rx3Or6XqYlMFfECazERu2bKmdM1C4TtuxT83YtnR0UOD+Ku2CMnLogIedQhidOwPfjJ4eWBPhUsjYjl0AJYdwYIjLpZufKJVpAg0/qk/TBwAV4qXOVXZzWuAd6O01g=
+Received: from TY4P301CA0064.JPNP301.PROD.OUTLOOK.COM (2603:1096:405:36a::16)
+ by TYCPR01MB10167.jpnprd01.prod.outlook.com (2603:1096:400:1ef::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 10:50:10 +0000
+Received: from TY1PEPF0000BAD7.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:36a:cafe::78) by TY4P301CA0064.outlook.office365.com
+ (2603:1096:405:36a::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
+ Sep 2026 10:50:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 8.62.32.50)
+ smtp.mailfrom=renesas.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=renesas.com;
+Received-SPF: Pass (protection.outlook.com: domain of renesas.com designates
+ 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
+ client-ip=8.62.32.50; helo=ejcrelay005p.adwin.renesas.com; pr=E
+Received: from ejcrelay005p.adwin.renesas.com (8.62.32.50) by
+ TY1PEPF0000BAD7.mail.protection.outlook.com (10.167.240.36) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.8
+ via Frontend Transport; Wed, 2 Sep 2026 10:50:10 +0000
+Received: from vm01.adwin.renesas.com (DEU-5CG20946WF.adwin.renesas.com [10.226.92.24])
+	by ejcrelay005p.adwin.renesas.com (Postfix) with ESMTP id C9871300024A;
+	Wed,  2 Sep 2026 19:50:07 +0900 (JST)
+From: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+To: geert+renesas@glider.be,
+	sboyd@kernel.org,
+	bmasney+clk@redhat.com,
+	jbrunet+clk@baylibre.com
+Cc: linux-renesas-soc@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+Subject: [PATCH 0/2] clk: renesas: rzv2h: Convert to clk_hw provider API
+Date: Wed,  2 Sep 2026 10:49:37 +0000
+Message-ID: <20260902104939.25522-1-ovidiu.panait.rb@renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826122742.153643-1-biju.das.jz@bp.renesas.com>
- <20260826122742.153643-4-biju.das.jz@bp.renesas.com> <CAMRc=MfAdTMb_4ii=up-ESwc322YYjzseyvAxshM6vUcEGfxcQ@mail.gmail.com>
- <CAMuHMdXmn7B_UOb8f2j0_BOx3d55nA0-0Auay-HLFYWtziS+6Q@mail.gmail.com>
-Date: Wed, 2 Sep 2026 03:48:59 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MewW5aLqY66i-uUor3ke6k25rjZh3z7Cn76e_KhHQWoJA@mail.gmail.com>
-X-Gm-Features: AcwNN1W3bxjr6MHNEaKG776nM62LP78_XqASMYOXKt17cNFJcTa4ryypmgpnWGo
-Message-ID: <CAMRc=MewW5aLqY66i-uUor3ke6k25rjZh3z7Cn76e_KhHQWoJA@mail.gmail.com>
-Subject: Re: [PATCH v5 3/4] power: sequencing: Add Renesas RZ/G3L Power Ready driver
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Biju <biju.das.au@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Magnus Damm <magnus.damm@gmail.com>, Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY1PEPF0000BAD7:EE_|TYCPR01MB10167:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 7d426a4e-2171-4398-22c7-08df08dff5cb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|82310400026|23010399003|376014|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Osk5GSgAjT0I4Uk5sllHmn5ax74QrGKRW3jeX35zkDpUvKiKgolm4STN0sjmwDGWJeUqxdRbJ2vM66ALt0UzA1pSsT435pZjdJMQiB9ntR00J5YjoAYlnkj2kmdxi3k685Khabkpn3m6LjaSyGUfO3laX0NDIMRw8eN3//AQf8zimPXnrGujZz/8r8OMAQFnH3faDcS7TBVDc8d1QPbMvzLTcU8mYvuZ0mQ5wdHdBIkpv6ctVDrHkXIZMGhjUP2gvuzHpbgDpopXqwUU/kjCWX1WlhQwyrHG4NkK2jNfYIpbfiPSKRKVA/mB1dAEtmjwqWcZj4p5qM0dhcfMMuJD2dgAXlAqQZKTjbgFHkZTY0ekPvzekON6yBVbpwGJ23oV4WgkSpSouUnMvIUv6XRNyy/nnWQBfyR5Gz8K0ZkS5r66JrdUUJPPV3C7giyDMuhGByGqpltN8TFrSyEUy6wRiCj116/AQo5a9+KWwWsqCOfuNd+sxov/Wn2AFGvbpfkFJXWGB53YvNxYqbmkMvsIeBfMlBf9xVVgMXavhqOAhBOsUvCpy6POZErrvcM5IwIwJzqBOc18ydQoC8APe59K20iIPWQXHfzswE6XXxVA45mszBRMlp45qNDnQ2UkLOEZi+m8clGtECaeMRDQFCnl4YpOODVDJYfu7SHsanXP9slBetMFQRnT5mLEo85WctGFtguYRPdozWjOzdQM8e0+ig==
+X-Forefront-Antispam-Report:
+	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay005p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(82310400026)(23010399003)(376014)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	T5DHrgAkrQ4rNrPNxZYM4hyk0LI6Kx0r4Uu+hcZnPhSkJmjuoenaAFOrYiOWtyZlggMyE4DXB6816hbHoWvzD40L8qf/iYea3uFxQ8ov/zRd56QrVJo2Oq3fZo5C15LTbLGaENNeRglkjm00uv1X33ipU7IB06V7hKke6EgvMGynEA/ct64uAeB/8JKCCmHYo3kS40OvyXIGkeGrQPdct9Y8EKa2+QeLikufX3h++poB9ZfccPSoYVlkZuMFa/cVWZFERMtsnPKA1NHqUeHx8n8vmD18DJwkBruTIz0PvS45Vtk6S/RmujIEps0kLB5Sr3e5zamxiUBYCDXthV3MDRg8sf3GW8QuTT/2ut1lh67evPd5WQT1AqpgwdEXXy9jjP84XlpgU4RsRijYm7+Ung8wbAWTY0p5kUayq/Jstm6mJ0eP+LxUrQ9S4Pz6gJaK
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 10:50:10.3858
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d426a4e-2171-4398-22c7-08df08dff5cb
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay005p.adwin.renesas.com]
+X-MS-Exchange-CrossTenant-AuthSource: TY1PEPF0000BAD7.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB10167
 
-On Wed, 2 Sep 2026 09:10:45 +0200, Geert Uytterhoeven
-<geert@linux-m68k.org> said:
-> Hi Bartosz,
->
-> On Tue, 1 Sept 2026 at 18:15, Bartosz Golaszewski <brgl@kernel.org> wrote:
->> On Wed, 26 Aug 2026 14:27:25 +0200, Biju <biju.das.au@gmail.com> said:
->> > From: Biju Das <biju.das.jz@bp.renesas.com>
->> >
->> > Add a power sequencing driver for the Renesas RZ/G3L PWRRDY module,
->> > which signals power readiness for various IPs (USB, DSI, CSI etc.) on the
->> > SoC. The driver binds as an auxiliary device to the parent SYSC driver,
->> > using its regmap to toggle the SYS_PWRRDY_N register bits, and exposes
->> > {usb,dsi,csi}-pwrrdy pwrseq targets.
->> >
->> > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
->
->> What is the merge strategy here? Are patches 2 and 3 independent from 1 and 4
->> at build time?
->
-> I think so: one can safely select a non-existing symbol in Kconfig.
->
-> So once you're happy with this patch, I can take patches 1 and 4
-> through renesas-devel.
->
+Hi,
 
-I picked up 2 and 3.
+The rzv2h-cpg driver stores its clocks as struct clk and uses the consumer
+clk API internally, even though it is a clock provider.
 
-Bart
+This series converts it to use clk_hw, like rzg2l-cpg.c already does.
+
+No functional change intended.
+
+Thanks,
+Ovidiu
+
+John Madieu (2):
+  clk: renesas: rzv2h: Drop duplicated parent lookup in
+    fixed_mod_status_clk_register()
+  clk: renesas: rzv2h: Convert to clk_hw based provider API
+
+ drivers/clk/renesas/rzv2h-cpg.c | 154 ++++++++++++++------------------
+ 1 file changed, 68 insertions(+), 86 deletions(-)
+
+-- 
+2.34.1
+
