@@ -1,209 +1,156 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D947F4772AA;
-	Wed,  2 Sep 2026 11:42:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3FEE3F6C5F
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:42:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788349337; cv=none; b=Sm1RIyRBL103rbwgZInqjPleuq4j1cc8a4PyVJv3mYiYW6sY/NLOl11syUbQjZVSmQiJdh7fJhrpSCpdFwwyez4crx24/cbHeFVlgi20s2gck1xt/3BsZjxn9MzNbD3dH3HHzxBJ7Mr5jqI5fdMohPB0ChZCuHc6pdEhmUTQXKc=
+	t=1788349349; cv=none; b=Kc7IzgrF2crur/XSbG4SIZE2wvMxBJUa2asQa+UYJHf2vop391jpePOkL9POkAABPzstz4qom2g87/PPbpsQUz9smIo9nsSobIBENAkWQj9YmvwoHrHTppaEIrSfppUutUgW3H32/U1wqYN4SJD6jOPujuxm0HDZwqJf7x45x8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788349337; c=relaxed/simple;
-	bh=AKUnfdhcTKHUJXot2dXdtcpFnmAAQLkTtfgBy/UsLGQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sFdz/IPySMVO1UVkVcXxou+BtZGka1/NOvmmc/VJF9zNqnoeZ3ZA41aUNI9O2Ezjxc+YpUUxK+CmrofDYnRnuhDJEzoSudPEYeKfuhHpsdZSJP5Rjl5ioG3A0mAZ1yLZpD3W27X5Srqymr0cOhP++9rC8+eC2cs9hmqKOPKMMw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=L3udpVzc; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788349349; c=relaxed/simple;
+	bh=xu8vJkH9oqFCV0kisdLe7YcamRh7Q42iGY9tHGtPQNY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=m/7ibXAIhh0x18hM0N1/SiTUVuUAmQEhA0HrJlsCMIEWledii2jLmTSdYDG12rYteUWLm/5qohSQX4c328hmRnxO3CyO45+CxY5xIPmjPzl2zvUTWHPInAOmgxyWScmCN8OJ+ZHbX5AkfuHirU5jJ93H9gM4nWIYD0Wgi/DU7N0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QPEvWMde; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="L3udpVzc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788349333; x=1819885333;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=AKUnfdhcTKHUJXot2dXdtcpFnmAAQLkTtfgBy/UsLGQ=;
-  b=L3udpVzc8kUiW9buVNsDWDXx6ZjNrvzdDZv2sYgGehAXjK6tOu6qygpb
-   8PdYhmANl7kx58zfkmeHoV+7cd1zY4Ipqjy3ph4isUjRbIVjYsOScjx99
-   CRdFbKV7IRK9DaJLrejmh9WamKcDROR14QnWrXEbT8cTtzvtKB8pE0MU1
-   kDscZgEPaDXPm9zMmVZ6l8XJ2jJevlR+6u2gTtrJzQ+OR4vkWe+Ui95Wk
-   ibnqbHGG0OLzpmIi0V8fZ8eWaYy5TLsnhQMP+jkbm/izKkUs8CbduXDKv
-   2139EJuiFebhkCbCUk7eISkoynnheoW67LAztO/fARiWtzOsfMiPNUDu7
-   w==;
-X-CSE-ConnectionGUID: ZknQff7/SgikOblBqkGFmw==
-X-CSE-MsgGUID: l9q+ONUsQu26FHIwEI1DEg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="88562027"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="88562027"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 04:42:09 -0700
-X-CSE-ConnectionGUID: kmkujtPYRVmiDJ3O91nOow==
-X-CSE-MsgGUID: 3S70Y/nwTLGcaoS1NGpj7w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="268840869"
-Received: from lkp-server01.sh.intel.com (HELO bfac249b2189) ([10.239.97.150])
-  by orviesa008.jf.intel.com with ESMTP; 02 Sep 2026 04:42:06 -0700
-Received: from kbuild by bfac249b2189 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x1jLv-000000002XK-31kx;
-	Wed, 02 Sep 2026 11:42:03 +0000
-Date: Wed, 2 Sep 2026 19:41:07 +0800
-From: kernel test robot <lkp@intel.com>
-To: Bowen Yu <yubowen8@huawei.com>, linuxarm@huawei.com,
-	liudingyuan@h-partners.com, andi.shyti@kernel.org,
-	linux-i2c@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, zhanjie9@hisilicon.com,
-	prime.zeng@hisilicon.com, wanghuiqiang@huawei.com,
-	xuwei5@huawei.com, yubowen8@huawei.com, zhangpengjie2@huawei.com
-Subject: Re: [PATCH v2] i2c: hisi: Add I2C bus recovery support
-Message-ID: <202609021937.s2FqKDO3-lkp@intel.com>
-References: <20260901063116.3438094-1-yubowen8@huawei.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QPEvWMde"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49ccfbe062eso7395485e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:42:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788349346; x=1788954146; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tuvnGuccAC6s3EK8HFdURGZ5p/3J3nCrEtYN7xV8Cug=;
+        b=QPEvWMde8AvU7/I+kMWZX4EeU3Cutlu1TDphhnXKL/N3EmaS6nK3payLZDHqUF9hv6
+         lg95FSwFXqcE8mwaZxrhpZChmOVgCk3iLrMsB/9gETwE9L9hb2uWtPZOn3iFZKrdpexk
+         bJH6+zVs3cxm2PTp4Ct/2EtcCf3rcGMM9fHdOe1BoQG4w0aYT10C6NzqcxwQwpSfZVJc
+         VXkEww0rVrKzwWa3eX9tX0KZCsKQBD/11OIC0CsexBO3ZnjLa3FnbNvRZL+GYrb8JY7M
+         cqi+fWhQsdnCu10KailKGgx6VRm49I1XFOxjUE+zZ1EnpCmFRk+rFsmAKP5NqigX1gND
+         GkEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788349346; x=1788954146;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=tuvnGuccAC6s3EK8HFdURGZ5p/3J3nCrEtYN7xV8Cug=;
+        b=PeJUJW5/dZd1dePwtrBtP9f7vG4NKkPkbpBrNIMG8pyoCU0t0Q26ZCO/TNmvp/qaxS
+         7U+Cr1iDzGETn/wZnFxQt6vK8CKTqhO8Uqqit8oUvsCBKzVfMEXHS68fDCoYwHwrPlaM
+         K9CDmnjAlNKTP70x12cHEL3iP/LhYkuEAUdcIP1MmazE6a5sPcyZrwOSV4K1iqu3ofeR
+         tK1HLID2yQI3nle1GM3mAFaR7wRL8tE8xoGZHiL9lRDqGeE5jZXBWG2d5k+vW4N6H6gM
+         VrSTrWwj1MKYMU0VHhXLZCYVRIaBUjVYYZreFurlybmCcjrxWAcGquBchtBjc97ulYf0
+         HkGA==
+X-Forwarded-Encrypted: i=1; AHgh+Ro03phkrOxUUan4SV1R8t9E7RNN3hLd2Tbb6ijShVV9js7Wko7CyPL2fTHBKvONXbu+7AcffGw0KtokiDE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nK3GrpPKA6kTN0+XghprlU7PsNVxHnSK0f2YKxiA2I9uw8jwr8
+	i7eK/5PZAmIU/aV4cepopGmskOPGSnmiKAyO9+2XNyqqn+LUfJRkihGyruhQlNBV
+X-Gm-Gg: AR+sD11sAkllwfWaufn0O44lzJAVD57fPAwGXWerkv2CRULZpmodlMSCfHNnN3R08+5
+	HSVpxP5Viub/CoImDTV0er+49IdPR6tbkffw2PghvFFAXLm07lwrsxT8r4qqfgVvHaX/AJoiB/5
+	YZ/Eb2+KBpYr2+ftQEf1v0luBNghYeC9whXAJ+dVHPC1I4dz/49GL7SrNpIvf5uguKEo6Z3i5MB
+	9Wv971WyzXPakGEjk0hmwa1fJTXk0qy3GYZeN4FMcsZLUO+opiRc2R31m2HRwzD745X7YzHYQsH
+	arlTeAVPz1xcBWGBZ324xQHwkKzILAiFy60YrRyReN6SNNE5yRbqTSeFGWTCEP+DLUGcwOsOwEe
+	pb0c7w24gkQ37xOF3mmrWlt/hwZqfMVPA3MCXA05pALvMeQFDAvxOGXS/3zLMOOD6v7ewLnRc5f
+	AjMuNqjMN+xrj/7U52Uc7lmKa7kJd+abKf+mMEoeBwz2slGfLurPdkyM9SuzKUhtRF2B8tE788D
+	H5BGD8+ZtYp2rmlvxw4vPeCU5INgWB2K3bn7nOLEKXGiO0Np3VNntqrAnGGAHCM32DYcrlnzg==
+X-Received: by 2002:a05:600c:354b:b0:49b:d03:8d3a with SMTP id 5b1f17b1804b1-49ce58180bbmr63253275e9.11.1788349345681;
+        Wed, 02 Sep 2026 04:42:25 -0700 (PDT)
+Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5952560sm40390935e9.3.2026.09.02.04.42.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 04:42:25 -0700 (PDT)
+From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Subject: [PATCH RFC 0/2] of: property: Make fw_devlink follow GPIO and PWM
+ nexus maps
+Date: Wed, 02 Sep 2026 13:41:38 +0200
+Message-Id: <20260902-fw-devlink-nexus-ready-v1-0-68fe1996e78a@toradex.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901063116.3438094-1-yubowen8@huawei.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHILmGoC/x3MTQ5AMBBA4avIrE0ylfipq4gFOpiQkjaKiLtrL
+ L/Few94dsIe6uQBx0G8bDZCpQkMc2cnRjHRkFFWkCaF44mGwyp2QcvX4dFxZ24cqlyXVPSktIE
+ Y745Huf5x077vBziobW9oAAAA
+To: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>
+Cc: "Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, 
+ Frank Li <Frank.li@oss.nxp.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Herve Codina <herve.codina@bootlin.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Leonardo Costa <leonardo.costa@toradex.com>, devicetree@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, linux-pwm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, stable@vger.kernel.org
+X-Mailer: b4 0.13.0
 
-Hi Bowen,
+This series fixes an fw_devlink supplier-resolution problem reported by
+Leonardo Costa while using a Devicetree nexus to describe GPIO and PWM
+resources routed through an LVDS connector. Consumers referencing the
+nexus could remain deferred because fw_devlink linked them to the nexus
+rather than to the providers selected by gpio-map and pwm-map. [1]
 
-kernel test robot noticed the following build warnings:
+GPIO and PWM consumer APIs use of_parse_phandle_with_args_map() to
+resolve specifiers through gpio-map and pwm-map properties. The
+corresponding fw_devlink parsers use direct phandle parsing instead.
+Given a consumer which references a nexus, the consumer API and
+fw_devlink therefore resolve the reference to different nodes:
 
-[auto build test WARNING on andi-shyti/i2c/i2c-host]
-[also build test WARNING on linus/master v7.3-rc1 next-20260901]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+  consumer API:  consumer -> nexus -> mapped provider
+  fw_devlink:    consumer -> nexus
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Bowen-Yu/i2c-hisi-Add-I2C-bus-recovery-support/20260901-143116
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/andi.shyti/linux.git i2c/i2c-host
-patch link:    https://lore.kernel.org/r/20260901063116.3438094-1-yubowen8%40huawei.com
-patch subject: [PATCH v2] i2c: hisi: Add I2C bus recovery support
-config: csky-randconfig-r064-20260902 (https://download.01.org/0day-ci/archive/20260902/202609021937.s2FqKDO3-lkp@intel.com/config)
-compiler: csky-linux-gcc (GCC) 13.4.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260902/202609021937.s2FqKDO3-lkp@intel.com/reproduce)
+A nexus is a translation node rather than the resource provider and need
+not have a driver. The link to it can consequently remain unresolved and
+defer the consumer even though the mapped provider is available.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609021937.s2FqKDO3-lkp@intel.com/
+Make the fw_devlink GPIO and PWM parsers use the same map-aware resolver
+as their consumer APIs. The resolver also handles valid direct
+references by returning the original provider when no map is present.
+Use dedicated exact-name and suffix declaration macros to opt these
+bindings into map-aware parsing without changing unrelated property
+parsers. Retain GPIO's existing exclusions and compatibility handling.
 
-All warnings (new ones prefixed by >>):
+The regression tests call the OF add_links operation and verify that a
+mapped reference creates exactly one link to the final provider, not to
+the nexus. They also cover valid direct references. The GPIO tests
+exercise all property spellings recognized by fw_devlink, including the
+deprecated singular and unprefixed forms.
 
->> drivers/i2c/busses/i2c-hisi.c:249:12: warning: 'hisi_i2c_get_bus_recovery_res' defined but not used [-Wunused-function]
-     249 | static int hisi_i2c_get_bus_recovery_res(struct hisi_i2c_controller *ctlr,
-         |            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->> drivers/i2c/busses/i2c-hisi.c:222:13: warning: 'hisi_i2c_unprepare_recovery' defined but not used [-Wunused-function]
-     222 | static void hisi_i2c_unprepare_recovery(struct i2c_adapter *adap)
-         |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~
->> drivers/i2c/busses/i2c-hisi.c:210:13: warning: 'hisi_i2c_prepare_recovery' defined but not used [-Wunused-function]
-     210 | static void hisi_i2c_prepare_recovery(struct i2c_adapter *adap)
-         |             ^~~~~~~~~~~~~~~~~~~~~~~~~
->> drivers/i2c/busses/i2c-hisi.c:197:13: warning: 'hisi_i2c_recovery_set_scl' defined but not used [-Wunused-function]
-     197 | static void hisi_i2c_recovery_set_scl(struct i2c_adapter *adap, int val)
-         |             ^~~~~~~~~~~~~~~~~~~~~~~~~
->> drivers/i2c/busses/i2c-hisi.c:189:12: warning: 'hisi_i2c_recovery_get_sda' defined but not used [-Wunused-function]
-     189 | static int hisi_i2c_recovery_get_sda(struct i2c_adapter *adap)
-         |            ^~~~~~~~~~~~~~~~~~~~~~~~~
->> drivers/i2c/busses/i2c-hisi.c:181:12: warning: 'hisi_i2c_recovery_get_scl' defined but not used [-Wunused-function]
-     181 | static int hisi_i2c_recovery_get_scl(struct i2c_adapter *adap)
-         |            ^~~~~~~~~~~~~~~~~~~~~~~~~
+Tested with:
+  - The new CONFIG_OF_UNITTEST fw_devlink cases under QEMU/x86_64 all
+    passed
+  - W=1 builds on x86_64 and arm64, including the OF unittest data
+  - Toradex Verdin iMX8M Plus hardware using a connector nexus for the
+    display GPIO and PWM resources: the display probes successfully
 
+Sending as an RFC because the unittest part can use some polish, but I
+wanted to gather feedback on the direction before doing so.
 
-vim +/hisi_i2c_get_bus_recovery_res +249 drivers/i2c/busses/i2c-hisi.c
+[1] https://lore.kernel.org/all/juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4jbauradujrre@gc5nbdhhixaf/
 
-   180	
- > 181	static int hisi_i2c_recovery_get_scl(struct i2c_adapter *adap)
-   182	{
-   183		struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
-   184		u32 reg = readl(ctlr->iobase + HISI_I2C_TRANS_STATE);
-   185	
-   186		return !!(reg & HISI_I2C_TRANS_STATE_SCL_LEVEL);
-   187	}
-   188	
- > 189	static int hisi_i2c_recovery_get_sda(struct i2c_adapter *adap)
-   190	{
-   191		struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
-   192		u32 reg = readl(ctlr->iobase + HISI_I2C_TRANS_STATE);
-   193	
-   194		return !!(reg & HISI_I2C_TRANS_STATE_SDA_LEVEL);
-   195	}
-   196	
- > 197	static void hisi_i2c_recovery_set_scl(struct i2c_adapter *adap, int val)
-   198	{
-   199		struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
-   200		u32 reg;
-   201	
-   202		reg = readl(ctlr->sctrl_addr);
-   203		if (val)
-   204			reg |= HISI_I2C_CTRL_SCL_OUT;
-   205		else
-   206			reg &= ~HISI_I2C_CTRL_SCL_OUT;
-   207		writel(reg, ctlr->sctrl_addr);
-   208	}
-   209	
- > 210	static void hisi_i2c_prepare_recovery(struct i2c_adapter *adap)
-   211	{
-   212		struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
-   213		u32 reg;
-   214	
-   215		reg = readl(ctlr->sctrl_addr);
-   216		reg |= HISI_I2C_CTRL_SCL_CFG_EN | HISI_I2C_CTRL_DAT_CFG_EN |
-   217			   HISI_I2C_CTRL_CLK_OE | HISI_I2C_CTRL_SCL_OUT;
-   218		reg &= ~HISI_I2C_CTRL_DAT_OE;
-   219		writel(reg, ctlr->sctrl_addr);
-   220	}
-   221	
- > 222	static void hisi_i2c_unprepare_recovery(struct i2c_adapter *adap)
-   223	{
-   224		struct hisi_i2c_controller *ctlr = i2c_get_adapdata(adap);
-   225		u32 reg;
-   226	
-   227		reg = readl(ctlr->sctrl_addr);
-   228		reg &= ~(HISI_I2C_CTRL_SCL_CFG_EN | HISI_I2C_CTRL_DAT_CFG_EN);
-   229		writel(reg, ctlr->sctrl_addr);
-   230	
-   231		/*
-   232		 * Invokes the specific ACPI method "_RST" to trigger a soft reset
-   233		 * of the I2C controller to help the I2C controller recover from
-   234		 * the abnormal state after the bus recovery process.
-   235		 */
-   236	#ifdef CONFIG_ACPI
-   237		if (ctlr->acpi_handle && acpi_has_method(ctlr->acpi_handle, "_RST")) {
-   238			acpi_status status;
-   239	
-   240			status = acpi_evaluate_object(ctlr->acpi_handle, "_RST", NULL, NULL);
-   241			if (ACPI_FAILURE(status))
-   242				dev_err(ctlr->dev, "_RST method failed: %s\n",
-   243					acpi_format_exception(status));
-   244		}
-   245	#endif
-   246		hisi_i2c_configure_bus(ctlr);
-   247	}
-   248	
- > 249	static int hisi_i2c_get_bus_recovery_res(struct hisi_i2c_controller *ctlr,
-   250						 struct platform_device *pdev)
-   251	{
-   252		struct resource *res0;
-   253	
-   254		res0 = platform_get_resource(pdev, IORESOURCE_MEM, 1);
-   255	
-   256		if (!res0 || resource_size(res0) != HISI_I2C_RECOVERY_REG_SIZE)
-   257			return -ENODEV;
-   258	
-   259		ctlr->sctrl_addr = devm_ioremap_resource(&pdev->dev, res0);
-   260		if (IS_ERR(ctlr->sctrl_addr)) {
-   261			ctlr->sctrl_addr = NULL;
-   262			return -ENOMEM;
-   263		}
-   264	
-   265		return 0;
-   266	}
-   267	
+Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+---
+Ernest Van Hoecke (2):
+      of: property: fw_devlink: Follow GPIO nexus maps
+      of: property: fw_devlink: Follow PWM nexus maps
+
+ drivers/of/property.c                       | 49 +++++++++++++++-----
+ drivers/of/unittest-data/tests-phandle.dtsi | 49 ++++++++++++++++++++
+ drivers/of/unittest.c                       | 71 +++++++++++++++++++++++++++++
+ 3 files changed, 158 insertions(+), 11 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260901-fw-devlink-nexus-ready-c859706b019d
+
+Best regards,
+-- 
+Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+
