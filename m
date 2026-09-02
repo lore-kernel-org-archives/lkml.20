@@ -1,170 +1,132 @@
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com [165.173.180.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A794A2065;
-	Wed,  2 Sep 2026 15:44:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788363854; cv=none; b=N9GGKplyeauqVfKWcATNmp1LkDDaL31ObawglfTZ0Fyp7BmY3t09vlQzXGhPD2BvdtAchucJJhe0oDH+XyynPmk/uKZTHhDSfAG0gp18L4BqrpuZ/a0BvAGnuubZkF3uUXwOXugWeWYH81XDh8yE0yu3Kl3415WeyF3GnVPnQ4k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788363854; c=relaxed/simple;
-	bh=Fw01rL7riqwZdjiKWEKmz/l2BwDbbv84wKasnKUZOLY=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=CksU1mrSgYGCjzu2cfxNBka+TD4jHL8Sh6nJvTstpG/40O5xcOHg0gecsOVndhzQ69JH3DocHnfbEKKYUuPslKrwNs9bOIEHRXSKoVxfnewg9vzIn1U2O0puEgvJ+aFmIMxKonyQUMJNhlUtc4fzGiNJmAwaJ6PL7yU5WF851Ek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=46B78Ajj; arc=none smtp.client-ip=216.40.44.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C604A484B
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:44:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788363863; cv=pass; b=Aljj+Nye03xN5sYBDgxIxddbjejG516JqW91cqnEvrKkU9gga1RjRztcgwaLr1AsH64u7VdlMoHSTCiyW2fA5JsCYvSDJEpwA1GkpyeynQDhS+l4MTVA3lspQt51pcwQWJQSah5lpW3UuBbtksGup+HOCZvmm9OsVBr1izIUAkM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788363863; c=relaxed/simple;
+	bh=MR3oCJmekeWFq9gLsN/MxdnuNU//JMNSNJL/X6Z5iX4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=V3dL2HN4S9C1QOwE2b9hXIidVHtYEP+aor6WXqOY8ha1rn7NyEgJNg1imsf4L+rUupOMDIC5kUNxQi/JFlsnMbTMMv7Fpt6h3n3x8ZsEh+hWee8YdjRnJd/W+qLpOu4nS8dfjohlMOLtjSdECw0HVzi3N6+FWrCHv3MSSA5A8ms=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=Fg1D/GVY; arc=pass smtp.client-ip=165.173.180.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="46B78Ajj"
-Received: from omf19.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay01.hostedemail.com (Postfix) with ESMTP id 848A11C1781;
-	Wed,  2 Sep 2026 15:44:03 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf19.hostedemail.com (Postfix) with ESMTPA id EA76A2002C;
-	Wed,  2 Sep 2026 15:44:01 +0000 (UTC)
-Date: Wed, 2 Sep 2026 11:45:02 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
-To: LKML <linux-kernel@vger.kernel.org>, Linux Trace Kernel
- <linux-trace-kernel@vger.kernel.org>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>
-Subject: [PATCH v2] tracing: Take trace_array reference when opening options
- file
-Message-ID: <20260902114502.723d8243@gandalf.local.home>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="Fg1D/GVY"
+ARC-Seal: i=1; a=rsa-sha256; t=1788363822; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=cgVShNYSt+iFHQk3qVvMNuV9K1Bne7yyqmFC8CZeVEUMnCJulZH/+49WFMG50GRb0KeCdYPtVhoe9iyn664MXZAZk97mUWhjGFXHBQBVeFGW8go9M457zG+LUT6du0iWzN8yQQZA/kDLTeEW+UGL6wNFHmy40rqx6SQDPl4e6pY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788363822; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=C5RxmOHXXInNlzeMzSfYM95el3knAwvmC26Cdq9LXDw=; 
+	b=SrFWnB+wXKaS3CSrw10HdCJZ015V41UqbZZfUmIJvLap0UawO9znqk8c8AJypV3uRfm9qn2bxCjt4Bye6AWRletLO6HRKw5BhqIfx/AMxKq3mz1/TD4VCavjqwtngBPUu5HMDjcmINHTIgtfUN/nEidpERlH98MGiWaX7kdfs3M=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+	dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788363822;
+	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
+	bh=C5RxmOHXXInNlzeMzSfYM95el3knAwvmC26Cdq9LXDw=;
+	b=Fg1D/GVYku5vOr1Ve4cTre4f1RXlJ9XKaLQTmiqjZ8IXJ9B5uFRI5jhaV2NbMnWZ
+	byNhpurJbtLw3JQd1k05O7LSXG8nBkIqsRF6WQ5h4YAv2DoggzqCtlNpVRVeGxEcFQm
+	oYIjzHUDp14l2Quy824oU5fUBWtWzIUBwYAzHquM=
+Received: by mx.zohomail.com with SMTPS id 1788363820363785.9949142958419;
+	Wed, 2 Sep 2026 08:43:40 -0700 (PDT)
+Date: Wed, 2 Sep 2026 16:43:34 +0100
+From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Faith Ekstrand <faith.ekstrand@collabora.com>, 
+	"Marty E. Plummer" <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
+	Eric Anholt <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	Collabora Kernel Team <kernel@collabora.com>, Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v7 13/17] drm/panfrost: Skip cache flush/invalidate when
+ enabling perfcnt
+Message-ID: <aphECpYnFuwIgzPQ@sobremesa>
+References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
+ <20260828-claude-fixes-v7-13-72a13b2c125d@collabora.com>
+ <20260901153233.261fb14d@fedora-21.home>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout01
-X-Rspamd-Queue-Id: EA76A2002C
-X-Stat-Signature: tjtjco3rogwfwjqkso3o7jhwxb4phfbe
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/sLCS4HK3W3ZRkz5eXZUfH7XNedD/o3Co=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=zRIa+gyahkEBV/0rqC86lizCEufj5BJfSy7NLH11Y48=; b=46B78AjjDsqUZCgm15zXmzQeS4GOR3cUJ78l0Vpv7GGdmKYF7A3jD3aJXHGPxjqh06L0WyvpFNGirnl0NNeJWHmhqnybma+DQG6SvpUEoOygxxnVvPwhcvODIr5SxVQugkwoIs1sYOMEkzp2jKarBAJbAoSN1apj9At8WtEcSlI=
-X-HE-Tag: 1788363841-679979
-X-HE-Meta: U2FsdGVkX1846+rh4RNQpNcAGUtH09NSDbiUvd3URnopZbBVk0VLegHSdNXerkFYNAdepMygfwfz34CScHZtbYVsoGA5rrxfopL0+APYH9LKViKMQfXhyotG0nrw++wlIN2P3M9hxYpF4+Rj2CMAZ+kS41HOp06KXC+eLXfHoNcRfuU7M6QPuuIpWMdJ3yaNrwCkXgYdScYtx/2u1ztEDEEVilG9UL/HlqobnuhaUQ9gafwYBtGG/if8cdYozXyI6mVzrJEGmYee6fvswvDKuerQNahqggnRywDNmMKQjuEPh1Jbn+7enwYzkabF6vWIWg5obUCZtOX6X47AsRTlY3JX+FQvTwbFlmQQNWI6igWtd8cHJWBrax47YcfrimnafpL5ciL1vq3Q5QclYMobvnYZf4TUKwFc72NVxraLwHx1/g7JO3e+lautwYlRh4Bvm6rNx1oRdGnVTU40TM3POqaYhvNKbrpFeAVy0/s+mhk=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260901153233.261fb14d@fedora-21.home>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.352.18
 
-From: Steven Rostedt <rostedt@goodmis.org>
+On 01.09.2026 15:32, Boris Brezillon wrote:
+> On Fri, 28 Aug 2026 21:56:53 +0100
+> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
+> 
+> > The GPU cache flush/invalidate operation is unnecessary, because at present
+> > all counters are always enabled for all sessions, and there are no plans to
+> > expand the uAPI so as to let UM select specific counter groups.
+> > 
+> > If the above was ever implemented, then different counter groups being
+> > selected between sessions might leave stale data in the GPU caches, so
+> > the flush/invalidate would have to be reintroduced.
+> 
+> This explanation confuses me. To me, the reason we don't need a
+> cache-flush has nothing to do with the fact we always enable all
+> counters, it's just that, either the perfcnt buffer has been freshly
+> allocated/mapped and the cache has no entry pointing to it, or it's
+> been written already, and the flush should have happened after the
+> dump. For the case where the enable happens after a RESET (which you
+> introduce in one of the remaining commits, I guess), there's no flush
+> needed either, because the RESET clears all the caches.
 
-The options files do not take the trace_array reference for the options
-they represent. This could cause a use-after-free kernel crash if one of
-these files is opened by one task and another task removes the instance
-that the option is for. Because it doesn't take a reference upon opening,
-it will not stop the removal which will free the options descriptor that
-is being used.
+This is something I wrote after a chat with Steven about whether removing this flush/invalidate was fine.
+If memory serves me right, he expressed his concern that flushing GPU caches after a sample might write
+disabled counter data into system memory, but in that case UM should know better, and I guess reading off
+disabled counter data is seen as undefined behaviour in the TRM.
 
-As the options are somewhat dynamic in their creation at boot up, each
-file represents a flag in the trace_array. The trace_array has an array of
-indexes to represent each of these flags that is stored in the
-trace_flags_index array. The address of the index array element is used to
-pass to the inode->i_private pointer. Then that element is read which
-holds the index (which represents the flag) and then the index is used to
-calculate the trace_array descriptor from its trace_flags_index array.
+> > 
+> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> > ---
+> >  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 15 ++-------------
+> >  1 file changed, 2 insertions(+), 13 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> > index f71534e741b6..ffc77121070e 100644
+> > --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> > +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> > @@ -124,21 +124,10 @@ static int panfrost_perfcnt_enable_locked(struct panfrost_device *pfdev,
+> >  	panfrost_gem_internal_set_label(&bo->base, "Perfcnt sample buffer");
+> >  
+> >  	/*
+> > -	 * Invalidate the cache and clear the counters to start from a fresh
+> > -	 * state.
+> > +	 * Clear the counters to start from a fresh state.
+> >  	 */
+> > -	reinit_completion(&pfdev->perfcnt->dump_comp);
+> > -	gpu_write(pfdev, GPU_INT_CLEAR,
+> > -		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
+> > -		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+> > +	gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
+> >  	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
+> > -	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_INV_CACHES);
+> > -	ret = wait_for_completion_timeout(&pfdev->perfcnt->dump_comp,
+> > -					  msecs_to_jiffies(1000));
+> > -	if (!ret) {
+> > -		ret = -ETIMEDOUT;
+> > -		goto err_vunmap;
+> > -	}
+> >  
+> >  	ret = panfrost_mmu_as_get(pfdev, perfcnt->mapping->mmu);
+> >  	if (ret < 0)
+> > 
 
-One issue is that the index element can not be referenced until the
-trace_array's reference is taken. To handle this, create a new helper
-function called: trace_array_options_get() that will iterate all the
-existing trace_arrays in the ftrace_trace_arrays list (under the
-trace_types_lock), and compare the passed in address of the index element
-with the entire array of the trace_array's trace_flags_index array.
-If it matches, then up the corresponding trace_array's reference and
-return.
-
-Cc: stable@vger.kernel.org
-Fixes: 577b785f55168 ("tracing: add tracer dependent options to options directory")
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/linux-trace-kernel/20260828135858.2AC501F000E9@smtp.kernel.org/
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
----
-Changes since v1: https://patch.msgid.link/20260901163620.6cbe0ada@gandalf.local.home
-
-- Added (void *) typecast to comparison. (kernel test robot)
-
- kernel/trace/trace.c | 67 +++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 63 insertions(+), 4 deletions(-)
-
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index a946e0183fd1..61ca05ee991d 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -7842,11 +7842,70 @@ trace_options_core_write(struct file *filp, const char __user *ubuf, size_t cnt,
- 	return cnt;
- }
- 
-+/*
-+ * The tr_index is the address of a trace_array->trace_flags_index[]
-+ * element that holds the index of the trace flag. But since the
-+ * trace_array reference has not been taken yet, it cannot be referenced
-+ * as it could have been freed by a rmdir of the instance the trace_array
-+ * represents.
-+ *
-+ * Search the list of trace_arrays and compare the tr_index to the
-+ * address of the entire trace_array trace_flags_index array for each
-+ * trace_array in the list. If one is matched, then take the reference
-+ * and return it. If not, the trace_array no longer exits.
-+ */
-+static int trace_array_options_get(void *tr_index)
-+{
-+	struct trace_array *tr;
-+	int ret;
-+
-+	ret = security_locked_down(LOCKDOWN_TRACEFS);
-+	if (ret)
-+		return ret;
-+
-+	if (tracing_disabled)
-+		return -ENODEV;
-+
-+	guard(mutex)(&trace_types_lock);
-+	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
-+		if (tr_index >= &tr->trace_flags_index[0] &&
-+		    tr_index < &tr->trace_flags_index[TRACE_FLAGS_MAX_SIZE])
-+			return __trace_array_get(tr);
-+	}
-+	return -ENODEV;
-+}
-+
-+static int trace_options_open(struct inode *inode, struct file *filp)
-+{
-+	void *tr_index = inode->i_private;
-+
-+	if (trace_array_options_get(tr_index) < 0)
-+		return -ENODEV;
-+
-+	filp->private_data = tr_index;
-+
-+	return 0;
-+}
-+
-+static int trace_options_release(struct inode *inode, struct file *filp)
-+{
-+	void *tr_index = filp->private_data;
-+	struct trace_array *tr;
-+	unsigned int index;
-+
-+	get_tr_index(tr_index, &tr, &index);
-+
-+	trace_array_put(tr);
-+
-+	return 0;
-+}
-+
- static const struct file_operations trace_options_core_fops = {
--	.open = tracing_open_generic,
--	.read = trace_options_core_read,
--	.write = trace_options_core_write,
--	.llseek = generic_file_llseek,
-+	.open		= trace_options_open,
-+	.read		= trace_options_core_read,
-+	.write		= trace_options_core_write,
-+	.llseek		= generic_file_llseek,
-+	.release	= trace_options_release,
- };
- 
- struct dentry *trace_create_file(const char *name,
--- 
-2.53.0
-
+Adrian Larumbe
