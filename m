@@ -1,85 +1,53 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.smtpout.orange.fr (smtp-18.smtpout.orange.fr [80.12.242.18])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D1AF377A95
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:18:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44E84A5C33;
+	Wed,  2 Sep 2026 17:18:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.12.242.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788369492; cv=none; b=FoPKoI+gfW4No91XYvb/AryWGpS4kqQrsbRGHW1wWZDBJ3sppTUJRvEmAZHYP4LTojIIrfsZFF2WvtZZTrjlVrO8JTDRSJMGDMY/OXE0JpmVTDKNbLt5dIoiJ5XVrGtA3WtTnugPwaIiVsUjPJ5iZJcYjkvJhRCg7LYcZdEx+zc=
+	t=1788369540; cv=none; b=H+mGZFm41u8dneKRSqSOAut8DWdrrOTogbq2jw2rY38vHbbBUfsOpFPTCGXEoHRXPS8GDDb48jAwGX71jGzhV3encgsqvK0B2w3UDIARiwioaAcL1Ac12BcVuYi9i/RaiI3F4iif+IG/4rTajZMOR7Vy0vOdMOOxjbNOI3E3sho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788369492; c=relaxed/simple;
-	bh=6Tn0OaGLRreTIGbEtttcTbq5pI0t6SsPxE+m00j3r9I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hhJ8e4MRxzb++INdD/ZhCGw6c/GKZLC3cAphsWWhbTGfn0sLr3nJ8LpCPAwN5TRnFsxV06M8NUQlkecbm+fF/pqzTMHXE5HHpkG7M8V/u1qQV6tRQzzkG71WM10Vhksgv4Mo2TUJmKK40KT0JRwA7wffYXaSWxQO/Upf2g0tZaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sQiC2YgF; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788369540; c=relaxed/simple;
+	bh=HY2s9iDSTOoVQgMBRKERQOvMKTBuDzzCZ0AA4lzBuLs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KYKTqfBfU+qcKxKq8FiD4iLCw9Lo+IX9jqJR89ZsJ4V+T7KzLCI9wx8ZzUyEZzs/jCiYTIEsa3WX+tERKKh/TzwnNtyVncyS5E8m66R8DOnxEM3jZeVh9r2D8BEnrzIWt3B9/yTD25oIabaS1PCP4re//yU03TTI4Db9UQ0dlD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wanadoo.fr; spf=pass smtp.mailfrom=wanadoo.fr; dkim=pass (2048-bit key) header.d=wanadoo.fr header.i=@wanadoo.fr header.b=TlcwXiUO; arc=none smtp.client-ip=80.12.242.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wanadoo.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wanadoo.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sQiC2YgF"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so13793415e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:18:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788369489; x=1788974289; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6u2dskLwsFp3RaJUgt1/pKQoZpVju/VbValCvllVzDM=;
-        b=sQiC2YgFgEaWhWqjDJnEZw5JlPXTqPt3V2KVYB6+fXZ3J2DuDP2Fv1ryk5YfiSY2Mk
-         P+u8zSeH+Yc46/fa8RriSUR5ROSKY0cpZW0XTNmNVuDxQu6MdcHsWov2jqFLoLBPm2cX
-         HUx5xi5zkMGLPShVJfjUWDCMYIohFBcFuLPujWcxh3+GocjgL2ooOJJwcuz19gr6uDgs
-         A91cllbVqj6Fvkx0vNOU2X7gYFtNE99F9zGxXz9cAmqIooFaEb1rNAfTeiG0OS01CgsK
-         OzvCdiKJrXyQJmw0IoPFb1J+w0YNQQmbvu1iIwJ4jeWzdNWw4m2uaEG0//urxuBsh+cU
-         1zQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788369489; x=1788974289;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6u2dskLwsFp3RaJUgt1/pKQoZpVju/VbValCvllVzDM=;
-        b=HUiZh3hY06D0o2ucMV8H34mp6oR8NDUzMt069rJM0UGkoUD1vgwd4A3cOvncRPDxhX
-         lDMJ1L6grNpjy4F5qwxPRuuUW28kBsdVlr6s7o/hH7qtJXjvCQDijOC0s/cuxDKlqmW/
-         aDZbMuGxM9vxvks/hmug2i4KzciOIH24vHFlflvVj6M4wUuhVheSjxj+AirPuRukdZI/
-         zDuISG+wBRD3KXkggeul7ENaFUjr7BbCuGjN2RL/qsB9tCKSCT3FnrSgaId3ya2U8zEZ
-         Hla0K9DrkXIZ6DuXkgch3Tbs17vJMJ5gm1K6RKuicZigxLInw436K1TjB/IWCI4u54DR
-         KxHg==
-X-Forwarded-Encrypted: i=1; AHgh+RoY38XJ5BhwUkdVWc4csRNvor55DY6C2xJ4oAoqks6NtP/2zbgUHfQ8Sp18sodKpUcdqVzFiPpHVqU8Sro=@vger.kernel.org
-X-Gm-Message-State: AFuF++m1f9HLPMCGYRaEmey2B4q+PV2WWoEnwqIa43vxj8xuXKvMSO3r
-	QDfKJ4zCMmmo8xWtQMsmAnz7ccN0Es8PqeZlkLC7ITGJVWLXMDN4HVIy
-X-Gm-Gg: AR+sD13J9sU5Ni7tyk0B9v7dTW4vwYUBhlNZsw4moRzZkTrcuixqz+OGaIxleAGzHXn
-	hP98VaPz/BSw6de7u4L9wtFxwrhGx5KbC90HBTnb3r97CeGFQz3v/gvxUOOEDDoXqN8tNY904vp
-	lIc6Z5zHwJZKx/M02tJ8KusynNbkOBUhSIdEu9SXaUIGPrweU7F6yLXlc/6q1IFIofAx/QztHQO
-	v5kNez/Jmp+UExvFopuywJlmEek48N2AkV9eTtNQ4UjPHXsdTA8IEM4JOapNFdhg3oQzyvn5kr/
-	o4rMg/dKqoQhrMZGYiJZBpBRcyd/nIQc/6pDEGumxQPYzeJm++Q2ce9BXAQhlL8YN4znraWkzgn
-	zgxA7FrB0FPe8Jq5Of8K2dnH4phwDspzsBix1awyaCxh6tenvSaysqZQVmXpp4TQrnqldyMgUcd
-	0WVWTZu7nlZzm5bocR2A1vatK/UxSVXo99sw1lqELNzQXoQ1yjd9pgdaqMtez6KIsi51NC0Ofz0
-	aga
-X-Received: by 2002:a05:600c:4f88:b0:499:d366:f572 with SMTP id 5b1f17b1804b1-49ce58388demr95277025e9.10.1788369488491;
-        Wed, 02 Sep 2026 10:18:08 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e80020sm8076593f8f.10.2026.09.02.10.18.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 10:18:07 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>
-Cc: Dong Aisheng <aisheng.dong@nxp.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Jacky Bai <ping.bai@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	imx@lists.linux.dev,
-	linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>,
-	sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/2] pinctrl: imx: answer OUTPUT_ENABLE/INPUT_ENABLE queries from the pad register
-Date: Wed,  2 Sep 2026 19:18:06 +0200
-Message-ID: <20260902171806.4141524-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260902155931.38FCC1F000E9@smtp.kernel.org>
-References: <20260902154525.4090276-2-mehmet.fide@gmail.com> <20260902155931.38FCC1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="TlcwXiUO"
+Received: from device-106.home ([10.64.95.115])
+	by smtp.orange.fr with ESMTP
+	id 1oaox3mQed1xd1oaox6xNI; Wed, 02 Sep 2026 19:17:46 +0200
+Received: from device-106.home ([IPv6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e])
+	by smtp.orange.fr with ESMTPSA
+	id 1oaexNFjKP8Xp1oaexvHDh; Wed, 02 Sep 2026 19:17:38 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+	s=t20230301; t=1788369458;
+	bh=knQhvrvBb8T8P3G9UIe7lzic6iGN2FHXjgOBj/taQ4Q=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=TlcwXiUOE3ARzjDgPhtTiVPd4tIX+M7MRDLjwkkvjUKk0jx6DY0Vyati+gADFQMni
+	 6Zwk7uuYv3FDi3doxHi8TvxZcTM9s0P6r1o7C+L7fioykxrIhvd/KzF9PbRxPpTdPs
+	 yMO2pauxm+BJHaXTSrDt9KzBc0ic/ZgNPFuFyp5NqHxvop8xFYfu+TA6k4xg/laR04
+	 jlECsNkVaSuRjxiU/5bSMofGUwCHnOYcvJeABCuYi1DMxZNN7Vb+1rOtb16oTVZMvu
+	 xSvY/OIOF8rivNHNQDDhUXGUNU1UZB9ZYTd/I23/GTIU2ClPaA3+TvakJdyS+YvpWY
+	 qg99ZMOKS8jxA==
+X-ME-Helo: device-106.home
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Wed, 02 Sep 2026 19:17:38 +0200
+X-ME-IP: 2a01:cb10:785:b00:26fb:aefb:6cd2:db0e
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>
+Cc: linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	linux-pm@vger.kernel.org
+Subject: [PATCH] thermal: intel: Slighly simplify duration_set()
+Date: Wed,  2 Sep 2026 19:17:30 +0200
+Message-ID: <0f12d097f5874242b8d3cc98b441c4fefd626aee.1788369428.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -88,76 +56,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+there is no need to call clamp here(). The same tests have already been
+performed a few lines above, and there is a "goto exit;" if outside of the
+range.
 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but since you are adding bounds
-> checking here, does imx_pinconf_set() also need this verification?
->
-> Without validation, a malformed gpio-ranges property in the device tree could
-> translate to an invalid pin_id. Since imx_pinconf_set() lacks the
-> if (pin_id >= info->npins) check, this unvalidated pin_id could cause an
-> out-of-bounds array access in imx_pinconf_set_mmio():
->
-> 	const struct imx_pin_reg *pin_reg = &ipctl->pin_regs[pin_id];
->
-> Could the same missing bounds check also cause out-of-bounds array accesses to
-> ipctl->pin_regs in the GPIO direction callbacks like imx_pmx_gpio_set_direction()
-> and vf610_pmx_gpio_set_direction()?
+While at it, also remove an un-needed initialization of 'ret'.
 
-No. Everything that reaches the driver through a gpio range goes through
-pinctrl_gpio_request() first, and pin_request() looks the pin up with
-pin_desc_get(), which fails for a pin the controller does not have. A bad
-gpio-ranges entry therefore fails the GPIO request, and the direction and
-config callbacks never see that index.
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+Based on my testing, gcc is not smart enough to get rid of the redundnat
+tests by itself.
 
-Which also means the npins check I added in this version is redundant
-and its commit message overstates the problem. I can drop it in a v4 or
-keep it as a cheap guard, whichever Bartosz and Linus prefer.
+This patch is compile tested only
+---
+ drivers/thermal/intel/intel_powerclamp.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-> [Severity: High]
-> This is another pre-existing issue, but does imx_pinctrl_parse_pin_mmio() also
-> lack bounds checking for *pin_id during device tree parsing?
->
-> The pin_id is derived algebraically from raw device tree properties:
->
-> 	*pin_id = (mux_reg != -1) ? mux_reg / 4 : conf_reg / 4;
-> 	pin_reg = &ipctl->pin_regs[*pin_id];
-> 	pin->pin = *pin_id;
-> 	pin_reg->mux_reg = mux_reg;
-> 	pin_reg->conf_reg = conf_reg;
->
-> If the parsed *pin_id exceeds info->npins, this uses the unverified index
-> directly on the ipctl->pin_regs array, leading to an immediate out-of-bounds
-> memory write.
->
-> Does imx_pinctrl_parse_pin_scu() have a similar vulnerability when indexing the
-> info->pins array with an unverified pin->pin?
+diff --git a/drivers/thermal/intel/intel_powerclamp.c b/drivers/thermal/intel/intel_powerclamp.c
+index bd7fd98dc310..ba9c4a1224ca 100644
+--- a/drivers/thermal/intel/intel_powerclamp.c
++++ b/drivers/thermal/intel/intel_powerclamp.c
+@@ -80,7 +80,7 @@ static unsigned int window_size;
+ 
+ static int duration_set(const char *arg, const struct kernel_param *kp)
+ {
+-	int ret = 0;
++	int ret;
+ 	unsigned long new_duration;
+ 
+ 	ret = kstrtoul(arg, 10, &new_duration);
+@@ -94,7 +94,7 @@ static int duration_set(const char *arg, const struct kernel_param *kp)
+ 	}
+ 
+ 	mutex_lock(&powerclamp_lock);
+-	duration = clamp(new_duration, 6ul, 25ul) * 1000;
++	duration = new_duration * 1000;
+ 	mutex_unlock(&powerclamp_lock);
+ exit:
+ 
+-- 
+2.55.0
 
-Yes, that is the one real hole, and it is where the fsl,pins value is
-turned into an index. As said on v2, I will send a separate bounds check
-for the parsers after this series.
-
-> [Severity: High]
-> This is a pre-existing issue, but can concurrent driver probes cause
-> hardware state corruption of the shared input_reg in imx_pmx_set_one_pin_mmio()?
->
-> There is an unprotected read-modify-write on shared general-purpose IOMUXC
-> registers:
->
-> 	val = readl(ipctl->base + pin_mmio->input_reg);
-> 	val &= ~mask;
-> 	val |= select << shift;
-> 	writel(val, ipctl->base + pin_mmio->input_reg);
->
-> If two drivers concurrently request pinctrl states that share the same
-> general-purpose register, and the pinctrl core calls pinmux_enable_setting()
-> locklessly, will these RMW operations race and overwrite each other's
-> configurations?
-
-The core does call set_mux without a lock and the driver has none around
-that read-modify-write, so in principle yes. This series does not touch
-the mux path and I have not seen it on Vybrid, so I leave that one to
-the i.MX maintainers.
-
-Mehmet
