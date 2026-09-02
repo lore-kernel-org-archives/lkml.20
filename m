@@ -1,82 +1,158 @@
-Received: from mta1.migadu.com (out-24.mta1.migadu.com [95.215.58.24])
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2342734D397
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 02:01:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.24
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788314478; cv=none; b=Cs43WzijiySgpNfGstz+r4lr62FtQnNVH4i7Ofw+ctySZUAokUwtMTU+DvFElxQasHYZhQDxnPzjPFb1qUu3g6IAatc45J/6OyLWJ8wQWEBxBwVZrcgvCuc9PzkzdrNpCuqfxjFjnH5NnstPX58wOy3iQv1C0MpNVi3iN0jX/Ss=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788314478; c=relaxed/simple;
-	bh=PTWw+mcm+SN4HX4+km+xvQ5wRRsK+Xi3/8A0r/W/WVA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MYElRKzyMXD/wGgvlWxWZFxayo542yq/7VJ2hCCcNgdX/SbkNiwKe3ZQcXJzZvqAlPSIy1vSJNsYrz7iwts1Xd1CQttPYzWTRqYUy+qGUfF0GwkavKo51OfZlUNRsONJZyoj70c0U4fEO82qTkXlb7jpvZjlmsKZNOkuhKjUtxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HoqGIyOh; arc=none smtp.client-ip=95.215.58.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAC8234EEF7
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 02:01:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788314481; cv=pass; b=Gijg8zZjf3zV7LqU1iiuwMu9RZee73SiOFfiZ8K1oy9jaef9k1nQygoJ+evwcD2BEbZu4SEVCRX1Uh27P8lCjJLT4eftQvIDiA5ABtWBibEyNcCm0ct/qeE/b3qU6uH5Z+Kq2QSYcUEoMaiw1HlpNVZDqpujCTAW3m2wl/cOL30=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788314481; c=relaxed/simple;
+	bh=U3aa/uX2QJ6x8/cys5PY/EmIY6wqHCxmh0up08kwOCg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RjfQjzU8VlscGfx0Av7NxIRNWngBVIr2Min+gtnoxGVlbSO2gqxnuiw+5uhNITLOyxXaXXkhvJhHwESDetJ6WFL504jSZamzkoQncyqXzBOli5pjbaO0T+1nRZH4sBKAc9aDwM2sb4UY79kW71TfTKRqoZAVniK1HfpAZPOTiSw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hIGjMTBm; arc=pass smtp.client-ip=209.85.160.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HoqGIyOh"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=PTWw+mcm+SN4HX4+km+xvQ5wRRsK+Xi3/8A0r/W/WVA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788314468; v=1; x=1788919268;
- b=HoqGIyOhg8h9JzSW+XCRMM4ljQme9s7TAYXOv/Hh2UoDM5MyW2kNC6d5WD68HxkRBnSAD9pR
- +Y3k3QqjWw5IRMRJgq3Yd8f7HtxmLZE/1sYL9+J9dxCVgmHvlacklwpEUoDl/pPjISi63HXShgY
- qYf8+4mcUVSSZ2ADsuVWLUeg=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id aba12668bbeab029;
-	Wed, 02 Sep 2026 02:01:08 +0000
-X-Mizu-Trace-ID: aba12668bbeab029
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 2 Sep 2026 10:01:00 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	Hangbin Liu <liuhangbin@kylinos.cn>
-Subject: Re: [PATCH net-next 1/2] netdevsim: add link speed support
-Message-ID: <apeDXBASpPvAaWcG@fedora>
-References: <20260831-nsim_speed-v1-0-7a651ee65738@kylinos.cn>
- <20260831-nsim_speed-v1-1-7a651ee65738@kylinos.cn>
- <20260831150818.660de896@kernel.org>
- <apZ3f3vm5sUrcyrZ@fedora>
- <apaLl13Saka4Sw1J@fedora>
- <4892d03c-6493-4c1c-aaab-39d71ddf527b@lunn.ch>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hIGjMTBm"
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-52faa58bff5so140951cf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 19:01:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788314473; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cksRcHB93IFby6QhB9NKL1+E9eLa9I3pwlvgZox1S8sbeSwXOxKHvCXR3OVL6bIvfU
+         acoCOP+R6eaW0Qv00h7vFKBozsUnn5AhAkcP5O65G5jXz65UKUFlYUqzzriyUMGovDHD
+         U4ckmVXiYYPQ/mCGFGQ8cwCo46HJSg0ZWzdwEeRclWcX0AwBTCVE6U+duOZ/pwqKpec+
+         KesU3gGeVBGuCQeKWgGztmhAFRV/zX+7eLYkwSBMIPq4EvA0PUxtK8Bt86jP9Je/aBLx
+         4LbnWZR9D1oEO6MaEjE8GZ/dTKjHlTbnBJt7oKYTL0htN1X2jLySoXBTX2ZCnZcWI4xu
+         V4Ag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=mCiyEAo5wxMzkcXu7vU1R6+a/fDtwqnpSwvfpXQcP5o=;
+        fh=FNAGYHx9D/0tOuEffT+sWxo83sh7/YOQGURK2AVxCgg=;
+        b=kPoAhahzoH8x6/f+73DLGahpjajIlVc9gkAeztrB3ASii0t4dgkKv+JMhq8UTpVkp2
+         XfKwPl2CHeW2fuon1QEXiSu827GnB3E10uZbjfRjtOIPiSXFs1Q2wRcwrZ2/E9T0zzEq
+         D9+q/yeBMjA9kzrbcATUNA7ErLLXJfIBIBqeLOAIBgVjokNH4jlfhSmMrahJGwX70qvM
+         BZ4JHX4kN8qEomce0wI1gnzISIOg65uq81Kes4YShLaxf/ndp6UlP6+kqarDlWidkSvd
+         dW/pfH0+G+qWQnyO86cRyAZKII3GgmdMiINpgVunJDE/ITV4tQhaXNuQl00EKDj8kuq8
+         MNyw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788314473; x=1788919273; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mCiyEAo5wxMzkcXu7vU1R6+a/fDtwqnpSwvfpXQcP5o=;
+        b=hIGjMTBmM3Oj1b0BTXO2ogWByJcQEr0YgZ5EDJQnklj7mkITqmbuTDB3pRAZEOBeLx
+         sdFqQN94oERcWYCMTCs7whPrflUW4dA/5RpE8233FovbO4exrjwGe/3UamUcjarYFTH5
+         /U5b17OMQzyHsq+UtGXjOoCDOqYaAuXwr/0V5HB37ekIx6QWt0UVQFAmqpZ5JzSX+TbQ
+         ExHy/wEx5+pyjk/9qAoPUIJ6qgbrkK9iiNYn2eGHkWbf73ywm5cee9VJ8OwRI04JbQ3o
+         zszOFwDfqAl4NmwO4XfNBT/N/yZLHljK09J6JFrDA57QLWoiylrIHmwHxiue7QbyBSTO
+         X/zQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788314473; x=1788919273;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=mCiyEAo5wxMzkcXu7vU1R6+a/fDtwqnpSwvfpXQcP5o=;
+        b=m+0Wf+KBz+aGJ5Tr+44P5Td1Qdx4AWoIRM2H+EVzD2tvVzotDtChZDjGX2rndATWu4
+         Vzll4QXeoE9yyrryi8EFcHHIauYcw3yX7zEQlu1dptpeLyvrlna/lZ7BWAk1aBacsI85
+         Nj5zL3d6n+mqfr+K1Tq6ZV7tZcYjMRlb4isg/t5l9CWHxdiHnczqcscwkPNF3QsymUdB
+         eZC5nmQqdLP5lFJt+o0itJCfu5G6oUO13QqVD2AbpON5xDe9MOOR2ZRpvdOGxNlR0AFH
+         pCwDURNxl42qjl0XybE84WziNMkcO1KZcFGwfEHLL6KvsV56Ma6T6IX3dOHyYRIP8e1u
+         XYGw==
+X-Forwarded-Encrypted: i=1; AHgh+RqJgDqHMeDdsVLH/3Eb5tyXKYdyD3KBH09aE7n/cgojpoVj35vw0vknQqtFrsc0Gd8EqS/2d6UMntGcD20=@vger.kernel.org
+X-Gm-Message-State: AFuF++ldllEGHpcxXvh3sOtQqhP+nlGvbFPmyl1a0OhyfkgGVbeMZT3K
+	4DHi1pUVzTfrtzRIsV47JyOTTcolpyIxdvggVu4R+NG/Bq5h0W0rBhehwsg1L5ZIHpy0pKguu0W
+	CXtD25haS6TphJ4sm5l2cRlLUWSFbI+31VrwVmFxK
+X-Gm-Gg: AR+sD11NCbD7GE5BKFCNcN6m/3gejFyiFpWkCVgbAGOQkl6oimwOpRxMjNya5KdJsIA
+	215tQrEwjXdYmt24kNlseS33xXOEvNhM3im8qNYmNkK0YCWDGdnVFWuQ4lLVUlZL+VM9QkjmkMy
+	KTIN8WD7VRpRq+A5iR0/RMIJdr3MP5YRKkIM16I1rfCD+VIzxy6uOUKuXsevk5msX4IsVym9N1t
+	cmsdmVR36RS9ijmdGw2rHgD6ir1X3vV1TXSoihxnZPsDJVKf63O+lgYQpB3eEGwEWuFqP2L1Rzx
+	Pv50DwSJjgKVOznuvR5L0JZeVgY+aqvFBwVK/Qfx1ofxuX97okQiBbivrgPYHX9422sTaVbL16/
+	j
+X-Received: by 2002:a05:622a:1b1c:b0:519:b82d:fe62 with SMTP id
+ d75a77b69052e-53035b0244fmr4577611cf.7.1788314472279; Tue, 01 Sep 2026
+ 19:01:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <4892d03c-6493-4c1c-aaab-39d71ddf527b@lunn.ch>
+References: <CAE14pdef2u=Eo7M9NGdABzsjy2o2SO=Z-U_BbRn9n45nJJR+wg@mail.gmail.com>
+ <6f78c4bd-a70b-402d-abfd-599091b67674@acm.org>
+In-Reply-To: <6f78c4bd-a70b-402d-abfd-599091b67674@acm.org>
+From: Stanley Jhu <stanleyjhu@google.com>
+Date: Wed, 2 Sep 2026 10:00:33 +0800
+X-Gm-Features: AcwNN1UiOHbd-lkyUlqZ5G0VRdeSeGP_sY6ZABq_Mgd0A-kN0QJuBUaEk2kVvBk
+Message-ID: <CAE14pdcnmcvPZv4_pKOnH57OZmJBqe8DTwRnmrMTwOnBm+iOOg@mail.gmail.com>
+Subject: Re: [PATCH] scsi: core: Set BLK_FEAT_SKIP_TAGSET_QUIESCE on pseudo
+ SCSI devices
+To: Bart Van Assche <bvanassche@acm.org>, Stanley Jhu <stanleyjhu@google.com>, 
+	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K . Petersen" <mkp@kernel.org>
+Cc: hare@suse.de, john.g.garry@oracle.com, hch@lst.de, 
+	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, Sep 01, 2026 at 04:21:04PM +0200, Andrew Lunn wrote:
-> > OK, here is the reason. In taprio_set_picos_per_byte(), it init NIC speed to
-> > SPEED_10. If the NIC doesn't support get_link_ksettings, the final calculated
-> > picos_per_byte would be a extremely large number 800000. The later tc taprio
-> > testing `tc qdisc ... sched-entry S 02 300` will always failed in
-> > fill_sched_entry(), as min_duration is also a large number 48000.
-> > 
-> > After we supports get_link_ksettings for netdevsim, the speed is 5000 and
-> > picos_per_byte will be init to 1600. The later min_duration checking in
-> > fill_sched_entry() is 300 vs 96. So the tc qdisc command always return 0.
-> > 
-> > To fix the test, I think we should reduce the interval number. e.g.
-> 
-> Why not just set the initial speed to SPEED_10, so nothing changes?
-> 
+On Tue, 1 Sep 2026, Bart Van Assche wrote:
+> Does setting BLK_FEAT_SKIP_TAGSET_QUIESCE on pseudo_sdev break frequency
+> scaling? ufshcd_pause_command_processing() also calls blk_mq_quiesce_tagset().
+>
+> Why not replace blk_mq_quiesce_tagset() in ufshcd_err_handling_prepare()
+> with blk_mq_wait_quiesce_done() and drop blk_mq_unquiesce_tagset() in
+> ufshcd_err_handling_unprepare()?
 
-`nsim_leaf_tx_share_set` and `nsim_leaf_tx_max_set` compare against
-`NSIM_LINK_SPEED_MAX` for TX‑rate setting. Using `SPEED_10` as the value
-appears too small. I am concerned this could break other existing tests.
+Hi Bart,
 
-Hangbin
+Looking at the three call sites of blk_mq_quiesce_tagset() in ufshcd.c, they
+have distinct requirements regarding pseudo_sdev:
+
+1. Clock scaling (ufshcd_clock_scaling_prepare):
+   Requires freezing all queues (including pseudo_sdev) while clock
+   frequencies change.
+2. Command pause (ufshcd_pause_command_processing):
+   Requires freezing all queues while TX equalization retraining runs.
+3. Error handling (ufshcd_err_handling_prepare):
+   Requires quiescing attached logical units to avoid HOST_BUSY retry
+   storms during host reset, but must keep pseudo_sdev open so internal
+   recovery commands (e.g. NOP OUT in ufshcd_verify_dev_init) can proceed.
+
+Setting BLK_FEAT_SKIP_TAGSET_QUIESCE on pseudo_sdev in SCSI core breaks (1)
+and (2). Conversely, replacing blk_mq_quiesce_tagset() with
+blk_mq_wait_quiesce_done() in (3) leaves logical units unquiesced, causing
+incoming I/O to storm the recovering controller with HOST_BUSY retries.
+
+Would it be cleaner to keep blk_mq_quiesce_tagset() for (1) and (2), and
+handle (3) locally in UFS error handling by quiescing only logical units?
+
+    static void ufshcd_quiesce_all_sdevs(struct ufs_hba *hba)
+    {
+        struct scsi_device *sdev;
+
+        shost_for_each_device(sdev, hba->host)
+            blk_mq_quiesce_queue_nowait(sdev->request_queue);
+        blk_mq_wait_quiesce_done(&hba->host->tag_set);
+    }
+
+    static void ufshcd_unquiesce_all_sdevs(struct ufs_hba *hba)
+    {
+        struct scsi_device *sdev;
+
+        shost_for_each_device(sdev, hba->host)
+            blk_mq_unquiesce_queue(sdev->request_queue);
+    }
+
+Because shost_for_each_device() explicitly skips pseudo SCSI devices
+(via scsi_device_is_pseudo_dev() in __scsi_iterate_devices()), logical units
+are quiesced while pseudo_sdev remains unquiesced for recovery commands.
+
+What do you think about this approach? If this looks reasonable to you,
+I will withdraw the SCSI core patch and submit the UFS-local fix.
+
+Thanks,
+Stanley Jhu
