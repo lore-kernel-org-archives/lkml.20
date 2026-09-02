@@ -1,184 +1,350 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012054.outbound.protection.outlook.com [52.101.53.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 500F34A1DE9
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:49:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788356983; cv=none; b=fB6m4O5Hwft+ilG9jfSl/9RD+6f+QnyFQGxif5xR/EFpSm942ycztXIJHyAi96kOINYvN4Ur0ZSLhSHQYp/YbK/53n95lSdijy651kMSlI6owWY7aKuROlXQdrRsGk7C+x3fq1INeSPDznnqFcnUupbdlenCqbJr9MDGlcRcvqg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E3949F10D
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:49:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788356983; cv=fail; b=FZjjcg/8p+KyIIRuePBSNgeMIXYv9U1tNT7wmEa+1z8xstMAt53xc+5AD8tjizh09Qb9JukK9eHLSY9C1uj0K31uyGtHwlGrjTJoqlY5GZO9xO/3/pNHAQfAk+IdIMt6XIUU4tWwUmj7aMTJDf1qtk7OWCSMb28TyaBdgw+nFB4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788356983; c=relaxed/simple;
-	bh=h38puJP55NohaqQoEAHKVmrRg09DfjV6DQi5WL725/E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N4NJwpOQODc94hvBtaGOmZhTE1WQiseJ3vvUpViI4tOpuxFKO4mWUGOaBnWtYViF+hmN1HndjHh2Niy9z+8SW1ay+o0kOmqhku8kE9kPoLxLFCaY4xZlnbzh0i1k30GugxDXLLlEUd2r4An1gs+A6eci5OtfmoskQAFaeUAp0OI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dMJtzfGd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=epjgS7wx; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	bh=afDzH6zBkCpXAy4Pzc6RuXiirX+zqNdvRiM+lKKpLLc=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=kTCoDYrl1Ly48TV1BLAaqr5vDM/2qQ0L3pVMlEMfU9BcqJ9aV+RuNCdxbM87j80591Jq6Fn68E0/0zdSnuEBeKcT0rEHUuY3ORoNm90Q4k5h9A/jnCvk2fTxCL1ic+34HI8cWUY6MKVSOVZJ6Jil6K837VvzxeD62UtOSIPy0WM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=0SCk8Dq+; arc=fail smtp.client-ip=52.101.53.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dMJtzfGd";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="epjgS7wx"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682D1w7W947872
-	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 13:49:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	zWjYJtIi6OZGoAo9l7Mi+iO1ntwmzaoC91XDg3XgiVY=; b=dMJtzfGd1Kr54bQu
-	GD9fDz/rWV3mgwOWyiYN72VDTrGVMEAKxtKEQNq015+px8fvVGh0pD9Zm3rgxI8/
-	QaggsYobxVfvXippqUDvaVE3K3KtQU3NVZG+XX5Sx1ZduUUtv2fNxbCkuVcl8g7Y
-	0MHu0maN5SDeuRPy+MOsm40VBDEC4QzcfyhVd1v8nQmM23qmyywpJlMmpgV/RZha
-	X0AIKDbNu0FGvDsScMD6Ri+liQO4i+9JAU2hJuVcVRbPOp/RWTxiyxEmLyBwIVie
-	/KrvHxhyX/x3EazV6zlui2qQyDJY5ROgh195qMY5aCzt52rnF/gAIKt37oeNS+UR
-	pMS5QA==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gemb005vv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 13:49:41 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7824ec38da4so39156137.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 06:49:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788356980; x=1788961780; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zWjYJtIi6OZGoAo9l7Mi+iO1ntwmzaoC91XDg3XgiVY=;
-        b=epjgS7wxSX3H3xyhq/a7Fhs3+UQwWgX6P1jpbIQp8cBXmFm/rtYC9LZ7QMT7FsmR3P
-         R6fcdNbcjOWPu8DY3VK5nvEKrkA1EQ2CPMtUc97JKIUkGpKAy7onxZ7VC209MZMpka6K
-         extSfOcXEWPr4bxR3DOg5IXwYePX+iNtQWQA6sBzLeqYxW0YBgQp6dq52Oh8iZOPG3kB
-         SVkIqGLy8biiAalN5veN0YjzcsgngK1QK+TBYrOPYcyxvHzgtbdWXy+hIibjCHyFsiuB
-         tJRCB/cEjvdv6ksyCDiJ3fMShrrtOqNz5ErpEElb34bvgkaLXqhaSvY4XT2mUecUJfiJ
-         EI5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788356980; x=1788961780;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zWjYJtIi6OZGoAo9l7Mi+iO1ntwmzaoC91XDg3XgiVY=;
-        b=WxxjDiYAxOx0/pbjF/R94O1Ho2MONgQw3YxMYa8mivmt/rAv6QlbpdvKpTa8o5NBRW
-         MMBgdY/okHnX7IGLt+49K6LntRCzcEp4mFYlvAh72zgv6HwZzmkZ8rvKuMEIX7tGbDEH
-         9nUSb22+IwsdBXA8ZBxNpX1O4W9dpkJGzMUmc4Zi4G3/bJp5/ZR2bLU7o9Jo2dFilN7e
-         ofJRCE5QfObkZvq49Dl4UNBE7gLC+lYyLrUqItoKrNIJuWup78+cjVhjlTU8PX9NuPLz
-         C9jykT5GFik+wYQ/w18bqcFhC6q+21F2sOH/bmSTeyqtmoLO3688C1SNAaVH5G3vmmHn
-         +SAw==
-X-Forwarded-Encrypted: i=1; AKwUvByVUl9MeuGU7hrU3mIH/5a9fh4v/pQY7E3ilTwbyFUqPoVp8rghsRRiI93CuRAZYwnIaxY50BlyU3w2ins=@vger.kernel.org
-X-Gm-Message-State: AFuF++nRBWOwEjVPL9DnfGt0UcKaKSkNwzx4Bg7Mou41A6WBcCyoEgkN
-	fW00XSsdCtyHsuM58wZFtNYYeA4bAn3Sk1FAs+DsRXxRVqA5iBG4I6US3TM2kcddjpeVFxnkpfK
-	shj6rUIIUiuaPdWsStl+aJgb49U+IBhujcuavBPgksTmT9cr40hwovuhZMnBdO5pztaY=
-X-Gm-Gg: AYBFou0SBVioDxxiyi1yFPQ4E5yCka3a54T3BH9EwY2oXP+KYrtMGdLTacTqiBMKfAw
-	txVhUrl3SdPFCjrP4Cc5OTXT89hTkcDqjpx0b305gdt97XYayxbhUuqaJoZMRnpA+1EmJYFg6lh
-	j7E9OoymuwkI4tsLEhgmSTZT6+sT78ckchQs5giE4PL5QKV5HknbJNitWcvvvDUDwGEORQrVdmL
-	qd3WdhvDbwKo95YLeFU8X4s5EP2NALcnt9daesq+tYtTDSQOJZl7KhavjKn0KuZ9xV+L2d4Ia+p
-	DNMtM0Gdg8N1/uZ9EfQXVAmv/HSzl7bCUevangjV1PA3ydirCD1zKA2Vi+ZnvtZ/MZx9QMJSWP0
-	S13po7Pi6J53CJnAvUKnQqw==
-X-Received: by 2002:a05:6122:e006:10b0:5c1:24b6:a1e0 with SMTP id 71dfb90a1353d-5c7d2832ab9mr519687e0c.3.1788356980534;
-        Wed, 02 Sep 2026 06:49:40 -0700 (PDT)
-X-Received: by 2002:a05:6122:e006:10b0:5c1:24b6:a1e0 with SMTP id 71dfb90a1353d-5c7d2832ab9mr519675e0c.3.1788356979816;
-        Wed, 02 Sep 2026 06:49:39 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a34ad015d1sm5649791fa.22.2026.09.02.06.49.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 06:49:38 -0700 (PDT)
-Message-ID: <fc81b75c-a76a-43db-877d-1eca69da2736@oss.qualcomm.com>
-Date: Wed, 2 Sep 2026 15:49:36 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="0SCk8Dq+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WmZ2qr34hUCuaex61/Qq8HWftL+61g6Gc5nyfgmupFgm7voBi5c9XwHDxL3z0LmMDT438lDOk2JfHotm7HPsMog3VX360LJCUqtUyQlrm+bzuN3CEHRwSzDepQnL0LT0kKHsQobBD92PfTgh442CpcDS9cnJaY0OLedNY4ptPPDfaAM43GETr+lKazqdnjA5BU+zFOJ9FywoNhIE8OzmqRSZVNYIsiD0IEoz+gTLiR6rHYyHbVQgJ/kTmnoWFfn4IYN8WiopCvkaqF/iI8fFXT0MsDxgYi9wvx2mh0C8Wj3Q6KW6G5zax8sUdtJkF2fOh0Qn9iBsaJqZuyVBk/eWDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6alkwTKNu6O0yUldzKREIvLw/WMhlRh4510c8oTfqtw=;
+ b=lzh+1chUW6QOlcLHmhLvucgB9Y9Vo3nZwegs6wtriyyONWrug+uiSHJiniz2QfTPbNUXobNQrPjG5jyXrlTeIlc5NOwHICbjQKSuNQo/67ad41eeRhx9aiv/2HUfYuXHF/wBinLcN4PRWKGELMqx1Gvp+q7rheMc+U9wxLvjsFCbuMXSb1PDOjN+J74rbrL9OC9eLQyeN+w/Hb3OyT6B14bH2KQn/07OmrnirYI0Emtlf9CPwQAg+BafrcWPLGceATc+MauBejS/ubAAwD1mYOZIVl9kpXPHwdisM6eq3M7xZh6+dkOHp6iwwcz2BvMqlLvkEYGp01/SdotrqaBHOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6alkwTKNu6O0yUldzKREIvLw/WMhlRh4510c8oTfqtw=;
+ b=0SCk8Dq+8br9F/u+yzXtYIRJ3G3VKPSJWva3oElEjmExaVjnBT24RBB3O8GTFDKGzYj+CRQj7qT7kWeoAecVUHahKXHldn6B2grbI4C24+UUtyPVlRAhGssd1rHSCXiK50ngKHrsq5PsBExVhHSL+NVG5xfx2umXSMD42kqHPyE=
+Received: from BN9PR03CA0622.namprd03.prod.outlook.com (2603:10b6:408:106::27)
+ by CY5PR12MB6430.namprd12.prod.outlook.com (2603:10b6:930:3a::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 13:49:32 +0000
+Received: from BN7PEPF00000094.namprd03.prod.outlook.com
+ (2603:10b6:408:106:cafe::75) by BN9PR03CA0622.outlook.office365.com
+ (2603:10b6:408:106::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
+ Sep 2026 13:49:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN7PEPF00000094.mail.protection.outlook.com (10.167.245.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 13:49:31 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 2 Sep 2026 08:49:24 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: <linux-kernel@vger.kernel.org>
+Subject: [PATCH 2/4] drm: Add drm_user_fence helper
+Date: Wed, 2 Sep 2026 19:19:08 +0530
+Message-ID: <20260902134910.156230-2-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260902134910.156230-1-srinivasan.shanmugam@amd.com>
+References: <20260902134910.156230-1-srinivasan.shanmugam@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sm8750: Add Lenovo Legion Y700
- Gen4
-To: Pengyu Luo <mitltlatltl@gmail.com>,
-        Bjorn Andersson
- <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260726143048.130116-1-mitltlatltl@gmail.com>
- <20260726143048.130116-3-mitltlatltl@gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260726143048.130116-3-mitltlatltl@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: Eke55WjCqzjLtRz3jJTiU3JpJEpaSTkD
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDEyMiBTYWx0ZWRfX0S0Z57mjZQ5Z
- VTlzdKmdoywZrIT5JWflxKFJ8/942+pM4h7MA0/5syat2nul4NBHKkyM+YjXlMWPPttwyRm+mZv
- tNQYaEHIeBh9FdJFVgrECTUCMrg6w0gDIDFXJt26pl/Ace4XizARq80rBapMuS2n7HYG0sOoHxj
- eA0CQ6pxLcSL7ac22zXazxe9oJr2jwuH5n5H5OGxELH7DOaoVoHIaltzYJAEhmKLO0PTDszx/Xl
- aNbp/gc6pSt7CrdqnPDXdHCF8Itj905PXptvFqdUp4CYMYPnlH62Kx0MpJGPs6e66/JmGZ/GdyT
- wxbFYT8+YuLdy4O0I3o4zKS0nQXOz2Py5vZQ2Fokfe0/0hQm4kKSXtNldVJv/DW/O5MKHm8jEe6
- DWPWhENd6Ye651IX2hbcr4+ksHtRN2Ag0VHW9mFwWxXnSZSs6CxcFfgkYu5DMzXUevVA4Baw/N/
- w04XB539ScgZZv3yBtQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDEyMiBTYWx0ZWRfX6KEkwVeLwjFs
- +2lfEdalIDqxS3Z/qMOUWL4N+AcQu0W+ji68skWdY0mZuN3/HsAs9m3QV34hc7xRXTtJ0o+TVFT
- 6r4k75RVLo9EgdPb+icpQpxfv9DRN1c=
-X-Authority-Analysis: v=2.4 cv=EuPiaycA c=1 sm=1 tr=0 ts=6a982975 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EiTzJyzHe8GYNTRMAEEA:9 a=QEXdDO2ut3YA:10 a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-GUID: Eke55WjCqzjLtRz3jJTiU3JpJEpaSTkD
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_03,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 bulkscore=0 adultscore=0 clxscore=1015 spamscore=0
- malwarescore=0 suspectscore=0 priorityscore=1501 lowpriorityscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609020122
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PEPF00000094:EE_|CY5PR12MB6430:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8a09875d-079c-4358-0132-08df08f90408
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|376014|1800799024|23010399003|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	Ld7eXyL2PXomejhZMZh/yKC5TJIzEPrbee1LFeBKtcKTp7kLp3kbEE/6Ys13islksIYMtvBSUIM9MUtrJCZtV/SOPT8ACzbkYv2qvZUOBaCSZep0IgU84fgXh2EnyluRKp1UeUDH+s0M9HduFCxI8Rp3XV/PnyrsyC3T0ZzpO7x/2V/xfLg3ChkFJbsiyH5I2THJITEe2+6J1QKzZTP0spQpueJ+hjOIXrRZQOlnM8Im70NF9r7gXd5k7hQU4SJHtt7wFUAKdnvc0Yz3Dbkv0mAtwr4G+tDM6bxfRLMtXV0Yo5exQ48DupdWSF6ezvsE2d9E7iusqTko/MKTzC7BceLSi2AlOAn0/1qbyZmU6tGmwNeOrUXQ70EYAcrz8PPpccB2ftNf+kfW2kmXWQ7/GVznwlL4KjEIztZ3sH9tfOuyrQJ8O0C6GhxS9mWtQY+mCo0ckb9rWTwGr9MHUiCOA/KeI93Neqpee432v0bacdx1h4n4R19FoSQxjUSKhho4DSXE/GWtCNrEAIuNhzdEvesCHi+Lqv0txw3qlQZ/9qjnA9uprsLHtG04qgtAme5Uz1s9cFCXFBu3gpRh2a1IEf62FBmyDV7DBz1JdkougxADZ6Y+fZ3l/WbGlcK0qrKyups7Ah4YIY++AHNAIl2kgrYZNY24qSvnEBrl7O0CAZD7ULRcFaBxfSdjnnlimhF1JDAqNR6FclbJBS6jMVqs+A==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(23010399003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	9S31FvoS5RJORSixrzSe5pOH1nOHPhjYTOkyu0+4T0TTcwjy1sJ/keaP15Ti/SrZ9k3XQOK0syH5LEVaThNXp+RaOhtwrgunUrEkMRu3Pc3aIc8LKG1oagIgNv+hOIJEmNiv23woy+JkPU0ZIkz77Bn7/412myUac7AR2Qka4rsKXXj1iWqcHnr1zBwbWXiOlxK5GHIi7eSYsC5YKVy6P/I0LcryqbDoQQXX0jrjBnXYAe8GF+22AVH7RWvRqgicrPAdAJ9mfH4fRPbkL6mZiZGgaFI0P1CiPPbZa9OeI/FK3pK/OIb62xqlw99d6hCRHT0jyrXUONAQnww39XCGYSFktnGz8WhQENWsAfHOldID89mXP/2rcc1TrU5Wpp0cbEF3lT2badnJJHuPUYoN0RBBzevOLz0s6MNTCGXXq4Uv4PPW5rT2SJk6oBunrfmk
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 13:49:31.6982
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a09875d-079c-4358-0132-08df08f90408
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN7PEPF00000094.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6430
 
-On 7/26/26 4:30 PM, Pengyu Luo wrote:
-> Add an initial devicetree for the Lenovo Legion Y700 Gen4, which is
-> based on sm8750-qrd.
-> 
-> Supported features:
-> - Altmode
-> - Backlight
-> - Battery & Charge (Full speed)
-> - Buttons
-> - Framebuffer (Require mdss and dispcc to be disabled)
-> - USB (Two ports)
-> 
-> Downstream supported features:
-> - Display (8/10 bits) (Nowadays DPU driver is broken for dual dsi panel)
-> - GPU
-> - Touchscreen
+Introduce a common DRM user fence helper providing the kref-managed,
+MM-borrowing dma-fence-callback-to-workqueue pattern used by drivers
+that must access userspace memory from a kthread context when a GPU
+fence signals.
 
-This paragraph is wholly irrelevant given the tree this is targetting
+XE uses this pattern (xe_sync.c) to write a fence completion value
+to a userspace VA. AMDGPU will use the same pattern to signal a
+per-queue eventfd from a user-queue EOP fence callback.
 
-[...]
+The helper provides:
+ - struct drm_user_fence: embeddable base structure
+ - struct drm_user_fence_ops: worker/destroy callbacks
+ - drm_user_fence_init(): initialize and grab the process MM
+ - drm_user_fence_get/put(): reference counting
+ - drm_user_fence_add_callback(): attach to a dma-fence
 
+The worker callback receives a bool indicating whether the process
+MM was successfully obtained, allowing drivers to handle the
+unavailable-MM case (log, skip the userspace write, etc.) without
+duplicating the mmget/kthread_use_mm/mmput boilerplate.
 
-> +&tlmm {
-> +	/* For CDT: <32 3> <37 2> <77 1>; */
+Suggested-by: Christian König <christian.koenig@amd.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ drivers/gpu/drm/Makefile         |   1 +
+ drivers/gpu/drm/drm_user_fence.c |  70 +++++++++++++++++++
+ include/drm/drm_user_fence.h     | 115 +++++++++++++++++++++++++++++++
+ 3 files changed, 186 insertions(+)
+ create mode 100644 drivers/gpu/drm/drm_user_fence.c
+ create mode 100644 include/drm/drm_user_fence.h
 
-What's CDT in this context?
+diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+index c5be8e80d0c8..ddb770738992 100644
+--- a/drivers/gpu/drm/Makefile
++++ b/drivers/gpu/drm/Makefile
+@@ -69,6 +69,7 @@ drm-y := \
+ 	drm_syncobj.o \
+ 	drm_sysfs.o \
+ 	drm_trace_points.o \
++	drm_user_fence.o \
+ 	drm_vblank.o \
+ 	drm_vblank_work.o \
+ 	drm_vma_manager.o \
+diff --git a/drivers/gpu/drm/drm_user_fence.c b/drivers/gpu/drm/drm_user_fence.c
+new file mode 100644
+index 000000000000..0f229b7210a9
+--- /dev/null
++++ b/drivers/gpu/drm/drm_user_fence.c
+@@ -0,0 +1,70 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright © 2024 The Linux Foundation
++ *
++ * DRM user fence — extends drm_work_fence with kthread_use_mm() support.
++ *
++ * Use this when a GPU fence signals and work needs to access userspace
++ * memory (copy_to_user, fault-able operations) from a kthread context.
++ * For work that does not require userspace memory access, use
++ * drm_work_fence directly.
++ */
++
++#include <linux/kthread.h>
++#include <linux/sched/mm.h>
++
++#include <drm/drm_user_fence.h>
++
++static void drm_user_fence_do_destroy(struct drm_work_fence *wfence)
++{
++	struct drm_user_fence *ufence =
++		container_of(wfence, struct drm_user_fence, base);
++	struct mm_struct *mm = ufence->mm;
++
++	ufence->ops->destroy(ufence);
++	mmdrop(mm);
++}
++
++static void drm_user_fence_do_work(struct drm_work_fence *wfence)
++{
++	struct drm_user_fence *ufence =
++		container_of(wfence, struct drm_user_fence, base);
++	struct mm_struct *mm = NULL;
++
++	if (mmget_not_zero(ufence->mm)) {
++		mm = ufence->mm;
++		kthread_use_mm(mm);
++	}
++
++	ufence->ops->worker(ufence, !!mm);
++
++	if (mm) {
++		kthread_unuse_mm(mm);
++		mmput_async(mm);
++	}
++}
++
++static const struct drm_work_fence_ops drm_user_fence_wfence_ops = {
++	.writeback = drm_user_fence_do_work,
++	.destroy   = drm_user_fence_do_destroy,
++};
++
++/**
++ * drm_user_fence_init - Initialize a user fence
++ * @ufence: user fence to initialize
++ * @wq: workqueue on which to run the worker
++ * @ops: driver operations
++ *
++ * Must be called from process context with a valid current->mm.
++ * Grabs a reference to current->mm via mmgrab().
++ */
++void drm_user_fence_init(struct drm_user_fence *ufence,
++			 struct workqueue_struct *wq,
++			 const struct drm_user_fence_ops *ops)
++{
++	drm_work_fence_init(&ufence->base, wq, &drm_user_fence_wfence_ops);
++	ufence->mm = current->mm;
++	mmgrab(ufence->mm);
++	ufence->ops = ops;
++}
++EXPORT_SYMBOL_GPL(drm_user_fence_init);
+diff --git a/include/drm/drm_user_fence.h b/include/drm/drm_user_fence.h
+new file mode 100644
+index 000000000000..9b92498e6009
+--- /dev/null
++++ b/include/drm/drm_user_fence.h
+@@ -0,0 +1,115 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright © 2024 The Linux Foundation
++ */
++
++#ifndef __DRM_USER_FENCE_H__
++#define __DRM_USER_FENCE_H__
++
++#include <linux/dma-fence.h>
++
++#include <drm/drm_work_fence.h>
++
++struct drm_user_fence;
++
++/**
++ * struct drm_user_fence_ops - driver callbacks for a DRM user fence
++ */
++struct drm_user_fence_ops {
++	/**
++	 * @worker: Called from workqueue context with the process MM active.
++	 *
++	 * If @mm_ok is true, kthread_use_mm() is active and userspace memory
++	 * may be accessed safely. If @mm_ok is false, the process MM was
++	 * already gone; skip the userspace write.
++	 *
++	 * wake_up() or other post-signal housekeeping should also happen here.
++	 */
++	void (*worker)(struct drm_user_fence *ufence, bool mm_ok);
++
++	/**
++	 * @destroy: Called when the last reference is dropped.
++	 * Free the containing structure here.
++	 */
++	void (*destroy)(struct drm_user_fence *ufence);
++};
++
++/**
++ * struct drm_user_fence - DRM user fence with MM borrowing
++ *
++ * Extends drm_work_fence with kthread_use_mm() support for drivers
++ * that need to access userspace memory when a GPU fence signals.
++ *
++ * Call drm_user_fence_init() at creation and drm_user_fence_add_callback()
++ * to arm on a dma-fence. Call drm_user_fence_cancel_sync() before teardown.
++ */
++struct drm_user_fence {
++	/** @base: Base work fence. Must be first. */
++	struct drm_work_fence base;
++	/** @mm: Process MM grabbed at init time. */
++	struct mm_struct *mm;
++	/** @ops: Driver operations. */
++	const struct drm_user_fence_ops *ops;
++};
++
++void drm_user_fence_init(struct drm_user_fence *ufence,
++			 struct workqueue_struct *wq,
++			 const struct drm_user_fence_ops *ops);
++
++/**
++ * drm_user_fence_get - Acquire a reference to a user fence
++ * @ufence: user fence
++ */
++static inline void drm_user_fence_get(struct drm_user_fence *ufence)
++{
++	drm_work_fence_get(&ufence->base);
++}
++
++/**
++ * drm_user_fence_put - Release a reference to a user fence
++ * @ufence: user fence
++ */
++static inline void drm_user_fence_put(struct drm_user_fence *ufence)
++{
++	drm_work_fence_put(&ufence->base);
++}
++
++/**
++ * drm_user_fence_add_callback - Attach a user fence to a dma-fence
++ * @ufence: user fence; one reference is consumed on any return value
++ * @fence: dma-fence to watch; one reference is consumed on any return value
++ *
++ * When @fence signals, ops->worker() is called from workqueue context.
++ * If @fence has already signaled, the worker is queued immediately.
++ *
++ * Return: 0 on success, negative errno on error.
++ */
++static inline int drm_user_fence_add_callback(struct drm_user_fence *ufence,
++					      struct dma_fence *fence)
++{
++	return drm_work_fence_add_callback(&ufence->base, fence);
++}
++
++/**
++ * drm_user_fence_cancel - Cancel a pending user fence callback
++ * @ufence: user fence
++ *
++ * Return: true if callback was removed, false if it had already fired.
++ */
++static inline bool drm_user_fence_cancel(struct drm_user_fence *ufence)
++{
++	return drm_work_fence_cancel(&ufence->base);
++}
++
++/**
++ * drm_user_fence_cancel_sync - Cancel callback and wait for worker to finish
++ * @ufence: user fence
++ *
++ * Must be called during teardown before freeing resources. May sleep.
++ */
++static inline void drm_user_fence_cancel_sync(struct drm_user_fence *ufence)
++{
++	drm_work_fence_cancel_sync(&ufence->base);
++}
++
++#endif /* __DRM_USER_FENCE_H__ */
+-- 
+2.34.1
 
-[...]
-
-> +&usb {
-> +	dr_mode = "otg";
-> +	maximum-speed = "super-speed-plus-gen2x1";
-
-Neither property should be necessary
-
-> +
-> +	status = "okay";
-> +
-> +	ports {
-> +		/*
-> +		 * USB2.0 is shared for two ports, set pinctrl eusb_mux_default
-> +		 * to select the repeter. Plugging out one of them will reset
-> +		 * the DWC3, which causes both of them to be disconnected.
-> +		 */
-
-Is there a hub inbetween? Or can you only use one port at once for data?
-
-Konrad
