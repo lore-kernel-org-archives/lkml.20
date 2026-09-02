@@ -1,321 +1,178 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013058.outbound.protection.outlook.com [40.107.162.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DA7A768EA;
-	Wed,  2 Sep 2026 08:33:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788338039; cv=none; b=RQIhd+lLMWgJX1Xio2/I5e/U2tPoulpDeArd0/+eJHSryHbFmo/OXh5s1c+vk3auMpuSxCsHbwUpcGyttsI1qkMuaAIKxAnVXwr48/Qx2WJKAiIgNUBWTtCbHA7ar7v+3ubVYc8qsobFpsC2b5cQyM8lY/9jSn0GTVrclnButHY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788338039; c=relaxed/simple;
-	bh=21KHO1/C/fEHAwrmDDbB9VknpaoFgoPoaI9JO1mVzgU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aBzHr/4RVBgHcaeaOBmysR8vZ3LIALf9U+rkrNvqTJKWrsKOKUaIXUNvKtNJ/XZXVEVKrkxPIYnIu+TpzhJg3ipdmUEeQ4kdQvAo69wF7NwoS1vd5fXjqmo7mTixQGFLFjTiLwKnRoe4GhAWoqBixjsWcSGUofy+Js/lOCdCluQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=MRj4f9AN; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580B036EAB1;
+	Wed,  2 Sep 2026 08:33:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.58
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788338040; cv=fail; b=ktz2MfAgqwjJa5D0kFoqAQTgEx1c3gJlj222u6dFDD4+TpHJnsr0iJUDgvc/3rfbCAvgmXRbaNERZzZRuWLM7tZ8tRimwy7m5IedxwTQFJqSZgmmW9rFmO/rVSK4QFU8GcPhnXxF5T14zK8Wu+FSAAHKKCAJqEVkMaOVdco77wY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788338040; c=relaxed/simple;
+	bh=z3tN1lUIzhzhFG5ccr3HXDQ7aMo2FXRcf7BL3XIBiQE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=a/vkGxmv+Vym53yIpPFZRyFg6cyE05BrJZTL2wNgTzqDgQX0O971kM79MyIvN4eOgu8DDxqI4kb7WJWrMXXiXiGqT8WPDVWGlZgWpjK47gj6UwkM7mm3iIhXZ31QNuB6VHeWANdBTInz9C2cC1aLlKWOi0bDXY7DpFNUn0qggCo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=blFZWQ8K; arc=fail smtp.client-ip=40.107.162.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="MRj4f9AN"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6826VbMP3443086;
-	Wed, 2 Sep 2026 08:33:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=0CeJ/6
-	g4RHOdVzSO/BtYe4b5aePEs7Ds3IK/lyJIk4g=; b=MRj4f9AN/xQL4BfvGw8O++
-	FH+6pQlWRxrX5wTV/Kdu/BamHYZCXAks3ubIOVqTOl8uBxpqFmu6KwaN/DugYq+M
-	7VXz5JZg3notU5rz2qvR1Qf09CxQq1eokGDG5L76iq5kDyPlGyhDF9i+vOdxE18W
-	2PBgmnD/7pLNC2MYZ77Y2WjaooRsWUTADRgjq36GpPVPUPwN76DEyzsAEJXlAh3W
-	U57LAPp1NOJkA0prctNd/Qmvop2Gts5FnZOzlUIT3lmcRl/tsIGpHf8iHgd6oQ/P
-	2Ki9ValXhn8nfrNcn07PpDBS2cmqkmUlSlgw78hkNjmUZlwbKt67XcQv8ezfgGZA
-	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx5n96w-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 08:33:16 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6828QTPO010976;
-	Wed, 2 Sep 2026 08:33:15 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcb8hgjae-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 08:33:14 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6828XAHt44433838
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 2 Sep 2026 08:33:10 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id C6A9D20040;
-	Wed,  2 Sep 2026 08:33:10 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 90C5D20043;
-	Wed,  2 Sep 2026 08:33:02 +0000 (GMT)
-Received: from [9.39.25.199] (unknown [9.39.25.199])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  2 Sep 2026 08:33:02 +0000 (GMT)
-Message-ID: <8de8d33f-b3e5-407c-98bb-65e8ebe3e100@linux.ibm.com>
-Date: Wed, 2 Sep 2026 14:03:01 +0530
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="blFZWQ8K"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Xe7TZEpHMLY59r0PZbCDH57Vo0pE127+kCrQrWqR189ZdYdStJHfvsCV7xpdUP93BY/W14p98ciInQwZnpqDOZ6Az+gabZ1OZLVctDUPe75EamKisEhegmmVEDH05hWJ2r6iHmyG0ManSt88kh0c1rEG/YCKcLgKNTaCSjIdQwLRu4rHN5lxQzUtzHPkGMf2bfQkqt436+qquRS/MkYzbfNpNyfhMIi4kEDi15DG9tpgMpiO2TXDFczg3x7i+4487pisajoeUdyelJOVyR4zGetqy0foj8w7el4k3WkskSXmIwbWXxMUGbOysjpffTOswLU0V8H9gfW8QsPPJCG+ww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zva5KCto6d2hrK1bDp/rYd/QjtZ6Sp/TmqOoOuTZ+Ss=;
+ b=cZdHmY6WrLnC6L0WB3bE15CrcV+18Hbt4IGESDXbgksBNs1rniZ92fd+vKtpNPDkZhgwsCi9CB+oYjhJv5ZL9lUgDEQ8bLCIKE6Q+WeCWnspUWX0cmY8GX7pYzJv/ybIL214Hf+4nUpSbAT45pV3ndFnNQIlZ1T3kay8T1T/nU3agNpTh7RTOn023bEopzJHlyPXmI/bbQSh6qKtCFzD4y8aFFhjeJVRrOUmEdsXmUunu0gMfd+dA3UQ5Dw2D+YEPqQFDqeAICQAOx5O7AfLE/oivmMxzEn0S0JXnBeOobzF82sThnyRCaMf77vcAQOeMWb+bQXpFJ8kk1A8T9euqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zva5KCto6d2hrK1bDp/rYd/QjtZ6Sp/TmqOoOuTZ+Ss=;
+ b=blFZWQ8KLXMCH+j0kDXbr77gTPpPE+3fBEq6XUQRMjJ+GF7UTeVVijVkZfq2pkNHyJiB+QroDzfZ5HsKGDzQ0AUTDvu+ksWUZoAxCl/SGpnD7Sap7ckZeoKdkAiWZlldlXqYu31Y4CRGcmepYx+yjHVE+UPEewMEoFwn5jNFaK/maubsas41hAfuTpvyhOFc97T71NgdcNBCwApGv4SrSXH37twP31aHHDio6p1N/XZgrDFVri4k+Ziz8lnFUU+35VeSalnTYrU2VHNGD6Rp5jYZmB6oZeTOBcxgCVUMgTGNKpELbSw0Hb7xmmP7GRFX0HaqYr6cGSr6o/AT5uOhwQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
+ by DB9PR04MB9404.eurprd04.prod.outlook.com (2603:10a6:10:368::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Wed, 2 Sep
+ 2026 08:33:55 +0000
+Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
+ ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0382.007; Wed, 2 Sep 2026
+ 08:33:55 +0000
+Date: Wed, 2 Sep 2026 16:38:01 +0800
+From: Peng Fan <peng.fan@oss.nxp.com>
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Cc: linux-kernel@vger.kernel.org, linux-amarula@amarulasolutions.com,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Peng Fan <peng.fan@nxp.com>, Sebin Francis <sebin.francis@ti.com>,
+	Stephen Boyd <sboyd@kernel.org>, linux-clk@vger.kernel.org
+Subject: Re: [PATCH v11 1/2] clk: validate spread spectrum configuration
+Message-ID: <apfgacuyUC96x44N@shlinux89>
+References: <20260901090912.585681-1-dario.binacchi@amarulasolutions.com>
+ <20260901090912.585681-2-dario.binacchi@amarulasolutions.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901090912.585681-2-dario.binacchi@amarulasolutions.com>
+X-ClientProxiedBy: SG2P153CA0017.APCP153.PROD.OUTLOOK.COM (2603:1096::27) To
+ AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v11 05/12] sched/core: Try to use a preferred CPU in
- is_cpu_allowed
-To: Dietmar Eggemann <dietmar.eggemann@arm.com>,
-        Vincent Guittot <vincent.guittot@linaro.org>,
-        Yury Norov
- <ynorov@nvidia.com>, yury.norov@gmail.com
-Cc: linux-kernel@vger.kernel.org, mingo@kernel.org, peterz@infradead.org,
-        juri.lelli@redhat.com, kprateek.nayak@amd.com, iii@linux.ibm.com,
-        corbet@lwn.net, meted@linux.ibm.com, tglx@kernel.org,
-        gregkh@linuxfoundation.org, pbonzini@redhat.com, seanjc@google.com,
-        vschneid@redhat.com, huschle@linux.ibm.com, rostedt@goodmis.org,
-        maddy@linux.ibm.com, srikar@linux.ibm.com, hdanton@sina.com,
-        chleroy@kernel.org, vineeth@bitbyteword.org, frederic@kernel.org,
-        arighi@nvidia.com, pauld@redhat.com, christian.loehle@arm.com,
-        tj@kernel.org, tommaso.cucinotta@gmail.com, maz@kernel.org,
-        rafael@kernel.org, rdunlap@infradead.org, kernellwp@gmail.com,
-        linux-doc@vger.kernel.org, jgross@suse.com,
-        virtualization@lists.linux.dev, sunlightlinux@gmail.com
-References: <20260825103855.721013-1-sshegde@linux.ibm.com>
- <20260825103855.721013-6-sshegde@linux.ibm.com>
- <8262d2f9-9f2f-4821-8497-991d7c8448a3@arm.com> <apMziCV_8y0xeIBT@yury>
- <53035ba4-53ec-4907-93b8-c8b957d1fa61@linux.ibm.com>
- <CAKfTPtA5Bdw89hezn1wi_p0m0dJgJJ1GYg8H93PsvsMC4bVJxA@mail.gmail.com>
- <apWxmL_brfi4fa4z@yury>
- <CAKfTPtA4zmD=0Es2cXSHAodTZGLJPvv88s0_4QScp745PxFVMw@mail.gmail.com>
- <3368b089-32ce-4521-ab19-e37c9f029b8b@arm.com>
-Content-Language: en-US
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-In-Reply-To: <3368b089-32ce-4521-ab19-e37c9f029b8b@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a97df4d cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=Ikd4Dj_1AAAA:8
- a=GkFGCOBzxNR5m4WF0iYA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: 8tssfpr0h9dxSqX7WbaSdghJxQZ0Rz_x
-X-Proofpoint-ORIG-GUID: u8T0_SYKktJAeabuBoMXzQL2VsvwySgp
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA3NSBTYWx0ZWRfX32WIu2uV1qqk
- 17P634LgQThDeONw1BqMvigu6izyXOvpbBpuRk5LubjiLrJpK5jLB/e1MvgOncYmckmbvGVrWO3
- 3XDVC6+GfF41a13h0PyOhmnuNPrFE6Y=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA3NSBTYWx0ZWRfX8py/LV3n5knt
- 1SYpKMNd2lqq4vwzzuSz+E+EEWzAMxLclJm2auS9xebj0Ub39zxwYjWiDQOLQMP86mbO+5yUej4
- mXB+8RgEubTfoFqiJrkrWJXrixLYypEEAl6q0T8E9vZz3obpabKQCMIt+skapwiVY/+iA/20URa
- E48BuuZ/b9j6BU33azfRfPxHZpjpDePCeqN901qIGqW9THpYmFo5Bemvcu2AUDJl+vunIV65dHm
- 12gZs1qQu8PHqwg+DkaSe50NThlvXUIFNijRpBuaMAZUCNPRRx9ONwRmaqg50XPSCMAn7grsLjO
- qQGROpdJ30PsCjMmSOKt8OZ3SlEd8TEftzfVDFRHKA0tIOMbblGN7Lq8p9UMN4/1z4eY4xBBE3V
- Wf2gLCHn4oROU+Ic2Csb+/qBI0IpBq50+0fT36Ltg8BGKut4dwpp+hAITU4+lP9SVyJRQxfJwYj
- IUCh+KwxM7zT4LKofmA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_01,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
- spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609020075
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|DB9PR04MB9404:EE_
+X-MS-Office365-Filtering-Correlation-Id: dbd6d976-9734-4227-3823-08df08ccecc2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|19092799006|376014|10067099003|6133799003|3023799007|22082099003|18002099003|56012099006|5023799004|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	MJBVEBxCRCsrrjMySMvkn9SDTyFwHYteNHFWpzI6NWr0lCzxytO0BKWBsOfKrVROgGOuVs1q5EbENLGMr2IxqZoAfeLNBtBZOr3f3ZPKjKxiEj2nIKWnomTTmTYlAVL8eugoQ2YRSClCOwLaJ+skjsOKGNFw0VAC+T00cIkoJe90GkoebUqvx0xQrFraMuqoGS3/nNJBecXD3B/EXEKTcW+bxgdJ+SKfYI+unaj+Anbsfm2Sg/G5u5us5a0Q7TSycwcGPZG121IvjXkGaa6S5gT2Ow16hJekDdN70eOSObNIC5bp5duqvNB8OIxw1d2EJZM6hTWJ7YPoEwhuEsuawZOu23OTMFBZbrmT6us+5DXHZ5zu4lPxC8lUuCdsW7L+l6moiCOSzxr96YKMw8AMVoTHTAg4r6hLQz3XpAK0fpjrIOWGeWoqys0M9kkPFxuuK1ZbexW1kyK+WJPdmr1TymC7QDwMu6eIrlVpF8pM2gnzPtIH6j5nD9OADjtXkL4V93mCJ8fpVaANtxYIu6id1wHfwJU4vlVw35hCLwy+xo8e2osNFWDXoy6EUqAZrFXzqNRvM8toQ7XhRwKVuqaWR0tLAakTJ6amkaJo03obADgTjvw6lFayXDVf3y3cgXvhD3qXjDsebfZWz7T7lwATZGGvBSw5Ej/i9KR07lXZ5UA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(19092799006)(376014)(10067099003)(6133799003)(3023799007)(22082099003)(18002099003)(56012099006)(5023799004)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?8b2QZ/9FY8U1KI9Cuyaaer0pa9oK3+bi7vykA935mGNcez123M5+vY+vFfFM?=
+ =?us-ascii?Q?78PaU3dlkNVcZsOaGOARcQ842GIleWpqDt9XUWQpzHaRGr20GwvzzR9wl8Mf?=
+ =?us-ascii?Q?hBLoTV+yf6IIW/DcgTCYgddWg1KkXpvoKggOGFxFwYJISAFkmES22EnBwBXt?=
+ =?us-ascii?Q?lalInU0GOXQ982G9Eq5tlo9nHXsYH/7h/mI3mo5jhYuVeBiK1/BTp2s+nOHP?=
+ =?us-ascii?Q?tWXbm/p5ZraTXrh6D6TLozfvV3RocQw+jm3iaG+fsZpu6B+RC4mnZMKFp+fp?=
+ =?us-ascii?Q?9ErlUHWdpFg6nM3HjYWum+C74LTqfg+pvaVRGS1g26IKsDobhxrGaR7QlGYM?=
+ =?us-ascii?Q?4eQuc8P3gclxOF7CudmJON+si8W77WUYi9Qhe5Ko2rVdV5N3EAGoqQaze4od?=
+ =?us-ascii?Q?zd36e+U/MzjY075UfpZwS3auNwYGN2mYnFjNkWAqPhsZtI49/gZ4X1y1da5+?=
+ =?us-ascii?Q?6pWrrpMWjjmIzYwMcWBho+jCeqyT0ikpGaWJKCyeRPXM0enhNnYjGC4skZrv?=
+ =?us-ascii?Q?skvKAu3xLGtNKdaovPnSeGjckXWoLvRTa/qTZnGdKqm8V2iwKw/y7te11tjI?=
+ =?us-ascii?Q?YlEuYhuzzHE8ewkbjIPz642zanqtCKEUw4IEEzP1t3dr8blfC9eAl68TN1OP?=
+ =?us-ascii?Q?sBkoUUzuVuSrO2z99d/wz5EdKt1Ucb4rRUxm9NIF0JUiYwH1HNlHKxdtH6eX?=
+ =?us-ascii?Q?vjfA2HPuF7unyApfr+E6qeK3Wx/pjLFZ2s4krPdPg2y2+CRUAcnY0nO5ukwO?=
+ =?us-ascii?Q?Ke6L09rR6jdn7fDcroTdV2NHR7fedj3uH3fooPLbuEClsjuEOVxiYtMKAmtj?=
+ =?us-ascii?Q?U0FVC4jEEEhQb/p+uqtf08b3fiNHvXSm3AWjDAb6ArnbgZb6zM2Y9VTf6aFz?=
+ =?us-ascii?Q?dT3GXh05VR1RLQDvEGqW6nnpwE3YBe0A8+c8T8PTbraFx1fXTmY7e2pF5/oO?=
+ =?us-ascii?Q?ht1tOdjh9qbtxlB+rGN7mKYwOadeENF/X8g2a4M2du7W1MNUxWEkhX1qe4kj?=
+ =?us-ascii?Q?dc4jr9UPWL0Dhi7cY2LIk9Lb9V6CWvGN8E9jJfn3PSzcwHWKyvHVObs9G7xp?=
+ =?us-ascii?Q?wqpbwZYJ7fnbY5OZNnW4fwF8tylhqUps15JaPYhZAHERoZTFMbt1F+7sxqmL?=
+ =?us-ascii?Q?7ieVfEIRtJiuhcLQKVcynnIrImKFE8xH3mE+JmtJ2THkHLrNC4jpU7J/tZGn?=
+ =?us-ascii?Q?ONtmcKC3DeieJELG1aK+fsitHxv6lPmV0LsIAs6AVDoeXeW7q2L0l6vQnYi3?=
+ =?us-ascii?Q?VQ8pM6N5iOzVVeyisOoL95vGxgAiDxBb8WstHTA2j0FTPiYoS8u1Ut0d+dig?=
+ =?us-ascii?Q?vlJ98Hvdyd5x7Yd/zs+mT5Hx91VpCC/EzY1ju+DEPBPivS1HDXNvIeBiyGDX?=
+ =?us-ascii?Q?Tyc9Ohnv89xBPvg+WbeFEVRXsjwVjFZMa009WofB8iydIAM4zUuvzv7/nBUt?=
+ =?us-ascii?Q?CpivEaYWuKUZ2BoD+a+cPLMq4yr1zCfBJ7ldkaxLzEGo7S/IN0g7WsOT452r?=
+ =?us-ascii?Q?tyGyHYcDhyPMQY4eoFh1iprzeJOcxqmDg2N2GxtqWrJnkZ0I9vyWmTe877c4?=
+ =?us-ascii?Q?EJ2pfeDMhHu75bkqUXdCGvtpbK9pMvNzZ3PxgByK4TFX3dSaOx4d0RyDQR6K?=
+ =?us-ascii?Q?KyvyGPP95E75h/PtNqzCaHECzXScsFVZxlT2ypJLB2Q+kEtcwtCJbeIduKro?=
+ =?us-ascii?Q?2vlfOu4hARNnu/jRrOVM5VBKOCvzsogWFBXAfxK3N+zZnTWS6Hh33QyCnSgR?=
+ =?us-ascii?Q?X6CretR17C24INK7fUU09MlbkRmuRwBYVQ7KgOAw0fA3jKkaWkBp?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dbd6d976-9734-4227-3823-08df08ccecc2
+X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 08:33:54.9700
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8qao0TgJQ/EXUcw3CGita0k0C0ixZZ0v3a4UDPkjvyTwz/Cy7m6lqZZc74QXA6SIaycnZnI0aLiePAEmAN1HONcDZGm/iVpnm+fCIZIYl2jv8Dt5rpMOzeMIPCEwtJio
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB9404
 
-
-On 9/1/26 5:51 PM, Dietmar Eggemann wrote:
-> On 01.09.26 08:21, Vincent Guittot wrote:
->> On Mon, 31 Aug 2026 at 18:54, Yury Norov <ynorov@nvidia.com> wrote:
->>>
->>> On Mon, Aug 31, 2026 at 05:09:41PM +0200, Vincent Guittot wrote:
->>>
->>>>> Dietmar/Vincent,
->>>>> Do you think it makes sense to enable the driver on ARM64 now?
->>>>> Or you think it is better to delay it and once the feature is stable
->>>>> ARM ecosystem can enable it?
->>>>
->>>> It's always better to support all arch by default, unless something is
->>>> missing which is not the case here.
->>>
->>> ARM64 testing is obviously missed.
->>
->> But the cpumask is already available not like if you need to create a new one
+On Tue, Sep 01, 2026 at 11:05:17AM +0200, Dario Binacchi wrote:
+>The spread spectrum configuration is passed to the provider's
+>set_spread_spectrum() callback without any validation, as clk-conf.c
+>only skips all-zero triplets from "assigned-clock-sscs". An invalid
+>device tree can hand providers a zero modulation frequency or a spread
+>ratio above 100%, and each provider would have to add the same checks
+>to protect e.g. divisions in its rate computations.
+>
+>Fixes: c86814e70390 ("clk: Introduce clk_hw_set_spread_spectrum")
+>Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+>---
+>
+>(no changes since v1)
+>
+> drivers/clk/clk.c | 14 ++++++++++++++
+> 1 file changed, 14 insertions(+)
+>
+>diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
+>index fef87167a60b..208caf60eeb5 100644
+>--- a/drivers/clk/clk.c
+>+++ b/drivers/clk/clk.c
+>@@ -2851,6 +2851,20 @@ int clk_hw_set_spread_spectrum(struct clk_hw *hw, const struct clk_spread_spectr
+> 	if (!hw)
+> 		return 0;
 > 
-> IMHO, when testing the steal_governor on arm64 w/o
-> `allow_mismatched_32bit_el0`, I wouldn't expect much difference in this
-> respect compared to the architectures already tested.
+>+	switch (ss_conf->method) {
+>+	case CLK_SPREAD_NO:
+>+		break;
+>+	case CLK_SPREAD_CENTER:
+>+	case CLK_SPREAD_UP:
+>+	case CLK_SPREAD_DOWN:
+>+		if (!ss_conf->modfreq_hz || !ss_conf->spread_bp ||
+>+		    ss_conf->spread_bp > 10000)
+>+			return -EINVAL;
+
+I think sashiko comment is wrong.
+In [1], we reached an agreement that spread "in permyriad, i.e. 0.01%".
+So the input value must be the real value * 10000, saying 0.01% * 10000
+
+[1] https://github.com/devicetree-org/dt-schema/pull/154
+
+Regards
+Peng
+
+>+		break;
+>+	default:
+>+		return -EINVAL;
+>+	}
+>+
+> 	core = hw->core;
 > 
-> Also, AFAIK, `allow_mismatched_32bit_el0` was mainly relevant for
-> Android devices up to Android 13 that supported 32-bit userspace, so I
-> wouldn't expect it to be commonly enabled on recent devices.
-
-Ok. So it is a narrow window in a relatively older versions.
-
-> 
-> As Vincent pointed out, `task_cpu_possible_mask(p)` (which defaults to
-> `cpu_possible_mask`) is already used in `kernel/sched/core.c` and
-> `kernel/cgroup/cpuset.c` to support `allow_mismatched_32bit_el0`.
-> 
-
-Based on the discussion so far, I think we can keep the feature generic
-for now. If a concrete architecture- or hypervisor-specific limitation is
-identified and cannot be addressed in the generic code, then we can add
-Kconfig gating. So far, there is no such case being identified and current
-generic version is in good shape IMHO.
-
-I have added cpumask_intersects_and and used that for valid cpu check.
-Please see the v11->v12 diff attached at the end.
-
-cpumask_intersects_and could also be used in other places such as
-drivers/cpuidle/coupled.c:cpuidle_coupled_any_pokes_pending.
-Patch for that will be sent separately.
-
-If any of the above doesn't make sense, Please let me know.
-I am planning to send v12 post running the workloads and sanity checks.
-
-I have run cpumask_intersects vs cpumask_intersects_and with the workloads
-I am currently running and did not observe a measurable difference.
-
----
-  include/linux/bitmap.h  | 14 ++++++++++++++
-  include/linux/cpumask.h | 18 ++++++++++++++++++
-  kernel/sched/core.c     | 16 ++--------------
-  lib/bitmap.c            | 17 +++++++++++++++++
-  4 files changed, 51 insertions(+), 14 deletions(-)
-
-diff --git a/include/linux/bitmap.h b/include/linux/bitmap.h
-index b007d54a9036..e595d189047b 100644
---- a/include/linux/bitmap.h
-+++ b/include/linux/bitmap.h
-@@ -52,6 +52,7 @@ struct device;
-   *  bitmap_complement(dst, src, nbits)          *dst = ~(*src)
-   *  bitmap_equal(src1, src2, nbits)             Are *src1 and *src2 equal?
-   *  bitmap_intersects(src1, src2, nbits)        Do *src1 and *src2 overlap?
-+ *  bitmap_intersects_and(src1, src2, src3, nbits) Do *src1, *src2 and *src3 overlap?
-   *  bitmap_subset(src1, src2, nbits)            Is *src1 a subset of *src2?
-   *  bitmap_empty(src, nbits)                    Are all bits zero in *src?
-   *  bitmap_full(src, nbits)                     Are all bits set in *src?
-@@ -181,6 +182,9 @@ void __bitmap_replace(unsigned long *dst,
-  		      const unsigned long *mask, unsigned int nbits);
-  bool __bitmap_intersects(const unsigned long *bitmap1,
-  			 const unsigned long *bitmap2, unsigned int nbits);
-+bool __bitmap_intersects_and(const unsigned long *bitmap1,
-+			     const unsigned long *bitmap2,
-+			     const unsigned long *bitmap3, unsigned int nbits);
-  bool __bitmap_subset(const unsigned long *bitmap1,
-  		     const unsigned long *bitmap2, unsigned int nbits);
-  unsigned int __bitmap_weight(const unsigned long *bitmap, unsigned int nbits);
-@@ -442,6 +446,16 @@ bool bitmap_intersects(const unsigned long *src1, const unsigned long *src2, uns
-  		return __bitmap_intersects(src1, src2, nbits);
-  }
-  
-+static __always_inline
-+bool bitmap_intersects_and(const unsigned long *src1, const unsigned long *src2,
-+			   const unsigned long *src3, unsigned int nbits)
-+{
-+	if (small_const_nbits(nbits))
-+		return ((*src1 & *src2 & *src3) & BITMAP_LAST_WORD_MASK(nbits)) != 0;
-+	else
-+		return __bitmap_intersects_and(src1, src2, src3, nbits);
-+}
-+
-  static __always_inline
-  bool bitmap_subset(const unsigned long *src1, const unsigned long *src2, unsigned int nbits)
-  {
-diff --git a/include/linux/cpumask.h b/include/linux/cpumask.h
-index 34d08a3d80e1..d7f59bf32d32 100644
---- a/include/linux/cpumask.h
-+++ b/include/linux/cpumask.h
-@@ -833,6 +833,24 @@ bool cpumask_intersects(const struct cpumask *src1p, const struct cpumask *src2p
-  						      small_cpumask_bits);
-  }
-  
-+/**
-+ * cpumask_intersects_and - (*src1p & *src2p & *src3p) != 0
-+ * @src1p: the first input
-+ * @src2p: the second input
-+ * @src3p: the third input
-+ *
-+ * Return: true if AND of the three cpumasks is non-empty,
-+ *	   otherwise false
-+ */
-+static __always_inline
-+bool cpumask_intersects_and(const struct cpumask *src1p,
-+			    const struct cpumask *src2p,
-+			    const struct cpumask *src3p)
-+{
-+	return bitmap_intersects_and(cpumask_bits(src1p), cpumask_bits(src2p),
-+				 cpumask_bits(src3p), small_cpumask_bits);
-+}
-+
-  /**
-   * cpumask_subset - (*src1p & ~*src2p) == 0
-   * @src1p: the first input
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index e73d2dd997b3..0dd1d92a23db 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -2496,9 +2496,6 @@ static inline bool rq_has_pinned_tasks(struct rq *rq)
-  
-  static inline bool task_can_sched_on_preferred(int cpu, struct task_struct *p)
-  {
--	const struct cpumask *valid_mask;
--	int i;
--
-  	if (cpu_preferred(cpu))
-  		return false;
-  
-@@ -2510,17 +2507,8 @@ static inline bool task_can_sched_on_preferred(int cpu, struct task_struct *p)
-  	if (unlikely(!cpumask_test_cpu(task_cpu(p), p->cpus_ptr)))
-  		return false;
-  
--	valid_mask = task_cpu_possible_mask(p);
--	if (likely(valid_mask == cpu_possible_mask))
--		return cpumask_intersects(p->cpus_ptr, cpu_preferred_mask);
--
--	/* Tasks with arch-specific CPU masks. e.g. 32-bit tasks on arm64. */
--	for_each_cpu_and(i, p->cpus_ptr, cpu_preferred_mask) {
--		if (cpumask_test_cpu(i, valid_mask))
--			return true;
--	}
--
--	return false;
-+	return cpumask_intersects_and(p->cpus_ptr, cpu_preferred_mask,
-+				      task_cpu_possible_mask(p));
-  }
-  
-  /*
-diff --git a/lib/bitmap.c b/lib/bitmap.c
-index b9bfa157e095..34e202800c5d 100644
---- a/lib/bitmap.c
-+++ b/lib/bitmap.c
-@@ -308,6 +308,23 @@ bool __bitmap_intersects(const unsigned long *bitmap1,
-  }
-  EXPORT_SYMBOL(__bitmap_intersects);
-  
-+bool __bitmap_intersects_and(const unsigned long *bitmap1,
-+			     const unsigned long *bitmap2,
-+			     const unsigned long *bitmap3, unsigned int bits)
-+{
-+	unsigned int k, lim = bits / BITS_PER_LONG;
-+
-+	for (k = 0; k < lim; ++k)
-+		if (bitmap1[k] & bitmap2[k] & bitmap3[k])
-+			return true;
-+
-+	if (bits % BITS_PER_LONG)
-+		if ((bitmap1[k] & bitmap2[k] & bitmap3[k]) & BITMAP_LAST_WORD_MASK(bits))
-+			return true;
-+	return false;
-+}
-+EXPORT_SYMBOL(__bitmap_intersects_and);
-+
-  bool __bitmap_subset(const unsigned long *bitmap1,
-  		     const unsigned long *bitmap2, unsigned int bits)
-  {
--- 
-2.52.0
-
-
-
+> 	clk_prepare_lock();
+>-- 
+>2.43.0
+>
+>
