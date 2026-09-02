@@ -1,187 +1,176 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EEA6381E8C
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:39:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C2DD37475C
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:41:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788370773; cv=none; b=GtsGo8PPsANX8TFridLWRkB4zf6pdBqRXB/uPROLbDo7Z5LzuJz9K/pX9evhzjWOEFUtT6sSCTAPV9sNZ8n+vDA17yeawB4gVT1N7IaTAdMWUTvwb+GoLX4WAOOW/gDs1AYuAq2kKZiCP1ydhpGxl3NqFLWGcwxbvaVWt+SnCJw=
+	t=1788370869; cv=none; b=IDaqFR8BPZA/n1mbDz2oICyaE0anuUame2pRs1Ke0kEQW9K2TPMDFe7gYe2HsUQL7iWV7ZWCjsUvUTKCEUaRJu9j1cP9cNPzTCS0rf8qLbVZlNJxQ6+MlIykSwuSXINaocfbKKGbQhIkOUuOkUViPxZGZXLa5s72U3h2dpftsZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788370773; c=relaxed/simple;
-	bh=3dbmWb2Qm1pKmZpCcrRSZOxmIsBhjnhrHRw39IOonQE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LyGfE5I34Uixf5Da6g1UCHKPr3Irs0mThlWJA/3k4UTd7/ZffZF4Y866peVj8sOBPMrCypYp+W9fklpfK+uNVCM72Iux3zgnf0yLOMTPuyNDMYmknCmhjm5OzfJ7tIbGp5EtI4IN0cXYGse2pIyjLGKtwr/pCwGD5l4NuzB5mJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ij1cdXk8; arc=none smtp.client-ip=209.85.210.179
+	s=arc-20240116; t=1788370869; c=relaxed/simple;
+	bh=Gjd6wqZFnYQxpErR0uM1mtt2ckVzCfL5kzGfW7N3BnA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QwwuOe8c3w7pfZnIKNhC+AqCFKoyY/QahoLiZSSyIycOS0u/VK2rkmFoARd7BLRQ1i3rvsRqhgFio/YhyXPPCYu35KAohlFiXBmG80TbBXuMZVUL4ECYzKPLnYqNc9bIAIDxCLmJjJwK2EgV9NdYf11wK70FZ+HmT2YW+i/nK/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TJXqsQ2r; arc=none smtp.client-ip=209.85.214.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ij1cdXk8"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-84e84a6c4bfso114586b3a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:39:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TJXqsQ2r"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d94c868ea5so14285755ad.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:41:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788370771; x=1788975571; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RFloIhfQ4q+BWHAjn27okStJlZfzSzoO/QTCMXzRVxc=;
-        b=ij1cdXk83itXATym3QqBjR99ywjknx5H0cTcUuLztJXdIH/WwTrSb8v5kLHiSSlmzN
-         DNC7XAxPcZ1mLKbMyG+wELujpeRLPwi60Z1hpAwij2hWbyZlFeTQIFYXpZ2aohMJCYqv
-         FoeI02GY4y/RuRNEymSa1KUnrogrF0+94iyaUTw/TQTuPkffNLVDG2w3+YgMdlV4XzfK
-         iiGdb3TAoLfaDHsuhLNb9NvUw2jpuvVFnUXbETCu4j5LOh8LcEz6xCLPhY1BuSGhhKj2
-         KKuPbc1oTHewmk6knEj3N5UMidwmtZx786UKeSG7OPQ9kt6DDpoSIcMjLm4Ea5oGWkUt
-         VLBw==
+        d=gmail.com; s=20251104; t=1788370867; x=1788975667; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5pJGPs1wZgHUHcoR+U13MU41ODhs6eu+XJDReixEG3Y=;
+        b=TJXqsQ2rRvro0cMMbF1Dsd5JWpxH12bgMzIw8HhQwvRw1X3e9Gh5F60jwtxdCzBZ1+
+         JXWjuMuxUQwmIWfZpcjxgJTYJiOGdK/CxXQw2lB95zEUKXhAtVwNx3EVjn3fNGttGxOb
+         4GLP0rA0m+hmrr6CZ3PR6OOip6kLOxYGLi8REekugmePkRtB+2HvW70NlJbCSviLQ7GE
+         xulbHyXkHPVSPHJa8x9krgYBXtars5UV0k4NFFgYlbdoiCjtGAeHqefgTnWKyaGLdmI+
+         T7r3qEQ8rahcP03Pvoo0MEUaCY9sDfDUiFTrOq8Kd4+fUJEBxB52bRP+7gP7WX6iUEmc
+         N5RA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788370771; x=1788975571;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788370867; x=1788975667;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RFloIhfQ4q+BWHAjn27okStJlZfzSzoO/QTCMXzRVxc=;
-        b=D8o98Z9PbY052xpFwwfFEtIRcv3ZqRDqgRIMHZw9ctb2iMcpfVElNjI3BVB5i/YbtQ
-         /+5tGOvfWaLcSsXB7YvS33PBzvu45kxbpC6DzVuGhRvKTlMkt44hrZN+2MmuA4pf4jG0
-         beUc3kbNyVi1HpfZFz7oPcUdqiBP/yTdlFSOaHm96l5R6RLX8m0DwZLZFvjCdOLCrtw4
-         B3GgML077QT5wPhqDiU8l5VEpYxU7ZAvdnXad1VFx8a8eYAbqgxjfCg+qxR6fu9JexTm
-         pN9SH1/t5l05WSE1/L/ocZEMkUBVlnHWIarlPCrH6Gz/VoFADcMq6PLkKp6xIUJxqESO
-         Z2rA==
-X-Forwarded-Encrypted: i=1; AKwUvBytSgKyLBir9JCrcpRMQtgIsJCZKzMOAFI4OYyR1Uw0zqyRQ4jDkkc4VALDdxxNecRx3rRiHT99hQWn+AA=@vger.kernel.org
-X-Gm-Message-State: AFuF++m4wi2iXqmoMm9oxkvtjYB3/sXhd5IqxKCNKtqejgbO01UvuTis
-	mob+COTys6TDgFzFv9Y6sJ9apPnB2KLGtpGBXntZEgkmZDtpMUqa/Sk/TyeFH+zD
-X-Gm-Gg: AYBFou2EarU5GVy/X3At6gz9DmCy52/qcG7+iHFJnl/jrr/ZCcEBhnwDWJ/0q7ViisJ
-	K78hkLMmd2KKkpoC3OYHN/HwLjTagI7yeWs9qgAlKTvb7htk3CATwW+iMRC2hgAGvFj9wntkjsd
-	kjeiyQl60WSNCte0OQJ9mxjciyVRs+DJmgzCUB+7owk96I2nF9F6HgedvWuUHAJDkB3FK1TY1nR
-	61JEhCmFsgIq8DCwRWl9agUkYXUmf2S1BGHgpbxOWtwyDbjsSyyfwYBxLxvfwGHx+F3x21o/QQn
-	/UKInBEGqm5x/1k0N9dfFjjZMZH+ibJ0knjCxfZEsMER3OIu3G4xrfjoeVi7zrVjkuQ5z3nOP8s
-	pvtoIESq//uM57TJt5zjdgMlJzFlWSRZ1Y6cZ1IAzLoxlmZb00gX3mxvKWTnwZG6xGAeWY50KuR
-	2czKjzSGrWjhm9RwpgUkRXYkHccsGe039kUhbnhVjxGHKRaHjWU2Z8/oRtUZVB9Z0J/Qj2V4ygL
-	7K1tmoBARvr73S+jpeSQZMGlOmyqaP3FrW25Rs=
-X-Received: by 2002:a05:6a00:4187:b0:84f:6f7e:493 with SMTP id d2e1a72fcca58-85ffb4b6d31mr607749b3a.3.1788370771012;
-        Wed, 02 Sep 2026 10:39:31 -0700 (PDT)
-Received: from DESKTOP-PKFJL56.localdomain (36-234-4-160.dynamic-ip.hinet.net. [36.234.4.160])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db23f7bccsm1863255b3a.10.2026.09.02.10.39.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 10:39:30 -0700 (PDT)
-From: Hank Yang <s950343@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Hank Yang <s950343@gmail.com>
-Subject: [PATCH] staging: rtl8723bs: rename CamelCase variables in rtw_mlme.c
-Date: Thu,  3 Sep 2026 01:39:01 +0800
-Message-ID: <20260902173901.50435-1-s950343@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=5pJGPs1wZgHUHcoR+U13MU41ODhs6eu+XJDReixEG3Y=;
+        b=XHVjnvcc4PK7OK0kYrV8GePFTk/W/ezs4+/JRQBcV0gFbI3pn6WMsxsbH3Zuz1dCpZ
+         D2sCebM64OxLafySnJgl7b2JE7S73jeD95/6j+hOhoz1DAdmFinK6Xzk+S/ucTGTIVtf
+         fxr7RZU7K6sbsnYdaTlBTPUA1oIA2Kh2kpVj5Xha0EvtOKKwCVs6WZcIzokCwExVFZpI
+         yarWhBC7Av/UJC94Nxgy4gFFpgyKvCSECOKrIugysLgUkSaiWz48HjmnJ9Lpw9RsCVKj
+         rT7SWd/Zkf6TD6ao9ZU790Y3RIpwPM84TEoeENsocvmRJGzGGzcOvB2X+VQBfP4XBTlx
+         /eLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwB089Lj85rdJ5wCxFoLjrOqcj1AO4MIN4ZVsrqbM5jzwzbIYl4YAwYw2pcSceqnXgI9fsTAQZ+HHdaxQw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kEuAXiGOs1gENXVSA9r2Fe7W/DUzNCPaM/5QjLZulL+UxPwpNb
+	LQwmD0jgCrmZvve9MeomIqgurqXB3vVIdRcxcVEsgRCzLNo5upBsOZb3
+X-Gm-Gg: AYBFou3BY6/VIE4qiS2FUqBK8nd/hPVwo5lSAMfacjZy0Htb7l1L4k7GWR0ZMZCTVpy
+	76sJ5AiDzILQ0miHrhLRxh2jtcubb4CubWkyv5TRIdW7w1erh3Q3Lrwc+kRpFY+PBksxn/aIWAO
+	psk8I4vO/Meto9G10hlez/ByUtEu91tCdWLHGc2TAfPqZ8bFw+RPdVApwIp2a8wZPBswPU5E98B
+	ln6lwMSNcLpgwRzLBp2syRlBOwpX25YhrzW95RMRllYWbrbFJUNMrIki8lp2/yxdGSVlvcs2Gj3
+	Ud2vy9FDAUAqWRV2oiV7t/TaI3uhzzOTXtT/dNb9wUou/u7UQ19FC2hEt6zKh4KGXc9ZUiyAqcP
+	sJoHu/SSXC8QWDpYKTWsOLhrRV809JamED+ifSfcZSNUjEzZ8Vkfly32AS0uRfjiJ9gVMcDU6RO
+	Fw+MT255Z9jN8ANL/jEFqvxiTHXC9qptUiBG7kg+nk6igbj3ApXbtdXHxx94aMWTj/EtNB4sAhM
+	HmvT5gC80dRQD2fMEsAIlXQw5TSP28bI3aYpb8=
+X-Received: by 2002:a17:90b:46:b0:38e:ad9d:1161 with SMTP id 98e67ed59e1d1-39aedbfe60amr10524568a91.0.1788370866608;
+        Wed, 02 Sep 2026 10:41:06 -0700 (PDT)
+Received: from ?IPV6:2406:7400:56:e503:ad72:fda5:83e8:be95? ([2406:7400:56:e503:ad72:fda5:83e8:be95])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1430e9ec994sm8476405c88.1.2026.09.02.10.41.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 10:41:06 -0700 (PDT)
+Message-ID: <d1b78cdd-33f6-447c-8a0d-ce79fe1e6c28@gmail.com>
+Date: Wed, 2 Sep 2026 23:10:57 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] zstd: use cpu_feature_enabled() for in-kernel BMI2
+ dispatch
+To: Usama Arif <usama.arif@linux.dev>, dsterba@suse.com,
+ linux-kernel@vger.kernel.org, terrelln@fb.com, terrelln@meta.com,
+ linux-crypto@vger.kernel.org, yosry@kernel.org, ebiggers@kernel.org,
+ torvalds@linux-foundation.org
+Cc: hannes@cmpxchg.org, nphamcs@gmail.com, chengming.zhou@linux.dev,
+ shakeel.butt@linux.dev, kernel-team@meta.com
+References: <20260901110850.1805747-1-usama.arif@linux.dev>
+ <20260901110850.1805747-3-usama.arif@linux.dev>
+Content-Language: en-US
+From: Dhruva G <goledhruva@gmail.com>
+In-Reply-To: <20260901110850.1805747-3-usama.arif@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Rename several CamelCase variables to snake_case to comply with
-kernel coding style, as flagged by checkpatch.pl:
+Hi Usama,
 
-  CHECK: Avoid CamelCase: <iEntry>
-  CHECK: Avoid CamelCase: <backupPMKIDList>
-  CHECK: Avoid CamelCase: <backupPMKIDIndex>
-  CHECK: Avoid CamelCase: <backupTKIPCountermeasure>
-  CHECK: Avoid CamelCase: <backupTKIPcountermeasure_time>
+On 01-09-2026 16:37, Usama Arif wrote:
+> Zstd's dynamic BMI2 implementation probes CPUID when a compression or
+> decompression context is initialized, stores the result in the context,
+> and tests that value at every dispatch site. In normal kernel builds this
+> bypasses the x86 feature policy and uses ordinary runtime branches instead
+> of allowing x86 alternatives to resolve the feature check at boot.
+> 
+> Add ZSTD_USE_BMI2() and use it at every runtime BMI2/default selector. For
+> normal x86 kernel objects, the predicate expands directly to
+> cpu_feature_enabled(X86_FEATURE_BMI2). When dynamic BMI2 dispatch is not
+> available it is false; other builds retain the caller-provided flag. Keep
+> the existing HUF conditional layout because DYNAMIC_BMI2 also controls
+> whether target-attributed variants are emitted.
+> 
+> Add the matching ZSTD_SET_BMI2() abstraction for context initialization.
+> Normal x86 kernel objects and builds without dynamic BMI2 do not cache CPU
+> state. Other builds with dynamic dispatch, including preboot, retain the
+> existing behavior. Keep the BMI2 members in the context structures so
+> their layouts do not change, and make the accessors return zero when
+> cached state is unused.
+> 
+> Select the normal-kernel policy in zstd_deps.h. Builds which define
+> __DISABLE_EXPORTS, including the x86 preboot decompressor, retain the existing
+> CPUID-backed dispatch because the normal alternatives infrastructure is not
+> available there.
+> 
+> A 4 KiB zstd-generic crypto_acomp benchmark in a one-vCPU KVM guest gave
+> these median results:
+> 
+>                         Before      After     Change
+>   Compression      16,634 ns/op  13,394 ns/op  -19.5%
+>   Decompression     3,480 ns/op     963 ns/op  -72.3%
+> 
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> ---
 
-Signed-off-by: Hank Yang <s950343@gmail.com>
----
- drivers/staging/rtl8723bs/core/rtw_mlme.c | 36 +++++++++++------------
- 1 file changed, 18 insertions(+), 18 deletions(-)
+These comments still say BMI2 support is determined once per context:
+- lib/zstd/compress/zstd_compress_internal.h:473
+- lib/zstd/decompress/zstd_decompress_internal.h:159
 
-diff --git a/drivers/staging/rtl8723bs/core/rtw_mlme.c b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-index 179061239a6f..35729e61cd07 100644
---- a/drivers/staging/rtl8723bs/core/rtw_mlme.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_mlme.c
-@@ -1080,12 +1080,12 @@ static void rtw_joinbss_update_network(struct adapter *adapter, struct wlan_netw
- 	rtw_update_ht_cap(adapter, cur_network->network.ies, cur_network->network.ie_length, (u8) cur_network->network.configuration.ds_config);
- }
- 
--static struct rt_pmkid_list backupPMKIDList[NUM_PMKID_CACHE];
-+static struct rt_pmkid_list backup_pmkid_list[NUM_PMKID_CACHE];
- void rtw_reset_securitypriv(struct adapter *adapter)
- {
--	u8 backupPMKIDIndex = 0;
--	u8 backupTKIPCountermeasure = 0x00;
--	u32 backupTKIPcountermeasure_time = 0;
-+	u8 backup_pmkid_index = 0;
-+	u8 backup_tkip_countermeasure = 0x00;
-+	u32 backup_tkip_countermeasure_time = 0;
- 	struct mlme_ext_priv *pmlmeext = &adapter->mlmeextpriv;
- 
- 	spin_lock_bh(&adapter->security_key_mutex);
-@@ -1098,10 +1098,10 @@ void rtw_reset_securitypriv(struct adapter *adapter)
- 		/*  Backup the btkip_countermeasure information. */
- 		/*  When the countermeasure is trigger, the driver have to disconnect with AP for 60 seconds. */
- 
--		memcpy(&backupPMKIDList[0], &adapter->securitypriv.PMKIDList[0], sizeof(struct rt_pmkid_list) * NUM_PMKID_CACHE);
--		backupPMKIDIndex = adapter->securitypriv.PMKIDIndex;
--		backupTKIPCountermeasure = adapter->securitypriv.btkip_countermeasure;
--		backupTKIPcountermeasure_time = adapter->securitypriv.btkip_countermeasure_time;
-+		memcpy(&backup_pmkid_list[0], &adapter->securitypriv.PMKIDList[0], sizeof(struct rt_pmkid_list) * NUM_PMKID_CACHE);
-+		backup_pmkid_index = adapter->securitypriv.PMKIDIndex;
-+		backup_tkip_countermeasure = adapter->securitypriv.btkip_countermeasure;
-+		backup_tkip_countermeasure_time = adapter->securitypriv.btkip_countermeasure_time;
- 
- 		/* reset RX BIP packet number */
- 		pmlmeext->mgnt_80211w_IPN_rx = 0;
-@@ -1110,10 +1110,10 @@ void rtw_reset_securitypriv(struct adapter *adapter)
- 
- 		/*  Added by Albert 2009/02/18 */
- 		/*  Restore the PMK information to securitypriv structure for the following connection. */
--		memcpy(&adapter->securitypriv.PMKIDList[0], &backupPMKIDList[0], sizeof(struct rt_pmkid_list) * NUM_PMKID_CACHE);
--		adapter->securitypriv.PMKIDIndex = backupPMKIDIndex;
--		adapter->securitypriv.btkip_countermeasure = backupTKIPCountermeasure;
--		adapter->securitypriv.btkip_countermeasure_time = backupTKIPcountermeasure_time;
-+		memcpy(&adapter->securitypriv.PMKIDList[0], &backup_pmkid_list[0], sizeof(struct rt_pmkid_list) * NUM_PMKID_CACHE);
-+		adapter->securitypriv.PMKIDIndex = backup_pmkid_index;
-+		adapter->securitypriv.btkip_countermeasure = backup_tkip_countermeasure;
-+		adapter->securitypriv.btkip_countermeasure_time = backup_tkip_countermeasure_time;
- 
- 		adapter->securitypriv.ndisauthtype = Ndis802_11AuthModeOpen;
- 		adapter->securitypriv.ndisencryptstatus = Ndis802_11WEPDisabled;
-@@ -2013,7 +2013,7 @@ static int SecIsInPMKIDList(struct adapter *Adapter, u8 *bssid)
- /*  13th element in the array is the IE length */
- /*  */
- 
--static int rtw_append_pmkid(struct adapter *Adapter, int iEntry, u8 *ie, uint ie_len)
-+static int rtw_append_pmkid(struct adapter *Adapter, int pmkid_idx, u8 *ie, uint ie_len)
- {
- 	struct security_priv *psecuritypriv = &Adapter->securitypriv;
- 
-@@ -2023,7 +2023,7 @@ static int rtw_append_pmkid(struct adapter *Adapter, int iEntry, u8 *ie, uint ie
- 		ie_len++;
- 		ie[ie_len] = 0;	/* PMKID count = 0x0100 */
- 		ie_len++;
--		memcpy(&ie[ie_len], &psecuritypriv->PMKIDList[iEntry].PMKID, 16);
-+		memcpy(&ie[ie_len], &psecuritypriv->PMKIDList[pmkid_idx].PMKID, 16);
- 		ie_len += 16;
- 		ie[13] += 18;/* PMKID length = 2+16 */
- 	}
-@@ -2067,7 +2067,7 @@ signed int rtw_restruct_sec_ie(struct adapter *adapter, u8 *in_ie, u8 *out_ie, u
- {
- 	u8 authmode = 0x0;
- 	uint ielength;
--	int iEntry;
-+	int pmkid_idx;
- 
- 	struct mlme_priv *mlme_priv = &adapter->mlmepriv;
- 	struct security_priv *psecuritypriv = &adapter->securitypriv;
-@@ -2092,12 +2092,12 @@ signed int rtw_restruct_sec_ie(struct adapter *adapter, u8 *in_ie, u8 *out_ie, u
- 		rtw_report_sec_ie(adapter, authmode, psecuritypriv->supplicant_ie);
- 	}
- 
--	iEntry = SecIsInPMKIDList(adapter, mlme_priv->assoc_bssid);
--	if (iEntry < 0)
-+	pmkid_idx = SecIsInPMKIDList(adapter, mlme_priv->assoc_bssid);
-+	if (pmkid_idx < 0)
- 		return ielength;
- 
- 	if (authmode == WLAN_EID_RSN)
--		ielength = rtw_append_pmkid(adapter, iEntry, out_ie, ielength);
-+		ielength = rtw_append_pmkid(adapter, pmkid_idx, out_ie, ielength);
- 
- 	return ielength;
- }
--- 
-2.43.0
+>  lib/zstd/common/compiler.h                    | 12 ++++++++++++
+>  lib/zstd/common/entropy_common.c              | 12 ++++++------
+>  lib/zstd/common/fse_decompress.c              |  7 ++++---
+>  lib/zstd/common/zstd_deps.h                   |  5 +++++
+>  lib/zstd/compress/huf_compress.c              |  6 +++++-
+>  lib/zstd/compress/zstd_compress.c             | 12 ++++++------
+>  lib/zstd/compress/zstd_compress_internal.h    |  9 +++++++++
+>  lib/zstd/compress/zstd_compress_sequences.c   |  8 +++++---
+>  lib/zstd/compress/zstd_compress_superblock.c  |  2 +-
+>  lib/zstd/decompress/huf_decompress.c          | 18 +++++++++---------
+>  lib/zstd/decompress/zstd_decompress.c         |  4 +---
+>  lib/zstd/decompress/zstd_decompress_block.c   | 19 +++++++------------
+>  .../decompress/zstd_decompress_internal.h     |  2 +-
+>  13 files changed, 71 insertions(+), 45 deletions(-)
+> 
+> diff --git a/lib/zstd/common/compiler.h b/lib/zstd/common/compiler.h
+> index dc9bd15e174e9..47f6c0372c58c 100644
+> --- a/lib/zstd/common/compiler.h
+> +++ b/lib/zstd/common/compiler.h
+> @@ -14,6 +14,7 @@
+>  
+>  #include <linux/types.h>
+>  
+> +#include "zstd_deps.h"
+>  #include "portability_macros.h"
+>  
+>  /*-*******************************************************
+> @@ -96,6 +97,17 @@
+>   */
+>  #define BMI2_TARGET_ATTRIBUTE TARGET_ATTRIBUTE("lzcnt,bmi,bmi2")
+>  
+> +#if !DYNAMIC_BMI2
+> +#  define ZSTD_USE_BMI2(bmi2) 0
+> +#  define ZSTD_SET_BMI2(state, value) do { } while (0)
+> +#elif defined(ZSTD_USE_KERNEL_CPU_FEATURES)
+> +#  define ZSTD_USE_BMI2(bmi2) cpu_feature_enabled(X86_FEATURE_BMI2)
+
+Here, we do not include <asm/cpufeature.h>. Instead, every current .c user includes that header separately.
+This works today, but it maybe fragile: the next user of ZSTD_USE_BMI2() can fail to compile unless they know
+about this hidden requirement. 
+Do you think perhaps we should provide that here in this header itself?
+
+With that, feel free to add
+
+Reviewed-by: Dhruva Gole <goledhruva@gmail.com>
 
