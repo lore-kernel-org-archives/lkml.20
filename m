@@ -1,106 +1,156 @@
-Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com [209.85.208.172])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B753839A3
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:04:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788372277; cv=none; b=A5+th5XIet6RqlAZxvbgTCLEeUDH/zMerwjZI1KhH/ZH82vNwb52ScjjybwsL1DVAkIj6JQ0VXVubEdv+LKI0yJSVvSuzgmqOdfxyHFOsBSk/V2iGeANxkw04+ZIH9qyLfJPNBSA2pKftHugPsyQh7F045nViw/tucuO9AVy5xY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788372277; c=relaxed/simple;
-	bh=CfTWnNxSJggP9yjaDpB3r0Rkf7dLaPcJdZaM28btY4M=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AESPnr7Frgqi3h7npgdeG7PYhjvl0in2d6Jvhjsr+g9+qRg5aciofA4ABbVXzfaw5sBmq4hWtiZpOufpfNG3NPBNX6d7/CgooHhK4Q93GolKp8m/EvYYIAf2ToCAiKCE4KE0NEIOAcjtreJbis4gCcUSaPHs0IkJSKZ/6h/EDnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B3L78KG+; arc=none smtp.client-ip=209.85.208.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BC8A3839A3
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:04:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788372281; cv=pass; b=j8eXGB/LJk8d+zbUSiBI/pjAqPaHhFriiRfU49P8ZVeh4HAilhdULWxflZg3WgdAMY7dfCurPX35r1x1JdRGh+p4vTo6I0ImLPz70oZmxtN6OZfnFhfs704hMQ5U8qpXzuo9JUQt02lig9ds2HXAcHSQRMjQ4hOWypO35WKdXJI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788372281; c=relaxed/simple;
+	bh=AFJSrrQW4gF3ANdPDPC4j1IYpWV3iNda9Tgx0JK95J4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HpD3EYbeV3Ky6xDtVGzqrL24Ct6zuqtgkKrE8l268LZTyHAQpSPKvaf6so4EsQtnmWOVoQT+D6gbrIs720FOrcLLZ1Y7Wv+LXAltrSmgqh5fqwbHsdaveMPCb8zTFEIYodqufMc9A8K71DIOk56Tsz3Q/rIgz780Q/rdPcu+kcw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VH6z/fMG; arc=pass smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B3L78KG+"
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-3a1a3bb6c5dso13185111fa.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 11:04:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VH6z/fMG"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff390a6aso78985ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 11:04:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788372280; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Go/JA58/Px83rL7Iwn+IxXL/4c2skapLehH8Yapuj7H6zyqyGjIisJYEs9lKxzEV8q
+         HF8hLp2seRnDEh3Hpub3lv8Kg1wibCZHoJOOLdSHUdqdpDTuEQVYO0ngFNTRSXgHM4HB
+         GmfVTS2dqjYL4grjMFT4HEBRsnFKozegLUxY3ngMPJajIdS4GMO8JO4zapVMu5oDCUb8
+         24uH/VFVPViHD0API89HWLQdCiG+UZjnqEg4eTy2mlnVu0sRSqmYmJVbCgoxG1vxictM
+         wFU3elapxP8JzrigGOj9nGJmS4w8+R/Smw19bu5ImiVgAINvFLDdrw99tfy1HDfVwalN
+         1bcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tW+6wZzNoXEx9aEPCU1H6du91aF9vK1xV2VXmS0iwpM=;
+        fh=Ho7sV/ffIW3BoGy9dAW5YvrUarveHR9pWFPovlfMBCU=;
+        b=NhG6KrpBRPozKsnpvCfIh6cYrtymmbD0bFoVUn+qBoPO2pSOTj9asP8KFgfhiPE+xR
+         ZvncxumVWUeD2R6iY90kYeB+sp7/hK+a3EY/8Gq3I8FcoxRkOtpeeQzMmFUPxj6RoStO
+         dvDuJX6yLoD2Vac26Z6lZop2GiOdvdCC+EMvaA0GWKBDanOm6ldzPaqURGjVs+I16iSR
+         GSOcKQYFmXIiWj+6QCINmM/ZyWtWZVn0KjaeNQCiG6MYuuBWa3Opmneryo7Qo1mo/aA/
+         7IkDrr4BurUeKvdLFYlpMoEJkUgh5n2FpLCgQ7bDdIKVD2AXzMSbECQX8NVndzfGWmS6
+         tzdQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788372274; x=1788977074; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20251104; t=1788372280; x=1788977080; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=3eSWRBHdZ/8X2dHJRKHsprBiq+T7ne+lI7EooU3WQuw=;
-        b=B3L78KG+10VwKobhvdswaiLwCwXYb1ntz6RluckkKfwFVp9wu2M4NJFZLnZsjkAkZ8
-         iMOQP1jfXfFTSVJHI7/hxaa96UO/DUC4PthgKaVBOJvGE+a00GiyNPaHAdTNG6nU02ud
-         wMs1YLtd7zK7JYZ7odwsOvkhJ3ErLaDuWcMn2g3I057J0d7C/+20Rdjm7vvFyPjDtnMy
-         20AOyN6oTM2o+a3eqnQGL2CrFJSO4YATyuCcgaKWFKydhhH/xe9rPEbFC271rZrpQsFu
-         WAjnyE3o9nn+un25yCjap4A27VpoJ2WPCk3JNIHFa47g6EavPSkJLGhHzigjguKLKJmJ
-         io+A==
+        bh=tW+6wZzNoXEx9aEPCU1H6du91aF9vK1xV2VXmS0iwpM=;
+        b=VH6z/fMGTargi3RauGgwdR3Rd5VknN7sEy/hmANGxcVauJPu/8cftZ1cnRCvFCtA7h
+         qtNQgoLqFbHnxRX2BeKyuIVFv1hefh6yA7G3Fj6kYRsIvk8HVs6xGRRqFqhzx/yF2Tw+
+         /GT8SG7+iKFXOunBZ8Y0DY9mE7w/obsRWGrR2pxO0WjUlVHUibH++n5KgEeEFjqvG+pv
+         JrFkjrMC12cVLxkxXdaRqzrm2IsvzyHifihGkVEH9M5pmkARNlunK3BybTLEFE2CRTul
+         ZTg0vvYauGyd4UX0D5O4dmTmiZTBqBsdjaL0ICq4D4AnJFQzhlGKDEptBmxnspBYYxHS
+         Ag+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788372274; x=1788977074;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788372280; x=1788977080;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=3eSWRBHdZ/8X2dHJRKHsprBiq+T7ne+lI7EooU3WQuw=;
-        b=ahDVvS22VqVtIATfsXDq+AACVctQI6AZis7WJOH7SRRR3jy4ssoMymjI7FgfLGK53x
-         0HsnPkVl0doYol+w69NjjiQ2AMP6T1fh6yfhOWyiZuFvkBhUvZa02OBlljRvNnj8YfrG
-         1ZyA4henwNG8XqH49/jAR3yxbl8K1cN9w/8nY0hSPWb0ycAMcQMwCLuB5gAwFYf/uOSe
-         vXsBBZa71ZIvZ+Bkq7N6T2jIKrTswBUfAJ7DDRf0nxA4p2zlTx8GHIcqKKUAWq3O5xLC
-         Ent09z5vB1nTtRLeggWV9AudLEUQHSp26LkIqRD0IM+3zhMoNweBmDAmiez2xbJXqQMH
-         S8QA==
-X-Forwarded-Encrypted: i=1; AKwUvBxFpSANF7LHDx3luW2UJ7rV3s9tp7Cv08LZwVTVIYM49DYFCuFkBjvVLKI7fvsvc7rEG3neumP2J42Dsu8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lgUI8nN0Yo7kK1bdFk5HyWqdkxwZURpBewFtM1cOI6tbHzb58N
-	bnaGzefIsmhbAH4kaObd2wCpEhWQ7FuZzZc7bV+tJR8tgj8Tq1ZGsKng
-X-Gm-Gg: AYBFou0NuYhAt2G7C+1Hg+ai24u1VMB89uI0wV+R8pFfuiJfFtA4xutAEynvm1yp03M
-	I9VP+k64rkANyFaPD/rzwevNQqRJyLsZ5XhYf6wYkdPzuI5LXD15u+NAlR/VKQKwg4wxIOAZGrf
-	Fl20406FDH+gM7DCjo2wEoPIHsCqgz46gFDNhmt1Uyn2uSpUD5hlWFOXg1WUSYH/5y55mfwGoaW
-	hb5AbaJPOiwuzM36ooyLvJPyKtUMRBtmTQ9MRsmBrFsZ3rILG4vojfnLVJvm6I9vtm+FKUKGLUa
-	e7Kgq/QLgeQHBhrTtN+TTXRVCA2PtK/L01dPo9xmipjnFF/Y5iPmsjTBcg03brPFOI1rCXleIiL
-	jQ+2yFHLczZe9JdvtQ3Wg7TR8TTH4PEuO3PCV8+5UdemPYAk1wh5sLSmDqTnAxPAvsn9Z310PMz
-	bY4mu8KFoba4i9d0ujXNyzIAskWSEyL+TDUA0GAH6hAUxLV0ow2Eh7iNWyM9lYdBmBUbGLdR5Yf
-	RS3PtUr0ii6qhXLm/F1UGLgZzPr4Ldr1CmcFqCj0BxZBfsjjtpDinuoFqvs/5/UO7oAJknaqxjg
-	btdb2PNn6t3pTMH0qVBME75zwhufu9dDbGjlse5BNT6OigQYDKz6q/G4pCg9zuGc/Xd5sX+RG0j
-	upctY7SWziA==
-X-Received: by 2002:a05:651c:a209:10b0:3a1:f671:b2ee with SMTP id 38308e7fff4ca-3a34fd283b7mr11486751fa.8.1788372273337;
-        Wed, 02 Sep 2026 11:04:33 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-a1c2-c401-11b2-c123-0d12-6c0f.310.pool.telefonica.de. [2a02:3100:a1c2:c401:11b2:c123:d12:6c0f])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a34ad2699bsm8235851fa.35.2026.09.02.11.04.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 11:04:32 -0700 (PDT)
-Date: Wed, 2 Sep 2026 20:04:30 +0200
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, Paul Moore <paul@paul-moore.com>, 
-	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, keyrings@vger.kernel.org, 
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] keys: finalize persistent keyring timeout after link
- attempt
-Message-ID: <aphkt2PpqUFcTvun@gmail.com>
-References: <20260901191743.39210-1-kmehltretter@gmail.com>
- <apdZKMddhZoASXmL@kernel.org>
+        bh=tW+6wZzNoXEx9aEPCU1H6du91aF9vK1xV2VXmS0iwpM=;
+        b=rob2v8friHYn+eD4lBOendcdYTdEZWqf9T3YWRQ3m5uuJ7W+RztvT4ItFstdECp4pv
+         5t+JhYxi70aF0kEQOln+uBIlgvGQdSKE/4musLPxapqNNii74a/nBgay1kRpnvR+q5Ep
+         xAnj7zVzZxeDZezBmW2BjRtK83lymg8NlFIe/g3oB+1WxBobj39EB5DVC+kqiEZinNxp
+         5Q8Tk30iG3POJONW3H3Ik8XqYAkxGNTh6rFnxVCpEWCWo30q/CUKlSj2FU+YDdKds+1g
+         hIX2lW4gqAGGNYrNjQ1VzPLQVMxc5X5x3CYWZqbq2Zw6Dfj5FpjQCaFdoouIt9XcAvmn
+         trTg==
+X-Forwarded-Encrypted: i=1; AKwUvBwmEpvsB9diNRo8QdfWej5pXt5DStrCeMTEEIigluU1l76Df/TapkjciwxVtal/1inm5d4wohmE3sNVENc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nXI3CHdhv6rsMaYZBrFlXZA7Wch/IMaxd12c8S5zuKVDg2W5Ym
+	DbiD8c2FbpKqqxXbATYC4oaoFmqYPe3tIIqyMNpA35otCw9wsAlpU4z3AaGg1Ocnjy5FaTz0Woc
+	lyZD3mrnvtt4nR4qql3Yx70lKkDGa2TvQHVcqta6p
+X-Gm-Gg: AYBFou2Mhq7+K9go8RakuUmXSVS3SVPo4991mKnC5OIzAMjH5QtHy86hsNuhxtuTk8r
+	K349MdI3RVP9LlFWPuQGq0tvbELxfEsZAG3dxOzl4S7tE0HjbTNqj2C6kDHosKhfzSOxeIN4vIm
+	Qw8+Ok3Y2mr4vOOSqDmBPi2XgB69RaN0XmNJsaEFfpBze7kmkhfgY0cHYLOPZ2ZL5cj9VVtwCwd
+	jakNB4esxEo6PDlQ6B2m1Tl9NoPytTOZS+1zGRn2VZAs8+zc8FSEGozRi3odnU+K8osAFvp50AT
+	fvBAk+P/nTCOHjcwRkkIgTzpo9r/1VSVkW2Iwo/AbNoDfPR9t8UFeBCJtpRuuU6GGP8LkLQgwl0
+	/9et/6+UTJXZeV+qlgw1NWo/FFlsFgNU=
+X-Received: by 2002:a17:902:d58f:b0:2ce:b436:272a with SMTP id
+ d9443c01a7336-2dafc04d92amr701505ad.3.1788372279277; Wed, 02 Sep 2026
+ 11:04:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apdZKMddhZoASXmL@kernel.org>
+References: <f5e8166a-88be-46c5-8939-1e5227ffe4c2@app.fastmail.com>
+In-Reply-To: <f5e8166a-88be-46c5-8939-1e5227ffe4c2@app.fastmail.com>
+From: Jann Horn <jannh@google.com>
+Date: Wed, 2 Sep 2026 20:04:02 +0200
+X-Gm-Features: AcwNN1UioYI-6aY2FlebIGmb7OnaSV6x_bEiOULXJCzjw3r7BAMamy4lB3uuGTY
+Message-ID: <CAG48ez3AYt=dYMYLEEhkrzO740wNsD1_3zZbKqo7MXThqEA+Zg@mail.gmail.com>
+Subject: Re: deadlock from exec_update_lock and reading procfs
+To: Benjamin Peterson <benjamin@locrian.net>, regressions@lists.linux.dev
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+	Arjan van de Ven <arjan@linux.intel.com>, "Eric W. Biederman" <ebiederm@xmission.com>, Jake Edge <jake@lwn.net>, 
+	linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 02, 2026 at 02:00:56AM +0100, Jarkko Sakkinen wrote:
-> > +		*persistent_ref = find_key_to_update(reg_ref, index_key);
-> > +		if (*persistent_ref)
-> > +			return 1;
-> 
-> I'd return -ENOENT here instead and not make return value tristate.
-> 
+On Tue, Sep 1, 2026 at 4:50=E2=80=AFPM Benjamin Peterson <benjamin@locrian.=
+net> wrote:
+> After receiving a kernel with 6650527444da ("proc: protect ptrace_may_acc=
+ess() with exec_update_lock (part 1)"), we encountered a new deadlock in a =
+FUSE server. The FUSE server reads /proc/PID/stat in the file flush callbac=
+k, where PID is the pid of flushing process. This can deadlock in exec_upda=
+te_lock acquisition when the flushing process is closing O_CLOEXEC files.
 
-I don't think using an error to mean "found" is safe. keyring_alloc()
-can return -ENOENT through security_key_alloc(). A BPF LSM key_alloc
-hook can return any errno.
+Ugh, sorry about that.
 
-I checked this in QEMU with a BPF LSM hook returning -ENOENT.
-keyring_alloc(".persistent_register") returned -ENOENT and
-KEYCTL_GET_PERSISTENT failed with ENOENT.
+#regzbot ^introduced:  6650527444da
 
-So -ENOENT would be ambiguous. I also considered +EEXIST instead of 1,
-but that seems a bit too clever. I'd rather keep 0/1/<0.
+> Specifically, a process running execve is blocked with this stack:
+>
+> __schedule+0x505/0xc00
+> schedule+0x27/0xc0
+> request_wait_answer+0x158/0x2a0
+> __fuse_simple_request+0xd7/0x290
+> fuse_flush+0x1a4/0x1e0
+> filp_flush+0x30/0x60
+> filp_close+0x13/0x30
+> do_close_on_exec+0x114/0x160
+> begin_new_exec+0x553/0xb50
+> load_elf_binary+0x2da/0x1770
+> ? load_misc_binary+0x275/0x390 [binfmt_misc]
+> bprm_execve+0x241/0x5f0
+> do_execveat_common.isra.0+0x182/0x1c0
+> __x64_sys_execve+0x36/0x40
+> do_syscall_64+0x87/0x180
+>
+> while the FUSE server is blocked here:
+>
+> __schedule+0x505/0xc00
+> schedule+0x27/0xc0
+> schedule_preempt_disabled+0x15/0x30
+> rwsem_down_read_slowpath+0x25c/0x480
+> down_read_killable+0x48/0xc0
+> do_task_stat+0x7f/0xec0
+> proc_single_show+0x51/0xc0
+> seq_read_iter+0x11f/0x460
+> seq_read+0x12d/0x160
+> vfs_read+0xe8/0x360
+> ksys_read+0x6d/0xf0
+> do_syscall_64+0x87/0x180
+>
+>
+> This problems seems to have been acknowledged as a theoretical possibilit=
+y in the original patch review thread [1]. Now that it's a practical proble=
+m, is it feasible to move do_close_on_exec outside the scope of exec_update=
+_lock?
 
-Thanks,
-Karl
+I will take a look at this soon.
+
+> Best regards, Benjamin
+>
+> [1] https://lore.kernel.org/all/CAG48ez2pmuoTCZh_AVKDDLeQEYmm=3DgLMgThnqF=
+hRMFfZvABpdw@mail.gmail.com/
