@@ -1,53 +1,78 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9330238A736;
-	Wed,  2 Sep 2026 18:19:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D410C4746BD
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:19:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788373149; cv=none; b=LWTlz0G7Og+h0Qcjf6ENoTtlIhdtzm27TmDHiUEhhOg+rw/dXRkDrlEltGjxnTNspkysSA4PV3ovxJ/oS1vCzwqWPTk65Upw2azZlKHqF7AqFliSIQONnSXpZbwtA/7cl9iDBl2rJxjJHU1BLAhFcsDKobw2+69/lQi1pzH7zSI=
+	t=1788373202; cv=none; b=hxLlzzEF8QaIEJsOUQMyIQqRkH+zMqgnRRGWQObD1TiX1qoFcV6pE5zbATorGxmqTavoKgbZpIGVndOiHCgylVae/D0OQM2KSWAf7/QjYzIzv76eKxWqk7yANYjL4zHPElD5n7MA1sZu5VL1nkw6/4MAicDEU+wWxc7xDNIbJXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788373149; c=relaxed/simple;
-	bh=hbgQzV4TsDAypUVt+pVQPQwNL/J0nnyascedAv8GyCE=;
+	s=arc-20240116; t=1788373202; c=relaxed/simple;
+	bh=GtoQA9ZjPrcGOfipPb9IUUp6ZG9jXfqV0icQkIbgXTY=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qKrz6RtjwbNVrdRIIzUxXVP/ySt9XXF6cwBCKHKyWqllBb+nwl93klepTTnwhnMrLspzZcTli8y2wHb6cd3xQsXS5aa5XJjVTBbafD4oCMPLHWz4aVRRcChS7LLnLq4bXDCLp5oJ/vzf+18IUXL4U0g8pOl/h+n/OXliX8X5px4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=MRvP+jmb; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	 MIME-Version:Content-Type; b=T1//FcROutQIloOdy8zOlvHovw9qREhFnc5DCnkyN+whYxhtNZhK8I1iZHaRU4fw4Mxx3OTr+VR403PpX08EH+GRIQJYFJZcbdAuiuLpJpZ3yUcvxN9oANFF+JLUX5PRJahOVKmWnpn6Q6HTl3o4UrBRpRTprrY8CZaEENAAOms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lJN3+M3S; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="MRvP+jmb"
-Received: from localhost (unknown [20.236.11.69])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 788CA20B7129;
-	Wed,  2 Sep 2026 11:18:29 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 788CA20B7129
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788373110;
-	bh=+S/srMXP148DJ3iow1AbhMmsg6NLcnBjUJW+9hsDjsM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=MRvP+jmbcxjA1akLb6PZdjxYAno+m1CEsNlvjaABGK4UkOXZ3Uq4KcDSP4M4D0Sxs
-	 5qxACRfR2y1RFd89YdjcR6EEDDTyQ42NT8JOZ6pdrnBVg+Xj7TQBjXk3shjikZ2zcE
-	 tE5RGLu+9W1vsUNGJKTtWaIbxkR7ZpI/VXYDHc9I=
-Date: Wed, 2 Sep 2026 11:19:05 -0700
-From: Jacob Pan <jacob.pan@linux.microsoft.com>
-To: Mukesh R <mrathor@linux.microsoft.com>, Alex Williamson
- <alex@shazbot.org>
-Cc: hpa@zytor.com, robin.murphy@arm.com, robh@kernel.org,
- wei.liu@kernel.org, mhklinux@outlook.com, muislam@microsoft.com,
- namjain@linux.microsoft.com, magnuskulke@linux.microsoft.com,
- anbelski@linux.microsoft.com, linux-kernel@vger.kernel.org,
- linux-hyperv@vger.kernel.org, iommu@lists.linux.dev,
- linux-pci@vger.kernel.org, linux-arch@vger.kernel.org, jgg@nvidia.com,
- kys@microsoft.com, haiyangz@microsoft.com, decui@microsoft.com,
- longli@microsoft.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, x86@kernel.org, joro@8bytes.org,
- will@kernel.org, lpieralisi@kernel.org, kwilczynski@kernel.org,
- bhelgaas@google.com, arnd@arndb.de, jacob.pan@linux.microsoft.com
-Subject: Re: [PATCH v5 3/9] mshv: Introduce basic mshv bridge device for
- VFIO to build upon
-Message-ID: <20260902111905.000079d4@linux.microsoft.com>
-In-Reply-To: <20260731223427.2554388-4-mrathor@linux.microsoft.com>
-References: <20260731223427.2554388-1-mrathor@linux.microsoft.com>
-	<20260731223427.2554388-4-mrathor@linux.microsoft.com>
-Organization: LSG
-X-Mailer: Claws Mail 3.21.0 (GTK+ 2.24.33; x86_64-w64-mingw32)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lJN3+M3S"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so14482605e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 11:19:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788373198; x=1788977998; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=u7qs3hNn4LB9d6bKk0MOq7GzVE03yw7eE/Je5YMCtBo=;
+        b=lJN3+M3SS3OzJ7tyPwIdhgmAg813hp7IVtB1KVPtZ1S2VYWOEh3pKWqReRQWwVzPWm
+         gU57YhI7u8vWntvLgGP3MEHsqC0e3Z0n4PreTTuoqvEADpbaGTBy1ZhxbtL6w7V/LQNN
+         zlszoUbhLgtMpp30tOm9AiTsNpQbIzP1TAuiXp4bQvUMft9/0I8yTW6kHLu/E58n6Vob
+         HO+xI716sTlWGHO2kiCGAn6hhB0w5AZ+Pq4M80ThC4t/ntSRghq/EFXBF31x4BbowSWR
+         zPLTrh7fA2h9bRzDGWfBdwGfMBO37i9lJDTiJoPo2n7DehVIscoXNu139rPa7MNez/OA
+         T7OQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788373198; x=1788977998;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=u7qs3hNn4LB9d6bKk0MOq7GzVE03yw7eE/Je5YMCtBo=;
+        b=CeVlaY8wRW1c09b/nrwD2TdXyTf/66XruJdi+rQGGJs6S74qDS/PbFjxIHd7i2JqAG
+         BcbiKmLm0mbk29muGjymatgTDHQ0wNOwSSqiPOlhypY15pL10OO1ukQEZn0bxNYCWzQ3
+         61GW/fQMseEUeNH2bMxF7gAMLY80bIOZXn71kpDWmn5BzvHpaJ8Zumuf9eNZgOLM811H
+         jskJ3Ic89N7mgp+nARIwcyMkJnsJYlRuQyizkr/ABa/pHyPxw5Jx8rVkPudxG8fzAT1W
+         FelfKjCgLqkiDIYarJ3CaFYfFrliFds7EqpHX0EkaQYve36P1glvy7FOq1GW/fZ/xyFH
+         /5/A==
+X-Forwarded-Encrypted: i=1; AKwUvBwJLI37pYLY080rQwp/LSu2dJsVfHorsUQuMQWQASYF0ZV4gU2oRei8dKu9JUcjpQAJd8FyhsvmF3tYGsQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mcEctp0p5WumLOnM5H68VZHAvKy5QeSPy22BovqDnlaHjDapeN
+	R/DiW5psWVShWqvMkxMSnXuU/XkxuqATlQ9p0OFV16gXEDCmB1wf8dlQ
+X-Gm-Gg: AYBFou2w7TsdL2C4xRFICBgtZG/l3QC6z5EAKt3Tx42f9IyrcFBH7mQOQj0+sCK/L7w
+	alY2IcQnet3/myuCcSrvb0F2grZ4S6g63ZTBRqfEgqZczIHWn+mlmGGT5779W/C16sH1Pu8F89C
+	Kt8NGPtZhCdUdEpDYwbouM8imm0ZFPmOazp/4QrQwt3gu1gvIvJ+cLLsjKh3yUbvD7zNGz4ora2
+	JEPjccbjRKMQwvn48c0QREPaautQpCgGBzAxR1e1s4xv1j9Pqk2TNIsNDmfVs6lhTZ4NeDVDAps
+	evIuvNYwbxwY0CLh9pLobJcAljBppNDhe8bym8Ix/RLpNxkdsMoz26TUPOw2HhVE3qF+nmQOD0S
+	BhZGN+0VSueK59XGJu45OchQSjU4kAS2djh9rUhWjJ8KpBV4Cj/fq1G8G9ZAb64VtDDB8KnJHAD
+	PqX6xLiwrvEpho49GAvLe0PpfEQRGVt4xIjshEoeKZmEeCfK++R1PrlKV66XgDsXbf4S3PATPpp
+	SqzrNOT4wIf93OIoVigqZwhdQ==
+X-Received: by 2002:a05:600c:4f88:b0:499:d366:f572 with SMTP id 5b1f17b1804b1-49ce58388demr100657795e9.10.1788373197777;
+        Wed, 02 Sep 2026 11:19:57 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee3b0af8sm10644075e9.0.2026.09.02.11.19.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 11:19:57 -0700 (PDT)
+Date: Wed, 2 Sep 2026 19:19:56 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, Andrew Morton
+ <akpm@linux-foundation.org>, linux-raid@vger.kernel.org,
+ linux-kernel@vger.kernel.org, x86@kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH RESEND] xor: add missing vzeroupper to AVX code
+Message-ID: <20260902191956.0834eaa3@pumpkin>
+In-Reply-To: <20260902162359.GA2497@quark>
+References: <20260831212248.213805-1-ebiggers@kernel.org>
+	<20260902133706.GA21538@lst.de>
+	<20260902162359.GA2497@quark>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -57,282 +82,46 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-Hi Mukesh,
+On Wed, 2 Sep 2026 09:23:59 -0700
+Eric Biggers <ebiggers@kernel.org> wrote:
 
-On Fri, 31 Jul 2026 15:34:21 -0700
-Mukesh R <mrathor@linux.microsoft.com> wrote:
-
-> Add a new file to implement basic VFIO-MSHV bridge pseudo device.
-> These functions are called in the VFIO framework, and credits to
-> kvm/vfio.c as this file was adapted from it. This is a basic version
-> to build upon.
+> On Wed, Sep 02, 2026 at 03:37:06PM +0200, Christoph Hellwig wrote:
+> > On Mon, Aug 31, 2026 at 02:22:48PM -0700, Eric Biggers wrote:  
+> > > Since the AVX optimized XOR code uses YMM registers, execute vzeroupper
+> > > before returning from it.  This is needed to avoid degrading the
+> > > performance of any later SSE code that may happen to be executed.
+> > > 
+> > > Fixes: ea4d26ae24e5 ("raid5: add AVX optimized RAID5 checksumming")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Eric Biggers <ebiggers@kernel.org>
+> > > ---
+> > > 
+> > > This didn't get taken through the x86 tree.  Andrew, it seems you're
+> > > taking patches to lib/raid/.  Can you apply this one?  
+> > 
+> > Can we do kernel_avx_{begin,end} instead of having to open code
+> > and document this everywhere, please?  
 > 
-> Co-developed-by: Wei Liu <wei.liu@kernel.org>
-> Signed-off-by: Wei Liu <wei.liu@kernel.org>
-> Signed-off-by: Mukesh R <mrathor@linux.microsoft.com>
-> ---
->  drivers/hv/Makefile       |   3 +-
->  drivers/hv/mshv_vfio.c    | 211
-> ++++++++++++++++++++++++++++++++++++++ include/uapi/linux/mshv.h |
-> 1 + 3 files changed, 214 insertions(+), 1 deletion(-)
->  create mode 100644 drivers/hv/mshv_vfio.c
+> Again, there are cases in the kernel where both AVX and SSE are used
+> within a single kernel-mode FPU section, or where a CPU feature check
+> occurs within the section and one or the other is used.  So that
+> abstraction will not work as-is, and it would be different from all
+> userspace code as well.  If you'd like to try to refactor everything you
+> can try to do so, but let's not block fixing these bugs first.
 > 
-> diff --git a/drivers/hv/Makefile b/drivers/hv/Makefile
-> index 888a748cc7cb..9ab6fc254c38 100644
-> --- a/drivers/hv/Makefile
-> +++ b/drivers/hv/Makefile
-> @@ -14,7 +14,8 @@ hv_vmbus-y := vmbus_drv.o \
->  hv_vmbus-$(CONFIG_HYPERV_TESTING)	+= hv_debugfs.o
->  hv_utils-y := hv_util.o hv_kvp.o hv_snapshot.o hv_utils_transport.o
->  mshv_root-y := mshv_root_main.o mshv_synic.o mshv_eventfd.o
-> mshv_irq.o \
-> -	       mshv_root_hv_call.o mshv_portid_table.o mshv_regions.o
-> +	       mshv_root_hv_call.o mshv_portid_table.o
-> mshv_regions.o  \
-> +               mshv_vfio.o
->  mshv_root-$(CONFIG_DEBUG_FS) += mshv_debugfs.o
->  mshv_root-$(CONFIG_TRACEPOINTS) += mshv_trace.o
->  mshv_vtl-y := mshv_vtl_main.o
-> diff --git a/drivers/hv/mshv_vfio.c b/drivers/hv/mshv_vfio.c
-> new file mode 100644
-> index 000000000000..92cfbaef0328
-> --- /dev/null
-> +++ b/drivers/hv/mshv_vfio.c
-> @@ -0,0 +1,211 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * VFIO-MSHV bridge pseudo device
-> + *
-> + * Heavily inspired by the VFIO-KVM bridge pseudo device.
-> + */
-> +#include <linux/errno.h>
-> +#include <linux/file.h>
-> +#include <linux/list.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/slab.h>
-> +#include <linux/vfio.h>
-> +#include <asm/mshyperv.h>
-> +
-> +#include "mshv.h"
-> +#include "mshv_root.h"
-> +
-> +struct mshv_vfio_file {
-> +	struct list_head node;
-> +	struct file *file;	/* list of struct mshv_vfio_file */
-> +};
-> +
-> +struct mshv_vfio {
-> +	struct list_head file_list;
-> +	struct mutex lock;
-> +};
-> +
-> +static bool mshv_vfio_file_is_valid(struct file *file)
-> +{
-> +	bool (*fn)(struct file *file);
-> +	bool ret;
-> +
-> +	fn = symbol_get(vfio_file_is_valid);
-> +	if (!fn)
-> +		return false;
-> +
-> +	ret = fn(file);
-> +
-> +	symbol_put(vfio_file_is_valid);
-> +
-> +	return ret;
-> +}
-> +
-> +static long mshv_vfio_file_add(struct mshv_device *mshvdev, unsigned
-> int fd) +{
-> +	struct mshv_vfio *mshv_vfio = mshvdev->device_private;
-> +	struct mshv_vfio_file *mvf;
-> +	struct file *filp;
-> +	long ret = 0;
-> +
-> +	filp = fget(fd);
-> +	if (!filp)
-> +		return -EBADF;
-> +
-> +	/* Ensure the FD is a vfio FD. */
-> +	if (!mshv_vfio_file_is_valid(filp)) {
-> +		ret = -EINVAL;
-> +		goto out_fput;
-> +	}
-> +
-> +	mutex_lock(&mshv_vfio->lock);
-> +
-> +	list_for_each_entry(mvf, &mshv_vfio->file_list, node) {
-> +		if (mvf->file == filp) {
-> +			ret = -EEXIST;
-> +			goto out_unlock;
-> +		}
-> +	}
-> +
-> +	mvf = kzalloc(sizeof(*mvf), GFP_KERNEL_ACCOUNT);
-> +	if (!mvf) {
-> +		ret = -ENOMEM;
-> +		goto out_unlock;
-> +	}
-> +
-> +	mvf->file = get_file(filp);
-> +	list_add_tail(&mvf->node, &mshv_vfio->file_list);
-> +
-Why there is no vfio_device_file_set_kvm equivalent for mshv? since VFIO
-device open/bind path will do vfio_device/group_get_kvm_safe() to ensure
-lifetime alignment. Otherwise, vfio group/device can outlive mshv
-partition.
+> Also, AVX != "vzeroupper is needed".  The relevant thing is the width of
+> the registers used.  There is 128-bit AVX code.
 
-If we do want to support this kvm-vfio bridge semantics beyond kvm,
-maybe this should be abstracted as a generic VFIO "hypervisor
-partition" association, with hypervisor-specific get/put callbacks,
-rather than adding an MSHV-only copy of the KVM hook.
-+Alex
+It also depends on the instruction encoding used for 128-bit AVX code.
+If the VEX encoding is used the high bits of the ymm registers get cleared
+(rather than preserved) and you get different delays.
+Flipping to/from VEX encoded 128bit instructions adds delays on some cpu.
 
-> +out_unlock:
-> +	mutex_unlock(&mshv_vfio->lock);
-> +out_fput:
-> +	fput(filp);
-> +	return ret;
-> +}
-> +
-> +static long mshv_vfio_file_del(struct mshv_device *mshvdev, unsigned
-> int fd) +{
-> +	struct mshv_vfio *mshv_vfio = mshvdev->device_private;
-> +	struct mshv_vfio_file *mvf;
-> +	long ret;
-> +
-> +	CLASS(fd, f)(fd);
-> +
-> +	if (fd_empty(f))
-> +		return -EBADF;
-> +
-> +	ret = -ENOENT;
-> +	mutex_lock(&mshv_vfio->lock);
-> +
-> +	list_for_each_entry(mvf, &mshv_vfio->file_list, node) {
-> +		if (mvf->file != fd_file(f))
-> +			continue;
-> +
-> +		list_del(&mvf->node);
-> +		fput(mvf->file);
-> +		kfree(mvf);
-> +		ret = 0;
-> +		break;
-> +	}
-> +
-> +	mutex_unlock(&mshv_vfio->lock);
-> +	return ret;
-> +}
-> +
-> +static long mshv_vfio_set_file(struct mshv_device *mshvdev, long
-> attr,
-> +			      void __user *arg)
-> +{
-> +	int32_t __user *argp = arg;
-> +	int32_t fd;
-> +
-> +	switch (attr) {
-> +	case MSHV_DEV_VFIO_FILE_ADD:
-> +		if (get_user(fd, argp))
-> +			return -EFAULT;
-> +		return mshv_vfio_file_add(mshvdev, fd);
-> +
-> +	case MSHV_DEV_VFIO_FILE_DEL:
-> +		if (get_user(fd, argp))
-> +			return -EFAULT;
-> +		return mshv_vfio_file_del(mshvdev, fd);
-> +	}
-> +
-> +	return -ENXIO;
-> +}
-> +
-> +static long mshv_vfio_set_attr(struct mshv_device *mshvdev,
-> +			      struct mshv_device_attr *attr)
-> +{
-> +	switch (attr->group) {
-> +	case MSHV_DEV_VFIO_FILE:
-> +		return mshv_vfio_set_file(mshvdev, attr->attr,
-> +
-> u64_to_user_ptr(attr->addr));
-> +	}
-> +
-> +	return -ENXIO;
-> +}
-> +
-> +static long mshv_vfio_has_attr(struct mshv_device *mshvdev,
-> +			      struct mshv_device_attr *attr)
-> +{
-> +	switch (attr->group) {
-> +	case MSHV_DEV_VFIO_FILE:
-> +		switch (attr->attr) {
-> +		case MSHV_DEV_VFIO_FILE_ADD:
-> +		case MSHV_DEV_VFIO_FILE_DEL:
-> +			return 0;
-> +		}
-> +
-> +		break;
-> +	}
-> +
-> +	return -ENXIO;
-> +}
-> +
-> +static long mshv_vfio_create_device(struct mshv_device *mshvdev)
-> +{
-> +	struct mshv_device *tmp;
-> +	struct mshv_vfio *mshv_vfio;
-> +
-> +	/* Only one VFIO "device" per VM */
-> +	hlist_for_each_entry(tmp, &mshvdev->device_pt->pt_devices,
-> +			     device_ptnode)
-> +		if (tmp->device_ops == &mshv_vfio_device_ops)
-> +			return -EBUSY;
-> +
-> +	mshv_vfio = kzalloc_obj(*mshv_vfio);
-> +	if (mshv_vfio == NULL)
-> +		return -ENOMEM;
-> +
-> +	INIT_LIST_HEAD(&mshv_vfio->file_list);
-> +	mutex_init(&mshv_vfio->lock);
-> +
-> +	mshvdev->device_private = mshv_vfio;
-> +
-> +	return 0;
-> +}
-> +
-> +/* This is called from mshv_device_fop_release() */
-> +static void mshv_vfio_release_device(struct mshv_device *mshvdev)
-> +{
-> +	struct mshv_vfio *mv = mshvdev->device_private;
-> +	struct mshv_vfio_file *mvf, *tmp;
-> +
-> +	list_for_each_entry_safe(mvf, tmp, &mv->file_list, node) {
-> +		fput(mvf->file);
-> +		list_del(&mvf->node);
-> +		kfree(mvf);
-> +	}
-> +
-> +	kfree(mv);
-> +	kfree(mshvdev);
-> +}
-> +
-> +const struct mshv_device_ops mshv_vfio_device_ops = {
-> +	.device_name = "mshv-vfio",
-> +	.device_create = mshv_vfio_create_device,
-> +	.device_release = mshv_vfio_release_device,
-> +	.device_set_attr = mshv_vfio_set_attr,
-> +	.device_has_attr = mshv_vfio_has_attr,
-> +};
-> diff --git a/include/uapi/linux/mshv.h b/include/uapi/linux/mshv.h
-> index be6fe3ee8707..b038a79786d2 100644
-> --- a/include/uapi/linux/mshv.h
-> +++ b/include/uapi/linux/mshv.h
-> @@ -254,6 +254,7 @@ struct mshv_root_hvcall {
->  #define MSHV_GET_GPAP_ACCESS_BITMAP	_IOWR(MSHV_IOCTL, 0x06,
-> struct mshv_gpap_access_bitmap) /* Generic hypercall */
->  #define MSHV_ROOT_HVCALL		_IOWR(MSHV_IOCTL, 0x07,
-> struct mshv_root_hvcall) +#define MSHV_CREATE_DEVICE
-> _IOWR(MSHV_IOCTL, 0x08, struct mshv_create_device) 
->  /*
->   ********************************
+Yes, it is all a mess....
+
+David
+
+> 
+> - Eric
+> 
 
