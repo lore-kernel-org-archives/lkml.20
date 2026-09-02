@@ -1,28 +1,67 @@
-Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011023.outbound.protection.outlook.com [52.101.70.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DEA13EC812;
-	Wed,  2 Sep 2026 08:38:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.14.17.11
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788338340; cv=none; b=AkziPatJ4ktbQe2ucetkLkkzympdBVn5U2EwagFns8Jdk6jdtDCX6wl963PdWEcoNWaIMC6DAuTgoGWCCaCzd7K73BcFqmCPnWyGlt8fUaOv1gXixmQJMFUfqQ7oV3XMVwyUAb5K0vjfNBvA1TtZ/Oz7ETzc9Y/GK1PgjqR7D+c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788338340; c=relaxed/simple;
-	bh=WfxBg7Bf+HiTB6ngMWEXZD7Yr7SeHQb+UIJiTi0yjnE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=i82AMTQRR9DdQlr/QNXdeEwzehvVlsBqk71x1pte4soWRZfbFjpyNPQektFIZKjGucWN3E34FKdQGSIk49VRCUk1OSDXAEgugDJ3/WsWbzqcRRg70cJuXrlQbebozDnKfKo/fAaRDgMRZem26BFljjSqRrvwm19vcmu39q1ImVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de; spf=pass smtp.mailfrom=molgen.mpg.de; arc=none smtp.client-ip=141.14.17.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=molgen.mpg.de
-Received: from [192.168.44.42] (unknown [185.238.219.109])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: pmenzel)
-	by mx.molgen.mpg.de (Postfix) with ESMTPSA id 776B34C2C37D64;
-	Wed, 02 Sep 2026 10:38:27 +0200 (CEST)
-Message-ID: <369afb50-3582-483b-89ea-f9b1a7259a4f@molgen.mpg.de>
-Date: Wed, 2 Sep 2026 10:38:23 +0200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228D8247291;
+	Wed,  2 Sep 2026 08:40:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.23
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788338428; cv=fail; b=UNVCRwhu+xCRwqfeX+UZCt4Fe7EdvUtuAXLonAQTX8ne9540+7IaEAXrQ/7fRu6ln3xEZC1/Q8Id18SMzZN4sOnpnyzKWvocEYLKQSbyUSg/htZO5IZuSJ6jzqfFbg83PdTwlhdYEWZd9zZMRKJz717ptCNYn98jmtrqXL645g8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788338428; c=relaxed/simple;
+	bh=4DOGzD4AHoOmd3DSWc7pBptXiWdsE21FZ4/0S4TcoiA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=ZKkMuejNi9OjytTRm1um5Dq9p89TpL2aoAp+71F3onKjz0cNJsCQul2C0zH+MLTcETWtee79WBnzEuzK9dd52yLrna2LjTAotoeAxo6ER17AfGsIFa9smpynsePQODc6OSKqUMF7ImcOna66YFEhYKWk1JIkFk2gX5ipmBT5cxM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=WkzAdMzC; arc=fail smtp.client-ip=52.101.70.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="WkzAdMzC"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aYj4j/Ijho0v77XaNFKz+nhIb6nvxBQFV3bYf2vd70EYqDDEi+eKJBCXQFLSpdwkYiYB2lQ1IC9WjfYX6TR/KsJ2OD1EnOjjTc0OrUsRDGLuAv39yK+PjmmVpUNe7M+F5Rm/Mg2NoFrEiOWfq4X2DIo/t4Yg+kdiUIVfv0S7pRTWhtS+CegyS4oxwwQzcpfsurEnIXdOtLHfcacX9jQt22cxGllIgMK5V5vsn5VXagInH/iYT/VphWAbDRCkC63blMtH0wBib1qpeRF5zJdW82xKxCzmp4YybyD/aRDXjEEF4KBFMQ70pj8Prhvcoj/RXbWdd/l6p4e4SZzILOq9AA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lWYPh+K02Sj81HYwlPL7Q70Ej0xF9YoGW3RjRPkDer0=;
+ b=ia3bRpf5K/gHDjWOw4jBmnCK7Qy9jkTAVeEdJYXMNTDFt6vNhvIPHjNpIJv3VJvug/1o9Y8M5EJ2wVtO/5ekHlsDBIOWQoiTS2FDFploMsNgfSiXb7NzqIk+mx6UJOoE5r1gX9NkXnegwYce2BEEvoPTGmEuZsuXoa59zRBJN6K4dhOnVHrqJFFBp+myRRyvMWIpctkRXmbpMkGG/PjurjdYp0A8T09NIyLlXQ+CZf49kaw3UAAtupwOIRXiYXXNI2VTtnbpbFy2nO3wi+SIg1HJz8o4HE4iVJRQOXufxol7axaIwPHPfzjpSBGoiinHyBeyvAQQ71ZHlm2oQPyQzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.88) smtp.rcpttodomain=nabladev.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lWYPh+K02Sj81HYwlPL7Q70Ej0xF9YoGW3RjRPkDer0=;
+ b=WkzAdMzC3xD+7AVHj5l1+hhc88WupYoTwsfF/J87yHH5AUnIG3qwXgGh+eOk6mJyEsqzRG8s+pgEi3j0FIPQ+5L630w7RBZxpgM+q/B5h5bmQ8Yn8Bur8Pep6g7W+Hft4zTEQisYjYbvGagzK6igU+/dY//vt5fdrToZjJUH5FLRUyIEuP8J06gib7v5QIsUFNNHlTfBNTzIwyVB81KuNT/smtsput8NzADzSJ/qKO/XvlXk6dGFGavuiaRT1erP24bOGWufRh3ym7v7nB1fD9l0WGGAYd7GV/K/6Ityrn9Ms3GcrpOrbDzFm2IcU/FhMfrpvi1sNTTX6Oo726dd2w==
+Received: from AM0PR02CA0163.eurprd02.prod.outlook.com (2603:10a6:20b:28d::30)
+ by AS2PR10MB7801.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:64a::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 08:40:18 +0000
+Received: from DB5PEPF00014B88.eurprd02.prod.outlook.com
+ (2603:10a6:20b:28d:cafe::5c) by AM0PR02CA0163.outlook.office365.com
+ (2603:10a6:20b:28d::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Wed, 2
+ Sep 2026 08:40:17 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.88)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.88 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.88; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.88) by
+ DB5PEPF00014B88.mail.protection.outlook.com (10.167.8.196) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 08:40:17 +0000
+Received: from ENXDAG1NODE4.st.com (10.75.129.197) by smtpo365.st.com
+ (10.250.44.75) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 2 Sep
+ 2026 10:37:35 +0200
+Received: from [10.48.86.251] (10.48.86.251) by ENXDAG1NODE4.st.com
+ (10.75.129.197) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 2 Sep
+ 2026 10:40:15 +0200
+Message-ID: <ccac83f8-be42-4400-8d8f-e584a1fdaf63@foss.st.com>
+Date: Wed, 2 Sep 2026 10:40:15 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -30,115 +69,187 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Bluetooth: btintel_pcie: fix stale cache in set_dxstate
- fallback check
-To: Sergey Lebedev <lsa.uz@pm.me>
-Cc: "Vladimir V . Kondratyev" <vladimirkondratyev2@gmail.com>,
- Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
- Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
- Kiran K <kiran.k@intel.com>, linux-bluetooth@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260507203426.128975-1-vladimirkondratyev2@gmail.com>
- <20260901203818.112189-2-vladimirkondratyev2@gmail.com>
- <d633b7ee-0afa-4fa1-8340-3d7616f429d2@molgen.mpg.de>
- <20260902072417.30260-1-lsa.uz@pm.me>
+Subject: Re: [Linux-stm32] [PATCH v5 2/2] soc: st: Add STM32MP2 SYSCFG driver
+To: Marek Vasut <marex@nabladev.com>, <linux-arm-kernel@lists.infradead.org>
+CC: Conor Dooley <conor+dt@kernel.org>, <linux-kernel@vger.kernel.org>,
+	Yannick Fertre <yannick.fertre@foss.st.com>,
+	<linux-stm32@st-md-mailman.stormreply.com>, Christophe Roullier
+	<christophe.roullier@foss.st.com>, <devicetree@vger.kernel.org>,
+	<kernel@dh-electronics.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>
+References: <20260831231359.136475-1-marex@nabladev.com>
+ <20260831231359.136475-2-marex@nabladev.com>
 Content-Language: en-US
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <20260902072417.30260-1-lsa.uz@pm.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+In-Reply-To: <20260831231359.136475-2-marex@nabladev.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To ENXDAG1NODE4.st.com
+ (10.75.129.197)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB5PEPF00014B88:EE_|AS2PR10MB7801:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9f3e420b-011f-46fc-74d9-08df08cdd0b5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|7416014|376014|23010399003|36860700016|30052699003|13003099007|10067099003|56012099006|4143699003|22082099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	oIU2qt16kUn3/l4+L+lnWBTSTCztUPvttYI3x8WkaL4GQ2bpY+D181xjyQCbzAKFYrz5f0cFDeOtdHn8FxM/PuZCR8aI9X1daJ+QKrDNgQ+bCpFQCmJG0k3oxEzWhXqqa7cS5WJeVZIFrKglgM8Nw+nz45iqYe/iMkdiDzXPl4GAogTunscw4s5jq7YxlLG02JlmkuNLBxNcE/AWlZDLnkfcezQsEKamjmcdNI+WhFe6c4bMMyVCNe/pl6MSk5j8evQRS1lPi1rIgdMSUisPRayjZyICDBqs01THdJ/p8zqGpnszK/hQ77uP3Gc8u3BQjdMX9FQmR+vyhTIBwU3sOJkSS9Jm/bGuP2u/iKtkBQsMuSA3kWbfdfrswkBhtQyyFzw7XfficEOkqCVCHFge4yQOz+3/d5f51BWihGcsZivd43MkXocqKD65UGihvLZqBYEEeISQyeABOvL9EufYLjXWxHQabUSC2IoJ2sZOg1eJ8EnuXsu0LStmt6lkzESFrgcMjxw0rUYRQ9zLiMV+qXhg4O5bXRz79xMDqmVKRilZF28jt5L3VFYwOA7I6Xti64dcytxDJzfKfkcT6h4VDfscT5StAUT+A/y1CFSRuxQpR/JcxXyzy4bMBV05WjoV/bHbyKSu9YtK9vqi6ZvXBA==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.88;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(7416014)(376014)(23010399003)(36860700016)(30052699003)(13003099007)(10067099003)(56012099006)(4143699003)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	3aaV87Os7M+oqdLdLDG/qgd7Ho6ca+TZbD6UpBE18A/LISYvJ7DNATHyFs2BhSn0AxJInPEIkO20IutQJKORZvwlOOXcouCGXueof/13FgcWJlKePLTZSO660nwtv9BN4+RvfwAaiZT8/KC6k0fT/wiNveggBOZj1GgsDB14xfTpLOzCc3V2v22Vz1/QfTMogNPy9B0sZmgZJ1YAmUe5xuUonSrdeiomKP3u9EhQ/nK5GlwgxOd+D9PdV69wxHiH8mtEBojch9hDLB1urgKxw3IJ7ziQw1bjm22puSzY5+0+fZRveP7ijGME3fDyOEpAYCpjIZlO8dvdYhE9dIuVP4YmDFf5XgFcmtgbXyWi4A8vKFuWwDKygt98eOPZsmVdUgvOU2YXARRJouL3i92qJUb9KKnZcrvCi23cJwUl6aHmXXyUJHXKycXemsCGJMNc
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 08:40:17.1611
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f3e420b-011f-46fc-74d9-08df08cdd0b5
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.88];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DB5PEPF00014B88.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR10MB7801
 
-Dear Sergey,
-
-
-Thank you for your immediate response.
-
-Am 02.09.26 um 09:24 schrieb Sergey Lebedev:
-
-> Two of your three points I can answer from the hardware, since the
-> Tested-by on this patch is mine.
+On 9/1/26 01:13, Marek Vasut wrote:
+> Add trivial SYSCFG driver for ST STM32MP25xx, which binds drivers
+> to its subnodes. This is currently used to bind USB PHY drivers to
+> subnodes described in the SYSCFG DT node.
 > 
->> Can you reproduce this on real hardware?
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
+> ---
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Christophe Roullier <christophe.roullier@foss.st.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Marek Vasut <marex@nabladev.com>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Yannick Fertre <yannick.fertre@foss.st.com>
+> Cc: devicetree@vger.kernel.org
+> Cc: kernel@dh-electronics.com
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> ---
+> V4: New patch
+> V5: No change
+> ---
+>  drivers/soc/Kconfig              |  1 +
+>  drivers/soc/Makefile             |  1 +
+>  drivers/soc/st/Kconfig           | 12 ++++++++++++
+>  drivers/soc/st/Makefile          |  1 +
+>  drivers/soc/st/stm32mp2-syscfg.c | 33 ++++++++++++++++++++++++++++++++
+>  5 files changed, 48 insertions(+)
+>  create mode 100644 drivers/soc/st/Kconfig
+>  create mode 100644 drivers/soc/st/Makefile
+>  create mode 100644 drivers/soc/st/stm32mp2-syscfg.c
 > 
-> Yes. Surface Pro 11 (Intel, Lunar Lake), Intel BE201, 8086:a876 rev 10.
-> It first appeared in ordinary use, not in a test:
-> 
->    Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry, retry count 0
->    Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry, retry count 1
->    Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry, retry count 2
->    btintel_pcie 0000:00:14.7: PM: pci_pm_suspend(): btintel_pcie_suspend returns -16
->    PM: Some devices failed to suspend, or early wake event detected
-> 
-> One device returning -EBUSY aborts the whole system suspend, so the
-> machine does not sleep at all.
-> 
-> I have to be honest about the rate rather than useful: it failed on 2 of
-> the 3 suspends I attempted before installing a workaround, and later, on
-> a newer kernel with the workaround removed, it succeeded 7 times out of 7
-> with no btintel_pcie change in between. So the spontaneous failure is not
-> something I can produce on demand.
-> 
-> What I could do was exercise the exact path deterministically. I built
-> the driver out of tree with one debug-only parameter that returns from
-> btintel_pcie_msix_gp0_handler() before the boot_stage_cache refresh, and
-> only while alive_intr_ctxt is BTINTEL_PCIE_D0. That leaves the cache
-> stale and gp0_received false — precisely the state a genuinely missed
-> alive interrupt leaves behind — while the controller still reaches D3.
-> 
-> Without the patch, that reproduces the production failure exactly: three
-> timeouts, -EBUSY, suspend aborted. With the patch and nothing else
-> changed: one timeout, the re-read observes D3, set_dxstate() returns 0,
-> and the system suspends and resumes normally.
-> 
-> Full method and logs are in my earlier message on this thread,
-> Message-ID <20260830151550.44687-1-lsa.uz@pm.me>.
+> diff --git a/drivers/soc/Kconfig b/drivers/soc/Kconfig
+> index a2d65adffb805..dfe5cec592626 100644
+> --- a/drivers/soc/Kconfig
+> +++ b/drivers/soc/Kconfig
+> @@ -24,6 +24,7 @@ source "drivers/soc/renesas/Kconfig"
+>  source "drivers/soc/rockchip/Kconfig"
+>  source "drivers/soc/samsung/Kconfig"
+>  source "drivers/soc/sophgo/Kconfig"
+> +source "drivers/soc/st/Kconfig"
+>  source "drivers/soc/sunxi/Kconfig"
+>  source "drivers/soc/tegra/Kconfig"
+>  source "drivers/soc/ti/Kconfig"
+> diff --git a/drivers/soc/Makefile b/drivers/soc/Makefile
+> index c9e689080ceb7..894bd6ebaaa4d 100644
+> --- a/drivers/soc/Makefile
+> +++ b/drivers/soc/Makefile
+> @@ -30,6 +30,7 @@ obj-y				+= renesas/
+>  obj-y				+= rockchip/
+>  obj-$(CONFIG_SOC_SAMSUNG)	+= samsung/
+>  obj-y				+= sophgo/
+> +obj-y				+= st/
+>  obj-y				+= sunxi/
+>  obj-$(CONFIG_ARCH_TEGRA)	+= tegra/
+>  obj-y				+= ti/
+> diff --git a/drivers/soc/st/Kconfig b/drivers/soc/st/Kconfig
+> new file mode 100644
+> index 0000000000000..2a9d6a77be450
+> --- /dev/null
+> +++ b/drivers/soc/st/Kconfig
+> @@ -0,0 +1,12 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +menu "ST SoC drivers"
+> +
+> +config SOC_STM32MP2
+> +	tristate "STM32MP2 SoC family support"
+> +	depends on ARCH_STM32 || COMPILE_TEST
+> +	default ARCH_STM32 && ARM64
+> +	select SOC_BUS
+> +	help
+> +	  If you say yes here, you get support for the ST STM32MP2 family
+> +
+> +endmenu
+> diff --git a/drivers/soc/st/Makefile b/drivers/soc/st/Makefile
+> new file mode 100644
+> index 0000000000000..5ca313476ca93
+> --- /dev/null
+> +++ b/drivers/soc/st/Makefile
+> @@ -0,0 +1 @@
+> +obj-$(CONFIG_SOC_STM32MP2) += stm32mp2-syscfg.o
+> diff --git a/drivers/soc/st/stm32mp2-syscfg.c b/drivers/soc/st/stm32mp2-syscfg.c
+> new file mode 100644
+> index 0000000000000..102430f258606
+> --- /dev/null
+> +++ b/drivers/soc/st/stm32mp2-syscfg.c
+> @@ -0,0 +1,33 @@
+> +// SPDX-License-Identifier: GPL-2.0
 
-It’d be great if the thread could be referenced via Link: tag, and also 
-the problem summarized in the commit message including the log messages.
+Hello Marek,
 
->> To me it sounds strange, that a register name *boot stage* should
->> change after the boot. ;-)
-> 
-> It is a fair reaction to the name, but the register genuinely carries
-> live power state. From the driver's own header:
-> 
->    #define BTINTEL_PCIE_CSR_BOOT_STAGE_D3_STATE_READY  (BIT(24))
-> 
-> and both helpers test that one bit and nothing else:
-> 
->    static bool btintel_pcie_in_d3(struct btintel_pcie_data *data)
->    {
->        return data->boot_stage_cache & BTINTEL_PCIE_CSR_BOOT_STAGE_D3_STATE_READY;
->    }
-> 
->    static bool btintel_pcie_in_d0(struct btintel_pcie_data *data)
->    {
->        return !(data->boot_stage_cache & BTINTEL_PCIE_CSR_BOOT_STAGE_D3_STATE_READY);
->    }
-> 
-> So bit 24 is updated by the controller on every D-state transition, long
-> after boot. The name describes the register's original purpose rather
-> than everything Intel later put in it. btintel_pcie_resume() already
-> re-reads it for exactly this reason, which is what makes the patch's
-> change consistent rather than novel.
+I think this header is deprecated:
+https://spdx.org/licenses/GPL-2.0.html
 
-Maybe a comment could be added above the macro definition.
+Suggest to adopt GPL-2.0-only
+https://spdx.org/licenses/GPL-2.0-only.html
 
-> The re-flow is Vladimir's call and I have no opinion on it. If a v3 comes
-> out of this, I still have the hardware and the test fixture and will
-> re-run both halves against it.
+With that, you can add my:
+Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Tested-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 
-Awesome.
+Thanks & BR,
+Fabrice
 
-Also note, gemini/gemini-3.1-pro-preview found the same issue in a 
-different review [1].
+> +/*
+> + * Copyright 2026 Marek Vasut
+> + */
+> +
+> +#include <linux/module.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/platform_device.h>
+> +
+> +static int stm32mp2_syscfg_probe(struct platform_device *pdev)
+> +{
+> +	return devm_of_platform_populate(&pdev->dev);
+> +}
+> +
+> +static const struct of_device_id stm32mp2_syscfg_ids[] = {
+> +	{ .compatible = "st,stm32mp23-syscfg" },
+> +	{ .compatible = "st,stm32mp25-syscfg" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, stm32mp2_syscfg_ids);
+> +
+> +static struct platform_driver stm32mp2_syscfg_driver = {
+> +	.driver = {
+> +		.name	= "stm32mp2_syscfg",
+> +		.of_match_table = stm32mp2_syscfg_ids,
+> +	},
+> +	.probe = stm32mp2_syscfg_probe,
+> +};
+> +module_platform_driver(stm32mp2_syscfg_driver);
+> +
+> +MODULE_AUTHOR("Marek Vasut <marex@nabladev.com>");
+> +MODULE_DESCRIPTION("ST STM32MP2 SYSCFG driver");
+> +MODULE_LICENSE("GPL");
 
-
-Kind regards,
-
-Paul
-
-
-[1]: 
-https://sashiko.dev/#/patchset/20260902042840.2432862-1-ravindra%40intel.com
