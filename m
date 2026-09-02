@@ -1,51 +1,54 @@
-Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B3E472082
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:35:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37D104A1DE3
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:35:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366914; cv=none; b=KoWwiX7irHNp7S2zpAjUnMuSCSd5w9TOykTRfddmmih+0jlQSNRgs8sQr5MUSagQnMr6uQ+JQRgVH1FpxOL1n3OxQeg+yPjqL2OfPTo95zIieCddjJRW1sgKlDO+p9Ywf+fVTYWrS51tijLnsOeoEDYCIjptR7vE85MDd13zboY=
+	t=1788366919; cv=none; b=K/7N7dFFQUM423pfqViY0oO4CvAnosj/4L3gJwDHQg19MxXDsGsNjpQ+5rNppDZmCfuKR6Us+GOSPQRkyZnKp9dI8urGvGCy3h9h/NODpE7ekbhcXLOgu/+Kir3CQCCFgkp1B92BmPfaF7P+UCUCy46+xUrQifUkkwrufGBwfFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366914; c=relaxed/simple;
-	bh=pn5sy/ZoOK38AtEtuMJVX9rDpF23LMv2oDUU+1FxHGE=;
+	s=arc-20240116; t=1788366919; c=relaxed/simple;
+	bh=ZCOT8tJ001IxhkIKuJ1wdLG4ckufZHEN8Bcsa9fbZgU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TqE1oMN+aDidZxK1yv4CgHKrR3efapybjx430hzbzYK+esM4Vkk2vMtc5p73TtxbZvj5uJXjobuJq2o/mKCiO0oTJbZWJXHuTqfkKZ5NrrZh5Q+s0RVGlJ3qOweH2y/KINH5/eXGPOaLhhw2M+m4adxlMc4h84bNoE6kIJAtKkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=aB9LLQng; arc=none smtp.client-ip=115.124.30.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	 MIME-Version; b=qs2fZ4NK5QHxcGKfpkhf8zaHdZu8eexadubCV+pVmtgLaNfj+jqRlBt20mX5TKNo1/BaIIAFnoYoh5yMmXCl1tZ2CKpR4YdxHeDPpKXoNA94yufqQYpxKCjLV6lYWjZ2sVN5k+aN90qhUkZjQS432KDVtVMsGIJW0tLk65ugD70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=EIv4EcZO; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="aB9LLQng"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788366902; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=t3xTtfp8+sFuOL15lrfY9099X11nqv/eMWaYFw/sH5k=;
-	b=aB9LLQngBloirh6poWjvkxUoDSQ8SNYrW+yD+KhNOr/cO8S9oCrI6824jdUUjEvy0YuonS4gZ7yR2ZyP6n5xkr58Q94kRGPoM72UBWjLCQxrqpkoUhj4SH3Bw28H2Ta0mB49ykSAyf9beyns3fzUWrW/XkoQWVLBS6+bvw06ywo=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=wanghan@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XADH..Q_1788366900;
-Received: from wanghan-Workstation..(mailfrom:wanghan@linux.alibaba.com fp:SMTPD_---0XADH..Q_1788366900 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Thu, 03 Sep 2026 00:35:01 +0800
-From: Wang Han <wanghan@linux.alibaba.com>
-To: weilin.chang@arm.com
-Cc: linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="EIv4EcZO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Yd
+	K3QjQh/1Sd3MDTvxfEZkeVJ8J2UuktfraulV77OiQ=; b=EIv4EcZO9ntA8Ccxeq
+	jJL2bKaXu5kTHS+sqI9POHfN57sKwIvzNic3e2QwHiLjNT4uoDrUzW/CxDCTb2Im
+	A8yP3z7HUN2R1VEmikWCP5OphOVp72Cc6VEWX7hwS5DU+u8c7ib/E0xsXCoKe1qG
+	+vGh8k8RNFOCR6QE8L9qBR8+0=
+Received: from localhost (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PygvCgD3Pz7hT5hqgqhtPg--.24813S2;
+	Thu, 03 Sep 2026 00:33:38 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: peterz@infradead.org,
+	mingo@redhat.com,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org
+Cc: dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	jstultz@google.com,
+	metin.kaya@arm.com,
+	connoro@google.com,
+	tim.c.chen@linux.intel.com,
+	yu.c.chen@intel.com,
 	linux-kernel@vger.kernel.org,
-	maz@kernel.org,
-	oupton@kernel.org,
-	tabba@google.com,
-	joey.gouly@arm.com,
-	seiden@linux.ibm.com,
-	suzuki.poulose@arm.com,
-	catalin.marinas@arm.com,
-	will@kernel.org,
-	ljs@kernel.org,
-	itaru.kitayama@fujitsu.com
-Subject: Re: [PATCH v5 0/6] KVM: arm64: nv: Implement nested stage-2 reverse map (new data structure)
-Date: Thu,  3 Sep 2026 00:35:00 +0800
-Message-ID: <20260902163500.1841671-1-wanghan@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260810205038.118843-1-weilin.chang@arm.com>
-References: <20260810205038.118843-1-weilin.chang@arm.com>
+	Hui Su <sh_def@163.com>
+Subject: [PATCH 2/2] sched/cache: Use execution context for cache task tick
+Date: Thu,  3 Sep 2026 00:33:36 +0800
+Message-ID: <20260902163336.1552840-2-sh_def@163.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260902163336.1552840-1-sh_def@163.com>
+References: <20260902163336.1552840-1-sh_def@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -53,87 +56,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PygvCgD3Pz7hT5hqgqhtPg--.24813S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7uFy5ZrWxGF4rZw1DCrW5Awb_yoW8Jw48pr
+	Wv9a17XF4kXay7XFW8ZaykX3y3W3s3AasI9F4DGrW09r15Kw4F9ry0q3WI9F4Yvr40yFsF
+	vw1q9rZrGryUK3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zioq2tUUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6QLMLGqYT+KlAAAA3x
 
-Hi Wei-Lin,
+Cache-aware scheduling accounts CPU runtime to the mm of the task
+actually executing. update_se() passes rq->curr to account_mm_sched()
+for this purpose.
 
-I tested this series on a Yitian 710 system with an ARM Neoverse-N2 CPU
-(128 CPUs, 2 NUMA nodes).
+With proxy execution, however, fair_sched_class::task_tick() receives
+rq->donor as its task argument. Passing that argument to task_tick_cache()
+can therefore queue cache_work and update the cache scan epoch for the
+donor's mm even though the corresponding CPU runtime is accounted to the
+execution context's mm.
 
-Test environment
-----------------
+Use rq->curr for task_tick_cache() so cache scan work is driven for the
+same execution context whose runtime is accounted by account_mm_sched().
 
-  L0 kernel: Linux v7.2-rc6
-  L1 guest: Ubuntu 26.04 LTS, kernel 7.0.0-27-generic (aarch64)
-  QEMU: 10.2.3
+Fixes: df0d98475954 ("sched/cache: Introduce infrastructure for cache-aware load balancing")
+Signed-off-by: Hui Su <sh_def@163.com>
 
-L0 NUMA balancing was enabled (`/proc/sys/kernel/numa_balancing=1`).
-The host was booted with `kvm_arm.mode=nested`.
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 09ddb3802c28..866f2a5dd101 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -15045,7 +15045,7 @@ static void task_tick_fair(struct rq *rq, struct task_struct *curr, int queued)
+ 	if (static_branch_unlikely(&sched_numa_balancing))
+ 		task_tick_numa(rq, rq->curr);
+ 
+-	task_tick_cache(rq, curr);
++	task_tick_cache(rq, rq->curr);
+ 
+ 	update_misfit_status(curr, rq);
+ 	check_update_overutilized_status(task_rq(curr));
+-- 
+2.54.0
 
-This series fixes a functional hang that is exposed when NUMA balancing is
-enabled.  The previous nested stage-2 unmap path is too slow for this
-workload, making the performance problem user-visible: NUMA balancing can
-leave the L1 guest unable to make progress and eventually hang during boot.
-
-The L1 was started with 8 vCPUs and 32 GiB of RAM using:
-
-  qemu-system-aarch64 -smp 8 -m 32G \
-    -machine virt,accel=kvm,gic-version=3,virtualization=on \
-    -cpu host -nographic -enable-kvm \
-    -drive if=pflash,format=raw,readonly=on,file=pflash0_bak.img \
-    -drive if=pflash,format=raw,file=pflash1_bak.img \
-    -drive file=./ubuntu-vm.qcow2,format=qcow2,if=virtio,cache=none,aio=native \
-    -nic user,model=virtio-net-pci,hostfwd=tcp::11234-:22 \
-    -serial mon:stdio
-
-With upstream v7.2-rc6 (075b74841bd0065a3bda3440873c747938e69b68),
-L0 NUMA balancing enabled, and the same QEMU configuration, the L1 guest
-hung during boot.  The original L1 console reported:
-
-  [   76.595764] watchdog: BUG: soft lockup - CPU#1 stuck for 45s! [k8s-dqlite:3068]
-  [   76.595973] watchdog: BUG: soft lockup - CPU#0 stuck for 38s! [rs:main Q:Reg:1602]
-  [   76.596181] watchdog: BUG: soft lockup - CPU#7 stuck for 45s! [kubelite:2672]
-  [   76.596334] watchdog: BUG: soft lockup - CPU#5 stuck for 38s! [containerd:2375]
-
-The corresponding L0 hung-task report was:
-
-  [Wed Sep  2 22:49:08 2026] INFO: task qemu-system-aar:14681 blocked in I/O wait for more than 120 seconds.
-  [Wed Sep  2 22:49:08 2026]       Tainted: G            E    N  7.2.0-rc6-poluted_opt-7-2-numa #10.al8
-  [Wed Sep  2 22:49:08 2026] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-  [Wed Sep  2 22:49:08 2026] task:qemu-system-aar state:D stack:0     pid:14681 tgid:14681 ppid:14680  task_flags:0x8400080 flags:0x00800000
-  [Wed Sep  2 22:49:08 2026] Call trace:
-  [Wed Sep  2 22:49:08 2026]  __switch_to+0x128/0x168 (T)
-  [Wed Sep  2 22:49:08 2026]  __schedule+0x278/0x910
-  [Wed Sep  2 22:49:08 2026]  schedule+0x3c/0xe8
-  [Wed Sep  2 22:49:08 2026]  io_schedule+0x44/0x68
-  [Wed Sep  2 22:49:08 2026]  softleaf_entry_wait_on_locked+0x280/0x2d0
-  [Wed Sep  2 22:49:08 2026]  migration_entry_wait+0xdc/0x140
-  [Wed Sep  2 22:49:08 2026]  do_swap_page+0x834/0xd80
-  [Wed Sep  2 22:49:08 2026]  handle_pte_fault+0x208/0x2b8
-  [Wed Sep  2 22:49:08 2026]  __handle_mm_fault+0x228/0x528
-  [Wed Sep  2 22:49:08 2026]  handle_mm_fault+0xdc/0x2d8
-  [Wed Sep  2 22:49:08 2026]  do_page_fault+0x388/0x790
-  [Wed Sep  2 22:49:08 2026]  do_translation_fault+0x4c/0x88
-  [Wed Sep  2 22:49:08 2026]  do_mem_abort+0x4c/0xa0
-  [Wed Sep  2 22:49:08 2026]  el0_da+0x54/0x178
-  [Wed Sep  2 22:49:08 2026]  el0t_64_sync_handler+0xd0/0xe8
-  [Wed Sep  2 22:49:08 2026]  el0t_64_sync+0x1ac/0x1b0
-
-The same wait and stack were observed repeatedly; the hung-task report
-recurred after 241 and 362 seconds.
-
-I applied the v5 series to the same v7.2-rc6 baseline.  With L0 NUMA
-balancing still enabled and the same QEMU command line, the L1 guest
-booted normally and could be operated through the serial console.  QEMU
-no longer hung.  No new soft-lockup, hung-task, blocked-I/O,
-migration-entry-wait, or softleaf-entry-wait message was observed in the
-patched boot log.
-
-As a control, the unmodified v7.2-rc6 kernel with
-/proc/sys/kernel/numa_balancing=0 also booted the L1 with the same QEMU
-configuration.  This confirms that the patch removes the NUMA-balancing
-failure mode in this setup rather than merely changing the guest setup.
-
-Tested-by: Wang Han <wanghan@linux.alibaba.com>
-
-Thanks,
-Wang Han
