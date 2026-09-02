@@ -1,82 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3709635CB6F;
-	Wed,  2 Sep 2026 07:39:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98EB6369D7C
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:39:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788334782; cv=none; b=ZTI/AIYRRiKs2BKjudEV11FGo7iWtrCo8UFX/IQfK9kXMn9Ylx1aRTfOWBzlG5D6C5ZMCa6PgyOuU2NeDjC8YCxAgGg2UB8+cbcXN4diBlX3xmE61GF1V5APBwzv9sVhAJtdOG8ruCvD4Nv66sKsm72u6ZBEdpiN90agtVkQ6oc=
+	t=1788334792; cv=none; b=NxsQYNXVlbSSVO6TZlEUMmAJI1L74JXEOPKwQlwOJIMbXD8B8rOAEEXGclCTsu2sw7AotqWmhacLl36E7Bfvu9+w1g5NdPx+3Cg9S3Ddhk3kui0oxouWT8TX7zideeLH+TwE4i5KNJkITqRSqWh2NzUsABA3AkOulw7tWe/CY9A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788334782; c=relaxed/simple;
-	bh=sI2I4okyxDQ1HgkFwksdivRgzckLgjuRUcbgD8P11/0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jgSIEqMseg/1YbbRZy5nhUqVUGovLDYFDbSsHcZSuo+uGd0hfXMTajit46J5GhGRde4gSrrIQTiiKVxDIy8ckg57SOb19k6e85rLwlRcMxSpj8VRGQWmGmdbVxudHTkDFNfP7vgXHNZiLrwjF9hrNCBD2iz/7plxT1Ey1rZiaD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SVevXqP8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788334792; c=relaxed/simple;
+	bh=yxUZn8+Na/bQwdI6zK/LR8kM8XD7fOqbN4Q0y/yhwUI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hR16U578AFdpZ71EQ3hi7tQptU2DEw4mYX901xWaYG54ge1lzL+UpEFdVGVpKCxPCxyfX4m/iAuFwdHuyb9BjQdHG0zofPuWUFf3WYYnqDGfr6IZ8VraTH7CO22QoP79zFXkWYGD9AZ65gXyL1OS3rXtk+eSPJAZ3h84db704qc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DVqcysqK; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SVevXqP8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10CDF1F000E9;
-	Wed,  2 Sep 2026 07:39:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788334780;
-	bh=Zmj6Pl4DI8aaARUoVXtREi8xmgkB7kHiiAcvl0t361M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SVevXqP8uk4G2qfUr4fRwo9Xv9i/jYjJ+Hift6ITqhh0R31kK+7v5WOiOo9/0ie7j
-	 4sOXgFXmks/B/0h/21DcWitUMKDWxZYTLiyRsIbbyZZZpO+nouiDx+4eAKL3bch964
-	 Z0ITjST2BqJve2jB5bjPfpMiqhwbV+7s5F4A2fofmPN494nOQZjDhr0n7HKxZeRvBB
-	 yfEtheDm5PrO5mtXXpRM3Bx6CPq/6gY14VOKrtpn77K0Fbgi6LM5j3nbK0pUgMpnnU
-	 2tbzJBXwpgQ2gxvoVNI2PhV6fP7prCxJ05MvzwtMjBEiZwd+CPTJ5WYN4VsnP3/wkq
-	 UWLcYuhjXx0uQ==
-Date: Wed, 2 Sep 2026 10:39:36 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org, alex@shazbot.org,
-	ankita@nvidia.com, chriscli@google.com,
-	david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
-	iommu@lists.linux.dev, jgg@ziepe.ca, jmoroni@google.com,
-	kevin.tian@intel.com, kpberry@google.com,
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
-	sashiko-bot@kernel.org, stable@vger.kernel.org,
-	viursachi@google.com, xuehaohu@google.com
-Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
-Message-ID: <20260902073936.GR24140@unreal>
-References: <20260901170849.4052816-1-dhu@x6u.co>
- <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DVqcysqK"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-482e2fdf5abso388639f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 00:39:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788334789; x=1788939589; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=eVYtRrcYxbTiVniZzEVlvJjB3QGXOoZDXbBYRjI7Swg=;
+        b=DVqcysqK6QRZyjVcgbson+2ySH4M4Ij/RB8S3zNX6xxB0hYgIsgqe3qBj6CSe5P7Qe
+         +7rhdYqFbH6h9YKUlDNL4VD97tJuOmSCi/kSJzS4Vw1A6FMdXAbdHLgjQf9s26PKtMH7
+         QotlL5OUn9rVGaapxOF/XUx5rTJi8zwz3h8KJlIwzejW2Vr4VKgj6Gca7dGrpWeqgn2d
+         rpH64buDsLIp8Y3/kvScqs24SOjYKazjiAlgpmINnB4JhxiQoW6ohyN88AyK95GPuqIz
+         GM96fCe885LEjNbUqND5U5GgcgbwxI2pCO9ToVyWdn4bQiZbL81al4N27/lubTWXLx2+
+         gcqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788334789; x=1788939589;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eVYtRrcYxbTiVniZzEVlvJjB3QGXOoZDXbBYRjI7Swg=;
+        b=ide3ixyhrCic7trCrDkDfN14MaSVQMiLdqC0GRIqzBy2DnABNJ7HngbxbrTLPKZilQ
+         D7iN3jME65pcPsfR7qoLliy8PG3smwlmlY9L8or3FfZof2g4KNwQgrNnSavoMIAm/pdw
+         5dt4icmj54VW/i8QWew7Qujlt7Xn/YWI9LKCDofDf1oDLxnTFiuaUUpyId5ETT69W0pE
+         PbDM3hh9NlzzlC3XnmHbgYJyLBEzToa0weCe97TwYy+Hqa/AUCarfyuP8cM6x+cCb8SZ
+         eqaRoSbqITmSZIv44tRR6u2sJsIr+tE0MJUD2N/wAJ4YoENtf329iA/qLZkNbqvjH5R1
+         D4ug==
+X-Forwarded-Encrypted: i=1; AHgh+RrvdFW/JrRUo56PAP3J3Q8V0B4uk4E8HwOe1oo/0rRbv/O8f2m92ajFDq++KmSFTwS7+jwRz4V2U/NFgQs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lHKgpKORAtTOnua3UJOYM9lWBc/aUX/17MGYFhUJNrS/EnZ2zj
+	ENjr039o1ddOHDlwYfWrsMVmPzfqrNAjTOp/LFsH4QVFxAK+xnEsm7jh
+X-Gm-Gg: AR+sD10TVKRpBvqixEpMCPklrFUryWZKC4AnAcFAXnktaTG+UzDlb0Ko2umr8/eRx03
+	lroYQf27gTYPqsNeflBB4au1zslBKzvGyRrP2BkoKKlYcWL4Cgfssz8RS82WuzTV2ykWhlC+YxT
+	rr9aytVAX05m75cx26Po+VwtlL5omfma359yt37hhtnbCLWCD1mDuYu4+66yVIq/oI+rDfP2CtX
+	v2MrEiyr5ETfWtyjZ3KdZm+3v3QcShDPuS4uWcHKQ4BaZMYyPjouf19GWT+lMxKcCOQ+McR1lmT
+	Kso9TBk1Ifu1oO8O8PFd20thRSPESFqBjskll9t0dQfYB3m0eHx+pUlZqrT0TIV3n6tdStApH2M
+	h87ofB+WXS8Lk/TRBEiCGDBTfJS79OEWMb17MKh2QpFqYbDgVZyiklcIst9EqOXPEPlQAZLr19Z
+	THqFs6+alpdshHQQxXDyj1smJ5JzYdlPAtpYyzGARH9W5Y5KB8ESG0OqRZ5GbOUI8chg==
+X-Received: by 2002:a05:600c:4ed1:b0:49c:cee2:a508 with SMTP id 5b1f17b1804b1-49ce582984dmr35814255e9.16.1788334788344;
+        Wed, 02 Sep 2026 00:39:48 -0700 (PDT)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-484492ce5e5sm4209375f8f.36.2026.09.02.00.39.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 00:39:47 -0700 (PDT)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>
+Cc: Dong Aisheng <aisheng.dong@nxp.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Jacky Bai <ping.bai@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	imx@lists.linux.dev,
+	linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Mehmet Fide <mehmet.fide@screeningeagle.com>
+Subject: [PATCH v2 0/2] gpio: mmio: report the line direction on chips without direction registers
+Date: Wed,  2 Sep 2026 09:39:44 +0200
+Message-ID: <20260902073946.3709080-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
 
-On Wed, Sep 02, 2026 at 09:00:46AM +0200, Christian König wrote:
-> On 9/1/26 19:08, David Hu wrote:
-> > From: David Hu <xuehaohu@google.com>
-> > 
-> > This series address two related issues in scatter-gather mapping,
-> > specifically for the MMIO based dma-buf mapping. The fixes ensure
-> > sgt mapping is correct, and proper for large MMIO regions.
-> > 
-> > Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
-> > (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
-> > phys vec to sgt)
-> > https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
-> > 
-> > Patch 2 Splits sgl by largest page aligned chunk
-> > (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
-> > https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
-> 
-> *sigh* such issues are exactly the reason why I didn't wanted the dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
+From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-And this is why so many in the kernel community want to get rid of SG
-lists. It would be great if DMA-BUF could also eliminate the need to
-convert to an SGL, like Jason proposed.
+Hi Bartosz, Linus,
 
-The DMA layer no longer needs SGL. These bugs belong to the DMA-BUF layer,
-which is the one that depends on it.
+this replaces the gpiolib guard patch [1], along the lines Bartosz
+suggested there: instead of teaching gpiod_get_direction() to stay quiet
+when a chip has no get_direction(), give gpio-mmio one and let the pin
+controller tell it what the pad does.
 
-Thanks
+The user is the Vybrid GPIO block (gpio-vf610, a generic mmio chip with
+GPIO_GENERIC_PINCTRL_BACKEND and no direction registers, the direction
+lives in the iomuxc pad as the OBE bit). Today every
+gpiod_get_direction() there trips the WARN in gpiolib, 21 backtraces per
+boot on a Colibri VF61/VF50.
+
+Patch 1 is the pinctrl-imx side. Bartosz asked whether the raw register
+coming back from pin_config_get() is a bug in pinctrl-imx: it is, the
+callback never looked at which parameter was requested. It now answers
+PIN_CONFIG_OUTPUT_ENABLE and PIN_CONFIG_INPUT_ENABLE on SoCs that say
+where those bits live (Vybrid: OBE bit 1, IBE bit 0) and -ENOTSUPP for
+everything else; the debugfs dump, the only raw-register user, reads the
+register through its own helper. Converting the driver fully to generic
+pinconf is a bigger job than this fix needs.
+
+Patch 2 keeps the direction in gpio-mmio's existing shadow and installs
+the shadow-reading get_direction() for the "pinctrl backend, no
+direction registers" combination. The pad is asked once, from request(),
+in process context. v1 asked pinctrl from get_direction() itself; the
+Sashiko review pointed out that gpiochip_lock_as_irq() calls
+get_direction() for !can_sleep chips under the irq descriptor lock, so
+the pinctrl mutex is not an option there.
+
+Tested on a Colibri VF61 (Iris carrier) on top of gpio/for-next, with
+DEBUG_ATOMIC_SLEEP and PROVE_LOCKING enabled this time: no backtraces,
+and /sys/kernel/debug/gpio shows the right direction for every requested
+line (the hogs, the SD card detect input, the USB VBUS regulator
+output). Lines the pin controller cannot answer for keep
+the input default gpiolib assumed before, so nothing that worked before
+is affected. The initial direction scan in gpiochip_add_data_with_key()
+runs before the pin ranges exist and still guesses; only requested lines
+get the real answer.
+
+Patch 2 needs patch 1 to give correct answers; taking both through one
+tree, with an ack from the other side, avoids the window.
+
+[1] https://lore.kernel.org/linux-gpio/20260813193715.2346477-1-mehmet.fide@gmail.com/
+
+Mehmet Fide (2):
+  pinctrl: imx: answer OUTPUT_ENABLE/INPUT_ENABLE queries from the pad
+    register
+  gpio: mmio: track the direction of chips without direction registers
+
+ drivers/gpio/gpio-mmio.c                  | 63 +++++++++++++++++++++--
+ drivers/pinctrl/freescale/pinctrl-imx.c   | 51 ++++++++++++++++--
+ drivers/pinctrl/freescale/pinctrl-imx.h   |  4 ++
+ drivers/pinctrl/freescale/pinctrl-vf610.c |  2 +
+ 4 files changed, 113 insertions(+), 7 deletions(-)
+
+-- 
+2.54.0
+
