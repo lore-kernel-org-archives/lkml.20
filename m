@@ -1,40 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09A594746A5;
-	Wed,  2 Sep 2026 11:16:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03ADA37CD21;
+	Wed,  2 Sep 2026 11:16:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788347762; cv=none; b=ZO6DLXDw9Ar8lTs1r9hURT2F5aiTqfE/WeaO98TAv9PjNDNZ0MEGT0GWi1XK51RipcOQRMjtH/HDHlW8dYCZY3Po0JGTT2QX0RUKKWeAfodZA3olndqmUN/RqJrdV+3HrIFEvIXSVtqd7YaTmZWC4c+eVJavdOS2YebN1fK+GzI=
+	t=1788347787; cv=none; b=oVCILRZjJG02HjiW4IbIcN25Hr4zwU2B5xvLVu34L9HfrRwnUXlrOYcoP8B/hQqskRFE4YOYBf8j2HC5S1Dc17N8/s4ykXbP9UcaA4irh7PkwTJs23ChzhxOJgI5NHFCYcPJjjtddVHbdu5b9mPDvHoznZldrSUqATGiEbbAoPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788347762; c=relaxed/simple;
-	bh=qO0JSqEnaw3NQ0HT/ifHcSIk/PbQ7/5NdCjYIM1+5Zg=;
+	s=arc-20240116; t=1788347787; c=relaxed/simple;
+	bh=uz4a1XlFr6YtyWjAWGrpDlapNhfBrEFg5irUJEHhbRg=;
 	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=lbFKnXSTGNuk4h9OWu7uzBZ683RmBoXKXIB+oq5tHXgr674ADghn57Vaku87za3OoVVv1kwAIFJNvmTHKcWESuYEMfu/fodVXq4cu3Y3/U6+wOrMUBnjiTRh7Im3uEir5nWU3AnpYE2PEdga8NQnU/pgt+01V5Po50gR1I4gmBw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ORAALdh/; arc=none smtp.client-ip=100.103.45.18
+	 Content-Disposition; b=RB1veuXrCqXEToPxRZiEfC2K2+XDTP2JCHxmx2STI0y7xKyWGiGJTWE7wuru8kqu6fEpDKgU9I3PUn0/8RT4aiCpx+8TX2RTbGIOysaXdwmB8QmsUsj3RgDV2YCnLvFgetE0J3Z0xeX6TI/HYHVHfJG4jm60RL+DWyM3ySBKECo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CFX3xoI4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ORAALdh/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6106F1F000E9;
-	Wed,  2 Sep 2026 11:15:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CFX3xoI4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B64D1F000E9;
+	Wed,  2 Sep 2026 11:16:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788347760;
-	bh=aeRD3ywJUECUlXVCLyuC7bwBUr6JawehwETQqIDzBfk=;
+	s=k20260515; t=1788347785;
+	bh=j2JWA1nLDjQaf0ILpHslffpqGu+Eaj4TDI9x5+QAWmI=;
 	h=Date:From:To:Cc:Subject;
-	b=ORAALdh/9s9IP3bPlLRuxF/rEqsPa1nTTMuuIffYJ3qOyncgcLSqAU31jTApC8FOK
-	 Pn9jtOFMsS2O8wXjNtFDO4aXGB+vm8PJZg/f7wI0FaUu4h/HgBsgf2oCms0F0q3uQx
-	 gz6XmlFdSQJ54oAHbKPbAnZg74It/tMEpw0HPz1NTSEttIcwlkxVUSc0pzDBy0SDIr
-	 CYHwWfzGZbPi3VsPeRIeNARiEGyZ3aWNFlCuIf2IyGFzNtRA6WEDVaHjd1XtCyIHh8
-	 DgMjVQxE5mMCL/P7TIDrgQNHLWhL/khg7FhMp3qRztWuCpKPzLGKdBA9Iorh2CdWed
-	 OT6kp7dFLAkgg==
-Date: Wed, 2 Sep 2026 12:15:56 +0100
+	b=CFX3xoI4iwAPxxuz1n7YT5yl2q7N3URbGXO4yeXs7qw0ikyBhIHg13avWdaKmdqWN
+	 g7hDN80rmW4cGc2V8jz7HGrTIi2kpXbEuYn4I0OQO++5/X8PYqErUjL118mKuZsfPF
+	 ZueqXCYKPOQC2CNRWMcvD2TWosaqi4E12iQMSWJMkzWAnVI/IUUQtfS/RNmP/r3DxW
+	 ZaJKhRGZJJwNzbHVC1hfiPR+dAC3BGyONREdLH+DExoIiZAOmlKNvKq1SufZR8J+yr
+	 bsD8uYoYP9O55VWsjD7OB8Q6J5bvixHXYpCG+s8uClGIxHYCgYJ95kymu8p228ZIl1
+	 Bk5lY0e+Rx3Ig==
+Date: Wed, 2 Sep 2026 12:16:22 +0100
 From: Mark Brown <broonie@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: linux-next: manual merge of the iio tree with the iio-fixes tree
-Message-ID: <apgFbCBHGx5yIr8G@sirena.org.uk>
+To: David Sterba <dsterba@suse.cz>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+Subject: Fixes tags need work in the btrfs tree
+Message-ID: <apgFhjoOnW57AQQ2@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -42,83 +39,41 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mIoDeAbW4T+ph3Ma"
+	protocol="application/pgp-signature"; boundary="zUK8U7sXzdKeK1cm"
 Content-Disposition: inline
 
 
---mIoDeAbW4T+ph3Ma
+--zUK8U7sXzdKeK1cm
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+In commit
 
-Today's linux-next merge of the iio tree got a conflict in:
+  d2371a77a9927 ("btrfs: scrub: report the failing sector's address, not the stripe base")
 
-  drivers/iio/adc/ade9000.c
+Fixes tag
 
-between commit:
+  Fixes: 0096580713ff ("btrfs: scrub: introduce error reporting  functionality for scrub_stripe")
 
-  88fda1ed51a57 ("iio: adc: ade9000: request interrupts after powering the =
-device")
+has these problem(s):
 
-=66rom the iio-fixes tree and commit:
+  - Subject does not match target commit subject
+    Just use
+	git log -1 --format='Fixes: %h ("%s")'
 
-  b8104703a1a84 ("iio: adc: ade9000: introduce chip_info structure")
-
-=66rom the iio tree.
-
-I fixed it up (see below) and can carry the fix as necessary. This
-is now fixed as far as linux-next is concerned, but any non trivial
-conflicts should be mentioned to your upstream maintainer when your tree
-is submitted for merging.  You may also want to consider cooperating
-with the maintainer of the conflicting tree to minimise any particularly
-complex conflicts.
-
-diff --cc drivers/iio/adc/ade9000.c
-index da6caabfe2a41,fd1362a980523..0000000000000
---- a/drivers/iio/adc/ade9000.c
-+++ b/drivers/iio/adc/ade9000.c
-@@@ -1724,21 -1808,8 +1796,21 @@@ static int ade9000_probe(struct spi_dev
-  		return dev_err_probe(&spi->dev, ret,
-  				     "Failed to get and enable vdd regulator\n");
- =20
- +	/* Request IRQs only after powering the chip; the handlers do SPI access=
-=2E */
- +	ret =3D ade9000_request_irq(dev, "irq0", ade9000_irq0_thread, indio_dev);
- +	if (ret)
- +		return ret;
- +
- +	ret =3D ade9000_request_irq(dev, "irq1", ade9000_irq1_thread, indio_dev);
- +	if (ret)
- +		return ret;
- +
- +	ret =3D ade9000_request_irq(dev, "dready", ade9000_dready_thread, indio_=
-dev);
- +	if (ret)
- +		return ret;
- +
-- 	indio_dev->channels =3D ade9000_channels;
-- 	indio_dev->num_channels =3D ARRAY_SIZE(ade9000_channels);
-+ 	indio_dev->channels =3D st->info->channels;
-+ 	indio_dev->num_channels =3D st->info->num_channels;
- =20
-  	ret =3D devm_iio_kfifo_buffer_setup(dev, indio_dev,
-  					  &ade9000_buffer_ops);
-
---mIoDeAbW4T+ph3Ma
+--zUK8U7sXzdKeK1cm
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqYBWwACgkQJNaLcl1U
-h9DZTAf/WwUXN09/j4n/VVFKZjkS9qwZygMnFYYij2coJ4TzE/mxXOPfc5Tq0o/K
-NsU+gSrOrO+H9DhwebUW7BfutYapxjItmkrgytJDlQp2aCZ3TX93EtyJslWukMdl
-LTPhQFBF/oNwfrdPjoK8H/zauzAM7Csky1K5M+CnRXTLGpyWQoNiAUjUkuuX0e2V
-Gxd98lHy1nsG/MVpSQOFeDgAExuEWrxRQWAZnK/V6+0fMKe7KnWQJD3H1/8nt7PW
-HUKkJsQGhyd2bxp4RJFuEYOWgYsOQmD48lEpWRfjDIcjp31tlHDA8dMP5RQ+CljP
-1RVsb3GH472iAhdTz/3I8zZT5mE/xw==
-=Dqo/
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqYBYUACgkQJNaLcl1U
+h9BJtgf9Hv1Vud+lvAXWsHC61uIgbQLHRk72Kq2jn+7ZAJXtd1q9wvnbF2SyYh0j
+D1FZ6CPvGXqDHuk0vSkNyCnvKDs2XGAKIsu+R4tfUS/Yj5v77AZ66XqniwW3MjgC
+OVpsQmkUkhwc9knmiVTkKq3J1a3iZ4W9+qo/BB+JalCKpRn8Lf1sgc79DCD4Hyjw
+oN2c0MZKVdgHcnvLZLMx5BG38DoIJ0IikCitxDhHH8o8pYTHtmwHyogMnMTMnvvk
+TQZFrlKOxToKvg/9In21dTh0j9VNNmOYeEcQFF4llgQb5ybr6TtI/MjamDsIJSy5
+a+Yg+embU0K/kjdZzrOVV4JkCe3TNg==
+=2fsR
 -----END PGP SIGNATURE-----
 
---mIoDeAbW4T+ph3Ma--
+--zUK8U7sXzdKeK1cm--
