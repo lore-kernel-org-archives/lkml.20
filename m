@@ -1,137 +1,126 @@
-Received: from out13-174.antispamcloud.com (out13-174.antispamcloud.com [185.201.17.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5A6D366042;
-	Wed,  2 Sep 2026 18:26:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.201.17.174
+Received: from smtp.uniroma2.it (smtp.uniroma2.it [160.80.4.34])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C48F23438A9;
+	Wed,  2 Sep 2026 18:26:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.80.4.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788373583; cv=none; b=WA16Nhpgwz1u9PMbDj0ZXf25+iefUzPjqOkHwYDf6aoS7YnTo2V/7aStLkdx9JGhHairm58g0nluE0YWnIxEPxP67w8nsvHLBpzsP/kHRITweXFP7WmyvfkOEl4CeMJhclRQ0aLrpdkePU7GKpsW9W4bbMNP2c+mcNpK5NwC3Rw=
+	t=1788373613; cv=none; b=CqQabIBhZVwS7bwsB0rg9B19XiXPj2VEW9Dxcga+O0ZI5U+EFsL1CExrwprpEbBaT0yipxiL5YYzxxTTa3vAU626wKAAR/IHpemHiyN99rQ9wEvOovXl7XR7kzTyY6jvp6wq+Dfai7/DvwnCz/P8sqpcLscxiadBvf2huzU0v1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788373583; c=relaxed/simple;
-	bh=JFow46Vnz8reduVDvIc0YSORwX6vyQZXYpGoWC0l8YY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=O2Z6beRgs7KSawnRjNWDgOznTN5GCwC2/ohROu+bAx8fuHOx+BibDPgMLTurN+Q0y2Qbd0eywmc1JztyQ3HffLsEz3ja7QOzkiCZ9Z6NjzIkYt1SeoqnNRkZBB0B9d4Ml6BwJ1Yrh3Kq1jp5DE4j/fUe3EvpNS/e6q4zfwicxF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=reactivated.net; dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b=Z6F++i9K; arc=none smtp.client-ip=185.201.17.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=reactivated.net
+	s=arc-20240116; t=1788373613; c=relaxed/simple;
+	bh=zPZF5OWQOBQSD+z6kPd+7v5KM/arA94IPYNp5wna/x8=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=tvDfSnCiO7q4FEWQssWEi1A6PGkvUcE6+irG/PT0eBs+KA96ZLvVCZt2vOCjZpvREU5R72s+X/QgfCjIKehqnC8ydBccGKu4w6o+uc8DJ3WnRES4fJeZ3qUbRwo04Si2Oaf1Gtu10aetJOVK4uZpvnwqkBCVP6ZoKFUKMeTwDRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it; spf=pass smtp.mailfrom=uniroma2.it; dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=90/+8Yvu; dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=Y5kkxnDX; arc=none smtp.client-ip=160.80.4.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b="Z6F++i9K"
-Received: from s1041.use1.mysecurecloudhost.com ([192.250.231.249])
-	by mx322.antispamcloud.com with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <dan@reactivated.net>)
-	id 1x1pDc-009oNV-Hm; Wed, 02 Sep 2026 19:57:55 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=reactivated.net; s=default; h=Cc:To:In-Reply-To:References:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
-	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
-	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=uEt0FZh1h7xpn4K7s6fu7UzabzsKhHO6udvMeZH/uZk=; b=Z6F++i9KgG6GD3jlFrMtRACGEf
-	x+da8bu2Zd9j0VY9ZG40KEvzPvhR8yL2BgDz4oVsL6E/gQ9/wP5e9YvafgiwtnfCyyWkBojVPEu6C
-	CYR+3p+F6EA6/rtKeAiPZ5Ii6I8QLngJh8WC1GP0NfXXLcVpC3J94SJ7ZOvZOPLMhvthfZ9foC9o2
-	Ek0nKnuaMsataqqAJrFalNf3OjuPYGcBpeShi0MA74xFVM6DjKn8+zJ4/y5nSJLIgex+d65GUgrYJ
-	zl6wSALOaP6MSKyJVxyOu61tKEQEVAsCGpEl6OvwniEvkNnISN7IqvSU9KUqA98124YK2bxkSaXLo
-	PCx7zXIw==;
-Received: from [188.251.249.2] (port=45118 helo=[192.168.1.123])
-	by s1041.use1.mysecurecloudhost.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <dan@reactivated.net>)
-	id 1x1pDY-0000000F9KQ-3ANA;
-	Wed, 02 Sep 2026 17:57:49 +0000
-From: Daniel Drake <dan@reactivated.net>
-Date: Wed, 02 Sep 2026 18:57:03 +0100
-Subject: [PATCH v4 1/5] iommu_pt: Fix test_pgsize_boundary() failure on
- narrow-OA formats
+	dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="90/+8Yvu";
+	dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="Y5kkxnDX"
+Received: from smtpauth-2019-1.uniroma2.it (smtpauth-2019-1.uniroma2.it [160.80.5.46])
+	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 682IQ63c032636;
+	Wed, 2 Sep 2026 20:26:11 +0200
+Received: from lubuntu-18.04 (host-80-183-189-234.business.telecomitalia.it [80.183.189.234])
+	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id 386801212CA;
+	Wed,  2 Sep 2026 20:26:01 +0200 (CEST)
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
+	s=ed201904; t=1788373562; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YOq0h22DfRYPk8FdBe8yOEEVPyPE7ep/CmbMED3Kvlc=;
+	b=90/+8YvuAcYixkxA+hkDSjRtoVBYmaqYm18fSzVWbetGEQjOMRfeAMc0kawlPO8Qo0NzPV
+	Pik5FGJoajv2kfCg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
+	t=1788373562; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YOq0h22DfRYPk8FdBe8yOEEVPyPE7ep/CmbMED3Kvlc=;
+	b=Y5kkxnDXCLVj8sKlLKPDJ4xR4586gtbwB8IuCm7dGyda9ffIYrQQKN2rA3PrZ8PRtEvqce
+	/W2Fn2hp7xYUNvk4bv2eiBfDa5L2VEsjiT0Ejlbgw2x2DZCJdLv/GDMXF07+IQDpzhtlDT
+	UB4AsrlthtzDtY/UGvBi4Z+22JzOTpuIZ1nqXFPRo8xs/xPx9gYrsqlM4uUqZj4r6lgGUZ
+	HAGmnbwkqFy3z6+ScFoD4C8WDu1FDQhLr6HTQFveehiUAu27K+lm7WCNQ/Fz5/EvAUxiLD
+	Tbd4DgSZBK8Gblkg3iI4l7Hl/mYoLUV/A2CwkeKnAL9IEUdpG2rO93/nA2RXOQ==
+Date: Wed, 2 Sep 2026 20:25:59 +0200
+From: Andrea Mayer <andrea.mayer@uniroma2.it>
+To: Alessio Faina <alessio.faina@canonical.com>
+Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+        pabeni@redhat.com, horms@kernel.org, shuah@kernel.org,
+        netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+        linux-kernel@vger.kernel.org, hangbin.liu@linux.dev,
+        stefano.salsano@uniroma2.it, Andrea Mayer <andrea.mayer@uniroma2.it>
+Subject: Re: [PATCH net] selftest/net: skip srv6_end_d[t/x][4/6]_*_test.sh
+ if iproute2 too old
+Message-Id: <20260902202559.6c2b693bc2a6e697855e1b54@uniroma2.it>
+In-Reply-To: <apbe0PAvaes977l-@cicciput>
+References: <20260824091537.2305107-1-alessio.faina@canonical.com>
+	<20260826000156.bdaa71db68dbdc9c13907205@uniroma2.it>
+	<ao7S04LkWVXAQpgq@cicciput>
+	<20260827030701.bfaf6eea6dea1aef24c353cf@uniroma2.it>
+	<apAJuZzDOvjkVx60@cicciput>
+	<20260828042357.1d6e802448752a8fdff5a485@uniroma2.it>
+	<apGxmfjQs247lHX-@cicciput>
+	<20260829231150.8180c09f6874606eb49d0243@uniroma2.it>
+	<apbe0PAvaes977l-@cicciput>
+X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-bcm2712-iommu-submit-v4-1-9dbb657578c1@reactivated.net>
-References: <20260902-bcm2712-iommu-submit-v4-0-9dbb657578c1@reactivated.net>
-In-Reply-To: <20260902-bcm2712-iommu-submit-v4-0-9dbb657578c1@reactivated.net>
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Daniel Drake <dan@reactivated.net>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, nick.hollinghurst@raspberrypi.com, 
- james.quinlan@broadcom.com, Jason Gunthorpe <jgg@ziepe.ca>
-X-Mailer: b4 0.14.3
-X-Get-Message-Sender-Via: s1041.use1.mysecurecloudhost.com: authenticated_id: dan@reactivated.net
-X-Authenticated-Sender: s1041.use1.mysecurecloudhost.com: dan@reactivated.net
-X-Spampanel-Domain: s1041.use1.mysecurecloudhost.com
-X-Spampanel-Username: 192.250.231.249
-Authentication-Results: antispamcloud.com; auth=pass smtp.auth=192.250.231.249@s1041.use1.mysecurecloudhost.com
-X-Spampanel-Outgoing-Class: ham
-X-Spampanel-Outgoing-Evidence: SB/global_tokens (0.00340747804734)
-X-Recommended-Action: accept
-X-Filter-ID: 9kzQTOBWQUFZTohSKvQbgI7ZDo5ubYELi59AwcWUnuURYIcqJYgXdt6wOxD7aGQHzZ8BhSPZL1cz
- XB8iudZvfiu2SmbhJN1U9FKs8X3+Nt06bFpPrNOlRAlE9AVLwR4uGVjKNnzF3nQoDoQtBifM84JL
- M0i5ZAms0EHrvcCaVIM/7hzmRCZMm1kSJI/8ywn3GnT3EFAinyrilm9zau/FuzkQt9Nb4Ml7QXdk
- EetczWBpY9ovdkP9RmEvieRDWoEFGZ7f+7oeClYYrL6OxfWC1jM0MOKiGRkxO3FaI58br05WBb39
- uS1TjWG2Inx+Ts2QrtVmombMJ4e2pn5C0yBMHZ0fE47nEjvubMSTLAkKCKefuLbx+lGq0svfyhth
- j0R6Iny++hg9dJLqN5zmWqF/oHgMZXS6X/fIHYslsKU0yPHM4JpSMI47HiFQBsGlm5AyJ9N3+CB9
- 4aFbAhtG8w3Ly5ZVKmISsN3IhGLWYd0758XIiXx6YYOeazosCcxmb7RWPITtorGl87DPy4ds+UWq
- MUZTL/tWkSfK5K31nzL0AFHJBtc8x8t5TwPji0j+tEORarofO5AIaedOveY7zQj5YZ/cd7uPDhKh
- WGZMn/d4/04OdrifJPLFYXIpN2MC8oCi+3TnddL52Wxml9vX6xG9HT1hMqJwIOFdI2S/IkjHcgoN
- +lE++lajS+EBz4etym25QPOIjlkSAfAYMUguLL/iJ3dHHZk8+BacxJzH0Weev4hlgCBkpmIIyJOF
- ryTdK/1e0oTCxtGGr3tflBYFGrNrmHsCV6TDdtit68pQ4Nki0TzxZwPxmW1OTT5gM4+GMuFG0h5K
- 1JfG3OtnsbD10lahPkuf+eM3l5KPnbp/eQthjVMIXiM548XiUPzdeM2DpJkNlS+QlzUpPwM5oicr
- BfHSx0cq8sPOf6wGW9u/lWd24hqw3yFuMpe/j6ywHoVhi9eN8zV1w9vIuEkKCYJ47Q917xCQbH1y
- M38733VOnxhw2U5RfvwcBhGdh7y1bw2tAk6MiqGkBrRAoXiKcRnEPA3cog/JkEYusjKvZuah7Eo5
- LC3lag+DgD9xY7Yj7fvC65xWAU3TJceJXG+jXar6FtDTl6SazWHDhW0k3iY0Nxd1+egvPpyylyRk
- sDtvh9EglVwlBP3PkVHlQGQFk2KBEkFw3+vw1RS8zKP8o2x05FSSJsC7k+LzVpQY05oubiJ9GrzY
- ++DuIQUs/5JJj4C/n4CILpFTKQlqbzX/LSb50zWeMLuo5Hnmju/07lE8IgUQIRKq4wpDiNg26VD5
- h9g0J/CmRqJfN6DTVjUszJAalIcW0Bh5dbygTK7jtNAOpOLoYrBwYYKC6XIWdfPsJXrcrDW6vfdj
- zQ6YC7Heg3Xf7O1TOd7yUx++SDY6V9XDGiqeh8jJhxFbE1QSjfwMTndprmVkWxS1mi+nw+nJxqi8
- G/0EWIVPrm1vwD4neGesGpTedY39WcqTsQtfSPgwkpcj1YhLdnNHf6G/7NjKIViWFaEeldR/m2+i
- TN8ji+Mhbk3TTo2Lw6nIoDr0sXUZ7YZoZ/GZ+slJL25ATsZTVifNjYlkFmCz0w5vcdcHI3py3L8t
- PqWAmEN/CjKjK3VVq9SDkpBDU8/nN9BMID38D/++xf97O23y3deP8vNnmz84mDUvZqxnHNc/wp8s
- bbUui5b8WkACIg5AB/ilm4apSU2goW8TQ8+z0w5vcdcHI3py3L8tPqWAC7xZyfryQF81aCkSJYKS
- vg==
-X-Report-Abuse-To: spam@quarantine16.antispamcloud.com
-X-Complaints-To: abuse@master.antispamcloud.com
+X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
+X-Virus-Status: Clean
 
-test_pgsize_boundary() tests boundary mapping with a hardcoded physical
-address that requires 38 bits of physical address space. However, the
-upcoming page table format for the Broadcom BCM2712 IOMMU only supports
-37 bits of output address space.
+On Tue, 1 Sep 2026 16:18:56 +0200
+Alessio Faina <alessio.faina@canonical.com> wrote:
 
-This causes a test failure as iommu_map() rejects the large address
-with -ERANGE.
+> [snip]
+> 
 
-Drop the high bits of the address (they are not relevant to the
-boundary calculations being tested) so that it fits into 32 bits.
+Hi Alessio,
 
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Signed-off-by: Daniel Drake <dan@reactivated.net>
----
- drivers/iommu/generic_pt/kunit_iommu_pt.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks. Some comments below.
 
-diff --git a/drivers/iommu/generic_pt/kunit_iommu_pt.h b/drivers/iommu/generic_pt/kunit_iommu_pt.h
-index ece1c9b8c55d..9fc71db74234 100644
---- a/drivers/iommu/generic_pt/kunit_iommu_pt.h
-+++ b/drivers/iommu/generic_pt/kunit_iommu_pt.h
-@@ -403,7 +403,7 @@ static void test_pgsize_boundary(struct kunit *test)
- 	    priv->smallest_pgsz != SZ_4K)
- 		kunit_skip(test, "Format does not have the required range");
- 
--	do_map(test, 0xfef80000, 0x208b95d000, 0xfef9ffff - 0xfef80000 + 1);
-+	do_map(test, 0xfef80000, 0x8b95d000, 0xfef9ffff - 0xfef80000 + 1);
- }
- 
- /* See https://lore.kernel.org/r/20250826143816.38686-1-eugkoira@amazon.com */
+> I tried this
+> 
+> +test_iproute2_vrftable_supp_or_ksft_skip()
+> +{
+> +	ip netns add __vrftable_test 2>/dev/null
 
--- 
-2.55.0
+The netns name is fixed, and if a netns with that name exists, the
+check runs in it and deletes it at the end. It would be better to use
+setup_ns with a local variable. setup_ns picks a random name, fills
+the variable and checks the add. cleanup_ns then removes the namespace.
 
+> +	ip netns exec __vrftable_test sh -c "echo 1 > /proc/sys/net/vrf/strict_mode"
+> +	ip -netns __vrftable_test link add vrf-100 type vrf table 100
+> +	ip -netns __vrftable_test link set vrf-100 up
+> +	if ! ip -netns __vrftable_test -6 route add fc00::1/128 \
+> +			encap seg6local action End.DT4 vrftable 100 dev vrf-100 2>/dev/null; then
+> +		ip netns del __vrftable_test 2>/dev/null
+> +		echo "SKIP: SRv6 vrftable not supported in iproute2"
+
+The srv6 tests that name iproute2 grep the ip help text, while this one
+installs a route. IMO the message should say what is missing:
+"SKIP: SRv6 End.DT4 vrftable not supported", and the same for the function
+name, without iproute2 in it.
+
+> +		exit "${ksft_skip}"
+> +	fi
+> +	ip netns del __vrftable_test 2>/dev/null
+> +}
+> +
+> +test_iproute2_vrftable_supp_or_ksft_skip
+> +
+
+The call goes after the vrf block and before setup(), because the check
+writes the vrf sysctl and that file is not there without the module.
+
+The commit message and the subject should be updated as well.
+
+Ciao,
+Andrea
