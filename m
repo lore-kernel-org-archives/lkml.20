@@ -1,287 +1,240 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011013.outbound.protection.outlook.com [40.93.194.13])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 133E33AFD19
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:33:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788359638; cv=fail; b=Sk/ghfG3zL3vfZD6PY88CCNChzxycxHZGLCF/j3Y3xV8AkOvNZGF5419JCqsm0vvtHdJSFJmN8PnTQMJ+JnPzVhaOBhnMdIfv+7nF+ZLKMJ+wE6chLogGyil0+tWupxe6itI2D0xlTq+xg8JRH+IKUyIDRY16GfITQGNw9m5oD4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788359638; c=relaxed/simple;
-	bh=YRQ3oUiy01fZN01YCHCB2jb4w2GR4kza9nZFnozvEis=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=XLu/4H+sexqRpfKFF5Ugd1wXsc02mXFvJuJ6dCgkuBVJlx1sLHgvrrQAgnJKBDJg2TF51RmfWTGL7kLLU9I30dACvAbSWBODunrTvUv9xj1IC2g3LHi1AIKpaxRGxZxLYxSF081wUXZ2eZAJEYBBvAp3+SKTr8930tD7t1dKsGg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=kh1726RK; arc=fail smtp.client-ip=40.93.194.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4D214A2E02
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:34:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788359645; cv=none; b=KX8XwvkQv7F5S6LTbPwzgECTsWSjZ2wCzEyCDiBp0s6VqFmqV0BqOkajN7d5ODeO28S6AyDSXl/8vq77fw5+XAnFEyWk3SqLgE/ycXNnAbuKPlle8j4xfQSuYCR1g+D/wgdqKEcTnato8EtHEaMJssHn8ZCVWqesO/B9iCVS6iU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788359645; c=relaxed/simple;
+	bh=Q0t/tq/G1G6iYahafSY7REe4nCmiASWINvH8wSZejrI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nvlhPpRp+MxeH6dKfEf8HVP1c2t3kifl09Y6i78ZM0cgXuRjz9mBi+jQmQt1FU+Z1vE5+qP2ooN7H841sNpQ5TrEDV83Q6H36hlqX/zTvljYYZDJfA3BX2ekL/sA0vgX3h9mRHkYlSnemS0AzgABvEnkhMsNw/5bRk7fb4wbFi4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hmHgb0re; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BVr3REQQ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="kh1726RK"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sjvc1U2jVkfGQ7KQvoLU78B9tRoM3SI9/+JI1Sj3B5fhzxOHrG4Rh/AVJCW1+IuFzNuofmMKvA+DyLWfn6VWJqMZVqo3tfB//iRLQIwdnNfn5bjh7ABpkheHUWOi+MEWyImFthM7NeqAVEiY5Jz4I4uy+4+yw2xZ9lHaQdLZeaVYuN0US6AuFLKodX9TDJxzsdODmUfh3IECsSykdiD3uN+NuJ7Qlye1NLRhNqnDt9/x5siQ2OWYZ0H8hPntjlHNFcLNF4n+1XNFiwcvZHn+idVhJncL2cJQUG0NeWsteyESdK1O23EuW2VF41+4mHgPlTf4tUtH890Iw/3F4qUAlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=deiBicsp+D06oJqt+Os7gDto3c8bGphHgYJdttFeaMk=;
- b=ODXgLWLT9Ll6Yy9Scac5Lxl9ao+U55wMNM0AvXqnTFWCyG38genfgwba3C8omlxRnzGZBgoSWJQCA0U9owfR2cx4Q30PFZKtcMLCLJWDfAqE7rIQ6fgDuP5B//RVm4QD+jYI+ulVOLfB+XXbgUliSWRjtpgiXhxKQSRzj6S4bm7Isfr5cCDH8YZz5OhuU2hfJWSP8y7WgET9KnOZM5iPpnzvLHUE/S9HMhmuAF5D1XuHuhwKPwcWI1DDAQrjypJ5xsRaYB9LnstMwYDJdTe5a2Ii2AK3bj2APpDlUqrT9Dlt+yk1WbZ69LW/nSuA0rBUEjISTgs8cBU4tc5IwGHRDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=deiBicsp+D06oJqt+Os7gDto3c8bGphHgYJdttFeaMk=;
- b=kh1726RKlpkHJsRWdJa1uuMQrzWp/+3y7E7A6mLuJCGfKL7xH+vPYLwqrOVt0MEBt+4ewNTVNEH4n6IivWI9sRwsFJDdDqdVkuod2A5leFtrFZ5fa64eLx+4AyleeY7RNZtJyerK0d5gq5xVYjqqdDgtkDmgCS5AH83SB18dpUrhzycDhxoAngLHPJVsTScaGC6ZePlK7Xm7D6z4/l6T6jH5Os9K4Hny644aSWS4FIxPd5MGe+DCf6grm1ItJCrasvxRvwuzi9NTFTpsi82M8UIfqKbEge3X1DiOh3bhTMEcssBI/CCLs+niQWj4GERBxPMTj5Ip2ck2CFPvJ9g0fA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by IA1PR12MB6066.namprd12.prod.outlook.com (2603:10b6:208:3ee::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 14:33:48 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0382.007; Wed, 2 Sep 2026
- 14:33:48 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 02 Sep 2026 23:33:45 +0900
-Message-Id: <DL4WKU4TOA0C.2FGP44BOVFHLV@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor"
- <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>, "Will Pierce" <wpierce@nvidia.com>
-Subject: Re: [PATCH v2 12/15] gpu: nova-core: drive GSP events with the
- SWGEN0 interrupt
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "John Hubbard" <jhubbard@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-References: <20260829012243.496697-1-jhubbard@nvidia.com>
- <20260829013324.499542-17-jhubbard@nvidia.com>
-In-Reply-To: <20260829013324.499542-17-jhubbard@nvidia.com>
-X-ClientProxiedBy: TY6PR01CA0020.jpnprd01.prod.outlook.com
- (2603:1096:405:3bb::12) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hmHgb0re";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BVr3REQQ"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682CRKXb2001894
+	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 14:34:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	d+TRtaIih3SdU3RFxUDMrL/VfpbAnPIZ43woQUPKeWQ=; b=hmHgb0reI4KPyazS
+	m1EBlfFCVaCwOx5ItvaL/B/YReYwWgdiMXG/cqxtpdFqGdFZF9Ja2A/8ItVVBAgn
+	ImHh1v7wQFy7/y/DUQHsdqS7oz6qW5Lrp2V1KFrjCvsqqsAG/rBV9iJwNO8e479K
+	ygku/DBzFm5PIvJtu12ovbncCrgxAzqzHuNXc6Q7nNPj6UzpGR12FBSWgkV1tc/P
+	3cbqhNR0yAyWK2roUmEYpaAAEI8Bwn71o827B1WYcYaYKOehrt5xbebCvF4+q+qA
+	276AChT+PJKJfVoQVPGmhq5zFs2Uhl6LNg24UHGblMReLKlUXl3vDesCqQ5aLPx3
+	hnEdZA==
+Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4geguy18h9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 14:34:02 +0000 (GMT)
+Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-66d309b367dso1019294d50.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:34:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788359642; x=1788964442; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d+TRtaIih3SdU3RFxUDMrL/VfpbAnPIZ43woQUPKeWQ=;
+        b=BVr3REQQ+YWp4cBtUpiqzdsk9dB4ZHiMD1NytynDhDVbCXrUUgtir904cI8IQB8ryP
+         O+WJrxcEByXhRDEG6WZcCVCyUKpyWgpysZ3mKSDgeMe2g8tTSdYkGJW373daoI+E61xw
+         3EI1rS2sWGiLL3zIGSWAS4WFW7nxbgu27igmvTQsshLL7DlRuqvCkUIS5ub2HIF+yKI5
+         OqIo9Jc4IRUDPttKroIS5WAqi8rjvrOmMTD2LnOQOoAhJgwV2H+wGY1UfYKk8KPbGn7t
+         OSCLT7rrkKdenenhhY+TECfRzdcAgLuCS5JSrIB40RGfceILub58GJB1OFDGrVRh1i0B
+         biyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788359642; x=1788964442;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=d+TRtaIih3SdU3RFxUDMrL/VfpbAnPIZ43woQUPKeWQ=;
+        b=Qq8TpiaVEfdueC1jgR8mI2S+lSIywwjx+mZ4wPcW/ScBDYPAAiVxu/2G6T6yF94o01
+         SRMww0X9ENaglBr+XHC46Ke9SnHHPFT5Rg3G8vbYdMDpfoQi88Y5cHlXlt2n4leZ8yFG
+         auBZHomp3uu9X90XrtpSY1em1JWJtJUkkCr3GiKmOLVjObxuVEJP8Kktv93vJZVvebL2
+         OeLigZ0s22pddrsUkL1pS9ded3F0ru8Zvym1x82g1f1YtiGJPDQs0Xaj3DTU6vDi+HUE
+         ZPWejhxS7S7AjPoMDmTtBNg11JKnOcgWL/N1/NtU//7SLm/s854yDQOOW+4W0zgioznV
+         2hZA==
+X-Forwarded-Encrypted: i=1; AKwUvBwcn4tl0lC77t4NHxeywuMEXBXS7bDH5RRmNJtt1seLGuHiG9zCPcf0s/y05lsOLwRw2tPTKRYI2F84n1Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBXBBG1vubMJPjwhfmnVFpOwnUGW5SfW2KGi49MQxnvOdnHaaD
+	YoFmuo/hMpCNFpJnM6NVMFZJ7LR7ggxfWQx4P3w6FLLZHX5D0dk+k0wmUqoLurIeGz0MIf/pZsi
+	coFW2eV2oXzauPJhXVbEstAHhu8HC+3rYdvt/Y7JQC8NCfhwphne+OKvFGI1CYQFj82g=
+X-Gm-Gg: AYBFou1TGKSWJ2FR+RH4PlnmglmHi1dP9Fg8/K/SxF/nBkJ3HdGeLwWsDm9yfYfW4pr
+	kWMqfzfFuooTlpxD7B/m+0nHH7Di288YqDiW/KhaaeNqdK08GvyG2IvwlWAt4Sz2D7qhuW1SwYI
+	C3z11NhyhrOC9AvB5NIQUyfGX0/EMJEo82wtjDFC0J8RBWzE4ICtu+YKrT5SehBzd1zXtaNIbWK
+	VjasOa/dUMW/OXoiB6ayi13xn6Xnv6wbAsX76ZHeNn1ZpE+yi1aXZ4KM7yjcv4t6LwuNW61Ii4/
+	mz9qNXNS9U6RRShuxGL9SbfPgyL5vyYmtF+goO2aB5YLUxCWkDBRRASOjGjMPsaeSIN+5V36+JI
+	HEzFdmAZP19a6FKsuIr8Md+SlBpsnawmbDzNTa5dkCmJA7Eov3mAZIn7wWA==
+X-Received: by 2002:a53:c051:0:20b0:66d:2c09:fb70 with SMTP id 956f58d0204a3-66f9b6c6c7emr1566000d50.0.1788359641747;
+        Wed, 02 Sep 2026 07:34:01 -0700 (PDT)
+X-Received: by 2002:a53:c051:0:20b0:66d:2c09:fb70 with SMTP id 956f58d0204a3-66f9b6c6c7emr1565974d50.0.1788359641287;
+        Wed, 02 Sep 2026 07:34:01 -0700 (PDT)
+Received: from [10.110.114.54] (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-86c184e4b52sm18439867b3.34.2026.09.02.07.33.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 07:34:01 -0700 (PDT)
+Message-ID: <2af521b1-3b74-417d-8b0b-e30bc6d8df03@oss.qualcomm.com>
+Date: Wed, 2 Sep 2026 22:33:50 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA1PR12MB6066:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5d6154fb-3692-4bf3-8307-08df08ff3378
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|10070799003|7416014|376014|366016|23010399003|10067099003|5023799004|4143699003|56012099006|11063799006|6133799003|7136999003|18002099003|22082099003|11062099010;
-X-Microsoft-Antispam-Message-Info:
-	cVE1J56PM/ZG1L4t9E67gkpcDN5hSLsNG8c81wviGuKalYJUVGd+czRNsCDyp6BgIxawdA0ZO2aHhPq/8q0+rAXsI51XfSu2b9uhuIMT28W20JjZGDfsTpKiIgJGS4Xkezd9FJS+7ueEE/WuTzjR39GmeuGR2ig6vPF7SVzF/rraic5jWs9DYeLWZrMwjMbcLIJIYzckuzi3OMQKAPY3soAzVfBtMw1g+m+JeridL2+2L1R0t73oyxCSpF72wUqoD6zLKTnvfj926UQh5qrMwdMg+ENOdozzKfA/FzA1vOIr0ezLeiSbFS5nUzUQwwrri5pgUyA2HVREzLE/nlXE75rk09GQBLjLFkN0aKoAR5CbpXEUawnPnZuP0N7BVdHxDXe7ohrJFIQppiXE2RASykS5GZiAmHJjDsxFs53l8F4cp1XGOTmzx3p+gknUQpNxC1kbRWaqg9O9cXKWG0ApbdmXnpgrPTRPSSQuI2+tQK4q1j0yVPw9C1EG8bfZbuHRrrf0kHDRSA0DXCXDq3YCp3DsfjSqAj21fi3wuLHQhY4XXXrDydpZHeTidX7BJPISLuVepTZGYNUw4wFBA8ckadi2JfWq3tC1YVvqOfVynejvmoWmLo5Kh5PCtuHhSnuHPhuFLCU16fjvJzxKKM8QF79ZKD3bQ/8NeVZ7QB3I2Ds=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(7416014)(376014)(366016)(23010399003)(10067099003)(5023799004)(4143699003)(56012099006)(11063799006)(6133799003)(7136999003)(18002099003)(22082099003)(11062099010);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?TkxhWjVJZ1p3RlZqaHR5NkFDelhzZTQvc2hYdllqOThuanhjcEgrK2pnVklI?=
- =?utf-8?B?SkFaVTQ0cW9xekNpS1JyREo5ZTlHSld6TFNSYW1ETnh3Sks5ZFducTg4M21I?=
- =?utf-8?B?R3JwVlU5bm1rYm5LV1M1NVhxN3RRU3gyUUtwVnhLRmw4aVBwSlh1eGVmRS9V?=
- =?utf-8?B?YTVBVnhaY1NvS3pXZC9sTU5XcitOUHRsc1I2bnpKM0l1dytXNnduMUtqclZH?=
- =?utf-8?B?WERtTUNsYlY4NUFpRjV5bVBOUGQ0VHZJRFRRZlE4K2MrRU9XRDVPTWltblVp?=
- =?utf-8?B?cTFUbVZISkR4ZC9pMkc5TDA5WEIvT1NmVy9OZkNsdHFxdVY4dXE4ZG5HQWRU?=
- =?utf-8?B?Qm5YK0lJdXZwRG9SejFJdmkxemozSU1PaFhsWWViNEl1SkdYbWR1aXhxNWxX?=
- =?utf-8?B?aXAvamJmbHU1dzByNmFYa212NVBNa2hJRWxzQnRDNVBxcTJaWldhZlJ5ajcr?=
- =?utf-8?B?c2V6ODBSbjdPb2VDbXErR1VvVW12Wk4vUTNMQjZJSWlhckJlWWxGaGkvVGwz?=
- =?utf-8?B?Y0xwR1AvbW9hcW1DcnhtTDlVU0ZHNXkyOThXaC9PT3pWWC9ZZTNOL1E1T2ln?=
- =?utf-8?B?OEhJZzhsQllzN1J6VE10YW9lM1FMandXRlY0ZzdjcXFleTAxNUpRdWF6RnVn?=
- =?utf-8?B?OWVjb282c0RsblNIR01mZUx0N1N3Zk9Id3JnbVhLNXVjclUzTk1vMjlSTWRY?=
- =?utf-8?B?K05vRkFvcVBWblB3NEJHUTlsb21WS2ZEdm9LSyt0cm02aE1hZDVxVTFxdzF6?=
- =?utf-8?B?N3V6REM0OFNSb2ZWWHZWNi9vNDltR1FTeEhZUk51aGMyaWJ4SG1QTnhUSUpP?=
- =?utf-8?B?NzNzdE1USXdqMkhVTGJlOWJrcXJzWVpxQzBFNUpVSGplOXZwbUVwdFIvZEFr?=
- =?utf-8?B?VE5JMHpnb3lJVFNUTExaZU9RWEJzcXdPS1lLMXdocTBKdzI2Zk5xV29TREwr?=
- =?utf-8?B?WUI3czBzVGg3TTBSYnkvc05yVHVYd3F6Z2JkamovVTdPMkZhOFpYZ2tONTV1?=
- =?utf-8?B?U1paL0dXQ1QyY1R6djJVOXRiVVNJTlRjWE1FQ1RESDc1Qms3VHMzS3lLRm5N?=
- =?utf-8?B?M2wrUVVQRE11ejhOWjkxZmlwNVJSWVV3V0VzQ3FtSlNsNGo0Y0FLbzlxVTNQ?=
- =?utf-8?B?VWg3Y0wvNk9tR3NYU1F3a1BpY0huOVRxeEEzK3A4V2hKL2owK2tabG9BSmhH?=
- =?utf-8?B?WFpHODhMRVVxOG9SU21tN3ZJY3FXSU40djBCaGtCbjRBMUNnREhRcWZXazd0?=
- =?utf-8?B?Rk5SbTVBUXpJSnpFYUxaUVlVQ1IwOG05ZjA0U0tXQUdFNC9UN20yOW85dkF4?=
- =?utf-8?B?V2ZKRGlSdUxUSC9mS2xSNWp0cjQ1TDRyZTh4MmNZWWFrNitZbWlrbU9WSXJL?=
- =?utf-8?B?YTJLQ0FRTE5NaUtzczBhaHJLRzNMUjFiOWV2Z2RCUDdMVlBOaERoNXBIYlFF?=
- =?utf-8?B?MVhESTN3YjdhcEdJRDdibXdFRVp4VGU4VEovUnpoWFpteDF3dWg1MlpMdTBT?=
- =?utf-8?B?S2dIRDRvQ016bWNMcWRFa0tTc2hDemZuVkUzNjg0RzNwM3FqV25IMW1iM3lz?=
- =?utf-8?B?VGpTb1pIbWpsbTZGcEhXak8vYm81U0hOQmE1bjUwYzgyVWUwUUkvbHpXNTFm?=
- =?utf-8?B?eEZRZm5Ob09sTjN4T0xienNuWGxNZnFMcFRIeXlRZC9Fa1A2K0hCd00xN0lo?=
- =?utf-8?B?cXpOZ3FraDZhYit3dzlFb1BoQnVUQ1ljSEJ6TExGOU9SNjZtYS8yd3ZJTFdM?=
- =?utf-8?B?OVRMNzA0QXRQK2FxbzNmMCtHYjNCZkd2U0w0U0ZBeC9oMEo1R2JteS9yOUph?=
- =?utf-8?B?MjRVbFY1RHE3Z2ZQN013ZVZkYTJKSjY5QjBQb2R1YVNTeE01Um1PSXdOR1Ja?=
- =?utf-8?B?a3FzbHdMaGhBZFo2S1Vkd2ZmQko2Wm1UOFR2ZGZEaWRuTm1KVFVVaWxLR0Z0?=
- =?utf-8?B?UmJlekNTaGZnMElsMENienlTakxZOG96NURJenJiU2M2RUJtMzVNR0VEejA5?=
- =?utf-8?B?TWRHWnhHV25sMERKRFROSnVnTWxoT1NkbUhBamhmNlVXZEdlY2ZIby9MQTJD?=
- =?utf-8?B?M0trWWFnWUVKTjExVE03dlhabnJuRGR6WnZsOENkUFgvVVoxMkdVaW5NdGFS?=
- =?utf-8?B?dHFMb0dYMFdLUDN1dk1iL2IvVHlVSHdjMUhpaWRPeFU0NDFGenFMbVF4NVJ2?=
- =?utf-8?B?WHhzdVVDeVRrVGx1M0J6Y0VLTzNtUnpHYjMrY3AxVDlrYWdTUmNxSFhuL3lr?=
- =?utf-8?B?NkM1OWJjT0k5M3FXd1JWeUxIcjM3S0s4TmNmYXJWaFM0TTEzNm1hOHRjUkd1?=
- =?utf-8?B?Sy81eEtBTkRvbXEreGpwd3FvR3lHQmhCK0hyL3F0cnd0djBtbWNoSVpvZjV3?=
- =?utf-8?Q?ChRBpBAtRz2EYYjKE2O34gz9TtQLFCxqXsGkwRd3DDlC2?=
-X-MS-Exchange-AntiSpam-MessageData-1: 3wd/LFyc4xISCQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d6154fb-3692-4bf3-8307-08df08ff3378
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 14:33:48.4867
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: SjEB9ln6YOBGgUuOWejbBehGIIdZezZQ/y2Ih+f55mFNeAkDh8YN+ewZgIRxbT3n03ycNoa66h48gPIi57TIbQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6066
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 00/11] FBE virtualization: inline encryption for
+ virtio-blk guests
+To: Eric Biggers <ebiggers@kernel.org>
+Cc: axboe@kernel.dk, mst@redhat.com, jasowangio@gmail.com,
+        James.Bottomley@hansenpartnership.com, martin.petersen@oracle.com,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        linux-block@vger.kernel.org, linux-crypto@vger.kernel.org,
+        linux-scsi@vger.kernel.org, virtualization@lists.linux.dev,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        neeraj.soni@oss.qualcomm.com, gaurav.kashyap@oss.qualcomm.com,
+        mani@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+        bvanassche@acm.org, alim.akhtar@samsung.com, avri.altman@sandisk.com,
+        stefanha@redhat.com, pbonzini@redhat.com, eperezma@redhat.com,
+        xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
+References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
+ <20260827184219.GB2137493@google.com>
+ <d81e347e-8ca7-40a1-a428-5bce6f0d4b02@oss.qualcomm.com>
+ <20260831210759.GE86114@quark>
+ <ca838905-f0f8-4f0a-96aa-2bc05ab6c0a7@oss.qualcomm.com>
+ <20260901212834.GA3585187@google.com>
+Content-Language: en-US
+From: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
+In-Reply-To: <20260901212834.GA3585187@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=UZthjqSN c=1 sm=1 tr=0 ts=6a9833da cx=c_pps
+ a=J+5FMm3BkXb42VdG8aMU9w==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=v6EDwWi3nRXZDjx7Lu4A:9 a=QEXdDO2ut3YA:10 a=Epx66wHExT0cjJnnR-oj:22
+X-Proofpoint-GUID: ds3PBbMy4w07Gvw1ARo9T3b0xFBmi08u
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDEyOCBTYWx0ZWRfX1EM+KSLO3zUL
+ oF0ek4ZEOooe/Mv9exryV+VZe2/UeQAnkSYdkVKubJJZS+lfPDe9VMhad9mNv98MkE19mBCFU0X
+ V6pgwqXnej1HkphgGifdmN0EaV7TRVA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDEyOCBTYWx0ZWRfX2fUtvk5qA3VZ
+ Q52Gw/aO0FQnWQ5/nucIpsYDS0pPbfcm1+M+3j8DOKdfoxNPOwuF1xGrRZN5hxAMnUxOjOMy2GF
+ l9MH7nNusAyhWncfX83EbFj1V5jXbKm+zbQM8BuNdCJGNQ6QJm7Ww3wp3eutoa7bQEqDL4SyuXF
+ 2uAVZzx6tUqmEqFe+Qhq14Kne6tn95Anj2VcqktF4iy71vSBlAR5LedlHJ3qrNRRGCi+0a/J26U
+ A2JUWeN1UAFj43oKuZoCg/IhC0PTL5UnWZiSkcD5vt79L5Fc8IckVzw46oa1bnmM21m1gPN6IHY
+ bW4nR66LJBlDQa4hVHNv8ioLFOARiEf0HMZc2efzn6+s2k+VLiLQCxilwGLbbq6CygyOfZH6pY/
+ a3kozQCM+EGFEJNcFTzU14SG+j/IaaW1dXPFAugdmh9pvwP7IPy5G8mAqpszoMx4Go7BeBqFkE0
+ N8Io7TWusTioH2MpcEQ==
+X-Proofpoint-ORIG-GUID: ds3PBbMy4w07Gvw1ARo9T3b0xFBmi08u
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_03,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 impostorscore=0 adultscore=0 malwarescore=0
+ lowpriorityscore=0 spamscore=0 clxscore=1015 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020128
 
-On Sat Aug 29, 2026 at 10:33 AM JST, John Hubbard wrote:
-<...>
-> @@ -79,13 +97,42 @@ fn probe<'bound>(
->              pdev.set_master();
-> =20
->              Ok(try_pin_init!(NovaCore {
-> +                vectors: crate::irq::alloc_vectors(pdev, crate::irq::gsp=
-::GSP_SUBTREE.into())?,
-> +                // SAFETY: `vectors` is initialized above, lives at a pi=
-nned stable address, and
-> +                // is dropped after all fields that use `vectors_ref` (s=
-truct field drop order).
-> +                vectors_ref: unsafe { &*core::ptr::from_ref(vectors.as_r=
-ef().get_ref()) },
->                  bar: pdev.iomap_region_sized::<BAR0_SIZE>(0, c"nova-core=
-/bar0")?,
->                  // TODO: Use `&bar` self-referential pin-init syntax onc=
-e available.
->                  //
->                  // SAFETY: `bar` is initialized before this expression i=
-s evaluated
-> -                // (`try_pin_init!()` initializes fields in declaration =
-order), lives at a pinned
-> -                // stable address, and is dropped after `gpu` (struct fi=
-eld drop order).
-> -                gpu <- Gpu::new(pdev, unsafe { &*core::ptr::from_ref(bar=
-) }),
-> +                // (`try_pin_init!()` initializes fields in the order th=
-ey appear here), lives at a
-> +                // pinned stable address, and is dropped after `gpu` (st=
-ruct field drop order).
-> +                gpu <- Gpu::new(pdev, unsafe { &*core::ptr::from_ref(bar=
-) }, vectors_ref),
-> +                // Quiesce the interrupt tree before registering the han=
-dler below.
-> +                _: {
-> +                    // SAFETY: as for the `bar` borrow above.
-> +                    let bar =3D unsafe { &*core::ptr::from_ref(bar) };
-> +                    crate::irq::gsp::quiesce(bar, gpu.chipset(), vectors=
-_ref.irq_type());
-> +                },
-> +                // Register the permanent GSP SWGEN0 handler, which enab=
-les the interrupt.
-> +                //
-> +                // SAFETY: `bar` and `vectors` are initialized and pinne=
-d (see above). `_gsp_irq`
-> +                // is declared before `vectors` in the struct, so it is =
-dropped first, ensuring
-> +                // `free_irq` runs before the vectors are freed. The reg=
-istration is stored in
-> +                // `NovaCore` and never leaked.
-> +                _gsp_irq <- unsafe {
-> +                    GspIrq::new(
-> +                        pdev,
-> +                        vectors_ref,
-> +                        &*core::ptr::from_ref(bar),
-> +                        gpu.cmdq(),
-> +                        gpu.chipset(),
-> +                    )
-> +                },
-> +                // Drain the messages the GSP posted during boot, before=
- relying on the interrupt.
-> +                _: {
-> +                    gpu.cmdq().drain()?;
-> +                },
 
-Can't these last 3 blocks (quiesce, _gsp_irq, and cmdq drain) be moved
-inside `Gpu`? It seems to make sense in terms of ownership, as the `Gpu`
-would own its interrupt handler, and things would be much cleaner as
-well: there would be no need for the unsafe `bar` lifetime conversion,
-`vectors_ref`, or the `chipset` and `cmdq` accessor methods.
 
-Just gave it a quick try locally and it builds fine (with a net -20
-LoCs), and AFAICT drop order is also preserved.
+On 9/2/2026 5:28 AM, Eric Biggers wrote:
+> On Tue, Sep 01, 2026 at 04:22:33PM +0800, Linlin Zhang wrote:
+>> With this design, I believe there would be two VM exits associated with
+>> encrypted I/O:
+>>   1. Key programming
+>>      Before encrypted I/O can be submitted, the guest needs to program a key
+>>      into a virtual keyslot:
+>>      
+>>      Guest virtio-blk driver
+>>          -> VM exit
+>>          -> virtio-blk backend (e.g. QEMU)
+>>          -> ioctl
+>>          -> host virtio-blk proxy driver
+>>             (stores the blk_crypto_key in a virtual keyslot)
+>>
+>>   2. Encrypted I/O submission
+>>      The I/O request carries the virtual keyslot number and DUN:
+>>
+>>      Guest virtio-blk driver
+>>         -> VM exit
+>>         -> virtio-blk backend (e.g. QEMU)
+>>         -> ioctl
+>>         -> host virtio-blk proxy driver
+>>            (looks up the blk_crypto_key associated with the virtual keyslot
+>>             and submits I/O using bio_crypt_set_ctx())
+> 
+> Most I/O requests only need step (2), since they reuse step (1) from a
+> previous I/O request.  The kernel evicts a keyslot only when it is the
+> least recently used among all the keyslots and another one is needed.
+> (Or when eviction is explicitly requested.)
+> 
+> This is especially relevant when only a small number of keys is used,
+> like is the case when the per-file key support in fscrypt is disabled.
+> Programming keys on Qualcomm ICE has always been very slow even on
+> physical hardware, and the kernel was already designed to mitigate that.
+> 
 
-Pushing a bit further I could also put `vectors` into `Gpu`, which again
-makes sense to me ownership-wise (because the set of interrupts we want
-to serve might depend on e.g. the GPU architecture). The only drawback
-is that I had to reintroduce `vectors_ref`, but that's a small and
-temporary hack. I'd say this belongs in `gpu.rs` as well.
+ACK
 
-(after looking some more at the code) Ok, I'm now completely convinced
-this belongs here. We could put these blocks right after `gsp_resources`
-(which boots the GSP), with the benefit that the GSP interrupts will be
-working to build `gsp_static_info`, which is obtained by sending a
-regular GSP message! Right now we are still polling to build it, but
-with the IRQ handler ready we could just wait for the signal to read the
-reply. I am not saying this should be done for this series (let's do it
-as a follow-up), but this is to illustrate that this is where the IRQ
-setup should be done, not in `driver.rs`.
+>> I have been wondering whether a model similar to the passthrough
+>> blk-crypto-profile used by certain dm targets could be applicable here.
+>>
+>> In such a design, ownership of keyslot management would effectively and totally
+>> move to the host. The guest would no longer manage virtual keyslots, and the
+>> host block layer would continue using its existing keyslot manager to allocate,
+>> reuse, and evict physical keyslots as needed.
+> 
+> I think the virtual keyslots are still useful so that the key bytes, key
+> size, key type, algorithm, and data unit size don't have to be
+> transmitted in every I/O request, then all revalidated and processed
+> again.  There is a reason that inline encryption hardware uses keyslots,
+> and I think the same largely applies to virtio-blk.
+> 
 
-<...>
-> +/// Clears the interrupt state that GSP boot left behind.
-> +///
-> +/// Disables every vector in every implemented leaf, clears the falcon's=
- SWGEN0 latch, clears the
-> +/// tree's pending bits, and rearms PCI interrupt delivery. On return no=
- vector is enabled, so the
-> +/// tree delivers nothing.
-> +pub(crate) fn quiesce(bar: Bar0<'_>, chipset: Chipset, irq_type: pci::Ir=
-qType) {
-> +    let tree =3D Tree::new(bar, chipset, irq_type, GSP_SUBTREE.into());
-> +    tree.disable_all_leaves();
-> +    // GSP boot consumes its notifications by polling the queue, which l=
-eaves SWGEN0 latched.
-> +    // Clear it before the tree drain below, so the drain clears the tre=
-e state the clear sets.
-> +    // Messages already posted raise no interrupt of their own, and the =
-caller's queue drain
-> +    // covers them.
-> +    GspFalcon::clear_swgen0_intr(bar);
-> +    tree.drain();
-> +    // The `TOP_EN` cycle in `drain` is the rearm for the two enable-cyc=
-le methods, but pre-Hopper
-> +    // MSI rearms through a configuration-space write instead. An interr=
-upt delivered before probe
-> +    // leaves delivery un-armed on that path, with no handler to have re=
-armed it.
-> +    tree.rearm_pci_irq(GSP_SUBTREE);
-> +}
+Thanks for your clarification!
 
-The `clear_swgen0_intr` bit is interesting - note that we already do it
-in `Gpu::new` (I had no idea why, now I understand! :)), so that
-vestigial one can be removed (which should also simplify `falcon/gsp.rs`
-a bit).
+I agree that virtual keyslots still provide an important benefit by
+avoiding revalidation of the crypto context on every I/O request and
+reducing payload for most encrypted I/O request.
 
-It also looks like this function could become a method of
-`SubtreeVectors` that resets the tree covered by the allocation.
+One concern I had is around ownership and lifetime management. If 
+key programming and I/O submission are exposed through separate interfaces,
+the implementation needs to ensure that a programmed virtual keyslot
+cannot be modified or replaced unexpectedly before the associated I/O
+is submitted. Otherwise, I/O could end up being issued with a different
+key than the one originally intended.
 
-> +
-> +/// Threaded IRQ handler for the GSP SWGEN0 event.
-> +///
-> +/// The top half clears the GIN leaf and reads the falcon SWGEN0 latch. =
-The IRQ thread drains the
-> +/// GSP-to-CPU message queue, which takes the command-queue lock.
-> +#[pin_data]
-> +pub(crate) struct GspInterrupt<'a> {
+As Stefan pointed out, this sounds more like an object lifetime and
+permission model problem than a keyslot model problem. My current
+thinking is that blk-crypto-proxy could own both virtual keyslot management
+and the corresponding access control. For example, key programming and
+key eviction could be exposed through blk-crypto-proxy ioctls, while
+the block device and its virtual keyslot namespace are instantiated when
+the blk-crypto-proxy device is opened. That would allow ownership and
+lifetime of programmed keys to be tied to a specific file descriptor context.
 
-This type doesn't need `#[pin_data]`. Its constructor can also return
-just `Self` - you will just need to wrap its call as a parameter of
-`irq::ThreadedRegistration::new` into an `Ok(...)` to make it happy, but
-it's simpler overall.
+Separately, regarding the I/O submission path itself (patch 08 in this
+series), I'd also appreciate your thoughts and block maintainers'
+opinions on the direction that would be preferable from a block-layer
+perspective.
 
-I'll stop here for this revision - I suppose there are more minor
-things, but it will be easier to discover them with the bigger cleanups
-applied.
+My initial prototype introduced a dedicated ioctl for submitting I/O
+carrying blk-crypto metadata because of the additional validation
+requirements around DUN handling and data-unit alignment. However, I
+understand the concern about introducing a separate I/O submission
+interface that bypasses existing optimized paths such as io_uring.
+
+Do you think these blk-crypto-specific requirements should instead be
+integrated into an existing interface, such as io_uring, or is there any
+precedent for introducing a dedicated interface when additional crypto
+metadata needs to accompany I/O requests?
+
+
+> - Eric
+
