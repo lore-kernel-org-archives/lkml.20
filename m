@@ -1,122 +1,248 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70CDB4AA59D
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:21:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E37064AA583
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:21:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788369703; cv=none; b=jdfWW63a8uLvhrU4MvuZ7jKX7dLAOb3lvsduOky66ZpT4ltrEgLIhwjoebLS4Hilbst4rCRASenneYgPY0Ujh4k1C/taXBXvLdyHKS6pg0k0XZrdxJuo6pi1PGfO7bvUIBISfI07LYFkzKFG/tlI7eh/dvPSS2ykhjY1ID8dW1Q=
+	t=1788369713; cv=none; b=qQpNjA9sb2iXXGuEkLBtt2ZryckBD52sNtXT9HrGZmFbfzsA3NA7m9Cq61EFLY321rYvzi44LOE5PopOtto9UV1OsIThbk7oRucofVLyKX+NDWR+/Ayixc7iXWYln9kBolxpNPfnVQMXESOegrjP4GA41meyJScCwOSYokfL1hA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788369703; c=relaxed/simple;
-	bh=m+JVflRfogZkAqD6QsXF3pZmp6uJr0RtWwe9UeEcILs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aLzxZ6gVvzruN8UgpO9GetngCwj/9Nx2C/CADak9JGwZ+9SPhubWUf1CTD3HYHlvKF9wkwnSd+Qmhxh+E/dDjEX/HRg8wItNc80oBC6D2eMAYD4sEy0fgFDEQjvIc69pIkA7kw6pLXkdgZPGEF9JrrWS3APmP3ylHHHyNuB73hA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=SXjFc8my; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788369713; c=relaxed/simple;
+	bh=Cbwzu8rXIJUiVu9+IeUdlVICi7IaF8Z8Kk9VmHQP3L0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=frKCdCkb795ScBKw2AYMHqIjeDt9PG2WFkcVKuHYQoYcBHzQrlO6BYN1a7JOledlhYKEeNs9qjU5q++/ejyC+gbOf6tw4KV9RpKZYOVxmSVLkmmc/pp+zSaCYCsIpueKbxcSwzqN6FFYdmd0oCd1ULU5he5nG+8vRiCSFQrjxr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NW3kgX1p; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="SXjFc8my"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so14523995e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:21:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NW3kgX1p"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38dfe910e9dso1570804a91.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:21:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788369700; x=1788974500; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mbr8vDhDQK57otnRsW80mi/+agFd8G6T3W4N93pfIMo=;
-        b=SXjFc8myRRa5xojHOKjeEhB6i/sBvtxJUJeidgzE3zQKvBcpPwhhj/M4U5r/ZFSO0r
-         EfXwzCFKIPOCgfdXI2NFqY7pJIKRcugPakyfkFs5OwNFXVrQVqrGm+hDwMWBSsAuwXQf
-         tC9TnMBgZlR5GaamYt71w3a+LpxeY9oR2CqFPJzyLwLg0Jl4MNKtbznLSKvu1qb+iBMX
-         l9NmW1reQ4iDF5EsBLmQJS4Eu1lrfv0pucjjkNnWO3OZTdYIozFfFa53uQJQ0K6/8YVo
-         YHM1D/v6OwpaPdYOb5zuyC8zD0wNPmBA5FM8OLkOW3HEAZyCYDEBlepEBuEUPzHXyfsR
-         2/4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788369700; x=1788974500;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788369711; x=1788974511; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=mbr8vDhDQK57otnRsW80mi/+agFd8G6T3W4N93pfIMo=;
-        b=pBpXFBdzAdHGZfv9sedghfWh0yc/pxjkOrFlQbzE0AFy9M68phEQsb0QREj0sl4K0c
-         Lh3YxNCZE9zf3g1vnIYx3dv45rJmMrZATaZFbeVJl30z6qeaef6tMRdDNPEmkVKK+dWK
-         AFabbcatlzAREA6xWs2XurVodEwhePedXA7brOy0fVZnfK+QhBKjc4lCwHaQEYpt746B
-         aUKMeb+iue1r4AkK656l7IKLq+//hf5hkOUjt0KA+9pcMeCoknYR9V0kSNBwVVeYSYW3
-         5jLAzoo8DzGl4+iSLXNGbc8dVAw+vCRFh6hLNFHnZozRAA0e91lfd+aN84Cdpvf/fjUi
-         y0Tg==
-X-Forwarded-Encrypted: i=1; AHgh+RoAD/UL+Pd17rW0mVRLwaDyD/z3SQE43PHtvmSTvy/51ocYyIChXTVal2e5Ub5LUeKDJcf2iP1STapgvy4=@vger.kernel.org
-X-Gm-Message-State: AFuF++l0VEGwXby8cYx5UEsYmGkf+KDQn0RheHY/72hxDLo6Mm3SfwA4
-	VIHT33GRuamVEKhRXuOHhOBdm+pl0XM7fUs1Fofmau1rqPcAXmBkORbIrG93HRRUcUw=
-X-Gm-Gg: AR+sD13wg7wtrySXacMD22NFkQgbTcz9vexbl7XJmGBKAISmQhTQzAaCXk22UESN523
-	6PGbdHSyx+AGE4WKTjIN/LZjPWg6JjxBgTjd8iPUO7fMlka/2bo/i5llC110aae1q7vqUJL6FWg
-	wz2SU/CKBlDuHOKatxwSI9aTJXelGzr0i52IaqqLleMFaWmC6HFxS58eljNR4MXYlrsbF0ek4j6
-	ZOvi5P/UgeOls1Bl2HEyZbqWvMlkvHmqlL8XX6QKF9vC2gV5vvq6EWF+gYdbSjirbRM/Qy5rcef
-	/eeTxSDRQwI5FcpEW9R93ZFc/6hszmWwlkGwyn9IbKTKYhzMyxuvjTIMLvO0J1JFxqcZALxYzhw
-	SxRdzoqlC6nk4GryzgPoSDZfmwsLPfIsi1yBv7qurfhPKXkO7PcMXkdx6R3eHMuJ/spb8u/J3Uv
-	YY+OwbXBdEIepVfFV0PNETnkLy0r9BowX86um6ZQkMb+cD5+J4Y7zy+yV0kJkfSqE=
-X-Received: by 2002:a05:600c:4592:b0:496:c1f3:e8f8 with SMTP id 5b1f17b1804b1-49ce5828104mr100735675e9.7.1788369699585;
-        Wed, 02 Sep 2026 10:21:39 -0700 (PDT)
-Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce554d52esm46037545e9.3.2026.09.02.10.21.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 10:21:39 -0700 (PDT)
-Date: Wed, 2 Sep 2026 19:21:37 +0200
-From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
-To: Wilson Felipe Pereira <wfelipe@google.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
-	Chengming Zhou <chengming.zhou@linux.dev>, Tejun Heo <tj@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	linux-mm@kvack.org, cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/2] selftests/cgroup: test_zswap: fix implicit
- unsigned promotion bug in test_no_kmem_bypass
-Message-ID: <apha6cxiTEi9_FS7@localhost.localdomain>
-References: <20260901052250.154532-1-wfelipe@google.com>
- <20260901052250.154532-3-wfelipe@google.com>
- <apaO1OHVQWJCuJDE@localhost.localdomain>
- <p9738q5kh9uc.fsf@wfelipe-west1.c.googlers.com>
+        bh=Epr4vvqjxUGUVPjJ1am+KeorzVpdgtbuB59p1B9RHNU=;
+        b=NW3kgX1pgEi8uoWEqgGuGpandlQAoWhBN2kiLYTJn4vqnon210DiOhiamfTNJvheTO
+         NG3WLwr9hgEV5f6NmXV47LuAQVhlLeWFn7FO+9JkAi6hCpaxefYY+JMc3kqP71unAwEE
+         OOGm4ghJ2e+LnzGVhaQDzD+hF+05H8xmhQc4ziKMcMdYEN0VZhzLV/LcNAX7THLy55o5
+         TsoJe90orbPNGieN2xUHH3TwSLnqF7mhzzNfhyzbi0vS6Z/GTBeF5XrDQIb1xrKNnQOP
+         0rOKEVISeZ4xnyp+5k0KCyiyzMs0RYXDeMF4qmvvoPKbgOxVcnjya3dAiMmsG0cbi8m5
+         r4xQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788369711; x=1788974511;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Epr4vvqjxUGUVPjJ1am+KeorzVpdgtbuB59p1B9RHNU=;
+        b=DFahA+vLQsYfBr+xcHCdvN82cHgTQYUm4Vl3MxGfAUbGDe+TcHXncPEW/fTl5OPKVr
+         L0vBMdpIM4O7OCyn21O0wX7vcX799x4q1JcXMigcORpddn8OuRX8yEri2TGkilBLDp0E
+         bUQxyLyLG24mWvJ7CsT98bkgpO41vfxMFjHn6rKhtfC7SxnAZ/U4I+Hm+R5m4pfbtdTN
+         4tcGTaQl75bceicAZ/JSaWVdCVT5o70qPL+oHal326BIZnTU9wo8r13DDECmhoMjdZUi
+         oQG90iCFtYKaZxCg2+QsQFk+4D6gKl4oI7CYbdt/NAGRYJpUHsAYRa66nTMfe+Rlzvys
+         qEWg==
+X-Forwarded-Encrypted: i=1; AKwUvByjuecBA1hsE8hQAFe+/Vdg/00jIHnbFuHBrX6ksprCy2Yqhv/JNNXc14MT+2e/zApD6Lq2laCsSAticXg=@vger.kernel.org
+X-Gm-Message-State: AFuF++koHuJ+bMh6AcrkONrLlH/gtQ13nEGiTtwDTgDIZBDkg4Y1uvQF
+	KB9kpZOS2jLyBepFBFCwQavCfa3nV+E1L3t7zT9abM7f90Ye0aoBfKpkhfo7RQ==
+X-Gm-Gg: AYBFou1pqzr/6/gAgr1NSryr+Xo1L1Wpo/CK+RBwnT/mcAQil3rQw8niUIHURK2+kM+
+	DrBINJ9FzuRzOXcpKj7SpFlWfEKQHHoX/PlEyVACoB8QhxC32NsJlEZXxxaOh77TrwRo3sl6085
+	w4o1kX4vDiHzLFrxiEHGCg8LMCqx3brdl+pOofn97tQdYSTWR7+CfBRNfEAmop0akrywhwG0FWu
+	RhU00VBxuUEJcBMj9G7bYJAUqD2j94MWKQS07XL/eWZ0SJJKVRZC6teXLm9P8MbM9gC62nbMdht
+	brbRPPAPbTCIwyXAcOqYno4qUAkkREAxGi+06dnvP+Kubf2vJnTSAN8nYYadhOsAFHSxKk06w7n
+	lISX0e7CAfTRyNHDvMzSqYWbfpRtPeKPZxekI9uKdu6qYPsOAQlemQhFlTt9dV2KIvJDHL38QqT
+	nuQvAn4ab7vdEtgIS4Ox5F8aUrhHHP9pISbZ71203lDNQ7pjwJXOJzznMO6WKIAx436dHQaGh+j
+	faL/1A0MRvKIc7pifywkJfzoLbDtAUdMRt+1g==
+X-Received: by 2002:a17:90a:e7c9:b0:395:4290:46e0 with SMTP id 98e67ed59e1d1-39aedf5da48mr8846328a91.5.1788369710824;
+        Wed, 02 Sep 2026 10:21:50 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b0861e54csm392768a91.10.2026.09.02.10.21.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 10:21:50 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <56826d45-e18a-4f9e-94b0-3e6f335c4ee7@roeck-us.net>
+Date: Wed, 2 Sep 2026 10:21:49 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="brfghnffrv7lgskx"
-Content-Disposition: inline
-In-Reply-To: <p9738q5kh9uc.fsf@wfelipe-west1.c.googlers.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG] SPD5118 Intermittent MR11 Corruption During Suspend/Resume
+To: Matthew Bettencourt <matthew.bettencourt@gmail.com>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <1a8ea9da-1ac1-4312-a8ca-ea4a9f35093f@gmail.com>
+ <ee284272-0da0-45b6-a3be-c76822e5d54f@roeck-us.net>
+ <014b9438-e9b7-4be1-b816-002e83a068a0@roeck-us.net>
+ <37132c40-aa82-4df1-b5ce-337601f3c085@gmail.com>
+ <3c4e9f59-5272-48cf-a4a0-eeefcba955a9@roeck-us.net>
+ <763a8b30-8548-4ff0-a1e9-8e74bbfe9b02@gmail.com>
+ <6e8761aa-67ef-4624-834d-4b9d0ce729d6@roeck-us.net>
+ <9753ed80-5666-42a6-b04c-99b9ef9326fe@gmail.com>
+ <5c17ea39-c479-4f88-adc6-9a86f3dfb96a@roeck-us.net>
+ <d80cf68e-a6cb-4b0b-807e-313be29ca8ae@gmail.com>
+ <49cafd78-2468-4b43-a376-a8b2e2de2c19@roeck-us.net>
+ <11de1daa-702e-419e-912a-db37c9f28e92@gmail.com>
+ <67938f6d-d60f-44cf-9b03-fa472c8a8499@roeck-us.net>
+ <65336f12-b821-449b-a637-31972807c676@gmail.com>
+ <a953dcaa-cfff-40c8-85a9-c12601e49e85@roeck-us.net>
+ <9cdf4b63-8f99-4a80-b0be-3f3df69e526e@gmail.com>
+ <0de99cfa-7de4-4236-930c-2c037aa1648e@roeck-us.net>
+ <2df09073-2d9f-4b6f-892b-45e7287a85c9@gmail.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
+ RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
+ nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
+ 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
+ gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
+ IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
+ kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
+ VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
+ jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
+ BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
+ ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
+ CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
+ oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
+ VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
+ 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
+ onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
+ DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
+ rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
+ WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
+ qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
+ 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
+ qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
+ 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
+ pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
+ J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
+ pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
+ 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
+ ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
+ I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
+ nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
+ HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
+ JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
+ H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
+ njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
+ dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
+ j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
+ scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
+ zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
+ RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
+ F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
+ FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <2df09073-2d9f-4b6f-892b-45e7287a85c9@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+Hi Matthew,
 
---brfghnffrv7lgskx
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v5 2/2] selftests/cgroup: test_zswap: fix implicit
- unsigned promotion bug in test_no_kmem_bypass
-MIME-Version: 1.0
+On 9/2/26 08:26, Matthew Bettencourt wrote:
+> Hello Guenter,
+> 
+> Here is the i2cdump for those two 0x71 and 0x73 devices
+> 
+> # i2cdump -y -f 12 0x73 b
+>       0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f    0123456789abcdef
+> 00: ff ff ff ff XX ff 12 ff 12 ff ff ff XX XX XX XX    ....X.?.?...XXXX
+> 10: XX 0f XX XX XX XX XX XX XX XX XX XX XX XX XX XX    X?XXXXXXXXXXXXXX
+> 20: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+> 30: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+> 40: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+> 50: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+> 60: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+> 70: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+> 80: 00 e1 f9 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f    .???????????????
+> 90: 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f    ????????????????
+> a0: 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f    .???????????????
+> b0: 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f    ????????????????
+> c0: 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f    .???????????????
+> d0: 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f    ????????????????
+> e0: 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f    .???????????????
+> f0: 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f    ????????????????
+> # i2cdump -y -f 12 0x71 b
+>       0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f    0123456789abcdef
+> 00: ff ff ff ff XX ff 57 ff 57 ff ff ff XX XX XX XX    ....X.W.W...XXXX
+> 10: XX 0f XX XX XX XX XX XX XX XX XX XX XX XX XX XX    X?XXXXXXXXXXXXXX
+> 20: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+> 30: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+> 40: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+> 50: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+> 60: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+> 70: XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX XX    XXXXXXXXXXXXXXXX
+> 80: 00 0b e0 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f    .???????????????
+> 90: 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f    ????????????????
+> a0: 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f    .???????????????
+> b0: 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f    ????????????????
+> c0: 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f    .???????????????
+> d0: 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f    ????????????????
+> e0: 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f    .???????????????
+> f0: 10 11 12 13 14 15 16 17 18 19 1a 1b 1c 1d 1e 1f    ????????????????
+> 
 
-On Tue, Sep 01, 2026 at 10:42:51PM +0000, Wilson Felipe Pereira <wfelipe@go=
-ogle.com> wrote:
-> I like this option a), any thoughts on the sequence here?
->=20
-> I thought the following steps:
-> 1) Add cg_read_key_s64() here and make use of it;
-> 2) In another patch (probably 3/3), replace all uses of cg_read_key_long
->    by cg_read_key_s64. There are 41 uses currently.
+I2C bus multiplexers only return a single data byte reflecting the currently
+selected bus. On writes they also accept a single byte, where a set bit indicates
+which of its channel(s) should be enabled. So i2cdump does not really work.
+Actually, using i2cdump might have messed it up because the writes involved
+might change the active bus... sorry, I should have mentioned before.
+In general it is not safe to use i2cdump on an unknown device. Worst case
+it can turn the hardware into a brick (seriously - I have seen that happen).
 
-Sounds good to me.
+You could try "i2cget 12 0x71" and "i2cget 12 0x73". That should return
+the active channel(s) if those are really I2C bus multiplexers. If they are,
+only a single bit should be set (again, i2cdump might have messed it up,
+so you might want to reboot).
 
-Michal
+> # ls -l /sys/bus/i2c/devices/
+> total 0
+> lrwxrwxrwx. 1 root root 0 Sep  2 10:08 12-0051 -> ../../../devices/pci0000:00/0000:00:14.0/i2c-12/12-0051
+> lrwxrwxrwx. 1 root root 0 Sep  2 10:08 12-0053 -> ../../../devices/pci0000:00/0000:00:14.0/i2c-12/12-0053
+> lrwxrwxrwx. 1 root root 0 Sep  2 10:08 i2c-0 -> ../../../devices/platform/AMDI0010:00/i2c-0
+> lrwxrwxrwx. 1 root root 0 Sep  2 10:08 i2c-1 -> ../../../devices/platform/AMDI0010:01/i2c-1
+> lrwxrwxrwx. 1 root root 0 Sep  2 10:08 i2c-10 -> ../../../devices/pci0000:00/0000:00:01.1/0000:01:00.0/0000:02:00.0/0000:03:00.0/drm/card1/card1-DP-2/i2c-10
+> lrwxrwxrwx. 1 root root 0 Sep  2 10:08 i2c-11 -> ../../../devices/pci0000:00/0000:00:01.1/0000:01:00.0/0000:02:00.0/0000:03:00.0/drm/card1/card1-DP-3/i2c-11
+> lrwxrwxrwx. 1 root root 0 Sep  2 10:08 i2c-12 -> ../../../devices/pci0000:00/0000:00:14.0/i2c-12
+> lrwxrwxrwx. 1 root root 0 Sep  2 10:08 i2c-13 -> ../../../devices/pci0000:00/0000:00:14.0/i2c-13
+> lrwxrwxrwx. 1 root root 0 Sep  2 10:08 i2c-14 -> ../../../devices/pci0000:00/0000:00:14.0/i2c-14
+> lrwxrwxrwx. 1 root root 0 Sep  2 10:08 i2c-2 -> ../../../devices/pci0000:00/0000:00:01.1/0000:01:00.0/0000:02:00.0/0000:03:00.0/i2c-2
+> lrwxrwxrwx. 1 root root 0 Sep  2 10:08 i2c-3 -> ../../../devices/pci0000:00/0000:00:01.1/0000:01:00.0/0000:02:00.0/0000:03:00.0/i2c-3
+> lrwxrwxrwx. 1 root root 0 Sep  2 10:08 i2c-4 -> ../../../devices/pci0000:00/0000:00:01.1/0000:01:00.0/0000:02:00.0/0000:03:00.0/i2c-4
+> lrwxrwxrwx. 1 root root 0 Sep  2 10:08 i2c-5 -> ../../../devices/pci0000:00/0000:00:01.1/0000:01:00.0/0000:02:00.0/0000:03:00.0/i2c-5
+> lrwxrwxrwx. 1 root root 0 Sep  2 10:08 i2c-6 -> ../../../devices/pci0000:00/0000:00:01.1/0000:01:00.0/0000:02:00.0/0000:03:00.0/i2c-6
+> lrwxrwxrwx. 1 root root 0 Sep  2 10:08 i2c-7 -> ../../../devices/pci0000:00/0000:00:01.1/0000:01:00.0/0000:02:00.0/0000:03:00.0/i2c-7
+> lrwxrwxrwx. 1 root root 0 Sep  2 10:08 i2c-8 -> ../../../devices/pci0000:00/0000:00:01.1/0000:01:00.0/0000:02:00.0/0000:03:00.0/i2c-8
+> lrwxrwxrwx. 1 root root 0 Sep  2 10:08 i2c-9 -> ../../../devices/pci0000:00/0000:00:01.1/0000:01:00.0/0000:02:00.0/0000:03:00.0/drm/card1/card1-DP-1/i2c-9
+> lrwxrwxrwx. 1 root root 0 Sep  2 10:08 i2c-MSFT8000:00 -> ../../../devices/platform/AMDI0010:01/i2c-1/i2c-MSFT8000:00
+> 
+> 
+> If it is worth while I have access to second AMD machine, PRO B850M-A WIFI/7600x3d/Teamgroup 2x16GB - FLBD532G6000HC30DC01, which I can swap parts from/to. Even though its a completely different system it might worth it to swap parts out and see then what comes up on either system to help identify what might be going on with the i2c bus devices.
+> 
 
---brfghnffrv7lgskx
-Content-Type: application/pgp-signature; name="signature.asc"
+It might be worthwhile if that system does not suffer from the same problem.
 
------BEGIN PGP SIGNATURE-----
+Bus-wise I can see that you seem to have different I2C busses in your system. I have
 
-iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCaphbHRsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AgYRgEAp30olA9rJ2qhGFysO4s+
-aIyThbEl72AZDl4Xoxzmfa0BAPTcX/yNIMQiLrmSpdmTPSJc835GqqqammL+Cq4q
-NggI
-=9Inn
------END PGP SIGNATURE-----
+lrwxrwxrwx 1 root root 0 Aug 29 16:26 0-0050 -> ../../../devices/pci0000:00/0000:00:14.0/i2c-0/0-0050
+lrwxrwxrwx 1 root root 0 Aug 29 16:26 0-0051 -> ../../../devices/pci0000:00/0000:00:14.0/i2c-0/0-0051
+lrwxrwxrwx 1 root root 0 Aug 29 16:26 0-0052 -> ../../../devices/pci0000:00/0000:00:14.0/i2c-0/0-0052
+lrwxrwxrwx 1 root root 0 Aug 29 16:26 0-0053 -> ../../../devices/pci0000:00/0000:00:14.0/i2c-0/0-0053
+lrwxrwxrwx 1 root root 0 Aug 29 16:26 i2c-0 -> ../../../devices/pci0000:00/0000:00:14.0/i2c-0
+lrwxrwxrwx 1 root root 0 Aug 29 16:26 i2c-1 -> ../../../devices/pci0000:00/0000:00:14.0/i2c-1
+lrwxrwxrwx 1 root root 0 Aug 29 16:26 i2c-2 -> ../../../devices/pci0000:00/0000:00:14.0/i2c-2
+lrwxrwxrwx 1 root root 0 Aug 29 16:26 i2c-3 -> ../../../devices/pci0000:00/0000:00:01.1/0000:01:00.0/0000:02:00.0/0000:03:00.0/i2c-3
+lrwxrwxrwx 1 root root 0 Aug 29 16:26 i2c-4 -> ../../../devices/pci0000:00/0000:00:01.1/0000:01:00.0/0000:02:00.0/0000:03:00.0/i2c-4
+lrwxrwxrwx 1 root root 0 Aug 29 16:26 i2c-5 -> ../../../devices/pci0000:00/0000:00:01.1/0000:01:00.0/0000:02:00.0/0000:03:00.0/i2c-5
+lrwxrwxrwx 1 root root 0 Aug 29 16:26 i2c-6 -> ../../../devices/pci0000:00/0000:00:01.1/0000:01:00.0/0000:02:00.0/0000:03:00.0/i2c-6
+lrwxrwxrwx 1 root root 0 Aug 29 16:26 i2c-7 -> ../../../devices/pci0000:00/0000:00:01.1/0000:01:00.0/0000:02:00.0/0000:03:00.0/drm/card1/card1-DP-1/i2c-7
 
---brfghnffrv7lgskx--
+so I don't have any of the AMDI0010 devices. Maybe that is the built-in GPU ?
+
+Thanks,
+Guenter
+
