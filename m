@@ -1,68 +1,42 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B685F43B49D
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:23:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C0A476CCC;
+	Wed,  2 Sep 2026 11:24:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788348213; cv=none; b=idoCuRJjaehXzewv80EAanBpIR88jW+EOckxo/bgOh0yXrWG6epGIEcL/cv54Ybb+kf5WvkqHgIOon9dUTgvQnnKEL4nHnZo/s/dwzsWzEZlnDKfCDGOq6Ig54MF9mCztdrE7TCWDh9aJxuj4garCqOCxtK63cstTuT/jDTLpzQ=
+	t=1788348266; cv=none; b=Mxg5Ac8libFstRL7YgmvOPjyIMKTviWoS5NZgNwxiMxQAfiMvfZLd7Fw/tf7oc+9h6HFNPdDqCCa4iboOjQqyfGFCHtrsba06JgoA6xM1YkMJy/0RCNlEKjNkfaGU0vCfTqwTXwia2OrO0CIsfIy+x9YMoDG0/PS29hGFGvQgk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788348213; c=relaxed/simple;
-	bh=I3Gzw4+IdNSw2XwNwgQoJBnppv4WPMtqeIONoTFtETQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U0L9wLVZMl5MKbQWmHeuogwdHOZaKknmslFixCAPwywmH0jm0cY4sLf0uxupIoBItehH8QUN24Hrwb1o4G8mn6od7cjdMOPKk0HpEaiwvluuqBt+0DOUoBVDeEaMDSi+Je0vP8xqrYgHg3ACThY/Ucgs5mpb6xt/YCV52T5m6os=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=BX1MbQBv; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="BX1MbQBv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788348207;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/BunSUA5yF4m8KSB269OW86rY/k6HCVCdVKtJ5nGLhY=;
-	b=BX1MbQBvR0x0kC2MqGYPnWV8i31cXDz2IEtO8d2nuBXJEfmh5K1i1dAt1XlR13cHIXbRWv
-	m2BfasAxH/hdJfpE1jixQ0BbCASgmGOpOIDpJlv/4IZqVs3yYX4r2fqA2WsWKwWqJPoyfj
-	8FGbNeiIvrDruKikEln34bgcWEfkZHo=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-501-NxIp2s0hOEiE-49QFAmrzA-1; Wed,
- 02 Sept 2026 07:23:24 -0400
-X-MC-Unique: NxIp2s0hOEiE-49QFAmrzA-1
-X-Mimecast-MFC-AGG-ID: NxIp2s0hOEiE-49QFAmrzA_1788348203
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6D1DC1955DB6;
-	Wed,  2 Sep 2026 11:23:22 +0000 (UTC)
-Received: from fedora (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id BB8D17DD;
-	Wed,  2 Sep 2026 11:23:19 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Wed,  2 Sep 2026 13:23:22 +0200 (CEST)
-Date: Wed, 2 Sep 2026 13:23:18 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: "Eric W. Biederman" <ebiederm@xmission.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Hyunwoo Kim <imv4bel@gmail.com>, brauner@kernel.org,
-	peterz@infradead.org, anna-maria@linutronix.de,
+	s=arc-20240116; t=1788348266; c=relaxed/simple;
+	bh=d3enSKxXZb1rG7gux2duaE/k3z2/PeR+urz+rPW91J4=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=CcB6kMJVSTLFXQ2h5Sr9EDNopQskfyOWhNHLvxPvb5SnOcq/+N6KryNZ2VTc2tLI4ob/pTgiQyJtVSgmirH/DZmQX+MYAeQBeKimF89ccGd5iK9eWsLbiy7KI4n7uWK9jSHG1fyQy1rCCz5gEP4krV0l6B43ptffrXPIhQqQcB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256:X25519MLKEM768)
+	 (Exim 4.100)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1x1j4X-000000004BY-2BB0;
+	Wed, 02 Sep 2026 11:24:05 +0000
+Date: Wed, 2 Sep 2026 12:24:01 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Ido Schimmel <idosch@nvidia.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Fernando Fernandez Mancera <fmancera@suse.de>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Antoine Tenart <atenart@kernel.org>,
+	Ilya Maximets <i.maximets@ovn.org>, John Crispin <john@phrozen.org>,
+	Felix Fietkau <nbd@nbd.name>, netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH V2] signal: Prevent exec() race
-Message-ID: <apgHJj0qH7HlAXKO@redhat.com>
-References: <87mru7h09e.fsf@email.froward.int.ebiederm.org>
- <87tsofdvf2.ffs@fw13>
- <871pbfeaiv.ffs@fw13>
- <87zey3fep2.fsf@email.froward.int.ebiederm.org>
- <87pkyyd39l.ffs@fw13>
- <87h5kad0mx.ffs@fw13>
- <87bjaie2gc.fsf@email.froward.int.ebiederm.org>
- <87wlt5aybr.ffs@fw13>
- <87qzjcdh06.fsf@email.froward.int.ebiederm.org>
- <87ecfcbyt1.ffs@fw13>
+Subject: [PATCH net-next] vxlan: add IFLA_VXLAN_IGNORE_DF
+Message-ID: <c8add19a594ca2724ad97205c9cf3af387a2d6db.1788347880.git.daniel@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -71,35 +45,139 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <87ecfcbyt1.ffs@fw13>
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-On 09/01, Thomas Gleixner wrote:
->
-> @@ -3130,8 +3148,12 @@ void exit_signals(struct task_struct *ts
->  	cgroup_threadgroup_change_begin(tsk);
->
->  	if (thread_group_empty(tsk) || (tsk->signal->flags & SIGNAL_GROUP_EXIT)) {
-> -		tsk->flags |= PF_EXITING;
-> +		scoped_guard(spinlock_irq, &tsk->sighand->siglock) {
-> +			tsk->flags |= PF_EXITING;
-> +			sigqueue_dequeue_pending(&tsk->pending, &sigq_list);
-> +		}
->  		cgroup_threadgroup_change_end(tsk);
-> +		flush_sigqueue_list(&sigq_list);
->  		return;
+A vxlan whose underlay cannot carry the encapsulated frame answers the
+sender with a path MTU message and drops it. That is the right default,
+but it leaves no way to extend a segment across an underlay that is
+merely smaller: every host behind the tunnel then learns a path MTU that
+the hosts beside it do not have, so once extended the resulting MTU can
+be too small to carry any IPv6 at all (<1280).
 
-OK... lets suppose the exiting task T passes exit_signals().
+It also fails outright where the path forwards whole datagrams but
+discards IP fragments, which is common on carrier NAT. There the
+fragmenting has to happen inside the encapsulation to survive, and the
+tunnel refuses to do it.
 
-Suppose we have an "ignored" timer tmr. Another sub-thread calls
-do_sigaction() -> posixtimer_sig_unignore() and finds that tmr
-in ->ignored_posix_timers list.
+Add IFLA_VXLAN_IGNORE_DF, off by default, mirroring IFLA_GRE_IGNORE_DF:
+carry the frame and let IP fragment the outer packet rather than report
+the path MTU and drop it.
 
-But posixtimer_queue_sigqueue() doesn't check PF_EXITING, I guess
-it should check it too?
+On IPv4 this means never setting DF. On IPv6 there is no DF bit to
+clear, and ip6_fragment() refuses a packet that is not from a local
+socket unless skb->ignore_df is set, so set it there. Without that the
+existing df attribute has no expression on IPv6 at all: an oversized
+frame is dropped whatever it is set to.
 
-Or perhaps it makes more sense to check PF_EXITING in
-posixtimer_get_target() ?
+Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+---
+ drivers/net/vxlan/vxlan_core.c | 20 +++++++++++++++++---
+ include/net/vxlan.h            |  1 +
+ include/uapi/linux/if_link.h   |  1 +
+ 3 files changed, 19 insertions(+), 3 deletions(-)
 
-Oleg.
-
+diff --git a/drivers/net/vxlan/vxlan_core.c b/drivers/net/vxlan/vxlan_core.c
+index 459f19f7071e..21cb7fbfb6e6 100644
+--- a/drivers/net/vxlan/vxlan_core.c
++++ b/drivers/net/vxlan/vxlan_core.c
+@@ -2510,7 +2510,9 @@ void vxlan_xmit_one(struct sk_buff *skb, struct net_device *dev,
+ 			if (err)
+ 				goto out_unlock;
+ 
+-			if (vxlan->cfg.df == VXLAN_DF_SET) {
++			if (vxlan->cfg.ignore_df) {
++				df = 0;
++			} else if (vxlan->cfg.df == VXLAN_DF_SET) {
+ 				df = htons(IP_DF);
+ 			} else if (vxlan->cfg.df == VXLAN_DF_INHERIT) {
+ 				struct ethhdr *eth = eth_hdr(skb);
+@@ -2526,7 +2528,9 @@ void vxlan_xmit_one(struct sk_buff *skb, struct net_device *dev,
+ 		}
+ 
+ 		ndst = &rt->dst;
+-		err = skb_tunnel_check_pmtu(skb, ndst, vxlan_headroom(flags & VXLAN_F_GPE),
++		err = vxlan->cfg.ignore_df ? 0 :
++		      skb_tunnel_check_pmtu(skb, ndst,
++					    vxlan_headroom(flags & VXLAN_F_GPE),
+ 					    netif_is_any_bridge_port(dev));
+ 		if (err < 0) {
+ 			goto tx_error;
+@@ -2598,7 +2602,8 @@ void vxlan_xmit_one(struct sk_buff *skb, struct net_device *dev,
+ 				goto out_unlock;
+ 		}
+ 
+-		err = skb_tunnel_check_pmtu(skb, ndst,
++		err = vxlan->cfg.ignore_df ? 0 :
++		      skb_tunnel_check_pmtu(skb, ndst,
+ 					    vxlan_headroom((flags & VXLAN_F_GPE) | VXLAN_F_IPV6),
+ 					    netif_is_any_bridge_port(dev));
+ 		if (err < 0) {
+@@ -2630,6 +2635,9 @@ void vxlan_xmit_one(struct sk_buff *skb, struct net_device *dev,
+ 			goto tx_error;
+ 		}
+ 
++		if (vxlan->cfg.ignore_df)
++			skb->ignore_df = 1;
++
+ 		udp_tunnel6_xmit_skb(ndst, sock6->sk, skb, dev,
+ 				     &saddr, &pkey->u.ipv6.dst, tos, ttl,
+ 				     pkey->label, src_port, dst_port, !udp_sum,
+@@ -3453,6 +3461,7 @@ static const struct nla_policy vxlan_policy[IFLA_VXLAN_MAX + 1] = {
+ 	[IFLA_VXLAN_REMCSUM_NOPARTIAL]	= { .type = NLA_FLAG },
+ 	[IFLA_VXLAN_TTL_INHERIT]	= { .type = NLA_FLAG },
+ 	[IFLA_VXLAN_DF]		= { .type = NLA_U8 },
++	[IFLA_VXLAN_IGNORE_DF]	= { .type = NLA_U8 },
+ 	[IFLA_VXLAN_VNIFILTER]	= { .type = NLA_U8 },
+ 	[IFLA_VXLAN_LOCALBYPASS]	= NLA_POLICY_MAX(NLA_U8, 1),
+ 	[IFLA_VXLAN_LABEL_POLICY]       = NLA_POLICY_MAX(NLA_U32, VXLAN_LABEL_MAX),
+@@ -4391,6 +4400,9 @@ static int vxlan_nl2conf(struct nlattr *tb[], struct nlattr *data[],
+ 	if (data[IFLA_VXLAN_DF])
+ 		conf->df = nla_get_u8(data[IFLA_VXLAN_DF]);
+ 
++	if (data[IFLA_VXLAN_IGNORE_DF])
++		conf->ignore_df = nla_get_u8(data[IFLA_VXLAN_IGNORE_DF]);
++
+ 	if (data[IFLA_VXLAN_VNIFILTER]) {
+ 		err = vxlan_nl2flag(conf, data, IFLA_VXLAN_VNIFILTER,
+ 				    VXLAN_F_VNIFILTER, changelink, false,
+@@ -4547,6 +4559,7 @@ static size_t vxlan_get_size(const struct net_device *dev)
+ 		nla_total_size(sizeof(__u8)) +	/* IFLA_VXLAN_TTL_INHERIT */
+ 		nla_total_size(sizeof(__u8)) +	/* IFLA_VXLAN_TOS */
+ 		nla_total_size(sizeof(__u8)) +	/* IFLA_VXLAN_DF */
++		nla_total_size(sizeof(__u8)) +	/* IFLA_VXLAN_IGNORE_DF */
+ 		nla_total_size(sizeof(__be32)) + /* IFLA_VXLAN_LABEL */
+ 		nla_total_size(sizeof(__u32)) +  /* IFLA_VXLAN_LABEL_POLICY */
+ 		nla_total_size(sizeof(__u8)) +	/* IFLA_VXLAN_LEARNING */
+@@ -4623,6 +4636,7 @@ static int vxlan_fill_info(struct sk_buff *skb, const struct net_device *dev)
+ 		       !!(vxlan->cfg.flags & VXLAN_F_TTL_INHERIT)) ||
+ 	    nla_put_u8(skb, IFLA_VXLAN_TOS, vxlan->cfg.tos) ||
+ 	    nla_put_u8(skb, IFLA_VXLAN_DF, vxlan->cfg.df) ||
++	    nla_put_u8(skb, IFLA_VXLAN_IGNORE_DF, vxlan->cfg.ignore_df) ||
+ 	    nla_put_be32(skb, IFLA_VXLAN_LABEL, vxlan->cfg.label) ||
+ 	    nla_put_u32(skb, IFLA_VXLAN_LABEL_POLICY, vxlan->cfg.label_policy) ||
+ 	    nla_put_u8(skb, IFLA_VXLAN_LEARNING,
+diff --git a/include/net/vxlan.h b/include/net/vxlan.h
+index 7b8207505523..85690b817e0e 100644
+--- a/include/net/vxlan.h
++++ b/include/net/vxlan.h
+@@ -228,6 +228,7 @@ struct vxlan_config {
+ 	unsigned int			addrmax;
+ 	bool				no_share;
+ 	enum ifla_vxlan_df		df;
++	bool				ignore_df;
+ 	struct vxlanhdr			reserved_bits;
+ };
+ 
+diff --git a/include/uapi/linux/if_link.h b/include/uapi/linux/if_link.h
+index 43cecca49f01..5a2d3a92941a 100644
+--- a/include/uapi/linux/if_link.h
++++ b/include/uapi/linux/if_link.h
+@@ -1463,6 +1463,7 @@ enum {
+ 	IFLA_VXLAN_LABEL_POLICY, /* IPv6 flow label policy; ifla_vxlan_label_policy */
+ 	IFLA_VXLAN_RESERVED_BITS,
+ 	IFLA_VXLAN_MC_ROUTE,
++	IFLA_VXLAN_IGNORE_DF,
+ 	__IFLA_VXLAN_MAX
+ };
+ #define IFLA_VXLAN_MAX	(__IFLA_VXLAN_MAX - 1)
+-- 
+2.55.0
