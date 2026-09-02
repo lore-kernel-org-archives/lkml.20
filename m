@@ -1,128 +1,137 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 940D9409279
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:35:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788341718; cv=pass; b=N1ZI+CqW5YU6KAmEED1wj3MUA48eEaPhaau964Oo8F+T0JBugN2xy73aR2NCNaPDwymjjMLyLifFKqa7NzIiX7MeoW/WsPng/5YxkfKjZ0ixZBGHYH+IiXbba+Hr2vOPnJrM9u2GrX2/+2hSAlAQ31BxBz8AvqILnj4WQu4VG4g=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788341718; c=relaxed/simple;
-	bh=v5zSRZRbdwZ7opwlCrgpYqe35WmIs4diO7N/mAvW1iw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FsRe3KyMyyEme5vTi5qV7QY1HB+k6uGVZPPB5QmaN4+qu75/d7+FgHchrz1OBO5fPg+aAJJ4iCJbWX2EXJ9OjK9I477BbZ7L6htCus3H6PsvsxIMdmzUTCSne+wvkbM2TSh77Yzxjbt009SgY2Ot5O1aEA4vsxek14O+1oER6gs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tA3jtNX8; arc=pass smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tA3jtNX8"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a0de062db5so1478785a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 02:35:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788341715; cv=none;
-        d=google.com; s=arc-20260327;
-        b=E+uPK7A1jHWQPdSpUY/6AcTwRK5tZ2Wlbp7B8DZTXM8+fB03wqeSEAoqIXHFIeGVeu
-         Cx/4xmymGFMbed0gXKYFCWgjNtIPgdq5wJZUshroGcuI0GidV4GCECIBvTVxl/yxxv/T
-         lX4ugseCvAziKDM36jO8rw40ktKYgTcYhc4sl1qgLhJNtSdRzymOoTf70Caz/Ddl0e5R
-         POqgv7tZkYEmZAWlRq1YfjRQelmEhAIB2IzJaYNNVbx51D13e/+DdDTlwVoNbzOXEulo
-         7KmLjNPfUr8kozDirPDGxWaVKP/P38uM7fznWGXSWz6HkS+vNLLcQwS0zGaJghQoWNqn
-         Yo7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jnX+ks6JV1XrtihYjiUlRtYYBl1wxqA6B4mBRtQH3z4=;
-        fh=dJIMromEH1ON63+vPvIQ6jojlgDV9F/HItN5R8NmqKY=;
-        b=Ix72YzewZedOk2+DpngBKQ4G3XIzF6tzPSSOhaZqpkEXPeXGQBVmOnb7cpyZ+LT/29
-         7kj8ekbiJpc2R14DHW5MXmQXgW8EwCmibufvmQ6EwWXPBBppN8cjMHdaJcaE7VhXF2us
-         ropPf+K44x3q0rjiGPDpAYSnVTbKLcLsi/L2T8ZaGHScu5Vx9Q2uGTt0d3AmCxkz6CNp
-         hYc2p8aRehWaGq1v54Hh3P/enV9LAgh7nh+3SsmU0kWc6b7TfH5uCI/IedVDzm0AeQ9a
-         DKRl8M9OP3lobdVpr1lwMSo8I/RizQ1lv2tzsSrCoEeyGkcSHcmJHm80EfNDpjOtV0/0
-         1jMw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788341715; x=1788946515; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jnX+ks6JV1XrtihYjiUlRtYYBl1wxqA6B4mBRtQH3z4=;
-        b=tA3jtNX8gSD7orD5aTrz36YKCEv5dp3euL9HeG2ZTKztScGcLM1vAtEkBwn1oQx1mK
-         ITWrhn3rfPT2FGHX6+BzDvrmZE1Yx6lq3/YQmVMFUrgh29AfeIhWYLtUeyCWYCBekyhH
-         AM5WZX6kD9UwowYvPLn7cCVu31cCXzVRZ3b7jJg7PJ9kgzXhZLIuBeL0v1ct6B5XeiR0
-         F0ndwqRg05BfVyR0TyBXO8O0TsBh6PAsLXMWquiV/yq6Hw0cd9y89zL7BAguSCzoFvUZ
-         KN40pa1gZdqxQBcH19JpSVXv97Ywuc2ADNd6NODS5UXMD+Ut3LR9QaJ/feU7KC9SfVbs
-         BPyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788341715; x=1788946515;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jnX+ks6JV1XrtihYjiUlRtYYBl1wxqA6B4mBRtQH3z4=;
-        b=km6m+miP+ioLNhEy5s+p6p7qNt5asl6y0EaeNbLkMl8yOqN8hsyC1QoFDJIC0ASuEd
-         uWAzTOI1EjCx7GIgWEPSJBkQpVXQj+3pNL0KEqVsI1+3OVcInd5HP+jrUXondbZdmJ6l
-         iLQ19YpL0nggMNp47r9UXI4ihvqKWvlhkLuOJN9wQFXN5slP4HmX3I+hzHYDMBKJouAD
-         TFARvtasLixmaj/zKAoV4X0OmeTpBPuxeg2az8FcRyhhkiHjynbt46HmmQpi3egQtRJm
-         6WC0eGb/jgCwSqwA4SLI/ArYQ7LQpaI1GXWIpUup/8KGfxlxLdB9GbcJFrgULPx0ayEt
-         HJFA==
-X-Forwarded-Encrypted: i=1; AKwUvBwePX/5o0SoBxzRaWP7b1i26p8EpjbuopztjJwdWbWu0PCpjFr6efdop7OCp6j/D3nI47AyyKYehszdg58=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+oOX1AHQGvwLF4St6PCY1pqCJlunzF0Z0EsXCGqn4OvuFrqvM
-	wUbNJW3iHTAdXLcXijCHnff6UmyAbDYVAMHtHpslIuDPAkDTbSDvbOoy0RL8lhK8b04lKv4pIbc
-	eDRTtYuJ11gPcWGJdFsMg98cXG8e6YS8=
-X-Gm-Gg: AYBFou1tN/qAxFmdWjCmK7oEz8N4dRaM/pCHtxRuEzFaTVn4fjKUceyGMqO1puRNTsa
-	VcM/UlETdgagSGJLpAGbN6ZnrH8V4UTvQ+0QkcWt6xhc1Lplz9DgymzY7MA/sSll1zeYzko/ERw
-	Yr6tfReTJTQ/q+2B0B/XR8uVz8I2ZqTWDmcrg8kP1rJvLqZiioTAtxAbwp3tsynLkuMdpBSYqol
-	4GpCuM8ntQIcs/qefXtyT7cZhrhMOmvvsEeHS7wL4gYX7l43ondy7/UdMYlgjGSxaMXqnja+Rqv
-	I8NTZLV5Hhb3DPk5VZX03OycdgOGLJuaDPGX9Oa59plckgn5c8a8sVlPAd1ipdPm/Imt2+X3Ai9
-	prJPQFegB1GUWsaQD+aMwiIjsfh1OPRX6tArihrzpQg==
-X-Received: by 2002:a05:6402:4493:b0:6a5:ed9e:b490 with SMTP id
- 4fb4d7f45d1cf-6a6827997b6mr2384818a12.14.1788341714731; Wed, 02 Sep 2026
- 02:35:14 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29771420482;
+	Wed,  2 Sep 2026 09:35:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.30.148.34
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788341722; cv=none; b=dsR4aUuijAXDLTYILZXunYBLyNi/H3CGEUt79UjE5Kwnxfyi7xD2JPVqU68SDuxjmmtvwe3XiYw4AK607/jHA+Ot/8LptcueKm9sN3aUSr7BonyZOEoT887yuVVPUMRgTbmxClHXkVtUQ8dtexuHMontIwAXQaJqZftyZnmSRuo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788341722; c=relaxed/simple;
+	bh=RIbxqo7/mIPWCvVT9qv+o1kCIjomZ4BJFjHwEDyAcio=;
+	h=Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type; b=WVIwRJIhyYImj1xvoj8oQYSC2alxORqjP2FcWmBAKnk0o14hXttrUNyibV16CjzV92sfQ8BGT303ZH8igUryaNE3F0Vo04BB01MNTw3bojyIiR+P22Bp3+HI1UpsNclPAfWhxHSwVmfUKNbkZ2j9VS0Ko4hdWahIpw5Rb0XrqeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn; spf=pass smtp.mailfrom=zte.com.cn; arc=none smtp.client-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4hZcyr55wwz5B12g;
+	Wed, 02 Sep 2026 17:35:16 +0800 (CST)
+Received: from xaxapp04.zte.com.cn ([10.99.98.157])
+	by mse-fl1.zte.com.cn with SMTP id 6829Z4qx042580;
+	Wed, 2 Sep 2026 17:35:04 +0800 (+08)
+	(envelope-from he.peilin@zte.com.cn)
+Received: from mapi (xaxapp05[null])
+	by mapi (Zmail) with MAPI id mid31;
+	Wed, 2 Sep 2026 17:35:06 +0800 (CST)
+X-Zmail-TransId: 2afc6a97edcad43-ac904
+X-Mailer: Zmail v1.0
+Message-ID: <20260902173506784mJX3FrsAcjhcYqtGuZuxE@zte.com.cn>
+Date: Wed, 2 Sep 2026 17:35:06 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <cover.1788277742.git.mattst88@gmail.com> <4524c04f1bc23f244650c7054ee449b6af054b86.1788277742.git.mattst88@gmail.com>
-In-Reply-To: <4524c04f1bc23f244650c7054ee449b6af054b86.1788277742.git.mattst88@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Wed, 2 Sep 2026 11:35:01 +0200
-X-Gm-Features: AcwNN1WCrBpqyHs5YZzs-iDskP2UNe4cTrLl_49Ymgyr1yqF1dJ58tr_0kgjpAE
-Message-ID: <CA+=Fv5ROhLgZ0DmZekFWnW=H50n++-jeH7W+dgrk7N50hKi_+w@mail.gmail.com>
-Subject: Re: [PATCH 12/24] alpha: add HAVE_ARCH_THREAD_STRUCT_WHITELIST support
-To: Matt Turner <mattst88@gmail.com>
-Cc: linux-alpha@vger.kernel.org, richard.henderson@linaro.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+From: <he.peilin@zte.com.cn>
+To: <maxime.chevallier@bootlin.com>, <andrew+netdev@lunn.ch>,
+        <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+        <pabeni@redhat.com>, <mcoquelin.stm32@gmail.com>,
+        <alexandre.torgue@foss.st.com>, <vbridgers2013@gmail.com>,
+        <netdev@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+        <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+Cc: <jiang.kun2@zte.com.cn>, <xu.xin16@zte.com.cn>
+Subject: =?UTF-8?B?W1BBVENIIG5ldCB2NF0gbmV0OiBzdG1tYWM6IHJlbW92ZSBzb2Z0d2FyZSBWTEFOIHRhZyBzdHJpcHBpbmc=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6829Z4qx042580
+X-TLS: YES
+X-ENVELOPE-SENDER: he.peilin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Wed, 02 Sep 2026 17:35:16 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6A97EDD4.005/4hZcyr55wwz5B12g
 
-Hi Matt,
+The software VLAN stripping logic in stmmac_rx_vlan() was originally
+introduced in 2014 by commit b93819854d6e ("stmmac: Add vlan rx for
+better GRO performance.") as a workaround to improve GRO performance,
+since at that time GRO could not handle frames with VLAN tags. However,
+this limitation was resolved in 2015 by commit 66e5133f19e9 ("vlan: Add
+GRO support for non hardware accelerated vlan"), which added GRO support
+for non-hardware-accelerated VLAN frames. Keeping a software fallback
+path for VLAN stripping is no longer necessary and only adds complexity.
 
-On Tue, Sep 1, 2026 at 5:51=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
-te:
->
-> Alpha's thread_struct is empty (all per-thread state lives in
-> thread_info), so the whitelist is trivially empty. This is more
-> explicit than the generic fallback, which computes the full
-> thread_struct size as copyable.
->
-> Assisted-by: Claude:claude-opus-4-6
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
+Fixes: b93819854d6e ("stmmac: Add vlan rx for better GRO performance.")
+Signed-off-by: Peilin He <he.peilin@zte.com.cn>
+Reviewed-by: xu xin <xu.xin16@zte.com.cn>
+Reviewed-by: Jiang Kun <jiang.kun2@zte.com.cn>
+---
+../net/ethernet/stmicro/stmmac/stmmac_main.c | 28 ++-----------------
+1 file changed, 2 insertions(+), 26 deletions(-)
 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index b2b7d0242dd3..2e3b0cf10d66 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -5021,24 +5021,6 @@ static netdev_features_t stmmac_features_check(struct sk_buff *skb,
+return vlan_features_check(skb, features);
+}
 
-I tested this on an AlphaServer ES40 with
-CONFIG_HARDENED_USERCOPY=3Dy.
+-static void stmmac_rx_vlan(struct net_device *dev, struct sk_buff *skb)
+-{
+- struct vlan_ethhdr *veth = skb_vlan_eth_hdr(skb);
+- __be16 vlan_proto = veth->h_vlan_proto;
+- u16 vlanid;
+-
+- if ((vlan_proto == htons(ETH_P_8021Q) &&
+- dev->features & NETIF_F_HW_VLAN_CTAG_RX) ||
+- (vlan_proto == htons(ETH_P_8021AD) &&
+- dev->features & NETIF_F_HW_VLAN_STAG_RX)) {
+- /* pop the vlan tag */
+- vlanid = ntohs(veth->h_vlan_TCI);
+- memmove(skb->data + VLAN_HLEN, veth, ETH_ALEN * 2);
+- skb_pull(skb, VLAN_HLEN);
+- __vlan_hwaccel_put_tag(skb, vlan_proto, vlanid);
+- }
+-}
+-
+/**
+* stmmac_rx_refill - refill used skb preallocated buffers
+* @priv: driver private structure
+@@ -5407,9 +5389,7 @@ static void stmmac_dispatch_skb_zc(struct stmmac_priv *priv, u32 queue,
+if (priv->hw->hw_vlan_en)
+/* MAC level stripping. */
+stmmac_rx_hw_vlan(priv, priv->hw, p, skb);
+- else
+- /* Driver level stripping. */
+- stmmac_rx_vlan(priv->dev, skb);
++
+skb->protocol = eth_type_trans(skb, priv->dev);
 
-The task_struct slab reports a zero-sized usercopy region, as expected
-for Alpha's empty thread_struct:
+if (unlikely(!coe) || !stmmac_has_ip_ethertype(skb))
+@@ -5901,9 +5881,6 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+if (priv->hw->hw_vlan_en)
+/* MAC level stripping. */
+stmmac_rx_hw_vlan(priv, priv->hw, p, skb);
+- else
+- /* Driver level stripping. */
+- stmmac_rx_vlan(priv->dev, skb);
 
-  $ cat /sys/kernel/slab/task_struct/usersize
-  0
+skb->protocol = eth_type_trans(skb, priv->dev);
 
-The usercopy KUnit suite also passed all tests:
-
-  # usercopy: pass:4 fail:0 skip:0 total:4
-  ok 1 usercopy
-
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+@@ -7964,9 +7941,8 @@ static int __stmmac_dvr_probe(struct device *device,
+ndev->features |= ndev->hw_features | NETIF_F_HIGHDMA;
+ndev->watchdog_timeo = msecs_to_jiffies(watchdog);
+#ifdef STMMAC_VLAN_TAG_USED
+- /* Both mac100 and gmac support receive VLAN tag detection */
+- ndev->features |= NETIF_F_HW_VLAN_CTAG_RX | NETIF_F_HW_VLAN_STAG_RX;
+if (dwmac_is_xmac(priv->plat->core_type)) {
++ ndev->features |= NETIF_F_HW_VLAN_CTAG_RX;
+ndev->hw_features |= NETIF_F_HW_VLAN_CTAG_RX;
+priv->hw->hw_vlan_en = true;
+}
+--
+2.27.0
