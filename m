@@ -1,160 +1,164 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013010.outbound.protection.outlook.com [40.107.162.10])
+Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 265E738D412;
-	Wed,  2 Sep 2026 19:18:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788376693; cv=fail; b=Xre1UhcCKMQwNWrtRjMVHhcwlTjh7kIbeKZUxAEGSDnTAnz9fnDn1UAJBA/4NKC3gpLK+22WCdFbm5AxyOmJW+tyq+c7TWb/yIhWNgprN4CsHCvQsIDlXSzaz4cUxk6ykT7UJT6+B2nSEobPPifjiOFQTwDVRfFxdkCoaRQIrj0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788376693; c=relaxed/simple;
-	bh=4LzS/rfKs4uWJU6v37K6Yq5uHwYJdXbsw9aHCyfxKG4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bHSACac71HwFVdXNyEw/yJ2mZeOghmpRrRSVA9rwxEs26myuEVLqC6kMJON08de38dASK/jGgAi73ouDVM0osNtV6YYWyWqxNQFowoIS9cfjXWosiM3H3BUjRexUuxhAgT0pA8p/vGtgYsvvFj6tZlI0tKsI9S/KezAy5NrAzDc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Pvl4V8go; arc=fail smtp.client-ip=40.107.162.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0D137BE80;
+	Wed,  2 Sep 2026 19:19:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.154
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788376748; cv=none; b=Zg3wVl/Fc/zVp+AWDZDzgQ/Ej2t9f1btrDXHDcA3hVV55EsU0MZk0ISgg9f6WCxsgE9ra+KxWzeeCEeZYVDbJ9BNp+IiS4oyVXc+ukLwZJBMHma9ThuratQjZAu2UXgPo65gZxqtMP+ZpaSagwva3CbKm8tNXAFhXFjlzVcBEPU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788376748; c=relaxed/simple;
+	bh=k7xxpEHq1DhC5KsD1YXAr8f/rQawVsF7PKmfHr3A2Pk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=unlpGzXVK12SpLLIMS+ChOxUkyEwsUH977gwmuw/uajsjDrwUbeoxQMTFiHU6d6GDuqcjNypok48ovNCAuJ/TJgknfXPKzzKxOwPWybpkqJ18h7kCKKAt3YtQhPIY6+iXNz5IiLNVUxvbG8QSm0Jj2KiZThD+gA4lXLcDZVziFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=SaRJI1W5; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=cxiBKzrv; arc=none smtp.client-ip=103.168.172.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Pvl4V8go"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F/K3f8soSx9pTmbc/6o2jMo5y/A+sEsNV262Y9ICKPJp4iGPpJVsLKoEzZ2KWVPqNt4RRJpsOOcDjC5uBHizw+7yzVIQdt9Wdnvq0z+IiNGB1q98RfHeoBKVTSOBznYSVK9tt5rE6r73iLz51WZXH7AJwLHXm0MX1Dec9UTMacHGsFicKo/x1zrjg7cFf3+XPj0Hzl2i+lX6a9s9bHT/5mgOgCesz+LFQuq7nxt1UbVEFwkRWEzeYw6o3+lhfTGdcY0o59GipkCC9U+5oNSXISDgoWc/Ha5nlyOtYTaCkbxji62r8raamBlB9UnMAtHBL+5uGRUrLajA9z5A8kBvJA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7Ch61m8EzoEwyam9k/Hnbgj9E8P1V0DQR3AB7gcg7aw=;
- b=V7tt+qk6uQEgHNN4eiu2935nu2WpY9Apfe5vO8n5prdq/kMvWqBY9GsSXuGeJVXIT4FvNq+og9Zn+umQRnWr4CFkPPvkTdVxzbhDsSWqzklyYvtbaB7Un0poiwoZLvj4v4T5Epqj2wNPeOtvSx8viH0GYhf07dBXEF/d5D8Mu2UiiyZb/eMy/etSyjXI49PENLVl3eVo1lW1LVSAeQ6kPd3SAHQA+8iG1oOZyMP99iSN0kzBW5VS6eZ3n68LU89BlSXPCnsbm7w08y0KYRo7DtERUm6fnFAR07uWE9D9FmyhlmWUU9O6B3Zxpj28dWEBJt5hLE0UTYx8hkSxaAVwbw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7Ch61m8EzoEwyam9k/Hnbgj9E8P1V0DQR3AB7gcg7aw=;
- b=Pvl4V8goJiQsfvbK0u9zbAzUkSvdCcYbRATTrdYUG33Cb4YeJfkhlFIFFX9i9sTs/IA71GkZ+KzucLBV09elIi0yGdr9ssz9oLSU+IdmoriCTK7WdACXi7tGbmUBDGE0kBY6O0KY/UcwnoRXU5MRCDCSU2RtccArz5T5qkW7mNSIWpfb9LBlLTbHGQrWPu1ZRsGC1IEexxYRX8OJQnf/e+6NALTekQO4ZUPIyTHM/AZGqYudlFI9X15RL9SJ5IXA4G0fFNGT0xW1OfbwTt4P59W2KpQOy13BaaVsNnKK8+wJ7BYbz5ayh17gFeNxSX8UMCDJ6oYfjfKD7wp36yhSJQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS8PR04MB8947.eurprd04.prod.outlook.com (2603:10a6:20b:42e::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 19:18:04 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 19:18:04 +0000
-From: Frank.Li@oss.nxp.com
-To: linux-arm-kernel@lists.infradead.org,
-	Marek Vasut <marex@nabladev.com>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>,
-	Fedor Ross <fedor.ross@ifm.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Will Deacon <will@kernel.org>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>
-Subject: Re: (subset) [PATCH 1/2] arm64: Select HAVE_SHARED_GPIOS for ARCH_MXC
-Date: Wed,  2 Sep 2026 15:17:56 -0400
-Message-ID: <178837652847.2085581.2862217651267779918.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260810213456.1268831-1-marex@nabladev.com>
-References: <20260810213456.1268831-1-marex@nabladev.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: CYZPR12CA0014.namprd12.prod.outlook.com
- (2603:10b6:930:8b::18) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="SaRJI1W5";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="cxiBKzrv"
+Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 9D7BD14001DB;
+	Wed,  2 Sep 2026 15:19:05 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-08.internal (MEProxy); Wed, 02 Sep 2026 15:19:05 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm2; t=1788376745; x=1788463145; bh=3V
+	xzR4XZUdzGVUc9Qo3lpbK/1SemMVH8/KWSHV5sgYA=; b=SaRJI1W5e6ZC66fRK+
+	PVqp4BCuQ/M8/NKkUgecC+Lzforn0Td/PFt8t8d+dKo6ILAqTKy73Pk6Jr1P0j7Z
+	P0XB/9YcLy6mmc8n5bT49rHQgr3J7z+tdij0O6A9LURZA7Rb5JGklbEl0Wx6OgZu
+	sVJEvpDUEUVQedXTu3D1jlWFSoWtcUsk17T4TMC5IFYaRVlfMwAd7oIiLjmwe8G0
+	68JgHge3M1DXyAYGNOMsPfh70YOkWWfnL3tcTGkiyUQgiEVLgzTnfUtjY88mJ5UM
+	cSfR5+l8mLPtslHJGcRJYtf/mxUKFeKLjQxsPLpVne1Ad6SMfQpolhcVS6BTt0x7
+	vW9w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm1; t=1788376745; x=1788463145; bh=3VxzR4XZUdzGVUc9Qo3lpbK/1Sem
+	MVH8/KWSHV5sgYA=; b=cxiBKzrvFM3W3DAGsIYBWxXEECt/+7V269gg3npUJb+v
+	2uVMFujP7+YXfUlJe1GMkK1yyLMac/kDsKefWoF8SbOl8pQLjcMPuSdmzl+kyh50
+	+TkXkWqRM/TQAARB5d4FZTktSN6z0R5l4cXwzvDatah8sIvPHzLDlloCKZsuimlK
+	m6Gki/FZieYJq3hLtqTB2xSRWHxghx4pCK0UgVhKQ6hScEkqHPYTHM/CGMWicJzc
+	N4kvge/dyNwkQcqLVyrbG9yK2ByXr2Z2P9jN6JR+6kyNLQKlMw78xh1VWh7GDI3Z
+	5KS05TiaNGZ2PRmUhOGuXZnVLUVRdupBCKRSQyI8jA==
+X-ME-Sender: <xms:qXaYam5Dd25QzBPDvDwKOBMwPjDtu4sdEbWAhflEOr1rGZSBJw67Xw>
+    <xme:qXaYandZVhM4FSZfM2_cK18NP2HcR3aSd5D7gXrdHlHd0QfvWmlKkAQ8MrHBdpH4L
+    sDjXT6dvwWanQmPihnWc71gTOfQGgd8CQpn0dosoR1-kSN_FQRiNj9t>
+X-ME-Received: <xmr:qXaYalEMhJaH2Sswm7jgzTiN3cCuy04khYY7Xf6aqwxYl4UuaCJH3Vr8D8SvpC7dSgQzIozJcDOf5JbdYplvzwZwq_2kMRu_qRqqXg>
+X-ME-Proxy-Cause: dmFkZTEm195bcli+rhZmwLg/ogcb6bLFCp6yMh+TUBzbCcGZrhK+mAtSxPTWh1gG+bRiMc
+    avWo3gEfru7hkKVNDEpJcOZJoqAO9BNzmRqoyU8p3Coe5rQvMK94368rpjSbDjvzy/3UYe
+    8jvGQDxPgerCZ1SHWpG9LeiFq0nOzJmbymaafbwu33qgiPw9iRnv+GKlz94gSg5Bu94jS7
+    dxJj+fEzoDm+doITeVDrMy1+4hoBGFWsFbcWvlLd3hVqDTeTiTFXd55hYgAlBYatkuMtaw
+    SWgeUd4oB9xfByix3QiHg8o1oN9+HGiiqXot9fX/gKQtC4rzQjEsbnNG4Me18fpnTmx9qB
+    wJdyPeHmoglQim2daLUrWA5ebxkPw+e4gKAYraXnNcNZeN7yaAbPIc09HkweilTCIOemo+
+    Uf1NVB93zuyRUlnODsErt0XdXSSlX8eCDHRl8gwz3nY5O1DVSx3wR76t3sZYXJYMtLinqM
+    Hkaud3eXeejuwyYZVs5OG2PJ6XxMNorICvjLtUui49mmZJ3gnLKJ1TNtoYtAqNSBAfuCMQ
+    469aQYYCAUdYSxC2Zim7OwCaDnE//BTubZQtygDoIrI0hjIwrEh4Qfn59e5QCoLnNndCmq
+    L1hCvMXroiLq3nr7E0Ul9FXWbaIpcA5MhJBNPhHLTz+Sli0bFHgWNwyb9Kcw
+X-ME-Proxy: <xmx:qXaYav5jqQWpI8l718IKcXvZk1RJ1XUQdFXw0Em94njdX89GxMlJFw>
+    <xmx:qXaYagtPbx8zYFtUiQ47y3ohFrn_SuBlD2jfcGqx4qLItZLUtsFRXg>
+    <xmx:qXaYar_HEqtFbExKzvQTvzDqONuNpnaQriCEeoY336X4-nYc3quEoQ>
+    <xmx:qXaYainChPIvuJes2TBAsUQ2_jcOR4qEmTiOt_I4YXOk9ev1OjGZqA>
+    <xmx:qXaYate5mKaGXcCgSbJM5o_QoWvMgYJaFzTDLaJO3ONV9xdDXIR26QZT>
+Feedback-ID: i47b949f6:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 2 Sep 2026 15:19:04 -0400 (EDT)
+From: Janne Grunau <j@jannau.net>
+Subject: [PATCH v3 0/2] iommu: apple-dart: device specific DMA aperture
+ support
+Date: Wed, 02 Sep 2026 21:18:53 +0200
+Message-Id: <20260902-iommu-apple-dart-aperture-v3-0-252ce55b7001@jannau.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB8947:EE_
-X-MS-Office365-Filtering-Correlation-Id: 637e0c5c-1dbf-42a1-bad3-08df0926e986
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|19092799006|23010399003|366016|22082099003|56012099006|10067099003|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	vQRN5sEPFT9xxkpNeUKmf8p68qZOnFxL2SB0d1tdVl5oGNwYlNoOo+yYNf5GCh5DEmSfn6zbnd7zH1Ph3UnaPkG8oD7XLXQ3bhl1+pvKFlMp7qO3z2aSazfilixRWwCABOq7BdNR2YNXsVTH6FHQPWlBlxqWyZPLQ5skhcWvfe+lumdJr4QgU08ubwIbEWDLPBClP8wJkesjyi68kHVQ2F5ZU6/vLA6kA6Gh2qbu6RuK6PNZdEhc5vuWfrzry4fcQkLTeCDrNuJZbaxQKgigTurgFHg5r1mE72LgJG84fABtT6f7S2tGBxPNYHkEVL9IjHvqZZfaC9wxdcsXRdskQxO5seLvo3SJI4nabA+ru4odJqrNwJk1is99dDrnIReYe84PncOu2W/QfAmk1DvEAGq6WYbqSmaQc6mV0vNZjgc7D12Byxh9+hJeam1ukRDGJTTT57Id2em02vXyRe6MaECQ7akwdDx/2WO+7uuNu7G26EVeeYAOZDkfX6Ae833x0SSv6dTpj343OUmn98zKti221/af7fYqQEHzEvsov92Jz3CE0AeV5kCn1Il4S2izt8N6KDH4DEW+gdWZ6KEA0LtDnp9QkOqqKoZgZdp1zYK/bLUbNf68uiXAZRqx2GxckDnQrgtllEhPffjyXtnVzJ08mhu66RHaWDeZ1UAJoe8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(19092799006)(23010399003)(366016)(22082099003)(56012099006)(10067099003)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WmVCTDhoTG9sUUZPS3RPR3lzUit2Y1gzazdrRml6b0VWdjFpeHluRGg2OC8z?=
- =?utf-8?B?WUlkZCtRNjN5WW5ybFhVaWVuT1ZXNFNSWm90QmUxcTFuUWc1cjQzQlJKU1Zn?=
- =?utf-8?B?WW9yVjJkbStIYktFV3h2Y05iNUpZc3VQTkRwMXdUcFdNTTZ3QTZ1aUo4R01n?=
- =?utf-8?B?SEhiY1EvMzJSYWljRmtvYXByU0ZUTlAyTVFCUTdVU0lJSXJ1eTY3N1N2TENs?=
- =?utf-8?B?RDdEU0JDTXZlelNVNmZsTjFjU0xoMmFTN2ozZXpWQm9jMVBibWJMNVkzeExh?=
- =?utf-8?B?MmlyMWhkUUNtQXQvamFQekRvTk9rL0l6b0ljVXZ5U3M0MzFsMlZENGwzWFVF?=
- =?utf-8?B?SVltUHBGeHN3bUxMdzA3UW5KZGxhZ2d6QWc1aFd5UGUzdHhneFc4cmtReldy?=
- =?utf-8?B?WHhBSzV2blcrTUdRTzM4UWtjLzEyM0JoNXZXZkFVWnRlU3gwRnBwb2NaTnEw?=
- =?utf-8?B?YnRSN2NkSHdnYnNRSkJsSzNqRDg1M1g0d1B3cTg0VDI0ZXJKUnhjcElJLzUw?=
- =?utf-8?B?UmZUei9uaGlNbnZ5TVhqNThZVU9qMzVXZlFlQmNXVEJtTmZGcHppa3h6WXFD?=
- =?utf-8?B?MFlsb2czYTkxVStTdk5Zb3FBUEZZZndWc0FjRzBzU2E2aXAvUWlnZnVTKzRM?=
- =?utf-8?B?UTllRTlNQWhaVUV5bk5VbEJxQkhzRmNEblJlajVyMktCM1pPb284bURxaGRP?=
- =?utf-8?B?OG1KcGM3cFVtSnp5SVZNd2JDNzlqckgrNTd4VHdsZGpGcUxlTk9zS2U2dTgr?=
- =?utf-8?B?RmZ1Y0RxcVU1Um5kZ3VFT1VIbldtWnJjb0daNjF6WC9YZkRaRFo0ejFOQnA1?=
- =?utf-8?B?dzFXc3BCYVFKNVIzSGlMcVFKbUZtdXJneE5GSWxoZURBYlRScG9IOENlK1d5?=
- =?utf-8?B?dlJTeTM2NzVBMDUxWHNBUUlvVUQwUnJpaDhVQ1hMZGowM1BkanFLYWN2cmJt?=
- =?utf-8?B?VE04aUF0bmNoMG45bk0zaGlpSk9yMy94NkpXNHZQd2J1dHBaUzliWFpqaWtD?=
- =?utf-8?B?eGUzcFpWQ1BDNzlkWk54RTJ3N2dzbFViUm9Wa1BYdk5raDk5NWJWM0lzSXE5?=
- =?utf-8?B?R3lING5qRUR5VjdpczFqWkh2SGs0M3NJUjR3S0JvUURQc3hTMmxDV1ZhTmlS?=
- =?utf-8?B?dVlySVU4Q2wwZjZCOEQ1SU9rdStyRnM0dmkyZEQrZC9QNis0ZUpIZU5CM3JH?=
- =?utf-8?B?aWZoVWZvbGRHallDcC9kUElSeGpxVkw4R3h3T3VWTTR3L04yOUs1Y3Fjc214?=
- =?utf-8?B?UlJlZE1wbjArTzUvQXhkL2JsTTZyWStjSXgvWm9rbGV4Wjk3QW1NQVFySWFw?=
- =?utf-8?B?aHRWQ05GMVlSelBPZGRNYmFaMWxDZ2JzQmpzWE9UVzdmTEVLZzFRdURhMDVJ?=
- =?utf-8?B?eXkyRVNsdXlSNUZCNlpWVHp2WkF4Nzc1WVdsd2xIN3hseHRnVENBR0FZeGFX?=
- =?utf-8?B?Qm8yN1pEQmhYMHE0bWxUbVMvb095bW1aQnBndU12a29wK2Era2lRQm45SEU2?=
- =?utf-8?B?R0hGRGZndlByNWxid0Q4NlVscURtY2RCU3NGcDExZUNXaitTOThaSkJ5dnU3?=
- =?utf-8?B?QVJTemllZE9LU1FxLytOTDVUYW1TeEd4TmVkL09menlPdDdYcG93MnZObzk1?=
- =?utf-8?B?L2RMWERhSHAyY1NiL01kNVdVbFR2MGRNUDF3OVJEbXl5RUlLQ3ZubDN2NFI0?=
- =?utf-8?B?UDI5Wkd3emo2K29xRjQ0NmZEeEs1SGhtdDVFZGhJUVpFdVZlazMxTm00Q2hZ?=
- =?utf-8?B?T3VXUVFuK0N3a2k5MXdteE00TVJzZVNvOTNNVXNLQ292S3hVb3lCM08xdUNl?=
- =?utf-8?B?TjJkV1FwanVnQzIzdEszU1VIV2FRYkZoWFBQTFJaWnIzNkQ3SmVyRFYxRFBz?=
- =?utf-8?B?OUgrakNpUlVBSWpDNStxMDRFSkxzZlZISzJIUlBnV2lncVFqaFpPdVc4ZXRL?=
- =?utf-8?B?aTNwcnRJTkNyN1QyS0ZySXRrQi82VFpSOXovZG5aN0FMMFZUdG5EeTgvWWZE?=
- =?utf-8?B?U0NWZStFSUVDa2JMMEFJRTNlUWs5MVhwWkpTNDlidVhuVTNEc2dWaHo5akRv?=
- =?utf-8?B?OGEwQ3NFNUtsc2FsYmQ2Qktod25kWGJ0b3h0c1I3TUs4bjZnRnMvMW4vQk5V?=
- =?utf-8?B?T1Zncnlrb0NodktWbys3THJCQnlFT2lCdHVmWkYvZDRGWHR3bVVBN1E1Uys1?=
- =?utf-8?B?QnVZbWdmKzAzalkwbERxQnNJNWxLWVZzcGtKcXJwZ2ZyOXBwUkhqbk1kRVRo?=
- =?utf-8?B?V1M5UmR5VDY5TnZjNDZLa3B1bTRsV21GZlZ2VHhGbHo5TC9ZTWpMdlJxc2Fq?=
- =?utf-8?B?NDdwTWJuQkZ0OW85WEQzVzJIZS9kakluYXJhQTI3YS82NFRjYzE0UVNna25s?=
- =?utf-8?Q?8oh4O5m/PL4tr6KssyP1bCzGg6S+q5vqKV02i?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 637e0c5c-1dbf-42a1-bad3-08df0926e986
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 19:18:04.3002
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZXCgWZESAKGwhT0CI/Y6NvVjGENi6mCgUxYLVq4ebgO/W6XIIuPHO+A/KOqqV1QgDXVfRvHiSzk2VuBRDDyrv5LSf9koA+S2AunUpUFqNmYZFCIQBe6osWDF1kCMQx/K
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8947
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43NwQ7CIAyA4VdZOIuhEMfw5HsYDwidwzi2ACOaZ
+ e8u20kvxlv/Jv06k4jBYSTHaiYBs4tu8CXEriKm0/6G1NnShDNeswYUdUPfT1SP4wOp1SGVEUO
+ aAlIjrsoYqaxEIOV+DNi652afL6U7F9MQXturDOv2HzUDZZQfuGSiFQ1ofbpr7/W095jIymb+Q
+ Qn4RfFCWagNCikZV+qLWpblDW8AHX8OAQAA
+X-Change-ID: 20260819-iommu-apple-dart-aperture-c3b9cc79d7e1
+To: Sven Peter <sven@kernel.org>, Neal Gompa <neal@gompa.dev>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ iommu@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Janne Grunau <j@jannau.net>, 
+ Hector Martin <marcan@marcan.st>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2532; i=j@jannau.net;
+ s=yk2025; h=from:subject:message-id;
+ bh=k7xxpEHq1DhC5KsD1YXAr8f/rQawVsF7PKmfHr3A2Pk=;
+ b=owGbwMvMwCW2UNrmdq9+ahrjabUkhqwZZfNk963aPSG+Xz9C0Krs450fFpX8M/ZdvbAxTlviR
+ +ru/s8rOkpZGMS4GGTFFFmStF92MKyuUYypfRAGM4eVCWQIAxenAEykMZ7hf9atae8neTs/ent5
+ JV9a5uPU74s2XfUVuSRWptX89tnhtFyGf3brvpUHFibtuH6ojUE86i5/ObuXj2Bh05Z9iyK/2JV
+ 6sgIA
+X-Developer-Key: i=j@jannau.net; a=openpgp;
+ fpr=8B336A6BE4E5695E89B8532B81E806F586338419
 
-From: Frank Li <Frank.Li@nxp.com>
+Apple DARTs are often connected directly to devices that expect only a
+portion of their address space to be used for DMA (for example, because
+other ranges are mapped directly to something else).
 
+The USB4 native host controller on M2 Pro/Max/Ultra devices expected to
+be sent by Sven after v7.3-rc1 requires this. In the Asahi downstream
+kernel the display controller and ISP require a specified DMA aperture
+as well.
+The downstream kernel uses a "apple,dma-range" property in the  iommu
+node to specify the aperture. This is not a good way to describe the
+aperture as it is not property of the iommu itself but of its connected
+device. iommu.txt describes this use case as DMA window in its
+"#iommu-cells = <4>" example.
 
-On Mon, 10 Aug 2026 23:34:38 +0200, Marek Vasut wrote:
-> Some NXP i.MX platforms use shared GPIOs. Enable support for them by
-> selecting the Kconfig switch provided by GPIOLIB.
+Implement this for DART allowing additionally 5 iommu-cells specifying a
+64-bit aperture start and length. 0x100_0000_0000 is a commonly used
+aperture start and the aperture often spans a 36-bit address space.
 
-Applied, thanks!
+This range *can* be outside of the DART's IAS. In that case, it is
+assumed that the hardware truncates addresses and the page tables will
+only map the lower bits of the address. However, the specified range
+cannot straddle an IAS boundary (you cannot cover more than IAS worth
+of address space nor wrap).
 
-[2/2] arm64: dts: imx8mn: Expand EEPROM description on ifm VHIP4 EvalBoard
-      commit: 5c67d91ae29a3923fe170845ae3800e4d11225e1
+This corresponds to the vm-base and vm-size properties on the Apple
+device tree side of things.
 
-Move reg as second property
+Signed-off-by: Janne Grunau <j@jannau.net>
+---
+Changes in v3:
+- actually add `64BIT` to the COMPILE_TEST depends instead of removing
+  it in v2 after misinterpreting range-diff
+- added Sven's Rb:
+- Link to v2: https://lore.kernel.org/r/20260831-iommu-apple-dart-aperture-v2-0-d16ce3770299@jannau.net
+
+Changes in v2:
+- validation of the DTS supplied aperture: page size alignment and
+  overflow checks
+- actually add `64BIT` to the COMPILE_TEST depends
+- Link to v1: https://lore.kernel.org/r/20260819-iommu-apple-dart-aperture-v1-0-252703f381aa@jannau.net
+
+---
+Janne Grunau (2):
+      dt-bindings: iommu: dart: Support specifying the DMA aperture
+      iommu: apple-dart: Support specifying the DMA aperture in the DT
+
+ .../devicetree/bindings/iommu/apple,dart.yaml      | 12 ++--
+ drivers/iommu/Kconfig                              |  2 +-
+ drivers/iommu/apple-dart.c                         | 74 +++++++++++++++++++---
+ 3 files changed, 73 insertions(+), 15 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260819-iommu-apple-dart-aperture-c3b9cc79d7e1
 
 Best regards,
---
-Frank Li <Frank.Li@nxp.com>
+-- 
+Janne Grunau <j@jannau.net>
+
