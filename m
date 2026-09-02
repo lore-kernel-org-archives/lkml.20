@@ -1,550 +1,371 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013055.outbound.protection.outlook.com [40.107.162.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE074AA1EF;
-	Wed,  2 Sep 2026 16:29:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB474AC141
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:30:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366601; cv=fail; b=YYl7g0+DCm4unCtn2f5hyEtrPqQw6JY4yku5y38iOJcSOlJP7KDmkwOghCECGjTAQZqL/U9/7Su+K2s/DyI4vkbXng2qyHkVnnMN/GutKqMha0HewVmhHGwZdHoTNp4lsDaBoo02sApMBmNZaGve9blnvnQwIXw7KKOOCYoL8i4=
+	t=1788366606; cv=pass; b=OxdfWfTaf79SK8BTocFoptWlmLQOiHOYqSOflMoPyJ4bQuk6kuQ26IK87HvHlTrxZDDGzQ0xPdWgJkQTL6NQdM7TIk4ly8KlEYMTiXBkpP7puGMW3xl9ESWimENfUHqf05p8j3DTKH9gguVbRGmgmG4gDEoJWgANzanHoNdYSpw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366601; c=relaxed/simple;
-	bh=iBNIJUjApWJ6S7wtwRt+glDjl+exHUdbDQGmPkDjAv8=;
-	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=TB4CKv6ZVNJTlv9uzbMj8m2FEqvBf+2OdDmVnZGNRqfDcDa5T8RuP8gaVMpuXRcaZhcWATKrYLp/RXF6s11pWiwBp9mJEvIFU3KyOgpGXvrxuIVIh7iubVA1K8nlyZan0q3jDu+/F9mBSbmckhNW6QEHsK157Pbya34kx5ObDVQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech; spf=pass smtp.mailfrom=est.tech; dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b=mvDDNCQF; arc=fail smtp.client-ip=40.107.162.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=est.tech
+	s=arc-20240116; t=1788366606; c=relaxed/simple;
+	bh=7rsEEZ3ERvpIWYXqCucWPYukdukzTS9mb89qv9jnrdU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=h3rZ8w2sqNqpMP58zwaJ5aDsqaLPeu4CqDyVzHgBvu0A/Ngsb8RTLtZ7+0MlXShqtXwvIpas4Eag4+3rUGxUR2d2fzgvlQRsg6lqVkmuxpAsEWbm1GqqpjbkTOuJgmCsf1o+AcA4LyS8UYN9SEVUHtZXb9hmPnWERtq//pk/6cA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pd8lhp0k; arc=pass smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b="mvDDNCQF"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZTW3F2rYEE+y4kZYMEmNU0GO2Gg+1r525lg7sXKYh6tzLU1dcRMlVU9+yofTxFWgylmfBF0xUunrgk7qQJ5GVxHTCj/4NfhxH5Xfqiyx/o9x7FblXCHwA///Ypv74mTXDH//x98o50T4V16Ss3t8XINqfbDrFr8xsGpMDjH4z2lMF4I/zndceRMSvSsJUI4Ymvj463XHxYV+WdihMmjovQFx4C36sLxPHrymfSni6yQKCYid39wnySDfLvoyw9xsJKPYKRPUqpwRqW1AsLk48jA3fuVomzp5ja2O4nYItSMN/JxK6MNErUMgo5GT8j3Q7xg9Hj4LIR/91Bj7CkVeKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C7gqgI433YiV3xqUR4oCmAVGIPcQCU2ifNfBvo1rH0w=;
- b=i+Ri9ARNkIP4z+bfC0QmyfaHfGlub3CfcEF/4pZ9uMMK4KfAypg9MGRxJY2FrtmY039YjsQ7zcCossUI0bfvgof3rIQR8HV3SfZheospBOkcq3rjq/mjg0wyuk25BPrveZQyfdIB1TdZwJpqSHnQevFp58FHitp7SkbXEyFar/ColRv1Wc/YK53v9pPBLtOnfT4FQlUKqL+XDgQhA3pVBa9fSqRVpZrCj/GlnZ6HJI+DntjaDXBrypsQugn+5abb8HX/J7RCNvQfIf6oihg4fn+iqN0rbvqxFjlN8PmDAgJgsRQ5USCf6I7uVobBfeB8pztxq1RIyfDaLfcLMCR1Xg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=est.tech; dmarc=pass action=none header.from=est.tech;
- dkim=pass header.d=est.tech; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=est.tech; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C7gqgI433YiV3xqUR4oCmAVGIPcQCU2ifNfBvo1rH0w=;
- b=mvDDNCQFdrl/m86HUXwQqySrnb/PMsDXtvIA1eDfblmJHpFC0XXQjj4+P/qxcXpbaWDydFybQ+QlzpcR/vtl5LikAbrYy/c59rZq/3hgrxHAk5XaRks6T/ENrKE7FmxlpU+5LWV6lo88PA1hbtEY9KB7a7Aa7DHm1Hlu5nmhCUkXtkpqb0b1FSb9zOQ+RU8Q6ubx/MTI2x/QUB4ok7mNz+5Y+f1QSVO9rf98hYO9UusuL8+9hcFM2subnTbnhps1Ga6Rgh7RIFqipTSEamN9Xu/noiBOQSPrWrN+pd3pO5g6zWK22cbEu6lvO4LH2nckWvHUFZgwR3tkS2+8S6rJbw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=est.tech;
-Received: from AS8P189MB1752.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:39b::19)
- by BESP189MB3209.EURP189.PROD.OUTLOOK.COM (2603:10a6:b10:f4::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.12; Wed, 2 Sep
- 2026 16:29:53 +0000
-Received: from AS8P189MB1752.EURP189.PROD.OUTLOOK.COM
- ([fe80::69fc:c4d4:200b:e4b4]) by AS8P189MB1752.EURP189.PROD.OUTLOOK.COM
- ([fe80::69fc:c4d4:200b:e4b4%6]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 16:29:53 +0000
-From: Yunseong Kim <yunseong.kim@est.tech>
-Subject: [PATCH RFC v3 0/8] kcov: add per-task dataflow tracking for
- function arguments/return values
-Date: Wed, 02 Sep 2026 18:29:33 +0200
-Message-Id: <20260902-b4-kcov-dataflow-rfc-v3-v3-0-824609f279f5@est.tech>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQrCMBAAv1L27EKa1Eq9Cj7Aq/SQpLu6Ko0kb
- RRK/27U4wzMLJAoCiXYVwtEypIkjAXMpgJ/teOFUIbCoJVuVac0ugbvPmQc7GT5EV4Y2WM2yKb
- trNtt67phKPUzEsv7dz7D6XiA/i/T7G7kp+8T1vUDIARWh4AAAAA=
-X-Change-ID: 20260902-b4-kcov-dataflow-rfc-v3-f369ab75114f
-To: linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, 
- linux-mm@kvack.org, linux-kbuild@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, llvm@lists.linux.dev, 
- workflows@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kselftest@vger.kernel.org
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Dietmar Eggemann <dietmar.eggemann@arm.com>, 
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
- K Prateek Nayak <kprateek.nayak@amd.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Josh Poimboeuf <jpoimboe@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Marco Elver <elver@google.com>, 
- Nikita Popov <nikic@php.net>, Matt Arsenault <arsenm2@gmail.com>, 
- Justin Stitt <justinstitt@google.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Shuah Khan <shuah@kernel.org>, 
- Yeoreum Yun <yeoreum.yun@arm.com>, Yunseong Kim <yunseong.kim@est.tech>, 
- Yunseong Kim <ysk@kzalloc.com>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788366590; l=18744;
- i=yunseong.kim@est.tech; s=20260824; h=from:subject:message-id;
- bh=iBNIJUjApWJ6S7wtwRt+glDjl+exHUdbDQGmPkDjAv8=;
- b=af5h+QlZ9MWXeUZQNiyPkd5n0VXWruxAL4h9Bc38Sen4F+lCvHrZ5nq4xB05LL9qGOOxREuEj
- INY6hjYdyHkAqCKqoxjkkcxB8PDho1V/Nx6JQBbsEROJn4Hugs27GrV
-X-Developer-Key: i=yunseong.kim@est.tech; a=ed25519;
- pk=nfdmjNawkxBHo9UNdzLNBEht8sYmXp0MYUsa/hwC7vw=
-X-ClientProxiedBy: DU7P191CA0011.EURP191.PROD.OUTLOOK.COM
- (2603:10a6:10:54e::18) To AS8P189MB1752.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:20b:39b::19)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pd8lhp0k"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49b8be0409fso9693985e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:30:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788366601; cv=none;
+        d=google.com; s=arc-20260327;
+        b=G0+5yRB6b1jcCiXmLDizqnLDvU96C74k+6I3DRJCjumjuRxcqIGs5DNjkeYUMCe9yq
+         EanfZwezTqBRyBvL7OGfaaATU9BcxAd6Ip1Y0i6M/lS3R1HLJ0tLn+fT9IojNbUP66F9
+         IWdGkCe+nT6TLj8tkhMgz1FnuXGV7rWA0rhK2tb4VkE9MF5zPaLjhcrnX3AZUt9cGi/y
+         s01U4X3xzWDL4IpoUjDMH2Ih8GLsXJoYobp9u818v+HYt3/OMS+GbAELF3MkPltyUSR6
+         Jsh//GFj9typuTpgix8dD7roZzoeWfPvJCb0EmmVppM4BmykEB5mNxnftwIXGUha4HYm
+         iyXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=DAYPv+x64zvGkdxTQHdsbHb8HeOUzt1Pp1bibLWOPU0=;
+        fh=yM1EPPwh3rscirB17Kl2eKsRYdv6ohdIIpmzaTHwYWw=;
+        b=jNSzt122jYwg/40B76WNItv1aLXxa/kqSYSeKr6v0hRqOQIJWJfctTm49V1sFofknd
+         XJ7xMstCdIZbOyX++JNC9d8LAP6NNQlUSEhLKvvP4tqV5JWkrgStiRLNoZyAO1d3T28J
+         yal/t65IaWo/xF+TXP2qDIjKoHVnvogfOlo/MF17QY7XFKcokVTLauhg+LlsZOqRe9TI
+         7HrrG/EekrmY9ek47MQu9vLhVZzEyJZEMjjNMSX2aODNIW/9RK5bwnaPWKzGIh/1g2DX
+         xN6RZHKw6fKeQx2t088Rboo3U4tRHmG5bQoMUDhzyw2Zqgjc6OcZtR1Zdx3TaySFtgsj
+         bMXg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788366601; x=1788971401; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DAYPv+x64zvGkdxTQHdsbHb8HeOUzt1Pp1bibLWOPU0=;
+        b=pd8lhp0km/kccgImwLOwLjollD1DJ23BmXXiN+mjvnmFx5Lx8kxfrWZtxlp00/afTQ
+         2Up4BLG/geByOCK58bBewa0U9tnb+JZSuE1KynywJu7rIT0i64cH3DfPzv5mLGo63Ka7
+         xr8SaCLOlRiPKHQYIVr6+Z/tbvB7nLubEyDcRL7tfABX3iyy09fxwMObGNvEy/gePdML
+         sWRprIDDl6w3RlE8Da5cDi29MhL6myjrvLD1soIrUYTsl3/heWzWcofF2ew6IVxP5qNz
+         btDHhA5fcUnyPcFHUUd3jkNS0Vrd3P3Y7TN7u4H3SrEn3IEcvA94RyV2FjHoQLZVW/ue
+         cksA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788366601; x=1788971401;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DAYPv+x64zvGkdxTQHdsbHb8HeOUzt1Pp1bibLWOPU0=;
+        b=StKZVCvI0sXsXReCj487OVt/T1B0HUtFrLZIyzLo8wj4Fg4TuzFm5C1pTIGL5eBgUM
+         TaX/HECX8ANds/PTHGnM86QNbtVfAjN3XbQkL6L5i+iMVqg8dyCTHECfSPY8HlpY9ikp
+         f2txShYI2iYDc1ixnTB/sItMwWOZf6svUZdX/XgWQl7Cc6jPpcoCy13pEIkuQ1EZfbI/
+         zpiUnc5WE7dAPjUCuZpfXrBMXtz3XaDuWjMVkGm2CqJARMDBGsQsJ5w5rm0I8ApkJZPG
+         jIHJP61P/MZMJTmLiWd3xlq55MjnxduvQDDbVffkpB215yehx4e2EukHzYGljOYAb3pt
+         DFXA==
+X-Forwarded-Encrypted: i=1; AHgh+RrWPGmLJXlRSKIIm0DGX0TWq/82aOKs5vuP8r1Nf+fRvzl/mQiP5yo4tk+skEPmPRPk4AwWPK448WXPY5k=@vger.kernel.org
+X-Gm-Message-State: AFuF++lyFo9MQTUZfahzw4bYx8Nue5o+7tqoflQJ0c009jftyW8nXRh/
+	ek67xtkgE8WbifnRUZu1c5uDvfxneOyBuSpFOGkXkXhjfiduLGteK9Lr54C0nkGWV4pvTtbm+Ds
+	q2YB0/2QvI0+A3/tvU50Ex8Czs/gfVCE=
+X-Gm-Gg: AR+sD13BRHoFINk0LWYUF+m6zfId1yw83+TJBhpf6eFvmnp/jgDc50BBK1QYxmHsQuE
+	NV1iR0PP0Iz5I1Y0Lb9uEsgztjhWl9u37/JcyWx0fu+ByXbuvatR+0lQbxSF4Gs9XrJw48TTH9R
+	p1CPqx5MdMTSN2//7S7m7yUeKTp/O/GwioTLVl0LQALZEPm0WpOgZ2N65FrF8eAxDVRY8HfbUMV
+	j1Tou8b4zIwgkXSXC85oqKE2dRK9AO9Cru8LQTEG2kzvoDcsMjq0aaAXqCSZAr3A4jXw7/GVSGX
+	Y0CehmQv57AlqWLPzqOPolIDjaQkrTB7lqxmxnClQSo7znWeV4XnvOtJ8yn51jY4NWVN219vEEZ
+	i6H8=
+X-Received: by 2002:a05:600c:1914:b0:49c:d294:41e5 with SMTP id
+ 5b1f17b1804b1-49ce581acaamr95538775e9.8.1788366599990; Wed, 02 Sep 2026
+ 09:29:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8P189MB1752:EE_|BESP189MB3209:EE_
-X-MS-Office365-Filtering-Correlation-Id: 13834fcd-e17c-4cb9-0e17-08df090f6ab8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|23010399003|1800799024|366016|376014|18002099003|13003099007|11063799006|6133799003|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	ZhOkNRW0uHYctEt1vQVVdXpkq9Z8Yc3Cvz52OlHlkN0BXKuCwz4mI9odfqk41HsLsB739/NtZ+6EFX2blb4br+rwT/DzXjMmf5FGLu9dyFkxA8Gl9StTrfiByvU2AYT6LFN5qnbptIwIXDHP76DyWf5luKXknEkDvky9fzEEhNbVqlFhrNKIe1N+JwenQgRZsND3HbM0XWbO24d+oGLtkpvxHsDalh62ngNzdowohH5xccb/8R4s9TqPuVoW9vo2+M2HN0FuigCGUqyE+K7hmW/N+3hf6gzKwfCezRG7m2o/H8I8D/yN29K7X9LSXune866o5ioCVp6zSYEksXa9BZYyFuO8h2PWdmZduR9ZXeTYeLKla5/mYNnxd+V0Ms2ERNy/77XcUNt09i3qZTc2nEmxiHm5YVCgZb3QNyLBTyXN5u+rAfBR/GSyUsy1BDQUjk57oQy8zJLIhGSTz9OVv/xzMzG65j0KsSztcfH2mgW3M7pCSuA25+rvOAuOp226ctWRVdUgXwUBh2WzXBuMiZlBelETckd+P+rtRRQfVZvk2kKhjX427O30feKTF8zdBiITWhpKhGCnhwgL1K2h4EbqVhxEyAQED66BxVedyV79ZY13tUziB2ig06AiZWQX
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8P189MB1752.EURP189.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(1800799024)(366016)(376014)(18002099003)(13003099007)(11063799006)(6133799003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?L2lRRzhlbnNxT2RoUTNSV1lEYkxKT2lnY2tGekZaMjRwenFYbnY1amVPV3ov?=
- =?utf-8?B?Z1VsSjNad2tNTG41bHZCaEdLRWFaZnlHZGxWYlNMUmhYYkNCb0xsQ09pSUpB?=
- =?utf-8?B?UnRXaEJybm92czgzQTBWV1d0UnhiU204eFdjRDNrZENpTWY0d1JqMmp4aU9C?=
- =?utf-8?B?bGh1RU5oTVJzVyt1elpzQm0rTENMRG9SQlROS25BbU96TUFoU1NTcDU0Qy9y?=
- =?utf-8?B?b2VNRm02YzVCdnR5bzNmdTNYZkNjV1kvWDFjZU9OMjJzK0NFbGcwWlVMVUcy?=
- =?utf-8?B?Zko0Zy95WEhIc1hiSGhDN2piT0JGeFZPOEtMNmIwL1g0aENDM1NteFovS0lk?=
- =?utf-8?B?RTlReGUzZ29mYVYzMzUrMHNpTDc2eFcrY05FSkJJQjVxK3dBMzIrR3JlbHZw?=
- =?utf-8?B?dllLNnE2aDhHdnhNcDczZ2pOTCtqYUdwOTlOUDV0TzZRR2NYOTRxOFAzTUtZ?=
- =?utf-8?B?ajNnQWJVQzdqZVdwV3Q1ZGl3MHJDWVlpeHlob3F1TENORTlaeUtORndzRWZM?=
- =?utf-8?B?eDJTTlU0R0hMdllrY2dIbG1EbDRLaU9ObXFWK3JDRER1VGFpYkg5dkZ1bXR6?=
- =?utf-8?B?bjFWNTN5VHhkTVdwNC9yS0ROZ3dDRlVFcW5NQnVQdC9PbnB6S0srZTVrSmd6?=
- =?utf-8?B?MW5ZZGJRbmJnb0ZYaGdKRHp3eUVMTUVKc1JiKzZYNXArQlQ5dnIxVXhuYVpX?=
- =?utf-8?B?eUxsbTExWEhHdnVmWXVsVnd1MVZvVk53WDVpS0czM3JwczNHWlk4UThXWnhx?=
- =?utf-8?B?SHM2K29uTWVRUmNGb2JvbWZHNUVMZHVCaHloZjJFVk5XSFpSckJING93RmJU?=
- =?utf-8?B?c0tYODBPVHVkZWQ5ekhGT2h2Wm1RRlpRWXluT0liNkZabHJuak1OZGxuVDFY?=
- =?utf-8?B?ZFVLNXJYaXl0UG15dk5vaUdGWjEyOVd5RUt0dFlZS1NpQ1pVSkVTQnhPRlhu?=
- =?utf-8?B?QWN1MzBiTGRUNG9WaWVzcXpRUWxIdDJvNXVOb0xZK09DeklPWTJ1TUVZZzBn?=
- =?utf-8?B?Uk1KNVRvVmt0a0tDQU5CdGVXY2xBWjdTZk9ESDR0RXNMTzJmYW43eTJGNnl4?=
- =?utf-8?B?Sm94QW5JZUxXcG9ETVB2ZkRxejExSzgxY1A3TlduS3JIaThvcldIc2tQYitq?=
- =?utf-8?B?cUNLMzBSNkdCU2x6d1grc28yNFlxcC82UFBJalY4RGlteEJEMGdja1VHNnRV?=
- =?utf-8?B?OUNtWitmRllhZXJoRTRNeFdiTEp3Rnk4ajVJZnN3bmNqaldDaUE1MCtIS1FD?=
- =?utf-8?B?SzJ2U2wwaGZDSTZUYUo0TUZSYUx4MDE1bW9VV0NOTW1MclhISFJ3SmJDK0R1?=
- =?utf-8?B?cm15WXh4d0FESWZ4S3JwRW4rZW9wellEaGtBQlMrbzQ3ZjlvQkl1N20vdWxG?=
- =?utf-8?B?SjI3am8yRGFXV09mWHZJQ1lsZVNVWWxxTXl5UjdMNlBmc1c5YXM2Z1hDK2N3?=
- =?utf-8?B?dTBlbFlhRzdlUnYrUTYwUlZiWHRISWpCZDNOc01DNTdqcy9RT1oyQmV2cWNR?=
- =?utf-8?B?UlpDbEh2OXd4cjBMT2VSRkRuS3lQZHlGeTN6WjhIS0lINEJXM0w4QWFlUmow?=
- =?utf-8?B?MitIeGc3dEJaWTNCTUVNZHpUcC9OVjlPM0FlU0I4aFNxZnlZTzVIeXlwdkZC?=
- =?utf-8?B?OEpNMkFqOEtYTkVyMkl3eWx2VDNSQjBWZ2ZXTVA1TW9kekRmRHJXSG55Szgv?=
- =?utf-8?B?cThMWi94UFErSmtTeDNLM3lKRkpMVEVla3JnUzhZS05PM1c3R2tVR2lSRTRE?=
- =?utf-8?B?d2czcTVWY29RdUtkQmYwcDJyWWEvK1JySDg1VlcyRk81bGNSS2N6aTdiUlNY?=
- =?utf-8?B?SW9vdE56QUlLZVoxUitVZlFwZHFIUHpsYXhBSXc4VFkvVHlaNXZHRlFJUHNR?=
- =?utf-8?B?OU84VVRBc1hIa0JocFI2Z29PdFdnZjdNeXIzN2JxdjduOTFyQWpITmF6TVZK?=
- =?utf-8?B?YUhrbk03bzh4MThCTGhpQlFxbDNnQmc2QTk1ZHovRXduQUFpYzRhbDFhbU94?=
- =?utf-8?B?T0VMUjhKMlEyN0JuQXdZaVd3eUdNUVFVSHU1aEFKVlg2UVJtVG9UaDVIWTZN?=
- =?utf-8?B?QXl2cnhoa1dkaFQvZTZVdkE1WlhJV1l2VDJwVGY4MjRWbkN0aFlFaXUrR1ZU?=
- =?utf-8?B?SXp6Vzh4VFVLaGpQc0Nrc2ZSdXp3eFpLYmtkcGxwQWhvaG1VOHJ5a29WbjB3?=
- =?utf-8?B?UmtRY0ZranIycnBrdDR6a3l6THlwZ1pMQ25vb213SldmQ2JSeWpTWGdwVkNO?=
- =?utf-8?B?Znk1cHJheldYSkQ1WHFpWlhwMVVSU0FLZTJPRm5MLzdXVStPamlKcmxNeHpJ?=
- =?utf-8?B?ekhzRmV2NlRkTEJGOFpPbXZaWjZHbGNZL21qUzJCblpDRFJCQVcwdz09?=
-X-OriginatorOrg: est.tech
-X-MS-Exchange-CrossTenant-Network-Message-Id: 13834fcd-e17c-4cb9-0e17-08df090f6ab8
-X-MS-Exchange-CrossTenant-AuthSource: AS8P189MB1752.EURP189.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 16:29:53.1464
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: d2585e63-66b9-44b6-a76e-4f4b217d97fd
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LIMpyTiSCSAWG61bSrzdfwxXR0J/j8ehd3GJE8napgmj80a11qsZ1CVtfwRjW0kpYa0X/zpflztRoaMUAMudJQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BESP189MB3209
+References: <20260901074815.3145037-1-kunwu.chan@linux.dev>
+ <d991297a-9bd4-4da2-89cd-002b6f2a3305@paulmck-laptop> <CAN_Opa81BaWxkdRyoHQBcMLbOt-n7f-4cUmxxstage1MSOu1Hw@mail.gmail.com>
+ <b099065c-5808-4eb6-9dba-fcba9a2ef9ea@paulmck-laptop>
+In-Reply-To: <b099065c-5808-4eb6-9dba-fcba9a2ef9ea@paulmck-laptop>
+From: KunWu Chan <kunwu.chan@gmail.com>
+Date: Thu, 3 Sep 2026 00:29:46 +0800
+X-Gm-Features: AcwNN1WiUBPC7FZ1JHGisuLmXXH-1S-vs_fN7c7jt04V-RYxaDJVWuclKsYQIUY
+Message-ID: <CAN_Opa_igCj1T+LJ+r8GjR4ky1SPK+HVTV_xn5Vpe3fycrLOoQ@mail.gmail.com>
+Subject: Re: [PATCH] srcutiny: Enable atomic SRCU flavor tracking
+To: paulmck@kernel.org
+Cc: jiangshanlai@gmail.com, josh@joshtriplett.org, rostedt@goodmis.org, 
+	mathieu.desnoyers@efficios.com, rcu@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This series adds kcov_dataflow, a per-task mechanism that records the
-argument values a kernel function is called with and the value it
-returns, at instrumented function boundaries. Where KCOV tells you which
-code ran, kcov_dataflow tells you what values flowed through it.
-
-It is built on a SanitizerCoverage pass that inserts two callbacks,
-__sanitizer_cov_trace_args() at entry and __sanitizer_cov_trace_ret() at
-exit, so it needs a clang/rustc built with that pass [1][2]. When a task
-has no session enabled the cost is one boolean check.
-
-This is still an RFC: The compiler-side review is ongoing [2]. I am posting
-it to get the kernel-side design and the uapi reviewed in parallel with
-the LLVM work.
-
-Motivation
-==========
-
-Coverage-guided kernel fuzzers use KCOV edge coverage as their only
-feedback signal, which cannot distinguish two executions of the same
-function called with different argument values. Fuzzers plateau on
-stateful subsystems whose security-relevant behaviour depends on runtime
-values rather than control-flow topology.
-
-The existing tracing tools each miss part of this:
-
-- ftrace / kprobes / eBPF patch global kernel text, so a probe fires on
-  every task on every CPU; per-task selection is a post-trigger filter,
-  not a property of the instrumentation.
-
-- FTRACE_REGS_MAX_ARGS is limited to 6, but many functions still take
-  more than 7th+ arguments, even after inlining by compiler.
-
-- Rust is only partially reachable: rustc emits -mfentry stubs, but
-  idiomatic types (generics, slices) do not lower to the repr(C) shapes
-  that pahole/BTF-based argument printing expects.
-
-- Inlined code has no function boundary to trace at all without an
-  explicit noinline / #[inline(never)].
-
-kcov_dataflow is per-task, follows the task through execve, works
-uniformly for C and Rust, and (with CONFIG_KCOV_DATAFLOW_NO_INLINE) can
-keep the boundaries of otherwise-inlined functions.
-
-This idea originated from post-mortem auditing of reproducible exploit PoCs,
-including those from kernel and KVM CTFs, with a focus on evaluating the
-remaining kernel attack surface after security mitigations.
-
-Approach
-========
-
-The pass inserts a callback at each function entry that reports every
-argument and one at each return that reports the returned value. For a
-a struct, the kernel expands it field by field using the offsets
-the compiler emits from DWARF, so a struct argument is recorded
-as its individual members rather than an opaque address. The kernel
-backend reads the traced memory with copy_from_kernel_nofault() (a typed
-get_kernel_nofault() for the 1/2/4/8-byte scalar cases), so a NULL or
-ERR_PTR the callee received is recorded as a poison marker instead of
-faulting.
-
-Records go into a per-task mmap'd buffer over a dedicated debugfs device
-/sys/kernel/debug/kcov_dataflow, in execution order.
-
-Example
-=======
-
-eight_struct_args_c calls stf_1()..stf_8(), where stf_N takes N struct
-whose fields are 0x11, 0x22, ...; the viewer prints one call per
-line, source location on the left, and shows each expanded struct and the
-return value [5]:
-
-  eight_struct_args_c.c:228     0x11 = stf_1(0x11)
-  eight_struct_args_c.c:232     0x33 = stf_2({0x22, 0x11})
-  eight_struct_args_c.c:238     0x77 = stf_3({0x33, 0x11, 0x22})
-  eight_struct_args_c.c:244     0xff = stf_4({0x44, 0x11, 0x22, 0x33})
-  eight_struct_args_c.c:251     0x20f = stf_5({0x55, 0x11, 0x22, 0x33, 0x44})
-  eight_struct_args_c.c:258     0x42f = stf_6({0x66, 0x11, 0x22, 0x33, 0x44, 0x55})
-  eight_struct_args_c.c:265     0x86f = stf_7({0x77, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66})
-  eight_struct_args_c.c:273     0x10ef = stf_8({0x88, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77})
-
-The same works for Rust modules.
-
-  eight_struct_args_rust.rs:101               0x11 = rstf_1(0x11)
-  eight_struct_args_rust.rs:130               0x33 = rstf_2({0x22, 0x11})
-  eight_struct_args_rust.rs:136             0x77 = rstf_3({0x33, 0x11, 0x22})
-  eight_struct_args_rust.rs:142           0xff = rstf_4({0x44, 0x11, 0x22, 0x33})
-  eight_struct_args_rust.rs:151         0x20f = rstf_5({0x55, 0x11, 0x22, 0x33, 0x44})
-  eight_struct_args_rust.rs:160       0x42f = rstf_6({0x66, 0x11, 0x22, 0x33, 0x44, 0x55})
-  eight_struct_args_rust.rs:169     0x86f = rstf_7({0x77, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66})
-  eight_struct_args_rust.rs:179   0x10ef = rstf_8({0x88, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77})
-
-Because the values cross the function boundary, kcov_dataflow can catch
-an FFI/contract violation that leaves no crash and no KASAN report. In
-rust_ffi_contract, ffi_alloc_buf() returns success (0) but leaves
-out->buffer == NULL; the caller then trusts the broken postcondition:
-
-  rust_ffi_contract.c:47   0x0 = ffi_alloc_buf({0x0, 0x0, 0x0, 0x0}, 0x100, 0x10, 0x1)
-  rust_ffi_contract.c:70   0xfffffff2 = ffi_check_result({0x0, 0x110, 0x0, 0x0})
-                                                          ^ buffer still NULL
-
-The {0x0, ...} first field at the second boundary is the NULL buffer the
-contract said could not happen after a 0 return.
-
-Global enablement (INSTRUMENT_ALL): records captured during single
-copy.fail exploit reproduction:
-
-  https://github.com/yskzalloc/kcov-dataflow/blob/main/copy.fail/origin/converted.txt
-
-Design
-======
-
-- Independent from /sys/kernel/debug/kcov: its own device, ioctl
-  namespace ('d') and per-task buffer, so it can run alongside KCOV.
-  Core lives in kernel/kcov_dataflow.c (split out of kcov.c on request).
-- Session lifetime mirrors mainline kcov: a refcounted object with a
-  back-pointer from the task, so fd close from a sibling thread, a forked
-  child, and task exit cannot race into a use-after-free.
-- Local (KCOV_DF_ENABLE) writes reserve buffer space with a plain
-  area[0] update; remote (KCOV_DF_REMOTE_ENABLE) writes merge with a
-  bounded atomic64_try_cmpxchg() loop. The two paths are mutually
-  exclusive on one buffer, so they never both touch area[0].
-- Safe reads via copy_from_kernel_nofault() / typed get_kernel_nofault().
-- kcov_df_inert_context() (in_task() and !pagefault_disabled()) rejects
-  interrupt/NMI context and, crucially, any nofault region: the trace-cmp
-  callback is reachable from the ORC unwinder that KASAN runs on every
-  slab free, and without this a live session turns one stack walk into a
-  self-instrumentation storm that trips the soft-lockup watchdog.
-- uapi record format (include/uapi/linux/kcov_dataflow.h): area[0] counts
-  the record words that follow; each record is a header word (sequence,
-  type, value count, size, argument index), the instrumented PC with the
-  KASLR offset removed like mainline kcov, the traced pointer (or the
-  comparison type for CMP records), then the value words.
-- Build: -fsanitize-coverage=trace-args,trace-ret, per-file opt-in
-  (KCOV_DATAFLOW_file.o := y) or CONFIG_KCOV_DATAFLOW_INSTRUMENT_ALL,
-  honouring KCOV_INSTRUMENT := n. kcov_dataflow.o is excluded from KCOV,
-  KASAN, KCSAN, UBSAN and KMSAN to avoid recursion. objtool lists
-  kcov_df_trace_cmp() in uaccess_safe_builtin[] next to its mainline peer
-  write_comp_data(), since the compiler emits the cmp callbacks inside
-  user_access_begin()/end() regions.
-
-Remote coverage
-===============
-
-Work a task queues to a kworker can be attributed back to it:
-kcov_df_remote_start(handle) / kcov_df_remote_stop() bracket a region in
-kernel code (kcov_df_remote_start_common() takes the common handle), and
-user space publishes a buffer for that handle with KCOV_DF_REMOTE_ENABLE
-(the handle is passed by pointer, so the full 64-bit value survives
-compat callers). rust_kworker_remote exercises this from RBTree work on
-system_wq.
-
-Rust kworker coverage is also captured through remote coverage,
-as shown by the rust_kworker_remote module test:
-
-  rust_kworker_remote.rs:58   <rust_kworker_remote[...]::CompositeStore>::populate({0x0, 0x0, 0x0})
-  rust_kworker_remote.rs:73   <rust_kworker_remote[...]::CompositeStore>::update({0xffff0000055f09c0, ...)
-  rust_kworker_remote.rs:92   <rust_kworker_remote[...]::CompositeStore>::drain({0xffff0000055f09c0, ...)
-
-Findings
-========
-
-The following commits fix issues found by ksmbdzzer, a KCOV data-flow-based
-fuzzing engine for ksmbd and SMB Direct. The issues include one CVE with
-a CVSS score of 8.8.
-
-  e7188199eff4 ksmbd: fix use-after-free in __close_file_table_ids() (CVE-2026-74522)
-  7405d0ba2943 ksmbd: fix slab-out-of-bounds read in ksmbd_alloc_user()
-  fe2c0cacbcff smb: smbdirect: free completion queues with ib_free_cq()
-  383a9480f5f4 smb: smbdirect: destroy QP before mem pools on accept failure
-  76fa42c004eb smb: smbdirect: avoid recursive listen.lock during cleanup
-  db82fbe4bb68 smb: smbdirect: release pending child sockets outside the handler lock
-  e9b33376bd07 ksmbd: validate ipc response length before dereferencing its fields
-  b0148dc5625d ksmbd: serialize oplock close with pending break ownership
-
-Performance
-===========
-
-Numbers from the v2 measurement [7]; the fast paths are unchanged in v3.
-
-Per-module instrumentation, recording active:
-  +8.3% on instrumented paths, ~27 ns per callback.
-
-Global instrumentation (INSTRUMENT_ALL), recording disabled:
-  .text +9.5%, .data +44%, boot +71%, syscall latency +133%.
-
-INSTRUMENT_ALL is a debugging/fuzzing configuration; per-module opt-in is
-the intended production use.
-
-Toolchain
-=========
-
-Requires a clang built with the trace-args/trace-ret passes:
-
-  git clone --recursive --depth 1 --shallow-submodules \
-    --jobs $(nproc) https://github.com/yskzalloc/kcov-dataflow.git
-  cd kcov-dataflow/llvm-project
-  cmake -S llvm -B build -G Ninja -DCMAKE_BUILD_TYPE=Release \
-    -DLLVM_ENABLE_PROJECTS="clang;lld" \
-    -DLLVM_TARGETS_TO_BUILD="X86;AArch64"
-  ninja -C build
-
-  export PATH=$PWD/../llvm-project/build/bin:$PATH
-  cd ../linux
-  vng --build LLVM=1 CC=clang
-    --configitem CONFIG_KCOV=y \
-    --configitem CONFIG_KCOV_DATAFLOW_ARGS=y \
-    --configitem CONFIG_KCOV_DATAFLOW_RET=y \
-    --configitem CONFIG_KCOV_DATAFLOW_INSTRUMENT_ALL=y \
-    --configitem CONFIG_DEBUG_INFO_DWARF5=y
-
-For the Rust modules also build a rustc against that LLVM [4] and add
-CONFIG_RUST=y with RUSTC=<.../stage1/bin/rustc> RUST_LIB_SRC=<.../library>.
-The Kconfig options gate on $(cc-option,-fsanitize-coverage=trace-args),
-so a stock clang simply leaves them unset rather than failing to build.
-
-Testing
-=======
-
-Built with clang/LLVM and rustc from the fork [3], on x86_64 (Intel)
-and Arm64 under virtme-ng; The selftests build as a normal kselftest target
-(make -C tools/testing/selftests TARGETS=kcov_dataflow) and run under
-run_kselftest.sh:
-
-- user_ioctl: 9 kselftest_harness cases (init, mmap, enable/disable,
-  double-enable -EBUSY, record validity).
-- test_modules.py: loads each module, triggers it with recording active,
-  and checks the captured arguments, struct fields and return values
-  against the values the module uses (not merely that records appeared)
-  for eight_struct_args_{c,rust}, rust_ffi_contract and, from kworker
-  context, rust_kworker_remote.
-- binderfs: argument records at the binder ioctl boundaries.
-
-Links
-=====
-
-[1] LLVM RFC: https://discourse.llvm.org/t/rfc-sanitizercoverage-add-fsanitize-coverage-trace-args-trace-ret/91026
-[2] LLVM stacked PR:
-    1. [sancov] Add -fsanitize-coverage=trace-args,trace-ret
-       https://github.com/llvm/llvm-project/pull/201410
-    2. [Clang][SanitizerCoverage] Add trace-args and trace-ret instrumentation modes
-       https://github.com/llvm/llvm-project/pull/218254
-    3. [compiler-rt][SanitizerCoverage] Add userspace runtime for trace-args/ret 
-       https://github.com/llvm/llvm-project/pull/218265 
-[3] Repo:     https://github.com/yskzalloc/kcov-dataflow/
-[4] rustc:    https://github.com/yskzalloc/rust
-[5] CI:       https://github.com/yskzalloc/kcov-dataflow/actions
-[6] Paper:    https://arxiv.org/pdf/2606.00455
-[7] RFC v2: https://lore.kernel.org/all/20260611-b4-kcov-dataflow-v2-v2-0-0a261da3987c@est.tech/
-[8] LPC 2026: https://lpc.events/event/20/contributions/2402/
-
-Changes
-=======
-
-RFC v2 -> RFC v3:
-
-Core / review feedback (from the v2 posting):
-* Convert the spinlock-with-IRQ-disabled design to a mutex-based mechanism,
-  focusing on reproducible future LPE PoC tracking. (Yeoreum)
-* Fix potential memory leak kcov_df_ioctl() (Yeoreum)
-* Rework the session lifetime into a refcounted object mirroring mainline
-  kcov (kcov_get/put), with a back-pointer from the task, so close() from
-  a sibling thread or a forked child, and task exit, can no longer race
-  into a use-after-free; the v2 fork/exit cleanup was ad-hoc.
-* Make the barriers real: v2 documented "paired barriers" that were only
-  comments. Enable/disable and the sequence guard now use actual
-  barriers, and buffer-space reservation uses a bounded
-  atomic64_try_cmpxchg() loop so the local and remote write paths never
-  both update area[0].
-* Add kcov_df_inert_context() (also bailing on pagefault_disabled()) to
-  contain the KASAN-unwinder self-instrumentation storm, instead of
-  excluding files in mm/ and arch/.
-* Typed get_kernel_nofault() fast path for 1/2/4/8-byte scalar reads.
-* objtool: list kcov_df_trace_cmp() in uaccess_safe_builtin[] and make
-  its helper __always_inline (fixes the "call ... with UACCESS enabled"
-  warning under INSTRUMENT_ALL).
-
-Support Remote kcov dataflow collection:
-* Add kcov_df_remote_start()/stop() and kcov_df_remote_start_common() for
-  kworker attribution, with a new kselftest with rust_kworker_remote.
-
-New record ABI:
-* include/uapi/linux/kcov_dataflow.h is now a real uapi header. Each
-  record carries its type, value count, size and argument index in the
-  header word, followed by the traced pointer and the value words; PCs
-  are stored KASLR-canonical, like mainline kcov. Documented in
-  kcov-dataflow.rst. KCOV_DF_REMOTE_ENABLE now takes the handle by
-  pointer.
-
-kselftest restructuring:
-* Restructure as a standard kselftest target (Kbuild + per-module
-  directories built against KDIR) driven by one KTAP runner
-  (test_modules.py) that checks captured argument/return values rather
-  than record counts; trigger-view.py is split out as the interactive
-  viewer.
-* Change the scalar arguments basic test from eight_args_{c,rust}
-  -> eight_struct_args_{c,rust} and drop the ad-hoc scripts.
-
-* RFC v2: https://lore.kernel.org/all/20260611-b4-kcov-dataflow-v2-v2-0-0a261da3987c@est.tech/
-
-RFC v1 -> RFC v2:
-
-Apply feedback from Sashiko’s code review:
-* Fix INIT_TRACK race, fork cleanup, task exit cleanup
-* Add recursion guard barriers (Peter)
-* Reject concurrent enable on multiple fds
-
-kselftest refinements (Alexander):
-* Move from tools to kselftest adding:
-  user_ioctl, eight_args_c, eight_args_rust, rust_ffi_contract, binderfs_test
-* Separate patch regarding kcov-dataflow Documentation
-
-Series:
-* Split into core / Documentation / one selftest per patch. 
-
-* RFC v1 (I mistakenly referred to it as RFC v2):
-  https://lore.kernel.org/all/20260603-kcov-dataflow-next-20260603-v2-0-fee0939de2c4@est.tech/
-
-Signed-off-by: Yunseong Kim <yunseong.kim@est.tech>
+On Wed, Sep 2, 2026 at 11:43=E2=80=AFPM Paul E. McKenney <paulmck@kernel.or=
+g> wrote:
+>
+> On Wed, Sep 02, 2026 at 05:18:50PM +0800, KunWu Chan wrote:
+> > On Wed, Sep 2, 2026 at 1:11=E2=80=AFAM Paul E. McKenney <paulmck@kernel=
+.org> wrote:
+> > >
+> > > On Tue, Sep 01, 2026 at 03:48:15PM +0800, Kunwu Chan wrote:
+> > > > From: Kunwu Chan <kunwu.chan@gmail.com>
+> > > >
+> > > > Set srcu_reader_flavor to SRCU_READ_FLAVOR_ATOMIC in the Tiny SRCU
+> > > > atomic initialization paths, so that the entry-point checks added b=
+y
+> > > > the previous commit can identify atomic SRCU domains.
+> > > >
+> > > > For static initialization, add a flavor parameter to
+> > > > __SRCU_STRUCT_INIT() and pass SRCU_READ_FLAVOR_ATOMIC through
+> > > > DEFINE_SRCU_ATOMIC() and DEFINE_STATIC_SRCU_ATOMIC().
+> > > >
+> > > > For dynamic initialization, initialize srcu_reader_flavor to zero i=
+n
+> > > > init_srcu_struct_fields() for the generic initialization path, and
+> > > > set it to SRCU_READ_FLAVOR_ATOMIC in init_srcu_struct_atomic().
+> > > > Handle both CONFIG_DEBUG_LOCK_ALLOC and non-debug initialization pa=
+ths.
+> > > >
+> > > > Enable srcu_check_read_flavor() for Tiny SRCU, matching the Tree SR=
+CU
+> > > > behavior, so that readers can verify that the requested flavor matc=
+hes
+> > > > the SRCU domain.
+> > > >
+> > > > Signed-off-by: Kunwu Chan <kunwu.chan@gmail.com>
+> > >
+> > > Much better!  Please see below for additional questions and comments.
+> >
+> > Thanks Paul for the detailed reply.
+> >
+> > >
+> > > > ---
+> > > >  include/linux/srcutiny.h | 39 +++++++++++++++++++++++++++++-------=
 ---
-Yunseong Kim (8):
-      kcov: add per-task dataflow tracking for function arguments/return values
-      Documentation: add kcov-dataflow.rst
-      selftests/kcov_dataflow: add ioctl interface selftest
-      selftests/kcov_dataflow: add rust_ffi_contract selftest
-      selftests/kcov_dataflow: add binderfs selftest
-      selftests/kcov_dataflow: add eight_struct_args_{c,rust} selftest module
-      selftests/kcov_dataflow: add rust_kworker_remote selftest module
-      selftests/kcov_dataflow: add trigger-view.py
+> > > >  kernel/rcu/srcutiny.c    |  1 +
+> > > >  2 files changed, 30 insertions(+), 10 deletions(-)
+> > > >
+> > > > diff --git a/include/linux/srcutiny.h b/include/linux/srcutiny.h
+> > > > index 2b293336525a..9dce4b5aa084 100644
+> > > > --- a/include/linux/srcutiny.h
+> > > > +++ b/include/linux/srcutiny.h
+> > > > @@ -40,7 +40,7 @@ void srcu_drive_gp(struct work_struct *wp);
+> > > >  void srcu_tiny_irq_work(struct irq_work *irq_work);
+> > > >  void srcu_defer_drain(struct irq_work *irq_work);
+> > > >
+> > > > -#define __SRCU_STRUCT_INIT(name, __ignored, ___ignored, ____ignore=
+d) \
+> > > > +#define __SRCU_STRUCT_INIT(name, __ignored, ___ignored, flavor)   =
+           \
+> > > >  {                                                                 =
+   \
+> > > >       .srcu_wq =3D __SWAIT_QUEUE_HEAD_INITIALIZER(name.srcu_wq),   =
+     \
+> > > >       .srcu_cb_tail =3D &name.srcu_cb_head,                        =
+     \
+> > > > @@ -49,6 +49,7 @@ void srcu_defer_drain(struct irq_work *irq_work);
+> > > >       .defer_cbs =3D LLIST_HEAD_INIT(name.defer_cbs),              =
+     \
+> > > >       .defer_iw =3D { .node =3D { .u_flags =3D IRQ_WORK_HARD_IRQ },=
+         \
+> > > >                     .func =3D srcu_defer_drain },                  =
+     \
+> > > > +     .srcu_reader_flavor =3D flavor,                              =
+     \
+> > >
+> > > Don't we also need to define srcu_reader_flavor?  Or is this patch
+> > > supposed to be applied on top of your previous one?
+> >
+> > Yes, this is intended to be applied on top of the previous one [1].
+> > [1] https://lore.kernel.org/rcu/20260831074937.2380914-1-kunwu.chan@lin=
+ux.dev/
+> >
+> > > >       __SRCU_DEP_MAP_INIT(name)                                    =
+   \
+> > > >  }
+> > > >
+> > > > @@ -57,29 +58,43 @@ void srcu_defer_drain(struct irq_work *irq_work=
+);
+> > > >   * Tree SRCU, which needs some per-CPU data.
+> > > >   */
+> > > >  #define DEFINE_SRCU(name) \
+> > > > -     struct srcu_struct name =3D __SRCU_STRUCT_INIT(name, name, na=
+me, name)
+> > > > +     struct srcu_struct name =3D __SRCU_STRUCT_INIT(name, name, na=
+me, 0)
+> > > >  #define DEFINE_STATIC_SRCU(name) \
+> > > > -     static struct srcu_struct name =3D __SRCU_STRUCT_INIT(name, n=
+ame, name, name)
+> > > > +     static struct srcu_struct name =3D __SRCU_STRUCT_INIT(name, n=
+ame, name, 0)
+> > > >  #define DEFINE_SRCU_FAST(name) DEFINE_SRCU(name)
+> > > >  #define DEFINE_STATIC_SRCU_FAST(name) \
+> > > > -     static struct srcu_struct name =3D __SRCU_STRUCT_INIT(name, n=
+ame, name, name)
+> > > > +     static struct srcu_struct name =3D __SRCU_STRUCT_INIT(name, n=
+ame, name, 0)
+> > > >  #define DEFINE_SRCU_FAST_UPDOWN(name) DEFINE_SRCU(name)
+> > > >  #define DEFINE_STATIC_SRCU_FAST_UPDOWN(name) \
+> > > > -     static struct srcu_struct name =3D __SRCU_STRUCT_INIT(name, n=
+ame, name, name)
+> > > > -#define DEFINE_SRCU_ATOMIC(name) DEFINE_SRCU(name)
+> > > > +     static struct srcu_struct name =3D __SRCU_STRUCT_INIT(name, n=
+ame, name, 0)
+> > > > +#define DEFINE_SRCU_ATOMIC(name) \
+> > > > +     struct srcu_struct name =3D __SRCU_STRUCT_INIT(name, name, na=
+me, SRCU_READ_FLAVOR_ATOMIC)
+> > > >  #define DEFINE_STATIC_SRCU_ATOMIC(name) \
+> > > > -     static struct srcu_struct name =3D __SRCU_STRUCT_INIT(name, n=
+ame, name, name)
+> > > > +     static struct srcu_struct name =3D \
+> > > > +             __SRCU_STRUCT_INIT(name, name, name, SRCU_READ_FLAVOR=
+_ATOMIC)
+> > > >
+> > > >  // Dummy structure for srcu_notifier_head.
+> > > >  struct srcu_usage { };
+> > > >  #define __SRCU_USAGE_INIT(name) { }
+> > > >  #define __init_srcu_struct_fast __init_srcu_struct
+> > > >  #define __init_srcu_struct_fast_updown __init_srcu_struct
+> > > > -#define __init_srcu_struct_atomic __init_srcu_struct
+> > > > +#define __init_srcu_struct_atomic(ssp, name, key) \
+> > > > +({ \
+> > > > +     int __ret =3D __init_srcu_struct(ssp, name, key); \
+> > > > +     if (!__ret) \
+> > > > +             (ssp)->srcu_reader_flavor =3D SRCU_READ_FLAVOR_ATOMIC=
+; \
+> > > > +     __ret; \
+> > > > +})
+> > > >  #ifndef CONFIG_DEBUG_LOCK_ALLOC
+> > > >  #define init_srcu_struct_fast init_srcu_struct
+> > > >  #define init_srcu_struct_fast_updown init_srcu_struct
+> > > > -#define init_srcu_struct_atomic init_srcu_struct
+> > > > +#define init_srcu_struct_atomic(ssp)                              =
+   \
+> > > > +     ({                                                           =
+   \
+> > > > +             int __ret =3D init_srcu_struct(ssp);                 =
+     \
+> > > > +             if (!__ret)                                          =
+   \
+> > > > +                     (ssp)->srcu_reader_flavor =3D SRCU_READ_FLAVO=
+R_ATOMIC;\
+> > > > +             __ret;                                               =
+   \
+> > > > +     })
+> > > >  #endif // #ifndef CONFIG_DEBUG_LOCK_ALLOC
+> > > >
+> > > >  void synchronize_srcu(struct srcu_struct *ssp);
+> > > > @@ -148,7 +163,11 @@ static inline void synchronize_srcu_expedited(=
+struct srcu_struct *ssp)
+> > > >  void srcu_barrier(struct srcu_struct *ssp);
+> > > >
+> > > >  static inline void srcu_expedite_current(struct srcu_struct *ssp) =
+{ }
+> > > > -#define srcu_check_read_flavor(ssp, read_flavor) do { } while (0)
+> > > > +#define srcu_check_read_flavor(ssp, read_flavor) \
+> > > > +     ({ \
+> > > > +             u8 __f =3D (ssp)->srcu_reader_flavor; \
+> > > > +             WARN_ON_ONCE(__f && !(__f & (read_flavor))); \
+> > > > +     })
+> > >
+> > > Why not make this a static inline function, along with
+> > > __init_srcu_struct_atomic() and init_srcu_struct_atomic() above?
+> > > That should simplify the code.
+> >
+> > Thanks. I=E2=80=99ll rework the initialization helpers as static inline
+> > functions as suggested.
+> >
+> > > >  /* Defined here to avoid size increase for non-torture kernels. */
+> > > >  static inline void srcu_torture_stats_print(struct srcu_struct *ss=
+p,
+> > > > diff --git a/kernel/rcu/srcutiny.c b/kernel/rcu/srcutiny.c
+> > > > index 22f7716cbb0e..873b30ccf563 100644
+> > > > --- a/kernel/rcu/srcutiny.c
+> > > > +++ b/kernel/rcu/srcutiny.c
+> > > > @@ -42,6 +42,7 @@ static int init_srcu_struct_fields(struct srcu_st=
+ruct *ssp)
+> > > >       ssp->srcu_gp_running =3D false;
+> > > >       ssp->srcu_gp_waiting =3D false;
+> > > >       ssp->srcu_atomic_gp_flag =3D 0;
+> > > > +     ssp->srcu_reader_flavor =3D 0;
+> > > >       ssp->srcu_idx =3D 0;
+> > > >       ssp->srcu_idx_max =3D 0;
+> > > >       INIT_WORK(&ssp->srcu_work, srcu_drive_gp);
+> > > > --
+> > > > 2.43.0
+> > >
+> > > One of the purposes of Tiny SRCU is to be tiny, and one could argue
+> > > that Tiny SRCU already has too much diagnostic code.  Should we inclu=
+de
+> > > these patches at all?  If we should, shouldn't they be under somethin=
+g
+> > > like CONFIG_PROVE_RCU?  Should some of the existing Tiny SRCU debuggi=
+ng
+> > > code also be under something like CONFIG_PROVE_RCU?
+> > >
+> > > Thoughts?
+> >
+> > I agree that Tiny SRCU should keep its core as small as possible, so I =
+think
+> > it is worth reconsidering how much diagnostic machinery we want to add =
+here.
+> >
+> > For srcu_reader_flavor, I did have some hesitation when adding it.
+> > Tiny SRCU did not previously have the concept of a reader flavor; I
+> > mainly added it
+> > to distinguish Tiny Atomic SRCU, following the approach used by Tree
+> > SRCU. If we still
+> > need state for this purpose, perhaps a one-bit flag would be sufficient=
+.
+> >
+> > One question is whether the flavor checking really needs to be part of
+> > srcutiny.c.
+> > I think there are two somewhat different cases:
+> > 1: checking for invalid API usage, where the purpose is to detect or
+> > stop misuse;
+> > 2: defensive handling of an invalid call, where we redirect to a safe
+> > implementation,
+> >     like in synchronize_srcu.
+> >
+> > The first case seems more like diagnostic functionality and could
+> > potentially be handled
+> > in the common SRCU API layer under CONFIG_PROVE_RCU. The second case af=
+fects
+> > runtime behavior and should remain independent of CONFIG_PROVE_RCU.
+> >
+> > This makes me wonder whether the common flavor validation could live in=
+ srcu.h,
+> > as part of the common SRCU interface, rather than adding more checking
+> > logic to srcutiny.c.
+> > That could centralize the validation and keep the Tiny SRCU
+> > implementation easier to follow,
+> > although it would add another wrapper layer, such as a macro or static =
+inline.
+>
+> Another approach is to let the checking in Tree SRCU cover this.
+> That way, the only misuses of the atomic SRCU API that are missed are
+> those that appear only in CONFIG_SMP=3Dn code.  And right now, there isn'=
+t
+> any such uses.  There might be in the future, but perhaps this is quite
+> unlikely.
 
- Documentation/dev-tools/index.rst                  |    1 +
- Documentation/dev-tools/kcov-dataflow.rst          |  449 ++++++++
- Documentation/userspace-api/ioctl/ioctl-number.rst |    2 +
- MAINTAINERS                                        |    2 +
- include/linux/kcov.h                               |  116 ++
- include/linux/sched.h                              |   34 +
- include/uapi/linux/kcov_dataflow.h                 |   92 ++
- kernel/Makefile                                    |    9 +
- kernel/exit.c                                      |    1 +
- kernel/fork.c                                      |    1 +
- kernel/kcov.c                                      |   56 +-
- kernel/kcov_dataflow.c                             | 1193 ++++++++++++++++++++
- lib/Kconfig.debug                                  |   52 +
- scripts/Makefile.kcov                              |   17 +
- scripts/Makefile.lib                               |   14 +
- tools/objtool/check.c                              |    4 +
- tools/testing/selftests/kcov_dataflow/.gitignore   |    4 +
- tools/testing/selftests/kcov_dataflow/Kbuild       |   10 +
- tools/testing/selftests/kcov_dataflow/Makefile     |   46 +
- tools/testing/selftests/kcov_dataflow/README.rst   |   69 ++
- .../selftests/kcov_dataflow/binderfs/Makefile      |    5 +
- .../selftests/kcov_dataflow/binderfs/README.rst    |   13 +
- .../kcov_dataflow/binderfs/binderfs_test.c         |  195 ++++
- tools/testing/selftests/kcov_dataflow/config       |   11 +
- .../kcov_dataflow/eight_struct_args_c/Makefile     |    3 +
- .../kcov_dataflow/eight_struct_args_c/README.rst   |   13 +
- .../eight_struct_args_c/eight_struct_args_c.c      |  533 +++++++++
- .../kcov_dataflow/eight_struct_args_rust/Makefile  |    3 +
- .../eight_struct_args_rust/README.rst              |   11 +
- .../eight_struct_args_rust.rs                      |  646 +++++++++++
- .../kcov_dataflow/rust_ffi_contract/Makefile       |    3 +
- .../kcov_dataflow/rust_ffi_contract/README.rst     |   13 +
- .../rust_ffi_contract/rust_ffi_contract.c          |  125 ++
- .../kcov_dataflow/rust_kworker_remote/Makefile     |    3 +
- .../kcov_dataflow/rust_kworker_remote/README.rst   |   13 +
- .../rust_kworker_remote/rust_kworker_remote.rs     |  207 ++++
- tools/testing/selftests/kcov_dataflow/settings     |    1 +
- .../selftests/kcov_dataflow/test_modules.py        |  249 ++++
- .../selftests/kcov_dataflow/trigger-view.py        |  755 +++++++++++++
- .../selftests/kcov_dataflow/user_ioctl/Makefile    |    5 +
- .../selftests/kcov_dataflow/user_ioctl/README.rst  |   11 +
- .../kcov_dataflow/user_ioctl/user_ioctl.c          |  168 +++
- 42 files changed, 5127 insertions(+), 31 deletions(-)
----
-base-commit: 89c07d98716a13454ec3fd9f97689e812cc71bd4
-change-id: 20260902-b4-kcov-dataflow-rfc-v3-f369ab75114f
+Thanks Paul. That makes sense to me.
 
-Best regards,
---  
-Yunseong Kim <yunseong.kim@est.tech>
+If Tree SRCU already catches the relevant flavor misuse for CONFIG_SMP=3Dy,
+and there are currently no such uses that are specific to CONFIG_SMP=3Dn, t=
+hen
+I agree that adding flavor tracking/checking to Tiny SRCU just for that
+coverage would not be worthwhile. :)
 
+I originally added the Tiny SRCU flavor tracking mainly for defensive handl=
+ing
+and to keep the behavior consistent with Tree SRCU. But given the Tiny SRCU
+size goal, I agree that this additional diagnostic coverage is not worth
+the extra complexity. :-)
+
+I'll drop the Tiny SRCU flavor-tracking part.
+
+Thanks,
+KunWu
+
+>
+>                                                         Thanx, Paul
