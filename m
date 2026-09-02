@@ -1,138 +1,148 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 051C14772BF
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:26:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08E68481253
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:26:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788351986; cv=none; b=VdNo10SMxMQ2cHxLLPzTZ+buw8kYBqb0Khm+EvPyFtrTlaggJuLlC6HM+TATtUbQxtLFbghLhYZA5P6yPkSRMUPwzCafK3usV2nRxF78LZ07aC1WdAlxDVq5/kOLEeA4NL6Brpyl+BIo57bYuV1C4G7nC05Ut+FAYZ2J3vveOwo=
+	t=1788351996; cv=none; b=Uh56tXh2pfh8u1uh579sYQTwcVOWmy34v8iOZMDqNH44IDnkKlq1OiwEJZSBl8KanHOchWZIbmiQxASr9OQvi3hH8KrPTq9wzUhAUufXH8NQn9DRz/nchtwBWqSl3By3GXBJIH2IhuzMagU/SXnQihPZqpKvrAZvH2t/plsGJlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788351986; c=relaxed/simple;
-	bh=GGMv4HynLli8bREmQlA1qhtM4tuVmiPhtmA+2Os+GWg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qWJJnh89sbpqa7tn/N0tvbTzAuuiOSkoriqqOFNnkgpNTnCkzf1ZywZVApcnnQYMr7OvDwnLrpxQ9wTsrWzzbBXcmUtdwe7FqZB6mMDpOn59luGoQ45QzbLc1zQjNhTkYkk1nF0pgvBCjnJAverWpvI+BfRc91MrPnN126WCuT4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OOG4PNOv; arc=none smtp.client-ip=209.85.221.51
+	s=arc-20240116; t=1788351996; c=relaxed/simple;
+	bh=O0li168uWk7Sy1LrYk0EVi1WX86awysTPLKEJqeGegw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uQrqJ7H4EJI738BgWYM5H2aGHC968bovIU8n53mCL9VAO9Q6qH1wsifKpbRhjGwvmxFP4j2bdV1VVv6RHMsFhZH8Sg+YDF7yEqeCGJO0UTjQlWgzE191CVUmqjKykKlC/MZTGwBCbL0GDfXC8rLvKxKthLWJyDDFOWRkKbTZlZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ssJ2RR5G; arc=none smtp.client-ip=209.85.208.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OOG4PNOv"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-482fc2b44a7so1025600f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:26:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ssJ2RR5G"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a38098734bso1907000a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:26:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788351983; x=1788956783; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=036mA8orffinoqt2iQHKcFlBXTwc5/7dbRbRMf6syWk=;
-        b=OOG4PNOvdvbjkC4Q3CxzZiBk7P89PJ/ZiKl6kaTj1tlyyKtf9kH8gbDUVPFhMDThqC
-         PHB3MsYwq7kid+SfguG198F3nMxfbqml91rhSkMVO4wl6Fr69L9hn/2zIXXlXqE1nQZ4
-         E/bzMAP0eL4nKaZ3YpeWVyI36Qt/2QVJ2vUxxRsbVwNPMIy4h4yhalmlUewi5roEyYlu
-         6HKGgq+lUlxhaxKZD+iC11aaR4LfjipJ+YnqndIrFLLK+DaulyE/rXjIXVICtrMnoZi8
-         XqwnXr3olbUPB9MiirluQx+XCyzTX2Hze3Jv76UkfbD61u2qXtgKj2jDxCYfH8aOuoAk
-         m8Uw==
+        d=gmail.com; s=20251104; t=1788351993; x=1788956793; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Za1ZVpoqbeGhlWHdKUB3tZE62Qu9g1p/b329aCWVgzg=;
+        b=ssJ2RR5Gr9WJr7XvDAXYRpQOPhx2Gx+RsQliKOgooeiEUQdQwMVVx32CERLh96UsTU
+         11EZlr02z0tuP6Kz+M9ja3Q0eFP24qfYGmzwMYUR4lgQxJ8ZB6c7QNFxNFFh6YQwTJmA
+         MG34NXzJidfZgnZOKCos0XTZa3ZAm28mgaBBWSVCTKdzU7irE3nAhWpZCKLBlB41mIh/
+         uJhOCPIpOG+Cc4L8PKe3dBblcDmeweTU9zZr4WOKIpKy1GO6NYlTne0uO5O4txqg7Tl7
+         UGn0s863GpoHdO0hub5keB01LbzUE3gzVXiHS2DgE3k2HGEWSFHstRt28q0vdJfkA3Kx
+         MjWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788351983; x=1788956783;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=036mA8orffinoqt2iQHKcFlBXTwc5/7dbRbRMf6syWk=;
-        b=V26TyMwokqzz3IyeC3mMVOesqkqdA79joeYBq8Ex+vZvEuhAzOLc5lGpx13sdbLCRm
-         CLcEw6kmJjWQqQvOz9hywSsLS54FFYhobpBDvvquyVhyY7b6uo5IvVk3AiDm/mVGbGWW
-         iu6x8eIpGT2Ejbb+i+fB48RrE2OoqPKwRCGmF2UvCZf3O6Buu/5U11ZUWS7N9jK4TEwq
-         tL+XzDge4J6PKM+mLytVnRMYlxs1KU9vTn7oCX/1MUWgN6jIQON9BZaGfcNtssAj5/ro
-         JD+da9WyCdGRGn+3porA/k6owS0BIciWUIa8nXm/M6To056/cymF36wTdgEKyrJZ7aiG
-         2wrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw6jY8Bm57PdMrEBGTCUfy3aWn/dJhwjcA5/8Jwip2py1+9JN0fT4TCFbEJBeDUkOuR7oAaek1nobaxcpI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mKD9ObCey7mT0Q2D9D9pcmnLtwkfvv5w+6LVfbjHkSkc5vOQLN
-	7SIQTZv2gOR1ykjqqMv9AgMDsRL9iqJ9VrmE5bD1EHd3kyR99uTQnH+w
-X-Gm-Gg: AYBFou3j58ldmcr28EA5jSKrXdvYcxiJFHGi0crIEGHfHxWgc+pu8o1aRAt8CB5ywl4
-	Oh1ECzUGKMKcrc9EvvQTMSjTpG9HihngbDK0BqWJCXD+m3gjeI+SDsH6i7MYjIzDCniDgOo1t92
-	M9zFhfAGebzV05SoALFarbkWkgiHocEG0kYUs22vOIxvrWzF7ctY7P8JrD3jpALJIhtGy5EORdf
-	qpC6iipfA5mW/mlDWovloNEddfKTQ/CTgfkYwFbx/8I1eVRfj0ff4BSok8U/zNABxQRwXOmg7Ix
-	77gddK4GfWXVhXUF1mFmn68ewKiLW2C0u8B0GO5putMyaR2pj1HLItY0HjVWs8AH41GFRT7g2NX
-	qzFTLtsGl4U8iGI9zJVAtQXfjG189+6Vp1m30Cp1Ohez5/qPxmAGTSBRZiRoTXI4NsoUhCO+FCn
-	DsrnBcBaVzrPJyLemZVGo/sZj1wVuf5XnDMpAYDMZ8zl7mMG9ztcgAnuPvf+z0KmodjAOkqaVOT
-	ivvQRrn5fM7n4y933eGY+V+L6OnaGVrSGK1
-X-Received: by 2002:a05:6000:4b1d:b0:481:503b:b663 with SMTP id ffacd0b85a97d-48488f1ac85mr8671422f8f.18.1788351983076;
-        Wed, 02 Sep 2026 05:26:23 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-484492cdc37sm6635359f8f.34.2026.09.02.05.26.22
+        d=1e100.net; s=20251104; t=1788351993; x=1788956793;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Za1ZVpoqbeGhlWHdKUB3tZE62Qu9g1p/b329aCWVgzg=;
+        b=on1VFnIqWk7ZXYbM2/kuxANdNBzKRBk7RaCFwC5djoLcCZPU3nPpaoskwHS1POcMLp
+         Uz7/FwVbmTxwLq69lcrP/RWJpCJlo6Wbcm20cFLcaCbCbx64fyijb4jRd4kAUqSk7ZeK
+         ZFvr9LTMYpiTI86tocydmW1DnR5Re/EoYonS9A62I9G+5BCqxgHc1PUXZByBEf0sjtB5
+         u4/qMeLsp8xPUaAk2EQjWwt+q2qAbZdyVO9BItj+TqI11m4+eAmAy64kGB86y9BZUBzX
+         urGsT4B0/5ZjFcawdW1d4MwR6Bt0l6gHAZzbYBiZHLlVNaFKV1egJqHrvfQZY07+fLro
+         1CgA==
+X-Forwarded-Encrypted: i=1; AKwUvBx3w4xMYtD5s2Ize/WusoQfZCd4FQLtIgIPNwoXmrrcHdkyc7vRUYeSMXLhfzhUqZUZpygY3ttKY119Jiw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lUDRfGRLqWJguhMD2wCUIPklRKkqthCCvJNXywlXoB8fQanvHc
+	yk76Jht/T1gHcf2z7J9HH2R/rJDO2GYwaTq50timgxWLH1qNffG/5o0T
+X-Gm-Gg: AYBFou2cdjwVR5zrBLeHBJeKKm8BbapRxC9Go3jGSIlsvR29Ss8Qa3TfZINJeyxyorJ
+	+Xm6010Cy3kHscNcjkPvN9BVhvmGXi87MilHnGHgHOhY9t4RSyVMOTQ8Mu95mbVjcyyThWBvIvU
+	T3Dm4qf9pVwWdVi7IFXdAFxn6OPbZ8MUeXWo+Ydsx1TFZvVVqCZplpyys/WCQqLiU3W+D2oR+ml
+	GtNgEQ64bF8qh/+kKNQho7NSMJqFowzLD9iWd/i62CWNt1lI9EO46dHbJD1d+r0J1nYKZtRitRa
+	172UQM1YCj0BMP2btESEe6VSKoyWOhQ5wTVVyatgpqzgSV8sPEFL0CD74DTMPexhoESgBPkE1pE
+	9uXbU/ra3WpACgp8tasFBnkMSXg2sf+w3jraQWLuWZw8tOZItv49hsVyUXMoNtDgF+plKQ7sIBv
+	xJN647Gs7IXtqdJYkUMBia1OvilPLJHckK6a3Mt4ZpqanlsDbvuy+MtN20PaTKU9jib1DVk5U=
+X-Received: by 2002:a05:6402:3216:b0:6a4:ae1:333a with SMTP id 4fb4d7f45d1cf-6a682799fb3mr3468677a12.12.1788351992977;
+        Wed, 02 Sep 2026 05:26:32 -0700 (PDT)
+Received: from grower.astralinux.ru ([82.22.172.205])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a68a6a636fsm566521a12.8.2026.09.02.05.26.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 05:26:22 -0700 (PDT)
-Date: Wed, 2 Sep 2026 13:26:21 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Eli Billauer <eli.billauer@gmail.com>
-Cc: Mike Rapoport <rppt@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Brad
- Warrum <bwarrum@linux.ibm.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Michal Simek <michal.simek@amd.com>, Ritu
- Agarwal <rituagar@linux.ibm.com>, Andrew Morton
- <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, Matthew
- Wilcox <willy@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH 2/4] char: xillybus: replace __get_free_pages() with
- kmalloc()
-Message-ID: <20260902132621.7444266b@pumpkin>
-In-Reply-To: <9a3d6a08-339c-3315-cc81-46907d0836ad@outbound.gmail.com>
-References: <20260830-char-misc-v1-0-05e2ce44f291@kernel.org>
-	<20260830-char-misc-v1-2-05e2ce44f291@kernel.org>
-	<f6001085-9234-4025-ff34-6cc4a66c293a@outbound.gmail.com>
-	<20260831123937.32255a49@pumpkin>
-	<apaF1HUtJnstuUN4@kernel.org>
-	<1729fb06-6beb-f8ef-3e71-47fc3f00345d@outbound.gmail.com>
-	<apcPg_y-HsMki7we@kernel.org>
-	<9a3d6a08-339c-3315-cc81-46907d0836ad@outbound.gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Wed, 02 Sep 2026 05:26:32 -0700 (PDT)
+From: Alexander Martyniuk <alexevgmart@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Alexander Martyniuk <alexevgmart@gmail.com>,
+	lvc-project@linuxtesting.org,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ingo Molnar <mingo@kernel.org>,
+	Karol Herbst <karolherbst@gmail.com>,
+	Pekka Paalanen <ppaalanen@gmail.com>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	linux-kernel@vger.kernel.org,
+	nouveau@lists.freedesktop.org,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Subject: [PATCH 5.15/6.1/6.6] tracing/mmiotrace: Add NULL check for mmio_trace_array in logging functions
+Date: Wed,  2 Sep 2026 15:26:12 +0300
+Message-ID: <20260902122613.442176-1-alexevgmart@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2 Sep 2026 13:41:54 +0200
-Eli Billauer <eli.billauer@gmail.com> wrote:
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-> On 01/09/2026 19:46, Mike Rapoport wrote:
-> >> * Does vmalloc() guarantee that non-pageable physical RAM is allocated when
-> >> it returns?  
-> > It's not pageable in the sense of demand paging. Some architectures lazily
-> > synchronize vmalloc page tables and this can cause page faults that will
-> > take care of the page table synchronization.
-> >   
-> 
-> Thanks for this clarification.
-> 
-> This sounds like a showstopper to me. Immediately after the allocation 
-> of these buffers, data from the USB device can arrive at 400 MB/s. If 
-> the data flow is throttled as a result of handling page faults while 
-> trying to write the data to these buffers, this could lead to an 
-> overflow in the USB device's own RAM buffers. This is because the USB 
-> device is an FPGA, where RAM is an expensive resource.
+commit 12b80cdbc54cf615b4717a4e8180063408091ea2 upstream.
 
-IIUC The faults don't usually happen.
-But if one cpu write the address somewhere and another cpu picks it up
-immediately and access the buffer you can get a fault.
-Even if they do happen they are unlikely to be worse than normal
-interrupt latency.
+mmio_trace_rw() and mmio_trace_mapping() retrieve mmio_trace_array into
+tr and pass it to __trace_mmiotrace_rw() and __trace_mmiotrace_map().
+If these functions are invoked while mmio_trace_array is NULL (e.g. before
+initialization or after disabled), accessing tr->array_buffer.buffer will
+result in a NULL pointer dereference crash.
 
-If you are trying to receive data at very high speed I'd have thought that
-you'd want the USB data written directly into you buffer list.
-(Much the same way as most ethernet hardware handles rx frames.)
-I realise the the usb kernel code isn't really written for that sort
-of access (some of usbnet could do with it).
+Fix this by adding an explicit NULL check for tr at the beginning of
+__trace_mmiotrace_rw() and __trace_mmiotrace_map().
 
-David 
+Link: https://patch.msgid.link/178524300062.56416.8362487250709962380.stgit@devnote2
+Fixes: f984b51e0779 ("ftrace: add mmiotrace plugin")
+Assisted-by: Antigravity:gemini-3.6-flash
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: Alexander Martyniuk <alexevgmart@gmail.com>
+---
+Backport fix for CVE-2026-80689
+ kernel/trace/trace_mmiotrace.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-> 
-> So using vmalloc() may result in a malfunction in the data transport 
-> where the __get_free_pages() would have been successful. This outweighs 
-> the benefit of a somewhat higher probability of success in allocating 
-> very large buffers, and surely the improved aesthetics of the kernel code.
-> 
-> Regards,
->     Eli
+diff --git a/kernel/trace/trace_mmiotrace.c b/kernel/trace/trace_mmiotrace.c
+index c523ce5aa495..f03e9f3b8212 100644
+--- a/kernel/trace/trace_mmiotrace.c
++++ b/kernel/trace/trace_mmiotrace.c
+@@ -296,11 +296,15 @@ static void __trace_mmiotrace_rw(struct trace_array *tr,
+ 				struct mmiotrace_rw *rw)
+ {
+ 	struct trace_event_call *call = &event_mmiotrace_rw;
+-	struct trace_buffer *buffer = tr->array_buffer.buffer;
++	struct trace_buffer *buffer;
+ 	struct ring_buffer_event *event;
+ 	struct trace_mmiotrace_rw *entry;
+ 	unsigned int trace_ctx;
+ 
++	if (!tr)
++		return;
++
++	buffer = tr->array_buffer.buffer;
+ 	trace_ctx = tracing_gen_ctx_flags(0);
+ 	event = trace_buffer_lock_reserve(buffer, TRACE_MMIO_RW,
+ 					  sizeof(*entry), trace_ctx);
+@@ -327,11 +331,15 @@ static void __trace_mmiotrace_map(struct trace_array *tr,
+ 				struct mmiotrace_map *map)
+ {
+ 	struct trace_event_call *call = &event_mmiotrace_map;
+-	struct trace_buffer *buffer = tr->array_buffer.buffer;
++	struct trace_buffer *buffer;
+ 	struct ring_buffer_event *event;
+ 	struct trace_mmiotrace_map *entry;
+ 	unsigned int trace_ctx;
+ 
++	if (!tr)
++		return;
++
++	buffer = tr->array_buffer.buffer;
+ 	trace_ctx = tracing_gen_ctx_flags(0);
+ 	event = trace_buffer_lock_reserve(buffer, TRACE_MMIO_MAP,
+ 					  sizeof(*entry), trace_ctx);
+-- 
+2.43.0
 
