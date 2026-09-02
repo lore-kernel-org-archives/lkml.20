@@ -1,147 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9534940E8C1;
-	Wed,  2 Sep 2026 13:15:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5791349C4A7;
+	Wed,  2 Sep 2026 13:16:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788354953; cv=none; b=HqqTrrdVfQ6iD4p7mmwkilqOczKVUh644dmq6bgf/rQJPx6KRZdUUzodEB/ic5/RCrJ+bQJ72cvXbNQOyrNYQMTochsGx4O6im+3QHaCxIexAd2peaXkyTvrRAUO4ZD7bm8V3ffWWKGdQEP/yaerSAgWrKHKulO/01C/2rdIatM=
+	t=1788354987; cv=none; b=qiJLiK8OVqKsfRxw6XjJfhkbDsi2XQhwUEvAFZgqixZwJ3c2XZyqHbqyUeSXrBDzoqhfP/N/v96IqoAvqFMgSN4/8fGVSJOfLEJaxP+Mpuaz5/nX7GTm1eaWu/oU6FzaWGuiu6mui244oUewP24HAsSM1QVbahWSyijfQQFELbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788354953; c=relaxed/simple;
-	bh=08am8gZvuWLNmS3HQ55aMHgH2Rs3yjD+p4VxefGeog0=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=pyaSlvNW/7A5quvrou7n0QfbC60md+BrTB+GCF5XoKqHgz4q77DhLwG7Xx2X/3F937mapBQ7cNoBYqDyy8lUU0CEc7N2DIWMXiv9fT+n07eJe+AUWO501Ut/SqrdNXQrwyvhBIOpamg5T+7ljDvxU3IN1YS9j+hcYfeQj5w8FlA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F/Ek6IDs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788354987; c=relaxed/simple;
+	bh=nZM6a7sRN8nf5e2sER84BlR+c03HLKK34Enpqkes2GM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=t4FDaNWTQbU10hcizx2gybJWU6UXz4Fz6wFvu4h7QyV2g46SRD3C5qoTDNRFt4hupkIFMBxs+vXYiJ87tPirf4auixKYBq9zJaKKLReQ+qyMgwDYamGvz7cCi4oQgM94ntpcDpN1fc0RSfQBFl3rV3Nu0G+QJHikBEP/n+db+Dk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=FrinuvsG; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F/Ek6IDs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6E8F1F000E9;
-	Wed,  2 Sep 2026 13:15:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788354952;
-	bh=eCXFIVEfFpWL80gfYTZC+cbgqk/qSDZbCErrII4qADs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=F/Ek6IDs4uKRlRNj/oEoIyp2aOxBrckLRQvS47Cm7GR+NYHrxgWeq7LR1TgW1T16/
-	 WXeDLTqkyw7Hy3B6sCL/wU7qw8qLKkh3Dgisd/FXuQeEZqJepq3+I6sJ/sLqVJn8yy
-	 NlqqWE+umbZpMsbTknADVZMf0hee3HKNk+oitMCWAWLLi3XUMq3noY0bHVdOiZR7ij
-	 h+q6+zLFRDbAKZPEL9yafnhou+tGq4ooE6IYnk7cD+fwcS3OQVEMH04XOvUJ6hNDux
-	 f41BVIOOgIQwNx5n3EKagRnzTRB2Dcu10gKXztrg88kWky1wWugyEtClEyPjZO5sUk
-	 5xoqMFHEkdT5A==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Nicolin Chen <nicolinc@nvidia.com>, linux-coco@lists.linux.dev,
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Pranjal Shrivastava <praan@google.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Xu Yilun <yilun.xu@linux.intel.com>
-Subject: Re: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
- viommu plumbing
-In-Reply-To: <20260902121700.GC2890729@ziepe.ca>
-References: <20260427085344.941627-1-aneesh.kumar@kernel.org>
- <20260427085344.941627-4-aneesh.kumar@kernel.org>
- <apM6dOHcEI2ztWS0@nvidia.com> <yq5a8q5lz5yn.fsf@kernel.org>
- <yq5aecfdnv4i.fsf@kernel.org> <20260901143445.GC56830@ziepe.ca>
- <yq5a8q5kkoz3.fsf@kernel.org> <20260902121700.GC2890729@ziepe.ca>
-Date: Wed, 02 Sep 2026 18:45:42 +0530
-Message-ID: <yq5aik4nztdt.fsf@kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="FrinuvsG"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DCD83165C;
+	Wed,  2 Sep 2026 06:16:20 -0700 (PDT)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A30C93F85F;
+	Wed,  2 Sep 2026 06:16:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788354984; bh=nZM6a7sRN8nf5e2sER84BlR+c03HLKK34Enpqkes2GM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=FrinuvsGBjiqHG1fKHbjKVEc/tKXqp0wtshEmnfvUjyjLyTELzodoJkGmRzzJ1gFw
+	 dlS+RVttkI/+NxV494zJEE89bioVbeUa4vQhe3Ebb2Ig0xYg7U5M3KyG5GBlWufJeX
+	 S4urs7c71875WgziJfgKtHzFPOLDU09DaekDR3kY=
+Message-ID: <bd59c8b4-6b29-494d-b540-8feed38d0955@arm.com>
+Date: Wed, 2 Sep 2026 15:16:19 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 09/15] arm_mpam: Fix MSC MMIO window size to use
+ resource_size() instead of end - start
+To: Yin Li <yin.li@oss.qualcomm.com>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Shanker Donthineni <sdonthineni@nvidia.com>,
+ Conor Dooley <conor+dt@kernel.org>, Fenghua Yu <fenghuay@nvidia.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ Reinette Chatre <reinette.chatre@intel.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, James Morse <james.morse@arm.com>,
+ Ben Horgan <ben.horgan@arm.com>, Bjorn Andersson <andersson@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-arm-msm@vger.kernel.org, ganapatrao.kulkarni@oss.qualcomm.com,
+ trilok.soni@oss.qualcomm.com, devicetree@vger.kernel.org,
+ driver-core@lists.linux.dev, Srivathsa L Rao
+ <srivathsa.rao@oss.qualcomm.com>, Huang Yiwei
+ <huang.yiwei@oss.qualcomm.com>, aiqun.yu@oss.qualcomm.com,
+ linux-kernel@vger.kernel.org
+References: <20260811-mpam-resctrl-dt-knp-support-v1-0-ea6397bead59@oss.qualcomm.com>
+ <20260811-mpam-resctrl-dt-knp-support-v1-9-ea6397bead59@oss.qualcomm.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20260811-mpam-resctrl-dt-knp-support-v1-9-ea6397bead59@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Jason Gunthorpe <jgg@ziepe.ca> writes:
+Hi,
 
-> On Wed, Sep 02, 2026 at 02:30:00PM +0530, Aneesh Kumar K.V wrote:
->> Jason Gunthorpe <jgg@ziepe.ca> writes:
->> 
->> > On Tue, Sep 01, 2026 at 03:36:37PM +0530, Aneesh Kumar K.V wrote:
->> >
->> >> @@ -463,14 +460,13 @@
->> >>  	vsmmu->vmid = s2_parent->s2_cfg.vmid;
->> >>  
->> >>  	if (viommu->type == IOMMU_VIOMMU_TYPE_ARM_SMMUV3) {
->> >> +		if (arm_smmu_is_realm_viommu(viommu))
->> >> +			return arm_realm_smmu_v3_init(viommu, user_data);
->> >> +
->> >
->> > I think the realm vsmmu is going to require a different info struct
->> > than the normal psmmu case, isn't it?
->> >
->> > If so it needs its own enum value.
->> >
->> > It would be nice to see a draft patch showing how the real vsmmu works
->> > on top of the RMM spec for it. If we are using a viommu object then
->> > non-vsmmu case should be identical just with an option in the info
->> > struct to not create the vsmmu object.
->> 
->> Based on feedback on other emails in this thread, I have now implemented
->> this without using a vdevice or viommu. This should make the CCA and
->> non-CCA cases similar.
->
-> That wasn't the feedback. The feedback was to use the viommu and not
-> make a bunch of new stuff..
->
+On 8/11/26 15:30, Yin Li wrote:
+> struct resource uses an inclusive end address, so the correct size is
+> end - start + 1. The previous calculation of end - start was off by one,
+> resulting in a mapped window one byte smaller than the actual resource.
+> Use resource_size() which correctly computes end - start + 1.
 
-That rework was done before I saw your discussion with Nicolin.
+Yes, thanks for catching this and making a patch. We found this 
+independently during other MPAM work, but no one got around to make a 
+patch ;-)
 
-To reiterate, for this configuration:
+> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
 
-- The viommu will use a stage-1 bypass configuration.
-- A new IOMMU_VIOMMU_TYPE_ARM_REALM_SMMUV3 type will create the viommu.
-  The psmmu will be activated at this point to avoid creating psmmu
-  objects early. We will reference-count it to ensure that the same
-  psmmu is shared across realm guests.
-- Creating a vdevice will invoke SMC_RMI_PSMMU_ST_L2_CREATE.
+Reviewed-by: Andre Przywara <andre.przywara@arm.com>
 
-I am unclear about the vdev_create suggestion. Creating a vdevice
-requires an RD, which is created later in the flow above. How do you
-suggest linking vdevice_alloc to vdev_create?
+So this patch is independent from and non-conflicting with the DT work, 
+so either Ben or James pick this one directly, or you put those kind of 
+fixes first in the series, when you repost.
 
-From the RMM's perspective, the sequence is as follows:
+Cheers,
+Andre
 
-viommu alloc 
+> ---
+>   drivers/resctrl/mpam_devices.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+> index 1e082fb60e30..5d1854d97371 100644
+> --- a/drivers/resctrl/mpam_devices.c
+> +++ b/drivers/resctrl/mpam_devices.c
+> @@ -2296,7 +2296,7 @@ static struct mpam_msc *do_mpam_msc_drv_probe(struct platform_device *pdev)
+>   			dev_err_once(dev, "Failed to map MSC base address\n");
+>   			return ERR_CAST(io);
+>   		}
+> -		msc->mapped_hwpage_sz = msc_res->end - msc_res->start;
+> +		msc->mapped_hwpage_sz = resource_size(msc_res);
+>   		msc->mapped_hwpage = io;
+>   	} else {
+>   		return ERR_PTR(-EINVAL);
+> 
 
-[   rmm ] SMC_RMI_PSMMU_ACTIVATE            2b400000 8819bb000 > RMI_INCOMPLETE 0 10008
-[   rmm ]       SMC_RMI_OP_MEM_DONATE       0 881bac098 1 > RMI_INCOMPLETE 2 10004
-[   rmm ]       SMC_RMI_OP_MEM_DONATE       0 881bac098 1 > RMI_INCOMPLETE 1 10004
-[   rmm ]       SMC_RMI_OP_MEM_DONATE       0 881bac098 1 > RMI_INCOMPLETE 1 0
-[   rmm ] L1 StrTab: PA 0x881baa000 VA 0x80003c0000 size 0x2000
-[   rmm ] CMDQ: PA 0x88066a000 VA 0x80003c2000
-[   rmm ] EVTQ: PA 0x8815c5000 VA 0x80003c3000
-[   rmm ] PSMMU 0x2b400000 activated
-[   rmm ]       SMC_RMI_OP_CONTINUE         0 0 > RMI_SUCCESS 0 0
-[   rmm ] SMC_RMI_PSMMU_ST_L2_CREATE        2b400000 300 > RMI_INCOMPLETE 0 10004
-[   rmm ]       SMC_RMI_OP_MEM_DONATE       0 881bac098 1 > RMI_INCOMPLETE 1 0
-[   rmm ] smmu->strtab_base[12] 0x0 @0x80003c0060
-[   rmm ] L1STD[12] 0x8819bb007 for SID 0x300: L2 table VA 0x80003d0000 PA 0x8819bb000
-[   rmm ]       SMC_RMI_OP_CONTINUE         0 0 > RMI_SUCCESS 0 0
-
-vdevice alloc
-
-[   rmm ] SMC_RMI_PSMMU_ST_L2_CREATE        2b400000 200 > RMI_INCOMPLETE 0 10004
-[   rmm ]       SMC_RMI_OP_MEM_DONATE       0 882648098 1 > RMI_INCOMPLETE 1 0
-[   rmm ] smmu->strtab_base[8] 0x0 @0x80003c0040
-[   rmm ] L1STD[8] 0x882506007 for SID 0x200: L2 table VA 0x80003cc000 PA 0x882506000
-[   rmm ]       SMC_RMI_OP_CONTINUE         0 0 > RMI_SUCCESS 0 0
-
-RD gets allocated here
-
-[   rmm ] SMC_RMI_REALM_CREATE              881b03000 8819a1000 > RMI_INCOMPLETE 0 24
-[   rmm ]       SMC_RMI_OP_MEM_DONATE       0 881605098 9 > RMI_INCOMPLETE 9 0
-[   rmm ]       SMC_RMI_OP_CONTINUE         0 0 > RMI_SUCCESS 0 0
-
--aneesh
