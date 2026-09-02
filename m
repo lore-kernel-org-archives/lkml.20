@@ -1,98 +1,139 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A78420E89
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:35:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9688C4A64F3;
+	Wed,  2 Sep 2026 16:35:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366922; cv=none; b=LuYSREF+DlrhvbHU+lgcLmgTJschFFMZVaNu+b/SCUPBGYPy/mQ9teXsH8aFlSHGdki/M3PCmHxqjkcA8Q8t3k/qgCvqH0ZpADVqRUWQMmSEyT0HMTTIckDX6EIdIJN2AfNMiQiYV6Tr5wrIhMCLZCHLfGpxIq64LyKofseN97s=
+	t=1788366923; cv=none; b=mNChG9LnwKpAMtqBEW+T5F0+C5p6pGYg9EEDuKxxPzYhcrMwLP9xkuaVWJ2gH5v9iUn57/FBUqdcgcmYAiDOoUWIC4KfCzHQvFQ2VLDd1zh08xOeu+KjBmJtuaSz4pn203cHvteYQxC7hDmvDaIUjA0hvDftpPH7JQTwn4gaUl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366922; c=relaxed/simple;
-	bh=uTyV/n/8iuzYfDftL1fj91IK3hiDuLkjq9xhPjqQyx8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LfsTiewmU8WktvuhmC13lb5TBZ/OSPIBDTZO85t2EG8NA5AaAC6MEtDsEY5WcTyM51QXsxWHqUPHmnF1e3JH2KpHFAwqcPfJf/2HHxlWibM91FKENUpnHXsIVlXaHHdb7m2VWTJRDcAAT5u6FyRr3Hqg3V3aRNp/6zQomwLwevo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=WwXxeDPH; arc=none smtp.client-ip=117.135.210.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788366923; c=relaxed/simple;
+	bh=+mGoBUjOc7qxjm7k+aG8gmb8Z8yRWM/XDq/y9sGvqwc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cbvOJCeFPcgoPimURj6agvfBDfk94YGo8oX0qYoHe5ZsXfk73615FdxZhvkIIwVoX5lyAocAK3gIDI72mAXmtgXhZzF1PwrGCjXH6Mw6+n8orNH2S4NwuI4e7oMgwjX6Zs2P1betxruD0bnhfbDCe9pnWsNMHno0BC22gS+6k7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VOyuiW8I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="WwXxeDPH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=g6
-	dBPLBeQQynbiaiYwtAr4XLB1WJIB0C8bRY0oWkEWA=; b=WwXxeDPHP9do6wBL2I
-	4pTAQXsWysbxvoyDfVeBruZuYPoQCOV0aSMzG8n3DjSMxCYxnffsE6e65iFzuhCB
-	BiCwBa2sDMdgM4NAMmXY2EXn9PiFG/kTgallHgxi9QFYkUl4suboRH2l7Yn5E4+k
-	l6onBkvqqkigpaV+U6yFUDgJQ=
-Received: from localhost (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wBX5AzgT5hqUfasAA--.24299S2;
-	Thu, 03 Sep 2026 00:33:37 +0800 (CST)
-From: Hui Su <sh_def@163.com>
-To: peterz@infradead.org,
-	mingo@redhat.com,
-	juri.lelli@redhat.com,
-	vincent.guittot@linaro.org
-Cc: dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	jstultz@google.com,
-	metin.kaya@arm.com,
-	connoro@google.com,
-	tim.c.chen@linux.intel.com,
-	yu.c.chen@intel.com,
-	linux-kernel@vger.kernel.org,
-	Hui Su <sh_def@163.com>
-Subject: [PATCH 1/2] sched/numa: Use execution context for NUMA task tick
-Date: Thu,  3 Sep 2026 00:33:35 +0800
-Message-ID: <20260902163336.1552840-1-sh_def@163.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VOyuiW8I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D629E1F00A3A;
+	Wed,  2 Sep 2026 16:35:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788366920;
+	bh=kkmCkGQoBwObvFsWtVaeZrrvGJoH7pMiQKGIGSPX6j8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VOyuiW8IwiVEkGP807+ml6TXm/aCJd4TganQRnpA1ceEYciYwJ6GKuTTZVys37HQX
+	 zqF6CpIRW3BHrawDfRVPleLiYRBRv8257VJH0i0f837V5e3qLhiGV9QQ/y+krUy5hA
+	 jq3/fsK4kpT+zmPAT61++4EGqjeysme+w4OTY7iqOG7nqQF0cvUzC/PP4elIoX5DAX
+	 EyOGKGdMUZ7ad3DXL6ouFLBDcwnzglI0yIoLGsnr2N8kqHnQbFH3zsQaRopzZLKyNB
+	 r5wzflfUG8sHuXyfEXm0IL5ZIgjDyOjQ0pQBMqF3no6GuIALE9clFdDaGJ4G9kgTYv
+	 v8MH6XcFFaaug==
+Date: Wed, 2 Sep 2026 17:35:15 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Andi Kleen <ak@kernel.org>
+Cc: linux-kernel@vger.kernel.org, mhiramat@kernel.org, oleg@redhat.com, 
+	peterz@infradead.org, tglx@kernel.org, x86@kernel.org, jolsa@kernel.org, 
+	linux-perf-users@vger.kernel.org, adrian.hunter@intel.com
+Subject: Re: [RFC v1 05/19] ptwrite uprobes: Add minimal low level support
+ for x86
+Message-ID: <aphN94PIAfM3s4vy@gremlin>
+References: <20260831150651.1134594-1-ak@kernel.org>
+ <20260831150651.1134594-6-ak@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wBX5AzgT5hqUfasAA--.24299S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Aw4fJw48Jr1DWF1fCr47twb_yoW8GrW7pF
-	WDtF4UAw4kGayjkFyDZa9Yga43Wwn3A347Cr4DGrZ5ur15Jw18trWkt3Wa9F4Yyr40yFW2
-	vr4vkrWxGw1UKw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zi75r7UUUUU=
-X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6gHMLGqYT+GZWwAA3V
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831150651.1134594-6-ak@kernel.org>
 
-With proxy execution, fair_sched_class::task_tick() receives the
-scheduling context in rq->donor, while rq->curr identifies the task
-that is actually executing.
+NAK.
 
-NUMA tick handling is tied to the execution context. In particular,
-task_tick_numa() uses the task's sum_exec_runtime to drive periodic
-scans and queues numa_work against that task and its mm.
+This is broken as described in [0] and causes use-after-frees.
 
-Proxy execution runtime accounting deliberately charges sum_exec_runtime
-to rq->curr rather than rq->donor. Passing the donor to task_tick_numa()
-therefore drives NUMA scanning from a task whose runtime is not being
-advanced by proxy execution, while the executing task's NUMA state is
-not driven by the tick.
+[0]:https://lore.kernel.org/all/aphJ7olxr-_VhDKt@gremlin/
 
-Use rq->curr when invoking task_tick_numa() so the runtime, mm and
-task_work all belong to the execution context.
+On Mon, Aug 31, 2026 at 08:04:41AM -0700, Andi Kleen wrote:
+> Add more data structures and the x86 machinery to generate the PTWRITE
+> instructions for a ptwrite uprobe. The probe executes PTWRITEs and then
+> jumps back to the original code. In this variant only patching
+> 5 byte nops is supported.
+>
+> The instructions are pre-generated to templates and then patched when
+> setting up the final user page.
+>
+> The patching code uses 3 phase patching similar to int3_update.
+>
+> The ptwrite stub emits a header with a magic value and the number of
+> arguments, and then the actual probed values.
+>
+> There is no separate config option for ptwrite uprobes, it is just tied
+> to the main uprobes config.
+>
+> Some limitations in the current implementation:
+> - The probed 5 byte area cannot cross a page.
+> - The allocated stubs in the user program are only freed on exit.
+>
+> Assisted-by: omp:gpt-5.6-luna
 
-Fixes: af0c8b2bf67b ("sched: Split scheduler and execution contexts")
-Signed-off-by: Hui Su <sh_def@163.com>
+I suggest looking into a model more suited to complex kernel
+development. Googling it, Luna is described thusly:
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 8dff37059faf..09ddb3802c28 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -15043,7 +15043,7 @@ static void task_tick_fair(struct rq *rq, struct task_struct *curr, int queued)
- 		return;
- 
- 	if (static_branch_unlikely(&sched_numa_balancing))
--		task_tick_numa(rq, curr);
-+		task_tick_numa(rq, rq->curr);
- 
- 	task_tick_cache(rq, curr);
- 
--- 
-2.54.0
+'GPT-5.6 Luna is OpenAI's fastest and most budget-friendly AI model tier,
+built specifically for high-volume, latency-sensitive tasks'
 
+Which doesn't strike me as ideal for this kind of work, especially when you
+are submitting things to the mailing list and asking people to dedicate
+their own time (and better models) to assessing it.
+
+> Signed-off-by: Andi Kleen <ak@kernel.org>
+> ---
+>  arch/x86/include/asm/uprobes.h |  24 ++
+>  arch/x86/kernel/uprobes.c      | 623 +++++++++++++++++++++++++++++++++
+>  2 files changed, 647 insertions(+)
+
+(That's a huge diffstat for one patch and your cover letter is missing a
+full diffstat also...)
+
+> diff --git a/arch/x86/kernel/uprobes.c b/arch/x86/kernel/uprobes.c
+> index 65a2de82ecd2..df652c56414b 100644
+> --- a/arch/x86/kernel/uprobes.c
+> +++ b/arch/x86/kernel/uprobes.c
+> @@ -15,11 +15,15 @@
+>  #include <linux/syscalls.h>
+
+...
+
+> +static struct uprobe_ptwrite_page *
+> +create_uprobe_ptwrite_page(struct mm_struct *mm, unsigned long vaddr)
+> +{
+> +	struct uprobe_ptwrite_page *ptw;
+> +	struct vm_area_struct *vma;
+> +	unsigned long area;
+> +
+> +	area = find_ptwrite_page_area(mm, vaddr);
+> +	if (IS_ERR_VALUE(area))
+> +		return NULL;
+> +
+> +	mmap_assert_write_locked(mm);
+> +
+> +	ptw = kzalloc_obj(*ptw);
+> +	if (!ptw)
+> +		return NULL;
+> +
+> +	ptw->page = alloc_page(GFP_HIGHUSER | __GFP_ZERO);
+> +	if (!ptw->page) {
+> +		kfree(ptw);
+> +		return NULL;
+> +	}
+> +	ptw->vaddr = area;
+> +
+> +	vma = _install_special_mapping(mm, area, PAGE_SIZE,
+> +			VM_READ|VM_EXEC|VM_MAYEXEC|VM_MAYREAD|VM_IO,
+> +			&ptwrite_mapping);
+
+You need to trampoline this (as the existing code does...) to avoid the
+issue described in [0].
+
+--
+Cheers, Lorenzo
