@@ -1,75 +1,83 @@
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AA9C4CCDEE
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 02:57:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C5353594A
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:01:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788317847; cv=none; b=Y2GAMjy0exBaEHrWkKc/HSNsjTmzEYFi3FB2vAIHFbmN2rzCXZxoGmZHmuVfKCtXYoY+E/SCkszDB9GXV6CpGjZUgRTymghzuUsA71PRE6LdwUUR1IjdBW9zUuBjgdLPdnhYbpnS9td8irGp67HTthOeNM1EUZhFNUnBRP05PLk=
+	t=1788318102; cv=none; b=YwLMtFNHQZkB2thOIRL7xqiQbp/NyZfZzYWM6gRKQdGw0cFITG/fcndMT+mELxO1WJb3nY1eqRlEPZbOsV+WaBk5SsuGMR0PE/S5hhZB8unPNj8r3PUgFD7nO/pijUkvfVzLnAexioVKwQXPc7XtBpTH475qpfNsUecI2ahpj4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788317847; c=relaxed/simple;
-	bh=Wacwy1JfwsgEA3A5mIO2ES0XTmule57KnlkCPSaozM0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OpcLc7Nq0xfmu87TU7QmjyjOuXcqVsO01wwxT3T774mxms8CzPVJUbYD9hB9NFcL/T4hELkjZfIuQNzObUFLj91V54S6triZ15/vRhk2lUBMfvuvqb8pwFz72kzvdK3RtpGFZn0JPVnESJU6581eQjGXrP0x9E594l83mvwiwts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PCKdA4us; arc=none smtp.client-ip=209.85.221.178
+	s=arc-20240116; t=1788318102; c=relaxed/simple;
+	bh=LJEUhAnoyjzJSNkVaCFeqCg2HVccMOzkT7YsmwE2/oI=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version; b=Lab/JEYVEfwxstNx0B4Vdqg4BfZLm1fe+T1V7Y+dNIiyjhkrmzyYaLgXFluVM9EKmwsOhEpM9Qr8wc6jgsHHHjA9FvWKGKXz83J4Qc2OLLPURlXVUMEC1Ybo1EA2pV01+8XEsdaoQuIZHUK7IeHr1/11ixmGSuwerjwdAVothnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nXrDjdTC; arc=none smtp.client-ip=209.85.215.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PCKdA4us"
-Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5c664b8c3f3so581379e0c.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 19:57:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nXrDjdTC"
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cb5b8572b70so647132a12.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 20:01:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788317845; x=1788922645; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xL6daxuFfPtbUTZ7m5s4y+ycihoWTWIL9QNv14bsFBM=;
-        b=PCKdA4usGGq87vxrWyUSAYkhme9ysHB/QBtJf0zfTkVXidlJH8dh3NWh1MyXUuNsc9
-         vzS4/YfFO8UsrA3qVxko5VhFh0bLVe1BLaEfGYi0QULoRGdZwhZR7UK9LXduazPuT3XU
-         LZSHzMIpaL6Dl+bT0dX5IBQk/eVcurFgqjci24Jlqyh7NwW0exPpFI4FQ3xTGb65PrlU
-         Y0KMPqOfawcYPF6hSDyamnJlTmfKNq8De4tIPRFgGa3gYqQ5qC5ZjMXNPmcgW1Lhpnad
-         RJrQl0IxlbCIlFijtvLHGs/iyyr1H/xW2ciSuo/CsSoXhZqMwl0Jo3NqrZ9BwV+jwh82
-         15AA==
+        d=gmail.com; s=20251104; t=1788318100; x=1788922900; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:reply-to:message-id:date
+         :subject:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JL5neCIsAd5SWi4nKKH1Vrpz0RR6k7HjLj/9VXZAhZI=;
+        b=nXrDjdTCcMSkqcuPCgme3C6GFc/UUrYyN9p7etekeQM2gJbh+vAaASboawps2RAhdp
+         wXwD094R8TWHEp5/kICAaCjFQMQ2AbxJE65lQhY6S4Sf12HYjxhcnuUbwpNNv8yJmqVB
+         FnRDGxBALQwPonOyNDJK43Nb25GNnOmlNXHWRsOuuRmtQGxndAtyXjXPBHYNq3DC1zdl
+         kK9/JG/1q3WPv8gpQ4vaexU1n9Z0CB4hm82XDwPKJ9INXkQxj/+o2Y0Ekq7KA2GDpm3/
+         msDfq3IPK/ACtiImKBf70nF2l5ggiE6UpneoEB5xSv7rVanSwBQT5t8meZUlcRCbvUjC
+         AmYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788317845; x=1788922645;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788318100; x=1788922900;
+        h=content-transfer-encoding:mime-version:reply-to:message-id:date
+         :subject:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xL6daxuFfPtbUTZ7m5s4y+ycihoWTWIL9QNv14bsFBM=;
-        b=ZBkvdR2AMM7yWlRU0B+tX20E/Dq0WNmKFgizDPI+Vw2YWEOYUUGRB8Za/xz7Np5lq/
-         BmfDS/KLDVoTFo0k121QSP7DQk/iu9XwJHJQbP/GTj6rBBJ7y0a3FIQInDJTL3ogQGp8
-         WYcjtPX7yIL1Q1hzr9hujeAXggY+Yglx2GXkfMBJcTgvhRQ86qIbpPZi4LN8wOa/DY3J
-         AP2nPDY75eaBMuyrIHxnEnySBTkJCW/HFCKxCEwJIp2lufG7vGVNbihxoc9WCpM28Iko
-         6VSmB5T+9C26fsul18/EXpIOeS5ep/DJJn/B7L7zWMDvbUn18D27VoLiVLIVFnq1JaVu
-         by0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzv0gYiNN2sHFjL5UuIAAPAOeMLtKLmV8a7dFh3hzRILAHXVo1Fqw5DEFTAjzMPAH10nqo/p7hV46dafow=@vger.kernel.org
-X-Gm-Message-State: AFuF++kcioj9EMqEWLpLPwH+E/eUq6LSwoZjfKA0g2HhSsBx3tUnmWIi
-	JLyVJjhiFQNQrKoRM2rkoYWGUUT4jDop20bTljl2yBDKA/IuhnKffoOU
-X-Gm-Gg: AYBFou3KQCWBz00lp1RqLvxGH64xw1zJcMZ/q18h4NHNluR+60h8hzvYAGKJ2sstUAL
-	YyG7pDGiy1TqvCPIR6AS+qC1qe4g2aCACR7uUT7KvjCF4dMmuD4a8fLYrgkBBLCcpvOR7L65xs8
-	3aDa9cYPwRdO9PLBYlRz6nBJ09WdY0PsFf/Htuh+zDmoXfeQH2ldRM3xcGNtNAsVILAI+dyni/3
-	FeQuv8yDuullTRXRScBhBqVVibcyS6QjMV42tQQvVZAZp1hWN9m4PK1yBNKB2yq5oejxdNc2koi
-	hxY8clTxlvXS8x+7DlHfTpFyzG4mkyjig/cIEWi9VNFzTuY/A+TMrME+l4KLpauC7GLAcL35fUv
-	09mcLP4D08iSEbqvNlL3J4fCzbEty1qFltkQ5DRAKRSTjy6x4sFA/0ngAuwIwN9rUe7DAHgsraW
-	5FVGzsNgbfzI+tF5JiSlh8y5rWIo1MLIPsMGlpDF9j9FElUcO1rQrQ
-X-Received: by 2002:a05:6123:2ca:b0:5bd:fb77:842a with SMTP id 71dfb90a1353d-5c7d27ce781mr669879e0c.7.1788317845047;
-        Tue, 01 Sep 2026 19:57:25 -0700 (PDT)
-Received: from adriano ([190.215.95.120])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7cd8cebaesm1154343e0c.12.2026.09.01.19.57.21
+        bh=JL5neCIsAd5SWi4nKKH1Vrpz0RR6k7HjLj/9VXZAhZI=;
+        b=OPBgoRJyTzrJpLS15fdKGcJWhdpw5PZa+d/YaAnHDfWre7BdD1KHbLn4tcizec5Qyf
+         O0zbj43DeA6IRDTjExqj4JvloOb1DZawTuxUt1OO092Wn4+9Rys0CVPu4QHKnknsd3L7
+         lxsXNOMbrHhsuJFxM7d1aPbIYiq8UJ1U5/ZlcrylQFrmWgXaUBYJoFflBDJSF1OxC+ks
+         STxTHNCHRSqhHxU3zDoi1mf1Q7hXkiizh3Vyq8sItljk9F+wpgrBfu99oQ7FTq8VBjwQ
+         Wdp5uZUXWeqqslmQmLiezKcCWWT4mDFncJpO8ow8JgNCUbaQzCxU0AJlrtPiIxACH1Ok
+         5h0w==
+X-Forwarded-Encrypted: i=1; AHgh+RpHi5EC5yDx08KIpmycJPEFqZp5MbTn8u1ivYce9LTHBgg2P17z/lEsk/vLB8uJCZ/Ps0ThMwi6yKr/tTk=@vger.kernel.org
+X-Gm-Message-State: AFuF++m8vOgDV99xoumIgKk70gt5oScPVF02NjnhEnv0y190VzYW6fCR
+	mqXqgE/902+/kSJuEaX0VE6G3qnFmesckvS+HpwoXDeyaHDH9HP5NuVi
+X-Gm-Gg: AR+sD12vM1cL7HF8x2nztQjJTsc2+nLCWXT8OW9tZfiNs/EvFqInyKzHpq38A9uz+Pu
+	hrRJfiDLsvs6LlBahIQ0W05NqZuEcpZOFXOpknDxtKDg7l0vsTvV9R2oeUzEhZLpm2bPu24qASu
+	stpQst4z+lXgLgUqojMWQDP2AOKmTAzcOQ0W10phSEZwakN4/Pn9/0hTagGjQKGKzfrD+cG5R9M
+	BwOl1u4Eb/Wbt57yQvappoCAcODKrt1WaAS1/9Pt/1JGjRg/BoGkGzm1t2dXCTvyIL4syCfAeRr
+	u+yxpbOYGyh993UD1f6G+7JRsE+/ZhQ38UDbtxU7E5Gv4Z6Hz1q8+TTzTRi/0Dg9jTnii5ZPlIL
+	w+4ETcTZv8n+0lyxUuV1sBvik98qEu4f37J9XR6nPShS8zbDl+CwV4+nv3VsuUT51izK3NMJzsF
+	+YcHQl4oWTBpW+9mF3p6X/6SxWzCQQonoXjbspQBvNkUxPbqcOKCe69JLnJN22doCs37QwMcrIZ
+	jNIglANQMqFtdf3825wanB4bONJ1m2dRU70V6xItVg=
+X-Received: by 2002:a05:6a20:9f8d:b0:3cc:8344:1213 with SMTP id adf61e73a8af0-3d9ae0c85b3mr3096813637.8.1788318100187;
+        Tue, 01 Sep 2026 20:01:40 -0700 (PDT)
+Received: from localhost.localdomain (c-174-165-208-10.hsd1.wa.comcast.net. [174.165.208.10])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc42e94e160sm102754a12.20.2026.09.01.20.01.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 19:57:24 -0700 (PDT)
-From: Adriano Cordova <adrianox@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>,
-	netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org,
-	Adriano Cordova <adrianox@gmail.com>,
-	syzbot+989ff6506f5c6d1ff56b@syzkaller.appspot.com
-Subject: [PATCH net v2] netdevsim: take bus device refcount before registering device
-Date: Tue,  1 Sep 2026 22:57:04 -0400
-Message-ID: <20260902025704.34606-1-adrianox@gmail.com>
-X-Mailer: git-send-email 2.51.0
+        Tue, 01 Sep 2026 20:01:39 -0700 (PDT)
+From: Michael Kelley <mhkelley58@gmail.com>
+X-Google-Original-From: Michael Kelley <mhklinux@outlook.com>
+To: kys@microsoft.com,
+	haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com,
+	longli@microsoft.com,
+	tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	x86@kernel.org,
+	hpa@zytor.com,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/1] x86/hyperv: Avoid using per-cpu output page in hv_apicid_to_vp_index()
+Date: Tue,  1 Sep 2026 20:01:27 -0700
+Message-Id: <20260902030127.581040-1-mhklinux@outlook.com>
+X-Mailer: git-send-email 2.25.1
+Reply-To: mhklinux@outlook.com
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -78,69 +86,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nsim_bus_dev_release() drops nsim_bus_devs when a device is freed, but
-the matching increment was done in new_device_store() after
-nsim_bus_dev_new() returned.  When device_register() failed inside
-nsim_bus_dev_new(), put_device() invoked the release callback and
-decremented without an increment, driving the refcount to zero; a later
-creation then incremented from zero (refcount_t: addition on 0).
+hv_apicid_to_vp_index() currently uses the per-cpu hypercall input
+and output pages. This function is called when running in VTL2 and
+when running in an SEV-SNP CoCo VM with no paravisor. In the former
+case, the output page is allocated, but in the latter case it is
+not, so the hypervisor stores the output VP index in memory that has
+not been allocated by the guest.
 
-Increment nsim_bus_devs in nsim_bus_dev_new() before device_register(),
-and drop the bus reference in nsim_bus_exit() only after every device has
-been removed, so the completion cannot be signaled early.
+Fix this by using the input page for both input and output. The
+hypercall has very small input and output, so sharing the same
+page for both is straightforward. An alternative fix is to
+allocate the per-cpu output page when running in an SEV-SNP CoCo
+guest, but this uses significantly more memory, particularly
+with larger vCPUs counts.
 
-Reported-by: syzbot+989ff6506f5c6d1ff56b@syzkaller.appspot.com
-Closes: https://syzkaller.appspot.com/bug?extid=989ff6506f5c6d1ff56b
-Fixes: 6aff7cbfe7bfa ("netdevsim: Block until all devices are released")
-Signed-off-by: Adriano Cordova <adrianox@gmail.com>
+Fixes: 86c48271e0d6 ("x86/hyperv: Fix APIC ID and VP index confusion in hv_snp_boot_ap()")
+Signed-off-by: Michael Kelley <mhklinux@outlook.com>
 ---
-v2: https://lore.kernel.org/netdev/20260831183952.1345042-1-adrianox@gmail.com/
-    - also drop the bus reference in nsim_bus_exit() only after all
-      devices have been removed, per Jakub Kicinski, so that
-      wait_for_completion() cannot be signaled early
+I'm not aware that this bug is causing any real problems because
+SEV-SNP CoCo VMs on Hyper-V are rarely, if ever, used without a
+paravisor. But it was on my list of little clean-ups to do, and
+a recent Sashiko analysis [1] flagged the issue. So the best thing
+to do is just fix it.
 
- drivers/net/netdevsim/bus.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+[1] https://lore.kernel.org/linux-hyperv/20260901171238.834601F00A3A@smtp.kernel.org/
 
-diff --git a/drivers/net/netdevsim/bus.c b/drivers/net/netdevsim/bus.c
-index 5c55c308487b..b792ee10b1c1 100644
---- a/drivers/net/netdevsim/bus.c
-+++ b/drivers/net/netdevsim/bus.c
-@@ -194,7 +194,6 @@ new_device_store(const struct bus_type *bus, const char *buf, size_t count)
- 		goto err;
- 	}
+Changes in v2:
+* Make the new code a bit cleaner by dropping the unnecessary cast
+  to u32 *
+
+ arch/x86/hyperv/hv_init.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/arch/x86/hyperv/hv_init.c b/arch/x86/hyperv/hv_init.c
+index d5edc8530964..2a71c70d7e27 100644
+--- a/arch/x86/hyperv/hv_init.c
++++ b/arch/x86/hyperv/hv_init.c
+@@ -731,7 +731,8 @@ int hv_apicid_to_vp_index(u32 apic_id)
+ 	input->partition_id = HV_PARTITION_ID_SELF;
+ 	input->apic_ids[0] = apic_id;
  
--	refcount_inc(&nsim_bus_devs);
- 	/* Allow using nsim_bus_dev */
- 	smp_store_release(&nsim_bus_dev->init, true);
+-	output = *this_cpu_ptr(hyperv_pcpu_output_arg);
++	/* Treat input as having 2 APIC IDs so output is 64-bit aligned */
++	output = (void *)input + struct_size(input, apic_ids, 2);
  
-@@ -465,6 +464,7 @@ nsim_bus_dev_new(unsigned int id, unsigned int port_count, unsigned int num_queu
- 	/* Disallow using nsim_bus_dev */
- 	smp_store_release(&nsim_bus_dev->init, false);
- 
-+	refcount_inc(&nsim_bus_devs);
- 	err = device_register(&nsim_bus_dev->dev);
- 	if (err)
- 		goto err_nsim_bus_dev_id_free;
-@@ -520,8 +520,6 @@ void nsim_bus_exit(void)
- 
- 	/* Disallow using resources */
- 	smp_store_release(&nsim_bus_enable, false);
--	if (refcount_dec_and_test(&nsim_bus_devs))
--		complete(&nsim_bus_devs_released);
- 
- 	mutex_lock(&nsim_bus_dev_list_lock);
- 	list_for_each_entry_safe(nsim_bus_dev, tmp, &nsim_bus_dev_list, list) {
-@@ -530,6 +528,9 @@ void nsim_bus_exit(void)
- 	}
- 	mutex_unlock(&nsim_bus_dev_list_lock);
- 
-+	if (refcount_dec_and_test(&nsim_bus_devs))
-+		complete(&nsim_bus_devs_released);
-+
- 	wait_for_completion(&nsim_bus_devs_released);
- 
- 	driver_unregister(&nsim_driver);
+ 	control = HV_HYPERCALL_REP_COMP_1 | HVCALL_GET_VP_INDEX_FROM_APIC_ID;
+ 	status = hv_do_hypercall(control, input, output);
 -- 
-2.51.0
+2.25.1
 
