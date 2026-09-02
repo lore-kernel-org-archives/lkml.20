@@ -1,115 +1,90 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 678AB4A5EC9
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:29:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51AB5361DBE;
+	Wed,  2 Sep 2026 17:31:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788370165; cv=none; b=Rkb61c8c3HoBp+BQaylckc45p5qHA8II+0PacCO3ySl137SdgXLiiiBPPCW8N/NY8lB2Ea08zh86vOKkSrF8wHf0LTsDmpdHH9jolxrFM5u7BQTJ8FGfmdzFlZR+KOOmVOVzqEmRfhmvaNs3CEw7FnuZhtLCqa6rt6IeO650YQQ=
+	t=1788370290; cv=none; b=eVYSjuZzaxHZtavrtTStDZHVVhbmnKmhm5I4RVHAWRCZa+pSD2ldycjnb7uFbfCh/J9oS2eU3jqV3O/pkL23kToQjwTkYbo9J//YGD4efplpHDTSUBqnpJQ9pkPskriQIIe2qCXGUZPiwvub/TWYttUbHoXfTgqvAuyqmxBp8wo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788370165; c=relaxed/simple;
-	bh=TZ+MXL1cgyfSCQwzd4B83Y1gcdTqXTzpnMsgTcK9A4c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RsOQ/08DAtoqXPmHjXVMp81E4aRAjbP+EnlKFfUOR/lXAlAKvFf7F/NjCTo84N87Sffi2gDfFsOIP8xcQuZR1stz3Gsok5haWheCBaxELbfxndEW+KdJ3dWIFahKr1rNeAyw9jfvx38zVh0OGFDmjHauB2oFAdAoHvqkp+wWKQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FCcl6/ne; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788370290; c=relaxed/simple;
+	bh=AeI3SjLAkvauDjKl3tD+y7hjEy6XY86wKPiB4bjeopA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kQyJJAcYC9mgKft5n2QdItq/jAkpgW/sHs4Vl0ZGFGFUdE2bSk7D2AhXrPgHQEU+WRiGBq6Z/Qrlv/fopxOExUrCMF2JLU5YAXuE1DC9LQVU9Jv1TMH6ie49bP36vkXdJI+0SENmJl1DsblBDCHAsHXnVkr38/6ppxqdeT0BQWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=dO3jdndw; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FCcl6/ne"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788370162;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=TZ+MXL1cgyfSCQwzd4B83Y1gcdTqXTzpnMsgTcK9A4c=;
-	b=FCcl6/nex5yo/dVatACfuwRLPSj8DJEFmFUxFfYry95Z69OEArEHY/NiQEj3Tw66+whM1G
-	+zkC91Cw6Am0aVoluyhggu5gQ00G1xGZCpnaKItVAHKMTG9JgkW8cQMFEAR8mfqu8g/+Bw
-	vIK/9o4WcGFo3qeag/tMZc/bqRpDh64=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-437-aNLRFW2aOrGgUeZBTtXadg-1; Wed,
- 02 Sep 2026 13:29:19 -0400
-X-MC-Unique: aNLRFW2aOrGgUeZBTtXadg-1
-X-Mimecast-MFC-AGG-ID: aNLRFW2aOrGgUeZBTtXadg_1788370156
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DEC551834577;
-	Wed,  2 Sep 2026 17:29:15 +0000 (UTC)
-Received: from fedora (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id D531730002F4;
-	Wed,  2 Sep 2026 17:29:10 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Wed,  2 Sep 2026 19:29:15 +0200 (CEST)
-Date: Wed, 2 Sep 2026 19:29:09 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Nick Desaulniers <ndesaulniers@google.com>
-Cc: Elliott Hughes <enh@google.com>, linux-kernel@vger.kernel.org,
-	linux-um@lists.infradead.org, llvm@lists.linux.dev,
-	Bill Wendling <morbo@google.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Justin Stitt <justinstitt@google.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Richard Weinberger <richard@nod.at>
-Subject: Re: [PATCH] x86: uapi: ptrace: guard register offset macros with
- __ASSEMBLER__ or __FRAME_OFFSETS
-Message-ID: <aphc5Xf0HU0SWcTI@redhat.com>
-References: <20260821-ptrace_uapi-v1-1-3de8638a29f2@google.com>
- <CAKwvOdkCGEYWnyJtWT=jArXkA47X==G0PU4UNV=s8htpA3Dg6g@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="dO3jdndw"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=hX8qibbD5PzBnhbueOeCOvtZ45adC0oK6JtciUg44RE=; b=dO3jdndwa3g1gGHdZSjrOsN119
+	VxEq8vTuYNcuAdLzGNwWdhjyYFOVZGa6o2qFa4v9RMLckJaIRC1W1kOoN5nT8g7ufCApF34ndoeZ/
+	Evqmwu2oNcMK7ND+I9526S8o1PweRsvbS23nDGS+svqGo4eg6dC5BfiGgdG4N1yYVNbE9UDcYlimq
+	a+aasPh5MTEz2AtFlhNHSXFn7jO7wGvJlgdOPffLFgS5XKhVGhGWUT6QL787TqaGyCEUFLxc9SZo9
+	RKcidPHYmdi1oKcgy+FJjgWSqxIQCLDYccDHgJYL8D747m9FBxYz22GGPHPKIBHrNLrzjRLKDnN81
+	A0Fe3X0A==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x1onz-0000000FRWk-3q1t;
+	Wed, 02 Sep 2026 17:31:23 +0000
+Message-ID: <01566086-6101-4e60-a4b0-5ef29d09ae61@infradead.org>
+Date: Wed, 2 Sep 2026 10:31:23 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAKwvOdkCGEYWnyJtWT=jArXkA47X==G0PU4UNV=s8htpA3Dg6g@mail.gmail.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ext4, doc: remove unnecessary bracket
+To: Manuel Ebner <manuelebnerli@mailbox.org>, Theodore Ts'o <tytso@mit.edu>,
+ Andreas Dilger <adilger.kernel@dilger.ca>,
+ Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>,
+ Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ Zhang Yi <yi.zhang@huawei.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-ext4@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260902143254.702971-2-manuelebnerli@mailbox.org>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260902143254.702971-2-manuelebnerli@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 09/01, Nick Desaulniers wrote:
->
-> On Fri, Aug 21, 2026 at 3:46 PM Nick Desaulniers
-> <ndesaulniers@google.com> wrote:
-> >
-> > The register offset macros in <asm/ptrace-abi.h> are guarded by
-> > `defined(__ASSEMBLER__) || defined(__FRAME_OFFSETS)` for 64-bit, but
-> > were left unguarded for 32-bit. This causes havoc for userspace that
-> > happens to use identifiers colliding with these short macro names
-> > (e.g., EBX, ECX, EAX, DS, ES, FS, GS, CS, SS). Without this guard,
-> > userspace is forced to be super extra careful with include ordering to
-> > minimize the chance of collision.
-> >
-> > Wrap both the 32-bit and 64-bit register definitions under
-> > `#if defined(__ASSEMBLER__) || defined(__FRAME_OFFSETS)`, and ensure
-> > User-Mode Linux (UML) defines `__FRAME_OFFSETS` for 32-bit as well.
-> >
-> > Assisted-by: Gemini
-> > Link: https://github.com/llvm/llvm-project/issues/217413
-> > Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
->
-> + enh (who pulled this into android for testing)
->
-> Oleg, can I get an ack/nack here?
 
-Oh... there is a little problem, I don't understand the usage of
-(magic to me) __FRAME_OFFSETS ;)
 
-> Or someone who knows better the
-> history of UAPI headers?
+On 9/2/26 7:32 AM, Manuel Ebner wrote:
+> Remove needless '('.
+> 
+> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
+> ---
+>  Documentation/filesystems/ext4/directory.rst | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/filesystems/ext4/directory.rst b/Documentation/filesystems/ext4/directory.rst
+> index 9b003a4d4..f3eeca844 100644
+> --- a/Documentation/filesystems/ext4/directory.rst
+> +++ b/Documentation/filesystems/ext4/directory.rst
+> @@ -429,7 +429,7 @@ block (precisely the length of one dx_entry) are used to store a
+>  ``count`` entries in the dx_root/dx_node structures are adjusted as
+>  necessary to fit the dx_tail into the block. If there is no space for
+>  the dx_tail, the user is notified to run e2fsck -D to rebuild the
+> -directory index (which will ensure that there's space for the checksum.
+> +directory index which will ensure that there's space for the checksum.
 
-Certainly not me....
+To me, it needs either a closing parenthesis or a comma, like:
 
-OK. I'll try to read this patch tomorrow with the clear head after sleep.
+   directory index, which will ensure
 
-Oleg.
+>  The dx_tail structure is 8 bytes long and looks like this:
+>  
+>  .. list-table::
+
+-- 
+~Randy
 
