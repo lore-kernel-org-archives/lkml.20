@@ -1,322 +1,404 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AA0B37CD22
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:43:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 630F438D412
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:43:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788331397; cv=none; b=PPYPhudqaUAvkFEuQ9V54cBMmFNhkfygMxe6H6XuZQWLO6aYCwuxLYMz60bON9LqT2gl6h3TUl2w/RIAejPynweUYBNK8cOjWoVGQRA6Ieb2IeXNFwYS5NehlJs2sCahxTw49gxA9XokVhMunrI0a9d6YK+RlrWGBlaE8OHLsw0=
+	t=1788331408; cv=none; b=qmifypi4h9PI9z2x3LFAnY5V8/pSipoKIrURR8PmYp6yiSwgD8gRoJ0Ms02VpjlF484tsSxWTulUEWEPsk61VIa9nLXIHPIw4Yt9cRPv7vNMNfhFNhATFWtIZNyHyMAxGsrvZzU6zlL68WBuK5p+Ltj1T44vT1uQzwI+4LFgbYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788331397; c=relaxed/simple;
-	bh=oa1klZ84Y9HmXIG2PVYw0CNJgGARwSO7qDclCIvlE1o=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=GwVDmxkWVvGXFX+M9w27GqpV8EIsMm/8hSVDbDMofyekEabQhJU1sG8r0BVHhm9YXnt6X7x8zi7a6wMfod++hIGD/7sWJxDPH5wVEiNSO0p5IptU+w5Y+OUvEwwKrQKDyFL+2bWG/FMmIU30wmFh0W3OS0TlB3ETSfME3bdKD1s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hu1ifnvX; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hu1ifnvX"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-39647184c73so1871484a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 23:43:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788331394; x=1788936194; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=g0OSJfETTdYTriCW7H435cPMeyJW78V2WXqxeEnE0Nw=;
-        b=Hu1ifnvXdUOXTa0Saz7ezlgs1N5jtfvbLKkjhW12O7olFujjfzmjfdPn4C/3h4nJa6
-         qJUkf+BVcPTMHRR3duFCHH5Ky+xhAS5R/1C8u0wflzSh22yoUBXwVjYJ33u3q4+DkwNp
-         OtBN8ZBOyqUF39l6zSdmpYTZDqeXxdjK6b4G19tw1CRgVU5a0Wv4Zldmcm/soZkMYziq
-         ZQ4HJIGnjHGn/snvZUsY0zhwnUkUSq9uJkN1YYjktS1Bo+uFQjaSQ9YG/zPP9/qEBLne
-         ra2PTxWZMUBvkIBjA52xN1zkuLtRFFzSqPdlGxZ905fXxoRBmYyQSdhNFAplSgPfhlBi
-         Rywg==
+	s=arc-20240116; t=1788331408; c=relaxed/simple;
+	bh=vOpL1zel00aSXKD515v+QyZSKBc7utAp/m2ESpU4sfg=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
+	 Content-Type; b=OiB/i8RSjxLlxKA2yLSisshzGzEo5HbdRxBcg4MEsEbd9kNUDHHYGZBOecgkH/MYOMPz6Z8TdBWo3K0WSpYXaWZuyMg+1I5aidTbkN08WWBV77QY7TXORqR67ps8JkuU1IhWOPcK3T7mxcQG7LMxaXbmbmf2gXAfbiOLosu3y54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7f4e4b52404so681509a34.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 23:43:26 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788331394; x=1788936194;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=g0OSJfETTdYTriCW7H435cPMeyJW78V2WXqxeEnE0Nw=;
-        b=kENMkBXogEf3DPD/Ib4V48391dDMLlNOx3HghzvNkFgKMRCwwjmAKE8xDsHT4npGzX
-         0BkkJNd4kr2XqCzctwyDnMU6bs9BjXg/64DFqC5KwR4YFvd67rB80VmAAowghmMprEA+
-         j8gPibaS7ofYK57IneNXJeJ+KYJ0+JFU8Ze4ZoVCkyXDT4ht+yBKbtjNlq0jT2ZK6L9S
-         SXd4I5QZrTV3yoWC4BVh/0IhagKFSLOYekiARNByzojsp1rme8bF88ikvEAde1fHlcD8
-         pytDJFt5gNXHpKviPy6cbvDJsaKZwKSFbg5AGjbkXhqBJ2GkMdEoNWw/tJiw2cDTN/Ek
-         UFcw==
-X-Forwarded-Encrypted: i=1; AKwUvBxhAxWfDNlyE+FQLUo5edaSKC5lUun8smnuv0SCYcsnFWvKopa2E+oiYnaRQwKBUE+QqSYJkNAftySQNNM=@vger.kernel.org
-X-Gm-Message-State: AFuF++noBNjU3AnTtCShZs0hqQFOHiucEu0MWjdLA0N8Jj9Q9GnBivNX
-	cdEE2ruIjWh15QF6e5iFFLx9AlviFh4MvHXrNd7gYIPSpL/Ri+bg427q
-X-Gm-Gg: AYBFou3wr+cjjAHrNCCSzkSUflg88qfl8CQGnjPZ/93Xp1ozbooiYVXGLzR5LLlfZ2s
-	F+mNM+rzXvMVjrRqJyhjYX2oudW2Q04zaWibkSnTcjM7RCguOEZvA8vC1oza7l5UjpFbDclVMCF
-	0ps34umVrgHCjCUEccIlvnMAY0tT9UPBeSeQ6bIMORlkVepwXXebytwmc/K0MiQ4e6gi6xavCl4
-	aytRc0gu4sAVgMKhkiTCPGuQmFcPQMtw9t8fYRH9RrVBhXoxdzmCHK/dC2KCY565lfKOgOA2lQt
-	+7lJHNbNTTaGz2nEUPM32NQrrcrbw8vFb7j8SgwRq6aUTlB6jJuPN39JAb5ZFpAxlVMmiHORY95
-	IwLe1J9DIXWwZXoN9F2l58SaYq2H7Qm3e1oLG0MUhcaVLM23Ococib0C37ftCvuRcE5WC2PIjVJ
-	+DqDx7VJ1sPv4vAXFnl9Hg4VSuQessxs5/wfNgAB9gS1q6npRqJJZpUHLLl4IoD1Z8eosngBfvC
-	vBEANb+kiaFdabe6b/YeowTdneFjkk=
-X-Received: by 2002:a17:90b:5445:b0:38f:657:6823 with SMTP id 98e67ed59e1d1-39af63f7f7amr788751a91.8.1788331394288;
-        Tue, 01 Sep 2026 23:43:14 -0700 (PDT)
-Received: from lipengfei28-ThinkStation-P368.mioffice.cn ([2408:8607:1b00:8:2c95:4917:f0fe:b444])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d80433dsm9373143a91.17.2026.09.01.23.43.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 23:43:13 -0700 (PDT)
-From: Li Pengfei <ljdlns1987@gmail.com>
-X-Google-Original-From: Li Pengfei <lipengfei28@xiaomi.com>
-To: rostedt@goodmis.org,
-	mhiramat@kernel.org
-Cc: mathieu.desnoyers@efficios.com,
-	mark.rutland@arm.com,
-	corbet@lwn.net,
-	skhan@linuxfoundation.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	zhangbo56@xiaomi.com,
-	lipengfei28@xiaomi.com
-Subject: [RFC PATCH v5 0/3] trace: stack trace deduplication for ftrace ring buffer
-Date: Wed,  2 Sep 2026 14:42:39 +0800
-Message-Id: <20260902064242.28606-1-lipengfei28@xiaomi.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20251104; t=1788331405; x=1788936205;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NMNQSr4+Hu9pVXRouzj1B5MrwzYeOv+kCEw/WoLv5Po=;
+        b=PjbdI0fxGt1AcY4D7JHjuIPum9XW27UJRRIyuq28A3ATqjXuS0S6MheWGvHz2WYTAw
+         0Gz7PEOmke0D37WNlEHkBpiRYHpd/HzR7gfaN/P0NQ+oD1VicZqOgBf3+sbJuZnP4R65
+         SW9zO+uFsG9ENnmk7A6DDofnjIVyK2q2kSV73O8gDhecdtLgTbLAhNgtcTLlIIX3CWuk
+         +ElX4rfU1peqNjVBTfVAV0p+epK5P11VUberd9waGLFUMXw9jK/GalljCGEokEh53zNX
+         humTioO/OruMIjRqpQrUhJ8ml7PpvJOgOu+mOE2sU92GuW3wdLIe8lVBMlAOHgnDLoGf
+         xjjg==
+X-Forwarded-Encrypted: i=1; AHgh+RpP8AmEn1n3BDgvAmzeqjSMH3s+TGwIobjuhZcZH4TWQJ56jSm1VrF1aKJq3T6JGgNk5dUSfYp35yBtlHg=@vger.kernel.org
+X-Gm-Message-State: AFuF++k+U5pC+r0qxVNiIcCRjQZRVgcyAicSu78JmEK8lqeOmqsW3i3X
+	phbj8Iu0e5qN7XFb3qYKLIZ7Y13l34wPbceJn13zYMG3KrXAmvAU6Vl6PY2+/N73zKJEC/XISp5
+	JEs8PRBC9f/7+6NQKV5pwdhWgpo5SBJDb+Awdjzx++liPptf2C7zzjgF3cR4=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:4b10:b0:6b1:aa44:fc16 with SMTP id
+ 006d021491bc7-6b47c6baa05mr2120461eaf.12.1788331405324; Tue, 01 Sep 2026
+ 23:43:25 -0700 (PDT)
+Date: Tue, 01 Sep 2026 23:43:25 -0700
+In-Reply-To: <20260901115021.50057-1-ihuguet@riseup.net>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a97c58d.e163c37b.143a1.0006.GAE@google.com>
+Subject: [syzbot ci] Re: net/ipv6: don't route packets with unknown source address
+From: syzbot ci <syzbot+ci0e44c40f5dee105f@syzkaller.appspotmail.com>
+To: andrew@lunn.ch, ast@kernel.org, bpf@vger.kernel.org, 
+	coreteam@netfilter.org, daniel@iogearbox.net, davem@davemloft.net, 
+	dsahern@kernel.org, edumazet@google.com, fmancera@suse.de, fw@strlen.de, 
+	horms@kernel.org, idosch@nvidia.com, ihuguet@riseup.net, jlayton@kernel.org, 
+	joe@dama.to, kees@kernel.org, kuba@kernel.org, kuniyu@google.com, 
+	leitao@debian.org, leon.hwang@linux.dev, linux-kernel@vger.kernel.org, 
+	lirongqing@baidu.com, luoxuanqiang@kylinos.cn, ncardwell@google.com, 
+	netdev@vger.kernel.org, netfilter-devel@vger.kernel.org, pabeni@redhat.com, 
+	pablo@netfilter.org, phil@nwl.cc, tpluszz77@gmail.com, willemb@google.com, 
+	willemdebruijn.kernel@gmail.com, zirajs7@gmail.com
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: Pengfei Li <lipengfei28@xiaomi.com>
+syzbot ci has tested the following series
 
-Hi Steven, Masami, all,
+[v1] net/ipv6: don't route packets with unknown source address
+https://lore.kernel.org/all/20260901115021.50057-1-ihuguet@riseup.net
+* [PATCH net] net/ipv6: don't route packets with unknown source address
 
-This is v5 of the ftrace stackmap series, sent as a new thread.
+and found the following issues:
+* KASAN: slab-out-of-bounds Read in tcp_v6_send_response
+* KASAN: use-after-free Read in tcp_v6_send_response
 
-v4: https://lore.kernel.org/all/20260616064119.438063-1-lipengfei28@xiaomi.com/
+Full report is available here:
+https://ci.syzbot.org/series/bf5b7c3c-6165-4e2e-b403-34a698f5ee76
 
-The series adds stack trace deduplication to ftrace. When the
-'stackmap' option is enabled alongside 'stacktrace', the ring buffer
-stores a 4-byte stack_id instead of a full kernel stack trace, and the
-full stacks are exported once via tracefs (stack_map / stack_map_bin).
+***
 
-Rebased onto v7.2-rc4 (4539944e5151).
+KASAN: slab-out-of-bounds Read in tcp_v6_send_response
 
-v5 is the cleanups Steven asked for on v4, five issues I found myself,
-and one behaviour change: reset is simplified the way Steven suggested
-(details below). No functional change to the dedup algorithm itself.
+tree:      net
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/netdev/net.git
+base:      1d2929d0850fff683b8aff051275945e65f082c8
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/19ac2ebf-5913-40a0-982b-446415180382/config
+syz repro: https://ci.syzbot.org/findings/103185a7-eed2-413d-9bb8-0cfd4d802dbb/syz_repro
 
-Mathieu: patch 1 is the lock-free map. The memory ordering there
-(entry->val release/acquire publishing the element payload, key only
-under READ_ONCE, and resetting + synchronize_rcu() for teardown) is
-the part I would most like a second pair of eyes on.
+==================================================================
+BUG: KASAN: slab-out-of-bounds in instrument_atomic_read include/linux/instrumented.h:82 [inline]
+BUG: KASAN: slab-out-of-bounds in _test_bit include/asm-generic/bitops/instrumented-non-atomic.h:141 [inline]
+BUG: KASAN: slab-out-of-bounds in inet_sk_flowi_flags include/net/inet_sock.h:411 [inline]
+BUG: KASAN: slab-out-of-bounds in tcp_v6_send_response+0x116c/0x1e30 net/ipv6/tcp_ipv6.c:983
+Read of size 8 at addr ffff8881bc3cecb8 by task kworker/u8:3/5678
 
-Motivation
-==========
+CPU: 1 UID: 0 PID: 5678 Comm: kworker/u8:3 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+Workqueue: krdsd rds_tcp_accept_worker
+Call Trace:
+ <IRQ>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ check_region_inline mm/kasan/generic.c:-1 [inline]
+ kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
+ instrument_atomic_read include/linux/instrumented.h:82 [inline]
+ _test_bit include/asm-generic/bitops/instrumented-non-atomic.h:141 [inline]
+ inet_sk_flowi_flags include/net/inet_sock.h:411 [inline]
+ tcp_v6_send_response+0x116c/0x1e30 net/ipv6/tcp_ipv6.c:983
+ tcp_v6_send_ack net/ipv6/tcp_ipv6.c:1149 [inline]
+ tcp_v6_timewait_ack+0x2c6/0x4c0 net/ipv6/tcp_ipv6.c:1201
+ tcp_v6_rcv+0x1f09/0x2d90 net/ipv6/tcp_ipv6.c:1993
+ ip6_protocol_deliver_rcu+0xab9/0x1680 net/ipv6/ip6_input.c:479
+ ip6_input_finish+0x191/0x370 net/ipv6/ip6_input.c:534
+ NF_HOOK+0x336/0x3c0 include/linux/netfilter.h:325
+ ip6_input+0x16a/0x270 net/ipv6/ip6_input.c:545
+ NF_HOOK+0x336/0x3c0 include/linux/netfilter.h:325
+ __netif_receive_skb_one_core net/core/dev.c:6264 [inline]
+ __netif_receive_skb net/core/dev.c:6377 [inline]
+ process_backlog+0x795/0x18b0 net/core/dev.c:6728
+ __napi_poll+0xaa/0x330 net/core/dev.c:7787
+ napi_poll net/core/dev.c:7850 [inline]
+ net_rx_action+0x61d/0xf50 net/core/dev.c:8007
+ handle_softirqs+0x226/0x860 kernel/softirq.c:645
+ do_softirq+0x77/0xd0 kernel/softirq.c:546
+ </IRQ>
+ <TASK>
+ __local_bh_enable_ip+0x100/0x140 kernel/softirq.c:473
+ local_bh_enable include/linux/bottom_half.h:33 [inline]
+ rcu_read_unlock_bh include/linux/rcupdate.h:923 [inline]
+ __dev_queue_xmit+0x1edc/0x3820 net/core/dev.c:4961
+ NF_HOOK_COND include/linux/netfilter.h:314 [inline]
+ ip6_output+0x337/0x540 net/ipv6/ip6_output.c:248
+ dst_output include/net/dst.h:471 [inline]
+ NF_HOOK include/linux/netfilter.h:325 [inline]
+ ip6_xmit+0x117f/0x1a60 net/ipv6/ip6_output.c:381
+ inet6_csk_xmit+0x397/0x660 net/ipv6/inet6_connection_sock.c:123
+ __tcp_transmit_skb+0x2640/0x47c0 net/ipv4/tcp_output.c:1717
+ tcp_transmit_skb net/ipv4/tcp_output.c:1734 [inline]
+ tcp_write_xmit+0x1bfa/0x6400 net/ipv4/tcp_output.c:3062
+ __tcp_push_pending_frames+0x96/0x380 net/ipv4/tcp_output.c:3245
+ __tcp_close+0x56e/0xe70 net/ipv4/tcp.c:3220
+ tcp_close+0x28/0x110 net/ipv4/tcp.c:3311
+ inet_release+0x143/0x190 net/ipv4/af_inet.c:442
+ __sock_release net/socket.c:735 [inline]
+ sock_release+0x85/0x150 net/socket.c:763
+ rds_tcp_accept_one+0x62c/0xd40 net/rds/tcp_listen.c:341
+ rds_tcp_accept_worker+0x1d/0x70 net/rds/tcp.c:556
+ process_one_work kernel/workqueue.c:3387 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3470
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3551
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
-The target use case is long-duration, from-boot kernel tracing where
-the same stacks recur enormously often and the bottleneck is ring
-buffer space, not CPU.
+The buggy address belongs to the object at ffff8881bc3ceb80
+ which belongs to the cache tw_sock_TCPv6 of size 304
+The buggy address is located 8 bytes to the right of
+ allocated 304-byte region [ffff8881bc3ceb80, ffff8881bc3cecb0)
 
-Concretely: tracing the slab allocator from boot for hours to study
-memory aging and to catch the allocation backtraces behind a usage
-peak. With a stacktrace trigger on the slab tracepoints, every event
-today carries a full kernel stack (~80-160 bytes). On a fixed-size
-ring buffer that bounds how far back in time the trace reaches: the
-buffer wraps in seconds to minutes and the early-boot history -- the
-part we care about -- is overwritten before it can be consumed.
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff8881bc3ce8a0 pfn:0x1bc3ce
+head: order:1 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+memcg:ffff8881bb1a4301
+flags: 0x57ff00000000240(workingset|head|node=1|zone=2|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 057ff00000000240 ffff8881042e0640 ffff88816fedf1c8 ffff88816fedf1c8
+raw: ffff8881bc3ce8a0 0000000200160006 00000000f5000000 ffff8881bb1a4301
+head: 057ff00000000240 ffff8881042e0640 ffff88816fedf1c8 ffff88816fedf1c8
+head: ffff8881bc3ce8a0 0000000200160006 00000000f5000000 ffff8881bb1a4301
+head: 057ff00000000001 ffffffffffffff81 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000002
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 1, migratetype Unmovable, gfp_mask 0xd2820(GFP_ATOMIC|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5678, tgid 5678 (kworker/u8:3), ts 57920184007
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x2209/0x2280 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x217/0x5a0 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab+0x7d/0x620 mm/slub.c:3462
+ new_slab mm/slub.c:3513 [inline]
+ refill_objects+0x2d5/0x350 mm/slub.c:7410
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ kmem_cache_alloc_noprof+0x399/0x600 mm/slub.c:5010
+ inet_twsk_alloc+0xe3/0x8d0 net/ipv4/inet_timewait_sock.c:178
+ tcp_time_wait+0x5d/0xee0 net/ipv4/tcp_minisocks.c:333
+ tcp_rcv_state_process+0xba1/0x4980 net/ipv4/tcp_input.c:-1
+ tcp_v6_do_rcv+0xf3d/0x1c70 net/ipv6/tcp_ipv6.c:1653
+ tcp_v6_rcv+0x2496/0x2d90 net/ipv6/tcp_ipv6.c:1906
+ ip6_protocol_deliver_rcu+0xab9/0x1680 net/ipv6/ip6_input.c:479
+ ip6_input_finish+0x191/0x370 net/ipv6/ip6_input.c:534
+ NF_HOOK+0x336/0x3c0 include/linux/netfilter.h:325
+ ip6_input+0x16a/0x270 net/ipv6/ip6_input.c:545
+page last free pid 24 tgid 24 ts 57909757259 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ __free_frozen_pages+0xc93/0xd90 mm/page_alloc.c:2962
+ rcu_do_batch kernel/rcu/tree.c:2650 [inline]
+ rcu_core+0x926/0x1260 kernel/rcu/tree.c:2919
+ handle_softirqs+0x226/0x860 kernel/softirq.c:645
+ __do_softirq kernel/softirq.c:679 [inline]
+ invoke_softirq kernel/softirq.c:519 [inline]
+ __irq_exit_rcu+0xcb/0x220 kernel/softirq.c:767
+ irq_exit_rcu+0x9/0x30 kernel/softirq.c:784
+ instr_sysvec_call_function_single arch/x86/kernel/smp.c:267 [inline]
+ sysvec_call_function_single+0xa3/0xc0 arch/x86/kernel/smp.c:267
+ asm_sysvec_call_function_single+0x1a/0x20 arch/x86/include/asm/idtentry.h:681
 
-In this workload the set of distinct stacks is small and highly
-repetitive, so storing a 4-byte stack_id per event and the full stack
-only once dramatically increases the time span a given buffer covers.
-The intended operating model is exactly the low-overhead one ftrace is
-good at: let the trace run for a long time producing a comparatively
-small, dense log, then resolve stack_ids offline (cat stack_map, or
-parse stack_map_bin with the included tool) during analysis.
-
-This is complementary to, not a replacement for, the existing full
-stack recording: deep stacks and the early pre-init window still fall
-back to full stacks (see below).
-
-Effect on retention
-====================
-
-Same fixed per-CPU buffer, slab allocation workload with a shallow
-kernel stack (kmem_cache_alloc), stackmap OFF vs ON:
-
-                  retained events   bytes/event   time span
-  stackmap OFF        645,068          ~104 B        15.0 s
-  stackmap ON       1,397,741           ~48 B        27.7 s
-                     2.17x             2.17x          1.85x
-
-The buffer holds ~2.17x more events and reaches ~1.85x further back in
-time for the same memory. The win grows with stack depth and with how
-repetitive the stacks are; for deep, highly-repeated stacks the
-per-event size approaches the 4-byte stack_id plus event header.
-
-Changes since v4
-================
-
-From Steven's review of v4:
-  - ftrace_stackmap_create() uses vcalloc() for both the hash table
-    and the element pool instead of vzalloc(size * n).
-  - ftrace_stackmap_create() error handling collapsed into a single
-    goto-fail ladder, freeing in reverse allocation order.
-  - Dropped the anonymous block in ftrace_stackmap_reset(); the cpu
-    iterator is declared at function scope.
-  - struct ftrace_stackmap_bin_entry grew a u64 ips[] flexible array
-    member, and stackmap_bin_open() now uses struct_size(e, ips, nr)
-    and writes through e->ips. The on-disk byte layout is unchanged,
-    so the binary format is not affected.
-  - Undid a few 80-column line wraps in the tracefs init path that
-    were hurting readability.
-
-reset semantics -- the one behaviour change in v5:
-  - Steven pointed out on the v4 thread [1] that reset was stricter
-    than it needs to be. v5 drops both parts of that strictness:
-    reset no longer returns -EBUSY when tracing is on, and it no
-    longer clears the ring buffer. It now clears the map and nothing
-    else, which also let the tracer_tracing_is_on() check, the
-    trace_types_lock section and the snapshot-buffer handling go away
-    (patch 1 is 56 lines shorter as a result).
-
-    I had replied that I would do this as a follow-up rather than hold
-    this respin. On reflection there is no reason to ship the stricter
-    version first, so it is folded in here instead.
-
-    The consequence is that a trace can still contain <stack_id N>
-    records after a reset. Such an id either has no entry in
-    stack_map, or -- once tracing continues and the slot is reused --
-    resolves to an unrelated stack. That is misleading userspace
-    output, not corruption: the map is still guarded by the resetting
-    flag plus synchronize_rcu(), and reset frees nothing, it only
-    memsets storage the map still owns. This is spelled out in the
-    ftrace_stackmap_reset() kernel-doc and in ftrace-stackmap.rst.
-
-    [1] https://lore.kernel.org/all/20260821235129.078dd489@fedora/
-
-Issues found locally since v4:
-  - The IS_ERR() branch of the stackmap init path modified
-    global_trace.trace_flags without trace_types_lock, racing
-    set_tracer_flag(). It now goes through the same
-    stackmap_mark_init_failed() helper as the other failure path.
-  - TRACE_STACK_ID was not handled in print_graph_function_flags(),
-    so with current_tracer=function_graph a stack_id event fell
-    through to print_graph_comment() instead of being punted to its
-    own printer like TRACE_STACK. Now handled alongside TRACE_STACK.
-  - stack_map_stat computed the success rate as successes * 100 before
-    dividing, which can overflow u64 now that the counters saturate at
-    LONG_MAX. Uses mul_u64_u64_div_u64().
-  - stack_map_bin allocated a fresh snapshot on every open, so
-    repeatedly opening without closing could pin a lot of vmalloc
-    space. It is now single-open.
-  - stackmap_seq_start() and stackmap_seq_next() held the seq_file
-    position in a u32, narrowing the loff_t the iterator is handed.
-    The position is driven by our own next() and bounded by map_size,
-    so this was not reachable in practice, but the correctness of the
-    truncation depended on an invariant that was not visible locally.
-    Both now keep it in a loff_t.
-
-Still open
-==========
-
-Eager vs lazy allocation. The element pool is allocated at fs_initcall
-when CONFIG_FTRACE_STACKMAP=y, regardless of whether userspace ever
-enables the option (~8 MB at the default bits=14, up to ~135 MB at
-bits=18). This keeps the hot path allocation-free with no
-allocation-failure path under tracing pressure. v5 keeps eager
-allocation; if you would rather not pay the resident cost when the
-option is never enabled, switching to lazy allocation on the first
-'echo 1 > options/stackmap' is a contained change and I will do it in
-v6 rather than hold this version on it.
-
-stack_map_bin is kept as-is. Steven's suggestion to give the bin entry
-a flexible array member is taken as acceptance that the binary
-interface can land now; say the word if you would rather ship the text
-interface first.
-
-Test results
-============
-
-QEMU (aarch64 virt, v7.2-rc4 + this series), no BUG/WARNING/Oops in
-any run:
-  - functional suite: 19/19 PASS. Covers stack_map_bin magic/version
-    (0x46534d42 / 1, confirming the flexible-array change did not move
-    the on-disk layout), the single-open guard returning EBUSY on a
-    second open and recovering after close, reset now being accepted
-    while tracing is on, reset clearing the map (11 -> 0 entries) while
-    leaving the ring buffer untouched (149 -> 149 stack_id records),
-    the success_rate computation, and global-vs-secondary instance
-    gating including the trace_options write rejection.
-  - function_graph + stackmap: 4/4 PASS with 173 stack_id events in the
-    graph output, rendering as
-      ksoftirqd/0-14  [000] d..2.  6.731781: <stack_id 16416>
-    i.e. punted to the event's own printer rather than being formatted
-    as a graph comment, which is what the print_graph_function_flags()
-    fix is for.
-  - boot-time activation (trace_options=stackmap,stacktrace on the
-    kernel cmdline): 3/3 PASS, 58 stacks and 421 hits recorded before
-    init runs, 0 drops.
-
-Build: kernel/trace/{trace_stackmap,trace,trace_functions_graph}.o
-compile clean (0 errors, 0 warnings) with the arm64 cross toolchain.
-
-Device retention numbers above were collected on a Xiaomi SM8850
-(ARM64) running an Android workload, comparing the same buffer with
-the option off and on.
-
-Known limitations
-=================
-
-- Per-instance stackmap support is not included; the option is gated
-  to the global instance (in the tracefs layout and at the
-  set_tracer_flag() write path). Per-instance maps are a follow-up.
-- Deduplication is best-effort, not strict: under heavy concurrent
-  contention two CPUs racing with the same stack hash may each claim a
-  different slot, producing a few duplicate entries; ref_count is then
-  split across them. This keeps the hot path lock-free.
-- reset clears the map only and leaves the ring buffer alone, so
-  stack_ids in an already-collected trace can stop resolving after a
-  reset, as described above.
-- The stackmap covers kernel stacks only.
-- stack_map_bin is a best-effort snapshot, serialized against reset
-  but not a fully atomic export.
-- trace-cmd / libtraceevent integration is left for follow-up.
-
-Usage
-=====
-
-  echo 1 > /sys/kernel/debug/tracing/options/stackmap
-  echo 1 > /sys/kernel/debug/tracing/options/stacktrace
-
-Pengfei Li (3):
-  trace: add lock-free stackmap for stack trace deduplication
-  trace: integrate stackmap into ftrace stack recording path
-  trace: add documentation, selftest and tooling for stackmap
-
- Documentation/trace/ftrace-stackmap.rst       | 175 ++++
- Documentation/trace/index.rst                 |   1 +
- kernel/trace/Kconfig                          |  22 +
- kernel/trace/Makefile                         |   1 +
- kernel/trace/trace.c                          | 228 ++++-
- kernel/trace/trace.h                          |  17 +
- kernel/trace/trace_entries.h                  |  15 +
- kernel/trace/trace_functions_graph.c          |   1 +
- kernel/trace/trace_output.c                   |  23 +
- kernel/trace/trace_selftest.c                 |   1 +
- kernel/trace/trace_stackmap.c                 | 869 ++++++++++++++++++
- kernel/trace/trace_stackmap.h                 |  57 ++
- .../ftrace/test.d/ftrace/stackmap-basic.tc    | 110 +++
- .../test.d/ftrace/stackmap-instance-gate.tc   |  54 ++
- .../ftrace/test.d/ftrace/stackmap-reset.tc    |  77 ++
- tools/tracing/stackmap_dump.py                | 164 ++++
- 16 files changed, 1812 insertions(+), 3 deletions(-)
- create mode 100644 Documentation/trace/ftrace-stackmap.rst
- create mode 100644 kernel/trace/trace_stackmap.c
- create mode 100644 kernel/trace/trace_stackmap.h
- create mode 100644 tools/testing/selftests/ftrace/test.d/ftrace/stackmap-basic.tc
- create mode 100644 tools/testing/selftests/ftrace/test.d/ftrace/stackmap-instance-gate.tc
- create mode 100644 tools/testing/selftests/ftrace/test.d/ftrace/stackmap-reset.tc
- create mode 100755 tools/tracing/stackmap_dump.py
+Memory state around the buggy address:
+ ffff8881bc3ceb80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff8881bc3cec00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+>ffff8881bc3cec80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+                                        ^
+ ffff8881bc3ced00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff8881bc3ced80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+==================================================================
 
 
-base-commit: 4539944e515183668109bdf4d0c3d7d228383d88
--- 
-2.34.1
+***
 
+KASAN: use-after-free Read in tcp_v6_send_response
+
+tree:      net
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/netdev/net.git
+base:      1d2929d0850fff683b8aff051275945e65f082c8
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/19ac2ebf-5913-40a0-982b-446415180382/config
+syz repro: https://ci.syzbot.org/findings/e7a2188a-bd9d-4259-856a-ad2e7415f5e1/syz_repro
+
+==================================================================
+BUG: KASAN: use-after-free in instrument_atomic_read include/linux/instrumented.h:82 [inline]
+BUG: KASAN: use-after-free in _test_bit include/asm-generic/bitops/instrumented-non-atomic.h:141 [inline]
+BUG: KASAN: use-after-free in inet_sk_flowi_flags include/net/inet_sock.h:411 [inline]
+BUG: KASAN: use-after-free in tcp_v6_send_response+0x116c/0x1e30 net/ipv6/tcp_ipv6.c:983
+Read of size 8 at addr ffff888169a4a248 by task syz.0.28/5835
+
+CPU: 1 UID: 0 PID: 5835 Comm: syz.0.28 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+Call Trace:
+ <IRQ>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_address_description+0x55/0x1e0 mm/kasan/report.c:378
+ print_report+0x58/0x70 mm/kasan/report.c:482
+ kasan_report+0x117/0x150 mm/kasan/report.c:595
+ check_region_inline mm/kasan/generic.c:-1 [inline]
+ kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
+ instrument_atomic_read include/linux/instrumented.h:82 [inline]
+ _test_bit include/asm-generic/bitops/instrumented-non-atomic.h:141 [inline]
+ inet_sk_flowi_flags include/net/inet_sock.h:411 [inline]
+ tcp_v6_send_response+0x116c/0x1e30 net/ipv6/tcp_ipv6.c:983
+ tcp_v6_send_ack net/ipv6/tcp_ipv6.c:1149 [inline]
+ tcp_v6_timewait_ack+0x2c6/0x4c0 net/ipv6/tcp_ipv6.c:1201
+ tcp_v6_rcv+0x1f09/0x2d90 net/ipv6/tcp_ipv6.c:1993
+ ip6_protocol_deliver_rcu+0xab9/0x1680 net/ipv6/ip6_input.c:479
+ ip6_input_finish+0x191/0x370 net/ipv6/ip6_input.c:534
+ NF_HOOK+0x336/0x3c0 include/linux/netfilter.h:325
+ ip6_input+0x16a/0x270 net/ipv6/ip6_input.c:545
+ NF_HOOK+0x336/0x3c0 include/linux/netfilter.h:325
+ __netif_receive_skb_one_core net/core/dev.c:6264 [inline]
+ __netif_receive_skb net/core/dev.c:6377 [inline]
+ process_backlog+0x795/0x18b0 net/core/dev.c:6728
+ __napi_poll+0xaa/0x330 net/core/dev.c:7787
+ napi_poll net/core/dev.c:7850 [inline]
+ net_rx_action+0x61d/0xf50 net/core/dev.c:8007
+ handle_softirqs+0x226/0x860 kernel/softirq.c:645
+ do_softirq+0x77/0xd0 kernel/softirq.c:546
+ </IRQ>
+ <TASK>
+ __local_bh_enable_ip+0x100/0x140 kernel/softirq.c:473
+ local_bh_enable include/linux/bottom_half.h:33 [inline]
+ rcu_read_unlock_bh include/linux/rcupdate.h:923 [inline]
+ __dev_queue_xmit+0x1edc/0x3820 net/core/dev.c:4961
+ NF_HOOK_COND include/linux/netfilter.h:314 [inline]
+ ip6_output+0x337/0x540 net/ipv6/ip6_output.c:248
+ dst_output include/net/dst.h:471 [inline]
+ NF_HOOK include/linux/netfilter.h:325 [inline]
+ ip6_xmit+0x117f/0x1a60 net/ipv6/ip6_output.c:381
+ inet6_csk_xmit+0x397/0x660 net/ipv6/inet6_connection_sock.c:123
+ __tcp_transmit_skb+0x2640/0x47c0 net/ipv4/tcp_output.c:1717
+ tcp_transmit_skb net/ipv4/tcp_output.c:1734 [inline]
+ tcp_write_xmit+0x1bfa/0x6400 net/ipv4/tcp_output.c:3062
+ __tcp_push_pending_frames+0x96/0x380 net/ipv4/tcp_output.c:3245
+ __tcp_close+0x56e/0xe70 net/ipv4/tcp.c:3220
+ tcp_close+0x28/0x110 net/ipv4/tcp.c:3311
+ inet_release+0x143/0x190 net/ipv4/af_inet.c:442
+ __sock_release+0xa0/0x1f0 net/socket.c:735
+ sock_close+0x1c/0x30 net/socket.c:1526
+ __fput+0x418/0xa50 fs/file_table.c:512
+ task_work_run+0x1d9/0x270 kernel/task_work.c:233
+ resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
+ __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
+ exit_to_user_mode_loop+0x204/0x770 kernel/entry/common.c:101
+ __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+ syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+ syscall_exit_to_user_mode include/linux/entry-common.h:336 [inline]
+ do_syscall_64+0x328/0x520 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fb1d8b9e159
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffef2a01168 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
+RAX: 0000000000000000 RBX: 00007ffef2a01250 RCX: 00007fb1d8b9e159
+RDX: 0000000000000000 RSI: 000000000000001e RDI: 0000000000000003
+RBP: 000000000000d50a R08: 0000000000000001 R09: 0000000000000000
+R10: 0000001b31820000 R11: 0000000000000246 R12: 00007ffef2a01290
+R13: 00007fb1d8e25fac R14: 000000000000d53d R15: 00007fb1d8e25fa0
+ </TASK>
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff888169a4bc80 pfn:0x169a4a
+flags: 0x57ff00000000000(node=1|zone=2|lastcpupid=0x7ff)
+raw: 057ff00000000000 ffffea0005c32488 ffffea0005c32508 0000000000000000
+raw: ffff888169a4bc80 0000000000000000 00000000ffffffff 0000000000000000
+page dumped because: kasan: bad access detected
+page_owner tracks the page as freed
+page last allocated via order 1, migratetype Unmovable, gfp_mask 0xd2820(GFP_ATOMIC|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5565, tgid 5565 (sshd), ts 40657811568
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x2209/0x2280 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x217/0x5a0 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3347 [inline]
+ allocate_slab+0x7d/0x620 mm/slub.c:3462
+ new_slab mm/slub.c:3513 [inline]
+ refill_objects+0x2d5/0x350 mm/slub.c:7410
+ refill_sheaf mm/slub.c:2885 [inline]
+ __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4774
+ alloc_from_pcs mm/slub.c:4850 [inline]
+ slab_alloc_node mm/slub.c:4984 [inline]
+ kmem_cache_alloc_noprof+0x399/0x600 mm/slub.c:5010
+ skb_clone+0x212/0x3a0 net/core/skbuff.c:2119
+ dev_queue_xmit_nit+0x28d/0xac0 net/core/dev.c:2600
+ xmit_one net/core/dev.c:3933 [inline]
+ dev_hard_start_xmit+0x1c1/0x830 net/core/dev.c:3953
+ sch_direct_xmit+0x257/0x4c0 net/sched/sch_generic.c:372
+ __dev_xmit_skb net/core/dev.c:4262 [inline]
+ __dev_queue_xmit+0x177f/0x3820 net/core/dev.c:4884
+ dev_queue_xmit include/linux/netdevice.h:3461 [inline]
+ neigh_hh_output include/net/neighbour.h:544 [inline]
+ neigh_output include/net/neighbour.h:558 [inline]
+ ip_finish_output2+0xbda/0x10b0 net/ipv4/ip_output.c:236
+ NF_HOOK_COND include/linux/netfilter.h:314 [inline]
+ ip_output+0x29f/0x450 net/ipv4/ip_output.c:437
+ __ip_queue_xmit+0x10df/0x1b10 net/ipv4/ip_output.c:533
+ __tcp_transmit_skb+0x2d18/0x47c0 net/ipv4/tcp_output.c:1717
+page last free pid 5040 tgid 5040 ts 54399149504 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ __free_frozen_pages+0xc93/0xd90 mm/page_alloc.c:2962
+ __slab_free+0x274/0x2c0 mm/slub.c:5815
+ qlink_free mm/kasan/quarantine.c:163 [inline]
+ qlist_free_all+0x99/0x100 mm/kasan/quarantine.c:179
+ kasan_quarantine_reduce+0x148/0x160 mm/kasan/quarantine.c:286
+ __kasan_slab_alloc+0x22/0x80 mm/kasan/common.c:350
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4683 [inline]
+ slab_alloc_node mm/slub.c:4996 [inline]
+ __do_kmalloc_node mm/slub.c:5413 [inline]
+ __kvmalloc_node_noprof+0x49f/0x820 mm/slub.c:7005
+ seq_buf_alloc fs/seq_file.c:39 [inline]
+ seq_read_iter+0x1ea/0xca0 fs/seq_file.c:211
+ new_sync_read fs/read_write.c:493 [inline]
+ vfs_read+0x595/0xa80 fs/read_write.c:574
+ ksys_read+0x150/0x270 fs/read_write.c:716
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+Memory state around the buggy address:
+ ffff888169a4a100: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+ ffff888169a4a180: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+>ffff888169a4a200: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+                                              ^
+ ffff888169a4a280: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+ ffff888169a4a300: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
+==================================================================
+
+
+***
+
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
+
+---
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+
+To test a fix for this bug, please reply with `#syz test`
+(on a separate line) and attach the patch to the email.
+
+Notes:
+- The patch will be applied on top of the tested series (as an
+  incremental fix).
+- To test a new version of the whole series, please send it directly
+  to syzbot@lists.linux.dev.
+- Arguments like custom git repos and branches are not supported.
