@@ -1,190 +1,333 @@
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0EF40F731
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 21:18:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C252C411A04
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 21:21:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788383889; cv=none; b=hV9aPygPqbKW7uUVH8Fs6hdQehTWo+BM50Z2TQKc1KuEnSD+gaD3+OK3Quf7d/cbdELYunCWelmkDlqbr9ofKIJlol/N129kxwvzPG5w7xs2Folg884hqLilG1WkLG7+lnc0M9K2KnuuPwdGoweRxLtsYdKoAry+zbysZmeypqM=
+	t=1788384121; cv=none; b=eenNvTozVncT1rUas2jbkdoDpIUPHlWtfmfEbhIuDynNKZkZOkw4azimQ9NAVGj3iO0IIqBL11lQIfg7cfeoLSN2e+dCBLxx/L10OB9/xj6qeoqm6wxFDH9dRfwj4ylr2+6TzEiLGm97LwKtCb+eJzN5GFzWmVw4yFF6QUhcNZg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788383889; c=relaxed/simple;
-	bh=eYvevfxDnAxcmy44UUuZzmZ9wB5AFgyZP1RXBL1JECg=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=cvs5JJrAniEOkJCbd5ChDpne3HtCst+zyzTyg+j2dQAAX1MtcrvPAPopa7nFukFbp+bJ5EAn4Mw8nSluawwqwG97uXuXMPNRmjG0HiI6NAciqGnD2gbzj/8kG2UsSv/0fXMQM22xUKr5e5Y52o8UAWBBa7F90kYvfaWHE3+NPrc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=St087wfT; arc=none smtp.client-ip=209.85.214.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1788384121; c=relaxed/simple;
+	bh=am/H7Ep++qwn4D8Zup/IS6FxXvgFxBMwXT+uup1+ZRs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sZRMMMGnQ7WHtY0wNoaWBaJ5+HDCBOcdEWcxEv4eXljf8cm3xjO+ZXWv2oDuPbv1767PqW8MCQUggYYLTHaeHq3BjBw/tNKPgegHgMe4XPzd97JeQZ9GI1DqRbo+Pt6Wv/GNvnhFDD7K/FIAVTq8IaYnBmS/G3NAlEm8E1dJA1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=F3gqr0ug; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="St087wfT"
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cfe48ca1efso19624885ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 14:18:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788383881; x=1788988681; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6y9fwvpjUYJt1hBuBQzU6qlITBbfBdcaCvq8FbYjsUY=;
-        b=St087wfTYqglTrqIKprWEIaR0pVGx2FcIAUOMM13rpvv0Fw+Co30J1PMdms6iBZBhW
-         Unec3nJf6xAFhE1+nvQIXl9MPBJecQMGCN7C1oFZRxeC6d8jzxrj0ngzOqD5znbjsYKG
-         u71+e0MOxfvQXLBs0hL4clQ+S8GHnu3mPEceIvJNlomUi8j9n+xnjfSB7mcsG9jR/av8
-         q9FM8imHRofBkJdVNcB0sjzTgG0jJdwhG0fdDVqbhF/vyCj6rdzeLgVqruAxLreKIrPP
-         qRCsOZ6Pt9JfRQYIdbeOZCgJWLqHBManNNk5LX6H+LN/w+Tw0raDzKs7KbUs+fYdVKA+
-         3t5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788383881; x=1788988681;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :reply-to:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=6y9fwvpjUYJt1hBuBQzU6qlITBbfBdcaCvq8FbYjsUY=;
-        b=DEGfs+7fAtG5iUcHkiqHevwGKGBm/EEWZHJh1LMBW7pTIMrC0qnhQNojsMQoN8Cw7t
-         4yVULWVGXphprjSMxs51UnxKoQuroStVqW6K165zIV5dFXis8jatZ9JitAQMOPYI/7Xx
-         rD+sEqMUb+fKb7j8nmk/jn+2Zgt4x47A3G50LuPssD3tf3ufXpHbvY7oHqYS2a1UkU1R
-         OXeadMO2xiSHuuzH00x7BxUADg7sO7j9BEtiJ5az9cyoK4xSxh5Z56Si91wkKLGf9O5e
-         ZhWzo2G3wHrVtiRDLseOlmgIWtkWBLDfyeFzb/ayItSJlx/bA52ZaoyFak4yUaL17JI+
-         K1gg==
-X-Forwarded-Encrypted: i=1; AKwUvBxpZRBBUAqZlIjUE2GzyQ2XY7fqtanZXN9ivYUkX6CeXvxhpi4ijuJsTBNIMo+TVVTIy8/DhZ9fBfdtxjM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrkiqVGmYVjJ8oLKCeQye+OFghRZRX1t9El+pidFdUG8sinGSQ
-	8tGl8YOvmjJr3Y8CKbmZ1CAgcrfyKJ0tUNOqZuh+q80jD47OqktYF5vRDlYbAALCMW8RU+j+bik
-	DJymHZA==
-X-Received: from pjqo10.prod.google.com ([2002:a17:90a:ac0a:b0:396:1f9d:c3c7])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:5384:b0:398:ceef:edbd
- with SMTP id 98e67ed59e1d1-39aee1bbae0mr11888078a91.18.1788383880600; Wed, 02
- Sep 2026 14:18:00 -0700 (PDT)
-Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed,  2 Sep 2026 14:17:59 -0700
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="F3gqr0ug"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 6B16B4E414C9;
+	Wed,  2 Sep 2026 21:21:53 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 2C1DB6053C;
+	Wed,  2 Sep 2026 21:21:53 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A0AD911C79331;
+	Wed,  2 Sep 2026 23:21:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788384108; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=6qwWu4szjnAuYqyTnJ35cqFfmIoB/2r1eD8jJu/pFBg=;
+	b=F3gqr0ugmaDtu3nv+/PnMqyLieCpIoF+pOWUsVBsCGvsOfP6HAXdBI16PhFbOrxZGSSNr+
+	qTvJFg6zF2i6qXm+U4UP4qXBGUP8KFJS+J2TGaethqSLKj0HVIg1yhojE/mlwz2QOknXFl
+	aowzxvSbGpwf3YEUH+VgI5gAQwS/+ROm5I0bceT6j2VlBp/CoOQBO1k3rypUscTkEtdhR+
+	jBSsTrIruwl5J0SO7Qd+at29M5HrSb3SxZVsZJc1VrXpnq8j6K8tgdXLv/3JGf8v8RZ66w
+	mJYZ8AhifRZHA9iySBAtZpW2xnUPiM+uaAXp7rkpBUYdA0Wxo8JoIxZfXSfPfQ==
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: davem@davemloft.net,
+	Andrew Lunn <andrew@lunn.ch>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Eric Dumazet <edumazet@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Heiner Kallweit <hkallweit1@gmail.com>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	thomas.petazzoni@bootlin.com,
+	Christophe Leroy <christophe.leroy@csgroup.eu>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	=?UTF-8?q?K=C3=B6ry=20Maincent?= <kory.maincent@bootlin.com>,
+	=?UTF-8?q?Marek=20Beh=C3=BAn?= <kabel@kernel.org>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	=?UTF-8?q?Nicol=C3=B2=20Veronese?= <nicveronese@gmail.com>,
+	Simon Horman <horms@kernel.org>,
+	mwojtas@chromium.org,
+	Romain Gantois <romain.gantois@bootlin.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Dimitri Fedrau <dimitri.fedrau@liebherr.com>,
+	Frank Wunderlich <frank.wunderlich@linux.dev>,
+	Pietro Ameruoso <p.ameruoso@live.it>
+Subject: [PATCH net-next v16 00/10] net: phy_port: SFP modules representation and phy_port listing
+Date: Wed,  2 Sep 2026 23:21:24 +0200
+Message-ID: <20260902212135.1805948-1-maxime.chevallier@bootlin.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.970.g62bdec98f9-goog
-Message-ID: <20260902211759.2700289-1-seanjc@google.com>
-Subject: [PATCH] KVM: x86/mmu: Always guard rmaps with mmu_lock on
- PREEMPT_RT=y kernels
-From: Sean Christopherson <seanjc@google.com>
-To: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>
-Cc: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	David Woodhouse <dwmw2@infradead.org>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-For all intents and purposes, revert KVM's ability to walk rmaps outside of
-mmu_lock when running on a realtime (PREEMPT_RT=y) kernel.  I.e. don't use
-a non-sleepable bit-spinlock to protect rmap entries, as realtime kernels
-are highly unlikely to benefit from increased aging throughput and reduced
-jitter for memory-overcommitted nested VMs, whereas using a non-sleepable
-lock is currently buggy and goes against the spirit of realtime kernels.
+Hello everyone,
 
-Because KVM's rmap locks are hand-crafted bit-spinlocks, preemption must be
-disabled before acquiring the lock, otherwise a preempted lock holder will
-result in all other walkers of the locked rmap to spin and wait, with no
-tracked owner for PI to boost.  For non-RT kernels, acquiring mmu_lock
-suffices, as mmu_lock is a non-sleepable rwlock.  But on RT, where mmu_lock
-becomes sleepable, preemption is left enabled for rmap writers:
+Here's V16 for the phy_port improved SFP support and netlink interface.
 
-  WARNING: arch/x86/kvm/mmu/mmu.c:920 at __kvm_rmap_lock+0x1a7/0x1e0 [kvm], CPU#16: vmx_apic_update/3708
-  CPU: 16 UID: 0 PID: 3708 Comm: vmx_apic_update Not tainted 7.2.0-rc7 #52 PREEMPT_{RT,LAZY}
-  RIP: 0010:__kvm_rmap_lock+0x1a7/0x1e0 [kvm]
-  Call Trace:
-   pte_list_add+0x67/0x4d0 [kvm]
-   __link_shadow_page+0x249/0x480 [kvm]
-   ept_fetch+0x4d5/0x1220 [kvm]
-   ept_page_fault+0x60b/0x850 [kvm]
-   kvm_mmu_do_page_fault+0x252/0x690 [kvm]
+V15 addresses the ynl breakage from last run's spec update, and as well
+as a few typos.
 
-Alternatively, KVM could manually disable preemption when grabbing an rmap
-lock, but as above, that isn't what RT kernels generally want, and it's
-actually more complex to implement (cleanly).
+This work extends on the recent addition of phy_port representation to enable
+listing the front-facing ports of an interface. For now, we don't control
+these ports, we merely list their presence and their capabilities.
 
-To not completely lose the scaling advantage of per-rmap locks, take
-mmu_lock for read in the aging path, i.e. allow multiple concurrent aging
-tasks, as the aging code needs to use atomic SPTE accesses no matter what,
-i.e. no extra code/work is required to guard against concurrent aging of
-SPTEs.
+As the most common use-case of multi-port interfaces is combo-ports that
+provide both RJ45 and SFP connectors on a single MAC, there's a lot of
+SFP stuff in this series.
 
-Reported-by: David Woodhouse <dwmw2@infradead.org>
-Closes: https://lore.kernel.org/all/8d47b43e1829ac92703723e6a1a4afc7a2eaacb5.camel@infradead.org
-Fixes: 4834eaded91e ("KVM: x86/mmu: Add infrastructure to allow walking rmaps outside of mmu_lock")
-Signed-off-by: Sean Christopherson <seanjc@google.com>
----
- arch/x86/kvm/mmu/mmu.c | 39 +++++++++++++++++++++++++++++++++++++--
- 1 file changed, 37 insertions(+), 2 deletions(-)
+This series is in 2 main parts. The first one aims at representing the
+SFP cages and modules using phy_port, as combo-ports with RJ45 + SFP are
+by far the most common cases for multi-connector setups.
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 064ecc33b926..5bf833550f84 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -895,6 +895,7 @@ static struct kvm_memory_slot *gfn_to_memslot_dirty_bitmap(struct kvm_vcpu *vcpu
-  */
- #define KVM_RMAP_MANY	BIT(0)
- 
-+#ifndef CONFIG_PREEMPT_RT
- /*
-  * rmaps and PTE lists are mostly protected by mmu_lock (the shadow MMU always
-  * operates with mmu_lock held for write), but rmaps can be walked without
-@@ -1008,7 +1009,8 @@ static unsigned long kvm_rmap_get(struct kvm_rmap_head *rmap_head)
-  * actual locking is the same, but the caller is disallowed from modifying the
-  * rmap, and so the unlock flow is a nop if the rmap is/was empty.
-  */
--static unsigned long kvm_rmap_lock_readonly(struct kvm_rmap_head *rmap_head)
-+static unsigned long kvm_rmap_lock_readonly(struct kvm *kvm,
-+					    struct kvm_rmap_head *rmap_head)
- {
- 	unsigned long rmap_val;
- 
-@@ -1032,6 +1034,35 @@ static void kvm_rmap_unlock_readonly(struct kvm_rmap_head *rmap_head,
- 	__kvm_rmap_unlock(rmap_head, old_val);
- 	preempt_enable();
- }
-+#else
-+static unsigned long kvm_rmap_get(struct kvm_rmap_head *rmap_head)
-+{
-+	return atomic_long_read(&rmap_head->val);
-+}
-+static unsigned long kvm_rmap_lock(struct kvm *kvm,
-+				   struct kvm_rmap_head *rmap_head)
-+{
-+	lockdep_assert_held_write(&kvm->mmu_lock);
-+	return kvm_rmap_get(rmap_head);
-+}
-+
-+static void kvm_rmap_unlock(struct kvm *kvm,
-+			    struct kvm_rmap_head *rmap_head,
-+			    unsigned long new_val)
-+{
-+	atomic_long_set_release(&rmap_head->val, new_val);
-+}
-+
-+static unsigned long kvm_rmap_lock_readonly(struct kvm *kvm,
-+					    struct kvm_rmap_head *rmap_head)
-+{
-+	lockdep_assert_held_read(&kvm->mmu_lock);
-+	return kvm_rmap_get(rmap_head);
-+}
-+
-+static void kvm_rmap_unlock_readonly(struct kvm_rmap_head *rmap_head,
-+				     unsigned long old_val) { }
-+#endif
- 
- /*
-  * Returns the number of pointers in the rmap chain, not counting the new one.
-@@ -1745,11 +1776,15 @@ static bool kvm_rmap_age_gfn_range(struct kvm *kvm,
- 	gfn_t gfn;
- 	int level;
- 
-+#ifdef CONFIG_PREEMPT_RT
-+	guard(read_lock)(&kvm->mmu_lock);
-+#endif
-+
- 	for (level = PG_LEVEL_4K; level <= KVM_MAX_HUGEPAGE_LEVEL; level++) {
- 		for (gfn = range->start; gfn < range->end;
- 		     gfn += KVM_PAGES_PER_HPAGE(level)) {
- 			rmap_head = gfn_to_rmap(gfn, level, range->slot);
--			rmap_val = kvm_rmap_lock_readonly(rmap_head);
-+			rmap_val = kvm_rmap_lock_readonly(kvm, rmap_head);
- 
- 			for_each_rmap_spte_lockless(rmap_val, &iter, sptep, old_spte) {
- 				if (!is_accessed_spte(old_spte))
+The second part is the netlink interface to list those ports, now that
+most use-cases are covered.
 
-base-commit: 76671054f9a1ff6abb976583cd8da37650acdc97
+Let's see what we can do with some examples of the new ethtool API :
+
+- Get MII interfaces supported by an empty SFP cage :
+
+# ethtool --show-ports eth3
+
+Port for eth3:
+	Port id: 1
+	Supported MII interfaces : sgmii, 1000base-x, 2500base-x
+	Port type: sfp
+
+- Get Combo-ports supported modes, on each port :
+
+# ethtool --show-ports eth1
+
+Port for eth1:
+	Port id: 1
+	Supported link modes:  10baseT/Half 10baseT/Full
+	                       100baseT/Half 100baseT/Full
+	                       1000baseT/Full
+	                       10000baseT/Full
+	                       2500baseT/Full
+	                       5000baseT/Full
+
+	Port type: mdi
+
+Port for eth1:
+	Port id: 2
+	Supported MII interfaces : 10gbase-r
+	Port type: sfp
+
+- Get Achievable linkmodes on a SFP module (combo port with a DAC in the
+SFP cage)
+
+# ethtool --show-ports eth1
+
+Port for eth1:
+	Port id: 1
+	Supported link modes:  10baseT/Half 10baseT/Full
+	                       100baseT/Half 100baseT/Full
+	                       1000baseT/Full
+	                       10000baseT/Full
+	                       2500baseT/Full
+	                       5000baseT/Full
+	Port type: mdi
+
+Port for eth1:
+	Port id: 2
+	Supported MII interfaces : 10gbase-r
+	Port type: sfp
+
+Port for eth1:
+	Port id: 3
+	Upstream id: 2
+	Supported link modes:  10000baseCR/Full
+	Port type: mdi
+
+Note that here, we have 3 ports :
+ - The Copper port
+ - The SFP Cage itself, marked as 'occupied'
+ - The SFP module
+
+This series builds on top of phy_port and phy_link_topology to allow
+tracking the ports of an interface. We maintain a list of supported
+linkmodes/interfaces on each port, which allows for fine-grained
+reporting of each port's capability.
+
+What this series doesn't do :
+ - We don't support selecting which port is active. This is the next step.
+ - We only support PHY-driven combo ports. The end-goal of this whole
+   journey that started with phy_link_topology is to get support for MII
+   muxes, such as the one we have on the Turris Omnia. This will eventually
+   be upstreamed as well.
+
+If you want to play around with it, here's [1] the patched ethtool that I've
+been using to produce the outputs above.
+
+Thanks !
+
+Maxime
+
+[1] : https://github.com/minimaxwell/ethtool/tree/mc/ethtool_port
+
+Changelog :
+
+Changes in v16:
+ - unregister phy_ports at phy_detach
+ - typos in patch 1 (of -> or)
+ - Fix the netlink specs
+
+Changes in v15:
+https://lore.kernel.org/netdev/20260801074332.98755-1-maxime.chevallier@bootlin.com/
+ - Fail on port access for ops-locked devices
+ - Use a direct phy_port pointer for upstream tracking
+ - Addressed the kdoc issues
+
+Changes in v14:
+https://lore.kernel.org/netdev/20260720174808.139573-1-maxime.chevallier@bootlin.com/
+ - Added a big comment on the first patch for the topo alloc potential
+   races
+ - Fixed the multi-buff DUMP on last patch with a separate iterator for
+   dumps
+ - Fixed some typos in the documentation
+
+Changes in V13:
+V13: https://lore.kernel.org/r/20260701110427.143945-1-maxime.chevallier@bootlin.com
+ - Rebase on net-next
+ - Fix the SFP bus cleanup path in patch 5
+
+Changes in V12:
+V12: https://lore.kernel.org/r/20260615153907.862987-1-maxime.chevallier@bootlin.com
+ - Rebased on net-next, including fixes on the phy probing and cleanup
+   paths
+ - Rebased on Jakub's netdev_ops_locked changes in phy_link_topology
+ - Fixed some typos reported by Andrew and sashiko in the documentation
+
+Changes in v11:
+V11:https://lore.kernel.org/r/20260521121040.1199622-1-maxime.chevallier@bootlin.com
+ - Aggregated Andrew's reviews :)
+ - Removed the "vacant" field, replaced it with "upstream_port"
+
+Changes in V10:
+V10: https://lore.kernel.org/r/20260513130521.1064094-1-maxime.chevallier@bootlin.com
+ - Rebase on net-next
+ - Rename phylink/phy_device sfp_bus_port to sfp_cage_port
+ - Sashiko's reviews were mostly unrealistic or wrong :(
+
+Changes in V9:
+V9: https://lore.kernel.org/r/20260403123755.175742-1-maxime.chevallier@bootlin.com
+ - Added missing netlink doc updates for u8->u32 conversion
+ - Removed dead code with a condition that can never be true in
+   phylink's mod_port code
+ - Fixed the error path in phy_sfp_connect_phy
+
+Changes in v8:
+V8: https://lore.kernel.org/r/20260325081937.571115-1-maxime.chevallier@bootlin.com
+ - Set the new phydev.has_sfp_mod_phy field when we're sure that no
+   errors occured
+ - Fix formatting of the copyright info in ethnl port
+ - Use a policy to validate the range of port_id
+ - Use GENL_REQ_ATTR_CHECK
+ - alpha-sort headers
+ - use u32 in netlink messages
+ - return better error codes
+ - don't check the skb len, the core does that
+
+Changes in V7:
+V7: https://lore.kernel.org/all/20260309152747.702373-1-maxime.chevallier@bootlin.com/
+ - Changed the port cleanup path to use list_for_each_entry_continue_reverse
+ - Adjusted the cleanup path in phylink for the port vacant state
+ - Pass the right cmd for the netlink dump message
+
+Changes in V6:
+V6: https://lore.kernel.org/r/20260304145444.442334-1-maxime.chevallier@bootlin.com
+ - Added some comments in th mod_port cleanup
+ - changed some kmalloc to kmalloc_obj
+ - Removed some phy_link_topo_del_port that wasn't needed
+
+Changes in V5:
+V5: https://lore.kernel.org/r/20260205092317.755906-1-maxime.chevallier@bootlin.com
+ - Fixed a check on a potentially un-initialized pointer, reported by
+   Simon
+ - Fixed a documentation formatting issue
+ - Remove a stray pr_info
+ - Rebased on net-next
+
+Changes in V4:
+V4 : https://lore.kernel.org/netdev/20260203172839.548524-1-maxime.chevallier@bootlin.com/
+ - Add a cleanup patch for the of port parsing
+ - Added a match to sync the port's linkmodes with the PHY's for OF
+   ports
+ - Added RTNL assert in the port_get topo helper
+ - nullify the bus port for phylink support
+ - Fix some typos
+
+Changes in V3:
+V3: https://lore.kernel.org/netdev/20260201151249.642015-1-maxime.chevallier@bootlin.com/
+ - Remove the sfp bus ops for nophy, and use .module_start() as
+   suggested by Russell
+ - Added missing cleanup for the topology, as per AI review
+ - Fixed a few typos as per Romain's review
+ - Changed "occupied" to "vacant" as per Romain's review
+ - Added missing checks for null ports, per AI review
+
+Changes in V2:
+V2: https://lore.kernel.org/netdev/20260128204526.170927-1-maxime.chevallier@bootlin.com/
+ - Fix the cleanup path of phy_link_topo_add_phy, as per AI review
+ - Fix the cleanup path of phy_sfp_probe, as per AI review
+ - Fix the call-site of the disconnect_nophy sfp bus ops, per AI review
+ - Fix the netdev-less case uin phylink, per AI review
+ - Fix the prototype of phy_link_topo_get_port for the stubs
+ - Dropped patch 11. It ended-up breaking 'allnoconfig', so instead we
+   built a phy_interface_names array in net/ethtool/netlink.c
+ - Fix an ethool-netlink spec discrepancy with the type of an attribute
+ - Fix the size computation in the netlink port API
+ - Fix the cleanup path in the netlink port API
+
+V1: https://lore.kernel.org/netdev/20260127134202.8208-1-maxime.chevallier@bootlin.com/
+
+
+
+Maxime Chevallier (10):
+  net: phy: phy_link_topology: Add a helper for opportunistic alloc
+  net: phy: phy_link_topology: Track ports in phy_link_topology
+  net: phylink: Register a phy_port for MAC-driven SFP cages
+  net: phy: Create SFP phy_port before registering upstream
+  net: phy: Represent PHY-less SFP modules with phy_port
+  net: phy: phy_port: Store information about a port's upstream
+  net: phy: phy_link_topology: Add a helper to retrieve ports
+  netlink: specs: Add ethernet port listing with ethtool
+  net: ethtool: Introduce ethtool command to list ports
+  Documentation: networking: Update the phy_port infrastructure
+    description
+
+ Documentation/netlink/specs/ethtool.yaml      |  55 +++
+ Documentation/networking/ethtool-netlink.rst  |  34 ++
+ Documentation/networking/phy-port.rst         |  26 +-
+ MAINTAINERS                                   |   1 +
+ drivers/net/phy/phy-caps.h                    |   2 +
+ drivers/net/phy/phy_caps.c                    |  26 ++
+ drivers/net/phy/phy_device.c                  | 186 +++++++--
+ drivers/net/phy/phy_link_topology.c           | 101 ++++-
+ drivers/net/phy/phylink.c                     | 128 +++++-
+ include/linux/phy.h                           |  10 +
+ include/linux/phy_link_topology.h             |  44 ++
+ include/linux/phy_port.h                      |   5 +
+ .../uapi/linux/ethtool_netlink_generated.h    |  19 +
+ net/core/dev.c                                |   1 +
+ net/ethtool/Makefile                          |   2 +-
+ net/ethtool/netlink.c                         |  25 ++
+ net/ethtool/netlink.h                         |   8 +
+ net/ethtool/port.c                            | 382 ++++++++++++++++++
+ 18 files changed, 1017 insertions(+), 38 deletions(-)
+ create mode 100644 net/ethtool/port.c
+
 -- 
-2.55.0.970.g62bdec98f9-goog
+2.55.0
 
