@@ -1,222 +1,283 @@
-Received: from out12-31.antispamcloud.com (out12-31.antispamcloud.com [185.201.16.31])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25AC04968E2;
-	Wed,  2 Sep 2026 18:36:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.201.16.31
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 230D149C4D1
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:37:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788374179; cv=none; b=e3Ac3y/mIsTEDILF+gtyuSr8u3uwGxGZSLOIthnwXnot2GzmcDiZ/29McpjNao8i94ckP8PI3pYcOXpLPZ8CB5v3W3bBK3Z7Qs050k5aq2WG8YAD387c5DYRmfjBJ9r56gJmtv7NSQ+Ya392cmh8+XNsGj0POYq0h7BE5gMDTuY=
+	t=1788374232; cv=none; b=J+ccpZCJwna/wLqR5v58c0/aTZds5jsJNh0d5OHKpX74ypyZESh48b/8jxFLeNcIQs/iVAgBXxRQon5gf8Msd4/to3oj+izV9cQQi1LIU4kpRCqmb495zIyLWHI11KCtU8MtT969es7H2V8NJ3MqHMbSY5W/v5SEhfdc0E2IdFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788374179; c=relaxed/simple;
-	bh=u7rJyBVNS3KWB72oeww+xedcyOSO1pu/9F/9FnMv+ZQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SsLYsWAilsikbEoelOhnDG4jll5Z6ydfN3eSZOhhsfxLkP++EVyV69ERyJMVeopLawSj6WbnruThw/ae0KUlwmBxpmIg/I14VW/ypUSDsbh/7gxPS6vbeSDcfOrdJkFMdmQ+0R+dGxHxgHEAZ8RHkiU9V+8+FdYbFEMaAYpT7Vc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=reactivated.net; dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b=b96VzcgL; arc=none smtp.client-ip=185.201.16.31
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=reactivated.net
+	s=arc-20240116; t=1788374232; c=relaxed/simple;
+	bh=GbmP64OGbvrjZbnj/TLMFjCYNj6An3pir6aMRZgAZX4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sOimaspaH2dTYLtxdR+BlsXrlQmdnVKLiTYt7s97h/0Z/mTqYR1aSWpBi5a98lVapHBvx1X4bePiOqOM7ADsFsloBr2LWZBvlOaaU7QeEVNJtHZpGLsd50f4Y8gL+xxsNGFNnSC0IzPUXUCA2mSzLyI1Pz2RYSWldvppIp1kdEc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C26znzUT; arc=none smtp.client-ip=74.125.227.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b="b96VzcgL"
-Received: from s1041.use1.mysecurecloudhost.com ([192.250.231.249])
-	by mx322.antispamcloud.com with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.94.2)
-	(envelope-from <dan@reactivated.net>)
-	id 1x1pDl-009oTh-Ig; Wed, 02 Sep 2026 19:58:05 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=reactivated.net; s=default; h=Cc:To:In-Reply-To:References:Message-Id:
-	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
-	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
-	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=P67qbos3D+tWJec3niEbndAJClHMkcSjY99grIP5ELc=; b=b96VzcgL0joJf7gOFdlTX17YdI
-	lYEH8QWZcz657JOBl0b0BPeHAijSR6kgdhyyfctOsv26PKdMIFwMKPAex17mlWAiRqS7vm0pmPV0A
-	BpXtJKbwyOUz18REZvqgG52IOE6MGhyOyN9cgEI41xOCnVnXSu3a1R5A5m6ZcPd3KMXREbM9tSDLd
-	3rQbe2pDLdhhcZ7Fw+HuwJJ0mIB813IgfIoM4NBg9fgEgi4hGrRbvZQgMVvnLONteP1h6uTKDB8US
-	p6dEosEo1y6WUOsFqFKCmQjuq2Y/HL+kQQv9TGtdu20HhnWf9WXgUjkcQtvOW2XOoF30Z6GEZMsXb
-	pO5If3Ww==;
-Received: from [188.251.249.2] (port=45118 helo=[192.168.1.123])
-	by s1041.use1.mysecurecloudhost.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.99.5)
-	(envelope-from <dan@reactivated.net>)
-	id 1x1pDe-0000000F9KQ-0LfU;
-	Wed, 02 Sep 2026 17:57:58 +0000
-From: Daniel Drake <dan@reactivated.net>
-Date: Wed, 02 Sep 2026 18:57:04 +0100
-Subject: [PATCH v4 2/5] dt-bindings: iommu: Add Broadcom BCM2712 IOMMU
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C26znzUT"
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-38de693676dso871197a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 11:37:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788374226; x=1788979026; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tPLgiEVK7nQvQr/HKbT4zYwd4jF4IYbAeRSY+P/L0WA=;
+        b=C26znzUTtkDfLlLix5dz78HGkmcPojVTvFMLjkmjKlP1EobKOrhg1ErTzO6q+g9ML3
+         y17TTYGTlAbDjoH0ArIDScOV4yhDsVyntqPl7VnHmoIHxCHVwCl+ni9wxRSCEoU3c8yj
+         wxg0FkuKtcNKzvSodVcvxAiIafmoHerKQOIchiHVE2vR1muBhql86SsSqW1MLOcvyo/k
+         1g8lubpuOdmyh0HI/Wy2D1uzwhf1rS1mq/z49ex399joWO7udNEbFs4KA/qHpyeTmFJy
+         RNVcDlcZkNDHOuEApMKLAILQA6Im6K9GA9H6fs0ohz2YrEzdl0XL9mnJPLEPihtaADxG
+         EFUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788374226; x=1788979026;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tPLgiEVK7nQvQr/HKbT4zYwd4jF4IYbAeRSY+P/L0WA=;
+        b=U/TpkoXJslaSqfPwvkwD1f23wkeKBwzD5uliPm7kIyc08H5qtgQWzUQLTDpnCKbDQx
+         uq1UgvprUeHdeTf6xL8KGyxYyt0jqF7xG5jaGi7oivUhisNVIS4jWAC9uFYexjuqCTMY
+         OqCZNikLrxPHdlNs68AA4Q2uA3LswWfwqOY/M2VLP9IkAaYoYigsEdhh/NcweW31Cilh
+         Cw+HXLD3T9nwkPlbdH84oWcpdBi8iJckvpQaGC749cLYJsRNMNbDjNkC/1yvFn7ZaRPy
+         uEWtC1TnDnkbmwpjCxSpi+kZcCV5zlFNSYoRaT74eVuMEri0F/G4dKbhnlAi336519zD
+         B81w==
+X-Forwarded-Encrypted: i=1; AKwUvBysnRrRPRIjfk4DAd0YRzLms8M0ersh/SwM8qPjstEjWUNXHd3GN1jb2Q/O9F58EY/xHpjuZbRzx/HBRjc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nCU32NW/MQc1Z7BLow5gOquA6YjYTx+cMiovhNZhsNfyjShayT
+	dxDrNiGihv3iUGHdV3aQon1NBWrG/cvrG/rkoOsED8N676sZFm/OeUTi
+X-Gm-Gg: AYBFou0mRkz0rW66mvXw2iq1c4e2GiX+YfBSzXlDjLgo7f20M4FeSdTiQXzAvwDd3Ac
+	NdpuZVF25wYa3VvcN8ZxjhYiyi0Oq/JQDGw9OoTd0T7zDj9WpbjSb/VQwA49DMnw/xySLqHVUVy
+	ZqCzf3aZw4ljRlEMTF+xnzxIq8IEDvTdsBZvgNXbAkHYc8hNmTDBFCqNvdGR2Qca4skglKCsnEr
+	hYEnDAMKhDIUE9cGE1MBLkqDgp+i0xQIBVPT/WC+xOOyKFfbfc94g8bB5541pn4WbTku/3VThaD
+	fWP1dI7o7jBlEKlzdfgkdmaaP7AYsG11T4f66OvbBYaeeSm1UrvYdv4+reUrtvum+8nr2ic1a73
+	Wm9UzuxSRHSy9Nr5UqRDSRFweN+DC9V3o1OmTFVK0IF4EDoLaAjqjXT4GJ01GLb1njJQK+10zOX
+	glmh3kOWoutM4T8STNw5LW/YykBBPu/pJ818Usc0++HYfdKG0tHBoJlM4QZZdiU0Ag
+X-Received: by 2002:a17:90b:3985:b0:398:bc52:825b with SMTP id 98e67ed59e1d1-39aee22218dmr8158353a91.21.1788374226348;
+        Wed, 02 Sep 2026 11:37:06 -0700 (PDT)
+Received: from localhost ([2a03:2880:2ff:44::])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08d0d845sm638297a91.17.2026.09.02.11.37.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 11:37:05 -0700 (PDT)
+Date: Wed, 2 Sep 2026 11:36:59 -0700
+From: Stanislav Fomichev <sdf.kernel@gmail.com>
+To: Mina Almasry <almasrymina@google.com>
+Cc: Kaifeng Wang <kaifengw@google.com>, netdev@vger.kernel.org, 
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, 
+	horms@kernel.org, sdf@fomichev.me, bobbyeshleman@meta.com, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 0/2] net: devmem: remove gen_pool from dma-buf
+ allocations
+Message-ID: <aphk-b52PGfESvjL@devvm7509.cco0.facebook.com>
+References: <20260831183529.2517322-1-sdf@fomichev.me>
+ <CAHS8izM5+CrZG77PxKpfG9k5kEWYMgN=uAuYvy21aabyztBt0w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-bcm2712-iommu-submit-v4-2-9dbb657578c1@reactivated.net>
-References: <20260902-bcm2712-iommu-submit-v4-0-9dbb657578c1@reactivated.net>
-In-Reply-To: <20260902-bcm2712-iommu-submit-v4-0-9dbb657578c1@reactivated.net>
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Daniel Drake <dan@reactivated.net>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, nick.hollinghurst@raspberrypi.com, 
- james.quinlan@broadcom.com, Jason Gunthorpe <jgg@ziepe.ca>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Get-Message-Sender-Via: s1041.use1.mysecurecloudhost.com: authenticated_id: dan@reactivated.net
-X-Authenticated-Sender: s1041.use1.mysecurecloudhost.com: dan@reactivated.net
-X-Spampanel-Domain: s1041.use1.mysecurecloudhost.com
-X-Spampanel-Username: 192.250.231.249
-Authentication-Results: antispamcloud.com; auth=pass smtp.auth=192.250.231.249@s1041.use1.mysecurecloudhost.com
-X-Spampanel-Outgoing-Class: ham
-X-Spampanel-Outgoing-Evidence: SB/global_tokens (0.00523852187495)
-X-Recommended-Action: accept
-X-Filter-ID: 9kzQTOBWQUFZTohSKvQbgI7ZDo5ubYELi59AwcWUnuVxWCrlu0J9nkekKB41eTCLyIjIri4DT/nx
- QZqRcCOIgyu2SmbhJN1U9FKs8X3+Nt06bFpPrNOlRAlE9AVLwR4uGVjKNnzF3nQoDoQtBifM84JL
- M0i5ZAms0EHrvcCaVIOYn9vhoNExpT0rpjg2lHVHGnT3EFAinyrilm9zau/FuzkQt9Nb4Ml7QXdk
- EetczWBpY9ovdkP9RmEvieRDWoEFGZ7f+7oeClYYrL6OxfWC1jM0MOKiGRkxO3FaI58br05WBb39
- uS1TjWG2Inx+Ts2QrtVmombMJ4e2pn5C0yBMHZ0fE47nEjvubMSTLAkKCKefuLbx+lGq0svfyhth
- j0R6Iny++hg9dJLqN5zmWqF/oHgMZXS6X/fIHYslsKU0yPHM4JpSMI47HiFQBsGlm5AyJ9N3+CB9
- 4aFbAhtG8w3Ly5ZVKmISsN3IhGLWYd0758XIiXx6YYOeazosCcxmb7RWPITtorGl87DPy4ds+UWq
- MS944fSN2oL9lcmwHl4R430gWQeQATOYm6ySgXONX819+8b0aQ27w+hy2d/X8QeMESKGfu1osKm2
- z/Bdw0WxPvopVqK+B3hjSiRP+JZcbkTFzNuDg9qhrek1VDTOXu3/5XoFh6RYK1/+a9o0ZH3bf8f8
- xcFeTwPmaNR5BFrITq53GE8UfvLOtVSfYvM2D2LXw9qhHVjuF0QV44wjOm4hi9B7sw5YCbsONrFQ
- WlQL6bayw8t26zvWPQFaoPrSpXmTFh32t1ZYEmdcjX8wYIo2PJ6ZWoal85B1uSKsQvqgKX57+mzi
- mzSSBDh/9T7i+I1Xis3FgAfjcrAC8tdf23eCIzSdDUG3JlDn+YPgrv/L9kYIY6/c3932aFiFp+4w
- 26sCeFNiLZt/QXQnOBRD+jq1HsIm8VQhYAy23VHBYHJQltbzHyxxk8Sjs3o9/k8nLBnptMQCOWuC
- bp8r+cerZqUKxFfVRXLKIImNTAr8iSBcPgsmF70Rz40u8PylAVmBlaDrHdDswAAELtTYsl4eOccq
- tK3P9P7Dwawiagy4cvFL3pjltGILrmkElozHQFHLOT6kywhk7Qhq1ru3jSBu1ukDxYBdCKDGFJnk
- 5eJFcFklVb9231/E3ahF5MMcDI7KdpjQKdEz/+/QkUVhwSqO+QS+xjCZ3JKVmi72ocgY5kMQSjs7
- CnU3Vkswnvz2sY575f5VZdC7A9EkfupFeybqiokSL/UoBa9Z74L1QD5u7fk/CB2ffOy/knOaqu9M
- jU02vQscbIqmk3QOioOvfgVRYRzDfnj2cyXvG6T1rC4we7GtQUEfyacFd6EvRr+eYRQHYqilFxY+
- C3NKVBiu9E09fH2QcWWDSTfRyaGsL+KZNwpYGCN6yCqJqJMY7uMzxq3+Ecx6Ww+vAj0HbLbveTIz
- fDDueIdjUxTaa0dmGx2m78JeU6J5dQk8TiQJh7U9utxWE7LPn/i77ggylKR9SqeqhKXDH+eNWKpN
- /SCgmrnf/Qc6DzUUPAlbDjazCbhs7qBpykynMlI8ehauFjA7dVMOTKcW5c6UnY64mAykh3LBvXwi
- LIjlrjIuKSKddsFYTaIZy4Zvun7pGU7uz9Qh2BYl/pOFic8JjqapLpwrwdUQz9MPWEmV3jR5NeVa
- JQBh0uawl0Cg8hPs+cRD5TJxNzOPadp3mtqXN3cCIyIm263/n4zqghav48Y+3YiJRbPwEKhVXmMF
- SH7pGU7uz9Qh2BYl/pOFic/qXKRF3uOx1VRdI9vLlOBy9jihx+Za/cV70jOJzN2r4A==
-X-Report-Abuse-To: spam@quarantine16.antispamcloud.com
-X-Complaints-To: abuse@master.antispamcloud.com
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAHS8izM5+CrZG77PxKpfG9k5kEWYMgN=uAuYvy21aabyztBt0w@mail.gmail.com>
 
-Add bindings for the Broadcom BCM2712 IOMMUs and their shared TLB cache.
+On 08/31, Mina Almasry wrote:
+> On Mon, Aug 31, 2026 at 11:35 AM Stanislav Fomichev
+> <sdf.kernel@gmail.com> wrote:
+> >
+> > Replace devmem's gen_pool based fixed-size allocator with a binding-level
+> > freelist similar to the one used by io_uring zero-copy receive.
+> >
+> > This is motivated by allocation latency observed in the NAPI receive path:
+> >
+> >   [ 1036.228913]  ? gen_pool_create+0x90/0x90
+> >   [ 1036.228915]  net_devmem_alloc_dmabuf+0x1f/0x60
+> >   [ 1036.228918]  mp_dmabuf_devmem_alloc_netmems+0x17/0x80
+> >   [ 1036.228920]  mlx5e_post_rx_mpwqes+0xdbe/0xdd0
+> >   [ 1036.228926]  mlx5e_napi_poll+0x113/0x830
+> >   [ 1036.228928]  ? sched_clock+0x5/0x10
+> >   [ 1036.228931]  ? wake_up_process+0x778/0x14b0
+> >   [ 1036.228933]  net_rx_action+0x15d/0x570
+> >   [ 1036.228934]  ? update_rq_clock+0x31/0x240
+> >   [ 1036.228937]  ? __napi_schedule+0x55/0xa0
+> >   [ 1036.228938]  ? mlx5_eq_comp_int+0x137/0x230
+> >   [ 1036.228940]  ? atomic_notifier_call_chain+0x36/0x90
+> >   [ 1036.228943]  ? sched_clock+0x5/0x10
+> >   [ 1036.228944]  ? sched_clock_cpu+0xc/0x170
+> >   [ 1036.228947]  irq_exit_rcu+0x12b/0x370
+> >   [ 1036.228950]  common_interrupt+0x85/0x90
+> >
+> > udmabuf can create a very large number of SG entries. In the worst case,
+> > devmem ends up adding one gen_pool chunk for each net_iov allocation
+> > unit backed by those entries. The gen_pool allocation path then has to
+> > traverse a linked list that can become too long for this hot path.
+> >
+> > Patch 1 removes the gen_pool and replaces it with a simple freelist of
+> > net_iov pointers protected by the same spin_lock_bh() pattern used by
+> > io_uring zcrx. Patch 2 removes the now-unnecessary chunk owner wrapper by
+> > embedding the net_iov_area directly in the dma-buf binding.
+> >
+> 
+> Oh boy, this is going to be a bit tricky.
+> 
+> I ran into this exact horrible perf bug (sorry for it in the first
+> place), but my solution was different. My solution [1] was to coalesce
+> the SG entries that are contigious (and they usually are in practice),
+> and I got 'acceptable' perf after that. Kaifeng is actually working on
+> cleaning up my hacky patch up to send it upstream now.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Daniel Drake <dan@reactivated.net>
----
- .../bindings/iommu/brcm,bcm2712-iommu.yaml         | 54 ++++++++++++++++++++++
- .../bindings/iommu/brcm,bcm2712-iommuc.yaml        | 40 ++++++++++++++++
- 2 files changed, 94 insertions(+)
+As you mention, coalescing might happen to work or it might not :-(
+I'd like us to have something that's less probabilistic.
 
-diff --git a/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommu.yaml b/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommu.yaml
-new file mode 100644
-index 000000000000..5ca8ce469ec3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommu.yaml
-@@ -0,0 +1,54 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iommu/brcm,bcm2712-iommu.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Broadcom BCM2712 IOMMU
-+
-+maintainers:
-+  - Daniel Drake <dan@reactivated.net>
-+  - Florian Fainelli <florian.fainelli@broadcom.com>
-+  - Jim Quinlan <james.quinlan@broadcom.com>
-+
-+description:
-+  The BCM2712 SoC features multiple independent IOMMU instances providing
-+  address translation for multimedia hardware blocks, such as the VC6 display
-+  pipeline, camera receivers, and ISP. Each IOMMU has its own page tables,
-+  control registers, and local TLB, and is additionally linked to a centralized
-+  L2 TLB (IOMMUC).
-+
-+properties:
-+  compatible:
-+    const: brcm,bcm2712-iommu
-+
-+  reg:
-+    maxItems: 1
-+
-+  '#iommu-cells':
-+    const: 0
-+
-+  brcm,iommu-cache:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description:
-+      Phandle to the shared IOMMU cache (IOMMUC). Each IOMMU instance caches
-+      translated descriptors in this centralized L2 TLB cache block and must
-+      trigger cache invalidation commands on it when updating or unmapping page
-+      table entries.
-+
-+required:
-+  - compatible
-+  - reg
-+  - '#iommu-cells'
-+  - brcm,iommu-cache
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    iommu@5200 {
-+        compatible = "brcm,bcm2712-iommu";
-+        reg = <0x5200 0x80>;
-+        brcm,iommu-cache = <&iommuc>;
-+        #iommu-cells = <0>;
-+    };
-diff --git a/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommuc.yaml b/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommuc.yaml
-new file mode 100644
-index 000000000000..47c584ad667a
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iommu/brcm,bcm2712-iommuc.yaml
-@@ -0,0 +1,40 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/iommu/brcm,bcm2712-iommuc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Broadcom BCM2712 Shared IOMMU Cache (IOMMUC)
-+
-+maintainers:
-+  - Daniel Drake <dan@reactivated.net>
-+  - Florian Fainelli <florian.fainelli@broadcom.com>
-+  - Jim Quinlan <james.quinlan@broadcom.com>
-+
-+description:
-+  The BCM2712 IOMMUC is a centralized Translation Lookaside Buffer (TLB) cache
-+  which accelerates address translation across the SoC's IOMMU devices. If an
-+  address mapping is not found in the IOMMU's local TLB cache, then this
-+  IOMMUC is consulted as a L2 TLB. The SoC includes a single IOMMUC which is
-+  shared between all IOMMUs, and it must be explicitly invalidated when
-+  modifying or unmapping IOMMU page tables.
-+
-+properties:
-+  compatible:
-+    const: brcm,bcm2712-iommuc
-+
-+  reg:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - reg
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    iommuc@5b00 {
-+        compatible = "brcm,bcm2712-iommuc";
-+        reg = <0x5b00 0x80>;
-+    };
+> Now I don't know which approach is better. Thinking about the pros and
+> cons of your approach:
+> 
+> + your approach is much simpler, and removes gen_pool overheads for a
+> single queue case. It should be (much?) faster for that case.
+> - your approach adds a lock and allocations from multiple queues in
+> parallel will contend on this lock. There should be some value of # of
+> queues N where your approach starts to completely trash. gen_pool is
+> lockless so I wouldn't expect it to degrade significantly in the
+> multi-queue case.
+> 
+> The question for me is what the performance is for a real use case
+> (NCCL all-to-all for example) over a realistic number of shared queues
+> (it's 4-8 for me). I need that perf data to be honest before judging
+> this.
+> 
+> The io_uring zcrx comparision is not completely valid. io_uring zcrx
+> is built from the ground up to be one-buffer-is-bound-to-one-rx-queue,
+> and devmem tcp is built from the ground up to be
+> one-buffer-can-be-bound-to-N-rx-queues.
 
--- 
-2.55.0
+What if we add batching similar to io_pp_zc_alloc_netmems? So we don't
+have to spin lock on every netmem (and move PP_ALLOC_CACHE_REFILL-worth
+of chunks). Untested, on top of this series:
 
+
+diff --git a/net/core/devmem.c b/net/core/devmem.c
+index 84d6c30516c8..5a1c996ba515 100644
+--- a/net/core/devmem.c
++++ b/net/core/devmem.c
+@@ -58,25 +58,25 @@ void __net_devmem_dmabuf_binding_free(struct work_struct *wq)
+ 	kfree(binding);
+ }
+ 
+-struct net_iov *
+-net_devmem_alloc_dmabuf(struct net_devmem_dmabuf_binding *binding)
++static unsigned int
++net_devmem_alloc_dmabuf_bulk(struct net_devmem_dmabuf_binding *binding,
++			     netmem_ref *netmems, unsigned int count)
+ {
+-	struct net_iov *niov;
++	unsigned int i;
++
+ 	spin_lock_bh(&binding->freelist_lock);
+-	if (unlikely(!binding->free_count)) {
+-		spin_unlock_bh(&binding->freelist_lock);
+-		return NULL;
++
++	count = min_t(size_t, count, binding->free_count);
++	for (i = 0; i < count; i++) {
++		struct net_iov *niov = binding->freelist[--binding->free_count];
++
++		binding->freelist[binding->free_count] = NULL;
++		netmems[i] = net_iov_to_netmem(niov);
+ 	}
+ 
+-	niov = binding->freelist[--binding->free_count];
+-	binding->freelist[binding->free_count] = NULL;
+ 	spin_unlock_bh(&binding->freelist_lock);
+ 
+-	niov->desc.pp_magic = 0;
+-	niov->desc.pp = NULL;
+-	atomic_long_set(&niov->desc.pp_ref_count, 0);
+-
+-	return niov;
++	return count;
+ }
+ 
+ void net_devmem_free_dmabuf(struct net_iov *niov)
+@@ -433,20 +433,35 @@ int mp_dmabuf_devmem_init(struct page_pool *pool)
+ netmem_ref mp_dmabuf_devmem_alloc_netmems(struct page_pool *pool, gfp_t gfp)
+ {
+ 	struct net_devmem_dmabuf_binding *binding = pool->mp_priv;
+-	struct net_iov *niov;
+-	netmem_ref netmem;
++	netmem_ref *netmems = pool->alloc.cache;
++	unsigned int allocated, i;
++
++	if (WARN_ON_ONCE(pool->alloc.count))
++		return 0;
+ 
+-	niov = net_devmem_alloc_dmabuf(binding);
+-	if (!niov)
++	allocated = net_devmem_alloc_dmabuf_bulk(binding, netmems,
++						 PP_ALLOC_CACHE_REFILL);
++	if (unlikely(!allocated))
+ 		return 0;
+ 
+-	netmem = net_iov_to_netmem(niov);
++	for (i = 0; i < allocated; i++) {
++		struct net_iov *niov = netmem_to_net_iov(netmems[i]);
+ 
+-	page_pool_set_pp_info(pool, netmem);
++		niov->desc.pp_magic = 0;
++		niov->desc.pp = NULL;
++		atomic_long_set(&niov->desc.pp_ref_count, 0);
++
++		page_pool_set_pp_info(pool, netmems[i]);
++
++		pool->pages_state_hold_cnt++;
++		trace_page_pool_state_hold(pool, netmems[i],
++					   pool->pages_state_hold_cnt);
++	}
+ 
+-	pool->pages_state_hold_cnt++;
+-	trace_page_pool_state_hold(pool, netmem, pool->pages_state_hold_cnt);
+-	return netmem;
++	/* Return the last one, the rest stay in the page_pool cache. */
++	allocated--;
++	pool->alloc.count = allocated;
++	return netmems[allocated];
+ }
+ 
+ void mp_dmabuf_devmem_destroy(struct page_pool *pool)
+diff --git a/net/core/devmem.h b/net/core/devmem.h
+index 20a3eb90ea7f..7195769b8bd1 100644
+--- a/net/core/devmem.h
++++ b/net/core/devmem.h
+@@ -133,8 +133,6 @@ net_devmem_dmabuf_binding_put(struct net_devmem_dmabuf_binding *binding)
+ void net_devmem_get_net_iov(struct net_iov *niov);
+ void net_devmem_put_net_iov(struct net_iov *niov);
+ 
+-struct net_iov *
+-net_devmem_alloc_dmabuf(struct net_devmem_dmabuf_binding *binding);
+ void net_devmem_free_dmabuf(struct net_iov *ppiov);
+ 
+ 
+@@ -191,12 +189,6 @@ net_devmem_bind_dmabuf_to_queue(struct net_device *dev, u32 rxq_idx,
+ 	return -EOPNOTSUPP;
+ }
+ 
+-static inline struct net_iov *
+-net_devmem_alloc_dmabuf(struct net_devmem_dmabuf_binding *binding)
+-{
+-	return NULL;
+-}
+-
+ static inline void net_devmem_free_dmabuf(struct net_iov *ppiov)
+ {
+ }
+
+
+> Are you able to get NCCL all-to-all tests for N=4/8 yourself?
+> Otherwise please wait for me to backport this to my release kernel and
+> test it. ETA sometime this week, I hope.
+
+I can definitely wait for you to access the perf impact on your side. Wonder
+if we need to have a selftest to do that properly in NIPA. Doesn't have to
+be a red/green signal, but some number for humans to compare
+before-after (specifically this bind one dmabuf to multiple queues and pass
+a lot of traffic). I can probably sketch something..
