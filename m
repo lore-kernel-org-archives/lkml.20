@@ -1,84 +1,165 @@
-Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9905F44BC92;
-	Wed,  2 Sep 2026 11:00:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.178.249
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EB75377011
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:01:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788346829; cv=none; b=Hdp54jkwnnni+QHzrgw0DdJyrpclqccuukZie1z9Khwb1z01Qfv66cCg4TVBjJhUkygZirk8i3zvHXfzIxzqVkux2bYfhY+pOyhPF5ZXMetFHU5Qr/G6Wwx5/KBPjTDFeKioFDLR22Ugb4ctgXBFEPVlpr97URtK1VklcXfky/I=
+	t=1788346917; cv=none; b=t5DYpF75Pvhk7qydVZddr0vC7G8L2etN0ViN0qqiQEMV5DWJG2+isv4bBtTSuu7UB8NDvz4GveV7jUo53Qvizss54hB3IHfCPuqgOERw1TgaHANCyr0PQSur7Q51sJ0tmmlHy4d4VqLb5EbiD0Ey6HX0Q8bVXj8obXG1Bw7FnsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788346829; c=relaxed/simple;
-	bh=CN1unyH/hIb+Y8YiaPvwEJCnakyQmFPwizdxVbaRSV0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ALOt+M3PI2G0Fb3wksJpEBfiwWl3QSRVcb//D2ARmpMKNR+7/kjyCXHd6pQ7BuWRcMzcs1rkZnD+nJPzQMnvoTh4ZdASZqj5tJASe02I6TNZmsyjYoOE6jYn7K0YRKBAIHJfBskboWv3lPAnZFDWgMf4mVaTIPdOWYJ4IXbLL10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io; spf=pass smtp.mailfrom=gtucker.io; dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b=HsrqOuKS; arc=none smtp.client-ip=217.70.178.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gtucker.io
+	s=arc-20240116; t=1788346917; c=relaxed/simple;
+	bh=P4tTzOwe9RdY9+G+XtbZm/9HF/zg96Akx4Mdzhc6MuI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g9gAd1nXw0YvpYK/s5RWMocLaccHJcBTaWCkv52KXumtIFmcakBcIIem7FPMQjgXbwsHeP8ogCa2v6J1S73YRnn3IAhxRgFA2z2ETxFnANlbgJY7Sq97Li9j/iUMxfzUFdvE3xhmygdTxgw5kfgmNtqtrJ/qUiFLMQwTsfujguk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FS/mRdjS; arc=none smtp.client-ip=209.85.167.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b="HsrqOuKS"
-Received: from relay8-d.mail.gandi.net (relay8-d.mail.gandi.net [217.70.183.201])
-	by mslow3.mail.gandi.net (Postfix) with ESMTP id 1CBE7583620;
-	Wed,  2 Sep 2026 09:37:42 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 9E9CC3EC34;
-	Wed,  2 Sep 2026 09:37:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gtucker.io; s=gm1;
-	t=1788341854;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G1+QrDuN7d/J1hIpiEah3cLGmlih4zk6g8I3G9jEmS8=;
-	b=HsrqOuKSjlK+/HVReCnOiiq8ptX1fxavY6kKvmZ2cjQmNHFaFwhcAGvD9+aoIYmevL1qrd
-	GyAVnH1ahdFnWBEpX9kH6dSO7OhIPOWy/lD1fXUpbVkjLHyOgpQUpzYvItYKW+tQOLNa6G
-	PFjXri2X8VdlBrAf1OwpMcXlCKLvoB3wwq5l99Z1cZXcyRDKrY08CzXyp1lbxTGwUVs6Tp
-	FFPPqL8zR1o4kBVo2rm22VnSDFDeX0OkoZuyltrn2a+NlwQ6BAdwctkN9zgiAFKcfKSGV8
-	1ya7SD2rwB4aGfMD612BSX2nPUTCxwoPaM3QKplUnR556/k8hpNdH3jAYUbuFg==
-Message-ID: <f90aa8e8-abc4-477f-ab52-839e42eadf70@gtucker.io>
-Date: Wed, 2 Sep 2026 11:37:32 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FS/mRdjS"
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b6036e9c70so791523e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:01:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788346913; x=1788951713; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=MsJAUkYPcrI81+ZTJ2fux+QPTEZOfMVHD7vmgI0FX+Y=;
+        b=FS/mRdjSr3M57M5x5sO7Kysc2M+ZiS8GDnTEcSIW/vyGSLnBb4mY2rGBuZp0eVz6dv
+         K17JU6rT6uFgMawNN0USiUrtSm7Gbev2DKvdFcHILPOxScte4NdGXwy2ykNVv/DhiU3O
+         v+ChL3fX79DXrTfrESw5Yj8NlNw9maxYZwAinzznCCE9RTihnFW9J+D6Eks6GJOXL6Pd
+         KAdUj82xCfSeidlDS1dawihC90Tdngn2Klkj4G0Ce5gIHNYxVqeXZIstYMBqOepQx0wB
+         vpmg/tlq+Dd7IG+MEPObaFtbvwj/AfgKt/1xM9IZ67mnysMx6CS7XTdGa9NnYPUo2Oy0
+         Pquw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788346913; x=1788951713;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MsJAUkYPcrI81+ZTJ2fux+QPTEZOfMVHD7vmgI0FX+Y=;
+        b=m5sIxFY8WexxC326ljnbabOpJM7XVvLoAuvEEs16Zlcd3fVsEgHsWc7RuPhBwHQzZE
+         x2x0uhhzArMdlihruj/BDeWFrA8CzFYKDjQQIRbXePaOxeRO66e+P33240N/XEQtC+Gr
+         uhauT41GETqX9KrrQmQAxcMiBTzST7juNzIwSmb2tdfqLCT3lVDreq0NOjYDiTlEUJ8k
+         5/JA8oupZM41AREnFO1ZLNxmmoURw/3ejO9MhMHR0nS5V3zMtWNBCUGY2gM7blCZgs8U
+         dZeba7MVZ/PFIRt7xVhoRj4WaxUiDiHAx4T2EDleMH/dvOTp7C5D/myHYqW/KZPgaoGa
+         McmQ==
+X-Forwarded-Encrypted: i=1; AKwUvByp0LQLgX/LXCBf9WTr0eyyRjCB/iA+u+mLCmcMs3Oaph5aEOVrAbvh6jK6Ds0ptdGB7/YEoaL3Tia1N7U=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5TFRad9vHdNVKRyZSei5yPFBw5Ql5i8zs1lUtLLkG3ibFL4Xh
+	2IgoyNVZbp22tsVObECl85Z/eBvlKGKZNZYufJCxdJ3xwxFPnxj7fNcjGVRCrnn8
+X-Gm-Gg: AYBFou1/S6Q/tnfM8jmY+aA5CybpZ4yLwi2D55S8PaxmdZJCr9bLpZjH+3rFSgyNQY/
+	ppR+LhEDzMNjtPvENJm2UdxQ7Q7oi9DsBI3N+74iAqe1e+sCYc4xIVGEHslh+uBdTC6kdbFKLeH
+	1Lhp8xmi1yl1fZF39E1XkpcwHLX8/4s1stNaul9aQ+oMqoLLnkMu/bU86z0oWmlclZTvXDNbNTQ
+	baZa6TJV4HBIvoL312SH400OHw3KafC+FmHab+dshAZutiMPMxeixqHmlvh1K6WDuRVrEV/YK59
+	9llV2oncYmNrbyhkXXR/sKwv/mkmOqalhSZtiYbgwDcUH/i0fTeo1fH9z+mdXbRRtlZ/Wuv5iij
+	b5kuylnjmj5Hsu6pj0pK2ecTkduoY5aJ8q6GX8WzNJBe5NXMg/uGW5uOi4Zxl482e6BB3ZeQ5Do
+	m6++n6wKSBjug1T4J9B0aY8C5heLKyrsADtw==
+X-Received: by 2002:a05:6512:1319:b0:5b4:fdc3:d3f1 with SMTP id 2adb3069b0e04-5b6086949edmr1155610e87.18.1788346913292;
+        Wed, 02 Sep 2026 04:01:53 -0700 (PDT)
+Received: from elende (elende.valinor.li. [2a01:4f9:6a:1c47::2])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b606ba1481sm508702e87.61.2026.09.02.04.01.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 04:01:51 -0700 (PDT)
+Sender: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
+Date: Wed, 2 Sep 2026 13:01:51 +0200
+From: Salvatore Bonaccorso <carnil@debian.org>
+To: Michal Koutn?? <mkoutny@suse.com>, 1144314@bugs.debian.org
+Cc: Noah Elias Feldt <N.Feldt@mittwald.de>, Tejun Heo <tj@kernel.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Dan Schatzberg <dschatzberg@meta.com>,
+	Peter Zijlstra <peterz@infradead.org>, cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: Bug#1144314: refcount_t: addition on 0; use-after-free,
+ regression from 260fbcb92bbe ("cgroup: Move dying_tasks cleanup from
+ cgroup_task_release() to cgroup_task_free()")
+Message-ID: <apgCH7zgmygyWl7g@lorien.valinor.li>
+References: <FR6P281MB6118B1A758F3278BC9BA795AF0DB2@FR6P281MB6118.DEUP281.PROD.OUTLOOK.COM>
+ <178682274912.1759826.11422695267451330087@eldamar.lan>
+ <FR6P281MB6118B1A758F3278BC9BA795AF0DB2@FR6P281MB6118.DEUP281.PROD.OUTLOOK.COM>
+ <aoh7Kbt_WbUcfUxh@localhost.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/3] Documentation: dev-tools: update container.rst
- with config file
-To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>
-Cc: =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Nick Desaulniers <ndesaulniers@google.com>, Miguel Ojeda <ojeda@kernel.org>,
- linux-doc@vger.kernel.org, workflows@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-kbuild@vger.kernel.org,
- kernelci@lists.linux.dev, automated-testing@lists.yoctoproject.org
-References: <570dac1c8d7a2befb5578cdd8a2ed63b3769c4c8.1788340031.git.gtucker@gtucker.io>
- <adc9eeb418f026ba2b18c4b2aa1e52443bf6f210.1788340031.git.gtucker@gtucker.io>
-Content-Language: en-GB
-From: Guillaume Tucker <gtucker@gtucker.io>
-Organization: gtucker.io
-In-Reply-To: <adc9eeb418f026ba2b18c4b2aa1e52443bf6f210.1788340031.git.gtucker@gtucker.io>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-GND-Sasl: gtucker@gtucker.io
-X-GND-Cause: dmFkZTF9QjDxzIdrhTfD1WLDC2OkkzEhLpazCn/BC9x7TeIdF79s9sf4dKq1Asdkp0WYf4CviRn4UsoJdKkBWavV87Jvp2QSFU8TM3I3AeLJEl0u1IvNe9lYJsHepNnyTb/Cm1G5YCw7fJRMrqPk72ltvTJsURd5ummtwW6uZiFlUGd0adhnwWc5oL8raOL4ND1K3wwWFhE0/UfdoqWI7aFUEXG+HcjQuSZvG0LryZC5KN/pCn5x4TnAb/9bqTASmJsG0lOFbqRF2EdPlL9Jn2MDJWCeDQIiFvRa7i13mczooTnN6cr6saq61Q0C5P/7X+xnDBZ8zu0SQT9VV5nY2Drmpfu2RPuRWQxje5+roogoeIB5cPAzh5ecLBipDd6Xw0xiavZdd+qnIaNbKIGGXJmoulsDFOTEVbOv9HapQEbDJ0kM++GJyZTouHPwk9k4nV4VfWZJm9n7OYRxPgtxMGV284ldydigaaVgQ9W9oujb6bxXXG1YCWk44wiHkEJG0yOrsRPiftJYA0Uqzk8udb0jYfiAkLg7xWWRvoEHNIz9Gg1ji62gKjb+5Hez2LpRkZQg8BGU2hF3WnX5F1ZsaMF4T8ZydZAHcjpiS1M9lIBDnakW5+Jv76WZeWzraliacqf0j2QsQWMRTMB2N3U24Aw3aeNyNz0tYu4ig+v+IxE1KeJ+yA
-X-GND-State: clean
-X-GND-Score: -100
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aoh7Kbt_WbUcfUxh@localhost.localdomain>
 
-On 02/09/2026 11:07, Guillaume Tucker wrote:
->  ``-r, --runtime RUNTIME``
->  
->      Container runtime name.  Supported runtimes: ``docker``, ``podman``.
-> @@ -53,8 +63,8 @@ Available options:
->  
->      User id to use inside the container.
->  
-> -    If the ``-g`` option is not specified, the user id will also be used for
-> -    the group id.
-> +    If the ``-g`` option is not specified and no group id is defined in the
-> +    configuration file, the user id will also be set as the group id.
+Hi Michal,
 
-This chunk didn't apply cleanly on top of v7.2 so I've resent the
-series after a rebase on v7.3-rc1.  The rebase was trivial though.
+On Fri, Aug 21, 2026 at 06:59:26PM +0200, Michal Koutn?? wrote:
+> Hi Salvatore,
+> 
+> thanks for the nice report and sorry for not so prompt response.
+> 
+> On Sat, Aug 15, 2026 at 09:41:14PM +0200, Salvatore Bonaccorso <carnil@debian.org> wrote:
+> > With an additional reproducer provided by Noah, I could bisect the
+> > change down to 
+> 
+> Good job.
+> 
+> > 
+> > 	commit 260fbcb92bbeacfcd050410fdc2d24ab15044400
+> > 	Author: Tejun Heo <tj@kernel.org>
+> > 	Date:   Tue Oct 28 20:19:16 2025 -1000
+> > 
+> > 	    cgroup: Move dying_tasks cleanup from cgroup_task_release() to cgroup_task_free()
+> > 
+> > 	    Currently, cgroup_task_exit() adds thread group leaders with live member
+> > 	    threads to their css_set's dying_tasks list (so cgroup.procs iteration can
+> > 	    still see the leader), and cgroup_task_release() later removes them with
+> > 	    list_del_init(&task->cg_list).
+> > 
+> > 	    An upcoming patch will defer the dying_tasks list addition, moving it from
+> > 	    cgroup_task_exit() (called from do_exit()) to a new function called from
+> > 	    finish_task_switch(). However, release_task() (which calls
+> > 	    cgroup_task_release()) can run either before or after finish_task_switch(),
+> > 	    creating a race where cgroup_task_release() might try to remove the task from
+> > 	    dying_tasks before or while it's being added.
+> > 
+> > 	    Move the list_del_init() from cgroup_task_release() to cgroup_task_free() to
+> > 	    fix this race. cgroup_task_free() runs from __put_task_struct(), which is
+> > 	    always after both paths, making the cleanup safe.
+> > 
+> > 	    Cc: Dan Schatzberg <dschatzberg@meta.com>
+> > 	    Cc: Peter Zijlstra <peterz@infradead.org>
+> > 	    Signed-off-by: Tejun Heo <tj@kernel.org>
+> > 
+> > But there was the suspect that the matching commit might be
+> > d245698d727a ("cgroup: Defer task cgroup unlink until after the task
+> > is done switching out").
+> 
+> I see that after 260fbcb92bbea ("cgroup: Move dying_tasks cleanup from
+> cgroup_task_release() to cgroup_task_free()") it may be possible that
+> tasks on the dying_tasks list may drop their ->usage to zero (since the
+> actual unlinking only happens in __put_task_struct).
+> Most often those would be skipped due to PF_EXITING except for the case
+> of thread group leaders (which the reproducer stresses) whose refcount
+> apparently can drop to zero after task->signal->live > 0 made them
+> iterable :-/
+> 
+> A band-aid fix could be to use tryget_task_struct() in
+> css_task_iter_next() (I got that hint from a LLM) and "skip" zeroed
+> tasks. I see that commit fbe3fb103596b ("sched_ext: Replace
+> tryget_task_struct() with get_task_struct()"), assumes the iterator
+> always succeeds in obtaining the task reference (which was the
+> justification of tryget removal). I expect that sched_ext should still
+> be fine if dying_tasks with zero references are skipped. (What are they?
+> Tasks which literally no one should be interested in and they're only
+> waiting for __put_task_struct_rcu_cb() to be called [*]).
+> 
+> (I'm calling that band-aid because it'd resurrect usage of
+> tryget_task_struct() and it keeps the dying_tasks list a weird place to
+> be. If anyone has a better idea?)
+> 
+> The commit d245698d727a ("cgroup: Defer task cgroup unlink until after
+> the task is done switching out") seems a reasonable separation of the
+> stages to me.
 
-Guillaume
+Thanks a lot for looking into this problem. Is there something Noah or
+I could test? 
 
+Regards,
+Salvatore
