@@ -1,73 +1,144 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA5223769EC;
-	Wed,  2 Sep 2026 08:38:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DEA13EC812;
+	Wed,  2 Sep 2026 08:38:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.14.17.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788338317; cv=none; b=cJ36xMJA5DF+SzFv7YmA7pgI1nb7UaQ5hRuqg/irgIl83YXSxY5gNkMFBkD2oIZKm5nuTSm82G25/Y7HYhdgCWzPtC+xSp8rwIwMCB1ZeOXI6nuhQjKt8aKFiDMmylpQsBFfvIl+g+yBZxLlpCUQwSb85yy1Tn6Jy2WScNxwDh8=
+	t=1788338340; cv=none; b=AkziPatJ4ktbQe2ucetkLkkzympdBVn5U2EwagFns8Jdk6jdtDCX6wl963PdWEcoNWaIMC6DAuTgoGWCCaCzd7K73BcFqmCPnWyGlt8fUaOv1gXixmQJMFUfqQ7oV3XMVwyUAb5K0vjfNBvA1TtZ/Oz7ETzc9Y/GK1PgjqR7D+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788338317; c=relaxed/simple;
-	bh=lPJYlzyokiTQSjXVgfakt3zZOMcexHQ+9rv8f9bKPkI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S9CINyAdfi/PV6qspvs/j/XUKsO+KdwqjUhoQupsfdHQ4ji0zphp3Ner5In4xvCg1mIaAO95ldDuzkJ5IcmVzAbU1mFcjQjRL4ppNKIXmoDdR8g21qknNBwzPOKQCTna6ueBlOkspHOUj3JCFbZJxYrVwyhMKb5yechL5A4xePA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=IrNGfo1m; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="IrNGfo1m"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=IUGtGzF98psluIMwFKKhWZ1F2aTDu/oFCty2F4RSaRc=; 
-	b=IrNGfo1msBTd2jJSmtp6stKWgZPmtFNohA21TwwxaLT06/OMEH5Nz/liCs95wvhXyjXnM0zrRHi
-	14t2qAjv3b1o74RNHx4CHsQXt0P+pmqdA+cKksMIHpFM8JjU9H+2VFczthuZmlrEV2rl/QOOCiZ3t
-	VJD2En1G9lJihZ8isAEoRtj9xPAU03G74NPuM2EE/7ubO5Rt2BdlFBluXwxotvOIaJoCVhRu3Gv4N
-	82hZ+q/1rUBqontM+XFgWOQYlP7skUB3+8KfbUliswb7ok3D7kb8+2qSssX9Wy8YOiwDPUplRzOyo
-	hbcu2rzafGHt/GSk+y9yRxdtCfTkaylK6uLA==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x1gUH-0000000A14t-0vh0;
-	Wed, 02 Sep 2026 16:38:30 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 02 Sep 2026 18:38:29 +1000
-Date: Wed, 2 Sep 2026 18:38:29 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	x86@kernel.org, stable@vger.kernel.org,
-	Taehee Yoo <ap420073@gmail.com>
-Subject: Re: [PATCH RESEND] crypto: x86/aria - add missing vzeroupper in AVX2
- code
-Message-ID: <apfghSk4CWshYcUF@gondor.apana.org.au>
-References: <20260831211715.213121-1-ebiggers@kernel.org>
+	s=arc-20240116; t=1788338340; c=relaxed/simple;
+	bh=WfxBg7Bf+HiTB6ngMWEXZD7Yr7SeHQb+UIJiTi0yjnE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=i82AMTQRR9DdQlr/QNXdeEwzehvVlsBqk71x1pte4soWRZfbFjpyNPQektFIZKjGucWN3E34FKdQGSIk49VRCUk1OSDXAEgugDJ3/WsWbzqcRRg70cJuXrlQbebozDnKfKo/fAaRDgMRZem26BFljjSqRrvwm19vcmu39q1ImVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de; spf=pass smtp.mailfrom=molgen.mpg.de; arc=none smtp.client-ip=141.14.17.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=molgen.mpg.de
+Received: from [192.168.44.42] (unknown [185.238.219.109])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: pmenzel)
+	by mx.molgen.mpg.de (Postfix) with ESMTPSA id 776B34C2C37D64;
+	Wed, 02 Sep 2026 10:38:27 +0200 (CEST)
+Message-ID: <369afb50-3582-483b-89ea-f9b1a7259a4f@molgen.mpg.de>
+Date: Wed, 2 Sep 2026 10:38:23 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831211715.213121-1-ebiggers@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Bluetooth: btintel_pcie: fix stale cache in set_dxstate
+ fallback check
+To: Sergey Lebedev <lsa.uz@pm.me>
+Cc: "Vladimir V . Kondratyev" <vladimirkondratyev2@gmail.com>,
+ Marcel Holtmann <marcel@holtmann.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
+ Kiran K <kiran.k@intel.com>, linux-bluetooth@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260507203426.128975-1-vladimirkondratyev2@gmail.com>
+ <20260901203818.112189-2-vladimirkondratyev2@gmail.com>
+ <d633b7ee-0afa-4fa1-8340-3d7616f429d2@molgen.mpg.de>
+ <20260902072417.30260-1-lsa.uz@pm.me>
+Content-Language: en-US
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <20260902072417.30260-1-lsa.uz@pm.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 02:17:15PM -0700, Eric Biggers wrote:
-> Since the AVX2 optimized ARIA code uses YMM registers, execute
-> vzeroupper before returning from it.  This is needed to avoid degrading
-> the performance of any later SSE code that may happen to be executed.
+Dear Sergey,
+
+
+Thank you for your immediate response.
+
+Am 02.09.26 um 09:24 schrieb Sergey Lebedev:
+
+> Two of your three points I can answer from the hardware, since the
+> Tested-by on this patch is mine.
 > 
-> Fixes: 37d8d3ae7a58 ("crypto: x86/aria - implement aria-avx2")
-> Cc: stable@vger.kernel.org
-> Cc: Taehee Yoo <ap420073@gmail.com>
-> Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-> ---
+>> Can you reproduce this on real hardware?
 > 
-> This didn't get picked up by the x86 maintainers yet.  Herbert, can you
-> take this through the crypto tree?
+> Yes. Surface Pro 11 (Intel, Lunar Lake), Intel BE201, 8086:a876 rev 10.
+> It first appeared in ordinary use, not in a test:
+> 
+>    Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry, retry count 0
+>    Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry, retry count 1
+>    Bluetooth: hci0: Timeout (200 ms) on alive interrupt for D2 entry, retry count 2
+>    btintel_pcie 0000:00:14.7: PM: pci_pm_suspend(): btintel_pcie_suspend returns -16
+>    PM: Some devices failed to suspend, or early wake event detected
+> 
+> One device returning -EBUSY aborts the whole system suspend, so the
+> machine does not sleep at all.
+> 
+> I have to be honest about the rate rather than useful: it failed on 2 of
+> the 3 suspends I attempted before installing a workaround, and later, on
+> a newer kernel with the workaround removed, it succeeded 7 times out of 7
+> with no btintel_pcie change in between. So the spontaneous failure is not
+> something I can produce on demand.
+> 
+> What I could do was exercise the exact path deterministically. I built
+> the driver out of tree with one debug-only parameter that returns from
+> btintel_pcie_msix_gp0_handler() before the boot_stage_cache refresh, and
+> only while alive_intr_ctxt is BTINTEL_PCIE_D0. That leaves the cache
+> stale and gp0_received false — precisely the state a genuinely missed
+> alive interrupt leaves behind — while the controller still reaches D3.
+> 
+> Without the patch, that reproduces the production failure exactly: three
+> timeouts, -EBUSY, suspend aborted. With the patch and nothing else
+> changed: one timeout, the re-read observes D3, set_dxstate() returns 0,
+> and the system suspends and resumes normally.
+> 
+> Full method and logs are in my earlier message on this thread,
+> Message-ID <20260830151550.44687-1-lsa.uz@pm.me>.
 
-OK I could do that.  I presume you want this to go into 7.3, right?
+It’d be great if the thread could be referenced via Link: tag, and also 
+the problem summarized in the commit message including the log messages.
 
-Cheers,
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+>> To me it sounds strange, that a register name *boot stage* should
+>> change after the boot. ;-)
+> 
+> It is a fair reaction to the name, but the register genuinely carries
+> live power state. From the driver's own header:
+> 
+>    #define BTINTEL_PCIE_CSR_BOOT_STAGE_D3_STATE_READY  (BIT(24))
+> 
+> and both helpers test that one bit and nothing else:
+> 
+>    static bool btintel_pcie_in_d3(struct btintel_pcie_data *data)
+>    {
+>        return data->boot_stage_cache & BTINTEL_PCIE_CSR_BOOT_STAGE_D3_STATE_READY;
+>    }
+> 
+>    static bool btintel_pcie_in_d0(struct btintel_pcie_data *data)
+>    {
+>        return !(data->boot_stage_cache & BTINTEL_PCIE_CSR_BOOT_STAGE_D3_STATE_READY);
+>    }
+> 
+> So bit 24 is updated by the controller on every D-state transition, long
+> after boot. The name describes the register's original purpose rather
+> than everything Intel later put in it. btintel_pcie_resume() already
+> re-reads it for exactly this reason, which is what makes the patch's
+> change consistent rather than novel.
+
+Maybe a comment could be added above the macro definition.
+
+> The re-flow is Vladimir's call and I have no opinion on it. If a v3 comes
+> out of this, I still have the hardware and the test fixture and will
+> re-run both halves against it.
+
+Awesome.
+
+Also note, gemini/gemini-3.1-pro-preview found the same issue in a 
+different review [1].
+
+
+Kind regards,
+
+Paul
+
+
+[1]: 
+https://sashiko.dev/#/patchset/20260902042840.2432862-1-ravindra%40intel.com
