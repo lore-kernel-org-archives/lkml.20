@@ -1,106 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D13B1282F1F;
-	Wed,  2 Sep 2026 04:19:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D87C1DE4EF;
+	Wed,  2 Sep 2026 04:19:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788322748; cv=none; b=USHAEyca8t4SBpA6DpyV7Dwu1mV+cQGfe5/GyKV/o1yomOMV0Xaa3lAabc+AJi+wX+bL0M2azB4y6B1U8WE/h/+XKbVgeZFERKLMt4FTyaOh/52aYWsOxaifwgkRU7f+Zd+vqhCMHqjnmA93O4MgxwGNh83Z9FDIOfhyFiuIiLo=
+	t=1788322792; cv=none; b=emwabclZ6j5JLmVMbebYvRgmLiCR1v71sTkaqNEMi2i8vPId11q7X5Q4KR4x25X2L0AXXiGBxTuIsRcccI019e9rmqOyQ9VQQcRTpz3BRrshWJzMvF3Q9EZvn969T5u5TxTarpWlf8aDLur7M7VFrZ+HxwyCeQPEIU6d2eKiVvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788322748; c=relaxed/simple;
-	bh=5V/z/Eq8Rg2OiBdCmsA9M9wG3jYJRudSZaq9q9mBzC0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t6WITDamvZ/6i+O8iwBh63sYsoaUI91mJE4WZWmLyHTcmC8k+bb5dSdjtaagsCwguShjNVdmV+pfFrDpmeV2HgA4mXsRa7l+XCdwMOKvzxeMNRCmoypmSBYkJCqogO32O2syMCQQ9gBtG11L1L6MFyCvLwOTVdjGUdmAZ0Vn9ow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zzzt1f9D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788322792; c=relaxed/simple;
+	bh=vTPYNFKV9KbRTjpEy4wwve68i1PriU1bKEMxFUdKTUY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=XUfNCfIqp1RBx3MW1RYldJHWzjthpMwwTH4cXGbkaYLWYl/6C/h5FXUzAFuzGidocHhG1ZtA30M+0cUowYkMU46f5fUvg4Uehwfv+CtCoRQygKwXaYYq/V9XSZ41ZbqNuQ7TsrN/Cekl/lvvhN+/WpVsiC/X47OMpK8IarUsjmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=IB1YS0jX; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zzzt1f9D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84B1A1F000E9;
-	Wed,  2 Sep 2026 04:18:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788322745;
-	bh=43iYBd+5tkBDbCmBuYzijZla7qQPqLGtI/WeTFqT7iY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Zzzt1f9DAyv6cX+5revKYxP0iKU1GMsyF+WqyOiJJfw4HO63HHnyvop1Xi473zRNH
-	 5IH3H3WUyW8fUUc6Xhpo2bYOb041oJWG/v/zxO8firAifnSAjZfp8Rc50rUSHD2lCc
-	 kLtvGfDK4vCxfomPFpezg1oF+GEb8cbxsjwL9rfXArJJT91CCusvHnXsKxaEzoUIlA
-	 q1uGfV4StuTb5t1Uj0485XpcoYiNpIY9nZmxFHJ4trxhtxKk5R7xzr8s3ZeSqOuAlB
-	 Hp4WyaJDa796rHz+KEQ3KZ7sfH9pQvziy6ylWwHLy0qOQsyIBYiBeIb4gvE8YaLIak
-	 mNxrBkjeiLX8g==
-Date: Wed, 2 Sep 2026 07:18:56 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Li Zhe <lizhe.67@bytedance.com>
-Cc: akpm@linux-foundation.org, apopple@nvidia.com, arnd@arndb.de,
-	balbirs@nvidia.com, bp@alien8.de, dave.hansen@linux.intel.com,
-	david@kernel.org, kees@kernel.org, mingo@redhat.com,
-	muchun.song@linux.dev, tglx@kernel.org, linux-arch@vger.kernel.org,
-	linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, x86@kernel.org
-Subject: Re: [PATCH v11 4/7] mm: extend the template fast path to zone-device
- compound tails
-Message-ID: <apejsLXJGvV9sxOt@kernel.org>
-References: <20260831111638.76012-1-lizhe.67@bytedance.com>
- <20260831111638.76012-5-lizhe.67@bytedance.com>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="IB1YS0jX"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4c34c922d;
+	Wed, 2 Sep 2026 12:19:42 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: "Rafael J . Wysocki" <rafael@kernel.org>
+Cc: Viresh Kumar <viresh.kumar@linaro.org>,
+	Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>,
+	linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH v3] cpufreq: initialize policy rwsem before sysfs publication
+Date: Wed,  2 Sep 2026 12:19:15 +0800
+Message-Id: <20260902041915.3453421-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <83f87db8-fa13-41d0-ae52-544d22e228e6@oss.qualcomm.com>
+References: <83f87db8-fa13-41d0-ae52-544d22e228e6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831111638.76012-5-lizhe.67@bytedance.com>
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa060581d2803a1kunmeb2db26a191a6d
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSE5IVkJNHhgYTkMeQ0pMSVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUJCSU
+	5LVUpLS1VKQktCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=IB1YS0jX7D4TDee58Te8AF11UNAwiFfSFuMc4ZogWxYrthY2nda4v6jenakT1fq25+vfmDUyXcSRryenvAMMjqs0Or9REiqCWfqD9yCIYzqsMyPN3fAYQqf7HGjeyihQXvywFt47ECksrat2jVWOk4oucHJ58Gv7ajsW3NwYolQ=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=mf47wGt84H1mj9CoPeEHRTrNjah42y7EPNMo8LIaxBI=;
+	h=date:mime-version:subject:message-id:from;
 
-On Mon, Aug 31, 2026 at 07:16:35PM +0800, Li Zhe wrote:
-> The template fast path from the previous patch only accelerates head
-> pages. Compound tails in memmap_init_compound() still go through the
-> normal initialization path one by one.
-> 
-> Build separate head and tail templates and reuse one prepared tail
-> template across the tail pages in a compound range. Head pages preserve
-> the existing refcount policy, while compound tails always start with a
-> refcount of 0 after prep_compound_tail().
-> 
-> This extends the template-copy fast path to pfns_per_compound > 1.
-> Tail-page PFN-dependent fields are refreshed in the reusable tail
-> template before each copy.
-> 
-> Do not keep a separate non-template fallback for compound tails either.
-> These pages are still under memmap initialization, and the
-> initialization-time refcount updates are not part of the observable
-> lifetime of pages handed out later.
-> 
-> The impact is controlled for the same reason as for head pages. The
-> first tail page still seeds the reusable tail template through the
-> normal tail initialization sequence, and the copied tail pages have the
-> same final initialized state except for the PFN-dependent fields
-> refreshed before each copy.
-> 
-> Tested in a VM with a 100 GB devdax namespace (align=2097152) on Intel
-> Ice Lake server. This test exercises the dax_pmem rebind path and
-> measures memmap initialization latency.
-> 
-> Test procedure:
-> Unbind and rebind the dax_pmem driver 30 times, collect memmap
-> initialization time from the pr_debug() output of
-> memmap_init_zone_device().
-> 
-> Base(v7.3-rc1):
->   Average of rebinds for dax_pmem driver: 191.20 ms
-> 
-> With this patch and its prerequisites applied:
->   Average of rebinds for dax_pmem driver: 176.87 ms
-> 
-> This reduces the average memmap initialization time measured during
-> rebind from 191.20 ms to 176.87 ms, or about 7.5%.
-> 
-> Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+cpufreq_policy_alloc() initializes policy->rwsem after
+kobject_init_and_add() has created the policy sysfs directory and its
+default attributes. A sysfs access can therefore reach a policy callback
+before the semaphore has been initialized.
 
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Initialize policy->rwsem before publishing the policy kobject so sysfs
+callbacks always see an initialized semaphore.
 
-> ---
->  mm/mm_init.c | 24 ++++++++++++++++++------
->  1 file changed, 18 insertions(+), 6 deletions(-)
+Fixes: 2fc3384dc75b ("cpufreq: Initialize policy->kobj while allocating policy")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/all/20260830155301.2713780-1-runyu.xiao@seu.edu.cn/
+Assisted-by: Codex:GPT-5
+Reviewed-by: Zhongqiu Han <zhongqiu.han@oss.qualcomm.com>
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 
+---
+v3:
+- Move Signed-off-by to the end of the trailer block and add Zhongqiu Han's
+  Reviewed-by tag.
+
+v2:
+- Correct the Fixes tag to the commit that introduced policy kobject publication.
+---
+ drivers/cpufreq/cpufreq.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
+index 0d0df986f..9efbf5b17 100644
+--- a/drivers/cpufreq/cpufreq.c
++++ b/drivers/cpufreq/cpufreq.c
+@@ -1258,6 +1258,8 @@ static struct cpufreq_policy *cpufreq_policy_alloc(unsigned int cpu)
+ 	if (!zalloc_cpumask_var(&policy->real_cpus, GFP_KERNEL))
+ 		goto err_free_rcpumask;
+ 
++	init_rwsem(&policy->rwsem);
++
+ 	init_completion(&policy->kobj_unregister);
+ 	ret = kobject_init_and_add(&policy->kobj, &ktype_cpufreq,
+ 				   cpufreq_global_kobject, "policy%u", cpu);
+@@ -1272,8 +1274,6 @@ static struct cpufreq_policy *cpufreq_policy_alloc(unsigned int cpu)
+ 		goto err_free_real_cpus;
+ 	}
+ 
+-	init_rwsem(&policy->rwsem);
+-
+ 	freq_constraints_init(&policy->constraints);
+ 
+ 	policy->nb_min.notifier_call = cpufreq_notifier_min;
 -- 
-Sincerely yours,
-Mike.
+2.34.1
