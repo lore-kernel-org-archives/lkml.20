@@ -1,113 +1,64 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B28EF4A9D5D;
-	Wed,  2 Sep 2026 16:03:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA3B4A9D46;
+	Wed,  2 Sep 2026 16:03:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788364998; cv=none; b=kDLdMIg5UVOrQKfBQeMce516C9Lpj/lgfL/C8a9wh3hREZ6nazH4SheBOeFKce9m8tYS8pD13bQbrGOLRpy88z5n/EHAD5YCWtpJdx4/Y4qg0ZxtmKiOnRB7WajWUdZoMF01AYp9JkBkDMf31ioJLG5XOjxKAHpML+lVf38FLMc=
+	t=1788365011; cv=none; b=c7f8GB9Ti/wqz0g6Np3a6Hdnu27weForkXKgn5bTkhM4W2VF8ESXU4TLURy/QEUTP97wxaAmv7/kbcDSrY3/OhvMgnKoOsKgHyKN90vq7eSuAX/Q48808VasfpKJ4ifUUMo2PVyK71t55/XErw27Og2i1vap/7OQY0WaUFQwG4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788364998; c=relaxed/simple;
-	bh=0lTk1OO+FAZyEjFRc6z7dc1s5Dj5L9dAr2btCTzBPfo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CPCA57LQ0ViDOI1P5EivdiZSxM9ebdRiw49f+hyHSJjJypbHsKLhvGGu7bPKIkuVBnYwx1NM2smE//jqIvVAThAW8GCzA9uuIGBw3V1J9jevSDZQpOkC3r1WqfuMxOaPRSiC73ZLvA09DXbgJtGRExishn977LzZiWJd16Z6M8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ImgA2jIb; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788365011; c=relaxed/simple;
+	bh=fLTeMmI5xUig5Vttbbl/TZTqRFx+UOuhJ6v4Y6wbZpg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KLX9cuWjIGCAF53G4Q4t5sEqvl1pMYW0JmDXl9cnRE7c1aCwBbfYCQ3GKAopXBjf/IMIJCVsxEvtfI9QI9f76qs+0wKMnL8X55oRDG4XebAhRTZNAf04H0sS1yFagHNYAvNk3e7RFSCaAfuBFZRwG+fQrx9UAxJpw5Jw48o1YSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gb5h/tX0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ImgA2jIb"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 36C88165C;
-	Wed,  2 Sep 2026 09:03:11 -0700 (PDT)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E5FD13F882;
-	Wed,  2 Sep 2026 09:03:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788364994; bh=0lTk1OO+FAZyEjFRc6z7dc1s5Dj5L9dAr2btCTzBPfo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ImgA2jIbtINMGd2+R/Rl46rp4G3B3E0TQYDSLKq3SfCHzQDlnZsS9zD0ReXQhStWe
-	 VGtQADzhMLwZ6PBDLu4J4Jc0qkXEblxHMr/clTbkx1Wvd3sgrzGNWYxrkMPF0vXu49
-	 rIZKlTP7dOcUiYCtDn7eZu4w7z/CTEIbjZUsn46w=
-Message-ID: <2ffd1231-2f59-446b-94c6-000fb987980d@arm.com>
-Date: Wed, 2 Sep 2026 18:03:09 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gb5h/tX0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E05C51F000E9;
+	Wed,  2 Sep 2026 16:03:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788365009;
+	bh=uWMX8nK1sTwEnftW8ux1m95G1IaWAidfgW3CMojm9q0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gb5h/tX0phK0tv+aJP1VqNeiPlaBns8pkcFVXHYWUlebKxGS+kMW3MJRKdwL/+Hls
+	 2Cfumqw9gGB9SIxENzJoaKbGIlV943tqgWF1TRdZeRnnYSgAaq4DA043SJzvddjrQj
+	 jMZPby5LTcl9YQ2Y1zgLoWR5zVMm7l1KHPWN3liQ/b8ZUfD5/LDBj7oxHdzkCAUKTu
+	 4Uhp1sqntP9CQe2w2WJoYOkxqcmjcy7Dx/d/tPO0BUsygG6FHlFmXnVWlyE2PTocsf
+	 8okJtrxw/usMyJBEz9JnFpB3IfGS/gNhet9pIJogHdtHuVWkxvesfpB6FTOJb4PFLR
+	 ypIR5YPB8Nw4A==
+Date: Wed, 2 Sep 2026 18:03:11 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, 
+	andersson@kernel.org, konradybcio@kernel.org, James.Bottomley@hansenpartnership.com, 
+	mkp@kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-scsi@vger.kernel.org
+Subject: Re: [PATCH V1 2/2] arm64: dts: qcom: Set specified gear
+ configuration for Hamoa
+Message-ID: <td4esbrt5b24rypdjauneraaeqo6p4ewwgmf3po7mvzzv745wy@3jnxzqi5jiey>
+References: <20260829074355.946543-1-nitin.rawat@oss.qualcomm.com>
+ <20260829074355.946543-3-nitin.rawat@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 12/15] arm_mpam: Fix get_cpumask_from_cache() to clear
- mask on error
-To: Yin Li <yin.li@oss.qualcomm.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Shanker Donthineni <sdonthineni@nvidia.com>,
- Conor Dooley <conor+dt@kernel.org>, Fenghua Yu <fenghuay@nvidia.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Konrad Dybcio <konradybcio@kernel.org>, James Morse <james.morse@arm.com>,
- Ben Horgan <ben.horgan@arm.com>, Bjorn Andersson <andersson@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-arm-msm@vger.kernel.org, ganapatrao.kulkarni@oss.qualcomm.com,
- trilok.soni@oss.qualcomm.com, devicetree@vger.kernel.org,
- driver-core@lists.linux.dev, Srivathsa L Rao
- <srivathsa.rao@oss.qualcomm.com>, Huang Yiwei
- <huang.yiwei@oss.qualcomm.com>, aiqun.yu@oss.qualcomm.com,
- linux-kernel@vger.kernel.org
-References: <20260811-mpam-resctrl-dt-knp-support-v1-0-ea6397bead59@oss.qualcomm.com>
- <20260811-mpam-resctrl-dt-knp-support-v1-12-ea6397bead59@oss.qualcomm.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20260811-mpam-resctrl-dt-knp-support-v1-12-ea6397bead59@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260829074355.946543-3-nitin.rawat@oss.qualcomm.com>
 
-Hi,
-
-On 8/11/26 15:30, Yin Li wrote:
-> If mpam_get_cpumask_from_cache_id() fails, the affinity mask may have
-> been partially filled before the error occurred. The caller has no way
-> to distinguish a partial mask from a valid one, so it may misuse the
-> incomplete result.
-
-But it returns an error, in which case any caller should ignore what's 
-in the affinity pointer?
-I am not sure that clearing the mask in necessarily the right solution.
-Either we leave it untouched (which might be tricky), or we check that 
-the callers restore or discard the affinity mask when the function 
-returns an error.
-
-Did this trigger any real problem, or was it some bored^Woverzealous AI 
-review tool pointing that out?
-
-Cheers,
-Andre
-
-> Clear the affinity mask before returning the error so the caller always
-> receives either a fully valid mask or an empty one.
+On Sat, Aug 29, 2026 at 01:13:55PM +0530, Nitin Rawat wrote:
+> Assign the appropriate UFS HS gear speed levels to each OPP frequency
+> entry in the device tree, enabling proper per-frequency gear
+> scaling (G1 at 75MHz, G3 at 150MHz, G5 at 300MHz).
 > 
-> Co-developed-by: Huang Yiwei <huang.yiwei@oss.qualcomm.com>
-> Signed-off-by: Huang Yiwei <huang.yiwei@oss.qualcomm.com>
-> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
-> ---
->   drivers/resctrl/mpam_devices.c | 7 ++++++-
->   1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-> index eac3bc695fd1..d8856864e89a 100644
-> --- a/drivers/resctrl/mpam_devices.c
-> +++ b/drivers/resctrl/mpam_devices.c
-> @@ -243,7 +243,12 @@ static int get_cpumask_from_cache(struct device_node *cache,
->   		return -ENOENT;
->   	}
->   
-> -	return mpam_get_cpumask_from_cache_id(cache_id, cache_level, affinity);
-> +	err = mpam_get_cpumask_from_cache_id(cache_id, cache_level, affinity);
-> +	if (err)
-> +		/* Don't leave a partially-filled mask for the caller to misuse */
-> +		cpumask_clear(affinity);
-> +
-> +	return err;
->   }
->   
->   static int mpam_dt_count_msc(void)
-> 
+> Signed-off-by: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
 
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
