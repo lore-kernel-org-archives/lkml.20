@@ -1,126 +1,149 @@
-Received: from smtp.uniroma2.it (smtp.uniroma2.it [160.80.4.34])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C48F23438A9;
-	Wed,  2 Sep 2026 18:26:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.80.4.34
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F2F3374186
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:28:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788373613; cv=none; b=CqQabIBhZVwS7bwsB0rg9B19XiXPj2VEW9Dxcga+O0ZI5U+EFsL1CExrwprpEbBaT0yipxiL5YYzxxTTa3vAU626wKAAR/IHpemHiyN99rQ9wEvOovXl7XR7kzTyY6jvp6wq+Dfai7/DvwnCz/P8sqpcLscxiadBvf2huzU0v1A=
+	t=1788373706; cv=none; b=A7FQsSlrKfmoKo+K2831hl7hsAmft8pkcnYt43AdcMR2gUhQIoVxmxxOnBfGlQKqb09Vd7uRRlIo7O64+8blsXxrMbvdHkOiv9c45QH6HdZ7aub86FUZy/uyS3NRL5mVZVbvcvo+++oav+QI3qORqLI1wARxs93jjZO4DSeZZ8I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788373613; c=relaxed/simple;
-	bh=zPZF5OWQOBQSD+z6kPd+7v5KM/arA94IPYNp5wna/x8=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=tvDfSnCiO7q4FEWQssWEi1A6PGkvUcE6+irG/PT0eBs+KA96ZLvVCZt2vOCjZpvREU5R72s+X/QgfCjIKehqnC8ydBccGKu4w6o+uc8DJ3WnRES4fJeZ3qUbRwo04Si2Oaf1Gtu10aetJOVK4uZpvnwqkBCVP6ZoKFUKMeTwDRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it; spf=pass smtp.mailfrom=uniroma2.it; dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=90/+8Yvu; dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=Y5kkxnDX; arc=none smtp.client-ip=160.80.4.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
+	s=arc-20240116; t=1788373706; c=relaxed/simple;
+	bh=IoD8kxRSKBVmpHH9Yga6lz2dzGvZpGp7jqYOG/7TR1s=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rsVPPQjUs37XQO/vc3J4pBq2cgilnBOq4mGw2zXCbBmKLPWJQkoPBzt8RKHjMtb5A2LA69DEI4ZsGnkppWkdNjspMaGAyV2+BuVSdNYgQZlNHoCVvbUl+rdlxRAsjFHZJGyojRb7pMq1tZOeXTptuacwBV2iaGnMv8CkBR4XIFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p1ARZDsA; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="90/+8Yvu";
-	dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="Y5kkxnDX"
-Received: from smtpauth-2019-1.uniroma2.it (smtpauth-2019-1.uniroma2.it [160.80.5.46])
-	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 682IQ63c032636;
-	Wed, 2 Sep 2026 20:26:11 +0200
-Received: from lubuntu-18.04 (host-80-183-189-234.business.telecomitalia.it [80.183.189.234])
-	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id 386801212CA;
-	Wed,  2 Sep 2026 20:26:01 +0200 (CEST)
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
-	s=ed201904; t=1788373562; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YOq0h22DfRYPk8FdBe8yOEEVPyPE7ep/CmbMED3Kvlc=;
-	b=90/+8YvuAcYixkxA+hkDSjRtoVBYmaqYm18fSzVWbetGEQjOMRfeAMc0kawlPO8Qo0NzPV
-	Pik5FGJoajv2kfCg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
-	t=1788373562; h=from:from:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YOq0h22DfRYPk8FdBe8yOEEVPyPE7ep/CmbMED3Kvlc=;
-	b=Y5kkxnDXCLVj8sKlLKPDJ4xR4586gtbwB8IuCm7dGyda9ffIYrQQKN2rA3PrZ8PRtEvqce
-	/W2Fn2hp7xYUNvk4bv2eiBfDa5L2VEsjiT0Ejlbgw2x2DZCJdLv/GDMXF07+IQDpzhtlDT
-	UB4AsrlthtzDtY/UGvBi4Z+22JzOTpuIZ1nqXFPRo8xs/xPx9gYrsqlM4uUqZj4r6lgGUZ
-	HAGmnbwkqFy3z6+ScFoD4C8WDu1FDQhLr6HTQFveehiUAu27K+lm7WCNQ/Fz5/EvAUxiLD
-	Tbd4DgSZBK8Gblkg3iI4l7Hl/mYoLUV/A2CwkeKnAL9IEUdpG2rO93/nA2RXOQ==
-Date: Wed, 2 Sep 2026 20:25:59 +0200
-From: Andrea Mayer <andrea.mayer@uniroma2.it>
-To: Alessio Faina <alessio.faina@canonical.com>
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-        pabeni@redhat.com, horms@kernel.org, shuah@kernel.org,
-        netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
-        linux-kernel@vger.kernel.org, hangbin.liu@linux.dev,
-        stefano.salsano@uniroma2.it, Andrea Mayer <andrea.mayer@uniroma2.it>
-Subject: Re: [PATCH net] selftest/net: skip srv6_end_d[t/x][4/6]_*_test.sh
- if iproute2 too old
-Message-Id: <20260902202559.6c2b693bc2a6e697855e1b54@uniroma2.it>
-In-Reply-To: <apbe0PAvaes977l-@cicciput>
-References: <20260824091537.2305107-1-alessio.faina@canonical.com>
-	<20260826000156.bdaa71db68dbdc9c13907205@uniroma2.it>
-	<ao7S04LkWVXAQpgq@cicciput>
-	<20260827030701.bfaf6eea6dea1aef24c353cf@uniroma2.it>
-	<apAJuZzDOvjkVx60@cicciput>
-	<20260828042357.1d6e802448752a8fdff5a485@uniroma2.it>
-	<apGxmfjQs247lHX-@cicciput>
-	<20260829231150.8180c09f6874606eb49d0243@uniroma2.it>
-	<apbe0PAvaes977l-@cicciput>
-X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p1ARZDsA"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso14542165e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 11:28:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788373701; x=1788978501; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5XR27vgN5nJ/lgsOm3NqnEQEtuojTb2G48lFGrn17tw=;
+        b=p1ARZDsAE1KZAvr9IyAGs028f0GWghab2sjeK0vZfDibUPZweloLt6RTQO/7pVK8pI
+         SKYBBHxs9QNi2Nfc1lpUXPHnVTglt+dqq4/GQELiT5CYguw6APmgxAXHRhzrVdDJ768l
+         fjWx3Og8SStLnXQzBOZ2W/TtcB/KLeqgWYFIMww55OEOI2fH2B3+khzwe0HUFBz4jxA9
+         PjMwVf0kEqYkDs/pcs4Q5AygS4UCOdRRX/Hc9jibskOny9kHZsKHD5uOWas0GOYKMuW0
+         +q+khibAsjRX3QuIMC5eLZ3gNJQQlQTvxhVwxX4kJCZfNziuss5aIQ6ndoIweVYuPv/S
+         JBrA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788373701; x=1788978501;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5XR27vgN5nJ/lgsOm3NqnEQEtuojTb2G48lFGrn17tw=;
+        b=F8ftvnezQLElwf4mqIDaBVm5G4q1VV5WzUyocqJjBzXUbTIdi5V+5IByUcyXypJKuC
+         1KaY1cg851/5G62CZ57aQvM8W1bLusgJ7olwRY57Zbe6UIZrTeQwi3uYVRNcAnemFDOW
+         9X0X18qeAOHnFiYbcMs8GMH9p/ApWXGhiANFSz9m8nQxjBKBX9Svm4sVcECXGJFfLD7K
+         OxLqAybjh4IwG2yOyyJgvPZj2KBVz+zwgvcpf64QUfC9Yq4Z2M+pNmU/L4LUx3mlmAD4
+         785l8GCVnPj72sK2UWt15n5JMo+01fZv0geeg16ISuttR0KgUrmi34fgVXb/9s6P+xD0
+         rCTA==
+X-Forwarded-Encrypted: i=1; AKwUvBxOfOWC3Cr2zSO9lN6GrTAvzQhCPVdnotq7HVxIRKawTdeuCVTOUyJIdDZ0TCN4yb7gxJasqm+NLa4JXBE=@vger.kernel.org
+X-Gm-Message-State: AFuF++m1gWdShG3pjhqtsEfUYGj2fNNDfcogTtqMMZTq/BtClOSYvO3k
+	+icmpvdr+LewXWy/4SlsVUq4yfZn9XxxZBW9wPVNGycppHP0Qac5HJOa
+X-Gm-Gg: AYBFou1/AoV0iX8PRkiLmM+4lRmEB/JlZm/FY0e0kHSFZbHb36+zxYnEp+IBcdYSWVv
+	NCvCXNjlgtXnrFSOZMGlofdY44qvMrzsRnfdjJScDFx7XDfzTbJewPshJ8Ddy9bjWfwIc6bXYm0
+	zlFKv6xj7S0lgNPjwhvgfm7InbNEUeDCJhlpWJ+Rl8bcuDjRIquPI/gIwskLXZhdCGdvS8k3Gsl
+	VHWffOoq7pjabChmJK32ir0b0wqtaP+3Xtbu6rAl+gBGVDingM4n1NdE2DR/Oof0CetZ1nG+3Q0
+	GoQU0IzgUM4Yb16PnZwgUvHYo9IZQCDZNWHOxcgCQFqNH30RmLL+MG/Fz4PrgNg63AiNO6fzGxC
+	51CiI613J+CurMPTqzSdiwWAHSfvROK6pudz9/5Lv8obI/bhbjSvNM7fyP3earLVbLhuP6SLJs7
+	Y/JNLDBFa5uT3qLBoCr6V6YjxsYtBBHTc9rs9WnOShaaIAxlZ1Z26QHjGJKFYjYfzB7uFrABGuv
+	33V19tV1TMkWOn+wfYJQWuR39ehtAR4g4ThnZ7IZJn/qonmShCi62hlIegC24cJ1a4qmWAaB2yz
+	ckDT3Alawcr6olT8ndmmHeabkRXqqLaYm4RkkSfgDngrh0XLzQZrBlAy4Bq3HjiI+w==
+X-Received: by 2002:a05:600c:83c8:b0:49c:d52e:d0ea with SMTP id 5b1f17b1804b1-49ce581779dmr132214455e9.4.1788373700879;
+        Wed, 02 Sep 2026 11:28:20 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a1c2-c401-11b2-c123-0d12-6c0f.310.pool.telefonica.de. [2a02:3100:a1c2:c401:11b2:c123:d12:6c0f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5dea34sm10208755e9.10.2026.09.02.11.28.19
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 02 Sep 2026 11:28:19 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	linux-cifs@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] smb: client: pin DFS superblock in iterator callback
+Date: Wed,  2 Sep 2026 20:28:14 +0200
+Message-Id: <20260902182814.25700-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
-X-Virus-Status: Clean
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 1 Sep 2026 16:18:56 +0200
-Alessio Faina <alessio.faina@canonical.com> wrote:
+tcon_super_cb() stores a raw superblock pointer, but __cifs_get_super()
+takes its active reference only after iterate_supers_type() has dropped
+s_umount and its passive reference. Concurrent DFS automount expiry can
+therefore free the superblock before cifs_sb_active() uses it.
 
-> [snip]
-> 
+A deterministic KASAN test reproduces the race as:
 
-Hi Alessio,
+  BUG: KASAN: slab-use-after-free in cifs_sb_active+0x77/0x80
 
-Thanks. Some comments below.
+The same test passes with this change applied.
 
-> I tried this
-> 
-> +test_iproute2_vrftable_supp_or_ksft_skip()
-> +{
-> +	ip netns add __vrftable_test 2>/dev/null
+Take the active reference in the callback while iterate_supers_type()
+still holds s_umount shared. cifs_put_tcp_super() remains the matching
+release.
 
-The netns name is fixed, and if a netns with that name exists, the
-check runs in it and deletes it at the end. It would be better to use
-setup_ns with a local variable. setup_ns picks a random name, fills
-the variable and checks the add. cleanup_ns then removes the namespace.
+Fixes: bacd704a95ad ("cifs: handle prefix paths in reconnect")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+---
+Testing: x86_64 QEMU KASAN A/B with deterministic KUnit synchronization
+around the lifetime gap and real VFS superblock allocation/teardown.
+Baseline reports a slab-use-after-free in cifs_sb_active(); fixed passes.
 
-> +	ip netns exec __vrftable_test sh -c "echo 1 > /proc/sys/net/vrf/strict_mode"
-> +	ip -netns __vrftable_test link add vrf-100 type vrf table 100
-> +	ip -netns __vrftable_test link set vrf-100 up
-> +	if ! ip -netns __vrftable_test -6 route add fc00::1/128 \
-> +			encap seg6local action End.DT4 vrftable 100 dev vrf-100 2>/dev/null; then
-> +		ip netns del __vrftable_test 2>/dev/null
-> +		echo "SKIP: SRv6 vrftable not supported in iproute2"
+ fs/smb/client/misc.c | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
 
-The srv6 tests that name iproute2 grep the ip help text, while this one
-installs a route. IMO the message should say what is missing:
-"SKIP: SRv6 End.DT4 vrftable not supported", and the same for the function
-name, without iproute2 in it.
-
-> +		exit "${ksft_skip}"
-> +	fi
-> +	ip netns del __vrftable_test 2>/dev/null
-> +}
-> +
-> +test_iproute2_vrftable_supp_or_ksft_skip
-> +
-
-The call goes after the vrf block and before setup(), because the check
-writes the vrf sysctl and that file is not there without the module.
-
-The commit message and the subject should be updated as well.
-
-Ciao,
-Andrea
+diff --git a/fs/smb/client/misc.c b/fs/smb/client/misc.c
+index 46e1382e8e04b..d4db3f91a91fa 100644
+--- a/fs/smb/client/misc.c
++++ b/fs/smb/client/misc.c
+@@ -891,8 +891,14 @@ static void tcon_super_cb(struct super_block *sb, void *arg)
+ 	     t1->ses->dfs_root_ses == t2->ses->dfs_root_ses) &&
+ 	    t1->ses->server == t2->ses->server &&
+ 	    t2->origin_fullpath &&
+-	    dfs_src_pathname_equal(t2->origin_fullpath, t1->origin_fullpath))
++	    dfs_src_pathname_equal(t2->origin_fullpath, t1->origin_fullpath)) {
++		/*
++		 * Take the active reference while iterate_supers_type() still
++		 * holds s_umount shared.
++		 */
++		cifs_sb_active(sb);
+ 		sd->sb = sb;
++	}
+ 	spin_unlock(&t2->tc_lock);
+ }
+ 
+@@ -909,15 +915,8 @@ static struct super_block *__cifs_get_super(void (*f)(struct super_block *, void
+ 
+ 	for (; *fs_type; fs_type++) {
+ 		iterate_supers_type(*fs_type, f, &sd);
+-		if (sd.sb) {
+-			/*
+-			 * Grab an active reference in order to prevent automounts (DFS links)
+-			 * of expiring and then freeing up our cifs superblock pointer while
+-			 * we're doing failover.
+-			 */
+-			cifs_sb_active(sd.sb);
++		if (sd.sb)
+ 			return sd.sb;
+-		}
+ 	}
+ 	pr_warn_once("%s: could not find dfs superblock\n", __func__);
+ 	return ERR_PTR(-EINVAL);
+-- 
+2.53.0
