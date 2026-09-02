@@ -1,217 +1,84 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F9B1DED42
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:20:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A40A314D1A;
+	Wed,  2 Sep 2026 07:20:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788333635; cv=none; b=mHN+3PRaJX/7kpOPxj1Q2mmVKZEtDI4zLi+NfwocQwMrBJZ3VRp+7JIsstaISNqmK6mqp56SkYsDXLVlFmr+UTnDsx3Lq+zU/iKO4kXIofGlWQ79wGgLMfuZd0KeqcUggViMc+NZQOZufMdqVpFPm7P2i+sDrdHum+vaUtFQd1o=
+	t=1788333658; cv=none; b=BjA2Ls2khuPjHhh+16H+De5Nx8hvGfi5tC6w8OmsdcU8plm+pLhRmFJ9SiEA9lMzFnFe/DVZ75Jry9VmTbkCW7vs+DkaABH6PM8/3Lmk2qDY1paQGsDlD5silaNBYCx1JZnuMZ7++9I/339MXx3lWuF4+o2RIRjwKofS1x5oBSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788333635; c=relaxed/simple;
-	bh=blpEJSaKMtgIV97MiB6TV6NLXhhnuYayhbvASo/XnTs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=duzIpC9OZcUZ/wd8r/oYo0dDmY6QQIFSZu+YoVGka92yCiYiwKJA1BxWR8TVhqLeCzDqBhiGwCVxAjF5wmlRv9hPcaqBGncP8yEXx9cfXZhEuNtlnH9Fl98k+9Nf4SCbVxa11EsZFLDeV9RuiDkZGLmimsT5J1fuTCP/A/RbbsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=bYm4sLcA; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=jGrGle/F; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=kJLdZHno; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=47ILYk38; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788333658; c=relaxed/simple;
+	bh=/D36qVa1w8LjKCyvdYOxR+EYq1+D05cx9lP9Cjekp7s=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=nGZU/3qvJmSxZjo/BIw9TWxQrvmJDWsF0XOkpK/0FwFG7ovcFEHOGYZ4JcMzK1YkyCj4ojdfEmfOId988r18VJXW1lrI/8UHj/WOtvflNvoUNPO3+wqxZW5fCO1Ib7/Keh/b/JUeZjdvGLmyF5NkzqWcdkc+PsyM/vr5XByKVXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=npfTwp6e; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="bYm4sLcA";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="jGrGle/F";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="kJLdZHno";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="47ILYk38"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 34354219D3;
-	Wed,  2 Sep 2026 07:20:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788333627; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=S5Dxa5DWI96V41P4faCDTQ0whvEYMAQYxouqkbeaGaM=;
-	b=bYm4sLcA9/V1w1W5+J5cCD91LMuWixaKDcQvfOFjjLlJofAUX85ctIE6Qszv2QFGDemL5K
-	8Yx040VelkwGcpKKHbpDwT5D0O5H3vYmJS2EmpB0GMlPFtd4gdsHLb1Iuu3HT2wbDRIW2D
-	C+TZbtrGM2GjyAySP4yfwIv/z1pPLpc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788333627;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=S5Dxa5DWI96V41P4faCDTQ0whvEYMAQYxouqkbeaGaM=;
-	b=jGrGle/FWMucywgDy7HhaIU/JfgsV0cHyCrrPjHtffKxiBg/UKs4eV4TNzwvCiAdOtekvo
-	9SaHH5hZ4KKlRvAg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788333623; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=S5Dxa5DWI96V41P4faCDTQ0whvEYMAQYxouqkbeaGaM=;
-	b=kJLdZHnobAGeydLTNq01JRLBwbT6UQ02qJePFvrflnpEq4U4NsP3gbNCvS7JNef8zH2Fxb
-	YuIS2pyZfKPeySHP/sm5A1pW9ze1QyZ4hJybrPY2Uu3cthjkerGZzkGXBAuAdUTTPyPfvq
-	4GlHkSLY1MUsonhuYVvkyWsihhu37PM=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788333623;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=S5Dxa5DWI96V41P4faCDTQ0whvEYMAQYxouqkbeaGaM=;
-	b=47ILYk38TpjaAOKxj3/h+RfhOnNOcvoBLjUGXPJUvgB01jD7Jhbkm30zWnLyjHzpvX1X0m
-	clJKbrZteDv4NqCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DCC0413515;
-	Wed,  2 Sep 2026 07:20:22 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id jl5rNDbOl2pPYAAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Wed, 02 Sep 2026 07:20:22 +0000
-Message-ID: <ca60aed1-df30-458e-81df-49b4902af768@suse.de>
-Date: Wed, 2 Sep 2026 09:20:22 +0200
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="npfTwp6e"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=3f
+	K3VdKNVXJvWoOP7f+9oY2Fa6VvBCVybss9wJNWZ8M=; b=npfTwp6eYdc5tZwSq6
+	sXZ+Z9wxCNrvKKN3cNzb1jlGYdV3pXu5pgR9NoAo89jyTLAoqM1PK7Nr0a2Mgo+i
+	/5sJgPQCXKwCXUIGnjSuPnFRzOQbxcy7HBXsUivcmQ2n+ldk3O1pcBBm1FKI1USn
+	iRz5iqWoxPVJsA/fKgqmKlrlk=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgBnP6UuzpdqMkg2NQ--.54267S4;
+	Wed, 02 Sep 2026 15:20:18 +0800 (CST)
+From: wangdich9700@163.com
+To: srini@kernel.org,
+	broonie@kernel.org,
+	tiwai@suse.com,
+	wangdich9700@163.com
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	wangdicheng@kylinos.cn
+Subject: [PATCH 2/3] ASoC: qcom: lpass-hdmi: fix invalid rate error message
+Date: Wed,  2 Sep 2026 15:19:42 +0800
+Message-Id: <20260902071943.522194-3-wangdich9700@163.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260902071943.522194-1-wangdich9700@163.com>
+References: <20260902071943.522194-1-wangdich9700@163.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/modeset-helper: Add blend mode property to the legacy
- primary plane
-To: oushixiong1025@163.com,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
-References: <20260902031232.165532-1-oushixiong1025@163.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260902031232.165532-1-oushixiong1025@163.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spam-Score: -4.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[163.com,linux.intel.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_ALL(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	FREEMAIL_ENVRCPT(0.00)[163.com,gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,gmail.com,ffwll.ch,lists.freedesktop.org,vger.kernel.org,kylinos.cn];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email,suse.com:url,imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+X-CM-TRANSID:PCgvCgBnP6UuzpdqMkg2NQ--.54267S4
+X-Coremail-Antispam: 1Uf129KBjvdXoW7Gr47tFy7Cw4DJFyDCFy7Awb_yoWfKFgEv3
+	WS9w48Z34UWF4Iyw18Gr4rZr4q9r42gFW7u3y5trnrtryUZr98CF1ktFZ3WrZaqan5AFyY
+	gFZY9r1UAa4DGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7xRE3xhJUUUUU==
+X-CM-SenderInfo: pzdqwv5lfkmliqq6il2tof0z/xtbC5xJAj2qXzjKk1wAA3I
 
-Hi
+From: wangdicheng <wangdicheng@kylinos.cn>
 
-Am 02.09.26 um 05:12 schrieb oushixiong1025@163.com:
-> From: Shixiong Ou <oushixiong@kylinos.cn>
->
-> The primary plane created by drm_crtc_init() exposes ARGB8888, which
-> has an alpha channel, but never gets a "pixel blend mode" property, so
-> drm_mode_config_validate() warns for every driver using this helper
-> (radeon, gma500, legacy amdgpu DCE). Advertise only
-> DRM_MODE_BLEND_PREMULTI, the mode userspace always assumed when the
-> property was absent.
+The sampling rate switch reused the bitwidth error path, so an
+unsupported rate logged "invalid bit width" with the bitwidth value.
+Print the rate instead.
 
-I'd like to suggest a different strategy. The helper drm_crtc_init() is 
-deprecated and there are only 3 drivers left that call it: amdgpu, 
-gma500 and radeon.  It would be better to make a series for each that 
-integrates the helper into the driver and adapts the format array to the 
-hardware/driver's actual functionality. For gma500 at least, I'm pretty 
-sure it does not support ARGB on its primary plane.
+Signed-off-by: wangdicheng <wangdicheng@kylinos.cn>
+---
+ sound/soc/qcom/lpass-hdmi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-There's also work happening already for fixing amdgpu blend properties IIRC.
-
-Best regards
-Thomas
-
->
-> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
-> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
-> ---
->   drivers/gpu/drm/drm_modeset_helper.c | 12 ++++++++++++
->   1 file changed, 12 insertions(+)
->
-> diff --git a/drivers/gpu/drm/drm_modeset_helper.c b/drivers/gpu/drm/drm_modeset_helper.c
-> index e54584da4c3d..4c59e82af2f1 100644
-> --- a/drivers/gpu/drm/drm_modeset_helper.c
-> +++ b/drivers/gpu/drm/drm_modeset_helper.c
-> @@ -23,6 +23,7 @@
->   #include <linux/export.h>
->   
->   #include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_blend.h>
->   #include <drm/drm_client_event.h>
->   #include <drm/drm_fourcc.h>
->   #include <drm/drm_framebuffer.h>
-> @@ -160,6 +161,17 @@ int drm_crtc_init(struct drm_device *dev, struct drm_crtc *crtc,
->   	 */
->   	primary->format_default = true;
->   
-> +	/*
-> +	 * safe_modeset_formats[] includes ARGB8888, which has an alpha
-> +	 * channel. Advertise the blend mode userspace has always assumed
-> +	 * for such planes when the "pixel blend mode" property was absent,
-> +	 * to satisfy drm_mode_config_validate().
-> +	 */
-> +	ret = drm_plane_create_blend_mode_property(primary,
-> +						   BIT(DRM_MODE_BLEND_PREMULTI));
-> +	if (ret)
-> +		goto err_drm_plane_cleanup;
-> +
->   	ret = drm_crtc_init_with_planes(dev, crtc, primary, NULL, funcs, NULL);
->   	if (ret)
->   		goto err_drm_plane_cleanup;
-
+diff --git a/sound/soc/qcom/lpass-hdmi.c b/sound/soc/qcom/lpass-hdmi.c
+index 8bbe43facdc1..dd0ae4fbc841 100644
+--- a/sound/soc/qcom/lpass-hdmi.c
++++ b/sound/soc/qcom/lpass-hdmi.c
+@@ -64,8 +64,8 @@ static int lpass_hdmi_daiops_hw_params(struct snd_pcm_substream *substream,
+ 		sampling_freq = LPASS_SAMPLING_FREQ48;
+ 		break;
+ 	default:
+-		dev_err(dai->dev, "%s invalid bit width given : %d\n",
+-					__func__, bitwidth);
++		dev_err(dai->dev, "%s invalid sampling rate given : %d\n",
++					__func__, rate);
+ 		return -EINVAL;
+ 	}
+ 	data_format = LPASS_DATA_FORMAT_LINEAR;
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
+2.25.1
 
