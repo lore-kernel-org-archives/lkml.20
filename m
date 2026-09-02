@@ -1,121 +1,166 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D30AE4137AE;
-	Wed,  2 Sep 2026 13:29:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF0A4137AE
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:29:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788355786; cv=none; b=ehhdDAcLu431d1luzidcFje/2mti7KF5CUUh07twIe16jjxSNodZRq5aEpsLcXDYkRihEhIg5DXYmIkvHMDLAF4lz93NzpDm2jf5dJ9St+OBHqLcquMJA7ly2Kr6SJl0GIS0BXQp9mw/9Oh1Epk4SscB8WQ1mOZwqwoPBtAwLs4=
+	t=1788355796; cv=none; b=I1cQck1yR/nzGgFcn1lMgWUWbnkvqsEPGHMNl8lgscb4zMj4gnZSmmluzddHO6CxvRbZUySBEnEgeDXYAn83HWjTDVC92kcITxuved+liVvCR0RAyq2k0ugrEBUoKKe8SypM9CUC1QTakVxC3SlJkiUZyy7koIncvQltdN4IPTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788355786; c=relaxed/simple;
-	bh=3kzF7itCNI3649Jd2yl6+o37lkdhtqpt1JNljsXi5vg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZHiZYf4JwcD72IppbNwufmYsaEEzrOAiYiYdnkxTuaJtLGQML6LwgsobAwDbq1PhnvCfFUoHqvc61wWFwKxRLLcbGu8kxLfHSjiREuJck7bwhvpsF8TDwmovrudynX4e1IV9BabzRrQMJ+mHvG/Ge+jJFkeRJpJtiO+CXxgqtBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jAI84FJg; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788355796; c=relaxed/simple;
+	bh=TqM7jmxGw13w30kSXUULf3VsHKwPzV2MjEepFkpUQXU=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=kKdtGFye2U+dg/E1pI3qE66CJ2rCK7h+p1zeLzxv7/FksHysF5bky6mjG6NYyqPIRoWqcU6qBiooR0yzfv1TZhwzyyJR4Nh3Q6mySO2g1uFH9YNLe2nlOHb6ehmEmUGPq0O1N9gZCxW1IIdGWTH23bVli+r/g8JfbWtnMGc4c8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=a8qp2g9Z; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=zVXkWdr3; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=i7CNFpdC; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=M8vN8FpQ; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jAI84FJg"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 610CE165C;
-	Wed,  2 Sep 2026 06:29:40 -0700 (PDT)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B00DA3F673;
-	Wed,  2 Sep 2026 06:29:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788355784; bh=3kzF7itCNI3649Jd2yl6+o37lkdhtqpt1JNljsXi5vg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=jAI84FJgJAvnyhbJiH1Pxn7thUuzLd5dcmWWV+5W22olMfH0LkXLMmpwmz0Dk3KR3
-	 5m2gPwMIFrSaptQU5elbNsEPXBlpZKbWjuJZQZYwq7FwXhEQvDN/S+hzOedqTuhDM8
-	 0HIoyrUUju4wL7kqZCcmtszvpBFN2e2KxZjUWK0c=
-Message-ID: <e6d4bb93-66fa-4149-985d-87d895081ea0@arm.com>
-Date: Wed, 2 Sep 2026 15:29:39 +0200
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="a8qp2g9Z";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="zVXkWdr3";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="i7CNFpdC";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="M8vN8FpQ"
+Received: from knuth.suse.de (unknown [10.168.5.16])
+	by smtp-out1.suse.de (Postfix) with ESMTP id 754DF21D30;
+	Wed,  2 Sep 2026 13:29:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788355788; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JcrhHoLi9Dgkir2K1kU+9E3wacEKvPTtR3HgxM8VLPk=;
+	b=a8qp2g9ZcT+rpjEdsDS39IubTtS+x2ehbhsLidZAJXr+4+HmM3pQqBtLXRgX7Bk0ZiY4tL
+	XnkZ+ydbYZuR2Z3UdebjTUU0qK4f+6CMccMuAK/PTRyAmfCyGeCPNCNo5w5fhrtGhi40AW
+	UxRby67B5SKQlN4d9RHy9LDfKlvwW0w=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788355788;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JcrhHoLi9Dgkir2K1kU+9E3wacEKvPTtR3HgxM8VLPk=;
+	b=zVXkWdr3892abkdxjA3uQDAyi8x9VDk4LdnUSScyt1O1zDizow7cB63aVuLj2AWm3QHMJz
+	gaoe0eis6F1alCBg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788355784; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JcrhHoLi9Dgkir2K1kU+9E3wacEKvPTtR3HgxM8VLPk=;
+	b=i7CNFpdCs5BKknGndwVSsiI9wy6UC5Z3CECMp2CtHvl8WEUPK/85+b4Ma8LVnoB7n1z9U5
+	wZ3cjwZNYf8H8zBAJakVmwdOSJqCUMnHfsQnFv1C1Wx2uy+M5IWh8XYDQHN3REaPOHxAqC
+	8hR4bBORuR88qnCTKDgYCdeDS+i81DA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788355784;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=JcrhHoLi9Dgkir2K1kU+9E3wacEKvPTtR3HgxM8VLPk=;
+	b=M8vN8FpQm6FeTa5KX0O9PlTFreGfmKqz4y59LKN5KjQkyjyE4gRaydbLsENxQ16hBIyiCs
+	FEnfwrP2rUy5vvDA==
+Received: by knuth.suse.de (Postfix, from userid 10510)
+	id 5CB02AE779A; Wed, 02 Sep 2026 15:29:44 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+	by knuth.suse.de (Postfix) with ESMTP id 42B67AE7799;
+	Wed, 02 Sep 2026 15:29:44 +0200 (CEST)
+Date: Wed, 2 Sep 2026 15:29:44 +0200 (CEST)
+From: Michael Matz <matz@suse.de>
+To: Borislav Petkov <bp@alien8.de>
+cc: Mauricio Faria de Oliveira <mfo@igalia.com>, 
+    Richard Biener <rguenther@suse.de>, Thomas Gleixner <tglx@kernel.org>, 
+    Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+    x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+    Juergen Gross <jgross@suse.com>, Alexey Dobriyan <adobriyan@gmail.com>, 
+    Boris Ostrovsky <boris.ostrovsky@oracle.com>, 
+    Jan Beulich <jbeulich@suse.com>, Brian Gerst <brgerst@gmail.com>, 
+    kernel-dev@igalia.com, linux-kernel@vger.kernel.org, 
+    xen-devel@lists.xenproject.org
+Subject: Re: [PATCH v9 1/5] x86/boot: Remove "cc" clobber from memcmp()
+In-Reply-To: <20260902023129.GGapeKgVlL2WgHcJcb@fat_crate.local>
+Message-ID: <57b0d188-b256-bde4-43e6-99dae4f59d60@suse.de>
+References: <20260822-pvh-kasan-inline-v9-0-e70ef3b75b6a@igalia.com> <20260822-pvh-kasan-inline-v9-1-e70ef3b75b6a@igalia.com> <20260902023129.GGapeKgVlL2WgHcJcb@fat_crate.local>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 05/15] arm_mpam: Fix device_node refcount in DT
- resource parsing
-To: Yin Li <yin.li@oss.qualcomm.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>, Shanker Donthineni <sdonthineni@nvidia.com>,
- Conor Dooley <conor+dt@kernel.org>, Fenghua Yu <fenghuay@nvidia.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- Reinette Chatre <reinette.chatre@intel.com>,
- Konrad Dybcio <konradybcio@kernel.org>, James Morse <james.morse@arm.com>,
- Ben Horgan <ben.horgan@arm.com>, Bjorn Andersson <andersson@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-arm-msm@vger.kernel.org, ganapatrao.kulkarni@oss.qualcomm.com,
- trilok.soni@oss.qualcomm.com, devicetree@vger.kernel.org,
- driver-core@lists.linux.dev, Srivathsa L Rao
- <srivathsa.rao@oss.qualcomm.com>, Huang Yiwei
- <huang.yiwei@oss.qualcomm.com>, aiqun.yu@oss.qualcomm.com,
- linux-kernel@vger.kernel.org
-References: <20260811-mpam-resctrl-dt-knp-support-v1-0-ea6397bead59@oss.qualcomm.com>
- <20260811-mpam-resctrl-dt-knp-support-v1-5-ea6397bead59@oss.qualcomm.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20260811-mpam-resctrl-dt-knp-support-v1-5-ea6397bead59@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="8323328-669869079-1788355784=:4446"
+X-Spam-Level: 
+X-Spam-Score: -3.20
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-3.20 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	CTYPE_MIXED_BOGUS(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	RCVD_NO_TLS_LAST(0.10)[];
+	MIME_GOOD(-0.10)[multipart/mixed,text/plain];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_CC(0.00)[igalia.com,suse.de,kernel.org,redhat.com,linux.intel.com,zytor.com,suse.com,gmail.com,oracle.com,vger.kernel.org,lists.xenproject.org];
+	MISSING_XM_UA(0.00)[];
+	MIME_TRACE(0.00)[0:+,1:+];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:mid];
+	ARC_NA(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_HAS_DN(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com]
 
-Hi,
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-On 8/11/26 15:30, Yin Li wrote:
-> When a cache-parented or memory-controller-parented MSC is probed via
-> device tree, the parent node was assigned directly to a
-> __free(device_node) variable without incrementing its reference count.
-> Both the parent and the cache/memory variable are declared with
-> __free(device_node), which causes the compiler to automatically insert
-> an of_node_put() call for each variable when they go out of scope.
-> Since both variables point to the same node but the reference count was
-> only incremented once by of_get_parent(), the node ends up being
-> released twice, causing a refcount underflow.
+--8323328-669869079-1788355784=:4446
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8BIT
 
-Yes, looks about right: there is another assignment to both memory and 
-cache, they call of_parse_phandle(), which increments the refcount, so 
-we need to do the same for the direct assignments, to get the free'ing 
-done consistently.
+Hello,
 
-> Use of_node_get() to take an explicit reference so each __free variable
-> holds its own reference.
+On Tue, 1 Sep 2026, Borislav Petkov wrote:
+
+> On Sat, Aug 22, 2026 at 03:33:17PM -0300, Mauricio Faria de Oliveira wrote:
+> > According to the GCC documentation, conditions in the flags register
+> > (e.g., "=@ccnz") are output operands [1] and the compiler is aware [2].
+> > 
+> > Also, clobbers (e.g., "cc") may not overlap with an output operand [2].
+> > 
+> > Thus, remove the "cc" clobber as it is redudant, and overlaps with, the
+> > "=@ccnz" output operand.
+
+Strictly speaking, on x86, the '=@ccXY' constraints are register outputs 
+into normal random integer registers (though they are of course 
+initialized in a funny way), while the 'cc' clobber is not a register at 
+all, but rather a fuzzy idea of "state" in old cc0-based compilers (which 
+the x86 backend isn't anymore since, ... well, about forever, 1999).  As 
+such they both really don't conflict and ...
+
+> But then I'd expect that gcc would enforce that. I know it can't have it 
+> when the clobbers contain input or output regs:
 > 
-> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
-
-Reviewed-by: Andre Przywara <andre.przywara@arm.com>
-
-... though this should definitely be squashed into the respective DT 
-patches. Feel free to do so.
-
-Cheers,
-Andre
-
-> ---
->   drivers/resctrl/mpam_devices.c | 4 ++--
->   1 file changed, 2 insertions(+), 2 deletions(-)
+> In function ‘__memcmp’,
+>     inlined from ‘main’ at memcmp.c:25:6:
+> memcmp.c:11:9: error: ‘asm’ operand has impossible constraints or there are not enough registers
+>    11 |         asm volatile("test %3, %3\n\t"
+>       |         ^~~
 > 
-> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-> index 975ddab771b4..559fa09128b4 100644
-> --- a/drivers/resctrl/mpam_devices.c
-> +++ b/drivers/resctrl/mpam_devices.c
-> @@ -280,7 +280,7 @@ static int mpam_dt_parse_resource(struct mpam_msc *msc, struct device_node *np,
->   		type = MPAM_CLASS_CACHE;
->   
->   	} else if (of_device_is_compatible(parent, "cache")) {
-> -		cache = parent;
-> +		cache = of_node_get(parent);
->   		type = MPAM_CLASS_CACHE;
->   	} else if (of_device_is_compatible(np, "arm,mpam-memory")) {
->   		memory = of_parse_phandle(np, "arm,mpam-device", 0);
-> @@ -290,7 +290,7 @@ static int mpam_dt_parse_resource(struct mpam_msc *msc, struct device_node *np,
->   		}
->   		type = MPAM_CLASS_MEMORY;
->   	} else if (of_device_is_compatible(np, "arm,mpam-memory-controller-msc")) {
-> -		memory = parent;
-> +		memory = of_node_get(parent);
->   		type = MPAM_CLASS_MEMORY;
->   	} else {
->   		/*
-> 
+> but with "cc" clobbers it works.
 
+... hence there's nothing to report.  In fact what an explicit 'cc' 
+clobber once meant in cc0 backends (that indiscriminated flag "state") is 
+manufactured by the non-cc0 backends (all of them now) automatically 
+whenever an asm has no flag output constraints at all.  (On x86 that means 
+it adds the "flags" register (internal name for the collection of flag 
+status bits) to the clobber set automatically when there are no =@ccXY 
+constraints).
+
+You can regard all 'cc' clobbers as pure source compatibility, they have 
+no meaning anymore.  But as they are so ubiquitous (even in our own docu), 
+they remain recognized.
+
+
+Ciao,
+Michael.
+--8323328-669869079-1788355784=:4446--
