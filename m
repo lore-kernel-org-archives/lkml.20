@@ -1,211 +1,120 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B76EF25B0B8
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:02:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB09647D44B;
+	Wed,  2 Sep 2026 12:03:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788350582; cv=none; b=UQZpM7mPtw6nj9lBRqpwKAdxJR31JuAzXcD1Ah/ysmzn3oA7pt8JK7X0au0tGYT9aMcldu4dS0uIQGuh9WCI2oUy3vRH46FR9T6IxudyoULbGzExcffWROJAlbqfkgfnSo4p69Pr4kjeYqGXesDPwF+/3MCAQ4rti2ZWPMJkwGQ=
+	t=1788350615; cv=none; b=SvE8QQ/QUV2n1Fw8dFVub0zVKRu0tcu1FVoQVg4wPCR5ouZ8SLH+m8+2OfQqD0sd8C875zpQrvXKrnRGIcATOAuqgpex8tJXhmPFWeYTBNAXdqNk2D9y+Ujrh1GvNcXMuH1ELbdBButeAMTHWjMqfmTzWGuKwfS7Vr+csIzLAX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788350582; c=relaxed/simple;
-	bh=Yv1k6QGBpWRqhQ1/g8/MLMzjdXKArQtCprJXyb6GIXw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LC6s51blFIwQwgVgmbXDidh+C1w5j3xUu1TN4njvAHX/l1vSROUIBd37146Wbx4o93QEGyLIU96cLzLC6MhwgmTPu/5BsYJXhwTtUZkihN4bPhCq8yL9hDRakUgmBDC07TASxsESNsRfjWyUSGvQtub4AgCbLE470O1WXq7b8MQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O12/WPN0; arc=none smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788350615; c=relaxed/simple;
+	bh=+5jcyq3+d8Im4J2d8wIaIGW8c44g9l46CK05l5TEmDU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KeglbDenm02ayaoRERdHVH+4Q7Jtbx4RnIqu0PebOxB358NwZPdBM58cVNrrhhwZ7VP6yZjjaDaDDayVYGAfLqsflqJhabfe+Wl8ymW0h3Pln5umT4PBa4IhbKzLiuJjQ/r+fjZZThTNhleG4TzSyuOiLAh4+T9s7KQ3C3q8e10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=gyEFGtjE; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O12/WPN0"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc1d57602e8so1055248a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:02:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788350567; x=1788955367; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ogfkV1olj5BWBHozC4h7H6b+n23WKTMMRGzZ7ZTaUxU=;
-        b=O12/WPN02/v9zNTGHZtm0ArxWL3NQErnElwC1RpgwR3y+7gY9nznwNMKkSndG+2JEg
-         xsIqLDJWDsyqdVEW8ACj2sEs4SYSnByEcwkSCvNTrXJ1iJbIk5Jr+MN73ETrs7T29hty
-         AqzC1NYKinI3+NTW1LoOaMG3M36ju2+V29jCrrOARcJfiRWfysKcz3+0y/T1168QkPOL
-         oD8MgThaPtlcUe5yBxqkjeOMI/YFfHzHxYf5UJ9UFWXWPOJUp/63y8tCYXHZvU6rxhMv
-         oRQpluc44scW+EVu+CjWl3VSqhw3F6NIIucf0wfGDECjr4lAfM3xg9YvuCTmXuP5WXPT
-         FHdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788350567; x=1788955367;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ogfkV1olj5BWBHozC4h7H6b+n23WKTMMRGzZ7ZTaUxU=;
-        b=DK07tGOjXVi9h6BCmMEkHSIl/3ni7+w0ckcmBGlzOZRsa7/GUeALWBKOotoTkbzIe4
-         I8aV27OfhQBWpYunYNifZ0yM+zFCX7O4hbulRtFykZ58eFjhjDOxfB9Z6b1ksUZT/bOG
-         L18m7GzX+806qjCXti6Yrl5tA4eyjqyVZym7UjOzRY4X23YPpUrHr38gy8PT5HPk1bex
-         Q9r829WSAWsJ5DekCzIUZTIUgUJrJRSW9tVMy27Cz0dKHThrNw9Lesazpfj+WbIdozJH
-         FVT5gGug9NpKaHUBWrcTD1LKoAjIY5PzEoTWJFMSqpN440Y/GCZNyViXzacdDYLnqZm4
-         NadQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwvv5VM3ex0XWY6WZ3cH9unk/MGJy+lpAKX6MbiW49PJ+YGq7YLzNVReQo5iu5uNk3eMp+EKII7nLBxTTc=@vger.kernel.org
-X-Gm-Message-State: AFuF++n+9xFXlyyF2R5JjtnWEbeqkfZaqcoY66XM/6lyktUgjjSNwQFE
-	LOJhLDPl6fEpmGZkriblMYLbfp0Z6a2OOFMmwoZQv6qeiK6ZEAZhmV0k
-X-Gm-Gg: AYBFou1u3E4tcn5xxfx2GdtqC8bD77GK418VO4b0cn60l08KdGC+PsTjFQEkuxglW4B
-	3PxbFGPvUCg+c+80d7vvnjx8WvLGQ8Vhlo+41Y6VRzZLBBUQtnXf8SQNqbOQLevkDCgr2VadgLH
-	FYftf/3oxYkoF6+67zdERYkCORLDYq4OG9fGgytiSVziZn1fBJYtBgKgVx8LJIVgZK8t4sE0J0L
-	rDub8bakjwcAJUwk6fRxVaJU8XiGMqw+Y+eM92tNjpST1Fn5BueLxIR/PFd5IQLuP6jz0Z7lERh
-	wABE+p0/j9GLLvb2ilXl3nN7QT1vQrASJ+QbqeYV2BO6uicYbRg51IlW9L4oiDxXcus5n3I/7Kp
-	sV8OZ0RZmz7suriZaV5Bs7fD95rkbmwRp/RACIPqa2U4nnWWwaQoRiT0aM76ixDwzJm7zZNqrp4
-	sjk9wU0l7DKQrs0ni+1eE9dEfvJvtRKXgpX418kkz6bKO4MZZXM2OX+Bn6Yyg/Uq6qPh34yKvmZ
-	6NQ4kGSvsPv/Ta5iMSdYw==
-X-Received: by 2002:a17:90b:6cc:b0:398:9bd5:490d with SMTP id 98e67ed59e1d1-39aee0eafb9mr6572751a91.20.1788350566769;
-        Wed, 02 Sep 2026 05:02:46 -0700 (PDT)
-Received: from volcano9f8e-host.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f079c33e9sm6897044eec.4.2026.09.02.05.02.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 05:02:46 -0700 (PDT)
-From: Hemanth Selam <hemanth.selam@gmail.com>
-To: Sean Christopherson <seanjc@google.com>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Shuah Khan <shuah@kernel.org>
-Cc: kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH 1/2] KVM: selftests: Actually compare sregs and events in sync_regs_test
-Date: Wed,  2 Sep 2026 17:32:34 +0530
-Message-ID: <20260902120235.18486-2-hemanth.selam@gmail.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <20260902120235.18486-1-hemanth.selam@gmail.com>
-References: <20260902120235.18486-1-hemanth.selam@gmail.com>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="gyEFGtjE"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3AE31107AF4;
+	Wed, 02 Sep 2026 14:02:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1788350584;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=yRDozR9CA5cf4MGXA2Vmt/BC/L2ZUVuUBfpnwpPiwyo=;
+	b=gyEFGtjERqBwEL/tao6ohapRRXoTPIu00k14Jc+WAiivcGlbvP/MvMnaPZnResbCMxpPgv
+	ScSzSFCilANDS7CGXlSCeajqbmQV1cEP3agJu1q7t1RWlatD9Hn7GvRo3buLPY2cUMAaZI
+	E0SWnkCi6XmwrbdGmbhI+PwDHSq4iSzq/g8WOx+2zR6lou9zZymVrjPB3l+bFECjLfCeer
+	xU94yNLvWYHsIk440NnxuX9PxYgjPRtQKPxzq4y9QyuwNfCeQM9I2d5vU7waFhzQ4MrMvb
+	1dyPvawnbFr6VouFfEIC8/fVIDAEmhIR4B6rG3csNkenYTKkYZIZvZt312R4rA==
+Message-ID: <88c63929-611e-44f8-b18a-360d173c8925@nabladev.com>
+Date: Wed, 2 Sep 2026 14:02:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [Linux-stm32] [PATCH v5 1/2] dt-bindings: arm: stm32: Document
+ st, stm32mp23/25-syscfg subnodes and cells
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ linux-arm-kernel@lists.infradead.org
+Cc: Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ devicetree@vger.kernel.org, kernel@dh-electronics.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>
+References: <20260831231359.136475-1-marex@nabladev.com>
+ <43ea0c7e-44f2-4ec0-ae82-ee60203c8842@foss.st.com>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <43ea0c7e-44f2-4ec0-ae82-ee60203c8842@foss.st.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-compare_sregs() and compare_vcpu_events() have been empty since the test
-was written, so the checks that req_and_verify_all_valid() and
-set_and_verify_various() run after every KVM_RUN only ever compared the
-general purpose registers.  KVM could return anything at all in the sregs
-and events halves of the kvm_run sync region and the test would still
-pass.
+On 9/2/26 10:55 AM, Fabrice Gasnier wrote:
 
-Fill both in, in the style of compare_regs(): every field of struct
-kvm_sregs, including the segment and descriptor table members and the
-interrupt bitmap, and every field of struct kvm_vcpu_events.  Both sides
-of each comparison come from the same vCPU without it having run in
-between, so they are expected to match exactly.
+Hello Fabrice,
 
-Assisted-by: Cursor:claude-opus-5
-Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
----
- .../selftests/kvm/x86/sync_regs_test.c        | 89 +++++++++++++++++++
- 1 file changed, 89 insertions(+)
+>> @@ -57,10 +68,17 @@ allOf:
+>>     - if:
+>>         properties:
+>>           compatible:
+>> -          const: st,stm32mp25-syscfg
+>> +          contains:
+>> +            enum:
+>> +              - st,stm32mp23-syscfg
+>> +              - st,stm32mp25-syscfg
+>>       then:
+>>         required:
+>>           - "#clock-cells"
+>> +        - "#address-cells"
+>> +        - "#size-cells"
+>> +        - phy@2400
+>> +        - phy@2800
+> 
+> Hi Marek,
+> 
+> Is just saw the discussing on V4 with Conor. That's mainly a thought:
+> I'm not sure USB is required, e.g. mandatory for a product, even if not
+> so likely (I don't know if this could exist out there).
 
-diff --git a/tools/testing/selftests/kvm/x86/sync_regs_test.c b/tools/testing/selftests/kvm/x86/sync_regs_test.c
-index ed0c21b427c9..c7d1f3cca16e 100644
---- a/tools/testing/selftests/kvm/x86/sync_regs_test.c
-+++ b/tools/testing/selftests/kvm/x86/sync_regs_test.c
-@@ -70,13 +70,102 @@ static void compare_regs(struct kvm_regs *left, struct kvm_regs *right)
- #undef REG_COMPARE
- }
- 
-+static void compare_segment(struct kvm_segment *left, struct kvm_segment *right,
-+			    const char *name)
-+{
-+#define SEG_COMPARE(field) \
-+	TEST_ASSERT(left->field == right->field, \
-+		    "Segment %s." #field \
-+		    " values did not match: 0x%llx, 0x%llx", \
-+		    name, (unsigned long long)left->field, \
-+		    (unsigned long long)right->field)
-+	SEG_COMPARE(base);
-+	SEG_COMPARE(limit);
-+	SEG_COMPARE(selector);
-+	SEG_COMPARE(type);
-+	SEG_COMPARE(present);
-+	SEG_COMPARE(dpl);
-+	SEG_COMPARE(db);
-+	SEG_COMPARE(s);
-+	SEG_COMPARE(l);
-+	SEG_COMPARE(g);
-+	SEG_COMPARE(avl);
-+	SEG_COMPARE(unusable);
-+#undef SEG_COMPARE
-+}
-+
-+static void compare_dtable(struct kvm_dtable *left, struct kvm_dtable *right,
-+			   const char *name)
-+{
-+	TEST_ASSERT(left->base == right->base,
-+		    "Descriptor table %s.base values did not match: 0x%llx, 0x%llx",
-+		    name, left->base, right->base);
-+	TEST_ASSERT(left->limit == right->limit,
-+		    "Descriptor table %s.limit values did not match: 0x%x, 0x%x",
-+		    name, left->limit, right->limit);
-+}
-+
- static void compare_sregs(struct kvm_sregs *left, struct kvm_sregs *right)
- {
-+#define SREG_COMPARE(reg) \
-+	TEST_ASSERT(left->reg == right->reg, \
-+		    "Register " #reg \
-+		    " values did not match: 0x%llx, 0x%llx", \
-+		    left->reg, right->reg)
-+	compare_segment(&left->cs, &right->cs, "cs");
-+	compare_segment(&left->ds, &right->ds, "ds");
-+	compare_segment(&left->es, &right->es, "es");
-+	compare_segment(&left->fs, &right->fs, "fs");
-+	compare_segment(&left->gs, &right->gs, "gs");
-+	compare_segment(&left->ss, &right->ss, "ss");
-+	compare_segment(&left->tr, &right->tr, "tr");
-+	compare_segment(&left->ldt, &right->ldt, "ldt");
-+	compare_dtable(&left->gdt, &right->gdt, "gdt");
-+	compare_dtable(&left->idt, &right->idt, "idt");
-+	SREG_COMPARE(cr0);
-+	SREG_COMPARE(cr2);
-+	SREG_COMPARE(cr3);
-+	SREG_COMPARE(cr4);
-+	SREG_COMPARE(cr8);
-+	SREG_COMPARE(efer);
-+	SREG_COMPARE(apic_base);
-+#undef SREG_COMPARE
-+	TEST_ASSERT(!memcmp(left->interrupt_bitmap, right->interrupt_bitmap,
-+			    sizeof(left->interrupt_bitmap)),
-+		    "interrupt_bitmap values did not match");
- }
- 
- static void compare_vcpu_events(struct kvm_vcpu_events *left,
- 				struct kvm_vcpu_events *right)
- {
-+#define EVENT_COMPARE(field) \
-+	TEST_ASSERT(left->field == right->field, \
-+		    "Event " #field \
-+		    " values did not match: 0x%llx, 0x%llx", \
-+		    (unsigned long long)left->field, \
-+		    (unsigned long long)right->field)
-+	EVENT_COMPARE(exception.injected);
-+	EVENT_COMPARE(exception.nr);
-+	EVENT_COMPARE(exception.has_error_code);
-+	EVENT_COMPARE(exception.pending);
-+	EVENT_COMPARE(exception.error_code);
-+	EVENT_COMPARE(interrupt.injected);
-+	EVENT_COMPARE(interrupt.nr);
-+	EVENT_COMPARE(interrupt.soft);
-+	EVENT_COMPARE(interrupt.shadow);
-+	EVENT_COMPARE(nmi.injected);
-+	EVENT_COMPARE(nmi.pending);
-+	EVENT_COMPARE(nmi.masked);
-+	EVENT_COMPARE(sipi_vector);
-+	EVENT_COMPARE(flags);
-+	EVENT_COMPARE(smi.smm);
-+	EVENT_COMPARE(smi.pending);
-+	EVENT_COMPARE(smi.smm_inside_nmi);
-+	EVENT_COMPARE(smi.latched_init);
-+	EVENT_COMPARE(triple_fault.pending);
-+	EVENT_COMPARE(exception_has_payload);
-+	EVENT_COMPARE(exception_payload);
-+#undef EVENT_COMPARE
- }
- 
- #define TEST_SYNC_FIELDS   (KVM_SYNC_X86_REGS|KVM_SYNC_X86_SREGS|KVM_SYNC_X86_EVENTS)
--- 
-2.43.7
+I assume you have two use cases in mind:
+A) A wall-mount HMI device with only display/touchscreen (No USB plug)
+B) A RPi form evaluation kit with all kinds of plugs (Yes USB plug)
+?
 
+> Still, the nodes
+> could be tweaked (deleted) in a board, to reduce dtb size in such case.
+> I'd relax, e.g. let these 4 props as optional. Do you see any drawback ?
+> That can also be relaxed later, if the case is seen.
+DT is a hardware description. The PHY IP is not removed from the chip 
+silicon only because the USB signals are not used on that specific 
+product. Therefore, for device type:
+
+A) without USB plug - no action is necessary, the PHYs are already 
+disabled by default in SoC DTSI
+B) with USB plug - board DT sets status = "okay" on the PHYs and 
+controllers.
+
+As for reducing the DT size, removing DT nodes for hardware that is 
+present in the silicon negatively impacts the ability to apply DTOs 
+outside of the kernel build process, so I would argue against 
+preemptively removing any DT nodes from DTs to reduce size.
+
+One exception is U-Boot, which adds additional generic bootph-* 
+properties to a subset of DT nodes which should be available early on, 
+and also contains a mechanism which reduces DT size for its U-Boot SPL 
+which operates in severely size constrained environment. However, this 
+is a special case, where removal of nodes from the DT is justified, 
+because in that case, it is certain that those nodes would not and could 
+not be used, and would only waste time.
+
+On the contrary, the DTs that are used to boot Linux should be complete, 
+because the user might enable an IP in there by setting status = "okay" 
+after reaching U-Boot shell, and before booting Linux.
