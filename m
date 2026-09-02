@@ -1,65 +1,35 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A062C386C3D
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:15:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2094938E8DC;
+	Wed,  2 Sep 2026 06:15:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788329736; cv=none; b=oY28Z/2yeO77ZDoZjupsLGsDbDt3WgQTV+lGiv4Ap2ZIoZHYfI+8wJzwpCtEf8ILcaJMwSKoF3+ptcT6WgHvyZ/2P6oVirjrPQYE6v3CoY74qCCu3JkBhdA21WhmjbOdVFBKz6+m9gUHAfGcyWtbLsLbKRqz9CNV9D1KTLbuXq4=
+	t=1788329742; cv=none; b=jbdEI3n/6e2idQbUUTmmKCa657qNb0dwkeNcn2KySP912RMqI7tQJRP5UmAj4qXOCXzvW6VuJbYRxql6a/6BDJoGaQgQnpnX1Hr3lVrSYmQDIK1AMQAKkOx7S33lg7AK7jVmpTQve7pe7CfVmUWRgskyykgXKmC+lSvEVvamrFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788329736; c=relaxed/simple;
-	bh=I4NIN1cDbHIY2Amq9fsZuXK8o5mLs0QZQnK6P88hugE=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=jU54ywXRfGpFakkKezSgcg3CnvrC1MbKe00EQtqratiCwUXI3I/OToUDGw30IbNNbwo96F3yJSjaILvlvaowY8Lw/9luBw3RVyIWCJ4JkFnzf1MADj5cmmYN9RIT4r/DJ4zwrX2ZJu0dSMObYye6TjPKmwH3bLAh0foMdWQzZz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lcnWvg4J; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788329742; c=relaxed/simple;
+	bh=KjSvS6cVarz2EGcjO+qgUC/Z3Ug9TAUlDU9fkjFomJM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=gTYhlirMuq/q7ouiOCcDnLPgrtLDuf+Uq9Sts2zFWNwilyg2+sp1Tqr0E1Zunsk+aJoBmB0wb4JliI7zruwiKj81nBSEd26b4OUoEyn32kKTu2IEmoiSzwxIg9bwn08b/4TvPBz5jpAm+0pZDge7u5YZTzKIqUEP5MKvpNBqN90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WvNXHcrx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lcnWvg4J"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49b8e527d63so6933565e9.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 23:15:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788329733; x=1788934533; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4a44zZaAgVVmRptagp+HGPfT5MsPzTia9qZioPjp2gU=;
-        b=lcnWvg4J/YVcYLipW9AFiWEgLPE/vkf1xL3oUvJsxEvQD+W2FFz/CrACix6WdPR32Q
-         ZSNXbXluwgCflWXt/lNI1bSEL07FrXIlstqdw+8w+QjHQ5IK8EUC6sTHrHIw2B1hR1VZ
-         95kM813+oXdScYXlc3OGhYvQ8ZfT8cdXEInVFuAn+Br7Llv53b1EFwvj3KVC6s9tyKul
-         n4zWv4Ce+WpM3Pc7m/poH/p8GrwS44f7rr7+aYxGIcrEQvksMIg3EOYbvQ7a04yLQAx+
-         mpS5tbMnDcMF9d8i4RWJj20WmImxOLRvtFAekQ/mkTkT+/4uK32JC+hWK1cy+4Mn9Qh3
-         MOUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788329733; x=1788934533;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4a44zZaAgVVmRptagp+HGPfT5MsPzTia9qZioPjp2gU=;
-        b=tBbPwVnYUH10yX2FKQBfadFoEX04oDQYV7H2FFhWtHVyT13yiphnt28KFsmZQ0HIYO
-         yyng0ZaU4oor+4twry4xTTXGBWlXwH45SokTreFj+YuaMlUrqSBTPYYomBhnZ3ct7qsT
-         BSXIRhO20/EvNKuBSMvhfZzxfo4UmAlDqzaE/gZTa1tvNuTZKk1zc3YqAy6f81rUss7X
-         /idgisvVswzJfPpk1g8WxRPptWZSN8hNsPWj5E0x8A9/e+ccEPNhWgWx0i59dSf9hWmb
-         YJ5xmqxyLjBKdrz65u5Bjbo7Stj+i2kCSO7bpEL1azqBeXxIWDtHccF3tU+15+NIX1a3
-         FC4Q==
-X-Forwarded-Encrypted: i=1; AHgh+RpgcrdVmrtCli4Wqt1pypv5sSVOsdA1RzB2JVwCcOEovpSgFcvEdPd7XUmnstkUWCNBb6GW3jc5RYvlnPU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mLzRdNcOEZjYpm7zysPCr1EKR00jEkr0kH52Azlw9Ttnx1Ja9N
-	GA/JU/9RmsYjKPtdLPrEaxw6LiZd8cvF5euGaZvPCjfr+lL7ioUk4uFLZKhk9cTmz0I=
-X-Gm-Gg: AR+sD12bhsMCDaAyqrDvnVF2mtS5XW2v2dHjkucHX6jD8A/kGWN7dKLVzGiEaPEKrz0
-	tYpSfR5CLEinO/peyE0yDDtjECR77b/BI1AlnpxxnJjWsui3DUkg/60y+hKTKzK20AuiT/pOo21
-	E5LPnESoJyHaErEg8gsRMKYB4r1UFozxjzl7InLFPiE34qE8lXomSzNyFPAJ51UhyIpd9o1jUYU
-	2w+0DTjKORYOVBjsQHXBYIrvUQJKzDG1tnLVGbWhs1XeMLQS0XOT8BF6glHwUf5059FnEAthbBr
-	XrldsyDQJXazTlo2tKmOpau9I0zXCeKYlEDnR1xyFbWU8DanGZ3c3iGGKutEMihSkuHyOCk7NT6
-	MjdEjgaLXAigAErhNbcGJnGjbRsCQ6jT6WWLDuPib8NVzpKo+nRbDlKmQ31N4Ng9fXK2lWfj2BH
-	twhZRCF4iUlSSKgjiAUKpi90ArlzxYUQhVUVgwp2MAwP7x6mlXkoeVFwa8cusXeKg83vZ6eq7UP
-	e5pM/QcP8rJrGKc53pVTmewJY5pYyPcpA==
-X-Received: by 2002:a05:600c:4e93:b0:499:cd34:100d with SMTP id 5b1f17b1804b1-49ce57f5235mr39841585e9.7.1788329732659;
-        Tue, 01 Sep 2026 23:15:32 -0700 (PDT)
-Received: from valmpani.valmpani ([2a02:587:f24:b00:967a:9200:4108:5b68])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce4642382sm45222275e9.3.2026.09.01.23.15.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 23:15:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WvNXHcrx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 587011F000E9;
+	Wed,  2 Sep 2026 06:15:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788329737;
+	bh=YsA6hNpdDuoXhmxFeC3uv8uIXxR1ksQ/iBUtdB1feUs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=WvNXHcrxV8JKaRtt3T+TgHowGmPOJ4H4MgCw7LvVDttuAHoV8YajbSc586+Rw1gFT
+	 1fgWfos2HoEwwgGmf2fwT7rUv/cZnEG6lheWHkQhjlrHRPyeM6CgQ35aBMGDOlIDQb
+	 /fcMnjoLLunKuouuieMHEpD/HuxY9/fPUdnP1LS1tlXNxz4gZriv8nN3DIKHWLT+BK
+	 C9qIfJouDe3OtAGA5Rqgs8L3WfXmxVGyHhfOx0HskVeGN/LsdbVntcaw3cwgRNjaAs
+	 eydF7OqQZjyyls4A7K32MsYBafb4e24W6+SewzgGWol4DaaEcQIGEkf/29pCIx6ML/
+	 Ts5YBGxnhGnGw==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Date: Wed, 02 Sep 2026 09:15:14 +0300
+Subject: [PATCH 2/4] KVM: s390: Replace get_zeroed_page() with kzalloc()
+ for the STSI buffer
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -68,55 +38,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] media: dw2102: fix OOB read on firmware size not a
- multiple of 64
-From: Vasileios Almpanis <vasilisalmpanis@gmail.com>
-To: Vasileios Almpanis <vasilisalmpanis@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Igor M Liplianin <liplianin@me.by>, linux-media@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- syzbot+f408eac9faa61d5a1927@syzkaller.appspotmail.com
-In-Reply-To: <20260806-dvb-v1-1-a750f8e5b2ea@gmail.com>
-References: <20260806-dvb-v1-1-a750f8e5b2ea@gmail.com>
-Date: Wed, 02 Sep 2026 08:15:25 +0200
-Message-Id: <178832972564.754738.8009301300861192916.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788329730; l=1330;
- i=vasilisalmpanis@gmail.com; s=20260731; h=from:subject:message-id;
- bh=I4NIN1cDbHIY2Amq9fsZuXK8o5mLs0QZQnK6P88hugE=;
- b=rvF99dTX+DCaZpMaHpmUEq9OVveZjVKnOlfnvXU64qiu2UmkqRi5actjAMTg6y6Fjwk0BjGLI
- ye9LPzZOGMFAHox/Yrv2IR1HZSaVtUEqhFX55fGy9HPKKYAIGqz7GZF
-X-Developer-Key: i=vasilisalmpanis@gmail.com; a=ed25519;
- pk=gn5Uo6yL8Tlpq5uATxA3nqoq+U8eWLRbjD+bOk0qSpU=
+Message-Id: <20260902-s390-kvm-v1-2-3bc0986550b1@kernel.org>
+References: <20260902-s390-kvm-v1-0-3bc0986550b1@kernel.org>
+In-Reply-To: <20260902-s390-kvm-v1-0-3bc0986550b1@kernel.org>
+To: Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>
+Cc: Alexander Gordeev <agordeev@linux.ibm.com>, 
+ David Hildenbrand <david@kernel.org>, Heiko Carstens <hca@linux.ibm.com>, 
+ Mike Rapoport <rppt@kernel.org>, Sven Schnelle <svens@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, Vlastimil Babka <vbabka@kernel.org>, 
+ kvm@vger.kernel.org, linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+ linux-s390@vger.kernel.org
+X-Mailer: b4 0.17-dev
 
-> dw2102_load_firmware() copies the firmware into a buffer of exactly
-> fw->size bytes, then walks it in 0x40-byte steps while always passing
-> 0x40 as the transfer length. When fw->size is not a multiple of 64 the
-> last chunk reads past the end of the allocation producing the following
-> splat:
-> 
->   dvb-usb: downloading firmware from file 'dvb-usb-dw3101.fw'
->   dw2102: start downloading DW210X firmware
->   ==================================================================
->   BUG: KASAN: slab-out-of-bounds in dw210x_op_rw+0xb6/0x180 drivers/media/usb/dvb-usb/dw2102.c:102
->   Read of size 64 at addr ffff88802bcf2ba0 by task kworker/1:2/803
->   Call Trace:
->    <TASK>
->    kasan_report+0x117/0x150 mm/kasan/report.c:595
->    check_region_inline mm/kasan/generic.c:-1 [inline]
->    kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
->    __asan_memcpy+0x29/0x70 mm/kasan/shadow.c:105
->    dw210x_op_rw+0xb6/0x180 drivers/media/usb/dvb-usb/dw2102.c:102
->    dw2102_load_firmware+0x2b4/0x970 drivers/media/usb/dvb-usb/dw2102.c:1906
-> 
-> Fix this by clamping the last chunk to the remaining bytes;
-> 
-Hello everyone!
+handle_stsi() allocates the buffer that receives the STSI response block
+before it is copied to the guest.
 
-A gentle ping on this patch. Is there something you would
-like me to change or is the patch good to go?
+This buffer can be allocated with kmalloc() as there's nothing special
+about it to go directly to the page allocator.
 
-Kind regards,
+kmalloc() provides a better API that does not require ugly casts and
+kfree() does not need to know the size of the freed object.
+
+Performance difference between kmalloc() and __get_free_pages() is not
+measurable as both allocators take an object/page from a per-CPU list for
+fast path allocations.
+
+For the slow path the performance is anyway determined by the amount of
+reclaim involved rather than by what allocator is used.
+
+While on it, make the buffer a void pointer to get rid of the casts.
+
+Replace use of get_zeroed_page() with kzalloc() and free_page() with
+kfree().
+
+Link: https://lore.kernel.org/all/635405e4-9423-4a25-a6e7-e03c8ea0bcbe@redhat.com
+Assisted-by: copilot:claude-opus
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+---
+ arch/s390/kvm/s390/priv.c | 19 ++++++++++---------
+ 1 file changed, 10 insertions(+), 9 deletions(-)
+
+diff --git a/arch/s390/kvm/s390/priv.c b/arch/s390/kvm/s390/priv.c
+index b3cb2c2c3aa71..856939acf012f 100644
+--- a/arch/s390/kvm/s390/priv.c
++++ b/arch/s390/kvm/s390/priv.c
+@@ -14,6 +14,7 @@
+ #include <linux/mm_types.h>
+ #include <linux/pgtable.h>
+ #include <linux/io.h>
++#include <linux/slab.h>
+ #include <asm/asm-offsets.h>
+ #include <asm/facility.h>
+ #include <asm/current.h>
+@@ -869,7 +870,7 @@ static int handle_stsi(struct kvm_vcpu *vcpu)
+ 	int fc = (vcpu->run->s.regs.gprs[0] & 0xf0000000) >> 28;
+ 	int sel1 = vcpu->run->s.regs.gprs[0] & 0xff;
+ 	int sel2 = vcpu->run->s.regs.gprs[1] & 0xffff;
+-	unsigned long mem = 0;
++	void *mem = NULL;
+ 	u64 operand2;
+ 	int rc = 0;
+ 	u8 ar;
+@@ -911,19 +912,19 @@ static int handle_stsi(struct kvm_vcpu *vcpu)
+ 	switch (fc) {
+ 	case 1: /* same handling for 1 and 2 */
+ 	case 2:
+-		mem = get_zeroed_page(GFP_KERNEL_ACCOUNT);
++		mem = kzalloc(PAGE_SIZE, GFP_KERNEL_ACCOUNT);
+ 		if (!mem)
+ 			goto out_no_data;
+-		if (stsi((void *) mem, fc, sel1, sel2))
++		if (stsi(mem, fc, sel1, sel2))
+ 			goto out_no_data;
+ 		break;
+ 	case 3:
+ 		if (sel1 != 2 || sel2 != 2)
+ 			goto out_no_data;
+-		mem = get_zeroed_page(GFP_KERNEL_ACCOUNT);
++		mem = kzalloc(PAGE_SIZE, GFP_KERNEL_ACCOUNT);
+ 		if (!mem)
+ 			goto out_no_data;
+-		handle_stsi_3_2_2(vcpu, (void *) mem);
++		handle_stsi_3_2_2(vcpu, mem);
+ 		break;
+ 	case 15: /* fc 15 is fully handled in userspace */
+ 		insert_stsi_usr_data(vcpu, operand2, ar, fc, sel1, sel2);
+@@ -931,10 +932,10 @@ static int handle_stsi(struct kvm_vcpu *vcpu)
+ 		return -EREMOTE;
+ 	}
+ 	if (kvm_s390_pv_cpu_is_protected(vcpu)) {
+-		memcpy(sida_addr(vcpu->arch.sie_block), (void *)mem, PAGE_SIZE);
++		memcpy(sida_addr(vcpu->arch.sie_block), mem, PAGE_SIZE);
+ 		rc = 0;
+ 	} else {
+-		rc = write_guest(vcpu, operand2, ar, (void *)mem, PAGE_SIZE);
++		rc = write_guest(vcpu, operand2, ar, mem, PAGE_SIZE);
+ 	}
+ 	if (rc) {
+ 		rc = kvm_s390_inject_prog_cond(vcpu, rc);
+@@ -945,14 +946,14 @@ static int handle_stsi(struct kvm_vcpu *vcpu)
+ 		rc = -EREMOTE;
+ 	}
+ 	trace_kvm_s390_handle_stsi(vcpu, fc, sel1, sel2, operand2);
+-	free_page(mem);
++	kfree(mem);
+ 	kvm_s390_set_psw_cc(vcpu, 0);
+ 	vcpu->run->s.regs.gprs[0] = 0;
+ 	return rc;
+ out_no_data:
+ 	kvm_s390_set_psw_cc(vcpu, 3);
+ out:
+-	free_page(mem);
++	kfree(mem);
+ 	return rc;
+ }
+ 
 
 -- 
-Vasileios Almpanis <vasilisalmpanis@gmail.com>
+2.53.0
+
