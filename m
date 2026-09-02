@@ -1,135 +1,409 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B11A4A0157
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:46:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7E749F118
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:46:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788356807; cv=none; b=lNQaGZBJAq2exIxT9GTynf2P0T6x2x4GCkjohwmNh0xxKorWXBmXfZV/iDBrTvFjCO2QY6Y7DbGWXlp6zrlmxWl+H0APHTGwWGZYSzIwLr7OuN6P1tPj8MWPKrKtsYzpQRDY1F3hgid/IhsnFUhYvZm9DygMqOSocz9I178v+wM=
+	t=1788356813; cv=none; b=RivzMNkvdWXAioYnI4Gq1qpnbzRQ7uO2mwZgdIQ2ZYj9Cz8rwgES7GY/oxPbwYuJwselSLXNfb5aR+S+WkV3OSG28J7oeg8PzsvAteS5Fkji2kIFlaXt5WNey6iNSfux7dIloluyYTuwIX9RpVqGvXS0ZaEoJJDiyp2AOdhyj3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788356807; c=relaxed/simple;
-	bh=o0rlClM5qugEx/ua4/bp1yTHz7f4XBumez11VDdWuWE=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=EVuG6hYWYrKNxyN1eZZ11pqv0LYmkEYrSe7Kdzit5eFblca9dv88+xC1rK6Kv4oU01muQWkBTUH7zyqv75xEgDDDwJspn5OMVIaB6zUnuFc/TSYOAu3GGI6MA3T/SWFTLJmY4xDHJWmxsV5FD9BMcReyg61aZ7JJlbZo30WYu+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CypwyhgR; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788356813; c=relaxed/simple;
+	bh=3Q3DBiNOE0h7ovo+HRmxm9wwWO8djMR7b2SHmrhUDzI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bFSfmmNRhUsLxV55bBi5Yz+CridbTQsLke3sCN8OQSe/TQUsuSIbjlrUpzyPWtr+slYIqUNGLRCBbcolHLVU1HAdAXtYUfCKhi4iHaitZBq1VNGcVHz51KroHX9bpPV0ryOR9JyBksbsRSvkNQC43mKaBNJQUU5DRLI6DdZ9XfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=okFse3wJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CypwyhgR"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49954b88fffso8069265e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 06:46:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788356804; x=1788961604; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Uung8BThZMwxg0EHYvlAQa0fyS8hJUcosA00cBSikLk=;
-        b=CypwyhgRM1ZFUYjS2MpVnnyMySCGr4NbQqIVQUS+SavmPxzA+9aB1WWxfFNf6a7FoM
-         qOT7Z1xYlC+Vjcj+zJhOp3T0nOv/zPZkVEiC11jc1vPMQcKOFabv1168pEm7lSz+YlLu
-         SWuH5GHa9jbXysXxyW/GFIxkQVqGIyzWYoksnChwtckcByqaHh5/7ttC5D4zkTpFSBij
-         nIbaYrBman9sZ4Ufo2M9uOqmTnLCqt/mg0ziTIR7+L+gu6yzdr12Wrl7fyMRwgyASH3k
-         aPBQmgRjoFGb8xtJ4D4UFqC/GDwQUQwp24pF1R01QtR/Vp8mI9Zji46NH94R9Kc2K4W+
-         AjxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788356804; x=1788961604;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Uung8BThZMwxg0EHYvlAQa0fyS8hJUcosA00cBSikLk=;
-        b=WxOlvSy0I4T8ElT/e//nOpLke5W9HPLlG4C29wnq3wGslBIwDaOrhayym8H7EKRTuV
-         F/TAhamig1k8JWB5jL9jIHB9NUjK39yhM3UzFM5TS9xJRvsiBkKmGT/jyCxLatIkchW/
-         8D8ia+Ft+4QbQ9EUjwJmwObJymkTu57u2fK730wv8PFSffNXx0z4EEmPnvWrf7PVEwpH
-         Wf166MsFo9A47oZ53YhfCbFod/QsxABUB9KrFO1UhTmglLV0Zo8PoC10DA3fj7zOuMtI
-         00W0MYhwrl2cb31ZmP7S2K17baN9eD+GUf4uO+ePrKwFpEY3OLi0lm1YfXJ2O5Q6qYyy
-         YvIw==
-X-Forwarded-Encrypted: i=1; AHgh+Rp3RaWkwrBY13P3SmjHGvL6Z4vo0EkmBy7XzXTDnAWL7lWHNeZewsXVNPy7UIjLOBcfYtGVZEMuH+dqJYg=@vger.kernel.org
-X-Gm-Message-State: AFuF++meu7DRZ735ohqh4VPeWJGKyMyLkwsrW4dJ51KZXt4hyHkEajiQ
-	+B4O3h0DK71yWvPFAhk3ek3Hh7+HyF3RFE1tcriFAbuwmpIzaZoo19nH
-X-Gm-Gg: AR+sD12EoW84wUnEmN/E3mtMUwgrVzo2u5fXyQaKtIJVJMwCREG4iJj1mdNiIsXQHP/
-	nSUFmbIIOuE+fmiEExgtMhftp2nFy9eUKhdeZhWX4k5kMKWdo+lVrB+JnUsPqn0rSoJFCowIp68
-	6VygfWBCJQg5IUdJ1tQwi93TVHdxuypL7GiVHwnMHq/j8F1zQMwr57MTiDcYfFn05AY/EQai1u3
-	9ga5qI/Vet+B8ZGCmtJ3b251aFMNojS6j5Tplt7F9WNvmOoZA0th326iaLxv94s1r5gvMPSn3Zy
-	wgV1IY8pQfSHpAEuanUJs2rqsf0Ue9v4wLHUfK5hew8HUll5CgM5XABgv+rHDoRZOrQl3Cf6vvl
-	AQqLFrHJgK5O90NeGSW85bduoHDQAPbfTsb/VGOQNlUdBpBUv1lGBxF5VokW/k2CP35FY2NXCBV
-	dJvD7No55OMhrA6pSQYYDJgRPIDRavcau+HZSB1Rcogab/l5VtKvPoD/pRycBCJUPtX4iEnvTDs
-	ZtNl11fHE2uVkAxgH0Ut5hGwcq84uDxq4oo1BX1kmHZmJYH2QCy5+2WLMOjjQ==
-X-Received: by 2002:a05:600c:621b:b0:499:dbae:86be with SMTP id 5b1f17b1804b1-49ce58352ccmr101662915e9.14.1788356804024;
-        Wed, 02 Sep 2026 06:46:44 -0700 (PDT)
-Received: from valmpani.valmpani (athedsl-11462.home.otenet.gr. [87.202.45.32])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce7dd5154sm39216155e9.2.2026.09.02.06.46.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 06:46:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="okFse3wJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DA6C1F000E9;
+	Wed,  2 Sep 2026 13:46:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788356811;
+	bh=HVEd5d75YE+aQSNOfHhVC5lBHOsLLZJMAtGt1Mo7YBc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=okFse3wJj7j5Uestva/C4RLOVrEldgdwnHZGOXkKvr8LVAC3AYsxrUXyggOpgTSoB
+	 GdU3t/78ANZmrsaGnd6q5veUw1sLmN3e+VZQ3F9a7svyDNinINmNooSPyN5qLdke9o
+	 oFWlzZQq2hxpPuSBrmno+zAcS8KwnDHId5quPeNofsWNPGGPAqwkmOGcFEIJ0yiEmX
+	 GPDPzLsoQNg/Bi+DaYoQ06fizxY+hIJ2HAV1Y0T8ZvFUN2i6eLMHgA8yNm2GnGzJ+E
+	 Sq7CqKKHf+4Wyj5uGQbK+ozwrPRl+wT5ckcZJCSdXUSerBsUSUlP7QHp9UGkhV7juW
+	 duzz6536CVDiw==
+Date: Wed, 2 Sep 2026 14:46:44 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Nimrod Oren <noren@nvidia.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Hugh Dickins <hughd@google.com>, Nirmoy Das <nirmoyd@nvidia.com>, 
+	Dragos Tatulea <dtatulea@nvidia.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
+Message-ID: <apgh-aJ7TsdixrGc@gremlin>
+References: <20260901190123.3511535-1-noren@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] ihex: Fix 16 bit truncation in ihex_binrec_size()
-From: Vasileios Almpanis <vasilisalmpanis@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Vasileios Almpanis <vasilisalmpanis@gmail.com>, 
- Andrey Smirnov <andrew.smirnov@gmail.com>, 
- David Woodhouse <dwmw2@infradead.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, linux-usb@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <2026090256-posture-affirm-f40f@gregkh>
-References: <20260902-ihex-v1-1-67fdbf8d97ff@gmail.com>
- <2026090223-napped-nerd-790e@gregkh>
- <178835312958.943169.5134885168571622868.b4-reply@b4>
- <2026090256-posture-affirm-f40f@gregkh>
-Date: Wed, 02 Sep 2026 15:46:41 +0200
-Message-Id: <178835680142.947452.6844220046489942180.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788356802; l=1143;
- i=vasilisalmpanis@gmail.com; s=20260731; h=from:subject:message-id;
- bh=o0rlClM5qugEx/ua4/bp1yTHz7f4XBumez11VDdWuWE=;
- b=ZTa9yJ/mRy2fMWTJjmNTZkItUoMtxrHg0VZhvXOTrk3eYHYzwubnhdUl5eUntVDto5gGr/+bG
- 68ahcPXnkhnDZI93/XaVX3vvM8juXzAGqTb7qRzysPYIsAfgMXi5aOS
-X-Developer-Key: i=vasilisalmpanis@gmail.com; a=ed25519;
- pk=gn5Uo6yL8Tlpq5uATxA3nqoq+U8eWLRbjD+bOk0qSpU=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901190123.3511535-1-noren@nvidia.com>
 
-On 2026-09-02 14:56:48+02:00, Greg Kroah-Hartman wrote:
-> On Wed, Sep 02, 2026 at 02:45:29PM +0200, Vasileios Almpanis wrote:
-> 
-> > On 2026-09-02 13:06:27+02:00, Greg Kroah-Hartman wrote:
-> > 
-> > I used fake images. 14 bytes long for the out-of-bounds bug and 6 bytes
-> > for the infinite loop. I passed them through the sysfs fallback loader.
-> 
-> Cool, so root only, fake firmware, not a real issue?  :)
+On Tue, Sep 01, 2026 at 10:01:23PM +0300, Nimrod Oren wrote:
+> When THP is enabled, set_recommended_min_free_kbytes() may raise
+> min_free_kbytes using a heuristic that scales with pageblock_nr_pages.
+> Commit f000565adb77 ("thp: set recommended min free kbytes") added this
+> heuristic to help keep pageblocks free and reduce fragmentation for THP
+> allocations.
+>
+> The recommendation scales poorly with larger base page sizes. With the
+> default arm64 pageblock sizes, the contribution per eligible zone
+> before applying the existing cap of 5% of low memory is:
+>
+>   4 KiB pages:   2 MiB pageblock,   22 MiB per zone
+>  16 KiB pages:  32 MiB pageblock,  352 MiB per zone
+>  64 KiB pages: 512 MiB pageblock,  5.5 GiB per zone
+>
+> Even with that cap, min_free_kbytes can reach excessive levels.
+>
+> The automatic min_free_kbytes increase predates proactive compaction
+> and many subsequent changes to compaction. Given those changes,
+> increasing min_free_kbytes for THP by default is no longer clearly
+> justified.
+>
+> Remove set_recommended_min_free_kbytes() and all associated
+> recalculation paths. With this policy gone, min_free_kbytes is
+> controlled only by the page allocator's default calculation and the
+> vm.min_free_kbytes sysctl. Users who want additional headroom may set a
+> higher value via that sysctl.
+>
+> Link: https://lore.kernel.org/r/20260831075635.2244437-1-noren@nvidia.com/
+> Suggested-by: Michal Hocko <mhocko@suse.com>
+> Signed-off-by: Nimrod Oren <noren@nvidia.com>
 
-Okay got it, i'll drop Cc: stable
+Code all looks good, ran locally and with 16 KiB page size arm64 + THP
+enabled (tried with defrag -> madvise):
 
-> 
-> > Out-Of-Bounds bug image:
-> > 00 00 00 00 ff ff 00 00 00 00 00 00 00 00
-> > 
-> > Infinite-loop image:
-> > 00 00 00 00 ff fa
-> > 
-> > 
-> > Yes its root only. The attributes are accessible only through root
-> > and it also needs raw-gadget.
-> > 
-> > 
-> > It does, but the value tops out at 65535 + 6 = 65541, so 17 bits, and
-> > size_t is at least 32 bits. I chose size_t because sizeof(*p) is already
-> > size_t. If you don't like it I can send v2 with u32.
-> 
-> Let's be specific, otherwise people will trip over the fact that this is
-> different sizes.
+Before:
 
-I'll change it to u32 in v2 shortly.
+	$ cat /proc/sys/vm/min_free_kbytes
+	360448
 
-> 
-> thanks,
-> 
-> greg k-h
+After:
 
-Kind regard,
-Vasileios Almpanis
+	$ cat /proc/sys/vm/min_free_kbytes
+	11472
 
+And no delta on THP selftests.
+
+$ cat /sys/kernel/mm/transparent_hugepage/khugepaged/pages_collapsed
+936
+$ cat /sys/kernel/mm/transparent_hugepage/khugepaged/full_scans
+2002
+
+So (32 MiB) THPs are coming no problem with low memory pressure and without
+needing egregious defrag options, i.e. proactive compaction is doing its
+job fine.
+
+See https://lore.kernel.org/linux-mm/apgdNQgHw4BW3bPG@gremlin/ for my
+thoughts on this approach in general but TL;DR am in favour :)
+
+So LGTM and:
+
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Tested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+> ---
+> v3:
+> * Replace the 1 GiB cap with removal of the THP-driven min_free_kbytes
+>   increase as suggested by Michal.
+> * Remove all associated recalculation paths.
+> * Make min_free_kbytes, user_min_free_kbytes,
+>   calculate_min_free_kbytes(), and setup_per_zone_wmarks() static.
+> * Drop the now-unused declarations and khugepaged's page_alloc.h include.
+> * Drop the obsolete v2 documentation addition.
+>
+> v2:
+> * Use a named constant for the cap.
+> * Drop explicit linux/sizes.h include.
+> * Update min_free_kbytes documentation.
+> https://lore.kernel.org/r/20260831075635.2244437-1-noren@nvidia.com/
+>
+> v1:
+> * Cap the final recommendation at 1 GiB as suggested by Lorenzo.
+> https://lore.kernel.org/r/20260728202014.2517142-1-noren@nvidia.com/
+>
+> RFC v1:
+> https://lore.kernel.org/r/20260716173504.760369-1-noren@nvidia.com/
+> ---
+>  include/linux/khugepaged.h |  5 ----
+>  mm/huge_memory.c           | 14 ---------
+>  mm/internal.h              |  8 -----
+>  mm/khugepaged.c            | 60 --------------------------------------
+>  mm/page_alloc.c            | 11 +++----
+>  mm/page_alloc.h            |  2 --
+>  mm/shmem.c                 |  7 -----
+>  7 files changed, 4 insertions(+), 103 deletions(-)
+>
+> diff --git a/include/linux/khugepaged.h b/include/linux/khugepaged.h
+> index d7a9053ff4fe..e2a2ccb6cd05 100644
+> --- a/include/linux/khugepaged.h
+> +++ b/include/linux/khugepaged.h
+> @@ -15,7 +15,6 @@ extern void __khugepaged_enter(struct mm_struct *mm);
+>  extern void __khugepaged_exit(struct mm_struct *mm);
+>  extern void khugepaged_enter_vma(struct vm_area_struct *vma,
+>  				 vm_flags_t vm_flags);
+> -extern void khugepaged_min_free_kbytes_update(void);
+>  extern bool current_is_khugepaged(void);
+>  void collapse_pte_mapped_thp(struct mm_struct *mm, unsigned long addr,
+>  		bool install_pmd);
+> @@ -47,10 +46,6 @@ static inline void collapse_pte_mapped_thp(struct mm_struct *mm,
+>  {
+>  }
+>
+> -static inline void khugepaged_min_free_kbytes_update(void)
+> -{
+> -}
+> -
+>  static inline bool current_is_khugepaged(void)
+>  {
+>  	return false;
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index c5d11147b69a..b1f87e005e03 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -499,13 +499,6 @@ static ssize_t enabled_store(struct kobject *kobj,
+>
+>  		if (err)
+>  			return err;
+> -	} else {
+> -		/*
+> -		 * Recalculate watermarks even when the mode didn't
+> -		 * change, as the previous code always called
+> -		 * start_stop_khugepaged() which does this internally.
+> -		 */
+> -		set_recommended_min_free_kbytes();
+>  	}
+>  	return count;
+>  }
+> @@ -735,13 +728,6 @@ static ssize_t anon_enabled_store(struct kobject *kobj,
+>
+>  		if (err)
+>  			return err;
+> -	} else {
+> -		/*
+> -		 * Recalculate watermarks even when the mode didn't
+> -		 * change, as the previous code always called
+> -		 * start_stop_khugepaged() which does this internally.
+> -		 */
+> -		set_recommended_min_free_kbytes();
+>  	}
+>
+>  	return count;
+> diff --git a/mm/internal.h b/mm/internal.h
+> index e16f1250b25c..6890d7836c68 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -689,11 +689,6 @@ int user_proactive_reclaim(char *buf,
+>   */
+>  pmd_t *mm_find_pmd(struct mm_struct *mm, unsigned long address);
+>
+> -/*
+> - * in mm/khugepaged.c
+> - */
+> -void set_recommended_min_free_kbytes(void);
+> -
+>  /*
+>   * in mm/page_alloc.c
+>   */
+> @@ -701,11 +696,8 @@ void set_recommended_min_free_kbytes(void);
+>
+>  extern char * const zone_names[MAX_NR_ZONES];
+>
+> -extern int min_free_kbytes;
+>  extern int defrag_mode;
+>
+> -void setup_per_zone_wmarks(void);
+> -void calculate_min_free_kbytes(void);
+>  int __meminit init_per_zone_wmark_min(void);
+>
+>  extern int __isolate_free_page(struct page *page, unsigned int order);
+> diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+> index f49a6710933b..c36b7d0b91d7 100644
+> --- a/mm/khugepaged.c
+> +++ b/mm/khugepaged.c
+> @@ -27,7 +27,6 @@
+>
+>  #include <asm/tlb.h>
+>  #include "internal.h"
+> -#include "page_alloc.h"
+>  #include "mm_slot.h"
+>
+>  enum scan_result {
+> @@ -3086,57 +3085,6 @@ static int khugepaged(void *none)
+>  	return 0;
+>  }
+>
+> -void set_recommended_min_free_kbytes(void)
+> -{
+> -	struct zone *zone;
+> -	int nr_zones = 0;
+> -	unsigned long recommended_min;
+> -
+> -	if (!hugepage_enabled()) {
+> -		calculate_min_free_kbytes();
+> -		goto update_wmarks;
+> -	}
+> -
+> -	for_each_populated_zone(zone) {
+> -		/*
+> -		 * We don't need to worry about fragmentation of
+> -		 * ZONE_MOVABLE since it only has movable pages.
+> -		 */
+> -		if (zone_idx(zone) > gfp_zone(GFP_USER))
+> -			continue;
+> -
+> -		nr_zones++;
+> -	}
+> -
+> -	/* Ensure 2 pageblocks are free to assist fragmentation avoidance */
+> -	recommended_min = pageblock_nr_pages * nr_zones * 2;
+> -
+> -	/*
+> -	 * Make sure that on average at least two pageblocks are almost free
+> -	 * of another type, one for a migratetype to fall back to and a
+> -	 * second to avoid subsequent fallbacks of other types There are 3
+> -	 * MIGRATE_TYPES we care about.
+> -	 */
+> -	recommended_min += pageblock_nr_pages * nr_zones *
+> -			   MIGRATE_PCPTYPES * MIGRATE_PCPTYPES;
+> -
+> -	/* don't ever allow to reserve more than 5% of the lowmem */
+> -	recommended_min = min(recommended_min,
+> -			      (unsigned long) nr_free_buffer_pages() / 20);
+> -	recommended_min <<= (PAGE_SHIFT-10);
+> -
+> -	if (recommended_min > min_free_kbytes) {
+> -		if (user_min_free_kbytes >= 0)
+> -			pr_info_ratelimited("raising min_free_kbytes from %d to %lu to help transparent hugepage allocations\n",
+> -					    min_free_kbytes, recommended_min);
+> -
+> -		min_free_kbytes = recommended_min;
+> -	}
+> -
+> -update_wmarks:
+> -	setup_per_zone_wmarks();
+> -}
+> -
+>  int start_stop_khugepaged(void)
+>  {
+>  	guard(mutex)(&khugepaged_mutex);
+> @@ -3160,17 +3108,9 @@ int start_stop_khugepaged(void)
+>  		kthread_stop(khugepaged_thread);
+>  		khugepaged_thread = NULL;
+>  	}
+> -	set_recommended_min_free_kbytes();
+>  	return 0;
+>  }
+>
+> -void khugepaged_min_free_kbytes_update(void)
+> -{
+> -	guard(mutex)(&khugepaged_mutex);
+> -	if (hugepage_enabled() && khugepaged_thread)
+> -		set_recommended_min_free_kbytes();
+> -}
+> -
+>  bool current_is_khugepaged(void)
+>  {
+>  	return kthread_func(current) == khugepaged;
+> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+> index c4dc61ec663e..5280784c91a8 100644
+> --- a/mm/page_alloc.c
+> +++ b/mm/page_alloc.c
+> @@ -50,7 +50,6 @@
+>  #include <linux/ftrace.h>
+>  #include <linux/lockdep.h>
+>  #include <linux/psi.h>
+> -#include <linux/khugepaged.h>
+>  #include <linux/delayacct.h>
+>  #include <linux/cacheinfo.h>
+>  #include <linux/pgalloc_tag.h>
+> @@ -272,8 +271,8 @@ const char * const migratetype_names[MIGRATE_TYPES] = {
+>  #endif
+>  };
+>
+> -int min_free_kbytes = 1024;
+> -int user_min_free_kbytes = -1;
+> +static int min_free_kbytes = 1024;
+> +static int user_min_free_kbytes = -1;
+>  static int watermark_boost_factor __read_mostly = 15000;
+>  static int watermark_scale_factor = 10;
+>  int defrag_mode;
+> @@ -6663,7 +6662,7 @@ static void __setup_per_zone_wmarks(void)
+>   * Ensures that the watermark[min,low,high] values for each zone are set
+>   * correctly with respect to min_free_kbytes.
+>   */
+> -void setup_per_zone_wmarks(void)
+> +static void setup_per_zone_wmarks(void)
+>  {
+>  	struct zone *zone;
+>  	static DEFINE_SPINLOCK(lock);
+> @@ -6704,7 +6703,7 @@ void setup_per_zone_wmarks(void)
+>   * 8192MB:	11584k
+>   * 16384MB:	16384k
+>   */
+> -void calculate_min_free_kbytes(void)
+> +static void calculate_min_free_kbytes(void)
+>  {
+>  	unsigned long lowmem_kbytes;
+>  	int new_min_free_kbytes;
+> @@ -6732,8 +6731,6 @@ int __meminit init_per_zone_wmark_min(void)
+>  	setup_min_slab_ratio();
+>  #endif
+>
+> -	khugepaged_min_free_kbytes_update();
+> -
+>  	return 0;
+>  }
+>  postcore_initcall(init_per_zone_wmark_min)
+> diff --git a/mm/page_alloc.h b/mm/page_alloc.h
+> index b9259deddb59..86162e6cfa8c 100644
+> --- a/mm/page_alloc.h
+> +++ b/mm/page_alloc.h
+> @@ -227,8 +227,6 @@ void post_alloc_hook(struct page *page, unsigned int order, gfp_t gfp_flags,
+>  		     unsigned int alloc_flags);
+>  extern bool free_pages_prepare(struct page *page, unsigned int order);
+>
+> -extern int user_min_free_kbytes;
+> -
+>  struct page *__alloc_frozen_pages_noprof(gfp_t gfp, unsigned int order, int nid,
+>  		nodemask_t *nodemask, unsigned int alloc_flags);
+>  #define __alloc_frozen_pages(...) \
+> diff --git a/mm/shmem.c b/mm/shmem.c
+> index 255d69ebceba..92dc770b10e6 100644
+> --- a/mm/shmem.c
+> +++ b/mm/shmem.c
+> @@ -5782,13 +5782,6 @@ static ssize_t thpsize_shmem_enabled_store(struct kobject *kobj,
+>  		int err = start_stop_khugepaged();
+>  		if (err)
+>  			return err;
+> -	} else {
+> -		/*
+> -		 * Recalculate watermarks even when the mode hasn't changed
+> -		 * to preserve the legacy behavior, as this is always called
+> -		 * inside start_stop_khugepaged().
+> -		 */
+> -		set_recommended_min_free_kbytes();
+>  	}
+>
+>  	return count;
+> --
+> 2.45.0
+>
+
+--
+Cheers, Lorenzo
