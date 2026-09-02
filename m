@@ -1,126 +1,233 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cu-ua11p00im-quki07170902.ua.silu.net (cu-ua11p00im-quki07170902.ua.silu.net [123.126.78.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9606F328267
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:53:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273AF339390;
+	Wed,  2 Sep 2026 03:54:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=123.126.78.68
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788321236; cv=none; b=akPdV395SPDoh0Ja1wpdWzSI/LE7m10GXp8B0t/UhJVuevuKjMAxVOgznL+1GPBxjkDl4YsIIwQ3DB0PDOR1CeAzKqXXqxz67XY8sOelIUKSgeraq/epIl8UcEuG2gfypkRrBCMpAxitHQjqQcrGZ6YDNJHRwskEAXqUkRgycTs=
+	t=1788321254; cv=none; b=YJH9hR5kW7a2cqO2/2WDx06k5XNS5Iq8mDDv059w9TFatCzjXQ2venYbISytv4k1OwZPFfJxaZf6+PRWNmg6AMa23MwGNEp2Q5gnQbIUdJaFdpuJlm7fauJo71OSUEtj9fbfY/mZq7fnqC7qggMb0/Z2Ul88cl9Knu+J5FAvUG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788321236; c=relaxed/simple;
-	bh=8OHaoavkJfqqCCpDDJNEQIHd13lV+tTEPVC+AXbCG3w=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=AsRtRxoWjIc1FTpcvKPCqBMg5B6n7lUhoyZoFMrmSwJ77Rj4JKGTC9WDl5ACBbwlaBM9bdfp9Boa+k4HaRubJqYB1re7hcBUFF4iKFcBl9xonLOQw2gHPS3BPwabv3DT5HrcP+cnZeo7ssdFvl99f7hSY1zjbJF3KcJc0NnyWW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X0ogsTNW; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788321254; c=relaxed/simple;
+	bh=6o96VhsPEnVEZ2gIAswjOdSxx+PGSleuvRr/bfcpeg8=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=aVmkFgHrUeN5IgJDm7Qs1kIMBLn5vmOk2XNzNyJzKSjlc/T01rKIIbnPosB4RJo5iI8oVMrKp8+mTyOQ2Xw17CxzbDrV49OKYtuRAYaKMbToirbY04QYq8SLDgdy9zCHaE0tXLVvghAji+OubsFlF5pBJcc4QOMSNQqdXF/8HUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com; spf=pass smtp.mailfrom=icloud.com; dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b=sovUyfkV; arc=none smtp.client-ip=123.126.78.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X0ogsTNW"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-398b1e63c49so1786192a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 20:53:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788321235; x=1788926035; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5zCkQQ3XwE7D3s7Qt8JOH3Nc/gZ6WzlcMVINAa0yLzs=;
-        b=X0ogsTNWiN1CoFxDldQUhFPdLlwWvhV24MVCG7rc4sP7CbTHj+RJbG6dMRm+8vUld7
-         W73m4BtyvhNX+8fBr+KGlnT6vdCTqKhfEjCFmRFKwxl8xt5Id20wOvcfUUPcyt2SBGKu
-         NRD97JGVxddg5K4w+SKtwWeQp+DBQRvg43WdHOLUyDyFMxXhh7SD8Vjt2AcsoKnBqWkt
-         ZoQVYjyupLtF0XWH+8/MNAWOYwT3+mYaZgtjLPHy83DEsm6Ylh1/TyMuSvnvJywGgdvJ
-         yacLoTSbGpgnQOws+wrW+RnZ6g/AJycnAidwceXE3Q969kKGUarJsISgeqWlkTgaza27
-         1JxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788321235; x=1788926035;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5zCkQQ3XwE7D3s7Qt8JOH3Nc/gZ6WzlcMVINAa0yLzs=;
-        b=GMY1WKjltvKnWBnWbRKvhnWLT3iD4cpZtlcsQdK3qwdZMKV3aYaxD57IJEeT5VdKfS
-         F1+xzetra9xVvx/kJe5myOCriNLJFq7Usx2DGAbAPSa1p7q7xohLCHlXi9H1eDdj6HAQ
-         HScT4/I3s0Az6aTse0img6R7/vEbmMU6ilnMdraCUKLubcEq/V2Zxi4ZzdDi6rJqX8gx
-         Z8x6VCMpWevGv8HyuklVM7J8JjPGF0NmDHasirSdp+2wlYEikPrbfx6pwhOcCvqe+Kvy
-         +8m1ypYrypqSERr8shh35bHWI3e3W7viWMWfZs3Vh0EZ4keg1iEo/SMkxEf8Twqadl4p
-         Rqqw==
-X-Forwarded-Encrypted: i=1; AKwUvBysVki0n5R+ztSprGt44bnBbn5nj84k+USFE7wD9wb2qzkVt493Zx3+ckL+B033V8+09m9kgyMJ6ltpfm4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mtIK8N42yZazFqa2QgjEw3vxwv1oW2VUofZ0kPExclDi94xiDp
-	f8Ol8OZ+9BB4MlRAaHPKKfQZ12EdQwN1zhiWfE89+PpYpbuoldGnF6EA
-X-Gm-Gg: AYBFou28H1atwgQN16Zw/a7jLcZXkg69x2A8SLXwEL5qYD5iutSquyEHAPGpdYzOXL8
-	BZX8XhptrqUK6JRYyoiXnXtkZPX9A75hVUFJptSj7b+HVnKi3b94/p+4EgFf+wGdD8++Cl3cTUF
-	8SgPBnzozl86tEBb5/CJPo3y0JHqN6604grMFovEPjd4aqrUlbmNjK+gFzaXBdEYS1FQ6bqMkWo
-	MG3vJQtUX3qTKlGpZ/VFoo40O+kGrmTnWgeEIL+0+rKlXYfZgI642Sat+cxNAoydNnUSVfJzNkD
-	+sNRRjGI27JbzdVaO4MbeKOWsgqTU3wJ7N9qVu1mBv8BXrpBXGJa2y27o3sU9jkLd072ALEIKo1
-	5rORxSR9mPlJfZd3JSUej8ddQRcWZZMsASW8aSGtxJn9ohHyuSbwqadjZswF41spYZOV57sqHcw
-	BrazOE2Bl6sPEwOUQM3Y6gETP/2p/aV6ousYSbBEXMT43UkPdwUFDo+BYOrK+CeFrc3SwJ8HW6v
-	JZRFvQTaLOMRbIoAWcphHx0e8OGBeX8CEIeUlEVBJxTit5aw5hJrjSNaTw58a7Y
-X-Received: by 2002:a17:90b:2891:b0:394:ed5c:ff9f with SMTP id 98e67ed59e1d1-39af6480827mr314795a91.17.1788321234802;
-        Tue, 01 Sep 2026 20:53:54 -0700 (PDT)
-Received: from Inspiron-14-5420.. ([2402:e280:21c6:671:5fdf:d463:f07:1882])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f07b7987csm2502377eec.16.2026.09.01.20.53.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 20:53:54 -0700 (PDT)
-From: "Hemendra M. Naik" <hemendranaik@gmail.com>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	jiri@resnulli.us,
-	jhs@mojatatu.com,
-	shuah@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	vishy0777@gmail.com,
-	tahiliani@nitk.edu.in,
-	"Hemendra M. Naik" <hemendranaik@gmail.com>
-Subject: [PATCH net-next v5 3/3] net/sched: pie: correct tc_pie_xstats field documentation
-Date: Wed,  2 Sep 2026 09:22:31 +0530
-Message-Id: <20260902035231.81866-4-hemendranaik@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260902035231.81866-1-hemendranaik@gmail.com>
-References: <20260902035231.81866-1-hemendranaik@gmail.com>
+	dkim=pass (2048-bit key) header.d=icloud.com header.i=@icloud.com header.b="sovUyfkV"
+Received: from smtpclient.apple (ua11p00im-asmtpcmvip.ua.silu.net [112.19.242.76])
+	by ua11p00im-quki07170902.ua.silu.net (Postfix) with ESMTPSA id 637F7CC00B8;
+	Wed,  2 Sep 2026 03:54:05 +0000 (UTC)
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1788321250; x=1790913250; bh=gt9G2GKgH5tHFxWKVawtkc5MhF/w6yd2haL+O80x1ZM=; h=Content-Type:Mime-Version:Subject:From:Date:Message-Id:To:x-icloud-hme; b=sovUyfkVQ2D2qdC3E7IiMd3EJNIMXo0mBwjYkwUSxdEv9sNjpHiJHuVNRqlb0HhLHma/S5QnF+I8VH8Hp5d3Q7wWE3tovnxHGb+xRpq1wRScIQU1Ncq65nyr6tdyIZgu16KBEuApINgF+upYvHSEPSYw6hzBvv0FC0YtplEmXCbVjqLi6RBPNAfmScsZKZK5tHrcpmGhUt3QYQYAjPFmU7gkjAe863qDBxevTpwVfAAIbCgX8MMEME7ogGqU3hTm/9xQZjdPbHdpR5J0vU01Upa+iwRViV5W3q38Mqddx+hwpXQbnCfPQI5CDOB9PXPHR8eup9lX33xAuDv5bLavVg==
+Content-Type: text/plain;
+	charset=us-ascii
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.300.41.1.7\))
+Subject: Re: [PATCH RFC v2 6/6] mm/memcg: filter out reparented memcgs got
+ from memcgid
+From: Bingfang Guo <bfguo@icloud.com>
+In-Reply-To: <20260901-bingfangguo-memcgid-rework-v2-6-8edd7f7a7251@tencent.com>
+Date: Wed, 2 Sep 2026 11:53:53 +0800
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Muchun Song <muchun.song@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Dave Chinner <david@fromorbit.com>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>,
+ David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ cgroups@vger.kernel.org,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <6134564F-5800-4F1C-AB02-3487D3EFA8B3@icloud.com>
+References: <20260901-bingfangguo-memcgid-rework-v2-0-8edd7f7a7251@tencent.com>
+ <20260901-bingfangguo-memcgid-rework-v2-6-8edd7f7a7251@tencent.com>
+To: bingfangguo@tencent.com
+X-Mailer: Apple Mail (2.3864.300.41.1.7)
+X-Proofpoint-GUID: R8Jnm2sXbLLOvCYd3F9jlxXiU9mU3hyO
+X-Proofpoint-ORIG-GUID: R8Jnm2sXbLLOvCYd3F9jlxXiU9mU3hyO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDAyNSBTYWx0ZWRfXzaqJ9OUR5xah
+ rgCed482E6xWFm/AiHM8FsTJcElEwQpynwl2NVpHbjWrtvxwdtO/3PVNdSxKL9XLBaCfJRmeU4j
+ NtAZoAYNopGU0Mjuo7RyFGmF5tPztsBEcT/OrDhKIH8RkdG2a87fC3MqcK/eEDWAnKwEe+XWtLS
+ mrtMfsrQjwvEfr9pY/4gJt7mA1NJ1Zb8bYDOulDnXwmVBOpTsTXxOhcpe0lE27xKDJAdGzYTgDS
+ JAUh3uqW4H/+CuCN4q0YpyWiRVMbmM8kdbZKsvzLN1ib2hDYPVIUPFvD3NEUNMQCakBeG0Bpuo3
+ fo556HkHtOsf1MHuhuCRSSLSnEd9Y39SdSEMTtAHw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_06,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ mlxscore=0 adultscore=0 bulkscore=0 spamscore=0 suspectscore=0
+ lowpriorityscore=0 clxscore=-2147483648 mlxlogscore=999 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.22.0-2601150000
+ definitions=main-2609020025
 
-The comments describing struct tc_pie_xstats do not match the values
-exported by the kernel.
 
-Update the delay field comment to microseconds (PSCHED_TICKS2NS() /
-NSEC_PER_USEC). Update avg_dq_rate to bytes/second (avg_dq_rate *
-PSCHED_TICKS_PER_SEC >> PIE_SCALE).
+Forwarding reviews from Sashiko:
+>> From: Bingfang Guo <bingfangguo@tencent.com>
+>>=20
+>> mem_cgroup_from_private_id() looks up the objcg that owns the id and
+>> returns the objcg's current memcg.  After reparenting, that memcg can
+>> differ from the one the id originally belonged to.
+>>=20
+>> Callers such as the list lru and workingset refault code expect to =
+get
+>> back exactly the memcg referred to by the memcgid, so check that the
+>> returned memcg still owns the id and return NULL otherwise. In this
+>> case, make list_lru just skip and workingset tests use the root (as =
+the
+>> comments said in workingset.c:460).
+>>=20
+>> Signed-off-by: Bingfang Guo <bingfangguo@tencent.com>
+>> ---
+>> mm/list_lru.c   | 2 +-
+>> mm/memcontrol.c | 9 ++++++++-
+>> mm/workingset.c | 2 +-
+>> 3 files changed, 10 insertions(+), 3 deletions(-)
+>>=20
+>> diff --git a/mm/list_lru.c b/mm/list_lru.c
+>> index 36662d02ff963..bc956267f6835 100644
+>> --- a/mm/list_lru.c
+>> +++ b/mm/list_lru.c
+>> @@ -428,7 +428,7 @@ unsigned long list_lru_walk_node(struct list_lru =
+*lru, int nid,
+>> 		xa_for_each(&lru->xa, index, mlru) {
+>> 			rcu_read_lock();
+>> 			memcg =3D mem_cgroup_from_private_id(index);
+>> -			if (!mem_cgroup_tryget(memcg)) {
+>> +			if (!memcg || !mem_cgroup_tryget(memcg)) {
+>> 				rcu_read_unlock();
+>> 				continue;
+>> 			}
+>> diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+>> index 38d2b00657a7a..84dcab3acb8a2 100644
+>> --- a/mm/memcontrol.c
+>> +++ b/mm/memcontrol.c
+>> @@ -4112,17 +4112,24 @@ struct mem_cgroup =
+*mem_cgroup_private_id_get_online(struct mem_cgroup *memcg, un
+>>  * @id: the memcg id to look up
+>>  *
+>>  * Caller must hold rcu_read_lock().
+>> + *
+>> + * @return: the memcg, or NULL if the memcg is already reparented.
+>>  */
+>> struct mem_cgroup *mem_cgroup_from_private_id(unsigned short id)
+>> {
+>> 	struct obj_cgroup *objcg;
+>> +	struct mem_cgroup *memcg;
+>> 	WARN_ON_ONCE(!rcu_read_lock_held());
+>>=20
+>> 	objcg =3D xa_load(&mem_cgroup_private_ids, id);
+>> 	if (!objcg)
+>> 		return NULL;
+>>=20
+>> -	return obj_cgroup_memcg(objcg);
+>> +	memcg =3D obj_cgroup_memcg(objcg);
+>> +	if (mem_cgroup_private_id(memcg) !=3D id)
+>> +		return NULL;
+>> +
+>> +	return memcg;
+>> }
+>=20
+> Does returning NULL here for reparented memcgs break swapin accounting
+> in callers like mem_cgroup_swapin_charge_folio()?
+> If an offlined memcg is reparented, its original ID no longer matches =
+the
+> inheritor's ID. When mem_cgroup_swapin_charge_folio() calls this =
+function:
+> 	memcg =3D mem_cgroup_from_private_id(id);
+> 	if (!memcg || !css_tryget_online(&memcg->css))
+> 		memcg =3D get_mem_cgroup_from_mm(mm);
+> Would receiving NULL force it to wrongfully charge the faulting task =
+instead
+> of the parent memcg that inherited the swap charge, creating a =
+permanent
+> accounting mismatch?
+>=20
 
-Documentation-only; no UAPI layout or runtime change. Touch
-include/uapi/linux/pkt_sched.h only
+The original behavior uses css_tryget_online(), which filters out =
+offlined
+memcgs as well so I suppose no behavioral change here.
 
-Signed-off-by: Hemendra M. Naik <hemendranaik@gmail.com>
-Signed-off-by: Vishal Kamath <vishy0777@gmail.com>
-Signed-off-by: Mohit P. Tahiliani <tahiliani@nitk.edu.in>
----
- include/uapi/linux/pkt_sched.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+And swap (or memsw) counter of the memcg from which the page was swapped =
+out
+should be uncharged in __mem_cgroup_uncharge_swap() when the swap entry =
+is
+removed.
 
-diff --git a/include/uapi/linux/pkt_sched.h b/include/uapi/linux/pkt_sched.h
-index c6373f410d11..e3f643627c05 100644
---- a/include/uapi/linux/pkt_sched.h
-+++ b/include/uapi/linux/pkt_sched.h
-@@ -920,9 +920,9 @@ enum {
- 
- struct tc_pie_xstats {
- 	__u64 prob;			/* current probability */
--	__u32 delay;			/* current delay in ms */
-+	__u32 delay;			/* current delay in microseconds */
- 	__u32 avg_dq_rate;		/* current average dq_rate in
--					 * bits/pie_time
-+					 * bytes/second
- 					 */
- 	__u32 dq_rate_estimating;	/* is avg_dq_rate being calculated? */
- 	__u32 packets_in;		/* total number of packets enqueued */
--- 
-2.34.1
+I will put this in the commit message to explain it later.
+
+>>=20
+>> struct mem_cgroup *mem_cgroup_get_from_id(u64 id)
+>> diff --git a/mm/workingset.c b/mm/workingset.c
+>> index 7ac2b88c80ae5..4e9b7b163c01e 100644
+>> --- a/mm/workingset.c
+>> +++ b/mm/workingset.c
+>> @@ -470,7 +470,7 @@ bool workingset_test_recent(void *shadow, bool =
+file, bool *workingset,
+>> 	 * configurations instead.
+>> 	 */
+>> 	eviction_memcg =3D mem_cgroup_from_private_id(memcgid);
+>> -	if (!mem_cgroup_tryget(eviction_memcg))
+>> +	if (eviction_memcg && !mem_cgroup_tryget(eviction_memcg))
+>> 		eviction_memcg =3D NULL;
+>> 	rcu_read_unlock();
+>=20
+> The commit message states that workingset tests use the root (as the
+> comments said in workingset.c:460) when NULL is returned. However, is
+> this what actually happens?
+> Looking immediately below this diff in workingset_test_recent(), it =
+seems
+> receiving NULL triggers an early return:
+> 	if (!mem_cgroup_disabled() && !eviction_memcg)
+> 		return false;
+> Does this abort the refault calculation entirely, treating the =
+reparented
+> shadow entry as cold and causing page cache thrashing?
+
+I didn't make it clear in the commit message here.  For MGLRU the root =
+is used.
+But for classical LRU, it's just skipped because refault reading of =
+other memcgs
+should be meaningless in this case.
+
+I will update the commit message to match the behavior...
+
+> Additionally, can this cause an issue in MGLRU lru_gen_test_recent()?
+> If mem_cgroup_from_private_id() returns NULL there:
+> 	memcg =3D mem_cgroup_from_private_id(memcg_id);
+> 	*lruvec =3D mem_cgroup_lruvec(memcg, pgdat);
+> Would this silently fall back to the root memcg LRU vector instead of =
+the
+> correct parent memcg, incorrectly evaluating the child eviction token
+> against the root completely unrelated max_seq?
+>=20
+
+Yes, but the activation is speculative as documented so it should be =
+okay? Are
+there better ways to handle this?
+
+But I do think it may be good to keep the two methods behaves =
+consistently, to
+either skip the check or get a random result for both two cases.
+
+>>=20
+>>=20
+>> --=20
+>> 2.43.7
+>>=20
+>>=20
+
 
