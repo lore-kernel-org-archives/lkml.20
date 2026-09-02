@@ -1,70 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EECF4A43F7;
-	Wed,  2 Sep 2026 16:01:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4EE64A9D68
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:01:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.171.160.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788364919; cv=none; b=FL9brcSevX9zyOuKa7szVHiUfeH96D1tNWr+KH6SucD0jlse1oXGeQZVDIu9w+VvXR/Nzn0NeNi4e38GtlDzwLLDCPK/mCDoVRv0dY7qgEpU7tfvLqM1dowOYC8tGSqhHE3GKZqJY02qVAv1CBRywzINNtPV7HElM7Qx5+5ZM5A=
+	t=1788364922; cv=none; b=fJuNbisIXtIG3GMCd7A1ksSQh84N8n8f26kMv+dTsDAcVunoMFj5dwqCMKkbxN/YPfYebYYw6JJQMsYYxixMvTdbknSnbxl+EglwIa0oFPemxCZy7LNUfvQpFByr2TgxuSXzJlF0/cOAGSBkcvkZslgTIKs8Ixb4E9PkxrxKJ3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788364919; c=relaxed/simple;
-	bh=lNe3Ba7BxBtSpCJIv4FBi3l7mYtJ8Pp4aZd3NjEYg2I=;
-	h=Message-ID:Date:MIME-Version:Subject:Cc:References:From:To:
-	 In-Reply-To:Content-Type; b=cX7itHG1EjU9JM6YnXN8DNYHhsZisVtFjUoIkI9R5bnPfHPjdr/zuxazfqbPbPjJqQHOg74cZZAxoa1yiV89bi87sydYW41etPegy6q3VNqxisvoyFK4o3rBqb2ozRcsEmcOGtdOqi2aEeT1GPsAc8PY6264HoiW2xmNTc2Vh58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gIYIZNEs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788364922; c=relaxed/simple;
+	bh=S9vcJHcV5w6+iWfSBsEE4krX8AdOIhgWtAwVWTkWaJg=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=HV0Ih1hHTLBExXNcjviaPXESmZn0kg5b2OZL9UkPnhUnALYEWxmyZBMKth4lmcUZmfWThAs57xWzlkpkU+NQbZ+LJZsF/FAX+eQTvfL3L9N/kcvFi5fqmFjEKIoQgmbql/WcLUlI9BcQiT8Wmt2h8tUx01Cvj005p3Obg+5UIYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp; spf=pass smtp.mailfrom=parknet.co.jp; dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=6Cev4CVs; dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=yBEm023Z; arc=none smtp.client-ip=210.171.160.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gIYIZNEs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77FA81F000E9;
-	Wed,  2 Sep 2026 16:01:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788364918;
-	bh=v2MKPL2ilgf36vg28DExOZwSoGRvX2hjjdWvV3dbH1k=;
-	h=Date:Subject:Cc:References:From:To:In-Reply-To;
-	b=gIYIZNEsh/jfz836LWq/ZaOqeMen3elQKlPKFIOFU+3FufybyYGkLi6TamHKULkSK
-	 RgnXGw0mKOLVbXR7xjTbIAAKabY3VS+U2Cy/1xWe5FSgwMAQrHGJeRhPUT+IPzkli/
-	 +7A4qgq+KTBZXriAVaYmvlF3U27TZDmkHdLMTEiw7JVF/eAGUGniUzUoQxa+CpNymN
-	 fLnqRYCssYxbmxKdQGNlAzbUzX4Xxac0nr4waSe69LrkRD91FANrWvIq+7ssSPskT3
-	 cQjg2vefIG5nVno0XZ5cXmfugxR9uphTmUar4MgTO/iawkPuTk7CcvleUKE8qF8ODN
-	 1VnvhQeWKaWIA==
-Message-ID: <19c558bc-d47d-4b67-8db7-d5b9b9d0bce7@kernel.org>
-Date: Wed, 2 Sep 2026 18:01:54 +0200
+	dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="6Cev4CVs";
+	dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="yBEm023Z"
+Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
+	by mail.parknet.co.jp (Postfix) with ESMTPSA id D292626F76A6;
+	Thu,  3 Sep 2026 01:01:55 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114; t=1788364916;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W8+3LvJq5wamKLZhupeCtxfSgt3DWUqIKtcuGt772pU=;
+	b=6Cev4CVsh+7vLSVT8kbElSRPHDXvf0esdt2B8WyGKLwucjZQLYj1icmv1DCjbSyyzH8bnp
+	LDRXqJy2DlFWSu8CYn7U+6JaN95+5eCR1N/BpGcYV+3Izjlma2pn5AjT0d2KDCgU/d9aDm
+	9J9Q+teRI/SCABkcRzSKR9QcCQeW9K7pZZaX00NTMVqw8+socw4oioWRjqH3dD8rBSMe3D
+	9A0zNydoIN7IbjTg43SKMSPOCYXbQbS9gwyTPbuR0GDN81sCYi98tpHyo0ULzeAS2P18U2
+	jpxfaCa/xccJr6pMuUrwSip+6rDJBgFI1KkqHu08PoCZKs3spgbesRLQAfIj4Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114-ed25519; t=1788364916;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W8+3LvJq5wamKLZhupeCtxfSgt3DWUqIKtcuGt772pU=;
+	b=yBEm023ZID+A+yTohwTpj2u7ShC6a9F1Uaffjzr2Clo8yu2fsDdwzD0fuwIYJDEMh2I2V+
+	gbIZBG5sGiy0y+Cg==
+Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
+	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id 8D4E7E00378;
+	Thu, 03 Sep 2026 01:01:54 +0900 (JST)
+Received: by devron.myhome.or.jp (Postfix, from userid 1000)
+	id 80F6A22000C9; Thu, 03 Sep 2026 01:01:54 +0900 (JST)
+From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+To: hengyul@cs.unc.edu
+Cc: linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] fat: calculate data area start without overflow
+In-Reply-To: <20260902143858.4092293-1-hengyul@cs.unc.edu>
+References: <20260902143858.4092293-1-hengyul@cs.unc.edu>
+Date: Thu, 03 Sep 2026 01:01:54 +0900
+Message-ID: <878q5jmykt.fsf@mail.parknet.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: add Alice Ryhl as co-maintainer for Rust
- [ALLOC]
-Cc: ljs@kernel.org, vbabka@kernel.org, liam@infradead.org, urezki@gmail.com,
- ojeda@kernel.org, rust-for-linux@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260826132729.3281308-1-dakr@kernel.org>
- <20260902155842.1649192-1-dakr@kernel.org>
-From: Danilo Krummrich <dakr@kernel.org>
-Content-Language: en-US
-To: aliceryhl@google.com
-In-Reply-To: <20260902155842.1649192-1-dakr@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 
-On 9/2/26 5:58 PM, Danilo Krummrich wrote:
-> On Wed, 26 Aug 2026 15:27:18 +0200, Danilo Krummrich wrote:
->> [PATCH] MAINTAINERS: add Alice Ryhl as co-maintainer for Rust [ALLOC]
-> 
-> Applied, thanks!
-> 
->   Branch: alloc-next
->   Tree:   git@github.com:Rust-for-Linux/linux.git
-> 
-> [1/1] MAINTAINERS: add Alice Ryhl as co-maintainer for Rust [ALLOC]
->       commit: 82134823a07b
-> 
-> The patch will appear in the next linux-next integration (typically within 24
-> hours on weekdays).
-> 
-> The patch is queued up for the upcoming merge window for the next major kernel
-> release.
+hengyul@cs.unc.edu writes:
 
-Thanks for stepping up Alice, it's much appreciated!
+> -	sbi->data_start = sbi->dir_start + rootdir_sectors;
+> +	if (check_mul_overflow(sbi->fats, sbi->fat_length,
+> +			       &dir_start) ||
+
+Looks like unreadable "\n".
+
+	if (check_mul_overflow(sbi->fats, sbi->fat_length, &dir_start) ||
+
+> +	    check_add_overflow(sbi->fat_start, dir_start, &dir_start) ||
+> +	    check_add_overflow(dir_start, rootdir_sectors, &data_start))
+> +		goto out_invalid;
+
+Maybe, better to add the error detail?
+
+	    check_add_overflow(dir_start, rootdir_sectors, &data_start)) {
+		if (!silent)
+			fat_msg(sb, KERN_ERR,
+                        	"overflow of root dir or data layout");
+		goto out_invalid;
+	}
+
+Thanks.
+
+>  	total_sectors = bpb.fat_sectors;
+>  	if (total_sectors == 0)
+>  		total_sectors = bpb.fat_total_sect;
+>  
+> -	if (total_sectors < sbi->data_start) {
+> +	if (total_sectors < data_start) {
+>  		if (!silent)
+>  			fat_msg(sb, KERN_ERR,
+> -				"data area starts beyond volume (%lu > %u)",
+> -				sbi->data_start, total_sectors);
+> +				"data area starts beyond volume (%u > %u)",
+> +				data_start, total_sectors);
+>  		goto out_invalid;
+>  	}
+>  
+> -	total_clusters = (total_sectors - sbi->data_start) / sbi->sec_per_clus;
+> +	sbi->dir_start = dir_start;
+> +	sbi->data_start = data_start;
+> +	total_clusters = (total_sectors - data_start) / sbi->sec_per_clus;
+>  
+>  	if (!is_fat32(sbi))
+>  		sbi->fat_bits = (total_clusters > MAX_FAT12) ? 16 : 12;
+>
+
+-- 
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
