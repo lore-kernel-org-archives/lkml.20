@@ -1,293 +1,362 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011026.outbound.protection.outlook.com [40.93.194.26])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D064A64CD
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:00:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.26
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788361238; cv=fail; b=qG6J9AFdNloc1CX5MXLgLwktodMfEoZwCA/1PMJviU37LuZwePpS+1HE8VLmmwnuSAIEDtMQbINKTmiV56CeVhJjRwI62zXorAZkUYW8RcgdcIu4ZCy+YbOuyqA0iTdkZ3IOMOnQE426wXEYRy/jmkmwSH8wiXCRaJ+X0JUoVtw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788361238; c=relaxed/simple;
-	bh=EUT/yKcWHCyRNeOA8vWm1ySVjclSlNwni8IeGnwjtNA=;
-	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:References:
-	 In-Reply-To:MIME-Version; b=RgxUETzBt+JWCtCGQLgxS1iGKP0coaWGr+aXDBliSSdJjXwUr4+2FneSALgv1oQFtQ7fzT74qHHpArBesauyZAdxGqLGgryABXBmRoPYzNObZ8aW9Xhpmb4JdYk366k9WqiUf7NAOJF6Uz8srMYbDqX4z2f0Kztdzt3IxvXLHbE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=oVi8Sctk; arc=fail smtp.client-ip=40.93.194.26
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261384A5C4A
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:01:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788361301; cv=none; b=BosaOMCLpRZVNWk6pA/Ajo72h0g0Gu/zsoT/1InZ8Ja/vHae0NaZtM+HchE3//JvesPtKkqe4YRiOjG0WmHs+XBgvfW0j1o5PjqUeJ4wGITxf9uCFStvfHVpIy2Op8Z/koV96GASkH+rndt122+Bv4h3TXuyWV9T8Uk8Vuh2H44=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788361301; c=relaxed/simple;
+	bh=bZG08AocPFbLDEUxFFmfC5QIhC/V/PzFbcuqhbde558=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IfsSMQ5FyoU2WfeiqRXazn9iZLsN9kghYO0MjRzYktVENC82cMCUGo0KwxbWAIFmYAleXEu3wxHyceFUm1QuMZrKuti4cVigZaz9xt10aO1ubAUxSITEPQ6ccDU4Mw4s4oYt5V2XsMRY2ENRWYuNyu4Sp3MVYuflZbBa3QG8GEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mnL98ItZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IH8gaSN6; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="oVi8Sctk"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eoJBZsAC9m8/I0spy+PYk7X28fkBUhamHCrNpAXCSgTFyZUraWA36tq/HbMRBvc3DYKmTXM/7ErcztZzN4tZ04BIDrNVWw4aFzWvi+hfQu5t9cybkG4+2PYaPledcn/IUr9DcJag9Yv2JyYSf2QnifbSeer2XwdCYxf0nSnLw2npClls1EK+Rilmahx4LDRH63aD1GSiy6q1AQ6LP8HgXofYHLJYD/pM4XisXdRQpmYpATV1Ex4a5sx4bzhcdpTO0O02LI63igsccQpJ85A5rlVfYeKhDmzfyCTOnVzB4ty2iw1f9bSIjJSZo//hshEiaUklGcazm5bv4rWDX1fJHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WtIlwH+ezV4BOZyWMP8NziyEOVHfOTm3IOh7/aMM2Ik=;
- b=D8oGsAt6lLtykLipVZCYmjmhQNUOxMYvDwSJLY8xDdC8TZDIrJH5V/mv243EjTfRiUjvQE0Lwzd54UgjrD+Z8fCDQAegyWAjlRVRe4Q3Ale82jgrodZXelgPnNneU1NrNyvTWOIzLMU4NcssNJ+sJwMmt+mDZInHEphZ7+5LDXWXdsppedUcvWV55H2x07R9npeQ/VjuFQgHIBmlicWoyunzI60eO1HNjvU/q5oAnJxwVc1jIa5MC89IuPSSRvdQVlqGod7g8nVR9SWZ2/4R/RXxmvxE1kTJ45vnn6a3zx7MLWELmKL6ZmqO47U1mZn0uSVDf0G0g66HjI1OhaBt+Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WtIlwH+ezV4BOZyWMP8NziyEOVHfOTm3IOh7/aMM2Ik=;
- b=oVi8Sctk4JSUnLTRRyYlagPqGbjzGk0PUMwo3kj1zV15QN0SJjrAAecnHIksYTa2QwYuig60KWLJRNG8ezU39x6hTBizA1cnNQBj97KKRNRU2JSIqML1NDNrc2O4/djCK6NA5bBa5sQHYYUyYvl+u1vJ5JlMJA7e2c4wQc7RM5nzX+EOPZbDGuvXsk5Q7trmp0EVCpBML/TbC7XsIuvnqXpe0JEufLF1UYiyAPyJjJcQ+877upd+kPGCInC7teykn8JMzc1gO0xH36JTLW8HCRpFT5y7ZJQzEvTkpQZsPKIvUzfJ2y35PWZj8ZI7Rd213EHWgQKkefqvmeUW7E3NBw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by CYYPR12MB9016.namprd12.prod.outlook.com (2603:10b6:930:c4::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 15:00:32 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0382.007; Wed, 2 Sep 2026
- 15:00:32 +0000
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 03 Sep 2026 00:00:29 +0900
-Message-Id: <DL4X5B86OROD.22YISVN1ADX1E@nvidia.com>
-Subject: Re: [PATCH v2 13/15] gpu: nova-core: retrigger the GSP falcon and
- clear every latched cause
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "John Hubbard" <jhubbard@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Timur Tabi" <ttabi@nvidia.com>,
- "Alistair Popple" <apopple@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Alex Gaynor"
- <alex.gaynor@gmail.com>, "Boqun Feng" <boqun.feng@gmail.com>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, <nova-gpu@lists.linux.dev>, "LKML"
- <linux-kernel@vger.kernel.org>, "Will Pierce" <wpierce@nvidia.com>
-Content-Transfer-Encoding: quoted-printable
-References: <20260829012243.496697-1-jhubbard@nvidia.com>
- <20260829013324.499542-18-jhubbard@nvidia.com>
-In-Reply-To: <20260829013324.499542-18-jhubbard@nvidia.com>
-X-ClientProxiedBy: TYCPR01CA0137.jpnprd01.prod.outlook.com
- (2603:1096:400:2b7::13) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mnL98ItZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IH8gaSN6"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682D1sVN947689
+	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 15:01:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	1pxn+AJDlmps3CqVjI1Bkvkq9NQfvaIy9iIccLAqBlY=; b=mnL98ItZ7aKWDYr1
+	JcN9+siYyUBeWKF6y12pt7ags+1xAewv/xSGAw8so9f3U229OKlYvt7Rgu0awVl4
+	KrFasiQRvYbckBUItDK/Moq5I1OrOLqgxhk2LUSJ5rVzdOI+cGw+JW4/4Z36pruz
+	1tg0S1DbhJ4Sy9DX92Tmg52IT3bRPw0TYZPmfeW4k2XbyxxNvkWtxVwWhlQOwlhx
+	qKWGs3ZVrb+Px9rL05kZvul41VgocMSQOk1N/CviHSrxjUJj7IVmeckxjSkN6F7L
+	Euy0gdmwf+AsRbcez7Jv26cnremQE+71TdA+HV5C6jEk2xGmjyR/Nn1ZlPO2QfuW
+	kLLGAw==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gemb00f3a-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 15:01:33 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e475f83a2so1997995a91.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 08:01:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788361293; x=1788966093; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1pxn+AJDlmps3CqVjI1Bkvkq9NQfvaIy9iIccLAqBlY=;
+        b=IH8gaSN6wlqm3VnJ/kGc4tYTPFisFpvUq7Z4/L3rEHvHd23vIDgXbecJNu5qGrI5Jv
+         wz4ZirgkFjE6R5qDOchH4CAP8MM1EvFgFJDHmTlqjTadvpnFnogOxDxfCtsl7zT8ekYY
+         Un4EiOtxOxpRvAlFx3vkYjz0tPAPzJCv7StAHmJ+qRHUm/fzOsF4M2iusTSyuOz9wHBL
+         f0N2UPnG+ca6uTcQ6rw7tJzi3PnSF3g6Dm3FmyHVmHZ7co+F7J+glTK6bj8YqKzhPikH
+         9uy2o7+XmwIcP62aS2Uf0jbsbiILhueQbk778CG7eDLXXc9irJ5Ez2JnRagS1Fl23MAL
+         7olQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788361293; x=1788966093;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1pxn+AJDlmps3CqVjI1Bkvkq9NQfvaIy9iIccLAqBlY=;
+        b=HGNrPU4nhp4R4ZyK0u2rNxmEP5/jw4RZV2H5Oj4Im7bB6ky/ilZN/c0RhJzLT5nHlb
+         TlbCHUaZoLrCu/aIltij1N2y6dwqYNzlK6/DLLB6ntpwi6XcGRgtfc8tKegwgiFHGFxj
+         A4Z5io6LIi6cfjoLR8eYx0ZpKg9KhhHnTPhBuSaVCAweuZDHfyYbUIyIGIvdGiSkzE8i
+         GzqLlMzokipClJdOtTwGDG64rLe3FEgPayWBN/Me6oFMGXW9InltIOAoIXcslB99aCDD
+         gK9s1dxIzi8ENZMgCT/M96SsSu/t6Gd4tfn4i8TFfqYXaAPwV49VFDaWoAnIiTsSM1zj
+         Bumw==
+X-Forwarded-Encrypted: i=1; AKwUvByokFtTRCmwY2UnJsy4qrjmVJd+uphqmuQXTcCbz0yWVa6KT0giDwmySify/oivdcJHx6xrlA0DA0wfR8A=@vger.kernel.org
+X-Gm-Message-State: AFuF++mBZOVP3J79FDApIL1aE8EGot0zfx7PShVTkmrLXtSKwS/QINp7
+	7Rzwh7s1EWjmSQPydWFBXOdQEvyynM3eKpNuhMXnCYJVW/GzGdd3k/g0+j0PbkjqqPXwxSqI0mz
+	RA/U+KJJc9TA40BvyRBiSZjHgGNv/MNug5F42VgON8R3TeVFTshpB1c+2sUyc/F6PJo4=
+X-Gm-Gg: AYBFou3nlNyIfBtZGpUIhlireBZhl0xfil9nboxbA/uEIl9mNjiZ99qYl6pZhMC4QpJ
+	2yeqCwQPCRzpAhrKEsNRnE8t6TpUq2Cw18g1dDnPehxvTa12lUS8LHHddS3MKmjO0tXj97LldGE
+	3D62+y27bxQFTgGHDZuCxbmtnJMCl3mxNfxeR1aJrWM7WaazNeJFOnjDYSPBLKm8BvsKUdquPVp
+	ZWzxlAQxf8scouvdjqS3BBLUKs8EdM+i8A0qqkKjIdabpCF3ZmpbmP8g7xCkxN05L1s4nQGrD0C
+	BRWOTA3VwWEyCZmd3Utf/SnLiEGCKB+WyX4g4aZ/dcadOEpjZzBYy8/cS5jOaspT1j/mruL3lK8
+	OKEFsmTfFfo+39PlbyX8qlGopUil0jnleqMX65ql7V6+1LB2qXznJNpUy/Q==
+X-Received: by 2002:a17:90a:e7c9:b0:398:9bd4:d12 with SMTP id 98e67ed59e1d1-39aee219f45mr7642629a91.17.1788361292133;
+        Wed, 02 Sep 2026 08:01:32 -0700 (PDT)
+X-Received: by 2002:a17:90a:e7c9:b0:398:9bd4:d12 with SMTP id 98e67ed59e1d1-39aee219f45mr7642344a91.17.1788361290870;
+        Wed, 02 Sep 2026 08:01:30 -0700 (PDT)
+Received: from [10.110.114.54] (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f07c02203sm8484464eec.31.2026.09.02.08.01.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 08:01:30 -0700 (PDT)
+Message-ID: <c5aaea57-c9c4-44ca-9bd5-7f09175637b3@oss.qualcomm.com>
+Date: Wed, 2 Sep 2026 23:01:22 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CYYPR12MB9016:EE_
-X-MS-Office365-Filtering-Correlation-Id: c374c32d-f218-4e73-365c-08df0902ef65
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|1800799024|10070799003|366016|6133799003|4143699003|10067099003|11063799006|5023799004|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	Kou5SqMdAhvAp/Qo20WKEBo3EXeLLdInvbWbhg3n8Ej3qZlwMUDdggt5bNayBmYnYGPVNCA1JhFL8Gfz49XuQRDax9C7j5k/9SoLDZ0fE7lZILWugyjE6NwppFXzRQ/g1J8anXTnLoRaECKdo0BuMbmfs7H8zQPNy6dG9genyXOa6Sq5A+q66W5O2qXQn7fMqTIEm+Rik7DUiB7phj1CO6bOFDMNXwGzz/J5iMSaH7nC0TQ2HMdpmbdlFDKArTXdImhZYu8LZTzFZoAHnLEMHVtP4ePIayGUNLuNgjzgv+lLuNiUm3Z0kLhYH8phk4kBPi1k4+JnVwyaEGi5t8Ob8mgmO7gcJiO+psbcDd3PblQp4A0pPp9PAYt4opHRT9sIOTl8K8llkjcBchuCBnwzoKQDcB4YgeOtCzfJ+zq/oXKNjDVgHZVQt14EWuZ+KatkPBEdK/T0sJPVl7U/al/GvnLLS51k7Z691GHHU/NwjitWi3jq5Wf5T01ldy6mmXQSOUSGM7MpZQ3RtOKgKwRhA1lzGuycM/L0qbGMt/+xzVfumZF+J2bWiPArbPgwibEdMh0hqym2acD8Bo9vGfv6IxNyQ6DO0LkQg3X6wmc4qwXOhcbCBRyog+VdFsBKf//Iwe2jNEI5id7VcTJIfMK4O1LSzuseKUT3Z2PI3wPEcBI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(10070799003)(366016)(6133799003)(4143699003)(10067099003)(11063799006)(5023799004)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Y3NBdUtvakp4NWJZVkJOc3VCOVdUUWpLSlNFSFhPSTV5ZGpzbmpPbXJneSti?=
- =?utf-8?B?Z0k4UFJaMWFUTm1kSFhzS3V4Qkd6SG5jcDhFUU9ackJMNE9KcjBaNEFqNm9W?=
- =?utf-8?B?WW1zUndsejlaelRDS3M4Y0tzdEJ6NDV6NUIwZ1hDWFhIRlQ3Y3RDbXR2ckVk?=
- =?utf-8?B?Q0VZa2Rxd0xnRytJYjM5QUh3MGpocUgyMkhwQktFMVFXT0IxNWorMndiTVVU?=
- =?utf-8?B?djNpWTBYL0JMdTFjMk5ScUlaMHFWS2F6YlpoRDM5UlNlUVVCVENXUkllRFhP?=
- =?utf-8?B?ZzAwWGh2ZXl5VFR4anFqTEt5WEg1MUpiTG5WVHVvYTlSdzRrWi9LQ1Z2KzA5?=
- =?utf-8?B?QmZLRlJmcXYrWG5ZbW1aTGhIbDFjb25IczFTdU1sT2ptU3JGN3Q4M2dpcGI2?=
- =?utf-8?B?V0VLRldnZitpSFJlSXNMZ2c4bXUvVytEQ1VRdVl3WGhzM1dSSXR2S1RleGRz?=
- =?utf-8?B?SWZZeFI2c1JFRWNSZHpadGdkK2tXT3lhOXY2cGt4QTZQU0RlZE45M1Z4NXZh?=
- =?utf-8?B?ZVNMaG9zY3VFWDA3UDh4ZC9MNkVwaVQ5UHdQUVhxVnZyMkpESGNmUUdSWkZr?=
- =?utf-8?B?WDc0Nk5IYkpaSmFrN3ltak12Nk9SK3lBMUVKOGRIdWhiSlFFSi9iUGJZWk5D?=
- =?utf-8?B?TWtjVy83cXUvWnpsdHR4RFp6MjA3K3ZEc2ZqaitiUmFWajhkZ1NVYXg0YW90?=
- =?utf-8?B?QWtzZFE2di9mL3hSdkxLL1FEVzBkSWF2a0VqN29xOHZyWHdzODlnOE1ySmpj?=
- =?utf-8?B?elBuR3Z0WUlBbzFYZWxGc1UvY1FRWjF0Q2ZnZXpraWd6THg1RktWclJVRHUv?=
- =?utf-8?B?T3ZlZDA5ZUFTc29sRzZuUjFxcWJhSXlYNDBvSytaSTBac2tjc3ZVSmoxQzNo?=
- =?utf-8?B?NU9WNWRrTk1IZjdQTGY4ZWt6NVlMcTNLVE9ieFcwVGp5TmVFRmFDbExzRmlT?=
- =?utf-8?B?dURjS2JxNWxtS3ZTSnNJNmxEQVY3Yk9pS2VLYWRuYXZ3bm43NE1UVnFCVnBi?=
- =?utf-8?B?a1hHWEpoVzZldWJ6dTlBSU9xYVBmSnI3eW1wbm5Wa21YdDlzaWpMSEJhSXV5?=
- =?utf-8?B?REYzR0gxT3J1Nmk5UlJ0M3ZrVXFFb0tDT21LQmE1VWNDcEF4d2FVNkd3RkY3?=
- =?utf-8?B?Wm5OcGJ2SlFYMVdiZG1UVExyL2trL29OWE92UHZZUW1jdEl3YUk5bWlPM1Q5?=
- =?utf-8?B?UE4yZXZXdGFEZk5BRlN4MmtTZUNYMGxJdXNQUWZnOVFXc2QrcUtNZkU0NE84?=
- =?utf-8?B?QUU2dVBHVzc3TTJCOUw2RGZxeS9FRDdzMjMvY3NoeGdtQnVHNzhzTHhKOVRq?=
- =?utf-8?B?QXF1VE1IeWp2cWw2VFk5a2Y4T0VwS1Vwd0dRb3JTM0lKY3hNTEluWWlvRjln?=
- =?utf-8?B?M2FNaFN6eDlBczViOGt6QTY3cWprYS95dHZ3RG9Ca2FuRGpsZkNvTHFiYTN6?=
- =?utf-8?B?SUJDQW5neExaU2tTbzNSakZPd3p6UVdqMVd4NjhhRkRjcnBKRUZ5emczS2tY?=
- =?utf-8?B?S244SmQrMW5wYUpuLzFndzRFS0dXQjRVUzlHK0dpSmNva3hlS2ZYaVI4L2Vu?=
- =?utf-8?B?UDQvNWNoZXdHWGlhM1BUN2NRUG9nYVZhbnBIazVaZ1ZHTW8wTk1vaVROaGRJ?=
- =?utf-8?B?eEt6LzdQVTVvY2FLdXFQQUtJZTZkdDZEbWlObWhrZlQ3VmowUVFqZ3VaVklv?=
- =?utf-8?B?TGVqTGFwRXFtQUNCRjlzY1IxV1podXVKNFZJdWNkdmxkU0JoSFJyMWNqd3B4?=
- =?utf-8?B?d2kwcHNrMEhXM1FRQ3Y3N0xyWnkwUmM4WDBYOFRObVlVb3pwRDF6VWZ3a2I3?=
- =?utf-8?B?d1h6U0N5cUMyU2ZnYlZoZFQrVWZRam9ZTTVYVXY5OHFldTR6SXpmL3BFUzNi?=
- =?utf-8?B?MkFHejNkS0tlNEdwQ1ZiVU51VUNLakozV3k5c0U2NUY0TzJ6eFNYd1JiN2g4?=
- =?utf-8?B?R1EzbElhVSsrUlpDV1U3dFJCT21Ec3ltUVAwc0FKQnBsZDFHVEdjdWdnaHBQ?=
- =?utf-8?B?N00yM1RHTVVqMnp4NG9CMXZZV3NtTWlvejhaOGtFeURkSzV0dlVEWFBoWmlE?=
- =?utf-8?B?blNUNVVYOTAyeGM3MGtnQ2laaHVOMlQrcWNBejhDSm43YjNnanU4Ri9kcktL?=
- =?utf-8?B?WnZ0NXIwd2o2M3dyQmt3S2FYTTFqNkhYLzdzaXg5WmJDSWxtcnhyWTRsYmFw?=
- =?utf-8?B?bHVhQStOa0ZQZlFNTmZGOHpHdkNNUWVFRFV4bCs0OXpjbThKZXE1NW1jcjFB?=
- =?utf-8?B?c0F1ZWZtSmxvVjBOUlRPWmdxSEF2YU1nVlpHN0ZKTG1YRVhqeGd5WTU5bjQv?=
- =?utf-8?B?c1oyZi9SZExMcG9rOUJKQTVPVko2V2QzVk9xYzdWWWhpV3JuSGdqQUVBaXZo?=
- =?utf-8?Q?sQvLwgt3LW6fH5ZwjhuVLUVDZjXiM3C4HWJ8hdDnCltVK?=
-X-MS-Exchange-AntiSpam-MessageData-1: EBAq5zgih31o5g==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c374c32d-f218-4e73-365c-08df0902ef65
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 15:00:32.2031
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: kKHjWe1Eka9+OezbIxqbydObEY8Tg+NnkbPRl8/2lBjJ8t5LMYc/WnWcdz7hMsN8qODYpDVXu/TE3LlLk6cU8g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB9016
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 02/11] soc: qcom: add crypto_virt backend for
+ virtio-blk inline crypto
+To: Krzysztof Kozlowski <krzk@kernel.org>, ebiggers@kernel.org,
+        axboe@kernel.dk, mst@redhat.com, jasowangio@gmail.com,
+        James.Bottomley@HansenPartnership.com, martin.petersen@oracle.com,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        linux-block@vger.kernel.org, linux-crypto@vger.kernel.org,
+        linux-scsi@vger.kernel.org, virtualization@lists.linux.dev,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Cc: neeraj.soni@oss.qualcomm.com, gaurav.kashyap@oss.qualcomm.com,
+        mani@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+        bvanassche@acm.org, alim.akhtar@samsung.com, avri.altman@sandisk.com,
+        stefanha@redhat.com, pbonzini@redhat.com, eperezma@redhat.com,
+        xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
+References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
+ <20260827160806.1295313-3-linlin.zhang@oss.qualcomm.com>
+ <f5915133-ffac-4777-b7d9-cf38ba163d43@kernel.org>
+ <03097984-fded-477e-82b6-f9b31fd2f1d3@oss.qualcomm.com>
+ <38389106-9609-4ec4-bc83-3d1b7fac3698@kernel.org>
+Content-Language: en-US
+From: Linlin Zhang <linlin.zhang@oss.qualcomm.com>
+In-Reply-To: <38389106-9609-4ec4-bc83-3d1b7fac3698@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: gXrZo4HZ383mY7T2ZNsV346LM-hKNZPO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDEzMyBTYWx0ZWRfX3AeXH6kzCuxh
+ d8f62MD8dHjF8safDKeGUOTrrbcg1SP9QaIpIa4S587R+HU23uDPs54hD0P/gY0buz4DZwP0gBS
+ 7cImKmvNjlH5o+PuiCP/uZ+uZkBMynghhElqrUN1Wld3HR9HkREM+B240SCsheCoP8xR72JhZMm
+ u1Mpt5RHzdA2oC0XS51KwuVeUX6xzyPe0TAwWogy1VBNZ49x0syf/nUtVkAkLGY4/39UY4uMG0z
+ hxLB+0q+nK3J2reIcnTeOzAwJmbyhZIrf8Tr6LqkoWXHdy3p1ZjvbJBkzWy+zKo8dEaRvbKoBh3
+ MAv0E/Y8yZgx3x7P1Iui0l+QYZmQhm7qMMtev1Mof8Rfs90+Biwm/Q4JklZsHPsB7aplyAvYLJ5
+ QPwcKQp1WRtosfS/Jt0hvoeAK7XVl1yV+1Fu2fibDH56cqjOv4PfSgf+y14klosCtAycCgMNTIk
+ F+jdaQ5I16xJtxtioNA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDEzMyBTYWx0ZWRfX1qZbebS+CUSt
+ nGdb4IulorV9/9LC8EK9eV99eeollXawiIblcZE9L2ETrBcmtaZcrizfNVQ43zrGiSTxS/AeCMy
+ g/ExDqJyg+m6dfIgtdSkDnVET83njP0=
+X-Authority-Analysis: v=2.4 cv=EuPiaycA c=1 sm=1 tr=0 ts=6a983a4d cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=-WgfA_H36cW_bsA5Db8A:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-GUID: gXrZo4HZ383mY7T2ZNsV346LM-hKNZPO
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_03,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 adultscore=0 clxscore=1015 spamscore=0
+ malwarescore=0 suspectscore=0 priorityscore=1501 lowpriorityscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609020133
 
-On Sat Aug 29, 2026 at 10:33 AM JST, John Hubbard wrote:
-<...>
-> diff --git a/drivers/gpu/nova-core/irq/gsp.rs b/drivers/gpu/nova-core/irq=
-/gsp.rs
-> index 6366380eef98..a1030d66cc70 100644
-> --- a/drivers/gpu/nova-core/irq/gsp.rs
-> +++ b/drivers/gpu/nova-core/irq/gsp.rs
-> @@ -50,18 +50,17 @@
-> =20
->  /// Clears the interrupt state that GSP boot left behind.
->  ///
-> -/// Disables every vector in every implemented leaf, clears the falcon's=
- SWGEN0 latch, clears the
-> -/// tree's pending bits, and rearms PCI interrupt delivery. On return no=
- vector is enabled, so the
-> -/// tree delivers nothing.
-> +/// Disables every vector in every implemented leaf, clears the tree's p=
-ending bits, clears the
-> +/// falcon's SWGEN0 latch, and rearms PCI interrupt delivery. On return =
-no vector is enabled, so
-> +/// the tree delivers nothing.
->  pub(crate) fn quiesce(bar: Bar0<'_>, chipset: Chipset, irq_type: pci::Ir=
-qType) {
->      let tree =3D Tree::new(bar, chipset, irq_type, GSP_SUBTREE.into());
->      tree.disable_all_leaves();
-> -    // GSP boot consumes its notifications by polling the queue, which l=
-eaves SWGEN0 latched.
-> -    // Clear it before the tree drain below, so the drain clears the tre=
-e state the clear sets.
-> -    // Messages already posted raise no interrupt of their own, and the =
-caller's queue drain
-> -    // covers them.
-> -    GspFalcon::clear_swgen0_intr(bar);
->      tree.drain();
-> +    // GSP boot consumes its notifications by polling the queue, which l=
-eaves SWGEN0 latched, and
-> +    // the GSP drives no new signal while it is set. Clear it after the =
-tree drain, which erases
-> +    // every leaf bit and would erase the one a message posted since the=
- clear had set.
-> +    GspFalcon::clear_swgen0_intr(bar);
 
-This code was introduced in the previous patch and is now immediately
-moved around, and the comments for the two versions contradict each
-other. This patch's order seems to be the correct one, so let's use it
-from the get-go.
 
-I guess this stems from the general ordering problem with this patch: if
-its new falcon registers were introduced before patch 12, then patch 12
-could be written in its final form instead of having its code amended
-right away. It would be nice if you could reorder things this way for
-v3.
+On 9/1/2026 9:58 PM, Krzysztof Kozlowski wrote:
+> On 01/09/2026 11:39, Linlin Zhang wrote:
+>>
+>>
+>> On 8/31/2026 2:56 PM, Krzysztof Kozlowski wrote:
+>>> On 27/08/2026 18:07, Linlin Zhang wrote:
+>>>> From: linlzhan <linlin.zhang@oss.qualcomm.com>
+>>>>
+>>>> In a Qualcomm GVM environment the ICE hardware is controlled by the
+>>>
+>>> What is GVM?
+> 
+> There is no such TLA (git grep).
+> 
+> Maybe you meant guest in a virtual machine? Don't use some qcom-specific
+> TLA.
+> 
 
->      // The `TOP_EN` cycle in `drain` is the rearm for the two enable-cyc=
-le methods, but pre-Hopper
->      // MSI rearms through a configuration-space write instead. An interr=
-upt delivered before probe
->      // leaves delivery un-armed on that path, with no handler to have re=
-armed it.
-> @@ -80,6 +79,8 @@ pub(crate) struct GspInterrupt<'a> {
->      cmdq: Arc<Cmdq>,
->      /// The GIN interrupt tree for this chipset.
->      tree: Tree<'a>,
-> +    /// Chipset, for the falcon retrigger, which Turing does not impleme=
-nt.
-> +    chipset: Chipset,
->      /// Device, for logging from interrupt context without taking the co=
-mmand-queue lock.
->      dev: ARef<device::Device>,
->  }
-> @@ -98,15 +99,18 @@ pub(crate) fn new(
->              bar,
->              cmdq,
->              tree: Tree::new(bar, chipset, irq_type, GSP_SUBTREE.into()),
-> +            chipset,
->              dev,
->          }? Error)
->      }
->  }
-> =20
->  impl irq::ThreadedHandler for GspInterrupt<'_> {
-> -    /// Top half: clears the GIN leaf, takes the falcon SWGEN0 latch, an=
-d rearms PCI interrupt
-> -    /// delivery.
-> +    /// Top half: clears the GIN leaf, takes every cause the falcon repo=
-rts, and rearms PCI
-> +    /// interrupt delivery.
->      fn handle(&self) -> irq::ThreadedIrqReturn {
-> +        let bar =3D self.bar;
-> +
->          // Only service our own vector: require the GSP bit in the leaf =
-and clear just that bit, so
->          // a co-pending vector in the same leaf stays pending for whoeve=
-r services it. The subtree
->          // stays enabled, so there is no whole-tree disable and enable.
-> @@ -119,27 +123,40 @@ fn handle(&self) -> irq::ThreadedIrqReturn {
->          }
->          leaf.clear_vectors(GSP_INTR_0_VECTOR.leaf_mask());
-> =20
-> -        // SWGEN0 is the message-queue notification, so wake the IRQ thr=
-ead to drain it.
-> -        let status =3D GspFalcon::take_swgen0_intr(self.bar);
-> -        let ret =3D if status.swgen0() {
-> -            irq::ThreadedIrqReturn::WakeThread
-> -        } else {
-> -            // The tree routes every falcon cause to this vector, so som=
-ething other than a posted
-> -            // message fired it, for example a HALT from a GSP crash. Th=
-ere is no recovery path for
-> -            // those causes, so report the status rather than discarding=
- it.
-> +        let status =3D GspFalcon::take_swgen0_intr(bar);
-> +
-> +        // Every cause the falcon reports leaves the falcon's enabled se=
-t on this invocation. A
-> +        // cause left latched holds that set non-empty, and the falcon s=
-ignals the tree only on a
-> +        // transition of the set, so no later SWGEN0 would signal at all=
-.
-> +        let unserviceable =3D status.with_swgen0(false);
-> +        if unserviceable.into_raw() !=3D 0 {
-> +            // The tree routes every falcon cause to this vector, so a c=
-ause other than a posted
-> +            // message also arrives here, for example a HALT from a GSP =
-crash. nova-core has no
-> +            // recovery path for those, so report the status rather than=
- discarding it, then mask
-> +            // the cause.
->              dev_err!(
->                  &self.dev,
-> -                "GSP interrupt with no SWGEN0, falcon IRQSTAT {:#x}\n",
-> +                "unserviceable GSP falcon interrupt, IRQSTAT {:#x}\n",
->                  status.into_raw()
->              );
-> -            irq::ThreadedIrqReturn::Handled
-> -        };
-> +            GspFalcon::mask_and_clear_intr(bar, unserviceable);
+ACK
+> 
+>>>
+>>
+>> GVM means Guest Virtual Machine. This is designed for the virtualization
+>> platform.
+>>
+>>>> host, GVM has no direct access to it. So, key operation in GVM is
+>>>> done through SCM calls rather than direct register access. In this
+>>>> way the access to ICE registers are offloaded to Trust Zone.
+>>>>
+>>>> Add QCOM_CRYPTO_VIRT, which implements struct virtblk_crypto_variant_ops
+>>>> for the virtio_blk_crypto_ext dispatch layer. It maps keyslot
+>>>> program/evict to qcom_scm_ice_set_key() and
+>>>> qcom_scm_ice_invalidate_key(), and software-secret derivation to
+>>>> qcom_scm_derive_sw_secret().
+>>>>
+>>>> Signed-off-by: linlzhan <linlin.zhang@oss.qualcomm.com>
+>>>> ---
+>>>>  drivers/soc/qcom/Kconfig       | 12 +++++
+>>>>  drivers/soc/qcom/Makefile      |  1 +
+>>>>  drivers/soc/qcom/crypto_virt.c | 89 ++++++++++++++++++++++++++++++++++
+>>>>  3 files changed, 102 insertions(+)
+>>>>  create mode 100644 drivers/soc/qcom/crypto_virt.c
+>>>>
+>>>> diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
+>>>> index 2b524154d9fb..6c632d114d45 100644
+>>>> --- a/drivers/soc/qcom/Kconfig
+>>>> +++ b/drivers/soc/qcom/Kconfig
+>>>> @@ -298,6 +298,18 @@ config QCOM_INLINE_CRYPTO_ENGINE
+>>>>  	tristate
+>>>>  	select QCOM_SCM
+>>>>  
+>>>> +config QCOM_CRYPTO_VIRT
+>>>> +	tristate "Qualcomm Technologies, Inc. Crypto Virt driver"
+>>>> +	depends on VIRTBLK_CRYPTO_VIRTUALIZATION
+>>>> +	depends on QCOM_SCM
+>>>> +	default VIRTBLK_CRYPTO_VIRTUALIZATION if ARCH_QCOM
+>>>> +	help
+>>>> +	  GVM-side hardware-wrapped-key SCM operations exposed to
+>>>> +	  virtio_blk's inline crypto layer: per-slot key programming and
+>>>> +	  eviction, and key derive/generate/prepare/import.
+>>>> +	  Say Y here to compile the driver as a part of kernel or M to compile
+>>>> +	  as a module.
+>>>> +
+>>>>  config QCOM_KRYO_L2_ACCESSORS
+>>>>  	bool
+>>>>  	depends on ARM64
+>>>> diff --git a/drivers/soc/qcom/Makefile b/drivers/soc/qcom/Makefile
+>>>> index 798643be3590..6d4b7546d1fb 100644
+>>>> --- a/drivers/soc/qcom/Makefile
+>>>> +++ b/drivers/soc/qcom/Makefile
+>>>> @@ -39,5 +39,6 @@ obj-$(CONFIG_QCOM_KRYO_L2_ACCESSORS) +=	kryo-l2-accessors.o
+>>>>  obj-$(CONFIG_QCOM_ICC_BWMON)	+= icc-bwmon.o
+>>>>  qcom_ice-objs			+= ice.o
+>>>>  obj-$(CONFIG_QCOM_INLINE_CRYPTO_ENGINE)	+= qcom_ice.o
+>>>> +obj-$(CONFIG_QCOM_CRYPTO_VIRT)	+= crypto_virt.o
+>>>>  obj-$(CONFIG_QCOM_PBS) +=	qcom-pbs.o
+>>>>  obj-$(CONFIG_QCOM_UBWC_CONFIG) += ubwc_config.o
+>>>> diff --git a/drivers/soc/qcom/crypto_virt.c b/drivers/soc/qcom/crypto_virt.c
+>>>> new file mode 100644
+>>>> index 000000000000..4ee2a36af6c1
+>>>> --- /dev/null
+>>>> +++ b/drivers/soc/qcom/crypto_virt.c
+>>>> @@ -0,0 +1,89 @@
+>>>> +// SPDX-License-Identifier: GPL-2.0-only
+>>>> +
+>>>> +#include <linux/module.h>
+>>>> +#include <linux/types.h>
+>>>> +#include <linux/blk-crypto.h>
+>>>> +#include <linux/virtio_blk_crypto_ext.h>
+>>>> +#include <linux/firmware/qcom/qcom_scm.h>
+>>>> +
+>>>> +static int crypto_virt_program_key(const struct blk_crypto_key *key,
+>>>> +				   unsigned int slot)
+>>>> +{
+>>>> +	u32 dus_512_units;
+>>>> +	int ret;
+>>>> +
+>>>> +	if (!key || !key->size) {
+>>>> +		pr_err("%s: invalid key\n", __func__);
+>>>> +		return -EINVAL;
+>>>> +	}
+>>>> +
+>>>> +	/* Only AES-256-XTS has been tested so far. */
+>>>> +	if (key->crypto_cfg.crypto_mode !=
+>>>> +	    BLK_ENCRYPTION_MODE_AES_256_XTS) {
+>>>> +		pr_err_ratelimited("Unsupported crypto mode: %d\n",
+>>>> +				    key->crypto_cfg.crypto_mode);
+>>>> +		return -EINVAL;
+>>>> +	}
+>>>> +
+>>>> +	/* qcom_scm_ice_set_key()'s data_unit_size is expressed in 512-byte units */
+>>>> +	dus_512_units = key->crypto_cfg.data_unit_size / 512;
+>>>> +
+>>>> +	ret = qcom_scm_ice_set_key(slot, key->bytes, key->size,
+>>>> +		QCOM_SCM_ICE_CIPHER_AES_256_XTS, dus_512_units);
+>>>> +	if (ret)
+>>>> +		pr_err("%s: slot=%u ret=%d\n", __func__, slot, ret);
+>>>> +
+>>>> +	return ret;
+>>>> +}
+>>>> +
+>>>> +static int crypto_virt_invalidate_key(unsigned int slot)
+>>>> +{
+>>>> +	int ret;
+>>>> +
+>>>> +	ret = qcom_scm_ice_invalidate_key(slot);
+>>>> +	if (ret)
+>>>> +		pr_err("%s: slot=%u ret=%d\n", __func__, slot, ret);
+>>>> +
+>>>> +	return ret;
+>>>> +}
+>>>> +
+>>>> +static int crypto_virt_derive_sw_secret_key(const u8 *eph_key, size_t eph_key_size,
+>>>> +					    u8 sw_secret[BLK_CRYPTO_SW_SECRET_SIZE])
+>>>> +{
+>>>> +	int ret;
+>>>> +
+>>>> +	ret = qcom_scm_derive_sw_secret(eph_key, eph_key_size,
+>>>> +					sw_secret, BLK_CRYPTO_SW_SECRET_SIZE);
+>>>> +	if (ret == -EIO || ret == -EINVAL)
+>>>> +		ret = -EBADMSG; /* probably invalid key */
+>>>> +
+>>>> +	if (ret)
+>>>> +		pr_err("%s: ret=%d\n", __func__, ret);
+>>>> +
+>>>> +	return ret;
+>>>> +}
+>>>> +
+>>>> +static struct virtblk_crypto_variant_ops virtblk_crypto_qcom_vops = {
+>>>
+>>> Why is a crypto-handling code in drivers/soc/?
+>>>
+>>
+>> This driver is a Qualcomm vendor-specific driver, plays the similar role in the
+> 
+> Not really, there is nothing vendor specific here. Look at this code.
+> 
 
-Is this correct? My Clanker told me (and looking closer it seems to be
-correct) that `IRQSTAT` also reports causes that are masked, or routed
-to the RISC-V core itself rather than to the host (i.e. GSP-RM's own
-interrupts), and that OpenRM filters these out: `kgspService_TU102()`
-gets its status from `kflcnGetPendingHostInterrupts()`, which for a
-RISC-V falcon is `FALCON_IRQSTAT & PRISCV_RISCV_IRQMASK &
-PRISCV_RISCV_IRQDEST`. Without that filter, any GSP-internal cause that
-happens to be latched when SWGEN0 fires gets reported here, then cleared
-and masked out from under the firmware.
+crypto_virt_program_key calls the interface from qcom_scm driver. Similar to
+crypto_virt_invalidate_key and crypto_virt_derive_sw_secret_key.
 
-Also in RISC-V mode the mask gating host routing appears to be
-`PRISCV_RISCV_IRQMASK`, not `FALCON_IRQMASK` - OpenRM never writes the
-latter for the GSP. So the comment about the tree routing every falcon
-cause here also seems inaccurate.
+>> guest, like the ice driver in the host. so I place it in drivers/soc/.
+>>
+>>>> +	.owner = THIS_MODULE,
+>>>> +	.program_key = crypto_virt_program_key,
+>>>> +	.evict_key = crypto_virt_invalidate_key,
+>>>> +	.derive_sw_secret_key = crypto_virt_derive_sw_secret_key,
+>>>> +};
+>>>> +
+>>>> +static int __init crypto_virt_init(void)
+>>>> +{
+>>>> +	virtblk_set_crypto_ops(&virtblk_crypto_qcom_vops);
+>>>> +	return 0;
+>>>> +}
+>>>> +module_init(crypto_virt_init);
+>>>> +
+>>>> +#if IS_MODULE(CONFIG_QCOM_CRYPTO_VIRT)
+>>>> +static void __exit crypto_virt_exit(void)
+>>>> +{
+>>>> +	virtblk_set_crypto_ops(NULL);
+>>>> +}
+>>>> +module_exit(crypto_virt_exit);
+>>>> +#endif
+>>>
+>>> How do you instantiate this driver exactly?
+>>>
+>>
+>> This driver is not instantiated per device. It acts as a provider of
+>> Qualcomm vendor-specific inline crypto operations, which is based on
+>> qcom_scm driver, and registers a global virtblk_crypto_ops instance
+>> during module initialization. So that, each blk_crypto_ll_ops from
+>> virtio block driver in common kernel can be sent via qcom_smc driver.
+> 
+> 
+> If it is not instantiated, then it is dead code. Drop all this. Or read
+> my message again very carefully instead of replying with whatever copy
+> of commit msg. I did not ask what is this driver about. I did not ask
+> what it is providing. I asked how do you instantiate it or clarifying -
+> how do you load and run this code in final system.
+> 
+
+I agree this does not fit well with the usual Linux driver model, since
+there is no device instance, probe path, or explicit lifetime
+relationship between virtio-blk and the crypto_virt backend.
+
+Given that, I think the current global registration approach is difficult
+to justify upstream and I will revisit the design.
+
+> This is just dead/unused code, straight from downstream.
+> 
+> NAK.
+> 
+> 
+> Best regards,
+> Krzysztof
+
