@@ -1,166 +1,105 @@
-Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net [217.70.183.200])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 722DE39891F;
-	Wed,  2 Sep 2026 09:33:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6100941E6A9
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:34:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788341601; cv=none; b=dIjSX5VHfckUzg1I8KcxTn8vYz+aDpMqRRY7X9bO0+wGdGXC/GmH/ThRVBUA0XtWG3+lBr12rdSUD2PIoxV5BDc5F5rPLFl27CH3stqUhNNFcGtnUkPmr9x6C3pgUwbNXLUPIXIWYE+pwXiQ5CXAtv+PwBEd6HtsW2sjC3FrnV8=
+	t=1788341681; cv=none; b=cU5yet3sfL6fRvkY0xv35K/CXfyh8CfIim5uud8bUhOahEcU0RNA+Y7Yad5h8j4CWBJgdEFgJT9YE58+HNWLZBYg4cVXiD5B+vh/Q8RQberFf27vVa4PM5BCHY2zP9WOojGh8WuGTJbXWED1CoNK1UeqYwoswfSFVw+7ax6799w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788341601; c=relaxed/simple;
-	bh=9fgii5oxFWezoBPxGNv/mPjDMS0RVeH9/bCgpl86ygw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=I+OG8IrYegq5FFyI2oKXVnEDexuGkMQVx5eLJVZCnt6D7VRHRfv2sTyivo5/M31zHWyoCW29T+GQFzM27160YU2d6MmRsjDgB/gttpJLdrX6EJdythT0zGdbeij0Cr8B/MvqPaHzmxhx74MdF+SGr4Hktxsi3sU2dp36GmPLEsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io; spf=pass smtp.mailfrom=gtucker.io; dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b=Q/jE4Qgy; arc=none smtp.client-ip=217.70.183.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gtucker.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gtucker.io
+	s=arc-20240116; t=1788341681; c=relaxed/simple;
+	bh=nwC8aYYFaY5Tyx3HWiEDRZ3+KuRU1Y0WxaDl262CvF0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=m/ia+YmltpT6P4VazqDSOpAlfX/MDbELEaSnFp3dvEFnm+hZqAPV80YOuGGOBdCAyjjIZtYWpsiMeDwUL6EXdMQrrQ95WyfXMQeudtBxkJFar5zLinkMse/jn9ytECJa9u5HbSAHN5zmPblNxjblHkf0j6HGnUGijsFheANYndg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FcZ2vw/+; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gtucker.io header.i=@gtucker.io header.b="Q/jE4Qgy"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 964A33EBF7;
-	Wed,  2 Sep 2026 09:33:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gtucker.io; s=gm1;
-	t=1788341591;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=NOqu7m3MlMrEpV2ZScTC3mnAQ9ooA6zUfLyd9PxMQ/g=;
-	b=Q/jE4QgyeIfWBEl9nCQOIhkn3GmOrSHGEQVgiHX7eUOXunVVcIVxGDLINFhKpzYGUTfK96
-	XAaCRYBfwEKy8TbSJX9nr0WLB2jfI3EwLGAFXImwp9yD2kbL7ziQ4O/H+CRWhWjL5i0wmk
-	pfYRLaHboIT/gkqkciqqKva+RAdwR4KEcngjAswII2rbOKeTM4H6sfluopFpWfE3aLcCCg
-	qgjw2ez7y8xG0kB8XdJ1fMOAjqBD9bRqSCb9KQ+63Yujrnwewxb0RbpWxuxYSCm1RFS8RR
-	jGf7Ehmcrjo2fLYYDJM99fTq8v/pDsoBGK22vVK8W9bQQvvoZuXkWNGm0z/wZg==
-From: Guillaume Tucker <gtucker@gtucker.io>
-To: Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>
-Cc: Guillaume Tucker <gtucker@gtucker.io>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	linux-doc@vger.kernel.org,
-	workflows@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kbuild@vger.kernel.org,
-	kernelci@lists.linux.dev,
-	automated-testing@lists.yoctoproject.org
-Subject: [PATCH RESEND v3 3/3] Documentation: dev-tools: refer to user ID rather than id
-Date: Wed,  2 Sep 2026 11:33:02 +0200
-Message-ID: <5829187a983bede8359f66ace420a6eb1eeb9ebb.1788341513.git.gtucker@gtucker.io>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <0a88d9d0ebd73a9f6e72399f93705ebc7b49ae9c.1788341513.git.gtucker@gtucker.io>
-References: <0a88d9d0ebd73a9f6e72399f93705ebc7b49ae9c.1788341513.git.gtucker@gtucker.io>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FcZ2vw/+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788341679; x=1819877679;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=nwC8aYYFaY5Tyx3HWiEDRZ3+KuRU1Y0WxaDl262CvF0=;
+  b=FcZ2vw/+BK0Ve8zzg4rouYTEGJVdir1ypBb78ZQlmRPeFj79xapEixi0
+   IXqdCq5GAfM/UPjVDyfxWRiVxF5aATcEyZ5qDfffGUkltgqYlCPuxddUj
+   PiiSrytKL8uLvZpn59JTkn1ktpIr+JPgXQDxVR7KDxBUbRzUFq4/5k3zL
+   U4mB79i3TXdEbZUy6rQwfz6wfcOQ31Fmm9JB+Xwvd/hX3ZFhxyiKiqHNW
+   pgZbyq8rlO9s0BIIxwjbRTnAevyqUjG1TR49vd4qp8t8UELPjXnCfPzL2
+   g8GKRHtl9vVPXNjss8GVL9HGa5sqnnwR//qNh1YObgwH2dzVbKKPWXBIF
+   Q==;
+X-CSE-ConnectionGUID: ycVeJNWeR1mFEz9lkYc9DA==
+X-CSE-MsgGUID: AUhXecXSRP2uI7eAO4UaSg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="88720101"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="88720101"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 02:34:39 -0700
+X-CSE-ConnectionGUID: CcsVaQg8Ss61fMs8jdko6g==
+X-CSE-MsgGUID: HEVhHsv8R8mBRzgbLNiBmA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="266117153"
+Received: from lkp-server01.sh.intel.com (HELO bfac249b2189) ([10.239.97.150])
+  by fmviesa007.fm.intel.com with ESMTP; 02 Sep 2026 02:34:36 -0700
+Received: from kbuild by bfac249b2189 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x1hMX-000000002KM-3aac;
+	Wed, 02 Sep 2026 09:34:33 +0000
+Date: Wed, 2 Sep 2026 17:33:37 +0800
+From: kernel test robot <lkp@intel.com>
+To: Qingfang Deng <qingfang.deng@linux.dev>,
+	Robin Murphy <robin.murphy@arm.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>, iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, Qingfang Deng <qingfang.deng@linux.dev>
+Subject: Re: [PATCH] dma-mapping: use exact allocation for DMA pages
+Message-ID: <202609021750.Ifwj5NHl-lkp@intel.com>
+References: <20260901085348.53140-1-qingfang.deng@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-GND-Sasl: gtucker@gtucker.io
-X-GND-Score: -100
-X-GND-Cause: dmFkZTEphWDMvmke5kmiADlfZRoDWT0imwdr8sYVBDHMNGSBeOaAHt4Wqa8mN46tuI7SZEHsHlJb0XZJIdLpmMWB1o5aYPm1iOaa1bQ2s/FnbuqnmaJ1b8GCacVxKgANuz3Kfxkm23n10xxXeQS4BC5x5GlJC/snTtduSOEHhzJY5HBhP7DUzvF1E1eKl7gngYZXhdBNi+mLaKRIws6X3xSuN/rSI9X/IjQ7+MbXHOi/QOEKeqW/9IeiAoLYaxPd8dIqXH10zkzpXnZNI6/CES6glBE4rnYccy4oxuvGZWIeJfphTaLwj8uE2k4+tZPCH/w+pxVpr5frU6iEq/T+aMPAg3KesmXsSGIBQ6Gl6qKYJJMsJDpCDEsLKuYWyOmI2K9yA3oRBBGq1luWi3njeJhZsaVZgqk0Dtezrjf0/q9XeLpOV5O/38Wzvqt5gol+2t7h0Ua9hTqVwjveU0o885BJur+8xpiIzoQlc/a4ExDSSJ/EkOdlb/07Lhp4znTg7ewAN9mdl7nto3FhGZwTUMqXn2bmCSJVrY9erU0O262EsBoLAMxkG4ztasdoj3HfIKfmbn6RlGovv+ad7JAQMf+dmUWnmL3Q4IsVAggFo3xPkK4sjqAvGl4ywiI6josOIZvwyhvzP17LV9dStUT4ilc3vRGut4t/2OmCtcckJrZfSfa/kA
-X-GND-State: clean
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901085348.53140-1-qingfang.deng@linux.dev>
 
-User and group identifiers are commonly known as IDs i.e. UID and GID
-written in capital letters rather than lowercase 'id'.  Update the
-scripts/container documentation accordingly.
+Hi Qingfang,
 
-Signed-off-by: Guillaume Tucker <gtucker@gtucker.io>
----
+kernel test robot noticed the following build warnings:
 
-Notes:
-    Changes in v3:
-    - added as extra patch to clean up documentation
+[auto build test WARNING on linus/master]
+[also build test WARNING on v7.3-rc1 next-20260901]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
- Documentation/dev-tools/container.rst | 30 +++++++++++++--------------
- 1 file changed, 15 insertions(+), 15 deletions(-)
+url:    https://github.com/intel-lab-lkp/linux/commits/Qingfang-Deng/dma-mapping-use-exact-allocation-for-DMA-pages/20260901-165347
+base:   linus/master
+patch link:    https://lore.kernel.org/r/20260901085348.53140-1-qingfang.deng%40linux.dev
+patch subject: [PATCH] dma-mapping: use exact allocation for DMA pages
+config: alpha-allnoconfig (https://download.01.org/0day-ci/archive/20260902/202609021750.Ifwj5NHl-lkp@intel.com/config)
+compiler: alpha-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260902/202609021750.Ifwj5NHl-lkp@intel.com/reproduce)
 
-diff --git a/Documentation/dev-tools/container.rst b/Documentation/dev-tools/container.rst
-index bc74ed9d3de0..5910a74c3d77 100644
---- a/Documentation/dev-tools/container.rst
-+++ b/Documentation/dev-tools/container.rst
-@@ -11,7 +11,7 @@ various platforms, for example when a test bot has reported an issue which
- requires a specific version of a compiler or an external test suite.  While
- this can already be done by users who are familiar with containers, having a
- dedicated tool in the kernel tree lowers the barrier to entry by solving common
--problems once and for all (e.g. user id management).  It also makes it easier
-+problems once and for all (e.g. user ID management).  It also makes it easier
- to share an exact command line leading to a particular result.  The main use
- case is likely to be kernel builds but virtually anything can be run: KUnit,
- checkpatch etc. provided a suitable image is available.
-@@ -37,7 +37,7 @@ Available options:
- 
- ``-g, --gid GID``
- 
--    Group id to use inside the container.
-+    Group ID to use inside the container.
- 
- ``-i, --image IMAGE``
- 
-@@ -61,10 +61,10 @@ Available options:
- 
- ``-u, --uid UID``
- 
--    User id to use inside the container.
-+    User ID to use inside the container.
- 
--    If the ``-g`` option is not specified and no group id is defined in the
--    configuration file, the user id will also be set as the group id.
-+    If the ``-g`` option is not specified and no group ID is defined in the
-+    configuration file, the user ID will also be set as the group ID.
- 
- ``-v, --verbose``
- 
-@@ -81,7 +81,7 @@ Usage
- It's entirely up to the user to choose which image to use and the ``CMD``
- arguments are passed directly as an arbitrary command line to run in the
- container.  The tool will take care of mounting the source tree as the current
--working directory and adjust the user and group id as needed.
-+working directory and adjust the user and group ID as needed.
- 
- The container image which would typically include a compiler toolchain is
- provided by the user and selected via the ``-i`` option.  The container runtime
-@@ -145,22 +145,22 @@ User IDs
- 
- This is an area where the behaviour will vary slightly depending on the
- container runtime.  The goal is to run commands as the user invoking the tool.
--With Podman, a namespace is created to map the current user id to a different
-+With Podman, a namespace is created to map the current user ID to a different
- one in the container (1000 by default).  With Docker, while this is also
- possible with recent versions it requires a special feature to be enabled in
- the daemon so it's not used here for simplicity.  Instead, the container is run
--with the current user id directly.  In both cases, this will provide the same
-+with the current user ID directly.  In both cases, this will provide the same
- file permissions for the kernel source tree mounted as a volume.  The only
--difference is that when using Docker without a namespace, the user id may not
-+difference is that when using Docker without a namespace, the user ID may not
- be the same as the default one set in the image.
- 
--Say, we're using an image which sets up a default user with id 1000 and the
--current user calling the ``container`` tool has id 1234.  The kernel source
-+Say, we're using an image which sets up a default user with ID 1000 and the
-+current user calling the ``container`` tool has ID 1234.  The kernel source
- tree was checked out by this same user so the files belong to user 1234.  With
--Podman, the container will be running as user id 1000 with a mapping to id 1234
--so that the files from the mounted volume appear to belong to id 1000 inside
-+Podman, the container will be running as user ID 1000 with a mapping to ID 1234
-+so that the files from the mounted volume appear to belong to ID 1000 inside
- the container.  With Docker and no namespace, the container will be running
--with user id 1234 which can access the files in the volume but not in the user
-+with user ID 1234 which can access the files in the volume but not in the user
- 1000 home directory.  This shouldn't be an issue when running commands only in
- the kernel tree but it is worth highlighting here as it might matter for
- special corner cases.
-@@ -288,7 +288,7 @@ Supported options in each section are:
- 
- ``uid`` / ``gid`` (integers)
- 
--    User and group id numbers to use inside the container, equivalents to the
-+    User and group ID numbers to use inside the container, equivalents to the
-     ``-u`` and ``-g`` command line options respectively.
- 
- 
--- 
-2.47.3
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609021750.Ifwj5NHl-lkp@intel.com/
 
+All warnings (new ones prefixed by >>, old ones prefixed by <<):
+
+WARNING: modpost: vmlinux: 'saved_config' is COMMON symbol
+>> WARNING: modpost: vmlinux: section mismatch in reference: __dma_direct_alloc_pages.isra.0+0xcc (section: .text) -> alloc_pages_exact_nid_noprof (section: .init.text)
+WARNING: modpost: vmlinux: section mismatch in reference: __dma_direct_alloc_pages.isra.0+0xe0 (section: .text) -> alloc_pages_exact_nid_noprof (section: .init.text)
+>> WARNING: modpost: vmlinux: section mismatch in reference: dma_common_alloc_pages+0x10 (section: .text.unlikely) -> alloc_pages_exact_nid_noprof (section: .init.text)
+WARNING: modpost: vmlinux: section mismatch in reference: dma_common_alloc_pages+0x50 (section: .text.unlikely) -> alloc_pages_exact_nid_noprof (section: .init.text)
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
