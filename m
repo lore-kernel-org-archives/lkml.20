@@ -1,75 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE64047F786;
-	Wed,  2 Sep 2026 17:27:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 678AB4A5EC9
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:29:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788370067; cv=none; b=KTvuNaf3mGBWjX6O4QYqOgYOR6yMxxZCU4P4gWWRaQR+QXUxTYB5QERJL/JSsNjHBDSzeG9Qo6oks9eZIZ5DU6dUe4JMAQx4NOrqsRj6XRuCXFT5eg369nrSjc2ma9xIvK4WG8o3geR30BDZb50UbeWPvUbiKPgxFW/UzIA5SuA=
+	t=1788370165; cv=none; b=Rkb61c8c3HoBp+BQaylckc45p5qHA8II+0PacCO3ySl137SdgXLiiiBPPCW8N/NY8lB2Ea08zh86vOKkSrF8wHf0LTsDmpdHH9jolxrFM5u7BQTJ8FGfmdzFlZR+KOOmVOVzqEmRfhmvaNs3CEw7FnuZhtLCqa6rt6IeO650YQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788370067; c=relaxed/simple;
-	bh=GR2EA08jvmQTvupAnjGOGc+0Lj7Q/PJBrSlBg+yYodo=;
+	s=arc-20240116; t=1788370165; c=relaxed/simple;
+	bh=TZ+MXL1cgyfSCQwzd4B83Y1gcdTqXTzpnMsgTcK9A4c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Fbw4BlIusEWqcCfg+v/BH+F9wtl1MHEskm/08uhKWZcD7POckrIrDJ6Hk1rLyN3g4W5e3WdC0R0j6b/J8uA8/+n+yO3rO+uVFELKfn5VE3RAitrTtDVTE63iiHgxUF8z9x35DvNUW6wH9t7djksvfsiC3M9n3JzPXiJ4aNFPgso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hxVsrtuj; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=RsOQ/08DAtoqXPmHjXVMp81E4aRAjbP+EnlKFfUOR/lXAlAKvFf7F/NjCTo84N87Sffi2gDfFsOIP8xcQuZR1stz3Gsok5haWheCBaxELbfxndEW+KdJ3dWIFahKr1rNeAyw9jfvx38zVh0OGFDmjHauB2oFAdAoHvqkp+wWKQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FCcl6/ne; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hxVsrtuj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 284921F000E9;
-	Wed,  2 Sep 2026 17:27:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788370066;
-	bh=GR2EA08jvmQTvupAnjGOGc+0Lj7Q/PJBrSlBg+yYodo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hxVsrtuj0+MIa2yjUIlxSBQ7T2h6UIx18LV3sGydccUOLIuHKpwJ51xCOdII1lXUC
-	 1LizCvbcZcAMn9B/uk4XJW4zEcB6uDP/lCaKc0yeN7Elbp9u5SFyTACKpzExb8Pqid
-	 nBtghccAdfd61a+sI5MYD6UZlUH7cl8fg5oxl0o+TpjrSuant/uLCIYsr2WNZoUyg2
-	 fETGYunwFX7Tf5NdT1Z406bukrY5dgqE0HARSk448kB5DosYf08IVPrFefDa95JHTR
-	 1e5CM3Tp147ESDP9y9J+TmUSFg+3ngQFukhQ0v6g299qQSpbIIKpUsykU7VQNundDl
-	 TLkkwDllTDAcA==
-Date: Wed, 2 Sep 2026 18:27:41 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Fernando Rimoli <fernandorimoli11@gmail.com>
-Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com,
-	dan.scally@ideasonboard.com, linux-kernel@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Tommaso Merciai <tomm.merciai@gmail.com>,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 3/7] dt-bindings: media: ov5693: Add
- clock-noncontinuous
-Message-ID: <20260902-appraisal-unclip-6d9b4a550d64@spud>
-References: <20260831181858.325109-1-fernandorimoli11@gmail.com>
- <20260902142322.73523-1-fernandorimoli11@gmail.com>
- <20260902142322.73523-4-fernandorimoli11@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FCcl6/ne"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788370162;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=TZ+MXL1cgyfSCQwzd4B83Y1gcdTqXTzpnMsgTcK9A4c=;
+	b=FCcl6/nex5yo/dVatACfuwRLPSj8DJEFmFUxFfYry95Z69OEArEHY/NiQEj3Tw66+whM1G
+	+zkC91Cw6Am0aVoluyhggu5gQ00G1xGZCpnaKItVAHKMTG9JgkW8cQMFEAR8mfqu8g/+Bw
+	vIK/9o4WcGFo3qeag/tMZc/bqRpDh64=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-437-aNLRFW2aOrGgUeZBTtXadg-1; Wed,
+ 02 Sep 2026 13:29:19 -0400
+X-MC-Unique: aNLRFW2aOrGgUeZBTtXadg-1
+X-Mimecast-MFC-AGG-ID: aNLRFW2aOrGgUeZBTtXadg_1788370156
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DEC551834577;
+	Wed,  2 Sep 2026 17:29:15 +0000 (UTC)
+Received: from fedora (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id D531730002F4;
+	Wed,  2 Sep 2026 17:29:10 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Wed,  2 Sep 2026 19:29:15 +0200 (CEST)
+Date: Wed, 2 Sep 2026 19:29:09 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Nick Desaulniers <ndesaulniers@google.com>
+Cc: Elliott Hughes <enh@google.com>, linux-kernel@vger.kernel.org,
+	linux-um@lists.infradead.org, llvm@lists.linux.dev,
+	Bill Wendling <morbo@google.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Justin Stitt <justinstitt@google.com>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Anton Ivanov <anton.ivanov@cambridgegreys.com>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Richard Weinberger <richard@nod.at>
+Subject: Re: [PATCH] x86: uapi: ptrace: guard register offset macros with
+ __ASSEMBLER__ or __FRAME_OFFSETS
+Message-ID: <aphc5Xf0HU0SWcTI@redhat.com>
+References: <20260821-ptrace_uapi-v1-1-3de8638a29f2@google.com>
+ <CAKwvOdkCGEYWnyJtWT=jArXkA47X==G0PU4UNV=s8htpA3Dg6g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="U5T1EuH3zwjHE/yZ"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260902142322.73523-4-fernandorimoli11@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAKwvOdkCGEYWnyJtWT=jArXkA47X==G0PU4UNV=s8htpA3Dg6g@mail.gmail.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
---U5T1EuH3zwjHE/yZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 09/01, Nick Desaulniers wrote:
+>
+> On Fri, Aug 21, 2026 at 3:46 PM Nick Desaulniers
+> <ndesaulniers@google.com> wrote:
+> >
+> > The register offset macros in <asm/ptrace-abi.h> are guarded by
+> > `defined(__ASSEMBLER__) || defined(__FRAME_OFFSETS)` for 64-bit, but
+> > were left unguarded for 32-bit. This causes havoc for userspace that
+> > happens to use identifiers colliding with these short macro names
+> > (e.g., EBX, ECX, EAX, DS, ES, FS, GS, CS, SS). Without this guard,
+> > userspace is forced to be super extra careful with include ordering to
+> > minimize the chance of collision.
+> >
+> > Wrap both the 32-bit and 64-bit register definitions under
+> > `#if defined(__ASSEMBLER__) || defined(__FRAME_OFFSETS)`, and ensure
+> > User-Mode Linux (UML) defines `__FRAME_OFFSETS` for 32-bit as well.
+> >
+> > Assisted-by: Gemini
+> > Link: https://github.com/llvm/llvm-project/issues/217413
+> > Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
+>
+> + enh (who pulled this into android for testing)
+>
+> Oleg, can I get an ack/nack here?
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Oh... there is a little problem, I don't understand the usage of
+(magic to me) __FRAME_OFFSETS ;)
 
---U5T1EuH3zwjHE/yZ
-Content-Type: application/pgp-signature; name=signature.asc
+> Or someone who knows better the
+> history of UAPI headers?
 
------BEGIN PGP SIGNATURE-----
+Certainly not me....
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaphcjQAKCRB4tDGHoIJi
-0i28AQC6ONeTNmzK2lcTSk916ZWObQFvCltBkBFxuYcvqLzR8QEA1U7FOQPDQMke
-rp2r2723oxG1T+dgFbuRY8sBpjbcoAw=
-=y3ym
------END PGP SIGNATURE-----
+OK. I'll try to read this patch tomorrow with the clear head after sleep.
 
---U5T1EuH3zwjHE/yZ--
+Oleg.
+
