@@ -1,71 +1,47 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 487F53B5E08
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 21:11:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C2353E6DF7;
+	Wed,  2 Sep 2026 21:11:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788383472; cv=none; b=JJ5EUJGLyNl59x52jhq+T6WJoGH6k9bFdmihr37O748GKGmaE5jz4xfSbaDkalYQHR+PUEv4D6WsHVJzfDKrzBAg2uYXz4HdcB1FO2T7K/4sKt529hzX3918xn44hYO/Xryja3Ym1+yFlROT2ePfcN/2C8TbbQD6c0L/kDAAtsA=
+	t=1788383485; cv=none; b=OAUs9CO1DseiyVCQ5BWsZEEov6TvTMhuaoGyZ8j3ZfDaSaC6jYMeLLCX/IcAWQCsjsg0t6WAIYNP6NIBtAIGEIgeSdbV1Idkv0lFHXbeHV4EIWENMHPVgj0D8godLe/K1RV85Hk1xqXsTvUpFJLQOcJT/1VaQ8ekVFI5z8DVjTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788383472; c=relaxed/simple;
-	bh=oNimGPcgo8tQhmVwRRd8dupVi84pfUzthcX62wpCfRU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=MV4Gvgl4ZNl8yNSeN1mXdhupuHLYcKmBw1mVmPBmI+cHH2gK15K/+eDe4daTCGP5oH75MpNrz+tz6Ke+jErF7iL3IIhU+fDhtuzqYH6b8d4yVfJfU02qBBhFa9HHIIZfTs/JfPUhQHusZYbvbRJEKUwNAEnSaNOJwOuz5rPzB98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HbHM2mwd; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788383485; c=relaxed/simple;
+	bh=1pkVeZoMJT8Hlv5Y2kTvQ9rQzv1D9wp5qa9D+tD5bdY=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=oEP0J4+C7L/XyLJqC78q/TsNG7ZnisTJbx4244Qe+gUlYoelSj+DxCxWpcDAuIefnRiwavabxPd6iA7DUUn9bf3vL9AyNptcyNIu/+NaLqLpBV719hgLSk82sPZPPa5jsdX/4pltg0IE2V6A8WoWz4nefitU+h1nkEX7v/Lmmo8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UMuXbAsw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HbHM2mwd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788383470; x=1819919470;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=oNimGPcgo8tQhmVwRRd8dupVi84pfUzthcX62wpCfRU=;
-  b=HbHM2mwdfFwHAr/DG7K4/WC18ViMuDtk9hi3kgvDQzTqbAwj5pQQbmQ2
-   zC7e4nwc0WQidFz9Z2kK5DbjvidVNcSwJvKo5Bg6CCq8G3GTHTJlRnAnm
-   36TKNqKhDD3Qdxhv4D9FQtx+Wj5Z4ge4vb4mi/8gtbX52jSbhjKFm4b7J
-   4PWcxH9rbZTZOq05LkYmJkz4x58ChtR0tAYAAR18P9jos5wguhHnl1xyq
-   ttRn/6qKyFs8URSD41sbY4JhyovCD9bZrBEao8BjUe5JOqwHI9VX06z0t
-   HIo0opoTB/NuegDHWsjji8CiOK+B2NeujojYRaEPEDri/WauPU6ouezZm
-   g==;
-X-CSE-ConnectionGUID: +JZDOJrER6usuyz2wkNL8g==
-X-CSE-MsgGUID: QPIhj6Y+QeWyPXbVQ051LQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="100208241"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="100208241"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 14:11:08 -0700
-X-CSE-ConnectionGUID: XjEVjvTDSOGVUG2TyyoTUw==
-X-CSE-MsgGUID: DKGkOPFCQd6FG1vKBPiwtA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="268977250"
-Received: from unknown (HELO [10.241.243.185]) ([10.241.243.185])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 14:11:08 -0700
-Message-ID: <fac52a49e611f7f6a6637f04a2e44e8c23a260c6.camel@linux.intel.com>
-Subject: Re: [RFC PATCH v2 11/23] sched/cache: Introduce helpers for task
- migration decisions
-From: Tim Chen <tim.c.chen@linux.intel.com>
-To: Jianyong Wu <wujianyong@hygon.cn>, Ingo Molnar <mingo@redhat.com>, Peter
- Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot	 <vincent.guittot@linaro.org>, Chen Yu <yu.c.chen@intel.com>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt	
- <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman	
- <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek
- Nayak	 <kprateek.nayak@amd.com>, Shrikanth Hegde <sshegde@linux.ibm.com>,
- Phil Auld	 <pauld@redhat.com>, Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, jianyong.wu@outlook.com, 	zhongyuan@hygon.cn,
- huangsj@hygon.cn, wangfengyu@hygon.cn, yingzhiwei@hygon.cn, 
-	justin.he@arm.com
-Date: Wed, 02 Sep 2026 14:11:07 -0700
-In-Reply-To: <20260827122816.756234-12-wujianyong@hygon.cn>
-References: <20260827122816.756234-1-wujianyong@hygon.cn>
-	 <20260827122816.756234-12-wujianyong@hygon.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.1 (3.58.1-1.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UMuXbAsw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8E0F1F000E9;
+	Wed,  2 Sep 2026 21:11:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788383483;
+	bh=pCZJHKeytEx9moXuPcXu+qxXE/yek+mRpLJWqTDgaDc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=UMuXbAsw1NvK5+mJYeorWfGPFnI2sZp+K9aG1JqzuC8wdgCf8YXgTE2aRh0shOfEa
+	 86JKLU7N4Qe3y1Qi79ma14bs2LQjlCjH9TyfpWEB0MLbpBft0x6tuwYgJhig3O/OM4
+	 mLu3jcjsJyexng1/hpQnCmZge5gHBgmNfv2dyMXd1rWsK5m7zXz3E905Bs4ZO/32Ya
+	 9ziOLQI5h8LK1ZMUwSsKaMUY09cPvJfbXqbYPtYo/tp6zgGjQz7P8mqxiCCm2vR3J0
+	 tnSG8JQAAzunfiL+9lWtmSXbZQj/ETi5rDubaFbiYbkXgcSo6iHNJZia9DrhPcRXA1
+	 d+52pM+NuLEFQ==
+Subject: Re: [net,v2] net: wwan: qcom_bam_dmux: account network packets
+From: netdev-bot+sashiko@kernel.org
+To: sinyavin@gmail.com
+Cc: stephan@gerhold.net, stephan.gerhold@linaro.org,
+ loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com,
+ johannes@sipsolutions.net, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 02 Sep 2026 21:11:22 +0000
+Message-ID: <178838348238.3394541.9061693826070810058@kernel.org>
+In-Reply-To: <20260831181006.1382372-1-sinyavin@gmail.com>
+References: <20260831181006.1382372-1-sinyavin@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -73,276 +49,199 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-On Thu, 2026-08-27 at 20:28 +0800, Jianyong Wu wrote:
-> Cache-aware scheduling makes migration decisions purely based on LLC
-> affinity, allowing moves only toward a task's preferred LLC. This rigid
-> policy cannot handle workloads that do not fit within a single LLC.
-> A better approach is on-demand thread aggregation across LLCs: as the
-> thread count increases, additional LLCs are recruited to host threads,
-> enabling workload scaling at LLC granularity.
->=20
-> To realize this behaviour, we need to pick the next eligible LLC once
-> currently selected LLCs become saturated.
->=20
-> Earlier patches have built node-level and LLC-level distance matrices.
-> From these matrices we obtain a node-affinity sequence, and within each
-> node an intra-node LLC-affinity sequence. These sequences provide the
-> priority order used to pick subsequent LLC candidates.
->=20
-> This patch adds a helper routine to determine whether task migration
-> is permitted. It checks whether the destination CPU resides within the
-> first eligible LLC. Migration is permitted if this condition holds,
-> and vice versa.
->=20
-> The first eligible LLC is resolved via a two-stage policy. The first
-> stage operates at NUMA-node granularity: we iterate over the
-> node-affinity sequence to find the first node that can accommodate
-> the task. Once such a node is found, the second stage selects the
-> first capacity-available LLC within this node by walking the
-> intra-node LLC-affinity sequence.
->=20
-> Signed-off-by: Jianyong Wu <wujianyong@hygon.cn>
-> ---
->  kernel/sched/fair.c | 185 ++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 185 insertions(+)
->=20
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index dc7bbdb1ab98..cfbd596992ab 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -10610,6 +10610,191 @@ static enum llc_mig can_migrate_llc(int src_cpu=
-, int dst_cpu,
->  	return mig_llc;
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
+
+Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0 (1)
+
+- [High] Use-after-free write of the netdevice's core-allocated per-CPU
+  statistics from the asynchronous BAM TX completion callback.
+
+Pre-existing issues:
+- [Medium] The driver allocates netdevs with alloc_netdev() in
+  bam_dmux_register_netdev_work() but bam_dmux_remove() only calls…
+- [Low] Drop paths remain uncounted after the patch: the `drop:` label in
+  bam_dmux_netdev_start_xmit() (drivers/net/wwan/qcom_bam_dmux.c,…
+
+--
+
+net: wwan: qcom_bam_dmux: account network packets
+
+The patch makes the BAM-DMUX driver maintain rx/tx packet and byte counters
+using the core per-CPU software statistics (NETDEV_PCPU_STAT_TSTATS plus
+dev_get_tstats64()). TX is accounted in the DMA completion callback and RX
+after the BAM-DMUX header and padding are stripped.
+
+Link: https://lore.kernel.org/netdev/20260830085400.2542956-1-sinyavin@gmail.com/ (v1)
+
+> diff --git a/drivers/net/wwan/qcom_bam_dmux.c b/drivers/net/wwan/qcom_bam_dmux.c
+> index cc6ace8d6437..5bcac2ccaabd 100644
+> --- a/drivers/net/wwan/qcom_bam_dmux.c
+> +++ b/drivers/net/wwan/qcom_bam_dmux.c
+> @@ -177,8 +177,12 @@ static void bam_dmux_tx_callback(void *data)
+>  {
+>  	struct bam_dmux_skb_dma *skb_dma = data;
+>  	struct sk_buff *skb = skb_dma->skb;
+> +	struct net_device *netdev = skb->dev;
+>  
+>  	bam_dmux_tx_done(skb_dma);
+> +	if (netdev)
+> +		dev_sw_netstats_tx_add(netdev, 1,
+> +				       ((struct bam_dmux_hdr *)skb->data)->len);
+>  	dev_consume_skb_any(skb);
 >  }
-> =20
-> +/*
-> + * Like get_llc_stats but for sched domain that above LLC level.
-> + * Based on get_llc_stats, we can accumulate utilization and cap for
-> + * sched domain in the granularity of LLC.
-> + */
-> +static bool get_span_stats(const struct cpumask *span, unsigned long *ut=
-il_out,
-> +					unsigned long *cap_out)
-> +{
-> +	cpumask_var_t mask;
-> +	int cpu;
-> +	unsigned long util_tmp, cap_tmp, util =3D 0, cap =3D 0;
-> +	struct sched_domain *sd_tmp;
-> +
-> +	if (!span || !util_out || !cap_out)
-> +		return false;
-> +
-> +	if (!alloc_cpumask_var(&mask, GFP_ATOMIC))
-> +		return false;
-> +
-> +	cpumask_copy(mask, span);
-> +	for_each_cpu(cpu, mask) {
-> +		if (!get_llc_stats(cpu, &util_tmp, &cap_tmp)) {
-> +			free_cpumask_var(mask);
-> +			return false;
-> +		}
-> +
-> +		sd_tmp =3D rcu_dereference(per_cpu(sd_llc, cpu));
-> +		cpumask_andnot(mask, mask, sched_domain_span(sd_tmp));
-> +		util +=3D util_tmp;
-> +		cap +=3D cap_tmp;
-> +	}
-> +
-> +	*util_out =3D util;
-> +	*cap_out =3D cap;
-> +
-> +	free_cpumask_var(mask);
-> +	return true;
-> +}
-> +
-> +/*
-> + * Decide if migration should happen on a specific node.
-> + * The node here is an LLC or a NUMA.
-> + */
-> +static enum llc_mig __maybe_unused can_migrate_node(int src_cpu, int dst=
-_cpu,
-> +			struct task_struct *p, bool to_pref)
-> +{
-> +	const struct cpumask *span;
-> +	struct mm_struct *mm;
-> +	unsigned long dst_util, dst_cap, tsk_util =3D 0;
-> +	unsigned long src_util =3D 0, src_cap =3D 0;
-> +	unsigned long acc_util =3D 0, acc_cap =3D 0;
-> +	int node, target_cpu =3D src_cpu;
-> +	int get_src =3D 0;
-> +
-> +	if (!get_llc_stats(dst_cpu, &dst_util, &dst_cap))
-> +		return mig_unrestricted;
-> +
-> +	if (!get_llc_stats(src_cpu, &src_util, &src_cap))
-> +		src_cap =3D 0;
-> +
-> +	if (p) {
-> +		mm =3D p->mm;
-> +		if (mm) {
-> +			if (mm->sc_stat.cpu >=3D 0)
-> +				target_cpu =3D mm->sc_stat.cpu;
-> +		}
-> +		tsk_util =3D task_util(p);
-> +	}
-> +
-> +	dst_util =3D dst_util + tsk_util;
-> +
-> +	if (to_pref) {
-> +		unsigned long dst_pre =3D dst_util - tsk_util;
 
-dst_pre was limited to this scope but was used later in a different
-scope.  Should move the declaration to parent scope.
+[Severity: High]
+Can this write to freed per-CPU memory?  bam_dmux_tx_callback() runs from
+the BAM dmaengine completion (vchan tasklet), and skb->dev is not a
+counted reference.  dev_sw_netstats_tx_add() then does:
 
-> +
-> +		if (fits_llc_capacity(dst_util, dst_cap))
-> +			return mig_llc;
-> +
-> +		/*
-> +		 * The destination is over the margin. That is a reason to
-> +		 * refuse a task while the margin can still be met, but not
-> +		 * while every LLC of the node is over it: no placement
-> +		 * satisfies the margin then, and refusing every migration
-> +		 * leaves the imbalance in place.
-> +		 *
-> +		 * Let the task through when the move still lowers the peak,
-> +		 * that is when the source is noticeably heavier than the
-> +		 * destination and carries at least two more tasks worth of
-> +		 * utilization. The second condition keeps the destination
-> +		 * from becoming the heavier side, which would bounce the
-> +		 * task straight back.
-> +		 */
-> +		if (src_cap && util_greater(src_util, dst_pre) &&
-> +		    src_util >=3D dst_pre + 2 * tsk_util)
-> +			return mig_llc;
-> +
-> +		return mig_forbid;
-> +	}
-> +
-> +	for_each_sched_node(target_cpu, node) {
-> +		unsigned long u =3D 0, c =3D 0, nu, nc;
-> +
-> +		/*
-> +		 * The walk starts at the anchor, so the nodes it crosses before
-> +		 * reaching the source say nothing about this migration: the task
-> +		 * does not live there and is not going there. Judging them only
-> +		 * lets an unrelated node with room refuse the move. Start at the
-> +		 * node the task actually sits on.
-> +		 */
-> +		if (!get_src) {
-> +			if (!cpumask_test_cpu(src_cpu, cpumask_of_node(node)))
-> +				continue;
-> +			else
-> +				get_src =3D 1;
-> +		}
-> +
-> +		if (cpumask_test_cpu(dst_cpu, cpumask_of_node(node))) {
-> +			nu =3D 0;
-> +			nc =3D 0;
-> +			for_each_llc_node_span(node, span) {
-> +				get_span_stats(span, &u, &c);
-> +				nu +=3D u;
-> +				nc +=3D c;
-> +				if (cpumask_test_cpu(dst_cpu, span)) {
-> +					if (fits_llc_capacity(u + tsk_util, c))
-> +						return mig_llc;
-> +
-> +					/*
-> +					 * The destination is over the margin,
-> +					 * but so may be the source. Refusing
-> +					 * then leaves the peak where it is:
-> +					 * a LLC at seven tasks stays at seven
-> +					 * while a neighbour in the same node
-> +					 * sits at four, because taking one
-> +					 * more would put that neighbour over
-> +					 * the margin as well.
-> +					 *
-> +					 * Let the task through when the move
-> +					 * still lowers the peak, guarded the
-> +					 * same way as the aggregation path:
-> +					 * the source must be noticeably
-> +					 * heavier and carry at least two more
-> +					 * tasks worth of utilization, so the
-> +					 * destination cannot end up the
-> +					 * heavier side and bounce it back.
-> +					 */
-> +					if (src_cap &&
-> +					    util_greater(src_util, u + tsk_util) &&
-> +					    src_util >=3D u + 2 * tsk_util)
-> +						return mig_llc;
-> +
-> +					return mig_forbid;
-> +				/*
-> +				 * A nearer LLC only justifies vetoing this
-> +				 * migration if the task would actually fit
-> +				 * there, so account for its utilization the
-> +				 * same way the destination branch above does.
-> +				 * Without it a LLC already holding one task
-> +				 * per core still reads as having room and
-> +				 * vetoes every migration towards a farther,
-> +				 * genuinely idle LLC.
-> +				 */
-> +				} else if (fits_llc_capacity(acc_util + nu + tsk_util,
-> +						acc_cap + nc)
-> +						&& fits_llc_capacity(u + tsk_util, c)
-> +						&& !util_greater(u, dst_pre))
+include/linux/netdevice.h:dev_sw_netstats_tx_add() {
+	struct pcpu_sw_netstats *tstats = this_cpu_ptr(dev->tstats);
 
-Got a compile error here when I try to build the code.  Seems like dst_pre =
-was declared in previous scope above.
-Likely the posted version is slightly different from the tested version.
+	u64_stats_update_begin(&tstats->syncp);
+	u64_stats_add(&tstats->tx_bytes, len);
+	...
+}
 
-$ make
-  DESCEND objtool
-  CC      kernel/sched/fair.o
-kernel/sched/fair.c: In function =E2=80=98can_migrate_node=E2=80=99:
-kernel/sched/fair.c:10855:69: error: =E2=80=98dst_pre=E2=80=99 undeclared (=
-first use in this function)
-10855 |                                                 && !util_greater(u,=
- dst_pre))
-      |                                                                    =
- ^~~~~~~
-kernel/sched/fair.c:10618:27: note: in definition of macro =E2=80=98util_gr=
-eater=E2=80=99
-10618 |         ((util1) * 100 > (util2) * (100 + llc_imb_pct))
-      |                           ^~~~~
-kernel/sched/fair.c:10855:69: note: each undeclared identifier is reported =
-only once for each function it appears in
-10855 |                                                 && !util_greater(u,=
- dst_pre))
-      |                                                                    =
- ^~~~~~~
-kernel/sched/fair.c:10618:27: note: in definition of macro =E2=80=98util_gr=
-eater=E2=80=99
-10618 |         ((util1) * 100 > (util2) * (100 + llc_imb_pct))
-      |                           ^~~~~
-make[4]: *** [scripts/Makefile.build:290: kernel/sched/fair.o] Error 1
-make[3]: *** [scripts/Makefile.build:551: kernel/sched] Error 2
-make[2]: *** [scripts/Makefile.build:551: kernel] Error 2
-make[1]: *** [/home/tim/linux/Makefile:2229: .] Error 2
-make: *** [Makefile:248: __sub-make] Error 2
+With dev->pcpu_stat_type = NETDEV_PCPU_STAT_TSTATS, dev->tstats is
+allocated by register_netdevice() and released at unregistration time,
+independent of needs_free_netdev/free_netdev:
 
-Tim
+net/core/dev.c:netdev_run_todo() {
+	...
+		netdev_do_free_pcpu_stats(dev);
+		if (dev->priv_destructor)
+			dev->priv_destructor(dev);
+		if (dev->needs_free_netdev)
+			free_netdev(dev);
+	...
+}
 
-> +					return mig_forbid;
-> +			}
-> +		}
-> +
-> +		/* Don't migrate if this is a good place to live. */
-> +		for_each_llc_node_span(node, span) {
-> +			get_span_stats(span, &u, &c);
-> +			if (cpumask_test_cpu(src_cpu, span)) {
-> +				if (fits_llc_capacity(u, c))
-> +					return mig_forbid;
-> +			} else {
-> +				if (fits_llc_capacity(u + tsk_util, c))
-> +					return mig_forbid;
-> +			}
-> +		}
-> +	}
-> +
-> +	return mig_unrestricted;
-> +}
-> +
->  /*
->   * Check if task p can migrate from source LLC to
->   * destination LLC in terms of cache aware load balance.
+In bam_dmux_remove() the TX channel is still armed when that happens:
+
+drivers/net/wwan/qcom_bam_dmux.c:bam_dmux_remove() {
+	...
+	unregister_netdevice_many(&list);
+	rtnl_unlock();			/* netdev_run_todo() frees tstats */
+	cancel_work_sync(&dmux->tx_wakeup_work);
+	...
+	if (!wait_event_timeout(dmux->pc_wait, !dmux->rx, BAM_DMUX_REMOTE_TIMEOUT))
+	...
+	disable_irq(dmux->pc_irq);
+	bam_dmux_power_off(dmux);	/* dmaengine_terminate_sync(dmux->tx) */
+	bam_dmux_free_skbs(dmux->tx_skbs, DMA_TO_DEVICE);
+}
+
+The only synchronous TX quiesce point is dmaengine_terminate_sync(dmux->tx)
+inside bam_dmux_power_off(), which is reached after rtnl_unlock(),
+cancel_work_sync(), the pm_runtime teardown and a wait_event_timeout() of
+up to BAM_DMUX_REMOTE_TIMEOUT.  bam_dmux_netdev_stop() only does
+netif_stop_queue() plus a CLOSE command, so it neither terminates nor
+drains outstanding descriptors:
+
+drivers/net/wwan/qcom_bam_dmux.c:bam_dmux_netdev_stop() {
+	netif_stop_queue(netdev);
+	bam_dmux_send_cmd(bndev, BAM_DMUX_CMD_CLOSE);
+	return 0;
+}
+
+Does any TX descriptor still in flight during that window end up doing
+this_cpu_ptr() on an already freed (possibly recycled) tstats pointer?
+
+The "if (netdev)" test only filters the driver's own command skbs, which
+come from alloc_skb() and leave skb->dev NULL, so it does not say anything
+about registration state.
+
+Would accounting TX in bam_dmux_netdev_start_xmit(), where the netdev is
+provably live and hdr->len is already known, avoid this?  Alternatively,
+would terminating/draining the DMA channels and clearing dmux->netdevs[]
+before unregister_netdevice_many() close the window?
+
+[ ... ]
+
+> @@ -421,6 +426,7 @@ static void bam_dmux_netdev_setup(struct net_device *dev)
+>  	dev->needed_headroom = sizeof(struct bam_dmux_hdr);
+>  	dev->needed_tailroom = sizeof(u32); /* word-aligned */
+>  	dev->tx_queue_len = DEFAULT_TX_QUEUE_LEN;
+> +	dev->pcpu_stat_type = NETDEV_PCPU_STAT_TSTATS;
+
+[Severity: Medium]
+This is a pre-existing issue and not introduced by this patch, but it
+interacts with the new stats memory, so it is worth mentioning here.
+bam_dmux_register_netdev_work() allocates the netdev with alloc_netdev(),
+bam_dmux_netdev_setup() never sets dev->needs_free_netdev, and
+bam_dmux_remove() only calls unregister_netdevice_queue() /
+unregister_netdevice_many() with no free_netdev().
+
+net/core/dev.c:netdev_run_todo() {
+	...
+		if (dev->needs_free_netdev)
+			free_netdev(dev);
+
+		cnt++;
+
+		/* Free network device */
+		kobject_put(&dev->dev.kobj);
+	...
+}
+
+The kobject_put() there only balances the kobject_get() taken in
+netdev_unregister_kobject(), so the device_initialize() reference is never
+dropped and netdev_release() (kvfree(dev)) never runs.  Does this leak the
+struct net_device, its private data and its queue arrays on every driver
+removal?
+
+Would setting dev->needs_free_netdev = true here (next to the new
+pcpu_stat_type assignment), or pairing the alloc_netdev() with an explicit
+free_netdev() in bam_dmux_remove(), be the right fix?
+
+Note also that the still-allocated, still-readable net_device is what makes
+the freed dev->tstats access above silent rather than an obvious fault.
+
+> @@ -533,6 +539,7 @@ static void bam_dmux_cmd_data(struct bam_dmux_skb_dma *skb_dma)
+>  		break;
+>  	}
+>  
+> +	dev_sw_netstats_rx_add(netdev, skb->len);
+>  	netif_receive_skb(skb);
+>  }
+
+[Severity: Low]
+This is a pre-existing gap rather than something this patch introduces, but
+now that rx/tx counters become non-zero the missing drop counters are more
+visible.
+
+The TX error path frees the skb and reports success without any
+tx_dropped/tx_errors accounting:
+
+drivers/net/wwan/qcom_bam_dmux.c:bam_dmux_netdev_start_xmit() {
+	...
+drop:
+	bam_dmux_tx_done(skb_dma);
+	dev_kfree_skb_any(skb);
+	return NETDEV_TX_OK;
+}
+
+and the RX early returns are not counted either:
+
+drivers/net/wwan/qcom_bam_dmux.c:bam_dmux_cmd_data() {
+	...
+	if (!netdev || !netif_running(netdev)) {
+		dev_warn(dmux->dev, "Data for inactive channel %u\n", hdr->ch);
+		return;
+	}
+
+	if (hdr->len > BAM_DMUX_MAX_DATA_SIZE) {
+		...
+		return;
+	}
+	...
+}
+
+Would it make sense to also bump rx_dropped/tx_dropped on these paths, so
+that ip -s link can explain the loss instead of showing traffic counters
+with permanently zero drops?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260831181006.1382372-1-sinyavin%40gmail.com
