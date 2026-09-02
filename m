@@ -1,161 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7172DF156;
-	Wed,  2 Sep 2026 07:47:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E073469E7;
+	Wed,  2 Sep 2026 07:47:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788335227; cv=none; b=HiH2TXgnnFSQXIOxCcslVk5fsuqL+N/x0airQWxsJ03kxy2y/Y2VLFhfH1UBtO8EZKe4q5kAHzpQ1esG+P5CIqH67qhiS7KWVwIlnbw4L7umgYiDOv4QFHN0PINFrMsFRxydin7g3a0JgwCJB9mqKPyhnf8MRawEnNYdcWIwMmU=
+	t=1788335243; cv=none; b=laQrsXjyX03EaXXGmTmiK1d6r06hCCJlpmVlGWEKNJ2AeCf3LdIT6Rh8iWZlO7pSZuibADr/d1luEa7rbfcFnNxOmNzXZoX90qRNxJw45FgMFVkr8cS8VnyTrZ6dsLEU5iNrTYMIdbjpNds4AsE29fjAsj0u0REkGGwTZ41VKCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788335227; c=relaxed/simple;
-	bh=GRZlElthwAaKzvZ/FHWHV1BMeCYeXxgkQIz3UzAzEsc=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qGOWtjEdEkbwm6nmi9I8WDklJH8OMtFQb2n5oHrRXlH2iSxGepJVbKCaD0OqNeZS5+en1MNZ/4FdF7zmtBEjGtP11vrLZm7A6Bb1yPoCWoOAcYGmVhhUg9qiu7dRqKhUnajglEBLc0wZj1V0KhO1Nl5reHKXB4puN1M6XUxPYP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kmWx0i1N; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788335243; c=relaxed/simple;
+	bh=Wz8l3Gu4W70/Vv6avSB+wGbct1rJflClbOarP/ONjyc=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=kZ1D8+8lIPIivB6Bgoj1nC0y6aYM3kY2kPDN53tV3I5AwvQXdN1RGp2XCb88+7bMCDOvD8ibOgFcI3hQnMEYCSPXZun2NJ7vVlrdo7GIl6f+xrwNK+yAeY4A5Fq3B++yOljFamU98y4eQjnlNuUvdDL2fTIFPT6bgeXE5fyNTTw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=MTAL8EZW; arc=none smtp.client-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kmWx0i1N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D9C31F000E9;
-	Wed,  2 Sep 2026 07:47:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788335226;
-	bh=HMrRYkbF5OZt+EYuQBRlyrF86w/zMKZa5CwvbhvSVgQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=kmWx0i1NgJvsbl7HVHwHOHUrzI7dPQ8T/ayJKlDyUU/WXndfT4LTsi34pD8oCMJwW
-	 LCeYnse+v9023DMTMpO3TYaWx2TztOJTuP1Knjb3yiuj4ZweZqdFJ3b6dvOsIed9ZL
-	 MFc2q9nn7rferIqHBLii9tMX8z0IJmfR32q1fVDwW9cGyQcY/i+iz5AFUi0oW55rAo
-	 BAcd2sMaWjXJ8IPb/iP9toIkpV2PYNDruENhzsi9SGxXH/ouzmwATwuUz77HR6r1QO
-	 EsLNO5rwzI+IL7qBCE+IpMe324knTkP44Y92J2raQrqhy9Eli2Y/SBLf+I9H2/htTp
-	 WeDczrwosL6+w==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x1fgV-00000003lmO-22FI;
-	Wed, 02 Sep 2026 07:47:03 +0000
-Date: Wed, 02 Sep 2026 08:49:36 +0100
-Message-ID: <87ld9km6sv.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Steffen Eiden <seiden@linux.ibm.com>
-Cc: kvm@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-s390@vger.kernel.org,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Andreas Grapentin <gra@linux.ibm.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Claudio Imbrenda <imbrenda@linux.ibm.com>,
-	David Hildenbrand <david@kernel.org>,
-	Friedrich Welter <fritz@linux.ibm.com>,
-	Fuad Tabba <tabba@google.com>,
-	Gautam Gala <ggala@linux.ibm.com>,
-	Hariharan Mari <hari55@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Hendrik Brueckner <brueckner@linux.ibm.com>,
-	Ilya Leoshkevich <iii@linux.ibm.com>,
-	Janosch Frank <frankja@linux.ibm.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Nico Boehr <nrb@linux.ibm.com>,
-	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
-	Oliver Upton <oupton@kernel.org>,
-	Paolo Bonzini <pbonzini@redhat.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Will Deacon <will@kernel.org>,
-	Zenghui Yu <yuzenghui@huawei.com>
-Subject: Re: [PATCH v2 03/20] arm64: sysreg: Define OSLSR_EL1_OSLK_MASK
-In-Reply-To: <20260901092552.231001-A-seiden@linux.ibm.com>
-References: <20260831145536.913567-1-seiden@linux.ibm.com>
-	<20260831145536.913567-4-seiden@linux.ibm.com>
-	<87v78pmmtz.wl-maz@kernel.org>
-	<20260901092552.231001-A-seiden@linux.ibm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="MTAL8EZW"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=PzHZiegNXuduItyVE6hIcWm7KStUom3EumDXT7rj+3M=;
+	b=MTAL8EZW8hBog35yVocFuaxUgsn6qoemNDo4keHpeCYhs6GHG8Shf+C89YDNv/Zyu63vFz917
+	4UipDFjL6O3JZrSpQcjmQ7mgS+w6f8V4W5pCLUqpHv+2UFd6iRpz1gBVZgEE5XH1w3DRfmHtzML
+	bvgw5zSsnyfTCVciBl250mk=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hZZK56WymzpSvQ;
+	Wed,  2 Sep 2026 15:35:53 +0800 (CST)
+Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
+	by mail.maildlp.com (Postfix) with ESMTPS id 90BAD40538;
+	Wed,  2 Sep 2026 15:47:14 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by dggpemf500011.china.huawei.com
+ (7.185.36.131) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Wed, 2 Sep
+ 2026 15:47:13 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <bcrl@kvack.org>, <viro@zeniv.linux.org.uk>, <brauner@kernel.org>,
+	<jack@suse.cz>, <tytso@mit.edu>, <adilger.kernel@dilger.ca>,
+	<libaokun@linux.alibaba.com>, <ojaswin@linux.ibm.com>,
+	<ritesh.list@gmail.com>, <yi.zhang@huawei.com>, <sforshee@kernel.org>,
+	<akpm@linux-foundation.org>, <pmladek@suse.com>, <rostedt@goodmis.org>,
+	<andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>,
+	<senozhatsky@chromium.org>, <kees@kernel.org>, <tglx@kernel.org>,
+	<linux-fsdevel@vger.kernel.org>, <linux-aio@kvack.org>,
+	<linux-kernel@vger.kernel.org>, <linux-ext4@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH v3 0/8] Convert barrier pairs to acquire/release for better performance
+Date: Wed, 2 Sep 2026 15:47:57 +0800
+Message-ID: <20260902074805.398540-1-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: seiden@linux.ibm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org, agordeev@linux.ibm.com, gra@linux.ibm.com, arnd@arndb.de, catalin.marinas@arm.com, borntraeger@linux.ibm.com, imbrenda@linux.ibm.com, david@kernel.org, fritz@linux.ibm.com, tabba@google.com, ggala@linux.ibm.com, hari55@linux.ibm.com, hca@linux.ibm.com, brueckner@linux.ibm.com, iii@linux.ibm.com, frankja@linux.ibm.com, joey.gouly@arm.com, nrb@linux.ibm.com, oss@nina.schoetterlglausch.eu, oupton@kernel.org, pbonzini@redhat.com, suzuki.poulose@arm.com, svens@linux.ibm.com, Ulrich.Weigand@de.ibm.com, gor@linux.ibm.com, will@kernel.org, yuzenghui@huawei.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ dggpemf500011.china.huawei.com (7.185.36.131)
 
-On Tue, 01 Sep 2026 10:25:52 +0100,
-Steffen Eiden <seiden@linux.ibm.com> wrote:
-> 
-> On Tue, Sep 01, 2026 at 08:51:04AM +0100, Marc Zyngier wrote:
-> > On Mon, 31 Aug 2026 15:55:18 +0100,
-> > Steffen Eiden <seiden@linux.ibm.com> wrote:
-> > > 
-> > > Define the missing mask for the OLSK field of OSLSR_EL1 which is
-> > > required to safely write a value to that field.
-> > > 
-> > > Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
-> > > ---
-> > >  arch/arm64/include/asm/sysreg.h | 1 +
-> > >  1 file changed, 1 insertion(+)
-> > > 
-> > > diff --git a/arch/arm64/include/asm/sysreg.h b/arch/arm64/include/asm/sysreg.h
-> > > index 1c5c4df260be..5a439853b721 100644
-> > > --- a/arch/arm64/include/asm/sysreg.h
-> > > +++ b/arch/arm64/include/asm/sysreg.h
-> > > @@ -200,6 +200,7 @@
-> > >  #define OSLSR_EL1_OSLM_NI		0
-> > >  #define OSLSR_EL1_OSLM_IMPLEMENTED	BIT(3)
-> > >  #define OSLSR_EL1_OSLK			BIT(1)
-> > > +#define OSLSR_EL1_OSLK_MASK		BIT(1)
-> > 
-> > Just move the required sysregs to the sysreg file, with the full bit
-> > description. This will sort this once and for all.
-> 
-> You mean to the tools/syreg file to generate the descriptions?
-> 
-> I wanted to do that but OSLSR has a split field (OSLM in bit 3 and 0)
-> which the generation tooling cannot handle. (right?)
+Hi,
 
-Composite fields are nothing new. We have those everywhere (page
-tables, for a start).
+This series converts some existing smp_wmb()/smp_rmb() barrier pairs to
+smp_store_release()/smp_load_acquire() across various subsystems.
 
-> 
-> Now that I am rethinking this:
-> 
-> I could move the stuff to the tools/sysregs and in addtion define the
-> OSLM field here manually but this time using the generated constansts.
-> probably sth. like: 
-> 
-> #define OSLSR_EL1_OSLM_MASK		(OSLSR_EL1_OSLM0_MASK | OSLSR_EL1_OSLM3_MASK)
-> #define OSLSR_EL1_OSLM_NI		OSLSR_EL1_OSLM0_NI
-> #define OSLSR_EL1_OSLM_IMPLEMENTED	OSLSR_EL1_OSLM3_IMPLEMENTED
-> 
-> Shall I do this?
+Background
+==========
 
-Yes. Except that OSLM3 should really be OSLM1, being bit 1 of the OSLM
-field. And it would make a lot more sense to express NI and
-IMPLEMENTED in terms of the two bits, just like the JSON describes it:
+Many architectures support load acquire and store release instructions
+which can replace explicit memory barriers and save cycles. As noted
+in the ARM architecture reference [1]:
 
-OSLSR_EL1       [2,0,1,1,4]     MRS
-# Reg cond: IsFeatureImplemented(FEAT_AA64)
-Res0    63:4
-UnsignedEnum    3       OSLM
-UnsignedEnum    0       OSLM
-        0b00    VAL_00
-        0b10    VAL_10
-EndEnum
-UnsignedEnum    2       nTT
-EndEnum
-Field   1       OSLK
+  "Weaker ordering requirements that are imposed by Load-Acquire and
+   Store-Release instructions allow for micro-architectural
+   optimizations, which could reduce some of the performance impacts
+   that are otherwise imposed by an explicit memory barrier.
 
-Thanks,
+   If the ordering requirement is satisfied using either a Load-Acquire
+   or Store-Release, then it would be preferable to use these
+   instructions instead of a DMB."
 
-	M.
+On arm64, a typical seqcount [2] read loop requires 13 cycles with DMB
+barriers. Replacing the read barrier with smp_load_acquire() reduces
+this to 8 cycles on an Ampere Altra.
+
+We also observed significant barrier overhead while profiling Unxibench
+syscall test on arm64: a single getuid() call is ~8ns slower than on
+a comparable x86 system, with the dominant cost in map_id_up()'s smp_rmb(),
+which is a DMB ISHLD on arm64. Converting it to smp_load_acquire() allows
+the use of LDAR, eliminating the measurable overhead.
+
+This motivated a broader search for existing barrier pairs that can
+be converted to the lighter acquire/release semantics.
+
+Changes
+=======
+
+Each patch in this series targets a specific barrier pair where the
+publish/subscribe pattern is already present:
+
+- Writers populate data, then publish a flag/count/pointer via
+  smp_store_release()
+
+- Readers load the flag/count/pointer via smp_load_acquire(), then
+  consume the data
+
+This preserves the existing memory ordering guarantees while allowing
+architectures with native acquire/release instructions (e.g. arm64's
+STLR/LDAR) to avoid the cost of full one-way barriers (DMB ISHST/ISHLD).
+On architectures without native support, the generated code is
+generally no worse than the explicit barrier pair.
+
+The conversions are mechanical and no functional change is intended.
+
+Testing (Kunpeng HIP09 arm64 server)
+====================================
+
+1. UNIXBENCH syscall
+	Baseline: 715.27
+	Patched:  718.83
+	Improvement: +0.50%
+
+2. fs/aio (fio + null_blk, 4 jobs):
+	Baseline: 1441k IOPS, 86.46us
+	Patched:  1452k IOPS, 85.80us
+	Improvement: ~0.8%
+
+Both improvements are consistent across runs and align with the
+expected savings from replacing DMB with LDAR/STLR on arm64.
+
+[1]: https://support.arm.com/documentation/102336/0100/Load-Acquire-and-Store-Release-instructions
+[2]: https://github.com/torvalds/linux/commit/d0dd066a0fa26d55c19ace9e89dedd9504c5bcba
+
+Changes in v3:
+- Add Reviewed-by.
+- Split out network patch set as Kuniyuki suggested.
+- Link to v2: https://lore.kernel.org/all/20260901024234.135119-1-ruanjinjie@huawei.com/
+
+Changes in v2:
+- Fix pre-existing issue for ext4 and 8021q [3].
+- Fix missing copy_mnt_idmap() udapte [3].
+- Drop nacked isotp patch.
+- Add test data.
+- Add Reviewed-by and update fs patch as Jan suggested.
+
+[3]: https://sashiko.dev/#/patchset/20260825095422.3166067-1-ruanjinjie%40huawei.com
+
+Jinjie Ruan (8):
+  user_namespace: Use acquire/release for nr_extents synchronization
+  lib/vsprintf: Use acquire/release for ptr_key publication
+  fs: aio: Use acquire/release for ring->tail publication
+  fs: Use acquire/release for fdtable resize synchronization
+  pidfs: Use test_bit_acquire() for attr flag tests
+  super: Use acquire for SB_BORN check in super_cache_count()
+  ext4: Fix out-of-bounds read in ext4_get_group_info()
+  ext4: Convert group-count barrier protocol to acquire/release
+
+ fs/aio.c                | 10 ++++------
+ fs/ext4/balloc.c        |  2 +-
+ fs/ext4/ext4.h          | 10 +++-------
+ fs/ext4/mballoc.c       |  6 ++----
+ fs/ext4/resize.c        | 19 +++++++++++--------
+ fs/file.c               | 10 ++++------
+ fs/mnt_idmapping.c      |  5 ++---
+ fs/pidfs.c              |  6 ++----
+ fs/super.c              |  6 ++----
+ kernel/user_namespace.c | 24 +++++++++++++-----------
+ lib/vsprintf.c          | 11 ++++-------
+ 11 files changed, 48 insertions(+), 61 deletions(-)
 
 -- 
-Jazz isn't dead. It just smells funny.
+2.34.1
+
