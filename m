@@ -1,62 +1,65 @@
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2645449B1F4;
-	Wed,  2 Sep 2026 13:58:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD9021FBEA6;
+	Wed,  2 Sep 2026 13:58:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788357486; cv=none; b=cDtMlaY12NeO+8LjBbsDjUg0pwXdr9ziiLkarPeFsBvCsrUEQpL4Notu7bxa9E89QAOPMy2fG1FixXc3CxXHUrgFP5YVRJsngbySm4Wsfz0bcrp39CQBb7lC3dsNzAXSNws+AvQs6wX+YtzzRkV7elBqJB4AcjjdJQgRUOIx1v8=
+	t=1788357515; cv=none; b=HN9l2ZByD2GS4oxV+MJ6I2O8WeHaeV0roTtenAu804P6l3NnpN7X7I60wycYUOdjH1kGCG8sJ3oYssMt3nHKM1vHLdaUtMVCHcehiT39RckoaxluGhuWxVWcT+PPvu6o41qbX/winhKY12fFJ9UljRnjD1RobLFsvnDcl50+AKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788357486; c=relaxed/simple;
-	bh=N7OuYqcuY6r8Xi5J4Kw9RxT0K2uHh3C6eJwxCfYal34=;
+	s=arc-20240116; t=1788357515; c=relaxed/simple;
+	bh=peQBE9QB9LpnJoAlMRvy1Bn3mkWI2MoZB8WmoDySGbk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VZFyJ2N888OFW6gzgVfkF77GA8CW6KKIJbOzO4bRndq8FfhlC3AJCdJUzA67G59IMFb0asaAOH1XhUiYJDpLKOHYzD9iyEgdsrtvBl7kO63xTwaNtWn3pRTohXZUUYGj/kO3DjdsBDWf01St1AM07JOVPBgCFuDDd29wuRtYh0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id D1EA46732A; Wed,  2 Sep 2026 15:58:00 +0200 (CEST)
-Date: Wed, 2 Sep 2026 15:58:00 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Md Haris Iqbal <haris.iqbal@linux.dev>
-Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	linux-doc@vger.kernel.org
-Subject: Re: [v2 for-next 1/3] block: reject unknown status tags in error
- injection rules
-Message-ID: <20260902135800.GA22743@lst.de>
-References: <20260830012002.80275-1-haris.iqbal@linux.dev> <20260830012002.80275-2-haris.iqbal@linux.dev>
+	 Content-Type:Content-Disposition:In-Reply-To; b=EvAnEemLo09yjnnQTotwx2EZg/SyqU/T0zBX845hiT84Sfqvnht+tyYuuCogJRkwwJm14HI0DG/dXPi+G0B68dvvxe95uwm/Ue/66pmaTjaFAE/WhDG1lSe3OuCzuEUPLYTLRTkObtlZFES7bxct8a1O/t2TLRaEw6vbi0olhEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JbzmOCOg; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JbzmOCOg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 571AB1F000E9;
+	Wed,  2 Sep 2026 13:58:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788357514;
+	bh=zebfgfEx2sWxKDAAqeM35LzzkO/Mo1voZLLWtrewGgg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JbzmOCOgJIPXB6ApRQoZR68XDtdGIvzELgBdZnZPpCafDkQuZuXEVsEaGbLfgNARd
+	 MDXVdvUTn22Fo4ubAeekiKq+9cguwThSyEl2ierhzHDp5+FtuinBqmK2yYWP4GHahZ
+	 DQcakTTW53kbCCmyg7H9DNPxJvJaolX8nwtu1qt2rjgJWH2ftKPwKOEPtO9IWUdtLY
+	 emA90v3ZB9wdTH4zvQ1yiAVJ1NM7hzJRZ9aZwQtwZiXDs3blehl+/Lj08n65rgRJI2
+	 Zb4fd3NtE6nOEXwiyfsFNd1sKI26COBkMtRbHE8FQl/hbKxVvuIr59IgFN1kxneAVU
+	 sfwGemp/LqDaQ==
+Date: Wed, 2 Sep 2026 15:58:17 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: David Carlier <devnexen@gmail.com>
+Cc: vkoul@kernel.org, neil.armstrong@linaro.org, qiang.yu@oss.qualcomm.com, 
+	konrad.dybcio@oss.qualcomm.com, krishna.chundru@oss.qualcomm.com, linux-phy@lists.infradead.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] phy: qcom: qmp-pcie: Check clock-output-names count
+ in the multi-PHY driver
+Message-ID: <g25bkftt7l22pr4glysnt4ce75lubvbqjcgsnqzsabuurt5kkj@q2fjdyhnlext>
+References: <20260825225729.230493-1-devnexen@gmail.com>
+ <20260825225729.230493-2-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260830012002.80275-2-haris.iqbal@linux.dev>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260825225729.230493-2-devnexen@gmail.com>
 
-On Sun, Aug 30, 2026 at 03:20:00AM +0200, Md Haris Iqbal wrote:
-> tag_to_blk_status() returns BLK_STS_OK both for the "OK" tag and for a
-> tag it does not recognise, so a caller cannot tell the two apart.
-> match_status() leaves *status at BLK_STS_OK for an unknown tag and relies
-> on error_inject_add() rejecting BLK_STS_OK.
+On Tue, Aug 25, 2026 at 11:57:29PM +0100, David Carlier wrote:
+> of_property_count_strings() returns a negative errno when the property
+> is missing or malformed. The value was passed straight to
+> devm_kcalloc(), whose overflow check rejected it, turning a device tree
+> problem into a bogus -ENOMEM with no diagnostic.
+> 
+> Fixes: 1781be3c8a5d ("phy: qcom: qmp-pcie: Add QMP PCIe Multi-PHY driver")
+> Signed-off-by: David Carlier <devnexen@gmail.com>
 
-There is no *status yet.
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-> That holds only while a rule without a status is meaningless.  The delay
+- Mani
 
-This reads a lot like AI slop.  Can you please self-write a short and
-descriptive commit message?
-
-> -	 * Return BLK_STS_OK for mismatches as this function is intended to
-> -	 * parse error status values.
-> -	 */
-> -	return BLK_STS_OK;
-> +	return -EINVAL;
-
-No need for an int return here, this can easily be done with a bool.
-
-
+-- 
+மணிவண்ணன் சதாசிவம்
