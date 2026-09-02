@@ -1,150 +1,143 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E70737B036
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:46:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FA536EA93;
+	Wed,  2 Sep 2026 06:46:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788331564; cv=none; b=iZjU92kr/lKgso/Tbi1GF+5/4y0GyIdWTEwo558YP70X5tMXuNOH1RvleSsO1ILi1VO9nCYDyDCsOWPSjVGFl6cg4t7T86fO1PS7Fiq0cyL3ncQgA19/240v14TNS/40c8awFYG1K/1sGI3OO/Zz2xq+h9Fh0EY5tOD9Evj2Z4k=
+	t=1788331590; cv=none; b=ju2FCOW5qHBWpdJ5qN/mpBIpqyDVRJasIhwPo19FkdJVKfaulDJInGFNhEGo/v8yXt0AuhATGElgK+dvmCroRqHQify+z/9zOB0kkfSnNWZH3dC9e2FAe71YVi+TO6g2sBZpSXrgMrptsD7MBCy/9pxqJWYqj8LZkEU9bDJhlJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788331564; c=relaxed/simple;
-	bh=Pl/F4A+WNHxObov5QpjRxwRqXFSTazG/CwcNf54O7UU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=qVzG1XTVWb4g/9pjbfNm3+sSLgvwLJDyKmcxxzNJtxq+isiyQt23Iby1ws/R4vLUiO48qylDe46EMb2kexDVNjjZeXFHPIZMRMv4ZIOaXfKSID/lhOrSuxSQKhZr6CnVBQefyhVrgkfa2uih9mXn8Y0I3YYCSNQRMANmJ/19Ayc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aNNFd5l3; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788331590; c=relaxed/simple;
+	bh=BQ/OLKVbP+6G6AzF18XitS8dZZFklfctJS9TxMOmcnU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=DjEjtzqk2swdUKbgDP1sYIPvAXhYOg6tjVIqAL0BnWEXgW8d0BebBHIXAEJZmrMkJRSVNu9C/trJkDp8+Jbk+T+cTblfEopN1zJFscCDP4nBOQNlGEVghCrcc5OVvIuEXViVVGXP0Iu58h+94VFB7mKMI9gJT2HO7gnYAhB1FB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=pWpxjur1; arc=none smtp.client-ip=113.46.200.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aNNFd5l3"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38e58034d05so573926a91.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 23:46:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788331562; x=1788936362; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4yy14lSjlqIlp7/ZhnEryZaSDgqy5+mYft8l+OckZzk=;
-        b=aNNFd5l3OlKVXwn9pPJChYdWPvi0y9AfysUAd9EMc85EMxIsL1CfB5+2P0+KOnuP3r
-         ef5oNoPqlHZmecEZXl1uoh7HAM85siEmrWNIUFbf871vlI1GcxroUZ7V+6KWAD7F41fz
-         nzCveLfwO5vW7drQNOa8XSfl3J2pThOkep4qvHlUpzaZ/Dq3JHZicEYvD4LrReiv5DgX
-         Gu7PaD5X44R+k4NUnLUp9C7yrZaRAoIOrfU1p7Y0grwhkHoylAyQcXaEbBxzK0j5LPxj
-         qQ774HiFS9KL9FLycONrg0GVlOPDfL1deASKyQdlNFW6gh566j77RmR3xUAdOWW8pUrJ
-         JBEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788331562; x=1788936362;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4yy14lSjlqIlp7/ZhnEryZaSDgqy5+mYft8l+OckZzk=;
-        b=BwZuWdS8aQtDrUhjfHQEpsNpeAs7HKdgiDM/C+XA8d+r1aHbJ5ivby3/uUXG+LiJ1+
-         xW6SS+CXMcbJxt12KGGvveaZz8JmQl1Ho/bhavOq1IluFJiUeGGsxAjLEegNU0VcrSUy
-         7JWA6lpEx2cyotTlTzNOCNR4gyTzQZ2P3imkUD/DvBqqVvETt8MaJ4SBJkB3kyTnWDmP
-         YMxzzMGY3gpUHI4GrvCZzAjNeNDxhvRwtUrebTBs8p2QKYQD6lAeEyhDKl7QIWSwitoi
-         3cB6JLHJV3U70pRd4ak3t7rAg/k3oQjDvhLaDB6v9iNwtNqLzp44ycUOV+pOjrpQCxTL
-         AfAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwOXdhO4rbeNNjlZc01erfVbv8r0GYs/UHSOv2mAYCzTlhbo5j9GPOhcWcPs8rX5RasSo5tf7CKoMe/7UE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nOqUimhBfzZO3nvvuYfi38tRcziesstDYkrNDx7PfMJ4I73nzS
-	SS+SWaxomyI61ZfmSLO7OWOB7HcjCrMZ76lK6k29vGbRiB59cp8rJ6id
-X-Gm-Gg: AYBFou3tEW+lI97lsInS6DChZSkYhjZxigi4rlVtxn3wNAG8omEb2sFreED8PvChnui
-	VpeafJUz69CgToxsdZy69QW+BwOOJa0EkZzduHB7aAHuujUn6QoX+Xwr1ZgrIbZTphc0Y/ieEuS
-	ZoxHUppcL2HXJNRi4M1RLnKvIkudhC/idNyi1Y95+7V7Bj1IpMwRBlfOPznaN2+8LvovVNCJ9nB
-	l/ncsMFGiUbnikPwpQkUJ1mA6D3e/WOFpIOLBwZ6dY6rkKwi3H4ei2T86MiYhtr0v2MD1TK6WTh
-	A3IT7Y7w9MJGNWDfVy+ofvhN1kCrB0WAEqiZeqO1+WuwyBXTyAxLmXLvC28w2ZeycVX2JERMRp2
-	OU8nhc0SUuwzVO0vj09RGZKLmlQksVUgczoB00JNPwcxu/Zv2wycGUXZcYh5LLzinvmnlaQL0Mi
-	Ojghs44kvHHlU3+HuL1ThAHeWSl3XfoGLHtIqdSRrE+eWnbbH8fa9TQk3Fq3aqVKHHoR1sISYr2
-	PEQpPZSIygxOTNA
-X-Received: by 2002:a17:90b:380d:b0:366:3517:1aa2 with SMTP id 98e67ed59e1d1-39aedc217demr3311370a91.0.1788331562371;
-        Tue, 01 Sep 2026 23:46:02 -0700 (PDT)
-Received: from PC-2B0BA31200898.company.local ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990bd1b395sm11051480a91.1.2026.09.01.23.45.58
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 23:46:01 -0700 (PDT)
-From: Meijing Zhao <zhaomeijing100@gmail.com>
-To: Lorenzo Stoakes <ljs@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Meijing Zhao <zhaomeijing@lixiang.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Wandun Chen <chenwandun@lixiang.com>,
-	linux-mm@kvack.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] mm: trace: name protection key encoding bits
-Date: Wed,  2 Sep 2026 14:45:10 +0800
-Message-Id: <1871da32001243b37147bac5af02d2f2ec64304e.1788330432.git.zhaomeijing@lixiang.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1788330432.git.zhaomeijing@lixiang.com>
-References: <cover.1788330432.git.zhaomeijing@lixiang.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="pWpxjur1"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=XkVkydpEbd/i/xyW0bVNgYtI18TmGIgVUYVlilWRXC8=;
+	b=pWpxjur1ia9Wds1HdRjs5cyzpqLF4seDOc/RLHklmeLfdlvuVEhkBvZQaoX5+giXgrsDuswUR
+	4LD0NE+qCLsGV9eAQD+ucr4usT1VCy/3nC2GpkHn7UMIvcODtNYdWw9Tjr7vK5XluGWpOnLhZJW
+	NPaWcXMW97CToFAiypVdSpk=
+Received: from mail.maildlp.com (unknown [172.19.163.214])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hZXz71xySzKm5t;
+	Wed,  2 Sep 2026 14:35:15 +0800 (CST)
+Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
+	by mail.maildlp.com (Postfix) with ESMTPS id D82FD4057C;
+	Wed,  2 Sep 2026 14:46:08 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Wed, 2 Sep 2026 14:46:06 +0800
+Message-ID: <cb145b63-7f72-4912-87d5-4af3f6d89c09@huawei.com>
+Date: Wed, 2 Sep 2026 14:46:04 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 11/12] 8021q: Fix data race when publishing vlan
+ net_device pointers
+To: Jakub Kicinski <kuba@kernel.org>
+CC: <viro@zeniv.linux.org.uk>, <brauner@kernel.org>, <jack@suse.cz>,
+	<bcrl@kvack.org>, <tytso@mit.edu>, <adilger.kernel@dilger.ca>,
+	<libaokun@linux.alibaba.com>, <ojaswin@linux.ibm.com>,
+	<ritesh.list@gmail.com>, <yi.zhang@huawei.com>, <sforshee@kernel.org>,
+	<pmladek@suse.com>, <rostedt@goodmis.org>,
+	<andriy.shevchenko@linux.intel.com>, <linux@rasmusvillemoes.dk>,
+	<senozhatsky@chromium.org>, <akpm@linux-foundation.org>,
+	<davem@davemloft.net>, <edumazet@google.com>, <pabeni@redhat.com>,
+	<horms@kernel.org>, <kuniyu@google.com>, <willemb@google.com>,
+	<jhs@mojatatu.com>, <jiri@resnulli.us>, <kees@kernel.org>,
+	<cyphar@cyphar.com>, <tglx@kernel.org>, <sdf@fomichev.me>, <nb@tipi-net.de>,
+	<liuhangbin@gmail.com>, <da-x@monatomic.org>, <jeff@garzik.org>,
+	<linux-fsdevel@vger.kernel.org>, <linux-aio@kvack.org>,
+	<linux-kernel@vger.kernel.org>, <linux-ext4@vger.kernel.org>,
+	<netdev@vger.kernel.org>
+References: <20260901024234.135119-1-ruanjinjie@huawei.com>
+ <20260901024234.135119-12-ruanjinjie@huawei.com>
+ <20260901075833.1aa73cb3@kernel.org>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260901075833.1aa73cb3@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ dggpemf500011.china.huawei.com (7.185.36.131)
 
-From: Meijing Zhao <zhaomeijing@lixiang.com>
 
-Protection keys are encoded in architecture-specific HIGH_ARCH_* VMA
-flag bits.  show_vma_flags(), which is used by VMA tracepoints and %pGv,
-does not name those bits, leaving them as raw hexadecimal values.
 
-Name the protection-key encoding bits pkey_bit0 through pkey_bit4 under
-CONFIG_ARCH_HAS_PKEYS.  The names make clear that these are bits of one
-protection-key value rather than independent protection keys.  For
-example, protection key 3 is represented as:
+在 2026/9/1 22:58, Jakub Kicinski 写道:
+> On Tue, 1 Sep 2026 10:42:33 +0800 Jinjie Ruan wrote:
+>> A plain C read and assignment of the net_device pointer
+>> in the vlan_devices_arrays leaf entries lack proper atomicity
+>> and ordering barriers. A concurrent lockless reader on the packet
+>> receive fast-path could observe a torn or partially initialized
+>> net_device pointer, leading to a potential out-of-bounds read or kernel
+>> panic.
+>>
+>> The data race occurs between the netlink/ioctl configuration paths
+>> (holding the per-netns rtnl_nets_lock or RTNL lock) and the softirq
+>> receive fast-path (holding rcu_read_lock()):
+>>
+>>   CPU 0 (Writer, rtnl_nets_lock/RTNL)      CPU 1 (Reader, rcu_read_lock())
+>>   -----------------------------------      -------------------------------
+>>    rtnetlink_rcv_msg()
+>>      // RTM_NEWLINK handler with RTNL_FLAG_DOIT_PERNET
+>>      rtnl_newlink()
+>>        ops->newlink() == vlan_newlink()
+>>    OR
+>>    vlan_ioctl_handler()
+>>      [ADD_VLAN_CMD] -> register_vlan_device()
+>>
+>>      register_vlan_dev()
+>>        vlan_group_set_device()
+>>                                       netif_receive_skb_core()
+>>                                           vlan_do_receive()
+>>                                               vlan_find_dev()
+>>                                                  __vlan_group_get_device()
+>>                                                   // Speculative / torn read
+>>                                                   [Loads bad net_device *]
+>>            [Plain C store]
+>>            array[vlan_id] = dev;
+>>                                                   // Dereferences bad pointer
+>>                                                   // during device status check
+>>                                                   vlan_dev->flags (PANIC!)
+>>
+>> Fix this by using rcu_assign_pointer() in vlan_group_set_device()
+>> and rcu_dereference_raw() in __vlan_group_get_device() to enforce
+>> proper ordering and memory atomicity for the leaf entry traversal.
+>>
+>> Cc: stable@vger.kernel.org
+>> Cc: "David S. Miller" <davem@davemloft.net>
+>> Cc: Eric Dumazet <edumazet@google.com>
+>> Cc: Jakub Kicinski <kuba@kernel.org>
+>> Cc: Paolo Abeni <pabeni@redhat.com>
+>> Cc: Simon Horman <horms@kernel.org>
+>> Cc: Stanislav Fomichev <sdf@fomichev.me>
+>> Cc: Kuniyuki Iwashima <kuniyu@google.com>
+>> Cc: Nicolai Buchwitz <nb@tipi-net.de>
+>> Cc: Dan Aloni <da-x@monatomic.org>
+>> Cc: Jeff Garzik <jeff@garzik.org>
+>> Fixes: 5c15bdec5c38 ("[VLAN]: Avoid a 4-order allocation.")
+>> Link: https://sashiko.dev/#/patchset/20260825095422.3166067-1-ruanjinjie%40huawei.com
+>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+> 
+> make C=1 says:
+> 
+> net/8021q/vlan.c: note: in included file:
+> net/8021q/vlan.h:91:9: error: incompatible types in comparison expression (different address spaces):
+> net/8021q/vlan.h:91:9:    struct net_device [noderef] __rcu *
 
-  pkey_bit0|pkey_bit1
+Good catch, let me fix it in next version.
 
-Honor CONFIG_ARCH_PKEY_BITS when exposing bit 3 and bit 4 so only bits
-provided by the architecture are included.
+> net/8021q/vlan.h:91:9:    struct net_device *
+> net/8021q/vlan.h:91:9: error: incompatible types in comparison expression (different address spaces):
+> net/8021q/vlan.h:91:9:    struct net_device [noderef] __rcu *
+> net/8021q/vlan.h:91:9:    struct net_device *
 
-Signed-off-by: Meijing Zhao <zhaomeijing@lixiang.com>
----
- include/trace/events/mmflags.h | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
-
-diff --git a/include/trace/events/mmflags.h b/include/trace/events/mmflags.h
-index 2f980d20a9f6..ef9aa388b84f 100644
---- a/include/trace/events/mmflags.h
-+++ b/include/trace/events/mmflags.h
-@@ -202,6 +202,24 @@ IF_HAVE_PG_ARCH_3(arch_3)
- # define IF_HAVE_VM_DROPPABLE(flag, name)
- #endif
- 
-+#ifdef CONFIG_ARCH_HAS_PKEYS
-+# define IF_HAVE_VM_PKEY(flag, name) {flag, name},
-+#if CONFIG_ARCH_PKEY_BITS > 3
-+# define IF_HAVE_VM_PKEY3(flag, name) {flag, name},
-+#else
-+# define IF_HAVE_VM_PKEY3(flag, name)
-+#endif
-+#if CONFIG_ARCH_PKEY_BITS > 4
-+# define IF_HAVE_VM_PKEY4(flag, name) {flag, name},
-+#else
-+# define IF_HAVE_VM_PKEY4(flag, name)
-+#endif
-+#else
-+# define IF_HAVE_VM_PKEY(flag, name)
-+# define IF_HAVE_VM_PKEY3(flag, name)
-+# define IF_HAVE_VM_PKEY4(flag, name)
-+#endif
-+
- #ifdef CONFIG_ARM64_MTE
- # define IF_HAVE_VM_MTE(flag, name) {flag, name},
- #else
-@@ -250,6 +268,11 @@ IF_HAVE_VM_SOFTDIRTY(VM_SOFTDIRTY,	"softdirty"	)		\
- 	{VM_HUGEPAGE,			"hugepage"	},		\
- 	{VM_NOHUGEPAGE,			"nohugepage"	},		\
- IF_HAVE_VM_DROPPABLE(VM_DROPPABLE,	"droppable"	)		\
-+IF_HAVE_VM_PKEY(VM_PKEY_BIT0,		"pkey_bit0")		\
-+IF_HAVE_VM_PKEY(VM_PKEY_BIT1,		"pkey_bit1")		\
-+IF_HAVE_VM_PKEY(VM_PKEY_BIT2,		"pkey_bit2")		\
-+IF_HAVE_VM_PKEY3(VM_PKEY_BIT3,		"pkey_bit3")		\
-+IF_HAVE_VM_PKEY4(VM_PKEY_BIT4,		"pkey_bit4")		\
- IF_HAVE_VM_MTE(VM_MTE,			"mte")			\
- IF_HAVE_VM_MTE(VM_MTE_ALLOWED,		"mte_allowed")		\
- IF_HAVE_VM_SHADOW_STACK(VM_SHADOW_STACK, "shadow_stack")	\
--- 
-2.25.1
