@@ -1,160 +1,190 @@
-Received: from frasgout.his.huawei.com (frasgout.his.huawei.com [185.176.79.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A97132AADB
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:03:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.176.79.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 038FE4A5C22;
+	Wed,  2 Sep 2026 15:03:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788361437; cv=none; b=DxuWaY9mLGOI/M/qqT+/cwaqnrSV6H30Btsz5K3QvZfWgqSY8KL16ZPoZhhkNiiJ+fk2AJS1aznjf5oBQjDxtoe30hQpCeHV5KvmGJuFdFZmxdJmptIwol22173g+6UnXpS99FDEBRbOnnUWHrSa/NVfMOHyxyv2MS/HQqzKeXg=
+	t=1788361440; cv=none; b=DMZ/sM+osuUOOnWip1Srour8WwLgeM6cQyPsByZu6PTLbc4JogU7Z9bwhiCNTIMY8j1TujTSncPuOgRXC20p9M4OOJl3lU49BTYEbiv06JyIEhRPSkgQ4e45U/OEGayB+H0vnxfRMSgZhF49C/FOAbS7Pad8zfI+lE1rXblLiJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788361437; c=relaxed/simple;
-	bh=yt0tIgNGVachlwlrDD5uOfjgvr9ImpP1acApgeOOnsg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=s49Y+rfNNvJrUBlaD3cfUnsvP8NOqZQWTCmRj10cEa+8kfWqV8kzICr5Kg7honzZFf/vcbyBrHZxn7cRQGObwsXBc1qd2PDri+zzuECuMj+RT52Tm46mTV5BHLIbosQZ9pldj5ZSJPItWwhhOJTFIOGTezyMSnLBeE41IBj4yJg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei-partners.com; spf=pass smtp.mailfrom=huawei-partners.com; dkim=pass (1024-bit key) header.d=huawei-partners.com header.i=@huawei-partners.com header.b=JjR28d8t; arc=none smtp.client-ip=185.176.79.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei-partners.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei-partners.com
+	s=arc-20240116; t=1788361440; c=relaxed/simple;
+	bh=Ws3Z5T4B5h/j/Ky5vE9ZeELQf9GKQhg1Hkap4tQrH1s=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=kNe0K7f+t/eO96Wi1Yyu/qwvDUJa4dGXqo7pjWxv9cCI/KyQL0X6eF1mV6IFwE8mgNDf+CDvjkNM0ZBQkikEGHLXElwUk/0fQ/7pu1I/cvcVhlqClxHrOx+dzJ2o6hQKn2DdYstorrgvxpiXdIga0wMpgHKywt7mVDM9fRqB1Zg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fsKHoTIo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei-partners.com header.i=@huawei-partners.com header.b="JjR28d8t"
-dkim-signature: v=1; a=rsa-sha256; d=huawei-partners.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=4M78E0ObIENsRiRRK+u7y9UbS3R6BJ4hM9bzTVDKV7o=;
-	b=JjR28d8tmO/cLBZzM28RFnyU2knLbRFYR2FV3FdhZxKQvodPP9FwXxFlgM5Nga5o56RYcTtSl
-	+SXgpKW4RWSvwDgFcjgLOvZbttMeR80lVBOD5kRCJe2Z7U5Eb8Thv07bV288/Oxa6HWq3yDnegO
-	/EzpcIZ0a2YUXxpnir7u2cc=
-Received: from mail.maildlp.com (unknown [172.18.224.150])
-	by frasgout.his.huawei.com (SkyGuard) with ESMTPS id 4hZmF93FJxzJ46Dn;
-	Wed,  2 Sep 2026 23:03:09 +0800 (CST)
-Received: from mscpeml500003.china.huawei.com (unknown [7.188.49.51])
-	by mail.maildlp.com (Postfix) with ESMTPS id D5D4740571;
-	Wed,  2 Sep 2026 23:03:40 +0800 (CST)
-Received: from [10.123.123.154] (10.123.123.154) by
- mscpeml500003.china.huawei.com (7.188.49.51) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 2 Sep 2026 18:03:40 +0300
-Message-ID: <9ac2a10f-1551-410e-a9c0-173a1daeb1ab@huawei-partners.com>
-Date: Wed, 2 Sep 2026 18:03:39 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fsKHoTIo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDE1C1F000E9;
+	Wed,  2 Sep 2026 15:03:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788361438;
+	bh=K8+j06Fqip6iZWZjHjHOXpmDpD5M1F9ioEXxsNpOIsg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=fsKHoTIoqikf/YmtYi1EdBCB2TyN+LZUJrxK2VeUiOQ/JVtk0shlqdIJJPXDvEO3K
+	 QpS8cWpatzsRyZtwmeDPiaAFhJMrs0CIsEmQ9Kzw8n6wmOt/dLu73FnHvHiUzpJIXv
+	 gov1KwXoXcPjNh0McqixU04OvRA5UjNbQD31pk4QTpglmcU031gLRHzJbPqJKVSKD6
+	 w3Roiqhe7wINNwh76NT31jsQ9p/xC/wmF5nISvoUMyr3TiWd9gKYZTMVz0WWZjdYNj
+	 eXUGDa18Mzyxj7XJNXkDB1L5QeiD1thcpLTnAYYuBfrpe4d89gQEfJ1YrX2/8Lt9iP
+	 gzxlVdGJ3RtNQ==
+Subject:
+ Re: [net] vxlan: vnifilter: validate the VNI range in vni_filter_entry_policy
+From: netdev-bot+sashiko@kernel.org
+To: alishmery18@gmail.com
+Cc: netdev@vger.kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ davem@davemloft.net, edumazet@google.com, andrew+netdev@lunn.ch,
+ idosch@nvidia.com, razor@blackwall.org, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Wed, 02 Sep 2026 15:03:57 +0000
+Message-ID: <178836143725.3394541.12588453860403453088@kernel.org>
+In-Reply-To: <20260829030041.940594-1-alishmery18@gmail.com>
+References: <20260829030041.940594-1-alishmery18@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] mm/damon: Introduce DAMOS_QUOTA_HUGEPAGE auto
- tuning
-To: SJ Park <sj@kernel.org>, Lian Wang <lianux.mm@gmail.com>
-CC: Andrew Morton <akpm@linux-foundation.org>, <damon@lists.linux.dev>,
-	<linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>
-References: <20260901142307.100701-1-sj@kernel.org>
-Content-Language: en-US
-From: Gutierrez Asier <gutierrez.asier@huawei-partners.com>
-In-Reply-To: <20260901142307.100701-1-sj@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: mscpeml100003.china.huawei.com (10.199.174.67) To
- mscpeml500003.china.huawei.com (7.188.49.51)
 
-Hi SJ and Lian,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-On 9/1/2026 5:23 PM, SJ Park wrote:
-> Hi Lian,
-> 
-> On Tue,  1 Sep 2026 14:58:35 +0800 Lian Wang <lianux.mm@gmail.com> wrote:
-> 
->> Hi SJ and Asier,
->>
->> Thanks for working on this and for providing the server results.  I have two
->> questions about what hugepage_mem_bp is intended to represent.
->>
->>> Introduce DAMOS_QUOTA_HUGEPAGE_MEM_BP auto tuning. Add a new DAMOS quota
->>> goal metric to measure the amount of huge page consumption to total
->>> memory consumption ratio.
->>
->> First, NR_ANON_THPS tracks anonymous PMD mappings, while NR_SHMEM_THPS and
->> NR_FILE_THPS track PMD-mappable page-cache folios.  Therefore, splitting only
->> an anonymous PMD mapping can change hugepage_mem_bp without physically
->> splitting the folio.  Is the intended metric PMD-mapped memory or physical
->> large-folio memory?  Clarifying this and adding a mapping-only test may help.
-> 
-> Good point.  I was just missing this.  So, hugepage_mem_bp is not accounting
-> anon mTHPs, right?  Since hugepage_mem_bp is for general hugepages, I think
-> this is better to be improved.  Seems using MTHP_STAT_NR_ANON that is exposed
-> as 'nr_anon' can be used?  Because this is an improvement rather than a fix of
-> a bug, I think doing this as either a followup or new version of this series
-> are ok.  Asier, what do you think?
-Agree, I will submit a new patch to fix this behaviour and account for mTHP.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0 (2)
 
-Lian, thanks a lot for the review and pointing this issue.>>
->> Second, the metric is global while a DAMOS scheme can target one process.
-> 
-> Actually it can target multiple processes if those are in single DAMON context.
-> 
->> THPs from other processes or NUMA nodes can satisfy the target or dilute the
->> monitored process's changes.  Is this intentional?
-> 
-> I think it is intentional.  The user should have the control on collapsing
-> hugepages, or believe the uncontrolled collapse mechanisms.
-> 
->> If so, documenting the
->> scope and testing a background THP workload may be useful.
-> 
-> More documentation and testing are always welcome :)
-> 
->>
->> The temporal results approach the 10% and 25% targets, while the consistent
->> results overshoot the 10% target to about 20% and 45%.  I would describe this
->> as control-response data.  TPS, latency, TLB, fragmentation and collapse CPU
->> data could further show the workload benefit and cost.
-> 
-> Yes, those would be helpful.  That's not mandatory for this simple change in my
-> opinion, though.  I would let Asier decide whether and when to make and share
-> such data.
-The idea of this patch was to introduce auto tuning. I think I submitted thebenchmark results when I sent the DAMOS_COLLAPSE feature.
+- [High] Incomplete fix: the added netlink range validation bounds only
+  the individual VXLAN_VNIFILTER_ENTRY_START/END values (to…
 
-Anyway, it shouldn't take long for me to get more data. I think it may be useful
-for people to know the actual results in real application.
+Pre-existing issues:
+- [Low] The newly added vni_filter_vni_range leaves .min unset (0), so
+  the policy formally advertises VNI 0 as a valid…
+- [Low] vxlan_vni_alloc() allocates the vxlan_vni_node with kzalloc_obj()
+  (plain GFP_KERNEL, no __GFP_ACCOUNT) at…
 
-SJ, what's the best place to publish all those data? I believe you have more
-experience sharing this data and which platform is the most useful one.>>
->> If I have misunderstood any of this, please feel free to ignore these
->> comments and correct me.
-> 
-> Your comments are very helpful, thank you for your review and comments, Lian.
-> 
->>
->> The enum, quota-goal wiring and sysfs exposure otherwise look consistent with
->> the existing DAMOS autotuning framework.  I consider the points above
->> follow-up questions about semantics and evaluation, rather than blockers for
->> this series.
-> 
-> I agree.
-> 
->>
->> For the series:
->>
->> Reviewed-by: Lian Wang <lianux.mm@gmail.com>
-> 
-> Thank you!
-> 
->>
->> Please feel free to Cc me on related follow-up patches.  I am happy to help
->> review the code.  Besides my own DAMON work, I have recently been reviewing
->> and learning from other DAMON and MM work, and I would be glad to continue.
-> 
-> I'm curious if you and general reviewers need or prefer to directly be Cc-ed.
-> I was naively thinking people can search and review DAMON patches by
-> subscribing to the mailing list or using the archives via lore.kernel.org like
-> tools.
-> 
-> 
-> Thanks,
-> SJ
-> 
-> [...]
+--
+
+vxlan: vnifilter: validate the VNI range in vni_filter_entry_policy
+
+This adds netlink range validation to VXLAN_VNIFILTER_ENTRY_START and
+VXLAN_VNIFILTER_ENTRY_END so each value is capped at VXLAN_N_VID - 1,
+matching the constraint already used by the MDB code in the same driver.
+The stated goal is to stop an unprivileged netlink request from driving an
+unbounded allocation loop in vxlan_vni_add_del().
+
+> diff --git a/drivers/net/vxlan/vxlan_vnifilter.c b/drivers/net/vxlan/vxlan_vnifilter.c
+> index dd94085e0886..9e86ac39cf9d 100644
+> --- a/drivers/net/vxlan/vxlan_vnifilter.c
+> +++ b/drivers/net/vxlan/vxlan_vnifilter.c
+> @@ -459,9 +459,15 @@ static int vxlan_vnifilter_dump(struct sk_buff *skb, struct netlink_callback *cb
+>  	return err;
+>  }
+>  
+> +static const struct netlink_range_validation vni_filter_vni_range = {
+> +	.max = VXLAN_N_VID - 1,
+> +};
+
+[Severity: High]
+This bounds each endpoint but not the distance between them.  Does that
+still leave the scenario described in the changelog reachable?
+
+A single RTM_NEWTUNNEL with START=0 and END=0xFFFFFF passes the new
+policy, and vxlan_process_vni_filter() forwards both values unchanged:
+
+	if (vattrs[VXLAN_VNIFILTER_ENTRY_START]) {
+		vni_start = nla_get_u32(vattrs[VXLAN_VNIFILTER_ENTRY_START]);
+		vni_end = vni_start;
+	}
+
+	if (vattrs[VXLAN_VNIFILTER_ENTRY_END])
+		vni_end = nla_get_u32(vattrs[VXLAN_VNIFILTER_ENTRY_END]);
+	...
+	err = vxlan_vni_add_del(vxlan, vni_start, vni_end, &group, cmd,
+				extack);
+
+which then runs 2^24 iterations in vxlan_vni_add_del():
+
+	for (v = start_vni; v <= end_vni; v++) {
+		switch (cmd) {
+		case RTM_NEWTUNNEL:
+			err = vxlan_vni_add(vxlan, vg, v, group, extack);
+
+Each iteration reaches vxlan_vni_alloc(), which does one slab allocation
+plus one per-CPU stats block:
+
+	vninode = kzalloc_obj(*vninode);
+	if (!vninode)
+		return NULL;
+	vninode->stats = netdev_alloc_pcpu_stats(struct vxlan_vni_stats_pcpu);
+
+struct vxlan_vni_stats_pcpu is 64 bytes per CPU, so on a 4-CPU host that
+is roughly 2^24 * (192 + 4 * 64), several gigabytes from one message.
+There is still no __GFP_ACCOUNT on either allocation, and no
+cond_resched() in the loop.
+
+The RTM_NEWTUNNEL handler is also still registered with flags 0:
+
+	{THIS_MODULE, PF_BRIDGE, RTM_NEWTUNNEL, vxlan_vnifilter_process, NULL, 0},
+
+so the whole loop still executes under the host-global rtnl_lock, which is
+the stall the changelog describes.  Nothing else caps growth either:
+vg->num_vnis is only adjusted in __vxlan_vni_add_list() and
+__vxlan_vni_del_list() and is never compared against a limit.
+
+The one case this patch does remove is end_vni == U32_MAX, where v wraps
+and the loop condition never becomes false.  Would it make sense to say
+that explicitly in the changelog, and additionally bound the number of
+VNIs created per request, add a reschedule point in the loop, or account
+the memory, before claiming the OOM and rtnl stall are closed?
+
+[Severity: Low]
+This is a pre-existing inconsistency rather than something introduced
+here, but the new range leaves .min at 0, so the policy now formally
+advertises VNI 0 as a valid START/END value, while
+vxlan_process_vni_filter() treats 0 as "attribute absent":
+
+	if (!vni_start && !vni_end) {
+		NL_SET_ERR_MSG_ATTR(extack, nlvnifilter,
+				    "vni start nor end found in vni entry");
+		return -EINVAL;
+	}
+
+A request carrying only START=0 passes the new validation and is then
+rejected with an extack saying neither start nor end was found, while
+START=0 with END=10 installs VNI 0 without complaint.  Is it worth
+setting .min explicitly, or reworking the sentinel so the extack matches
+the actual reason?
+
+>  static const struct nla_policy vni_filter_entry_policy[VXLAN_VNIFILTER_ENTRY_MAX + 1] = {
+> -	[VXLAN_VNIFILTER_ENTRY_START] = { .type = NLA_U32 },
+> -	[VXLAN_VNIFILTER_ENTRY_END] = { .type = NLA_U32 },
+> +	[VXLAN_VNIFILTER_ENTRY_START] = NLA_POLICY_FULL_RANGE(NLA_U32,
+> +							      &vni_filter_vni_range),
+> +	[VXLAN_VNIFILTER_ENTRY_END] = NLA_POLICY_FULL_RANGE(NLA_U32,
+> +							    &vni_filter_vni_range),
+
+[Severity: Low]
+This isn't a bug introduced by this patch, but the changelog calls out the
+missing memcg accounting as part of the problem, and vxlan_vni_alloc() is
+unchanged:
+
+	vninode = kzalloc_obj(*vninode);
+	if (!vninode)
+		return NULL;
+	vninode->stats = netdev_alloc_pcpu_stats(struct vxlan_vni_stats_pcpu);
+
+kzalloc_obj() uses plain GFP_KERNEL and netdev_alloc_pcpu_stats() ends up
+at alloc_percpu_gfp(..., GFP_KERNEL), so neither carries __GFP_ACCOUNT and
+neither is charged to the requesting task's cgroup.  A caller inside a
+user plus net namespace can still ask for the full legitimate 24-bit range
+and get one node plus one per-CPU block per VNI, scaled by nr_cpus,
+outside its memcg limit.  Should the changelog stop listing the accounting
+gap among the things being addressed, or should the allocations gain
+__GFP_ACCOUNT as part of this change?
+
+>  	[VXLAN_VNIFILTER_ENTRY_GROUP]	= NLA_POLICY_EXACT_LEN(sizeof_field(struct iphdr, daddr)),
+>  	[VXLAN_VNIFILTER_ENTRY_GROUP6]	= NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)),
+>  };
 
 -- 
-Asier Gutierrez
-Huawei
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260829030041.940594-1-alishmery18%40gmail.com
