@@ -1,128 +1,186 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BFC2D5412
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 01:27:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5606B3438B7
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 01:27:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788312444; cv=none; b=lzVrD0MrB1nVMFIFgb9yrKFy967xOawE52kSEjNNeSsLWVMuDK3wp1KDsCPyuOWXBTLnJ/vfn5zo9FHjF3tYRzTtJ00k2Zes382hITETUeoFpAPdx3tAQ8bBZovcq1o6r/ocXwmeZqJMw8FxPHjAHG7NEKTzTiMPgWcatGjqYzw=
+	t=1788312447; cv=none; b=MiLoA9kNsPyR3ysVFr57x/vmEbUyahcQfieUyE/J1kOnt0QBuh+K/09kZkpXxpZ5D8CDqq3HzTNaEo9sjXAyamh1xRPoXPl0L/sWqxa7LDC+Nw8RgsxhRo9j1IV+9NSpTyzTX5sPRl3tsQH+R6TsHLqLsCwX0zINdjWMsOQ9q3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788312444; c=relaxed/simple;
-	bh=Qm8WGKhjL1rfOfcBgZjBCZcdl8omH4KL+Zz05e0LOSU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r/og9p8hTqsq8T/uRtONzCGTp0H2l0AdTvxJY+1ieHAHjLqE9qt8bB/lItbPFL7JkQlMAN/bkehzv+o3Cb1vbobFArLkq491B2ianlQyxv+fa4P/5zJv1vXMd1cN/LkOEcq0BDSwFld7C9W3l6fxzZPE4AOdtLgIS+rvSBtzs9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JqfKU4LQ; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788312447; c=relaxed/simple;
+	bh=KbyjCdIgbhFf19+CmWBXyWFyDDtmWh84afqqGOVaJuA=;
+	h=Date:From:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=Bvmf4ljzClI7Ur8q5dhEIrDqtoapRzZpndWou0b+EQ/kXaDRH3tN09YACu8IVx9f8+1s7IC6xHPya54UbVOVgjas5rXISi9GRKZQ9YmfJ3zba+bOqoiVoByqOF6Zd8o/f7sa+4fwsJudSRSlHkzqPCW5L3ymNE8N4PHImLcsWLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Bnpg4L5K; arc=none smtp.client-ip=209.85.128.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JqfKU4LQ"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38e42560ebcso419750a91.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 18:27:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Bnpg4L5K"
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-86a29a48ed9so7194757b3.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 18:27:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788312442; x=1788917242; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wt+LQiGu1u46A6j6YSEB/1Vma9hmj220lRwz/yCk9to=;
-        b=JqfKU4LQwEya8OxLfaIl+dML4RPesj02NCeJnRwWfo1wj40GSyF9v5JHxLWlQ773Dh
-         WMjVyNOuNCqUWPsoM7V9WTzsuATpLoqZjefYM9anxG4xEl9gCi/rfqjz/Jq7ky0/KUoE
-         kGJFnuYrNkkQvBQQATFrdH0PCjHxigfXmHo2HZgUYNXWmFlw4HqTzx21W5RWcGqVDSve
-         +ddScoWuOPm3P8o6b4bSTmTPdm2c6KDj08dDqsxD3DLlzP/ZtZ3SNzja6yBxnCzB5p5s
-         R1JzMWLeAufybEAR0DyAgPeHn/MimMZ0z/x4qnyqpCrT6A7SDTJuoY1xziNq6TAqh4xz
-         keow==
+        d=google.com; s=20251104; t=1788312444; x=1788917244; darn=vger.kernel.org;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zUMTfAI7ONprrYSeDVVm7zPC919OUwaHos5tY6hqkXQ=;
+        b=Bnpg4L5KED8hw2Q0Ia0+nqTZ7Mc1fqRSPK8P4I6rkfHRu5WPm6njRH9whOIAt925zA
+         /c3Bxqlge/ESJdaZRylKuqgF2kHexmfaqgjDTaRQN5Zkfn66/EyBv+Hu2cjq2ftG38Ra
+         WMx0ZEustCPKjRfLDv/K6jLQDaFLkNh2MRewckGAhIWm+2LgAPMaXHla7tIINd6RPnSi
+         +35Ua0ofkmX9wRjFyMAm4RlwYef+HrqCwsKbjAjYa4RrpczzKIKJaH+b+bJf4V3uUjGJ
+         iVyubOyRkTqrxMFheeti2K/wepLhAh214Qqs9vqaVJyd7e6N1h581kyl3EwMN4f5Gd0p
+         pDEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788312442; x=1788917242;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788312444; x=1788917244;
+        h=content-type:mime-version:references:message-id:in-reply-to:subject
+         :cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wt+LQiGu1u46A6j6YSEB/1Vma9hmj220lRwz/yCk9to=;
-        b=eTGaLa7ROtK6btlHnO6JOC8i0a3DsF2SNBsfZrennbCDwAeNza0aCOPNlkWbOXEdbl
-         ZcwoW6MTv7cnlkxjK8heo5Xyq950n7d2rsTyQWSGzgyM4Z6R3qsuCxR3//WP6U7O6job
-         rWAeFjRqNYezTAZQbFs6gkQOCEMa8kB6zYSCwuj8zhpFCpw1OMouTtpa8sIYNfePMWDG
-         EbHoFV1nAPszfrV3ali37CXlTHpWV6y7DY4EPKlFzZaI52lZHLORaKtV+sWLGusMMOpy
-         0vt8a/FVnmnKdVb5lYKWldGWxQh5o7Ar/GdFAKnDf7jBkvJx/3LSUIllID3wwBh7vsm3
-         umqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzGRMcXjWOC+J2xTaWJHlk3DPiRJHou3fGh61oNDZe27w1jWZL4oFa7zd1WhKag78MMI6veOSzL9193v3w=@vger.kernel.org
-X-Gm-Message-State: AFuF++n1jUM+1O7qP7AVu3xELfzx0rvBps6nbdoZDsVNCcYUVqlKM7ha
-	NZXN5hGHr2cHxmyuirIEGpcgmLVvl2qXRF4prYXeVqK8kRcYBkf5klNIhoq38GkW3g==
-X-Gm-Gg: AYBFou1EpS4FZeoBQMCAFLizwubEXGW15kRHrAtm5rtBNfw+2vpIkrxnQGFzbGFcGs4
-	SR4eG5Ikg8gX1cGmidSifKCACWEyvhddteIRhXkA3rSLTacbWpSXFDYxh5CoqSZPYG8AOzMJ6NP
-	8IzRDfbqbgXbQEFw4lUvUSQTREDPAkOj/2AEssg6OW5YzP66psICu1NsSQ7Tf277T4kdQrE1wkm
-	zsGSznliRa9vIf/MgrF3WEL1lci31hixCIYYXzFZg8GevDTMqDNd1UswkSCpn0cZN2TCdqNTwR2
-	+4EnSc4uOr3cG7TAFcCz39a7WICJe1cMY0qomOrnjEkTGEnzcira7Bgll3t+jGY3Y80G9BimKy1
-	hZWdWjpGcFRdkpnEEvPeKnCVa1KiNc/lYXFpAC5FzhRiyD/39Iq7DcvB9UngnIUIj9WToxnFsGf
-	uwW7TpZnWPOkdigwu5n8XSWDz/lTsl2fNTDlSLvKiFQyL8YQSPY7ewp0kh0c+KisbQ3BedAxO0h
-	wwJpfwWbKWWSdB/0tHWkIoIR/3l
-X-Received: by 2002:a17:90b:288a:b0:380:21b7:e727 with SMTP id 98e67ed59e1d1-39aee0848bbmr1717405a91.14.1788312442070;
-        Tue, 01 Sep 2026 18:27:22 -0700 (PDT)
-Received: from MalHyuk.localdomain ([211.201.32.99])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d7bb9d7sm8719236a91.15.2026.09.01.18.27.20
+        bh=zUMTfAI7ONprrYSeDVVm7zPC919OUwaHos5tY6hqkXQ=;
+        b=bWT3zAgE/goug2AY6Wzrn2x3Xlhh0zhujfpSN8M4YfTZBOAbhTDGrO9+ovOqek4BVl
+         F6L30LoFIjSmCrkF5ZOsfA3UM8rDpP87iHLpl7IQFTs86uVHRJypsC82S6qgkgeu11iI
+         rkt2X982W91BPhPETzOAwE2p7guq5bizagT2LiWfh+/GRTmY4vFq1iRPWcG64/HF2qoJ
+         LgoiNzkht1V2tGS9PQchX8vhCgEMeHKh1mDhSUPl+3WJth1G6mXxGTjOKGfM/piHscuS
+         STwD142y3RiP131+ATANeypnoSDorsCv5oKii9vZFyljkj0OA6nPnXWdIMYvMAzmgZOw
+         sPwg==
+X-Forwarded-Encrypted: i=1; AKwUvByXtzcP5iubq5LIBDeGeOKklpJ/Y1k7jPNaEzGA4k7cO/a7pK4zCEHSKzJ5xD/yPZoBcgpBnnizPAMNwcM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mgJgxN5jUTXTNtZO4i+EwNBeKtN5M+K5M+DucPtAvTaJDYXBwi
+	X2RlenQuHw+GQhTHQOBKU4bBjncqSYOgH7oFwfGw5GxfkPfC3/j34+RPgJggfad8hZIypQlDtgY
+	rc5YBBBUU
+X-Gm-Gg: AYBFou0v4nu8YXdHn9hzJc2V/fl7uXMYQpdse7yGDOaw3XKMbFnG3/khuy97TaKkA73
+	+Xo1gQ22Si1goKRZPt/4WtzvTd2J7HKdaQ2LEKVepusqD9ddTLVTiPZsA94JGWtWfLRmIzVhVNo
+	cqDEwNI74CUbarlDeBRvkkTZiwNgXic7SylTkTaLdu5iWEwnQyFDWaTIeOhiXyp3eTJDBJS7xNF
+	4HdDfNN8Y5A778qQRV8HxtT75ZeK594kUAZHae8wzmIBPbI34M7MJh7dCKeN9YA7bLm7Q+1KQXV
+	I8j3My9rnFAPqUFyfpfsPS95pGKDXKB5PXG3CJPdWm4xjYe8S5dVrYngMT4ocUMknpng/dfy0od
+	aQB2HXErqr01sj4x69rfDqTEZhsGCYJ8b6KNsmoTGDmTXm8JWtIuSA/0OcxB9cbwqcVs4ywY7wX
+	GX+xmJmMQw+8wg56xdtHjVWwXei8dm1rXuyQ/Jt5i169UcJlVLz8uW2V5IZD1t05JMqrkDqD//M
+	kzuRXp4DEtNmSg7+AiPMykjITzqUEjhcdHZr/9HkhUW7UMQ
+X-Received: by 2002:a05:690c:e206:20b0:861:d742:8c1 with SMTP id 00721157ae682-86c4da2b5a1mr5004487b3.2.1788312443615;
+        Tue, 01 Sep 2026 18:27:23 -0700 (PDT)
+Received: from darker.attlocal.net (172-10-233-147.lightspeed.sntcca.sbcglobal.net. [172.10.233.147])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-86c186d7370sm6729127b3.37.2026.09.01.18.27.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 18:27:21 -0700 (PDT)
-From: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>
-To: Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>
-Cc: dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/nouveau: RCU-free the scheduler-containing nouveau_sched
-Date: Wed,  2 Sep 2026 10:27:16 +0900
-Message-ID: <20260902012717.880724-1-malhyuk97@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Tue, 01 Sep 2026 18:27:23 -0700 (PDT)
+Date: Tue, 1 Sep 2026 18:27:06 -0700 (PDT)
+From: Hugh Dickins <hughd@google.com>
+To: Shakeel Butt <shakeel.butt@linux.dev>
+cc: Andrew Morton <akpm@linux-foundation.org>, Hugh Dickins <hughd@google.com>, 
+    Vlastimil Babka <vbabka@kernel.org>, 
+    "Liam R . Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+    Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+    Matthew Wilcox <willy@infradead.org>, 
+    Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org, 
+    linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/mlock: use the IRQ-safe accessor for NR_MLOCK in
+ __munlock_folio()
+In-Reply-To: <20260901180109.3797944-1-shakeel.butt@linux.dev>
+Message-ID: <1ddfa7dc-2dd8-406d-8454-59a349972106@google.com>
+References: <20260901180109.3797944-1-shakeel.butt@linux.dev>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-struct nouveau_sched embeds a struct drm_gpu_scheduler (base).
-nouveau_sched_destroy() calls nouveau_sched_fini() (which does
-drm_sched_fini(&sched->base)) and then frees the object with plain
-kfree(sched).
+On Tue, 1 Sep 2026, Shakeel Butt wrote:
 
-drm_sched_fence_get_timeline_name() returns fence->sched->name, and the
-scheduler fence keeps a .release callback so it is not ops-detached on
-signalling.  A finished fence exported to userspace via drm_syncobj /
-sync_file therefore keeps pointing at &sched->base after nouveau_sched_destroy(),
-and a later get_timeline_name() -- reachable unprivileged through
-SYNC_IOC_FILE_INFO -- dereferences freed memory (KASAN slab-use-after-free
-read).
+> NR_MLOCK is updated from interrupt context.  __free_pages_prepare() clears
+> a stray PG_mlocked and adjusts NR_MLOCK, and a folio can reach it with the
+> flag still set from a bio completion handler:
+> 
+>   __free_pages_ok+0x6af/0x7a0
+>   <IRQ>
+>   __bio_release_pages+0xde/0x260
+>   __iomap_dio_bio_end_io+0x16e/0x1a0
+>   blk_update_request+0x14b/0x3d0
+>   blk_mq_end_request+0x18/0x30
+>   blk_done_softirq+0x49/0x60
+> 
+> The folio gets there like this.  A MAP_SHARED file mapping is mlocked, so
+> its page cache folios carry PG_mlocked, and an O_DIRECT write sourced from
+> that mapping GUP-pins those same folios.  munlock() then runs
+> mlock_vma_pages_range(), which clears VM_LOCKED before walking the page
+> tables to munlock each folio.  A concurrent hole punch reaches the folio
+> through the rmap (i_mmap_rwsem, not mmap_lock) and can land inside that
+> window: __folio_remove_rmap() -> munlock_vma_folio() sees VM_LOCKED
+> already clear, so it neither queues the folio on the mlock batch nor takes
+> a reference, and the pte it clears makes the pending mlock_pte_range()
+> walk skip the folio at its !pte_present() check.  filemap_remove_folio()
+> then drops the page cache reference, leaving the bio's pin as the last
+> one, released from the completion handler above.
 
-Per the dma-fence lifetime contract the exporter must keep the data backing a
-signalled fence alive for an RCU grace period.  Free the scheduler-containing
-object with kfree_rcu() instead of kfree().
+I'm hardly ashamed to admit that I've not tried to digest
+that paragraph. You're writing about the rare fallback cases when
+PG_mlocked is cleared late, and unevictable_pgs_cleared incremented to
+notify us of that defect: yes, I accept that might happen at interrupt
+time, and so we ought not to take the __shortcut in __munlock_folio()
+which you fix  below.
 
-Fixes: 5f03a507b29e ("drm/nouveau: implement 1:1 scheduler - entity relationship")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
----
- drivers/gpu/drm/nouveau/nouveau_sched.c | 2 +-
- drivers/gpu/drm/nouveau/nouveau_sched.h | 1 +
- 2 files changed, 2 insertions(+), 1 deletion(-)
+> 
+> So __zone_stat_mod_folio() here needs interrupts disabled, not merely
+> preemption, and __munlock_folio() has a path where they are not: when the
+> folio has already been taken off the LRU by somebody else the function
+> jumps straight to the counter update without taking the lruvec lock.  The
+> read-modify-write of the per-CPU NR_MLOCK diff can then be interrupted by
+> the softirq above, and one of the two decrements is lost, leaving Mlocked
+> in /proc/meminfo permanently overstated.
+> 
+> Use zone_stat_mod_folio().  mod_zone_state()'s this_cpu_try_cmpxchg() is
+> atomic against a same-CPU interrupt and retries, and on the path where the
+> lruvec lock is held its cost is negligible next to the lock itself.
+> 
+> The UNEVICTABLE_PG* events are deliberately left on the __ accessors:
+> they occupy different vm_event_states slots from the UNEVICTABLE_PGCLEARED
+> that __free_pages_prepare() bumps, and nothing updates those two from
+> interrupt context.
+> 
+> Fixes: 2fbb0c10d1e8 ("mm/munlock: mlock_page() munlock_page() batch by pagevec")
+> Cc: <stable@vger.kernel.org>
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_sched.c b/drivers/gpu/drm/nouveau/nouveau_sched.c
-index 2cbae003d6de..48dbb851df2f 100644
---- a/drivers/gpu/drm/nouveau/nouveau_sched.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_sched.c
-@@ -516,7 +516,7 @@ nouveau_sched_destroy(struct nouveau_sched **psched)
- 	struct nouveau_sched *sched = *psched;
- 
- 	nouveau_sched_fini(sched);
--	kfree(sched);
-+	kfree_rcu(sched, rcu);
- 
- 	*psched = NULL;
- }
-diff --git a/drivers/gpu/drm/nouveau/nouveau_sched.h b/drivers/gpu/drm/nouveau/nouveau_sched.h
-index 20cd1da8db73..51ce8dcf6285 100644
---- a/drivers/gpu/drm/nouveau/nouveau_sched.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_sched.h
-@@ -98,6 +98,7 @@ void nouveau_job_free(struct nouveau_job *job);
- 
- struct nouveau_sched {
- 	struct drm_gpu_scheduler base;
-+	struct rcu_head rcu;
- 	struct drm_sched_entity entity;
- 	struct workqueue_struct *wq;
- 	struct mutex mutex;
+Okay: just a wrong stat, but it ought to go back to 0, so Cc stable yes.
+
+> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+
+Acked-by: Hugh Dickins <hughd@google.com>
+
+But I do think you (or Andrew :-) should include
+
+Reported-by: syzbot+cd2073ee6d958a8d0fcd@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/linux-mm/6a931c5a.08e933ee.dbf97.0093.GAE@google.com/
+
+That was indeed reporting a different way to get a WARNING from this,
+when offlining a CPU: but it should be acknowledged for bringing you
+here, and we should tell syzbot it's fixed by this.
+
+I've been trying to work out whether you're going to come back in a
+day or two, changing the __count_vm_events() too: and had raised in
+that thread the question of why lru_add_drain()'s __count_vm_events
+were not also reported by syzbot; but now I can see
+ * vm counters are allowed to be racy. Use raw_cpu_ops to avoid the
+ * local_irq_disable overhead.
+and realize that they're not a problem; so this looks complete, we
+shouldn't need local_lock()ing in mlock_drain_remote() after all.
+
+Thanks,
+Hugh
+
+> ---
+>  mm/mlock.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/mm/mlock.c b/mm/mlock.c
+> index efa6716e4dfb..39215a3eab1f 100644
+> --- a/mm/mlock.c
+> +++ b/mm/mlock.c
+> @@ -141,7 +141,7 @@ static struct lruvec *__munlock_folio(struct folio *folio, struct lruvec *lruvec
+>  
+>  munlock:
+>  	if (folio_test_clear_mlocked(folio)) {
+> -		__zone_stat_mod_folio(folio, NR_MLOCK, -nr_pages);
+> +		zone_stat_mod_folio(folio, NR_MLOCK, -nr_pages);
+>  		if (isolated || !folio_test_unevictable(folio))
+>  			__count_vm_events(UNEVICTABLE_PGMUNLOCKED, nr_pages);
+>  		else
+> -- 
+> 2.53.0-Meta
