@@ -1,114 +1,149 @@
-Received: from mta0.migadu.com (out-218.mta0.migadu.com [91.218.175.218])
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A064A440E
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:49:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.218
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D844854F9
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:49:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788360569; cv=none; b=QLa+0nyzGgJrY4vHhLPZG0va0G1BW8LsJz3r6EDaYFLfRu7lp9DxthnRAW0tEtYiuduJIocPAjwhCz+0dcjJVzKyzD+8TlS6SJ8xebgx+ijKtzf5WSdEg9Fkee3Xrgcj0VtthwH7Rr6Z/h2UDzmTl0VHm2xsDFwkiJS0QKk2aI0=
+	t=1788360598; cv=none; b=oKVAFmS/Jh5PFpo3qPKdNRus6utP3l/V0benLRzV9AJmCPr0HBApZVCRfDvnjhFSH45sD0PhVzz3W6SEMImFVTKw/6SBDypdRuITyUDe30GZusrbksO9Z0B4EZw6eEKKkxFJ2KuZP9G55vzfOfjuZ/6ujVp/Z14wT8CnllF+AI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788360569; c=relaxed/simple;
-	bh=PNTYEsienLPJUy1uoqn4OKAXtUVXa5IiTiSzsYklAZw=;
-	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
-	 In-Reply-To:References; b=jJ49AfCYRW0PF5YkTIV9UExwLdpCFk5+aUvb/5yeuSeutfTWvb9A5FoMYF486gUyibe55S7jsTcptAC6hQLZp6NRpVN8MnkTJ2wCfKf/okBAX/yOAC4zkabLKwFtb11HgZALz/BFrshXEg9FUuDubyBS05pz1Dfv/P1vFHL84HM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=jUagR789; arc=none smtp.client-ip=91.218.175.218
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788360598; c=relaxed/simple;
+	bh=AKJP9o2dHUhJIrovPfM+erLc6AbBK9foEGrUmY75Ojs=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=U1mQQ2Uh4ZQlArRzgjsQfFLQ4JPecYgkjxUFzuH2xqg8qVIIVJaYXqebxZnyDGPRehxdJUcwDqymgOdzuoElLd+auxJyNNz6LckFTN91GS41EZ6t6hU1EmRiMwJJAefjNSWWb4M3u0tEyJYX4WqXyEwxo5W/OfJ2AmDbZETk1Hc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=fOV22q0S; arc=none smtp.client-ip=209.85.208.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="jUagR789"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=PNTYEsienLPJUy1uoqn4OKAXtUVXa5IiTiSzsYklAZw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788360564; v=1; x=1788965364;
- b=jUagR789yRGahvWwsgQXiUG58bR+xrlRnzuKn6JisQPPYt7DHLQy0RyzGtZCqqCpYnd3h9mD
- q2BMoXjz+/RmxXGilozq7jJT8vDNo1+gjP8dSBDDbekbPE3SnUSLVzXTzP3BCjZIdJRGSClG6Kc
- ugXws4UDIgrOFb1/Abhbg7I4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3fe4aa4587650eab;
-	Wed, 02 Sep 2026 14:49:14 +0000
-X-Mizu-Trace-ID: 3fe4aa4587650eab
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="fOV22q0S"
+Received: by mail-ed1-f71.google.com with SMTP id 4fb4d7f45d1cf-6a57aa07476so1353762a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:49:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788360591; x=1788965391; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t+udHrInuy2YjJn6lgG+NPppj9DlZvX6hfolV6vDDE4=;
+        b=fOV22q0SEnIuaasMQi3foq0zgMikZPO7RrXj44uRHuEs6S0CAFOSfsWm9hxL4SFp6h
+         +UNwvAB/vQr6xYSJZGcTLZ6ik0iGVfHbjqXULgBvnImQO4GJOwqbCaTnPN/C0vYta5rj
+         JIMK1dAQrryseFnXEnpRPv4HaMsKdte8ZxfPdHffj/Duh4TK1XMWxZr3W2RNO59rVvY8
+         Kf2wzMXzaKtL3xhAjAcPpM+piYhWBtqofLoGLCfPw1F27UOvlbwtlzN4k4buGgMLEE4y
+         L8bgxYTDJjInSzdT0Y7HdktfutkQh3q1fEF6SRfgvdKfTBrr1g1Yi0SKaUIhnpTHF844
+         k2mA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788360591; x=1788965391;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=t+udHrInuy2YjJn6lgG+NPppj9DlZvX6hfolV6vDDE4=;
+        b=kBqp2d6zzYwcKF933plRY27py/cu/CfNUqsMY991hJylttFom2buVIcUn8LA9ZoWoA
+         1mMqKgQ2LUq8Q/wBv9z13GValXdyciXHmh+JnNFWQC2VF+sNYVWlZ5Nadq6FLpCWKk7K
+         qPSYJsPV6onDPwbQXMkRWa0eqWSxSil+YARhOXRNFbnsRmWLl9K5lLpcGrVI885FQIm9
+         dNt2Atxhx+cWSTKTeeC/UDfsB7br4I3i/RDYaL5+FskmTNPY47UK3L8fV8lQYVYU/6kW
+         ql7YEq9WxXDS0ge7QwjhnUDVbGOu9IbLMKBBkeuyCevUNdcpN+3TiwBbWEm9d+cun++Y
+         5QcA==
+X-Forwarded-Encrypted: i=1; AKwUvBxyWuOzClEFk+li+C1A+CzZp0LYo52MIRLpVhyKLDZH8g8VZEJLzKM1sxXr2NIN+IbfirYqShrty7g6rtc=@vger.kernel.org
+X-Gm-Message-State: AFuF++kVYDTd8KRnvifckWlM7fzIGleyMf2bFSVKsYMTuFY6SCLjjHQT
+	r77F9EXA4B+zDdrWRRxU1TDAkL2ET+Jdr8mHAmeascy+r334d3QMOyuy+3gPbcu16XXKu100sVx
+	msH1Z+KQB/GhBOlJRfQ==
+X-Received: from edcpm25.prod.google.com ([2002:a05:6402:c199:b0:6a6:7314:9cf6])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6402:2349:b0:6a5:fac9:8326 with SMTP id 4fb4d7f45d1cf-6a682ac0032mr3646661a12.15.1788360590677;
+ Wed, 02 Sep 2026 07:49:50 -0700 (PDT)
+Date: Wed, 2 Sep 2026 14:49:49 +0000
+In-Reply-To: <20260807165252.3849875-7-dakr@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Date: Wed, 02 Sep 2026 14:49:14 +0000
+Mime-Version: 1.0
+References: <20260807165252.3849875-1-dakr@kernel.org> <20260807165252.3849875-7-dakr@kernel.org>
+Message-ID: <apg3jcchnlwTeiTN@google.com>
+Subject: Re: [PATCH v2 6/6] rust: workqueue: add ScopedWork for non-'static
+ work items
+From: Alice Ryhl <aliceryhl@google.com>
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: tj@kernel.org, jiangshanlai@gmail.com, ojeda@kernel.org, boqun@kernel.org, 
+	gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org, 
+	a.hindborg@kernel.org, tmgross@umich.edu, daniel.almeida@collabora.com, 
+	tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev, 
+	jhubbard@nvidia.com, rust-for-linux@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-From: "Zqiang" <qiang.zhang@linux.dev>
-Message-ID: <2ff0e6ca8e1e05078a69dbd2b2ccd1e62fc4650f@linux.dev>
-TLS-Required: No
-Subject: Re: [PATCH] dlm: wait for outstanding SRCU callbacks to complete in
- exit paths
-To: "Alexander Aring" <aahringo@redhat.com>
-Cc: teigland@redhat.com, gfs2@lists.linux.dev, linux-kernel@vger.kernel.org,
- rcu@vger.kernel.org
-In-Reply-To: <CAK-6q+gET5NPczHYexcGXgptGTVnynYuVWzdbDkpsuvnbrymLA@mail.gmail.com>
-References: <20260901091836.16906-1-qiang.zhang@linux.dev>
- <CAK-6q+jFXsZpWHrm0CSa8Tr+P3qHDmWVQA+9stXViyUf48CuvA@mail.gmail.com>
- <b530646295a64f5e1cec5bfec5064f1fc79d3d9d@linux.dev>
- <b686c4e5066aa11d7d868097b35e04db58190103@linux.dev>
- <CAK-6q+gET5NPczHYexcGXgptGTVnynYuVWzdbDkpsuvnbrymLA@mail.gmail.com>
 
->=20
->=20Hi,
->=20
->=20On Wed, Sep 2, 2026 at 10:30 AM Zqiang <qiang.zhang@linux.dev> wrote:
->=20
->=20>=20
->=20> >
-> >  > Hi,
-> >  >
-> >  > On Tue, Sep 1, 2026 at 5:19 AM Zqiang <qiang.zhang@linux.dev> wrot=
-e:
-> >  >
-> >  >
-> >  > The dlm_lowcomms_exit() and dlm_midcomms_exit() iterate over the
-> >  > srcu protected connection and node hash tables and hand each
-> >  > element to call_srcu() for deferred freeing (connection_release()
-> >  > and midcomms_node_release()). call_srcu() is asynchronous: the
-> >  > callbacks are invoked only after an SRCU grace period, which may
-> >  > happen after the exit function has already returned.
-> >  >
-> >  > These exit functions are reached from exit_dlm() on module unload.
-> >  > Once they return, module teardown continues and the module text
-> >  > may be unloaded while call_srcu() callbacks are still pending. Whe=
-n
-> >  > such a callback finally runs, it executes freed module code and
-> >  > touches the static SRCU domains that are being torn down, resultin=
-g
-> >  > in a use-after-free.
-> >=20
->=20>  I should rephrase it:
-> >=20
->=20>  Due to missed call to the srcu_barrier(), when invoke cleanup_srcu=
-_struct()
-> >=20
->=20Then there need to be a MUST call of srcu_barrier() before
-> cleanup_srcu_struct() every time.
+On Fri, Aug 07, 2026 at 06:52:49PM +0200, Danilo Krummrich wrote:
+> Add ScopedWork<T>, a work item wrapper whose destructor calls
+> cancel_work_sync(), allowing T to carry non-'static lifetimes. Ownership
+> of the data is not transferred to the workqueue; instead, the
+> synchronous cancellation on drop guarantees the work function is not
+> running when the data is freed.
+> 
+> ScopedWork uses the existing Work/HasWork/WorkItem infrastructure with
+> NonNull<ScopedWorkRef<T>> as WorkItem::Pointer for the callback path,
+> and implements RawWorkItem for &ScopedWork<T> and &ScopedWorkRef<T> for
+> the enqueue path (requiring T: Sync for cross-thread shared access
+> safety).
+> 
+> Two enqueue paths are provided:
+>   - Queue::enqueue_scoped() (unsafe): the caller must ensure the work
+>     item is not forgotten.
+>   - ScopedQueue::enqueue() (safe): when the work item's lifetime
+>     satisfies the queue's 'scope bound.
+> 
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+>      pub fn enqueue<W, const ID: u64>(&self, w: W) -> W::EnqueueOutput
+>      where
+>          W: RawWorkItem<ID> + Send + 'static,
+> [...]
+> +    pub unsafe fn enqueue_scoped<W, const ID: u64>(&self, w: W) -> W::EnqueueOutput
+> +    where
+> +        W: RawWorkItem<ID> + Send,
 
-If there are some call_srcu() call, the srcu_barrier() should be called b=
-efore cleanup_srcu_struct().
-usually, when the cleanup_srcu_struct() run, we should ensure that there =
-are no pending SRCU callbacks
-or ongoing SRCU grace periods at this time.
+I'm not convinced that enqueue_scoped() should be the unsafe operation.
+Rather, I think that should be the constructor of ScopedWork. If we
+promise to not forget it in ::new(), we can make this safe.
 
-there are another reason:
+> +impl Deref for ScopedQueue<'_> {
+> +    type Target = Queue;
+> +
+> +    #[inline]
+> +    fn deref(&self) -> &Queue {
+> +        &self.inner
+> +    }
+> +}
 
-The midcomms_node_release() srcu callback can call call_rcu(), we must wa=
-it the all
-call_rcu() to complete, because rcu_barrier() which in dlm_memory_exit() =
-is required
-to successfully intercept these RCU callbacks.
+Should be part of previous patch.
 
-Thanks
-Zqiang
+> +/// The work function's view of a [`ScopedWork`] item.
+> +///
+> +/// The work function callback receives `&ScopedWorkRef<T>`, which [`Deref`]s to `&T` and can be
+> +/// passed to queue enqueue methods for re-enqueueing from within the work function.
+> +#[pin_data]
+> +pub struct ScopedWorkRef<T: ScopedWorkItem> {
 
->=20
->=20I am confused here.
->=20
->=20- Alex
->
+Structs with 'Ref' in their name sound like they are a
+reference/pointer, but this struct has no indirection.
+
+> +impl<T: ScopedWorkItem> WorkItem for ScopedWorkRef<T> {
+> +    type Pointer = NonNull<Self>;
+> +
+> +    #[inline]
+> +    fn run(this: NonNull<Self>) {
+> +        // SAFETY: `this` points to a valid, pinned `ScopedWorkRef`. `cancel_work_sync()` in
+> +        // `ScopedWork`'s `PinnedDrop` prevents use-after-drop.
+> +        let work = unsafe { &*this.as_ptr() };
+> +
+> +        T::run(work);
+> +    }
+> +}
+
+This is unsound because its a safe function that dereferences a raw
+pointer.
+
+I think you can avoid all of this logic by just not implementing
+WorkItem. You can skip all of that and just implement RawWorkItem for
+&ScopedWorkRef<T> and remove all the other implementations. You do not
+need the WorkItem impl.
+
+Alice
