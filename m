@@ -1,212 +1,423 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73EC84A9D47;
-	Wed,  2 Sep 2026 20:18:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788380291; cv=fail; b=WKW4h2twlniHIeNSEFRlXht1fjUD7DwmJfkdD9jCwD9z1iAHA6PxFxaZ9erUf+X4O+kMni8jQgozG2bTmy2Gmrq7zpAu9ZBeX0TvnqrvOh1oJbyPzpnLSSQV7ULw0uT8y9G5wUFT1Igq3V8pC7EAqm7px0/bQdOySFdqq9+UNPo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788380291; c=relaxed/simple;
-	bh=85xA+7TsareDQvHo8OMwrpjWz1FYX5lXIyw8aoIuyEw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=PRMi9aE1HHgS1dKkZz/L+n84LL0azy2MiXP9f+sJd9IwoRNKjTiY7SfzKthQkLljD+5+cb4+Jlc9x5CIz8XbXr/BSDl9MWSEKowErYiNP4tQw0BrdikVSoCfTGwBCgFYp4JpSHSsagPGuamgAuo7DY0ePAfVU/l1LO0M3cAA3nY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=oMwR5A80; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=ohxjDQ3a; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1194B4AA595;
+	Wed,  2 Sep 2026 20:18:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788380297; cv=none; b=g9yXOh3gqSO18MEGdXAo9mtIPcEm+N0dfXSvI41f1hhPMxbj3pOJM3zt4XsooaE+z3HR3hW0sLH+5hz6QLjwK0biodICp+9xq1M/nz3zB1h7K9laVIWj12jisKPNytyI3jveazTWZ0XSBxQCMBqMJ9mrchqKWDW+1wnvrfRG6/Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788380297; c=relaxed/simple;
+	bh=AiMpsQKRSyW9p3QmVE+GV+W6pXWXt1nNQlMgTFD3klw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=siqzUpom+Cbl1P1i15n7ROuyQoiPOXcG4jBCHpEoXIX/qUr56Q2sUCDj83PZlqm8FufD0ocBOEZiMusiJCIcrqxJrzOfbSqFryScyRBqsA2zV4JUZT/O67sihecOxqpS7yw2FRblv9xPJVokpOwj0pIueEALUNc3Yj64mchTcrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uf4oyFBZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="oMwR5A80";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="ohxjDQ3a"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 682KHA0q1851403;
-	Wed, 2 Sep 2026 15:17:51 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=2vhLwZ3zjMxy0iuyfjVLGIEKKQYe2svtlAw0FgFAv
-	Uw=; b=oMwR5A80bAQBxHQPDLqIw9DvgFVrTeYVE+BeyLaXa9rcbSAoIcgjnVhD7
-	imAE8y41F62G86u7lsPqvT1dEwRM/XfG/Dso4qYACdMqsS5/GcUysD1k7vi0dmKw
-	HUKzBxD0Bxv1lbbwof3G3ptKRQOKhtVOP8977Y6MLxJKta2S4G6jbpnM0Lt3Mido
-	ubO2GHu+n1E+SiOWDcQ1hDDCXa/2zM/Yu8ygnbzMF1s9a6CLQSre5ZlczmnHB0YN
-	MnOLoHm6NkQiLPxNBr+WK/AjtJ3eVpJUmcnnqa+ztSqd4125DM93ZmikOLHUgCeN
-	jd9qodG9bQHKeIFrnO38QUD9LejGw==
-Received: from ch4pr04cu002.outbound.protection.outlook.com (mail-northcentralusazon11013046.outbound.protection.outlook.com [40.107.201.46])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4ge7cgex39-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 15:17:51 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=faGnWpPEnLF1Vjg/njUllHz+eQ841Vj5alaBq9Vzooeqt06ghWwt/eWCrKOQaMTkQdlM1ZR+1WI94gIGCEpDRY3gENg2A1BDywFZtGYc3iiZoYC9cpsqPYxQmE84KB83p8V+wKc7jyPRm9Mu9W3AXzcrMqiGOy2o9pTxzFwyo4uSGs4j6lDBOdE6qEdIgWuVl13qPg8U7BqFYnYqcXmhnFfgLPD4vWn+wSOaf68bu3zBzZSvj+wU6xLjqAWeA/KFsgDGeCL3fLssaV42wX11CtxXilQIh49Rkc9YnYIrMwTDDJl8hBGbg5YGi2rc8XKzvsFIOth/CKZiqF7k18rDeQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2vhLwZ3zjMxy0iuyfjVLGIEKKQYe2svtlAw0FgFAvUw=;
- b=stixvXJOyNU0NdiaMIAUIsNPXslgME93DAxGnnu7M/Y1t0imLA0mqYTE5KkxBhY3AGExB/Wsp1rv5SwQ07ulGShOaV0wl2X5nSGSw/UoZ4YvwuxlNRgJazVvfih9ovk/4xl1kM7reuaztfyzBq+uN0f8SQDTGs7i7LoVJr69bDhrdsnyVYC1uR30u04nwcglM8ekIcqRMJDPUXL220rDbtuORZhOg43SE2PP/Uam1KMQrXkR5pZ7fTJYNhcOJhdR80x4Vn9kz3LUHJF/mWDkub+/yO+cz4aVn8pHBt28b1GV6S3O7R24gUCwdrDx5Gp4oldM71Qfng8sCpiJEY5SnA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2vhLwZ3zjMxy0iuyfjVLGIEKKQYe2svtlAw0FgFAvUw=;
- b=ohxjDQ3afryMPCPf7gCm3xJu0l2KzWov9TrXMtnvz4by8vDezeD4AwOY2jAxPBjqaDrRCiHc6tgtfMIF+/TI1lnoD8gxQFUC6QlgcYL1Z89KNSOwOhk3hTKPjhzLsKqtDVzlUSMuFIQzh5gCxe3oyosetKitAMAry5ckIcpZm4Q=
-Received: from BN0PR04CA0159.namprd04.prod.outlook.com (2603:10b6:408:eb::14)
- by CH3PR10MB6904.namprd10.prod.outlook.com (2603:10b6:610:145::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Wed, 2 Sep
- 2026 20:17:47 +0000
-Received: from BN3PEPF00022BCE.namprd03.prod.outlook.com
- (2603:10b6:408:eb:cafe::53) by BN0PR04CA0159.outlook.office365.com
- (2603:10b6:408:eb::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
- Sep 2026 20:17:46 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- BN3PEPF00022BCE.mail.protection.outlook.com (10.167.248.165) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 20:17:45 +0000
-Received: from DLEE202.ent.ti.com (157.170.170.77) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 2 Sep
- 2026 15:17:26 -0500
-Received: from DLEE211.ent.ti.com (157.170.170.113) by DLEE202.ent.ti.com
- (157.170.170.77) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 2 Sep
- 2026 15:17:26 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE211.ent.ti.com
- (157.170.170.113) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Wed, 2 Sep 2026 15:17:26 -0500
-Received: from [128.247.81.105] (hpz2.dhcp.ti.com [128.247.81.105])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 682KHQf01239699;
-	Wed, 2 Sep 2026 15:17:26 -0500
-Message-ID: <40282ecc-694e-4743-857f-78f8edcb9608@ti.com>
-Date: Wed, 2 Sep 2026 15:17:26 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uf4oyFBZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBF411F000E9;
+	Wed,  2 Sep 2026 20:18:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788380295;
+	bh=A8rlIDdIOWg5m9AdylGBKk63i17vSwszE6f5FVlv1g8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Uf4oyFBZtRfV0T7EeDICXwiKQYqJnJn0l61KgcbWS/4Z0JeY3S8SJtyIgTFb8TNuV
+	 fG+TONzGdJJbWvw8dtrHJ91NNP0krWe+oOSVSRKz29cOGDAACaQLL7ZP4Ez8mBZ6BN
+	 pnwhiFSnGBEFg+8ueG45EIUymTtlu5rc9v2c7EO7j6Op7NWi8PH8R6IEuJkGLVA7qV
+	 gmRZwAjtMigknkL8H2eUkmrQ5WYJmWiY2hClNvERS+EkChDj/7IbgAdUWU27m3MEDj
+	 3j8MhhV1rM9mvS6lTHXgPNJTDdzEaiVvxsh8hkHhgv8tO/deVkgg79RLmGK7VOjL0J
+	 9Foygr88sDIOw==
+From: Simon Horman <horms@kernel.org>
+To: rosenp@gmail.com
+Cc: Simon Horman <horms@kernel.org>,
+	netdev@vger.kernel.org,
+	claudiu.manoil@nxp.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net] net: gianfar: handle startup_gfar failure and fix double free
+Date: Wed,  2 Sep 2026 21:18:01 +0100
+Message-ID: <20260902201803.546034-1-horms@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260828222051.77604-1-rosenp@gmail.com>
+References: <20260828222051.77604-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 0/3] Support AM62P silicon revision detection via
- uniphier-efuse
-To: Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
-        Srinivas Kandagatla
-	<srini@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski
-	<krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Masami Hiramatsu
-	<mhiramat@kernel.org>
-CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-        <linux-kernel@vger.kernel.org>
-References: <20260812154442.3379851-1-jm@ti.com>
- <5b147a60-4d4d-4048-ab52-b5d956b68881@socionext.com>
-Content-Language: en-US
-From: Judith Mendez <jm@ti.com>
-In-Reply-To: <5b147a60-4d4d-4048-ab52-b5d956b68881@socionext.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BCE:EE_|CH3PR10MB6904:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7744e87f-9664-4414-d718-08df092f4057
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|22082099003|18002099003|4143699003|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	ndCHIDM+ln1xNXtD+apaxhL/gMHcK14D4ePUg/Zk8Vz2oc5TYWespPL5SM/coRq4rgH44Gtg6K5rylKjX+plNpOb5rS4M+oj+seo3lSicymDdXedb+AzKmj4k8M5FPAPyebKDOEns7Zbfqo79Gu1FIyV3SLmdqqZJlbjYMp7jIGpeKzbx1YbxhE8tswU0gmDLYapLnfEZ+xbK1+6FUSCAWv2nqPHr0QZxR8vyctpUlYXlj9dTSOe4hSef7G9S8IHd4q6T4NHMVjNX1kg1HQxsRrpzYgYOTsSM3jlr2AoQ5LlfTmUwlPibL0HNUSMj/ySoqLfAbIZIeqezwQ0pIgUKlSuQ9gQNrKgJG+qiTM5H97Yy9rXEorLB53YZ7sHbqfpknF2Vt3MbQNlI5UOsnOx89+OnJID6HQF76MUGrVimHOD5C16GaC7iaAwYJXiziw9tK3PWCh8PykXqlIbxmE9IizmMAazHgGGkwj+jg0GyBWMFZzNrRixG9qbNMNdFvTU7OWx8bt9VXDe7uFfrNDKyJIwvO1vJ7LkE1Jo+zGB1YOORUNI1oP0mzzpnre0BhDbfFE3JLFP2YqIiClbx+r0iRPLzrM0roWtNl3gKL39/MipFvjtMf8IY6wpADSgTT178pWSoAOLIgeq5alImnx3CuGv691PfBT3zUaxQDwRgduuQD9vhSGyZH3wA43eOgK4qo/HlVAn73EOHXmoS0yAKA==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(22082099003)(18002099003)(4143699003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	nyKTRs3bVQCrzQjWfF1muoSrR6LP+J5IuOSrs5M2+GlfszodRYw+5i2hukz/SkTReJUs5dIZ+XCN1Qb8WYmfC0pD2nbnq18h68SeETZiJmYeOYMUFRKc4gsomhz7rI+1rh72rJTLMkLQ7jzcGS2ULqGDX12Y1lAEL+Hqub21YFiXU4g7MXVL0DxRgU9NrRraxhlk9Cf3v7Y9Wff2MZf5UAu8k6iWpeVijuao3iGnoGA654BUIlTF4FHe5FjueEssB/c0uD/WYIDoi//uN/paRgNgxy9NbTDsVv1vGwu9I37nxD0E0ktc0KToNtIlQBCl/0OLRnaeSCJcri6qp0wcYlkiOJaiokrunFxXDGMfPHIEX3ULEEGObRoSbernAm0rmycIJZeM2dBmG5dMySAByRrjQRJtX+nPW73ddo9vMTpLbDGjRERmzt2NCkcfn0o9
-X-Exchange-RoutingPolicyChecked:
-	wOUGvdvdE2jRC1kRSWZEnXZnd7tw3n7Dy8djeohDZoTwsB52VGN6L80fUENcnfV8Y8UGeUrwkQDey7rlNWXTazG5X7yVKLdMfOPzru9WZW7R2SVmL5L5At5xttHEGkNC9bm7ogOn+yOMtec1heZqp30m1hLtQ1cUdSC1GmrqMAl/H41FKYTno48mMzSYR7CQ02q8boXcmod+p9fAw4Ms+4nZ6L0SQDUsukGkiMQgndatc4BnW7iflYZ3j1Z10xjLJCtBXWhxEwaPCGJ4Wfa2zmiUOw0GN2B++1cFwMG6kfYFVmqAHWkKzB+FRC/WUVyEyN6xe+EjDb9O4itZ9glkUg==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 20:17:45.6300
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7744e87f-9664-4414-d718-08df092f4057
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BCE.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR10MB6904
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE3OSBTYWx0ZWRfXx8FbmhCSOSli
- 7xjJuOFzTBa9R4DdDhJfTtYOz4ksfURU+4BrasA5mPCXb0xDDOBlj1QQ4MR5KxueEkSOaIuBCJR
- pIttVMFfbnV71rJ2Lkx7LSd5YX22yrw=
-X-Authority-Analysis: v=2.4 cv=Ka3idwYD c=1 sm=1 tr=0 ts=6a98846f cx=c_pps
- a=liM/1wbVBp7o1MBwTafONw==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22 a=EtPysQy30rmbLWofywQA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: sUOL7gI_qeIEVDDVL74tVKYaThJiv7v-
-X-Proofpoint-GUID: sUOL7gI_qeIEVDDVL74tVKYaThJiv7v-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE3OSBTYWx0ZWRfX821uSwvysfoh
- N6xjGjnxpiNAnmr4uDkB1la+3BZHeIzYmzrk/QUh3Af9HozayBRl1edvCKCLrCRLRUTW2JwLg5k
- vsQGdFwph1eWnYdXKiNRgZo7vtVP6gKkZIdCgBNJwbUw8MZVUQJx8BhhcJLJmp2qs3SIAIlipZ6
- VyTUpYDlmmR5r4kptvCkMxbz81/OdqqEt9TPn4BiWy3At2NX8p9WIrrb5Q9ODB1vrtCPOvWT20p
- hGTOsB+ZVoG/mns/rLeW4+c8xNG5HCFLBvcPfH8y8l9xSzX2o1TAgU4/hpU4JRkN4tqfQqIEalc
- Ya4dDQ39DwrpWlEGdj4zoHZOdpzmDfYqzSWAZLFUbwzoIx9b26o1engoOluLeDAw752gMBAh29k
- 58bDlK+W9md05LNFis+wVZyi0z21PLzPqkh2cgZbNpSdr8R/kzHm4m9hpsfstpmtZ3zG5nASxRs
- X/S0dJUa3tzTG84g8Qg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_05,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 clxscore=1015 bulkscore=0 suspectscore=0
- malwarescore=0 spamscore=0 adultscore=0 phishscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020179
 
-Hi Kunihiko,
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260828222051.77604-1-rosenp@gmail.com?part=1
+---
+net: gianfar: handle startup_gfar failure and fix double free
 
-On 8/31/26 23:08, Kunihiko Hayashi wrote:
-> Hi Judith,
-> 
-> Sorry for late.
+This makes reset_gfar() return an int and propagates the startup_gfar()
+error out of reset_gfar() and gfar_change_mtu(), and adds a
+tx_bd_base test plus NULLing of the descriptor-ring base and dma-base
+pointers in free_skb_resources(). A few questions on the resulting
+behaviour below.
 
-No worries!
+> diff --git a/drivers/net/ethernet/freescale/gianfar.c b/drivers/net/ethernet/freescale/gianfar.c
+> index cf636fc5aafa..d0ac8a958696 100644
+> --- a/drivers/net/ethernet/freescale/gianfar.c
+> +++ b/drivers/net/ethernet/freescale/gianfar.c
+> @@ -1140,11 +1140,24 @@ static void free_skb_resources(struct gfar_private *priv)
+>  			free_skb_rx_queue(rx_queue);
+>  	}
+>  
+> -	dma_free_coherent(priv->dev,
+> -			  sizeof(struct txbd8) * priv->total_tx_ring_size +
+> -			  sizeof(struct rxbd8) * priv->total_rx_ring_size,
+> -			  priv->tx_queue[0]->tx_bd_base,
+> -			  priv->tx_queue[0]->tx_bd_dma_base);
+> +	if (priv->tx_queue[0]->tx_bd_base) {
+> +		dma_free_coherent(priv->dev,
+> +				  sizeof(struct txbd8) *
+> +				  priv->total_tx_ring_size +
+> +				  sizeof(struct rxbd8) *
+> +				  priv->total_rx_ring_size,
+> +				  priv->tx_queue[0]->tx_bd_base,
+> +				  priv->tx_queue[0]->tx_bd_dma_base);
 
-> 
-> On 2026/08/13 0:44, Judith Mendez wrote:
->> This series adds support for reading AM62P silicon revision from the
->> efuse GP_SW register. The solution reuses the  existing uniphier-efuse
->> driver by adding ti,am62p-efuse as a compatible string. The three patches
->> update the devicetree binding to document the new compatible, configure
->> the driver as mandatory builtin for K3 architectures, and extend the
->> driver
->> to support AM62P devices. The uniphier-efuse driver is simple enough 
->> to be
->> reused for efuse register reads on the AM62P SoC.
-> 
-> Reusing the uniphier-efuse driver seems reasonable to me.
-> 
-> The driver is already fairly generic, and contains no arch-specific 
-> elements
-> that would justify introducing a dedicated driver at this point.
-> 
->> Feedback is welcome on whether reusing the uniphier-efuse driver is the
->> preferred solution or if a dedicated AM62P efuse driver would be more
->> appropriate.
->>
->> Patches have been tested on AM62p SK hardware using SR1.0, SR1.1 and 
->> SR1.2
->> silicon.
-> 
-> Provided the functionality has been validated on the target hardware,
-> I would prefer to reuse the driver rather than write another similar 
-> driver.
+[Severity: High]
+The changelog says that after this change "a second free cannot operate on
+a stale pointer regardless of which error path is taken". Is that true for
+the receive skb as well?
 
-Awesome, we send out the official v2 then. thanks!!!
+free_skb_resources() -> free_skb_rx_queue() frees it but leaves the field
+set:
 
-~ Judith
+drivers/net/ethernet/freescale/gianfar.c:free_skb_rx_queue() {
+	dev_kfree_skb(rx_queue->skb);
+	...
+	kfree(rx_queue->rx_buff);
+	rx_queue->rx_buff = NULL;
+}
+
+rx_buff is cleared, rx_queue->skb is not, and gfar_init_bds() only resets
+next_to_clean/next_to_use/next_to_alloc for the rx rings on the following
+startup_gfar().
+
+rx_queue->skb is non-NULL whenever a frame spanning several descriptors was
+only partially received:
+
+drivers/net/ethernet/freescale/gianfar.c:gfar_clean_rx_ring() {
+	/* Store incomplete frames for completion */
+	rx_queue->skb = skb;
+}
+
+So after any stop/start cycle (gfar_change_mtu(), reset_gfar() from
+gfar_hwtstamp_set() or gfar_reset_task(), or the ethtool ring/coalesce/
+features paths) the field is a dangling pointer, and the next poll picks it
+up:
+
+drivers/net/ethernet/freescale/gianfar.c:gfar_clean_rx_ring() {
+	struct sk_buff *skb = rx_queue->skb;
+	...
+}
+
+Can that append fragments to the freed skb via gfar_add_rx_frag()? And if
+no packet arrives before the next teardown, does the next stop_gfar() ->
+free_skb_resources() -> free_skb_rx_queue() call dev_kfree_skb() on the
+same skb a second time?
+
+Would adding rx_queue->skb = NULL in free_skb_rx_queue() fit here?
+
+> +
+> +		for (i = 0; i < priv->num_tx_queues; i++) {
+> +			priv->tx_queue[i]->tx_bd_base = NULL;
+> +			priv->tx_queue[i]->tx_bd_dma_base = 0;
+> +		}
+> +		for (i = 0; i < priv->num_rx_queues; i++) {
+> +			priv->rx_queue[i]->rx_bd_base = NULL;
+> +			priv->rx_queue[i]->rx_bd_dma_base = 0;
+> +		}
+> +	}
+>  }
+>  
+>  void stop_gfar(struct net_device *dev)
+
+[Severity: Medium]
+What serializes these stores against the transmit path?
+
+gfar_start_xmit() reads the base with only the txq _xmit_lock held, and
+without testing GFAR_DOWN:
+
+	base = tx_queue->tx_bd_base;
+
+stop_gfar() only marks the queues stopped:
+
+drivers/net/ethernet/freescale/gianfar.c:stop_gfar() {
+	netif_tx_stop_all_queues(dev);
+	...
+	disable_napi(priv);
+	gfar_halt(priv);
+	phy_stop(dev->phydev);
+	free_skb_resources(priv);
+}
+
+It takes no netif_tx_lock() (gfar_suspend() does) and no synchronize_net(),
+and it sleeps in napi_disable() and phy_stop(), so a transmit that already
+passed netif_xmit_frozen_or_stopped() inside HARD_TX_LOCK can still be
+running here.
+
+With base == NULL, does the wrap arithmetic move the descriptor pointer
+below the former ring?
+
+drivers/net/ethernet/freescale/gianfar.c:skip_txbd() {
+	return (new_bd >= (base + ring_size)) ? (new_bd - ring_size) : new_bd;
+}
+
+For a stale cur_tx the comparison against (NULL + ring_size) is always
+true, so the result is new_bd - ring_size. Before the patch the same race
+scribbled inside the freed ring; can it now write up to
+(ring_size - 1) * sizeof(struct txbd8) bytes below it?
+
+The zeroed rx_bd_dma_base feeds gfar_rxbd_dma_lastfree(), used by
+gfar_clean_rx_ring() and gfar_update_link_state() to program rfbptr — would
+that publish a bogus DMA address? If the NULLing is kept, should it happen
+under the same exclusion the readers use, i.e. netif_tx_disable() plus a
+GFAR_DOWN check in gfar_start_xmit()?
+
+> @@ -2003,6 +2016,7 @@ static int gfar_set_mac_address(struct net_device *dev)
+>  static int gfar_change_mtu(struct net_device *dev, int new_mtu)
+>  {
+>  	struct gfar_private *priv = netdev_priv(dev);
+> +	int err = 0;
+>  
+>  	while (test_and_set_bit_lock(GFAR_RESETTING, &priv->state))
+>  		cpu_relax();
+> @@ -2013,24 +2027,27 @@ static int gfar_change_mtu(struct net_device *dev, int new_mtu)
+>  	WRITE_ONCE(dev->mtu, new_mtu);
+>  
+>  	if (dev->flags & IFF_UP)
+> -		startup_gfar(dev);
+> +		err = startup_gfar(dev);
+>  
+>  	clear_bit_unlock(GFAR_RESETTING, &priv->state);
+>  
+> -	return 0;
+> +	return err;
+>  }
+
+[Severity: Medium]
+Who restores the configuration that was already committed before the new
+error return?
+
+dev->mtu is written with WRITE_ONCE() before startup_gfar() runs, and the
+core does not undo it when the driver callback fails:
+
+net/core/dev.c:__netif_set_mtu() {
+	if (ops->ndo_change_mtu)
+		return ops->ndo_change_mtu(dev, new_mtu);
+	...
+}
+
+net/core/dev.c:netif_set_mtu_ext() {
+	if (new_mtu == dev->mtu)
+		return 0;
+	...
+	orig_mtu = dev->mtu;
+	err = __netif_set_mtu(dev, new_mtu);
+
+	if (!err) {
+		err = call_netdevice_notifiers_mtu(NETDEV_CHANGEMTU, dev, orig_mtu);
+	...
+}
+
+So on -ENOMEM userspace is told the request failed, but ip link reports the
+new MTU, no NETDEV_CHANGEMTU is sent, and a retry with the same value hits
+the new_mtu == dev->mtu early return and reports success without ever
+restarting the stopped device. Should dev->mtu be put back on the failure
+path?
+
+gfar_hwtstamp_set() has the same shape: priv->hwts_rx_en is assigned before
+reset_gfar() and is not restored when the new error is returned.
+dev_set_hwtstamp_phylib() returns the ndo error directly with no rollback,
+so gfar_hwtstamp_get() then reports the filter the setter said it could not
+apply, and repeating the identical request returns 0 because the flag
+already matches while the controller stays halted.
+
+>  
+> -static void reset_gfar(struct net_device *ndev)
+> +static int reset_gfar(struct net_device *ndev)
+>  {
+>  	struct gfar_private *priv = netdev_priv(ndev);
+> +	int ret;
+>  
+>  	while (test_and_set_bit_lock(GFAR_RESETTING, &priv->state))
+>  		cpu_relax();
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but since both users of the
+GFAR_RESETTING guard are being touched here: the set-on-entry /
+clear-on-exit bit pair in reset_gfar() and gfar_change_mtu() is an
+open-coded, lockdep-invisible spinlock whose holder sleeps, in
+dma_alloc_coherent(GFP_KERNEL) inside gfar_alloc_skb_resources(), in
+napi_disable()'s usleep_range() and in phy_stop(), while another CPU
+busy-waits in cpu_relax(). Two concurrent reconfiguration requests, for
+example ip link set mtu racing hwstamp_ctl or a TX-timeout reset racing
+ethtool -G, will burn a CPU for the duration.
+
+It also cannot express the state left behind by the new error path: once
+the bit is cleared after a failed startup_gfar(), code whose only guard is
+the bit runs against the freed and now NULLed rings:
+
+drivers/net/ethernet/freescale/gianfar.c:gfar_update_link_state() {
+	if (unlikely(test_bit(GFAR_RESETTING, &priv->state)))
+		return;
+	...
+}
+
+Would a mutex plus an explicit "rings gone" state be a better fit?
+
+>  
+>  	stop_gfar(ndev);
+> -	startup_gfar(ndev);
+> +	ret = startup_gfar(ndev);
+>  
+>  	clear_bit_unlock(GFAR_RESETTING, &priv->state);
+> +
+> +	return ret;
+>  }
+>  
+>  /* gfar_reset_task gets scheduled when a packet has not been
+
+[Severity: High]
+Is the failure sequence in the changelog reachable? It says
+"gfar_close() -> stop_gfar() -> free_skb_resources() frees the same
+coherent DMA ring a second time".
+
+When startup_gfar() fails it returns before enable_napi():
+
+drivers/net/ethernet/freescale/gianfar.c:startup_gfar() {
+	gfar_mac_reset(priv);
+
+	err = gfar_alloc_skb_resources(ndev);
+	if (err)
+		return err;
+	...
+	phy_start(ndev->phydev);
+	enable_napi(priv);
+	netif_tx_wake_all_queues(ndev);
+	...
+}
+
+reset_gfar() and gfar_change_mtu() then just forward the error, so NAPI
+stays in the state left by the preceding stop_gfar() -> disable_napi() and
+the netdev stays IFF_UP. The next teardown disables NAPI again before it
+ever reaches free_skb_resources():
+
+drivers/net/ethernet/freescale/gianfar.c:stop_gfar() {
+	netif_tx_stop_all_queues(dev);
+	...
+	disable_napi(priv);
+	gfar_halt(priv);
+	phy_stop(dev->phydev);
+	free_skb_resources(priv);
+}
+
+and the second disable has nothing to wait for:
+
+net/core/dev.c:napi_disable_locked() {
+		while (val & (NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC)) {
+			usleep_range(20, 200);
+			val = READ_ONCE(n->state);
+		}
+
+		new = val | NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC;
+	...
+}
+
+Those bits are left set on exit and only napi_enable() clears them, so does
+gfar_close() -> cancel_work_sync() -> stop_gfar() spin here forever,
+unkillable, holding rtnl_lock and the netdev instance lock? If so the
+double free described in the changelog never happens, because the close
+never gets past disable_napi(), and the hunk in free_skb_resources() is not
+what breaks.
+
+Would it make more sense to restore the NAPI and PHY balance, or to force
+the interface fully down, when startup_gfar() fails, rather than only
+returning the error?
+
+[Severity: Medium]
+The changelog says reset_gfar() now propagates the error "instead of
+silently continuing", but the reset path that runs on TX watchdog expiry
+and on IEVENT_XFUN still drops it:
+
+drivers/net/ethernet/freescale/gianfar.c:gfar_reset_task() {
+	struct gfar_private *priv = container_of(work, struct gfar_private,
+						 reset_task);
+	reset_gfar(priv->ndev);
+}
+
+gfar_timeout() -> schedule_work(&priv->reset_task) -> gfar_reset_task()
+ignores the return value, with no netdev_err() and no recovery, so after a
+failed reset the netdev remains IFF_UP with the MAC halted, PHY stopped,
+NAPI disabled, all TX queues stopped and GFAR_DOWN set, and nothing is
+logged. Should this caller at least report the failure?
+
+Note the ethtool re-init sites in gianfar_ethtool.c (gfar_scoalesce,
+gfar_sringparam, gfar_set_features) already propagated the error before
+this patch and end up in the same half-down state, which suggests
+propagation alone does not address the "leaves the interface logically UP"
+half of the problem the changelog describes.
+
+>  @@ -2058,6 +2075,7 @@ static int gfar_hwtstamp_set(struct net_device *netdev,
+>  			     struct netlink_ext_ack *extack)
+>  {
+>  	struct gfar_private *priv = netdev_priv(netdev);
+> +	int ret = 0;
+>  
+>  	switch (config->tx_type) {
+>  	case HWTSTAMP_TX_OFF:
+
+[ ... ]
+
+> @@ -2084,13 +2102,13 @@ static int gfar_hwtstamp_set(struct net_device *netdev,
+>  			return -ERANGE;
+>  		if (!priv->hwts_rx_en) {
+>  			priv->hwts_rx_en = 1;
+> -			reset_gfar(netdev);
+> +			ret = reset_gfar(netdev);
+>  		}
+>  		config->rx_filter = HWTSTAMP_FILTER_ALL;
+>  		break;
+>  	}
+>  
+> -	return 0;
+> +	return ret;
+>  }
+
+[Severity: High]
+This is a pre-existing issue rather than something the patch introduces,
+but it is in the function being modified: gfar_hwtstamp_set() calls
+reset_gfar() with no netif_running() or IFF_UP test, and reset_gfar()
+unconditionally runs stop_gfar() followed by startup_gfar().
+
+The generic caller only requires the device to be present:
+
+net/core/dev_ioctl.c:dev_set_hwtstamp() {
+	if (!netif_device_present(dev))
+		return -ENODEV;
+	...
+}
+
+So SIOCSHWTSTAMP on an administratively down gianfar interface with
+FSL_GIANFAR_DEV_HAS_TIMER set reaches stop_gfar() -> disable_napi() ->
+napi_disable() on contexts that were only added by netif_napi_add() in
+gfar_probe() and never enabled, since napi_enable() runs only in
+startup_gfar(). Does that loop forever in napi_disable_locked()'s
+usleep_range() with rtnl_lock held? And if it did return, would
+phy_stop(dev->phydev) run with dev->phydev already cleared by
+phy_disconnect() in gfar_close()?
+
+Should reset_gfar() (or its callers) skip the stop/start when the interface
+is not running, the way gfar_change_mtu() checks dev->flags & IFF_UP?
