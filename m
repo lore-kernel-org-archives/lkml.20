@@ -1,128 +1,164 @@
-Received: from mx0a-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
+Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 745833515EB;
-	Wed,  2 Sep 2026 01:40:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3754F3546FA;
+	Wed,  2 Sep 2026 01:40:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788313209; cv=none; b=iNCks5Ko1E2RsTM3+PWbJRfsnxk6O8FqqMLaWsVDh0KNk3+pJZI2XenS22Tvs1Qk18tib6lH1vhHWrzlKLgzWWrJUzMAXssWVAcOCGLNKyatXTIXCqcBEEUYArFallvTySgGmUcIodPi5JkgReHg+qVOBk2Y4t/34rx4AjMlZhM=
+	t=1788313237; cv=none; b=ZoCAANLG/bVU9Wp7GldJMlGsGHvaMZMmJwhEwrWmct2oSRjjHey3HySkJIJLd38h4lbFVGTtEpD+Y8MZr10jJ+mwUvCzx+Ml5BtyPRQuYA70kHSDRpYXuCHtVfTgtjFFQB5wOmcFNKFKUo3SNC/zIRRoOt0o0idLzWIOZ6c2WDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788313209; c=relaxed/simple;
-	bh=tbjkzBf9v60YqlUBHhCUP11y+aKkwQG4oLuVfMjjNzc=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I2BkH/jbiPpCFR5U0QOlftttdG9FZNxI3DL9XVCj8sw8QFAEtBhNPe6jzjrCcQ0yyPRwzabZmu7vWdecPdGW2QBrzfxI1bcawWa3CFL+jq7RUlAZyEof3pIOJ80jfHCBJfjB1PXf56NIkD1TPJJObMQLxXUDjP2bGPVD1wV9hNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=G9sA1NmM; arc=none smtp.client-ip=67.231.148.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1788313237; c=relaxed/simple;
+	bh=Y9Rkuy7HDhxHX8laUw6rbLAlIIFlsedfYTyx2aoNdlE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=nmJRaZ2bFzH6iO0BxJr+sTrG1Glle8F9alcfFZ3joE0TjXXEwpcr7zVCd3RldcWIknsHcGPNcI8zOl9nSV5wt7bj3iDZPMUDrWcAN74ikJBbaABCde0ShkGuM+tWgjp5OJkjEUItQltaTO0f65tkU6sFRqe1t0maXPsnD8HF2BY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=HNqywE1q; arc=none smtp.client-ip=80.86.107.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="G9sA1NmM"
-Received: from pps.filterd (m0431384.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681KWxKG4132527;
-	Tue, 1 Sep 2026 18:39:29 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pfpt0220; bh=BAKmL6RTJaLJE6UNg1cEhYSVp
-	G9lmPPM9QPgHyBfqa4=; b=G9sA1NmM15xmkefPgJAVOV9TytFxT6Dnpkgov20hN
-	wMh8ce7QMfeN2GG2kGF1dAQmc0ib6A27AszrESWJbyC1/erVgIZjM+0mPNdF0O1d
-	KY8Rg0XyaZY+n/LRjfF6bviogaNuqtBNJENrh9YI8kSJTV22c99azcje9XwNCwee
-	cBsfq0TtyInOMtMgOZPKVLs4mKTrLteRpKFat/mtp4ewIge5aZ6rp0Wtq3y50kOe
-	hs12QgrN1osU6fQEU6jZInmWeCkU2X9y3Iw2EZHtXXLXtgtry+sElmQRIdOpKFnv
-	QBxcfxqEYR+/yGZJ4xjW9ikWPBLCfE2qQNtYYdGx/8XNQ==
-Received: from dc6wp-exch02.marvell.com ([4.21.29.225])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4ge4ttrxvk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Tue, 01 Sep 2026 18:39:29 -0700 (PDT)
-Received: from DC6WP-EXCH02.marvell.com (10.76.176.209) by
- DC6WP-EXCH02.marvell.com (10.76.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Tue, 1 Sep 2026 18:39:28 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC6WP-EXCH02.marvell.com
- (10.76.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Tue, 1 Sep 2026 18:39:28 -0700
-Received: from rkannoth-OptiPlex-7090 (unknown [10.28.36.165])
-	by maili.marvell.com (Postfix) with SMTP id 6107C3F704D;
-	Tue,  1 Sep 2026 18:39:23 -0700 (PDT)
-Date: Wed, 2 Sep 2026 07:09:17 +0530
-From: Ratheesh Kannoth <rkannoth@marvell.com>
-To: <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <netdev@vger.kernel.org>
-CC: <andrew+netdev@lunn.ch>, <ast@kernel.org>, <daniel@iogearbox.net>,
-        <davem@davemloft.net>, <edumazet@google.com>, <hawk@kernel.org>,
-        <horms@kernel.org>, <jhs@mojatatu.com>, <jiri@resnulli.us>,
-        <john.fastabend@gmail.com>, <kuba@kernel.org>, <pabeni@redhat.com>,
-        <sdf@fomichev.me>, <sgoutham@marvell.com>
-Subject: Re: [PATCH v10 net-next 0/2] octeontx2-pf: mqprio bandwidth offload
- for NIX TX schedulers
-Message-ID: <apd-RdkplZBclQZw@rkannoth-OptiPlex-7090>
-References: <20260831131014.2639581-1-rkannoth@marvell.com>
+	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="HNqywE1q"
+Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
+	by mail.mindbit.ro (Postfix) with ESMTPSA id AD2EDCC9F8;
+	Wed,  2 Sep 2026 04:40:10 +0300 (EEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro AD2EDCC9F8
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
+	s=default; t=1788313214;
+	bh=FbYcYzQbyga8iWEe6oyzYcbMpKCkV0HffyQaE8+dHbE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=HNqywE1qV4tagWexRGCU287ejbZmWBHMZLbsYQRCssG6WvLLWFrmuffrDBW+SSRPN
+	 6zc9ebG5WZywY8j0pg38+1B8cFpXqzufJmUHsItfyUUly4CIp/Vqsm5nCOoL++uPlj
+	 J31LtBNOZYGHjrUAUi28S+aRjI/RL02KYDuTXB2eZj9sJIv1k7yMidJTnYYA2CemHO
+	 W9UaQkGEe1Ye4DGXcN2wkeKTCsR4ZPp3TWTWQoTJM8f3GreJKOD+hcX8guqrISdHCP
+	 Ro7rWrQs+FdYvs1O+aRJsD/mx/bdSI95pnyvM121i6zhMe0L1iPyhYol9doQUZBr9Z
+	 PbYqq6L/2uZXQ==
+Message-ID: <ed86629d74368c6811e9f3b8f169584c0faf71ce.camel@rendec.net>
+Subject: [BUG] Re: [PATCH 1/1] PCI: dwc: Apply ECRC workaround for
+ DesignWare cores prior to 5.10A
+From: Radu Rendec <radu@rendec.net>
+To: Manikanta Maddireddy <mmaddireddy@nvidia.com>, bhelgaas@google.com, 
+	lpieralisi@kernel.org, kwilczynski@kernel.org, mani@kernel.org,
+ robh@kernel.org, 	krzk+dt@kernel.org, conor+dt@kernel.org,
+ thierry.reding@gmail.com, 	jonathanh@nvidia.com, kishon@kernel.org,
+ arnd@arndb.de, gregkh@linuxfoundation.org, 	Frank.Li@nxp.com,
+ den@valinux.co.jp, hongxing.zhu@nxp.com, jingoohan1@gmail.com, 
+	vidyas@nvidia.com, cassel@kernel.org, 18255117159@163.com
+Cc: linux-pci@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Tue, 01 Sep 2026 21:40:08 -0400
+In-Reply-To: <20260410062507.657453-1-mmaddireddy@nvidia.com>
+References: <20260410062507.657453-1-mmaddireddy@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260831131014.2639581-1-rkannoth@marvell.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDAxMSBTYWx0ZWRfX3mB7UdsfU888
- fDZgrclnBjTfqb9/0K+zl7xlSmyyqenWSkH1fnrXEpbAOmP1uBkWLRrnZjUn91ghrQ9bfsbJ72x
- ZBJrMjhasrtSVJk+ajT2bPwOjtjLLvkzJ8X+y+4GL1e+4vQLA0ceHM2QcbcMBjXFSww3+wQBFec
- a3Da0qtDA17+//pTWLJVqfLFSiJzUvt6BMqMNCpb/IAJB+8zqJJ5h5FzZeU/UYdANpC66qQsmSS
- ykAN0tFHs2mqwAx0eMnsW8s4DHARSb8ddZOGP5Oe5jarnp9KKFdz3iMTNxAhpTAh0zJlfWO++Ge
- NFQ4/L6TH+suDaiHnjxm1JauEExlulu0lOXej8ge9YBLtOzFIuRySWx0Hyqw5w5bbDGk1Mofb8f
- QkGjEl1uLb2uvIVcXG620JIN+D8V9rPL267XCRls9WtXMziTDTy8vbWH/oGjCfOtSop91ipqy+I
- O7d3ZJzeE67ddP7TkZw==
-X-Authority-Analysis: v=2.4 cv=MfBcfZ/f c=1 sm=1 tr=0 ts=6a977e51 cx=c_pps
- a=gIfcoYsirJbf48DBMSPrZA==:117 a=gIfcoYsirJbf48DBMSPrZA==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=l0iWHRpgs5sLHlkKQ1IR:22 a=TtqV-g6YmW1Jfm2GSLaY:22 a=M5GUcnROAAAA:8
- a=yaMLrZmCnpOwXphqEKQA:9 a=CjuIK1q_8ugA:10 a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDAxMSBTYWx0ZWRfX1YgHGKcjKWKS
- h9+tBJmewcOQPZtww55jfWL4srYCgcV7l0j7zZ3gSSp+omVPFrERdhALBUsGFET/QmQY7VQ1AoQ
- rsutvT6iP5VMUXbujwWLPA3c0vm8SIE=
-X-Proofpoint-ORIG-GUID: MSkL9hnqL6aXyqXJzU3KeluH0vSjkfRr
-X-Proofpoint-GUID: MSkL9hnqL6aXyqXJzU3KeluH0vSjkfRr
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_06,2026-09-01_03,2025-10-01_01
 
-On 2026-08-31 at 18:40:11, Ratheesh Kannoth (rkannoth@marvell.com) wrote:
-> This series adds hardware offload for channel-mode mqprio with
-> TC_MQPRIO_SHAPER_BW_RATE on Marvell octeontx2 PF devices. Each
-> non-QoS transmit queue is shaped by programming MDQ CIR/PIR on the NIX TX
-> scheduler. When bandwidth offload is enabled, the driver allocates one
-> SMQ per queue, parents every MDQ under TL4[0], and applies each traffic
-> class min/max rate to the queue(s) in that class. The TX scheduler
-> hierarchy is reprogrammed through ndo_stop()/ndo_open() on every mqprio
-> add, replace, or delete.
->
-> Patch 1 is required for patch 2. The octeontx2 driver tracks committed
-> mqprio configuration in snapshots keyed by the owning qdisc handle. That
-> handle is needed to implement two behaviours that patch 2 relies on:
->
->   * tc qdisc replace installs the new mqprio and runs its offload setup
->     before tearing down the replaced instance. Without the handle, the
->     driver cannot tell a stale disable callback from the replaced qdisc
->     apart from teardown of the active configuration, and may clear
->     hardware shapers or netdev TC state while the new mqprio is being
->     committed.
->
->   * When replace fails after partial programming, the driver rolls back
->     from the previous snapshot. Matching setup and teardown callbacks to
->     the same qdisc instance requires the handle passed through the core
->     mqprio offload path.
->
-> Patch 1 extends struct tc_mqprio_qopt_offload with that handle and fills
-> it from mqprio_enable_offload() and mqprio_disable_offload(). Patch 2
-> consumes it in the octeontx2 PF mqprio offload path.
->
-> The driver rejects offload unless the interface is running and the
-> device supports CIR+PIR shaping. Per-TC rates are rejected when a
-> traffic class spans more than one queue, and concurrent PFC, XDP, or SDP
-> rep use is blocked. Ethtool channel count changes are blocked while mqprio
-> bandwidth offload is active.
->
+On Fri, 2026-04-10 at 11:55 +0530, Manikanta Maddireddy wrote:
+> The ECRC (TLP digest) workaround was originally applied only for DesignWa=
+re
+> core version 4.90a. Per discussion in Synopsys case, the dependency of th=
+e
+> iATU TD bit on ECRC generation was removed in 5.10a, so apply the
+> workaround for all DWC versions below that release.
+>=20
+> Replace the misleading comment that referred to raw version constants
+> with readable DesignWare release name aligned with the implementation.
+>=20
+> Fixes: b210b1595606 PCI: dwc: Apply ECRC workaround to DesignWare 5.00a a=
+s well
+> Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
 
-Will address sashiko comments in v11.
+This patch breaks dw_pcie emulation in Qemu. I'm using the imx8mp-evk
+machine and a single virtio-net-pci device attached to dw_pcie.
 
-pw-bot: changes-requested
+What I see is this: pci->version is 0x0, so with the patch applied,
+dw_pcie_enable_ecrc() gets called now, whereas previously it didn't
+(because the condition checked specifically for 490A and 500A).
+
+This has a ripple effect that ultimately makes the system fail to boot:
+ * vp_reset() for the virtio-net-pci device spins forever in the loop
+   around vp_modern_get_status(mdev), which always returns 0xff.
+ * vp_reset() is called in the context of the probe() function for the
+   virtio-net-pci device, so probe() never returns.
+ * the init task gets stuck in wait_for_device_probe() before it
+   executes the real init binary (stack trace below).
+
+#0 wait_for_device_probe
+#1 prepare_namespace
+#2 kernel_init_freeable
+#3 kernel_init
+#4 ret_from_fork
+
+This is a separate problem of virtio (vp_reset() should eventually give
+up), and I will send a RFC patch shortly.
+
+Now back to the point, the obvious dumb fix is to check if pci->version
+is 0x0 but I believe there is little appetite for that because it would
+be just a workaround for the (incomplete) Qemu emulation of dw_pcie. I
+assume it would be preferable to fix it in Qemu instead, to present a
+valid version value that also happens to be >=3D 510A to avoid setting
+the PCIE_ATU_TD bit.
+
+But looking at the code, I'm not sure if it's as easy as it sounds. I
+noticed there are quite a few other things that happen differently in
+the driver if the version is >=3D 460A, so setting a correct version in
+Qemu would also flip those conditions. I don't know if that can break
+something else.
+
+If, however, the "dumb fix" doesn't sound that horrible, I'm happy to
+send a patch. Or, if you have any other suggestions, please let me
+know. Thanks!
+
+> ---
+> =C2=A0drivers/pci/controller/dwc/pcie-designware.c | 6 +++---
+> =C2=A0drivers/pci/controller/dwc/pcie-designware.h | 1 +
+> =C2=A02 files changed, 4 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/pci/controller/dwc/pcie-designware.c b/drivers/pci/c=
+ontroller/dwc/pcie-designware.c
+> index d69db0ab3b14..d0b3b93fc940 100644
+> --- a/drivers/pci/controller/dwc/pcie-designware.c
+> +++ b/drivers/pci/controller/dwc/pcie-designware.c
+> @@ -487,8 +487,8 @@ static inline void dw_pcie_writel_atu_ob(struct dw_pc=
+ie *pci, u32 index, u32 reg
+> =C2=A0static inline u32 dw_pcie_enable_ecrc(u32 val)
+> =C2=A0{
+> =C2=A0 /*
+> - * DWC versions 0x3530302a and 0x3536322a has a design issue where the '=
+TD'
+> - * bit in the Control register-1 of the ATU outbound region acts
+> + * DesignWare core versions prior to 5.10A have a design issue where the
+> + * 'TD' bit in the Control register-1 of the ATU outbound region acts
+> =C2=A0 * like an override for the ECRC setting, i.e., the presence of TLP
+> =C2=A0 * Digest (ECRC) in the outgoing TLPs is solely determined by this
+> =C2=A0 * bit. This is contrary to the PCIe spec which says that the
+> @@ -563,7 +563,7 @@ int dw_pcie_prog_outbound_atu(struct dw_pcie *pci,
+> =C2=A0 if (upper_32_bits(limit_addr) > upper_32_bits(parent_bus_addr) &&
+> =C2=A0 =C2=A0=C2=A0=C2=A0 dw_pcie_ver_is_ge(pci, 460A))
+> =C2=A0 val |=3D PCIE_ATU_INCREASE_REGION_SIZE;
+> - if (dw_pcie_ver_is(pci, 490A) || dw_pcie_ver_is(pci, 500A))
+> + if (!dw_pcie_ver_is_ge(pci, 510A))
+> =C2=A0 val =3D dw_pcie_enable_ecrc(val);
+> =C2=A0 dw_pcie_writel_atu_ob(pci, atu->index, PCIE_ATU_REGION_CTRL1, val)=
+;
+> =C2=A0
+> diff --git a/drivers/pci/controller/dwc/pcie-designware.h b/drivers/pci/c=
+ontroller/dwc/pcie-designware.h
+> index 82946bf78b21..739a213c27c9 100644
+> --- a/drivers/pci/controller/dwc/pcie-designware.h
+> +++ b/drivers/pci/controller/dwc/pcie-designware.h
+> @@ -35,6 +35,7 @@
+> =C2=A0#define DW_PCIE_VER_480A 0x3438302a
+> =C2=A0#define DW_PCIE_VER_490A 0x3439302a
+> =C2=A0#define DW_PCIE_VER_500A 0x3530302a
+> +#define DW_PCIE_VER_510A 0x3531302a
+> =C2=A0#define DW_PCIE_VER_520A 0x3532302a
+> =C2=A0#define DW_PCIE_VER_540A 0x3534302a
+> =C2=A0#define DW_PCIE_VER_562A 0x3536322a
+
+--=20
+Best regards,
+Radu
