@@ -1,115 +1,123 @@
-Received: from mta0.migadu.com (out-46.mta0.migadu.com [91.218.175.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF4633BBCF
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:38:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD4A33BBCF;
+	Wed,  2 Sep 2026 07:38:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788334705; cv=none; b=HAHhZAJoZ/2kPpE3nTQX/voMRz7AFk6QgNH1ROOW80JM12gbPHUixSB77FY7XFYIvkva2/EyGlsdTqTOju64E7/cYRKZkVHd9Bcn2LFs9H2Jh4buuggm5NbOmozIKY3FhjX3sD86XUatuuL0ZJ1BFXbuMKpjgFD77+TlgGYIQj8=
+	t=1788334738; cv=none; b=hZuDUPfuzKn7d2BhqH+WsZrhhsOALzKeOsd1ga/vRxyWf9WTZkOefbhG0TfJw1ttcDeECb6xV3U/herg69x7Suiy+7IFXc9wLzEQdMGn3X2IQmdqmdTLxJANf4tLmuaGH42watCJewrcrKNbQJKL9JfKKjic6jE8qx0qBxuCAro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788334705; c=relaxed/simple;
-	bh=bWqKM55BsocJ4wzic/HTSDg71D6vbUFl84C/nnmct8E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VPPJr7i9/dlttUusvX2h54lszdncDuRy2wAJr8RRZcygxDw00KVtcFzmuxkz/7bw37J9+i5lSssHZC78tzsy4oH4C4JruNh+UDWpXAC5qdkYNH0frElr9kgCqTaSaS9tMpGwFMF9fftO8cmJqaiGn7TFaSSa0H9YPQhxUjMC1LY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vV6wCO1H; arc=none smtp.client-ip=91.218.175.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788334738; c=relaxed/simple;
+	bh=peNBa6XWTvXD5voM6K/4tnfDdD3edZYStWDuoe7amfw=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LU05H30fXIb8RIGKzFndwZtNmrJMDWNi5K7pIEbQz8t6e28GHVORjiJ8YiSBm3/OaDcHhen3Mqa1S70kvSlGFSGMsqIuB7fDneqB1qSp9MYnmovzIrDiRTeTgc7pChgrr0tSxAkU5EON2evf8tf7FtJtUm5pb0WP6XOLMtc8el4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AXX26wr8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vV6wCO1H"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=bWqKM55BsocJ4wzic/HTSDg71D6vbUFl84C/nnmct8E=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788334700; v=1; x=1788939500;
- b=vV6wCO1H7AdtHnmeMst+X9cfkYqTrExVIzmNGbAHjGYkjidiWQWP4yp3VmZMew/fPJpfyah/
- EKFg1DgyBb/TG3ovWtiTl1n7cf9+7qj9qkXU1Dp/Ye+Ij5xU5o7MgcKlLKo1XGCnRrXgQ1CQw/A
- HicbOyIWAF/J2o9YQMW+Bnd8=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7b5fe957ff10b172;
-	Wed, 02 Sep 2026 07:38:10 +0000
-X-Mizu-Trace-ID: 7b5fe957ff10b172
-X-Migadu-Flow: FLOW_OUT
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-To: linux-mm@kvack.org
-Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Dave Chinner <david@fromorbit.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Kairui Song <kasong@tencent.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Usama Arif <usama.arif@linux.dev>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] mm/shrinker: fix bogus set_shrinker_bit() with cgroup.memory=nokmem
-Date: Wed,  2 Sep 2026 15:37:59 +0800
-Message-ID: <20260902073800.305481-1-jiayuan.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AXX26wr8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1729D1F00A3A;
+	Wed,  2 Sep 2026 07:38:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788334737;
+	bh=NtFIjwHWOM2KySxyK2jN5lsJXS7iV2NXSRl0dq3VPfM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=AXX26wr8KvCG2QZcfUAqR2Dpzs2Uuq6jgvM57rxgHHBUtsTqCueEKpUbANEZmZDcM
+	 maq551oR8ZMENXN+/udtxaaNwWLPAMcz1DLsYO37wcn8/w72gxqB75vH876jegGJ9P
+	 AJd/kV4r9rvIFxqaZ4UBIio+HPnyaEk8XCnCdk3xtZzH+OAmqoa9slxW78NNWmwprJ
+	 gxQexz9Bc8W/nS0fGe6RtQOv9hUMKVB15b0LP9HocvJFUgBOL59wjsBXW65X9/qPHi
+	 PsucUsjIgB1FR5GAVA38qCBibV7U8Np8iXZl4NqDfL24T62E9A2crzNh43+4fSdjc5
+	 hOZqttRyWIbBA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x1fYc-00000003lb4-2BeN;
+	Wed, 02 Sep 2026 07:38:54 +0000
+Date: Wed, 02 Sep 2026 08:41:27 +0100
+Message-ID: <87mru0m76g.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Steffen Eiden <seiden@linux.ibm.com>
+Cc: kvm@vger.kernel.org,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Andreas Grapentin <gra@linux.ibm.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	David Hildenbrand <david@kernel.org>,
+	Friedrich Welter <fritz@linux.ibm.com>,
+	Fuad Tabba <tabba@google.com>,
+	Gautam Gala <ggala@linux.ibm.com>,
+	Hariharan Mari <hari55@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Hendrik Brueckner <brueckner@linux.ibm.com>,
+	Ilya Leoshkevich <iii@linux.ibm.com>,
+	Janosch Frank <frankja@linux.ibm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Nico Boehr <nrb@linux.ibm.com>,
+	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+	Oliver Upton <oupton@kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sean Christopherson <seanjc@google.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Will Deacon <will@kernel.org>,
+	Zenghui Yu <yuzenghui@huawei.com>
+Subject: Re: [PATCH v7 11/23] KVM: arm64: Share arm64 code with s390
+In-Reply-To: <20260901084037.185345-C-seiden@linux.ibm.com>
+References: <20260831144802.834315-1-seiden@linux.ibm.com>
+	<20260831144802.834315-12-seiden@linux.ibm.com>
+	<87se3tmlrv.wl-maz@kernel.org>
+	<20260901084037.185345-C-seiden@linux.ibm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: seiden@linux.ibm.com, kvm@vger.kernel.org, kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org, agordeev@linux.ibm.com, gra@linux.ibm.com, arnd@arndb.de, catalin.marinas@arm.com, borntraeger@linux.ibm.com, imbrenda@linux.ibm.com, david@kernel.org, fritz@linux.ibm.com, tabba@google.com, ggala@linux.ibm.com, hari55@linux.ibm.com, hca@linux.ibm.com, brueckner@linux.ibm.com, iii@linux.ibm.com, frankja@linux.ibm.com, joey.gouly@arm.com, nrb@linux.ibm.com, oss@nina.schoetterlglausch.eu, oupton@kernel.org, pbonzini@redhat.com, seanjc@google.com, suzuki.poulose@arm.com, svens@linux.ibm.com, Ulrich.Weigand@de.ibm.com, gor@linux.ibm.com, will@kernel.org, yuzenghui@huawei.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-With cgroup.memory=nokmem, shrinker_memcg_alloc() bails out early and
-never allocates an id, so shrinker->id keeps the 0 it got from the
-kzalloc() in shrinker_alloc(). __list_lru_init() then copies that 0
-into lru->shrinker_id, where it looks like a valid bit index.
+On Tue, 01 Sep 2026 09:40:37 +0100,
+Steffen Eiden <seiden@linux.ibm.com> wrote:
+> 
+> On Tue, Sep 01, 2026 at 09:13:56AM +0100, Marc Zyngier wrote:
+> > Why the exit handler, and not the EC handlers aside from the UNKNOWN
+> > one? Yes, you probably aren't there yet in this series, but I can tell
+> > you are going to add more and more of these.
+> > 
+> > But the EC array is absolutely architectural, and there is no good
+> > reason to maintain your own.
+> > 
+> > So instead of this, why not keep the EC array altogether, and
+> > implement stubs for the ECs you don't support?
+> > 
+> > 	M.
+> > 
+> 
+> There was no specific reasson to define our own EC array as far as I
+> remember. I will try reusing the array and find out if there are any
+> issues with that. But I do not expect any. 
+> 
+> I assume the stubs probably just forward to handle_unknown_ec, or do you
+> have a different suggestion?
 
-Nothing calls expand_shrinker_info() on nokmem either, so
-shrinker_nr_max stays 0 and every memcg ends up with an empty map
-(map_nr_max == 0).
+Probably. This is an indication of something being deeply wrong in the
+implementation (HW or SW). On reflection, kvm_handle_unknown_ec()
+should result in a KVM_BUG().
 
-deferred_split_folio() hands a real memcg to __list_lru_add()
-regardless of whether the lru is memcg aware, so the first THP queued
-in a cgroup does set_shrinker_bit(memcg, nid, 0) and trips the bounds
-check:
+	M.
 
-WARNING: mm/shrinker.c:212 at set_shrinker_bit+0x7d/0x90, CPU#126
-Call Trace:
- <TASK>
- deferred_split_folio+0x18c/0x220
- map_anon_folio_pmd_nopf+0xdd/0x130
- map_anon_folio_pmd_pf+0x14/0xb0
- do_huge_pmd_anonymous_page+0x1a1/0x620
- __handle_mm_fault+0xea9/0x10d0
- handle_mm_fault+0xe5/0x320
- do_user_addr_fault+0x1cc/0x870
- exc_page_fault+0x81/0x1b0
- asm_exc_page_fault+0x27/0x30
- </TASK>
-
-Harmless, the WARN_ON_ONCE() is what keeps the out of bounds unit[]
-read from happening, but the id should not look valid in the first
-place. Clear it before returning.
-
-Two other spots could paper over this: drop the id in
-__list_lru_init() when nokmem turns memcg_aware off, or make
-deferred_split_folio() pass NULL like list_lru_add_obj() does. Both
-leave shrinker->id lying around for the next caller, so fix it where
-the id is handed out.
-
-Fixes: fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
-Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
----
- mm/shrinker.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/mm/shrinker.c b/mm/shrinker.c
-index a70aab124a0e..7ec2a9704f6f 100644
---- a/mm/shrinker.c
-+++ b/mm/shrinker.c
-@@ -227,6 +227,8 @@ static int shrinker_memcg_alloc(struct shrinker *shrinker)
- {
- 	int id;
- 
-+	shrinker->id = -1;
-+
- 	if (mem_cgroup_disabled())
- 		return -ENOSYS;
- 	if (mem_cgroup_kmem_disabled() && !(shrinker->flags & SHRINKER_NONSLAB))
 -- 
-2.43.0
-
+Jazz isn't dead. It just smells funny.
