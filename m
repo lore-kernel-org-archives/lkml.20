@@ -1,71 +1,109 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90AF5472F9D
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:29:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA96E35F5F7
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:29:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788362964; cv=none; b=eFEScGIlFssU2k5XhXw8esGtPnlCzzcGhogwVJ9NWI5P0H/jeSCUZgLmyuP/vhLPACPdXFn6zOz35126gkBnqpdBU441lFMtIM0zCnVA18IES3oDd5MeEFYqkwfKkFxHqRklMv59Z4m1YZHBzVFwvF/gfVEgOZ2EyyEptZnsARs=
+	t=1788362996; cv=none; b=iF0UYQDsWvyvv1xhXttt+l0T4je0vGSe6VvMDsEZOpUzmaGbcqGPcQq4JgfH8yH+Tn3MUndfFii8j3ixi8pdoKKUNOSuK4+B8V+N4vkpfg8pvDNNPrDLmnnjBLGH3nj1E+8LCFZQucO/pwTI2ti8qh+KCeKnS2yWgBiwnL5hBkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788362964; c=relaxed/simple;
-	bh=N/jNGj/WJtc9+wCYELedsVpK1emR5Ptmhiof4ApIdQg=;
-	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
-	 Content-Type; b=Ez5+hUDTSxkLvEhvMlFVWurnRMrDI9sBi1MHd9auimSgBKFXNXZl3swNo8KDAszPPJ8Z2ImH8BfmKh5s5hMqjIHFH/JmK0vK7B6G0IoCmF/Tnhuu2GwF45wWzMfw9k0v3SOwf3bWAHqMT9suwhUZcWEJ07LfIyXyZ+8+BA3YbXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=k33TDilE; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=gzhBYxSH; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1788362996; c=relaxed/simple;
+	bh=VVc1ZJGk+HQoE6qXm5s+dxDHj3ifnpsheQ7tlogOh/E=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MtH7HnKtiqNaO4a4BpyPM9ETcL85HB9XeYFg9doqdSKwu6FaymuwxInZNG6+20chjYiZB3VeJzVEl+hnclrdabVXlb+QFE4o74wsfMSlWFBmE2oCqoPUx+aQux1WI1+ngM3JaBsjyTtcHLhOmdA99lpD3zytGx3kWZHzHrReNKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OBcDfgLG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="k33TDilE";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="gzhBYxSH"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788362956; bh=4f0KXm8cDE90V81Eg4FbPAE
-	wyy5dVXUBt77qplRE4X0=; b=k33TDilEMwvy9sMZLPUnfxoKMf+I+JxvR0vxJqtlly2wGGU5rb
-	baGVAldCWpAt6FG3NNYWoaZ+EF5n3U2T/C+WekP1Aj1UCtF+mopARxfQP3jPcz3Fw6M6AZw+mrN
-	BoV27Ojb8c+jlMIJmGLfjvd6fWpNfdrOtCo7ZaM2uO5fKBRqYwM0wG6eDKIATm0lSwyhCfJiQCK
-	rDNf0NJ9zMmVTCFfrI4ByOREHYqjuqFMb2cQbAVp8BOpQCQrAX5xbOdyAeungASLmt4tIEGtJ5/
-	ShAFsQEiWPjSe+kjWHt1LmKWTDbrMyYE77jE/qyUeiSYRJvPifFS3UASUAWRHRfcT9Q==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788362956; bh=4f0KXm8cDE90V81Eg4FbPAE
-	wyy5dVXUBt77qplRE4X0=; b=gzhBYxSHRKhn7V5pVk2xMaN6sVxB+FKjO7Z/y2tXbHj3XSFC8a
-	6wd4m1rtEm7xrc7VU8RDGABWEyBhhcBoFKDg==;
-Date: Wed, 02 Sep 2026 16:29:14 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: xry111@xry111.site
-CC: ben.horgan@arm.com, catalin.marinas@arm.com, fuad.tabba@linux.dev,
- james.morse@arm.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, maz@kernel.org, will@kernel.org
-Subject: =?US-ASCII?Q?Re=3A_arm64=3A_MPAM2=5FEL2_and_MPAMHCR=5FEL2?=
- =?US-ASCII?Q?_are_left_UNKNOWN_under_arm64=2Enompam?=
-In-Reply-To: <2368f72ea9a447057456eb37450e1c25f4bdddff.camel@xry111.site>
-Message-ID: <452D9DEB-606C-4B54-B8B6-27E03573A9DE@mainlining.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OBcDfgLG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31C361F00A3A;
+	Wed,  2 Sep 2026 15:29:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788362994;
+	bh=tUlRIkKiOynq2Hkk1gaRJIQ3wr5GMxc4TuHrDvc4zfQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=OBcDfgLGK8s1rCVIUQWUGC0kZ8VVQMQwCcpayDOzGGbPBb4swqG/J4bFo94VFAaNI
+	 am3OYWwpK9pF8uj5b356KUfcYnHd4ziS7x74LW2W19eGfUMf12b3oj+d+vfl8GGmSd
+	 dh8wBtdKgPtlcmdpK6uLmW5tO4Sgqoreg6ynXuD12Ddu90f0JvvvZErXod5TaAMb4B
+	 BVhXcIq5kF98eoUH0SWnJoGaOj9I73lBqIpXi0GK1IY487SpHV4JONWF8QX8QMKFV0
+	 xpQTPKo2riODk89DmFXdES9FQRu/EywlSBvG4OfFf/OaK/WPaf/srbAXSdSHotvcgY
+	 CPe/xAicKgx9g==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x1muN-00000003whr-2Ozp;
+	Wed, 02 Sep 2026 15:29:51 +0000
+Date: Wed, 02 Sep 2026 16:32:25 +0100
+Message-ID: <87h5k7mzxy.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Feng Tang <feng.tang@linux.alibaba.com>
+Cc: Thomas Gleixner <tglx@kernel.org>,
+	John Stultz <jstultz@google.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Miroslav Lichvar <mlichvar@redhat.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Petr Mladek <pmladek@suse.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] sched_clock: Add option to use absolute time against hardware clock reset
+In-Reply-To: <20260902082123.95770-1-feng.tang@linux.alibaba.com>
+References: <20260902082123.95770-1-feng.tang@linux.alibaba.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: feng.tang@linux.alibaba.com, tglx@kernel.org, jstultz@google.com, sboyd@kernel.org, mlichvar@redhat.com, daniel.lezcano@kernel.org, peterz@infradead.org, pmladek@suse.com, linux-kernel@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-On 2 September 2026 16:26:55 BST, Xi Ruoyao <xry111@xry111.site> wrote:
->On Thu, 2026-08-27 at 09:41 +0100, Ben Horgan wrote:
->> > not, could the caveat go the other way round: arm64.nompam is for
->> > systems where firmware ignores MPAM, and should only be set on a
->> > machine that does not boot without it?
->> 
->> Yes, seems fine.
->
->Sorry for the late reply.  This is indeed the original purpose for
->arm64.nompam, a dirty hack when we have no other ways to make the system
->boot.  If you think it causes an inconsistent state I'd not complain
->against adding a loud warning or something.
+On Wed, 02 Sep 2026 09:21:23 +0100,
+Feng Tang <feng.tang@linux.alibaba.com> wrote:
+> 
+> Currently sched_clock shows the relative time to the boot starting of
+> kernel, while there could be long firmware start time before it and
+> after the hardware reset.
+> 
+> On modern server platforms, there could be several software running in
+> parallel. Like for arm64, it could have  SCP (System Control Processor)
+> firmware running on SCP processor, and ATF (Arm Trusted Firmware) and
+> Linux OS on the main processor.
+> 
+> Debugging some nasty issues on these platform may need to cross-check
+> the logs from these firmwares and Linux kernel for specific events,
+> where a unified reference timeline is critical. All these software can
+> read the hardware timer, which is also the base of sched_clock for
+> Linux kernel. Using the absolute counter since hardware timer reset
+> makes it possible for all kinds of software to have a same time base.
+> 
+> Add 'abs_sched_clock' parameter to provide an option for using absolute
+> counter, and users should make sure their sched_clock (hardware timer)
+> is capable of supporting absolute counter before enabling the option.
+> 
+> Locally, it did help on chasing some RAS issues which needed cooperation
+> between kernel, SCP firmware and ATF, by mapping the actions from each
+> players into one timeline based on the timestamps in their logs.
 
-Sorry to impede in the discussion, would you like me to submit a patch for
-that?
+I really have to ask: why isn't this just a one-off sampling of the
+counter, kept in some user accessible location (debugfs or something
+else), and ultimately post-processed to align your logs? People have
+been doing this... forever, and that has been "good enough" so far.
 
->
->
+The other thing is that your "absolute" clock isn't absolute at
+all. This doesn't consider SW running at EL2 that could happily offset
+thing by an arbitrary value.
 
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+I appreciate this is not what your case, but I'm somewhat reluctant to
+burden the kernel with something that is, by definition, unreliable.
+
+Thanks,
+
+	M.
+
+-- 
+Jazz isn't dead. It just smells funny.
