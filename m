@@ -1,155 +1,124 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59EDB4A2A78;
-	Wed,  2 Sep 2026 14:34:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 421554A2A49
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:35:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788359695; cv=none; b=EkC6ly5bhHVBQyTvxGgA5SPyaA7fE0lTzz7Cwl5ursQeF676Iu8bjphJtk/AugE/s3PysHN4bp2Z+9ORvyS2bfcLRRKZPJtlZ7krbh4PEQ8+7b1znpTVuotcCE8RM74/BDvIJxvjwqC1F2nyHEdaYqIKa7N/1goIfjGfw+LLDE8=
+	t=1788359758; cv=none; b=gn9/E3hx9RVqXc3+EdSJDec1WRBk7W3pmI8Uat/XYwoOpYSWDpxz5DVdDwpWQb67Thxgh9BxLY3gzsXqo0xR1XSqDHWXmKXyNlTILdSlmpy7s/gCb7RW+MdhZ0bYBlHcAolA1Zgb4l6yNNvFgtB1yGHujAW4f7z8a7+IgKx1GHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788359695; c=relaxed/simple;
-	bh=o+SBfyhIwjQVP7iaWx/Mh8m7g20JpJq/u+lkF+fPIQs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GkwwvhfQVauBAVrYTdoNyS8uN1h+KprXITK5BsgOtuxTlrKdUocLy31u4xU2x0byMVK1NxGzxH3xUxLhK876oHawhvbV6OqsVZRlgp7cQ/QpOaAxs1KcxJ1L6FCI4Q7Jp9RChc1lMEkOWuUv0OSyq0HjDhVNVcYIZDr8VLobmls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=d3vycU0M; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788359758; c=relaxed/simple;
+	bh=6aOkKqHhym80a6kBJ8PrVxu95b/21N9MEjLfSv0uAm4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Bxl+Btm8fHYQR9/V/0BMgFrvBsty/BpmefK3tLMRAx+8Fa7w7kIb3gRXAsmkmHa5aLhORUaYvzjEacXACkUpiwcKdeqOQsI6g8REmzX607yZRkU0UaWFZWjUypcgKy1xnllvLC7pvxTwgygmQaMDhYa/jg7RH+wNu8N8GvP9yoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k6SB7ZHq; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="d3vycU0M"
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682CW0Vu047466;
-	Wed, 2 Sep 2026 14:34:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=pp1; bh=yS4SGS35PmzrxXgaCOTALVjrqK0P+puvAUOhif4K6
-	n0=; b=d3vycU0MthLbWuYeteCtd22xuyokye9MW+YY3lrDvSjs2Yo6fiyuMIz0Z
-	dwbKRM5IftlRcrks9pQendxFl7Y/EzVC9J10YtqSe58Ki7d+fXTo1Fb48VMChXKv
-	58OqpmlV7o9/jm2D82Os2fQ67aP1k4hmdxQziuw7twAeTKuONlGpMngRtL7nQvvV
-	/JWr+cY/LObZNMBlBpXtGdO5mk2oH0iEbMlY0T6lI8D5Y8uPvCFy9Zyi+ifQcvjo
-	9ENlIBm15FzfU/Sb9Jn8CspnCpGWmv6ug9kRaFWzBO4pdz/k8BUj4EmbcjItCIzN
-	1qT9j97b47t25yOG/BFdz+McXblMQ==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq2terg5-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 14:34:43 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 682EQFUV030336;
-	Wed, 2 Sep 2026 14:34:42 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gc9rqjgtq-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 14:34:42 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 682EYdvl41484656
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 2 Sep 2026 14:34:39 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 149292006A;
-	Wed,  2 Sep 2026 14:34:39 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id D495C20043;
-	Wed,  2 Sep 2026 14:34:38 +0000 (GMT)
-Received: from tuxmaker.boeblingen.de.ibm.com (unknown [9.87.85.9])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with SMTP;
-	Wed,  2 Sep 2026 14:34:38 +0000 (GMT)
-Received: by tuxmaker.boeblingen.de.ibm.com (Postfix, from userid 55271)
-	id B9E5D160CDB; Wed, 02 Sep 2026 16:34:38 +0200 (CEST)
-From: Alexandra Winter <wintera@linux.ibm.com>
-To: David Miller <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Eric Dumazet <edumazet@google.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        Julian Ruess <julianr@linux.ibm.com>
-Cc: netdev@vger.kernel.org, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Heiko Carstens <hca@linux.ibm.com>,
-        Vasily Gorbik <gor@linux.ibm.com>,
-        Alexander Gordeev <agordeev@linux.ibm.com>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Sven Schnelle <svens@linux.ibm.com>, Simon Horman <horms@kernel.org>
-Subject: [PATCH net] dibs: Unregister dibs_class after error
-Date: Wed,  2 Sep 2026 16:34:38 +0200
-Message-ID: <20260902143438.426664-1-wintera@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k6SB7ZHq"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-851cbd64814so433981b3a.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:35:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788359756; x=1788964556; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Hr6y/ERn9mwLYkItat9vlE3A943++Ow9sTB6oJwTNEA=;
+        b=k6SB7ZHqvtvHM6xTNatLqfS6zrE/f8MhZAzWyLekglRXvfBNHKc/xMRKwkmVKy6NhB
+         iLVhDOmQm6Wk6GMZUTzrOsdQo23zBhyTTUhN3GPFRiku7phxMDD9CsZWOTkLlbi3io8x
+         5nvg8qM0hmA6wnz0/7ddqumb6xsOEQSfFhhst+UGekywSa9F/CRulhgmg7d4DmerP2kn
+         PaVbeQs1uQBLo4cxZ9jn5suf9mRwGiwFKASz2S87+sYWWut8S8uu7FrpzlpvSHXID9YJ
+         clI0DI5G0lweN9Z2ay8sG8h0AMuHHECzCxJKdGMTU0pMhYCAxLZFt6gDyqT+8Hpsc3pJ
+         S/qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788359756; x=1788964556;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Hr6y/ERn9mwLYkItat9vlE3A943++Ow9sTB6oJwTNEA=;
+        b=LJXUA7299NJ+oqzq5xSPOrpF7BoUDuxRP+XIhdEZBWVokwaAHUztn3qJXmkY5QhHGa
+         h5WthHKFDHxexqWXkUdIde6D9Qcb3NrxsE5ZTum1UnDdDPodYpz9u0MjAGK95K++ZMx8
+         fRQVE0+YxEHcMmqeWPF9Xv82XoFDdN1kBb8ebeWFlodoa9Ps2vL/lbuodGwhQ5IICXgv
+         5fgcU1y/nyCd1YD+o6HSpevcUolC4eYFu0pOW0BqAoF6NdRsAYs4DkJDwfxfh9oQ31tK
+         +p6Pkf3LZTRasLay6tiqXkR9vDSI6aa9a6RqT5VbCajrG8mS/lXItf6uCU9csVp0h8yp
+         NZ4g==
+X-Forwarded-Encrypted: i=1; AKwUvBw/HCwj7PtRsLDc+Le6d/Z3++HxF7SuwJisJHC2NGJ8d1N7RWhrRbcgdpph0eJxEeG6GpIbWmVVJQRsJi8=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/TMujGU4Opq8Ikba/MABJaSADnNCXR9t4OZV+Sjr3d5KDdRzf
+	YdwMVij2rxR20emO/Z/aOn8/XvsPVD1PX8kLzubbcFrWc/vSZe64BqB8
+X-Gm-Gg: AYBFou07r5yId/7cOm+3VfoO+T/7i/0Bm+OXmqgD/8zEXdZXnYZMvyf9Wt/OjCoW9+L
+	b6Yg3Fj1aM8acFG4IUKbCzmeOUyHBKGfZxlz9WjNe45ZS0DRzjhwI0Z5ZCIa4c1HoAoSfltJSiY
+	Sord6mAu9C/hxVYya6dGFjolXupjqZxKDB+YfG4hhaScfjq6mRotRQqSc2yfRAzJoualZicBhSm
+	ZZ2q0VmmVSbQTBxzBuZnNyCCnVjwtND2P6rtCSg4CBb6QxHNqTJZxjvlqTLSaNvGu1SRU4uZLwr
+	iERyXi+oXOT18QVttiG36aTQ+UR/XKmFGgbzDxVvI3/P/z139opoV5GNllU+vyV4eWW4pTgIVV5
+	OARzMGQpEo0DmkO/9f/9m5fxfFn2HnE9rPb/5MiB7EFe5kYs4aCFJ3yUvdihZAQzQDYjl46a0Sq
+	D/qjEYvVGGFWgA9tikrEr643DsJ7oRgTCtcGRIQuTO8l5MHYdiKKRm8cvmjHF95p+xo9FVaKGMS
+	LHDtSxnUk1EORA/
+X-Received: by 2002:a05:6a00:1c9e:b0:857:73e2:9104 with SMTP id d2e1a72fcca58-85ed94bb41amr7949304b3a.20.1788359756325;
+        Wed, 02 Sep 2026 07:35:56 -0700 (PDT)
+Received: from celestia.taila51cc2.ts.net ([2402:1980:9c5:2de5:8b4e:3f3c:b637:4ca5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db24f2076sm1560348b3a.4.2026.09.02.07.35.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 07:35:55 -0700 (PDT)
+From: Liew Rui Yan <aethernet65535@gmail.com>
+To: sj@kernel.org
+Cc: aethernet65535@gmail.com,
+	akpm@linux-foundation.org,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/damon/core: allow esz to be set to zero
+Date: Wed,  2 Sep 2026 22:35:20 +0800
+Message-ID: <20260902143605.6785-1-aethernet65535@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260902141349.86896-1-sj@kernel.org>
+References: <20260902141349.86896-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=bc1bluPB c=1 sm=1 tr=0 ts=6a983404 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=RzCfie-kr_QcCd8fBx8p:22 a=VnNF1IyMAAAA:8 a=-X7FXM7bNh0ew3z3AVgA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDEyOCBTYWx0ZWRfX2nmU3DzSq0rY
- Qs3kXU8fnSr4t34KcEVvxvXMXf0WG+TYMT9N4XB4xVmfSl42vs2SjFD8kB+PrbGAvQECY22xlm8
- jmjYGFZr4DSPt+sp3z9sB2iJBpayc50=
-X-Proofpoint-ORIG-GUID: czJ5sV-9pbq6LSKjB_qjbA7yFHFlXRez
-X-Proofpoint-GUID: Y_jUNTUsiB0K-SiWfL-mSDhHUhadfRMf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDEyOCBTYWx0ZWRfX6Q4ZnxYK1gLo
- hqv/ZpqQQvhu3kX9kt5rJcKDfcJWycmyUovgdBIHAGE9bLg2qekVznLXZWOTf5bgqMexPCCNoRT
- bSWQrE8n12abrZ4zPB0t0YRwFVQsPBO84Cg8Gr2on+IkXmtOVZDqm6XBiLnF8Dmu2V5xcaLzr8h
- paL0MKm0pGUOgH4JhmmAKZ29fp4qCxE7F4YVcX3I1UIF8weoRB+JEdQw9DAeutNP13ksMs8vk4H
- VnYzrCUmghOzqm0XjZM+bhqpuwFjGdC836GujtqtGPgY2KkGtbUUVqqjLeTmxJSBBZmZ2Yow0do
- xRl6b3uf+sok6GENVrp5dQb1d6FTQxdDtQKQiOD/WDfPlqPHfOaQILA5FA09CoPTsk45lt6DxzR
- Kif0aAi625GbtcKAN+J5m7TXBigoza+36SQLagqRehq0nqNG9TfAu2b8LUYCEitgcSHdEGeqlzI
- J8ovtE1v85RK3VTXOow==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_03,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 adultscore=0 malwarescore=0 spamscore=0
- lowpriorityscore=0 phishscore=0 clxscore=1015 priorityscore=1501
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609020128
+Content-Transfer-Encoding: 8bit
 
-In case dibs_loopback_init() fails, e.g. because of -ENOMEM, dibs_init()
-must unregister dibs_class. Otherwise dibs_class and /sys/class/dibs exis=
-t
-even though the functionality is not available. A retry to load the modul=
-e
-fails with -EEXIST.
+On Wed, 02 Sep 2026 07:13:48 -0700 SJ Park <sj@kernel.org> wrote:
 
-Unregister dibs_class in the error path of dibs_init.
+> On Wed,  2 Sep 2026 16:20:50 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+> 
+> > When the temporal quota goal tuner determines that the goal has been
+> > achieved (score >= 10000), it sets esz_bp to zero so that the effective
+> > quota (esz) becomes zero.  However, damos_set_effective_quota() clamps
+> > the quota to min_region_sz, preventing the quota from ever reaching
+> > zero.
+> 
+> Where in the code it is clamped to min_region_sz, when?  And what user issue
+> this can cause?
 
-Note that before
-commit ad3dfa80be76 ("dibs: change dibs_class to a const struct")
-class_destroy(dibs_class) is required instead of
-class_unregister(&dibs_class).
+In damos_set_effective_quota(), when quota->ms is set.
 
-Fixes: 804737349813 ("dibs: Create class dibs")
-Signed-off-by: Alexandra Winter <wintera@linux.ibm.com>
----
- drivers/dibs/dibs_main.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+'''
+	if (quota->ms) {
+		if (quota->total_charged_ns)
+			throughput = mult_frac(quota->total_charged_sz,
+					1000000, quota->total_charged_ns);
+		else
+			throughput = PAGE_SIZE * 1024;
+		esz = min(throughput * quota->ms, esz);
+		esz = max(ctx->min_region_sz, esz); /* <- HERE */
+	}
+'''
 
-diff --git a/drivers/dibs/dibs_main.c b/drivers/dibs/dibs_main.c
-index 2b53a9d277dc..20c50997a7cf 100644
---- a/drivers/dibs/dibs_main.c
-+++ b/drivers/dibs/dibs_main.c
-@@ -251,13 +251,19 @@ static int __init dibs_init(void)
-=20
- 	rc =3D class_register(&dibs_class);
- 	if (rc)
--		return rc;
-+		goto err;
-=20
- 	rc =3D dibs_loopback_init();
- 	if (rc)
--		pr_err("%s fails with %d\n", __func__, rc);
-+		goto err_unregister;
-=20
- 	return rc;
-+
-+err_unregister:
-+	class_unregister(&dibs_class);
-+err:
-+	pr_err("%s fails with %d\n", __func__, rc);
-+	return rc;
- }
-=20
- static void __exit dibs_exit(void)
---=20
-2.53.0
+This is a minor issue, the main problem is that it doesn't match the
+description in the documentation, which states that if the goal has
+already been [over-]achieved, the quota will be set to 0.
 
+Original documentation:
+
+    - ``temporal``: More straightforward algorithm.  Tries to achieve the goal as
+    fast as possible, using maximum allowed quota, but only for a temporal short
+    time.  When the quota is under-achieved, this algorithm keeps tuning quota to
+    a maximum allowed one.  Once the quota is [over]-achieved, this sets the
+    quota zero.  Useful for deterministic control required environments.
+
+Best regards,
+Rui Yan
