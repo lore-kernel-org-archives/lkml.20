@@ -1,140 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBEA649F106
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:09:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99856466B5E;
+	Wed,  2 Sep 2026 14:09:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788358150; cv=none; b=c3vYnPwXTsJq+v0Z3KukTupVjN1Jo6/5wVw19sm4kC3+r5B3mqbygP+/AnOoFN15jv1m1lSPNPmjWHCCFSOQ+OzukzWbGhhR6Zx7XAqVUFGIVBy9ATyW3NYdApHFrb1XjOTa3ZBWHearEf948uF6MPEZy3qiuMxdY9FDTCu4BCg=
+	t=1788358159; cv=none; b=riw+5/yadSIyTiLxd7mdd8129aukcaiSV03QkzqTiXwN0XOPfueldIi9/zHXUsTiQv4Rh+8tZPMmibqA3PiwEuumPGMbAuVq6KF11k73LKWwyNTCa8/WhK1Vq9ybj7TSUg6BUlyCh4jNSBG2SaVkFOMCMLxcXDeM1TvY7ijFrec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788358150; c=relaxed/simple;
-	bh=GF8er+zjIJHj4N+Qx4uTpZ/bhtM4HfJ+IjTX/k8tDbk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rUMf38IgjAIo76dLKWbIJMNi86o7fHWioNHWSCb7Jp7EkK1dbLp2Kn9c6q6/A9Ob55+EK2hbVp0wtkKDitdzeeXv2u6NuNY4adCBGrjCP2Srjnwo6Rt1WqC3R4UkEYxL730548KHWM9eh3mkfaeqp4Xcvy7goWriEGzZH6h1cKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TSofw5RI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788358159; c=relaxed/simple;
+	bh=7tzFnLeuCNh6d1Tt5dOYgeiFrwOMyGhNN2JcJtUcOiA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=E8RW5KtAbAhtIjUW3pa7RaD/P8YPLtIYl1S/BaZ4AmSMr2rNEGSC8yexEv3zQkyc4HbYgxkz0uK29XJBXM0rnXwK6T0BVoe4ubtS1DelcLG79xEWoPuu2RaTC0HGXm3Qd7ZVXaXWkTAGzQkynVUwZZIUcnMC8ECbV8dg/0zYbGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=x/emDrI4; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Qx8VgQgS; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Cgs0VaoI; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=t1MCUFJf; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TSofw5RI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AACD1F000E9;
-	Wed,  2 Sep 2026 14:09:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788358148;
-	bh=fEhRDMtUIgN+yqlJh3edML8eE/fnhvrBORzg2Q7AWQ4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TSofw5RIpVhh4jAk+EBJxhlgCEUfn7OdTH7dxCIoSmepS/1gY7ku2QDocNkzl1bS0
-	 IgiOzGRHEVlU5m+HraTEQIvZ+32yFVv/OETiAzwjVdu6Iux6/S6/+FX1Atvo+OdIF7
-	 exvwBuAQ8/tAeoxW6cdI0vLgvYzVDaPc4/nWePwMrYl8OOHCDzDWbEUJlMElLj9R/S
-	 h/f3VJ4TujFzrDgyOfjNarEz3KFhXSTe0l2rYbcY+EBZYAgieu1ADiHFHErVfnhPVq
-	 HDAVA7athnrltyirQeOug2yZNFqQx/UPP9eeHD0wVX3Ltd8IxO1CCvmlaA4bPvarUC
-	 hLnnrVRtjWVjA==
-Date: Wed, 2 Sep 2026 16:09:05 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Bradley Morgan <include@grrlz.net>, Tejun Heo <tj@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] kthread: remove worker->task self-assignment
-Message-ID: <apguAeUgLfOcHOdV@localhost.localdomain>
-References: <20260829161150.16301-1-include@grrlz.net>
- <20260829161848.20635-1-include@grrlz.net>
- <apbI91PzT2BaRazM@localhost.localdomain>
- <20260901124900.GB687043@noisy.programming.kicks-ass.net>
- <CE1F7435-D872-4A3F-BC7A-50443BBE2904@mainlining.org>
- <apbb--idnSZMNLPU@localhost.localdomain>
- <131DD326-86C3-4E40-B1CA-959F3E79D1C4@mainlining.org>
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="x/emDrI4";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Qx8VgQgS";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Cgs0VaoI";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="t1MCUFJf"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 727FA1F7B8;
+	Wed,  2 Sep 2026 14:09:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788358151; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nYGWPd2K+k2Qr533mg2/G9mae98f60x3t/mYInIYMb0=;
+	b=x/emDrI4OAiuAeKf9rvzNuMzIs7eDMweNhgR7fqKWP30R8PWXlWVX48nXaq+EiCcRCAdOk
+	jRjGO183APAhHUiDg814SM+E0S9Rxlrvdoo/SlEnpVpPlYtppRtp406XCc/vWlGR5Xw+dt
+	dKQ5NgWcpvmGVWh2OCwNkJp6ROxCFHw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788358151;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nYGWPd2K+k2Qr533mg2/G9mae98f60x3t/mYInIYMb0=;
+	b=Qx8VgQgSLCrMUjJjMO1MSq86qzNxpCnhB0z3vlDbd2xvlToO85xQG6PQKuRGQLKMoORx6+
+	2WktN5ImvPvGr9Ag==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788358147; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nYGWPd2K+k2Qr533mg2/G9mae98f60x3t/mYInIYMb0=;
+	b=Cgs0VaoICclzTWhnWgRUmLtrv/QIKn/UKJlz7Sp97qicImDkXPHpVvKjGB7Nf9Da8hkPqi
+	4tDvstoGbnCBSmhmXWVj0Rg64UoQ2Vo0dzaXgW9TWfXEDO7WmGI1KLMo+jqFEmSMjGCZRs
+	gE4grOG46UUaG5iZqmjvKNQDdhLXy5k=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788358147;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nYGWPd2K+k2Qr533mg2/G9mae98f60x3t/mYInIYMb0=;
+	b=t1MCUFJfJOE4ET0tExaDnSlukzPKkWGcG9bptkTFp4g/VrbEd4obMcgyj6LkxYk0rzFfXU
+	frVM7COPbeGzMpBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1752E136E6;
+	Wed,  2 Sep 2026 14:09:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id F2vnBAMumGq6AQAAD6G6ig
+	(envelope-from <hare@suse.de>); Wed, 02 Sep 2026 14:09:07 +0000
+Message-ID: <c7fc92de-7196-4af2-acb8-fe849af70754@suse.de>
+Date: Wed, 2 Sep 2026 16:09:06 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 5/7] block: fail atomic writes instead of falling back
+ to buffered I/O
+To: Tal Zussman <tz2294@columbia.edu>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>,
+ Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+ Luis Chamberlain <mcgrof@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ John Garry <john.g.garry@oracle.com>, Christian Brauner
+ <brauner@kernel.org>, "Darrick J. Wong" <djwong@kernel.org>,
+ Keith Busch <kbusch@kernel.org>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>
+References: <20260828-blkdev-fixes-v2-0-32f3f40cebed@columbia.edu>
+ <20260828-blkdev-fixes-v2-5-32f3f40cebed@columbia.edu>
+Content-Language: en-US
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20260828-blkdev-fixes-v2-5-32f3f40cebed@columbia.edu>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <131DD326-86C3-4E40-B1CA-959F3E79D1C4@mainlining.org>
+X-Spam-Level: 
+X-Spam-Score: -4.30
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-4.30 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.993];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[columbia.edu:email,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid]
 
-Le Tue, Sep 01, 2026 at 03:09:03PM +0100, Bradley Morgan a écrit :
-> On 1 September 2026 15:06:51 BST, Frederic Weisbecker <frederic@kernel.org>
-> wrote:
-> >Le Tue, Sep 01, 2026 at 02:57:38PM +0100, Bradley Morgan a écrit :
-> >> On 1 September 2026 13:49:00 BST, Peter Zijlstra <peterz@infradead.org>
-> >> wrote:
-> >> >On Tue, Sep 01, 2026 at 02:45:43PM +0200, Frederic Weisbecker wrote:
-> >> >> Hi,
-> >> >> 
-> >> >> Le Sat, Aug 29, 2026 at 04:18:48PM +0000, Bradley Morgan a écrit :
-> >> >> > From: Bradley Morgan <brads@mainlining.org>
-> >> >> > 
-> >> >> > All kthread worker users now create their workers with
-> >> >> > kthread_create_worker*(), which sets worker->task before the worker
-> >> >> > starts. The self-assignment in kthread_worker_fn() is dead code
-> >now.
-> >> >> 
-> >> >> How could it be created before?
-> >> >> 
-> >> >> > 
-> >> >> > Remove it.
-> >> >> > 
-> >> >> > Signed-off-by: Bradley Morgan <brads@mainlining.org>
-> >> >> > ---
-> >> >> >  kernel/kthread.c | 7 -------
-> >> >> >  1 file changed, 7 deletions(-)
-> >> >> > 
-> >> >> > diff --git a/kernel/kthread.c b/kernel/kthread.c
-> >> >> > index 63beb59b7a3d..18bc702e8d2d 100644
-> >> >> > --- a/kernel/kthread.c
-> >> >> > +++ b/kernel/kthread.c
-> >> >> > @@ -987,13 +987,6 @@ int kthread_worker_fn(void *worker_ptr)
-> >> >> >  	struct kthread_worker *worker = worker_ptr;
-> >> >> >  	struct kthread_work *work;
-> >> >> >  
-> >> >> > -	/*
-> >> >> > -	 * FIXME: Update the check and remove the assignment when all kthread
-> >> >> > -	 * worker users are created using kthread_create_worker*() functions.
-> >> >> > -	 */
-> >> >> > -	WARN_ON(worker->task && worker->task != current);
-> >> >> 
-> >> >> Should we keep a WARN_ON(worker->task != current) here?
-> >> >
-> >> >I vote yes! Paranoia is good :-)
-> >> >
-> >> 
-> >> 
-> >> Yeah, but it *should* be useless.
-> >
-> >Famous last words :-)
-> >
+On 8/28/26 3:49 PM, Tal Zussman wrote:
+> An IOCB_ATOMIC direct write to a block device can silently lose its
+> torn-write guarantee in two ways:
 > 
-> Hahahaha
+>    1. blkdev_direct_write() turns an -EBUSY from page cache invalidation
+>       into a 0 return, so the whole write is retried through
+>       blkdev_buffered_write(), with no atomicity guarantee.
 > 
-> >> Do you really want me to readd the warn
-> >> statement? Maybe add some text, like
-> >> 
-> >> "worker->task is deprecated"?
-> >
-> >Is it deprecated? We still need that field for wakeup on queue at least.
-> >Don't bother with a message, it's only a sanity check.
+>    2. On a partial page pin, __blkdev_direct_IO_simple() and
+>       __blkdev_direct_IO_async() submit what was pinned with REQ_ATOMIC
+>       set and leave the rest to the buffered fallback.
 > 
-> Okie, I did convert all the drivers as you can see, if you wanna give it a
-> lookie
+> The second case can be triggered deterministically. A 16K
+> pwritev2(RWF_ATOMIC) whose last page is PROT_NONE, on a scsi_debug
+> device with atomic_wr=1, completes short with only three of the four
+> pages written, violating RWF_ATOMIC semantics.
+> 
+> Fail the I/O instead. Return -EAGAIN when page cache invalidation fails
+> for IOCB_ATOMIC rather than retrying through the page cache, matching
+> __iomap_dio_rw(), which treats the failure as transient and lets the
+> caller retry. Release a short atomic pin and return -EFAULT before
+> submission, which is what a direct write already returns when none of
+> the buffer can be pinned. A sync atomic write can then never return
+> short with a remainder, so the buffered fallback is never reached.
+> 
+> ext4 has the same fallback and only warns in it. For block devices both
+> ways in can be detected before any I/O is submitted, so fail early instead.
+> 
+> Fixes: caf336f81b3a ("block: Add fops atomic write support")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://sashiko.dev/#/patchset/20260802-blkdev-fixes-v1-0-a82fc549fd74%40columbia.edu?part=2
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+> ---
+>   block/fops.c | 21 ++++++++++++++++++++-
+>   1 file changed, 20 insertions(+), 1 deletion(-)
+> 
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
 
-Do you have a link to that?
+Cheers,
 
-Thanks.
-
-> 
-> >
-> >Thanks.
-> >
-> >> 
-> >> --- Thanks!
-> >>
-> >https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
-> >
-> >
-> 
-> --- Thanks!
-> https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
-
+Hannes
 -- 
-Frederic Weisbecker
-SUSE Labs
+Dr. Hannes Reinecke                  Kernel Storage Architect
+hare@suse.de                                +49 911 74053 688
+SUSE Software Solutions GmbH, Frankenstr. 146, 90461 NÃ¼rnberg
+HRB 36809 (AG NÃ¼rnberg), GF: I. Totev, A. McDonald, W. Knoblich
