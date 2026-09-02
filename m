@@ -1,195 +1,140 @@
-Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1AFA35E94E;
-	Wed,  2 Sep 2026 01:48:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.156
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4A3014A4CC
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 01:49:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788313729; cv=none; b=B0/sppUrsPbKrCHz/jGYrvblIUXWXQv4GE3eLhRyKZ4Hoe2WaDkKeCfFLZ2lpCwjwuS75vWvCepYucAnyNTC6zfew1xO3Sdx8Y0aVRMl9+hgdhYOO4rRggrznNBSUejPSTyljmsR1vr+MJqQB8x7VrtbK7zFV01qIE/9MayQq4c=
+	t=1788313804; cv=none; b=B3f0GNqGBZTct1iUQTzF21pLXtj6Yh84vi7qfeTTFS24cLOnrF9xfJX4QFU7fLmKqIAs0oIZ8OI+dkpypH9gBqlrdRcZUTKDT/93Vyz58Gi0YWeHS8ugWgBb7FAL/j5cYaK1uKO+c6Qg2WSoAf+3a5dP5CGAdzo8nrBop3LW5W8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788313729; c=relaxed/simple;
-	bh=ZUc4hXdMovvUBU+bVv6Yj0xXP2zTmYbEUCvk1alUn+4=;
-	h=From:To:cc:Subject:In-reply-to:References:MIME-Version:
-	 Content-Type:Date:Message-ID; b=Suqx41+oz0NsnBhqK6M0XAgMncZxSAjREgXhtIjzzXnwYvb5C+WkDFQC42K9gKfhdomPlLc72gNb4QM7+DzK5H5n691nCIc2gAEgzTyV/7zPgkI/8QG4IUr8ouxsG5+T/RBzzLCLkVDxeuhPKZYejcnGK4nvWRajlkONhfTsWDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jvosburgh.net; spf=pass smtp.mailfrom=jvosburgh.net; dkim=pass (2048-bit key) header.d=jvosburgh.net header.i=@jvosburgh.net header.b=nIffXOkk; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=cw1+p392; arc=none smtp.client-ip=103.168.172.156
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jvosburgh.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jvosburgh.net
+	s=arc-20240116; t=1788313804; c=relaxed/simple;
+	bh=YnJqo6tr9iMLVf51GkvRn+Utexlsmfqdo9WwAOckub4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hy+kZR9QfU0AjT82wG5lpo1iAxGvg/ko/FiSDvDq/ZHFPAJ4/NdIaQTgYtWiVkAzPibRAwGZzzlI56Ey+LZsrHiERBzulUqYU9hYVG4Agla6tXbi8LrGqqKIGy23vUEYrCVILZa2uUGyYi1fK0EdKaZW8RUU3E+tdUOpm7bIvrU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=goR1AICS; arc=none smtp.client-ip=209.85.219.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jvosburgh.net header.i=@jvosburgh.net header.b="nIffXOkk";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="cw1+p392"
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id A84E61400101;
-	Tue,  1 Sep 2026 21:48:41 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-08.internal (MEProxy); Tue, 01 Sep 2026 21:48:41 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jvosburgh.net;
-	 h=cc:cc:content-id:content-transfer-encoding:content-type
-	:content-type:date:date:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to; s=fm2; t=1788313721; x=1788400121; bh=s0Wp34BsCTE9gs9qeINPy
-	/sDm+yywWKNSe4d08o5iQc=; b=nIffXOkkv0LGjh0ICsZlIEuSr42xQZrVSxIgt
-	qPZeZWm7psTnv6+DM+lt8adamlZiGMbhY4mcV85vUwgliOFoIhwvWbs2dMDyPuEC
-	yOHSu25t/uCFGkEgGBzw5IXZFfwuIn7cL+5MGEwWJUWMBEzAmmpi8PuQukVaSMyb
-	udPNbngokGq53v/Su/Mu8dAeDNbfe9ncZXpi9+cHwCJ8C9J/TwzU8BtoSHFRV1a1
-	FrPuMcy04z1OGX0H7XL93H3PNibowPS+WT/NILLN8BqssivIhyZofH+E1OqSs3bd
-	YOhaWKHdGLfvvF2vCBywn4tq4JnAYWWC+pYrYkHFedZcTjgiA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-id
-	:content-transfer-encoding:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1788313721; x=1788400121; bh=s0Wp34BsCTE9gs9qeINPy/sDm+yywWKNSe4
-	d08o5iQc=; b=cw1+p392J6WKZRXDekqTuWSfoEH/BByAkl7/AmfWPqqjYwH4pik
-	FMgirc1sPWlOO6SxxKLO11n5P/l8cFQqb0bHuXiG/A4tS+/CDhzMY7CeQlEx0CQz
-	UkZm4h6G6OjQ8Y9ymsWNjTfpVNCOnH7gGiBVazViW8EGZWqDYAoRZb+VNx6mtlol
-	/1tZcv5r3tohDyrqWNZ2mAp9hzNT0WqEIQr5rHJdVlHWSbpVka184MOGPGh2agJ7
-	NLaHQx4UX5ohcx9k88ehOxOM1cilPGLcpJFPqiJxH9HK1f8WU3kTqNMqV4JKJP4q
-	aCDKLcN2b5C03diPpR6JojBrvkP13mRf2cQ==
-X-ME-Sender: <xms:eYCXasUFNQYLt8Bf8FmNY-4ZGy1KhJNMp_9qxWDqdJsppizqPFkJrw>
-    <xme:eYCXau341tHNIG7PLHIRd0D0LLHEpHscdAiNLBGU4NtJT2zOck3rxqb6mc64wnWWw
-    Ycj1AKIejwu9Y-tAhJOWg3PVVjM2fOp_pjmH2xYlDbJUfb62ZNWO00>
-X-ME-Received: <xmr:eYCXapsu93OwoQZzcXhcaUvm5JHGk_5vfOkrhdf1WQQTt9S9y5XwMgi3_2L6_DauaL33kw>
-X-ME-Proxy-Cause: dmFkZTFPOhnOfb0wATwmFaNmVd3Ea2WJMYbX8qsEu61r5/6z8zlb+lf6lB9OeIPJOFx3b4
-    S930wwmHpmRiCyhA0Ymd+1kPx3PsLag9kX2a87l1Ceacd0v1vCakff2xf0AQbf0/G0zi0I
-    EKcescoveDfjVHK0NMgz1h9JVsLGqB+D3a/Aq6i1D1xfamtsf3DrsNauCRRhITIh4+UsdI
-    qrH0hI4mGnIzkQNBbgai0UJSjjffYa9C46+maZ5/jBIegrAoB1r3G7QR5r8LfDvauY4F/j
-    t5bH2p+joTKQt7+7dAkGK5swo1bri4MS5GH6465SH5+vuRuk/XOtx7qGjY7+dGaT9RHpie
-    rnO4fms0gqNXKf87+Xw5ImRnbIew4k9oifaX0a/Q68Z3dqEZpKB7dNTH7Q75piA1L0Kt6X
-    TkLIiCCoV3pV19EoxhwRdbZjXMzuzWqsaDEtNHmHfXRoPsJpnPDWYCZfxM7+LPBjEjvwGb
-    HRQXzp7IUqicGXwUERdYD6S2PHfLXA6WxBSJOo0PhNYMTmSPf6FxgAy0JXfA1MysMORjap
-    ORp6dMZT5jrH8fwYD2lY2b7o5bNi4PtDH+6m0kJbXnyFvsoCVs88vpGseMOJEdqJa+Q5hy
-    kK8aIKHhhsErrV4lE/OwMXlgzDyUeuaOT8kTdmdmyviULqyHTtdB5L6tI9LA
-X-ME-Proxy: <xmx:eYCXauXs5suIafBQ-ifetReCFSx1tyKknSlQNChCg9eHQs-GBHYJng>
-    <xmx:eYCXapy2DxMc0bCJ3KGpXScI4WqMeC7KiqpYsS-LMLsPKZagGayInw>
-    <xmx:eYCXalFTwpgKy9ZjOLqMqfvHLNRgzWRJfnIerExWQtM5FqmOmoRfYg>
-    <xmx:eYCXaut4lXaJhWW3njW0MhkpJ0EU02dYEelPHJ3vAwyaE4Ykke9BzQ>
-    <xmx:eYCXaovW1s0pcN7Z33DsEhKARso1fHMAUMLdkf953DELBHtvclAN6AYP>
-Feedback-ID: i53714940:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 1 Sep 2026 21:48:40 -0400 (EDT)
-Received: by famine.localdomain (Postfix, from userid 1000)
-	id 58F2B9FC75; Tue,  1 Sep 2026 18:48:39 -0700 (PDT)
-Received: from famine (localhost [127.0.0.1])
-	by famine.localdomain (Postfix) with ESMTP id 5644D9FC41;
-	Tue,  1 Sep 2026 18:48:39 -0700 (PDT)
-From: Jay Vosburgh <jv@jvosburgh.net>
-To: Hangbin Liu <hangbin.liu@linux.dev>
-cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-    "David S. Miller" <davem@davemloft.net>,
-    Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-    Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
-    Nikolay Aleksandrov <razor@blackwall.org>, netdev@vger.kernel.org,
-    linux-kernel@vger.kernel.org, Hangbin Liu <liuhangbin@kylinos.cn>
-Subject: Re: [PATCH net v6 0/2] bonding: fix TLB load-tracking overflow on
- high-speed NICs
-In-reply-to: <20260831-bond_overflow-v6-0-ffb0ed1f7268@kylinos.cn>
-References: <20260831-bond_overflow-v6-0-ffb0ed1f7268@kylinos.cn>
-Comments: In-reply-to Hangbin Liu <hangbin.liu@linux.dev>
-   message dated "Mon, 31 Aug 2026 09:50:58 +0800."
-X-Mailer: MH-E 8.6+git; nmh 1.8+dev; Emacs 29.3
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="goR1AICS"
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-90c522298d2so5895926d6.2
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 18:49:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1788313796; x=1788918596; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=PJNOkrjAPDzGzabPglL1tb9qnH461gZVQU7shHOjP04=;
+        b=goR1AICStb9dzkOBM+LICNShaidLSJNOI8e3dcg4RvfG59IEuBo9jI3GOxg4GCt+BV
+         RTrdzmhGcTjLLC1gf6Ww0UkuVDslYjMvA2kFbBeqs0s2f/sOS8dyt5dUWTLt4QQtxYK/
+         Xqhatr5fPIzQcM9X3TuXHviSpb/xw77Q/t+mQaZ07cqQLtxj0LXaX5AYz6vnilYRz2/p
+         WbIs2og23SWhit5a+Ir8nVTgjhdmNlABgWNJkVRu2L1Ms/UT2Xv/SYPKcy/vTig4OEZn
+         8fOQUPEo2ly+8tOTRURUaHyciKOouplVdExTzyWEjtpF5IOW0Gsli4To6ObDGMrYStDk
+         ZFFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788313796; x=1788918596;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=PJNOkrjAPDzGzabPglL1tb9qnH461gZVQU7shHOjP04=;
+        b=kIUERaxg9xjzK/2ILeWRjYiuYqDUVO79f2z8sCRB0Tl+rJRNRVY5BXFsEMbsh+hXgL
+         Vw9EbMs+RrtNJx813tfYS5ppFy52NcUdEBj8l0K2K/STw0coXaxNxVsWQOU+2Vlg2xYL
+         xEucVvlKvgBFvKGqpFknw3QEBfH+mMqEVaUWHHnem6ZgoCZeRN0nGhUWWjg9RCiZ0DRr
+         Q9ryNqnGQnmWkTbmTzjaRNbFgcAY+0RP8IWnCpi5n5UbXq7XAH/sX5gqv97/oh8fizXb
+         RKWzMD4kPcFkSdTKgV0AhOENHJzjmnj76Rteahs+Z/cpdjqpIhEqHy1CuvsiAEvgjlWa
+         YMIg==
+X-Forwarded-Encrypted: i=1; AHgh+RrrFX8P53dCejVPhduCJXzZ5LhozK3uctPwrTLX62JonlFqoyOKxcAUkmO+E/+eEHV4jS2eGEJeKr6sPdY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nqErpOUCdjPbp/oXW6xJBxxq7Uzn6MhlF2FBwC6rc88iyvfQVG
+	hoC+vx4QpIze8j5QPJugkzImQB6a9MHgRQQJs5+FR0yhWkfwUPQDEYiLM2Ap8ETHJQk8OsT/Rlz
+	wjPoBNg==
+X-Gm-Gg: AYBFou3WxVJWOkuEwlUs6HCo7qdWgcq/CW+hkKqhqyyxN7754MzEkJUos2uYuz7e3XE
+	hJ78TBHw+eL/K/yiRpA3q78ngfl//XcFb60u2vfwLSi9hQ9hqh5hbaS4bzvjMizKFBtjx2oux7Q
+	fn+SpiCka8H+phP6OPS4XQSwdqcNuRgpCJyi/84GnWu5ECgupRtZd8DWmNgRxZEezmFUehsJn/i
+	Gc2yG+MxXm2mHD3fyENmoNv4txf9PGqzTO/Lvco7lhKhYb2NsW1f49HS0R3RdTgCwOC/Gmwu2oV
+	OnB7Glx6jzP1uWHlCVJoS98TEiS301XICrhKg6zcJ3cvTyuMAHFolEoBEvoISWtNqXro4OMt0Cs
+	mKC/N36NMy6Of3paBvLcXo32M/4JtEOBPAyc7Ms2Y4YUKT8LnkSnFvVWmXSucW2Ci+uWKEMJXzm
+	sPNhW8Sc4Xt1kjK/WoX6C4G1J1KzeJbxdXoICw7q9N0iXTO04nm3ViwozGkfAIMA==
+X-Received: by 2002:a05:6214:2b9a:b0:90e:95d0:927a with SMTP id 6a1803df08f44-90e9f20ad67mr27141236d6.6.1788313795865;
+        Tue, 01 Sep 2026 18:49:55 -0700 (PDT)
+Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9ee24af5sm7401166d6.12.2026.09.01.18.49.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 18:49:55 -0700 (PDT)
+Date: Tue, 1 Sep 2026 21:49:52 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Rafael Alejandro =?iso-8859-1?Q?D=EDaz?= Cruz <rafad900@gmail.com>
+Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+4a5c87a01894ca37f25c@syzkaller.appspotmail.com
+Subject: Re: [PATCH usb-next v2] USB: gadgetfs: Fix use-after-free in
+ gadgetfs_kill_sb
+Message-ID: <dbd20921-088c-43a6-bb91-0b7064f87a59@rowland.harvard.edu>
+References: <20260829011901.325379-1-rafad900@gmail.com>
+ <991f3432-02af-47e7-b470-b21d36d09ac5@rowland.harvard.edu>
+ <CALp66yH0C0WAgUDkXArbLHgwSdrJ0hfQP2id2xhztg-d=qK1Jw@mail.gmail.com>
+ <23099c10-19ea-4626-b1a0-74a64fcb0dda@rowland.harvard.edu>
+ <CALp66yGtNY1e3DFdRxMjf1YDnCLrsH_bg4gpyu-A1K0mRgOt2Q@mail.gmail.com>
+ <211b5666-1777-45b6-b1dd-9e85276900b1@rowland.harvard.edu>
+ <CALp66yFMQ+GTh=3iXWWMTcvDwc8e5tR0EpnmBDt=24E9Koo-wg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <591551.1788313719.1@famine>
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 01 Sep 2026 18:48:39 -0700
-Message-ID: <591552.1788313719@famine>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CALp66yFMQ+GTh=3iXWWMTcvDwc8e5tR0EpnmBDt=24E9Koo-wg@mail.gmail.com>
 
-Hangbin Liu <hangbin.liu@linux.dev> wrote:
+On Tue, Sep 01, 2026 at 04:12:17PM -0700, Rafael Alejandro Díaz Cruz wrote:
+> I kept going at it and finally realized what was going on.
+> 
+> I added some logging statements as you suggested and
+> found that my 'how this bug is caused' is correct. It does
+> come from calling get_dev() after the error
+> paths, and the simple solution was to move get_dev()
+> right after the set_gadget_data().
+> 
+> As for 'why' the bug is happening, it basically comes from
+> the reproducer using failslab to force kmalloc() to fail inside
+> of usb_ep_alloc_request(). This will cause the following
+> error path to be taken:
+> 
+> dev->req = usb_ep_alloc_request (gadget->ep0, GFP_KERNEL);
+> if (!dev->req)         // This is true on failslab
+>      goto enomem;
+> 
+> This will then skip get_dev() and go directly to
+> gadgetfs_unbind() -> put_dev()
+> creating the unbalanced refcount.
 
->The bonding TLB (Transmit Load Balancing) mode tracks per-slave and
->per-client transmit byte counts in u32 fields. At sustained throughput
->above ~3.2 Gbit/s over the 10-second rebalance interval these counters
->wrap, causing compute_gap() to produce incorrect gap values and
->mis-select transmit slaves. Such speeds are routine on modern NICs
->under heavy traffic.
->
->This two-patch series fixes the overflow by widening the relevant
->fields to u64.
->
->Patch 1 converts the unbalanced_load counter to per-cpu state as a
->preparatory step. The counter sits in the transmit hot path, so
->converting it to per-cpu before widening avoids introducing cross-CPU
->synchronization overhead for a u64. Also use a prev_total_unbalanced
->to store the previous total load to avoid reset per-cpu data.
->
->Patch 2 widens tx_bytes, load_history, load, and the per-cpu
->unbalanced_load tx_bytes from u32 to u64. It adds u64_stats_sync
->protection for the per-cpu counter to prevent tearing on 32-bit
->architectures, and reworks compute_gap() to use s64 arithmetic with
->READ_ONCE() on slave->speed.
->
->Signed-off-by: Hangbin Liu <liuhangbin@kylinos.cn>
+Well, yes, it was pretty clear that either the usb_ep_alloc_request() 
+call or the activate_ep_files() call had to be failing, given that the 
+unbalanced refcount came from gadgetfs_bind()'s error path.  The only 
+questions were which one, and how.  With the reproducer introducing 
+random memory allocation failures, either one of those calls could go 
+wrong.
 
-	For the series, looks good to me.
+> It was tricky to understand given that it was failing only
+> on the N-th failslab attempt. Luckily gdb could do all the
+> things I needed.
+> 
+> I'm also happy to share that even Claude was not able to
+> figure this out and could only confirm this was the cause
+> after I pointed it out.
+> 
+> I'm certain of what I found and will proceed to create the
+> next patch with an updated message.
+> 
+> Please let me know if there is anything else I should add.
+> I'll wait for your response before sending it out.
 
-	My only nit is that you don't state why you use READ_ONCE for
-the access of ->speed, and I didn't see it in the prior discussion
-(perhaps I missed it).  Regardless, I presume it's because the access
-could race with a concurrent update in bond_update_speed_duplex.
+No, this seems good.  Make sure that your patch description is both 
+precise and concise, and that it doesn't presume the reader is already 
+familiar with the details of your testing.
 
-Acked-by: Jay Vosburgh <jv@jvosburgh.net>
+In fact, since you're fixing two distinct (albeit similar) bugs, you 
+might want to split this up into two separate patches.
 
-	-J
-
-
->---
->Changes in v6:
->- Do not return fixed value for unknown speed logic, we need load balance
->  even NIC speed is UNKNOWN (sashiko)
->- Link to v5: https://lore.kernel.org/r/20260825-bond_overflow-v5-0-7a800=
-de133f1@kylinos.cn
->
->Changes in v5:
->- use s64 as the return value for compute_gap, so we can compute the
->  difference when NICs are overload. (Nikolay Aleksandrov)
->- Link to v4: https://lore.kernel.org/r/20260820-bond_overflow-v4-0-805ba=
-0d3efb6@kylinos.cn
->
->Changes in v4:
->- move per-cpu allocation to tlb_initialize/tlb_deinitialize (Nikolay Ale=
-ksandrov)
->- use an extra prev_total_unbalanced to avoid reset per-cpu data (Nikolay=
- Aleksandrov)
->- Link to v3: https://lore.kernel.org/r/20260818-bond_overflow-v3-0-e05d4=
-dbc2fd8@kylinos.cn
->
->Changes in v3:
->- Add a preparatory patch to convert unbalanced_load to per-cpu first
->- widens tlb counters to u64 and add helpers to prevent tearing on 32-bit
->- Link to v2: https://lore.kernel.org/r/20260814-bond_overflow-v2-1-d3fe5=
-88ad167@kylinos.cn
->
->Changes in v2:
->- update comment description, including AI-detected info.
->- fix tx_bytes/load type detected by sashiko
->- cast SPEED_UNKNOWN to 0 before shift, detected by sashiko
->- Link to v1: https://lore.kernel.org/r/20260810-bond_overflow-v1-1-c9ff2=
-9d76770@kylinos.cn
->
->---
->Hangbin Liu (2):
->      bonding: convert unbalanced_load to per-cpu state
->      bonding: fix u32 overflow in compute_gap()
->
-> drivers/net/bonding/bond_alb.c | 63 +++++++++++++++++++++++++++++++++++-=
-------
-> include/net/bond_alb.h         | 14 +++++++---
-> 2 files changed, 63 insertions(+), 14 deletions(-)
->---
->base-commit: a8455260b2e9c024d1872ac1c094793d55a7e537
->change-id: 20260806-bond_overflow-ac6a6a78d6a0
->
->Best regards,
->-- =
-
->Hangbin Liu <liuhangbin@kylinos.cn>
->
-
----
-	-Jay Vosburgh, jv@jvosburgh.net
+Alan Stern
