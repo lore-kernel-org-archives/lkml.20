@@ -1,417 +1,238 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4D2B231E824;
-	Wed,  2 Sep 2026 05:02:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788325376; cv=none; b=PkESLmQyLmkZEiuIP/p1V0frqMRV9dg/MR4RgkGlYv7K66Ecem+dEbQixwtYS3ERZWdOzhhu4Zya/A+Otc302DIQES2+jqQptpL+15eAcDScq23ejfgadxdY757Lw27fJxV2zHc4mhruIgJIaQs5nB5Uc4XykY+eIhAsVPbX0CA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788325376; c=relaxed/simple;
-	bh=ZnwLyVk6Q7tVd0Acc2yLxF+iGTo+Lx7EJKXUsMixozo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eO57dOnFzS3YbG50X1v0+9QniUuad0cWBDb5qlIs6O9SRZfgEMoH1gX0Rw07YqtiEYUODqZqlO541vIdVI8TrhutwQWFFkgjgVL61uxW3sxqSiyiLqmvLV84IjAZULCQoVoyCyoghu6BFwNAAtJL5PKJCG7hTjbwX7I+E6X86a0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=P/M3qmAJ; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 774E01C75F9
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 05:05:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.10
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788325539; cv=fail; b=kvueeZhDOFwbspQAZtNR+SBLYdld8UK+EpJsmH7wYMEP8ZY+3sWyWk91Ym34xKReQZe/49NMIvDBGtAIPQdUWWwhz7WeE5Juoc8k+hjqBIPzFHS1mvsJoQjsXf+iBMVqotXhCP/MIry2HCs2iQ0mkSQbjkznModv6Q0kwF6xeCY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788325539; c=relaxed/simple;
+	bh=R2tT58GiPYSo6aVe7WhXSqF5vJK/FXScE30cqNjImss=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=KW8QZwjeofQLMKGyj4+3/1lRE2jQ+BzwZO31/Al64c4UcZRIRwGZfBgqemC5VOL1WRGJzCx+xYhSe5Zj1mySDHGKEtbhHofY2Ad9ZLdbCk3/KtGniN2/U8JZsJlFW8Pmi2r0MSipzxDy7YHxFPuNAimrVFHUAvUsVQEdr1JYkIo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nC/5p50b; arc=fail smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="P/M3qmAJ"
-Received: from [192.168.1.70] (unknown [4.194.122.144])
-	by linux.microsoft.com (Postfix) with ESMTPSA id DCEA520B7129;
-	Tue,  1 Sep 2026 22:02:13 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com DCEA520B7129
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1788325337;
-	bh=ENp71upqIOZykYWR/vy+lgBkrXVjharHWw75NHimAk0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=P/M3qmAJ9nG2XdKKAD3+MUkmhjpAiy/wJbHsiMg8agH81rAHkhfV+Zs8/FLvWrZ2d
-	 wLF6vn7Ge2yx7/jVufgt7k8xbAwl9lgPT9dkOLEiwVV4giftoEkfov5g7ygzSJe2zI
-	 zRb5QOwoOZ33Vx1DSrBgqbk8bdbdVccOerDpxQD0=
-Message-ID: <19005077-4dde-4193-aafa-5b248a2131a6@linux.microsoft.com>
-Date: Wed, 2 Sep 2026 10:32:52 +0530
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nC/5p50b"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788325538; x=1819861538;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-id:content-transfer-encoding:
+   mime-version;
+  bh=R2tT58GiPYSo6aVe7WhXSqF5vJK/FXScE30cqNjImss=;
+  b=nC/5p50bOZOMV3OgI3RH0Z2iSZpXgmrsgY3iYnLYr9ohNkxxfw3AHQkR
+   2vi/kEHTDCKicxrvpGGCIaicMZQ9v/Eg8mVKncZ41bo7sgimoZSYGS9sK
+   kUx4exeVY6EG7RKfdMi8xhcTsUxZxwjeCZSrf5OVTy42MBpMDvn288N/I
+   d+WtUmzVxAvjeCFcvXHzZGFGq3fjTsuQqsprTpi28QAwjLybJzh/qEfRL
+   v4rkyw3yXdWN6NXQyEzfq1wDWx9Qq6k2VKoMutkPxC4NoNyve18ThS99p
+   LVDnIZVXY7JOKqVUTECmL1JJB0arUrdtg2YKQXfBt0jV/48GjB/q8Co/t
+   w==;
+X-CSE-ConnectionGUID: tyyw8JmpSb62Z4ha0jmReQ==
+X-CSE-MsgGUID: kkj4e77nQySJG04w7NKUjQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="106141246"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="106141246"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 22:05:37 -0700
+X-CSE-ConnectionGUID: BjYtVSTtQ76jwNuCuqdYsw==
+X-CSE-MsgGUID: RA7lv7l8TRu2ZM9Y2yMeag==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="292812723"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 22:05:37 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 1 Sep 2026 22:05:36 -0700
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Tue, 1 Sep 2026 22:05:36 -0700
+Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.17) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Tue, 1 Sep 2026 22:05:35 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ZAxf3+2Bd/DdcwzhOkV5g/bNA2UgsRZBlTS7Iz+U/Znfx6WWGOFbzqxq1nNdT0zRyjnjErmhXmFlr12RIglTqUjwpLFyyX6q7JlSV46qaLxyWylxVnFLTlD5foPx6xiD0Yb70RNals+xnG8fR3jmvTOQUF7xMpoEvKcZFxFM6kSj0rExNnfgzleoXjuvwEcoORwDbQ8jUYyaTBlEhOQrC5wMf7ve7mrSqqXgK4xEz1aIZaCNKxmZe9EsZqEV0Dacz24RMJGErdmOULfS0sGohA88lXLVFVZ6VV4vL5QazGe8K/4wP4mBDx1kNTOGNanj/etDH7vjSWP+EdsMfeJUjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=R2tT58GiPYSo6aVe7WhXSqF5vJK/FXScE30cqNjImss=;
+ b=RBdp036+MJy0d48DB5Qbn6HdOmBBlPeMIoGaQYfeLBtja6f2hyRQ7vhJ+E2aF07fBexTz3sV6RukNviIZvfR2wRqjhw6AiYtiqv/L8C72CZZRGsSdg9RwzMbDAoednY9vU7zMyP/xFdPf77Gj1UJrf0tnt2PblE+RWuYvfcBiNN7zsOd0qqhO0fK/uzrYpD2Dm7uhd7BmiD2h/iOAc8rgKT9hbqv7rda6LWIfAM/5y1XrJoIV1tp3hNU1mmtKkd5RlsaFLKW4UtsBgrtTliHPY999zo7NkCfN2Ec+uloMyjnGC2HQax6lq3p1MVa5jndsoVYxtIxf66klKB30E/yrw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DM4PR11MB6019.namprd11.prod.outlook.com (2603:10b6:8:60::5) by
+ CY8PR11MB6818.namprd11.prod.outlook.com (2603:10b6:930:62::19) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.10; Wed, 2 Sep 2026 05:05:33 +0000
+Received: from DM4PR11MB6019.namprd11.prod.outlook.com
+ ([fe80::9086:5e0b:ad24:762]) by DM4PR11MB6019.namprd11.prod.outlook.com
+ ([fe80::9086:5e0b:ad24:762%6]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 05:05:33 +0000
+From: "Hogander, Jouni" <jouni.hogander@intel.com>
+To: "Vivi, Rodrigo" <rodrigo.vivi@intel.com>, "jani.nikula@linux.intel.com"
+	<jani.nikula@linux.intel.com>, "j@metarealtyinc.ca" <j@metarealtyinc.ca>
+CC: "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, "Kahola,
+ Mika" <mika.kahola@intel.com>, "intel-gfx@lists.freedesktop.org"
+	<intel-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] drm/i915/psr: clear the Panel Replay error status
+ register
+Thread-Topic: [PATCH v2] drm/i915/psr: clear the Panel Replay error status
+ register
+Thread-Index: AQHdOlTkReaO8ylLlkGvZ+iHUMlfj7a6vLGA
+Date: Wed, 2 Sep 2026 05:05:32 +0000
+Message-ID: <7840f6ad7fd6621d33d2651618acb2b23b5b9b8b.camel@intel.com>
+References: <20260901203633.92628-1-j@metarealtyinc.ca>
+	 <20260901205956.130779-1-j@metarealtyinc.ca>
+In-Reply-To: <20260901205956.130779-1-j@metarealtyinc.ca>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR11MB6019:EE_|CY8PR11MB6818:EE_
+x-ms-office365-filtering-correlation-id: 9721891c-4668-4630-e947-08df08afd11e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|38070700021|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003;
+x-microsoft-antispam-message-info: 12QYiqVhSgkeOM9QosZptp7TQUC4vEnktzILudyJSwOmWnaF5VUIqz7tfnfn8IpVgcSO3yCdDu1RO2sejNNipVtNwBri9POV4qrVmxhcOogKobm35y5AjdlPfPJZbEIzHQD/iEF6t9WWTU9dRbYyPhsVCXqAAj9Fsc+WqzUyvTGqD8jeA6WyXG36HTOBO1Ng0AY4Bdn0cylVIcBaLMGN05+KGV2qIjAQe14tC1ui7aHneCVk7hFbpOW0PgL+o6jmlF7kUrxMaR2y6mqxzmxyFBhcUcBcAGTpAF5mp7heEGgbOKHvBZxgBK6dZFUZ3sSBNwTz7embHxkR7i+KcKMbU7WaX9jZYB6RJ+LSGspj2fSuDmXicJ5FUtcNM+ycPEPLpBV65ksXRxnz/h3UTJCWdkVPP3P4ca+9ycnrRlsREmXUtLT3k2DAPI0+BuEQyeTULUzV2EQEhza+BIwc1yXcUAhZKWCOj4+YXL97ZHVnGAE+G5Sjf+Kii/KuucpvUZ0/ueEquMm8mqYbVrK+V1KOpsvDoaqBNQsNpfMp/0iLvHPWPT8TnRsTXv4zLWLdbHHz6YZ87CF9tTau1hAudK0859+w1//4lfFMBIHKxuC+aL29XVNF1Wa4huRPTHyYpfPHBROxGVc0YgtRv+yuis8M8S+FDNf8Im69VFtTWuT2AQK1MV+ItVsAwqN+WnamMqV9Y9A2WUNn31ad0HDP7UIST34F1rTmsRa54LLcdXPvZHQ=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB6019.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(38070700021)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?aU9aUE9ZaXVDSm81V21QV1VUeG8zcGVPUVdZTGRXK2dmUkJ2M1NKVnBsQ2U1?=
+ =?utf-8?B?UWZtWU8yYTNtWWJYZ0R4eU9HTjZCSzVLQ0VUaGVSYTBobTJzUFlaUm9lTGd6?=
+ =?utf-8?B?enVUNGd0VUtIdmJoaE9GSTZteisxUGdKWmhNQjU4V3BHRFFMRE1iWGh5Vkts?=
+ =?utf-8?B?aDd3NFlHcU1PSVZxNzVEVVBFNjRYTDE2cW81bllhVGY5b1VjRm1lK1UzSXN0?=
+ =?utf-8?B?bG9DVjZHM3ZFaWJoRDQrL20zako5WU96U1EyZ0FJZ0I0M3hKMW1GMXlCbFBO?=
+ =?utf-8?B?WmsvQUhVcnZMQWZGaGZVek5tbk9WdlMwMVE3dDEvcFZDV2dLL29pb3N0N3Ey?=
+ =?utf-8?B?MFVGOGI5Nk9SZ01VZDBNcDRzNHRWQlI2R1NicDR3bmRRbTYzcGRrNTV1T2Y3?=
+ =?utf-8?B?Yjk1NmpDNTQwSElKQUNpa3RpTE9aM0xpdDZuTnBZWGhVRVpUOG5lcS8zOEpD?=
+ =?utf-8?B?RWlXVnZBS0plLytVZ01zQ1pFZGtINENGOENaMnJCVCtqZWIzS2F2UWJXaXJR?=
+ =?utf-8?B?SWRqN3JaVTIwTG4yRHlrTEtoUS9jZlZ5bjNKTmNPOEt0ZHRYdEliMFl2QXNs?=
+ =?utf-8?B?Y0w1dGNablcxUmY5eEFONWdKWTdWS0NpUFczVXYybTNHUzBiM0dOR2VkazJw?=
+ =?utf-8?B?SDAweGRJK052K2swZXhNVkNDZ2lBLzh0UjBoUXRiMk9KMjQzV1Fjc3pWRjcy?=
+ =?utf-8?B?azRXMTIxZ3IrZ3B3QUM1M3lLTldqK3JacmM4OStTazMxS0ExbmUxdTlwbVE5?=
+ =?utf-8?B?VXN2alBQVkUyeWVQMG5WZktWdDZPVnhJUjd2TC9oN01wdUM1dHJKUC9Qcnp1?=
+ =?utf-8?B?YmFxc01EdUNNcVNMY0Z4clErSUJsYVVubUlKN3FpcVhTT01NN1NLekU0T3Ir?=
+ =?utf-8?B?WTNMRmgrVU9OVWNrVUZEOG5wS1VVUWEyNGc3ellSUjFJRmJCY2c5eUpqVFdW?=
+ =?utf-8?B?cEQ5M2gzOSs0aHNFTHZZNm5jUHlaNXJQa3JMVXNTLzBvRFg2eHFhSlQ0WW1P?=
+ =?utf-8?B?bCt2RnNrUjhzQkJ4L2xHUEdhMW9va01OTStkWDdjVWV4QVpuNkllemJXcGJR?=
+ =?utf-8?B?Vm5IenRSQTJPMGVHQnRvOFNWQXE3eE9Ma213eCtYZnRHVThYbDVFOEg5cEYr?=
+ =?utf-8?B?MlhUV3Y5N25GOXUrQ3NuSTJoc2dFTldsRGhKL0RuYitleWZmcDZDYWF3Qi83?=
+ =?utf-8?B?SnE2Z1pNUUlLdjlyU1VGNjk5cllxbkUrWjloUWxJK0ZTa1EwZWZobGRDTHFj?=
+ =?utf-8?B?VmQ5TzZGQnRhRlFJelZUV1VNalFkcWQzaFhkbENDVEI5SGpQOWJNR2hpNm5Z?=
+ =?utf-8?B?Wkd2SHdvUktvMXNrRFI4MWtiQWtNb3FwaVBmc2xLcUxlcmpDTzlMaUpRYUZF?=
+ =?utf-8?B?ajlLaTFnVmVrOW1sZVhoOTV4elc2UmpkUlR6eklIQUhKZEZTRFk1Q1kyTWxn?=
+ =?utf-8?B?N0dWclk4OEhtaG0rdER2WUJ0TTFEVTA0NjdwVWJWMGFjeFJpcXBRc3hZQ2pO?=
+ =?utf-8?B?cFo2WXpJL0hncHo3QkJ1YjJjcExESWZ1VmJ5ajFrcFJHUkJjTG9XMG9JeUFk?=
+ =?utf-8?B?NUZKZHhjVGZQSHZLR3hZYlN6M3VTbElKZ0lVTGNaeFBhaXBPWVIwZWNBeVhL?=
+ =?utf-8?B?SGFHSU9wSlkrbVJCVExyNlVhQ2RrMXNMSzBuMmx4N0g3bFlXN1o4UnRNSTd0?=
+ =?utf-8?B?K0pxenB2RWxVbkxKK2IrWm1jVzdLeVk3U3ppK29ITEpYYW1BSSs2QXlPQkpR?=
+ =?utf-8?B?blF0MEE3bVdPTHVOWUcwdWM4c2sxLzE4ajFISmlXVXR4S3BxMnphZTVnZzEz?=
+ =?utf-8?B?VkU3SFVmdk5SS3V3U0ZIRnNqdU16VW9RdHNYRDRTcU9DOHVuQU1JUDMxS0Fh?=
+ =?utf-8?B?VzdxVis0c3dKcStzOGpuL0VMN2NQNytDWFFZV3RwSkVzQ2hHeElicnN3blow?=
+ =?utf-8?B?bHAwOWlvdHIrNS9iaEVHSVI2OEx0YnFIUXhNOGxFZXo2QU9RMGpiMm1Ed3BY?=
+ =?utf-8?B?Smkxd3VMWVpweXMwN0NKOE9PT1Vac1JvZFhXYmhLaWlIMWVRRVZETGJIRE1L?=
+ =?utf-8?B?MmwyUHoxQmp0YWxJamp3bStYUWZKZVVXMEZsOXJIcUZULytReDBoSTE3TGRX?=
+ =?utf-8?B?WXE1cjZTSHBIb1l6YW1MbU1hVWZ0c29Hc3RvYnRQMzZ0bWtraDkxZW14SGRY?=
+ =?utf-8?B?ZW55NW9ISEhXL2ZqanI4Q1BNQU4rTWszVVoyRnFXL2FLV0dzOS9SZUtoS2Nz?=
+ =?utf-8?B?ZDF4QVZCZ29hRVZSK2Vadkg2TEM5RndNYnBBU3AxQkJKNDNRdVJNY0xhVHVR?=
+ =?utf-8?B?dEszVFV4YWd3UVFqZGUxb1FrcFRZSExPWk1WSmZJa0lqQXB5azBLMzJXMHRL?=
+ =?utf-8?Q?VuwHapYX/CrTzAC0=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <DFA122CD1CBB664F84242FB3B1F4111F@namprd11.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] lib/group_cpus: rotate extra groups to avoid IRQ
- stacking
-To: Michael Kelley <mhklinux@outlook.com>,
- Andrew Morton <akpm@linux-foundation.org>, Thomas Gleixner
- <tglx@kernel.org>, Ming Lei <tom.leiming@gmail.com>,
- Ming Lei <ming.lei@redhat.com>
-Cc: Wangyang Guo <wangyang.guo@intel.com>, Tianyou Li <tianyou.li@intel.com>,
- Tim Chen <tim.c.chen@linux.intel.com>, Long Li <longli@microsoft.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>
-References: <20260810062144.2108758-1-namjain@linux.microsoft.com>
- <SN6PR02MB4157B73B333F08702875110ED4A82@SN6PR02MB4157.namprd02.prod.outlook.com>
-Content-Language: en-US
-From: Naman Jain <namjain@linux.microsoft.com>
-In-Reply-To: <SN6PR02MB4157B73B333F08702875110ED4A82@SN6PR02MB4157.namprd02.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: bImemV0bm8VjpZvJ2nAeC5t4aiYRcj8AY7Ucu8YaUTtmRHHlo+Cq5yli6w5enxtvdNJRabWYu97YlwlGJEer/XgzKoEADLGqIavCxShbsHsBipJYPRbE9WTnTWfg2OkzCo8DMdNUiMYJGcevJddrtdncQh/KplbaQsNRA18qyDCVWLAmaKj6nS00+o5Gxh2Il43mWJLJ840+1uu4IVfkmKy8IA8YjG6q3GokQ4MNXjWH3ov7qWaNYruQ2vQvVmB2ytnnOi6Zy51+l78ZCfhVWN1E89gRpw0UHG9dHxLOSqlUNhdHsdjKZURaNZfnJJH3Y9+tkGA7O1+mnYutS/uW4w==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6019.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9721891c-4668-4630-e947-08df08afd11e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Sep 2026 05:05:33.0404
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: mfFUrPEWXYa8OFtZz5XGTXppxsdC6kfY9iwmkh5naXeTfjKz1VjLwYSYZLcvwasWiC76pbsWYEmZf7/UbOxtSBcEjIfUglcSWSXQtfdVDn0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB6818
+X-OriginatorOrg: intel.com
 
-
-
-On 9/1/2026 5:32 AM, Michael Kelley wrote:
-> From: Naman Jain <namjain@linux.microsoft.com> Sent: Sunday, August 9, 2026 11:22 PM
->>
->> group_cpus_evenly() computes how a device's queue interrupts are spread
->> across CPUs. It backs managed-interrupt affinity (kernel/irq/affinity.c)
->> and block-multiqueue mappings (block/blk-mq-cpumap.c), and is invoked
->> independently by every device that uses them - NVMe, NICs, storage HBAs,
->> and virtio devices. Its output is deterministic, i.e. for a given
->> topology, two similar devices produce an identical group-to-CPU mapping.
->>
->> When ngroups < ncpus, some groups end up with only a single CPU. An
-> 
-> This is not quite accurate. The condition is ncpus/2 < ngroups < ncpus.
-> If ngroups is <= ncpus/2, then all groups have at least 2 CPUs. If ngroups
-> is <= ncpus/3, then all groups have at least 3 CPUs, and so on. Rotating which
-> groups get the "extra" CPUs can be somewhat helpful even when all groups
-> have at least 2 CPUs. But as the minimum number of CPUs per group
-> increases, avoiding excessive stacking depends on how well the irqchip driver
-> does spreading when picking the effective affinity CPU from the multiple CPUs
-> assigned to the group (per our discussion elsewhere in this thread).
-> 
-
-You're right. I should simplify this to something like this “When the 
-allocation leaves some groups with only a single CPU, those IRQs are 
-forced onto the same CPUs and are stacked up.”
-
->> interrupt whose mask has one CPU can only run there, making that CPU a
->> "hot" handler. Because the mapping is deterministic, identical devices
->> compute the same layout and stack all their single-CPU IRQs onto the
->> very same CPUs, leaving the rest of the system idle.
->>
->> This is easy to hit in practice. On an Azure L96as_v4 VM (96 vCPUs, 2
->> NUMA nodes of 48 CPUs, 6 NVMe disks with 62 I/O queues each),
->> group_cpus_evenly() splits each disk's 62 queues into 31 per node over
->> 48 CPUs. 48 does not divide evenly by 31:
-> 
-> And FWIW, this example meets the stricter condition that I describe above ....
-
-True.
-
-> 
->>
->>      per NUMA node: 48 CPUs / 31 queues
->>        17 groups get 2 CPUs   (cover 34 CPUs)
->>        14 groups get 1 CPU    (cover 14 CPUs)  <- single-CPU "hot" queues
->>
->> That is 14 hot queues per node, 28 per disk. All 6 disks land them on
->> the same 28 CPUs, so 168 hot interrupts pile onto 28 of 96 CPUs while
->> two-thirds of the system handles none:
->>
->>      Before (per-CPU, disks whose IRQs it services):
->>        CPU  0: 3 disks    ...   CPU 34: 6 disks (all six)
->>        CPU  1: 3 disks    ...   CPU 47: 6 disks (all six)
->>      Summary: 28 CPUs (34-47, 82-95) served all 6 disks and the other 68
->>      served only 3. Those 28 CPUs cap throughput and inflate tail
->>      latency while most of the system is idle.
->>
->> Fix this by introducing a per-caller rotation via a static atomic
->> counter (group_spread_cnt). Each call to group_cpus_evenly() takes a
->> unique spread_offset, applied to the two decisions that were previously
->> deterministic:
->>
->> 1) Cluster-level rotation in __try_group_cluster_cpus(): after
->>     alloc_groups_to_nodes() distributes groups proportionally across
->>     clusters, integer rounding leaves some clusters with one extra
->>     group. The extras are redistributed starting from a rotated
->>     position, with a stride of ncluster/total_extra to minimize overlap
->>     between consecutive callers. A multi-pass fallback ensures all
->>     extras are placed even when some clusters are at capacity.
->>
->> 2) Intra-cluster rotation in assign_cpus_to_groups(): the sequential
->>     extra assignment is replaced with a modular expression,
->>       (v + spread_offset) % nv->ngroups < extra_grps
->>     rotating which groups within a cluster receive the extra CPU.
->>
->> Nothing else about the layout changes - same queue count, same NUMA
->> weighting, same full CPU coverage and locality. Each caller simply
->> starts its mapping from a different point, and each individual call
->> still produces a valid, fair distribution. Across callers, different
->> CPUs absorb the single-CPU group IRQ load:
->>
->>      After (same setup, with the rotation):
->>        CPU  0: 4 disks    CPU  2: 4 disks    CPU 47: 4 disks
->>        CPU  1: 4 disks    CPU  3: 4 disks    ...
->>      Summary: no CPU serves more than 4 disks, and all 96 CPUs are used.
->>
->> The total interrupt work is unchanged - every CPU still handles one
->> queue per disk; only the placement of the single-CPU hot queues moves.
->> This benefits every managed-IRQ, blk-mq, and virtio-vdpa / virtio-fs
->> device with no driver changes.
->>
->> Because the offset comes from a global counter advanced once per call,
->> the mapping now depends on call (device probe) order. A given device's
->> exact layout can differ from one boot to the next, and a later recompute
->> (e.g. a blk-mq remap) may pick a different layout. Every such layout is
->> still valid, fair, and proportional - only the choice among equally good
->> mappings varies.
->>
->> On a 96-vCPU Hyper-V VM running 4K random-read fio across 6 NVMe disks,
->> worst-disk degradation versus average dropped from 11% to 5%, and the
->> previously penalized disks gained 12% IOPS at 10% lower latency.
->>
->> Fixes: 89802ca36c96 ("lib/group_cpus: make group CPU cluster aware")
->> Co-developed-by: Long Li <longli@microsoft.com>
->> Signed-off-by: Long Li <longli@microsoft.com>
->> Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
->> ---
->> Changes since v1
->> (https://lore.kernel.org/all/20260324075352.2326972-1-namjain@linux.microsoft.com/):
->> - Cluster base is now a per-cluster proportional floor
->>    (ngroups * cap / ncpus) instead of the global per-cluster minimum,
->>    so proportional weighting is preserved on asymmetric (e.g.
->>    big.LITTLE) cluster topologies. (Sashiko review)
->> - Document that the rotation offset is call/probe-order dependent: a
->>    device's exact layout may vary across boots and recomputes (each
->>    layout is still valid, fair, and proportional).
->> - Rewrite the commit message with a worked example and fio numbers.
->>
->>   lib/group_cpus.c | 149 +++++++++++++++++++++++++++++++++++++++++++----
->>   1 file changed, 137 insertions(+), 12 deletions(-)
->>
->> diff --git a/lib/group_cpus.c b/lib/group_cpus.c
->> index e6e18d7a49bba..8bed0f9d2110b 100644
->> --- a/lib/group_cpus.c
->> +++ b/lib/group_cpus.c
->> @@ -7,6 +7,7 @@
->>   #include <linux/slab.h>
->>   #include <linux/cpu.h>
->>   #include <linux/sort.h>
->> +#include <linux/atomic.h>
->>   #include <linux/group_cpus.h>
->>
->>   #ifdef CONFIG_SMP
->> @@ -255,12 +256,20 @@ static void alloc_nodes_groups(unsigned int numgrps,
->>   	alloc_groups_to_nodes(numgrps, numcpus, node_groups, nr_node_ids);
->>   }
->>
->> +/*
->> + * Per-caller rotation counter for group_cpus_evenly().
->> + * Wrapping is harmless: the offset is only used modulo small values
->> + * (ncluster or nv->ngroups), so any unsigned value works.
->> + */
->> +static atomic_t group_spread_cnt = ATOMIC_INIT(0);
->> +
->>   static void assign_cpus_to_groups(unsigned int ncpus,
->>   				  struct cpumask *nmsk,
->>   				  struct node_groups *nv,
->>   				  struct cpumask *masks,
->>   				  unsigned int *curgrp,
->> -				  unsigned int last_grp)
->> +				  unsigned int last_grp,
->> +				  unsigned int spread_offset)
->>   {
->>   	unsigned int v, cpus_per_grp, extra_grps;
->>   	/* Account for rounding errors */
->> @@ -270,11 +279,15 @@ static void assign_cpus_to_groups(unsigned int ncpus,
->>   	for (v = 0; v < nv->ngroups; v++, *curgrp += 1) {
->>   		cpus_per_grp = ncpus / nv->ngroups;
->>
->> -		/* Account for extra groups to compensate rounding errors */
->> -		if (extra_grps) {
->> +		/*
->> +		 * Rotate which groups get the extra CPU so that
->> +		 * successive callers produce different mappings,
->> +		 * avoiding IRQ stacking when multiple devices
->> +		 * share the same CPU topology.
->> +		 */
->> +		if (extra_grps &&
-> 
-> Explicitly testing extra_grps for zero isn't necessary. If it is
-> zero, the "less than" test below will always be false anyway.
-> 
-
-That is true, but the intention was to improve readability of this 
-block. Unless you really feel that this should be removed, I would 
-prefer to retain this.
-
-
->> +		    (v + spread_offset) % nv->ngroups < extra_grps)
->>   			cpus_per_grp++;
->> -			--extra_grps;
->> -		}
->>
->>   		/*
->>   		 * wrapping has to be considered given 'startgrp'
->> @@ -361,7 +374,8 @@ static bool __try_group_cluster_cpus(unsigned int ncpus,
->>   				     struct cpumask *node_cpumask,
->>   				     struct cpumask *masks,
->>   				     unsigned int *curgrp,
->> -				     unsigned int last_grp)
->> +				     unsigned int last_grp,
->> +				     unsigned int spread_offset)
->>   {
->>   	struct node_groups *cluster_groups;
->>   	const struct cpumask **clusters;
->> @@ -379,6 +393,111 @@ static bool __try_group_cluster_cpus(unsigned int ncpus,
->>   	if (ncluster == 0)
->>   		goto fail_no_clusters;
->>
->> +	/*
->> +	 * Rotate which clusters receive extra groups so that different
->> +	 * callers of group_cpus_evenly() produce different group-to-CPU
->> +	 * mappings. Without this, all devices get identical affinity
->> +	 * masks, causing IRQ stacking on CPUs assigned single-CPU groups.
-> 
-> s/assigned/assigned to/
-> 
->> +	 *
->> +	 * alloc_groups_to_nodes() distributes ngroups proportionally, but
->> +	 * integer rounding causes some clusters to get one more group
->> +	 * than others. The assignment is deterministic, so every device
->> +	 * gets the same mapping. Fix: compute a proportional floor for
->> +	 * each cluster (ngroups * cap / ncpus), collect only the
->> +	 * rounding-induced extras, then redistribute them starting from
->> +	 * a rotated position. This preserves the proportional weighting
->> +	 * across differently-sized clusters while rotating the rounding
->> +	 * extras, keeping the rotation effective on both symmetric and
->> +	 * asymmetric cluster topologies.
->> +	 *
->> +	 * Note: after alloc_groups_to_nodes(), cluster_groups[].ngroups
->> +	 * holds the group count (the union no longer holds per-cluster CPU
->> +	 * counts), so each cluster's CPU capacity (cap) is taken from its
-> 
-> Having to recompute "cap" three times in the code below is fairly clumsy.
-> Is there any reason that cluster_groups[].ncpus and .ngroups need to be a
-> union? If they were separate fields, then "cap" would be immediately
-> available when you need it. I looked back through the commit history
-> and LKML discussion for when the union was originally added, and I
-> didn't find any explanation for why it is a union. A union saves a bit
-> of memory, but the overall amount of memory here is small, so the
-> implementation doesn't need to be particularly stingy.
-
-I'll remove the union, and simplify this "cap" re-computation.
-
-> 
->> +	 * mask. The ncpus divisor is the function parameter, which equals
->> +	 * the sum of the per-cluster caps.
->> +	 */
->> +	if (ncluster > 1) {
->> +		unsigned int total_extra = 0;
->> +		unsigned int start, stride;
->> +
->> +		/*
->> +		 * Compute a per-cluster proportional floor and collect
->> +		 * only the rounding-induced extras for redistribution.
->> +		 *
->> +		 * Each cluster's floor is ngroups * cap / ncpus, which
->> +		 * preserves its proportional share.  Only the rounding
->> +		 * remainders (typically one per cluster) are collected
->> +		 * for rotated redistribution, keeping the rotation
->> +		 * effective even on asymmetric topologies (e.g.
->> +		 * big.LITTLE) where differently-sized clusters would
->> +		 * otherwise absorb all extras deterministically.
->> +		 */
->> +		for (i = 0; i < ncluster; i++) {
->> +			unsigned int cap, prop_floor, base;
->> +
->> +			cap = cpumask_weight_and(clusters[cluster_groups[i].id],
->> +						 node_cpumask);
->> +			prop_floor = ngroups * cap / ncpus;
->> +
->> +			/*
->> +			 * Use proportional floor as base.  Ensure at
->> +			 * least 1 group per cluster, and never exceed
->> +			 * alloc_groups_to_nodes()'s original allocation
->> +			 * (which may be less than prop_floor when small
->> +			 * clusters consumed groups via max(1,...)).
->> +			 */
->> +			base = prop_floor > 0 ? prop_floor : 1;
->> +			if (base > cluster_groups[i].ngroups)
->> +				base = cluster_groups[i].ngroups;
->> +
->> +			total_extra += cluster_groups[i].ngroups - base;
->> +			cluster_groups[i].ngroups = base;
->> +		}
-> 
-> We had a separate discussion about how your new code here should
-> go with alloc_groups_to_nodes() so that it is also applied at the NUMA
-> node level. You said you had it working. Question: Did you combine the
-> above "for" loop with the "for" loop in alloc_groups_to_nodes()? It
-> seems unnecessarily complex to do group allocations, including extras,
-> using the "for" loop in alloc_groups_to_nodes(), and then follow that
-> with another "for" loop here to figure out which nodes got extras and
-> strip them out. A single loop should be able to set all the nodes to
-> their base value and count the extras.
-> 
-
-I just did a prototype and had not combined it yet. I'll try to combine 
-them into a single function now.
-
->> +
->> +		/*
->> +		 * Redistribute rounding extras using a stride to scatter
->> +		 * them across clusters.  With stride = ncluster / extras,
->> +		 * consecutive callers' extra sets overlap minimally
->> +		 * (e.g. max 2 overlap for 6 callers with 24 clusters
->> +		 * and 7 extras, vs 6 overlap with stride 1).
->> +		 */
->> +		start = spread_offset % ncluster;
->> +		stride = (total_extra > 0 && total_extra < ncluster) ?
->> +			 ncluster / total_extra : 1;
->> +
->> +		for (i = 0; i < ncluster && total_extra > 0; i++) {
->> +			unsigned int idx =
->> +				(start + i * stride) % ncluster;
->> +			unsigned int cap;
->> +
->> +			cap = cpumask_weight_and(clusters[cluster_groups[idx].id],
->> +						 node_cpumask);
->> +			if (cluster_groups[idx].ngroups < cap) {
->> +				cluster_groups[idx].ngroups++;
->> +				total_extra--;
->> +			}
->> +		}
->> +
->> +		/* Fallback: place remaining extras wherever they fit */
-> 
-> Just so I'm clear, you could have "remaining extras" because a stride > 1
-> in the previous loop could miss some clusters/nodes that have available
-> space, depending on how the arithmetic works out. The code below
-> does essentially the same thing, but with a stride of 1 so that every
-> node is checked.  And you might have to make multiple passes in
-> case some nodes have space for two or more extras. But you know
-> there's enough space available somewhere.
-> 
-> Is my understanding correct?
-> 
-
-Yes, this is correct.
-
->> +		while (total_extra > 0) {
->> +			unsigned int placed = 0;
->> +
->> +			for (i = 0; i < ncluster && total_extra > 0; i++) {
->> +				unsigned int cap;
->> +
->> +				cap = cpumask_weight_and(clusters[cluster_groups[i].id],
->> +							 node_cpumask);
->> +				if (cluster_groups[i].ngroups < cap) {
->> +					cluster_groups[i].ngroups++;
->> +					total_extra--;
->> +					placed++;
->> +				}
->> +			}
->> +			if (!placed)
->> +				break;
-> 
-> Is the control variable "placed" necessary? If all the extra groups are
-> guaranteed to fit somewhere, then total_extra should go to zero and
-> the checks on total_extra > 0 will break out of the loops. Thinking about
-> it from the other direction, if the "for" loop ever completed without
-> incrementing "placed", wouldn't that mean total_extra is still
-> non-zero, and you have an extra group that isn't assigned to a
-> cluster/node?
-> 
-> Michael
-
-It's not required. I should remove it.
-
-Regards,
-Naman
+T24gVHVlLCAyMDI2LTA5LTAxIGF0IDE2OjU5IC0wNDAwLCBKYWtlIFN0ZWlubWFuIHdyb3RlOg0K
+PiBwc3JfZ2V0X3N0YXR1c19hbmRfZXJyb3Jfc3RhdHVzKCkgc2VsZWN0cyB0aGUgRFBDRCBvZmZz
+ZXQgdG8gcmVhZCB0aGUNCj4gZXJyb3INCj4gc3RhdHVzIGZyb20gYmFzZWQgb24gd2hldGhlciBQ
+YW5lbCBSZXBsYXkgaXMgZW5hYmxlZDoNCj4gDQo+IAlvZmZzZXQgPSBpbnRlbF9kcC0+cHNyLnBh
+bmVsX3JlcGxheV9lbmFibGVkID8NCj4gCQkgRFBfUEFORUxfUkVQTEFZX0VSUk9SX1NUQVRVUyA6
+IERQX1BTUl9FUlJPUl9TVEFUVVM7DQo+IA0KPiBidXQgaW50ZWxfcHNyX3Nob3J0X3B1bHNlKCkg
+YWNrbm93bGVkZ2VzIGl0IHVuY29uZGl0aW9uYWxseSB0byB0aGUNCj4gUFNSDQo+IHJlZ2lzdGVy
+LiBVbmRlciBQYW5lbCBSZXBsYXkgdGhlIGVycm9yIGlzIHRoZXJlZm9yZSByZWFkIGZyb20NCj4g
+RFBfUEFORUxfUkVQTEFZX0VSUk9SX1NUQVRVUyAoMHgyMDIwKSBhbmQgdGhlIGFja25vd2xlZGdl
+bWVudCB3cml0dGVuDQo+IHRvDQo+IERQX1BTUl9FUlJPUl9TVEFUVVMgKDB4MjAwNikuIERQX1BB
+TkVMX1JFUExBWV9FUlJPUl9TVEFUVVMgaXMgbmV2ZXINCj4gd3JpdHRlbg0KPiBhbnl3aGVyZSBp
+biB0aGUgdHJlZTsgaXQgYXBwZWFycyBvbmx5IGluIHRoZSByZWFkIGFib3ZlIGFuZCBpbiBpdHMN
+Cj4gb3duICNkZWZpbmUuDQo+IA0KPiBUaGUgc2luaydzIFBhbmVsIFJlcGxheSBlcnJvciBsYXRj
+aCBjYW4gY29uc2VxdWVudGx5IG5ldmVyIGJlDQo+IGNsZWFyZWQuIE9uY2UgaXQNCj4gbGF0Y2hl
+cywgZXZlcnkgc3Vic2VxdWVudCBzaG9ydCBwdWxzZSByZS1yZWFkcyB0aGUgc2FtZSBlcnJvcnMs
+IHNvDQo+IFBTUiBpcw0KPiBkaXNhYmxlZCB3aXRoIHNpbmtfbm90X3JlbGlhYmxlIHNldCBwZXJt
+YW5lbnRseSwgYW5kIHVudGlsIGEgc2hvcnQNCj4gcHVsc2UNCj4gYXJyaXZlcyB0aGUgZHJpdmVy
+IGtlZXBzIFBhbmVsIFJlcGxheSBlbmFibGVkIHdoaWxlIHRoZSBzaW5rIGlzDQo+IHJlcG9ydGlu
+Zw0KPiBlcnJvcnMgaXQgY2Fubm90IHNlZS4NCj4gDQo+IE9ic2VydmVkIG9uIGEgRGVsbCBYUFMg
+MTYgREExNjI2MCAoUGFudGhlciBMYWtlLCBBcmMgQjM5MCwgZGlzcGxheQ0KPiB2ZXJzaW9uDQo+
+IDMwLjAwKSB3aXRoIHRoZSBlRFAgUGFuZWwgUmVwbGF5IHF1aXJrIGZyb20gY29tbWl0IGNiOGQx
+NTViMDgwNg0KPiByZW1vdmVkDQo+IGxvY2FsbHkgc28gdGhlIGZlYXR1cmUgY291bGQgYmUgZXhl
+cmNpc2VkLiBUaGUgc2luayByZXBvcnRzIGENCj4gcGVyc2lzdGVudGx5DQo+IGxhdGNoZWQgZXJy
+b3I6DQo+IA0KPiAJU2luayBQQU5FTC1SRVBMQVkgc3RhdHVzOiAweDIgW2FjdGl2ZSwgZGlzcGxh
+eSBmcm9tIFJGQl0NCj4gCVNpbmsgUEFORUwtUkVQTEFZIGVycm9yIHN0YXR1czogMHgxOg0KPiAJ
+CVBBTkVMLVJFUExBWSBMaW5rIENSQyBlcnJvcg0KPiANCj4gd2hpY2ggc3Vydml2ZXMgYWNyb3Nz
+IHJlYWRzIGluZGVmaW5pdGVseSwgd2hpbGUgZG1lc2cgc3RheXMgc2lsZW50DQo+IGFuZCBQYW5l
+bA0KPiBSZXBsYXkgU2VsZWN0aXZlIFVwZGF0ZSByZW1haW5zIGVuYWJsZWQuDQo+IA0KPiBVc2Ug
+dGhlIHNhbWUgY29uZGl0aW9uYWwgb2Zmc2V0IHdoZW4gY2xlYXJpbmcuIHBzci0NCj4gPnBhbmVs
+X3JlcGxheV9lbmFibGVkDQo+IGNhbm5vdCBiZSB1c2VkIGF0IHRoYXQgcG9pbnQgYmVjYXVzZSBp
+bnRlbF9wc3JfZGlzYWJsZV9sb2NrZWQoKQ0KPiBjbGVhcnMgaXQNCj4gZWFybGllciBpbiB0aGUg
+c2FtZSBmdW5jdGlvbiB3aGVuZXZlciBhbiBlcnJvciB3YXMgZGV0ZWN0ZWQsIHdoaWNoIGlzDQo+
+IGV4YWN0bHkNCj4gdGhlIGNhc2UgdGhhdCBuZWVkcyB0aGUgUGFuZWwgUmVwbGF5IG9mZnNldCwg
+c28gc2F2ZSBpdCBiZWZvcmVoYW5kLg0KPiANCj4gdjI6IHVzZSBhIGNvcHkgb2YgcGFuZWxfcmVw
+bGF5X2VuYWJsZWQgdGFrZW4gYmVmb3JlDQo+IMKgwqDCoCBpbnRlbF9wc3JfZGlzYWJsZV9sb2Nr
+ZWQoKSBjbGVhcnMgaXQuIEluIHYxIHRoZSBjb25kaXRpb24gd2FzDQo+IGV2YWx1YXRlZA0KPiDC
+oMKgwqAgYWZ0ZXIgdGhlIGRpc2FibGUsIHNvIGl0IHNlbGVjdGVkIERQX1BTUl9FUlJPUl9TVEFU
+VVMgaW4gdGhlDQo+IGVycm9yIHBhdGgNCj4gwqDCoMKgIGFuZCB0aGUgcGF0Y2ggd2FzIGEgbm8t
+b3AgdGhlcmUuIENhdWdodCBieSBTYXNoaWtvIEFJIHJldmlldy4NCj4gDQo+IFNpZ25lZC1vZmYt
+Ynk6IEpha2UgU3RlaW5tYW4gPGpAbWV0YXJlYWx0eWluYy5jYT4NCg0KUmV2aWV3ZWQtYnk6IEpv
+dW5pIEjDtmdhbmRlciA8am91bmkuaG9nYW5kZXJAaW50ZWwuY29tPg0KDQo+IC0tLQ0KPiDCoGRy
+aXZlcnMvZ3B1L2RybS9pOTE1L2Rpc3BsYXkvaW50ZWxfcHNyLmMgfCAxNCArKysrKysrKysrKyst
+LQ0KPiDCoDEgZmlsZSBjaGFuZ2VkLCAxMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQ0K
+PiANCj4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2k5MTUvZGlzcGxheS9pbnRlbF9wc3IuYw0KPiAr
+KysgYi9kcml2ZXJzL2dwdS9kcm0vaTkxNS9kaXNwbGF5L2ludGVsX3Bzci5jDQo+IEBAIC0zODQw
+LDYgKzM4NDAsNyBAQA0KPiDCoAlzdHJ1Y3QgaW50ZWxfZGlzcGxheSAqZGlzcGxheSA9IHRvX2lu
+dGVsX2Rpc3BsYXkoaW50ZWxfZHApOw0KPiDCoAlzdHJ1Y3QgaW50ZWxfcHNyICpwc3IgPSAmaW50
+ZWxfZHAtPnBzcjsNCj4gwqAJdTggc3RhdHVzLCBlcnJvcl9zdGF0dXM7DQo+ICsJYm9vbCBwYW5l
+bF9yZXBsYXlfZW5hYmxlZDsNCj4gwqAJY29uc3QgdTggZXJyb3JzID0gRFBfUFNSX1JGQl9TVE9S
+QUdFX0VSUk9SIHwNCj4gwqAJCQnCoCBEUF9QU1JfVlNDX1NEUF9VTkNPUlJFQ1RBQkxFX0VSUk9S
+IHwNCj4gwqAJCQnCoCBEUF9QU1JfTElOS19DUkNfRVJST1I7DQo+IEBAIC0zODYwLDYgKzM4NjEs
+MTIgQEANCj4gwqAJCWdvdG8gZXhpdDsNCj4gwqAJfQ0KPiDCoA0KPiArCS8qDQo+ICsJICogU2F2
+ZSB0aGlzIGJlZm9yZSBpbnRlbF9wc3JfZGlzYWJsZV9sb2NrZWQoKSBjbGVhcnMgaXQ7DQo+IHRo
+ZSBlcnJvcg0KPiArCSAqIHN0YXR1cyBpcyBhY2tub3dsZWRnZWQgdG8gYSBkaWZmZXJlbnQgRFBD
+RCBhZGRyZXNzDQo+IGRlcGVuZGluZyBvbiBpdC4NCj4gKwkgKi8NCj4gKwlwYW5lbF9yZXBsYXlf
+ZW5hYmxlZCA9IHBzci0+cGFuZWxfcmVwbGF5X2VuYWJsZWQ7DQo+ICsNCj4gwqAJaWYgKCghcHNy
+LT5wYW5lbF9yZXBsYXlfZW5hYmxlZCAmJiBzdGF0dXMgPT0NCj4gRFBfUFNSX1NJTktfSU5URVJO
+QUxfRVJST1IpIHx8DQo+IMKgCcKgwqDCoCAoZXJyb3Jfc3RhdHVzICYgZXJyb3JzKSkgew0KPiDC
+oAkJaW50ZWxfcHNyX2Rpc2FibGVfbG9ja2VkKGludGVsX2RwKTsNCj4gQEAgLTM4ODUsNyArMzg5
+MiwxMCBAQA0KPiDCoAkJCSJQU1JfRVJST1JfU1RBVFVTIHVuaGFuZGxlZCBlcnJvcnMgJXhcbiIs
+DQo+IMKgCQkJZXJyb3Jfc3RhdHVzICYgfmVycm9ycyk7DQo+IMKgCS8qIGNsZWFyIHN0YXR1cyBy
+ZWdpc3RlciAqLw0KPiAtCWRybV9kcF9kcGNkX3dyaXRlYigmaW50ZWxfZHAtPmF1eCwgRFBfUFNS
+X0VSUk9SX1NUQVRVUywNCj4gZXJyb3Jfc3RhdHVzKTsNCj4gKwlkcm1fZHBfZHBjZF93cml0ZWIo
+JmludGVsX2RwLT5hdXgsDQo+ICsJCQnCoMKgIHBhbmVsX3JlcGxheV9lbmFibGVkID8NCj4gKwkJ
+CcKgwqAgRFBfUEFORUxfUkVQTEFZX0VSUk9SX1NUQVRVUyA6DQo+IERQX1BTUl9FUlJPUl9TVEFU
+VVMsDQo+ICsJCQnCoMKgIGVycm9yX3N0YXR1cyk7DQo+IMKgDQo+IMKgCWlmICghcHNyLT5wYW5l
+bF9yZXBsYXlfZW5hYmxlZCkgew0KPiDCoAkJcHNyX2FscG1fY2hlY2soaW50ZWxfZHApOw0KDQo=
