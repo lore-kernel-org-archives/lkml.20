@@ -1,78 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE1744A6CC0;
-	Wed,  2 Sep 2026 15:20:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09CD4A8A14
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:20:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788362404; cv=none; b=Nmfz4gtezG2YB+dNcuJVnvrty9ctRMMZH8PRMcf3YEBYv2C7Mt/5FACpoSa5IC9bkV3gzA+aShQ1HSjc+q+F5CgDUzApC74Efr56kti+nNcTZbfGs1cTPDhPlXbY6kqosDTo8PUedxH6bCklB+LXZPIZGiFMSuo8IAQSbTkXQLM=
+	t=1788362428; cv=none; b=KxSMgbImLc5RlSS2fSXMrRn9NhaAu9DAzUiZBjxQzLSx7OSydRYcxmZ+TQgAmiwa1bouWpIxQIMubVFREg+mZhKZ2t7sbKpxs1p29gb44TvyqBZCZqeuJ1Wu80TQX/HxDnZ4mC13QDg5DdTddNWUsOPTlZhSTRy1+m3NdXAAOR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788362404; c=relaxed/simple;
-	bh=NFVBRBZp5DdpCmCsU1/ZmE187mRMxZ4l6mnWy8B/uLs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dm3l9cCGLIyvEBB22mPupJ+ZtgOXZ+WJPFK9aCZ6RUZxMkxdFT39yiPthmQskHTU3C31vuwWHx1kV5zePHbRBxQ6krt1LCMgBoPIR9ts3yiI+sLWl/99B+1t7XuHTjjtalYOI9dSMxFTu5EaxVsOuyNGNo5S0AvTT0QMz/bgsvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LCjsPGcI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788362428; c=relaxed/simple;
+	bh=qXON5Y/0Hhn8zg9epAannR6ouX1AMPvp99VlLkQP9SY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=V94G+5R4XIicD4F3D8gSi/smbGh94RrA7JWe3zMO2/eRv9K6kUlFlzn/YvtP1hzA0U2jLC8Sit2fwywztkB38i2xhoMsMdQzz1zecIa6a0GnVJoqkOmDiTskVU7yPnOJhNE4l3zs3GAn2fWIGWU6a2kI1g+P9bR76OJ0xYTr/g8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ilymUxbf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LCjsPGcI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F08BA1F00A3A;
-	Wed,  2 Sep 2026 15:20:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ilymUxbf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41FD31F00ACA
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:20:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788362402;
-	bh=EmdLDOUaG296P9CvbM12jSxYGxNeVIbHfGvENxwCkbw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LCjsPGcIlubZv/I7kxnTj2vuAMW6xD6HCrWwLZXW54VpxsS9HmVQYzAWbRqwbRM7R
-	 CrpUvX94Ul+n7/HGsKNLoQhlYASfOBEU2ugN6FckjCXhPzFEo1/5jW+cw901xqEDJS
-	 VewGQoJQls9BbW7hfWc8pU/7YmP1txFV8PEhBuXiEgrghJI9s5V5j5LjaMQE4RMdPx
-	 Fn1HdwMSsxyZ8fK7vCtiDCdXDtc5wt9GUHGfFs0FyOgsJYxP8ar1qJjIUh/n+hBmce
-	 H2vMq1krBKRNqmKrybjJuHkCNZeajfyNjh24aBDEpCNJC+BD/MMyb5eYaO50iG5/5T
-	 ZgWvEhZMnuaew==
-From: SJ Park <sj@kernel.org>
-To: Kunwu Chan <kunwu.chan@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	Kunwu Chan <kunwu.chan@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <davidgow@davidgow.net>,
-	damon@lists.linux.dev,
-	kunit-dev@googlegroups.com,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH 09/12] mm/damon/tests/core-kunit: test damon_nr_samples_per_aggr()
-Date: Wed,  2 Sep 2026 08:19:54 -0700
-Message-ID: <20260902151955.88892-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260902150842.4033320-1-kunwu.chan@linux.dev>
-References: 
+	s=k20260515; t=1788362426;
+	bh=qXON5Y/0Hhn8zg9epAannR6ouX1AMPvp99VlLkQP9SY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ilymUxbfhs/5+QYLl+NJ5k7tiYWBa9HVGa1EkKZkVoq3GDCha6ckwM8bFNrP9aTAl
+	 FsjJy238KRA4W3HxRjq88Qm7hQ65bKXFSLgxhj7phJaSEdnaO9vp/ROrIUcqAsGoyV
+	 ebRJnA3dk7mWuwbm0WnJTE4i5MEdWkVrJJG6iCpeUhUC7v43ofyDCDL602VxBiJ6TZ
+	 Dl4pCcqsqv4dPBRR2tZ1Xjr32aFROpFQex8UADBUi7sPrtOD6jokI0n+eHhK6+AE+t
+	 CEjfWM/obJdODIW2ScYsNjKh6PoXjB1kbFxrHpUjhDPNIbz9XAHpZ+3CwQzp2Z//zC
+	 HLnJhvxMjfNBA==
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc1d57602e8so1325136a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 08:20:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz+RV4yOsAAYOVSaGz2DFs1Baz5ojc+vEzeRrreFR5qmXDpT1IAWZ+uddU9gE/7bXJCkqjreVLaonuhJaM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kKUA+igCRT13XCdRb16x2brrUmpC2rMiOMExrLcPFGx1sQLRUg
+	eU4K3xCByR+JhkQcLQOMN3bRqKH0CecoWZdIxMeAwgObM9UoBH5EJrSxKrGjJ7mozYVTM7RU6UP
+	8rQfl5nVAbzc1gJi/fyZu81EreYgPDW8=
+X-Received: by 2002:a17:90b:17cd:b0:38e:67e1:15b with SMTP id
+ 98e67ed59e1d1-39aededf539mr7563027a91.6.1788362425805; Wed, 02 Sep 2026
+ 08:20:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260902124623.695928-3-manuelebnerli@mailbox.org>
+In-Reply-To: <20260902124623.695928-3-manuelebnerli@mailbox.org>
+From: Fan Wu <wufan@kernel.org>
+Date: Wed, 2 Sep 2026 08:20:15 -0700
+X-Gmail-Original-Message-ID: <CAKtyLkHDr7D026T+7A-4LODAPbZez11wn=BdiEx5OH-7y5kUew@mail.gmail.com>
+X-Gm-Features: AcwNN1W8-eogi-AuHPYaha560R07dGwK9m0uGleXMnnx_g43weDtAmNjbvAWmyU
+Message-ID: <CAKtyLkHDr7D026T+7A-4LODAPbZez11wn=BdiEx5OH-7y5kUew@mail.gmail.com>
+Subject: Re: [Resend PATCH v2] ipe: fix typo
+To: Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: Fan Wu <wufan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Deven Bowers <deven.desai@linux.microsoft.com>, 
+	Paul Moore <paul@paul-moore.com>, Manuel Ebner <manuelebner@mailbox.org>, 
+	Fan Wu <wufan@linux.microsoft.com>, linux-security-module@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed,  2 Sep 2026 23:08:41 +0800 Kunwu Chan <kunwu.chan@gmail.com> wrote:
+On Wed, Sep 2, 2026 at 5:48=E2=80=AFAM Manuel Ebner <manuelebnerli@mailbox.=
+org> wrote:
+>
+> From: Manuel Ebner <manuelebner@mailbox.org>
+>
+> Correct Set Group ID from 'sgid=3D)' to 'sgid=3D0'
+>
+> Fixes: ac6731870ed9 ("documentation: add IPE documentation")
+> Signed-off-by: Manuel Ebner <manuelebner@mailbox.org>
+> ---
 
-> On Tue,  1 Sep 2026 22:47:42 -0700 SJ Park <sj@kernel.org> wrote:
-[...]
-> Both `sample_interval` and `aggr_interval` are zero here.  Since
-> `sample_interval` is the denominator in `damon_nr_samples_per_aggr()`,
-> would it be better to keep `aggr_interval` non-zero when testing the
-> zero `sample_interval` case?
-> 
-> This would make the test explicitly cover the divide-by-zero protection.
-> If the `aggr_interval == 0` behavior is also worth covering, perhaps it
-> could be tested separately.
+...
 
-Thank you for your review and question, Kunwu!
+As requested in v1, please make the commit message more descriptive.
+The keyboard-layout speculation is not useful and won't be included in
+the commit history.
 
-Yes, that kind of additional test case would be nice.  Please feel free to post
-a patch if you'd like to! :)  And no pressure, no rush.  I will also consider
-doing it myself if it seems you are not interested.
+For example:
 
+ipe: fix invalid sgid value in audit event documentation
 
-Thanks,
-SJ
+The audit event example in the IPE documentation contains sgid=3D),
+which is not a valid Set Group ID value. Fix it to use sgid=3D0.
 
-[...]
+Please update the commit message accordingly.
+
+-Fan
