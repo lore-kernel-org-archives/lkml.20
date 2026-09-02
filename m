@@ -1,107 +1,83 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 780AE343D9D;
-	Wed,  2 Sep 2026 01:22:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F53A2D1913
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 01:22:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788312147; cv=none; b=oXwd8ghtZ2rIZqkRLl89UMgu0Sj4e6fNgEXcQKmljtCtVzeEVRmSNdFnXKEs06I1XrwQ+BbROHNYk5zSd+wBcEpsIh9W3TmbBnAA0Wsazyo8OIAQCD/ELXd/jkS0fPDNo/bEs4MtD1MSgXvBHMKqaaf6PaCaBOZbOVa14dQGTf0=
+	t=1788312163; cv=none; b=Woi5TD6U4eV36zXZiGkYwsPhugchfrls8NC6kTsmKQgYq8vTYqS+ylgTCeC47a2OPhmGRo7f0bXUz9mumFeLyuXzVDIRpqhFiQ9M9KfmptR4nfQ+bWREMQN4MQc9ygbbFkPtboH+eLPGkYbGlhQ86OWVzbBnKmrKiMIzNVTQmjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788312147; c=relaxed/simple;
-	bh=5PnUx2nE3UNmaLS+bLdkhV1ANeaCBATNyLWNFwTT4KQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=RWPna/7jvwnWKlTFWVIOikblzT3jwYbGAsbothl7qG5DJ2jUvQh0VkL9x+S/PKoySjkLfJv9q26Dup1WIY0SCL5bD9XbB5R+TibK7oyAfv9EEx1zGJrkK/ouvG7KS8zFD0ee69rLSt6u74J//dDh34lEwXf8xLH6xcwQNJ859HI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=akhgtygh; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1788312163; c=relaxed/simple;
+	bh=yj0ghCrRDxJccOkYZ8+jq567DDQX3NLBqP+W9Grbvaw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=smCPOgo7pf2/kLQ0RyETbXsd9aUNzrTfVYgqG+ATvBD+exlJat/41IP5lhu27irbULTpQpFouANX2r5o/3geNzlr4kqeBJpMvQ2/+ev1YJnXz/5nN2VZhm9dCz0yxBXH22l2iDHVSqHqpU0TaDSR7knWgvnGcoCBCX0YkD0yjBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EiKhDW8s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="akhgtygh"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6821MFwtC2212040, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1788312135; bh=yh0oxiqUtWIyAs+sQaX50i8WERvCzlu5W42z4mfDHEY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=akhgtyghRz8lZEqKjFgjjvIkF/+p0nrXZtk7XkjnZ3yBXOH4HcVlxNWEWsVzUQ81B
-	 cr1jPGotznhrZaoUHMM350Y1OPbBzXRv8bhwu6PgxHZ4aewWxBcQ96CQ4oFcnfzt1k
-	 gxy0au0bVx/eJ8G7904fn0pXgN7rS6wtHkEhAI1/mxGYH/BAqNXZKhpYqT5RnY4woe
-	 56e6jYCP48JjAYzMliK7GBOaZbIAYDaV37DxgE0inUvz0e9qVPCVqkFtmVc5UZUpnl
-	 0N5QAAFE8BJjkLjthXvwbn5XmKMKLgQSMN4S00XYomD6A8k46oWziIv9uMyzf/Upvf
-	 EVf53R/969TSQ==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6821MFwtC2212040
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 2 Sep 2026 09:22:15 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Wed, 2 Sep 2026 09:22:15 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::126f:59ad:658:674d%10]) with mapi id
- 15.02.2562.043; Wed, 2 Sep 2026 09:22:15 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>, "linux-wireless@vger.kernel.org"
-	<linux-wireless@vger.kernel.org>
-CC: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH] wifi: rtw88: use firmware MAC address as fallback
-Thread-Topic: [PATCH] wifi: rtw88: use firmware MAC address as fallback
-Thread-Index: AQHdOg/rKigchPTsY0+A+iPeLR6Lhba6fQxQ
-Date: Wed, 2 Sep 2026 01:22:15 +0000
-Message-ID: <4d1e5555bad84badba213f11b431c762@realtek.com>
-References: <20260901124551.3921506-1-raspberrykan@stu.hqu.edu.cn>
-In-Reply-To: <20260901124551.3921506-1-raspberrykan@stu.hqu.edu.cn>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EiKhDW8s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E0711F000E9
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 01:22:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788312162;
+	bh=yj0ghCrRDxJccOkYZ8+jq567DDQX3NLBqP+W9Grbvaw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=EiKhDW8s/2zwV01oXmTT7rVoGPH0bP5TqGZUwWqrYubMOdCxKwj03r05rf+75jyWc
+	 MCPsm88Px9tVo9fkg97QGwf1J26dLVFLUp7MZCiqtvwqQ0nbiFre36eYCt3Dwvco34
+	 BuuFNKWj+T2m3Igofm9zEfcoiwKUCzamBYqZ8EOY01xJTJEP8U1TP2cSFXV8WPdHXd
+	 wl+vBbBpFeTwusVPrk+4jgAlBFbeudipFoQ3cTP1tQRuU0IhFhS2M0mlkTQxsMk52E
+	 JTSET59VRRzR5jkB1wqD/SCFFqbu1vVgztKqfLvvYj0HmI2Lg5FLXV8/d/BIIlPvE3
+	 gslvkV0A0xb9Q==
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c20ce3c118aso105249966b.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 18:22:41 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RoBhh5nNGSqDwYMWmESGlxLi2qREa57/ZcEdSv+er0/8YaWSIAW5vujxam6/9HKEE2J4ZRGOpfLYxCYVGE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nkc2Rdvssge1ZZu74lqymkRigBUt0Q34r6+C/4ODkA1lJoNGEy
+	kmvpeUJ7JCHcUl/okOGtwO1bSfB6Frv5JRDfFFYMMYCBpz+/NkDwT2mTgKlkK6vH6RuMiJpUL1J
+	2C/8YUI7hOwSGBF2epQi2AwQUCATFdBQ=
+X-Received: by 2002:a17:907:7295:b0:c25:cb79:e4b5 with SMTP id
+ a640c23a62f3a-c25d5c31e5cmr56186866b.3.1788312160667; Tue, 01 Sep 2026
+ 18:22:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260901091519.2885376-1-liubaolin12138@163.com> <20260901091519.2885376-2-liubaolin12138@163.com>
+In-Reply-To: <20260901091519.2885376-2-liubaolin12138@163.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Wed, 2 Sep 2026 10:22:28 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd94Hy-cEXAsfibh+B66774rg9wALwPWGfir91dqJWTtgg@mail.gmail.com>
+X-Gm-Features: AcwNN1XXbxe6Otml9DNYEiNpIrjpOc4y89piP6Y3dHvqDp6vejv__cFNFFaYBBQ
+Message-ID: <CAKYAXd94Hy-cEXAsfibh+B66774rg9wALwPWGfir91dqJWTtgg@mail.gmail.com>
+Subject: Re: [PATCH 1/2] ntfs: implement fileattr_get and fileattr_set
+To: Baolin Liu <liubaolin12138@163.com>
+Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Baolin Liu <liubaolin@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-YuChia-Kan <raspberrykan@stu.hqu.edu.cn> wrote:
-> Some devices provide the Wi-Fi MAC address through firmware instead of
-> storing a valid address in the chip efuse.
->=20
-> Try to read the MAC address from firmware before falling back to a
-> randomly generated address.
-
-Please share the board and WiFi chip you are using.
-
->=20
-> Signed-off-by: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
-> ---
->  drivers/net/wireless/realtek/rtw88/main.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wire=
-less/realtek/rtw88/main.c
-> index cd9254370fcc..b9d8e0f5d15e 100644
-> --- a/drivers/net/wireless/realtek/rtw88/main.c
-> +++ b/drivers/net/wireless/realtek/rtw88/main.c
-> @@ -2060,8 +2060,12 @@ static int rtw_chip_efuse_info_setup(struct rtw_de=
-v *rtwdev)
->         efuse->ext_lna_5g =3D efuse->lna_type_5g & BIT(3) ? 1 : 0;
->=20
->         if (!is_valid_ether_addr(efuse->addr)) {
-> -               eth_random_addr(efuse->addr);
-> -               dev_warn(rtwdev->dev, "efuse MAC invalid, using random\n"=
-);
-> +               mac_ret =3D device_get_mac_address(rtwdev->dev, efuse->ad=
-dr);
-
-mac_ret isn't declared.=20
-
-> +               if (mac_ret) {
-> +                       eth_random_addr(efuse->addr);
-> +                       dev_warn(rtwdev->dev,
-> +                                "failed to get valid MAC address, using =
-random\n");
-> +               }
->         }
->=20
->  out_disable:
-> --
-> 2.53.0
-
+On Tue, Sep 1, 2026 at 6:15=E2=80=AFPM Baolin Liu <liubaolin12138@163.com> =
+wrote:
+>
+> From: Baolin Liu <liubaolin@kylinos.cn>
+>
+> Wire up the fileattr inode operations so that lsattr(1) and chattr(1)
+> work on ntfs.
+>
+> fileattr_get reports the compressed and encrypted state of the attribute
+> and the immutable and append-only flags, the same states ntfs_getattr()
+> already reports through STATX_ATTR_*.
+>
+> fileattr_set accepts only FS_IMMUTABLE_FL and FS_APPEND_FL. Compression
+> and encryption are rejected because changing them would require
+> rewriting the attribute data. Both accepted flags go to inode->i_flags,
+> so the VFS enforces them.
+>
+> Neither flag has an on-disk representation of its own, so a value set
+> through fileattr_set only lives for the lifetime of the mount. Note also
+> that S_IMMUTABLE is re-derived on every mount, from FILE_ATTR_SYSTEM when
+> mounted with sys_immutable and unconditionally for system files, so
+> clearing it on such a file does not survive a remount either.
+NTFS forces S_IMMUTABLE on system metadata files such as $MFT, but
+this patch allows userspace to clear that protection. The patch should
+reject clearing immutable for these files and for files made immutable
+by the sys_immutable mount option.
