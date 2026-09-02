@@ -1,100 +1,99 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2473B48B368;
-	Wed,  2 Sep 2026 12:38:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC1E48BD46
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:40:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352716; cv=none; b=GX5sLKT2gx2Wuae94uMLs8PJDl0WUjZx8cWkC4r237YHdFI6dTTZSqOZvoTwl75xmHIe2vhPzgK4CY2ZPktt4Jv6itgG4vPeWa/uTKPTAiskAwPFWXX1lkx8lxVBBLSbkHRhjpiyP3Nqk0K/5moFx1CpMpDSfDGsB9IOu/T2QL4=
+	t=1788352809; cv=none; b=mlu1HHHyKVh6eH5Ww6S2kJtSNQ9Fg+F82E1TcNDlZ+khYsryTMrAHh1S+Nj+j+eqP6uW+CrBfT0RLJCWxeraF2dnsyuZ4qDqvj97a5Jvig4+3YDA1s8HdpYGXli13qKG+EvJT3HIDd1V0nc+J62Ro6xUG76bYzyxCZtzz1us2g8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352716; c=relaxed/simple;
-	bh=kCGseby/cvNqTQZnThWhwW7Zzz3wrVvCMPclZNwW0Gs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GQh31p8KjmSy0ZLreM3Zcjj/vq1zo3a1rEJFRQwkwPsfel4rAQuLS6QrXesyeKNj3Px9iR2VNjOrrWI2KwfBAL8CoB2qJKkltiL7zc0AK6g+J2CrBlmZ1b4iUhaFyuv/2vCtHHrHJgBYnUdMBhRbtO68Yg6zLfZLzU49oUqZNDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=fL+eJOjc; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1788352809; c=relaxed/simple;
+	bh=Klpe8gBA+2PNCx51bSzo/EuN3LxVCEYUTgBKdo6fIh8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=u6as6Pv7cIc+u00B2Ymw9ob1/4i3+rTPnL9HC3Se3KHtkg86JZI28CSURiSunEhSPkM3OWvwZ7HfWnbq5xjxFuKtuh9VwHSiYf7lauxzIkKN5k1bufYYlbT7HXTuN9bDvBnh9ezANwrNUTSLCevMKnTgZ8Dwa/P1+o7RPhRK6w0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MJz0oPUx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="fL+eJOjc"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=zaRlwF56CM9F4rJ8UyK8kspioZcE1Mtz+dCysJmhYy4=; b=fL+eJOjctKWiFYasZP2IkkHM3U
-	pUkNtDrvtFqmclvkwR7D3jfUjgpAwmS5ZHe5ym4sk1/AiIkrcIZPB8sB7g9sfDZxrXdQNWUZhHFV4
-	QM2rbqaXw6xhZTiQU3ngK9H6j36WzW032/vhNzWlf+f00daA6DtUho/Vrh0KGxp0FWi8=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x1kEN-002WCu-Kt; Wed, 02 Sep 2026 14:38:19 +0200
-Date: Wed, 2 Sep 2026 14:38:19 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Hangbin Liu <hangbin.liu@linux.dev>
-Cc: Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	Hangbin Liu <liuhangbin@kylinos.cn>
-Subject: Re: [PATCH net-next 1/2] netdevsim: add link speed support
-Message-ID: <9d9bad3a-a43d-47ad-b0d8-ba0878197ffc@lunn.ch>
-References: <20260831-nsim_speed-v1-0-7a651ee65738@kylinos.cn>
- <20260831-nsim_speed-v1-1-7a651ee65738@kylinos.cn>
- <53215678-05bb-4191-b5ff-aa236b16a96a@lunn.ch>
- <apZzJDVtENpAluhT@fedora>
- <18c7a000-97ad-459a-bb9c-5c821274e9f3@lunn.ch>
- <apeBoyP1G93wW_VZ@fedora>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MJz0oPUx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73A5A1F01558
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:40:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788352807;
+	bh=Klpe8gBA+2PNCx51bSzo/EuN3LxVCEYUTgBKdo6fIh8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=MJz0oPUxfO3QSEwUNGtpXHy+HuBfTpqV/zHYyEX7j08CkMxlewomCO4Q3E2RbN1Wp
+	 wEULcFHD710w/brCMoAevkIUzaZQIzAmn2JqiJ8GUKI8XPwwXQ+ZYbeJGczKCa7Ssp
+	 AMyYuc4AKZ/PpLDJH4JzWPivCY5C9eE1wJNsE2AfDJ7BxB/zR0leoCMApSuFA0S8mI
+	 JA0AEhQm8gaAW7SvhWlN4/Z2yt0Xy13B2JtwzI1s8fAslrUUp9e/XIW1ZQtMSI2KZG
+	 Cgm1TMpNWaZgecR+SQvDHgVINgZYSPrR/A0EeQLFUDY9BjHmKGgxzVOVQvDhsq/KW1
+	 I13nLOmrw4TJw==
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5b60bcf9051so642778e87.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:40:07 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByqUBYBIZlukZzi1+26IXOC3jzKEP9LlninqoDPnLo+j6vRnTELgVBtRrt1zz45R9QC6hNZOX0bCUEAXas=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/TmqgXwev2RfRTyhEfhsHTrZ+s/K/Cebjjtt6WE07/BH21pkx
+	91Is+nXQ1rDyH/DUgkShzYMWlqzBANCCGxzd1BItoLMnNK5F/fRR3Iy9OhKEOdFyYAaFiLrvNBG
+	gGiq9XWThgxomspqUv75VPjlmuERYY2Y=
+X-Received: by 2002:a05:6512:1252:b0:5b4:ab2f:5bd5 with SMTP id
+ 2adb3069b0e04-5b608347bb7mr1568323e87.8.1788352806105; Wed, 02 Sep 2026
+ 05:40:06 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apeBoyP1G93wW_VZ@fedora>
+References: <cover.1788346553.git.mazziesaccount@gmail.com> <5eb294e68b8d5d2c1d3a12b14a55dd2a9c075a09.1788346553.git.mazziesaccount@gmail.com>
+In-Reply-To: <5eb294e68b8d5d2c1d3a12b14a55dd2a9c075a09.1788346553.git.mazziesaccount@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 2 Sep 2026 14:39:52 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkvELVwVD2B-OPF=mV8-F5xi7RZWJ7cvuyg2srnrJ2HLQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XLITgbm1aOFoVQnd28TjU_0cWWW0RJDEA68aIrbre66YkBVpUmqod9dXc
+Message-ID: <CAD++jLkvELVwVD2B-OPF=mV8-F5xi7RZWJ7cvuyg2srnrJ2HLQ@mail.gmail.com>
+Subject: Re: [PATCH v3 09/10] gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
+To: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>, 
+	Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-rtc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 02, 2026 at 09:53:39AM +0800, Hangbin Liu wrote:
-> On Tue, Sep 01, 2026 at 02:43:39PM +0200, Andrew Lunn wrote:
-> > On Tue, Sep 01, 2026 at 02:39:32PM +0800, Hangbin Liu wrote:
-> > > On Mon, Aug 31, 2026 at 02:16:46PM +0200, Andrew Lunn wrote:
-> > > > >  static void nsim_ethtool_ring_init(struct netdevsim *ns)
-> > > > > @@ -250,12 +276,16 @@ void nsim_ethtool_init(struct netdevsim *ns)
-> > > > >  	ns->ethtool.fec.active_fec = ETHTOOL_FEC_NONE;
-> > > > >  
-> > > > >  	ns->ethtool.channels = ns->nsim_bus_dev->num_queues;
-> > > > > +	ns->ethtool.duplex = DUPLEX_FULL;
-> > > > > +	ns->ethtool.speed = SPEED_5000;
-> > > > >  
-> > > > >  	ethtool = debugfs_create_dir("ethtool", ns->nsim_dev_port->ddir);
-> > > > >  	ns->ethtool_ddir = ethtool;
-> > > > >  
-> > > > >  	debugfs_create_u32("get_err", 0600, ethtool, &ns->ethtool.get_err);
-> > > > >  	debugfs_create_u32("set_err", 0600, ethtool, &ns->ethtool.set_err);
-> > > > > +	debugfs_create_u32("speed", 0600, ethtool, &ns->ethtool.speed);
-> > > > > +	debugfs_create_u8("duplex", 0600, ethtool, &ns->ethtool.duplex);
-> > > > 
-> > > > debugfs_create_bool() ?
-> > > 
-> > > I'm not sure if anyone want to set nsim duplex to unknown for testing.
-> > > Do you think that we should disable this behavior?
-> > 
-> > Ah, i did not think of DUPLEX_UNKNOWN.
-> > 
-> > We need to consider Jakubs reply, what are you actually testing here,
-> > do such tests make any sense?
-> 
-> I'm fixing a bug in bonding that need to test with different speed slaves.
-> So I add this feature for netdevsim.
+Hi Matti,
 
-That would of been useful to put into the commit message, after the
+thanks for your patch!
 
----.
+On Wed, Sep 2, 2026 at 1:07=E2=80=AFPM Matti Vaittinen
+<matti.vaittinen@linux.dev> wrote:
 
-Better still, create a self test for the bonding bug you have found,
-show that it fails. Then have the fix, and show that the self test
-then passes. That makes it a lot clearer why this change is useful,
-plus it gives us a regression test to ensure bonding does not break
-again.
+> From: Matti Vaittinen <mazziesaccount@gmail.com>
+>
+> The ROHM BD73800 PMIC has 4 pins (named GPIO1, CLKOUT, FAULT_B and
+> EXTEN_OUT) which might have been set to operate as a GPI or GPO when OTP
+> (One Time Programmable memory) is written at device manufacturing.
+> Support the GPI/GPO use-case via GPIO framework.
+>
+> The default OTP for these pins is to not use any of them as GPI or GPO.
+> (The GPIO1 defaults as an ADC input regardless the naming). Hence the
+> driver assumes none of these pins is a GPI/GPO unless explicitly pointed
+> as GPI or GPO via device tree.
+>
+> Furthermore, pin's direction can't be changed after OTP configuration is
+> done. Also the default drive type for a GPO (CMOS / Open Drain) is set
+> by the OTP configuration. The BD73800 has a set of undocumented test
+> registers which should allow changing the drive type. Access to the test
+> register area or the test registers aren't documented and so this driver
+> does not support configuring the drive type even though it might be
+> doable.
+>
+> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
 
-	Andrew
+Pretty neat with gpio-regmap isn't it? :)
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+
+Yours,
+Linus Walleij
