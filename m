@@ -1,139 +1,103 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 739ED3358B9
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:38:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6262D46C85A;
+	Wed,  2 Sep 2026 11:38:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788349130; cv=none; b=WWT9GkFdsq1gfdPkaUMgwq7Dk/rVdS0RiZDMJKC7OqllWZvHp2WrgMVjxc8nSMEdN63Lf3PKfBNL0Bu90y8jwAkwU1HhatRfdf6zmtA8Ui49bqfCGzm52zO+KSK2JBMn2hgPIFz/LHPrtRTtgZYRhwiaBMLDUsFgMbSzFfI8L/M=
+	t=1788349143; cv=none; b=fhi4FM63DR6XvglZwxuhywtZbP+wKrKXHONxnQJDM0+Y9cHWLi3dljpgLqw/zKmvKRVwsdCiX+FA2vU4OfDhuUmkEcUKswzbdsrUhfBDzDTlTRb1MK74MuKDkvfLtXjN/nMOQUkIFICDDGvk3CVMxwgS2D3YBb7+5+Sn+eWQW0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788349130; c=relaxed/simple;
-	bh=q/jOT0aSezOBSpE6+6RycY5gUNZ6DERvx3WJ8/EXdUo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=G09ikt3XIcL8O3UezbbXWpvbmmgWmGMml7tHdgzujXFlMLpg768wPRXx7F4+3rWVDxMtnDbD/kJvQm9dVi+GJSnEthb6S5rSxdioflCKe/B+dpcuGu1X0miEaemLZiMMeQb61eWEEepNjkrK/hvVxQXHPaUM3Wen/PogrVYfCrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VGAKfdLm; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788349143; c=relaxed/simple;
+	bh=sscbjgBnKtUxRsO/x1GczA8xhnfKCQamArGMbzJc1IU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CnmZHyoxr3RXW8v0SfPwiArXVOEK1JyiVhV7muE+J1mlEYlFKyt8TrrThsEdJKhKOpoTXz4Q0uvbqY1brRQN2ueJKNp5pao75MwYpaKLwIgQSI/L0hLkovh7HxLon9g8+r3zRBCEGPjTU7LxCeTwyioUzLqG0qV+hQWSdUQJjMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0dv+xi8v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VGAKfdLm"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so8099115e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:38:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788349124; x=1788953924; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZYZ6NU8jX/7XJB8VagafYKNIpfybNyjtFYVwXJsyJqw=;
-        b=VGAKfdLmwPqDAHyHZT0xMMWrql2D1RGgneRVFwxIBDo3gLR5RgRw/BxTQSXV9dYOPX
-         erYDCfiaPvQjVQVhx3Z+m8a1LvOspwAQ8esrm+g/rQoGAPkRvSm53A/d6N98sWM02KHs
-         S0B5dFuYwMxivRcGlUqybl99gsTi0axKHYgJYmVaK4KQk1Tk/OWQhvyieAIQOTI+kBC+
-         tPkcU8NxRRfmcTIJJ0TTRI0ajBUFAINgvOhqSXGvhZTEy+YMhEHZZqSfytj1MX3rvegw
-         flQz+sht0wuP/UIJos/JHjQyIA8cNVPt3qiy2uKx0bQ1s6txLtLuC7ch/8/hPPkQs7Ex
-         OA7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788349124; x=1788953924;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ZYZ6NU8jX/7XJB8VagafYKNIpfybNyjtFYVwXJsyJqw=;
-        b=skg1xk+zjIWTX+zZmRNMmHaxpzyKR/UFhECwEm0ZB7mvjh4Fy2e3EoBYo+G5LJz/h/
-         1T+qH0M+dNZDdsrptGIzNzAaaBeuoXdWo/pQtjnTSqtuOy3VkF27yD5yTUE4TeYYvSL9
-         SqsEeKDFZwrf4VuSrQHsQc8bmY7OlqoEGw2Tqmgm5jiSoKGQ2h1mwdtazZeQA8I/ojrs
-         DInjiGqqNvFKKBafj76ZC8pmTKT9ZJLbwdioHtIsAc3eL9kP9zlP9AHXGm0WUg+i+Rd0
-         eLFpsoLskQA7bmDIf0sE0kgFlxJNc/3iLJLRW0vzQI3+WIzJfc0w1JrbJMVqunn2pQnc
-         Jjlg==
-X-Forwarded-Encrypted: i=1; AHgh+RpRdcX3/MDpC7xM7Dxw13QjCumbSTT81jJs21L+b+kS/HIzH6p5CRk6BQmLP6ywBsM8Jnbxzek5w3SI8x8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lL5ntO+hDNh74q3ByJQ3HXgAtp+y0Y9ajCR9nxFrnUsOZqiR7N
-	X7DFLxA6DSTUQt9LYGrCiPs5oQZ2Ks/FCGKIkd9TNBoWqOov4dfF2fn3
-X-Gm-Gg: AR+sD106EPQTYx+luN/c4kyiprxowOoj65zsn/YPs2Jk5TkP5WF/XgM5K9xzXNko5T4
-	I5tmkCzgzPC/yCk5oUEGeZIOaYsH3IlV5V0wH1GrgApRC+obe9SpHDekz+bmvQBBis70jK5tyNK
-	jTClYzIRiA8dj8GmyHgURRIqJCOEACDOcPOjsS4PLRERvjwtbLfIfwdVWxMD8sbNK+j9E4/jn1T
-	MPmJY57C8XmPr4wUQ+hbNcmvM3vGstI6aYp5zPVnh9rYDhISYxaniuHYdSmxsBnOASc7dNyZr4H
-	1hTl2aofzwAcoVBaiG/Po6LenZaF5dwRsH7fj52HJ87OZE4G+MI9Ilf1AwZ7Vjwk2t0u19ETsx3
-	RNIReRwtT4kgEVXUwOO15cNwwQa9t+5HeOh5OeBH20ErK6OYMxwjMqxm9DaNnpDr2QPiukvkuzk
-	ZlAae6aDMnZog4m4OgmNg110Cut+weAXKkRhbbbnvDxvuSbzyxwpk1Qv6fn+2FDeQ3V7pLFzJ+c
-	7Koyo+9XeSE2FBeQw5i9Sin6u9wiXM3LaGm8FPmVFMtP87aK424rx8XeA==
-X-Received: by 2002:a05:600c:1d89:b0:49c:ed8f:d094 with SMTP id 5b1f17b1804b1-49ced8fd250mr10166605e9.10.1788349124161;
-        Wed, 02 Sep 2026 04:38:44 -0700 (PDT)
-Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce309e418sm85608165e9.13.2026.09.02.04.38.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 04:38:43 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <7b7e4b45-dc5c-4328-bb51-5d1fac4c5586@gmail.com>
-Date: Wed, 2 Sep 2026 12:38:42 +0100
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0dv+xi8v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 574EF1F00A3A;
+	Wed,  2 Sep 2026 11:38:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788349136;
+	bh=MBtJ4SmEKsot9ny2wTAVp4NB/sOooiIro7JQTxtxrBE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=0dv+xi8vU4nc/DL+Tvqg1/fslvHMIKOmkYAylr6KgmlO5GIJykIn759bhsUAcUfXk
+	 fOVNvSzb4OK4t8m3ogAiZ1qURdwdXjVita83Rr0rhiYKxJTiAFOOFURIE9gAtt62GA
+	 rNGYMD3sHaxD9X/33pZ6dA7XYfzWkoWpKgzIFGRg=
+Date: Wed, 2 Sep 2026 13:38:52 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Lee Jones <lee@kernel.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Vincent Donnefort <vdonnefort@google.com>, stable@vger.kernel.org,
+	mhiramat@kernel.org, linux-trace-kernel@vger.kernel.org,
+	mathieu.desnoyers@efficios.com, kernel-team@android.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: STABLE REQ: [PATCH v5 06/10] tracing: Fix subbuf resize races
+ with trace_pipe_raw readers
+Message-ID: <2026090221-riverbank-overlay-704c@gregkh>
+References: <20260813131152.3589632-1-vdonnefort@google.com>
+ <20260813131152.3589632-7-vdonnefort@google.com>
+ <20260901123444.GA1350131@google.com>
+ <20260901094656.487b278f@gandalf.local.home>
+ <20260902082717.GM2943942@google.com>
+ <2026090230-entryway-acquaint-d12e@gregkh>
+ <20260902095744.GN2943942@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ima: allow users to specify the pcr index with
- IMA_MEASURE_PCR_IDX
-To: Mimi Zohar <zohar@linux.ibm.com>, roberto.sassu@huawei.com,
- dmitry.kasatkin@gmail.com, paul@paul-moore.com, jmorris@namei.org,
- serge@hallyn.com
-Cc: eric.snowberg@oracle.com, linux-integrity@vger.kernel.org,
- linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260824162215.1572367-1-julianbraha@gmail.com>
- <35ae5c9fd60874127d15f5fedb84c0a90e56eca4.camel@linux.ibm.com>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <35ae5c9fd60874127d15f5fedb84c0a90e56eca4.camel@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902095744.GN2943942@google.com>
 
-Hi Mimi,
-
-On 9/2/26 01:54, Mimi Zohar wrote:
-> On Mon, 2026-08-24 at 17:22 +0100, Julian Braha wrote:
->> The IMA_MEASURE_PCR_IDX option is currently not visible in the kconfig
->> frontend, so it always uses its default, 10. This means that the
->> 'range 8 14' is dead code, and users are unable to specify the pcr index
->> value.
->>
->> In a previous discussion, Mimi explained that users should be able to use
->> this config option to specify the pcr index. [1]
->>
->> Let's add a prompt for users to specify the pcr index, when EXPERT is
->> enabled.
->>
->> This dead range was found by kconfirm, a static analysis tool for Kconfig.
->>
->> Signed-off-by: Julian Braha <julianbraha@gmail.com>
->> ---
->> Link: https://lore.kernel.org/all/1feff118-4afa-4b9c-86f1-271a7a88208f@gmail.com/T/#mc4efa2491b4937eb7c9e532c29ffba516a70e662 [1]
->> ---
->>  security/integrity/ima/Kconfig | 1 +
->>  1 file changed, 1 insertion(+)
->>
->> diff --git a/security/integrity/ima/Kconfig b/security/integrity/ima/Kconfig
->> index b3a9f86809b0..2d5bb19ea6ac 100644
->> --- a/security/integrity/ima/Kconfig
->> +++ b/security/integrity/ima/Kconfig
->> @@ -46,6 +46,7 @@ config IMA_KEXEC
->>  
->>  config IMA_MEASURE_PCR_IDX
->>  	int
->> +	prompt "PCR Index for Aggregate" if EXPERT
->>  	range 8 14
->>  	default 10
->>  	help
+On Wed, Sep 02, 2026 at 10:57:44AM +0100, Lee Jones wrote:
+> On Wed, 02 Sep 2026, Greg KH wrote:
 > 
-> Thanks, Julian.  The existing Help says, "If unsure, use the default 10."  Could
-> we make this recommendation stronger?  AI suggested:
+> > On Wed, Sep 02, 2026 at 09:27:17AM +0100, Lee Jones wrote:
+> > > On Tue, 01 Sep 2026, Steven Rostedt wrote:
+> > > 
+> > > > On Tue, 1 Sep 2026 13:34:44 +0100
+> > > > Lee Jones <lee@kernel.org> wrote:
+> > > > 
+> > > > > Could we have this applied to Stable please:
+> > > > > 
+> > > > > 8a5f63637890 ("ring-buffer: Fix subbuf resize race with ring buffer readers")
+> > > > 
+> > > > It's marked for stable so it should automatically be backported (if it
+> > > 
+> > > Where was it marked for Stable?
+> > 
+> > It has:
+> > 	Cc: stable@vger.kernel.org
+> > in the patch itself.  It is in my queue to get to, along with over 1000+
+> > other patches that people decided to tag for stable and yet wait for the
+> > -rc1 merge window to get to Linus.
 > 
-> 	  IMA_MEASURE_PCR_IDX determines the TPM PCR register index
-> 	  that IMA uses to maintain the integrity aggregate of the
-> 	  measurement list. Most attestation tooling expects PCR 10.
+> Am I losing the plot?  The patch that I replied to [0] did not Cc:
+> Stable.  If it had, I wouldn't have made the request.
 > 
-> 	  The default is almost always what you want. Only change
-> 	  this if you know what you are doing.
+>   From: Vincent Donnefort <vdonnefort@google.com>
+>   To: rostedt@goodmis.org, mhiramat@kernel.org,
+>   	 linux-trace-kernel@vger.kernel.org
+>   Cc: mathieu.desnoyers@efficios.com, kernel-team@android.com,
+>   	 linux-kernel@vger.kernel.org,
+>   	Vincent Donnefort <vdonnefort@google.com>
+>   Subject: [PATCH v5 06/10] tracing: Fix subbuf resize races with trace_pipe_raw readers
+> 
+>   [...]
+> 
+>   Fixes: bce761d75745 ("ring-buffer: Read and write to ring buffers with custom sub buffer size")
+>   Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 
 
-Thank you for your feedback, will include this in v2!
+I'm lost, I was referring to the above git id that was asked about,
+sorry.
 
-- Julian Braha
+> > It will get there eventually...
+> 
+> This wasn't an urgent request or a request to expedite.  Take your time.
+
+Back to the never-ending-queue...
+
+greg k-h
