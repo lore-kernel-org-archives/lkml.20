@@ -1,372 +1,164 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010041.outbound.protection.outlook.com [52.101.61.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8329A4A8A25
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:54:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788360864; cv=none; b=P3loNbkL9L/FDGWaKsfUZCI57TtJ4A4UzwIfPwxYFYYvsPOdMfR92hEjcjgWP7Sj4Lj6IFf4YqgFK08Iy7O8CHEIfPP2EKJ+vOM/9Ez+LpXxutcN8aZLoRN2KoiFykNjKd/lQ+njA/ZAtqf+FZ/ttdU3lWUxIvEdYCyQxIiE0uc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788360864; c=relaxed/simple;
-	bh=7TpNIuEmLp+G5e+2SpK8ix5wNiH93X57SXsd3KUQO5E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PiZaP5MD5qSaC8PjyhQ7mYhGygEOSyuVcRMdleZD+HMn7T39lRk++kYsUsKCEMrENLRJ4QOCHTcpzVEB04fs0EOhx37CfJrvtQP1D/GUw8f/Qd9VyIU6onzfXxtDdxoagYc8iLQCsyMzV+XylmwlG8f/nSYNJ6201n5VYS2YJEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K/CHgd8W; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9A74A49B0;
+	Wed,  2 Sep 2026 14:54:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788360872; cv=fail; b=RMj0JHt8tTM9QyfNpTtY8y3dwwmCk2+nwETDZihukkbVej43MTt2he8T64EXoTzvtUn7KyUc7mocAcTMIkXLfxXLdZmsMdBaD4CzZw2xo4NMXrfR1FHmJjHs870X21gmNq5SQkX+87we/fI0370B8ZfCRqDthdP9iwyhHks3Tyk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788360872; c=relaxed/simple;
+	bh=GFBiO9A3R1DdSQtw3Zj61Y8Z4ujEmPa5EryOVQrbfV0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=ghUlQ+v8o9K+gTgXFyL4bpsZcPEhdZhhsuooEglTqZA7BAjJg3HmfFOePPXVLUBE8tPUxkAk1DtCQXgmx/Bf84eOKXi7W2NDsf8+tUqll4FRH36Uq9owiUsqAZjYzh1k3J5siKz5rJCcJhQfoiXmwHV/kx93YtawBmK9GzHWH/o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Gv+l0vHC; arc=fail smtp.client-ip=52.101.61.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K/CHgd8W"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48442ea8f59so1457434f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:54:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788360859; x=1788965659; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=06nDeaXmBzbafN8AxJnH0KVNHErvgEdljVUYQQyITT8=;
-        b=K/CHgd8WGNVP+AZvy+jsju32aosI4Vezl7Rp74E7nu3MGdsOdOdpAiCxpMzFweN59J
-         Ryhbk199UeF81N8SFc8gVkNY/h2BJUB4Wc5NdURlejhIPKfsVRuRsAF19GikLdtvuM43
-         qdFJbTNCz4es+0tBbyc+EeO+UAZz6yLvzOekNieHlNX7asFDPIo01xB4dtwURIHQMw2d
-         P8AXplmEUOHXkpESKYmIR+rw6i0GfvvnenJSd5hin4iW2qQvpxbQIuVPVtcCowoQPbo3
-         0B7dAAK6o5MTFCgieUuSnvz7jfRw6TnzkuBtOYZEiBaik3qgFnbjq48Bn09LCTR0pDrd
-         UsHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788360859; x=1788965659;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=06nDeaXmBzbafN8AxJnH0KVNHErvgEdljVUYQQyITT8=;
-        b=YS+K1JZ7DtpocBW2UkICxeebrYaFPK/tgHCOpuP9lPfwcGckqUi3teQmlosAKXIJyF
-         LQAxrUZUVy1cjrce7Ihpz5vAK64RjwLgNbuI3Fq6i85fmCYRuRwnATpPA6vHtQq3myqO
-         Qho55MAdpaeHPcfvEZtpr+VWt8CoxdYDGhQ2USEUmqA+UB1xd8BHu0465eA+P7qUqaPd
-         U9eMIebcQlb4K+lfxEY1FwKKEoQpOvr279CGMMA9CBBrHvB2Uh9qfJGHYd+VzwaubKKn
-         8ih/o2uMAmieDwIN2CnDjc4DG7CVZMjyPvigkYMUq3DFIab0sixfd+p1eNVJypHeiY94
-         1y/A==
-X-Forwarded-Encrypted: i=1; AKwUvBzuuocpbfgO1BiqN/0ygciHCUw9p89EZJ1E0toZawV+lmtGpo6iy8PaAWSlJuFxC4BJesvpXRSka/uyt/4=@vger.kernel.org
-X-Gm-Message-State: AFuF++k4ortYKcLzJloMXp1/efaXoDR6ye3t3oWFqylo6Qq0/+ocqodi
-	oeQ9UJvSzr1cdM/mjxamWENSrPVBYyRVPlK8AXWA+/phMSsDLi+Leth7
-X-Gm-Gg: AYBFou3T8arItumZQiiZuHKh7v4mIFs6MO9+WjNlay7DIdI1iVf8IJKzZmzPoHvzUKd
-	eTGUMSNcR7tSrZ6OF+Puzge8KZ2lJp6qiTDkgi8CkVv9imfEndLWrp/DH2bErVcDYT2OrZsQnTd
-	oZRJX/qVCJ7qxbaYkhYBaasxUle5deyvtuz3k3eG9sJQTbQE1FctGoor0vVPlQmjzuDPvvhYaSL
-	DrrJPNCj12O5o7xFqT+J5PBLCBzG5qJjE2tNux35WAu9j8l1vrKj1REgYGt7z7TyNwTeUkUyUjW
-	yLnyPWJb2Run6VE7A9eAqS3YtYbC6JwJvOyDXJz/PjBGtgCeIZJ8w6luzX5AJJanPaaOdU7P/yh
-	sNnbLp0BBD7ER8rsm2e8aa9koryvrYM6ntUJZAvEYhRhU0YFFbKvfYbVT8Z1s3TfOL8ElYIi9dT
-	JM0kguOGAXN/7V0UiK9etBYSa37uq5YzfhycaXjfhjMZQBD2L93FzVBiKjgVdzNQ6s3b2d5UoJ1
-	r0R6WjhssGwLoWN26vgzRAJAvn4MpuJ3fAnW8RYPkVp
-X-Received: by 2002:a05:6000:4a03:b0:484:482d:dce4 with SMTP id ffacd0b85a97d-4856f8254d5mr7668524f8f.0.1788360859416;
-        Wed, 02 Sep 2026 07:54:19 -0700 (PDT)
-Received: from 1Z10 ([37.163.216.116])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e81718sm6942012f8f.16.2026.09.02.07.54.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 07:54:19 -0700 (PDT)
-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-To: mchehab@kernel.org,
-	linux-media@vger.kernel.org
-Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>,
-	sakari.ailus@linux.intel.com,
-	bingbu.cao@amd.com,
-	jacopo.mondi@ideasonboard.com,
-	nicholas@rothemail.net,
-	andy@kernel.org,
-	andriy.shevchenko@intel.com,
-	hansg@kernel.org,
-	gregkh@linuxfoundation.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 16/16] media: i2c: Add WV517S lens actuator driver
-Date: Wed,  2 Sep 2026 16:53:45 +0200
-Message-ID: <bbd81ef43dfb8ad92572cdfb51ab2781e9a4cd02.1788360629.git.mauriziocasciano7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1788360629.git.mauriziocasciano7@gmail.com>
-References: <cover.1788360629.git.mauriziocasciano7@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Gv+l0vHC"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NvTmb/HDoGzEdP9mLeQaVO9ASSchu7zqQpNC+yAzVwj+YqBf2Zm9npcggsN1XelFynszHWjTmrX89wYEs7x7CjRTsJXZPR5pEHoz+dXDGSXHqtsypMoWPSdz7aLeVmagoW1h5xk4ZN+a1IH/DJOZauLY8iyzm1DR7NfZKqvZILjOryZ1zjxz8wg+AvuQhqG8L1tAcqJ530N4w2nXUCZCvAEIaYKFwcy7MHRgtHD2mvC2AhKlz1jyHnhm+SkAHAtj1mcgSrF4UsyckNVGaIC2JncYlMLQFzQfiQ04rT5TFhlWns/I/GXjvssBPRaIHRyPAp0cYWt9KeVN+9NK6rgvuQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=f/ZS7X3ggK43tAW7W+G/Y30MCYOfltg3DxH2mnj1k9g=;
+ b=lSjBvwoYO5/TsNC7d4v7WxE5pinJyObkuP6rfwoTwZFTIzjQtcAWVKvgJEw/fH8sNhCf6/Z/emIh1+6nbxBe+1HvERtgrGE3i3Mg8/tTGCIFssSl3S3h5kWqVuuARYGAsV6aDy/IcdW97nuUnbCkJxa/PH0GyFZZWRljVVpNbVgTGEDiQdAwDdNlwi6osLAV+j61JV+K2eCD2Rmlpk/sUNAHY346i+tzAB64HiB5j+Dovk1bnDS8lpvUOZiosDdoqpfrRqhMYVnMOVRNFDh0SdWd7EdBjDRHtxDZimKJ2MtQ+oaGSKMEtGlv/u1QnAeLZTz4RL1T6LUYKHPSWvM3xw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=linuxfoundation.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=f/ZS7X3ggK43tAW7W+G/Y30MCYOfltg3DxH2mnj1k9g=;
+ b=Gv+l0vHC4+k9vhEB5AL7KkBF6x3Kqu8Gcncz9syuNa7hrEZ4d3rWPHCwKbfnXgZlj+6SjyYD6pKw9+hxS1+VY9KXMGwZyRecRmiwD5ASjkavcYYpPVc1Bzyaf8dUcy+KUFEFFKRvlK7MgtviStaX0uFKCYYwGySyCmBiBIO2MGM=
+Received: from BY1P220CA0048.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:59e::6)
+ by SA1PR12MB9470.namprd12.prod.outlook.com (2603:10b6:806:459::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 14:54:22 +0000
+Received: from SJ1PEPF0000231A.namprd03.prod.outlook.com
+ (2603:10b6:a03:59e:cafe::1b) by BY1P220CA0048.outlook.office365.com
+ (2603:10b6:a03:59e::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
+ Sep 2026 14:54:21 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF0000231A.mail.protection.outlook.com (10.167.242.231) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 14:54:21 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
+ 2026 09:54:20 -0500
+Received: from xhdradheys41.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Wed, 2 Sep 2026 09:54:18 -0500
+From: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+Date: Wed, 2 Sep 2026 20:24:04 +0530
+Subject: [PATCH] usb: dwc3: am62: Fix runtime PM usage count leak on probe
+ error path
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260902-dwc3-am62-rpm-fix-v1-1-7a2807e33307@amd.com>
+X-B4-Tracking: v=1; b=H4sIAIw4mGoC/x2MQQqAIBAAvyJ7bsG0hPpKdBBbaw+aKFQQ/j3pO
+ AMzLxTKTAVm8UKmiwufsUHfCXCHjTshb41BSWXkJBVut9Nog1GYU0DPD4794JyXZjJWQ+tSpqb
+ /57LW+gEV5rBjYwAAAA==
+X-Change-ID: 20260902-dwc3-am62-rpm-fix-514ccf0696a3
+To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Aswath Govindraju <a-govindraju@ti.com>, "Roger
+ Quadros" <rogerq@kernel.org>
+CC: <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>, Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1691;
+ i=radhey.shyam.pandey@amd.com; h=from:subject:message-id;
+ bh=GFBiO9A3R1DdSQtw3Zj61Y8Z4ujEmPa5EryOVQrbfV0=;
+ b=owEB7QES/pANAwAKAcJReB2ribKGAcsmYgBqmDiZMnrWYhEl1cMliYsXHVJaOHLx5brJom8Pk
+ vmAylixfKqJAbMEAAEKAB0WIQSu/zhVY311S11OBhzCUXgdq4myhgUCapg4mQAKCRDCUXgdq4my
+ hiwoC/9W2VCqm6cx3gjGbIb1CI0Es1KU6VCDqdkHP8XOlOGV4TTVBmQoOfb4uQ1GJhNEXrpBMY5
+ Mt1L/symSRcIWjZRDPy5mNOoEmtM5amCtl17N7L7ED27wNjd+ml+KX77jsW6tG9JzKnw+yUGKAr
+ QyefOKTVj546mleR3Oq5jO93DqxHoQC/OLeIiSvO8uAOAIT0kBL+Ld2J0ScttEq1fehbD8axQtq
+ tmbQ0Xr2TUd7rQvhZjUpKtwBJxPCWOqlH/gZR2YE23a7HAxpxtnZYGej7zDn87SvXnhG8+qcWEi
+ tTQQi3Jl/eMBU1WUj36DDZQTKcPgmD/exw3oEpz9n6d8Q3uCMORU+vQqG1NZmG1nx+3OXze0J/Q
+ XtRMAMEkI7XBMeQICfsdNH3XQGDvkpRFIg06fzfWSrH8jd3e75j8oIX3TIt5cpZMsZKcoiOLYjv
+ iygYDWlw00tRFwNJCw2eA/9RGX8KFz+DGHNc1mMbe1zlIyWL95etG9/iNbto1fLJebVYU=
+X-Developer-Key: i=radhey.shyam.pandey@amd.com; a=openpgp;
+ fpr=AEFF3855637D754B5D4E061CC251781DAB89B286
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF0000231A:EE_|SA1PR12MB9470:EE_
+X-MS-Office365-Filtering-Correlation-Id: 895e534e-46c2-4c21-12d6-08df09021290
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	dwYOaM3FsgJvBH+9ZpFh/sjpyuPGxG5DOq+LRGLfM5tfjiGYZArl7ekmc0DOatDK9a7F9EvwCEhPzZXDPkcPmnW9ZHhXIhGJKxOCu1nTBV+MpBKbEe4aBNL3T299Ag+/DE1X6x1vY2wnQ6tpKwJ5cFWKOgoPumyYmkHfR1zEeMC9/+EnvdAN/8n3PhczPbcVOifpXti7AUl3NDHlYXckVQno2Cj6w80uPlGJZxJIZ6c/aLjbbHIjd3auKZ2uRDvywyZ5wcepbSsY9kWzfUuRih63BHmdqVeK5Xyvd/4+rz2JSChmB02BFWCdWQILOUspIhRa1hJzb5aj+U244GnojOCnxtnK/VjockO6RRaNkKQYMVaLUPTrMq5fwYu91gie6w3grDk82JneTD0J2Ksypyod4ul2vUEp0bZDAIXmSHGWvRxANPXK7ghCwpo+y6MscgqdWT1tsiKtygZAnjB3iWMvjbm5dBRo36IQ/HmvL88tG+KmedCoeZ19ExJ77OLsLX0FlW4xV8sLp6Ol/SS3c6qJ54Dbug7Jye86Z/G8fpXt+IpK/hARHsI9jFI/veicLH+xfnXhcm6WzhIcAZ6yi8gdqVZU06HrcNvoBXNoP03UDd4YuRgBkwHsfcoX/m2Te7oGll0+rXSEf6KF5zCBjRBMn14192Lp0rv2Un+AsYdeQVDvrs/Cbb0HLTO/wgGBZxD8qs+6Hprg6RypTRyxwg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	fJVDDMq8rZrQNuec/RIFrx4mr66p5ZFWUMeE6E86wgG0wZUNCrF27uficvhal/c3ZIrp/tcrzeo/fZZlXj6JsueO5KHpRvvYcYWKFtDeXT4xwBT+p7uGVolzlmLaatjDhdKPqcV7BqGRNSUV1N1194cBFFYthiLJf1VHLeGVeegZ2dXTZRPGJgig/p6iaofsj4LxmObGafkovCYRdijnqNexNdcyTy9/jk61ajCb2awiFBniP9VPQiMg3XAsDc1qFJfJlk86gJJXVvu4igDbJM5XxERFEjkvX/GLWqbgHTU9wFW4M+BanVF1zBYuobCe30e0iLWvnl0PZQ3qlzdxp1SHPwXyllkuL36X5Ox+2W+Q6FEhAmeivh1W12DKyL0/WZkAi5Y4f/BAKILMtAD05bHw30q5PM9jJLqLX6NRuPAQkp7Nh96Fa9b/Hsnd18vt
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 14:54:21.4635
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 895e534e-46c2-4c21-12d6-08df09021290
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF0000231A.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9470
 
-The Lenovo Yoga Book YB1-X91 rear camera contains a WV517S voice-coil
-actuator. Add a V4L2 lens subdevice exposing the standard 10-bit
-FOCUS_ABSOLUTE control and the device ringing-control mode.
+dwc3_ti_probe() takes a runtime PM reference with pm_runtime_get_noresume()
+before creating the dwc3 core child device, and releases it with
+pm_runtime_put_autosuspend() once probe has succeeded. The err_pm_disable
+error path only disables runtime PM, so the reference taken a few lines
+earlier is never dropped.
 
-Use regmap for register access and tie control updates to runtime PM so
-the IPU bridge sensor link keeps shared power resources active. Propagate
-PM acquisition failures and restore the drive mode and controls after
-resume.
+The usage counter lives in struct device and is not reset when the driver
+is unbound, so the leaked reference outlives the failed probe. If the
+device is probed again, through a manual rebind or a module reload, the
+counter starts at one instead of zero and the pm_runtime_put_autosuspend()
+on the success path can no longer bring it back down. The wrapper then
+stays runtime resumed for good and autosuspend never kicks in.
 
-The register addresses and drive-mode value are derived from Intel's
-GPL-2.0 WV517 driver. Retain the Intel copyright notice and document the
-2026 copyright for this V4L2/regmap implementation.
+Drop the reference before disabling runtime PM, matching the ordering
+already used in dwc3_ti_remove().
 
-Link: https://github.com/jekhor/yogabook-linux-android-kernel/blob/574bae692716f1b14093497bfab8a007fe8e460b/drivers/external_drivers/camera/drivers/media/i2c/wv517.c
-Assisted-by: LLM sparse
-Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Fixes: e8784c0aec03 ("drivers: usb: dwc3: Add AM62 USB wrapper driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Radhey Shyam Pandey <radhey.shyam.pandey@amd.com>
 ---
- MAINTAINERS                |   1 +
- drivers/media/i2c/Kconfig  |  11 ++
- drivers/media/i2c/Makefile |   1 +
- drivers/media/i2c/wv517s.c | 206 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 219 insertions(+)
- create mode 100644 drivers/media/i2c/wv517s.c
+ drivers/usb/dwc3/dwc3-am62.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 55b3c2d7a78a..a4380be897e9 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -28555,6 +28555,7 @@ S:	Maintained
- F:	drivers/media/i2c/ak*
- F:	drivers/media/i2c/dw*
- F:	drivers/media/i2c/lm*
-+F:	drivers/media/i2c/wv517s.c
+diff --git a/drivers/usb/dwc3/dwc3-am62.c b/drivers/usb/dwc3/dwc3-am62.c
+index 632634d6e81e..d03b3950ce04 100644
+--- a/drivers/usb/dwc3/dwc3-am62.c
++++ b/drivers/usb/dwc3/dwc3-am62.c
+@@ -299,6 +299,7 @@ static int dwc3_ti_probe(struct platform_device *pdev)
  
- V4L2 CAMERA SENSOR DRIVERS
- M:	Sakari Ailus <sakari.ailus@linux.intel.com>
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 5c52007f9cbe..c5636e0cbecf 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -949,6 +949,17 @@ config VIDEO_DW9807_VCM
- 	  capability. This is designed for linear control of
- 	  voice coil motors, controlled via I2C serial interface.
- 
-+config VIDEO_WV517S
-+	tristate "WV517S lens voice coil support"
-+	select REGMAP_I2C
-+	help
-+	  This is a driver for the WV517S camera lens voice coil. The driver
-+	  supports 10-bit focus control and exposes the actuator through the
-+	  standard V4L2 lens sub-device interface.
-+
-+	  To compile this driver as a module, choose M here: the module will be
-+	  called wv517s.
-+
- endif
- 
- menu "Flash devices"
-diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index d04bd5724552..e480932a9540 100644
---- a/drivers/media/i2c/Makefile
-+++ b/drivers/media/i2c/Makefile
-@@ -173,4 +173,5 @@ obj-$(CONFIG_VIDEO_VP27SMPX) += vp27smpx.o
- obj-$(CONFIG_VIDEO_VPX3220) += vpx3220.o
- obj-$(CONFIG_VIDEO_WM8739) += wm8739.o
- obj-$(CONFIG_VIDEO_WM8775) += wm8775.o
-+obj-$(CONFIG_VIDEO_WV517S) += wv517s.o
- obj-$(CONFIG_VIDEO_INTEL_CVS) += cvs/
-diff --git a/drivers/media/i2c/wv517s.c b/drivers/media/i2c/wv517s.c
-new file mode 100644
-index 000000000000..fa6c6d7524fb
---- /dev/null
-+++ b/drivers/media/i2c/wv517s.c
-@@ -0,0 +1,206 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+/*
-+ * WV517S voice-coil motor driver
-+ *
-+ * Copyright (c) 2014 Intel Corporation.
-+ * Copyright (C) 2026 Maurizio Casciano <mauriziocasciano7@gmail.com>
-+ */
-+
-+#include <linux/container_of.h>
-+#include <linux/device.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/types.h>
-+
-+#include <media/v4l2-ctrls.h>
-+#include <media/v4l2-device.h>
-+
-+#define WV517S_MAX_FOCUS_POSITION	1023
-+#define WV517S_DEFAULT_FOCUS_POSITION	300
-+
-+#define WV517S_REG_FOCUS		0x41
-+#define WV517S_REG_DRIVE_MODE		0x43
-+#define WV517S_DRIVE_MODE_12_6_MS	0x0211
-+
-+struct wv517s_device {
-+	struct v4l2_ctrl_handler ctrl_handler;
-+	struct v4l2_subdev sd;
-+	struct regmap *regmap;
-+	bool resuming;
-+};
-+
-+static inline struct wv517s_device *to_wv517s(struct v4l2_subdev *sd)
-+{
-+	return container_of(sd, struct wv517s_device, sd);
-+}
-+
-+static const struct regmap_config wv517s_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 16,
-+	.max_register = WV517S_REG_DRIVE_MODE,
-+	.val_format_endian = REGMAP_ENDIAN_BIG,
-+};
-+
-+static int wv517s_set_ctrl(struct v4l2_ctrl *ctrl)
-+{
-+	struct wv517s_device *wv517s =
-+		container_of(ctrl->handler, struct wv517s_device, ctrl_handler);
-+	struct device *dev = wv517s->sd.dev;
-+	int pm_ret;
-+	int ret;
-+
-+	if (ctrl->id != V4L2_CID_FOCUS_ABSOLUTE)
-+		return -EINVAL;
-+
-+	/* Runtime resume restores controls while the PM state is RPM_RESUMING. */
-+	pm_ret = pm_runtime_get_if_active(dev);
-+	if (!pm_ret && !wv517s->resuming)
-+		return 0;
-+	if (pm_ret < 0)
-+		return pm_ret;
-+
-+	ret = regmap_write(wv517s->regmap, WV517S_REG_FOCUS, ctrl->val);
-+
-+	if (pm_ret > 0)
-+		pm_runtime_put(dev);
-+
-+	return ret;
-+}
-+
-+static const struct v4l2_ctrl_ops wv517s_ctrl_ops = {
-+	.s_ctrl = wv517s_set_ctrl,
-+};
-+
-+static int wv517s_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
-+{
-+	return pm_runtime_resume_and_get(sd->dev);
-+}
-+
-+static int wv517s_close(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
-+{
-+	pm_runtime_put(sd->dev);
-+
-+	return 0;
-+}
-+
-+static const struct v4l2_subdev_internal_ops wv517s_internal_ops = {
-+	.open = wv517s_open,
-+	.close = wv517s_close,
-+};
-+
-+static const struct v4l2_subdev_ops wv517s_subdev_ops = { };
-+
-+static int wv517s_resume(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct wv517s_device *wv517s = to_wv517s(sd);
-+	int ret;
-+
-+	/* Restore the vendor-recommended 12.6 ms ringing-control mode. */
-+	ret = regmap_write(wv517s->regmap, WV517S_REG_DRIVE_MODE,
-+			   WV517S_DRIVE_MODE_12_6_MS);
-+	if (ret)
-+		return ret;
-+
-+	wv517s->resuming = true;
-+	ret = v4l2_ctrl_handler_setup(&wv517s->ctrl_handler);
-+	wv517s->resuming = false;
-+
-+	return ret;
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(wv517s_pm_ops, NULL, wv517s_resume, NULL);
-+
-+static int wv517s_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct wv517s_device *wv517s;
-+	int ret;
-+
-+	wv517s = devm_kzalloc(dev, sizeof(*wv517s), GFP_KERNEL);
-+	if (!wv517s)
-+		return -ENOMEM;
-+
-+	wv517s->regmap = devm_regmap_init_i2c(client, &wv517s_regmap_config);
-+	if (IS_ERR(wv517s->regmap))
-+		return dev_err_probe(dev, PTR_ERR(wv517s->regmap),
-+				     "failed to initialize regmap\n");
-+
-+	v4l2_i2c_subdev_init(&wv517s->sd, client, &wv517s_subdev_ops);
-+	wv517s->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-+	wv517s->sd.internal_ops = &wv517s_internal_ops;
-+	wv517s->sd.entity.function = MEDIA_ENT_F_LENS;
-+
-+	v4l2_ctrl_handler_init(&wv517s->ctrl_handler, 1);
-+	v4l2_ctrl_new_std(&wv517s->ctrl_handler, &wv517s_ctrl_ops,
-+			  V4L2_CID_FOCUS_ABSOLUTE, 0,
-+			  WV517S_MAX_FOCUS_POSITION, 1,
-+			  WV517S_DEFAULT_FOCUS_POSITION);
-+	if (wv517s->ctrl_handler.error) {
-+		ret = wv517s->ctrl_handler.error;
-+		goto err_free_ctrl_handler;
-+	}
-+	wv517s->sd.ctrl_handler = &wv517s->ctrl_handler;
-+
-+	ret = media_entity_pads_init(&wv517s->sd.entity, 0, NULL);
-+	if (ret)
-+		goto err_free_ctrl_handler;
-+
-+	pm_runtime_set_active(dev);
-+	pm_runtime_enable(dev);
-+
-+	ret = wv517s_resume(dev);
-+	if (ret)
-+		goto err_disable_pm;
-+
-+	ret = v4l2_async_register_subdev(&wv517s->sd);
-+	if (ret)
-+		goto err_disable_pm;
-+
-+	pm_runtime_idle(dev);
-+
-+	return 0;
-+
-+err_disable_pm:
-+	pm_runtime_disable(dev);
-+	media_entity_cleanup(&wv517s->sd.entity);
-+err_free_ctrl_handler:
-+	v4l2_ctrl_handler_free(&wv517s->ctrl_handler);
-+
-+	return ret;
-+}
-+
-+static void wv517s_remove(struct i2c_client *client)
-+{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+	struct wv517s_device *wv517s = to_wv517s(sd);
-+
-+	v4l2_async_unregister_subdev(sd);
-+	pm_runtime_disable(&client->dev);
-+	v4l2_ctrl_handler_free(&wv517s->ctrl_handler);
-+	media_entity_cleanup(&sd->entity);
-+}
-+
-+static const struct i2c_device_id wv517s_id_table[] = {
-+	{ .name = "wv517s" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, wv517s_id_table);
-+
-+static struct i2c_driver wv517s_i2c_driver = {
-+	.driver = {
-+		.name = "wv517s",
-+		.pm = pm_ptr(&wv517s_pm_ops),
-+	},
-+	.probe = wv517s_probe,
-+	.remove = wv517s_remove,
-+	.id_table = wv517s_id_table,
-+};
-+module_i2c_driver(wv517s_i2c_driver);
-+
-+MODULE_AUTHOR("Maurizio Casciano <mauriziocasciano7@gmail.com>");
-+MODULE_DESCRIPTION("WV517S VCM driver");
-+MODULE_LICENSE("GPL");
--- 
-2.53.0
+ err_pm_disable:
+ 	clk_disable_unprepare(am62->usb2_refclk);
++	pm_runtime_put_noidle(dev);
+ 	pm_runtime_disable(dev);
+ 	pm_runtime_set_suspended(dev);
+ 	return ret;
+
+---
+base-commit: 8b72f6626dc39b9e7e82b2721d4f7c3b86286012
+change-id: 20260902-dwc3-am62-rpm-fix-514ccf0696a3
 
