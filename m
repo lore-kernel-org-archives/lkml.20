@@ -1,1455 +1,166 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011000.outbound.protection.outlook.com [40.107.130.0])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F24A3AA4F8;
-	Wed,  2 Sep 2026 16:30:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.0
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366626; cv=fail; b=i7NkL46m4p6dejRh9EwdaJRmIbrEFgOYBuiO4KA3J19/NFleUnUrQUP+M0RkBD48vTTzOv2vgZMYXtJH2zTgclDWlPGjjRf6wMMFpkwz3V8rhuWpJ3f3xd5I3jVLIh2wHVxjR3ME8eZ6GpRe8QOk1ASnH8/uGqdCVcXKBJbbfv8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366626; c=relaxed/simple;
-	bh=BEHLe+hnyM3ZN+qdP60TF7O5oTJnluzke28O7lhfsu0=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=HMRzRuLzxx41TBU3G3Ty1MACZW/z/81eEXosaPaoAU6h5clLh2S9VIndPOVSPm7nF/h3cqM1QkwLv1ZC8jKip/Junoa5UdM4rL85fRPhGprFuy9lEtH5tMU5yWMgISYgHcgzIkbj5n+kSoG8+hu3MBoXb8iNKX9ffu9L56rqYXg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech; spf=pass smtp.mailfrom=est.tech; dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b=x5HVGo7g; arc=fail smtp.client-ip=40.107.130.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=est.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB3A4AE109
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:30:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788366638; cv=none; b=UqmgmF84qDLhffT8Icj8uw2dmQsCQvbcksHf4RnQgLCbEUiFVH1yafAcJ3z2ee772Ep9HhZRlVViluoj3FxMEU+mVwL2fXO21/WJStKwbfEK/JqY6PKI9La4VGEuqrDgQwc9eQP4RyzTHiXsqax449FB+pHOMe5OkF9Tg6JgvlI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788366638; c=relaxed/simple;
+	bh=Jm/GCgG3w1Rtf7Ytx9MV+IJejXDtp+gAXOMb3VKAutE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SQTYq8iOXVnuyex3gXSKZJR0Oc6eP8gKsa1ZclebriN/G5U5VCbpvZ9ddmVsGjpfakHP7B/4dLD3/0NVeAplk88g3pBGKm9M2VKNCkldNznXNyjXkMLQ+MVzurQVJEmXmloo8ObWtrjpW6BOZscJZuCu0lWex/jlgly1pClsa1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=K4+Vtoub; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y64X2xN1; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b="x5HVGo7g"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GTfuXxoMDzsohO9LDYexJku7q5nh2zzijwhHHxDBE7BjRIzlTMvv6t8LKNsQQr9tBvpNTwJOgU1abvzaIOa3hJZtKfGtxlVLLSk3UsqJ7khhaldU660m5+USmNWJ4yyg0LWd6a4hKedocikjmoX/DShBhIW5RMwLvJYx5DEI0BVhd0ok1ylHCA2L9HyX9FtJ0SJuPfHoMBMnrCgbDj3OzKRKMXpHfLNObVzV3irgQJDLcXEMOSksLe9EZQWg9IbFCiVRgcA3Bw87rMPnDIx0KqoMsSBCiBnf6UYUkjRjdBjPv4HPBsOQ5D2BlvsoUiIS6dDQlv9P4RAz/7RIt4LVRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rSCiurM4Q+HxomS0iR1barVyZnAg50nN9s6DrBUldPs=;
- b=ZNaHkOOM7M0EP9kOZ1whPwxrAs6xoBV6kIGkvxvvnF3lXWgTQy4EcegoXgOLZW59jTsRFzbDJQA5kMDpoKE09QIZgwnBgzOE/xQfOMML7WQc2hrb+TDrBVTKhXLbSg04T7DjKFV8fNeQN9jz2u3CJQ3iARKoVKrW4r9HE5NAoVsGTH7SVfgSYnDrzpfDakw2SUuPaL/snjifdHK1eObGssCHS99kfUtQXZbNTmO1Zz2tAz2+IwcrW/yIkKtr7C9ghYCksN7JEbEei4BzommjE7DH/aqD5PD1dycU/vGxW8Vb2gk05zFqUSYp5kIWPZKoCR+tkZqt4akNrbs2+1c/7w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=est.tech; dmarc=pass action=none header.from=est.tech;
- dkim=pass header.d=est.tech; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=est.tech; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rSCiurM4Q+HxomS0iR1barVyZnAg50nN9s6DrBUldPs=;
- b=x5HVGo7gNFd1EpVrhPnKjamEAPdzupiohNhb/0lOag1EArZeV2cXc7rocsComdtUGLvZbqFBL9SGQHIHNB0ektMnCPLVXjeVVNOl2BUljVVj3aOavA/o9I0SbjZud/7chMT2fN1u4kJBqCVqVtJkPhndzDHD5FvpxhPpeMoz+qoA9YgjR9H1IQcQtZyJrRw5ifuIv4p7ptD5P26o3hqhhLrdtel4ovJcexDMJx/bshjkcpdbfLk+WCCOQPdwq/yQQ4qXDS8GxkbpmnoRQ0ZeO+l7EqoAlRKz9VQGb6kI6FtyQ0A+/qfPiG6ZnRyjwy/KcDIBP0bp8HH7jsVFsAm2ow==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=est.tech;
-Received: from AS8P189MB1752.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:39b::19)
- by VI1P18901MB0638.EURP189.PROD.OUTLOOK.COM (2603:10a6:800:121::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 16:30:13 +0000
-Received: from AS8P189MB1752.EURP189.PROD.OUTLOOK.COM
- ([fe80::69fc:c4d4:200b:e4b4]) by AS8P189MB1752.EURP189.PROD.OUTLOOK.COM
- ([fe80::69fc:c4d4:200b:e4b4%6]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 16:30:13 +0000
-From: Yunseong Kim <yunseong.kim@est.tech>
-Date: Wed, 02 Sep 2026 18:29:39 +0200
-Subject: [PATCH RFC v3 6/8] selftests/kcov_dataflow: add
- eight_struct_args_{c,rust} selftest module
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-b4-kcov-dataflow-rfc-v3-v3-6-824609f279f5@est.tech>
-References: <20260902-b4-kcov-dataflow-rfc-v3-v3-0-824609f279f5@est.tech>
-In-Reply-To: <20260902-b4-kcov-dataflow-rfc-v3-v3-0-824609f279f5@est.tech>
-To: linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, 
- linux-mm@kvack.org, linux-kbuild@vger.kernel.org, 
- rust-for-linux@vger.kernel.org, llvm@lists.linux.dev, 
- workflows@vger.kernel.org, linux-doc@vger.kernel.org, 
- linux-kselftest@vger.kernel.org
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>, 
- Dietmar Eggemann <dietmar.eggemann@arm.com>, 
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
- K Prateek Nayak <kprateek.nayak@amd.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Josh Poimboeuf <jpoimboe@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Nick Desaulniers <ndesaulniers@google.com>, 
- Bill Wendling <morbo@google.com>, Marco Elver <elver@google.com>, 
- Nikita Popov <nikic@php.net>, Matt Arsenault <arsenm2@gmail.com>, 
- Justin Stitt <justinstitt@google.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Shuah Khan <shuah@kernel.org>, 
- Yeoreum Yun <yeoreum.yun@arm.com>, Yunseong Kim <yunseong.kim@est.tech>, 
- Yunseong Kim <ysk@kzalloc.com>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788366590; l=38874;
- i=yunseong.kim@est.tech; s=20260824; h=from:subject:message-id;
- bh=BEHLe+hnyM3ZN+qdP60TF7O5oTJnluzke28O7lhfsu0=;
- b=N5h0tvbK8tN9YPXOcNEofAgP87/eKenRejqpQFop3JlNQdqwK9SE3G/C+teQPZxRP+NcqGA9o
- T/61QmVmIJXBU3tT98h1MP7YX7OnrXlI0VPjvp2BTAV+fOigmbDFpA4
-X-Developer-Key: i=yunseong.kim@est.tech; a=ed25519;
- pk=nfdmjNawkxBHo9UNdzLNBEht8sYmXp0MYUsa/hwC7vw=
-X-ClientProxiedBy: DX0P273CA0047.AREP273.PROD.OUTLOOK.COM
- (2603:1086:300:5a::20) To AS8P189MB1752.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:20b:39b::19)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="K4+Vtoub";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y64X2xN1"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682FZNUi2067375
+	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 16:30:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	0LmumBSHjtHOWOUT98VGfXvJdSeB0SGvuhvGl274xq4=; b=K4+VtoubPjiIXRnh
+	aai/86kVsfUaBNvo4dc75Qt6FnOXokWJGQqicgCX4EpUbDw1b/OTguGDjuplV+Ts
+	pr7VTupcyr5pVaKDf9bJHgmOGSpLZiA1URafPwGjO+VC7tAwJSnSEiLPaBPp6TV8
+	Cb12U4EaNxIt/+cKXcM/H94VX+hCuNg5VRRQ27uqikwM/xoqoU5x68H/cMp4vH5/
+	gGy00yyNOzYtEpYIwrq6z+t91AlUG4PRnEyQiMyHZjh/XrGG8wtsE3Ey0jVjE0VJ
+	3/vjEZFj4I5QX0TjLGMnwCix8s58aWv0L/EuLHmJ1jje1VTex+pX/0KEWaCfPo/t
+	fUj7Qg==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gejv897sr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 16:30:35 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c6645a6ab1so62574e0c.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:30:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788366635; x=1788971435; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0LmumBSHjtHOWOUT98VGfXvJdSeB0SGvuhvGl274xq4=;
+        b=Y64X2xN15BDxTRxKpaFdWUjMQcySFov5DCXmiVyrnQV0ZnJgPYsu4AVk2i+pKbl4+X
+         2kKEtuoIkt3AWc6yIGxETsQ6TeYtuqbshW1X8kvYkuyI2PK1tYBNjZR8TAmhkuXi1/L5
+         YiVAdPQc7C+YD3C3H8dEcY1qzih/PyTZwN2iz0ta/VqndNwqFl7Rtz/9WpU4vS7Gh3Pj
+         pRaLAKf8H5G3hEamVk5PtHFQ7Fd9nZxQ4anAU6VTKTIjDUwKLYUnung7WjOFS/dNZDGy
+         EAO6KzrWQUrDyJi+CXOijs5lJXLg4CEzTWBSQUg8da/CZn8nP2/n4LVs2JgVjU7fReP8
+         5G/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788366635; x=1788971435;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0LmumBSHjtHOWOUT98VGfXvJdSeB0SGvuhvGl274xq4=;
+        b=bouNWlPjfS5I8xTyqtv5cmAxaGYJcSpbeOXD9Gv1VZyOVo8ZAJTrPknSuIABVEEUn4
+         HQ90ROH2dUTyay9u21kcUX5loAzBw8E6TkMqu3VonvCO7lloWu/Ew3Iyk6d4FvfD8RKH
+         jWTHIe4LeCdP+rz7HLjY74RttLCP3jR9NUtJMjTdgIAkC6rooMF+hQimOpaPcc6GmGpE
+         SNrgzD+DoReMdWWjVob3/pkCe1C7Rqt9iyCD+nAMayhzFtZzt2G5MAU7ei/LOiQrUV+0
+         R9ZrG64R2fgWLZscYRhKo7vzyRgbXCM7cafMMdFCNZzO8veL5Hs3Ha7LnkFEy9JdF2Tx
+         TCkw==
+X-Forwarded-Encrypted: i=1; AKwUvBynNdCcnrjkWNUxp1e0v2lKQBX5Kd+fN42xoWzG29pjP5OnMPLpoxt88d3PktJtp7xxHi+xrNANHlZvdPk=@vger.kernel.org
+X-Gm-Message-State: AFuF++m4uPA2ICK0zdliG0YpJizlByR2kCa+jvYwBLt7rzu3vCHCHsIL
+	eNNBIilhVuiPYSMAu2aHjHYyFsw9qvSlRhIEQBS0+KKwAr2RGhBXPe+m8vDA9ciIhSW6gAs7Lvm
+	5A/BarIHlF0NmYr1XsQDkVH3l4l7Lw+qbwl10hhAyB+dclkf65UuArKRvsWmggaDrzLY=
+X-Gm-Gg: AYBFou0KmpMGlhWoalg0b/Pk0XRhkddDXiUZOmoFN9OcRSvXxtmVr1pEAnXFABd+9/Z
+	piAkKEUXusdRqOQ2g0L/8wyhw5sNDA9QEiSDYu8m+fmcjX8c04jf4gXBNNWVBbijF42bPrCdgvt
+	22frRebKiQ5QaFfTtkSAEjHWPYPiKEBsgXXL6ussnRpw5xkQk5PXvnkHaafN3ZVRzKR+jWJmkis
+	HPrZUxuCY/1Zcom+haT1a+xX4TiJWaJnNJJF6JijxuTc6lrt//aHeVrRxSpi9kBryZTuk5fQt0y
+	Wqi2V3Fy7uYBN88PagpIVV4QYDl2GWwYaX3e8UQFx02sWQMMt8lnJCMJOvcHqyLF3kNAKtY8ffH
+	18WDlmNsws800bM+2nLfm6w==
+X-Received: by 2002:a05:6102:5490:b0:789:3ef2:1da1 with SMTP id ada2fe7eead31-78a1f2db6b2mr994103137.1.1788366634521;
+        Wed, 02 Sep 2026 09:30:34 -0700 (PDT)
+X-Received: by 2002:a05:6102:5490:b0:789:3ef2:1da1 with SMTP id ada2fe7eead31-78a1f2db6b2mr994053137.1.1788366633931;
+        Wed, 02 Sep 2026 09:30:33 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25d039d2c2sm168293066b.32.2026.09.02.09.30.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 09:30:32 -0700 (PDT)
+Message-ID: <6d4b8ced-97e9-4926-8678-39339c5303af@oss.qualcomm.com>
+Date: Wed, 2 Sep 2026 18:30:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8P189MB1752:EE_|VI1P18901MB0638:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4e53fdbd-fbbe-4fdb-465a-08df090f7686
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|1800799024|7416014|23010399003|6133799003|56012099006|10067099003|11063799006|22082099003|18002099003|5023799004;
-X-Microsoft-Antispam-Message-Info:
-	IZ3q5nHRqbOFhxovvIqIPLSO35ZbZDnIjVCdycwqXThYYcE9wL7jk7t+HbHtW1PFgjyzIpYcbVgKmi3jljOE0dTx17oh8r2va6dOlVZVOKsgDGuVfi288C0YQiPr6XRwqe57xlx1LEozMNMz8PbIMlYeacHQWczlwZ4ttXJsjsPzA44utowbi0pa78qGiFuTPdjCl+zBK+1aW6sgrQhbjbwBlucvF4pkPmS5aX8IGsTvIllVGFWcB7CbLKP2vSpGujYQz9X93D8seMnMb6H3Q8LeQE2ecsINu0XJ3gJIUdYj40fMfKtiW5bsz4+IeSLmP+kBtpgrnU2zIIx9SsyJ53iRrcW5CW1cw2pfRImhfRtXPy9F2LPMPY+itiJcBKkKpZfYu9/VY2iNcZwHTilXijGbG6t99ip31pNUern3Ag5krwQnWR/JB4M/okbZiLWjCDmNVkMgUzrCKdFQPTOzWOxv9gVAnzaL2xwkcxz/qojgpsDPFbBuJ8ySemmE1ZTH9trC+f4FtA1PL8sygZzz3yqXc9MIiM4PGFmuAonVcQ26robVDSuuYQ9lama0pH05kANFUgCWJ6PfKUtTGHTUhvFKBeRqVyMlyULGYmG5uzGaibPGvQpra4DgXOkBoH7PhwERjbQIoqFKt7xcwUK4og5+jab2eZ79hw58AmxL/L4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS8P189MB1752.EURP189.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(7416014)(23010399003)(6133799003)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003)(5023799004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V1Z1cW9KbDRzMVZheXJhdFBvSXp3NjlpQ1Z0R0hxcmppUDRaMmh5WXREZnly?=
- =?utf-8?B?eEgyekdsWVVpSDFtZzA4U1Nkc0pzeUVTelRVdWZJOEZlZUdMRmF6VHlsa3hD?=
- =?utf-8?B?MlhOanJHTFhKcmVRVW5YSDBDc2VOSi9HS1NCTEU1V1dsRWk1UVhlTjB5YjM0?=
- =?utf-8?B?cmQ3ZUNLQ1YybjlkWkhVai9aMmFYa3VvTGpySkMvREdOMlcxSmFtYlEzTTFs?=
- =?utf-8?B?SWpDQVNsd0NnTTZBdkFzSDI1bEo0REtqYkh6dkNyVUxJblZPYklQbGRWR2Y3?=
- =?utf-8?B?R3gvS0xVdzFhUE5hNzNpUHEwR1FLa29JMXhGbENsQTd0MGJKT3ZMcTV2Y1RP?=
- =?utf-8?B?dXlWWU11Rzc1ZmlOVDJsZTJmeW9FOXpTQ2oxSVZFdnlWUW1HWDhIR28zMllz?=
- =?utf-8?B?K3BIWUhsWFF2S1dpVkJ4QTluOTBiQVo2TzFQREVYTjMyYlBZdTFWN21hTXZ2?=
- =?utf-8?B?UDhVVlgyWi9JclRBOXhKYzh1K0xyT1VQYkVaTG9rMjhOOEFvT0JNRFJnVXY1?=
- =?utf-8?B?Y3hoSmRaVk4vT1NvYU8xQytIRUFkMzhxREw5N2pHMGgrK2dHb2xlb1E4b3N4?=
- =?utf-8?B?S2h4eDBlVFBjRzJtSkUySzdGdDN4VVNaV3hZTXZXMXNtNVJRaTRMM1h1a2gy?=
- =?utf-8?B?N09aL0E1dm1yaWtXTmkrOTJzcUYzTG4yRHl0MjlibUNhNkxVcmk2Tmp1V0Ev?=
- =?utf-8?B?K2wwelk0NWxOZ3BIcTVpMFo2bG9sYVVqY3BhRk92dHgwaExHRldWa0FFYkw3?=
- =?utf-8?B?ZFVGMFBYK2NERlNhcm8wc2hvZ0dYNU9MeHhzdkNFK0pTbFE3UXJjbnlCUGUz?=
- =?utf-8?B?Rk1DNHdiYmhDeS9yc2JKcGFlWEpxaTdDd3pLY01PRUZoR1dJbGRpYTdCeE85?=
- =?utf-8?B?VldybC8yNENNREFQb09tYmdENm0zZEg3YnpyU2hNdnp3bndGTGZtdGFSN0Ro?=
- =?utf-8?B?Ym1jSEJ2TmpqRDIycFdZcHB0RnVZSXF3N3I4Mno2a3ROSURQNkI5SDFxRGNU?=
- =?utf-8?B?dW9sMGQ3dHNhRnROdjdXczNwdWJPZ1diRUJ4SlRRQ1ZBaHAxb1hGMVExVlpE?=
- =?utf-8?B?WFd1dm40eE02T0d4Rng5Nkg4QWhDVkZDdGxhMmwzdzJOVGxDK0FtNVdMWExh?=
- =?utf-8?B?aTRNVi9EZWlrVUMzV1hVZGVvRW5EV1FDWWgxQ2JyV056aENNL1lvTjA0Zkg5?=
- =?utf-8?B?cUUvQjdzZ3NqY3BrYmJISm5wcm1jdGNXWkEwRkY1djJKU3FYd1ZEYkIvUFY3?=
- =?utf-8?B?bU1JbFg4Q3N6OVdoSDJudjlCb1Y0L0J6TWJwVTdHNkUrTGZzS1hnV2JCV2hO?=
- =?utf-8?B?cUtKUzVzREpqU09KMXFhWklwMldiQ0w1MEtUMjl2eW15OUFhQy9OWUhoTmlN?=
- =?utf-8?B?emVHSzJLbUhFemYvN1JsSkNFNWtWdURldzlRbm9DMnhGZ0FEQVE3dk5sSVEx?=
- =?utf-8?B?WHdtZUVMRnA2cWRUenZOZEJOYTV6aGxoNWpRTTY0OG9YWHBRNm81VUN1aGpK?=
- =?utf-8?B?WVc2dnUxU1NheWphVXdvK3pxN1BXUTVhb3NsMWt5dVRZS1c2SjFyNEFQY0VD?=
- =?utf-8?B?ek5IWUU0Q29yay8yYTZsdythak1vZ1lCMVdDQ2xNdjJ6SStmTjJaZWdtZDl3?=
- =?utf-8?B?ZE9HYmFIdllWdkdGenJvWk1aVWtqYlAyRFBSQnhTV0xieEZVV3VpWjlTUTdm?=
- =?utf-8?B?azR1Yk5KRnoxL1ZYTHRQcWVldGhPSVJXUmRBcEJDWVg1eDc1MTUrOUh5NnMr?=
- =?utf-8?B?UkNmelQvbHBiNDdEb2d0N29iamZPVS9JRU52UWo0dmlDUzhObGxvQTcrQ1VS?=
- =?utf-8?B?K3NRRVFqNlBzYTZsQjd4eS9YL1RBLy9TQVZWSHF2UWRnSjNjOHZvM01MaVBP?=
- =?utf-8?B?cEEvOWYxSUJLWXBRTDFJSjVmSUdFdW4vYWJPY0hnT3R6V1hxUFFwNklWR0Rx?=
- =?utf-8?B?ejhXSlZLWFVNbUdieERFMmVNOERsRmplNGEvMFpCSFJrb2VaVEJoV3RSRTVs?=
- =?utf-8?B?MlBKaVQ5dzdtckY3MU5CeHBOUnZsWE9wVkk2ajJxZnVzZkZZbE40MzhaSTBs?=
- =?utf-8?B?RUxDdFJUeEx5NzMrZHYrSys1WUFadlRTK3RieTE4bDhxWS9pTmRNY1cyRmFY?=
- =?utf-8?B?V3RkM08zd1Z2cFVSZmxMSnBoZDF5Yk5MWHJXZjI3QlRObmdaSHJyZ054ZWJh?=
- =?utf-8?B?RVdhUTlpZk1TZWdrbjlYb2Iyb21VZnpGTS9iT0pnZXBCd21NSk9oSHRWYUpY?=
- =?utf-8?B?MFBFSTl1OW5LZEwzalA5cnB5MHRacFh6WWlONFpVOFA0MkJCNTEyOVZBaUI1?=
- =?utf-8?B?MEEyNVdRUkdPL1U2dCtnUExKZ2xBZlRXSkNBclVwZkFVMDg1a0todz09?=
-X-OriginatorOrg: est.tech
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e53fdbd-fbbe-4fdb-465a-08df090f7686
-X-MS-Exchange-CrossTenant-AuthSource: AS8P189MB1752.EURP189.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 16:30:13.1809
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: d2585e63-66b9-44b6-a76e-4f4b217d97fd
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: liHfp3iZVTks6BpJZt9Jm6vFSjCl25IXZaEejS00gnY6j2n+5en8I/LbCjacIXTlPzzH1ICGlcWLY1QyXIuuLA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1P18901MB0638
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND v1 2/2] arm64: dts: qcom: lemans-evk: Add SDHCI
+ support for eMMC via overlay
+To: Monish Chunara <monish.chunara@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Sarthak Garg <sarthak.garg@oss.qualcomm.com>,
+        Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>,
+        Nitin Rawat <nitin.rawat@oss.qualcomm.com>,
+        Shiraz Hashim <shiraz.hashim@oss.qualcomm.com>
+References: <20260826113206.488991-1-monish.chunara@oss.qualcomm.com>
+ <20260826113206.488991-3-monish.chunara@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260826113206.488991-3-monish.chunara@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: oSZZUzY6bvCNrP8eHr_E900MQ2AEBTCd
+X-Authority-Analysis: v=2.4 cv=L+wtheT8 c=1 sm=1 tr=0 ts=6a984f2b cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=sGhwJIB4vkB8Sb3_GrEA:9 a=QEXdDO2ut3YA:10 a=XD7yVLdPMpWraOa8Un9W:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE0NSBTYWx0ZWRfX/nC6og54vGZa
+ NO73C9KpBKHAn0ccKZgMlYEyIpfLyqIY6YZRc3F9rlzXUD7kBeRJkSZWFqlaU6Lcdh4NyHytxSw
+ i9WC/hiKb5W769+SUagt33VBN9qZrELIvyOybISuNCbrlI+1IdCqcXmMwwhEDIr5Ae5br3g1t9a
+ 1IrFbtYEYUvzFf0XeyXiq6n4heke0wh8EAzZ2p+meYNvw1EX3zx2Ng4TymW0YsFy9doKUYOVak3
+ BGdpakyjChnF6+SCe0owBzYb3RxsFVH95UzjNdldGY07VGq2pwsGUUGsxUSHzNjd3YGraz0zuOt
+ YpxdXeJDUFrVwIdio1+jmJ8we35HBzTa6FSEt0A4JYomgG9GPSV+e/eIKF2EE+5bCVcA0NJr0Xq
+ M4OXxj3eng/6o7InaEQPQkNNMPimDwaeZ9e1Zj3gOhJtwAeJmjyNwKEbs9wUykEcLPRp4tOdms5
+ f6enZH3n5n7jHvZmlng==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE0NSBTYWx0ZWRfX8iFLbDQ2zavW
+ PFsbHY1n44CnrTlNXJpMR4Hkryp0RlkpPHNr2UmNzjVN3fSV3ODGh0jxw2Mt/NnrQXM2U/TK6PF
+ o/da0qdR1MUu1aay/5VfmKNYKLx8SPg=
+X-Proofpoint-ORIG-GUID: oSZZUzY6bvCNrP8eHr_E900MQ2AEBTCd
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_04,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 bulkscore=0 impostorscore=0 phishscore=0
+ spamscore=0 suspectscore=0 adultscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020145
 
-Add C and Rust modules that verify struct-pointer argument expansion, the
-part of the collector that turns a pointer into its individual field
-values from the compiler's DWARF offsets.
+On 8/26/26 1:32 PM, Monish Chunara wrote:
+> Enable the SDHCI controller for eMMC functionality on the lemans EVK
+> using a device tree overlay. Configure the corresponding addresse space
+> and resources for eMMC.
 
-Three families exercise the expansion:
+These are two separate changes that must be two separate patches
 
- - Flat sf_1()..sf_8(): sf_N takes N struct pointers (s1*..sN*) whose
-   fields are 0x11, 0x22, ...; this covers plain field expansion and
-   multiple struct-pointer arguments in one call.
- - Value-nested stf_1()..stf_8(): stN embeds every smaller struct by
-   value, so the nesting deepens with N and each level is a distinct
-   struct-pointer argument (on-stack; st8 is built on the heap to stay
-   under the frame limit).
- - Pointer-linked stpf_1()..stpf_8(): every member is a pointer to a
-   separately allocated node, so expansion is followed through the heap;
-   run over both kmalloc and vmalloc allocations.
+[...]
 
-Plus pointer forwarding (sf_fwd -> sf_fwd_inner) and a struct return
-value (sf_ret_struct). eight_struct_args_rust mirrors this with no_mangle
-rsf_*/rstf_*/rstpf_* exported functions and needs CONFIG_RUST.
+> diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/qcom/lemans.dtsi
+> index 695eae1b7256..99d21e3d7ab8 100644
+> --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
+> @@ -4300,7 +4300,9 @@ apss_tpdm2_out: endpoint {
+>  
+>  		sdhc: mmc@87c4000 {
+>  			compatible = "qcom,sa8775p-sdhci", "qcom,sdhci-msm-v5";
+> -			reg = <0x0 0x087c4000 0x0 0x1000>;
+> +			reg = <0x0 0x87C4000 0x0 0x1000>,
+> +			      <0x0 0x87C5000 0x0 0x1000>;
 
-Each object is opted in with KCOV_DATAFLOW_<name>.o := y; kselftest script
-will trigger them and checks the expanded field values (0x11, 0x22, ...)
-per argument and every return value, so the modules validate the
-captured data, not merely that records appeared.
+Please don't deviate from the existing style (8 lowercase hex digits,
+zero-padded in the front if necessary)
 
-Assisted-by: Claude:claude-opus-4-6 [kiro-chat]
-Signed-off-by: Yunseong Kim <yunseong.kim@est.tech>
----
- .../kcov_dataflow/eight_struct_args_c/Makefile     |   3 +
- .../kcov_dataflow/eight_struct_args_c/README.rst   |  13 +
- .../eight_struct_args_c/eight_struct_args_c.c      | 533 +++++++++++++++++
- .../kcov_dataflow/eight_struct_args_rust/Makefile  |   3 +
- .../eight_struct_args_rust/README.rst              |  11 +
- .../eight_struct_args_rust.rs                      | 646 +++++++++++++++++++++
- 6 files changed, 1209 insertions(+)
-
-diff --git a/tools/testing/selftests/kcov_dataflow/eight_struct_args_c/Makefile b/tools/testing/selftests/kcov_dataflow/eight_struct_args_c/Makefile
-new file mode 100644
-index 0000000000000..04ff83f0a9625
---- /dev/null
-+++ b/tools/testing/selftests/kcov_dataflow/eight_struct_args_c/Makefile
-@@ -0,0 +1,3 @@
-+# SPDX-License-Identifier: GPL-2.0
-+obj-m := eight_struct_args_c.o
-+KCOV_DATAFLOW_eight_struct_args_c.o := y
-diff --git a/tools/testing/selftests/kcov_dataflow/eight_struct_args_c/README.rst b/tools/testing/selftests/kcov_dataflow/eight_struct_args_c/README.rst
-new file mode 100644
-index 0000000000000..62cddee78cd36
---- /dev/null
-+++ b/tools/testing/selftests/kcov_dataflow/eight_struct_args_c/README.rst
-@@ -0,0 +1,13 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+KCOV-Dataflow Selftests: eight_struct_args_c
-+============================================
-+
-+C module with 1-8 struct pointer arguments (flat s1..s8), value-nested
-+st1..st8 and pointer-linked stp1..stp8 towers (on stack, kmalloc and
-+vmalloc), pointer forwarding and a struct return value. Opted in with
-+``KCOV_DATAFLOW_eight_struct_args_c.o := y``; test_modules.py checks the
-+expanded fields (0x11, 0x22, ...) and every return value::
-+
-+  ./test_modules.py -t eight_struct_args_c
-+  ./trigger-view.py eight_struct_args_c --raw
-diff --git a/tools/testing/selftests/kcov_dataflow/eight_struct_args_c/eight_struct_args_c.c b/tools/testing/selftests/kcov_dataflow/eight_struct_args_c/eight_struct_args_c.c
-new file mode 100644
-index 0000000000000..c7d06a8e94c38
---- /dev/null
-+++ b/tools/testing/selftests/kcov_dataflow/eight_struct_args_c/eight_struct_args_c.c
-@@ -0,0 +1,533 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * eight_struct_args_c.c - Verify kcov_dataflow captures struct pointer
-+ * arguments with automatic field expansion.
-+ *
-+ * Three families of structs are exercised:
-+ *
-+ *  - Flat structs s1..s8: sN has N u64 members side by side; sf_N takes N
-+ *    struct pointer args (s1*..sN*). Tests plain field expansion and multiple
-+ *    struct-pointer arguments.
-+ *
-+ *  - Recursively (value) nested structs st1..st8: stN embeds every smaller
-+ *    struct by value, so the nesting deepens with N:
-+ *        st1 = { u64 field0 }
-+ *        st2 = { u64 field0, st1 field1 }             // { v, {v} }
-+ *        stN = { u64 field0, st1 field1, ... st(N-1) field(N-1) }
-+ *    The deepest chain in st8 is eight levels deep. Used by the stack tests.
-+ *
-+ *  - Pointer-linked nested structs stp1..stp8: every member is a POINTER to a
-+ *    separately allocated object, so the nesting is followed through the heap:
-+ *        stp1 = { u64 *field0 }
-+ *        stp2 = { u64 *field0, stp1 *field1 }         // { *v, *{v} }
-+ *        stpN = { u64 *field0, stp1 *field1, ... stp(N-1) *field(N-1) }
-+ *    Used by the dynamic-allocation (kmalloc/vmalloc) tests.
-+ *
-+ * Write to /sys/kernel/debug/kcov_dataflow_test/trigger_struct to invoke.
-+ */
-+#include <linux/module.h>
-+#include <linux/debugfs.h>
-+#include <linux/slab.h>
-+#include <linux/vmalloc.h>
-+
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("KCOV dataflow struct field expansion test (flat + nested)");
-+
-+/* Flat structs: sN has N u64 members. */
-+struct s1 { u64 a; };
-+struct s2 { u64 a; u64 b; };
-+struct s3 { u64 a; u64 b; u64 c; };
-+struct s4 { u64 a; u64 b; u64 c; u64 d; };
-+struct s5 { u64 a; u64 b; u64 c; u64 d; u64 e; };
-+struct s6 { u64 a; u64 b; u64 c; u64 d; u64 e; u64 f; };
-+struct s7 { u64 a; u64 b; u64 c; u64 d; u64 e; u64 f; u64 g; };
-+struct s8 { u64 a; u64 b; u64 c; u64 d; u64 e; u64 f; u64 g; u64 h; };
-+
-+/*
-+ * Recursively (value) nested structs: stN = { u64 field0; st1 field1; ...;
-+ * st(N-1) field(N-1); }. Each stN contains every smaller struct by value, so
-+ * the nesting depth grows with N (st8 is eight levels deep along its st7 chain).
-+ */
-+struct st1 { u64 field0; };
-+struct st2 { u64 field0; struct st1 field1; };
-+struct st3 { u64 field0; struct st1 field1; struct st2 field2; };
-+struct st4 {
-+	u64 field0;
-+	struct st1 field1;
-+	struct st2 field2;
-+	struct st3 field3;
-+};
-+struct st5 {
-+	u64 field0;
-+	struct st1 field1;
-+	struct st2 field2;
-+	struct st3 field3;
-+	struct st4 field4;
-+};
-+struct st6 {
-+	u64 field0;
-+	struct st1 field1;
-+	struct st2 field2;
-+	struct st3 field3;
-+	struct st4 field4;
-+	struct st5 field5;
-+};
-+struct st7 {
-+	u64 field0;
-+	struct st1 field1;
-+	struct st2 field2;
-+	struct st3 field3;
-+	struct st4 field4;
-+	struct st5 field5;
-+	struct st6 field6;
-+};
-+struct st8 {
-+	u64 field0;
-+	struct st1 field1;
-+	struct st2 field2;
-+	struct st3 field3;
-+	struct st4 field4;
-+	struct st5 field5;
-+	struct st6 field6;
-+	struct st7 field7;
-+};
-+
-+/*
-+ * Pointer-linked nested structs: every member is a POINTER to a separately
-+ * allocated object. stpN = { u64 *field0; stp1 *field1; ...; stp(N-1)
-+ * *field(N-1); }. The dynamic-allocation tests build one of these per allocator.
-+ */
-+struct stp1 { u64 *field0; };
-+struct stp2 { u64 *field0; struct stp1 *field1; };
-+struct stp3 { u64 *field0; struct stp1 *field1; struct stp2 *field2; };
-+struct stp4 {
-+	u64 *field0;
-+	struct stp1 *field1;
-+	struct stp2 *field2;
-+	struct stp3 *field3;
-+};
-+struct stp5 {
-+	u64 *field0;
-+	struct stp1 *field1;
-+	struct stp2 *field2;
-+	struct stp3 *field3;
-+	struct stp4 *field4;
-+};
-+struct stp6 {
-+	u64 *field0;
-+	struct stp1 *field1;
-+	struct stp2 *field2;
-+	struct stp3 *field3;
-+	struct stp4 *field4;
-+	struct stp5 *field5;
-+};
-+struct stp7 {
-+	u64 *field0;
-+	struct stp1 *field1;
-+	struct stp2 *field2;
-+	struct stp3 *field3;
-+	struct stp4 *field4;
-+	struct stp5 *field5;
-+	struct stp6 *field6;
-+};
-+struct stp8 {
-+	u64 *field0;
-+	struct stp1 *field1;
-+	struct stp2 *field2;
-+	struct stp3 *field3;
-+	struct stp4 *field4;
-+	struct stp5 *field5;
-+	struct stp6 *field6;
-+	struct stp7 *field7;
-+};
-+
-+/* Prototypes: sf_N takes N struct pointer arguments (s1*, s2*, ..., sN*) */
-+u64 sf_1(struct s1 *a);
-+u64 sf_2(struct s1 *a, struct s2 *b);
-+u64 sf_3(struct s1 *a, struct s2 *b, struct s3 *c);
-+u64 sf_4(struct s1 *a, struct s2 *b, struct s3 *c, struct s4 *d);
-+u64 sf_5(struct s1 *a, struct s2 *b, struct s3 *c, struct s4 *d, struct s5 *e);
-+u64 sf_6(struct s1 *a, struct s2 *b, struct s3 *c, struct s4 *d, struct s5 *e,
-+	 struct s6 *f);
-+u64 sf_7(struct s1 *a, struct s2 *b, struct s3 *c, struct s4 *d, struct s5 *e,
-+	 struct s6 *f, struct s7 *g);
-+u64 sf_8(struct s1 *a, struct s2 *b, struct s3 *c, struct s4 *d, struct s5 *e,
-+	 struct s6 *f, struct s7 *g, struct s8 *h);
-+
-+/* stf_N takes a pointer to the value-nested stN and sums every reachable field0. */
-+u64 stf_1(struct st1 *p);
-+u64 stf_2(struct st2 *p);
-+u64 stf_3(struct st3 *p);
-+u64 stf_4(struct st4 *p);
-+u64 stf_5(struct st5 *p);
-+u64 stf_6(struct st6 *p);
-+u64 stf_7(struct st7 *p);
-+u64 stf_8(struct st8 *p);
-+
-+/* stpf_N follows the pointer-linked stpN and sums every reachable *field0. */
-+u64 stpf_1(struct stp1 *p);
-+u64 stpf_2(struct stp2 *p);
-+u64 stpf_3(struct stp3 *p);
-+u64 stpf_4(struct stp4 *p);
-+u64 stpf_5(struct stp5 *p);
-+u64 stpf_6(struct stp6 *p);
-+u64 stpf_7(struct stp7 *p);
-+u64 stpf_8(struct stp8 *p);
-+
-+noinline u64 sf_1(struct s1 *a) { return a->a; }
-+EXPORT_SYMBOL(sf_1);
-+
-+noinline u64 sf_2(struct s1 *a, struct s2 *b) { return a->a + b->b; }
-+EXPORT_SYMBOL(sf_2);
-+
-+noinline u64 sf_3(struct s1 *a, struct s2 *b, struct s3 *c)
-+{
-+	return a->a + b->b + c->c;
-+}
-+EXPORT_SYMBOL(sf_3);
-+
-+noinline u64 sf_4(struct s1 *a, struct s2 *b, struct s3 *c, struct s4 *d)
-+{
-+	return a->a + b->b + c->c + d->d;
-+}
-+EXPORT_SYMBOL(sf_4);
-+
-+noinline u64 sf_5(struct s1 *a, struct s2 *b, struct s3 *c, struct s4 *d,
-+		  struct s5 *e)
-+{
-+	return a->a + b->b + c->c + d->d + e->e;
-+}
-+EXPORT_SYMBOL(sf_5);
-+
-+noinline u64 sf_6(struct s1 *a, struct s2 *b, struct s3 *c, struct s4 *d,
-+		  struct s5 *e, struct s6 *f)
-+{
-+	return a->a + b->b + c->c + d->d + e->e + f->f;
-+}
-+EXPORT_SYMBOL(sf_6);
-+
-+noinline u64 sf_7(struct s1 *a, struct s2 *b, struct s3 *c, struct s4 *d,
-+		  struct s5 *e, struct s6 *f, struct s7 *g)
-+{
-+	return a->a + b->b + c->c + d->d + e->e + f->f + g->g;
-+}
-+EXPORT_SYMBOL(sf_7);
-+
-+noinline u64 sf_8(struct s1 *a, struct s2 *b, struct s3 *c, struct s4 *d,
-+		  struct s5 *e, struct s6 *f, struct s7 *g, struct s8 *h)
-+{
-+	return a->a + b->b + c->c + d->d + e->e + f->f + g->g + h->h;
-+}
-+EXPORT_SYMBOL(sf_8);
-+
-+/*
-+ * Value-nested functions. Each reads its own field0 and forwards the address of
-+ * every nested member into the matching stf_k, so the whole recursive tower is
-+ * walked and each nesting level is a distinct instrumented struct-pointer arg.
-+ */
-+noinline u64 stf_1(struct st1 *p) { return p->field0; }
-+EXPORT_SYMBOL(stf_1);
-+
-+noinline u64 stf_2(struct st2 *p)
-+{
-+	return p->field0 + stf_1(&p->field1);
-+}
-+EXPORT_SYMBOL(stf_2);
-+
-+noinline u64 stf_3(struct st3 *p)
-+{
-+	return p->field0 + stf_1(&p->field1) + stf_2(&p->field2);
-+}
-+EXPORT_SYMBOL(stf_3);
-+
-+noinline u64 stf_4(struct st4 *p)
-+{
-+	return p->field0 + stf_1(&p->field1) + stf_2(&p->field2) +
-+	       stf_3(&p->field3);
-+}
-+EXPORT_SYMBOL(stf_4);
-+
-+noinline u64 stf_5(struct st5 *p)
-+{
-+	return p->field0 + stf_1(&p->field1) + stf_2(&p->field2) +
-+	       stf_3(&p->field3) + stf_4(&p->field4);
-+}
-+EXPORT_SYMBOL(stf_5);
-+
-+noinline u64 stf_6(struct st6 *p)
-+{
-+	return p->field0 + stf_1(&p->field1) + stf_2(&p->field2) +
-+	       stf_3(&p->field3) + stf_4(&p->field4) + stf_5(&p->field5);
-+}
-+EXPORT_SYMBOL(stf_6);
-+
-+noinline u64 stf_7(struct st7 *p)
-+{
-+	return p->field0 + stf_1(&p->field1) + stf_2(&p->field2) +
-+	       stf_3(&p->field3) + stf_4(&p->field4) + stf_5(&p->field5) +
-+	       stf_6(&p->field6);
-+}
-+EXPORT_SYMBOL(stf_7);
-+
-+noinline u64 stf_8(struct st8 *p)
-+{
-+	return p->field0 + stf_1(&p->field1) + stf_2(&p->field2) +
-+	       stf_3(&p->field3) + stf_4(&p->field4) + stf_5(&p->field5) +
-+	       stf_6(&p->field6) + stf_7(&p->field7);
-+}
-+EXPORT_SYMBOL(stf_8);
-+
-+/*
-+ * Pointer-linked functions. Each dereferences its own *field0 and forwards each
-+ * (already pointer-typed) nested member into the matching stpf_k, following the
-+ * heap-linked tower.
-+ */
-+noinline u64 stpf_1(struct stp1 *p) { return *p->field0; }
-+EXPORT_SYMBOL(stpf_1);
-+
-+noinline u64 stpf_2(struct stp2 *p)
-+{
-+	return *p->field0 + stpf_1(p->field1);
-+}
-+EXPORT_SYMBOL(stpf_2);
-+
-+noinline u64 stpf_3(struct stp3 *p)
-+{
-+	return *p->field0 + stpf_1(p->field1) + stpf_2(p->field2);
-+}
-+EXPORT_SYMBOL(stpf_3);
-+
-+noinline u64 stpf_4(struct stp4 *p)
-+{
-+	return *p->field0 + stpf_1(p->field1) + stpf_2(p->field2) +
-+	       stpf_3(p->field3);
-+}
-+EXPORT_SYMBOL(stpf_4);
-+
-+noinline u64 stpf_5(struct stp5 *p)
-+{
-+	return *p->field0 + stpf_1(p->field1) + stpf_2(p->field2) +
-+	       stpf_3(p->field3) + stpf_4(p->field4);
-+}
-+EXPORT_SYMBOL(stpf_5);
-+
-+noinline u64 stpf_6(struct stp6 *p)
-+{
-+	return *p->field0 + stpf_1(p->field1) + stpf_2(p->field2) +
-+	       stpf_3(p->field3) + stpf_4(p->field4) + stpf_5(p->field5);
-+}
-+EXPORT_SYMBOL(stpf_6);
-+
-+noinline u64 stpf_7(struct stp7 *p)
-+{
-+	return *p->field0 + stpf_1(p->field1) + stpf_2(p->field2) +
-+	       stpf_3(p->field3) + stpf_4(p->field4) + stpf_5(p->field5) +
-+	       stpf_6(p->field6);
-+}
-+EXPORT_SYMBOL(stpf_7);
-+
-+noinline u64 stpf_8(struct stp8 *p)
-+{
-+	return *p->field0 + stpf_1(p->field1) + stpf_2(p->field2) +
-+	       stpf_3(p->field3) + stpf_4(p->field4) + stpf_5(p->field5) +
-+	       stpf_6(p->field6) + stpf_7(p->field7);
-+}
-+EXPORT_SYMBOL(stpf_8);
-+
-+u64 sf_fwd_inner(struct s1 *a, struct s2 *b, struct s3 *c, struct s4 *d);
-+u64 sf_fwd(struct s1 *a, struct s2 *b, struct s3 *c, struct s4 *d);
-+struct s4 sf_ret_struct(struct s1 *a, struct s2 *b);
-+
-+/* Pointer forwarding: callee receives pointer and passes it to another func */
-+noinline u64 sf_fwd_inner(struct s1 *a, struct s2 *b, struct s3 *c, struct s4 *d)
-+{
-+	return a->a + b->b + c->c + d->d;
-+}
-+EXPORT_SYMBOL(sf_fwd_inner);
-+
-+noinline u64 sf_fwd(struct s1 *a, struct s2 *b, struct s3 *c, struct s4 *d)
-+{
-+	return sf_fwd_inner(a, b, c, d);
-+}
-+EXPORT_SYMBOL(sf_fwd);
-+
-+/* Struct return value */
-+noinline struct s4 sf_ret_struct(struct s1 *a, struct s2 *b)
-+{
-+	struct s4 ret = { .a = a->a, .b = b->a, .c = b->b, .d = a->a + b->b };
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL(sf_ret_struct);
-+
-+/* Allocator shims so run_stp8() can build the pointer tree with either API. */
-+static void *t_kmalloc(size_t n) { return kmalloc(n, GFP_KERNEL); }
-+static void *t_vmalloc(size_t n) { return vmalloc(n); }
-+static void t_kfree(void *p) { kfree(p); }
-+static void t_vfree(void *p) { vfree(p); }
-+
-+/*
-+ * Build the pointer-linked stp8 tower with @alloc (each node separately
-+ * allocated), run stpf_8() over it, then free every node with @fr. Sub-nodes
-+ * are shared (a DAG); each unique allocation is freed exactly once.
-+ */
-+static u64 run_stp8(void *(*alloc)(size_t), void (*fr)(void *))
-+{
-+	u64 ret = 0;
-+	u64 *l1 = alloc(sizeof(u64));
-+	u64 *l2 = alloc(sizeof(u64));
-+	u64 *l3 = alloc(sizeof(u64));
-+	u64 *l4 = alloc(sizeof(u64));
-+	u64 *l5 = alloc(sizeof(u64));
-+	u64 *l6 = alloc(sizeof(u64));
-+	u64 *l7 = alloc(sizeof(u64));
-+	u64 *l8 = alloc(sizeof(u64));
-+	struct stp1 *p1 = alloc(sizeof(*p1));
-+	struct stp2 *p2 = alloc(sizeof(*p2));
-+	struct stp3 *p3 = alloc(sizeof(*p3));
-+	struct stp4 *p4 = alloc(sizeof(*p4));
-+	struct stp5 *p5 = alloc(sizeof(*p5));
-+	struct stp6 *p6 = alloc(sizeof(*p6));
-+	struct stp7 *p7 = alloc(sizeof(*p7));
-+	struct stp8 *p8 = alloc(sizeof(*p8));
-+
-+	if (l1 && l2 && l3 && l4 && l5 && l6 && l7 && l8 &&
-+	    p1 && p2 && p3 && p4 && p5 && p6 && p7 && p8) {
-+		*l1 = 0x11; *l2 = 0x22; *l3 = 0x33; *l4 = 0x44;
-+		*l5 = 0x55; *l6 = 0x66; *l7 = 0x77; *l8 = 0x88;
-+
-+		p1->field0 = l1;
-+		p2->field0 = l2; p2->field1 = p1;
-+		p3->field0 = l3; p3->field1 = p1; p3->field2 = p2;
-+		p4->field0 = l4; p4->field1 = p1; p4->field2 = p2;
-+		p4->field3 = p3;
-+		p5->field0 = l5; p5->field1 = p1; p5->field2 = p2;
-+		p5->field3 = p3; p5->field4 = p4;
-+		p6->field0 = l6; p6->field1 = p1; p6->field2 = p2;
-+		p6->field3 = p3; p6->field4 = p4; p6->field5 = p5;
-+		p7->field0 = l7; p7->field1 = p1; p7->field2 = p2;
-+		p7->field3 = p3; p7->field4 = p4; p7->field5 = p5;
-+		p7->field6 = p6;
-+		p8->field0 = l8; p8->field1 = p1; p8->field2 = p2;
-+		p8->field3 = p3; p8->field4 = p4; p8->field5 = p5;
-+		p8->field6 = p6; p8->field7 = p7;
-+
-+		ret = stpf_8(p8);
-+	}
-+
-+	fr(p8); fr(p7); fr(p6); fr(p5); fr(p4); fr(p3); fr(p2); fr(p1);
-+	fr(l8); fr(l7); fr(l6); fr(l5); fr(l4); fr(l3); fr(l2); fr(l1);
-+	return ret;
-+}
-+
-+static struct dentry *test_dir;
-+
-+static ssize_t trigger_write(struct file *f, const char __user *buf,
-+			     size_t count, loff_t *ppos)
-+{
-+	struct s1 v1 = { .a = 0x11 };
-+	struct s2 v2 = { .a = 0x11, .b = 0x22 };
-+	struct s3 v3 = { .a = 0x11, .b = 0x22, .c = 0x33 };
-+	struct s4 v4 = { .a = 0x11, .b = 0x22, .c = 0x33, .d = 0x44 };
-+	struct s5 v5 = { .a = 0x11, .b = 0x22, .c = 0x33, .d = 0x44,
-+			 .e = 0x55 };
-+	struct s6 v6 = { .a = 0x11, .b = 0x22, .c = 0x33, .d = 0x44,
-+			 .e = 0x55, .f = 0x66 };
-+	struct s7 v7 = { .a = 0x11, .b = 0x22, .c = 0x33, .d = 0x44,
-+			 .e = 0x55, .f = 0x66, .g = 0x77 };
-+	struct s8 v8 = { .a = 0x11, .b = 0x22, .c = 0x33, .d = 0x44,
-+			 .e = 0x55, .f = 0x66, .g = 0x77, .h = 0x88 };
-+
-+	/* Recursively (value) nested values: each embeds all the smaller ones. */
-+	struct st1 t1 = { .field0 = 0x11 };
-+	struct st2 t2 = { .field0 = 0x22, .field1 = t1 };
-+	struct st3 t3 = { .field0 = 0x33, .field1 = t1, .field2 = t2 };
-+	struct st4 t4 = { .field0 = 0x44, .field1 = t1, .field2 = t2,
-+			  .field3 = t3 };
-+	struct st5 t5 = { .field0 = 0x55, .field1 = t1, .field2 = t2,
-+			  .field3 = t3, .field4 = t4 };
-+	struct st6 t6 = { .field0 = 0x66, .field1 = t1, .field2 = t2,
-+			  .field3 = t3, .field4 = t4, .field5 = t5 };
-+	struct st7 t7 = { .field0 = 0x77, .field1 = t1, .field2 = t2,
-+			  .field3 = t3, .field4 = t4, .field5 = t5,
-+			  .field6 = t6 };
-+	u64 sum = 0;
-+
-+	/* Flat struct tests: sf_N takes N struct pointer args */
-+	sum += sf_1(&v1);
-+	sum += sf_2(&v1, &v2);
-+	sum += sf_3(&v1, &v2, &v3);
-+	sum += sf_4(&v1, &v2, &v3, &v4);
-+	sum += sf_5(&v1, &v2, &v3, &v4, &v5);
-+	sum += sf_6(&v1, &v2, &v3, &v4, &v5, &v6);
-+	sum += sf_7(&v1, &v2, &v3, &v4, &v5, &v6, &v7);
-+	sum += sf_8(&v1, &v2, &v3, &v4, &v5, &v6, &v7, &v8);
-+
-+	/* Value-nested struct tests (on-stack) */
-+	sum += stf_1(&t1);
-+	sum += stf_2(&t2);
-+	sum += stf_3(&t3);
-+	sum += stf_4(&t4);
-+	sum += stf_5(&t5);
-+	sum += stf_6(&t6);
-+	sum += stf_7(&t7);
-+	/*
-+	 * st8 is 1 KiB; keeping it on the stack alongside t1..t7 blows the 2048-byte
-+	 * frame limit (-Wframe-larger-than). Build it on the heap (member-wise, so no
-+	 * 1 KiB compound-literal temporary lands on the stack either).
-+	 */
-+	{
-+		struct st8 *t8 = kmalloc(sizeof(*t8), GFP_KERNEL);
-+
-+		if (t8) {
-+			t8->field0 = 0x88;
-+			t8->field1 = t1;
-+			t8->field2 = t2;
-+			t8->field3 = t3;
-+			t8->field4 = t4;
-+			t8->field5 = t5;
-+			t8->field6 = t6;
-+			t8->field7 = t7;
-+			sum += stf_8(t8);
-+			kfree(t8);
-+		}
-+	}
-+
-+	/* Dynamic allocation: pointer-linked stp8, each node separately alloc'd */
-+	sum += run_stp8(t_kmalloc, t_kfree);	/* heap/slab */
-+	sum += run_stp8(t_vmalloc, t_vfree);	/* vmalloc address space */
-+
-+	/* Pointer forwarding: sf_fwd receives pointers and forwards to inner */
-+	sum += sf_fwd(&v1, &v2, &v3, &v4);
-+
-+	/* Struct return value */
-+	{
-+		struct s4 ret = sf_ret_struct(&v1, &v2);
-+
-+		sum += ret.a + ret.b + ret.c + ret.d;
-+	}
-+
-+	/* Keep every call above from being optimised away (sum is otherwise dead). */
-+	OPTIMIZER_HIDE_VAR(sum);
-+	return count;
-+}
-+
-+static const struct file_operations trigger_fops = {
-+	.write = trigger_write,
-+};
-+
-+static int __init eight_struct_args_init(void)
-+{
-+	test_dir = debugfs_create_dir("kcov_dataflow_test", NULL);
-+	debugfs_create_file("trigger_struct", 0200, test_dir, NULL,
-+			    &trigger_fops);
-+	return 0;
-+}
-+
-+static void __exit eight_struct_args_exit(void)
-+{
-+	debugfs_remove_recursive(test_dir);
-+}
-+
-+module_init(eight_struct_args_init);
-+module_exit(eight_struct_args_exit);
-diff --git a/tools/testing/selftests/kcov_dataflow/eight_struct_args_rust/Makefile b/tools/testing/selftests/kcov_dataflow/eight_struct_args_rust/Makefile
-new file mode 100644
-index 0000000000000..3017a24774051
---- /dev/null
-+++ b/tools/testing/selftests/kcov_dataflow/eight_struct_args_rust/Makefile
-@@ -0,0 +1,3 @@
-+# SPDX-License-Identifier: GPL-2.0
-+obj-m := eight_struct_args_rust.o
-+KCOV_DATAFLOW_eight_struct_args_rust.o := y
-diff --git a/tools/testing/selftests/kcov_dataflow/eight_struct_args_rust/README.rst b/tools/testing/selftests/kcov_dataflow/eight_struct_args_rust/README.rst
-new file mode 100644
-index 0000000000000..06e8f8070f6c2
---- /dev/null
-+++ b/tools/testing/selftests/kcov_dataflow/eight_struct_args_rust/README.rst
-@@ -0,0 +1,11 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+KCOV-Dataflow Selftests: eight_struct_args_rust
-+===============================================
-+
-+Rust equivalent of eight_struct_args_c (rsf_*, rstf_*, rstpf_* with
-+``#[no_mangle]``), built only with CONFIG_RUST=y. Opted in with
-+``KCOV_DATAFLOW_eight_struct_args_rust.o := y``::
-+
-+  ./test_modules.py -t eight_struct_args_rust
-+  ./trigger-view.py eight_struct_args_rust --raw
-diff --git a/tools/testing/selftests/kcov_dataflow/eight_struct_args_rust/eight_struct_args_rust.rs b/tools/testing/selftests/kcov_dataflow/eight_struct_args_rust/eight_struct_args_rust.rs
-new file mode 100644
-index 0000000000000..e5cc3cb87591e
---- /dev/null
-+++ b/tools/testing/selftests/kcov_dataflow/eight_struct_args_rust/eight_struct_args_rust.rs
-@@ -0,0 +1,646 @@
-+// SPDX-License-Identifier: GPL-2.0
-+//! Verify kcov_dataflow captures struct pointer arguments with automatic
-+//! field expansion for Rust #[repr(C)] structs.
-+//!
-+//! Rust equivalent of eight_struct_args_c. Two families are exercised:
-+//!   - Flat structs S1..S8 (1-8 u64 members) via rsf_N.
-+//!   - Recursively (value) nested structs St1..St8, where StN embeds every
-+//!     smaller struct by value:
-+//!         St1 = { field0 }
-+//!         St2 = { field0, field1: St1 }              // { v, {v} }
-+//!         StN = { field0, field1: St1, ..., field(N-1): St(N-1) }
-+//!     so St8 is eight levels deep along its St7 chain. Each rstf_N reads its
-+//!     own field0 and forwards each nested member's address into rstf_k.
-+//!   - Pointer-linked nested structs Stp1..Stp8, where every member is a raw
-+//!     pointer to a separately allocated object:
-+//!         Stp1 = { field0: *const u64 }
-+//!         StpN = { field0: *const u64, field1: *const Stp1, ... }
-+//!     The heap (KBox) test builds this tower and follows it via rstpf_N.
-+//!
-+//! Write to /sys/kernel/debug/kcov_dataflow_test/trigger_struct_rust to invoke.
-+
-+#![allow(missing_docs)]
-+
-+use kernel::prelude::*;
-+use kernel::alloc::KBox;
-+use kernel::c_str;
-+
-+module !{
-+	type:EightStructArgsRust,
-+	name: "eight_struct_args_rust",
-+	authors: ["kcov-dataflow"],
-+	description: "Struct field expansion test for kcov_dataflow (Rust)",
-+	license: "GPL",
-+}
-+#[repr(C)]
-+pub struct S1 {
-+	pub a : u64
-+}
-+#[repr(C)]
-+pub struct S2 {
-+	pub a : u64, pub b : u64
-+}
-+#[repr(C)]
-+pub struct S3 {
-+	pub a : u64, pub b : u64, pub c : u64
-+}
-+#[repr(C)]
-+pub struct S4 {
-+	pub a : u64, pub b : u64, pub c : u64, pub d : u64
-+}
-+#[repr(C)]
-+pub struct S5 {
-+	pub a : u64, pub b : u64, pub c : u64, pub d : u64, pub e : u64
-+}
-+#[repr(C)]
-+pub struct S6 {
-+	pub a : u64, pub b : u64, pub c : u64, pub d : u64, pub e : u64,
-+		pub f : u64
-+}
-+#[repr(C)]
-+pub struct S7 {
-+	pub a : u64, pub b : u64, pub c : u64, pub d : u64, pub e : u64,
-+		pub f : u64, pub g : u64
-+}
-+#[repr(C)]
-+pub struct S8 {
-+	pub a : u64, pub b : u64, pub c : u64, pub d : u64, pub e : u64,
-+		pub f : u64, pub g : u64, pub h : u64
-+}
-+// Recursively nested: StN = { field0, field1: St1, ..., field(N-1): St(N-1) }.
-+// Copy so a smaller value can be embedded into every larger one.
-+#[repr(C)]
-+#[derive(Clone, Copy)]
-+pub struct St1 {
-+	pub field0 : u64
-+}
-+#[repr(C)]
-+#[derive(Clone, Copy)]
-+pub struct St2 {
-+	pub field0 : u64, pub field1 : St1
-+}
-+#[repr(C)]
-+#[derive(Clone, Copy)]
-+pub struct St3 {
-+	pub field0 : u64, pub field1 : St1, pub field2 : St2
-+}
-+#[repr(C)]
-+#[derive(Clone, Copy)]
-+pub struct St4 {
-+	pub field0 : u64, pub field1 : St1, pub field2 : St2, pub field3 : St3
-+}
-+#[repr(C)]
-+#[derive(Clone, Copy)]
-+pub struct St5 {
-+	pub field0 : u64, pub field1 : St1, pub field2 : St2, pub field3 : St3,
-+		pub field4 : St4
-+}
-+#[repr(C)]
-+#[derive(Clone, Copy)]
-+pub struct St6 {
-+	pub field0 : u64, pub field1 : St1, pub field2 : St2, pub field3 : St3,
-+		pub field4 : St4, pub field5 : St5
-+}
-+#[repr(C)]
-+#[derive(Clone, Copy)]
-+pub struct St7 {
-+	pub field0 : u64, pub field1 : St1, pub field2 : St2, pub field3 : St3,
-+		pub field4 : St4, pub field5 : St5, pub field6 : St6
-+}
-+#[repr(C)]
-+#[derive(Clone, Copy)]
-+pub struct St8 {
-+	pub field0 : u64, pub field1 : St1, pub field2 : St2, pub field3 : St3,
-+		pub field4 : St4, pub field5 : St5, pub field6 : St6,
-+		pub field7 : St7
-+}
-+// Pointer-linked nested: every member is a raw pointer to a separately
-+// allocated object. StpN = { field0: *const u64, field1: *const Stp1, ... }.
-+#[repr(C)]
-+pub struct Stp1 {
-+	pub field0 : *const u64
-+}
-+#[repr(C)]
-+pub struct Stp2 {
-+	pub field0 : *const u64, pub field1 : *const Stp1
-+}
-+#[repr(C)]
-+pub struct Stp3 {
-+	pub field0 : *const u64, pub field1 : *const Stp1,
-+		pub field2 : *const Stp2
-+}
-+#[repr(C)]
-+pub struct Stp4 {
-+	pub field0 : *const u64, pub field1 : *const Stp1,
-+		pub field2 : *const Stp2, pub field3 : *const Stp3
-+}
-+#[repr(C)]
-+pub struct Stp5 {
-+	pub field0 : *const u64, pub field1 : *const Stp1,
-+		pub field2 : *const Stp2, pub field3 : *const Stp3,
-+		pub field4 : *const Stp4
-+}
-+#[repr(C)]
-+pub struct Stp6 {
-+	pub field0 : *const u64, pub field1 : *const Stp1,
-+		pub field2 : *const Stp2, pub field3 : *const Stp3,
-+		pub field4 : *const Stp4, pub field5 : *const Stp5
-+}
-+#[repr(C)]
-+pub struct Stp7 {
-+	pub field0 : *const u64, pub field1 : *const Stp1,
-+		pub field2 : *const Stp2, pub field3 : *const Stp3,
-+		pub field4 : *const Stp4, pub field5 : *const Stp5,
-+		pub field6 : *const Stp6
-+}
-+#[repr(C)]
-+pub struct Stp8 {
-+	pub field0 : *const u64, pub field1 : *const Stp1,
-+		pub field2 : *const Stp2, pub field3 : *const Stp3,
-+		pub field4 : *const Stp4, pub field5 : *const Stp5,
-+		pub field6 : *const Stp6, pub field7 : *const Stp7
-+}
-+
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rsf_1(a : *const S1) -> u64
-+{
-+	unsafe
-+	{
-+		(*a).a
-+	}
-+}
-+
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rsf_2(a : *const S1, b : *const S2) -> u64
-+{
-+	unsafe
-+	{
-+		(*a).a + (*b).b
-+	}
-+}
-+
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rsf_4(a : *const S1, b : *const S2, c : *const S3,
-+			d : *const S4) -> u64
-+{
-+	unsafe
-+	{
-+		(*a).a + (*b).b + (*c).c + (*d).d
-+	}
-+}
-+
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rsf_8(a : *const S1, b : *const S2, c : *const S3,
-+			d : *const S4, e : *const S5, f : *const S6,
-+			g : *const S7, h : *const S8) -> u64
-+{
-+	unsafe
-+	{
-+		(*a).a + (*b).b + (*c).c + (*d).d + (*e).e + (*f).f + (*g).g +
-+			(*h).h
-+	}
-+}
-+
-+// Recursively nested: each reads its own field0 and forwards every nested
-+// member's address into the matching rstf_k, walking the whole tower.
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rstf_1(p : *const St1) -> u64
-+{
-+	unsafe
-+	{
-+		(*p).field0
-+	}
-+}
-+
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rstf_2(p : *const St2) -> u64
-+{
-+	unsafe
-+	{
-+		(*p).field0 + rstf_1(&(*p).field1)
-+	}
-+}
-+
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rstf_3(p : *const St3) -> u64
-+{
-+	unsafe
-+	{
-+		(*p).field0 + rstf_1(&(*p).field1) + rstf_2(&(*p).field2)
-+	}
-+}
-+
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rstf_4(p : *const St4) -> u64
-+{
-+	unsafe
-+	{
-+		(*p).field0 + rstf_1(&(*p).field1) + rstf_2(&(*p).field2) +
-+			rstf_3(&(*p).field3)
-+	}
-+}
-+
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rstf_5(p : *const St5) -> u64
-+{
-+	unsafe
-+	{
-+		(*p).field0 + rstf_1(&(*p).field1) + rstf_2(&(*p).field2) +
-+			rstf_3(&(*p).field3) + rstf_4(&(*p).field4)
-+	}
-+}
-+
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rstf_6(p : *const St6) -> u64
-+{
-+	unsafe
-+	{
-+		(*p).field0 + rstf_1(&(*p).field1) + rstf_2(&(*p).field2) +
-+			rstf_3(&(*p).field3) + rstf_4(&(*p).field4) +
-+			rstf_5(&(*p).field5)
-+	}
-+}
-+
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rstf_7(p : *const St7) -> u64
-+{
-+	unsafe
-+	{
-+		(*p).field0 + rstf_1(&(*p).field1) + rstf_2(&(*p).field2) +
-+			rstf_3(&(*p).field3) + rstf_4(&(*p).field4) +
-+			rstf_5(&(*p).field5) + rstf_6(&(*p).field6)
-+	}
-+}
-+
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rstf_8(p : *const St8) -> u64
-+{
-+	unsafe
-+	{
-+		(*p).field0 + rstf_1(&(*p).field1) + rstf_2(&(*p).field2) +
-+			rstf_3(&(*p).field3) + rstf_4(&(*p).field4) +
-+			rstf_5(&(*p).field5) + rstf_6(&(*p).field6) +
-+			rstf_7(&(*p).field7)
-+	}
-+}
-+
-+// Pointer-linked: each dereferences its own *field0 and forwards each
-+// (already pointer-typed) nested member into the matching rstpf_k.
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rstpf_1(p : *const Stp1) -> u64
-+{
-+	unsafe
-+	{
-+		*(*p).field0
-+	}
-+}
-+
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rstpf_2(p : *const Stp2) -> u64
-+{
-+	unsafe
-+	{
-+		*(*p).field0 + rstpf_1((*p).field1)
-+	}
-+}
-+
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rstpf_3(p : *const Stp3) -> u64
-+{
-+	unsafe
-+	{
-+		*(*p).field0 + rstpf_1((*p).field1) + rstpf_2((*p).field2)
-+	}
-+}
-+
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rstpf_4(p : *const Stp4) -> u64
-+{
-+	unsafe
-+	{
-+		*(*p).field0 + rstpf_1((*p).field1) + rstpf_2((*p).field2) +
-+			rstpf_3((*p).field3)
-+	}
-+}
-+
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rstpf_5(p : *const Stp5) -> u64
-+{
-+	unsafe
-+	{
-+		*(*p).field0 + rstpf_1((*p).field1) + rstpf_2((*p).field2) +
-+			rstpf_3((*p).field3) + rstpf_4((*p).field4)
-+	}
-+}
-+
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rstpf_6(p : *const Stp6) -> u64
-+{
-+	unsafe
-+	{
-+		*(*p).field0 + rstpf_1((*p).field1) + rstpf_2((*p).field2) +
-+			rstpf_3((*p).field3) + rstpf_4((*p).field4) +
-+			rstpf_5((*p).field5)
-+	}
-+}
-+
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rstpf_7(p : *const Stp7) -> u64
-+{
-+	unsafe
-+	{
-+		*(*p).field0 + rstpf_1((*p).field1) + rstpf_2((*p).field2) +
-+			rstpf_3((*p).field3) + rstpf_4((*p).field4) +
-+			rstpf_5((*p).field5) + rstpf_6((*p).field6)
-+	}
-+}
-+
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rstpf_8(p : *const Stp8) -> u64
-+{
-+	unsafe
-+	{
-+		*(*p).field0 + rstpf_1((*p).field1) + rstpf_2((*p).field2) +
-+			rstpf_3((*p).field3) + rstpf_4((*p).field4) +
-+			rstpf_5((*p).field5) + rstpf_6((*p).field6) +
-+			rstpf_7((*p).field7)
-+	}
-+}
-+
-+// Build the pointer-linked Stp8 tower with KBox (each node its own allocation),
-+// run rstpf_8 over it, and return the sum. The KBoxes own the storage and hold
-+// raw pointers into their siblings; everything is freed when they drop at the
-+// end of this function. `?` frees any already-allocated KBoxes on OOM.
-+fn build_and_run_stp8() -> Result<u64>
-+{
-+	let l1 = KBox::new (0x11u64, kernel::alloc::flags::GFP_KERNEL) ? ;
-+	let l2 = KBox::new (0x22u64, kernel::alloc::flags::GFP_KERNEL) ? ;
-+	let l3 = KBox::new (0x33u64, kernel::alloc::flags::GFP_KERNEL) ? ;
-+	let l4 = KBox::new (0x44u64, kernel::alloc::flags::GFP_KERNEL) ? ;
-+	let l5 = KBox::new (0x55u64, kernel::alloc::flags::GFP_KERNEL) ? ;
-+	let l6 = KBox::new (0x66u64, kernel::alloc::flags::GFP_KERNEL) ? ;
-+	let l7 = KBox::new (0x77u64, kernel::alloc::flags::GFP_KERNEL) ? ;
-+	let l8 = KBox::new (0x88u64, kernel::alloc::flags::GFP_KERNEL) ? ;
-+
-+	let p1 = KBox::new (Stp1{ field0: &*l1 },
-+			    kernel::alloc::flags::GFP_KERNEL) ?
-+		;
-+	let p2 = KBox::new (Stp2{ field0: &*l2, field1: &*p1 },
-+			    kernel::alloc::flags::GFP_KERNEL) ?
-+		;
-+	let p3 = KBox::new (Stp3{ field0: &*l3, field1: &*p1, field2: &*p2 },
-+			    kernel::alloc::flags::GFP_KERNEL) ?
-+		;
-+	let p4 = KBox::new (
-+		Stp4{ field0: &*l4, field1: &*p1, field2: &*p2, field3: &*p3 },
-+		kernel::alloc::flags::GFP_KERNEL) ?
-+		;
-+	let p5 = KBox::new (Stp5{
-+		field0: &*l5,
-+		field1: &*p1,
-+		field2: &*p2,
-+		field3: &*p3,
-+		field4: &*p4
-+	},
-+			    kernel::alloc::flags::GFP_KERNEL) ?
-+		;
-+	let p6 = KBox::new (Stp6{
-+		field0: &*l6,
-+		field1: &*p1,
-+		field2: &*p2,
-+		field3: &*p3,
-+		field4: &*p4,
-+		field5: &*p5
-+	},
-+			    kernel::alloc::flags::GFP_KERNEL) ?
-+		;
-+	let p7 = KBox::new (Stp7{
-+		field0: &*l7,
-+		field1: &*p1,
-+		field2: &*p2,
-+		field3: &*p3,
-+		field4: &*p4,
-+		field5: &*p5,
-+		field6: &*p6
-+	},
-+			    kernel::alloc::flags::GFP_KERNEL) ?
-+		;
-+	let p8 = KBox::new (Stp8{
-+		field0: &*l8,
-+		field1: &*p1,
-+		field2: &*p2,
-+		field3: &*p3,
-+		field4: &*p4,
-+		field5: &*p5,
-+		field6: &*p6,
-+		field7: &*p7
-+	},
-+			    kernel::alloc::flags::GFP_KERNEL) ?
-+		;
-+
-+	Ok(rstpf_8(&*p8))
-+}
-+
-+/* Pointer forwarding: receives pointers and passes to inner */
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rsf_fwd_inner(a : *const S1, b : *const S2, c : *const S3,
-+				d : *const S4) -> u64
-+{
-+	unsafe
-+	{
-+		(*a).a + (*b).b + (*c).c + (*d).d
-+	}
-+}
-+
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rsf_fwd(a : *const S1, b : *const S2, c : *const S3,
-+			  d : *const S4) -> u64{ rsf_fwd_inner(a, b, c, d) }
-+
-+/* Struct return value */
-+#[no_mangle]
-+#[inline(never)]
-+pub extern "C" fn rsf_ret_struct(a : *const S1, b : *const S2)
-+	->S4
-+{
-+	unsafe
-+	{
-+		S4
-+		{
-+a:
-+			(*a).a, b : (*b).a, c : (*b).b, d : (*a).a + (*b).b
-+		}
-+	}
-+}
-+
-+unsafe extern "C" fn write_handler(_file : *mut kernel::bindings::file,
-+				   _buf : *const core::ffi::c_char,
-+				   count : usize,
-+				   _ppos : *mut kernel::bindings::loff_t, )
-+	-> kernel::ffi::c_long
-+{
-+	let v1 = S1{ a: 0x11 };
-+	let v2 = S2{ a: 0x11, b: 0x22 };
-+	let v3 = S3{ a: 0x11, b: 0x22, c: 0x33 };
-+	let v4 = S4{ a: 0x11, b: 0x22, c: 0x33, d: 0x44 };
-+	let v5 = S5{ a: 0x11, b: 0x22, c: 0x33, d: 0x44, e: 0x55 };
-+	let v6 = S6{ a: 0x11, b: 0x22, c: 0x33, d: 0x44, e: 0x55, f: 0x66 };
-+	let v7 =
-+	S7{ a: 0x11, b: 0x22, c: 0x33, d: 0x44, e: 0x55, f: 0x66, g: 0x77 };
-+	let v8 = S8{
-+		a: 0x11,
-+		b: 0x22,
-+		c: 0x33,
-+		d: 0x44,
-+		e: 0x55,
-+		f: 0x66,
-+		g: 0x77,
-+		h: 0x88
-+	};
-+
-+	// Recursively nested values: each embeds all the smaller ones (Copy).
-+	let t1 = St1{ field0: 0x11 };
-+	let t2 = St2{ field0: 0x22, field1: t1 };
-+	let t3 = St3{ field0: 0x33, field1: t1, field2: t2 };
-+	let t4 = St4{ field0: 0x44, field1: t1, field2: t2, field3: t3 };
-+	let t5 =
-+	St5{ field0: 0x55, field1: t1, field2: t2, field3: t3, field4: t4 };
-+	let t6 = St6{
-+		field0: 0x66,
-+		field1: t1,
-+		field2: t2,
-+		field3: t3,
-+		field4: t4,
-+		field5: t5
-+	};
-+	let t7 = St7{
-+		field0: 0x77,
-+		field1: t1,
-+		field2: t2,
-+		field3: t3,
-+		field4: t4,
-+		field5: t5,
-+		field6: t6
-+	};
-+	let t8 = St8{
-+		field0: 0x88,
-+		field1: t1,
-+		field2: t2,
-+		field3: t3,
-+		field4: t4,
-+		field5: t5,
-+		field6: t6,
-+		field7: t7
-+	};
-+
-+	let mut sum : u64 = 0;
-+	sum = sum.wrapping_add(rsf_1(&v1 as *const S1));
-+	sum = sum.wrapping_add(rsf_2(&v1 as *const S1, &v2 as *const S2));
-+	sum = sum.wrapping_add(rsf_4(&v1 as *const S1, &v2 as *const S2,
-+				     &v3 as *const S3, &v4 as *const S4));
-+	sum = sum.wrapping_add(rsf_8(&v1 as *const S1, &v2 as *const S2,
-+				     &v3 as *const S3, &v4 as *const S4,
-+				     &v5 as *const S5, &v6 as *const S6,
-+				     &v7 as *const S7, &v8 as *const S8));
-+
-+	// Recursively nested struct tests
-+	sum = sum.wrapping_add(rstf_1(&t1 as *const St1));
-+	sum = sum.wrapping_add(rstf_2(&t2 as *const St2));
-+	sum = sum.wrapping_add(rstf_3(&t3 as *const St3));
-+	sum = sum.wrapping_add(rstf_4(&t4 as *const St4));
-+	sum = sum.wrapping_add(rstf_5(&t5 as *const St5));
-+	sum = sum.wrapping_add(rstf_6(&t6 as *const St6));
-+	sum = sum.wrapping_add(rstf_7(&t7 as *const St7));
-+	sum = sum.wrapping_add(rstf_8(&t8 as *const St8));
-+
-+	// Pointer forwarding: rsf_fwd receives and passes to rsf_fwd_inner
-+	sum = sum.wrapping_add(rsf_fwd(&v1 as *const S1, &v2 as *const S2,
-+				       &v3 as *const S3, &v4 as *const S4));
-+
-+	// Struct return value
-+	let ret = rsf_ret_struct(&v1 as *const S1, &v2 as *const S2);
-+	sum = sum.wrapping_add(ret.a + ret.b + ret.c + ret.d);
-+
-+	// Dynamic allocation: pointer-linked Stp8 tower (each node its own KBox)
-+	if let
-+		Ok(s) = build_and_run_stp8()
-+		{
-+			sum = sum.wrapping_add(s);
-+		}
-+
-+	core::hint::black_box(sum);
-+	count as kernel::ffi::c_long
-+}
-+
-+#[repr(transparent)]
-+struct SyncFops(kernel::bindings::file_operations);
-+unsafe impl Sync for SyncFops
-+{
-+}
-+
-+static FOPS : SyncFops = SyncFops(kernel::bindings::file_operations{
-+	write: Some(unsafe{ core::mem::transmute(write_handler as *const()) }),
-+	..unsafe{ core::mem::zeroed() }
-+});
-+
-+struct EightStructArgsRust {
-+	dir : *mut kernel::bindings::dentry,
-+}
-+
-+impl kernel::Module for EightStructArgsRust
-+{
-+    fn init(_module: &'static ThisModule) -> Result<Self> {
-+        let dir = unsafe {
-+            kernel::bindings::debugfs_create_dir(
-+                c_str!("kcov_dataflow_test").as_char_ptr(),
-+                core::ptr::null_mut(),
-+            )
-+        };
-+        unsafe {
-+            kernel::bindings::debugfs_create_file_unsafe(
-+                c_str!("trigger_struct_rust").as_char_ptr(),
-+                0o222,
-+                dir,
-+                core::ptr::null_mut(),
-+                &FOPS.0,
-+            )
-+        };
-+        Ok(Self { dir })
-+}
-+}
-+
-+impl Drop for EightStructArgsRust
-+{
-+	fn drop(&mut self)
-+	{
-+		unsafe{ kernel::bindings::debugfs_remove(self.dir) };
-+	}
-+}
-+
-+unsafe impl Send for EightStructArgsRust
-+{
-+}
-+unsafe impl Sync for EightStructArgsRust
-+{
-+}
-
--- 
-2.47.3
-
+Konrad
