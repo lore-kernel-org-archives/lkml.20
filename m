@@ -1,377 +1,68 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DC8C494818
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:58:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 293AE3A83A8;
+	Wed,  2 Sep 2026 12:59:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788353938; cv=none; b=hRC5PA/hpOiynfie+nyT/GaJ6D2llH3xq7wwhMGi+UU544lQKM6JmzDxSPwja1GQ1sb6L8dRF90ydZlXDKCwvJPPFOyIUec10pIXWz8YesDKFW3hXdeXKcbZEUTk+KO2bPb+BgE86Uyrn9ch2R5Qq455mDZ7BeFD+K/G8HY3DDU=
+	t=1788353952; cv=none; b=IbDpJTSPJ4b+JCYqdUZfb+SD5ypJvDciTVSA19tv7TIfBDglgy1yhX3G7BTDW7HLNIzs3fiCUmS+fw3QX/v0hBM5M4DXXM5fgDw2JHy/J2PRQjADtwgSHlSKjJ0NqI/3LQX5OWYchD+zAhFrwQGGT5rxDZ6dNPUNSm3tRrUk2X4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788353938; c=relaxed/simple;
-	bh=wXB0yB3JHMWnhParRKgUZUgpS2HHlI6DFVAtYGvh7tY=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=DVTnlUnTYoKB91LO1w7KdDtqbn/S/7mWwFUQxUTEtcyDK82ZqTb+pIZ4Y0nnThAu6ygVv3/B1IJUbohxNojfgqAU8u3ZkpXhRX53YfOi5eZXViUK5u9w4c9b+GtrAcyDg+WdO8PkMfPTdoYYgTSAiSm61XhnPUU+Bj5dpUZGJZw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hEKGa3mT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788353952; c=relaxed/simple;
+	bh=dlu+G5N0rLiUgaFmkUsCU76BkL25uYsMQL+sKXGb6x4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=aLQ5QO6gkYG22sOaka6HBcaT5NxgKBEh19/wUS70aidQ7IQDxJJuujOdta7GdNuwv0JTmRucohoFQXGPpMOxHL+i+E/Obx+PKF9+4ENDIDp3MO+HTI2EcGShMuQzDVjYoupvmK83zpUakIuKxDKapIljt3P3FrVVd5zJLia9BZs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oIsQ0zHO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hEKGa3mT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55A911F01560
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:58:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oIsQ0zHO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7281B1F000E9;
+	Wed,  2 Sep 2026 12:59:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788353934;
-	bh=B1CbO2PZnJ3H1eNmWsPKoQlArKovTxICa+Lu4t9uMR4=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=hEKGa3mTLvoMJudIZX0qtTLr3PUe5Qb/ANBHTuaj3X3sAA8ieeNnK2axKAlakCXR+
-	 ggOXOMjEZMeUD1O+rUXJdkquOgxeaTUD2yGlR/ncOcf7wat3rLyvoYywkiO4fOP+g1
-	 99UTp/iOsh/c7VKiUXSq4bQ/tBh+Kms39gtqZOGnZ7SJ4JYOfp7HJMEXPV7bj4dozf
-	 XKg5THvCAV9qkp2n7E8a+PifWfyPyPAlj2vSAasBR20ddTzy16aLIBl83GOJrz3VUl
-	 VB8tR3fpV84jriU8CnfhSUr+h8oAhaT8gRRGlY7xiA0JYfsD4WWduweB2cXWtmT6wu
-	 WjCYnRZUyavkA==
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc1c9879395so967162a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:58:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwWSlsoe2tx71t1z8JZIvCiiQXWfLAScjMmF1X0RAXqWWPP0lN5Q90PWVhfc58G2qDP4MJn5HRK992Jv2k=@vger.kernel.org
-X-Gm-Message-State: AFuF++mn28PkjSQ4hmI6n9gjPZFVqHYtOsav/WLnjzybbPPOpKJoc+Po
-	qAoGkTXG/xErkFuBJmi/+rM7Vk7MLKkK9UsdUEEZy9A7nQtJzbkR9g3yvgCW38pCioA04OhF0B2
-	Fdu5hdxcWSc6vd/VCizXXTz1tyh008TzH08BoHpIoxg==
-X-Received: by 2002:a17:90b:2687:b0:398:9c0c:7c71 with SMTP id
- 98e67ed59e1d1-39aee1f9788mr7884101a91.24.1788353933859; Wed, 02 Sep 2026
- 05:58:53 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 2 Sep 2026 08:58:50 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 2 Sep 2026 08:58:50 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <5eb294e68b8d5d2c1d3a12b14a55dd2a9c075a09.1788346553.git.mazziesaccount@gmail.com>
+	s=k20260515; t=1788353951;
+	bh=fw2l8OQKEt9/APsq1H1chBwWp4X6fUlHwraagDsilZs=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=oIsQ0zHO+ed06k3DGbl+vJMgYc9/qQDmkupfM8Gw1F/plqgLG+IdUxrm9YwkXW8fF
+	 mn6P6LEY35szwW7YmMT0+XKgXMO6Jy+9r+RfRI/umejRv/Au/qVgzD9qlF4l1NdkjU
+	 Ev3HPKmq8moFr2ohR1DRF08obNp1fxDMojdycsh0SsknUQvsReIsX3JtTogouLaTVt
+	 iGwGlw5AKIkyZbJP74emKLkWVM01iSSAOpIattLy1FAFMjW1M5JaC6eQRYEv/X5nOw
+	 SygA6UEdAXn6pqriazxd6+XTIsXsgq8dwM+3yccwSz3ZgBdP7hAUblHniZX+gwS2La
+	 s2HcarfZpYmNA==
+From: Leon Romanovsky <leon@kernel.org>
+To: linux-rdma@vger.kernel.org, Yehyeong Lee <yhlee@isslab.korea.ac.kr>
+Cc: bvanassche@acm.org, jgg@ziepe.ca, linux-kernel@vger.kernel.org
+In-Reply-To: <20260818035229.505098-1-yhlee@isslab.korea.ac.kr>
+References: <20260818035229.505098-1-yhlee@isslab.korea.ac.kr>
+Subject: Re: (subset) [PATCH v2 0/2] RDMA/srp: fix use-after-free of a
+ request in srp_destroy_qp()
+Message-Id: <178835394804.2431629.13448768133099421237.b4-ty@kernel.org>
+Date: Wed, 02 Sep 2026 08:59:08 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788346553.git.mazziesaccount@gmail.com> <5eb294e68b8d5d2c1d3a12b14a55dd2a9c075a09.1788346553.git.mazziesaccount@gmail.com>
-Date: Wed, 2 Sep 2026 08:58:50 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MchpaOib+jgMniG7=BBYwB1yqLvJG1sMkjXfRaMFPodgA@mail.gmail.com>
-X-Gm-Features: AcwNN1VyZmAG5rLNE0B6usivEWtMn_kVVfXT2LpTUvDGxtpaucui1WdKpaUuwFs
-Message-ID: <CAMRc=MchpaOib+jgMniG7=BBYwB1yqLvJG1sMkjXfRaMFPodgA@mail.gmail.com>
-Subject: Re: [PATCH v3 09/10] gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
-To: Matti Vaittinen <mazziesaccount@gmail.com>
-Cc: Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-rtc@vger.kernel.org, 
-	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-18f8f
 
-On Wed, 2 Sep 2026 13:07:32 +0200, Matti Vaittinen
-<matti.vaittinen@linux.dev> said:
-> From: Matti Vaittinen <mazziesaccount@gmail.com>
->
-> The ROHM BD73800 PMIC has 4 pins (named GPIO1, CLKOUT, FAULT_B and
-> EXTEN_OUT) which might have been set to operate as a GPI or GPO when OTP
-> (One Time Programmable memory) is written at device manufacturing.
-> Support the GPI/GPO use-case via GPIO framework.
->
-> The default OTP for these pins is to not use any of them as GPI or GPO.
-> (The GPIO1 defaults as an ADC input regardless the naming). Hence the
-> driver assumes none of these pins is a GPI/GPO unless explicitly pointed
-> as GPI or GPO via device tree.
->
-> Furthermore, pin's direction can't be changed after OTP configuration is
-> done. Also the default drive type for a GPO (CMOS / Open Drain) is set
-> by the OTP configuration. The BD73800 has a set of undocumented test
-> registers which should allow changing the drive type. Access to the test
-> register area or the test registers aren't documented and so this driver
-> does not support configuring the drive type even though it might be
-> doable.
->
-> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
->
 
-Looks good, just a couple nits.
+On Tue, 18 Aug 2026 12:52:27 +0900, Yehyeong Lee wrote:
+> Bart asked whether reordering srp_remove_target() also fixes the crash.
+> It does.  Against the same test target, the report appears in 5 of 5
+> runs without his patch and in 0 of 5 with it.  The drain still finds
+> the same two completions; the request pool now outlives it.  A
+> conforming target was unchanged over 5 runs each way.  Both patches
+> applied together behave the same way.  I never reached the SCSI error
+> handler.
+> 
+> [...]
 
-> ---
-> Revision history:
->  v2 => v3:
->   - Use gpio-regmap as was suggested by Linus W.
->  v1 => v2:
->   - Return -ENODEV when no GPIO pins are found
->   - Drop useless comment
->   - Use 'data' instead of 'g' as a name of the private data struct. Do so
->     consistently (change also the 'bdgpio' to 'data').
->   - Use device_property_... instead of the fwnode_property_...
->   - fix fault_b pin property name (re-use existing name)
-> ---
->  drivers/gpio/Kconfig        |  12 +++
->  drivers/gpio/Makefile       |   1 +
->  drivers/gpio/gpio-bd73800.c | 209 ++++++++++++++++++++++++++++++++++++
->  3 files changed, 222 insertions(+)
->  create mode 100644 drivers/gpio/gpio-bd73800.c
->
-> diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-> index a48586bb8edb..64127740a248 100644
-> --- a/drivers/gpio/Kconfig
-> +++ b/drivers/gpio/Kconfig
-> @@ -1385,6 +1385,18 @@ config GPIO_BD72720
->  	  be configured to GPO on the ROHM PMIC. The pin configuration is done
->  	  on OTP at manufacturing.
->
-> +config GPIO_BD73800
-> +	tristate "ROHM BD73800 GPIO support"
-> +	depends on MFD_ROHM_BD71828
-> +	select GPIO_REGMAP
-> +	help
-> +	  Support for GPIOs on ROHM BD73800 PMIC. There can be up to 4
-> +	  GPI or GPO pins available on the PMIC in total. The purpose of
-> +	  the pins is decided at the device manufacturing by OTP
-> +	  configuration and can't be reconfigured later. Enable this
-> +	  if your PMIC has pins set as GPIs or GPOs and if you wish to
-> +	  control the pins via the GPIO framework.
-> +
->  config GPIO_BD9571MWV
->  	tristate "ROHM BD9571 GPIO support"
->  	depends on MFD_BD9571MWV
-> diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
-> index dc9e6d643b5b..dc5e0583e328 100644
-> --- a/drivers/gpio/Makefile
-> +++ b/drivers/gpio/Makefile
-> @@ -45,6 +45,7 @@ obj-$(CONFIG_GPIO_BCM_XGS_IPROC)	+= gpio-xgs-iproc.o
->  obj-$(CONFIG_GPIO_BD71815)		+= gpio-bd71815.o
->  obj-$(CONFIG_GPIO_BD71828)		+= gpio-bd71828.o
->  obj-$(CONFIG_GPIO_BD72720)		+= gpio-bd72720.o
-> +obj-$(CONFIG_GPIO_BD73800)		+= gpio-bd73800.o
->  obj-$(CONFIG_GPIO_BD9571MWV)		+= gpio-bd9571mwv.o
->  obj-$(CONFIG_GPIO_BLZP1600)		+= gpio-blzp1600.o
->  obj-$(CONFIG_GPIO_BRCMSTB)		+= gpio-brcmstb.o
-> diff --git a/drivers/gpio/gpio-bd73800.c b/drivers/gpio/gpio-bd73800.c
-> new file mode 100644
-> index 000000000000..824901859a61
-> --- /dev/null
-> +++ b/drivers/gpio/gpio-bd73800.c
-> @@ -0,0 +1,209 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Support to GPIOs on ROHM BD73800
-> + * Copyright 2024 ROHM Semiconductors.
-> + * Author: Matti Vaittinen <mazziesaccount@gmail.com>
-> + */
-> +
-> +#include <linux/bitmap.h>
-> +#include <linux/bitops.h>
-> +#include <linux/gpio/driver.h>
-> +#include <linux/gpio/regmap.h>
-> +#include <linux/init.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/mfd/rohm-bd73800.h>
-> +
-> +#define BD73800_GPIO_MAX_PINS 4
-> +/*
-> + * The BD73800 has several "one time programmable" (OTP) configurations which
-> + * can be set at manufacturing phase. Some of these options allow using
-> + * individual pins as GPI or GPO (not both at the same time). The OTP
-> + * configuration can't be read at run-time, so drivers rely on device-tree to
-> + * advertise the OTP programmed in manufacturing.
-> + *
-> + * The pins which can be used as GPIO are:
-> + * GPIO1, CLKOUT (GPIO2), FAULT_B, EXTEN_OUT.
-> + *
-> + * The OTP options 2 and 3 state for all the pins:
-> + *  - OTP2: GPI (also IRQ source)
-> + *  - OTP3: GPO (NOTE: This is actually 2 different OTP options. Either a
-> + *    register controllable output or a power-sequence controlled output.
-> + *    The "gpo" referred here means only the register controllable output.)
-> + *    The datasheet refers to this as: "<pin> output is controlled by
-> + *    GPIO<N>_OUT or power on/off sequencer to control external VRs. ON/OFF
-> + *    sequence timing is configurable."
-> + *
-> + * The data-sheet further says that the GPI/GPO is not a default OTP
-> + * configuration for any of the pins. Hence the GPIO driver defaults to a pin
-> + * not being a GPI or GPO, but requires the pin to be explicitly marked as a
-> + * GPI or GPO in the device-tree.
-> + *
-> + * DT properties:
-> + * "rohm,pin-gpio1", "rohm,pin-clkout", "rohm,pin-fault_b", "rohm,pin-exten"
-> + * can be set to one of the values "gpi" or "gpo" to enable them to be used as
-> + * GPIO.
-> + *
-> + * The amount of GPIO lines the chip exposes to the user-space (chip.ngpio) is
-> + * always the same, regardless of the OTP variant in use. The lines which are
-> + * not usable as GPIO on a given OTP variant are marked invalid via the GPIO
-> + * valid_mask. This way the user-space always sees a constant amount of GPIO
-> + * lines, where numbering (relative to the chip's base) stays also the same.
-> + * Users can then use the valid_mask to find out which of the lines are usable.
-> + */
-> +
-> +struct bd73800_gpio {
-> +	/* dev points to the platform device for devm and prints */
-> +	struct device *dev;
-> +	struct regmap *regmap;
-> +	/* Pins which have been OTP configured as GPI or GPO */
-> +	DECLARE_BITMAP(valid_mask, BD73800_GPIO_MAX_PINS);
-> +	/* Subset of valid_mask - pins which have been OTP configured as GPO */
-> +	DECLARE_BITMAP(output_mask, BD73800_GPIO_MAX_PINS);
-> +};
-> +
-> +static const char * const bd73800_gpio_properties[BD73800_GPIO_MAX_PINS] = {
-> +	"rohm,pin-gpio1", "rohm,pin-clkout", "rohm,pin-fault_b", "rohm,pin-exten"
+Applied, thanks!
 
-Can you put the properties on separate lines?
+[2/2] RDMA/srp: Fix srp_remove_target()
+      https://git.kernel.org/rdma/rdma/c/9cdfad5dd5529e
 
-> +};
-> +
-> +static int bd73800_gpio_get_pins(struct bd73800_gpio *data)
-> +{
-> +	struct device *parent = data->dev->parent;
-> +	const char *val;
-> +	int i, ret;
-> +
-> +	for (i = 0; i < BD73800_GPIO_MAX_PINS; i++) {
-> +		ret = device_property_read_string(parent,
-> +						  bd73800_gpio_properties[i],
-> +						  &val);
-> +		if (ret) {
-> +			if (ret == -EINVAL)
-> +				continue;
-> +
-> +			return dev_err_probe(data->dev, ret,
-> +					"pin %d (%s), bad configuration\n", i,
-> +					bd73800_gpio_properties[i]);
-> +		}
-> +
-> +		if (!strcmp(val, "gpi")) {
-> +			__set_bit(i, data->valid_mask);
-> +		} else if (!strcmp(val, "gpo")) {
-> +			__set_bit(i, data->valid_mask);
-> +			__set_bit(i, data->output_mask);
-> +		} else {
-> +			dev_warn(data->dev,
-> +				"pin %d (%s), unknown value '%s' ignored\n", i,
-> +				bd73800_gpio_properties[i], val);
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int bd73800_gpio_init_valid_mask(struct gpio_chip *gc,
-> +					unsigned long *valid_mask,
-> +					unsigned int ngpios)
-> +{
-> +	struct gpio_regmap *gpio = gpiochip_get_data(gc);
-> +	struct bd73800_gpio *data = gpio_regmap_get_drvdata(gpio);
-> +
-> +	bitmap_copy(valid_mask, data->valid_mask, ngpios);
-> +
-> +	return 0;
-> +}
-> +
-> +/*
-> + * The used register depends on OTP:
-> + *  - If OTP has set pin as GPO, only the GPO_OUT register is valid.
-> + *  - If OTP has set pin as GPI, only the INT_5_SRC register is valid.
-> + */
-> +static int bd73800_gpio_reg_mask_xlate(struct gpio_regmap *gpio,
-> +				       enum gpio_regmap_operation op,
-> +				       unsigned int base, unsigned int offset,
-> +				       unsigned int *reg, unsigned int *mask)
-> +{
-> +	struct bd73800_gpio *data = gpio_regmap_get_drvdata(gpio);
-> +	bool is_output = test_bit(offset, data->output_mask);
-> +
-> +	if (is_output)
-> +		*reg = BD73800_REG_GPO_OUT;
-> +	else
-> +		*reg = base;
-> +
-> +	*mask = BIT(offset);
-> +
-> +	return 0;
-> +}
-> +
-> +static int gpo_bd73800_probe(struct platform_device *pdev)
-> +{
-> +	struct gpio_regmap_config config = { };
-> +	struct bd73800_gpio *data;
-> +	struct device *parent, *dev;
-> +	struct gpio_regmap *gpio;
-> +	int ret;
-> +
-> +	dev = &pdev->dev;
-> +	/* The device-tree and regmap come from MFD => use parent for that */
-> +	parent = dev->parent;
-> +
-> +	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
-> +
-> +	data->dev = dev;
-> +	data->regmap = dev_get_regmap(parent, NULL);
-> +	if (!data->regmap)
-> +		return dev_err_probe(dev, -ENODEV, "no parent regmap\n");
-> +
-> +	ret = bd73800_gpio_get_pins(data);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (bitmap_empty(data->valid_mask, BD73800_GPIO_MAX_PINS)) {
-> +		/*
-> +		 * The BD73800 may or may not have pins allocated for GPIO
-> +		 * depending on the OTP used at manufacturing.
-> +		 * If there are no pins, then we have nothing to do.
-> +		 */
-> +		dev_dbg(dev, "no GPIO pins\n");
-> +		return -ENODEV;
-> +	}
-> +
-> +	config.parent = parent;
-> +	config.regmap = data->regmap;
-> +	config.label = "bd73800";
-> +	config.ngpio = BD73800_GPIO_MAX_PINS;
-> +	config.reg_dat_base = BD73800_REG_INT_5_SRC;
-> +	config.reg_set_base = BD73800_REG_GPO_OUT;
-> +	config.reg_mask_xlate = bd73800_gpio_reg_mask_xlate;
-> +	config.init_valid_mask = bd73800_gpio_init_valid_mask;
-> +	/* All pins that are valid GPIO lines also have a fixed direction */
-> +	config.fixed_direction_mask = data->valid_mask;
-> +	config.fixed_direction_output = data->output_mask;
-> +	config.drvdata = data;
-> +
-> +	gpio = devm_gpio_regmap_register(dev, &config);
-> +
-> +	return PTR_ERR_OR_ZERO(gpio);
+Best regards,
+-- 
+Leon Romanovsky <leon@kernel.org>
 
-Why not return PTR_ERR_OR_ZERO(devm_gpio_regmap_register())?
-
-> +}
-> +
-> +static const struct platform_device_id bd73800_gpio_id[] = {
-> +	{ "bd73800-gpio" },
-> +	{ },
-> +};
-> +MODULE_DEVICE_TABLE(platform, bd73800_gpio_id);
-> +
-> +static struct platform_driver gpo_bd73800_driver = {
-> +	.driver = {
-> +		.name = "bd73800-gpio",
-> +		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
-> +	},
-> +	.probe = gpo_bd73800_probe,
-> +	.id_table = bd73800_gpio_id,
-> +};
-> +module_platform_driver(gpo_bd73800_driver);
-> +
-> +MODULE_AUTHOR("Matti Vaittinen <mazziesaccount@gmail.com>");
-> +MODULE_DESCRIPTION("GPIO interface for BD73800");
-> +MODULE_LICENSE("GPL");
-> --
-> 2.55.0
->
->
-
-With that:
-
-Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
