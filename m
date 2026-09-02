@@ -1,287 +1,141 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 421341A682C;
-	Wed,  2 Sep 2026 17:24:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3BF23612DB;
+	Wed,  2 Sep 2026 17:24:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788369859; cv=none; b=FCsTHgNyPIaTYAyz7jDV2VPYLWDBQ8It+9tDpsHPnE5pQLQsAk+5MJex2ec+YpRbogAjQAUIO+SKPV8tdKYOY81ayr5qqPmc+F4YV/jGD/oX4MYTnTcrdxlTp6mwf632lJ4eCv2+JyfAvCDawnB7b5Prt1sjW55/hdK6ksPGTUs=
+	t=1788369869; cv=none; b=KUYTh75se9kZ1/Ki2NLeTQ0bfhebjfroP8WzxgL5Td+Is0LiB9PgCXslDjVYCtgXc2dThpLISjOO59FANaN89xYHaBL09P3hjqIfJPOBCzb2jY7a1PYBiycmcTg4xdej1b8nYS1NxRfFFYnAzWHQVJc6mAQfsDlbAo06dAJlEb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788369859; c=relaxed/simple;
-	bh=CTIWG+2x9lDDQLtCsnUtpJoiAopLl0wFf6qF51I3a3s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gOkNIvOR6GtrYishtnav/NKk9gINMMrzGY2cJF2NSFZLnSuv3zi2dUhYj/KrP8nyHiIJsFX7/SFTDGqgQySsYu41b1WqM9XCOb8KdmxnXSpffyNULmEBQwThm2v/xlwYFmgaapYSdRFdTPDuESThRUoVuZoAT0sAP2h9Ob8pdX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=03rCOCR3; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=IfFvlNMJ; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=AkTpR+om; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=qEFrmQyu; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1788369869; c=relaxed/simple;
+	bh=imMIROgbIYKdS/W2LCXJDHNQiqmrSLNhI2Rz/8sZtls=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=oPI2OcKIIuKWWvrbpKLqgaCNTPIwoNDnJ64Q2rQpPGBuo1snNs6NB4F/Us+0Ecq+nU38prVsviu2c/LS2iSD7X8p0usFcpBuX4S9av9nahF2sGdwnFzN8CyYMB/vQGnUxEWOEklKTiz3MO45oCieK0HjCbwrFEwRr/GHxgpdnKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=ant9p5uZ; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="03rCOCR3";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="IfFvlNMJ";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="AkTpR+om";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="qEFrmQyu"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id DDDFB1F7D2;
-	Wed,  2 Sep 2026 17:24:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788369851; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AUNdLzt3B+obmz0/uvc7ZdYLsj2rpEauUH6Zj9gRlpI=;
-	b=03rCOCR3BJoIbHiyGjBeKHdAVeDMPmvPjXyURPTcm1m6e/0sMuj4n2uxAWYhvzsME5GkwD
-	HLIR5GUx0WKPddST1Uhx1Ed03Mox3J7C6PO/wT8WkjniwtVH+v0zX/MQsVDBUKu5tg/PZZ
-	oeKu+l/J0myBGSwYiP7E5Q0D/Dk0jbk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788369851;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AUNdLzt3B+obmz0/uvc7ZdYLsj2rpEauUH6Zj9gRlpI=;
-	b=IfFvlNMJ336DEZD0B2zekR042jrjDTSsfnmDPWqEnFqEFGrcDwcZxuCsWnv9VQpO0J3wEy
-	QQZ+BC659ED+HcCQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788369846; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AUNdLzt3B+obmz0/uvc7ZdYLsj2rpEauUH6Zj9gRlpI=;
-	b=AkTpR+om/+RHTyIo9ZrFpob1Un2lZA1KA+j16m2SWmu3JErFMnpR5LwrTlULGkCOrN1uuC
-	vZiJRuvzIJDGU8R6LLc3rR0POFS6AWBhGVrx+DXTkO6/LUnzcdi7wQsBlWZr9zk6xhQ/PD
-	8qfYc72Q/yDVCFVPOhlrrhT4O/QDHdA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788369846;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=AUNdLzt3B+obmz0/uvc7ZdYLsj2rpEauUH6Zj9gRlpI=;
-	b=qEFrmQyu1Fa010wKUTd69A8LjemcSjMJKU1KSAtIA7Ir4GJ/UsYSHuc+tujzauHcjCnYNF
-	VzZt4CpxsL+5C3DQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 95B8C13515;
-	Wed,  2 Sep 2026 17:24:06 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id hbITJLZbmGo+RwAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 02 Sep 2026 17:24:06 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 2C9A7A13B5; Wed, 02 Sep 2026 19:24:06 +0200 (CEST)
-Date: Wed, 2 Sep 2026 19:24:06 +0200
-From: Jan Kara <jack@suse.cz>
-To: ayhan =?utf-8?B?YXlkxLFu?= <nsd.project.dev@gmail.com>
-Cc: Jan Kara <jack@suse.cz>, Matthew Wilcox <willy@infradead.org>, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-fsdevel@vger.kernel.org
-Subject: Re: [RFC PATCH 0/3] Neural Storage Driver - learning page cache
- prefetcher
-Message-ID: <o5ihhfa252cjfspqlag65xhnmehz3a5feyclmlyy4xlrcmceck@njmhyu7oom3d>
-References: <20260725182628.221603-1-nsd.project.dev@gmail.com>
- <CAFLp9PEQQVuDpJPwrNvLN1-u3w3TMwZPUUrf0+rOBrvDjBBf1A@mail.gmail.com>
- <anlByPDZmvEhWeXI@casper.infradead.org>
- <ffcij36vnozf3rginqd2opd2dwqyki7xhtdo4veuty734hhgba@utjav2k263o6>
- <nsd.1787001235.35928@mail.gmail.com>
- <w7vte4itudtkw2yf4vbmuofiumfffmp2y52dpu2bqvqtdgjvpd@5femyiozss3e>
- <CAFLp9PGkVYZcQT5qAx-RKFOF-urZ92m417zpAeF7ZQempbS1HQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="ant9p5uZ"
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682HBcV03745056;
+	Wed, 2 Sep 2026 13:24:22 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=OObyt
+	Tjq+zRLVCoziljDRsaCR72qZVcFLih2nmEu7nA=; b=ant9p5uZhqdCSKwpEkqn8
+	uoXZnjJhxbnXVFUMrqTBPEeNRmht/UYfWqkUIAgBxffgPhl5H+AtEGv7mSC4RPfZ
+	uMF6uTz3rcxIAH+KlLe38oyUoSPRh27udB6m9ePMqw8N7CkZ5OMFgBPG7O8Mm20W
+	QcauCakgSn9nEmjHrzsU79BKDwJvPmxwyWvbsHaEvhXbNj8bRyVuEv5aZDRdOLVr
+	1XHqBKtS7Nwe9VkfnHqC1Y3bP/KwPWr366aDPsPRRypYJZHZ1Iq5oc0KazPTKa9x
+	zrp/iGp8jFkhpkOQ+6SLdgMQvXDK1gtgMl7wHMoKS4R/p8zCD40qP036bfck6/N+
+	g==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4ge469d5ub-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 13:24:22 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 682HOLwf041388
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 2 Sep 2026 13:24:21 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Wed, 2 Sep
+ 2026 13:24:21 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Wed, 2 Sep 2026 13:24:20 -0400
+Received: from work.maxim-ic.internal ([10.66.6.192])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 682HO7Ja004246;
+	Wed, 2 Sep 2026 13:24:10 -0400
+From: Marcelo Schmitt <marcelo.schmitt@analog.com>
+To: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux@analog.com>
+CC: <jic23@kernel.org>, <nuno.sa@analog.com>, <dlechner@baylibre.com>,
+        <andy@kernel.org>, <Michael.Hennerich@analog.com>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <corbet@lwn.net>,
+        <skhan@linuxfoundation.org>, <marcelo.schmitt1@gmail.com>
+Subject: [PATCH v1 08/13] dt-bindings: iio: adc: adi,ad4134: Document SPI connection mode
+Date: Wed, 2 Sep 2026 14:24:02 -0300
+Message-ID: <d9b759d29fa8ca12b6cf083e180b2556ca4533f0.1788368334.git.marcelo.schmitt@analog.com>
+X-Mailer: git-send-email 2.39.2
+In-Reply-To: <cover.1788368334.git.marcelo.schmitt@analog.com>
+References: <cover.1788368334.git.marcelo.schmitt@analog.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAFLp9PGkVYZcQT5qAx-RKFOF-urZ92m417zpAeF7ZQempbS1HQ@mail.gmail.com>
-X-Spam-Score: -2.30
-X-Spam-Level: 
-X-Spamd-Result: default: False [-2.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	TAGGED_RCPT(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Flag: NO
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-GUID: aBShun3MLcI7Ma5pIUoaUu5IWAXBMCOF
+X-Authority-Analysis: v=2.4 cv=LuCiDHdc c=1 sm=1 tr=0 ts=6a985bc6 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8 a=BEYee7nrBUFf7RGVO14A:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE1MyBTYWx0ZWRfX7xso/MdxGjsy
+ fqtQz9sdmgFtCzBXtZSEINPTYwC0WD/LZOgUwGeg/9chvrKIX3AOwADrJ+ZRVIKQoK1GAFOxiJO
+ sIgqrso30FLK4cEyH8c6eChla4n0EwUnddsRHqnkfmlVOENr+gaa1D+dUTvNvsWELp+lDqP8aM2
+ UnrrwJIWOC+deB6wZJ4hQTvoMjwlhvnsyuUagqSx+Orox2iE5lAtduxTLzpyRBbWSxcEr29/c1x
+ McV+RTLkfKmvjFenLJPaow3A8xUMT82sU/eTSFF79TSPx4qlYqzS2BaN+HLC0b36sc6zu5TZ++4
+ UD7lNGY3dRfNddUTi8lE3kruFI38tSmMpY3BorbMVj5RsJuE2GU+hOW6kBai/DkbG0PK97t5fLw
+ P79gpEu44wcpoK+H+/PSLIsiCSz+DZ9b2GXkzFCTU8EiQAA8q7qWzFtESc/MBIVNklRSMTpsI7e
+ fCdklgr/P2m4tX6tPew==
+X-Proofpoint-ORIG-GUID: aBShun3MLcI7Ma5pIUoaUu5IWAXBMCOF
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE1MyBTYWx0ZWRfX0YGt5pDn9L2G
+ KhKYOviuVhaMr3ImMb2fiXTHNSBURpK0guV/w8cY7HHgIY4VWZQbh4PtjjOIjbnCG8iJIQGq2y8
+ xeBZSpTkHLmkydWbkuRmKxpoaUphFVhBAdc/XXadxA8ZSiirVSDg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_04,2026-09-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 spamscore=0 priorityscore=1501 adultscore=0
+ phishscore=0 impostorscore=0 clxscore=1015 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020153
 
-Hi Ayhan,
+Document how AD4134 chips are connected to the host SPI controller
+according to different wiring configurations.
 
-I'm sorry for a bit delayed reply.
+Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+---
+ .../bindings/iio/adc/adi,ad4134.yaml          | 22 +++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-On Thu 20-08-26 08:26:31, ayhan aydın wrote:
-> Thanks for the review and for the questions — they pushed us to go back
-> and measure this properly. Since the last exchange we ran a full
-> window-size matrix with complete latency and overhead numbers, and it
-> answers directly what both of you asked. Let me start with the data.
-> 
-> These results come from our current in-development tree. We wanted to
-> share them with you before pushing anything, so the tree referenced in
-> the RFC (upstream-prep-v1, 2026-08-17) is still the earlier snapshot.
-> Since that snapshot we made three changes that led to these numbers:
-> 
->   1. Jump handling — when a prediction lands outside the kernel's
->      readahead window we now always issue WILLNEED|NOREUSE explicitly,
->      instead of leaving the strategy branch to decide.
->   2. Kernel-window awareness — when the kernel's own readahead window
->      is already >= 1MB the module detects this and completely silences
->      itself (confirmed by its own counters), so it never competes with
->      or disturbs a kernel window that is already sufficient.
-
-Err, ok. I guess I'm somewhat missing the intended purpose of your changes
-then. Is your idea that if read_ahead_kb (i.e., maximum allowed readahead)
-is set too low, your algorithm will fix it up?
-
-How I was understanding your intention is that your algorithm aims to
-provide a better guess for appropriate readahead given the workload *within
-the bounds set by read_ahead_kb*. Because read_ahead_kb is there for
-sysadmin to allow restricting readahead (e.g. to avoid excessive memory
-consumption from readahead).
-
->   3. Full instrumentation — per-run p50/p95/p99/p999 latency, per-pass
->      usr/sys CPU overhead, and disk-I/O accounting.
-> 
-> We'll push the updated tree to GitHub once this discussion settles.
-> 
-> Full metrics matrix — methodology: interleaved ON/OFF on the same
-> machine, drop_caches before every run, 3 runs per configuration, 6.2 GB
-> SQLite database and an 8 GB sequential file. Disk I/O is byte-identical
-> between ON and OFF in all 96 runs — NSD never issues extra I/O.
-> 
-> seq64 — 8 GB sequential file, 64k requests, n=131K/run:
-> 
->   kb    | OFF avg  ON avg   diff  | p50 OFF->ON  | p99 OFF->ON   |
-> overhead (usr+sys)
->   128   | 22.02s   17.11s   -22%  | 50->23 us     | 812->805 us   | 5.94->4.33s
->   256   | 17.08s   17.22s   +1%   | 20->15 us     | 824->1129 us  | 4.07->4.13s
->   512   | 16.81s   16.96s   +1%   | 16->14 us     | 1092->1903 us | 4.24->3.60s
->   1024  | 17.25s   17.03s   -1%   | 15->16 us     | 1903->1883 us | 3.67->3.74s
-
-OK, so for read_ahead_kb >= 256k the difference disappears with your disk.
-
-> SQLite Q2 full-table scan — 6.2 GB:
-> 
->   kb    | OFF avg  ON avg   diff  | overhead (usr+sys)
->   128   | 24.51s   20.48s   -16%  | +0.95s
->   256   | 20.05s   16.60s   -17%  | +1.26s
->   512   | 15.31s   12.18s   -20%  | +1.06s
->   1024  | 12.22s   12.09s   -1%   | +0.26s
-
-Interesting that here the difference disappears only with read_ahead_kb =
-1024k. Isn't it because based on 2. above your algorithm disabled itself?
-Also how come when your algorithm is enabled, results were still improving
-as you were increasing read_ahead_kb?
-
-> random4k — 100k random 4k requests:
-> 
->   kb    | OFF avg  ON avg   diff  | p99
->   128   | 25.0s    25.5s    +2%   | ~0.98ms
->   256   | 26.9s    26.0s    -3%   | ~0.99ms
->   512   | 25.7s    25.5s    -1%   | ~0.98ms
->   1024  | 25.4s    24.7s    -3%   | ~0.99ms
-> 
-> random_repeat — 100k offsets x 3 passes, n=300K:
-> 
->   kb    | OFF avg  ON avg   diff  | p99
->   128   | 26.8s    25.1s    -6%   | 0.39ms
->   256   | 25.1s    24.0s    -4%   | 0.38ms
->   512   | 24.5s    24.4s    0%    | 0.37ms
->   1024  | 25.0s    24.7s    -1%   | 0.39ms
-
-I'd say no matterial difference here with read_ahead_kb >= 256k
-
-> Honza, you asked whether the difference goes away at 1M — and yes, it
-> does, for both workloads. The 128k default is the dominant factor; at
-> 1M the kernel alone already reaches this SSD's bandwidth ceiling, and
-> NSD recognises that and silences itself entirely at >= 1M windows.
-> 
-> But the 512k row is the one I'd really like your view on. The kernel
-> with a 512k window alone (15.31s) trails the kernel with 1M (12.22s)
-> by about 25%, yet NSD with a 512k window reaches 12.18s — the same
-> throughput at half the window. Our block-layer traces show OFF@512k
-> keeps issuing ~512k requests, so the device is not the limit. It looks
-> like the kernel's window growth is capped at ra_pages, while the
-> fadvise-driven expansion NSD triggers is not — which, incidentally, is
-> why distros end up hand-tuning this value. Is that cap deliberate, for
-> latency or cache-pollution control, or is there room for the growth
-> policy to self-adapt?
-
-I'm not sure I correctly understand the question so please rephrase it if I
-answer something else but it is deliberate, that explicit readahead (e.g.
-through fadvise(2) but also if you just do large read(2)) is not bound by
-read_ahead_kb.
-
-> Willy, on the architecture: hooking only vfs_read and skipping the
-> fault path was a deliberate choice to bound the first iteration, but
-> you're right that it's a gap — filemap_fault bypasses vfs_read
-> entirely, so we're currently blind to mmap'd workloads. Hooking it
-> with the same fprobe is the next step. On replacing the PG_readahead
-> folio marking: the matrix above convinced us this is the right
-> direction. The kernel's growth policy, not the device, is the real
-> bottleneck at default settings, so we're moving toward a design that
-> manages ra_state directly and measures its own waste — per-file
-> tracking of consumed versus expired prefetches with adaptive
-> aggressiveness, which is really just replacing the implicit
-> assumptions behind PG_readahead marking with explicit measurement.
-> Backward access patterns are already handled by the stride predictor
-> (negative deltas, forward/backward counted separately); a dedicated
-> backward-pattern benchmark will be added to the suite.
-
-Just one note here: I wouldn't focus too much on default settings because
-most people tune them to different values with udev rules. What is
-interesting is whether your algorithm beats current readahead algorithm
-with proper read_ahead_kb for the device (i.e., usually 1m these days).
-
-> Two things we're still working on, for honesty: at 256-512k the
-> sequential p99 regresses (~0.8ms -> ~1.1ms and ~1.1ms -> ~1.9ms) as
-> the prefetch regions push the device queue — the usage-tracking work
-> above targets exactly that. And the random_repeat gains (4-6% at
-> 128-256k) suggest the predictor does help beyond what window size can
-> fix; p95 there improves from 296 to 243 us.
-> 
-> Questions we'd value your input on:
->   1. Is fadvise-driven expansion beyond ra_pages acceptable as a
->      mechanism, or should the growth policy itself change?
-
-Not sure what Matthew thinks but my opinion is that automated readahead
-(regardless of algorithm used for deciding it) simply should be limited to
-read_ahead_kb. That is the long-term Linux behavior and that is the knob
-sysadmin has to constrain readahead algorithm if he wishes and we should
-not break it.
-
->   2. What would a minimal integrated design look like — replacing
->      PG_readahead marking with direct ra_state control?
-
-I'll defer this to Matthew since I'm actually not sure how he imagined this
-to work.
-
->   3. If we iterate: fault path first, or usage-tracking first?
-
-I don't have a strong preference here :)
-
-								Honza
+diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+index ea6d7e026419..d843c02a394a 100644
+--- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+@@ -131,6 +131,28 @@ properties:
+     enum: [ free-running, gated ]
+     default: gated
+ 
++  adi,spi-mode:
++    $ref: /schemas/types.yaml#/definitions/string
++    enum: [ no-cs, 4-wire, one-channel-chain, two-channel-chain ]
++    description: |
++      This property indicates the SPI wiring configuration.
++
++      When this property is omitted, it is assumed that the device is using
++      'no-cs' wiring. When this property is present, it indicates that the
++      device is using one of the following wiring configurations:
++
++      * no-cs: The datasheet calls this "minimum I/O mode". In this mode, the CS
++        line is not used (tied to GND).
++      * 4-wire: Specifies a conventional SPI wiring configuration.
++      * one-channel-chain: In this mode, the DOUT0 line of one chip is connected
++        to DOUT2 of the next chip upstream in the chain. Only the data interface
++        of the upmost device in the stream is in direct connection with the
++        digital host.
++      * two-channel-chain: In this mode, the DOUT0 and DOUT1 lines of one chip
++        are respectively connected to DOUT2 and DOUT3 of the next chip upstream
++        in the chain. Only the data interface of the upmost device in the stream
++        is in direct connection with the digital host.
++
+ required:
+   - compatible
+   - reg
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.53.0
+
