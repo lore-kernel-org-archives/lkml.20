@@ -1,64 +1,64 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C61E4A485B
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:53:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 064334A49A5
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:53:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788360834; cv=none; b=c8cu3OvZK4jT80fMtkXTE0yvvZpf2SdplNA4qkKAxW3Sg6KWWqiRF654+0Ilsu+jvo2tcr1JWrlExDrWjHZZEj4wKcss4rXP1CVcppgXMbZFK0dHf8eaXVqhxIGiaXv9HGFsANIoJmypVTwkNhMpHGNWucBQHlG/76xlL+5sxCg=
+	t=1788360838; cv=none; b=AOA4k4jCoJgm63wt5vSPJBZsCiCBGCB1NFoKqYlUHBo6PYO5CivVsn6AjqANILajEkEVylOka2imYD4oZCY1mSOXXP2LBgYVQL5GCjd9c4t7D6vhWl1bzVis6Ax1136kUQttq1UGa0mKum79JcpeXiwGAELGCf5wnGhO+5VZDFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788360834; c=relaxed/simple;
-	bh=IJTIjXefCtpyzFz642pELl2c8LGlNjVMmQXZPOjQ1EU=;
+	s=arc-20240116; t=1788360838; c=relaxed/simple;
+	bh=a4oCgSJxVT+Yvyj6OvJRra4F7RQTRxH4QG/o8/Ybv3s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fgD4b/TPzwxjfV8kI7q/oZvCsSn1ORqNpjhvyWT2kW/X/4tVu385pFlPrSKwY6FmzGiblMoYAEVDsNqMQsKp1gHpNQgViPjKn70HWF6tueYSEE3Bh/lDxAZnm4aQITUWdF/OzPPyLwKS1FE5fom2yXmWoTnulD5Ems/K58Cynlo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kjn15Bj2; arc=none smtp.client-ip=209.85.221.50
+	 MIME-Version; b=H76eBxECDI306E61Ikow2q1eAqn/M6+e6V469G9bXQb6oUf22hDB++mJaL1sKseR/BhAEY0WN52ZIO0LKKzxdmzEXBn30ZHzZZa9xtb+OGIdqESUelv/4jYmJhTWyf0Ag93UdkdQR40r1Zd2Vxp0plKOXDkHyFMGTZlaA5lMxWU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RETan9et; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kjn15Bj2"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-482fc3327fdso794003f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:53:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RETan9et"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49cdc81f40eso8041935e9.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:53:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788360831; x=1788965631; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788360835; x=1788965635; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1kEYOKwOKleJni/53+3Zevf6XMaih8vPEj3mTYB7Fxs=;
-        b=Kjn15Bj2yjumPTs6N6HCBlkrhqdHV9BZ01hLSpsgGL9jYTnT9PpSm5+ny3IBhlTUYs
-         qzZNEZSM5Q45LaORuu2RXT4Tl8bbhpo2VyICKDkA7jBcyd8395qQ+p96OnBw3ydGFn5t
-         iYxyaFMK1+iI0Me6RDQFLevTqOvqhmxEpC44GWgV78v5/MP423st+76P+0Q+lSDdhDVb
-         Lkn87VMdzMuMvDaZYm5mJd57kJ6V6loBUU/vNfzTNfQf2T9pV0x/xYj8wzSsZe3EEEzA
-         4mCfPZY48UbCzA4jZm5uCBowpHwPOdcehROpK68lyLcsDLRc4xs861awD+zMJORr70/8
-         H/VA==
+        bh=mENIAbZRTvAZLCBtejhgUDs7AYKS8queXWQS6mtdC+Q=;
+        b=RETan9etukiUAIj8oQ0/+UVVbKtEKLI/QbHJZO7EzWH0xr8SJigi81Dyf+5fJ2Qtta
+         sP19buAMDxPyuQqnobJ7IHI7wVxAZeZQXIB07wA8Yc3zMiOCslSS6BFEfzPCPEbNKeHq
+         TCcEOO6RlhW8tbgEDTrx3APLgAC9HikaCMHGxMYvuRrIfMFGpj1AqBj0DBjdxb9xKbzE
+         7nXmBPW0dGhakAwta0GS7KVRFhwZnPVOFgbaLiOKdE2CA4iGHd5sZn1F+OW3odr3AIQ9
+         9FQ7nwS6IWteFZGo6T/CezqkqFjU33rcii/IAfsW4hlAqovAHdZymr75luD7uIKHA5fQ
+         ykDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788360831; x=1788965631;
+        d=1e100.net; s=20251104; t=1788360835; x=1788965635;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1kEYOKwOKleJni/53+3Zevf6XMaih8vPEj3mTYB7Fxs=;
-        b=FX96s28+rcNCsnNLzL4ctC+RPa54Tcoo0erIt8dKcxmHN8WBM4YETfntD5asXx7klj
-         DSrhWqGW66q0xCc7ZI+7KwK+059GkCrzzpgukVuSrDk7dQGSqVeg9dXN8Hc8aZh5KOZY
-         mpZyyBl5y30ZcTsxBh7sG5z1iUvly5FYJ6wbh/sMBS0LblSFZ26ZwrinQVEJrHIt0W0N
-         amy3AN8DPkLoxcWHSapDKdy2j3ueITEbpFGjORm4m5DHAvVPYqHndlOTQCYaT9m2i7VN
-         FWNjjFNFFXaRmBGTKyS7FGLtkMhOhKznbCk1jtw8eNAO+0sXkwPm+skb2PT/GKxVMP4e
-         Lt1g==
-X-Forwarded-Encrypted: i=1; AKwUvBxqVVfNdwvL0ghoq4NTcXyyXuW+/Oew7yKK/Y2JSaNU83iqGeYlaP2nst9Vb7GBif07naC0+yU0u+NbUmU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mpbwzJ0FUr87ERtEDL5Sn7+CrBLDBjhPv2Hz/m7zEGtO6E2jYc
-	LsLoIetebHniKTg+KDld1T0O/ejh8bV/mSN4z+svx9hhTpbNkKOpGaQJ
-X-Gm-Gg: AYBFou0Ym8e9vNyRqyhJqa072X/TbeMt4zUocgg9S7DRLtJnrzp6r6wbT8pmlA2vTtY
-	Ew55DvNA42Lr6j9RMRyhpdoGsxANkcdi7iJdv9f7Vgodn6KB1GgnAbqzjJ7zzNYgqQ50EVeuoRn
-	u3c5RmGDALpKdtt8rJknHh1vkhtL4yymu+oo4VrFjCZ33mg5vEf03yzerMunoKbZV8dyPN4yNPE
-	lTXaU5G0t4UPvn/4CZlmY7ujT+JvRizW4dhMe1b8u/hqlcbvKb68vnzeTF6NotpWNDMBDpUhzkY
-	ipHzmbgcxtVI93eFNVUXyDybHaz+ccyFdWcTWo8yPh3jzTnrU8GGr37/EQwu4vUiNOGi9jyHEmT
-	5t7Kz6f+663Kxkiu8n0Rfqo8H5ynCInxiz5Evd3R2s+XxBKNi1wfDm01QjTyb8Mg1uGZnhNEExh
-	Kp3LXv2rOMS8Bl0VGXcxIuGq67WWYoH6SojSTJG3311IGPr3vvfqpA11OdI9voobITaxA9Xqukk
-	WRWU/unKeyx0hslHN2bU9zTU+KW1uyF4f/e7sned4bd
-X-Received: by 2002:a05:6000:2211:b0:484:3c87:dc91 with SMTP id ffacd0b85a97d-484913c33bdmr9871534f8f.19.1788360830513;
-        Wed, 02 Sep 2026 07:53:50 -0700 (PDT)
+        bh=mENIAbZRTvAZLCBtejhgUDs7AYKS8queXWQS6mtdC+Q=;
+        b=ihf3LR1wcRImKfVF1Hvgukw3JLN1aWAZuQVGEY3C3HyKxDmnT3TdnllL3xcJiuSIKr
+         coPqw6m7urEabddRLqT/gUoREwnhvptRMxTW+T7TxFLzj66TCzRULieiHNTa0WolcKT/
+         ayQ7YFDqkD7myVnXxxD9kKT/BOM0HO0KCyLA2nuH1L5BAFu76OwNcQo5/njcUfYbYDR7
+         ntJQFhEu8M0M/ZxmPdiewPnPkquAmXz7zZJ3WfxFveFy+G7ZFI26tkrRoB1tfLFtSFG5
+         VEC1JydgAUJsbLJ65GDk/CgWNwVEaWGgdA1UiFAdSZmjFR6Zf8C2iAT4g31MkdTKJR1J
+         GomA==
+X-Forwarded-Encrypted: i=1; AKwUvBwBlYQJFBFBGtS3fAe1p26Yv1nDmHu6NJRhG+MztMiZUr85XgTj5IGfCQftzejtHo5LtiCtcKv3bptfmMQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mPb5QNh8FY4FqCbmxm/mhmifrvxY+gGfc+zJb5bGu+V9G7Y7ZH
+	JESC3VS4QZfTVgdK6yFZp25TqvKd+q5dYtyfYYpOlncqO1rRm7d8Oj8O
+X-Gm-Gg: AYBFou2cP1SVPBhWbL4SuiK3sKTEO2SiLu+6j2eFhQiDHDbuFvnKMZdyGzcrHFd5SoB
+	sewPYdMhOYvcv9peNKo9f5qwI4LQ0V7buduS0D9VxMCSpDuMVFo/62hYk4Ory9301j8YqOpIDNC
+	p6hhjptLZQju3PcOKMM/i1MvMJRXr6OnTcgn2PMvlVmHOG1jYkjB71MN9vydbEFzyVQMlaBp+Mz
+	vcE7UfZudBbBc07NiatJrRke+lvFiJfoyBtiiDUQ7XPlFbaE6WOplPfLzhagpJ+txW2wy/X3kGV
+	L/izTfc9MTesmTlxyvYnqEIVBKG7fvA9bMqyQXPVKmXi9uY+4UhaVfJ8hQcOb390Pmu1aCz8yiv
+	JRoDAwGrk3fdPT8VRxD0WdYFzWBy3A5pO1dMjw1dYyzCn+Mtbb3sWTWdjv8S015di0xxb6vJaDv
+	X0J4WFSiqQ7wHpkv2a8wuEb1AcxP8m9YIn2Hasg2juKmI6f7B88oGVe/X/MVY2UnaX4v63K2Ki6
+	qhrwpPBZMRk5cVkk/3OlFQ5g+VRFX+hsq0XOMdZPWfj
+X-Received: by 2002:a05:6000:184e:b0:484:3312:f127 with SMTP id ffacd0b85a97d-484913c020amr9110505f8f.27.1788360834456;
+        Wed, 02 Sep 2026 07:53:54 -0700 (PDT)
 Received: from 1Z10 ([37.163.216.116])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e81718sm6942012f8f.16.2026.09.02.07.53.48
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e81718sm6942012f8f.16.2026.09.02.07.53.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 07:53:50 -0700 (PDT)
+        Wed, 02 Sep 2026 07:53:54 -0700 (PDT)
 From: Maurizio Casciano <mauriziocasciano7@gmail.com>
 To: mchehab@kernel.org,
 	linux-media@vger.kernel.org
@@ -73,9 +73,9 @@ Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>,
 	gregkh@linuxfoundation.org,
 	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 01/16] media: ov8858: Extract digital gain programming
-Date: Wed,  2 Sep 2026 16:53:30 +0200
-Message-ID: <517c4f11075debaaa3eebc4e8bed574ac832565c.1788360629.git.mauriziocasciano7@gmail.com>
+Subject: [PATCH v7 03/16] media: ov2740: Use C99 initializers for ACPI IDs
+Date: Wed,  2 Sep 2026 16:53:32 +0200
+Message-ID: <12033326593d98fb9bd5902820c1ab29df00c94c.1788360629.git.mauriziocasciano7@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1788360629.git.mauriziocasciano7@gmail.com>
 References: <cover.1788360629.git.mauriziocasciano7@gmail.com>
@@ -87,73 +87,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move the existing packed digital-gain register programming into a
-helper so clock-specific gain handling can be added separately.
+Use designated initializers and the standard empty sentinel style
+before adding firmware IDs.
 
-This is a pure refactoring: preserve both the register packing and the
-explanatory comment without changing the bytes written to the sensor.
-
+Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Assisted-by: LLM sparse
 Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
 ---
- drivers/media/i2c/ov8858.c | 30 ++++++++++++++++++------------
- 1 file changed, 18 insertions(+), 12 deletions(-)
+ drivers/media/i2c/ov2740.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/i2c/ov8858.c b/drivers/media/i2c/ov8858.c
-index 3f45f7fab833..d95f034de752 100644
---- a/drivers/media/i2c/ov8858.c
-+++ b/drivers/media/i2c/ov8858.c
-@@ -1523,6 +1523,23 @@ static int ov8858_enable_test_pattern(struct ov8858 *ov8858, u32 pattern)
- 	return ov8858_write(ov8858, OV8858_REG_TEST_PATTERN, val, NULL);
- }
+diff --git a/drivers/media/i2c/ov2740.c b/drivers/media/i2c/ov2740.c
+index 39003c1632ad..8f0ad5dbb245 100644
+--- a/drivers/media/i2c/ov2740.c
++++ b/drivers/media/i2c/ov2740.c
+@@ -1461,10 +1461,9 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ov2740_pm_ops, ov2740_suspend, ov2740_resume,
+ 				 NULL);
  
-+static int ov8858_set_long_digital_gain(struct ov8858 *ov8858, u32 gain)
-+{
-+	u16 long_gain;
-+
-+	/*
-+	 * Digital gain is assembled as:
-+	 * 0x350a[7:0] = dgain[13:6]
-+	 * 0x350b[5:0] = dgain[5:0]
-+	 * Reassemble the control value to write it in one go.
-+	 */
-+	long_gain = (gain & OV8858_LONG_DIGIGAIN_L_MASK) |
-+		    ((gain & OV8858_LONG_DIGIGAIN_H_MASK) <<
-+		     OV8858_LONG_DIGIGAIN_H_SHIFT);
-+
-+	return ov8858_write(ov8858, OV8858_REG_LONG_DIGIGAIN, long_gain, NULL);
-+}
-+
- static int ov8858_set_ctrl(struct v4l2_ctrl *ctrl)
- {
- 	struct ov8858 *ov8858 = container_of(ctrl->handler,
-@@ -1531,7 +1548,6 @@ static int ov8858_set_ctrl(struct v4l2_ctrl *ctrl)
- 	struct i2c_client *client = v4l2_get_subdevdata(&ov8858->subdev);
- 	struct v4l2_mbus_framefmt *format;
- 	struct v4l2_subdev_state *state;
--	u16 digi_gain;
- 	s64 max_exp;
- 	int ret;
+ static const struct acpi_device_id ov2740_acpi_ids[] = {
+-	{"INT3474"},
+-	{}
++	{ .id = "INT3474" },
++	{ }
+ };
+-
+ MODULE_DEVICE_TABLE(acpi, ov2740_acpi_ids);
  
-@@ -1570,17 +1586,7 @@ static int ov8858_set_ctrl(struct v4l2_ctrl *ctrl)
- 				   ctrl->val, NULL);
- 		break;
- 	case V4L2_CID_DIGITAL_GAIN:
--		/*
--		 * Digital gain is assembled as:
--		 * 0x350a[7:0] = dgain[13:6]
--		 * 0x350b[5:0] = dgain[5:0]
--		 * Reassemble the control value to write it in one go.
--		 */
--		digi_gain = (ctrl->val & OV8858_LONG_DIGIGAIN_L_MASK)
--			  | ((ctrl->val & OV8858_LONG_DIGIGAIN_H_MASK) <<
--			      OV8858_LONG_DIGIGAIN_H_SHIFT);
--		ret = ov8858_write(ov8858, OV8858_REG_LONG_DIGIGAIN,
--				   digi_gain, NULL);
-+		ret = ov8858_set_long_digital_gain(ov8858, ctrl->val);
- 		break;
- 	case V4L2_CID_VBLANK:
- 		ret = ov8858_write(ov8858, OV8858_REG_VTS,
+ static struct i2c_driver ov2740_i2c_driver = {
 -- 
 2.53.0
 
