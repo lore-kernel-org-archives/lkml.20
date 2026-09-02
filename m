@@ -1,115 +1,354 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67FF4449B11
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:29:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C3FC44A3EF
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:29:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788344949; cv=none; b=UUsoAvh0G/9ZI4rScO9txLNIXgpzMq/+yUtwpjGIXKyTG5o2kRfwtRFhLSueXSOVeT+EzdIxP05XKYAqhTC5+5m3wRfAcKUNFdscdd49ymBItvAxD4ciVU68/8XOIXroDLSVW4fpQpLsZeJbIWy3kfwd9Ge6fMw8dSfeuVhybK4=
+	t=1788344975; cv=none; b=mDWJTBI5Mz+r1aufXIkguEzNBVW+KW3JS6PBNA/63r5nAkt0RapYahDPA1Yrcug1aSPclSQAaBJ357AllTq6mQDWO3nB+yUU2WThYY1VrIk3LYF6hOixmfJ4g3UPNKJr37jmNHCjBBg9fAL30KrKjntW4Fqr0qKLBK01dcxLJk0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788344949; c=relaxed/simple;
-	bh=rAPJcs9RPHCyZwp07+g9Qac2pUnl8IzKa/HVeDBlySk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ovG0r2I5/hlRRTJWl+VJZQS50i1345kwIxnkOrV+gQp09ntXERETmdy55/bylVjK1A9IxbuBZpekdrtFUuCYC7ZTwZSk9644fdCHBc658ayNRpgUsYj2nrou1kaGIAC5ZX+oQt6DFjY6Xv6eFRRGOYwZ+LlL0y71Spu+X8OfmKA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hA0yhYB3; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788344975; c=relaxed/simple;
+	bh=KjkGEFEeYMGE5tWpb4iz6mos2IDfSvwrV1TRiR4FklE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=aqmNwzTTaw3ca2c4uztTgEC6R+5BK+OyR++aY5eqyGbGkozj/xXqQ13RG4aFKhdP/7AOFxAE5uqj8I0ZbVVt6eYQYmpTnkDVyXvUs/Z7uN/Cv9HbByZtZPZxj7MPBVsFFe2xSJQntW4r3JBxPVmqAPf7znDbkjcaWLLkCuDugOo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LN4ghG2V; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hA0yhYB3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788344939;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YvcJguNw4pgTRbE16S7t7xUCubjsm9WDHYvV9WpJ1I8=;
-	b=hA0yhYB31dA4/2OFDAwy716UJtz/wSC0pMOhH/yoqwUsFOojVz0+wH2opqfNR7jFTJkidg
-	3UMfnZOOd6bUcdeMymvHAi4j9060TQV/dDpnUxaVGQexPHTZtmkCYjPuKCHDIoFR1CUvJa
-	r5+CjRe3jWNzvd0WoWfxJ4GCqnS0x8Q=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-462-MFrU4m_nMjKmBRuFGoXF_Q-1; Wed,
- 02 Sept 2026 06:28:54 -0400
-X-MC-Unique: MFrU4m_nMjKmBRuFGoXF_Q-1
-X-Mimecast-MFC-AGG-ID: MFrU4m_nMjKmBRuFGoXF_Q_1788344932
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4BF7D195605E;
-	Wed,  2 Sep 2026 10:28:52 +0000 (UTC)
-Received: from fedora (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id D8A521800577;
-	Wed,  2 Sep 2026 10:28:48 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Wed,  2 Sep 2026 12:28:51 +0200 (CEST)
-Date: Wed, 2 Sep 2026 12:28:47 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: "Eric W. Biederman" <ebiederm@xmission.com>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Hyunwoo Kim <imv4bel@gmail.com>, brauner@kernel.org,
-	peterz@infradead.org, anna-maria@linutronix.de,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH V2] signal: Prevent exec() race
-Message-ID: <apf6XyStCiwJ7CSM@redhat.com>
-References: <87mru7h09e.fsf@email.froward.int.ebiederm.org>
- <87tsofdvf2.ffs@fw13>
- <871pbfeaiv.ffs@fw13>
- <87zey3fep2.fsf@email.froward.int.ebiederm.org>
- <87pkyyd39l.ffs@fw13>
- <87h5kad0mx.ffs@fw13>
- <87bjaie2gc.fsf@email.froward.int.ebiederm.org>
- <87wlt5aybr.ffs@fw13>
- <87qzjcdh06.fsf@email.froward.int.ebiederm.org>
- <87ecfcbyt1.ffs@fw13>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LN4ghG2V"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49b8ce9b733so6365525e9.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 03:29:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788344965; x=1788949765; darn=vger.kernel.org;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bZtvmbyOC+TIXQAgxX6du8Vv3LHAYS2xf4YGM8J09kA=;
+        b=LN4ghG2Vajcz3DOsD3YSEug1ARFiSmHJIRRYbgXU4dHDw/eFUbEBJuzitDp5likK9s
+         dCFM5GJUYQgyq38ZnpSMUGpXox2UodoK9Bz1bCEMDYtvbRJYie8UGVYcfdipJLKmaqII
+         Y1ZG/89pQZoBF0EvlyCpKGqcmexhP3VvkrKJixVEA1miMQMEFzZdiAaxWFwlcnGSYi4x
+         t3XEw5dXyHGJSfdXUYvEuAS+rMC9jmXVOWvc+d12zqP/2KEvUiAC2FoHZXQPgTPjzsTg
+         21Syp7bZ/YvzKUy+ZFtvLwlaHeHxvyN/b4iNX52T9u5Ag9JteDWqwVIvSXfDebPVchR9
+         CWBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788344965; x=1788949765;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bZtvmbyOC+TIXQAgxX6du8Vv3LHAYS2xf4YGM8J09kA=;
+        b=KjMwABIYHl3iUCaaHs9FL1Wj8M3CRFlorlOWabVbrv6wj6CCnNEeaVWxuy7AGdTWC5
+         qTboAU0E7Y0WkNZyBEvGDiS/Cpxis8lseMX//2Ngoc9BQ5xG/QQrG9nVyQiv+6PbQW5y
+         tHqEsaZIX0wcXZr3acQX5iH++UX0FdmV0pnAv+G33C/C2ivmYTz6Cnz/qsagWSzej6ke
+         TSGGkvJ5SbCWKfNovwi62Oo+vb1FeE7MxKas1XK+r3+Ylf9hXHeqkepaXm2VLiLJ9orR
+         n1zHDgtVHUY4U0RKE2wBY0z8LafHksnB4JhqNBHdC2uWBMlD8C/TYe0/Gc8X5i1XrhFF
+         DGaw==
+X-Forwarded-Encrypted: i=1; AHgh+RqZoW66O3RpLYm+1niMamFsyoMeSs+EtEAyllXl1eL4EZH8PbJxceFCHdlzixAYEN8x/7FBxxrv7MPH7C0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwpHUoykGWwEPgMlpqF94BmZ3NkPvYoHfYnNBZMO2hx2xU521U
+	mUmsPJ6ECVPc7JnAWIeUJRfXLt5e53z0YQrpFwXV1PLaDr3WiVx3LzwH
+X-Gm-Gg: AR+sD11wc0TZkxDzj5BkebwEfbKOo36BmTs/jzfBc/H/srIwbrZVeRuom5PIhW7dIuw
+	/5cRF3DeNcyjOUbyLfuQTGrNOpAqU795txTy553O+rZpQQ/ntqmz2q4Rd35TnPbW6e6ookWByvl
+	DnuPxa8fqWse1ZjDf+g2wO1FgiXpQQcl1BB4UxR1UCzXSTfVvTjlFB7TsbGqfElkj9mhysqPZCl
+	YLhCh/qh88wAqqixqYp5zIn2nW9oAx8GXoTZ/xQeyXXhSJ4YF2QRWGhdVFuoBnDwvIWX/cGACWf
+	rBNZbfAGB9C6UpohD/4NI458tV6six2oj5VbBL87z//8Ko+ckHrBWRTeqLJCChytFgQEi5pnGca
+	ZFgYQdcnThyRlmReK6Ilq2+MZolAPzHzC4idDKZn4hGAfS0LBDq595WcHUX3GRyqhMZvqQkIrp+
+	fZKIlGHg6/8Mr0HubU/nmFknMktAb0yUoWlMFyr4R+kPbZ1WxtnZtXzy2+NVMWuYJ6cW9JyWU=
+X-Received: by 2002:a05:600c:4795:b0:49c:ed88:a782 with SMTP id 5b1f17b1804b1-49ced88a78cmr2713745e9.6.1788344964779;
+        Wed, 02 Sep 2026 03:29:24 -0700 (PDT)
+Received: from strix.localnet ([197.250.227.34])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce10148sm138145595e9.5.2026.09.02.03.29.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 03:29:23 -0700 (PDT)
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ Linus Walleij <linusw@kernel.org>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Brian Masney <bmasney@redhat.com>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Russell King <linux@armlinux.org.uk>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
+ mfd@lists.linux.dev
+Subject:
+ Re: [PATCH v11 04/12] ARM: dts: zte: Declare zx297520v3 CRM device nodes
+Date: Wed, 02 Sep 2026 13:29:12 +0300
+Message-ID: <rJbfdbXrS62xFUkr8Ld5TQ@gmail.com>
+In-Reply-To: <20260826-zx29clk-v11-4-f8ad59c6426c@gmail.com>
+References:
+ <20260826-zx29clk-v11-0-f8ad59c6426c@gmail.com>
+ <20260826-zx29clk-v11-4-f8ad59c6426c@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87ecfcbyt1.ffs@fw13>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Content-Type: multipart/signed; boundary="nextPartatLajs3yRkirKyBuoKqPXQ";
+ micalg="pgp-sha256"; protocol="application/pgp-signature"
 
-As I said many times in this thread I am all confused ;)
-And of course I don't understand posix-timers.c enough.
+--nextPartatLajs3yRkirKyBuoKqPXQ
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+Date: Wed, 02 Sep 2026 13:29:12 +0300
+Message-ID: <rJbfdbXrS62xFUkr8Ld5TQ@gmail.com>
+In-Reply-To: <20260826-zx29clk-v11-4-f8ad59c6426c@gmail.com>
+MIME-Version: 1.0
 
-So let me ask the stupid question...
+Hi List, and in particular Krzysztof,
 
-On 09/01, Thomas Gleixner wrote:
->
-> If the timer signal is blocked, its sigqueue stays queued on the leader's
-> task::pending. The next expiry of that timer can then run while
-> release_task() flushes the queue.
->
-> posixtimer_send_sigqueue() checks whether the sigqueue is already queued
-> with a plain list_empty(), which only reads list_head::next.
 
-If timer->sigq is queued on T->pending list, then T has a reference.
-Even if this timer is destroyed, it and its ->sigq can't go away until
-__sigqueue_free() -> posixtimer_sigqueue_putref(timer->sigq). Right?
+Am Mittwoch, 26. August 2026, 00:24:03 Ostafrikanische Zeit schrieb Stefan=
+=20
+D=C3=B6singer:
+> This patch adds DT nodes for the main clock and reset controllers on the
+> zx297520v3 board. It replaces the temporary placeholder UART clocks with
+> the proper clocks exported by topcrm and lspcrm.
+>=20
+> Signed-off-by: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
+>=20
 
-So, If we change posixtimer_send_sigqueue() to check PF_EXITING and
-return, then why do we need other changes?
+This patch is the only one of my Z29 Clock and Reset series that has not se=
+en=20
+review comments Did it slip through the cracks?
 
-Perhaps they make sense, but why do we need them to fix this particular
-problem?
+Linus Walleij added his R-B on the patch that added the mostly stub DSTI fi=
+le,=20
+so I added him to the mail too.
 
-I am sure I missed something obvious, please help me to understand.
+Cheers,
+Stefan
 
-Ah, and I just noticed...
+> ---
+>=20
+> Version 11: Improved the above the line commit description, removing
+> references to "previous patches" that won't make sense when reading it
+> in the kernel commit log.
+>=20
+> Version 10: Fix issues with dt-check-style --mode=3Dstrict in newly added
+> code, but left issues in existing nodes alone.
+>=20
+> Version 9:
+> Sort new nodes by mmio address
+> rename syscon-reboot to "reboot"
+> adjust to changes in bindings
+>=20
+> Version 7:
+> Add phy nodes to topcrm
+> Remove syscon from matrixclk again
+> Adapt remove now-removed extra clk inputs from matrix
+> Add reset to LSP
+> osc26m -> clock-26m for the fixed rate clocks, likewise for 32k
+>=20
+> Version 6:
+> Add syscon to matrixclk
+>=20
+> Version 5:
+> Re-name from *clk to *crm
+> Add the syscon-reboot node here because the binding requires it
+> Re-add accidentally dropped uart2 IRQ
+> ---
+>  arch/arm/boot/dts/zte/zx297520v3.dtsi | 101
+> ++++++++++++++++++++++++++++++---- 1 file changed, 89 insertions(+), 12
+> deletions(-)
+>=20
+> diff --git a/arch/arm/boot/dts/zte/zx297520v3.dtsi
+> b/arch/arm/boot/dts/zte/zx297520v3.dtsi index a16c30a164bb..ebac3cd137df
+> 100644
+> --- a/arch/arm/boot/dts/zte/zx297520v3.dtsi
+> +++ b/arch/arm/boot/dts/zte/zx297520v3.dtsi
+> @@ -3,12 +3,26 @@
+>   * Copyright (c) 2026 Stefan D=C3=B6singer <stefandoesinger@gmail.com>
+>   */
+>=20
+> +#include <dt-bindings/clock/zte,zx297520v3-clk.h>
+>  #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +#include <dt-bindings/reset/zte,zx297520v3-reset.h>
+>=20
+>  / {
+>  	#address-cells =3D <1>;
+>  	#size-cells =3D <1>;
+>=20
+> +	osc26m: clock-26m {
+> +		compatible =3D "fixed-clock";
+> +		#clock-cells =3D <0>;
+> +		clock-frequency =3D <26000000>;
+> +	};
+> +
+> +	osc32k: clock-32k {
+> +		compatible =3D "fixed-clock";
+> +		#clock-cells =3D <0>;
+> +		clock-frequency =3D <32768>;
+> +	};
+> +
+>  	cpus {
+>  		#address-cells =3D <1>;
+>  		#size-cells =3D <0>;
+> @@ -20,15 +34,6 @@ cpu@0 {
+>  		};
+>  	};
+>=20
+> -	/* Base bus clock and default for the UART. It will be replaced once=20
+a
+> clock driver has -	 * been added.
+> -	 */
+> -	uartclk: uartclk-26000000 {
+> -		#clock-cells =3D <0>;
+> -		compatible =3D "fixed-clock";
+> -		clock-frequency =3D <26000000>;
+> -	};
+> -
+>  	timer {
+>  		compatible =3D "arm,armv7-timer";
+>  		interrupts =3D <GIC_PPI 13 IRQ_TYPE_LEVEL_LOW>,
+> @@ -75,18 +80,87 @@ uart0: serial@131000 {
+>  			arm,primecell-periphid =3D <0x0018c011>;
+>  			reg =3D <0x00131000 0x1000>;
+>  			interrupts =3D <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
+> -			clocks =3D <&uartclk>, <&uartclk>;
+> +			clocks =3D <&topcrm ZX297520V3_UART0_WCLK>,
+> +				 <&topcrm ZX297520V3_UART0_PCLK>;
+>  			clock-names =3D "uartclk", "apb_pclk";
+> +			resets =3D <&topcrm ZX297520V3_UART0_RESET>;
+> +
+>  			status =3D "disabled";
+>  		};
+>=20
+> +		topcrm: clock-controller@13b000 {
+> +			compatible =3D "zte,zx297520v3-topcrm", "syscon";
+> +			reg =3D <0x0013b000 0x400>;
+> +			#clock-cells =3D <1>;
+> +			clocks =3D <&osc26m>, <&osc32k>;
+> +			clock-names =3D "osc26m", "osc32k";
+> +			interrupts =3D <GIC_SPI 42 IRQ_TYPE_EDGE_RISING>,
+> +				     <GIC_SPI 43=20
+IRQ_TYPE_EDGE_RISING>,
+> +				     <GIC_SPI 45=20
+IRQ_TYPE_EDGE_RISING>,
+> +				     <GIC_SPI 46=20
+IRQ_TYPE_EDGE_RISING>;
+> +			interrupt-names =3D "usb-up", "usb-down",
+> +					  "hsic-up", "hsic-down";
+> +			#phy-cells =3D <1>;
+> +			#reset-cells =3D <1>;
+> +
+> +			reboot {
+> +				compatible =3D "syscon-reboot";
+> +				mask =3D <0x1>;
+> +				offset =3D <0x0>;
+> +				value =3D <0x1>;
+> +			};
+> +		};
+> +
+> +		matrixcrm: clock-controller@1306000 {
+> +			compatible =3D "zte,zx297520v3-matrixcrm";
+> +			reg =3D <0x01306000 0x400>;
+> +			#clock-cells =3D <1>;
+> +			clocks =3D <&osc26m>, <&osc32k>,
+> +				 <&topcrm ZX297520V3_AHB_PCLK>,
+> +				 <&topcrm ZX297520V3_MPLL>,
+> +				 <&topcrm ZX297520V3_MPLL_D5>,
+> +				 <&topcrm ZX297520V3_DPLL>,
+> +				 <&topcrm ZX297520V3_GPLL>,
+> +				 <&topcrm ZX297520V3_GPLL_D2>,
+> +				 <&topcrm ZX297520V3_GATED_OSC26M>;
+> +			clock-names =3D "osc26m", "osc32k", "ahb", "mpll",
+> +				      "mpll-d5", "dpll", "gpll",=20
+"gpll-d2",
+> +				      "wclk-osc26m";
+> +			#hwlock-cells =3D <1>;
+> +			#reset-cells =3D <1>;
+> +		};
+> +
+> +		lspcrm: clock-controller@1400000 {
+> +			compatible =3D "zte,zx297520v3-lspcrm";
+> +			reg =3D <0x01400000 0x100>;
+> +			#clock-cells =3D <1>;
+> +			clocks =3D <&matrixcrm=20
+ZX297520V3_LSP_MPLL_D5_WCLK>,
+> +				 <&matrixcrm=20
+ZX297520V3_LSP_MPLL_D4_WCLK>,
+> +				 <&matrixcrm=20
+ZX297520V3_LSP_MPLL_D6_WCLK>,
+> +				 <&matrixcrm=20
+ZX297520V3_LSP_MPLL_D8_WCLK>,
+> +				 <&matrixcrm=20
+ZX297520V3_LSP_MPLL_D12_WCLK>,
+> +				 <&matrixcrm=20
+ZX297520V3_LSP_OSC26M_WCLK>,
+> +				 <&matrixcrm=20
+ZX297520V3_LSP_OSC32K_WCLK>,
+> +				 <&matrixcrm ZX297520V3_LSP_PCLK>,
+> +				 <&matrixcrm ZX297520V3_LSP_TDM_WCLK>,
+> +				 <&matrixcrm=20
+ZX297520V3_LSP_DPLL_D4_WCLK>;
+> +			clock-names =3D "mpll-d5", "mpll-d4", "mpll-d6",
+> +				      "mpll-d8", "mpll-d12", "osc26m",=20
+"osc32k",
+> +				      "pclk", "tdm-wclk", "dpll-d4";
+> +			#reset-cells =3D <1>;
+> +			resets =3D <&matrixcrm ZX297520V3_LSP_RESET>;
+> +		};
+> +
+>  		uart1: serial@1408000 {
+>  			compatible =3D "arm,pl011", "arm,primecell";
+>  			arm,primecell-periphid =3D <0x0018c011>;
+>  			reg =3D <0x01408000 0x1000>;
+>  			interrupts =3D <GIC_SPI 1 IRQ_TYPE_LEVEL_HIGH>;
+> -			clocks =3D <&uartclk>, <&uartclk>;
+> +			clocks =3D <&lspcrm ZX297520V3_UART1_WCLK>,
+> +				 <&lspcrm ZX297520V3_UART1_PCLK>;
+>  			clock-names =3D "uartclk", "apb_pclk";
+> +			resets =3D <&lspcrm ZX297520V3_UART1_RESET>;
+> +
+>  			status =3D "disabled";
+>  		};
+>=20
+> @@ -95,8 +169,11 @@ uart2: serial@140d000 {
+>  			arm,primecell-periphid =3D <0x0018c011>;
+>  			reg =3D <0x0140d000 0x1000>;
+>  			interrupts =3D <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
+> -			clocks =3D <&uartclk>, <&uartclk>;
+> +			clocks =3D <&lspcrm ZX297520V3_UART2_WCLK>,
+> +				 <&lspcrm ZX297520V3_UART2_PCLK>;
+>  			clock-names =3D "uartclk", "apb_pclk";
+> +			resets =3D <&lspcrm ZX297520V3_UART2_RESET>;
+> +
+>  			status =3D "disabled";
+>  		};
+>  	};
+>=20
+> --
+> 2.54.0
 
-> @@ -1990,6 +2004,9 @@ void posixtimer_send_sigqueue(struct k_i
->  	if (!likely(lock_task_sighand(t, &flags)))
->  		return;
->
-> +	if (unlikely(tmr->it_pid_type == PIDTYPE_PID && (t->flags & PF_EXITING)))
-> +		return;
 
-this lacks unlock_sighand().
+--nextPartatLajs3yRkirKyBuoKqPXQ
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
 
-Oleg.
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmqX+ngbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJED0TvMhUTxoiXQ4QAIgh4cHS40dzpXGGXT06
+nMhiX21hOye6pUgSIUkl7edEIS9jiyMtrziDQ6y08OJGZQuMkBvX7rv70aYYpcNZ
+N2ssTTrip9PyBdNxLdsz2KP3bhnlUK6Xksuk6OuvupuUcFeLojqMEXDCToTGBWmn
+GZTiROWut21Q6RF+XyRKaztTrVJO3IfGyQZGsKt7lWHRLK8NXAJKBlnTUgPHWxht
+UsHVUXebz+0qObRB+mSOVkFFAe4t0FpKyfrSMiZw7UKduO/F35gRovOHs2sIw4WR
+VhjJRneHiRl1CNw7F+wyzdzl4Uq8bMsIiwDKSB6qj920+3oV2vS2nu9WYtT2MEPK
+AzT4b8SAsDQbcExV2j0jpyHqArQlumqYpueE2rsqzS6oa+DHu352RWng7cPyA+sI
+SVs7Dx+DGNp6Fxmhm/SSItKDMX8u/6D6fjbBW0N8PUZ3NyCbyWQ/zt971VsC6bVb
+U/nALB5LYCR3sBilrIC2JGJef+1cFanxITSCYLdOoStI9oI6aLumRRQayVXp94NW
+BJk1m4SJUa+J8ff+WeexXpVYYfnWp9nCYkG+q0es0kgR1Z+0YQKRYDeaviqxcQLq
+26krvpcuMP8cgWx920NVjKh7DXPVW++x8F52hqPYZyYqM5ONWgdIWTfmTCa8Temz
+JE70f1rWWHE+Spu4bDjfQkPB
+=CjRJ
+-----END PGP SIGNATURE-----
+
+--nextPartatLajs3yRkirKyBuoKqPXQ--
+
+
 
