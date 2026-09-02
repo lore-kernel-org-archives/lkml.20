@@ -1,210 +1,165 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 19D9D49505F
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:07:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3522849B209
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:08:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788354444; cv=none; b=Mr7d2BKozDGjK5e5LJ0rkbvrrCLdZnjUhsQAcuZS21RMyZrGukHWayJkkQ2/RrmrXZPdLpdROLcQlp2cWqMNV4rRDK0/99WFC2oFE+Pbs3oC+eh7uIUi/9k+6dP1LXPRMJ4Cwh8tcbjdE4o6+5zU/McuhbUhZXBH1Q/IaI7JgtM=
+	t=1788354487; cv=none; b=s9A1geY/KN6TknuUDoBma6jRCd1XheL1qpsUbXAVTPEDXPopHFAg9wVjpI3iWaiOlY3GoCHuudMZbd3QY8R8GLYL1y2RjOS/5h6mrHp1tY2JwuGkfnw5SNaZFOBiXR7nKCiPaw+K2NLqXm+rKL2+01n8x/NTto8lHNzaulmJoJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788354444; c=relaxed/simple;
-	bh=+t9sN4LSyRGw93rnNyg1v4R/ipYdpl7x/UgrrcH7gJ8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RzNbEmZX1pPcPgUpmQxK6uOZYi5nnmQhJ82vPswAbblBAjkReHJZyMROig9CpjO1nfc9w/V0a9Xh60xZ0keBc5/PsJwPWzsKtzAVhZjNHA8a7AyAgDOedzr5AGbAyX+gqUQMRX2dL5mVn2eYVWP3ieQRPwRFAd99RhusWICCUos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=pUh63RT4; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788354487; c=relaxed/simple;
+	bh=0hKapFxMequ4DFaz8IR0nd0cULM83AQBEbTt3mZlvzc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dhFQm6s+EwoEN3vnReWi5/ekELvDw2LK0IVlhBczVYkVxeMBGHNVgjCUeqovFPTkKziEYRdBqnf4i+RBZquQZ4G/l4HlphmyjJRs6aQpM9xVaxNyGBVY81f7qrN0fDmqQlXD0rKQ9WpCi73jW1eAooihllUoMzOaYe6Z2wPsBBQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=H1RT5p5P; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="pUh63RT4"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 81ADE165C;
-	Wed,  2 Sep 2026 06:07:17 -0700 (PDT)
-Received: from [10.1.34.165] (e121487-lin.cambridge.arm.com [10.1.34.165])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9F4B63F85F;
-	Wed,  2 Sep 2026 06:07:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788354441; bh=+t9sN4LSyRGw93rnNyg1v4R/ipYdpl7x/UgrrcH7gJ8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=pUh63RT4V/KPBB2O88F3YMOGtx1JdWvSj/QqmaJhB2Dh1R0LEM2yxJgti11F4tlKD
-	 VjyoK1EM1DGgjvYFEW2m4OcN165RFcHiXm/tdxOC3doeLbPfpm9+hdC9RHqRnXJ03e
-	 dVsghQvw8nk6GylnkSTuazEKzneEDBg0Swpideho=
-Message-ID: <5058854b-6e68-44b2-b4f7-6e2f666c4caf@arm.com>
-Date: Wed, 2 Sep 2026 14:07:17 +0100
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="H1RT5p5P"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-482f2ee53e7so663908f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 06:08:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1788354484; x=1788959284; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=8CCYbVer4UrDr5i1p//z3lDPoKdyao2pFzFH41cydj4=;
+        b=H1RT5p5PZ82mg8e6fvlneDDp+8Tysismk+eWWWehqJxvhteY31rYD4LamdpII8owYo
+         GHgCHBnaKriLABSgEYWWzKDvWEsUQyr+S+OHYwysSJzTWukplG54bhIEWb7FmFCaLY5R
+         5whf5s3k1qyzKSkmAkCXyz9gYslMNkst6xrFlOGhrJDW1SFKXGIiYdJmlKH1JXprXm/x
+         Ma3WRnqL9CCvTy13Z+RvRQPw015QxYWrOQhpV+mnRkltqql9aF5h2yPxaGeBbyXjsnSG
+         UiGCOEVmA3xh9szyOCNqR/TJbPVGzzPesDewTQuluzRv1dhtbRLJ+bLbOLSHgBEDEEby
+         YXlQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788354484; x=1788959284;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8CCYbVer4UrDr5i1p//z3lDPoKdyao2pFzFH41cydj4=;
+        b=nlvWk04M16kvWrNJ6MqhLJsjb7IKv4Rs0tStQLECdYBa2qqeb4yvLTmzU/Y5KyOY9d
+         bOWrwERSChx1eD9Bk2vtY1FEUuZDT0Ejr4axY65sN00X/ChzgpE5lkC3oShUEDt3rKw3
+         JiaPM8mdVtlXcjdcY3rIZj1uqk/dG6cs40cQXPhHmdhgkobnbqbmlR82lrAmRmvB5vh8
+         UAu0cJFACx55dxKHJtNGz0Qj7ZKGdlWSUl/Lw1CZ4avfdUf0Dfx11Rf+nJ7HKTQnl7MR
+         p+Iyxez6pNnkeNo1lI1IkwP5Dp28+agk/6HCSc4XoAWDDs50Y2sRmT5vMz6Uin9LA3WL
+         4tMw==
+X-Forwarded-Encrypted: i=1; AKwUvBylcuwvU3ZijGc2pLOOGxu/pdmQwdAybzTwAefaw6dUzUfJLzsRz3WMsNWChmQWPollKfJZ258yOFk0PYo=@vger.kernel.org
+X-Gm-Message-State: AFuF++kwl6HQxYODakIf8qU0EYnrjIvChwNZjFLI3k42RsZauhYamYEa
+	hrTGYxvU5VEctpAI4cF/+7Y8WzyyZaYTeimD+6AKI4tQkmZfIGoiEvrvWeXNuTi/HKw=
+X-Gm-Gg: AYBFou3ulvGf2N5objIiXChjwUNcvQdrZSBr/8ZmRPqhp7CCHNPAAtMR9fneFV5Xky2
+	tntpVGT/4MFhx/mYqQMMfdqRDphzdqIxdmQQ2LUVFyBtaOaVv1qCAmYJSNzEn2HP72UdAA1+y8D
+	NulvPWV0YY3VjI64b/BXfRmf2zK4x20hfEpBA5jzcjXRfjS+yovLquOmwyx6Zfg3bBwzz1QZCgf
+	a/pZix8tWyQ1agsl532W3zY8TEBaEJlOncimAD820c+3uQ/O1pLFB+h1AN8hZLGarwWL4yUtCTz
+	ugMvwycdyFBJlY0kyEEfAaoFeZIV0jGdegZAhpqCJ5owsC3SVZ27x65lXADg+tmKWrFzWcaKx9h
+	eeBBAgMTki3RrRIsF0UyrqDOsgQoWXRzuHbJG/ayKZAoZYAUk2f8MMwQl9Yfq6GdtfLgYJzHNkj
+	YA778gnmcyU4+22Xy+AuTTqCYSB6NveSAq42uXRD+QT+HKM/+iM0LE7JnVx4TkGPYwyBr8CFoAh
+	Ykv/rcR9FZNCnNh/kxw4zVmO/GJQk38tAChpkICGQ==
+X-Received: by 2002:a5d:5f88:0:b0:484:3728:1369 with SMTP id ffacd0b85a97d-48488efe756mr8590701f8f.6.1788354484288;
+        Wed, 02 Sep 2026 06:08:04 -0700 (PDT)
+Received: from alchark-surface.localdomain (bba-2-51-220-108.alshamil.net.ae. [2.51.220.108])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e72b5bsm6385800f8f.4.2026.09.02.06.07.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 06:08:02 -0700 (PDT)
+From: Alexey Charkov <alchark@flipper.net>
+Subject: [PATCH v2 0/4] nvmem: Derive Rockchip MAC addresses from the OTP
+ CPU ID
+Date: Wed, 02 Sep 2026 17:07:51 +0400
+Message-Id: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: hibernate: pass HVC_SET_VECTORS args to the resume
- hvc
-To: Will Deacon <will@kernel.org>
-Cc: Bradley Morgan <include@grrlz.net>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Mark Rutland <mark.rutland@arm.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- maz@kernel.org, james.morse@arm.com
-References: <20260809213615.11646-1-include@grrlz.net>
- <anr28wUlKjci8JPn@willie-the-truck>
- <463DA5C2-C933-45EC-A200-21AAF6258418@grrlz.net>
- <anszjQ7jBeYDqesp@willie-the-truck>
- <7ca33f92-2ded-4749-ab67-2fb564919b99@arm.com>
- <aoxl1ri43eEAsxlR@willie-the-truck>
-Content-Language: en-GB
-From: Vladimir Murzin <vladimir.murzin@arm.com>
-In-Reply-To: <aoxl1ri43eEAsxlR@willie-the-truck>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNSQ6CQBBFr0JqbZkeGF15D8MCm0LKoel0N0RDu
+ LuAB3D5kvffnyGQZwpwSmbwNHHgwa6gDgmYvrE3Qm5XBiVULioh0T90VuQ4RIfGjdziqzGoTSV
+ UqltRlimsU+ep4/eevdQ/DuP1TiZurc3oOcTBf/bfSW7en4tJokBqKqkzVYjOqHP3ZOfIHy1Fq
+ Jdl+QKT/cYNzAAAAA==
+X-Change-ID: 20260901-rk3576-otp-cpuid-mac-3c90243d0884
+To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Michael Walle <michael@walle.cc>, Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Finley Xiao <finley.xiao@rock-chips.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ Alexey Charkov <alchark@flipper.net>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3327; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=0hKapFxMequ4DFaz8IR0nd0cULM83AQBEbTt3mZlvzc=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWTNkN9ksZpPpmbdppJLOz+c4jmdszvBs+tw3vmTiV17O
+ P/MqBQP6pjIwiDGxWAppsgy99sS26lGfLN2eXh8hZnDygQyRFqkgQEIWBj4chPzSo10jPRMtQ31
+ DI10jHWMGLg4BWCqs5Yz/OFfdfprubXAJqfcozGLZzpss3aRY1SYacewUL/xd+5t7UMM/xQmNE1
+ stVm8VtpLJ7LV8ZzeogtcjE6bV4XNOl9bVFLXzw8A
+X-Developer-Key: i=alchark@flipper.net; a=openpgp;
+ fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-Hi Will,
+Rockchip SoCs are shipped with a unique CPU ID in their internal OTP
+memory, and Rockchip bootloaders use it to give boards which have no
+dedicated storage for a MAC address a stable one anyway: they hash the CPU
+ID and patch the resulting addresses into the device tree they hand over.
 
-On 8/24/26 16:40, Will Deacon wrote:
-> Hi Vladimir,
-> 
-> On Mon, Aug 17, 2026 at 02:06:20PM +0100, Vladimir Murzin wrote:
->> On 8/11/26 15:37, Will Deacon wrote:
->>> I think I probably need to spend some time understanding how all this is
->>> supposed to work. I can't currently tell how we end up with the stub
->>> vectors installed to start with nor why we can't do all this from C code.
-> I finally got back to this...
-> 
->> Here is my understanding of how things work. Assuming nVHE mode, we
->> restore the previously saved image X from the currently running kernel Y.
->> I’ll use the suffixes _X and _Y for addresses belonging to the respective
->> images.
-> Nice, thanks for the walkthrough!
-> 
->> On the resume path, KVM teardown sets VBAR_EL2 to __hyp_stub_vectors_Y.
->>
->> swsusp_arch_resume() then temporarily (re)sets VBAR_EL2 to trans_pgd_stub_vectors
->> while transitioning to image X:
->>
->> |        if (el2_reset_needed())
->> |                __hyp_set_vectors(el2_vectors);
->>
->>
->> Currently, swsusp_arch_suspend_exit() attempts to restore VBAR_EL2 to
->> __hyp_stub_vectors_X:
->>
->>
->> |       cbz     x24, 3f         /* Do we need to re-initialise EL2? */
->> |       hvc     #0
->>
->> where x24 is resume_hdr.__hyp_stub_vectors (in other words snapshot of
->> __hyp_stub_vectors from image X)
->>
->> However, that request is ignored, so VBAR_EL2 remains pointing to
->> trans_pgd_stub_vectors
->>
->> We re-enter the kernel X.
->>
->> During KVM initialisation, we call __hyp_reset_vectors(). This is
->> handled by trans_pgd_stub_vectors, but ignored since HVC_RESET_VECTORS
->> is not recognised. We then call __hyp_set_vectors(), which is also
->> handled by trans_pgd_stub_vectors, but this time VBAR_EL2 get set to
->> __kvm_hyp_init_X.
->>
->> From that point on, __kvm_hyp_init_X handles subsequent HVC calls,
->> including the later call that redirects VBAR_EL2 to
->> __kvm_hyp_host_vector_X during KVM setup.
->>
->> The memory containing trans_pgd_stub_vectors is freed later by
->> swsusp_free(). That perhaps explains why we do not see any crash.
-> I was trying to figure out if we end up initialising VBAR_EL2 before we
-> "return" from swsusp_arch_suspend() and free the reserved pages.
-> However, it looks like we run _cpu_resume() instead of cpu_resume() so
-> I still can't tell why this hasn't exploded. AFAICT, the active hyp
-> vectors will have been freed (and possibly poisoned) long before KVM
-> initialises.
-> 
+Kernels started without that fixup, e.g. straight from the SPL in Falcon
+mode or by any other loader which does not implement Rockchip's derivation,
+fall back to random MAC addresses which change on every boot.
 
-My apologies. I managed to confuse myself (but hopefully not you) with the
-order of operations. Indeed, swsups_free() happens *before* KVM initialisation
-which eventually happens later via syscore_resume().
+Formalize the derivation in the DT binding and add a Linux kernel driver
+implementing it, so that a Linux image can use the same stable addresses
+regardless of the boot flow.
 
-I can now reproduce the problem with CONFIG_PAGE_POISONING=y and page_poison=on
+Only RK3576 is wired up here, that being the SoC I can test on. Other
+Rockchip SoCs keep the same CPU ID at a different OTP offset - 0x7 rather
+than 0xa on RK3588, for instance - which makes supporting them a two-line
+addition to the driver's match table plus the layout node.
 
-# swapon /dev/vdb
-[   55.330849] Adding 2097148k swap on /dev/vdb.  Priority:-1 extents:1 across:2097148k 
-# echo test_resume > /sys/power/disk
-# echo disk > /sys/power/state
-[   62.534444] PM: hibernation: hibernation entry
-[   62.578411] Filesystems sync: 0.021 seconds
-[   62.579550] Freezing user space processes
-[   62.585909] Freezing user space processes completed (elapsed 0.005 seconds)
-[   62.586835] OOM killer disabled.
-[   62.588332] Freezing remaining freezable tasks
-[   62.591318] Freezing remaining freezable tasks completed (elapsed 0.002 seconds)
-[   62.593983] PM: hibernation: Preallocating image memory
-[   62.972326] PM: hibernation: Allocated 25745 pages for snapshot
-[   62.973119] PM: hibernation: Allocated 102980 kbytes in 0.37 seconds (278.32 MB/s)
-[   63.011607] Disabling non-boot CPUs ...
-[   63.021633] virtio_blk virtio0: 1/0/0 default/read/poll queues
-[   63.025486] virtio_blk virtio3: 1/0/0 default/read/poll queues
-[   63.035080] hibernate: Hibernating on CPU 0 [mpidr:0x0]
-[   63.039859] PM: Using 1 thread(s) for lzo compression
-[   63.040459] PM: Compressing and saving image data (23314 pages)...
-[   63.041558] PM: Image saving progress:   0%
-[   63.247947] PM: Image saving progress:  10%
-[   63.455279] PM: Image saving progress:  20%
-[   63.619264] PM: Image saving progress:  30%
-[   63.785097] PM: Image saving progress:  40%
-[   63.924669] PM: Image saving progress:  50%
-[   64.018580] PM: Image saving progress:  60%
-[   64.116893] PM: Image saving progress:  70%
-[   64.286410] PM: Image saving progress:  80%
-[   64.490785] PM: Image saving progress:  90%
-[   64.618506] PM: Image saving progress: 100%
-[   64.621388] PM: hibernation: Wrote 93256 kbytes in 1.58 seconds (59.02 MB/s)
-[   64.622108] PM: Image size after compression: 32298 kbytes
-[   64.622702] PM: Image saving done
-[   64.624592] PM: S|
-[   64.777608] PM: Using 1 thread(s) for lzo decompression
-[   64.778448] PM: Loading and decompressing image data (23314 pages)...
-[   64.779237] hibernate: Hibernated on CPU 0 [mpidr:0x0]
-[   64.877435] PM: Image loading progress:   0%
-[   65.172066] PM: Image loading progress:  10%
-[   65.273214] PM: Image loading progress:  20%
-[   65.345142] PM: Image loading progress:  30%
-[   65.454007] PM: Image loading progress:  40%
-[   65.521889] PM: Image loading progress:  50%
-[   65.595804] PM: Image loading progress:  60%
-[   65.659942] PM: Image loading progress:  70%
-[   65.720256] PM: Image loading progress:  80%
-[   65.788729] PM: Image loading progress:  90%
-[   65.851162] PM: Image loading progress: 100%
-[   65.852057] PM: Image loading done
-[   65.853050] PM: hibernation: Read 93256 kbytes in 1.07 seconds (87.15 MB/s)
-[   65.900987] Disabling non-boot CPUs ...
-[   63.012805] hibernate: Restored 0 MTE pages
-[   63.012805] PM: hibernation: free pages cleared after restore
+Patch 1 is a prerequisite fix. The OTP hardware has its own internal state
+machine which only works correctly with serial access, but the current
+driver serializes nothing, which results in timeouts and/or corrupted
+reads (e.g. returning splicing a TSADC trim value into the buffer of a
+caller asking for the CPU ID, or mixing up trim values of different TSADC
+callers). Hence the Fixes: tag and Cc: stable.
 
-... hang here ...
+Cross-checked on an RK3576 board: the addresses fixed up into the FDT by
+U-Boot match the ones derived by the new driver, and the driver correctly
+assigns them to the network interfaces when the kernel is booted without
+U-Boot proper at all (via Falcon mode).
 
-GDB shows that we are executing code that looks like it came from the poisoned page.
+Sashiko also rightly pointed out a use-after-free in the nvmem core when
+a layout driver is unloaded leaving its sysfs nodes and the postprocessor
+function pointer dangling. This is fixed separately in [1].
 
-Program received signal SIGINT, Interrupt.
-0x000000004d158000 in ?? ()
-1: x/i $pc
-=> 0x4d158000:  orn     x10, x21, x10, asr #42
+[1] https://lore.kernel.org/all/20260902-nvmem-layout-unreg-v1-1-2d16bebeb518@flipper.net/
 
-With the patch applied I do not see hang anymore so you can add
+Signed-off-by: Alexey Charkov <alchark@flipper.net>
+---
+Changes in v2:
+- Switched from a scope-based guard to explicit lock/unlock calls in the
+  OTP driver to avoid mixing styles in a function using goto error
+  handling (Sashiko)
+- Link to v1: https://patch.msgid.link/20260901-rk3576-otp-cpuid-mac-v1-0-ea9135270fc2@flipper.net
 
-Tested-by: Vladimir Murzin <vladimir.murzin@arm.com>
+---
+Alexey Charkov (4):
+      nvmem: rockchip-otp: Serialize reads
+      dt-bindings: nvmem: layouts: Add Rockchip OTP CPUID layout
+      nvmem: layouts: Add Rockchip OTP CPUID layout driver
+      arm64: dts: rockchip: Derive GMAC MAC addresses from OTP on RK3576
 
+ .../bindings/nvmem/layouts/nvmem-layout.yaml       |   1 +
+ .../nvmem/layouts/rockchip,rk3576-otp-cpuid.yaml   |  73 +++++++++++++
+ MAINTAINERS                                        |   7 ++
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi           |  12 +++
+ drivers/nvmem/layouts/Kconfig                      |  13 +++
+ drivers/nvmem/layouts/Makefile                     |   1 +
+ drivers/nvmem/layouts/rockchip-otp-cpuid.c         | 119 +++++++++++++++++++++
+ drivers/nvmem/rockchip-otp.c                       |  15 ++-
+ 8 files changed, 240 insertions(+), 1 deletion(-)
+---
+base-commit: 8b72f6626dc39b9e7e82b2721d4f7c3b86286012
+change-id: 20260901-rk3576-otp-cpuid-mac-3c90243d0884
 
-> Speaking off-list to Mark R, he pointed me at some old rework he had for
-> all of this:
-> 
-> https://git.kernel.org/pub/scm/linux/kernel/git/mark/linux.git/log/?h=arm64/suspend/cleanup
-> 
-> one of the patches there is very similar (identical?) to this one, but
-> his series gets us to a point where we _do_ resume at cpu_resume() and,
-> tbh, the whole thing ends up making a lot more sense.
-> 
-> If somebody could dust off that two-year old (!) stack, that would be
-> great.
-> 
-> Will
-> 
+Best regards,
+--  
+Alexey Charkov <alchark@flipper.net>
 
