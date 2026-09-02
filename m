@@ -1,91 +1,75 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10B314A99A9;
-	Wed,  2 Sep 2026 17:26:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE64047F786;
+	Wed,  2 Sep 2026 17:27:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788370002; cv=none; b=DL81Jzg/kbV54BGjJQza6mO9uyuU1lnuNBj06aO0VxwCT9caqpcQ/OQn5x7qjVDMulMmmPxAkyN7mfu0qtMwsTxqA3Rd2SKWmU+C6/pAxyFW5JFwu/gN9MpfLBLcITbV39sA1HDjbHL3k/CYWhqdMEcDwNqorW0kQDxrmqlLtHc=
+	t=1788370067; cv=none; b=KTvuNaf3mGBWjX6O4QYqOgYOR6yMxxZCU4P4gWWRaQR+QXUxTYB5QERJL/JSsNjHBDSzeG9Qo6oks9eZIZ5DU6dUe4JMAQx4NOrqsRj6XRuCXFT5eg369nrSjc2ma9xIvK4WG8o3geR30BDZb50UbeWPvUbiKPgxFW/UzIA5SuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788370002; c=relaxed/simple;
-	bh=DOsN4u9i0LgceBe6eZWGHBQMRexYH6+xlzgYej1JOJo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HU+b0c2pZv+zckaVtGMdPBJ9uH7uzRnw/PQH+CT1MBZLexgfBsMqm6rALJaoLe9ytfjrDvXAUTNOkxnIS9suIdvSNxnEq+h7o6OkVQRub1zMKU+qE50siW3zlwJ/VHgNnq/3kObAwZdmV49v/cMWLhDaoL5NfsRcXuYkuEzDJaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=cDJ5DEt6; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788370067; c=relaxed/simple;
+	bh=GR2EA08jvmQTvupAnjGOGc+0Lj7Q/PJBrSlBg+yYodo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fbw4BlIusEWqcCfg+v/BH+F9wtl1MHEskm/08uhKWZcD7POckrIrDJ6Hk1rLyN3g4W5e3WdC0R0j6b/J8uA8/+n+yO3rO+uVFELKfn5VE3RAitrTtDVTE63iiHgxUF8z9x35DvNUW6wH9t7djksvfsiC3M9n3JzPXiJ4aNFPgso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hxVsrtuj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="cDJ5DEt6"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=4ErMCT6oLuGCxeOK6BXBf1qfbH9FJh8mGL3DSmIsfQA=; b=cDJ5DEt6arbQfiU3k7+VkDRfdb
-	pCnVqS+LXZC/rJF1CzCqMCfOXI973ZMfqPRCLCwVtcPfbUz89j1TCm+HB3gUBt9QZOiQNITVkm/s7
-	iir9RlrY7YttvwqqvPPC5+2yKwDujckXIMtlNKhL12wVqk2Yz1pIMAM+pPE40mvHbqaZWTxImfzoV
-	rWknhTh7FTatH/HOWcQXj6lXrYeMn8vWuSl23VewuCORMHIWD0HtRpYwCPNiw/kkcHAwBRhImEblx
-	YUlZfcuM4vcmxYLLSZ056LVFGMaVlnzujOdn5Xck1mhdJ//QZBBn90oE54dkXecxtR1e/aNsGK0o/
-	EsM+BRFg==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x1ojO-0000000FQxA-0p4s;
-	Wed, 02 Sep 2026 17:26:38 +0000
-Message-ID: <2e2333a9-dc4b-49e5-a09a-47fa502e0e22@infradead.org>
-Date: Wed, 2 Sep 2026 10:26:37 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hxVsrtuj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 284921F000E9;
+	Wed,  2 Sep 2026 17:27:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788370066;
+	bh=GR2EA08jvmQTvupAnjGOGc+0Lj7Q/PJBrSlBg+yYodo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hxVsrtuj0+MIa2yjUIlxSBQ7T2h6UIx18LV3sGydccUOLIuHKpwJ51xCOdII1lXUC
+	 1LizCvbcZcAMn9B/uk4XJW4zEcB6uDP/lCaKc0yeN7Elbp9u5SFyTACKpzExb8Pqid
+	 nBtghccAdfd61a+sI5MYD6UZlUH7cl8fg5oxl0o+TpjrSuant/uLCIYsr2WNZoUyg2
+	 fETGYunwFX7Tf5NdT1Z406bukrY5dgqE0HARSk448kB5DosYf08IVPrFefDa95JHTR
+	 1e5CM3Tp147ESDP9y9J+TmUSFg+3ngQFukhQ0v6g299qQSpbIIKpUsykU7VQNundDl
+	 TLkkwDllTDAcA==
+Date: Wed, 2 Sep 2026 18:27:41 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Fernando Rimoli <fernandorimoli11@gmail.com>
+Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com,
+	dan.scally@ideasonboard.com, linux-kernel@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Tommaso Merciai <tomm.merciai@gmail.com>,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 3/7] dt-bindings: media: ov5693: Add
+ clock-noncontinuous
+Message-ID: <20260902-appraisal-unclip-6d9b4a550d64@spud>
+References: <20260831181858.325109-1-fernandorimoli11@gmail.com>
+ <20260902142322.73523-1-fernandorimoli11@gmail.com>
+ <20260902142322.73523-4-fernandorimoli11@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Documentation: admin-guide: Fix bracket
-To: Manuel Ebner <manuelebnerli@mailbox.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-mm@kvack.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260902152347.708070-2-manuelebnerli@mailbox.org>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260902152347.708070-2-manuelebnerli@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="U5T1EuH3zwjHE/yZ"
+Content-Disposition: inline
+In-Reply-To: <20260902142322.73523-4-fernandorimoli11@gmail.com>
 
+--U5T1EuH3zwjHE/yZ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-On 9/2/26 8:23 AM, Manuel Ebner wrote:
-> Add missing ')'.
-> 
-> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-> ---
->  Documentation/admin-guide/sysctl/vm.rst | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/admin-guide/sysctl/vm.rst b/Documentation/admin-guide/sysctl/vm.rst
-> index 5b318d17a..ebc281e6d 100644
-> --- a/Documentation/admin-guide/sysctl/vm.rst
-> +++ b/Documentation/admin-guide/sysctl/vm.rst
-> @@ -438,7 +438,7 @@ zone[i]'s protection[j] is calculated by following expression::
->      = (total sums of managed_pages from zone[i+1] to zone[j] on the node)
->        / lowmem_reserve_ratio[i];
->    (i = j):
-> -     (should not be protected. = 0;
-> +     (should not be protected. = 0;)
+--U5T1EuH3zwjHE/yZ
+Content-Type: application/pgp-signature; name=signature.asc
 
-I would probably drop the ';' character but don't bother with
-a v2 just to do that.
+-----BEGIN PGP SIGNATURE-----
 
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-Thanks.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaphcjQAKCRB4tDGHoIJi
+0i28AQC6ONeTNmzK2lcTSk916ZWObQFvCltBkBFxuYcvqLzR8QEA1U7FOQPDQMke
+rp2r2723oxG1T+dgFbuRY8sBpjbcoAw=
+=y3ym
+-----END PGP SIGNATURE-----
 
->    (i > j):
->       (not necessary, but looks 0)
->  
-
--- 
-~Randy
+--U5T1EuH3zwjHE/yZ--
