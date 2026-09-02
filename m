@@ -1,36 +1,33 @@
-Received: from va-2-39.ptr.blmpb.com (va-2-39.ptr.blmpb.com [209.127.231.39])
+Received: from sg-3-27.ptr.tlmpb.com (sg-3-27.ptr.tlmpb.com [101.45.255.27])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F290E409620
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:09:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.39
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E51930C606
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:09:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.45.255.27
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788340154; cv=none; b=tRZB/LdXu7EMH05dzkxBV3anHudHsm921KYeceR7SMqMqGrQtt91BtMso87j9LXqe1dBtykGKWYyFi9P2qbtOFXOYRdlcRdc6QMxOZ0/Y4T8MiQEfyxhOlndhAIbtDp4VoDYJ94E8oZtaHaT2qlkIQdwWOONUZTESVGZ4BXaXyE=
+	t=1788340190; cv=none; b=VTbucbp0DjZGb2VHVHs23lv/xO39iJZ8Q3hZTcMOEuizlQNR3I5qPnYEaHgzbe+rK9MfOfr9GKRC8s/gL6PAVbPWSta+v+M5mpCPxKFoVSj5mPVCT0A7V29xAFBANBvuNnvaHc754jXQu4yxygZv+3l+zoXRjwarmqouW+g6LLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788340154; c=relaxed/simple;
-	bh=DX0h9Kv8RfaRB4Jkrya9CrXRZqkgLHqMm8No277bvSU=;
-	h=From:References:Message-Id:In-Reply-To:Cc:Subject:Mime-Version:
-	 Content-Type:To:Date; b=DwugN1jbrpJz/+KQs5gSCjf3H13N+6eh0+9+lTPabC7QKvQbqgFu2/hti5DLxTp7t7KfmcDBHWa8S1H8fd188p9U1es10uWe/P406Qv0tVb2CROo/qd2I5JDcGvQoT9241VzCIQhHF4VWUKNVKERA+ObqL10FIr3jCgLilUnAyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com; spf=pass smtp.mailfrom=picoheart.com; dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b=rdkWWHNd; arc=none smtp.client-ip=209.127.231.39
+	s=arc-20240116; t=1788340190; c=relaxed/simple;
+	bh=xDcl2IzrUmdFBAk/D7YGSp5x4q5rTB0jmTqOmetd1cY=;
+	h=To:Cc:Content-Type:From:Mime-Version:References:Subject:
+	 In-Reply-To:Date:Message-Id; b=VXiIUQq3X2l+bJGR+pwRM1FppohQ8ZWpNsFywXuddLKWQlOzJmmbFR8XGI83mrbqMWRyWA/fCBaLaaO7MMEKTWE0EVwCVHY+Q1FXdsoCKH2C/bv5RAXt/bpVGLg5DpcHr2EcvvmO435l0I/nBN0XOb1dkODNsQoJIrnupRo0KAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com; spf=pass smtp.mailfrom=picoheart.com; dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b=HWXaBiVj; arc=none smtp.client-ip=101.45.255.27
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=picoheart.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=picoheart.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b="rdkWWHNd"
+	dkim=pass (2048-bit key) header.d=picoheart.com header.i=@picoheart.com header.b="HWXaBiVj"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604151535; d=picoheart.com; t=1788340141; h=from:subject:
+ s=feishu2604151535; d=picoheart.com; t=1788340138; h=from:subject:
  mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
  mime-version:in-reply-to:message-id;
- bh=aUR1yoU4JOYPKs/rMqqJfgyInNDV//hmTuzZfbk6yls=;
- b=rdkWWHNdH94aMaglnZ8RSidXMbenbGTGMW+ZAVXi6x4WVscyo12myfk5LHX8RFhOYHoA02
- olnSMdRMD5Mr7EDV0clW27QbVYsYL6x7Gs/NtRC4MJemOMeu+FqTTCui6/VOs38Ngz1ooa
- ofzdj0VZlwo8kpbcqJL+Co2k45j/8VbT3WVzggolczE8DyBIDqKFwI2eA0czkntKraQkgM
- Vxlj8JH6tqGNoyQoICxul50CT+9pqG34ZONPmomNGrnfJ0JxGG4pqppGDVFJ8QMUI7M74A
- VC2t9aZGbIGI0IuUCcC7BeFSPkp2uXMZqxUCk+F0S55fPzW2MGf6cNsA+9jbZw==
-From: "Yufan Dou" <douyufan@picoheart.com>
-References: <20260902090850.2601-1-douyufan@picoheart.com>
-Message-Id: <20260902090850.2601-3-douyufan@picoheart.com>
-Content-Transfer-Encoding: 7bit
-In-Reply-To: <20260902090850.2601-1-douyufan@picoheart.com>
+ bh=C50quJcwO5XVGyYBcmo1hG+o10dNM+2wEjOwukPtWwY=;
+ b=HWXaBiVjdiuaIE60TfJ0uL5CZSkuKEf91ukIJA48qPEUONASvLZW1AbDXyUtES6gVLqyKc
+ 9kunO4rCl25aCi3e7TJJrYjhsGMXjM0m+FCdnC4/H1yEGz8Z2KAq52NL97PYAl6URbiTKP
+ J6MfXxW0vs7hoRRHG5bjMvMiEZRH9rNllujVlEIHtTZjSxHSSujLv321cC4Gcu5X0wEoP7
+ TnM4XptPqV5hh+83MBuMO1B1w2TyD93jImZO8eRMGsikujtkoDLMw5z1vCbVyp0ZSmZ3KW
+ zcz9zi0ygH61yJ6Q8wN1CqL4/onDBDsBRJG1fIZDEf/wyr+wzGlJ7gZjDA932Q==
+Received: from 5CG30262N9-QAP.localdomain ([120.234.49.250]) by smtp.feishu.cn with ESMTPS; Wed, 02 Sep 2026 17:08:55 +0800
+To: <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>
 Cc: <alex@ghiti.fr>, <leitao@debian.org>, <akpm@linux-foundation.org>, 
 	<ajones@ventanamicro.com>, <lizhengyu3@huawei.com>, 
 	<liaochang1@huawei.com>, <songshuaishuai@tinylab.org>, 
@@ -38,105 +35,97 @@ Cc: <alex@ghiti.fr>, <leitao@debian.org>, <akpm@linux-foundation.org>,
 	<linux-riscv@lists.infradead.org>, <linux-kernel@vger.kernel.org>, 
 	<yang.yicong@picoheart.com>, <weidong.wd@picoheart.com>, 
 	<geshijian@picoheart.com>
-Subject: [PATCH RESEND 2/3] riscv: kexec_file: size the ELF placement search by the load extent
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+From: "Yufan Dou" <douyufan@picoheart.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-Received: from 5CG30262N9-QAP.localdomain ([120.234.49.250]) by smtp.feishu.cn with ESMTPS; Wed, 02 Sep 2026 17:08:58 +0800
-X-Original-From: Yufan Dou <douyufan@picoheart.com>
-Content-Type: text/plain; charset=UTF-8
-To: <pjw@kernel.org>, <palmer@dabbelt.com>, <aou@eecs.berkeley.edu>
-Date: Wed,  2 Sep 2026 17:08:49 +0800
+References: <20260902090850.2601-1-douyufan@picoheart.com>
+Subject: [PATCH RESEND 1/3] riscv: kexec_file: constrain extra segments to the Sv39 direct map
 X-Mailer: git-send-email 2.53.0
-X-Lms-Return-Path: <lba+26a97e7ab+c68bc7+vger.kernel.org+douyufan@picoheart.com>
+X-Lms-Return-Path: <lba+26a97e7a8+ca87f3+vger.kernel.org+douyufan@picoheart.com>
+X-Original-From: Yufan Dou <douyufan@picoheart.com>
+In-Reply-To: <20260902090850.2601-1-douyufan@picoheart.com>
+Date: Wed,  2 Sep 2026 17:08:48 +0800
+Message-Id: <20260902090850.2601-2-douyufan@picoheart.com>
 
-elf_find_pbase() searches for a memory hole to place the whole kernel
-image, and the segments are then added at fixed addresses derived from
-the base it returns. kexec_add_buffer() skips the memory hole check for
-a segment whose address is already known.
+When an Sv48 or Sv57 kernel loads an Sv39 kernel, top-down allocation
+can place the initrd and other extra segments above the direct-map
+range supported by the next kernel.
 
-The search is sized by the length of the ELF file, which does not
-reflect the extent the image occupies in memory: a PT_LOAD segment can
-have a memory size larger than its file size, so a stripped vmlinux can
-end up needing more memory than the file length accounts for. The tail
-of the image is then placed without any check that the memory is
-available.
+During early boot, setup_bootmem() limits usable memory to
+phys_ram_base + KERN_VIRT_SIZE. Any segment placed above the Sv39 limit
+is therefore unreachable by the next kernel. In particular, an initrd
+outside this range is disabled during boot.
 
-Size the search by the extent between the lowest and the highest
-physical address of the PT_LOAD segments instead, and drop the now
-unused kernel_len argument.
+The max_low_pfn limit only reflects the direct map of the loading kernel
+and is insufficient when the next kernel uses a narrower address space.
 
-Fixes: 6261586e0c91 ("RISC-V: Add kexec_file support")
-Cc: stable@vger.kernel.org
+The paging mode of the next kernel is not known at load time, so apply
+the Sv39 limit unconditionally. On a machine with more than 128 GiB this
+also constrains a next kernel that would run in Sv48 or Sv57.
+
+Limit extra segment placement to the smaller of the loading kernel's
+direct-map limit and the end of the Sv39 direct map. The next kernel
+derives its direct map from the start of the memory it is given, which
+is the crash kernel region for a crash image, so use that region as the
+base in that case. A NOMMU kernel has no direct map and keeps the limit
+of the loading kernel.
+
+Fixes: b67a1ee0db00 ("riscv: kexec_file: Constrain segment placement to direct map")
 Co-developed-by: Yicong Yang <yang.yicong@picoheart.com>
 Signed-off-by: Yicong Yang <yang.yicong@picoheart.com>
 Signed-off-by: Yufan Dou <douyufan@picoheart.com>
 ---
- arch/riscv/kernel/kexec_elf.c | 21 +++++++++++++++------
- 1 file changed, 15 insertions(+), 6 deletions(-)
+ arch/riscv/kernel/machine_kexec_file.c | 25 ++++++++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
 
-diff --git a/arch/riscv/kernel/kexec_elf.c b/arch/riscv/kernel/kexec_elf.c
-index 3e9a32acb8f2..d84548f9d289 100644
---- a/arch/riscv/kernel/kexec_elf.c
-+++ b/arch/riscv/kernel/kexec_elf.c
-@@ -54,9 +54,9 @@ static int riscv_kexec_elf_load(struct kimage *image, struct elfhdr *ehdr,
-  * Go through the available phsyical memory regions and find one that hold
-  * an image of the specified size.
-  */
--static int elf_find_pbase(struct kimage *image, unsigned long kernel_len,
--			  struct elfhdr *ehdr, struct kexec_elf_info *elf_info,
--			  unsigned long *old_pbase, unsigned long *new_pbase)
-+static int elf_find_pbase(struct kimage *image, struct elfhdr *ehdr,
-+			  struct kexec_elf_info *elf_info, unsigned long *old_pbase,
-+			  unsigned long *new_pbase)
- {
- 	int i;
- 	int ret;
-@@ -64,6 +64,7 @@ static int elf_find_pbase(struct kimage *image, unsigned long kernel_len,
- 	const struct elf_phdr *phdr;
- 	unsigned long lowest_paddr = ULONG_MAX;
- 	unsigned long lowest_vaddr = ULONG_MAX;
-+	unsigned long highest_paddr = 0;
+diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
+index 26cd2a8bd0cd..15a3c180c558 100644
+--- a/arch/riscv/kernel/machine_kexec_file.c
++++ b/arch/riscv/kernel/machine_kexec_file.c
+@@ -239,6 +239,29 @@ int arch_kexec_apply_relocations_add(struct purgatory_info *pi,
+ }
  
- 	for (i = 0; i < ehdr->e_phnum; i++) {
- 		phdr = &elf_info->proghdrs[i];
-@@ -75,6 +76,9 @@ static int elf_find_pbase(struct kimage *image, unsigned long kernel_len,
  
- 		if (lowest_vaddr > phdr->p_vaddr)
- 			lowest_vaddr = phdr->p_vaddr;
++/*
++ * The next kernel may run in Sv39 even when the current kernel runs in Sv48 or
++ * Sv57, in which case the direct map of the next kernel is narrower. Any
++ * segment placed above it is unreachable by the next kernel during early boot.
++ * The next kernel derives its direct map from the start of the memory it is
++ * given, which is the crash kernel region for a crash image. A NOMMU kernel
++ * has no direct map, so only the limit of the current kernel applies.
++ */
++static unsigned long kexec_segment_limit(struct kimage *image)
++{
++	unsigned long limit = PFN_PHYS(max_low_pfn);
++#ifdef CONFIG_MMU
++	unsigned long base = phys_ram_base;
 +
-+		highest_paddr = max(highest_paddr,
-+				    (unsigned long)(phdr->p_paddr + phdr->p_memsz));
- 	}
++#ifdef CONFIG_CRASH_DUMP
++	if (image->type == KEXEC_TYPE_CRASH)
++		base = crashk_res.start;
++#endif
++	limit = min(limit, base + BIT(VA_BITS_SV39 - 2) - 1);
++#endif
++	return limit;
++}
++
+ int load_extra_segments(struct kimage *image, unsigned long kernel_start,
+ 			    unsigned long kernel_len, char *initrd,
+ 			    unsigned long initrd_len, char *cmdline,
+@@ -252,7 +275,7 @@ int load_extra_segments(struct kimage *image, unsigned long kernel_start,
  
  	kbuf.image = image;
-@@ -88,7 +92,12 @@ static int elf_find_pbase(struct kimage *image, unsigned long kernel_len,
- 	 */
- 	kbuf.buf_align = PMD_SIZE;
- 	kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
--	kbuf.memsz = ALIGN(kernel_len, PAGE_SIZE);
-+	/*
-+	 * The segments are added at fixed addresses later on, which makes
-+	 * kexec_add_buffer() skip the memory hole check, so the range searched
-+	 * here has to cover the whole extent the image occupies in memory.
-+	 */
-+	kbuf.memsz = ALIGN(highest_paddr - lowest_paddr, PAGE_SIZE);
- 	kbuf.cma = NULL;
- 	kbuf.top_down = false;
- 	ret = arch_kexec_locate_mem_hole(&kbuf);
-@@ -115,8 +124,8 @@ static void *elf_kexec_load(struct kimage *image, char *kernel_buf,
- 	if (ret)
- 		return ERR_PTR(ret);
+ 	kbuf.buf_min = kernel_start + kernel_len;
+-	kbuf.buf_max = PFN_PHYS(max_low_pfn);
++	kbuf.buf_max = kexec_segment_limit(image);
  
--	ret = elf_find_pbase(image, kernel_len, &ehdr, &elf_info,
--			     &old_kernel_pbase, &new_kernel_pbase);
-+	ret = elf_find_pbase(image, &ehdr, &elf_info, &old_kernel_pbase,
-+			     &new_kernel_pbase);
- 	if (ret)
- 		goto out;
- 
+ #ifdef CONFIG_CRASH_DUMP
+ 	/* Add elfcorehdr */
 -- 
 2.34.1
