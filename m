@@ -1,98 +1,138 @@
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-16.mta1.migadu.com [95.215.58.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 246A44AC161
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:45:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C9E74A8402
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:45:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788367512; cv=none; b=lvxmoizVDqkEROQsCWOXsoxhbZ4ONgm+187MrBpbxNpKGCQwmqCdX12lDeSBwnOcW5/JG1M67kyUu4OH2v725rmFymfsNEb9KGaQtOp+Kouy1eaXy1n4NaTlqkcpuWyT6mK0cINp7DYO/7qQecC6iZt5sDIdb5QCyiTkxzWKtrw=
+	t=1788367553; cv=none; b=tJkJdrtb6gyxazH5u0uVWpBVbkwN3oFtCzUWS2k27bRFbEZOoydTwX882v6UdQ4+nQcAB9dXSb9gNrD6n/45PbmkiALo8Lu53tmtWYpx4oB0N+MaQbhdL/pgwafZMDrR+gvLneum3iJmyO07bQ+FUTapWZvpOX/irDYz3q3VkdE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788367512; c=relaxed/simple;
-	bh=qgoRfbrLYpyLE6p55YAj7+O05lGflt9FKMsnXh3aKBo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pE1jwmzS2vdY5z1KvVr9o+aEXJsHcAf4jOThoIO86ylu1Mk3COBP7/RlFYIpm/oA/Bg0dnF6INfG3c5qP4bRhjee6OJ5swg2BzNEBIdK3W2ufl3MC9X9U4P2Yms5ZsDdG9LW7TskM7gK0ng0qYCGvRpBPuJ3D2i/AWM79l7Oadg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=wfE6ekrz; arc=none smtp.client-ip=199.89.1.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1788367553; c=relaxed/simple;
+	bh=eBbY4iMBTmEAonlduKED6Icf9+LbGVlV12xAIrCk42s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SKhZW+/Jq7DROJLF09VA2tBbJwHMU3fxQFq0F6SqolsSyKaCe/CkoAhI97PaebSaOJJKKgEj2ecTFqffIE7C55kyfwRIeRZKXzcYNtUFpTZohye9ytQCFwn5fYwzn4kM18gNJb/R5xpFYb4pXA75zrPNKjsQW7C9ciUOTJgiXJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=EzK0NrID; arc=none smtp.client-ip=95.215.58.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="wfE6ekrz"
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4hZpVs3Bvkz1XM0nt;
-	Wed,  2 Sep 2026 16:45:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1788367505; x=1790959506; bh=B+xwGFcM/TQiTWpw0yIK8p6a
-	QsY8aH2tb+BYEHgZKbI=; b=wfE6ekrzKxKvYMGGwCCH36/HEWFyBlQz18QlyAhp
-	rZ+FSXMNTJSABEC2oSFwmCoLX86cjigRjDVD94ElN3vfsrncDFZoGmkMhjx/HeuX
-	BbuCGt3mKqar7R9blzfT0Bo4FXvlS2shp0DZgiNdjzOezLXiIOEj3HDpMvs6BXMo
-	SyyzdgsBnpqy8XBsC0LXEsO4tA8kdxJ/6moPHF8UdcxTIcYgGgwHZinYnWErcet6
-	ntJ4hXwufEJt1Fz9boBoNXcRZn/kdaGhvR6e13RRtgHOH0bT4jqgRomM/9mKFZBy
-	Y8f1s6FMlabzqzmiwGZCRRponzQZFCocLmnAVZPgg5OZxw==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id 5Yta2afuHr3l; Wed,  2 Sep 2026 16:45:05 +0000 (UTC)
-Received: from [IPV6:2607:fb91:20e7:9622:4189:e5f3:350b:5995] (unknown [172.56.210.177])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4hZpVk2BDWz1XM30w;
-	Wed,  2 Sep 2026 16:45:01 +0000 (UTC)
-Message-ID: <e75964e2-6b46-4594-8bfb-ce0c0ed620a7@acm.org>
-Date: Wed, 2 Sep 2026 09:44:49 -0700
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="EzK0NrID"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=eBbY4iMBTmEAonlduKED6Icf9+LbGVlV12xAIrCk42s=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788367548; v=1; x=1788972348;
+ b=EzK0NrIDej/JH7z8uxUn4qy2Z9j2Ozo5h3VjpfOv0oek/exCtwG55atrJvO9DYZzl5iaLYZW
+ QzY6hZGmQfNavtJh5Qh9HjU8piCnG3OeRdAs6XwmiIE0WGW6CmPHCpebabDMO+q+pFY8CkGXOdF
+ dM4PbO4TLeW522m5zDDvu/RI=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7a7ca504685ebf88;
+	Wed, 02 Sep 2026 16:45:48 +0000
+X-Mizu-Trace-ID: 7a7ca504685ebf88
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 2 Sep 2026 09:45:43 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Hugh Dickins <hughd@google.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, "Liam R . Howlett" <liam@infradead.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Matthew Wilcox <willy@infradead.org>, Meta kernel team <kernel-team@meta.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/mlock: use the IRQ-safe accessor for NR_MLOCK in
+ __munlock_folio()
+Message-ID: <aphSajBg4a-e-Iyv@linux.dev>
+References: <20260901180109.3797944-1-shakeel.butt@linux.dev>
+ <1ddfa7dc-2dd8-406d-8454-59a349972106@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] tracing: Make is_signed_type() compatible with sparse
-To: Steven Rostedt <rostedt@goodmis.org>
-Cc: David Laight <david.laight.linux@gmail.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
- Chris Li <sparse@chrisli.org>
-References: <bde573c1a758505339239f08be28788a34dfcb73.1786121949.git.bvanassche@acm.org>
- <20260831214437.15d6ad34@pumpkin>
- <a771af57-40ee-433a-be84-9b7c3e6965c5@acm.org>
- <20260901092043.7feaf5d7@pumpkin>
- <dca931ff-5995-444c-9f89-6d6cca4e71f3@acm.org>
- <20260901222909.05d6239f@pumpkin>
- <1b86ccbf-4e41-4a26-9d22-8bd93bacb043@acm.org>
- <CAHk-=wi_3xdtBrDgUxw5xtq8a=CdyRJnceo7YJg59wqqdXwiMQ@mail.gmail.com>
- <20260901192523.0e989b10@robin> <20260902092437.00dfaa25@pumpkin>
- <20260902093644.5b0e8a64@gandalf.local.home>
- <a5aea1c4-3e29-4bba-8cd2-d4ccbeda008c@acm.org>
- <20260902123933.5c3c8fa3@gandalf.local.home>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20260902123933.5c3c8fa3@gandalf.local.home>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1ddfa7dc-2dd8-406d-8454-59a349972106@google.com>
 
-On 9/2/26 9:39 AM, Steven Rostedt wrote:
-> On Wed, 2 Sep 2026 09:31:41 -0700
-> Bart Van Assche <bvanassche@acm.org> wrote:
+On Tue, Sep 01, 2026 at 06:27:06PM -0700, Hugh Dickins wrote:
+> On Tue, 1 Sep 2026, Shakeel Butt wrote:
 > 
->> $  git grep -nHE '__field.*(blk_opf_t|enum req_op)' include/trace
->> include/trace/events/f2fs.h:1185:		__field(enum req_op, op)
->> include/trace/events/f2fs.h:1186:		__field(blk_opf_t, op_flags)
->> include/trace/events/f2fs.h:1241:		__field(enum req_op,	op)
->> include/trace/events/f2fs.h:1242:		__field(blk_opf_t,	op_flags)
->> include/trace/events/jbd2.h:364:		__field(    blk_opf_t,  write_flags		)
->> include/trace/events/nilfs2.h:207:		    __field_struct(enum req_op, mode)
+> > NR_MLOCK is updated from interrupt context.  __free_pages_prepare() clears
+> > a stray PG_mlocked and adjusts NR_MLOCK, and a folio can reach it with the
+> > flag still set from a bio completion handler:
+> > 
+> >   __free_pages_ok+0x6af/0x7a0
+> >   <IRQ>
+> >   __bio_release_pages+0xde/0x260
+> >   __iomap_dio_bio_end_io+0x16e/0x1a0
+> >   blk_update_request+0x14b/0x3d0
+> >   blk_mq_end_request+0x18/0x30
+> >   blk_done_softirq+0x49/0x60
+> > 
+> > The folio gets there like this.  A MAP_SHARED file mapping is mlocked, so
+> > its page cache folios carry PG_mlocked, and an O_DIRECT write sourced from
+> > that mapping GUP-pins those same folios.  munlock() then runs
+> > mlock_vma_pages_range(), which clears VM_LOCKED before walking the page
+> > tables to munlock each folio.  A concurrent hole punch reaches the folio
+> > through the rmap (i_mmap_rwsem, not mmap_lock) and can land inside that
+> > window: __folio_remove_rmap() -> munlock_vma_folio() sees VM_LOCKED
+> > already clear, so it neither queues the folio on the mlock batch nor takes
+> > a reference, and the pte it clears makes the pending mlock_pte_range()
+> > walk skip the folio at its !pte_present() check.  filemap_remove_folio()
+> > then drops the page cache reference, leaving the bio's pin as the last
+> > one, released from the completion handler above.
 > 
-> Perhaps these should be converted to normal types and assigned with
-> __force. There's no reason to have the value in the ring buffer be of a
-> __bitwise type.
+> I'm hardly ashamed to admit that I've not tried to digest
+> that paragraph. You're writing about the rare fallback cases when
+> PG_mlocked is cleared late, and unevictable_pgs_cleared incremented to
+> notify us of that defect: yes, I accept that might happen at interrupt
+> time, and so we ought not to take the __shortcut in __munlock_folio()
+> which you fix  below.
+> 
+> > 
+> > So __zone_stat_mod_folio() here needs interrupts disabled, not merely
+> > preemption, and __munlock_folio() has a path where they are not: when the
+> > folio has already been taken off the LRU by somebody else the function
+> > jumps straight to the counter update without taking the lruvec lock.  The
+> > read-modify-write of the per-CPU NR_MLOCK diff can then be interrupted by
+> > the softirq above, and one of the two decrements is lost, leaving Mlocked
+> > in /proc/meminfo permanently overstated.
+> > 
+> > Use zone_stat_mod_folio().  mod_zone_state()'s this_cpu_try_cmpxchg() is
+> > atomic against a same-CPU interrupt and retries, and on the path where the
+> > lruvec lock is held its cost is negligible next to the lock itself.
+> > 
+> > The UNEVICTABLE_PG* events are deliberately left on the __ accessors:
+> > they occupy different vm_event_states slots from the UNEVICTABLE_PGCLEARED
+> > that __free_pages_prepare() bumps, and nothing updates those two from
+> > interrupt context.
+> > 
+> > Fixes: 2fbb0c10d1e8 ("mm/munlock: mlock_page() munlock_page() batch by pagevec")
+> > Cc: <stable@vger.kernel.org>
+> 
+> Okay: just a wrong stat, but it ought to go back to 0, so Cc stable yes.
+> 
+> > Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+> 
+> Acked-by: Hugh Dickins <hughd@google.com>
+> 
+> But I do think you (or Andrew :-) should include
+> 
+> Reported-by: syzbot+cd2073ee6d958a8d0fcd@syzkaller.appspotmail.com
+> Closes: https://lore.kernel.org/linux-mm/6a931c5a.08e933ee.dbf97.0093.GAE@google.com/
+> 
+> That was indeed reporting a different way to get a WARNING from this,
+> when offlining a CPU: but it should be acknowledged for bringing you
+> here, and we should tell syzbot it's fixed by this.
+> 
+> I've been trying to work out whether you're going to come back in a
+> day or two, changing the __count_vm_events() too: and had raised in
+> that thread the question of why lru_add_drain()'s __count_vm_events
+> were not also reported by syzbot; but now I can see
+>  * vm counters are allowed to be racy. Use raw_cpu_ops to avoid the
+>  * local_irq_disable overhead.
+> and realize that they're not a problem; so this looks complete, we
+> shouldn't need local_lock()ing in mlock_drain_remote() after all.
+> 
 
-Yikes. Typecasts in general and __force casts in particular should be 
-avoided whenever possible, isn't it?
+Thanks a lot Hugh for taking a look and Andrew has already added the syzbot
+tags.
 
-Bart.
