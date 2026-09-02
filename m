@@ -1,97 +1,154 @@
-Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012030.outbound.protection.outlook.com [40.107.209.30])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D92132FA30;
-	Wed,  2 Sep 2026 01:50:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.97
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788313852; cv=none; b=sQqNomedb7KVcQNtbAsYsw/Afnez6uqgodZTfPebyqaYthEwbodBuykyXu8scPnEmmOThf/17JUTGmaQ8l0P8GPO0GvPTITy/lixuS1sbVojXATDtVrlT91jTa2B8xkspGcrtuXz5e9tQ85G8AIVMbLsuJ8lZYVMFE6WU1hkJ+4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788313852; c=relaxed/simple;
-	bh=aw7gSclGgHOMYFXM65JfqIZ5vPSvREto+oXqw0aBrWo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=a/otNW6bKcqJkG4bR5Fu0WaDiQBqlMMUZ+eZ4N+WZUcIs89CA0B3WSNyfhNaRqxlnX5fJI/x0+554cNyv4NIxwllXVIEe32FrUweO3tNRXEf+HQIYAy7RBAqDYcgN5FyjjIhzcrCNd14H0mC8/QRu0oQnnnfGy6DWXsTxwCIm7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=cGuxcfEq; arc=none smtp.client-ip=115.124.30.97
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A3835C1AD;
+	Wed,  2 Sep 2026 01:51:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.30
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788313899; cv=fail; b=pE/fiBIOgJS+7/11ZyLimssFoDQBXPZzwWtnfPp5jWhKjn9XK5rcKSZXHpPEJyK/eSqXATI4FzHzyAqdYtiwIfWSxKtlElNorn2vH9lyHZUyo7sSiwWcUhS49HiMtTigmcE7YPy1fsCH27TwMDPkSlq7U957j0Zil/chI8nN9TQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788313899; c=relaxed/simple;
+	bh=zvzhD9xfCiH6rg2bbZWFBhdwRnf9SBjMwcW4iaPLE9E=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=IEKzXWbMA7Us5l+fizaL42vjz9tXJ7PSshyaJqYDpE3cMpAE0D5uK1e7Xs9wzHeVj7qFCr8NwR8b4VAbyViSdaFFFME3WlQ6Cak1wla8F7IExBk0S3bLQYkC93uCMRMUg8+4uXUuQ0KUVTgDcLH6FZZp41oqhSWXkNEyb6aSzGg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=H0oSXWmm; arc=fail smtp.client-ip=40.107.209.30
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="cGuxcfEq"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788313840; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=lyyoECC/D8UwO02gtsoFLJImfW9pm0Ve/cCx7wNXS4c=;
-	b=cGuxcfEqeq7YbyQZBaaWnThZluw+jBNakWQGs4MX2Bx0izYWb2+GCa9+fm6hi7ZqnX89QlNfhIbeXdGXPeCE1QeBWo/zbSpO+IYv2PLq0BtSPHBbFZ32uXK4JVaVXV87rFnUwnpGXojbrShLci77Ht7FPQnPkf2C/k7iwy6PuHo=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R201e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=jefflexu@linux.alibaba.com;NM=1;PH=DS;RN=5;SR=0;TI=SMTPD_---0XAAsUwd_1788313839;
-Received: from localhost(mailfrom:jefflexu@linux.alibaba.com fp:SMTPD_---0XAAsUwd_1788313839 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 02 Sep 2026 09:50:40 +0800
-From: Jingbo Xu <jefflexu@linux.alibaba.com>
-To: xiang@kernel.org,
-	chao@kernel.org,
-	linux-erofs@lists.ozlabs.org
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3] erofs: add sysfs feature entry for xattr prefixes
-Date: Wed,  2 Sep 2026 09:50:39 +0800
-Message-Id: <20260902015039.54190-1-jefflexu@linux.alibaba.com>
-X-Mailer: git-send-email 2.19.1.6.gb485710b
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="H0oSXWmm"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UnhCH6rLsq2qkh6mXnB7UzjSOPw1szocgAqoRKnduwIxnGrN/fs45s3ZGLroRYQtifPu1vmPSy29ojd5V3XJnHwTjXyqJlsxv+4FdVldJPmSuX+taBSBJqUpIfyg9L3vJN1ctbyX2idE8MW5OFCewznIYrOCWC3e8Hod2pnjOkcHZvz5exIchGepKEpfqoezJoxslsUqNFNk3RBIgkUJsbk/GxbHfapmtNW//NJ1c3emlQtAh3S4Kly0g9Bl/CyiD7bjAvmDlfPGgnfRK1eyayJpAVPaPMlsYvvdN3snA9RsUy1K9vKFEMOBv4aYMKt7y3nQlLqj0TbjQRvCM2Jx/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=8zuKOLG9bs5PvmmSTPVTKbw5d7191XU9OoPffMkKdGo=;
+ b=KxWFagkTFvd4GDI6H9mAutUfTFBgWfOcUxcSs/rFqSJlmwNJ+VAemVw2q1FQovl7rpI4bdlVnPDrA8Kj+en9OXLT4sgg6CbGjG4l1Am+sGjIr5xqvdKfEZ1wMpoW3yQmmP1ONyxQMCqxVnl6N2MoMO9lW4YYa7hqOGEl163t2CNJSOLkFQwu55KXP8nhGwZiHCk2aUpvSGhXxz6xgNNNN5LQyMfmPmuyOGQg9lOGYOfFS6YBnwMPDc6UkAx6yiV3eFZ7vr7vOCpX2IkLQb/sKctGGch6AQy+ar5CwbVPFkg6Zj1mNbMbdqjSkO+L2piJ+0TQX1XgY+MgZqoYNW/f1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=8zuKOLG9bs5PvmmSTPVTKbw5d7191XU9OoPffMkKdGo=;
+ b=H0oSXWmmRGmHwFj0gkv635JhBZ8PtLkvh+8ukjLTxykoI1Z6tdSxGtJO4a4i8wEVRLVjE09fsOPb9rbITM8/PY+4H6v8aWRlDpYwi92xXMcMihI0oAio6rdkvF3eAc7QqbEPKlL7x3W5nmJ8fOaL1xYeWbGLkAg64vnpWI4SA8jnrzp/JHCIYfb5wzlrjVpnrT5sAr8sZle8/UkWLUn4DN2y+67WC6aV+K4oW5p4pQc/hwdCJuw97angum6g27RTkNn7O453MdQUXtsrztq2RI0zj/sJWuJgfQ+FAjVWFR6NoTAe38ik4Y9KCFtkfhlgdEva9k4zk43z61IhHNNDnA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS7PR12MB9474.namprd12.prod.outlook.com (2603:10b6:8:252::17)
+ by CY8PR12MB7705.namprd12.prod.outlook.com (2603:10b6:930:84::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 01:51:24 +0000
+Received: from DS7PR12MB9474.namprd12.prod.outlook.com
+ ([fe80::31ad:931:ef07:8ad7]) by DS7PR12MB9474.namprd12.prod.outlook.com
+ ([fe80::31ad:931:ef07:8ad7%4]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 01:51:24 +0000
+Message-ID: <b52d5b51-313d-40cf-9324-8b1cea265c56@nvidia.com>
+Date: Tue, 1 Sep 2026 18:51:22 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 02/12] cxl: Pass decoder settings to HDM commit
+ helpers
+To: Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
+ Jonathan Cameron <jic23@kernel.org>, Vishal Verma
+ <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
+ alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
+ Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
+ Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org
+References: <20260804192958.1823952-1-smadhavan@nvidia.com>
+ <20260804192958.1823952-3-smadhavan@nvidia.com>
+ <c7a5ef2b-e107-4bbb-a1cb-fbe7625e4962@intel.com>
+Content-Language: en-US
+From: Srirangan Madhavan <smadhavan@nvidia.com>
+In-Reply-To: <c7a5ef2b-e107-4bbb-a1cb-fbe7625e4962@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR05CA0016.namprd05.prod.outlook.com
+ (2603:10b6:a03:33b::21) To DS7PR12MB9474.namprd12.prod.outlook.com
+ (2603:10b6:8:252::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS7PR12MB9474:EE_|CY8PR12MB7705:EE_
+X-MS-Office365-Filtering-Correlation-Id: 77d55081-f2fa-489c-ea91-08df0894b1ab
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|23010399003|366016|10067099003|56012099006|4143699003|22082099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	T9Oe7wlA++UBRJQrN7KCqc8wJZXqbvw8gwz1xBuWAwwA57ME96bGFlSXXuC5goM/9k+A/7623zLbVbV/cKaioeOFeZqOWKZoNzkPen8sSpHHQjxLxXyvRMOMKmunxSiilgczNXvcg2d+lkqLcQSDbV5+K1a30jFX+5xrvmo3QU6FmDv8oKZr3MQaEgKn0oITuQHszd2rNg4SEB7zPKGW9df0+9Xjwj4U86I8AGiLWEKmUfqiOixPvz27UrcLjFnGmU9i2pNPW9q0auUwU7Em7/R/d71vPDrgjEUvLOkDRMzYeBVVB/l8aTpVKyGZbm/YG2K42LeAd0Dadw0/IWP7zL6/xAr56BYgjqNZ8MdhX1Fa6aGrA7iXAhqusZ+4ccP8OQhna9w3mwmFFbtD/ClWkCH0OxuydGXfRMs1Z6gyz5sbEzqRvzkW38Dx0Ffo+/HEQVERx8ZKcgHjMY0rbFctm+YYN5/9Rj/FLLBGLXfwIjIkgX0juKFqKk6qK3VcexYg7hyJtZ7Q72PpiPf8DdQCDZiQDHWN6LNwQZj1FcwqvtSl/HCqqZTplJ76I13oyibX/KO4OCS0mxq1DAjAP2BRNAC9R8abmM2wVuDOi8yJz9Fdh4Dsi9xwqMT1oMi8gtpKnDyQPMpH7jUA8dQYI9+lbwpvAMt0H8xI8sEbXkXkP7M=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR12MB9474.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(10067099003)(56012099006)(4143699003)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?SlZJa1NzOVhyTmtTUS9qVitUZ29DRHNFM1U1cG5pcXBpcWJsVDFqaDlJM0Fj?=
+ =?utf-8?B?WWNqZ05GWmJmZ1VCQ3hXSm01bk4zeXhtS3ErU1J4WmJuYmRvZE1hQzJSN3Bo?=
+ =?utf-8?B?Q2FhRkZlUFp6dnVFbDlUU2ZaODBBWHFjdEhIQnk3bE1yZnNyWUNEdU56a0Ra?=
+ =?utf-8?B?aExqRlY3V21UdTBjU2pOSm42WkhmSWwvZVE0OWVnZTJCMWFoUFYvM0w0UDZF?=
+ =?utf-8?B?cXhvZUgxNVZqVUlkTGp4cmRjSzJFMnhMbGcyZzlHUnNzcU9tOUIxYndySGlP?=
+ =?utf-8?B?dC85NDJMYlN4Yk40N2VnRW1DcVdWa29HM2l1MHBWanV0NVJ4akgvYU9PeFly?=
+ =?utf-8?B?dVo3N0doeml2bUp0N0RYNUZYV2RHa1VaZU9RSGFraXIwWVRMMHN2NHpKNDFs?=
+ =?utf-8?B?bXlobkUwSUdxR21MY3M2ZTdPYWJCSnUxemNhNjcrVXhmTkpjVTBxT3grRTlr?=
+ =?utf-8?B?d3RXSkNraE1KN0dQVXFZakJyVDdxaGpuV3hiNDhaN0w5QkxmUHNwUU0zUWg0?=
+ =?utf-8?B?bXlYU05sZVRJRVVnKzhoaEpmS1BQOXUyTlJpTjNCcWk4bms5eHdmNFNCcjZQ?=
+ =?utf-8?B?QmNVR0JDNXFzNzV5L2dveTB4eDZpUVI1YWh3SVpuU2w0NEJKOVg5UGN1WWhO?=
+ =?utf-8?B?TVVmMUtQb2ZoUkRqSy9PMWdkcjYzdDVYeDZZS0gvbEVXRnFvU2x5eXJlT3lu?=
+ =?utf-8?B?bTVvR3FCVWovT3IzTkZ5UHlJU0J2ckpaSVRvbVNGUG9mV09HMzJUWDNLTlI3?=
+ =?utf-8?B?Y2F2cXVDci9DYXdNYU5NN3NNQlFBUEZBOFRqV3ZZZ3NFaHF1OGJ5SEs3N0Zh?=
+ =?utf-8?B?TDZobTQ3OXBHNVZDNWtMMTlpb002K0w3TGhRc0hzdWlkSzVVb0M1b0t6c3Vl?=
+ =?utf-8?B?RnpiV2FBY04zRkczcVVKS1lIV01wMktsMEJzYTdOSmFCTnBGRUxoVEZsQklP?=
+ =?utf-8?B?OGhzWDEvbVgzcEk2SW9qT000c3BIN0IvRldldEJOQ3VIMjRlSk9EL2l2S1RF?=
+ =?utf-8?B?bE94b0luMFdzMkJTT3o1clJBZUp3b1hlazlrUk01REFzOHRtWmFNN1RYbmds?=
+ =?utf-8?B?RzZCNVVzRU5wSGxtc1RFMlVPZFQ5OVJ1SEpIS0tvSHUrOXliT2tobzh1THJC?=
+ =?utf-8?B?cjVQUloyMFlOREZvSjJuTkRiR3ZlaDc0ekF2aStOaDhoVWlrbzhyUkJMc3BG?=
+ =?utf-8?B?TVRQM0IrMVJoWkRLeEdnZUtNUGkrVzA0OVBKVjF1UDFZVTNUV29iTlplbll0?=
+ =?utf-8?B?YlhtMGNIbHZlQmNJZ2tINjdiWUZMcEwzaVBTdGl5ZlpROU9lS2Z5ZVdtMEF5?=
+ =?utf-8?B?YWZtam5MZ3ZCbGVUNG9EcmdNdk9VYkpxQzBBcnNsVEx1UDdaaEQ2TStTc1U2?=
+ =?utf-8?B?aXpWNTR5Y3pnekNPQ3VtRmpSOURLM1BwcDhjL0dEdzI5RVN5UldaL1BkMDlR?=
+ =?utf-8?B?TVA3ZUxwdHVBQlJIWWp1U21HbWU2bkRWOUhHc3NyNjJ2eWhOeHM3NHk0SXRH?=
+ =?utf-8?B?SElkcjVJUTBwSnM0eUJYUmVnTmJOVGhOVmJZbkxMOXViV2x4VTZnMTkrK3lJ?=
+ =?utf-8?B?cEUyQlJQMzFtK0U1RmdrR3VTbmxSTkdKeDh5Wm1qMFdrTWdVdVRvT2dLYUNv?=
+ =?utf-8?B?RkFlNHU4Y0NxalFzUzFLUm5XU1BPdVlham1YaFFmNFR6dHdyZUFQU2tIMVBq?=
+ =?utf-8?B?dUg0ZGNKVE9sSG4xeExnUDkrZXh3WXZCUWwxZnE0ekc0NXllQ1VFYkRxKzBO?=
+ =?utf-8?B?bWRlTmwwUnNHa2lWQ3gyQlhpcXFrcFMvcnhjM3piWTlhcWNsRzhHT2dtOGdp?=
+ =?utf-8?B?OURnSVZkMnUxVFZnZWNiUFhUTDQ3OGpuYThRQ3NjWGVXamFSY3QxUFJGSmNk?=
+ =?utf-8?B?a3RNN1JKY2o2NGVmeE5Wd0NWaGZsb0NQSDBYTkpTS2VnQmE0a3BaTW8velNk?=
+ =?utf-8?B?S2pTMlN4S1liQW9ZZXRPK0c3aUNaRjIxYnQvdnBYTWR6eDBPRktmbkNyTll2?=
+ =?utf-8?B?KzNibFg3WEJUR2RnU3luUXB0YWpnRHJEUC85ZWluZjRwVkZzMHVWWC94S1ZH?=
+ =?utf-8?B?eU80ZG1HR1NubWthK3dWeVNISUNkS0hHa25ZV0dmNnpLdHByb3A0YlZ3NnAx?=
+ =?utf-8?B?TitTdEFwKzBrZFB5b1g0OFBNWEVrUFF3QlFOc1pwTU00YUVMZVVvanJUa3dm?=
+ =?utf-8?B?SWlicEM5WEFSWU1hMlBMQ3lFam5OZW0wR0NJZTZzQkhGN0lSUi9nTzhJTU5T?=
+ =?utf-8?B?SVJGZUkzZTRwZkVjTUtObitVSGFwdzZEZHhwQ0NZTlpIYUtiS0VjaTM4elhs?=
+ =?utf-8?B?aFJYSkU0V0h2NUdlL0FIZklzMG93cmJQNjNRQlVwaEdtUFlkRWxDdz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77d55081-f2fa-489c-ea91-08df0894b1ab
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB9474.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 01:51:24.0508
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wWm2yEJiMCRmgOwMB1jUiHJEnWcdam1RzW06rT4+8xRHAVEuJ1oDyvQxwF12l8lpwCB0KgYCyr+mBcvJ9Rok2A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7705
 
-Let /sys/fs/erofs/features/xattr_prefixes advertise that this kernel
-supports the EROFS_FEATURE_INCOMPAT_XATTR_PREFIXES on-disk format.
+On 8/20/26 3:21 PM, Dave Jiang wrote:
+> This function made a round trip from hdm.c to resource.c back to hdm.c between patch 1 and 2.
+> I think there's some code duplication here with this function. What do you think of something like:
+Ack. Addressed this in v11 using the cxl_decoder_snapshot() structure 
+you suggested. The switch-target helper no longer makes a round trip 
+through and the duplicated endpoint/switch setup is consolidated in the 
+snapshot helper. I retained the separately requested argument ordering 
+and target-list bounds handling.
 
-Fixes: 6a318ccd7e08 ("erofs: enable long extended attribute name prefixes")
-Cc: <stable@vger.kernel.org> # 6.4+
-Reviewed-by: Gao Xiang <xiang@kernel.org>
-Signed-off-by: Jingbo Xu <jefflexu@linux.alibaba.com>
----
-changes since v2:
-- add Reviewed-by tag (Gao Xiang)
-- update list in Documentation/ABI/testing/sysfs-fs-erofs
-(https://sashiko.dev/#/patchset/20260901062243.109172-1-jefflexu%40linux.alibaba.com)
----
- Documentation/ABI/testing/sysfs-fs-erofs | 2 +-
- fs/erofs/sysfs.c                         | 2 ++
- 2 files changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/ABI/testing/sysfs-fs-erofs b/Documentation/ABI/testing/sysfs-fs-erofs
-index e4cf6fc6a106..0b8b4354e40b 100644
---- a/Documentation/ABI/testing/sysfs-fs-erofs
-+++ b/Documentation/ABI/testing/sysfs-fs-erofs
-@@ -5,7 +5,7 @@ Description:	Shows all enabled kernel features.
- 		Supported features:
- 		compr_cfgs, big_pcluster, chunked_file, device_table,
- 		compr_head2, sb_chksum, ztailpacking, dedupe, fragments,
--		48bit, metabox.
-+		xattr_prefixes, 48bit, metabox.
- 
- What:		/sys/fs/erofs/<disk>/sync_decompress
- Date:		November 2021
-diff --git a/fs/erofs/sysfs.c b/fs/erofs/sysfs.c
-index 6734483a440f..dfcec9376cd5 100644
---- a/fs/erofs/sysfs.c
-+++ b/fs/erofs/sysfs.c
-@@ -95,6 +95,7 @@ EROFS_ATTR_FEATURE(sb_chksum);
- EROFS_ATTR_FEATURE(ztailpacking);
- EROFS_ATTR_FEATURE(fragments);
- EROFS_ATTR_FEATURE(dedupe);
-+EROFS_ATTR_FEATURE(xattr_prefixes);
- EROFS_ATTR_FEATURE(48bit);
- EROFS_ATTR_FEATURE(metabox);
- 
-@@ -108,6 +109,7 @@ static struct attribute *erofs_feat_attrs[] = {
- 	ATTR_LIST(ztailpacking),
- 	ATTR_LIST(fragments),
- 	ATTR_LIST(dedupe),
-+	ATTR_LIST(xattr_prefixes),
- 	ATTR_LIST(48bit),
- 	ATTR_LIST(metabox),
- 	NULL,
 -- 
-2.19.1.6.gb485710b
-
+Regards,
+Srirangan
