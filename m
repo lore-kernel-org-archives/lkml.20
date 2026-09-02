@@ -1,73 +1,146 @@
-Received: from xry111.site (xry111.site [89.208.246.23])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA9224A8A38
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:33:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=89.208.246.23
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF12E3D411A
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:33:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788363208; cv=none; b=AH+Ct/LrUvzpOu1Zbvox3q5BzoW1IzPzH2DAw5fZ39QeomMPB0fUtF2VxD9yxiAzy+stp6bq+1tGgniaRUtZpkMHPFwgLmK1U92ZlbRujzDBy6bHZXKvvjmoLfXQ64oht4V+HFi3ICjBIZ9AMqd/9Na2teEhPl61NhXTQOUoWek=
+	t=1788363224; cv=none; b=QMmJnQXo+NmrheAj/qeK6YMIM+gPjZ0JVTSwS/DoCGHGCP5jCk6yE3dxbWuKd6RiktyZi9HcKhH8aooWSUwniF1VucSHUr20Gl9JA7ixcTQVqJddxIewX0CaQpPdLqyO3quy4pADrqkLB2t5H1YwUL9tmN9e0zYqRuB2dGwov+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788363208; c=relaxed/simple;
-	bh=POGflxzuUbdZBCL00aiKn/u8pD6Al5cKqH8z26/BulA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XWJzhEiDc9FIRCLOftQZX4+71Zu11SdeQGd3gu9vWtgAf7OkZu3lgB++QB6LgZwz5Z9nrlqOXl4HdlZoqBm5o94qFf5nvBGsVup3VLDJgsnnHYg/WdWryAPiEzt9leX1JatIH/5+RX7HtCWMs+5g2joUBys9uxHi7aMot4PQ80I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xry111.site; spf=pass smtp.mailfrom=xry111.site; dkim=pass (1024-bit key) header.d=xry111.site header.i=@xry111.site header.b=LV5O/Sfj; arc=none smtp.client-ip=89.208.246.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xry111.site
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xry111.site
+	s=arc-20240116; t=1788363224; c=relaxed/simple;
+	bh=73vm1pL2rfhflK6E/C/p/bdvtgGGIUR/9hKtxk/jREE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sF6xKqOf6nYtPs76A9nsoXOwP0n8Dtqi9F/MR7quAo6ByyUnnftl7mG2f6HQBsDFOhoTg/AeTE0jwSmY/ZC66zoYEhj8AoeSO3LDs8RAmo+lijK8yr7gib3XJtQAW7ibo/2QddQWCyS4kMEI/SVDEZgQILqseFsXJNLWTuTJp4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dH57WFgC; arc=none smtp.client-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xry111.site header.i=@xry111.site header.b="LV5O/Sfj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=xry111.site;
-	s=default; t=1788362822;
-	bh=NYzal0nBk2uboYjmiBYrDKMFY0tm8Q8fJgnyyHBp/yM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=LV5O/SfjkeSnLJi2I/TS8xRs5ZO3HeCsBvpQI5PIgMkZSZDo6rDg4RZ4ghC6jZI9V
-	 r4jOrbeqtMopQYrkFuAanA6EcOY701tVeG7/43o4fjYRZ5p8A3s84cvu4J7/epx7JW
-	 1APV7ANVL7cYt55oL6w5JUprExv25joqrgAOy6eM=
-Received: from [IPv6:2408:824e:301:1821:c427:8c70:2426:3] (unknown [IPv6:2408:824e:301:1821:c427:8c70:2426:3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (secp384r1) server-digest SHA384)
-	(Client did not present a certificate)
-	(Authenticated sender: xry111@xry111.site)
-	by xry111.site (Postfix) with ESMTPSA id 5DBAE65BEA;
-	Wed,  2 Sep 2026 11:26:58 -0400 (EDT)
-Message-ID: <2368f72ea9a447057456eb37450e1c25f4bdddff.camel@xry111.site>
-Subject: Re: arm64: MPAM2_EL2 and MPAMHCR_EL2 are left UNKNOWN under
- arm64.nompam
-From: Xi Ruoyao <xry111@xry111.site>
-To: Ben Horgan <ben.horgan@arm.com>, Fuad Tabba <fuad.tabba@linux.dev>
-Cc: James Morse <james.morse@arm.com>, Catalin Marinas
- <catalin.marinas@arm.com>,  Will Deacon <will@kernel.org>, Marc Zyngier
- <maz@kernel.org>, "moderated list:ARM64 PORT (AARCH64 ARCHITECTURE)"
- <linux-arm-kernel@lists.infradead.org>, open list
- <linux-kernel@vger.kernel.org>
-Date: Wed, 02 Sep 2026 23:26:55 +0800
-In-Reply-To: <0b2c58d2-cc82-4c68-aaa2-83449d0b48c1@arm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dH57WFgC"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc147d86bebso1529237a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 08:33:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788363222; x=1788968022; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jAwZDI989FVdGKLvHqYjpHzJ0A2k3qSizrEVsIJoGK0=;
+        b=dH57WFgCK1vbj0zF954c+7aCWuLj5YpeV3Sg1lInCa1D9eAeUIq51e54RJFVob5Zuk
+         NgKlkFRC0sEg28xCz0Skm7+N5swIvIP9HC0ppiCJ2b12ubkZ8Bp0jmYLUcUQDaqT6UTZ
+         crVstJzqsWQxVdw9E+LcaIj37enrRioiMKNjRCICJp3BkoZQmJ1xCwj+viouAr1ISH3O
+         yLpToptp14amcfGTnEm0oHXEJ/qKh66URDebR00nQB+HO2tDxlh8qcvYZKWbz2Y2gWhe
+         QB29xQeh8R2E9LzrYI1ILSBfW9xvUXE+XZhf52Q6jRwFXBYSyDJevFhlY8tVVfGM7ZzE
+         h1JA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788363222; x=1788968022;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jAwZDI989FVdGKLvHqYjpHzJ0A2k3qSizrEVsIJoGK0=;
+        b=ORxd1z0542Zgloau2eCs9r6CMOu5j3YllQCVqF1Ypa6dt1iqi4UeGR4O6QXOFtVzs9
+         1VsvOm1Znb6tP8KMjN5WlsAlbsoLrSvwh56I70ayfqFL+mn029lYzbE55gVlbhfbXtWS
+         nYWOc+9h6KvmVAfEXMljcp+KHC/JIVEHWdpJu7NW3xIvavprHtRpNMP30le68TsvQv8+
+         y11pxtvSzxLM3hhKz2UetJs23mSQysOV+f1otaUBfo40k0dSKoFIz8D4/BKDQAKl0/Pw
+         6O1DbSNESWnxGvcihVZWJZSEcPn08bgyz1WQhbUet30OvibwI9RozfCjooXKlPg6cTCb
+         bjuA==
+X-Forwarded-Encrypted: i=1; AKwUvBwlKulLiVq+MsFsLDuePhH4ulHqtRT/pRCdpF1nZLbAjEpnoXO9SSuxha0q9z8RWbqTlm5TR4TpvGLTp6M=@vger.kernel.org
+X-Gm-Message-State: AFuF++naXjt11cwZLn/ID5y7ZzsbVESnU2MsbCrUOnDEvsCExjFVwST0
+	dTo/0ALkcHPlHXbOvEBxE0PwWulxkKMCHDMhUS/c7T5ZxNDRMH4eggdj
+X-Gm-Gg: AYBFou3db/uyXl/DkCx2qXuzeG7OpywDVANuEqtWtdnpiOM3t7Jyle4m6+jaQ8ECOpd
+	F+l1ZvwfK5c8+wtHQDTmPnrPlIAFirsawzsJ25PFu7gZoO20KTohKxvYgm629XiKfTxw0Hkhu1f
+	eyyoI/e9URBUyHKEvBGgzVe6UcQ4JwfidS5VNIWsG4oSmP/76WGNMFUIMZjn5CHKy8JRbj1bSlt
+	Rls9j/GjDv/Is9jaIVhhwbPA3kk7wZ1UfTxo9FD4cxeSltVUoKn9gidT2LeO850kUpMV4dJlXGd
+	HonNpQ5YhL4FKgr82MFrZjDu5qypqHipesuZnJE+aYGot+y2sSWh586XPxVPjZC9MmuJJrHCmek
+	3FOJ2n04crg6hO7yo2xHeyz78VVr63/dseVEjQNYaO3U7h8M0L6J2ycYaqJ296eGG7+MgOhRo7b
+	VvOLDsv6iNrH/wZ8P+nIMgllh6oFQVz2Dwqi14bfc25VdrOq89ks9zg/J55EE=
+X-Received: by 2002:a17:90b:2704:b0:398:ba46:1d9f with SMTP id 98e67ed59e1d1-39b0860c252mr15953a91.13.1788363221587;
+        Wed, 02 Sep 2026 08:33:41 -0700 (PDT)
+Received: from gmail.com ([185.220.238.35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08627417sm4966a91.12.2026.09.02.08.33.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 08:33:41 -0700 (PDT)
+From: Kunwu Chan <kunwu.chan@gmail.com>
+X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
+To: SJ Park <sj@kernel.org>
+Cc: Kunwu Chan <kunwu.chan@linux.dev>,
+	Kunwu Chan <kunwu.chan@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH 05/12] mm/damon/sysfs: remove probes number validation
+Date: Wed,  2 Sep 2026 23:33:33 +0800
+Message-ID: <20260902153334.4034394-1-kunwu.chan@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260902143706.88115-1-sj@kernel.org>
 References: 
-	<CA+EHjTxeWxZiuSmnKLGLxTBXP4oJT7-LuffbPAyCSZZ5TW=5Ew@mail.gmail.com>
-	 <a491ea12-b0f6-43e4-bb5d-dba508120bfb@arm.com>
-	 <CA+EHjTy0jCbEb0K7Sd_+X-Ly_6fC3vuPxmyTVRkqkF_DAFMucA@mail.gmail.com>
-	 <0b2c58d2-cc82-4c68-aaa2-83449d0b48c1@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-08-27 at 09:41 +0100, Ben Horgan wrote:
-> > not, could the caveat go the other way round: arm64.nompam is for
-> > systems where firmware ignores MPAM, and should only be set on a
-> > machine that does not boot without it?
->=20
-> Yes, seems fine.
+On Wed,  2 Sep 2026 07:37:06 -0700 SJ Park <sj@kernel.org> wrote:
 
-Sorry for the late reply.  This is indeed the original purpose for
-arm64.nompam, a dirty hack when we have no other ways to make the system
-boot.  If you think it causes an inconsistent state I'd not complain
-against adding a loud warning or something.
+> On Wed,  2 Sep 2026 22:07:13 +0800 Kunwu Chan <kunwu.chan@gmail.com> wrote:
+> 
+> > On Tue,  1 Sep 2026 22:47:38 -0700 SJ Park <sj@kernel.org> wrote:
+> [...]
+> > I was wondering whether DAMON_MAX_PROBES is purely a core invariant
+> > or also an interface constraint.
+> 
+> Thank you for reviewing my patch and raising this question!
+> 
+> > 
+> > With this change, sysfs allows nr_probes larger than
+> > DAMON_MAX_PROBES and damon_sysfs_probes_add_dirs() will start creating
+> > probe objects before the configuration is later rejected by
+> > damon_valid_probe_params().
+> > 
+> > Since nr_probes directly controls the number of sysfs objects created,
+> > do we still want to keep an early check here?
+> > 
+> > I agree that the core validation is required for non-sysfs callers,
+> > but I am not sure whether this particular limit should be duplicated
+> > at the sysfs layer.
+> 
+> I agree the user experience may be not that good.
+> 
+> In my humble opinion, however, keeping code simplicity is more important than
+> the user experience here.  After all, DAMON_SYSFS is recommended to be used by
+> another high level tools like DAMON user-space tool (damo) rather than human
+> fingers.  The user-space tools like damo can do the early check.
+> 
+> Please feel free to let me know if you have any other opinions or questions.
 
---=20
-Xi Ruoyao <xry111@xry111.site>
+Hi SJ,
+
+Thanks for the explanation.
+
+I agree that keeping the invariant validation in the core layer avoids
+duplicating the limit in multiple places.  Your point about DAMON_SYSFS
+being mainly consumed by higher-level tools like damo also makes sense.
+
+My concern was mainly about the temporary creation of sysfs probe objects
+before the configuration is rejected, rather than the user-facing error
+message.  Given that the number of probes is bounded by the core
+invariant anyway, I agree that keeping the validation centralized is a
+reasonable trade-off.
+
+Thanks for clarifying.
+
+Reviewed-by: Kunwu Chan <kunwu.chan@gmail.com>
+
+Thanks,
+Kunwu
+
+> 
+> 
+> Thanks,
+> SJ
+> 
+> [...]
+> 
+
+Sent using hkml (https://github.com/sjp38/hackermail)
