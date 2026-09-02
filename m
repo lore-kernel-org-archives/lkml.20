@@ -1,81 +1,108 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A9D259C80;
-	Wed,  2 Sep 2026 06:11:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE3E12868AB;
+	Wed,  2 Sep 2026 06:11:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788329471; cv=none; b=qPOROKSXC5+ieOPsUfFh6Kp5pWwL2w2t9zoCu4oqqKm9Trf+9NJvbQ4UyFG3VfLfcLd4c1RSaaEx8brLDqLaXajKV5rtpVN1XDYmwbfHwGNvsGS9jQW4aJu509VQtrLt/XogPEttjWEuqLDWzO6CqUpPrsAVW0/kXJgfF7SuzWM=
+	t=1788329498; cv=none; b=Zagy0XaROt2ap/UFQUBElGYLsYtjIevu9EgOqukv+DoQlmJzAyG6QnTwuirM/8qGyns4uEWZjUoWjCecaR8t/V1edWsX6CcAkpPWZpVx+91ti64/7pR29uAsthu+syaOBZinw41wBMYCATtLaazPithMnLfmH6uSvCoBKWte1r4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788329471; c=relaxed/simple;
-	bh=pGeV0rjOrcK5PziliThbOKIDAyaEnjt2j+nfxRoIxHA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H/qcWtvPw7wp+dDYr7BXPbDTAOv4ZEb1cOTqliC9IcaRaITxghMzpSIALK4wkfDwcqco5/ADC/A2GccufZos2Fj941id/sbqBZU5nNz5a2XGQ6wbUamYp2o792r7fUaWj/icsZFcFAWFiNvWI4/BUJbVP7hIkdX8J6BwvzQcpqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=Uc7384BP; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1788329498; c=relaxed/simple;
+	bh=02ZvYA8/oKz8ZE0PBSsfSvPAXvJ/gt3amZPDWR6qCYQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=fx6qeU2qwC+ce7a2gj1OX6RHGv67XeSApNofSAAzaUQOnB4DgcGpJGQv308KvcNxx8sz4YgTja/kujaKKIzBxh1Qi5L/MhVkWisVg9PcvppiKSLNtAelmlR+o1NdfZi+Iz/mXjHrm+aILcGJbtTxNcG1TGWU02OHmZjU/im2Xj8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bg8BwEbV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="Uc7384BP"
-Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id BC64E20223;
-	Wed,  2 Sep 2026 08:11:03 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1788329464;
-	bh=1EFui00I9wCrFfnNNQLTULcqRmkQ7y2kFqovYPcpuiY=; h=From:To:Subject;
-	b=Uc7384BP5mk+9dyY0aes7EDKvHh7xap0Fc6jB4jVzgYOE+6DH1TO5F9f5NYPaMsep
-	 toGlnXcT7sTRyaNCK8Ja0dErXINX/ULDBpXHNiG5PFHZEYFuVOMe5RKRwYZNfjn08/
-	 9ChFUC9wHVO2nEm38LiQIG2Fl7xOrlYa4/jXmRxSVcgTfexj4+F9Cn+2m99mLAq80K
-	 G6IgxjmJUqqil5Ie+Nh1OLTdfeCmjX2E+oq/oCNR4yAIvNBmSyn1szwPXZXV2G6CFt
-	 LQg5qb9Xyoifb/Goa2tG00TxGHMvA6Ydx8C4g+BKJhfntxn0wobOViMkIc2ZlsyGUc
-	 YYk2B9HYSdmGw==
-Date: Wed, 2 Sep 2026 08:10:59 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-crypto@vger.kernel.org,
-	Horia =?utf-8?Q?Geant=C4=83?= <horia.geanta@nxp.com>,
-	Pankaj Gupta <pankaj.gupta@nxp.com>,
-	Gaurav Jain <gaurav.jain@nxp.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	open list <linux-kernel@vger.kernel.org>,
-	Emanuele Ghidoli <ghidoliemanuele@gmail.com>
-Subject: Re: [PATCH] crypto: caam: map job ring registers without claiming
- region
-Message-ID: <20260902061059.GA7187@francesco-nb>
-References: <20260901203736.13248-1-rosenp@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bg8BwEbV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB9471F00A3A;
+	Wed,  2 Sep 2026 06:11:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788329496;
+	bh=mQPBDMsI3HShTC30yyTgN+XkPeoRu61woaJWF3WVAl0=;
+	h=From:Subject:Date:To:Cc;
+	b=Bg8BwEbVZLnP6y9GuMycxmAzCSv+miSM8Tnm1d0aBbX6RuSRiQqjXP4+dxMnNLvBc
+	 bwGgYnhRMeqgDWWNQpPYMVvb7zmZ0W9SkHi2Nf9QdezJv8FnfjZcK2FT8QpfWfKJLE
+	 b1i2cvh7hNRVTOWRGVCf6wNaY0p405XM+PGSOMkFfkrVyYxcqsyh5agMK9SDnjRrg8
+	 5mtxk+nWK9G5XrS0YI2oUOlkE7tM4FN4CgaFC01gaSCzeVTMqp66uIYhi4TieHh+z3
+	 rRrXqHrk896uRlbSjqOn+9MhXP89azodqBO0KEhZUx1JOeknH1OTcKrHoUMWbLrC2B
+	 3yWqgt/S38DRw==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH v2 0/5] Modernize the Faraday FOTG210 driver
+Date: Wed, 02 Sep 2026 08:11:31 +0200
+Message-Id: <20260902-gemini-usb-fotg2-v2-0-0057408495d8@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901203736.13248-1-rosenp@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNQQ6CMBBFr0Jm7Zh2arS68h6GRYGhTNTWtEg0h
+ LtbcenyveS/P0PmJJzhVM2QeJIsMRSgTQXt4IJnlK4wkKK9ImXQ812C4DM32MfRExp7MKy6I1n
+ roMweiXt5rclLXXiQPMb0Xh8m/bW/mDX6PzZpVGidZdbU7hpD5yunwLdtTB7qZVk+qleBl7EAA
+ AA=
+X-Change-ID: 20260203-gemini-usb-fotg2-3873e0d9288a
+To: Alan Stern <stern@rowland.harvard.edu>, 
+ Daniel Palmer <daniel@thingy.jp>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Linus Walleij <linusw@kernel.org>
+X-Mailer: b4 0.16.0
 
-+ Emanuele
+Replace the private FOTG210 EHCI fork with the common EHCI core and
+quirks for its shifted or missing registers, integrated transaction
+translator, speed reporting, and reset sequence.
 
-On Tue, Sep 01, 2026 at 01:37:36PM -0700, Rosen Penev wrote:
-> devm_platform_ioremap_resource() ends up calling request_mem_region(),
-> which fails with -EBUSY on i.MX SoCs:
-> 
-> There the job rings are modelled as sub-regions of their parent
-> fsl,sec-v4.0 register window, and caam_probe() already reserves the
-> whole window exclusively via devm_of_iomap() before the children are
-> populated.  Every job ring therefore collides with its own parent and
-> fails to probe, taking the hardware RNG offline (seen on i.MX6, i.MX7
-> and i.MX8 boards such as colibri-imx7 and verdin-imx8mp).
-> 
-> Map the job ring registers with devm_ioremap() instead, which does not
-> claim the (already owned) region.
-> 
-> Fixes: 9a955c0a7d11 ("crypto: caam - simplify probe resource and IRQ handling")
-> Assisted-by: opencode:big-pickle
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+This is a late reaction to a comment from Daniel Palmer in 2023:
+https://lore.kernel.org/linux-usb/CAFr9PXmVXqAX73VUzAt_M2yPN93in9Y_LHyYcEA1Dfj_m_4ZHA@mail.gmail.com/
 
-Reported-by: Emanuele Ghidoli <ghidoliemanuele@gmail.com>
-Closes: https://lore.kernel.org/lkml/20260901194524.908240-1-ghidoliemanuele@gmail.com/
+The fork was originally made from the v3.7 EHCI core driver. Arguably
+this was a bad idea since it copied over 5000 lines of code. Correct the
+mistake by using the maintained common implementation.
 
-Thanks,
-Francesco
+Also clean up fixed-role initialization, power and resource handling,
+UDC lifecycle, and system sleep handling. The binding and Gemini board
+updates are split into a separate series.
+
+Tested on the D-Link DIR-685.
+
+Assisted-by: LLM
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Changes in v2:
+- Split the first v1 EHCI core patch into three patches covering port
+  status registers, port reset and speed hooks, and other quirks.
+- Call reset_control_reset() without a redundant optional-reset NULL
+  check.
+- Link to v1: https://patch.msgid.link/20260831-gemini-usb-fotg2-v1-0-8a8ee12c4b32@kernel.org
+
+---
+Linus Walleij (5):
+      usb: ehci: support non-standard port status registers
+      usb: ehci: add port reset and speed hooks
+      usb: ehci: support additional controller quirks
+      usb: fotg210: use the common EHCI core
+      usb: fotg210-udc: fix endpoint and resource handling
+
+ drivers/usb/fotg210/Kconfig        |    2 +
+ drivers/usb/fotg210/fotg210-core.c |  274 +-
+ drivers/usb/fotg210/fotg210-hcd.c  | 5672 +-----------------------------------
+ drivers/usb/fotg210/fotg210-hcd.h  |  689 -----
+ drivers/usb/fotg210/fotg210-udc.c  |   97 +-
+ drivers/usb/fotg210/fotg210-udc.h  |    2 +-
+ drivers/usb/fotg210/fotg210.h      |   26 +-
+ drivers/usb/host/ehci-dbg.c        |    3 +-
+ drivers/usb/host/ehci-hcd.c        |   31 +-
+ drivers/usb/host/ehci-hub.c        |  100 +-
+ drivers/usb/host/ehci-timer.c      |    3 +-
+ drivers/usb/host/ehci.h            |   47 +-
+ 12 files changed, 516 insertions(+), 6430 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260203-gemini-usb-fotg2-3873e0d9288a
+
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
 
