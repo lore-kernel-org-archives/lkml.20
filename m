@@ -1,145 +1,79 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 282E939D6D6;
-	Wed,  2 Sep 2026 10:18:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9388943C06F;
+	Wed,  2 Sep 2026 10:18:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788344291; cv=none; b=rDiYdhO13SZhgTVwLANi2XUWDuhZqLf4m3t9xkNyVydMFni4e90+omxPnURM/x2/RwdA1iOFaA8liOf9koDw4nPvLP9Pc/aJi4yFGSP4/vRTOVM+iAt+bw1GKAZgzW5ipnQSarv13I7TpHgF9QaPLnwq9+tzWBJwr5+MKUbi9jo=
+	t=1788344304; cv=none; b=Z//u3b25ckYFFf3GTa+dHN+QowC+fq4gHwdy59f60JqsjzHzmBh/bo9awV5f9ry6covGudFw10lstAK8SDzU8xnEz7Qy9ZZcdZCOlnangANhUItaqb2ezE9caRsR8026fcXbeI1uXbWuGMcSGT9YWydJit0jPVeWrGHBwx/5HdU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788344291; c=relaxed/simple;
-	bh=L4dl+I8eJZr3QwINbEgQX0+lXkQHdU/NO7O3NIe/AO8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TDhvz74ZkSn5cNJSO0Ch9HSzPXdWgxSFeNRJMj+NbiQzseajC03aNfKd3t/C0WL8+/YB8ZYBcpKYo7E4EkSu6y5b5Gs3XvgKvR5ZxCzzC912JYHCgWvKRhwcbffQ+V6TSjB303pfW8Z5XF8p7WO/9VaYm4UaRHNx57AF7UlrEQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=B0CTONCk; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Frhm3lg0; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=jLcf4ese; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=n8AmMtZR; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1788344304; c=relaxed/simple;
+	bh=J8XCjJMGn/bPdNUBPCWvTqphP0GbFZaQxR4WgK3LePQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=urCVnfukwsP6Hw7SPrBul08MWumL+MaxpuIKyzKZQyGABSHjJ/AcbWPonuqiQIPWjKyy7xctsDx7HKHIvB0WnrLpRJgP2gMHGwl6ea0t/1I7O+7BZ79i9F86a47AF8xEReInjv9mk+1HdcqmJ9RgI0vO+FKxvnnMVh8505PDdaU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KPkYvN4u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="B0CTONCk";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Frhm3lg0";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="jLcf4ese";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="n8AmMtZR"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id C684121CDA;
-	Wed,  2 Sep 2026 10:17:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788344283; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=leU8WBYFb+b1H5ZuoGcOMF3uO0IPANu0kE55T3Hz8Ig=;
-	b=B0CTONCkNrxCg8WLHfPFskz9pEolmu9iGFvby14IKuxzKsLNCMHAuxZF32eYur9FVF2SgO
-	Gs4r4/ymxbq8sQZXrLULdU0Mbmq44rf9IBr8FcRnGao4Voe6S1Uy/5PsGVvZzDmy27kUce
-	5r/p9y7wD3geFSSkn9DzmO35ZcyprHY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788344283;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=leU8WBYFb+b1H5ZuoGcOMF3uO0IPANu0kE55T3Hz8Ig=;
-	b=Frhm3lg0SCTtPlFKZkN7vPxtpyU3VCcedStCRf6yNgGHuDzezIodRSwpiTPc6yrm253ytT
-	LRWo1EAZqEgDZWDw==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=jLcf4ese;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=n8AmMtZR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788344279; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=leU8WBYFb+b1H5ZuoGcOMF3uO0IPANu0kE55T3Hz8Ig=;
-	b=jLcf4ese1nTodXaE1Iocx58Ey/ZInriHbPl7sw2pcMksgSRMpftfDlYf5UWzhQAwEjJEz3
-	z/REwIfuxzVMhAvV/vVkAl8Iv9doT0iS+YxqZErVyp/LkercJ1l/wJ/0bXhn9Ect622/BQ
-	CMGmoootdrGt1b3qynO+g21lIFh+0r4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788344279;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=leU8WBYFb+b1H5ZuoGcOMF3uO0IPANu0kE55T3Hz8Ig=;
-	b=n8AmMtZRnpuOj56A4xP2JJ751dYv0vlut2L0CB94wSZqXLAFjbfkNRUB3zWZOZzpahErCW
-	EbWq3Bx+hdqRFZCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id A524B136E6;
-	Wed,  2 Sep 2026 10:17:59 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id PqhEKNf3l2oYFQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 02 Sep 2026 10:17:59 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 2CA2AA13B5; Wed, 02 Sep 2026 12:17:55 +0200 (CEST)
-Date: Wed, 2 Sep 2026 12:17:55 +0200
-From: Jan Kara <jack@suse.cz>
-To: Bhaskar Chowdhury <unixbhaskar@gmail.com>
-Cc: jack@suse.cz, brauner@kernel.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, lkp@intel.com, viro@zeniv.linux.org.uk
-Subject: Re: [PATCH V2] fs: Kconfig: Alignment of code and text in the FS_DAX
- help section for better readability
-Message-ID: <ga4rb66i2zartjmraicprs7vpvkeaphi6juhajfi2mmcxqtitg@eqvtcf34mrdx>
-References: <tobxd52ikncxgffyrbz6bwvz3rk4joxrf2i7agh2ajevkgwfre@xekv4txekrsf>
- <87zey0ouzj.fsf@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KPkYvN4u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B55041F000E9;
+	Wed,  2 Sep 2026 10:18:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788344303;
+	bh=ES8FPiEzdLSY3baUtj73YmGN39x9JL4SmIMRNRUkqOo=;
+	h=Date:From:To:Cc:Subject;
+	b=KPkYvN4usMJKJ0F1NCahSD9j1B+voi+N3JM/uQyPFVMYvhySLjKR3/bZPMLpDa/Qw
+	 IVji0aku+JgHZzCSDzhpZh7rX5BRi57eTkzRx3/NiJMpwZUTCauzhBDNscB+kGWHCn
+	 6elfI2GWdp/EOjA5jfVN8vRotW2mespJYYHGVbc9pGpQP7b04cTxWECuxy2vKRci1i
+	 g71dB9oJMUIqkIgnZsob8Lp1Bc/7t+fkTD/PrsGartesf87Z6Rs3KbFc+mBQPw8SHp
+	 UvA7+R1Mq5on/0XWhmRt63NRWJ/PaJeS2VCEXeXxdEGZYnfdcf1gr6mK8WkqwohBH1
+	 jkbUDmGbhzzvg==
+Date: Wed, 2 Sep 2026 11:18:19 +0100
+From: Mark Brown <broonie@kernel.org>
+To: David Sterba <dsterba@suse.cz>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+Subject: Fixes tags need work in the btrfs-fixes tree
+Message-ID: <apf36908zqybr8_0@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="KgvFfNFAjXOpepjq"
+Content-Disposition: inline
+
+
+--KgvFfNFAjXOpepjq
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <87zey0ouzj.fsf@gmail.com>
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Queue-Id: C684121CDA
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:104:10:150:64:97:from,2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,suse.com:email]
-X-Spam-Flag: NO
-X-Spam-Score: -4.01
 
-On Wed 02-09-26 15:06:32, Bhaskar Chowdhury wrote:
-> Ah, you are missing the point. Reading a single straight line and read a
-> divided line make difference.
-> 
-> I took away the line divisor( the forward slash at the end of line to
-> break it) and while doing so, the colon at the end of it produces "build
-> error" as the kernel-test-robots complained.
+In commit
 
-No, I got that part. What I was objecting to was that merging these split
-lines into longer ones is beneficial. I've actually tried in my terminal
-and after the proposed patch things actually look worse (the long lines get
-trimmed in the view, you have to use right arrow to scroll the kconfig help
-window to see them all).
+  590b991274881 ("btrfs: scrub: report the failing sector's address, not the stripe base")
 
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+Fixes tag
+
+  Fixes: 0096580713ff ("btrfs: scrub: introduce error reporting  functionality for scrub_stripe")
+
+has these problem(s):
+
+  - Subject does not match target commit subject
+    Just use
+	git log -1 --format='Fixes: %h ("%s")'
+
+--KgvFfNFAjXOpepjq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqX9+sACgkQJNaLcl1U
+h9C+gQf/fC8id0ETEU/SUVNLwKnwbeXmrIZW9EdYs65XXUdIqw77D+sJn+jjKe1+
+RbrAgc8W9Da3s6NrL9D66JYKm1C+C7GQ6sq9+PdVkNo35efN5VVhTYrfxRO5sCWW
+shI/C9PwA+jpAWxQrPh/PRCoMywMFeARnMaB1G2ZKqyMGIsmRf5xNsjKGHtAVHXo
+A3Ly5xAlnv/Cu5V3crvsa85rnDFUeeaKtHPZNXbRdGP/BGfU8YxqgBWApMCzn4kM
+LGBpaZZx2xYsr7u2IbI+mF1fGuqgUIXj38K4IDj0U2f2itlAL8wJ+cqYPaSezQLT
+HYOSCSA1Q5t713/Xvhr4F6SbarUsRg==
+=aQRE
+-----END PGP SIGNATURE-----
+
+--KgvFfNFAjXOpepjq--
