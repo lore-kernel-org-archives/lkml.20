@@ -1,114 +1,129 @@
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4EE64A9D68
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:01:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.171.160.6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DB634A9D53;
+	Wed,  2 Sep 2026 16:02:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788364922; cv=none; b=fJuNbisIXtIG3GMCd7A1ksSQh84N8n8f26kMv+dTsDAcVunoMFj5dwqCMKkbxN/YPfYebYYw6JJQMsYYxixMvTdbknSnbxl+EglwIa0oFPemxCZy7LNUfvQpFByr2TgxuSXzJlF0/cOAGSBkcvkZslgTIKs8Ixb4E9PkxrxKJ3I=
+	t=1788364977; cv=none; b=LIlCeM1LLx1d8FPcz7OEWv7JEM/GMO4q0sstQ/siWFlv7I0c0TOEU5N6s4TSzmRc4/Zur/29znAVDHi1VybyXTKB5+VXVJUIBIcLOPkHXEQEqFDuVIyg6Qejmd/yyzoCCtpAhce5tSwNb35IaIogiVUwlLLgM9GTzi3CudNBc4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788364922; c=relaxed/simple;
-	bh=S9vcJHcV5w6+iWfSBsEE4krX8AdOIhgWtAwVWTkWaJg=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=HV0Ih1hHTLBExXNcjviaPXESmZn0kg5b2OZL9UkPnhUnALYEWxmyZBMKth4lmcUZmfWThAs57xWzlkpkU+NQbZ+LJZsF/FAX+eQTvfL3L9N/kcvFi5fqmFjEKIoQgmbql/WcLUlI9BcQiT8Wmt2h8tUx01Cvj005p3Obg+5UIYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp; spf=pass smtp.mailfrom=parknet.co.jp; dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=6Cev4CVs; dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b=yBEm023Z; arc=none smtp.client-ip=210.171.160.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+	s=arc-20240116; t=1788364977; c=relaxed/simple;
+	bh=7iVzUh0zioODOodF1Rwg5C53OEgf62D43rRzgxYzaVk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Pj47JkdM6fDwnEQ1CKIMsyUhMGmVw4qohv5Z+FCZ7kJOD3UDSL68J3ltk7naqdGEC4bvlWLrhCuGlTd7naQ62Uv7zFS31G/nAddUrBPjkC8yrFMWkxm+fcB73IdAlbCXIEtwEgtcfd8n4WeAQXBYULIcjDfk54gm6LVJPHNRgSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Su9T4Gt5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="6Cev4CVs";
-	dkim=permerror (0-bit key) header.d=parknet.co.jp header.i=@parknet.co.jp header.b="yBEm023Z"
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
-	by mail.parknet.co.jp (Postfix) with ESMTPSA id D292626F76A6;
-	Thu,  3 Sep 2026 01:01:55 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114; t=1788364916;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=W8+3LvJq5wamKLZhupeCtxfSgt3DWUqIKtcuGt772pU=;
-	b=6Cev4CVsh+7vLSVT8kbElSRPHDXvf0esdt2B8WyGKLwucjZQLYj1icmv1DCjbSyyzH8bnp
-	LDRXqJy2DlFWSu8CYn7U+6JaN95+5eCR1N/BpGcYV+3Izjlma2pn5AjT0d2KDCgU/d9aDm
-	9J9Q+teRI/SCABkcRzSKR9QcCQeW9K7pZZaX00NTMVqw8+socw4oioWRjqH3dD8rBSMe3D
-	9A0zNydoIN7IbjTg43SKMSPOCYXbQbS9gwyTPbuR0GDN81sCYi98tpHyo0ULzeAS2P18U2
-	jpxfaCa/xccJr6pMuUrwSip+6rDJBgFI1KkqHu08PoCZKs3spgbesRLQAfIj4Q==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114-ed25519; t=1788364916;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=W8+3LvJq5wamKLZhupeCtxfSgt3DWUqIKtcuGt772pU=;
-	b=yBEm023ZID+A+yTohwTpj2u7ShC6a9F1Uaffjzr2Clo8yu2fsDdwzD0fuwIYJDEMh2I2V+
-	gbIZBG5sGiy0y+Cg==
-Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
-	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id 8D4E7E00378;
-	Thu, 03 Sep 2026 01:01:54 +0900 (JST)
-Received: by devron.myhome.or.jp (Postfix, from userid 1000)
-	id 80F6A22000C9; Thu, 03 Sep 2026 01:01:54 +0900 (JST)
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: hengyul@cs.unc.edu
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] fat: calculate data area start without overflow
-In-Reply-To: <20260902143858.4092293-1-hengyul@cs.unc.edu>
-References: <20260902143858.4092293-1-hengyul@cs.unc.edu>
-Date: Thu, 03 Sep 2026 01:01:54 +0900
-Message-ID: <878q5jmykt.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Su9T4Gt5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 200631F000E9;
+	Wed,  2 Sep 2026 16:02:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788364976;
+	bh=Nj28vaLOO0uawDNiRwYo07ewHwXj6jAmi5zGzF7SIm0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Su9T4Gt5de6jopHYj5MlbmKVG2PNn22UD+JE+rYOec4VQkAT3DcFR+OjcB5FBd4L5
+	 jvGcJKxZtz3IfpOYmAQcXMV/IPfngz5DGQFCEpfRT1zLwxnwEEsV/TvBhHhjwaMkyF
+	 1Jew/OMO8u79i20JUVw91WGmcTcMqUX07ToU6UpmelQrQNpLtFae05Q8LXWfkJ1XVe
+	 jl7Avw/RMPJle5WOSQMA9wv+azptP3SNP/6VHkGEIGv/up4zK+ndeGJGdr8zwHxW1t
+	 LfKiw0sAjfX9ZMnXO405dkrCCheRPNWnkqU1k0vWb3rsAOAk1K02/8X7t2RaN7pI8m
+	 1bIuo5eJ3aQ9w==
+Date: Wed, 2 Sep 2026 18:02:43 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+Cc: krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org, 
+	andersson@kernel.org, konradybcio@kernel.org, James.Bottomley@hansenpartnership.com, 
+	mkp@kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	Ziqi Chen <ziqi.chen@oss.qualcomm.com>
+Subject: Re: [PATCH V1 1/2] scsi: ufs: ufs-qcom: Add specified gear support
+ for multi gear scaling
+Message-ID: <stik7u2o6ydje6ws7cyrltmdw4wz6iyximnxeyegw2f562b2bv@4m2sueuuzisb>
+References: <20260829074355.946543-1-nitin.rawat@oss.qualcomm.com>
+ <20260829074355.946543-2-nitin.rawat@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260829074355.946543-2-nitin.rawat@oss.qualcomm.com>
 
-hengyul@cs.unc.edu writes:
+On Sat, Aug 29, 2026 at 01:13:54PM +0530, Nitin Rawat wrote:
+> From: Ziqi Chen <ziqi.chen@oss.qualcomm.com>
+> 
+> The UFS clock frequency and gear speed do not necessarily have a strict
+> one-to-one correspondence on all platforms. Introduce a device tree
+> based configuration interface that allows specifying the HS gear
+> speed for each supported operating frequency via the "opp-level"
+> property in the OPP table. When this property is not configured, the
+> driver falls back to the default frequency-to-gear mapping table.
+> 
+> Signed-off-by: Ziqi Chen <ziqi.chen@oss.qualcomm.com>
+> Signed-off-by: Nitin Rawat <nitin.rawat@oss.qualcomm.com>
+> ---
+>  drivers/ufs/host/ufs-qcom.c | 30 ++++++++++++++++++++++++++----
+>  1 file changed, 26 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/ufs/host/ufs-qcom.c b/drivers/ufs/host/ufs-qcom.c
+> index 0f2e083b04fd..aa2ac2cd2b69 100644
+> --- a/drivers/ufs/host/ufs-qcom.c
+> +++ b/drivers/ufs/host/ufs-qcom.c
+> @@ -2460,8 +2460,9 @@ static unsigned long ufs_qcom_opp_freq_to_clk_freq(struct ufs_hba *hba,
+>  	bool found = false;
+> 
+>  	opp = dev_pm_opp_find_freq_exact_indexed(hba->dev, freq, 0, true);
+> -	if (IS_ERR(opp)) {
+> -		dev_err(hba->dev, "Failed to find OPP for exact frequency %lu\n", freq);
+> +	if (IS_ERR_OR_NULL(opp)) {
+> +		dev_err(hba->dev, "%s: Failed to find OPP for exact frequency %lu\n",
+> +			__func__, freq);
 
-> -	sbi->data_start = sbi->dir_start + rootdir_sectors;
-> +	if (check_mul_overflow(sbi->fats, sbi->fat_length,
-> +			       &dir_start) ||
+Don't bring back the '__func__' marking please...
 
-Looks like unreadable "\n".
-
-	if (check_mul_overflow(sbi->fats, sbi->fat_length, &dir_start) ||
-
-> +	    check_add_overflow(sbi->fat_start, dir_start, &dir_start) ||
-> +	    check_add_overflow(dir_start, rootdir_sectors, &data_start))
-> +		goto out_invalid;
-
-Maybe, better to add the error detail?
-
-	    check_add_overflow(dir_start, rootdir_sectors, &data_start)) {
-		if (!silent)
-			fat_msg(sb, KERN_ERR,
-                        	"overflow of root dir or data layout");
-		goto out_invalid;
-	}
-
-Thanks.
-
->  	total_sectors = bpb.fat_sectors;
->  	if (total_sectors == 0)
->  		total_sectors = bpb.fat_total_sect;
->  
-> -	if (total_sectors < sbi->data_start) {
-> +	if (total_sectors < data_start) {
->  		if (!silent)
->  			fat_msg(sb, KERN_ERR,
-> -				"data area starts beyond volume (%lu > %u)",
-> -				sbi->data_start, total_sectors);
-> +				"data area starts beyond volume (%u > %u)",
-> +				data_start, total_sectors);
->  		goto out_invalid;
+>  		return 0;
 >  	}
->  
-> -	total_clusters = (total_sectors - sbi->data_start) / sbi->sec_per_clus;
-> +	sbi->dir_start = dir_start;
-> +	sbi->data_start = data_start;
-> +	total_clusters = (total_sectors - data_start) / sbi->sec_per_clus;
->  
->  	if (!is_fat32(sbi))
->  		sbi->fat_bits = (total_clusters > MAX_FAT12) ? 16 : 12;
->
+> 
+> @@ -2489,12 +2490,32 @@ static unsigned long ufs_qcom_opp_freq_to_clk_freq(struct ufs_hba *hba,
+> 
+>  static u32 ufs_qcom_freq_to_gear_speed(struct ufs_hba *hba, unsigned long freq)
+>  {
+> -	u32 gear = UFS_HS_DONT_CHANGE;
+> +	struct dev_pm_opp *opp;
+>  	unsigned long unipro_freq;
+> +	u32 gear = UFS_HS_DONT_CHANGE;
+
+Nit: Preserve reverse Xmas order.
+
+> 
+>  	if (!hba->use_pm_opp)
+>  		return gear;
+> 
+> +	opp = dev_pm_opp_find_freq_exact_indexed(hba->dev, freq, 0, true);
+> +	if (IS_ERR_OR_NULL(opp)) {
+> +		dev_err(hba->dev, "%s: Failed to find OPP for exact frequency %lu\n",
+> +			__func__, freq);
+
+Drop '__func__' here and below.
+
+> +		return gear;
+> +	}
+> +
+> +	/* Get HS gear speed from 'opp-level' */
+> +	gear = dev_pm_opp_get_level(opp);
+> +	dev_pm_opp_put(opp);
+> +
+> +	/*
+> +	 * Greater than max gear means that there is no specified gear configured in DT
+> +	 * or the specified gear is invalid.
+> +	 */
+> +	if (gear <= hba->max_pwr_info.info.gear_rx)
+> +		return gear;
+
+Sashiko pointed out a valid concern with this check, please take a look.
+
+- Mani
 
 -- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+மணிவண்ணன் சதாசிவம்
