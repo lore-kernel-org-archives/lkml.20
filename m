@@ -1,132 +1,120 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08791289E13
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:24:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F16257855
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:25:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788330277; cv=none; b=gJp6j3CugWfZiysdhR1pkRKEBXbtlSy2Xi7+4dYnW5BVSn7+ueR0paRag/C6h63RSWUGGe6LaRY3LiA7L3ZpQ+a+MXw4OaLDiMfQLX23FjjgDPFoZFD7cpbPqTOQep08wvaJfaN9ZOH75p2TGd2kezx1IvWylmffSbk29Ec7HRk=
+	t=1788330301; cv=none; b=Yn2ReRu528jMEg5iRZOsKpfN8GmlKJ/0ATFS9XhU/SrKTpZEUr0AzWC3M9bni/cmyMeTTgFzOQ3N+i7/e2vmY3jPWCKpJZkgDC+H/cHAohlnMJjTx/8GH/lsD0/KaEuSxnwYrxJt178ngIaRtGv3x0CrxusUJDt/f47ju/i84Cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788330277; c=relaxed/simple;
-	bh=yrhr596mnK2dbjRLnW2TpPyTsU+lz2ODEABE+FOq7JI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DZKWq1YmSowrMZjhSijru+ebKTBHq9FHRpJtyR3hxLgKmb7mRBMSt16xHyXTyapZ8tEJkmYKsb+FRVLTOss/++Hf6OoYE5yIaTQTwGV4HOokdTbWS+n+bpXSjstKKFq8xv2MbP/KLMhjc2KMbEcnd5NO4zEa+reWbE9zXtevZO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai; spf=pass smtp.mailfrom=crusoe.ai; dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b=KWEnilLG; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
+	s=arc-20240116; t=1788330301; c=relaxed/simple;
+	bh=+9WVtePxyc1YGLLA0sPGLdbtBaT6Ojt4x5bVpPLtDXo=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=sTeAL/Puaprze7JzVRzYzX0Rp3bjfoTtua4fdKDBlccbMQcUGhH0uMBOZ17kltG+CDytNoPywBgusxCxLIldGu8ZVk2jLC2/j6gYyVZLWqk9O0SQRzGh7gzac969ORiMGMvCHy7D3Ki1KlZMAuL72oDhO29ubz5Q/lqMwdsb6HQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oyfboyT5; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b="KWEnilLG"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-848643382fcso767443b3a.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 23:24:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oyfboyT5"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-490cf322ed0so7052095e9.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 23:25:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=crusoe.ai; s=google; t=1788330275; x=1788935075; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yrhr596mnK2dbjRLnW2TpPyTsU+lz2ODEABE+FOq7JI=;
-        b=KWEnilLGqw3C/QmWLtnyU+91bynk3SUfKVKWqysuvvc9ZWOfVuuXPBbHUcZGxcf/zh
-         I8l0q9kmTXI/VR9lyRvhSuQKkbkbs3qXX+KD+w+b3K4i7qxP5hcuHcSSyV1xCyJc9zIK
-         yV8e41rmldj6DgQL8Yb5Cbvd3Dj8IhSSNBE7tNP2tytv5yJgxKY/dVarO/2JEa/ZLX4p
-         Of07H8KuqTmimTSEzjdymEqT6SHMMT+n+gs3vO2B95fslGnEzzMDq0C98EcAPCYd+3V5
-         7yTq00w2kdQeUk5ul4qayBRL1aqZt6ZqsILVTde7AHBYwlmPKbB+HZD3s40iwIWbRViN
-         2zvg==
+        d=gmail.com; s=20251104; t=1788330298; x=1788935098; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=tWJyN3i/V1hy+bh8hawCPCJ0S6kVzHf5TYVU3e2rRUc=;
+        b=oyfboyT5oo4wv5ZVuJFhklRgfLC15EmSsQJAw/BEr73kVQLgfzNqlOSKo3vYFxWN21
+         d94w7LDMgDu8lqRIqcMSLyLkE5Q7jyuoqupsns+8uf4Y+WTdkcgI14xi4ivxgA5VneM7
+         QKWO0Ah+FLfeyIwAsgE5fGFOf8HVy28su9G/0IxCoFqERO8P2toZa/T9EcnyJj8rUWpL
+         wvCmA4UGtxWgrpvR6JDgHBDGxk4t6EoY9oW6WHgVQ2p5DsWFy8CMwj+PR6ZDVZot2ToD
+         1s2o85jzOhAZYoZjlJu+V66uUh/SNv7mxEG9IZnrEcge4cAOeCHcaTjYUHS2YbFNS15W
+         OYrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788330275; x=1788935075;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yrhr596mnK2dbjRLnW2TpPyTsU+lz2ODEABE+FOq7JI=;
-        b=Tis60+HqvuWW74z1Bggs/PJ92tnsDrgSyeZQsMZEW7D4YFWIVN0hB5CR7AboFKYLGb
-         FwMbyRBfx4VUH2Rko360Ufj+k1al8kE3I6Kwnbwm3y1TdspcVrm0T36dEIXUlYg0f11M
-         fn3+xl33BEyX2/6BQwL2IfzP13IDkliailaYhRJlmFalHhC9NJGcqGBMnsdD1jTQ4WFc
-         hFxi5coyyVk3dNmMfEqVOQcjO/ETARf84q1zX925hmhY8B4uSQUbMRVU+E3NFPEA9hbs
-         fKPHM9i1ScDU5xaFFRipAo+r7OTiF6WIwddDFTK1ubz/cGqoWS8wyFjvE4L1UE463XB3
-         7rwg==
-X-Forwarded-Encrypted: i=1; AHgh+RrVfZVxshrnVTJaqYNIHEJZoX5D7s6B6Lt5aideKxfAjtx08bmxmd7w0cZLSiU0KCTnsvP11MFKg1GL044=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/mKrulmYK7vEpGbi7AHOiGa/cu39JZ4l+8m1GLA73zzyzvnKk
-	A9ydp2oHjkCQbN+J4zSFq6Ch0ee3MGkPvcWdD57bUdoahWPtnAb8u7C7gPJpzFXztsE=
-X-Gm-Gg: AR+sD12JvLxW8H8J7Ri1a1dj6YY8R6NyfVevvoD4EirhSzKwqaMZTXYg5m0OKIlercK
-	qXvuo3phF3cXFkeVxZ1qNdcv2P1fx7aTdQgOmKmbhpiYpVNapGfC/JV8QIHC8Ccy5LhulQibZ1J
-	6XaOPrzZwsBga67hcNaainlrIOlLtw1klmeARfNH+vRs0TeQ++/4fBhbasl2p68gv4NKfzqy5vL
-	faiD7DvwP65JEnri/oF8nQqye3Rti3yL1QfPGBn3ckfIJUsNEVvI/IlVhagMqejKJl6GgXzsAGc
-	3A2DLMvKNH5rm+BDJWqGtbf3vLkrGa+aO8lMbSMChI1C84yPQfVcyUvWe+IhOc8oZTnTRwUsLG4
-	vS5mmSbMrfsz6blXkEf+ycbNv4491Av51cCSXY/t5heqD8OzZwCtqf2dK8yPOtNlhQ1DFhDjmRi
-	ciGjYlfnbMAW5k3mnLqXIJ2KZrB4jobnohE9Y234pY8rn995amd/tLB4SBAoB711HnVBHLuxgY6
-	c3V1nBUPBE6aJa7EotU3A/6JDY+oKDuJhigUMEEDg+i0M4n/MFaNQ==
-X-Received: by 2002:a05:6a20:2cf:b0:3bf:b182:94e with SMTP id adf61e73a8af0-3d9acb3e963mr4580612637.5.1788330275276;
-        Tue, 01 Sep 2026 23:24:35 -0700 (PDT)
-Received: from MBP-Saravanan-D.civet-hops.ts.net ([2601:647:4380:3400:3036:5ac8:3cef:cf51])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f079f7d77sm3390670eec.12.2026.09.01.23.24.33
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 01 Sep 2026 23:24:34 -0700 (PDT)
-From: Saravanan D <saravanand@crusoe.ai>
-To: Sagi Grimberg <sagi@grimberg.me>
-Cc: Saravanan D <saravanand@crusoe.ai>,
-	linux-nvme@lists.infradead.org,
-	Keith Busch <kbusch@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Jens Axboe <axboe@kernel.dk>,
-	linux-kernel@vger.kernel.org,
-	Nilay Shroff <nilay@linux.ibm.com>,
-	Daniel Wagner <dwagner@suse.de>
-Subject: Re: [PATCH v2] nvme-tcp: pin io_cpu to submitter cpu
-Date: Tue,  1 Sep 2026 23:24:28 -0700
-Message-ID: <20260902062431.61412-1-saravanand@crusoe.ai>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <1d56144d-6987-40c1-ac02-b15333db121e@grimberg.me>
-References: <20260820083634.71689-1-saravanand@crusoe.ai> <20260823174348.40236-1-saravanand@crusoe.ai> <1d56144d-6987-40c1-ac02-b15333db121e@grimberg.me>
+        d=1e100.net; s=20251104; t=1788330298; x=1788935098;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tWJyN3i/V1hy+bh8hawCPCJ0S6kVzHf5TYVU3e2rRUc=;
+        b=cm+SHTMGJ081W92UlhncXEzALczhnoqc5TfB8wJ9bLUDU3alQjlZtOdikPhpM1APvu
+         O2Vu1oxnDYUJUvcewarm+wci/C5V+INeWhFvAwNrkqPTsngnwy0mD3qsB2DXZCSJBimf
+         9cj4WQ/E9rMCpSsj2U5kCL2xLu3+JRnGLrClTlZ7532dgCV0jZgSCXcYfGKigtFWrbLN
+         0s1mXwdXBAOqrVsI9AW0H+r/BLHtqYk2kDeUV1zKJGSdoPzZ99KhxOns508slYm5erx/
+         /5s9EHNstdiexDWJZVBwKNdzv7LnYsmuAHv9l/JTNDUZQQG9sps3aU45J4iQCfnx1xaW
+         go+g==
+X-Forwarded-Encrypted: i=1; AHgh+Rok2AHAFVrx5dtSDeic/L1Vgr2pM809lTxU6z0wY/lfYeemKMNfmCDyIA8tph1uzRxHGbc6DcZGAdSUCpA=@vger.kernel.org
+X-Gm-Message-State: AFuF++lUydcLT1w/Ax0tVY7mN0M0SpJASr7UMH2/UWKnOLhHWkkpedyU
+	A6E0agnNCm2fo7itxjOt0OIUL2v3tdNQUIMXsFrnqIRbegs2qcRpmHYy
+X-Gm-Gg: AR+sD12rtJaZMDgcZXhN+RvOmrM2MSzbJ5mHwlIB3vbUH+/lbs85vEkl1XaZZAembLE
+	r+srWP78DXvX8+EW76kHU9Co+UmVpayLhQvwoBwCZg2u1m0I6xhRJGzxmkOM0Pp6iHySYgqc3nH
+	NHIfo/VlxRoczyWjkXdVagHJ5GfLFFrdCn1N+cQ11JZ1qA5mkUZlP4v0mnQuB7O/rMLOpNYLgf0
+	H7nZvVH78ShdtAe98Gu5WnaDnvUNxoozM+Qp3ezrZUVUjYaT/fgGgWfRNRiKuKayTJhqxoXqEv4
+	qN/UXsDSQbNFya5mHPQwjT71psr/ig3DVrpasvAU3UISBAM4OYrCghLOjFiIHBR8m2hVayD/CrJ
+	ftUigtpewxMPt2TxbnU70OWZ431P3d/NNW2YWG3h+BL08s/rq7bfzFaWSsda7DodKkkfIJz21ON
+	ZZP7nXLCLwRlNY4SsW/EWHgNCGKIWLuMpRezV21NK5kycYNXS37VEOk4B0pewQ9ds3A+h5S16fv
+	3PHWepMrokdfvkNDZ529OLJ06D0g5zd7A==
+X-Received: by 2002:a05:600c:4ed0:b0:499:726a:a017 with SMTP id 5b1f17b1804b1-49ce57ec163mr42888105e9.1.1788330298294;
+        Tue, 01 Sep 2026 23:24:58 -0700 (PDT)
+Received: from valmpani.valmpani ([2a02:587:f24:b00:967a:9200:4108:5b68])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce47820e2sm44777905e9.13.2026.09.01.23.24.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 23:24:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] usb: gadget: pch_udc: don't call pch_udc_remove() from
+ the probe error path
+From: Vasileios Almpanis <vasilisalmpanis@gmail.com>
+To: Vasileios Almpanis <vasilisalmpanis@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Felipe Balbi <balbi@ti.com>, Mike Frysinger <vapier@gentoo.org>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, linux-usb@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ syzbot+3e2e533aa1b2a75525e7@syzkaller.appspotmail.com
+In-Reply-To: <20260811-pch-v1-1-f79801c1cd91@gmail.com>
+References: <20260811-pch-v1-1-f79801c1cd91@gmail.com>
+Date: Wed, 02 Sep 2026 08:24:52 +0200
+Message-Id: <178833029261.756768.6158388330855906762.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788330294; l=1074;
+ i=vasilisalmpanis@gmail.com; s=20260731; h=from:subject:message-id;
+ bh=+9WVtePxyc1YGLLA0sPGLdbtBaT6Ojt4x5bVpPLtDXo=;
+ b=QMuDtdCXLmQa4xf202Kki0S9AqujJXwQ93dllJw6Q6bu+WYGtU1msskCdtIwpfhdQsMShJ6N5
+ qivCyMinjqlBxJoy0ChnEI3tHkMywjUn3DMNimjy5Ljak2sDvkUWaV3
+X-Developer-Key: i=vasilisalmpanis@gmail.com; a=ed25519;
+ pk=gn5Uo6yL8Tlpq5uATxA3nqoq+U8eWLRbjD+bOk0qSpU=
 
-On Mon, 31 Aug 2026 01:30:08 +0300 Sagi Grimberg <sagi@grimberg.me> wrote:
-> I just think that the adoption approach has downsides in many other
-> workloads. I wouldn't categorize your use-case as the common use-case.
-> Not to say that it shouldn't be solved.
+> Probe error paths go to finished label which calls phc_udc_remove. It in
+> turn starts with an unconditional usb_del_gadget_udc(). If probe fails
+> before the gadget is added then we put a non-initialized kobject
+> (gadget.dev) and a WARN is triggered in kobject_put().
+> 
+>   WARNING: lib/kobject.c:734 at kobject_put+0x252/0x640 lib/kobject.c:734
+>   Call Trace:
+>    put_device+0x1f/0x30 drivers/base/core.c:3880
+>    pch_udc_remove+0x47/0x510 drivers/usb/gadget/udc/pch_udc.c:2986
+>    pch_udc_probe+0xcc6/0x1130 drivers/usb/gadget/udc/pch_udc.c:3109
+> 
+> If usb_add_gadget_udc() in turn fails, it has already dropped the gadget
+> reference, so the extra usb_del_gadget_udc() is a double put.
+> 
+> Split the hardware/DMA teardown out into pch_udc_cleanup() and call
+> only that from the probe error path.
+> 
+Hi everyone!
 
-Adoption in v2 is opt in per controller through the io_cpu_adopt
-connect option, so every workload that does not enable it
-keeps today's behavior unchanged. The downsides would only be borne by
-deployments that choose it. I concur with the broader point. Adoption
-makes the driver itself decide where socket work belongs, through a
-fixed rule that cannot fit every deployment, while a writable io_cpu
-is very flexible and leaves the decision to the control plane.
+A gentle ping on this patch. It's already tested by syzbot so it
+should be good to go. Please let me know if there is something
+I could do differently.
 
-> I agree with you that queue io_cpu selection at connection time is too
-> limiting. Perhaps we can have each nvme-tcp queue expose a sysfs entry
-> to set the io_cpu?
->
-> Something like:
-> echo $CPU > /sys/class/nvme/nvme0/tcp_queues/$QUEUE/io_cpu
->
-> I am just trying to think of a way that will allow some control plane
-> to set it exactly as it wants, without the guessing part...
+Kind regards,
 
-The per queue sysfs io_cpu works for us, and in one respect it works
-better than a connect option because a sysfs attribute can be set after
-the fact on any existing connection. The control plane already knows each
-VM's cpuset and can read the queue to cpu grouping from mq/*/cpu_list,
-so it can nail the socket work placement.
-
-Two questions before I spin the next version around this.
-
-1. On reconnect the queues come back with the connect time io_cpu, so
-the control plane has to notice and reapply its placement. Is relying
-on the existing nvme udev events for controller state the intended
-signal, or would you want a dedicated notification ?
-
-2. What should the write path enforce ? I would validate the cpu is
-online, rebalance the nvme_tcp_cpu_queues accounting, and let the new
-value take effect from the next queued io_work. I intend to restrict the
-value to the queue's map group.
-
-If this direction sounds right I will drop the adoption heuristic and
-send the next version v3 exposing each queue's io_cpu as a writeable
-sysfs attribute.
-
-Thanks,
-Saravanan D.
+-- 
+Vasileios Almpanis <vasilisalmpanis@gmail.com>
