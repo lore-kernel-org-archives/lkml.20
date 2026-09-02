@@ -1,81 +1,84 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 335534AA1E4
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:43:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809A94A9D7F
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:43:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788367415; cv=none; b=pmoTr7EiQi1aIatJRHvi6rGv/qM+2QG0hIWCcwyPWn1v2nMRezHT2GpXfXD+44us+yr3CPEnDhMImTTgWOT5NomU106iVvZImUNzxKM6aVbVfrijeH7KbfVjJBSZH/9HyzJQjzlx0+HrsPqGg79SEDvRo+ak5V7YfI7PfGaJIJY=
+	t=1788367417; cv=none; b=jfavp9QTa6zW1kYr/EotWQOwPhWJdjBUfMHqmMfx55k5KCEmPZQfgGqNaan16A0iWFNfOeEbbBfWxIO1mFWhXdTAjWxF/d29YovSb/2RGrrauevkCLFDXAxalbeVhN1zmkihdlAyhIS26JzbGhvKAvsIn9jNNHeGnTgyftelO/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788367415; c=relaxed/simple;
-	bh=cpj++n5yEucYh17JiW67YDU5AHfejmNI3LdbjDaqbos=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CIrYLrHh7xBmLfyaq2kgaOzriIQl8hTn5D7qRiMvfRnZitvtDmheyIqJ4HIIh+y5i8m8BX3TG9OJIyfoMnySFJrel+Jnsj3UEE0+lAf8P6MyucSGXwYP6l+IfXAJ5gOSbQ61JNyj4YZJuZECOkb3V5qSzyVsiTwn5VJ5TbY0UkQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YQ00IuPF; arc=none smtp.client-ip=209.85.128.44
+	s=arc-20240116; t=1788367417; c=relaxed/simple;
+	bh=xN1cyu916wIN7mzmzjFJvH00DRPPzz4qZRFZ2XCRN8E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V2XAGJ3gn7D/MOc7aN+hUevMFexDNVpVk3fWk0OCl2xqaYtPMiJexqhSZYmfW82VLpBdY3xGPoUV0xd0wCPRRYXr0nut9da4YU6qQPUPypuTo03xWWa820ztD6k3kL/k1pIxyU6z/PnINN2V9xKoRQmxI0/nCV+dX62iopraiXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FnDdgwRp; arc=none smtp.client-ip=209.85.210.175
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YQ00IuPF"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49cca4ffdcfso9155035e9.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:43:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FnDdgwRp"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-853c947bfefso69850b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:43:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788367411; x=1788972211; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788367414; x=1788972214; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iIzXwSsGWdM/2DswVIkQqllThw6W06XdbG4kX5z46ho=;
-        b=YQ00IuPFcBen5Z5awhKbR6ipx9Rvgi4J+gzUsIiV69iFMiSKy/ee8JqsIK3sZd0i2D
-         YCrkDfIgRMQ2uvA2ff63kcnD6jhFezOp3JQwrdQEJXTonFoGdf4r4ECsp4OtWe189V4G
-         hlIWrc4lmBO/F2O6XETQ5yJmuiykfTIxsvHkgXcr4u4buA58o8QtwZlIDQp8WGSloig/
-         Am13K+//zTRZG3oW8hFmgQOErDJaqBtwycM/ohWr/YFfWLPOZVDABh+yfvGi7HMvkNa3
-         wNDl/Cco2rvOD4smzwMzheWp5MBW3UtpaasuI+lowjBGJPuRojOENGNfdj42AukmITi1
-         OwwA==
+        bh=7VyQUQWJnOntAVMrtqSWEPb9QZWEDyQ9M01GPlIB7rE=;
+        b=FnDdgwRpGZKI1i8Cbsm39H5WIhgYTc/IySh9IZ6ak96gvKTxmv96jQhBFxQ9JixOoP
+         eOjTHqNIrCGeXRi7/mmDdLkUycFwtT4+XHT3y+O7HPk1gUUGJL+OdNfdfuWmGVRLpVBK
+         YQyM6I3ARCoHE2SMmthg5uHVkbGGVK9VDqHYGkdg6CRshQMWSNg6IpjqlSlX9uLdcToT
+         yQoJDgw7aKrIEe4tHroksEDK6NJPEKDTyYXUROlFdzkQ9dcN0+8Pu/bU5lNkDd+UY2T9
+         of6mIFXTayrzFNccrzXaUB+tR007fjVhchoZUzq8QPmM0z33e4s9xKUw2O12j+KAAmmP
+         WwDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788367411; x=1788972211;
+        d=1e100.net; s=20251104; t=1788367414; x=1788972214;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iIzXwSsGWdM/2DswVIkQqllThw6W06XdbG4kX5z46ho=;
-        b=RYbq00Q6ytbzMzqEyxFAaiEZUnk+pFdUrZMCv3PIryBr7nMpvbDSN6fVSNzd53yCHB
-         v7qMOh6xvRnDFpLZcqfXJRe43hPOxLjd54DWmS88bjeeKIwrcvyPCwzzNkFHXZ1OWjsa
-         La11m+S0TLwpC2aKRyWlfAHHXQ43S3Xfa6vIwxtL2gk8wROVw6V2ZqhvTfZjS4db/Obr
-         e+EICrreFNL6cREnPwrXTkSzJC1R26aTgQIR76zQPAKb+1kLT384bsJHpqLtk5aPANaE
-         rkwhgaXV22eGcYWhLgAoB9EzuN/Y+7VIY1ppEhPxTkKXLB/Y7g1u65TaU2iOENqxZKX/
-         /5NA==
-X-Gm-Message-State: AFuF++nI1ccZ48E1uvRQMdLa7IsFUF7BFf/6IQH62VRibGCBw+S1RG/m
-	ESEXMRByhuAHdGTq/ai0hs+4HhK0gZtuKzW5qkBQx2vAdtiI3vqYuO3HVlo48x8OG9w=
-X-Gm-Gg: AR+sD12LA5XhWC4g3OKKi+/UMIbqGqupMWYKEv2lgp6EFbp4bPeifyFRjPJBNp4CWdo
-	/AJCqrt1KMPBtRG2CeWfXdXOLV4O3N+XIOQjPnhKdplfslzxFQbh10oquZn5tibjsDrfk5cmWie
-	h89sv5g9p1GnkWkMjtOV+8nljPbgQvPEuKM4LS7XDZfCu0JqCfw3b5u9zAK+4OARI32r/NcQ9yt
-	olgIFSZLr3Z892dph1N/GmK7RDrVifeFRoseJ9tuxl++6E1mOIblFbnJxS1eNv05C3qtk8aQZWX
-	7KZA8ADzWNi7NPls7AQf8AZPJsGo/wzqwuVGoyaIO2f93yCyBJpGufdKRPcB9ahfGQGjsUmROUC
-	H8ksAlUPVr7Nm3b6cb+SWnPrbpMgmvwMDUtNpp8WY1QcCTg1bS1m9VO2/M3Crz3Quw1zIcDPbxH
-	9LFIeXiZBCgxt7+2Y0zJPEzbEO/oSqUDMjJyK1Zu5ZT/J+tD/936nv8r1mjKKLENwCOc9dFJIwY
-	YfH+Kx0zLWYL3FQEVIArJRzjquuOW+NHqwIog==
-X-Received: by 2002:a05:600c:c16d:b0:499:db6d:bc97 with SMTP id 5b1f17b1804b1-49ce55cb47cmr139584865e9.0.1788367410945;
-        Wed, 02 Sep 2026 09:43:30 -0700 (PDT)
-Received: from GLaDOS.station ([187.13.216.247])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5dead1sm3844745e9.11.2026.09.02.09.43.24
+        bh=7VyQUQWJnOntAVMrtqSWEPb9QZWEDyQ9M01GPlIB7rE=;
+        b=sZz+Cwzp/vgaTZYQ+ghisxqzk6z+PPO2ApdrqHKmM3dI1qMnekvwOO/c7oQVUchJeO
+         VW8lLRB4LVCWSYhgYJb/9b33HDXKE9TFve75A0nNj517efNVGy6Yh0WUhZDZHHDYMjZC
+         I2TJQOuXFIyhGG3Upo7Y4wzPVAK87XGKrLL+XSvm3qBtEsslDsEYqnG3bswM5rEHmGPS
+         kyfSe3O2xrZH282e3YY4/Aj2K+8JtDadhIFPWlCyfqlJi10gLbjLYFX8PmwmOYWziFr5
+         tBg2h//sbLP1fEvobPYw0SSkZXEj5ywiFOarMlXupNUNh60VBFpKNN5fd2voRQ4tb85j
+         3lRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwEnCaZ/csakrnz2NNaiDMXRdPErxbFJSfhbfnNixyS+oeLJhiw6ENrH0DvZLykL4oIivviFO7d2E6D3P8=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZnv3q8crtG2ATJXyTqjzCMtEy8cqfI1vgdBilPbSREqtA3zWl
+	6dj9aCDEJoZ4138MH16Mx3isyrgUv9iUMtjd5MYN/uOhNvb46JSUnxvm
+X-Gm-Gg: AYBFou326GZ6+p9HVuccVyMUXk/y5Iof6QxC/XkNheslqvCjbYAGOpx3ntiQHUKGs0G
+	BTzHgzbDXCejyJc2kyeaCjvWaOuNiqq5QRhlICRLnx3UqefZ0kTTgFrGXRo8SD9phkKHFuZk/BU
+	BqYBj09VID85xNFP2AhjUnog51XSZSSQJ7fyMpiYXKI05+RyJv+w1yc2qTDGqeQbbYOwDnww9Zo
+	GMp+wg5I0/5thIjTfn7Va2yBs00oQBZ477qOTjdKi0VBOLdcIrpGfZDXS0PNMYKStEvQy7YQ9ch
+	lgXL9VVfAiE1GwZL9cdEgfAJl4bRpe9KNu/zfH/Ni8LbygYyaKGTQESytNLzwOXQxF2udlXKzNt
+	m+Kbdj+SV1TgITIqBysguniQYb6KdrmVyPe9BxK11zC+zwAc0nLU1c5VlFGHuGKRPQrzfad80hM
+	vecGcOG+6d+FnjcmiZFQtdJ7AicjTn9/ZEAEd8qnAst/YPq97tAXK/xnmFTX+eViVEN1Hr3tZGO
+	fox3exJWDn5sOJrPSvJo6YIWpcSb2KYBRVTRvre0BHnn1XbOAo1
+X-Received: by 2002:a05:6a00:3001:b0:845:cad1:d691 with SMTP id d2e1a72fcca58-85ffc18a90amr422148b3a.5.1788367412611;
+        Wed, 02 Sep 2026 09:43:32 -0700 (PDT)
+Received: from hanzj-mi.. (ec2-99-79-140-187.ca-central-1.compute.amazonaws.com. [99.79.140.187])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db24f4140sm1691158b3a.1.2026.09.02.09.43.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 09:43:30 -0700 (PDT)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
+        Wed, 02 Sep 2026 09:43:32 -0700 (PDT)
+From: Zhijian Han <hanzhijian1991@gmail.com>
+To: Richard Zhu <hongxing.zhu@nxp.com>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
 	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
+	Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Rob Herring <robh@kernel.org>,
 	Pengutronix Kernel Team <kernel@pengutronix.de>,
 	Fabio Estevam <festevam@gmail.com>,
-	Luan Rafael Carneiro <luan.r@variscite.com>
-Subject: [PATCH v1 1/1] arm64: dts: imx8mp-var-dart-sonata: Fix Sonata SD I/O supply
-Date: Wed,  2 Sep 2026 18:43:17 +0200
-Message-ID: <20260902164317.45925-1-stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
+	linux-pci@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	sashiko-bot@kernel.org,
+	Zhijian Han <hanzhijian1991@gmail.com>
+Subject: [PATCH v5] PCI: imx6: fix resource leaks in probe error paths
+Date: Thu,  3 Sep 2026 00:43:13 +0800
+Message-ID: <20260902164313.2901302-1-hanzhijian1991@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -84,34 +87,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Stefano Radaelli <stefano.r@variscite.com>
+imx_pcie_probe() leaks both pwrctrl devices and power domains on failure:
 
-LDO5 powers the USDHC2 I/O rail on DART-MX8M-PLUS.
-Without a regulator consumer, the kernel disables LDO5 during late init,
-which removes the SD card and causes filesystem I/O errors.
+- imx_pcie_attach_pd() attaches the "pcie" and "pcie_phy" power domains
+  and adds device links to them, but nothing detaches the domains on
+  probe failure or deferral, so they leak.
 
-Reference LDO5 as the Sonata USDHC2 VQMMC supply, so the regulator
-remains enabled while the SD interface is active.
+- A failure of devm_pm_runtime_set_active_enabled() returns directly
+  without destroying the pwrctrl devices.
 
-Co-developed-by: Luan Rafael Carneiro <luan.r@variscite.com>
-Signed-off-by: Luan Rafael Carneiro <luan.r@variscite.com>
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+- A partial failure inside imx_pcie_attach_pd() leaks the power domains
+  that were already attached.
+
+Add imx_pcie_detach_pd() to detach the power domains in reverse order of
+acquisition and register it with devm_add_action_or_reset() so the power
+domains are released automatically on probe failure.  Add
+DL_FLAG_AUTOREMOVE_CONSUMER to the device links so the driver core
+removes them automatically when probe fails, instead of tracking and
+deleting them manually.
+
+Reported-by: sashiko-bot@kernel.org
+Link: https://lore.kernel.org/all/20260822013640.182C01F000E9@smtp.kernel.org/
+Fixes: 2c5768344f88 ("PCI: imx6: Move pci_pwrctrl_create_devices() to imx_pcie_probe()")
+Signed-off-by: Zhijian Han <hanzhijian1991@gmail.com>
 ---
- arch/arm64/boot/dts/freescale/imx8mp-var-dart-sonata.dts | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v5:
+- Register imx_pcie_detach_pd() with devm_add_action_or_reset() instead
+  of calling it manually on the error paths
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-var-dart-sonata.dts b/arch/arm64/boot/dts/freescale/imx8mp-var-dart-sonata.dts
-index 983d67a0c1de..7f78026e70ff 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-var-dart-sonata.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-var-dart-sonata.dts
-@@ -511,6 +511,7 @@ &usdhc2 {
- 	pinctrl-2 = <&pinctrl_usdhc2_200mhz>, <&pinctrl_usdhc2_gpio>;
- 	cd-gpios = <&gpio2 12 GPIO_ACTIVE_LOW>;
- 	vmmc-supply = <&reg_usdhc2_vmmc>;
-+	vqmmc-supply = <&ldo5>;
- 	bus-width = <4>;
- 	status = "okay";
- };
--- 
-2.47.3
+Changes in v4:
+- Use DL_FLAG_AUTOREMOVE_CONSUMER so the driver core removes the device
+  links automatically, instead of tracking and deleting them manually
+- Add a Fixes tag
 
+ drivers/pci/controller/dwc/pci-imx6.c | 41 ++++++++++++++++++++++-----
+ 1 file changed, 34 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
+index 39790e66b98d..ec8339e03d58 100644
+--- a/drivers/pci/controller/dwc/pci-imx6.c
++++ b/drivers/pci/controller/dwc/pci-imx6.c
+@@ -639,6 +639,23 @@ static int imx6q_pcie_abort_handler(unsigned long addr,
+ }
+ #endif
+ 
++static void imx_pcie_detach_pd(struct imx_pcie *imx_pcie)
++{
++	if (!IS_ERR_OR_NULL(imx_pcie->pd_pcie_phy)) {
++		dev_pm_domain_detach(imx_pcie->pd_pcie_phy, true);
++		imx_pcie->pd_pcie_phy = NULL;
++	}
++	if (!IS_ERR_OR_NULL(imx_pcie->pd_pcie)) {
++		dev_pm_domain_detach(imx_pcie->pd_pcie, true);
++		imx_pcie->pd_pcie = NULL;
++	}
++}
++
++static void imx_pcie_detach_pd_action(void *data)
++{
++	imx_pcie_detach_pd(data);
++}
++
+ static int imx_pcie_attach_pd(struct device *dev)
+ {
+ 	struct imx_pcie *imx_pcie = dev_get_drvdata(dev);
+@@ -655,24 +672,30 @@ static int imx_pcie_attach_pd(struct device *dev)
+ 	if (!imx_pcie->pd_pcie)
+ 		return 0;
+ 	link = device_link_add(dev, imx_pcie->pd_pcie,
+-			DL_FLAG_STATELESS |
+ 			DL_FLAG_PM_RUNTIME |
+-			DL_FLAG_RPM_ACTIVE);
++			DL_FLAG_RPM_ACTIVE |
++			DL_FLAG_AUTOREMOVE_CONSUMER);
+ 	if (!link) {
+ 		dev_err(dev, "Failed to add device_link to pcie pd\n");
++		imx_pcie_detach_pd(imx_pcie);
+ 		return -EINVAL;
+ 	}
+ 
+ 	imx_pcie->pd_pcie_phy = dev_pm_domain_attach_by_name(dev, "pcie_phy");
+-	if (IS_ERR(imx_pcie->pd_pcie_phy))
+-		return PTR_ERR(imx_pcie->pd_pcie_phy);
++	if (IS_ERR(imx_pcie->pd_pcie_phy)) {
++		int ret = PTR_ERR(imx_pcie->pd_pcie_phy);
++
++		imx_pcie_detach_pd(imx_pcie);
++		return ret;
++	}
+ 
+ 	link = device_link_add(dev, imx_pcie->pd_pcie_phy,
+-			DL_FLAG_STATELESS |
+ 			DL_FLAG_PM_RUNTIME |
+-			DL_FLAG_RPM_ACTIVE);
++			DL_FLAG_RPM_ACTIVE |
++			DL_FLAG_AUTOREMOVE_CONSUMER);
+ 	if (!link) {
+ 		dev_err(dev, "Failed to add device_link to pcie_phy pd\n");
++		imx_pcie_detach_pd(imx_pcie);
+ 		return -EINVAL;
+ 	}
+ 
+@@ -1955,6 +1978,10 @@ static int imx_pcie_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
++	ret = devm_add_action_or_reset(dev, imx_pcie_detach_pd_action, imx_pcie);
++	if (ret)
++		return ret;
++
+ 	ret = pci_pwrctrl_create_devices(dev);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "failed to create pwrctrl devices\n");
+@@ -1975,7 +2002,7 @@ static int imx_pcie_probe(struct platform_device *pdev)
+ 			pm_runtime_no_callbacks(dev);
+ 			ret = devm_pm_runtime_set_active_enabled(dev);
+ 			if (ret < 0)
+-				return ret;
++				goto err_pwrctrl_destroy;
+ 		}
+ 
+ 		if (imx_check_flag(imx_pcie, IMX_PCIE_FLAG_SKIP_L23_READY))
