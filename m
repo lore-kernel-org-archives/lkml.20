@@ -1,202 +1,239 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5C244CCDE5
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:39:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFA514CCDE5
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:39:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788359970; cv=none; b=PhXJrfb/Oy9okJFRrZ5JwHBW0TG/QhzsEPKuNNFNxieZ/ijOevYHCI3NiYKOVsNqFkabLc1CZ8TrzTVrcWfnMR1lmzpSRcLe8Vz2dlfOyUbcpHLFcJSXaTjTeUJAMHwkqbuTnG0mfhuv0YQsv8uYJGaQxndFENWhCLDR1xdQ7aY=
+	t=1788359982; cv=none; b=BzUHOcFDn2E0SwgqNFAyZbkRR8IjMWDUtnAm/2vmjDEVZ/7cwY5YKvNsgalRes9jZetgjwbAnondSpQbuUvYR7hRUONaQ8AI9uD11YifeNUJbp2p1cLas0HCUIJEOmnfLcMtQOWQcOIE2qB5iNKtj0eFUzX/bkT7pNt2ipS9CKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788359970; c=relaxed/simple;
-	bh=V4z6pzEm4WdOtOaVMMD8VExZjegi74wTKedBZUUwy+k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N1Gvn8M7JF9BFm3NqgL+BwIwZ8cI26nrxAd8S+p2TJyvm8nUJB4sjoCQYxyTZWXaPe6nPj0JQjT0L9aYR+uWEcHmXCDcK5znnD5dMzTKecD8emyHTDxS58+XRRYyz0Y0a3B6Ad4hm2ClsqBvi9fdZ8lReucQKTqX7qbK21sWhuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LdiKrmlD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VFCZ8pTU; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788359982; c=relaxed/simple;
+	bh=jBq5Px3lxWVUuz3qdC9+mTZLglquEoJ9xadtr2+LjZQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iYU9+7dY4CYGOxOfmhRCXf3aCeak/ePehakH2fwXXO5I463qU84sBcXOyAr1zKp19dQ/TxWjgoFUyVI3yYy5EK486fdHr8GRHz/99MXV0Xwy7EOKha9rC256Mo1J3a3UPvzSv+5PfpC6fC3PVD5cx5DXSGVfVQUYRR2WQpAftlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu; spf=pass smtp.mailfrom=cs.unc.edu; dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b=CCAvDTkR; arc=none smtp.client-ip=209.85.160.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cs.unc.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cs.unc.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LdiKrmlD";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VFCZ8pTU"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682CR8Wm1549926
-	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 14:39:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=pvJaW1PmY06p/riBfvSZ/r0i
-	tt6WPTapRiIe1XOVAS8=; b=LdiKrmlD6esXbaH36R6WqNdNETL5ptVqj6QkLncO
-	RSx71t9J1UZipQHpCDo9FcLoQGSJ8u7KY2VvetMLVd7EcpW8bgAYwKDRcQTS5B/c
-	Yw+a2Na6mFScGJonka7exW6cCNlzp5SoG+gv7JTM3jDWX9NPguKBykkekdy+euxG
-	7mtCSo6Gs+O/AVE8A202KnKzXkWIYOk8mdMrqp+ldX7eh2600iypiOkdWpwcaSRt
-	O5uwO5+aM6FSbBGjLFmpJ+7SV1Vjmjmkgv+AtAjY0io7bvBYZK4yYljpub0d0z7K
-	87Eg/iUrjTuiZi42Ww0guB5EVfXDf0ucsVnnbOtoAmPtVw==
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gej2c8y0f-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 14:39:28 +0000 (GMT)
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7f4f9788909so19034a34.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:39:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cs.unc.edu header.i=@cs.unc.edu header.b="CCAvDTkR"
+Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-52d8748cde5so10360021cf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:39:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788359967; x=1788964767; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pvJaW1PmY06p/riBfvSZ/r0itt6WPTapRiIe1XOVAS8=;
-        b=VFCZ8pTUE0kqNRLuyePekurDzGw4hMGBMPZMMwmwsVCXA5PSfkZ7yVfnLJhm0YJi+P
-         Ksv5Akjz14VoIl6IdYEhuE82J+ST7oV6f5EzOhATJzCMYLFLtIp6UIQGQ6RgBKz/FsLX
-         Qj4lcJp4JdbHF2IizIemFNhith15U+CwY4/zdpfYhdtknD+Hd/dSlvPavjj1Nx0zLtm0
-         3qhWgUCw8qHYCyF3w0W5LITefnCmsBfHTAHmY/Q2uGcIsUkul3iARVOcg36V57vGc8po
-         yKwS/gdbAuFm0SWxjry92ZUPND9uMBGjCRz3qNqORE62bz9eK3qneygn3rwClcD3ZRM3
-         Q5/Q==
+        d=cs.unc.edu; s=google; t=1788359979; x=1788964779; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=0fr38LIz2S8Bi8HtZCPkWVnH8lehFnm0tX13ZRKuvVM=;
+        b=CCAvDTkR48raJzgevBU93aWHtOLk7r/TFX6HjjLPYH8ek9hyKtimLsDfwmKMn3/2Yg
+         1MFecsSLlOdUrT2aNHBng67+k1jCeK32aib5MNk1eD47/i8U6w5m8+Z/XMgW4E/NBTDc
+         U3relaU8e2d9wOehn3X71IG2tgL7N869937Qa7kToqVkT0D3YnFhM0A+ey7gw65O3wjc
+         fFW5QyRO1C9xgvfOlAGK7Xj4xNo0b5vLxZOecdaMOVVsc7xsOVoKiqHyWAjp5/qiwIRL
+         L6Ict55ZoczBTHe6bMP1Jx9klQYsY2bshzi+iRVepD8i2pZKtTId45MITXwYKUYwrnyd
+         5boA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788359967; x=1788964767;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pvJaW1PmY06p/riBfvSZ/r0itt6WPTapRiIe1XOVAS8=;
-        b=YPkyg6VdzXK45hcOX5YWzH5zWCKiYgNVk1rrKcbltz4OMqHFLnusxK5ftbgPfmRpZP
-         RQii3Z3mCr6hiP5ADjAw0DlpF9wQfjWtlYUVIgGlJmbEdTYszV7XllH/lHU4e9aTZTo/
-         U8us3s2J0hSXMAfyirn2CIwtlJHVW1Ah+P2WYRP6xcU66o4K0PW35h7fSQOG0J+lI1PV
-         1SCzVM7GVRnyawCWPd4EqdHOZvyYPWk/AyW4LOLeG8noHQSI04dPljpN7VpOQSGSxdMx
-         dsY6PPqo2IAc6TK1mniC5iP8mYdiobI/CdOdvtJXHj+GvEXIfxN8ZaofbyRVODnHBvE5
-         Ro9g==
-X-Forwarded-Encrypted: i=1; AHgh+RofxqinUp+CXHD7zUzd6YCjgRk6+bmb9jBK+aWRMy64vvq92RorNzzQfFVCXIZgAVcYNkdlOkALld9eD2k=@vger.kernel.org
-X-Gm-Message-State: AFuF++n/Fi5wMoMzkfgYfW5dNLzb4jVt2orBq+plMtDVsW0I1JXdTj5V
-	xeG6T0dsYQ7F6wWPHe8Y3GUDubvk2LTd0by9gozoeaEYyo3sws+Krn9TqHMi18rDHbWdd+jMS/9
-	b/8BgxQ/Frd+pdzbwe1t25c56MOTAJ7Ibe8h8Np41Y2kyT28U0qcEbfc7GW/9J79mROo=
-X-Gm-Gg: AR+sD11lsc+dxw8Mrs+WD8EMAIyCZjcoAYrLgOuQS6HLnu5zowmWuLSLFwZw1O9kOuj
-	FhWfUU3RLGxIugAVMQAEhWF2RDKNfX7BRiepBn1i2T0CUzsLEMVZUcG5qf71Vqa//vqqMxWzFJu
-	iAHbNH6w5Flm1G0xrh7bi62I9AAikUnPgLwJVOSB1HCsACwmMhgEJChkyoB7f3u8ftR/QP3IvlN
-	I0Nmzfyj6iw0Wpi85iaKaJ4nXBaD/t3CFFb36BWv1mvCA7x0L2GRk98v5OANQpFOrHoGwsuZVPs
-	tjhy6f50UrzcSpDorzYaoXalI1Z0GrbwmEcrTwsGHe/HOGiHSrT7K85DT0BdhDQWhazHTjICKJ6
-	uaWPqCpoWVXNnoVsCtCG/zxbn/Ee9hr7v6ct5JZAePpqYHOo5CD11VBQpQBcbZvbSww6iTgI7z3
-	ZYO64Jbp+k1lJs/Y7bKlPV
-X-Received: by 2002:a05:6830:6d50:b0:7f6:6618:e558 with SMTP id 46e09a7af769-7f7812824a8mr2753210a34.2.1788359967306;
-        Wed, 02 Sep 2026 07:39:27 -0700 (PDT)
-X-Received: by 2002:a05:6830:6d50:b0:7f6:6618:e558 with SMTP id 46e09a7af769-7f7812824a8mr2753170a34.2.1788359966746;
-        Wed, 02 Sep 2026 07:39:26 -0700 (PDT)
-Received: from hu-vishsain-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f74caadea3sm2318459a34.5.2026.09.02.07.39.19
+        d=1e100.net; s=20251104; t=1788359979; x=1788964779;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0fr38LIz2S8Bi8HtZCPkWVnH8lehFnm0tX13ZRKuvVM=;
+        b=qLjyKbTWdMRVr3JfDDkcWEcxsBrQdEQNT4jCDUQzdJSstVbpRwpsJrnRWJqGLyM2JP
+         dkbFrNhIwWQzl+CZq1xTTaGlDNolOrs+N3YLVhsCF09yBLCDTh3XcKdh4HLcu4Fh+Sxu
+         JxbYC5+cFzOiavP9rANutYJtVBLUUFO7/guw3SM8o1P/CcMkfgqggrBcPddYBcsNem94
+         se1jgpFgYn6GR/f9nKvFRmkdWCosNJtWjpRRIaf7ImiWYF78wVhUyspOd1VGzygukq/T
+         Es5hr4HTEOBmLh4bsaFe2lXgS9r6YsM/tJ0CDGburVgV99sAYzIKSrr9BHUZ8r4fyP4x
+         Og1Q==
+X-Gm-Message-State: AFuF++nCn9EZ7VfXkwuowp5nJsqJSkEp/1ffsbnRnq2rStPczFY/WmwZ
+	MjdRasBPnbeUb2yqw6cOo9bPHPG2nWJsdqGuRD5T2JywGkY2xEQggaZkxognP0SkR3vR/1M0B37
+	FVMnfbg==
+X-Gm-Gg: AR+sD12KvJCWne70g5qmtTt1tw24SgxC/efY3SVOGHm4qHU4LBPoNEr40+Nht38m5QR
+	a9rf14G/Ccd/OnZh+yk+M+TfFRG3yBFUOkkYiMCcYcHQsjZz8YjRBTHH/wRT8E3P7aSmkJj2ZYL
+	fhNhuC8iqxgiTtI0d9601P89B0i93oeQBfHzKRea6MR0Q29SG+DOdbqDh6/MRnIiQCUrqGwoVPP
+	dfSgvTnD5TXuM5O5BW3hLC/4ZdQbtCnthZgv0RkLpw0QILV+KdpmaI145xG8iIzkg5SoDH5DH1j
+	4eF71P5FJKwHp9UCLi2yXO3JVffeGpsFL/59YSiSOQM7/cBCTxoyDyD54EVKflWKe4A+aCwKOb6
+	ZeeT0l/C9fk3Urq21S9rzPa6mzEZSzrX41GzXCD4uF2bdxHinlDM0zzoIFq1E3xtv1ce6+d/1vk
+	CYuycSNQyGLBOZaUCLHtbJprBBgjL2H7B+IJMxCCKVnstYiX7tsvLQHIP2q//68XqzDK3Ur3fyP
+	5HTxHhj/iA8uJVelPjtwg==
+X-Received: by 2002:ac8:5fca:0:b0:530:2146:81c with SMTP id d75a77b69052e-53036c01cd3mr53539651cf.12.1788359979266;
+        Wed, 02 Sep 2026 07:39:39 -0700 (PDT)
+Received: from cobra01.cs.unc.edu (cobra01.cs.unc.edu. [152.2.130.143])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53032ff0e44sm20252211cf.5.2026.09.02.07.39.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 07:39:26 -0700 (PDT)
-Date: Wed, 2 Sep 2026 20:09:17 +0530
-From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-        Thierry Reding <thierry.reding@gmail.com>,
-        Liu Ying <victor.liu@nxp.com>, Sam Ravnborg <sam@ravnborg.org>,
-        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com
-Subject: Re: [PATCH v3 2/2] drm/panel: simple: Add BOE DV215FHM-R01 panel
-Message-ID: <apg1FV3HtU0c+hVF@hu-vishsain-blr.qualcomm.com>
-References: <20260814-b4-lvds-panel-doc-v3-0-1ad152a4d3ec@oss.qualcomm.com>
- <20260814-b4-lvds-panel-doc-v3-2-1ad152a4d3ec@oss.qualcomm.com>
- <1021133b-454a-4f49-965b-a71e065e556f@linaro.org>
+        Wed, 02 Sep 2026 07:39:38 -0700 (PDT)
+From: hengyul@cs.unc.edu
+To: hirofumi@mail.parknet.co.jp
+Cc: linux-kernel@vger.kernel.org
+Subject: [PATCH v2] fat: calculate data area start without overflow
+Date: Wed,  2 Sep 2026 10:38:58 -0400
+Message-ID: <20260902143858.4092293-1-hengyul@cs.unc.edu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1021133b-454a-4f49-965b-a71e065e556f@linaro.org>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDEyOSBTYWx0ZWRfX2rM47deM5jFL
- lVBWTGm2KBgPnOojS1LtlmQGxNpb0GHdwryeo6oHh/dFLpDu4vvqp5jLcg4lgcIDB9q+luDLGHd
- GeBZOQIS9cKYuDry0W0igCPlcKVMGng=
-X-Authority-Analysis: v=2.4 cv=G+ss1dk5 c=1 sm=1 tr=0 ts=6a983520 cx=c_pps
- a=OI0sxtj7PyCX9F1bxD/puw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=F1Ix_FWfVmdgE0jxJrQA:9 a=CjuIK1q_8ugA:10
- a=Z1Yy7GAxqfX1iEi80vsk:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: FM1ZnZ-3BPNASXUbF1o-YiqO2IXgNvs_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDEyOSBTYWx0ZWRfX13KcRZ6wVzU2
- ip1MqSRxMSY4m9I0dAT06lF/Hbc1OKmgkiHdv4YBUl4ZRgx57zUVkWZO+YKyJHSQTxI+niktRvf
- zSojQtb7pWvdX7GKV3m9+TeDsS1174gYxHnqeHrPhQiyzoZbda7YPUXzNScQ79Mc7byV0US4c2w
- njebFVoEOt4MlCtQMEwuzlPOdtFFK9iZMAGvVUn7OABQGAZReiRVvyunU+prh1pNv+59LxIpe+W
- frkw2JIolBlhU59XJ9pjhCibRNMlRHgSWld5spTKtQrno+feBMPlMknEW++FDd4w57nQnAJ4KRD
- VaaQij4MWDvjt7ZMyOghj02cw5ua/IoburKrk6lJx6k+23FfTZ4yyrS/JP9R1y58OaKIVV7Gqjw
- 0nxS04+ym8t3ZrdNaH+jIoMoVoLscxAT2w38PlwJrnIKPYilv7izdpWXZMsHOni3s0jxoAe3Hn3
- RDiw9wMer1s8qOiVMqA==
-X-Proofpoint-ORIG-GUID: FM1ZnZ-3BPNASXUbF1o-YiqO2IXgNvs_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_03,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 malwarescore=0 suspectscore=0 bulkscore=0
- impostorscore=0 lowpriorityscore=0 phishscore=0 adultscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020129
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 26, 2026 at 12:01:17PM +0200, Neil Armstrong wrote:
-> On 8/14/26 07:25, Vishnu Saini wrote:
-> > Add the BOE DV215FHM-R01 21.5" FHD (1920x1080) dual-channel
-> > LVDS panel.
-> > 
-> > Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-> > ---
-> >   drivers/gpu/drm/panel/panel-simple.c | 28 ++++++++++++++++++++++++++++
-> >   1 file changed, 28 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
-> > index 5c169fdf265c..d95f842c8980 100644
-> > --- a/drivers/gpu/drm/panel/panel-simple.c
-> > +++ b/drivers/gpu/drm/panel/panel-simple.c
-> > @@ -1563,6 +1563,31 @@ static const struct panel_desc boe_bp101wx1_100 = {
-> >   	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-> >   };
-> > +static const struct display_timing boe_dv215fhm_r01_timing = {
-> > +	.pixelclock = { 148500000, 148500000, 148500000 },
-> > +	.hactive = { 1920, 1920, 1920 },
-> > +	.hfront_porch = { 88, 88, 88 },
-> > +	.hback_porch = { 148, 148, 148 },
-> > +	.hsync_len = { 44, 44, 44 },
-> > +	.vactive = { 1080, 1080, 1080 },
-> > +	.vfront_porch = { 4, 4, 4 },
-> > +	.vback_porch = { 36, 36, 36 },
-> > +	.vsync_len = { 5, 5, 5 },
-> > +	.flags = DISPLAY_FLAGS_DE_HIGH,
-> > +};
-> > +
-> > +static const struct panel_desc boe_dv215fhm_r01 = {
-> > +	.timings = &boe_dv215fhm_r01_timing,
-> > +	.num_timings = 1,
-> > +	.bpc = 8,
-> > +	.size = {
-> > +		.width = 476,
-> > +		.height = 268,
-> > +	},
-> > +	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
-> > +	.connector_type = DRM_MODE_CONNECTOR_LVDS,
-> > +};
-> > +
-> >   static const struct display_timing boe_ev121wxm_n10_1850_timing = {
-> >   	.pixelclock = { 69922000, 71000000, 72293000 },
-> >   	.hactive = { 1280, 1280, 1280 },
-> > @@ -5726,6 +5751,9 @@ static const struct of_device_id platform_of_match[] = {
-> >   	}, {
-> >   		.compatible = "boe,bp101wx1-100",
-> >   		.data = &boe_bp101wx1_100,
-> > +	}, {
-> > +		.compatible = "boe,dv215fhm-r01",
-> > +		.data = &boe_dv215fhm_r01,
-> >   	}, {
-> >   		.compatible = "boe,ev121wxm-n10-1850",
-> >   		.data = &boe_ev121wxm_n10_1850,
-> > 
-> 
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+From: Hengyu Liang <hengyul@cs.unc.edu>
 
-Thank you, will rebase it and submit next revision. 
-> Thanks,
-> Neil
+On 32-bit architectures, sbi->fat_length, sbi->dir_start and
+sbi->data_start are unsigned long. The number of FATs is an 8-bit BPB
+field, while the FAT32 length is a 32-bit BPB field. Therefore, the
+calculation
+
+    sbi->fat_start + sbi->fats * sbi->fat_length
+
+can wrap before data_start is checked against total_sectors.
+
+For example, with fat_start=32, fats=2 and fat_length=0x80000001,
+the unwrapped data area start is 0x100000022 (4294967330), but the
+calculation wraps to 34 on i386. With total_sectors=36, the
+validation then incorrectly passes.
+
+The following script creates an image that demonstrates the problem:
+
+    python3 - <<'PY'
+    import struct
+
+    S = 512
+    b = bytearray(36 * S)
+
+    def p(off, fmt, value):
+        struct.pack_into(fmt, b, off, value)
+
+    # FAT32 BPB
+    b[0:3] = b'\xeb\x58\x90'
+    b[3:11] = b'MSWIN4.1'
+    p(11, '<H', 512)
+    b[13] = 1
+    p(14, '<H', 32)             # reserved sectors
+    b[16] = 2                   # number of FATs
+    p(17, '<H', 0)
+    p(19, '<H', 0)
+    b[21] = 0xf8
+    p(22, '<H', 0)
+    p(24, '<H', 1)
+    p(26, '<H', 1)
+    p(32, '<I', 36)             # total sectors
+    p(36, '<I', 0x80000001)     # FAT32 length
+    p(44, '<I', 2)              # root cluster
+    p(48, '<H', 1)              # FSINFO sector
+    b[64] = 0x80
+    b[66] = 0x29
+    p(67, '<I', 0x12345678)
+    b[71:82] = b'OVERFLOW   '
+    b[82:90] = b'FAT32   '
+    b[510:512] = b'\x55\xaa'
+
+    # FSINFO
+    p(S, '<I', 0x41615252)
+    p(S + 484, '<I', 0x61417272)
+    p(S + 488, '<I', 0xffffffff)
+    p(S + 492, '<I', 0xffffffff)
+
+    # Wrapped FAT starts at sector 32
+    fat = 32 * S
+    p(fat + 8, '<I', 0x0fffffff)   # FAT[2]
+    p(fat + 12, '<I', 0x0fffffff)  # FAT[3]
+
+    # Wrapped data_start == 34
+    root = 34 * S
+    b[root:root + 11] = b'ESCAPE  TXT'
+    b[root + 11] = 0x20
+    p(root + 26, '<H', 3)
+    p(root + 28, '<I', 4)
+    b[35 * S:35 * S + 4] = b'OOB!'
+
+    open('fat-overflow.img', 'wb').write(b)
+    PY
+
+Attach fat-overflow.img as /dev/sdb and run:
+
+    mount -t vfat -o ro /dev/sdb /mnt
+    cat /mnt/ESCAPE.TXT
+
+On an unpatched i386 kernel, the mount succeeds and reading the file
+returns:
+
+    OOB!
+
+On an x86-64 kernel and on a patched i386 kernel, mounting is rejected
+with:
+
+    mount: mounting /dev/sdb on /mnt failed: Invalid argument
+
+Calculate dir_start and data_start in u32 using
+check_mul_overflow() and check_add_overflow(). Since total_sectors is
+also a u32 value, any result that overflows u32 cannot describe a valid
+volume. Reject such layouts before storing the values in the existing
+unsigned long fields. The existing total_sectors check handles values
+that fit in u32 but still lie beyond the volume.
+
+Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
+---
+Changes in v2:
+- Use u32 temporaries with check_*_overflow() instead of u64 arithmetic.
+- Check the FAT multiplication and both additions before using the layout.
+
+ fs/fat/inode.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
+
+diff --git a/fs/fat/inode.c b/fs/fat/inode.c
+index f775a004cae1..020138ce35a6 100644
+--- a/fs/fat/inode.c
++++ b/fs/fat/inode.c
+@@ -20,6 +20,7 @@
+ #include <linux/blkdev.h>
+ #include <linux/backing-dev.h>
+ #include <linux/unaligned.h>
++#include <linux/overflow.h>
+ #include <linux/random.h>
+ #include <linux/iversion.h>
+ #include <linux/fs_struct.h>
+@@ -1577,6 +1578,7 @@ int fat_fill_super(struct super_block *sb, struct fs_context *fc,
+ 	struct msdos_sb_info *sbi;
+ 	u16 logical_sector_size;
+ 	u32 total_sectors, total_clusters, fat_clusters, rootdir_sectors;
++	u32 dir_start, data_start;
+ 	long error;
+ 	char buf[50];
+ 	struct timespec64 ts;
+@@ -1752,7 +1754,6 @@ int fat_fill_super(struct super_block *sb, struct fs_context *fc,
+ 	sbi->dir_per_block = sb->s_blocksize / sizeof(struct msdos_dir_entry);
+ 	sbi->dir_per_block_bits = ffs(sbi->dir_per_block) - 1;
+ 
+-	sbi->dir_start = sbi->fat_start + sbi->fats * sbi->fat_length;
+ 	sbi->dir_entries = bpb.fat_dir_entries;
+ 	if (sbi->dir_entries & (sbi->dir_per_block - 1)) {
+ 		if (!silent)
+@@ -1763,20 +1764,27 @@ int fat_fill_super(struct super_block *sb, struct fs_context *fc,
+ 
+ 	rootdir_sectors = sbi->dir_entries
+ 		* sizeof(struct msdos_dir_entry) / sb->s_blocksize;
+-	sbi->data_start = sbi->dir_start + rootdir_sectors;
++	if (check_mul_overflow(sbi->fats, sbi->fat_length,
++			       &dir_start) ||
++	    check_add_overflow(sbi->fat_start, dir_start, &dir_start) ||
++	    check_add_overflow(dir_start, rootdir_sectors, &data_start))
++		goto out_invalid;
++
+ 	total_sectors = bpb.fat_sectors;
+ 	if (total_sectors == 0)
+ 		total_sectors = bpb.fat_total_sect;
+ 
+-	if (total_sectors < sbi->data_start) {
++	if (total_sectors < data_start) {
+ 		if (!silent)
+ 			fat_msg(sb, KERN_ERR,
+-				"data area starts beyond volume (%lu > %u)",
+-				sbi->data_start, total_sectors);
++				"data area starts beyond volume (%u > %u)",
++				data_start, total_sectors);
+ 		goto out_invalid;
+ 	}
+ 
+-	total_clusters = (total_sectors - sbi->data_start) / sbi->sec_per_clus;
++	sbi->dir_start = dir_start;
++	sbi->data_start = data_start;
++	total_clusters = (total_sectors - data_start) / sbi->sec_per_clus;
+ 
+ 	if (!is_fat32(sbi))
+ 		sbi->fat_bits = (total_clusters > MAX_FAT12) ? 16 : 12;
