@@ -1,104 +1,142 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DBAA4A0157
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:48:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788356904; cv=pass; b=feZ/D6Wsxt3rec95W4qt1HRtLfeEfculT9FBJK8wBxvh/JGPAYcA4Dnc/FkwDfk/+8CBxlrpUqTg0fzbYYztGsK5BQ8YP8rttwK6wfRyeRXG6h0jqv0PkWeqGmBsPEy6a3k/LYN6GwZCbn8UbU9z+Du0WdmfWdhvtaO0GHf5vtE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788356904; c=relaxed/simple;
-	bh=+42ZwAZfWz6EQJuENr4K5+WECumrM9FQdFwIi3wiFxg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kwiYWWJyiP8YHku4Q5xxSV/ixwe2qJR8ru4kEjyZIV9xsxqr6psr0dFnRV7d+cNWFqHG2gw8hLZ9pQMa/rz0BOqyUb2PQSrR6FySQ6efGPPAxG06ESW8m8g8pnneDpq1iLZ0YzXhAt3+00i9f3gtDvSJaYZyqJV/kIlDQvGFSxQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a6aASId8; arc=pass smtp.client-ip=209.85.214.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a6aASId8"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2d6d28aa26cso6673265ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 06:48:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788356902; cv=none;
-        d=google.com; s=arc-20260327;
-        b=caasPDncA1xD76UA2Ww+kIIO7rUM7etKRIhBkiQCpVPLlgy4/T6kr8oWUXimTO17Oh
-         JW++6kJZbMjE4hhgdUZ2+ctCfaD8UNBOjBdQkbYve3BHpLGObXZnAVX/8TPq7cuSz3cW
-         DbZj5yGEJFulI88yDN+6XdmR3HkCgZJ+Op+DmWAePB0C9jUQpb670KFIP3I0msLiYvef
-         2PMpkw8aau4YTomy1RILLNYuwE/uWqEjRZAkK5pZ7US3bGkoPpztq9ymcp97K+ffepWX
-         l+LjGwPxnpJDvg2ZCrL+vpPxxmYnKWSMxkllgfvBHb9TSsA8KIlqNIL5OrHNJVhHHwKZ
-         EbmQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=QypsYKIskc6MAKJkcpIiHDdNJyIbCg7f80xVvnLCTGA=;
-        fh=pi1IOfma1rZy8RsIkdZCDcsF6dSJVaYclG641wG++a8=;
-        b=jXxXdaGi55ZDqdnNofCHhWWjf/CoQJAa7VYmy8nOg8pwZjke8p3ZTHyftSXCGQP5Fa
-         TgdjDYv86KSf0rutgw2LBAE1jAaF4R16u7SUFLBVzXIrXN1wvFnATy75TrIgRzpjq7iI
-         UEO4L6MzDghy6LlxOI3GTum3pPaHCfV/r0FSLLKK7MmxM/BIOFWrPIz/YBop3B1u3jI/
-         eXdMSVClNCBwbTqo+AGtAsq8Sy4BxMKbh7Wi6UfMdAYAOJSFgHvRxPNQLjaZEMvp8toi
-         Px29pqEKsCvGdHeUU/Tw/FFZTfiIOcs/TTzpO2uoEBBaaaoiWebnuF1yXKlZFQX/H1vO
-         JxTw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788356902; x=1788961702; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QypsYKIskc6MAKJkcpIiHDdNJyIbCg7f80xVvnLCTGA=;
-        b=a6aASId8aqvB2+KRMe9pJjrQ1agwbAQBrhmdHSntWyd5JTqxTTNYDzlgUjY5siunFd
-         7n9XoZn8JNFq0VSqRTH777mdylreXiH0yTrdkqpMVT0zOWTd9BcW3xIgNd80pPy2/2qK
-         F7ME1aWdKHEPpEtpmeYStoS5yBW+1+WDfZivwgbSbUJNayEpEVe7xSCGCY4+XKuQFPag
-         SPns7fG0W9egC32WQVMhMN4/VSjgtXV2gPHeV7Uzigi1U4/1y435FWagnoJEjuM3bevo
-         e2OSOzggTEPLiCWKVBUJLRNTCWeeZYeOg3gOJqhNPIZKNQ+D/4omfyVU1MK1IK+clcc3
-         j97g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788356902; x=1788961702;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=QypsYKIskc6MAKJkcpIiHDdNJyIbCg7f80xVvnLCTGA=;
-        b=IZtHUvHJoAy+LooPYmSYp5qv6zPjudLOIZ88UsQFesnUUCmgQ6+B/5yfflPB4u6Za7
-         MU+qXKbu+38Z9c77np6dKK8t4gZliUYI8mxqpLgYJZG1Yunx7W8BEHVpH3Si7nD21TP/
-         EkUvJn9tRhNCfyQ5ABUuY+JpL75xyLdIgtW/dfQv9jgzdWWHTzA6bb1De+C8TNIsIWvt
-         COY4c3FpYs0zguraNuaxcndotRJXjXPUr/t+GhJRJzDz5UgYQU+fY0PdUS+AW87+vr2y
-         B5mFUaK6VlyxKgr7SP3LsjY6si9N/wNJodJui0Ecyx4Ev28y+sTCEEihduSj+ReU7WsK
-         fhoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzaP5eUyRbKwAIEQVEzdOvlZyfypykMtZTyCFAn+RIsnMaYkAsNGFBqONwSqNOCDpdQGVabjkW3iQlFIwk=@vger.kernel.org
-X-Gm-Message-State: AFuF++n09/tGbKwNi/dlBR60eSeS+WrBd+kyIRT1c/xZpbVx2mdEOcd7
-	k0T/8cB06jVpczmmuETnkiRJ/RVmkE5jC9Ffqm1NO2J+AEK+Tip53BZ9eXPvreWMAQTxDcrOnrm
-	pfeoRNa+yFZvvmcvDvUbsq8kEUNhIcOU=
-X-Gm-Gg: AYBFou3A5tG8+TyK0EsAPrG7ECy6RhbBa/cJr+bObBIPbYh7Vl4dHPGz4+fMkOQroUk
-	/JmEBxPsISdABYBb+JG2R/hd8Q6Wxxgg/FzmaCGy1F0wwLC3kqMFN4uUkberaqUJb9+DxGSsGpj
-	1fn7DTAHNZl97COYKdNPNGY1kCPZM+JtnjKWYAmh4VQRT/+cnQtdh+rfz+QhAqdu81mQa7walen
-	PK2IEYH9id4saRukXWBmtJcFVNOhqXG2UZaXF/meQaIDdFsMgfLMfnyZ2ne4V46+mIrlSb1J70D
-	8bro73pwHSktK7g9SimZ4CXkL62L2zBozC9KUfePasjFLEFnXbjdihRKkj9G
-X-Received: by 2002:a17:903:19ec:b0:2d6:e4ff:9cad with SMTP id
- d9443c01a7336-2daec5ab9c5mr78487095ad.3.1788356902265; Wed, 02 Sep 2026
- 06:48:22 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A215D2E88A4
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:48:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788356921; cv=none; b=EPgDh3hj8ez7YjBKtgUZE4K6CWSLu3hPdab3ihOtIY82r1isiNqwB/DxuKmPRODqce6rsSDRNNbRwAXZ9k/ZlPflP5Qg4/JAT2hVM9YsNXZbdJSe7FT2LohBbbSgKS1UQlWLmYhym+3BQ7fykRGONyCkihhZNbPm6qeuc2tduOQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788356921; c=relaxed/simple;
+	bh=87Z5OhzR6c8NOsJI5P6GJcp7NU6H5/Cmawvf4H5Lw3I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=l++lfuKUsWNA0l5YjwiVER7T/edJ/ZAMNy44EvZQQYESSGEY3iz6OvT0FuANw8/NQl4hwsvJusuOwaNN1L/k2p42xN7SuagbxzMBHzfpDwRQiBWdLSv9sJVz9YqIAzd/2m/t1gySw8AS3bfbDMGrk3lym+wzQr1uwro6NXCEU2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: fbc14782a6d411f19a56ed5b684f684d-20260902
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:d1a90793-1942-4e46-8b27-88fcda1c7dce,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:fdee754c57a0b882c07c64f0f407005e,BulkI
+	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|52,EDM
+	:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
+	,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: fbc14782a6d411f19a56ed5b684f684d-20260902
+X-User: liwanwu@kylinos.cn
+Received: from [10.42.12.206] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <liwanwu@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_128_GCM_SHA256 128/128)
+	with ESMTP id 1468981474; Wed, 02 Sep 2026 21:48:31 +0800
+Message-ID: <1d5f2636-a5e3-4b67-bbb9-12922fa0d804@kylinos.cn>
+Date: Wed, 2 Sep 2026 21:48:28 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902085414.549830-1-qinyuntan@linux.alibaba.com>
-In-Reply-To: <20260902085414.549830-1-qinyuntan@linux.alibaba.com>
-From: Yee Li <seven.yi.lee@gmail.com>
-Date: Wed, 2 Sep 2026 21:47:44 +0800
-X-Gm-Features: AcwNN1UhpA6oUFXyIwwyE7i3ckphOc8Hf2zTXfKohJhd0MCGqD6y-NygI40bV2I
-Message-ID: <CALX8JfSMTECqP4FY5T3WPBwF-+RPfdAnN9pZWO0s2E8OVOQMGw@mail.gmail.com>
-Subject: Re: [PATCH] iommufd/selftest: Return dmabuf fd from
- IOMMU_TEST_OP_DMABUF_GET again
-To: Qinyun Tan <qinyuntan@linux.alibaba.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	Xunlei Pang <xlpang@linux.alibaba.com>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] sched_ext: Reject NMI calls to lock-taking kfuncs
+To: Tejun Heo <tj@kernel.org>
+Cc: Andrea Righi <arighi@nvidia.com>, David Vernet <void@manifault.com>,
+ Changwoo Min <changwoo@igalia.com>, Emil Tsalapatis <emil@etsalapatis.com>,
+ sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <3a9bfba228c46c69408fe1ef392e60f0@kernel.org>
+ <20260902023124.1422942-1-liwanwu@kylinos.cn>
+ <49faaba5039a29f38ab6f254da6fb8dc@kernel.org>
+Content-Language: en-US
+From: liwanwu <liwanwu@kylinos.cn>
+In-Reply-To: <49faaba5039a29f38ab6f254da6fb8dc@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-> failure, but the applied version also changed the success path to
-> return 0, so userspace no longer receives the fd.  Note the patch as
-> posted on the list returned rc here; the change to return 0 appeared
-> when it was applied:
+Hi Tejun,
 
-Thanks for catching it.
+Thanks for the review. v3 folds in your three points (single
+scx_kf_allowed_ctx() macro with no wrapper, one reject in
+bpf_iter_scx_dsq_new(), unlikely(!sch) in scx_bpf_destroy_dsq()).
+
+Continuing the audit that the sashiko bot kicked off, I swept every
+kfunc exposed to BPF_PROG_TYPE_TRACING through the any / idle / cid
+context-filter sets. I found a second class of problems beyond the
+lock-taking set already covered. The first subclass I plan to fold
+into v4 and want to make sure you agree with the scope.
+
+Three "any"-category kfuncs read scx_locked_rq() on their success path
+and treat a non-NULL return as "the rq lock is already held by me",
+which a false positive under NMI turns into either a data race or a
+wrong result:
+
+  - scx_bpf_task_set_slice() (the sashiko bot's finding) races its
+    direct p->scx.slice write with update_curr_scx()'s RMW of the same
+    field.
+  - scx_bpf_dsq_nr_queued() resolves %SCX_DSQ_LOCAL to
+    (scx_locked_rq() ?: this_rq()) and can therefore report the wrong
+    rq's length.
+  - scx_bpf_locked_rq() hands the interrupted context's rq to the BPF
+    program, which may then operate on it as if the lock were owned.
+
+A second, different subclass I have NOT folded in, and would like your
+guidance on.
+
+scx_bpf_pick_idle_cpu_node() and scx_bpf_pick_any_cpu_node() pass the
+caller's @node and @flags straight through to scx_pick_idle_cpu(). When
+@node != NUMA_NO_NODE and SCX_PICK_IDLE_IN_NODE is not set and no idle
+CPU is found in the starting node, the search falls through to
+pick_idle_cpu_from_online_nodes() (kernel/sched/ext/idle.c:151), which
+writes the per-CPU nodemask per_cpu_unvisited (idle.c:146) under only
+preempt_disable(). preempt_disable() does not mask NMIs, so an NMI that
+lands on a CPU whose interrupted context is mid-way through that loop
+clobbers the scratch nodemask the interrupted context is still
+iterating. Same "irq/preempt-only per-CPU state is not NMI-safe" premise
+behind scx_kick_cpu()'s check, just a scratch buffer rather than a
+lock or a list.
+
+Note this is a wrong-result / lost-scratch race for the interrupted
+struct_ops context, not a hard lockup, and it needs CONFIG_NUMA plus
+per-node idle tracking to be reachable. The non-node
+scx_bpf_pick_idle_cpu()/pick_any_cpu() force NUMA_NO_NODE and never
+reach the scratch, and every cid-set kfunc is an RCU-read lookup, so the
+hazard is confined to those two node-variants.
+
+Should these two issue classes be folded into this series or are they 
+out of scope for now? Looking forward to your suggestion.
+
+Thanks,
+Wanwu
+
+在 2026/9/2 14:44, Tejun Heo 写道:
+> Hello,
+> 
+> On Wed, Sep 02, 2026 at 10:31:24AM +0800, Wanwu Li wrote:
+>> -	if (sch)
+>> -		destroy_dsq(sch, dsq_id);
+>> +	if (!sch)
+>> +		return;
+> 
+> unlikely(!sch) like the other kfuncs.
+> 
+>> @@ -9756,6 +9755,9 @@ __bpf_kfunc struct task_struct *bpf_iter_scx_dsq_next(struct bpf_iter_scx_dsq *i
+>>   	if (!kit->dsq)
+>>   		return NULL;
+>>
+>> +	if (!scx_kf_allowed_ctx(kit->dsq->sched))
+>> +		return NULL;
+> 
+> new(), next() and destroy() always run in the same context, so reject in
+> bpf_iter_scx_dsq_new() and drop the checks from next() and destroy(). With
+> kit->dsq left NULL, both are no-ops.
+> 
+>> +static __always_inline bool __scx_kf_allowed_ctx(struct scx_sched *sch,
+>> +						 const char *who)
+> 
+> No need to wrap.
+> 
+> Thanks.
+> 
