@@ -1,154 +1,97 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9054747CA8A
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:11:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F29C93AAF62;
+	Wed,  2 Sep 2026 12:11:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788351068; cv=none; b=pVNR0825xFow8SLK8CrdgCR1vV/NI/PeoQA6HpwfuqZzj8Gfvl9G1B4mwFiMZPWdWoetlFVC7mUox8yrIoJ7QGhZcqykkifUVIvCGIJ2uuLsouDsFM1g8BCKAgTAMQbHrjcRcgRUCMiOq+UM2i2LP6OCPcSKEcGDN2PeI5Ol1ow=
+	t=1788351092; cv=none; b=qWVuA9gnl0KnB6QaiSGVjUiUeKiT3NedUriMMb9hYW/XiORfNGAX22EF8RE+Cv7oCh7SOq/zo0DDJXzgcpkv1GCDC9nTYj85YGxfUjpOA+KCDuaDdTE23hcA7dqLxYRMvtu8/W4nsBbpncqsZl0xbZbHGesABQOr9Dj+R9yQV2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788351068; c=relaxed/simple;
-	bh=YMK5LvesX9XitnPi7os9CksoixaX/8C7fM7tV9Cgc3I=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Rf2SyNnzkz5fB9fAVcJP0KwMK/v1+O6iply4okhKu6d20pfQVASGpzYasSwRGbdkSeFlrPAL/7Bbtk/j1Ue7nuQFvMlXUqMjI/fcmLm3Tmogfg+iROn/g05xFwQFcxbhWUI13zQEpExcyh73j7oZnT+65w8dJy2eJxSNtqXQPB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Ly7LI3HW; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788351092; c=relaxed/simple;
+	bh=XMbIoouHhEHobeMNjktuEmq7HBDFT54hB5VH4UV8c18=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NfKpXnOeTcD80WJ+jQqngWmdoQ1U8oLOx+obrYbnU6EhcGwfjTpm/RGygP3gnT//7s98JYLuCp8mi8MZIJLFNQ45ylzdnt9KUZ8HxaNN0Lm1wPm1PQGgEVeIOj+zKYfYjFO8/DgOPGEYDV5EXbHxkwkGtXbMkRIfDF40mhFKMFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J5gAWdxS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Ly7LI3HW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788351060;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=zanSzEiwTIQarru0lltqSRWr2TKEL/j5OJqjRgaFpJA=;
-	b=Ly7LI3HWAzH98n29gPDb+921h+S5I9gCDQad2c7zPQL9AbULGgWH1EEMkBImK9YF0g6zY5
-	62/nBUftz/b46Hp/B0xF7RpCKlQUuM1rejXUDGyh0P3RpQEkYq2w8Qt3N/wC28SZ2MczXI
-	ag3gJlLbQjfa1YL2tp8uPL1peyjYzJs=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-660-2dqzDj8YNfqSjBxsi3hNOw-1; Wed,
- 02 Sept 2026 08:10:57 -0400
-X-MC-Unique: 2dqzDj8YNfqSjBxsi3hNOw-1
-X-Mimecast-MFC-AGG-ID: 2dqzDj8YNfqSjBxsi3hNOw_1788351056
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 48E8D19344F7;
-	Wed,  2 Sep 2026 12:10:55 +0000 (UTC)
-Received: from warthog.com (unknown [10.44.32.158])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1428D3000223;
-	Wed,  2 Sep 2026 12:10:51 +0000 (UTC)
-From: David Howells <dhowells@redhat.com>
-To: Christian Brauner <christian@brauner.io>
-Cc: David Howells <dhowells@redhat.com>,
-	Marc Dionne <marc.dionne@auristor.com>,
-	linux-afs@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Qi Zhang <marsy12010123@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 4/4] afs: Clear stale peer app data after address list changes
-Date: Wed,  2 Sep 2026 13:10:22 +0100
-Message-ID: <20260902121024.3328255-5-dhowells@redhat.com>
-In-Reply-To: <20260902121024.3328255-1-dhowells@redhat.com>
-References: <20260902121024.3328255-1-dhowells@redhat.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J5gAWdxS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41D471F000E9;
+	Wed,  2 Sep 2026 12:11:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788351085;
+	bh=XwpTOnFpFlsR2IVVNgUhsYAsd1JKHnUT72fEns1VyDk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=J5gAWdxSbtz7dP1JzTLOnxnAJOhAgY2MQnAmvKT59vnDS3SEApgcm9S8d0qj7qoP3
+	 4lnWz3ClvHf7lYNCO/2Zwgwi4LSUrmXo9Soeu8mAUnck0kILcMmShlCdFtg9squIY+
+	 q6CmXwQZ9UixX552ode1kvcO6x572+2Tr1mlJ+DrlcLsLpBSl7LP2blMgp28ukS5yB
+	 0C7s1kuhwMtHweFVnFYVwr2khieCmSH5SijKuModD9gnHBB6utuMaDVDE8ZtYuQDPw
+	 wFM3FX2IY171fpBn8XL/Av4APOehNb2BaVqzbdpn15tWBOehvZX0kB/zP/c5GssCep
+	 4ULDVF9+wll6w==
+Date: Wed, 2 Sep 2026 13:11:20 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+Cc: Simona Vetter <simona.vetter@ffwll.ch>,
+	Intel Graphics <intel-gfx@lists.freedesktop.org>,
+	DRI <dri-devel@lists.freedesktop.org>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Jarkko Nikula <jarkko.nikula@bitmer.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: build failure after merge of the drm-misc tree
+Message-ID: <64bdb5bc-ced6-490c-b4c8-fd3dcabbbd4c@sirena.org.uk>
+References: <apbbvQSfUbzYRFaw@sirena.org.uk>
+ <3cd2c640-3ce8-4163-9f7b-3abba46ae072@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Sh0NKln0pLxJxfm6"
+Content-Disposition: inline
+In-Reply-To: <3cd2c640-3ce8-4163-9f7b-3abba46ae072@gmail.com>
+X-Cookie: Prevent forest fires.
 
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-afs_fs_probe_fileserver() fetches the current endpoint state under
-server->fs_lock, but leaves old_alist as NULL.  Consequently,
-afs_set_peer_appdata() treats every address list replacement as initial
-setup and only binds the new peers; it never unbinds peers removed from
-the old list.
+--Sh0NKln0pLxJxfm6
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-An address refresh can therefore proceed as follows.  CPU 0 replaces
-server S's list and drops Pold without clearing Pold->app_data.  The
-server destroyer then clears only S's current peers and lets S reach its
-RCU callback.  After the callback frees S, CPU 1 handles a callback
-through an RxRPC connection that still pins Pold, reads Pold->app_data,
-and calls afs_use_server() on the freed object.
+On Wed, Sep 02, 2026 at 09:52:24AM +0300, Ivaylo Dimitrov wrote:
+> On 1.09.26 =D0=B3. 17:05 =D1=87., Mark Brown wrote:
 
-KASAN reported:
+> > /tmp/next/build/sound/soc/ti/omap-hdmi.c:408:6: error: no member named =
+'card' in 'struct hdmi_audio_data'
+> >    408 |         ad->card =3D card;
+> >        |         ~~  ^
 
-  BUG: KASAN: slab-use-after-free in afs_find_server+0x3c/0xa0
-  Read of size 4 at addr ffff8881013e1af0 by task krxrpcio/7001/74
-  Call Trace:
-   afs_find_server+0x3c/0xa0
-   afs_rx_new_call+0x15c/0x390
-   rxrpc_new_incoming_call+0x97c/0x1730
-   rxrpc_input_packet.constprop.0+0xd03/0xec0
-   rxrpc_io_thread+0x967/0x1640
-  Allocated by task 93:
-   afs_lookup_server+0x1a7/0x14c0
-   afs_alloc_server_list+0x43f/0xb60
-   afs_create_volume+0x923/0x1490
-   afs_get_tree+0x1c6/0x10a0
-  Freed by task 0:
-   kfree+0x131/0x3c0
-   rcu_core+0x50a/0x1850
-  Last potentially related work creation:
-   __call_rcu_common.constprop.0+0x71/0xa10
-   afs_put_server+0x213/0x2b0
+> This seems to be due to an interaction between two patches:
+> 1. 9af2c1d4f847 (ASoC: ti: omap-hdmi: remove unused *card) / 875e906efdc4
+> (ASoC: ti: preparation for Card capsuling)
 
-Preserve old->addresses for the peer app-data update so that removed
-peers are cleared before the endpoint state is replaced.  Also advance
-both cursors when the old and new lists share a peer; activating the
-old/new comparison without this would otherwise loop forever on the
-shared entry.
+Those are in -rc1...
 
-Fixes: 40e8b52fe8c8 ("afs: Use the per-peer app data provided by rxrpc")
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Signed-off-by: Qi Zhang <marsy12010123@gmail.com>
-Signed-off-by: David Howells <dhowells@redhat.com>
-cc: Marc Dionne <marc.dionne@auristor.com>
-cc: linux-afs@lists.infradead.org
-cc: linux-fsdevel@vger.kernel.org
-cc: stable@vger.kernel.org
----
- fs/afs/addr_list.c | 5 ++++-
- fs/afs/fs_probe.c  | 1 +
- 2 files changed, 5 insertions(+), 1 deletion(-)
+> 2. 699e5975e2a53 (drm/omap: Report HDMI hotplug events to the ASoC HDMI
+> codec)
 
-diff --git a/fs/afs/addr_list.c b/fs/afs/addr_list.c
-index 63bf096b721a..73195d76b481 100644
---- a/fs/afs/addr_list.c
-+++ b/fs/afs/addr_list.c
-@@ -394,8 +394,11 @@ void afs_set_peer_appdata(struct afs_server *server,
- 		struct rxrpc_peer *pn = new_alist->addrs[n].peer;
- 		struct rxrpc_peer *po = old_alist->addrs[o].peer;
- 
--		if (pn == po)
-+		if (pn == po) {
-+			n++;
-+			o++;
- 			continue;
-+		}
- 		if (pn < po) {
- 			rxrpc_kernel_set_peer_data(pn, data);
- 			n++;
-diff --git a/fs/afs/fs_probe.c b/fs/afs/fs_probe.c
-index a91ad1938d07..8c62334dbfe7 100644
---- a/fs/afs/fs_probe.c
-+++ b/fs/afs/fs_probe.c
-@@ -258,6 +258,7 @@ int afs_fs_probe_fileserver(struct afs_net *net, struct afs_server *server,
- 					lockdep_is_held(&server->fs_lock));
- 	if (old) {
- 		estate->responsive_set = old->responsive_set;
-+		old_alist = old->addresses;
- 		if (!new_alist)
- 			new_alist = old->addresses;
- 	}
+=2E..which the drm-misc tree has now merged so I don't expect it to build
+independently of any other tree.  I'm a bit surprised this wasn't caught
+when merging up -rc1.
 
+--Sh0NKln0pLxJxfm6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqYEmcACgkQJNaLcl1U
+h9CEEQf9Hk/LuaEd+ZaphNyNmIa5ksIVwyIWx4i/IKB/nh2G137vfaU8FFpD/vhj
+8WKJSFftQk6eVmdAsWmCM25R5loZcWfm8V5L13khKtvU1L4v47HyYKLj5PmGgUTn
+DQ8uVo3aXmGo8KZNmhraFEvy+5bFzMfZHXLxHoDDSARdX+/TvDRkt6za2HJCqU/a
++QVCadknLQdCuP0tqXuR0xu1iS3K3vrKzGGNL84Gb5yKX3REFNUZpc92p7FY/tDs
+SSrzi7yQ7Cpihkb3N7Opn/CHgslSso627hKcTcdxaDBWAahBaN7W7+3KnGLE88Ow
+5Kz5rXtGyIsruw0tdirhWAr/SEOQew==
+=xwIZ
+-----END PGP SIGNATURE-----
+
+--Sh0NKln0pLxJxfm6--
