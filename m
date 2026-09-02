@@ -1,56 +1,56 @@
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 419E1472083
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:51:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31BA5472533
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:51:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788346284; cv=none; b=q2Anw/pHyN6jskdTEDnJqRKHfuGOqamZnG00Q2Fizrjq2V5o2+FTn3Xnqy1TH4xmSVPKy4u4VRUoIRyVtkI3Cjs13MWDLa9+DyCaq071XAiyTD00ER31+4419zWdKR6u11UbRL94SAmYkFNVOrvAyeXY171vmwVAV3dUIm96yLM=
+	t=1788346293; cv=none; b=XoNKP8eWgepPo/qzVEXhL7r4ToAhXkYiu+SAHrRluA5GZUEkVK1tJoYaWh2poKe9/ZVSYQ0FzsoNATqo+KiSjzqDvn/gzCHC2bb1PaUpZrfoIskf6VVTbbzgzXdp5WJxYduPadMzmOPfU/kHTWstixPecjHju2LvYAQ+GtutoX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788346284; c=relaxed/simple;
-	bh=5C0s/9UucVAGmXDEl+xwewW/gLO4zg1pKiD4RPTspKs=;
+	s=arc-20240116; t=1788346293; c=relaxed/simple;
+	bh=fI4ct/3pSqJy24dcpl8O0GRnGyvmcETu0BAstHM0k+s=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=G2uVQTw2j/6liB+j/qVuSBCnMkLU2gDIzMTXgMJflAUHUYFun2JSFBjg8tPD5c2vTr0UE8eMPKVFqENm0UUZnDo9gK5qNnotn/2pu1gaqvgxk9JPuvIp+dn3DaGfA4GNq8Ci++JjX1oGu3eKSHPH+FYIuaZj7zw1Xq/C0bkqPuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=M5iGUe1g; arc=none smtp.client-ip=209.85.208.69
+	 To:Cc:Content-Type; b=fjZ/sAAj0UF2vVqoBOWNzkCiArP6jvkD4gyJf/MoskchzZY5rC8bp411U0ZSf/0glfkh3L7X1uaVp8h6fkC9NhcERiVXHiCwuVMjJUzXma/giL2qS7SziABqurAdvk4BDVKDk9bFvMI9ZI45LtZg2g5Z6qFLFx6rnkt4SGKSpLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ruJvCxVs; arc=none smtp.client-ip=209.85.221.69
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vdonnefort.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="M5iGUe1g"
-Received: by mail-ed1-f69.google.com with SMTP id 4fb4d7f45d1cf-6a6634614cfso1058883a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 03:51:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ruJvCxVs"
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-47d81cf0c4cso699765f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 03:51:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788346273; x=1788951073; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788346276; x=1788951076; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0x2qbND6Sa3WNSOYkn6lqr5Ld4Ihzkg79AVpCRYTR1A=;
-        b=M5iGUe1gc0hu7UCXVuZQ6eqxeK53tIsgVH0pkcje8+eax6BHdYwFfRWJGRlAB4BPGQ
-         XVbtw3L5t1VXi+9pWMrXUesFJgS1nhFpbQ1oewj3KIt6kt+QmtW4jHXHzOwNW69IQ9W0
-         8nVrw1NgRHiZYl9or3IGCAQaRgpzQTKP5tD/X5b9FM4pxlWB/gejhrdgsTHme9i56P04
-         un3E8AYBjomzrSBcGxv/eKQ0rUpxAEC319HUjySf/+Jdp0JZ4v0QdR63jbUX8wtWe+7u
-         jX1+ik0c5yPMnZqQGZByUYIPbAEDyKLW5grqvg/6F/ayDR5HqHojiqE/PQxfz+koyg3n
-         MMZw==
+        bh=IlzRHwAUXMpKspjrSSJuu5KTpj2eywEkwws+9IOUBiI=;
+        b=ruJvCxVsxGsTKa3DR36ZuhNxvUeZupbt8wJDMaiJ6rkndeRHZzaamJIWlqweFwdyPY
+         uwLnuWEI+h+r7bhZm1/7odgOey6p9IW0Zp4MWTlIsBBeHGYKmu8qTrM4Xfv9iP7bV0Ev
+         q0WTOZjZgsmbYpjOa6HnpwN7z2LIhCdc2ibTUQkiQ4CCB2JcY/WClwIAJaOCdsCc4IxC
+         qZqBcFVAU5GIUoFntNgrwPVOyDzxSrNHCrmm+ry3Nn64qFGR3FpF2EiirMg0Qg3lXdWF
+         GjghRqqX9YMRO9HJfAGM2I1T4Cg7157/DomozoSOL22Ve4Fj9L0vKbiyeDDmoqsTrxR7
+         brmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788346273; x=1788951073;
+        d=1e100.net; s=20251104; t=1788346276; x=1788951076;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0x2qbND6Sa3WNSOYkn6lqr5Ld4Ihzkg79AVpCRYTR1A=;
-        b=bAIwL5QsGPZNmumg3mkh/nZs3jNYDXwSXWkFi6xBKfAqegCTBJ8uoWHOmFHfrML5y9
-         v4E7Z0Sg1DsDAnF26X3c78/EoKaCmN/RkqDogFOKahmSknTt9uCi8Oej9FSxia9gsDHs
-         9abJOVFBC1jVqUKEcZ/fXx7cCtQyEcV5jerSNLaNs/+sTVHda+YE5AyD1uypd0lbOk1r
-         lBeUGb2MtbW+lw3Uodbqhwzei0w7/5bHqnztVXC2vsI8/i+6MtFZ8DThgZpPEyYYc+Br
-         kMfRjm4VOhjqS/u+n182IZSdZ2z/zh+5R1W+WLLcf1js8+Bn0TSnNx8iIpDq0kmnIl3q
-         4yoA==
-X-Forwarded-Encrypted: i=1; AKwUvBxOEJxq6oJnhg26fJvrCQwV3GDF8R1w2pZNaZ1JmtCbEHpazJtNTcuuiBUxDknt5XHs1ZZrJGyGAl9E/Fs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kb47blhX3UfAGALTKmkqOApEDJ2NetzX8L3yZpQ3zEk9dy9mfj
-	wDTb3NN7+GlfWFReG2vjAlA32WWflSJ3mKgY+5xJEE2qMd7RBPR14LOt2yqijq49ohcK6u3ukcP
-	O2XnpqBk8QT6PI4c0XFpPkw==
-X-Received: from edyf4.prod.google.com ([2002:a05:6402:684:b0:6a5:e070:f1f6])
+        bh=IlzRHwAUXMpKspjrSSJuu5KTpj2eywEkwws+9IOUBiI=;
+        b=Vc3Z/UC+Wbi4m2CT7jyArYwKMdMKLnLinSpERBZ/Or/hR84T3ibqV47pTuRvUe0RDq
+         Ep9B7Sdub+urhCPKbh9LstBbRBgsRnDbZMRVRdbm6ohd/wyqVkooEv85Q2Gl5b64XJVl
+         M1GOu9QqkbZmC0XBz7WDVd4HbSf7qlNJ+/AxnpyhNRCztR5Kh6oTzofuix92PjXZMiiz
+         YMCVknqsoI5VAE6T6DoeZSVknvzBK09dwIhKCry5j6zeieytn7NVqPnt3VVCx7tqwjV8
+         nhw/ZvnkeX1I90eDsfOwoB2R6IvpQRn6Y/x/W0JS26mSfM87lotEKDLx1Dw+vQrkKMRr
+         W5WA==
+X-Forwarded-Encrypted: i=1; AKwUvBxjCGs8rCqH1XNh3hbLTfBPRxdeIOJVYBF9x5wyrJu+PTCUQtnB7XMF7orSnQP+K1Q9hTLr5C0fOfQdRcs=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/56hp5nggA4zrmpNJfDqbaBBIB/8DYVRC7Y64u4Otsz1BTlr9
+	JnljrOpFqDROXzW9xijUo2Zot73s56gqZG2cCj9JlAkwMzYf7TmnDOAxhZ9BU5aw4Balh8dQ403
+	Z53Pg6R+LU6OQUQLQgkY3Eg==
+X-Received: from wrqr17.prod.google.com ([2002:a5d:4991:0:b0:482:abe4:58a8])
  (user=vdonnefort job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6402:46c5:b0:6a3:f47c:969 with SMTP id 4fb4d7f45d1cf-6a68224ce3emr2605259a12.3.1788346272605;
- Wed, 02 Sep 2026 03:51:12 -0700 (PDT)
-Date: Wed,  2 Sep 2026 11:47:07 +0100
+ 2002:a5d:5f47:0:b0:482:fc30:a1b4 with SMTP id ffacd0b85a97d-48488e03952mr6019121f8f.5.1788346276079;
+ Wed, 02 Sep 2026 03:51:16 -0700 (PDT)
+Date: Wed,  2 Sep 2026 11:47:10 +0100
 In-Reply-To: <20260902104712.2399797-1-vdonnefort@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -60,8 +60,8 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260902104712.2399797-1-vdonnefort@google.com>
 X-Mailer: git-send-email 2.55.0.970.g62bdec98f9-goog
-Message-ID: <20260902104712.2399797-6-vdonnefort@google.com>
-Subject: [PATCH v9 05/10] arm64: can_set_direct_map() if BBML3
+Message-ID: <20260902104712.2399797-9-vdonnefort@google.com>
+Subject: [PATCH v9 08/10] arm64: Add support for MEMBLOCK_LLMAP
 From: Vincent Donnefort <vdonnefort@google.com>
 To: catalin.marinas@arm.com, will@kernel.org, rppt@kernel.org, 
 	akpm@linux-foundation.org, sudeep.holla@kernel.org, jenswi@kernel.org, 
@@ -73,26 +73,68 @@ Cc: mark.rutland@arm.com, sumit.garg@kernel.org, ardb@kernel.org,
 	linux-kernel@vger.kernel.org, Vincent Donnefort <vdonnefort@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Systems supporting BBML3 can split blocks without risking unhandled
-page-faults. It is therefore safe for them to set the direct map
-unconditionally.
+With the MEMBLOCK_LLMAP flag, force a last-level mapping.
 
 Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
 
-diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
-index bbe98ac9ad8c..58898ae53f5d 100644
---- a/arch/arm64/mm/pageattr.c
-+++ b/arch/arm64/mm/pageattr.c
-@@ -99,7 +99,8 @@ bool can_set_direct_map(void)
- 	 * Realms need to make pages shared/protected at page granularity.
- 	 */
- 	return rodata_full || debug_pagealloc_enabled() ||
--		arm64_kfence_can_set_direct_map() || is_realm_world();
-+		arm64_kfence_can_set_direct_map() || is_realm_world() ||
-+		system_supports_bbml3();
+diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
+index 79d90226fd5d..c0fcc76914d1 100644
+--- a/arch/arm64/mm/mmu.c
++++ b/arch/arm64/mm/mmu.c
+@@ -1184,9 +1184,8 @@ static void __init map_mem(void)
+ 	phys_addr_t init_begin = __pa_symbol(__init_begin);
+ 	phys_addr_t init_end = __pa_symbol(__init_end);
+ 	phys_addr_t kernel_end = __pa_symbol(__bss_stop);
+-	phys_addr_t start, end;
+ 	int flags = NO_EXEC_MAPPINGS;
+-	u64 i;
++	struct memblock_region *r;
+ 
+ 	/*
+ 	 * Setting hierarchical PXNTable attributes on table entries covering
+@@ -1226,9 +1225,13 @@ static void __init map_mem(void)
+ 		       flags);
+ 
+ 	/* map all the memory banks */
+-	for_each_mem_range(i, &start, &end) {
++	for_each_mem_region(r) {
++		phys_addr_t start, end;
++
++		if (memblock_is_nomap(r))
++			continue;
+ 		/*
+-		 * for_each_mem_range may return sub-page-aligned boundaries
++		 * for_each_mem_region may return sub-page-aligned boundaries
+ 		 * after memblock_mark_nomap() splits regions at byte precision.
+ 		 * __create_pgd_mapping_locked aligns phys down to PAGE_MASK,
+ 		 * which could accidentally map no-map memory on the boundary.
+@@ -1237,17 +1240,23 @@ static void __init map_mem(void)
+ 		 * regions. The cost is at most one page of unmapped gap at
+ 		 * each boundary.
+ 		 */
+-		start = PAGE_ALIGN(start);
+-		end = end & PAGE_MASK;
++		start = PAGE_ALIGN(r->base);
++		end = (r->base + r->size) & PAGE_MASK;
+ 		if (start >= end)
+ 			continue;
++
++		int rflags = flags;
++
++		if (memblock_is_llmap(r))
++			rflags |= NO_BLOCK_MAPPINGS | NO_CONT_MAPPINGS;
++
+ 		/*
+ 		 * The linear map must allow allocation tags reading/writing
+ 		 * if MTE is present. Otherwise, it has the same attributes as
+ 		 * PAGE_KERNEL.
+ 		 */
+ 		__map_memblock(start, end, pgprot_tagged(PAGE_KERNEL),
+-			       flags);
++			       rflags);
+ 	}
  }
  
- static int update_range_prot(unsigned long start, unsigned long size,
 -- 
 2.55.0.970.g62bdec98f9-goog
 
