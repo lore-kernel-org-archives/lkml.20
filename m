@@ -1,42 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE7644A40F;
-	Wed,  2 Sep 2026 22:54:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE6842E43A;
+	Wed,  2 Sep 2026 22:54:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788389660; cv=none; b=TAmfD01pQMm+TSoyRPoP2pFHFUstx5Wk2bNWQzLzJsW4N5JIU3Z0ls4eNfXe/ehBRRwLCrn6/Zb1Pb5bvtpkvKfgf30T17qcqrV69fZJPyC0boOndqcU2BxvbdkiHlkkfaLe0niYRJ4TzBnusWLrDf1j2JaBio4zj/tFGOHFQf0=
+	t=1788389661; cv=none; b=gPs+WN0WnZhRDcmoYHwn31+4dKYvzU9kSiCbHNuEdwB4XNqWChVr+V5s5Tglu9xIwtwcyIMCxcvB90LTpe0h5SaIGMVkgqAArZJ7O781QKTT11VBINKD1I/WEzHT55Qhqcu543aqb3cCi4n0kqTgGykKHDSjbg5PY563E72BplQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788389660; c=relaxed/simple;
-	bh=9V7WhKbsmc9tgRuecpmZwkpZe7KyYaaNw7OQjdiTW90=;
+	s=arc-20240116; t=1788389661; c=relaxed/simple;
+	bh=YV4r8T3ojzOgJhZGbuAEwdatFZPup5YHCOGLl5x/T6E=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OahEmTUhH14rdv0W/bHl21epeoCii92bh/fzhSnxasHEy21f+CdeAi0hBrokmak7N3SIaK1K8irs563ssdw84AQXuvDpPZtOsIVL7idHlnrjoQv2FOC8WtM6a8vI+RnsJ6LZlXw9aejHgB35yuqfuS4j171/jQ0ceLIm7m2hj2c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=LxWysLcK; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=UHRIIxrvEeyqQt6o5U/sapMWXDpY5oemy0oWrfB0tBZCEQHcFBLfdLJd0X6rsP1v6bZFmllNnXBaCg+mwGBy+yyW/WyjSebtroFnjBLt3dxFWtiBrD3zbUKOnryVT0O+NiCl0u0jwVYR7JpXOCtQa+LOCJDX70gjcpXFbd6Pigk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=mrFm7/mN; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="LxWysLcK"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="mrFm7/mN"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
 	s=mail; t=1788389654;
-	bh=9V7WhKbsmc9tgRuecpmZwkpZe7KyYaaNw7OQjdiTW90=;
+	bh=YV4r8T3ojzOgJhZGbuAEwdatFZPup5YHCOGLl5x/T6E=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=LxWysLcKxIbT+yzJQAZjF+aDgkBIXMe8i34A0YEfYEMKUPYSyVFlhdyq57l8AkhCR
-	 dmBEPEZYN+cbN1h6as4yAN8SnF/dVukSHVfSuATtHlP02V2Sc8/ovGRYPF60qUkeJj
-	 90w3ajhnE2AYMwKtkbKl0Gvjt5rL1Ztt/gBLN2dFV/bkK1AignqKGtWQYw6BnuewJl
-	 MeF4czs/uyyBGo9hVnD00/0p7ns2nTQEe28JpT5Y8y8EqK8eVnwxlR6lk0UAgbVzlk
-	 0FgWcVXlvGIjM3KvH09vYgWp06zFh1Dw3ebPPuLHWpGIw4q5eexPnmmgOWdqpWRrXW
-	 NkZP53XkG4keQ==
+	b=mrFm7/mN0JwAAeta/LghL0JBsHJLcMeQwwUeJ0EVfdlCO9lUomKvRdiK0PhNHaUpB
+	 DRTzNVI7CUGig9f6bc7fRNn3RqznloydqPI9HBmtLcSOpCjBUP436PTbNoGAKp9PL8
+	 eMsE2zB8wX5UPJwW9/Rr3UWSeoBDU7la0cr7qa7G9I3a8sY1euBDhlNv+zrilhy8xL
+	 0Mlr7qAnqO5TeKvn6rwR49FwaUaruJawNCCjqY0XeRLy8PF9/hMejDJGK7Onml39pH
+	 gbLG4/KRosipSHKeWti+0K15uSC8wBXu2jUCd4Rk/N7NAS+ajNte8TNW/X9bgT4Q/S
+	 JRQCmm292A5AA==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id E00BF17E0DD8;
-	Thu, 03 Sep 2026 00:54:13 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 90DFC17E0EB0;
+	Thu, 03 Sep 2026 00:54:14 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 03 Sep 2026 01:54:10 +0300
-Subject: [PATCH v4 03/14] drm/rockchip: vop2: Balance state on
- atomic_enable() error paths
+Date: Thu, 03 Sep 2026 01:54:11 +0300
+Subject: [PATCH v4 04/14] drm/rockchip: vop2: Send pending event when
+ atomic_enable() fails
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -45,7 +45,7 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-dw-hdmi-qp-yuv-v4-3-fb45bf4147eb@collabora.com>
+Message-Id: <20260903-dw-hdmi-qp-yuv-v4-4-fb45bf4147eb@collabora.com>
 References: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
 In-Reply-To: <20260903-dw-hdmi-qp-yuv-v4-0-fb45bf4147eb@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -70,214 +70,60 @@ Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>,
  Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.15.2
 
-vop2_crtc_atomic_enable() prepares vp->dclk and, for the first CRTC,
-calls vop2_enable(), incrementing the shared vop2->enable_count before
-programming VOP2 registers.  Two later failure points return early with
-only vop2_unlock(), leaking the dclk prepare, the enable_count
-increment, and the core clocks / PM runtime reference from
-vop2_enable().
+vop2_crtc_atomic_flush() stashes the CRTC completion event in vp->event
+and relies on the frame start interrupt (VP_INT_FS_FIELD) to deliver it
+later via drm_crtc_send_vblank_event().  Since atomic_enable() runs
+before atomic_flush(), bailing on an error path makes it skip
+drm_crtc_vblank_on() and leave the video port disabled.  atomic_flush()
+still traps the event in vp->event, but since the port never scans out,
+the frame start interrupt does not fire and the event is not delivered.
+Userspace waiting for the flip completion then blocks indefinitely.
 
-Since the disable path decrements enable_count unconditionally, the
-leaked increment skews the count, causing an underflow or premature
-shutdown of core clocks and PM runtime while another CRTC is active.
+Note the event cannot be flushed from atomic_disable(), as userspace
+waits for the completion before committing the next state, so the
+disable does not arrive and draining it there would deadlock.
 
-Moreover, cleaning up on the enable error paths alone is insufficient.
-A CRTC whose atomic_enable() bailed is still committed as active, so
-vop2_crtc_atomic_disable() still runs its full teardown, releasing the
-same dclk prepare and enable_count a second time, thus underflowing both
-counts and, where vop2_enable() ran, touching VOP registers with core
-clocks gated.
-
-Fix this by reverting exactly what was set up on failure, and track the
-per-VP bring-up state so atomic_disable() skips teardown when
-atomic_enable() never completed.  Additionally, ensure any further
-hardware programming is also skipped within the affected RPM commit
-tail, i.e. in the callbacks gated by drm_atomic_helper_commit_planes():
-vop2_crtc_atomic_begin(), vop2_plane_atomic_update{update|disable}() and
-vop2_crtc_atomic_flush().
+Use the newly added vp->enabled flag to detect this in atomic_flush()
+and send the event immediately when the port did not come up, rather
+than deferring it to an interrupt that will never occur.  This also
+avoids the spurious drm_crtc_vblank_get() WARN previously hit on the
+failed enable path, where the vblank is not on.
 
 Fixes: 604be85547ce ("drm/rockchip: Add VOP2 driver")
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260623202043.8BFE21F000E9@smtp.kernel.org/
-Link: https://lore.kernel.org/all/20260623202043.8BFE21F000E9@smtp.kernel.org/
+Closes: https://lore.kernel.org/all/20260706194935.AC7601F000E9@smtp.kernel.org/
 Tested-by: Igor Paunovic <royalnet026@gmail.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 68 ++++++++++++++++++++++------
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.h |  6 +++
- 2 files changed, 59 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 819ea3400bcd..060f9395a235 100644
+index 060f9395a235..8755b614df34 100644
 --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
 +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -1033,6 +1033,9 @@ static void vop2_crtc_atomic_disable(struct drm_crtc *crtc,
- 
- 	vop2_lock(vop2);
- 
-+	if (!vp->enabled)
-+		goto out_unlock;
-+
- 	old_crtc_state = drm_atomic_get_old_crtc_state(state, crtc);
- 	drm_atomic_helper_disable_planes_on_crtc(old_crtc_state, false);
- 
-@@ -1063,11 +1066,14 @@ static void vop2_crtc_atomic_disable(struct drm_crtc *crtc,
- 
- 	clk_disable_unprepare(vp->dclk);
- 
-+	vp->enabled = false;
-+
- 	vop2->enable_count--;
- 
- 	if (!vop2->enable_count)
- 		vop2_disable(vop2);
- 
-+out_unlock:
- 	vop2_unlock(vop2);
- 
- 	if (crtc->state->event && !crtc->state->active) {
-@@ -1197,13 +1203,21 @@ static void vop2_plane_atomic_disable(struct drm_plane *plane,
- 	struct drm_plane_state *old_pstate = NULL;
- 	struct vop2_win *win = to_vop2_win(plane);
- 	struct vop2 *vop2 = win->vop2;
-+	struct vop2_video_port *vp;
- 
- 	drm_dbg(vop2->drm, "%s disable\n", win->data->name);
- 
- 	if (state)
- 		old_pstate = drm_atomic_get_old_plane_state(state, plane);
--	if (old_pstate && !old_pstate->crtc)
--		return;
-+
-+	if (old_pstate) {
-+		if (!old_pstate->crtc)
-+			return;
-+
-+		vp = to_vop2_video_port(old_pstate->crtc);
-+		if (!vp->enabled)
-+			return;
-+	}
- 
- 	vop2_win_disable(win);
- 	vop2_win_write(win, VOP2_WIN_YUV_CLIP, 0);
-@@ -1298,6 +1312,9 @@ static void vop2_plane_atomic_update(struct drm_plane *plane,
- 	if (WARN_ON(!crtc))
- 		return;
- 
-+	if (!vp->enabled)
-+		return;
-+
- 	if (!pstate->visible) {
- 		vop2_plane_atomic_disable(plane, state);
- 		return;
-@@ -1803,8 +1820,11 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
- 		return;
- 	}
- 
--	if (!vop2->enable_count)
--		vop2_enable(vop2);
-+	if (!vop2->enable_count) {
-+		ret = vop2_enable(vop2);
-+		if (ret)
-+			goto err_unprepare_dclk;
-+	}
- 
- 	vop2->enable_count++;
- 
-@@ -1831,10 +1851,8 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
- 		clock = vop2->ops->setup_intf_mux(vp, rkencoder->crtc_endpoint_id, polflags);
- 	}
- 
--	if (!clock) {
--		vop2_unlock(vop2);
--		return;
--	}
-+	if (!clock)
-+		goto err_put_enable_count;
- 
- 	if (vcstate->output_mode == ROCKCHIP_OUT_MODE_AAAA &&
- 	    !(vp_data->feature & VOP2_VP_FEATURE_OUTPUT_10BIT))
-@@ -1852,8 +1870,7 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
- 		default:
- 			drm_err(vop2->drm, "Unknown DRM_MODE_CONNECTOR %d\n",
- 				vcstate->output_type);
--			vop2_unlock(vop2);
--			return;
-+			goto err_put_enable_count;
- 		}
- 	else
- 		out_mode = vcstate->output_mode;
-@@ -1965,6 +1982,18 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
- 
- 	drm_crtc_vblank_on(crtc);
- 
-+	vp->enabled = true;
-+
-+	vop2_unlock(vop2);
-+
-+	return;
-+
-+err_put_enable_count:
-+	if (!--vop2->enable_count)
-+		vop2_disable(vop2);
-+
-+err_unprepare_dclk:
-+	clk_disable_unprepare(vp->dclk);
- 	vop2_unlock(vop2);
- }
- 
-@@ -2023,6 +2052,9 @@ static void vop2_crtc_atomic_begin(struct drm_crtc *crtc,
- 	struct vop2_video_port *vp = to_vop2_video_port(crtc);
- 	struct vop2 *vop2 = vp->vop2;
- 
-+	if (!vp->enabled)
-+		return;
-+
- 	vop2->ops->setup_overlay(vp);
- }
- 
-@@ -2034,13 +2066,19 @@ static void vop2_crtc_atomic_flush(struct drm_crtc *crtc,
- 	struct vop2_video_port *vp = to_vop2_video_port(crtc);
- 	struct vop2 *vop2 = vp->vop2;
- 
--	/* In case of modeset, gamma lut update already happened in atomic enable */
--	if (!drm_atomic_crtc_needs_modeset(crtc_state) && crtc_state->color_mgmt_changed)
--		vop2_crtc_atomic_try_set_gamma_locked(vop2, vp, crtc, crtc_state);
-+	if (vp->enabled) {
-+		/*
-+		 * In case of modeset, gamma lut update already happened
-+		 * in atomic enable.
-+		 */
-+		if (!drm_atomic_crtc_needs_modeset(crtc_state) &&
-+		    crtc_state->color_mgmt_changed)
-+			vop2_crtc_atomic_try_set_gamma_locked(vop2, vp, crtc, crtc_state);
- 
--	vop2_post_config(crtc, false, crtc_state, old_crtc_state);
-+		vop2_post_config(crtc, false, crtc_state, old_crtc_state);
- 
--	vop2_cfg_done(vp);
-+		vop2_cfg_done(vp);
-+	}
- 
+@@ -2083,8 +2083,19 @@ static void vop2_crtc_atomic_flush(struct drm_crtc *crtc,
  	spin_lock_irq(&crtc->dev->event_lock);
  
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-index ffcb39c130aa..b209b2d5b96d 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.h
-@@ -243,6 +243,12 @@ struct vop2_video_port {
- 
- 	struct completion dsp_hold_completion;
- 
-+	/**
-+	 * @enabled: CRTC fully brought up by atomic_enable(); allows
-+	 * atomic_disable() to skip teardown after a failed enable.
-+	 */
-+	bool enabled;
+ 	if (crtc->state->event) {
+-		WARN_ON(drm_crtc_vblank_get(crtc));
+-		vp->event = crtc->state->event;
++		/*
++		 * A failed atomic_enable() leaves the video port disabled with
++		 * no scanout, so the frame start interrupt that normally
++		 * delivers vp->event never fires. Send the event right away in
++		 * that case to avoid stalling the flip completion.
++		 */
++		if (vp->enabled) {
++			WARN_ON(drm_crtc_vblank_get(crtc));
++			vp->event = crtc->state->event;
++		} else {
++			drm_crtc_send_vblank_event(crtc, crtc->state->event);
++		}
 +
- 	/**
- 	 * @win_mask: Bitmask of windows attached to the video port;
- 	 */
+ 		crtc->state->event = NULL;
+ 	}
+ 
 
 -- 
 2.55.0
