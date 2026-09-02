@@ -1,64 +1,65 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A9CC3F076C
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:44:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 046383783A0
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:45:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788338701; cv=none; b=qrQFKx12ZWMHCUqVKjvOk7p0EXm9NnuYDRFAoQ8CU8Ye+MOFpl5VIRFEX45VtYTl+b1NfEStJBKb5oY+6UcrUE2WXRHLq0CTbyr+JwlzU2JuaLlb+hFKisV1pru3tCf5Uie6j7nLqxMYBcz6ooIQuAYoPU3aP0Y9t0/b6bXEL6U=
+	t=1788338711; cv=none; b=enhnUbqFF3uTw+A10JWftecxg44O6HlV5ROOs6UToePL6LdFasntN5aLB33SpRVnkR0+8pSlrPEeH5MwaAqbXjjzeSlVQktmXAauwzuCD9/RYZGqUMY+AmzEk+cmSxcZ/OS5do/XNGm1jZcYwL8xQ4dOnZITx3EPSRrNFTjUP+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788338701; c=relaxed/simple;
-	bh=hTfSR6lRRTgHCfvXNSsQon3UjqxmuaAmVRnqcmQJa+c=;
+	s=arc-20240116; t=1788338711; c=relaxed/simple;
+	bh=xEZzpXeTW3vt1wTKKg79W/ieHGqqg0JRMuz4PZPsyC0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Svmp0ZO9UmDcJbnXJtiBtv4jNj65OyJLQ6uV3YkZqpsg4Q52ITitoA1s1CF7QjgrDoMzwRt/gpitUfI3lBt3Bb8fQqgW2agrSVZQJ06YgGW9sB2BLj3X2rzkb7RHNpKsu8gVVJ+ufgEEPbZTokohOD0rnO/n8OQj8pQu4+oPFlo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nmkr953q; arc=none smtp.client-ip=209.85.215.179
+	 MIME-Version:Content-Type; b=GXI6NSgGWNM1cMcM/MMz6pJdp0T2fo5ge7iqq89Iks20awO48aASPv8qDzdMX0W19LpROu4DAlKHoCZelDAxLhoBEE718/1FQmFvGiHrnk4wfUZUxHwokfZSi0gBlw/dUzDhM1LLCvbNgrGfWH+xBqOjlVoDI0qqNjHz7SgKQf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qqQ9EVyj; arc=none smtp.client-ip=209.85.214.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nmkr953q"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc1cc97b84bso695320a12.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 01:44:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qqQ9EVyj"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d9004f39d3so8759745ad.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 01:45:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788338696; x=1788943496; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ezxtdztmw1JvTNP/EpaDJJlpXXjoASMUAtdTi0A+/qQ=;
-        b=Nmkr953qrCipNecQr3UqqT0DbcASU8ViUBU7LgRz+IUMpEgfctam35LjaGJTdm+mKn
-         pH/PPW0/MICcLJBotE1ZxVbPIj6EWSbSGalTtp9i3FoiloTnz7k97xypvXx67mRmJd5K
-         g+BpVN5fzC5PCMHEgW3UdNCRSM1Lbkgnw3K98BwhAeBNQyGPMlyQHuykuHHOWsdzzcGb
-         OyQsBo6Brh6BwXxmYH7S7O8tyYW3fW9hKAxOMU1LcIVNMa67G+bny6eiuW0niic/LtRT
-         Q8gne9EVuOe0ZzielKN7uG4ADHvTxvUz9v+M51mcuLdY7wgd93BYWLA3ODugCtytD9EG
-         KpgA==
+        d=gmail.com; s=20251104; t=1788338708; x=1788943508; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XTSGldNko/7onAQ09Dd0jKeRKM/xfLS6joKjag2qTGs=;
+        b=qqQ9EVyjBJmLAS9SdpF8w8U5nnyxJS3CxjOCtcZ1JFf05enDhqR+0H1L1Qg0Q8aJ2d
+         gILegmPdJ+2enajT2Q94+12ApZWU+QWJC/LOQo4yMBhECjvDrWQOBeu/yYUg+SXOoUoh
+         JWv2+50RPsDo4etCp8KVvMdv7FrJgO/DSMywbTCMoB1jZQEeumvCgUSVbYgLwwQs+pk3
+         vDju+aI7ax5QD9IEYnN0ghPES4iwSw/R8Yu7JfNVKh6ai8UKNUcmqNFF0wWBZCgSDJvz
+         bjSDFo+5E4ZCgYtnd3FXnlaAiQWRM8KWaDwGzeLcFIQm1cIkdmRV1p90cTJd/2wjuiiA
+         yQVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788338696; x=1788943496;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ezxtdztmw1JvTNP/EpaDJJlpXXjoASMUAtdTi0A+/qQ=;
-        b=hS1weHvHNXuueEGoggnoWkC97qR8+dQSE4wmg80n12cT3OoiMtQpLpeHUpy3AjH6+L
-         iRvCNC9l3I6JEmcDJw+fM6YjR/tkfAbSm8dsQ1Y2dunOLnDTx3GLhhW0B+wyWbTb/Svm
-         LrcKTTWD/L4YkscKEb40/ecCPY2JJPRQH9YLnGyZC9eXL/esr79obJsaFKhbzBKJzHOr
-         BahXSOOo2w5p0+BdkfTEu9eY1mUcD/uAsv6PAWMnlJVRqtrEQ1JkjKmdfT6KrT12rQFi
-         mT44ywMu1Nkbn9UcHUC8OL9/089RhdKfXWAP3eVM4n8TNI4FO5vsFPXop3M6u32r7AFm
-         IewA==
-X-Forwarded-Encrypted: i=1; AKwUvBylblHYmj3seBTdo16SNFs+N9gXLk/uqQFJvCa8L0+CVrdjNbTZwkUygA9psIl7u/NacbkcbRA1dyhTQXw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lpR714WRSzCTqk+DJf6gVwfdyfTStZQUyg0SBFQLXLhbcPK8HZ
-	8jwKPB7WS3MUkRMePJ9c1Cotw211Xl6+/N8WR7QDxKRIiH7t9f5VpRvC
-X-Gm-Gg: AYBFou1XEOmMcA7PvCzHhh6EdgVz+m1ryrCDbW4yAwNqIoMZW+S3IzUYmCfT+GL/3kh
-	jctGNM/37Re5zOErMGtmmPcCqPnYH08YQCjxfYXxeg7Bp6tQ32TtAxdLCMl20pMbVOWhsF2nD6x
-	eP5vCsW2BGISdYSdB5DoEWx3XLQii2MnBylLS21G0mARCKDYB54TClBs3wEzoJfUHq5JPxC9XFt
-	4eds4S05mMR8UXWdbDc9UHBZGvqDl/IEUX6MzUqL+Q05/6YNOHH76XAcKgAkS+Zull8N2N0S1+n
-	BY2ctfKcaZ/8KMayZeQlLG8Ihh2cb3qAon97+k+nkmVzLVh/0ULs1LgzcbyL6KLbhFROW8apUTd
-	UaHrhxoCzj0FRgiXsJa4P/tEv9UNocrQt8zHDJOnbWffklHdLqQlYJQrMHTfwKV6tfymwHbeam+
-	BlRfOizzPI2qXYFREjSYHZ8HH3RC7jGIkje6Z0gxl5Z03bnPqD7DGFQqnSqlBLq8bK1DtDGRkpY
-	eyTEtB83ilSgEAyC9a3e0/ZUVtDLQ==
-X-Received: by 2002:a17:90b:35d0:b0:398:b46d:48c0 with SMTP id 98e67ed59e1d1-39aee10890cmr5011923a91.18.1788338696036;
-        Wed, 02 Sep 2026 01:44:56 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788338708; x=1788943508;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XTSGldNko/7onAQ09Dd0jKeRKM/xfLS6joKjag2qTGs=;
+        b=pBAgqV38BnFI+nbrz8UJmFNhV5J8uPb3zR3kQ/udXgod0U7cjtjTztd/C0NIC1dhJv
+         zdDCWepTzTEncLAgYY/wvtv9yLjnw/zebFRTRJPY7cKc+d+erf71lT2+cMNuGmXnSWok
+         maS5JlH8HB5aBKdYIOJWDZZUmeuaLaHCxsOcSxc9hx9glgrCvg+Vp5jEvnmDThSbqS2Y
+         Sz9TdBAX+PfI7wIybaEdsQCjAJRpEcGWEHXvFdGNOXs4KKhNJA5EPTlpNWL+ZZH1Tjxf
+         XFmYU/B2E1kzfdZ8reAS8pfoP00+58L+c/pOinV8gqIMFR7xVQnN84o3LvO0jlFUBJHk
+         +KFw==
+X-Forwarded-Encrypted: i=1; AKwUvByHyy87fzEqW7QgsKxtTnosyftl/qU/763tG/+ABUxdkXwV6fEZHqhYUN9/oUrp+DkmpK+QxJMOssdOc0c=@vger.kernel.org
+X-Gm-Message-State: AFuF++lg2vTL1CYZEvASp5Nevy6gBGrTQdgmf4fSOUY3lvvpioCURS0O
+	eO0s/vX1BieRq9pOhpDQ3yEWKZPh8qYMZGWJNN9Wcy+rbvfkvVHn7ffg
+X-Gm-Gg: AYBFou2ulsj4rGYB19rWCYurTAfhxEwhwwNkw+zRMUtyCKiAggDNDhgVZB72UqCl+qx
+	P0L5QXDF3Svj5Gk5SBYckpoOUXNnk1KGYm8IP6CRRhepH+RGIX3/ZlhgJQ4yRfLsOptpv/WxzH5
+	uWTFUHIkwuMiSsUlj2mgJKJTAqzcTgADG00Ng0DpNSNzaaJ+esZOfijTnrMFO0+CCt99vk9VgBw
+	9Co7ZW+xnP8uNmI+rfDk7E953Juy/69koej3iCquk6qo0YZpzGHg5RZTVjZcCxo8Zv/RRsH+nQh
+	LnEwFptraVA5lXEe4/MUNe1v1o8wOd1rHcp673abKGtYoVLLVo6fremIxK4q6yx249q3R0gXr2Y
+	P2MUoBboMZSB9bNFkgkybzjaP9BkuOXEMt5lgE9zOs7tfPThfY1yOs9ejtYyxYBk+p6GVWOM9Ah
+	FRAMe617EcuXswqTziAW3E8MOkmlXdWTFbF+gdhdMh8rNBFD/eiUkzx9K1alBjo4Q4j/Wqf8/6y
+	NxYwBCibCjWSbZXC/M=
+X-Received: by 2002:a17:90a:e7c9:b0:398:9bd4:d12 with SMTP id 98e67ed59e1d1-39aee219f45mr4475927a91.17.1788338707963;
+        Wed, 02 Sep 2026 01:45:07 -0700 (PDT)
 Received: from localhost.localdomain ([222.254.211.218])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae3c6f337sm4845289a91.16.2026.09.02.01.44.51
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae3c6f337sm4845289a91.16.2026.09.02.01.45.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 01:44:54 -0700 (PDT)
+        Wed, 02 Sep 2026 01:45:07 -0700 (PDT)
 From: Nguyen Duc Thinh <ducthinh100812@gmail.com>
 To: Jonathan Corbet <corbet@lwn.net>
 Cc: Weijie Yuan <wy@wyuan.org>,
@@ -68,9 +69,9 @@ Cc: Weijie Yuan <wy@wyuan.org>,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Nguyen Duc Thinh <ducthinh100812@gmail.com>
-Subject: [PATCH v2 3/5] Documentation: process: Refine language, tone, and grammar in subsequent files
-Date: Wed,  2 Sep 2026 15:44:01 +0700
-Message-ID: <20260902084430.17248-4-ducthinh100812@gmail.com>
+Subject: [PATCH v2 5/5] Documentation: process: Clean up grammar and tone across multiple files
+Date: Wed,  2 Sep 2026 15:44:03 +0700
+Message-ID: <20260902084430.17248-6-ducthinh100812@gmail.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260902084430.17248-1-ducthinh100812@gmail.com>
 References: <20260902084430.17248-1-ducthinh100812@gmail.com>
@@ -80,422 +81,557 @@ List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Apply a sweep across four additional process documentation files.
-Expand conversational contractions to their formal forms,
-correct minor punctuation faults, and polish the phrasing to
-ensure a clear, consistent tone.
+Perform an extensive pass across eight process
+documentation files. Expand conversational contractions to
+their formal equivalents, correct minor punctuation faults, and
+polish the writing style to ensure a clear, consistent tone.
 
 Signed-off-by: Nguyen Duc Thinh <ducthinh100812@gmail.com>
 ---
- Documentation/process/7.AdvancedTopics.rst   | 32 ++++++------
- Documentation/process/8.Conclusion.rst       |  4 +-
- Documentation/process/applying-patches.rst   | 20 ++++----
- Documentation/process/botching-up-ioctls.rst | 54 ++++++++++----------
- 4 files changed, 55 insertions(+), 55 deletions(-)
+ Documentation/process/backporting.rst         | 68 +++++++++----------
+ Documentation/process/coding-assistants.rst   | 12 ++--
+ Documentation/process/conclave.rst            |  6 +-
+ .../process/contribution-maturity-model.rst   |  4 +-
+ Documentation/process/cve.rst                 |  8 +--
+ Documentation/process/deprecated.rst          | 14 ++--
+ Documentation/process/development-process.rst |  6 +-
+ Documentation/process/email-clients.rst       | 32 ++++-----
+ 8 files changed, 75 insertions(+), 75 deletions(-)
 
-diff --git a/Documentation/process/7.AdvancedTopics.rst b/Documentation/process/7.AdvancedTopics.rst
-index 066655e5d536c..e85a4f33795f1 100644
---- a/Documentation/process/7.AdvancedTopics.rst
-+++ b/Documentation/process/7.AdvancedTopics.rst
-@@ -5,7 +5,7 @@ Advanced topics
+diff --git a/Documentation/process/backporting.rst b/Documentation/process/backporting.rst
+index abc5f8925a789..1ba583c89b973 100644
+--- a/Documentation/process/backporting.rst
++++ b/Documentation/process/backporting.rst
+@@ -28,14 +28,14 @@ Applying the patch to a tree
+ ============================
  
- At this point, hopefully, you have a handle on how the development process
- works.  There is still more to learn, however!  This section will cover a
--number of topics which can be helpful for developers wanting to become a
-+number of topics that can be helpful for developers wanting to become a
- regular part of the Linux kernel development process.
+ Sometimes the patch you are backporting already exists as a git commit,
+-in which case you just cherry-pick it directly using
++in that case you just cherry-pick it directly using
+ ``git cherry-pick``. However, if the patch comes from an email, as it
+ often does for the Linux kernel, you will need to apply it to a tree
+ using ``git am``.
  
- Managing patches with Git
-@@ -52,23 +52,23 @@ exercise while coming up to speed.
- When you are ready to start putting up Git trees for others to look at, you
- will, of course, need a server that can be pulled from.  Setting up such a
- server with git-daemon is relatively straightforward if you have a system
--which is accessible to the Internet.  Otherwise, free, public hosting sites
-+that is accessible to the Internet.  Otherwise, free, public hosting sites
- (GitHub, for example) are starting to appear on the net.  Established
- developers can get an account on kernel.org, but those are not easy to come
- by; see https://kernel.org/faq/ for more information.
+-If you've ever used ``git am``, you probably already know that it is
++If you have ever used ``git am``, you probably already know that it is
+ quite picky about the patch applying perfectly to your source tree. In
+-fact, you've probably had nightmares about ``.rej`` files and trying to
++fact, you have probably had nightmares about ``.rej`` files and trying to
+ edit the patch to make it apply.
  
- The normal Git workflow involves the use of a lot of branches.  Each line
- of development can be separated into a separate "topic branch" and
--maintained independently.  Branches in Git are cheap, there is no reason to
--not make free use of them.  And, in any case, you should not do your
--development in any branch which you intend to ask others to pull from.
-+maintained independently.  Branches in Git are cheap, there is no reason not
-+to make free use of them.  And, in any case, you should not do your
-+development in any branch that you intend to ask others to pull from.
- Publicly-available branches should be created with care; merge in patches
- from development branches when they are in complete form and ready to go -
- not before.
+ It is strongly recommended to instead find an appropriate base version
+@@ -47,9 +47,9 @@ apply a patch that just arrived on LKML to an older stable kernel, you
+ can apply it to the most recent mainline kernel and then cherry-pick it
+ to your older stable branch.
  
- Git provides some powerful tools which can allow you to rewrite your
--development history.  An inconvenient patch (one which breaks bisection,
--say, or which has some other sort of obvious bug) can be fixed in place or
-+development history.  An inconvenient patch (one that breaks bisection,
-+say, or that has some other sort of obvious bug) can be fixed in place or
- made to disappear from the history entirely.  A patch series can be
- rewritten as if it had been written on top of today's mainline, even though
- you have been working on it for months.  Changes can be transparently
-@@ -81,22 +81,22 @@ a simple obsession for the creation of the perfect project history.
- Rewriting history will rewrite the changes contained in that history,
- turning a tested (hopefully) kernel tree into an untested one.  But, beyond
- that, developers cannot easily collaborate if they do not have a shared
--view of the project history; if you rewrite history which other developers
-+view of the project history; if you rewrite history that other developers
- have pulled into their repositories, you will make life much more difficult
- for those developers.  So a simple rule of thumb applies here: history
--which has been exported to others should generally be seen as immutable
-+that has been exported to others should generally be seen as immutable
- thereafter.
+-It's generally better to use the exact same base as the one the patch
+-was generated from, but it doesn't really matter that much as long as it
+-applies cleanly and isn't too far from the original base. The only
++It is generally better to use the exact same base as the one the patch
++was generated from, but it does not really matter that much as long as it
++applies cleanly and is not too far from the original base. The only
+ problem with applying the patch to the "wrong" base is that it may pull
+ in more unrelated changes in the context of the diff when cherry-picking
+ it to the older branch.
+@@ -70,7 +70,7 @@ article will assume that you are doing a plain ``git cherry-pick``.
+ .. _b4 presentation: https://youtu.be/mF10hgVIx9o?t=2996
  
- So, once you push a set of changes to your publicly-available server, those
- changes should not be rewritten.  Git will attempt to enforce this rule if
--you try to push changes which do not result in a fast-forward merge
-+you try to push changes that do not result in a fast-forward merge
- (i.e. changes which do not share the same history).  It is possible to
- override this check, and there may be times when it is necessary to rewrite
- an exported tree.  Moving changesets between trees to avoid conflicts in
- linux-next is one example.  But such actions should be rare.  This is one
- of the reasons why development should be done in private branches (which
- can be rewritten if necessary) and only moved into public branches when
--it's in a reasonably advanced state.
-+it is in a reasonably advanced state.
+ Once you have the patch in Git, you can go ahead and cherry-pick it into
+-your source tree. Don't forget to cherry-pick with ``-x`` if you want a
++your source tree. Do not forget to cherry-pick with ``-x`` if you want a
+ written record of where the patch came from!
  
- As the mainline (or other tree upon which a set of changes is based)
- advances, it is tempting to merge with that tree to stay on the leading
-@@ -109,11 +109,11 @@ generally only at specific release points (such as a mainline -rc
- release).  If you are nervous about specific changes, you can always
- perform test merges in a private branch.  The git "rerere" tool can be
- useful in such situations; it remembers how merge conflicts were resolved
--so that you don't have to do the same work twice.
-+so that you do not have to do the same work twice.
+ Note that if you are submitting a patch for stable, the format is
+@@ -93,8 +93,8 @@ Uh-oh; the cherry-pick failed with a vaguely threatening message::
+ What to do now?
  
- One of the biggest recurring complaints about tools like Git is this: the
- mass movement of patches from one repository to another makes it easy to
--slip in ill-advised changes which go into the mainline below the review
-+slip in ill-advised changes that go into the mainline below the review
- radar.  Kernel developers tend to get unhappy when they see that kind of
- thing happening; putting up a Git tree with unreviewed or off-topic patches
- can affect your ability to get trees pulled in the future.  Quoting Linus:
-@@ -135,7 +135,7 @@ occasional summary of the tree to the relevant list, and, when the time is
- right, request that the tree be included in linux-next.
+ In general, conflicts appear when the context of the patch (i.e., the
+-lines being changed and/or the lines surrounding the changes) doesn't
+-match what's in the tree you are trying to apply the patch *to*.
++lines being changed and/or the lines surrounding the changes) does not
++match what is in the tree you are trying to apply the patch *to*.
  
- If and when others start to send patches for inclusion into your tree,
--don't forget to review them.  Also ensure that you maintain the correct
-+do not forget to review them.  Also ensure that you maintain the correct
- authorship information; the git "am" tool does its best in this regard, but
- you may have to add a "From:" line to the patch if it has been relayed to
- you via a third party.
-@@ -161,7 +161,7 @@ whole.
+ For backports, what likely happened was that the branch you are
+ backporting from contains patches not in the branch you are backporting
+@@ -113,7 +113,7 @@ editor or using a dedicated conflict resolution tool.
+ Many people prefer to use their regular text editor and edit the
+ conflict directly, as it may be easier to understand what you're doing
+ and to control the final result. There are definitely pros and cons to
+-each method, and sometimes there's value in using both.
++each method, and sometimes there is value in using both.
  
- Reviewing code can be an intimidating prospect, especially for a new kernel
- developer who may well feel nervous about questioning code - in public -
--which has been posted by those with more experience.  Even code written by
-+that has been posted by those with more experience.  Even code written by
- the most experienced developers can be improved, though.  Perhaps the best
- piece of advice for reviewers (all reviewers) is this: phrase review
- comments as questions rather than criticisms.  Asking "how does the lock
-@@ -191,6 +191,6 @@ submission and it looks good to me."
- Some form of a review message or reply is obviously necessary otherwise
- maintainers will not know that the reviewer has looked at the patch at all!
+ We will not cover using dedicated merge tools here beyond providing some
+ pointers to various tools that you could use:
+@@ -144,7 +144,7 @@ simply diverged -- perhaps your older branch had some other backports
+ applied to it that themselves needed conflict resolutions, causing a
+ divergence.
  
--Last but not least patch review may become a negative process, focused
-+Last but not least, patch review may become a negative process, focused
- on pointing out problems. Please throw in a compliment once in a while,
- particularly for newbies!
-diff --git a/Documentation/process/8.Conclusion.rst b/Documentation/process/8.Conclusion.rst
-index 8c847dffe76b2..10b6fed20a4be 100644
---- a/Documentation/process/8.Conclusion.rst
-+++ b/Documentation/process/8.Conclusion.rst
-@@ -4,7 +4,7 @@ For more information
+-It's important to always identify the commit or commits that caused the
++It is important to always identify the commit or commits that caused the
+ conflict, as otherwise you cannot be confident in the correctness of
+ your resolution. As an added bonus, especially if the patch is in an
+ area you're not that familiar with, the changelogs of these commits will
+@@ -155,7 +155,7 @@ git log
+ ~~~~~~~
+ 
+ A good first step is to look at ``git log`` for the file that has the
+-conflict -- this is usually sufficient when there aren't a lot of
++conflict -- this is usually sufficient when there are not a lot of
+ patches to the file, but may get confusing if the file is big and
+ frequently patched. You should run ``git log`` on the range of commits
+ between your currently checked-out branch (``HEAD``) and the parent of
+@@ -164,7 +164,7 @@ the patch you are picking (``<commit>``), i.e.::
+     git log HEAD..<commit>^ -- <path>
+ 
+ Even better, if you want to restrict this output to a single function
+-(because that's where the conflict appears), you can use the following
++(because that is where the conflict appears), you can use the following
+ syntax::
+ 
+     git log -L:'\<function\>':<path> HEAD..<commit>^
+@@ -236,8 +236,8 @@ not be incidental at all and you need to carefully consider whether the
+ patch adding the function should be cherry-picked first.
+ 
+ If you find that there is a necessary prerequisite patch, then you need
+-to stop and cherry-pick that instead. If you've already resolved some
+-conflicts in a different file and don't want to do it again, you can
++to stop and cherry-pick that instead. If you have already resolved some
++conflicts in a different file and do not want to do it again, you can
+ create a temporary copy of that file.
+ 
+ To abort the current cherry-pick, go ahead and run
+@@ -250,7 +250,7 @@ Understanding conflict markers
+ Combined diffs
+ ~~~~~~~~~~~~~~
+ 
+-Let's say you've decided against picking (or reverting) additional
++Let's say you have decided against picking (or reverting) additional
+ patches and you just want to resolve the conflict. Git will have
+ inserted conflict markers into your file. Out of the box, this will look
+ something like::
+@@ -365,10 +365,10 @@ part of the conflict, leaving the file essentially unchanged, and apply
+ the changes by hand. Perhaps the patch is changing a function call
+ argument from ``0`` to ``1`` while a conflicting change added an
+ entirely new (and insignificant) parameter to the end of the parameter
+-list; in that case, it's easy enough to change the argument from ``0``
++list; in that case, it is easy enough to change the argument from ``0``
+ to ``1`` by hand and leave the rest of the arguments alone. This
+ technique of manually applying changes is mostly useful if the conflict
+-pulled in a lot of unrelated context that you don't really need to care
++pulled in a lot of unrelated context that you do not really need to care
+ about.
+ 
+ For particularly nasty conflicts with many conflict markers, you can use
+@@ -382,14 +382,14 @@ Dealing with file renames
+ 
+ One of the most annoying things that can happen while backporting a
+ patch is discovering that one of the files being patched has been
+-renamed, as that typically means Git won't even put in conflict markers,
++renamed, as that typically means Git will not even put in conflict markers,
+ but will just throw up its hands and say (paraphrased): "Unmerged path!
+ You do the work..."
+ 
+ There are generally a few ways to deal with this. If the patch to the
+ renamed file is small, like a one-line change, the easiest thing is to
+ just go ahead and apply the change by hand and be done with it. On the
+-other hand, if the change is big or complicated, you definitely don't
++other hand, if the change is big or complicated, you definitely do not
+ want to do it by hand.
+ 
+ As a first pass, you can try something like this, which will lower the
+@@ -400,7 +400,7 @@ an add-delete pair to be a potential rename)::
+   git cherry-pick -strategy=recursive -Xrename-threshold=30
+ 
+ Sometimes the right thing to do will be to also backport the patch that
+-did the rename, but that's definitely not the most common case. Instead,
++did the rename, but that is definitely not the most common case. Instead,
+ what you can do is to temporarily rename the file in the branch you're
+ backporting to (using ``git mv`` and committing the result), restart the
+ attempt to cherry-pick the patch, rename the file back (``git mv`` and
+@@ -416,7 +416,7 @@ Gotchas
+ Function arguments
+ ~~~~~~~~~~~~~~~~~~
+ 
+-Pay attention to changing function arguments! It's easy to gloss over
++Pay attention to changing function arguments! It is easy to gloss over
+ details and think that two lines are the same but actually they differ
+ in some small detail like which variable was passed as an argument
+ (especially if the two variables are both a single character that look
+@@ -438,7 +438,7 @@ other patches.
+ A good way to ensure that you review the error paths is to always use
+ ``git diff -W`` and ``git show -W`` (AKA ``--function-context``) when
+ inspecting your changes.  For C code, this will show you the whole
+-function that's being changed in a patch. One of the things that often
++function that is being changed in a patch. One of the things that often
+ go wrong during backports is that something else in the function changed
+ on either of the branches that you're backporting from or to. By
+ including the whole function in the diff you get more context and can
+@@ -453,22 +453,22 @@ function. When backporting patches to an area where such a refactoring
+ has taken place, you effectively need to do the reverse when
+ backporting: a patch to a single location may need to be applied to
+ multiple locations in the backported version. (One giveaway for this
+-scenario is that a function was renamed -- but that's not always the
++scenario is that a function was renamed -- but that is not always the
+ case.)
+ 
+-To avoid incomplete backports, it's worth trying to figure out if the
++To avoid incomplete backports, it is worth trying to figure out if the
+ patch fixes a bug that appears in more than one place. One way to do
+ this would be to use ``git grep``. (This is actually a good idea to do
+ in general, not just for backports.) If you do find that the same kind
+-of fix would apply to other places, it's also worth seeing if those
+-places exist upstream -- if they don't, it's likely the patch may need
++of fix would apply to other places, it is also worth seeing if those
++places exist upstream -- if they do not, it is likely the patch may need
+ to be adjusted. ``git log`` is your friend to figure out what happened
+-to these areas as ``git blame`` won't show you code that has been
++to these areas as ``git blame`` will not show you code that has been
+ removed.
+ 
+ If you do find other instances of the same pattern in the upstream tree
+-and you're not sure whether it's also a bug, it may be worth asking the
+-patch author. It's not uncommon to find new bugs during backporting!
++and you're not sure whether it is also a bug, it may be worth asking the
++patch author. It is not uncommon to find new bugs during backporting!
+ 
+ Verifying the result
  ====================
- 
- There are numerous sources of information on Linux kernel development and
--related topics.  First among those will always be the Documentation
-+related topics.  First among these will always be the Documentation
- directory found in the kernel source distribution.  Start with the
- top-level :ref:`process/howto.rst <process_howto>`; also read
- :ref:`process/submitting-patches.rst <submittingpatches>`. Many internal
-@@ -56,7 +56,7 @@ Congratulations to anybody who has made it through this long-winded
- document.  Hopefully it has provided a helpful understanding of how the
- Linux kernel is developed and how you can participate in that process.
- 
--In the end, it's the participation that matters.  Any open source software
-+In the end, it is the participation that matters.  Any open source software
- project is no more than the sum of what its contributors put into it.  The
- Linux kernel has progressed as quickly and as well as it has because it has
- been helped by an impressively large group of developers, all of whom are
-diff --git a/Documentation/process/applying-patches.rst b/Documentation/process/applying-patches.rst
-index c269f5e1a0a3b..5b8cbf3375655 100644
---- a/Documentation/process/applying-patches.rst
-+++ b/Documentation/process/applying-patches.rst
-@@ -9,7 +9,7 @@ Original by:
- .. note::
- 
-    This document is obsolete.  In most cases, rather than using ``patch``
--   manually, you'll almost certainly want to look at using Git instead.
-+   manually, you will almost certainly want to look at using Git instead.
- 
- A frequently asked question on the Linux Kernel Mailing List is how to apply
- a patch to the kernel or, more specifically, what base kernel a patch for
-@@ -28,7 +28,7 @@ A patch is a small text document containing a delta of changes between two
- different versions of a source tree. Patches are created with the ``diff``
- program.
- 
--To correctly apply a patch you need to know what base it was generated from
-+To correctly apply a patch, you need to know what base it was generated from
- and what new version the patch will change the source tree into. These
- should both be present in the patch file metadata or be possible to deduce
- from the filename.
-@@ -75,7 +75,7 @@ via stdin using the following syntax::
- 
- 	patch -p1 < path/to/patch-x.y.z
- 
--If you just want to be able to follow the examples below and don't want to
-+If you just want to be able to follow the examples below and do not want to
- know of more than one way to use patch, then you can stop reading this
- section here.
- 
-@@ -84,7 +84,7 @@ this::
- 
- 	patch -p1 -i path/to/patch-x.y.z
- 
--If your patch file is compressed with gzip or xz and you don't want to
-+If your patch file is compressed with gzip or xz and you do not want to
- uncompress it before applying it, then you can feed it to patch like this
- instead::
- 
-@@ -104,7 +104,7 @@ patch via stdin or the ``-i`` argument, as you prefer.
- A few other nice arguments for patch are ``-s`` which causes patch to be silent
- except for errors which is nice to prevent errors from scrolling out of the
- screen too fast, and ``--dry-run`` which causes patch to just print a listing of
--what would happen, but doesn't actually make any changes. Finally ``--verbose``
-+what would happen, but does not actually make any changes. Finally ``--verbose``
- tells patch to print more information about the work being done.
- 
- 
-@@ -118,7 +118,7 @@ Checking that the file looks like a valid patch file and checking the code
- around the bits being modified matches the context provided in the patch are
- just two of the basic sanity checks patch does.
- 
--If patch encounters something that doesn't look quite right it has two
-+If patch encounters something that does not look quite right it has two
- options. It can either refuse to apply the changes and abort or it can try
- to find a way to make the patch apply with a few minor changes.
- 
-@@ -133,7 +133,7 @@ usually adjust the line numbers and apply the patch.
- Whenever patch applies a patch that it had to modify a bit to make it fit
- it'll tell you about it by saying the patch applied with **fuzz**.
- You should be wary of such changes since even though patch probably got it
--right it doesn't /always/ get it right, and the result will sometimes be
-+right it does not /always/ get it right, and the result will sometimes be
- wrong.
- 
- When patch encounters a change that it can't fix up with fuzz it rejects it
-@@ -141,7 +141,7 @@ outright and leaves a file with a ``.rej`` extension (a reject file). You can
- read this file to see exactly what change couldn't be applied, so you can
- go fix it up by hand if you wish.
- 
--If you don't have any third-party patches applied to your kernel source, but
-+If you do not have any third-party patches applied to your kernel source, but
- only patches from kernel.org and you apply the patches in the correct order,
- and have made no modifications yourself to the source files, then you should
- never see a fuzz or reject message from patch. If you do see such messages
-@@ -154,7 +154,7 @@ Let's look a bit more at some of the messages patch can produce.
- 
- If patch stops and presents a ``File to patch:`` prompt, then patch could not
- find a file to be patched. Most likely you forgot to specify -p1 or you are
--in the wrong directory. Less often, you'll find patches that need to be
-+in the wrong directory. Less often, you will find patches that need to be
- applied with ``-p0`` instead of ``-p1`` (reading the patch file should reveal if
- this is the case -- if so, then this is an error by the person who created
- the patch but is not fatal).
-@@ -412,7 +412,7 @@ tree. The Subsystem maintainers push their patches first to linux-next,
- and, during the merge window, sends them directly to Linus.
- 
- The -mm patches serve as a sort of proving ground for new features and other
--experimental patches that aren't merged via a subsystem tree.
-+experimental patches that are not merged via a subsystem tree.
- Once such patches has proved its worth in -mm for a while Andrew pushes
- it on to Linus for inclusion in mainline.
- 
-diff --git a/Documentation/process/botching-up-ioctls.rst b/Documentation/process/botching-up-ioctls.rst
-index a05e8401de1c7..d9f9d4450debb 100644
---- a/Documentation/process/botching-up-ioctls.rst
-+++ b/Documentation/process/botching-up-ioctls.rst
-@@ -10,8 +10,8 @@ One clear insight kernel graphics hackers gained in the past few years is that
- trying to come up with a unified interface to manage the execution units and
- memory on completely different GPUs is a futile effort. So nowadays every
- driver has its own set of ioctls to allocate memory and submit work to the GPU.
--Which is nice, since there's no more insanity in the form of fake-generic, but
--actually only used once interfaces. But the clear downside is that there's much
-+Which is nice, since there is no more insanity in the form of fake-generic 
-+interfaces that are actually used only once. But the clear downside is that there is much
- more potential to screw things up.
- 
- To avoid repeating all the same mistakes again I've written up some of the
-@@ -24,14 +24,14 @@ something every GPU driver has to do on its own.
- Prerequisites
+@@ -513,17 +513,17 @@ and running the patched kernel (or program).
+ Build testing
  -------------
  
--First the prerequisites. Without these you have already failed, because you
-+First, the prerequisites. Without these you have already failed, because you
- will need to add a 32-bit compat layer:
+-We won't cover runtime testing here, but it can be a good idea to build
++We will not cover runtime testing here, but it can be a good idea to build
+ just the files touched by the patch as a quick sanity check. For the
+ Linux kernel you can build single files like this, assuming you have the
+ ``.config`` and build environment set up correctly::
  
-  * Only use fixed sized integers. To avoid conflicts with typedefs in userspace
-    the kernel has special types like __u32, __s64. Use them.
+     make path/to/file.o
  
-  * Align everything to the natural size and use explicit padding. 32-bit
--   platforms don't necessarily align 64-bit values to 64-bit boundaries, but
-+   platforms do not necessarily align 64-bit values to 64-bit boundaries, but
-    64-bit platforms do. So we always need padding to the natural size to get
-    this right.
+-Note that this won't discover linker errors, so you should still do a
++Note that this will not discover linker errors, so you should still do a
+ full build after verifying that the single file compiles. By compiling
+ the single file first you can avoid having to wait for a full build *in
+-case* there are compiler errors in any of the files you've changed.
++case* there are compiler errors in any of the files you have changed.
  
-@@ -58,18 +58,18 @@ pain. And since getting things wrong on the first attempt is guaranteed you
- will have a second iteration or at least an extension for any given interface.
+ Runtime testing
+ ---------------
+@@ -571,7 +571,7 @@ format::
+   Signed-off-by: <your name and email>
  
-  * Have a clear way for userspace to figure out whether your new ioctl or ioctl
--   extension is supported on a given kernel. If you can't rely on old kernels
-+   extension is supported on a given kernel. If you cannot rely on old kernels
-    rejecting the new flags/modes or ioctls (since doing that was botched in the
-    past) then you need a driver feature flag or revision number somewhere.
+ The "Upstream commit" line is sometimes slightly different depending on
+-the stable version. Older version used this format::
++the stable version. Older versions used this format::
  
-  * Have a plan for extending ioctls with new flags or new fields at the end of
-    the structure. The drm core checks the passed-in size for each ioctl call
-    and zero-extends any mismatches between kernel and userspace. That helps,
--   but isn't a complete solution since newer userspace on older kernels won't
--   notice that the newly added fields at the end get ignored. So this still
-+   but is not a complete solution since newer userspace on older kernels won't
-+   notice that the newly added fields at the end that get ignored. So this still
-    needs a new driver feature flags.
+   commit <mainline rev> upstream.
  
-- * Check all unused fields and flags and all the padding for whether it's 0,
-+ * Check all unused fields, flags and padding to verify that they are 0,
-    and reject the ioctl if that's not the case. Otherwise your nice plan for
-    future extensions is going right down the gutters since someone will submit
-    an ioctl struct with random stack garbage in the yet unused parts. Which
-@@ -84,7 +84,7 @@ will have a second iteration or at least an extension for any given interface.
- Fun with Error Paths
- --------------------
+diff --git a/Documentation/process/coding-assistants.rst b/Documentation/process/coding-assistants.rst
+index 051f0d819f68e..f01c15afe6fe4 100644
+--- a/Documentation/process/coding-assistants.rst
++++ b/Documentation/process/coding-assistants.rst
+@@ -15,7 +15,7 @@ kernel development process:
+ * Documentation/process/coding-style.rst
+ * Documentation/process/submitting-patches.rst
  
--Nowadays we don't have any excuse left any more for drm drivers being neat
-+Nowadays we do not have any excuse left any more for drm drivers being neat
- little root exploits. This means we both need full input validation and solid
- error handling paths - GPUs will die eventually in the oddmost corner cases
- anyway:
-@@ -100,27 +100,27 @@ anyway:
-    Check that the error code matches your expectations. And finally make sure
-    that you only test for one single error path in each subtest by submitting
-    otherwise perfectly valid data. Without this an earlier check might reject
--   the ioctl already and shadow the codepath you actually want to test, hiding
-+   the ioctl already and shadow the code path that you actually want to test, hiding
-    bugs and regressions.
+-For guidelines on content generated by AI coding assistants see:
++For guidelines on content generated by AI coding assistants, see:
  
-  * Make all your ioctls restartable. First X really loves signals and second
-    this will allow you to test 90% of all error handling paths by just
-    interrupting your main test suite constantly with signals. Thanks to X's
--   love for signal you'll get an excellent base coverage of all your error
-+   love for signal you will get an excellent base coverage of all your error
-    paths pretty much for free for graphics drivers. Also, be consistent with
-    how you handle ioctl restarting - e.g. drm has a tiny drmIoctl helper in its
-    userspace library. The i915 driver botched this with the set_tiling ioctl,
-    now we're stuck forever with some arcane semantics in both the kernel and
-    userspace.
+ * Documentation/process/generated-content.rst
  
-- * If you can't make a given codepath restartable make a stuck task at least
--   killable. GPUs just die and your users won't like you more if you hang their
-+ * If you cannot make a given codepath restartable make a stuck task at least
-+   killable. GPUs just die and your users will not like you more if you hang their
-    entire box (by means of an unkillable X process). If the state recovery is
-    still too tricky have a timeout or hangcheck safety net as a last-ditch
-    effort in case the hardware has gone bananas.
+@@ -73,12 +73,12 @@ these steps:
+    the report to be ignored, as many unverified bug reports sent to maintainers
+    happen to be invalid. Stop here if it finally looks wrong.
+ 4. Write a fix for the bug. This part is not optional: except in a few very
+-   rare cases, an AI assistant able to find a bug is able to fix it. Note that
+-   fixes written in the same session as used to find the bug will generally
+-   lead to better and more accurate fixes as the LLM's reasoning context
+-   remains present.
++   rare cases, an AI assistant capable of finding a bug is capable of fixing it. 
++   Fixes written within the same session used to identify the bug will 
++   generally lead to better and more accurate fixes as the LLM's reasoning 
++   context remains present.
+ 5. Build and verify that the fix works either using the reproducer or by
+-   re-running a complete analysis; drop any fix that doesn't work and try
++   re-running a complete analysis; drop any fix that does not work and try
+    another one. The fix must not add build warnings and must pass the
+    checkpatch.pl checks (see submitting-patches.rst).
+ 6. Commit the working fix with a detailed message describing the problem, the
+diff --git a/Documentation/process/conclave.rst b/Documentation/process/conclave.rst
+index 6a1234f546124..44324d285ed49 100644
+--- a/Documentation/process/conclave.rst
++++ b/Documentation/process/conclave.rst
+@@ -33,9 +33,9 @@ Technical Advisory Board (TAB) Chair as a backup.
+   the expectation that it maximizes the long term health of the project
+   and its community.
  
-  * Have testcases for the really tricky corner cases in your error recovery code
--   - it's way too easy to create a deadlock between your hangcheck code and
-+   - it is way too easy to create a deadlock between your hangcheck code and
-    waiters.
+-- Within two weeks, a representative of this group will communicate to the
+-  broader community, using the ksummit@lists.linux.dev mailing list, what
+-  the next steps will be.
++- Within two weeks, a representative of this group will communicate the 
++  next steps to the broader community via the ksummit@lists.linux.dev
++  mailing list.
  
+ The Linux Foundation, as guided by the TAB, will take the steps
+ necessary to support and implement this plan.
+diff --git a/Documentation/process/contribution-maturity-model.rst b/Documentation/process/contribution-maturity-model.rst
+index b87ab34de22ce..8b7e9ab6c9e82 100644
+--- a/Documentation/process/contribution-maturity-model.rst
++++ b/Documentation/process/contribution-maturity-model.rst
+@@ -11,7 +11,7 @@ Background
+ As a part of the 2021 Linux Kernel Maintainers’ Summit, there was a
+ `discussion <https://lwn.net/Articles/870581/>`_ about the challenges in
+ recruiting kernel maintainers as well as maintainer succession.  Some of
+-the conclusions from that discussion included that companies which are a
++the conclusions from that discussion included that companies that are a
+ part of the Linux Kernel community need to allow engineers to be
+ maintainers as part of their job, so they can grow into becoming
+ respected leaders and eventually, kernel maintainers.  To support a
+@@ -65,7 +65,7 @@ Level 3
+   authored by engineers from other companies) as part of their job
+   responsibilities
+ * Contributing presentations or papers to Linux-related or academic
+-  conferences (such those organized by the Linux Foundation, Usenix,
++  conferences (such as those organized by the Linux Foundation, Usenix,
+   ACM, etc.), are considered part of an engineer’s work.
+ * A Software Engineer’s community contributions will be considered in
+   promotion and performance reviews.
+diff --git a/Documentation/process/cve.rst b/Documentation/process/cve.rst
+index 5e2753eff7294..69b20b2ecfb25 100644
+--- a/Documentation/process/cve.rst
++++ b/Documentation/process/cve.rst
+@@ -33,11 +33,11 @@ for CVE number assignments and have CVE numbers automatically assigned
+ to them.  These assignments are published on the linux-cve-announce
+ mailing list as announcements on a frequent basis.
  
-@@ -129,10 +129,10 @@ Time, Waiting and Missing it
+-Note, due to the layer at which the Linux kernel is in a system, almost
++Note, due to the layer where the Linux kernel is in a system, almost
+ any bug might be exploitable to compromise the security of the kernel,
+ but the possibility of exploitation is often not evident when the bug is
+ fixed.  Because of this, the CVE assignment team is overly cautious and
+-assign CVE numbers to any bugfix that they identify.  This
++assigns CVE numbers to any bugfix that they identify.  This
+ explains the seemingly large number of CVEs that are issued by the Linux
+ kernel team.
  
- GPUs do most everything asynchronously, so we have a need to time operations and
- wait for outstanding ones. This is really tricky business; at the moment none of
--the ioctls supported by the drm/i915 get this fully right, which means there's
--still tons more lessons to learn here.
-+the ioctls supported by the drm/i915 get this fully right, which means there are
-+still many lessons to learn here.
+@@ -53,7 +53,7 @@ process<../process/security-bugs>`.
+ No CVEs will be automatically assigned for unfixed security issues in
+ the Linux kernel; assignment will only automatically happen after a fix
+ is available and applied to a stable kernel tree, and it will be tracked
+-that way by the git commit id of the original fix.  If anyone wishes to
++by the Git commit ID of the original fix.  If anyone wishes to
+ have a CVE assigned before an issue is resolved with a commit, please
+ contact the kernel CVE assignment team at <cve@kernel.org> to get an
+ identifier assigned from their batch of reserved identifiers.
+@@ -83,7 +83,7 @@ If a security issue is found in a Linux kernel that is only supported by
+ a Linux distribution due to the changes that have been made by that
+ distribution, or due to the distribution supporting a kernel version
+ that is no longer one of the kernel.org supported releases, then a CVE
+-can not be assigned by the Linux kernel CVE team, and must be asked for
++cannot be assigned by the Linux kernel CVE team, and must be asked for
+ from that Linux distribution itself.
  
-- * Use CLOCK_MONOTONIC as your reference time, always. It's what alsa, drm and
-+ * Use CLOCK_MONOTONIC as your reference time, always. It is what alsa, drm and
-    v4l use by default nowadays. But let userspace know which timestamps are
-    derived from different clock domains like your main system clock (provided
-    by the kernel) or some independent hardware counter somewhere else. Clocks
-@@ -141,8 +141,8 @@ still tons more lessons to learn here.
-    get at the raw values of some clocks (e.g. through in-command-stream
-    performance counter sampling instructions) consider exposing those also.
+ Any CVE that is assigned against the Linux kernel for an actively
+diff --git a/Documentation/process/deprecated.rst b/Documentation/process/deprecated.rst
+index 22a5e62c92eaf..b8f15c761ed08 100644
+--- a/Documentation/process/deprecated.rst
++++ b/Documentation/process/deprecated.rst
+@@ -9,7 +9,7 @@ Deprecated Interfaces, Language Features, Attributes, and Conventions
+ In a perfect world, it would be possible to convert all instances of
+ some deprecated API into the new API and entirely remove the old API in
+ a single development cycle. However, due to the size of the kernel, the
+-maintainership hierarchy, and timing, it's not always feasible to do these
++maintainership hierarchy, and timing, it is not always feasible to do these
+ kinds of conversions at once. This means that new instances may sneak into
+ the kernel while old ones are being removed, only making the amount of
+ work to remove the API grow. In order to educate developers about what
+@@ -20,12 +20,12 @@ kernel.
+ __deprecated
+ ------------
+ While this attribute does visually mark an interface as deprecated,
+-it `does not produce warnings during builds any more
++it `does not produce warnings during builds anymore
+ <https://git.kernel.org/linus/771c035372a036f83353eef46dbb829780330234>`_
+ because one of the standing goals of the kernel is to build without
+-warnings and no one was actually doing anything to remove these deprecated
++warnings and no effort was made to remove these deprecated
+ interfaces. While using `__deprecated` is nice to note an old API in
+-a header file, it isn't the full solution. Such interfaces must either
++a header file, it is not the full solution. Such interfaces must either
+ be fully removed from the kernel, or added to this file to discourage
+ others from using them in the future.
  
-- * Use __s64 seconds plus __u64 nanoseconds to specify time. It's not the most
--   convenient time specification, but it's mostly the standard.
-+ * Use __s64 seconds plus __u64 nanoseconds to specify time. It is not the most
-+   convenient time specification, but it is mostly the standard.
+@@ -206,8 +206,8 @@ Implicit switch case fall-through
+ ---------------------------------
+ The C language allows switch cases to fall through to the next case
+ when a "break" statement is missing at the end of a case. This, however,
+-introduces ambiguity in the code, as it's not always clear if the missing
+-break is intentional or a bug. For example, it's not obvious just from
++introduces ambiguity in the code, as it is not always clear if the missing
++break is intentional or a bug. For example, it is not obvious just from
+ looking at the code if `STATE_ONE` is intentionally designed to fall
+ through into `STATE_TWO`::
  
-  * Check that input time values are normalized and reject them if not. Note
-    that the kernel native struct ktime has a signed integer for both seconds
-@@ -152,7 +152,7 @@ still tons more lessons to learn here.
-    ioctl restartable relative timeouts tend to be too coarse and can
-    indefinitely extend your wait time due to rounding on each restart.
-    Especially if your reference clock is something really slow like the display
--   frame counter. With a spec lawyer hat on this isn't a bug since timeouts can
-+   frame counter. With a spec lawyer hat on this is not a bug since timeouts can
-    always be extended - but users will surely hate you if their neat animations
-    starts to stutter due to this.
+@@ -266,7 +266,7 @@ size problems::
+                 struct foo items[0];
+         };
  
-@@ -185,17 +185,17 @@ entails its own little set of pitfalls:
-    explicitly. Only go with a more global per-device namespace if the objects
-    are truly device-unique. One counterexample in the drm modeset interfaces is
-    that the per-device modeset objects like connectors share a namespace with
--   framebuffer objects, which mostly are not shared at all. A separate
-+   framebuffer objects that are generally not shared at all. A separate
-    namespace, private by default, for framebuffers would have been more
-    suitable.
+-But this led to other problems, and didn't solve some problems shared by
++But this led to other problems, and did not solve some problems shared by
+ both styles, like not being able to detect when such an array is accidentally
+ being used _not_ at the end of a structure (which could happen directly, or
+ when such a struct was in unions, structs of structs, etc).
+diff --git a/Documentation/process/development-process.rst b/Documentation/process/development-process.rst
+index e34d7da58b7ff..6c40831bf45f7 100644
+--- a/Documentation/process/development-process.rst
++++ b/Documentation/process/development-process.rst
+@@ -4,12 +4,12 @@ A guide to the Kernel Development Process
+ =========================================
  
-  * Think about uniqueness requirements for userspace handles. E.g. for most drm
--   drivers it's a userspace bug to submit the same object twice in the same
-+   drivers it is a userspace bug to submit the same object twice in the same
-    command submission ioctl. But then if objects are shareable userspace needs
-    to know whether it has seen an imported object from a different process
--   already or not. I haven't tried this myself yet due to lack of a new class
-+   already or not. I have not tried this myself yet due to lack of a new class
-    of objects, but consider using inode numbers on your shared file descriptors
--   as unique identifiers - it's how real files are told apart, too.
-+   as unique identifiers - it is how real files are told apart, too.
-    Unfortunately this requires a full-blown virtual filesystem in the kernel.
+ The purpose of this document is to help developers (and their managers)
+-work with the development community with a minimum of frustration.  It is
+-an attempt to document how this community works in a way which is
++work with the development community with a minimum of frustration. It is
++an attempt to document how this community works in a way that is
+ accessible to those who are not intimately familiar with Linux kernel
+ development (or, indeed, free software development in general).  While
+ there is some technical material here, this is very much a process-oriented
+-discussion which does not require a deep knowledge of kernel programming to
++discussion that does not require a deep knowledge of kernel programming to
+ understand.
  
+ .. toctree::
+diff --git a/Documentation/process/email-clients.rst b/Documentation/process/email-clients.rst
+index b5377630a648a..88246203a9e99 100644
+--- a/Documentation/process/email-clients.rst
++++ b/Documentation/process/email-clients.rst
+@@ -25,7 +25,7 @@ attachments, but then the attachments should have content-type
+ it makes quoting portions of the patch more difficult in the patch
+ review process.
  
-@@ -205,10 +205,10 @@ Last, but not Least
- Not every problem needs a new ioctl:
+-It's also strongly recommended that you use plain text in your email body,
++It is also strongly recommended that you use plain text in your email body,
+ for patches and other emails alike. https://useplaintext.email may be useful
+ for information on how to configure your preferred email client, as well as
+ listing recommended email clients should you not already have a preference.
+@@ -34,10 +34,10 @@ Email clients that are used for Linux kernel patches should send the
+ patch text untouched.  For example, they should not modify or delete tabs
+ or spaces, even at the beginning or end of lines.
  
-  * Think hard whether you really want a driver-private interface. Of course
--   it's much quicker to push a driver-private interface than engaging in
-+   it is much quicker to push a driver-private interface than engaging in
-    lengthy discussions for a more generic solution. And occasionally doing a
-    private interface to spearhead a new concept is what's required. But in the
--   end, once the generic interface comes around you'll end up maintaining two
-+   end, once the generic interface comes around you will end up maintaining two
-    interfaces. Indefinitely.
+-Don't send patches with ``format=flowed``.  This can cause unexpected
++Do not send patches with ``format=flowed``.  This can cause unexpected
+ and unwanted line breaks.
  
-  * Consider other interfaces than ioctls. A sysfs attribute is much better for
-@@ -218,7 +218,7 @@ Not every problem needs a new ioctl:
-    disclaimer of not having a stable ABI would be better.
+-Don't let your email client do automatic word wrapping for you.
++Do not let your email client do automatic word wrapping for you.
+ This can also corrupt your patch.
  
- Finally, the name of the game is to get it right on the first attempt, since if
--your driver proves popular and your hardware platforms long-lived then you'll
-+your driver proves popular and your hardware platforms long-lived then you will
- be stuck with a given ioctl essentially forever. You can try to deprecate
- horrible ioctls on newer iterations of your hardware, but generally it takes
- years to accomplish this. And then again years until the last user able to
+ Email clients should not modify the character set encoding of the text.
+@@ -50,14 +50,14 @@ headers so that mail threading is not broken.
+ 
+ Copy-and-paste (or cut-and-paste) usually does not work for patches
+ because tabs are converted to spaces.  Using xclipboard, xclip, and/or
+-xcutsel may work, but it's best to test this for yourself or just avoid
++xcutsel may work, but it is best to test this for yourself or just avoid
+ copy-and-paste.
+ 
+-Don't use PGP/GPG signatures in mail that contains patches.
++Do not use PGP/GPG signatures in mail that contains patches.
+ This breaks many scripts that read and apply the patches.
+ (This should be fixable.)
+ 
+-It's a good idea to send a patch to yourself, save the received message,
++It is a good idea to send a patch to yourself, save the received message,
+ and successfully apply it with 'patch' before sending patches to Linux
+ mailing lists.
+ 
+@@ -86,7 +86,7 @@ In the :menuselection:`Sending Preferences` section:
+ - :menuselection:`Strip Whitespace Before Sending` must be ``disabled``
+ 
+ When composing the message, the cursor should be placed where the patch
+-should appear, and then pressing `CTRL-R` let you specify the patch file
++should appear, and then pressing `CTRL-R` lets you specify the patch file
+ to insert into the message.
+ 
+ Claws Mail (GUI)
+@@ -180,7 +180,7 @@ Mutt (TUI)
+ 
+ Plenty of Linux developers use ``mutt``, so it must work pretty well.
+ 
+-Mutt doesn't come with an editor, so whatever editor you use should be
++Mutt does not come with an editor, so whatever editor you use should be
+ used in a way that there are no automatic linebreaks.  Most editors have
+ an :menuselection:`insert file` option that inserts the contents of a file
+ unaltered.
+@@ -208,7 +208,7 @@ to send them::
+ Config options:
+ 
+ It should work with default settings.
+-However, it's a good idea to set the ``send_charset`` to::
++However, it is a good idea to set the ``send_charset`` to::
+ 
+   set send_charset="us-ascii:utf-8"
+ 
+@@ -266,9 +266,9 @@ Sylpheed (GUI)
+ - Works well for inlining text (or using attachments).
+ - Allows use of an external editor.
+ - Is slow on large folders.
+-- Won't do TLS SMTP auth over a non-SSL connection.
++- Will not do TLS SMTP auth over a non-SSL connection.
+ - Has a helpful ruler bar in the compose window.
+-- Adding addresses to address book doesn't understand the display name
++- Adding addresses to address book does not understand the display name
+   properly.
+ 
+ Thunderbird (GUI)
+@@ -283,7 +283,7 @@ you need to restart Thunderbird.
+ - Allow use of an external editor:
+ 
+   The easiest thing to do with Thunderbird and patches is to use extensions
+-  which open your favorite external editor.
++  that open your favorite external editor.
+ 
+   Here are some example extensions which are capable of doing this.
+ 
+@@ -294,7 +294,7 @@ you need to restart Thunderbird.
+     https://addons.thunderbird.net/en-GB/thunderbird/addon/external-editor-revived/
+ 
+     It requires installing a "native messaging host".
+-    Please read the wiki which can be found here:
++    Please read the wiki that can be found here:
+     https://github.com/Frederick888/external-editor-revived/wiki
+ 
+   - "External Editor"
+@@ -317,7 +317,7 @@ you need to restart Thunderbird.
+ 
+ To beat some sense out of the internal editor, do this:
+ 
+-- Edit your Thunderbird config settings so that it won't use ``format=flowed``!
++- Edit your Thunderbird config settings so that it will not use ``format=flowed``!
+   Go to your main window and find the button for your main dropdown menu.
+   :menuselection:`Main Menu-->Preferences-->General-->Config Editor...`
+   to bring up the thunderbird's registry editor.
+@@ -333,7 +333,7 @@ To beat some sense out of the internal editor, do this:
+ 
+     to control this registry on the fly.
+ 
+-- Don't write HTML messages! Go to the main window
++- Do not write HTML messages! Go to the main window
+   :menuselection:`Main Menu-->Account Settings-->youracc@server.something-->Composition & Addressing`!
+   There you can disable the option "Compose messages in HTML format".
+ 
+@@ -362,7 +362,7 @@ HacKerMaiL (TUI)
+ ****************
+ 
+ HacKerMaiL (hkml) is a public-inbox based simple mails management tool that
+-doesn't require subscription of mailing lists.  It is developed and maintained
++does not require subscription of mailing lists.  It is developed and maintained
+ by the DAMON maintainer and aims to support simple development workflows for
+ DAMON and general kernel subsystems.  Refer to the README
+ (https://github.com/sjp38/hackermail/blob/master/README.md) for details.
 -- 
 2.50.1 (Apple Git-155)
 
