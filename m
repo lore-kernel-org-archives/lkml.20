@@ -1,83 +1,80 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E996D374A0E
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:23:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08791289E13
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:24:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788330239; cv=none; b=maKyzfFDPezI6BppP8UOyhXKh61XzBkqxXic3tBUlj02RYOGOayQ4/C+qe5GVuBJUr+PP/hh5dmGcXuZOgHefd7iwxwBFKjTpoUOJOf4e4pytscXQ5S0TVwB0w9yfB/1serwEgTr2WU7D2aYwtWAdeKMmrJQTJ/VYj+BgmnkoIc=
+	t=1788330277; cv=none; b=gJp6j3CugWfZiysdhR1pkRKEBXbtlSy2Xi7+4dYnW5BVSn7+ueR0paRag/C6h63RSWUGGe6LaRY3LiA7L3ZpQ+a+MXw4OaLDiMfQLX23FjjgDPFoZFD7cpbPqTOQep08wvaJfaN9ZOH75p2TGd2kezx1IvWylmffSbk29Ec7HRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788330239; c=relaxed/simple;
-	bh=HMnn5aVJ48OtNSiTS+brlOGFOOU4wR55y7WucMsEbHY=;
+	s=arc-20240116; t=1788330277; c=relaxed/simple;
+	bh=yrhr596mnK2dbjRLnW2TpPyTsU+lz2ODEABE+FOq7JI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NjLuYe8YgkMzp2VZyGHt3OIDV6Cbl8d3H8Zd5GoRqRUBHRJrNE7VO+X+pT4uISrAqSQsYsTo2WayyGub7nB0VHGRLBc9ACT14SW8KwkKjNessAfJNZWqh+AdGhPKvtGkKEVl0RRXiX28LZw5OhpkVqHRtOsIbUKjT3+MOQm6nVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=md5v9B9/; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=DZKWq1YmSowrMZjhSijru+ebKTBHq9FHRpJtyR3hxLgKmb7mRBMSt16xHyXTyapZ8tEJkmYKsb+FRVLTOss/++Hf6OoYE5yIaTQTwGV4HOokdTbWS+n+bpXSjstKKFq8xv2MbP/KLMhjc2KMbEcnd5NO4zEa+reWbE9zXtevZO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai; spf=pass smtp.mailfrom=crusoe.ai; dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b=KWEnilLG; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=crusoe.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crusoe.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="md5v9B9/"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49557167508so6314185e9.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 23:23:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=crusoe.ai header.i=@crusoe.ai header.b="KWEnilLG"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-848643382fcso767443b3a.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 23:24:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788330236; x=1788935036; darn=vger.kernel.org;
+        d=crusoe.ai; s=google; t=1788330275; x=1788935075; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uHOxVIY41WkMlz245AOFHdi0BnFepDxV94FL1AiaZ/8=;
-        b=md5v9B9/6rxyypeKiKXThJpR7D7n7GPHt6OpKP9wGHl1axadAoBRIkHWXj5JJra+uu
-         gFeDhgfLzd9fute7JT+Go2+k20s6l4hYMg/E3izdh9QKIWwcVKY2EmTWAgagq6zXqKfH
-         AT7VkSOhWVrmCPTxLkQlwZ8xY8WTnziO5l4p06yws8+7pxlGMxwxR7iqxINciyyRjU9Y
-         uF7MrXSkkWHA0p+MuyZbivjYRsBTNNz9o8sjFuCrrDipPvzLNchQn1a6zDTEyAhDzIr4
-         sLK6YrmgdTHFrxMs7t+radMq7YptjBnjjTFC+5ODBRTljWzU2BEqnXkKPD0OpvsGu1IJ
-         AHIg==
+        bh=yrhr596mnK2dbjRLnW2TpPyTsU+lz2ODEABE+FOq7JI=;
+        b=KWEnilLGqw3C/QmWLtnyU+91bynk3SUfKVKWqysuvvc9ZWOfVuuXPBbHUcZGxcf/zh
+         I8l0q9kmTXI/VR9lyRvhSuQKkbkbs3qXX+KD+w+b3K4i7qxP5hcuHcSSyV1xCyJc9zIK
+         yV8e41rmldj6DgQL8Yb5Cbvd3Dj8IhSSNBE7tNP2tytv5yJgxKY/dVarO/2JEa/ZLX4p
+         Of07H8KuqTmimTSEzjdymEqT6SHMMT+n+gs3vO2B95fslGnEzzMDq0C98EcAPCYd+3V5
+         7yTq00w2kdQeUk5ul4qayBRL1aqZt6ZqsILVTde7AHBYwlmPKbB+HZD3s40iwIWbRViN
+         2zvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788330236; x=1788935036;
+        d=1e100.net; s=20251104; t=1788330275; x=1788935075;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uHOxVIY41WkMlz245AOFHdi0BnFepDxV94FL1AiaZ/8=;
-        b=PjMbYi/OX7YHNVlHYR5HzycJUywmvJMr4trKAJHoJw2ouSEOq/MufefOUDQAim/0GR
-         7QuIx4O8IqGblmqVuP4zKZucDpHZR7IlLheDl79d0NfDpnYSWxjdPazO/Uq3KZM2h1aT
-         Q+pCt2UGIWKRJn+5iNkqHe6AuogdH9wteSQag9R5jxoWWrIy5OgffrATgrwG0JcRENE1
-         iD6x6hATHKpQ4O1ZYH900dYsKuQvr8q4lJcKRXonY5/LTUCdyVJi1p+0nVwYksWkEKUD
-         UPj9O6+K+9S76079TeKj8peDwBoRBwJHnq7cbtYef6ti1z9wzjdvD7J4pyrB9Id28yE8
-         DZ3w==
-X-Forwarded-Encrypted: i=1; AHgh+RpGN2+okjbZjta9+XmsACa0BiHXAMR4zHYkqg6viarvEvEZeP6bykSxgKkUqY4uUgDtf3QVRKw6V6L8OP4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nR/q1MpKmovlLWoqktTxAEL0S/GUyrKLAyBNb1/lL9Eq+wvTFJ
-	OkLSbgSzNr2E/7VW7L4DAchYG0CPB3VTSVMtkMtRIpkF1dtyDKC5vkR9
-X-Gm-Gg: AR+sD10nkDv+WNmXLHy33maWPnrYOLxAVgwt8sFugYM4V/jyMo1pyba7ogF9jfiHNUp
-	c0J+M9kTU0ATZ/MuVNyaKSO6I3BIbDYbJg0Vy8pOSSOHZrudgkD1msVl7Kp1ONBHRomMXUq+hC2
-	GEPBArl/EL+bAOclYdXQs08D3XQqy7HP8toBuwvg/f64Tm56B0fDqSREUGODlPAScry+X+kBCGV
-	jx1xH6cQsls7VQqZ297Cu6/77EjPQi0NhR9jAO8S8XSDsRW4P7jx445zdo9TDL8wMfiZGBlawkt
-	S39IBux5qYW8eaENYniFsWe6pXau4ht0jCXXGx/kulLpL0ia2Mcc4kvSrM3YPfBVHJR0/1k1vmJ
-	dds/zOoQf3DJ0MDM/kTHC10yJRPCw+OA1cA9FbgbBKKp3CK93FEb2SeQzrDeUTHb1eEwmkFM9i8
-	frPJaZ5RhxzYy0XJqp9E2g9YW0kZyfhFCuv4ZhI3Bhi3DimbXgRUuzeWo0qIkjWt+64g==
-X-Received: by 2002:a05:600c:1d14:b0:499:b65e:49c9 with SMTP id 5b1f17b1804b1-49ce583e94cmr33712895e9.10.1788330236108;
-        Tue, 01 Sep 2026 23:23:56 -0700 (PDT)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce4776131sm49735335e9.11.2026.09.01.23.23.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 23:23:55 -0700 (PDT)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>
-Cc: Dong Aisheng <aisheng.dong@nxp.com>,
-	Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Jacky Bai <ping.bai@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	imx@lists.linux.dev,
-	linux-gpio@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+        bh=yrhr596mnK2dbjRLnW2TpPyTsU+lz2ODEABE+FOq7JI=;
+        b=Tis60+HqvuWW74z1Bggs/PJ92tnsDrgSyeZQsMZEW7D4YFWIVN0hB5CR7AboFKYLGb
+         FwMbyRBfx4VUH2Rko360Ufj+k1al8kE3I6Kwnbwm3y1TdspcVrm0T36dEIXUlYg0f11M
+         fn3+xl33BEyX2/6BQwL2IfzP13IDkliailaYhRJlmFalHhC9NJGcqGBMnsdD1jTQ4WFc
+         hFxi5coyyVk3dNmMfEqVOQcjO/ETARf84q1zX925hmhY8B4uSQUbMRVU+E3NFPEA9hbs
+         fKPHM9i1ScDU5xaFFRipAo+r7OTiF6WIwddDFTK1ubz/cGqoWS8wyFjvE4L1UE463XB3
+         7rwg==
+X-Forwarded-Encrypted: i=1; AHgh+RrVfZVxshrnVTJaqYNIHEJZoX5D7s6B6Lt5aideKxfAjtx08bmxmd7w0cZLSiU0KCTnsvP11MFKg1GL044=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/mKrulmYK7vEpGbi7AHOiGa/cu39JZ4l+8m1GLA73zzyzvnKk
+	A9ydp2oHjkCQbN+J4zSFq6Ch0ee3MGkPvcWdD57bUdoahWPtnAb8u7C7gPJpzFXztsE=
+X-Gm-Gg: AR+sD12JvLxW8H8J7Ri1a1dj6YY8R6NyfVevvoD4EirhSzKwqaMZTXYg5m0OKIlercK
+	qXvuo3phF3cXFkeVxZ1qNdcv2P1fx7aTdQgOmKmbhpiYpVNapGfC/JV8QIHC8Ccy5LhulQibZ1J
+	6XaOPrzZwsBga67hcNaainlrIOlLtw1klmeARfNH+vRs0TeQ++/4fBhbasl2p68gv4NKfzqy5vL
+	faiD7DvwP65JEnri/oF8nQqye3Rti3yL1QfPGBn3ckfIJUsNEVvI/IlVhagMqejKJl6GgXzsAGc
+	3A2DLMvKNH5rm+BDJWqGtbf3vLkrGa+aO8lMbSMChI1C84yPQfVcyUvWe+IhOc8oZTnTRwUsLG4
+	vS5mmSbMrfsz6blXkEf+ycbNv4491Av51cCSXY/t5heqD8OzZwCtqf2dK8yPOtNlhQ1DFhDjmRi
+	ciGjYlfnbMAW5k3mnLqXIJ2KZrB4jobnohE9Y234pY8rn995amd/tLB4SBAoB711HnVBHLuxgY6
+	c3V1nBUPBE6aJa7EotU3A/6JDY+oKDuJhigUMEEDg+i0M4n/MFaNQ==
+X-Received: by 2002:a05:6a20:2cf:b0:3bf:b182:94e with SMTP id adf61e73a8af0-3d9acb3e963mr4580612637.5.1788330275276;
+        Tue, 01 Sep 2026 23:24:35 -0700 (PDT)
+Received: from MBP-Saravanan-D.civet-hops.ts.net ([2601:647:4380:3400:3036:5ac8:3cef:cf51])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f079f7d77sm3390670eec.12.2026.09.01.23.24.33
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 01 Sep 2026 23:24:34 -0700 (PDT)
+From: Saravanan D <saravanand@crusoe.ai>
+To: Sagi Grimberg <sagi@grimberg.me>
+Cc: Saravanan D <saravanand@crusoe.ai>,
+	linux-nvme@lists.infradead.org,
+	Keith Busch <kbusch@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Jens Axboe <axboe@kernel.dk>,
 	linux-kernel@vger.kernel.org,
-	Mehmet Fide <mehmet.fide@screeningeagle.com>
-Subject: [PATCH 2/2] gpio: mmio: get the direction from pinctrl when there are no direction registers
-Date: Wed,  2 Sep 2026 08:23:52 +0200
-Message-ID: <20260902062352.3600368-3-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260902062352.3600368-1-mehmet.fide@gmail.com>
-References: <20260902062352.3600368-1-mehmet.fide@gmail.com>
+	Nilay Shroff <nilay@linux.ibm.com>,
+	Daniel Wagner <dwagner@suse.de>
+Subject: Re: [PATCH v2] nvme-tcp: pin io_cpu to submitter cpu
+Date: Tue,  1 Sep 2026 23:24:28 -0700
+Message-ID: <20260902062431.61412-1-saravanand@crusoe.ai>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <1d56144d-6987-40c1-ac02-b15333db121e@grimberg.me>
+References: <20260820083634.71689-1-saravanand@crusoe.ai> <20260823174348.40236-1-saravanand@crusoe.ai> <1d56144d-6987-40c1-ac02-b15333db121e@grimberg.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -86,82 +83,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+On Mon, 31 Aug 2026 01:30:08 +0300 Sagi Grimberg <sagi@grimberg.me> wrote:
+> I just think that the adoption approach has downsides in many other
+> workloads. I wouldn't categorize your use-case as the common use-case.
+> Not to say that it shouldn't be solved.
 
-A generic chip with GPIO_GENERIC_PINCTRL_BACKEND and no direction
-registers already sets the direction through pinctrl, but leaves
-gc->get_direction unset, so every gpiod_get_direction() call trips the
-WARN in gpiolib and the initial line state is guessed. On a Vybrid
-Colibri module that is 21 backtraces per boot.
+Adoption in v2 is opt in per controller through the io_cpu_adopt
+connect option, so every workload that does not enable it
+keeps today's behavior unchanged. The downsides would only be borne by
+deployments that choose it. I concur with the broader point. Adoption
+makes the driver itself decide where socket work belongs, through a
+fixed rule that cannot fit every deployment, while a writable io_cpu
+is very flexible and leaves the decision to the control plane.
 
-Install a get_direction callback for that combination which asks the
-pinctrl backend for PIN_CONFIG_OUTPUT_ENABLE, the same way
-gpio-by-pinctrl does it and mirroring how the direction setters are
-forwarded. Pins the pin controller cannot answer for report -ENOTSUPP;
-gpiolib ignores that when requesting a line and in the debugfs dump, and
-such pins cannot change direction through this chip either, as the
-setters fail for them too. The one caller that does not ignore it is
-gpiochip_lock_as_irq(), which now refuses such a pin as an interrupt
-where it previously had nothing to check against.
+> I agree with you that queue io_cpu selection at connection time is too
+> limiting. Perhaps we can have each nvme-tcp queue expose a sysfs entry
+> to set the io_cpu?
+>
+> Something like:
+> echo $CPU > /sys/class/nvme/nvme0/tcp_queues/$QUEUE/io_cpu
+>
+> I am just trying to think of a way that will allow some control plane
+> to set it exactly as it wants, without the guessing part...
 
-Suggested-by: Bartosz Golaszewski <brgl@kernel.org>
-Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
----
- drivers/gpio/gpio-mmio.c | 27 +++++++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+The per queue sysfs io_cpu works for us, and in one respect it works
+better than a connect option because a sysfs attribute can be set after
+the fact on any existing connection. The control plane already knows each
+VM's cpuset and can read the queue to cpu grouping from mq/*/cpu_list,
+so it can nail the socket work placement.
 
-diff --git a/drivers/gpio/gpio-mmio.c b/drivers/gpio/gpio-mmio.c
-index 7e4b3e8d609f..b2aa74a734e4 100644
---- a/drivers/gpio/gpio-mmio.c
-+++ b/drivers/gpio/gpio-mmio.c
-@@ -49,6 +49,7 @@ o        `                     ~~~~\___/~~~~    ` controller in FPGA is ,.`
- #include <linux/log2.h>
- #include <linux/module.h>
- #include <linux/pinctrl/consumer.h>
-+#include <linux/pinctrl/pinconf-generic.h>
- #include <linux/platform_device.h>
- #include <linux/property.h>
- #include <linux/spinlock.h>
-@@ -365,6 +366,28 @@ static int gpio_mmio_dir_return(struct gpio_chip *gc, unsigned int gpio,
- 		return pinctrl_gpio_direction_input(gc, gpio);
- }
- 
-+/*
-+ * Without direction registers the direction lives in the pin controller
-+ * (Vybrid: the OBE bit in the iomuxc pad), so ask pinctrl.
-+ */
-+static int gpio_mmio_pinctrl_get_dir(struct gpio_chip *gc, unsigned int gpio)
-+{
-+	unsigned long config;
-+	int ret;
-+
-+#ifdef CONFIG_PINCTRL
-+	if (list_empty(&gc->gpiodev->pin_ranges))
-+		return -EOPNOTSUPP;
-+#endif
-+
-+	config = pinconf_to_config_packed(PIN_CONFIG_OUTPUT_ENABLE, 0);
-+	ret = pinctrl_gpio_get_config(gc, gpio, &config);
-+	if (ret)
-+		return ret;
-+
-+	return config ? GPIO_LINE_DIRECTION_OUT : GPIO_LINE_DIRECTION_IN;
-+}
-+
- static int gpio_mmio_dir_in_err(struct gpio_chip *gc, unsigned int gpio)
- {
- 	return -EINVAL;
-@@ -601,6 +624,10 @@ static int gpio_mmio_setup_direction(struct gpio_generic_chip *chip,
- 			gc->direction_input = gpio_mmio_dir_in_err;
- 		else
- 			gc->direction_input = gpio_mmio_simple_dir_in;
-+
-+		if (IS_ENABLED(CONFIG_PINCTRL) &&
-+		    cfg->flags & GPIO_GENERIC_PINCTRL_BACKEND)
-+			gc->get_direction = gpio_mmio_pinctrl_get_dir;
- 	}
- 
- 	return 0;
--- 
-2.54.0
+Two questions before I spin the next version around this.
 
+1. On reconnect the queues come back with the connect time io_cpu, so
+the control plane has to notice and reapply its placement. Is relying
+on the existing nvme udev events for controller state the intended
+signal, or would you want a dedicated notification ?
+
+2. What should the write path enforce ? I would validate the cpu is
+online, rebalance the nvme_tcp_cpu_queues accounting, and let the new
+value take effect from the next queued io_work. I intend to restrict the
+value to the queue's map group.
+
+If this direction sounds right I will drop the adoption heuristic and
+send the next version v3 exposing each queue's io_cpu as a writeable
+sysfs attribute.
+
+Thanks,
+Saravanan D.
