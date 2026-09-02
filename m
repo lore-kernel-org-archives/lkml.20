@@ -1,247 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C2353E6DF7;
-	Wed,  2 Sep 2026 21:11:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CBE73EC80B;
+	Wed,  2 Sep 2026 21:11:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788383485; cv=none; b=OAUs9CO1DseiyVCQ5BWsZEEov6TvTMhuaoGyZ8j3ZfDaSaC6jYMeLLCX/IcAWQCsjsg0t6WAIYNP6NIBtAIGEIgeSdbV1Idkv0lFHXbeHV4EIWENMHPVgj0D8godLe/K1RV85Hk1xqXsTvUpFJLQOcJT/1VaQ8ekVFI5z8DVjTU=
+	t=1788383516; cv=none; b=ZD7FbYemmKuVRm8ptaRQiaawynbzfjpqhjLqmtb3fyz4GZsy6DI9hExnnFEBY6AkFSmFHSf70+bcVLGfXeHuR6jusHVbCl6gwFj7Ugy93ezpk/cHWm2Roc7IQZS/1sAQpFLGF4IAWEVzMI+n1AkhkHuAUeqwM7zqWxf7gE4dn3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788383485; c=relaxed/simple;
-	bh=1pkVeZoMJT8Hlv5Y2kTvQ9rQzv1D9wp5qa9D+tD5bdY=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=oEP0J4+C7L/XyLJqC78q/TsNG7ZnisTJbx4244Qe+gUlYoelSj+DxCxWpcDAuIefnRiwavabxPd6iA7DUUn9bf3vL9AyNptcyNIu/+NaLqLpBV719hgLSk82sPZPPa5jsdX/4pltg0IE2V6A8WoWz4nefitU+h1nkEX7v/Lmmo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UMuXbAsw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788383516; c=relaxed/simple;
+	bh=93/OmGSeiRGdxNTXziMuvzAKSuH0jCD/smVEypPFlc0=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=ksE4s9gXo5sx/GWTZpDcXc4V9qNnyF53MkiV4f7wcF57csDh0swPAr3x1+zJeF0js3qay1JDd8HiueoIK42rM8o3L4EPEjE/Osx7ia4a4TlbxPQz9EmQY76yFX8a2DJIO8A3+z6q07yDp77uhE7SaWxs+fwxi0bZG/hKceNoF3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=OAewaOe6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UMuXbAsw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8E0F1F000E9;
-	Wed,  2 Sep 2026 21:11:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788383483;
-	bh=pCZJHKeytEx9moXuPcXu+qxXE/yek+mRpLJWqTDgaDc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UMuXbAsw1NvK5+mJYeorWfGPFnI2sZp+K9aG1JqzuC8wdgCf8YXgTE2aRh0shOfEa
-	 86JKLU7N4Qe3y1Qi79ma14bs2LQjlCjH9TyfpWEB0MLbpBft0x6tuwYgJhig3O/OM4
-	 mLu3jcjsJyexng1/hpQnCmZge5gHBgmNfv2dyMXd1rWsK5m7zXz3E905Bs4ZO/32Ya
-	 9ziOLQI5h8LK1ZMUwSsKaMUY09cPvJfbXqbYPtYo/tp6zgGjQz7P8mqxiCCm2vR3J0
-	 tnSG8JQAAzunfiL+9lWtmSXbZQj/ETi5rDubaFbiYbkXgcSo6iHNJZia9DrhPcRXA1
-	 d+52pM+NuLEFQ==
-Subject: Re: [net,v2] net: wwan: qcom_bam_dmux: account network packets
-From: netdev-bot+sashiko@kernel.org
-To: sinyavin@gmail.com
-Cc: stephan@gerhold.net, stephan.gerhold@linaro.org,
- loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com,
- johannes@sipsolutions.net, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Wed, 02 Sep 2026 21:11:22 +0000
-Message-ID: <178838348238.3394541.9061693826070810058@kernel.org>
-In-Reply-To: <20260831181006.1382372-1-sinyavin@gmail.com>
-References: <20260831181006.1382372-1-sinyavin@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="OAewaOe6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ADF91F000E9;
+	Wed,  2 Sep 2026 21:11:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1788383514;
+	bh=R58uimUktAT60F2STGL0CVSJ2s2uXX89Ga88btTYWqM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=OAewaOe6yCKjB7JUZQRUerIw15rxe4H1LtPvtO1QqwsRPSX35jud9zfB+jPjbywpe
+	 3zE40WHpcGOpZWzbxhhpn3G8nPVpUhZD6bEf8gvdJCWZSx0pEI4nZwqbj8y8lZJVSy
+	 2MDQ/Fzay7tHMTX5AyjyI4F9upy4yeICOWkjPNBA=
+Date: Wed, 2 Sep 2026 14:11:53 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: kasong@tencent.com
+Cc: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>,
+ linux-mm@kvack.org, Barry Song <baohua@kernel.org>, Axel Rasmussen
+ <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu
+ <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, Shakeel Butt
+ <shakeel.butt@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, Michal
+ Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Muchun Song <muchun.song@linux.dev>, Chris Li <chrisl@kernel.org>, Baolin
+ Wang <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Ridong Chen <ridong.chen@linux.dev>,
+ Lian Wang <lianux.mm@gmail.com>, Yu Zhao <yuzhao@google.com>, Zi Yan
+ <ziy@nvidia.com>, Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Kairui Song <ryncsn@gmail.com>
+Subject: Re: [PATCH v5 0/6] mm/mglru: clean up folio counters and flag usage
+Message-Id: <20260902141153.93b932ba572b1d3375216cc4@linux-foundation.org>
+In-Reply-To: <20260902-mglru-flags-cleanup-v5-0-9db761d779ef@tencent.com>
+References: <20260902-mglru-flags-cleanup-v5-0-9db761d779ef@tencent.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+On Wed, 02 Sep 2026 17:50:53 +0800 Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org> wrote:
 
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0 (1)
+> This is a cleanup series separated out from the MGLRU-FG series [1]. As
+> that series is getting too long in following updates, seperate out the
+> clean up part for easier review and merge.
+> 
+> No feature change is intended, except one bugfix. It mostly replaces
+> the open-coded bit operations scattered throughout the MGLRU code with
+> new helpers, with proper kdocs, sanity debug checks, and hardens a few
+> MGLRU functions.
+> 
+> A subtle generation counter leak is also found during the refactoring
+> and the fix is included.
+> 
+> Also collected review feedbacks on the cleanup part from the posted
+> series.
 
-- [High] Use-after-free write of the netdevice's core-allocated per-CPU
-  statistics from the asynchronous BAM TX completion callback.
+Thanks.  I hit a non-trivial reject in [2/6] presumably thanks to
+mm.git (mm-new) race conditions (appended).
 
-Pre-existing issues:
-- [Medium] The driver allocates netdevs with alloc_netdev() in
-  bam_dmux_register_netdev_work() but bam_dmux_remove() only calls…
-- [Low] Drop paths remain uncounted after the patch: the `drop:` label in
-  bam_dmux_netdev_start_xmit() (drivers/net/wwan/qcom_bam_dmux.c,…
+The patchset comes nicely review by humans, but AI is less happy:
+	https://sashiko.dev/#/patchset/20260902-mglru-flags-cleanup-v5-0-9db761d779ef@tencent.com
 
---
+So please take a look at all that and retry in a few days?
 
-net: wwan: qcom_bam_dmux: account network packets
+Thanks.
 
-The patch makes the BAM-DMUX driver maintain rx/tx packet and byte counters
-using the core per-CPU software statistics (NETDEV_PCPU_STAT_TSTATS plus
-dev_get_tstats64()). TX is accounted in the DMA completion callback and RX
-after the BAM-DMUX header and padding are stripped.
+--- mm/vmscan.c
++++ mm/vmscan.c
+@@ -3307,21 +3313,20 @@ static int folio_inc_gen(struct lruvec *lruvec, struct folio *folio)
+ 	int type = folio_is_file_lru(folio);
+ 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
+ 	int new_gen, old_gen = lru_gen_from_seq(lrugen->min_seq[type]);
+-	unsigned long new_flags, old_flags = READ_ONCE(folio->flags.f);
+-
+-	VM_WARN_ON_ONCE_FOLIO(!(old_flags & LRU_GEN_MASK), folio);
++	unsigned long new_flags, old_flags = READ_ONCE(*folio_flags(folio, 0));
+ 
+ 	do {
+-		new_gen = ((old_flags & LRU_GEN_MASK) >> LRU_GEN_PGOFF) - 1;
++		new_gen = lru_get_gen_flags(old_flags);
++
+ 		/* folio_update_gen() has promoted this page? */
+ 		if (new_gen >= 0 && new_gen != old_gen)
+ 			return new_gen;
+ 
++		new_flags = old_flags;
+ 		new_gen = (old_gen + 1) % MAX_NR_GENS;
+-
+-		new_flags = old_flags & ~(LRU_GEN_MASK | LRU_REFS_FLAGS);
+-		new_flags |= (new_gen + 1UL) << LRU_GEN_PGOFF;
+-	} while (!try_cmpxchg(&folio->flags.f, &old_flags, new_flags));
++		lru_set_gen_flags(&new_flags, new_gen);
++		lru_set_refs_flags(&new_flags, 0);
++	} while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flags));
+ 
+ 	lru_gen_update_size(lruvec, folio, old_gen, new_gen);
+ 
 
-Link: https://lore.kernel.org/netdev/20260830085400.2542956-1-sinyavin@gmail.com/ (v1)
-
-> diff --git a/drivers/net/wwan/qcom_bam_dmux.c b/drivers/net/wwan/qcom_bam_dmux.c
-> index cc6ace8d6437..5bcac2ccaabd 100644
-> --- a/drivers/net/wwan/qcom_bam_dmux.c
-> +++ b/drivers/net/wwan/qcom_bam_dmux.c
-> @@ -177,8 +177,12 @@ static void bam_dmux_tx_callback(void *data)
->  {
->  	struct bam_dmux_skb_dma *skb_dma = data;
->  	struct sk_buff *skb = skb_dma->skb;
-> +	struct net_device *netdev = skb->dev;
->  
->  	bam_dmux_tx_done(skb_dma);
-> +	if (netdev)
-> +		dev_sw_netstats_tx_add(netdev, 1,
-> +				       ((struct bam_dmux_hdr *)skb->data)->len);
->  	dev_consume_skb_any(skb);
->  }
-
-[Severity: High]
-Can this write to freed per-CPU memory?  bam_dmux_tx_callback() runs from
-the BAM dmaengine completion (vchan tasklet), and skb->dev is not a
-counted reference.  dev_sw_netstats_tx_add() then does:
-
-include/linux/netdevice.h:dev_sw_netstats_tx_add() {
-	struct pcpu_sw_netstats *tstats = this_cpu_ptr(dev->tstats);
-
-	u64_stats_update_begin(&tstats->syncp);
-	u64_stats_add(&tstats->tx_bytes, len);
-	...
-}
-
-With dev->pcpu_stat_type = NETDEV_PCPU_STAT_TSTATS, dev->tstats is
-allocated by register_netdevice() and released at unregistration time,
-independent of needs_free_netdev/free_netdev:
-
-net/core/dev.c:netdev_run_todo() {
-	...
-		netdev_do_free_pcpu_stats(dev);
-		if (dev->priv_destructor)
-			dev->priv_destructor(dev);
-		if (dev->needs_free_netdev)
-			free_netdev(dev);
-	...
-}
-
-In bam_dmux_remove() the TX channel is still armed when that happens:
-
-drivers/net/wwan/qcom_bam_dmux.c:bam_dmux_remove() {
-	...
-	unregister_netdevice_many(&list);
-	rtnl_unlock();			/* netdev_run_todo() frees tstats */
-	cancel_work_sync(&dmux->tx_wakeup_work);
-	...
-	if (!wait_event_timeout(dmux->pc_wait, !dmux->rx, BAM_DMUX_REMOTE_TIMEOUT))
-	...
-	disable_irq(dmux->pc_irq);
-	bam_dmux_power_off(dmux);	/* dmaengine_terminate_sync(dmux->tx) */
-	bam_dmux_free_skbs(dmux->tx_skbs, DMA_TO_DEVICE);
-}
-
-The only synchronous TX quiesce point is dmaengine_terminate_sync(dmux->tx)
-inside bam_dmux_power_off(), which is reached after rtnl_unlock(),
-cancel_work_sync(), the pm_runtime teardown and a wait_event_timeout() of
-up to BAM_DMUX_REMOTE_TIMEOUT.  bam_dmux_netdev_stop() only does
-netif_stop_queue() plus a CLOSE command, so it neither terminates nor
-drains outstanding descriptors:
-
-drivers/net/wwan/qcom_bam_dmux.c:bam_dmux_netdev_stop() {
-	netif_stop_queue(netdev);
-	bam_dmux_send_cmd(bndev, BAM_DMUX_CMD_CLOSE);
-	return 0;
-}
-
-Does any TX descriptor still in flight during that window end up doing
-this_cpu_ptr() on an already freed (possibly recycled) tstats pointer?
-
-The "if (netdev)" test only filters the driver's own command skbs, which
-come from alloc_skb() and leave skb->dev NULL, so it does not say anything
-about registration state.
-
-Would accounting TX in bam_dmux_netdev_start_xmit(), where the netdev is
-provably live and hdr->len is already known, avoid this?  Alternatively,
-would terminating/draining the DMA channels and clearing dmux->netdevs[]
-before unregister_netdevice_many() close the window?
-
-[ ... ]
-
-> @@ -421,6 +426,7 @@ static void bam_dmux_netdev_setup(struct net_device *dev)
->  	dev->needed_headroom = sizeof(struct bam_dmux_hdr);
->  	dev->needed_tailroom = sizeof(u32); /* word-aligned */
->  	dev->tx_queue_len = DEFAULT_TX_QUEUE_LEN;
-> +	dev->pcpu_stat_type = NETDEV_PCPU_STAT_TSTATS;
-
-[Severity: Medium]
-This is a pre-existing issue and not introduced by this patch, but it
-interacts with the new stats memory, so it is worth mentioning here.
-bam_dmux_register_netdev_work() allocates the netdev with alloc_netdev(),
-bam_dmux_netdev_setup() never sets dev->needs_free_netdev, and
-bam_dmux_remove() only calls unregister_netdevice_queue() /
-unregister_netdevice_many() with no free_netdev().
-
-net/core/dev.c:netdev_run_todo() {
-	...
-		if (dev->needs_free_netdev)
-			free_netdev(dev);
-
-		cnt++;
-
-		/* Free network device */
-		kobject_put(&dev->dev.kobj);
-	...
-}
-
-The kobject_put() there only balances the kobject_get() taken in
-netdev_unregister_kobject(), so the device_initialize() reference is never
-dropped and netdev_release() (kvfree(dev)) never runs.  Does this leak the
-struct net_device, its private data and its queue arrays on every driver
-removal?
-
-Would setting dev->needs_free_netdev = true here (next to the new
-pcpu_stat_type assignment), or pairing the alloc_netdev() with an explicit
-free_netdev() in bam_dmux_remove(), be the right fix?
-
-Note also that the still-allocated, still-readable net_device is what makes
-the freed dev->tstats access above silent rather than an obvious fault.
-
-> @@ -533,6 +539,7 @@ static void bam_dmux_cmd_data(struct bam_dmux_skb_dma *skb_dma)
->  		break;
->  	}
->  
-> +	dev_sw_netstats_rx_add(netdev, skb->len);
->  	netif_receive_skb(skb);
->  }
-
-[Severity: Low]
-This is a pre-existing gap rather than something this patch introduces, but
-now that rx/tx counters become non-zero the missing drop counters are more
-visible.
-
-The TX error path frees the skb and reports success without any
-tx_dropped/tx_errors accounting:
-
-drivers/net/wwan/qcom_bam_dmux.c:bam_dmux_netdev_start_xmit() {
-	...
-drop:
-	bam_dmux_tx_done(skb_dma);
-	dev_kfree_skb_any(skb);
-	return NETDEV_TX_OK;
-}
-
-and the RX early returns are not counted either:
-
-drivers/net/wwan/qcom_bam_dmux.c:bam_dmux_cmd_data() {
-	...
-	if (!netdev || !netif_running(netdev)) {
-		dev_warn(dmux->dev, "Data for inactive channel %u\n", hdr->ch);
-		return;
-	}
-
-	if (hdr->len > BAM_DMUX_MAX_DATA_SIZE) {
-		...
-		return;
-	}
-	...
-}
-
-Would it make sense to also bump rx_dropped/tx_dropped on these paths, so
-that ip -s link can explain the loss instead of showing traffic counters
-with permanently zero drops?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260831181006.1382372-1-sinyavin%40gmail.com
