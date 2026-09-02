@@ -1,290 +1,417 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7102F39C2;
-	Wed,  2 Sep 2026 05:02:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788325363; cv=fail; b=EBk39mt1ExEqXSF3vHpV9Y+20WPH15uA8/rlJAc2o1OLHeP8ZVL8/sfHXy+Zs2KdHO0cNOsUa1CqBt37eRBUetjZ6MBB5RyLeQ6iDGwVHGEphvsmtg1HuwSG7AN4mog6vYHqDOplGsT7afOz6/+eeTTTbQnK5+j2pqC0ksj3B3E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788325363; c=relaxed/simple;
-	bh=+7Ps+AkfjKjPSiuZcdB+xHbjPDwtQNKX1sgLRnGClFA=;
-	h=Date:From:To:CC:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=h1DuMhaKodI2811zDu7el+lLzIvK/+y1ylosP54MjruK/QJo6pxqXHT3lRujISIbipZFwjOR/G941AeOsH/6qCyA7t5QlWPpl0Dzz02cppo42NxhNyMCZDS6UZqjLEULu0EmUfDKXVaA5eq+xd1J4BIrMNBwuTCoQquiDSCoKt0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=A9jYTCJq; arc=fail smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4D2B231E824;
+	Wed,  2 Sep 2026 05:02:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788325376; cv=none; b=PkESLmQyLmkZEiuIP/p1V0frqMRV9dg/MR4RgkGlYv7K66Ecem+dEbQixwtYS3ERZWdOzhhu4Zya/A+Otc302DIQES2+jqQptpL+15eAcDScq23ejfgadxdY757Lw27fJxV2zHc4mhruIgJIaQs5nB5Uc4XykY+eIhAsVPbX0CA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788325376; c=relaxed/simple;
+	bh=ZnwLyVk6Q7tVd0Acc2yLxF+iGTo+Lx7EJKXUsMixozo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eO57dOnFzS3YbG50X1v0+9QniUuad0cWBDb5qlIs6O9SRZfgEMoH1gX0Rw07YqtiEYUODqZqlO541vIdVI8TrhutwQWFFkgjgVL61uxW3sxqSiyiLqmvLV84IjAZULCQoVoyCyoghu6BFwNAAtJL5PKJCG7hTjbwX7I+E6X86a0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=P/M3qmAJ; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="A9jYTCJq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788325362; x=1819861362;
-  h=date:from:to:cc:subject:message-id:reply-to:references:
-   in-reply-to:mime-version;
-  bh=+7Ps+AkfjKjPSiuZcdB+xHbjPDwtQNKX1sgLRnGClFA=;
-  b=A9jYTCJqgGsEMUg/iQ6q6XFPWBBPf7O+Ux5eJunEPFKjsTC3fnuap+zH
-   9Ej7PP3eWlajhFSwLbyOHUUPiAsPbcg/mZ6mhbXhFWl2bdr1U8mdHo26d
-   juM6xTjwK4YLS1bzKvEE1ZM4EY5Auj1XQLOkTUnXrbvp6J6zNOPvjQlSl
-   qm1NsHp53D9A+hU8d/cKQWB3kmm0I0uF6uI1sEkqffsJYEXc9ZDSlITWQ
-   FnOcEfMtGd9pZrot8NlpPgjAtccq3y+HaAJ/0np1DlnwOm4t7LepTgx8D
-   PRuOLA2oPbR9hYNq+4tMxfMaLYa3jIEv06sw2Amug+GQ1MLjH9VAViaUS
-   Q==;
-X-CSE-ConnectionGUID: oGUsYq4aSLKuyp3kLu8sFw==
-X-CSE-MsgGUID: i9a2yQciQhyEDWPO8jr1tw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="87910517"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="87910517"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 22:02:41 -0700
-X-CSE-ConnectionGUID: 4f8xpXeuToOWX9ZSsumLrQ==
-X-CSE-MsgGUID: yasajWk3SwavLrxXr+aXCQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="265008856"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 22:02:40 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 1 Sep 2026 22:02:39 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Tue, 1 Sep 2026 22:02:39 -0700
-Received: from BL2PR02CU003.outbound.protection.outlook.com (52.101.52.7) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 1 Sep 2026 22:02:39 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JKRNau5o6y8DEGB3xTWqbYw6rgIKRcLFh4O7Eus8PdlRi2E6y447BYQkbExkzVAti511od2fxe6tW7UFr9LOfGPezcNls2Iz5Yq3+XHpHLDsXOvsuWNJQb4MAxY2AD7YjhuJkKqpayHH+6YCHOCzuRIeVYGFfNDPGAkQc/JEYExsNWFpTcwt8o7yNY5VHRgRpk1hiyrTdzHBz7nyIk1cQgzbHzd7ppYTMXo35amVk+7IGfu192kKcm/e/fJglKuWFuMTn9OI3VoOe9Ecg8U6ZRMZqFWCHcFQbAKVp82zDidSS6PJGQf/kq98ljVeUbp1rELM7dJXStwKxcMLmxPC1Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vLT+OC6O7OEI0MaSNteyEsZxCv6Rs1G0lCMvJGv70Q4=;
- b=gMqu8teqy2rFdL/WbDx7ZrrZ1oNfu/bkOcwLNWCQm4Jk5fLgO8lCqYd2ikJyNtusNnho+z0sqbkh6Rjqjbiz7iqVUkLxwMkoNANq3AEa0+A45Jzv3WciJh7M7vouShjKMDUD5hFEnmF7brZry8TJM7i+yzH5mA5fhT63ZP+w8zDKxrls3sxrKlXVaovRmAPwyJiamqsVJErSFqnP2Dl+6725K9hCeJV5vwFqZWcmOaGlqvRQ5dVCQbRCIY4jNj45JHa3hTgOGAHu+ZMmsLj+d5xvw+H07Qwki/hfTUbO9+Fd5ctfgzwjYstneJ64hkmHfxGKfeuh+GONKJ9A8aXdDg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from DSVPR11MB9579.namprd11.prod.outlook.com (2603:10b6:8:383::17)
- by DS7PR11MB9498.namprd11.prod.outlook.com (2603:10b6:8:261::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 05:02:36 +0000
-Received: from DSVPR11MB9579.namprd11.prod.outlook.com
- ([fe80::ab5f:5d0f:fb90:9d]) by DSVPR11MB9579.namprd11.prod.outlook.com
- ([fe80::ab5f:5d0f:fb90:9d%3]) with mapi id 15.21.0382.007; Wed, 2 Sep 2026
- 05:02:35 +0000
-Date: Wed, 2 Sep 2026 13:01:55 +0800
-From: Yan Zhao <yan.y.zhao@intel.com>
-To: <ackerleytng@google.com>
-CC: <aik@amd.com>, <andrew.jones@linux.dev>, <binbin.wu@linux.intel.com>,
-	<brauner@kernel.org>, <chao.p.peng@linux.intel.com>, <david@kernel.org>,
-	<jmattson@google.com>, <jthoughton@google.com>, <michael.roth@amd.com>,
-	<oupton@kernel.org>, <pankaj.gupta@amd.com>, <qperret@google.com>,
-	<rick.p.edgecombe@intel.com>, <rientjes@google.com>, <shivankg@amd.com>,
-	<steven.price@arm.com>, <willy@infradead.org>, <wyihan@google.com>,
-	<forkloop@google.com>, <pratyush@kernel.org>, <suzuki.poulose@arm.com>,
-	<aneesh.kumar@kernel.org>, <liam@infradead.org>, Paolo Bonzini
-	<pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, "Thomas
- Gleixner" <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
-	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, <x86@kernel.org>,
-	"H. Peter Anvin" <hpa@zytor.com>, Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
-	<mathieu.desnoyers@efficios.com>, Jonathan Corbet <corbet@lwn.net>, "Shuah
- Khan" <skhan@linuxfoundation.org>, Shuah Khan <shuah@kernel.org>, "Vishal
- Annapurve" <vannapurve@google.com>, Andrew Morton
-	<akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, Kairui Song
-	<kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham
-	<nphamcs@gmail.com>, Barry Song <baohua@kernel.org>, Axel Rasmussen
-	<axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, Wei Xu
-	<weixugc@google.com>, Youngjun Park <youngjun.park@lge.com>, Qi Zheng
-	<qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Kiryl Shutsemau
-	<kas@kernel.org>, Baoquan He <baoquan.he@linux.dev>, Jason Gunthorpe
-	<jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu
-	<peterx@redhat.com>, <tarunsahu@google.com>, Randy Dunlap
-	<rdunlap@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka
-	<vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, "Suren Baghdasaryan"
-	<surenb@google.com>, Michal Hocko <mhocko@suse.com>, Fuad Tabba
-	<fuad.tabba@linux.dev>, <kvm@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-trace-kernel@vger.kernel.org>,
-	<linux-doc@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
-	<linux-mm@kvack.org>, <linux-coco@lists.linux.dev>
-Subject: Re: [PATCH v12 12/45] KVM: guest_memfd: Always fault from
- guest_memfd if in-place conversion is enabled
-Message-ID: <apetw3aqXSawLBt0@yzhao56-desk.sh.intel.com>
-Reply-To: Yan Zhao <yan.y.zhao@intel.com>
-References: <20260830-gmem-inplace-conversion-v12-0-85e5fd25252a@google.com>
- <20260830-gmem-inplace-conversion-v12-12-85e5fd25252a@google.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260830-gmem-inplace-conversion-v12-12-85e5fd25252a@google.com>
-X-ClientProxiedBy: TPYP295CA0017.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:a::9)
- To DSVPR11MB9579.namprd11.prod.outlook.com (2603:10b6:8:383::17)
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="P/M3qmAJ"
+Received: from [192.168.1.70] (unknown [4.194.122.144])
+	by linux.microsoft.com (Postfix) with ESMTPSA id DCEA520B7129;
+	Tue,  1 Sep 2026 22:02:13 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com DCEA520B7129
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1788325337;
+	bh=ENp71upqIOZykYWR/vy+lgBkrXVjharHWw75NHimAk0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=P/M3qmAJ9nG2XdKKAD3+MUkmhjpAiy/wJbHsiMg8agH81rAHkhfV+Zs8/FLvWrZ2d
+	 wLF6vn7Ge2yx7/jVufgt7k8xbAwl9lgPT9dkOLEiwVV4giftoEkfov5g7ygzSJe2zI
+	 zRb5QOwoOZ33Vx1DSrBgqbk8bdbdVccOerDpxQD0=
+Message-ID: <19005077-4dde-4193-aafa-5b248a2131a6@linux.microsoft.com>
+Date: Wed, 2 Sep 2026 10:32:52 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DSVPR11MB9579:EE_|DS7PR11MB9498:EE_
-X-MS-Office365-Filtering-Correlation-Id: f2c6f38b-486f-4d9e-1a86-08df08af6763
-X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|6133799003|11063799006|10067099003|56012099006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: +dle5YB7BGC+xmdB2YVJW838MsH70bD+p1gdt6SR0g43LtCS7Y7m+YpRfeYGkKJVbVTj1krc5hAKExcY9JiUZNjSTsAnvnL5QM4f8bTWBHIZnFQT+AOV5FZAs/NJrcTJii8hhl/Z0GG2hYsujTaYHaK+uUr/C/ui8eu4vhLE0OOF+2NSigbFJUigNzyv1/O5jQLQMdAtek9/B5QIoVnsKnOVbKV+JYPPoyBWAwiJeVoa/9jFf1oJBJkNSNV96JyrMo2vSj+z8x4nqtq9/iI4J0M2/mWxO/2bs46QPo58GYLQrSj3zT/HpreiDGiEVt4Rv7TEseXRGqazn4lFjU27RtEdkJuY0R2P+6ZqVP74k5N7re+ALgLEU3PGfR7tH0TekLUurf+aTHF1zP/Y84eto5TSzPivzWTMDesqQxCcQNH9IrrpdEkwT3LOn8aGqfW8M1ZteLYYDC4XatEEC9zO0AtG6nzfdptHJRh5ancsQMBM+NckJ6Zo55MxDl/o3r3U6Zh0n7gi5DdN89IjEdO/tivuwrCqaXlvA/9DAyBY/XxB3gQxaz+IBP5HmNkJ28CCwV1ZtRAcI0o1xcWHyaT9MsD9j//8SVi686sF4zsaI2w1ZoeqB5XgOmHcXDkuxDl2G2jERzJCGpk9BUTpjO1lniDqvFd9bAySwB1QCJcPAlE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DSVPR11MB9579.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(6133799003)(11063799006)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?2k5cBkytVDmNgrx2TnWuHcN2P5RxIE9Hk5GxOtpcuCA0H/Utr9eoPYVJYuqT?=
- =?us-ascii?Q?wZIxHb6x+SbTEhqYhnsfzdap7v0YzngP3whV9/Px9POIpeYVpWzJsz3SfPDN?=
- =?us-ascii?Q?49KmrHGnZgrs0PkCYw92QY4SkYtR0KVqC6JvUZGeXGQoctn4prso6Sy8Ljin?=
- =?us-ascii?Q?E9ZcqGi1EkvhDFVZJrYHGYuekt63WDH6VqNJxyME1ZieWOAU8+Vqnp2hReLY?=
- =?us-ascii?Q?XcmyxoNdHzizMbdAaG9VlvJQUpcHgRiP/I1rsD/oIpXdnqjBodFN7CZYJQ/q?=
- =?us-ascii?Q?oql1ljxPxTP0M19q8/Xttl0FrY+3N09ZbnM74YNERuDEdCVWYFAcK5AwGw9H?=
- =?us-ascii?Q?U3O2h88UAb5EfaGbkAZ0iqumWDue3dvhOhYNe+MN3FpvMFb+e/KVKQaWjjNe?=
- =?us-ascii?Q?qIpnIoD452euVnZfoeAm95xJZ/CNpyD7yPV6BfJkCxuPFw5TN8ZdX+3lwhU8?=
- =?us-ascii?Q?Q2J4CC2Qe3zgLD1mZ5X/zAcamOm+Civv1o5MicU/NwPKqb4KY9CnkF/hEssC?=
- =?us-ascii?Q?HgzR9FfTDFDx/lffM0ZfJiXnl12X0iqEZT8K2FiwyrODc0EQQg8n/oUWSibq?=
- =?us-ascii?Q?cDBJGfUgesrmzhFHaklP2L0vV2X7mtZKM0olj8ixqUEUBHi0SQdXidJHUb8R?=
- =?us-ascii?Q?vInhJ+dEDapjdeIQQO7nWkwhhwTnn5B3Es5vtVq+0eiGUZ6KdSWws9oEcBX6?=
- =?us-ascii?Q?9/9RmZGvcP89lVqN5NVWy6GwqY2q3kYPT45FNwUa7+Nxke8gTELLi0Rhug5b?=
- =?us-ascii?Q?JNpDGkAlId+LzevKv6A9lrnVsHxFfx4TYMGtcKorMi8eP3NKl4Zv15ab+k1e?=
- =?us-ascii?Q?U09wmPPvBjuM6N2/pEpSP8ivupGM832jTXaBSn4GuwnJPSTIFdC5sDGNnKZd?=
- =?us-ascii?Q?HE/rYvAjYJQT5VdHCS6iqOWVLpNnu/yGwartvvNlL7aQ5Z5ld2fz01R4m6VO?=
- =?us-ascii?Q?d7Sm7g4Aj5f/BhGtAG/gz1bCtQJ2wYWcLFEZRYYsrxPGngdNKVpNBs4meiFA?=
- =?us-ascii?Q?XJFCR+MSy+91L7YjM5I/6QPZjl+CN99eEZ2MS+vXpPVRfGQ9n9A5IfJVfEcP?=
- =?us-ascii?Q?MvMQpFhoo4tpLwSeVt9npLG9cTh3WpZpQBnjJHzl6+i8bmMpHjVgC5xBQ0ig?=
- =?us-ascii?Q?DfqII1g0/miREkySFuCaBj+7+kPWkjMWuLGKF3P5FUSGrXUZNisZWVBgEPJM?=
- =?us-ascii?Q?0RW8IrZRxuHaK9T1bfeXGxjq/Zp/F8rHUi7priLAlNBEedImko+Tr5BDL+WG?=
- =?us-ascii?Q?hVebIhlMrNikD2YE343K7e2xcONX9IDtS7uQEvBYd6WGWL8gr/vrR9JB3NEK?=
- =?us-ascii?Q?Wz9Pl/f/Sq//yUwKRpA7v6T6WqVU5IslI7iw27nIIlJjHXF1UVU79Kt0nOrK?=
- =?us-ascii?Q?mGHJzldhu0LdZmwNyFn8cd0mhm9Vn/+GEA3LcNzPBYVJgck+32gaIhP8sCS2?=
- =?us-ascii?Q?xr4dqp32j57v+3kE6qv+lHtpk4maaimUDBEISKEBuelA8pcltB0nxG9fgxcR?=
- =?us-ascii?Q?T/+HNXd2fQuIuIUNHRtLaB4p/honRqpcPIp2vyhARqw3XIYagwUwwDYOrdrS?=
- =?us-ascii?Q?qomk0Pi33MSbl/G/5gIyw7WnXCW7o8a8gzT/4VSx9GMwtemH+8IeCkacbEoL?=
- =?us-ascii?Q?ieUFqgq1e3BCkU4C4XvXuG/gVO3qULgzL7nLWDX+v0ijFeAOFGIg8yj2dDZh?=
- =?us-ascii?Q?O1Q27NAZNFADU403arPijTKW96HZLSujzA0eDo1B53yviGXfw0EjoJz0p+VJ?=
- =?us-ascii?Q?yoqP78u7kw=3D=3D?=
-X-Exchange-RoutingPolicyChecked: QoJnTdhmh+OB8BvFGCqpGIWV4Ea4yMzYUrK3P7Y/WCJdCQh77EVasslTO2g/6FpkKPclNUCu2j+GRqOY4rhH4qjhN1ogauvp97dACcIQ7imuKhfEe6KkhBQ8RpfbjLhBIPSHY78OeM527gBlal5ZCxhBqt2jUgGl5zAzoVBdlV13u7CIP6UCV5wrQJdIB69ALFFQNQKJQYUQTbkzQNIkD/lzQhGbDXdvOnrmnIlka5q/Tt6Dp+iFWfyl10RhPh0+PSWJ33Yk3r3ZdRiCzgaf1R+Bhqrbaeo1xVH+rPkqqeht1BUg+yQoGDYUYwNa5AEBWxSYupUWhH+3MTDSFHadqA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: f2c6f38b-486f-4d9e-1a86-08df08af6763
-X-MS-Exchange-CrossTenant-AuthSource: DSVPR11MB9579.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 05:02:35.8429
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mKK6uLFcNPiXuN0Z1zxpNcaxQC+c9Kyz8nz/w/xQnKe5X9zJ9qFSrbO8RbntWPcqeY9i0jxRXQ/xwOh5q/UEDw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR11MB9498
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] lib/group_cpus: rotate extra groups to avoid IRQ
+ stacking
+To: Michael Kelley <mhklinux@outlook.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Thomas Gleixner
+ <tglx@kernel.org>, Ming Lei <tom.leiming@gmail.com>,
+ Ming Lei <ming.lei@redhat.com>
+Cc: Wangyang Guo <wangyang.guo@intel.com>, Tianyou Li <tianyou.li@intel.com>,
+ Tim Chen <tim.c.chen@linux.intel.com>, Long Li <longli@microsoft.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>
+References: <20260810062144.2108758-1-namjain@linux.microsoft.com>
+ <SN6PR02MB4157B73B333F08702875110ED4A82@SN6PR02MB4157.namprd02.prod.outlook.com>
+Content-Language: en-US
+From: Naman Jain <namjain@linux.microsoft.com>
+In-Reply-To: <SN6PR02MB4157B73B333F08702875110ED4A82@SN6PR02MB4157.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sun, Aug 30, 2026 at 05:25:13PM -0700, Ackerley Tng via B4 Relay wrote:
-> From: Ackerley Tng <ackerleytng@google.com>
-> 
-> If a guest_memfd memslot is created but the guest_memfd does not have the
-> GUEST_MEMFD_FLAG_MMAP set, KVM still fulfils guest faults by looking up the
-> memslot's userspace_addr.
-> 
-> Set KVM_MEMSLOT_GMEM_ONLY if in-place conversion is enabled so that the
-> guest_memfd's memory will be used for both shared and private memory. With
-> in-place conversion, guest_memfd will be the only backing memory for the
-> memslot.
-> 
-> No validation is performed to require userspace_addr to be a mapping from
-> the associated guest_memfd because even after validation, userspace is free
-> to remap something else at the provided userspace_addr.
-> 
-> userspace_addr will still be used by functions like kvm_read_guest(), and
-> if userspace_addr does not match up with the corresponding memory in the
-> memslot's guest_memfd (whether userspace_addr points to the wrong offset or
-> some non-guest_memfd memory, etc), that is a user error.
-> 
-> Requiring both shared and private memory to come from the only associated
-> guest_memfd simplifies invalidation in stage 2 page tables. On a PUNCH_HOLE
-> operation on a guest_memfd, the invalidation is now guaranteed to be
-> invalidating only memory mapped from the given guest_memfd.
-> 
-> Suggested-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Ackerley Tng <ackerleytng@google.com>
-> ---
->  Documentation/virt/kvm/api.rst | 22 ++++++++++++++--------
->  virt/kvm/guest_memfd.c         |  2 +-
->  2 files changed, 15 insertions(+), 9 deletions(-)
-> 
-> diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
-> index 90a29424c54c8..668886f50024d 100644
-> --- a/Documentation/virt/kvm/api.rst
-> +++ b/Documentation/virt/kvm/api.rst
-> @@ -6381,10 +6381,16 @@ mapping for userspace_addr is not required to be valid/populated at the time of
->  KVM_SET_USER_MEMORY_REGION2, e.g. shared memory can be lazily mapped/allocated
->  on-demand.
->  
-> -When mapping a gfn into the guest, KVM selects shared vs. private, i.e consumes
-> -userspace_addr vs. guest_memfd, based on the state in guest_memfd, which is the
-> -sole authority on private vs. shared memory.  See :ref:`KVM_CREATE_GUEST_MEMFD`
-> -to find out more about the creation-time shared/private status.
-> +When mapping a gfn into the guest, guest faults are always serviced from
-> +guest_memfd regardless of whether memory is shared or private.  KVM determines
-> +shared vs. private based on the state in guest_memfd, which is the sole
-> +authority on private vs. shared memory.  See :ref:`KVM_CREATE_GUEST_MEMFD` to
-> +find out more about the creation-time shared/private status.
-> +
-> +userspace_addr is expected to be the mmap()-ed address corresponding to the
-> +right offset within the guest_memfd. Any mismatch between userspace_addr and
-> +guest_memfd is not validated and is a user error. userspace_addr is only used
-> +for host-side guest accesses such as kvm_read_guest().
->  
->  If in-place conversion is disabled, KVM selects shared vs. private, i.e consumes
->  userspace_addr vs. guest_memfd, based on the gfn's KVM_MEMORY_ATTRIBUTE_PRIVATE
-> @@ -6490,10 +6496,10 @@ specified via KVM_CREATE_GUEST_MEMFD.  Currently defined flags:
->                                 page tables. Private memory cannot.
->    ============================ ================================================
->  
-> -When the KVM MMU performs a PFN lookup to service a guest fault and the backing
-> -guest_memfd has the GUEST_MEMFD_FLAG_MMAP set, then the fault will always be
-> -consumed from guest_memfd, regardless of whether it is a shared or a private
-> -fault.
-> +When the KVM MMU performs a PFN lookup to service a guest fault, the fault will
-> +always be consumed from guest_memfd, regardless of whether it is a shared or a
-> +private fault (unless in-place conversion is disabled and the backing
-> +guest_memfd does not have the GUEST_MEMFD_FLAG_MMAP flag set).
->  
->  See KVM_SET_USER_MEMORY_REGION2 for additional details.
->  
-> diff --git a/virt/kvm/guest_memfd.c b/virt/kvm/guest_memfd.c
-> index 0afe1468d2d9d..e41802944756b 100644
-> --- a/virt/kvm/guest_memfd.c
-> +++ b/virt/kvm/guest_memfd.c
-> @@ -746,7 +746,7 @@ int kvm_gmem_bind(struct kvm *kvm, struct kvm_memory_slot *slot,
->  	 */
->  	WRITE_ONCE(slot->gmem.file, file);
->  	slot->gmem.pgoff = start;
-> -	if (kvm_gmem_supports_mmap(inode))
-> +	if (gmem_in_place_conversion || kvm_gmem_supports_mmap(inode))
->  		slot->flags |= KVM_MEMSLOT_GMEM_ONLY;
-I like this change, which actually enforces in-place conversion -- when
-gmem_in_place_conversion is true, if userspace sets slot->userspace_addr to a
-different backend, the host and guest will no longer be able to access the same
-backend.
 
-However, since gmem_in_place_conversion is globally and statically specified, it
-essentially disables the coexistence of VMs using out-of-place conversions when
-gmem_in_place_conversion is true. Previously, VMs using out-of-place conversions
-could still boot successfully as long as they switched to using per-gmem memory
-attributes. Is this change intended?
 
-On a separate note, is kvm_gmem_supports_mmap() still a necessary requirement
-for setting KVM_MEMSLOT_GMEM_ONLY? When gmem_in_place_conversion is false, if
-userspace mmap()s the gmem but sets slot->userspace_addr to a different backend,
-should the KVM_MEMSLOT_GMEM_ONLY flag still be set?
+On 9/1/2026 5:32 AM, Michael Kelley wrote:
+> From: Naman Jain <namjain@linux.microsoft.com> Sent: Sunday, August 9, 2026 11:22 PM
+>>
+>> group_cpus_evenly() computes how a device's queue interrupts are spread
+>> across CPUs. It backs managed-interrupt affinity (kernel/irq/affinity.c)
+>> and block-multiqueue mappings (block/blk-mq-cpumap.c), and is invoked
+>> independently by every device that uses them - NVMe, NICs, storage HBAs,
+>> and virtio devices. Its output is deterministic, i.e. for a given
+>> topology, two similar devices produce an identical group-to-CPU mapping.
+>>
+>> When ngroups < ncpus, some groups end up with only a single CPU. An
+> 
+> This is not quite accurate. The condition is ncpus/2 < ngroups < ncpus.
+> If ngroups is <= ncpus/2, then all groups have at least 2 CPUs. If ngroups
+> is <= ncpus/3, then all groups have at least 3 CPUs, and so on. Rotating which
+> groups get the "extra" CPUs can be somewhat helpful even when all groups
+> have at least 2 CPUs. But as the minimum number of CPUs per group
+> increases, avoiding excessive stacking depends on how well the irqchip driver
+> does spreading when picking the effective affinity CPU from the multiple CPUs
+> assigned to the group (per our discussion elsewhere in this thread).
+> 
 
->  
->  	xa_store_range(&f->bindings, start, end - 1, slot, GFP_KERNEL);
+You're right. I should simplify this to something like this “When the 
+allocation leaves some groups with only a single CPU, those IRQs are 
+forced onto the same CPUs and are stacked up.”
+
+>> interrupt whose mask has one CPU can only run there, making that CPU a
+>> "hot" handler. Because the mapping is deterministic, identical devices
+>> compute the same layout and stack all their single-CPU IRQs onto the
+>> very same CPUs, leaving the rest of the system idle.
+>>
+>> This is easy to hit in practice. On an Azure L96as_v4 VM (96 vCPUs, 2
+>> NUMA nodes of 48 CPUs, 6 NVMe disks with 62 I/O queues each),
+>> group_cpus_evenly() splits each disk's 62 queues into 31 per node over
+>> 48 CPUs. 48 does not divide evenly by 31:
 > 
-> -- 
-> 2.55.0.897.gb25b4bd76c-goog
+> And FWIW, this example meets the stricter condition that I describe above ....
+
+True.
+
 > 
+>>
+>>      per NUMA node: 48 CPUs / 31 queues
+>>        17 groups get 2 CPUs   (cover 34 CPUs)
+>>        14 groups get 1 CPU    (cover 14 CPUs)  <- single-CPU "hot" queues
+>>
+>> That is 14 hot queues per node, 28 per disk. All 6 disks land them on
+>> the same 28 CPUs, so 168 hot interrupts pile onto 28 of 96 CPUs while
+>> two-thirds of the system handles none:
+>>
+>>      Before (per-CPU, disks whose IRQs it services):
+>>        CPU  0: 3 disks    ...   CPU 34: 6 disks (all six)
+>>        CPU  1: 3 disks    ...   CPU 47: 6 disks (all six)
+>>      Summary: 28 CPUs (34-47, 82-95) served all 6 disks and the other 68
+>>      served only 3. Those 28 CPUs cap throughput and inflate tail
+>>      latency while most of the system is idle.
+>>
+>> Fix this by introducing a per-caller rotation via a static atomic
+>> counter (group_spread_cnt). Each call to group_cpus_evenly() takes a
+>> unique spread_offset, applied to the two decisions that were previously
+>> deterministic:
+>>
+>> 1) Cluster-level rotation in __try_group_cluster_cpus(): after
+>>     alloc_groups_to_nodes() distributes groups proportionally across
+>>     clusters, integer rounding leaves some clusters with one extra
+>>     group. The extras are redistributed starting from a rotated
+>>     position, with a stride of ncluster/total_extra to minimize overlap
+>>     between consecutive callers. A multi-pass fallback ensures all
+>>     extras are placed even when some clusters are at capacity.
+>>
+>> 2) Intra-cluster rotation in assign_cpus_to_groups(): the sequential
+>>     extra assignment is replaced with a modular expression,
+>>       (v + spread_offset) % nv->ngroups < extra_grps
+>>     rotating which groups within a cluster receive the extra CPU.
+>>
+>> Nothing else about the layout changes - same queue count, same NUMA
+>> weighting, same full CPU coverage and locality. Each caller simply
+>> starts its mapping from a different point, and each individual call
+>> still produces a valid, fair distribution. Across callers, different
+>> CPUs absorb the single-CPU group IRQ load:
+>>
+>>      After (same setup, with the rotation):
+>>        CPU  0: 4 disks    CPU  2: 4 disks    CPU 47: 4 disks
+>>        CPU  1: 4 disks    CPU  3: 4 disks    ...
+>>      Summary: no CPU serves more than 4 disks, and all 96 CPUs are used.
+>>
+>> The total interrupt work is unchanged - every CPU still handles one
+>> queue per disk; only the placement of the single-CPU hot queues moves.
+>> This benefits every managed-IRQ, blk-mq, and virtio-vdpa / virtio-fs
+>> device with no driver changes.
+>>
+>> Because the offset comes from a global counter advanced once per call,
+>> the mapping now depends on call (device probe) order. A given device's
+>> exact layout can differ from one boot to the next, and a later recompute
+>> (e.g. a blk-mq remap) may pick a different layout. Every such layout is
+>> still valid, fair, and proportional - only the choice among equally good
+>> mappings varies.
+>>
+>> On a 96-vCPU Hyper-V VM running 4K random-read fio across 6 NVMe disks,
+>> worst-disk degradation versus average dropped from 11% to 5%, and the
+>> previously penalized disks gained 12% IOPS at 10% lower latency.
+>>
+>> Fixes: 89802ca36c96 ("lib/group_cpus: make group CPU cluster aware")
+>> Co-developed-by: Long Li <longli@microsoft.com>
+>> Signed-off-by: Long Li <longli@microsoft.com>
+>> Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
+>> ---
+>> Changes since v1
+>> (https://lore.kernel.org/all/20260324075352.2326972-1-namjain@linux.microsoft.com/):
+>> - Cluster base is now a per-cluster proportional floor
+>>    (ngroups * cap / ncpus) instead of the global per-cluster minimum,
+>>    so proportional weighting is preserved on asymmetric (e.g.
+>>    big.LITTLE) cluster topologies. (Sashiko review)
+>> - Document that the rotation offset is call/probe-order dependent: a
+>>    device's exact layout may vary across boots and recomputes (each
+>>    layout is still valid, fair, and proportional).
+>> - Rewrite the commit message with a worked example and fio numbers.
+>>
+>>   lib/group_cpus.c | 149 +++++++++++++++++++++++++++++++++++++++++++----
+>>   1 file changed, 137 insertions(+), 12 deletions(-)
+>>
+>> diff --git a/lib/group_cpus.c b/lib/group_cpus.c
+>> index e6e18d7a49bba..8bed0f9d2110b 100644
+>> --- a/lib/group_cpus.c
+>> +++ b/lib/group_cpus.c
+>> @@ -7,6 +7,7 @@
+>>   #include <linux/slab.h>
+>>   #include <linux/cpu.h>
+>>   #include <linux/sort.h>
+>> +#include <linux/atomic.h>
+>>   #include <linux/group_cpus.h>
+>>
+>>   #ifdef CONFIG_SMP
+>> @@ -255,12 +256,20 @@ static void alloc_nodes_groups(unsigned int numgrps,
+>>   	alloc_groups_to_nodes(numgrps, numcpus, node_groups, nr_node_ids);
+>>   }
+>>
+>> +/*
+>> + * Per-caller rotation counter for group_cpus_evenly().
+>> + * Wrapping is harmless: the offset is only used modulo small values
+>> + * (ncluster or nv->ngroups), so any unsigned value works.
+>> + */
+>> +static atomic_t group_spread_cnt = ATOMIC_INIT(0);
+>> +
+>>   static void assign_cpus_to_groups(unsigned int ncpus,
+>>   				  struct cpumask *nmsk,
+>>   				  struct node_groups *nv,
+>>   				  struct cpumask *masks,
+>>   				  unsigned int *curgrp,
+>> -				  unsigned int last_grp)
+>> +				  unsigned int last_grp,
+>> +				  unsigned int spread_offset)
+>>   {
+>>   	unsigned int v, cpus_per_grp, extra_grps;
+>>   	/* Account for rounding errors */
+>> @@ -270,11 +279,15 @@ static void assign_cpus_to_groups(unsigned int ncpus,
+>>   	for (v = 0; v < nv->ngroups; v++, *curgrp += 1) {
+>>   		cpus_per_grp = ncpus / nv->ngroups;
+>>
+>> -		/* Account for extra groups to compensate rounding errors */
+>> -		if (extra_grps) {
+>> +		/*
+>> +		 * Rotate which groups get the extra CPU so that
+>> +		 * successive callers produce different mappings,
+>> +		 * avoiding IRQ stacking when multiple devices
+>> +		 * share the same CPU topology.
+>> +		 */
+>> +		if (extra_grps &&
 > 
+> Explicitly testing extra_grps for zero isn't necessary. If it is
+> zero, the "less than" test below will always be false anyway.
+> 
+
+That is true, but the intention was to improve readability of this 
+block. Unless you really feel that this should be removed, I would 
+prefer to retain this.
+
+
+>> +		    (v + spread_offset) % nv->ngroups < extra_grps)
+>>   			cpus_per_grp++;
+>> -			--extra_grps;
+>> -		}
+>>
+>>   		/*
+>>   		 * wrapping has to be considered given 'startgrp'
+>> @@ -361,7 +374,8 @@ static bool __try_group_cluster_cpus(unsigned int ncpus,
+>>   				     struct cpumask *node_cpumask,
+>>   				     struct cpumask *masks,
+>>   				     unsigned int *curgrp,
+>> -				     unsigned int last_grp)
+>> +				     unsigned int last_grp,
+>> +				     unsigned int spread_offset)
+>>   {
+>>   	struct node_groups *cluster_groups;
+>>   	const struct cpumask **clusters;
+>> @@ -379,6 +393,111 @@ static bool __try_group_cluster_cpus(unsigned int ncpus,
+>>   	if (ncluster == 0)
+>>   		goto fail_no_clusters;
+>>
+>> +	/*
+>> +	 * Rotate which clusters receive extra groups so that different
+>> +	 * callers of group_cpus_evenly() produce different group-to-CPU
+>> +	 * mappings. Without this, all devices get identical affinity
+>> +	 * masks, causing IRQ stacking on CPUs assigned single-CPU groups.
+> 
+> s/assigned/assigned to/
+> 
+>> +	 *
+>> +	 * alloc_groups_to_nodes() distributes ngroups proportionally, but
+>> +	 * integer rounding causes some clusters to get one more group
+>> +	 * than others. The assignment is deterministic, so every device
+>> +	 * gets the same mapping. Fix: compute a proportional floor for
+>> +	 * each cluster (ngroups * cap / ncpus), collect only the
+>> +	 * rounding-induced extras, then redistribute them starting from
+>> +	 * a rotated position. This preserves the proportional weighting
+>> +	 * across differently-sized clusters while rotating the rounding
+>> +	 * extras, keeping the rotation effective on both symmetric and
+>> +	 * asymmetric cluster topologies.
+>> +	 *
+>> +	 * Note: after alloc_groups_to_nodes(), cluster_groups[].ngroups
+>> +	 * holds the group count (the union no longer holds per-cluster CPU
+>> +	 * counts), so each cluster's CPU capacity (cap) is taken from its
+> 
+> Having to recompute "cap" three times in the code below is fairly clumsy.
+> Is there any reason that cluster_groups[].ncpus and .ngroups need to be a
+> union? If they were separate fields, then "cap" would be immediately
+> available when you need it. I looked back through the commit history
+> and LKML discussion for when the union was originally added, and I
+> didn't find any explanation for why it is a union. A union saves a bit
+> of memory, but the overall amount of memory here is small, so the
+> implementation doesn't need to be particularly stingy.
+
+I'll remove the union, and simplify this "cap" re-computation.
+
+> 
+>> +	 * mask. The ncpus divisor is the function parameter, which equals
+>> +	 * the sum of the per-cluster caps.
+>> +	 */
+>> +	if (ncluster > 1) {
+>> +		unsigned int total_extra = 0;
+>> +		unsigned int start, stride;
+>> +
+>> +		/*
+>> +		 * Compute a per-cluster proportional floor and collect
+>> +		 * only the rounding-induced extras for redistribution.
+>> +		 *
+>> +		 * Each cluster's floor is ngroups * cap / ncpus, which
+>> +		 * preserves its proportional share.  Only the rounding
+>> +		 * remainders (typically one per cluster) are collected
+>> +		 * for rotated redistribution, keeping the rotation
+>> +		 * effective even on asymmetric topologies (e.g.
+>> +		 * big.LITTLE) where differently-sized clusters would
+>> +		 * otherwise absorb all extras deterministically.
+>> +		 */
+>> +		for (i = 0; i < ncluster; i++) {
+>> +			unsigned int cap, prop_floor, base;
+>> +
+>> +			cap = cpumask_weight_and(clusters[cluster_groups[i].id],
+>> +						 node_cpumask);
+>> +			prop_floor = ngroups * cap / ncpus;
+>> +
+>> +			/*
+>> +			 * Use proportional floor as base.  Ensure at
+>> +			 * least 1 group per cluster, and never exceed
+>> +			 * alloc_groups_to_nodes()'s original allocation
+>> +			 * (which may be less than prop_floor when small
+>> +			 * clusters consumed groups via max(1,...)).
+>> +			 */
+>> +			base = prop_floor > 0 ? prop_floor : 1;
+>> +			if (base > cluster_groups[i].ngroups)
+>> +				base = cluster_groups[i].ngroups;
+>> +
+>> +			total_extra += cluster_groups[i].ngroups - base;
+>> +			cluster_groups[i].ngroups = base;
+>> +		}
+> 
+> We had a separate discussion about how your new code here should
+> go with alloc_groups_to_nodes() so that it is also applied at the NUMA
+> node level. You said you had it working. Question: Did you combine the
+> above "for" loop with the "for" loop in alloc_groups_to_nodes()? It
+> seems unnecessarily complex to do group allocations, including extras,
+> using the "for" loop in alloc_groups_to_nodes(), and then follow that
+> with another "for" loop here to figure out which nodes got extras and
+> strip them out. A single loop should be able to set all the nodes to
+> their base value and count the extras.
+> 
+
+I just did a prototype and had not combined it yet. I'll try to combine 
+them into a single function now.
+
+>> +
+>> +		/*
+>> +		 * Redistribute rounding extras using a stride to scatter
+>> +		 * them across clusters.  With stride = ncluster / extras,
+>> +		 * consecutive callers' extra sets overlap minimally
+>> +		 * (e.g. max 2 overlap for 6 callers with 24 clusters
+>> +		 * and 7 extras, vs 6 overlap with stride 1).
+>> +		 */
+>> +		start = spread_offset % ncluster;
+>> +		stride = (total_extra > 0 && total_extra < ncluster) ?
+>> +			 ncluster / total_extra : 1;
+>> +
+>> +		for (i = 0; i < ncluster && total_extra > 0; i++) {
+>> +			unsigned int idx =
+>> +				(start + i * stride) % ncluster;
+>> +			unsigned int cap;
+>> +
+>> +			cap = cpumask_weight_and(clusters[cluster_groups[idx].id],
+>> +						 node_cpumask);
+>> +			if (cluster_groups[idx].ngroups < cap) {
+>> +				cluster_groups[idx].ngroups++;
+>> +				total_extra--;
+>> +			}
+>> +		}
+>> +
+>> +		/* Fallback: place remaining extras wherever they fit */
+> 
+> Just so I'm clear, you could have "remaining extras" because a stride > 1
+> in the previous loop could miss some clusters/nodes that have available
+> space, depending on how the arithmetic works out. The code below
+> does essentially the same thing, but with a stride of 1 so that every
+> node is checked.  And you might have to make multiple passes in
+> case some nodes have space for two or more extras. But you know
+> there's enough space available somewhere.
+> 
+> Is my understanding correct?
+> 
+
+Yes, this is correct.
+
+>> +		while (total_extra > 0) {
+>> +			unsigned int placed = 0;
+>> +
+>> +			for (i = 0; i < ncluster && total_extra > 0; i++) {
+>> +				unsigned int cap;
+>> +
+>> +				cap = cpumask_weight_and(clusters[cluster_groups[i].id],
+>> +							 node_cpumask);
+>> +				if (cluster_groups[i].ngroups < cap) {
+>> +					cluster_groups[i].ngroups++;
+>> +					total_extra--;
+>> +					placed++;
+>> +				}
+>> +			}
+>> +			if (!placed)
+>> +				break;
+> 
+> Is the control variable "placed" necessary? If all the extra groups are
+> guaranteed to fit somewhere, then total_extra should go to zero and
+> the checks on total_extra > 0 will break out of the loops. Thinking about
+> it from the other direction, if the "for" loop ever completed without
+> incrementing "placed", wouldn't that mean total_extra is still
+> non-zero, and you have an extra group that isn't assigned to a
+> cluster/node?
+> 
+> Michael
+
+It's not required. I should remove it.
+
+Regards,
+Naman
