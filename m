@@ -1,132 +1,126 @@
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218DC3AA4E0
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 20:40:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.98
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788381659; cv=none; b=hBKO1SVn7wfVXqc/DXckITAMpcYVnnxPDwEcqMTgYlJN3DXerJZKfSxBjAkqzyFJ7g06eJ5KFf0xl/T8mVjiojD1jdo9/GH2LpUS/iicKDdDXLfKoDfKcbWhZynqOBPRME/HA5A7D4knt8YFRRvx7S/s+bDAT6BDg/wgcntCB1c=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788381659; c=relaxed/simple;
-	bh=2AOzbfze9GxhHWoUdvI8sofdY4TtcK2hVkMRcbw+AkI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=txzebwmUWnXw+z74dDEVjRnO3EnBEJBiEI/eNYIKVFRX0hUjEC8re2Vh9wTEZ4glkQmy/odvn+DoEWnvkST0NnywDCEb/tD/0jdgJsxGXCWjV5pT/GvuG67m1aHktMYYHqbi9LAACxx4z7mkGaep00RNENLDswI3VWsJmVvykws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com; spf=pass smtp.mailfrom=everpuredata.com; dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b=csUzlSVW; arc=none smtp.client-ip=209.85.216.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 044F138B7B0
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 20:42:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788381723; cv=pass; b=YkmMNSxAEdKSJ1z7247uYruylZAlt/3fTsos/sDjQRehIcNS/JIFwK6G+SzZmIlfP/CrLTZ6wvn/s2QmafYRRGgkqszqOZsJ+OccvE5m/2w291vpY59QOZv1KxGljSfyw1gZxXQmnXFIYfkWDzK0RFqI1DMaCUk9O6NcdACuuAw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788381723; c=relaxed/simple;
+	bh=LVhIXvpFzVpDu/8jrbjniSLr8dV9PsbTGwAGD6Kvgqc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hFc7OnY3iCRetPEIEfmqW8jQ0ATbAV3v//eKh61KHaOcHm+6KpJmRM712aYNHANAFeSu494k9JCraZT1DZG9ob0NoeKZUnybVWEcMCz1/KYWI5F2t14easHhO6JvDNN5eejVIU/gwM4moiyO699/yfBGEuPU6zpnJ82NORELQK4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=eISHAEUG; arc=pass smtp.client-ip=209.85.218.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b="csUzlSVW"
-Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3964e76d0f4so1866772a91.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 13:40:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="eISHAEUG"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c1670dad7a8so245113766b.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 13:42:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788381720; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HXNsONlsa07pdUnOIOZnfd2isZ278HnHJWBhF9m/Vq2rI6ko466NKjQ+1Y03DrrnCi
+         OBtjpDYh4CKbyOk+Jg258wFf8DTZeg08lL7LCfRkWdbY/exjJqnmfWVNZniKuJfyztoH
+         +kfZ5v4tbxZDaITwtr1KQD5Djjw+pzkZjtemw1CLQW+QncVWXpo4JIP77+Ubf+L213/0
+         qmxNyA/qpJpp7vkSo9p7ihC01FvmONVwtuuwfmMEdTH9Ma3tt70BQ6nPUwry2ugfoHvT
+         6QUvfs6r6gDhpEoOPUjkjNfby+zg+LIabZgtdBVBdJJS2vggdpMkT6vy5Ig8JTuTYRpq
+         3ucw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=LVhIXvpFzVpDu/8jrbjniSLr8dV9PsbTGwAGD6Kvgqc=;
+        fh=6NkjhdnTN+MSc+7a+oFXeC7Cho+CpzZyx/+Qh13vI3g=;
+        b=aACTSBcc5EaBZSeCdq6XpOFHN2q0VIQgNDmMuOqGWDELQrWLs6p4Vd3Sg9tznPAcqI
+         xIHCx8tQPPNhmTI0Y0hE/2+M1eZ+JQ3vMyeF3oNK4bCx/hgNVporMYtHaFdGsAIlV6Ll
+         9T2gVey35EG1AZA0CWYO1Tb/eID0GnmRkmckWAD7V2sdDp+NK2diaZlJZ79c4NrlUOuf
+         ooswfBh0GSCbxAldwaYczUu7vPHx0F2tRfLTea149WjZnhQTA+8+ZO/Gzp42hLPpHXRw
+         PYaAFWW1z9pZVUMlxcSlfOHoEwQfJlpHQGTZf0Cq51rsOVJqXlgXakGbOh1fgZexMl8n
+         a0AQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1788381650; x=1788986450; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IHleeibfspL0c+dohY0ul8TuzUb19RkhPlnJA1SPRN0=;
-        b=csUzlSVWbpvQxbee8PgK+sEgnQ2FaSJ2QrcBTn7XGj0SP7Y/DtBnvktF+Syh4a5KFV
-         kms2G8Bmozu4Vpr+8emRz2yd516woM0X5uZdof8vwxB3lS18txuOL3vK13G3+lzkFxW3
-         l+tZhvSIuJHH6tMKIH6vs3VLI7KpAjYb2erWkwSRbNSpEVdsNLgq73DsrF3SQd4fEODR
-         cyb1dFZH7xSYZRGjGpxx30GdWwGBliltTOgWsvdZCwH5jMFWDzlcfFVHB9nnEW02aLmo
-         hpA4ymndZ0r8A5hu6akR3gdSMPv0ikp4BgbhlwTYlhoT0Zo8uV5JK3Vg/n3ZDntBsgbS
-         4V3A==
+        d=google.com; s=20251104; t=1788381720; x=1788986520; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LVhIXvpFzVpDu/8jrbjniSLr8dV9PsbTGwAGD6Kvgqc=;
+        b=eISHAEUGc2SvT3CzeGltwiFcHZnnQ6ea3r4FAD2xyVcfAG/VyOGHwDA9Z3yjFOQJ0w
+         kzHEI8gGtapjd3A+ASTnVUWg7KmDvreDcJGHaZXsTAwBeYSsCHt+EP4Pm93zLwJq1HH2
+         FmFe25mgsH5saIzWOf6nySwrcKAeb8TtdQb3fw2xJAJezcoblDXU4Ef5E8p86Mzc1OZ3
+         sI37kFVbl4XFHf/DjlQbDhgWycRaj8SLL8PTj/qU48GV3ez7SY5rlBBnT+hFp5SoiUwX
+         skuLkcfjxRRESvetK+EBwLfmjTJiEGphi/5FgBppHKY2JXtzdsvgFZ9V0fmm32l5h37a
+         J29Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788381650; x=1788986450;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IHleeibfspL0c+dohY0ul8TuzUb19RkhPlnJA1SPRN0=;
-        b=lVu/z5i1GgqNALywuVhTsqqVMiafTIWFYEQwRagZZkYgxPpNUtgacvgveh2Givi9dM
-         36+eZJABFqc4oHXst6/fRAlJWSoz6RQQmrqU2RE5xXZfOchU3w8Zy6YBl5rudlb794CD
-         rA5YnAJNhRF75Lb4nefUaFnpD9hdCF8JGQPJK90/F2WGddyGcwyi0nmWynoGJHVQSqU/
-         bLFMOF1NrnGxkzNdTmdZZRH6s3L2i2DQqJgR7kkjyU986T+BbDfr1B3ubY4F2x4q6s+F
-         1bxBBXUK/9LbnAVF5YqFvaoIlt1Ht93ZTXzIHjgNOjsUBbDTNuFRRbsVZGpRpAiB3n9L
-         qPCg==
-X-Forwarded-Encrypted: i=1; AKwUvBy1I7bLAG53QGC+7wFb4tmkJKS9pP2gaJmnuetFHwmvUGlQGorSo1sfNm2/gACDsRgJqiO/jDYxOfVpjlg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kAnt9uePBjLwTQW+4k7RFwf+7+Nx9qqdi5dx+kEISoGZYy6Szz
-	q/r2uHtUdCpmA6/+lJSsgndui6C4DDAqv7d9atEmh909PKkpCyZHMAQbIXhal2plK24X/+3HoIF
-	eArN9zhoTKeG/63XHpX++aeH52xQF46DGsB6K
-X-Gm-Gg: AYBFou1xrMHEo+HEqNS0YDvsXwUeeMLFqhQaBQPmFyRgC+5K+O32TWy0/aK/jIYBNkc
-	RUmkMm5cskFCdu1C9UCuvv7V/0KaBtbTlxPlio/4ZG/7Zxm6v87JoZG9dFHs4982ykGL8hizrW1
-	g4gaDKkXVQRHZz4sd4IM/iMyc4UqIjM1zt03cRqkeeRvkskjFGubSLkyCAeKWAbPVN1A8OrAl5n
-	6/XlagcWF0bFKV/T/n7OMXIT2z3YGcrTxg0r+LzIvhQL1mEsf5WiK23r0dYXQ62PXJvuiyJxko2
-	u23opSCiipPAlFIvHEtrzbHBcKA8rskJZ1PtaTtpPFuQJOksu5RFtIx40hLYPYiqKwO5qY70Dk2
-	cNSW5sEiQy8LTVqJFzmttJEChboB259MJcnC0/4U=
-X-Received: by 2002:a17:90a:c10e:b0:398:c3a3:dbd0 with SMTP id 98e67ed59e1d1-39aedfcc05dmr11464023a91.8.1788381649998;
-        Wed, 02 Sep 2026 13:40:49 -0700 (PDT)
-Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.128])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-39b0e607aa9sm61929a91.5.2026.09.02.13.40.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 13:40:49 -0700 (PDT)
-X-Relaying-Domain: everpuredata.com
-Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
-	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id B4A553402BD;
-	Wed,  2 Sep 2026 13:40:48 -0700 (PDT)
-From: Tim Menninger <tmenninger@everpuredata.com>
-To: Chuck Lever <cel@kernel.org>
-Cc: Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Eric Badger <ebadger@everpuredata.com>,
-	Jon Curley <jcurley@everpuredata.com>
-Subject: Re: [PATCH RFC 6/8] SUNRPC: Reduce rpciod workqueue contention
-Date: Wed,  2 Sep 2026 20:40:48 +0000
-Message-Id: <20260902204048.4100864-1-tmenninger@everpuredata.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260831-performance-v1-6-8d9fd9b67f96@kernel.org>
-References: <20260831-performance-v1-6-8d9fd9b67f96@kernel.org>
+        d=1e100.net; s=20251104; t=1788381720; x=1788986520;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LVhIXvpFzVpDu/8jrbjniSLr8dV9PsbTGwAGD6Kvgqc=;
+        b=kGyuuIISmgpFcMYjZY2WlfwHa/+Z+0vrItZ1CzLmz6STqqilijq8ZVIjazJW22sOoR
+         5vlbcCcPSGVpZDNA8wmBDGkRET/3SlJQ4/N6QMsp9AZUg1WmCU02o03EtAWChi4wZSD+
+         nTDfWYHGJnDH9jXfclhyhf+rdFWGSU7V86E4b00nYI8H/r1llwrjm0LWQ6nI74Bc0Q+0
+         SahpGM9VUgXc3n2rb3c4OxhCIFBOOeAAsNdDW3SfUj+4jsciXoFPDVfKVnGKue5Nsw+s
+         4QtM9s7VZnuEZyIxbwojUf9WnyryyCHk/qm2zwntDoEdx1TlyNRmraQc8nQ3d9jJEDZb
+         xhbg==
+X-Forwarded-Encrypted: i=1; AKwUvByrgOcx7X9mb09DZYE/7dN8nJZbBNl/XiFtr2SNvnbGDEtiwAWu/2XR/254uMnxPo759SI/Mn1LQrCpyIg=@vger.kernel.org
+X-Gm-Message-State: AFuF++li0iZOG74eopo0mJ1FMn9zDBtVA+PEQWXYNxdUfGM3yjb8lPNi
+	PzHikLb06DytuoSCGpvtpjy+y3a7J9DuOb8wpsC4nPDubKleJIW7YWMnD1fOp3XTqSp9DL4GKsB
+	MpIP7Z6YGHuJ5gIIZWl8GjO5FD5ObUA6/wHNtqOWu
+X-Gm-Gg: AYBFou3CHCUVObIhng2qVTO0ql7gthXVFiRz6FOzdsbNjpiJgOYIfX6sfUHFGyRkxAl
+	jg0sw1rH/BPP6oKOY4344bWMbHqdd6WtIO3GJo+umhLs8OhGYkmSK0ripqcaMQ5pbhtQWqHeX9M
+	rIcxkGkQTJ8hhYkcLNVtbb6elmDFy9SdccXoJ8vT8y2kD6ljQgNBVf8CIYQzGpaADhtpM3F8TVR
+	inO7L26+lQqPjD3dW/YExVZRae2ADRnK7EJYy15DfD5RKV1dl6MSx2IUexK1aW9kJQeI4+mvg/Q
+	h+Ec97dOxNT9dhZVDXEQC+af9sP0Jloaw4jrm6FJUoTgV9RNxHnZQUg1rKF3aDVwLwLGj0jwxsm
+	SyqkxzGvbfwim8TICHBXX+tuNnUCHdQ2YMK9CX099SavELE7JR+1TeB5mFRqfoMimLS+Jgggi3p
+	/FT4DL4c1JRb4S
+X-Received: by 2002:a17:907:c78a:b0:c25:541e:be7d with SMTP id
+ a640c23a62f3a-c25d55b8807mr567367566b.18.1788381719836; Wed, 02 Sep 2026
+ 13:41:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260828094703.11081-1-lance.yang@linux.dev> <20260829052606.49470-1-lance.yang@linux.dev>
+ <CADrL8HW3=n8VqW+7YSb2kyhkHidNKGy32+2s7A0OfF+oYoAifg@mail.gmail.com> <apf5xBqj5560JlMD@thinkstation>
+In-Reply-To: <apf5xBqj5560JlMD@thinkstation>
+From: James Houghton <jthoughton@google.com>
+Date: Wed, 2 Sep 2026 13:41:22 -0700
+X-Gm-Features: AcwNN1XNWP54Rwi-EWw78kODWTxBfe6WSk0GmMqznEozoElZj8yD1pyZq6NZGNw
+Message-ID: <CADrL8HXg-Ybh9Lqgo08VSCtyD=8byMOZZJqEDgdr_+=p_KwYaA@mail.gmail.com>
+Subject: Re: [PATCH] mm/khugepaged: Don't collapse uffd-minor-registered VMAs
+To: Kiryl Shutsemau <kas@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, david@kernel.org, 
+	ljs@kernel.org, ziy@nvidia.com, baolin.wang@linux.alibaba.com, 
+	liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
+	dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, 
+	shy828301@gmail.com, zokeefe@google.com, hughd@google.com, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-I am seeing a significant throughput regression from the rpciod SMT
-affinity change on a high-throughput NFS/RDMA workload.
+On Wed, Sep 2, 2026 at 3:27=E2=80=AFAM Kiryl Shutsemau <kas@kernel.org> wro=
+te:
+> On Mon, Aug 31, 2026 at 09:51:33AM -0700, James Houghton wrote:
+> > WRT the semantics of process_madvise(MADV_COLLAPSE) and normal
+> > madvise(MADV_COLLAPSE), I think it makes sense to always disallow
+> > collapsing of UFFD-minor VMAs, whether MADV_COLLAPSE comes from our
+> > own process or another. UFFD-minor faults are intended to be resolved
+> > only with UFFDIO_CONTINUE, and until someone asks for it, I don't
+> > really see a need to make MADV_COLLAPSE actually work to resolve minor
+> > faults. I don't think userspace can *rely* on MADV_COLLAPSE resolving
+> > minor faults either.
+>
+> It is safer to go with stricter policy: reject always. We can always
+> relax it later if there is a use-case and reasoning about the interface
+> is solid. We don't have it yet.
 
-This is a 96-CPU, two-socket system with 48 physical cores (2 threads per
-core). I bisected the regression to the patch that changes rpciod to use
-WQ_AFFN_SMT.
+Thanks, Kiryl. Sounds like there is still value in this patch then.
 
-With the default cache_shard scope, the workload sustains approximately 45
-GB/s. With the SMT scope, some runs fall to approximately 15-25 GB/s.
-
-The failure is intermittent across workload starts and appears easier to
-reproduce shortly after boot. However, once I have a bad run, the
-dependency on the rpciod affinity scope is reproducible without restarting
-the workload.
-
-For example, during one continuously running workload with the regression
-actively reproducing, throughput recovers to ~45 GB/s immediately when I
-change /sys/bus/workqueue/devices/rpciod/affinity_scope to cache_shard,
-then regresses again immediately when I restore smt.
-
-Nothing else about the workload, mount, RPC connections, or RDMA
-connections is changed between those transitions.
-
-On this machine, wq_dump.py reports:
-
-    SMT:          48 affinity pods
-    CACHE_SHARD:   6 affinity pods
-
-The SMT pods correspond to one physical core / two sibling CPUs, while each
-cache_shard pod contains eight physical cores / sixteen logical CPUs.
-
-I have not yet identified the exact mechanism that causes the SMT
-configuration to lose throughput, so I don't want to speculate about the
-specific lock or scheduler interaction involved. But the live smt ->
-cache_shard -> smt transition seems to isolate the regression to this
-affinity-scope change.
-
-Given the magnitude of the regression, I think this needs to be understood
-before the rpciod SMT affinity change is merged.
-
-I can collect additional workqueue or scheduler traces if there is
-something specific that would help characterize why the SMT scope performs
-poorly here.
-
+Unless Lance disagrees, I'm happy to send a v3 with the same diff but
+a rewritten changelog (and no cc:stable) reflecting that this isn't
+actually currently an issue. And I'll include the uffd selftest change
+as a separate patch.
