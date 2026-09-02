@@ -1,94 +1,87 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B4B4AA02A;
-	Wed,  2 Sep 2026 16:25:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6944947F786;
+	Wed,  2 Sep 2026 16:25:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366313; cv=none; b=gOcuwfXqNTTJGrM4b/I05Xf72qtB7HZkmTvtpGVPQ2NgZRo+pMqdZvudUm5Hk4mTaGwqHDX2VFOjJBxlCa80fciOxMOqH9L7dwFGHwlj2Jpe/uzY/lBEPlbFSo6N6m+Y4RcpKu3z7Z5ixTI5Y9PW+xQNQv1hWyOyzYP6vsiPskc=
+	t=1788366324; cv=none; b=FoSaQzaePD4ZVQNB/+7scRZZ7CXK1Abi80YDYCjyLW+0Qr034ikG+1IwIioG6jMyGtzp1bS+ZUKtjviZ2y57u+KFixhh0BfeDA3ABCAYW+3JEDTQquN48wzyrW+9lulb5yZ8UBBhBAg8tutpOJ2sIjEOSZSEHRJEZeM7RFCUDlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366313; c=relaxed/simple;
-	bh=ySYYcwlClxp/Mkrb0eAVLiKUcceiCcG4UM6cRTF2EYM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R+BLiQ1jfo3LdIn6X578EbBdXhusWB7a0gnaGK1Kt8+csiJYco3UpKhPoB/NNIS3NZYB/vJ6AWbZThYtC7cav1G94u5EGFpnoB0c5+0jMpLce2w86t/LzysWX7037u7mUsoQw9wzfM/BKfBJQh/VB4y/F3kKx/xkGUHnqWQbhwQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NgQjYyLP; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788366324; c=relaxed/simple;
+	bh=KDKpe6Y4BCIj2Xf1eHlfuIgA2PuxH4SIBbrea/Gbolc=;
+	h=Date:From:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HpI8I+OjQuSnT/QFGbBZVWBo2mWHa+RXiQ7hJPhO5ov8vAcVmuqBhjC5wOCAKPlR9B58DQY5ja4j46OmfiCA3akhE4SCwEuuNRDsp/xZMEpOXfMT8zZFNfRLD/Aa8LzuWHXMLqcaR4YWVtQ/dmAwRoIgUoCPOpQLnmBTKXrPBbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iCU5qOSh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NgQjYyLP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788366312; x=1819902312;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=ySYYcwlClxp/Mkrb0eAVLiKUcceiCcG4UM6cRTF2EYM=;
-  b=NgQjYyLPYKKkWh3ic97G0Iu/SISPNdAYY/fPtZWjzcFumHZ6EjWUo1Mi
-   brbK97Q69I7zCwNo46oNBM99ByuMI916l4uLX8olTCGwQCd+oo9O54mhW
-   Y8e2T2Rzr9+X0AOZk9mAqMgDKR/Rjg28ueXCwU9tNaDp+0RgdXLy+Bq1N
-   Lrzq6iwXa+LgrfpUn3sifUmQtRSut8x5GcGkdG1DsQgn4XqJHlbuZbRza
-   gVxr6bv7rrmw8gl6XlyOYjrBb6uFM83j2H/+7hAwkz3s5dztB/uFoWJRy
-   9rYgFFdWPtvsSrFl+s9jz7NZxjPv4MxztsdydtO4SfqXaQM56WujjJ/Vw
-   w==;
-X-CSE-ConnectionGUID: amqKp9UERgOcvtp4slqIjw==
-X-CSE-MsgGUID: 1E98HUrZSM2zLlz4yFZG5Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="88881447"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="88881447"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 09:25:11 -0700
-X-CSE-ConnectionGUID: GbzBxvqnT8e+19c8F1v4og==
-X-CSE-MsgGUID: 63y2m2ghQC6izEIgTw+7GA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="271424957"
-Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 09:25:08 -0700
-Message-ID: <a018a58f-76af-43a7-930b-943a9a5c0a9d@linux.intel.com>
-Date: Thu, 3 Sep 2026 00:25:05 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iCU5qOSh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61E7C1F000E9;
+	Wed,  2 Sep 2026 16:25:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788366323;
+	bh=nqZFIDkozsKcZSvdTahuya/znCYPECS2HhaWl5wvB6E=;
+	h=Date:From:Cc:Subject:References:In-Reply-To;
+	b=iCU5qOShsqJxNR0mAGmPcC5TV5dhYb8uugL+TmUGT4iuYHzFzbCzpxfesQ3RDMS0q
+	 m+Sv+eQvzAhLJCC6X22M0m5/GgpFJVmoWYOgiKWL+K8W+GgmT+OKzHE1oj3tJ6oUQj
+	 vSJpMTsNFfLYz+/KdAEDZgcfSgi8sxDJpSQONdIVYxnEtTu1sZ+53bDJiJ5eCrNcfp
+	 +Nxpt8dCge1qe8VyPmSvbMjmw+ZAaySp7xZYuKG8mEYcO3lzF6cYMR2gFC7katb5jr
+	 s6ovNeVfg11n5ZzxkmYhDyLHadXU02rxWU5944gUmtvvK8oiovCzcuYVvWVIOcQXdQ
+	 lJGnt53e6GHgg==
+Date: Wed, 2 Sep 2026 19:25:18 +0300
+From: Leon Romanovsky <leon@kernel.org>
+Cc: Jason Gunthorpe <jgg@ziepe.ca>, Jack Wang <jinpu.wang@cloud.ionos.com>,
+	linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzbot+d396918a29afb8543e1c@syzkaller.appspotmail.com
+Subject: Re: [PATCH] RDMA/rtrs-clt: Fix CQ pool leak when connect is
+ interrupted
+Message-ID: <20260902162518.GW24140@unreal>
+References: <20260830-rdma-rtrs-clt-cq-pool-leak-v1-1-b169434fd3df@proton.me>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] KVM: TDX: Track configurable CPUID bits allowed by
- KVM
-To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
- "Li, Xiaoyao" <xiaoyao.li@intel.com>,
- "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Cc: "kas@kernel.org" <kas@kernel.org>,
- "pbonzini@redhat.com" <pbonzini@redhat.com>,
- "nik.borisov@suse.com" <nik.borisov@suse.com>,
- "seanjc@google.com" <seanjc@google.com>, "Gao, Chao" <chao.gao@intel.com>,
- "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>,
- "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>
-References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
- <20260827031837.2863609-2-binbin.wu@linux.intel.com>
- <55488b92-66a8-45e5-ad0f-8fed63ce1187@intel.com>
- <a30741f8-b99b-4f36-80a5-4688c2578d99@linux.intel.com>
- <6b565572-b316-4e86-906d-f150c896fe21@intel.com>
- <84891108-55be-48c1-9993-c730a5334d5b@linux.intel.com>
- <249dcccf2353181f595547d19a07232fded71023.camel@intel.com>
-Content-Language: en-US
-From: Binbin Wu <binbin.wu@linux.intel.com>
-In-Reply-To: <249dcccf2353181f595547d19a07232fded71023.camel@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260830-rdma-rtrs-clt-cq-pool-leak-v1-1-b169434fd3df@proton.me>
 
-On 9/3/2026 12:22 AM, Edgecombe, Rick P wrote:
-> On Thu, 2026-09-03 at 00:19 +0800, Binbin Wu wrote:
->>> I see. You added patch 2 because without it QEMU breaks. While for
->>> EST/TM2/SDBG/XTPR/DCA, QEMU doesn't break after they are turned to
->>> non-configurable. QEMU cannot represent all the userspace VMM. It still has
->>> the potential to breaks other userspace VMMs.
->>
->> I think the risk is pretty low.
->> I am not sure if Sean could provide some insight about this in google's
->> userspace VMM.
+On Sun, Aug 30, 2026 at 03:09:55PM +0800, Quanye Yang via B4 Relay wrote:
+> From: Quanye Yang <quanyeyang@proton.me>
 > 
-> Can't we fix the issue if we are wrong?
+> The client borrows shared CQ credits in the ADDR_RESOLVED handler via
+> ib_cq_pool_get(), before the peer is connected. create_cm() can return
+> -ERESTARTSYS from wait_event_interruptible_timeout() without destroying
+> the CM ID. The init_conns() and stop-and-destroy paths then call
+> destroy_con_cq_qp() while cq is still NULL (no PUT) and only afterwards
+> rdma_destroy_id().
+> 
+> CMA serializes the handler against rdma_destroy_id() with handler_mutex,
+> but that does not order the GET against destroy_con_cq_qp(). If
+> ADDR_RESOLVED has already passed the DESTROYING check, it can take
+> con_mutex, GET credits, and then lose the con to kfree. Device
+> unregister later hits WARN_ON(cq->cqe_used) in ib_cq_pool_cleanup().
+> 
+> Set a per-connection flag under con_mutex before CQ/QP teardown so a
+> racing ADDR_RESOLVED cannot borrow credits after teardown has begun.
+> 
+> Reported-by: syzbot+d396918a29afb8543e1c@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=d396918a29afb8543e1c
+> Fixes: 3b89e92c2a95 ("RDMA/rtrs: Use new shared CQ mechanism")
+> Signed-off-by: Quanye Yang <quanyeyang@proton.me>
+> ---
+> Fix a syzbot WARNING in ib_cq_pool_cleanup(): an ADDR_RESOLVED handler
+> can ib_cq_pool_get() after connection teardown has already skipped the
+> matching PUT.
+> 
+> Reproduced on rxe with rnbd-client only (no rtrs server): write
+> map_device with path=ip:127.0.0.1, interrupt create_cm() with a signal,
+> then rdma link delete. Device unregister no longer reports leftover
+> cqe_used after this change.
+> ---
+>  drivers/infiniband/ulp/rtrs/rtrs-clt.c | 8 ++++++++
+>  drivers/infiniband/ulp/rtrs/rtrs-clt.h | 2 ++
+>  2 files changed, 10 insertions(+)
 
-I think it could be fixed to add the missing bits (if any) as bug fix.
+Haris, Jack?
 
+Thanks
