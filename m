@@ -1,67 +1,69 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011023.outbound.protection.outlook.com [52.101.70.23])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228D8247291;
-	Wed,  2 Sep 2026 08:40:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.23
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788338428; cv=fail; b=UNVCRwhu+xCRwqfeX+UZCt4Fe7EdvUtuAXLonAQTX8ne9540+7IaEAXrQ/7fRu6ln3xEZC1/Q8Id18SMzZN4sOnpnyzKWvocEYLKQSbyUSg/htZO5IZuSJ6jzqfFbg83PdTwlhdYEWZd9zZMRKJz717ptCNYn98jmtrqXL645g8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788338428; c=relaxed/simple;
-	bh=4DOGzD4AHoOmd3DSWc7pBptXiWdsE21FZ4/0S4TcoiA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=ZKkMuejNi9OjytTRm1um5Dq9p89TpL2aoAp+71F3onKjz0cNJsCQul2C0zH+MLTcETWtee79WBnzEuzK9dd52yLrna2LjTAotoeAxo6ER17AfGsIFa9smpynsePQODc6OSKqUMF7ImcOna66YFEhYKWk1JIkFk2gX5ipmBT5cxM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=WkzAdMzC; arc=fail smtp.client-ip=52.101.70.23
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 629D33ED3CC
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:40:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788338442; cv=none; b=kPRjjyXRIJaoaTTV7N7n4CgfM/YgjY5OUbEWHtT8l9jec87KZ7WKsqB5Fqu9QIMxVUXpAW4iiD32LVVN6qczXRQmBDifTwo9La1r2Yo6RgAv7NKtOjTd3dQIW4QWx6rf2F6Awzrlnixfaor/qtf6TCISPAS6lo7QMsuyGhl1Uko=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788338442; c=relaxed/simple;
+	bh=6xyVYgBjvDRYlC5dKAUtHMP5xW5qcq1J5+NeCUIzUSQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AD4rdMI6Y+bk+o5EPNUYKBFD8d/quUYrTK23uthofIBzH761AWbcp4p3XPiyWFJ0ILxGcZv99F39azgstvbg01ecJwotnfV5GHLOGnyYP+uEm43Jv/9GbTSuSbVFPovktI6tH9J9x+kO9h55ADkl/kPhoGw3nYQjQWx7ftB4Or8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=KHH3xS2Y; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="WkzAdMzC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aYj4j/Ijho0v77XaNFKz+nhIb6nvxBQFV3bYf2vd70EYqDDEi+eKJBCXQFLSpdwkYiYB2lQ1IC9WjfYX6TR/KsJ2OD1EnOjjTc0OrUsRDGLuAv39yK+PjmmVpUNe7M+F5Rm/Mg2NoFrEiOWfq4X2DIo/t4Yg+kdiUIVfv0S7pRTWhtS+CegyS4oxwwQzcpfsurEnIXdOtLHfcacX9jQt22cxGllIgMK5V5vsn5VXagInH/iYT/VphWAbDRCkC63blMtH0wBib1qpeRF5zJdW82xKxCzmp4YybyD/aRDXjEEF4KBFMQ70pj8Prhvcoj/RXbWdd/l6p4e4SZzILOq9AA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lWYPh+K02Sj81HYwlPL7Q70Ej0xF9YoGW3RjRPkDer0=;
- b=ia3bRpf5K/gHDjWOw4jBmnCK7Qy9jkTAVeEdJYXMNTDFt6vNhvIPHjNpIJv3VJvug/1o9Y8M5EJ2wVtO/5ekHlsDBIOWQoiTS2FDFploMsNgfSiXb7NzqIk+mx6UJOoE5r1gX9NkXnegwYce2BEEvoPTGmEuZsuXoa59zRBJN6K4dhOnVHrqJFFBp+myRRyvMWIpctkRXmbpMkGG/PjurjdYp0A8T09NIyLlXQ+CZf49kaw3UAAtupwOIRXiYXXNI2VTtnbpbFy2nO3wi+SIg1HJz8o4HE4iVJRQOXufxol7axaIwPHPfzjpSBGoiinHyBeyvAQQ71ZHlm2oQPyQzw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.88) smtp.rcpttodomain=nabladev.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lWYPh+K02Sj81HYwlPL7Q70Ej0xF9YoGW3RjRPkDer0=;
- b=WkzAdMzC3xD+7AVHj5l1+hhc88WupYoTwsfF/J87yHH5AUnIG3qwXgGh+eOk6mJyEsqzRG8s+pgEi3j0FIPQ+5L630w7RBZxpgM+q/B5h5bmQ8Yn8Bur8Pep6g7W+Hft4zTEQisYjYbvGagzK6igU+/dY//vt5fdrToZjJUH5FLRUyIEuP8J06gib7v5QIsUFNNHlTfBNTzIwyVB81KuNT/smtsput8NzADzSJ/qKO/XvlXk6dGFGavuiaRT1erP24bOGWufRh3ym7v7nB1fD9l0WGGAYd7GV/K/6Ityrn9Ms3GcrpOrbDzFm2IcU/FhMfrpvi1sNTTX6Oo726dd2w==
-Received: from AM0PR02CA0163.eurprd02.prod.outlook.com (2603:10a6:20b:28d::30)
- by AS2PR10MB7801.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:64a::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 08:40:18 +0000
-Received: from DB5PEPF00014B88.eurprd02.prod.outlook.com
- (2603:10a6:20b:28d:cafe::5c) by AM0PR02CA0163.outlook.office365.com
- (2603:10a6:20b:28d::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Wed, 2
- Sep 2026 08:40:17 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.88)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.88 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.88; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.88) by
- DB5PEPF00014B88.mail.protection.outlook.com (10.167.8.196) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 08:40:17 +0000
-Received: from ENXDAG1NODE4.st.com (10.75.129.197) by smtpo365.st.com
- (10.250.44.75) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 2 Sep
- 2026 10:37:35 +0200
-Received: from [10.48.86.251] (10.48.86.251) by ENXDAG1NODE4.st.com
- (10.75.129.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 2 Sep
- 2026 10:40:15 +0200
-Message-ID: <ccac83f8-be42-4400-8d8f-e584a1fdaf63@foss.st.com>
-Date: Wed, 2 Sep 2026 10:40:15 +0200
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="KHH3xS2Y"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48436251906so893814f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 01:40:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788338438; x=1788943238; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bmfehxYEzo9SaHUf1Myafiql9t/Z4/xrEqiCgCkFexE=;
+        b=KHH3xS2YSSAZxiAcGEGCkVegDDLbc0N5X1LL3dxxo5tz66e9Tr6p6hgJVfx2CQXoEJ
+         ZfMOk2j8htz9wEk/KnqaSvYyDLMokDIOeQi6E+BR5yiBPHAiympF/lXWlAZEi4NYyOX4
+         YZRZEL98u2MaiL42D+XVJ1mxP6GlYEbiqa/uF9PfFbDX7HLbgJulamy/bQqf+MMGgov3
+         dq7Dzxx5evm+gm7tEiAMUHTKrWfFNWxPFqcuHwdR1MvIFjRpk/JJwnqKwRVAljxOH+bb
+         wnKmfyHxF9tPpRB3X39oLSDSGWJXjgjW9zCfO8axxcVAC/2wur49sWQOi5JeL0imreZB
+         tN0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788338438; x=1788943238;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bmfehxYEzo9SaHUf1Myafiql9t/Z4/xrEqiCgCkFexE=;
+        b=oXIGMBGpkhIue+NFzwhYtk6NUWmjWayK/L9fwv8ZE+YwMJ4lSx4tZQK93Olix2GKMm
+         dGMbOZT6u0dlgKGwfMtgNSjXJZu8CN2XDbOwk1JmjyzYw+qSHjN950NjBqSOhCalSUmj
+         yVLGLOk/nEVVRfIvLg1X+9bKBYGtvXJ4iETMec5Uw0wrUrvAs/sj+R7LqxJwb77kIoQ+
+         e+6wk0JXij0e1IuyMTg/1DnHaVp2LoUSfNPvRb0dRk+AoChuGbA4/BVvu/T0Rsl976yH
+         1boTh3UDZGjcLuc2RgggfNGm9cdDMlL7JTKG0rxU8SpCWW/cQM5olCz8y/Kk9BPL/6eI
+         B6Ng==
+X-Forwarded-Encrypted: i=1; AKwUvByomeBu29R+3ZZMEH9A4uVURW5zZkccOcNXrVJ/pZm9yragFxCc/aK8BJtCUSmX8o2Of77uo8DAK4y4h6o=@vger.kernel.org
+X-Gm-Message-State: AFuF++ndqPHCVAQTAPG0Mnxyh31N+yB7NwUXSl8uihk8v335bQMUEO3E
+	+d05+2BigjuCRWvi2lj35nJE6e8ABc2wfFH8j7LnNDwHO9hIKYU5xI+PgFbRngcj/YLGa4tu8QZ
+	pQ34Q
+X-Gm-Gg: AYBFou2xVvsF3UC21JWPosdc3r7nnuEBZvvBSLoHk3lRwsKVlazMOFORgt59byHzQU9
+	VX5RSyN+fljZG7OVxVmriskndZXfhCosHg+F9CGztr22d7Z6xm45JvFwSUQ8cQ/V/Obk/2aV166
+	YuI7dp0mdcBIxC3uFotFhM6TXevrqUGu5x4jmlywnJEpWNnADnRRPjIqpQ75yIqvbt4RSw8Wesz
+	TStSVVpvRJQQz9xx0cmVpmb4BHo6b8pc0+SmHP4EA1etoNf2Pgc9pZjNL9xMoVVEu9v5IAwRg3L
+	FFzue2s0w5Ode7VyOUk/bEtgDPfrzjAoyg+SLcTD9/mxighSxXsltF1S48abXWVPSipe3d2as7T
+	ZVw3CPHyXyuLh4fgbDoHdxQDjWyqdIIT3oXM8VOde3wwDYS6VQhlbeOaGxZYk1N1xuVDASqnAdh
+	sDf1y8LYuqrUnWKooBmdSF7DTNP2lT6Yy/+lnevbMDyUrDUSMSHO8uoE4wnKDtUXnod9JGG+5jx
+	fH3XlRKpU0WpQwCbnNgu3X6+1z/I1lE4KUdgbfz
+X-Received: by 2002:a05:6000:250c:b0:484:3310:c4fc with SMTP id ffacd0b85a97d-48488f24193mr5629136f8f.23.1788338438306;
+        Wed, 02 Sep 2026 01:40:38 -0700 (PDT)
+Received: from ?IPV6:2001:a61:1304:a201:f0d3:bdff:55cd:3f16? ([2001:a61:1304:a201:f0d3:bdff:55cd:3f16])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-484492cdbfbsm4917843f8f.33.2026.09.02.01.40.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 01:40:37 -0700 (PDT)
+Message-ID: <51d22cfc-eb16-41cc-b27f-3bdad4460463@suse.com>
+Date: Wed, 2 Sep 2026 10:40:36 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,187 +71,87 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [Linux-stm32] [PATCH v5 2/2] soc: st: Add STM32MP2 SYSCFG driver
-To: Marek Vasut <marex@nabladev.com>, <linux-arm-kernel@lists.infradead.org>
-CC: Conor Dooley <conor+dt@kernel.org>, <linux-kernel@vger.kernel.org>,
-	Yannick Fertre <yannick.fertre@foss.st.com>,
-	<linux-stm32@st-md-mailman.stormreply.com>, Christophe Roullier
-	<christophe.roullier@foss.st.com>, <devicetree@vger.kernel.org>,
-	<kernel@dh-electronics.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>
-References: <20260831231359.136475-1-marex@nabladev.com>
- <20260831231359.136475-2-marex@nabladev.com>
+Subject: Re: [PATCH v2] USB: serial: generic: recover from a stalled bulk-in
+ endpoint
+To: Michal Pecio <michal.pecio@gmail.com>, Julian Oes <julian@oes.ch>
+Cc: oneukum@suse.com, gregkh@linuxfoundation.org, johan@kernel.org,
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
+References: <746c4df4-abd5-4e04-9edc-3ff8f17506bf@suse.com>
+ <20260901231355.114733-1-julian@oes.ch>
+ <20260902064204.1a47cd73.michal.pecio@gmail.com>
 Content-Language: en-US
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-In-Reply-To: <20260831231359.136475-2-marex@nabladev.com>
-Content-Type: text/plain; charset="UTF-8"
+From: Oliver Neukum <oneukum@suse.com>
+In-Reply-To: <20260902064204.1a47cd73.michal.pecio@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To ENXDAG1NODE4.st.com
- (10.75.129.197)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB5PEPF00014B88:EE_|AS2PR10MB7801:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f3e420b-011f-46fc-74d9-08df08cdd0b5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|7416014|376014|23010399003|36860700016|30052699003|13003099007|10067099003|56012099006|4143699003|22082099003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	oIU2qt16kUn3/l4+L+lnWBTSTCztUPvttYI3x8WkaL4GQ2bpY+D181xjyQCbzAKFYrz5f0cFDeOtdHn8FxM/PuZCR8aI9X1daJ+QKrDNgQ+bCpFQCmJG0k3oxEzWhXqqa7cS5WJeVZIFrKglgM8Nw+nz45iqYe/iMkdiDzXPl4GAogTunscw4s5jq7YxlLG02JlmkuNLBxNcE/AWlZDLnkfcezQsEKamjmcdNI+WhFe6c4bMMyVCNe/pl6MSk5j8evQRS1lPi1rIgdMSUisPRayjZyICDBqs01THdJ/p8zqGpnszK/hQ77uP3Gc8u3BQjdMX9FQmR+vyhTIBwU3sOJkSS9Jm/bGuP2u/iKtkBQsMuSA3kWbfdfrswkBhtQyyFzw7XfficEOkqCVCHFge4yQOz+3/d5f51BWihGcsZivd43MkXocqKD65UGihvLZqBYEEeISQyeABOvL9EufYLjXWxHQabUSC2IoJ2sZOg1eJ8EnuXsu0LStmt6lkzESFrgcMjxw0rUYRQ9zLiMV+qXhg4O5bXRz79xMDqmVKRilZF28jt5L3VFYwOA7I6Xti64dcytxDJzfKfkcT6h4VDfscT5StAUT+A/y1CFSRuxQpR/JcxXyzy4bMBV05WjoV/bHbyKSu9YtK9vqi6ZvXBA==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.88;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(7416014)(376014)(23010399003)(36860700016)(30052699003)(13003099007)(10067099003)(56012099006)(4143699003)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	3aaV87Os7M+oqdLdLDG/qgd7Ho6ca+TZbD6UpBE18A/LISYvJ7DNATHyFs2BhSn0AxJInPEIkO20IutQJKORZvwlOOXcouCGXueof/13FgcWJlKePLTZSO660nwtv9BN4+RvfwAaiZT8/KC6k0fT/wiNveggBOZj1GgsDB14xfTpLOzCc3V2v22Vz1/QfTMogNPy9B0sZmgZJ1YAmUe5xuUonSrdeiomKP3u9EhQ/nK5GlwgxOd+D9PdV69wxHiH8mtEBojch9hDLB1urgKxw3IJ7ziQw1bjm22puSzY5+0+fZRveP7ijGME3fDyOEpAYCpjIZlO8dvdYhE9dIuVP4YmDFf5XgFcmtgbXyWi4A8vKFuWwDKygt98eOPZsmVdUgvOU2YXARRJouL3i92qJUb9KKnZcrvCi23cJwUl6aHmXXyUJHXKycXemsCGJMNc
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 08:40:17.1611
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f3e420b-011f-46fc-74d9-08df08cdd0b5
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.88];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB5PEPF00014B88.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR10MB7801
 
-On 9/1/26 01:13, Marek Vasut wrote:
-> Add trivial SYSCFG driver for ST STM32MP25xx, which binds drivers
-> to its subnodes. This is currently used to bind USB PHY drivers to
-> subnodes described in the SYSCFG DT node.
+
+
+On 02.09.26 06:42, Michal Pecio wrote:
+> On Wed,  2 Sep 2026 11:13:53 +1200, Julian Oes wrote:
+>> On Tue, Sep 01, 2026 at 10:28:08AM +0200, Oliver Neukum wrote:
+
+> What you are probably seeing is USB 2.0 hub(s) returning STALL
+> handshake when a transaction attempt with downstream low/full-speed
+> device fails three times. See USB 2.0 section 11.17.1 page 364.
+
+Nasty.
+
+> If that's the case, the device endpoint isn't actually halted and you
+> would see the traffic resume if you simply ignored the error and kept
+> resubmitting until communication is restored.
 > 
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
-> ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Christophe Roullier <christophe.roullier@foss.st.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Marek Vasut <marex@nabladev.com>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Yannick Fertre <yannick.fertre@foss.st.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: kernel@dh-electronics.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> ---
-> V4: New patch
-> V5: No change
-> ---
->  drivers/soc/Kconfig              |  1 +
->  drivers/soc/Makefile             |  1 +
->  drivers/soc/st/Kconfig           | 12 ++++++++++++
->  drivers/soc/st/Makefile          |  1 +
->  drivers/soc/st/stm32mp2-syscfg.c | 33 ++++++++++++++++++++++++++++++++
->  5 files changed, 48 insertions(+)
->  create mode 100644 drivers/soc/st/Kconfig
->  create mode 100644 drivers/soc/st/Makefile
->  create mode 100644 drivers/soc/st/stm32mp2-syscfg.c
-> 
-> diff --git a/drivers/soc/Kconfig b/drivers/soc/Kconfig
-> index a2d65adffb805..dfe5cec592626 100644
-> --- a/drivers/soc/Kconfig
-> +++ b/drivers/soc/Kconfig
-> @@ -24,6 +24,7 @@ source "drivers/soc/renesas/Kconfig"
->  source "drivers/soc/rockchip/Kconfig"
->  source "drivers/soc/samsung/Kconfig"
->  source "drivers/soc/sophgo/Kconfig"
-> +source "drivers/soc/st/Kconfig"
->  source "drivers/soc/sunxi/Kconfig"
->  source "drivers/soc/tegra/Kconfig"
->  source "drivers/soc/ti/Kconfig"
-> diff --git a/drivers/soc/Makefile b/drivers/soc/Makefile
-> index c9e689080ceb7..894bd6ebaaa4d 100644
-> --- a/drivers/soc/Makefile
-> +++ b/drivers/soc/Makefile
-> @@ -30,6 +30,7 @@ obj-y				+= renesas/
->  obj-y				+= rockchip/
->  obj-$(CONFIG_SOC_SAMSUNG)	+= samsung/
->  obj-y				+= sophgo/
-> +obj-y				+= st/
->  obj-y				+= sunxi/
->  obj-$(CONFIG_ARCH_TEGRA)	+= tegra/
->  obj-y				+= ti/
-> diff --git a/drivers/soc/st/Kconfig b/drivers/soc/st/Kconfig
-> new file mode 100644
-> index 0000000000000..2a9d6a77be450
-> --- /dev/null
-> +++ b/drivers/soc/st/Kconfig
-> @@ -0,0 +1,12 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +menu "ST SoC drivers"
-> +
-> +config SOC_STM32MP2
-> +	tristate "STM32MP2 SoC family support"
-> +	depends on ARCH_STM32 || COMPILE_TEST
-> +	default ARCH_STM32 && ARM64
-> +	select SOC_BUS
-> +	help
-> +	  If you say yes here, you get support for the ST STM32MP2 family
-> +
-> +endmenu
-> diff --git a/drivers/soc/st/Makefile b/drivers/soc/st/Makefile
-> new file mode 100644
-> index 0000000000000..5ca313476ca93
-> --- /dev/null
-> +++ b/drivers/soc/st/Makefile
-> @@ -0,0 +1 @@
-> +obj-$(CONFIG_SOC_STM32MP2) += stm32mp2-syscfg.o
-> diff --git a/drivers/soc/st/stm32mp2-syscfg.c b/drivers/soc/st/stm32mp2-syscfg.c
-> new file mode 100644
-> index 0000000000000..102430f258606
-> --- /dev/null
-> +++ b/drivers/soc/st/stm32mp2-syscfg.c
-> @@ -0,0 +1,33 @@
-> +// SPDX-License-Identifier: GPL-2.0
+> That being said, calling usb_clear_halt() is indeed the only recovery
+> supported by USB specs, both for -EPIPE and -EPROTO or similar. Linux
+> has traditionally ignored this and things are quite broken sometimes,
+> particularly with xhci-hcd, even if you call usb_clear_halt().
 
-Hello Marek,
+I think our record is better with -EPIPE.
+The question is what we have to lose. Frankly, compared to the
+status quo, nothing.
+  
+[..]
 
-I think this header is deprecated:
-https://spdx.org/licenses/GPL-2.0.html
+I don't have popcorn, but I do have cooled, sugar-free beverages ready.
 
-Suggest to adopt GPL-2.0-only
-https://spdx.org/licenses/GPL-2.0-only.html
+> It seems there is only one risk of usb_clear_halt() in such cases:
+> - you send a packet to an OUT endpoint
+> - and the device accepts it but you never receive the ACK
+> - even after re-sending three times
+> - you call usb_clear_halt() and queue the same packet again
+> - the device may accept the packet twice
 
-With that, you can add my:
-Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Tested-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+I am afraid this is the time to be pedantic, because I don't
+see the connection to usb_clear_halt().
+The fundamental disagreement is on whether a packet has arrived
+or not, isn't it? So the fundamental issue is whether IO should
+be retried, not whether you clear a halt in between.
 
-Thanks & BR,
-Fabrice
+If you guess wrong you either transmit data twice or not at all.
+And there is no generic mechanism to remedy that. Do you have
+a proposal how one would look like?
 
-> +/*
-> + * Copyright 2026 Marek Vasut
-> + */
-> +
-> +#include <linux/module.h>
-> +#include <linux/of_platform.h>
-> +#include <linux/platform_device.h>
-> +
-> +static int stm32mp2_syscfg_probe(struct platform_device *pdev)
-> +{
-> +	return devm_of_platform_populate(&pdev->dev);
-> +}
-> +
-> +static const struct of_device_id stm32mp2_syscfg_ids[] = {
-> +	{ .compatible = "st,stm32mp23-syscfg" },
-> +	{ .compatible = "st,stm32mp25-syscfg" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, stm32mp2_syscfg_ids);
-> +
-> +static struct platform_driver stm32mp2_syscfg_driver = {
-> +	.driver = {
-> +		.name	= "stm32mp2_syscfg",
-> +		.of_match_table = stm32mp2_syscfg_ids,
-> +	},
-> +	.probe = stm32mp2_syscfg_probe,
-> +};
-> +module_platform_driver(stm32mp2_syscfg_driver);
-> +
-> +MODULE_AUTHOR("Marek Vasut <marex@nabladev.com>");
-> +MODULE_DESCRIPTION("ST STM32MP2 SYSCFG driver");
-> +MODULE_LICENSE("GPL");
+However, eventually new data will need to be transmitted
+or the device queried for newly received data. If that is to work,
+we'll need to, well, do IO.
+Our choices are whether
+
+a) we retry IO before we do so
+b) whether we try to clear a halt before that
+
+Technically these decisions are independent of one another.
+However, the spec says that we should clear a halt.
+So I need to ask: Is there a situation in which we would
+make matters worse by clearing the halt?
+  
+
+> One note about rate limiting: it would perhaps make sense to perform
+> the first attempt ASAP and only slow down for retries. But arguably
+> anything at all is better than just giving up like now.
+
+And again, you make me ask whether a helper for that should
+go into usbcore.
+
+	Regards
+		Oliver
 
