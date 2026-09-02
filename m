@@ -1,170 +1,87 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB893264F5
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:53:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EACA2D94B5;
+	Wed,  2 Sep 2026 12:54:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788353586; cv=none; b=JLj4I7p1RoWmKdoimhFzs3+T77HjQAYpcXcFiAom2OQUeztxvayKRZ94gDMQKvLD9MFHZn/V3Z80HTu/VtqbXCzF8QDZkqnGHndhq9xaKTNJ2mruwPpMT/JuveUB6Ms7tTHZXffPWz8qcqWVP7psshHDD8OE16dMIBAFLtgHQH8=
+	t=1788353643; cv=none; b=bs6qFxjJLF54m/V0mkdn+uiEKOFWHQ4yuR+rMogTGsFWvTvw8cM+VXfOZZPSVkc/kNuLPSEFiMiRI96Aj5d6k1jbryRBX4OvB4T0kPseoPp1Jqt3YIYpBNIwyiQOJJeKuqxbykKlRHPI8xiog7EYY7uY+NtvrlxvcuOreHm6Jbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788353586; c=relaxed/simple;
-	bh=bycekPtl5Yv5sfnZvp7QGmwQ9kv0yG5u09D9Dw1haJU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EbmQnM3wnPoXwD0sUxZrAUzTPQ2AWIBp3iMT8NvMZFk1nHQd6RB/+njNO8n+ki+AYG3R/hBE5EIXduw79ZSAELGcIGtLluAbmNfHIa0X7eGokXQtYjlq/2qmPDIm3LFGPJx7MnLNJQtq5IVmts8bVEElhLZXmOTAtN6N9DjlnjA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BgFOYM4V; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788353643; c=relaxed/simple;
+	bh=eORvn0t45Re9ukeHl7L+yr38pSs2SJAs48Ak3IpwdmQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LLt+oli+9FAjwYNNB41zNfs9qBgFrqSI84fyAy+rhfPY5AMqo+1KfPMyxlYKkhQcHgc/bmW/nEjvz6qISrTvriIE26e1ci7RaqglXb9S+CLNHJUdQvurLPcXkGpOL8Hm2kWYO5F9yaPENceWZ9rEUrHLoSq9s83G5BtgH681qtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=0x30AaBY; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BgFOYM4V"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-396750cfee6so862558a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:53:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788353584; x=1788958384; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XmX6sFpdUAlYRd9J5eKdhxq0FmddY0lx44K8Gkw8ysA=;
-        b=BgFOYM4V1O29GEGUEsxHEXyEqqoxgPWYFcOI1922D1nGHQDK+PTVGFhHn4DzCovsHj
-         cJ9WAeCUm0WwqDjonrZDsygDU+3RHSHlCvcVlqPORMHkwSgrvaGP+ibhuEGIekhwQh7l
-         s66S7nhLHxxtUEAdyBklP4G7Wb9Xj2SQN5ynjrerMBchru02xwp4eGH/v0lRDl+KCEz5
-         yK4qxZBjLvrrmQ91OQzrZiun/lF2lGIDIYpWdIXRaqjWunvPN7zSLkm4UBqgaJ2jSSu/
-         3vzlOz6A/Tvhd/MUZ2R/If8EcssxqpIPgqIV0bIIGmR9ScUK6+DyIi0NXdU2F0uDU6Ov
-         E9GQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788353584; x=1788958384;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XmX6sFpdUAlYRd9J5eKdhxq0FmddY0lx44K8Gkw8ysA=;
-        b=f3c1a7bEWixGKYPyFYsuKD2TLIL1b+2yADE5S62j28tuPVssT/eu0MpvxKw9vukfP4
-         HpNhe0n5Tl7ix2CuZCd7NWsEGt+G2dMlOy/FGu3uRYmlgNnH1+K5eTaHneRT++h9rkh+
-         ty1YQ/a9LNz0zj39t1L1y5SA07u9u1aY/porc4Hg4QvjxNk93nmo8TRn9Nfh0NNd0ZKx
-         BNxnCkImMxquzroXOdWYDPwGoNIYE/MzULzr8YBACMlsshL179UkXemuBTQhfu/C7fnp
-         aI0V++dfauPcN+MJ2+gIWp1xWTlNfzz3gBoaj8d6bcq5vliPTE8JABVQ4MuekqPLj0UJ
-         +z/g==
-X-Forwarded-Encrypted: i=1; AKwUvBzAc49s0FIVq/gfUMDDfUqTNG1HpjNvUvYlFBuiXYWpIG7k/RedaB5rLEayRNQWuhGqLed2qG+x+wMnAU8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBnFvqQOOJlVa/bhT2AbsJXjzcOh9ceNLMm3urpr606KZUe5lf
-	RFJ5X7mBux12hu4nGDR2ZrAAkAWX4n8ADg3RsFGgEMIDRvUNpUuYd9jX
-X-Gm-Gg: AYBFou3KpsqJNN4bZZiIT5chdbl20qgT2gwcAgIuzBnlrl3amdbNo4JFLp7NzBxnx1F
-	BQ52PSw2rHKK9YGMPfjKKOhROHIIaAjDYxOrFwuzXfXQ/vGaZrIzwYcOOqKil9bA6g0jFM2G5dy
-	4fxnUbOvTWKHAy1CRglMXULqJ6M5qt6uerY9+RvnyAOK0yZdVmcnJ90qmJ/ow7EGqyhxIIui4xi
-	EZsJT92wl4tOwq7ex8owscmhqurKYc90IOh+gVgZRmAskSGsTP1MctYGboPe3qzei2fHOrVg0Zl
-	JPvKzng/qt49ZahQVZWRrKHOkowEib6hhgHEZXHkVLO4UnFlneUX3txAJbhib4W8bO2MFSCi61l
-	rl3F2qPI65t2ecNf9NUJvHCmoG0/p1dXWCVZVH28C+ClaIPTxLaSTZsar7fyGcukG4efvnIL2sJ
-	3i/izuVHYBgYhdGr4lb1Ouncrqd2jt1kS0CD3tdCl2LKBARBpKWPma/9LikiJYJvMm201QW2n29
-	l0Ku42ziqn84z35VBhL6widDlDvQgREz5MU
-X-Received: by 2002:a17:90a:cf88:b0:38e:fea2:df53 with SMTP id 98e67ed59e1d1-39aee9b4d19mr5123439a91.4.1788353583502;
-        Wed, 02 Sep 2026 05:53:03 -0700 (PDT)
-Received: from fabio-X870-EAGLE-WIFI7.. ([2804:1b3:a802:ffb2:9cb4:2d4:75ee:cd63])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f07beb704sm7099975eec.30.2026.09.02.05.53.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 05:53:02 -0700 (PDT)
-From: Fabio Estevam <festevam@gmail.com>
-To: alexandre.belloni@bootlin.com
-Cc: linux-rtc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	seanga2@gmail.com,
-	Sean Anderson <sean.anderson@seco.com>,
-	Fabio Estevam <festevam@nabladev.com>
-Subject: [PATCH RESEND v4] rtc: abx80x: Don't warn about oscillator failure after POR
-Date: Wed,  2 Sep 2026 09:52:57 -0300
-Message-ID: <20260902125257.9882-1-festevam@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="0x30AaBY"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=NXZRfozIgeVdTdoSrpQDZ/nZ7JGjGqwD3d2O4WMrIWg=; b=0x30AaBYc+66u3W1k8C4FW++RY
+	RDbNiS3BZz7Na2j8hbQZdIygEBBG5zdb/k9GhXgBa8BpmrAB3ALiPEwQxRN/FjD0DDVR88fUClrD/
+	ksOa7QM8sgOMifuk5f/DS1g+6kV4P/aJ8jRooAt99w0jEywdsYJBI3eyJC6cIPWXmhw4=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x1kTU-002WLV-Dp; Wed, 02 Sep 2026 14:53:56 +0200
+Date: Wed, 2 Sep 2026 14:53:56 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Chih Kai Hsu <hsu.chih.kai@realtek.com>
+Cc: davem@davemloft.net, kuba@kernel.org, netdev@vger.kernel.org,
+	nic_swsd@realtek.com, linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org, edumazet@google.com, bjorn@mork.no,
+	pabeni@redhat.com, andrew+netdev@lunn.ch
+Subject: Re: [PATCH net-next 1/8] r8152: refactor r8156_init
+Message-ID: <9a90f05a-ce9e-4f90-9a0d-19242f57f225@lunn.ch>
+References: <20260902090632.41844-1-nic_swsd@realtek.com>
+ <20260902090632.41844-2-nic_swsd@realtek.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902090632.41844-2-nic_swsd@realtek.com>
 
-From: Sean Anderson <sean.anderson@seco.com>
+> -static int r8159_wait_backup_restore(struct r8152 *tp)
+> +static void r8156_init(struct r8152 *tp)
+>  {
+> -	u32 ocp_data;
+> +	u16 data;
+> +	int i;
+>  
+> -	ocp_data = ocp_read_word(tp, MCU_TYPE_USB, USB_MISC_0);
+> -	if (!(ocp_data & PCUT_STATUS))
+> -		return 0;
+> +	if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
+> +		return;
+>  
+> -	return poll_timeout_us(ocp_data = ocp_read_word(tp, MCU_TYPE_USB, USB_GPHY_CTRL),
+> -			       ocp_data & BACKUP_RESTRORE, 200, 20000, false);
+> +	ocp_byte_clr_bits(tp, MCU_TYPE_USB, USB_ECM_OP, EN_ALL_SPEED);
+> +
+> +	ocp_write_word(tp, MCU_TYPE_USB, USB_SPEED_OPTION, 0);
+> +
+> +	ocp_word_set_bits(tp, MCU_TYPE_USB, USB_ECM_OPTION, BYPASS_MAC_RESET);
+> +
+> +	r8153b_u1u2en(tp, false);
+> +
+> +	for (i = 0; i < 500; i++) {
+> +		if (ocp_read_word(tp, MCU_TYPE_PLA, PLA_BOOT_CTRL) &
+> +		    AUTOLOAD_DONE)
+> +			break;
+> +
+> +		msleep(20);
+> +		if (test_bit(RTL8152_INACCESSIBLE, &tp->flags))
+> +			return;
+> +	}
 
-According to the datasheet, the "oscillator failure" bit is set
+Please use one of the macros from iopoll.h. And return ETIMEDOUT on
+error.
 
-  ...on a power on reset, when both the system and battery voltages have
-  dropped below acceptable levels. It is also set if an Oscillator Failure
-  occurs....
-
-From testing, this bit is also set if a software reset is initiated.
-
-This bit has a confusing name; it really tells us whether the time data
-is valid. We clear it when writing the time. If it is still set, that
-means there is a persistent issue, such as an oscillator failure,
-instead of a transient one, such as power loss.
-
-Because there are several other reasons which might cause this bit to be
-set, including booting for the first time or a battery failure, do not
-warn about oscillator failures unconditionally. This may cause system
-integrators to waste time investigating the wrong issue.
-
-Continue printing a message about invalid time data before the time has
-been set. Only report an oscillator failure after the driver has
-successfully written the time and cleared the flag.
-
-Signed-off-by: Sean Anderson <sean.anderson@seco.com>
-Signed-off-by: Fabio Estevam <festevam@nabladev.com>
----
-Changes since v3:
-- Rebase onto current mainline.
-- Fix commit message wording and typos.
-
- drivers/rtc/rtc-abx80x.c | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
-index 5486d9d0b1e5..2525ecb7fb6b 100644
---- a/drivers/rtc/rtc-abx80x.c
-+++ b/drivers/rtc/rtc-abx80x.c
-@@ -127,6 +127,7 @@ struct abx80x_priv {
- 	struct rtc_device *rtc;
- 	struct i2c_client *client;
- 	struct watchdog_device wdog;
-+	bool wrote_time;
- };
- 
- static int abx80x_write_config_key(struct i2c_client *client, u8 key)
-@@ -179,6 +180,7 @@ static int abx80x_enable_trickle_charger(struct i2c_client *client,
- static int abx80x_rtc_read_time(struct device *dev, struct rtc_time *tm)
- {
- 	struct i2c_client *client = to_i2c_client(dev);
-+	struct abx80x_priv *priv = i2c_get_clientdata(client);
- 	unsigned char buf[8];
- 	int err, flags, rc_mode = 0;
- 
-@@ -193,7 +195,18 @@ static int abx80x_rtc_read_time(struct device *dev, struct rtc_time *tm)
- 			return flags;
- 
- 		if (flags & ABX8XX_OSS_OF) {
--			dev_err(dev, "Oscillator failure, data is invalid.\n");
-+			/*
-+			 * The OF bit can be set either because of a reset
-+			 * (POR/Software reset) or because of an oscillator
-+			 * failure. Effectively, it indicates that the stored
-+			 * time is invalid. When we write the time, we clear
-+			 * this bit. If it stays set, then this indicates an
-+			 * oscillator failure.
-+			 */
-+			if (priv->wrote_time)
-+				dev_err(dev, "Oscillator failure\n");
-+			else
-+				dev_info(dev, "Time data invalid\n");
- 			return -EINVAL;
- 		}
- 	}
-@@ -219,6 +232,7 @@ static int abx80x_rtc_read_time(struct device *dev, struct rtc_time *tm)
- static int abx80x_rtc_set_time(struct device *dev, struct rtc_time *tm)
- {
- 	struct i2c_client *client = to_i2c_client(dev);
-+	struct abx80x_priv *priv = i2c_get_clientdata(client);
- 	unsigned char buf[8];
- 	int err, flags;
- 
-@@ -252,6 +266,7 @@ static int abx80x_rtc_set_time(struct device *dev, struct rtc_time *tm)
- 		dev_err(&client->dev, "Unable to write oscillator status register\n");
- 		return err;
- 	}
-+	priv->wrote_time = true;
- 
- 	return 0;
- }
--- 
-2.43.0
+	Andrew
