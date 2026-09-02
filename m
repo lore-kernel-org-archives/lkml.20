@@ -1,121 +1,171 @@
-Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f9.google.com (mail-oo2-f9.google.com [74.125.231.137])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C85629B78F;
-	Wed,  2 Sep 2026 03:40:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FCEB274B4A
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:41:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788320403; cv=none; b=taskjzRDXoCRDG0Z2JDaFMCyJM/Q079edsmehY7qi/OCvdf1pvAnQNQZV8epKjtBXUK+ePNfBRvsnZ+pSeBejNhWSODa37yno4KLKt4xEa9YdZ8surd5oK1VHcDmPp2fp20oRfWWFYEMJxbd/YsLM82YTkm9OlW2Ay5LATwQw4s=
+	t=1788320504; cv=none; b=NoCmNHlTbhu9x721G6lE0f7I2aElq/AStgPL5a502NgXau+WjxhfXfz3UYgviMfsHgmjhlSWj1EVOPaeahXxc/+19IVWGXV1Hc57QL7vsehgTv1bm5AVXT1b8ib+m4PqXFKBBDj8N7uKp/pu+PfitWjrz9nsC75vJPZRV4FHP7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788320403; c=relaxed/simple;
-	bh=uDYnLfI9Aa5+jJvAV5ND9dJ4A0mwMALtMGM1iG4fnm8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Cdm7rUKWbh4wouLmIJg2iA3TDN0djsrq7F0N6Ca1TN1I1e7G+P5R2qwt9/Lcj/8dn58VGepX4NksTq7SV7X4jqN/oL604B7cVorn3Bq0VsfAPc6lsyF1OVAfa8XBF+4CIYqm4snYr08SrTb6utFEnd08cjt2miyxRk1uaAR0ZGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=YOfzS+lY; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=LxHf1K6a; arc=none smtp.client-ip=202.12.124.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="YOfzS+lY";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="LxHf1K6a"
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 35C227A0095;
-	Tue,  1 Sep 2026 23:40:00 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-10.internal (MEProxy); Tue, 01 Sep 2026 23:40:00 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1788320400;
-	 x=1788406800; bh=In5DW79fO3VDiYySeXS/i8pWpXqOI/SquxDxzES1DEE=; b=
-	YOfzS+lYTlMi2RFVVaGl34gx5usshOZlqNMtsYuW2hWyjsBLAj71tDyZrUu52XmX
-	133ASH2VScdrsssOoRLCmv51ugPBpIbfJAuIawXs99xFtuudAWzl6KwOr5fjQV1c
-	iR5gkxDHcBxxRgftuf0mHcmhGjc/FGPFZNJpPYE9KXBOfWLKTIENIk/h37rUqkcA
-	jSLkFL6pbTrZ/p0RWrhCn/jBzjCmc2XzpwVwJmR6r7Rw6nv9gePYSZGTd0XyUF3j
-	c43sTiAuKrqK3AmWhZIJRWnHBAEa17/soLo3qxbI4vbXQwgsj94auFFXphRXuWa9
-	IutFFaUlmJd6Rtogj3WGyw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1788320400; x=
-	1788406800; bh=In5DW79fO3VDiYySeXS/i8pWpXqOI/SquxDxzES1DEE=; b=L
-	xHf1K6aLkPQ842RbfXHzbWH+hnm3FDLzA1wl6lt/kS0GApLfSMCP1fAZtSFmFLrk
-	pNMZebti6gn2SGzhQgDhDP9sNHGyEZgIc6Mm6ahagRy4IlkzL0njEHH8yX5vKj4W
-	zBHhkEGvU7qpdGymPw8aBiJN6qOixT74rTaz7Fik2j6DMpdmD+Zj2SF8jFRsQRS1
-	gLyPfp5hqVAY8jAGRLs/6vqBGrmkywcoU7+VBFM5AVgoP4mKneF1M4EDEJAI1UVV
-	smyXL4fs5ULcCyq+CjEOkay8+IrKx1BtALYj9z4yQtfluSNLLNKCzMCRucGTrCTP
-	U/vULyoLvy+52GWJRTXoQ==
-X-ME-Sender: <xms:j5qXaj1s4RDioh2T-i0_Bm_7zlXG_J2jDpPHOH5jjQUJQmM6rn6Sww>
-    <xme:j5qXat8yeUE0K7DW_tOKEEuVUWtvuHSEuTTgTUuZC6hMAZ6jE3R6IAbhMSTGRAA9h
-    D0ohSmD7WCd7kYyi00W9vyN82gbzEgX5pW2B9XJIYVK4XHY4zdNrkQ>
-X-ME-Received: <xmr:j5qXavbp9hSIY5jxOqmZVQSTwIeTDR7VxeuMmEakII256xJA2aJBbYOG-zhESIuW2X5Zo5Mp-N5tGQmKtMn4-Vgk-EAopkyY>
-X-ME-Proxy-Cause: dmFkZTF1wNsmtCvWlSNdN+3WxjnlaCDK9VuqrR63ZTkwHJQiWRCqdwXSaYHjyQdVHK7e8Y
-    SYlYLxr5gSTy4JUNJxqE5Ho1jfMLp6ujyl/9tmP+CH8kvVG7vHNfnNu+zuw10fFkOaqIfm
-    bVBClD1g4BAmI/2SEywlYKGk9nAob42tpVnElREDOsneKG/g/XVa0rT8NobPp6Z5G3Mwa5
-    X7hgwWWMYahiFgdLerKXlDqPbbekOS0lD8GYlpqyRi3cc59PDHumJ8KLUroMtoINxuwdtY
-    U6VRY/HU77muts+Qwqjwgp3BApmQ+CjPO6QIBULagHkywwGn/d7yzor9XsVEASD5h0vmT0
-    8WyVgsyR5tIX2s7Cho73jdAKBqHgkGp6SwgavSt3S0PTpclipbWjO35GlHGBVQR1PQWZXZ
-    2HZfAbKk1GH5e8VKT/r5AtMbsErvwsJjcbJnT/1iOSa2drJigYxrRdWuZK6x4hwmWvF1QJ
-    +WP7Pi58EJSKAnBRePVutY7t3s0pULH4PDxNSyz2GcSmkp6P+rxTPqL2lekB5IJyQ6Bx4B
-    MFETIeX28PRkX2p4cwf0RZHSZU1NMdWvoO/RS7KhaMAd/+qJTIaIIoFSqpempsDc8mbpLE
-    TmLt6rFmsUK6Mvus+zHvVmjuIqAVqvaNV1BJ3ScYEm76/KgIRcDVMW6YNmug
-X-ME-Proxy: <xmx:j5qXasyLjxkyStJhpROyWirONZj8I8ydZTN2iWr8ZgVB5dw-rQ-pnA>
-    <xmx:j5qXat-GMx0c_vL11bWjSfd_iZNI9uNnOur42Z24-zUMZg4AfOb7Fw>
-    <xmx:j5qXaoxdDDIgMEXSFefa3ZsSjqmWcYQ4OLeqMhWvLmqaAZkB5PAtCQ>
-    <xmx:j5qXaiu-KRqfmu0lidHe5Pmk4lyADvsir45uG7b55840hr42he2O5g>
-    <xmx:kJqXatpemHSbVppykoKDlOGseZn9Q0AYvdF5aXoAKGGBP1jeNlljWy92>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 1 Sep 2026 23:39:56 -0400 (EDT)
-Message-ID: <fcf6128b-8f6c-46b7-9217-03aa1288298c@pobox.com>
-Date: Tue, 1 Sep 2026 20:39:55 -0700
+	s=arc-20240116; t=1788320504; c=relaxed/simple;
+	bh=pjoTA2Nr2VnrZDfw8norahjrz+TaPFTdXgMCkoIIWMQ=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=JirgO3kBqBxzIWnTmJHDaiEEpKnhx+LdKf8PPxRGSauIFoCaKxrZyaCY8lLYJfxyzKllamQfnOJdiZ717swqzvYG7ERUV61S1P+EN9lWFtXnbwfXlGyppQXFd3by1ioCl0+JE537ghkQEO8J/Glsox0wMfdLoKE+uTIZs6CFZlQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f9.google.com with SMTP id 006d021491bc7-6b136fad4b3so155935eaf.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 20:41:42 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788320501; x=1788925301;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WknVe6YbEwHTjQ8SnS3LNO11L5BkxkkKwGa2maUHawk=;
+        b=FcPeR5a3IqLIZZXM4hjWFEJk3JA+s5ol/QjY/9pyPV7NJLIcjUe0ah8EzMd/3mC3r1
+         BHB5y5EI3bAUKtUf6J7XLx88HmlI8uZCrK9gRxfgWIanxSPs0SsYHokPatcYL0n7fY/q
+         BO9ii410zlH/vTpdLiB5nPDITHav9/zfIVlgR/7qMalq9PlShljfW6oHJnmpotnjA42j
+         Rew0rR9J3CySgpUVie2i+vAyqy38cc65QWb4MV84Bya0ygOt6fFB3SUJ2JBcjTJfk94x
+         kZ5IkeldlfqdgwH/le7y06l8mxtcLGndndZueiroamh6UAHD7B0eHviOmRfvuxncK2T6
+         NsYg==
+X-Forwarded-Encrypted: i=1; AHgh+RodpUAYI5kU7bUTv+7DC/DeLNZnHVMyDMvjC9RfHa80s8nckcfLioEgbGXFf9kZ9F/8eN3C9jX1ISaLNXQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/4JO8PPgW138HrHJ+U6Z4aWuqqBXxdqgq3Me/CQ0wCkaEO5TV
+	8tec0QjCemewGKQMTLVYUuaCuw7/sDcKExkkEznuTHxFUnCn+K0ngVTuNuMkJHfn1EGTahIPjSO
+	r6twQOemCvtSnaemh26htJJZ+j3y2eG3VCkRLSIMI5+nbMyRriFKJVu2VMko=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.6 00/91] 6.6.156-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260831133359.468089036@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260831133359.468089036@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6820:c84:b0:6b1:6136:956a with SMTP id
+ 006d021491bc7-6b47fc2dfa3mr1688847eaf.15.1788320501447; Tue, 01 Sep 2026
+ 20:41:41 -0700 (PDT)
+Date: Tue, 01 Sep 2026 20:41:41 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a979af5.e163c37b.143a1.0004.GAE@google.com>
+Subject: [syzbot] [f2fs?] general protection fault in new_curseg
+From: syzbot <syzbot+ae5b8eb92ed40411ce16@syzkaller.appspotmail.com>
+To: chao@kernel.org, jaegeuk@kernel.org, 
+	linux-f2fs-devel@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 8/31/26 6:33 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.6.156 release.
-> There are 91 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.6.156-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.6.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Hello,
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
-no regressions observed.
+syzbot found the following issue on:
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+HEAD commit:    89a312991dc6 Merge tag 'cifs-fixes-7.3-rc2' of https://git..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1075e779580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=e909ffe6b35dddb7
+dashboard link: https://syzkaller.appspot.com/bug?extid=ae5b8eb92ed40411ce16
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-89a31299.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/114a4744ab8e/vmlinux-89a31299.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/c65021627f2c/bzImage-89a31299.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+ae5b8eb92ed40411ce16@syzkaller.appspotmail.com
+
+Oops: general protection fault, probably for non-canonical address 0xdffffc000000000c: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
+CPU: 0 UID: 0 PID: 12 Comm: kworker/u4:0 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: writeback wb_workfn (flush-7:0)
+RIP: 0010:f2fs_dev_is_alloc_blocked fs/f2fs/segment.h:956 [inline]
+RIP: 0010:get_new_segment fs/f2fs/segment.c:2964 [inline]
+RIP: 0010:new_curseg+0x1134/0x3580 fs/f2fs/segment.c:3110
+Code: e8 21 ab ce fd 48 8b 7c 24 30 48 8b 07 49 6b cf 70 4c 8d 34 08 49 83 c6 61 4c 89 f0 48 c1 e8 03 48 b9 00 00 00 00 00 fc ff df <0f> b6 04 08 84 c0 0f 85 73 11 00 00 41 80 3e 00 0f 84 e6 00 00 00
+RSP: 0018:ffffc9000025e628 EFLAGS: 00010206
+RAX: 000000000000000c RBX: 0000000000008000 RCX: dffffc0000000000
+RDX: 0000000000000000 RSI: 0000000000008000 RDI: ffff888012125a88
+RBP: 0000000000000000 R08: 0000000000000003 R09: 0000000000000004
+R10: dffffc0000000000 R11: fffff5200004bcb4 R12: ffff888052be0000
+R13: 0000000000000004 R14: 0000000000000061 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff88808c2cf000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000200001000000 CR3: 000000004fe72000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ f2fs_allocate_data_block+0x229c/0x43c0 fs/f2fs/segment.c:3979
+ do_write_page+0x13f/0x880 fs/f2fs/segment.c:4099
+ f2fs_outplace_write_data+0x11a/0x220 fs/f2fs/segment.c:4175
+ f2fs_write_compressed_pages fs/f2fs/compress.c:1403 [inline]
+ f2fs_write_multi_pages+0x43bb/0x6370 fs/f2fs/compress.c:1602
+ f2fs_write_cache_pages fs/f2fs/data.c:3351 [inline]
+ __f2fs_write_data_pages fs/f2fs/data.c:3603 [inline]
+ f2fs_write_data_pages+0x19bb/0x36f0 fs/f2fs/data.c:3641
+ do_writepages+0x338/0x560 mm/page-writeback.c:2560
+ __writeback_single_inode+0x136/0x1220 fs/fs-writeback.c:1788
+ writeback_sb_inodes+0x9de/0x1b00 fs/fs-writeback.c:2099
+ __writeback_inodes_wb+0x114/0x240 fs/fs-writeback.c:2175
+ wb_writeback+0x42f/0xad0 fs/fs-writeback.c:2286
+ wb_check_start_all fs/fs-writeback.c:2412 [inline]
+ wb_do_writeback fs/fs-writeback.c:2459 [inline]
+ wb_workfn+0x980/0x10f0 fs/fs-writeback.c:2497
+ process_one_work kernel/workqueue.c:3396 [inline]
+ process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
+ worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
+ kthread+0x38b/0x480 kernel/kthread.c:436
+ ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:f2fs_dev_is_alloc_blocked fs/f2fs/segment.h:956 [inline]
+RIP: 0010:get_new_segment fs/f2fs/segment.c:2964 [inline]
+RIP: 0010:new_curseg+0x1134/0x3580 fs/f2fs/segment.c:3110
+Code: e8 21 ab ce fd 48 8b 7c 24 30 48 8b 07 49 6b cf 70 4c 8d 34 08 49 83 c6 61 4c 89 f0 48 c1 e8 03 48 b9 00 00 00 00 00 fc ff df <0f> b6 04 08 84 c0 0f 85 73 11 00 00 41 80 3e 00 0f 84 e6 00 00 00
+RSP: 0018:ffffc9000025e628 EFLAGS: 00010206
+RAX: 000000000000000c RBX: 0000000000008000 RCX: dffffc0000000000
+RDX: 0000000000000000 RSI: 0000000000008000 RDI: ffff888012125a88
+RBP: 0000000000000000 R08: 0000000000000003 R09: 0000000000000004
+R10: dffffc0000000000 R11: fffff5200004bcb4 R12: ffff888052be0000
+R13: 0000000000000004 R14: 0000000000000061 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff88808c2cf000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000200001000000 CR3: 000000004fe72000 CR4: 0000000000352ef0
+----------------
+Code disassembly (best guess):
+   0:	e8 21 ab ce fd       	call   0xfdceab26
+   5:	48 8b 7c 24 30       	mov    0x30(%rsp),%rdi
+   a:	48 8b 07             	mov    (%rdi),%rax
+   d:	49 6b cf 70          	imul   $0x70,%r15,%rcx
+  11:	4c 8d 34 08          	lea    (%rax,%rcx,1),%r14
+  15:	49 83 c6 61          	add    $0x61,%r14
+  19:	4c 89 f0             	mov    %r14,%rax
+  1c:	48 c1 e8 03          	shr    $0x3,%rax
+  20:	48 b9 00 00 00 00 00 	movabs $0xdffffc0000000000,%rcx
+  27:	fc ff df
+* 2a:	0f b6 04 08          	movzbl (%rax,%rcx,1),%eax <-- trapping instruction
+  2e:	84 c0                	test   %al,%al
+  30:	0f 85 73 11 00 00    	jne    0x11a9
+  36:	41 80 3e 00          	cmpb   $0x0,(%r14)
+  3a:	0f 84 e6 00 00 00    	je     0x126
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
