@@ -1,212 +1,137 @@
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C463748BD5B
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:36:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC88B47F78B;
+	Wed,  2 Sep 2026 12:37:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352600; cv=none; b=u5GymXtxZo7sse2lLb2DRZR7Uu5kZD5HaTeJX/fZ5h8K37kmC8mLceuO48FIz2hEKecj+/4UIL2jlQu8QiUnpgLfJLuQPPqq1E1ISloDKk8Z4AmAPBuXVTaIkcHtwmS+X8zLksLxHrBfZy56PU2WNcKb+XIbBez0V8BFU/gF3x0=
+	t=1788352629; cv=none; b=HcvnsBtPpvB/3VU3C/56/u3pM0PwKBGiD5kpmqwAkaFz2U2D4udOPOg8iIR6NO9NLkZNShVR2D1lDjKW8HO5CbT8fDoSF7iKvDDHbODOuibbGtcEog7qO0LyLPc0gYFM0xyHvGBUVCokvrrq879qWP6vHtniq7uNXyoNb6PMm8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352600; c=relaxed/simple;
-	bh=9GvD+GOCb4CQvSnQ4pluwjVf4ut6d9HD0C3yfLJGIls=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YT+OI0KjYJM+0zGqksYeHUeqJxWuG+D/UYfMBKbm5/7EYBd1oZ8v8+JPLeiKuZjbI+Sw3pdzenVYixvcg41glhruvJa4YzMYO9xxJMng1Qvend+Q9MfP5f2G2FAYQ3twUkz/Smef65PNNVSwRlIK7DCPJq46dVg94cOE1kO/xIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=tKtuB7ns; arc=none smtp.client-ip=148.163.158.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788352629; c=relaxed/simple;
+	bh=Qo8Xm2xFd6+atB6sU8bScLYB4Sco5qz67VJgYCOL4bQ=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Hr/HZW623q42LiV2A1K3QJKibSOId22wg1OsV8Imffu4JBSz6uPrb1xzSnyNDx44+k8Rso/kSgI7zAYtgOP1uHBooyTHQ9OGRLhtSoSZ6tTJZCB4om1atBIDKc8IeGMEvF4eiB9WV7HrBXCJb85k0ejONIoR5MrQtyGuW7PQZZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eFgpAJGC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="tKtuB7ns"
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682CVtZ23058750;
-	Wed, 2 Sep 2026 12:36:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=nMsE4g9GesjD7JaEE
-	Qmaw7jiefOtsdEaQcrJhBaHLXw=; b=tKtuB7nsk+v4ZueEqZ12V4NDRRQEqJ1XS
-	fR2HHN8ep+VzZm3kvotcDGxbGOeev0vbDOhwtZewy3vcpms7nNLfsckMKXcc9/NQ
-	DORejineebgWRdjr853Uj5p1xbf4hlU6AzGUPFQOO3rwwvgKg3JQEoQW3qt9N6Eq
-	4PoVxRcQHecf20VvqwXFz3PwrSNTQ5ZQfKKVNxhKyIDuGifZHFsU93K7jnsWxm9e
-	YrgQaZo3aFvO2NAXQ+2azPVGD1Dm+tUPnAAC+l0o4dEt50l3SuZI7IWdRgs1f3XX
-	lyVH3QS0tS/wePuAIqtfqQL7MwiKF3TIf7wMIX2VPCmSGBQvhPiQA==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbnudx4fw-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 12:36:11 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 682CTxOw024891;
-	Wed, 2 Sep 2026 12:36:10 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gecjaj06c-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 12:36:10 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 682Ca6qS42205496
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 2 Sep 2026 12:36:06 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 66D792004E;
-	Wed,  2 Sep 2026 12:36:06 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 288B320040;
-	Wed,  2 Sep 2026 12:36:02 +0000 (GMT)
-Received: from sapthagiri.in.ibm.com (unknown [9.111.3.140])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  2 Sep 2026 12:36:01 +0000 (GMT)
-From: Srikar Dronamraju <srikar@linux.ibm.com>
-To: linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-Cc: skiboot@lists.ozlabs.org, arbab@linux.ibm.com, mahesh@linux.ibm.com,
-        Srikar Dronamraju <srikar@linux.ibm.com>,
-        Ritesh Harjani <ritesh.list@gmail.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>,
-        Peter Zijlstra <peterz@infradead.org>,
-        Valentin Schneider <vschneid@redhat.com>,
-        K Prateek Nayak <kprateek.nayak@amd.com>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-        linux-kernel@vger.kernel.org
-Subject: [PATCH v3 2/3] powerpc/numa: Allow cpu_to_coregroup_id without PPC_SPLPAR
-Date: Wed,  2 Sep 2026 18:05:01 +0530
-Message-ID: <20260902123458.340456-7-srikar@linux.ibm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260902123458.340456-5-srikar@linux.ibm.com>
-References: <20260902123458.340456-5-srikar@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eFgpAJGC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0072A1F000E9;
+	Wed,  2 Sep 2026 12:37:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788352627;
+	bh=/73rsp/ooWGRwgfttogQ0Zf76NPzYm9fMcNC/5i9mpM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=eFgpAJGCkkEhkPuOPj78KvXTtWrjufHbF051FQUl+qpX+PQ2td3LYat0AsVPAAa/8
+	 hKg3erw/MeEia1rTrwd7ZZYTeHLlqQkF60indmVIcEQETp10024yOMylZPiSwTy4Zt
+	 rT9rSStNpxWOmMiLt3DbxibKtnI7x7QgyHfG5mkwsCJu7ejjN1kiWnHcuUXY4i8f04
+	 BsEEjGyFmH20HmzxV3iHG/aBeFQv7pqz76QCS58O+ttdVmEzGbXXk6JrD7y62LKSM7
+	 vS+yhv3ZWa578OLbs7T6Du2I+eJbqA3fO5DCH77uO2ozsF047ezz0PSH2ncCCFgFGx
+	 1xbia6JZvAlGA==
+Subject: Re: [net] net: enc28j60: fix use-after-free on remove
+From: netdev-bot+sashiko@kernel.org
+To: me@cherr.cc
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, lanconelli.claudio@eptar.com,
+ jeff@garzik.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Wed, 02 Sep 2026 12:37:06 +0000
+Message-ID: <178835262645.3394541.11265566890007089061@kernel.org>
+In-Reply-To: <20260830-enc28j60-cancel-works-v1-1-4c40f17d401e@cherr.cc>
+References: <20260830-enc28j60-cancel-works-v1-1-4c40f17d401e@cherr.cc>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: 01rGl9lp5g7PtLyqILVC7_dUmBhn-XcW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDExMSBTYWx0ZWRfX7Cbxin9VzUcj
- BzgICq6A0g1w/HBvaljmtKwQ7bi5oXYrnEG2Vork9FPY7AcSQ58E5EaiU/jMqqtSR41RzVeO/+t
- dBI4uyuCVxVPxbTQRjlXRQ3D+teDeJN0ZCQ56Xjjlj1urpH0Xjx85HJvO/j8hVlmMjo1lfuwYE8
- Zu7Yt08I1Z4Lgah89rHLR7K8+emUPHjm99UT/BMu1kSWdtcPa1vsa/UTz/fhqMiI/Zy9xd1DjxN
- OoadbaGbkdrcQi4qvGc3xZMrA/nKPIPr3arxPNoxpNEF0W6TKyS9qCK+5tqUSHlm/b4dfM5ZI61
- yQPaRzuu1Wzqbz+uTANZaO9odNrY17iLeMsCLWCIt5ffrq7tKWa8lZSO+9QSVaNxzp95hIVcxb+
- b6wRZas4eBdSFIgmM5Ak1Vh11kJE2bvej52kY1FAdr6AM9i0LJc/MNRmCG14/kf+cwwQooI74hN
- S3lE+sHLcPgDOaKx4Ow==
-X-Proofpoint-ORIG-GUID: vIMyHADCWNuYwwpb2iUti40KXHm4-m6W
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDExMSBTYWx0ZWRfX0WBajkF5NENa
- Bl+Unp1TDQ9mY/L24+PjuhFSWyGD7iUKZqGw/uWQF/hhf7HMECvVCrz3UoEyprWKr9yYXcQsLGB
- clZrYYvdCC8A4XPEnDzrmnqwuM9bmZY=
-X-Authority-Analysis: v=2.4 cv=B92JFutM c=1 sm=1 tr=0 ts=6a98183b cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8 a=7dv0z3e6AKYFnwaEaUMA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_03,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0 clxscore=1011 suspectscore=0 phishscore=0
- lowpriorityscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609020111
 
-Make cpu_to_coregroup_id() available outside PPC_SPLPAR so it can be
-used by platforms that do not rely on the SPLPAR-specific VPHN path.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-Keep the existing fallback behavior by returning the core ID when
-coregroup information is unavailable.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Signed-off-by: Srikar Dronamraju <srikar@linux.ibm.com>
----
-Changelog from v2:
-- Handle comments from Ritesh (one hunk needed to be moved from patch 2 to
-  patch 3 to build correctly)
+- [Medium] The deferred work items are never quiesced before the
+  controller is powered down, and the patch adds the cancels only at the…
 
-Changelog from v1:
-- Handle comments from Christophe Leroy; Remove extern key word in
-  declaration
+--
 
- arch/powerpc/include/asm/topology.h | 15 +++++++--------
- arch/powerpc/mm/numa.c              | 22 +++++++++++++++-------
- 2 files changed, 22 insertions(+), 15 deletions(-)
+net: enc28j60: fix use-after-free on remove
 
-diff --git a/arch/powerpc/include/asm/topology.h b/arch/powerpc/include/asm/topology.h
-index 44ec416fa489..02c3c9ab3ea9 100644
---- a/arch/powerpc/include/asm/topology.h
-+++ b/arch/powerpc/include/asm/topology.h
-@@ -71,6 +71,7 @@ extern void map_cpu_to_node(int cpu, int node);
- extern void unmap_cpu_from_node(unsigned long cpu);
- #endif /* CONFIG_HOTPLUG_CPU */
- 
-+int cpu_to_coregroup_id(int cpu);
- #else
- 
- static inline int early_cpu_to_node(int cpu) { return 0; }
-@@ -107,14 +108,6 @@ static inline void map_cpu_to_node(int cpu, int node) {}
- static inline void unmap_cpu_from_node(unsigned long cpu) {}
- #endif /* CONFIG_HOTPLUG_CPU */
- #endif /* CONFIG_SMP */
--
--#endif /* CONFIG_NUMA */
--
--#if defined(CONFIG_NUMA) && defined(CONFIG_PPC_SPLPAR)
--void find_and_update_cpu_nid(int cpu);
--extern int cpu_to_coregroup_id(int cpu);
--#else
--static inline void find_and_update_cpu_nid(int cpu) {}
- static inline int cpu_to_coregroup_id(int cpu)
- {
- #ifdef CONFIG_SMP
-@@ -124,6 +117,12 @@ static inline int cpu_to_coregroup_id(int cpu)
- #endif
- }
- 
-+#endif /* CONFIG_NUMA */
-+
-+#if defined(CONFIG_NUMA) && defined(CONFIG_PPC_SPLPAR)
-+void find_and_update_cpu_nid(int cpu);
-+#else
-+static inline void find_and_update_cpu_nid(int cpu) {}
- #endif /* CONFIG_NUMA && CONFIG_PPC_SPLPAR */
- 
- #include <asm-generic/topology.h>
-diff --git a/arch/powerpc/mm/numa.c b/arch/powerpc/mm/numa.c
-index c44a80d8fc11..5f326b005a2a 100644
---- a/arch/powerpc/mm/numa.c
-+++ b/arch/powerpc/mm/numa.c
-@@ -1428,6 +1428,21 @@ void find_and_update_cpu_nid(int cpu)
- 	pr_debug("%s:%d cpu %d nid %d\n", __func__, __LINE__, cpu, new_nid);
- }
- 
-+static int topology_update_init(void)
-+{
-+	topology_inited = 1;
-+	return 0;
-+}
-+device_initcall(topology_update_init);
-+
-+#else
-+static long vphn_get_associativity(unsigned long cpu,
-+					__be32 *associativity)
-+{
-+	return -1;
-+}
-+#endif /* CONFIG_PPC_SPLPAR */
-+
- int cpu_to_coregroup_id(int cpu)
- {
- 	__be32 associativity[VPHN_ASSOC_BUFSIZE] = {0};
-@@ -1453,10 +1468,3 @@ int cpu_to_coregroup_id(int cpu)
- 	return cpu_to_core_id(cpu);
- }
- 
--static int topology_update_init(void)
--{
--	topology_inited = 1;
--	return 0;
--}
--device_initcall(topology_update_init);
--#endif /* CONFIG_PPC_SPLPAR */
+enc28j60_remove() now unregisters the netdev, frees the IRQ, cancels the
+tx_work, setrx_work and restart_work items, and frees a leftover tx skb
+before calling free_netdev().
+
+> diff --git a/drivers/net/ethernet/microchip/enc28j60.c b/drivers/net/ethernet/microchip/enc28j60.c
+> index d6c9491537e4..d16564060fbc 100644
+> --- a/drivers/net/ethernet/microchip/enc28j60.c
+> +++ b/drivers/net/ethernet/microchip/enc28j60.c
+> @@ -1602,6 +1602,11 @@ static void enc28j60_remove(struct spi_device *spi)
+>  
+>  	unregister_netdev(priv->netdev);
+>  	free_irq(spi->irq, priv);
+> +	cancel_work_sync(&priv->tx_work);
+> +	cancel_work_sync(&priv->setrx_work);
+> +	cancel_work_sync(&priv->restart_work);
+
+[Severity: Medium]
+
+Is the placement of these cancels after unregister_netdev() and
+free_irq() intentional?
+
+unregister_netdev() runs dev_close(), and enc28j60_net_close() puts the
+part to sleep without quiescing any of the works:
+
+drivers/net/ethernet/microchip/enc28j60.c:enc28j60_net_close() {
+	enc28j60_hw_disable(priv);
+	enc28j60_lowpower(priv, true);
+	netif_stop_queue(dev);
+}
+
+So a tx_work queued earlier by enc28j60_send_packet() can still run
+during the cancel_work_sync() above, and enc28j60_hw_tx() has no
+priv->hw_enable or netif_running() gate before it touches the chip:
+
+drivers/net/ethernet/microchip/enc28j60.c:enc28j60_hw_tx() {
+	enc28j60_packet_write(priv, priv->tx_skb->len, priv->tx_skb->data);
+	...
+	/* set TX request flag */
+	locked_reg_bfset(priv, ECON1, ECON1_TXRTS);
+}
+
+Can that leave ECON1.TXRTS asserted after ECON2.PWRSV has already been
+set?  enc28j60_lowpower() itself encodes the opposite ordering:
+
+drivers/net/ethernet/microchip/enc28j60.c:enc28j60_lowpower() {
+	nolock_reg_bfclr(priv, ECON1, ECON1_RXEN);
+	poll_ready(priv, ESTAT, ESTAT_RXBUSY, 0);
+	poll_ready(priv, ECON1, ECON1_TXRTS, 0);
+	/* ECON2_VRPS was set during initialization */
+	nolock_reg_bfset(priv, ECON2, ECON2_PWRSV);
+}
+
+With EIE zeroed by enc28j60_hw_disable() and the IRQ already freed, is
+there anything left that can retire that transmit?  The only place that
+clears TXRTS and wakes the queue is reachable solely from
+enc28j60_irq():
+
+drivers/net/ethernet/microchip/enc28j60.c:enc28j60_tx_clear() {
+	locked_reg_bfclr(priv, ECON1, ECON1_TXRTS);
+	netif_wake_queue(ndev);
+}
+
+The same missing quiesce also applies to the plain "ip link set ethX
+down" case, where nothing cancels tx_work or setrx_work at all, so a
+deferred transmit or an ERXFCON update can hit a powered-down chip, and
+a late tx_work can arm TXRTS while a subsequent enc28j60_net_open() is
+running the enc28j60_hw_init() soft reset and txfifo init (priv->lock is
+only held per register access, not across that state transition).
+
+Would it make sense to cancel the hardware-touching works while the
+interface is still up, for instance in enc28j60_net_close() or in a
+helper shared by close and remove, and/or re-quiesce the chip after the
+cancels so both teardown paths follow the same rule?
+
 -- 
-2.43.7
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260830-enc28j60-cancel-works-v1-1-4c40f17d401e%40cherr.cc
