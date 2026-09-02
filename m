@@ -1,162 +1,371 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011035.outbound.protection.outlook.com [52.101.52.35])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D864F372B45;
-	Wed,  2 Sep 2026 05:11:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.35
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788325876; cv=fail; b=RWve8TNOKBOWHcjvaxE1y76rVevxy6307drWM+iHxymJYVSuem6dLnTDTngjClWRwH+/vc9CVtOTs5mgrd+0reTl+EuU78yOANTWGuwMoyHW8ciDt/tedhZgY7Nu29Sr2vUJL7WNaKNpn2i6npxYRNJuClMqhceqWP5ZrRv8yRk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788325876; c=relaxed/simple;
-	bh=ugyEJuZF5dAxFaKL/5hop8H2GIaMDA4AwxLkfGPhZgk=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=LgET1HWRdsKOMP3ghe0tgARIG2mAY665E93c1Rccqzw9rZuvheKpOwn6KroBfu1lQDbkAlxxGlQNsZG1XJRJez5raGxa9wMBrT+pLJOnkOS9fCKzP7OyipmI8hFMK+Jkm6gxvkZqN55yO4xOYAELvxxwNS8AKBXvU766ID+dgyQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=UZPDzg+3; arc=fail smtp.client-ip=52.101.52.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 778E6184
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 05:16:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788326212; cv=none; b=ueX9QLASBHy2nL/Z2ktlTuSRbtW0t/RDzvt0q/F2veH9JEPSGXYSpuUiESncJCIjDewLjeQPxcQHVJ7GPuh79STpnKatear1t0KJ+cy+LlZtZ5LzUfFlzOkHIWwNlzZh+dxFpOP8eCAn1uu+f0nq1tde3ieLBRQfJFv8AWL2k5o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788326212; c=relaxed/simple;
+	bh=Gal4zt8v2nYb2W3b1dL30al188NfGGFBltMRxPnlgtY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LtZGQiy61wW6nZOsOnyz0ASFZYn/b09GY7PELAVJz0rg9TJUro/tbftPFm/3gSj0xmdkBLQz1EG4SXSCnAdfq/ZNaKUnIDvYtT2MHztPZXTfcXyEzQV2rOeCcpHY60vn/FWXlOfo0Xw/BONAjPgz7QYuzQRb9GZs5AVEVG6aHxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=JscPV3nM; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="UZPDzg+3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R+Gug7uzpYz6V/YsXkujHcEISkR9nP8wdMGlZ8zOq4fria3JnfHG6Mr28rnkdEi5xOtIjPwCyzfZ2y2RHogzKnYPs2xxdcqjRRQDuqYkgvog2hhIPwsK33F/XLe9e6bWSlqyTO2h3YgcKUpuEFyreIS2NrlDx2L0yO0daOUFXKuEiC0Vwt0sE1ywm9pV/VU/JhvoDFYlJ+Cw9aR1o2ZtF+OHr/WMjrBOc1d2DCn74v5DFYEcPQ0++FOBM4XAuxfAwNHFzEKoynZ+ZwROeJdLDQtgImqRztNzd9mxay7VbJO3Bmih6OQzwpBKwYBrGUxujz/LiI2WcmD9zyElbm6Jww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I5dsQjkm6Sfc3iPlR4oSg28ClTtH97SgeFmA3AI+ug8=;
- b=GVyV0awp6Ev1MwtCO3yTcqz/N4sgsQTLHI4y9X9vOXC5Uj2jAZLBIJDNhMSOj6pHaMZ0wiOGAntqtQCmsGCHiKl+yXrBhjiPqnx1qDN5aY5V6NGPZ0r7GXvSEPL2xL2awC08+snjduolzF3pnlD6fkTLhWAPc0MUqGGXS+MlmSUkB9e0T66PHayvP8QV6v/SJ6wOLNnWCV/BwWJpzxLpXvpB/f8DI14aKx+uXJyx89wyDlsat0LISNCBQF+srnxeypRvrWvv0KtZbM9rPYjwQcagQTSc7cEg+jJR4H1lhf/WtQL8Uof2by1GV4SWf4jvk/zMj/UN4JfgnXcsxXN9hA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I5dsQjkm6Sfc3iPlR4oSg28ClTtH97SgeFmA3AI+ug8=;
- b=UZPDzg+3Gu8pZhb5hlAmiJC4s4NvmuypIjsY3/vr7tZnkF7PwcKlKxpuVBWnbajX8+JmboJIwJoWlbHiuqxMKOvkvltZYYp4Q3EXdP8CkigtezX5vjy3L0dnImtaHlRH9BvPl6yYH+034/oH4M8pGaTC6JBk4KmM7v5BBLxN+H36s68MGTZtQ3XxoCGIao1eww8zOstpBtHW5UKr/piFLgiTxJyiLZWgiUzbCBTDhcJMsKYDj99N5O4xZDQcSwl62ibd2IQgNJtIj6Zb1ojO3H9leUk/GunV7WQewqXFMOZxYlvWYc4OkXUlsPMT/Ps7l4q37Duaj8qNBJi8sGtxVA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from DS7PR12MB9474.namprd12.prod.outlook.com (2603:10b6:8:252::17)
- by PH8PR12MB8430.namprd12.prod.outlook.com (2603:10b6:510:259::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 05:11:06 +0000
-Received: from DS7PR12MB9474.namprd12.prod.outlook.com
- ([fe80::31ad:931:ef07:8ad7]) by DS7PR12MB9474.namprd12.prod.outlook.com
- ([fe80::31ad:931:ef07:8ad7%4]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 05:11:06 +0000
-Message-ID: <093e50be-5a43-40c1-817f-bbcaadb3af76@nvidia.com>
-Date: Tue, 1 Sep 2026 22:11:04 -0700
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 00/12] PCI/CXL: Add CXL reset support for Type 2
- devices
-To: Dave Jiang <dave.jiang@intel.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
- Ira Weiny <ira.weiny@intel.com>, Jonathan Cameron <jic23@kernel.org>,
- Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
- alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
- Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
- Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-References: <20260804192958.1823952-1-smadhavan@nvidia.com>
- <8eedb254-c942-4ee8-ab96-eb7c1ae577ad@intel.com>
-Content-Language: en-US
-From: Srirangan Madhavan <smadhavan@nvidia.com>
-In-Reply-To: <8eedb254-c942-4ee8-ab96-eb7c1ae577ad@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BY3PR04CA0011.namprd04.prod.outlook.com
- (2603:10b6:a03:217::16) To DS7PR12MB9474.namprd12.prod.outlook.com
- (2603:10b6:8:252::17)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="JscPV3nM"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 681KWV4A2236415;
+	Wed, 2 Sep 2026 05:16:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=FSpnYz
+	1Zw4safg6tGbZ97h/13eVfSuDBviaBaBRfYOw=; b=JscPV3nMDm/l9VU4MXwRoL
+	L1gykqc46SO5KFbe+pmJILpJarYwrzFJtBqWTTEoJ4nf7zkUALs2qeHovEioAQ9q
+	jiSg6D1qAKZYpJnHISei3FD8kITmjLJGp2hjl4xNd71PtLyiXdZPr0fOB9+m93UB
+	j4BTSL5d/axeyMjoMh5GFgRmaiEb2fY/gI4IB2lDVUbKxX7XzTqG5F4JOYnOm1an
+	tBg5ChDqYYfRGwgtblU5D8jwVZSwb5EPlbpSy6+DdC9L9xuo3XB1Hp7MPLpSD8f4
+	wGzReK51G9uibYzDS12r6yrft/pYAPoeeLcH/vbyiuNp7BkaKYiy6C36q6+Wkcew
+	==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx5me2m-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 05:16:33 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6825BNYh024602;
+	Wed, 2 Sep 2026 05:16:32 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gc9rqg1j6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 05:16:32 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6825GS0T30605756
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 2 Sep 2026 05:16:28 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 73EBF20043;
+	Wed,  2 Sep 2026 05:16:28 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8170E20040;
+	Wed,  2 Sep 2026 05:16:25 +0000 (GMT)
+Received: from [9.123.14.142] (unknown [9.123.14.142])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  2 Sep 2026 05:16:25 +0000 (GMT)
+Message-ID: <02c8c3a8-04f4-4664-a4fd-5223f5262508@linux.ibm.com>
+Date: Wed, 2 Sep 2026 10:46:24 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS7PR12MB9474:EE_|PH8PR12MB8430:EE_
-X-MS-Office365-Filtering-Correlation-Id: 56891a44-385b-4841-91e5-08df08b097c3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|56012099006|4143699003|11063799006|6133799003|10067099003|22082099003|18002099003|3023799007|921020;
-X-Microsoft-Antispam-Message-Info:
-	rQcHu1wwPZqz8ZOXQ0p5/2mudlCGrN3JZVhDuD10v6DuIUnzUVrHhD07IPKO4sIHrbrfVnOK/jczNPJKa9oMAuvTHQJlOGV5ly0KiJfebWKSn/E5g62MSsyHCICklhV8/izufWbInn9gfxQdln4fIBdRuRz/X7etCqeZt+MKjLycgBhFMR81l+Asf1NnTbXikNqI5IaaIBX/c0fBgUtUWozUZEKayh4+m5RhU8d58rJ/nHq9a7X+Yce7zGC0T6TpVxpbdbObmDfPZHhWoPhZdDZnO/rnmGLAAjfWF8X2wmUFxIOZdU48wqW0PaGpM0sVyR+knAZD3az09VQmHTAPb4QgFOZ0mXeld68li4Aua6XJESyiCnKPncBgsdFm4I4gh6CevMxs6hlhx/uSSyxPW/veZKGKEh0zmhMgq7effehuIT2C35QDTK2W/NurM7zUb5XqXeHhbMh8XeF26f1DS0NKgj5Owku4qfx8C//JyZNiX5Df5LYqm+4NA6fqJK1HKaFKr2P0JEhEf+Qyi3PpfyBuq7jkOiwuTk0uQo/sR8/cjouUoHb4OggDX4zBl6bVA7hWxuBdNJrd3TgzbFBPppZ5yDUS7wLuC6/0FCNZn5kg2l3OE+wP79sog0bAdRFEo5CA4wo2ybuBwZaYuDr7QxXTqm3bD4jiBmPX/IXMmqk5UwSgSTHTNHMlhGugj944XlNFmuB+WIBqSRo0pDk9fg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR12MB9474.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(56012099006)(4143699003)(11063799006)(6133799003)(10067099003)(22082099003)(18002099003)(3023799007)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?MFp6akhiZ01vWkd6djIrdkxRY1dSYjZZWldKc0VEckNYZWRYcjgzS3doNzZE?=
- =?utf-8?B?bnR1UkFzOXlVMlAvZ1BIYmw0UkxWSk1PRUw0anBFbUNKY0VqVGxnZW9aUEZX?=
- =?utf-8?B?M1hNT3Z2SGJtYlkxUmtOUmNBYTNNUVQxZHpLRGpmU2dLYkVxUTBtRFdqZlBE?=
- =?utf-8?B?d1VzQjBnb2dTR2FXSUZJVE5PMHNRZkxQVnk3SWFoNE8zdGx4SWpkMnhHOEZ0?=
- =?utf-8?B?R0xSVE5tWUVNcnIyMElvUyszMGtuNzZkWm9MUVVHN2htMnR6dmhkd3VXaFhj?=
- =?utf-8?B?QUhOS3F6akRmWFNxUjI0MDZBNW9TK2xQMkEwNDV5b1l4Wmx0eTJ2UnB2THB2?=
- =?utf-8?B?RFNpei9rWTVuYkhPSXNKSGZQUEY3VWJYQTBTNVV5bW9UQS9RM3Izbm1HWXBW?=
- =?utf-8?B?K0ZKN3VsQjF1Q0RDSUJyWnNHQmhLQnZmSmljSVN4dndic2cvbkZGbFRrcEh5?=
- =?utf-8?B?UjZoRlg3V3lRM1JVQXlJMjcxT3dtQ2VCQXpzd3hvZEJEMFpZQkgyTXFwY3dS?=
- =?utf-8?B?TlB5MStZNGFvamd1eWtySVpFTHFwcWRzYmhucmVhQlU1VSt0LzNDNGpNb0ll?=
- =?utf-8?B?cHRINkxOMXo0cUd6aU0weDBXSFYrZHgzS1QrMEtjZk1yVmMyeS85OWVoZ0s2?=
- =?utf-8?B?eUFJK2NEMnh1Vk9ROW8wckc4WG1tSzFmblBFT1VTZm9uakJBU01iNWd5SjFr?=
- =?utf-8?B?MlBFckNMZzBUbG1QWUpFYVptbG5XYlpWWHJ2Wis2bGJ1ZDlDaXVWbDd3MW9T?=
- =?utf-8?B?akdxY1BvRGN6MFZFSE1wclVCZllPMmpOQVphazVnc296V2diSHE1c1hxTExI?=
- =?utf-8?B?eXUzR0RwVVJ2WVRWcWtQTjg2ckNpakFEN2liVmFvTUM2eEs1QXZmdm81eWMz?=
- =?utf-8?B?ak5NWDdyRkxHU3ZRem9pUUI1K2NXQVdmRlMvczJQSDlWUTB6dFJucUI1SEta?=
- =?utf-8?B?ZXhQdzFqL0RzejhZZThEZTZQckFpVU8vNUUwWndDbnZibThzQmZNRE51KzRu?=
- =?utf-8?B?eXF3bjZlRC9hSlp5Zld3MHNXV2xEWkU1WXQ1cENXWU96bkd4ZnhxN0QrSTBG?=
- =?utf-8?B?UCt2T0tzQkRkcHpXb25VYTRhNG9xMmMzOXFPMWljZXpOS1ZpTitqYURUZFJ5?=
- =?utf-8?B?aWUrMzgwTHJGdGZ0Tjhob2ZHblZLOFVETGl1ZUZ3T0F2L2Vod1JNa3crOFBp?=
- =?utf-8?B?b1c5eC90SHVpdTZCWVlOYWJSejRDVG5vak55U25WdkhFNDZSZ3FLVHZuWDI4?=
- =?utf-8?B?RFpzK3YvMWNYNndGMktyTVl5NVlCK1ArWE1kcmpVQkthNktnTktZSTRVRTJZ?=
- =?utf-8?B?U3R0Mis1QVMxNTlTVHAxZzIyMWs3WWM2RU5vL0R3dXJhM2Y2YVFHczdsTWRy?=
- =?utf-8?B?ZXQxcHF0STF5YXp3ZmxWLzVkZzhKaFJNK3dPM3YvODlXSks5VHFUTmExL3hL?=
- =?utf-8?B?MFBwbERuQTFKSUthQytHSDFJRThITisxL0d6MS92cGlRaWdsNTNxUWRmQWlC?=
- =?utf-8?B?SU5iTTk0aXJwalFuVWcrTjYvVmJsc1NUYVpuYmlweTYxV2ZldmlRTGI1KzRs?=
- =?utf-8?B?Rk9CdjhrOSs3emJQSmQzTlpEVkdJR0tRTXhaeEh5K1Y4YzNWWFJ4cnBTVGNm?=
- =?utf-8?B?RXJDbzl0bnF6eTlQelMwbGo1bUhqTEtmT1kzdW9seVg1M0pnRW1BdmwrcVpx?=
- =?utf-8?B?dDdvUFd5amlqZ05odzN1cWlpVFZYbytNZ2pzRC9EQzJNdXg2MVh5VUh5WXJH?=
- =?utf-8?B?c3hUcGxVNWdNWUVBenhPOXZjclFLOEQzWFdCV0lEeVBWNGNLZW9sdGo3ck90?=
- =?utf-8?B?WUVUYy83K0lWWGJ1Y2p6QVRlV1NTRFNkVFcyWXQwWm85bk04VGYvTXFocDUw?=
- =?utf-8?B?NDNSS3M2ZEMvYmErV2l6TkdHZDNrcUVLK3AxdVVWb1RJVlpNbnB5ZmdTYVZp?=
- =?utf-8?B?WmpRZUZJdjhJMXJYMlB3d2tPTE9teDlma3BsZ1NCUU5YRk9pWlZMUnBFbUM3?=
- =?utf-8?B?aE9WWEFvOEJ0S2RZUERWano5YitEOWd2ZTRqenhMS2RxR3E1eTdRdi92MTM4?=
- =?utf-8?B?ZkM5R3VQMVhFQmlpSFFWWkpmYVF2cXBXTzNBU2p1OElMditRaTRXOVJ2NXpI?=
- =?utf-8?B?a0VqUEhkT3ZQc3Z3Rk1wVkd1L2xJSCtwaVpFTVFmNE1QTVY2QlJPU1Joa2ND?=
- =?utf-8?B?T2ZrYVFZRmJqSzFrRVl3WVhYYklDK0o0VnhDUkU0aG9wQ0RoT01WemhPeGMx?=
- =?utf-8?B?MkVOUzNacFpkK1BiL3M4U2RpZTJXVTdTamV5cFZqeU1ZTWZLdXBjR0EzT3hN?=
- =?utf-8?B?anRrd05GVmh6cVBZWmxvc2dJRmxqUVdCdHg2dHF2cUJtQWxLdUdmZz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56891a44-385b-4841-91e5-08df08b097c3
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB9474.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 05:11:06.4829
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2rog4dZCQXM93cgoX9lAm2/UOpEHIcHYBAGyeZWEydzh5sM4jImC+PWdHM4q8lWY9J1NGB0oeXBysDwVZKkCXQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB8430
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/5] powerpc/pseries/eeh: Implement RTAS-based EEH
+ error injection
+To: Narayana Murty N <nnmlinux@linux.ibm.com>, mahesh@linux.ibm.com,
+        maddy@linux.ibm.com, mpe@ellerman.id.au, christophe.leroy@csgroup.eu,
+        oohall@gmail.com, npiggin@gmail.com, tpearson@raptorengineering.com,
+        alex@shazbot.org
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+        sbhat@linux.ibm.com, harshpb@linux.ibm.com
+References: <20260831065441.48654-1-nnmlinux@linux.ibm.com>
+ <20260831065441.48654-5-nnmlinux@linux.ibm.com>
+Content-Language: en-US
+From: Sourabh Jain <sourabhjain@linux.ibm.com>
+In-Reply-To: <20260831065441.48654-5-nnmlinux@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a97b131 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
+ a=VnNF1IyMAAAA:8 a=shHpiqZUIdK5DwAqfgwA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: I2xhfhDBhOy8ce-slgqVKLJ79kOmom_n
+X-Proofpoint-ORIG-GUID: qZ_0YU2Br7aPuYl6R0pJ5XsAfmN1ps0J
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA0MyBTYWx0ZWRfX0q0aJpmVu1Tq
+ mXjTUOy6b+CsKmq28l1YpA/D6kepD+jS133ncjd4uqILTRezmj5owhSpZL7e7AHJ51YLt2bXPpr
+ 4mpKDqF4q5msAaFKhsJuN8iUHrS5I5g=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA0MyBTYWx0ZWRfX8paWurv+1y40
+ EDjOO5BoMLXP6LL9c+Za1aBUQIY5erlttZSIjArE6QAc5c0WX92Xz+QMLqyNKd6qJqoZEu4Oz3W
+ EoK/sk6/tNpsEn3xLrO4VE8Dyfu/bcs8IwUWx5f5oTDZKTo1IPqSm9OyxrBvnvNTFFHWnEKfaMt
+ mHFbi95Rx5c77E5zk6BCPa9fKeAvA+MigVEwCA1X7XciuIcUhS8L5IxI7lfwwB4z9k/jPoavuaj
+ tIhaG8YrFJ4pXcHb78AtbKcsecTac0zYIhgsS+0ZFdFc4rN3+eb1tG6PBEjB2l2Iblt4hikathd
+ 5CrXS0UJ1nVjPVL6S0O9JwZ51mZGoQ7+1TYodOdql8hzRecMgGP8EdxSLcJL6gsXuLE8GPxTFxR
+ yNHE1NBjGdfOqPw/nn+VUC+B2v41CslMfyL0CGkxglB7JsWYr4KhXBjMCf2ofB82cIBGQQsuHCh
+ A8gjpqyyeQEEe+l2jSA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_06,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609020043
 
-On 8/25/26 2:13 PM, Dave Jiang wrote:
->> Userspace can select "cxl_reset" in reset_method and then trigger reset
->> through the existing reset attribute.
-> Srirangan,
-> Do we need to consider concurrent mailbox commands while reset is ongoing? Although rather than blocking them, maybe we just need to harden the mailbox path in CXL core so that when ~0s are read we return error and give up? and maybe a reset_prepare() to quiesce things. Just some random thoughts.
-> 
-> DJ
 
-I agree that the PCI device lock does not serialize against the mailbox 
-mutex, so a mailbox command could still be in progress during reset.
 
-Since cxl_reset also needs to work without cxl_pci bound, 
-reset_prepare() and reset_done() seem like a good place to add this.
+On 31/08/26 12:24, Narayana Murty N wrote:
+> Replace the legacy MMIO stub in pseries_eeh_err_inject() with a full
+> PAPR-compliant RTAS error injection path using the existing RTAS
+> work-area allocator.
+>
+> The mutex is not a buffer lock;
+Sorry but I didn't get this...
 
-I would prefer to do this as a follow-up along with hardening for ~0s 
-read, if that is okay. I can send out a follow up RFC to discuss the 
-specifics.
+> it serializes the firmware session
+> open/inject/close sequence as required by PAPR.  No global buffer
+> is allocated or used.
+Nit:
+I think the above para is influenced form old suggestion to not use global
+dedicated buffer. Lets drop the global buffer thing from commit message
+explain just the current approach.
 
--- 
-Regards,
-Srirangan
+>
+> VFIO EEH error injection exposes a generic userspace ABI.  pSeries maps
+> the generic EEH error types to RTAS ibm,errinjct encodings via
+> pseries_eeh_type_to_rtas().  EEH_ERR_TYPE_32 and EEH_ERR_TYPE_64 are
+> unchanged; their values are defined in arch/powerpc/include/uapi/asm/eeh.h
+> and are not renumbered.
+>
+> Tested with corresponding QEMU patches:
+> https://lore.kernel.org/all/20251029150618.186803-1-nnmlinux@linux.ibm.com/
+>
+> Signed-off-by: Narayana Murty N <nnmlinux@linux.ibm.com>
+> ---
+>   arch/powerpc/platforms/pseries/eeh_pseries.c | 123 ++++++++++++++-----
+>   1 file changed, 95 insertions(+), 28 deletions(-)
+>
+> diff --git a/arch/powerpc/platforms/pseries/eeh_pseries.c b/arch/powerpc/platforms/pseries/eeh_pseries.c
+> index fafe0004e738..fcb8c560d813 100644
+> --- a/arch/powerpc/platforms/pseries/eeh_pseries.c
+> +++ b/arch/powerpc/platforms/pseries/eeh_pseries.c
+> @@ -25,6 +25,7 @@
+>   #include <linux/rbtree.h>
+>   #include <linux/sched.h>
+>   #include <linux/seq_file.h>
+> +#include <linux/mutex.h>
+>   #include <linux/spinlock.h>
+>   #include <linux/crash_dump.h>
+>   
+> @@ -34,6 +35,7 @@
+>   #include <asm/machdep.h>
+>   #include <asm/ppc-pci.h>
+>   #include <asm/rtas.h>
+> +#include <asm/rtas-work-area.h>
+>   
+>   /* RTAS tokens */
+>   static int ibm_set_eeh_option;
+> @@ -958,8 +960,6 @@ static int prepare_errinjct_buffer(void *buf, struct eeh_pe *pe,
+>   			return -EINVAL;
+>   
+>   		if (upper_32_bits(addr) || upper_32_bits(mask)) {
+> -			pr_err("32-bit IOA injection cannot encode addr=%#lx mask=%#lx\n",
+> -			       addr, mask);
+
+We are returning -EINVAL remove the error message, what is the need?
+
+>   			return -EINVAL;
+>   		}
+>   
+> @@ -992,50 +992,117 @@ static int prepare_errinjct_buffer(void *buf, struct eeh_pe *pe,
+>   		break;
+>   
+>   	default:
+> -		pr_err("unsupported RTAS error injection type 0x%x\n", rtas_type);
+> +		pr_err("unsupported RTAS error injection type 0x%x\n",
+> +		       rtas_type);
+
+Above change is not necessary..
+
+>   		return -EINVAL;
+>   	}
+>   
+> -	pr_debug("errinjct buffer ready: rtas_type=0x%x func=%d addr=0x%lx mask=0x%lx\n",
+> -		 rtas_type, func, addr, mask);
+
+What is need to remove this debug message?
+
+>   	return 0;
+>   }
+>   
+> +/* pseries-local mutex serializes the open/inject/close RTAS session */
+> +static DEFINE_MUTEX(pseries_errinjct_mutex);
+> +
+>   /**
+>    * pseries_eeh_err_inject - Inject specified error to the indicated PE
+>    * @pe: the indicated PE
+> - * @type: error type
+> - * @func: specific error type
+> - * @addr: address
+> - * @mask: address mask
+> - * The routine is called to inject specified error, which is
+> - * determined by @type and @func, to the indicated PE
+> + * @type: generic EEH error type (EEH_ERR_TYPE_32 or EEH_ERR_TYPE_64)
+> + * @func: specific error function
+> + * @addr: address argument (type-dependent, may be zero)
+> + * @mask: address mask (type-dependent, may be zero)
+> + *
+> + * Implements PAPR-compliant error injection using:
+> + *   ibm,open-errinjct -> ibm,errinjct -> ibm,close-errinjct
+> + *
+> + * A short-lived RTAS work area is allocated per call; no global buffer
+> + * is used.
+Mentioning "no global buffer is used" is not adding any value, I think.
+
+> pseries_errinjct_mutex serializes the open/inject/close
+> + * session sequence.
+> + *
+> + * Return: 0 on success, negative errno on failure.
+>    */
+>   static int pseries_eeh_err_inject(struct eeh_pe *pe, int type, int func,
+>   				  unsigned long addr, unsigned long mask)
+>   {
+> -	struct	eeh_dev	*pdev;
+> +	struct rtas_work_area *area;
+> +	phys_addr_t area_phys;
+> +	u32 buf_phys;
+> +	void *buf;
+> +	int open_token, errinjct_token, close_token;
+> +	int session_token;
+> +	int rtas_type;
+> +	int close_rc;
+> +	int rc;
+> +
+> +	rc = validate_errinjct_args(pe, type, func, addr, mask);
+> +	if (rc)
+> +		return rc;
+>   
+> -	/* Check on PCI error type */
+> -	if (type != EEH_ERR_TYPE_32 && type != EEH_ERR_TYPE_64)
+> +	rtas_type = pseries_eeh_type_to_rtas(type);
+> +	if (rtas_type < 0)
+>   		return -EINVAL;
+>   
+> -	switch (func) {
+> -	case EEH_ERR_FUNC_LD_MEM_ADDR:
+> -	case EEH_ERR_FUNC_LD_MEM_DATA:
+> -	case EEH_ERR_FUNC_ST_MEM_ADDR:
+> -	case EEH_ERR_FUNC_ST_MEM_DATA:
+> -		/* injects a MMIO error for all pdev's belonging to PE */
+> -		pci_lock_rescan_remove();
+> -		list_for_each_entry(pdev, &pe->edevs, entry)
+> -			eeh_pe_inject_mmio_error(pdev->pdev);
+> -		pci_unlock_rescan_remove();
+> -		break;
+> -	default:
+> -		return -ERANGE;
+> +	open_token    = rtas_function_token(RTAS_FN_IBM_OPEN_ERRINJCT);
+> +	errinjct_token = rtas_function_token(RTAS_FN_IBM_ERRINJCT);
+> +	close_token   = rtas_function_token(RTAS_FN_IBM_CLOSE_ERRINJCT);
+> +
+> +	if (open_token    == RTAS_UNKNOWN_SERVICE ||
+> +	    errinjct_token == RTAS_UNKNOWN_SERVICE ||
+> +	    close_token   == RTAS_UNKNOWN_SERVICE)
+> +		return -ENODEV;
+> +
+> +	area = rtas_work_area_alloc(RTAS_ERRINJCT_BUF_SIZE);
+> +	buf  = rtas_work_area_raw_buf(area);
+> +	area_phys = rtas_work_area_phys(area);
+
+
+I was wondering if there is any need to hold the work area buffer until
+we acquire pseries_errinjct_mutex.
+
+Would it make sense to allocate the buffer only after acquiring the
+mutex? I suggested an order for the open, errinjct, and close calls
+below, which I think could also help address the above comment.
+
+Nit: this file is under pseries platform so pseries_errinjct_mutex can 
+renamed to errinct_mutex.
+> +
+> +	if (WARN_ON_ONCE(upper_32_bits(area_phys))) {
+> +		rc = -ERANGE;
+> +		goto out_free_area;
+>   	}
+>   
+> -	return 0;
+> +	buf_phys = lower_32_bits(area_phys);
+
+I don't understand the above logic. First, we check area_phys and exit
+early if the address is above 4G, and then we take the lower 32 bits of
+the same address.
+
+I think the RTAS work area allocation API should be responsible for
+allocating the work area buffer at the right location. The user
+shouldn't have to worry about where exactly the buffer is allocated
+unless they have a specific requirement.
+
+Is the work area buffer allocated by the API not meeting your
+requirement? If so, could you please explain what the issue is? Let's
+see if we can fix it in the work area allocation API. Otherwise, I
+would suggest removing the checking and truncation done around
+area_phys.
+
+Let me know your opinion.
+
+
+> +
+> +	rc = prepare_errinjct_buffer(buf, pe, rtas_type, func, addr, mask);
+> +	if (rc)
+> +		goto out_free_area;
+> +
+> +	mutex_lock(&pseries_errinjct_mutex);
+> +
+> +	do {
+> +		rc = rtas_call(open_token, 0, 2, &session_token);
+> +	} while (rtas_busy_delay(rc));
+> +
+> +	if (rc) {
+> +		pr_err("ibm,open-errinjct failed: status=%d\n", rc);
+> +		rc = rtas_error_rc(rc);
+> +		goto out_unlock;
+> +	}
+
+I think we should allocate the work area buffer only after the
+open-errinjct call succeeds. My preferred order is:
+
+- Call RTAS open-errinjct
+- Allocate the work area buffer
+- Populate the work area buffer and make the errinjct RTAS call
+- Release the work area buffer
+- Call RTAS close-errinjct
+
+This way, the work area buffer is held only for as long as it is needed,
+and we also avoid allocating it if open-errinjct fails.
+
+> +
+> +	do {
+> +		rc = rtas_call(errinjct_token, 3, 1, NULL,
+> +			       rtas_type, session_token, buf_phys);
+> +	} while (rtas_busy_delay(rc));
+> +
+> +	if (rc) {
+> +		pr_err("ibm,errinjct failed: status=%d\n", rc);
+> +		rc = rtas_error_rc(rc);
+> +	}
+> +
+> +	do {
+> +		close_rc = rtas_call(close_token, 1, 1, NULL, session_token);
+> +	} while (rtas_busy_delay(close_rc));
+> +
+> +	if (close_rc) {
+> +		pr_warn("ibm,close-errinjct failed: status=%d\n", close_rc);
+> +		if (!rc)
+> +			rc = rtas_error_rc(close_rc);
+> +	}
+> +
+> +out_unlock:
+> +	mutex_unlock(&pseries_errinjct_mutex);
+> +
+> +out_free_area:
+> +	rtas_work_area_free(area);
+> +	return rc;
+>   }
+>   
+>   static struct eeh_ops pseries_eeh_ops = {
+
