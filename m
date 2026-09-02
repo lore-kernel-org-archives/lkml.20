@@ -1,116 +1,152 @@
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6DBE481A81
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:36:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352587; cv=pass; b=NCX7+Tx4OaxFvosqG8edV9eraix2wed219GQ2rtvGDQ6pWWPoFbggftnvzZpFA8lOAQy2Rb5JjaMWhrRAC+mw9pKDDHMGCq6fhwkPJYKQSgyQcThD4fKnGlzkFDyDBN+3HMaolV19+jajeOtPKl3mfydMXFT789Crs457I2vrGw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352587; c=relaxed/simple;
-	bh=l4Av1tnk1DJx0lSAkYYujTq4Pm3LS+q9DUKaEcW0p0k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J+qmYNBm4YRDNDfiSzM8KDl+SvQ5nTr5mlTQT8ViADFhaw91ELhPITXAAFeJi3euVMfTwdt7frK1Aj5M2nZdyRjYVs6EbRU+D0xJRm7e+lXwxByJQ30OEq0z4bmRI3WWFz/Ah08PWFXSzLdhxLnMdm8CQ8f5c2rpj3Jl5tbUGK4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=icBZMDs6; arc=pass smtp.client-ip=209.85.215.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906EF488219
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:36:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788352591; cv=none; b=Bl4GNSOnVXcZjFueeD09U1PyswJBmtJl6QtL4U7NMZEDSFXaMdEdFijJ4mjd38e2DkT8bdlvazVWKT9id0oe6Cn2szdCX8zexgpA0bxkw/n7GYEE88YvpQfb39uUlHN8gI7mKk3jq0UqKLB5fnO+zQ4fw5kkvt+s9jntCSzVefo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788352591; c=relaxed/simple;
+	bh=IrhGbg+YXWaq6711Ey9UFnHjv0tJgsPvXhJvcPmXdIw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KwwSo7hcWwXOfubWhwZ2scyTIT2KTuo/Rxn5Q4Rcc0qyZzUUw3YI3bCsxbv199kRzn2QPw0l6+S8lsdyHsKMF0On/PVtW0FjMOM5ZF4eN9ycs3W+CdtgogBhY2IFMKK2xfw0aLwQdaWb5k3MmqPUKFRwWIb8ORAHEpFvcnhzvZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ayzL9ECJ; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="icBZMDs6"
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc1e1ff659bso1023898a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:36:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788352585; cv=none;
-        d=google.com; s=arc-20260327;
-        b=TK+p5JmKfmrL0dGjmxTf7YTx8ONLSNwfcxylpG2fXkt4cUlil4wnsHXe3hj/BrgSIm
-         /hog8U13qpCreObhTU9nF6WXALbxaIHbqc4/njV0EuVQutRLnb/AVMDOOexKnHwm4naN
-         9zObA5tPOPq5O1qSa+WdIG6/kMBF83z1H+l3FLb8TMU7FAhMzXFxKI1wFuPZxoWelhk0
-         ZRVn3ad55AIsW33mPMlI1M/puZEx7ZX8citB1BMl7aa12rOUyHioSaR54ycdgDXR2aMS
-         6tuUwnWyDxOjx5PLGggOiE5gfy1VKmS3R3e08MQxOsLIUmF0DPPzQwvo8zEj1oa5InzV
-         6rWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=AKF+zPcaGnIjcBYSYaoawLCl82XfK40W4BF+GG+bvXE=;
-        fh=xD/hiFMYaB3dQasKU56qw3HApKtmSSJvAE92YRd3jVc=;
-        b=AeON4nVjok/hfr+JG0Bikhts9xC9bh8Q6x0+PPsY6CsEiDeUfBtY1v6tfmOj1WYB+L
-         NDy/cTL83w+RBeKPuBEMAfv6oZ9G+v0FezRdI+uh9OaTPPs/XBt0zadSkSr5yKfCiZvx
-         BW9jgkutetYjsw5xuD3PrQnY7vqXaiQd5ScRvsGAhF4HSgyFpiC7OcMjRndD86KKqozJ
-         if5nhN8KT+CvRQbMZ6oSJ/2WAi7OpF8eUBgjFTNKufmtFBSt7HIiaZ/2Yi6SSxApbo8v
-         NWfh+Gm9+RfMiKDf6P6TAsJE2sasvCnXX/L+p/5eHweoT6HRs3fISSCfpvQhKLByUp7X
-         Cw6Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788352585; x=1788957385; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AKF+zPcaGnIjcBYSYaoawLCl82XfK40W4BF+GG+bvXE=;
-        b=icBZMDs6gdGThp9mnSjY93nd4DczNlmpeEcj75C33xVyZEn/RjDNuZNkK9bhRlnsCw
-         rQ3C24Z2fnBv6y1ylf/Hd4yM4p2oURSuHsorEQasIJujska7orqkl1SG3ll84ixBYOrc
-         cxw+paPBljTpEg1vIh27Wm0zfcaZMTLQkZZ3iW3cLK7+5t9zqD5bjMUzi5y34otFLu55
-         pIEyo2ga/mwgI6ulhrG4y9MQWZ6qA40ra6w0QlCcS8vRsp3eQhP6jqkxiTEpRdr+MPpO
-         K5Cw3Kn8r/G+kzpl1xP8XAU3Pf1SYHxle4cP83GY1fnlUeJWw8qndvRqD+Tbv0L76a//
-         Royg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788352585; x=1788957385;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=AKF+zPcaGnIjcBYSYaoawLCl82XfK40W4BF+GG+bvXE=;
-        b=GpTfTj/Ci8AhobrkwPvJQSkIWenhkOJjFnJwjy2LDubKQmAi2Ex+7Emc1YRXo0Qpva
-         0VTjEeLLHcUHP6tyuxEeoOQsLUTdGS6W6PmwW/ZGSKFD+x0RY9JkaWZGO6MLN9nvNbJ4
-         PwgMKkbndBQ+GJzjzNYLoYqpNuSsacl98gf0WO8j1z8sP8HT4z8AC12QAAYzOHaNol2f
-         reLfk6loTMXZ90ymWfB8GXp881X5NW2rm4Msv5tVC1AXXiDjLWbVzKElf+JHDigBMlj0
-         Rvhcbo7G9VVrNZzKTj07epV4Rr5tBD0aTCL6bFvPyZlhZA9Ut0kJgY8D/cD6dLMxeNPb
-         /ERQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxlwF939vWYIDuD0EA0JdHPoopBAd3xruMRtEzvGQItMRIcevopHLRbBHBOvUrMa4EGcO0jvj7hjxh2pJk=@vger.kernel.org
-X-Gm-Message-State: AFuF++k/oJIjGxskienTIleKOUgPt3YWo4FsWj9Tt/cUS9cQ0BGhaQWv
-	dchgM8zPqXua1YkXsGZwD/D477/W4uTRKR3TivDYC2TiZrG/vFEgu3zpGdsEQA6XDFE3wVX6jTZ
-	IdiUZ5GhNxFJ+5AlvFfEvDfbnK16UMFc=
-X-Gm-Gg: AYBFou3AdS9RvyweU78+7+gY7aEON5vzksnvZ9MApzHG6M895vzj3oGYqpoVWSd7jqt
-	TUORSDJbM/PON3DfNjzCJOcwGstktxpztADugt8bSYXm26EWeo2LREmHOBY6i6XD96bV4Cm+drx
-	2WF/tZOuLG7rZafTKBlAjt9HLGkeQRVJ6wAdvIJ6yMdcwQlKivgSibrhqFh0EbsUJIFDvWVG3kZ
-	M0ZFLuXYdSN19hL00hU3Vfz4LVLQQo3YgCInrHvw91mTZTmvWXcaN/tXxSn3zLmHFuWy3OZ/n/Y
-	MR9xgabIHbZKd1+rg0hRlljJ24wDEqPBNPs3ovWtHwZMGYe2RA27J/pHduD2CSQ3hiXIoy01v5x
-	D/bfwh5kAKogHIAZKQ8vqtdIivn6A9BMINOOAA95YxNNZ3TAaF3fM/Sfd
-X-Received: by 2002:a17:90b:2b8b:b0:398:ba9e:75ff with SMTP id
- 98e67ed59e1d1-39aee12c707mr7182503a91.21.1788352584935; Wed, 02 Sep 2026
- 05:36:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ayzL9ECJ"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682CVlAx4189252;
+	Wed, 2 Sep 2026 12:36:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=9USx7SBxQdUVBkBwl
+	naMqaLZsuMs+5ljn2vpYH326po=; b=ayzL9ECJCGIh8kSqSUU7JO1tN7pZ6NT6v
+	4HdBCg3H6oyqN5zbCqbonH7IMtlmZ296PtxoX5yX2UdKYV3aB9lLzS8IZPt8SWv7
+	iEWLp3D/okF2g3WPDPw1gmvysi6tv02NkbvlEqeH0xk4cVoiWZ0krAYpIU5udoOz
+	9+1itECSfJpMNT3vNEwcl1MBYryMU7KrwPEWih5vuYU3cB4ifVbFgjlZHEUOVkBr
+	UJygtoLVb+I5XNbb/e1RpwPazZXwHr/rUPzCHHodlPuLvWZe32naFmoaqvn5xMFY
+	FKQwDBMhVTzy0yqWzQ3/Weqf1aoK1drUIr9k2fq5CUpjwTov/1hnw==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx5pd3k-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 12:36:05 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 682CU1Ki024915;
+	Wed, 2 Sep 2026 12:36:04 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gecjaj05w-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 12:36:04 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 682Ca0Of39256406
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 2 Sep 2026 12:36:00 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 87A7820043;
+	Wed,  2 Sep 2026 12:36:00 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 224FA20040;
+	Wed,  2 Sep 2026 12:35:57 +0000 (GMT)
+Received: from sapthagiri.in.ibm.com (unknown [9.111.3.140])
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  2 Sep 2026 12:35:56 +0000 (GMT)
+From: Srikar Dronamraju <srikar@linux.ibm.com>
+To: linuxppc-dev <linuxppc-dev@lists.ozlabs.org>,
+        Madhavan Srinivasan <maddy@linux.ibm.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+Cc: skiboot@lists.ozlabs.org, arbab@linux.ibm.com, mahesh@linux.ibm.com,
+        Srikar Dronamraju <srikar@linux.ibm.com>,
+        Ritesh Harjani <ritesh.list@gmail.com>,
+        "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        linux-kernel@vger.kernel.org
+Subject: [PATCH v3 1/3] powerpc/numa: Simplify find_primary_domain_index
+Date: Wed,  2 Sep 2026 18:05:00 +0530
+Message-ID: <20260902123458.340456-6-srikar@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260902123458.340456-5-srikar@linux.ibm.com>
+References: <20260902123458.340456-5-srikar@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <apgNYDiSiPmNZspF@sirena.org.uk>
-In-Reply-To: <apgNYDiSiPmNZspF@sirena.org.uk>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Wed, 2 Sep 2026 19:36:11 +0700
-X-Gm-Features: AcwNN1Vtr0Lsg-kbSWCKKSOZOMM-LcknKctZC3VLEs2BTvZp3shOSfxe4zqP398
-Message-ID: <CAABR9nFEbNxQ_oWCvZobOJnmCBdhAdTYfrm=sMzygh28CMFFtA@mail.gmail.com>
-Subject: Re: linux-next: build failure after merge of the gpio-brgl tree
-To: Mark Brown <broonie@kernel.org>
-Cc: Bartosz Golaszewski <brgl@bgdev.pl>, Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
-	Linux Next Mailing List <linux-next@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a981836 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8 a=PUaLgzmSHm3KdX723h0A:9
+X-Proofpoint-GUID: HyVEp5nbC4GRYEsQGOpoOYb2ioRYH7BH
+X-Proofpoint-ORIG-GUID: p9cgBGVPMIrlnbsmqXXp-URB0jLhVryp
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDExMSBTYWx0ZWRfX+Rv60LOYO/ob
+ Xhhs40CxyGL6LlWn8lbyAket0vuxT+xmzZJyXjaXnpRDlnGuPFY+ZBww0M+4jnHq/JdOBnqoICD
+ OVDQSDV3E2poiUqTCYrXgnAtXYTpuxE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDExMSBTYWx0ZWRfX6xchg/jDQ8uR
+ qK46S+UraSCQn9tz+oqagV+QBOpwc1ApKHVb0buo0/WrgoVqmSHKprB5lmgLlPJCbI9RB2XPCye
+ hRiKRwPx5ZQ7uhuQzYZFRuZrx5zgVxYwKGE2SqX53c8v4uC+9C2Rufh9g9P7Tr4ZQW282P9P3J6
+ fNTkiuMAtpACjHGATdISapUvrURf8Af+I8zDtkifEx/xf1pA+DfaJd54jcEpvoIq0ie3I6ixZCo
+ DgcRl8Mhyy1lgv1t/9nx3+Mwi693JMtdRoQeEZ9NgfRg1PEwp5GYSmXtFd+oNOJf6qynj49wgzY
+ 4+n+8usjq+jmajKBCBRXxZwfbJ1Dgv3jFwlMp/WU7Hwo87RDeNDrbtSt+JlWHBXq7dF2GLF8t1m
+ SbYyyxj/3cx3cZjWXU15s0wHdWXQLdsgTZcpEMzuZ1qFYmct4UBVqKZZ+/In8kCx9KHzgEbraY5
+ qqqsvp/lPJFyiBzeiBw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_03,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
+ spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609020111
 
-Hi Mark,
+Initialize the return value once and use a single exit path in
+find_primary_domain_index().
 
-Thanks for the report.
+This is a small cleanup that keeps the existing behavior unchanged while
+making the control flow easier to follow.
 
->
-> /tmp/next/build/drivers/gpio/gpio-altera.c: In function 'altera_gpio_probe':
-> /tmp/next/build/drivers/gpio/gpio-altera.c:224:21: error: 'irq' undeclared (first use in this function); did you mean 'girq'?
->   224 |                 if (irq != -ENXIO)
->       |                     ^~~
->       |                     girq
->
+Signed-off-by: Srikar Dronamraju <srikar@linux.ibm.com>
+---
+Changelog from v1:
+- Handle comments from Christophe Leroy
 
-This was my mistake.
-This issue was caused by using 'irq' instead of 'mapped_irq' in
-altera_gpio_probe().
-I haven't encountered this situation before. Should I send a v2 with this fix,
-or should I send a separate patch to fix it?
+ arch/powerpc/mm/numa.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-Best regards,
-Phuc
+diff --git a/arch/powerpc/mm/numa.c b/arch/powerpc/mm/numa.c
+index f4cf3ae036de..c44a80d8fc11 100644
+--- a/arch/powerpc/mm/numa.c
++++ b/arch/powerpc/mm/numa.c
+@@ -432,7 +432,7 @@ static void __init initialize_form2_numa_distance_lookup_table(void)
+ 
+ static int __init find_primary_domain_index(void)
+ {
+-	int index;
++	int index = -1;
+ 	struct device_node *root;
+ 
+ 	/*
+@@ -502,12 +502,9 @@ static int __init find_primary_domain_index(void)
+ 		distance_ref_points_depth = MAX_DISTANCE_REF_POINTS;
+ 	}
+ 
+-	of_node_put(root);
+-	return index;
+-
+ err:
+ 	of_node_put(root);
+-	return -1;
++	return index;
+ }
+ 
+ static void __init get_n_mem_cells(int *n_addr_cells, int *n_size_cells)
+-- 
+2.43.7
+
