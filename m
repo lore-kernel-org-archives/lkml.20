@@ -1,173 +1,85 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99856466B5E;
-	Wed,  2 Sep 2026 14:09:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1ED4390239;
+	Wed,  2 Sep 2026 14:09:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788358159; cv=none; b=riw+5/yadSIyTiLxd7mdd8129aukcaiSV03QkzqTiXwN0XOPfueldIi9/zHXUsTiQv4Rh+8tZPMmibqA3PiwEuumPGMbAuVq6KF11k73LKWwyNTCa8/WhK1Vq9ybj7TSUg6BUlyCh4jNSBG2SaVkFOMCMLxcXDeM1TvY7ijFrec=
+	t=1788358185; cv=none; b=s+qFpmzjh6FwhS/LS961IQ5dQemFJUgqSv+6MVUXqPn2Ep2qHStvlD+7yRdKrfjEpxA7d/1id7gRNwdNX7/nJ+dmivtzLHM7/+4RaUKPN7zIHHswM9MtpSIZ4WmTLSuNtUrwLuZfusMAFh4vlnPBc8EDFElhweJ61lEBAYLbNVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788358159; c=relaxed/simple;
-	bh=7tzFnLeuCNh6d1Tt5dOYgeiFrwOMyGhNN2JcJtUcOiA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=E8RW5KtAbAhtIjUW3pa7RaD/P8YPLtIYl1S/BaZ4AmSMr2rNEGSC8yexEv3zQkyc4HbYgxkz0uK29XJBXM0rnXwK6T0BVoe4ubtS1DelcLG79xEWoPuu2RaTC0HGXm3Qd7ZVXaXWkTAGzQkynVUwZZIUcnMC8ECbV8dg/0zYbGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=x/emDrI4; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Qx8VgQgS; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=Cgs0VaoI; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=t1MCUFJf; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788358185; c=relaxed/simple;
+	bh=hwznEtLz9at2KrCUuawHk7lHioFcA3JjBccZlI0G948=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RVR1f0oEnxYAUMsVXY6BWnnUwMz49Zc7NAPCTWbkUnRiU/xrdw8QeIttjSZhBJ+Ech7Z9sKLpi9IEZNcXOcM0FXFz+m1M9NbJPzJdKYjeoaaBUIVJmyRuufpw/RTnoibHW6YpyRLF6BWJSVzWRwdj2/YSTci9EdVaajtzT/JwKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=STnxJlrY; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="x/emDrI4";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Qx8VgQgS";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="Cgs0VaoI";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="t1MCUFJf"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 727FA1F7B8;
-	Wed,  2 Sep 2026 14:09:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788358151; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nYGWPd2K+k2Qr533mg2/G9mae98f60x3t/mYInIYMb0=;
-	b=x/emDrI4OAiuAeKf9rvzNuMzIs7eDMweNhgR7fqKWP30R8PWXlWVX48nXaq+EiCcRCAdOk
-	jRjGO183APAhHUiDg814SM+E0S9Rxlrvdoo/SlEnpVpPlYtppRtp406XCc/vWlGR5Xw+dt
-	dKQ5NgWcpvmGVWh2OCwNkJp6ROxCFHw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788358151;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nYGWPd2K+k2Qr533mg2/G9mae98f60x3t/mYInIYMb0=;
-	b=Qx8VgQgSLCrMUjJjMO1MSq86qzNxpCnhB0z3vlDbd2xvlToO85xQG6PQKuRGQLKMoORx6+
-	2WktN5ImvPvGr9Ag==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788358147; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nYGWPd2K+k2Qr533mg2/G9mae98f60x3t/mYInIYMb0=;
-	b=Cgs0VaoICclzTWhnWgRUmLtrv/QIKn/UKJlz7Sp97qicImDkXPHpVvKjGB7Nf9Da8hkPqi
-	4tDvstoGbnCBSmhmXWVj0Rg64UoQ2Vo0dzaXgW9TWfXEDO7WmGI1KLMo+jqFEmSMjGCZRs
-	gE4grOG46UUaG5iZqmjvKNQDdhLXy5k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788358147;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=nYGWPd2K+k2Qr533mg2/G9mae98f60x3t/mYInIYMb0=;
-	b=t1MCUFJfJOE4ET0tExaDnSlukzPKkWGcG9bptkTFp4g/VrbEd4obMcgyj6LkxYk0rzFfXU
-	frVM7COPbeGzMpBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1752E136E6;
-	Wed,  2 Sep 2026 14:09:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id F2vnBAMumGq6AQAAD6G6ig
-	(envelope-from <hare@suse.de>); Wed, 02 Sep 2026 14:09:07 +0000
-Message-ID: <c7fc92de-7196-4af2-acb8-fe849af70754@suse.de>
-Date: Wed, 2 Sep 2026 16:09:06 +0200
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="STnxJlrY"
+Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4c47d4e66;
+	Wed, 2 Sep 2026 22:09:34 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Ulf Hansson <ulfh@kernel.org>
+Cc: linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] mmc: sh_mmcif: initialize IRQ-thread mutex before requesting interrupt
+Date: Wed,  2 Sep 2026 22:09:26 +0800
+Message-Id: <20260902140926.3576781-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/7] block: fail atomic writes instead of falling back
- to buffered I/O
-To: Tal Zussman <tz2294@columbia.edu>, Jens Axboe <axboe@kernel.dk>,
- Christoph Hellwig <hch@lst.de>,
- Johannes Thumshirn <johannes.thumshirn@wdc.com>,
- Luis Chamberlain <mcgrof@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- John Garry <john.g.garry@oracle.com>, Christian Brauner
- <brauner@kernel.org>, "Darrick J. Wong" <djwong@kernel.org>,
- Keith Busch <kbusch@kernel.org>,
- "Martin K. Petersen" <martin.petersen@oracle.com>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>
-References: <20260828-blkdev-fixes-v2-0-32f3f40cebed@columbia.edu>
- <20260828-blkdev-fixes-v2-5-32f3f40cebed@columbia.edu>
-Content-Language: en-US
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20260828-blkdev-fixes-v2-5-32f3f40cebed@columbia.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spam-Level: 
-X-Spam-Score: -4.30
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-4.30 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.993];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[columbia.edu:email,imap1.dmz-prg2.suse.org:helo,suse.de:email,suse.de:mid]
+X-HM-Tid: 0aa06274269103a1kunmc427f4561ad27c
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZH0wfVh8aH08fSh0ZQ0JDT1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
+	xVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=STnxJlrYaprVQet6E8MpyhvyWvOQRi7r7aEZY5pMAw1sP1Raw/frzxfzu5UWKA6sBE+zY8qiFR2ev/Rvu1TqhN9g9arf6c9yb4kFVn9hPINnTDZN3J+NyqcGG3EggICdQTLS+cuuxbiUDVC20baLnHOxX0c/CfVa0yHphH1xAWM=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
+	bh=gyRX29A6v4W3vpaMus1y6buRgYO80vg2lKvJYVXDFcE=;
+	h=date:mime-version:subject:message-id:from;
 
-On 8/28/26 3:49 PM, Tal Zussman wrote:
-> An IOCB_ATOMIC direct write to a block device can silently lose its
-> torn-write guarantee in two ways:
-> 
->    1. blkdev_direct_write() turns an -EBUSY from page cache invalidation
->       into a 0 return, so the whole write is retried through
->       blkdev_buffered_write(), with no atomicity guarantee.
-> 
->    2. On a partial page pin, __blkdev_direct_IO_simple() and
->       __blkdev_direct_IO_async() submit what was pinned with REQ_ATOMIC
->       set and leave the rest to the buffered fallback.
-> 
-> The second case can be triggered deterministically. A 16K
-> pwritev2(RWF_ATOMIC) whose last page is PROT_NONE, on a scsi_debug
-> device with atomic_wr=1, completes short with only three of the four
-> pages written, violating RWF_ATOMIC semantics.
-> 
-> Fail the I/O instead. Return -EAGAIN when page cache invalidation fails
-> for IOCB_ATOMIC rather than retrying through the page cache, matching
-> __iomap_dio_rw(), which treats the failure as transient and lets the
-> caller retry. Release a short atomic pin and return -EFAULT before
-> submission, which is what a direct write already returns when none of
-> the buffer can be pinned. A sync atomic write can then never return
-> short with a remainder, so the buffered fallback is never reached.
-> 
-> ext4 has the same fallback and only warns in it. For block devices both
-> ways in can be detected before any I/O is submitted, so fail early instead.
-> 
-> Fixes: caf336f81b3a ("block: Add fops atomic write support")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://sashiko.dev/#/patchset/20260802-blkdev-fixes-v1-0-a82fc549fd74%40columbia.edu?part=2
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
-> ---
->   block/fops.c | 21 ++++++++++++++++++++-
->   1 file changed, 20 insertions(+), 1 deletion(-)
-> 
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
+The threaded IRQ handler can run before devm_request_threaded_irq()
+returns, but thread_lock was initialized afterwards. Initialize it before
+requesting either interrupt.
 
-Cheers,
+Fixes: 8047310ee984 ("mmc: sh_mmcif: fix a race, causing an Oops on SMP")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:GPT-5
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/mmc/host/sh_mmcif.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Hannes
+diff --git a/drivers/mmc/host/sh_mmcif.c b/drivers/mmc/host/sh_mmcif.c
+index 7706d01b1..8bd9cdeda 100644
+--- a/drivers/mmc/host/sh_mmcif.c
++++ b/drivers/mmc/host/sh_mmcif.c
+@@ -1461,6 +1461,7 @@ static int sh_mmcif_probe(struct platform_device *pdev)
+ 	host->pd = pdev;
+ 
+ 	spin_lock_init(&host->lock);
++	mutex_init(&host->thread_lock);
+ 
+ 	mmc->ops = &sh_mmcif_ops;
+ 	sh_mmcif_init_ocr(host);
+@@ -1515,8 +1516,6 @@ static int sh_mmcif_probe(struct platform_device *pdev)
+ 			goto err_clk;
+ 	}
+ 
+-	mutex_init(&host->thread_lock);
+-
+ 	ret = mmc_add_host(mmc);
+ 	if (ret < 0)
+ 		goto err_clk;
 -- 
-Dr. Hannes Reinecke                  Kernel Storage Architect
-hare@suse.de                                +49 911 74053 688
-SUSE Software Solutions GmbH, Frankenstr. 146, 90461 Nürnberg
-HRB 36809 (AG Nürnberg), GF: I. Totev, A. McDonald, W. Knoblich
+2.34.1
+
