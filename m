@@ -1,145 +1,105 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F23A94AA1F7
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:25:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E5F4AA039;
+	Wed,  2 Sep 2026 16:26:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366346; cv=none; b=oUXYGBvU7qhiXxxHB8oWkrs1j6OnJfLh82WwBPmHMu6T48gEwnXE/ipDMeHQuD3iG39V+Qdsan3q2OciBmkduDoOsk2lsihQVGvqOrJGqU3HbUFbIdcsmVjaRQjeWguyRQAA+pyjVKuUHZc0n8McOxEUYiXbS3oBL7uyYVDKRRA=
+	t=1788366389; cv=none; b=k4VQN1qaU5slhTWxL4fGliR2c5NPsecEWgJ50nDV2JWaurFbGUu6eGQZVg5121x7ZN9x9vF2BmOlAvV2bcu+BPsoju8m5Hrqsl3dNgqyfiqEp6M+WsJrMEQ8O1yxvttNt3i2mntJMUM7wM0G3PopnV2NldsP3+y1v8C3s910iiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366346; c=relaxed/simple;
-	bh=1Z3GQKCMUt7wjBc4m3btWBP05mXDrGpjwi2G7bpVaVw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m6jsBEck9ZftjfUAZPdrg0gmooFpGN6K/1z9hyFJXzuGAmI6qiPaEY49pzkI9ToVMg9yH/uRBHAZfKJwzGF8YuICJepHTwERCpH/Yx5Wjd7zj7DyL5VTqBFIbX962soZ3dgRKGp8nWqSgNg2XqxYMOhLu1aj/1k8tZVN1Hgq9rM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=f5MK+5fz; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788366389; c=relaxed/simple;
+	bh=b1eWT7fYh/w6UUowPAHO0yzueW1k/PMN6343GWU/3lM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mw5RA2GyrXllVmo989hQOb6Z6/lR6HLy2xxJXq4+x2ixFQchDQvDr+zX+trV/QNk+4VWoHtaLofF8JoU28LrWAIhjr7Dk6qkjEUDZeydIKB6LWQaQZG3qxZxAkdN9vNWcZXW2iimnLWvZkzcVq2s8hVjpP/OVAfJF4xNdQO8aXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nxZ4exiJ; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="f5MK+5fz"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff390a6aso58405ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:25:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788366344; x=1788971144; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TCqwcYRPzd1U+BFCtrZTS26QV4hmjeNAm4yYU+A/ltI=;
-        b=f5MK+5fzD4cxhzGiwGEi1yAIBrFptiyDhjX14SPsnWJbUhXMUQMN355An0hubpNfNJ
-         2eFf55gqnfM/7OV3/j7nQYkiXwlW2zwyzqdMCh/TtegGRWuhN10zNXMtUpNgO0Uo2aKb
-         xwup75I5v7CMnx06xE8vdKQjWtGw9KRPxhXixFGu6G1pNJ3uU6Ev1N/TeVZuHl43brGV
-         eD9Bs+YPIrEx6AA+nCGPq4gXHvvFR4T3bjqPXlE2KYw4FUM9Jldi1alOy+8BgpJ61oLY
-         OWxcUCvMgoJLLIXxdOKars3G3zMC9yypmQSgD2ZRpPaEe6sdQdAxFmZF9bFOt/wThuXa
-         w+jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788366344; x=1788971144;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TCqwcYRPzd1U+BFCtrZTS26QV4hmjeNAm4yYU+A/ltI=;
-        b=Z9zTV8EMILYLCughHkfToHF2J5eYUajUTvPaf3MZyReUjnZIEeIkkeMUk6ahI0qTKi
-         njLDOzHw0GG8ZEKkmF7+f6864ZqvxqpH+Yr14crrf5I0dkq1LA87v2Q2K7nXPJoFZpQp
-         zptAdD31BCpOSjvyBZpf7x8NXitHpUolzTByRK6UmsaS5f3cn6GiCUefm3Ob8y05LbIG
-         UpzRmwIDSdDdw5y2wdM1r05tT0r2Q/YZLCyJT/CT4wFKO8AHWiXGBXH/VyhN/H4n+OEh
-         VBuJcBkGI6nA+i+Pd2rzNcjqjGgkwecOtfJqQfarw5voflIsuIGtzfq+O/Y7JmQdvD0R
-         xSbA==
-X-Forwarded-Encrypted: i=1; AKwUvBwQyo/znAkZr9d7UIKzIbHOaLhhe7/OBvICyFBKZVxmiLc+oabt6DH7dsFSHXHoJFEfcZA06kK8XgrsZ3Y=@vger.kernel.org
-X-Gm-Message-State: AFuF++lHIuMQibncpRlqXuM5dSPSZpH1PKkaRPihO6+VAIkqrz7b8RpX
-	8BY72vg2dTdTESO2rWABhCA/xWO2NAknl8PMtdAIqeat2RlyvieLLKI79Qi9L1MZSg==
-X-Gm-Gg: AYBFou3veeZH1P4DU0l0D93/zdwjLnSPG5FbVwWX1yjfjUX2PnVNK4lcHfWoeLECKt0
-	4pgYSiWullkJETI/Cch7oANj4iWJ+y2712Z9eODSiakEAyAQ2oW4l/cJM0PQxeHLJmvGxnPZ+6y
-	ou5gg8SmwwPF2SYeOcJmm6VLWyFXyKZ5R5Trl5wVTc66jNaFKsSuLjcffNHweSLkUyWZlUTG8LF
-	U5w6CUE+vVA7+Czu2ipkkl191vMq1JR4iqTOhxXBlqSBeVpyl6Mo27Mb6CAUmOknjNKpcf1zAA3
-	WAV5fTlZRBEztuOhlKxJEqXQonopQx1t5N7DmQ7t8ytWv6Oo8c1b1HZUx8U8ZVnQV6nSnCtjjhB
-	9mZypelQFWYUP5GaJHZUgBj1yj17GPDc5exw5nyUPKGsrt0jhI3EJ4/M/lVAkyxm5GXjhp/W22P
-	sopt1WDQOZEzLUlCOHzsLhGBgetwgijDI5tai0Ocd8RsLMVSkC67d8N74WR7pAvxaWiaaxOyBdm
-	Tt8n65YADUY5NXpHG1T0VxJbzjkmZY2iFi4tphLRVPyHdodWkQ0uBL3pmHVzcjGqg92UNLZF16R
-	L8tslEo=
-X-Received: by 2002:a17:903:3850:b0:2cf:4353:f117 with SMTP id d9443c01a7336-2daf6818323mr2846895ad.0.1788366343483;
-        Wed, 02 Sep 2026 09:25:43 -0700 (PDT)
-Received: from google.com (193.67.125.34.bc.googleusercontent.com. [34.125.67.193])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dadd3ad8easm15768155ad.36.2026.09.02.09.25.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 09:25:42 -0700 (PDT)
-Date: Wed, 2 Sep 2026 16:25:39 +0000
-From: Carlos Llamas <cmllamas@google.com>
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Arve =?iso-8859-1?B?SGr4bm5lduVn?= <arve@android.com>,
-	Todd Kjos <tkjos@android.com>,
-	Christian Brauner <brauner@kernel.org>, kernel-team@android.com,
-	linux-kernel@vger.kernel.org,
-	Suren Baghdasaryan <surenb@google.com>, stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v4 5/7] binder: check vma->vm_start in binder_vma_close()
-Message-ID: <aphOAx2CINlw3m6Y@google.com>
-References: <20260901205250.1638304-1-cmllamas@google.com>
- <20260901205250.1638304-6-cmllamas@google.com>
- <apgbjOsfn4oFMmAC@google.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nxZ4exiJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788366387; x=1819902387;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=b1eWT7fYh/w6UUowPAHO0yzueW1k/PMN6343GWU/3lM=;
+  b=nxZ4exiJ4Qp7THoWmFNnN1S+5emVlrQE+CLZNbiG/Tmd7Ch1rPlOr6kb
+   gTz8jsqZ08vLXJCiK2QOwZrnZp1XjPklRwDv+VHVoDzOHBow3OA7q15if
+   pID23NEUIKicDjU7o0KzpQqtxpdlBkDTgb/l8E8tRcy5F2NGaoVnkobXx
+   fgowmEn0I8z8TNqxSmj5EoFaoLk8mQd1N2rg2DvesKqNSuZ5rfHAf1BWc
+   BJnvxVPUAIBxi/M47ASbhOk1kuFqm5ZzOtX2bLgY+yF7bPcddJHHbGerd
+   2czbezUn2c+2G1LRH/2/oEmdPtgcerN1Hsek+CddwIhJvMbZnT9pgz2D8
+   g==;
+X-CSE-ConnectionGUID: jjWVwZfxRmqkQzBW1bAIKw==
+X-CSE-MsgGUID: gHewxnR7Qd613uXfcRkGtg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="100185525"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="100185525"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 09:26:26 -0700
+X-CSE-ConnectionGUID: nnJytENaQZW43E/puGQ36A==
+X-CSE-MsgGUID: aX22XWNlQzC2sO6IoPN0QA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="307667717"
+Received: from binbinwu-mobl.ccr.corp.intel.com (HELO [10.124.245.162]) ([10.124.245.162])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 09:26:23 -0700
+Message-ID: <d1521557-8bb4-47e1-8750-9e4832f382be@linux.intel.com>
+Date: Thu, 3 Sep 2026 00:26:21 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apgbjOsfn4oFMmAC@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/4] KVM: TDX: Validate directly configurable CPUID
+ bits
+To: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>,
+ "Li, Xiaoyao" <xiaoyao.li@intel.com>,
+ "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: "andrew.cooper3@citrix.com" <andrew.cooper3@citrix.com>,
+ "pbonzini@redhat.com" <pbonzini@redhat.com>,
+ "nik.borisov@suse.com" <nik.borisov@suse.com>,
+ "kas@kernel.org" <kas@kernel.org>, "seanjc@google.com" <seanjc@google.com>,
+ "Gao, Chao" <chao.gao@intel.com>,
+ "dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>
+References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
+ <e2f8f7976ac6a54e0bbda0e65ed9990940d9fef3.camel@intel.com>
+ <d2efe512-e4fe-407f-96a8-b274fef23382@linux.intel.com>
+ <6f8f2c59-3336-4ed8-837f-57cb706ece30@intel.com>
+ <69c42183261acb4150961cabf6318b92765b6562.camel@intel.com>
+ <91c9e314-6b92-4f90-a2df-ed21104f84bc@intel.com>
+ <e4b9509c4e4b91277a30f88cb7ca76c8ba016997.camel@intel.com>
+Content-Language: en-US
+From: Binbin Wu <binbin.wu@linux.intel.com>
+In-Reply-To: <e4b9509c4e4b91277a30f88cb7ca76c8ba016997.camel@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 02, 2026 at 12:50:20PM +0000, Alice Ryhl wrote:
-> On Tue, Sep 01, 2026 at 08:52:45PM +0000, Carlos Llamas wrote:
-> > Certain operations like a failed mremap() might trigger vm_ops->close()
-> > on temporary mappings. To avoid tearing-down the main binder mapping on
-> > these, let's verify that the VMA matches the expected starting address.
-> > 
-> > Cc: stable@vger.kernel.org
-> > Fixes: 457b9a6f09f0 ("Staging: android: add binder driver")
-> > Reported-by: Sashiko <sashiko-bot@kernel.org>
-> > Closes: https://sashiko.dev/#/patchset/20260831224145.169403-1-cmllamas@google.com?part=1
-> > Signed-off-by: Carlos Llamas <cmllamas@google.com>
-> > ---
-> >  drivers/android/binder.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> > 
-> > diff --git a/drivers/android/binder.c b/drivers/android/binder.c
-> > index 185128577829..3d359490436e 100644
-> > --- a/drivers/android/binder.c
-> > +++ b/drivers/android/binder.c
-> > @@ -6018,6 +6018,9 @@ static void binder_vma_close(struct vm_area_struct *vma)
-> >  {
-> >  	struct binder_proc *proc = vma->vm_private_data;
-> >  
-> > +	if (vma->vm_start != proc->alloc.vm_start)
-> > +		return;
+On 9/2/2026 9:13 PM, Edgecombe, Rick P wrote:
+> On Wed, 2026-09-02 at 18:29 +0800, Xiaoyao Li wrote:
+>> So the proposal is making TDX behave as if the relevant VMCS save/load 
+>> controls (if any) are set around TDH.VP.ENTER.
+>>
+>> In fact, what matters for host vmm is just the VM_EXIT_LOAD_XXX control. 
+>> So the proposal becomes "If there is VM_EXIT_LOAD_XXX control for a 
+>> state, TDX needs to restore the host state after TDH.VP.ENTER. If no 
+>> such contorl, TDX sets the state to INIT state after TDH.VP.ENTER".
+>>
+>> It's a fancy idea. And it provides a clear rule of how TDX handles 
+>> states of a feature so that host VMM developers don't need to read the 
+>> TDX module API to figure out what's the value of a state after TDH.VP.ENTER.
+>>
+>> It's helpful for host VMM developers, though I'm not sure on TDX module 
+>> developers.
 > 
-> So .. this does work in the case of mremap, but how about instead doing
-> this?
+> I don't think they have agreed to it yet (Binbin?), 
+
+Not yet. We just brought the topic to the community for discussion first.
+
+> but I think it mostly works
+> this way already. Why do you think it is a burden on TDX module developers?
 > 
-> static int binder_mremap(struct vm_area_struct *vma)
-> {
-> 	vma->vm_private_data = NULL;
-> 	return -EINVAL;
-> }
-> 
-> and then check for NULL in binder_vma_close() instead? I think that
-> logic would be a bit easier to understand.
-
-Yeah, I agree that is easier to read. However, not all exit paths that
-close a copied vma actually call op->mremap(). We would miss those and
-accidentally brick binder.
-
-Maybe I should add a comment to the check, so that is easier to read?
-
-	/* 
-	 * Ignore temporary vma copies from aborted operations (e.g.
-	 * mremap). Only tear-down the original VMA with the expected
-	 * starting address.
-	 */
-	 if (vma->vm_start != proc->alloc.vm_start)
-	 	return;
-
-Would that work?
-
---
-Carlos Llamas
+> Also, I think this can be the guideline. We could have exceptions.
 
