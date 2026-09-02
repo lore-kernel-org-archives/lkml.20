@@ -1,152 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-6.mta0.migadu.com [91.218.175.6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF4773290AF;
-	Wed,  2 Sep 2026 01:30:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8849F2F3C18
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 01:32:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788312657; cv=none; b=hXnVyVuuqja6G0gdbD17Oj16eE7MdWNRD8xM5GXUttNZsdvJdbGTRlbbIbyjUTUFgvbuCxEg2/EmPdLvmh9pwyRNm/zrQxX2s5cKLNbAae1YN9LFQBJHjxROR7bcV8KQ0eRbRREofJo5JhzkGWhlhZMjYIri9KXVoYvuqjP3QrI=
+	t=1788312745; cv=none; b=kssJOE0QZ9XtVPkGHHi5YVY5vwnWsSfb6YU2tVRCaIAs60xULlmWzEGjkTNF6ecTrMEZVNGXxt2Ktl7fx6wYU+QMM8wdU3j90xNh1h+3OaW6KOMyRvux8nxZP1imuGjbZcneVezlsgZ3bMVhgUedHDt7SqV2Iz5GOD1txRjq1Ek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788312657; c=relaxed/simple;
-	bh=1LFvGAlJvQYRB2Qe5YT3TZoW2p4vS6hQvr0tOn8s+GY=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=OUP9ZlTVWfJpr6Qa9yC3kHoFElJEBW7ZrW7GEV1Elf5I5P21Cqk8QAxGaEipZtd9X+o/VlmvaCyLLOpK0wSGnW8ZRLK84zK4JAdIFc/I3yXTcJ7IKiKd3Jv9lnXuwIAM3jqY9dbf916ups70F9uCvSHKAXMT8tR5jFe+dhdrElA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k0RO2uW7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788312745; c=relaxed/simple;
+	bh=xr2waKu/aOUVGC/LzBTXf6pBIZkaxBB75MdukW+kuyY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=m+Rsu91wDZQEyyCwwwVXu3jpKcfzAl42DETm71vv4YJqwrCbySba0Kx72vp3CiQdiHlZiIrwd8gH0YLw5ftkkNTUtlOvIdBfKqeJ683rcPbaXy+nkHOhD2z5javSg9HF4XkM8XdchgdkyIBSIM/2oglFarYFapEuq2W91SwO27w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=cbRGl5hP; arc=none smtp.client-ip=91.218.175.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k0RO2uW7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6927B1F000E9;
-	Wed,  2 Sep 2026 01:30:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788312655;
-	bh=upflwmhIkzbTAXcF1Nqhwa5DA7BS5duawjtQhsEzpXk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=k0RO2uW7SCCJjXJVtS4XGEMIRgC6mrQXEfhPOsk+Z1CioFZT94BnHH1WdHsFsPx/Q
-	 8gyZatRyshWZOIWTwsWDgf3R5dhV1Yu24+lh5rKR7gxpnbRKwBcfygbdF+HmrRa2hj
-	 1bIBjurKZDTiAYsIQFuWZ5sKWHKKIhYd/YFUZHjqitt4MY6L4XmgRx5WkoBwNd4fhS
-	 xD8Knx4SnuBp0JN++cpz27x2Mlaq22qF33nN1zn0ngnski3AI2kIbnzFMf8NyFauYe
-	 IsTEqGMlvFIVLqd/ts6MnFtX3WoaRByAyAd8gpo1WFgoFdOyT8BdjixklaUGZ0m+Vr
-	 H+m/OdASiOdkw==
-Date: Wed, 2 Sep 2026 10:30:49 +0900
-From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Peter Zijlstra
- <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, x86@kernel.org,
- Jinchao Wang <wangjinchao600@gmail.com>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Thomas Gleixner <tglx@linutronix.de>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- "H . Peter Anvin" <hpa@zytor.com>, Alexander Shishkin
- <alexander.shishkin@linux.intel.com>, Ian Rogers <irogers@google.com>,
- linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-perf-users@vger.kernel.org
-Subject: Re: [PATCH v14 03/14] kprobes: Protect kprobe_blacklist with RCU
-Message-Id: <20260902103049.78b8a90f58ddfcc89db71237@kernel.org>
-In-Reply-To: <178810004323.64882.16493230858653316962.stgit@devnote2>
-References: <178810001186.64882.2161016469449127450.stgit@devnote2>
-	<178810004323.64882.16493230858653316962.stgit@devnote2>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="cbRGl5hP"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=xr2waKu/aOUVGC/LzBTXf6pBIZkaxBB75MdukW+kuyY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788312741; v=1; x=1788917541;
+ b=cbRGl5hPa7AXBZEpiO7V8Hmc92tDKpOIGmKJaYLFk5yvYEMNENqyOaCavtTa1IA4uXyK/qhP
+ MS+bIXx3+v/n20B5qDmgX6sY7MrL5lZWWyZQ6JJJxSmsbpRVP8GI0i2sD7Grn2Qrywsj5WDNTBO
+ ieR+hOqmaZt461Vgkg0dMPh0=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id bab200725cdee734;
+	Wed, 02 Sep 2026 01:32:21 +0000
+X-Mizu-Trace-ID: bab200725cdee734
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 2 Sep 2026 09:32:10 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Qianheng Peng <pengqh1@chinatelecom.cn>
+Cc: broonie@kernel.org, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, liuhangbin@gmail.com, rbm@suse.com,
+	shuah@kernel.org, skhan@linuxfoundation.org
+Subject: Re: [PATCH] selftests: runner.sh: avoid overriding
+ kselftest_cmd_args with empty variable
+Message-ID: <apd8mqEoyk8_O8ar@fedora>
+References: <apae5q5R546M6283@fedora>
+ <20260901120722.1875597-1-pengqh1@chinatelecom.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901120722.1875597-1-pengqh1@chinatelecom.cn>
 
-On Sun, 30 Aug 2026 23:27:23 +0900
-"Masami Hiramatsu (Google)" <mhiramat@kernel.org> wrote:
-
-> From: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+On Tue, Sep 01, 2026 at 08:07:22PM +0800, Qianheng Peng wrote:
+> Hi Hangbin,
+> On Tue, 1 Sep 2026 17:46:14, Hangbin Liu wrote:
+> >Hi Qianheng
+> >On Tue, Sep 01, 2026 at 10:44:52AM +0800, Qianheng Peng wrote:
+> >> On Tue, 14 Jul 2026 14:34:43, Qianheng Peng wrote:
+> >> >Normally the value of kselftest_cmd_args can be read from settings file,
+> >> >but it will be overridden by KSELFTEST_TEST_KMOD_SH_ARGS which can be
+> >> >empty if user did not give it a real value.So it should be better to
+> >> >check if KSELFTEST_TEST_KMOD_SH_ARGS is emty before referring its
+> >> >value to kselftest_cmd_args.
+> >
+> >Where does KSELFTEST_TEST_KMOD_SH_ARGS from? kmod testing? If yes,
+> >can we fix it there?
 > 
-> __within_kprobe_blacklist() traverses kprobe_blacklist without holding
-> kprobe_mutex. When a module is unloaded, kprobe_remove_area_blacklist()
-> removes blacklist entries and immediately frees them with kfree().
-> A concurrent call to within_kprobe_blacklist() can therefore dereference
-> freed memory.
-> 
-> Furthermore, within_kprobe_blacklist() can be called in atomic or
-> non-preemptible contexts where the sleeping kprobe_mutex cannot be taken.
-> 
-> Protect kprobe_blacklist with RCU. Use guard(rcu)() and
-> list_for_each_entry_rcu() for traversal, list_add_tail_rcu() for
-> insertions, list_del_rcu() for deletions, and kfree_rcu() to reclaim
-> entries safely after a grace period.
+> Sorry for my confusing commit message and poor English.
+> In fact the problem is not KSELFTEST_TEST_KMOD_SH_ARGS but empty
+> kselftest_cmd_args_ref.
+> If user does not export "KSELFTEST_${BASENAME_SANITIZED}_ARGS" (the
+> ${BASENAME_SANITIZED} here can be anything like KMOD or RTCTEST) explicitly,
+> kselftest_cmd_args_ref will be empty by default and override kselftest_cmd_args.
+> So this patch will check whether kselftest_cmd_args_ref is empty before
+> starting one test.
 
-I realized this is required even without wprobe. So let me take this
-as a stable fix with following tags.
+Oh, I see what you mean now.
 
-Fixes: 376e242429bf ("kprobes: Introduce NOKPROBE_SYMBOL() macro to maintain kprobes blacklist")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260807155802.F06041F000E9@smtp.kernel.org/
+	kselftest_cmd_args_ref="KSELFTEST_${BASENAME_SANITIZED}_ARGS"
 
-Thanks,
+This is used to retrieve parameters for a *specific* test. When a test does not
+require extra parameters, `KSELFTEST_${BASENAME_SANITIZED}_ARGS` is not set.
+This has the same effect as when a user exports it but does not assign a value.
 
-> 
-> Assisted-by: Antigravity:gemini-3.7-flash
-> Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-> ---
-> Changes in v13:
->  - Newly added.
-> ---
->  include/linux/kprobes.h |    1 +
->  kernel/kprobes.c        |   14 ++++++++++----
->  2 files changed, 11 insertions(+), 4 deletions(-)
-> 
-> diff --git a/include/linux/kprobes.h b/include/linux/kprobes.h
-> index 8c4f3bb24429..e6de7ae55bda 100644
-> --- a/include/linux/kprobes.h
-> +++ b/include/linux/kprobes.h
-> @@ -181,6 +181,7 @@ struct kprobe_blacklist_entry {
->  	struct list_head list;
->  	unsigned long start_addr;
->  	unsigned long end_addr;
-> +	struct rcu_head rcu;
->  };
->  
->  #ifdef CONFIG_KPROBES
-> diff --git a/kernel/kprobes.c b/kernel/kprobes.c
-> index bfc89083daa9..6337da5cab9e 100644
-> --- a/kernel/kprobes.c
-> +++ b/kernel/kprobes.c
-> @@ -1447,8 +1447,14 @@ static bool __within_kprobe_blacklist(unsigned long addr)
->  	/*
->  	 * If 'kprobe_blacklist' is defined, check the address and
->  	 * reject any probe registration in the prohibited area.
-> +	 * Note: this can return true during transition period where
-> +	 * (start_addr, end_addr) in the black list is shrinking
-> +	 * but old entry has not been removed yet. This is acceptable
-> +	 * because the worst case is that we reject more probes than
-> +	 * we should.
->  	 */
-> -	list_for_each_entry(ent, &kprobe_blacklist, list) {
-> +	guard(rcu)();
-> +	list_for_each_entry_rcu(ent, &kprobe_blacklist, list) {
->  		if (addr >= ent->start_addr && addr < ent->end_addr)
->  			return true;
->  	}
-> @@ -2509,7 +2515,7 @@ int kprobe_add_ksym_blacklist(unsigned long entry)
->  	ent->start_addr = entry;
->  	ent->end_addr = entry + size;
->  	INIT_LIST_HEAD(&ent->list);
-> -	list_add_tail(&ent->list, &kprobe_blacklist);
-> +	list_add_tail_rcu(&ent->list, &kprobe_blacklist);
->  
->  	return (int)size;
->  }
-> @@ -2603,8 +2609,8 @@ static void kprobe_remove_area_blacklist(unsigned long start, unsigned long end)
->  	list_for_each_entry_safe(ent, n, &kprobe_blacklist, list) {
->  		if (ent->start_addr < start || ent->start_addr >= end)
->  			continue;
-> -		list_del(&ent->list);
-> -		kfree(ent);
-> +		list_del_rcu(&ent->list);
-> +		kfree_rcu(ent, rcu);
->  	}
->  }
->  
-> 
+Therefore, I do not think we need to add a check for this case. Users should
+understand the semantics when exporting the `KSELFTEST_${BASENAME_SANITIZED}_ARGS`
+variable.
 
-
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Thanks
+Hangbin
