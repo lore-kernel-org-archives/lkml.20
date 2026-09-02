@@ -1,203 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012057.outbound.protection.outlook.com [40.93.195.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01F333D34AC;
-	Wed,  2 Sep 2026 16:39:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788367170; cv=none; b=O/femh1NiqmQookI3drO/0ICSH5p34eG7EBRWXvLlvod/w2DgfDIjTSXpKW0ilM59zsJIe8B0+DrsnGHQRVam/GWd3TGu/OwBnjsc7tpTZYZHdr5mfdDPdd/HzDm0NPTPfIoorKtV7jVE0wd96YkgEYAymkK6Hgr79MeLKHL4Fs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788367170; c=relaxed/simple;
-	bh=Db3awz/KbnLfwISKxnK4Ng7LXl9bS23HPK6EwyZQFqM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=EWy8bZN5i4v9uXPA3t8barEeHDtM9oce/jK+KPhiKB6zUuV3f/mvzgKUDtUSMQRQdNFWXqB1NbOp+Bbzuav0oZnii9A6H/b0qsbYKcmKHiK/ixSUJTYBcYejD3LpDwXCMGoi8bvOXvxg0gQMtNWRC3TMyTWxr5nor4QcL74w/Ho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LDQvRkCf; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBFB44A99DF;
+	Wed,  2 Sep 2026 16:40:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.57
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788367256; cv=fail; b=ev84+evq7yaV8h/BhKCSZQjIifY58vP86XXF4EJD0Ic/gANNLd9BmY6mpa4yIZuiZMG/LD+K3cowm5DWyNxHiSvTh0KyMAHcMIKZX7vm3xzdLcGx/OkANwL7gred1e7Q5llnc0D49glBH4FqgrZxxdScE1LNqmp49gH2zZIb9/8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788367256; c=relaxed/simple;
+	bh=hqhPpjRaVmYhKRUnAr+fB1Pc7bmpGU+JTLK8oZty6Gg=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=izKQeoZm1t910eLOoQn3dXGXiLvQUfY6Zqnn/UI6p9zYFwNpFMrprQkFl2wNZfYp+x25+xS2fWMisczsG5/5Xgqs8XliVN4BUSANvjXQCqeUJaZaMCN/gydc62CponyCver40/BgJrfIetHhX1HgrVidc+CWlCcAxUrsbptfg+E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=VeZLhMkb; arc=fail smtp.client-ip=40.93.195.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LDQvRkCf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE6161F000E9;
-	Wed,  2 Sep 2026 16:39:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788367167;
-	bh=z0JXN1Qg8SKT1PqQszVSTrjn1xMyP8kvqiPKrKavDZM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=LDQvRkCfft8OKugaNahjcHj8SPwPbh0Lsgz1FJf2bdguoDCEOmR60ruh6hw4HoZ4f
-	 lkWCRjdQ6pdsTbghaNmiDzCl18HInwe4FMqj+Yn/gs4UyhvzpvjVFzE/9H7xOvXSPt
-	 rSl3MVuAjgd1j0lNArjOmMS8VQDPLG55oNCJuzNAj1cQFT3zMs0QEFZSHy5KstIYS4
-	 5oqTIzogNUJSCUe/ib2V9vZ1wo1CNG/jbQar1twhHlw8zr8okeQDvl/JPTNirSKPBp
-	 b+AkHnbQLqcvkPxwgCW4rCWeQ+YKJiNl/76NHbcO8x6lfjduRo0gswP1nCsBMo5qkl
-	 /nmD2hapvphsQ==
-X-Mailer: emacs 31.1 (via feedmail 11-beta-1 I)
-From: Aneesh Kumar K.V <aneesh.kumar@kernel.org>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Nicolin Chen <nicolinc@nvidia.com>, linux-coco@lists.linux.dev,
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Alexey Kardashevskiy <aik@amd.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Dan Williams <dan.j.williams@intel.com>,
-	Joerg Roedel <joro@8bytes.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Pranjal Shrivastava <praan@google.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Samuel Ortiz <sameo@rivosinc.com>,
-	Steven Price <steven.price@arm.com>,
-	Suzuki K Poulose <Suzuki.Poulose@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Xu Yilun <yilun.xu@linux.intel.com>
-Subject: Re: [RFC PATCH v4 03/16] iommu/arm-smmu-v3: Add initial pSMMU realm
- viommu plumbing
-In-Reply-To: <yq5aik4nztdt.fsf@kernel.org>
-References: <20260427085344.941627-1-aneesh.kumar@kernel.org>
- <20260427085344.941627-4-aneesh.kumar@kernel.org>
- <apM6dOHcEI2ztWS0@nvidia.com> <yq5a8q5lz5yn.fsf@kernel.org>
- <yq5aecfdnv4i.fsf@kernel.org> <20260901143445.GC56830@ziepe.ca>
- <yq5a8q5kkoz3.fsf@kernel.org> <20260902121700.GC2890729@ziepe.ca>
- <yq5aik4nztdt.fsf@kernel.org>
-Date: Wed, 02 Sep 2026 22:09:15 +0530
-Message-ID: <yq5aecfbzjyk.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="VeZLhMkb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=S+hqaohlMJT1oRdAMwx8TfvhnQxWhJw8VRobq09qiYlIUZJEDD+bypccTiPSDXfwzlp9mdsGfzYt/LDyYzoCxc5sWJq11W8/KbBh/YZrYW6mkhVuWPpkx74ztdipcFMcVUSolgdM1be34M/ku2bwdNxlCxvmYKkAB7dvlPvHI7ig9IKz4Ugu/UDhGeDR4ZVIwbbStwqPgwFHrm5yAWn17eOhl4DMpxAy5yE30QK12bmlF8wg/UywbjQkwtDtl3pz5sKwiHGjCogp48AUkA8butsQEdv9THsgOT/CrYv48/7be6Ot+uDpD86fdByvTq+BAiJlrEBuYJUjjgl8vKY1Kw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=85zi+zaTAk0vRokq7Evrt6o5/uxPCmllsOROBabQP2c=;
+ b=h6DNZ9Y2oHPLE5IUjcvL1HWiNeA6rzzicky5r46Qaul4MIBHX45EfDtl62S0mNF7MXvQs2TqOD3YVNGlnKzDvCF1ZK5Ef+zbX7Kz3cHpooAWkSFAtNCGO0fF4mr6oSIpxMbYrl0O7A5uuHYKcCqkbCpj0Nulw5yy/mgEAYAFF9OYPTaMDXVA4/JbtbfaQ1sIoaFgKSTco4dRXCQKfvRF/YlTQTbknM+yUWfwGWFob3NweAHlYqVgBAir23BjtdOB/uVjK9TZ1nHa1czhh1xULdW1DZHacSdRUwa9C38LmXuQTYjSOYjRnHWAGT8Sy0hqyG0OZ1Xm/n9MVsFrRmuy4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.118.233) smtp.rcpttodomain=lunn.ch smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=85zi+zaTAk0vRokq7Evrt6o5/uxPCmllsOROBabQP2c=;
+ b=VeZLhMkbogwzl1uhFcnYuMQPA9Ryl7YxT8MpVdNMIQ0fJ4PXiDjADh64/6l91Vg27Ye2e8A4MkXnGQ5A5fan52IbMNpKe0V1D3U79ciiezIs6i5Hv8DB9n2LgnJR7KaPDP72sHTeJ0e7JmS4aiUNIpxpWppzhU146clhMEfjp3dhRhaNjF5+3SaKxv1IWdH7BrgyrkNX/kNJSY/bufvwHtM4vNYLVjXdLlmlIkwIFsl79fYqm95/OPamhLkRErZ/MJZ/hbeL6rzkMFsR9Mkr+pFWR5lt5NPQgZ5qboV6qdduWhOAws73S6PFYwFK9lYt586CgH4mU5NFGkENEc+2xQ==
+Received: from SA1P222CA0077.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:2c1::24)
+ by PH7PR12MB8778.namprd12.prod.outlook.com (2603:10b6:510:26b::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 16:40:42 +0000
+Received: from SN1PEPF000252A4.namprd05.prod.outlook.com
+ (2603:10b6:806:2c1:cafe::72) by SA1P222CA0077.outlook.office365.com
+ (2603:10b6:806:2c1::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
+ Sep 2026 16:40:42 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.118.233)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.118.233 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.118.233; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.118.233) by
+ SN1PEPF000252A4.mail.protection.outlook.com (10.167.242.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 16:40:41 +0000
+Received: from drhqmail203.nvidia.com (10.126.190.182) by mail.nvidia.com
+ (10.127.129.6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
+ 2026 09:40:21 -0700
+Received: from drhqmail202.nvidia.com (10.126.190.181) by
+ drhqmail203.nvidia.com (10.126.190.182) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 2 Sep 2026 09:40:20 -0700
+Received: from vdi.nvidia.com (10.127.8.10) by mail.nvidia.com
+ (10.126.190.181) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Wed, 2 Sep 2026 09:40:15 -0700
+From: Tariq Toukan <tariqt@nvidia.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, <netdev@vger.kernel.org>, Paolo Abeni <pabeni@redhat.com>
+CC: Akiva Goldberger <agoldberger@nvidia.com>, Edward Srouji
+	<edwards@nvidia.com>, Gal Pressman <gal@nvidia.com>, Kees Cook
+	<kees@kernel.org>, Leon Romanovsky <leon@kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-rdma@vger.kernel.org>, Maher Sanalla
+	<msanalla@nvidia.com>, Mark Bloch <mbloch@nvidia.com>, Or Har-Toov
+	<ohartoov@nvidia.com>, Parav Pandit <parav@nvidia.com>, Patrisious Haddad
+	<phaddad@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>, Shay Drori
+	<shayd@nvidia.com>, Simon Horman <horms@kernel.org>, Tariq Toukan
+	<tariqt@nvidia.com>
+Subject: [PATCH net 0/4] net/mlx5: SD LAG and devcom stability fixes
+Date: Wed, 2 Sep 2026 19:37:12 +0300
+Message-ID: <20260902163716.3656279-1-tariqt@nvidia.com>
+X-Mailer: git-send-email 2.44.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000252A4:EE_|PH7PR12MB8778:EE_
+X-MS-Office365-Filtering-Correlation-Id: d617afce-d4ab-46fa-4f79-08df0910ed67
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|82310400026|36860700016|1800799024|11063799006|6133799003|10067099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	J6/Zu82Okl2u+/OdM1Q/mysOeypbDx2RuBFjP3zC2gYzQquhcb+zxNbrQTHcj4pIDKoye//kgSw3X4YweWm9lhOS8nZlgfhM362GiqhYjRy96B7rEn2TLhjbAmMWioxSO0xQeOgSCAX3jhySyMXKroMjWU7ui6RCzzv4EVJtANxTQ2/VxGx9/URZnE5bsDYdz1sYdVSle251DBb1XaIp9ssERhQbP6/722MufvbZduVT1ae53U2ZG/s/K2wQmMuG1zw6/9D+ilwCwmE9yjJSREfknCyOwNHrYBE/KNx8G5DEUlSzm4Cf4S/TofHTPB7rG3Q6tJZvxJhR6Scp9w4F5UJRv4D9HjWgzxE+6NHelRdCV+FBCMqGTH+QWML2E+80LFW8joKWHu585Vt0Fu0r19X3fkfO/HXQvPZmtVrCz/ncrwWSLiPm2DverOIt+SfbhB8ype1Jm0uFy08UzsP6brdmqZG7ScGx9tqkl9O+p5DzuCxRmAOBL62N4P5cVwbFy2YkSgL0wvbpJM6GdISEQ0bY7OHZb2KN7w1gOSe1tCYeAWjC9Zh179oXJQDDR90dusWmh7d8R/IiinKjvbzm5sWgGh9mx9CQqfdEHGsG6izbv61t0GU+BLI6ckgzazu/S3vg50JAGe9+WI1JaRaXHfi+9lzZB2CuxZJiON9eIushElymelCrT0j0Wl5qO2Dc2BGcCgV2NAJaUIMNX5/m4Q==
+X-Forefront-Antispam-Report:
+	CIP:216.228.118.233;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc7edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(82310400026)(36860700016)(1800799024)(11063799006)(6133799003)(10067099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	gWqzpGnt2haJ0KV0ytXRJC6AF60REASm/iy/7R8IUubTlhyLuY7b7sriU6PZqPFbWRGIg5mp4Ljb6MyAKDNJZno3Z9+C/WKs55c/yuQ5/NCSXUOh7G8zpLKkr/eUIm+zQfiHg54OiO5Yt2mqkJpi3gBHgd5dm+GJ2tgRYxqLEabzRVa7mawzTSoIZgcaZKlKZVsB56kkOjK1FziQKSTO3f3fNFHV5g4cD8KrE/DWEKG+gjP3ox2aNaYt2TfK2vV40Ts5WN7rfIaKJ9UozOlWglvV9OvPWv/uEpBnM/8hIGHWnu298IqSOFdUKXGdQJT7bXuSaQDTooOSMc1oEuZn36SCZXsTmo/enllh9FwVYorCjBAi+pHqSKOVFCnmhM1X4vEBQKAWnT+eRNxZ6yhJQz6LrfXWyWD592gZDh5s7sjonJUOjDAXOqouQtSeVyA8
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 16:40:41.5759
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d617afce-d4ab-46fa-4f79-08df0910ed67
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.118.233];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF000252A4.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8778
 
-Aneesh Kumar K.V <aneesh.kumar@kernel.org> writes:
+Hi,
 
-> Jason Gunthorpe <jgg@ziepe.ca> writes:
->
->> On Wed, Sep 02, 2026 at 02:30:00PM +0530, Aneesh Kumar K.V wrote:
->>> Jason Gunthorpe <jgg@ziepe.ca> writes:
->>> 
->>> > On Tue, Sep 01, 2026 at 03:36:37PM +0530, Aneesh Kumar K.V wrote:
->>> >
->>> >> @@ -463,14 +460,13 @@
->>> >>  	vsmmu->vmid = s2_parent->s2_cfg.vmid;
->>> >>  
->>> >>  	if (viommu->type == IOMMU_VIOMMU_TYPE_ARM_SMMUV3) {
->>> >> +		if (arm_smmu_is_realm_viommu(viommu))
->>> >> +			return arm_realm_smmu_v3_init(viommu, user_data);
->>> >> +
->>> >
->>> > I think the realm vsmmu is going to require a different info struct
->>> > than the normal psmmu case, isn't it?
->>> >
->>> > If so it needs its own enum value.
->>> >
->>> > It would be nice to see a draft patch showing how the real vsmmu works
->>> > on top of the RMM spec for it. If we are using a viommu object then
->>> > non-vsmmu case should be identical just with an option in the info
->>> > struct to not create the vsmmu object.
->>> 
->>> Based on feedback on other emails in this thread, I have now implemented
->>> this without using a vdevice or viommu. This should make the CCA and
->>> non-CCA cases similar.
->>
->> That wasn't the feedback. The feedback was to use the viommu and not
->> make a bunch of new stuff..
->>
->
-> That rework was done before I saw your discussion with Nicolin.
->
-> To reiterate, for this configuration:
->
-> - The viommu will use a stage-1 bypass configuration.
-> - A new IOMMU_VIOMMU_TYPE_ARM_REALM_SMMUV3 type will create the viommu.
->   The psmmu will be activated at this point to avoid creating psmmu
->   objects early. We will reference-count it to ensure that the same
->   psmmu is shared across realm guests.
-> - Creating a vdevice will invoke SMC_RMI_PSMMU_ST_L2_CREATE.
->
-> I am unclear about the vdev_create suggestion. Creating a vdevice
-> requires an RD, which is created later in the flow above. How do you
-> suggest linking vdevice_alloc to vdev_create?
->
+This series by Shay fixes four bugs in the Socket Direct LAG and devcom
+subsystems, all related to initialization/teardown ordering and
+concurrent access to the LAG device.
+
+Regards,
+Tariq
+
+Shay Drory (4):
+  net/mlx5: SD, serialize SD LAG init/cleanup against LAG mode changes
+  net/mlx5: devcom, Base component size on linked devices
+  net/mlx5: SD, unload reps on shared FDB create error path
+  net/mlx5: LAG, reload IB reps of LAG master before the rest
+
+ .../net/ethernet/mellanox/mlx5/core/eswitch.c |  2 +-
+ .../net/ethernet/mellanox/mlx5/core/lag/lag.c | 74 ++++++++++++-------
+ .../mellanox/mlx5/core/lag/shared_fdb.c       |  1 +
+ .../ethernet/mellanox/mlx5/core/lib/devcom.c  |  5 +-
+ .../net/ethernet/mellanox/mlx5/core/lib/sd.c  | 13 ++++
+ 5 files changed, 65 insertions(+), 30 deletions(-)
 
 
-I was able to prototype the following flow:
+base-commit: 70f3995830d3f1e79faa14eb0605914f778feca9
+-- 
+2.44.0
 
- - The viommu uses a stage-1 bypass configuration.
- - A new IOMMU_VIOMMU_TYPE_ARM_REALM_SMMUV3 type creates the viommu.
-   The pSMMU is activated at this point to avoid creating pSMMU objects
-   early. It is reference-counted so that the same pSMMU can be shared
-   across realm guests.
- - The realm is created during viommu allocation, ensuring that the
-   vSMMU can be created here.
- - Creating a vdevice invokes SMC_RMI_PSMMU_ST_L2_CREATE.
- - This is followed by tsm_bind() if the device has an established TSM
-   link.
-
-static int arm_realm_smmu_v3_vdevice_init(struct iommufd_vdevice *vdev)
-{
-	struct device *dev = iommufd_vdevice_to_device(vdev);
-	struct kvm *kvm = vdev->viommu->kvm_file->private_data;
-	struct arm_smmu_device *smmu;
-	struct arm_smmu_stream *stream;
-	struct arm_smmu_master *master;
-	unsigned long rmi_ret = 0;
-	unsigned long l2_sid;
-	int ret;
-
-	if (!tsm_is_configured(dev))
-		return 0;
-
-	master = dev_iommu_priv_get(dev);
-	/* FIXME which stream to pick */
-	/* At this moment, iommufd only supports PCI device that has one SID */
-	stream = &master->streams[0];
-	smmu = master->smmu;
-
-	l2_sid = ALIGN_DOWN(stream->id, STRTAB_NUM_L2_STES);
-
-	{
-		guard(mutex)(&smmu->realm.mutex);
-
-		if (!arm_realm_smmu_active(smmu))
-			return -EINVAL;
-
-		ret = rmi_psmmu_st_l2_create(smmu->base_phys, l2_sid,
-					     &rmi_ret);
-		if (ret || rmi_ret) {
-			if (!ret)
-				return -EIO;
-			if (RMI_RETURN_STATUS(rmi_ret) != RMI_ERROR_PSMMU_ST ||
-			    RMI_RETURN_INDEX(rmi_ret) != 2) {
-				dev_warn(dev, "failed to create realm stream mapping\n");
-				return -EIO;
-			}
-			/* The L2 stream table already exists. */
-		}
-	}
-
-	vdev->destroy = arm_realm_smmu_v3_vdevice_destroy;
-	return tsm_bind(dev, kvm, vdev->virt_id);
-}
-
- - tsm_bind() calls cca_tsm_bind(), which in turn calls vdev_create().
- - After boot, the guest locks the device. This generates an RHI request
-   that reaches cca_tsm_guest_req() with RHI_DA_TDI_CONFIG_LOCKED.
- - cca_tsm_guest_req() now handles TSM_REQ_SET_TDI_STATE requests for
-   the unlocked, locked, and running states.
-
-@@ -513,10 +514,16 @@ static ssize_t cca_tsm_guest_req(struct pci_tdi *tdi,
- 		if (copy_from_user((void *)&req_obj, req.user, req_len))
- 			return -EFAULT;
- 
--		if (req_obj.tdi_state != RHI_DA_TDI_CONFIG_RUN)
-+		switch (req_obj.tdi_state) {
-+		case RHI_DA_TDI_CONFIG_UNLOCKED:
-+			return cca_vdev_device_unlock(pdev);
-+		case RHI_DA_TDI_CONFIG_LOCKED:
-+			return cca_vdev_device_lock(pdev);
-+		case RHI_DA_TDI_CONFIG_RUN:
-+			return cca_vdev_device_start(pdev);
-+		default:
- 			return -EINVAL;
--
--		return cca_vdev_device_start(pdev);
-+		}
- 	}
- 
--aneesh
