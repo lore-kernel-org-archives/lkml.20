@@ -1,83 +1,121 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE4C46C4AE;
-	Wed,  2 Sep 2026 10:42:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15A5F372ED5
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:42:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788345733; cv=none; b=Ij91XhB9P9K8TWQyt1HTzNA4ffmxOl92V7MWczMKwPh1nPSfUQrKV/RB4el0+tg1IqaR/VoU7t3Lgx+ZUAVra9ZWpWumb3iktAn4G9v1s7JlKVUkZ/rKirTS3viv1Mpl2+2SWWCVX0ax0CmAhnH+iBZe7dMTm9Da7spYLMegAf8=
+	t=1788345753; cv=none; b=QA4zOB5txWL8g5hBTimrwutPA0x6g4fuaX0v1FaTFaSZ6bh051HHgEsKFHNPJ7yFjKlQBGxQqDYp8REGa2FczXH7WMCeA91P27G5PpzzcCJsoYMTF2l5ltx5FY84biGsXhNc5iaRRqkQjt54/Y0yscRE8qGGx6pEM3OxpMxybqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788345733; c=relaxed/simple;
-	bh=rxND3ZAr+oYZRgJHJGknZR4Aewx4zK2E6tokev7TZMY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=q35m5ouY6INZ0/yqzzDBqgL39lePBSAoK2vZjD4kFRD+mjcndUyNqnJVq5AsrYiBXtGLgbmAOG0HeWSbTCEprOIu/i7ljnGIM97iUVhJm1eMVmMc/Zv1rBXgLKAF6uPT2bHrx9XvowaXIV/kbDWr93mmX+IQXh15O5VQfCQuokI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=oAHHBOtT; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=jOS6I88W; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1788345753; c=relaxed/simple;
+	bh=w4j3YVOqQ0sbvpZmpBwHZ1MjIB5w1xBXD6/408k8atU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=cIS2zgodm7RT5kQieLm2iqjryKcKehoxbtlm8ThNdwD+7xcV0Pt/Zvrv4j7Zp833+jbc7D03S1sYK+wSX6cYy97VRtxUqm6gJh8ugE3Xe2uoX1z/36m3RCiQ2nnXGChWGfxLyXQbbJQfPcGO2xPIxDecjLT1GONVVAVsAk9riW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io; spf=pass smtp.mailfrom=bynar.io; dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b=FCFMbbYy; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bynar.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bynar.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="oAHHBOtT";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="jOS6I88W"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1788345715; bh=/05FvKF24KDm+InPqQKP53Y
-	5sODqZQ4iwRbSWrzJJoQ=; b=oAHHBOtTUc1MFKpJj056x9/L+fGgP765idZSQMzxrAGMZpYINV
-	pU7n7NTec2KU9rC8UysA6vfeZo5AwHCXg+yDgF+YehAhIy3kuabjY7nhFbYxHmq5ZwGhhddXqia
-	2xFr47LW60ovgwk1lYgDuex5gX4qv/gWqxMxrk1SE1jBLhJjf69suO5Vte5VLtUfNOpZVT9A02w
-	raE9pI4dtsLfnKqRs/B/z7DwqeShLBkD9WOyAL6RvqnwRKu5LLo14d4NNGnIUIthc5srNx+8hUK
-	fhvDzx8LUOtMzTzz6FPg1GqW93tHd/tc6Firb3zCK/3k/0w3PSYMqqrFn4nwu3UevSA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1788345715; bh=/05FvKF24KDm+InPqQKP53Y
-	5sODqZQ4iwRbSWrzJJoQ=; b=jOS6I88WmxVwfH+433uUcTkMHP+1Q9So4MA8l35Vv/nQD/pZgP
-	JQnUmzB9jFXlfuG4KVPDnuOUR/PbbeXZjBAw==;
-Message-ID: <99593b39-6851-4ad8-aba8-d4a39192e5ce@mainlining.org>
-Date: Wed, 2 Sep 2026 13:41:53 +0300
+	dkim=pass (2048-bit key) header.d=bynar.io header.i=@bynar.io header.b="FCFMbbYy"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-484392e3d33so546755f8f.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 03:42:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bynar.io; s=google; t=1788345746; x=1788950546; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kAoyOMd0a10m0Je9ACcvSw2EV5eeuxpNLlrsDe1MN+k=;
+        b=FCFMbbYyoee8PKKckeL2Lo+07HxNep/T+XJHJNYp7CMyOxImPtg7cL1lKpwI+QgIzC
+         FipkJiX4FC1ro/JOsODSl/jUrzg7CVwiG1tfSXUswg0kxfRDytFU/UHBMCFk4r/IZN8D
+         JegreORvdDVvWB4X18DNY+zAlPu2UuEgSSQcRvQeaWl71tLUV4Imz7p3MkyEBEzJzV+b
+         kygprJ1b8fnNG5hPdTHkhm4c+GKsZHX6P6g/HkwdXM5sBZnPc6Qo2pp0A1ef+L/mM0ZR
+         6I9TRLZohfzimNW8uj6PdbpksqGRa/WMlS7oWU+wsC2cozC9C1UJpY7wW2yo79aYiuJ6
+         ylBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788345746; x=1788950546;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kAoyOMd0a10m0Je9ACcvSw2EV5eeuxpNLlrsDe1MN+k=;
+        b=gpAPYvedESMjJpk7CMMIuQYIEz5lv+A6WO03cDoq3U3nURLHVqM3t4k4d+uOaY8nYY
+         9ZR9kBhG1UYWCqlH6QvU6cjhcE6KVmczjpG0wLAsNAAjKmU/ZX6Rg7F1/VZENEf+OOhh
+         43TWybgD+lWZgKedLZj+mA04McRxdS7T2Q8e6MRBR99Sew3oaSGIe8+UZnaJdWF3E0U+
+         cwkRqYxE8NTtnHZreLfdedqxV4FsOdLd5Pv8V3GLpXrwB7NDwo2q0dq9bLIuXvMtCU8+
+         51oQ5E5uCCFpRfK38LNMvzuXhcBw/fwMyznUImAPPMAqs+zerOoV0lLoF//ReUwU7Upl
+         eJDA==
+X-Forwarded-Encrypted: i=1; AKwUvByWQRq2oU431g9GxUwJa5eXfNC1MZ/2SdnF873zsJPOJZP1dFx6X91x9aKF0dQ/vrMhrnpoPjApdLtge3Y=@vger.kernel.org
+X-Gm-Message-State: AFuF++laNqJGafPZrGbEsgpX2YNsHHN0qVrY6iX9a5xtnixXTJPzSpXo
+	3fSnuY+yzRlevrl+5+M/7iYrbJvDBBgM0nS3+f9Y1BP3geVhT/9RQy+9hmJ2NhOQA3Ar
+X-Gm-Gg: AYBFou0eBqbza7M9vA6tzpi4I6oeDWXvVEtR19KwhzXzBNYBleNrjVE5fmDHwyFeEeS
+	PtGJ0QV6QoAGrwLRNJRxf+sy66Dzkppg/UqAHEPZ4PmV2udJK/dzYACuPX5KnwES3QRXWb8Y45g
+	4QBSRrOC13/tKDh4ILJ/gAX8g5/Yb81G5EPrca5Q4ntLei7mT+JlAtCgXB159hcLMobweJJMzZr
+	U1g3ELqgOEdSdMm0m/GBvZgXhn8g1fNW8LE2h5e34SDTRXRkAuSf6yZahD1LlS0S7OJE+8w0GvK
+	q+6y3r1JD81qNdNm2zuqPnOtgmRb+ZYos2hUu9f8ZUjLwzAxAW266FMc5QM5yNX64rZCBzj7pLO
+	cZqhl0DFBXZhAbJ2qaf1gDmMizvdQkeIs+GO5ZnR0ut+TrR5Ti/7vOHmQklFAdhS0/n98kSIT7W
+	51w8jUl6yvsSpvZCwmTF1uy7+mha1YSU2L77n/LDmHeEkq2gynx+hy/nAJZ4QQsNK5kPkRctMYs
+	mZhUubEa0rKMaGl+Q==
+X-Received: by 2002:a05:6000:4901:b0:484:479f:4152 with SMTP id ffacd0b85a97d-484914bf9a2mr7891661f8f.23.1788345745792;
+        Wed, 02 Sep 2026 03:42:25 -0700 (PDT)
+Received: from debian12.ucl.ac.uk (eduroam-int-pat-8-79.ucl.ac.uk. [144.82.8.79])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-484492ce5e5sm5197521f8f.36.2026.09.02.03.42.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 03:42:25 -0700 (PDT)
+From: Diego Oliva <diego@bynar.io>
+To: Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	linux-cifs@vger.kernel.org,
+	samba-technical@lists.samba.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/2] smb: client: fix out-of-bounds reads in CIFSSMBRead()
+Date: Wed,  2 Sep 2026 11:42:05 +0100
+Message-Id: <20260902104207.1820332-1-diego@bynar.io>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] Add pinctrl support for MSM8952
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Linus Walleij <linusw@kernel.org>
-References: <20260820-msm8952-pinctrl-v2-0-bf2b8b7b379b@mainlining.org>
- <CAD++jLnGGonfOxLHhM-uXAzP10J9o5=0e_cV9JM5r7SJawChnA@mail.gmail.com>
- <CAMRc=MdKT4RAWdtZf87k5-VbXAZePT2yttf2QPWgRJaowKuDTA@mail.gmail.com>
- <a5956f0f-2842-4b80-8bcf-8763836618cf@mainlining.org>
- <CAMRc=MexQO0r-4+yPQrY_rCcGUY0E92q9hAD5EoTpwLJxMmX8Q@mail.gmail.com>
-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Content-Language: en-US
-In-Reply-To: <CAMRc=MexQO0r-4+yPQrY_rCcGUY0E92q9hAD5EoTpwLJxMmX8Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+
+CIFSSMBRead() parses the server's READ_RSP without validating either
+the length of the response or the DataOffset it carries. A malicious
+or compromised SMB1 server can exploit either to read past the end of
+the receive buffer, leaking adjacent kernel heap into the caller's
+read buffer or oopsing on unmapped memory. SMB1 is not negotiated by
+default; reaching this code requires an explicit vers=1.0 mount.
+
+Patch 1 rejects responses too short to contain a whole READ_RSP, so
+the header fields can be dereferenced safely. Patch 2 ejects a
+DataOffset/DataLength pair that falls outside the received response.
+
+Both patches use smb_EIO2(), introduced in v6.19, so they do not apply
+to older stable trees as-is. Anyone who wants them in an older tree
+only needs to return plain -EIO in place of smb_EIO2().
+
+v3:
+ - split into two patches; validate the minimum response size before
+   dereferencing the READ_RSP header fields (Paulo Alcantara)
+ - print data_length with %u and add __func__ to cifs_dbg() calls
+   (Paulo Alcantara)
+ - rebased on current upstream
+ - v2: https://lore.kernel.org/linux-cifs/20260831125045.479576-1-diego@bynar.io/
+
+v2:
+ - make data_length unsigned, as suggested by Namjae Jeon
+ - v1: https://lore.kernel.org/linux-cifs/20260828150203.1419003-1-diego@bynar.io/
+
+Diego Oliva (2):
+  smb: client: reject short READ responses in CIFSSMBRead()
+  smb: client: reject out-of-bounds DataOffset in CIFSSMBRead()
+
+ fs/smb/client/cifssmb.c | 25 ++++++++++++++++++++-----
+ fs/smb/client/trace.h   |  1 +
+ 2 files changed, 21 insertions(+), 5 deletions(-)
 
 
+base-commit: 89a312991dc6e638a36adc43ccb91dbc25504c04
+-- 
+2.39.5
 
-On Wed, 2 Sep 2026 03:34:58 -0700, Bartosz Golaszewski wrote:
-> On Wed, 2 Sep 2026 12:32:45 +0200, Muzaffer Kadir
-> <muzafferkadir@mainlining.org> said:
->> On Tue, 1 Sep 2026 08:59:00 -0700, Bartosz Golaszewski wrote:
->>>
->>> And to that end please use scripts/get_maintainer.pl to get the current list
->>> of maintainers for your patches.
->>
->> Hi Bartosz, I did run b4 prep --auto-to-cc before sending the patches. After seeing your message I run it again to check and it said no new addresses to add. Should I rebase on newer tag?
->>
-> 
-> Please wrap lines in your emails at 80 characters.
-> 
-> Are you based on current linux-next or at least v7.3-rc1?
-
-Sorry Bartosz, I accidentally sent it without wrapping.
-
-I based on v7.2-rc7.
-Should I rebase to v7.3-rc1 or linux-next?
-
-Best Regards,
-Muzaffer Kadir
