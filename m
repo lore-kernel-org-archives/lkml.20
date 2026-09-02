@@ -1,87 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C09CD4A8A14
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:20:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB8F4A6CC0
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:21:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788362428; cv=none; b=KxSMgbImLc5RlSS2fSXMrRn9NhaAu9DAzUiZBjxQzLSx7OSydRYcxmZ+TQgAmiwa1bouWpIxQIMubVFREg+mZhKZ2t7sbKpxs1p29gb44TvyqBZCZqeuJ1Wu80TQX/HxDnZ4mC13QDg5DdTddNWUsOPTlZhSTRy1+m3NdXAAOR4=
+	t=1788362476; cv=none; b=mMg/CtM0qvicO+5SvLY5rJgp9vzEzrDEc3Vh6Pj6CwNT3L/oGeyK5zQlMBjZLGiZMHK0BJJvVahewcN6b6gNfCDPdUBwihoRNHLWb00V3KFNVu3C/dyCJPnnstVsivPuVMeKvOqgm6nDlR5L4vrb94Vs5Qw+CIevlv30sZCUiiE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788362428; c=relaxed/simple;
-	bh=qXON5Y/0Hhn8zg9epAannR6ouX1AMPvp99VlLkQP9SY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=V94G+5R4XIicD4F3D8gSi/smbGh94RrA7JWe3zMO2/eRv9K6kUlFlzn/YvtP1hzA0U2jLC8Sit2fwywztkB38i2xhoMsMdQzz1zecIa6a0GnVJoqkOmDiTskVU7yPnOJhNE4l3zs3GAn2fWIGWU6a2kI1g+P9bR76OJ0xYTr/g8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ilymUxbf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788362476; c=relaxed/simple;
+	bh=/Rwo4LDhZUjIbFRPjUjS6LJ+Dmkr6YTUn1svaPRl70c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kUAxWxn/COhtneah9jlDVD2zJb9+/B3VI4oOoGMS9uBGZpp89HsvTQaG8oHzA5kEDwEL/qP26nu36FSL/Yh21QO3TAgj4Zl1Til+nIyhtYsPxrnr9UAy3gqggm42N4BX3I4A9z/JW9zO0d5EZIQd6CYO3C6npHkMM9b0/PsOdZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XKPCuv5Z; arc=none smtp.client-ip=209.85.167.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ilymUxbf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41FD31F00ACA
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:20:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788362426;
-	bh=qXON5Y/0Hhn8zg9epAannR6ouX1AMPvp99VlLkQP9SY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ilymUxbfhs/5+QYLl+NJ5k7tiYWBa9HVGa1EkKZkVoq3GDCha6ckwM8bFNrP9aTAl
-	 FsjJy238KRA4W3HxRjq88Qm7hQ65bKXFSLgxhj7phJaSEdnaO9vp/ROrIUcqAsGoyV
-	 ebRJnA3dk7mWuwbm0WnJTE4i5MEdWkVrJJG6iCpeUhUC7v43ofyDCDL602VxBiJ6TZ
-	 Dl4pCcqsqv4dPBRR2tZ1Xjr32aFROpFQex8UADBUi7sPrtOD6jokI0n+eHhK6+AE+t
-	 CEjfWM/obJdODIW2ScYsNjKh6PoXjB1kbFxrHpUjhDPNIbz9XAHpZ+3CwQzp2Z//zC
-	 HLnJhvxMjfNBA==
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc1d57602e8so1325136a12.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 08:20:26 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz+RV4yOsAAYOVSaGz2DFs1Baz5ojc+vEzeRrreFR5qmXDpT1IAWZ+uddU9gE/7bXJCkqjreVLaonuhJaM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kKUA+igCRT13XCdRb16x2brrUmpC2rMiOMExrLcPFGx1sQLRUg
-	eU4K3xCByR+JhkQcLQOMN3bRqKH0CecoWZdIxMeAwgObM9UoBH5EJrSxKrGjJ7mozYVTM7RU6UP
-	8rQfl5nVAbzc1gJi/fyZu81EreYgPDW8=
-X-Received: by 2002:a17:90b:17cd:b0:38e:67e1:15b with SMTP id
- 98e67ed59e1d1-39aededf539mr7563027a91.6.1788362425805; Wed, 02 Sep 2026
- 08:20:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XKPCuv5Z"
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5b4ae3e201cso1146436e87.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 08:21:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788362473; x=1788967273; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LZnwvwUXRAcxB5889VVTWnxerlefp4zNk2iq52AaEUg=;
+        b=XKPCuv5Z/O3h/3M7R1jhTtq90+RKO+Eg96kMSRwnbOnbOuFqpKCZwTA/em4+FcSE5O
+         wdmkM44qzW0uwCbkjF1ZsCzF+EvRZH3CFNDDfyoUzRWUjtVaV0XfQPXJQHPbywxsxlkH
+         I8oc99S1ZH4hLMOgo1S3mXkk8l+nBJpZGuXObgJpRXi7Tla5NNqaSrcsxKik/iBD4v4q
+         0oMsG5tPf605ud+cGkgV8X89Gs78wv/Tjs3f2hwDorH5WGGG7q6TKhmnF+8+aqtq9A7N
+         wBqLqdBvhTKntMa8X2B5cxTWXfPKho0vyBG98M4nNWMWO6y7QhfbLNXaGREy86Fiewwo
+         0P5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788362473; x=1788967273;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LZnwvwUXRAcxB5889VVTWnxerlefp4zNk2iq52AaEUg=;
+        b=gMi1J28ImUQvBbt/MHGcVJWXOLiW0hnnUL+9nRMqmEj7YQK10fo/Zv8kJvfInP75vD
+         YBPGZkmr/15VNj3GJo6p5nOP5fypKvIlVt/7Urjff7gwI9/lqDl2J1a9WU3GHPLcZakp
+         g3h5QbyEVWqGEV5r/UynTWXCQ944c4rJYfY7M4zeNfs6u5cjVsEhJxdQPZMqsahlXJ6m
+         C2zGerijUo8Uwkzt8ssH1jgxzuYT1MYTIxRSsZVcVqMb/cveXSY7hg1+I+uVaD8JXS9z
+         sxUsCDooZA9r+w4IfbJcInUTGMA4Mn99Gftk0Gf/PiEMghVjrl3XFaxCxDLenK6x6foC
+         iSOA==
+X-Forwarded-Encrypted: i=1; AKwUvByZhWARNAoaQzXsZ10ceaGwGMG4GSn928ePmM2/ANYJm1CgJN7rEE31pD2i1yJTZI6H+nxotMo+C6wwsB8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kgUHQF39jaU/BDktFST0/kW9/nVqQIIbOBIChts2ThrLAEoHDO
+	d/tUF3TGj/jobNPkIRUXYbid6eKkWVp+UegoPtRkJwem1fkwYPwSwp9K/ll9UPmT
+X-Gm-Gg: AYBFou1V2uRkuXnSH6tSt/vb7/uO/3mITFeSKdfweMzRnGtLNOE7COrc5HmalI/QOAI
+	TbVzFjCOu1STZ/pCqdQWGxm11zQittgMQmQcq+vxvm3pAGoIbya0ooEEZGVu/JQ+E9BIsrj3BsZ
+	vRLhOqkGy3r5KX/ajNPwiX5me3cqD5TO3TMmhHd/Y2j3jzG7iwQuf8mDRGc3SHZrj/Ymlkzhq/t
+	C50X8L+KljR24+taW4r2xFSVi6ugZ3msnQZbJywZeACMnhGojcjVvjuPLBHl/9X7Ljg1uikbcfj
+	jiJMt+LRZtYRLsFOFd/maxANwYXSdcR0UHmwPAYPl7fxzHowESxUjIKtMiyrkRGP51nW0Ybm45H
+	20d29FDvyFrJn6QtXSR5HdJ2euqNwW2OllDV25tjwpuNsOlMcxPHodZFHjtmI002vFa/XguyUII
+	L2Mzag9KFwHDu2w+H3ALshgC56FyU1taARSngRcBHx0PIZzvQT53zagSK5psasVzuyiSjbpNRL+
+	PD4wA==
+X-Received: by 2002:a05:6512:6d4:b0:5b6:4ae:3ff2 with SMTP id 2adb3069b0e04-5b6095ff621mr1814965e87.26.1788362472358;
+        Wed, 02 Sep 2026 08:21:12 -0700 (PDT)
+Received: from localhost.localdomain ([195.149.108.52])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b606b23fa3sm688086e87.32.2026.09.02.08.21.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 08:21:10 -0700 (PDT)
+From: Svyatoslav Nikolenko <nsvatoslav515@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3] staging: rtl8723bs: Remove manual ifname allocation
+Date: Wed,  2 Sep 2026 18:20:50 +0300
+Message-ID: <20260902152051.2661-1-nsvatoslav515@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <2026090252-reformer-kosher-c6b5@gregkh>
+References: <2026090252-reformer-kosher-c6b5@gregkh>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902124623.695928-3-manuelebnerli@mailbox.org>
-In-Reply-To: <20260902124623.695928-3-manuelebnerli@mailbox.org>
-From: Fan Wu <wufan@kernel.org>
-Date: Wed, 2 Sep 2026 08:20:15 -0700
-X-Gmail-Original-Message-ID: <CAKtyLkHDr7D026T+7A-4LODAPbZez11wn=BdiEx5OH-7y5kUew@mail.gmail.com>
-X-Gm-Features: AcwNN1W8-eogi-AuHPYaha560R07dGwK9m0uGleXMnnx_g43weDtAmNjbvAWmyU
-Message-ID: <CAKtyLkHDr7D026T+7A-4LODAPbZez11wn=BdiEx5OH-7y5kUew@mail.gmail.com>
-Subject: Re: [Resend PATCH v2] ipe: fix typo
-To: Manuel Ebner <manuelebnerli@mailbox.org>
-Cc: Fan Wu <wufan@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Deven Bowers <deven.desai@linux.microsoft.com>, 
-	Paul Moore <paul@paul-moore.com>, Manuel Ebner <manuelebner@mailbox.org>, 
-	Fan Wu <wufan@linux.microsoft.com>, linux-security-module@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 2, 2026 at 5:48=E2=80=AFAM Manuel Ebner <manuelebnerli@mailbox.=
-org> wrote:
->
-> From: Manuel Ebner <manuelebner@mailbox.org>
->
-> Correct Set Group ID from 'sgid=3D)' to 'sgid=3D0'
->
-> Fixes: ac6731870ed9 ("documentation: add IPE documentation")
-> Signed-off-by: Manuel Ebner <manuelebner@mailbox.org>
-> ---
+On Wed, Sep 02, 2026 at 14:40, Greg KH wrote:
+> After this patch is applied, what is the network device name?  Are you
+> able to test it?
 
-...
+I don't have the physical rtl8723bs hardware to run a runtime ping
+test or check 'ip link'. Sorry.
 
-As requested in v1, please make the commit message more descriptive.
-The keyboard-layout speculation is not useful and won't be included in
-the commit history.
+Based on the code path, since the driver allocates the net_device
+using alloc_etherdev_mqs() (which sets the "eth%d" template),
+register_netdev() will initially resolve it to eth0. From there,
+standard user-space tools (udev/systemd) will take over via
+predictable network interface naming and rename the interface
+automatically based on system rules and hardware topology.
 
-For example:
+By removing the manual renaming, we stop fighting the core system and
+let standard networking and user-space rules handle the final naming.
 
-ipe: fix invalid sgid value in audit event documentation
+thanks,
 
-The audit event example in the IPE documentation contains sgid=3D),
-which is not a valid Set Group ID value. Fix it to use sgid=3D0.
-
-Please update the commit message accordingly.
-
--Fan
+svyatoslav
