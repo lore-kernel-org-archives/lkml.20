@@ -1,155 +1,125 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27DC544A3FA
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:25:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788348313; cv=none; b=DSzEqLM8rFfTYUbvlEJelcHOS7J22+cDYRMGzh6qH5T49un/NJsAWKlW5IaHGdHyO8yRoQHIUBlShhHMkWS7L1U/Zvu7vF7JIMy/cpFp22N67ppFhPxi1LznR1Ikv5geuQqJwvpff17mC1HvpJmlf8en9Wo/w5uWr5vyKbDxT7M=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788348313; c=relaxed/simple;
-	bh=lFtxf8JZBoasBd9xvqhcN50c8gfwx5WqOr6trxt5JU0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hN60ETYXsoMHPfrdQYe+Gf4UfI+qBGgNyPGX/CNCRagB05JbWUJykvD79oRVprs1Mx4zRFszppJzJxG8xv1aviNTcp1uy1+BBOPSR6t8w/z3mOZVCrhv9iSaGVRYLgjfoiXUAAH4DrOAExS3QZrLZ7GkqQ86LlbSeuxWnrqllQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bSSvD/LV; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F354746A5
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:26:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788348387; cv=pass; b=TlBdLipua7CalZOQFbr2ZbQnV4Aek24yg/xZrmCeMoT6zyAoj1bQPxANA4uSt83MiZz1rVKUIiUwrixHYLsbjll4oU8KbDNG7hJP6PFh3Bet320Om9RsvLi5jV79mcBj2jSMsvecpdq52nA2h7mnF8seK6B8J327vrh6D5Wn86w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788348387; c=relaxed/simple;
+	bh=FyDbbZPYKYMWaFjRS+uVtqLuXGG9Q0hCZIMV3hMspcA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WJCj2z8Ur6VzRvUopNorpTUVeCOxDzc0XmR604dzFucJgppnPue1eUHoHjile82THgiUl8beddFJ7g7rLI4vMlj2FjQl32fdU2FbgsIVW7K+TlvN1uYPF0dFnxCCPlLHdY6SJxlxEVPDzsLovzaLQQlWAptovGuFOAkcejSdohI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oat9md8c; arc=pass smtp.client-ip=209.85.210.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bSSvD/LV"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-482f9309813so942508f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:25:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oat9md8c"
+Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7eb29ed2bbdso539012a34.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:26:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788348385; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nR6izJV8q36GIEC5hkDZU2LQComzJNZu8TmjhrcHzMuFnafm6LwZ7NBupmH9fDx4iK
+         Z1x8XT/VhKebM9f0TLpEhf0W0RFQlVZj659rqVAgZCP5dtbCK5PGxfaNU7Q7x7AxFOs3
+         7UQJwyFGoAXzuI3JemcQf5l1s/Ya3eJS8DoaX0OuG+LeE5UJw2I5OlTJhQRO3Ycr22fC
+         WZXEKlY9uD6qNBrDEqCYi1+1p0wjrD5OIuCs9C6c5XKVWKY7yOwZujWc9+V+hzuzp48L
+         6KPr16v6S+9eYK8SCoXeiDX7NtABERXEYTOFluhB3xmg0JnBQclwywWyfVxOOkwWX64F
+         BKCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wcmJkyCZLmx9JarKkkbqP9BwAVB6mlEmU2z7IeOq2cU=;
+        fh=BkJqmSiO+WSxKuY3+sIb2i+jXmuq3pBHPVndx083wPc=;
+        b=qrIowi8YeEkDu/HCxFRkjlEYYZBTAv/gc6dBf1XD7M+SMe/h26rbwJOgHKQw7JN2EC
+         H5mrz4PqZU+6AFLPv2gOYZK7ZLAzDPLT/pwpXP4OeHXvDcSBMAs8uTuSeqgNG4JU//Fi
+         FLpVtJv+z7qbsUpbuumwUGaYzyuRrsUg2c3m55Ss1I8gRGjBHI8B32HfMgcbjZpPdlDc
+         Q7puFdYr0sfvQpZh24TYdpcKpPghMHuXYvN6gT5GVUsWPLJ75Sn+k4KIzPUKdImDxVaF
+         LuCjx19IJXBIXzRwRzHDnlNkflLuu4GupDrrp/s4T7UxNBxskF0yWl5Fq+4yCXXKKJ8e
+         /3mw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788348303; x=1788953103; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1788348385; x=1788953185; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=qndJplFw7niD9IAJKi5k3Tb9rHK8G3tVrEh0TSYMEcY=;
-        b=bSSvD/LVthgXzLaJ1DoL0vVuokofjLjiJUeNcdCQgnPm9w63xywaYTn3HC4GFcgykS
-         pi1D6RLCVmtPuOpn9iWAJ1b3w46qJjPnlDn2KvNxV7GBAsfpqelkwo3pnog3WRuKCSYk
-         pFCOdrb7OVagFuxZ+5QewSLxQea1glHxoduaeVHknkcdIEtlNZvGAy/QXMQxApBY/8vl
-         k2tho5eraeBLp6QacRk9yaX2oohtS7pLmSxzPeXE8EOx2SNqQKSdLP3gmDNv9ZUfB2zg
-         hrzf3DlgyB6hulvzFc1M6kMVeHtrPyo67zx+CDyGNBYdes1I7hDXNh7RNMMGmHm/jRym
-         lfoA==
+        bh=wcmJkyCZLmx9JarKkkbqP9BwAVB6mlEmU2z7IeOq2cU=;
+        b=oat9md8cLHgMKacdTbsFMfULsSoFZ0Wa33mafEkAUUwUyV11mHicsJ4tBTXkYNIxa7
+         N6ZFqx6BYmGETOEATtBFlL3YDHe1ANJy+jREDXZIcHOwJEGmKwtchqrHzoB3NYO3WRAm
+         5TRMqejHd6AGihJ5b4xLSf1krLPv1Ix15QikmFMOlqyyddUc721QL7DpxL4yYnUdRCpJ
+         u+r9uQuQ+nqrjfl7fKp3H8kNMyl/GsrXQsAP0WuaAs154WCLKW9DngnxrxF7Bv56rOsQ
+         GkWS1VpEgHbGgpXdN487gDjtsjPqeHA/CXgAj+BoYMvMd8y3/cNnLHDuW5xbILfSNNj0
+         /Q4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788348303; x=1788953103;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788348385; x=1788953185;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qndJplFw7niD9IAJKi5k3Tb9rHK8G3tVrEh0TSYMEcY=;
-        b=YVO/QA2ymhfs4aL8oGkZx8dEFQs2xHtWSUsp+w8OhfqyN33MurR3zonkyZLeeHyez9
-         6MmFY0helKUkIw2ReLLveehh8sjzAoz7HQDWphdbqQd/iBjlMvwK6F42nDdksU8Iv2c5
-         sOxZu8hhFiKZwCaXC6dikNPGTmQ3GgxfpQAPNJpglQHL6sV5QN08ujYbeg8ktqlVkAgt
-         LT9/b0VnaroF6C8z8cwBcrEu+ZTEn0NauLK9UcgAXXABjEeezcru2wxJqxH2npWhRkXo
-         52kRImf0c/rXIbAyf5RFlKwcJb7xhMHGYa4J6PvrOPHUCuqTNAsjjf0RYuQByC7cEv4Z
-         MOqQ==
-X-Forwarded-Encrypted: i=1; AKwUvBylWIt1YHQFeVJvg6+bjTstdwNCNv5RaF74oNZI3EMsZ9rZe0E838UvMRLRsqpZJ6uMq81SD8B6DkBiHy4=@vger.kernel.org
-X-Gm-Message-State: AFuF++keBNsHu5Segtbea3aSipbwvMVZFKkaEtGjIPzR0K38vp4Ju6pR
-	SDUEWccQcoIEAPsSxMt5Fk6lmGpgRPKOeW8zIX32V60syZPPCGCyZbLc
-X-Gm-Gg: AYBFou14LvJovQLhDzU6GVIgYDWtN5daur8EKf43w4sVMuokqxF0Ku0slkB5qhL4vnl
-	JI+i6+2g+V/7cSVof0OsGE1gNF4vmAOIgJhLMGtyuASvlwIL9gbXTPvPyOtkKZs6uDWug003MCD
-	y/D+xMYgXTtRslMAY2FIFIyeELYKsNXUs6orrTckoJk34Ye2lUOkgq3L+JQ9ADYfQBGTKYzkfDv
-	tfgrGF/SEywZ1N7JYp+qYFwIrhSI30aJgsxp/ISQEBXvWtutFJglAPzBt0fAhHAFf6TlxK2rpYp
-	2xYxFtMmNeaQASSdFREynY9/mdTprNXxwRqCnvtEXOUJvgtDwyhVp7H16iFDgcO1CSoqdRbyjIh
-	Tk2Z/H1mXNOenaC8uxQU7sVwUXNcPmzmu9x90SSWwPmR2WHToyI4CmSUHjb4Fcjt5ky5lLTs9eD
-	cTuVXgw/H+8Ps34gS31sGcVDFW5WV3/Qhq+xtMIDVW0Xr0WM4TmfbE0UFtHAV+R8ycvS+LuA==
-X-Received: by 2002:a05:6000:2512:b0:47f:fb2e:f63d with SMTP id ffacd0b85a97d-48488f03964mr9001865f8f.9.1788348303315;
-        Wed, 02 Sep 2026 04:25:03 -0700 (PDT)
-Received: from foxbook (bfg95.neoplus.adsl.tpnet.pl. [83.28.44.95])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e72f02sm5619073f8f.3.2026.09.02.04.25.02
-        (version=TLS1_2 cipher=AES128-SHA bits=128/128);
-        Wed, 02 Sep 2026 04:25:03 -0700 (PDT)
-Date: Wed, 2 Sep 2026 13:24:58 +0200
-From: Michal Pecio <michal.pecio@gmail.com>
-To: co <co+fd80bc5967eb22c3@bugs.sh>, "Mathias Nyman"
- <mathias.nyman@intel.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] usb: xhci: Fix bounce buffer overflow
-Message-ID: <20260902132458.5de2f031.michal.pecio@gmail.com>
-In-Reply-To: <20260828002440.312ec0b6.michal.pecio@gmail.com>
-References: <D4tcSGerkYkIV1DmaUo1t8TaR5qQElDLkidn@bugs.sh>
-	<20260828002440.312ec0b6.michal.pecio@gmail.com>
+        bh=wcmJkyCZLmx9JarKkkbqP9BwAVB6mlEmU2z7IeOq2cU=;
+        b=SwBOnK4vc27K6R+kJQPPFUyltyo+t1cHaRMp3fyGL/obYdEsKgeo2jprlc7t419x8+
+         MCddD+2d/6Jdsj3FSLZ3yCpnkETms0gyUHNvdhJcN5ZiE0Une1GX2aR2g+t45EuepO77
+         3XYuMwA0ajn5O63+rn2Qi+i7obPlcWQwkBm5gzkmsdHTjuD9/VCaNLKUFKB5s7CNb2si
+         v1boXEG1wY7YJt/6jlgcAvUl5VZcITZ5O5Yay/us+gVSyT2EAuYYqqWG7sZ0pLzhPDtf
+         mPVSHEm6lq+JoUezf7o5bkcxUGavIdHJGfEQQG9zs4iewjRB+ARmFv7beN4Dko35wXPv
+         lc0Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rqe+912rt2EEn8LxywWJgAbvWpYR6OsDHyFfG0pI2KEdlX+ZjK4bP9Qdj9hchdRI/kIjFqM6xX+MRYyol8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kxMLfHZyyVlXLyC8crH5eKuskwdtoDbjoXWb+e8+FipIWxyibi
+	gZ/f7Moo8ro0mnR2407lq+0TPsIehphSPkR3gv1D4lzTCxytikP6YgOvQIvElXBDrlLgQr0PTkP
+	84p9UhOaoL+8FxXhlcZ/9k8fDdO5CzzR3VGHq
+X-Gm-Gg: AR+sD13FOn3IuM2t5En0zs1JP3UVQ7m6rvquxqET3rva0m2JXwBbeBt647tiVnoAy3y
+	j92c+kqeb0dSDmBKLqKEIVDZc1eLG8W9h5KT1SexTXq1+HMQyl0Pi8lOfIAGShHSxLNr0weULW2
+	b/sbj9yTLmQzNygbe+N+78Hgyglwqwp4f3O5FHYJPHarrPO8mtDuixOg7jS5gr8Cycun++gQniU
+	cpmSJL8i5Dx+M0S1keVDtADrKA7NdVaamQWd3uFyXjm8YUl2hXNUoyDkYK/ixidz6RCW0uhYbnr
+	9fUscGqmsD6RIpfrHpdXFDh4Aq3Jg5UURv1Pcr+XTLb2ddR9LtOjX8phC7S4b8/I7928nB2SDv/
+	+8sZGUMfjEd3v214WN+oa0B9WbsPqrfhUghOtuUVptwxk
+X-Received: by 2002:a05:6820:4c83:b0:6b1:be9f:ce6c with SMTP id
+ 006d021491bc7-6b47ecca88cmr3371164eaf.4.1788348384937; Wed, 02 Sep 2026
+ 04:26:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260902064437.1376-1-yanlonglong@kylinos.cn>
+In-Reply-To: <20260902064437.1376-1-yanlonglong@kylinos.cn>
+From: Ming Lei <tom.leiming@gmail.com>
+Date: Wed, 2 Sep 2026 06:26:12 -0500
+X-Gm-Features: AcwNN1ULId5dgyvfzhvLeQbUKIYfl-Wufo2Tsfts7a1j3EvoRrStToG4vaJ75pk
+Message-ID: <CACVXFVOYhYd14pvXAVni=tCnbaJ4AKbOh3y7L=0qWY9+e14=bg@mail.gmail.com>
+Subject: Re: [PATCH] selftests/ublk: add NULL check after calloc()
+To: longlong yan <yanlonglong@kylinos.cn>
+Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-High-speed devices with out of spec 1024 byte bulk endpoints exist and
-are allowed by USB core, but xhci-hcd always sets packet size to 512.
-The exact nature of these devices isn't documented, commit fb5ee84ea72c
-("USB: Accept bulk endpoints with 1024-byte maxpacket") only states
-that they "don't work with xHCI host controllers", whatever it means.
+On Wed, Sep 2, 2026 at 1:45=E2=80=AFAM longlong yan <yanlonglong@kylinos.cn=
+> wrote:
+>
+> Three calloc() calls in the ublk selftests lack NULL return checks,
+> leading to potential NULL pointer dereferences on allocation failure:
+>
+> 1. kublk.c ublk_ctrl_init(): the allocated `dev` is dereferenced
+>    immediately via `info =3D &dev->dev_info` without checking for NULL.
+>
+> 2. batch.c alloc_batch_commit_buf(): the allocated `t->commit` is
+>    dereferenced in the following for-loop without checking for NULL.
+>
+> 3. batch.c alloc_batch_fetch_buf(): the allocated `t->fetch` is
+>    dereferenced in the following for-loop without checking for NULL.
+>
+> Add NULL checks after each calloc(), returning NULL or -ENOMEM consistent
+> with existing error handling in the same functions.
+>
+> Signed-off-by: longlong yan <yanlonglong@kylinos.cn>
 
-But somebody (or a malicious device) can try, and then the driver will
-allocate a 512 byte bounce buffer for this endpoint and may write up to
-1024 bytes into it if particular scatter-gather URBs are used, because
-xhci_align_td() obtains packet size from the descriptor. Fix this.
+Looks fine, all needn't special failure handling:
 
-As a side effect, TRBs will be aligned to the packet size chosen by the
-driver on all endpoints of all speeds. Alignment serves the xHC, not
-device, so this is fine. Only out of spec devices are affected anyway.
+Reviewed-by: Ming Lei <tom.leiming@gmail.com>
 
-Reported-by: co+fd80bc5967eb22c3@bugs.sh
-Link: https://lore.kernel.org/linux-usb/D4tcSGerkYkIV1DmaUo1t8TaR5qQElDLkidn@bugs.sh/
-Fixes: f9c589e142d0 ("xhci: TD-fragment, align the unsplittable case with a bounce buffer")
-Cc: stable@vger.kernel.org
-Signed-off-by: Michal Pecio <michal.pecio@gmail.com>
----
 
-Trivial bug, trivial patch, though only tested for regression with
-an in-spec device, testing with the malicious device would be helpful
-to confirm that memory corruption is gone as expected.
 
-As for actual devices with 1KB packet size, I found that Cypress FX2
-can generate such packets and some HCs receive them, though others
-reject the Configure Endpoint command and usb_set_interface() fails.
-
-So we could support that, but this code really should just use the
-packet size selected by the driver instead of guessing.
-
-Perhaps the same should apply to other users of endpoint_maxp(), but
-those just calculate some TRB fields like TD Size, nothing critical.
-
- drivers/usb/host/xhci-ring.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/usb/host/xhci-ring.c b/drivers/usb/host/xhci-ring.c
-index b9d005ca5877..fa6684746305 100644
---- a/drivers/usb/host/xhci-ring.c
-+++ b/drivers/usb/host/xhci-ring.c
-@@ -3537,15 +3537,13 @@ static u32 xhci_td_remainder(struct xhci_hcd *xhci, int transferred,
- 
- 
- static int xhci_align_td(struct xhci_hcd *xhci, struct urb *urb, u32 enqd_len,
--			 u32 *trb_buff_len, struct xhci_segment *seg)
-+			 u32 *trb_buff_len, struct xhci_segment *seg, u32 max_pkt)
- {
- 	struct device *dev = xhci_to_hcd(xhci)->self.sysdev;
- 	unsigned int unalign;
--	unsigned int max_pkt;
- 	u32 new_buff_len;
- 	size_t len;
- 
--	max_pkt = xhci_usb_endpoint_maxp(urb->dev, urb->ep);
- 	unalign = (enqd_len + *trb_buff_len) % max_pkt;
- 
- 	/* we got lucky, last normal TRB data on segment is packet aligned */
-@@ -3690,9 +3688,8 @@ int xhci_queue_bulk_tx(struct xhci_hcd *xhci, gfp_t mem_flags,
- 		if (enqd_len + trb_buff_len < full_len) {
- 			field |= TRB_CHAIN;
- 			if (trb_is_link(ring->enqueue + 1)) {
--				if (xhci_align_td(xhci, urb, enqd_len,
--						  &trb_buff_len,
--						  ring->enq_seg)) {
-+				if (xhci_align_td(xhci, urb, enqd_len, &trb_buff_len,
-+						ring->enq_seg, ring->bounce_buf_len)) {
- 					send_addr = ring->enq_seg->bounce_dma;
- 					/* TD bounced at least, and last on this seg */
- 					td->bounce_seg = ring->enq_seg;
--- 
-2.48.1
+Thanks,
+Ming
