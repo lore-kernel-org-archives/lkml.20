@@ -1,108 +1,116 @@
-Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+Received: from mailrelay-egress4.pub.mailoutpod2-cph3.one.com (mailrelay-egress4.pub.mailoutpod2-cph3.one.com [46.30.211.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F5E87080D;
-	Wed,  2 Sep 2026 05:35:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.14.17.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 697697080D
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 05:35:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.30.211.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788327342; cv=none; b=uOBB2besqVzi5WqVGcfUjf9B8kYhqWXESHo6+3l9M7ZJFxPWcCDbLh+r+efA07t1tzMUQaJhy5dd4F6jK7LbmMXZ8yATwO/ZunhdsxY0vXbbH4JKSmdxtdU97PyQ2V820HQuAbO/G0RPGtKfNw7DbO6gcQ6GJZrZxzMn2NSl11c=
+	t=1788327348; cv=none; b=Z/sxj/AQVRmlCHqJN0Pt1b18V94LDjHYscMNpBFhdZ57JTR8vBQO60L3aN7QmBq6xz8dvKeoOVloCfmEruktjCnlrwXEy1crfUIPjWclc3ElAXsWq/aydvMcYRKrSO8R9dOcqTy9vOp8kdgFz8Yj9uBvziFEcl+dhkrSmSkpU64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788327342; c=relaxed/simple;
-	bh=4+fGFZO7R/SZ/oplryGl0/EYOfdyqwfnq8RkseYQiCo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aKs06N6ODUzXaFmJdjMKRjCOB/10PRRVNjYnXAFE2naRS3uhD9yyhtT0zBiRnFyOHknyrIJlOrZfNYNGL5kVi1UdyzXG5vcZVq/pAVWievVV0xd1xlN+E/4FBBt9/4ArWrHibTrQy3F8Zy79jvQteK5YkFuuYsB/PxadX++N8J0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de; spf=pass smtp.mailfrom=molgen.mpg.de; arc=none smtp.client-ip=141.14.17.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=molgen.mpg.de
-Received: from [141.14.14.124] (v124.vpnx.molgen.mpg.de [141.14.14.124])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: pmenzel)
-	by mx.molgen.mpg.de (Postfix) with ESMTPSA id 395AB4C2C37D61;
-	Wed, 02 Sep 2026 07:35:05 +0200 (CEST)
-Message-ID: <d633b7ee-0afa-4fa1-8340-3d7616f429d2@molgen.mpg.de>
-Date: Wed, 2 Sep 2026 07:35:02 +0200
+	s=arc-20240116; t=1788327348; c=relaxed/simple;
+	bh=1YYc3sMFUbCbbn19wgr7YV3/l+3KgfXUec6TQy1or+I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tZCTFo8hjtRrjCylcwgnAlVAS1rTTWy5YpaOwx/Z4DmxCpM0/AKQ45nY/vTL5beC5YZhMNJsSza/IKvkFupYivfsJzg95Enw9RvymeUxlTb6G558ohf4svigCS5pVSmSo7dEO8EjGDlQGmCToh/uRI9Ne9NikCXI/42bq1INpwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ravnborg.org; spf=none smtp.mailfrom=ravnborg.org; dkim=pass (2048-bit key) header.d=ravnborg.org header.i=@ravnborg.org header.b=qw3vM1dc; dkim=permerror (0-bit key) header.d=ravnborg.org header.i=@ravnborg.org header.b=f/YiOkjO; arc=none smtp.client-ip=46.30.211.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ravnborg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ravnborg.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=ravnborg.org header.i=@ravnborg.org header.b="qw3vM1dc";
+	dkim=permerror (0-bit key) header.d=ravnborg.org header.i=@ravnborg.org header.b="f/YiOkjO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1788327342; x=1788932142;
+	d=ravnborg.org; s=rsa1;
+	h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
+	 from:date:from;
+	bh=teV4sx8uLoW3jHOdd+YcF3stnTGkkGnzM5IGThhf40c=;
+	b=qw3vM1dcFUcNzTFwuJHPewwXMxkzIjppWQJuYqKMy/imtpa7rLbZpQC5xiYbKpyJMJi5I/a8VyWo9
+	 czuKYKAdF7oqL8a7Q/ztg2F0IniRDueE9GgrvUwUExzYq7LfY5Nzj8I/fhhKApcoEn5tOJ4XlrsQNO
+	 Eve7K3qiLFGg46n+WuCPwYnslyBUDFENYJSitV8B3Z3Ud55I3H+hEBLRl6eU4+FJ3i+oh3xqKC2TpW
+	 42R2FfRjwSv2dr34JRAuKculWZSZAdOZtTuTpH3WnP3GpWJtI+cNKk0+jkW2m+mI//4mqtWrzuE/nl
+	 iSjN+JEe5eyq37gT66RyJU8wH4jBAIg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1788327342; x=1788932142;
+	d=ravnborg.org; s=ed1;
+	h=in-reply-to:content-type:mime-version:references:message-id:subject:cc:to:
+	 from:date:from;
+	bh=teV4sx8uLoW3jHOdd+YcF3stnTGkkGnzM5IGThhf40c=;
+	b=f/YiOkjO6nWwiBj8N7L1HMQaEaUAd52u3v6kFKc0cMi+ylMHAFXZCdRf+Iq/0pgBvk91LgxbcBxaN
+	 qvb6FZjAw==
+X-HalOne-ID: 219fc36e-a690-11f1-a0c3-6b8d581b3111
+Received: from ravnborg.org (unknown [2a00:fd01:81e9:6100:5cc:91fa:7f53:a32a])
+	by mailrelay3.pub.mailoutpod2-cph3.one.com (Halon) with ESMTPSA
+	id 219fc36e-a690-11f1-a0c3-6b8d581b3111;
+	Wed, 02 Sep 2026 05:35:42 +0000 (UTC)
+Date: Wed, 2 Sep 2026 07:35:40 +0200
+From: Sam Ravnborg <sam@ravnborg.org>
+To: Magnus Lindholm <linmag7@gmail.com>
+Cc: sparclinux@vger.kernel.org, davem@davemloft.net, andreas@gaisler.com,
+	linux-kernel@vger.kernel.org, glaubitz@physik.fu-berlin.de
+Subject: Re: [PATCH v3 0/6] sparc32: replace sp_banks with memblock
+Message-ID: <20260902053540.GB338380@ravnborg.org>
+References: <20260901214611.60560-1-linmag7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Bluetooth: btintel_pcie: fix stale cache in set_dxstate
- fallback check
-To: "Vladimir V. Kondratyev" <vladimirkondratyev2@gmail.com>
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com,
- linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org,
- Sergey Lebedev <lsa.uz@pm.me>,
- Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
- Kiran K <kiran.k@intel.com>
-References: <20260507203426.128975-1-vladimirkondratyev2@gmail.com>
- <20260901203818.112189-2-vladimirkondratyev2@gmail.com>
-Content-Language: en-US
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <20260901203818.112189-2-vladimirkondratyev2@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901214611.60560-1-linmag7@gmail.com>
 
-[Cc: +Chandrashekar, +Kiran]
-
-Dear Vladimir,
-
-
-Thank you for your patch.
-
-Am 01.09.26 um 22:37 schrieb Vladimir V. Kondratyev:
-> btintel_pcie_set_dxstate() falls back to checking the controller state via
-> btintel_pcie_in_d3/d0() when the alive interrupt is missed. However, these
-> helpers read boot_stage_cache, which is only updated by the interrupt
-> handler. As such, if the interrupt was missed, the cache is stale and the
-> fallback check always fails, exhausting all retries and returning -EBUSY,
-> causing suspend to abort.
-
-Can you reproduce this on real hardware?
-
-> The fix involves re-reading the hardware register before the fallback state
-> check, consistent with btintel_pcie_resume().
+Hi Magnus.
+On Tue, Sep 01, 2026 at 11:45:44PM +0200, Magnus Lindholm wrote:
+> Replace the sparc32-private sp_banks memory description with memblock.
 > 
-> Fixes: e57362f4911b ("Bluetooth: btintel_pcie: Add support for _suspend() / _resume()")
+> The first two patches convert the SRMMU consumers that already run after
+> bootmem_init() has populated memblock. The third patch moves memblock
+> population to prom_meminit() and applies the mem= limit there. Patch 4
+> removes an unused address bitmap before patch 5 moves the early memory
+> setup into setup_32.c. Patch 6 removes the now-unused sp_banks array.
 > 
-> Signed-off-by: Vladimir V. Kondratyev <vladimirkondratyev2@gmail.com>
-> Tested-by: Sergey Lebedev <lsa.uz@pm.me>
-> ---
->   drivers/bluetooth/btintel_pcie.c | 8 ++++++--
->   1 file changed, 6 insertions(+), 2 deletions(-)
+> This work is based on an earlier eight-patch series by Sam Ravnborg.
+> Patch 2 directly carries over Sam's memblock sizing conversion. The series
+> has otherwise been substantially reorganized and reworked for the current
+> kernel. It retains the sparc32 mem= command-line option by using
+> memblock_enforce_memory_limit() and uses memblock's exclusive range-end
+> semantics throughout.
 > 
-> diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
-> index fda474406003..7fca8eea6e01 100644
-> --- a/drivers/bluetooth/btintel_pcie.c
-> +++ b/drivers/bluetooth/btintel_pcie.c
-> @@ -2778,9 +2778,13 @@ static int btintel_pcie_set_dxstate(struct btintel_pcie_data *data, u32 dxstate)
->   					  BTINTEL_PCIE_MSIX_HW_INT_CAUSES_GP0);
->   
->   		/* A hardware bug may cause the alive interrupt to be missed.
-> -		 * Check if the controller reached the expected state and retry
-> -		 * the operation only if it hasn't.
-> +		 * Refresh boot_stage_cache from hardware since it is only
-> +		 * updated by the interrupt handler, then check if the
-> +		 * controller reached the expected state and retry the
-> +		 * operation only if it hasn't.
+> The series applies on top of the sparc32 phys_base and Viking fixes.
+> setup_memory() preserves relocated-kernel handling by removing RAM below
+> the physical address to which PAGE_OFFSET maps.
+> 
+> Link: https://lore.kernel.org/sparclinux/20260816075141.3489194-1-linmag7@gmail.com/T/#t
+> 
+> The v1 series was boot tested on a Sun SPARCstation 20 with dual
+> SuperSPARC-II CPUs (SM71).
+> The v2 series was boot tested on a Sun SPARCstation 20 with dual
+> ROSS HyperSPARC (RT626) CPUs.
+> The v3 series was cross-compiled with the SPARCstation 20 and LEON
+> configurations as well as boot tested on a Sun SPARCstation 20
+> with dual ROSS HyperSPARC (RT626) CPUs.
+> 
+> Changes in v3:
+> - Add Sam's Reviewed-by tag to patch 4.
+> - Initialize max_pfn in patch 5 and use it as the highmem zone limit.
+> - Use PHYS_PFN() instead of open-coded PAGE_SHIFT conversions in patch 5.
+> - Remove the obsolete highstart_pfn and highend_pfn declarations.
+> - Use the generic max_low_pfn declaration from linux/memblock.h.
+> - Document removal of the duplicate private HIGHMEM summary.
+> 
+> Changes in v2:
+> - Add Sam's Reviewed-by tags to patches 1-3 and 6. Patch 6 is the
+>   unchanged source change from patch 5 in v1, renumbered by the new patch.
+> - Drop the unused sparc_valid_addr_bitmap in a preparation patch.
+> - Use for_each_mem_pfn_range() and the standard max_low_pfn variable in
+>   the early memory setup. This tightens LEON's _pfn_valid() upper bound
+>   from all memory to the lowmem limit, with no functional change because
+>   LEON does not use highmem.
 
-Re-flow for less lines?
 
->   		 */
-> +		data->boot_stage_cache = btintel_pcie_rd_reg32(data,
-> +							       BTINTEL_PCIE_CSR_BOOT_STAGE_REG);
+The full series looks good now, thanks for picking this up and adressing
+my review feedback.
+For anyone looking at sparc32 code this is now much more standard
+and you managed to remove ~250 lines of old code.
 
-To me it sounds strange, that a register name *boot stage* should change 
-after the boot. ;-)
+It is now ready for Andreas to take a look.
 
->   		if (dxstate == BTINTEL_PCIE_STATE_D0) {
->   			if (btintel_pcie_in_d0(data))
->   				return 0;
-
-
-Kind regards,
-
-Paul
+	Sam
