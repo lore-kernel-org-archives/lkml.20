@@ -1,164 +1,181 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailtransmit04.runbox.com (mailtransmit04.runbox.com [185.226.149.37])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D8E37A83F
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:55:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C1E374186;
+	Wed,  2 Sep 2026 17:55:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.226.149.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788371725; cv=none; b=I6G2HqInF7NK8Y+0Q9q8+Zrp2eMxWRinUdZwOslPdK7ItPNbHXjzftBy5LOkHkKfuXvJRrdUo3n+o9z1gxTa4c0Mc0pUU9ea4ucf2qPxmFMBQOPe5ssZK1HNmYghf3mZlcgvo4IrBtjTN6pfN1z1U3LZBYKXd/7zaYnpI6PzBGQ=
+	t=1788371744; cv=none; b=sXIZT2CuhIVlmnD79tY1gur5l8+I221myOxZMEObywlVKyTbtsvecWkSoyyIz0EKFuvbP05OacR/DBdVIo49mBx2ZLK+q/KohJpx/p/V374FHzwk6cjwGhYiKIwD13jUCRlHFxxj5AlIaYwIcLZa+JtBZfidl35jifkRrwBNoBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788371725; c=relaxed/simple;
-	bh=lxYajqr4+u9bb/bxk5jn26nvm6QJFX3vsnrk3DRP0b8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Ncc9OLVigfpikxZ25LzQdf1PnPcUVTvCwNRSbM3pU3fTjJozg384FlB6qzD5N6IrebeVcxArpD7wBiqpaWzwS5ehQMUdP9jwwQtyd2TbgvaBHZBEhMSbwbvrS0rWwnDkd9jGgQ2e3sFwyWK1RvVVoz5Tqg+DpbdLMcA6nSjbEAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rkETxNhX; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788371744; c=relaxed/simple;
+	bh=+dB8QRffgR6eYaoWZ0dZUjdKapPSbpOHQIRfxloj+Zc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=njN3eztFwhP+O7nYhWnFp4c6Le2TsCd942ta0H3gl4upCYjJOz2GvcNbeiJep49RkLB1wBCFaegki6C7jcHxmIGp8/oU6xsDLnLRCnLSnwyZOxzUYHLenscHBcEXo897jKNlCJECG3r910cdowRLC1TyLfzsUlGaJCMkQvyh4OE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co; spf=pass smtp.mailfrom=rbox.co; dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b=EIMZTpic; arc=none smtp.client-ip=185.226.149.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rbox.co
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rbox.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rkETxNhX"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so15003715e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:55:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788371721; x=1788976521; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MFRI8+rNhkKH03jGhsaVXbeguN5xAlvbHG9GZ36jhpg=;
-        b=rkETxNhXjVCI539Q9hSsjXfJGGMnG1HoAMijdlSt5nNSJfcz3S7kRnBvw4xnlH/lQ/
-         E2+q83AZLgkd+CVJxs3ePwp6vsItJMPKBw/KGTdlP/kYbbpezxG65V+A5Fe4AqmN9Lop
-         FWWBNSU6BdYdRYHoLrXlyiqsFtCGDQH8HsHp0TR1ziiKfux/piuMJR41NAHr9cespL2O
-         tyJxQcGyxQ1U2lfmEsh6gumk5xlecfPfX620PX6niKsAhMv5ZeS5/S8PWsh8SsZ2R5el
-         8UusA5Mp91mAk5TV2ZTpQNXy2p+dnJywtGHLGsL4i7A69zNkF2h+qioLyI5JwHUaClUd
-         RbFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788371721; x=1788976521;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MFRI8+rNhkKH03jGhsaVXbeguN5xAlvbHG9GZ36jhpg=;
-        b=Ece1msqna6CrZELT5tmVuZ0NhvFzG0BGVSLffzzlTrS5YBWqtgh/WeqvvVJ/42B0WI
-         gWi9eueRXh7cPphmTMgb7t/tk1wdqgZzYcucXABA7LrelwBj4d3pRRisiLEtsjkkZ1U2
-         meI0wuhyN2ZCJgLAP2HuM/jnUNIC+xIRXc2Z59P3IKrPa6+BAc9Gb4kIY1f9Ts0kXllG
-         +9CBefbKJW9j6LDW7ie5LUywnlOEdRYNxI17vC0oiiW71e1ktj6Uo9u9FD+O96CTknL9
-         vys92SccRd1a7YGmyltbgMOJB+Dm+iQY36iAtzpYBTPePlEkNPa8qgzIOSbOHqrWnuPy
-         j+SA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro0AHiY57FG0SUB0OYYO4SLiyIR3/zpbZcQRVSp9OHATYV3mlrsngJtQSoHsy6lGZsfm5wN9Zy+zNtqog4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lmqD2nhftAT2HQhUVXgLTChkh2karxnXkkJCGvecfJ3slhlcdm
-	muhU8Qg5FvEWBpQS0da/19RVPWFsPQjzk1URsywBqUVkpqYQk8F9D6jA
-X-Gm-Gg: AR+sD10YAvgiXyPAVPmN9DoEyqeOvIWrtJMt10OE+ETnYWHFf9QHYFkCnG8C0jn9Jzs
-	6ngS3YqIKyzluVY6LDwckTZ2pw3VChr0BqixqAB9q6xjcxs/LBr7u7kvLMo8+iTRZ1cL58JB1Dr
-	YnVewFOiqss3OeX6EpZAIrdWJ5J4isceQr/rsctCzBVUzqhpcFV2uRoqJSfhi027fltkBtRSd9z
-	Uip1ZL2ibuJdyCEPYIImyAly0XXXeCI96UJyMdPxV15sU2SxWyJrPEqc0RXueKq1+i4py2HTKre
-	70L82715ggXHPdnRVmbCvoPJByNCNDDTyETq3Xl5fzT+qsVB9ayYQVfsD+2ZCOk7ZHRK/4wgCZP
-	3WhCiVu9H3TW9moNor8Rmq10lJafLDUZxztHspnZEhAJFZDpWEEhT2iNJVuLqc1vt0S8a/knvbn
-	72IOA/m62PzRHIor5k85loD3R7Ajnm9MqVBsRq4ig8ctCNlO1/skQnoyVN/jnRt5n/a2Jc41Rgz
-	Np5RbxrlwLpRyR9Ujs/lwgwpQRDvzvxBHvpHJppld9nliOR7PwMEO/+S6RRu79FvguxAcLghtg+
-	0Xyx4vW9Ia6+uWE8OZfThi6QkTfpihbT4QQzqBMaZWR9YzayWT2WA3yNssnc11HtUMew7Q0/axZ
-	Bee2wZPewALoknDSo
-X-Received: by 2002:a05:600c:530e:b0:49c:d618:e341 with SMTP id 5b1f17b1804b1-49ce584bb4amr137492565e9.14.1788371721009;
-        Wed, 02 Sep 2026 10:55:21 -0700 (PDT)
-Received: from workstation ([85.186.165.159])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d1fe2sm9693665e9.3.2026.09.02.10.55.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 10:55:20 -0700 (PDT)
-From: =?UTF-8?q?=C8=98tefan=20Ghe=C8=9Bu?= <stefanghetu9@gmail.com>
-To: lgirdwood@gmail.com,
-	peter.ujfalusi@linux.intel.com,
-	yung-chuan.liao@linux.intel.com,
-	daniel.baluta@nxp.com,
-	broonie@kernel.org
-Cc: kai.vehmanen@linux.intel.com,
-	pierre-louis.bossart@linux.dev,
-	perex@perex.cz,
-	tiwai@suse.com,
-	sound-open-firmware@alsa-project.org,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?=C8=98tefan=20Ghe=C8=9Bu?= <stefanghetu9@gmail.com>
-Subject: [PATCH] ASoC: SOF: imx8: check imx_sc_pm_cpu_start() return value
-Date: Wed,  2 Sep 2026 20:55:17 +0300
-Message-ID: <20260902175517.209406-1-stefanghetu9@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=rbox.co header.i=@rbox.co header.b="EIMZTpic"
+Received: from mailtransmit02.runbox ([10.9.9.162] helo=aibo.runbox.com)
+	by mailtransmit04.runbox.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.93)
+	(envelope-from <mhal@rbox.co>)
+	id 1x1pB3-0093kV-KA; Wed, 02 Sep 2026 19:55:13 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=rbox.co;
+	s=selector2; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+	Message-Id:Date:Subject:From; bh=fSlfqnwEvLaNr4akvlf7I2sHJLIFmr8QwBFYs0VFHBs=
+	; b=EIMZTpicfh8iRbwp6VmW/QD90Q4sYZYV1LtQDQWascH+g0H9KwrRsOx4zOHeBhK02KM7ShO/b
+	ZwEuH1jukjT/6g9Hq2tFSCOrZCiGcc2fEAdgCSrh5iJ2EZkXhQ2a+M+K+bXAnJOmRgkSjxqt9I7/K
+	cTDBKMhcP5iafiq0TrPkhBdMP9daCL6GuflWwrZ58uQJ+wKSuu/bw1KfVmLojVHXpyB1ZlflBHxqz
+	JVjeME8bpcFqhSrmyvRVOLiX+jkbFmW9Y2+xjZmxUta7A+YF1L25G4Apvgtg4hgfU8jzLo2SwO9CK
+	2P+UmKjB/I5mMgwl56jKpTqy55c1lqtmmKoptQ==;
+Received: from [10.9.9.73] (helo=submission02.runbox)
+	by mailtransmit02.runbox with esmtp (Exim 4.86_2)
+	(envelope-from <mhal@rbox.co>)
+	id 1x1pAy-00072V-0N; Wed, 02 Sep 2026 19:55:08 +0200
+Received: by submission02.runbox with esmtpsa  [Authenticated ID (604044)]  (TLS1.2:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.95)
+	id 1x1pAi-0020Qt-Gs;
+	Wed, 02 Sep 2026 19:54:52 +0200
+From: Michal Luczaj <mhal@rbox.co>
+Subject: [PATCH bpf v3 0/2] bpf: Fix socket leaks around
+ connect(AF_UNSPEC)+listen()
+Date: Wed, 02 Sep 2026 19:52:13 +0200
+Message-Id: <20260902-sockmap-lookup-tcp-leak-v3-0-b998b3d49d07@rbox.co>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ7CIBBFr2JYi6EgSFx5D+MC6NRitRBoSU3Tu
+ 0tx0ZXu5k/+f29GEYKFiM67GQVINlrX58D2O2Ra1d8B2zpnRAkVRFCJozPdS3n8dK4bPR5MPkF
+ 1WNdKKwZEMsNRXvsAjZ0K+Yq0b9Dt+4yjfoAZVuZaa20cXHgXf6pKuahOlP1UpQoTXGldGy4N8
+ Op4CdpNB+OKI9GNIskfCs0URgQQynUDQmyUZVk+iXGFbhkBAAA=
+X-Change-ID: 20260628-sockmap-lookup-tcp-leak-bdaba3e083c5
+To: Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, 
+ Willem de Bruijn <willemb@google.com>, 
+ Jakub Sitnicki <jakub@cloudflare.com>, 
+ Jiayuan Chen <jiayuan.chen@linux.dev>, Joe Stringer <joe@wand.net.nz>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, 
+ Pablo Neira Ayuso <pablo@netfilter.org>, Florian Westphal <fw@strlen.de>, 
+ Phil Sutter <phil@nwl.cc>
+Cc: Michal Luczaj <mhal@rbox.co>, bpf@vger.kernel.org, 
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, coreteam@netfilter.org, 
+ Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.15.2
 
-imx8_run(), imx8x_run() and imx8_shutdown() check the return value of
-every imx_sc_misc_set_control() call but ignore the one from
-imx_sc_pm_cpu_start(), which propagates errors from imx_scu_call_rpc()
-and can fail with -ETIMEDOUT, -EINVAL or -EPERM.
+This is a follow-up to Sashiko's report[1].
 
-Reporting success after a failed start leaves the caller loading
-firmware onto a core that is not running, and a failed shutdown is
-similarly hidden from imx_chip_core_shutdown() callers, which do act on
-the return value.
+Several BPF socket helpers acquire a socket reference only when
+sk_is_refcounted() == true, and release it, independently, by
+re-evaluating sk_is_refcounted() again at the time the release runs. TCP
+connect(AF_UNSPEC)+listen() sets SOCK_RCU_FREE on an established socket.
+If that happens while a reference is outstanding, the release side sees
+sk_is_refcounted() == false and skips the put; the socket is leaked.
 
-Propagate the error, matching imx95_core_shutdown() in imx9.c.
+unreferenced object 0xffff88811617ce00 (size 3200):
+  comm "softirq", pid 0, jiffies 4294848512
+  hex dump (first 32 bytes):
+    7f 00 00 01 7f 00 00 01 4d 43 02 f6 00 00 00 00  ........MC......
+    02 00 07 41 00 00 00 00 00 00 00 00 00 00 00 00  ...A............
+  backtrace (crc fb5bd4c8):
+    kmem_cache_alloc_noprof+0x53e/0x640
+    sk_prot_alloc+0x69/0x240
+    sk_clone+0x79/0x1230
+    inet_csk_clone_lock+0x30/0x760
+    tcp_create_openreq_child+0x34/0x2750
+    tcp_v4_syn_recv_sock+0x12e/0x1080
+    tcp_check_req+0x447/0x2310
+    tcp_v4_rcv+0x1026/0x3c90
+    ip_protocol_deliver_rcu+0x93/0x340
+    ip_local_deliver_finish+0x356/0x5c0
+    ip_local_deliver+0x184/0x4a0
+    ip_rcv+0x4f4/0x5b0
+    __netif_receive_skb_one_core+0x153/0x1b0
+    process_backlog+0x28d/0x1190
+    __napi_poll+0xab/0x520
+    net_rx_action+0x3f0/0xca0
 
-Signed-off-by: Ștefan Ghețu <stefanghetu9@gmail.com>
+[1]: https://lore.kernel.org/bpf/20260701235552.2B0AA1F00A3F@smtp.kernel.org/
+
+Signed-off-by: Michal Luczaj <mhal@rbox.co>
 ---
- sound/soc/sof/imx/imx8.c | 25 +++++++++++++++++++------
- 1 file changed, 19 insertions(+), 6 deletions(-)
+Changes in v3:
+- Add a fix for TC bpf_sk_assign() (patch #2)
+- Clean up commit messages
+- Non-fixes went to bpf-next: https://lore.kernel.org/bpf/20260813-sockmap-lookup-get-ref-v1-0-31f5d55f44ac@rbox.co/
+- Link to v2: https://patch.msgid.link/20260803-sockmap-lookup-tcp-leak-v2-0-306e025bfe66@rbox.co
 
-diff --git a/sound/soc/sof/imx/imx8.c b/sound/soc/sof/imx/imx8.c
-index c2b4d379a3a3a..0820724dbb349 100644
---- a/sound/soc/sof/imx/imx8.c
-+++ b/sound/soc/sof/imx/imx8.c
-@@ -41,13 +41,18 @@ struct imx8m_chip_data {
- 
- static int imx8_shutdown(struct snd_sof_dev *sdev)
- {
-+	int ret;
- 	/*
- 	 * Force the DSP to stall. After the firmware image is loaded,
- 	 * the stall will be removed during run() by a matching
- 	 * imx_sc_pm_cpu_start() call.
- 	 */
--	imx_sc_pm_cpu_start(get_chip_pdata(sdev), IMX_SC_R_DSP, false,
--			    RESET_VECTOR_VADDR);
-+	ret = imx_sc_pm_cpu_start(get_chip_pdata(sdev), IMX_SC_R_DSP, false,
-+				  RESET_VECTOR_VADDR);
-+	if (ret < 0) {
-+		dev_err(sdev->dev, "Error stalling DSP core %d\n", ret);
-+		return ret;
-+	}
- 
- 	return 0;
- }
-@@ -88,8 +93,12 @@ static int imx8x_run(struct snd_sof_dev *sdev)
- 		return ret;
- 	}
- 
--	imx_sc_pm_cpu_start(get_chip_pdata(sdev), IMX_SC_R_DSP, true,
--			    RESET_VECTOR_VADDR);
-+	ret = imx_sc_pm_cpu_start(get_chip_pdata(sdev), IMX_SC_R_DSP, true,
-+				  RESET_VECTOR_VADDR);
-+	if (ret < 0) {
-+		dev_err(sdev->dev, "Error starting DSP %d\n", ret);
-+		return ret;
-+	}
- 
- 	return 0;
- }
-@@ -105,8 +114,12 @@ static int imx8_run(struct snd_sof_dev *sdev)
- 		return ret;
- 	}
- 
--	imx_sc_pm_cpu_start(get_chip_pdata(sdev), IMX_SC_R_DSP, true,
--			    RESET_VECTOR_VADDR);
-+	ret = imx_sc_pm_cpu_start(get_chip_pdata(sdev), IMX_SC_R_DSP, true,
-+				  RESET_VECTOR_VADDR);
-+	if (ret < 0) {
-+		dev_err(sdev->dev, "Error starting DSP %d\n", ret);
-+		return ret;
-+	}
- 
- 	return 0;
- }
--- 
-2.53.0
+Changes in v2:
+- Defer "Use sock_hold() instead of refcount_inc_not_zero() in lookup" to
+  bpf-next [John]
+- Fix comment style [Sashiko]
+- Link to v1: https://patch.msgid.link/20260723-sockmap-lookup-tcp-leak-v1-0-1bbdc58ce514@rbox.co
+
+To: Alexei Starovoitov <ast@kernel.org>
+To: Daniel Borkmann <daniel@iogearbox.net>
+To: Andrii Nakryiko <andrii@kernel.org>
+To: Eduard Zingerman <eddyz87@gmail.com>
+To: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+To: Martin KaFai Lau <martin.lau@linux.dev>
+To: Song Liu <song@kernel.org>
+To: Yonghong Song <yonghong.song@linux.dev>
+To: Jiri Olsa <jolsa@kernel.org>
+To: Emil Tsalapatis <emil@etsalapatis.com>
+To: John Fastabend <john.fastabend@gmail.com>
+To: Stanislav Fomichev <sdf@fomichev.me>
+To: "David S. Miller" <davem@davemloft.net>
+To: Eric Dumazet <edumazet@google.com>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+To: Simon Horman <horms@kernel.org>
+To: Kuniyuki Iwashima <kuniyu@google.com>
+To: Willem de Bruijn <willemb@google.com>
+To: Jakub Sitnicki <jakub@cloudflare.com>
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: Joe Stringer <joe@wand.net.nz>
+To: Ihor Solodrai <ihor.solodrai@linux.dev>
+To: Pablo Neira Ayuso <pablo@netfilter.org>
+To: Florian Westphal <fw@strlen.de>
+To: Phil Sutter <phil@nwl.cc>
+Cc: bpf@vger.kernel.org
+Cc: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: netfilter-devel@vger.kernel.org
+Cc: coreteam@netfilter.org
+
+---
+Michal Luczaj (2):
+      bpf: Unconditionally take socket references in lookup helpers
+      bpf: Fix reference leak in bpf_sk_assign()
+
+ include/net/inet6_hashtables.h |  9 ++++----
+ include/net/inet_hashtables.h  |  9 ++++----
+ include/net/request_sock.h     |  2 +-
+ include/net/sock.h             | 11 ++++++++++
+ net/core/filter.c              | 49 +++++++++++++++++++++++++++++-------------
+ net/core/sock_map.c            |  8 ++-----
+ net/netfilter/nf_queue.c       | 18 ++++++++--------
+ 7 files changed, 67 insertions(+), 39 deletions(-)
+---
+base-commit: ce6b9e5dd873de532cd924e2abc928220cdc2738
+change-id: 20260628-sockmap-lookup-tcp-leak-bdaba3e083c5
+
+Best regards,
+--  
+Michal Luczaj <mhal@rbox.co>
 
