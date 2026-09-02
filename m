@@ -1,132 +1,134 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC2446AED1
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 23:04:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788390298; cv=pass; b=m+E7eTIJ74ckPxMBav/STTqLgn2/mK1xtBLURrl9loX4rQS07v1R5H2zvFHgod9iF2ifEvxDoIWx52Qjxz7fWrn7+g0kPz9uYW1yVsQ853D5WAlT9XtwURgzEEnUbLVI39/ZE/kylyFQnDxarAYctwcJiE+6tI942DC7nGT5ly8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788390298; c=relaxed/simple;
-	bh=/v97SxnXWUl3AzCD8i4KYWPlhfuArXwfYgURlq/8OC4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qgcLRj9rNsqasa4gBRQBp1wCEgWEE+WfbdKM+aZ3NN5ABJCTo+//VPNRgG4koUQe4DwcIwlAhRjTxNKjdRbxbyG0LYDxa5RPXPsir/N48ar3hdHu6A+hxjChmgwoIWGKrgFkpbVNz4I13ENLbnnTRi3oBm5sRya3eJLDJIq3YJY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=E+VK7vZR; arc=pass smtp.client-ip=209.85.215.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 279204446EE;
+	Wed,  2 Sep 2026 23:04:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788390305; cv=none; b=Rlq3hzDAGnqY/8w9Z/MYF0acDzqPnKIPxyjIHbOONMtGGv4ZXKbgi8BtghSvug1Iz2gxzhWz1nZReQqcF+ktpM96gAzrN8XOILKufK7SjiKXge03i3Mj+oXuUaGMEXCsF6zjHrd6n3WEJtnfMQAwNpHb6wwZM6gn3aD4mGly0W8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788390305; c=relaxed/simple;
+	bh=INCveELf4SeONdd+Iwy6XwTvuoHRcwzhM2gnIE4HCPQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HjyDc3mr7+CNXzAN/6NiIoohdfFogowkC0O94DoLqKVVlIZA7bDfpwSblt3rKCF4zrbjL1FcK7qCQFJzLfnL9uduWBE4YheR1GqkX9ef0TTvYjNz0IwvKdP36tJekS+KStHvOPxPtw+b7xiI0gP169jE0p4/a/AwSEth0VhJ7AY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ZP8UNAB9; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="E+VK7vZR"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-ca12086c06eso1395335a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 16:04:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788390289; cv=none;
-        d=google.com; s=arc-20260327;
-        b=szp7tuAabjUgDooe3DGgTvRXQKt1I0xKR1s5tR/9YDyIY7DARIRodZ8XJYV+lLwAFc
-         kEvNsehQgZ1uMCzWLWoPbFTNDV5dNJlhsvfvu4seVkH+Dd9EneFpJ0jplH5eWTbH2AJ9
-         IVT4wL9IpAq0mepsF4odmYmEULW6l67GriKwyH1yR9vDIsD09d8UYfifUFJrbqwrmZpX
-         lf9PO/LSRvl7CYMgJCrkmVDv9a05HFb0ZHdyUNBsZny34eqKmBRD/hszLLQQgjzQ4sBV
-         rN7XtmyAncZRYj/5TtbYvzePTZlXp08RRjYnVXMZ2FbSOryffNQiq6oXDKVocty+QwMM
-         d3bQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=/v97SxnXWUl3AzCD8i4KYWPlhfuArXwfYgURlq/8OC4=;
-        fh=Vogo4gj4lb6SJhOCMkyLPpkVSzZV4I+MKJDjIRpxiXM=;
-        b=XopULfmBjQzWrnHyXiqaWjVzMTEjcwrQoYeDvhoF564IyTzeTQC70bxNWLpGsx9Zyk
-         0P3LzL3p30AX+fswYGveiNUStpL/E6Sf4EVxk8F5ZqnI1Q9hhMuBSV03BYmawIFgPk1J
-         crHqUW1AuMt3MjWyvIudB/SHdhxVbfcd3bGG2UfOZzoPhC9lNS4wXtaYiYfrh5kLSYKo
-         yd+sEOde7H5w1/1xwb86JOWlS+is5qhCifAiqnRrF926L56/lO2BCkMSzSF4UzDiZKfG
-         N/DXemT1/+0k5nelklqerAPBIrLi6aBHHWxbR0czjZ6FOKewurhzkfI9YJLAeaotu46G
-         tTEQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788390289; x=1788995089; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/v97SxnXWUl3AzCD8i4KYWPlhfuArXwfYgURlq/8OC4=;
-        b=E+VK7vZRF+UAaweMQupmYJcDtfYBCXTmfbly6iB1bEIecnOxjhl3ZGTJP85kBzzba3
-         BWfclCerpJFce0/ObOT0+5u57AMR/Ld9bNfttf5t/9uwIDH79+wsNfQx99uMrcmOf2Jy
-         eNVS1dcHV0YsbgjWFwjiYQ+vhiQacebt0Y1RkeIwA7K9xYmQpAnK0T1k+hBuK4ROQzUu
-         /0UR5SEGv192wGNrPfOX2R/ZLK9UPTjV0thLrPUbgArW2Uq97ld+4RwBGpp7rjRLxbsJ
-         RoRuAKKT8D6TGBjkWFf4IHUUSb+ceyqI8uTKL/ns5wg/GZJORktsGcT13kZ+6ae7n/9C
-         WaDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788390289; x=1788995089;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/v97SxnXWUl3AzCD8i4KYWPlhfuArXwfYgURlq/8OC4=;
-        b=SJQEnuHg9tfZoMo5NIPd4jPOuNvXoSbZ6MukdNChdujNxACz5W1T06+hCKGueEaqwl
-         mZC5mArEhDCzuGbZkCnXHOV0GPfP+lxx4+XHTMhX15QzfJKG+0Cw7qs7AmWqzUZ/6d0w
-         V2NUvKVTKf5uAWhSLUBk0H0W9W+pQVMkArP3juRJxZqaFFo/lGah6XgUscXpkbcrv3Qk
-         Bnx7F+f6zhNHVmZxDlBysDlj77f2G42MI4VZvZWPJnTjIGkN/bkSIdI1DyX0uOBrv9j0
-         +W4zY9kMYJKaBHsbjx3Ihvq5uJE7GBvoaq0sH1uaLGCSGQwLr4OjCojgI66PFMHzMpvV
-         KBTg==
-X-Forwarded-Encrypted: i=1; AKwUvBwRgDnRRm305h+KgW+1kPEZmilY/FQba0uimVc7seBdTfcKl92Nb8vxmOE88vzM5CCrtq9yRxWpjEkD1D8=@vger.kernel.org
-X-Gm-Message-State: AFuF++l8E/dHfOhgZfkE8p1fz0evfY84NCt1goGZz+p4hTrlS0W38yXc
-	5p4w4/V+Y+eerXQN/mtJFAtIHW6iUF14ED+LHrRQ72Q34FkZUdP+91vQJiZSWjDK3yAu8w8hB2p
-	t+9ivftuM7wbULi+tiQfeiYEGI4G+1Qs0wsFJufeJ
-X-Gm-Gg: AYBFou1UElJy4itdqDVyBOqf9N22/y6Oy0iSr2v+IgLnpwwxN1lG4MFXlmPC4BZv6Sv
-	z9G0SMEkAPr4YluIFQPeXMzc2Cf7Wk75iSPA4emfA7wtCvUaKXjCGQ4pE6dFI4LzwlwrGjJpcyE
-	Bxc5JFMV3VxNbABsD8hTs+rhiqopqnaPxvPm8TJzTA/VPSDwfEjHFG7K4Ve/lN2PhyFPwBT6ZRy
-	1oMoq/jaWNIIyxa98KH+s/nKTxYqnvc0KL+/9h0teMkgl7fhmX1wW9+lvDcaJoLM9yUR0aZG+Mc
-	ERz+OolScxe8E7CnVqw1FuAodlUOe1aVmI+hRefoTf8SLsz+2g30fpfvVMegL7R+/JfxVDXERU0
-	T7tCzk3Ti5x78mM8N9eD/LmHfAJ/jDH80tbXorCXh75NufCk1/3zzKfd9Lq89Xx5JP6fjbv5MYv
-	rhpm/GGmI0tqjO
-X-Received: by 2002:a17:90b:2649:b0:398:d6e6:4671 with SMTP id
- 98e67ed59e1d1-39aee249be6mr12032469a91.25.1788390288724; Wed, 02 Sep 2026
- 16:04:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ZP8UNAB9"
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682KVhV23367416;
+	Wed, 2 Sep 2026 23:04:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=0x/o3Zc6QpdTEblJG
+	ynKrh31t8tvBf2/GZHnUyMzS1w=; b=ZP8UNAB9Z/KSZS0JcMlMvG4TAFzd7971t
+	h5Z7tG3PyNNJT6PWXx0bDaRl1yAxiQP0yYWswihcmrbhOLbW/vOfDTSs3+SjTCyA
+	/rqRAsVibouzvXCyuMfGWbkLBp1ngZNiGvoSFa2sCsTv+mmL6dz5reEEQo6YhMEq
+	9H368K94aJkq3rZWS1JSaOd+TcRtxpHuqTKbvRXFJMtctlVOWMksOrvsGc6RKcLL
+	SakuKaIwkoIxMVMQL8v0UXbz3RfFbaCiQG7BgmS1REXetWerwjOz3a1nqVEyYXsu
+	KSWMa0bpl0sf5+HF2wct4G+NZIqTOmUiGNkTIbIqsV74nJDtVSt9A==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq3rj0pg-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 23:04:47 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 682MuIjK011899;
+	Wed, 2 Sep 2026 23:04:46 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gecjan9r8-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 23:04:46 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com [10.20.54.100])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 682N4gTw39518636
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 2 Sep 2026 23:04:42 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 6A2DE20043;
+	Wed,  2 Sep 2026 23:04:42 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id D9D1820040;
+	Wed,  2 Sep 2026 23:04:37 +0000 (GMT)
+Received: from li-fc74f8cc-3279-11b2-a85c-ef5828687581.ibm.com (unknown [9.67.98.186])
+	by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed,  2 Sep 2026 23:04:37 +0000 (GMT)
+From: Srish Srinivasan <ssrish@linux.ibm.com>
+To: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org
+Cc: James.Bottomley@HansenPartnership.com, jarkko@kernel.org,
+        zohar@linux.ibm.com, stefanb@linux.ibm.com,
+        linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+        nayna@linux.ibm.com, rnsastry@linux.ibm.com, ssrish@linux.ibm.com,
+        stable@vger.kernel.org
+Subject: [PATCH v2 1/2] keys/trusted_keys: return immediately after TPM unseal failure
+Date: Thu,  3 Sep 2026 04:33:04 +0530
+Message-ID: <20260902230305.118931-2-ssrish@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260902230305.118931-1-ssrish@linux.ibm.com>
+References: <20260902230305.118931-1-ssrish@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902-sockmap-lookup-tcp-leak-v3-0-b998b3d49d07@rbox.co>
- <CAAVpQUC==6KEBs3XgFjZ536mJ23cbHma8HuiWMu1DRc_=YYOHg@mail.gmail.com> <20260902155216.4fa23444@kernel.org>
-In-Reply-To: <20260902155216.4fa23444@kernel.org>
-From: Kuniyuki Iwashima <kuniyu@google.com>
-Date: Wed, 2 Sep 2026 16:04:36 -0700
-X-Gm-Features: AcwNN1UkbVzkWQ8FDXuwY9XPS95VYwqDS1NMCf7kWqvgYjJkEoK_LkIEshdICok
-Message-ID: <CAAVpQUAWjBuF1Rgze0Vt_XvkUT=Ajw-F+Kh+s2iHk38c8iAapg@mail.gmail.com>
-Subject: Re: [PATCH bpf v3 0/2] bpf: Fix socket leaks around connect(AF_UNSPEC)+listen()
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Michal Luczaj <mhal@rbox.co>, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, 
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>, Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	Emil Tsalapatis <emil@etsalapatis.com>, John Fastabend <john.fastabend@gmail.com>, 
-	Stanislav Fomichev <sdf@fomichev.me>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Willem de Bruijn <willemb@google.com>, Jakub Sitnicki <jakub@cloudflare.com>, 
-	Jiayuan Chen <jiayuan.chen@linux.dev>, Joe Stringer <joe@wand.net.nz>, 
-	Ihor Solodrai <ihor.solodrai@linux.dev>, Pablo Neira Ayuso <pablo@netfilter.org>, 
-	Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>, bpf@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org, 
-	coreteam@netfilter.org, Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Authority-Analysis: v=2.4 cv=EIc2FVZC c=1 sm=1 tr=0 ts=6a98ab8f cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=Gb-tKBqSAOq4cnd-bv4A:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDIwNCBTYWx0ZWRfX3F+h9PdSedCi
+ U9/o1OnJNjvqq1BKuAQHhzb5Wu9JvsmsWOee944iVuITivMr+5uig0x2xPExRi6YLJPfCksWsHW
+ s8d+8dA1YnYsMJwAOfQyThUGLr07f0+QcyVJ7rJEVfOaocc7qbrY45Lw0mAsBPNLBtsKfOep25r
+ agr9nbrJoE0AdGdM5RFOD/2xdYEFm288XsFK89cAuYrJ2qlCWe0b5Rt0BGFwGojELsdXoR95wcS
+ nkvC1VeL195Z9o0xi+gIoGDobRzS2dv4A/IJ8e4hJ+q7clHJcu6mPwbTYgeTzDkv1jmGfMxR7+D
+ sJarvTIsUx5HjSs4bQpDhuyxfDqX3EQ+Hx34F0Ict5JYN917KMKPE4PaIYsh1TlGRhp2FDzxera
+ DKQirs+Gq4nr/XzN/3nKyUKKFb0mK4nH/kO87Zc3nbdtkBK4fxWnlRmPAQMGJCLZBrSXRpcykif
+ xL5AXrX0JUhM97HDlrw==
+X-Proofpoint-GUID: KVYVSDNQZa6v4MBnJejYDIAov2lvoGQL
+X-Proofpoint-ORIG-GUID: KVYVSDNQZa6v4MBnJejYDIAov2lvoGQL
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDIwNCBTYWx0ZWRfX43CEAV9R1yU7
+ EiW0y/h8ZOgyXQ4jU2RC/pfAnXRlzzd4K5DfFVAUROcStmILbW6+5jQHiyOogCf6E45TapywuGN
+ zjGOc6ebbZOaqdBlVZrhWroXFgkl0Cw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_05,2026-09-02_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 impostorscore=0 suspectscore=0 priorityscore=1501 clxscore=1011
+ phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020204
 
-On Wed, Sep 2, 2026 at 3:52=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> wro=
-te:
->
-> On Wed, 2 Sep 2026 11:58:49 -0700 Kuniyuki Iwashima wrote:
-> > > Several BPF socket helpers acquire a socket reference only when
-> > > sk_is_refcounted() =3D=3D true, and release it, independently, by
-> > > re-evaluating sk_is_refcounted() again at the time the release runs. =
-TCP
-> > > connect(AF_UNSPEC)+listen() sets SOCK_RCU_FREE on an established sock=
-et.
-> >
-> > Due to several bug reports, we are now inclined to forbid the
-> > buggy transformation.
-> > https://lore.kernel.org/netdev/CANn89i+px52TtJy3S9=3DuHxGj3s-WueguRo1Z_=
-4FxO=3D02KLmwmQ@mail.gmail.com/
->
-> Kuniyuki, would you be willing to send a patch to do that?
-> Not sure if anyone else is planning to, I wasn't..
+trusted_tpm_unseal() proceeds to pcrlock() when the TPM unseal operation
+fails. If pcrlock() succeeds, its return value overwrites the unseal error,
+causing key instantiation to succeed.
 
-Sure, I'll post one like this with s/synchronize_rcu()/-EINVAL/g
-https://lore.kernel.org/netdev/20260804015349.2353056-1-kuniyu@google.com/
+Return immediately when unseal fails to preserve the original error.
+
+Fixes: 5d0682be3189 ("KEYS: trusted: Add generic trusted keys framework")
+Cc: stable@vger.kernel.org
+Signed-off-by: Srish Srinivasan <ssrish@linux.ibm.com>
+---
+ security/keys/trusted-keys/trusted_tpm1.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/security/keys/trusted-keys/trusted_tpm1.c b/security/keys/trusted-keys/trusted_tpm1.c
+index bf0bf7f36970..9cdfeea800a3 100644
+--- a/security/keys/trusted-keys/trusted_tpm1.c
++++ b/security/keys/trusted-keys/trusted_tpm1.c
+@@ -923,8 +923,10 @@ static int trusted_tpm_unseal(struct trusted_key_payload *p, char *datablob)
+ 		ret = tpm2_unseal_trusted(chip, p, options);
+ 	else
+ 		ret = key_unseal(p, options);
+-	if (ret < 0)
++	if (ret < 0) {
+ 		pr_info("key_unseal failed (%d)\n", ret);
++		goto out;
++	}
+ 
+ 	if (options->pcrlock) {
+ 		ret = pcrlock(options->pcrlock);
+-- 
+2.53.0
+
