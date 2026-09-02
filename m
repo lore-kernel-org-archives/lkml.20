@@ -1,131 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB9C377EC2;
-	Wed,  2 Sep 2026 07:25:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B1934E74B
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:25:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788333923; cv=none; b=Eiwngob+C0gVtr2ZUTbbpTsgGZl22Yn2VF2Zr/fOnk4qqUfNuj0TjklTNTKylGC/+ESBUHWxTkFWAL9J9jM1qgbxJ0Dl8p1Pnwkr1YFg83O6TwaFSCdmMMDQ9YitfIupfDDyaK2787dqKspcdbqvwQxcJyxZFmaSxjEl0ytflc4=
+	t=1788333939; cv=none; b=ALLsyCNzXRrC5oFN6C5g0lQoU4U/esZYa2MsvUZJ2K7L8lWv0J9EeGbrtT5EnyGZfhyq/Q8KCeg8/02M5TaLPNJhah3qB94Mv5dALtJU42sLE4jNnWf4/J8jQULHuvYfdVaA2K2RheDlF8g4R/IIXXMvEW4LYmvmFNLIyxuyWrY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788333923; c=relaxed/simple;
-	bh=xVefhCfWOs315KhgltJ/xQPwfNGo9Mqizsdsfu2cXzs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s+Ro269800Uee8XrmofKrWXxwblCyPCu1TPVkrY/4ChOtEKa/XwKjuAp6US4h+tb41yXvImd0DPsHD6k5x4H33dX6cKv8vWnJ9U89eaGXlenpFAeH5RfonU2ZaW0qrOm7x5eB5thLPLYadHVpZla71aVnvdPlZyjvgHS/TAhVxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XDj0pHfA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788333939; c=relaxed/simple;
+	bh=1kyjJzJsqCNQLjbE3g7LS91/5bkXy5o0ON/3ocZUiCQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZqzWOxSMcT8Ux6RCeLK5g/zpANEJ8MJWLLnEvV+rE7qwx4MXa3Utc5Jmv1lkz2L+DeW8T2Z0kYjlfPv/yjmR3j1PIPNvr1bA7arAOHV27wUhBJKdHQiDNUQUKiqYgFxp2cfH7x5C6m4MbPD5cveE+XR6XRCCg2yKFnhdXhsweBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=DPcbOCsp; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XDj0pHfA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADCB81F000E9;
-	Wed,  2 Sep 2026 07:25:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788333922;
-	bh=DlTJOIsThjiSM/dkMSfWXp9ZPGqirIyhJ6Grt5P8AUA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XDj0pHfAS59/KUdvAlCj+JVDqbtR0LF4LH36ZomND++PC0c/U3kb0O2eaVcXYGYZF
-	 FMoEsSlT8I2yP9jm7xm5/5lbxp8/vK2siRw3ZoX28miej3Bp8Hzv2rIlMNOBl3yUo8
-	 fiQ2iYcVEep0worPDZpDACJuVKRHrZtJMgi+VEl2xAvoCLB39rc70tZiYwgnkX1fRE
-	 pdGPdEwKvxCyc/o/yzzaA9U/uETV1LQ+tiXjeZrugtoGjYRGqII3GHYRwdloxcCcZN
-	 0HlQyAJ/AxdnGgmRbrjsClUesLhRna4dWFJSJpuEMI31aSSVi44BBjGjV+fVrRRiOF
-	 JDetf+6cvik6g==
-Date: Wed, 2 Sep 2026 09:25:13 +0200
-From: Niklas Cassel <cassel@kernel.org>
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Frank Li <Frank.Li@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Rob Herring <robh@kernel.org>, Aksh Garg <a-garg7@ti.com>,
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>, Jon Mason <jdmason@kudzu.us>,
-	Dave Jiang <dave.jiang@intel.com>, Allen Hubbe <allenbh@gmail.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Manikanta Maddireddy <mmaddireddy@nvidia.com>,
-	Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
-	linux-pci@vger.kernel.org, linux-nvme@lists.infradead.org,
-	ntb@lists.linux.dev, linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] PCI: endpoint: Support hardware-owned MSI-X table
- and PBA
-Message-ID: <apfPWc09CY2o-P5s@ryzen>
-References: <20260830151948.3547577-1-den@valinux.co.jp>
- <apVWd1u9JjTKQczu@ryzen>
- <pj5vpwwd5tr5tuvhdq3bcpefnq27r6ljvwoysguz2o4tglcqx5@l7zmb6wjnhla>
- <apXdm2I33edo8kpZ@ryzen>
- <sor2mm4jzgeprhn3fjw4jmcaowwkhhuus6exi4k5kum6frqvug@gatkk7r4qyxd>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="DPcbOCsp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=0UfuVQ2WNzTY+vKZ2LkipVxTd6VYZ1BWKXSjviu1fl4=;
+	b=DPcbOCspxTArS7UGbEr2I9SY90qOyyQxh/O6tungu9faWKzVVriS5Ad51qlS8P
+	pYg+cy3m1L0JEAoAWX0ZjNNjTKB33eWQSI+vwquzgdXssh+Ffl5aFe2fzbaFcFOr
+	mDUdp54U+tqMPHUbP773/j99XkMMlz72WXGNQVWeTJt8E=
+Received: from [IPV6:2409:8900:1ef4:8f82:6ff7:7c40:6535:9660] (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wD3t+dWz5dqzCI3AA--.209S2;
+	Wed, 02 Sep 2026 15:25:17 +0800 (CST)
+Message-ID: <2736dac8-8939-46db-99fb-08723fe1cf1a@163.com>
+Date: Wed, 2 Sep 2026 15:25:10 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <sor2mm4jzgeprhn3fjw4jmcaowwkhhuus6exi4k5kum6frqvug@gatkk7r4qyxd>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] ntfs: implement fileattr_get and fileattr_set
+To: Hyunchul Lee <hyc.lee@gmail.com>
+Cc: linkinjeon@kernel.org, ntfs@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Baolin Liu <liubaolin@kylinos.cn>
+References: <20260901091519.2885376-1-liubaolin12138@163.com>
+ <20260901091519.2885376-2-liubaolin12138@163.com>
+ <CANFS6bbVu2mrQXtKJfokDA=6ajReH9Xmm9OA1zVDzQhafHy0mA@mail.gmail.com>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <CANFS6bbVu2mrQXtKJfokDA=6ajReH9Xmm9OA1zVDzQhafHy0mA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3t+dWz5dqzCI3AA--.209S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WFyrZrWrKr18ur1rur1UAwb_yoW8Ww1kpF
+	Z5t3WxKayxJFyUCFyxZr4UWa1Ivr17JrWUArW7Ga4YyF9Ikr18K34SgF45CFyrCr4kCr12
+	9FyUtrsxKFnayrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zR-18dUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwh2LVmqXz11XWQAA3j
 
-On Wed, Sep 02, 2026 at 11:14:00AM +0900, Koichiro Den wrote:
+
+
+在 2026/9/2 10:00, Hyunchul Lee 写道:
+> Hi Baolin,
 > 
-> This still sounds really odd, and it does not obviously explain why both DWORDs
-> at 0x4000 and 0x4004 are affected. I may be missing something important. If
-> anything similar involving iMSIX-TX Table RAM entry #0 has been discussed
-> before, please point me to the relevant thread.
+>> +/*
+>> + * ntfs_fileattr_get - inode_operations::fileattr_get
+>> + * @dentry:    dentry to report the flags of
+>> + * @fa:                filled in with the flags of @dentry
+>> + */
+>> +int ntfs_fileattr_get(struct dentry *dentry, struct file_kattr *fa)
+>> +{
+>> +       struct inode *vi = d_inode(dentry);
+>> +       struct ntfs_inode *ni = NTFS_I(vi);
+>> +       u32 flags = 0;
+>> +
+>> +       if (NInoCompressed(ni) || NInoWofCompressed(ni))
+>> +               flags |= FS_COMPR_FL;
+>> +       if (NInoEncrypted(ni))
+>> +               flags |= FS_ENCRYPT_FL;
+>> +       if (vi->i_flags & S_IMMUTABLE)
+>> +               flags |= FS_IMMUTABLE_FL;
+>> +       if (vi->i_flags & S_APPEND)
+>> +               flags |= FS_APPEND_FL;
 > 
-> (Also, I can share my current WIP v3 series, which makes pci-epf-test and
-> nvmet-pci-epf use the hardware-owned layout when available, while leaving
-> pci-epf-ntb with its EPF-owned layout. If you have any setup where you could
-> test it, please let me know.)
-
-Some time ago, I did verify that I could raise an IRQ using
-dw_pcie_ep_raise_msix_irq_doorbell(). If I remember correctly, I did so using
-pci-epf-test and not nvmet-pci-epf.
-
-Did pci-epf-test work? (From what you explain, it seems to be related to if
-MSI-X Table entry #0 is used or not.)
-
-Please share your branch. I should have time to do a quick test.
-
-
+> It would be better to set FS_CASEFOLD_FL as well.
 > 
-> > 
-> > 
-> > What I suggest that you instead do something like:
-> > Patch 1/7: pci-epf-vntb: Fix to actually use MSI-X when requested.
-> >            This probably includes adding the code that is inside the
-> > 	   if (ret == -ENOENT) { }.
-> > Patch 2/7: PCI: endpoint: Support hardware-owned MSI-X table and PBA
-> > Patch 3/7: PCI: dw-rockchip: Support fixed MSI-X table and PBA on RK3588
-> > Patch 4/7: pci-epf-vntb: Add code that calls pci_epc_get_hw_msix_layout()
-> >            and uses that layout, if the function returned success.
-> > Patch 5/7: pci-epf-test: Add code that calls pci_epc_get_hw_msix_layout()
-> >            and uses that layout, if the function returned success.
-> > Patch 6/7: nvmet-pci-epf: Add code that calls pci_epc_get_hw_msix_layout()
-> >            and uses that layout, if the function returned success.
-> > Patch 7/7: pci-epf-ntb: Add comment that explains why it cannot call
-> >            pci_epc_get_hw_msix_layout() like all other EPF drivers that
-> > 	   support MSI-X.
-> > 
-> > 
-> > This way, patch 1/7 can be backported, and will help all users vNTB users,
-> > even the users that do not use RK3588 as an EPC.
+>> +int ntfs_fileattr_set(struct mnt_idmap *idmap, struct dentry *dentry,
+>> +                     struct file_kattr *fa)
+>> +{
+>> +       struct inode *vi = d_inode(dentry);
+>> +       unsigned int new_fl = 0;
+>> +
+>> +       if (fileattr_has_fsx(fa))
+>> +               return -EOPNOTSUPP;
+>> +       if (fa->flags & ~(FS_IMMUTABLE_FL | FS_APPEND_FL))
+>> +               return -EOPNOTSUPP;
 > 
-> That split makes sense. However, given the issue I described above, perhaps I
-> should send patch 1/7 as a standalone fix and hold off on the rest until the
-> issue is understood and resolved.
-
-Agreed, a standalone 1/7 patch could be picked up without the need to wait for
-any other changes.
-
-
+>> +
+>> +       if (fa->flags & FS_IMMUTABLE_FL)
+>> +               new_fl |= S_IMMUTABLE;
+>> +       if (fa->flags & FS_APPEND_FL)
+>> +               new_fl |= S_APPEND;
+>> +
+>> +       inode_set_flags(vi, new_fl, S_IMMUTABLE | S_APPEND);
+>> +
+>> +       inode_set_ctime_current(vi);
+>> +       mark_inode_dirty(vi);
+>> +       return 0;
+>> +}
 > 
-> Testing vNTB alone (ie. this v2 way) did not expose it because its first data
-> doorbell uses MSI-X Table entry #2. I only found the issue because your
-> suggestion led me to convert and test nvmet-pci-epf, thank you!
+> Currently, these flags are not written to disk.
+> I think that we should store them to disk or
+> reject them.
+> 
 
-I'm sorry that we have a problem.
-At least it is better to discover it now, rather than discovering it after
-the patches had been merged.
+Hi Hyunchul,
 
+   I will add FS_CASEFOLD_FL.
 
-Kind regards,
-Niklas
+   You are right about persistence. Namjae also pointed out that inode
+   reclaim can drop these flags before an unmount. I will look into storing
+   them on disk.
+
+   Thanks for the review.
+
+Thanks,
+Baolin
+
