@@ -1,417 +1,238 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C60534A49A5;
-	Wed,  2 Sep 2026 15:11:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com [209.85.167.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42E0F4534A9
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:11:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788361873; cv=none; b=tcpi9IYeEPX1vD3x1gynRpmeqeFFv9BnH57CfMnWX1zwZ2HudQrcvHqynKDoKhnKIsi4xtTFi5RFBUGERggmus0iGK2UO1Z5Uhk8azGq8jVXnDtStJbntadgquMVBdOT6LGF/na1+OPNqPdCAUqLQ0va+XJA3Cb9sEgp5i+ef2A=
+	t=1788361898; cv=none; b=dI1GPNazh1O3cdDnQqGKEICMfd3/qbfXZbdBpoo19Pd7/dTUyBap2o/Jt7cJ15pAsOtKfWOrIAj0Qxa+FWySRSy5dWI87aI1rZnrJvmjTFuhsGIp4kyZPm3CtpAHcNWu7fOaAkhu4atknYxuOBTJRO/27KQL3WmxSMWjh7euiLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788361873; c=relaxed/simple;
-	bh=xDKen3ziMe6r4IuSkrGSaftPq7eWsPGLzBSMeTCjIrA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qmOVAKzgX0l0xhFBS0UzL61KFmVS/oXSh9hSA2LT0351qA5W1Fmvel0M4Kv3N/v0VR+4EsEyLmfMqcl35PEoJApmTVPZOSGEK5+AzUyrDQzxIqKx8U23jM6fsjbCl9YSRBvG8dl6N2KVSu2Y3rqBifj2/z2sJzGHzBN6iOwW9mA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=OqJVhxBR; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788361898; c=relaxed/simple;
+	bh=gasmKhY5QdVetN3HDkPDfGtkZpKw5F4W6g75o0Q/i88=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fL/LpER2u0rQmc9D7ct096U0ZXGmbnlCNI1N0h+zzKtjWS68vtBD7fcYnUEO0vffLdKFAkYd2+pbSFDrdiqUQE7y8b1Dh080tJ2qlOfcx5sKkfSFTsyjDcf+fZiuWQp5H3pMvbSZ2tY0Gp/SJvxkZSRx9MsPtSDd6l6/DPNLaiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com; spf=pass smtp.mailfrom=cloudflare.com; dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b=NO5yNFam; arc=none smtp.client-ip=209.85.167.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cloudflare.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudflare.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="OqJVhxBR"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0629C165C;
-	Wed,  2 Sep 2026 08:11:06 -0700 (PDT)
-Received: from [10.57.49.102] (unknown [10.57.49.102])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 42A293F673;
-	Wed,  2 Sep 2026 08:11:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788361869; bh=xDKen3ziMe6r4IuSkrGSaftPq7eWsPGLzBSMeTCjIrA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=OqJVhxBR1uinXpVDwYKANBKGzsgsy9AFQvsJql59FqOqd0AIrL0idUDnKD1bFyfl1
-	 gLnKdQ+Y6GjdBWdCL4Q/w1cNTSwjAo7ovtUJqY9ucXrWGhInPKiX/kSQwcJRFoGdBc
-	 RfVpsaFgz8YrRBP3n1HdY9olX23gAwHMNVFAkjhY=
-Message-ID: <56aa7422-ded5-449c-ba62-e7e56d229587@arm.com>
-Date: Wed, 2 Sep 2026 16:11:04 +0100
+	dkim=pass (2048-bit key) header.d=cloudflare.com header.i=@cloudflare.com header.b="NO5yNFam"
+Received: by mail-oi1-f175.google.com with SMTP id 5614622812f47-4ab89cff9c7so417347b6e.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 08:11:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloudflare.com; s=google09082023; t=1788361894; x=1788966694; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6d93cyMkw6EMFToYvRlpelXx7oHrvV3y/wNVC9ldZm0=;
+        b=NO5yNFamOQ6Pttf0nW7mE8+rKgtxV0qy1bbOpsBroOmKjhBIYtm5t8iH/EzHb8FBUB
+         qro1YIOd7fYbhpLFdiM3Z8uIPoETf5KGM025b6X9HrfvYaYy97DlnaXcpUUd3aVTkpq+
+         iWrnFwPguea8q+2v3P488gDhjRan/nds+VhMBMzBwoSA6yz8Ueo/ceiAThA8mZF0fKfd
+         47Fi0N39qDeIdaCxdCa7g94C2hmKZAswah3++YFi2u95fPLfjZE1JJMXn8106hqhZOCH
+         pCDG0shvMMdyUanAVm4fHAUFva5XhAnoj1uF9RoRxixDjK3pp5b0jQ8of20/L2vXDJ4Y
+         j/Xw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788361894; x=1788966694;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=6d93cyMkw6EMFToYvRlpelXx7oHrvV3y/wNVC9ldZm0=;
+        b=fYBREnEdo11YbjxJpP9nbeOnyAW1BegU9Mg1gKdVUv65MIc8LbGg8WMLdBaBr9XzY9
+         y/28/9SdEGTxXObdS4X5VV7pVQYl+SZ+6NE6PsqX3A3W6KGsjD/8Nd0I1dgSU0fogaL3
+         li6Hlh07r16WLbtetAJEcn7i89dv5vL31Q65qyEmqzFUnzeQSzAKcMeNdEoo9amUa3r+
+         gDik6lmXIMqMAeHHmC6go4X5qD8oCkyBifL6qMphcGo8uQ6z//SGBHe1gvR92PA7QY4+
+         dVZMLpfLRY1p8lXwyCOoaGFS7ssgn+r8mo7EhD150/Qw0WiGjWOdjnOjTl2YP0kJ/x4d
+         CfVA==
+X-Forwarded-Encrypted: i=1; AHgh+Rou9WbqjhpKSZz9ZGrmg4lll53uRBbJN4nnKsTzmw1QT3MJzDQvDJ+jR4C9bznJEPjFoBC9BRhIBHyDgdc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mzDcib+5b0n0XSJiBJpCviHCOpeZPQCpPHDv/c8rg7ElgHmk8C
+	QQ1Vg0lFk9mJZN8mrXNVIHSu0v3giYj/nq7Geb/WqH9TXc+BE5djpLKj55aJnWUBO+lTCRrqeC7
+	6WyS8rvR9wQ==
+X-Gm-Gg: AR+sD11tuRZnTzhPPgB+gXW91gM0EJoPHIex5axc6Uh8rJzYiMSrTs+5kQwBxrY2RZf
+	RdaI+G9TR/qKBH5ojcUOoMHLQdMpLdT+e6i3LHidRdkFG2QwwUOnUrNuM0sedQDA7kedIURdJK6
+	ALQtjM3dSg7IJO4OoPVn+hhhgr4Q5r6xyuxextydlywHVrXl286mpxeQZDmWX6ZPNYJ1JxviMp1
+	PQgWROdTwCL+s49s/e71/lGuJRA80uCJ4wsypAYOhMg/goN0vvpXGol977MJZFKV2rtk8P6I5df
+	4PMnoD8PjPVklc3YVY2UlcpvIzGnRB3lzsjnDRVAv4rlGe5URytUjqt1J+cSTbRC95aA1WuVehv
+	PNeuu09x+OqQ421141pP/AYSg1VSGssby/OkUDTYd7EvKjLOlHOPq+PgQUbQH/P2139I9y9fUdv
+	cGLQUg1dl1j/s885DSnkgEuG/fKSj6Vws0sPxX405PM2cGEa+GVQ==
+X-Received: by 2002:a05:6808:1982:b0:4ae:f5be:fe29 with SMTP id 5614622812f47-4b6bc45eb12mr4432026b6e.5.1788361894525;
+        Wed, 02 Sep 2026 08:11:34 -0700 (PDT)
+Received: from [127.0.1.1] ([2a09:bac6:bf21:2e28::499:53])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b698a38f62sm2044063b6e.7.2026.09.02.08.11.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 08:11:32 -0700 (PDT)
+From: Chris J Arges <carges@cloudflare.com>
+Date: Wed, 02 Sep 2026 10:11:25 -0500
+Subject: [PATCH net] wireguard: wait for per-peer crypto during removal
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 14/45] KVM: arm64: CCA: Add basic infrastructure for
- creating a realm
-Content-Language: en-GB
-To: Gavin Shan <gshan@redhat.com>, Steven Price <steven.price@arm.com>,
- kvm@vger.kernel.org, kvmarm@lists.linux.dev
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Marc Zyngier <maz@kernel.org>,
- Will Deacon <will@kernel.org>, James Morse <james.morse@arm.com>,
- Oliver Upton <oliver.upton@linux.dev>, Zenghui Yu <yuzenghui@huawei.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Joey Gouly <joey.gouly@arm.com>, Alexandru Elisei
- <alexandru.elisei@arm.com>, Christoffer Dall <christoffer.dall@arm.com>,
- Fuad Tabba <tabba@google.com>, linux-coco@lists.linux.dev,
- Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
- Shanker Donthineni <sdonthineni@nvidia.com>, Alper Gun
- <alpergun@google.com>, "Aneesh Kumar K . V" <aneesh.kumar@kernel.org>,
- Emi Kisanuki <fj0570is@fujitsu.com>, Vishal Annapurve
- <vannapurve@google.com>, WeiLin.Chang@arm.com,
- Lorenzo Pieralisi <lpieralisi@kernel.org>
-References: <20260803134403.80630-1-steven.price@arm.com>
- <20260803134403.80630-15-steven.price@arm.com>
- <c9608c82-d4ff-4c0f-8f7b-1793ed205566@redhat.com>
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <c9608c82-d4ff-4c0f-8f7b-1793ed205566@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-fix-wg-peer-removal-v1-1-7a0190f5cdb1@cloudflare.com>
+X-B4-Tracking: v=1; b=H4sIAJw8mGoC/yWM0Q6CMBAEf4Xcs5dcqTGBXzE+YFnwDBZyrWhC+
+ HerPs5mZzZKMEWittrIsGrSORZwh4rCrYsjWPvCVEt9kkYcD/rm18gLYGx4zGs38dEPwTfSi3e
+ OirkYyu1XPVNEpst/TM/rHSF/e7TvH90glU58AAAA
+X-Change-ID: 20260901-fix-wg-peer-removal-43fc390d0311
+To: "Jason A. Donenfeld" <Jason@zx2c4.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+Cc: wireguard@lists.zx2c4.com, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, kernel-team@cloudflare.com, 
+ Chris J Arges <carges@cloudflare.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openssh-sha256; t=1788361892; l=5927;
+ i=carges@cloudflare.com; h=from:subject:message-id;
+ bh=gasmKhY5QdVetN3HDkPDfGtkZpKw5F4W6g75o0Q/i88=;
+ b=U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgaxY1IIT5oTohBZJmhnVgJo2HsM7Sv
+ 9I0LdJCgpeGX6gAAAAGcGF0YXR0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5AAAA
+ QKpZG43U/VRAV+Prr2sW0jg3cNIEuCbnlX7R7/cMb4Ldr5itEqZVxNPbqMC463wRbQvSqRslVYr
+ rxLj1VgRkpgE=
+X-Developer-Key: i=carges@cloudflare.com; a=openssh;
+ fpr=SHA256:Cun99EBiH0EV7wvmfTBF9eDrld2NJx+aD4ScWZ45Q5M
 
-On 01/09/2026 05:07, Gavin Shan wrote:
-> Hi Steve,
-> 
-> On 8/3/26 11:43 PM, Steven Price wrote:
->> Introduce the skeleton functions for creating and destroying a realm.
->> The IPA size requested is checked against what the RMM supports.
->>
->> The actual work of constructing the realm will be added in future
->> patches.
->>
->> Signed-off-by: Steven Price <steven.price@arm.com>
->> ---
->> Changes since v15:
->>   * Remove realm->params and only temporarily allocate the page when the
->>     realm is being created.
-> 
-> [...]
-> 
->> ---
->>   arch/arm64/include/asm/kvm_emulate.h | 24 +++++++++++
->>   arch/arm64/include/asm/kvm_rmi.h     | 63 ++++++++++++++++++++++++++++
->>   arch/arm64/kvm/arm.c                 | 12 ++++++
->>   arch/arm64/kvm/mmu.c                 | 18 +++++++-
->>   arch/arm64/kvm/rmi.c                 | 56 +++++++++++++++++++++++++
->>   5 files changed, 171 insertions(+), 2 deletions(-)
->>
->> diff --git a/arch/arm64/include/asm/kvm_emulate.h b/arch/arm64/ 
->> include/asm/kvm_emulate.h
->> index 5bf3d7e1d92c..e26d6755279f 100644
->> --- a/arch/arm64/include/asm/kvm_emulate.h
->> +++ b/arch/arm64/include/asm/kvm_emulate.h
->> @@ -688,4 +688,28 @@ static inline void vcpu_set_hcrx(struct kvm_vcpu 
->> *vcpu)
->>               vcpu->arch.hcrx_el2 |= HCRX_EL2_EnASR;
->>       }
->>   }
->> +
->> +static inline bool kvm_is_realm(struct kvm *kvm)
->> +{
->> +    if (static_branch_unlikely(&kvm_rmi_is_available))
->> +        return kvm->arch.is_realm;
->> +    return false;
->> +}
->> +
->> +static inline enum realm_state kvm_realm_state(struct kvm *kvm)
->> +{
->> +    return READ_ONCE(kvm->arch.realm.state);
->> +}
->> +
->> +static inline void kvm_set_realm_state(struct kvm *kvm,
->> +                       enum realm_state new_state)
->> +{
->> +    WRITE_ONCE(kvm->arch.realm.state, new_state);
->> +}
->> +
->> +static inline bool kvm_realm_is_created(struct kvm *kvm)
->> +{
->> +    return kvm_is_realm(kvm) && kvm_realm_state(kvm) != 
->> REALM_STATE_NONE;
->> +}
->> +
->>   #endif /* __ARM64_KVM_EMULATE_H__ */
->> diff --git a/arch/arm64/include/asm/kvm_rmi.h b/arch/arm64/include/ 
->> asm/kvm_rmi.h
->> index 57d24b244c95..cefd00b76806 100644
->> --- a/arch/arm64/include/asm/kvm_rmi.h
->> +++ b/arch/arm64/include/asm/kvm_rmi.h
->> @@ -6,12 +6,75 @@
->>   #ifndef __ASM_KVM_RMI_H
->>   #define __ASM_KVM_RMI_H
->> +#include <linux/arm-smccc-rmi.h>
->> +
->> +/**
->> + * enum realm_state - State of a Realm
->> + *
->> + * Mirrors the RMM's Realm lifecycle states where they are meaningful 
->> to KVM,
->> + * with REALM_STATE_DYING being a KVM-internal state used to prevent 
->> further
->> + * requests while teardown is in progress. KVM does not track 
->> REALM_SYSTEM_OFF
->> + * or REALM_ZOMBIE separately as they naturally lead to teardown.
->> + */
->> +enum realm_state {
->> +    /**
->> +     * @REALM_STATE_NONE:
->> +     *      Realm has not yet been created. rmi_realm_create() has not
->> +     *      yet been called.
->> +     */
->> +    REALM_STATE_NONE,
->> +    /**
->> +     * @REALM_STATE_NEW:
->> +     *      Realm is under construction, rmi_realm_create() has been
->> +     *      called, but it is not yet activated. Pages may be populated.
->> +     */
->> +    REALM_STATE_NEW,
->> +    /**
->> +     * @REALM_STATE_ACTIVE:
->> +     *      Realm has been created and is eligible for execution with
->> +     *      rmi_rec_enter(). Pages may no longer be populated with
->> +     *      rmi_data_create().
->> +     */
->> +    REALM_STATE_ACTIVE,
->> +    /**
->> +     * @REALM_STATE_DYING:
->> +     *      Realm is in the process of being destroyed or has already 
->> been
->> +     *      destroyed.
->> +     */
->> +    REALM_STATE_DYING,
->> +    /**
->> +     * @REALM_STATE_DEAD:
->> +     *      Realm has been destroyed.
->> +     */
->> +    REALM_STATE_DEAD
->> +};
->> +
->>   /**
->>    * struct realm - Additional per VM data for a Realm
->> + *
->> + * @rd: Kernel mapping of the RMM-managed Realm Descriptor (RD) granule
->> + * @sro: Preallocated SRO state context for Realm MMU operations
->> + * @state: The lifetime state machine for the realm
->> + * @ia_bits: Number of valid Input Address bits in the IPA
->>    */
->>   struct realm {
->> +    void *rd;
->> +    /*
->> +     * Reused by RTT map/unmap SRO commands. Those commands are only
->> +     * issued from Realm stage-2 map/unmap paths while kvm->mmu_lock is
->> +     * held for write, including Realm fault handling where
->> +     * kvm_fault_lock() takes the write side, so concurrent use is
->> +     * serialized.
->> +     */
->> +    struct rmi_sro_state *sro;
->> +    enum realm_state state;
->> +    unsigned int ia_bits;
->>   };
->>   void kvm_init_rmi(void);
->> +u32 kvm_rmm_ipa_limit(void);
->> +
->> +int kvm_init_realm(struct kvm *kvm);
->> +void kvm_destroy_realm(struct kvm *kvm);
->>   #endif /* __ASM_KVM_RMI_H */
->> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
->> index b961c22fce3d..c4d906861736 100644
->> --- a/arch/arm64/kvm/arm.c
->> +++ b/arch/arm64/kvm/arm.c
->> @@ -266,6 +266,13 @@ int kvm_arch_init_vm(struct kvm *kvm, unsigned 
->> long type)
->>       bitmap_zero(kvm->arch.vcpu_features, KVM_VCPU_MAX_FEATURES);
->> +    /* Initialise the realm bits after the generic bits are enabled */
->> +    if (kvm_is_realm(kvm)) {
->> +        ret = kvm_init_realm(kvm);
->> +        if (ret)
->> +            goto err_uninit_mmu;
->> +    }
->> +
->>       return 0;
->>   err_uninit_mmu:
->> @@ -328,6 +335,8 @@ void kvm_arch_destroy_vm(struct kvm *kvm)
->>       kvm_unshare_hyp(kvm, kvm + 1);
->>       kvm_arm_teardown_hypercalls(kvm);
->> +    if (kvm_is_realm(kvm))
->> +        kvm_destroy_realm(kvm);
->>   }
->>   static bool kvm_has_full_ptr_auth(void)
->> @@ -488,6 +497,9 @@ int kvm_vm_ioctl_check_extension(struct kvm *kvm, 
->> long ext)
->>           else
->>               r = kvm_supports_cacheable_pfnmap();
->>           break;
->> +    case KVM_CAP_ARM_RMI:
->> +        r = static_key_enabled(&kvm_rmi_is_available);
->> +        break;
->>       default:
->>           r = 0;
->> diff --git a/arch/arm64/kvm/mmu.c b/arch/arm64/kvm/mmu.c
->> index 6c941aaa10c6..8b9efa8a3539 100644
->> --- a/arch/arm64/kvm/mmu.c
->> +++ b/arch/arm64/kvm/mmu.c
->> @@ -904,10 +904,14 @@ static struct kvm_pgtable_mm_ops kvm_s2_mm_ops = {
->>   static int kvm_init_ipa_range(struct kvm_s2_mmu *mmu, unsigned long 
->> type)
->>   {
->> +    struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
->>       u32 kvm_ipa_limit = get_kvm_ipa_limit();
->>       u64 mmfr0, mmfr1;
->>       u32 phys_shift;
->> +    if (kvm_is_realm(kvm))
->> +        kvm_ipa_limit = kvm_rmm_ipa_limit();
->> +
->>       phys_shift = KVM_VM_TYPE_ARM_IPA_SIZE(type);
->>       if (is_protected_kvm_enabled()) {
->>           phys_shift = kvm_ipa_limit;
-> 
-> get_kvm_ipa_limit() and variable 'kvm_ipa_limit' have been exposed through
-> KVM_CAP_ARM_VM_IPA_SIZE for both normal and realm VMs in this series. 
-> However,
-> the IPA limit determined by the feature-register-0 in TF-RMM, which is 
-> returned
-> by kvm_rmm_ipa_limit(), can be different from 'kvm_ipa_limit'.
-> 
-> This brings confusion to VMM like qemu, where the request to create a 
-> realm VM is
-> rejected if the requested IPA size exceeds the limit, exposed by the 
-> host through
-> KVM_CAP_ARM_VM_IPA_SIZE. So the host needs to return correct IPA limit 
-> through
-> KVM_CAP_ARM_VM_IPA_SIZE for realm VM somewhere in this series?
+Calling peer_remove_after_dead() currently flushes device-wide packet
+crypto and handshake workqueues while holding RTNL. This is problematic as
+unrelated peers can continue adding work onto those queues blocking other
+tasks that want to take the RTNL lock.
 
-You're right that the limit exposed by the KVM_CAP_ARM_VM_IPA_SIZE
-doesn't tell the VMM about the limit imposed by the RMM. The only way
-to expose this is via an ioctl() on the KVM VM fd. But the VM fd is
-created with an argument (type), which on arm64 unfortunately specifies
-the IPA Size. So, this is kind of a chicken and egg problem. Or the
-VMM can create a dummy Realm VM (with default IPA size of 0) and then
-run the cap.
+Instead, this patch proposes tracking pending crypto handoffs for each
+peer using a counter. After marking the peer dead, synchronize_net()
+prevents new submissions; wait for pending crypto workers to schedule TX
+work or RX NAPI. Then flush only the peer's transmit packet and handshake
+work.
 
-On the other hand, given the Realm creation is measured, if the Realm
-can't be created with the "IPA Size" requested by the user, then there
-is no point in creating the Realm VM.
+This scopes teardown synchronization to the removed peer and prevents
+unrelated peers from extending the RTNL hold time.
 
-So, we decided that this failure condition was alright.
+Fixes: e7096c131e51 ("net: WireGuard secure network tunnel")
+Signed-off-by: Chris J Arges <carges@cloudflare.com>
+---
+ drivers/net/wireguard/peer.c     | 30 ++++++++++++++++--------------
+ drivers/net/wireguard/peer.h     |  1 +
+ drivers/net/wireguard/queueing.h |  6 ++++++
+ 3 files changed, 23 insertions(+), 14 deletions(-)
 
-This was mentioned in one of the versions of the series, but got lost
-in the revisions.
+diff --git a/drivers/net/wireguard/peer.c b/drivers/net/wireguard/peer.c
+index 1cb502a932e0..f7a9c437b5b8 100644
+--- a/drivers/net/wireguard/peer.c
++++ b/drivers/net/wireguard/peer.c
+@@ -14,6 +14,7 @@
+ #include <linux/lockdep.h>
+ #include <linux/rcupdate.h>
+ #include <linux/list.h>
++#include <linux/wait_bit.h>
+ 
+ static struct kmem_cache *peer_cache;
+ static atomic64_t peer_counter = ATOMIC64_INIT(0);
+@@ -49,6 +50,8 @@ struct wg_peer *wg_peer_create(struct wg_device *wg,
+ 	INIT_WORK(&peer->transmit_packet_work, wg_packet_tx_worker);
+ 	wg_prev_queue_init(&peer->tx_queue);
+ 	wg_prev_queue_init(&peer->rx_queue);
++	/* Keep this above zero until teardown prevents new packet handoffs. */
++	atomic_set(&peer->packet_crypt_pending, 1);
+ 	rwlock_init(&peer->endpoint_lock);
+ 	kref_init(&peer->refcount);
+ 	skb_queue_head_init(&peer->staged_packet_queue);
+@@ -105,28 +108,27 @@ static void peer_remove_after_dead(struct wg_peer *peer)
+ 	 */
+ 	wg_timers_stop(peer);
+ 
+-	/* The transition between packet encryption/decryption queues isn't
+-	 * guarded by is_dead, but each reference's life is strictly bounded by
+-	 * two generations: once for parallel crypto and once for serial
+-	 * ingestion, so we can simply flush twice, and be sure that we no
+-	 * longer have references inside these queues.
++	/* Lookup removal and is_dead prevent new packets from entering the
++	 * parallel crypto queues after synchronize_net() waits for pre-existing
++	 * submission paths. Drop the initial count and wait for existing packets
++	 * to finish scheduling their serial TX work or RX NAPI processing.
+ 	 */
++	atomic_dec(&peer->packet_crypt_pending);
++	wait_var_event(&peer->packet_crypt_pending,
++		       !atomic_read_acquire(&peer->packet_crypt_pending));
++
++	flush_work(&peer->transmit_packet_work);
+ 
+-	/* a) For encrypt/decrypt. */
+-	flush_workqueue(peer->device->packet_crypt_wq);
+-	/* b.1) For send (but not receive, since that's napi). */
+-	flush_workqueue(peer->device->packet_crypt_wq);
+-	/* b.2.1) For receive (but not send, since that's wq). */
+ 	napi_disable(&peer->napi);
+-	/* b.2.1) It's now safe to remove the napi struct, which must be done
++	/* It's now safe to remove the napi struct, which must be done
+ 	 * here from process context.
+ 	 */
+ 	netif_napi_del(&peer->napi);
+ 
+-	/* Ensure any workstructs we own (like transmit_handshake_work or
+-	 * clear_peer_work) no longer are in use.
++	/* clear_peer_work was flushed by wg_timers_stop(). Ensure the remaining
++	 * peer-owned handshake work is no longer in use.
+ 	 */
+-	flush_workqueue(peer->device->handshake_send_wq);
++	flush_work(&peer->transmit_handshake_work);
+ 
+ 	/* After the above flushes, a peer might still be active in a few
+ 	 * different contexts: 1) from xmit(), before hitting is_dead and
+diff --git a/drivers/net/wireguard/peer.h b/drivers/net/wireguard/peer.h
+index 718fb42bdac7..64412c67f413 100644
+--- a/drivers/net/wireguard/peer.h
++++ b/drivers/net/wireguard/peer.h
+@@ -37,6 +37,7 @@ struct endpoint {
+ struct wg_peer {
+ 	struct wg_device *device;
+ 	struct prev_queue tx_queue, rx_queue;
++	atomic_t packet_crypt_pending;
+ 	struct sk_buff_head staged_packet_queue;
+ 	int serial_work_cpu;
+ 	bool is_dead;
+diff --git a/drivers/net/wireguard/queueing.h b/drivers/net/wireguard/queueing.h
+index 79b6d70de236..fdd34f0f15a6 100644
+--- a/drivers/net/wireguard/queueing.h
++++ b/drivers/net/wireguard/queueing.h
+@@ -11,6 +11,7 @@
+ #include <linux/skbuff.h>
+ #include <linux/ip.h>
+ #include <linux/ipv6.h>
++#include <linux/wait_bit.h>
+ #include <net/ip_tunnels.h>
+ 
+ struct wg_device;
+@@ -161,6 +162,7 @@ static inline int wg_queue_enqueue_per_device_and_peer(
+ 	 */
+ 	if (unlikely(!wg_prev_queue_enqueue(peer_queue, skb)))
+ 		return -ENOSPC;
++	atomic_inc(&PACKET_PEER(skb)->packet_crypt_pending);
+ 
+ 	/* Then we queue it up in the device queue, which consumes the
+ 	 * packet as soon as it can.
+@@ -182,6 +184,8 @@ static inline void wg_queue_enqueue_per_peer_tx(struct sk_buff *skb, enum packet
+ 	atomic_set_release(&PACKET_CB(skb)->state, state);
+ 	queue_work_on(wg_cpumask_choose_online(&peer->serial_work_cpu, peer->internal_id),
+ 		      peer->device->packet_crypt_wq, &peer->transmit_packet_work);
++	if (atomic_dec_and_test(&peer->packet_crypt_pending))
++		wake_up_var(&peer->packet_crypt_pending);
+ 	wg_peer_put(peer);
+ }
+ 
+@@ -194,6 +198,8 @@ static inline void wg_queue_enqueue_per_peer_rx(struct sk_buff *skb, enum packet
+ 
+ 	atomic_set_release(&PACKET_CB(skb)->state, state);
+ 	napi_schedule(&peer->napi);
++	if (atomic_dec_and_test(&peer->packet_crypt_pending))
++		wake_up_var(&peer->packet_crypt_pending);
+ 	wg_peer_put(peer);
+ }
+ 
 
-If there is interest in getting this exposed, we could do something
-like the above. Or, the other option is limit the IPA size of the VM
-that can be created to RMM IPA limit, when we explicitly choose the
-KVM mode to be CCA (this is something that is coming in the next
-version)
+---
+base-commit: 70f3995830d3f1e79faa14eb0605914f778feca9
+change-id: 20260901-fix-wg-peer-removal-43fc390d0311
 
-Cheers
-Suzuki
-
-
-> 
-> Thanks,
-> Gavin
-> 
->> @@ -957,9 +961,18 @@ static void stage2_destroy_range(struct 
->> kvm_pgtable *pgt, phys_addr_t addr,
->>   static void kvm_stage2_destroy(struct kvm_pgtable *pgt)
->>   {
->> +    struct kvm *kvm = kvm_s2_mmu_to_kvm(pgt->mmu);
->>       unsigned int ia_bits = VTCR_EL2_IPA(pgt->mmu->vtcr);
->> -    stage2_destroy_range(pgt, 0, BIT(ia_bits));
->> +    /*
->> +     * Realm RTTs are inaccessible to the host and may contain stale 
->> data
->> +     * after the RMM has released them. The non-root RTTs are explicitly
->> +     * destroyed through RMI before the RD is destroyed; only the 
->> root PGD
->> +     * pages remain to be freed here.
->> +     */
->> +    if (!kvm_is_realm(kvm))
->> +        stage2_destroy_range(pgt, 0, BIT(ia_bits));
->> +
->>       KVM_PGT_FN(kvm_pgtable_stage2_destroy_pgd)(pgt);
->>   }
->> @@ -1001,6 +1014,8 @@ int kvm_init_stage2_mmu(struct kvm *kvm, struct 
->> kvm_s2_mmu *mmu, unsigned long t
->>           return -EINVAL;
->>       }
->> +    mmu->arch = &kvm->arch;
->> +
->>       err = kvm_init_ipa_range(mmu, type);
->>       if (err)
->>           return err;
->> @@ -1009,7 +1024,6 @@ int kvm_init_stage2_mmu(struct kvm *kvm, struct 
->> kvm_s2_mmu *mmu, unsigned long t
->>       if (!pgt)
->>           return -ENOMEM;
->> -    mmu->arch = &kvm->arch;
->>       err = KVM_PGT_FN(kvm_pgtable_stage2_init)(pgt, mmu, 
->> &kvm_s2_mm_ops);
->>       if (err)
->>           goto out_free_pgtable;
->> diff --git a/arch/arm64/kvm/rmi.c b/arch/arm64/kvm/rmi.c
->> index 247c4f033945..528b01d5d71d 100644
->> --- a/arch/arm64/kvm/rmi.c
->> +++ b/arch/arm64/kvm/rmi.c
->> @@ -5,6 +5,8 @@
->>   #include <linux/kvm_host.h>
->> +#include <asm/kvm_emulate.h>
->> +#include <asm/kvm_mmu.h>
->>   #include <asm/kvm_pgtable.h>
->>   #include <asm/rmi_cmds.h>
->>   #include <asm/virt.h>
->> @@ -14,6 +16,60 @@ static bool rmi_has_feature(int reg, unsigned long 
->> feature)
->>       return !!u64_get_bits(rmi_feat_reg(reg), feature);
->>   }
->> +u32 kvm_rmm_ipa_limit(void)
->> +{
->> +    return u64_get_bits(rmi_feat_reg(0), RMI_FEATURE_REGISTER_0_S2SZ);
->> +}
->> +
->> +void kvm_destroy_realm(struct kvm *kvm)
->> +{
->> +    struct realm *realm = &kvm->arch.realm;
->> +    size_t pgd_size = kvm_pgtable_stage2_pgd_size(kvm->arch.mmu.vtcr);
->> +
->> +    if (!kvm_realm_is_created(kvm)) {
->> +        kfree(realm->sro);
->> +        realm->sro = NULL;
->> +        return;
->> +    }
->> +
->> +    kvm_set_realm_state(kvm, REALM_STATE_DYING);
->> +
->> +    if (realm->rd) {
->> +        phys_addr_t rd_phys = virt_to_phys(realm->rd);
->> +
->> +        if (WARN_ON(rmi_realm_terminate(rd_phys, realm->sro)))
->> +            return;
->> +
->> +        if (WARN_ON(rmi_realm_destroy(rd_phys, realm->sro)))
->> +            return;
->> +        free_delegated_page(rd_phys);
->> +        realm->rd = NULL;
->> +    }
->> +
->> +    if (WARN_ON(rmi_undelegate_range(kvm->arch.mmu.pgd_phys,
->> +                     pgd_size)))
->> +        return;
->> +
->> +    kvm_set_realm_state(kvm, REALM_STATE_DEAD);
->> +
->> +    /* Now that the realm is destroyed, free the entry-level RTTs. */
->> +    kvm_free_stage2_pgd(&kvm->arch.mmu);
->> +
->> +    kfree(realm->sro);
->> +    realm->sro = NULL;
->> +}
->> +
->> +int kvm_init_realm(struct kvm *kvm)
->> +{
->> +    struct realm *realm = &kvm->arch.realm;
->> +
->> +    realm->sro = kmalloc_obj(*realm->sro);
->> +    if (!realm->sro)
->> +        return -ENOMEM;
->> +
->> +    return 0;
->> +}
->> +
->>   static int rmm_check_features(void)
->>   {
->>       if (kvm_lpa2_is_enabled() &&
-> 
+Best regards,
+--  
+Chris J Arges <carges@cloudflare.com>
 
