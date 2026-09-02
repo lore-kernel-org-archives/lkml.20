@@ -1,125 +1,164 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4B03DB97A
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:55:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788335721; cv=none; b=Xcp949WKVVEF1RzJpurQRyoz1oelFZXexiiqSvqAfbq/u6tyeBvlW0owPU9V9I1NKBzMv05fzH9u2HSj0NhehqtcbIpJor1p5C7uL5sK4sLzihjLOf7+A2WdCyxgjgvoOuo5uGEl0sf7+Qj/STIaG0D0HZ+I6M29Ns7dsNImR2Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788335721; c=relaxed/simple;
-	bh=LqmhBA2Uaqj96r7IoqhILAq5dspdgOGcSa9hyKEtVSc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dFJe5Sa5jtciJsAUI75kUwMe/K5wtkmXAZY7mfJivrBjWLq0ks17NugBrUqUY/nq7L2vAP+lXVfvuAMpq0LGHQVYErFD3JI2tge7uPuMsjYq3vEQfd8kIwCx1RhFApiKWcPOp6S1weDNoCI0QUvRt7ZInIGeEeXvKpDELT6pYaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jnd9SLym; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B4ED3515F8
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:56:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788335765; cv=pass; b=PERy8KpmiDSQCtgjme0nlhXv4BqowLMgLZFUC3ZH0vrfJ61S9G1UeZDQ2r2fCl0ADLiTT748AaOfqV8n3+PLlVrSlWhpaZbmPWDyxcZm2rh5c30qjlXDKxlKLdYPYuyX+mIVOjQwrKQEJVylrzr7LzhG+t1lC0DQJcUcvv0dJCM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788335765; c=relaxed/simple;
+	bh=xW90Y42ZITUqUKM2NiOR4tKzzoOke2to52hYsvXnkUE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cNiGtACmO/ehxXD3TV0Dqh0q6yefSaXSLbn3t3A2T2kmJGx3uaJgX5757yZIdzV/c3EJP0Bh7sYIKyKen74reYe6q8/sbg4JH2/NmUwa2jo11VS2q+3JPTdy+WN5cQSbz326TY5sgh5PVE9SMrB3uemh6lN6czvwSkh12eTnD3s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=d04L7Vtz; arc=pass smtp.client-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jnd9SLym"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so751351f8f.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 00:55:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="d04L7Vtz"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c207cb16cf5so90284666b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 00:56:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788335761; cv=none;
+        d=google.com; s=arc-20260327;
+        b=CSca9qwnJEvdsMeslzL4MBkUhmD+cvSiI21Ed5R9l+h7IRdzYJvBetx7j81NWEIU7k
+         aFBJFyPtGgjrO6hQX7Z612AjCT7sLyRg7i5HDGk1aqsVzAOCXJ09J5k0R1yxSAySbqup
+         PD3FfK7D6Vd7ue7guIF84X/qZM4AkhcIOTALxRkCCZqf2bBjnVIaVNUCRIsWcjJz5+2e
+         zLQmCmiXC0DGxzdqOx4MnPtaUn4xlWuF2nIPx0aPA5htr34wLs2p+CAT2w8TxKdzH6gQ
+         xYjDC4h2MPavBYjbO44FysbpdMxANU/KVHkpX0/EwH0Pz/IOtBEaG8AWwBegC1nUzhea
+         scsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=tSZT9AR0GafKEqrGs5o+oknbOEl3OVV8y6JgW9H/Q5k=;
+        fh=oblwFcGYdWxhjcUN5FnDPqtEmCRp9GPlenQBRjGQjhc=;
+        b=G6IqVpOrUVjATyXQYuVJWH6k4GBqAzgcMr/H+OpPdeXenIxLV1WdXxNFjmQbcuWsgS
+         Jv/7ruMZTyH7l9vbDfmgaQKfLJAvFIv35GwCJqd4QT7Ov2JuwQ768zAksvf8GeNITvtw
+         oOv1RPOMJFWby4DyIsCUaT7mO+qHfAY42HztkiCPbMDqrq3iZlQglPLTflxLV7SaxHdj
+         G7Rr2hOQIXneC3qyjgvketXievGJ3sLSdVIbMYiGKMXO3qBSFj96ZcUAZwsZhOYhMC5c
+         5zvw/y/DqAUIfa2ABncQY5Ogq1no0bjMpAwJuWR3AykTylv7X2ckIWkME0g70QvtwI3f
+         m6sQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788335718; x=1788940518; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=linaro.org; s=google; t=1788335761; x=1788940561; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6YX0g1ltOeVRJXePTRjTJXJYLcoS+wQGBHQ9Rhr0r0g=;
-        b=jnd9SLymUfbnTIvOXekvWtxAKvJ+p84oG/hHo+EX1YZkWYmbNQ3SIGJkIfSDFh43Y1
-         z9F5uIp4TV39aFT1R52bQ2yl8XOkO0Jtd+IB/aYjpUSNGRvGf+rAogncAGoOtA/xBbKI
-         98/hCtbrzraUX1KA7/zJvglLQ/R93mvnsAdKmfr10CltQfYz7Yq/PcLLUiwMRTm2Ktgw
-         pcVqe9MsN9i+5e2JjF2gcfyj7NMbOclTNk0+I/9EMpkbBHpS4K+wBw3EARNzuHidGZyF
-         gsba11uQnjLt6vrmU3rPY0dXjJxxA+RZAIMNRJOmyF//Iw1GgfnhHRz/0N4HsdLCsGvq
-         8uEA==
+        bh=tSZT9AR0GafKEqrGs5o+oknbOEl3OVV8y6JgW9H/Q5k=;
+        b=d04L7VtzzvmsQ2Zg3ehn5xCC1pQp8wTe8csVunKkOYubU5126EjQ5MOyVhLThc71DP
+         DCibuRUPTpBx+xg+r83vTm5TdQPiO+Hn/o4zQMXSqUhRq8K/NKCoXLChFGW3YxuW2gwe
+         6lEC394DCfOV8Kr6m6jb8/jYHqztIsL3wlxqy1f8t0zSkloOfAOIUC7V2CQIxmFb3JBG
+         kGX+O1VAs0WxNoMU0sdZntU6RWsjOjFrARz80z8XFFe0ow+bm5oyIf8vxgBE9U30FeqQ
+         p0TTum95EAK8qvYS75CWKqo1cYpL1xOs/tzA3Eq9TEag1FznqVAeYeYAb01BJB+muzDp
+         2MTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788335718; x=1788940518;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6YX0g1ltOeVRJXePTRjTJXJYLcoS+wQGBHQ9Rhr0r0g=;
-        b=XNZiecyXpJduDZEaCje8wojQWcvomE9CK3XvIUW0laRv+cPk54t/xKJVn8rLZJMtfd
-         ak+tdrjXnfjDrTqX+RjQwcNrtnx03SvJzY9NxVkHfB39UdK7Kx2gpUIli6z7LQT88/rJ
-         BbykrSHbDZYBEUV0BhB1Jp7tvh/6ccIQhN8ZP5JUqcEvgxtKtfTSMTJ22nLqBROsmeCg
-         uWImPX7brz8mtpOmH4ywtDdGSYTwrpXBdgdOqPPb+xoYa0iwD1ApOLJqxCML7Vy1WCa6
-         BR6MEKRtkHtQyIluQb1lNaGd/0YeJDeovDSmwjx0yE/D8P6rFsTzUhwuZtu1spDM7ldY
-         QIxg==
-X-Forwarded-Encrypted: i=1; AKwUvBxUpVXi8T+wne+YCQmYmUS5wQi3Lb2X80wpXLwp1XFKeA49g+kddfEOggBIwTrb97KimeuOYTsGGT23Wkw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPluIH86SEF9zM7njPnowV11APeqFXS1aTINGTpQN2Sttg5CiM
-	gGWqrt2V7qL9RqbjHOWl87TIXh2K2qN2vk1pqeG8h3yGbTzvVdTPXlX3
-X-Gm-Gg: AYBFou15vTYzm7EIifzMeXt1YA+i98MeZl00rgYsFB0U4eQKTH/shpdKCn08lgTR9Yu
-	2TCoyNtn1UbBwQckksF0eMMxgVjaUrVWxKHOYfEzu9nrQletaVXAkP76qIWEXmNQtvuJozw9N3c
-	ymqy/EdSkbMDoLNDT7u9jO4wU7zSOTNLKH0GaSX6nAgou869zvJ1VlRjhFX66oNo6SIRw+v7J7u
-	t6MKPFkTkPI+ZPQEdzI/g2iWPxnjVeOjkBjC40pEUiX5l4v4nw2J0R8YW1j446E72Ugx4LzifZ5
-	2Q4lxena+CTFxppTiDznNOge0Z3jlBXnif7I+dDEe07SxR7/nJ2+5THgPLvmhaLMI17iz0YUNoF
-	rdG0g02RFXffMbVtE2AUwCC8DEu5zFWrdyEvo3UjGY1rLYr9AFGTS3o1mgiJKJS6dAzR6XOqT9G
-	68aa2COoBu4JIYbVdhAM+A6aqcxmCdJrqUUHuc78Kz9m49zqs2s0i/UGOpt2/ycZVw3rQEbOfxU
-	l+B1UHLVWYxAh5NHCe+el3MkKO0DavUmwGnr6t3J+YGwqv4AKbS4kKM
-X-Received: by 2002:adf:e196:0:b0:482:e451:6810 with SMTP id ffacd0b85a97d-48488dee050mr5700746f8f.1.1788335717956;
-        Wed, 02 Sep 2026 00:55:17 -0700 (PDT)
-Received: from [10.0.1.42] (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448ed30c0sm4797705f8f.24.2026.09.02.00.55.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 00:55:17 -0700 (PDT)
-Message-ID: <fe9a266d-695a-4379-9aaf-8ed9ce02efa2@gmail.com>
-Date: Wed, 2 Sep 2026 09:55:15 +0200
+        d=1e100.net; s=20251104; t=1788335761; x=1788940561;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=tSZT9AR0GafKEqrGs5o+oknbOEl3OVV8y6JgW9H/Q5k=;
+        b=HiJ9AsemJFi1uK9IBXJ30dSJJC89lZ9IQN1CuWrJPgs8iij+BX30PnuJTs5eVqXbYl
+         4aBd0nh3jW5ea8ZeWJvIAoT67sQKY6d+sahyKe7iGryHtvNICAY7qXtAsYAoQerxCWIM
+         2wztUmU4sXbqj5t+5LCkZxnJjYZuRgVac8rJ3RIr78g/rPYGtx5Nbkk8XNDX/CaI9rNL
+         +V1t2kvvkqC7ch8k27NxRmaMfUxaI44UdLYHAB/GEXA0GPIbRSfRr4Ss3r5/DqfE/iUW
+         hHeLbDyZA3VbXq4BwYvPOq78Hx/rHfNTXCjJGwAbH6vP+YaeKpsLCkUlcUi4PpEIQaRl
+         Zsww==
+X-Forwarded-Encrypted: i=1; AKwUvBz8+DC5OLeulvPPYI4GLevM8E/uwlZw67dvybDDk/RaOPZ0it2bjrA9XgZkM/wTuWptnQkqWnrEGp/j/8U=@vger.kernel.org
+X-Gm-Message-State: AFuF++k0JlHysLCHfgzL9cOp2UX+VRI1bgaQzmcfCMmuUKecJzDzCJDB
+	vvunqPdOrRaYRu90VwwRXPNi7qBbUCUC/t76SNhovTlSu8PCJqW18PR5YA0po9jyCrJ4JjDhi2q
+	NVQCI1U9+VLXraI8nyI7ETeUQ+m8TgOM4rPXvzguwJw==
+X-Gm-Gg: AYBFou1tE8euBMEiovNWgC/Kd63dZDFLwDmGYntII0TCn+Ig3IzHSO2pni/+LqCQ3if
+	YkfvQSrwSt9ed8JUXGwBLd+yqGqoN9Buk95bCdMH1qjnd7NSs/JG+6/R/ZRJ2s/SBsnRdhPkctF
+	eF4WxurMOWmTsp5mNv68AvHSbIzBoa+1aSd524rVjzL2vNXklyKMeyN8bhOjw/QY0MuFO4OR2Hk
+	Z7HRpJL6SiepnkN5OYPomL1LzEMIiMiv/FY9VQzXBPQ7lCYx9wsV5ckZrT2tgf92+xAbQaFSpaN
+	eV0f2ktINIa6U7KTZW2rBoFQpeT+oksUI5v3alQCDW40Yep/4vh7j52N8Q5nb7MfoAxUVhY0NNr
+	2abA=
+X-Received: by 2002:a17:907:7285:b0:c1f:983f:d8a with SMTP id
+ a640c23a62f3a-c25d55978a2mr184118666b.24.1788335760747; Wed, 02 Sep 2026
+ 00:56:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH] crypto: caam: map job ring registers without claiming
- region
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-crypto@vger.kernel.org, =?UTF-8?Q?Horia_Geant=C4=83?=
- <horia.geanta@nxp.com>, Pankaj Gupta <pankaj.gupta@nxp.com>,
- Gaurav Jain <gaurav.jain@nxp.com>, Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>,
- open list <linux-kernel@vger.kernel.org>,
- Francesco Dolcini <francesco@dolcini.it>,
- Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
-References: <20260901203736.13248-1-rosenp@gmail.com>
- <20260902061059.GA7187@francesco-nb>
-Content-Language: en-US
-From: Emanuele Ghidoli <ghidoliemanuele@gmail.com>
-In-Reply-To: <20260902061059.GA7187@francesco-nb>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260828074059.232353141@infradead.org> <20260828075558.660152190@infradead.org>
+ <apezcsScwu5hdNrr@fengwei-dev>
+In-Reply-To: <apezcsScwu5hdNrr@fengwei-dev>
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Wed, 2 Sep 2026 09:55:49 +0200
+X-Gm-Features: AcwNN1XD78T-K7gU3xz6isFwn5BuwwnsjHF5EIH0NIUFyN5S2s0YDftsDCbTXAs
+Message-ID: <CAKfTPtBNAGQUQZbaDKYU7+Nsrcnj4M4p=54XkeML7rrLy+x+ZQ@mail.gmail.com>
+Subject: Re: [PATCH 4/4] sched/fair: Rework/fix task_h_load()
+To: Chen Yu <yu.c.chen@intel.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, mingo@kernel.org, juri.lelli@redhat.com, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
+	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, tj@kernel.org, 
+	linux-kernel@vger.kernel.org, chen.yu@linux.dev, tim.c.chen@linux.intel.com
+Content-Type: text/plain; charset="UTF-8"
 
+On Wed, 2 Sept 2026 at 07:39, Chen Yu <yu.c.chen@intel.com> wrote:
+>
+> On Fri, Aug 28, 2026 at 09:41:03AM +0200, Peter Zijlstra wrote:
+>
+> [ ... ]
+>
+> > @@ -15230,6 +15255,9 @@ static void set_next_task_fair(struct rq
+> >                       weight = __calc_prop_weight(cfs_rq, se, weight);
+> >       }
+> >
+> > +     for_each_sched_entity_bl(se, cfs_rq)
+> > +             update_cfs_rq_h_load(group_cfs_rq(se), se, cfs_rq);
+> > +
+>
+> It panics during bootup on a 192 Cores system,
+> [    9.445362][ T1687] Oops: general protection fault, kernel NULL pointer dereference 0x69: 0000 [#1] SMP NOPTI
+> [   18.987940][ T1687] CPU: 58 UID: 0 PID: 1687 Comm: systemd-udevd Not tainted 7.3.0-rc1-flat-hload+ #9 PREEMPTLAZY
+> [   19.022374][ T1687] RIP: 0010:pick_task_fair+0x43/0xd0
+> [   19.175316][ T1687]  <TASK>
+> [   19.181239][ T1687]  __pick_next_task+0x49/0x1b0
+> [   19.189229][ T1687]  __schedule+0x14b/0x6b0
+> [   19.196711][ T1687]  preempt_schedule+0x3a/0x60
+> [   19.204543][ T1687]  preempt_schedule_thunk+0x16/0x40
+> [   19.212931][ T1687]  _raw_spin_unlock_irqrestore+0x2b/0x30
+> [   19.221833][ T1687]  autogroup_move_group+0xc5/0x160
+> [   19.230124][ T1687]  sched_autogroup_create_attach+0xa7/0x180
+> [   19.239280][ T1687]  ksys_setsid+0x12c/0x170
+> [   19.246753][ T1687]  __do_sys_setsid+0xe/0x20
+> [   19.254292][ T1687]  do_syscall_64+0xbc/0x470
+> [   19.307858][ T1687]  entry_SYSCALL_64_after_hwframe+0x76/0x7e
+> [   19.316405][ T1687] RIP: 0033:0x7f347bfbcb9b
+>
+> It seems that the crash is a read of se->sched_delayed on a NULL se inside
+> pick_next_entity(), so pick_eevdf() return NULL
 
+I faced the same crash while testing
 
-On 9/2/26 08:10, Francesco Dolcini wrote:
-> + Emanuele
-> 
-> On Tue, Sep 01, 2026 at 01:37:36PM -0700, Rosen Penev wrote:
->> devm_platform_ioremap_resource() ends up calling request_mem_region(),
->> which fails with -EBUSY on i.MX SoCs:
->>
->> There the job rings are modelled as sub-regions of their parent
->> fsl,sec-v4.0 register window, and caam_probe() already reserves the
->> whole window exclusively via devm_of_iomap() before the children are
->> populated.  Every job ring therefore collides with its own parent and
->> fails to probe, taking the hardware RNG offline (seen on i.MX6, i.MX7
->> and i.MX8 boards such as colibri-imx7 and verdin-imx8mp).
->>
->> Map the job ring registers with devm_ioremap() instead, which does not
->> claim the (already owned) region.
->>
->> Fixes: 9a955c0a7d11 ("crypto: caam - simplify probe resource and IRQ handling")
->> Assisted-by: opencode:big-pickle
->> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> 
-> Reported-by: Emanuele Ghidoli <ghidoliemanuele@gmail.com>
-> Closes: https://lore.kernel.org/lkml/20260901194524.908240-1-ghidoliemanuele@gmail.com/
-> 
-> Thanks,
-> Francesco
+>
+> After the following top->down backlink traverse,
+> for_each_sched_entity_bl(se, cfs_rq)
+>     update_cfs_rq_h_load(group_cfs_rq(se), se, cfs_rq);
+>
+> cfs_rq is not the root->cfs_rq anymore, but a middle cfs_rq(autogroup
+> in above example). Meanwhile rq->cfs.curr remains NULL because the
+> rq->cfs.curr has been dequeued if the task is runnable and queued:
+> if (on_rq)
+>         __dequeue_entity(cfs_rq, se)
+>
+> se = &p->se;
+> cfs_rq->curr = se; /*wrong cfs_rq*/
+>
+> Then later _raw_spin_unlock_irqrestore triggers the scheduling
+> it picks from rq->cfs_rq.curr with a NULL tree.
+>
+> Maybe we need to restore the rq->cfs_rq after the
+> for_each_sched_entity_bl()?
+> se = &p->se;
+> cfs_rq = &rq->cfs; <--
 
-Tested on colibri-imx7.
+Yes, this fixes it for me too
 
-Tested-by: Emanuele Ghidoli <emanuele.ghidoli@toradex.com>
-
-Thanks,
-Emanuele
+> cfs_rq->curr = se;
+>
+> thanks,
+> Chenyu
