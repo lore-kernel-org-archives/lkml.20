@@ -1,150 +1,154 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91518330B3F
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:01:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FC734A093F;
+	Wed,  2 Sep 2026 14:01:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788357709; cv=none; b=twNHNqIVkMDzGQf3EStQvSFY2HgI3AOCOMmvco6AsiiFcRB3puHTxAo2jCbhHn9Z0Le3b52V5HMiUGS6+r6y0VYiPwK8QUjbygrvVFzYbijdH6j498iqXrIBcxdAwIPeFHOC3SAM9yIHkZ/7hfN6PPHKdvFY4MVzE1FuvlgYt7c=
+	t=1788357715; cv=none; b=ciEAB/9PqoYSgKxLCSoZ0KzXAH8jW89Pi5NTyMyso2+Yd1AL6GywCqFsljxQBXZpWgDpLVeh+FRcJesGzUgPltbLU+zE2RdS+gUZAekFoPoPCN9g6SsicfLKZXzEzdsH8Uje3vPhVqgr2jRKiGPQDCK84qRh8DOdNDq+4AWHroc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788357709; c=relaxed/simple;
-	bh=5gePoqX3Zr/bIBzCJJK82EybKEKX79hTmUl8Lt1nK6E=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=toddiQWChpFBQNSEcrVP0Qx0Un3E5Ptjf6aPwwqIECd22u1EbSU62Hohbj5hzAfUVuRxZKOJYoddBA/2lX6/GMPVSsO7RcoCeOvL8znlELkNDVjZ3ei2UeJrWQR8VuFBHryoqyqAN8dEjrJf8aiogw2updNB3ZZ0MnFI165fAdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=THYpt8pl; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=oR7N+qIW; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1788357715; c=relaxed/simple;
+	bh=iph7PtVdpG8fG/LnzuHyoJFqou4SwSKvu3Mw58dozBI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pxyGHCSMA+FTsK7ZF2yRbvEGoPE7Qs21/zaZz9Vk/uW7JpL9Qw5ckkHCG+4BmJWbpm2L1J82L83tICitufczfpLbWbzupJ1omX2jUymow+myNOp0uIDO/6wXv1C2P1M2K9K76xVH8OeZxd6NlG6e5i6J9iDD5DG954bqm/HfMtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=E9tqt/fL; arc=none smtp.client-ip=115.124.30.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="THYpt8pl";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="oR7N+qIW"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788357698; bh=kRZwS841GcA5VzuOYLgzKhc
-	r7/acQnTRJCI0lS681iY=; b=THYpt8plHH5PHoL0pm5ADvyOnwx8z5K4uGClagz7HRZ/25PLG1
-	RmhMzMMLQ9bSDESWfULPx4k4yr2VpvwN+nFJyzQGClLk8CnvTcxXnqj9WyPzl0w41/BRJIVYUjG
-	g+gChXg2CYyE4FBJsQNk8dzG+ErY2brU6aAN9lUv2mNavXr21v1pNLqz+61l+qesQwTxr/N/Icq
-	S0TzWQ0SAQFojnkBEYZxlnlOKG61TJFqCgBEdmxgMHFjQusixUeeOPyjDGlLRz/wZRla0o3vz4C
-	/WRFTdh6FkL5FY6sQPbGTy2qgyGcDqHD8pA8EBfYrTkMpKAKZLWe/G8ZHtp+hjePYsw==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788357698; bh=kRZwS841GcA5VzuOYLgzKhc
-	r7/acQnTRJCI0lS681iY=; b=oR7N+qIW/Wl0QWs83dGRv5hC50V7ul9TSAiv1FzAKPrmzhDT1y
-	MKqvSiMeUIyIoXQo2XnUdVMv2wnj3peCLKAw==;
-Date: Wed, 02 Sep 2026 15:01:36 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Mark Rutland <mark.rutland@arm.com>
-CC: Will Deacon <will@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>,
- James Morse <james.morse@arm.com>, Marc Zyngier <maz@kernel.org>,
- Ard Biesheuvel <ardb@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/7] arm64: head: correct comment for init_kernel_el()
-In-Reply-To: <apgrlRLacxqhXsX-@J2N7QTR9R3.cambridge.arm.com>
-References: <20260825205839.14571-1-brads@mainlining.org> <20260825205839.14571-3-brads@mainlining.org> <apgovCGT-D7OWbSE@J2N7QTR9R3.cambridge.arm.com> <FBC45096-70E5-4F97-B2F0-863BCC91BB4F@mainlining.org> <apgrlRLacxqhXsX-@J2N7QTR9R3.cambridge.arm.com>
-Message-ID: <9489CCEF-9599-4F1D-AD03-CC995CF1956A@mainlining.org>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="E9tqt/fL"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788357709; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=ieuSBZhhWdeU16d5JMGFYFciQmx4AeBNBulSOZwl3X4=;
+	b=E9tqt/fLcycL4Lp4LBMlzIV2CBt9DjfyT9ifpXrRw7etyH82wb1r1SXhl7+5aybIt69JIfqZFC4SMMIdzFZ9FB6Hkcp8Njss+MxLzLkkjR5XHG/cOuARPuK1kecvyUlk3RCeXL0mPC54cOAKlXF+cikWi1Q/KEM74BzA/yDwaNc=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R181e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XACojEu_1788357707;
+Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XACojEu_1788357707 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 02 Sep 2026 22:01:48 +0800
+From: fangyu.yu@linux.alibaba.com
+To: sunilvl@oss.qualcomm.com,
+	sunilvl@ventanamicro.com,
+	rafael@kernel.org,
+	lenb@kernel.org,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr
+Cc: fangyu.yu@linux.alibaba.com,
+	guoren@kernel.org,
+	linux-acpi@vger.kernel.org,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org
+Subject: [PATCH] ACPI: RIMT: Enable PCI ACS for root complexes mapped to an IOMMU
+Date: Wed,  2 Sep 2026 22:01:45 +0800
+Message-Id: <20260902140145.42094-1-fangyu.yu@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On 2 September 2026 14:58:45 BST, Mark Rutland <mark.rutland@arm.com>
-wrote:
->On Wed, Sep 02, 2026 at 02:49:57PM +0100, Bradley Morgan wrote:
->> On 2 September 2026 14:46:36 BST, Mark Rutland <mark.rutland@arm.com>
->> wrote:
->> >On Tue, Aug 25, 2026 at 08:58:34PM +0000, Bradley Morgan wrote:
->> >> The comment above init_kernel_el() still says the function configures
->> >> the CPU to execute at the highest reachable EL, but that stopped
->being
->> >> true a while back. Ever since commit ae4b7e38e9a94798 ("arm64: Allow
->> >> sticky E2H when entering EL1"), init_kernel_el() always drops to EL1,
->> >> and it is finalise_el2() that brings us back up to EL2 when we want
->it.
->> >> 
->> >> Update the comment to match what the code actually does.
->> >> 
->> >> Signed-off-by: Bradley Morgan <brads@mainlining.org>
->> >> Cc: Ard Biesheuvel <ardb@kernel.org>
->> >> Cc: Catalin Marinas <catalin.marinas@arm.com>
->> >> Cc: James Morse <james.morse@arm.com>
->> >> Cc: Marc Zyngier <maz@kernel.org>
->> >> Cc: Will Deacon <will@kernel.org>
->> >> ---
->> >>  arch/arm64/kernel/head.S | 6 +++---
->> >>  1 file changed, 3 insertions(+), 3 deletions(-)
->> >
->> >This looks to be my patch [1], but with a (partially) rewritten commit
->> >message, and my S-o-B dropped.
->> >
->> >There was admittedly one typo in that commit message that needed to be
->> >fixed, but I don't think the rest of the changes were necessary, and I
->> >don't think it's approriate to drop my S-o-B.
->> >
->> >I think similar is true for the rest of the series. The patch fixing
->the
->> >_cpu_resume() only seems to have a paraphrased commit message.
->> >
->> >[1]
->>
->>https://git.kernel.org/pub/scm/linux/kernel/git/mark/linux.git/commit/?id=ee4323ff6a2ba4c3989b38f13b2c1a516d6c27e4
->> >
->> >Mark.
->> >
->> >> 
->> >> diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
->> >> index 87a822e5c4ca..c6301557eee1 100644
->> >> --- a/arch/arm64/kernel/head.S
->> >> +++ b/arch/arm64/kernel/head.S
->> >> @@ -254,9 +254,9 @@ SYM_FUNC_END(__primary_switched)
->> >>  	.section ".idmap.text","a"
->> >>  
->> >>  /*
->> >> - * Starting from EL2 or EL1, configure the CPU to execute at the
->> >highest
->> >> - * reachable EL supported by the kernel in a chosen default state.
->If
->> >dropping
->> >> - * from EL2 to EL1, configure EL2 before configuring EL1.
->> >> + * Starting from EL2 or EL1, configure the CPU to execute at EL1.
->> >> + * If dropping from EL2 to EL1, configure EL2 before configuring
->EL1.
->> >> + * To use VHE we'll upgrade back to EL2 later in finalise_el2().
->> >>   *
->> >>   * Since we cannot always rely on ERET synchronizing writes to
->sysregs
->> >(e.g. if
->> >>   * SCTLR_ELx.EOS is clear), we place an ISB prior to ERET.
->> >> -- 
->> >> 2.47.3
->> Hi mark, do you **WANT** your sob? I don't mind.
->
->Please read Documentation/process/submitting-patches.rst
->
->The SoB lines form a chain of authorship and delivery. You *must not*
->drop an SoB line.
->
->> I dropped it because it seemed you didn't care about it (or were too
->> busy),hence, yeah.
->
->I was busy, then on holiday. Neither has any relevance to the SoB lines.
->
->I do care about these patches, and I'm going to have to review them
->regardless. The reason I hadn't posted them was that this is a subtle
->area that needs careful handling.
->
->Mark.
-Sorry mate,
+From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
 
-V2 will have your SOB on all patches
+Mirror the ACPI IORT solution used on arm64 (see iort_enable_acs())
+by scanning the RIMT table for PCIe root complex nodes during
+riscv_acpi_rimt_init(), which runs before ACPI PCI enumeration. If a
+root complex node's ID mapping points at an IOMMU node, call
+pci_request_acs() immediately, so pci_acs_enable is already set by
+the time any PCI device is scanned and pci_enable_acs() runs.
 
-I removed them due to like, what if you said
+Only one call to pci_request_acs() is needed regardless of how many
+root complexes are found, so track that with a static acs_enabled
+flag, same as iort_enable_acs() does.
 
-"Remove my sob these patches are terrible and unrelated"
+Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+---
+ drivers/acpi/riscv/rimt.c | 56 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 56 insertions(+)
 
-Well, this is a corner case, but I had to think this through,
+diff --git a/drivers/acpi/riscv/rimt.c b/drivers/acpi/riscv/rimt.c
+index e4538fa6c2c8..f22e28c8211e 100644
+--- a/drivers/acpi/riscv/rimt.c
++++ b/drivers/acpi/riscv/rimt.c
+@@ -179,6 +179,42 @@ static struct acpi_rimt_node *rimt_scan_node(enum acpi_rimt_node_type type,
+ 	return NULL;
+ }
+ 
++#ifdef CONFIG_PCI
++static void __init rimt_enable_acs(struct acpi_rimt_node *rimt_node)
++{
++	static bool acs_enabled __initdata;
++	struct acpi_rimt_pcie_rc *pci_rc;
++	struct acpi_rimt_id_mapping *map;
++	struct acpi_rimt_node *parent;
++	int i;
++
++	if (acs_enabled || rimt_node->type != ACPI_RIMT_NODE_TYPE_PCIE_ROOT_COMPLEX)
++		return;
++
++	pci_rc = (struct acpi_rimt_pcie_rc *)rimt_node->node_data;
++	if (!pci_rc->id_mapping_offset || !pci_rc->num_id_mappings)
++		return;
++
++	map = ACPI_ADD_PTR(struct acpi_rimt_id_mapping, rimt_node,
++			   pci_rc->id_mapping_offset);
++
++	for (i = 0; i < pci_rc->num_id_mappings; i++, map++) {
++		if (!map->dest_offset)
++			continue;
++
++		parent = ACPI_ADD_PTR(struct acpi_rimt_node, rimt_table,
++				      map->dest_offset);
++		if (parent->type == ACPI_RIMT_NODE_TYPE_IOMMU) {
++			pci_request_acs();
++			acs_enabled = true;
++			return;
++		}
++	}
++}
++#else
++static inline void rimt_enable_acs(struct acpi_rimt_node *rimt_node) { }
++#endif
++
+ /*
+  * RISC-V supports IOMMU as a PCI device or a platform device.
+  * When it is a platform device, there should be a namespace device as
+@@ -509,7 +545,10 @@ int rimt_iommu_configure_id(struct device *dev, const u32 *id_in)
+ 
+ void __init riscv_acpi_rimt_init(void)
+ {
++	struct acpi_rimt_node *rimt_node, *rimt_end;
++	struct acpi_table_rimt *rimt;
+ 	acpi_status status;
++	int i;
+ 
+ 	/* rimt_table will be used at runtime after the rimt init,
+ 	 * so we don't need to call acpi_put_table() to release
+@@ -525,4 +564,21 @@ void __init riscv_acpi_rimt_init(void)
+ 
+ 		return;
+ 	}
++
++	rimt = (struct acpi_table_rimt *)rimt_table;
++	rimt_node = ACPI_ADD_PTR(struct acpi_rimt_node, rimt,
++				 rimt->node_offset);
++	rimt_end = ACPI_ADD_PTR(struct acpi_rimt_node, rimt_table,
++				rimt_table->length);
++
++	for (i = 0; i < rimt->num_nodes; i++) {
++		if (rimt_node >= rimt_end) {
++			pr_err("RIMT node pointer overflows, bad table\n");
++			return;
++		}
++
++		rimt_enable_acs(rimt_node);
++		rimt_node = ACPI_ADD_PTR(struct acpi_rimt_node, rimt_node,
++					 rimt_node->length);
++	}
+ }
+-- 
+2.50.1
 
-Yep, V2 will have your sob on all 7 patches.
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
