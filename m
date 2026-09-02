@@ -1,225 +1,116 @@
-Received: from mta0.migadu.com (out-213.mta0.migadu.com [91.218.175.213])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FA92438029
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:16:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.213
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 909AF429827;
+	Wed,  2 Sep 2026 10:17:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788344221; cv=none; b=K68F07OX/z7TjTikYpBy/CxnszXLmpT1F6RiVhWI86ajrxO3UVD5hPRyqJP4tU7TaM7iZTeJ/i2WCwPzNlHLwdIlfDVOvnzHihu/lLD0BFHAURRjFg/BCmeC4k099IzQZZeWAYhoQPXzKs/U9wO9psxWCodoTOZAX32pyUrVZfY=
+	t=1788344242; cv=none; b=d3SYIvJCRdlRasiyiHNTT7YOc32b2UwQCMaE49mTmaTK063slQ2AJtWMmJjBp1H57/CDn7Qw+g/cy2EWv5CLouO2VK4f+fMuBm6Y50AAjxQCBeaYGpl8NWlaKqxtpUzlNE4tdZ6/ilUus9+nvxSebM+OjW0L8e8QXRq68Zg14VY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788344221; c=relaxed/simple;
-	bh=bOFmxMxZ2G90TQ5a51Gad1RBA6G3ru642cr75z4F2CA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aG3d5Nsqzfzx25af2IvKpX3eAFzdF5mVwDWBffv/sSMDrXk8wewDpSde8/fO8WyzBqlD29TVgSG3HEgFzMEnxyAhsJYORZXfI81OOND1c5DKp5lHZnmytwDyQCBigTDpHHG8HkAM6jS2i1BNx7S0524NoytvmSalJJDzqLnErsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=CU3ytxJI; arc=none smtp.client-ip=91.218.175.213
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788344242; c=relaxed/simple;
+	bh=XO4c4hLp32Yn43hEsSb2rEE42jubjl+TbiG2DThMRWc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YQhG24ROX0OX4b+8z91L8HLQABdQlgG3qy0FLEfGKwcor4p9T3rntkCLbP/FUJD9nhOMxj1ro81foVITOhDo8dxHmhrzn3uQWQm4Ce8p19UTG0R0Mug1Lg5bI8vXnuuiJRgSZ9d3xjk8RTNnCvbPbsNYQ65TzD9C+eTMaEbOPIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YrvR9oMS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="CU3ytxJI"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=bOFmxMxZ2G90TQ5a51Gad1RBA6G3ru642cr75z4F2CA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788344216; v=1; x=1788949016;
- b=CU3ytxJIrI9sGj1xrKkl99nNiN7qo/kkz6CvoDr5t3F5yNOPwM4InwhL8p2nbzlo4LzxNfol
- WvQJJrjqDDkMNj8v8aNEVawSvCMFySRC0EbNioS8zjoHm5doxq8sn1CVcUvyjVlAYcLm8kJSgf5
- dLTkMjKLyB/N+oIDSlIf8acw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id aa574cb511f2c5a6;
-	Wed, 02 Sep 2026 10:16:56 +0000
-X-Mizu-Trace-ID: aa574cb511f2c5a6
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 2 Sep 2026 18:16:42 +0800
-From: Baoquan He <baoquan.he@linux.dev>
-To: Barry Song <baohua@kernel.org>
-Cc: akpm@linux-foundation.org, linux-mm@kvack.org, axelrasmussen@google.com,
-	baolin.wang@linux.alibaba.com, chenridong@xiaomi.com,
-	david@kernel.org, hannes@cmpxchg.org, kasong@tencent.com,
-	lianux.mm@gmail.com, linux-kernel@vger.kernel.org, ljs@kernel.org,
-	lyugaofei@xiaomi.com, mhocko@kernel.org, qi.zheng@linux.dev,
-	shakeel.butt@linux.dev, stevensd@chromium.org,
-	wangzicheng@honor.com, weixugc@google.com, yuanchu@google.com
-Subject: Re: [PATCH v2 2/2] mm/mglru: make retry logic explicit in
- isolate_folios()
-Message-ID: <apf3ivSCu9kQfM9F@fedora>
-References: <20260829074204.45304-1-baohua@kernel.org>
- <20260829074204.45304-3-baohua@kernel.org>
- <apfZQE1X6zGAsBb_@fedora>
- <CAGsJ_4z=A3EGajzL8F5H+0fwyzh3qqMNACEzo20J83m+T8bbZw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YrvR9oMS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 967D41F000E9;
+	Wed,  2 Sep 2026 10:17:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788344241;
+	bh=YIaTwV3APJT2IAqyMvVhjdVGyinas70syw/TPBgdghM=;
+	h=From:Subject:Date:To:Cc;
+	b=YrvR9oMSedrbbEcXoBxiyAkxRNG4FT65dzTyFu297+tUnRPBjnqkJ5C3kI+oMcE/k
+	 SFWRx/z3kAji3grkPRwH+4Ra6TqwavB3qav0I781L6d8p7TdYTRUcjxBOBCanRKuXl
+	 YEayJHjo0JoO0Tuka8+cIfuFg176Gpdz4k0GuTWdujcxeFM7PtfbJs+rfQrit3LNVh
+	 h23nrDAGIp6K5AyP/FM3bcQPL0Tz3gOkeMeVDLDG/7ZHGE0UYtvAPuZ8bRYbDseq6Q
+	 o6Z0Y8uId727jAqOS5klweWwPudTEmyVrr/OMuYnSTX5QgqqT4Y9/d3KZy0xgmnfho
+	 e3Aj5m1fdEknA==
+From: Thierry Reding <thierry.reding@kernel.org>
+Subject: [PATCH 0/8] arm64: tegra: Clean up AHUB device tree nodes
+Date: Wed, 02 Sep 2026 12:17:36 +0200
+Message-Id: <20260902-tegra-ahub-dt-cleanup-v1-0-028f3c5e72f6@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAGsJ_4z=A3EGajzL8F5H+0fwyzh3qqMNACEzo20J83m+T8bbZw@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6CQAxA4auQrm1SRoHgVYyLzlCgxoxkfowJ4
+ e4OsPwW760QJahEuFcrBPlq1I8vqC8VuJn9JKhDMRgyLfVkMMkUGHnOFoeE7i3s84Ij3zqiq2H
+ bMJR2CTLq7/g+nqdjti9xaZ/Btv0BZw84EnkAAAA=
+X-Change-ID: 20260902-tegra-ahub-dt-cleanup-fa470032ab5a
+To: Thierry Reding <thierry.reding@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>
+Cc: Charan Pedumuru <charan.pedumuru@gmail.com>, devicetree@vger.kernel.org, 
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Thierry Reding <treding@nvidia.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2024; i=treding@nvidia.com;
+ h=from:subject:message-id; bh=XO4c4hLp32Yn43hEsSb2rEE42jubjl+TbiG2DThMRWc=;
+ b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBql/fGpjYoqKNbuw0vWzqMTho/3NSFv0FCn9l5y
+ Xj75NtKMjOJAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCapf3xgAKCRDdI6zXfz6z
+ oXi4D/0Qe19xijhkLQoG7F3T/6nzq9GFdy5i7DcDFoINf6l+M79RQVBLON72Qw/wzi44uiZP+GY
+ nXldVk7UagA9TYt/9aJ4yF2+a7u47P9c1V/1Y161zh0Xm1HGAGuMv6s6DfTULgIloZUIms7RyVU
+ atRq3+AMJt1A83m8ELEd1rArT85v60YHoATZwtmETrzsvbT7sMfgIbGbe1V3/rPFfXpfAVXH0/T
+ 6Y0nfw0H6CscYcRcHKGpXQngMwfsyBDaPHMSy1mRXsPcNHlzKGb33tIa4RojZzt28xitjRRzHqh
+ 2KSxoVB+WhyJkdHPUOfYXPSxrFX7gXK2X0HXwBH3QyK21IMe5RMXoBa0FT4Db7SDczToHh/CHmj
+ Vc9Bdn6G0BVz1KM3txBdj5g1HsEGxdskLivyO+mBDxdTcf8y1gKgLGXrM18qjmKyvzhhwnR9pEl
+ cx0pw5yKu+quxda4fEHBgzYzWfI3NtDJ+slo0zLESYDipZ4uiDtnEmhs1cdkXNMNZnowdq67oVn
+ c5Tg/JV+7Mua7hUkFpfhOA6abSiP9VpdlZKH0Z7giZyYoqk5urKXjxT4ItzJ4n3cbS3zVxKRlYc
+ p0uwj8PTkofS2hFMqngGeL0LzOfl0gmaLO29wgHpVrW/t4PAYqdOpZE/v7NgcbBtlLmDSfz0PZF
+ +XvwR8Ov9Cu8G1g==
+X-Developer-Key: i=treding@nvidia.com; a=openpgp;
+ fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
 
-On 09/02/26 at 05:20pm, Barry Song wrote:
-> On Wed, Sep 2, 2026 at 4:07 PM Baoquan He <baoquan.he@linux.dev> wrote:
-> >
-> > Hi Barry,
-> >
-> > On 08/29/26 at 03:42pm, Barry Song (Xiaomi) wrote:
-> > > The existing mainline code retries the same type once in a rather
-> > > subtle way. `for_each_evictable_type()` may provide one more iteration,
-> > > allowing the same type to be retried if we scanned some folios but
-> > > failed to isolate any due to protections, promotions, or races. This
-> > > patch makes the retry behavior explicit.
-> > >
-> > > Signed-off-by: Barry Song (Xiaomi) <baohua@kernel.org>
-> > > ---
-> > >  mm/vmscan.c | 10 ++++++++++
-> > >  1 file changed, 10 insertions(+)
-> > >
-> > > diff --git a/mm/vmscan.c b/mm/vmscan.c
-> > > index 35a233623368..718f59ffc688 100644
-> > > --- a/mm/vmscan.c
-> > > +++ b/mm/vmscan.c
-> > > @@ -4852,6 +4852,7 @@ static int isolate_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
-> > >       bool type_fallback_allowed = !is_single_type_reclaim(swappiness);
-> > >       int type = get_type_to_scan(lruvec, swappiness);
-> > >       int total_scanned = 0, scanned, tier;
-> > > +     bool tried = false;
-> > >
-> > >  retry:
-> > >       tier = get_tier_idx(lruvec, type);
-> > > @@ -4871,9 +4872,18 @@ static int isolate_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
-> > >        */
-> > >       if (!scanned && type_fallback_allowed) {
-> > >               type = !type;
-> > > +             tried = true;
-> > >               type_fallback_allowed = false;
-> > >               goto retry;
-> > >       }
-> > > +     /*
-> > > +      * We scanned some folios but failed to isolate any due to promotions,
-> > > +      * protections, or races. Retry once to avoid a larger loop.
-> > > +      */
-> > > +     if (scanned && !tried) {
-> > > +             tried = true;
-> > > +             goto retry;
-> >
-> > Seems patch 1 and 2 makes not minor difference than mainline kernel on
-> > behaviour.
-> >
-> > 1, if swappiness is 0 because no swap, it will run two times if
-> > (scanned != 0). This is not corner case, but usually seen on some
-> > systems w/o swap device. The 2nd no gain run could decrease efficiency.
-> >
-> > static int get_swappiness(struct lruvec *lruvec, struct scan_control *sc)
-> > {
-> >         ...
-> >
-> >         if (!sc->may_swap)
-> >                 return 0;
-> >         ...
-> > }
-> 
-> Yep. For swappiness 0 and 201, this patch slightly changes the
-> behavior, as I mentioned in the cover letter:
-> "
->  There is a slight functional change for 0 and 201: with the existing
->  code, there is no chance to retry for these values because
->  `for_each_evictable_type()` only iterates once. After this patch, 0 and
->  201 have behavior that is more consistent with the 1-200 range.
-> "
-> I did this intentionally, as it makes the behavior more consistent with
-> the 1-200 range, where we retry the same type once to avoid having a
-> larger outer loop.
-> 
-> >
-> > 2, for swappiness (0, 200), the behavious is minor changed.
-> 
-> I guess you actually mean swappiness (1, 200)?
-> 
-> >
-> > Mark one scan_folios() result as one of:
-> >       iso     *isolated > 0
-> >       empty   scanned == 0 && !*isolated
-> >       busy    scanned > 0  && !*isolated
-> >
-> > mainline:  T(busy) -> T(empty)         -> return   (2 scans, no fallback)
-> > v2:        T(busy) -> T(empty) -> !T(...)        (a 3rd scan_folios())
-> >
-> > Maybe we can go like below:
-> 
-> Yes, you're right. For swappiness (1, 200), I didn't realize there was
-> this slight change.
-> 
-> >
-> > static int isolate_folios(unsigned long nr_to_scan, struct lruvec *lruvec,
-> >                           struct scan_control *sc, int swappiness,
-> >                           struct list_head *list, int *isolated,
-> >                           int *isolate_type, int *isolate_scanned)
-> >         ...
-> >
-> >       for (attempt = 0; attempt < 2; attempt++) {
-> >               int scanned = scan_folios(nr_to_scan, lruvec, sc, type,
-> >                                         get_tier_idx(lruvec, type), list, isolated);
-> >
-> >               total_scanned += scanned;
-> >               if (*isolated) {
-> >                       *isolate_type = type;
-> >                       *isolate_scanned = scanned;
-> >                       return total_scanned;
-> >               }
-> >               if (attempt)                /* already retried / fell back once */
-> >                       break;
-> 
-> This `if (attempt) break` makes the loop look rather strange,
-> especially for a loop with a maximum of 2 iterations, where we break
-> when `attempt` reaches 1 :-)
-> 
-> What about just changing one line?
+This series was prompted by some discussion on this thread:
 
-Hi Barry,
+  https://lore.kernel.org/linux-tegra/20260705-nvidia-ahub-v3-1-bacb7e05bf68@gmail.com/
 
-Agreed on the one-line change for the (1, 200) case - I traced it and it
-now matches mainline exactly (no extra third scan). I personally prefer
-the for (attempt = 0... ) style because I feel that makes logic clearer,
-while everybody truly has different code taste, LOL, just a weak opinion. 
+In a nutshell, yes, the AHUB can do with #address-cells = <1> and the
+corresponding #size-cells = <1> since all of the children are in a
+fairly small register region. I suspect the primary reason we stuck to
+the #address-cells = <2> was so that the ranges property wasn't
+required.
 
-For 0/201: my concern is that on no-swap systems (swappiness 0 is
-file-only), the same-type retry when the first scan is busy may be a
-no-gain run if the file generation is dominated by protected/ineligible
-folios - the retry re-scans the same sort results. But if you see a case
-where the retry does isolate folios on the second pass for single-type
-reclaim, keeping it for consistency is defensible. Do you have such a
-case, or should we drop the retry for 0/201?
+Anyway, this series attempts to rectify this by making the necessary
+changes to the #address-cells, #size-cells and ranges properties across
+all the impacted boards. After this, the AHUB bindings can simply use a
+fixed #address-cells of 1.
 
-> 
-> diff --git a/mm/vmscan.c b/mm/vmscan.c
-> index bf2786c7247d..ba7adf36e69f 100644
-> --- a/mm/vmscan.c
-> +++ b/mm/vmscan.c
-> @@ -4939,7 +4939,7 @@ static int isolate_folios(unsigned long
-> nr_to_scan, struct lruvec *lruvec,
->          * We are running out of the current reclaim type. Fall back to
->          * the other type if allowed.
->          */
-> -       if (!scanned && type_fallback_allowed) {
-> +       if (!scanned && !tried && type_fallback_allowed) {
->                 type = !type;
->                 tried = true;
->                 type_fallback_allowed = false;
-> 
-> >               if (scanned)
-> >                       continue;           /* retry the same type once */
-> >               if (single_type)
-> >                       break;              /* no fallback for 0 / anon-only */
-> >               type = !type;               /* empty: fall back to the other type */
-> >       }
-> >
-> >       return total_scanned;
-> > }
-> >
-> > This preserves mainline for 1..200 exactly, keeps the intended 0/201
-> 
-> I guess you mean removing the same-type retry for swappiness 0/201,
-> rather than keeping it?
+On that note, I haven't seen any response from Charan on v3 and there
+hasn't been a new revision either, so I'm thinking of adopting that
+patch and make the #address-cells change so we can move things forward.
 
-You are right, it was a slip of the tongue.
+Thierry
+
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+---
+Thierry Reding (8):
+      ARM: tegra: Clean up AHUB on Tegra124
+      arm64: tegra: Clean up AHUB on Tegra132
+      arm64: tegra: Adjust AHUB range on Tegra210
+      arm64: tegra: Clean up AHUB on Tegra186
+      arm64: tegra: Clean up AHUB on Tegra194
+      arm64: tegra: Clean up AHUB on Tegra234
+      arm64: tegra: Clean up AHUB on Tegra264
+      arm64: tegra: Clean up some whitespace issues on Tegra264
+
+ arch/arm/boot/dts/nvidia/tegra124.dtsi   |  16 +-
+ arch/arm64/boot/dts/nvidia/tegra132.dtsi |  16 +-
+ arch/arm64/boot/dts/nvidia/tegra186.dtsi |  74 ++---
+ arch/arm64/boot/dts/nvidia/tegra194.dtsi |  74 ++---
+ arch/arm64/boot/dts/nvidia/tegra210.dtsi |   2 +-
+ arch/arm64/boot/dts/nvidia/tegra234.dtsi |  74 ++---
+ arch/arm64/boot/dts/nvidia/tegra264.dtsi | 494 +++++++++++++++----------------
+ 7 files changed, 364 insertions(+), 386 deletions(-)
+---
+base-commit: 8b72f6626dc39b9e7e82b2721d4f7c3b86286012
+change-id: 20260902-tegra-ahub-dt-cleanup-fa470032ab5a
+
+Best regards,
+--  
+Thierry Reding <treding@nvidia.com>
 
