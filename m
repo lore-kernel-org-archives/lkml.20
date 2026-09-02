@@ -1,111 +1,72 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E6884A8A2E;
-	Wed,  2 Sep 2026 15:31:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B774A92E0;
+	Wed,  2 Sep 2026 15:31:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788363113; cv=none; b=DkvBaH4cVulIZoq3yd/H60Hvkc6s164mBQHaordQ3SAc3qAiVRdeFlsI4S9dLrdpHgPDq4+SkGZYGjrTDK7QxfAwOtiCgdncsMGpwBf6qjf/mYQvL5etLo5l+QApMWKU0mwhLaRBtHfztH98Md4P5ajN0II16hoq+90HZpFNk8U=
+	t=1788363113; cv=none; b=ISI0SzG1RSDR8dRHfLEotLuK2m5XKsT0yAyAhCkL19DKXFl9jK3LmOLJFZWZUNXLhVjSTKJFsyU02weE+nDhCBERsteCPW+tvCrjeEgoD6Z7CvDU6IrisphhOOOieQvezj5FI/1pGkLlTt1lezg2HEPS6nhjpDvaQjMK3PCprIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788363113; c=relaxed/simple;
-	bh=Rq9sKEDoRg3H6dC7gETSpO8+0hysTO5oe4Trrc1hhN0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dLG0SZdR05vjEfPDW9po9riSXJAn9bEZCjU+CrvPhv3GE2MxshtBf4DXHSSfftl6ehn07JOQfBPRtr70tG+nZTTOEDDuFRDFx8scQXlekHpxaStdtySbU8YgMFJfcfWAvXQ0+cld5aMwNNCcqnN3uAd4fjDOMc0rmsuIw+VdbPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=I2yAKBD9; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=TmbIq2+Q; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	bh=F8/2e4coUXQd1OEy1MIBLrc2n0JoU2v7FX9aLwh/pHA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Vu+NSDd8s83ZAWbIHd81sbSeO66BPLT/EEzh5uVAC+q+Jq7I3k0bgp6I+GxIyVi0IxJsVDyVl77HYl5DwL+Z2cg4HgfhQc8c/o3H71m+CqHOVV1D8bhB/YoWMCE0IJDHnXu1OD2a6NF0kSfRuF3TvocAAOsor5MuwvYVoQ9SGk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AycOmSUX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="I2yAKBD9";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="TmbIq2+Q"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hZmtD6bNszKmV7;
-	Wed, 02 Sep 2026 17:31:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788363108;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=bvsM39KczBLIjGuxVSHxraQicZUkMaj+LEuLvdGR7hc=;
-	b=I2yAKBD9VYJwkFWzfeknxXtS1GO/qL8CF+nZM4v+lV99LKFBb0Ha+2azSKvjVHWxVNbaIZ
-	MtnGi4xSS4YJAIYSiuygcEl3NmAHtK5KZ1PEHm6aAbIq78tftHpjyVM3MctOguAbAFnwny
-	Y43dtrv7sJnaJd1eBxpJQ6L3u4xMLCv/vWMoDLy0pGNXoKQW1n4MBHJnW6e/O8QL0Pf2Z5
-	uaQCkmwlVE1GONrR6gawo8s3XMG+wZ8MtTRUYJvNsOAZX8t0X47WJTUCUS/0YhiN5C6Auk
-	M5tMv0lKtfnkjI8IG6IYKe/giYD1RvXE5+sU0beB9GpmbDHHrob2z7lnPmNp3Q==
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788363107;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=bvsM39KczBLIjGuxVSHxraQicZUkMaj+LEuLvdGR7hc=;
-	b=TmbIq2+QD4dCaHvC3hOo8CFUVpM05uRyrPZj/TN9GVRPn6p2h6qbtwmEe+AkaC1CYjunxz
-	NZbVn4O8N6mkqgHCJn/n9WfJ0c0Q0ECGiRrihbb/gbO9rEfmEMeQzfi5NE3el+IMnj8UNi
-	zeOMvcNf+nR7SQ+T7WihRXjjnSEes0gOXefqT+cSckaxNk2TJNDOir3WPc4x6Q7ozzAlSG
-	bB5rSGlV6gvHTAVIXB5cFPi4z/q9HwjEiU5jeLiOOzB07rT4aT94CFPpP3kD8wsp6XGtOf
-	BrR3HOmxm7zqCYxmRn0cDi81Wf7PFykq3NqdaLXFwB2oUEMHRsbD3CGk0N29ig==
-To: Fan Wu <wufan@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Deven Bowers <deven.desai@linux.microsoft.com>,
-	Paul Moore <paul@paul-moore.com>
-Cc: Manuel Ebner <manuelebner@mailbox.org>,
-	Fan Wu <wufan@linux.microsoft.com>,
-	linux-security-module@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3] ipe: fix invalid sgid value in audit event documentation
-Date: Wed,  2 Sep 2026 17:29:10 +0200
-Message-ID: <20260902152910.708743-3-manuelebnerli@mailbox.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AycOmSUX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A4971F000E9;
+	Wed,  2 Sep 2026 15:31:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788363111;
+	bh=i6uzuZvKCw0azG4q0pqw0jBpOqzGi2PjCgyH0kixHC8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=AycOmSUXIjOcllCh0E8Y1oRuzMPYyoA/UXQD1D5OzH1IdwZL0G2ZXxeKQT3xm3t8F
+	 LJfhKmffSdyee7Oxvb8EGbHifKdp9cY1XPOnxPlUJUIozbt24k6tRNfkLtTqjnQXmo
+	 ERpJ2YzI20dgnYzqBuPXSmJWL8zm1D/OVtxIOQgGa6BE/NaycSo8+dXZu/bx55X6fm
+	 toOkq7K6eoFdk39mE2MBzKjE2PGl/d1NU59Ahy7JSrIIZD2DOfP957mZ0c6CpPujd7
+	 36TI5eiU0Jab7keOCDP4zLuR3RifnrhaAtp1vqMc4i6hvYHmVT4nHcoICztvU977md
+	 ffi31LWGLl+iQ==
+From: Lee Jones <lee@kernel.org>
+To: Lee Jones <lee@kernel.org>, Hongyan Xu <getshell@seu.edu.cn>
+Cc: Support Opensource <support.opensource@diasemi.com>, 
+ mfd@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ jianhao.xu@seu.edu.cn
+In-Reply-To: <20260814153019.1114-1-getshell@seu.edu.cn>
+References: <20260814153019.1114-1-getshell@seu.edu.cn>
+Subject: Re: (subset) [PATCH v3] mfd: da903x: cancel IRQ work during
+ teardown
+Message-Id: <178836311024.2127451.12083678367837110310.b4-ty@b4>
+Date: Wed, 02 Sep 2026 16:31:50 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: 657zaatswpaz3q38ky71cysykop6d7zu
-X-MBO-RS-ID: e79fe7bcf32eeddbfba
+X-Mailer: b4 0.16-dev-ad80c
 
-From: Manuel Ebner <manuelebner@mailbox.org>
+On Fri, 14 Aug 2026 23:30:19 +0800, Hongyan Xu wrote:
+> The IRQ handler disables the IRQ and schedules irq_work. Releasing the
+> IRQ does not drain that work, which can continue to use the devm-allocated
+> chip and notifier state.
+> 
+> Manage both IRQ-work cancellation and subdevice removal with devres.
+> Register the subdevice-removal action before requesting the IRQ, then add
+> the IRQ-work action after the request. This avoids leaving a live IRQ
+> without work cancellation if action registration fails. Devres cleanup
+> then disables the IRQ and drains the work before releasing the IRQ and
+> removing child devices. Register both actions before creating the children
+> so partial probe failures use the same ordering.
+> 
+> [...]
 
-The audit event example in the IPE documentation contains 'sgid=)',
-which is not a valid Set Group ID value. Fix it to use 'sgid=0'.
+Applied, thanks!
 
-Fixes: ac6731870ed9 ("documentation: add IPE documentation")
-Signed-off-by: Manuel Ebner <manuelebner@mailbox.org>
----
-[v3]
- Really fix commit message.
- 
-[v2]
- Add Fixes tag.
- Fix commit message
+[1/1] mfd: da903x: cancel IRQ work during teardown
+      commit: df41eb0718d7ec4609c98844aca3ea381bb569ef
 
-Thanks for the help Fan Wu.
----
- Documentation/admin-guide/LSM/ipe.rst | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/Documentation/admin-guide/LSM/ipe.rst b/Documentation/admin-guide/LSM/ipe.rst
-index a756d8158531..bebf14fc2411 100644
---- a/Documentation/admin-guide/LSM/ipe.rst
-+++ b/Documentation/admin-guide/LSM/ipe.rst
-@@ -502,11 +502,11 @@ The following table lists the error codes that may appear in the errno field whi
- Event Examples::
- 
-    type=1404 audit(1653425689.008:55): enforcing=0 old_enforcing=1 auid=4294967295 ses=4294967295 enabled=1 old-enabled=1 lsm=ipe res=1
--   type=1300 audit(1653425689.008:55): arch=c000003e syscall=1 success=yes exit=2 a0=1 a1=55c1065e5c60 a2=2 a3=0 items=0 ppid=405 pid=441 auid=0 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=)
-+   type=1300 audit(1653425689.008:55): arch=c000003e syscall=1 success=yes exit=2 a0=1 a1=55c1065e5c60 a2=2 a3=0 items=0 ppid=405 pid=441 auid=0 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0
-    type=1327 audit(1653425689.008:55): proctitle="-bash"
- 
-    type=1404 audit(1653425689.008:55): enforcing=1 old_enforcing=0 auid=4294967295 ses=4294967295 enabled=1 old-enabled=1 lsm=ipe res=1
--   type=1300 audit(1653425689.008:55): arch=c000003e syscall=1 success=yes exit=2 a0=1 a1=55c1065e5c60 a2=2 a3=0 items=0 ppid=405 pid=441 auid=0 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=)
-+   type=1300 audit(1653425689.008:55): arch=c000003e syscall=1 success=yes exit=2 a0=1 a1=55c1065e5c60 a2=2 a3=0 items=0 ppid=405 pid=441 auid=0 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0
-    type=1327 audit(1653425689.008:55): proctitle="-bash"
- 
- This record will always be emitted in conjunction with a ``AUDITSYSCALL`` record for the ``write`` syscall.
--- 
-2.54.0
+--
+Lee Jones [李琼斯]
 
