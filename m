@@ -1,82 +1,141 @@
-Received: from mta0.migadu.com (out-249.mta0.migadu.com [91.218.175.249])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 947BB4AA005
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:53:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.249
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EEE94AA57C;
+	Wed,  2 Sep 2026 16:53:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788367999; cv=none; b=CxQa6LiyAsJpOPwm6n3PGqIpreMGt9SNKMtiQPOWgTab4L5eh/uDrwxtu9sfilsqiIRHggJchGo4gYmRLuSdcxZb/a01XbldqV4gSINwQRNbIhl7iMhau5eiDJfU9axTI8jKp9UPeA2tLXWHkOhpdFN7zxqeCzBz+Oy8z2df6pY=
+	t=1788368008; cv=none; b=cgduXVIq2TlwYHpNrcZSC4cpdkuWRTJJwPf6weiMm6XqJrJCDuFUVn8gvBRrdOeLlicM0Q48ztZTaqK3a0dB5KxT0YUcM4ZlG8MLjw2c1Vh2DYAQ/OfxrYyFjsoxx7mJvGkyMtqqxF/YxnXxvjrRbi2TwNDHPkxQlPAigHW/PWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788367999; c=relaxed/simple;
-	bh=iHvZqKrXE7zNfYJuUPYEjllsfLjqNrNtwxd1pFBCEOI=;
+	s=arc-20240116; t=1788368008; c=relaxed/simple;
+	bh=FXkZjsJhuvfGXBfa9R30mQd/k9rDt2tsr32CYL2l64A=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GyHGVPnDxIk5IWLE6O3rJ/HyWZg/uZ1fmY4R52paO0AUJeZpXx4wF9TV1uA2AHcS9a9QHD3BA1XfLecEb7UAJe/6PpipyQc04SMsaYtPbv2bo3FMYJ4TUWg6eHUMfFKl1wNkPOJhNXt4cu13vuIaEuKUjHsE4AcWEV2e+qb8wmY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=U1GrSfFB; arc=none smtp.client-ip=91.218.175.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	 Content-Type:Content-Disposition:In-Reply-To; b=G336QbR0gw9Ix8ay4nkjxyvzZoPdVAQQj3NH+HfaOZR6444P2A6fWYm9Xvtv5GlprJajETCWWdobV8ZHtjEihW5dro6FCYDMZGawHH11IEpMLorEtzqxB7DFnPmXLTuCmgR/yKO+y9Qeb4fSOY/8wcqGvAs4gd/yh6b8EBkPjiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NsY5WB9E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="U1GrSfFB"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=iHvZqKrXE7zNfYJuUPYEjllsfLjqNrNtwxd1pFBCEOI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788367995; v=1; x=1788972795;
- b=U1GrSfFBnHdhZ158PJrFBB13z+t//fAG3f9LpCksZwrzOxvjBQHdGG1AgLVzkUAAxxM30GQM
- scWVWwa9L0yooRBLO6FO2azA9U63OBGaXrof38+fHJSjamE+T+rhCTflanUHjq3Vt6c9VMjxDMb
- KF/orzS+kcN3ZFIgy0a5SguU=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 9188a3c33d52887f;
-	Wed, 02 Sep 2026 16:53:15 +0000
-X-Mizu-Trace-ID: 9188a3c33d52887f
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 2 Sep 2026 18:53:13 +0200
-From: Thorsten Blum <thorsten.blum@linux.dev>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Pramod Gurav <pramod.gurav@smartplayin.com>,
-	linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NsY5WB9E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C4541F000E9;
+	Wed,  2 Sep 2026 16:53:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788368006;
+	bh=64+KUYqu36wvmy3WR4R0FjJSpd47FyPOdY1dF3w2Yho=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NsY5WB9EKQyvyik+bLrvu6FXRYRR+DThdtHC/Y2amTOH3ipSG73QmWOh+QkARCmPT
+	 GeS1ZzsawmrfbrgXQXdpngnHeOD1X70hPEQ6akf7GKoHOiL3wsFDsrZ/Lqelg0i7lG
+	 +aj9Xsw5nbJWZ+B2hQL/7bOEqNzoE72g4GSrd/EqgseE42I19U2HjAAhdPa1CvtLSM
+	 ovsirqfSq5l7TE8Mp+coZ//W1cIfoYFE8a/TCE+etkDZkOqSbpYqM1ZvXO+gnMeYjR
+	 y+nculeo18NrDaMfTN6tdbQj/6VssFJ5bRNIZA6fvkdR+ohOqAFqua0Z8E6AvnVJkd
+	 CdchACUWbmbMg==
+Date: Wed, 2 Sep 2026 11:53:25 -0500
+From: Rob Herring <robh@kernel.org>
+To: Alex Elder <elder@riscstar.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, daniel@riscstar.com,
+	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
+	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] crypto: atmel-tdes - zero-initialize device state
-Message-ID: <aphUecsl_R3Jc6og@linux.dev>
-References: <20260829035821.67220-1-kmehltretter@gmail.com>
+Subject: Re: [PATCH 1/5] arm64: dts: qcom: qcs6490-rb3gen2: use pci for
+ device nodes
+Message-ID: <20260902165325.GA1440252-robh@kernel.org>
+References: <20260901172058.1512508-1-elder@riscstar.com>
+ <20260901172058.1512508-2-elder@riscstar.com>
+ <CAL_JsqJJPdrYArNhbRPTM=scDghLAWe5=0a2+ACNaHe07h6-tw@mail.gmail.com>
+ <d9071ec7-371f-4896-a023-77a07f01f65e@riscstar.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260829035821.67220-1-kmehltretter@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d9071ec7-371f-4896-a023-77a07f01f65e@riscstar.com>
 
-On Sat, Aug 29, 2026 at 05:58:21AM +0200, Karl Mehltretter wrote:
-> Commit c659d07f11a3 ("crypto: atmel-tdes - Switch to managed version of
-> kzalloc") accidentally replaced kzalloc() with devm_kmalloc(), so the
-> device state is no longer zeroed.
+On Wed, Sep 02, 2026 at 07:51:54AM -0500, Alex Elder wrote:
+> On 9/1/26 3:05 PM, Rob Herring wrote:
+> > On Tue, Sep 1, 2026 at 12:21 PM Alex Elder <elder@riscstar.com> wrote:
+> > > 
+> > > A recent change caused the embedded PCIe endpoints on TC9564 SoCs to
+> > > be treated by the devicetree code as PCI buses, which is incorrect.
+> > > 
+> > > An RB3gen2 system has an "interposer board" that contains a TC9564
+> > > SoC.  The TC9564 includes a PCIe switch with one upstream port and
+> > > two downstream (external) ports, plus a third downstream port.  The
+> > > third port has an embedded PCIe endpoint with two functions, each
+> > > providing access to a 10 Gbps capable Ethernet interface.
+> > > 
+> > > The devicetree nodes representing these functions were previously
+> > > named "pci@" but were renamed in the interest of consistency in
+> > > commit e806c63ba51a7 ("arm64: dts: qcom: Rename pci@ nodes to pcie@").
+> > > 
+> > > Unfortunately, of_node_is_pcie() causes nodes named "pcie@" to be
+> > > treated as PCI bridges, which PCI endpoints are not.  The previous
+> > > name "pci" matched such nodes as "default-flags" bus type, defined
+> > > in the of_busses[] array.
+> > > 
+> > > Rename the PCIe endpoint nodes "pci@" so they are not mistaken for
+> > > bridge nodes by the devicetree parsing code.  This restores the
+> > > previous behavior, and allows them to be used for PCI endpoint bus.
+> > > 
+> > > Fixes: e806c63ba51a7 ("arm64: dts: qcom: Rename pci@ nodes to pcie@")
+> > > Signed-off-by: Alex Elder <elder@riscstar.com>
+> > > ---
+> > >   arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 4 ++--
+> > >   1 file changed, 2 insertions(+), 2 deletions(-)
+> > > 
+> > > diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> > > index a13315bf0fb07..99a985a177a61 100644
+> > > --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> > > +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+> > > @@ -954,7 +954,7 @@ pcie@3,0 {
+> > >                          ranges;
+> > >                          bus-range = <0x5 0xff>;
+> > > 
+> > > -                       pcie@0,0 {
+> > > +                       pci@0,0 {
+> > 
+> > The kernel should treat either name the same. There may have been some
+> > reason 'pci' was not included in checks. It could have been that only
+> > old things are (parallel, plain) 'pci' and anything new is 'pcie'.
 > 
-> atmel_tdes_hw_init() tests dd->flags during probe: a stale TDES_FLAGS_INIT
-> skips the hardware reset, and a stale TDES_FLAGS_BUSY makes
-> atmel_tdes_handle_queue() treat the engine as permanently busy, leaving
-> every request queued and never dispatched.
-> 
-> Seen on a SAM9X75 Curiosity: the first TDES request after boot never
-> completes and the TDES interrupt count stays at zero, while the AES and
-> SHA engines on the same SoC work normally.
-> 
-> Switch to devm_kzalloc(), matching the Atmel AES and SHA drivers.
-> 
-> Fixes: c659d07f11a3 ("crypto: atmel-tdes - Switch to managed version of kzalloc")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-> ---
->  drivers/crypto/atmel-tdes.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> OK.  Does this mean "pci@" and "pcie@" should only represent bridge
+> devices?  (These devices are all endpoints and erroneously had
+> device_type = "pci" properties, among other things, so I'm already
+> fixing that.)
 
-LGTM, thanks.
+Yes.
 
-Reviewed-by: Thorsten Blum <blum@kernel.org>
+> Do you want me to make a (separate) change to treat "pci" the
+> same as "pcie"?
+
+Only if it fixes something besides consistency.
+
+> > These are ethernet devices, right? Then the right name is
+> > 'ethernet@0,0'. If not, then pick something that matches what the node
+> > is. Both pci and pcie mean the node implements a PCI bus.
+> 
+> They implement Ethernet devices, yes.  But they are used for
+> pci-ep-bus (and the Ethernet devices bind to a sub-node), and
+> that's what's important about these nodes.  What's the right
+> name?  The dynamically-generated node uses "dev@".
+
+I don't love 'dev', but don't have a better suggestion for it.
+
+> 
+> Is "ethernet@" still right, if it's also used to access a
+> clock and a reset and ... via pci-ep-bus?
+
+"ethernet@" belongs on the node that has ethernet-controller.yaml schema 
+applied.
+
+> 
+> I want to use the right name, I'm just unsure about what that
+> is, given its use for access via pci-ep-bus.
+
+I don't know if there's a right name here. You just can't use a standard 
+name if the node doesn't implement what the standard name defines. 
+Granted we just have a list in the spec and some names (e.g. pci) imply 
+more that other names.
+
+Rob
