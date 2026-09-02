@@ -1,141 +1,129 @@
-Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02275370AFC;
-	Wed,  2 Sep 2026 07:18:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E29C317163;
+	Wed,  2 Sep 2026 07:18:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788333498; cv=none; b=mLd/o4SLA8TcYPjoZMWCvJ6Lss9gV5hNZVNZDfhw0Opw1cofo6J88gh05qJAFh8350QAnREOdryxBtVwriULL/9eX8aKhBXQbb0U9tP934i39q1OiOJGu+d4sz7QbXw1WUrYPccZeISfYh+6Dz5FC4EN6EF2gK0aWdqrz0ZAeT4=
+	t=1788333519; cv=none; b=ofzCULc6/n8z3VU0dG49mWBtOkAkOe6FmVluJYDj/ag8/YFTO6XZFya7qsbyUI41PDO2gcVYu4c/DbKB2Y3ASjX4tG3wH4rkHJgintbbz4j+mHv0uVxIKjpy2bGBR2bbs63EpIIY/2pRCI5vUOxkNwtxsA5UnEgtnJ7CdTHYI/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788333498; c=relaxed/simple;
-	bh=/qcHkGUyQbDXWuX981T2ndPB7rRLiuINK3DuLELJ1d8=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=LabecfWUfMtHzx14fu9xu4P/CCkNFssOfxzdZ4bvQSd8dHkPXFIiEOHmew1loOkRS2Z0t7KmhczJ2MsV2Q7lE7pkZXtOIAnDdD52u1Ms2Wegq3vmFUnX/AeBRj6tjuxkZWlK26tVcqCewNJS4a/ynOww3nnGiUZZRJ9mGoNrcRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=TAiwdwhn; arc=none smtp.client-ip=113.46.200.218
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788333519; c=relaxed/simple;
+	bh=FrU0vwTWiXNpJLDHmXBFEhZPNs4uimrpEWy63hvXxRg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jbSacaNtI4bB2J+ai+5lVDExrJWeTz3X5OcjTaLVOtnmO6QgOHIp8VsNiI/BkLunDcQeZ9hZQmhVZyOFkCxvqhVpiR0L70wtpaMw62rLkRLoDc4Bg20tMJ+zulffZrYbfqsikviioGG2ir8/I+tu4lbSwV0SSPIoBXkBXNFrl5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e7fYUwa6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="TAiwdwhn"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=v1lyVg2s92gRBWagJgLFFSVS9tBW1GPvEb/tTqd4fjU=;
-	b=TAiwdwhnXfKEVAFbuGWLLA/dVJcPst7eSSlikNI7sFvuaKfCym0gt/AbFtS5XJY/KNs3nvm40
-	GUj9Fs22cD/oleXkhn/w/VNvy76Yr37G/k4AJqI6MNh3HgTXVyOsFoCa/Gz/2Mb3jaoRgTyYCaR
-	IoYL3Jktf7ROoEF+UWSLsEE=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hZYgV2jP3zpSvd;
-	Wed,  2 Sep 2026 15:06:46 +0800 (CST)
-Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id 037BC40579;
-	Wed,  2 Sep 2026 15:18:07 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by dggpemf500011.china.huawei.com
- (7.185.36.131) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Wed, 2 Sep
- 2026 15:18:06 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <edumazet@google.com>, <kuniyu@google.com>, <pabeni@redhat.com>,
-	<willemb@google.com>, <davem@davemloft.net>, <kuba@kernel.org>,
-	<horms@kernel.org>, <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [PATCH net-next v3] soreuseport: publish num_socks with acquire/release
-Date: Wed, 2 Sep 2026 15:19:00 +0800
-Message-ID: <20260902071900.395567-1-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e7fYUwa6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A4871F000E9;
+	Wed,  2 Sep 2026 07:18:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788333518;
+	bh=HL69uD1uJKKHK2MGV9jHTlVdAjJQsXCvWjdRatXtZi8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=e7fYUwa67YcCpJQnhksI8s5r9szKITxJpbFfZKbSZEUV+z5uyzc5KVa96Mmcx4OPa
+	 hUt+sVL9z7lmDGS9Suf7Q3aJpKPLexx3a/NMPJiJlaCJDXuxcuxyaxz84pEZBXSEgK
+	 hK46DbJNdrhDH2CyT6tHGkYccEzqAweJqh2ZaX6AlxXN/anm8MKc31fIhLosPvGg2y
+	 U14EJghhLQcVsFrGtCsS5GQ4yKDOMPcYW6i+hSEISmxkgXiK2vroFVIRmVO3euKPgd
+	 Hti3OS6v3ljm1ef3LsRJAnppDgU5JPV1KLX6nlwpvbkA5LtWwoLDgyTDi1QfJ1YQZy
+	 GAmqh7uM9xRJg==
+Date: Wed, 2 Sep 2026 08:18:24 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Ryan Chen <ryan_chen@aspeedtech.com>, Joel Stanley <joel@jms.id.au>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Taichi Sugaya <sugaya.taichi@socionext.com>,
+	Takao Orito <orito.takao@socionext.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
+	Cristian Marussi <cristian.marussi@arm.com>,
+	David Lechner <david@lechnology.com>,
+	Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Santosh Shilimkar <ssantosh@kernel.org>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Vladimir Zapolskiy <vz@mleia.com>, Heiko Stuebner <heiko@sntech.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	Chanwoo Choi <cw00.choi@samsung.com>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Dinh Nguyen <dinguyen@kernel.org>,
+	Viresh Kumar <vireshk@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Emilio =?iso-8859-1?Q?L=F3pez?= <emilio@elopez.com.ar>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Prashant Gaikwad <pgaikwad@nvidia.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Ulf Hansson <ulfh@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	linux-clk@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	openbmc@lists.ozlabs.org, arm-scmi@vger.kernel.org,
+	imx@lists.linux.dev, linux-mips@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org, soc@lists.linux.dev,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-sunxi@lists.linux.dev, linux-tegra@vger.kernel.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH 30/45] clk: scpi: Make sure clk_init_data is fully
+ initialized
+Message-ID: <20260902-tiny-metal-silkworm-ffaadd@sudeepholla>
+References: <cover.1787239813.git.geert+renesas@glider.be>
+ <939f1be93abebc7967a889e9c24c34942df8229a.1787239813.git.geert+renesas@glider.be>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- dggpemf500011.china.huawei.com (7.185.36.131)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <939f1be93abebc7967a889e9c24c34942df8229a.1787239813.git.geert+renesas@glider.be>
 
-Replace the smp_wmb()/smp_rmb() barrier pair with
-smp_store_release()/smp_load_acquire() on reuse->num_socks.
-Writers publish socks[] updates via release before incrementing
-or decrementing the count; readers acquire the count before
-accessing socks[], ensuring they observe a consistent view.
+On Fri, Aug 21, 2026 at 10:53:40AM +0200, Geert Uytterhoeven wrote:
+> The clk_init_data structure contains several mutually-exclusive members
+> for different methods to specify the possible parents of a clock,
+> prompting drivers to initialize only the members they need.  However,
+> not initializing all members may cause subtle issues, which are only
+> exposed when CONFIG_INIT_STACK_ALL_PATTERN or CONFIG_INIT_STACK_NONE is
+> enabled.
+> 
+> Make sure all members are fully initialized, to avoid such bugs, and to
+> prevent future breakage when converting drivers to a different method
+> for specifying the parents.
+>
 
-The detach path gains proper ordering between the socks[] write and
-the decrement, which was previously unordered.
+FWIW:
 
-No functional change intended.
+Reviewed-by: Sudeep Holla <sudeep.holla@kernel.org>
 
-Cc: Eric Dumazet <edumazet@google.com>
-Cc: Kuniyuki Iwashima <kuniyu@google.com>
-Cc: Paolo Abeni <pabeni@redhat.com>
-Cc: Willem de Bruijn <willemb@google.com>
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: Simon Horman <horms@kernel.org>
-Assisted-by: DeepSeek:DeepSeek-V3
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
-v3:
-- Split out from following patch set as Kuniyuki suggested.
-Link: https://lore.kernel.org/all/20260901024234.135119-1-ruanjinjie@huawei.com/
----
- net/core/sock_reuseport.c | 20 ++++++++------------
- 1 file changed, 8 insertions(+), 12 deletions(-)
-
-diff --git a/net/core/sock_reuseport.c b/net/core/sock_reuseport.c
-index 29948cb44b7d..6d3c511d1def 100644
---- a/net/core/sock_reuseport.c
-+++ b/net/core/sock_reuseport.c
-@@ -125,9 +125,8 @@ static void __reuseport_add_sock(struct sock *sk,
- 				 struct sock_reuseport *reuse)
- {
- 	reuse->socks[reuse->num_socks] = sk;
--	/* paired with smp_rmb() in reuseport_(select|migrate)_sock() */
--	smp_wmb();
--	reuse->num_socks++;
-+	/* paired with smp_load_acquire() in reuseport_(select|migrate)_sock() */
-+	smp_store_release(&reuse->num_socks, reuse->num_socks + 1);
- 	reuseport_get_incoming_cpu(sk, reuse);
- }
- 
-@@ -140,7 +139,8 @@ static bool __reuseport_detach_sock(struct sock *sk,
- 		return false;
- 
- 	reuse->socks[i] = reuse->socks[reuse->num_socks - 1];
--	reuse->num_socks--;
-+	/* paired with smp_load_acquire() in reuseport_(select|migrate)_sock() */
-+	smp_store_release(&reuse->num_socks, reuse->num_socks - 1);
- 	reuseport_put_incoming_cpu(sk, reuse);
- 
- 	return true;
-@@ -583,11 +583,9 @@ struct sock *reuseport_select_sock(struct sock *sk,
- 		goto out;
- 
- 	prog = rcu_dereference(reuse->prog);
--	socks = READ_ONCE(reuse->num_socks);
-+	/* paired with smp_store_release() in __reuseport_add_sock() */
-+	socks = smp_load_acquire(&reuse->num_socks);
- 	if (likely(socks)) {
--		/* paired with smp_wmb() in __reuseport_add_sock() */
--		smp_rmb();
--
- 		if (!prog || !skb)
- 			goto select_by_hash;
- 
-@@ -634,13 +632,11 @@ struct sock *reuseport_migrate_sock(struct sock *sk,
- 	if (!reuse)
- 		goto out;
- 
--	socks = READ_ONCE(reuse->num_socks);
-+	/* paired with smp_store_release() in __reuseport_add_sock() */
-+	socks = smp_load_acquire(&reuse->num_socks);
- 	if (unlikely(!socks))
- 		goto failure;
- 
--	/* paired with smp_wmb() in __reuseport_add_sock() */
--	smp_rmb();
--
- 	hash = migrating_sk->sk_hash;
- 	prog = rcu_dereference(reuse->prog);
- 	if (!prog || prog->expected_attach_type != BPF_SK_REUSEPORT_SELECT_OR_MIGRATE) {
 -- 
-2.34.1
-
+Regards,
+Sudeep
