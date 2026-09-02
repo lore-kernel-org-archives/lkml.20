@@ -1,220 +1,186 @@
-Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022133.outbound.protection.outlook.com [52.101.96.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A46EB35E955;
-	Wed,  2 Sep 2026 02:02:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB9E5345EB5
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 02:04:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.51
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788314584; cv=fail; b=V0xII44gNndH9sDf2C8Up1xXTV6nWOqeHA2a8E2NDYJq5b+g+HTbe2ErtqhnSbpGKOdzw9xbNiQPpizAl6RT0wpJbU7JG76w98EczOnaF56EmLh3zc8KzMYZVCUwv+MWj1EX4J7ExGD/k2GSWm4CLABdFQhrHoy57U7ahIFBd7Q=
+	t=1788314700; cv=pass; b=aHnO6O8AdR72fCpOo8eL6EFa2uGXB8I+ql6YvTzR50KGw8WaWFbDBuYpiPL3Eg/Znr4MddT2duDodDBeu0jPaZC8u8uhgX4JmgGDDWLHkE4BfJX5ghMy7Ilm5+dpSzHtAZRgLlRIZdT6/oR90LL+d7OxDxj+7/dOCkbZSlo0PYE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788314584; c=relaxed/simple;
-	bh=n5E/tNmzD2mFGOo1Qpg23+SQBw7Md+2WaSjJlYsa/hk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=htMTnfRJfi53nn/XtBkT7chBGApaUtJ6nGemwORJj+cIzNnFCDPySdZLbkN/Orj+ySVH/o9t1X1NS2ke1GUzv2XQwY918JtKKMzFN8KS/mKE7h2q9N4qzvR6VfamogAUX2jYAxBHnIsYwBIN82OCzjIBI5hZ3iTkLBdFjL0KCiQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com; spf=pass smtp.mailfrom=atomlin.com; arc=fail smtp.client-ip=52.101.96.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=atomlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=atomlin.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Vu1oxW3o1Pjy8+zRN0kHsI4mWxUhceBGxhijIsjcrUKtxzsLsifqK1YVeUVDeJJrfVWFFFiGgOkmT8Tl2p+l4AU8eBy1DdqKiMeEQeuEESWJMGWBmkFd/lQdl0pCr09JNVJgn+nCXGbHe0Q4xkDINAUn5SPxydyCPp7VvczmVh1xZoXKRPIzAc3FWky3HZHJ+8xUeX8xJ+GB4+G4hecWhuU+tLebJ7U5O6veh21Wot80uNSA72jYsxkpHG+VrJCrVyXrcczfL4cQo/F9kpkq4OAYpMPGNdypswVh2N3wYVhGXMVs+14XxBkp2XEt3NEKW97W6aObOdC0WwTz6wKhkA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001; h=From:Date:Subject:Message-ID:MIME-Version;
- bh=70WBcRKBPzl33S0pV/+sVHUoq9eapbcYDHBZQmq2hHI=;
- b=LQF3YR4RwR40pvdp+QKph7UcMUxy/Ll23n3sCiZgn78KrBG6uoANwx7u1Q9LS7RNFIVz6NDxVm6sVGv8PUSzrhzgS7VGUG24LfUxu+eTa3mpFSEQS4iIj6SF7b+8PrK3R+ymk5RJTErc98sNSDln0WwR7RJ3xrZdIG4K4+lL8daVF4OjF5EZCRHCcN9BSUU0xjECU7aPjWy83lBm+qGYxO0k25esPgsVKXi7/nkxQCsMZmdA88W/6EnRn+TMeQZWgcWKOurdObZr55tuAmVOwD4Ng4OgjDNdIZp/roej841QAvlL9yDQWhyzMuXxIKr6G8QpYi/R+8UIw1tmIurqAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=atomlin.com; dmarc=pass action=none header.from=atomlin.com;
- dkim=pass header.d=atomlin.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=atomlin.com;
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM (2603:10a6:400:183::5)
- by LOAP123MB8292.GBRP123.PROD.OUTLOOK.COM (2603:10a6:600:43b::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 02:02:45 +0000
-Received: from CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230]) by CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- ([fe80::cec4:77ab:262e:d230%4]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 02:02:45 +0000
-From: Aaron Tomlin <atomlin@atomlin.com>
-To: tony.luck@intel.com,
-	bp@alien8.de,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	dave.hansen@linux.intel.com
-Cc: x86@kernel.org,
-	hpa@zytor.com,
-	frederic@kernel.org,
-	marco.crivellari@suse.com,
-	sean@ashe.io,
-	chjohnst@gmail.com,
-	mproche@gmail.com,
-	nick.lange@gmail.com,
-	linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] x86/mce: Avoid arming periodic polling timer when not required
-Date: Tue,  1 Sep 2026 22:02:13 -0400
-Message-ID: <20260902020234.149814-3-atomlin@atomlin.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260902020234.149814-1-atomlin@atomlin.com>
-References: <20260902020234.149814-1-atomlin@atomlin.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: BN0PR08CA0019.namprd08.prod.outlook.com
- (2603:10b6:408:142::12) To CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:400:183::5)
+	s=arc-20240116; t=1788314700; c=relaxed/simple;
+	bh=YT5zBfH8mpMM2lyf1FZRCc3QvS64XCHPvFvZMt8wsKs=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=TyTxdyXBnBqQLfwe+xz9T5cF8ziuVfFT2L90tc1ozyX2ZnKX/A6Dc3gwY7RNTPKEG185AaWDOBNn/GbYcTv5U8Xa3s+9obgvYlHRvE1UzYCUm2fJSGHZy0vNetFd6uxedDxXSKkpk+SiXwNCVzWoeobM+WPRvjtug3hu50G/VbI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XJWWE2vJ; arc=pass smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XJWWE2vJ"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4843e397f74so500932f8f.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 19:04:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788314693; cv=none;
+        d=google.com; s=arc-20260327;
+        b=bvV1blq77/Z/NLUoo9YPpOE+OdSiCkFG+gmLgs8rgY/UgkTqYRLWmmkYKFIGOjTJkX
+         QQNG9u3ZD4xQHhfNYN88trCcucrcHcOQLsWAUHD9TOSrf9Jzlu4gGc5yCzFLJBNsCNnP
+         uSncXrJRMANvS1DxQbfWFGRUP3WRr2gEfmErXzKHQpvLYf3fN8NIllYS/Z4KrqYcIzK4
+         FSD1lNlIZ9Gq0jsmk61UzvYT3CqaDCmw5xOAqTtWQhMtMvU2HhTF6z5mVKGEpwPkAN2U
+         s2bQ+gcScj+2re4GRpnrI6UuObESGlCChG26SY7W9PQSNm+1Qpv+l7Myxxy67JvZ4pwW
+         VAHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=wyyDLth+ZOHBMkr86Vlswg04HV1jJ+33CAE9hpj/U7I=;
+        fh=OGpU6ufBgYJJC9qojou26EbUUFk+XtZqNqHUb6vHQmU=;
+        b=kY0E+EeR/DligF3h1yCOWlv+vLH4xGf64r1PfWs0VKJsiSsX4ua3jhI9c5MBxSBVRB
+         CMDLpIGF4Yw5kSBhBIydWTETqTHLUFsQSBGWlZUnqmfiOoV0X3Jbl0ViMPa4nW7/KmJx
+         mjDghx7YatFJoA7l1rWn7cBLu4zJTSqlCS8o4XuNSnGy8XX7vJS7a5u6QRV8Joa+80xw
+         wiop3hzT25WOf07SViPFRdnfIzlmnZoKyowO/8nK1Sca8aNfi45LkswMmAcxk+50hWpt
+         08oJ2fRdVaOylcE+ITuP5wFo0a5tpMaKz5pZA6g9dr5AsNze2Y0aiv6v8u2SL1yhvpHs
+         11JQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788314693; x=1788919493; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wyyDLth+ZOHBMkr86Vlswg04HV1jJ+33CAE9hpj/U7I=;
+        b=XJWWE2vJs0qHQxweJ9q5qDVSXo8/U/dE093CK0PMiu5AympCX92QfZfMDFH2LQKWqN
+         d9looQxjTR1nc5meUcwSyLNvse0SEZyf05FvDowjkt69gRx509J35ZuRxdyuGpNSNLlt
+         1ZT0/HqrCKt1CqW9K+mmWxW+IMOCnA1wjELK1V+9ran9mZvHc4FlkdCvHfEKnRq+wo8m
+         uktcZ/QSsHqYzvuzhcWQrrsGjoKsqoV6BYilv6ZVJxRH5u34wpCToB5MLoeE0JhF4Boc
+         JR/MTKESinW1Pk4VMr0ajYDHwfLuZ+oEYXThPiCcPs7cfSz0/2qlDQoqEWFuoDGdIs4h
+         KElg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788314693; x=1788919493;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=wyyDLth+ZOHBMkr86Vlswg04HV1jJ+33CAE9hpj/U7I=;
+        b=dx3OZ59Oi38c6QPXPebVRwj9NdB2TmNBVfTT+AbqMu+0Zl5xOwxC0iitW7rViezEha
+         CLNwskZGywyphxDgJA/KxbIpKYvNNugtsvfRPJ7ZdS56dRgdhh93GpX9E4Re9uTn39+U
+         AuzY4Jg4hDnYhdsjLOiQM532TG31kxQrFEZULHS6F97MxVXO5XEQaUvpOv4ziHxG/IA6
+         MI4guMwblDs8UjZbeqZIMJK62zfPp+I2kxU8k8PDVY4uuPH3SfntJMkdLpZ7AoBZdH2c
+         4ceLNHITp9yuBNoGETHLFNoGqZUOed60zFIUs8jdQ4aNyWvwGyuxCWOm0NTfp6G0hKSj
+         qQ8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzM4AYO1CwPMdGMIluZeo7LxgAMsjH5Cmi18uNK2EbxFZoZ+jd2QE4ZHrrEoSWVWxahwQEfWfEPKfpLpIE=@vger.kernel.org
+X-Gm-Message-State: AFuF++l2oeMOn7P6J+Vvvrg5t0vDS6TTXK5i+6WgRAsuPIRgOM4hE75I
+	zIP1q8B1shjAkB4riJDtY1zL583L2Hqk6LKMC8nK2p+NEvz2D9sdIZ01IpCs70pdNeZZ2ckTpcN
+	mbl1F2/butwZ0My5hFZih1RWgZSxHCgA=
+X-Gm-Gg: AYBFou1ARi2vxvDJokM6b5VXh5wortvIMKvPwTCV27gvvYOeXdNwYmsY+hfwJHVVvu/
+	zQDUmt93gBcHvyScyUC+01rvBeOG6BcLu2krpSt4aQGjUNHZ8KPOl0JHkhg5MUKtgw3OAXkh9zP
+	5IrEXgO2mxvao577bITHT73cstrF6DlwUQsetyw+6jYJ7QopN9OmmbAfs39ACMGj0UD94qc50et
+	6NNVR6lNstYv3nsP2iP+XujK7frRj8jzNJMK+9gL/qxSgAqkv17nTxuDkZutAlj+iyJ80CnUTXS
+	U0uBtZg47Gpsf3h9LE9goMPwISh238N7iRf8hWsnk5o=
+X-Received: by 2002:a05:6000:2dca:b0:484:42c1:41bc with SMTP id
+ ffacd0b85a97d-484a3bc2e28mr1560654f8f.5.1788314692763; Tue, 01 Sep 2026
+ 19:04:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP123MB6607:EE_|LOAP123MB8292:EE_
-X-MS-Office365-Filtering-Correlation-Id: ed0719cd-b7f4-4d33-932b-08df089647c7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|10067099003|5023799004|56012099006|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	kFiC20dgA5o9UTSxtzPDjBvpK40fOCv/0DMZ+u22p0axnCM0XR81fySjsdE5q52YLTjzGXjYLyOKTrY/3xBGg9HpexrqPAS3q/Aci0GR7L5T0bS9u1UvojVImcSFs8pP6VV76CeG8Gl1VkgPxh7kQnxXAKrpWgpmoQDiwsKqrZexRvBBvApaDfhkXwKtFEXDvntqvKGsb86xgZK3Woay4puLCPiTcgi0kkvSpBEz40jI6nSJkgng7EM4lRQZz2E1BT2nRcRB2ewjs51qcwYmqAA6H0KnJc+G9f8ZCOEK3Hk8oEu4Vufn+8DvoSMplOzUiQ0oB4WicF59W/mzosIJMJyfGKTZyZgzNvuJj3XplAK9zz0AV0xjNh87xEJB87jCIVv4nAovNKoaiOxrEAO5CPCwblDnoUsMrlEqf0DDBi++TTQjlIbTQ4CT7A11hj4liGTqPk0mZu+f9jjZpQZ/QOd7cwL8Kw1ckWO48zOH5GYFNPCS21TpdIpD6w0b+M9BBj52+85PlUBE2/jxAw2bIMLApUy6n6xtXYaWde/bgotNfmmuIM7kA6PkTWWO30ruy63oaBoWjj9d4RZW4mz/3li+xfTD/YzZDREr/vQkPKzKtsN+uEak0NhVz1JyThUSkH2ZsZFSQbjV5HXD8FfJUE076+UheRyToqC6oqT2B3M=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(10067099003)(5023799004)(56012099006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?4YBbkCaSLrycVQi4LTF/IaOMusBG0N3M6ALrYKVHhrj0RrJlfPjlEBE4i1ez?=
- =?us-ascii?Q?M4bxlex+2igU/WSC7doWJXtwc9eXTYjnogPbgIWCbHPBa3lMRrvbeRUW1fPc?=
- =?us-ascii?Q?8SUM1Qxn6cTTEyeKVheveeL6O3AimPDivqlB7Im1k6/8GkRQqYbFHITQAXGO?=
- =?us-ascii?Q?4hjPngS5q13GyQ6qwDdJWGGFiLqiP/0vDuH3sYb9M60yLarphdQcDSzeEPWE?=
- =?us-ascii?Q?xsv2RhYfiAR0aS8mpHozedp6AW99aoeoIs8fDrvPqpfOPOOb+6P/EZQuGRlD?=
- =?us-ascii?Q?8O0VGcj5qbbNk0FnVFtNFVIoWPPwTuke6owgevXIr8cm7aGpjwCXonw/8lRT?=
- =?us-ascii?Q?5KLXGyUlQ00qLm/Gjw/PGf4toXwzG4wUlG6vrMTAjHpJ74M79mafgkxVl0hL?=
- =?us-ascii?Q?5B6Uvt6Xwpp88FTbJimbwWVVYGVaB3q71fpfwFBuPRu36+qbhncXzpQZcy3w?=
- =?us-ascii?Q?7EAOEkVMzPF8C/fZV5E9hOJARmwNXhiaWSIPesih8a0cfgytsUJl/def2HJz?=
- =?us-ascii?Q?Y1j/GtDvhEs/Z9q5vV5FCtC15g44elaSfV/tVvebhvdVDJPbS4eqDi4jPpez?=
- =?us-ascii?Q?UCqb0neYR3UmxiUBo/bbFWR5KToicUN9rPvESi3Fs6jIbkkdW/WICb1cPkWH?=
- =?us-ascii?Q?2FrpfUB3faqVBiIeZkm9j7S3Rn+ra54wt+9mREfQ+4ED+nqMVLNoUgZeHMhP?=
- =?us-ascii?Q?p7vksDIxXaF7o3h84MXJRc1r1x5/f+mhdPkwFIn7KF1ibdz9vuT8B07FAEAZ?=
- =?us-ascii?Q?xkwXQJ4ePzynSPir8jzdBe/SdSQxrmIJJxhYtImT4abS1c7IMdtEnqxBXbpy?=
- =?us-ascii?Q?oObzF3N9Zo0Cy5CAJRP11TmghpKxLof2NE1tm5YX5fUmyg3fcAt7xJNp14Nk?=
- =?us-ascii?Q?lmfuTQqlN8bOYFGwIsIcUo5qmx2aK2SSzyPCoXB9qRe/gl8GbdxTNZrL4lVi?=
- =?us-ascii?Q?vsV6ec6sR4U34ypk9eKDUbS3KtVSvNr7l5uOqn29uDjB9D4FSbNa0E8JNmY8?=
- =?us-ascii?Q?O5vNS4QmE2jGzzRIBMxxsW3BWtk5Pabx9b1aViZAKhclyzy9q9+UDxp4xMh6?=
- =?us-ascii?Q?kawySwJkcDgbKackTqFCL3Ls4gU3HB8KMnPVILLPOIrwA6ETs9jz1q+AR3LG?=
- =?us-ascii?Q?MxLyqH/eCr12sODlFdfN7R9EtnzbfhbrZCr3f3HI9caXFnL2PD5bIxZ6a6mz?=
- =?us-ascii?Q?cJcx3vlTFeNDdL+TsPNd1YZGGjy0NRSEuZC1SZv5eONOwMFM/aW7Yx/H3EFa?=
- =?us-ascii?Q?NkfCoUGTGcnfBbwp4QnLzD+JSt+aArRts3L6POvgc/Mnkejnt/Ipy/OD8R6t?=
- =?us-ascii?Q?j1vLE2Q3HMoUPGA4uoAmpQpSipSvGI5xEonTvyOQ4pZiViqTW7HGVeAuYc+p?=
- =?us-ascii?Q?s/WJB161fUa9DZ32AU/GTgH6lwgHxc9tyqQdSr7xrOui4hoQB/gZ/UL2vUx6?=
- =?us-ascii?Q?hyStmsiIwhOhIkiDK+1VxLu7EeXnISFp1zVQpqVgK8hRmdi4HA0aKlKPXzV4?=
- =?us-ascii?Q?ARy/djW2cSNDlBcglO+8CBHPapYG6D113lA4QIXmFHdHOvAIdeUpMt7xAtcF?=
- =?us-ascii?Q?7W3FauVAzFkb0CAIts2x0Uey+NS0P1JglacN6BHkyngPOzEtVwmNyexXG/5s?=
- =?us-ascii?Q?vxFjapChyWVdfdKAi/Z3UpDDm84UOPtI1ZaepEEdy6G+QtMILOGBtvRp3xuR?=
- =?us-ascii?Q?4oCSG3sXxpykAF2qwVS7/dX0mwE4NCUu1hljwlEHkrPt0dZZpmxMwqFDPKa1?=
- =?us-ascii?Q?Mw3V43mCUQ=3D=3D?=
-X-OriginatorOrg: atomlin.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed0719cd-b7f4-4d33-932b-08df089647c7
-X-MS-Exchange-CrossTenant-AuthSource: CWLP123MB6607.GBRP123.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 02:02:45.4193
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: e6a32402-7d7b-4830-9a2b-76945bbbcb57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: u86lhyr3Yna1zskftk9ZXk19E8rSwlUF0STs2CAhJcAFmjn5jdvsLp0DmSMOkp10Axi/iUdakGGpKUbLqEWrkw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOAP123MB8292
+From: Qingyu Zhang <usupergate@gmail.com>
+Date: Wed, 2 Sep 2026 10:04:41 +0800
+X-Gm-Features: AcwNN1UdyjD22a4J79gsh1SqF6GjF6XDdTJzwrSgkDe80nmS8380P2jwFtSVCD0
+Message-ID: <CAPBHda=tMkmjY3-WE-d8jnNfDt5bEsAvu1BCiwOT4FgqqYASEQ@mail.gmail.com>
+Subject: [BUG] erofs: LZMA stream state NULL deref after failed dict grow
+To: Gao Xiang <xiang@kernel.org>, Chao Yu <chao@kernel.org>
+Cc: linux-erofs@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On x86 platforms, the Machine Check Architecture (MCA) subsystem arms a
-per-CPU, pinned standard timer (mce_timer) to periodically poll hardware
-banks for "silent" corrected machine check errors. Because mce_timer is
-pinned to the local CPU via TIMER_PINNED, the timer core cannot migrate
-its expiration to a housekeeping CPU, causing periodic latency jitter on
-isolated cores.
+Hello,
 
-On Intel systems supporting Corrected Machine Check Interrupt (CMCI),
-hardware generates an interrupt for banks with CMCI enabled, clearing
-their respective bits in mce_poll_banks. However, for banks where
-MCI_CTL2_CMCI_EN does not stick (such as the Power Control Unit bank),
-Linux historically assumed software polling was required and left the
-bank flagged in mce_poll_banks.
+z_erofs_load_lzma_config() can leave strm->state == NULL while still
+publishing z_erofs_lzma_max_dictsize. The next mount of the same
+image skips realloc and decompress NULL-derefs.
 
-Per the Intel SDM (Vol 3B, Section 18.5 "Corrected Machine Check Error
-Interrupt"), if bit 30 of IA32_MCi_CTL2 is zero, no CMCI is available
-for that bank and no corrected or Uncorrected No Action Required (UCNA)
-errors will be reported on that bank. Therefore, polling such banks is
-redundant and wasteful.
+Type: null-pointer dereference
 
-Clear non-CMCI banks from mce_poll_banks in cmci_claim_bank() on
-CMCI-capable CPUs, and amend should_enable_timer() to:
-    1.  Check bitmap_empty(mce_poll_banks) so that mce_timer is never
-        armed when no banks on that CPU require software polling.
+* Summary
 
-    2.  Pin the MCE polling timer to a HK_TYPE_TIMER housekeeping CPU,
-        sparing isolated nohz_full cores from periodic wakeups on
-        systems requiring mce_poll_banks polling.
+       for (strm = head; strm; strm = strm->next) {
+               if (strm->state)
+                       xz_dec_microlzma_end(strm->state);
+               strm->state = xz_dec_microlzma_alloc(..., dict_size);
+               if (!strm->state)
+                       err = -ENOMEM;
+       }
+       ...
+       z_erofs_lzma_max_dictsize = dict_size;  /* even if err */
 
-On modern CMCI-supported platforms, mce_timer is eliminated system-wide
-in steady state. On legacy or polling-only configurations, housekeeping
-CPUs perform routine polling whilst isolated CPUs remain jitter-free.
-Polling fallback during active error storms is fully preserved.
+On alloc failure the old state is already gone. The next mount sees
+max_dictsize >= dict_size and returns 0 without retrying. Then:
 
-Suggested-by: Tony Luck <tony.luck@intel.com>
-Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
----
- arch/x86/kernel/cpu/mce/core.c  |  7 +++++++
- arch/x86/kernel/cpu/mce/intel.c | 11 ++++++-----
- 2 files changed, 13 insertions(+), 5 deletions(-)
+       xz_dec_microlzma_reset(strm->state, ...);  /* state is NULL */
 
-diff --git a/arch/x86/kernel/cpu/mce/core.c b/arch/x86/kernel/cpu/mce/core.c
-index 765e8103b0d2..7415d05076eb 100644
---- a/arch/x86/kernel/cpu/mce/core.c
-+++ b/arch/x86/kernel/cpu/mce/core.c
-@@ -25,6 +25,7 @@
- #include <linux/delay.h>
- #include <linux/ctype.h>
- #include <linux/sched.h>
-+#include <linux/sched/isolation.h>
- #include <linux/sysfs.h>
- #include <linux/types.h>
- #include <linux/slab.h>
-@@ -1759,6 +1760,12 @@ void (*mc_poll_banks)(void) = mc_poll_banks_default;
- 
- static bool should_enable_timer(unsigned long iv)
- {
-+	if (bitmap_empty(this_cpu_ptr(mce_poll_banks), MAX_NR_BANKS))
-+		return false;
+* Affected
+
+622ceaddb764. Needs CONFIG_EROFS_FS_ZIP_LZMA, a microlzma image,
+and a failed xz_dec_microlzma_alloc (fault injection or memory
+pressure). KASAN recommended.
+
+* Reproduction
+
+1. mkfs.erofs -z lzma,dictsize=4096 lzma.img dir/
+2. Force xz_dec_microlzma_alloc() to fail on first mount
+  (poc/fail_lzma.c: kprobe sets dict_size=0).
+3. First mount returns -ENOMEM.
+4. Disarm the probe, mount the same image again (succeeds via the
+  max_dictsize early-out).
+5. cat /mnt/payload
+
+KASAN: null-ptr-deref in xz_dec_microlzma_reset from
+z_erofs_lzma_decompress.
+
+PoC: poc/run.sh. Use lzma_streams=1 to keep the pool to one stream.
+
+* Expected
+
+Failed grow keeps the previous xz state (or retries next mount) and
+does not bump z_erofs_lzma_max_dictsize.
+
+* Actual
+
+NULL state + published max_dictsize -> NPD on the next read.
+
+Please consider the suggested patch.
+
+Thanks.
+
+Suggested patch
+```
+diff --git a/fs/erofs/decompressor_lzma.c b/fs/erofs/decompressor_lzma.c
+index 6b0cdb446c6a..3719c6f83f8a 100644
+--- a/fs/erofs/decompressor_lzma.c
++++ b/fs/erofs/decompressor_lzma.c
+@@ -128,11 +128,16 @@ static int z_erofs_load_lzma_config(struct
+super_block *sb,
+    err = 0;
+    /* 2. walk each isolated stream and grow max dict_size if needed */
+    for (strm = head; strm; strm = strm->next) {
++        struct xz_dec_microlzma *state;
 +
-+	if (!housekeeping_cpu(smp_processor_id(), HK_TYPE_TIMER))
-+		return false;
-+
- 	return !mca_cfg.ignore_ce && iv;
- }
- 
-diff --git a/arch/x86/kernel/cpu/mce/intel.c b/arch/x86/kernel/cpu/mce/intel.c
-index 4655223ba560..cc7d0dfcf9c7 100644
---- a/arch/x86/kernel/cpu/mce/intel.c
-+++ b/arch/x86/kernel/cpu/mce/intel.c
-@@ -229,16 +229,17 @@ static u64 cmci_pick_threshold(u64 val, int *bios_zero_thresh)
-  */
- static void cmci_claim_bank(int bank, u64 val, int bios_zero_thresh, int *bios_wrong_thresh)
- {
--	struct mca_storm_desc *storm = this_cpu_ptr(&storm_desc);
--
- 	val |= MCI_CTL2_CMCI_EN;
- 	wrmsrq(MSR_IA32_MCx_CTL2(bank), val);
- 	rdmsrq(MSR_IA32_MCx_CTL2(bank), val);
- 
--	/* If the enable bit did not stick, this bank should be polled. */
-+	/*
-+	 * If the enable bit did not stick, this bank does not support CMCI
-+	 * and no corrected or UCNA errors will be reported on this bank
-+	 * (SDM Vol 3B 18.5). No polling is needed.
-+	 */
- 	if (!(val & MCI_CTL2_CMCI_EN)) {
--		WARN_ON(!test_bit(bank, this_cpu_ptr(mce_poll_banks)));
--		storm->banks[bank].poll_only = true;
-+		__clear_bit(bank, this_cpu_ptr(mce_poll_banks));
- 		return;
- 	}
- 
--- 
-2.55.0
++        state = xz_dec_microlzma_alloc(XZ_PREALLOC, dict_size);
++        if (!state) {
++            err = -ENOMEM;
++            continue;
++        }
+        if (strm->state)
+            xz_dec_microlzma_end(strm->state);
+-        strm->state = xz_dec_microlzma_alloc(XZ_PREALLOC, dict_size);
+-        if (!strm->state)
+-            err = -ENOMEM;
++        strm->state = state;
+    }
 
+    /* 3. push back all to the global list and update max dict_size */
+@@ -142,7 +147,8 @@ static int z_erofs_load_lzma_config(struct super_block *sb,
+    spin_unlock(&z_erofs_lzma_lock);
+    wake_up_all(&z_erofs_lzma_wq);
+
+-    z_erofs_lzma_max_dictsize = dict_size;
++    if (!err)
++        z_erofs_lzma_max_dictsize = dict_size;
+    mutex_unlock(&lzma_resize_mutex);
+    return err;
+}
+```
