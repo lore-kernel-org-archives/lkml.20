@@ -1,90 +1,151 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51AB5361DBE;
-	Wed,  2 Sep 2026 17:31:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C966636F906
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:32:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788370290; cv=none; b=eVYSjuZzaxHZtavrtTStDZHVVhbmnKmhm5I4RVHAWRCZa+pSD2ldycjnb7uFbfCh/J9oS2eU3jqV3O/pkL23kToQjwTkYbo9J//YGD4efplpHDTSUBqnpJQ9pkPskriQIIe2qCXGUZPiwvub/TWYttUbHoXfTgqvAuyqmxBp8wo=
+	t=1788370332; cv=none; b=LZtUSFnFB7EcQvvFjdUd0IACcbCIueitLhDkAjrYmWUsU8Sx9pX+lxleja8DHkEOEIkB42q/gJanJF7xcT7HY1QlNgCjkVVhDiIAfji9ZXGMvn44Ry2Xz2cs2IsBdbEdUeolXUAXEqNeBxmH1AAiM7v00u6R0q6gmastTfcD6n0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788370290; c=relaxed/simple;
-	bh=AeI3SjLAkvauDjKl3tD+y7hjEy6XY86wKPiB4bjeopA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kQyJJAcYC9mgKft5n2QdItq/jAkpgW/sHs4Vl0ZGFGFUdE2bSk7D2AhXrPgHQEU+WRiGBq6Z/Qrlv/fopxOExUrCMF2JLU5YAXuE1DC9LQVU9Jv1TMH6ie49bP36vkXdJI+0SENmJl1DsblBDCHAsHXnVkr38/6ppxqdeT0BQWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=dO3jdndw; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788370332; c=relaxed/simple;
+	bh=CPu7LxPLFCv6NAT9Za83Ro6/HgP1YcldWvsjgKvb/Mc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DRBfLznh9SFk8UrZRjA+snivmBj0rEm/b766rNrr/dMohv0P9QUbPVzKBlUeNNyPff/WbPGjyQ/li64Rd5G+DXa8GQG7zWtVDT+6CsCZ681Pn5VeVh70OKUdxPGeH2Dut8iJcxTQpDvNcEP3f46umGMgn6zHHd/Vyzvj96IPXuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YWzAxUkc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="dO3jdndw"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=hX8qibbD5PzBnhbueOeCOvtZ45adC0oK6JtciUg44RE=; b=dO3jdndwa3g1gGHdZSjrOsN119
-	VxEq8vTuYNcuAdLzGNwWdhjyYFOVZGa6o2qFa4v9RMLckJaIRC1W1kOoN5nT8g7ufCApF34ndoeZ/
-	Evqmwu2oNcMK7ND+I9526S8o1PweRsvbS23nDGS+svqGo4eg6dC5BfiGgdG4N1yYVNbE9UDcYlimq
-	a+aasPh5MTEz2AtFlhNHSXFn7jO7wGvJlgdOPffLFgS5XKhVGhGWUT6QL787TqaGyCEUFLxc9SZo9
-	RKcidPHYmdi1oKcgy+FJjgWSqxIQCLDYccDHgJYL8D747m9FBxYz22GGPHPKIBHrNLrzjRLKDnN81
-	A0Fe3X0A==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x1onz-0000000FRWk-3q1t;
-	Wed, 02 Sep 2026 17:31:23 +0000
-Message-ID: <01566086-6101-4e60-a4b0-5ef29d09ae61@infradead.org>
-Date: Wed, 2 Sep 2026 10:31:23 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YWzAxUkc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ADCF1F00ACF
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:32:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788370330;
+	bh=rxRL2muMlRMq3lG+Synw0npDThgz7pBJMw6th2fO8iY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=YWzAxUkchjbFpDsKRVyjM/67rBwfdKzvk+b938ePGwzaQDxPbSIzRh2TnrBJ5JXEq
+	 mqgH9V+wvoADR4fALkyHWu9TEwv0rrIVqfl8wpYE9OSIYlcHBU3FpG47CxYtvuDvKB
+	 RtlWi+0xAO/TYxXjU0bcP48K8IOt5aCFGanNCrh9wl1Y7I/M+1/J6fgHm3uzX0CCDa
+	 x+HXCiAXEzutpmgf9AHR+Z4A8iBd+0NedpthtSO5ue5/oCLz341+ydH+DwvyfFgkp3
+	 1HUVweLHTDYzMxHo113EBuhWWFFLQ9o6fZBgM5O/aQwJvJs5vCRs8lWzWAaBFZ/1TO
+	 E0M8OiI6wnZ5w==
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-39da69c5ba3so9744161fa.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:32:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy2REvg1weM0y33cbmDnxtKgxZr65h4Es7bDoXPkuJLMmtjnLvjXZO/V4T9+W5e5z9Qj+Je3UH0kB/mg0M=@vger.kernel.org
+X-Gm-Message-State: AFuF++k7h48mqup6IG+aM+JoBymZ1jOh4IczyFnUCULinpHRLPD2+b/D
+	J6cOpBEoCJ6PZ+Rx9obHjPXVS1YSWFcTctBvhaMaTGqIaGcySB7RqzNiluCgsUEqCLoc09NSm/x
+	5Kj61AaPZ4tH0MLDk1HJNEmjgyhORSFA=
+X-Received: by 2002:a05:6512:6193:b0:5ae:ba8f:f9fa with SMTP id
+ 2adb3069b0e04-5b608696c7emr2002421e87.18.1788370328999; Wed, 02 Sep 2026
+ 10:32:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ext4, doc: remove unnecessary bracket
-To: Manuel Ebner <manuelebnerli@mailbox.org>, Theodore Ts'o <tytso@mit.edu>,
- Andreas Dilger <adilger.kernel@dilger.ca>,
- Baokun Li <libaokun@linux.alibaba.com>, Jan Kara <jack@suse.cz>,
- Ojaswin Mujoo <ojaswin@linux.ibm.com>,
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Zhang Yi <yi.zhang@huawei.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>
-Cc: linux-ext4@vger.kernel.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260902143254.702971-2-manuelebnerli@mailbox.org>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260902143254.702971-2-manuelebnerli@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260902154525.4090276-1-mehmet.fide@gmail.com> <20260902154525.4090276-3-mehmet.fide@gmail.com>
+In-Reply-To: <20260902154525.4090276-3-mehmet.fide@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 2 Sep 2026 19:31:56 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmJ1+ZT=j_L79SuOzZS3PjOBgrCwhO8egaHfOU1ScLPkg@mail.gmail.com>
+X-Gm-Features: AcwNN1Ufz2hwBVYNzOhxeTRLMRRl22w2wWZvYy2iKpxvY8shYC6JncpMYjsiQr0
+Message-ID: <CAD++jLmJ1+ZT=j_L79SuOzZS3PjOBgrCwhO8egaHfOU1ScLPkg@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] gpio: mmio: track the direction of chips without
+ direction registers
+To: Mehmet Fide <mehmet.fide@gmail.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Dong Aisheng <aisheng.dong@nxp.com>, 
+	Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, Jacky Bai <ping.bai@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, imx@lists.linux.dev, 
+	linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Mehmet Fide <mehmet.fide@screeningeagle.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Mehmet,
+
+thanks for your patch!
+
+On Wed, Sep 2, 2026 at 5:45=E2=80=AFPM Mehmet Fide <mehmet.fide@gmail.com> =
+wrote:
+
+> From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+>
+> A generic chip with GPIO_GENERIC_PINCTRL_BACKEND and no direction
+> registers sets the direction through pinctrl but has no get_direction
+> callback, so every gpiod_get_direction() call trips the WARN in gpiolib
+> and the direction gpiolib reports is whatever it assumed. On a Vybrid
+> Colibri module that is 21 backtraces per boot.
+>
+> Keep the direction of such a chip in the existing shadow: the direction
+> setters update sdir under the chip lock, and get_direction() is the
+> shadow-reading path already used for unreadable direction registers.
+> That keeps the callback usable in atomic context, which it has to be:
+> gpiochip_lock_as_irq() calls it for !can_sleep chips from
+> gpiochip_irq_domain_activate(), under the irq descriptor lock.
+>
+> The pad's actual state is read once, in process context, when a line is
+> requested: gpiolib calls request() right before get_direction() for a
+> new line, so the shadow is seeded from PIN_CONFIG_OUTPUT_ENABLE there and
+> the line reports what the pin controller says. Lines pinctrl cannot
+> answer for keep the input default, which is what gpiolib assumed before.
+>
+> Suggested-by: Bartosz Golaszewski <brgl@kernel.org>
+> Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+
+For one I really like the approach to ask the pin controller
+back-end about the direction state when the GPIO registers
+doesn't know this!
+
+I have more of an implementation question here:
+
+gpiolib already supports this:
+
+struct gpio_chip {
+(...)
+        int                     (*set_config)(struct gpio_chip *gc,
+                                              unsigned int offset,
+                                              unsigned long config);
+
+this sets one specific config at a time. With a generic pin control
+back-end it is simply populated with gpiochip_generic_config()
+from gpiolib.c which will call pinctrl_gpio_set_config() for
+the corresponding pin.
+
+What about just implementing generic optional get_config()
+in struct gpio_chip, implement a likewise generic
+gpiochip_generic_get_config() in gpiolib and use that as
+the fallback?
+
+        int                     (*get_config)(struct gpio_chip *gc,
+                                              unsigned int offset,
+                                              unsigned long *config);
 
 
+Then the implementation becomes pretty straight-forward
+from that point, and this:
 
-On 9/2/26 7:32 AM, Manuel Ebner wrote:
-> Remove needless '('.
-> 
-> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-> ---
->  Documentation/filesystems/ext4/directory.rst | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/filesystems/ext4/directory.rst b/Documentation/filesystems/ext4/directory.rst
-> index 9b003a4d4..f3eeca844 100644
-> --- a/Documentation/filesystems/ext4/directory.rst
-> +++ b/Documentation/filesystems/ext4/directory.rst
-> @@ -429,7 +429,7 @@ block (precisely the length of one dx_entry) are used to store a
->  ``count`` entries in the dx_root/dx_node structures are adjusted as
->  necessary to fit the dx_tail into the block. If there is no space for
->  the dx_tail, the user is notified to run e2fsck -D to rebuild the
-> -directory index (which will ensure that there's space for the checksum.
-> +directory index which will ensure that there's space for the checksum.
++static void gpio_mmio_seed_dir_from_pinctrl(struct gpio_chip *gc,
++                                           unsigned int gpio)
++{
++       struct gpio_generic_chip *chip =3D to_gpio_generic_chip(gc);
++       unsigned long config;
++
++       if (!IS_ENABLED(CONFIG_PINCTRL) || chip->reg_dir_out ||
+chip->reg_dir_in)
++               return;
++
++       config =3D pinconf_to_config_packed(PIN_CONFIG_OUTPUT_ENABLE, 0);
++       if (pinctrl_gpio_get_config(gc, gpio, &config))
++               return;
 
-To me, it needs either a closing parenthesis or a comma, like:
+Can drop all the checks for !IS_ENABLED(CONFIG_PINCTRL) as this is done
+generically in in gpiolib and:
 
-   directory index, which will ensure
++       config =3D pinconf_to_config_packed(PIN_CONFIG_OUTPUT_ENABLE, 0);
++       if (gc->get_config(gc, gpio, &config))
++               return;
 
->  The dx_tail structure is 8 bytes long and looks like this:
->  
->  .. list-table::
+I don't think it is necessary to provide any consumer API for this
+such as gpiod_get_config(gpiod); as no-one really needs it, we can
+keep it as a private thing in struct gpio_chip for now.
 
--- 
-~Randy
-
+Yours,
+Linus Walleij
