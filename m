@@ -1,99 +1,82 @@
-Received: from smtp.smtpout.orange.fr (smtp-18.smtpout.orange.fr [80.12.242.18])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44E84A5C33;
-	Wed,  2 Sep 2026 17:18:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.12.242.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F7624A99DC;
+	Wed,  2 Sep 2026 17:19:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788369540; cv=none; b=H+mGZFm41u8dneKRSqSOAut8DWdrrOTogbq2jw2rY38vHbbBUfsOpFPTCGXEoHRXPS8GDDb48jAwGX71jGzhV3encgsqvK0B2w3UDIARiwioaAcL1Ac12BcVuYi9i/RaiI3F4iif+IG/4rTajZMOR7Vy0vOdMOOxjbNOI3E3sho=
+	t=1788369599; cv=none; b=dM5G5QZahXPxj4QNlgoE3pI+EEZcqkJBD1uY93azT3PCGWlBRl1s7YhyXm4HYYOBQ+GgTMqoA+i7jT1WLILBUmDzNgP37L4tAMjm//ZwQcBjGwJZ79DNO+Kj+5BzKZSVykgaVATqxz8xH6Un5MVUHDOCleUkdHl7ldpxIErx3hA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788369540; c=relaxed/simple;
-	bh=HY2s9iDSTOoVQgMBRKERQOvMKTBuDzzCZ0AA4lzBuLs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KYKTqfBfU+qcKxKq8FiD4iLCw9Lo+IX9jqJR89ZsJ4V+T7KzLCI9wx8ZzUyEZzs/jCiYTIEsa3WX+tERKKh/TzwnNtyVncyS5E8m66R8DOnxEM3jZeVh9r2D8BEnrzIWt3B9/yTD25oIabaS1PCP4re//yU03TTI4Db9UQ0dlD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wanadoo.fr; spf=pass smtp.mailfrom=wanadoo.fr; dkim=pass (2048-bit key) header.d=wanadoo.fr header.i=@wanadoo.fr header.b=TlcwXiUO; arc=none smtp.client-ip=80.12.242.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wanadoo.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wanadoo.fr
+	s=arc-20240116; t=1788369599; c=relaxed/simple;
+	bh=9lV8j+r8havL5KM06J/p5cqXKt8MEkpD3IlK6KoKJBg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AUdLFvUo9T6+7dqCSgXffonrG6Dkdz8hQeMUuN1cU3q5tJNZA0fnhIGgs82JgiXEyH+HHGtC2BrWt5/21QscVoxFK3jwfbV8ddtMo2eILJzzkRcZ8EnYr264zPxr1Qa3dMvKp9LPdP55yy7Mjlmv4cVKx8zqUdU/EIJC1BPm1ig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=XdSPziTh; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="TlcwXiUO"
-Received: from device-106.home ([10.64.95.115])
-	by smtp.orange.fr with ESMTP
-	id 1oaox3mQed1xd1oaox6xNI; Wed, 02 Sep 2026 19:17:46 +0200
-Received: from device-106.home ([IPv6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e])
-	by smtp.orange.fr with ESMTPSA
-	id 1oaexNFjKP8Xp1oaexvHDh; Wed, 02 Sep 2026 19:17:38 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
-	s=t20230301; t=1788369458;
-	bh=knQhvrvBb8T8P3G9UIe7lzic6iGN2FHXjgOBj/taQ4Q=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=TlcwXiUOE3ARzjDgPhtTiVPd4tIX+M7MRDLjwkkvjUKk0jx6DY0Vyati+gADFQMni
-	 6Zwk7uuYv3FDi3doxHi8TvxZcTM9s0P6r1o7C+L7fioykxrIhvd/KzF9PbRxPpTdPs
-	 yMO2pauxm+BJHaXTSrDt9KzBc0ic/ZgNPFuFyp5NqHxvop8xFYfu+TA6k4xg/laR04
-	 jlECsNkVaSuRjxiU/5bSMofGUwCHnOYcvJeABCuYi1DMxZNN7Vb+1rOtb16oTVZMvu
-	 xSvY/OIOF8rivNHNQDDhUXGUNU1UZB9ZYTd/I23/GTIU2ClPaA3+TvakJdyS+YvpWY
-	 qg99ZMOKS8jxA==
-X-ME-Helo: device-106.home
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Wed, 02 Sep 2026 19:17:38 +0200
-X-ME-IP: 2a01:cb10:785:b00:26fb:aefb:6cd2:db0e
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Lukasz Luba <lukasz.luba@arm.com>
-Cc: linux-kernel@vger.kernel.org,
-	kernel-janitors@vger.kernel.org,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	linux-pm@vger.kernel.org
-Subject: [PATCH] thermal: intel: Slighly simplify duration_set()
-Date: Wed,  2 Sep 2026 19:17:30 +0200
-Message-ID: <0f12d097f5874242b8d3cc98b441c4fefd626aee.1788369428.git.christophe.jaillet@wanadoo.fr>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="XdSPziTh"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=npJMAtUVNtJHA6DL9J6HP3NkqrvmeKrijd7JleVnCUI=; b=XdSPziThJsxdoZSYvOl6SyVqex
+	indWaeO8bpKCS9WiCVL3VCoKluRmFQXznCFjyU9VBRjqB+Yptr5bdZz0B9qUhTb/Fj8kSMZSEwgxb
+	6jbfiGHSlrsD2BBYhRLAiqQW920IUi0ISPRt5KexiAesUnz7QGYS8fO7CPrWFWhOkkIJqLKN28c7T
+	WKgzEt7/FDgvtQQGFbekHw/bdJCOh9m+65PQ3Z9yZQBdgjqhzOT6qtQwPlhE4MATTE2GgpGhYJgoQ
+	HkBd6t16HNJRLYtLL/TBH7T273K0h6eGx8ZRhAkktGEs+TX/NnqRzoLcM2IXKqi3I4S5s0dMLO7/o
+	5O06jWeA==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x1ocv-0000000FQCX-43n9;
+	Wed, 02 Sep 2026 17:19:58 +0000
+Message-ID: <10591fd4-72b6-4d43-88ce-57f4ed29c5c7@infradead.org>
+Date: Wed, 2 Sep 2026 10:19:57 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] fs: porting.rst: add bracket
+To: Manuel Ebner <manuelebnerli@mailbox.org>, Jonathan Corbet
+ <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260902145428.704582-3-manuelebnerli@mailbox.org>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260902145428.704582-3-manuelebnerli@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-there is no need to call clamp here(). The same tests have already been
-performed a few lines above, and there is a "goto exit;" if outside of the
-range.
 
-While at it, also remove an un-needed initialization of 'ret'.
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
----
-Based on my testing, gcc is not smart enough to get rid of the redundnat
-tests by itself.
+On 9/2/26 7:54 AM, Manuel Ebner wrote:
+> Add missing '(' to function in prose.
+> 
+> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
 
-This patch is compile tested only
----
- drivers/thermal/intel/intel_powerclamp.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Acked-by: Randy Dunlap <rdunlap@infradead.org>
+Thanks.
 
-diff --git a/drivers/thermal/intel/intel_powerclamp.c b/drivers/thermal/intel/intel_powerclamp.c
-index bd7fd98dc310..ba9c4a1224ca 100644
---- a/drivers/thermal/intel/intel_powerclamp.c
-+++ b/drivers/thermal/intel/intel_powerclamp.c
-@@ -80,7 +80,7 @@ static unsigned int window_size;
- 
- static int duration_set(const char *arg, const struct kernel_param *kp)
- {
--	int ret = 0;
-+	int ret;
- 	unsigned long new_duration;
- 
- 	ret = kstrtoul(arg, 10, &new_duration);
-@@ -94,7 +94,7 @@ static int duration_set(const char *arg, const struct kernel_param *kp)
- 	}
- 
- 	mutex_lock(&powerclamp_lock);
--	duration = clamp(new_duration, 6ul, 25ul) * 1000;
-+	duration = new_duration * 1000;
- 	mutex_unlock(&powerclamp_lock);
- exit:
- 
+> ---
+>  Documentation/filesystems/porting.rst | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/filesystems/porting.rst b/Documentation/filesystems/porting.rst
+> index 60880eb0c..810657082 100644
+> --- a/Documentation/filesystems/porting.rst
+> +++ b/Documentation/filesystems/porting.rst
+> @@ -673,7 +673,7 @@ watch out, since that shortcut is no longer valid.
+>  they used to - they just take it exclusive.  However, ->lookup() may be
+>  called with parent locked shared.  Its instances must not
+>  
+> -	* use d_instantiate) and d_rehash() separately - use d_add() or
+> +	* use d_instantiate() and d_rehash() separately - use d_add() or
+>  	  d_splice_alias() instead.
+>  	* use d_rehash() alone - call d_add(new_dentry, NULL) instead.
+>  	* in the unlikely case when (read-only) access to filesystem
+
 -- 
-2.55.0
-
+~Randy
