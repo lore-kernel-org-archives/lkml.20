@@ -1,121 +1,85 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E9BA47F2F6
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:50:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5283047ECE5;
+	Wed,  2 Sep 2026 11:50:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788349813; cv=none; b=DdmC6SDqAJtwdC8jgfv6PtPlyPX2YmGP1XdYBj7idQX7BiNZNQIdWgDFkzwJ/tvO2T6JcL7+RaAMWYTXPF8eagO4yUP7HDIbl6LYxwV4YFLn5wEBbemwbYvF0ZhI/q6yM2msBoYco5WyXRoBCceqfEUQvcmyN5DnjDBQ2UoimXQ=
+	t=1788349818; cv=none; b=tZQdEVz3QawFyL3xiQqLjyjrn6U2Qwgi0BlmfitpPmWZ/7HG5SDp+1pqJeD46b1GFi1t9AtzTUtJp/gEza3rxCLVC9PQtX9KPJi8RW+taPnqbQvteEytoGHUYxh4lqeVlh3A0XKRksIeK1CkrsKYEOnUHMtEhZZk0u/IKhPTBzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788349813; c=relaxed/simple;
-	bh=rcPjaCxjt4CqChPDbRtD9fLW1IyZqlZXFp1Fz2irvHo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NIEvxtgNOucMEk1I+YR+YPgp0RnSMjDwjbyKwm8akB9d1LwBD4vWGWep6UsD7TOIxTQ5jN1qVvnVoplPuazXr8qmXH2BhVz734kvBkpFiRqdwUHk+5gfEnQl7h+P2BdfpH8v0CfQqRp0GzahAOqM1wuH0UtXP3lMy8E6roAn2dE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=czkdSIGI; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788349818; c=relaxed/simple;
+	bh=uw9vdokc6SZSpTtBwYdVramsI0UkMNVIIWYHqdlChPQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=khCiRFO+7a9/UcIoRmEFGUbSdne06I8x8Avuo0Kg2tPSC865VgCu6+iX7e842d2urnvbrooZuimlyl/C5PTgJZRTD9eTRmAYqU3XrdixTXllUqTYVA0SirEtlY2AMicpOuouw177hIXLe2gY2nTfEqpO1Kk758FDGCfg+drNIfQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o16lN7aq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="czkdSIGI"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso9495735e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:50:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788349803; x=1788954603; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KQYhF3JRqYQ4KMxSdHkJy21dirNqkSr4/Y/EOxbYYiE=;
-        b=czkdSIGImZsA+QX6Hd8JQzj3yIowP8njwux0xWSHfO8znKMPT5tgSmJRSAeezNWua0
-         2nBlEFuwpTNFGdjPV/tQ80exhRGeu1BLo/UwWEPTcxgVvMfaYdqehDN8+ZU0WJL77Zt6
-         bbFK3+x/IemNYEg5l4MCaxC1ntGJjw8THGEaz7Ye+YhCRW3YR1o+Fb68jm/tQa6mK1/c
-         IOzbALtTnsTO3bJJ24oIsrrh0gBILje+CXoyY2f8ita5C4quB95wPSvyJBfVGBqnXqif
-         ZIuBVLOIUoeGQF/jFOVqL8OaZDRVuxD5UFnbBBboLuv4AldJCQpicF4OhqwWmG0w2ufx
-         uHSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788349803; x=1788954603;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KQYhF3JRqYQ4KMxSdHkJy21dirNqkSr4/Y/EOxbYYiE=;
-        b=otvzdm+SG7fqfVgvaT4iZafywojbHOD/Zy6jLZcp9drbRztY4242LqJsPru2epQZjZ
-         FuGsAT3bw/3qJWnOxRKLgsmQ34ZypYadkmyabyz1h+5Jz6spCOYBxbI6CeCJu9U4Ohhv
-         FdRmH98j78/nYPgNUW4KJejeKclIdsUp+hJbAUqdIj+xpJEIjc2lxWlvf7qwh7vpjaWQ
-         ZuAmz/cQj6APH9hN3/HOizHH3hwlHzwArduEa7drCKmKndNA5xYaC0dfdKuh0W9OPXgV
-         8mAdUjOE09q4RuIYHcajH2X/vxRlUNe6xgVuJ1l6aALFpe4XE7DabfwYPFTtNznHSbVg
-         bg+A==
-X-Forwarded-Encrypted: i=1; AHgh+RoJeqULtrRkdsCVKpbEJIlvf8tAq9uBkCdZMc1phCauRn+NhmwEPr4LlVuzXQmsaHSLBf35ctHNfVzKxjs=@vger.kernel.org
-X-Gm-Message-State: AFuF++m1jV+vnW+EnkU3ygq2bFPNARZfOZ1OW9ToTUrGNbb3xW1rTQpY
-	zVS3/UGvDVUJZK8t6GDRAolIumzJE6cXyEMSF/2rXCPGLz3KArJ8h9r5
-X-Gm-Gg: AR+sD13QH2zRfyXT3c/kUokiflCRaLVF1J6/s1oF2C3a9QclMChXclxnjXf9Qr0+v+y
-	iuGXHfljAwCKDAe/+l9WElNULTsMeim57n0rMoCK+gVVyw72yOggAj3g048TSv+g2F+PJtqktKH
-	wOSic2i+OzXNEg4mPP73wo1n/JdhYi8gYtLmetxTyF8p7uoiQTOQ/pMdUY6uaWuH58dOOM3VzBl
-	8YNrbar4i0M2WdqTEzTdhYL5tQcYtynpxRy7afQCUIkwuO82MQ9AfQ4lY6fvv/eBekWcgbusAYD
-	ikhz56kMjISGevG9hyR+HexEdTgVG0a2DdHh9gAqjJndXE1AYZqjSsGlIcYP5ECp/UvCR/j7z4H
-	3Tn8nB8EXYtdl2Y7qEiCfPyttZBEVK0hfV/KpAGDrAdDRbc/DtP3z7Xoglqf6TfqBTgsfIRs6nu
-	g7W9cmw4uhypuakb0UmYGu47DeODVkRmRd8+lhIRKce6qxVIxjjc95/s5nrAHyndoqlExl1FVAM
-	p9jXKl3sJwC/n2ekut4dW4aacEs9yXwsN1wRIfieTHSWswwYfN2HvhXJ8u6ZA==
-X-Received: by 2002:a05:600c:8b05:b0:498:943:ccc0 with SMTP id 5b1f17b1804b1-49ce5817bfemr91781575e9.6.1788349802440;
-        Wed, 02 Sep 2026 04:50:02 -0700 (PDT)
-Received: from drago.hgw.local ([2a00:1d34:e871:1c00:d71:a9eb:b721:e4dc])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce551bf7asm33475835e9.2.2026.09.02.04.50.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 04:50:01 -0700 (PDT)
-From: Deniz Aydogan <denizaydogan1902@gmail.com>
-To: lizhi.hou@amd.com,
-	amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Deniz Aydogan <denizaydogan1902@gmail.com>
-Subject: [PATCH v2] accel/amdxdna: add NULL check for job->cmd_bo
-Date: Wed,  2 Sep 2026 14:49:59 +0300
-Message-ID: <20260902114959.9553-1-denizaydogan1902@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260829080016.10002-1-denizaydogan1902@gmail.com>
-References: <20260829080016.10002-1-denizaydogan1902@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o16lN7aq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 482D51F000E9;
+	Wed,  2 Sep 2026 11:49:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788349796;
+	bh=QT/vK0x7oSBzL+u+emvTzGAZ5rg0ZuukzQWasrQZMag=;
+	h=Date:From:To:Cc:Subject;
+	b=o16lN7aqJ9/h/3LNlF6Kb+sU0EUDAXspAuJIrnWDrQ1gJp2gC0OtkKGEDYJ802Q8X
+	 q7w8rQg1CUU0Kku7NBZmUYVY0V7BuBcFtAQw6KkNftunJTGC6yY7qVxXpn87CbfNG+
+	 tVvlb/0LjuLUmpjK5fdfb16QgHW+1ktLLrvrHgd6uR//hl5+7fVrn5t2qvgS+ltaiN
+	 lHMfb/iL6f3h2Djz4Umc1fC4QfThT1T3zQyl2W+JOA6Ork/itLtGOXSHddB9+kjxSr
+	 b0DtbiwHPrGgCBPpENOhbpmx1BdH4GDbM42C1kwE5IWrCFuGvVd6ftgULbZJUMxhpw
+	 jBZin1VEjdfsg==
+Date: Wed, 2 Sep 2026 12:49:52 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Bartosz Golaszewski <brgl@bgdev.pl>,
+	bui duc phuc <phucduc.bui@gmail.com>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: linux-next: build failure after merge of the gpio-brgl tree
+Message-ID: <apgNYDiSiPmNZspF@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Ljn44yh+NvUsEiv9"
+Content-Disposition: inline
 
-amdxdna_cmd_submit() leaves job->cmd_bo as NULL for internal driver
-commands that use AMDXDNA_INVALID_BO_HANDLE. The cleanup paths in
-amdxdna_cmd_submit() error handling and amdxdna_sched_job_cleanup()
-call amdxdna_gem_put_obj(job->cmd_bo) unconditionally.
 
-Although drm_gem_object_put() handles NULL, adding an explicit check
-makes the code more robust and easier to reason about.
+--Ljn44yh+NvUsEiv9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Signed-off-by: Deniz Aydogan <denizaydogan1902@gmail.com>
----
- drivers/accel/amdxdna/amdxdna_ctx.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Hi all,
 
-diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
-index 31a414c3f..21f0560e6 100644
---- a/drivers/accel/amdxdna/amdxdna_ctx.c
-+++ b/drivers/accel/amdxdna/amdxdna_ctx.c
-@@ -575,7 +575,8 @@ void amdxdna_sched_job_cleanup(struct amdxdna_sched_job *job)
- 	trace_amdxdna_debug_point(job->hwctx->name, job->seq, "job release");
- 	amdxdna_pm_suspend_put(job->hwctx->client->xdna);
- 	amdxdna_arg_bos_put(job);
--	amdxdna_gem_put_obj(job->cmd_bo);
-+	if (job->cmd_bo)
-+		amdxdna_gem_put_obj(job->cmd_bo);
- 	dma_fence_put(job->fence);
- 	mmdrop(job->mm);
- }
-@@ -676,7 +677,8 @@ int amdxdna_cmd_submit(struct amdxdna_client *client,
- put_bos:
- 	amdxdna_arg_bos_put(job);
- cmd_put:
--	amdxdna_gem_put_obj(job->cmd_bo);
-+	if (job->cmd_bo)
-+		amdxdna_gem_put_obj(job->cmd_bo);
- free_job:
- 	if (job->mm)
- 		mmdrop(job->mm);
--- 
-2.55.0
+After merging the gpio-brgl tree, today's linux-next build
+(arm64 defconfig) failed like this:
 
+/tmp/next/build/drivers/gpio/gpio-altera.c: In function 'altera_gpio_probe':
+/tmp/next/build/drivers/gpio/gpio-altera.c:224:21: error: 'irq' undeclared (first use in this function); did you mean 'girq'?
+  224 |                 if (irq != -ENXIO)
+      |                     ^~~
+      |                     girq
+
+
+Caused by commit
+
+  6e6e585b603e4 (gpio: altera: Handle errors from optional IRQ lookup)
+
+I have used the tree from 20260901 instead.
+
+--Ljn44yh+NvUsEiv9
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqYDWAACgkQJNaLcl1U
+h9DbjAf/QNrF01Hn8DEyduyxHPuMxMBsLVss1CC3Nio2JS5ehRDmv1Auvq2WYp1N
+dLA7otgP8nF+XrujB6IlOz8m3gIzGgi7fM0sqKjs0rbAA/rRcWxRHc0uoBKX3cpl
+WtX02mFc7i2gUYL4Stgs+4D/CQngk2r50p2ETDaUr+3lPhv5SFrlBT2MiwUTIzvG
+kOZUB8bLPQG93Q8cQSZEXM+bTUlPGgAZE29AflAXKsYU7ip0rdiFmq/mFSeNJDVm
+YW9TR+sXiRnI/gjJDlS9KuUlvf69/ivR5olUoxIg8T9aiOM99uXivjEDJc8oJdpz
+yu4DxznAUCU9C3WoS0AkcSXaBspZvA==
+=hrwA
+-----END PGP SIGNATURE-----
+
+--Ljn44yh+NvUsEiv9--
