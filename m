@@ -1,165 +1,118 @@
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4AF949CF28
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:51:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F2DD4968F6;
+	Wed,  2 Sep 2026 12:52:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788353521; cv=none; b=fg0B9YFZSnYfqVPUyeYsj7NSspN/YZhJIUx5KeB1Q46lZpOEWmTm7BGbbenO5Ut0FBLlVwySmTQkeisRFjl+e2jqvzbGHs7AI2vMcp7omzMZu7qp3ztn4L5WS8zR8DK2xaXPeWCHkiLBX8K8knBkPZwmsfjNISxIBZt6J20dn2g=
+	t=1788353537; cv=none; b=cAaIArs7owr9PRr9jzLgyx5c4gd+TTetlawmhHSL78sBJM75mF5AP54qyNlEfAaTG++3KUoSuO0mo4e526iFQXDb45EaTL1FBZJCLU+oe4Xc5kUEWxSdzAV7F+8mJjksuRZ281sNW+EED+9UT6MVwnNQivQ+BSQSDX9hUvN8cYU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788353521; c=relaxed/simple;
-	bh=mKlEjK/YMQld6vJmwR0/9aKJoS+2zsE2avk1GfXVXeM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LfpD8Ql5NwlXrMnPojJH8TZzr2Y3gujJtC/8b5PkqWyaIuW01eVJPF6GsxtukKadVgsUeVXebYEBnC1RqKLD+dDLMBmrtjqGhRI4JayFXbJZAFtwHjGFzb4ehuXR/Js1YqS5GezZiLj0uFU958QgC9H1rO5aKe9AQ9Z1QE06LIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=a+MHFUdZ; arc=none smtp.client-ip=209.85.160.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1788353537; c=relaxed/simple;
+	bh=NpJ68cAdxRTul9v+KRzPMyOhGoHG7IvwOK7cj3TZ7Fk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=suEhrQfnIvxOCewDTLVeHWlhaCngFHZsc1Nxag9W4b8eYij+Zg1LI7qYsHu2TMrKnl2QoupXWiX0G96i0gFQ8uF5mLRGCtMq2Oq3JiusefxZ8pKKjNKdSJkZs13tlCWfvOXCTw+p/9qAbZ7bOMTyStyU1Rew84MMVKC9BZQ9se8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZlMEPtYb; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="a+MHFUdZ"
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-53024149d40so4827891cf.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:51:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788353516; x=1788958316; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cBFYRqjj9ZQem2jSgP0xTqH/Yx+DXsxPz53X3PniFy8=;
-        b=a+MHFUdZ6flYrZhivX037uuPPoYhghpxDukqRxHeebP5q7xjyKw/OrawV3VnxJSBlz
-         s9ad78FxrrrJlbWcV4Vios7qOXR6bTRzFhekDv2bQkZO9cObQma8tATetwGRmbRXpe1K
-         cE7vWkWhlicMtwFKJgZ+/Oh4MaxC3V2vkj3MrYDN+Uperp0hMg7Cp2+FU+LPaYD2nKdD
-         mygDm55U5+xhqCDtUuk3PItiIeA2hpWfotakp1IsXUg8XaOe92sN1Zx5Lt6p10md2O8B
-         yqOSZDzjtT3Fsy1RGkYs9xFHutwwRM5kuLNyRAdnDiYE6HsJA5zd7A9JXRsclOE8XiMt
-         BjGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788353516; x=1788958316;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cBFYRqjj9ZQem2jSgP0xTqH/Yx+DXsxPz53X3PniFy8=;
-        b=qkfI3pKN/i/fJ2TAiEamr3h24Onf6Rq5fcSUpd8vgFol0jvVif+IM5+MuEeZgemBF4
-         zc6NqFrnYrmvK8KXc38B+LJ+OtdyUTpEZf/GdIzKVZ6G1Z25vAy3uAnCSYGhjBjTvRfP
-         Kf4+pRC+TltOVLHaMEyuKhnpgYGfJPuN0E/xAwxVtaj6ZJ6Cw4VdrhJvUAPkNScz3XE7
-         acJE2urUYkLmQsaprJrb/dxX/vBKivcW+JIwqCPnG2lDV27iwevK3fK7Q7Nc75Q4ZPyR
-         Ll7Thriqe/Zlsm/TwEyo4lah5P2B86vF+qvBQRm0Piuw6kUf2ip9Vn5C8NXc68GH02+y
-         znNg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr8YLUDGiw35OwhBNAZe0neNzIUnAIiI3BhE49oB5AwU4sW6HpNMoLZRfo7JVlEFcL+rNEPcr3rdMe/FQw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nfTNcpyVz2cxhJxrzl/pf5BLBfNk6D89c2XEE+PqmieLV/SPad
-	Yv2NmvME9+bc3ytgenaenTBks4z0f0op/bjGEVEj0DMBNJHWKSrORnO/9CkEEAd9LuEFnoiqsXs
-	bpda0cCs=
-X-Gm-Gg: AR+sD13r+/12RZb6C1bb8ge76qZoGxYNfOY4JpegsUQuyITNyKWFBAteUJblt/iVEXL
-	fYSYgE77o75xN/6JqxP7z/vnxJrZt/NtdelFBLpm/cVC4ewiQb4HrUIVqvOsDnUQBg44QLByJG2
-	lgcjBfubpkJehDvX4SpIm5c0L+ad+kTJMIAftGML4LmuxooeCWPeZ56BB+Zem+BQAdRkVMI4TvG
-	z+2k0FwpBYvKAtnpG3IHgQRIA04E2Jdyoj5ez77MVE0vCE8t6AJjx2Ir6KzPZFITwNn/tvDUKI6
-	o1ZiYoIzEngM37gOsRiI1Ww11OiR28GmIUWh5RjG0+CC2Gj2AjHBoOezXdDx1luqSri/3NCjdO/
-	MApAtFyYcpfpdw8RXpJhnPGGeryCVQy6IpQa105MlnDBakoVeNQVcreM8K8X43cK5MfeQJV1Zst
-	o9/0lgwRLfNQegHjo6k4f5AaGq4owOtwKxcFsCSTd0YIiMevJIHcoybuS3JBU9AQ==
-X-Received: by 2002:a05:622a:4818:b0:519:8998:661b with SMTP id d75a77b69052e-53036cc568dmr52347051cf.20.1788353516104;
-        Wed, 02 Sep 2026 05:51:56 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9eec824fsm17365906d6.24.2026.09.02.05.51.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 05:51:55 -0700 (PDT)
-Message-ID: <d9071ec7-371f-4896-a023-77a07f01f65e@riscstar.com>
-Date: Wed, 2 Sep 2026 07:51:54 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZlMEPtYb"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 21602C2BD01;
+	Wed,  2 Sep 2026 12:52:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788353537;
+	bh=NpJ68cAdxRTul9v+KRzPMyOhGoHG7IvwOK7cj3TZ7Fk=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=ZlMEPtYb8sDEZ0lQL5z/OEYH3pSB5l7nbCuiXsKG8SPqRvvO5ClN+z5/SNch0oLZ/
+	 v7WFc41oZTAUBcRTkYOwDVL/t6PfXUhqjd76Xpsuv5Hw66qu9gsdBTO5boHTykntop
+	 3iWSoBQ1/cis4nOw9d8BuHo/eF4jpMUbDVC0THKo8gaaKjpC+XVUDxJRIncdR6Zitd
+	 lAN6Y7VgBslaZNVUt4EXb0x3CpPmolWppZ0JBP7i3oJUkXZyopi2GAWrMWkKZgSlck
+	 0RbL/4e7LfDWHNvGirlfZBiYE39epGlE3YNRuO/6ZtJ7mkYOFhlAhDs0tJm2e4TlIV
+	 wd5mJOs9eq4sQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 053F7C624D0;
+	Wed,  2 Sep 2026 12:52:17 +0000 (UTC)
+From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
+Date: Wed, 02 Sep 2026 14:51:06 +0200
+Subject: [PATCH v11 2/6] mfd: khadas-mcu: Use MFD_CELL_* macros for cell
+ declarations
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] arm64: dts: qcom: qcs6490-rb3gen2: use pci for device
- nodes
-To: Rob Herring <robh@kernel.org>
-Cc: andersson@kernel.org, konradybcio@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260901172058.1512508-1-elder@riscstar.com>
- <20260901172058.1512508-2-elder@riscstar.com>
- <CAL_JsqJJPdrYArNhbRPTM=scDghLAWe5=0a2+ACNaHe07h6-tw@mail.gmail.com>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <CAL_JsqJJPdrYArNhbRPTM=scDghLAWe5=0a2+ACNaHe07h6-tw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-add-mcu-fan-khadas-vim4-v11-2-5f1610d83bf0@aliel.fr>
+References: <20260902-add-mcu-fan-khadas-vim4-v11-0-5f1610d83bf0@aliel.fr>
+In-Reply-To: <20260902-add-mcu-fan-khadas-vim4-v11-0-5f1610d83bf0@aliel.fr>
+To: Neil Armstrong <neil.armstrong@linaro.org>, Lee Jones <lee@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Beniamino Galvani <b.galvani@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org, 
+ mfd@lists.linux.dev, Ronald Claveau <linux-kernel-dev@aliel.fr>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1351;
+ i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
+ bh=EC3QR4h1VRMR/TQsGWmFoDDKLNA1VXSGTQljiGJtTRI=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9YM6dc6bS1vZX3qQ9qDK78sPlr6zubF64d6wdvYll6Un
+ 6utsG5hRykLgxgXg6yYIkv/XMsT7y4fPfN1j3oKzBxWJpAhDFycAjCRi62MDD0TX+8LUWzmzfRJ
+ +XC3O7U98KaJwkXnXyZa21oSpz0578jwT9vP0PPDHN+5E1e//PsxU+65S1MA78ob7uuWPLGNWGe
+ ixAsA
+X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
+ fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
+X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
+ auth_id=744
+X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Reply-To: linux-kernel-dev@aliel.fr
 
-On 9/1/26 3:05 PM, Rob Herring wrote:
-> On Tue, Sep 1, 2026 at 12:21 PM Alex Elder <elder@riscstar.com> wrote:
->>
->> A recent change caused the embedded PCIe endpoints on TC9564 SoCs to
->> be treated by the devicetree code as PCI buses, which is incorrect.
->>
->> An RB3gen2 system has an "interposer board" that contains a TC9564
->> SoC.  The TC9564 includes a PCIe switch with one upstream port and
->> two downstream (external) ports, plus a third downstream port.  The
->> third port has an embedded PCIe endpoint with two functions, each
->> providing access to a 10 Gbps capable Ethernet interface.
->>
->> The devicetree nodes representing these functions were previously
->> named "pci@" but were renamed in the interest of consistency in
->> commit e806c63ba51a7 ("arm64: dts: qcom: Rename pci@ nodes to pcie@").
->>
->> Unfortunately, of_node_is_pcie() causes nodes named "pcie@" to be
->> treated as PCI bridges, which PCI endpoints are not.  The previous
->> name "pci" matched such nodes as "default-flags" bus type, defined
->> in the of_busses[] array.
->>
->> Rename the PCIe endpoint nodes "pci@" so they are not mistaken for
->> bridge nodes by the devicetree parsing code.  This restores the
->> previous behavior, and allows them to be used for PCI endpoint bus.
->>
->> Fixes: e806c63ba51a7 ("arm64: dts: qcom: Rename pci@ nodes to pcie@")
->> Signed-off-by: Alex Elder <elder@riscstar.com>
->> ---
->>   arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 4 ++--
->>   1 file changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
->> index a13315bf0fb07..99a985a177a61 100644
->> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
->> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
->> @@ -954,7 +954,7 @@ pcie@3,0 {
->>                          ranges;
->>                          bus-range = <0x5 0xff>;
->>
->> -                       pcie@0,0 {
->> +                       pci@0,0 {
-> 
-> The kernel should treat either name the same. There may have been some
-> reason 'pci' was not included in checks. It could have been that only
-> old things are (parallel, plain) 'pci' and anything new is 'pcie'.
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-OK.  Does this mean "pci@" and "pcie@" should only represent bridge
-devices?  (These devices are all endpoints and erroneously had
-device_type = "pci" properties, among other things, so I'm already
-fixing that.)
+Convert khadas_mcu_fan_cells[] and khadas_mcu_cells[] to use the
+MFD_CELL_NAME() helper macro instead of open-coding the struct
+mfd_cell initialisers. While at it, make both arrays const since
+they are never modified after initialisation.
 
-Do you want me to make a (separate) change to treat "pci" the
-same as "pcie"?
+This is a pure cleanup with no functional change, done in
+preparation for a subsequent patch which will need to attach
+platform_data to the fan cell.
 
-> These are ethernet devices, right? Then the right name is
-> 'ethernet@0,0'. If not, then pick something that matches what the node
-> is. Both pci and pcie mean the node implements a PCI bus.
+Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
+---
+ drivers/mfd/khadas-mcu.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-They implement Ethernet devices, yes.  But they are used for
-pci-ep-bus (and the Ethernet devices bind to a sub-node), and
-that's what's important about these nodes.  What's the right
-name?  The dynamically-generated node uses "dev@".
+diff --git a/drivers/mfd/khadas-mcu.c b/drivers/mfd/khadas-mcu.c
+index ba981a7886921..0e74efe14f367 100644
+--- a/drivers/mfd/khadas-mcu.c
++++ b/drivers/mfd/khadas-mcu.c
+@@ -75,13 +75,13 @@ static const struct regmap_config khadas_mcu_regmap_config = {
+ 	.cache_type	= REGCACHE_MAPLE,
+ };
+ 
+-static struct mfd_cell khadas_mcu_fan_cells[] = {
++static const struct mfd_cell khadas_mcu_fan_cells[] = {
+ 	/* VIM1/2 Rev13+ and VIM3 only */
+-	{ .name = "khadas-mcu-fan-ctrl", },
++	MFD_CELL_NAME("khadas-mcu-fan-ctrl"),
+ };
+ 
+-static struct mfd_cell khadas_mcu_cells[] = {
+-	{ .name = "khadas-mcu-user-mem", },
++static const struct mfd_cell khadas_mcu_cells[] = {
++	MFD_CELL_NAME("khadas-mcu-user-mem"),
+ };
+ 
+ static int khadas_mcu_probe(struct i2c_client *client)
 
-Is "ethernet@" still right, if it's also used to access a
-clock and a reset and ... via pci-ep-bus?
+-- 
+2.49.0
 
-I want to use the right name, I'm just unsure about what that
-is, given its use for access via pci-ep-bus.
-
-Thanks.
-
-					-Alex
-
-
-
-> Rob
 
