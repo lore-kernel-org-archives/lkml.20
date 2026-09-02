@@ -1,95 +1,131 @@
-Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1200B355813
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 05:30:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47D3121A459;
+	Wed,  2 Sep 2026 05:30:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788327009; cv=none; b=OVfMYI17waJy2U3aLNHLWo0RKrn+Xd5f02DdwV6NflMP47CP/R8guEQG0v/lPcssDsdfAL64JaQgvGJa/F+H6KrfiS7ym0fMR77gMGCZNqxx0g88Ji7vBZChcd5Pe9PphrYL0ZFuzTxFV1E0TNa+xtCKzaHTRmZXcT0Ida5dezg=
+	t=1788327019; cv=none; b=npveS7nVuwKg0CT49Ob6lgu5SQtRcXeoc2euVJRLWAOrUtb/WukIhAdgtV7x44YYJydqicbchLJOYOy2CQ1YyX0n40001OZiqZbN2UXXC6yqvg3EvVPADgCNX7K7jOgljTj7W95lTbJq59HhY62aJLomQMUr4Ob0tl5277VHJCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788327009; c=relaxed/simple;
-	bh=RKaWPkS5gkhVldtR204XZ9vnVaFrNye7474muZuU7A0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tbc2H7MjLas3Ev8+bFCDEXdgPCWbIrilKV6dwMMfcmc5T5sQP9Jjh+MoBs5No/j1RdqJ7Mdj8Ov2eHlDWzEM1cUCe8FZywZo82wzBhZIZ/0IGOJfSZin9h+WIQU30+KPzvfJrMhQfPq1eZ29j1Aml3fYAxwwerdWOArjXfDJ2qU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=EA6epckl; arc=none smtp.client-ip=115.124.30.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788327019; c=relaxed/simple;
+	bh=JSkY3eQadif/o72cZzgDCEQNnFDAI1mHcuDmxdU2d00=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=q0ElqdzsueezWuIy91hE7LNEsEBLx6SD4KHgSRtrqM1RpgXFtv76zvJthyN4HlrPNlhHqD9U2oUEN1ZKi5vBX6I3lYEIJarXUOEHu3rqSyDc0VVYMBlA6BaIG0Z2bO3uzztX524Vi0t3W8qJkNz6gpNGTuUwTqsA7dWc89+FCtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=C5yPL/lW; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="EA6epckl"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788327003; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=M8SuqTKhovBiNOhy36sFqG8T3PHPsV4g3A2I1lrc+ec=;
-	b=EA6epcklQUMh3czgdnyCi7XwhuHWczOP+UUJI+lmU2ncAPTu5tmoPeXFibrFt31PjTCYm39I771GT+SukEj3IJsQBwJUy0p4a5epi4WBiZy3hkf7FidHSyzxSG+T+2NZpo5jW5YE79P/C95OfawMrHD2usbRtcrpiOLNMcz+khg=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XABT2kE_1788327002;
-Received: from 30.74.144.115(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XABT2kE_1788327002 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 02 Sep 2026 13:30:03 +0800
-Message-ID: <aba2f612-001c-4e74-8c6f-7fa4ac2e2a98@linux.alibaba.com>
-Date: Wed, 2 Sep 2026 13:30:02 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="C5yPL/lW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788327016; x=1819863016;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=JSkY3eQadif/o72cZzgDCEQNnFDAI1mHcuDmxdU2d00=;
+  b=C5yPL/lWhe1LpQ5/Ygi0wMqCLkUOnwN0Sd2XTPPJ/Ehk2T14wtwcoS2w
+   rgLRP1HPpxUKvdXhfmPmwlx9pkqdBHI/OpABhDrAeecq+T7eYJUY/0HMe
+   uvTpUFA6YF0qSQU4W3Vo2PEw+2ksoZJXiEMwFINrk5XiqQtUotCZRJIeA
+   nbEXask+wqtqlF681bF2W7StEjqp5OYBYAv6USqtOgSh4XAKAOhnX8xIy
+   OEg9bR9+yHtzoky/SN210nTZpt2nKZxXig6J1LzT/7zWu4G/rg9u/V/gp
+   jMgnNt2q+ZkG5SxHDrnxvYNc/XUSHOx+NOgxLqF/+69VTsx1UmeexYfgA
+   A==;
+X-CSE-ConnectionGUID: KoEZtmNbQmucr7jvfYDHrw==
+X-CSE-MsgGUID: G2+PZvEPSkaeAUj24SrN3Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="111543640"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="111543640"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 22:30:14 -0700
+X-CSE-ConnectionGUID: YEmw4gMkRJOKmwzxUmslsQ==
+X-CSE-MsgGUID: 5hrL4eFGSkOj5dtjnjAeYg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="267997236"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.118])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 22:30:10 -0700
+Date: Wed, 2 Sep 2026 08:30:07 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Kanak Shilledar <kanak.shilledar@axis.com>
+Cc: Henrik Grimler <henrik.grimler@axis.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
+	Chris Morgan <macromorgan@hotmail.com>, kernel@axis.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/8] Add support for InvenSense ICM-42370-P
+ accelerometer
+Message-ID: <ape0FNy38B_0RyN4@ashevche-desk.local>
+References: <20260901-b4-inv_icm42370p-v3-0-77cc31642115@axis.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/list_lru: don't copy stale shrinker id from
- non-memcg-aware shrinkers
-To: Qinyun Tan <qinyuntan@linux.alibaba.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Lance Yang <lance.yang@linux.dev>,
- Qi Zheng <qi.zheng@linux.dev>, Roman Gushchin <roman.gushchin@linux.dev>,
- Muchun Song <muchun.song@linux.dev>, Dave Chinner <david@fromorbit.com>,
- David Hildenbrand <david@kernel.org>, Xunlei Pang
- <xlpang@linux.alibaba.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260901115104.2944996-1-qinyuntan@linux.alibaba.com>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20260901115104.2944996-1-qinyuntan@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901-b4-inv_icm42370p-v3-0-77cc31642115@axis.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Tue, Sep 01, 2026 at 04:35:53PM +0200, Kanak Shilledar wrote:
+> InvenSense ICM42370P is a high performance MEMS MotionTracking 3-axis
+> accelerometer. It supports I2C, I3C and SPI protocols. It has a 2.25kB
+> FIFO and two programmable interrupts with support for ultra-low-power
+> wake-on-motion support. It has a built-in temperature sensor. This
+> patch series adds basic support for the sensor with functionality of
+> performing raw reads and writes via the I2C interface.
+> 
+> This device contains 4 register banks for configuring the device called
+> MREG0, MREG1, MREG2 and MREG3. Unlike other devices from the same
+> vendor, this contains a very different way of accessing the register
+> banks apart from the default user bank 0 (MREG0). The register bank access
+> procedure is mentioned in the datasheet Section 13. This is very
+> similar to the existing InvenSense, ICM-42607-P driver. Thus, it
+> improves the existing driver support and adds the ICM-42370-P device to
+> it.
+> 
+> While adding the support for new device, I tried to perform some fixes
+> to the existing driver which were pointed out in the v2 of this patch
+> series.
+> 
+> The buffer support will be added in another patch series.
+> 
+> Note: The datasheet for InvenSense, ICM-42607-P could not be found on the 
+> official https://www.invensense.tdk.com/en-us website. Thus, I am 
+> using the datasheet available at https://www.lcsc.com.
+> 
+> Question to the reviewers:
+> * There is no entry for drivers/iio/imu/inv_icm42607 in the MAINTAINERS
+>   file, should a new MAINTAINERS entry be created for the inv_icm42607
+>   driver with the original author as the maintainer? Currently
+>   `get_maintainers.pl` is able to add the original author to the
+>   recipients list, but `b4 prep --auto-to-cc` is not able to add.
+
+Only if you have (or will have for sure) the confirmation from them.
+Otherwise it's you most likely...
+
+> * As per the comments in v2 from @Jonathan regarding splitting the
+>   driver into multiple files, should we still have the driver as
+>   multiple files or should it be merged into a single file?
+
+It depends on the factors like busses to support.
+
+> * As per the comments in v2 regarding the formatting of
+>   headerfile with the positioning of macros, enums and function
+>   prototypes, as well as indentation of in the register values, also the
+>   all the enum values are numbered which seems unnecessary, should these
+>   be implemented here as well?
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-
-On 9/1/26 7:51 PM, Qinyun Tan wrote:
-> With cgroup.memory=nokmem, shrinker_memcg_alloc() fails with -ENOSYS
-> for shrinkers without SHRINKER_NONSLAB, and shrinker_alloc() falls
-> back to a non-memcg-aware shrinker.  On this fallback path,
-> shrinker->id is never assigned and keeps 0 from kzalloc(), which is a
-> valid id belonging to whichever memcg-aware shrinker registers first.
-> 
-> __list_lru_init() copies shrinker->id unconditionally, so every
-> list_lru backed by such a fallback shrinker (thp-deferred_split,
-> zswap-shrinker, workingset shadow nodes, superblock lrus, ...) ends
-> up with lru->shrinker_id == 0 instead of -1.
-> 
-> Under nokmem the list_lru collapses to the shared per-node lists, but
-> __list_lru_add() still calls set_shrinker_bit() against the memcg of
-> the added object.  Most list_lru users are unaffected because their
-> objects resolve to a NULL memcg without kmem accounting, but the THP
-> deferred split queue holds user folios, which are charged regardless
-> of nokmem.  Since no memcg-aware shrinker can register under nokmem,
-> shrinker_nr_max stays 0 and every memcg's shrinker_info has
-> map_nr_max == 0, so the first folio added by khugepaged triggers on
-> every boot:
-> 
->    WARNING: mm/shrinker.c:212 at set_shrinker_bit+0x99/0xa0
-> 
-> On systems where a SHRINKER_NONSLAB shrinker (btrfs, xfs) did register
-> and expand the maps, there is no warning; instead bit 0 is set
-> spuriously for an unrelated shrinker.
-> 
-> shrinker->id is only meaningful while SHRINKER_MEMCG_AWARE is set,
-> and all readers inside mm/shrinker.c already check the flag before
-> using the id.  Make __list_lru_init() do the same and fall back to -1,
-> so set_shrinker_bit() is never reached with a bogus id.  The stale
-> shrinker->id itself is left as is; cleaning that up is a separate
-> topic.
-> 
-> Fixes: 03375203e1da8 ("mm: do not allocate shrinker info with cgroup.memory=nokmem")
-> Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
-> ---
-
-LGTM.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
