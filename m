@@ -1,103 +1,51 @@
-Received: from mail-pz2-f0.google.com (mail-pz2-f0.google.com [74.125.228.0])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C67413E0C68
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:32:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 027C03E3C73;
+	Wed,  2 Sep 2026 07:32:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788334372; cv=none; b=LTYMRGq+SS7CBLWvZu6nB8XNUWoh5+YamqpviivZKDzf6OBe6qZ6gEMgmfUaWgPSvxAvK4W3Gn6qjEdLUOvT2PNPE9nbgHbanLEFxFyykjf3rfCQgo7mnSUqpZUezFATGKLqNZxHLT0agTYw0q2DaqEO9f/fvcHpW/GgNjd8JPQ=
+	t=1788334373; cv=none; b=u0nZHfvwGz/55AErhGZW8xDyaAWWfgi62jmfYSZ0KW4Id11jATePbpoZ1cVw9V/ZxsY0jOG/ty6hiEvSJt/KkEG7jNWc0fXr9JS+l8L9VHKoae48v+PGuR3nCRxvePgXJFqiDIR2vMWaldITBVJWc8Ufj5U/UCCsxLAob1MWgHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788334372; c=relaxed/simple;
-	bh=sSy2WFH17+09Ag7fXYDKW/ARjxfJxT8aeCAfz6vIU4Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fefpcOooAx7i/883ORCiyNPWRm2tpXJfFB/korrjNO/Nmnx928uM1mxuxzDHGjnV/AEUXACqF1Ekn7YmjBY57nHGSfvy0wkqYxtobUCoRBN6u7S7c+EHW5DhMe71zinUq6GQWFP+KEkk44X8hp2BUD67lKc9zgpJA+FncGAcXWU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OkR6E371; arc=none smtp.client-ip=74.125.228.0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788334373; c=relaxed/simple;
+	bh=FEXr74+mRZDY5P0+8AX8vb2OHgI+CdK3+b71vGoRlz8=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=soeZ27yq1Us1uv6aNAr09NmH4OO7laBs/WoackvXe5I+VfDbFyeiyVZ75nrflW2G93KTgToFwYo1Ns2dz+D2wkX5fc0ngFq09b1YdJmYi2TXOoqoxHmFoduWx0Nq/Dus8RuVnPBpYqJB8mEb8WdcZwhVMxT6oTBp/6yCVuE3j+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=m6929SfT; arc=none smtp.client-ip=113.46.200.226
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OkR6E371"
-Received: by mail-pz2-f0.google.com with SMTP id 41be03b00d2f7-ca7fcfe1669so413735a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 00:32:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788334370; x=1788939170; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Vi97MWhfZddiqmimgtB8vYuipDLussxDN6BUz0TYMFc=;
-        b=OkR6E371F5QTwiyMVOi74YMEqnjJubuwm23w8W0raQDCC3VWnn4lsaVFHU6vSvLnH0
-         26m47D9+vz9iWGeeq8ODIqlhhSsH9NoCg5qcjd+gTLscibgXuFj3CogRoh9LHZCOkMn0
-         cdjh2QmQFqZYGK6KTu0rHpQEow/ICXFDP31Sbn94tyTOh+lwqDSB1XVN98MC6NwjeumL
-         KbU1HioRStmkV9B1V5GY6eJPwneOgmMa3O7jBHz3EgER8t5KC0MlYhKCVq5uxJBVLsNB
-         tQdt/XmytHzRXT/9zxONyji0inXFPHIdGCdbXdMAKKVY8DhnOMoO5426vxkJV3RJZ5wM
-         MP7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788334370; x=1788939170;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Vi97MWhfZddiqmimgtB8vYuipDLussxDN6BUz0TYMFc=;
-        b=aScqx7dekQgeku5qjvU21GD4jTht18QWEY9kB5y6tBcOOBNPL3Z0MfjuHsFEOuFo9Q
-         S+jccf6U5LQkxhLrUDQJyQplNs2a4vkrk8uMEi/jrSS4p3B+QEqMtct1zau3p6PI01Zc
-         wOhJXS+efbpSSlfQcijAG2klZsGDp3LSRNeF5gtw9KB+LwdklYm6JMYab3XCXNDlAAhD
-         aFIFk8yM+NFIWotCqJPZZI39WsJK3sIqe8HUbH7I4IBx9Gvh4vvrhWCNx5R1/jiW+wOD
-         Og910WT92V1e5a2wAONcxBtTk5ZF/D+fiPCGZdJvivXQztSpU1HVDtFyEpr4Dji9AaxY
-         1J/g==
-X-Forwarded-Encrypted: i=1; AKwUvBx/PYjJpB371AFXuSO7mI/SkSN2E2pFBXs8AFkzdaRtVxpqFeYJaxHqXKecGU8iVzBQKekKK3Gr8Uw8ilo=@vger.kernel.org
-X-Gm-Message-State: AFuF++mfQBEiFy2oWAvPvHWI0mBzXSmGG5SWDuUfq49RDTSmRNPy283a
-	uxzcotQa52G5Y2db3FhEny8QhKYrU6YcR1TOtiQfd50UeAU4zUX6JKr3
-X-Gm-Gg: AYBFou08jlk9vR22sPFpAArRVne/aYZgK3Al6tMMoHXzfw4h0wJzRhocOfvPSpBKZtx
-	G5tswYGA+H0bnw46OOmeyIgpw/YTPts2rFQVV0WZEQWFBUhYoaAS3qUUTjk6Kcpg+4WJ4Bw5dA+
-	WLnWBsDoqhVRruNBQimbrTXJBbKb2Ji2nLVEJL8AqR5VC/hquDG1EzwQ8GFgskagOOrKK48yYtW
-	FLaLobn0CZgAPNKT9ilkY4VQgQOil/D16wvNN2e1ajCDYQM/RZI/OcoXMM9XCwk6S+kbacvnNeY
-	GlsfHbANWoBce/HwxStIikYOE41qEbbv/tphSyapo0GJ9Lbiixy73oAiwxSk1NCebf3bFvhSTQH
-	0aRHSR8CO7Bg/usRLzBAcAR44alqpk0td+7pemv84W7vRMf8aC3ajHEfrB6EGcz6kI8braTNalk
-	l6S45PPM4eC+awxmVAmLbtenxyVqKA9UhQziUje77FJ2RL7oLNQWpxS5fHlWENMMlpzVLqD3Iv
-X-Received: by 2002:a05:6a00:8017:b0:851:ba04:ca02 with SMTP id d2e1a72fcca58-85ed398adccmr5532767b3a.16.1788334370199;
-        Wed, 02 Sep 2026 00:32:50 -0700 (PDT)
-Received: from intel.company.local ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db2adcbedsm926914b3a.20.2026.09.02.00.32.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 00:32:49 -0700 (PDT)
-From: Wandun Chen <chenwandun1@gmail.com>
-To: catalin.marinas@arm.com,
-	will@kernel.org,
-	chenhuacai@kernel.org,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	robh@kernel.org,
-	saravanak@kernel.org,
-	akpm@linux-foundation.org,
-	baoquan.he@linux.dev,
-	rppt@kernel.org,
-	pasha.tatashin@soleen.com,
-	pratyush@kernel.org,
-	m.szyprowski@samsung.com
-Cc: mark.rutland@arm.com,
-	kernel@xen0n.name,
-	alex@ghiti.fr,
-	hpa@zytor.com,
-	ruirui.yang@linux.dev,
-	robin.murphy@arm.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	kexec@lists.infradead.org,
-	linux-mm@kvack.org,
-	iommu@lists.linux.dev
-Subject: [PATCH v6 06/10] memblock: introduce MEMBLOCK_NODUMP flag
-Date: Wed,  2 Sep 2026 15:31:12 +0800
-Message-ID: <20260902073116.802752-7-chenwandun1@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260902073116.802752-1-chenwandun1@gmail.com>
-References: <20260902073116.802752-1-chenwandun1@gmail.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="m6929SfT"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=TqoaAhRMVIzc4ysdOfxdXVObD5EzvCeXtJZE1w2pbag=;
+	b=m6929SfTYgjwMKoPvxZhsQs6ohVfL/lfiH4TcTvOo9BEXsDD9vCPGdxf9c3hCzBJPzxDY20GR
+	fPT6JnNSQqXCGKqhVl7qXYAUiAILvf4RfKh43k8g2UhoOj1y6Y3tx0/UDyU3wBUX8Iyf3m2fiOp
+	a5ntZL+UgHiQWWXZCWum0hM=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hZZ0t4j5VzKm6S;
+	Wed,  2 Sep 2026 15:21:50 +0800 (CST)
+Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
+	by mail.maildlp.com (Postfix) with ESMTPS id 49E7F40563;
+	Wed,  2 Sep 2026 15:32:44 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by dggpemf500011.china.huawei.com
+ (7.185.36.131) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Wed, 2 Sep
+ 2026 15:32:43 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+	<pabeni@redhat.com>, <horms@kernel.org>, <nb@tipi-net.de>,
+	<kuniyu@google.com>, <sdf@fomichev.me>, <liuhangbin@gmail.com>,
+	<da-x@monatomic.org>, <jeff@garzik.org>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH net-next v3 1/2] 8021q: Fix data race when publishing vlan net_device pointers
+Date: Wed, 2 Sep 2026 15:33:33 +0800
+Message-ID: <20260902073334.397685-2-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260902073334.397685-1-ruanjinjie@huawei.com>
+References: <20260902073334.397685-1-ruanjinjie@huawei.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -105,100 +53,130 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ dggpemf500011.china.huawei.com (7.185.36.131)
 
-From: Wandun Chen <chenwandun@lixiang.com>
+A plain C read and assignment of the net_device pointer
+in the vlan_devices_arrays leaf entries lack proper atomicity
+and ordering barriers. A concurrent lockless reader on the packet
+receive fast-path could observe a torn or partially initialized
+net_device pointer, leading to a potential out-of-bounds read or kernel
+panic.
 
-Add MEMBLOCK_NODUMP to mark regions that should be excluded from
-kdump vmcores.
+The data race occurs between the netlink/ioctl configuration paths
+(holding the per-netns rtnl_nets_lock or RTNL lock) and the softirq
+receive fast-path (holding rcu_read_lock()):
 
-The flag is meant for reserved memory that carries no data useful for
-crash analysis. Reusable reserved regions such as CMA may hold useful
-data, so these regions must not be marked MEMBLOCK_NODUMP. Subsequent
-patches wire this up for /reserved-memory and /memreserve/ entries.
+  CPU 0 (Writer, rtnl_nets_lock/RTNL)      CPU 1 (Reader, rcu_read_lock())
+  -----------------------------------      -------------------------------
+   rtnetlink_rcv_msg()
+     // RTM_NEWLINK handler with RTNL_FLAG_DOIT_PERNET
+     rtnl_newlink()
+       ops->newlink() == vlan_newlink()
+   OR
+   vlan_ioctl_handler()
+     [ADD_VLAN_CMD] -> register_vlan_device()
 
-Suggested-by: Rob Herring <robh@kernel.org>
-Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
+     register_vlan_dev()
+       vlan_group_set_device()
+                                      netif_receive_skb_core()
+                                          vlan_do_receive()
+                                              vlan_find_dev()
+                                                 __vlan_group_get_device()
+                                                  // Speculative / torn read
+                                                  [Loads bad net_device *]
+           [Plain C store]
+           array[vlan_id] = dev;
+                                                  // Dereferences bad pointer
+                                                  // during device status check
+                                                  vlan_dev->flags (PANIC!)
+
+Fix this by using rcu_assign_pointer() in vlan_group_set_device()
+and rcu_dereference_raw() in __vlan_group_get_device() to enforce
+proper ordering and memory atomicity for the leaf entry traversal.
+
+Cc: stable@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>
+Cc: Stanislav Fomichev <sdf@fomichev.me>
+Cc: Kuniyuki Iwashima <kuniyu@google.com>
+Cc: Nicolai Buchwitz <nb@tipi-net.de>
+Cc: Dan Aloni <da-x@monatomic.org>
+Cc: Jeff Garzik <jeff@garzik.org>
+Fixes: 5c15bdec5c38 ("[VLAN]: Avoid a 4-order allocation.")
+Link: https://sashiko.dev/#/patchset/20260825095422.3166067-1-ruanjinjie%40huawei.com
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- include/linux/memblock.h |  9 +++++++++
- mm/memblock.c            | 16 ++++++++++++++++
- 2 files changed, 25 insertions(+)
+ net/8021q/vlan.c |  2 +-
+ net/8021q/vlan.h | 12 ++++++------
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/include/linux/memblock.h b/include/linux/memblock.h
-index d62db9e776cf..b2fcf11fba2b 100644
---- a/include/linux/memblock.h
-+++ b/include/linux/memblock.h
-@@ -52,6 +52,8 @@ extern unsigned long long max_possible_pfn;
-  * kernel that we know is good to use. It is the only memory that
-  * allocations may happen from in this phase.
-  * @MEMBLOCK_RSRV_HUGETLB: memory is reserved for hugetlb pages
-+ * @MEMBLOCK_NODUMP: exclude from kdump vmcore. It carries no data useful
-+ * for crash analysis (e.g. firmware carveouts).
-  */
- enum memblock_flags {
- 	MEMBLOCK_NONE		= 0x0,	/* No special request */
-@@ -63,6 +65,7 @@ enum memblock_flags {
- 	MEMBLOCK_RSRV_KERN	= 0x20,	/* memory reserved for kernel use */
- 	MEMBLOCK_KHO_SCRATCH	= 0x40,	/* scratch memory for kexec handover */
- 	MEMBLOCK_RSRV_HUGETLB	= 0x80, /* memory reserved for hugetlb pages */
-+	MEMBLOCK_NODUMP		= 0x100,/* exclude from kdump vmcore */
+diff --git a/net/8021q/vlan.c b/net/8021q/vlan.c
+index 2d2efb877975..6df80cad40a2 100644
+--- a/net/8021q/vlan.c
++++ b/net/8021q/vlan.c
+@@ -49,7 +49,7 @@ const char vlan_version[] = DRV_VERSION;
+ static int vlan_group_prealloc_vid(struct vlan_group *vg,
+ 				   __be16 vlan_proto, u16 vlan_id)
+ {
+-	struct net_device **array;
++	struct net_device __rcu **array;
+ 	unsigned int vidx;
+ 	unsigned int size;
+ 	int pidx;
+diff --git a/net/8021q/vlan.h b/net/8021q/vlan.h
+index c41caaf94095..3cb4c8294130 100644
+--- a/net/8021q/vlan.h
++++ b/net/8021q/vlan.h
+@@ -22,8 +22,8 @@ enum vlan_protos {
+ struct vlan_group {
+ 	unsigned int		nr_vlan_devs;
+ 	struct hlist_node	hlist;	/* linked list */
+-	struct net_device **vlan_devices_arrays[VLAN_PROTO_NUM]
+-					       [VLAN_GROUP_ARRAY_SPLIT_PARTS];
++	struct net_device __rcu **vlan_devices_arrays[VLAN_PROTO_NUM]
++						     [VLAN_GROUP_ARRAY_SPLIT_PARTS];
  };
  
- /**
-@@ -160,6 +163,7 @@ int memblock_reserved_mark_noinit(phys_addr_t base, phys_addr_t size);
- int memblock_reserved_mark_kern(phys_addr_t base, phys_addr_t size);
- int memblock_mark_kho_scratch(phys_addr_t base, phys_addr_t size);
- int memblock_clear_kho_scratch(phys_addr_t base, phys_addr_t size);
-+int memblock_mark_nodump(phys_addr_t base, phys_addr_t size);
+ struct vlan_info {
+@@ -54,7 +54,7 @@ static inline struct net_device *__vlan_group_get_device(struct vlan_group *vg,
+ 							 unsigned int pidx,
+ 							 u16 vlan_id)
+ {
+-	struct net_device **array;
++	struct net_device __rcu **array;
  
- void memblock_free(void *ptr, size_t size);
- void reset_all_zones_managed_pages(void);
-@@ -306,6 +310,11 @@ static inline bool memblock_is_kho_scratch(struct memblock_region *m)
- 	return m->flags & MEMBLOCK_KHO_SCRATCH;
+ 	array = vg->vlan_devices_arrays[pidx]
+ 				       [vlan_id / VLAN_GROUP_ARRAY_PART_LEN];
+@@ -62,7 +62,7 @@ static inline struct net_device *__vlan_group_get_device(struct vlan_group *vg,
+ 	/* paired with smp_wmb() in vlan_group_prealloc_vid() */
+ 	smp_rmb();
+ 
+-	return array ? array[vlan_id % VLAN_GROUP_ARRAY_PART_LEN] : NULL;
++	return array ? rcu_dereference_raw(array[vlan_id % VLAN_GROUP_ARRAY_PART_LEN]) : NULL;
  }
  
-+static inline bool memblock_is_nodump(struct memblock_region *m)
-+{
-+	return m->flags & MEMBLOCK_NODUMP;
-+}
-+
- int memblock_search_pfn_nid(unsigned long pfn, unsigned long *start_pfn,
- 			    unsigned long  *end_pfn);
- void __next_mem_pfn_range(int *idx, int nid, unsigned long *out_start_pfn,
-diff --git a/mm/memblock.c b/mm/memblock.c
-index f2952d725c10..2e87f39826dd 100644
---- a/mm/memblock.c
-+++ b/mm/memblock.c
-@@ -1204,6 +1204,21 @@ __init int memblock_clear_kho_scratch(phys_addr_t base, phys_addr_t size)
- 				    MEMBLOCK_KHO_SCRATCH);
+ static inline struct net_device *vlan_group_get_device(struct vlan_group *vg,
+@@ -82,13 +82,13 @@ static inline void vlan_group_set_device(struct vlan_group *vg,
+ 					 struct net_device *dev)
+ {
+ 	int pidx = vlan_proto_idx(vlan_proto);
+-	struct net_device **array;
++	struct net_device __rcu **array;
+ 
+ 	if (!vg || pidx < 0)
+ 		return;
+ 	array = vg->vlan_devices_arrays[pidx]
+ 				       [vlan_id / VLAN_GROUP_ARRAY_PART_LEN];
+-	array[vlan_id % VLAN_GROUP_ARRAY_PART_LEN] = dev;
++	rcu_assign_pointer(array[vlan_id % VLAN_GROUP_ARRAY_PART_LEN], dev);
  }
  
-+/**
-+ * memblock_mark_nodump - Mark a memory region with flag MEMBLOCK_NODUMP.
-+ * @base: the base phys addr of the region
-+ * @size: the size of the region
-+ *
-+ * Mark the region as not to be included in crash dumps.
-+ *
-+ * Return: 0 on success, -errno on failure.
-+ */
-+int __init_memblock memblock_mark_nodump(phys_addr_t base, phys_addr_t size)
-+{
-+	return memblock_setclr_flag(&memblock.memory, base, size, 1,
-+				    MEMBLOCK_NODUMP);
-+}
-+
- static bool should_skip_region(struct memblock_type *type,
- 			       struct memblock_region *m,
- 			       int nid, int flags)
-@@ -2887,6 +2902,7 @@ static const char * const flagname[] = {
- 	[ilog2(MEMBLOCK_RSRV_KERN)] = "RSV_KERN",
- 	[ilog2(MEMBLOCK_KHO_SCRATCH)] = "KHO_SCRATCH",
- 	[ilog2(MEMBLOCK_RSRV_HUGETLB)] = "RSV_HUGETLB",
-+	[ilog2(MEMBLOCK_NODUMP)] = "NODUMP",
- };
- 
- static int memblock_debug_show(struct seq_file *m, void *private)
+ /* Must be invoked with rcu_read_lock or with RTNL. */
 -- 
-2.43.0
+2.34.1
 
