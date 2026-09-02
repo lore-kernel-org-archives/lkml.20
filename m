@@ -1,96 +1,141 @@
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0923833DEF7
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:17:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02275370AFC;
+	Wed,  2 Sep 2026 07:18:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788333449; cv=none; b=fLIFzgWA1GiPcTyFAbMjLWfQ+zyAiw18wb2fEcT0Q37r+lUqQch9lblIlkwOaEuyqKv0bvKOcbypruHTcYwABJR11F8pzLwlp4CxF6ohzJNJg7UcY6XlU5RmOcIdi3i+taNfDZVCqVTH7riLcw9axp6ombtH+clkzYh4l5/yF6s=
+	t=1788333498; cv=none; b=mLd/o4SLA8TcYPjoZMWCvJ6Lss9gV5hNZVNZDfhw0Opw1cofo6J88gh05qJAFh8350QAnREOdryxBtVwriULL/9eX8aKhBXQbb0U9tP934i39q1OiOJGu+d4sz7QbXw1WUrYPccZeISfYh+6Dz5FC4EN6EF2gK0aWdqrz0ZAeT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788333449; c=relaxed/simple;
-	bh=FcEGZKdbboa4FlcgyJibjyTx/ihhZ165/+Bkm0EaDJE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PsjqSeU6Etw44lPPQzEAznoFefW9yoheKdUhQSchqvqv3D/WR/YNfyZuZHrRhl5YE+kiLtp2m4PH850tWwBWi5ZKvDvNJXbkXafokl8vWNsihzZ3Ce9MzXUdNv56pkAc9Tl1nErr/vJx/vZlGRjSi+to/F7dMr0abFIAfAdSlII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5c5f23666d0so643255e0c.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 00:17:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788333447; x=1788938247;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=t2ScekBF+Nh8awtyScLAZusIOUSKJItl3YygmIsOaTM=;
-        b=GHosHtkenFNwXSYqQPAQc/UwfWpoCBqDKbGuMhBAnGpbVo8R1n9h7gjuLafXsMBBDN
-         6GTa66OIaVq3IfRiVvBsaIgx5djcXUAfTp5N8ZZLRmUpdJw8PLj8mNOmQM/qIgsqxImF
-         ZOqyGMeCs1TysHIZW4gKFMv7D997mS9fBnBfRuAIVVuF8wCZezSZgSSM9ObKC2ECDfHb
-         DEQ2H5I3vEJCXDuqKMOzqhQ1iV3M17kqD0nqVa2YMn5OpDf8Ey1zMqgQL/eS5EdWsDE4
-         1/PO4F5D9k3gkpx+HB9zZJkj/vPPlxl5orKQS8coOST9WTY5SMiY9FARBNe01qFXZu6C
-         Vbjg==
-X-Forwarded-Encrypted: i=1; AKwUvBysjHYWYdwtAxEEmC9BTefLkINWdUCleHstwd4hM0Hn4fwxVMTP2jX8MO6WiakfSa3FcAVd9IcfmY0c5k4=@vger.kernel.org
-X-Gm-Message-State: AFuF++mo6PRnPSTWdDefsu5NQVy3YCxGWmS9KSEOEB1PnlG7TAeK7ULB
-	QgflkIK5AVEmq9M2TCpUvN1uXDeZySvNWmMTwyvWYD9lhq8Bno3x8II1JUAjwJVL
-X-Gm-Gg: AYBFou1vgWF3TRNshhs3U91FxQVlujMfhv319Sy0HKUQpMRjuPWsoY0rv3QnlmrN58y
-	Ldl4m24p4xfflN4i89NE2RAw+QHIClaZ/wS6G4cfvsjF1vWZTSYRp/G/ryJb/VzX9LAdQz9mw6T
-	5oaGVdEwWotLoW+2hS9z4+FianMMZSni7yxQ10mr1gJjObTi+OAMOMsmg9ZQoKf06mYmRkSWtH1
-	ZmSR040SH9Iiok6e8Wb5rR7ldcWbK6MET1+Ip/q60nz8jw/jg8wR1v5Cder54i89SL6cscqH0++
-	WwVpEbxEHQS9buR/cRJwjxpYS/xnL81M8+GAxFzbbsXamteToFS3YjtgOrSADGRju2p7ZSZKP9A
-	AXgNAvUUZuKOLFJgusmiHoneguZqAKUkbYk5XFJ/vL1+VZjGO44ik8z7JbclyhqYMVZB1ojEKLZ
-	SxHDwy3ZSx+o3HhGyRXP0dzmt/j1qEPy+svdlRtwZ14387fN2mivwJ2Zkx9H6L3O9uPajgQk/Jr
-	EsSyT9ZyMm5p1Qxcoqn4iT1ACSNSqAQ/r74
-X-Received: by 2002:a05:6122:4fa8:b0:5c5:dacb:6ae0 with SMTP id 71dfb90a1353d-5c7d2791c37mr1178959e0c.4.1788333446965;
-        Wed, 02 Sep 2026 00:17:26 -0700 (PDT)
-Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com. [209.85.222.44])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7cd73a328sm1460546e0c.3.2026.09.02.00.17.26
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 00:17:26 -0700 (PDT)
-Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-97622cc1f40so441652241.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 00:17:26 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxlJLK00MLYP5gbiTDXvxL2JPglC0CJj3nxB3izT93yb867YYtRm2NpkX2VqjBCdaMk+Y0z4Pv6C3G7MOc=@vger.kernel.org
-X-Received: by 2002:a05:6102:f10:b0:781:3b9e:2f06 with SMTP id
- ada2fe7eead31-78a1f3e5445mr1064326137.12.1788333446299; Wed, 02 Sep 2026
- 00:17:26 -0700 (PDT)
+	s=arc-20240116; t=1788333498; c=relaxed/simple;
+	bh=/qcHkGUyQbDXWuX981T2ndPB7rRLiuINK3DuLELJ1d8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=LabecfWUfMtHzx14fu9xu4P/CCkNFssOfxzdZ4bvQSd8dHkPXFIiEOHmew1loOkRS2Z0t7KmhczJ2MsV2Q7lE7pkZXtOIAnDdD52u1Ms2Wegq3vmFUnX/AeBRj6tjuxkZWlK26tVcqCewNJS4a/ynOww3nnGiUZZRJ9mGoNrcRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=TAiwdwhn; arc=none smtp.client-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="TAiwdwhn"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=v1lyVg2s92gRBWagJgLFFSVS9tBW1GPvEb/tTqd4fjU=;
+	b=TAiwdwhnXfKEVAFbuGWLLA/dVJcPst7eSSlikNI7sFvuaKfCym0gt/AbFtS5XJY/KNs3nvm40
+	GUj9Fs22cD/oleXkhn/w/VNvy76Yr37G/k4AJqI6MNh3HgTXVyOsFoCa/Gz/2Mb3jaoRgTyYCaR
+	IoYL3Jktf7ROoEF+UWSLsEE=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hZYgV2jP3zpSvd;
+	Wed,  2 Sep 2026 15:06:46 +0800 (CST)
+Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
+	by mail.maildlp.com (Postfix) with ESMTPS id 037BC40579;
+	Wed,  2 Sep 2026 15:18:07 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by dggpemf500011.china.huawei.com
+ (7.185.36.131) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Wed, 2 Sep
+ 2026 15:18:06 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <edumazet@google.com>, <kuniyu@google.com>, <pabeni@redhat.com>,
+	<willemb@google.com>, <davem@davemloft.net>, <kuba@kernel.org>,
+	<horms@kernel.org>, <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH net-next v3] soreuseport: publish num_socks with acquire/release
+Date: Wed, 2 Sep 2026 15:19:00 +0800
+Message-ID: <20260902071900.395567-1-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260830140133.24156-1-pengpeng@iscas.ac.cn>
-In-Reply-To: <20260830140133.24156-1-pengpeng@iscas.ac.cn>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 2 Sep 2026 09:17:14 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWaf7hYoQPCUBJmyErujLMth-_FAwPqZ=2dF9wkN5kc4w@mail.gmail.com>
-X-Gm-Features: AcwNN1V1xFGksx0Kl8r6LOPHuVvW3tElc1K5c66IrPHXI-t7NJDIFpshnL03c4E
-Message-ID: <CAMuHMdWaf7hYoQPCUBJmyErujLMth-_FAwPqZ=2dF9wkN5kc4w@mail.gmail.com>
-Subject: Re: [PATCH] spi: sh-msiof: propagate setup runtime-PM errors
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Cc: Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ dggpemf500011.china.huawei.com (7.185.36.131)
 
-On Sun, 30 Aug 2026 at 16:10, Pengpeng Hou <pengpeng@iscas.ac.cn> wrote:
-> sh_msiof_spi_setup() ignores pm_runtime_get_sync() before programming
-> native chip-select registers and marking the configuration initialized.
->
-> Use the checked runtime-PM helper and return failure before register
-> access.
->
-> Fixes: 7ff0b53c4051 ("spi: sh-msiof: Avoid writing to registers from spi_master.setup()")
+Replace the smp_wmb()/smp_rmb() barrier pair with
+smp_store_release()/smp_load_acquire() on reuse->num_socks.
+Writers publish socks[] updates via release before incrementing
+or decrementing the count; readers acquire the count before
+accessing socks[], ensuring they observe a consistent view.
 
-FTR, this is the wrong commit, please follow moved code.
+The detach path gains proper ordering between the socks[] write and
+the decrement, which was previously unordered.
 
-> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+No functional change intended.
 
-Gr{oetje,eeting}s,
+Cc: Eric Dumazet <edumazet@google.com>
+Cc: Kuniyuki Iwashima <kuniyu@google.com>
+Cc: Paolo Abeni <pabeni@redhat.com>
+Cc: Willem de Bruijn <willemb@google.com>
+Cc: "David S. Miller" <davem@davemloft.net>
+Cc: Jakub Kicinski <kuba@kernel.org>
+Cc: Simon Horman <horms@kernel.org>
+Assisted-by: DeepSeek:DeepSeek-V3
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+---
+v3:
+- Split out from following patch set as Kuniyuki suggested.
+Link: https://lore.kernel.org/all/20260901024234.135119-1-ruanjinjie@huawei.com/
+---
+ net/core/sock_reuseport.c | 20 ++++++++------------
+ 1 file changed, 8 insertions(+), 12 deletions(-)
 
-                        Geert
-
+diff --git a/net/core/sock_reuseport.c b/net/core/sock_reuseport.c
+index 29948cb44b7d..6d3c511d1def 100644
+--- a/net/core/sock_reuseport.c
++++ b/net/core/sock_reuseport.c
+@@ -125,9 +125,8 @@ static void __reuseport_add_sock(struct sock *sk,
+ 				 struct sock_reuseport *reuse)
+ {
+ 	reuse->socks[reuse->num_socks] = sk;
+-	/* paired with smp_rmb() in reuseport_(select|migrate)_sock() */
+-	smp_wmb();
+-	reuse->num_socks++;
++	/* paired with smp_load_acquire() in reuseport_(select|migrate)_sock() */
++	smp_store_release(&reuse->num_socks, reuse->num_socks + 1);
+ 	reuseport_get_incoming_cpu(sk, reuse);
+ }
+ 
+@@ -140,7 +139,8 @@ static bool __reuseport_detach_sock(struct sock *sk,
+ 		return false;
+ 
+ 	reuse->socks[i] = reuse->socks[reuse->num_socks - 1];
+-	reuse->num_socks--;
++	/* paired with smp_load_acquire() in reuseport_(select|migrate)_sock() */
++	smp_store_release(&reuse->num_socks, reuse->num_socks - 1);
+ 	reuseport_put_incoming_cpu(sk, reuse);
+ 
+ 	return true;
+@@ -583,11 +583,9 @@ struct sock *reuseport_select_sock(struct sock *sk,
+ 		goto out;
+ 
+ 	prog = rcu_dereference(reuse->prog);
+-	socks = READ_ONCE(reuse->num_socks);
++	/* paired with smp_store_release() in __reuseport_add_sock() */
++	socks = smp_load_acquire(&reuse->num_socks);
+ 	if (likely(socks)) {
+-		/* paired with smp_wmb() in __reuseport_add_sock() */
+-		smp_rmb();
+-
+ 		if (!prog || !skb)
+ 			goto select_by_hash;
+ 
+@@ -634,13 +632,11 @@ struct sock *reuseport_migrate_sock(struct sock *sk,
+ 	if (!reuse)
+ 		goto out;
+ 
+-	socks = READ_ONCE(reuse->num_socks);
++	/* paired with smp_store_release() in __reuseport_add_sock() */
++	socks = smp_load_acquire(&reuse->num_socks);
+ 	if (unlikely(!socks))
+ 		goto failure;
+ 
+-	/* paired with smp_wmb() in __reuseport_add_sock() */
+-	smp_rmb();
+-
+ 	hash = migrating_sk->sk_hash;
+ 	prog = rcu_dereference(reuse->prog);
+ 	if (!prog || prog->expected_attach_type != BPF_SK_REUSEPORT_SELECT_OR_MIGRATE) {
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.34.1
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
