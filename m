@@ -1,182 +1,246 @@
-Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 027C03E3C73;
-	Wed,  2 Sep 2026 07:32:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8873E2AA1;
+	Wed,  2 Sep 2026 07:33:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788334373; cv=none; b=u0nZHfvwGz/55AErhGZW8xDyaAWWfgi62jmfYSZ0KW4Id11jATePbpoZ1cVw9V/ZxsY0jOG/ty6hiEvSJt/KkEG7jNWc0fXr9JS+l8L9VHKoae48v+PGuR3nCRxvePgXJFqiDIR2vMWaldITBVJWc8Ufj5U/UCCsxLAob1MWgHw=
+	t=1788334382; cv=none; b=iyPylx0J+gqGLS0skpzt8h9pAXFCkNc65gBoTPY/ma1lr32yHAed+MSnxSTZPkBpAixub0xtQnE84kE4ODOWsfCPLjMLTjkFbes5etxFPHKvHbpMEv29yFDQXrhVYuTxNWECo8+FRNJ/LbRhLXuLjTtTRnBQKbQ3z2mZFeOMldQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788334373; c=relaxed/simple;
-	bh=FEXr74+mRZDY5P0+8AX8vb2OHgI+CdK3+b71vGoRlz8=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=soeZ27yq1Us1uv6aNAr09NmH4OO7laBs/WoackvXe5I+VfDbFyeiyVZ75nrflW2G93KTgToFwYo1Ns2dz+D2wkX5fc0ngFq09b1YdJmYi2TXOoqoxHmFoduWx0Nq/Dus8RuVnPBpYqJB8mEb8WdcZwhVMxT6oTBp/6yCVuE3j+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=m6929SfT; arc=none smtp.client-ip=113.46.200.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788334382; c=relaxed/simple;
+	bh=GSjO5tAIB7VGelSuEXkDHr2vH4d3/1bGioX0B8qrcXs=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=bMIJvTq99PZomBzGv4WYYXq7JjbVnLkfbrGA2CHKXCChNjm7ceVmW/QDIyt2z6vTwFHBObiQirQtIhv9i3DR4LBK6KX6dfcixKoRiIi6EmmztIGiN7xBnAoySJFUzltfdIPxW81T9u2PSnfzPawtj+PlJ7BN2Wa+V3bBIJqB2HE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=CZKp55MN; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=H0QubGNL; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="m6929SfT"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=TqoaAhRMVIzc4ysdOfxdXVObD5EzvCeXtJZE1w2pbag=;
-	b=m6929SfTYgjwMKoPvxZhsQs6ohVfL/lfiH4TcTvOo9BEXsDD9vCPGdxf9c3hCzBJPzxDY20GR
-	fPT6JnNSQqXCGKqhVl7qXYAUiAILvf4RfKh43k8g2UhoOj1y6Y3tx0/UDyU3wBUX8Iyf3m2fiOp
-	a5ntZL+UgHiQWWXZCWum0hM=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4hZZ0t4j5VzKm6S;
-	Wed,  2 Sep 2026 15:21:50 +0800 (CST)
-Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id 49E7F40563;
-	Wed,  2 Sep 2026 15:32:44 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by dggpemf500011.china.huawei.com
- (7.185.36.131) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Wed, 2 Sep
- 2026 15:32:43 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
-	<pabeni@redhat.com>, <horms@kernel.org>, <nb@tipi-net.de>,
-	<kuniyu@google.com>, <sdf@fomichev.me>, <liuhangbin@gmail.com>,
-	<da-x@monatomic.org>, <jeff@garzik.org>, <netdev@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [PATCH net-next v3 1/2] 8021q: Fix data race when publishing vlan net_device pointers
-Date: Wed, 2 Sep 2026 15:33:33 +0800
-Message-ID: <20260902073334.397685-2-ruanjinjie@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260902073334.397685-1-ruanjinjie@huawei.com>
-References: <20260902073334.397685-1-ruanjinjie@huawei.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="CZKp55MN";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="H0QubGNL"
+Date: Wed, 02 Sep 2026 07:32:57 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788334379;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Qaq6Ozvd9kYKHAhw7AWsnmpFQIyCiRHSkKSayY7g9aE=;
+	b=CZKp55MNNZRdjBr+KeZSGkLfqbXT1O3UTcr47koY9vnYbHcqTuCJ3uUT1Bsyfw+azlCqPd
+	dWCRaOL8ZZH3aZJLZ6mMaLPptKlJXEPwyHrYcBeZwKn6HfyDF1MVjNN+1FqV/hd97/+cpF
+	0tVqjm2HxPgREZMYM/L3M+pFyqRStGdjiSC4rYiLUo4dryO4JwICeD6JRobY5XTmWTdNHB
+	mj9bJSBmPtCiICiYVhUSia7Z5hCeOXOwrfO7roWE7c769Ng0DoZ9K5cn+TWFNAAKdnD2kv
+	O80IZpRtdDBsaaf1WL5Lzeunr9VRwaYNmqDKrJ5HZiMyfaBF7XFTqQWHBvI7BQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788334379;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Qaq6Ozvd9kYKHAhw7AWsnmpFQIyCiRHSkKSayY7g9aE=;
+	b=H0QubGNLhOJdJmBLRSClHg7n0aTvOERqJK6YbAGxxpsWH0C26heUwmZNFgqLN/jqo1QegE
+	V60Yo68Sg17cb5CA==
+From: "tip-bot2 for Eric Dumazet" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: locking/urgent] locking/lockdep: Invalidate stale class_cache
+ entries for zapped classes
+Cc: syzbot+2d770620059281e225a4@syzkaller.appspotmail.com,
+ Eric Dumazet <edumazet@google.com>,
+ "Peter Zijlstra (Intel)" <peterz@infradead.org>, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260824155129.676096-1-edumazet@google.com>
+References: <20260824155129.676096-1-edumazet@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- dggpemf500011.china.huawei.com (7.185.36.131)
+Message-ID: <178833437727.3717435.4595107264514888193.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-A plain C read and assignment of the net_device pointer
-in the vlan_devices_arrays leaf entries lack proper atomicity
-and ordering barriers. A concurrent lockless reader on the packet
-receive fast-path could observe a torn or partially initialized
-net_device pointer, leading to a potential out-of-bounds read or kernel
-panic.
+The following commit has been merged into the locking/urgent branch of tip:
 
-The data race occurs between the netlink/ioctl configuration paths
-(holding the per-netns rtnl_nets_lock or RTNL lock) and the softirq
-receive fast-path (holding rcu_read_lock()):
+Commit-ID:     02c6be7d675b21d81f0ba3a524346850a8c0e3bf
+Gitweb:        https://git.kernel.org/tip/02c6be7d675b21d81f0ba3a524346850a8c=
+0e3bf
+Author:        Eric Dumazet <edumazet@google.com>
+AuthorDate:    Mon, 24 Aug 2026 15:51:29=20
+Committer:     Peter Zijlstra <peterz@infradead.org>
+CommitterDate: Wed, 02 Sep 2026 09:18:03 +02:00
 
-  CPU 0 (Writer, rtnl_nets_lock/RTNL)      CPU 1 (Reader, rcu_read_lock())
-  -----------------------------------      -------------------------------
-   rtnetlink_rcv_msg()
-     // RTM_NEWLINK handler with RTNL_FLAG_DOIT_PERNET
-     rtnl_newlink()
-       ops->newlink() == vlan_newlink()
-   OR
-   vlan_ioctl_handler()
-     [ADD_VLAN_CMD] -> register_vlan_device()
+locking/lockdep: Invalidate stale class_cache entries for zapped classes
 
-     register_vlan_dev()
-       vlan_group_set_device()
-                                      netif_receive_skb_core()
-                                          vlan_do_receive()
-                                              vlan_find_dev()
-                                                 __vlan_group_get_device()
-                                                  // Speculative / torn read
-                                                  [Loads bad net_device *]
-           [Plain C store]
-           array[vlan_id] = dev;
-                                                  // Dereferences bad pointer
-                                                  // during device status check
-                                                  vlan_dev->flags (PANIC!)
+syzbot reported a lockdep splat hitting DEBUG_LOCKS_WARN_ON(1) in
+hlock_class() due to an invalid class_idx:
 
-Fix this by using rcu_assign_pointer() in vlan_group_set_device()
-and rcu_dereference_raw() in __vlan_group_get_device() to enforce
-proper ordering and memory atomicity for the leaf entry traversal.
+  WARNING: kernel/locking/lockdep.c:238 at __lock_acquire+0x382/0x2cf0 kernel=
+/locking/lockdep.c:5203
+  Workqueue: wg-crypt-wg0 wg_packet_tx_worker
+  RIP: 0010:hlock_class kernel/locking/lockdep.c:238 [inline]
+  RIP: 0010:check_wait_context kernel/locking/lockdep.c:4870 [inline]
+  RIP: 0010:__lock_acquire+0x389/0x2cf0 kernel/locking/lockdep.c:5203
+  Call Trace:
+   <IRQ>
+   lock_acquire+0x106/0x350 kernel/locking/lockdep.c:5886
+   _raw_spin_lock+0x2e/0x40 kernel/locking/spinlock.c:173
+   tcp_tsq_handler+0x29/0x200 net/ipv4/tcp_output.c:1291
+   tcp_tsq_workfn+0x384/0x410 net/ipv4/tcp_output.c:1325
+   ...
 
-Cc: stable@vger.kernel.org
-Cc: "David S. Miller" <davem@davemloft.net>
-Cc: Eric Dumazet <edumazet@google.com>
-Cc: Jakub Kicinski <kuba@kernel.org>
-Cc: Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>
-Cc: Stanislav Fomichev <sdf@fomichev.me>
-Cc: Kuniyuki Iwashima <kuniyu@google.com>
-Cc: Nicolai Buchwitz <nb@tipi-net.de>
-Cc: Dan Aloni <da-x@monatomic.org>
-Cc: Jeff Garzik <jeff@garzik.org>
-Fixes: 5c15bdec5c38 ("[VLAN]: Avoid a 4-order allocation.")
-Link: https://sashiko.dev/#/patchset/20260825095422.3166067-1-ruanjinjie%40huawei.com
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+When a lock class is zapped (e.g. during module unload or key
+unregistration), zap_class() clears the class's bit in
+lock_classes_in_use and removes it from the class hash table.
+However, existing lockdep_map instances embedded in data structures
+may still retain a pointer to the zapped class in their class_cache[]
+array.
+
+When __lock_acquire() subsequently runs on such a lock, it finds
+lock->class_cache[subclass] !=3D NULL, skipping register_lock_class()
+and assigning hlock->class_idx to the index of the zapped class. When
+check_wait_context() or hlock_class() inspects the held_lock, it finds
+!test_bit(class_idx, lock_classes_in_use) and warns. Furthermore, if
+the zapped slot is subsequently re-allocated to an unrelated lock key,
+the stale class_cache entry would erroneously match the unrelated
+class (ABA issue).
+
+Add lock_class_cache_is_valid() to validate that the cached class is
+within lock_classes bounds, still allocated in lock_classes_in_use
+(using uninstrumented arch_test_bit() in __always_inline context so it
+is safe in noinstr contexts like match_held_lock()), and that
+class->key matches the expected subkey (taking lockdep_set_subclass()
+overrides into account). Also use READ_ONCE()/WRITE_ONCE() when
+accessing class_cache[].  If the entry is invalid or stale, fall back
+to register_lock_class() / look_up_lock_class().
+
+Fixes: a0b0fd53e1e6 ("locking/lockdep: Free lock classes that are no longer i=
+n use")
+Closes: https://lore.kernel.org/netdev/6a8c66dc.4d75e56a.c9a88.0050.GAE@googl=
+e.com/T/#u
+Reported-by: syzbot+2d770620059281e225a4@syzkaller.appspotmail.com
+Assisted-by: Gemini:gemini-3.1-pro
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Link: https://patch.msgid.link/20260824155129.676096-1-edumazet@google.com
 ---
- net/8021q/vlan.c |  2 +-
- net/8021q/vlan.h | 12 ++++++------
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ kernel/locking/lockdep.c | 50 ++++++++++++++++++++++++++++++++-------
+ 1 file changed, 42 insertions(+), 8 deletions(-)
 
-diff --git a/net/8021q/vlan.c b/net/8021q/vlan.c
-index 2d2efb877975..6df80cad40a2 100644
---- a/net/8021q/vlan.c
-+++ b/net/8021q/vlan.c
-@@ -49,7 +49,7 @@ const char vlan_version[] = DRV_VERSION;
- static int vlan_group_prealloc_vid(struct vlan_group *vg,
- 				   __be16 vlan_proto, u16 vlan_id)
- {
--	struct net_device **array;
-+	struct net_device __rcu **array;
- 	unsigned int vidx;
- 	unsigned int size;
- 	int pidx;
-diff --git a/net/8021q/vlan.h b/net/8021q/vlan.h
-index c41caaf94095..3cb4c8294130 100644
---- a/net/8021q/vlan.h
-+++ b/net/8021q/vlan.h
-@@ -22,8 +22,8 @@ enum vlan_protos {
- struct vlan_group {
- 	unsigned int		nr_vlan_devs;
- 	struct hlist_node	hlist;	/* linked list */
--	struct net_device **vlan_devices_arrays[VLAN_PROTO_NUM]
--					       [VLAN_GROUP_ARRAY_SPLIT_PARTS];
-+	struct net_device __rcu **vlan_devices_arrays[VLAN_PROTO_NUM]
-+						     [VLAN_GROUP_ARRAY_SPLIT_PARTS];
- };
- 
- struct vlan_info {
-@@ -54,7 +54,7 @@ static inline struct net_device *__vlan_group_get_device(struct vlan_group *vg,
- 							 unsigned int pidx,
- 							 u16 vlan_id)
- {
--	struct net_device **array;
-+	struct net_device __rcu **array;
- 
- 	array = vg->vlan_devices_arrays[pidx]
- 				       [vlan_id / VLAN_GROUP_ARRAY_PART_LEN];
-@@ -62,7 +62,7 @@ static inline struct net_device *__vlan_group_get_device(struct vlan_group *vg,
- 	/* paired with smp_wmb() in vlan_group_prealloc_vid() */
- 	smp_rmb();
- 
--	return array ? array[vlan_id % VLAN_GROUP_ARRAY_PART_LEN] : NULL;
-+	return array ? rcu_dereference_raw(array[vlan_id % VLAN_GROUP_ARRAY_PART_LEN]) : NULL;
+diff --git a/kernel/locking/lockdep.c b/kernel/locking/lockdep.c
+index 25d77d4..763f798 100644
+--- a/kernel/locking/lockdep.c
++++ b/kernel/locking/lockdep.c
+@@ -963,6 +963,34 @@ look_up_lock_class(const struct lockdep_map *lock, unsig=
+ned int subclass)
+ 	return NULL;
  }
- 
- static inline struct net_device *vlan_group_get_device(struct vlan_group *vg,
-@@ -82,13 +82,13 @@ static inline void vlan_group_set_device(struct vlan_group *vg,
- 					 struct net_device *dev)
+=20
++static __always_inline bool lock_class_cache_is_valid(const struct lockdep_m=
+ap *lock,
++						      const struct lock_class *class,
++						      unsigned int subclass)
++{
++	unsigned int class_subclass;
++
++	if (!class)
++		return false;
++
++	if (unlikely(class < lock_classes || class >=3D lock_classes + MAX_LOCKDEP_=
+KEYS))
++		return false;
++
++	if (unlikely(!arch_test_bit(class - lock_classes, lock_classes_in_use)))
++		return false;
++
++	if (unlikely(!lock->key))
++		return false;
++
++	class_subclass =3D subclass ? subclass : class->subclass;
++	if (unlikely(class_subclass >=3D MAX_LOCKDEP_SUBCLASSES))
++		return false;
++
++	if (unlikely(READ_ONCE(class->key) !=3D lock->key->subkeys + class_subclass=
+))
++		return false;
++
++	return true;
++}
++
+ /*
+  * Static locks do not have their class-keys yet - for them the key is
+  * the lock object itself. If the lock is in the per cpu area, the
+@@ -1395,9 +1423,9 @@ out_unlock_set:
+=20
+ out_set_class_cache:
+ 	if (!subclass || force)
+-		lock->class_cache[0] =3D class;
++		WRITE_ONCE(lock->class_cache[0], class);
+ 	else if (subclass < NR_LOCKDEP_CACHING_CLASSES)
+-		lock->class_cache[subclass] =3D class;
++		WRITE_ONCE(lock->class_cache[subclass], class);
+=20
+ 	/*
+ 	 * Hash collision, did we smoke some? We found a class with a matching
+@@ -4957,7 +4985,7 @@ void lockdep_init_map_type(struct lockdep_map *lock, co=
+nst char *name,
+ 	int i;
+=20
+ 	for (i =3D 0; i < NR_LOCKDEP_CACHING_CLASSES; i++)
+-		lock->class_cache[i] =3D NULL;
++		WRITE_ONCE(lock->class_cache[i], NULL);
+=20
+ #ifdef CONFIG_LOCK_STAT
+ 	lock->cpu =3D raw_smp_processor_id();
+@@ -5022,12 +5050,15 @@ EXPORT_SYMBOL_GPL(__lockdep_no_track__);
+ void lockdep_set_lock_cmp_fn(struct lockdep_map *lock, lock_cmp_fn cmp_fn,
+ 			     lock_print_fn print_fn)
  {
- 	int pidx = vlan_proto_idx(vlan_proto);
--	struct net_device **array;
-+	struct net_device __rcu **array;
- 
- 	if (!vg || pidx < 0)
- 		return;
- 	array = vg->vlan_devices_arrays[pidx]
- 				       [vlan_id / VLAN_GROUP_ARRAY_PART_LEN];
--	array[vlan_id % VLAN_GROUP_ARRAY_PART_LEN] = dev;
-+	rcu_assign_pointer(array[vlan_id % VLAN_GROUP_ARRAY_PART_LEN], dev);
- }
- 
- /* Must be invoked with rcu_read_lock or with RTNL. */
--- 
-2.34.1
-
+-	struct lock_class *class =3D lock->class_cache[0];
++	struct lock_class *class =3D READ_ONCE(lock->class_cache[0]);
+ 	unsigned long flags;
+=20
+ 	raw_local_irq_save(flags);
+ 	lockdep_recursion_inc();
+=20
++	if (!lock_class_cache_is_valid(lock, class, 0))
++		class =3D NULL;
++
+ 	if (!class)
+ 		class =3D register_lock_class(lock, 0, 0);
+=20
+@@ -5119,8 +5150,11 @@ static int __lock_acquire(struct lockdep_map *lock, un=
+signed int subclass,
+ 	if (DEBUG_LOCKS_WARN_ON(subclass >=3D MAX_LOCKDEP_SUBCLASSES))
+ 		return 0;
+=20
+-	if (subclass < NR_LOCKDEP_CACHING_CLASSES)
+-		class =3D lock->class_cache[subclass];
++	if (subclass < NR_LOCKDEP_CACHING_CLASSES) {
++		class =3D READ_ONCE(lock->class_cache[subclass]);
++		if (!lock_class_cache_is_valid(lock, class, subclass))
++			class =3D NULL;
++	}
+ 	/*
+ 	 * Not cached?
+ 	 */
+@@ -5323,9 +5357,9 @@ static noinstr int match_held_lock(const struct held_lo=
+ck *hlock,
+ 		return 1;
+=20
+ 	if (hlock->references) {
+-		const struct lock_class *class =3D lock->class_cache[0];
++		const struct lock_class *class =3D READ_ONCE(lock->class_cache[0]);
+=20
+-		if (!class)
++		if (!lock_class_cache_is_valid(lock, class, 0))
+ 			class =3D look_up_lock_class(lock, 0);
+=20
+ 		/*
