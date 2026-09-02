@@ -1,280 +1,210 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BB04415F06;
-	Wed,  2 Sep 2026 09:43:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F8618DB2A
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:46:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788342184; cv=none; b=lWrPM+kUvc8r84uiTvJucxg5+jgFx24Q7KDgeuJsb19zBbvS7k0g8gZZ0TewNVWQf8qPKoIRBmyuLLfvSOYKNdH2aVXSnSTglcxfTiilOnrUoEzgNZD6Wi3Yo+y0OQ6bducpo6S95deXYlxAEJ6uX08Cim/GpmxPmU5kPJOB2rY=
+	t=1788342390; cv=none; b=mcYV4x0H94g9Yh76v1bls7iDFoGPtcBSJBLL1Ac5f13dnpN6EQsPQUbjwiDv7sBREvhzjU4Uo44fWN+GZjJWY0B6oDQ/ZVgQ/XnmpFxRF2/LDYO2DPF3jRzo/GjlqZatOXWBzwDcI6N4jUzccHSJkrTu9ZkcS9TdDG/6VW69Ed4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788342184; c=relaxed/simple;
-	bh=qd+Yv1ocSeq6IriRtZA9eLUz6lTmT21hdcQnch5ErIY=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=Y3O03LfrHAR36avBMC8ZrOBBCPwssEOaGYusSXIp1kDKHArJiRGylAn1f2nee0hCbPzgnuojr88I+aOZ6Whzr67xR0VzO/O6c8zBz4IlaJOCu3vHD5D1vQRd3Qmewr1qipN8xCK2PNXq1qRM4MBtVNy5qJPdYGgAIgNLv4GExIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CEthFOyy; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788342390; c=relaxed/simple;
+	bh=CjlUES91iDa+QPDmfLhfxeAOimFl7F4K58XqeCHDHYk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UVsS6rRBnMlLBy907uflkY8Dhp4x+oHzpJ5k9+zXVSlJpcjOFtn/0uzEFmkE2HlWF9DD1uvuPYeApkwrM9XFHa9BLbUUnB4dUu4gk144vtLuKkTEEwpBK1hd6tzM9MEZPIWthUmbcgWlTSvpQj+Y6S+MLre2rswyVCVDceX3Y4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net; spf=pass smtp.mailfrom=ursulin.net; dkim=pass (2048-bit key) header.d=ursulin.net header.i=@ursulin.net header.b=ctAQAnBt; arc=none smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ursulin.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ursulin.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CEthFOyy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788342182; x=1819878182;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=qd+Yv1ocSeq6IriRtZA9eLUz6lTmT21hdcQnch5ErIY=;
-  b=CEthFOyycgeXVLWt0/kZedImR7Y6t7C7OBE1Nry+WnMNV/KgV8nPlpC5
-   IZKCayfx3pWxb1lu4WSmGdbD4URO5NIsTeickgEmbGE4tUM2XKpTqB/fa
-   THGjHq1WIgp6+bkPiYDE7N9WizBWUHXKU8pZAEp0aY8es55M5qtM90zp4
-   T20wdQ3ARR2tNvwPc6xPxexIzK7xkBtAebkrc/2Y/3OO6GQ4DSytsS/bJ
-   lkJki5eLGzVkEZer02oYEhLnteBO3ObvBfNwiu7xXa7VrxU/N9SB8CAlq
-   71/0H+GYOZwsWR+cghRrtMpfUH3k1O/ScEqehJI5RFCzNME3twcr8yGUY
-   g==;
-X-CSE-ConnectionGUID: zZcDwTBlQre3YWal5dRDkQ==
-X-CSE-MsgGUID: lpuYjEPVT5ubkQcKAjclbg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="106315163"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="106315163"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 02:43:01 -0700
-X-CSE-ConnectionGUID: 2pOOKQvhSaekYgk2oNIbbQ==
-X-CSE-MsgGUID: 3CEc4NiPR5S9G76+3lqPTw==
-X-ExtLoop1: 1
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.185])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 02:42:59 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 2 Sep 2026 12:42:54 +0300 (EEST)
-To: Idotoho Reimon Simanjuntak <idotohors@gmail.com>
-cc: Corentin Chary <corentin.chary@gmail.com>, 
-    "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
-    Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] platform/x86: asus-wmi: fix FA401 series keyboard
- sleep strobe
-In-Reply-To: <20260902032353.16106-1-idotohors@gmail.com>
-Message-ID: <b8cdf49b-91d4-2e86-a8ea-04d1db119225@linux.intel.com>
-References: <20260902032353.16106-1-idotohors@gmail.com>
+	dkim=pass (2048-bit key) header.d=ursulin.net header.i=@ursulin.net header.b="ctAQAnBt"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a156627e22so3708345a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 02:46:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ursulin.net; s=google; t=1788342387; x=1788947187; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GUxXRAsScbasjh7s3OWikJdhIfzJpIqvpE5QFbde7vc=;
+        b=ctAQAnBtWOVW5NiXTD9LY34ah9ShQVHCUwXgXWeDUPM6z+lPJ6cmX2DiIi3keKnRpK
+         hmQSC3aDAMGx3vgHwTP0lw0N7hEgbjSY25PrPe+A53BReUE4pjhRbbAPfnQWbbmHhRJG
+         AIZZAbnI/Kab8sKu7ALmrODKrKVuWH9q+ezrt+edgWDjJX3/x3+dv+dvsG5J1giqDOjm
+         6zm9/jTr/dWzzB+/iQNnw5luDYEiNThgROQIyIkqO6+l5I1x5HuGM+2Ay/bGaZaagdTb
+         vg7ful+40+NKsW7sbd5NkflnPLNLaTmOtbX+3Kp1rsZhN58W+PfIj2wxYEsl5AbpfyBQ
+         Wtpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788342387; x=1788947187;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GUxXRAsScbasjh7s3OWikJdhIfzJpIqvpE5QFbde7vc=;
+        b=E18Q//lhs6AZ9SgGnwscQOdKyDJEz6EMaapxt9axQeFe2PLNpb9JrYR2/rctvGp6Cg
+         6y2Y0Y/lQqLka4LQahUiDQHDdG+fDOMndNy7by+g1CkXgudY2TBGFOQFSjUCJ9H8xFYe
+         1lvCiGOLBfARZ+iRKm1LuUmukq9xXpwojdjCYL0b/ehi60MtOcV6xjqr44MVDdisfvgb
+         RWi/sej3VrJDMr9AiRefzgQcfRgLwDx9knmreXHxJ40GD8jzUQGNzCzmoblD2B0w2CMG
+         pu5fr7g3SiKz0fhmng5rgT+6QnbWBd6E3gVdSSkumkNed0dg0zw34HzEQMFxIhIgLcGo
+         IUJw==
+X-Forwarded-Encrypted: i=1; AKwUvBwJdgwGMeXPESs2JMBnC8kCkrcjD8wCCmVd2NFLIJ0+U+an6uCC9xTe1j0kg4IPzb8p+sFGEyhWM8nx95A=@vger.kernel.org
+X-Gm-Message-State: AFuF++kGyZwgtJypOX2JwqgnwGe+Al1qSpKHDHyqGntYf7rwjZyqCDqL
+	uXx8OD8e+YLI7poKxAklqKyi9lK9vD6EW9M3ImV3jqJNpoZf4wW+P7/KzZNwEl3a7DoLAXEKrd3
+	Adf199o4=
+X-Gm-Gg: AYBFou1QuwAs30FpbRvPD6po9vZx2Ojxn2XYO+Cly4lVb2d6ixYuO/qarNn9I43Om0v
+	qe0ETo77fK5mMW4fTUXiGUkqSmXOg1SqZ0ZU2Munmfg7RhlEOUmYq8qiH6k/fg90AivlVfZgiA5
+	XpUfBzK5qqWUIqqMoceCnTSuXE7uRteJ7FojUp1dt1p2oqX8zv39x0Piq7zp3NTTpKtzUR/rZ8X
+	yWcXiLAgLqiA6HLCFs11EMoeg3vMctTlMdzp4Ye+ppTXU2mGDdlUUPmBCZ/hJ4zjthBm4vWZQpH
+	ZJxysrZz2q3K+nnyxZkZhKm9DjgPiMg3iOkEo65DOC/MX7CSMCiJZSTeMlrhdoPuUpXN3jTGgOJ
+	rc0k/wIxeIY6CIdQomaNVFEnpXaJiX3ip+fWYfzBF46rdPqK08M5+vkU+Ia13hNpt+/hletnMSi
+	x0EJDyE2HOSEyQ7goRKFBIrPnpE9axTmYhkG5MW+Y5th4GTDBDWAVS8ouxPM1Qyn6vdCYYOIZaA
+	sFk
+X-Received: by 2002:a17:907:7b85:b0:c1c:49d9:4c34 with SMTP id a640c23a62f3a-c25dcc4c76dmr115853966b.11.1788342386564;
+        Wed, 02 Sep 2026 02:46:26 -0700 (PDT)
+Received: from [192.168.0.116] ([81.79.79.1])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25d0426726sm101629066b.58.2026.09.02.02.46.25
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 02:46:26 -0700 (PDT)
+Message-ID: <8c2a4df5-37a4-414e-81e2-cd97218e5355@ursulin.net>
+Date: Wed, 2 Sep 2026 10:46:25 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/2] drm/sched: cache the timeline name to fix a
+ use-after-free
+To: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>,
+ Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>,
+ Philipp Stanner <phasta@kernel.org>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+References: <cover.1787928528.git.malhyuk97@gmail.com>
+ <b191f55e53492f95d965407f891fd93b0e74958d.1787928528.git.malhyuk97@gmail.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <b191f55e53492f95d965407f891fd93b0e74958d.1787928528.git.malhyuk97@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Wed, 2 Sep 2026, Idotoho Reimon Simanjuntak wrote:
 
-> The FA401 series accepts the TUF keyboard RGB power-state command but does
-> not advertise the device through the normal DSTS presence probe. Register
-> the state attributes for this series and re-assert keyboard brightness in
-> the PM prepare callback so the EC enters S0ix with the correct state.
++ Christian's AMD email
+
+On 28/08/2026 15:57, Jonghyuk Kim(MalHyuk) wrote:
+> drm_sched_fence_get_timeline_name() returns fence->sched->name, and the
+> drm_sched_fence ops keep a .release callback, so the fence is not
+> ops-detached on signalling (dma_fence_signal_timestamp_locked() only
+> clears ->ops for fences without .release/.wait). The callback therefore
+> stays reachable on a long-signalled, userspace-held finished fence and
+> unconditionally dereferences fence->sched.
 > 
-> Without the brightness re-assertion, the display server blanks the keyboard
-> before the kernel suspend path runs, leaving the EC with brightness=0 and
-> preventing the sleep strobe from activating. Because kbd_led_wk may already
-> be zeroed by the display server at prepare time, always re-assert level 3
-> (max) brightness when sleep backlight is enabled.
+> A driver that allocates a drm_gpu_scheduler at per-context/per-queue/
+> per-VM granularity and frees it on an unprivileged context/fd close, while
+> exporting the resulting finished fence to userspace (drm_syncobj /
+> sync_file / dma_resv), leaves fence->sched dangling after the free. A
+> subsequent SYNC_IOC_FILE_INFO ioctl (which calls get_timeline_name())
+> then reads the freed scheduler:
 > 
-> Use a quirk flag (kbd_rgb_state_quirk) set via DMI match table rather than
-> ad-hoc dmi_match() calls. Cache power-state flags from sysfs writes and
-> initialize the cache to the default enabled state during probe, so the
-> workaround also applies before userspace writes the attribute. Do not add
-> a module parameter; the sysfs power-state setting is authoritative.
-> Use the standard dev_pm_ops .prepare callback rather than overloading the
-> Ally-specific LPS0 ops. Define self-documenting macros for the TUF RGB
-> state bitfields at file scope.
+>    BUG: KASAN: slab-use-after-free in drm_sched_fence_get_timeline_name
 > 
-> Signed-off-by: Idotoho Reimon Simanjuntak <idotohors@gmail.com>
+> This is the same class as CVE-2025-38703 (drm/xe) and CVE-2025-71302
+> (drm/panthor), which were fixed per-driver. amdxdna, nouveau and msm
+> (VM_BIND) are still affected in mainline, so fix it in the core to cover
+> any per-context-scheduler driver at once.
+> 
+> Scheduler names are persistent strings (string literals passed to
+> drm_sched_init()), so cache the name pointer in the fence at init time,
+> while the scheduler is guaranteed alive, and return the cached value from
+> get_timeline_name() without dereferencing fence->sched.
+
+It is not guaranteed in the documented contract that the name passed to 
+drm_sched_init has to outlive the scheduler.
+
+Case in point is asking "would have this patch fixed CVE-2025-38703" - 
+to which I think answer is no. Until recent 299bc6d50b1b ("drm/xe/guc: 
+Keep scheduler timeline name alive") my attempt in 6bd90e700b42 
+("drm/xe: Make dma-fences compliant with the safe access rules") only 
+half fixed it by adding a RCU grace to the sched object itself, while 
+missing the fact timeline name gets freed instantly. I haven't gotten 
+round trying to understand why KASAN did not catch this back when I was 
+upstreaming 6bd90e700b42.
+
+Anyway, I think the fix will have to be to either add the full RCU grace 
+around names in the scheduler object owning modules, or your patch plus 
+documenting that the name passed to drm_sched_init must follow the 
+dma-fence safe access rules (with kernel-doc cross-link and an 
+explanation of the connection between scheduler name and dma-fence 
+timeline name).
+
+Hm, that might be overkill.. how about we just keep a copy of the name 
+in the scheduler object? If we document that in gpu_scheduler.h it would 
+fix the drivers still vulnerable, while the ones which were fixed could 
+be simplified.
+
+Regards,
+
+Tvrtko
+
+> Signed-off-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
 > ---
-> Changes in v2:
->  - Cache RGB power state flags from sysfs writes instead of attempting DSTS read.
->  - Initialize state flags to enable all modes during driver probe.
->  - Move TUF_RGB_STATE_* bitfield macros to file scope.
->  - Drop module parameter in favor of DMI quirk + sysfs control.
->  drivers/platform/x86/asus-nb-wmi.c | 14 +++++++
->  drivers/platform/x86/asus-wmi.c    | 61 +++++++++++++++++++++++++++++-
->  drivers/platform/x86/asus-wmi.h    |  1 +
->  3 files changed, 75 insertions(+), 1 deletion(-)
+>   drivers/gpu/drm/scheduler/sched_fence.c | 16 +++++++++++++++-
+>   include/drm/gpu_scheduler.h             | 11 +++++++++++
+>   2 files changed, 26 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/platform/x86/asus-nb-wmi.c b/drivers/platform/x86/asus-nb-wmi.c
-> index aeb461b16..fb06013ca 100644
-> --- a/drivers/platform/x86/asus-nb-wmi.c
-> +++ b/drivers/platform/x86/asus-nb-wmi.c
-> @@ -155,6 +155,11 @@ static struct quirk_entry quirk_asus_z13 = {
->  	.tablet_switch_mode = asus_wmi_kbd_dock_devid,
->  };
->  
-> +static struct quirk_entry quirk_asus_fa401 = {
-> +	.wapf = 0,
-> +	.kbd_rgb_state_quirk = true,
-> +};
-> +
->  static int dmi_matched(const struct dmi_system_id *dmi)
->  {
->  	pr_info("Identified laptop model '%s'\n", dmi->ident);
-> @@ -163,6 +168,15 @@ static int dmi_matched(const struct dmi_system_id *dmi)
->  }
->  
->  static const struct dmi_system_id asus_quirks[] = {
-> +	{
-> +		.callback = dmi_matched,
-> +		.ident = "ASUSTeK COMPUTER INC. FA401",
-> +		.matches = {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK COMPUTER INC."),
-> +			DMI_MATCH(DMI_BOARD_NAME, "FA401"),
-> +		},
-> +		.driver_data = &quirk_asus_fa401,
-> +	},
->  	{
->  		.callback = dmi_matched,
->  		.ident = "ASUSTeK COMPUTER INC. Q500A",
-> diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
-> index a65090429..a0b678272 100644
-> --- a/drivers/platform/x86/asus-wmi.c
-> +++ b/drivers/platform/x86/asus-wmi.c
-> @@ -129,6 +129,18 @@ module_param(fnlock_default, bool, 0444);
->  #define ASUS_SCREENPAD_BRIGHT_MAX 255
->  #define ASUS_SCREENPAD_BRIGHT_DEFAULT 60
->  
-> +/* TUF RGB power state bitfields for DEVS(ASUS_WMI_DEVID_TUF_RGB_STATE) */
-> +#define TUF_RGB_STATE_CMD		0xbd
-> +#define TUF_RGB_STATE_SAVE		BIT(8)
-> +#define TUF_RGB_STATE_BOOT		(0x03 << 16)
-> +#define TUF_RGB_STATE_AWAKE		(0x0c << 16)
-> +#define TUF_RGB_STATE_SLEEP		(0x30 << 16)
-> +#define TUF_RGB_STATE_KEYBOARD		(0xc0 << 16)
-> +#define TUF_RGB_STATE_ALL_MODES		(TUF_RGB_STATE_BOOT | \
-> +					 TUF_RGB_STATE_AWAKE | \
-> +					 TUF_RGB_STATE_SLEEP | \
-> +					 TUF_RGB_STATE_KEYBOARD)
-> +
->  #define ASUS_MINI_LED_MODE_MASK		0x03
->  /* Standard modes for devices with only on/off */
->  #define ASUS_MINI_LED_OFF		0x00
-> @@ -308,6 +320,8 @@ struct asus_wmi {
->  	u32 nv_temp_target;
->  
->  	u32 kbd_rgb_dev;
-> +	u32 kbd_rgb_state_flags;
-> +	bool kbd_rgb_state_valid;
->  	bool kbd_rgb_state_available;
->  	bool oobe_state_available;
->  
-> @@ -1120,8 +1134,13 @@ static ssize_t kbd_rgb_state_store(struct device *dev,
->  				 const char *buf, size_t count)
->  {
->  	u32 flags, cmd, boot, awake, sleep, keyboard;
-> +	struct led_classdev *led;
-> +	struct asus_wmi *asus;
->  	int err;
->  
-> +	led = dev_get_drvdata(dev);
-> +	asus = container_of(led, struct asus_wmi, kbd_led);
-> +
->  	if (sscanf(buf, "%d %d %d %d %d", &cmd, &boot, &awake, &sleep, &keyboard) != 5)
->  		return -EINVAL;
->  
-> @@ -1138,6 +1157,9 @@ static ssize_t kbd_rgb_state_store(struct device *dev,
->  	if (keyboard)
->  		flags |= BIT(7);
->  
-> +	asus->kbd_rgb_state_flags = flags << 16;
-> +	asus->kbd_rgb_state_valid = true;
-> +
->  	/* 0xbd is the required default arg0 for the method. Nothing happens otherwise */
->  	err = asus_wmi_evaluate_method3(ASUS_WMI_METHODID_DEVS,
->  			ASUS_WMI_DEVID_TUF_RGB_STATE, 0xbd | cmd << 8 | (flags << 16), 0, NULL);
-
-Interesting, is this using TUF_RGB_STATE_CMD as literal? Perhaps you 
-should expand this into a patch series and make that conversion in 
-preparatory patch.
-
-> @@ -5153,7 +5175,6 @@ static int asus_wmi_add(struct platform_device *pdev)
->  
->  	asus->egpu_enable_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_EGPU);
->  	asus->dgpu_disable_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_DGPU);
-> -	asus->kbd_rgb_state_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_TUF_RGB_STATE);
->  
->  	if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_MINI_LED_MODE))
->  		asus->mini_led_dev_id = ASUS_WMI_DEVID_MINI_LED_MODE;
-> @@ -5166,6 +5187,19 @@ static int asus_wmi_add(struct platform_device *pdev)
->  		asus->gpu_mux_dev = ASUS_WMI_DEVID_GPU_MUX_VIVO;
->  #endif /* IS_ENABLED(CONFIG_ASUS_WMI_DEPRECATED_ATTRS) */
->  
-> +	/*
-> +	 * FA401 series accepts the TUF RGB-state DEVS command but does not
-> +	 * advertise the device through DSTS. Keep the normal DSTS probe for
-> +	 * other models and force registration when the quirk is set.
-> +	 */
-> +	asus->kbd_rgb_state_available =
-> +		asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_TUF_RGB_STATE) ||
-> +		asus->driver->quirks->kbd_rgb_state_quirk;
-> +	if (asus->driver->quirks->kbd_rgb_state_quirk) {
-> +		asus->kbd_rgb_state_flags = TUF_RGB_STATE_ALL_MODES;
-> +		asus->kbd_rgb_state_valid = true;
-> +	}
-> +
->  	asus->oobe_state_available = asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_OOBE);
->  
->  	if (asus_wmi_dev_is_present(asus, ASUS_WMI_DEVID_THROTTLE_THERMAL_POLICY))
-> @@ -5396,11 +5430,36 @@ static int asus_hotk_restore(struct device *device)
->  
->  static int asus_hotk_prepare(struct device *device)
->  {
-> +	struct asus_wmi *asus = dev_get_drvdata(device);
-> +
->  	if (use_ally_mcu_hack == ASUS_WMI_ALLY_MCU_HACK_ENABLED) {
->  		acpi_execute_simple_method(NULL, ASUS_USB0_PWR_EC0_CSEE,
->  					   ASUS_USB0_PWR_EC0_CSEE_OFF);
->  		msleep(ASUS_USB0_PWR_EC0_CSEE_WAIT);
->  	}
+> diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/scheduler/sched_fence.c
+> index 85ee3d694dc9..280a2d036ffd 100644
+> --- a/drivers/gpu/drm/scheduler/sched_fence.c
+> +++ b/drivers/gpu/drm/scheduler/sched_fence.c
+> @@ -92,7 +92,13 @@ static const char *drm_sched_fence_get_driver_name(struct dma_fence *fence)
+>   static const char *drm_sched_fence_get_timeline_name(struct dma_fence *f)
+>   {
+>   	struct drm_sched_fence *fence = to_drm_sched_fence(f);
+> -	return (const char *)fence->sched->name;
 > +
 > +	/*
-> +	 * The display server may blank the keyboard backlight before the
-> +	 * kernel suspend path runs. Re-assert brightness and power-state
-> +	 * flags so the EC enters S0ix with the correct state. Always use
-> +	 * level 3 (max) because kbd_led_wk may already be zeroed by the
-> +	 * display server at this point, and the sleep strobe requires a
-> +	 * non-zero brightness to activate.
+> +	 * Do not dereference fence->sched here: a userspace-held finished
+> +	 * fence can outlive a per-context scheduler. Return the name cached
+> +	 * in drm_sched_fence_init() instead.
 > +	 */
-> +	if (asus && asus->driver->quirks->kbd_rgb_state_quirk &&
-> +	    asus->kbd_rgb_state_available && asus->kbd_rgb_state_valid &&
-> +	    (asus->kbd_rgb_state_flags & TUF_RGB_STATE_SLEEP)) {
-> +		u8 brightness = 0x80 | 0x03; /* level 3 (max) + light-on bit */
-> +
-> +		asus_wmi_set_devstate(ASUS_WMI_DEVID_KBD_BACKLIGHT,
-> +				      brightness, NULL);
-> +		asus_wmi_evaluate_method3(ASUS_WMI_METHODID_DEVS,
-> +					  ASUS_WMI_DEVID_TUF_RGB_STATE,
-> +					  TUF_RGB_STATE_CMD | TUF_RGB_STATE_SAVE |
-> +					  asus->kbd_rgb_state_flags,
-
-This makes things more confusing overall.
-
-One should use FIELD_PREP() consistently for bitfields where a shift is 
-needed but here you write a pre-shifted value. In the other place, this 
-driver shifts (which should be converted to FIELD_PREP()) while making the 
-evaluate call.
-
-> +					  0, NULL);
-> +	}
-> +
->  	return 0;
->  }
->  
-> diff --git a/drivers/platform/x86/asus-wmi.h b/drivers/platform/x86/asus-wmi.h
-> index 5cd4392b9..69d224774 100644
-> --- a/drivers/platform/x86/asus-wmi.h
-> +++ b/drivers/platform/x86/asus-wmi.h
-> @@ -52,6 +52,7 @@ struct quirk_entry {
->  	 */
->  	int no_display_toggle;
->  	u32 xusb2pr;
-> +	bool kbd_rgb_state_quirk;
->  };
->  
->  struct asus_wmi_driver {
-> 
-
--- 
- i.
+> +	return fence->sched_name;
+>   }
+>   
+>   static void drm_sched_fence_free_rcu(struct rcu_head *rcu)
+> @@ -228,6 +234,14 @@ void drm_sched_fence_init(struct drm_sched_fence *fence,
+>   	unsigned seq;
+>   
+>   	fence->sched = container_of(entity->rq, typeof(*fence->sched), rq);
+> +	/*
+> +	 * Cache the scheduler's timeline name: the finished fence may be
+> +	 * exported to userspace and outlive @sched (per-context schedulers
+> +	 * are freed on context teardown), so get_timeline_name() must not
+> +	 * dereference @sched. Scheduler names are persistent (string
+> +	 * literals passed to drm_sched_init()).
+> +	 */
+> +	fence->sched_name = fence->sched->name;
+>   	seq = atomic_inc_return(&entity->fence_seq);
+>   	dma_fence_init(&fence->scheduled, &drm_sched_fence_ops_scheduled,
+>   		       &fence->lock, entity->fence_context, seq);
+> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+> index d61c19e78182..4f780d70acb6 100644
+> --- a/include/drm/gpu_scheduler.h
+> +++ b/include/drm/gpu_scheduler.h
+> @@ -305,6 +305,17 @@ struct drm_sched_fence {
+>            * belongs to.
+>            */
+>   	struct drm_gpu_scheduler	*sched;
+> +	/**
+> +	 * @sched_name: the timeline name of @sched, cached at init time.
+> +	 *
+> +	 * &drm_sched_fence.finished may be exported to userspace (via a
+> +	 * sync_file or drm_syncobj) and can outlive @sched: a driver using a
+> +	 * per-context scheduler frees it on context teardown while a
+> +	 * userspace-held finished fence still references it. The
+> +	 * get_timeline_name() callback must therefore not dereference @sched;
+> +	 * it returns this cached name instead.
+> +	 */
+> +	const char			*sched_name;
+>           /**
+>            * @lock: the lock used by the scheduled and the finished fences.
+>            */
 
