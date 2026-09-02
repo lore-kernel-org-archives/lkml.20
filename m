@@ -1,232 +1,259 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8EB63254B8;
-	Wed,  2 Sep 2026 00:44:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788309871; cv=none; b=n2SL7FOApSUgaAYlubtE2ywaI1GlRqcO5ktuu/wVGaBW5s4YnN/elhp3PhgDecLzl5D6tqi7PXmb/1yFqsm0Jq1HOCeeG1HU+XGGui3wJNFLtBD1oYePGgXCfFMVcfNB9n4YMLRZ913fEbwYImf/QYflpbKXFTY0sTRHBOfdFXs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788309871; c=relaxed/simple;
-	bh=+rpxPfDklsNLzJRbLYDKUJnC1O0xmyGW4edPXvV/0dE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JFwPBTOLEgM7F/xoPcsq3N0j4MSu+mCBytna/YKDHGgzq31pjez/Kss9zUQYyEBM+T1R1xMZsSjBH3Sy2BlHsEZfqnei6sDxQSijE9jjZ/Nq8QMwi21TPuBb+s2gNnXo5401AxgrsZdvMnwbD4Os8IYa9gotj7W/Wkdmp9ncoXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AjmkF5NN; arc=none smtp.client-ip=198.175.65.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 121101B3925
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 00:50:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788310246; cv=pass; b=Wg4dgKM9XFfDvDE86xMlm3R65MdsfI9s68y2+YSIwljPmHMCy+QVL0ZEMOtJSBZFLnnasT/Epo19qYDaWdLf52fIY6Q5Xsq5LOFWRKPp+7j6Ln3Gs44Off1uCH4r6VGkFH/ShbN0+JWLRItjqNXxpy0cUzCvDGbM9B1Lse1TA4U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788310246; c=relaxed/simple;
+	bh=uxpV2bd0jSH3WddqbNMhei0FG6nv5pKV/10I/frE6e4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dbngfPI0XctYyQUMwMgP85vTg405r3SbVTtEVw9bX/SctprFR0y23dIXbahUQ3RkAtt/OIPsjg6CxuOYanbRO7jx0+FhqEUHJJI4eiqDgFwswr49PfPy/uftMwPiTKzmO2CPaBDkHKDd6z8O0Uf48+ttffsd6+Zvl+zUbBmBNZ4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bep4xpb6; arc=pass smtp.client-ip=209.85.167.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AjmkF5NN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788309868; x=1819845868;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=+rpxPfDklsNLzJRbLYDKUJnC1O0xmyGW4edPXvV/0dE=;
-  b=AjmkF5NNHZM1DLG9g2chgw/e4eWe1KHcnRUDTZXhxYn3JxkbQUjOg32E
-   Ux/N8luqD8TSaOleBSx7em43hJRv3uank6FK0IwbvnDpvIKolFkTUbuN8
-   TJEB6XDfbLIs1fVJVIDL29uybtGDOIVQ/i6h2EkCLe/5+ICeGcD+vWlSO
-   Ck3Rw2dYTsBHEoLdemgNJPRWVNG/dpFdOV6rAvBW1gb3U9wyzdIwMAYFl
-   fgXWyckjNP2ZvohR6eaajlR75HG7TIIWN31zLnU7kTxJchF3eXoCL7x02
-   Q83cCVyM0xAH+rk28SFJhLagGug12yUP4VYw7jOwSPUGNN20WH9ACObIP
-   A==;
-X-CSE-ConnectionGUID: lYDt2mIhQSSy6JenYWTGSg==
-X-CSE-MsgGUID: sDyxWt3pSQesXo1oz0S7ig==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="88682683"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="88682683"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 17:44:27 -0700
-X-CSE-ConnectionGUID: kUmTMFNTTdqQ7F/ME2hiOA==
-X-CSE-MsgGUID: ynUt9O+mTQKzk7UKycPGLw==
-X-ExtLoop1: 1
-Received: from dapengmi-mobl1.ccr.corp.intel.com (HELO [10.124.241.239]) ([10.124.241.239])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 17:44:23 -0700
-Message-ID: <1c097f89-18ac-4d41-85fc-8660cb6603f4@linux.intel.com>
-Date: Wed, 2 Sep 2026 08:44:20 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bep4xpb6"
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b6036e9c70so369611e87.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 17:50:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788310243; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cVVIr8oZcQJfP8sCx6JFcL+lYczX9KldA8vMvZy8Xoe/k3WxaxptJoY3N29qA+TuJb
+         6PAkKCkzhXFb66kR9/3BW2EvTdlvA6HRqy7FTIJY6X36YJnT6HkXwsdnkI13TI9MAIuf
+         Ww0IblNtqhVk1Vqz70cFFXWm118826lqZcWPTeCwCU3F+PK6LTXY5nZo8Q56TlXxZT3w
+         kTtTPE0gABC2EurSCdAlXymG9wNDMkd3+KN2XP0aodUEtL1F5XJz2kzlmsll06e+jfft
+         r1oMxIsWzfi3shpHynanDwsyXNv1ykg9be2UT68PqSzEULKz5v7PkILsxQLYEIVJj2Sx
+         WCUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=hqPY/O+R8Ye4De8eSkETHoBdfpmFjPEzhn9lUdJii2w=;
+        fh=WrkCc7cY6OIHcet2CT+nP26ZaqoVkWKEALxzm/V/vFQ=;
+        b=EdYwaxv0pXsN/0KJwDTAAAHQ50XNd4LcRIPmLalJXajyjIG0e1TQ8/Sdtrb8yaSeyx
+         XLFvgB3DRlYwsvvHgfxVgy8cuXSFT8cRJcZcvVvl2EGRa6/LvVfbjOJc7Jk27No0JkAq
+         Py2mvOrZSw+f03xZJdcPKOJ15RoszrBeSR7dblSKnNdO+NExUFyXkXHjT0woOfimx9fj
+         EI94aVNOD+xPhwtbJ10Odc5he48z+PR95SIW3OUUT7t5QXumLOCI04SdRRXSMwaGZglS
+         uhCJqaKLNcmeUlMuP37gNPhv/lBz00cdbJxYzU3gSq/Ry2w7EHxF6ivSbjtDmYGOu11A
+         RC9g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788310243; x=1788915043; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hqPY/O+R8Ye4De8eSkETHoBdfpmFjPEzhn9lUdJii2w=;
+        b=bep4xpb60Irbu6cImEm7+W5HbKsb4ty5rf0IPxGxpKyx9fIJxmWwA75VC6xPBUM8kr
+         BY/EpwX7Su6VMCpygG+kIaGYQ5DMKZ4/3pdrWv9QAxgBGYp/S4NRix6hUhPewUvvZq5r
+         T1VDymNkgHA/s76QTBKn3T9HyZ5VhA6Gh6mho7V4KVYWCOUBs8JRVv5E6eFIlnia2EnK
+         4o40gt6fKEHAAlyA491IjUaENoVOwWXUy/0Zj46Q31BT+ZNOgiZyTqxldmtPo9dKZOMV
+         YfVbskWBm2+/NcwgMg5vSSOE8UxHWtR5XY6F1vRARADBx1e6BF81tR5+YGc8IU1RXZO3
+         MqiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788310243; x=1788915043;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hqPY/O+R8Ye4De8eSkETHoBdfpmFjPEzhn9lUdJii2w=;
+        b=cyYDeg90cCyyVt/noE/6eWef95rzsgK4XkUinP5DgZJuORaTG1DoO0KXgS6k+q/nRa
+         zn7yYikv2EtEegLkEfz7mT9EOQZlWO9d/BApjnz6L1d+g//z/6brWpI3EoZqiA1HOYPB
+         j/pyTr7StfAJDk5A69rTXMLaiMncgjmMwabXbOg0MxuEU1fMJf7R/l0kLV9W6XDOSL3c
+         6KpqF4pERZADdlsz2//89SkK+xUfbyzkmsMySR6HxRXLJWSC9bogZao61wFvHDfXZ8hP
+         xaZIWerVb78LmuMXBZnSGTHyDeNltSXxYDOrHGNWBA5mre2Xoe0Naax2tIDjw+2Zyfvm
+         i80g==
+X-Forwarded-Encrypted: i=1; AKwUvBzt+8+RR/b/gJsezoq6dQRbwadMx2hPkpnUQfL8GlypdoJD9SOQrt40DG5fC9VMWyo9RXgwYCVMgfTCW2E=@vger.kernel.org
+X-Gm-Message-State: AFuF++kulxHKlP4paRdkvmesaFkTowbRV84v4gxYwrf5Kjb1bQBlib3G
+	vHDEVaD6h81Bt/axqzGhJ6SI13xgO6bGnXyxECNTtho8q98GYBxYxFkZX5/ZFnI7CddiyMYD1H4
+	m07U61a9rn4K7beVrd5owqbVp+mSbij4=
+X-Gm-Gg: AYBFou15LzTcFUAikrsRHWC53LTyStdyhKlD00inhLjgHfmPfgcJiWjOkqUQKbGi5Jd
+	85OmsgNDmHbwfS8rt3XaIyIPNj6wxQlHg9HbM9tqfjBZH6tmGMITdiQc0CIdGVy6EarEgyvtFLv
+	QVgyaOmJSYEdUWUtcDzVjkDikPgTbacID9p0oN0R7C2dvEQN/LB/59edbS+ByzLKVc3mSmojGCE
+	YSfhEs7vtB3wvcbMoHronLsiRd1f9Y/qgJFlfYdDOiS3ENUXvMX4rZLlo5/zlFXR5lksSAMiUOF
+	GX47W98qagHuXNWtWkXRMYx90evrPOJF1kddBS0G+8fvOCu8InKu9U6K8EGcZeXyPJ2jfohS/A=
+	=
+X-Received: by 2002:a05:6512:15a9:b0:5b6:4ae:5b7f with SMTP id
+ 2adb3069b0e04-5b6087d6133mr353785e87.29.1788310242499; Tue, 01 Sep 2026
+ 17:50:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/16] KVM: x86/pmu: Emulate the GLOBAL_STATUS_SET and
- GLOBAL_INUSE MSRs
-To: "Chen, Zide" <zide.chen@intel.com>,
- Sean Christopherson <seanjc@google.com>, Paolo Bonzini
- <pbonzini@redhat.com>, Peter Zijlstra <peterz@infradead.org>
-Cc: kvm@vger.kernel.org, Andi Kleen <ak@linux.intel.com>,
- Jim Mattson <jmattson@google.com>, Stephane Eranian <eranian@google.com>,
- linux-kernel@vger.kernel.org, Mingwei Zhang <mizhang@google.com>,
- Das Sandipan <Sandipan.Das@amd.com>, Shukla Manali <Manali.Shukla@amd.com>,
- Xudong Hao <xudong.hao@intel.com>
-References: <20260827223755.143247-1-zide.chen@intel.com>
- <20260827223755.143247-12-zide.chen@intel.com>
- <d2285a85-e5b5-4fd5-8f2f-68f2dee5763d@linux.intel.com>
- <8e9aeb61-30fc-4a1a-8a6d-9104f9ebdd6f@intel.com>
-Content-Language: en-US
-From: "Mi, Dapeng" <dapeng1.mi@linux.intel.com>
-In-Reply-To: <8e9aeb61-30fc-4a1a-8a6d-9104f9ebdd6f@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260830114731.8322-1-wujianyue000@gmail.com> <20260830114731.8322-3-wujianyue000@gmail.com>
+ <20260901161329.GI3004@cmpxchg.org>
+In-Reply-To: <20260901161329.GI3004@cmpxchg.org>
+From: Jianyue Wu <wujianyue000@gmail.com>
+Date: Wed, 2 Sep 2026 08:50:30 +0800
+X-Gm-Features: AcwNN1VZP9I5AiwbB0AJlzk0UO5pYmHN9ADWJl1TgGW01163D6x1NbqVrjb50eI
+Message-ID: <CAJxJ_jhkM4HHgCi-OsQcoDeDC5_fsejf+u+b5E1n3gNUd=EJmQ@mail.gmail.com>
+Subject: Re: [RFC PATCH v4 2/3] mm/zswap: replace the zswap_pools list with a
+ fixed pools array
+To: Johannes Weiner <hannes@cmpxchg.org>
+Cc: Yosry Ahmed <yosry@kernel.org>, Nhat Pham <nphamcs@gmail.com>, 
+	Chengming Zhou <chengming.zhou@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Chris Li <chrisl@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-On 9/1/2026 10:20 PM, Chen, Zide wrote:
+On Wed, Sep 2, 2026 at 12:13=E2=80=AFAM Johannes Weiner <hannes@cmpxchg.org=
+> wrote:
 >
-> On 9/1/2026 1:45 AM, Mi, Dapeng wrote:
->> On 8/28/2026 6:37 AM, Zide Chen wrote:
->>> Intel PerfMon v4 introduces IA32_PERF_GLOBAL_STATUS_SET (0x391) to
->>> allow software to set individual bits in the global status MSR. Reads
->>> of IA32_PERF_GLOBAL_STATUS_SET always return zero.
->>>
->>> IA32_PERF_GLOBAL_INUSE (0x392) is also introduced in v4, to track
->>> which counters and the PMI are currently claimed by other agents,
->>> allowing independent software agents to check counter availability
->>> without a shared scheduler arbitrating between them.
->>>
->>> IA32_PERF_GLOBAL_INUSE is an read-only MSR, and any write attempt
->>> results in a #GP.
->>>
->>> Neither MSR is part of the VM state, so they don't need to be
->>> advertised to userspace, nor saved and restored during live
->>> migration.
->>>
->>> Originally-by: Yang Weijiang <weijiang.yang@intel.com>
->>> Signed-off-by: Zide Chen <zide.chen@intel.com>
->>> ---
->>> v2:
->>> - Change intel_pmu_get_global_inuse() to return u64, to match the
->>>   surrounding code style.
->>> - Add the missing vmcs02 updates for these two MSRs.
->>> - Change "> 3" to ">= 4" to make the "v4-gated" more obvious and match
->>>   the existing code style.
->>> ---
->>>  arch/x86/include/asm/msr-index.h |  4 ++++
->>>  arch/x86/kvm/pmu.c               |  9 ++++++++
->>>  arch/x86/kvm/vmx/nested.c        |  2 ++
->>>  arch/x86/kvm/vmx/pmu_intel.c     | 37 ++++++++++++++++++++++++++++++++
->>>  arch/x86/kvm/vmx/vmx.c           |  4 ++++
->>>  5 files changed, 56 insertions(+)
->>>
->>> diff --git a/arch/x86/include/asm/msr-index.h b/arch/x86/include/asm/msr-index.h
->>> index 11b99d237e05..0b093cf41edf 100644
->>> --- a/arch/x86/include/asm/msr-index.h
->>> +++ b/arch/x86/include/asm/msr-index.h
->>> @@ -1240,6 +1240,10 @@
->>>  #define MSR_CORE_PERF_GLOBAL_CTRL	0x0000038f
->>>  #define MSR_CORE_PERF_GLOBAL_OVF_CTRL	0x00000390
->>>  #define MSR_CORE_PERF_GLOBAL_STATUS_SET	0x00000391
->>> +#define MSR_CORE_PERF_GLOBAL_INUSE	0x00000392
->>> +
->>> +/* Intel IA32_PERF_GLOBAL_INUSE MSR */
->>> +#define PERF_GLOBAL_INUSE_PMI_INUSE	BIT_ULL(63)
->>>  
->>>  #define MSR_PERF_METRICS		0x00000329
->>>  
->>> diff --git a/arch/x86/kvm/pmu.c b/arch/x86/kvm/pmu.c
->>> index 437a7bc49bf8..7c05cf5157bf 100644
->>> --- a/arch/x86/kvm/pmu.c
->>> +++ b/arch/x86/kvm/pmu.c
->>> @@ -832,6 +832,8 @@ bool kvm_pmu_is_valid_msr(struct kvm_vcpu *vcpu, u32 msr)
->>>  	case MSR_CORE_PERF_GLOBAL_CTRL:
->>>  	case MSR_CORE_PERF_GLOBAL_OVF_CTRL:
->>>  		return kvm_pmu_has_perf_global_ctrl(vcpu_to_pmu(vcpu));
->>> +	case MSR_CORE_PERF_GLOBAL_STATUS_SET:
->>> +		return vcpu_to_pmu(vcpu)->version >= 4;
->>>  	default:
->>>  		break;
->>>  	}
->>> @@ -865,6 +867,7 @@ int kvm_pmu_get_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
->>>  	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_CLR:
->>>  	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_SET:
->>>  	case MSR_CORE_PERF_GLOBAL_OVF_CTRL:
->>> +	case MSR_CORE_PERF_GLOBAL_STATUS_SET:
->>>  		msr_info->data = 0;
->>>  		break;
->>>  	default:
->>> @@ -931,6 +934,12 @@ int kvm_pmu_set_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
->>>  		if (!msr_info->host_initiated)
->>>  			pmu->global_status &= ~data;
->>>  		break;
->>> +	case MSR_CORE_PERF_GLOBAL_STATUS_SET:
->>> +		if (data & pmu->global_status_rsvd)
->>> +			return 1;
->>> +		if (!msr_info->host_initiated)
->>> +			pmu->global_status |= data;
->>> +		break;
->>>  	case MSR_AMD64_PERF_CNTR_GLOBAL_STATUS_SET:
->>>  		if (!msr_info->host_initiated)
->>>  			pmu->global_status |= data & ~pmu->global_status_rsvd;
->>> diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
->>> index 0cff369982ae..ae7dd3636e70 100644
->>> --- a/arch/x86/kvm/vmx/nested.c
->>> +++ b/arch/x86/kvm/vmx/nested.c
->>> @@ -719,6 +719,8 @@ static void nested_vmx_merge_pmu_msr_bitmaps(struct kvm_vcpu *vcpu,
->>>  	nested_vmx_merge_msr_bitmaps_rw(MSR_CORE_PERF_GLOBAL_CTRL);
->>>  	nested_vmx_merge_msr_bitmaps_read(MSR_CORE_PERF_GLOBAL_STATUS);
->>>  	nested_vmx_merge_msr_bitmaps_write(MSR_CORE_PERF_GLOBAL_OVF_CTRL);
->>> +	nested_vmx_merge_msr_bitmaps_write(MSR_CORE_PERF_GLOBAL_STATUS_SET);
->>> +	nested_vmx_merge_msr_bitmaps_read(MSR_CORE_PERF_GLOBAL_INUSE);
->>>  }
->>>  
->>>  /*
->>> diff --git a/arch/x86/kvm/vmx/pmu_intel.c b/arch/x86/kvm/vmx/pmu_intel.c
->>> index 4df55a3e21da..3070fba2687f 100644
->>> --- a/arch/x86/kvm/vmx/pmu_intel.c
->>> +++ b/arch/x86/kvm/vmx/pmu_intel.c
->>> @@ -194,6 +194,8 @@ static bool intel_is_valid_msr(struct kvm_vcpu *vcpu, u32 msr)
->>>  	switch (msr) {
->>>  	case MSR_CORE_PERF_FIXED_CTR_CTRL:
->>>  		return kvm_pmu_has_perf_global_ctrl(pmu);
->>> +	case MSR_CORE_PERF_GLOBAL_INUSE:
->>> +		return pmu->version >= 4;
->>>  	case MSR_IA32_PEBS_ENABLE:
->>>  		ret = vcpu_get_perf_capabilities(vcpu) & PERF_CAP_PEBS_FORMAT;
->>>  		break;
->>> @@ -341,6 +343,38 @@ static bool intel_pmu_handle_lbr_msrs_access(struct kvm_vcpu *vcpu,
->>>  	return true;
->>>  }
->>>  
->>> +static u64 intel_pmu_get_global_inuse(struct kvm_vcpu *vcpu)
->>> +{
->>> +	struct kvm_pmu *pmu = vcpu_to_pmu(vcpu);
->>> +	unsigned long fixed_mask = kvm_fixed_pmc_mask(pmu);
->>> +	unsigned long gp_mask = kvm_gp_pmc_mask(pmu);
->>> +	bool pmi_inuse = false;
->>> +	u64 eventsel, data = 0;
->>> +	u32 fixed_ctrl;
->>> +	int i;
->>> +
->>> +	kvm_for_each_gp_counter(i, gp_mask) {
->>> +		eventsel = pmu->gp_counters[i].eventsel;
->>> +
->>> +		if (eventsel & ARCH_PERFMON_EVENTSEL_EVENT)
->> Why to check ARCH_PERFMON_EVENTSEL_EVENT instead of
->> ARCH_PERFMON_EVENTSEL_ENABLE here? Suppose only
->> ARCH_PERFMON_EVENTSEL_ENABLE is set, then the counter is in use.
-> This implementation strictly follows the SDM, which checks the event
-> bits, not the enable bit. This is also verified on bare metal.
+> On Sun, Aug 30, 2026 at 07:47:30PM +0800, Jianyue Wu wrote:
+> > Originally zswap holds its pools on an RCU list whose head also serves
+> > as the "current pool". Only a handful of pools are ever live at once,
+> > since a new pool is only created when the compressor is (re)set and
+> > pools are reused across compressor switches.
+> >
+> > Hold the pools in a fixed ZSWAP_MAX_POOLS-element array so each pool
+> > has a stable slot number, and track the current pool with a separate
+> > rcu-protected pointer.
+> >
+> > Slot 0 is intentionally left unused (always NULL): a zeroed or
+> > incorrectly initialized pool index then resolves to NULL and trips a
+> > WARN rather than silently aliasing a live pool in another slot.
+> >
+> > The array keeps the same RCU publish/retire discipline the list had,
+> > so lookup and teardown stay equivalent. A fully-constructed pool is
+> > stored into its slot as the last step of zswap_pool_create(), so array
+> > walkers only ever observe a NULL slot or a ready pool. Pool creation
+> > is serialized by the module-wide kernel param mutex (all built-in
+> > params share one lock) and otherwise only happens during
+> > single-threaded init, so no two creators race for a slot.
+> > zswap_pools_lock still serializes the store against a retiring pool
+> > clearing its slot in __zswap_pool_empty().
+> >
+> > Behavior change: the fixed array bounds the number of simultaneously
+> > live pools at ZSWAP_MAX_POOLS - 1 (15, since slot 0 is reserved),
+> > whereas the old list was unbounded. A pool is only live while it is
+> > the current pool or still has stored pages referencing it, and pools
+> > are reused across compressor switches, so 15 is far more than any real
+> > configuration needs. Once all slots are occupied, creating a pool for
+> > a 16th distinct compressor fails: zswap_pool_create() errors and
+> > returns NULL, and the compressor switch is rejected with -EINVAL
+> > rather than silently succeeding. The cap can be raised by increasing
+> > ZSWAP_MAX_POOLS (bounded by the u8 slot index, so up to 256).
+> >
+> > Suggested-by: Nhat Pham <nphamcs@gmail.com>
+> > Suggested-by: Yosry Ahmed <yosry@kernel.org>
+> > Signed-off-by: Jianyue Wu <wujianyue000@gmail.com>
+> > ---
+> >  mm/zswap.c | 97 ++++++++++++++++++++++++++++++++++++++++--------------
+> >  1 file changed, 72 insertions(+), 25 deletions(-)
+> >
+> > diff --git a/mm/zswap.c b/mm/zswap.c
+> > index 0bb30e58950a..b3b5e2887c00 100644
+> > --- a/mm/zswap.c
+> > +++ b/mm/zswap.c
+> > @@ -13,6 +13,7 @@
+> >
+> >  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+> >
+> > +#include <linux/cleanup.h>
+> >  #include <linux/module.h>
+> >  #include <linux/cpu.h>
+> >  #include <linux/highmem.h>
+> > @@ -154,12 +155,27 @@ struct zswap_pool {
+> >       struct zs_pool *zs_pool;
+> >       struct crypto_acomp_ctx __percpu *acomp_ctx;
+> >       struct percpu_ref ref;
+> > -     struct list_head list;
+> >       struct rcu_work release_work;
+> >       struct hlist_node node;
+> > +     u8 idx;
+> >       char tfm_name[CRYPTO_MAX_ALG_NAME];
+> >  };
+> >
+> > +#define ZSWAP_MAX_POOLS 16
 >
-> "IA32_PERF_GLOBAL_INUSE.PERFEVTSEL0_InUse[bit 0]: This bit reflects the
-> logical state of (IA32_PERFEVTSEL0[7:0] != 0)."
-
-Ok, thanks for double checking. 
-
-
+> It's unlikely to happen, but this is a super annoying failure
+> mode. User would have to kill something, delete shmem/tmpfs, or
+> swapoff. And it's not obvious which entries are in which pool.
 >
-> That's why, in the reply above to Sashiko, I noted that on bare metal
-> without a vCPU scheduled in, after a perf event is closed, the counter
-> could still show as in use. perf/x86 clears the enable bit while keeps
-> the event bits set.
+> Wouldn't an idr make more sense?
+>
+> > @@ -270,6 +283,31 @@ static void acomp_ctx_free(struct crypto_acomp_ctx=
+ *acomp_ctx)
+> >       acomp_ctx->buffer =3D NULL;
+> >  }
+> >
+> > +/*
+> > + * Publish a fully-constructed pool into a free array slot.  Pool crea=
+tion is
+> > + * serialized by the module-wide kernel param mutex (all built-in para=
+ms share
+> > + * one lock) and only otherwise happens during single-threaded init, s=
+o no two
+> > + * creators race for a slot.  The pool is complete before it is stored=
+, and
+> > + * zswap_pools_lock still serializes this store against a concurrent r=
+etiring
+> > + * pool clearing its slot in __zswap_pool_empty(), so array walkers on=
+ly ever
+> > + * observe a NULL slot or a ready pool.
+> > + */
+> > +static int zswap_pool_assign_slot(struct zswap_pool *pool)
+> > +{
+> > +     int i;
+> > +
+> > +     guard(spinlock_bh)(&zswap_pools_lock);
+> > +     for (i =3D ZSWAP_FIRST_POOL_SLOT; i < ZSWAP_MAX_POOLS; i++) {
+> > +             if (!rcu_access_pointer(zswap_pools[i])) {
+> > +                     pool->idx =3D i;
+> > +                     rcu_assign_pointer(zswap_pools[i], pool);
+> > +                     return i;
+> > +             }
+> > +     }
+> > +
+> > +     return -ENOSPC;
+> > +}
+>
+> It was kind of overdue, but with this now requiring a pool walk as
+> well, it would be better to factor out a find_or_create function?
+>
+> Something like:
+>
+> static struct zswap_pool *zswap_pool_find_or_create(char *compressor)
+> {
+>         struct zswap_pool *pool, *new_pool =3D NULL;
+>         u8 id, new_id =3D 0;
+>
+> insert_new:
+>         spin_lock_bh(&zswap_pools_lock);
+>         idr_for_each_entry(&zswap_pools, pool, id) {
+>                 if (pool && !strcmp(pool->tfm_name, compressor) && zswap_=
+pool_tryget(pool)) {
+>                         if (new_pool) {
+>                                 pool_put(new_pool);
+>                                 idr_free(&zswap_pools, new_id);
+>                         }
+>                         spin_unlock_bh(&zswap_pools_lock);
+>                         return pool;
+>                 }
+>         }
+>         if (new_pool) {
+>                 idr_replace(&zswap_pools, new_pool, new_id);
+>                 spin_unlock_bh(&zswap_pools_lock);
+>                 return new_pool;
+>         }
+>         spin_unlock_bh(&zswap_pools_lock);
+>
+>         new_pool =3D pool_alloc();
+>         if (!new_pool)
+>                 ...
+>         new_id =3D idr_alloc(&zswap_pools, NULL, 1, 256, GFP_KERNEL);
+>         if (new_id < 0)
+>                 ...
+>         goto insert_new;
+> }
+Agreed. Hitting the 15-pool cap would be an annoying failure mode, even
+if it should be rare.
+I will switch this to an IDR with IDs in the 1..255 range, keeping 0 as
+the invalid entry value, and factor the lookup/allocation path into a
+zswap_pool_find_or_create() helper.
 
-That's why I feel confusing. Currently perf/x86 doesn't clear the Evensel
-field and only clears the enable bit, so IN_USE bit would be set forever
-once an event ever used the counter even the GP counter is not enabled
-right now.
-
-It's deserved to add a comment here, I believe some persons have same
-question with me.
-
-Anyway, let's keep consistent with SDM here. Thanks.
-
-
+Best regards,
+Jianyue
