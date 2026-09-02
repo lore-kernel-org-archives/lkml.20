@@ -1,142 +1,90 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+Received: from mta1.migadu.com (out-109.mta1.migadu.com [95.215.58.109])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FBA3490C03
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:45:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F1F44483A5
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:46:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.109
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788353158; cv=none; b=ZKYQhiNFGaDFjE16Mb27tf6+JO3y+RCRyGsrs88bKRmCnoyMzQLYuuHGhJ+laBkWw/DhA25284iRU4dWe1YJ4KYMTPOljP5fbw+BJgWFUHLIlPksR+QJmm9SSuaUEHoSfY/BKmWjzm/AYAyilk8SzuZoUUILzIv7IvwVffL+m5c=
+	t=1788353176; cv=none; b=OxD0KmJx/Mo1TcCyJtyS/ABGdFR/v/2NZE6hUEok2Vb7Jy5mZpxuBn5/fZ59CYxnhy9reChPlRJj8RKa8FUB/5xToTxlpxrwE8ud0dXJxOYUIXXs5F1XtjK5ons/6Yp948oFihQNjGE1S9aTKkND94h1hBf0eRje3Ndw94Yw7Ds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788353158; c=relaxed/simple;
-	bh=GnuHiQyTdp78PQzDdaVnnxIGr8+30tXBtoElXZAmxa0=;
-	h=From:Message-ID:Date:MIME-Version:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=VcvyE0xnsBEiK7cKok/8ciLcor8qJDCf/PP1OkEdp0CZtrrAjcK/qyT+WIVIyX0RW/60poWB3czVviGLZ6DVLX7oakudm8h4xAs9mcWjd5KAYJ0VJTJH3nW0Eq0jnQ7sGbZNRASMWCiQQ30SQReQFH450g1DIzcRmIKUhz63hP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=InQy+DnV; arc=none smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788353176; c=relaxed/simple;
+	bh=LIIZ67WyrJ1BbHKsYGuShJUWhBgeY1V01Hjjf2SBjxc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sQF4j0/QX0pNQp8y12evZFTfCvMd+7hBu0bcVn9qqvKqeIB1O4Tgr/IPdvEfR9kwBBAeNu7cx7HQPQWzYdkvuZYaG1HRZpiPCivkFuO0WfSHdAXjxayPMnMamG3iMfxJfsaYZ3zeTerRBF1E57zs1+hOQzeXWyHsjWCS8ZPdJ+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=gzDEtWMK; arc=none smtp.client-ip=95.215.58.109
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="InQy+DnV"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c25344a8c6cso126109766b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:45:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788353155; x=1788957955; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dLevOcKYkdOnauiVP1IJjwSB8dtI7d/lY5+V+H8fLSI=;
-        b=InQy+DnV+kgT70cenM3G2xykTMHw/BfdKYjRHYmYzdvJbjB4qRA8sM+XKUs84QolIr
-         EJ68+ddzEUIAL90O5CYm5Hfs2gKmNa0jWdyr9JMo2JDoTChZCXUUenQuXTJ4tbeoNwtk
-         /ZjFN4trUFEbo5yv71wprGCzRLZwqeP0pYrYczTDrRRhBcuvttmm6UfirETetxyeVF3b
-         vSri8W1bc9BHHeER1a0XnLLqRDwgNW6U/xiJ6xhZmvvI+zg4vwLE7PIUmnupYjVJ63YC
-         6lqUl0bsMka7wyrprCBvqXI069nUHUGnUkZ1uwyFcBAlkrc2Dpr8UgnYTKxatT7wyCns
-         cSYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788353155; x=1788957955;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=dLevOcKYkdOnauiVP1IJjwSB8dtI7d/lY5+V+H8fLSI=;
-        b=YKYZr9TrVsmpXmjqOxBAx+/pdntSccwx4a395kBZ+hANyejvPiPCj5jmeeEMMfsnAl
-         DWI447z6jEs1BAUOZ6sTWVEfEp+3pzsO8mG/0xeWewA6KD09DAZ5132Jswmi1RpQmGn5
-         lKK8oiamjak90dL53kOH5LI96wpiPLu7hxJPgE2UpVkM7ci6Z420hTRR4p1LiuWIPMq9
-         1Nt/AzfnZLYbbo4rwsFTGEn3JvCWRrzEsbQixUSkWwulNktPzD+M2t/LqiPV6/MkUtnv
-         nPYcgVyh9gJtuTG1iBocmN65An1WILW8vk4uh32zBqdaMKX5SoYT3m62fTtxqdO1gwGk
-         2cKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzc1B1/WtOEyHXoSUPX1wQbiiVL1ZcdVC7jaRgVFzoAaFZunJpzCvH734uPJuCPKtPvk+g+/+ix8YUUsV8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nVdGG1dEtyjIrCL/RYRGawpMkMPhrniy1RDnvZHUHeC65gRfUq
-	6CRZWVRECPjslVRTCTRhfxVxGLxmyc41nDct1FC38l/brC2SYZfHNDOV
-X-Gm-Gg: AYBFou1HNHvyG7Yqc2UcWwa/Q9OXbL7KzC4+m4nI7RGrpBgDNA6mfh37yhdqmNa9RDt
-	yGARQtkUNDcXTz1Mh1LGAAcK2OPRtjLoT0ovJc+VO8v3xKdk2S/dE9LT9o4m3olOlBf5Zfi1DRG
-	FsqdolAfoUeGQgyKLYWUMdO5iRnJnRDDjpmjFjkR/L/1XaeyaofJnR5I8jIv/Tx2OO23Rbd7HU1
-	n170VRvsSB7HkZOIQXLqqjQKrP8to5JjssvjhW1SIMy7WH/nSn4ZZdSEbhU+AHFbYlH0xF+jDbM
-	iFG2qFoZaQFBSvY6aZj1L4KkWpC/aOlnUnOfvDC6KcBTGWMtLWb2lDF0gWj5gRA4ZnrnTlWlleq
-	ly2/ZZWXLzZ3miz7IK4PrmBlrjSn4gfgIdiZwOnLBLbQmt+iRKobqhuCRqMH9X0zylyq9VIxgCD
-	NkZ/9Hp3ErkOYfH/yyHQ76XXW3u0ejD+LvXg70R+FX7TWeTDR3RkcBconwGqfE433Ssw5v01KRP
-	Bo=
-X-Received: by 2002:a17:907:3d44:b0:c1f:1520:4de5 with SMTP id a640c23a62f3a-c25d5289c2fmr230616466b.1.1788353154604;
-        Wed, 02 Sep 2026 05:45:54 -0700 (PDT)
-Received: from [10.45.18.37] ([15.248.3.93])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25cffc5cc3sm128026266b.7.2026.09.02.05.45.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 05:45:53 -0700 (PDT)
-From: Paul Durrant <xadimgnik@gmail.com>
-X-Google-Original-From: Paul Durrant <paul@xen.org>
-Message-ID: <fa5a18af-acb9-4459-846e-c9c3f74177da@xen.org>
-Date: Wed, 2 Sep 2026 13:45:52 +0100
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="gzDEtWMK"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=LIIZ67WyrJ1BbHKsYGuShJUWhBgeY1V01Hjjf2SBjxc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788353172; v=1; x=1788957972;
+ b=gzDEtWMKn+ameBW1VAcv/ZCPYnwBlVSSM1c9SSbEQeC6XYttpIBazfQaQYXZYXgsJT3gSwEe
+ gsrk1SxFgfwbJmPuD0Ym3yUidYoROPmec7qq8NFOmLyuBIPzELmK7QBG1VBriyx3a7bnlZMzIvj
+ kbLIpX5A+uE12eCHjkuC52YY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f210d0b17b2194c4;
+	Wed, 02 Sep 2026 12:46:02 +0000
+X-Mizu-Trace-ID: f210d0b17b2194c4
+X-Migadu-Flow: FLOW_OUT
+From: Zenghui Yu <zenghui.yu@linux.dev>
+To: damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Cc: sj@kernel.org,
+	akpm@linux-foundation.org,
+	"Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+Subject: [PATCH] Docs/mm/damon/design: fix broken :ref: usage and a typo
+Date: Wed,  2 Sep 2026 20:45:50 +0800
+Message-ID: <20260902124550.31175-1-zenghui.yu@linux.dev>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 11/13] KVM: x86/xen: Mark poll_evtchn accesses with
- READ_ONCE()/WRITE_ONCE()
-To: David Woodhouse <dwmw2@infradead.org>, seanjc@google.com,
- pbonzini@redhat.com
-Cc: joao.m.martins@oracle.com, boris.ostrovsky@oracle.com,
- ankur.a.arora@oracle.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, hpa@zytor.com, x86@kernel.org,
- syzbot+208f7f3e5f59c11aeb90@syzkaller.appspotmail.com,
- syzkaller-bugs@googlegroups.com, suryasaimadhu369@gmail.com, lkp@intel.com,
- nicoyip.dev@gmail.com, frn1furkan10@gmail.com, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, imv4bel@gmail.com
-References: <20260831213632.81023-1-dwmw2@infradead.org>
- <20260831213632.81023-12-dwmw2@infradead.org>
-Content-Language: en-US
-In-Reply-To: <20260831213632.81023-12-dwmw2@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 31/08/2026 22:26, David Woodhouse wrote:
-> From: Chengfeng Ye <nicoyip.dev@gmail.com>
-> 
-> Use READ_ONCE() and WRITE_ONCE() for runtime accesses to poll_evtchn.
-> This marks the intentionally concurrent scalar accesses and prevents the
-> compiler from splitting, merging, or inventing accesses.
-> 
-> kvm_xen_schedop_poll() publishes the single port, or -1 for multiple
-> ports, before setting poll_mask and halting the vCPU.  Event delivery can
-> call kvm_xen_check_poller() on another CPU while the vCPU thread publishes
-> that value or resets the field to zero after returning from
-> kvm_vcpu_halt():
-> 
->    vCPU thread                         event delivery thread
->    -----------                         ---------------------
->    poll_evtchn = port
->    set_bit(poll_mask)
->    kvm_vcpu_halt()
->                                        poll_evtchn = READ
->    poll_evtchn = 0
->    clear_bit(poll_mask)
-> 
-> The plain read and writes therefore race.  KCSAN reported:
-> 
->    BUG: KCSAN: data-race in kvm_xen_hypercall / kvm_xen_set_evtchn_fast
-> 
->    read to 0xffff888112f55af0 of 4 bytes by task 98:
->     kvm_xen_set_evtchn_fast+0x204/0x7c0
->     kvm_xen_hvm_evtchn_send+0xab/0x100
->     kvm_arch_vm_ioctl+0xb31/0xd90
->     kvm_vm_ioctl+0xf42/0x16c0
-> 
->    write to 0xffff888112f55af0 of 4 bytes by task 96:
->     kvm_xen_hypercall+0xd8d/0xf50
->     kvm_emulate_hypercall+0x157/0x1d0
->     vmx_handle_exit+0x40f/0xae0
->     vcpu_run+0x137f/0x27d0
->     kvm_arch_vcpu_ioctl_run+0x5a5/0x970
-> 
-> The field is an aligned int on x86.  Access annotations preserve the
-> existing matching, callback, and poll-mask control flow while making the
-> single-copy access requirement explicit.
-> 
-> Fixes: 1a65105a5aba ("KVM: x86/xen: handle PV spinlocks slowpath")
-> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-> Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> ---
->   arch/x86/kvm/xen.c | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-Reviewed-by: Paul Durrant <paul@xen.org>
+From: "Zenghui Yu (Huawei)" <zenghui.yu@linux.dev>
+
+The Statistics section refers readers to the DAMON sysfs interface
+documentation for how to read the statistics, using a ':ref:' role.
+However, the role name has a superfluous 's' appended (':ref:s' instead of
+':ref:').  Moreover, its target label 'sysfs_stats' does not exist; the
+correct label is 'sysfs_schemes_stats'.  Fix both.
+
+Also fix a typo, 'frequenceis' -> 'frequencies', in the Adaptive Regions
+Adjustment section.
+
+Signed-off-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
+---
+ Documentation/mm/damon/design.rst | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/mm/damon/design.rst b/Documentation/mm/damon/design.rst
+index aed6cb1cf483..08c981c1dd91 100644
+--- a/Documentation/mm/damon/design.rst
++++ b/Documentation/mm/damon/design.rst
+@@ -249,7 +249,7 @@ For each ``aggregation interval``, it compares the access frequencies
+ sum of the two regions' sizes is smaller than the size of total regions divided
+ by the ``minimum number of regions``, DAMON merges the two regions.  If the
+ resulting number of total regions is still higher than ``maximum number of
+-regions``, it repeats the merging with increasing access frequenceis difference
++regions``, it repeats the merging with increasing access frequencies difference
+ threshold until the upper-limit of the number of regions is met, or the
+ threshold becomes higher than possible maximum value (``aggregation interval``
+ divided by ``sampling interval``).   Then, after it reports and clears the
+@@ -875,7 +875,7 @@ the scheme is deactivated.  Note that, unlike watermarks, even if a scheme's
+ ``nr_snapshots`` reaches ``max_nr_snapshots``, monitoring will not stop.
+ 
+ To know how user-space can read the stats via :ref:`DAMON sysfs interface
+-<sysfs_interface>`, refer to :ref:s`stats <sysfs_stats>` part of the
++<sysfs_interface>`, refer to :ref:`stats <sysfs_schemes_stats>` part of the
+ documentation.
+ 
+ Regions Walking
+-- 
+2.53.0
+
