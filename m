@@ -1,61 +1,62 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C015B331EC0;
-	Wed,  2 Sep 2026 12:27:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD13C45C6F8;
+	Wed,  2 Sep 2026 12:28:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352060; cv=none; b=ff0E78jbLAWeveyXa6YMmzn+vRxD9QpAMWxRkSEoPviNXWI/weVNbCsuQMR++Iwukj6p4na7GEuzqSTzFv+PazifzucNbJlgffvrBQaxI2Mu7ZVmWL2lAgZmH6Yx7wK9iKacGtd6Ne1tsFvmyo/Uf7eOzBT48Qcjg2HmlEkI1es=
+	t=1788352103; cv=none; b=EoWqsdBDdCMV3nhAmckaV/5tuzqKRJ7ov1xrdcRPYpAr8cCoeKLwEyABniIGu/Dh5Mx/d/9YL/7GgfuKZlGoywHAa2vaukX2euPfptnP5tg1aF6llTIceplpsWSEc1LaueWpI8Ox0doQCQJKAEj65IlQqEFO4eHx1RsI/s44WsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352060; c=relaxed/simple;
-	bh=4cq2HBhW+HrAcYFOG0hzBoWqbEEXw2VR6ZaRxyssg3k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hs1rq+Md0AzItY8lPp7u3Tus+mZE/UKvKnX6JNXPojKC1cuPqGwJzoXDia6idXvWzsf53LOHW6wO1u3QP1Mk36w0Xox/E1Y1RNvtYQ3oNEhbJ50RGxmPdXQKDwUN4WCKFqN7IbJwJcU/C3Np4z6XA0Rlzo2ZhIIgZsAasLx7HjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Txj2ypat; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Txj2ypat"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1F171F000E9;
-	Wed,  2 Sep 2026 12:27:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788352059;
-	bh=cnKcgrQs5tMh3nA6DdHEwIWbMetx4pzMXVC7Ml8du0I=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Txj2ypat54asZadW/Fn54L9/6HualZ8FALZ3ejT0POf2I9vfgy0s3FkIDhTNEeqdg
-	 o+gS6dx4FmmPZwdyqBABESwihvT2RKveMN10QLMFgeGIWafsjzjFcGii/mrZ3rfA6c
-	 iQQB9mxzcsaCJbuoESGHw04uK0bdfhAHQt0b71yMn/0rje+xcxV7td9erbOU6FX80L
-	 aiH+T9PumvqLCZDuEV37jPK5ZpTWKutORmshy/Toe13xHEBYKtBOxGqkrYgpSJrdQR
-	 s5/0TcXibaHpnDtfK53SRC3/NuknE3pQS9e65jPb+guW9sIrexCFLFR4H0GFMjDhFv
-	 n2GeC1mbdjvag==
-Message-ID: <3f6b4a6e-d4b2-4b2c-b4da-2a750f9afc96@kernel.org>
-Date: Wed, 2 Sep 2026 14:27:36 +0200
+	s=arc-20240116; t=1788352103; c=relaxed/simple;
+	bh=4TQvM/PrMYY60xczAP81RVkG7wNLlagwqrKAcSs+AY4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Sl7zDtxPYlljRK+HMq8sGgWHXYTL4GMc9OOZui+eG2KuuzibTYeAusf0l1DJESssseASwWuNcuQYcQJeT3+NPZZjUIb8pJ26rATJ5RDF0MSGYnkcPcyvnqnGqjfm+ju8TvOnX8k/PNJUge7QQskj9PDt9snV5+zdMaYHbI/jk10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D53481F000E9;
+	Wed,  2 Sep 2026 12:28:18 +0000 (UTC)
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: Nirmal Patel <nirmal.patel@linux.intel.com>, 
+ Jonathan Derrick <jonathan.derrick@linux.dev>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ Krzysztof Wilczynski <kwilczynski@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, Rickey Bartlett <subtexel@gmail.com>
+Cc: Kai-Heng Feng <kai.heng.feng@canonical.com>, 
+ Keith Busch <kbusch@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260825043220.9047-1-subtexel@gmail.com>
+References: <20260825043220.9047-1-subtexel@gmail.com>
+Subject: Re: [PATCH] PCI: vmd: Flush initiator posted writes before
+ demuxing interrupts on Meteor Lake
+Message-Id: <178835209832.79920.2886314748680261549.b4-ty@b4>
+Date: Wed, 02 Sep 2026 14:28:18 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] MAINTAINERS: add Abel as reviewer for Qualcomm clocks
- drivers
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260902-maintainers-clk-qcom-add-reviewer-v1-1-dd6b6799b494@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konradybcio@kernel.org>
-In-Reply-To: <20260902-maintainers-clk-qcom-add-reviewer-v1-1-dd6b6799b494@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.15.2
 
-On 9/2/26 1:58 PM, Abel Vesa wrote:
-> As agreed with Bjorn off-list, I'm stepping up as reviewer
-> for Qualcomm clocks drivers.
+
+On Mon, 24 Aug 2026 21:32:20 -0700, Rickey Bartlett wrote:
+> Meteor Lake VMD (8086:7d0b) is affected by erratum MTL016: the VMD can
+> signal its MSI before the posted writes carrying a child device's DMA
+> data have landed in memory. vmd_irq() then demuxes to the child handler
+> while the child's completion queue is not yet coherent, so the handler
+> observes no completion and returns without consuming it. The I/O is
+> only recovered when the block layer timeout expires and polls the queue:
 > 
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> ---
+> [...]
 
-Acked-by: Konrad Dybcio <konradybcio@kernel.org>
+Applied, thanks!
 
-Konrad
+[1/1] PCI: vmd: Flush initiator posted writes before demuxing interrupts on Meteor Lake
+      commit: 95ac22dd4bf13373f90bb6d51bcd1fd1d8f5db54
+
+Best regards,
+-- 
+மணிவண்ணன் சதாசிவம்
+
+
