@@ -1,99 +1,121 @@
-Received: from out30-132.freemail.mail.aliyun.com (out30-132.freemail.mail.aliyun.com [115.124.30.132])
+Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD233403F5;
-	Wed,  2 Sep 2026 02:26:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.132
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05D7C360EF3;
+	Wed,  2 Sep 2026 02:28:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788315988; cv=none; b=MjeHcRcpNVXhT8bs7c9MsRbsKI/8gyqok/6qAkwoB/zGqKnK4UxU8n2P1Vg0ZguUxE6kBa/fCsbgBsPcQsiDrB4bnvCdhcS2qYA8J5WQxng00h++Abq766hRHOLDqZLqTDr0k5MZfJ6ALkU+gFYkHBxhgaMkTyaCYUbALjoWkuA=
+	t=1788316105; cv=none; b=Be6TI894zxy/a7lD0F4+dWCEMtkt7OriFWGl+fEQ4kLljg8L9QLZDYd5TFJdk7+05iYeGlWQ4vcWgVCSxhgMFl7U+W5uIPCHhnODHHFgo+ZRJkiV0Qth/cAAAa1aUfTRP14bFVG2UJIP9RhGglbV4tMUD9MBze/9XdEOHJfGz24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788315988; c=relaxed/simple;
-	bh=HNu9ObHaCBJiGnVzsvKFTrJmpoC3XCqqe9WmgMRFZcg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YH19QbX1kT5lovaXCxAPvgkNBV0/ovZAa2OjgoOkuxP5G4Funi5/HBGhde+ee+C9gxyoOOuyTnRj1OB1sHmZquEX+q5OjgPpD/HH9NFRZi22OjC5NzvgYu7J78fWNsaJxamQyz9oue+mt99t9hFo+qMBUAvzMqjbZJQwSRXMWM4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=H9o7OWem; arc=none smtp.client-ip=115.124.30.132
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1788316105; c=relaxed/simple;
+	bh=R+qiKdqRJ5cNFgVlSrg8alIQKP3U7exe90LEPSSzFzo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oF/NMH8iUPf8fqgF44RmDpYO+xLxjQnS28sH7Pf7hd7G66GHMoHm+1jl+Xur7ZUJJV9p6joSaimDdBr9HvPckOmbcfBqbDeJyLqmsrQlSwN97BrrOppPbLTlVJ+HjPAvRD50VW8Kge63EV7qWCryGn8eVWtxbA8eGsyZ3XLpUXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=WTXwYvPf; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=h5GQgMGa; arc=none smtp.client-ip=202.12.124.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="H9o7OWem"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1788315977; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	bh=V/dlReRWmcpaJacPAy+g1eVWzWtHIWi93ITfcA0HWxA=;
-	b=H9o7OWemVgfsW/cZY27+sW/xPMYrW2SFt2gqm/rnHq3VJbuWk/Jcby2RhMlXH+T3kaW/cOYKx0161Ol5U8aqp8hWyintsOTM2p0CtNFaQPQT1OIvV+HqFYsiSy/K36B/cdfcH0u+602+60YoJbMTs2PT9Rl2n2qJY8tM6bteiDw=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R261e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=cp0613@linux.alibaba.com;NM=1;PH=DS;RN=22;SR=0;TI=SMTPD_---0XAArZhl_1788315971;
-Received: from DESKTOP-S9E58SO.localdomain(mailfrom:cp0613@linux.alibaba.com fp:SMTPD_---0XAArZhl_1788315971 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 02 Sep 2026 10:26:16 +0800
-From: Chen Pei <cp0613@linux.alibaba.com>
-To: bot+bpf-ci@kernel.org,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	memxor@gmail.com,
-	bjorn@kernel.org,
-	puranjay@kernel.org
-Cc: ihor.solodrai@linux.dev,
-	eddyz87@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	pulehui@huawei.com,
-	pjw@kernel.org,
-	palmer@dabbelt.com,
-	shuah@kernel.org,
-	guoren@kernel.org,
-	bpf@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH bpf-next] bpf, riscv: Register extable entries at probe insn call sites
-Date: Wed,  2 Sep 2026 10:26:08 +0800
-Message-ID: <20260902015152.16104-1-reply-cp0613@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <46b7038550e5d5ed680c36ee4e9bd96429b9bd85b600c257a254fe73b17d6e19@mail.kernel.org>
-References: <20260901120013.16104-1-cp0613@linux.alibaba.com> <46b7038550e5d5ed680c36ee4e9bd96429b9bd85b600c257a254fe73b17d6e19@mail.kernel.org>
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="WTXwYvPf";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="h5GQgMGa"
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+	by mailfout.stl.internal (Postfix) with ESMTP id DA9961D000E5;
+	Tue,  1 Sep 2026 22:28:22 -0400 (EDT)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-11.internal (MEProxy); Tue, 01 Sep 2026 22:28:23 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1788316102;
+	 x=1788402502; bh=EI7ZcjlIisAiLrgFRMX5lSZYM59HzE1LJ1ifaxB1Pvw=; b=
+	WTXwYvPfSbZttL3YpbRAcEst22UICkp5+tamoV7C65FgdP0xAHIeaXaMqrYoIcpq
+	sjAIbU7Ek/DiLVPP4I29MU8BY0vOHK6N04FmD8mx+jnRN3NWn2da9uIZAQ4nRS+y
+	GUaPrH3M+36pS8urYQgKTBvbi8Z8yTpcj6bKfEaD3Lm9TlNN18vZgPfWKsd7w1ry
+	YHMCmUOnfhmbwKoiB5WhUJIw3jpgKnLwrR+tJtSVUzuQMHEq9VbHVswgpFqxAbTa
+	OvcOUj5GnEMY8el/VlZOJbKHF6ctkAJaSIMMBkIMIzlh+2n0wW9SPVDFaqYeqRRo
+	GiCInb91agOtW07u+wDflQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1788316102; x=
+	1788402502; bh=EI7ZcjlIisAiLrgFRMX5lSZYM59HzE1LJ1ifaxB1Pvw=; b=h
+	5GQgMGaCYtM78h4zoq1yIZqQkMG7r8uEjLnhh7e+4lvK8U6foyHyIrH/gMTEvP9D
+	Q5Tp3rZFpOeZEc8pqchCMsqeWddyk7omw1oASlWUXbi6hr0q8zdGgfr+wBGnR0As
+	rhRm2b/uo/n3hiyJxIjjRh7zJlC6HU3KsVCN9mrbgD7dYIcTpp7m2b6OQbXawUhe
+	TvDskgHcjMp9e73aZvSn6vA9RbT7C8ixJzhmJkxR41raqW066yTJiYBfyUuc6iDa
+	6J7dKrCWQ0rHfsIKQ6Zf2Dp58QD8kbBy0vyWL+MWnN+awqvKhqVzWjsFmOfeGvqb
+	pyVF61AcrvODeuyTtL34Q==
+X-ME-Sender: <xms:xomXalZu7kfGD0ZeyaE7-wpsqGQMYcgibxmNis7eWLzV_H3BZRSxjg>
+    <xme:xomXaqElAizhp6MxlHLUiS_EPA-f1oo6pWOz542CRVF_Z5QFo5EBRSJN8JaQH_v2t
+    IHgFSWI5LIB7z5OvqJSIC5Lu4w7PHFrXbbU6p9K4zfFTFhBf9CZT50T>
+X-ME-Received: <xmr:xomXapuVl0xY5fO2Ugd_8KuBEZa0zQBr2eTHch9JUsVPCAlYoORhxVYNDK52uIwpDOyoC3wLOVo3VYBWF1C_oP9IjtRwCbac>
+X-ME-Proxy-Cause: dmFkZTGZIqB7RdmiXnTnJhk1iAJ+kQyg0bM+2g5pmHyvo6+Z8YDZ4TR6To6F4BY5LTVYmt
+    N+RcMrM2OnX1r43p+az7tgT+Xz7ZPEF/8I7Oh5TSjN3lOb+LV6x6RMf8sKoDT4DUvTLdCp
+    Gu697CnpH7gRI6X5zwpUT7yyk4L8xchG3nXlrZjCLOPJTEYWOxISTLMdLpqUiJ44w87T/S
+    f+TqQoZD372nDckAArA1FRM1iGMEW6sI7Ku7fqSIaZXF6ZJjO/sQ+xX7qUJXCElIvuwHM0
+    HvQJ4G1xC11MfW3CsYqj22I7hic2xi7bg+lxuILhJy5AS+9wBDU43GURjhDdciB4aOAiaW
+    CDKfERb+NRA7SGFx3+WVdh82PUMnh6kbdQJWbWfmLheXVvsqqIB4WaxOWnAKY2dohVHcOE
+    RP8S1KHonSWvb3UB9Cqn0Tnuz4O9SAItpVbH4LN7IBowhMNHtUfjJTt4pU50bXJrhTvZxi
+    6zNEh/rBtLJM1fw1FVJUjSxmdj51+ZrBfUr86sa1cfZop5ryYp1e0DZX4XguCqY169RrLO
+    3In4kFpDHPNdsFXvAkf1H4c1VKQ6ICA2i074Y8jJk0CYcS3qucjp+yxJuTDffGCRo8+Eap
+    etsHB8gs3e++nmmCqHhZdNn9wqlrQAkRnWO/j+BI5x8MA84kWNb3RMQxu/+Q
+X-ME-Proxy: <xmx:xomXagKuQ535n4Pb0ecZa4yVLgVIh_kVioX-GGJEqhURHTvhA-XrSQ>
+    <xmx:xomXanN5WqozJWnkJDNaomNdrxdne0AvpEKt36aPLeC_0g-bK2dPEQ>
+    <xmx:xomXaoYpcYvU01z5upBpTE-ECMX96-Iy6rOJ-jCFAKqMOrNy_6u4Rg>
+    <xmx:xomXajzGE1AKCI5A_psZmRJJt3kocyP-_iJgvYt8ALoJNmEiGhWq1Q>
+    <xmx:xomXanIJAKlfmEf1zX08L4gL_3CrxajlPTYdTbwHmlfTvtiBnIAqo_0s>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 1 Sep 2026 22:28:19 -0400 (EDT)
+Message-ID: <eab24620-7ad3-491f-a618-3dfc20f5a189@pobox.com>
+Date: Tue, 1 Sep 2026 19:28:18 -0700
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 00/99] 6.12.108-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260831133359.740409777@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260831133359.740409777@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> This looks like a bug fix for the fragile mode-based filtering in
-> add_exception_handler(). Should this include:
->
->   Fixes: b4757714cc63 ("bpf, riscv: Add support for signed arena loads")
+On 8/31/26 6:33 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.108 release.
+> There are 99 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.12.108-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.12.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-No Fixes tag, because the mode/class collision has never been a live
-bug in any released tree. b4757714cc63 introduced both the
-BPF_PROBE_MEM32SX support and the LDX class guard in the mode gate, in
-the same commit, precisely to keep plain atomics (which share the 0xc0
-mode value) out of the exception table. Its commit message says so
-explicitly:
+Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
+no regressions observed.
 
-  "Since BPF_PROBE_MEM32SX shares its mode value (0xc0) with
-   BPF_ATOMIC, the gate accepts it only for LDX class instructions so
-   that plain atomic instructions do not register exception table
-   entries."
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-For context: I noticed this fragile shared-state gate while working on
-v1 of "bpf, riscv: Add support for signed arena loads", where the class
-guard was added as a preventive measure. This patch now follows up with
-the actual cleanup, making the registration decision explicit at each
-call site so future probe modes cannot silently collide with legitimate
-encodings.
-
-Also, regarding sashiko-bot's separate concern about BPF_PROBE_ATOMIC
-cmpxchg without ZACAS: that path is unreachable, as arena BPF_CMPXCHG
-is already gated on ZACAS by bpf_jit_supports_insn(), and
-add_exception_handler() resets its offsets after every registration,
-so stale offsets cannot be consumed. A separate fix I have prepared,
-"bpf, riscv: Make arena support depend on ZACAS", further rejects
-arena map creation on non-ZACAS systems altogether.
-
-Best regards,
-Pei
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
