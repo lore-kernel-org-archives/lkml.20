@@ -1,125 +1,109 @@
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com [209.85.210.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F354746A5
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:26:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788348387; cv=pass; b=TlBdLipua7CalZOQFbr2ZbQnV4Aek24yg/xZrmCeMoT6zyAoj1bQPxANA4uSt83MiZz1rVKUIiUwrixHYLsbjll4oU8KbDNG7hJP6PFh3Bet320Om9RsvLi5jV79mcBj2jSMsvecpdq52nA2h7mnF8seK6B8J327vrh6D5Wn86w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788348387; c=relaxed/simple;
-	bh=FyDbbZPYKYMWaFjRS+uVtqLuXGG9Q0hCZIMV3hMspcA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WJCj2z8Ur6VzRvUopNorpTUVeCOxDzc0XmR604dzFucJgppnPue1eUHoHjile82THgiUl8beddFJ7g7rLI4vMlj2FjQl32fdU2FbgsIVW7K+TlvN1uYPF0dFnxCCPlLHdY6SJxlxEVPDzsLovzaLQQlWAptovGuFOAkcejSdohI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oat9md8c; arc=pass smtp.client-ip=209.85.210.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4BAE46D570
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:26:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788348419; cv=none; b=Sv1TxdRVeCDWnXID99dRfEDLhtrwgt/gxX7ubRS3KeHIPw+RK2p1gAhexKX4mbIEu350sdoLkyCSmr9YrCTGoP7uC1DNgLR1wqi7hw2n8HsFNwsunYbkkDpCRwcKuVWcUU+IZZx/by6THSaayJleU6qQuJPG/sUu06rYaYamZ+U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788348419; c=relaxed/simple;
+	bh=R99blkJ0BdN4HbZjowWx6fI1h7ps3V8oh+MSsd1Fwfc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jncCXCsM/rYw5vIv1ai1NJ0WIoizA0DOqlZ23FJ7vwXxivWqCMbrzHWug0rrn4BtTgjFhYhuvsPoZdY14Pm1En53atRm1c4gLRve8jpmI+1knei6ublpNoMOrSwsqPDoAfKfmvDcQoJj2/q2v1q1GkECBwedEyBPZY5HLb2FXwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=YptHwRGR; arc=none smtp.client-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oat9md8c"
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-7eb29ed2bbdso539012a34.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:26:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788348385; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nR6izJV8q36GIEC5hkDZU2LQComzJNZu8TmjhrcHzMuFnafm6LwZ7NBupmH9fDx4iK
-         Z1x8XT/VhKebM9f0TLpEhf0W0RFQlVZj659rqVAgZCP5dtbCK5PGxfaNU7Q7x7AxFOs3
-         7UQJwyFGoAXzuI3JemcQf5l1s/Ya3eJS8DoaX0OuG+LeE5UJw2I5OlTJhQRO3Ycr22fC
-         WZXEKlY9uD6qNBrDEqCYi1+1p0wjrD5OIuCs9C6c5XKVWKY7yOwZujWc9+V+hzuzp48L
-         6KPr16v6S+9eYK8SCoXeiDX7NtABERXEYTOFluhB3xmg0JnBQclwywWyfVxOOkwWX64F
-         BKCA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=wcmJkyCZLmx9JarKkkbqP9BwAVB6mlEmU2z7IeOq2cU=;
-        fh=BkJqmSiO+WSxKuY3+sIb2i+jXmuq3pBHPVndx083wPc=;
-        b=qrIowi8YeEkDu/HCxFRkjlEYYZBTAv/gc6dBf1XD7M+SMe/h26rbwJOgHKQw7JN2EC
-         H5mrz4PqZU+6AFLPv2gOYZK7ZLAzDPLT/pwpXP4OeHXvDcSBMAs8uTuSeqgNG4JU//Fi
-         FLpVtJv+z7qbsUpbuumwUGaYzyuRrsUg2c3m55Ss1I8gRGjBHI8B32HfMgcbjZpPdlDc
-         Q7puFdYr0sfvQpZh24TYdpcKpPghMHuXYvN6gT5GVUsWPLJ75Sn+k4KIzPUKdImDxVaF
-         LuCjx19IJXBIXzRwRzHDnlNkflLuu4GupDrrp/s4T7UxNBxskF0yWl5Fq+4yCXXKKJ8e
-         /3mw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788348385; x=1788953185; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wcmJkyCZLmx9JarKkkbqP9BwAVB6mlEmU2z7IeOq2cU=;
-        b=oat9md8cLHgMKacdTbsFMfULsSoFZ0Wa33mafEkAUUwUyV11mHicsJ4tBTXkYNIxa7
-         N6ZFqx6BYmGETOEATtBFlL3YDHe1ANJy+jREDXZIcHOwJEGmKwtchqrHzoB3NYO3WRAm
-         5TRMqejHd6AGihJ5b4xLSf1krLPv1Ix15QikmFMOlqyyddUc721QL7DpxL4yYnUdRCpJ
-         u+r9uQuQ+nqrjfl7fKp3H8kNMyl/GsrXQsAP0WuaAs154WCLKW9DngnxrxF7Bv56rOsQ
-         GkWS1VpEgHbGgpXdN487gDjtsjPqeHA/CXgAj+BoYMvMd8y3/cNnLHDuW5xbILfSNNj0
-         /Q4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788348385; x=1788953185;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wcmJkyCZLmx9JarKkkbqP9BwAVB6mlEmU2z7IeOq2cU=;
-        b=SwBOnK4vc27K6R+kJQPPFUyltyo+t1cHaRMp3fyGL/obYdEsKgeo2jprlc7t419x8+
-         MCddD+2d/6Jdsj3FSLZ3yCpnkETms0gyUHNvdhJcN5ZiE0Une1GX2aR2g+t45EuepO77
-         3XYuMwA0ajn5O63+rn2Qi+i7obPlcWQwkBm5gzkmsdHTjuD9/VCaNLKUFKB5s7CNb2si
-         v1boXEG1wY7YJt/6jlgcAvUl5VZcITZ5O5Yay/us+gVSyT2EAuYYqqWG7sZ0pLzhPDtf
-         mPVSHEm6lq+JoUezf7o5bkcxUGavIdHJGfEQQG9zs4iewjRB+ARmFv7beN4Dko35wXPv
-         lc0Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rqe+912rt2EEn8LxywWJgAbvWpYR6OsDHyFfG0pI2KEdlX+ZjK4bP9Qdj9hchdRI/kIjFqM6xX+MRYyol8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kxMLfHZyyVlXLyC8crH5eKuskwdtoDbjoXWb+e8+FipIWxyibi
-	gZ/f7Moo8ro0mnR2407lq+0TPsIehphSPkR3gv1D4lzTCxytikP6YgOvQIvElXBDrlLgQr0PTkP
-	84p9UhOaoL+8FxXhlcZ/9k8fDdO5CzzR3VGHq
-X-Gm-Gg: AR+sD13FOn3IuM2t5En0zs1JP3UVQ7m6rvquxqET3rva0m2JXwBbeBt647tiVnoAy3y
-	j92c+kqeb0dSDmBKLqKEIVDZc1eLG8W9h5KT1SexTXq1+HMQyl0Pi8lOfIAGShHSxLNr0weULW2
-	b/sbj9yTLmQzNygbe+N+78Hgyglwqwp4f3O5FHYJPHarrPO8mtDuixOg7jS5gr8Cycun++gQniU
-	cpmSJL8i5Dx+M0S1keVDtADrKA7NdVaamQWd3uFyXjm8YUl2hXNUoyDkYK/ixidz6RCW0uhYbnr
-	9fUscGqmsD6RIpfrHpdXFDh4Aq3Jg5UURv1Pcr+XTLb2ddR9LtOjX8phC7S4b8/I7928nB2SDv/
-	+8sZGUMfjEd3v214WN+oa0B9WbsPqrfhUghOtuUVptwxk
-X-Received: by 2002:a05:6820:4c83:b0:6b1:be9f:ce6c with SMTP id
- 006d021491bc7-6b47ecca88cmr3371164eaf.4.1788348384937; Wed, 02 Sep 2026
- 04:26:24 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="YptHwRGR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Dy
+	/VpdoAJJuABggCpD8DaFybP1TUbiVgCdsTwtVmkL8=; b=YptHwRGRdxZrwAl555
+	34u//tVteZfK2S6YGNpTFpkBWVCFF3vt3grqwII/iPQ61SUEIX76L/6GfnAK8gwR
+	PD3HdQUB95ypEyXZ8gQlmlLxNPZonKuBEj1qPv0hTyrS1Ixm7wyaZx89yFB2aGd7
+	VKpF83vGcQflImO4ZRdr8IF1M=
+Received: from localhost (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3n3mzB5hqCTZ9AA--.19778S2;
+	Wed, 02 Sep 2026 19:25:40 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: mingo@redhat.com,
+	peterz@infradead.org,
+	juri.lelli@redhat.com,
+	vincent.guittot@linaro.org
+Cc: dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	jstultz@google.com,
+	connoro@google.com,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] sched/core: fix task_sched_runtime() for proxy execution
+Date: Wed,  2 Sep 2026 19:25:39 +0800
+Message-ID: <20260902112539.879979-1-sh_def@163.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902064437.1376-1-yanlonglong@kylinos.cn>
-In-Reply-To: <20260902064437.1376-1-yanlonglong@kylinos.cn>
-From: Ming Lei <tom.leiming@gmail.com>
-Date: Wed, 2 Sep 2026 06:26:12 -0500
-X-Gm-Features: AcwNN1ULId5dgyvfzhvLeQbUKIYfl-Wufo2Tsfts7a1j3EvoRrStToG4vaJ75pk
-Message-ID: <CACVXFVOYhYd14pvXAVni=tCnbaJ4AKbOh3y7L=0qWY9+e14=bg@mail.gmail.com>
-Subject: Re: [PATCH] selftests/ublk: add NULL check after calloc()
-To: longlong yan <yanlonglong@kylinos.cn>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3n3mzB5hqCTZ9AA--.19778S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Zry5Wr4fJr4fCF48tr1DJrb_yoW8uw4UpF
+	WDZFW3tw48ta43KF1qy39rW3yrG39xG3W2grWktayfZrWFq3WrKryYqw1YqF4jyr1SkFWa
+	vrya9393CayjyF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UDMa5UUUUU=
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6RSvD2qYB7Q-AQAA3i
 
-On Wed, Sep 2, 2026 at 1:45=E2=80=AFAM longlong yan <yanlonglong@kylinos.cn=
-> wrote:
->
-> Three calloc() calls in the ublk selftests lack NULL return checks,
-> leading to potential NULL pointer dereferences on allocation failure:
->
-> 1. kublk.c ublk_ctrl_init(): the allocated `dev` is dereferenced
->    immediately via `info =3D &dev->dev_info` without checking for NULL.
->
-> 2. batch.c alloc_batch_commit_buf(): the allocated `t->commit` is
->    dereferenced in the following for-loop without checking for NULL.
->
-> 3. batch.c alloc_batch_fetch_buf(): the allocated `t->fetch` is
->    dereferenced in the following for-loop without checking for NULL.
->
-> Add NULL checks after each calloc(), returning NULL or -ENOMEM consistent
-> with existing error handling in the same functions.
->
-> Signed-off-by: longlong yan <yanlonglong@kylinos.cn>
+With proxy execution, rq->donor is the scheduling context while
+rq->curr is the execution context. Runtime accounting charges
+sum_exec_runtime to rq->curr, while scheduler-side accounting is
+charged to rq->donor.
 
-Looks fine, all needn't special failure handling:
+task_sched_runtime() currently flushes pending runtime only when the
+queried task is rq->donor. As a result, when a mutex owner is being
+proxy-executed, it is rq->curr but not rq->donor, and its pending
+sum_exec_runtime is not flushed before being returned. CPUCLOCK_SCHED
+reads can therefore observe stale runtime until the next scheduler
+accounting event.
 
-Reviewed-by: Ming Lei <tom.leiming@gmail.com>
+Check whether the queried task is the current execution context instead.
+The update itself must still be performed through rq->donor->sched_class,
+as the scheduling state belongs to the donor. This is particularly
+important when the donor and execution context belong to different
+scheduling classes.
 
+When rq->donor == rq->curr, the behavior is unchanged.
 
+Tested with both RT and fair donors proxy-executing a fair mutex owner.
+Before the change, CPUCLOCK_SCHED reads repeatedly returned unchanged
+runtime during confirmed proxy-execution windows. After the change, no
+stale reads were observed. The non-proxy control case was unchanged.
 
-Thanks,
-Ming
+Fixes: 7de9d4f94638 ("sched: Start blocked_on chain processing in find_proxy_task()")
+Signed-off-by: Hui Su <sh_def@163.com>
+---
+ kernel/sched/core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index f78275192036..83a82a4d1087 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -5706,10 +5706,10 @@ unsigned long long task_sched_runtime(struct task_struct *p)
+ 	 * project cycles that may never be accounted to this
+ 	 * thread, breaking clock_gettime().
+ 	 */
+-	if (task_current_donor(rq, p) && task_on_rq_queued(p)) {
++	if (task_current(rq, p) && task_on_rq_queued(p)) {
+ 		prefetch_curr_exec_start(p);
+ 		update_rq_clock(rq);
+-		p->sched_class->update_curr(rq);
++		rq->donor->sched_class->update_curr(rq);
+ 	}
+ 	ns = p->se.sum_exec_runtime;
+ 	task_rq_unlock(rq, p, &rf);
+-- 
+2.54.0
+
