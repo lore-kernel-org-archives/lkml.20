@@ -1,68 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 293AE3A83A8;
-	Wed,  2 Sep 2026 12:59:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D6B32824B
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:59:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788353952; cv=none; b=IbDpJTSPJ4b+JCYqdUZfb+SD5ypJvDciTVSA19tv7TIfBDglgy1yhX3G7BTDW7HLNIzs3fiCUmS+fw3QX/v0hBM5M4DXXM5fgDw2JHy/J2PRQjADtwgSHlSKjJ0NqI/3LQX5OWYchD+zAhFrwQGGT5rxDZ6dNPUNSm3tRrUk2X4=
+	t=1788353972; cv=none; b=pqK27IAQEuspYbPSVKPagcT8UrCYoBcjjpVmmL1kFodWQp2KYzIZGaT69Ts32JTl83b/+t/9+G/X78CzWrzlGCKSDmQbPqv474JQrXdIR6xXFT3oMCXLvWO2u35DbpQsEMBlnhFB3Ho9k0pVl2rGAO12zJUxQnMhygCrUJLIG0I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788353952; c=relaxed/simple;
-	bh=dlu+G5N0rLiUgaFmkUsCU76BkL25uYsMQL+sKXGb6x4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=aLQ5QO6gkYG22sOaka6HBcaT5NxgKBEh19/wUS70aidQ7IQDxJJuujOdta7GdNuwv0JTmRucohoFQXGPpMOxHL+i+E/Obx+PKF9+4ENDIDp3MO+HTI2EcGShMuQzDVjYoupvmK83zpUakIuKxDKapIljt3P3FrVVd5zJLia9BZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oIsQ0zHO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788353972; c=relaxed/simple;
+	bh=dmJe+J/F+vYCqGcuQ3jcywh4Jc/H3IZgC2ypGBQHfp0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ry8jGsJ6CtrgPTeP8+Hqr0OggfBqIth+03WWaSi3XPVUBWEaLbT+c6iut6xCw2pijRkiBiOQ+pA1/kIH01yadgEBNnAo9qyn0UyG0Fo/200/mVHutDS2TSWLxysIw6sbrhM1vtVPyTyz56V27F5RRybCb89w7QnVtU1cRtUc/BI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pPkUxD/T; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oIsQ0zHO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7281B1F000E9;
-	Wed,  2 Sep 2026 12:59:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788353951;
-	bh=fw2l8OQKEt9/APsq1H1chBwWp4X6fUlHwraagDsilZs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=oIsQ0zHO+ed06k3DGbl+vJMgYc9/qQDmkupfM8Gw1F/plqgLG+IdUxrm9YwkXW8fF
-	 mn6P6LEY35szwW7YmMT0+XKgXMO6Jy+9r+RfRI/umejRv/Au/qVgzD9qlF4l1NdkjU
-	 Ev3HPKmq8moFr2ohR1DRF08obNp1fxDMojdycsh0SsknUQvsReIsX3JtTogouLaTVt
-	 iGwGlw5AKIkyZbJP74emKLkWVM01iSSAOpIattLy1FAFMjW1M5JaC6eQRYEv/X5nOw
-	 SygA6UEdAXn6pqriazxd6+XTIsXsgq8dwM+3yccwSz3ZgBdP7hAUblHniZX+gwS2La
-	 s2HcarfZpYmNA==
-From: Leon Romanovsky <leon@kernel.org>
-To: linux-rdma@vger.kernel.org, Yehyeong Lee <yhlee@isslab.korea.ac.kr>
-Cc: bvanassche@acm.org, jgg@ziepe.ca, linux-kernel@vger.kernel.org
-In-Reply-To: <20260818035229.505098-1-yhlee@isslab.korea.ac.kr>
-References: <20260818035229.505098-1-yhlee@isslab.korea.ac.kr>
-Subject: Re: (subset) [PATCH v2 0/2] RDMA/srp: fix use-after-free of a
- request in srp_destroy_qp()
-Message-Id: <178835394804.2431629.13448768133099421237.b4-ty@kernel.org>
-Date: Wed, 02 Sep 2026 08:59:08 -0400
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pPkUxD/T"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d9201076b3so12052075ad.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:59:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788353970; x=1788958770; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SqORnjd6nGMwkHINTVnkwjIgRmlTLFd4wtw4MP5cLxE=;
+        b=pPkUxD/Twrwtl8FSBb3jjo50HqDKJ5Gemks/7vWj7UFSxp15IkP+79KXBQa+Rf/0ff
+         K71gAHKDZiYsH1qwaLX8f2Sxmov+dieOamzQcATPeEyA93+m+CAOSgp49F+c1BmTLQxC
+         4w4UC6HQA8e7NBjdvKcRWNowO/PIazlUvQy+W5TlaPkLeBO+4uf6L62gX+UsMkE5x17v
+         zdCSvV/YvowcVkbMamIPnNYs1zqlsIAm0YSzFh9yN0OJhUyd59LA+VW8I9pOMakRsdmt
+         +MEVrpIRHQ/TJR7mbMILaRjeKdmRVTuppNyo1qd1iDx8vW1uBwRmnh6WcFmQ0gW/KLN8
+         jOVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788353970; x=1788958770;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SqORnjd6nGMwkHINTVnkwjIgRmlTLFd4wtw4MP5cLxE=;
+        b=W1u8gNfYorljkyWO8oO4t4GH4QyGjiyRfLbd7yIkYsivCd6iuvz0LlI/3SORCJTY6f
+         Vg3dKrfXWj2j6UAlmDf6oQKXwiCiaaE7hCnWWgFvgBR9xCIooNq54f/VTgMIdoCgpfih
+         eD4IkDw07mqMDVDeeTxE8lRYu03cd5yTO6CBPa+xRa8q9RbQAv/wmpMQgNB+ipp9wbbR
+         LiBZB5rfkrrJ/wDGSG/Mgw6S5u9wN8vKXOxWPYRR56rYaIrSJNYuRMJyzRpf2BCbhAmT
+         uS+sKQzXte57wyC1ds75+3f0JDd4wPVz3odXS+eM6bjmm0gkGsFhSW4ohmSmA8HKAQbt
+         +5JA==
+X-Forwarded-Encrypted: i=1; AHgh+RqjwHWiXwd+NfkSS12WjZA0AMgdIUurLRHu65J+/pzC/i1rDH/y+53WAkG6t53aNijZrDEuaxIQ5bIWs2c=@vger.kernel.org
+X-Gm-Message-State: AFuF++l178ovM6xLACuFBEEC/I9qrZvZHdMZxeop37H2JkHngBOi3DIg
+	X1WzFW9roKfQD0TAnO7dfWKy597tpMJa2cSczVa654jqCVrgVe3vVRaXRx4vPw==
+X-Gm-Gg: AYBFou0ssCUy9f7VtHpnpNo8oFuTxWRvYgUKE7weraEKPA2U4/Vo56skX3VyXPSWv9S
+	dkDOZPcSfERx7UEGgqa2d17/8WlWFFRvGgTMiZ6AAGAT8KgQ4ahv6vjovEVk+Y7lNUMpLwHwQWv
+	rnyz5AJmoFXSpbrdigQpxe5nhZAdEaNVuVf3nX2Iws+qyupCUXEvPD82NPNXdcHx96P10mwWGx6
+	eRJX95aNB08GbFwtwLTdZgcyzfUmO9fcsoM92CXufLT7py2Nqsi5Isoz+Qd1lcfJUn7GHGkI3Ii
+	G4XuErLTprHOaTLL1plmzCjReVUpKxcJG2oDjx5mAVpe574JqDnrzGKe1hvyS966gcOfxvm4t6x
+	2MtKaAY/JHDkdE+WrIVMz3kEIIOMPM98bRbn4cq2kklwqNEYQmpW88hqWyxdkImkHkD6bEr1avk
+	kL4HxMe/WXogAyYNb/Q9IkcQ3+c8w5eymo6VOFwyjF1vvQ3szBzZJkwceAUlMM2wxfXMDfhdpYp
+	w==
+X-Received: by 2002:a17:903:22ca:b0:2d6:3c2f:6a5 with SMTP id d9443c01a7336-2daec71f2f5mr60870245ad.14.1788353970437;
+        Wed, 02 Sep 2026 05:59:30 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dadd4a688dsm12228205ad.58.2026.09.02.05.59.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 05:59:29 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 2 Sep 2026 05:59:27 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: =?iso-8859-1?Q?Sebasti=E1n?= Peyrott <speyrott@gmail.com>
+Cc: linux-hwmon@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4] hwmon: Add Minisforum UM780 XTX EC monitoring and fan
+ control
+Message-ID: <7709521d-745d-4d1c-b68f-95337918fa43@roeck-us.net>
+References: <20260902000509.191115-1-speyrott@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260902000509.191115-1-speyrott@gmail.com>
 
-
-On Tue, 18 Aug 2026 12:52:27 +0900, Yehyeong Lee wrote:
-> Bart asked whether reordering srp_remove_target() also fixes the crash.
-> It does.  Against the same test target, the report appears in 5 of 5
-> runs without his patch and in 0 of 5 with it.  The drain still finds
-> the same two completions; the request pool now outlives it.  A
-> conforming target was unchanged over 5 runs each way.  Both patches
-> applied together behave the same way.  I never reached the SCSI error
-> handler.
+On Tue, Sep 01, 2026 at 09:05:09PM -0300, Sebastián Peyrott wrote:
+> Add a DMI-gated hwmon driver for the embedded controller used by the
+> Minisforum UM780 XTX with board revision 1.1 and BIOS 1.06.
 > 
-> [...]
+> Expose the CPU and system fan control temperatures and tachometers. The
+> tachometer protocol returns one byte per OEM command, so serialize
+> transactions and use high-low-high sampling to reject torn values.
+> 
+> Allow selecting either complete OEM CPU fan profile through pwm1_enable and
+> changing the two validated system fan transition temperatures through
+> standard automatic-curve attributes. Cache coherent settings and restore
+> them after the firmware reloads defaults following resume.
+> 
+> Signed-off-by: Sebastián Peyrott <speyrott@gmail.com>
 
-Applied, thanks!
+Applied.
 
-[2/2] RDMA/srp: Fix srp_remove_target()
-      https://git.kernel.org/rdma/rdma/c/9cdfad5dd5529e
-
-Best regards,
--- 
-Leon Romanovsky <leon@kernel.org>
-
+Thanks,
+Guenter
