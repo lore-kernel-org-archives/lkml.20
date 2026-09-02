@@ -1,64 +1,78 @@
-Received: from pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.13.214.179])
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022101.outbound.protection.outlook.com [52.101.126.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D17B24DFF9
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:22:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.13.214.179
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788319380; cv=none; b=n1Sd1MwRFqW9oxtOk0iujaAD1w8WmAO/wguzppZFJGbGYSUhPXW/qc0yy5EBSmc7s6BmdjXPcK0bRvrsT1M+VO2bm+UJGy5ZqT+7Hbc20PIC1uP1gTvKB+ONmmThHa4RoOJ7ai2QybRgVDFsBm0d406nAh4rkutqpys+Xd0ur+k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788319380; c=relaxed/simple;
-	bh=7o03Lrf1+YHaZBbxYDq6jalH1JH4t1UNWRp59bjnA60=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=npmgfnFnsq9AzGAcbAlSu56v/hSwj1q4C2zhquweD24mFvDuHAq9unDi1J7o4ISXa+t7IOdEAypiUjrjS7B4kr9XuhbL66IOYCIqmQi9mUKVulzqPPeJc+hYL7+vexTbPosT/gfNwNR2zOn3MyifldoAcf8AltTL4TxjdqXGtIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=D22Pp4v9; arc=none smtp.client-ip=52.13.214.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="D22Pp4v9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1788319377; x=1819855377;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=fDa24XfUwuNC5CheixKhacETQZ+iF+EhwNqflwAH/xY=;
-  b=D22Pp4v9E7TfiPcVUgTTtfbtRpLITXJjsL05UqlWeMQC0YQ2FcG1EEhW
-   vwEjM0ZRmbsjkSpyT81wgRRAFaUK1OgYm2TO+EXjPFtBq0FbEBxs3wnGa
-   ayCcp+qVDD5iFCr+bm5qlxy4c7xuQcxZuf1EPCXK0F9s7Y+A2iaQPodfd
-   D3BC0xtJUy3cai8c4NayhzCqQJ58ulGQ9hJ+m8PemCs1SdGvEW1KyT1Ij
-   8SsbScjNFLtVx5+g02Q9JIi25JcymQEI61JbUqoXbApT79QFFtEuhuvkv
-   SeN+FESYowvbkQXu6ugAZv3bkgvuRplXxpn6yNwpJZU1EEuJpntS+/P0W
-   w==;
-X-CSE-ConnectionGUID: VoRmV77YRkSl7cE9MTy5OQ==
-X-CSE-MsgGUID: 3UwuCVqpSieYpHF33aVWIg==
-X-IronPort-AV: E=Sophos;i="6.25,257,1779148800"; 
-   d="scan'208";a="27548269"
-Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
-  by internal-pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 03:22:57 +0000
-Received: from EX19MTAUWA001.ant.amazon.com [205.251.233.182:19572]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.55.52:2525] with esmtp (Farcaster)
- id 4e320bed-27ac-4bc1-9c81-17ec50b9090b; Wed, 2 Sep 2026 03:22:57 +0000 (UTC)
-X-Farcaster-Flow-ID: 4e320bed-27ac-4bc1-9c81-17ec50b9090b
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA001.ant.amazon.com (10.250.64.217) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.45;
- Wed, 2 Sep 2026 03:22:56 +0000
-Received: from 6c7e67c92ceb.amazon.com (10.187.171.39) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
- Wed, 2 Sep 2026 03:22:56 +0000
-From: Nathan Gao <zcgao@amazon.com>
-To: SJ Park <sj@kernel.org>
-CC: Nathan Gao <zcgao@amazon.com>, <akpm@linux-foundation.org>,
-	<damon@lists.linux.dev>, <linux-mm@kvack.org>,
-	<linux-kernel@vger.kernel.org>, <baolin.wang@linux.alibaba.com>,
-	<david@kernel.org>, <ryan.roberts@arm.com>
-Subject: Re: [PATCH v3] mm/damon/ops-common: use a page-aligned address in damon_ptep_mkold()
-Date: Tue, 1 Sep 2026 20:22:46 -0700
-Message-ID: <20260902032248.86780-1-zcgao@amazon.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260902001142.107226-1-sj@kernel.org>
-References:
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0244470830;
+	Wed,  2 Sep 2026 03:23:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.101
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788319397; cv=fail; b=pXw9tPMu3Idi4YpcUSUsL+hu5/sF+EF26VIf9uLKUU488zd1nzdBBGrkRnaMuaOaPddiFAiUqQHTWb0iLInSCUBaPBCTvC1ToEE8axTYNn3iQXaBzpoNFnU6gB3Q5Ow3SG+HOY8EspmNd+1ESWeqt5+qZBPykXU6BXrFPDlyd4M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788319397; c=relaxed/simple;
+	bh=QiAfDjju3CmspZirQ3SM6urcuIcZy3f4gPndlE8Kl6c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Mb6Do0Wab6TbqeZkfDX0VYo894+FsaFRui/tIVwf68LfCHTRU7V3533FZrtPQ943cF2BXqVkKEzNs2DeZnz9dBvUd668cXg8rJISQwClbuHebZqWBgMzLrAtt5Y7fJWYskN9M019ohq94mVOGY8q6fuGin+Dw6gZCEllWGVxpqc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=52.101.126.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rdYoGqUqhKqLirVGb1v86WTG+kAu5SSQMDiNley+Us1nufg7xNpJQ8DayR4WOzPibsHTfbWkeiaZXb0Ue5mGWuVGrDHJ0JG12juu7hIt52RS3X7TlG0KG8PW/N4u19b5Gtl+e6B6kUxE0lC8Fl2w00N1lw98gPT7Fj+kjuXQJHGeFZa+QB4LHDtFp50p2N0GmZVygzrdpDVvPtHiPkG1lAlPeRYG03g3xW+JLK6TllHD3F73G3wuhBrkIcyHNMcsF2cmRNOSBHBEtfVWZj/sMRU8DFCguROPghwzlcrBjXxTbxMg+F/l8owx24uGyzOaKg+Hb7LwR9hR3pmo/IIMdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BJyWZC/L2aqfp4YvKRifzxYVv57fndsYGyGDc2rpXNw=;
+ b=R2gcdYyxpB9ih+X39nLxibN93ZzpPE7SOJKBgwEeFunXjyT0Lcoei2dQYaYPHaJctSBsxm4Rg+uxTrPu+0KJJh0r6ASe+UP39zXkBWDsbpqoTAR9Volj1LkqiEpttwgXfMjGnN2btKUjK1RGvmwc5ZBwIORIi2Rz5OIWG8RXW2JRODq+eWSebBzTbx9XPO9lj3HBFxPxNSm+WZQSH12BBnceztcekP3Xmm4gxADx4rI3g88nUuGquvEXmlSqTM3TLmr6BXGGWKLxjq8LZiddJb2teBINtG2zx8+X0amddLbOgJMQtPAjTPlGkJqvhbCjWC/jnjLGowAq2iaSYnzfig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=cadence.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SI1PR02CA0056.apcprd02.prod.outlook.com (2603:1096:4:1f5::7) by
+ SEZPR06MB6197.apcprd06.prod.outlook.com (2603:1096:101:f3::15) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.13; Wed, 2 Sep 2026 03:23:11 +0000
+Received: from OSA0EPF000000C7.apcprd02.prod.outlook.com
+ (2603:1096:4:1f5:cafe::4) by SI1PR02CA0056.outlook.office365.com
+ (2603:1096:4:1f5::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
+ Sep 2026 03:23:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
+ smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ OSA0EPF000000C7.mail.protection.outlook.com (10.167.240.53) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 03:23:09 +0000
+Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id EAC8240920E1;
+	Wed,  2 Sep 2026 11:23:06 +0800 (CST)
+From: Hongliang Yang <hongliang.yang@cixtech.com>
+To: krzk@kernel.org
+Cc: cix-kernel-upstream@cixtech.com,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	fugang.duan@cixtech.com,
+	gregkh@linuxfoundation.org,
+	hongliang.yang@cixtech.com,
+	krzk+dt@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-phy@lists.infradead.org,
+	linux-usb@vger.kernel.org,
+	neil.armstrong@linaro.org,
+	p.zabel@pengutronix.de,
+	pawell@cadence.com,
+	peter.chen@kernel.org,
+	robh@kernel.org,
+	rogerq@kernel.org,
+	vkoul@kernel.org
+Subject: Re: [PATCH v1 1/4] dt-bindings: Add CIX Sky1 USB bindings
+Date: Wed,  2 Sep 2026 11:23:06 +0800
+Message-ID: <20260902032306.1182941-1-hongliang.yang@cixtech.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <503e87d9-3311-413a-98c0-e02a02c4a354@kernel.org>
+References: <503e87d9-3311-413a-98c0-e02a02c4a354@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -66,196 +80,164 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000C7:EE_|SEZPR06MB6197:EE_
 Content-Type: text/plain
-X-ClientProxiedBy: EX19D037UWC002.ant.amazon.com (10.13.139.250) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+X-MS-Office365-Filtering-Correlation-Id: d21fa2d8-0b2c-4a1c-e0fb-08df08a18350
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|7416014|10067099003|6133799003|3023799007|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	ePfPXo8cb4KRXRq7UL5GFJkvJgSGCiv9pIod2tB3Kw88//EWQ0LKT6XOnYKIeo+bw7muAAdyMFpvF5+Iuc0ymhw/sIzSPboX2FoVjsljwXV/+LiVsd9tD1NJmaQxCBbGbO6ZIDsq5NFQHGONJnHYuyX10RN1QWMH6r/an9DbZ2OiZqhI2ARz+cdFZzsbM1nJ4QUVu1qCO2GuSF5AcyAs8gEpIpKUVsE+Ewe2R34qrfc5TAuMvUv2J9MvIEpxbHvD1uq+udrBbOOWQviCfc8hOWtdrAanvoLZYDvFQX/JWXdhBCoHhQLc3gEm0NbsOJ3rPV7lfQb9sG7gNJ1VdLGeWZU2FHBa/O0f1tKEWt1X7ORr3x8PMQu7m6Jh+XKGr6rext17eABfw7chYjycwxeEJWl/BVj4iG/q2aEGY1wTzqQFq71s2TXEHVj+CTzhEt8cjOXr6fbHZKu/EMEw5gxmukm2ccj70CPdGznaOId9aGW6ilfgc67o2GqibIlZr6k1Fd3fjYO5sfV0lTj4vhpJtTqeJs/qDdKiqJMjnC6kXhoujFufQKUJn4qB3f6kymH1VUAIPrJSGcAUjFBSq9O/dEiS/vwvs1ui9SYabbt4s1ZRpccjMaqrV8HDg5Mr4bcx6yV8zGFs8C9KX8RqFSLZdg==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(7416014)(10067099003)(6133799003)(3023799007)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	yO4ZuF/7bb8tZ3E6q5rd1qaSbV0vaJ30MkC/+E7zDBbQNxpZVZh6eUiRzS4CJ4aB6A5WEuT00jHtznkVj0o8V3pFecIAzgdhmxBwEVU3YE8WKEpermSqtEuYhM46Ab0SkcE3iaRSUYf05QugL7Mpd8Nc76Jm48zFqtE4DmpA8ymCvmxdSze2YUXsJNO4H2e7jiMw/28kmV9QbpQJHo+ZBzQ965IBy38UqctSYPR+QMph+r1ot19l4SsJK2JfHU8+sBqb9CY1S2NJbOiwB3x5IC//rnGhGOR+TSgJIKdBWdJip0I2IykS7vEcHItOU+wC2pvB69HsacB001KC/aGErEdFygV7M3P/vMb9Xe+t1TLt63Ixlk0RV0XUYIpNVC/7zK2ehkqYWy5rsXxMwanTecOXNMuUubpYYUVuJidLFNoO2gnV5666fdXIcvhUyAn4
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 03:23:09.3473
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d21fa2d8-0b2c-4a1c-e0fb-08df08a18350
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	OSA0EPF000000C7.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR06MB6197
 
-On Tue,  1 Sep 2026 17:11:41 -0700 SJ Park <sj@kernel.org> wrote:
+Hi Krzysztof,
 
-> On Tue, 1 Sep 2026 13:10:01 -0700 Nathan Gao <zcgao@amazon.com> wrote:
-> 
-> > __damon_va_prepare_access_check() picks a random byte address within the
-> > region and stores it in r->sampling_addr. damon_va_mkold() passes it into
-> > a page table walk, which hands it to damon_ptep_mkold() as the address of
-> > the page to sample:
-> > 
-> >   damon_va_mkold(mm, r->sampling_addr)
-> >     damon_va_walk_page_range(mm, addr, addr + 1)
-> >       damon_mkold_pmd_entry()
-> >         damon_ptep_mkold(pte, vma, addr)
-> >           ptep_test_and_clear_young(vma, addr, pte)
-> >           mmu_notifier_clear_young(mm, addr, addr + PAGE_SIZE)
-> > 
-> > For arm64, before commit 6f0e1142173a ("arm64: mm: support batch
-> > clearing of the young flag for large folios"), the contpte helper walked
-> > exactly CONT_PTES entries from the aligned-down page table pointer and
-> > used @addr only to pass down to each entry, so an unaligned value was
-> > harmless:
-> > 
-> >         ptep = contpte_align_down(ptep);
-> >         addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
-> >         for (i = 0; i < CONT_PTES; i++, ptep++, addr += PAGE_SIZE)
-> > 
-> > Now the range to walk is derived from @addr instead: end = addr +
-> > nr * PAGE_SIZE, rounded up to CONT_PTE_SIZE. For a sample in the last
-> > page of a contpte block, the sub-page offset puts end just past the
-> > block boundary, so the round-up lands a whole block further and the
-> > walk clears PTE_AF in CONT_PTES entries beyond the sampled block. For
-> > the last block in a page table page, those entries are past the end of
-> > that page, so the walk writes into the page that follows.
-> 
-> I just wanted to call out again that I'm wondering if we could restore the
-> unaligned address support in the helper.  E.g., as a very dirty hack that I can
-> imagine off the top of my head,
-> 
-> '''
-> --- a/arch/arm64/mm/contpte.c
-> +++ b/arch/arm64/mm/contpte.c
-> @@ -30,6 +30,7 @@ static inline pte_t *contpte_align_addr_ptep(unsigned long *start,
->                                              unsigned long *end, pte_t *ptep,
->                                              unsigned int nr)
->  {
-> +       *start = PAGE_ALIGN_DOWN(*start);
->         /*
->          * Note: caller must ensure these nr PTEs are consecutive (present)
->          * PTEs that map consecutive pages of the same large folio within a
-> '''
-> 
-> I and Nathan have no strong clue, so we are looking for Baolin and others'
-> opinion.
-> 
-> While waiting for the opinions, I and Nathan agree we should stop bleeding with
-> a pinpoint hotfix change in DAMON.
-> 
-> > 
-> > Triggered by the full 7.1/7.2 kernel selftest suite on arm64 (EC2
-> > c/m6g.4xlarge). The kernel sometimes crashes at or shortly after the
-> > DAMON test.
-> > 
-> > What the overrun does depends on the page that happens to follow the
-> > page table, so there is no single signature. If that page is read-only,
-> > the write faults in the sampling path itself:
-> > 
-> >   Unable to handle kernel write to read-only memory at virtual address ffff0003c5d2d000
-> >     FSC = 0x0f: level 3 permission fault
-> >     CM = 0, WnR = 1, TnD = 0, TagAccess = 0
-> >   CPU: 10 UID: 0 PID: 3487 Comm: kdamond.2
-> >   pc : contpte_test_and_clear_young_ptes+0x70/0xc0
-> >   lr : damon_ptep_mkold+0x1e8/0x1f8
-> >   Call trace:
-> >    contpte_test_and_clear_young_ptes+0x70/0xc0 (P)
-> >    damon_mkold_pmd_entry+0x150/0x170
-> >    walk_pmd_range+0x110/0x2b0
-> >    walk_pud_range+0x10c/0x208
-> >    walk_pgd_range+0x134/0x258
-> >    __walk_page_range+0x98/0x1b0
-> >    walk_page_range_vma_unsafe+0x90/0x148
-> >    walk_page_range_vma+0x28/0x40
-> >    damon_va_walk_page_range+0x114/0x2b8
-> >    damon_va_prepare_access_checks+0xec/0x1a8
-> >    kdamond_fn+0x534/0x770
-> >    kthread+0x128/0x138
-> >    ret_from_fork+0x10/0x20
-> > 
-> > Otherwise the page is writable, the PTE_AF clearing succeeds silently
-> > and the damage only surfaces later, in whatever happened to own the
-> > page, so the backtrace is unrelated to DAMON and differs between runs.
-> > 
-> > Align the address down to a page boundary in damon_ptep_mkold(). Its
-> > ptep_test_and_clear_young() call is the only place DAMON can reach
-> > contpte_test_and_clear_young_ptes() from. r->sampling_addr itself is left
-> > as is, so the sampling and region bookkeeping semantics are unchanged.
-> > 
-> > Fixes: 6f0e1142173a ("arm64: mm: support batch clearing of the young flag for large folios")
-> > Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-> > Cc: David Hildenbrand (Arm) <david@kernel.org>
-> > Cc: Ryan Roberts <ryan.roberts@arm.com>
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Nathan Gao <zcgao@amazon.com>
-> > ---
-> > V2 -> V3:
-> > - Move the alignment into damon_ptep_mkold(), instead of aligning in
-> >   damon_va_mkold() and damon_va_young().  The ptep_test_and_clear_young()
-> >   call in damon_ptep_mkold() is DAMON's only path to
-> >   contpte_test_and_clear_young_ptes(), so damon_ptep_mkold() is the
-> >   closest place in DAMON to the function that requires an aligned
-> >   address (SJ)
-> 
-> Thank you for doing this revision for my humble request!
-> 
-> > 
-> > V1 -> V2:
-> > - Align inside damon_va_mkold() and damon_va_young() rather than aligning
-> >   r->sampling_addr itself, so that sub-page sampling addresses remain
-> >   possible for future non-PTE access check primitives (SJ)
-> > - Point Fixes: at 6f0e1142173a instead of 3f49584b262c, since the
-> >   unaligned address was harmless before that commit (SJ)
-> > - Describe how the issue was noticed and what it does to the kernel (SJ)
-> > 
-> > v2: https://lore.kernel.org/all/20260831221151.50561-1-zcgao@amazon.com/
-> > v1: https://lore.kernel.org/all/20260827193821.46115-1-zcgao@amazon.com/
-> > 
-> >  mm/damon/ops-common.c | 6 ++++++
-> >  1 file changed, 6 insertions(+)
-> > 
-> > diff --git a/mm/damon/ops-common.c b/mm/damon/ops-common.c
-> > index 0bcad6b1e5b9e..cd8aa08233e54 100644
-> > --- a/mm/damon/ops-common.c
-> > +++ b/mm/damon/ops-common.c
-> > @@ -46,6 +46,12 @@ void damon_ptep_mkold(pte_t *pte, struct vm_area_struct *vma, unsigned long addr
-> >  	bool young = false;
-> >  	unsigned long pfn;
-> >  
-> > +	/*
-> > +	 * Arch implementation of ptep_test_and_clear_young() may require
-> > +	 * aligned @addr
-> > +	 */
-> > +	addr = PAGE_ALIGN_DOWN(addr);
-> > +
-> >  	if (likely(pte_present(pteval)))
-> >  		pfn = pte_pfn(pteval);
-> >  	else
-> 
-> I agree this should fix the issue.
-> 
-> Maybe I'm being too picky, but...  'addr' is also being used in later
-> mmu_notifier_clear_young() call.  Could we further scope down to do the
-> alignment only for the function that disallows unaligned address?  For example,
-> 
-> '''
-> --- a/mm/damon/ops-common.c
-> +++ b/mm/damon/ops-common.c
-> @@ -61,7 +61,12 @@ void damon_ptep_mkold(pte_t *pte, struct vm_area_struct *vma, unsigned long addr
->          * device aspects.
->          */
->         if (likely(pte_present(pteval)))
-> -               young |= ptep_test_and_clear_young(vma, addr, pte);
-> +               /*
-> +                * Arch implementation of ptep_test_and_clear_young() may
-> +                * require aligned @addr
-> +                */
-> +               young |= ptep_test_and_clear_young(vma, PAGE_ALIGN_DOWN(addr),
-> +                               pte);
->         young |= mmu_notifier_clear_young(vma->vm_mm, addr, addr + PAGE_SIZE);
->         if (young)
->                 folio_set_young(folio);
-> '''
-> 
-> 
+Thank you for the review. Most of the comments are already addressed in
+v2 [1]; the remaining points are answered inline below.
 
-No problem.  I think I get your point, to scope the fix down as much as
-possible.
+[1] https://lore.kernel.org/all/20260902032134.1182634-1-hongliang.yang@cixtech.com/
 
-v4: https://lore.kernel.org/all/20260902031655.84721-1-zcgao@amazon.com/
+On 01/09/2026 07:47, Krzysztof Kozlowski wrote:
+> Please use subject prefixes matching the subsystem. You can get them for
+> example with `git log --oneline -- DIRECTORY_OR_FILE` on the directory
+> your patch is touching. For bindings, the preferred subjects are
+> explained here:
+> https://www.kernel.org/doc/html/latest/devicetree/bindings/submitting-patches.html#i-for-patch-submitters
+>
+> A nit, subject: drop second/last, redundant "bindings". The
+> "dt-bindings" prefix is already stating that these are bindings.
+> See also:
+> https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+>
+> And do not combine USB patches with other subsystems.
 
-> > -- 
-> > 2.50.1
-> 
-> 
-> Thanks,
-> SJ
+Done in v2: the combined bindings patch is split into separate patches
+with "dt-bindings: phy:" and "dt-bindings: usb:" subject prefixes, one
+schema per patch, e.g.
 
-Thanks,
-Nathan
+  dt-bindings: phy: Add CIX Sky1 USB3 PHY
+  dt-bindings: usb: Add CIX Sky1 USBSSP controller
 
-Sent using hkml (https://github.com/sjp38/hackermail)
+> Please read and follow DTS coding style.
+
+Done in v2: the schemas and the new DTS regions now pass
+dt-check-style in strict mode.
+
+> > +unevaluatedProperties: false
+>
+> Which other schema do you want to reference?
+
+None. Changed to additionalProperties: false in v2.
+
+> > +  reg:
+> > +    items:
+> > +      - description: AXI property configuration register
+> > +      - description: Controller status register
+>
+> Registers are not address spaces. Devices do not have address spaces of
+> one register, so this is not a real device.
+
+I understand the concern, and we looked at this again against the SoC
+documentation. These two registers are RCSU (system configuration
+unit) registers, but each of them is dedicated to one USB controller
+and not shared with any other device:
+
+ - The first register is the controller's Control Register for the AXI
+   cache attributes. Its bit fields are awcache[3:0] (bits 3:0) and
+   arcache[3:0] (bits 7:4), i.e. the AXI cache attributes of the
+   controller's own AXI master interface. The glue driver programs it
+   once during initialization.
+
+ - The second register is a status register providing the AXI clock
+   valid status the driver polls while enabling the controller.
+
+The two instances submitted in this series illustrate the per-device
+offsets: the USB4 controller uses 0x091c0314 (AXI cache attributes)
+and 0x091c0400 (status), while USB5 uses 0x091c0324 and 0x091c0410.
+
+The reason they end up in a separate node from the Cadence USBSSP core
+is purely physical: on Sky1 the controller's control registers and the
+Cadence USBSSP core registers are two disjoint regions in the address
+map (e.g. 0x091c0314 vs 0x091d0000 for the USB4 controller). The glue
+node therefore describes the Sky1-specific control registers, clocks
+and resets, while the core node is the Cadence USBSSP core itself,
+describing the actual register windows the cdns3 driver maps
+("otg", "xhci", "dev").
+
+That said, the register windows are admittedly tiny, so if you prefer
+this modelled differently we are open to suggestions. One alternative
+we considered was folding the control register file into the core node
+and referencing the Sky1 glue properties from there, but that would
+mix the Cadence core registers with Sky1-specific ones and lose the
+1:1 mapping to the hardware topology.
+
+> > +      - const: axi_property
+>
+> axi
+>
+> > +      - const: controller_status
+>
+> controller
+
+Renamed in v2 (reg-names = "axi", "controller").
+
+> > +  cix,usb_syscon:
+> > +    $ref: /schemas/types.yaml#/definitions/phandle
+> > +    description:
+> > +      Phandle to the Sky1 S5 system controller used to program USB mode
+> > +      strap controls.
+>
+> So this is part of that device most likely.
+
+The OTG mode strap bits live in the S5 power-management controller,
+which is a separate hardware block shared by several subsystems, so
+they are not part of the USB controller's register file. That is why
+the strap is accessed through the syscon phandle instead of a reg
+entry, while the per-controller registers discussed above stay in the
+USB node's own reg.
+
+> > +  axi_bmax_value:
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > +    default: 0x7
+> > +    description:
+> > +      AXI bus maximum burst length configuration value.
+
+Dropped in v2: the value is fixed for the SoC, so the driver now uses a
+compile-time constant and the property is gone.
+
+> > +patternProperties:
+> > +  "^usb-controller@[0-9a-f]+$":
+>
+> Why using completely different names than entire Linux kernel?
+
+Renamed to "usb@..." in v2, matching the cdns,usb3 nodes elsewhere.
+
+> > +    $ref: cdns,usb3.yaml#
+> > +    description:
+> > +      The Cadence USBSSP core controller node. See cdns,usb3.yaml
+> > +      for properties such as dr_mode, maximum-speed, phys, and interrupts.
+>
+> Redundant description.
+
+Shortened in v2.
+
+Best regards,
+Hongliang Yang
