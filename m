@@ -1,153 +1,188 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F0D415B8D
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:24:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788341052; cv=pass; b=rNWXjFi3/m3M7JRib7NPLNjv+woHrmy47+oxNylxNyq750RMxKBhjvhVsT708lWHYtnu9yNx0013KMOcZKU0Ry0EfbJPp0/R7sfmZoAVoV7YgJGNfT4ptvyKxGAc/2Cs0nqknmKuW4NyQ79esU3Y5TZzNF5fu6kdP09t9S+tMLA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788341052; c=relaxed/simple;
-	bh=Ztg/iuQclPd7J/lDVuGJccxiw/xoO54Q7eyscqFYx+k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ILuoeV+qRvGDOeMn+24rGdExl61qJqs6SfkkexDDSYfDznNM/bnEN25MPXDIX0nPnp93wa/JLPU59pLej1v6GHRSJkiYdVNVvOApWKHEWP0SRFj4oRcVJzYKOycZgLLDNFf9YCvo2FbCaFv2cCvaEtb8kI6YmSYOiEYCxRY5M+E=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=tA93ivPS; arc=pass smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2000240A93E
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:24:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788341069; cv=none; b=osfGhMxhBaqASV9Bd3hY4Y2vnF2R+9PJnoPb3iMrI8ns3c1xHusIyeRaULMgn4B9x5N49sKyH70AZQ/6UteusP/75oT/ANqtdRHh9aR3rkSEDm2euSL4nKxj0By5ehmf4mLvLD6zG4hop+iRNTkHFSD+EHOgU63OwP67XRxMr9g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788341069; c=relaxed/simple;
+	bh=dv1csfbz3+AfIisrDWKM/LTeMZoRYy6BRCz9NaDNXI0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rPJDGsWQ97hZDXXTOlJhMSUGDfWK1Lm+HpBUvRgCzj8O3KBtf+K+HNnFe5JKgbxOb7xx1jlG9fGc3TfXlXKvh2s50/JjAjGWlNPHiqkMkDSFuysML8ktfForsApxHEw+ifimQY64a4tqDnbT++fcbOwOB+EVX8FVwj9DunJUkMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DKn3S1rS; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=JyYnDxPi; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="tA93ivPS"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2d8f265cbe6so7510195ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 02:24:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788341050; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lKvAsLAOiJUmMOFH8bHFN1K/XuAOOdQIBgQz0oUO2RcBC395raf+5JFuZq6nOwCb+L
-         Qfj3sM0nWVuGufgAfeFZcHFIbfVSphdOWSZInvB+eAuyrYBoNtxyVBhVSkQ/8C6NeFaF
-         yj8bIglk62vIebODmCFxXhI87bjptmLoEMknRhnh6FmBKWtxpIXZYWj1kQ+jFtxovvhQ
-         6iyR3SPqUfLU3Tee3Zrv/MrGhIfUcr7u0s6LAKaboYnYpthfU5gna9tzuadupatcCSTW
-         hiiYJVP8qqD2tl724WcqaKWaKnXjXBDd7Lv+fAm7jpU+h+nhYPRh5qWwzzcAD0YsuudM
-         cOIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ytaSS9E97s/JULLyGWR20qPV51uikwUgTS3pF5XmIPU=;
-        fh=9PjhCDGhVbLa9GRNFzkXmT0EZoUaaadBOm8hTTPEwQ8=;
-        b=fv7VMO/Rt7AtuTba9/5FaTZ/JdPDhD+c4ChGAI3ZgDZ/I4/sfWqj9P0RuYDHMPYw/l
-         yUJKexkLl/uV+USrYAki8O2dcljljh1YA2xuNt0gBHZA8nuyIXezAkxb9RRqCNx6P6uy
-         eWr8/axUUODi8KKzzhWAB4en9Z2gG0sInuqocUJqbmPnTtoKMFrCx+pyK6dkoCk9mVr8
-         8WPsi055S8tw0l+Qgl85byY0NXJQwaZ+af9javhZUC3haLVzczDBIj2Oq02nP4qox50l
-         H8EIOocejxHOXVm2UWpcebh5NNl6RRHTACUxUAb8g/V4XNJyoDoEMmYlu5ZK8QSC0/Je
-         zhnw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DKn3S1rS";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="JyYnDxPi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788341066;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=8QzyTGdGmNYHVJq7S368eFIeE6Ma1yvkdBRAoiX3kKc=;
+	b=DKn3S1rSZRpSyl3FHhGxt3ILEWTihqGI/rG0tNTwpxCT7Yqj3fv6irbbb6Wcf6z9koP/go
+	xZ2HkSvkh68ax3doeLn5uZHmhe7bzTaDLCMIJYUhmjkutd30ZTtA8kMSTSY9ZA29zX3NLk
+	pJbHWyr3iB/ajVRzqIGSH1j+WKarnfw=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-138-tUtAiO4RPm-o-i35LRioQw-1; Wed, 02 Sept 2026 05:24:25 -0400
+X-MC-Unique: tUtAiO4RPm-o-i35LRioQw-1
+X-Mimecast-MFC-AGG-ID: tUtAiO4RPm-o-i35LRioQw_1788341064
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-47f2de3ba47so575467f8f.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 02:24:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1788341050; x=1788945850; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=redhat.com; s=google; t=1788341064; x=1788945864; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ytaSS9E97s/JULLyGWR20qPV51uikwUgTS3pF5XmIPU=;
-        b=tA93ivPSkpyOt+jNZM//pU3zX/HrR/P3Tt2g/ksqfdK9UTDuOXLEGaDqbX1O3WDg25
-         u3YMN0pGGfVTGBG8I9q7jb++TWSAWoluy0DP8vmxhg0YR8N5W2jGPvVv0TZ+Z8lfkp+r
-         ZLC14i9NKPn2PcbDDVqbVWkLbl6vRpErfBBGje5Tm4rEFF43cHBVJVkvJKRsir0CVagu
-         cbGM6nPiBcxGIEIJfAPGlxkcOIkoaRXid+MskD3jBUAxc5+U3YbqgkcNz5CTAbR0gxX5
-         SvCRqzwWOiBJp7am8o1qXO8LSzN6ZYUurO8USFsZFT5YGzTVLKOOpSYSKaU1n0GOP9WN
-         wEoQ==
+        bh=8QzyTGdGmNYHVJq7S368eFIeE6Ma1yvkdBRAoiX3kKc=;
+        b=JyYnDxPiF2rPoE7R5j1x2Lv3ODL7MDYcdYu/6e58kZl+6RlY6Xk5w4my4eaCxLUYA8
+         zPlAzzeAtMOv9B13xii8ynINbejCEVTZjtFmzgIlM9LLp776aO9BZeLI9HHlCFvRGXvH
+         eKAZum0oe1RalaQrh1p30bYM8fFtx1+DgVrDJR9yhHpyI74zEWFp3Fyir9pnbouy5sy1
+         R+DTB3gg7Y+paqAb2us/ns8Bg7zrtA7avzLIYuCaY43ld/hcPy64idGwDHsxUr3UbesB
+         S/t5UG4GMdr43+9hepMt0/NnfZCzknTiNeEG1rgqH62X5uOCW5ZtzLDFzWdj9anitwgq
+         /CUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788341050; x=1788945850;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788341064; x=1788945864;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ytaSS9E97s/JULLyGWR20qPV51uikwUgTS3pF5XmIPU=;
-        b=q2pz63EeXXl5S7jCUlt5UAoIs+nJAb4cxcwrd9rqsIGhRGXoupYBAQJMyJEYh5H0hs
-         qV/Wqd4WZmFA/2seHSGLy9lAWyeSsqOQt2K61F9sMg4h3KMv2AvcmYaSGlY1Dz6T/CzG
-         ZxQOPAuvlpzpNnqFq7NJypsOjg2Bugk4GmBvd3lWFbfPNCO+XJQvwdWXeX+hZDfecKpv
-         48f6dxE/e/rJ2N46Cca5S7qSLueHmUMoLmG2qiBkC8zxVEuZVKk/pcT6NsAS9gQmvhrC
-         B8sz7z7EH2QiMHwoNFQmT4yc1jIv0L8TOuAIid4GXmZH9dN+amPjsVYP/VRO1dsKyli1
-         FlaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzrl/9UotYXob77WGTGJiZ9kD5QdVYxWraOwwvFrE/iFnmfnlBT8bHeMj1TRGlD9dgv4SJxpVlhjsSXwv0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nvSkZU9mhK+IAC4bvv9YWMcg+mwp8NdWxjQZurfD4R69TfcsBm
-	IiUrkGONPrr5a6PudLRSryY4Q/gfvYBj2/7NgCGYI8Da7lXdhbbnX0wWc8Yc9WV3sfzOL7lgKi/
-	uvDy6mXI0wz+saBCwfZrbcQHwaoyGl0dw9eCeuDx24w==
-X-Gm-Gg: AR+sD13qXHn94NMXBNf2Mwrc0HEdO2nVN0/FNXMS9EsZyoEcqSwaHss3VFPHQi5Kp3y
-	jpFdVQCb8jm6RvdiXVRwRb1F5fza2EL0qm9QOAdY6ucw8P3vZqAMwtjZidCZJ/xNtrdG89ylMBf
-	BALjCjdJ0WDo5KznQfLkuTN7YiPWakJ95VNq4SFLs/MaoAPJezITdHFHFPYrkUJoy11ioNYMu8y
-	IRN9JcvmkXebeXkeA66pJ7QBCX6bfa/1ClO0PqJJ/fUFaZDBjFV3d1aId/CYN+kubsdSsf4ZYPQ
-	UXf+mw79T4NnetaaRtFFvY0w1rWDGziW6KLkzqZgK9Y06Xp9SF8AIpp6G/0yeWgsx+D2vIs5M/S
-	qEw==
-X-Received: by 2002:a17:902:f682:b0:2ca:f21a:a6c5 with SMTP id
- d9443c01a7336-2daec5ad6d8mr40455475ad.1.1788341050320; Wed, 02 Sep 2026
- 02:24:10 -0700 (PDT)
+        bh=8QzyTGdGmNYHVJq7S368eFIeE6Ma1yvkdBRAoiX3kKc=;
+        b=F3Nrj5CVzrp0rGao3LDq/wd/rpFctBVKcKV16RmwBsZUTITmW8sTRxNr4QovwHbLU+
+         rCsBDorAZmtuFx+RuIQ/4JzJUxiggCgbSnIADht37JeSI8KLlLmUYzhLoitbIJhqFLGc
+         rQvC9pA64JbADb1i5gf073EIrf0txFVdofz/QxhzY0OZo/wmLvrC+xGF4V2sfw/3Wylw
+         pPjzxbjccR+JDUyyt2lZJkmoz9RauGr1o0QhDVF/Agflm1r0yDPLK9hM/MUUa5p6+FNX
+         T2w2oyoLoXcn7hYjZ1DH1e01L9UnRuteaBytzkxPrmQz7z7i0l7JKHuQQkuyrMn3pJ+e
+         8hbA==
+X-Forwarded-Encrypted: i=1; AKwUvBxPzmOEEv306oDzDOq/hEMPZQ98HAmCDtwhvbH7gIt3ATMrVGFBDou2vr4lc2Zew0LNnd6BRKtjaC9gnRE=@vger.kernel.org
+X-Gm-Message-State: AFuF++nA7Y6EDDN4/Fz8SWWiSpw0/P3gwR1xzE0f/jUSQAYcC/WPB2/C
+	Cp7VZg1Xgr3pCtqBEQVXMGhIAD14c2IRNkMHn3JxtwT8kzd06frkxQitPhZvE5fgpO/pytC0OIB
+	+I1OGGIRYj3URT/f6KkUf9b7IOciMYdBRV22zbrhkhNsnlrtc16hiBb9mjwnHj8b34Q==
+X-Gm-Gg: AYBFou1/Obtc0e3zECZJ+M4Mfx9RurOazalNCOgRDKpzApVde72ZZPKWOmo2qAoHxlf
+	pJ7GIFpPT5iKxcAMDEcBk0fP/PF02bb6K6s5N6AnwrwLTonMMFy2ty8zAd8qLy42cwuuHiUyXPL
+	z0RRsdbZnNedtQenWKptlDB24SKpqOu/slHUPHPRAEwvTUfteIYNkiOzu0GQug5q9fuzXJg/R9M
+	NIdfemK1m/rEevEy1Mz2S0jE4A/D3cj6F+eRYoI+3KXGNvylhuWNIhhPlWS9VFP6+sPvtSWWgpm
+	ZDG0zAZFxxdrWCsyioVXuel4h7tPQZW4uwNl0OAFrPCxuZArKtxRS2KZxGrOHT8oceb3VcCYjm2
+	CyqjOoqLT4bTTA84GIvMSTbHGfb2M9LWyupYaQ6BGNHpdQg==
+X-Received: by 2002:a05:6000:454c:b0:485:1bcc:67f8 with SMTP id ffacd0b85a97d-4851bcc69c1mr3651063f8f.13.1788341064193;
+        Wed, 02 Sep 2026 02:24:24 -0700 (PDT)
+X-Received: by 2002:a05:6000:454c:b0:485:1bcc:67f8 with SMTP id ffacd0b85a97d-4851bcc69c1mr3650988f8f.13.1788341063712;
+        Wed, 02 Sep 2026 02:24:23 -0700 (PDT)
+Received: from sgarzare-redhat (host-79-53-30-11.retail.telecomitalia.it. [79.53.30.11])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e80388sm6406811f8f.14.2026.09.02.02.24.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 02:24:22 -0700 (PDT)
+Date: Wed, 2 Sep 2026 11:24:16 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: linux-integrity@vger.kernel.org, stable@vger.kernel.org, 
+	co+6a581c4284f721d4@bugs.sh, James Bottomley <James.Bottomley@hansenpartnership.com>, 
+	Mimi Zohar <zohar@linux.ibm.com>, David Howells <dhowells@redhat.com>, 
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
+	"Serge E. Hallyn" <serge@hallyn.com>, Jonathan McDowell <noodles@meta.com>, 
+	Ross Philipson <ross.philipson@gmail.com>, Stefan Berger <stefanb@linux.ibm.com>, 
+	Srish Srinivasan <ssrish@linux.ibm.com>, keyrings@vger.kernel.org, linux-security-module@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] KEYS: trusted: Fix tpm2_load_cmd() boundary check
+Message-ID: <apfoKo-BdwaLXtkT@sgarzare-redhat>
+References: <20260901205809.2028454-1-jarkko@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901-rk3576-otp-cpuid-mac-v1-0-ea9135270fc2@flipper.net>
- <20260901-rk3576-otp-cpuid-mac-v1-1-ea9135270fc2@flipper.net> <87ecfc81e9.fsf@bootlin.com>
-In-Reply-To: <87ecfc81e9.fsf@bootlin.com>
-From: Alexey Charkov <alchark@flipper.net>
-Date: Wed, 2 Sep 2026 13:24:00 +0400
-X-Gm-Features: AcwNN1Vwt1UNue4ueZiVCGXuJAETKqvfhojim__xlQfGqQYcvUB9rCpZaBk-bcY
-Message-ID: <CAKTNdwH5S3MxgR=5s2LXPquCFRXE-61LTTsZoHP9+YmXo_P4Ag@mail.gmail.com>
-Subject: Re: [PATCH 1/4] nvmem: rockchip-otp: Serialize reads
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Michael Walle <michael@walle.cc>, 
-	Finley Xiao <finley.xiao@rock-chips.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20260901205809.2028454-1-jarkko@kernel.org>
 
-On Wed, Sep 2, 2026 at 1:10=E2=80=AFPM Miquel Raynal <miquel.raynal@bootlin=
-.com> wrote:
+On Tue, Sep 01, 2026 at 11:58:06PM +0300, Jarkko Sakkinen wrote:
+>tpm2_load_cmd() does boundary checks against the ASN.1 size i.e.,
+>payload->blob_len. Address this by passing the decoded blob size to
+>tpm2_load_cmd(), and use it for the boundary checks.
 >
-> On 01/09/2026 at 19:33:11 +04, Alexey Charkov <alchark@flipper.net> wrote=
-:
+>Cc: stable@vger.kernel.org # v5.13+
+>Fixes: f2219745250f ("security: keys: trusted: use ASN.1 TPM2 key format for the blobs")
+>Reported-by: co+6a581c4284f721d4@bugs.sh
+>Closes: https://bugs.sh/b/6a581c4284f721d4/
+>Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+>---
+> security/keys/trusted-keys/trusted_tpm2.c | 12 +++++++-----
+> 1 file changed, 7 insertions(+), 5 deletions(-)
 >
-> > The OTP controller is driven through a single set of registers holding =
-a
-> > state machine which has to be stepped through for every word read, yet
-> > nothing keeps two readers out of each other's way. Concurrent reads
-> > interleave, and the outcome is either a reader bailing out:
-> >
-> >   rockchip-otp 2a580000.otp: timeout during read setup
-> >
-> > or, worse, one of them silently taking delivery of the other's data.
-> >
-> > Reading two cells in parallel from userspace on RK3576 reproduces both
-> > within 150 iterations - 53 read errors and 9 corrupted results, the lat=
-ter
-> > either losing their first word or, in one case, ending in the two bytes
-> > which belong to the other reader's cell - whereas the same reads issued
-> > sequentially never fail. Concurrency is not hypothetical here, as six
-> > thermal sensors source their trim values from the OTP and reach the dri=
-ver
-> > straight from asynchronous driver probing.
-> >
-> > Guard the read path with a mutex. Reads are the only way into the hardw=
-are,
-> > as the driver registers no write callback, and they always run in proce=
-ss
-> > context, so a plain mutex spanning the whole clock-enable, read,
-> > clock-disable sequence is enough.
-> >
-> > Fixes: 755864feb729 ("nvmem: add Rockchip OTP driver")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Alexey Charkov <alchark@flipper.net>
+>diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
+>index 67225dd562a9..01f18bb37047 100644
+>--- a/security/keys/trusted-keys/trusted_tpm2.c
+>+++ b/security/keys/trusted-keys/trusted_tpm2.c
+>@@ -99,7 +99,7 @@ struct tpm2_key_context {
 >
-> Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+> static int tpm2_key_decode(struct trusted_key_payload *payload,
+> 			   struct trusted_key_options *options,
+>-			   u8 **buf)
+>+			   u8 **buf, unsigned int *blob_len)
+> {
+> 	int ret;
+> 	struct tpm2_key_context ctx;
+>@@ -120,6 +120,7 @@ static int tpm2_key_decode(struct trusted_key_payload *payload,
 
-Thanks for your review Miquel!
+	blob = kmalloc(ctx.priv_len + ctx.pub_len + 4, GFP_KERNEL);
 
-Sashiko complained about mixing a scope-based guard into a function
-with goto-based error handling, so I am replacing the guard(mutex)
-with explicit lock and unlock calls for v2. There won't be any
-semantic change though, so if you don't mind I'd like to carry your
-tag into the v2 version.
+Pre-existing, but is `+ 4` here useless?
 
-Best regards,
-Alexey
+I'm not asking to fix here, just noticed while reviewing.
+Maybe we can set *blob_len earlier and use it also in the kmalloc().
+Not a strong opinion, that said this LGTM:
+
+Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
+
+	if (!blob)
+> 		return -ENOMEM;
+>
+> 	*buf = blob;
+>+	*blob_len = ctx.priv_len + ctx.pub_len;
+> 	options->keyhandle = ctx.parent;
+>
+> 	memcpy(blob, ctx.priv, ctx.priv_len);
+>@@ -384,10 +385,11 @@ static int tpm2_load_cmd(struct tpm_chip *chip,
+> 	int rc;
+> 	u32 attrs;
+>
+>-	rc = tpm2_key_decode(payload, options, &blob);
+>+	rc = tpm2_key_decode(payload, options, &blob, &blob_len);
+> 	if (rc) {
+> 		/* old form */
+> 		blob = payload->blob;
+>+		blob_len = payload->blob_len;
+> 		payload->old_format = 1;
+> 	} else {
+> 		/* Bind for cleanup: */
+>@@ -399,17 +401,17 @@ static int tpm2_load_cmd(struct tpm_chip *chip,
+> 		return -EINVAL;
+>
+> 	/* must be big enough for at least the two be16 size counts */
+>-	if (payload->blob_len < 4)
+>+	if (blob_len < 4)
+> 		return -EINVAL;
+>
+> 	private_len = get_unaligned_be16(blob);
+>
+> 	/* must be big enough for following public_len */
+>-	if (private_len + 2 + 2 > (payload->blob_len))
+>+	if (private_len + 2 + 2 > blob_len)
+> 		return -E2BIG;
+>
+> 	public_len = get_unaligned_be16(blob + 2 + private_len);
+>-	if (private_len + 2 + public_len + 2 > payload->blob_len)
+>+	if (private_len + 2 + public_len + 2 > blob_len)
+> 		return -E2BIG;
+>
+> 	pub = blob + 2 + private_len + 2;
+>-- 
+>2.47.3
+>
+
