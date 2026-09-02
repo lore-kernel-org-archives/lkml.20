@@ -1,106 +1,152 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3DC4A64E6
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:26:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D4B54AA1F6
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:26:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366405; cv=none; b=rjLer9ND7Jp9cMSCkp6cT3Aa2CdFh8H5DCxXlCuTxYwF2LLimksU2npZ5wyRNFLc82hCbJtvtmuz3P9YA3k2d4X5pqd/9wJgCGnjto3YLYEJQxejj0Q0Ss4Gb4PJVp5oYuXrkqNl2DVfG+plbcVUl6zwPdNORWmxBUp/WZLGu0I=
+	t=1788366420; cv=none; b=pJYB/sZX9IT/cJa9d3lt06iX8jwOf9+8haNElI60e6EryRV4SOCzwNhaoN1ZcpFMs+4igXWcyRoARFNhdbYb9krgglb1KkQncNIV+vC0IALrgMHNx9V/CB9Xr6IGmjaXsG2bwFEludYBXkUuXmRwE89ep8FXP3jQdr9AVlyNZwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366405; c=relaxed/simple;
-	bh=Viu3wNV3BMSr6b/InJgVRJi9CeKezTYBdRaQ1gQPW8Q=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pw8Y/1R+6SLL4LraQv2oXeMU5VnjGRoJvSx2tq2diY4xzqi0bBsUTUpd5ZmVOmyijptAEcrTNW2VFs9VI0v5s/G2DVPLjpR8l9wDBIuauz0A/74/NX5zy/EtQl/nULj3mg2D87hrTcLwwv3OTXbv3QyEKw2EgtNN8b6RI/ZDIoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mjvLvuOu; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788366420; c=relaxed/simple;
+	bh=4V75VXPdJsV3etEtmOB92/leTElAobw81eFBDOD25Qg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ih9EnoOFhneC4QV2bWDL+PVYcxFdeMPlMPXnPg3XWSbURxSvUfD6Xcw+mNfNqDKQzVF92xR64BLfsW9BdWqmq3XJIXEIefXV1w7MiNt4VCQp12Qx3vAK75boQMz56MT6Z5JeM1M8Ll8Ha3KcmjkixDAih4d8VjHoTd01wXgdc5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DgsmkQRr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CixwYZLR; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mjvLvuOu"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-482e4998d28so976858f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:26:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DgsmkQRr";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CixwYZLR"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682FZYxS770198
+	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 16:26:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	d8GmeZDaBEbzaZ8I2SDdKZrPLXHH/1Qk7o9QmMFbE1o=; b=DgsmkQRrhtcjid92
+	Znhb87lnm8+WWhMHrKl4p0WyNyWqrewdrlmVza5UDPrH3MYl7DzjF0C5lZw/PaTl
+	7uPGMMKDlh4SX7v7smfmyUSh5QKzh1vMweZWqXs96TeLjLkMTScAcpGCMWdxACeG
+	wTE2fEdTBY+znffYJ9zbVlrpQifwrWgPgPjLhcf/xlw2SMnCoOPAfk2J6ZCsvpNO
+	tStY44Kh7xJWgj6Ee+rMgVHoMBKusCib/w1SGWRASmLXsqkTxc1lpg5BzIPY+TGl
+	znGPSYtEAWTCtaenIXJnlJ5vp3swrQrhKAkZE5H6ZeeIgCK62gjPvfUZZwnWIbz+
+	DomOCw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gemja0qtc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 16:26:58 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93494b1e35cso27930285a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:26:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788366402; x=1788971202; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=t06qVtjri1fJJ7rLlIaY/3pLLtxGChskI72GfqIm8sI=;
-        b=mjvLvuOuwBMhhRFmsoTodwHQUq3Cc8JZJ94h+xKdrKYIPP/b/j4FEl11xX1iltQjGG
-         6lvcMuYbP4beq4YJBRwOandxT7Ld0fafERkEHWhFZbb+NxEzcW1eRz0rQQbHpdky3bgM
-         yhuyFZY+OAxputzn7d1tmfXlB64/YerzHhao/GOxb1xMjTSZs7cT55Wtgmy16diPIBjQ
-         Zbq48Aa7HvguMiduOd1UmMB1gTWfhLf/m7QLyNswsbtnfxpDZYX3erNqLGw9rVGIoTMI
-         pxIBjdhZ+OEfTn4xbKxz6UsCYF0bjn0BxNT8SJG47y/sq/6hjG84Z8cRHbEXMmBmC4sS
-         5s1A==
+        d=oss.qualcomm.com; s=google; t=1788366417; x=1788971217; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=d8GmeZDaBEbzaZ8I2SDdKZrPLXHH/1Qk7o9QmMFbE1o=;
+        b=CixwYZLR9k6smMlHWjCX/ZevKjROHm5IN3GUmqU5xeWTkiPcKkBFQvfsq4nIVqfWdq
+         771AZYmZopyf+D9ExsNCwDeJ174aQBxqQW0Z7xpVoe1xeoP52gXz3lstMlwp3bJX9oVx
+         pM3wOXKH8T3BrN0B79ZhA4jyiS7Y2YAIUVadn4UkfMTegYL0sycqyYKEl3abBF6TXsl1
+         tGEqdEb37xbPTeADROkccGDryB6AxbItn8g0qEl7H3j3O7msePmnRW7cekVXRy0ZfQKN
+         /cHOApfZUbtC8Mu1iQfjAmJVXiYH2NdvJzrylu+ShIUjdtv6/fnFFH5nMik3MCyyuJ3B
+         RJhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788366402; x=1788971202;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788366417; x=1788971217;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=t06qVtjri1fJJ7rLlIaY/3pLLtxGChskI72GfqIm8sI=;
-        b=TkpDUozAIkSKHw+0oyi9YjF0wxIWfWqxt3SFlty8/GEKSqKo+5AOkGkMbs5ZiYWTYn
-         k0zf1LEFr3WAoWEvGwNZqiLg9bzq62gBlLVeFu1XmEnAzKsHlQGqrRoaIoEbroQ5Xo7v
-         tOFU4WMpyXOA7uGPQX9vWa4+6oJ6jdx/TidL/jqnP5t5ghxu9C2Pf5oLOAy/tAoY9AoU
-         JReZVXd3GpDdPTq9Lv3QbuqTcK5mmF/folFM+9mES359kGYBQ9SM5ZsTwLWA4/zUbJRd
-         T/b98DqbU3T3JRpGe5Tr0RiUKghAQRcVBFQvq07xA6xZNwIxFCnqa/bmwTB+DkORKX2U
-         iMUA==
-X-Forwarded-Encrypted: i=1; AKwUvBwStuhpdWVegh6Fj2t24jOEqrOpQ0Q6o1FyAh1RKSpiCKQ4vLNnSilvOiHE9fxXT9jJyXABJ69PadCfItw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mfBYordn10ji3jSlOLz1QwIcq4N0yP8W5SqtUhHhjIz5L4I1MH
-	jpr1p8dzoqa0UD5UeASotYIbsGkqB0tXc0KWvT24voaH56twkIuxpI21E9nSCRus
-X-Gm-Gg: AYBFou11GWn6pkrmEFBx7UEtx0+/8nfXP9R7fctYnQ03Qz9iVvi+n/NOyx6G4NV0/Iy
-	DCOoXG9OIvlRuM4ddvl/7DlAfET4fIb0HoXGE/tfJTUJwnTEK5BpJUJUkGk/qZsevgk06d3Ttwj
-	YVeE5exetHiwMHZWnZBrQxMJXwDmZ+bdxw1e6OwncT5eSGS+mnE1IMPOsxbp71kmq2PsBKTPQ05
-	3kCi/U2qtdY2pPnXMKXt6gVSD45pQurwmimS/cvbrWOrw1fmROwBApjrBw9NTgMGNXJ5EErlju7
-	9+ZVCmcz6Oj4gNO0H0gF8GoWPRDb+3UyxRgwzlZpzVRpwA6OeYja6Utfwx41sSky3c5BkGbewzc
-	wMB1ETDL4m/kyRwrRzGGtPG5LpMijdrr9JPvu8eyxIiuzy4fLZPar/rxf4F22jYU7JBxzO6PK1H
-	y01ZAmQWKuCQjyA6iN2BkBygBDFocjgF6PsbGe3SnsEORCsNaG89oKp9cwWPDeBooSKMLZ0TGaF
-	e2wutuqOw==
-X-Received: by 2002:a05:6000:2212:b0:482:e2f2:19c9 with SMTP id ffacd0b85a97d-48488decc80mr12007278f8f.2.1788366401674;
-        Wed, 02 Sep 2026 09:26:41 -0700 (PDT)
-Received: from fedora ([93.107.91.249])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e80798sm6996004f8f.13.2026.09.02.09.26.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 09:26:41 -0700 (PDT)
-From: Paul Dolan <paul.dolan.dev@gmail.com>
-To: Christian Brauner <brauner@kernel.org>,
-	Shuah Khan <shuah@kernel.org>
-Cc: Luca Boccassi <luca.boccassi@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org
-Subject: [PATCH] selftests/pidfd: fix PPID values in error message
-Date: Wed,  2 Sep 2026 17:26:15 +0100
-Message-ID: <20260902162615.11531-1-paul.dolan.dev@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        bh=d8GmeZDaBEbzaZ8I2SDdKZrPLXHH/1Qk7o9QmMFbE1o=;
+        b=eJ2xLFO80jn23iO7313d22DXYzgR9ml1Km1SsnCZpMw4dralcfsBGkLQM9Xfod8oSR
+         rQEZ2zp5lH2hrQTO322izzvI1yyOC4u24SKgyKjj6n4ytJHZLkRmqaF8HtA9HgLne/S1
+         iZWX/SLfiWMz1wx0SUTz8NRPalcNFKOKKsR7q9sllyAXLBgf5LI/7QZPQ+VsTO3xcsls
+         rgqoUQXTndOjSFBpQLDa5GWRVZc6nKJq2vNI74M0KbohoHFSv+Kos4oEqkFRLLdC0lIQ
+         YY13eLiCW6PJ92iq3LfDC3NOfZNtGqX1RGycRUYeu/h7I7VNAdXssmX7rlMFFWCVPTFe
+         IrmQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rr3Y0ReoI0DfB+qCeamUTrbR0DfgbaHKIt/uIZDcFYHH68XN6lz0qO8E8TisSSUtCrkIXO4Vp5Vt0GeMhc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lfTuJrRpaAcRzzq0ebKh9sC4Gc93S936F9/jjL4dC/m4fs53dr
+	NixzafW7dypJ2Pr7GRuVWrGG0G94js8jfjBy2zriV0K713N1ZQ43OYS0pWDden8r329XirAc3tD
+	QWqTB46Qz+iTqqZz10yhs51PRklWTYwSjbKSbVDFWOdaniFVLNDed4t+2Fm+lVYwxztI=
+X-Gm-Gg: AR+sD121vBiKytkPpuJgiNCETPfHRVrbqgJlQQ+e8kWFjAp/uI0Fv/Fqnh6+JKVFcpd
+	In6RnB4Qz/RBvtPjzKEbpbuBknRd12kRAQLGJ8SpFJsgRM/RX8jCedK4eKn+1wVgeN8J2i4w2Ng
+	t5YkUFwaQbKQ5NitygLG0RWuBVPnh6DXCdu8vBK0rHMxfCMkz+D+2IX1zqABqMm35qlg2F+LS0C
+	x+qBuQnKQvdWNVGezIG0fc09wLiFHVTsFjY3UoIzSNN+VbL24ydqjlepe09ZpdsH/lyt5yGKjFG
+	ds730195A2wNLh/8yYvZPdOAzdK/OEZ9gUE1gxRAzRtTVTno4uHGbPz04xHABmLrZiXC6fFsGAj
+	t8afzcz1enEt1WNT2BC2WhQ==
+X-Received: by 2002:a05:620a:236:b0:939:6c5f:9a8e with SMTP id af79cd13be357-9396c5f9b56mr101499685a.0.1788366417449;
+        Wed, 02 Sep 2026 09:26:57 -0700 (PDT)
+X-Received: by 2002:a05:620a:236:b0:939:6c5f:9a8e with SMTP id af79cd13be357-9396c5f9b56mr101466285a.0.1788366412214;
+        Wed, 02 Sep 2026 09:26:52 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25cffc70fdsm163297566b.4.2026.09.02.09.26.49
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 09:26:51 -0700 (PDT)
+Message-ID: <11ddf6dc-f943-4070-882a-f60733dc4f71@oss.qualcomm.com>
+Date: Wed, 2 Sep 2026 18:26:49 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V5 3/3] arm64: dts: qcom: monaco-evk: Add SDHCI support
+ for eMMC via overlay
+To: Monish Chunara <monish.chunara@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Sarthak Garg <sarthak.garg@oss.qualcomm.com>,
+        Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>,
+        Nitin Rawat <nitin.rawat@oss.qualcomm.com>,
+        Shiraz Hashim <shiraz.hashim@oss.qualcomm.com>
+References: <20260826112456.482982-1-monish.chunara@oss.qualcomm.com>
+ <20260826112456.482982-4-monish.chunara@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260826112456.482982-4-monish.chunara@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: Z-9Uvzatg8oxfKbQUf6yDPQmJZFXwX6i
+X-Authority-Analysis: v=2.4 cv=FeAHAp+6 c=1 sm=1 tr=0 ts=6a984e52 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=sfNJ4pVXpVnTwTOAvM0A:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE0NSBTYWx0ZWRfX2wAFObBTW/W/
+ wKEtUgticPmZbxOutPQadKOvWB45msoX2rQDCExLdtzk0E6g/Vea3B3ZlL/sVvHEX1rMdOqGEDh
+ cT52noJi0dfCmDCtzd2kZbd2kphQbwg=
+X-Proofpoint-ORIG-GUID: Z-9Uvzatg8oxfKbQUf6yDPQmJZFXwX6i
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE0NSBTYWx0ZWRfX1dBFyhILDelD
+ 2Pqw7N4QnJuSGqcPDHtVn5P1mkRKYa68RypmPAejBW1IBDP2lRFfB34GAMwumnUAJc0zQI2+m0f
+ 94xmUfwtOc5Oqi/8bUy0kEMViIVM/CkZSPBFcEQI3ae99byxXfSUSACJhBavu2YCd4dbslLTHTm
+ YeVstc2EJ8SaaZcalhOXvd/Xjw2fm74wHz+4NwjDwv3lLhYBLlgbUAYk2mPTgwV1XCYwJ86cv4D
+ 1gOi+m9WVZ70im59EtFWMo6ena+/7wEH1xLDsQqR8NbBAS4lVNFg8A75HUJrl6+aiKvQI+jpkYf
+ Eq5uFwtV9MSrHL3nrqoznKQxUDVHJ0nOd4Qi27g+MKoUQzqaDMQ0tezfOMqK2HMiwpDMzb8iVsb
+ SViEDekl5Sqo6q7Vjfb/aE1S30SmBbmvyJDIruENsndX/+Wa3seJyaJjerXEUNPGCDt1/MBRQrO
+ M/fW4awW7EdV5yqHLYA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_04,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 impostorscore=0 malwarescore=0 adultscore=0 lowpriorityscore=0
+ priorityscore=1501 bulkscore=0 phishscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020145
 
-The PIDFD_GET_INFO PPID check compares info.ppid against getppid(), but
-its failure message prints pid and info.pid from the preceding PID
-check.
+On 8/26/26 1:24 PM, Monish Chunara wrote:
+> Enable the SDHCI controller for eMMC functionality on the Monaco EVK
+> using a device tree overlay.
+> 
+> Signed-off-by: Monish Chunara <monish.chunara@oss.qualcomm.com>
+> ---
 
-Print the PPID values being compared so that a failure reports the
-correct information.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Fixes: cdda1f26e74b ("pidfd: add ioctl to retrieve pid info")
-Signed-off-by: Paul Dolan <paul.dolan.dev@gmail.com>
----
- tools/testing/selftests/pidfd/pidfd_open_test.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/tools/testing/selftests/pidfd/pidfd_open_test.c b/tools/testing/selftests/pidfd/pidfd_open_test.c
-index 318e6f09c8e0..c6698b7cdb47 100644
---- a/tools/testing/selftests/pidfd/pidfd_open_test.c
-+++ b/tools/testing/selftests/pidfd/pidfd_open_test.c
-@@ -168,7 +168,7 @@ int main(int argc, char **argv)
- 	}
- 	if (info.ppid != getppid()) {
- 		ksft_print_msg("ppid %d does not match ppid from ioctl %d\n",
--			       pid, info.pid);
-+			       getppid(), info.ppid);
- 		goto on_error;
- 	}
- 	if (info.ruid != getuid()) {
--- 
-2.55.0
-
+Konrad
