@@ -1,94 +1,86 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCD2C38E8DC;
-	Wed,  2 Sep 2026 06:14:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5519259C80;
+	Wed,  2 Sep 2026 06:14:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788329652; cv=none; b=LvyqC+BNWAqhSoQvb7D/94nXSDPJM6BcLwVRGVHY4FahRG1soNqT7JtbBtx+HlnT4bNMq0La2luOHsfdgM3SjqSo/tc7RVkme3G730VtJ1M5CLiu8lRJb1GDnziyhiUfiWRiUFQ8TkhoyOdK846Kg/+KUY3r3JTHxQP8CYFRRvQ=
+	t=1788329691; cv=none; b=EtTaQLp02zpF6a47h+shOihASxD6I338RVYJmHp+V6urnmUU0J2E8msZVXqCwaYtWubh2YPxxRfxSkgPqNywB7fJvL0kAgHtEujnOGzg8KEk0PKUlSK1Sd/rSxIKSTnBGZaneLJgH4qDu7kHfhrh74lFXnioApXEQHSjohFD0vo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788329652; c=relaxed/simple;
-	bh=KpmFv3av8tJKSZwWoE+ljhVHf5UhB9x9vRyYoQJVCC4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IDOC88ubFf+XBcQniXJT5k6mAcWKU/Hle7/0EILXP09Gmnft5CC3Wwb/SuVE0Y8FLgyLjL9eoRwUNIDOkhqQXIiJLny/RO3Czg0YcsN7cmI2M/po6xmvbxe/K2qI1Ahnj5yKtB5Yq1njqtCzHHxo42QJYjGlU0VE8xwQva1IZ0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J0HEzdLc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788329691; c=relaxed/simple;
+	bh=W6lCnDcYh4MouWKfwnyUMC1XovFPt8CXhaCRKhfe2AI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=msZremRHrn+4w2g5PbfhL4oXwRqwKPTUORAf3RYSd22wgBkBrm5IOHow+zid2VmdqJ12BaEGHZxFLRYdIePAXUGQJAUowGKPkkFx09mIIDdzYzzxe1LNQJLKkqNI7DsEbM7dhXdN2ESsPkT1otuCmdKVH3CZjvq0dLhPfYQJQlc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K3oALGCu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J0HEzdLc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 672511F000E9;
-	Wed,  2 Sep 2026 06:14:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K3oALGCu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C7A81F000E9;
+	Wed,  2 Sep 2026 06:14:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788329648;
-	bh=K5x2CbYRmNV3MA8rM8UuqBOVvPVm0QxSLiJJvUd4pl4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J0HEzdLcQyh+gjzjo4CoIOYJFrANeLY4gXMg1LyNcjFr6rWcrj0m/Hafy9aqPlCSF
-	 ALFYGKLVhJmI+q6ot5Cvvenug3O+vhPsA5Dig7YijlgHp48jO1apupvCWM5RxwsPR0
-	 ZSmAYVD1chgBRb3d4X+RsEKZqmhvo0CQ5h1gNXbLTMHitAkbG19K+nc/GFekZmLVww
-	 CZRdawX6Kt4Qdf4noDfuKuFk0CoGYSs4ghtC2riWMDu603LGfoKn6YxOve03JgNrgD
-	 Zwttkptd+C2o5Nk2KWES1+sZ78juWyiHPYDlVnZHYopac3ztyAQhZKdwJrgKdp7thx
-	 xte1xVh8i/GBQ==
-From: SJ Park <sj@kernel.org>
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH 02/12] mm/damon/core: remove debug messages
-Date: Tue,  1 Sep 2026 23:14:00 -0700
-Message-ID: <20260902061401.104419-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260902054747.99370-3-sj@kernel.org>
-References: 
+	s=k20260515; t=1788329690;
+	bh=90mMDivmYLVIhr+/B44twx1FX2pVghFNM7BHpRHGf1o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K3oALGCueE9NBlx2SKSN0VucF44Mm7ljVbXvTVDEZUOUOyOJU2GE/yBOMNRNBzh07
+	 kEgzSsWyRLs0TI78Ofun4nHMROXzDhyAzcSMkD54PHd3G/JZYjvu/tFUmZ5EFSE+Bc
+	 LzhiDDM6+M7daSZc++dHU8ikKCpBB6Q0yUzKDKm7fd8OwgMYrd2/L3YB/mrqUfe3ly
+	 Wi4MwITnir7pPF0kJFmKB2lGo28bKl+SX7npxhmVt08BOCgnQfqafu1GIyJcN0Oj5M
+	 oLua04+sYbUIlrNkY3JoqQt+aawM12jdfUvp4lEqMYoelUH8vBviYCdQ9fdJdJ7eUr
+	 XPs1x3MzQ9sDA==
+Date: Wed, 2 Sep 2026 08:14:46 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Frank.Li@oss.nxp.com
+Cc: Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, "open list:NXP i.MX CLOCK DRIVERS" <linux-clk@vger.kernel.org>, 
+	"open list:NXP i.MX CLOCK DRIVERS" <imx@lists.linux.dev>, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, 
+	"moderated list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..." <linux-arm-kernel@lists.infradead.org>, open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/1] dt-bindings: clock: imx5: add assigned-clock*
+ properties
+Message-ID: <20260902-wonderful-tangible-warthog-d927f3@quoll>
+References: <20260901193720.1066686-1-Frank.Li@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260901193720.1066686-1-Frank.Li@oss.nxp.com>
 
-On Tue,  1 Sep 2026 22:47:35 -0700 SJ Park <sj@kernel.org> wrote:
+On Tue, Sep 01, 2026 at 03:37:19PM -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+> 
+> The i.MX5 CCM is a pure clock provider with no 'clocks' consumer
+> property in its binding. The dtschema framework only merges the
+> clocks.yaml meta-schema properties (which include assigned-clocks,
+> assigned-clock-parents, and assigned-clock-rates) into a binding
+> when the binding itself declares 'clocks:'.
+> 
+> For example, imx53-m53menlo.dts configures the CKO1 output clock
+> by setting assigned-clocks on the &clks node:
+> 
+>   &clks {
+>     assigned-clocks = <&clks IMX5_CLK_CKO1_SEL>, ...;
+>     assigned-clock-parents = <&clks IMX5_CLK_AHB>;
+>     assigned-clock-rates = <133333334>, <33333334>, <33333334>;
+>   };
+> 
+> Without explicit declarations this triggers a dtbs_check error:
+>   arch/arm/boot/dts/nxp/imx/imx53-m53menlo.dtb: ccm@53fd4000 (fsl,imx53-ccm): 'assigned-clock-parents', 'assigned-clock-rates', 'assigned-clocks' do not match any of the regexes: '^pinctrl-[0-9]+$'
+> 
+> Assisted-by: Claude:claude-sonnet-4.6
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
 
-> There are a few debug messages in DAMON core.  Those have not really
-> been used in a meaningful way for the last few years, though.  Remove
-> those.
+Then the DTS is wrong. If this device does not have a parent clock
+input, then assigning clock parents is wrong because it is either
+contradictory (you said no parents) or misplaced (clock consumer should
+set it).
 
-Hi Andrew,
-
-
-Sashiko found with this patch, string_choices.h can also be excluded.  It is
-the only finding.  I guess reposting entire series for the small change is too
-much?  Could you please add below attaching fixup patch when you pick this?
-Let me know if you prefer reposting.
-
-
-Thanks,
-SJ
-
-=== >8 ===
-From b9c86e50efd30bab8c5cb99b3063bd823184b033 Mon Sep 17 00:00:00 2001
-From: SJ Park <sj@kernel.org>
-Date: Tue, 1 Sep 2026 23:08:16 -0700
-Subject: [PATCH] mm/damon/core: remove string_choices.h include
-
-It is no more being used.
-
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/core.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index a7ed7724c85af..84f6bc634f377 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -15,7 +15,6 @@
- #include <linux/sched.h>
- #include <linux/slab.h>
- #include <linux/string.h>
--#include <linux/string_choices.h>
-
- /* for damon_get_folio() used by node eligible memory metrics */
- #include "ops-common.h"
---
-2.47.3
+Best regards,
+Krzysztof
 
