@@ -1,202 +1,70 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78D5342E406;
-	Wed,  2 Sep 2026 09:51:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B7CCE3F7869
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:52:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788342660; cv=none; b=EJD6iX4qXIebnV3mMA8SB6hyMtQB/52w9SLXKQPqJ5G9yvzLAKPh/h5F0woHxeL5cQ0yLP6/wFgQ7nTxvrX3W2Nf4f3KJ/z1Ekh36oMksu5eWxZyLyukyxBEjlAqcMzb5glco2tK5PguDNlSP1GCTo+7IM9rO37mZ4uC7Pyfn6I=
+	t=1788342753; cv=none; b=rIAfaogV6VWCQFLX1Da2tf9V1hLHIGtVdiumqvDgA36gxTpzRe/nO0BlC4Eo8cEWYbndzRnXc2PzeRfj3ko9sm/zeYZS/PWfrTLOyQrV9Ze2UnTbgJnm5U2xaZ70D2Jc1kTQioXnOxtioA6fSgQo/xtRNayzxwri3HiTJDnSv98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788342660; c=relaxed/simple;
-	bh=ENRV4v6WgSczjFoQPgCJiVLJfabo2qU5Lymw9U16Hos=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ghHk2IzfwmTn5tcDC+Q5gwyEJHYNlR5y/uDpbof8NRx46XWikylg42RZS7Mq2vcIXlHcX36czLOhJN2Fs9GdsW4Dud/ED50I78IkBSeoxgjoAj6UEn7+yoSnBBWRZfH2eqGUk2ORkuPKavk3z9vcKghRhDl9FpFNSOqk5zT1E/o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=guhwg4Zz; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788342753; c=relaxed/simple;
+	bh=vj1d2Hjcr0LTR9YKWkQUvHNJIp5hxBB7jPIEGGLJ+IE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SKlPsRZvg2/CQTDNH64siwkSN9rDMR4rJl4lZ+F6wCZnkkeOuDhO94ZHEIu0EfEgW4uTaJOgFjfz3iSX4WY4UPWQrllCJbSJIrFRczAIeRhrcUQ2DmzENsd70QL4ej9mnB9X0PyXWLbuMeBxDLCrW2rAW6eETIYqk3QgnOkAUCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=AISmhtUO; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="guhwg4Zz"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 45C3CC2BCFC;
-	Wed,  2 Sep 2026 09:51:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788342660;
-	bh=ENRV4v6WgSczjFoQPgCJiVLJfabo2qU5Lymw9U16Hos=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=guhwg4ZzUREQFbNhN1zYAYuwejMCSgQdNE+tf28bJpEV7u4X5chlzR85mDuMtpVHt
-	 sMfpHf3VdOGEYa85xriA1NyTB9ZeJIxBdi0YGLWLtVZxKqHME1sLgJ1cWsG7MqHHzc
-	 JOTPtI3Vw1hHhcb1N7jRfFte2OB58/cRpKERMMxnv+uf1BWxEDtKa1HzSyHd9V9auV
-	 Q1a3NgEgYNOTTHxO3xVG9iBW93BIbzECEzrwg+9luRC7LhD0+L+08wiX9FmO0M7uMz
-	 lo0+mhceUhHkU2SaOmNCRSsHGpPQVwkC3KElxruH4qJIotFmjRXEGLHE8kxa2MAm8A
-	 od+yi+mBimLAg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2D578C624D6;
-	Wed,  2 Sep 2026 09:51:00 +0000 (UTC)
-From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
-Date: Wed, 02 Sep 2026 17:50:59 +0800
-Subject: [PATCH v5 6/6] mm/mglru: fix potential generation folio number
- leak
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="AISmhtUO"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4E73B165C;
+	Wed,  2 Sep 2026 02:52:27 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9C12B3F85F;
+	Wed,  2 Sep 2026 02:52:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788342751; bh=vj1d2Hjcr0LTR9YKWkQUvHNJIp5hxBB7jPIEGGLJ+IE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=AISmhtUOoPLVaPnw4xik8vp0nRlAZ6FnZ8yIu8D5dNxky4l3GNuToxt6+kyh451sp
+	 B53F0ch3P9VhuqeQsXctnzEjN3PYED58wlaaBdbDRZYxm2PKtMk2pKz5qe9oeUldOL
+	 J9BC71uzBuw53LkAszGnAB2DmtADvJLq8jVjALqI=
+Date: Wed, 2 Sep 2026 10:52:28 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: Jie Gan <jie.gan@oss.qualcomm.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	James Clark <james.clark@linaro.org>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
+	Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
+	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] coresight: tnoc: fix trace ID path assignment failure
+ on non-AMBA tnoc
+Message-ID: <20260902095228.GV8904@e132581.arm.com>
+References: <20260902-fix-trace-id-error-in-tnoc-driver-v2-1-73669a947297@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-mglru-flags-cleanup-v5-6-9db761d779ef@tencent.com>
-References: <20260902-mglru-flags-cleanup-v5-0-9db761d779ef@tencent.com>
-In-Reply-To: <20260902-mglru-flags-cleanup-v5-0-9db761d779ef@tencent.com>
-To: linux-mm@kvack.org
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Roman Gushchin <roman.gushchin@linux.dev>, 
- Muchun Song <muchun.song@linux.dev>, Chris Li <chrisl@kernel.org>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Ridong Chen <ridong.chen@linux.dev>, Lian Wang <lianux.mm@gmail.com>, 
- Yu Zhao <yuzhao@google.com>, Zi Yan <ziy@nvidia.com>, 
- Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Kairui Song <ryncsn@gmail.com>, 
- Kairui Song <kasong@tencent.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788342657; l=5300;
- i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
- bh=BeFRtTv2DUVCnBDdSk2xGGeIVNwza5FMggB+YkSlaTk=;
- b=WKortzZwxgU1YkMCpiMgIJayfIQsa7teb+grctu7+vTppe/6UAmFcu5HnWG/tveeH6BpxNbyq
- 4h3I9AloIQiAPCNj/AL/+unCXwYy8KCX1/IJJTmhLHESJl3BqpwQucE
-X-Developer-Key: i=kasong@tencent.com; a=ed25519;
- pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
-X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
- with auth_id=562
-X-Original-From: Kairui Song <kasong@tencent.com>
-Reply-To: kasong@tencent.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902-fix-trace-id-error-in-tnoc-driver-v2-1-73669a947297@oss.qualcomm.com>
 
-From: Kairui Song <kasong@tencent.com>
+On Wed, Sep 02, 2026 at 05:41:43PM +0800, Jie Gan wrote:
+> For a tnoc device not on the AMBA bus, atid was set to -EOPNOTSUPP.
+> trace_noc_id() returns this value directly to
+> coresight_path_assign_trace_id(), which only treats a literal 0
+> return as "this device has no ID, keep searching the path" -
+> any other value is checked against IS_VALID_CS_TRACE_ID() and
+> rejected. A negative atid therefore made path assignment fail with
+> -EINVAL instead of falling through to the next device in the path
+> that could supply a valid trace ID.
+> 
+> Use 0, the same sentinel coresight_path_assign_trace_id() already
+> recognizes as "not allocated", instead of -EOPNOTSUPP.
+> 
+> Fixes: 5799dee92dc2 ("coresight-tnoc: add platform driver to support Interconnect TNOC")
+> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
 
-Each generation of MGLRU accounts anon and file folio numbers
-separately, and the page table walker updates each generation's
-counters in batch once the walk is done. The walker promotes a
-folio's generation with a cmpxchg on folio->flags, and
-update_batch_size() then reads the live flags again to pick the
-anon/file column to charge. The walk holds neither the lruvec lock nor
-the folio lock, so the type can flip between the cmpxchg and that
-read: the lazyfree path clears PG_swapbacked, and reclaim sets it back
-on a dirty lazyfree folio. The batched delta pair is then recorded in
-the wrong type column. Nothing reconciles it afterwards, permanently
-skewing lrugen->nr_pages and the reclaim budgets derived from it.
-
-Fix it by capturing the type from the flags snapshot the cmpxchg
-linearized against: folio_update_gen() returns the type of the state
-it transitioned from, and update_batch_size() accounts with that.
-
-A folio's type only changes while it is off the LRU list, inside a
-del/add pair under the lruvec lock, with the gen bits cleared in
-between. The generation and PG_swapbacked sit in the same
-folio->flags word, so the cmpxchg snapshot captures them together.
-Let G be the generation that snapshot captured (old_gen) and G' the
-one it wrote (new_gen); the CAS can land in only three places:
-
-  - before the del: the folio is anon at G; the batch records anon
-    G -> G', and the del later removes the folio from the anon
-    counters;
-  - between del and add: gen == -1, so folio_update_gen() returns -1
-    without touching the flags and no batch is recorded; the del/add
-    pair accounts for the move alone;
-  - after the add: the folio is file at the fresh generation the add
-    charged; the batch records file, that gen -> G', matching that
-    charge.
-
-Unlike the drift of lazy promotions, which sort_folio() repairs under
-the lruvec lock, the phantom deltas from before this fix land in a
-column the folio never occupies again, so nothing ever repairs them.
-
-Fixes: bd74fdaea146 ("mm: multi-gen LRU: support page table walks")
-Signed-off-by: Kairui Song <kasong@tencent.com>
----
- include/linux/mm_inline.h | 11 +++++++++++
- mm/vmscan.c               | 13 +++++++------
- 2 files changed, 18 insertions(+), 6 deletions(-)
-
-diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
-index 047295ae6e8a..ab69b9930893 100644
---- a/include/linux/mm_inline.h
-+++ b/include/linux/mm_inline.h
-@@ -30,6 +30,17 @@ static inline int folio_is_file_lru(const struct folio *folio)
- 	return !folio_test_swapbacked(folio);
- }
- 
-+/**
-+ * folio_flags_is_file_lru - Should the folio be on a file LRU or anon LRU?
-+ * @flags: The folio's flags.
-+ *
-+ * Just like folio_is_file_lru but take the folio flags directly instead.
-+ */
-+static inline int folio_flags_is_file_lru(const unsigned long *flags)
-+{
-+	return !test_bit(PG_swapbacked, flags);
-+}
-+
- static __always_inline void __update_lru_size(struct lruvec *lruvec,
- 				enum lru_list lru, enum zone_type zid,
- 				long nr_pages)
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 714a3f273f49..e7d379c6e703 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -3269,7 +3269,8 @@ static bool positive_ctrl_err(struct ctrl_pos *sp, struct ctrl_pos *pv)
-  ******************************************************************************/
- 
- /* promote pages accessed through page tables */
--static int folio_update_gen(struct folio *folio, int new_gen, const vma_flags_t *vma_flags)
-+static int folio_update_gen(struct folio *folio, int new_gen, int *type,
-+			    const vma_flags_t *vma_flags)
- {
- 	unsigned long new_flags, old_flags = READ_ONCE(*folio_flags(folio, 0));
- 	int old_gen;
-@@ -3298,6 +3299,7 @@ static int folio_update_gen(struct folio *folio, int new_gen, const vma_flags_t
- 		new_flags |= BIT(PG_workingset);
- 	} while (!try_cmpxchg(folio_flags(folio, 0), &old_flags, new_flags));
- 
-+	*type = folio_flags_is_file_lru(&old_flags);
- 	return old_gen;
- }
- 
-@@ -3328,9 +3330,8 @@ static int folio_inc_gen(struct lruvec *lruvec, struct folio *folio)
- }
- 
- static void update_batch_size(struct lru_gen_mm_walk *walk, struct folio *folio,
--			      int old_gen, int new_gen)
-+			      int old_gen, int new_gen, int type)
- {
--	int type = folio_is_file_lru(folio);
- 	int zone = folio_zonenum(folio);
- 	int delta = folio_nr_pages(folio);
- 
-@@ -3519,7 +3520,7 @@ static bool suitable_to_scan(int total, int young)
- static void walk_update_folio(struct lru_gen_mm_walk *walk, struct vm_area_struct *vma,
- 		struct lruvec *lruvec, struct folio *folio, bool dirty)
- {
--	int new_gen, old_gen;
-+	int new_gen, old_gen, type;
- 
- 	if (!folio)
- 		return;
-@@ -3532,9 +3533,9 @@ static void walk_update_folio(struct lru_gen_mm_walk *walk, struct vm_area_struc
- 		folio_mark_dirty(folio);
- 
- 	if (walk) {
--		old_gen = folio_update_gen(folio, new_gen, &vma->flags);
-+		old_gen = folio_update_gen(folio, new_gen, &type, &vma->flags);
- 		if (old_gen >= 0 && old_gen != new_gen)
--			update_batch_size(walk, folio, old_gen, new_gen);
-+			update_batch_size(walk, folio, old_gen, new_gen, type);
- 	} else if (lru_gen_set_refs(folio, &vma->flags)) {
- 		old_gen = folio_lru_gen(folio);
- 		if (old_gen >= 0 && old_gen != new_gen)
-
--- 
-2.55.0
-
-
+Reviewed-by: Leo Yan <leo.yan@arm.com>
