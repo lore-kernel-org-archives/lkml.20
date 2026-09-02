@@ -1,172 +1,226 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 590EB386567
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:09:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C0430F92D
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:09:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788329359; cv=none; b=bv5QSn6fA56XFfMdfcEmeSzg4nScXQruNRM06XXct4116n7TUSBrjLA/MvY7Po1D+pP1ZPVqJjtVpSC8NtM+TlKr4TZTg23kCDXlEMjof4iSGQ2O5mLVNQA4ZXQ1c+WVzQOpjo/j9dt5MHs5fBVMBxAJvBO/agHJf302WhipUiM=
+	t=1788329391; cv=none; b=JwMcKwvbVlmx54ek4kkjrHFxdYLyLUvedQZ1Xk7oLc8PVtwJMYfEGX5Wp4GOqU0vKchUoeTY0Gxy5Q43ce8M9kOs08x3/rWGkzd8V6VAK3zRIpsM7WdIRQPnXxVFXctARQBf1zo220pT/Qxmax23pKt5fWtKHGGYmwaQu9efX/4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788329359; c=relaxed/simple;
-	bh=2O2tLbCSCtHBMYey+e7A3uPt/HONNbOYonSDFLRuS6E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Q2Mpk2EbC6Hfe4hyPnbgIa0SS3z+trUC43vweDQywE7/Kx5vQ5rkK50T/F+pkg4jW3CV2UIOEURwDVef+zbkw/orDiG6dFa2cxDxUvnHDNNKQp9aMdfpG5j1kVLA/Lbzsb9oCle9zfcpfHJrttmPOFPwQ9px7boYQ7HG0Ae1noA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iY2IK87W; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aO2f6a0o; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788329391; c=relaxed/simple;
+	bh=VDXWvbRR4DHriUaTDPVIH7M6ZKvpVV5xMIOlQUUcaRE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NxHphRklDVgxBvW6kazeSD9kinQJoeDihPduxB8g55l1TLmGtXFDmxVXBlZxPCrvl4BwJOzEvyuGw8rs+obHq3X2GAWhhYUNZ0wUTwrvXGSh1GZXmhBbpZdSgCwZbtHOByK8vKbJmw1/PhQUgf3zlmoWBfJX7Y8TT57yRf2Kgfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=cMzY3cEo; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=n1sbqUSW; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=1uxOg+Wk; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=VhNAt2HA; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iY2IK87W";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aO2f6a0o"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6825YQjm630998
-	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 06:09:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	rekHoOCBWmiKDF8X232OJC4hGvW2Rl9Y34JGuZYLqzg=; b=iY2IK87Wvd1cPHXj
-	BEIzJxzXQgF5YJUqKc+O0//4SjcTUqNeqWB4IZqatIxHAQUhcdkNe2HuxeGqkQDe
-	AS+DXJdRpQDmiqEGLhR/SiAZ7Aa0iGD2nXTcGkSBcY5EEAv37Xg+YmlgItF8227m
-	I2i7Zl0caFKUTYvLEQ3HsiA+xisvHR/1XNAnGzqoqj9wFWgMzDW/29O7s2Js/s8e
-	3Mq6pKHr+EhWE5WyhB9JDvLKG9mOA13findwrYj8S/figRWE7Fci4zyxyThj9Kod
-	xROgMtRfPZwRJ51q3dUbzh+XdSzSGOtelvkO1/7NQu/LLsI4FnOcRY46bVOzNJOS
-	EBfB5A==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ge37j2d2u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 06:09:17 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-ca6bd8a190cso1049588a12.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 23:09:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788329357; x=1788934157; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rekHoOCBWmiKDF8X232OJC4hGvW2Rl9Y34JGuZYLqzg=;
-        b=aO2f6a0oMeu/5b4v2er9puwoGM4kvphKFpAmoQQliEkf02mhNxFHqs7pRI3gWQyx3+
-         Hoat+1BAR8tuJTpwh5AypjilVsTEolw+16odcce5nqK9FckNjij9uLaAgxSfpvPVZMVZ
-         zZONqH0OlbFPgf3ET3gsq6xMp+9G7Ldhyg7xrxsH2r4CwjCXnc5MNVExLLYIEEZf8P1o
-         AX7B2kXUqqyl04+jKImHvVGE0H+19mIOb4K1QbgNQoBw4/IkDheF4KupcXO1L7BvHuSI
-         iLREw88Fau8HjGxiWz3YvGgBfhG0wPUf8aGaE6r99l41UrUCq9e1zzCC6df+kIUrXyiK
-         VK2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788329357; x=1788934157;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rekHoOCBWmiKDF8X232OJC4hGvW2Rl9Y34JGuZYLqzg=;
-        b=Xfvdj//duVUdklpcAKAjejz7B2ZHhB4qTBVz+HakSG06Z59EZzw1HYpipPwGVHvlRl
-         5oN6LO4NSYfpSRylqgU1jPrL66QGt8VYyfDjjWSP8F/2mBmPljRUgBq2zGzeReucUE/v
-         dHcYVK3GsEb9d7KqQQ8737r54oBSOnzxbPQtcIg4hRyQ1Fs9jRhci4BwetCDLQ/Lcb75
-         PKr9X9kQ/lGaalwP1MID/PB0AjFH+OQEtCs/N5MSthR1hO3OjqmTSxbXsQ7Le/LEOO9U
-         Y+JZHoTUpB5axWy1WGN2OdZJhF+mv5sLrHxAB1Ddf/N7CcHsp64PgydS/xFMXlrejHDH
-         h2LA==
-X-Forwarded-Encrypted: i=1; AHgh+RqACNnozymDl/EDgO+4jaAxoQ3xRA07w3halJsCQpswvVwPYOCavOgayOo8hFoVAB8haW2507uave1wHNI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lepr5XRqMn5kO2GZvISTYBh3bJjmzXr/x8uPFk1tPti2gRE2Sr
-	mcJs8vRXGDmRCUh/03RgJWn3Byk48sYSdmJaHj+KyqnKlLflh8wM3oxXRby2QlaG0g2OX3B33Fp
-	kslARthT6q9SO2+uRNzyF3oSJaTyisBqATWHTfe31KPPad23anq4GILxcRsuvDCNNz2U=
-X-Gm-Gg: AR+sD12BLqnk/pwMIgQSawuJWuQESp+rpXivNq5DluBaqnRAyLIt4TKzQ6VTMAFMsJx
-	hbDqot6lSf+vxTAUdVDvg3lU5KfnvoqVdzkuiLB9fY3WhfaFlcz2OrflRTtlKQHIB83/8km8wGS
-	0S5NGqNPru8rjVwYvY+UsobZIQJHBodG+meajCdwmjxU7GHZUlRrEK83fBo0xcqiO7Q8ZD56vET
-	cOyuXBTu9Yf9IW2PJnSIdcJoeicZl0JYg2Kk/R8uRmTJP4zbhNcJqzBjn8cjms7NaDpvD1ES3Gs
-	rpJkMg3ljoO9xDcCurFOMarxmvZ0cjimVlDW7U5HfaA8sIistDgvURfydn8TbpOySz+BbSRonun
-	dzrjDSqYv5u7uRf/uwx7qj0qSqpOT
-X-Received: by 2002:a05:6a21:7a46:b0:3d0:ba81:79b1 with SMTP id adf61e73a8af0-3d9aa9e2184mr4428628637.0.1788329356445;
-        Tue, 01 Sep 2026 23:09:16 -0700 (PDT)
-X-Received: by 2002:a05:6a21:7a46:b0:3d0:ba81:79b1 with SMTP id adf61e73a8af0-3d9aa9e2184mr4428538637.0.1788329355930;
-        Tue, 01 Sep 2026 23:09:15 -0700 (PDT)
-Received: from [10.218.18.193] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1430ea31f1esm3257660c88.8.2026.09.01.23.09.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 23:09:15 -0700 (PDT)
-Message-ID: <942f0a0a-461e-4794-a33a-9c820635eef0@oss.qualcomm.com>
-Date: Wed, 2 Sep 2026 11:39:09 +0530
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="cMzY3cEo";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="n1sbqUSW";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="1uxOg+Wk";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="VhNAt2HA"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 45E6D21F4A;
+	Wed,  2 Sep 2026 06:09:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788329383;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=X7OnDZJCaRB6n+hE3JFGFzyjBmw9S7sKcPUv2w1Myt4=;
+	b=cMzY3cEosKsmS7ZH4erv7JrsVfFJ8R3Y45TSEymrQhmmQM3pN15h3OykfKHdQ62zXLrqYz
+	Ie3fmloOUJKUichVpRW149euvK5O9IeKDueZHHhQWcW1gYvOu7Yde+TIHcufXINfCDWnCl
+	qYh6NZcwJu4AUVct3rScsSz9ifBr6fs=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788329383;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=X7OnDZJCaRB6n+hE3JFGFzyjBmw9S7sKcPUv2w1Myt4=;
+	b=n1sbqUSWWCKC5SGScLWLaR8kyiNrerCMzD0KBr2MXDLbs3QDBxMWeq6IHmR3DumsThsv9n
+	KWF5cP+fEl8j8JAA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788329379;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=X7OnDZJCaRB6n+hE3JFGFzyjBmw9S7sKcPUv2w1Myt4=;
+	b=1uxOg+Wkz1FLDbmXnYnEStcn0vCn6HtdgNPnIRaPQzIf0V6fkPg1L3OuMWvdqrIbEG1Rmt
+	by4GGlrk1L7+ErpT/peXNrR1QJhcVjL+a4iXDrQtd+u2+jyr5WpDypWU0Z441iRkPkH4Ko
+	x0O0r52s6U/Rlak0LwcKT2tzgUTQRW4=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788329379;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=X7OnDZJCaRB6n+hE3JFGFzyjBmw9S7sKcPUv2w1Myt4=;
+	b=VhNAt2HAlKkNEeoGMluC6x6OwX2OeF6FF7irO04jG7sU7AHWhDPuiuj/CS+r9i7fs3g41g
+	32apNCO/2lXPCHBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C879D13736;
+	Wed,  2 Sep 2026 06:09:38 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id in2aL6K9l2pGbwAAD6G6ig
+	(envelope-from <pvorel@suse.cz>); Wed, 02 Sep 2026 06:09:38 +0000
+Date: Wed, 2 Sep 2026 08:09:37 +0200
+From: Petr Vorel <pvorel@suse.cz>
+To: linux-kernel@vger.kernel.org
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Andy Whitcroft <apw@canonical.com>, Joe Perches <joe@perches.com>,
+	Dwaipayan Ray <dwaipayanray1@gmail.com>,
+	Lukas Bulwahn <lukas.bulwahn@gmail.com>,
+	Cryolitia PukNgae <cryolitia@uniontech.com>
+Subject: Re: [PATCH v5 4/5] checkpatch: Factor out the check for UAPI files
+Message-ID: <20260902060937.GB890950@pevik>
+Reply-To: Petr Vorel <pvorel@suse.cz>
+References: <20260901105642.851234-1-pvorel@suse.cz>
+ <20260901105642.851234-5-pvorel@suse.cz>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] ASoC: qcom: q6apm-dai: add VMID-based SCM
- assignment for mDSP buffers
-To: Mark Brown <broonie@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Mohit Sharma <mohit.sharma@oss.qualcomm.com>
-References: <20260826-a2a-shikra-vmid-v5-v2-0-c3dc62354eee@oss.qualcomm.com>
- <20260826-a2a-shikra-vmid-v5-v2-2-c3dc62354eee@oss.qualcomm.com>
- <948de620-a482-4624-8383-6b65eb28a5e9@sirena.org.uk>
-Content-Language: en-US
-From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-In-Reply-To: <948de620-a482-4624-8383-6b65eb28a5e9@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 4JdQiXnT5yZDCTVS3jorEvu_MrB0Kqy7
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA1MyBTYWx0ZWRfX2xmHuhms3F4h
- TyDcubNEwI+wMYMQxzP7yL759Q+nKtBJDZjsQzI6UZm6TXY4GVpD9KndT8kYpu6BgSH/eZWq4XI
- SOgAPd1cvH3Ri6RSidLYjLBqSS/N43E=
-X-Proofpoint-ORIG-GUID: 4JdQiXnT5yZDCTVS3jorEvu_MrB0Kqy7
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA1MyBTYWx0ZWRfX7s96eaSLcH2b
- ESq/7YYVYkxR9jR2izoh2FihOQm0Sz/dcjjXUX+A6a/R8po01vnrkdb1nWDnxngtdCBjFjHPogD
- 2TV9w6yiU/zS+9jkvX24cv0HS8eCF4I5Rp89o6h5nBmcTNjdqaawVmstRrkLt62pgqzGmJsYABW
- JLt3x3/liIlue0IjwJCcbrShnuNcPxCtF9UQM9t+Z5lyYk1W3oU6/7pXApugVKWdcTxOZVo76xL
- j/UB1uTYWVDTdLV4i8hSXJEbyitq3DL5IiKwvQW22IFR7JtDyUdDhRJ+4U4Dj3yZX4DdIy1TCL2
- 9OxnKuHSLp6X9GiJBDlDKXo3jSW5wtnGv4EdsfjfGO6CjoawdseG0LcKzOMA8KodaWRFi9/Gj6D
- CS7h8BaTkx7nDll9Y2+Url5n9IJSJ1Ioge5FcB4tPB55xMq8yYm1XfvWe0D2WTZLRCHC5GCDdR6
- rgzeW7aW57/Ox8R5S8A==
-X-Authority-Analysis: v=2.4 cv=PKg/P/qC c=1 sm=1 tr=0 ts=6a97bd8d cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=bKA_SWDmMBWY0RPQJBEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-01_06,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 impostorscore=0 phishscore=0 clxscore=1015
- lowpriorityscore=0 bulkscore=0 spamscore=0 adultscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020053
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260901105642.851234-5-pvorel@suse.cz>
+X-Spam-Score: -2.00
+X-Spam-Level: 
+X-Spamd-Result: default: False [-2.00 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	HAS_REPLYTO(0.30)[pvorel@suse.cz];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	MISSING_XM_UA(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	URIBL_BLOCKED(0.00)[suse.cz:replyto,suse.cz:email,wikipedia.org:url,imap1.dmz-prg2.suse.org:helo];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[linux-foundation.org,canonical.com,perches.com,gmail.com,uniontech.com];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,suse.cz:email,imap1.dmz-prg2.suse.org:helo];
+	RCVD_COUNT_TWO(0.00)[2];
+	REPLYTO_EQ_FROM(0.00)[]
+X-Spam-Flag: NO
 
+Hi all,
 
+> DRY.
 
-On 8/27/2026 4:22 AM, Mark Brown wrote:
-> On Wed, Aug 26, 2026 at 12:10:13AM +0530, Ajay Kumar Nandam wrote:
->> On platforms such as Qualcomm Shikra, audio is served by the modem DSP
->> (mDSP) which runs in a stage-2 protected context. Unlike ADSP targets
->> where SMMU-mapped system RAM is directly accessible, the mDSP cannot
->> reach the PCM buffers unless they are explicitly SCM-assigned to the
->> appropriate Virtual Machine IDs (VMIDs). Without this assignment, audio
->> does not function on these platforms.
-> 
->> -		ret = snd_pcm_set_fixed_buffer_all(pcm, SNDRV_DMA_TYPE_DEV, component->dev, size);
->> +		if (pdata->has_reserved_mem)
->> +			ret = snd_pcm_set_managed_buffer_all(pcm,
->> +							     SNDRV_DMA_TYPE_DEV, component->dev,
->> +							     pdata->reserved_buf_size,
->> +							     pdata->reserved_buf_size);
-> 
-> Does this do the right thing if the ALSA core preallocate_dma module
-> param is set to 0 for some reason?  I'm not clear why you would...
+https://en.wikipedia.org/wiki/Don%27t_repeat_yourself
 
-Good catch.  With preallocate_dma=0 the managed-buffer path defers
-allocation to stream open, but the reserved-memory carveout is a
-fixed-size pool that must always be mapped upfront — lazy allocation
-from the system page allocator would bypass the SCM-assigned region
-entirely.
+Maybe I should have written that I wanted to follow the same approach as
+is_userspace().
 
-Will switch back to snd_pcm_set_fixed_buffer_all() for the
-reserved-memory path in v3; the carveout is fixed by nature and
-should not be subject to the preallocate knob.
+> Signed-off-by: Petr Vorel <pvorel@suse.cz>
+> ---
+> New in v5.
 
-Thanks & Regards
-Ajay Kumar Nandam
+FYI I tend to drop commit this from v6. Function would make more sense if all
+cases were just matching any uapi header via @\binclude/uapi/@.
+
+>  scripts/checkpatch.pl | 17 +++++++++++------
+>  1 file changed, 11 insertions(+), 6 deletions(-)
+
+> diff --git a/scripts/checkpatch.pl b/scripts/checkpatch.pl
+> index ead35e6abba7..97bf952b0fbc 100755
+> --- a/scripts/checkpatch.pl
+> +++ b/scripts/checkpatch.pl
+> @@ -2678,6 +2678,11 @@ sub is_userspace {
+>  		$realfile =~ m@^arch/.*/tools/@);
+>  }
+
+> +sub is_uapi {
+> +    my ($realfile) = @_;
+> +    return $realfile =~ m@^include/uapi/@;
+
+As sashiko found this was wrong, it should have been using '\b' not '^'.
+
+> +}
+> +
+>  sub process {
+>  	my $filename = shift;
+
+> @@ -4673,7 +4678,7 @@ sub process {
+>  				ERROR("MALFORMED_INCLUDE",
+>  				      "malformed #include filename\n" . $herecurr);
+>  			}
+> -			if ($path =~ "^uapi/" && $realfile =~ m@\binclude/uapi/@) {
+> +			if ($path =~ "^uapi/" && is_uapi($realfile)) {
+>  				ERROR("UAPI_INCLUDE",
+>  				      "No #include in ...include/uapi/... should use a uapi/ path prefix\n" . $herecurr);
+>  			}
+> @@ -6683,7 +6688,7 @@ sub process {
+>  		}
+
+>  # don't use __constant_<foo> functions outside of include/uapi/
+> -		if ($realfile !~ m@^include/uapi/@ &&
+> +		if (!is_uapi($realfile) &&
+>  		    $line =~ /(__constant_(?:htons|ntohs|[bl]e(?:16|32|64)_to_cpu|cpu_to_[bl]e(?:16|32|64)))\s*\(/) {
+>  			my $constant_func = $1;
+>  			my $func = $constant_func;
+> @@ -6846,7 +6851,7 @@ sub process {
+>  		}
+
+>  # Check for __inline__ and __inline, prefer inline
+> -		if ($realfile !~ m@\binclude/uapi/@ &&
+> +		if (!is_uapi($realfile) &&
+>  		    $line =~ /\b(__inline__|__inline)\b/) {
+>  			if (WARN("INLINE",
+>  				 "plain inline is preferred over $1\n" . $herecurr) &&
+> @@ -6857,7 +6862,7 @@ sub process {
+>  		}
+
+>  # Check for compiler attributes
+> -		if ($realfile !~ m@\binclude/uapi/@ &&
+> +		if (!is_uapi($realfile) &&
+>  		    $rawline =~ /\b__attribute__\s*\(\s*($balanced_parens)\s*\)/) {
+>  			my $attr = $1;
+>  			$attr =~ s/\s*\(\s*(.*)\)\s*/$1/;
+> @@ -6931,7 +6936,7 @@ sub process {
+>  		}
+
+>  # check for c99 types like uint8_t used outside of uapi/ and tools/
+> -		if ($realfile !~ m@\binclude/uapi/@ &&
+> +		if (!is_uapi($realfile) &&
+>  		    $realfile !~ m@\btools/@ &&
+>  		    $line =~ /\b($Declare)\s*$Ident\s*[=;,\[]/) {
+>  			my $type = $1;
+> @@ -7424,7 +7429,7 @@ sub process {
+>  		}
+
+>  # check for #defines like: 1 << <digit> that could be BIT(digit), it is not exported to uapi
+> -		if ($realfile !~ m@^include/uapi/@ &&
+> +		if (!is_uapi($realfile) &&
+
+I overlook that regex on BIT() macro is different from the others, matching only
+^include/uapi/.  It's a bit surprising for me (shouldn't be all headers checked,
+also the arch specific ones and these mirrored into tools/?), but I suppose it's
+just me missing something.
+
+Kind regards,
+Petr
+
+>  		    $line =~ /#\s*define\s+\w+\s+\(?\s*1\s*([ulUL]*)\s*\<\<\s*(?:\d+|$Ident)\s*\)?/) {
+>  			my $ull = "";
+>  			$ull = "_ULL" if (defined($1) && $1 =~ /ll/i);
