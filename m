@@ -1,109 +1,119 @@
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3754D391838;
-	Wed,  2 Sep 2026 11:32:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C407449ED6
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:34:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788348755; cv=none; b=fMVY38Y8b7853Rbg33wvgEmSIMltUcRPucPbGiOKtwLA/pN/CNlsTeq/2nKNkLjQXMAYvx7r036q4hitO/J9xcSmhocIsx489SfhHM37sMjxYmMBvRczXQetV7MzfflT60EnPvlmWmXmhQW5BbiOPtIf7bC04pB3WabhNyUp6SQ=
+	t=1788348861; cv=none; b=JIThV9tQbin5r+zNfpBr8djnS2l3L9iWREeJfF4Y+tX6v2k3kbUglrKReesEyjuoI9tTLsfnXFrdImevVGpLZklNQ9YDE8GHjGJd9lKPp5gUMAT73C/UNCADHNHWq3Or0HAaVAwjvzy+ROptTT+T6Bt+K5WhPSF9Exjaovh9IcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788348755; c=relaxed/simple;
-	bh=AQ2PpGVA8G7z3eoN6jVZRewlOLEsqsxhJKBZkIO6eXI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=evQ9i7jHbztsLAwK8IC2d+yjAB6CRf3OlnYEePde0sgX989vuVgpNmKZ0wdLv/8aNMKnqiRm+8fCuGcj8DRSdVIujUkxQVcHYoY8GflcN/nPqNE83zwTluYqq8TnpB8XszDfSe6+ujsfdwrmHCO0YXG0QOYYdWOdwc9IhEYA94E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=FAo7ezqR; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=mfBCQOvs; arc=none smtp.client-ip=80.241.56.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="FAo7ezqR";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="mfBCQOvs"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hZgZ05lZCzKvt9;
-	Wed, 02 Sep 2026 13:32:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788348744;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=CBncpdNxhT2wgrUbqZyWv/D9ykxvciWc6wNNNJJ/Ruc=;
-	b=FAo7ezqRhW6c7wtw84oL2+WHijwmf/qTrYoK0hDjpW3pcHjvV2KxFa4QEx7UbsWdilHoZo
-	eQk6BfnmXKJMtMLSmPQXUUzjrGdyN3Uy96SPqrEslAv9WrPGCnngpR86Puuy7cD338PdaF
-	MvnuVzVwnarNTu/aSIDYw8X6/ERPZYIu1o7uhfJK1ts6TEEP/a/rdK+Kcb1W80XdJkgrYW
-	1F5oowDelbps4zPRUpJg70O4xOFgESEAuJo/o9g3JKfKJISGV2MIMB6dTWa7OaI+hqnt15
-	7Clc+lHIYuPB0lTJia3IkSGn4Ak7SXRRqk5GtUGrGiBboyaRMNFQuam9VklE5A==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=mfBCQOvs;
-	spf=pass (outgoing_mbo_mout: domain of manuelebnerli@mailbox.org designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=manuelebnerli@mailbox.org
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788348743;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=CBncpdNxhT2wgrUbqZyWv/D9ykxvciWc6wNNNJJ/Ruc=;
-	b=mfBCQOvs87KBUSMIs2+uS7Ey6q/sPzJVpHHkgJLXp1VN+0AtJfT28t8FqHdqPknTuYky6p
-	LNUM+TCbd7NTKWW5HW88TGihOCjZbOzYtsJRSyH3RU13Ge9473taPbKVWJTvggmbmKHX3z
-	Wqx8B2hBs7ordJeWDG0prx3trlTGaN4MevClku6ht/GISS+dY+PJfGCZgusi1TX5+RAkbD
-	pn+aCmXHUBfjMj1M7CDq7Hu036wXxof8f+ZQtKKHMclQMnk8J08KXtMdbvM+8XfWRYgw/Z
-	b9bFbP8dwlBUI8st4SzLT0q3852w2miCw77kItCkTIIUXoLRMCv/cBl6a9/tsg==
-To: "David S. Miller" <davem@davemloft.net>,
-	Andreas Larsson <andreas@gaisler.com>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Bhaskar Chowdhury <unixbhaskar@gmail.com>,
-	sparclinux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] sparc: NMI: Remove obsolete comment
-Date: Wed,  2 Sep 2026 13:30:08 +0200
-Message-ID: <20260902113009.684977-2-manuelebnerli@mailbox.org>
+	s=arc-20240116; t=1788348861; c=relaxed/simple;
+	bh=c8cVDH4+60eN9JY5piPPVSkAJg5r/Dt287R6xlSNjmo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cTTXPhNnqyvf1nmfE5Sq2hzhY4E9HmJVkGMH9/K4J1pvFQkGN4zqZFOHnMShL7nwWlq5b2M/BlUgv6FA/cXlvx+1LCEWGal9kpybrUlzfXbyaFG51PClTBvlH7AVk0b5P0VoaWgL7rW1r03JsWg86hoKgzuZOwfzb55UBGjWW8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5bf83925ddaso471410e0c.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:34:17 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788348853; x=1788953653;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ZX9X5hy8bWZKgZ28xeKzE387jyLfPdvXwed5OH+/3k8=;
+        b=d7dAfl+o52q2MgZkZFQTEtFWW6SRo/AZUo4jcMGz8BKmFlTB63xTPcp94mY65rzZV7
+         +1ymkOyYRv0kUR8hebigZNkdsZHwFbWfvoxc9yet+KiEOTPdLTVjfYMW1I1kXCfAZU1a
+         eeqhWxblRwU1NVw9F2RfY8mOrVZY344v/uSYR5iJwhv9WWDrdGFcPsz9VzOH3hCMc7tY
+         3gfAy/EQPmstnD/1qNIeGMlAOl58cYFqvz3IFWDCjQZrd35UkGbRDgiKalkeYeisyL/z
+         BkfXrvPD+7kAYxjbYDbgHCrPJGi4+moZbi7PcTUIuxulWn1JdZxsW48bPAnVDLuKfet9
+         VeAg==
+X-Forwarded-Encrypted: i=1; AKwUvBzu9oh3Qw6R+qFdoRCSAd0o12I/I39esTxnbJVXua68EmOzarDsO5MnvmzhWHQyG6liRyBIwr1gjWgB1Gw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kesSy+UidQdSlqZB5MGhc9W86lE30f+5lX+L2e647xOMLSk0PJ
+	JDkMZD/PiA8pAPN3P1bmFW6cg0tbvOvcG2vLq6bbmB3/eh9VCBg6teermtdXZ0Vo
+X-Gm-Gg: AYBFou2lyws7Udz0ed8Ud/lRm1qzNLj6t0nUAGao5EgU/LS50qq2s+Lwb2+8DPr/yyt
+	nUb0eaxcBjtI4tsSpyF6GPro4oR26yokiBgv7Ihsd9Jsv3KReo8GUrgAoF7+GVrgiFDiGlC+r6Y
+	MkdniGYGM/i1vuMwBQVTsO/6uYzxIPa+w8yksfGbQKbcL6ZCS4DAMskrIA6NaKnrq351VFy0+xA
+	G12Qoxi4jSgE0oINABj1f2PQmBkU1AGgp4meM4anenHCT2K7tS/rpjLOrxUS/tQ3COr+5jjyawz
+	4xCUwDoo71TYinDLBUMp0LUgS21oWtlZ8wtxfovA+471nO6uaYPaKEC5KGWnDrWJbMT1I3w+kVu
+	ryEWVFyWQxKCry2oEGOHcRFApmTtIq0r4hSIxoHnYPPqgi9vXJJp2XAQ8mxt0mSTav9loeNacbE
+	g9uFYUkCPHx9ixrBBk2B/2E2LYT+/lE6uRDoSFSNOaDeWkDC4R6p7DwFGPJrqOKQVgJJjMh4Hju
+	/am1pbcbEsLJMzvfLXrycC/uA==
+X-Received: by 2002:a05:6122:4145:b0:5bf:a179:b2be with SMTP id 71dfb90a1353d-5c7d287bffcmr1352585e0c.7.1788348853140;
+        Wed, 02 Sep 2026 04:34:13 -0700 (PDT)
+Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com. [209.85.222.53])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7cd73a0c1sm1748977e0c.4.2026.09.02.04.34.12
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 04:34:12 -0700 (PDT)
+Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-97bf910aa70so232376241.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 04:34:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx44PqS3ApW2zCHPSNZQ4/PYmDxFyhlHzi3esKyz2okgJDWyaSL9Ol5JTbsAKKPXuKI+fBuKWNlNr7CYnA=@vger.kernel.org
+X-Received: by 2002:a05:6102:6d2:b0:77b:2881:580b with SMTP id
+ ada2fe7eead31-78a1f1aff84mr1204735137.4.1788348851833; Wed, 02 Sep 2026
+ 04:34:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: 64zq6grwk8yq74kkmcgjzf8gb44n8op3
-X-MBO-RS-ID: aed84a56e00241a64d5
-X-Rspamd-Queue-Id: 4hZgZ05lZCzKvt9
+References: <20260826122742.153643-1-biju.das.jz@bp.renesas.com>
+ <20260826122742.153643-4-biju.das.jz@bp.renesas.com> <CAMRc=MfAdTMb_4ii=up-ESwc322YYjzseyvAxshM6vUcEGfxcQ@mail.gmail.com>
+ <CAMuHMdXmn7B_UOb8f2j0_BOx3d55nA0-0Auay-HLFYWtziS+6Q@mail.gmail.com> <CAMRc=MewW5aLqY66i-uUor3ke6k25rjZh3z7Cn76e_KhHQWoJA@mail.gmail.com>
+In-Reply-To: <CAMRc=MewW5aLqY66i-uUor3ke6k25rjZh3z7Cn76e_KhHQWoJA@mail.gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 2 Sep 2026 13:34:00 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWN_JUzcF-ueAABOsfvvYuZ6r8Zf_vcBwsrb5ArVXWriQ@mail.gmail.com>
+X-Gm-Features: AcwNN1VKD0uOf2MvN-4alfN6qZQtlFaKLsibUAqjRFeDI3iaU25OL_kOcxy9-xY
+Message-ID: <CAMuHMdWN_JUzcF-ueAABOsfvvYuZ6r8Zf_vcBwsrb5ArVXWriQ@mail.gmail.com>
+Subject: Re: [PATCH v5 3/4] power: sequencing: Add Renesas RZ/G3L Power Ready driver
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Biju <biju.das.au@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Magnus Damm <magnus.damm@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-OProfile has been discontinued as of commit 24880bef417f ("oprofile-removal")
+Hi Bartosz,
 
-Suggested-by: Randy Dunlap <rdunlap@infradead.org>
-Reviewed-by: Bhaskar Chowdhury <unixbhaskar@gmail.com>
-Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
----
-Bhaskar Chowdhury review doesn't show up in the mailing list, but I got it.
+On Wed, 2 Sept 2026 at 12:49, Bartosz Golaszewski <brgl@kernel.org> wrote:
+> On Wed, 2 Sep 2026 09:10:45 +0200, Geert Uytterhoeven
+> <geert@linux-m68k.org> said:
+> > On Tue, 1 Sept 2026 at 18:15, Bartosz Golaszewski <brgl@kernel.org> wrote:
+> >> On Wed, 26 Aug 2026 14:27:25 +0200, Biju <biju.das.au@gmail.com> said:
+> >> > From: Biju Das <biju.das.jz@bp.renesas.com>
+> >> >
+> >> > Add a power sequencing driver for the Renesas RZ/G3L PWRRDY module,
+> >> > which signals power readiness for various IPs (USB, DSI, CSI etc.) on the
+> >> > SoC. The driver binds as an auxiliary device to the parent SYSC driver,
+> >> > using its regmap to toggle the SYS_PWRRDY_N register bits, and exposes
+> >> > {usb,dsi,csi}-pwrrdy pwrseq targets.
+> >> >
+> >> > Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> >
+> >> What is the merge strategy here? Are patches 2 and 3 independent from 1 and 4
+> >> at build time?
+> >
+> > I think so: one can safely select a non-existing symbol in Kconfig.
+> >
+> > So once you're happy with this patch, I can take patches 1 and 4
+> > through renesas-devel.
+>
+> I picked up 2 and 3.
 
-[v2]
- fixed referenced commit
- + Suggested-by
- + Reviewed-by
+Thanks, I will pick up 1 and 4.
 
-[v1]
- https://lore.kernel.org/all/20260830125506.632168-2-manuelebnerli@mailbox.org/
+Gr{oetje,eeting}s,
 
-prior discussion
- https://lore.kernel.org/all/875527abdf9df0393ade872c6df3612ae9945b44.camel@mailbox.org/
----
- arch/sparc/kernel/nmi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+                        Geert
 
-diff --git a/arch/sparc/kernel/nmi.c b/arch/sparc/kernel/nmi.c
-index 149adc094..1571d6298 100644
---- a/arch/sparc/kernel/nmi.c
-+++ b/arch/sparc/kernel/nmi.c
-@@ -41,7 +41,7 @@ static int panic_on_timeout;
-  * <0: the NMI watchdog has not been set up, and cannot be enabled
-  *  0: the NMI watchdog is disabled, but can be enabled
-  */
--atomic_t nmi_active = ATOMIC_INIT(0);		/* oprofile uses this */
-+atomic_t nmi_active = ATOMIC_INIT(0);
- EXPORT_SYMBOL(nmi_active);
- static int nmi_init_done;
- static unsigned int nmi_hz = HZ;
 -- 
-2.54.0
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
