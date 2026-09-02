@@ -1,149 +1,95 @@
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E6D4A385B
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:40:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 425E634EF0C;
+	Wed,  2 Sep 2026 14:40:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788360032; cv=none; b=ErFAQg0oTQabgPaJ3PejrwrYuVXaYUbQaU+c2jP4dAgdBd2xV6Z+XKiGFRj7xWD8sjPasSmeJ1v3RpxPmbRQzXawVLDz2PsI76QKEh17P/Hsv9SjLFXI8aMwj+j4JTXvsQYnYiV4g73/cdXRBjblhTSjw5f7+CtOvU54PtLCrAc=
+	t=1788360043; cv=none; b=XuYNYKPdA0VWJKG1BtO9xOAXTsIr0B/+hVx/7viaZ45cC8uRQGOnWuirtyTz5tTuJu8f20qwZ8pbvef7HcrlSJxMB/fyTncBNGVBxb+bon2/OJZIwiU6HqSmsmd8myvhQPUPidS0mIYzlyoXY9lGb3S+H6rG4EXTc3fPlOZw4hM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788360032; c=relaxed/simple;
-	bh=PGPV8PnvETwJ8x5UFE1NNCMMuNSjJwtF9qxgAEozccI=;
+	s=arc-20240116; t=1788360043; c=relaxed/simple;
+	bh=9Ksa1pCsaamhjyLQ8PdMgCfIxtxlghkBaRc7jJPP68g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=b5baFAp9BSB4pm/VyDYsVdWC5o/jjbLN0FijCGXjTSMnl7TMnaP8PEgvWtqKPyhEWVZXuDWYqt3vi78FLFoJjUMPBn7eG6tOSphPp4TekQYijSEeUzkuVWzRyZiFjJIXOd/jO3vzNpvqri/ir2MH0fA2J4uBs72FdwECfCfrGsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=qXdvV+N0; arc=none smtp.client-ip=209.85.219.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	 Content-Type:Content-Disposition:In-Reply-To; b=kimlLH4jIkGfWIJnznvn9QOvG8SXujJ/iIoOjeZ/34ajCjLmwNP7eElVXZkm4zqXBi3GHsjgSxuiLrrnptJtJAlcRu6g1b04z41KNrx0A9z3fNghi0L0CnErABHutwi+s0U1jy9O0e4hH7YPdmoyQjyKUBIvL6yLEYiTMWaCh5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eshps1vF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="qXdvV+N0"
-Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-90cdffe8e3eso11775296d6.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:40:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1788360029; x=1788964829; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Xp8kJNejkxTEYeNjUZC5PeSk6vljIo0WGI5C64Q9RE8=;
-        b=qXdvV+N0Zebmgb1J6+T9QrwO6Xg3Kt9lQCEn8zTu5P8tYLA7Tab+f7aSYFsGtY9Vg+
-         tlMdXwTaPWB2MVtBU+KlkpkK+zZF5RYYrHMSfJM2rrNxy7ZksLvePYXHNQtTw4Rdk6+u
-         zNmHxiQFefRGyRiTlRYLSzqn1kwZPuo4a7uXPAHykQ8XEbtR2qSuHW119IpqM2xZfcX7
-         PbbwYAVGCuV0MCHaYMH8rLZRYMy6oZZGnb2h7U/nOrTLCqidGwhVSeU7R46WEEJ4EblN
-         I3k8M/+SL2/uqhF4h221e0rCZYrmXXBq4mqNXswIdCtz9Z3BDa0WVDv6EU0ao5d4vqKK
-         NueA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788360029; x=1788964829;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Xp8kJNejkxTEYeNjUZC5PeSk6vljIo0WGI5C64Q9RE8=;
-        b=STH1FpaW15Xs1konI8D17KbEMNZmSQXsblBpjZ3Ln8CvPhF/gomhzEBTjt9EUuArzS
-         htTkaM/p76pebUDH5noH2I54IlRkQgQoxoIoPztiK7kOTgfbJ6NcKWFNf2EPNu2hjqBm
-         IVYeFaHWLSc3RATsWa0owW/Qejka/49B6POWAM8FrL0SbJlOIGeg60Kx+pA5BbiuXo1I
-         95BciHd1gV5vJ1QME61dRLEmEE95DHxKrhIsL/gSqU26B6OIlbFTgDaZCdlEYqpKyzdU
-         ErotijsuSqIjX2Fir8KrjjNw/E9+6FIun7ilvHVfvpj3uIy1BkRrNdD2XofTMnRapBk1
-         cRgA==
-X-Forwarded-Encrypted: i=1; AKwUvBy0rWCZyAWVzcAEwXCT6jmRipema2AMiARqDyP8654Z6WImTeGR1e0ivWMQAZVkMvXWZIhGRFrc2H3q0wE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kUWTtWtvu6zB3Hd8Upqw7Db9IKhz6LIPC+gvj55qQGSPP7CwVj
-	nCrWfX9kgNrK9LNni9sMgj9emQMgP0ihHboqgjg2nnjYTakngs6rmA3MXVoKyie5EjMI4uYxq+b
-	fWzY=
-X-Gm-Gg: AYBFou0NIgfkJ8CrVYk4n+P0BHg/1R8KtncYZMf+bMrCO3kq2aSuoZQl346m/3Smnzj
-	4jbkgrRH8caG8dYHuC5DyiDp953Zw2AjDXDBm9hB4tk6YMeotQUL9zIVFu9XjM1qA/brCL2FA24
-	4ifoXD5bPww90k4IDovj1XseFRSuQSOqw6j6kLfwUX8gj31JuxOdDBHYud9gjfK+tu2UtRKTXAs
-	ujuiZveyn9WQGeMdT1Dd6Q5cB0CDGBEe/eIf+Ad26+k2Cja5i/kHtBu5Lklt7QVsrTCCrR+aJBd
-	aLPohJOeXt4Jr9frZNE1+sk/jShqSQoqULBb94sd8LSsIz6ImlaaQvwhsHiuEp/IwY+YZdiRi0L
-	RdfdQ3Dzcc7loJnTXONhW64Hlqipst4RYhyOsYU07TRCvgd5DqgHy5D3vY2ZB0OFTNmYcqXVfWx
-	juP4naq7AgGSnOJU4h5HcNf9lbhJ8ngnBKIc9w9vDPTjt4yohYbHLOcHzRBaTJFh5iFanJxSSQf
-	+UgfGM=
-X-Received: by 2002:a05:6214:4909:b0:90e:8f4b:df24 with SMTP id 6a1803df08f44-90eb529e08cmr81307666d6.14.1788360029094;
-        Wed, 02 Sep 2026 07:40:29 -0700 (PDT)
-Received: from rowland.harvard.edu ([140.247.181.15])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9f0d998dsm19026046d6.9.2026.09.02.07.40.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 07:40:28 -0700 (PDT)
-Date: Wed, 2 Sep 2026 10:40:26 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Rafael Alejandro Diaz Cruz <rafad900@gmail.com>
-Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+4a5c87a01894ca37f25c@syzkaller.appspotmail.com
-Subject: Re: [PATCH usb-next v1] USB: gadget: Fix UAF on refcount inside
- gadgetfs_bind()
-Message-ID: <319c395e-ba10-4fa3-ad3a-716a97cda27b@rowland.harvard.edu>
-References: <20260902052137.3824591-1-rafad900@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eshps1vF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E01DC1F000E9;
+	Wed,  2 Sep 2026 14:40:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788360041;
+	bh=96/6s6+6Obnnoy5JuD/EsnTNI8D3RwVukTStVxJQY3M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Eshps1vFqetUa0nUq64kBrUzZWtYf5KRecWNiZ+S9i5dhuvWlMua6CBbNvQCvgH7D
+	 CFZ06BsfQjTqmH+j/SD43Q7TBEnhyp5fsVITffwOc7Ls1+xReGx/AoeB5DWtXnveE/
+	 b01VxoZSnjGSEm2T1UdzThzOw8aYKmbYcp31DtX/aFbtqaKBC8OizwGzbmBCSN9oLk
+	 Gs0i55izU5TiXb7cVV+t6Bxgfb82wePeI1WIKisitfuHBlVAMOVt4pmLbdmpiMg6oN
+	 DoPA/yIXlRQFAlHQXdSPGgjuUzanMIu82MiuLlDTs0F70BLouQiXo0Es3ql1ufI+HR
+	 e5hLNBhjuxJdw==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id C4E3DCD6F29; Wed, 02 Sep 2026 15:40:15 +0100 (BST)
+Date: Wed, 2 Sep 2026 15:40:15 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	Intel Graphics <intel-gfx@lists.freedesktop.org>,
+	DRI <dri-devel@lists.freedesktop.org>,
+	Jarkko Nikula <jarkko.nikula@bitmer.com>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+	Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: build failure after merge of the drm-misc tree
+Message-ID: <apg1Tx4C2-COl4E1@sirena.org.uk>
+References: <apbbvQSfUbzYRFaw@sirena.org.uk>
+ <3cd2c640-3ce8-4163-9f7b-3abba46ae072@gmail.com>
+ <64bdb5bc-ced6-490c-b4c8-fd3dcabbbd4c@sirena.org.uk>
+ <d1a594e7-7393-4f2f-b11d-bfff720de743@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="oeJxrKdgA5RSpryZ"
+Content-Disposition: inline
+In-Reply-To: <d1a594e7-7393-4f2f-b11d-bfff720de743@ideasonboard.com>
+X-Cookie: Orders subject to approval.
+
+
+--oeJxrKdgA5RSpryZ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260902052137.3824591-1-rafad900@gmail.com>
 
-On Tue, Sep 01, 2026 at 10:21:37PM -0700, Rafael Alejandro Diaz Cruz wrote:
-> The UAF is triggered by the syzkaller reproducer which
-> forces kmalloc failure inside of usb_ep_alloc_request().
-> 
-> This will cause the following error path to execute:
-> 
-> if (!dev->req)
->         goto enomem;
-> // ...
-> 
-> enomem:
-> 	gadgetfs_unbind (gadget);
-> 	return -ENOMEM;
-> 
-> In normal case, get_dev() will be called to increment
-> refcounter from gadget->dev->count but in error case,
-> this increment is skipped and gadgetfs_unbind() will
-> decrement it via put_dev().
-> 
-> Going down the error path leads to a refcount imbalance
-> which will cause UAF in close()/umount() operations
-> due to refcount dropping below 0.
-> 
-> Fix this by moving get_dev() above the error paths so
-> that refcounter is incremented before the put_dev()
-> call.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Reported-by: syzbot+4a5c87a01894ca37f25c@syzkaller.appspotmail.com
-> Link: https://syzkaller.appspot.com/bug?extid=4a5c87a01894ca37f25c
-> Signed-off-by: Rafael Alejandro Diaz Cruz <rafad900@gmail.com>
-> ---
+On Wed, Sep 02, 2026 at 04:11:21PM +0300, Tomi Valkeinen wrote:
+> On 02/09/2026 15:11, Mark Brown wrote:
 
-Reviewed-by: Alan Stern <stern@rowland.harvard.edu>
+> > > 2. 699e5975e2a53 (drm/omap: Report HDMI hotplug events to the ASoC HDMI
+> > > codec)
 
-But same comments as for the first patch.
+> > ...which the drm-misc tree has now merged so I don't expect it to build
+> > independently of any other tree.  I'm a bit surprised this wasn't caught
+> > when merging up -rc1.
 
-Alan Stern
+> So the fix is just to remove that line. Any preference, should this go via
+> drm or sound?
 
->  drivers/usb/gadget/legacy/inode.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/usb/gadget/legacy/inode.c b/drivers/usb/gadget/legacy/inode.c
-> index 3e2bce7543d4..181b19e7fc2f 100644
-> --- a/drivers/usb/gadget/legacy/inode.c
-> +++ b/drivers/usb/gadget/legacy/inode.c
-> @@ -1679,6 +1679,7 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
->  	}
->  
->  	set_gadget_data (gadget, dev);
-> +	get_dev(dev);
->  	dev->gadget = gadget;
->  	gadget->ep0->driver_data = dev;
->  
-> @@ -1696,7 +1697,6 @@ static int gadgetfs_bind(struct usb_gadget *gadget,
->  	spin_lock_irq(&dev->lock);
->  	dev->state = STATE_DEV_UNCONNECTED;
->  	spin_unlock_irq(&dev->lock);
-> -	get_dev (dev);
->  	return 0;
->  
->  enomem:
-> -- 
-> 2.43.0
-> 
-> 
+Given that the breakage is in drm-misc it needs to be fixed in drm-misc,
+hopefully before it starts getting cross merged everywhere.
+
+--oeJxrKdgA5RSpryZ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqYNU4ACgkQJNaLcl1U
+h9D0BAf/YAyxtna7V3tYshH0D/06/RiC5zRqLLJUGMmdlKIaFje98uwEKaeEhLfv
+3Zmd0xZuf1/DjEjlgs2qB6oPBFFUnM9vdv2nkbsoPcy6YaJI+rBFuOlnl3unT9Bx
+AutKhccQ07Wj4dhXnn9QEm3SgwXRO3T87Ajry27jKy0kYHrTrIZoTJXxJkHPQqIA
+twtEbep+BRy8dCCOs/PbQkAiOLkp03o5hPFSR+mVoA7ROPuEF5hTI/4PkfCNPMsa
+LRnuWHeQg9XoIaeIn4Ujlz9DtW822/7nKLSyH4X1f66mLOBRwohdVRqmMT2saENV
+GW1Bl9KxMHWMhZHXep/4RyWPr3g5zw==
+=mDpJ
+-----END PGP SIGNATURE-----
+
+--oeJxrKdgA5RSpryZ--
