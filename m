@@ -1,200 +1,148 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72532466B5E;
-	Wed,  2 Sep 2026 14:13:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 378B247F2D9;
+	Wed,  2 Sep 2026 14:13:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788358411; cv=none; b=Rb1wL3Z/VnK4bzdsXNL3Gvw+9zV3qpJc4Gg2GHHXqRUd+e8ZeVl/EoAhk/tt3kXKj3svaKo1UXl/3gPbh8Rtd2agMnM8fHVTluW1Oits/FUpOQ7UgrtrYXnqlW+o4ALSchq/ULx4+rY7c9Cn7XvghhDSApQ7hcVoQbBUFj7rWkg=
+	t=1788358417; cv=none; b=e8hRoRgTosKoHpHKmzuo6e8LAocb+Zy/Sw4NmZ1lDjmb9a104mPn7WeQExf4r7foZNuABxGytA5QlCGDPAFbs/RgHdBykNZBNRAKSKm9aCD/IjSkSaLIEutKRGyMzlnIpHaqmPt33jg9lSpIacbqEZjgdDpAiilM4ALqcf3dmgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788358411; c=relaxed/simple;
-	bh=Mqot337cJnJKKAtreAwTSrt4VWnpkkN6lFNzXZMsAlM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=cpEuQ4sNTMjuv2WAHbhfSo9+HtE16cOMqF5fau5e7VQy5ZBtM+dk/FXj/6Vf2y8tCo1Ri7/TcbDwVKerI/C/vBeBnMw0N7GsPJwQgWaLmaYQV0rCTJhY3WMAduHUYUy/d1bmWgmwAJI6gIPSjR0XvqsrZ0Lz7Ece92eAa/MqPu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=cqIENlVq; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1788358417; c=relaxed/simple;
+	bh=9zHpapmxC+Vh64gr1kcWeAiToxLV0h2o3P3zRooS57c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Ki2IdsL6sJCHzmjmXVcChUsA0FKXG34Xa/1jUiRpm17jGNG5N7qKbT/UrCB1tZaz+ccZp0BSA/buyYgmbTKqoaWI/I/XOHBNfPauyfCNat1hsfCyxk5Pv1dcdnK8NIyfYJSI+CJxV7o3txwqul4yY3aPUNF+vF9MJudSk5BKDlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QZnwviuK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="cqIENlVq"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 26D1511BB09;
-	Wed, 02 Sep 2026 16:13:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1788358401;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=5YogQB6SySQ6aAk/WCOW5RxdsBzeZ+b+tzLvpdAkOkQ=;
-	b=cqIENlVqirvUqfu3sa9gEzGPy9IuHNLsFOxB1X0ScF+P9r/15lI6WkBtCpbeJ4W+dSyN6J
-	HvoC8ggeu/IDJITA2mErtPkk7ZdtSBh4GoooilITGh6X/RHm9767RplejnJIBOrF4r2wB4
-	ymL0Cc8bq7Bkpat3WfpbiZR1jq4s0+ZcxVrhWbyc24AyaBL5E5aHjRl1saq1a35NUD1c6p
-	dy5ezy71X34MbkKA/D56GWjZ7FUumCI4ksw6X7iJPs7ANsLWAzq6Q1l8zkq7rzFDfGH0+R
-	IUn5wNx7RXqsP8/UoiBkEAuqFQk5yPNlCpL5+51vElPUPBVjJSdkiIZbvD21cw==
-From: Marek Vasut <marex@nabladev.com>
-To: linux-phy@lists.infradead.org
-Cc: Pankaj Dev <pankaj.dev@st.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Rahul Kumar <rahul.kumar05@st.com>,
-	Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
-	=?UTF-8?q?Cl=C3=A9ment=20Le=20Goffic?= <clement.legoffic@foss.st.com>,
-	Marek Vasut <marex@nabladev.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Christian Bruel <christian.bruel@foss.st.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
-	Rob Herring <robh@kernel.org>,
-	Rosen Penev <rosenp@gmail.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	devicetree@vger.kernel.org,
-	kernel@dh-electronics.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH v5 1/2] dt-bindings: phy: Document ST STM32MP25 USB2-FEMTO PHY
-Date: Wed,  2 Sep 2026 16:13:02 +0200
-Message-ID: <20260902141312.649406-1-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QZnwviuK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9971E1F00A3D;
+	Wed,  2 Sep 2026 14:13:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788358415;
+	bh=NLEoYxETqRPjTXxDSlNfnFbEqTN4nnEwi7Vb6jwx3Qk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=QZnwviuKDFKR+6/XzTVwVwWCb9WHHT2ShCVLa52wUcK/DbFoGo9q/O7t7HnF63hAx
+	 YuF8M6NhIZmrKZUpeVjBCC42nT54TDSsMXnu3hIutrod+l7hyZfmAdDksuqDnmMXK7
+	 UAj2NMR6ZItAWeoByNYlLPEhmPl2yRqvPfRlZMh+EzZGVgs/U4a4mHmxgjURLtj/p+
+	 6TaqTzY889EBzEEXfIQFzF2hp5ekOEXuIMa+EuLSWN+eISSzpY+qoR6NJzl19tIOWR
+	 2nWHUJbDEMUb8lrUf8/AFQvsSF5faG78/4PJH0L8E71az8tQ2eXJGkjw+x3NX06NR4
+	 inVsrFobqC4zg==
+Message-ID: <1846af86-cf55-456d-9eca-975a88777a40@kernel.org>
+Date: Wed, 2 Sep 2026 16:13:30 +0200
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/slab: disallow kfree_rcu_sheaf() on PREEMPT_RT again
+Content-Language: en-US
+To: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Cc: Harry Yoo <harry@kernel.org>, Clark Williams <clrkwllms@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Peter Zijlstra <peterz@infradead.org>, Alexei Starovoitov <ast@kernel.org>,
+ Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+ David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ syzbot+acf142088e0182172e58@syzkaller.appspotmail.com,
+ ThangNN99 <ngocthang2710.1999@gmail.com>
+References: <20260831-b4-kfree_rcu_hotfix-v1-1-4f0fb882638b@kernel.org>
+ <20260901073339.uyKHXWCX@linutronix.de>
+ <47aa459f-27d5-4b2f-9eb9-36ebca63d890@kernel.org>
+ <20260902104143.j8BXrjKq@linutronix.de>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260902104143.j8BXrjKq@linutronix.de>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-From: Pankaj Dev <pankaj.dev@st.com>
+On 9/2/26 12:41, Sebastian Andrzej Siewior wrote:
+> On 2026-09-01 15:59:09 [+0200], Vlastimil Babka (SUSE) wrote:
+>> On 9/1/26 09:33, Sebastian Andrzej Siewior wrote:
+>> > On 2026-08-31 18:02:38 [+0200], Vlastimil Babka (SUSE) wrote:
+>> >> This partially reverts commit 2a8bb29ec9b2 ("mm/slab: allow
+>> >> kfree_rcu_sheaf() on PREEMPT_RT"). It was based on an assumption that
+>> >> local_trylock() is safe on PREEMPT_RT from any context.
+>> > …
+>> >> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+>> > Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+>> > 
+>> >> ---
+>> >> Incidentally I have posted a RFC [1] that leads to replacing that
+>> >> kfree_rcu() from set_cpus_allowed_force() but now after back from
+>> >> vacation I need to check the feedback and based on this bug report I can
+>> >> already see it makes the same bad assumption that trylock is fine.
+>> > 
+>> > free_to_pcs() has still this trylock.
+>> > 
+>> > What I am not so sure how good is that kfree_rcu_nolock() may allocate
+>> > memory for the sheaf if there is none around.
+>> 
+>> Per sashiko review it's actually bad too under the pi_lock, because
+>> GFP_NOWAIT means __GFP_KSWAPD_RECLAIM which can mean wakeup_kswapd() and
+>> thus also need scheduler locks. And it's not a PREEMPT_RT-only issue...
+> 
+> \o/
 
-Document USB2 PHY for STM32MP25 USB2 controllers, which includes the
-USB2.0 host-only controller and USB 2.0 part of the DWC3 controller.
-Two such PHYs in total are present in STM32MP25 SoC, they both are
-slightly different, therefore they use different compatible string
-to discern them.
+More like /o\
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Pankaj Dev <pankaj.dev@st.com>
-Co-developed-by: Rahul Kumar <rahul.kumar05@st.com>
-Signed-off-by: Rahul Kumar <rahul.kumar05@st.com>
-Co-developed-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Co-developed-by: Clément Le Goffic <clement.legoffic@foss.st.com>
-Signed-off-by: Clément Le Goffic <clement.legoffic@foss.st.com>
-Co-developed-by: Marek Vasut <marex@nabladev.com>
-Signed-off-by: Marek Vasut <marex@nabladev.com>
----
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Christian Bruel <christian.bruel@foss.st.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Pankaj Dev <pankaj.dev@st.com>
-Cc: Patrice Chotard <patrice.chotard@foss.st.com>
-Cc: Rahul Kumar <rahul.kumar05@st.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Rosen Penev <rosenp@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: kernel@dh-electronics.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-phy@lists.infradead.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
----
-V2: - Fix up Sob/Cdb lines
-    - Fix up compatible string in example
-    - Use additionalProperties: false
-    - Expand description:
-    - Use clock-cells = <1> to discern OSC and future PLL clock from the PHY
-V3: - Move clock-cells next to PHY cells
-    - Fix the bindings
-    - Fix up Sob/Cdb lines further
-V4: - Reorder the properties: list, put #...cells at the end, reg after compatible
-    - Split this from series arm64: dts: phy: st: usb: Add STM32MP2 USB support
-      https://lore.kernel.org/all/20260822074816.548662-1-marex@nabladev.com/
-V5: Add RB from Krzysztof
----
- .../bindings/phy/st,stm32-usb2phy.yaml        | 68 +++++++++++++++++++
- 1 file changed, 68 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/phy/st,stm32-usb2phy.yaml
+>> > It could have a pool of X
+>> > and if it runs out, it runs out and waits until the clean up process
+>> > feeds the used sheafs back. There is fallback and the run out is not the
+>> > usual case.
+>> 
+>> I'd rather not invent new pools, since there's fallback and the sheaf+barn
+>> is already a pool. Could be enough to make sure the allocation attempt is
+>> safe, i.e. use only __GFP_NOWARN.
+> 
+> So we avoid the allocation and just add it to the sheaf+barn and this is
+> it?
 
-diff --git a/Documentation/devicetree/bindings/phy/st,stm32-usb2phy.yaml b/Documentation/devicetree/bindings/phy/st,stm32-usb2phy.yaml
-new file mode 100644
-index 0000000000000..c76e94c044e67
---- /dev/null
-+++ b/Documentation/devicetree/bindings/phy/st,stm32-usb2phy.yaml
-@@ -0,0 +1,68 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/phy/st,stm32-usb2phy.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectronics STM32 MPU High-Speed USB PHY
-+
-+description:
-+  USB2 PHY block in STM32 is attached to USB 2.0 Host controller and
-+  USB 2.0 side of DWC3 DRD controller, and provides the USB LS/FS/HS
-+  connectivity. Both PHYs are the FEMTO-PHY, but their configuration
-+  bits in the system control register are different for each variant.
-+
-+maintainers:
-+  - Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-+  - Marek Vasut <marex@nabladev.com>
-+  - Pankaj Dev <pankaj.dev@st.com>
-+
-+properties:
-+  compatible:
-+    enum:
-+      - st,stm32mp25-usb2phy1
-+      - st,stm32mp25-usb2phy2
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+  vdd33-supply:
-+    description: Phandle to regulator providing 3V3 power supply to the USB2 HS PHY
-+
-+  "#clock-cells":
-+    const: 1
-+
-+  "#phy-cells":
-+    const: 0
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - resets
-+  - vdd33-supply
-+  - "#clock-cells"
-+  - "#phy-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/st,stm32mp25-rcc.h>
-+    #include <dt-bindings/reset/st,stm32mp25-rcc.h>
-+
-+    usb-phy@2400 {
-+        compatible = "st,stm32mp25-usb2phy1";
-+        reg = <0x2400 0x24>;
-+        #phy-cells = <0>;
-+        #clock-cells = <1>;
-+        clocks = <&rcc CK_KER_USB2PHY1>;
-+        resets = <&rcc USB2PHY1_R>;
-+        vdd33-supply = <&vdd33usb>;
-+    };
--- 
-2.53.0
+We don't need to avoid the allocation attempt if it's done in a safe way?
+Note the new sheaf can be also served from its kmalloc slab almost
+immediately, going all the way to page allocator should be very rare.
+But if we stopped doing that sheaf allocation attemps completely, we could
+easily end up having long bursts of all kfree_rcu() being deferred.
+
+> Sebastian
 
