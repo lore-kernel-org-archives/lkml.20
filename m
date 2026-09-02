@@ -1,97 +1,181 @@
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from esa4.hc1455-7.c3s2.iphmx.com (esa4.hc1455-7.c3s2.iphmx.com [68.232.139.117])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF4D44503E5
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 23:08:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A32446BE2;
+	Wed,  2 Sep 2026 23:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.139.117
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788390488; cv=none; b=piQKyHeax08i79LwzYSSeoCkDtU9FUwD273QCbxZIvcWmq5yNv5dgTdBq6pkSqZXXpH4yXJPW1FSDbvrOWhA2tY+h2PkS1zel6Vf4XCiykhCwrL21ALREJOZDhz4fCu2Zk4hDAgcmfEQFuqynm6OCSzKcGt2uZxu4v7osFC/fZ8=
+	t=1788390502; cv=none; b=kDkrZoRGQMbpnBKsb87PhF2h52jaGxoetdQ2ZuyrAIECfTij9wEZEHnR9HtMefEGqFcPH6AJDMCPwmdVSm9Re5TFMBY7FaY4hymYYdgvA+AnLRViz0VA/kdBJwBRZWmShSOqYR5aHvx/TcbIhxoyLW4qgeB5WiYvu7Ztkose8aA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788390488; c=relaxed/simple;
-	bh=h47G/FS2Qywezd6HPXx1AIE+WjV/6RGHPrgzLnHLy9Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=b8HNbS46g5ZJSIvcT4bymmpH+BhPdwk+ZSatNp4xIjI58iN08dpceyaSLe1iOcQy0OgPTWLp+bzlRR0AZmgG0a+1iK0qis8Tb3SzaRstqKmz89MgESZJkzJRxpLLFF6mamSsrfPnVJE32qKsxZkPd4wV3a9LaZPv309fqU9WtOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org; spf=pass smtp.mailfrom=linuxfoundation.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=NElicHGD; arc=none smtp.client-ip=209.85.218.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	s=arc-20240116; t=1788390502; c=relaxed/simple;
+	bh=DGhH14+yE9nyt5xO4fYtNZdDfh3D8lYk97bpxGHpfRM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QiPzC47ZRg5sS2WKJe5tz7kk4b8an0NE5ZyYmUhyKNbeMHNfpgRzbARRFFkgKIF7ilAgz7/UyRDXO4cuOncSn8a5DzZmXBjKBy9MXB2cj434bZBlJp5LmuKS6t2diUleWCYfiz55cX8MX2p+9uxBcGRfCZkOmls/j3ri+yFVuhw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com; spf=pass smtp.mailfrom=fujitsu.com; dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b=U59Jkwze; arc=none smtp.client-ip=68.232.139.117
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=fujitsu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fujitsu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="NElicHGD"
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c1c26d7e951so263342266b.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 16:08:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1788390484; x=1788995284; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pqvpYS2Oeq9tl7pX+2mTneFiCWe3j03isFhcGTo92fY=;
-        b=NElicHGDfOYCUfs3lfukcONhFEZgG5WmbXUIbGdkyBIIZppRM9qPA0pNbclmaujRt5
-         MZ0S/pVpc/mmXiiCdt5RND01pZ/Nbzpi3IuXfUPc4A6JKbdWIaNli5wrACTjUy5nkxGj
-         Y0Lf2N10iAdIUyk3aKLHGL1tNcVU2G06YZIYQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788390484; x=1788995284;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=pqvpYS2Oeq9tl7pX+2mTneFiCWe3j03isFhcGTo92fY=;
-        b=LhGNx4VtO2Q6iKLUqWnMQVqQsDSPqiKvD/OZLv2BvmUzi9SNeQTfSkES4aMFfTJLed
-         twsb3RSlwqBJ9r8/wv4SYx1unDsqdlIKEV7McaIRaNFmppkKAEI7vyROfkeTBTXla0W+
-         QNyRHViyz5MrHQLtxJ9W+1ARx4F25N/5IgziqkbNUVJyfKxZalIJRaDGT0B7UeZmfW0B
-         dHYEmLtnS7y9+Os0PflWUE/cyeUkLxs7TxHWE/MEiD6yOMZa1CbBs3K2NT6ninBcz4h+
-         BtkbNs/+ucl9C8xJNddrIqjFR1KpY1MS6dNQRLJkyWf/IAbiSjIrK3pUE3VYBNgNZqfT
-         vpmw==
-X-Gm-Message-State: AFuF++mq+GDHcOz38d2Y0D+q3M4yhB8HPoYPSw35n4he0rKqQ0+SkxtF
-	EI9nnbbvo1Rg/f69SDCUNH4um6VFYSaqLDS2DQBQXG7qj4k2U5OIujD+yCOpgxmowDzVxKyK8FP
-	3ORz0qsw=
-X-Gm-Gg: AYBFou3fwCbPe++d2aDrTvekasaKCiBHb07nDiLLwUsUjVPT+rIpKIegrfhK4EaY1PD
-	7tKMKAwfOE95N/Gv9eJv0RvMVA3csO56ArkyMAdGrWAbSzS1QWXuOwFrBnHxfRg9GpDokaPJ0JQ
-	VMZW0hn6VSWfaqIQuAkcVjBXLugkmzY924V/um8eRpLx92VPKg0wT2XFrqik5UGbcU81g91Kvac
-	STZ2qmCmPKmVzBJjqOxjidnExe9qNuPkdXKEyUG3lzRaCCbPviRB30ok30Rrhso63JZte6mtWoK
-	VfzXZqPTo+OaGsZG/do1QuNElRgHjpnUuwvMr/YalLl5BZCB2byNQShybKUP9w5nd7Op2ieThKE
-	SXUGI44N66oIpsvU32JuVj9VCPBIIxwjLrz6fXr92edVxjyzmVWvH+SyPNNioi15K099Oit4ysB
-	TEvC2TdjNH/cWXbN0A4Y5PY0vxMq+aiH2mhKiKrWh5jLa4UYcJwjDh8+GcuQ4GoAY8vNXVCmt3A
-	nKvK+opQE8qxsS6C37XsM/cr1S/ktx7rvzhRuX6BSNGizsfoLs=
-X-Received: by 2002:a17:906:6a15:b0:c25:9102:fa with SMTP id a640c23a62f3a-c25d53e1682mr489958366b.8.1788390483776;
-        Wed, 02 Sep 2026 16:08:03 -0700 (PDT)
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com. [209.85.218.49])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25f3eedfb1sm21392466b.8.2026.09.02.16.08.02
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 16:08:02 -0700 (PDT)
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c207cb16cf5so237613866b.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 16:08:02 -0700 (PDT)
-X-Received: by 2002:a17:907:6b0a:b0:c24:469d:5653 with SMTP id
- a640c23a62f3a-c25d554a2c8mr561826366b.21.1788390482680; Wed, 02 Sep 2026
- 16:08:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=fujitsu.com header.i=@fujitsu.com header.b="U59Jkwze"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+  d=fujitsu.com; i=@fujitsu.com; q=dns/txt; s=fj2;
+  t=1788390500; x=1819926500;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=DGhH14+yE9nyt5xO4fYtNZdDfh3D8lYk97bpxGHpfRM=;
+  b=U59JkwzefbD57r91iBckA1HVmS/f31sejDjzK1Y2hYO8Q1RfUEEsYA0e
+   E/niD/pcnFjk9wD8CjpptxyonuaxFyQlFRs3sM0qOYuL1aZos7BsD/sUJ
+   LBt/WZ5XYLcYYnOhj6ZgFo43WQAihS2Go+0rTjlOk7EgqlVRYG+UlGGzJ
+   z8nA9P1S5ZRbgjyt6JFuRON3I3V6DMqiEXpqfKo0I2UlueZk1MoFFUYtd
+   7hIcRSd2aCEc0S8psllE44QcT7XYMFVxvNJpK8AFat5Y4aftMCaETc2s+
+   JxizLx0KV3jj0PRqjZo2jJh6PqRJR+SEgOLfk/yuzd/alflqDczEhb0Lz
+   Q==;
+X-CSE-ConnectionGUID: oxy3mm0NQIyNPdCOARCY1g==
+X-CSE-MsgGUID: +Fnab+qGRu+osDgHOEkbaw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="253116932"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779116400"; 
+   d="scan'208";a="253116932"
+Received: from gmgwuk01.global.fujitsu.com ([172.187.114.235])
+  by esa4.hc1455-7.c3s2.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 08:07:07 +0900
+Received: from az2uksmgm4.o.css.fujitsu.com (unknown [10.151.22.201])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by gmgwuk01.global.fujitsu.com (Postfix) with ESMTPS id C55881002B8B;
+	Wed,  2 Sep 2026 23:07:07 +0000 (UTC)
+Received: from az2nlsmom2.o.css.fujitsu.com (unknown [10.150.26.200])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2uksmgm4.o.css.fujitsu.com (Postfix) with ESMTPS id 6DFA31400391;
+	Wed,  2 Sep 2026 23:07:07 +0000 (UTC)
+Received: from sm-arm-grace07 (unknown [10.124.178.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by az2nlsmom2.o.css.fujitsu.com (Postfix) with ESMTPS id 9805E18021BF;
+	Wed,  2 Sep 2026 23:06:57 +0000 (UTC)
+Date: Thu, 3 Sep 2026 08:06:54 +0900
+From: Itaru Kitayama <itaru.kitayama@fujitsu.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Tianrui Zhao <zhaotianrui@loongson.cn>,
+	Bibo Mao <maobibo@loongson.cn>, Huacai Chen <chenhuacai@kernel.org>,
+	Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Janosch Frank <frankja@linux.ibm.com>,
+	Claudio Imbrenda <imbrenda@linux.ibm.com>,
+	Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Atish Patra <atish.patra@linux.dev>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	David Hildenbrand <david@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	kvm@vger.kernel.org, loongarch@lists.linux.dev,
+	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Nicholas Piggin <npiggin@gmail.com>,
+	Ritesh Harjani <ritesh.list@gmail.com>
+Subject: Re: [PATCH v2 00/20] KVM: selftests: PPC pre-enabling
+Message-ID: <apisDlhdG7xNDVyl@sm-arm-grace07>
+References: <20260902164123.2546762-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <202609020931.48FF902461@keescook>
-In-Reply-To: <202609020931.48FF902461@keescook>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 2 Sep 2026 16:07:46 -0700
-X-Gmail-Original-Message-ID: <CAHk-=whZQzNuBZdV1b1TBxRf+asBGtvnC=Ggu755GaOg_TYXgw@mail.gmail.com>
-X-Gm-Features: AcwNN1UfTwtEJ6x63KcWqd518OjHYZyYITmW_Uqo0nFAfBUk-fzKnutJadkuuuI
-Message-ID: <CAHk-=whZQzNuBZdV1b1TBxRf+asBGtvnC=Ggu755GaOg_TYXgw@mail.gmail.com>
-Subject: Re: [GIT PULL] hardening fix for v7.3-rc2
-To: Kees Cook <kees@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>, 
-	Miguel Ojeda <ojeda@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902164123.2546762-1-seanjc@google.com>
 
-On Wed, 2 Sept 2026 at 09:31, Kees Cook <kees@kernel.org> wrote:
->
-> - Default randstruct off with rust for better allmodconfig coverage
->   (Mark Brown)
+On Wed, Sep 02, 2026 at 09:41:03AM -0700, Sean Christopherson wrote:
+> This is a big pile of cleanups and refactoring to prepare for PPC support in
+> KVM selftests.  PPC has paging modes that require multi-page page tables, and
+> those page tables need to be naturally aligned.  The original proposal was to
+> plumb in an @align param to the page allocators[*], but I didn't love the idea
+> of adding another rarely used param to the allocators.
+> 
+> v2:
+>  - Collect tags. [Itaru, Bibo]
 
-Should we just default randstruct off entirely?
+I ran kvm_page_table_test for arm64 again it went ok on HW.
 
-It defaults to off for any *real* build for good reasons. I'm not
-convinced it should be on for build testing either. Maybe the active
-compiler bugs are gone, but this whole commit is just an example of
-how RANDSTRUCT_FULL really isn't a good default - not for real life,
-and not for build test coverage.
+Tested-by: Itaru Kitayam <itaru.kitayama@fujitsu.com>
 
-                  Linus
+Thanks,
+Itaru.
+>  - Use 0x180000 as the min GPA for page table pages on LoongArch, instead of
+>    changing every other arch to use 0x200000. [Sashiko, Bibo]
+>  - Opportunistically move the vGIC LPI stress test's global "gpa_base" variable
+>    into setup_memslot(). [Sashiko]
+> 
+> v1: https://lore.kernel.org/all/20260826230511.972824-1-seanjc@google.com
+> 
+> [*] https://lore.kernel.org/all/df86b5ccdbdafc3509d9538bd5e6796737bab2db.1781093720.git.ritesh.list@gmail.com
+> 
+> Nicholas Piggin (1):
+>   KVM: selftests: Use goto instead of do-while to retry finding unused
+>     physical pages
+> 
+> Sean Christopherson (19):
+>   KVM: selftests: Use MEM_REGION_PT memslot instead of '0' for s390
+>     regions/segments
+>   KVM: selftests: Use the common minimum GPA for page tables on
+>     LoongArch
+>   KVM: selftests: Use vm_alloc_page_table() to allocate LoongArch page
+>     tables
+>   KVM: selftests: Rename "num" param to "nr_pages" for physical page
+>     allocators
+>   KVM: selftests: Extend page allocator to support naturally aligned
+>     allocations
+>   KVM: selftests: Make the single-page allocator APIs static inline
+>   KVM: selftests: Use the innermost page allocator API in the memslot
+>     perf test
+>   KVM: selftests: Use the innermost page allocator API in s390's IRQ
+>     routing test
+>   KVM: selftests: Add a wrapper API to allocate multiple page table
+>     pages
+>   KVM: selftests: Initialize vm->memslots[] with invalid memslots during
+>     creation
+>   KVM: selftests: Add APIs to override memory region types with custom
+>     memslots
+>   KVM: selftests: Add TEST_EXTRA memory region type for "special"
+>     memslots
+>   KVM: selftests: Use TEST_EXTRA region in arm64's vGIC LPI stress test
+>   KVM: selftests: Use TEST_EXTRA region in x86's smaller MAXPHYADDR test
+>   KVM: selftests: Use TEST_EXTRA region in set memory region test
+>   KVM: selftests: Take the memory region type, not memslot, in page
+>     allocators
+>   KVM: selftests: Use TEST_ASSERT(), not assert(), in
+>     vm_get_mem_region()
+>   KVM: selftests: Automatically pick min_gpa for allocations based on
+>     region type
+>   KVM: selftests: Add arch hook to force page tables to be naturally
+>     aligned
+> 
+>  .../selftests/kvm/arm64/page_fault_test.c     |  18 ++-
+>  .../selftests/kvm/arm64/vgic_lpi_stress.c     |  21 ++-
+>  .../testing/selftests/kvm/include/kvm_util.h  | 106 +++++++++++++--
+>  tools/testing/selftests/kvm/include/x86/smm.h |   2 +-
+>  .../selftests/kvm/lib/arm64/processor.c       |   4 +-
+>  tools/testing/selftests/kvm/lib/kvm_util.c    | 127 +++++++++++-------
+>  .../selftests/kvm/lib/loongarch/processor.c   |   5 +-
+>  .../selftests/kvm/lib/riscv/processor.c       |   4 +-
+>  .../selftests/kvm/lib/s390/processor.c        |   7 +-
+>  .../testing/selftests/kvm/lib/x86/processor.c |  15 ++-
+>  .../testing/selftests/kvm/memslot_perf_test.c |   3 +-
+>  tools/testing/selftests/kvm/s390/cmma_test.c  |  19 +--
+>  .../testing/selftests/kvm/s390/irq_routing.c  |   2 +-
+>  .../selftests/kvm/set_memory_region_test.c    |   8 +-
+>  .../x86/smaller_maxphyaddr_emulation_test.c   |   9 +-
+>  15 files changed, 221 insertions(+), 129 deletions(-)
+> 
+> 
+> base-commit: 76671054f9a1ff6abb976583cd8da37650acdc97
+> -- 
+> 2.55.0.966.g6673acef38-goog
+> 
