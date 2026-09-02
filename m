@@ -1,342 +1,311 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF9A9249EB;
-	Wed,  2 Sep 2026 06:06:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788329199; cv=fail; b=RqOAz+Ri4+m447XwxO4wSAt0E+3b8uMV1ARhJ13v5jd4Xu4x8bd80hnELf/SC2pJEGP+L6r1RsPzN8QcOc5a61J2kaYll46d1U1AYYNmM+T2onHINtC0awgxhdlZQj7mRkQmOpCEffBM+x8pwtRwpc2VtigYxe65j+WIaJIBKLY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788329199; c=relaxed/simple;
-	bh=eWcLjMrGMUWevEBIikMjzdQPy/vCas+DfA/X/JM7g+Q=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=jdT1m7LDKv+tzA9KFEjHVfpJ1ZZU+vgqzqql7dQU2xWsTpXJV4NYOlVWMzlra2hKAHtxc2dTEtG/VKcx1rRiPp6BC2aKQgOYf1EWEKs0RmLsu049pIUBakDk58hzgJvI8qtoLXYTMBUR3fcxGTJBlNRTFdpIt51/yRIxRUNKV1M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gR/AYKAB; arc=fail smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D1F3126D6
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:07:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788329255; cv=none; b=Gfhto5ObOy/cBGSAEykIikMdKy1ynPtqQBj+Av3IgPKBVvL42HmItd9BfuDek9ZYgY3U5xvsfW4CTCnMDdPnEM2pv2E0TyY9Ycrx3pqjk0BKzWpioUO6k0e40OA98n+9s7Dm8ASEIL+Zsu4LtpA/wABxV1tZhEdUTxxPVNnFzx4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788329255; c=relaxed/simple;
+	bh=AFXAuSVH1GkG/HxqK6U8yiCLCayak7VVaCKNFKmgrN0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fsd5shEwri/7rD3GBoJFl+0AzSrTWMTKYJNJmMdf2DqHu/Loxdx9/2wmpabd4HXFf38NFTzYUa/lJYywGwGPL1riJSTIn2K3LKiL5oQ0rw2z6v5490xzIZo9ISn0SNrIOa4Si2M0GYiG5b43A2QeMOZyA61WG/wh/fE5cCj6nZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MnTdOEq7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JJOI9mrb; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gR/AYKAB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788329197; x=1819865197;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=eWcLjMrGMUWevEBIikMjzdQPy/vCas+DfA/X/JM7g+Q=;
-  b=gR/AYKABQhLx1H0B5TQJqsp/X35P9wdv14mltwjRxc7MFh3XE+SM9BHp
-   Elw3cIgcENfEl3qV+QHNOWyNGf2Qzh/nEjPO+378l/0Tqy55mFOTsVmzD
-   U9TPI73VEOwiza/99tC/NxgMD+YRdDzos7YgSvreDggSIY4Wq/zcoTxtT
-   GFc6aqtcdrn6V6cfjnzWBZv78xPhPrEAbvAbHwj4nCkQ5UNvmHo4NzIio
-   9LdgmYihy8rvg7WzCjK5JjVOCDOw78BCtfzdXpg/eAx4ZA/0Hcr4Pkm5y
-   xSf3/G10/O73n/KiyQ8JfQWjrBiQPfXME9gVD8+HHIqoyIDCilE65h0bz
-   Q==;
-X-CSE-ConnectionGUID: Bocm5IWgTCSAOVZPQSUtNw==
-X-CSE-MsgGUID: TRnuEPLmTWu8xzVVRDrHUA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="106144985"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="106144985"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 23:06:37 -0700
-X-CSE-ConnectionGUID: Pw4ff2IoSICq+QEHhmW6dQ==
-X-CSE-MsgGUID: dojb0Wv/RdyCLQOUdcT7zA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="268770342"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 23:06:36 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 1 Sep 2026 23:06:35 -0700
-Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Tue, 1 Sep 2026 23:06:35 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.49) by
- edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Tue, 1 Sep 2026 23:06:34 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bVDu9DrHgpgz0dj+4LQrr/7rAG4JPkQ/DaBhEb4FnRrP/x2xpWo3+vzsD4MGjOKKE4i14v/c5AExXPN6jemgy+khUCfYpbfhYvfHUusvxFdDCnJFUFzBsaygbhywtCDzm97OdLTSWS0KMzAtLS/gllR4bl92409tYJUebYON0N7HYBUuvb9w26Jgw6KQOlvEK87JjQVCzDig8gOJx81mc2Aza/foHfMyUZtxlwA6ZulNNhx9CMkWk9Kbhwe8XIc3TK53xEtg25p0Ieo07jI3LxMzYnQW/AmlIUXgMCbiJ44iSy756nqmPiNVkDmha8yBxWAw2i/01M4BVfpYwoGl9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L7hbCvq2CMXFEbUwPizRZkrIN4e/liijAoPdiDpWScQ=;
- b=nLdVHmw+P7HHHeWBgGvijLr1tvqA2RiR4OTCwbvFhUPYgMm3ciYGOQpIBmhDieO8hPayQN1ciXF438Aie4za4nVhMjafoiCwYrDa+gMcfTvcVNbamgGuAWIvxSk/pN8oy5GIWxFvm9OvrzQSfimEb7SRmsPldt0qKM8Lozza8J57pndE4+AcdM04qjTJpnzrtRblEqKHFjLoFynSpNgOUp3YEbPABCzEu9gvR+y4NsW1AKHlFzmQTgCPNE2YOapi2dP/u+GTQxYJALA3KVh73xbrJ6d4/hVRywW/3QY9eRALjtjnYEk9fGoaa2AQ/opFaD+gndDJUgiTdKMbMMk9qA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from LV3PR11MB8695.namprd11.prod.outlook.com (2603:10b6:408:211::15)
- by SAWPR11MB9710.namprd11.prod.outlook.com (2603:10b6:806:4c8::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 06:06:32 +0000
-Received: from LV3PR11MB8695.namprd11.prod.outlook.com
- ([fe80::ccc3:3fd6:58f5:927]) by LV3PR11MB8695.namprd11.prod.outlook.com
- ([fe80::ccc3:3fd6:58f5:927%6]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 06:06:32 +0000
-Message-ID: <3ceaf230-c06e-479e-80c5-8517dbc1710a@intel.com>
-Date: Wed, 2 Sep 2026 11:36:22 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 04/19] vfio/pci: Serialize function reset with
- recovery
-To: Shameer Kolothum <skolothumtho@nvidia.com>, <kvm@vger.kernel.org>,
-	<linux-pci@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-CC: <alex@shazbot.org>, <jgg@ziepe.ca>, <kevin.tian@intel.com>,
-	<kbusch@meta.com>, <michal.winiarski@intel.com>, <sonangp@nvidia.com>,
-	<nathanc@nvidia.com>, <mochs@nvidia.com>
-References: <20260901093217.8539-1-skolothumtho@nvidia.com>
- <20260901093217.8539-5-skolothumtho@nvidia.com>
-Content-Language: en-US
-From: "K V P, Satyanarayana" <satyanarayana.k.v.p@intel.com>
-In-Reply-To: <20260901093217.8539-5-skolothumtho@nvidia.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0227.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1f3::14) To LV3PR11MB8695.namprd11.prod.outlook.com
- (2603:10b6:408:211::15)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MnTdOEq7";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JJOI9mrb"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6825YQak1731483
+	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 06:07:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	5YGIeLdp/aOOJVWwMgvngGzX7kWn5LzP/jqHCxVOKqQ=; b=MnTdOEq7kI+78wuj
+	zwhFPlCpVtMXaKHUhgXeszWErVJKOV3L40/E5N/9cSvjMWAOvNbxbYbfowJ0JEy6
+	lvl0mFeVjb+oYVNWeWGzO2aJcDDw8oMsh4RKXnQgAKe4uklfagGcjrFNfdECdhXk
+	WPOf5asr4EBFr3gyVmxYM+CU7iZxpfoeSiM0DXDHYgxS3n0Xn7pe4ceN49mG/K+W
+	+jZI7mtwJQeekQqhEY5VebZrkWD0SHjBk67BjRJmG5Mwjq/waz8ZrxOVtcCx3fkd
+	DT+QnFVcMfR6YzCGSokys1VhF2zScmSCJUDCEXBV7uvCoEeVQRotNOg0i8uAMNci
+	96zfiA==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ge8whh237-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 06:07:33 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-398e1f7d1a5so1145437a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 23:07:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788329253; x=1788934053; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5YGIeLdp/aOOJVWwMgvngGzX7kWn5LzP/jqHCxVOKqQ=;
+        b=JJOI9mrb4+IisXXFkMqPTgThSrn2a4xa9IGUuGxr2mZ8Ke51PsMtl0+MaT9y3dTGBu
+         93JnM32/3EO/H7A5VZEhaJ/2kyX4XN4owtDurq/igZDrBtQHFyCPR6vuDYGMrfYc3GSG
+         3YU8/hPHSEOp1UDlJiA7eex04JjL4tLxUs1vYJrfvyahe1sF/FlAwLxwq5+lUoUrbz8v
+         xlW8bGWsKVrFUkWNxDkAmurYn9cPMMaMAfc+SaiYw/FgHKQqSthXVLWcqBByyud4rgYB
+         A3dZ5+G6Y3dUJ58VXfo0+FzhRVVFEsnekrbn1LCBxTZ5qdmaAcAacMc2U7pWMI3GsD2t
+         xnzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788329253; x=1788934053;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5YGIeLdp/aOOJVWwMgvngGzX7kWn5LzP/jqHCxVOKqQ=;
+        b=IOWEnX0H6cfMzvbWS/Y5+ok8N+Lj8WbMTlc8evDTkQCBOuCPJJwX8SgBk51R651vRA
+         Y3a4aN3giMpO7ChtEnJV9wDEfWOVNy1oMPqVS+7HoHm8hUeUuVnzVXwkhsNV5cdUtnuU
+         ymHaCmRDz+mF7uF/FdaTQsDWE1rZwXvgSXBdP6woLMe3GxPrU5DBTPTlduR0mMqBK4iC
+         6pojgdlfmtYNu81tdN8feHCySuwirly8bQ282SnVyLhEpqy+fHcMnBJA0C4V/WB5uBxh
+         VaBiHOIyUFN3MVnDbUJtGXkilfuLGyRwccSVw1VHa5OvD0+t3dkqcr05jay0RoaRUzEh
+         00jg==
+X-Forwarded-Encrypted: i=1; AKwUvBxp5+2O8djfNVRSKd6Hy8N4E4mHUpNn7d1BbiFplmReDa/9GSO2Se657ZoY/O45hjNhd33XL0M2byQmg2U=@vger.kernel.org
+X-Gm-Message-State: AFuF++nvMFhmt1/vSUKR2Jhiff2PZo48vBQrcu779Bnx0K0jB61d9wUB
+	U+6qE+l+nbBa7HchNMdaWvk1N0sFI54YWXViSBBKB+W3x7xIP7mJUnMbObdKrAgBRL6uBt65iHR
+	zhbIDFEzWR3p+RHpWdWh4BdZqp5hiYZUeB7LB0hBxPKqgvS1FOwxywfunFAsyZ9VLfZo=
+X-Gm-Gg: AYBFou2Ln9k572Bsn23IzjN9/b8rKKdumWsxxjSstqxh4RcLbF86A8I4sqH/FU5Zgga
+	xG725LrbRh1ypQHya+qJeOw/14KrfNj/5yhlHWhDhw/lui06h4Qi3Dt6IkEYDfzNEKgUtZXrzYP
+	krAuufyQ8vz40e1+TSReqr5nI7w2p4Zt/iogsARgkP6I6NNPeBLFKVsa+mlOkQzwiaRUqyKbzv/
+	+WlKSOsZ6jZroU9Tw5SsY1IV7bn4plbXij1mMGDXnuwQuEZ2wMAbMBlOQHvXwKzousdfCPOjGA9
+	o9kJU6kEGcuc6kt304700bsSXDAFC/M3hy+g5qf/I5jLWCT9siW6sUJ8IiRUy2EgfpFXZAFq1pE
+	GmwErF8boLAJYqldSKi+VojsObBEL
+X-Received: by 2002:a17:90b:2e50:b0:398:b426:ca4b with SMTP id 98e67ed59e1d1-39aee1a9994mr3971116a91.22.1788329252517;
+        Tue, 01 Sep 2026 23:07:32 -0700 (PDT)
+X-Received: by 2002:a17:90b:2e50:b0:398:b426:ca4b with SMTP id 98e67ed59e1d1-39aee1a9994mr3971031a91.22.1788329252002;
+        Tue, 01 Sep 2026 23:07:32 -0700 (PDT)
+Received: from [10.218.18.193] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f077fad2dsm3478828eec.0.2026.09.01.23.07.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 23:07:31 -0700 (PDT)
+Message-ID: <51413da4-eed6-4251-b2eb-5d2ad8cb36ec@oss.qualcomm.com>
+Date: Wed, 2 Sep 2026 11:37:26 +0530
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV3PR11MB8695:EE_|SAWPR11MB9710:EE_
-X-MS-Office365-Filtering-Correlation-Id: 61aff3cf-2edb-446a-5a7c-08df08b855e7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|6133799003|11063799006|10067099003|4143699003|56012099006|5023799004|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 0QhyiAmWKV7xMR+Kd9KhBxSxESt4f7vtWS5tc0A43UA3Rwvzi7zxXaaMcognTQbtTWd/xIqEwhbboNXzfoN2RZ5BsCeD9WA8rjfWvge1vQgleF+RWg7He+5aGUbZGjaHKna7495qtO9HaYtzyXPostpTDQatTKDihBP/NYBMm5wOt9mR0cRfUzAdFjb1N3EWHY4P9048LMApG6jJ0XxfWGSt7qhoezyvN59Rjs51zvldRwGiMvgVuFWAVcV1cZAZofb4VEqoyr2Bnh0VwbnxZYIcBecEEnIZxX0v7oHHLpv9En3+0RJgIDGKq9zyrNIrppY1Y+48wYZ1g0M6iShroz1PsicXtax7lEE8XL4fvII/ikxm3A3F4T+6+LAkaABvnvcTViyJHRdnTcXDZFmOIyFwZucaKqDmKAgxCF5BjPjREk/mB51C/zX0p+avLkycNsyiXvaO4Z1oWZHUveA8fnrDEPVJLI0howK3VyyPnJydfxFfhlwXpxgu9076njEganpvvt7vI8rbOfGWrF9IB4B0hKL+umtLhYKhvQsgWBWqXTleqg8jZMMApJfWsqyWksM5v6UNcbIt8Pjv98PGEQ1KNpZInU4RDnVI46IcJGzlHBFhZn1klUodZq8HKa8y9NAWe4A6idmb0t/vUjTskZMhD/tSyeIqwl0i7ya8lrs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV3PR11MB8695.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(6133799003)(11063799006)(10067099003)(4143699003)(56012099006)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?djBlVHVXMDVPRC9CTndxNnVSalBUZG9FY25NT3ZDVDlNZWg1MUZwK254QVVm?=
- =?utf-8?B?aGxicE9wbXh2WmloTUVWY0ZLTkorUlVUcU54eFhacEJyYXhjNVJZcHE2elZn?=
- =?utf-8?B?RXZvcGJwWFRrVE5TYk1BRk9xMDVLMkpFdWtkY2FJa0k1TWozdTZodHBKV2xY?=
- =?utf-8?B?aUMwejVvb0NFR1FuL1pHbTlrWjRVd2RJay96ZFZLQjIrK0V0ZG0zMHZYekVJ?=
- =?utf-8?B?MmQ2c0FVL3hvOTRWSDZrTmNiTUlEN0dUYU8yc3JLdytCcDZ0YXl3Z3Z1R3Q4?=
- =?utf-8?B?YklZOUh2dWVaUXF3SnpCNDBzUHBnbUw0NFduK1NWNCt6Ujl3TVM1ZTNSbVBF?=
- =?utf-8?B?bStCODZjUHpOUklJTVVzbVNTS1dVajR2M0h3VWVTYllncGNjWWRjTnkrT2dl?=
- =?utf-8?B?d0hwTUtxS0twa09Na0FnSEFFemg5a21nbklPZFJ3MnRGdWRJbzU3RFJEOXpU?=
- =?utf-8?B?aHVNa3poRmV6d2Zza3pOV1k3ZUxZbVlYcnNJWVdtUmh1QzR1Rmovc04wbU5B?=
- =?utf-8?B?N1E3SGcyY3Z1RWp3NUpIalprMEZ0VUJhdXVkU0NEaVh5aXk2Sk9jUVlkRVhE?=
- =?utf-8?B?aG90SDc1RENWQmRrWlAwc2NmTDIwT3VWdC9RWTBkdTRzZWtOZXRtN2xMZnIx?=
- =?utf-8?B?QStIczB3UkVsWDd4QmNUclJyNnk5N1k2LzM2UnU4ZTNQUjNDMm1yTHBsazMx?=
- =?utf-8?B?dG1oUXFWbUR6U0dLbGRCWEt2S01uYkI0bU9zY3o1WUQ1WSs2NXFORjVudmhK?=
- =?utf-8?B?dWFXMWJZblBFbnNiWEpSdkVkS05uU3ljRm9aajJOTDBzMkNtMHlpcHRmN1RH?=
- =?utf-8?B?SWl0UEk5RHQ3dmYyNXZGdWJKcUIwZFRCa04zNVNMM09vYXNjemJxTlk3bGdj?=
- =?utf-8?B?MC9HL1I4RmlCSUNVRnIva3c2R1hhM3ZuS0c4NGg3YUVVZ08wallLMFZFUWtG?=
- =?utf-8?B?UG8xTStqMmlkeFpMWlRiQ0tGOW54ZWJFcGd4ZnQwZk9ENlFZTGN1UTB3dFRC?=
- =?utf-8?B?MzRwMDRVSjZHd29jTzZaU2hRY05QT0RoT2pZME1lbXkrUlRHQmgrbkIvYTlM?=
- =?utf-8?B?OUgyRTlGVEZnaGhZV2RIL1k3UTdMTTlQYU5nZ2VNZDhIUFg5Rmw3N1ZsRU1H?=
- =?utf-8?B?Rlc1R21HUDJua1E4N0xDWnpZdjBnT3VFakVIYmF5azdTM0ZBRlVpdy9DdlFy?=
- =?utf-8?B?c1lIRERkK1VZTlM2c0JNb04wb2g2Ky9aN3R0R085RzJwL1FzK280Yk9mZXZY?=
- =?utf-8?B?dktqMDU2SDdJQis2L3NhTkUyYk1YN2IwUDFtdmdPTFJNNDBrczRBaEJRMlE3?=
- =?utf-8?B?Q2dWNi83YnZmTXVxYktFZjdQMWdKMG02VThZL05EOHVBTjZpbU9KbjY0STVr?=
- =?utf-8?B?cTZld2YxUjhoOXlITWw3VC9mTVFEbWFTbkRrRDJRZUhYT3RHRHZLK1pzY0lL?=
- =?utf-8?B?cHJnTzhQemh3L2NUMlJrVDUvOHVFdUF1cmdheTFSTTRGSUxGYSsxQWVYUXp1?=
- =?utf-8?B?VlNQYW96RTFxWk00RGc2RGc0ZHJzSkR0L2Z2dzlsRCtDaCtBWWhjdUZMTEoy?=
- =?utf-8?B?ekRNcW9hY3V5bjFqNFF5dGtaUmhOWFlzY0lXQXBUNUVOeDFWVGZtaUpYMzlG?=
- =?utf-8?B?a01UdnhxYzZ1SWh5NHhEdUllaG1vQXZJVU1kOE1CWXVQeUtUUDZvQVZ2Q2xk?=
- =?utf-8?B?SUZjVG5NU09Vc1dtS3N3ZEhjNGhueXZxVXZpRCtKWThTa2w2Qkt6aEVqOHlM?=
- =?utf-8?B?VUZzMnd4elljTkxQd28rUlJ0OXRURk5VZlgzTFhrNUxrdGVlaE5LU0xLMG5V?=
- =?utf-8?B?L1I1WlhHS3VPNWhlb3VqMi8rTC83cjlxK2gvUEpMN3krd3BIcTdlVDVzWG5I?=
- =?utf-8?B?T3VPeVV6Skl6cWtoNXNCVkh4ZUpIQUR4dWRFRGFVR1N5SG5rSVgzMTlRWnRw?=
- =?utf-8?B?eENrU1ZWaTB1bnY2d2NIUkVRaVR1RGdzZFpGQ21Ddk04YnRxS2gxdTgzM1Zm?=
- =?utf-8?B?eUFCdzF1WFc5NzlyeHYrR1VSdUg2emErbGVqeDZzcExpZUV2OHQ4cllhTWFI?=
- =?utf-8?B?T1BWMUdsd2hIbldoN3Y0TmZ2U2t0TENEd1FPelBSWjdCL1hzdE9oQmNrWUY0?=
- =?utf-8?B?Sm1PNHAzSWwzY3pwMXF3c2cyby9iUGFWODVlQTVlM08wMG5xOVdEYXlUcmRR?=
- =?utf-8?B?RytHNlJFY1NZUHZuZGJaVVlzRkVSYWlmRm9FbkpmSnBSdGFoOGFyTU1NRnVz?=
- =?utf-8?B?NTI0VDV5WmxrS21hWjloVFd2SEMyTjdqdFgwQ1R4SE5BU2g5V2NHRVlIMk83?=
- =?utf-8?B?a3IzOTl3UWlRVGJzRk4zTmROa1RVU2s0QVYzNDVDMDBWOW56Qit0NHQ5endW?=
- =?utf-8?Q?+PP7ZhA0FfeF/M4E=3D?=
-X-Exchange-RoutingPolicyChecked: zDiksPNEYsbD/BFpFj1boFNvpj/eBvBM6gZcBA+T6eD6ZYSxX1wDqaXDuFCWhkQHUIq11Z4y3TmMEXkVLS7I2FoKlE/ZCx1uHR2tDqqfb3MlHiYOHgERqFM5OK9Mh48pB6nuSphBv0sqow/LA4LmjoiJbB+jPW/8cDZzzW6isHCIGch1yemAIfxxgNa6nn5KWVD3K4B/WHHhOO6M41ND2dCjbcQbvVsHFIlEd6NwPP3gk/Sf1ax0SccPFVYYDVFdW9ie4d2Y2ee96JFut0mJDFo8MPGFTDikz6y0tnRLbM4RzjbL9EG5Jgegh6a7veEDCRVXxteRhmPDD2xp9l65kA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 61aff3cf-2edb-446a-5a7c-08df08b855e7
-X-MS-Exchange-CrossTenant-AuthSource: LV3PR11MB8695.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 06:06:32.2263
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: k39qX8JmMRL0jvYF6GqaIYbIolBMmCYKlea03gGiDyAK1JeAMG1gozt6eL2N0LJxlkhmXktjWNOnAd8zzCQgNCy3gDx8sVleqO6cF09RdtU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR11MB9710
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] dt-bindings: sound: qcom,q6apm-dai: add stage-2
+ (SCM/VMID) access model
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260826-a2a-shikra-vmid-v5-v2-0-c3dc62354eee@oss.qualcomm.com>
+ <20260826-a2a-shikra-vmid-v5-v2-1-c3dc62354eee@oss.qualcomm.com>
+ <006617c6-e3b0-4a3b-85e5-6b5af8f11879@kernel.org>
+Content-Language: en-US
+From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+In-Reply-To: <006617c6-e3b0-4a3b-85e5-6b5af8f11879@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=fLkJG5ae c=1 sm=1 tr=0 ts=6a97bd25 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=lwpQu5wjzsTp6H5rI3AA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: dfZwQ6WY1WvfslwVQX1ALHNdaGlgCRYK
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA1MyBTYWx0ZWRfXwdNsZEZzpwvb
+ GxCdBRiW8L0vRpySZK0+rZ4OuCY1iK7TknPaALbEQnS6a3jYEyLkfOozJ9O7LKQ0/e+YqcUP7+t
+ pxa4Nkv6cmoqo6x2byYxghIGNn40yG6s6TBV0fftOG6aEp4eRq/aHmyRXGGAsYaNAdZYrn2N3EQ
+ jSHOKo4u8QpIj8oY/t2K0gYxl2OOjx7mYKg3s8Xr8Dpekc3TRUWTKDPQosgj5nhE0jJtgdC7NpN
+ emFlPA8bUCAWUOBF5DIk8Z7DHBCEIsFCVx/jC0+D+jkAzASI5Yqq1oaNV9kRfyhkmlCClSyVy57
+ MQOA6ENEnHI0VyygExPCbrouElVcWmH1p9Kkn6S8LLn83+RMcSIWsVn4NuPKbLF0HQbQT3KJyUK
+ FfaVwrA6fi2n6P4srRxQDQVNxc5ZbPpiuzKbYl+NMyK92I8gyuVv2fI8t48PmNkBCrs2UA3mwm7
+ 8dk9zK04ASffLVC7Dfw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA1MyBTYWx0ZWRfXxJ3E3AJrD11N
+ EcQ2l3ZAGts+brdlj5dYb4g2OdJhmq3Xz/t/FiROuWMzlKwfkpWqEC6xXnZEn7PfE9kThmb0fvt
+ b4+SY8zIzdWeCQUSleqTYoqNAKorJM4=
+X-Proofpoint-GUID: dfZwQ6WY1WvfslwVQX1ALHNdaGlgCRYK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_06,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 impostorscore=0 clxscore=1015 priorityscore=1501
+ spamscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020053
 
 
-On 01-Sep-26 3:02 PM, Shameer Kolothum wrote:
-> Add a function reset helper and use it for VFIO_DEVICE_RESET. A later
-> patch routes the guest triggered config space FLR through it as well.
-> That path never did the power state transition, so make it optional.
->
-> With recovery enabled, take recovery_lock for writing, refuse the reset
-> with -EBUSY if access is already blocked, otherwise block access and drop
-> the lock again before revoking mappings or running the reset.
-> recovery_lock cannot be held across the reset because a reset method can
-> take pci_bus_sem, and the PCI error callbacks take recovery_lock from
-> under it.
->
-> Dropping it is safe in both directions. The error callbacks hold
-> recovery_lock for their whole body, so one already running has finished
-> before the reset starts. One which arrives while the lock is down runs
-> its own event, and the PCI core calls it with the device lock held, which
-> pci_try_reset_function() also takes, so it cannot overlap the reset
-> itself.
->
-> Only unblock access at the end for a reset which is still the one
-> blocking it. An event which started meanwhile owns the state from then
-> on, and resume() is what ends it.
->
-> With recovery not enabled, leave access_blocked alone. Two concurrent
-> resets still serialize on memory_lock, same as today. Setting the flag
-> for a device which never opted in would turn a working VFIO_DEVICE_RESET
-> into -EBUSY.
->
-> Access stays blocked until the reset is done and memory state is back,
-> and the wait queue is woken once it clears. A later patch adds the BAR
-> fault path, which waits there rather than failing the fault while a
-> reset is in flight.
->
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Shameer Kolothum <skolothumtho@nvidia.com>
-> ---
->   drivers/vfio/pci/vfio_pci_priv.h |  3 ++
->   drivers/vfio/pci/vfio_pci_core.c | 85 +++++++++++++++++++++++++++++---
->   2 files changed, 82 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
-> index 6daf51669d05..8a7f9fe22386 100644
-> --- a/drivers/vfio/pci/vfio_pci_priv.h
-> +++ b/drivers/vfio/pci/vfio_pci_priv.h
-> @@ -41,6 +41,9 @@ ssize_t vfio_pci_config_rw_single(struct vfio_pci_core_device *vdev,
->   				  char __user *buf, size_t count, loff_t *ppos,
->   				  bool iswrite);
->   
-> +int vfio_pci_try_reset_function(struct vfio_pci_core_device *vdev,
-> +				bool reset_power_state);
-> +
->   ssize_t vfio_pci_bar_rw(struct vfio_pci_core_device *vdev, char __user *buf,
->   			size_t count, loff_t *ppos, bool iswrite);
->   
-> diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-> index 4194d44d6530..3645daa8891f 100644
-> --- a/drivers/vfio/pci/vfio_pci_core.c
-> +++ b/drivers/vfio/pci/vfio_pci_core.c
-> @@ -1379,14 +1379,53 @@ static int vfio_pci_ioctl_set_irqs(struct vfio_pci_core_device *vdev,
->   	return ret;
->   }
->   
-> -static int vfio_pci_ioctl_reset(struct vfio_pci_core_device *vdev,
-> -				void __user *arg)
-> +int vfio_pci_try_reset_function(struct vfio_pci_core_device *vdev,
-> +				bool reset_power_state)
->   {
-> +	struct pci_dev *pdev = vdev->pdev;
-> +	bool enabled = false;
-> +	bool supported = vdev->pci_recovery_supported;
 
-Can we use a helper function to get pci recovery is supported or not?
+On 8/27/2026 11:33 AM, Krzysztof Kozlowski wrote:
+> On 25/08/2026 20:40, Ajay Kumar Nandam wrote:
+>> The APM DAIs expose PCM buffers that the backing DSP must be able to
+>> reach. On existing targets the DSP runs in a stage-1 context and the
+>> buffers are described to the SMMU via the iommus property.
+>>
+>> On platforms such as Qualcomm Shikra, where audio is served by the modem
+>> DSP (mDSP) rather than the ADSP, the DSP runs in a stage-2 protected
+>> context and cannot use the SMMU. The buffers are reachable only after
+>> hypervisor (SCM) memory assignment to the fixed set of consumer Virtual
+>> Machine IDs (VMIDs) that own that protected context. Describe those
+>> consumers with a new qcom,vmids property.
+>>
+>> The two access models are mutually exclusive: a node carries either
+>> iommus (stage-1/SMMU) or qcom,vmids (stage-2/SCM), expressed with a
+>> oneOf constraint. iommus is therefore no longer unconditionally required.
+>> SCM assignment replaces the buffer's current owners with the supplied
+>> destination set, so the driver always adds HLOS to that set itself to
+>> retain host access; HLOS must not be listed in qcom,vmids.
+>>
+>> When qcom,vmids is present the PCM buffers must reside in reserved-memory
+>> carveouts that are SCM-assigned to the consumer VMIDs. Add an optional
+>> memory-region property listing those carveouts. The first entry is the
+>> control-path buffer and subsequent entries are data-path buffers.
+>> memory-region is only meaningful alongside qcom,vmids, enforced via
+>> dependentRequired.
+>>
+>> Signed-off-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+>> ---
+>>   .../devicetree/bindings/sound/qcom,q6apm-dai.yaml  | 72 +++++++++++++++++++++-
+>>   1 file changed, 70 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml b/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
+>> index 9e5b30d9c6e6..d9a6bc4a14f2 100644
+>> --- a/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
+>> +++ b/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
+>> @@ -10,7 +10,15 @@ maintainers:
+>>     - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+>>   
+>>   description: |
+>> -  This binding describes the Qualcomm APM DAIs in DSP
+>> +  This binding describes the Qualcomm APM DAIs in DSP.
+>> +
+>> +  The DSP that runs the APM must be able to reach the PCM buffers. On
+>> +  existing targets the DSP runs in a stage-1 context and the buffers are
+>> +  described to the SMMU via iommus. On targets whose APM DSP runs in a
+>> +  stage-2 protected context that cannot use the SMMU, the buffers are
+>> +  reachable only after hypervisor (SCM) memory assignment to the fixed
+>> +  set of consumer VMIDs that own that protected context, described by
+>> +  qcom,vmids. The two access models are mutually exclusive.
+>>   
+>>   properties:
+>>     compatible:
+>> @@ -20,9 +28,42 @@ properties:
+>>       minItems: 1
+>>       maxItems: 2
+> 
+> As I said last time, different hardware, different programming
+> interface, different features, so a different compatible.
 
-Maintainability will be easy with helper function than direct assignment.
 
--Satya.
+The APM DAI block is the same packet format.  The driver uses a single 
+of_device_id entry with no match data; there is no code path dispatched 
+by the compatible string.
 
->   	int ret;
->   
-> -	if (!vdev->reset_works)
-> -		return -EINVAL;
-> +	/*
-> +	 * Claim the device against recovery before resetting it. The PCI
-> +	 * error callbacks hold recovery_lock for their whole body, so taking
-> +	 * it for writing here waits for one already running, and
-> +	 * access_blocked keeps a later one away while the lock is dropped.
-> +	 */
-> +	if (supported) {
-> +		down_write(&vdev->recovery_lock);
-> +		if (!vdev->pci_recovery_device_open) {
-> +			ret = -ENODEV;
-> +			goto out_recovery;
-> +		}
->   
-> +		enabled = vdev->pci_recovery_enabled;
-> +
-> +		/*
-> +		 * Only claim access_blocked when recovery is enabled.
-> +		 * error_detected() returns early for a device which has not
-> +		 * enabled it, so there is nothing to exclude, and claiming it
-> +		 * anyway would fail the second of two concurrent
-> +		 * VFIO_DEVICE_RESET calls with -EBUSY.
-> +		 */
-> +		if (enabled) {
-> +			if (vdev->pci_recovery_access_blocked) {
-> +				ret = -EBUSY;
-> +				goto out_recovery;
-> +			}
-> +			WRITE_ONCE(vdev->pci_recovery_access_blocked, true);
-> +		}
-> +		up_write(&vdev->recovery_lock);
-> +	}
-> +
-> +	/*
-> +	 * On a device which supports recovery, taking recovery_lock for
-> +	 * writing above waited for anything already past its access check,
-> +	 * and if recovery is enabled access_blocked keeps new ones out. Do
-> +	 * not hold recovery_lock while taking memory_lock or running a reset
-> +	 * method, since a reset can take pci_bus_sem.
-> +	 */
->   	vfio_pci_zap_and_down_write_memory_lock(vdev);
->   
->   	/*
-> @@ -1398,15 +1437,49 @@ static int vfio_pci_ioctl_reset(struct vfio_pci_core_device *vdev,
->   	 * reset without restoring the original state (saved locally in
->   	 * 'vdev->pm_save').
->   	 */
-> -	vfio_pci_set_power_state(vdev, PCI_D0);
-> +	if (reset_power_state)
-> +		vfio_pci_set_power_state(vdev, PCI_D0);
->   
->   	vfio_pci_dma_buf_move(vdev, true);
-> -	ret = pci_try_reset_function(vdev->pdev);
-> +	ret = pci_try_reset_function(pdev);
->   	if (__vfio_pci_memory_enabled(vdev))
->   		vfio_pci_dma_buf_move(vdev, false);
->   	up_write(&vdev->memory_lock);
->   
-> +	if (enabled) {
-> +		down_write(&vdev->recovery_lock);
-> +		/*
-> +		 * An error callback can have started an event while the lock
-> +		 * was down. Leave the state to it. Only unblock access for a
-> +		 * reset which is still the one holding it.
-> +		 */
-> +		if (vdev->pci_recovery_device_open &&
-> +		    !(vdev->pci_recovery_flags & (VFIO_PCI_RECOVERY_IN_PROGRESS |
-> +						  VFIO_PCI_RECOVERY_FAILED)))
-> +			WRITE_ONCE(vdev->pci_recovery_access_blocked, false);
-> +		up_write(&vdev->recovery_lock);
-> +		/*
-> +		 * Access is blocked for the length of the reset, so anything
-> +		 * waiting for it to clear has to be woken here. A later patch
-> +		 * adds the BAR fault path which waits on this.
-> +		 */
-> +		wake_up_all(&vdev->pci_recovery_wait);
-> +	}
-> +
->   	return ret;
-> +
-> +out_recovery:
-> +	up_write(&vdev->recovery_lock);
-> +	return ret;
-> +}
-> +
-> +static int vfio_pci_ioctl_reset(struct vfio_pci_core_device *vdev,
-> +				void __user *arg)
-> +{
-> +	if (!vdev->reset_works)
-> +		return -EINVAL;
-> +
-> +	return vfio_pci_try_reset_function(vdev, true);
->   }
->   
->   static int vfio_pci_ioctl_get_pci_hot_reset_info(
+The iommu vs VMID distinction is a property of the memory topology,
+not the DAI hardware, and is already described by the mutually exclusive
+iommus / qcom,vmids properties.  The DSP identity (ADSP vs mDSP) is
+carried by the GPR node's qcom,domain property and read at the send
+layer — the DAI node itself does not need to know which DSP it talks to.
+
+Happy to add a new compatible if there is a concrete functional
+difference I'm missing.
+
+> 
+> 
+>>   
+>> +  memory-region:
+>> +    description:
+>> +      Reserved-memory carveouts (shared-dma-pool, no-map) that hold the
+>> +      PCM buffers and must be SCM-assigned to the VMIDs in qcom,vmids.
+>> +      The first entry is the control-path buffer; the second entry is
+>> +      the data-path buffer. Only used together with qcom,vmids.
+>> +    minItems: 1
+>> +    maxItems: 2
+> 
+> List the items with description, isntead of free form text
+> 
+> items:
+>    - description:
+>    - description:
+> 
+>> +
+>> +  qcom,vmids:
+>> +    description:
+>> +      Virtual Machine IDs (VMIDs) of the processors that consume the PCM
+>> +      buffers and therefore must be granted access through SCM memory
+>> +      assignment. Required on targets whose APM DSP runs in a stage-2
+>> +      protected context and cannot use the SMMU; mutually exclusive with
+>> +      iommus. SCM assignment replaces the buffer's current owners with the
+>> +      supplied set, so the driver always adds HLOS to the destination list
+>> +      itself to retain host access; HLOS must not be listed here. All
+>> +      listed VMIDs and HLOS receive read-write access.
+>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+>> +    minItems: 1
+>> +    maxItems: 2
+>> +    uniqueItems: true
+>> +
+>>   required:
+>>     - compatible
+>> -  - iommus
+>> +
+>> +oneOf:
+>> +  - required:
+>> +      - iommus
+>> +  - required:
+>> +      - qcom,vmids
+>> +
+>> +dependentRequired:
+>> +  memory-region:
+>> +    - qcom,vmids
+>>   
+>>   additionalProperties: false
+>>   
+>> @@ -32,3 +73,30 @@ examples:
+>>           compatible = "qcom,q6apm-dais";
+>>           iommus = <&apps_smmu 0x1801 0x0>;
+>>       };
+>> +  - |
+>> +    #include <dt-bindings/firmware/qcom,scm.h>
+>> +
+>> +    reserved-memory {
+>> +        #address-cells = <2>;
+>> +        #size-cells = <2>;
+>> +        ranges;
+>> +
+>> +        audio_heap_mem: audio-heap@a1000000 {
+>> +            compatible = "shared-dma-pool";
+>> +            reg = <0x0 0xa1000000 0x0 0x100000>;
+>> +            no-map;
+>> +        };
+>> +
+>> +        audio_mdsp_carveout_mem: audio-carveout@a1100000 {
+>> +            compatible = "shared-dma-pool";
+>> +            reg = <0x0 0xa1100000 0x0 0x400000>;
+>> +            no-map;
+>> +        };
+>> +    };
+> 
+> Drop entire node, not really relevant.
+
+ACK, will update in V3
+
+Thanks & Regards
+Ajay Kumar
+
+> 
+>> +
+>> +    dais {
+>> +        compatible = "qcom,q6apm-dais";
+>> +        /* index 0: control path, index 1: data path */
+>> +        memory-region = <&audio_heap_mem>, <&audio_mdsp_carveout_mem>;
+>> +        qcom,vmids = <QCOM_SCM_VMID_LPASS QCOM_SCM_VMID_MSS_MSA>;
+>> +    };
+>>
+> 
+> 
+> Best regards,
+> Krzysztof
+
