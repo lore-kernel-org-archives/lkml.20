@@ -1,38 +1,51 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 52B2F40B11F;
-	Wed,  2 Sep 2026 09:04:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEB8D3EEAEA;
+	Wed,  2 Sep 2026 09:05:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788339874; cv=none; b=V8IfD2Ns8A+AbNdjoSIYjQwncgjuvtaZMmU/V4rjitWOPVMgFQPUD9xXAYdE3bDp82WF9ekqa/SdlX3HXmusJhXKmSxfeszYM8B6V+UqUKccrnU/79AR2d6Ntq7teFwlShyTtvD9ub+1rJbpD/ZxT+pR7yO0ByRM1O0jhjVWGsY=
+	t=1788339945; cv=none; b=otVXWDUgW9vItXhYVAzxCDQ6YMyQ5ldy06eqgsCEf9t60avwY7QDYeoJ87pPmm9sZLr0/L2AaNteKfjwsfnu7nZoZCY1nNfWkOA0yChjphj+j2GCFlSR8II2W72janZi505usBFqIECE2FDMHv6Fs/ywpSPb8zU7D8ABCfkIvp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788339874; c=relaxed/simple;
-	bh=RaRQWBFKMRRd4R4qgmTUyjrpWNDaqtRyHm+JIctTVLI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LF1vKPsXr2n5TGuQ3wYiZeN/qk35eLVttmqCHAhWAw5fxFQripdZ0MgaITAK0jn9ekIwjkcZU0SNArPMnZkyl/u+dppJjnuVxp9F4GcSSOuTILY4gbP6S59xWY1qCk8EmFWrjlMe/RaG7WFdSytMhRbz99gdsBtOLkRhm4yJIfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.40.54.123])
-	by gateway (Coremail) with SMTP id _____8CxPtOY5pdqsLQHAA--.21786S3;
-	Wed, 02 Sep 2026 17:04:24 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.40.54.123])
-	by front1 (Coremail) with SMTP id qMiowJDxg8yM5pdqsXgZAA--.26394S5;
-	Wed, 02 Sep 2026 17:04:23 +0800 (CST)
-From: Qunqin Zhao <zhaoqunqin@loongson.cn>
-To: bp@alien8.de
-Cc: tony.luck@intel.com,
-	linux-edac@vger.kernel.org,
+	s=arc-20240116; t=1788339945; c=relaxed/simple;
+	bh=xJptvLafoqlJCdFxLD460ztNZOTFIuuQp8qBTdVne1k=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=pNsYL5CDwGUqE71KEG9R++6DPxn7AwpvKjYBzvivGAwlMpeVXibp+P1z9ZZvIRx2NFHZ6T7zMkOnQ7rTaP4TTw3LyfYrrco2Z46iYTYGGTlD5iRpk4/y8BzoL7CCry2hNzLYjn9xeatFeQ1bb4uJpNaS10WMmJxCjprwB2KWbc4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 7498f7aea6ad11f19a56ed5b684f684d-20260902
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:905902a8-6ee9-4b10-87dc-a5497e24eb57,IP:0,U
+	RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:-25
+X-CID-META: VersionHash:7db8b62,CLOUDID:8902889369b8e71bbc23da3248b876df,BulkI
+	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50,EDM:-
+	3,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
+	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 7498f7aea6ad11f19a56ed5b684f684d-20260902
+X-User: huangwei@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <huangwei@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 843495116; Wed, 02 Sep 2026 17:05:34 +0800
+From: Huang Wei <huangwei@kylinos.cn>
+To: heikki.krogerus@linux.intel.com
+Cc: gregkh@linuxfoundation.org,
+	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	chenhuacai@kernel.org,
-	Qunqin Zhao <zhaoqunqin@loongson.cn>,
-	Wusheng <wusheng@loongson.cn>,
-	Wang Jinwei <wangjinwei@loongson.cn>
-Subject: [PATCH v4 3/3] EDAC/loongson: Add CS4-7 timeout filter for cross-node access
-Date: Wed,  2 Sep 2026 16:48:27 +0800
-Message-ID: <20260902084827.2652-4-zhaoqunqin@loongson.cn>
-X-Mailer: git-send-email 2.47.2
-In-Reply-To: <20260902084827.2652-1-zhaoqunqin@loongson.cn>
-References: <20260902084827.2652-1-zhaoqunqin@loongson.cn>
+	Huang Wei <huangwei@kylinos.cn>,
+	Alex Bartz <alex@alstergee.com>
+Subject: [PATCH v3] usb: typec: ucsi: do not register UCSI on Lenovo Legion Pro 7 16IAX10H
+Date: Wed,  2 Sep 2026 17:05:31 +0800
+Message-Id: <20260902090531.2134150-1-huangwei@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260826133118.3327816-1-huangwei@kylinos.cn>
+References: <20260826133118.3327816-1-huangwei@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -40,121 +53,103 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJDxg8yM5pdqsXgZAA--.26394S5
-X-CM-SenderInfo: 52kd01pxqtx0o6or00hjvr0hdfq/
-X-Coremail-Antispam: 1Uk129KBj93XoWxXFWUWF1UKryxCw4DXr48Zrc_yoW5Zw4fpF
-	W5Ca15trW0qrnF9w1ktrWUZa45CFZagFZrWrZ3A3yrWr9Iy34DZrySgry2vFn8C34FyryY
-	qw1rKrs7CF4UA3XCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUU9Fb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
-	xVW8Jr0_Cr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07
-	AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
-	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
-	AKI48JMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMxCIbckI1I0E14v2
-	6r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17
-	CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF
-	0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIx
-	AIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2
-	KfnxnUUI43ZEXa7IU8EeHDUUUUU==
 
-On Loongson 3C6000 multi-node systems, when the EDAC driver running
-on one node accesses the memory controller registers of another node,
-the read operation may timeout and return random values. This causes
-false CE error reports because the random values in CS0-3 (low 32 bits)
-are misinterpreted as valid ECC error counts.
+The EC firmware of the Lenovo Legion Pro 7 16IAX10H (DMI product name
+83F5) has a broken UCSI implementation: GET_PDOS returns no source
+capabilities, GET_CONNECTOR_STATUS reports an incomplete RDO, and any
+UCSI traffic disturbs the EC's autonomous USB-C Power Delivery
+negotiation. With ucsi_acpi bound, chargers connect only briefly and
+then drop, and voltage_now reads 0; with the driver blacklisted, the
+EC negotiates full PD contracts on its own and charging works normally.
 
-For cross-node accesses, check CS4-7 (high 32 bits) of the ECC
-count register. If the valid-cs-bits firmware property is set and
-the high bits are non-zero, it indicates a timeout or random value,
-so skip the report and return the previous count.
+The reporter confirmed the issue on BIOS versions Q7CN44WW and
+Q7CN78WW (2026-04); it is unaffected by the BIOS update between them.
+The AMD sibling Legion Pro 7 16AFR10H (product name 83RU) reportedly
+uses the same EC firmware, but it is left out of the quirk until the
+failure is confirmed on that model.
 
-To avoid undefined behavior on 8-CS systems where valid_cs_bits=64,
-guard the shift with a bounds check (valid_cs_bits < 64).
+Skip probe on machines carrying the known-broken BIOS versions, which
+is equivalent to the blacklist workaround the reporter verified to
+restore charging. Matching the specific BIOS versions rather than the
+whole platform ensures that a future firmware that fixes UCSI is not
+wrongly skipped.
 
-Signed-off-by: Wusheng <wusheng@loongson.cn>
-Signed-off-by: Wang Jinwei <wangjinwei@loongson.cn>
-Signed-off-by: Qunqin Zhao <zhaoqunqin@loongson.cn>
+Reported-by: Alex Bartz <alex@alstergee.com>
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221142
+Tested-by: Alex Bartz <alex@alstergee.com>
+Signed-off-by: Huang Wei <huangwei@kylinos.cn>
+
 ---
- drivers/edac/loongson_edac.c | 25 ++++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
+Changes in v2:
+- Add Tested-by tag from Alex Bartz, who verified the quirk on his
+  machine (out-of-tree build, runtime module swap, PD charging held
+  across the reload).
 
-diff --git a/drivers/edac/loongson_edac.c b/drivers/edac/loongson_edac.c
-index 8946c90b0..605320b81 100644
---- a/drivers/edac/loongson_edac.c
-+++ b/drivers/edac/loongson_edac.c
-@@ -27,6 +27,7 @@ struct loongson_edac_pvt {
- 	 */
- 	int last_ce_count;
- 	u32 mcs_per_node;
-+	u32 valid_cs_bits;
- 	bool mc_idx_valid;
+Changes in v3:
+- Use dev_err() instead of dev_info() for the skip message, per Greg
+  Kroah-Hartman and Heikki Krogerus, so the issue stays visible until
+  the firmware is fixed.
+- Scope the quirk to the BIOS versions confirmed broken (Q7CN44WW,
+  Q7CN78WW) instead of the whole platform, per Greg Kroah-Hartman, so
+  a future firmware that fixes UCSI is not wrongly skipped. New broken
+  versions can be added to the table as they are confirmed.
+---
+ drivers/usb/typec/ucsi/ucsi_acpi.c | 35 ++++++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
+
+diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
+index 18286d3e9cc5..2708b5f90718 100644
+--- a/drivers/usb/typec/ucsi/ucsi_acpi.c
++++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
+@@ -173,6 +173,35 @@ static const struct dmi_system_id ucsi_acpi_quirks[] = {
+ 	{ }
  };
  
-@@ -37,11 +38,21 @@ static int read_ecc(struct mem_ctl_info *mci)
- 	int cs;
++/*
++ * Platforms with a completely broken UCSI implementation in firmware.
++ * Do not register UCSI at all on these machines.
++ *
++ * The Lenovo Legion Pro 7 16IAX10H (DMI product name 83F5) carries
++ * broken UCSI firmware in BIOS versions Q7CN44WW and Q7CN78WW; the
++ * reporter confirmed the issue is unaffected by the BIOS update
++ * between them. Match only the BIOS versions known to be broken so
++ * that a future firmware that fixes UCSI is not wrongly skipped; add
++ * new versions here as they are confirmed.
++ */
++static const struct dmi_system_id ucsi_acpi_ignore[] = {
++	{
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "83F5"),
++			DMI_MATCH(DMI_BIOS_VERSION, "Q7CN44WW"),
++		},
++	},
++	{
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_MATCH(DMI_PRODUCT_NAME, "83F5"),
++			DMI_MATCH(DMI_BIOS_VERSION, "Q7CN78WW"),
++		},
++	},
++	{ }
++};
++
+ static void ucsi_acpi_notify(acpi_handle handle, u32 event, void *data)
+ {
+ 	struct ucsi_acpi *ua = data;
+@@ -199,6 +228,12 @@ static int ucsi_acpi_probe(struct platform_device *pdev)
+ 	if (adev->dep_unmet)
+ 		return -EPROBE_DEFER;
  
- 	ecc = readq(pvt->ecc_base + ECC_CS_COUNT_REG);
--	/* cs0 -- cs3 */
-+	/* Discard the read value if any invalid bit is set to 1 */
-+	if (pvt->valid_cs_bits < 64 && (ecc >> pvt->valid_cs_bits)) {
-+		edac_mc_printk(mci, KERN_DEBUG, "ECC read invalid, skip: 0x%llx\n", ecc);
-+		return pvt->last_ce_count;
++	if (dmi_check_system(ucsi_acpi_ignore)) {
++		dev_err(&pdev->dev,
++			"UCSI implementation in firmware is broken, ignoring\n");
++		return -ENODEV;
 +	}
 +
-+	/* cs0 -- cs7 */
- 	cs = ecc & 0xff;
- 	cs += (ecc >> 8) & 0xff;
- 	cs += (ecc >> 16) & 0xff;
- 	cs += (ecc >> 24) & 0xff;
-+	cs += (ecc >> 32) & 0xff;
-+	cs += (ecc >> 40) & 0xff;
-+	cs += (ecc >> 48) & 0xff;
-+	cs += (ecc >> 56) & 0xff;
- 
- 	return cs;
- }
-@@ -111,14 +122,15 @@ static void dimm_config_init(struct mem_ctl_info *mci)
- }
- 
- static void pvt_init(struct mem_ctl_info *mci, void __iomem *vbase,
--		     bool mc_idx_valid, u32 mcs_per_node)
-+		     bool mc_idx_valid, u32 mcs_per_node, u32 valid_cs_bits)
- {
- 	struct loongson_edac_pvt *pvt = mci->pvt_info;
- 
- 	pvt->ecc_base = vbase;
--	pvt->last_ce_count = read_ecc(mci);
- 	pvt->mc_idx_valid = mc_idx_valid;
- 	pvt->mcs_per_node = mcs_per_node;
-+	pvt->valid_cs_bits = valid_cs_bits;
-+	pvt->last_ce_count = read_ecc(mci);
- }
- 
- static int edac_probe(struct platform_device *pdev)
-@@ -127,7 +139,7 @@ static int edac_probe(struct platform_device *pdev)
- 	struct mem_ctl_info *mci;
- 	struct device *dev = &pdev->dev;
- 	void __iomem *vbase;
--	u32 mcs_per_node;
-+	u32 mcs_per_node, valid_cs_bits;
- 	int ret;
- 	bool mc_idx_valid = true;
- 
-@@ -165,7 +177,10 @@ static int edac_probe(struct platform_device *pdev)
- 	if (device_property_read_u32(dev, "mcs-per-node", &mcs_per_node) || mcs_per_node == 0)
- 		mcs_per_node = 4;
- 
--	pvt_init(mci, vbase, mc_idx_valid, mcs_per_node);
-+	if (device_property_read_u32(dev, "valid-cs-bits", &valid_cs_bits))
-+		valid_cs_bits = 32;
-+
-+	pvt_init(mci, vbase, mc_idx_valid, mcs_per_node, valid_cs_bits);
- 	dimm_config_init(mci);
- 
- 	ret = edac_mc_add_mc(mci);
+ 	ua = devm_kzalloc(&pdev->dev, sizeof(*ua), GFP_KERNEL);
+ 	if (!ua)
+ 		return -ENOMEM;
 -- 
-2.47.2
+2.25.1
 
