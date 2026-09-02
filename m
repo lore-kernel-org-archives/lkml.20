@@ -1,168 +1,115 @@
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-46.mta0.migadu.com [91.218.175.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF8A370ACD;
-	Wed,  2 Sep 2026 07:36:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF4633BBCF
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:38:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788334565; cv=none; b=BD9MTLhRJu4uwI6I35Dq305aCusVY7cmdkuccwxL278gxwixWPCIHjlSBRrCVSHwhUxmiIqmWZHrVGdtN8fMOhk8vYXp4d9SYZDeqy7CJZHofhcTMYEoNB4Vn4+KbFni1I0tY24HRseAsC275l85VE+5DJzrt9uFl+gaW1wgf7o=
+	t=1788334705; cv=none; b=HAHhZAJoZ/2kPpE3nTQX/voMRz7AFk6QgNH1ROOW80JM12gbPHUixSB77FY7XFYIvkva2/EyGlsdTqTOju64E7/cYRKZkVHd9Bcn2LFs9H2Jh4buuggm5NbOmozIKY3FhjX3sD86XUatuuL0ZJ1BFXbuMKpjgFD77+TlgGYIQj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788334565; c=relaxed/simple;
-	bh=K2Pdj40MMClLlgpd7cUZ3Gmz6Ox+gIzS41fDorJtPdI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ja1+ZKH4CQkG7GphFdZye2W4HJ36H0hrGmB9rJMZdSjuH/1xfsXjQgHQIbwQCwQEgZvnp3l+7mAOt7+jMbv6hmFs6sMPPG8Tszp7WNRtPh8AZ1EYbmzuSWJakCSAos9fU3LQpylQp688OIr1tW9QOzeNtw+8c9WPwrCnyWjtN/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id BD86168BEB; Wed,  2 Sep 2026 09:35:56 +0200 (CEST)
-Date: Wed, 2 Sep 2026 09:35:56 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Dave Chinner <dgc@kernel.org>
-Cc: Ran Hongyun <ranhongyun1@huawei.com>, catherine.hoang@oracle.com,
-	chandan.babu@oracle.com, djwong@kernel.org, hch@lst.de,
-	linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
-	chengzhihao1@huawei.com, yangerkun@huawei.com, yi.zhang@huawei.com,
-	Wangyang Guo <wangyang.guo@intel.com>,
-	Tim Chen <tim.c.chen@linux.intel.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Chuck Lever <cel@kernel.org>
-Subject: Re: [QUESTION] xfs: Can we remove flush_workqueue from
- xlog_cil_push_now?
-Message-ID: <20260902073556.GA27223@lst.de>
-References: <20260827033654.1172495-1-ranhongyun1@huawei.com> <apSnC9p0X04cKxDj@dread>
+	s=arc-20240116; t=1788334705; c=relaxed/simple;
+	bh=bWqKM55BsocJ4wzic/HTSDg71D6vbUFl84C/nnmct8E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VPPJr7i9/dlttUusvX2h54lszdncDuRy2wAJr8RRZcygxDw00KVtcFzmuxkz/7bw37J9+i5lSssHZC78tzsy4oH4C4JruNh+UDWpXAC5qdkYNH0frElr9kgCqTaSaS9tMpGwFMF9fftO8cmJqaiGn7TFaSSa0H9YPQhxUjMC1LY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vV6wCO1H; arc=none smtp.client-ip=91.218.175.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vV6wCO1H"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=bWqKM55BsocJ4wzic/HTSDg71D6vbUFl84C/nnmct8E=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788334700; v=1; x=1788939500;
+ b=vV6wCO1H7AdtHnmeMst+X9cfkYqTrExVIzmNGbAHjGYkjidiWQWP4yp3VmZMew/fPJpfyah/
+ EKFg1DgyBb/TG3ovWtiTl1n7cf9+7qj9qkXU1Dp/Ye+Ij5xU5o7MgcKlLKo1XGCnRrXgQ1CQw/A
+ HicbOyIWAF/J2o9YQMW+Bnd8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7b5fe957ff10b172;
+	Wed, 02 Sep 2026 07:38:10 +0000
+X-Mizu-Trace-ID: 7b5fe957ff10b172
+X-Migadu-Flow: FLOW_OUT
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+To: linux-mm@kvack.org
+Cc: Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Dave Chinner <david@fromorbit.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Muchun Song <muchun.song@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Kairui Song <kasong@tencent.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Usama Arif <usama.arif@linux.dev>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] mm/shrinker: fix bogus set_shrinker_bit() with cgroup.memory=nokmem
+Date: Wed,  2 Sep 2026 15:37:59 +0800
+Message-ID: <20260902073800.305481-1-jiayuan.chen@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <apSnC9p0X04cKxDj@dread>
-User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On Mon, Aug 31, 2026 at 07:56:27AM +1000, Dave Chinner wrote:
-> > nr_cpus pool_workqueue entries, instead of per-NUMA nodes. On large SMP
-> > systems (e.g. 128 CPUs, 4 NUMA nodes), this adds significant overhead.
-> > Even after 85f0d8e39aff ("workqueue: Reduce expensive locks for unbound
-> > workqueue") reduced lock cost, the per-CPU iteration remains costly.
-> > This seems contrary to the original performance intent of the flush.
+With cgroup.memory=nokmem, shrinker_memcg_alloc() bails out early and
+never allocates an id, so shrinker->id keeps the 0 it got from the
+kzalloc() in shrinker_alloc(). __list_lru_init() then copies that 0
+into lru->shrinker_id, where it looks like a valid bit index.
 
-Adding the authors/reviwers and maintainers relevant to this commit and
-Chuck as he has been looking into different unbound workqueue overhead
-lately.
+Nothing calls expand_shrinker_info() on nokmem either, so
+shrinker_nr_max stays 0 and every memcg ends up with an empty map
+(map_nr_max == 0).
 
-> > 
-> > Below is a bpftrace test result on a 128-CPU system with 4 NUMA nodes,
-> > 16 threads doing sequential writes with fsync per write.
-> > 
-> > Function                    remove flush          with flush
-> >                             per-CPU pwqs     per-CPU      per-NUMA
-> > -------------------------  --------------   ----------   -----------
-> > xfs_fsync_flush_log          32-256 us      256-1000 us    32-256 us
-> > flush_workqueue_prep_pwqs      N/A           2-64 us        2-8 us
-> > 
-> > With flush_workqueue() removed, xfs_fsync_flush_log latency drops
-> > back to the per‑NUMA range (32‑256 us).
-> 
-> Ok, but how does the IO performance change? Does this result in a
-> measurable increase in RWF_OSYNC write throughput? (write + fsync ==
-> pwritev2(RWF_OSYNC)).
-> 
-> However, behavioural changes like this seem like an infrastructure
-> regression, and trying to modify callers to hide that regression is
-> a bandaid. This affects all UNBOUND workqueues, not just this one,
-> and we do not need per-cpu scheduling for workqueues with such low
-> work and concurrency counts - there can only be 4 pushs scheduled
-> and running concurrently at any time on this work queue. Hence we
-> don't even need NUMA queuing - a single global queue would work just
-> fine...
+deferred_split_folio() hands a real memcg to __list_lru_add()
+regardless of whether the lru is memcg aware, so the first THP queued
+in a cgroup does set_shrinker_bit(memcg, nid, 0) and trips the bounds
+check:
 
-Yeah, a lot of the recent workqueue changes had a lot of adverse effects.
-We really need to come up with a way to queue work to task context (or a
-different task context) that doesn't require reverse engineering "smart"
-behavior in the backend.  This has become a never ending whack-a-mole
-unfortunately.
+WARNING: mm/shrinker.c:212 at set_shrinker_bit+0x7d/0x90, CPU#126
+Call Trace:
+ <TASK>
+ deferred_split_folio+0x18c/0x220
+ map_anon_folio_pmd_nopf+0xdd/0x130
+ map_anon_folio_pmd_pf+0x14/0xb0
+ do_huge_pmd_anonymous_page+0x1a1/0x620
+ __handle_mm_fault+0xea9/0x10d0
+ handle_mm_fault+0xe5/0x320
+ do_user_addr_fault+0x1cc/0x870
+ exc_page_fault+0x81/0x1b0
+ asm_exc_page_fault+0x27/0x30
+ </TASK>
 
-Not sure what we can do here, but a simply "just queue things up on a
-fixed queue" interface would be really helpful.  Even better with just a
-double or even singly linked list as overhead, as the work_struct is
-way to big due to the function pointer not even needed in most cases
-as typically every item in the queue uses the same one.
+Harmless, the WARN_ON_ONCE() is what keeps the out of bounds unit[]
+read from happening, but the id should not look valid in the first
+place. Clear it before returning.
 
-[leaving the rest of the context in place for the new readers]
+Two other spots could paper over this: drop the id in
+__list_lru_init() when nokmem turns memcg_aware off, or make
+deferred_split_folio() pass NULL like list_lru_add_obj() does. Both
+leave shrinker->id lying around for the next caller, so fix it where
+the id is handed out.
 
+Fixes: fafaeceb89a5 ("mm: switch deferred split shrinker to list_lru")
+Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+---
+ mm/shrinker.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> Hence it seems to me that this overhead problem should be fixed at
-> the WQ infra level, not worked around in the caller context...
-> 
-> > The removal relies on the assumption that flush_workqueue is just a
-> > performance optimization, not a correctness requirement. Without it,
-> > xlog_cil_force_seq already provides a reliable completion guarantee via
-> > xlog_wait(&cil->xc_commit_wait), which blocks until the target sequence
-> > has been committed. The caller will eventually observe the completion
-> > regardless of whether flush_workqueue was called. In addition, ordering
-> > is enforced by xlog_cil_order_write, which ensures all records are
-> > written in strict sequence order. Therefore, removing flush_workqueue
-> > does not weaken any ordering or completion semantics.
-> 
-> And wait latency goes up because now there is nothing to expedidite
-> the scheduling of the work we are waiting to complete.
-> 
-> i.e. you might see a drop in CPU time in flush heavy workloads by
-> removing it, but the trade off is an increase in wait time variance
-> and long tail latencies, especially under light load.
-> 
-> > If this analysis is correct, the change can be applied broadly to all
-> > sync force callers through xlog_cil_push_now(), as they all share the
-> > same completion and ordering guarantees provided by the existing CIL
-> > infrastructure. The per-CPU iteration overhead would be eliminated on
-> > every sync log force without affecting correctness.
-> > 
-> > But there are several concerns I'd like to confirm:
-> > 
-> > Is flush_workqueue just about performance, or does it hide any
-> > correctness dependency I'm missing?
-> 
-> It may well hide implicit correctness bugs.
-> 
-> > Without it, the "if (!ctx->commit_lsn) { goto restart; }" loop in
-> > xlog_cil_force_seq may be triggered more often. Is that acceptable,
-> > or is it a concern?
-> 
-> That's additional context switches and latency. i.e. CPU overhead
-> that we are trying to avoid...
-> 
-> > Are there any ordering guarantees provided by flush_workqueue that
-> > xc_push_lock + waitqueues don't already provide?
-> 
-> Removing the flush will change the order in which concurrent push
-> pipelines order in the journal. This could change the inherent order
-> of checkpoints in the journal, so there could be visible artifacts
-> during crash recovery compared to an flushing implementaiton. None
-> of that would be a correctness issue, but from an application POV it
-> would be like the concurrent fsync operations completing in a
-> different order across different kernel versions.
-> 
-> A lakc of flushing could also simply move the ordering latency
-> bottleneck to journal IO completion where checkpoints have to be
-> completed in ascending LSN order. Whether that causes a problem or
-> not is a complete unknown, but it could increase overall wait times
-> as waiting seqeunces always get woken in ascending order, and hence
-> everything will wait if a low sequeunce flush submission gets held
-> up because the kworker isn't scheduled immediately...
-> 
-> > I'd appreciate any thoughts on whether this change is safe.
-> 
-> Probably safe, but there is lots of potential for performance
-> regressions by removing it. Better would be to provide a low
-> overhead work queue implementation for callers that don't need
-> scale-out performance from their unbound workqueues....
-> 
-> -Dave.
-> -- 
-> Dave Chinner
-> dgc@kernel.org
----end quoted text---
+diff --git a/mm/shrinker.c b/mm/shrinker.c
+index a70aab124a0e..7ec2a9704f6f 100644
+--- a/mm/shrinker.c
++++ b/mm/shrinker.c
+@@ -227,6 +227,8 @@ static int shrinker_memcg_alloc(struct shrinker *shrinker)
+ {
+ 	int id;
+ 
++	shrinker->id = -1;
++
+ 	if (mem_cgroup_disabled())
+ 		return -ENOSYS;
+ 	if (mem_cgroup_kmem_disabled() && !(shrinker->flags & SHRINKER_NONSLAB))
+-- 
+2.43.0
+
