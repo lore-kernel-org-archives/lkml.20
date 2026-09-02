@@ -1,160 +1,99 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F1A0D3BCD1E
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:12:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89AA0430CE5;
+	Wed,  2 Sep 2026 10:13:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788343961; cv=none; b=Q3wyKUGq4KJ7ea40imd/dR/7XFBvyf7xCwt4QzPL7nNKheEXBDQCpB0Y4dUx9Ptjm97gYI2EC6rESXxYdIKHUHlvCjrrpeRKIA27IEYpuTKmrO0KuhxBucUvBgLGG+dzZlXuRLOpSqbmf/q1W1tHPEGbUSoI4yXu4ezahlxjzTw=
+	t=1788344001; cv=none; b=Hob/3dPkt82mtvTvBWKJ4hIqjEeqrdt2mUU/LMD47F8+kkjsIPRMDGUTAT7mEVHzRRuae8eAaYIpgRuYOx4j2+dwrkfgx29Ai5B2+Of58Y2cQaLJESz5oWVgxkIji1OpnTk3U3h+7o7SdymZSNQfv3kj5cpGMz1ojwujAjtG92k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788343961; c=relaxed/simple;
-	bh=WAV5GySQgV5zJK3fV42hf/X4XKvZR2TNrIIR65/Ii/Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q67S7IlrvOY5lHUT4Nq9qCSppv42233fHkspA1Z1w9KuDjxeGLI9HOEG/MFCzxcvuF98Oz5Mn2ToT6npjdRd5vxI2INADWGzgwPMCXHH8tgEuKGC0f5Nhdn9JAXswptq634gs3AMG2DGx+3RVqNvJSCKCn3u0TuIeooOMvc85jE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=QvGJZjuX; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="QvGJZjuX"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 978F1165C;
-	Wed,  2 Sep 2026 03:12:34 -0700 (PDT)
-Received: from e143914.arm.com (e143914.arm.com [10.2.213.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4343F3F882;
-	Wed,  2 Sep 2026 03:12:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788343958; bh=WAV5GySQgV5zJK3fV42hf/X4XKvZR2TNrIIR65/Ii/Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=QvGJZjuXcefswVZMeXVpzZFWYLDCPY4NfBo2oEJ6eLUHq+gAqWIKw/uOcGoO9GPae
-	 3z9256KeR1MmyNSGzfZ0fhgy6CpRK5EkhAU1silcMJeCLHZd4qOUtM0ZvI+xZhq++8
-	 NnmmjoohY2pjIoVgViPORTaAN8Klu8+QnHO/0n5E=
-Date: Wed, 2 Sep 2026 11:12:30 +0100
-From: Joey Gouly <joey.gouly@arm.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Quentin Perret <qperret@google.com>, Fuad Tabba <tabba@google.com>
-Subject: Re: [PATCH 04/17] KVM: arm64: Introduce per-EC entry handlers for
- pKVM
-Message-ID: <apf2jvCicXlw7JYP@e143914.arm.com>
-References: <20260831163421.272420-1-fuad.tabba@linux.dev>
- <20260831163421.272420-5-fuad.tabba@linux.dev>
+	s=arc-20240116; t=1788344001; c=relaxed/simple;
+	bh=ZUoMNsOCoWo/VAeuw4DjeREE/aycd6GLB/a4qUZb4VU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YaKEwOp7JOo1zSgccK4ou2RHCj1exl7mwKDracdUm3N53+7uOGXa0LPQsFvSVSyLUB41K93Fa09ay3A8u3oZUIpMpo1vHk3s981ZikiGEb1w4g2odERqqtP7V9OHgsj7CTtWqrTcD+SWIuJykpfqZwmz2qjJqtwArAhdt0AUgm8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongfans.cn; spf=pass smtp.mailfrom=loongfans.cn; arc=none smtp.client-ip=54.207.19.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongfans.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongfans.cn
+X-QQ-mid: zesmtpgz4t1788343956tfea4d5c6
+X-QQ-Originating-IP: nx7JF0Fpqcfom8ip4fdPrl+Ybn0XJOHnooR0QK7t2OQ=
+Received: from [198.18.0.1] ( [223.104.163.80])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 02 Sep 2026 18:12:34 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 14151464018762602530
+Message-ID: <D7B309C007238053+3831de19-a2c3-4f17-9281-e4e355c6c464@loongfans.cn>
+Date: Wed, 2 Sep 2026 18:12:33 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831163421.272420-5-fuad.tabba@linux.dev>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] LoongArch: KVM: Fix PC double advance in kernel MMIO
+ read fast path
+To: Zeng Chi <zeng_chi911@163.com>, zhaotianrui@loongson.cn,
+ maobibo@loongson.cn, chenhuacai@kernel.org, kernel@xen0n.name
+Cc: kvm@vger.kernel.org, loongarch@lists.linux.dev,
+ linux-kernel@vger.kernel.org, zengchi@kylinos.cn, stable@vger.kernel.org
+References: <20260723111552.1623996-1-zeng_chi911@163.com>
+Content-Language: en-US
+From: Kaiyang Wu <wukaiyang@loongfans.cn>
+In-Reply-To: <20260723111552.1623996-1-zeng_chi911@163.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:loongfans.cn:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: NbnE26TzD42gdhQUAYDIttMSR8YjVJp87rIeOE8+PsZ/VPsL/0doFYGg
+	ReTaPOF7MRc7n3BSJFw9uzrfU73CZQKFaDLK029sOx50+O5yp+MoKc8FugLmRak516QK2xc
+	Kz5APbSQp4lCdvXfDusgB7VCh+C58gsWWncpwvId40hE3WhDSZSXV3q2r48ygHaE2AA3gQE
+	Kbco2v049QzNYiUqniGv7v2cuOQOWw1PR7ZhJPmOk+jRyft776DvsBPjQVKSG9qY+l3imBF
+	E/rguPTE1oKHaKoJ0clOMpoMiKbiz4Rf1axeLTdcP54tvXDPHzho31FKjcN7JPmD4dAyC+V
+	RJJc8OhJWM//6IoaMi4Pi6rgMT4TfLMeH5hzXZKFzmE7HTyQhdyE6l3igGaEjDIdycxlhny
+	ohCdd2MxT88PSvmLW8SXrLXWjcymiHKdhNk6kBfxskng8uB93bw+HK+ObQNBdqvxHtA1nZ0
+	WzxwXgmyl2TqnxXQzpvm6RRQ4Wmexj04PAX3rX3fJ8129dqOAnmXdcRC3BoEzhKO4Cu8/D5
+	n425nenpoO9HLaKSYmhIdmGOWigfkECQgmVfPLnQUCSXrooKtsShHOtSQf2nicyRn5lG5gs
+	0j97OWR9nRlSN2OS73aixdg0YSR09Gns2P/ALIwhhlpZitYRxWJ3sQUcv3KlNnsfZmHD52R
+	FGetfIpIJFwD8O33HfkblgNsNk16QE6ybmJZbO6aZ6ajFjuNEj8TJajPbwfbpAg067TFGeN
+	LtCZctGvnXfQtt0Bx0ejgT2feu0pYy183k7biDdy8Mv5BcIbVmszYf/R+6UZa63sFtdaNSw
+	TDIkicn2mlrIN/LhZgiVeLQ5WyNcedzX1mEqyg5jDz30aPuKdaHXT34xNnckMwHziUgxq7V
+	E/Z3yZGOY4cArWJ70YAEMEej9lof0MG1e2Zw+57v6xR8Gc2hqS0U4U17b24rp+Xp846x8CD
+	7w42ddn5y7UHfl0aSFT4DUHd4bjzogoKDp2X55eamld47bRJNH+gBzcLwCVOpG8xGYz/7rz
+	rqTKZfr00LXwEjTwLF0KiO2+cxcJTo21nyRE77gxfnu73jb+/CjF8j6badzOxdoR9XcG+4h
+	Bki2XsnHBsoArlDNqOd2BLPKQEJ5CV1Gj/pszhOFMaw
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-On Mon, Aug 31, 2026 at 05:34:08PM +0100, Fuad Tabba wrote:
-> From: Marc Zyngier <maz@kernel.org>
+On 2026-07-23 19:15, Zeng Chi wrote:
+
+> In the in-kernel MMIO read fast path of kvm_emu_mmio_read(),
+> kvm_complete_mmio_read() already advances the guest PC via update_pc().
+> The explicit update_pc() call right after it advances the PC a second
+> time, so PC moves forward by 8 instead of 4 and the instruction
+> following the MMIO read is silently skipped.
 > 
-> Add an ESR_EL2.EC-indexed handler table, entry_hyp_vm_handlers[],
-> consulted from flush_hyp_vcpu() on re-entry when the previous exit was
-> a trap: sync_hyp_vcpu() records the exit reason in the hyp vCPU as
-> exit_code, and the trap's exception class comes from its ESR_EL2.
+> The user space MMIO read completion path in kvm_arch_vcpu_ioctl_run()
+> calls kvm_complete_mmio_read() only once, and the MMIO write fast path
+> advances the PC exactly once as well.
 > 
-> Entry carries the host's requested PC updates to the hyp vCPU: add
-> vcpu_copy_flag() to copy a masked set of flags between the two vCPU
-> structures, with PC_UPDATE_REQ covering INCREMENT_PC and the
-> pending-exception flags. The wholesale iflags copy moves into the
-> non-protected branch; a protected vCPU takes only PC_UPDATE_REQ.
-> 
-> Signed-off-by: Marc Zyngier <maz@kernel.org>
-> Co-developed-by: Fuad Tabba <fuad.tabba@linux.dev>
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+> Remove the redundant update_pc() so the kernel MMIO read fast path
+> advances the PC by a single instruction.
 
-Not really looked at nVHE much (or pkvm ever), but:
+Hi Zeng,
 
-Reviewed-by: Joey Gouly <joey.gouly@arm.com>
+I have tested the patch on Proxmox VE with the environment below:
 
-> ---
->  arch/arm64/include/asm/kvm_host.h      | 19 +++++++++++++
->  arch/arm64/kvm/hyp/include/nvhe/pkvm.h |  3 ++
->  arch/arm64/kvm/hyp/nvhe/hyp-main.c     | 39 +++++++++++++++++++++++---
->  3 files changed, 57 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/kvm_host.h b/arch/arm64/include/asm/kvm_host.h
-> index 27fe0cd5b2d7a..78a4d387f9fd4 100644
-> --- a/arch/arm64/include/asm/kvm_host.h
-> +++ b/arch/arm64/include/asm/kvm_host.h
-> @@ -1033,11 +1033,28 @@ struct kvm_vcpu_arch {
->  		set;						\
->  	})
->  
-> +#define __vcpu_copy_flag(vt, vs, flagset, f, m)			\
-> +	do {							\
-> +		typeof(vs->arch.flagset) tmp, val;		\
-> +								\
-> +		__build_check_flag(vs, flagset, f, m);		\
-> +								\
-> +		val = READ_ONCE(vs->arch.flagset);		\
-> +		val &= (m);					\
-> +		__vcpu_flags_preempt_disable();			\
-> +		tmp = READ_ONCE(vt->arch.flagset);		\
-> +		tmp &= ~(m);					\
-> +		tmp |= val;					\
-> +		WRITE_ONCE(vt->arch.flagset, tmp);		\
-> +		__vcpu_flags_preempt_enable();			\
-> +	} while (0)
-> +
->  #define vcpu_get_flag(v, ...)	__vcpu_get_flag((v), __VA_ARGS__)
->  #define vcpu_set_flag(v, ...)	__vcpu_set_flag((v), __VA_ARGS__)
->  #define vcpu_clear_flag(v, ...)	__vcpu_clear_flag((v), __VA_ARGS__)
->  #define vcpu_test_and_clear_flag(v, ...)			\
->  	__vcpu_test_and_clear_flag((v), __VA_ARGS__)
-> +#define vcpu_copy_flag(vt, vs, ...) __vcpu_copy_flag((vt), (vs), __VA_ARGS__)
->  
->  /* KVM_ARM_VCPU_INIT completed */
->  #define VCPU_INITIALIZED	__vcpu_single_flag(cflags, BIT(0))
-> @@ -1055,6 +1072,8 @@ struct kvm_vcpu_arch {
->  #define INCREMENT_PC		__vcpu_single_flag(iflags, BIT(1))
->  /* Target EL/MODE (not a single flag, but let's abuse the macro) */
->  #define EXCEPT_MASK		__vcpu_single_flag(iflags, GENMASK(3, 1))
-> +/* Cover both PENDING_EXCEPTION and EXCEPT_MASK for global operations */
-> +#define PC_UPDATE_REQ		__vcpu_single_flag(iflags, GENMASK(3, 0))
->  /* Host-set: the hyp flushes the non-protected vCPU state in on entry */
->  #define PKVM_HOST_STATE_DIRTY	__vcpu_single_flag(iflags, BIT(4))
->  
-> diff --git a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-> index c904647d2f760..49a0a992047ba 100644
-> --- a/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-> +++ b/arch/arm64/kvm/hyp/include/nvhe/pkvm.h
-> @@ -26,6 +26,9 @@ struct pkvm_hyp_vcpu {
->  	 * per-cpu pointer tracking us. Otherwise, NULL if not loaded.
->  	 */
->  	struct pkvm_hyp_vcpu **loaded_hyp_vcpu;
-> +
-> +	/* The previous exit's ARM_EXCEPTION_* code. */
-> +	u32 exit_code;
->  };
->  
->  /*
-> diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> index b6bfe502bcd04..ca7122b0bccdd 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> @@ -31,6 +31,17 @@ unsigned int hyp_gicv3_nr_lr;
->  
->  void __kvm_hyp_host_forward_smc(struct kvm_cpu_context *host_ctxt);
->  
-> +typedef void (*hyp_entry_exit_handler_fn)(struct pkvm_hyp_vcpu *);
-> +
-> +static void handle_vm_entry_generic(struct pkvm_hyp_vcpu *hyp_vcpu)
-> +{
-> +	vcpu_copy_flag(&hyp_vcpu->vcpu, hyp_vcpu->host_vcpu, PC_UPDATE_REQ);
-> +}
+- CPU: Loongson 3C6000/D
+- OS: Proxmox VE 9.2.11 (LoongArch port https://github.com/pve-loong64-port)
+- Kernel: 7.0.14-15-pve
+- Guest OS: Kylin Linux Advanced Server V10 (SP3 2403)
+- Guest Kernel: 4.19.90-89.45.v2401.a.ky10.loongarch64
 
-This is added here because the full copy of iflags was moved into the
-!pkvm_hyp_vcpu_is_protected() section, so is needed temporarily until
-each EC has its own handler.
+Without the patch, the guest system could not boot with the 
+4.19.90-89.45.v2401.a.ky10.loongarch64 kernel and there was no output in 
+neither tty nor serial. I can confirm the system boots from the same 
+kernel version with the patch applied to the host kernel.
 
-Thanks,
-Joey
+Best,
+Kaiyang
