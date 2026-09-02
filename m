@@ -1,128 +1,180 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EF1B3F0AA0;
-	Wed,  2 Sep 2026 09:27:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D492C384CF2;
+	Wed,  2 Sep 2026 09:27:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788341247; cv=none; b=XsbiqVozRCc2rFNwMMlBqDhjoV58QChYWecknMx93ftI4Vi30upqNq9UPUOCJ9YqWhvzBkj2QyNVxgTr93/yq2tBXUE4y3hlVGUs7yx8hc9zUKk7Cu4aLtx/tI9DcYF6eD+pEVY6o9WMO+VGPfa6y0tNDTnJ9aP5itr8MXnh6pE=
+	t=1788341277; cv=none; b=iUKlGKB7g9GWoPXXXCXVF+7p21VF18tmUSaDZUpVWLnCb3Xp8zHMJVVp4gooKbnaihf41YYrzJi+IzrLuM25MOLasfiCQv7yuiHkKMbKOKKG2dAPPGZAi+nRYwabCTIN/h0GnsE837ITBQaM+dJuJxEJrH2/p70JxbrirY92oRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788341247; c=relaxed/simple;
-	bh=KPrDvW0fnoXM/spnF4ccGetBZU62mAAZhQ0Hguq+iaE=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=B1YXmk7ckUAVm85HOArYjqYk47DmVJKSOzctk1FwEwVtbsCh3FJJz/GltLMdt/rLSJaQkmP1813p7uL1OGPDOwlNGrZfN08M0/kVVQFp9O5bk6/N9uh0u/YVVlNaG0nKiezJ26IWwPIS9pMb95Sm4r08txgwrfZ2J7puBDDZyjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZStUCRRb; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788341277; c=relaxed/simple;
+	bh=ZKN1B2gZYBwuyNnxocxDDBrNCih2O5jweGLmrMvotJQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=Ap8ROsyIujolYka1rJx6c5yjeyCfqofwsyngqSet3XofIeHpv+ZJt+f+k4DDq4FgFL+75Q8sxefmduobZ8uSK6+AJwNwB8cRWaqKXenVRAuC3B8bAaTzE+5Q9MXRk+2sMjrJ0NFJgxf9BmXpmb2AfAQAquge3mYcE4V4wCmpxMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=dhQNi34G; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZStUCRRb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788341242; x=1819877242;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=KPrDvW0fnoXM/spnF4ccGetBZU62mAAZhQ0Hguq+iaE=;
-  b=ZStUCRRbDC/yXI09HcQ7V84HOR9wCe5citO9KOnr2ecq767ZH9v6yP10
-   GdBB9tVC39jk5BBvQLAwLg20wv5c5lnEoIn2BoMj2/PTpauHNOQMQFSD8
-   /+4+p1XPtD3e1K0zubsKyzdYHscS19YfV+GAtRobtne6P0yrKCSd3ePWM
-   K9WjPJPquTTAyWfGzVYCQydejX0Zjnw56dudrLyTPJA+g03c/r9nTLaLx
-   cmZFSH6OdCM2bSwZ8zNjD9LRdinc7GSa9D55sptmrGeHP0pMdjh/NarFe
-   VPrsxxYnxUnKwCP++yaVQWBS1wYLN/jGRMx2j4JmziQHjlKH4+2dptXJw
-   g==;
-X-CSE-ConnectionGUID: bgG48WpUSu6ga5ZQDTmj+Q==
-X-CSE-MsgGUID: hSHfFkrzTp2xjj/cvzZHnA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="114336694"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="114336694"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 02:27:20 -0700
-X-CSE-ConnectionGUID: bQypmes+TVyLHiesV3Df/A==
-X-CSE-MsgGUID: uAFY43MYR6eU1d4FFI5Nkw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="263207963"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.185])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 02:27:13 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 2 Sep 2026 12:27:09 +0300 (EEST)
-To: Armin Wolf <W_Armin@gmx.de>
-cc: Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, linux@weissschuh.net, 
-    "Rafael J. Wysocki" <rafael@kernel.org>, lenb@kernel.org, 
-    linux-acpi@vger.kernel.org, alexander.deucher@amd.com, 
-    christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, 
-    amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-    patrik.r.jakobsson@gmail.com, maarten.lankhorst@linux.intel.com, 
-    mripard@kernel.org, tzimmermann@suse.de, jani.nikula@linux.intel.com, 
-    joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com, 
-    tursulin@ursulin.net, intel-gfx@lists.freedesktop.org, 
-    matthew.brost@intel.com, thomas.hellstrom@linux.intel.com, 
-    intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH v3 0/3] platform/wmi: Add aarch64 support
-In-Reply-To: <46bd3385-4bd8-4a98-8ef3-57c29d00361c@gmx.de>
-Message-ID: <c8445c2e-6799-7856-610c-0742248e1c07@linux.intel.com>
-References: <20260724025959.142826-1-W_Armin@gmx.de> <59aadf0f-953c-4b7c-8c92-9dd9bc4f89de@gmx.de> <46bd3385-4bd8-4a98-8ef3-57c29d00361c@gmx.de>
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="dhQNi34G"
+Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6826Vkfq2268882;
+	Wed, 2 Sep 2026 05:27:15 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=c8Rp8
+	EOzkyMI8boZQTY40lparKG2slm87g2a/+q88n0=; b=dhQNi34GPtmEpMgqpZjfx
+	c1JN7PV2F+8nAR+qyvx59EU1KVqJr+6C44PL1nZCQWfaz83QZZrOBzZUHPfcYHjy
+	nju4DWFEGyWtE6uix+ydgpTy3Nz2D3mAFL0QMidsNbRof7GQp6WSZ1TdGxAtJ1rl
+	qz/J1Kvs60UYRVA2b6zTeDDqoYdVdI6I4RCHfs06SGxgCAhaxX90JOjXISJquNrP
+	W7dC1qTJhG3tRqtDO5GqVGUb1FsdpNKjKjEUYFD8toOcSNMKVsFW8YHIAfI43Wr0
+	mkP7EJOA4tSCxGj/9uXu5MKCzx8OsnrAo7bAKZXET1hmY0zZT5Z1s1waLDWW3y8j
+	A==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4ge0yqmax2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 05:27:15 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6829RENd029577
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 2 Sep 2026 05:27:14 -0400
+Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
+ ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Wed, 2 Sep 2026 05:27:14 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
+ ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Wed, 2 Sep 2026 05:27:14 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Wed, 2 Sep 2026 05:27:14 -0400
+Received: from HYB-e1y2fvUQ3cx.ad.analog.com ([10.32.223.174])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6829QU5Q032677;
+	Wed, 2 Sep 2026 05:27:00 -0400
+From: Janani Sunil <janani.sunil@analog.com>
+Date: Wed, 2 Sep 2026 11:26:15 +0200
+Subject: [PATCH v11 1/3] spi: dt-bindings: Add spi-device-addr peripheral
+ property
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-507380628-1788341229=:1183"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-ID: <20260902-ad5529r-driver-v11-1-301c491a0719@analog.com>
+References: <20260902-ad5529r-driver-v11-0-301c491a0719@analog.com>
+In-Reply-To: <20260902-ad5529r-driver-v11-0-301c491a0719@analog.com>
+To: Lars-Peter Clausen <lars@metafoo.de>,
+        Michael Hennerich
+	<Michael.Hennerich@analog.com>,
+        Jonathan Cameron <jic23@kernel.org>,
+        "David
+ Lechner" <dlechner@baylibre.com>,
+        =?utf-8?q?Nuno_S=C3=A1?=
+	<nuno.sa@analog.com>,
+        Andy Shevchenko <andy@kernel.org>, Rob Herring
+	<robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        "Jonathan
+ Corbet" <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Mark Brown
+	<broonie@kernel.org>,
+        Marius Cristea <marius.cristea@microchip.com>,
+        "Marcus
+ Folkesson" <marcus.folkesson@gmail.com>,
+        Kent Gustavsson <kent@minoris.se>,
+        Conor Dooley <conor.dooley@microchip.com>,
+        Daire McNamara
+	<daire.mcnamara@microchip.com>,
+        Paul Walmsley <pjw@kernel.org>, "Palmer
+ Dabbelt" <palmer@dabbelt.com>,
+        Albert Ou <aou@eecs.berkeley.edu>, "Alexandre
+ Ghiti" <alex@ghiti.fr>
+CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-doc@vger.kernel.org>,
+        Janani Sunil
+	<jan.sun97@gmail.com>, <linux-spi@vger.kernel.org>,
+        Kent Gustavsson
+	<nedo80@gmail.com>, <linux-riscv@lists.infradead.org>,
+        Janani Sunil
+	<janani.sunil@analog.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788341190; l=1442;
+ i=janani.sunil@analog.com; s=20260507; h=from:subject:message-id;
+ bh=ZKN1B2gZYBwuyNnxocxDDBrNCih2O5jweGLmrMvotJQ=;
+ b=YV6+BagmjHIANYKMpll8awUZGvHE9RXhITbbff+8bDx6XSROypy2AliYNpFziJAKJLWLVhICl
+ 5gDLTQQQ9P9DFdwvuwBOEsR2ze7gchNXegu7e3iSZH+FRPcc9FfFQik
+X-Developer-Key: i=janani.sunil@analog.com; a=ed25519;
+ pk=e25MyjRLPY3RWrYm/LrJ+/+t1MZJUbkgIW5CZg+g+hA=
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-GUID: vkC6VWBQxx7MQBNKck2Gg-VfjLxTmiNp
+X-Authority-Analysis: v=2.4 cv=S93pBosP c=1 sm=1 tr=0 ts=6a97ebf3 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=OmVn7CZJonkx5R5zMQLL:22 a=gAnH3GRIAAAA:8
+ a=XYAwZIGsAAAA:8 a=pGLkceISAAAA:8 a=p7DZuduEnTu05McJuzUA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=E8ToXWR_bxluHZ7gmE-Z:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA4MiBTYWx0ZWRfX7k839VeRMWQL
+ L9OgRK1TKLBM8j4Y8y8/2AQ+BRTe0pIJG3fUC7WFJSo9QfmLVyKDp63NFbPMt4m6+3w4VXqYilW
+ HF6WbChA2sMKACX2NHZ4xJtKE0IMclv4l7BLNH5I0XM1Ik2sQKDoqw1zLln2bAQxbGrWI36V5rt
+ nm7Ri1lbJKiTBvcfE/XGMTATOVBqL77c6QeJwnGGNTr2GlV7Y90K/hBXr6Do11ymhsZzyHT6b7Z
+ KrHGXGiKc+pRaFwHOqKTlRuPqQDKHsDJVh2xw5Mf3cQuQt8CHn9bmo0EikPhw+yltVzeLebXRaB
+ LgTiuCwQHOJu5DSwxcTeQ4ablo5arztyO6OHkvmk/VDskvcFBRNIclhKVVOFJIGZpDiBjpmQ3/H
+ 4DvSooe92jvz3XLVe5hZ9NVyaS5yKw03OI1XmrW4bxMN+s+Qu79yi44rHMktywa89FSE0jk/qhd
+ AGuUcwU4Gzon3ath/Ig==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA4MiBTYWx0ZWRfX1ts2HLrsdW7h
+ OTyZqSW6uH8c1MsjjPSPLufurMmjy6Vpil1yLlErmQ9DjF7jzXn20uXJQnE+dffqieue45JGxij
+ VGIY1w7Mc4+twggkVRQyb0i5wJFIgSQCRfc30C9XAoJyjqgZvb5A
+X-Proofpoint-ORIG-GUID: vkC6VWBQxx7MQBNKck2Gg-VfjLxTmiNp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_01,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 bulkscore=0 clxscore=1015
+ lowpriorityscore=0 spamscore=0 suspectscore=0 adultscore=0 phishscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609020082
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Some SPI devices support sharing a single chip select across multiple
+physical chips by encoding a device address in the SPI frame itself.
+Add the generic spi-device-addr property for describing these hardware
+addresses. The property is placed on the SPI peripheral node and may
+contain multiple addresses.
 
---8323328-507380628-1788341229=:1183
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Acked-by: Nuno Sá <nuno.sa@analog.com>
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+Reviewed-by: Marcus Folkesson <marcus.folkesson@gmail.com>
+Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+---
+ Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-On Tue, 1 Sep 2026, Armin Wolf wrote:
+diff --git a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
+index 880a9f624566..4894196c8f9c 100644
+--- a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
++++ b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
+@@ -142,6 +142,13 @@ properties:
+     minItems: 2
+     maxItems: 4
+ 
++  spi-device-addr:
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    description:
++      Device addresses used when multiple peripherals share a single chip
++      select. The array allows one logical peripheral to comprise multiple
++      physical devices, with one address per physical device.
++
+   st,spi-midi-ns:
+     deprecated: true
+     description: |
 
-> Am 07.08.26 um 23:03 schrieb Armin Wolf:
->=20
-> > Am 24.07.26 um 04:59 schrieb Armin Wolf:
-> >=20
-> > > The aarch64-laptops project found out that some Windows-on-Arm
-> > > notebooks contain WMI-ACPI mapping devices (PNP0C14) that work
-> > > exactly like on x86. Those devices however are currently not
-> > > supported by the WMI driver core due to only supporting x86.
-> > >=20
-> > > The first patch removes this restriction and allows the WMI
-> > > driver core to run on all architectures that support ACPI.
-> > > The second patch updates the acpi-video driver to take advantage
-> > > of the improved support for architectures other than x86, and
-> > > the last patch enables the generic WMI BMOF driver to support
-> > > aarch64 as well.
-> > >=20
-> > > All patches have been tested on a ACPI-based aarch64 VM and
-> > > work just fine.
-> >=20
-> > Any thoughts about this series from the GPU driver people?
-> >=20
-> > Thanks,
-> > Armin Wolf=20
->=20
-> Can i assume that the silence means "looks fine to me"?
+-- 
+2.43.0
 
-Hi,
-
-Those subjects may be too generic for the GPU people to realize we're=20
-waiting for their Acks.
-
-I suggest you send non-ML email (private) with a more descriptive subject=
-=20
-to the relevant maintainers asking for them to take look at this series=20
-(I'd have done that myself later this week but you can do it as well).
-Such an email is more likely to be caught in their radar.
-
-> > > Armin Wolf (3):
-> > > =C2=A0=C2=A0 platform/wmi: Remove dependency on CONFIG_X86
-> > > =C2=A0=C2=A0 ACPI: video: Remove CONFIG_X86 handling from nvidia_wmi_=
-ec_supported()
-> > > =C2=A0=C2=A0 platform/x86: wmi-bmof: Move to generic WMI code
-
---=20
- i.
-
---8323328-507380628-1788341229=:1183--
