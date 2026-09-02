@@ -1,404 +1,1190 @@
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 630F438D412
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:43:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22EAD379993
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:43:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788331408; cv=none; b=qmifypi4h9PI9z2x3LFAnY5V8/pSipoKIrURR8PmYp6yiSwgD8gRoJ0Ms02VpjlF484tsSxWTulUEWEPsk61VIa9nLXIHPIw4Yt9cRPv7vNMNfhFNhATFWtIZNyHyMAxGsrvZzU6zlL68WBuK5p+Ltj1T44vT1uQzwI+4LFgbYA=
+	t=1788331406; cv=none; b=uadF3Ee93+dbAmfN0RAGo8Mm5r5GZD150Cy/89fG7HjFRVX/vN5IS/E14+ytN0sEX/6gXH52gGZI3eJBa33cvnz50Q3W2FD2TyghlC7wbxe7qyv4ryLHjjQ/ukdGA6QCXUOR2EurKMqD5RExPZVtcv3SB6hY8+3Okde5bzogMWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788331408; c=relaxed/simple;
-	bh=vOpL1zel00aSXKD515v+QyZSKBc7utAp/m2ESpU4sfg=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=OiB/i8RSjxLlxKA2yLSisshzGzEo5HbdRxBcg4MEsEbd9kNUDHHYGZBOecgkH/MYOMPz6Z8TdBWo3K0WSpYXaWZuyMg+1I5aidTbkN08WWBV77QY7TXORqR67ps8JkuU1IhWOPcK3T7mxcQG7LMxaXbmbmf2gXAfbiOLosu3y54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-7f4e4b52404so681509a34.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 23:43:26 -0700 (PDT)
+	s=arc-20240116; t=1788331406; c=relaxed/simple;
+	bh=Ldv0aGHEJhvgZJBB/4QRNh+5F8gW/I4TYRsHEYW6MTM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=U/nyP8QvUQtDz7X8wHy2aIZcjBp+/W5I2LHWTYZi+YOpaq4CmKbm+qCM3ZuCh6wgXIcygM8l3mFgJjK8cILCQ024GPdemxBHr+maKY2HMp9NsMIXaGUvFL+RJkmGcIq58gBTc+WtLVfpTpRt1nAGNQ6TUYc6S631P8DX9Gr7+HM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AKh8IhJq; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AKh8IhJq"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc1d57602e8so766829a12.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 23:43:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788331403; x=1788936203; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7UlBB8giOftgzdcBlNKZAV3Nr5nQC54xWZSQnYZVolM=;
+        b=AKh8IhJqsb96n/5yPSJ0g8v54O3ZrAqOXuz1KzJhxxIStDyljK1PyJYRLP8sTQCgZI
+         BjNWqtfhqjsvEBFox9iTL6FW9D5NqyX8sJXkEGnjRCgGir4HGGVnIxZvwvDsS7Gdhbq5
+         hAKL0s0T04SG4hMcqHu41bK8xZMurh7jF3KAhj7QKKIzsAsL+A8NNWxsQFcoaG8Cew5o
+         j0DD23QMudf8oq9CFMuI5IhssYH3Y0ctPQRnnPCBTB+Y0FIozhrVdHPt/63txRsgbUIm
+         YY3Gl0jF7zL4d5d5IkEquklb8Tv3/8/QS0cD4IeysOk4xzQijp7s1p0kGoJlQYQaONJh
+         bOhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788331405; x=1788936205;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NMNQSr4+Hu9pVXRouzj1B5MrwzYeOv+kCEw/WoLv5Po=;
-        b=PjbdI0fxGt1AcY4D7JHjuIPum9XW27UJRRIyuq28A3ATqjXuS0S6MheWGvHz2WYTAw
-         0Gz7PEOmke0D37WNlEHkBpiRYHpd/HzR7gfaN/P0NQ+oD1VicZqOgBf3+sbJuZnP4R65
-         SW9zO+uFsG9ENnmk7A6DDofnjIVyK2q2kSV73O8gDhecdtLgTbLAhNgtcTLlIIX3CWuk
-         +ElX4rfU1peqNjVBTfVAV0p+epK5P11VUberd9waGLFUMXw9jK/GalljCGEokEh53zNX
-         humTioO/OruMIjRqpQrUhJ8ml7PpvJOgOu+mOE2sU92GuW3wdLIe8lVBMlAOHgnDLoGf
-         xjjg==
-X-Forwarded-Encrypted: i=1; AHgh+RpP8AmEn1n3BDgvAmzeqjSMH3s+TGwIobjuhZcZH4TWQJ56jSm1VrF1aKJq3T6JGgNk5dUSfYp35yBtlHg=@vger.kernel.org
-X-Gm-Message-State: AFuF++k+U5pC+r0qxVNiIcCRjQZRVgcyAicSu78JmEK8lqeOmqsW3i3X
-	phbj8Iu0e5qN7XFb3qYKLIZ7Y13l34wPbceJn13zYMG3KrXAmvAU6Vl6PY2+/N73zKJEC/XISp5
-	JEs8PRBC9f/7+6NQKV5pwdhWgpo5SBJDb+Awdjzx++liPptf2C7zzjgF3cR4=
+        d=1e100.net; s=20251104; t=1788331403; x=1788936203;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7UlBB8giOftgzdcBlNKZAV3Nr5nQC54xWZSQnYZVolM=;
+        b=KBI72bhl9UfL7pZMqa5t7ApasmpWyCr/Q+4msYA0lq8H88XCD30gfqpW4fg8LqQiQr
+         80F5R4Y+FlSAr+dr+6pnJYM2GoaKofQ1yiMqx3AAT//HZf+H4x8zcB48bxa2zo2iagoU
+         T381CtcxGCjjuCQZwnkC0E8tH8qXIkso4NpBvB0jvKzeqX/4s4SxdMrAYkxPpvZgAIm3
+         tv+04RrYSWnVBh/S1uLYbwZteA+iMJA18YKrEwq9/d97TDHW60+XCbMCQozl3/CZyvKb
+         Bz/Qti8QBYJfjaRbbJe0ELoB04frpOd4FkNRzivas4WFPItXCw4v2pzUhDphlfkvoKCu
+         Drtg==
+X-Forwarded-Encrypted: i=1; AKwUvBwoPORanBWi1YLKw+vdcW9eNb1JJvEb5uXgSAECaTuvgp6w2HLdStv9sMBt8uyBsSJIzQ8EnJBeFsTMKNw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbXE4T/ZuF/2i1iXcyJruMOqTHS3uAGs2jBS+/bQbDjYRcGe2s
+	hPjxt7ohbNvDY9o+V/WsUmdXO1h0bDH4puLAIfY1DfJ9EmfQtQajNCJK
+X-Gm-Gg: AYBFou3/YAaXuE9LF/NU585tTaF5rKcLKM3VX5LujI+SCbwsG21ELCod3JAryubQzM4
+	6XVTOHGsIW7gIC2yoNarFQhhBN+YPLCxwhMSxCB7eIfrrRHTi71Oz/B54xlzkOc/7t9uOn4HGxP
+	CQXJBvWd/KYTwDmzTy5Ii6dPc2jsWgKwIfBR2bXf92JrVIjHH3zt2qMdljJO3F82RMZ3XSBfyGi
+	2AAco8rvBKuOfS2lVBpfYA46ge5n26Js67RpWyvEO63229mDje0I/6kVmWCZhvjaLRHbvkP3RGQ
+	Buw/bB7pEaq33/VAeo12/Hm3i6G1Whn98Z4l9+agKIQepkZCAJqHByz7nCVVs6wS/zKYrP6Byx5
+	rXDMu7Huv3yE1tzzWCuhskGFocuMDODt4OfC7eSWlh6/6Ue/L39N7RV15IOPSodtV3bXgY7qTWS
+	waYSXmGEZr3yeqHhvqBZIr+KP2RE9f0hw4MQRv5NDzQubmlVXtZ7hFr6KneAPUusOKx/Wj29pw5
+	7zQU63PSnxQqwVNXTy6hd9P5Gc0Pw==
+X-Received: by 2002:a17:90b:46:b0:38e:ad9d:1161 with SMTP id 98e67ed59e1d1-39aedbfe60amr4393784a91.0.1788331402844;
+        Tue, 01 Sep 2026 23:43:22 -0700 (PDT)
+Received: from lipengfei28-ThinkStation-P368.mioffice.cn ([2408:8607:1b00:8:2c95:4917:f0fe:b444])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d80433dsm9373143a91.17.2026.09.01.23.43.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 23:43:22 -0700 (PDT)
+From: Li Pengfei <ljdlns1987@gmail.com>
+X-Google-Original-From: Li Pengfei <lipengfei28@xiaomi.com>
+To: rostedt@goodmis.org,
+	mhiramat@kernel.org
+Cc: mathieu.desnoyers@efficios.com,
+	mark.rutland@arm.com,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	zhangbo56@xiaomi.com,
+	lipengfei28@xiaomi.com
+Subject: [RFC PATCH v5 1/3] trace: add lock-free stackmap for stack trace deduplication
+Date: Wed,  2 Sep 2026 14:42:40 +0800
+Message-Id: <20260902064242.28606-2-lipengfei28@xiaomi.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260902064242.28606-1-lipengfei28@xiaomi.com>
+References: <20260902064242.28606-1-lipengfei28@xiaomi.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4b10:b0:6b1:aa44:fc16 with SMTP id
- 006d021491bc7-6b47c6baa05mr2120461eaf.12.1788331405324; Tue, 01 Sep 2026
- 23:43:25 -0700 (PDT)
-Date: Tue, 01 Sep 2026 23:43:25 -0700
-In-Reply-To: <20260901115021.50057-1-ihuguet@riseup.net>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a97c58d.e163c37b.143a1.0006.GAE@google.com>
-Subject: [syzbot ci] Re: net/ipv6: don't route packets with unknown source address
-From: syzbot ci <syzbot+ci0e44c40f5dee105f@syzkaller.appspotmail.com>
-To: andrew@lunn.ch, ast@kernel.org, bpf@vger.kernel.org, 
-	coreteam@netfilter.org, daniel@iogearbox.net, davem@davemloft.net, 
-	dsahern@kernel.org, edumazet@google.com, fmancera@suse.de, fw@strlen.de, 
-	horms@kernel.org, idosch@nvidia.com, ihuguet@riseup.net, jlayton@kernel.org, 
-	joe@dama.to, kees@kernel.org, kuba@kernel.org, kuniyu@google.com, 
-	leitao@debian.org, leon.hwang@linux.dev, linux-kernel@vger.kernel.org, 
-	lirongqing@baidu.com, luoxuanqiang@kylinos.cn, ncardwell@google.com, 
-	netdev@vger.kernel.org, netfilter-devel@vger.kernel.org, pabeni@redhat.com, 
-	pablo@netfilter.org, phil@nwl.cc, tpluszz77@gmail.com, willemb@google.com, 
-	willemdebruijn.kernel@gmail.com, zirajs7@gmail.com
-Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-syzbot ci has tested the following series
+From: Pengfei Li <lipengfei28@xiaomi.com>
 
-[v1] net/ipv6: don't route packets with unknown source address
-https://lore.kernel.org/all/20260901115021.50057-1-ihuguet@riseup.net
-* [PATCH net] net/ipv6: don't route packets with unknown source address
+Add a lock-free hash map (ftrace_stackmap) that deduplicates kernel
+stack traces for the ftrace ring buffer. Instead of storing full
+stack traces (80-160 bytes each) in the ring buffer for every event,
+ftrace can store a 4-byte stack_id when the stackmap option is enabled.
 
-and found the following issues:
-* KASAN: slab-out-of-bounds Read in tcp_v6_send_response
-* KASAN: use-after-free Read in tcp_v6_send_response
+The implementation is modeled after tracing_map.c (used by hist
+triggers), using the same lock-free design based on Dr. Cliff Click's
+non-blocking hash table algorithm:
 
-Full report is available here:
-https://ci.syzbot.org/series/bf5b7c3c-6165-4e2e-b403-34a698f5ee76
+- Lock-free insert via cmpxchg, safe in NMI/IRQ/any context
+- Pre-allocated element pool (zero allocation on hot path)
+- Linear probing with 2x over-provisioned table; probe length is
+  bounded by FTRACE_STACKMAP_MAX_PROBE so worst-case insert/lookup
+  is O(1) even when the table is heavily loaded with claimed-but-
+  empty slots from pool exhaustion
+- Single global instance (initialized for the global trace array)
 
-***
+The Kconfig depends on ARCH_HAVE_NMI_SAFE_CMPXCHG, matching the
+existing tracing_map / hist_triggers requirement: the lock-free
+hot path uses cmpxchg in a context that may be reached from NMI.
 
-KASAN: slab-out-of-bounds Read in tcp_v6_send_response
+The stackmap is exported via three tracefs nodes:
+- stack_map: text export with symbol resolution (mode 0640)
+- stack_map_stat: counters (entries, successes, drops, success_rate)
+- stack_map_bin: binary export (magic 0x46534D42 'FSMB', version 1,
+  all fields native-endian)
 
-tree:      net
-URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/netdev/net.git
-base:      1d2929d0850fff683b8aff051275945e65f082c8
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/19ac2ebf-5913-40a0-982b-446415180382/config
-syz repro: https://ci.syzbot.org/findings/103185a7-eed2-413d-9bb8-0cfd4d802dbb/syz_repro
+ftrace_stackmap_get_id() never truncates: a stack deeper than
+FTRACE_STACKMAP_MAX_DEPTH (64) returns -E2BIG so the caller records a
+full stack instead. This prevents two distinct traces that share their
+first 64 frames from being merged into one stack_id.
 
-==================================================================
-BUG: KASAN: slab-out-of-bounds in instrument_atomic_read include/linux/instrumented.h:82 [inline]
-BUG: KASAN: slab-out-of-bounds in _test_bit include/asm-generic/bitops/instrumented-non-atomic.h:141 [inline]
-BUG: KASAN: slab-out-of-bounds in inet_sk_flowi_flags include/net/inet_sock.h:411 [inline]
-BUG: KASAN: slab-out-of-bounds in tcp_v6_send_response+0x116c/0x1e30 net/ipv6/tcp_ipv6.c:983
-Read of size 8 at addr ffff8881bc3cecb8 by task kworker/u8:3/5678
+Hot-path counters use per-CPU local_t (NMI-safe single-instruction
+increments) instead of atomic64_t. atomic64_t falls back to
+raw_spinlock_t-based emulation on 32-bit GENERIC_ATOMIC64 systems,
+which would deadlock if an NMI hit while the spinlock was held.
+local_t avoids this hazard. All counters saturate rather than wrap on
+long (from-boot, multi-hour) traces: ref_count via
+atomic_add_unless(.., INT_MAX) and successes/drops via
+local_add_unless(.., LONG_MAX).
 
-CPU: 1 UID: 0 PID: 5678 Comm: kworker/u8:3 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-Workqueue: krdsd rds_tcp_accept_worker
-Call Trace:
- <IRQ>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- check_region_inline mm/kasan/generic.c:-1 [inline]
- kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
- instrument_atomic_read include/linux/instrumented.h:82 [inline]
- _test_bit include/asm-generic/bitops/instrumented-non-atomic.h:141 [inline]
- inet_sk_flowi_flags include/net/inet_sock.h:411 [inline]
- tcp_v6_send_response+0x116c/0x1e30 net/ipv6/tcp_ipv6.c:983
- tcp_v6_send_ack net/ipv6/tcp_ipv6.c:1149 [inline]
- tcp_v6_timewait_ack+0x2c6/0x4c0 net/ipv6/tcp_ipv6.c:1201
- tcp_v6_rcv+0x1f09/0x2d90 net/ipv6/tcp_ipv6.c:1993
- ip6_protocol_deliver_rcu+0xab9/0x1680 net/ipv6/ip6_input.c:479
- ip6_input_finish+0x191/0x370 net/ipv6/ip6_input.c:534
- NF_HOOK+0x336/0x3c0 include/linux/netfilter.h:325
- ip6_input+0x16a/0x270 net/ipv6/ip6_input.c:545
- NF_HOOK+0x336/0x3c0 include/linux/netfilter.h:325
- __netif_receive_skb_one_core net/core/dev.c:6264 [inline]
- __netif_receive_skb net/core/dev.c:6377 [inline]
- process_backlog+0x795/0x18b0 net/core/dev.c:6728
- __napi_poll+0xaa/0x330 net/core/dev.c:7787
- napi_poll net/core/dev.c:7850 [inline]
- net_rx_action+0x61d/0xf50 net/core/dev.c:8007
- handle_softirqs+0x226/0x860 kernel/softirq.c:645
- do_softirq+0x77/0xd0 kernel/softirq.c:546
- </IRQ>
- <TASK>
- __local_bh_enable_ip+0x100/0x140 kernel/softirq.c:473
- local_bh_enable include/linux/bottom_half.h:33 [inline]
- rcu_read_unlock_bh include/linux/rcupdate.h:923 [inline]
- __dev_queue_xmit+0x1edc/0x3820 net/core/dev.c:4961
- NF_HOOK_COND include/linux/netfilter.h:314 [inline]
- ip6_output+0x337/0x540 net/ipv6/ip6_output.c:248
- dst_output include/net/dst.h:471 [inline]
- NF_HOOK include/linux/netfilter.h:325 [inline]
- ip6_xmit+0x117f/0x1a60 net/ipv6/ip6_output.c:381
- inet6_csk_xmit+0x397/0x660 net/ipv6/inet6_connection_sock.c:123
- __tcp_transmit_skb+0x2640/0x47c0 net/ipv4/tcp_output.c:1717
- tcp_transmit_skb net/ipv4/tcp_output.c:1734 [inline]
- tcp_write_xmit+0x1bfa/0x6400 net/ipv4/tcp_output.c:3062
- __tcp_push_pending_frames+0x96/0x380 net/ipv4/tcp_output.c:3245
- __tcp_close+0x56e/0xe70 net/ipv4/tcp.c:3220
- tcp_close+0x28/0x110 net/ipv4/tcp.c:3311
- inet_release+0x143/0x190 net/ipv4/af_inet.c:442
- __sock_release net/socket.c:735 [inline]
- sock_release+0x85/0x150 net/socket.c:763
- rds_tcp_accept_one+0x62c/0xd40 net/rds/tcp_listen.c:341
- rds_tcp_accept_worker+0x1d/0x70 net/rds/tcp.c:556
- process_one_work kernel/workqueue.c:3387 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3470
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3551
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
+Reset semantics:
+- Reset is a control-path operation only allowed when tracing is
+  stopped on the owning trace_array. Online reset (with tracing
+  active) is intentionally not supported.
+- Reset is destructive: under the reader_sem write lock it clears the
+  owning trace_array's ring buffer (and snapshot buffer) BEFORE the
+  map, so an external observer never sees "trace still has
+  <stack_id N> but the map is already empty". The buffers are cleared
+  with tracing_reset_all_cpus() rather than _online_cpus() so a
+  TRACE_STACK_ID written by a now-offline CPU cannot survive a reset.
+- Reset uses atomic_cmpxchg() to claim the resetting flag, then
+  verifies tracer_tracing_is_on() returns false.
+- synchronize_rcu() drains in-flight get_id() callers from the
+  ftrace callback path (which runs preempt-disabled).
+- The reader_sem (rw_semaphore) serializes the clearing against
+  tracefs readers (seq_file iteration and stack_map_bin snapshot),
+  which run in process context and aren't covered by
+  synchronize_rcu(). Readers take it shared, reset takes it
+  exclusive, so a reset cannot tear an iteration in progress. The
+  hot path doesn't take this lock.
+- Reset clears the resetting flag with atomic_set_release() so a
+  subsequent get_id() observes a fully cleared map.
+- get_id() uses atomic_read_acquire() on resetting so subsequent
+  loads of entry->key/val are properly ordered after the check
+  (control dependencies only order stores per LKMM).
+- Concurrent reset, or reset while tracing is active, returns -EBUSY.
 
-The buggy address belongs to the object at ffff8881bc3ceb80
- which belongs to the cache tw_sock_TCPv6 of size 304
-The buggy address is located 8 bytes to the right of
- allocated 304-byte region [ffff8881bc3ceb80, ffff8881bc3cecb0)
+Concurrency notes:
+- entry->val publication uses smp_store_release() paired with
+  smp_load_acquire() in all dereferencing readers.
+- entry->key reads (in get_id, seq_start/next, bin_open) use
+  READ_ONCE() to avoid LKMM data races with the cmpxchg writer.
+- elt->nr is read with READ_ONCE() and clamped to MAX_DEPTH before
+  use in seq_show and bin_open.
+- Pool exhaustion: stackmap_get_elt() short-circuits via
+  atomic_read() before the contended atomic RMW, avoiding cacheline
+  contention once the pool is full. Slots that win cmpxchg but
+  cannot get an elt are left 'claimed but empty'; subsequent
+  lookups treat val==NULL as a miss and probe past them.
 
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff8881bc3ce8a0 pfn:0x1bc3ce
-head: order:1 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-memcg:ffff8881bb1a4301
-flags: 0x57ff00000000240(workingset|head|node=1|zone=2|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 057ff00000000240 ffff8881042e0640 ffff88816fedf1c8 ffff88816fedf1c8
-raw: ffff8881bc3ce8a0 0000000200160006 00000000f5000000 ffff8881bb1a4301
-head: 057ff00000000240 ffff8881042e0640 ffff88816fedf1c8 ffff88816fedf1c8
-head: ffff8881bc3ce8a0 0000000200160006 00000000f5000000 ffff8881bb1a4301
-head: 057ff00000000001 ffffffffffffff81 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000002
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 1, migratetype Unmovable, gfp_mask 0xd2820(GFP_ATOMIC|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5678, tgid 5678 (kworker/u8:3), ts 57920184007
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x2209/0x2280 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x217/0x5a0 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab+0x7d/0x620 mm/slub.c:3462
- new_slab mm/slub.c:3513 [inline]
- refill_objects+0x2d5/0x350 mm/slub.c:7410
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- kmem_cache_alloc_noprof+0x399/0x600 mm/slub.c:5010
- inet_twsk_alloc+0xe3/0x8d0 net/ipv4/inet_timewait_sock.c:178
- tcp_time_wait+0x5d/0xee0 net/ipv4/tcp_minisocks.c:333
- tcp_rcv_state_process+0xba1/0x4980 net/ipv4/tcp_input.c:-1
- tcp_v6_do_rcv+0xf3d/0x1c70 net/ipv6/tcp_ipv6.c:1653
- tcp_v6_rcv+0x2496/0x2d90 net/ipv6/tcp_ipv6.c:1906
- ip6_protocol_deliver_rcu+0xab9/0x1680 net/ipv6/ip6_input.c:479
- ip6_input_finish+0x191/0x370 net/ipv6/ip6_input.c:534
- NF_HOOK+0x336/0x3c0 include/linux/netfilter.h:325
- ip6_input+0x16a/0x270 net/ipv6/ip6_input.c:545
-page last free pid 24 tgid 24 ts 57909757259 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0xc93/0xd90 mm/page_alloc.c:2962
- rcu_do_batch kernel/rcu/tree.c:2650 [inline]
- rcu_core+0x926/0x1260 kernel/rcu/tree.c:2919
- handle_softirqs+0x226/0x860 kernel/softirq.c:645
- __do_softirq kernel/softirq.c:679 [inline]
- invoke_softirq kernel/softirq.c:519 [inline]
- __irq_exit_rcu+0xcb/0x220 kernel/softirq.c:767
- irq_exit_rcu+0x9/0x30 kernel/softirq.c:784
- instr_sysvec_call_function_single arch/x86/kernel/smp.c:267 [inline]
- sysvec_call_function_single+0xa3/0xc0 arch/x86/kernel/smp.c:267
- asm_sysvec_call_function_single+0x1a/0x20 arch/x86/include/asm/idtentry.h:681
+Hash key:
+- Per-instance random seed stored in the stackmap struct (no
+  global state), seeded at create time.
+- 32-bit jhash is forced to 1 if it lands on 0 (which is the
+  free-slot sentinel). Full memcmp confirms matches.
 
-Memory state around the buggy address:
- ffff8881bc3ceb80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff8881bc3cec00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->ffff8881bc3cec80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-                                        ^
- ffff8881bc3ced00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff8881bc3ced80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-==================================================================
+Memory:
+- Single flat vmalloc for the element pool (no per-elt kzalloc).
+- bits parameter clamped to [10, 18]: at the maximum bits=18, the
+  element pool is ~135 MB and a stack_map_bin snapshot may briefly
+  allocate another ~135 MB.
+- struct stackmap_bin_snapshot uses u64 (not size_t) for its size
+  field so data[] is 8-byte aligned on both 32-bit and 64-bit
+  architectures, avoiding alignment faults when writing u64 IPs
+  on strict-alignment architectures.
 
+Kernel command line parameter:
+- ftrace_stackmap.bits=N: set map capacity (2^N unique stacks,
+  range 10-18, default 14)
 
-***
-
-KASAN: use-after-free Read in tcp_v6_send_response
-
-tree:      net
-URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/netdev/net.git
-base:      1d2929d0850fff683b8aff051275945e65f082c8
-arch:      amd64
-compiler:  Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-config:    https://ci.syzbot.org/builds/19ac2ebf-5913-40a0-982b-446415180382/config
-syz repro: https://ci.syzbot.org/findings/e7a2188a-bd9d-4259-856a-ad2e7415f5e1/syz_repro
-
-==================================================================
-BUG: KASAN: use-after-free in instrument_atomic_read include/linux/instrumented.h:82 [inline]
-BUG: KASAN: use-after-free in _test_bit include/asm-generic/bitops/instrumented-non-atomic.h:141 [inline]
-BUG: KASAN: use-after-free in inet_sk_flowi_flags include/net/inet_sock.h:411 [inline]
-BUG: KASAN: use-after-free in tcp_v6_send_response+0x116c/0x1e30 net/ipv6/tcp_ipv6.c:983
-Read of size 8 at addr ffff888169a4a248 by task syz.0.28/5835
-
-CPU: 1 UID: 0 PID: 5835 Comm: syz.0.28 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
-Call Trace:
- <IRQ>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- check_region_inline mm/kasan/generic.c:-1 [inline]
- kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
- instrument_atomic_read include/linux/instrumented.h:82 [inline]
- _test_bit include/asm-generic/bitops/instrumented-non-atomic.h:141 [inline]
- inet_sk_flowi_flags include/net/inet_sock.h:411 [inline]
- tcp_v6_send_response+0x116c/0x1e30 net/ipv6/tcp_ipv6.c:983
- tcp_v6_send_ack net/ipv6/tcp_ipv6.c:1149 [inline]
- tcp_v6_timewait_ack+0x2c6/0x4c0 net/ipv6/tcp_ipv6.c:1201
- tcp_v6_rcv+0x1f09/0x2d90 net/ipv6/tcp_ipv6.c:1993
- ip6_protocol_deliver_rcu+0xab9/0x1680 net/ipv6/ip6_input.c:479
- ip6_input_finish+0x191/0x370 net/ipv6/ip6_input.c:534
- NF_HOOK+0x336/0x3c0 include/linux/netfilter.h:325
- ip6_input+0x16a/0x270 net/ipv6/ip6_input.c:545
- NF_HOOK+0x336/0x3c0 include/linux/netfilter.h:325
- __netif_receive_skb_one_core net/core/dev.c:6264 [inline]
- __netif_receive_skb net/core/dev.c:6377 [inline]
- process_backlog+0x795/0x18b0 net/core/dev.c:6728
- __napi_poll+0xaa/0x330 net/core/dev.c:7787
- napi_poll net/core/dev.c:7850 [inline]
- net_rx_action+0x61d/0xf50 net/core/dev.c:8007
- handle_softirqs+0x226/0x860 kernel/softirq.c:645
- do_softirq+0x77/0xd0 kernel/softirq.c:546
- </IRQ>
- <TASK>
- __local_bh_enable_ip+0x100/0x140 kernel/softirq.c:473
- local_bh_enable include/linux/bottom_half.h:33 [inline]
- rcu_read_unlock_bh include/linux/rcupdate.h:923 [inline]
- __dev_queue_xmit+0x1edc/0x3820 net/core/dev.c:4961
- NF_HOOK_COND include/linux/netfilter.h:314 [inline]
- ip6_output+0x337/0x540 net/ipv6/ip6_output.c:248
- dst_output include/net/dst.h:471 [inline]
- NF_HOOK include/linux/netfilter.h:325 [inline]
- ip6_xmit+0x117f/0x1a60 net/ipv6/ip6_output.c:381
- inet6_csk_xmit+0x397/0x660 net/ipv6/inet6_connection_sock.c:123
- __tcp_transmit_skb+0x2640/0x47c0 net/ipv4/tcp_output.c:1717
- tcp_transmit_skb net/ipv4/tcp_output.c:1734 [inline]
- tcp_write_xmit+0x1bfa/0x6400 net/ipv4/tcp_output.c:3062
- __tcp_push_pending_frames+0x96/0x380 net/ipv4/tcp_output.c:3245
- __tcp_close+0x56e/0xe70 net/ipv4/tcp.c:3220
- tcp_close+0x28/0x110 net/ipv4/tcp.c:3311
- inet_release+0x143/0x190 net/ipv4/af_inet.c:442
- __sock_release+0xa0/0x1f0 net/socket.c:735
- sock_close+0x1c/0x30 net/socket.c:1526
- __fput+0x418/0xa50 fs/file_table.c:512
- task_work_run+0x1d9/0x270 kernel/task_work.c:233
- resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
- __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
- exit_to_user_mode_loop+0x204/0x770 kernel/entry/common.c:101
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:336 [inline]
- do_syscall_64+0x328/0x520 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fb1d8b9e159
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffef2a01168 EFLAGS: 00000246 ORIG_RAX: 00000000000001b4
-RAX: 0000000000000000 RBX: 00007ffef2a01250 RCX: 00007fb1d8b9e159
-RDX: 0000000000000000 RSI: 000000000000001e RDI: 0000000000000003
-RBP: 000000000000d50a R08: 0000000000000001 R09: 0000000000000000
-R10: 0000001b31820000 R11: 0000000000000246 R12: 00007ffef2a01290
-R13: 00007fb1d8e25fac R14: 000000000000d53d R15: 00007fb1d8e25fa0
- </TASK>
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff888169a4bc80 pfn:0x169a4a
-flags: 0x57ff00000000000(node=1|zone=2|lastcpupid=0x7ff)
-raw: 057ff00000000000 ffffea0005c32488 ffffea0005c32508 0000000000000000
-raw: ffff888169a4bc80 0000000000000000 00000000ffffffff 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as freed
-page last allocated via order 1, migratetype Unmovable, gfp_mask 0xd2820(GFP_ATOMIC|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5565, tgid 5565 (sshd), ts 40657811568
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x2209/0x2280 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x217/0x5a0 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab+0x7d/0x620 mm/slub.c:3462
- new_slab mm/slub.c:3513 [inline]
- refill_objects+0x2d5/0x350 mm/slub.c:7410
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x2c8/0x6c0 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- kmem_cache_alloc_noprof+0x399/0x600 mm/slub.c:5010
- skb_clone+0x212/0x3a0 net/core/skbuff.c:2119
- dev_queue_xmit_nit+0x28d/0xac0 net/core/dev.c:2600
- xmit_one net/core/dev.c:3933 [inline]
- dev_hard_start_xmit+0x1c1/0x830 net/core/dev.c:3953
- sch_direct_xmit+0x257/0x4c0 net/sched/sch_generic.c:372
- __dev_xmit_skb net/core/dev.c:4262 [inline]
- __dev_queue_xmit+0x177f/0x3820 net/core/dev.c:4884
- dev_queue_xmit include/linux/netdevice.h:3461 [inline]
- neigh_hh_output include/net/neighbour.h:544 [inline]
- neigh_output include/net/neighbour.h:558 [inline]
- ip_finish_output2+0xbda/0x10b0 net/ipv4/ip_output.c:236
- NF_HOOK_COND include/linux/netfilter.h:314 [inline]
- ip_output+0x29f/0x450 net/ipv4/ip_output.c:437
- __ip_queue_xmit+0x10df/0x1b10 net/ipv4/ip_output.c:533
- __tcp_transmit_skb+0x2d18/0x47c0 net/ipv4/tcp_output.c:1717
-page last free pid 5040 tgid 5040 ts 54399149504 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0xc93/0xd90 mm/page_alloc.c:2962
- __slab_free+0x274/0x2c0 mm/slub.c:5815
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x99/0x100 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x148/0x160 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x22/0x80 mm/kasan/common.c:350
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- __do_kmalloc_node mm/slub.c:5413 [inline]
- __kvmalloc_node_noprof+0x49f/0x820 mm/slub.c:7005
- seq_buf_alloc fs/seq_file.c:39 [inline]
- seq_read_iter+0x1ea/0xca0 fs/seq_file.c:211
- new_sync_read fs/read_write.c:493 [inline]
- vfs_read+0x595/0xa80 fs/read_write.c:574
- ksys_read+0x150/0x270 fs/read_write.c:716
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Memory state around the buggy address:
- ffff888169a4a100: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
- ffff888169a4a180: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
->ffff888169a4a200: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
-                                              ^
- ffff888169a4a280: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
- ffff888169a4a300: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff
-==================================================================
-
-
-***
-
-If these findings have caused you to resend the series or submit a
-separate fix, please add the following tag to your commit message:
-  Tested-by: syzbot@syzkaller.appspotmail.com
-
+Signed-off-by: Pengfei Li <lipengfei28@xiaomi.com>
 ---
-This report is generated by a bot. It may contain errors.
-syzbot ci engineers can be reached at syzkaller@googlegroups.com.
+ kernel/trace/Kconfig          |  22 +
+ kernel/trace/Makefile         |   1 +
+ kernel/trace/trace_stackmap.c | 869 ++++++++++++++++++++++++++++++++++
+ kernel/trace/trace_stackmap.h |  57 +++
+ 4 files changed, 949 insertions(+)
+ create mode 100644 kernel/trace/trace_stackmap.c
+ create mode 100644 kernel/trace/trace_stackmap.h
 
-To test a fix for this bug, please reply with `#syz test`
-(on a separate line) and attach the patch to the email.
+diff --git a/kernel/trace/Kconfig b/kernel/trace/Kconfig
+index 084f34dc6c9f..2447fc59f7c7 100644
+--- a/kernel/trace/Kconfig
++++ b/kernel/trace/Kconfig
+@@ -412,6 +412,28 @@ config STACK_TRACER
+ 
+ 	  Say N if unsure.
+ 
++config FTRACE_STACKMAP
++	bool "Ftrace stack map deduplication"
++	depends on TRACING
++	depends on STACKTRACE
++	depends on ARCH_HAVE_NMI_SAFE_CMPXCHG
++	select KALLSYMS
++	help
++	  This enables a global stack trace hash table for ftrace, inspired
++	  by eBPF's BPF_MAP_TYPE_STACK_TRACE. When enabled, ftrace can store
++	  only a stack_id in the ring buffer instead of the full stack trace,
++	  significantly reducing trace buffer usage when the same call stacks
++	  appear repeatedly.
++
++	  The deduplicated stacks are exported via:
++	    /sys/kernel/debug/tracing/stack_map
++
++	  Writing to this file resets the stack map. Reading shows all unique
++	  stacks with their stack_id and reference count.
++
++	  Say Y if you want to reduce ftrace buffer usage for stack traces.
++	  Say N if unsure.
++
+ config TRACE_PREEMPT_TOGGLE
+ 	bool
+ 	help
+diff --git a/kernel/trace/Makefile b/kernel/trace/Makefile
+index f934ff586bd4..7710ec2659e9 100644
+--- a/kernel/trace/Makefile
++++ b/kernel/trace/Makefile
+@@ -86,6 +86,7 @@ obj-$(CONFIG_HWLAT_TRACER) += trace_hwlat.o
+ obj-$(CONFIG_OSNOISE_TRACER) += trace_osnoise.o
+ obj-$(CONFIG_NOP_TRACER) += trace_nop.o
+ obj-$(CONFIG_STACK_TRACER) += trace_stack.o
++obj-$(CONFIG_FTRACE_STACKMAP) += trace_stackmap.o
+ obj-$(CONFIG_MMIOTRACE) += trace_mmiotrace.o
+ obj-$(CONFIG_FUNCTION_GRAPH_TRACER) += trace_functions_graph.o
+ obj-$(CONFIG_TRACE_BRANCH_PROFILING) += trace_branch.o
+diff --git a/kernel/trace/trace_stackmap.c b/kernel/trace/trace_stackmap.c
+new file mode 100644
+index 000000000000..6d938aa414dc
+--- /dev/null
++++ b/kernel/trace/trace_stackmap.c
+@@ -0,0 +1,869 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Ftrace Stack Map - Lock-free stack trace deduplication for ftrace
++ *
++ * Modeled after tracing_map.c (used by hist triggers), this provides
++ * a lock-free hash map optimized for the ftrace hot path. The design
++ * is based on Dr. Cliff Click's non-blocking hash table algorithm.
++ *
++ * Key properties:
++ * - Lock-free insert via cmpxchg, safe in NMI/IRQ/any context
++ * - Pre-allocated element pool (zero allocation on hot path)
++ * - Linear probing with 2x over-provisioned table; probe length
++ *   bounded by FTRACE_STACKMAP_MAX_PROBE to keep worst-case lookup
++ *   cost constant even when the table is heavily loaded
++ * - Single global instance (initialized for the global trace array)
++ *
++ * Reset is a control-path operation that clears the map only. It
++ * does not touch the ring buffer and does not require tracing to be
++ * stopped. The protocol is:
++ *
++ *   - atomic_cmpxchg(&resetting, 0, 1) atomically claims reset rights
++ *     and blocks new get_id() callers (they observe resetting=1 and
++ *     return -EINVAL).
++ *   - synchronize_rcu() drains in-flight get_id() callers from the
++ *     ftrace callback path. That path runs with preemption disabled,
++ *     and a preempt-disabled region is itself an RCU read-side
++ *     critical section (see the synchronize_rcu() kerneldoc: since
++ *     v5.0, regions across which interrupts, preemption or softirqs
++ *     are disabled also serve as RCU read-side critical sections), so
++ *     the grace period covers it with no explicit rcu_read_lock().
++ *
++ * A trace collected before a reset can therefore still contain
++ * TRACE_STACK_ID records whose id no longer resolves, or resolves to
++ * a slot that has since been reused. That is misleading userspace
++ * output, not corruption; see ftrace_stackmap_reset().
++ *
++ * The 32-bit jhash of the stack IPs is the hash table key. On hash
++ * collision, linear probing finds the next slot and full memcmp
++ * confirms the match.
++ *
++ * Concurrent userspace readers (cat stack_map / stack_map_bin) get
++ * a best-effort snapshot. They are coherent with the hot path
++ * (smp_load_acquire on entry->val); they are also serialized
++ * against reset via smap->reader_sem (readers take it in shared
++ * mode, reset in exclusive mode), so a reset cannot tear an
++ * iteration in progress -- it waits for active readers to drop
++ * the rwsem before clearing the map. The hot path is coordinated
++ * with reset separately, via acquire/release on smap->resetting.
++ */
++
++#include <linux/kernel.h>
++#include <linux/slab.h>
++#include <linux/jhash.h>
++#include <linux/seq_file.h>
++#include <linux/kallsyms.h>
++#include <linux/vmalloc.h>
++#include <linux/atomic.h>
++#include <linux/local_lock.h>
++#include <linux/percpu.h>
++#include <linux/random.h>
++#include <linux/rcupdate.h>
++#include <linux/log2.h>
++#include <linux/math64.h>
++#include <asm/local.h>
++
++#include "trace.h"
++#include "trace_stackmap.h"
++
++/*
++ * Bound the linear-probe scan length. With a 2x over-provisioned table,
++ * a well-distributed hash gives very short probe chains. Capping at 64
++ * keeps worst-case lookup O(1) even when the table is heavily loaded
++ * with claimed-but-empty slots from pool exhaustion.
++ */
++#define FTRACE_STACKMAP_MAX_PROBE	64
++
++/*
++ * Memory ordering of entry->val: published with smp_store_release()
++ * by the inserter; consumed with smp_load_acquire() by every reader
++ * that dereferences the elt (get_id, seq_show, bin_open). This pairs
++ * the writes to elt->{nr,ips,ref_count} (initialized BEFORE the
++ * publish) with the reads of those fields (which happen AFTER the
++ * load). seq_start / seq_next only test val for NULL and use the
++ * acquire load purely to keep memory ordering symmetric.
++ */
++
++/*
++ * Each pre-allocated element holds one unique stack trace.
++ * Fixed size: MAX_DEPTH entries regardless of actual depth.
++ */
++struct stackmap_elt {
++	u32		nr;		/* actual number of IPs */
++	atomic_t	ref_count;
++	unsigned long	ips[FTRACE_STACKMAP_MAX_DEPTH];
++};
++
++/*
++ * Hash table entry: a 32-bit key (jhash of stack) + pointer to elt.
++ * key == 0 means the slot is free.
++ */
++struct stackmap_entry {
++	u32			key;	/* 0 = free, non-zero = jhash */
++	struct stackmap_elt	*val;	/* NULL until fully published */
++};
++
++static struct stackmap_elt *stackmap_load_elt(struct stackmap_entry *entry)
++{
++	/*
++	 * Pairs with the smp_store_release() that publishes entry->val
++	 * after fully initializing the element payload.
++	 */
++	return smp_load_acquire(&entry->val);
++}
++
++struct ftrace_stackmap {
++	struct trace_array	*tr;		/* owning trace_array */
++	unsigned int		map_bits;
++	unsigned int		map_size;	/* 1 << (map_bits + 1) */
++	unsigned int		max_elts;	/* 1 << map_bits */
++	u32			hash_seed;	/* per-instance jhash seed */
++	atomic_t		next_elt;	/* index into elts pool */
++	struct stackmap_entry	*entries;	/* hash table */
++	struct stackmap_elt	*elts;		/* flat element pool */
++	atomic_t		resetting;
++	/*
++	 * Single-opener guard for stack_map_bin. Each open builds a
++	 * full vmalloc snapshot (up to ~135 MB at bits=18); serialize
++	 * opens so concurrent readers cannot pin several at once.
++	 */
++	atomic_t		bin_open;
++	/*
++	 * Reader/reset serialization. Held in shared mode (read lock)
++	 * across seq_file iteration and binary snapshot construction;
++	 * held in exclusive mode (write lock) by reset's clearing
++	 * phase. The hot path (get_id) does not take this lock — it
++	 * uses smp_load_acquire/smp_store_release on entry->val and
++	 * the resetting flag for the lock-free protocol.
++	 */
++	struct rw_semaphore	reader_sem;
++	/*
++	 * Per-CPU counters using local_t. local_t increments are NMI-
++	 * safe on all architectures (single-instruction or interrupt-
++	 * masked) and avoid the raw_spinlock_t fallback that
++	 * atomic64_t uses on 32-bit GENERIC_ATOMIC64 — which would
++	 * deadlock if an NMI hit while the spinlock was held.
++	 */
++	local_t __percpu	*successes;	/* events served (hits + new inserts) */
++	local_t __percpu	*drops;
++};
++
++/*
++ * Cap the bits parameter to keep worst-case allocations bounded:
++ *   bits=18 → 256K elts, 512K slots, ~130 MB elt pool, ~130 MB bin
++ *             export.
++ * Smaller workloads should use the default (14) which gives 16K elts
++ * (~8 MB pool); bump bits via the ftrace_stackmap.bits= kernel
++ * parameter for higher unique-stack capacity.
++ */
++#define FTRACE_STACKMAP_BITS_MIN	10
++#define FTRACE_STACKMAP_BITS_MAX	18
++#define FTRACE_STACKMAP_BITS_DEFAULT	14
++
++static unsigned int stackmap_map_bits = FTRACE_STACKMAP_BITS_DEFAULT;
++static int __init stackmap_bits_setup(char *str)
++{
++	unsigned long val;
++
++	if (kstrtoul(str, 0, &val))
++		return -EINVAL;
++	val = clamp_val(val, FTRACE_STACKMAP_BITS_MIN, FTRACE_STACKMAP_BITS_MAX);
++	stackmap_map_bits = val;
++	return 0;
++}
++early_param("ftrace_stackmap.bits", stackmap_bits_setup);
++
++/* --- Element pool --- */
++
++static struct stackmap_elt *stackmap_get_elt(struct ftrace_stackmap *smap)
++{
++	int idx;
++
++	/*
++	 * Fast-path early-out once the pool is fully consumed. Avoids
++	 * the contended atomic RMW on next_elt for every traced event
++	 * after the pool is exhausted.
++	 */
++	if (atomic_read(&smap->next_elt) >= smap->max_elts)
++		return NULL;
++
++	idx = atomic_fetch_add_unless(&smap->next_elt, 1, smap->max_elts);
++	if (idx < smap->max_elts)
++		return &smap->elts[idx];
++	return NULL;
++}
++
++/* --- Create / Destroy / Reset --- */
++
++struct ftrace_stackmap *ftrace_stackmap_create(struct trace_array *tr)
++{
++	struct ftrace_stackmap *smap;
++	unsigned int bits;
++
++	smap = kzalloc_obj(*smap, GFP_KERNEL);
++	if (!smap)
++		return ERR_PTR(-ENOMEM);
++
++	/* Defensive clamp: reject bogus bits even if early_param is bypassed. */
++	bits = clamp_val(stackmap_map_bits,
++			 FTRACE_STACKMAP_BITS_MIN,
++			 FTRACE_STACKMAP_BITS_MAX);
++
++	smap->tr = tr;
++	smap->map_bits = bits;
++	smap->max_elts = 1U << bits;
++	smap->map_size = 1U << (bits + 1);	/* 2x over-provision */
++
++	smap->entries = vcalloc(smap->map_size, sizeof(*smap->entries));
++	if (!smap->entries)
++		goto fail;
++
++	/*
++	 * Single large vmalloc of the element pool, indexed flat.
++	 * At bits=18 this is 256K * sizeof(struct stackmap_elt). The
++	 * struct is ~520 B (8 + 4 + 4 + 64*8), so total ~135 MB.
++	 */
++	smap->elts = vcalloc(smap->max_elts, sizeof(*smap->elts));
++	if (!smap->elts)
++		goto fail;
++
++	smap->successes = alloc_percpu(local_t);
++	if (!smap->successes)
++		goto fail;
++	smap->drops = alloc_percpu(local_t);
++	if (!smap->drops)
++		goto fail;
++
++	smap->hash_seed = get_random_u32();
++	atomic_set(&smap->next_elt, 0);
++	atomic_set(&smap->resetting, 0);
++	atomic_set(&smap->bin_open, 0);
++	init_rwsem(&smap->reader_sem);
++
++	return smap;
++
++fail:
++	/*
++	 * free_percpu()/vfree()/kfree() all handle NULL, and smap was
++	 * zero-initialized, so unwind in reverse allocation order.
++	 */
++	free_percpu(smap->drops);
++	free_percpu(smap->successes);
++	vfree(smap->elts);
++	vfree(smap->entries);
++	kfree(smap);
++	return ERR_PTR(-ENOMEM);
++}
++
++void ftrace_stackmap_destroy(struct ftrace_stackmap *smap)
++{
++	if (!smap || IS_ERR(smap))
++		return;
++	free_percpu(smap->drops);
++	free_percpu(smap->successes);
++	vfree(smap->elts);
++	vfree(smap->entries);
++	kfree(smap);
++}
++
++/**
++ * ftrace_stackmap_reset - clear all entries in the stackmap
++ * @smap: the stackmap to reset
++ *
++ * Returns 0 on success, or -EBUSY if another reset is already in
++ * progress.
++ *
++ * Clears the map only. The ring buffer is left alone and tracing does
++ * not need to be stopped, so a trace can still contain TRACE_STACK_ID
++ * records after the map has been cleared. Such an id either has no
++ * entry in stack_map, or -- once tracing continues and the slot is
++ * reused -- resolves to an unrelated stack. Both are misleading
++ * userspace output rather than corruption: reset frees nothing, it
++ * only memsets storage the map still owns.
++ *
++ * Caller is process context (typically sysfs write handler).
++ *
++ * Protocol:
++ *   1. Atomically claim reset rights via cmpxchg on @resetting, which
++ *      also blocks subsequent get_id() callers.
++ *   2. synchronize_rcu() drains in-flight get_id() callers from the
++ *      ftrace callback path. That path is preempt-disabled, which is
++ *      itself an RCU read-side critical section, so the grace period
++ *      covers it without an explicit rcu_read_lock().
++ *   3. Take @reader_sem exclusively to exclude tracefs readers, then
++ *      memset entries, elts, and counters.
++ *   4. Release the resetting flag with release semantics so any new
++ *      get_id() observes a fully cleared map.
++ */
++int ftrace_stackmap_reset(struct ftrace_stackmap *smap)
++{
++	int cpu;
++
++	if (!smap)
++		return 0;
++
++	if (atomic_cmpxchg(&smap->resetting, 0, 1) != 0)
++		return -EBUSY;
++
++	/*
++	 * synchronize_rcu() itself is a full barrier; no extra smp_mb()
++	 * is needed before it. It drains in-flight ftrace callbacks that
++	 * may have already passed the resetting check with the old value.
++	 */
++	synchronize_rcu();
++
++	/*
++	 * Take the reader_sem in exclusive mode. This serializes the
++	 * memset against any tracefs reader (seq_file iteration or
++	 * stack_map_bin snapshot) that may currently hold the rwsem
++	 * for read. synchronize_rcu() already drained the hot path;
++	 * this rwsem covers process-context readers that aren't
++	 * preempt-disabled.
++	 */
++	down_write(&smap->reader_sem);
++
++	memset(smap->entries, 0, sizeof(*smap->entries) * smap->map_size);
++	memset(smap->elts, 0, sizeof(*smap->elts) * (size_t)smap->max_elts);
++
++	atomic_set(&smap->next_elt, 0);
++	for_each_possible_cpu(cpu) {
++		local_set(per_cpu_ptr(smap->successes, cpu), 0);
++		local_set(per_cpu_ptr(smap->drops, cpu), 0);
++	}
++
++	up_write(&smap->reader_sem);
++
++	/* Release resetting=0 so new get_id() observes a cleared map. */
++	atomic_set_release(&smap->resetting, 0);
++	return 0;
++}
++
++/* --- Core: get_id (lock-free, NMI-safe) --- */
++
++int ftrace_stackmap_get_id(struct ftrace_stackmap *smap,
++			   unsigned long *ips, unsigned int nr_entries)
++{
++	u32 key_hash, idx, test_key, trace_len;
++	struct stackmap_entry *entry;
++	struct stackmap_elt *val;
++	int probes = 0;
++
++	/*
++	 * atomic_read_acquire() pairs with atomic_set_release() in the
++	 * reset path. This ensures that subsequent reads of entry->key
++	 * and entry->val are ordered after this check; without acquire,
++	 * the CPU would only have a control dependency, which orders
++	 * subsequent stores but not loads (per LKMM).
++	 */
++	if (!smap || !nr_entries || atomic_read_acquire(&smap->resetting))
++		return -EINVAL;
++	/*
++	 * Never truncate: a stack deeper than the map can hold must not be
++	 * silently shortened, or two distinct traces sharing their first
++	 * FTRACE_STACKMAP_MAX_DEPTH frames would be merged into one
++	 * stack_id. The caller is expected to fall back to a full stack
++	 * trace for such events. Reject defensively in case of a future
++	 * caller that forgets this contract.
++	 */
++	if (nr_entries > FTRACE_STACKMAP_MAX_DEPTH)
++		return -E2BIG;
++
++	trace_len = nr_entries * sizeof(unsigned long);
++	/*
++	 * jhash2() requires the length in u32 units and the data to be
++	 * u32-aligned. On 64-bit kernels sizeof(unsigned long)==8, so
++	 * trace_len is always a multiple of 8 (hence of 4). Use jhash2
++	 * directly; the cast to u32* is safe because ips[] is naturally
++	 * aligned to sizeof(unsigned long) >= 4.
++	 */
++	key_hash = jhash2((const u32 *)ips, trace_len / sizeof(u32),
++			  smap->hash_seed);
++	if (key_hash == 0)
++		key_hash = 1;	/* 0 means free slot */
++
++	idx = key_hash >> (32 - (smap->map_bits + 1));
++
++	while (probes < FTRACE_STACKMAP_MAX_PROBE) {
++		idx &= (smap->map_size - 1);
++		entry = &smap->entries[idx];
++		/*
++		 * READ_ONCE() to avoid LKMM data race with concurrent
++		 * cmpxchg(&entry->key, 0, key_hash) on this slot.
++		 */
++		test_key = READ_ONCE(entry->key);
++
++		if (test_key == key_hash) {
++			val = stackmap_load_elt(entry);
++			/*
++			 * READ_ONCE(val->nr) keeps style consistent with
++			 * the seq_show / bin_open readers. nr is write-once
++			 * (set before publish, never modified afterwards),
++			 * so the load is data-race-free, but READ_ONCE
++			 * silences any analysis tool that flags a plain
++			 * read of a field that is also read under acquire
++			 * elsewhere.
++			 */
++			if (val && READ_ONCE(val->nr) == nr_entries &&
++			    memcmp(val->ips, ips, trace_len) == 0) {
++				/*
++				 * ref_count is a best-effort popularity
++				 * counter. On a long (from-boot, multi-hour)
++				 * trace a hot stack can be hit billions of
++				 * times. atomic_add_unless() gives true
++				 * saturation at INT_MAX even under concurrent
++				 * hits on multiple CPUs (a plain
++				 * check-then-inc could let several CPUs past
++				 * the check near the cap and still wrap).
++				 */
++				atomic_add_unless(&val->ref_count, 1, INT_MAX);
++				/*
++				 * successes/drops are best-effort throughput
++				 * counters. Saturate at LONG_MAX so they do
++				 * not wrap on long runs (notably where local_t
++				 * is 32-bit), matching ref_count's behaviour.
++				 */
++				local_add_unless(this_cpu_ptr(smap->successes),
++						 1, LONG_MAX);
++				return (int)idx;
++			}
++			/*
++			 * val == NULL: another CPU is mid-insert, or this
++			 * slot is "claimed but empty" (pool exhausted).
++			 * val != NULL but mismatch: 32-bit hash collision
++			 * with a different stack. In both cases, advance.
++			 */
++		} else if (!test_key) {
++			/*
++			 * Free slot: try to claim it.
++			 *
++			 * If two CPUs race here with the same key_hash
++			 * (same stack), one loses the cmpxchg, advances,
++			 * and may insert the same stack at a later slot.
++			 * This can produce a small number of duplicate
++			 * entries under heavy contention. The trade-off
++			 * is accepted to keep the hot path lock-free;
++			 * ref_count is split across the duplicates and
++			 * total memory cost is bounded by the element
++			 * pool size.
++			 */
++			if (cmpxchg(&entry->key, 0, key_hash) == 0) {
++				struct stackmap_elt *elt;
++
++				elt = stackmap_get_elt(smap);
++				if (!elt) {
++					/*
++					 * Pool exhausted. We claimed this
++					 * slot with cmpxchg but cannot fill
++					 * it. Leave key set so the slot
++					 * stays "claimed but empty" — future
++					 * lookups treat val==NULL as a miss
++					 * and probe past it. Cannot revert
++					 * key=0 without racing other CPUs.
++					 */
++					local_add_unless(this_cpu_ptr(smap->drops),
++							 1, LONG_MAX);
++					return -ENOSPC;
++				}
++
++				elt->nr = nr_entries;
++				atomic_set(&elt->ref_count, 1);
++				memcpy(elt->ips, ips, trace_len);
++
++				/*
++				 * Publish elt with release semantics so the
++				 * reader's smp_load_acquire can safely
++				 * dereference val->nr / val->ips.
++				 */
++				smp_store_release(&entry->val, elt);
++				local_add_unless(this_cpu_ptr(smap->successes),
++						 1, LONG_MAX);
++				return (int)idx;
++			}
++			/* cmpxchg failed; another CPU claimed this slot. */
++		}
++
++		idx++;
++		probes++;
++	}
++
++	local_add_unless(this_cpu_ptr(smap->drops), 1, LONG_MAX);
++	return -ENOSPC;
++}
++
++/* --- Text export: /sys/kernel/debug/tracing/stack_map --- */
++
++struct stackmap_seq_private {
++	struct ftrace_stackmap	*smap;
++};
++
++static void *stackmap_seq_start(struct seq_file *m, loff_t *pos)
++{
++	struct stackmap_seq_private *priv = m->private;
++	struct ftrace_stackmap *smap = priv->smap;
++	loff_t i;
++
++	if (!smap)
++		return NULL;
++	/*
++	 * Take the reader_sem to serialize against ftrace_stackmap_reset(),
++	 * which holds it for write while clearing the table. Released in
++	 * stackmap_seq_stop(), which seq_file calls regardless of whether
++	 * start() returned an element or NULL (per Documentation/filesystems
++	 * /seq_file.rst: "the iterator value returned by start() or next()
++	 * is guaranteed to be passed to a subsequent next() or stop()").
++	 */
++	down_read(&smap->reader_sem);
++	for (i = *pos; i < smap->map_size; i++) {
++		if (READ_ONCE(smap->entries[i].key) &&
++		    stackmap_load_elt(&smap->entries[i])) {
++			*pos = i;
++			return &smap->entries[i];
++		}
++	}
++	return NULL;
++}
++
++static void *stackmap_seq_next(struct seq_file *m, void *v, loff_t *pos)
++{
++	struct stackmap_seq_private *priv = m->private;
++	struct ftrace_stackmap *smap = priv->smap;
++	loff_t i;
++
++	if (!smap)
++		return NULL;
++	for (i = *pos + 1; i < smap->map_size; i++) {
++		if (READ_ONCE(smap->entries[i].key) &&
++		    stackmap_load_elt(&smap->entries[i])) {
++			*pos = i;
++			return &smap->entries[i];
++		}
++	}
++	/*
++	 * Advance *pos past the end so that on the next read() the
++	 * subsequent stackmap_seq_start() call returns NULL and the
++	 * iteration terminates. Without this, seq_read() would loop
++	 * on the last element.
++	 */
++	*pos = smap->map_size;
++	return NULL;
++}
++
++static void stackmap_seq_stop(struct seq_file *m, void *v)
++{
++	struct stackmap_seq_private *priv = m->private;
++	struct ftrace_stackmap *smap = priv->smap;
++
++	/*
++	 * seq_file invokes stop() unconditionally after each iteration
++	 * pass (see seq_read_iter / traverse), even when start() returned
++	 * NULL. Always release here, balanced against the down_read in
++	 * stackmap_seq_start().
++	 */
++	if (smap)
++		up_read(&smap->reader_sem);
++}
++
++static int stackmap_seq_show(struct seq_file *m, void *v)
++{
++	struct stackmap_entry *entry = v;
++	struct stackmap_seq_private *priv = m->private;
++	struct stackmap_elt *elt;
++	u32 idx = entry - priv->smap->entries;
++	u32 i, nr;
++
++	elt = stackmap_load_elt(entry);
++	if (!elt)
++		return 0;
++
++	nr = READ_ONCE(elt->nr);
++	if (nr > FTRACE_STACKMAP_MAX_DEPTH)
++		nr = FTRACE_STACKMAP_MAX_DEPTH;
++
++	seq_printf(m, "stack_id %u [ref %u, depth %u]\n",
++		   idx, atomic_read(&elt->ref_count), nr);
++	for (i = 0; i < nr; i++) {
++		unsigned long ip = elt->ips[i];
++
++		/*
++		 * Mirror trace_stack_print(): __ftrace_trace_stack()
++		 * may replace trampoline addresses with
++		 * FTRACE_TRAMPOLINE_MARKER before the stack reaches the
++		 * map, and normal addresses must go through
++		 * trace_adjust_address() (KASLR / module text delta)
++		 * before symbolization. Without this the export would
++		 * print a bogus symbol for the marker and unadjusted
++		 * addresses for everything else.
++		 */
++		if (ip == FTRACE_TRAMPOLINE_MARKER) {
++			seq_printf(m, "  [%u] [FTRACE TRAMPOLINE]\n", i);
++			continue;
++		}
++		seq_printf(m, "  [%u] %pS\n", i,
++			   (void *)trace_adjust_address(priv->smap->tr, ip));
++	}
++	seq_putc(m, '\n');
++	return 0;
++}
++
++static const struct seq_operations stackmap_seq_ops = {
++	.start	= stackmap_seq_start,
++	.next	= stackmap_seq_next,
++	.stop	= stackmap_seq_stop,
++	.show	= stackmap_seq_show,
++};
++
++static int stackmap_open(struct inode *inode, struct file *file)
++{
++	struct stackmap_seq_private *priv;
++	struct seq_file *m;
++	int ret;
++
++	ret = seq_open_private(file, &stackmap_seq_ops,
++			       sizeof(struct stackmap_seq_private));
++	if (ret)
++		return ret;
++	m = file->private_data;
++	priv = m->private;
++	priv->smap = inode->i_private;
++	return 0;
++}
++
++/*
++ * Accept exactly "0" or "reset" (optionally followed by a single newline).
++ */
++static bool stackmap_write_is_reset(const char *buf, size_t n)
++{
++	if (n > 0 && buf[n - 1] == '\n')
++		n--;
++	return (n == 1 && buf[0] == '0') ||
++	       (n == 5 && memcmp(buf, "reset", 5) == 0);
++}
++
++static ssize_t stackmap_write(struct file *file, const char __user *ubuf,
++			      size_t count, loff_t *ppos)
++{
++	struct seq_file *m = file->private_data;
++	struct stackmap_seq_private *priv = m->private;
++	char buf[8];
++	size_t n = min(count, sizeof(buf) - 1);
++	int ret;
++
++	if (n == 0)
++		return -EINVAL;
++	if (copy_from_user(buf, ubuf, n))
++		return -EFAULT;
++	buf[n] = '\0';
++
++	if (!stackmap_write_is_reset(buf, n))
++		return -EINVAL;
++
++	/*
++	 * ftrace_stackmap_reset() atomically claims reset rights via
++	 * cmpxchg and returns -EBUSY if another reset is already in
++	 * progress.
++	 */
++	ret = ftrace_stackmap_reset(priv->smap);
++	if (ret)
++		return ret;
++	return count;
++}
++
++const struct file_operations ftrace_stackmap_fops = {
++	.open		= stackmap_open,
++	.read		= seq_read,
++	.write		= stackmap_write,
++	.llseek		= seq_lseek,
++	.release	= seq_release_private,
++};
++
++/* --- Stats --- */
++
++static int stackmap_stat_show(struct seq_file *m, void *v)
++{
++	struct ftrace_stackmap *smap = m->private;
++	u64 successes = 0, drops = 0;
++	u32 entries;
++	int cpu;
++
++	if (!smap) {
++		seq_puts(m, "stackmap not initialized\n");
++		return 0;
++	}
++
++	entries = atomic_read(&smap->next_elt);
++	for_each_possible_cpu(cpu) {
++		successes += local_read(per_cpu_ptr(smap->successes, cpu));
++		drops += local_read(per_cpu_ptr(smap->drops, cpu));
++	}
++
++	seq_printf(m, "entries:      %u / %u\n", entries, smap->max_elts);
++	seq_printf(m, "table_size:   %u\n", smap->map_size);
++	seq_printf(m, "successes:    %llu\n", successes);
++	seq_printf(m, "drops:        %llu\n", drops);
++	if (successes + drops > 0)
++		/*
++		 * mul_u64_u64_div_u64() uses a 128-bit intermediate, so
++		 * (successes * 100) cannot overflow even when successes
++		 * approaches U64_MAX on a very long trace.
++		 */
++		seq_printf(m, "success_rate: %llu%%\n",
++			   mul_u64_u64_div_u64(successes, 100,
++					       successes + drops));
++	return 0;
++}
++
++static int stackmap_stat_open(struct inode *inode, struct file *file)
++{
++	return single_open(file, stackmap_stat_show, inode->i_private);
++}
++
++const struct file_operations ftrace_stackmap_stat_fops = {
++	.open		= stackmap_stat_open,
++	.read		= seq_read,
++	.llseek		= seq_lseek,
++	.release	= single_release,
++};
++
++/* --- Binary export --- */
++
++struct stackmap_bin_snapshot {
++	/*
++	 * Use u64 (not size_t) so data[] is 8-byte aligned on both
++	 * 32-bit and 64-bit architectures. The IP array within data[]
++	 * is accessed as u64*, which would alignment-fault on strict
++	 * architectures (e.g. older ARM, SPARC) if data[] started at
++	 * a 4-byte boundary.
++	 */
++	u64	size;
++	char	data[];
++};
++
++static int stackmap_bin_open(struct inode *inode, struct file *file)
++{
++	struct ftrace_stackmap *smap = inode->i_private;
++	struct stackmap_bin_snapshot *snap;
++	struct ftrace_stackmap_bin_header *hdr;
++	struct ftrace_stackmap_bin_entry *e;
++	size_t alloc_size, off;
++	u32 nr_entries, i, nr_stacks;
++
++	if (!smap)
++		return -ENODEV;
++
++	/*
++	 * Serialize opens: only one snapshot may be pinned at a time
++	 * (see @bin_open). Released in stackmap_bin_release().
++	 */
++	if (atomic_cmpxchg(&smap->bin_open, 0, 1) != 0)
++		return -EBUSY;
++
++	/*
++	 * Worst-case allocation size: every populated entry uses a
++	 * full-depth stack. The (+1) gives one slack slot in case a
++	 * concurrent insert lands between this snapshot and iteration.
++	 * The loop below performs an explicit bounds check anyway.
++	 *
++	 * At bits=18 this caps at ~135 MB. The file is mode 0440
++	 * (TRACE_MODE_READ), so only privileged users can open it.
++	 */
++	nr_entries = atomic_read(&smap->next_elt);
++	alloc_size = sizeof(*hdr) +
++		     (nr_entries + 1) * struct_size(e, ips, FTRACE_STACKMAP_MAX_DEPTH);
++
++	snap = vmalloc(sizeof(*snap) + alloc_size);
++	if (!snap) {
++		atomic_set(&smap->bin_open, 0);
++		return -ENOMEM;
++	}
++
++	hdr = (struct ftrace_stackmap_bin_header *)snap->data;
++	hdr->magic = FTRACE_STACKMAP_BIN_MAGIC;
++	hdr->version = FTRACE_STACKMAP_BIN_VERSION;
++	hdr->reserved = 0;
++	off = sizeof(*hdr);
++	nr_stacks = 0;
++
++	/*
++	 * Take reader_sem to serialize against ftrace_stackmap_reset(),
++	 * which clears the table and elt pool under the write lock.
++	 */
++	down_read(&smap->reader_sem);
++
++	for (i = 0; i < smap->map_size; i++) {
++		struct stackmap_entry *entry = &smap->entries[i];
++		struct stackmap_elt *elt;
++		u32 k, nr;
++
++		if (!READ_ONCE(entry->key))
++			continue;
++		elt = stackmap_load_elt(entry);
++		if (!elt)
++			continue;
++
++		nr = READ_ONCE(elt->nr);
++		if (nr > FTRACE_STACKMAP_MAX_DEPTH)
++			nr = FTRACE_STACKMAP_MAX_DEPTH;
++
++		/* Bounds check: stop if we would overflow the allocation. */
++		if (off + struct_size(e, ips, nr) > alloc_size)
++			break;
++
++		e = (struct ftrace_stackmap_bin_entry *)(snap->data + off);
++		e->stack_id = i;
++		e->nr = nr;
++		e->ref_count = atomic_read(&elt->ref_count);
++		e->reserved = 0;
++
++		for (k = 0; k < nr; k++) {
++			unsigned long ip = elt->ips[k];
++
++			/*
++			 * Emit the trampoline marker verbatim so userspace
++			 * can render it as [FTRACE TRAMPOLINE]; pass every
++			 * other address through trace_adjust_address() so the
++			 * binary export follows the same address-adjustment
++			 * rules as the text export.
++			 */
++			if (ip == FTRACE_TRAMPOLINE_MARKER)
++				e->ips[k] = (u64)FTRACE_TRAMPOLINE_MARKER;
++			else
++				e->ips[k] = (u64)trace_adjust_address(smap->tr, ip);
++		}
++		off += struct_size(e, ips, nr);
++		nr_stacks++;
++	}
++
++	up_read(&smap->reader_sem);
++
++	hdr->nr_stacks = nr_stacks;
++	snap->size = off;
++	file->private_data = snap;
++	return 0;
++}
++
++static ssize_t stackmap_bin_read(struct file *file, char __user *ubuf,
++				 size_t count, loff_t *ppos)
++{
++	struct stackmap_bin_snapshot *snap = file->private_data;
++
++	if (!snap)
++		return -EINVAL;
++	return simple_read_from_buffer(ubuf, count, ppos, snap->data, snap->size);
++}
++
++static int stackmap_bin_release(struct inode *inode, struct file *file)
++{
++	struct ftrace_stackmap *smap = inode->i_private;
++
++	vfree(file->private_data);
++	if (smap)
++		atomic_set(&smap->bin_open, 0);
++	return 0;
++}
++
++const struct file_operations ftrace_stackmap_bin_fops = {
++	.open		= stackmap_bin_open,
++	.read		= stackmap_bin_read,
++	.llseek		= default_llseek,
++	.release	= stackmap_bin_release,
++};
+diff --git a/kernel/trace/trace_stackmap.h b/kernel/trace/trace_stackmap.h
+new file mode 100644
+index 000000000000..2176cbe47572
+--- /dev/null
++++ b/kernel/trace/trace_stackmap.h
+@@ -0,0 +1,57 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _TRACE_STACKMAP_H
++#define _TRACE_STACKMAP_H
++
++#include <linux/types.h>
++#include <linux/atomic.h>
++
++#define FTRACE_STACKMAP_MAX_DEPTH	64
++
++/* Binary export format */
++#define FTRACE_STACKMAP_BIN_MAGIC	0x46534D42	/* 'FSMB' */
++#define FTRACE_STACKMAP_BIN_VERSION	1
++
++struct ftrace_stackmap_bin_header {
++	u32 magic;
++	u32 version;
++	u32 nr_stacks;
++	u32 reserved;
++};
++
++struct ftrace_stackmap_bin_entry {
++	u32 stack_id;
++	u32 nr;
++	u32 ref_count;
++	u32 reserved;
++	u64 ips[];		/* nr entries follow the header */
++};
++
++struct trace_array;
++
++#ifdef CONFIG_FTRACE_STACKMAP
++
++struct ftrace_stackmap;
++
++struct ftrace_stackmap *ftrace_stackmap_create(struct trace_array *tr);
++void ftrace_stackmap_destroy(struct ftrace_stackmap *smap);
++int ftrace_stackmap_get_id(struct ftrace_stackmap *smap,
++			   unsigned long *ips, unsigned int nr_entries);
++int ftrace_stackmap_reset(struct ftrace_stackmap *smap);
++
++extern const struct file_operations ftrace_stackmap_fops;
++extern const struct file_operations ftrace_stackmap_stat_fops;
++extern const struct file_operations ftrace_stackmap_bin_fops;
++
++#else
++
++struct ftrace_stackmap;
++static inline struct ftrace_stackmap *
++ftrace_stackmap_create(struct trace_array *tr) { return NULL; }
++static inline void ftrace_stackmap_destroy(struct ftrace_stackmap *s) { }
++static inline int ftrace_stackmap_get_id(struct ftrace_stackmap *s,
++					 unsigned long *ips, unsigned int n)
++{ return -EOPNOTSUPP; }
++static inline int ftrace_stackmap_reset(struct ftrace_stackmap *s) { return 0; }
++
++#endif
++#endif /* _TRACE_STACKMAP_H */
+-- 
+2.34.1
 
-Notes:
-- The patch will be applied on top of the tested series (as an
-  incremental fix).
-- To test a new version of the whole series, please send it directly
-  to syzbot@lists.linux.dev.
-- Arguments like custom git repos and branches are not supported.
