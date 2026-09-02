@@ -1,63 +1,63 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23E63403F5
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:29:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1262348C75
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:29:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788319793; cv=none; b=uBHdZX/rfWL2HvUYKQLNA9STxcGTyCe5T7/64mvNAyKpIla6ytR7p+WfgyLmtnF4cu6fnBlbdyZR4ZQN4mU984PAwPHCldZF7WhCqcDL2XaAlzYt7YQosYDFEy6Tyeyfcc3NwegQnC2Ndxh6DQWavDPonY+3mxVfkm9bXdD9msU=
+	t=1788319796; cv=none; b=DemPHeGnGOoqoG7QZ7VKDGIHWwdGKYb4s65ruYYis3YlSOosJoDHU2vHZYkZlxqGZxlknPb+eE9YQBNc7+DzoaTrwfuiqlpYfyonJx13M/NzZKj5JD8Sa67e0IJ/AT/UWd0WJzFkKc7DVCz2wFItt/vSMw8BZWeeAIIJtBiGI14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788319793; c=relaxed/simple;
-	bh=Lht9vEQqB/Fmoa+XWhe3Q4RkS7MTEfMin0qo5+ocxBE=;
+	s=arc-20240116; t=1788319796; c=relaxed/simple;
+	bh=J4/PepV8PBz6sQAShbl8+v2xr61BId7+YnU/sMtjwl0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sOa9rPRZ7U+q0Q46I0BtP72qlheLG+22oDLAalDfsDW1UoS5HBlhn/5eyG9GDPtVSIE2/bKkhLv/4zyK6sHera0L8Lpmtm20lDEf7g6F1i7OH3I8Op69MZeBWsAYNUref1KiChcjJ8zuRc08T6UC5dhm2pFnlG9LijSfG83GfEI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qyk0b5J+; arc=none smtp.client-ip=209.85.214.182
+	 MIME-Version; b=BjZuqFigo8FP5Gkub/AFWVquIrzVsbfvlK3BQ7EzV9Ihop71B4I/Z6TtOAQG234upEskH4LegnOaPBEsMqQBZyT/tQp3BxUs5U6DIK1Is2bOyDJ36YKWXmeer/Uf1vuIBSPXMmgQ96d2lHhgWjcfQIJIBy/xCm5QNDg8mpL4WkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LzGChSv2; arc=none smtp.client-ip=209.85.214.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qyk0b5J+"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d71ae3455aso8491155ad.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 20:29:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LzGChSv2"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2cfbbdfa60bso5813275ad.3
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 20:29:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788319788; x=1788924588; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788319792; x=1788924592; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=U1ZdTa+YPG5R8JD3WrAQzRV0ImB3xHixQQQtd7zdN10=;
-        b=Qyk0b5J+UwYync67VZuSuN1+YqLigQvCOUYPsfG7iDZcSG/E7u819tmxdQ/3gCvjEY
-         Uv4EXRXlMNa/A92q7MT1BjOaqqyq2DvN3oV6m+vuwPEQDM1xSEv6k+a0FTH0iITemnu4
-         i/tKLc/xcKEjLzqiOW9gzqhXQDI0di5jeOzeqdUeaV3MOQspd/XC9QiRdJgfNDL3KKSY
-         YF7HIyeUMxWxq5U5jGQ5ITPkpYSpywHguXqCyvdnetG6Uf84BJR+VF4hY1p49MrTH5GV
-         4QmVC7dxNYz0K2s9OUHeZr4fmKkYmW+7J8ExAPP9JSG0GTVbU01K6+vmeRq++cz0me4x
-         mnPw==
+        bh=pGpqtN0vRq8epNdTDKQRGvsPqQN+AJIy2e00tUkEjAI=;
+        b=LzGChSv2YAMXI+FhA0TKp6zLEcqtRYUhHWxyOqLMHJ/1i4LV53b1H0wx6YNfP1lazh
+         vYYGQg9/l8XQSCrEN08Lxf0SQCGE7dDi9G+asTTnHXfBI/5X0Hd3BwHKsuOZGEvog4cW
+         1mDDU40CHcbdLlFmFM+yn609Q7fkdijlMUk9li66SR0qPNsYf284Eb7q6GaybTIoBokU
+         tNsChVg8XP3qMysmd7OG8pRPuZUe36zgsiet66yNB/u5rGRFIg6k8QjOA4+XgTlHk7kM
+         JzpJp2egjUFi0VEgnwBzIbUjophMrgRugDV9OExEI0I59Cv9lGG2qOOyvT4uEEdx4A7B
+         9Q0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788319788; x=1788924588;
+        d=1e100.net; s=20251104; t=1788319792; x=1788924592;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=U1ZdTa+YPG5R8JD3WrAQzRV0ImB3xHixQQQtd7zdN10=;
-        b=pdjwdIzQqlGy+GC7qp2poG3xy/n0BQFZxc0Onu5Wc01CxNov0+Hv1Tu1GgMwhhilXb
-         SuJhJD2h/yc2JxNgw6f450QMjELUnpINpxh5z3UZQNr+yw2/1VZesGokFS1B+HzsX8i5
-         2HRcRwWcB5yM2V9yIQr120Beob0EZEhWFsqbl4+FhDjjspvyBkaym+JXzSM+cP91G/Ix
-         9Slf7mcwnZSX5RpAHncVrisdO4q0CnjQZ8lIawbsjCNOwFBxdosNB9uwjzod4L3Rf3uB
-         rZFxdnH1VQPTvleeA2qlQFYj4SA3y1BOzwX7EhJdFYArYfBI54+dut/OIspnMZCJ9H7j
-         e11Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rq1fJbpINaALyy7Y9lpPYeOgZzhUDzVCEyz747g2Z8eSNxMChimI1lSBaPoVSucyQNEbXIvR4RYbR8jTCc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lz0Ao50g00I3XG8jkz/U3wkYRVX28Lijllv7yAszyqPhUMiIvF
-	MADfG6fPcDgzmvfmlAzWxOGz4y4Lr22+PmbbkVZehRbY/zJS4Fn2c237
-X-Gm-Gg: AYBFou0QUbTTgHzAfV8/DewUCpvIUtho/WG6z+ioh5piK8T93STWuRhyN3sIsz4zzYV
-	cMOQT1luoLBTC8zvgrC8mtXLOX/58n1Dra2tsCZ2Gfb1IWJX71TEOSrxKRqPsHk2uZew1+YzqdT
-	iMnoZW9hfprgnrnhY4FYg8IVd6AqbAT22zgJoY9zvNI8rHkBF8EEjJa6pSh5zkd79CkrPHq/I83
-	HhwT5o9bbbjNrlg4GcQh4XdnFmHABHFfn5s0rtDyhrQjGkOybtrs8vPl550RuFoylt2wAmeOas9
-	LVqW8Yu8xZ/a9FO18PMn/dJJhDqa3T2tHK86igBPUYRe1p7q+MBdb4NxRIDi3Cl/Rvg/GzZCzF4
-	CAG4Jdu487pFIvMs7rCWqDfNfs/16jZu6n5QtwwLSkkLwCT1KUM4PK/iApdDAcpl9wKt2lZ7ww8
-	KYsR8aJhJhhx8NNUsKXba7xzqHIm2UYJbS4aJpDcj5
-X-Received: by 2002:a17:902:d482:b0:2d9:1dee:43db with SMTP id d9443c01a7336-2daec7368famr25186725ad.15.1788319788333;
-        Tue, 01 Sep 2026 20:29:48 -0700 (PDT)
+        bh=pGpqtN0vRq8epNdTDKQRGvsPqQN+AJIy2e00tUkEjAI=;
+        b=DEa3vSv3tAtqxZcc+qBnY+vAqggCD++LuJF7g41YMkjISrKJP7xjJ+FlirN4349FZn
+         +C2/37V7Pzjop6hVTD+JVcqireXdi5eLV1lZEMlVVMUyoOseXEH5S0Zrdj7wXJlWuxP3
+         smcHARQiHKWps4TX3aBGiRABknVauC6fbrWF8C57Vz5W4BG32/c/1saN60OfYAVdAU+V
+         AbjYGwPOeoERO4fdn7/fGMAxLEHoCbREipVfdqV9iBVDcyBlvdjuBbb3KdN5fq4nnoLP
+         HXDQvDjVUkxyqCD0N8GeEZWUf+I35fwrIduT6IRjRpgSeqIVBCr7WSMt2GipEaQaIBh+
+         x8Qw==
+X-Forwarded-Encrypted: i=1; AKwUvBxArlZPukiIOV+mO0ylthlsDy3JkvSWrPw8bzJS7QjWyGgP6G7HYNVGMN71+d9CAUrAH88jNvSr1UaEPbg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kgxmXdB51PXKKchdKKm8BpoFMsp2he/x5bXIJiZm59nliuno/Q
+	ZfObcK9dL/1bMsfdqfgmTx66KLxmiyM6XWsF6Fi1HzlZrRresfKHIEth
+X-Gm-Gg: AYBFou1crNQ7Iv7k1J6LSHoAidvOiSbNSOLOk5k/Ac9Dk2vAV8R94WtClfWbE9A9CBC
+	QUVuKQs1aF7k81xHJdEx9Y4GGQaKax0Cytz2q7VwoHVE0oT4EaiENCPc2i/ACh+QnUH29C5uxX2
+	sq3qWeYqIseeULYtN3li5ua+VO8sJ2ImBpiJDwZy7f6OLDiWnucpvwY28vvsjtuvaAzSjJ3s3IF
+	WHSHqujZ4laDdFKdcIEcYxMGBDaPhBPouJD8svGzHB+WZziEfRxqvjormrd5wQaDJC0ImwYmG6+
+	47naqWN8KBb8cI1iL41aFmqFn/cd6e9KLyz5Wgg/LJJvKx8ePUjiasOxdMT4yEGaSF/uDJo2asx
+	fZzJqeknfLd542YAnys1R8dEB2bLOwnYIvM9oaAbIs2bwcvHWAK5y711u+c4Bam480U97bgNDGY
+	6T9QjmmJuOx+hdfUqpvrF5fM4ohVg00ZYLjgOUjZWA
+X-Received: by 2002:a17:90b:2552:b0:38e:c232:9d3f with SMTP id 98e67ed59e1d1-39aedec7bbbmr2766953a91.5.1788319792006;
+        Tue, 01 Sep 2026 20:29:52 -0700 (PDT)
 Received: from devobuntu.lan ([2600:6c5c:6b00:316::23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f07baa594sm3099307eec.22.2026.09.01.20.29.46
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f07baa594sm3099307eec.22.2026.09.01.20.29.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 20:29:47 -0700 (PDT)
+        Tue, 01 Sep 2026 20:29:51 -0700 (PDT)
 From: Matt Vollrath <tactii@gmail.com>
 To: intel-wired-lan@lists.osuosl.org
 Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
@@ -71,9 +71,9 @@ Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
 	linux-kernel@vger.kernel.org,
 	Matt Vollrath <tactii@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH iwl-net 2/3] e1000e: fix ps_pages DMA map error sentinel
-Date: Tue,  1 Sep 2026 23:29:12 -0400
-Message-ID: <20260902032913.661570-3-tactii@gmail.com>
+Subject: [PATCH iwl-net 3/3] e1000e: fix NETIF_F_RXALL buffer overrun
+Date: Tue,  1 Sep 2026 23:29:13 -0400
+Message-ID: <20260902032913.661570-4-tactii@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260902032913.661570-1-tactii@gmail.com>
 References: <20260902032913.661570-1-tactii@gmail.com>
@@ -85,85 +85,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-While allocating packet-split buffer pages, a failed DMA mapping would
-leave DMA_MAPPING_ERROR in the ps_page->dma field.
+When SBP is set, the card may deliver frames which would otherwise be
+filtered out by LPE being unset. This would allow the device to write
+up to 526 bytes beyond the skb's data allocation: over its own shinfo,
+and beyond. This bug is reachable only when MTU <= 1500 and
+NETIF_F_RXALL is set ("ethtool -K <dev> rx-all on").
 
-This would have two consequences:
-* The next attempt to allocate that buffer would write DMA_MAPPING_ERROR
-  to h/w if all pages are allocated. If the h/w uses that buffer and is
-  handling a frame large enough to touch the affected page, it would
-  cause a DMA fault and be dropped. The driver would then call
-  dma_unmap_page() on DMA_MAPPING_ERROR and unknowingly send the
-  uninitialized page up the stack as part of the frame payload.
-* On ring teardown, dma_unmap_page() would be called on
-  DMA_MAPPING_ERROR.
-
-This condition is only reachable when MTU > 1500 and PAGE_SIZE <= 16K.
-
-Fix this by setting ps_page->dma = 0 upon mapping failure and separately
-testing ->page and ->dma during allocation and teardown.
-
-The rewrite of the ps_pages section of e1000_clean_rx_ring was necessary
-to recognize the case of a mapped page without a valid DMA mapping. It
-also fixes a separate bug which would potentially leak pages on ring
-teardown. The cleaner stops cleaning pages when h/w reported that it did
-not write to a page in the sequence, leaving the following pages
-allocated and mapped. The teardown would then break early and leak the
-unused mapped pages. If the ring is re-allocated with similar
-configuration, it would reclaim those lost pages. This would only affect
-configurations with rx_ps_pages >= 2 (MTU > PAGE_SIZE) and the same
-condition of MTU > 1500 and PAGE_SIZE <= 16K.
+Ensure that buffers are large enough for an entire 2048 byte chunk when
+NETIF_F_RXALL is set. Do this by moving final rx_buffer_len
+determination to one place, right before RCTL.BSIZE is determined. This
+will correctly re-evaluate every time the adapter is configured, not
+just on MTU change.
 
 Signed-off-by: Matt Vollrath <tactii@gmail.com>
+Suggested-by: Jakub Kicinski <kuba@kernel.org>
 Assisted-by: Claude:claude-5-fable
-Fixes: bc7f75fa9788 ("[E1000E]: New pci-express e1000 driver (currently for ICH9 devices only)")
+Fixes: cf955e6c96cb ("e1000e: Support RXALL feature flag.")
 Cc: stable@vger.kernel.org
 ---
- drivers/net/ethernet/intel/e1000e/netdev.c | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+ drivers/net/ethernet/intel/e1000e/netdev.c | 53 +++++++++++++---------
+ 1 file changed, 32 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ethernet/intel/e1000e/netdev.c
-index 26f45ee8c7e7..063fc8cd2673 100644
+index 063fc8cd2673..80d5a0010df8 100644
 --- a/drivers/net/ethernet/intel/e1000e/netdev.c
 +++ b/drivers/net/ethernet/intel/e1000e/netdev.c
-@@ -759,12 +759,15 @@ static void e1000_alloc_rx_buffers_ps(struct e1000_ring *rx_ring,
- 					adapter->alloc_rx_buff_failed++;
- 					goto no_buffers;
- 				}
-+			}
-+			if (!ps_page->dma) {
- 				ps_page->dma = dma_map_page(&pdev->dev,
- 							    ps_page->page,
- 							    0, PAGE_SIZE,
- 							    DMA_FROM_DEVICE);
- 				if (dma_mapping_error(&pdev->dev,
- 						      ps_page->dma)) {
-+					ps_page->dma = 0;
- 					dev_err(&adapter->pdev->dev,
- 						"Rx DMA page map failed\n");
- 					adapter->rx_dma_failed++;
-@@ -1722,13 +1725,15 @@ static void e1000_clean_rx_ring(struct e1000_ring *rx_ring)
+@@ -3036,6 +3036,33 @@ static void e1000_configure_tx(struct e1000_adapter *adapter)
+ #define PAGE_USE_COUNT(S) (((S) >> PAGE_SHIFT) + \
+ 			   (((S) & (PAGE_SIZE - 1)) ? 1 : 0))
  
- 		for (j = 0; j < PS_PAGE_BUFFERS; j++) {
- 			ps_page = &buffer_info->ps_pages[j];
--			if (!ps_page->page)
--				break;
--			dma_unmap_page(&pdev->dev, ps_page->dma, PAGE_SIZE,
--				       DMA_FROM_DEVICE);
--			ps_page->dma = 0;
--			put_page(ps_page->page);
--			ps_page->page = NULL;
-+			if (ps_page->dma) {
-+				dma_unmap_page(&pdev->dev, ps_page->dma,
-+					       PAGE_SIZE, DMA_FROM_DEVICE);
-+				ps_page->dma = 0;
-+			}
-+			if (ps_page->page) {
-+				put_page(ps_page->page);
-+				ps_page->page = NULL;
-+			}
- 		}
++/**
++ * e1000_set_rx_buffer_len - determine the Rx buffer size
++ * @adapter: Board private structure
++ **/
++static void e1000_set_rx_buffer_len(struct e1000_adapter *adapter)
++{
++	struct net_device *netdev = adapter->netdev;
++	u32 max_frame = adapter->max_frame_size;
++
++	/* NOTE: netdev_alloc_skb reserves 16 bytes, and typically NET_IP_ALIGN
++	 * means we reserve 2 more, this pushes us to allocate from the next
++	 * larger slab size.
++	 * i.e. RXBUFFER_2048 --> size-4096 slab
++	 * However with the new *_jumbo_rx* routines, jumbo receives will use
++	 * fragmented skbs
++	 */
++	if (max_frame <= 2048)
++		adapter->rx_buffer_len = 2048;
++	else
++		adapter->rx_buffer_len = 4096;
++
++	/* adjust allocation if LPE protects us, and we aren't using SBP */
++	if (max_frame <= (VLAN_ETH_FRAME_LEN + ETH_FCS_LEN) &&
++	    !(netdev->features & NETIF_F_RXALL))
++		adapter->rx_buffer_len = VLAN_ETH_FRAME_LEN + ETH_FCS_LEN;
++}
++
+ /**
+  * e1000_setup_rctl - configure the receive control registers
+  * @adapter: Board private structure
+@@ -3102,6 +3129,8 @@ static void e1000_setup_rctl(struct e1000_adapter *adapter)
+ 		e1e_wphy(hw, 22, phy_data);
  	}
+ 
++	e1000_set_rx_buffer_len(adapter);
++
+ 	/* Setup buffer sizes */
+ 	rctl &= ~E1000_RCTL_SZ_4096;
+ 	rctl |= E1000_RCTL_BSEX;
+@@ -6087,30 +6116,12 @@ static int e1000_change_mtu(struct net_device *netdev, int new_mtu)
+ 
+ 	pm_runtime_get_sync(netdev->dev.parent);
+ 
+-	if (netif_running(netdev))
++	if (netif_running(netdev)) {
+ 		e1000e_down(adapter, true);
+-
+-	/* NOTE: netdev_alloc_skb reserves 16 bytes, and typically NET_IP_ALIGN
+-	 * means we reserve 2 more, this pushes us to allocate from the next
+-	 * larger slab size.
+-	 * i.e. RXBUFFER_2048 --> size-4096 slab
+-	 * However with the new *_jumbo_rx* routines, jumbo receives will use
+-	 * fragmented skbs
+-	 */
+-
+-	if (max_frame <= 2048)
+-		adapter->rx_buffer_len = 2048;
+-	else
+-		adapter->rx_buffer_len = 4096;
+-
+-	/* adjust allocation if LPE protects us, and we aren't using SBP */
+-	if (max_frame <= (VLAN_ETH_FRAME_LEN + ETH_FCS_LEN))
+-		adapter->rx_buffer_len = VLAN_ETH_FRAME_LEN + ETH_FCS_LEN;
+-
+-	if (netif_running(netdev))
+ 		e1000e_up(adapter);
+-	else
++	} else {
+ 		e1000e_reset(adapter);
++	}
+ 
+ 	pm_runtime_put_sync(netdev->dev.parent);
  
 -- 
 2.43.0
