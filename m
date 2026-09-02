@@ -1,107 +1,106 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2518E35E1C5
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 01:56:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4EE020E334
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 01:56:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788314167; cv=none; b=R5cUkWzeHsXo6i2QNnfZGns8sR9IdeQ8qL+QZm/lkcYFhrkHD5hy8ZLMPQQD8JXsfT+BNWh6U7KD2lIcdG1XHUb1MoFeCbwRgwe74sZQ4Ce0JkHI2BnnPlWsc/lJ21z8HULs8T6mY0b4XANy7E5lNjbIeDm75uuE7FRA40UX3JE=
+	t=1788314209; cv=none; b=d3v7Z+y4in4jObFP/JRSI6nw7xhTcxrHqf8HiFKZZXA84pAimQu8EXcxFBV7RCII8toyRBUkyHGzk6B5dzC1MDJ4J/XONT8WNhpxcPruoMQ/4HLdAYuxQJlCjFgjhQlwcOV8IB6HfXbJehKzjkxOJWi0LDE2Zi39bM/WYE/gAYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788314167; c=relaxed/simple;
-	bh=BLFYJfElxSI06RtEtw8byJqBKIWSSSLCxfBzKw7BQVA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cFBlEs25Yi0DieAdEdFtrCuFMKpb0ld2JoG0sRmUy3cP5BRAzQcoBupemnboCZCzcZqnjzt+YaF7L44x8dZl3IfRtXAktxBZ8ndDHnQ09PGSPxAbMSs6K4o8Y0Icfqn6xlWR9+4qsdN6tDaBj+jijip1HeSJil6rx4oyGB3a+vs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org; spf=pass smtp.mailfrom=linuxtx.org; dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b=e1mI8kXb; arc=none smtp.client-ip=209.85.160.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=fedoraproject.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxtx.org
+	s=arc-20240116; t=1788314209; c=relaxed/simple;
+	bh=B7FskVfDnX8Oz02fpEp2GxWVOi19S6IVI9O1jHf5Twc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RqaWn7PQNhKmpiCfuX4TboJRhgVl47gDr4ynMsbCM60l9dG4ArUN6n36AlAeoBhe9vFXvv+5PP1pNAo7FpouPfl2y2HmcGm/sstPRKyXFCVAEc1dLteYSqoMl1qghF8cUVv5dXx7pSQPyzJHDDeOxu1H1PvNVeLjUf0ScP2IFA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YEBh6VZd; arc=none smtp.client-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxtx.org header.i=@linuxtx.org header.b="e1mI8kXb"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-5301db51586so5779061cf.1
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 18:56:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YEBh6VZd"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-84fa3b14ee1so480827b3a.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 18:56:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linuxtx.org; s=google; t=1788314158; x=1788918958; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kpF3RtJ2s86zgT91pBwtMVnJoKBYW+etBqjKLDzF/lU=;
-        b=e1mI8kXbaDBK4WG+5SyHGhGZHsgd3BQ7XzrpkgB6H6S6AHFs8Rw/pCrOUfCZf+27oo
-         awbtnCPdcK6+zuM1wEIY03qMOfZeiEApR0vPcOfrc/bfByBwW/YpQ+1J2kNvHvjquhPB
-         ee0AUDUScYc6Oo61MZznnmEwC6MR1BIqOX4WI=
+        d=gmail.com; s=20251104; t=1788314201; x=1788919001; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=s0iE/WlAJeXqXVC99kZcLf0HoTEM4Su3/szAnydyeKE=;
+        b=YEBh6VZdE7SHSJHc7d0O7JTgPLwBRfnenCiDrOvfOwt0zs0RzbE8PB6EK9t6pcWKJb
+         UuYYKohNVLGFMty2gvAL8w5iUfA4Y4cqMzP4aJre2le2u/abseU5X+W0x017lWpPOJqA
+         15z7vCHYgnoWyThqHr9mGc+ZS6tVmCPWpsxqaU2GLulce/RIRym1eUtUD4TCNcG+RzR8
+         4NOLgGRj9RJMO/5ZK8CNNWf/AqYf9iO2CabGTALMpZwDb8kEOt853X0qISbzps3b4BbS
+         e3Ukn/LpuyRi+a0VL1mYUAnmAPcDVqy6SDuPRL17jiUd2mwB0aC+OqJiKoA3I3xP6Jw0
+         iRvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788314158; x=1788918958;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kpF3RtJ2s86zgT91pBwtMVnJoKBYW+etBqjKLDzF/lU=;
-        b=XdddgBXLqwC9GI8x7au5EDHbhsDrVkSstFF8E9E6J8PKz3FTDD16VdNvL32ZeYOi2g
-         x39qQLNxHPCFmQ1Vqc9yMyujb281EyO40M28jr87YLx1zW7yjGeoziy9DpzRWqGAK1G2
-         MRw4qD5hje3UBZegetedoomxx9Udk339X+NMEnEJRF21xstLpmVFx5Y4EuqkTwFYea/h
-         s5InF43DJ6i7PW7u2VAggj/9q+P6db9FF4FR4aCryBvsberzI0FzHw/Az7ZXl9gTkKJx
-         ZzLop4e+lKgm3HVr0X88xmd3f7bKXj5NOV6sqjoofH49kNaug1oYBWoqmGSZ1YLdFmQC
-         QIvA==
-X-Forwarded-Encrypted: i=1; AHgh+Rp0xrCr8ymocYYJw7bXU5OhQ8dvgwaYwEnKWGuqZWGXVtZGRUKyfKpVcRQ6Kki5u4Mw79Pug4aXbwQ7/1M=@vger.kernel.org
-X-Gm-Message-State: AFuF++nZGTrxWHJWYqIWQr6qqRz6aZBifkunfI914YZ6Qwhxe9Rf8G5f
-	0peJpaMQzqD6dxK6S5uUN1f78i6XiR5EHtT5P4OZShPN/OdzHHo4t3MkDYJManhCbg==
-X-Gm-Gg: AR+sD11PKYZ4l6bwy3KJ689xFtJVWWIvKHi5hSFtaVntRv0QYmw8O2gHTr6/Kk5045O
-	FZMYeeD38davLIFr7LEwaNkbpUOAcrEXS1weUJ7beLC2zJM9k0Sbh3g3Mg84EhxJmxEwyjWnfGn
-	cRwiNDqVkDj2003ofYRTsn0334G0hUx0okJVI49iiUILGlRHdMXJyx50uzEi0qV783DscKstgPu
-	LP9Z/UDIdCXRL2i/VD5kObqeaUKa7Ph4wtVlNfdVHSmtLviLMtFML0kfGB1OqNgXvIbRdljN7w5
-	vmRkgucxbfx+38R+cQ3URJlSYi2l8ilB5r7LnZu35/4thocKjgteTWRE9Ug+BnOQt9TYXB+6UeQ
-	dp5Og2lFshGgc1UKnW/LwN3BHk4iVSOxjjRoAYBgYYPjhi2VM+m3ff9NY81Z6LVdfs2zdhGDke/
-	WLIbl5ZJhYhyvS26ti/jnk94Gnf+91MnyTgcNppapnQV0JliQdZVIgi70ltGnLPyvGAlGCAEuBZ
-	bqVIA==
-X-Received: by 2002:a05:622a:1b2a:b0:530:15f1:b16c with SMTP id d75a77b69052e-5303699f76amr16580421cf.0.1788314157512;
-        Tue, 01 Sep 2026 18:55:57 -0700 (PDT)
-Received: from fedora64.linuxtx.org ([98.97.106.144])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9eec848dsm7240066d6.28.2026.09.01.18.55.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 18:55:56 -0700 (PDT)
-Sender: Justin Forbes <jmforbes@linuxtx.org>
-Date: Tue, 1 Sep 2026 19:55:53 -0600
-From: Justin Forbes <jforbes@fedoraproject.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 7.1 00/76] 7.1.13-rc1 review
-Message-ID: <apeCKeB4TxAWlTDI@fedora64.linuxtx.org>
-References: <20260831133359.185608553@linuxfoundation.org>
+        d=1e100.net; s=20251104; t=1788314201; x=1788919001;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=s0iE/WlAJeXqXVC99kZcLf0HoTEM4Su3/szAnydyeKE=;
+        b=K60mSB16hdSx/exZJSEOL9ST3UxyOxu/LzBJm5CJzGzQuNw+Ea26sA+4L6pcEwankr
+         8TrzRnJYYsMxpAQBixM3Wiiar9m0u48iJyhigb+6dNzpQxnBh1tnRUOrMRUJIfLt3Kl5
+         viiT68AkterczwvsVokVfPPxxd/eQlPfE6OHeX3VdY6sOTzvFAfWUY6GAtFfkgTurWKA
+         04qQEfDtj/Fkn10XyPLGishoV8ljOlRd0ZlD1TVyyzA2nCQaZUQGG8Ej7CmAe01PnS7a
+         Epv+EHxEu94PPX5Czw4vVPgyc6NKFCabq96VQ1F7hdpTA/pt8549t/Ch5vyukWetvvLL
+         1YgA==
+X-Forwarded-Encrypted: i=1; AKwUvBxM/6b98DWZrY/ewrDIPXok7I54uTJxd9d6SLm+zNSo/w3EnJyYBVT4FjgXvZ0bGz7N0cvc+s/24cKQS6E=@vger.kernel.org
+X-Gm-Message-State: AFuF++n4FQLZZGJlHWbbEx9Q0HVxpKCaz8uIyYavmb4goMLkkbXvbmfQ
+	UmVrrRY4aQwTxAUQ+qKRM8coaZ4YN+2oW7e1Dol3Sgn7oP7oyMD+BCpT
+X-Gm-Gg: AYBFou0zMFhYlcL9+gGxPlYWRSUQGRZhdG29/u1yqmJ06A03fMQfYuHsrgYoKXbvSVS
+	vV8/38MEtkMol6DZ3bhxAp1l44ajgElh/GVgjCI+VL5cNU3UNyRQ/hYtfGxEUmCg4aybI2ntc8C
+	ziL8X5awvdQzG+Uwl5iMiGNX2OUceaBOp0cjJTaUfzdqpT3v+Ag2c+6AtPrDaPYND3LkIcNONYY
+	MWxGdHeicreEQSsGkKmMM+5bbJ/3HHU7p+EP+EcNirjbeWil5l/Xu3jevhr58G+HrAPKHGpGXgu
+	8NIv6LDXxLPkqE0KUXQViow+uMbKnk/X/P5AtGGSgpP4JI45KmtwNktiVp3Tcm4kve38SxkKyKy
+	mwWv3EXC1o9i0DB4Sm16a4JVK2SPXbCNRyn1OM4ScJUSuc74wcovSTbP6oz3GiHwBnmY+MHergu
+	TYYAyWjFJ9iNY+aYj04SpxGsCEUgCU2802kwViIsK0g+fGII+lcPJw29hIx1sI1GFkIngkRSsve
+	xVeJNNoOshdK3FIVhAE9VHkpGIH
+X-Received: by 2002:a05:6a00:1da5:b0:857:72ba:ff0b with SMTP id d2e1a72fcca58-85ed3f70537mr3178673b3a.19.1788314200492;
+        Tue, 01 Sep 2026 18:56:40 -0700 (PDT)
+Received: from localhost.localdomain (vmi2317720.contaboserver.net. [84.247.152.65])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db2ad8a45sm590819b3a.18.2026.09.01.18.56.34
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 01 Sep 2026 18:56:38 -0700 (PDT)
+From: Lian Wang <lianux.mm@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Asier Gutierrez <gutierrez.asier@huawei-partners.com>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: Re: [PATCH v4 1/3] mm/damon: Introduce DAMOS_QUOTA_HUGEPAGE auto tuning
+Date: Wed,  2 Sep 2026 09:56:01 +0800
+Message-ID: <20260902015616.57702-1-lianux.mm@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260901142307.100701-1-sj@kernel.org>
+References: <20260901065847.42869-1-lianux.mm@gmail.com> <20260901142307.100701-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831133359.185608553@linuxfoundation.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 03:33:32PM +0200, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.1.13 release.
-> There are 76 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Wed, 02 Sep 2026 13:32:19 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.1.13-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.1.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Hi SJ,
 
-Tested rc1 against the Fedora build system (aarch64, ppc64le, s390x,
-x86_64), and boot tested x86_64. No regressions noted.
+> Seems using MTHP_STAT_NR_ANON that is exposed as 'nr_anon' can be used?
 
-Tested-by: Justin M. Forbes <jforbes@fedoraproject.org>
+Thank you for the suggestion.  I will study MTHP_STAT_NR_ANON and nr_anon
+further, and document what I find.  We can continue discussing it by email,
+and I will be happy to review any follow-up or updated patches.
+
+> I'm curious if you and general reviewers need or prefer to directly be Cc-ed.
+> I was naively thinking people can search and review DAMON patches by
+> subscribing to the mailing list or using the archives via lore.kernel.org like
+> tools.
+
+I subscribe to many mailing lists, including linux-mm and DAMON, and I also
+follow patches through lore.  Direct Cc is not required, but I appreciate it
+for DAMON-related patches.  Because I care deeply about DAMON, directly Cc-ed
+messages are filtered into my important mailbox, so I can archive and review
+them quickly.
+
+I am very happy to contribute to DAMON, and I look forward to continuing our
+discussions and reviews by email.
+
+Thanks,
+Lian
