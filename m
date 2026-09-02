@@ -1,108 +1,164 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-62.mta1.migadu.com [95.215.58.62])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC9E31F98E;
-	Wed,  2 Sep 2026 11:02:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6214466B09
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 11:03:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.62
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788346974; cv=none; b=DidBOLAV6IBfeJApCLPtfXVfXHt9wRLJqmiGySJcV4T6aH5mFIobfoRjS20zlWsf1hU1X2bcfD1y6Li6YY75Ztiv+3qiOfEHlgx4YTLYoQF/s+1178p+HGqNOa0Aa7CMLX8cpCnsDZ16KFS/R3ChEcRyK4DmhG9OuZ5aQp7vRLw=
+	t=1788347015; cv=none; b=CdR2caR+F1wgWZwnJp9ZIlnIAnnbDQ74PIR8CV1zoWOot5zGjxFd4a7A2f1/675KdmGAl4PK2XUovYF/L9Ywu76/J/60aVQtOgDaseImltR2ve+8O+A+sNDVM6qZUGr6shPpyNP86/NLyONgkGbaGNqBdAd6IgClrvwr6lVPwss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788346974; c=relaxed/simple;
-	bh=QDIu2KNP99Ja5J5CxxlX8SGwIhLbH5hz3Yi2K4FYpdA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cI/otYGnc/85JFMk/HETA8Gje3d15mq14UBd3NRCjKHkrqUsKND+giM3k2zzW1MMVfrNqb6veNx5KXyzYrVUEI11j43XhDjy1GSvDe/Uk7hQlCuqIeFimqDJYIM6H6+Q18LzPgnuCWA2cDyZjMxp++wkOlarF2shUpV4314Hgo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=INES5aQF; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788347015; c=relaxed/simple;
+	bh=20snKJaG8UMW/EixhLl7Mhl2veH34E3KT+pk8OWVknU=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=XegYZtDe48Fuq9eDkbiZ4Kkd6z2L59VvoZjN0kgj47fWCWQQhV6f5AGgGJgP/+Ck7V6fdC/bMiPkNYouE0gTrKpimDRKHvagY8QnU6O9N66aa61hfMr6pnY2NnLsjGzasle2mPVm6KUqlklHSyONe+J1X2dIbrgEJZuqchhU754=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=UqBysMNJ; arc=none smtp.client-ip=95.215.58.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="INES5aQF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788346973; x=1819882973;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=QDIu2KNP99Ja5J5CxxlX8SGwIhLbH5hz3Yi2K4FYpdA=;
-  b=INES5aQFbwT0ddH2UAlkKUtN2qaG0WCTc892ZPymiXWtwJ0gdenaHHEZ
-   3sfq/03DWG69AXn69BVbgUUsOL8p2DcYXL+EUKeJqDy4fjXkVzpK+BWel
-   N+Q61rfv2RLYMK1QH3e/1RczeqBH94oQHGZWulQGmxHqfxpcPYCsAtRue
-   0lyzTGf/FTHcrD7DyNj+ihBCf2NeFskg4oYIuFs1q710xY+8bwMw8nP9Z
-   qFPEMHBKePWaNbz2adjNE3vx3p/rYAgB8wm9gaDnpbAyo03Tzlhog04d9
-   9fMzPqCbSgSTVCOIJWOLhw64YK8LtXOnu9LBnaXQvsyav8OLrT7t5kcbo
-   g==;
-X-CSE-ConnectionGUID: RVfhUA/vTmW7MdKda5CX5g==
-X-CSE-MsgGUID: MebetcACRK64KdEsY27Dxg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="111571203"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="111571203"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 04:02:52 -0700
-X-CSE-ConnectionGUID: nDsLt4K9RA+MtI2/zg1M2Q==
-X-CSE-MsgGUID: OfBGuYvRRB+9nYzVNAP5KQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="269395361"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.118])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 04:02:44 -0700
-Date: Wed, 2 Sep 2026 14:02:42 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Janani Sunil <jan.sun97@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Janani Sunil <janani.sunil@analog.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="UqBysMNJ"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=20snKJaG8UMW/EixhLl7Mhl2veH34E3KT+pk8OWVknU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788347011; v=1; x=1788951811;
+ b=UqBysMNJ7nJEOt3ZuhFhQkOwyIXBsK6i2miRq0YnguHuTE5KrLpWWqktfUkwcBK8QcTBwQEH
+ 9j79XAkSeslqGTe9MCut3qyed6/tUZut3ZgxbOy6RbNikOmfcPFruR9Lp0NAZ20RB+CgeyUOlmW
+ boAZrjPCV21R7p8SFGhVHj3U=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id f4c9c9e68c3ee15e;
+	Wed, 02 Sep 2026 11:03:21 +0000
+X-Mizu-Trace-ID: f4c9c9e68c3ee15e
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 2 Sep 2026 14:03:12 +0300
+From: Matti Vaittinen <matti.vaittinen@linux.dev>
+To: Matti Vaittinen <mazziesaccount@gmail.com>,
+	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
+	Matti Vaittinen <matti.vaittinen@linux.dev>
+Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
-	Marius Cristea <marius.cristea@microchip.com>,
-	Marcus Folkesson <marcus.folkesson@gmail.com>,
-	Kent Gustavsson <kent@minoris.se>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Daire McNamara <daire.mcnamara@microchip.com>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux-spi@vger.kernel.org, Kent Gustavsson <nedo80@gmail.com>,
-	linux-riscv@lists.infradead.org
-Subject: Re: [PATCH v10 3/3] iio: dac: Add AD5529R DAC driver support
-Message-ID: <apgCUiOL3Of9P_e1@ashevche-desk.local>
-References: <20260827-ad5529r-driver-v10-0-38f2be07b824@analog.com>
- <20260827-ad5529r-driver-v10-3-38f2be07b824@analog.com>
- <178813261957.2788519.4929586195765891569.b4-review@b4>
- <0c5a657d-e134-49a7-b2cd-82f293685cb7@gmail.com>
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-rtc@vger.kernel.org
+Subject: [PATCH v3 00/10] Support ROHM BD73800
+Message-ID: <cover.1788346553.git.mazziesaccount@gmail.com>
+Reply-To: Matti Vaittinen <mazziesaccount@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="97DSgaQ3eGUvz8QX"
+Content-Disposition: inline
+
+--97DSgaQ3eGUvz8QX
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <0c5a657d-e134-49a7-b2cd-82f293685cb7@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 02, 2026 at 10:48:58AM +0200, Janani Sunil wrote:
-> On 8/31/26 01:30, Jonathan Cameron wrote:
+Add support for the ROHM BD73800 PMIC and compatibles.
 
-...
+The ROHM BD73800 is a power management IC which integrates 8 BUCKs and 4
+LDOs. There is also an ADC and operation amplifier intended for current
+/ temperature measurement and accumulation. RTC and 32.768 kHz clock
+gate are also included. The PMIC can be customized via OTP and it has
+options for operating as a main PMIC in multi-PMIC installation. Some
+of the pins can also be used for GPO or GPI (including interrupt support).
 
-> > Why do we need those outer () ?
+There are also ROHM BD71851 and BD71885 PMICs out there. These are, from
+the SW-perspective, similar to the BD73800. There is only some different
+default values and OTP settings. The driver should be able to handle them
+just fine.
 
-> The outer parenthesis are required by checkpatch for macros with complex
-> values. The same pattern is also used by AD3552R_CH_DAC() in
-> drivers/iio/dac/ad3552r.c
+Revision history:
 
-checkpatch is wrong.
+v2 =3D> v3:
+ - Rebased on v7.3-rc1.
+ - gpio: Use gpio-regmap as was suggested by Linus W.
+ More accurate change-log in individual patches.
 
--- 
-With Best Regards,
-Andy Shevchenko
+v1 =3D> v2:
+ - Rebased on regulator/for-7.3 as it carries dependency:
+   f29a8bf6fde1 ("regulator: dt-bindings: ROHM PMIC state-machine voltages")
+ - dt-bindings: Various fixes, split generic stuff to own files.
+ - gpio: Styling, return -ENODEV if no GPIOs found
+ - MFD: Styling
+ - regulator: Simplify dt-reading
+ More accurate change-log in individual patches.
+
+---
+
+Matti Vaittinen (10):
+  dt-bindings: mfd: common ROHM PMIC properties
+  dt-bindings: rohm,bd*: Ref common ROHM bindings
+  dt-bindings: regulator: ROHM BD73800 regulators
+  dt-bindings: mfd: ROHM BD73800 PMIC
+  mfd: Support for ROHM BD73800 PMIC core
+  rtc: bd70528: Support RTC on ROHM BD73800
+  regulator: bd71828: Support ROHM BD73800
+  clk: bd718x7: Support ROHM BD73800
+  gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
+  MAINTAINERS: Add ROHM BD73800 PMIC files
+
+ .../bindings/mfd/rohm,bd71815-pmic.yaml       |   9 +-
+ .../bindings/mfd/rohm,bd71828-pmic.yaml       |   9 +-
+ .../bindings/mfd/rohm,bd72720-pmic.yaml       |  29 +-
+ .../bindings/mfd/rohm,bd73800-pmic.yaml       | 218 +++++++
+ .../bindings/mfd/rohm,pmic-pins.yaml          |  72 +++
+ .../regulator/rohm,bd73800-regulator.yaml     |  99 ++++
+ MAINTAINERS                                   |   2 +
+ drivers/clk/clk-bd718x7.c                     |   8 +
+ drivers/gpio/Kconfig                          |  12 +
+ drivers/gpio/Makefile                         |   1 +
+ drivers/gpio/gpio-bd73800.c                   | 209 +++++++
+ drivers/mfd/Kconfig                           |  15 +-
+ drivers/mfd/rohm-bd71828.c                    | 147 ++++-
+ drivers/regulator/Kconfig                     |   4 +-
+ drivers/regulator/bd71828-regulator.c         | 558 +++++++++++++++++-
+ drivers/rtc/rtc-bd70528.c                     |   8 +
+ include/linux/mfd/rohm-bd73800.h              | 307 ++++++++++
+ include/linux/mfd/rohm-generic.h              |   1 +
+ 18 files changed, 1662 insertions(+), 46 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/mfd/rohm,bd73800-pmic=
+=2Eyaml
+ create mode 100644 Documentation/devicetree/bindings/mfd/rohm,pmic-pins.ya=
+ml
+ create mode 100644 Documentation/devicetree/bindings/regulator/rohm,bd7380=
+0-regulator.yaml
+ create mode 100644 drivers/gpio/gpio-bd73800.c
+ create mode 100644 include/linux/mfd/rohm-bd73800.h
 
 
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+--=20
+2.55.0
+
+
+--97DSgaQ3eGUvz8QX
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAEBCgAdFiEEIx+f8wZb28fLKEhTeFA3/03aocUFAmqYAnAACgkQeFA3/03a
+ocWq2wgAgL3fXf8KMA2V440duRc7DIi1NzHj2Skga7Hw3Q1+bMip9KQvtNuI0aoP
+C1iFsO894P5zcCLgqXAeXbfFEP1XsXF3xdQE0K6H3ifM/BQAnwbxHMm2Pf/1FdHb
+37SfRjZ1diBkrixn3UYqxljXnB3tJ2Wb7jQ9WeXAdkUr2Ejjf1UBM7MgvNWqjGG4
+VxSASt9NLtxaAxj+DA7MGSSVvpCwepS93NeNW19JJ7aLmSLC69sq0Yndde8gR9r1
+tZ2qC+QhSN0VSJnoCSR83n1UsVTNjM2hm2r9YuQnE9GA9Z2UXFeWbSHyEgoPuWWw
+SbDmfT4YcFgxRspLULmE72TJ5qAXiA==
+=txE5
+-----END PGP SIGNATURE-----
+
+--97DSgaQ3eGUvz8QX--
