@@ -1,53 +1,76 @@
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2EBC3DFC80;
-	Wed,  2 Sep 2026 20:05:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.72.192.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ABC63876BB
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 20:06:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788379516; cv=none; b=QErgsuVn+RPtQUG3XUD3tJYcjU22f7zDq41sruykibpVE2qayLr617Y2CxtctGWsdMyPJxK5rSe+xNEiTwFzik3jDMl0xSNSHyuyLZhTJ4wdbUxX2RRBGlRVED4ahZCGdyiAVbQQGyDTC1WZxpgH3UW/Wf9wwum+JMpNxu2DYQk=
+	t=1788379563; cv=none; b=NXB5bp1Y2U9PCwUbkpmiNVCZ8ctiZi/Etx7sQE+HXA/4fzV49Cu77AW66bqaCaO5UUPXrGfxB7DAyWXmqUGCBAIMgrgz0vmmizj3Z6aAUm7rYeMSJeb6npCRWJHC/t+ErbAdxMRTSpdGV06JThKUnsk/WuYNjsyv+Q/odc2jrdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788379516; c=relaxed/simple;
-	bh=y167VXCve5MBLfg0d7ITpbQX+Xb6zt5SoQaSkv1x0MU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pSdfPgFkVk2h14kUaSVzMOPVwKhLLRx2B5kon48wbQuXflRPTnUsXpP8wFsCfOq9J5TsWeuLlSJ+yJY1IwdgTO8b3K+ihXNkXUt9UKedy8mDwKk/Q2uwabVUZi5BIy6TPpFi6caTYHFt2wIfzTii6kDzc3LEwtdflBsJ5bcuNcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themurphys.eu; spf=pass smtp.mailfrom=themurphys.eu; dkim=pass (2048-bit key) header.d=themurphys.eu header.i=christian@themurphys.eu header.b=T1fa72Xl; arc=none smtp.client-ip=217.72.192.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themurphys.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=themurphys.eu
+	s=arc-20240116; t=1788379563; c=relaxed/simple;
+	bh=iR8/nL1o84bZpx30i3LrclT5slLiA8fLcmGJMToQCcQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iDkBe0DnpBGfpd/eJCnOI3b+07Ccxh20zSRGxMOFyTU+qCFGn7omlVQweDabXBin2NLW8/PROSr+oO5GqFs6czrghp40fkQCdwk61hbm8TRZe76UhnLjScmCnVjKsgoP3jReF3VQSSB1AYSqaWUspE6hF9aN4OJPRTaTrXlbY0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GTrrDhJY; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=themurphys.eu header.i=christian@themurphys.eu header.b="T1fa72Xl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themurphys.eu;
-	s=s1-ionos; t=1788379505; x=1788984305; i=christian@themurphys.eu;
-	bh=y167VXCve5MBLfg0d7ITpbQX+Xb6zt5SoQaSkv1x0MU=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=T1fa72XloMrxd1MfsgvYUgiBme+P502aPRl5QYsfuEyJ/+z5hwOGleSwrHi6ivNa
-	 r4qtSROajKn4JfWddmC4ogrhFVF4dzBcYNoCcYZXNBpe9zcL2JhmhySKzHN3BUso/
-	 pqmbj3snIpb+WpQisEchgyeOzqghqsOs67vVE+G6GkAZqbDL2OAw4Le5EncZB8bJQ
-	 RvNwPRuApIBkr50paIaZBljHHWiSRogLykuGcgh7FF7oYbBtKg8zm4BXarzwNys3y
-	 8rH81GZqVfmzWWkXZI7Y3FnQiHZ9LrpGFzcvzKJeHPWPBsupLbiSNOEPE7zZNcSjL
-	 RY8rRwQeYu0Eq8layg==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue106
- [213.165.67.119]) with ESMTPSA (Nemesis) id 1MBmDy-1x9VQ40cyC-007DMR; Wed, 02
- Sep 2026 21:51:20 +0200
-From: Christian Murphy <christian@themurphys.eu>
-To: sakari.ailus@linux.intel.com
-Cc: linux-media@vger.kernel.org,
-	hpa@redhat.com,
-	mchehab@kernel.org,
-	tarang.raval@siliconsignals.io,
-	jai.luthra@ideasonboard.com,
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GTrrDhJY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788379560;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=eBQcSElaZkcEckJKB+BTczHiIJy9qDtRsMfhC/jg6FM=;
+	b=GTrrDhJYShNuzvvhOO8lyA15k0MbfEWwx+rNRWXskj9HBudnltckctK6eAovYc6i99Yu62
+	Dy9qTk5mM72h1u0s05oadi9vbsEInctMhxvUSATDlCm2pr0WhAZmog+nqAInNMs4BWZ18y
+	MeKk63MfcPGAiBonczIjqH3rAws5oWc=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-356-rlCn2vM5P46IzC_R91aRCw-1; Wed,
+ 02 Sep 2026 16:05:56 -0400
+X-MC-Unique: rlCn2vM5P46IzC_R91aRCw-1
+X-Mimecast-MFC-AGG-ID: rlCn2vM5P46IzC_R91aRCw_1788379553
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id DC14C1926B6E;
+	Wed,  2 Sep 2026 20:05:52 +0000 (UTC)
+Received: from jtaubepe-thinkpadx1carbongen12.ibmlowe.csb (unknown [10.17.16.153])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 1649D1955F02;
+	Wed,  2 Sep 2026 20:05:48 +0000 (UTC)
+From: Jesse Taube <jtaubepe@redhat.com>
+To: linux-nvme@lists.infradead.org
+Cc: linux-scsi@vger.kernel.org,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Keith Busch <kbusch@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Justin Tee <justin.tee@broadcom.com>,
+	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
+	Paul Ely <paul.ely@broadcom.com>,
+	Chaitanya Kulkarni <kch@nvidia.com>,
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Nilesh Javali <njavali@marvell.com>,
+	GR-QLogic-Storage-Upstream@marvell.com,
+	Hannes Reinecke <hare@suse.de>,
+	Jesse Taube <jtaubepe@redhat.com>,
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
+	John Meneghini <jmeneghi@redhat.com>,
+	Bryan Gurney <bgurney@redhat.com>,
+	Chris Leech <cleech@redhat.com>,
+	"Ewan D . Milne" <emilne@redhat.com>,
+	shinichiro.kawasaki@wdc.com,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	antti.laakso@linux.intel.com
-Subject: Re: [PATCH] media: i2c: imx471: Fix pixel rate and line length
-Date: Wed,  2 Sep 2026 20:51:14 +0100
-Message-ID: <20260902195114.9983-1-christian@themurphys.eu>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <apVBljHkHhjcodTX@kekkonen.localdomain>
-References: <20260830173345.15886-1-christian@themurphys.eu> <apVBljHkHhjcodTX@kekkonen.localdomain>
+	linux-block@vger.kernel.org
+Subject: [PATCH v2 0/7] nvme-fc: FPIN link integrity handling
+Date: Wed,  2 Sep 2026 16:05:40 -0400
+Message-ID: <20260902200547.184734-1-jtaubepe@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -55,66 +78,145 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Provags-ID: V03:K1:RiXqcF5MhGCMLtYj4h1r3A7n3tS3JGJyYF7a3/nzgkOzQJ32L+C
- 7hFnXS9Bbu1f/XR80h/tCWTx6pPX5XYbGmufRe2wx7jeQHDawy3rWeOMtIlqJK/NWrSxbLp
- xuFbhOJg6G4ETZmHqh6TBe3BKV7bMXETmFwy/CH6D6mKF44bZCmom8F8R3gBsdJm8y0kWdB
- wbO1KlFzvyQ/YqYeMCqjg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:inx8IODHVxQ=;BuHpiqm4OCEQJ3NEyFMwDHlMtB4
- 1ww7j3cZqOCQpIHfhHKhTmXwLuUosqT1y3rDV9XVHh5mv1pcBhGUdoP7w2dUnuV12oPQpVG3P
- RpDofw1hof9iJrYl4fc3DnLqHXItsPiG3e8azVXc68hD6aUDMMUQx9HX4jEfJgZp/NUcXNsQ+
- 6MgFoSr+UFAtYhIUFou9r5UFf7ycUf5xVp7qLAEw1mkWFCxOFQFCR3/6oI9Y3vtaL70M8mx2v
- rK3In6M50P1c9WbyQEaMFWglofNBmn69l4UYsmLwcVC+LcKX+FsCkqPMGwK73xHNCIi1eAwfi
- mSL8hyY4hH6jvuWg9BKPrzEzUkHjZ4l+RqWN1RolE1/yo6Y3c3VNF18vZNw7GqHHJxsmQoe9i
- LZTgJUr0bOP7p/7vSR2Id800FaYoDKr+yS1K3O9UuGyFbfU+YakwV53Jsl+2gbl+byP7+y5KX
- fyXJmZxiDE/SSrFQZmxsHJxAnhdetK7HMyj6c5g20CC23rg/dcQWgo5o43UEs2OwxlIrzVjPt
- ndhamhrzbGQMgHHhSM88fNvwo+Of0rnuqijeQ1lZnL6eaYsAWNzyQlqzs1HSpn0hX1iVyuQEB
- zQNKBs2dBLiLwAjKJxR0VhwL8IWsh2GG1flYwUw/7/o402O0twl/61WDqdtniDD4k5YKyQiOu
- 6Phy1tt9WIu2+BqKt8tlgArKS+gz0Wrn1Vg0RBqZottaRLQKC06MBjUIQMMwI9A3nKgdyV2P5
- QrYcI2UCFYqxNQ09QrKgGbWjXV5d4emJu/FoJo1OhBo122oai4oyOV6cbHlxX+edKXX1yzIUF
- dG8lhxsoIBGswXXl0zL8ilW/r0ewm2iucTqn9dDCzQK0ZFdiyjLnHhZRGX6Z8tGLS8i0JhOSJ
- U5LvbNlYpihyllon12Chxj/W/y29GFttrfnf+Pp6TItndUCqt43QmaTWzhw/qecxy01JVQKCe
- jW1BcR/qbQPzONe9xB/WA0VQoaMbps7f52eWHlXVl4zHjPVs9WIzCWxVM/xEY/3ha+9j3kmWc
- EYyWNe18xRfKcD3UEUbjMc8Jk/zbz5hAcgMh1N2RETzfsQ6f37jwuennWGPrVgyjpE3mvCR1I
- ksop3ePb5K/Mi7j/n8pWG0uqIBm/55abXZmTyJY2bQvl/HfFU2h52hJHmVcy0t7vPsbAfkljx
- qNR/E7j/n0xln9C87HebO5hDY3uESrAJ/je8bmtxq5NaZcX128MPJQZ6IiiqsR1UhzGxYDZMy
- pUC4lfTYEX42z6BZ5hmO/o/XuMuZmLCqxV14T0/nUCpi0gOd1XFzoUJVxWvARBMiJYwj+4n29
- PGI6RqLThDdUYGCmbom9kgyxlK9dg1VCeZq2SNVjaKOP/Nx9FHdBw8frrQV2AzKGytl8OJ/6g
- KahetB912UbPk8QkfPzULCNoRZlhQtBvc0Oo+9iVTA3SKS9QJTuexDYvD2EppGXPBwAFC9eRR
- 5zAUtgy06xBFk7DRfFTw3XEGelfSNWcsz7tEK8TYWGKO1UqIb1UwDqm3cxHSsioBZy3B5pD1h
- apH3Oy5YJlebRpoESu1HqwgXpbORQXatXj5bf1QzIMFIQBxT9C+D2Ovt6f9QAXGAJq7Xh7Rfz
- JnuvCdSuNPQCoNsK3gARly9Xpa+5rqCbS/JjgWX0xLWqbEWJNYIq/1jyJSrfP8gkuqQMyEJnR
- WQjpp1p/cZlZURW+68fM5LlrTwBlNot5k4TK0voJeFxyVkaLLOnO5moQPRtFIAKHysJIXkh0q
- TN8VLrSaPcMZ/0/jjAhaF55wE9KnJcxhu5p/NlVYRXS2D93i0jWVWsekxKwBDZp4A2oRpiZR+
- zReGDTwWbMgWf7JdrIWMgDDUaAQ+t9uojotHwyQHLFRQVaEeyAdOZRkBZ99pzuEqmae03AODg
- K6zHY59KlaPCEPtTUO4lKl7r1HG2CgCMHT0KgX3ZCm8B59fe2vOwZLNry3FxYiv3snJ2TT1GS
- 4DzdaFffzGT6tEqxjLFMieyeY4lUHkF3IjZyg2ZoSdbSJyhCLDVdmJBAluebfO51WAoZQ0cp6
- 40wcZfswYVliKIknWCeo7dCB7IAnHc02wDVVOKQhVz6LSK7elKSq1MV59XTpz/yGo3Pq9zY6Y
- RabkysQDl7yLre/kPTEQ2GsX9X5jxS2PT8XqOSLu2UanTq86Y8z+o+dK4Y0yi0OecElXuDrih
- 2OxeM7/576zkHLL6SiWI3ZEegQbyff9F4ojHc+Y7hKUzz9wzRVn1KF+R8iZykxhJV8eQ3Jmvr
- tIEF+g0e8UF6XeSj5vEoozFkJ2UXwiARW9+Yj5JKPzojvWZFhaWq91O8X/TjsRSyTbDpm478k
- T1cxGJkNwp95V90lWwTUFkt6bY8EDllv0+kDvezFnRg8gmQF+On788DFLIvGtK+8KJMfy
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-Hi Sakari,
+This set has been split into an NVMe set which adds marginal path
+handling and a SCSI set which handles decoding FPIN LI events and
+setting the marginal flag. The NVMe set, this one, can be tested and
+used independently of the SCSI set.
 
-Thanks for the review.
+FPIN LI (link integrity) messages are received when the attached fabric
+detects hardware errors. In response, I/O should be directed away from
+the affected ports. This series adds a new controller flag
+'NVME_CTRL_MARGINAL' which is checked during multipath path selection,
+causing the path to be de-prioritized. If no other paths are available
+the marginal paths are still used.
 
-On Mon, Aug 31, 2026 at 11:55:50AM +0300, Sakari Ailus wrote:
-> Interestingly, 2328 would appear to be a seemigly valid value.
->
-> Cc Antti.
+Testing was performed by Jesse Taube and John Meneghini using blktests
+with the fcloop driver.
 
-I believe it was inherited from Intel's out-of-tree imx471 driver, which
-has the same .llp = 2328 but writes LINE_LENGTH_PCK 2560 in its register
-list; the mainline list dropped that write. I didn't try writing 2328,
-as it would make the line 6.01 us, below the 12.05 us a 1928-pixel RAW10
-line takes on four lanes at 200 MHz. Happy to probe it if that's useful.
+Controllers on the affected port show the NVME_CTRL_MARGINAL flag:
 
-> Can you calculate the value instead, please?
+   \
+    +- nvme4 fc traddr=c,host_traddr=e live optimized
+    +- nvme5 fc traddr=8,host_traddr=e live non-optimized
+    +- nvme8 fc traddr=e,host_traddr=f marginal optimized
+    +- nvme9 fc traddr=a,host_traddr=f marginal non-optimized
 
-Done in v2:
-https://lore.kernel.org/linux-media/ede568ada4304d2dc92cd43986fc07aa68628154.1788377269.git.christian@themurphys.eu/
+All multipath io-policies were verified: numa, round-robin, and
+queue-depth. Scenarios included optimized, non-optimized, and
+inaccessible, and marginal paths. When all paths are
+marginal, I/O continues based on the multipath policy.
 
-Kind regards,
+Original work on this set was presented at the LSFMM 2024 conference:
+Link: https://people.redhat.com/jmeneghi/LSFMM_2024/LSFMM_2024_NVMe_Cancel_and_FPIN.pdf
 
-Christian
+To test path handling use:
+https://github.com/linux-blktests/blktests/pull/264
+or
+https://lore.kernel.org/linux-nvme/20260828153029.853768-1-jtaubepe@redhat.com/T/
+
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=220329
+
+Previously posted as a combined NVMe+SCSI series (v1-v11).
+
+V1 -> V2:
+- Changed flag name to 'marginal'
+- Do not block marginal path; influence path selection instead
+  to de-prioritize marginal paths
+
+V2 -> V3:
+- Split off driver-specific modifications
+- Introduce 'union fc_tlv_desc' to avoid casts
+
+V3 -> V4:
+- Include reviews from Justin Tee
+- Split marginal path handling patch
+
+V4 -> V5:
+- Change 'u8' to '__u8' on fc_tlv_desc to fix a failure to build
+- Print 'marginal' instead of 'live' in the state of controllers
+  when they are marginal
+
+V5 -> V6:
+- Minor spelling corrections to patch descriptions
+
+V6 -> V7:
+- No code changes; added note about additional testing
+
+V7 -> V8:
+- Split nvme core marginal flag addition into its own patch
+- Add patch for queue_depth marginal path support
+
+V8 -> V9:
+- Rebased patch series to nvme-6.17.
+- Added patch from Gustavo Silva, "scsi: qla2xxx: Fix memcpy field-spanning
+  write issue", which resolves the field-spanning write issue
+- We decided to leave the "marginal" state as is, because the transport
+  driver uses the term "marginal".
+
+V9 -> V10:
+- Rebased patch series to nvme-6.18.
+- Refactor and fix a patch from Gustavo Silva, "scsi: qla2xxx: Fix 2 memcpy
+  field-spanning write issue", which resolves the field-spanning write
+  issue.
+  This new version of Gustavo's patch fixes a bug found in testing.
+- Refactored original implementation
+  New functions added:
+    nvme_fc_lport_from_wwpn() - Find local port by WWPN
+    nvme_fc_fpin_set_state() - Set marginal state on controllers
+    nvme_fc_modify_rport_fpin_state() - Main API function
+  Functions removed:
+    nvme_fc_fpin_li_lport_update() - FPIN processing logic
+    nvme_fc_fpin_rcv() - Direct FPIN message processing
+  Functions modified:
+    fc_rport_set_marginal_state - allows administrative control
+
+V10 -> V1:
+ - Rebase onto 7.2-rc1
+ - Add marginal support to fcloop driver (new patch)
+ - Rewrite multipath handling ("nvme-fc: marginal path handling") and
+     ("nvme-multipath: queue-depth support for marginal paths") replacing
+     them with ("nvme-multipath: round-robin...")
+     ("nvme-fc: marginal path handling...") and
+     ("nvme-multipath: queue-depth support")
+ - New patch ("scsi: scsi_transport_fc: Add set_rport_marginal to ")
+     replaces ("scsi: scsi_transport_fc: add fc_host_fpin_set_nvme").
+     Uses existing function template to add a new callback for setting
+     the marginal state on a remote port, similar to the existing
+     set_rport_dev_loss_tmo() callback.
+ - Replace `nvme_fc_modify_rport_fpin_state` with
+     `nvme_fc_set_remoteport_fpin` which takes
+     `struct nvme_fc_remote_port` instead of wwpn and wwnn
+ - Rewrite the "enable FPIN notification for NVMe" patches
+      to use the new callback methods.
+
+V1 -> V2 (split):
+ - Split SCSI and NVME parts.
+ - Rewrite path handling code.
+
+Bryan Gurney (2):
+  nvme: add NVME_CTRL_MARGINAL flag
+  nvme: sysfs: emit the marginal path state in show_state()
+
+Jesse Taube (4):
+  nvme-multipath: numa support for marginal paths
+  nvme-multipath: round-robin support for marginal paths
+  nvme-fc: add nvme_fc_set_remoteport_fpin()
+  nvme: fcloop: Add set_marginal_rport to sysfs
+
+John Meneghini (1):
+  nvme-multipath: queue-depth support for marginal paths
+
+ drivers/nvme/host/core.c       |  1 +
+ drivers/nvme/host/fc.c         | 17 +++++++++
+ drivers/nvme/host/multipath.c  | 70 ++++++++++++++++++++++++++++++----
+ drivers/nvme/host/nvme.h       | 11 ++++++
+ drivers/nvme/host/sysfs.c      |  3 ++
+ drivers/nvme/target/fcloop.c   | 50 ++++++++++++++++++++++++
+ include/linux/nvme-fc-driver.h |  2 +
+ 7 files changed, 146 insertions(+), 8 deletions(-)
+
+-- 
+2.55.0
+
