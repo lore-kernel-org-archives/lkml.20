@@ -1,99 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAC1E48BD46
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:40:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A22E48551B
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:40:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788352809; cv=none; b=mlu1HHHyKVh6eH5Ww6S2kJtSNQ9Fg+F82E1TcNDlZ+khYsryTMrAHh1S+Nj+j+eqP6uW+CrBfT0RLJCWxeraF2dnsyuZ4qDqvj97a5Jvig4+3YDA1s8HdpYGXli13qKG+EvJT3HIDd1V0nc+J62Ro6xUG76bYzyxCZtzz1us2g8=
+	t=1788352823; cv=none; b=sfmQ5FLL/HyFcwIQwSKUxFPLEEQTv+uzjzgpVgh+LbRd7XTQIvKmc1/XM07Ujp6ILFt0Z5e024FJ+eQKbEg2D5fGU5XORAMZuTAqOjmVsOAXxutNvaaIVEfnIe7xJ2baQFJ8a6h9dSyDaQ5d+ZT3bLOM27f+xCEW/vJ3GrvwjJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788352809; c=relaxed/simple;
-	bh=Klpe8gBA+2PNCx51bSzo/EuN3LxVCEYUTgBKdo6fIh8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=u6as6Pv7cIc+u00B2Ymw9ob1/4i3+rTPnL9HC3Se3KHtkg86JZI28CSURiSunEhSPkM3OWvwZ7HfWnbq5xjxFuKtuh9VwHSiYf7lauxzIkKN5k1bufYYlbT7HXTuN9bDvBnh9ezANwrNUTSLCevMKnTgZ8Dwa/P1+o7RPhRK6w0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MJz0oPUx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788352823; c=relaxed/simple;
+	bh=6ldI2oWhqqciz/d7Opr319MQFKF+Zkje0h47Bfp/ifQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=bXiWc2T2rfbIWd7ZoXUUasIFwoAR2/tZacvF18KCRTz8683SuoEMMYPd9Gw/JpznzXZ7PY4h27gAfdbX4xan9iZC/wUFWX7sY3k37hpXEpMPQnRpVubB08HUFJYdbVcyBwzCk+iCA06FtJJ3JLIk6Fb8Y1dK/k4uMIbRvtXhYvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=GY107tkB; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MJz0oPUx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73A5A1F01558
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:40:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788352807;
-	bh=Klpe8gBA+2PNCx51bSzo/EuN3LxVCEYUTgBKdo6fIh8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=MJz0oPUxfO3QSEwUNGtpXHy+HuBfTpqV/zHYyEX7j08CkMxlewomCO4Q3E2RbN1Wp
-	 wEULcFHD710w/brCMoAevkIUzaZQIzAmn2JqiJ8GUKI8XPwwXQ+ZYbeJGczKCa7Ssp
-	 AMyYuc4AKZ/PpLDJH4JzWPivCY5C9eE1wJNsE2AfDJ7BxB/zR0leoCMApSuFA0S8mI
-	 JA0AEhQm8gaAW7SvhWlN4/Z2yt0Xy13B2JtwzI1s8fAslrUUp9e/XIW1ZQtMSI2KZG
-	 Cgm1TMpNWaZgecR+SQvDHgVINgZYSPrR/A0EeQLFUDY9BjHmKGgxzVOVQvDhsq/KW1
-	 I13nLOmrw4TJw==
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5b60bcf9051so642778e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:40:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByqUBYBIZlukZzi1+26IXOC3jzKEP9LlninqoDPnLo+j6vRnTELgVBtRrt1zz45R9QC6hNZOX0bCUEAXas=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/TmqgXwev2RfRTyhEfhsHTrZ+s/K/Cebjjtt6WE07/BH21pkx
-	91Is+nXQ1rDyH/DUgkShzYMWlqzBANCCGxzd1BItoLMnNK5F/fRR3Iy9OhKEOdFyYAaFiLrvNBG
-	gGiq9XWThgxomspqUv75VPjlmuERYY2Y=
-X-Received: by 2002:a05:6512:1252:b0:5b4:ab2f:5bd5 with SMTP id
- 2adb3069b0e04-5b608347bb7mr1568323e87.8.1788352806105; Wed, 02 Sep 2026
- 05:40:06 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="GY107tkB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788352821;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=DPabCix+pfnXhCWbiytjvC43Wtk1N7h4RXWap1DJTBc=;
+	b=GY107tkByJncsgwneMH3ug3JoZhyqsPAvyw9P1k1SdXSata77/VQR2g0n/QsDllWcCToa9
+	gQe9xQ74LP5IbaQ33hQMxdEhpTvrHieJ6GHhQ5UHuHhBPMVb2JPjvvCM6qZ/cRJ6V6mqRw
+	WzzXUzzMaCgbuitI3B9UmZ9Sv/Tqb2U=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-435-m_Uqogk1PoWtCeGweqR7dQ-1; Wed,
+ 02 Sept 2026 08:40:17 -0400
+X-MC-Unique: m_Uqogk1PoWtCeGweqR7dQ-1
+X-Mimecast-MFC-AGG-ID: m_Uqogk1PoWtCeGweqR7dQ_1788352816
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 651F3192DD61;
+	Wed,  2 Sep 2026 12:40:16 +0000 (UTC)
+Received: from vschneid-thinkpadt14sgen2i.remote.csb (unknown [10.44.33.19])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1E0121955F72;
+	Wed,  2 Sep 2026 12:40:11 +0000 (UTC)
+From: Valentin Schneider <vschneid@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Tomas Glozar <tglozar@redhat.com>,
+	Costa Shulyupin <costa.shul@redhat.com>,
+	Crystal Wood <crwood@redhat.com>,
+	John Kacur <jkacur@redhat.com>,
+	Ivan Pravdin <ipravdin.official@gmail.com>,
+	Jonathan Corbet <corbet@lwn.net>
+Subject: [PATCH v5 0/8] tracing/osnoise: Track IPIs
+Date: Wed,  2 Sep 2026 14:39:29 +0200
+Message-ID: <20260902123942.695822-1-vschneid@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1788346553.git.mazziesaccount@gmail.com> <5eb294e68b8d5d2c1d3a12b14a55dd2a9c075a09.1788346553.git.mazziesaccount@gmail.com>
-In-Reply-To: <5eb294e68b8d5d2c1d3a12b14a55dd2a9c075a09.1788346553.git.mazziesaccount@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 2 Sep 2026 14:39:52 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkvELVwVD2B-OPF=mV8-F5xi7RZWJ7cvuyg2srnrJ2HLQ@mail.gmail.com>
-X-Gm-Features: AcwNN1XLITgbm1aOFoVQnd28TjU_0cWWW0RJDEA68aIrbre66YkBVpUmqod9dXc
-Message-ID: <CAD++jLkvELVwVD2B-OPF=mV8-F5xi7RZWJ7cvuyg2srnrJ2HLQ@mail.gmail.com>
-Subject: Re: [PATCH v3 09/10] gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
-To: Matti Vaittinen <mazziesaccount@gmail.com>
-Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>, 
-	Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-rtc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-Hi Matti,
+Hi folks,
 
-thanks for your patch!
+So I've seen a few times now reports of latency spikes caused by IPIs, usually
+because of isolation misconfiguration, but only detected at the tail of end
+e.g. a 24h timerlat run.
 
-On Wed, Sep 2, 2026 at 1:07=E2=80=AFPM Matti Vaittinen
-<matti.vaittinen@linux.dev> wrote:
+It's not because those IPIs are rare, but rather that they don't by themselves
+cause a monitered CPU to reach the latency threshold, it's usually a combined
+interference that gets us there.
 
-> From: Matti Vaittinen <mazziesaccount@gmail.com>
->
-> The ROHM BD73800 PMIC has 4 pins (named GPIO1, CLKOUT, FAULT_B and
-> EXTEN_OUT) which might have been set to operate as a GPI or GPO when OTP
-> (One Time Programmable memory) is written at device manufacturing.
-> Support the GPI/GPO use-case via GPIO framework.
->
-> The default OTP for these pins is to not use any of them as GPI or GPO.
-> (The GPIO1 defaults as an ADC input regardless the naming). Hence the
-> driver assumes none of these pins is a GPI/GPO unless explicitly pointed
-> as GPI or GPO via device tree.
->
-> Furthermore, pin's direction can't be changed after OTP configuration is
-> done. Also the default drive type for a GPO (CMOS / Open Drain) is set
-> by the OTP configuration. The BD73800 has a set of undocumented test
-> registers which should allow changing the drive type. Access to the test
-> register area or the test registers aren't documented and so this driver
-> does not support configuring the drive type even though it might be
-> doable.
->
-> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+I'd like to make it easier to detect such misconfigurations and thus IPIs
+hitting supposedly-isolated CPUs. I initially kludged a timerlat option to stop
+tracing as soon as an IPI was sent to a monitored CPU, regardless of the latency
+threshold. It sort of did the trick, but Tomáš convinced me timerlat wasn't
+really the place for that.
 
-Pretty neat with gpio-regmap isn't it? :)
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Patches are available at
 
-Yours,
-Linus Walleij
+https://gitlab.com/vschneid/linux.git -b mainline/tracing/osnoise-ipi-userspace/v5
+
+Cheers,
+Valentin
+
+Revisions
+=========
+
+v4 -> v5
+++++++++
+
+o Made events processing follow user-specified order
+
+v3 -> v4
+++++++++
+
+o Rebase onto v7.2-rc4
+o Fix changelog typo
+
+v2 -> v3
+++++++++
+
+o Dropped the short-form -i option to leave it free 
+o Re-arranged top header printing 
+o Fixed tracefs_event_file_write() return value handling
+
+o Changed IPI filtering to allow it to gracefully fail on older kernels
+o Added filter clearing for -e events to ensure a known state
+
+v1 -> v2
+++++++++
+
+o Dropped the in-kernel osnoise_sample changes and made it all userspace
+
+Valentin Schneider (8):
+  rtla/osnoise: Add IPI tracking cmdline option
+  rtla/osnoise: Record IPI count in osnoise top
+  rtla/osnoise: Leverage IPI event filters when tracing a subset of CPUs
+  rtla/osnoise: Allow IPI filters to gracefully fail
+  rtla: make struct trace_events double linked
+  rtla: Enable and disable events in the user-defined order
+  rtla: Unconditionally clean any pre-existing filters for user-provided
+    events
+  rtla/osnoise: Trace IPI events when recording a trace file
+
+ Documentation/tools/rtla/common_options.txt   |   9 +-
+ Documentation/tools/rtla/rtla-osnoise-top.rst |   4 +
+ tools/tracing/rtla/src/cli.c                  |   1 +
+ tools/tracing/rtla/src/cli_p.h                |   7 +-
+ tools/tracing/rtla/src/common.c               |   2 +-
+ tools/tracing/rtla/src/common.h               |   3 +-
+ tools/tracing/rtla/src/osnoise.c              |  72 +++++++-
+ tools/tracing/rtla/src/osnoise.h              |   4 +
+ tools/tracing/rtla/src/osnoise_top.c          | 155 +++++++++++++++++-
+ tools/tracing/rtla/src/trace.c                |  28 +++-
+ tools/tracing/rtla/src/trace.h                |   1 +
+ 11 files changed, 276 insertions(+), 10 deletions(-)
+
+-- 
+2.55.0
+
