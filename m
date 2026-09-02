@@ -1,486 +1,191 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013051.outbound.protection.outlook.com [40.107.162.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BCB64A440F;
-	Wed,  2 Sep 2026 15:47:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788364063; cv=none; b=nTXBVyILDAImGDm5dbOR+B3xvYVMrsH0F5L71KlIhc2j+dGlU9NCOFVOlLZ30SZ7uQKohbxLhhvD/M7UDj+XC4U3Ala5g0qd2HQCIZ9phu6hRIESQn2qF4hG+4o9Ea3pvu5GEKaNMwqIMvIlcOgOdnTAUQhrgBk34DDRVGLVelo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788364063; c=relaxed/simple;
-	bh=Z0fX+wgbIeEzEfNrqvL5RCMpjm9qoAjfTb+vmSdbDjw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oWV987RC+bHAoG6CTi0V0xVrVbBepelqOzINNA8j1SC5DivlOe/d02tamsRvwiaS8IwRvkYyZC8mrfq1MOsPqBYNAPHNppAJCwoKqbHmP/L6080czcOsrjK6TLXXG0Un4PGzdp2sw7lDZgniW/K//3liPh1mdl92DjUAZlgfgv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=s7gNbYa+; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=DZUyr04F; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=ndJUPKED; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=kTM8+ZnE; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EB533438A9;
+	Wed,  2 Sep 2026 15:48:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788364087; cv=fail; b=Zx4BHQuCJWOCMeCYcYymDB/bTFJ/HweZElPJfp2DrucMBw7F4x0Om2LKNaBFfd5p8xuZ/Rn/FZE8vYPrA7Qi4fcpnzVdcwJCAVZ0X/pKLPFyuMKeOhwc84nyPTrmpCcnEgZeuWjzv/AE18FwZQ+eJELRjHkyD7lQcsa66XrLFVU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788364087; c=relaxed/simple;
+	bh=F9XFVOHVX5xNj1CX1J5/1tbeP8LTJ4NVKIz6UO2EYgA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=eNBM1+rBOBInZBXbD0ugplbLhKum/RLnx3VKiV9O+oLsvNADuQCesZzLVxt+Cqtue1SlOG211cM5xFK3N33MLLO6oRxfXp15JqeOM2t5kqMSgN4irYS+Oxg0jWD59b0aHgac2+w9kEchNMLT/Et9TA2mQf8EQZ1/I0ylEjCSMzs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=lTTJ2wJf; arc=fail smtp.client-ip=40.107.162.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="s7gNbYa+";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="DZUyr04F";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="ndJUPKED";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="kTM8+ZnE"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 2099A21D7C;
-	Wed,  2 Sep 2026 15:47:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788364054; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IO//pErO82MWEC8YATAMzSM5u7FPofhkdNzDgTkZL/I=;
-	b=s7gNbYa+GAmqFcU2hVhE9eeNeh4AoGPrNo8yFkCMDGtOwBDsASClBCU3Y4pxiKIl6s1pOx
-	Ws5QQt3JBhmbZBmc5MkDPNjghzOKr+W9t4MIAP2+MHwh8pY7MTNn1VBU3vWxmwoq+AN6tj
-	em6hyli7KiFZvKaAJ2lveI5zAhPYMGg=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788364054;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IO//pErO82MWEC8YATAMzSM5u7FPofhkdNzDgTkZL/I=;
-	b=DZUyr04F9dkqwlyPOVl3joE6paflfyGn7Gi8NRF/2OjZTW7z5o90nNTmqQ2HGTnm0geycm
-	84NnoQfTJ4rf1jAA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788364050; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IO//pErO82MWEC8YATAMzSM5u7FPofhkdNzDgTkZL/I=;
-	b=ndJUPKEDRVCHdldPff4tH5azwBb1FKWoozqYK3rOq88lT35sgFJhGq6TydsiniJ/rKiUU5
-	/+ro/+kinbm06GouC9qnpzPQEtRo6JYmenYYNfJ3aB2+MILL+XOoQhZowW8vtgWscQ086g
-	E1GiQ3GWPD1fn5NF7jk6awhwVPrgFoc=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788364050;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IO//pErO82MWEC8YATAMzSM5u7FPofhkdNzDgTkZL/I=;
-	b=kTM8+ZnEuZyjpMLSqIdbwayfjMRphoYkjeMSEcgZtFBSPU93ku++n67jOmbTyRq76Hw6GW
-	/mtOsb0+cWIjMiCQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id F21E113515;
-	Wed,  2 Sep 2026 15:47:29 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id 5fgaOxFFmGpwZgAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 02 Sep 2026 15:47:29 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 9BF53A13B5; Wed, 02 Sep 2026 17:47:25 +0200 (CEST)
-Date: Wed, 2 Sep 2026 17:47:25 +0200
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: linux-fsdevel@vger.kernel.org, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, Christoph Hellwig <hch@lst.de>, 
-	Seth Forshee <sforshee@kernel.org>, Paul Moore <paul@paul-moore.com>, 
-	linux-security-module@vger.kernel.org, Mimi Zohar <zohar@linux.ibm.com>, 
-	linux-integrity@vger.kernel.org, Ilya Dryomov <idryomov@gmail.com>, ceph-devel@vger.kernel.org, 
-	Carlos Maiolino <cem@kernel.org>, linux-xfs@vger.kernel.org, Miklos Szeredi <miklos@szeredi.hu>, 
-	Amir Goldstein <amir73il@gmail.com>, linux-unionfs@vger.kernel.org, 
-	Namjae Jeon <linkinjeon@kernel.org>, linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 17/27] fs: port ->tmpfile() to pass const mnt_idmap
-Message-ID: <cevke2xhnjojn6z6aas4t2byaixyfwndcyxbx5jrrshoihvh6p@o6v6xgb7kjl4>
-References: <20260901-work-idmap-const-v1-0-54ccd48e100b@kernel.org>
- <20260901-work-idmap-const-v1-17-54ccd48e100b@kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="lTTJ2wJf"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yZAckbMK+/xecMdnoVZymAba8Ci0fBIBvDMry2j7NQjAok9a9vGRQICJ9gJPux6vEjRNoAtCYqbzcZYyXZxPPimrF4B6mtwoWjjmq2C5eVMYHEfw+VP+QFTb7MeoXXz3oqFiWvuzxHidwlSSDEshV0mqHukWgjoOAYB1JcxvzW8Ngc/bHfU5X50zPZJyqh0S464yaKeJ4FmGdWtbfi/l1rtJxzv+ZJBI7u8hWNhBxgFJBKFLkUZDhVdp7YVEbx64GozYiYgQg1+ecOjauF6lmSXgPi7lAmXRFA3DfN1D22QTaiSpOP19+S3F/p1OYyxqQi4lsxXfFI7F5DSQT+RYTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VpVxjIgh1sJ8siH4MabXOeI7ltH2TIrh04kKBHSBaFM=;
+ b=I7mmHJGUdF4QC1BERfEo55bL3+q1PdZvUBfSJNTXzK6zGG/itQ/DpJDCDI3GrZwskVOBR+wIXyUKZGLKXgu91etxUsgN6G7XstOu/N3KeQ0DkuvmCLLq8RkAt/cBaOw6TKL5BqDSOXTEZU8z3qUaMenLX+viwRKk/QYh4DQmO3a2eQ9ne8nuKzDJfRjjsnh5MzRQSnpoMArOXt/NxAyb1nGgYiq+kL1gW5U8SbImebYxbnItuv9FvqaEI/mW/PwQTYfDy725tj+fYCQs6M4p/IS04EeeauVBgwYxIr278jvVV21WwrrXCYf4NqqSgynhCHDCcun+o3bTESdaVDTZyw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VpVxjIgh1sJ8siH4MabXOeI7ltH2TIrh04kKBHSBaFM=;
+ b=lTTJ2wJf/zD6XwEPZ5DB4eYnOcFaOZFNOnuBJhMTYZDlKvLFhrv1y5VIyljpDMgzrix/fW3c9kC9yjiZBFxHu4t55dl6c3BqsaHf2ayexdywoq0BuJ566s/WD5AIMCHx7j/7jr70sKk/gwD/5hX3oumrUE2uNlyLzLj0fekbZIozfZnuoTgs0yogptxNIPbcej+yF9qO/v+qQ5Yqw4hj0/Gjdwb0D/J3czJiJrr5WnozIksrViv/OV4kxagnEUuyRQJS60dS2q3raLdiNRcKcOXewwuac2ZW4xYRjX4DbmbY3ZsKGTyXXe5W4hFi13f2OwmuGbAmZkC9+oUgDAT7kg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM0PR04MB7124.eurprd04.prod.outlook.com (2603:10a6:208:1a0::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 15:48:01 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 15:48:00 +0000
+Date: Wed, 2 Sep 2026 11:47:52 -0400
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Allen Pais <allen.lkml@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Arnd Bergmann <arnd@arndb.de>, Kees Cook <kees@kernel.org>,
+	Sinan Kaya <okaya@kernel.org>, linux-arm-kernel@lists.infradead.org,
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v3 32/34] dmaengine: hidma: defer callbacks via channel BH
+Message-ID: <aphFKIkJXWCO5ixx@lizhi-Precision-Tower-5810>
+References: <cover.1785183549.git.allen.lkml@gmail.com>
+ <cover.1786384168.git.allen.lkml@gmail.com>
+ <702687c28f440bf017c6e57f630bb65d22d3b217.1786384169.git.allen.lkml@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <702687c28f440bf017c6e57f630bb65d22d3b217.1786384169.git.allen.lkml@gmail.com>
+X-ClientProxiedBy: PH7P221CA0018.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:510:32a::17) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901-work-idmap-const-v1-17-54ccd48e100b@kernel.org>
-X-Spam-Score: -3.80
-X-Spam-Level: 
-X-Spamd-Result: default: False [-3.80 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,zeniv.linux.org.uk,suse.cz,lst.de,kernel.org,paul-moore.com,linux.ibm.com,gmail.com,szeredi.hu];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.cz:email,suse.com:email]
-X-Spam-Flag: NO
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM0PR04MB7124:EE_
+X-MS-Office365-Filtering-Correlation-Id: f6863f44-7c82-4d24-1c97-08df0909911e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|19092799006|1800799024|23010399003|7416014|376014|10067099003|11063799006|4143699003|18002099003|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	Q6t7kWsbqVTTy5e9bxhdJNjKoUUnt/59zuPwOhTgGCKHCFqadYdotf3ERQ19E4liEBPaTOzByYvRiAuGibF8ganV35petjK76uefz1ySQKwgd9KSutvsGSzepD4ts+WRf1BonBtm5bTh0FqJzDzrgoqAgyRuWDyIAt9WH7ysxSQmcgLoFmJYGCE8w3A2Z4oFfjCMZWUr0XqnZMxmCpIhmM5B9ScVrNaGlueYmOST0XlJU9WB8WhsAlbNJRdD4TCGrcecSFQfhDq/Ki7g3RlnRa/4n04a32VoZtb/V7cOC1860ZYBfhyg+zwgxOfEOZz/CCPYWR7dHia6vRJqatbq+ea/0X5Ps0XdhtP8xZMQAyGVrLHmrNDQN7C4cHJqOdu31NdU9uq5emJQJvpwEeUNEz+LZ3c2HJ7s9wVzR4IXBs9+K9AnrosVldC8OV/QP20lBM/IGTOYik2AA6d6uyHsOovoaKOq4ltXJ6vtPbkPYYEgfAcmr1L5vJgUtc3MBRepN7/aYCpQkv+FCJbwE07CPscD6Pp/mAgT/sGpfq774PYvzRgWUsPXivf8mHoErK8GXVRore6pQc7ZXtEHO07grdexxxCMRXSSwWKD757Q5ukIjT/5csvsihQzRWsrdKMzRN4dlQzCfX63CdJuojdcfOGtnxuz+5k4BsSIui5Rz78=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(23010399003)(7416014)(376014)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?KGkYBUHztWZiF1RYl6AMK/EfJs58AbSO7gyz55aeAYaVw3bYlEX28xYQCA6U?=
+ =?us-ascii?Q?wr4B6MeUNbCCWo1eU4hs6HkBa/fymH1hRqlfVuvP21TvEO10kngu9qtt/79/?=
+ =?us-ascii?Q?SVm+DJy+/EVRnrlXVd5QvvYEBEFIK8Ezhl6tTtwpgy/MVFfo2qqN8RhjMl0a?=
+ =?us-ascii?Q?ZeibivXnW8fz0zzFkogXpybc/dPEkdGfGVPh2OCXQXQWukxMRR6iYW2iZupE?=
+ =?us-ascii?Q?lQ9KezfOdqwhOrZVGsyzhEHVNHE0OB2EMb9T39DibC9b8MJK0PyCNcdyuwNR?=
+ =?us-ascii?Q?v+EDUph7Xn1l+N9uMWEoGvD8WhurvRZ26EdW4R8Bu4E/f6HE+5sxsYovV2Tv?=
+ =?us-ascii?Q?+yrz4SiDRe5CDGiKLf5fZBP9XuHAhHkmZRsuoQiw+knSPBVzDHbwy5p0wO2g?=
+ =?us-ascii?Q?4c3MpK0vdd+OI5+hKHyZjn747bqezYiPqUfON3e0yzcXULoKqsydBAyxX0zk?=
+ =?us-ascii?Q?aWVKJBXMFOqXEMjJDTJlXr1Fj4ZFwKVzC/dU4UbXsNRjcPdzb0LmLtSD5bYU?=
+ =?us-ascii?Q?vIowlILalFerFJ1myU0Swr5C6NQyN6YRBXldnuhLYGGzqg4PLDYz/mTmSvBe?=
+ =?us-ascii?Q?kgqrNrC0Won49lEzlUvc3iFw/QWkUm3UBa+6AuXs76GJUSVtiV9TATMF2lZg?=
+ =?us-ascii?Q?TWbYR3IFkHDTFjcyMMWp6DEDI5urw44LfqkDtxEgNpfUvt36m0U7tq31LShs?=
+ =?us-ascii?Q?Q5PM5nQr9BlWUdvKOKvNPAKgwuVlWosdTeA+ICYHn4yVs63FowM4XZ0TTthu?=
+ =?us-ascii?Q?M+Tu0J0DNHjsJmIicx0CYH0jsmlLThvxUGWLrcqoA0VbgusleKxzlHlX4Euc?=
+ =?us-ascii?Q?Njt00TNsdwoqW+dJ+Z4f4cOCO1o3SZCrQAqcM2z61bRelmw98kKTCD8Cn1n5?=
+ =?us-ascii?Q?xMW7Q5q2NMDkuHCMRJU9sM2WqfE82p9HNT+8yAC8clrHbz99PidtCGZ27gvC?=
+ =?us-ascii?Q?+S+um9Pq8xLPUaDLEcjKexQJC3l3MTPwrx1AcucwySPYN6CStQZ8j5YwSEg9?=
+ =?us-ascii?Q?HwsGaiTYXfMrYdn06krrJeQwYEnTJefpMHTIe97KPp8PzhEDDLo7U6DapSym?=
+ =?us-ascii?Q?vUjP+GK6hv6yFAhJROKHn5VT0SCp2bkQUMYTeuUqHXSx+/B2QjZ3/L+KuxKZ?=
+ =?us-ascii?Q?/GWhhGrER1e1OFHKvRq/eaNA9TiqwLmasZ7ewStlfKNPH3I5RqqkcQS7M/mY?=
+ =?us-ascii?Q?YBwNYIhx6niNXJLPqlyKW2TUiYGB/dqHODiTfoMszB1v+XtXCKzkB2s5ffv3?=
+ =?us-ascii?Q?vBTqArYNdumsUcChagp+vzb2DGt1EDmrWJGMveZW9DSvVtD8um4qJgsYTnje?=
+ =?us-ascii?Q?6aHQq3FSr7QhSgjUXzUhQbX87A+0v6uyg6j2DB0JsaD4eyWGb8zFaRD+GxwA?=
+ =?us-ascii?Q?gwlWnZihaLtYO3A6RPQr0FNchHkLMA4TI5gsJCpjgcI0UCmXHHDP/2khgGW7?=
+ =?us-ascii?Q?b4+KieNn8ow8SWkk6tlquD8YwZQANfwX1Ym06leQ0VxipFg25jQutPRnsL2a?=
+ =?us-ascii?Q?XNWWoI4/en5cPbma4ssI8SgH5sygfA/4bJD1DDxNhpa92ShpM1r1nr7ZUIQi?=
+ =?us-ascii?Q?Jhg6bjJnAynMl7PnPPsc1I3YcxoL5zwyawOlO9bQ2x19gCSEcaRGpImcvgXP?=
+ =?us-ascii?Q?3w8Ei1Kt6AqhXMgZX+q9S5/7LuuqfCkWqJY5uZP7xd2hU/EHj2mwaTf4HgYF?=
+ =?us-ascii?Q?HY/Js4kbsYKl+jO2hZcNOTJMP1/fMBVe4wHXH+2jDre52S1vtyLAvJWt8di7?=
+ =?us-ascii?Q?l4soPU0ARDFC9ecWHs5Rv43RZaFnN67AWWB+O5lITlBjHo4IfGtD?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6863f44-7c82-4d24-1c97-08df0909911e
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 15:48:00.6906
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gKw1RkPMiysfahI8UEqtwa3fZCx+0Rbu+d4A1vBHqbsOOQJIKsc7Ms40uqRj52WSqQVapSFrMfHp0R+aHo4HpH7juIpfrXJHR5iIeugZUD07pGd+61tCrti6EVV/4Dd5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB7124
 
-On Tue 01-09-26 14:14:42, Christian Brauner wrote:
-> Convert to const struct mnt_idmap.
-> 
-> A mount's idmapping is immutable. The only thing that is allowed to be
-> modified afterwards is the reference count and that is hidden behind
-> mnt_idmap_get() and mnt_idmap_put(). Everything else only ever reads
-> from the idmapping. This is the same model that struct cred uses and the
-> idmapping is also rather sensitive.
-> 
-> So make the idmap argument const wherever we can. The conversion is done
-> from the bottom up so callers can continue to pass a non-const pointer
-> to a const parameter until the conversion is finished.
-> 
-> No functional changes.
-> 
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-
-Looks good. Feel free to add:
-
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
+On Mon, Aug 10, 2026 at 11:09:33AM -0700, Allen Pais wrote:
+> Move descriptor callback processing out of the low-level completion
+> path and schedule it through per-channel BH work. Drain that work while
+> freeing channels so callbacks cannot outlive channel storage.
+>
+> Signed-off-by: Allen Pais <allen.lkml@gmail.com>
 > ---
->  Documentation/filesystems/locking.rst | 2 +-
->  Documentation/filesystems/vfs.rst     | 2 +-
->  fs/bad_inode.c                        | 2 +-
->  fs/btrfs/inode.c                      | 2 +-
->  fs/ext2/namei.c                       | 2 +-
->  fs/ext4/namei.c                       | 2 +-
->  fs/f2fs/namei.c                       | 2 +-
->  fs/fuse/dir.c                         | 2 +-
->  fs/hugetlbfs/inode.c                  | 2 +-
->  fs/minix/namei.c                      | 2 +-
->  fs/overlayfs/dir.c                    | 2 +-
->  fs/ramfs/inode.c                      | 2 +-
->  fs/smb/client/cifsfs.h                | 2 +-
->  fs/smb/client/dir.c                   | 2 +-
->  fs/ubifs/dir.c                        | 2 +-
->  fs/udf/namei.c                        | 2 +-
->  fs/xfs/xfs_iops.c                     | 2 +-
->  include/linux/fs.h                    | 2 +-
->  include/linux/lsm_hook_defs.h         | 2 +-
->  include/linux/security.h              | 4 ++--
->  mm/shmem.c                            | 2 +-
->  security/integrity/ima/ima_main.c     | 2 +-
->  security/security.c                   | 2 +-
->  23 files changed, 24 insertions(+), 24 deletions(-)
-> 
-> diff --git a/Documentation/filesystems/locking.rst b/Documentation/filesystems/locking.rst
-> index 167988321a8c..e4948ddc0a5f 100644
-> --- a/Documentation/filesystems/locking.rst
-> +++ b/Documentation/filesystems/locking.rst
-> @@ -86,7 +86,7 @@ prototypes::
->  	int (*atomic_open)(struct inode *, struct dentry *,
->  				struct file *, unsigned open_flag,
->  				umode_t create_mode);
-> -	int (*tmpfile) (struct mnt_idmap *, struct inode *,
-> +	int (*tmpfile) (const struct mnt_idmap *, struct inode *,
->  			struct file *, umode_t);
->  	int (*fileattr_set)(const struct mnt_idmap *idmap,
->  			    struct dentry *dentry, struct file_kattr *fa);
-> diff --git a/Documentation/filesystems/vfs.rst b/Documentation/filesystems/vfs.rst
-> index 6adb1061a9b6..e960257ef14a 100644
-> --- a/Documentation/filesystems/vfs.rst
-> +++ b/Documentation/filesystems/vfs.rst
-> @@ -438,7 +438,7 @@ As of kernel 2.6.22, the following members are defined:
->  		void (*sync_lazytime)(struct inode *inode);
->  		int (*atomic_open)(struct inode *, struct dentry *, struct file *,
->  				   unsigned open_flag, umode_t create_mode);
-> -		int (*tmpfile) (struct mnt_idmap *, struct inode *, struct file *, umode_t);
-> +		int (*tmpfile) (const struct mnt_idmap *, struct inode *, struct file *, umode_t);
->  		struct posix_acl * (*get_acl)(const struct mnt_idmap *, struct dentry *, int);
->  	        int (*set_acl)(const struct mnt_idmap *, struct dentry *, struct posix_acl *, int);
->  		int (*fileattr_set)(const struct mnt_idmap *idmap,
-> diff --git a/fs/bad_inode.c b/fs/bad_inode.c
-> index 6e116810f66d..d8c0ce62cc63 100644
-> --- a/fs/bad_inode.c
-> +++ b/fs/bad_inode.c
-> @@ -146,7 +146,7 @@ static int bad_inode_atomic_open(struct inode *inode, struct dentry *dentry,
->  	return -EIO;
+>  drivers/dma/qcom/hidma.c | 18 ++++++++++++++++--
+>  1 file changed, 16 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/dma/qcom/hidma.c b/drivers/dma/qcom/hidma.c
+> index c939635be21d..486a2c61a9fb 100644
+> --- a/drivers/dma/qcom/hidma.c
+> +++ b/drivers/dma/qcom/hidma.c
+> @@ -90,7 +90,13 @@ static inline struct hidma_chan *to_hidma_chan(struct dma_chan *dmach)
+>
+>  static void hidma_free(struct hidma_dev *dmadev)
+>  {
+> -	INIT_LIST_HEAD(&dmadev->ddev.channels);
+> +	struct hidma_chan *mchan, *next;
+> +
+> +	list_for_each_entry_safe(mchan, next, &dmadev->ddev.channels,
+> +				 chan.device_node) {
+> +		dmaengine_kill_bh(&mchan->chan);
+> +		list_del(&mchan->chan.device_node);
+
+origial code have not list_del(), is it fix other problem?
+
+Frank
+> +	}
 >  }
->  
-> -static int bad_inode_tmpfile(struct mnt_idmap *idmap,
-> +static int bad_inode_tmpfile(const struct mnt_idmap *idmap,
->  			     struct inode *inode, struct file *file,
->  			     umode_t mode)
->  {
-> diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
-> index 7bf38f069116..092057508ae9 100644
-> --- a/fs/btrfs/inode.c
-> +++ b/fs/btrfs/inode.c
-> @@ -9391,7 +9391,7 @@ static int btrfs_permission(const struct mnt_idmap *idmap,
->  	return generic_permission(idmap, inode, mask);
+>
+>  static unsigned int nr_desc_prm;
+> @@ -155,6 +161,13 @@ static void hidma_process_completed(struct hidma_chan *mchan)
+>  	}
 >  }
->  
-> -static int btrfs_tmpfile(struct mnt_idmap *idmap, struct inode *dir,
-> +static int btrfs_tmpfile(const struct mnt_idmap *idmap, struct inode *dir,
->  			 struct file *file, umode_t mode)
->  {
->  	struct btrfs_fs_info *fs_info = inode_to_fs_info(dir);
-> diff --git a/fs/ext2/namei.c b/fs/ext2/namei.c
-> index 8666233ec63b..108dc52cedfc 100644
-> --- a/fs/ext2/namei.c
-> +++ b/fs/ext2/namei.c
-> @@ -117,7 +117,7 @@ static int ext2_create (struct mnt_idmap * idmap,
->  	return ext2_add_nondir(dentry, inode);
->  }
->  
-> -static int ext2_tmpfile(struct mnt_idmap *idmap, struct inode *dir,
-> +static int ext2_tmpfile(const struct mnt_idmap *idmap, struct inode *dir,
->  			struct file *file, umode_t mode)
->  {
->  	struct inode *inode = ext2_new_inode(dir, mode, NULL);
-> diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-> index edc12599e64d..0bff01fb052a 100644
-> --- a/fs/ext4/namei.c
-> +++ b/fs/ext4/namei.c
-> @@ -2881,7 +2881,7 @@ static int ext4_mknod(struct mnt_idmap *idmap, struct inode *dir,
->  	return err;
->  }
->  
-> -static int ext4_tmpfile(struct mnt_idmap *idmap, struct inode *dir,
-> +static int ext4_tmpfile(const struct mnt_idmap *idmap, struct inode *dir,
->  			struct file *file, umode_t mode)
->  {
->  	handle_t *handle;
-> diff --git a/fs/f2fs/namei.c b/fs/f2fs/namei.c
-> index e33780294713..3adc2345a204 100644
-> --- a/fs/f2fs/namei.c
-> +++ b/fs/f2fs/namei.c
-> @@ -928,7 +928,7 @@ static int __f2fs_tmpfile(const struct mnt_idmap *idmap, struct inode *dir,
->  	return err;
->  }
->  
-> -static int f2fs_tmpfile(struct mnt_idmap *idmap, struct inode *dir,
-> +static int f2fs_tmpfile(const struct mnt_idmap *idmap, struct inode *dir,
->  			struct file *file, umode_t mode)
->  {
->  	struct f2fs_sb_info *sbi = F2FS_I_SB(dir);
-> diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
-> index 0dbe3c6560f8..14dc9318cd57 100644
-> --- a/fs/fuse/dir.c
-> +++ b/fs/fuse/dir.c
-> @@ -1098,7 +1098,7 @@ static int fuse_create(struct mnt_idmap *idmap, struct inode *dir,
->  	return fuse_mknod(idmap, dir, entry, mode, 0);
->  }
->  
-> -static int fuse_tmpfile(struct mnt_idmap *idmap, struct inode *dir,
-> +static int fuse_tmpfile(const struct mnt_idmap *idmap, struct inode *dir,
->  			struct file *file, umode_t mode)
->  {
->  	struct fuse_conn *fc = get_fuse_conn(dir);
-> diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-> index 4bd3adc20a47..8a07a3f18c05 100644
-> --- a/fs/hugetlbfs/inode.c
-> +++ b/fs/hugetlbfs/inode.c
-> @@ -984,7 +984,7 @@ static int hugetlbfs_create(struct mnt_idmap *idmap,
->  	return hugetlbfs_mknod(idmap, dir, dentry, mode | S_IFREG, 0);
->  }
->  
-> -static int hugetlbfs_tmpfile(struct mnt_idmap *idmap,
-> +static int hugetlbfs_tmpfile(const struct mnt_idmap *idmap,
->  			     struct inode *dir, struct file *file,
->  			     umode_t mode)
->  {
-> diff --git a/fs/minix/namei.c b/fs/minix/namei.c
-> index 5525ba367ed7..0575dea16a3b 100644
-> --- a/fs/minix/namei.c
-> +++ b/fs/minix/namei.c
-> @@ -50,7 +50,7 @@ static int minix_mknod(struct mnt_idmap *idmap, struct inode *dir,
->  	return add_nondir(dentry, inode);
->  }
->  
-> -static int minix_tmpfile(struct mnt_idmap *idmap, struct inode *dir,
-> +static int minix_tmpfile(const struct mnt_idmap *idmap, struct inode *dir,
->  			 struct file *file, umode_t mode)
->  {
->  	struct inode *inode = minix_new_inode(dir, mode);
-> diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
-> index a022dc7781bf..4f3f1e2bafff 100644
-> --- a/fs/overlayfs/dir.c
-> +++ b/fs/overlayfs/dir.c
-> @@ -1420,7 +1420,7 @@ static int ovl_dummy_open(struct inode *inode, struct file *file)
->  	return 0;
->  }
->  
-> -static int ovl_tmpfile(struct mnt_idmap *idmap, struct inode *dir,
-> +static int ovl_tmpfile(const struct mnt_idmap *idmap, struct inode *dir,
->  		       struct file *file, umode_t mode)
->  {
->  	int err;
-> diff --git a/fs/ramfs/inode.c b/fs/ramfs/inode.c
-> index 0a88ede48e0a..fc9a79af4840 100644
-> --- a/fs/ramfs/inode.c
-> +++ b/fs/ramfs/inode.c
-> @@ -163,7 +163,7 @@ static int ramfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
->  	return error;
->  }
->  
-> -static int ramfs_tmpfile(struct mnt_idmap *idmap,
-> +static int ramfs_tmpfile(const struct mnt_idmap *idmap,
->  			 struct inode *dir, struct file *file, umode_t mode)
->  {
->  	struct inode *inode;
-> diff --git a/fs/smb/client/cifsfs.h b/fs/smb/client/cifsfs.h
-> index 0c85daa8386e..255f478d3a18 100644
-> --- a/fs/smb/client/cifsfs.h
-> +++ b/fs/smb/client/cifsfs.h
-> @@ -57,7 +57,7 @@ int cifs_create(struct mnt_idmap *idmap, struct inode *dir,
->  		struct dentry *direntry, umode_t mode);
->  int cifs_atomic_open(struct inode *dir, struct dentry *direntry,
->  		     struct file *file, unsigned int oflags, umode_t mode);
-> -int cifs_tmpfile(struct mnt_idmap *idmap, struct inode *dir,
-> +int cifs_tmpfile(const struct mnt_idmap *idmap, struct inode *dir,
->  		 struct file *file, umode_t mode);
->  struct dentry *cifs_lookup(struct inode *parent_dir_inode,
->  			   struct dentry *direntry, unsigned int flags);
-> diff --git a/fs/smb/client/dir.c b/fs/smb/client/dir.c
-> index 6fa6d48fdfd3..56a3e1966257 100644
-> --- a/fs/smb/client/dir.c
-> +++ b/fs/smb/client/dir.c
-> @@ -1059,7 +1059,7 @@ static int set_tmpfile_attr(const unsigned int xid, unsigned int oflags,
->   * The initial dentry state is unhashed-negative.  On success, dentry will
->   * become unhashed-positive by calling d_instantiate().
->   */
-> -int cifs_tmpfile(struct mnt_idmap *idmap, struct inode *dir,
-> +int cifs_tmpfile(const struct mnt_idmap *idmap, struct inode *dir,
->  		 struct file *file, umode_t mode)
->  {
->  	struct dentry *dentry = file->f_path.dentry;
-> diff --git a/fs/ubifs/dir.c b/fs/ubifs/dir.c
-> index 23ec924162d6..0e1a4de9bb18 100644
-> --- a/fs/ubifs/dir.c
-> +++ b/fs/ubifs/dir.c
-> @@ -440,7 +440,7 @@ static void unlock_2_inodes(struct inode *inode1, struct inode *inode2)
->  	mutex_unlock(&ubifs_inode(inode1)->ui_mutex);
->  }
->  
-> -static int ubifs_tmpfile(struct mnt_idmap *idmap, struct inode *dir,
-> +static int ubifs_tmpfile(const struct mnt_idmap *idmap, struct inode *dir,
->  			 struct file *file, umode_t mode)
->  {
->  	struct dentry *dentry = file->f_path.dentry;
-> diff --git a/fs/udf/namei.c b/fs/udf/namei.c
-> index b90841ac0a40..8b5873b53324 100644
-> --- a/fs/udf/namei.c
-> +++ b/fs/udf/namei.c
-> @@ -386,7 +386,7 @@ static int udf_create(struct mnt_idmap *idmap, struct inode *dir,
->  	return udf_add_nondir(dentry, inode);
->  }
->  
-> -static int udf_tmpfile(struct mnt_idmap *idmap, struct inode *dir,
-> +static int udf_tmpfile(const struct mnt_idmap *idmap, struct inode *dir,
->  		       struct file *file, umode_t mode)
->  {
->  	struct inode *inode = udf_new_inode(dir, mode);
-> diff --git a/fs/xfs/xfs_iops.c b/fs/xfs/xfs_iops.c
-> index 25d4d42fbc7f..06ca999d0927 100644
-> --- a/fs/xfs/xfs_iops.c
-> +++ b/fs/xfs/xfs_iops.c
-> @@ -1250,7 +1250,7 @@ xfs_vn_fiemap(
->  
->  STATIC int
->  xfs_vn_tmpfile(
-> -	struct mnt_idmap	*idmap,
-> +	const struct mnt_idmap	*idmap,
->  	struct inode		*dir,
->  	struct file		*file,
->  	umode_t			mode)
-> diff --git a/include/linux/fs.h b/include/linux/fs.h
-> index 9809e7c3aa0d..92161c224856 100644
-> --- a/include/linux/fs.h
-> +++ b/include/linux/fs.h
-> @@ -2024,7 +2024,7 @@ struct inode_operations {
->  	int (*atomic_open)(struct inode *, struct dentry *,
->  			   struct file *, unsigned open_flag,
->  			   umode_t create_mode);
-> -	int (*tmpfile) (struct mnt_idmap *, struct inode *,
-> +	int (*tmpfile) (const struct mnt_idmap *, struct inode *,
->  			struct file *, umode_t);
->  	struct posix_acl *(*get_acl)(const struct mnt_idmap *, struct dentry *,
->  				     int);
-> diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
-> index e8638f7d2245..470de3fb22c1 100644
-> --- a/include/linux/lsm_hook_defs.h
-> +++ b/include/linux/lsm_hook_defs.h
-> @@ -122,7 +122,7 @@ LSM_HOOK(int, 0, inode_init_security_anon, struct inode *inode,
->  	 const struct qstr *name, const struct inode *context_inode)
->  LSM_HOOK(int, 0, inode_create, struct inode *dir, struct dentry *dentry,
->  	 umode_t mode)
-> -LSM_HOOK(void, LSM_RET_VOID, inode_post_create_tmpfile, struct mnt_idmap *idmap,
-> +LSM_HOOK(void, LSM_RET_VOID, inode_post_create_tmpfile, const struct mnt_idmap *idmap,
->  	 struct inode *inode)
->  LSM_HOOK(int, 0, inode_link, struct dentry *old_dentry, struct inode *dir,
->  	 struct dentry *new_dentry)
-> diff --git a/include/linux/security.h b/include/linux/security.h
-> index d5832750418a..b07a85e6aed4 100644
-> --- a/include/linux/security.h
-> +++ b/include/linux/security.h
-> @@ -405,7 +405,7 @@ int security_inode_init_security_anon(struct inode *inode,
->  				      const struct qstr *name,
->  				      const struct inode *context_inode);
->  int security_inode_create(struct inode *dir, struct dentry *dentry, umode_t mode);
-> -void security_inode_post_create_tmpfile(struct mnt_idmap *idmap,
-> +void security_inode_post_create_tmpfile(const struct mnt_idmap *idmap,
->  					struct inode *inode);
->  int security_inode_link(struct dentry *old_dentry, struct inode *dir,
->  			 struct dentry *new_dentry);
-> @@ -910,7 +910,7 @@ static inline int security_inode_create(struct inode *dir,
->  }
->  
->  static inline void
-> -security_inode_post_create_tmpfile(struct mnt_idmap *idmap, struct inode *inode)
-> +security_inode_post_create_tmpfile(const struct mnt_idmap *idmap, struct inode *inode)
->  { }
->  
->  static inline int security_inode_link(struct dentry *old_dentry,
-> diff --git a/mm/shmem.c b/mm/shmem.c
-> index 097699ea2762..a107940660a8 100644
-> --- a/mm/shmem.c
-> +++ b/mm/shmem.c
-> @@ -3857,7 +3857,7 @@ shmem_mknod(struct mnt_idmap *idmap, struct inode *dir,
->  }
->  
->  static int
-> -shmem_tmpfile(struct mnt_idmap *idmap, struct inode *dir,
-> +shmem_tmpfile(const struct mnt_idmap *idmap, struct inode *dir,
->  	      struct file *file, umode_t mode)
->  {
->  	struct inode *inode;
-> diff --git a/security/integrity/ima/ima_main.c b/security/integrity/ima/ima_main.c
-> index 8d9c92dc8825..72ecacda7528 100644
-> --- a/security/integrity/ima/ima_main.c
-> +++ b/security/integrity/ima/ima_main.c
-> @@ -846,7 +846,7 @@ EXPORT_SYMBOL_GPL(ima_inode_hash);
->   * Skip calling process_measurement(), but indicate which newly, created
->   * tmpfiles are in policy.
->   */
-> -static void ima_post_create_tmpfile(struct mnt_idmap *idmap,
-> +static void ima_post_create_tmpfile(const struct mnt_idmap *idmap,
->  				    struct inode *inode)
->  
->  {
-> diff --git a/security/security.c b/security/security.c
-> index e3a14c958bc4..4e4ef1c496ad 100644
-> --- a/security/security.c
-> +++ b/security/security.c
-> @@ -1638,7 +1638,7 @@ EXPORT_SYMBOL_GPL(security_inode_create);
->   *
->   * Update inode security data after a tmpfile has been created.
->   */
-> -void security_inode_post_create_tmpfile(struct mnt_idmap *idmap,
-> +void security_inode_post_create_tmpfile(const struct mnt_idmap *idmap,
->  					struct inode *inode)
->  {
->  	if (unlikely(IS_PRIVATE(inode)))
-> 
-> -- 
-> 2.53.0
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+>
+> +static void hidma_chan_bh(struct dma_chan *chan)
+> +{
+> +	struct hidma_chan *mchan = to_hidma_chan(chan);
+> +
+> +	hidma_process_completed(mchan);
+> +}
+> +
+>  /*
+>   * Called once for each submitted descriptor.
+>   * PM is locked once for each descriptor that is currently
+> @@ -181,7 +194,7 @@ static void hidma_callback(void *data)
+>  	}
+>  	spin_unlock_irqrestore(&mchan->lock, irqflags);
+>
+> -	hidma_process_completed(mchan);
+> +	dmaengine_schedule_bh(&mchan->chan);
+>
+>  	if (queued) {
+>  		pm_runtime_mark_last_busy(dmadev->ddev.dev);
+> @@ -203,6 +216,7 @@ static int hidma_chan_init(struct hidma_dev *dmadev, u32 dma_sig)
+>  	mchan->dmadev = dmadev;
+>  	mchan->chan.device = ddev;
+>  	dma_cookie_init(&mchan->chan);
+> +	dmaengine_init_bh(&mchan->chan, hidma_chan_bh);
+>
+>  	INIT_LIST_HEAD(&mchan->free);
+>  	INIT_LIST_HEAD(&mchan->prepared);
+> --
+> 2.43.0
+>
