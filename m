@@ -1,305 +1,162 @@
-Received: from mail-oo2-f8.google.com (mail-oo2-f8.google.com [74.125.231.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011035.outbound.protection.outlook.com [52.101.52.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7A8A25A645
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 05:09:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.136
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788325776; cv=none; b=Vu2I2NmsjyNnLM+A7FnoSM8cCfwR07XjZqsHVgcs1qCKgRC4jD6xFI6M/dFSpDkNRo4eDR4vj5+NpHWS9wNV2q3LZSjLx9u9+z1E/48ZnP66rGvylcVo3Kq8gy7iXfGBAXLaYWALhTSPqQ0aDykBYCG0nhFoneLKFZVdbnHEcsY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788325776; c=relaxed/simple;
-	bh=Hj9Tc9/onsxGiFzYhWUimsw/t6G+l591Gj4+9ApXMgQ=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=UgaTpJ3N+nqNjeAIxS9vFNq7Fa/F1vcbxBEf6TcWL1DMK4FE6Gt7FhMWfcqmay+LC5FwZD59TvmuIibuyJ2GYz6mwmNhrS6DlUN9PZA5198bTH4o3xSKYfNSM44xWIvtzeMkztg3angE6KARxaZ5tQV7eBTHrYLzY844bX/OKB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f8.google.com with SMTP id 006d021491bc7-6b1bf394d3bso96709eaf.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 22:09:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788325774; x=1788930574;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=OBO86cELFlUkCdajTAJ5v6MHrxAQRGc8jUMpK3Cl52Q=;
-        b=GxCt4m8Pk35P9FEPzfbIDql0uLVRrbFdWMMoio1z6vzcz21xCzTZvTFCyaIRpcOFmS
-         QiGI3qzrU1tXV3yWWDHVEWVyFDikZyyYKgzK3p+KAaSm0j2kkVq6OhZ+mwffgDIfaOmO
-         8axLqE26EFQjZE0PBfBcrpQgVz/c6XvV+kCKylIrfwAULIaamAMARRjueDRZukCncFUI
-         2+kyp8LQdfvMmG7Su5+ZOLWdJCaGtXUo2tQbzx+4i5Nt8jvaSnHQAN9y4pvYCffLl/Y6
-         ANvbn/9jN+aArPAWFFqU2hLrok16JBwgKRZ4UajLXUvdo0R8byciEorbZyMrF/YP6Wgd
-         hduQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpiQyFLcPrxOEedvrRoGTlacmOTOW6TD+QSJZaG4BnoG3yvj8De0D357OQhgIcN/zpzOKwAw58iN8erKQE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kTIIUsvZbETeP1nyoQr69hNFxNQwG06+XUNtm640VlIDzHdZ+N
-	KJel/CxZZGgKCRjDDF+Snto0d2WfIScFeROiF+Jwr6qYJXXQhbOrfu73+SUwJjakha+ZS8Odzfj
-	+TzLdm+WpwrmZ4ef+W27dw3CVyapikDhT3NLRZJX+YFjDQ1NP0nZKTyla4Fs=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D864F372B45;
+	Wed,  2 Sep 2026 05:11:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.35
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788325876; cv=fail; b=RWve8TNOKBOWHcjvaxE1y76rVevxy6307drWM+iHxymJYVSuem6dLnTDTngjClWRwH+/vc9CVtOTs5mgrd+0reTl+EuU78yOANTWGuwMoyHW8ciDt/tedhZgY7Nu29Sr2vUJL7WNaKNpn2i6npxYRNJuClMqhceqWP5ZrRv8yRk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788325876; c=relaxed/simple;
+	bh=ugyEJuZF5dAxFaKL/5hop8H2GIaMDA4AwxLkfGPhZgk=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=LgET1HWRdsKOMP3ghe0tgARIG2mAY665E93c1Rccqzw9rZuvheKpOwn6KroBfu1lQDbkAlxxGlQNsZG1XJRJez5raGxa9wMBrT+pLJOnkOS9fCKzP7OyipmI8hFMK+Jkm6gxvkZqN55yO4xOYAELvxxwNS8AKBXvU766ID+dgyQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=UZPDzg+3; arc=fail smtp.client-ip=52.101.52.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="UZPDzg+3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=R+Gug7uzpYz6V/YsXkujHcEISkR9nP8wdMGlZ8zOq4fria3JnfHG6Mr28rnkdEi5xOtIjPwCyzfZ2y2RHogzKnYPs2xxdcqjRRQDuqYkgvog2hhIPwsK33F/XLe9e6bWSlqyTO2h3YgcKUpuEFyreIS2NrlDx2L0yO0daOUFXKuEiC0Vwt0sE1ywm9pV/VU/JhvoDFYlJ+Cw9aR1o2ZtF+OHr/WMjrBOc1d2DCn74v5DFYEcPQ0++FOBM4XAuxfAwNHFzEKoynZ+ZwROeJdLDQtgImqRztNzd9mxay7VbJO3Bmih6OQzwpBKwYBrGUxujz/LiI2WcmD9zyElbm6Jww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=I5dsQjkm6Sfc3iPlR4oSg28ClTtH97SgeFmA3AI+ug8=;
+ b=GVyV0awp6Ev1MwtCO3yTcqz/N4sgsQTLHI4y9X9vOXC5Uj2jAZLBIJDNhMSOj6pHaMZ0wiOGAntqtQCmsGCHiKl+yXrBhjiPqnx1qDN5aY5V6NGPZ0r7GXvSEPL2xL2awC08+snjduolzF3pnlD6fkTLhWAPc0MUqGGXS+MlmSUkB9e0T66PHayvP8QV6v/SJ6wOLNnWCV/BwWJpzxLpXvpB/f8DI14aKx+uXJyx89wyDlsat0LISNCBQF+srnxeypRvrWvv0KtZbM9rPYjwQcagQTSc7cEg+jJR4H1lhf/WtQL8Uof2by1GV4SWf4jvk/zMj/UN4JfgnXcsxXN9hA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=I5dsQjkm6Sfc3iPlR4oSg28ClTtH97SgeFmA3AI+ug8=;
+ b=UZPDzg+3Gu8pZhb5hlAmiJC4s4NvmuypIjsY3/vr7tZnkF7PwcKlKxpuVBWnbajX8+JmboJIwJoWlbHiuqxMKOvkvltZYYp4Q3EXdP8CkigtezX5vjy3L0dnImtaHlRH9BvPl6yYH+034/oH4M8pGaTC6JBk4KmM7v5BBLxN+H36s68MGTZtQ3XxoCGIao1eww8zOstpBtHW5UKr/piFLgiTxJyiLZWgiUzbCBTDhcJMsKYDj99N5O4xZDQcSwl62ibd2IQgNJtIj6Zb1ojO3H9leUk/GunV7WQewqXFMOZxYlvWYc4OkXUlsPMT/Ps7l4q37Duaj8qNBJi8sGtxVA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DS7PR12MB9474.namprd12.prod.outlook.com (2603:10b6:8:252::17)
+ by PH8PR12MB8430.namprd12.prod.outlook.com (2603:10b6:510:259::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 05:11:06 +0000
+Received: from DS7PR12MB9474.namprd12.prod.outlook.com
+ ([fe80::31ad:931:ef07:8ad7]) by DS7PR12MB9474.namprd12.prod.outlook.com
+ ([fe80::31ad:931:ef07:8ad7%4]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 05:11:06 +0000
+Message-ID: <093e50be-5a43-40c1-817f-bbcaadb3af76@nvidia.com>
+Date: Tue, 1 Sep 2026 22:11:04 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 00/12] PCI/CXL: Add CXL reset support for Type 2
+ devices
+To: Dave Jiang <dave.jiang@intel.com>,
+ Alison Schofield <alison.schofield@intel.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
+ Ira Weiny <ira.weiny@intel.com>, Jonathan Cameron <jic23@kernel.org>,
+ Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
+ alwilliamson@nvidia.com,
+ Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
+ Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
+ Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
+ linux-tegra@vger.kernel.org
+References: <20260804192958.1823952-1-smadhavan@nvidia.com>
+ <8eedb254-c942-4ee8-ab96-eb7c1ae577ad@intel.com>
+Content-Language: en-US
+From: Srirangan Madhavan <smadhavan@nvidia.com>
+In-Reply-To: <8eedb254-c942-4ee8-ab96-eb7c1ae577ad@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BY3PR04CA0011.namprd04.prod.outlook.com
+ (2603:10b6:a03:217::16) To DS7PR12MB9474.namprd12.prod.outlook.com
+ (2603:10b6:8:252::17)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:983:b0:6b1:ba66:6998 with SMTP id
- 006d021491bc7-6b47f825c5amr1826417eaf.14.1788325773816; Tue, 01 Sep 2026
- 22:09:33 -0700 (PDT)
-Date: Tue, 01 Sep 2026 22:09:33 -0700
-In-Reply-To: <6a6e9502.f794c993.27aeb.0018.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a97af8d.27a413cd.1e878c.0004.GAE@google.com>
-Subject: Re: [syzbot] [usb?] KASAN: slab-use-after-free Write in usb_free_urb
-From: syzbot <syzbot+832ce9fa3face1b7d44d@syzkaller.appspotmail.com>
-To: bolewara@gmail.com, devnull@kernel.org, gregkh@linuxfoundation.org, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-usb@vger.kernel.org, mchehab@kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS7PR12MB9474:EE_|PH8PR12MB8430:EE_
+X-MS-Office365-Filtering-Correlation-Id: 56891a44-385b-4841-91e5-08df08b097c3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|56012099006|4143699003|11063799006|6133799003|10067099003|22082099003|18002099003|3023799007|921020;
+X-Microsoft-Antispam-Message-Info:
+	rQcHu1wwPZqz8ZOXQ0p5/2mudlCGrN3JZVhDuD10v6DuIUnzUVrHhD07IPKO4sIHrbrfVnOK/jczNPJKa9oMAuvTHQJlOGV5ly0KiJfebWKSn/E5g62MSsyHCICklhV8/izufWbInn9gfxQdln4fIBdRuRz/X7etCqeZt+MKjLycgBhFMR81l+Asf1NnTbXikNqI5IaaIBX/c0fBgUtUWozUZEKayh4+m5RhU8d58rJ/nHq9a7X+Yce7zGC0T6TpVxpbdbObmDfPZHhWoPhZdDZnO/rnmGLAAjfWF8X2wmUFxIOZdU48wqW0PaGpM0sVyR+knAZD3az09VQmHTAPb4QgFOZ0mXeld68li4Aua6XJESyiCnKPncBgsdFm4I4gh6CevMxs6hlhx/uSSyxPW/veZKGKEh0zmhMgq7effehuIT2C35QDTK2W/NurM7zUb5XqXeHhbMh8XeF26f1DS0NKgj5Owku4qfx8C//JyZNiX5Df5LYqm+4NA6fqJK1HKaFKr2P0JEhEf+Qyi3PpfyBuq7jkOiwuTk0uQo/sR8/cjouUoHb4OggDX4zBl6bVA7hWxuBdNJrd3TgzbFBPppZ5yDUS7wLuC6/0FCNZn5kg2l3OE+wP79sog0bAdRFEo5CA4wo2ybuBwZaYuDr7QxXTqm3bD4jiBmPX/IXMmqk5UwSgSTHTNHMlhGugj944XlNFmuB+WIBqSRo0pDk9fg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS7PR12MB9474.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(56012099006)(4143699003)(11063799006)(6133799003)(10067099003)(22082099003)(18002099003)(3023799007)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MFp6akhiZ01vWkd6djIrdkxRY1dSYjZZWldKc0VEckNYZWRYcjgzS3doNzZE?=
+ =?utf-8?B?bnR1UkFzOXlVMlAvZ1BIYmw0UkxWSk1PRUw0anBFbUNKY0VqVGxnZW9aUEZX?=
+ =?utf-8?B?M1hNT3Z2SGJtYlkxUmtOUmNBYTNNUVQxZHpLRGpmU2dLYkVxUTBtRFdqZlBE?=
+ =?utf-8?B?d1VzQjBnb2dTR2FXSUZJVE5PMHNRZkxQVnk3SWFoNE8zdGx4SWpkMnhHOEZ0?=
+ =?utf-8?B?R0xSVE5tWUVNcnIyMElvUyszMGtuNzZkWm9MUVVHN2htMnR6dmhkd3VXaFhj?=
+ =?utf-8?B?QUhOS3F6akRmWFNxUjI0MDZBNW9TK2xQMkEwNDV5b1l4Wmx0eTJ2UnB2THB2?=
+ =?utf-8?B?RFNpei9rWTVuYkhPSXNKSGZQUEY3VWJYQTBTNVV5bW9UQS9RM3Izbm1HWXBW?=
+ =?utf-8?B?K0ZKN3VsQjF1Q0RDSUJyWnNHQmhLQnZmSmljSVN4dndic2cvbkZGbFRrcEh5?=
+ =?utf-8?B?UjZoRlg3V3lRM1JVQXlJMjcxT3dtQ2VCQXpzd3hvZEJEMFpZQkgyTXFwY3dS?=
+ =?utf-8?B?TlB5MStZNGFvamd1eWtySVpFTHFwcWRzYmhucmVhQlU1VSt0LzNDNGpNb0ll?=
+ =?utf-8?B?cHRINkxOMXo0cUd6aU0weDBXSFYrZHgzS1QrMEtjZk1yVmMyeS85OWVoZ0s2?=
+ =?utf-8?B?eUFJK2NEMnh1Vk9ROW8wckc4WG1tSzFmblBFT1VTZm9uakJBU01iNWd5SjFr?=
+ =?utf-8?B?MlBFckNMZzBUbG1QWUpFYVptbG5XYlpWWHJ2Wis2bGJ1ZDlDaXVWbDd3MW9T?=
+ =?utf-8?B?akdxY1BvRGN6MFZFSE1wclVCZllPMmpOQVphazVnc296V2diSHE1c1hxTExI?=
+ =?utf-8?B?eXUzR0RwVVJ2WVRWcWtQTjg2ckNpakFEN2liVmFvTUM2eEs1QXZmdm81eWMz?=
+ =?utf-8?B?ak5NWDdyRkxHU3ZRem9pUUI1K2NXQVdmRlMvczJQSDlWUTB6dFJucUI1SEta?=
+ =?utf-8?B?ZXhQdzFqL0RzejhZZThEZTZQckFpVU8vNUUwWndDbnZibThzQmZNRE51KzRu?=
+ =?utf-8?B?eXF3bjZlRC9hSlp5Zld3MHNXV2xEWkU1WXQ1cENXWU96bkd4ZnhxN0QrSTBG?=
+ =?utf-8?B?UCt2T0tzQkRkcHpXb25VYTRhNG9xMmMzOXFPMWljZXpOS1ZpTitqYURUZFJ5?=
+ =?utf-8?B?aWUrMzgwTHJGdGZ0Tjhob2ZHblZLOFVETGl1ZUZ3T0F2L2Vod1JNa3crOFBp?=
+ =?utf-8?B?b1c5eC90SHVpdTZCWVlOYWJSejRDVG5vak55U25WdkhFNDZSZ3FLVHZuWDI4?=
+ =?utf-8?B?RFpzK3YvMWNYNndGMktyTVl5NVlCK1ArWE1kcmpVQkthNktnTktZSTRVRTJZ?=
+ =?utf-8?B?U3R0Mis1QVMxNTlTVHAxZzIyMWs3WWM2RU5vL0R3dXJhM2Y2YVFHczdsTWRy?=
+ =?utf-8?B?ZXQxcHF0STF5YXp3ZmxWLzVkZzhKaFJNK3dPM3YvODlXSks5VHFUTmExL3hL?=
+ =?utf-8?B?MFBwbERuQTFKSUthQytHSDFJRThITisxL0d6MS92cGlRaWdsNTNxUWRmQWlC?=
+ =?utf-8?B?SU5iTTk0aXJwalFuVWcrTjYvVmJsc1NUYVpuYmlweTYxV2ZldmlRTGI1KzRs?=
+ =?utf-8?B?Rk9CdjhrOSs3emJQSmQzTlpEVkdJR0tRTXhaeEh5K1Y4YzNWWFJ4cnBTVGNm?=
+ =?utf-8?B?RXJDbzl0bnF6eTlQelMwbGo1bUhqTEtmT1kzdW9seVg1M0pnRW1BdmwrcVpx?=
+ =?utf-8?B?dDdvUFd5amlqZ05odzN1cWlpVFZYbytNZ2pzRC9EQzJNdXg2MVh5VUh5WXJH?=
+ =?utf-8?B?c3hUcGxVNWdNWUVBenhPOXZjclFLOEQzWFdCV0lEeVBWNGNLZW9sdGo3ck90?=
+ =?utf-8?B?WUVUYy83K0lWWGJ1Y2p6QVRlV1NTRFNkVFcyWXQwWm85bk04VGYvTXFocDUw?=
+ =?utf-8?B?NDNSS3M2ZEMvYmErV2l6TkdHZDNrcUVLK3AxdVVWb1RJVlpNbnB5ZmdTYVZp?=
+ =?utf-8?B?WmpRZUZJdjhJMXJYMlB3d2tPTE9teDlma3BsZ1NCUU5YRk9pWlZMUnBFbUM3?=
+ =?utf-8?B?aE9WWEFvOEJ0S2RZUERWano5YitEOWd2ZTRqenhMS2RxR3E1eTdRdi92MTM4?=
+ =?utf-8?B?ZkM5R3VQMVhFQmlpSFFWWkpmYVF2cXBXTzNBU2p1OElMditRaTRXOVJ2NXpI?=
+ =?utf-8?B?a0VqUEhkT3ZQc3Z3Rk1wVkd1L2xJSCtwaVpFTVFmNE1QTVY2QlJPU1Joa2ND?=
+ =?utf-8?B?T2ZrYVFZRmJqSzFrRVl3WVhYYklDK0o0VnhDUkU0aG9wQ0RoT01WemhPeGMx?=
+ =?utf-8?B?MkVOUzNacFpkK1BiL3M4U2RpZTJXVTdTamV5cFZqeU1ZTWZLdXBjR0EzT3hN?=
+ =?utf-8?B?anRrd05GVmh6cVBZWmxvc2dJRmxqUVdCdHg2dHF2cUJtQWxLdUdmZz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56891a44-385b-4841-91e5-08df08b097c3
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB9474.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 05:11:06.4829
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2rog4dZCQXM93cgoX9lAm2/UOpEHIcHYBAGyeZWEydzh5sM4jImC+PWdHM4q8lWY9J1NGB0oeXBysDwVZKkCXQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB8430
 
-syzbot has found a reproducer for the following issue on:
+On 8/25/26 2:13 PM, Dave Jiang wrote:
+>> Userspace can select "cxl_reset" in reset_method and then trigger reset
+>> through the existing reset attribute.
+> Srirangan,
+> Do we need to consider concurrent mailbox commands while reset is ongoing? Although rather than blocking them, maybe we just need to harden the mailbox path in CXL core so that when ~0s are read we return error and give up? and maybe a reset_prepare() to quiesce things. Just some random thoughts.
+> 
+> DJ
 
-HEAD commit:    786262be6048 Merge tag 'edac_updates_for_v7.3_rc2' of git:..
-git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=12a28125580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=b454dc6b1b7acd30
-dashboard link: https://syzkaller.appspot.com/bug?extid=832ce9fa3face1b7d44d
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1735af79580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=135b7f79580000
+I agree that the PCI device lock does not serialize against the mailbox 
+mutex, so a mailbox command could still be in progress during reset.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/c3e528ebf709/disk-786262be.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/46f3418d2828/vmlinux-786262be.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/60ab8a27c4f7/bzImage-786262be.xz
+Since cxl_reset also needs to work without cxl_pci bound, 
+reset_prepare() and reset_done() seem like a good place to add this.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+832ce9fa3face1b7d44d@syzkaller.appspotmail.com
+I would prefer to do this as a follow-up along with hardening for ~0s 
+read, if that is okay. I can send out a follow up RFC to discuss the 
+specifics.
 
-usb 1-1: received EP1 urb->status = -2
-==================================================================
-BUG: KASAN: slab-use-after-free in instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
-BUG: KASAN: slab-use-after-free in atomic_fetch_sub_release include/linux/atomic/atomic-instrumented.h:400 [inline]
-BUG: KASAN: slab-use-after-free in __refcount_sub_and_test include/linux/refcount.h:389 [inline]
-BUG: KASAN: slab-use-after-free in __refcount_dec_and_test include/linux/refcount.h:432 [inline]
-BUG: KASAN: slab-use-after-free in refcount_dec_and_test include/linux/refcount.h:450 [inline]
-BUG: KASAN: slab-use-after-free in kref_put include/linux/kref.h:64 [inline]
-BUG: KASAN: slab-use-after-free in usb_free_urb+0x24/0x120 drivers/usb/core/urb.c:96
-Write of size 4 at addr ffff88803cee1050 by task ktimers/1/29
-
-CPU: 1 UID: 0 PID: 29 Comm: ktimers/1 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- check_region_inline mm/kasan/generic.c:-1 [inline]
- kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
- instrument_atomic_read_write include/linux/instrumented.h:112 [inline]
- atomic_fetch_sub_release include/linux/atomic/atomic-instrumented.h:400 [inline]
- __refcount_sub_and_test include/linux/refcount.h:389 [inline]
- __refcount_dec_and_test include/linux/refcount.h:432 [inline]
- refcount_dec_and_test include/linux/refcount.h:450 [inline]
- kref_put include/linux/kref.h:64 [inline]
- usb_free_urb+0x24/0x120 drivers/usb/core/urb.c:96
- dummy_timer+0xaac/0x4d50 drivers/usb/gadget/udc/dummy_hcd.c:2019
- __run_hrtimer kernel/time/hrtimer.c:2067 [inline]
- __hrtimer_run_queues+0x3eb/0xaf0 kernel/time/hrtimer.c:2124
- hrtimer_run_softirq+0x1e1/0x2e0 kernel/time/hrtimer.c:2141
- handle_softirqs+0x1da/0x6d0 kernel/softirq.c:645
- __do_softirq kernel/softirq.c:679 [inline]
- run_ktimerd+0x6a/0x100 kernel/softirq.c:1183
- smpboot_thread_fn+0x565/0xa70 kernel/smpboot.c:160
- kthread+0x38b/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-Allocated by task 36:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __do_kmalloc_node mm/slub.c:5414 [inline]
- __kmalloc_noprof+0x41d/0x790 mm/slub.c:5439
- _kmalloc_noprof include/linux/slab.h:995 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- snd_card_new+0x7b/0x110 sound/core/init.c:184
- create_card sound/usb/caiaq/device.c:429 [inline]
- snd_probe+0x236/0x1af0 sound/usb/caiaq/device.c:544
- usb_probe_interface+0x788/0xe50 drivers/usb/core/driver.c:399
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12d/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- usb_set_configuration+0x1ad8/0x2180 drivers/usb/core/message.c:2268
- usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
- usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12d/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- usb_new_device+0x99a/0x1680 drivers/usb/core/hub.c:2708
- hub_port_connect drivers/usb/core/hub.c:5580 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
- port_event drivers/usb/core/hub.c:5884 [inline]
- hub_event+0x28cf/0x4cf0 drivers/usb/core/hub.c:5966
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Freed by task 36:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5c/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2748 [inline]
- slab_free mm/slub.c:6499 [inline]
- kfree+0x1c5/0x6d0 mm/slub.c:6792
- device_release+0xc4/0x1f0 drivers/base/core.c:-1
- kobject_cleanup lib/kobject.c:689 [inline]
- kobject_release lib/kobject.c:720 [inline]
- kref_put include/linux/kref.h:65 [inline]
- kobject_put+0x222/0x550 lib/kobject.c:737
- snd_card_free_when_closed sound/core/init.c:630 [inline]
- snd_card_free+0x138/0x1d0 sound/core/init.c:662
- snd_probe+0x162b/0x1af0 sound/usb/caiaq/device.c:553
- usb_probe_interface+0x788/0xe50 drivers/usb/core/driver.c:399
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12d/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- usb_set_configuration+0x1ad8/0x2180 drivers/usb/core/message.c:2268
- usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
- usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x25b/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c7/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12d/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- usb_new_device+0x99a/0x1680 drivers/usb/core/hub.c:2708
- hub_port_connect drivers/usb/core/hub.c:5580 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
- port_event drivers/usb/core/hub.c:5884 [inline]
- hub_event+0x28cf/0x4cf0 drivers/usb/core/hub.c:5966
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-The buggy address belongs to the object at ffff88803cee0000
- which belongs to the cache kmalloc-8k of size 8192
-The buggy address is located 4176 bytes inside of
- freed 8192-byte region [ffff88803cee0000, ffff88803cee2000)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x3cee0
-head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0x80000000000040(head|node=0|zone=1)
-page_type: f5(slab)
-raw: 0080000000000040 ffff88813ff00280 dead000000000122 0000000000000000
-raw: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
-head: 0080000000000040 ffff88813ff00280 dead000000000122 0000000000000000
-head: 0000000000000000 0000000000020002 00000000f5000000 0000000000000000
-head: 0080000000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-head: 0000000000000000 0000000000000000 00000000ffffffff 0000000000000008
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd2000(__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5616, tgid 5616 (syz-executor411), ts 97458631629
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0x1f9/0x250 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x2591/0x2600 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x230/0x5c0 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3347 [inline]
- allocate_slab+0x7d/0x620 mm/slub.c:3462
- new_slab mm/slub.c:3513 [inline]
- refill_objects+0x2d8/0x350 mm/slub.c:7410
- refill_sheaf mm/slub.c:2885 [inline]
- __pcs_replace_empty_main+0x339/0x690 mm/slub.c:4774
- alloc_from_pcs mm/slub.c:4850 [inline]
- slab_alloc_node mm/slub.c:4984 [inline]
- __kmalloc_cache_noprof+0x46f/0x680 mm/slub.c:5559
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- usb_device_dump+0xd0/0x2200 drivers/usb/core/devices.c:412
- usb_device_read+0x1b4/0x2c0 drivers/usb/core/devices.c:530
- full_proxy_read+0x127/0x1f0 fs/debugfs/file.c:379
- vfs_read+0x219/0xa90 fs/read_write.c:572
- ksys_read+0x156/0x270 fs/read_write.c:716
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-page last free pid 5598 tgid 5598 ts 96447293579 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0xf8e/0x1070 mm/page_alloc.c:2962
- __slab_free+0x250/0x2a0 mm/slub.c:5815
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x99/0x100 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x148/0x160 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x22/0x80 mm/kasan/common.c:350
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4683 [inline]
- slab_alloc_node mm/slub.c:4996 [inline]
- __kmalloc_cache_noprof+0x353/0x680 mm/slub.c:5559
- _kmalloc_noprof include/linux/slab.h:991 [inline]
- _kzalloc_noprof include/linux/slab.h:1312 [inline]
- kernfs_fop_open+0x3a7/0xcf0 fs/kernfs/file.c:634
- do_dentry_open+0x849/0x1420 fs/open.c:996
- vfs_open+0x3b/0x350 fs/open.c:1101
- do_open fs/namei.c:4837 [inline]
- path_openat+0x1448/0x1d60 fs/namei.c:5000
- do_file_open+0x23e/0x4a0 fs/namei.c:5029
- do_sys_openat2+0x115/0x200 fs/open.c:1417
- do_sys_open fs/open.c:1423 [inline]
- __do_sys_openat fs/open.c:1439 [inline]
- __se_sys_openat fs/open.c:1434 [inline]
- __x64_sys_openat+0x138/0x170 fs/open.c:1434
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Memory state around the buggy address:
- ffff88803cee0f00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88803cee0f80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->ffff88803cee1000: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                                 ^
- ffff88803cee1080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff88803cee1100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
-
-
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+-- 
+Regards,
+Srirangan
