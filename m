@@ -1,44 +1,56 @@
-Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D185240800D;
-	Wed,  2 Sep 2026 09:01:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
+Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0C2B4403AE6;
+	Wed,  2 Sep 2026 09:02:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.22.67.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788339732; cv=none; b=AxMiMHf4nzCXQXPf+guif/F5rvtfhsfQpqUGyax3Trr4yD0uP8ddhY28rv+4+6vBzOVzLVlU1vBtTQu6iuKCzq2NNIVYLvrhopp9i+0TcA9wnkdKk7m1g7S3UnYAY0KivVWUF+p/hlh/t+jigg+EV/5xbnvYn8SwfO0tc19vDlc=
+	t=1788339748; cv=none; b=sLJqav7x3ZdsORIng4rdtGvb86BArmb7afqUPnleSmkG4nW43xi3dgp08pH9ljY8z7lNrDKJPrep4PBCB6qEtS8q48QFM67ioTJlz66bj0PbwAhUj8LzPbczFzl2DZ3pzfWrcnNONnpWecSvnxDoxRDUZHt/9N+WCmm0xnfQ9Cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788339732; c=relaxed/simple;
-	bh=F7BZ1gjC4mh1rjgXGXgMRFeDDSFg9LYA6sw6/4Zrrko=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Ewv+0DMoraBJjCW3Dh1tZ36AIPWlIdy0u95bNr3w1REZZcW/1hI8SDKH5cdOnxOWHbqVEUb+3fPMnl1+OKnYcYhX8l+x8AZz6Jca5w0stTuwXj2oB3s1FQ6RBxa/qbJ0V/joluDxIontN0aFxgghlq31gpsO6AkfM0AYBNMf/hE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hZcDF06ymz207nS;
-	Wed,  2 Sep 2026 17:01:49 +0800 (CST)
-Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
-	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hZcDD3HTWz207nS;
-	Wed,  2 Sep 2026 17:01:48 +0800 (CST)
-Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp1.hygon.cn (Postfix) with ESMTPS id B56C17889;
-	Wed,  2 Sep 2026 17:01:42 +0800 (CST)
-Received: from hsj-2U-Workstation.hygon.cn (172.19.24.226) by
- cncheex04.Hygon.cn (172.23.18.114) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.36; Wed, 2 Sep 2026 17:01:46 +0800
-From: Huang Shijie <huangsj@hygon.cn>
-To: <peterz@infradead.org>, <mingo@redhat.com>, <acme@kernel.org>,
-	<namhyung@kernel.org>
-CC: <zhongyuan@hygon.cn>, <fangbaoshun@hygon.cn>, <yingzhiwei@hygon.cn>,
-	<mark.rutland@arm.com>, <alexander.shishkin@linux.intel.com>,
-	<jolsa@kernel.org>, <irogers@google.com>, <adrian.hunter@intel.com>,
-	<james.clark@linaro.org>, <tglx@kernel.org>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
-	<linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<liuqi@hygon.cn>, <lijing@hygon.cn>, <wangfengyu@hygon.cn>,
-	<wujiangyong@hygon.cn>, <shijie8@gmail.com>, Huang Shijie <huangsj@hygon.cn>
-Subject: [PATCH] perf/amd/ibs: add phy_addr_only software filter for ibs_op
-Date: Wed, 2 Sep 2026 16:52:51 +0800
-Message-ID: <20260902085251.4046240-1-huangsj@hygon.cn>
-X-Mailer: git-send-email 2.53.0
+	s=arc-20240116; t=1788339748; c=relaxed/simple;
+	bh=I6hf3ZfFfPjE+CdA9iYSwQnShjw39T27Qimm1qIwvLE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TR0BOEGke7Pv5GOVTFtbeSPbzV9T881iRXEpothuYE9+QaazsUsav16BwpfRjEueSjTJ4cm/XKct9p+PhaFNk2wcEIh6ZZ+krGZPo2V9LzI8Uy/07EJiEIx3qCKAja/S7q7Yj6Wh5rRwlefoOyZYOF3VeGf2KRj9JnPKAZr57wo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com; spf=pass smtp.mailfrom=cmss.chinamobile.com; dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b=unTMJvQs; arc=none smtp.client-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b="unTMJvQs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=unTMJvQsiopL4/vEV1uqCsH5FvoD9goyTdO9VGTbtCnGo4R8ua1tT8jOjXkFzVBjoGJgliW1Pp2bB
+	 etGLBafjmx2RXne7UjYhpmouyOSG7vKuTXxd5zCIm97mrAKkI7/0N4E6IBEYP12s+GbHK+2S1PrcoM
+	 y2DsF554cf/tfOHM=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16a97e61e50e-7aa77;
+	Wed, 02 Sep 2026 17:02:23 +0800 (CST)
+X-RM-TRANSID:2ee16a97e61e50e-7aa77
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from localhost.localdomain (unknown[223.108.79.98])
+	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86a97e61db23-f39d4;
+	Wed, 02 Sep 2026 17:02:22 +0800 (CST)
+X-RM-TRANSID:2ee86a97e61db23-f39d4
+From: Liu Jing <liujing@cmss.chinamobile.com>
+To: ast@kernel.org
+Cc: daniel@iogearbox.net,
+	andrii@kernel.org,
+	eddyz87@gmail.com,
+	memxor@gmail.com,
+	martin.lau@linux.dev,
+	song@kernel.org,
+	yonghong.song@linux.dev,
+	jolsa@kernel.org,
+	emil@etsalapatis.com,
+	ihor.solodrai@linux.dev,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Liu Jing <liujing@cmss.chinamobile.com>
+Subject: [PATCH] bpf: cgroup: fix null-ptr-deref in __cgroup_bpf_attach
+Date: Wed,  2 Sep 2026 17:02:20 +0800
+Message-ID: <20260902090220.16395-1-liujing@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -46,99 +58,42 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: cncheex05.Hygon.cn (172.23.18.115) To cncheex04.Hygon.cn
- (172.23.18.114)
 
-We use the following command to track a process's memory footprint:
-  #perf record -e ibs_fetch// -e ibs_op// -p xxx --phys-addr -- sleep 10
+In __cgroup_bpf_attach(), the expression "prog ? : link->link.prog"
+dereferences link before validating that link is non-NULL. If both
+prog and link are NULL (a contract violation by the caller), this
+causes a null pointer dereference.
 
-In the mysql tests, I catched over 1,804,973 records for ibs_op event.
-I found that over 53% records(970,554) are like this:
-        ibs_op//:  ffffffffb6017739               0
+Add a safe ternary fallback and a NULL check for new_prog before
+it is used further.
 
-The physical address is 0 for these records. These records are not needed
-by us, and they wasted the CPU cycles.
-
-This patch adds an ibs_op/phy_addr_only term that discards samples
-without a valid physical address (dc_phy_addr_valid == 0) in the interrupt
-handler. And it avoids the phys_addr=0 noise when used with --phys-data.
-
-Signed-off-by: Huang Shijie <huangsj@hygon.cn>
+Signed-off-by: Liu Jing <liujing@cmss.chinamobile.com>
 ---
- arch/x86/events/amd/ibs.c | 23 ++++++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+ kernel/bpf/cgroup.c | 4 +++-
+ 1 file changed, 3 insertion(+), 1 deletion(-)
 
-diff --git a/arch/x86/events/amd/ibs.c b/arch/x86/events/amd/ibs.c
-index e5376ad5b2ec..f258375c09bc 100644
---- a/arch/x86/events/amd/ibs.c
-+++ b/arch/x86/events/amd/ibs.c
-@@ -32,6 +32,7 @@ static u32 ibs_caps;
+--- a/kernel/bpf/cgroup.c
++++ b/kernel/bpf/cgroup.c
+@@ -814,7 +814,7 @@
+ 	struct bpf_cgroup_storage *storage[MAX_BPF_CGROUP_STORAGE_TYPE] = {};
+ 	struct bpf_cgroup_storage *new_storage[MAX_BPF_CGROUP_STORAGE_TYPE] = {};
+ 	struct bpf_cgroup_storage *old_storage[MAX_BPF_CGROUP_STORAGE_TYPE] = {};
+-	struct bpf_prog *new_prog = prog ? : link->link.prog;
++	struct bpf_prog *new_prog = prog ? : (link ? link->link.prog : NULL);
+ 	enum cgroup_bpf_attach_type atype;
+ 	u32 old_flags, old_pl_flags;
+ 	struct bpf_prog_list *pl;
+@@ -833,6 +833,8 @@
+ 		return -EINVAL;
+ 	if (!!replace_prog != !!(flags & BPF_F_REPLACE))
+ 		/* replace_prog implies BPF_F_REPLACE, and vice versa */
++		return -EINVAL;
++	if (!new_prog)
+ 		return -EINVAL;
  
- /* attr.config2 */
- #define IBS_SW_FILTER_MASK	1
-+#define IBS_PHY_ADDR_ONLY_MASK	2
- 
- /* attr.config1 */
- #define IBS_OP_CONFIG1_LDLAT_MASK		(0xFFFULL <<  0)
-@@ -303,6 +304,13 @@ static bool perf_ibs_strmst_event(struct perf_ibs *perf_ibs,
- 	       (event->attr.config1 & IBS_OP_CONFIG1_STRMST_MASK);
- }
- 
-+static bool perf_ibs_phy_addr_only_event(struct perf_ibs *perf_ibs,
-+				      struct perf_event *event)
-+{
-+	return perf_ibs == &perf_ibs_op &&
-+	       (event->attr.config2 & IBS_PHY_ADDR_ONLY_MASK);
-+}
-+
- static int perf_ibs_init(struct perf_event *event)
- {
- 	struct hw_perf_event *hwc = &event->hw;
-@@ -721,6 +729,7 @@ static struct attribute_group empty_caps_group = {
- PMU_FORMAT_ATTR(rand_en,	"config:57");
- PMU_FORMAT_ATTR(cnt_ctl,	"config:19");
- PMU_FORMAT_ATTR(swfilt,		"config2:0");
-+PMU_FORMAT_ATTR(phy_addr_only,	"config2:1");
- PMU_EVENT_ATTR_STRING(l3missonly, fetch_l3missonly, "config:59");
- PMU_EVENT_ATTR_STRING(l3missonly, op_l3missonly, "config:16");
- PMU_EVENT_ATTR_STRING(ldlat, ibs_op_ldlat_format, "config1:0-11");
-@@ -890,6 +899,7 @@ cnt_ctl_is_visible(struct kobject *kobj, struct attribute *attr, int i)
- 
- static struct attribute *op_attrs[] = {
- 	&format_attr_swfilt.attr,
-+	&format_attr_phy_addr_only.attr,
- 	NULL,
- };
- 
-@@ -1357,7 +1367,8 @@ static int perf_ibs_get_offset_max(struct perf_ibs *perf_ibs,
- 	if (event->attr.sample_type & PERF_SAMPLE_RAW ||
- 	    perf_ibs_is_mem_sample_type(perf_ibs, event) ||
- 	    perf_ibs_ldlat_event(perf_ibs, event) ||
--	    perf_ibs_fetch_lat_event(perf_ibs, event))
-+	    perf_ibs_fetch_lat_event(perf_ibs, event) ||
-+	    perf_ibs_phy_addr_only_event(perf_ibs, event))
- 		return perf_ibs->offset_max;
- 	else if (check_rip)
- 		return 3;
-@@ -1499,6 +1510,16 @@ static int perf_ibs_handle_irq(struct perf_ibs *perf_ibs, struct pt_regs *iregs)
- 		}
- 	}
- 
-+	if (perf_ibs_phy_addr_only_event(perf_ibs, event)) {
-+		union ibs_op_data3 op_data3;
-+
-+		op_data3.val = ibs_data.regs[ibs_op_msr_idx(MSR_AMD64_IBSOPDATA3)];
-+		if (!op_data3.dc_phy_addr_valid) {
-+			throttle = perf_event_account_interrupt(event);
-+			goto out;
-+		}
-+	}
-+
- 	if (perf_ibs_fetch_lat_event(perf_ibs, event)) {
- 		union ibs_fetch_ctl fetch_ctl;
- 
--- 
-2.53.0
+ 	atype = bpf_cgroup_atype_find(type, new_prog->aux->attach_btf_id);
+
+--
+2.43.0
 
 
