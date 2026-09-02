@@ -1,117 +1,96 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856B038DC4F;
-	Wed,  2 Sep 2026 06:45:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03FFF36EA93
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:45:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788331517; cv=none; b=dXnXt21HzL67qQspDYGXDTWEjVeiI6F1zfWMboGpjr0KMpRZk7vKN9p6kao59M40JI8EFAmcupm90nGrVwexL8NJkIt26r10cnVj4MK0+6Pa6QV5I6cRBwf0Tr9GH2jAyxj/jwt97OA9Om5+T3WZBD37HYmIQLGwJ840a0pWJWA=
+	t=1788331524; cv=none; b=i3DA3ri+ROLFOYPJ3YBXUKq7r4TUR5t4zFDXvxa99ug+4ncbxDhHQKvrCnJ8e/gzBL47pP8aj+Na4inaTPzv9RTslJ1nVU/NxLq4vIwi2fr4SAZ7fIFrtip29OL6NJdz05aCatF0kYk1zindzeRo/VVbtZV6LnwCoO3F4GKu0kM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788331517; c=relaxed/simple;
-	bh=TNlvMcn2opUIZTn4FXeb0xIoY6Mzbcw6rngdJp2JHmM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ULF/8unowjxlKbDRUlQFRWFN8Dyb3VguAvXZaGymi23WvnahljdXG9pHhKO+t3930bTFtnl9750cDOnhLZ6jfh3BuR1kC17Drtx5r6ljy8QFYdzwX4F5D6HH6d7osw164LQPiw7ZTMVANu/S8gAgvlYMvHU4p3slgkTZSeK2F44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: d3fb30aea69911f19a56ed5b684f684d-20260902
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:b4c36449-f8cf-410c-9271-750cd821b6bc,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:20
-X-CID-META: VersionHash:7db8b62,CLOUDID:d6542c26a7db73212b26c141168b5048,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:5,IP:ni
-	l,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES
-	:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: d3fb30aea69911f19a56ed5b684f684d-20260902
-X-User: yanlonglong@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <yanlonglong@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1984752943; Wed, 02 Sep 2026 14:45:04 +0800
-From: longlong yan <yanlonglong@kylinos.cn>
-To: tom.leiming@gmail.com
-Cc: linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	longlong yan <yanlonglong@kylinos.cn>
-Subject: [PATCH] selftests/ublk: add NULL check after calloc()
-Date: Wed,  2 Sep 2026 14:44:36 +0800
-Message-ID: <20260902064437.1376-1-yanlonglong@kylinos.cn>
-X-Mailer: git-send-email 2.47.1.windows.2
+	s=arc-20240116; t=1788331524; c=relaxed/simple;
+	bh=GgAdxwkkk41/uwfxZ2ES24qbG6JzfhzWY0JMutbCZhI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qyNAhP9DYgpfS6rnW3Np9kCmo4pzHYfFfaJYltGz6o6Z6LMFYsAIY+6YOj5JOp76r35494boAOLyjxdC5uiwvJgMUq4mECaDt+U8jt8FqGzOAgxCbRXhvlCiq/AsVsF84g5c8IfofAvyRo8B7pflLTewQrXB1eiQZT80h1J5J5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=DkzbRBjg; arc=none smtp.client-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="DkzbRBjg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=kctKcD064GAsrzHHvliOKYeQjxpgDbB8xDJ1Z98T0a0=;
+	b=DkzbRBjgKf8RJniAcZJzQ17MMAiFWjANM7c4qouvhuYoKUT2oFsFH4G62jjbrg
+	HpEmiN3bJOZOq9ftbBtR7qEycM2Ic6COTn9HIdX/fqWPZ6hSHl5nmAGxWCU/DhuJ
+	n9PvbXg26F8jvIX90wEcj2GB2Zd5L8gZQnI28xVC3spZ8=
+Received: from [IPV6:2409:8900:1ef4:8f82:6ff7:7c40:6535:9660] (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgCHaADdxZdqkh3MQQ--.55522S2;
+	Wed, 02 Sep 2026 14:44:47 +0800 (CST)
+Message-ID: <9105aa5d-7390-490a-8336-5dba6b97895b@163.com>
+Date: Wed, 2 Sep 2026 14:44:45 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] ntfs: implement fileattr_get and fileattr_set
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Baolin Liu <liubaolin@kylinos.cn>
+References: <20260901091519.2885376-1-liubaolin12138@163.com>
+ <20260901091519.2885376-2-liubaolin12138@163.com>
+ <CAKYAXd94Hy-cEXAsfibh+B66774rg9wALwPWGfir91dqJWTtgg@mail.gmail.com>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <CAKYAXd94Hy-cEXAsfibh+B66774rg9wALwPWGfir91dqJWTtgg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PigvCgCHaADdxZdqkh3MQQ--.55522S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7tF1Uury8CFykCryUJryxZrb_yoW8Xw1UpF
+	WrGayxKFs7Cry7G3s29w13WayFqw18Xr45ZryqgryxC3ZxC342vryxKr13uFWqyr1fAw12
+	qFyjqa47AF1YvrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRS_MhUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6R8p82qXxd8bPQAA3t
 
-Three calloc() calls in the ublk selftests lack NULL return checks,
-leading to potential NULL pointer dereferences on allocation failure:
 
-1. kublk.c ublk_ctrl_init(): the allocated `dev` is dereferenced
-   immediately via `info = &dev->dev_info` without checking for NULL.
 
-2. batch.c alloc_batch_commit_buf(): the allocated `t->commit` is
-   dereferenced in the following for-loop without checking for NULL.
+在 2026/9/2 09:22, Namjae Jeon 写道:
+> On Tue, Sep 1, 2026 at 6:15 PM Baolin Liu <liubaolin12138@163.com> wrote:
+>>
+>> From: Baolin Liu <liubaolin@kylinos.cn>
+>>
+>> Wire up the fileattr inode operations so that lsattr(1) and chattr(1)
+>> work on ntfs.
+>>
+>> fileattr_get reports the compressed and encrypted state of the attribute
+>> and the immutable and append-only flags, the same states ntfs_getattr()
+>> already reports through STATX_ATTR_*.
+>>
+>> fileattr_set accepts only FS_IMMUTABLE_FL and FS_APPEND_FL. Compression
+>> and encryption are rejected because changing them would require
+>> rewriting the attribute data. Both accepted flags go to inode->i_flags,
+>> so the VFS enforces them.
+>>
+>> Neither flag has an on-disk representation of its own, so a value set
+>> through fileattr_set only lives for the lifetime of the mount. Note also
+>> that S_IMMUTABLE is re-derived on every mount, from FILE_ATTR_SYSTEM when
+>> mounted with sys_immutable and unconditionally for system files, so
+>> clearing it on such a file does not survive a remount either.
+> NTFS forces S_IMMUTABLE on system metadata files such as $MFT, but
+> this patch allows userspace to clear that protection. The patch should
+> reject clearing immutable for these files and for files made immutable
+> by the sys_immutable mount option.
 
-3. batch.c alloc_batch_fetch_buf(): the allocated `t->fetch` is
-   dereferenced in the following for-loop without checking for NULL.
+Hi Namjae,
 
-Add NULL checks after each calloc(), returning NULL or -ENOMEM consistent
-with existing error handling in the same functions.
+   You are right, that is a hole. The driver forces S_IMMUTABLE on those
+   files for a reason and userspace should not be able to clear it.
 
-Signed-off-by: longlong yan <yanlonglong@kylinos.cn>
----
- tools/testing/selftests/ublk/batch.c  | 4 ++++
- tools/testing/selftests/ublk/kublk.c | 9 +++++++--
- 2 files changed, 11 insertions(+), 2 deletions(-)
+   I will add the check and send a v2.
 
-diff --git a/tools/testing/selftests/ublk/batch.c b/tools/testing/selftests/ublk/batch.c
-index d8d9ebed5979..5dd6bdfaf9c1 100644
---- a/tools/testing/selftests/ublk/batch.c
-+++ b/tools/testing/selftests/ublk/batch.c
-@@ -88,6 +88,8 @@ static int alloc_batch_commit_buf(struct ublk_thread *t)
- 	int i, ret, j = 0;
- 
- 	t->commit = calloc(t->nr_queues, sizeof(*t->commit));
-+	if (!t->commit)
-+		return -ENOMEM;
- 	for (i = 0; i < t->dev->dev_info.nr_hw_queues; i++) {
- 		if (t->q_map[i])
- 			t->commit[j++].q_id = i;
-@@ -184,6 +186,8 @@ static int alloc_batch_fetch_buf(struct ublk_thread *t)
- 	/* double fetch buffer for each queue */
- 	t->nr_fetch_bufs = t->nr_queues * 2;
- 	t->fetch = calloc(t->nr_fetch_bufs, sizeof(*t->fetch));
-+	if (!t->fetch)
-+		return -ENOMEM;
- 
- 	/* allocate one buffer for each queue */
- 	for (i = 0; i < t->nr_fetch_bufs; i++) {
-diff --git a/tools/testing/selftests/ublk/kublk.c b/tools/testing/selftests/ublk/kublk.c
-index 2400b4615766..f7ddbb4c5582 100644
---- a/tools/testing/selftests/ublk/kublk.c
-+++ b/tools/testing/selftests/ublk/kublk.c
-@@ -435,9 +435,14 @@ static void ublk_ctrl_deinit(struct ublk_dev *dev)
- static struct ublk_dev *ublk_ctrl_init(void)
- {
- 	struct ublk_dev *dev = (struct ublk_dev *)calloc(1, sizeof(*dev));
--	struct ublksrv_ctrl_dev_info *info = &dev->dev_info;
-+	struct ublksrv_ctrl_dev_info *info;
- 	int ret;
- 
-+	if (!dev)
-+		return NULL;
-+
-+	info = &dev->dev_info;
-+
- 	dev->ctrl_fd = open(CTRL_DEV, O_RDWR);
- 	if (dev->ctrl_fd < 0) {
- 		free(dev);
--- 
-2.43.0
+   Thanks for the review.
+
+Thanks,
+Baolin
 
