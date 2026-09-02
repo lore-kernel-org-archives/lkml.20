@@ -1,273 +1,213 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD9DA49C4BE
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:03:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B2F49B21F;
+	Wed,  2 Sep 2026 13:03:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788354221; cv=none; b=EeKLRcctOol9Knxl1AxL+9SHj7PaNHytTjdrxnKu53J1WD2OLZnoR1BdpASICLKXqjAQ1C64A7g+HZ5+o8n+/C3aqge3PysgbM4NS69rACyLKc3a/e4cQWgp5LNPgV/xw0DIL9wGffW5q2zMPjeYDZajioOrY8fpbigx8h4EqrY=
+	t=1788354235; cv=none; b=M2O2aKp403731LOxYza8kk3jiZmz/1IvbRXA9i119twOM82t6xmSkhF/5Jypsi91MuVnuTPEuNtwFzUFfW2GVfVh7e5FBmHp8WDp8TybAz+JrEIUSt+sLgACPRvv49I2yPc4zZt23RdhwyMyG9sGC4l6QcDcHWvqMBmgVQKP2RI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788354221; c=relaxed/simple;
-	bh=G0hw/pezIlFMRhmrAIQvb2RbWY4suDlV/OtR8kK7ktA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mXI86VmD2dch1OCEGUyFw9hUUMyTfEPCfC8BWlzhc9BfYmPhUG51LFwU8UUaXS8gUn36Br1iZMS3v5sbo8HnEld6dL5kEhMA2q9qSklciwGHIMhpBtuBddyX/cH9/bk1u0i5coW62+ThZcXE1c+ntZJkcyywW0ZdMTXGPgo3zuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VmL9jYrH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AQl2Wrwd; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788354235; c=relaxed/simple;
+	bh=KywRZ7u7+wKpsLZU80tvxRa+CLPFR3Qh1sZrmVT+4Jk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=FrajTBvtqqJzTNazChPA+c1rynzG7E7ZJzO7r9lCo7nT/AdDTOR6wq4XdSduv8dFp4hFfzPfeR2E2j1Wv2aFdBH52m9IVNq1aaJDEwcnZJQcBm4Tr8ozrH3JMbMTCac+RZec3svNWuQDZnWLh+4GMWF8nEdQEyYk9j9+txvXxkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VAizg2gQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VmL9jYrH";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AQl2Wrwd"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682CRHoV1385996
-	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 13:03:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	nkx9v1DF+Zw7it7PU+0H3Z4Av/8FoowJS7IAu7u2yc8=; b=VmL9jYrHvfl8wqk8
-	D1B45ze0zrmlx2+vSz7eFAq+aNNbIQrwMGgmNUQafvQvsRCFeoANQX/Ocz00IAc4
-	8GZ2/SV2FelOKLFCEQjx76ryndQW2aAr6vVNvA21rS8yENcc02A5FeD/wpX7lQPp
-	uXbBvxxnp/X5P/cwTGsIrptwrpeomsSHTFqbWdog1ucjT3xggnFXytDQiu6EMwiI
-	Np72QiGQt5QAWebvHetj2CSExlgPZ/H5fUouQqqmKAFJ+q3+GdUzxrO8vqtBx/Yj
-	HCA8axqq+Dqvm5B3MQUly7PB5dSfRCkIU7NBeLY+uACEHHitdbJS5ewWFhSA74bR
-	ng3FFg==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ge435uqth-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 13:03:38 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-738be9df36fso21086137.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 06:03:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788354218; x=1788959018; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nkx9v1DF+Zw7it7PU+0H3Z4Av/8FoowJS7IAu7u2yc8=;
-        b=AQl2WrwdYDI2X0ejp9EzHrZhjAGpj5sxVCX1be+qyskGVFfjLyEsrIrSWI9zftEANC
-         wB7F8k56QriJQQl++H+Bqh7kRx5wB49cTw6SzZX98AxLzeHIEccBfihttGbN13BNUszy
-         yPHDqRg2q0kQRr9HE08tuDJqLnG9++ZitN6wFB/ul8Zbs4X37l0GYs010Tae793gQ3pd
-         rKm/oixsT5KzJ5sc3g0kYL6POE0kkTG4PHApQZLE82EPl5pveXQe2cWCdXHfFYymzhic
-         ybQZoNO/lDe+wS+jARUIAOEk0Uq++9PIfjZ/X7ogrtCowjVBSiXYa9NgQBgBZLae+xkw
-         97TA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788354218; x=1788959018;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nkx9v1DF+Zw7it7PU+0H3Z4Av/8FoowJS7IAu7u2yc8=;
-        b=fzYJ4MLf869aK9ZjgUd2eDtLATkWy3gva0l1XjjiLnpZzMHW9o4qIwYEb6eQJNkD6r
-         ekiEXUM0HNCGDTm9xSiAITROQT20I5DA+zTItBrEiiIPfqzEKKQtnt/rrypLmqWXPUzN
-         5lv4ERoGvyQAyBYZpx//fJb3CgFOg8aKkQcECJHCe0PxDDi5VgZ2cTsBkdc8eX+yYN44
-         BgLmOWyErWJ+ee+USscQOt9GY+4qiJIJZrHymnMD1iVMXEfSUzdCNHetMa7j+yzZceI7
-         5Z7rNMtIHiS2L6zeYhTg1+5jWNsDq3T0xciYxhLO41upcL87proZAe166hyzoAXQMZNt
-         ZBUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxirC8aXLfZ0meYlfa0TdJFQMQ5KQyjJJvmjGHHuF7BFKe9j7YVWrn9bFLDFiKEoza01sYhyfTFgxY8zZU=@vger.kernel.org
-X-Gm-Message-State: AFuF++n5htKsnKxiG+ksr3I+sF0q/a4CVPXcdwarFL4XpASmMN4xJ4Dq
-	ss5eJc78SW15l7CPf2i5H/RMxoDmpP8Zzejc1WqcfgHozm1fea4MI0cE477a/DmR2FUoWZsL2R9
-	orrIUzw5FBr8TiRdCQ1GweUYJURDxVc+1n6EKSl6tqHaSroLxcUf+OkmiaVHti6h0E0k=
-X-Gm-Gg: AYBFou0vfF+phJ+/UJdABj6rgxsOY6g6QOZwDFcj30/sD/6nRbk5IXhLuA/j5dbO48P
-	1wHJsLAH9jZxeQUYOE4SS1yPMDZ4B5BiLr/Sryil9IQxL5WhpB92CpIfyW8h742/4ksPdtAzlCE
-	kZEgEXGK4yB5zCorBkeCezDLVCZv6NjTnTztzBpMgcqu4/1wY946lQB3Ru7kU1wTGxrMvAq5Ovt
-	3fLNeeA62lhXfpZe2mlTRhYFAG4/8ywv8Xnw5ywIXGVi9okPpe6+u2AkwfJ4AHYAYt3lGRc546N
-	4uBHcaTI3jX3NcgagNKiZi5ZmCaixtvj99gpUrmJj6d93Ci5uuPGriOGe/v2KgDMBYeg/j/Gifz
-	EQDwX3gvzYiIFfTCEK2X6lU7i+V8O+HuIpg==
-X-Received: by 2002:ac5:c84a:0:b0:5c7:d15b:5f2a with SMTP id 71dfb90a1353d-5c7d2809352mr421639e0c.2.1788354217361;
-        Wed, 02 Sep 2026 06:03:37 -0700 (PDT)
-X-Received: by 2002:ac5:c84a:0:b0:5c7:d15b:5f2a with SMTP id 71dfb90a1353d-5c7d2809352mr421601e0c.2.1788354216857;
-        Wed, 02 Sep 2026 06:03:36 -0700 (PDT)
-Received: from [192.168.0.242] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce4761dd1sm41932925e9.0.2026.09.02.06.03.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 06:03:36 -0700 (PDT)
-Message-ID: <7eea6a82-6bcf-486d-9c0e-5a68c34c03de@oss.qualcomm.com>
-Date: Wed, 2 Sep 2026 15:03:33 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VAizg2gQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 814311F00A3A;
+	Wed,  2 Sep 2026 13:03:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788354233;
+	bh=MTGGl3RwcuCFV/bUtDz32VMfXUuvDipc4YWXpSVJ+U4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=VAizg2gQ6bti2K/G5cmEO/yrnvCZnBCqK75puimyI5sciyVcwGmhGAV+sXItvo6wB
+	 akEeMM1nJxts2Z20NVdA8Mh4jFz19abshLk+e1sDxl5MsxdyuUxVSN+3peCN5Kv3Uv
+	 218RfiUgmpHR8kUg2qqrdZ7TBx2oHxwzDM3xB0TeIj8FQGiTvxO6MMcMyLdwGMFj1W
+	 iIw4T/zPnp1G8ln3EeoOhjdphhUUOHpxczReRMe7nM+kfgVDqt5xXw+BbaRtoBGX2d
+	 sxYrcUHquzgZTFkM1xln4InV01fTUxjsdeo5wVYc/GkvLORSiATUZgreHwx1iqBKRW
+	 jHE37ioqgc/3w==
+Message-ID: <ab253791f92c329865168c4734c9bfe2f8537a5e.camel@kernel.org>
+Subject: Re: [PATCH v2] fs/locks: filter OFD locks from /proc/locks for
+ foreign pid namespaces
+From: Jeff Layton <jlayton@kernel.org>
+To: Tao Cui <cui.tao@linux.dev>, linux-fsdevel@vger.kernel.org,
+ cel@kernel.org
+Cc: alex.aring@gmail.com, viro@zeniv.linux.org.uk, brauner@kernel.org, 
+	linux-kernel@vger.kernel.org, avagin@openvz.org, khorenko@virtuozzo.com, 
+	bcodding@redhat.com, Tao Cui <cuitao@kylinos.cn>
+Date: Wed, 02 Sep 2026 09:03:50 -0400
+In-Reply-To: <20260902125139.975253-1-cui.tao@linux.dev>
+References: <20260902125139.975253-1-cui.tao@linux.dev>
+Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
+ keydata=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
+ QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] pinctrl: qcom: Add MSM8952 tlmm pinctrl driver
-To: muzafferkadir@mainlining.org, Bjorn Andersson <andersson@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260820-msm8952-pinctrl-v2-0-bf2b8b7b379b@mainlining.org>
- <20260820-msm8952-pinctrl-v2-2-bf2b8b7b379b@mainlining.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260820-msm8952-pinctrl-v2-2-bf2b8b7b379b@mainlining.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDExNSBTYWx0ZWRfX60/Y/6oYvf9C
- Gnx82qP52+Xg77kmXGvRJMRQp1899bhZQr6/vP83eUSdPIzNkyUJqbMMqZCHUVQcZFhXC6/TlB2
- MtvYnov5YfdW7aNDWOGHUkY1LEfIcZXP8yFX7UGoatjZpXkMMc5dyhJ9FTTcrkEQsYHISFHvjC0
- g8RgrEQxnkOMco6N4+Iz/P7omtYKiBaBGleJllr56XNQ57/4hJIpcn7VWgWEV5ioLcLv+3EFQDS
- j8DyNUvTrAGOQr+G0OMVi/7N+kF/gNTYaqG3WaVbluIOeEbLNYNqlMJbkFAZfDbtzGapJqO6kaP
- hncIJkrmF3PQ22GhGHyEb/QesIktfEhg5aWUiA2QI3YDbYLxHCGgrJbiGVXxYsBzmwNm5halPIX
- isqQoMwpRfoLzDKN2Dh6MWBqClleRpHcr8Qm+iBa13Em8edKPsWG2YbuPo/1X0YIZ565V7k2eg1
- H2JkV/l69dBgLuj29tA==
-X-Proofpoint-GUID: TglTq0L4ZA_KSAPLumDgg4M65oh6k7Vi
-X-Proofpoint-ORIG-GUID: TglTq0L4ZA_KSAPLumDgg4M65oh6k7Vi
-X-Authority-Analysis: v=2.4 cv=JpnBas4C c=1 sm=1 tr=0 ts=6a981eaa cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=OuZLqq7tAAAA:8 a=eYqAknA8CWvG3Flig9cA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=-aSRE8QhW-JAV6biHavz:22 a=AKGiAy9iJ-JzxKVHQNES:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDExNSBTYWx0ZWRfXzitD2pm4aCvU
- nCFe8Oauau1ub72TZHEt3r6VvWAkFCmYBOR/m6RT1Fnj4x78GYwXLygrwEEqnYvh/YcFsEFPzyN
- d4jfDSG0VtxFI3Vfk4eM8qdVMJfH2SQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_03,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0
- spamscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609020115
 
-
-
-On 20-Aug-26 13:17, Muzaffer Kadir via B4 Relay wrote:
-> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-> 
-> MSM8952 has same pin count and similar pinctrl
-> functions mostly with msm8917, but some functions use different pins.
-> 
-> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+On Wed, 2026-09-02 at 20:51 +0800, Tao Cui wrote:
+> From: Tao Cui <cuitao@kylinos.cn>
+>=20
+> Since Linux 4.9, /proc/locks only shows locks whose owning process is
+> visible in the reader's pid namespace.  The check cannot see the
+> owner of an OFD lock, though: locks_translate_pid() always returns
+> -1 for FL_OFDLCK, so an OFD lock held outside of that namespace
+> bypasses the filter and is shown with its device/inode numbers and
+> byte range, e.g.
+>=20
+>     4: OFDLCK ADVISORY  WRITE -1 fd:00:70536961 0 EOF
+>=20
+> This was observed on a Kubernetes node: a pod reading /proc/locks
+> listed the OFD write lock of an unrelated host process, while the
+> POSIX locks of the very same process were correctly hidden.  The
+> device/inode pair identifies which host file is locked, the byte
+> range discloses where it is actively written, and the
+> appearance/disappearance of entries reflects host task activity,
+> contrary to the documented per-pidns visibility of /proc/locks
+> (proc_locks(5)).
+>=20
+> OFD locks record the owner tgid in flc_pid, so use it for the
+> visibility decision in locks_show(), mirroring what
+> locks_translate_pid() does for POSIX locks.  The pid column is still
+> reported as -1 for OFD locks; only the filter decision changes.
+> Remote locks keep their negative flc_pid and stay visible as before.
+>=20
+> Verified with an OFD and a POSIX write lock held in the initial pid
+> namespace while a process in a fresh pid namespace reads /proc/locks:
+> the OFD entry is visible without this patch and hidden with it, the
+> POSIX entry is hidden in both cases.
+>=20
+> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
+>=20
 > ---
+>=20
+> Changes since v1: keep remote OFD locks (negative flc_pid) visible in
+> non-initial pid namespaces, as locks_translate_pid() does for remote
+> POSIX locks.
+> ---
+>  fs/locks.c | 19 +++++++++++++++++++
+>  1 file changed, 19 insertions(+)
+>=20
+> diff --git a/fs/locks.c b/fs/locks.c
+> index 6e4ff7fcec05..4af1385682e4 100644
+> --- a/fs/locks.c
+> +++ b/fs/locks.c
+> @@ -3022,6 +3022,25 @@ static int locks_show(struct seq_file *f, void *v)
+> =20
+>  	cur =3D hlist_entry(v, struct file_lock_core, flc_link);
+> =20
+> +	/*
+> +	 * OFD locks are reported with pid -1, so the filter below cannot see
+> +	 * their owner; flc_pid holds the owner tgid, so filter on it.
+> +	 * Remote locks keep a negative flc_pid and stay visible as before.
+> +	 */
+> +	if ((cur->flc_flags & FL_OFDLCK) && cur->flc_pid > 0 &&
+> +	    proc_pidns !=3D &init_pid_ns) {
+> +		struct pid *pid;
+> +		bool visible =3D false;
+> +
+> +		rcu_read_lock();
+> +		pid =3D find_pid_ns(cur->flc_pid, &init_pid_ns);
+> +		if (pid)
+> +			visible =3D pid_nr_ns(pid, proc_pidns) !=3D 0;
+> +		rcu_read_unlock();
+> +		if (!visible)
+> +			return 0;
+> +	}
+> +
+>  	if (locks_translate_pid(cur, proc_pidns) =3D=3D 0)
+>  		return 0;
+> =20
 
-The following is a review from my AI agent who inspected the
-hw specification and prior art/review feedback regarding qcom
-pinctrl. I read it and approve of it:
+First: I think this may be the wrong place to do this. Why not fold
+this change into locks_translate_pid()? It seems like we'd have
+inconsistent results wrt lock visibility between /proc/locks and
+F_GETLK if you do this here.
 
+Thinking about this some more though, I wonder if trying to hide these
+locks is the right thing to do. These locks do exist and they do block
+you from acquiring a lock. If you go to look at /proc/locks and don't
+see them, that seems confusing.
 
- Hi Muzaffer,
-
-  The driver currently contains function/group declarations which are not connected to any PINGROUP() entry.
-
-  For each item below, add the function to the corresponding GPIO’s PINGROUP() definition:
-
-   Function                GPIO
-  ━━━━━━━━━━━━━━━━━━━━━━  ━━━━━━
-   mipi_dsi0                  0
-  ──────────────────────  ──────
-   smb_int                    1
-  ──────────────────────  ──────
-   qdss_cti_trig_out_b0       2
-  ──────────────────────  ──────
-   rcm_marker2                3
-  ──────────────────────  ──────
-   qdss_cti_trig_out_a1       3
-  ──────────────────────  ──────
-   codec_mad                 13
-  ──────────────────────  ──────
-   nfc_disable               16
-  ──────────────────────  ──────
-   nfc_irq                   17
-  ──────────────────────  ──────
-   flash_strobe              33
-  ──────────────────────  ──────
-   cam1_standby              35
-  ──────────────────────  ──────
-   cam1_rst                  36
-  ──────────────────────  ──────
-   cam2_standby              37
-  ──────────────────────  ──────
-   cam2_rst                  38
-  ──────────────────────  ──────
-   webcam_standby            39
-  ──────────────────────  ──────
-   webcam_rst                40
-  ──────────────────────  ──────
-   rcm_marker1               41
-  ──────────────────────  ──────
-   accel_int                 42
-  ──────────────────────  ──────
-   alsp_int                  43
-  ──────────────────────  ──────
-   mag_int                   44
-  ──────────────────────  ──────
-   gyro_int                  45
-  ──────────────────────  ──────
-   pressure_int              46
-  ──────────────────────  ──────
-   fp_gpio                   47
-  ──────────────────────  ──────
-   fp_int                    48
-  ──────────────────────  ──────
-   us_euro                   63
-  ──────────────────────  ──────
-   ts_resout                 64
-  ──────────────────────  ──────
-   ts_sample                 65
-  ──────────────────────  ──────
-   sdcard_det                67
-  ──────────────────────  ──────
-   audio_reset               68
-  ──────────────────────  ──────
-   codec_int1                73
-  ──────────────────────  ──────
-   codec_int2                74
-  ──────────────────────  ──────
-   key_volp                  85
-  ──────────────────────  ──────
-   key_snapshot              86
-  ──────────────────────  ──────
-   key_focus                 87
-  ──────────────────────  ──────
-   key_home                  88
-  ──────────────────────  ──────
-   backlight_en              91
-  ──────────────────────  ──────
-   lcd_en                    92
-  ──────────────────────  ──────
-   usbc_irq                  93
-  ──────────────────────  ──────
-   uim3_ldo                  96
-  ──────────────────────  ──────
-   wsa_irq                   97
-
-  For example:
-
-  > static const char *const mipi_dsi0_groups[] = { "gpio0" };
-
-  must have a matching mipi_dsi0 entry in the GPIO0 PINGROUP() definition. The same consistency is required for every item in the table. The gpio function is intentionally excluded because it is inserted
-  implicitly by the PINGROUP() macro.
-
-  There are also functions missing from the GPIO table. Please add these to the corresponding groups. The final column is the function index from the MSM8952 GPIO mapping:
-
-   Function     GPIO    Function index
-  ━━━━━━━━━━━  ━━━━━━  ━━━━━━━━━━━━━━━━
-   gp_pdm_2a       7                 4
-  ───────────  ──────  ────────────────
-   gp_pdm_1b      20                 3
-  ───────────  ──────  ────────────────
-   gp_pdm_2b      38                 1
-  ───────────  ──────  ────────────────
-   gp_mn          39                 2
-  ───────────  ──────  ────────────────
-   gp_pdm_1a      45                 1
-  ───────────  ──────  ────────────────
-   gp0_clk        46                 1
-  ───────────  ──────  ────────────────
-   gp1_clk        47                 2
-  ───────────  ──────  ────────────────
-   gp_pdm_0b      48                 2
-  ───────────  ──────  ────────────────
-   gp_pdm_0a      66                 3
-
-  Finally, please move:
-
-  > MODULE_DEVICE_TABLE(of, msm8952_pinctrl_of_match);
-
-  immediately after the OF match table, consistent with the other Qualcomm pinctrl drivers.
-
-Best regards,
-Konrad
+Would we be better off showing all the locks and reporting the pid as a
+negative value for ones acquired in foreign namespaces, like we do for
+remote locks?
+--=20
+Jeff Layton <jlayton@kernel.org>
