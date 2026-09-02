@@ -1,41 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63CA415C14F
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:54:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A293A16BA;
+	Wed,  2 Sep 2026 09:54:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788342847; cv=none; b=CCMgcigdmilDnbwNqoFlMykHaSJ/J6irGwJOoJezanZ/YqNqeCUBZxdxiyGqx7QVjkZv3T1e/dFrCTkPnbR/NZ2nCtbCofz2uwyKfex/4TGz7n1QoX5Ma4Xli4sKZwY3g+jUUkCrN9D2wrcgC7gmUz055xTyaJyzYMS9i6R74ss=
+	t=1788342903; cv=none; b=s58NW9Ka6w8XS0SOfl2qWyWEY+M5UEYoOPmUYzfiEgAxe2bPuWy/bBjaIfo4rWqMZMzNojtTdd/28PfVIxr/CwDOYF/YNJQ06xCGqSMyaD18WzPkahVWsS8nXAmywA+BHdZhova/43/ClnWcEKBzSj3DAuh7ybfzdW7PstabzEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788342847; c=relaxed/simple;
-	bh=s95WriRXMx2x1DnKA8sfpjVr5XBSeA6Sh6dDuoMWMzE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J0pvyUnEuGKq2TQoTTtEYGvRNvA86lCLUwpHcZbBstQDu9KKkVM/4P3Tw6c88cdoikXozcufNzIh2WbhU65DlC6qxxju3S3jdeZ4NRmj5FGlDa8xeDSfjdkKO+q81rn1dBslimPPChoS1Ll7Och8pywxpnhF3cjOkwu+tBJ4trc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L9rNqOGk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788342903; c=relaxed/simple;
+	bh=KnVVlJVS5DSDVwMbdz4GLidsfSYLw1Mv9DWRbNw2Dms=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=ArM9ULzYOYl6cdE3VzO/Wb1e1GTXPR3/lxeRqkHfdnHD3YPl/o9OWf6wuimZE8dGspc2M67h+9fqo6Wpif0NlPDVLgj2klF58/dEExEA9RLVlOi7MxkjbzO96wL10Ch1vLEc7FGFSU1IoBJRNVCIXd+r+ipSaLNx7RmUCF/bP6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YIvZrQQM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L9rNqOGk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 973771F000E9;
-	Wed,  2 Sep 2026 09:54:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YIvZrQQM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86DF01F000E9;
+	Wed,  2 Sep 2026 09:54:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788342844;
-	bh=Jubpga/fencT/+SgH0cd8HjsnDrVVnZHdEzIUYQT4x8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=L9rNqOGkmmIBtd3/EzZQIczYOSqgYxoNv3ceP6bv+Uq44gu8d7akxUbGLpi1SGyqW
-	 jIXP7aTgR83fF7FQWXJRwQpl0TD1GjsHtRCIDQ02hKeeKuyFIu3JU2Irna8Li8WVP4
-	 usU0sCltDiFvBxRA12cYE0fNfuv/ZHneuqLgKiiCGx7FutgDsSd2ltcpmSbz0QpVOe
-	 7mEEZwzBFFqzTDEyJQn7FtpMbNTHZIVX3dlG8LBMW1e+C8pvFlSXxcJUGDwXP1nTqA
-	 88g2ELN+YUsaoMIJbq17bBwbDJY3ObHSEnnUSfe/d1Y9eR88EVnJRa6WP0d0Zas5N1
-	 7jL+jGIEmA5tA==
-Date: Wed, 2 Sep 2026 11:53:59 +0200
-From: Thorsten Blum <blum@kernel.org>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] x86/coco: Replace cc_attr_flags with a bool
-Message-ID: <apfyN_VpuREcX5A1@kernel.org>
-References: <20260902000634.118808-2-blum@kernel.org>
- <20260902005703.GDapd0X8PevmcPPxBm@fat_crate.local>
+	s=k20260515; t=1788342895;
+	bh=SN5nR5tzjhmyfRpdmGMBV3gbD1T+zPmCfIPs9JNL398=;
+	h=Date:From:To:Cc:Subject;
+	b=YIvZrQQMzirqrQeburYLUvN3s+MFqtljRGUc15nyuRGeA9PjN9BhwA90FXjT0qF5P
+	 AYpMJlbs84mr78l/JJtCizsAUAwea3prNlEamzX4rl5TGPHlxHZxG6czBbt2jI4kRU
+	 Wk0GZ3qD8cnBxuCXl/v4cAFon5YpQQxcBf1KWQFkHTkgJy+u/9x0tjFRduhfT3Oug7
+	 /uTSrH8JnSv4S2WsHxvN9v0tFg6B54NsJrzW64V0EqapVo2zewZYzm5D2t5z61mBew
+	 mh4Vmna4DKEFhQG0CFZb5R3nPhGoBFxfJT8wO/nJEbS2q2B5bX+yKaVZQlzSW+xEUZ
+	 UbyV9iwnslcgw==
+Date: Wed, 2 Sep 2026 09:54:51 +0000
+From: Tzung-Bi Shih <tzungbi@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>,
+	Javier Martinez Canillas <javierm@redhat.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+	tzungbi@kernel.org, chrome-platform@lists.linux.dev,
+	Sean Rhodes <sean@starlabs.systems>
+Subject: [GIT PULL] Immutable branch for coreboot directory rename for v7.4
+Message-ID: <apfyaxKEEJz20wRC@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -44,15 +49,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260902005703.GDapd0X8PevmcPPxBm@fat_crate.local>
 
-On Tue, Sep 01, 2026 at 05:57:03PM -0700, Borislav Petkov wrote:
-> On Wed, Sep 02, 2026 at 02:06:33AM +0200, Thorsten Blum wrote:
-> > The cc_attr_flags structure contains only the host_sev_snp bit. Replace
-> > the structure with a bool.
-> 
-> Nope, do some git archeology before you send patches.
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
-I did check before sending. My motivation for the cleanup was that in
-the ~2.5 years since bc6f707fc0fe ("x86/cc: Add cc_platform_set/_clear()
-helpers"), host_sev_snp has remained the only member of cc_flags.
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux.git ib-coreboot-rename-7.4
+
+for you to fetch changes up to 44e33a5aaa2de3f5cf2701d6f4b0a7c63d4fe602:
+
+  firmware: Rename google firmware directory to coreboot (2026-09-02 09:24:30 +0000)
+
+----------------------------------------------------------------
+Sean Rhodes (1):
+      firmware: Rename google firmware directory to coreboot
+
+ MAINTAINERS                                        | 20 +++---
+ drivers/firmware/Kconfig                           |  2 +-
+ drivers/firmware/Makefile                          |  2 +-
+ drivers/firmware/{google => coreboot}/Kconfig      | 74 ++++++++++++++++------
+ drivers/firmware/{google => coreboot}/Makefile     | 10 +--
+ drivers/firmware/{google => coreboot}/cbmem.c      |  0
+ .../firmware/{google => coreboot}/coreboot_table.c |  0
+ .../firmware/{google => coreboot}/coreboot_table.h |  0
+ .../{google => coreboot}/framebuffer-coreboot.c    |  0
+ drivers/firmware/{google => coreboot}/gsmi.c       |  0
+ .../{google => coreboot}/memconsole-coreboot.c     |  0
+ .../{google => coreboot}/memconsole-x86-legacy.c   |  0
+ drivers/firmware/{google => coreboot}/memconsole.c |  0
+ drivers/firmware/{google => coreboot}/memconsole.h |  6 +-
+ drivers/firmware/{google => coreboot}/vpd.c        |  0
+ drivers/firmware/{google => coreboot}/vpd_decode.c |  0
+ drivers/firmware/{google => coreboot}/vpd_decode.h |  0
+ 17 files changed, 76 insertions(+), 38 deletions(-)
+ rename drivers/firmware/{google => coreboot}/Kconfig (64%)
+ rename drivers/firmware/{google => coreboot}/Makefile (51%)
+ rename drivers/firmware/{google => coreboot}/cbmem.c (100%)
+ rename drivers/firmware/{google => coreboot}/coreboot_table.c (100%)
+ rename drivers/firmware/{google => coreboot}/coreboot_table.h (100%)
+ rename drivers/firmware/{google => coreboot}/framebuffer-coreboot.c (100%)
+ rename drivers/firmware/{google => coreboot}/gsmi.c (100%)
+ rename drivers/firmware/{google => coreboot}/memconsole-coreboot.c (100%)
+ rename drivers/firmware/{google => coreboot}/memconsole-x86-legacy.c (100%)
+ rename drivers/firmware/{google => coreboot}/memconsole.c (100%)
+ rename drivers/firmware/{google => coreboot}/memconsole.h (82%)
+ rename drivers/firmware/{google => coreboot}/vpd.c (100%)
+ rename drivers/firmware/{google => coreboot}/vpd_decode.c (100%)
+ rename drivers/firmware/{google => coreboot}/vpd_decode.h (100%)
