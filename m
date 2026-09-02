@@ -1,122 +1,106 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E670E43713E
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 22:15:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494A847DD50
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 22:17:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788387335; cv=none; b=CKfdJE9ZXZjojAVqiIeXQJbfuIB/E6VvrUfVzin2kwEECzPoRqmNFV8P1TuEgwZSUimuvunwYoIackACxPfqCxJaR4KWrmIvshSRoZEKonNOct1mE4JQytinaJMeum5FrBJDFcP9Fobg11xSkfOJrdC6jgUOxF5wN8kFJ2NHgUI=
+	t=1788387436; cv=none; b=MCP5Xk8JOTliYRE1dVX6PnWclLJ8oRQ9/n734l1kHSwkekhJUR5oTCAuxUxNkV6DQjoVRB6so1ZsTB0BY5TBGGkwr58Rg4/YdjcPDX2rhvXTwO9USx6UC28Vooek0c0/MrwlfoF+RJVdy3InKxk2luyCwur9GyJEV5JmS1lazVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788387335; c=relaxed/simple;
-	bh=HkFAbO8MygqvyTuNPvM8c2JpQVjswNB1aNAD46Eofxc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kkDte1FfeDwMRvlCm4c/owu0i+g339bdqJMnXCjKfwhLfCebE9gKJq6H0MNj63MH89+DB7q7y1dSL4516Jykvj+pkCd9TsAxskrte980u861TdUZ7NgMZiZmw5hdXmUPIrrQdaixRQfOj71RkdspT5GP24/66CyCrD22CjaJjpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net
+	s=arc-20240116; t=1788387436; c=relaxed/simple;
+	bh=KBQhq/c+LMHJVVAXAOkUDjcq+u+ONWOcVbdfKT0tUFI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O4lC1q8eNYpLLx+ytuMqyJmhKUJorLffEpLoFY39qGKKiAdP9b58vkPNqCkE2/Sm0Bj7W2rKVEbLv+0aq9HBYJPLlktMPuDcWSQwFavxZmBuu6xMUIpVm0EcIM7WCfbcxH8Kn79BPJ2TJHG3emGnSQkSw+ta7PGXwrDOogoU6c8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c6IwlNi5; arc=none smtp.client-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-482e4998d28so1250721f8f.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 15:15:28 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c6IwlNi5"
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8541875f596so780562b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 15:17:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788387432; x=1788992232; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=68TMRCoJZibya560Gslbsv50pFJcZXRG1soThBLnF+s=;
+        b=c6IwlNi5cup49XRgRPDIGqJMVAkJlo5Kj2oK6bX05opADhr3+2hGH519r3fJW+MkwZ
+         BCSzfy4Hq7vW/ridA+DwwYyqJSf4zxEQuUlnaekndz0Pn/Mfup73S6eJ1FjCr+Q5x6kE
+         N5+vgfzVKP1Ea4lw4XBvC+bTVgg6tX1UFl3csjwtItQcA843S4sKqrb5gDn+Egb+hnPA
+         58zcwuMOB2p8xeucl41dRAVBE+A2LO2/WLhQ6nnpWcKryMcEV5DJ5MKO/H/YiCNBDMFA
+         +bh7NqhurTvH1gMGUPw/fPNzYA3+33zM6IsNRLc/D7tLi6FmAoWfSBjc+TbfMSDk4fJN
+         rq4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788387326; x=1788992126;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788387432; x=1788992232;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=I+vEOyqPDv7rU89jwmnevj+9dxsKc/yKY2uAhwHha8M=;
-        b=jUSlefFdLxJbgz6ypV60GQIAP+p4ibG3giRp3ROT54OBQRxFV3fvW9ZVTSw2zmu8m0
-         NNBQXdxZlaDADPLYBJO4nw0++2mL/t2UaKOnovaY9+Spo497KD621raSngGEW3b0x3lG
-         pHu52aU5eSYZ2DqlwHfz1rJcDISujn3e5XvD4MKMnZXz0Ni1Q8eNwqLoqDdE9c3rHpvk
-         s3D79W3O027tJETQ+L81/noq6Detns7aj+qY6kYGLBCChbrXduMOipnrr90qyQoNrm70
-         ad6B5lu/wqXty+Nw5QPNEnrsJu0frm2Y1DeCXRh6nJy0hRwRqHrUICktQFcffsmEIOgG
-         tJ0w==
-X-Forwarded-Encrypted: i=1; AKwUvBw7h2eBMo8bwYgoH8OCh9tz/UhFWB8SYr+BEnYXI/F20Mrz6FYEsI4hezT+snEyia1qmHsq0tNX2zLsS2o=@vger.kernel.org
-X-Gm-Message-State: AFuF++mIu4gmuO7ti+gNQf9Tbq/BguGIzTIdOukx5RwN2msyMHamA8qs
-	iBEua4/hrYNKNGHpIu0vPiEly3pQupfVIrNaA92tbhEV0wCOo6JF7oKt
-X-Gm-Gg: AYBFou1j5Jog2AUb3VggHK3UxgCGYVZuxRtRscxbsZQs3A2CJ3f4VYzYHteKh3Cjp8g
-	5xdAa6wZuJWFli4ciu3W2Sre5GebbuHgOLnhc6wZ0L9Exp76KdHBp2IjjAcC/K4dfP3eqyCj+lI
-	H3xFUzzWt3d3LWX9cDIyYucGACxj6FTxujuKDEbSAASwURMdR+9DCBRCB80ZZ7Cc1pV0rM6Ljmq
-	N8DEQxdb+jQrhlDEuyKN8z9nAIVlCNRntdWxquE9NHPhRMSfrNDjUJx6ERr8AKa/Kl52mL9PqIZ
-	mTunvNhQIHde7SAL8DMZgIs1Jlxew6VhMeuEqd23d9y70ZBTD8fwx7VpZuSj4YNWHzp2usWSO1g
-	XVtN5IaoiE/xKU+ShmE3Kee+HRs24ILa9OolYAEUSRBrFVhhVa3dwPbZeMIa8dxciLu2v1ZhTGa
-	9gasCTc1Szu8aHrvMhUSXvnVulTSQ64LPCUIIvGPDfkUw0Sy5sopArwAosFqHPLTaxeu1lV8TA/
-	6DBTKTeMHstApsEqEG1fFewySfDjeOpRVN/1BF4yh1UkRJh7FsDwPhaSvFCfcC4Oy0pHd4IDLI4
-	QOQ=
-X-Received: by 2002:a05:6000:4208:b0:484:4769:18a4 with SMTP id ffacd0b85a97d-48488f10236mr16624383f8f.14.1788387326455;
-        Wed, 02 Sep 2026 15:15:26 -0700 (PDT)
-Received: from ?IPV6:2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183? ([2001:8a0:d6cd:9000:86f4:4e71:9fc8:3183])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448ed38cfsm8301961f8f.19.2026.09.02.15.15.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 15:15:25 -0700 (PDT)
-Message-ID: <9bb0ee66-d313-4a07-af4c-ffd002b55dee@reactivated.net>
-Date: Wed, 2 Sep 2026 23:15:23 +0100
+        bh=68TMRCoJZibya560Gslbsv50pFJcZXRG1soThBLnF+s=;
+        b=iCSa/pfBf7l2Z9p2kvm624lks+UhvSm4QtGXqQz4xCSLZu/qhYWonoGusO3i0Ft2mu
+         FpYJMeOLuTMlUVHsO2aHHOPSD5h/6ZZU/vFH7Op/Dl22p42UC6JhAEmSiHpUx9MhnHQx
+         i51C2k6YUU1IbfH+ovtKBivFBxAZNw1iSYvC59VORkVWcoVWo9vEMulegUn0DkfLa94y
+         kzehMUbqGH32jCMgOxZ8gvNWaUn/eJhshH4IZ+46JWtyjs2uCKecOWCamHIreJPzJ0iK
+         bOwu42cuILiKby2qVYK9RmjAPMLTbEnas9L6Z3YyklE0K9MzV8Wz74qYILsVB1dV1nrN
+         QxQg==
+X-Forwarded-Encrypted: i=1; AKwUvBwwWX5onRJp/HK/EUTWZEiyPHCepl4+Z5fgvW0rlID8ieBrcvq7rTTEkorqqKL2Bd729mFxymg2hcGdeL8=@vger.kernel.org
+X-Gm-Message-State: AFuF++m9ZAKn16KOYGReD/NIkKR+FZupehFP5jY1FxGJGhwuKABQNGJt
+	AfAIT0khJ2CoIw/ufNFoK02iIbFuRj/AAh8LiRQcS647kkHWQMxC9lkX
+X-Gm-Gg: AYBFou0WQmyScnLqf88Y9hdegl6MFKD/zHz++GvEV6eZTmggjG2Svqfl+4xAuqyLeeQ
+	ZPeEyeUntqaH7RoG6GQOwjf4H+SYcj6K0v5o+TCez554tg7UDMFxLp3cEu/hw+ZwipiHDWiNp3f
+	/+p8KfV+lKkyXt0WNggLO5s5BVUo8y3T9XLPz3+UYULieVdJldZLW0ROpcGPrUMwcz1fHPDzFuJ
+	efWnm/6siXNp0DDsvC+NFvsZ5XpJaUYyY+YGaglQ83MCjf5Bif+xl/gl/JkFFDzjReYSkxnmT/F
+	aUg61DzbERreAI9twosXaXuwMzB6oCvwkGtqgdajnASnAVpuTQUci2PzH3jUO7XnpGMlra0JkE1
+	sHCwM7LBHkrxR54SZIPnDIAt2D84rsjgdc2JGyZ/AdRSd1SJjNzXCZtphMJpkV9ZOrFaNzuJQlq
+	2aZejry2uxGD/9LX3TDg8j7YIc7lCyjkw9Y5nyHMaVVdOuPCO5WN/H0Z+Y/dzOyc72oOuWnCUmq
+	3LFGRXhXAjqCxO6nr70zJLnzWrl+ieaEkGcFph0RGCOs4VThP/R0Vequ6k64/7HM5CDtX29Zqto
+	eIDGcns+7zKtPe/h5sI4RzZJezyVWU2GIoAzZg==
+X-Received: by 2002:a05:6a00:4f92:b0:857:73e2:9105 with SMTP id d2e1a72fcca58-85ed94bb426mr10739539b3a.21.1788387431568;
+        Wed, 02 Sep 2026 15:17:11 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc003a8fbsm1881138b3a.35.2026.09.02.15.17.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 15:17:10 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-serial@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	linux-kernel@vger.kernel.org (open list:TTY LAYER AND SERIAL DRIVERS)
+Subject: [PATCH] serial: 8250: Add Armada 38x earlycon support
+Date: Wed,  2 Sep 2026 15:17:09 -0700
+Message-ID: <20260902221709.340393-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/5] iommu: Add Broadcom BCM2712 IOMMU driver
-To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, nick.hollinghurst@raspberrypi.com,
- james.quinlan@broadcom.com, Jason Gunthorpe <jgg@ziepe.ca>
-References: <20260902-bcm2712-iommu-submit-v4-0-9dbb657578c1@reactivated.net>
- <20260902-bcm2712-iommu-submit-v4-4-9dbb657578c1@reactivated.net>
-Content-Language: en-US
-From: Daniel Drake <dan@reactivated.net>
-In-Reply-To: <20260902-bcm2712-iommu-submit-v4-4-9dbb657578c1@reactivated.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 02/09/2026 18:57, Daniel Drake wrote:
-> +static int bcm2712_iommu_blocking_attach(struct iommu_domain *blocking_domain,
-> +					 struct device *dev,
-> +					 struct iommu_domain *old)
-> +{
-> +	struct bcm2712_iommu *mmu = dev_iommu_priv_get(dev);
-> +	int ret = 0;
-> +
-> +	scoped_guard(spinlock_irqsave, &mmu->hw_lock) {
-> +		/*
-> +		 * Completely block DMA by disabling both the bypass window
-> +		 * and the translation aperture.
-> +		 */
-> +		bcm2712_iommu_writel(mmu, MMMU_BYPASS_START_OFFSET, 0);
-> +		bcm2712_iommu_writel(mmu, MMMU_BYPASS_END_OFFSET, 0);
-> +		bcm2712_iommu_writel(mmu, MMMU_ADDR_CAP_OFFSET,
-> +				     MMMU_ADDR_CAP_ENABLE);
-> +		bcm2712_iommu_writel(mmu, MMMU_ILLEGAL_ADR_OFFSET, 0);
-> +		ret = bcm2712_iommu_clear_and_enable(mmu);
-> +		mmu->domain = NULL;
-> +	}
+Register the Armada 38x UART compatible with the built-in 8250
+earlycon implementation so stdout-path can enable an early console
+without adding a generic ns16550a compatible to the device tree.
 
-My understanding is that when the IOMMU is enabled, the address cap 
-represents the highest permittable memory address; requests for anything 
-higher would abort. So I had hoped to achieve blocking mode by setting 
-ENABLE | 0 in ADDR_CAP, thinking that would set a cap of 0, and hence 
-memory accesses would fail.
+Keeping the vendor-specific compatible avoids exposing the UART to the
+generic OF 8250 runtime driver while preserving the DesignWare driver
+Armada-specific runtime handling.
 
-But a Sashiko review pointed out that actually this value would produce 
-a translation aperture of 256MB, because of the way the register works. 
-And I confirmed this experimentally, Sashiko is right.
+Assisted-by: Codex:GPT-5
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/tty/serial/8250/8250_early.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-I also confirmed experimentally that setting value 0 to ADDR_CAP (i.e. 
-dropping the enable bit too), with the IOMMU enabled, results in a full 
-unrestricted bypass/identity mode.
-
-So unless someone from RPi/Broadcom can inform otherwise, I'm going to 
-conclude that the hardware doesn't support blocking mode and remove the 
-blocking domain implementation.
-
-This will cause the iommu layer to fall back to creating an empty paging 
-domain when blocking mode is requested, which seems appropriate if the 
-hardware doesn't offer a more direct way of blocking all memory access.
-
-Daniel
+diff --git a/drivers/tty/serial/8250/8250_early.c b/drivers/tty/serial/8250/8250_early.c
+index 44ec209f37c4..265d49850e15 100644
+--- a/drivers/tty/serial/8250/8250_early.c
++++ b/drivers/tty/serial/8250/8250_early.c
+@@ -175,6 +175,7 @@ EARLYCON_DECLARE(uart8250, early_serial8250_setup);
+ EARLYCON_DECLARE(uart, early_serial8250_setup);
+ OF_EARLYCON_DECLARE(ns16550, "ns16550", early_serial8250_setup);
+ OF_EARLYCON_DECLARE(ns16550a, "ns16550a", early_serial8250_setup);
++OF_EARLYCON_DECLARE(uart, "marvell,armada-38x-uart", early_serial8250_setup);
+ OF_EARLYCON_DECLARE(uart, "nvidia,tegra20-uart", early_serial8250_setup);
+ OF_EARLYCON_DECLARE(uart, "snps,dw-apb-uart", early_serial8250_setup);
+ 
+-- 
+2.55.0
 
