@@ -1,274 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D519F392814;
-	Wed,  2 Sep 2026 08:23:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C53367B9C
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:23:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788337380; cv=none; b=k7jjRL0Ytjecs2gO6RAq+lwu46jzeJT9Kd3OI64+AafgAHvNKO6Fh8Vbv5Mgjp8U/Uhb7nqaRJmXuRYB/ITvzcKy8qWWimgpK7Lxh/8KCG3NlQMA5cTmDj4g4z/VaEulCE94Fd5g9IL8yPUXzgvo6HuCdqxQsidEud7e8fk595U=
+	t=1788337398; cv=none; b=KLVmWZfjeURX0ftyvJGEjXi5r/3No01EmGCpOKCGKQ7zc0TY4+xJfAjD7pymmoxc9LWZKyrSFxipS2vqETIRJ2L0wUugNgligHTU/hw9IBXUHtRalsWgyu2IDuM+hDt+r1ihtqQgpwp8zTFWfpkiNnx+OlgGGMfvMe5pld0NoiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788337380; c=relaxed/simple;
-	bh=9s2vpaiXD6s4W26CbucrW3C0rPFnD/K26BzyCEp2oKI=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=RGN1iyIcTfJtASvHqW9orm8TLD0j3opL5X4eDrzx44woWRhKBIawQupAF5s3FaiBfR5NDxvHMGGfkKckwheYMlP2gebpZb9JR5Uu3XfBt9LxSgWh0JOXSj2HSXZyGk2LiwMV1/W4M6OwKvNmF1CGq0rRbmbmE89xo0LxQPMZ6yo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eae+IDop; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788337398; c=relaxed/simple;
+	bh=tQIvgQqGPyGgn78PqVP6NOGSx6WMgw2hQRFbb6w+Mtk=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=h0VXPrQfTqaionI7203VkWApJlr6nLvn1nHKT5uF36NL0zb/cIw3SK1HAIGs30nGSDmYWrrNHnkqLolur8RCr3PFagahWTsgz1Tt3YVCZMLGair/WJFNFHGus7hKuZSOiI8xpTHS6HuWp9GphPRs3OM+bNKqMJu1/yIqG+9R1ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=HU6msoFy; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eae+IDop"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5857BC2BCC7;
-	Wed,  2 Sep 2026 08:23:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788337380;
-	bh=9s2vpaiXD6s4W26CbucrW3C0rPFnD/K26BzyCEp2oKI=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=eae+IDop8RQum/3tRAhM6zJOu0m+Qt5zsAiP0eQZLF1ZWgIab8mJO52bxYu1h73d8
-	 f4txXi4iMPdHSf/8+fIaAotI8HHVuhCnXqdkf2SpgzuUrygpJO85NPzgAXO6BaiQLD
-	 LGotZT0yQ/r4GGvdvhHXkNSOqZP2k8/cRRoSSSF0sV/VOUcUPa1pj0+Aqx7z9V19IQ
-	 g7WhBsab2/Vp+m7OxVBSjMJVDAZJdtqoRMmZ16mSOVxi96FFBRqOyNSPSY07fBTm2z
-	 Z/kyMT4AmTmtG//Uq3NzSHKKfv84FFHQC38QRy/qjO92pueJflaIwad9tQaX5vV+iy
-	 O9GKuYl1Bovnw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2FE2EC624D0;
-	Wed,  2 Sep 2026 08:23:00 +0000 (UTC)
-From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Subject: [PATCH 0/2] Fix bugs in HugeTLB allocation when
- mem_cgroup_charge_hugetlb() fails
-Date: Wed, 02 Sep 2026 01:22:55 -0700
-Message-Id: <20260902-hugetlb-alloc-folio-memcg-charge-error-handling-v1-0-e3e8942c141b@google.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="HU6msoFy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788337395;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type;
+	bh=WQuF0kvMWaNNMHPqsEiSj1pAGCWEDfGpmkrHT5U+rCI=;
+	b=HU6msoFySy+l9QFeWXUBRE8dbGFlegQq69vGUItOHxKN7gspNKR4IM5pFNscLr4Qikh38z
+	oY3KgvwN4rZvoRfOAWFQq2pDVdy0TwGsvwoJwdL4mTmvyBEm8Hrc6Ab3OtKXsCZeX9VxCG
+	jejdSwG1Loateu+X3lbsUDZrUA1fm2c=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-381-L-uV9cNSM-KEPI0xDDtzVg-1; Wed,
+ 02 Sept 2026 04:23:12 -0400
+X-MC-Unique: L-uV9cNSM-KEPI0xDDtzVg-1
+X-Mimecast-MFC-AGG-ID: L-uV9cNSM-KEPI0xDDtzVg_1788337391
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 62D9E1954B05;
+	Wed,  2 Sep 2026 08:23:11 +0000 (UTC)
+Received: from ws (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 26F241956044;
+	Wed,  2 Sep 2026 08:23:08 +0000 (UTC)
+Date: Wed, 2 Sep 2026 10:23:06 +0200
+From: Karel Zak <kzak@redhat.com>
+To: linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	util-linux@vger.kernel.org
+Subject: [ANNOUNCE] util-linux v2.41.6
+Message-ID: <iaeylahlofszibnlw3ixknbeinsavh5guesuytkag6bg5a2eh4@gwzdbo6oqb2x>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAN/cl2oC/x2N0QrCMAxFf2Xk2UBXaVF/RXyYXdoFslbSKcLYv
- xt8PHDuuTt0UqYOt2EHpQ93btVgPA2QlqkWQp6NwTsf3dWNuLwLbfLESaQlzE244UprKmi+mk+
- qTdG2s3AtGC7RUzx7CjmAVV9Kmb//x/vjOH6S4QqagQAAAA==
-X-Change-ID: 20260901-hugetlb-alloc-folio-memcg-charge-error-handling-5862e632e5f5
-To: Alex Shi <alexs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Dongliang Mu <dzm91@hust.edu.cn>, 
- Hongxiang Lou <louhongxiang@huawei.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Nhat Pham <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Peter Xu <peterx@redhat.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Shuah Khan <skhan@linuxfoundation.org>, jthoughton@google.com, 
- fvdl@google.com, rientjes@google.com, vannapurve@google.com, 
- Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>, 
- Wupeng Ma <mawupeng1@huawei.com>, Yanteng Si <si.yanteng@linux.dev>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- Ackerley Tng <ackerleytng@google.com>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788337379; l=5404;
- i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=9s2vpaiXD6s4W26CbucrW3C0rPFnD/K26BzyCEp2oKI=;
- b=2WFDdksKyvJUDYhmN6mhW3mHuuBJDYSVhnCKZRLzvGT3p8ao0/FZrWrDMPZmoSB6VWfrJvYfO
- ZqEvKDgvDdCDsVLiWbMo1LGxxx+0rHv9PX0GIJuxC/JRx33OyDcKnLS
-X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
- pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
-X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
- auth_id=649
-X-Original-From: Ackerley Tng <ackerleytng@google.com>
-Reply-To: ackerleytng@google.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-In hugetlb_alloc_folio(), when mem_cgroup_charge_hugetlb() fails, there are
-2 issues:
 
-1. free_huge_folio() expects a non-refcounted folio and will
-   VM_BUG_ON_FOLIO().
+The util-linux release v2.41.6 is now available at
 
-2. -ENOMEM is returned, causing an infinite loop retrying the fault.
+  http://www.kernel.org/pub/linux/utils/util-linux/v2.41
 
-This patch series is a subset of patches in [1].
+Feedback and bug reports, as always, are welcomed.
 
-Note: [1] was applied on an earlier version of HugeTLB allocation. In that
-earlier version, VMA reservations were not undone on
-mem_cgroup_charge_hugetlb() failure.
+  Karel
 
-5737df3826dee: ("mm: hugetlb: refactor out hugetlb_alloc_folio()") fixed
-that, since returning an error from hugetlb_alloc_folio() causes
-alloc_hugetlb_folio() to execute vma_end_reservation().
 
-In [2], an earlier revision of [1], "mm: hugetlb: Drop refcount before
-freeing on memcg charge failure" was named "mm: hugetlb: Fix folio refcount
-mismatch on memcg charge failure".
+util-linux 2.41.6 Release Notes
+===============================
 
-[1] https://lore.kernel.org/all/20260722-hugetlb-alloc-failure-fixes-v4-0-88e8b81970dc@google.com/
-[2] https://lore.kernel.org/all/20260708-hugetlb-alloc-failure-fixes-v2-0-c7f27cbb462b@google.com/
+Security fixes:
 
-Here's a reproducer to trigger mem_cgroup_charge_hugetlb() failure:
+ CVE-2026-76642 - mount(8) post-mount hooks execute after helper failure.
+   When an external mount.<type> helper exits nonzero, post-mount hooks
+   (X-mount.idmap, X-mount.owner/group/mode) still execute as if the
+   mount had succeeded, allowing privileged operations on the
+   pre-existing target filesystem.
 
-static void write_file_val(const char *path, const char *val)
-{
-	int fd = open(path, O_WRONLY);
+ CVE-2026-78410 - mount(8) TOCTOU race on source path.
+   In restricted (SUID, non-root) mode, the source path is
+   canonicalized with realpath() as euid=0, following symlinks through
+   user-writable directories.  Additionally, open_tree() follows
+   symlinks in intermediate path components.  A local attacker can
+   redirect a privileged mount or post-mount ownership change to an
+   arbitrary path.
 
-	if (fd < 0) {
-		fprintf(stderr, "Failed to open %s: %s\n", path, strerror(errno));
-		exit(1);
-	}
-	if (write(fd, val, strlen(val)) < 0) {
-		fprintf(stderr, "Failed to write %s to %s: %s\n", val, path, strerror(errno));
-		close(fd);
-		exit(1);
-	}
-	close(fd);
-}
+ CVE-2026-78408 - nsenter(1), unshare(1) file descriptor leak.
+   File descriptors in nsenter and unshare were not created with
+   O_CLOEXEC, potentially leaking them across exec.  Added O_CLOEXEC
+   as defense in depth.
 
-static int is_hugetlb_accounting_enabled(void)
-{
-	char spec[256], file[256], type[256], opts[512];
-	char line[1024];
-	int enabled = 0;
-	FILE *fp;
+ wall(1), write(1) - hostname escape sequence injection.
+   The CVE-2024-28085 fix sanitized only message bodies; the banner
+   headers still interpolated the system hostname without sanitization.
+   An unprivileged user can inject terminal escape sequences via a user
+   namespace hostname.
+   Additional fix for CVE-2024-28085.
+   Reported-by: Skyler Ferrante
 
-	fp = fopen("/proc/mounts", "r");
-	if (!fp) {
-		perror("fopen /proc/mounts");
-		return -1;
-	}
+Changes between v2.41.5 and v2.41.6:
 
-	while (fgets(line, sizeof(line), fp)) {
-		if (sscanf(line, "%255s %255s %255s %511s", spec, file, type, opts) == 4) {
-			if (strcmp(file, CGROUP_PATH) == 0 && strcmp(type, "cgroup2") == 0) {
-				if (strstr(opts, "memory_hugetlb_accounting") != NULL)
-					enabled = 1;
-				break;
-			}
-		}
-	}
-	fclose(fp);
-	return enabled;
-}
+lib/fileutils:
+    - add ul_openat_resolve() openat2 wrapper (by Karel Zak)
 
-static int enable_hugetlb_accounting(void)
-{
-	int ret;
+libmount:
+    - skip post-mount hooks after failed mount helper [CVE-2026-76642] (by Karel Zak)
+    - pin source path with openat2() for restricted users [CVE-2026-78410] (by Karel Zak)
+    - restrict source path canonicalization for non-root users [CVE-2026-78410] (by Karel Zak)
+    - add mnt_open_tree() helper for safe tree opening (by Karel Zak)
 
-	printf("Attempting to remount cgroup2 with memory_hugetlb_accounting...\n");
-	ret = system("mount -o remount,memory_hugetlb_accounting " CGROUP_PATH);
-	if (ret != 0) {
-		fprintf(stderr, "Failed to remount: system() returned %d\n", ret);
-		return -1;
-	}
-	return 0;
-}
+loopdev:
+    - use openat2(RESOLVE_NO_SYMLINKS) for backing file (by Karel Zak)
 
-int main(int argc, char **argv)
-{
-	struct stat st;
-	size_t size;
-	void *addr;
-	pid_t pid;
-	int enabled;
-	int status;
-	int fd;
+nsenter, unshare:
+    - add O_CLOEXEC to all open() calls [CVE-2026-78408] (by Karel Zak)
 
-	if (stat(CGROUP_PATH, &st) != 0 || !S_ISDIR(st.st_mode)) {
-		fprintf(stderr, "cgroup v2 not mounted at %s\n", CGROUP_PATH);
-		return 1;
-	}
+tests:
+    - (lsfd) add a function checking the availability of UDPLite socket (by Masatake YAMATO)
+    - (lsfd/option-inet) make UDPLite related test case skippable (by Masatake YAMATO)
+    - (lsfd/mkfds-udp*) make UDPLite related test cases skippable (by Masatake YAMATO)
 
-	enabled = is_hugetlb_accounting_enabled();
-	if (enabled < 0)
-		return 1;
-
-	if (!enabled) {
-		if (enable_hugetlb_accounting() != 0) {
-			fprintf(stderr, "Could not enable memory_hugetlb_accounting\n");
-			return 1;
-		}
-		/* Re-check */
-		enabled = is_hugetlb_accounting_enabled();
-		if (enabled <= 0) {
-			fprintf(stderr, "Failed to enable memory_hugetlb_accounting (re-check failed)\n");
-			return 1;
-		}
-		printf("Successfully enabled memory_hugetlb_accounting\n");
-	} else {
-		printf("memory_hugetlb_accounting is already enabled\n");
-	}
-
-	/* Enable memory controller in subtree */
-	fd = open(CGROUP_PATH "/cgroup.subtree_control", O_WRONLY);
-	if (fd >= 0) {
-		(void)write(fd, "+memory", 7);
-		close(fd);
-	}
-
-	if (mkdir(TEST_CGROUP_PATH, 0755) != 0) {
-		if (errno != EEXIST) {
-			perror("mkdir test_reproducer");
-			return 1;
-		}
-	}
-
-	/* Set memory limit to 1MB (less than 2MB hugepage) */
-	write_file_val(TEST_CGROUP_PATH "/memory.max", "1M");
-
-	pid = fork();
-	if (pid < 0) {
-		perror("fork");
-		return 1;
-	}
-
-	if (pid == 0) {
-		/* Child: Move to cgroup */
-		write_file_val(TEST_CGROUP_PATH "/cgroup.procs", "0");
-
-		printf("Child: Attempting to allocate and touch 2MB hugepage...\n");
-		/* Allocate 2MB hugepage */
-		size = 2 * 1024 * 1024;
-		addr = mmap(NULL, size, PROT_READ | PROT_WRITE,
-			    MAP_PRIVATE | MAP_ANONYMOUS | MAP_HUGETLB, -1, 0);
-		if (addr == MAP_FAILED) {
-			perror("Child: mmap MAP_HUGETLB");
-			exit(1);
-		}
-
-		printf("Child: mmap succeeded at %p, touching it now...\n", addr);
-		*(char *)addr = 1;
-
-		printf("Child: Successfully touched page (bug not triggered?).\n");
-		munmap(addr, size);
-		exit(0);
-	}
-
-	/* Parent */
-	waitpid(pid, &status, 0);
-
-	printf("Parent: Child exited. Cleaning up.\n");
-	rmdir(TEST_CGROUP_PATH);
-
-	if (WIFSIGNALED(status)) {
-		printf("Parent: Child killed by signal %d (%s)\n",
-		       WTERMSIG(status), strsignal(WTERMSIG(status)));
-		if (WTERMSIG(status) == SIGBUS)
-			printf("Parent: Child got SIGBUS as expected.\n");
-	} else if (WIFEXITED(status)) {
-		printf("Parent: Child exited with status %d\n", WEXITSTATUS(status));
-	}
-
-	return 0;
-}
-
-Signed-off-by: Ackerley Tng <ackerleytng@google.com>
----
-Ackerley Tng (2):
-      mm: hugetlb: Return -ENOSPC on memcg charge failure
-      mm: hugetlb: Drop refcount before freeing on memcg charge failure
-
- mm/hugetlb.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260901-hugetlb-alloc-folio-memcg-charge-error-handling-5862e632e5f5
-
-Best regards,
---
-Ackerley Tng <ackerleytng@google.com>
-
+wall, write:
+    - sanitize hostname in banner header (by Karel Zak)
 
