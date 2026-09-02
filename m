@@ -1,60 +1,48 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from out13-174.antispamcloud.com (out13-174.antispamcloud.com [185.201.17.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5528D4A3D34
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:26:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5A6D366042;
+	Wed,  2 Sep 2026 18:26:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.201.17.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788373581; cv=none; b=U9dRc3W8oAK6sLIt9sXGAfaqjXrTgnlqT+3+IK0/J2Zp9EjKA53M3SKwHfmOJ46uOTix4oTapPSxkvR66D4hZPnZr7kAiNRHHuqQELcnuYhIzfoasPcPTka/VgR6Ao0PCd1JPNdwUBgcekXVf6YQrjsEkwIxVX37VXUyFH66HtM=
+	t=1788373583; cv=none; b=WA16Nhpgwz1u9PMbDj0ZXf25+iefUzPjqOkHwYDf6aoS7YnTo2V/7aStLkdx9JGhHairm58g0nluE0YWnIxEPxP67w8nsvHLBpzsP/kHRITweXFP7WmyvfkOEl4CeMJhclRQ0aLrpdkePU7GKpsW9W4bbMNP2c+mcNpK5NwC3Rw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788373581; c=relaxed/simple;
-	bh=gCApV5Kok+BQRsw8rttt79VnZGT1SsQmVJ70ICszXIo=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=rgOCBPIBPQN+LTqodt1T1w7qGegAR8nUHaHtsm8SdhA3AqpoMZJHOs7vIr5p0SQklwWX2r3XI2PRxaPn8G7aev/53TBAtnkR9V5pGzHvUeaF11gWSnCIGG3MxCR8wrCCjsS9o4By2u3a9ry9F/XXaDodJSdLogBEgKpgUMmcI/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=nbX8DEx4; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788373583; c=relaxed/simple;
+	bh=JFow46Vnz8reduVDvIc0YSORwX6vyQZXYpGoWC0l8YY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=O2Z6beRgs7KSawnRjNWDgOznTN5GCwC2/ohROu+bAx8fuHOx+BibDPgMLTurN+Q0y2Qbd0eywmc1JztyQ3HffLsEz3ja7QOzkiCZ9Z6NjzIkYt1SeoqnNRkZBB0B9d4Ml6BwJ1Yrh3Kq1jp5DE4j/fUe3EvpNS/e6q4zfwicxF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=reactivated.net; dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b=Z6F++i9K; arc=none smtp.client-ip=185.201.17.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reactivated.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=reactivated.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="nbX8DEx4"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 47AB54E4145B;
-	Wed,  2 Sep 2026 18:26:11 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0C4AF6053C;
-	Wed,  2 Sep 2026 18:26:11 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D58D311C795A7;
-	Wed,  2 Sep 2026 20:25:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788373565; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=p03yiwsq38j8TPrIFwJ6uLWAobpLTqLwpi0gup1+xQo=;
-	b=nbX8DEx4dXIMMnr4Z9CsBI5CeXMXiXwYc0nKt9WsCt+KoByT8ytPW+DVzqZEVvC+kVpb8S
-	uFeaovux2LcHJT2uqwH0WLx12ZBme7D2x6hZDvV5Wq9wjWWHTVPmFkZvHLbDWfUA8V/IZ1
-	3u5OxJe4ZsWQxAvuoeYVzyN1PgrhYeAZGeNfNvm6BdRyd5XUoAGJfw6h4zsG2IsPq8QTFo
-	nQzOToE9yjmSyw60bNO5WR/Q0xMTP+yG3zkaZpX6lif4UYweZcizk+lGBggRk0rAP0vRuB
-	3/sTXL+nKy+C7ix7JtqcMn+bWyf7EdDrhh5C+Y6ocwCbLl9kxcK/fzt8yaJMow==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Linus Walleij <linusw@kernel.org>, 
- Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260814-drm-bridge-every-panel-v1-0-19cd5277cc8d@bootlin.com>
-References: <20260814-drm-bridge-every-panel-v1-0-19cd5277cc8d@bootlin.com>
-Subject: Re: (subset) [PATCH 00/11] drm/panel: add a panel_bridge to every
- panel
-Message-Id: <178837355762.1178469.9866687339968107247.b4-ty@b4>
-Date: Wed, 02 Sep 2026 20:25:57 +0200
+	dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b="Z6F++i9K"
+Received: from s1041.use1.mysecurecloudhost.com ([192.250.231.249])
+	by mx322.antispamcloud.com with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <dan@reactivated.net>)
+	id 1x1pDc-009oNV-Hm; Wed, 02 Sep 2026 19:57:55 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=reactivated.net; s=default; h=Cc:To:In-Reply-To:References:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:Sender:
+	Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender
+	:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=uEt0FZh1h7xpn4K7s6fu7UzabzsKhHO6udvMeZH/uZk=; b=Z6F++i9KgG6GD3jlFrMtRACGEf
+	x+da8bu2Zd9j0VY9ZG40KEvzPvhR8yL2BgDz4oVsL6E/gQ9/wP5e9YvafgiwtnfCyyWkBojVPEu6C
+	CYR+3p+F6EA6/rtKeAiPZ5Ii6I8QLngJh8WC1GP0NfXXLcVpC3J94SJ7ZOvZOPLMhvthfZ9foC9o2
+	Ek0nKnuaMsataqqAJrFalNf3OjuPYGcBpeShi0MA74xFVM6DjKn8+zJ4/y5nSJLIgex+d65GUgrYJ
+	zl6wSALOaP6MSKyJVxyOu61tKEQEVAsCGpEl6OvwniEvkNnISN7IqvSU9KUqA98124YK2bxkSaXLo
+	PCx7zXIw==;
+Received: from [188.251.249.2] (port=45118 helo=[192.168.1.123])
+	by s1041.use1.mysecurecloudhost.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.5)
+	(envelope-from <dan@reactivated.net>)
+	id 1x1pDY-0000000F9KQ-3ANA;
+	Wed, 02 Sep 2026 17:57:49 +0000
+From: Daniel Drake <dan@reactivated.net>
+Date: Wed, 02 Sep 2026 18:57:03 +0100
+Subject: [PATCH v4 1/5] iommu_pt: Fix test_pgsize_boundary() failure on
+ narrow-OA formats
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,31 +51,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Message-Id: <20260902-bcm2712-iommu-submit-v4-1-9dbb657578c1@reactivated.net>
+References: <20260902-bcm2712-iommu-submit-v4-0-9dbb657578c1@reactivated.net>
+In-Reply-To: <20260902-bcm2712-iommu-submit-v4-0-9dbb657578c1@reactivated.net>
+To: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Daniel Drake <dan@reactivated.net>
+Cc: iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, nick.hollinghurst@raspberrypi.com, 
+ james.quinlan@broadcom.com, Jason Gunthorpe <jgg@ziepe.ca>
+X-Mailer: b4 0.14.3
+X-Get-Message-Sender-Via: s1041.use1.mysecurecloudhost.com: authenticated_id: dan@reactivated.net
+X-Authenticated-Sender: s1041.use1.mysecurecloudhost.com: dan@reactivated.net
+X-Spampanel-Domain: s1041.use1.mysecurecloudhost.com
+X-Spampanel-Username: 192.250.231.249
+Authentication-Results: antispamcloud.com; auth=pass smtp.auth=192.250.231.249@s1041.use1.mysecurecloudhost.com
+X-Spampanel-Outgoing-Class: ham
+X-Spampanel-Outgoing-Evidence: SB/global_tokens (0.00340747804734)
+X-Recommended-Action: accept
+X-Filter-ID: 9kzQTOBWQUFZTohSKvQbgI7ZDo5ubYELi59AwcWUnuURYIcqJYgXdt6wOxD7aGQHzZ8BhSPZL1cz
+ XB8iudZvfiu2SmbhJN1U9FKs8X3+Nt06bFpPrNOlRAlE9AVLwR4uGVjKNnzF3nQoDoQtBifM84JL
+ M0i5ZAms0EHrvcCaVIM/7hzmRCZMm1kSJI/8ywn3GnT3EFAinyrilm9zau/FuzkQt9Nb4Ml7QXdk
+ EetczWBpY9ovdkP9RmEvieRDWoEFGZ7f+7oeClYYrL6OxfWC1jM0MOKiGRkxO3FaI58br05WBb39
+ uS1TjWG2Inx+Ts2QrtVmombMJ4e2pn5C0yBMHZ0fE47nEjvubMSTLAkKCKefuLbx+lGq0svfyhth
+ j0R6Iny++hg9dJLqN5zmWqF/oHgMZXS6X/fIHYslsKU0yPHM4JpSMI47HiFQBsGlm5AyJ9N3+CB9
+ 4aFbAhtG8w3Ly5ZVKmISsN3IhGLWYd0758XIiXx6YYOeazosCcxmb7RWPITtorGl87DPy4ds+UWq
+ MUZTL/tWkSfK5K31nzL0AFHJBtc8x8t5TwPji0j+tEORarofO5AIaedOveY7zQj5YZ/cd7uPDhKh
+ WGZMn/d4/04OdrifJPLFYXIpN2MC8oCi+3TnddL52Wxml9vX6xG9HT1hMqJwIOFdI2S/IkjHcgoN
+ +lE++lajS+EBz4etym25QPOIjlkSAfAYMUguLL/iJ3dHHZk8+BacxJzH0Weev4hlgCBkpmIIyJOF
+ ryTdK/1e0oTCxtGGr3tflBYFGrNrmHsCV6TDdtit68pQ4Nki0TzxZwPxmW1OTT5gM4+GMuFG0h5K
+ 1JfG3OtnsbD10lahPkuf+eM3l5KPnbp/eQthjVMIXiM548XiUPzdeM2DpJkNlS+QlzUpPwM5oicr
+ BfHSx0cq8sPOf6wGW9u/lWd24hqw3yFuMpe/j6ywHoVhi9eN8zV1w9vIuEkKCYJ47Q917xCQbH1y
+ M38733VOnxhw2U5RfvwcBhGdh7y1bw2tAk6MiqGkBrRAoXiKcRnEPA3cog/JkEYusjKvZuah7Eo5
+ LC3lag+DgD9xY7Yj7fvC65xWAU3TJceJXG+jXar6FtDTl6SazWHDhW0k3iY0Nxd1+egvPpyylyRk
+ sDtvh9EglVwlBP3PkVHlQGQFk2KBEkFw3+vw1RS8zKP8o2x05FSSJsC7k+LzVpQY05oubiJ9GrzY
+ ++DuIQUs/5JJj4C/n4CILpFTKQlqbzX/LSb50zWeMLuo5Hnmju/07lE8IgUQIRKq4wpDiNg26VD5
+ h9g0J/CmRqJfN6DTVjUszJAalIcW0Bh5dbygTK7jtNAOpOLoYrBwYYKC6XIWdfPsJXrcrDW6vfdj
+ zQ6YC7Heg3Xf7O1TOd7yUx++SDY6V9XDGiqeh8jJhxFbE1QSjfwMTndprmVkWxS1mi+nw+nJxqi8
+ G/0EWIVPrm1vwD4neGesGpTedY39WcqTsQtfSPgwkpcj1YhLdnNHf6G/7NjKIViWFaEeldR/m2+i
+ TN8ji+Mhbk3TTo2Lw6nIoDr0sXUZ7YZoZ/GZ+slJL25ATsZTVifNjYlkFmCz0w5vcdcHI3py3L8t
+ PqWAmEN/CjKjK3VVq9SDkpBDU8/nN9BMID38D/++xf97O23y3deP8vNnmz84mDUvZqxnHNc/wp8s
+ bbUui5b8WkACIg5AB/ilm4apSU2goW8TQ8+z0w5vcdcHI3py3L8tPqWAC7xZyfryQF81aCkSJYKS
+ vg==
+X-Report-Abuse-To: spam@quarantine16.antispamcloud.com
+X-Complaints-To: abuse@master.antispamcloud.com
 
+test_pgsize_boundary() tests boundary mapping with a hardcoded physical
+address that requires 38 bits of physical address space. However, the
+upcoming page table format for the Broadcom BCM2712 IOMMU only supports
+37 bits of output address space.
 
-On Fri, 14 Aug 2026 16:05:48 +0200, Luca Ceresoli wrote:
-> This series makes every drm_panel create a drm_panel_bridge wrapping it, as
-> previously discussed [1][2].
-> 
-> A panel_bridge is currently created only afterwards by the component
-> accessing it (such as the previous bridge), but that creates a mismatch
-> between the panel and the panel_bridge lifetimes and devm ownership.
-> 
-> [...]
+This causes a test failure as iommu_map() rejects the large address
+with -ERANGE.
 
-Applied, thanks!
+Drop the high bits of the address (they are not relevant to the
+boundary calculations being tested) so that it fits into 32 bits.
 
-[01/11] drm: of: drm_of_find_panel_or_bridge: simplify freeing the remote node pointer
-        commit: 5a859b820ddf99e084b7fef2ec520b2df90a0a19
-[02/11] drm: of: drm_of_find_panel_or_bridge: simplify error return paths
-        commit: 97c594f71fa71dc30a0583a76d8b6ef5c5ea10b1
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Daniel Drake <dan@reactivated.net>
+---
+ drivers/iommu/generic_pt/kunit_iommu_pt.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Best regards,
+diff --git a/drivers/iommu/generic_pt/kunit_iommu_pt.h b/drivers/iommu/generic_pt/kunit_iommu_pt.h
+index ece1c9b8c55d..9fc71db74234 100644
+--- a/drivers/iommu/generic_pt/kunit_iommu_pt.h
++++ b/drivers/iommu/generic_pt/kunit_iommu_pt.h
+@@ -403,7 +403,7 @@ static void test_pgsize_boundary(struct kunit *test)
+ 	    priv->smallest_pgsz != SZ_4K)
+ 		kunit_skip(test, "Format does not have the required range");
+ 
+-	do_map(test, 0xfef80000, 0x208b95d000, 0xfef9ffff - 0xfef80000 + 1);
++	do_map(test, 0xfef80000, 0x8b95d000, 0xfef9ffff - 0xfef80000 + 1);
+ }
+ 
+ /* See https://lore.kernel.org/r/20250826143816.38686-1-eugkoira@amazon.com */
+
 -- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+2.55.0
 
