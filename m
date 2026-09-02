@@ -1,112 +1,200 @@
-Received: from mta0.migadu.com (out-108.mta0.migadu.com [91.218.175.108])
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5CA4AC156
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:41:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED0894AA1DB
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:41:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788367292; cv=none; b=lCxMiqjI48I8qmcUqd5EoRzTKEfeZw7QxjWIdAc3j5dQdqeludBX0gePKZubavB+Uit3g0ISo7hcDNfLN48fH2d+yH58zVXpEY02uxCDho78PcT2AtCrzWaJbMXZzNLYU7UBEnANwgHOMi9r7+85Pznz15Yfsl2n00fk3An6O1o=
+	t=1788367295; cv=none; b=Z1CHc0B2BW3GPxEnu7Ns77HHfVUc2rOO7IHZJDT63dqRrZAmDzhHjpGjZdFQIJKoriLE070bTjgQMerrDF8u8fHayQm0kDg1rZKWj46SPisXP4fuBaAML0qnWFQ1aczN52aRVUtwm5ttUm4tfeIvyGGGIdcRgwx8G2ACS8Oizc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788367292; c=relaxed/simple;
-	bh=Ou4zikGxkHmecP2znZ+Jqd5Qm8DfcxsyZmVSinR4NLg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sI2eK4pZGm+6rTPQ9DR5BxiQUBTLzjQmzsHf9g5+sk29QOYJnjEC2utciLNsQZJVCKUvo101FNPMGHHgaSXY8vkNh/5TmTbqW4PmDLU/3owRtVNBl4R3VZpvTCBFGlBB771hUgItyjVlT9o2TiY32sHQR+hCvPggIhdZshM/jv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HRgF1s/T; arc=none smtp.client-ip=91.218.175.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788367295; c=relaxed/simple;
+	bh=qiAUnwXNRHcCnTp6pB3essIjKUFlHq7w5jyTIpSCYHc=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=YsJVfkNmIttpjLZhvhXUaGURPjHFcMQwqmV3L9X8iR1wh7+NiBIy5o39baUuEz7SEpr378UjFyI7y09pvrNiY7giGCcOJczBtuJeRGBvSW7aMHfNrfpoZ3n7+giOh2gd+umA99xj3D4ETQVUjYSMc+qgb3rA7cLoW7bQv+Qmf/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=WbvbZJWz; arc=none smtp.client-ip=209.85.210.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HRgF1s/T"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Ou4zikGxkHmecP2znZ+Jqd5Qm8DfcxsyZmVSinR4NLg=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788367284; v=1; x=1788972084;
- b=HRgF1s/TOMv9wBU5/2ufXbzeUgvcpXKsqefyMOBIEOgbvw/qAW2GsZO9ah7/agCQXgC/8MQl
- Qfus9sJ6ElMY97V69Z8mFT4WkM07pARQasNfRMFERES9MnSmrPRcolImayGNLu0OTwywaXHKnGB
- JN1NhzPfCTQm/PKal8nWNusA=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 338eeb5a5200f8e7;
-	Wed, 02 Sep 2026 16:41:13 +0000
-X-Mizu-Trace-ID: 338eeb5a5200f8e7
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <75232acb-6c87-4a1b-8f5d-c635a62ecff3@linux.dev>
-Date: Wed, 2 Sep 2026 17:41:10 +0100
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="WbvbZJWz"
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-848568a6f62so1518578b3a.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:41:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788367290; x=1788972090; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=FhHpGJsy4eqTyD8gJTN9GI3bxNYhY9zj5ahy9gYJIhU=;
+        b=WbvbZJWzQOllpmwfx3uMTXlZL+nTLK1a8oIW/Fb5vGb+zZOHAXOT3WskyDwhyeyWbd
+         aNgdyxQ8/Zhov0cWVe26v2G2s1cbrQiPhwMhB6IZxKbIiCsFXqdobvTq9cTymPeKA4z4
+         ekqNC+OXbVbJF65Q7QqYOfSyc0DkWtAzrJUL7p5a1+4UcG1v8O+9QDn5MxkHn92yqIB5
+         /t6RGsMIRJg+FMOd1zhhVkBrQ2iHXsr8TwJ10Cw5nSOTIXGzId+x/EJATmnlNJVZ1fjL
+         +AWE6Brkx0I8W2gUMe+yrTkKxXnTQDiwC2m3A1HDn8DVl+HX4pZiiEetg3NtS3hhAqCQ
+         QVng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788367290; x=1788972090;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FhHpGJsy4eqTyD8gJTN9GI3bxNYhY9zj5ahy9gYJIhU=;
+        b=RSYIl4DZrNlNd7JgmGhQuc3ANJHiBistiKe+gNj5z0NuodvUCDMFg01bUgngdFdP33
+         74u1glzeVGiXgiZjGf0K6cOLVtRuzpYjNtTY2mm6p6E6FxwLSuGnRFx2MN4JV8Tgsc7u
+         ZBFKiZArH0Oyv1j3G5aNNLZLtGuu/fI0AYHcKIBI7+FKMjmprNssf3mOq1ffk59e6zfL
+         KqgnPs0JBD/8tMKaGD7Hc0OreqzghSd3WJqmPKnFJ5hJj9tp/4f9HIpxxjejJaqmTzq0
+         MK/tIKMv+l7QrNGR+mSXB4yiIKl3qs8keRmf0wsZeSt3U2hC+7RvUkFJPODNYxhoYinz
+         c/QA==
+X-Forwarded-Encrypted: i=1; AKwUvBztjZ0UIj5P3RhMZgMvPXqZZALrXQgMFOdFTOTeM5CI2YAgRh3QKxBxawKpQ9R5MDh+v5JUtucLudzgq0E=@vger.kernel.org
+X-Gm-Message-State: AFuF++mz7f62RtleI47+7UoYAW7nxglay/KLdhpOeoVv8rYKv49fPM06
+	zbhAj1woULpFFwgpJMzTUt3H085P1F+M5B686aW0VN6IypX2Cdpyw07SoxP9+tlleGY5Fwae7hx
+	KRWEztg==
+X-Received: from pfxa26.prod.google.com ([2002:a05:6a00:1d1a:b0:848:4f56:7671])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:2305:b0:857:7384:b5fd
+ with SMTP id d2e1a72fcca58-85ed5015dfemr6019071b3a.25.1788367289034; Wed, 02
+ Sep 2026 09:41:29 -0700 (PDT)
+Reply-To: Sean Christopherson <seanjc@google.com>
+Date: Wed,  2 Sep 2026 09:41:07 -0700
+In-Reply-To: <20260902164123.2546762-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] mm: remove min_free_kbytes adjustment for THP
-To: Nimrod Oren <noren@nvidia.com>, Andrew Morton
- <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>,
- Johannes Weiner <hannes@cmpxchg.org>, Hugh Dickins <hughd@google.com>,
- Nirmoy Das <nirmoyd@nvidia.com>, Dragos Tatulea <dtatulea@nvidia.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <20260901190123.3511535-1-noren@nvidia.com>
-Content-Language: en-US
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <20260901190123.3511535-1-noren@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20260902164123.2546762-1-seanjc@google.com>
+X-Mailer: git-send-email 2.55.0.966.g6673acef38-goog
+Message-ID: <20260902164123.2546762-5-seanjc@google.com>
+Subject: [PATCH v2 04/20] KVM: selftests: Rename "num" param to "nr_pages" for
+ physical page allocators
+From: Sean Christopherson <seanjc@google.com>
+To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
+	Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
+	Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>, 
+	Huacai Chen <chenhuacai@kernel.org>, Anup Patel <anup@brainfault.org>, 
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>
+Cc: Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>, 
+	Steffen Eiden <seiden@linux.ibm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Atish Patra <atish.patra@linux.dev>, 
+	Alexandre Ghiti <alex@ghiti.fr>, David Hildenbrand <david@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	kvmarm@lists.linux.dev, kvm@vger.kernel.org, loongarch@lists.linux.dev, 
+	kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Itaru Kitayama <itaru.kitayama@fujitsu.com>, 
+	Nicholas Piggin <npiggin@gmail.com>, Ritesh Harjani <ritesh.list@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
+Rename the "num" param in the physical page allocator APIs to "nr_pages" to
+make the unit and role of the param more obvious.
 
+Opportunistically rework the function comment to drop the superfluous
+kerneldoc style, and to very explicitly call out that success is guaranteed.
 
-On 01/09/2026 20:01, Nimrod Oren wrote:
-> When THP is enabled, set_recommended_min_free_kbytes() may raise
-> min_free_kbytes using a heuristic that scales with pageblock_nr_pages.
-> Commit f000565adb77 ("thp: set recommended min free kbytes") added this
-> heuristic to help keep pageblocks free and reduce fragmentation for THP
-> allocations.
-> 
-> The recommendation scales poorly with larger base page sizes. With the
-> default arm64 pageblock sizes, the contribution per eligible zone
-> before applying the existing cap of 5% of low memory is:
-> 
->   4 KiB pages:   2 MiB pageblock,   22 MiB per zone
->  16 KiB pages:  32 MiB pageblock,  352 MiB per zone
->  64 KiB pages: 512 MiB pageblock,  5.5 GiB per zone
-> 
-> Even with that cap, min_free_kbytes can reach excessive levels.
-> 
-> The automatic min_free_kbytes increase predates proactive compaction
-> and many subsequent changes to compaction. Given those changes,
-> increasing min_free_kbytes for THP by default is no longer clearly
-> justified.
-> 
-> Remove set_recommended_min_free_kbytes() and all associated
-> recalculation paths. With this policy gone, min_free_kbytes is
-> controlled only by the page allocator's default calculation and the
-> vm.min_free_kbytes sysctl. Users who want additional headroom may set a
-> higher value via that sysctl.
-> 
-> Link: https://lore.kernel.org/r/20260831075635.2244437-1-noren@nvidia.com/
-> Suggested-by: Michal Hocko <mhocko@suse.com>
-> Signed-off-by: Nimrod Oren <noren@nvidia.com>
+No functional change intended.
 
-Could this negatively affect x86 and arm64 systems using 4 KiB
-pages?
+Tested-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+---
+ .../testing/selftests/kvm/include/kvm_util.h  |  6 ++--
+ tools/testing/selftests/kvm/lib/kvm_util.c    | 35 ++++++-------------
+ 2 files changed, 14 insertions(+), 27 deletions(-)
 
-This change reduces the free-memory headroom available for
-compaction. That could reduce THP allocation success, especially
-for GFP_TRANSHUGE_LIGHT allocations, which fail quickly rather
-than performing direct reclaim or compaction.
-
-With defrag=madvise, faults in MADV_HUGEPAGE regions may instead
-incur additional synchronous reclaim or compaction latency.
-khugepaged itself will not start later, but it may encounter more
-fragmented memory and perform more work or fail more often.
-
-I think it would be good to provide THP success, fallback, and
-allocation-latency results under memory pressure for x86 and
-arm64 4 KiB systems?
+diff --git a/tools/testing/selftests/kvm/include/kvm_util.h b/tools/testing/selftests/kvm/include/kvm_util.h
+index 5a7a455b5387..95bc0a78d2bc 100644
+--- a/tools/testing/selftests/kvm/include/kvm_util.h
++++ b/tools/testing/selftests/kvm/include/kvm_util.h
+@@ -991,11 +991,11 @@ void kvm_gsi_routing_write(struct kvm_vm *vm, struct kvm_irq_routing *routing);
+ const char *exit_reason_str(unsigned int exit_reason);
+ 
+ gpa_t vm_phy_page_alloc(struct kvm_vm *vm, gpa_t min_gpa, u32 memslot);
+-gpa_t __vm_phy_pages_alloc(struct kvm_vm *vm, size_t num, gpa_t min_gpa,
++gpa_t __vm_phy_pages_alloc(struct kvm_vm *vm, size_t nr_pages, gpa_t min_gpa,
+ 			   u32 memslot, bool protected);
+ gpa_t vm_alloc_page_table(struct kvm_vm *vm);
+ 
+-static inline gpa_t vm_phy_pages_alloc(struct kvm_vm *vm, size_t num,
++static inline gpa_t vm_phy_pages_alloc(struct kvm_vm *vm, size_t nr_pages,
+ 				       gpa_t min_gpa, u32 memslot)
+ {
+ 	/*
+@@ -1003,7 +1003,7 @@ static inline gpa_t vm_phy_pages_alloc(struct kvm_vm *vm, size_t num,
+ 	 * protected memory, as the majority of memory for such VMs is
+ 	 * protected, i.e. using shared memory is effectively opt-in.
+ 	 */
+-	return __vm_phy_pages_alloc(vm, num, min_gpa, memslot,
++	return __vm_phy_pages_alloc(vm, nr_pages, min_gpa, memslot,
+ 				    vm_arch_has_protected_memory(vm));
+ }
+ 
+diff --git a/tools/testing/selftests/kvm/lib/kvm_util.c b/tools/testing/selftests/kvm/lib/kvm_util.c
+index 9ddc047d5c27..b071d77dd301 100644
+--- a/tools/testing/selftests/kvm/lib/kvm_util.c
++++ b/tools/testing/selftests/kvm/lib/kvm_util.c
+@@ -2025,33 +2025,20 @@ const char *exit_reason_str(unsigned int exit_reason)
+ }
+ 
+ /*
+- * Physical Contiguous Page Allocator
++ * Allocate contiguous (guest) physical pages in a given memory region, at or
++ * the minimum specific GPA.  If the memory is protected/private, also add the
++ * allocate pages to the region's set of protected pages, e.g. so that arch
++ * code knows which pages need to be encrypted when launching the VM.
+  *
+- * Input Args:
+- *   vm - Virtual Machine
+- *   num - number of pages
+- *   min_gpa - Physical address minimum
+- *   memslot - Memory region to allocate page from
+- *   protected - True if the pages will be used as protected/private memory
+- *
+- * Output Args: None
+- *
+- * Return:
+- *   Starting physical address
+- *
+- * Within the VM specified by vm, locates a range of available physical
+- * pages at or above min_gpa. If found, the pages are marked as in use
+- * and their base address is returned. A TEST_ASSERT failure occurs if
+- * not enough pages are available at or above min_gpa.
++ * Note, success is guaranteed!
+  */
+-gpa_t __vm_phy_pages_alloc(struct kvm_vm *vm, size_t num,
+-			   gpa_t min_gpa, u32 memslot,
+-			   bool protected)
++gpa_t __vm_phy_pages_alloc(struct kvm_vm *vm, size_t nr_pages, gpa_t min_gpa,
++			   u32 memslot, bool protected)
+ {
+ 	struct userspace_mem_region *region;
+ 	sparsebit_idx_t pg, base;
+ 
+-	TEST_ASSERT(num > 0, "Must allocate at least one page");
++	TEST_ASSERT(nr_pages, "Must allocate at least one page");
+ 
+ 	TEST_ASSERT((min_gpa % vm->page_size) == 0, "Min physical address "
+ 		"not divisible by page size.\n"
+@@ -2064,13 +2051,13 @@ gpa_t __vm_phy_pages_alloc(struct kvm_vm *vm, size_t num,
+ 
+ 	base = pg = min_gpa >> vm->page_shift;
+ 	do {
+-		for (; pg < base + num; ++pg) {
++		for (; pg < base + nr_pages; ++pg) {
+ 			if (!sparsebit_is_set(region->unused_phy_pages, pg)) {
+ 				base = pg = sparsebit_next_set(region->unused_phy_pages, pg);
+ 				break;
+ 			}
+ 		}
+-	} while (pg && pg != base + num);
++	} while (pg && pg != base + nr_pages);
+ 
+ 	if (pg == 0) {
+ 		fprintf(stderr, "No guest physical page available, "
+@@ -2081,7 +2068,7 @@ gpa_t __vm_phy_pages_alloc(struct kvm_vm *vm, size_t num,
+ 		abort();
+ 	}
+ 
+-	for (pg = base; pg < base + num; ++pg) {
++	for (pg = base; pg < base + nr_pages; ++pg) {
+ 		sparsebit_clear(region->unused_phy_pages, pg);
+ 		if (protected)
+ 			sparsebit_set(region->protected_phy_pages, pg);
+-- 
+2.55.0.966.g6673acef38-goog
 
