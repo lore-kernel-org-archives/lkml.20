@@ -1,214 +1,216 @@
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B284F382F10
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:28:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F9AF3839A1;
+	Wed,  2 Sep 2026 18:29:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788373730; cv=none; b=KwZEzmNseiEmSz1W4KvSReLj6rqsjxXBuH0KOTvSN39/IjtZhQsYi/VA4DbtC8K3UBLtYFK5YND+FhEx/9A/pABJqSCXeUrO2+dYq3fokjgnu2p3s5Wpkb4hWB+kKIEFOwd+qGOzeR0TorZq0pzT2woajk1ok1FcTXYR/CX0ba0=
+	t=1788373748; cv=none; b=LsZzWIP8S+wQua8YxCMpijz24ff6Xh0vl9WIBtYAvfq+F/WYQ9urZsGrgB3gkWMUG/922DbCE30fPj7MdH0n9suDMEBD4UC4Sasg/5a3Xrbq1UzdHaovpXFEyy86YXFZCgKxDQ34XW2eaOkDzDmGbmbuXWOocG235wKofmDXGg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788373730; c=relaxed/simple;
-	bh=tfC/RB9kz8s1oonO8uu6fd2cb2zJHjZWJyAYedq2t0k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E+BmTrLEFzfUT8DhRx9jpGA2NfFNbFnKdRo7Ma22xBztzkIHxBG1uCXh/K11s3Z+/meQMwCll9X0nOIFUPv5CchGnih9vDmOuXaKkAdcD1cmcpoEc9DuA4iT0m1LhZzM0C+1XxPwaIekgEB3SdPy6ME7+Lvd+2gAFfdB/QmG3vk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R/DP2eKM; arc=none smtp.client-ip=209.85.128.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788373748; c=relaxed/simple;
+	bh=BiNlhG9miM26zJxrQIOP8Hg2ir45xpkEAaZXQp3W1IE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=WhK40A8B4e/g7tZqwg88rtAFS2mwWzJZwP9ZFMMlquZM97pNlbLvwjFaVufLBfvNSYofxp6t87x9Kl7MCVvRBeNxpnpNwEkMDOMfQ2ohAATQItAjXLGxxB+qeVWH+QYSVt/qgIdJae4+3UhX3Bk8p8B85EA1BZw/drh6E8gVM0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=TrekhSWa; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R/DP2eKM"
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-86d43cdee51so11262117b3.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 11:28:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788373727; x=1788978527; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oDxoWYox+1+oZjWxNuh3RL0Qsto297A849qEA0ZTYLI=;
-        b=R/DP2eKMBLU8mcc/+JkMEGtC7h9LyFbsWswegXuBlO1hHt7torUECy2UWqJab5FKoX
-         pQh9jd5XnE7sFU28MPOqrYJDkYx0edL5U+0gCnd0EoQ5+6sQLbloXHHRM8U96ZDRwHLm
-         Ena3Dj91ii25dKKMFc7oxy3+FIy/7h8KBVcP7nCt+MK3BEAoRVjeJlLHMGRpgkovE8nT
-         lX/5JrZEMDW8Z5DFkb0CSrzT27hOL01ywDtV8CSNUtAuUhzCu7jRzRDbPRvfCTxhexOA
-         sqcfjVjeWvkUexVCFVgmXJ4+zp97UGQvW7mYA5l7FB3YKrQheP7O8O3hKVd5ChgaaeNj
-         vfjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788373727; x=1788978527;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oDxoWYox+1+oZjWxNuh3RL0Qsto297A849qEA0ZTYLI=;
-        b=URXvlmyvhqfLY1pwepyBB9N6dvr1Jxv6/ELOx7CC1Jv3PK1EllIC8IymDqj8Z6AsIr
-         6DIdJ3O1w/5HEjEugbUuEUYvxvqJ59RWjdjiAtcxGmOkEjtBVWr/rvS2TScr70OEuuOt
-         GphlIHUJrbxiGDLC0asMtnfaRK2yPHHBzx31GQ2Yi+ITAoecRXNsdTHvY6MNVWfQmypp
-         TiCIywjn9kxpEZsXUKEcGIzbC8ZLRvgLmh3omOZlQv+Kdu14tPkpOLehKnJbOD7KcypA
-         IKzUdPiG1Tb5HWjjcIofxFadHPomZLEH3+bbG3B66czz0TEqe5tWcrascS3ORLEOoF8c
-         sbbw==
-X-Forwarded-Encrypted: i=1; AKwUvBx0NlDHezJtedFGEPxgJ4WchyJSWRZlYxwGQEmUQUNdwgJhJBRKb9CdhHBkig5aHMMTZ/cD6kJo4UNsvXQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mGEiY3D/7Uu0/MUdYmqu9o63jSvw/sJCwhUCH8OQydvnflyBmZ
-	3Eex98ywFy3xguqzBak3OWzZqCt3y6B9Aq0N/qmQIzcg+A6ax2MBb20s
-X-Gm-Gg: AYBFou2gyGR29F+y8ZbLOFvfd+tVpYy6xeDIPKMu76HzaAdVWCRHOfPUb8g4LwI9Ese
-	yR/4tMqdQk3hx/YDGNo5z5sIqklYV1geX3KYjV+ZEnpQl8bzq4DnXIN8CmXhvCeHDVkNaXmuu21
-	pjj6PcneW7NBjZSI3rCk5e8mrn1XqebjxttHuRznNdlOXGfngXZA4ftFzU9tCYoTOe3KDF6RFhQ
-	Dw/6O9+M+lQ73ehlyLim+/uK/gUdF2ZBEc2CqOBneCTJP9Da1zhnrajotLVmLrGQOtZcXZxf5QB
-	g/yAbcrHTzzraHv/fFxHVVZqqaxZcYl1lSEDKWQI0kT2QZ4YskH5ZKoqpwdMr4IUa46mtSzGAbe
-	vzyOrZSoDYyO5dLJD3gj2psTHrRcMmyMjyA02sYj6fi5EYoIJOxOClC036Q/sqnYFhG7lMEjXtH
-	JemwgnSEIiZCSPvcxAujEkQj1Y8bDyOb4n9f1SuazLxdoNxtbJPW7O9L3e/BT7MZVfTp/tbgqta
-	57sOFXrOsAgZOVrCboyvJjPGw1M
-X-Received: by 2002:a05:690c:a5d6:b0:833:f9bd:b289 with SMTP id 00721157ae682-86c552e5e02mr31455827b3.31.1788373726869;
-        Wed, 02 Sep 2026 11:28:46 -0700 (PDT)
-Received: from suesslenovo ([2600:1700:18fb:6011:51fa:ff89:a955:fb9])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-86c184e4b52sm23405307b3.34.2026.09.02.11.28.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 11:28:46 -0700 (PDT)
-Date: Wed, 2 Sep 2026 14:28:45 -0400
-From: Justin Suess <utilityemal77@gmail.com>
-To: Casey Schaufler <casey@schaufler-ca.com>
-Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
-	kpsingh@kernel.org, paul@paul-moore.com, mic@digikod.net, viro@zeniv.linux.org.uk, 
-	brauner@kernel.org, kees@kernel.org, gnoack@google.com, jack@suse.cz, 
-	song@kernel.org, yonghong.song@linux.dev, martin.lau@linux.dev, m@maowtm.org, 
-	bpf@vger.kernel.org, linux-security-module@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 01/15] lsm: Add the LSM policy object lifetime hooks
-Message-ID: <aphlyRhOALyp4tSK@suesslenovo>
-References: <20260831145858.3869191-1-utilityemal77@gmail.com>
- <20260831145858.3869191-2-utilityemal77@gmail.com>
- <apgX1HKQ7b973YV-@zenbox>
- <298197df-1f92-40b8-8baf-8f52a3dcec20@schaufler-ca.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="TrekhSWa"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=BiNlhG9miM26zJxrQIOP8Hg2ir45xpkEAaZXQp3W1IE=; b=TrekhSWatwkefQvmMOszkg2p1m
+	POqAK1NQXo93vVMPjPVTucLS2Okro1bd/6Tz5QahWbQUrdXFiTQyk/nT0csB3o1o82EhgWj4EYwyO
+	/wjQtxWwFMlEbbCU+5PUNKJLHEWk7faODXR+KY8prRv4aFfZb3z8ZxHgVTaM8lwO3z99TeMFLLYsD
+	x2Cw549RLoekbjoZ8YxpXUEL2sYVAKSGwHy2aqaUSBTGT/JAD58bjc6dG1q9t2nQFR9obR1mChiCF
+	f5a1cMSIAFKjnx28g0lOGOdEajXSRe1N19eXZicOWJOiGzcO7/rkKDAMss/8a9Z5tQPFNtGBvW6oM
+	UBYWlQ1g==;
+Received: from [2001:8b0:10b:5:a7b1:57c5:dd61:87e3] (helo=u09cd745991455d.ant.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x1phM-00000007gEx-0AEp;
+	Wed, 02 Sep 2026 18:28:36 +0000
+Message-ID: <5c4c44b103ea1695368331380adde0b657f59a97.camel@infradead.org>
+Subject: Re: [PATCH v3 02/13] KVM: x86/xen: Introduce
+ kvm_xen_has_64bit_shinfo() macro
+From: David Woodhouse <dwmw2@infradead.org>
+To: Paul Durrant <xadimgnik@gmail.com>, seanjc@google.com,
+ pbonzini@redhat.com
+Cc: joao.m.martins@oracle.com, boris.ostrovsky@oracle.com, 
+	ankur.a.arora@oracle.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
+	dave.hansen@linux.intel.com, hpa@zytor.com, x86@kernel.org, 
+	syzbot+208f7f3e5f59c11aeb90@syzkaller.appspotmail.com, 
+	syzkaller-bugs@googlegroups.com, suryasaimadhu369@gmail.com, lkp@intel.com,
+ 	nicoyip.dev@gmail.com, frn1furkan10@gmail.com, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, imv4bel@gmail.com
+Date: Wed, 02 Sep 2026 19:28:15 +0100
+In-Reply-To: <d5d6a854-bdaa-4d69-87d1-c7a1731e8690@xen.org>
+References: <20260831213632.81023-1-dwmw2@infradead.org>
+	 <20260831213632.81023-3-dwmw2@infradead.org>
+	 <d5d6a854-bdaa-4d69-87d1-c7a1731e8690@xen.org>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-SR5UXBov7ZTQJLaxEU/Z"
+User-Agent: Evolution 3.60.3-0ubuntu1~ppa9~24.04 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <298197df-1f92-40b8-8baf-8f52a3dcec20@schaufler-ca.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-On Wed, Sep 02, 2026 at 10:51:37AM -0700, Casey Schaufler wrote:
-> On 9/2/2026 6:05 AM, Justin Suess wrote:
-> > On Mon, Aug 31, 2026 at 10:58:43AM -0400, Justin Suess wrote:
-> >> Add struct lsm_policy_object, the identity an LSM embeds in a policy
-> >> object it shares with BPF programs, and the three hooks managing such
-> >> an object's lifetime:
-> >>
-> >>   policy_object_from_fd(fd, &object)
-> >>   policy_object_get(object)
-> >>   policy_object_put(object)
-> >>
-> >> The object records the owning LSM's LSM_ID_* value.  The BPF kfuncs
-> >> built on these hooks dispatch each call on an object to the one LSM
-> >> matching its lsmid, which resolves the containing object with
-> >> container_of(); the framework never interprets an object beyond its
-> >> lsmid.  The type field discriminates between the owning LSM's own
-> >> policy object kinds and is private to it, with 0 reserved as "unset"
-> >> so a zeroed, untagged object fails every type check.
-> >>
-> >> from_fd has no object to route by: the fd refers to a file set up
-> >> through the owning LSM's own userspace interface, so the fd itself
-> >> identifies its LSM.  The framework offers the fd to every
-> >> implementation in turn; an LSM declines a fd that is not one of its
-> >> policy objects with -EOPNOTSUPP, and any other error is a definitive
-> >> translation failure.
-> >>
-> >> The hooks back referenced BPF kptrs, which imposes the same lifetime
-> >> contract on every implementation: from_fd returns a reference on a
-> >> live object, get acquires with inc-not-zero semantics and fails with
-> >> -ENOENT once the count dropped to zero, put may be called from
-> >> contexts that cannot sleep (BPF drives it from map destructors), and
-> >> the containing object is freed only after an RCU grace period, as
-> >> programs load policy object kptrs from maps under RCU and may examine
-> >> an object concurrently with its last put.
-> >>
-> >> The hooks are excluded from the "bpf" LSM's attachment points.  The
-> >> object-routed hooks are unreachable there, as LSM_ID_BPF policy
-> >> objects cannot exist; for from_fd, whose walk visits every
-> >> implementation, a BPF program cannot fill the object out parameter,
-> >> so an attachment returning 0 would hand the caller an uninitialized
-> >> pointer.
-> >>
-> >> Cc: Paul Moore <paul@paul-moore.com>
-> >> Cc: Casey Schaufler <casey@schaufler-ca.com>
-> >> Signed-off-by: Justin Suess <utilityemal77@gmail.com>
-> >> ---
-> >>  include/linux/lsm_hook_defs.h |  4 ++++
-> >>  include/linux/security.h      | 11 +++++++++++
-> >>  kernel/bpf/bpf_lsm.c          |  3 +++
-> >>  3 files changed, 18 insertions(+)
-> >>
-> >> diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
-> >> index 65c9609ec207..d7684407737a 100644
-> >> --- a/include/linux/lsm_hook_defs.h
-> >> +++ b/include/linux/lsm_hook_defs.h
-> >> @@ -452,6 +452,10 @@ LSM_HOOK(int, 0, bpf_token_create, struct bpf_token *token, union bpf_attr *attr
-> >>  LSM_HOOK(void, LSM_RET_VOID, bpf_token_free, struct bpf_token *token)
-> >>  LSM_HOOK(int, 0, bpf_token_cmd, const struct bpf_token *token, enum bpf_cmd cmd)
-> >>  LSM_HOOK(int, 0, bpf_token_capable, const struct bpf_token *token, int cap)
-> >> +LSM_HOOK(int, -EOPNOTSUPP, policy_object_from_fd, int fd,
-> >> +	 struct lsm_policy_object **object)
-> >> +LSM_HOOK(int, -EOPNOTSUPP, policy_object_get, struct lsm_policy_object *object)
-> >> +LSM_HOOK(void, LSM_RET_VOID, policy_object_put, struct lsm_policy_object *object)
-> >>  #endif /* CONFIG_BPF_SYSCALL */
-> >>  
-> >>  LSM_HOOK(int, 0, locked_down, enum lockdown_reason what)
-> >> diff --git a/include/linux/security.h b/include/linux/security.h
-> >> index 153e9043058f..5e423bea080e 100644
-> >> --- a/include/linux/security.h
-> >> +++ b/include/linux/security.h
-> >> @@ -168,6 +168,17 @@ struct lsm_prop {
-> >>  	struct lsm_prop_bpf bpf;
-> >>  };
-> >>  
-> >> +/*
-> >> + * Identity of a policy object an LSM shares with BPF programs,
-> >> + * embedded in the LSM's own object.  @lsmid identifies the owning
-> >> + * LSM; @type discriminates that LSM's policy object types, with 0
-> >> + * reserved as "unset".
-> >> + */
-> >> +struct lsm_policy_object {
-> >> +	u64 lsmid;
-> >> +	u32 type;
-> >> +};
-> > For some clarity:
-> >
-> > lsm_policy_object is just a handle to a refcounted lsm-private struct.
-> >
-> > It can't be forged / created manually because it's a trusted kernel
-> > pointer, so the only way to get it is through policy_object_from_fd.
-> > And you cannot mutate any part of it from BPF.
-> >
-> > But it's what enables the generic model. Calling it a "policy object"
-> > may be short sighted though, that term is heavily overloaded in the LSM
-> > space. I don't want to prescribe any restrictions on what an LSM can use
-> > it for, after all some LSM have no notion of "policy" at all or have a
-> > different meaning for it.
-> >
-> > For SELinux, this "lsm_policy_object" could be an sid, for AppArmor an aa_label,
-> > for Smack a label, etc. The intention was to allow writing programs that
-> > don't care about any details of a particular LSM.
-> 
-> Why aren't you using an lsm_prop pointer? What if the operation you're
-So lsm_prop from my understanding allows multiple LSMs to store their
-data for one *shared* kernel object in a structured way.
-(i.e one object; multiple lsms using it)
 
-lsm_policy_object is sort of the opposite case:
+--=-SR5UXBov7ZTQJLaxEU/Z
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In this case, the object is *owned* by a particular LSM. Think a
-Landlock ruleset, smack label, or aa_label etc, that could never
-foreeably have a semantic meaning to other LSM. 
+On Wed, 2026-09-02 at 13:21 +0100, Paul Durrant wrote:
+> On 31/08/2026 22:26, David Woodhouse wrote:
+> > From: David Woodhouse <dwmw@amazon.co.uk>
+> >=20
+> > Add a kvm_xen_has_64bit_shinfo() helper macro to replace the repeated
+> > pattern of 'IS_ENABLED(CONFIG_64BIT) && kvm->arch.xen.long_mode'
+> > throughout the Xen emulation code. The macro uses READ_ONCE() to
+> > ensure a consistent snapshot of the flag, which can be changed by
+> > another vCPU at any time.
+> >=20
+> > This is the KVM equivalent of Xen's !has_32bit_shinfo().
+> >=20
+> > Assisted-by: Kiro:claude-opus-4.6-1m
+> > Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
+> > ---
+> > =C2=A0=C2=A0 arch/x86/kvm/xen.c | 16 ++++++++--------
+> > =C2=A0=C2=A0 arch/x86/kvm/xen.h |=C2=A0 5 +++++
+> > =C2=A0=C2=A0 2 files changed, 13 insertions(+), 8 deletions(-)
+> >=20
+> Reviewed-by: Paul Durrant <paul@xen.org>
+>=20
+> ...although adding kvm_xen_has_32bit_shinfo() for consistency with Xen=
+=20
+> might be slightly neater.
 
-> planning to perform is relevant to multiple active LSMs? Today you can't
-> use SELinux and AppArmor together on an upstream Linus kernel, but that
-> should be changing sometime this decade.
->
-The object is not relevant to other LSMs by construction. The
-lsm_policy_object is an lsm internal object, specific to the LSM.
+I did briefly ponder that, but *all* the existing callers that this
+patch converts are of the if (64bit) form, so we'd end up negating both
+the implementation *and* all the callers to achieve that consistency.
 
-You'd never make an lsm_policy_object for an inode, dentry, socket, etc.
+And frankly, I want "consistency with Xen" on a code level about as
+much as I want to gouge my eyes out with a rusty spoon. There's a
+*reason* all of this code exists... :)
 
-So if you wanted to use LSM A and LSM B with this API, you'd need to
-acquire each of their policy objects in turn. But you apply them both
-with the same API, without having to care about LSM details.
+--=-SR5UXBov7ZTQJLaxEU/Z
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
 
-Justin
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
+ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
+MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
+AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
+DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
+q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
+S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
+Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
+72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
+CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
+mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
+h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
+CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
+GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
+v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
+CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
+b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
+Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
+A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
+vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
+0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
+jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
+FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
+HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
+IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
+MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
+MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
+sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
+tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
+EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
+6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
+ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
+bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
+Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
+02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
+sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
+ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
+JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
+LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
+BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
+LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
+hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
+SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
+c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
+RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
+AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
+EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
+ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
++3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
++icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
+McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
+LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
+nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
+gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
+Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
+CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
+QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
+Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
+SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
+YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
+kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
+pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
+v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
+vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
+PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
+REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
+lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
+aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
+D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
+bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
+MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
+oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
+TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
+bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
+BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
+MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
+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
++CnMrVH2RlHETZU4EfFO3RcAAAAAAAA=
+
+
+--=-SR5UXBov7ZTQJLaxEU/Z--
