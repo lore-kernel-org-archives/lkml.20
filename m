@@ -1,149 +1,214 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F2F3374186
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:28:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B284F382F10
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:28:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788373706; cv=none; b=A7FQsSlrKfmoKo+K2831hl7hsAmft8pkcnYt43AdcMR2gUhQIoVxmxxOnBfGlQKqb09Vd7uRRlIo7O64+8blsXxrMbvdHkOiv9c45QH6HdZ7aub86FUZy/uyS3NRL5mVZVbvcvo+++oav+QI3qORqLI1wARxs93jjZO4DSeZZ8I=
+	t=1788373730; cv=none; b=KwZEzmNseiEmSz1W4KvSReLj6rqsjxXBuH0KOTvSN39/IjtZhQsYi/VA4DbtC8K3UBLtYFK5YND+FhEx/9A/pABJqSCXeUrO2+dYq3fokjgnu2p3s5Wpkb4hWB+kKIEFOwd+qGOzeR0TorZq0pzT2woajk1ok1FcTXYR/CX0ba0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788373706; c=relaxed/simple;
-	bh=IoD8kxRSKBVmpHH9Yga6lz2dzGvZpGp7jqYOG/7TR1s=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rsVPPQjUs37XQO/vc3J4pBq2cgilnBOq4mGw2zXCbBmKLPWJQkoPBzt8RKHjMtb5A2LA69DEI4ZsGnkppWkdNjspMaGAyV2+BuVSdNYgQZlNHoCVvbUl+rdlxRAsjFHZJGyojRb7pMq1tZOeXTptuacwBV2iaGnMv8CkBR4XIFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p1ARZDsA; arc=none smtp.client-ip=209.85.128.53
+	s=arc-20240116; t=1788373730; c=relaxed/simple;
+	bh=tfC/RB9kz8s1oonO8uu6fd2cb2zJHjZWJyAYedq2t0k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E+BmTrLEFzfUT8DhRx9jpGA2NfFNbFnKdRo7Ma22xBztzkIHxBG1uCXh/K11s3Z+/meQMwCll9X0nOIFUPv5CchGnih9vDmOuXaKkAdcD1cmcpoEc9DuA4iT0m1LhZzM0C+1XxPwaIekgEB3SdPy6ME7+Lvd+2gAFfdB/QmG3vk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R/DP2eKM; arc=none smtp.client-ip=209.85.128.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p1ARZDsA"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso14542165e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 11:28:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R/DP2eKM"
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-86d43cdee51so11262117b3.2
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 11:28:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788373701; x=1788978501; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5XR27vgN5nJ/lgsOm3NqnEQEtuojTb2G48lFGrn17tw=;
-        b=p1ARZDsAE1KZAvr9IyAGs028f0GWghab2sjeK0vZfDibUPZweloLt6RTQO/7pVK8pI
-         SKYBBHxs9QNi2Nfc1lpUXPHnVTglt+dqq4/GQELiT5CYguw6APmgxAXHRhzrVdDJ768l
-         fjWx3Og8SStLnXQzBOZ2W/TtcB/KLeqgWYFIMww55OEOI2fH2B3+khzwe0HUFBz4jxA9
-         PjMwVf0kEqYkDs/pcs4Q5AygS4UCOdRRX/Hc9jibskOny9kHZsKHD5uOWas0GOYKMuW0
-         +q+khibAsjRX3QuIMC5eLZ3gNJQQlQTvxhVwxX4kJCZfNziuss5aIQ6ndoIweVYuPv/S
-         JBrA==
+        d=gmail.com; s=20251104; t=1788373727; x=1788978527; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oDxoWYox+1+oZjWxNuh3RL0Qsto297A849qEA0ZTYLI=;
+        b=R/DP2eKMBLU8mcc/+JkMEGtC7h9LyFbsWswegXuBlO1hHt7torUECy2UWqJab5FKoX
+         pQh9jd5XnE7sFU28MPOqrYJDkYx0edL5U+0gCnd0EoQ5+6sQLbloXHHRM8U96ZDRwHLm
+         Ena3Dj91ii25dKKMFc7oxy3+FIy/7h8KBVcP7nCt+MK3BEAoRVjeJlLHMGRpgkovE8nT
+         lX/5JrZEMDW8Z5DFkb0CSrzT27hOL01ywDtV8CSNUtAuUhzCu7jRzRDbPRvfCTxhexOA
+         sqcfjVjeWvkUexVCFVgmXJ4+zp97UGQvW7mYA5l7FB3YKrQheP7O8O3hKVd5ChgaaeNj
+         vfjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788373701; x=1788978501;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5XR27vgN5nJ/lgsOm3NqnEQEtuojTb2G48lFGrn17tw=;
-        b=F8ftvnezQLElwf4mqIDaBVm5G4q1VV5WzUyocqJjBzXUbTIdi5V+5IByUcyXypJKuC
-         1KaY1cg851/5G62CZ57aQvM8W1bLusgJ7olwRY57Zbe6UIZrTeQwi3uYVRNcAnemFDOW
-         9X0X18qeAOHnFiYbcMs8GMH9p/ApWXGhiANFSz9m8nQxjBKBX9Svm4sVcECXGJFfLD7K
-         OxLqAybjh4IwG2yOyyJgvPZj2KBVz+zwgvcpf64QUfC9Yq4Z2M+pNmU/L4LUx3mlmAD4
-         785l8GCVnPj72sK2UWt15n5JMo+01fZv0geeg16ISuttR0KgUrmi34fgVXb/9s6P+xD0
-         rCTA==
-X-Forwarded-Encrypted: i=1; AKwUvBxOfOWC3Cr2zSO9lN6GrTAvzQhCPVdnotq7HVxIRKawTdeuCVTOUyJIdDZ0TCN4yb7gxJasqm+NLa4JXBE=@vger.kernel.org
-X-Gm-Message-State: AFuF++m1gWdShG3pjhqtsEfUYGj2fNNDfcogTtqMMZTq/BtClOSYvO3k
-	+icmpvdr+LewXWy/4SlsVUq4yfZn9XxxZBW9wPVNGycppHP0Qac5HJOa
-X-Gm-Gg: AYBFou1/AoV0iX8PRkiLmM+4lRmEB/JlZm/FY0e0kHSFZbHb36+zxYnEp+IBcdYSWVv
-	NCvCXNjlgtXnrFSOZMGlofdY44qvMrzsRnfdjJScDFx7XDfzTbJewPshJ8Ddy9bjWfwIc6bXYm0
-	zlFKv6xj7S0lgNPjwhvgfm7InbNEUeDCJhlpWJ+Rl8bcuDjRIquPI/gIwskLXZhdCGdvS8k3Gsl
-	VHWffOoq7pjabChmJK32ir0b0wqtaP+3Xtbu6rAl+gBGVDingM4n1NdE2DR/Oof0CetZ1nG+3Q0
-	GoQU0IzgUM4Yb16PnZwgUvHYo9IZQCDZNWHOxcgCQFqNH30RmLL+MG/Fz4PrgNg63AiNO6fzGxC
-	51CiI613J+CurMPTqzSdiwWAHSfvROK6pudz9/5Lv8obI/bhbjSvNM7fyP3earLVbLhuP6SLJs7
-	Y/JNLDBFa5uT3qLBoCr6V6YjxsYtBBHTc9rs9WnOShaaIAxlZ1Z26QHjGJKFYjYfzB7uFrABGuv
-	33V19tV1TMkWOn+wfYJQWuR39ehtAR4g4ThnZ7IZJn/qonmShCi62hlIegC24cJ1a4qmWAaB2yz
-	ckDT3Alawcr6olT8ndmmHeabkRXqqLaYm4RkkSfgDngrh0XLzQZrBlAy4Bq3HjiI+w==
-X-Received: by 2002:a05:600c:83c8:b0:49c:d52e:d0ea with SMTP id 5b1f17b1804b1-49ce581779dmr132214455e9.4.1788373700879;
-        Wed, 02 Sep 2026 11:28:20 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a1c2-c401-11b2-c123-0d12-6c0f.310.pool.telefonica.de. [2a02:3100:a1c2:c401:11b2:c123:d12:6c0f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5dea34sm10208755e9.10.2026.09.02.11.28.19
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 02 Sep 2026 11:28:19 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	linux-cifs@vger.kernel.org,
-	samba-technical@lists.samba.org,
+        d=1e100.net; s=20251104; t=1788373727; x=1788978527;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oDxoWYox+1+oZjWxNuh3RL0Qsto297A849qEA0ZTYLI=;
+        b=URXvlmyvhqfLY1pwepyBB9N6dvr1Jxv6/ELOx7CC1Jv3PK1EllIC8IymDqj8Z6AsIr
+         6DIdJ3O1w/5HEjEugbUuEUYvxvqJ59RWjdjiAtcxGmOkEjtBVWr/rvS2TScr70OEuuOt
+         GphlIHUJrbxiGDLC0asMtnfaRK2yPHHBzx31GQ2Yi+ITAoecRXNsdTHvY6MNVWfQmypp
+         TiCIywjn9kxpEZsXUKEcGIzbC8ZLRvgLmh3omOZlQv+Kdu14tPkpOLehKnJbOD7KcypA
+         IKzUdPiG1Tb5HWjjcIofxFadHPomZLEH3+bbG3B66czz0TEqe5tWcrascS3ORLEOoF8c
+         sbbw==
+X-Forwarded-Encrypted: i=1; AKwUvBx0NlDHezJtedFGEPxgJ4WchyJSWRZlYxwGQEmUQUNdwgJhJBRKb9CdhHBkig5aHMMTZ/cD6kJo4UNsvXQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mGEiY3D/7Uu0/MUdYmqu9o63jSvw/sJCwhUCH8OQydvnflyBmZ
+	3Eex98ywFy3xguqzBak3OWzZqCt3y6B9Aq0N/qmQIzcg+A6ax2MBb20s
+X-Gm-Gg: AYBFou2gyGR29F+y8ZbLOFvfd+tVpYy6xeDIPKMu76HzaAdVWCRHOfPUb8g4LwI9Ese
+	yR/4tMqdQk3hx/YDGNo5z5sIqklYV1geX3KYjV+ZEnpQl8bzq4DnXIN8CmXhvCeHDVkNaXmuu21
+	pjj6PcneW7NBjZSI3rCk5e8mrn1XqebjxttHuRznNdlOXGfngXZA4ftFzU9tCYoTOe3KDF6RFhQ
+	Dw/6O9+M+lQ73ehlyLim+/uK/gUdF2ZBEc2CqOBneCTJP9Da1zhnrajotLVmLrGQOtZcXZxf5QB
+	g/yAbcrHTzzraHv/fFxHVVZqqaxZcYl1lSEDKWQI0kT2QZ4YskH5ZKoqpwdMr4IUa46mtSzGAbe
+	vzyOrZSoDYyO5dLJD3gj2psTHrRcMmyMjyA02sYj6fi5EYoIJOxOClC036Q/sqnYFhG7lMEjXtH
+	JemwgnSEIiZCSPvcxAujEkQj1Y8bDyOb4n9f1SuazLxdoNxtbJPW7O9L3e/BT7MZVfTp/tbgqta
+	57sOFXrOsAgZOVrCboyvJjPGw1M
+X-Received: by 2002:a05:690c:a5d6:b0:833:f9bd:b289 with SMTP id 00721157ae682-86c552e5e02mr31455827b3.31.1788373726869;
+        Wed, 02 Sep 2026 11:28:46 -0700 (PDT)
+Received: from suesslenovo ([2600:1700:18fb:6011:51fa:ff89:a955:fb9])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-86c184e4b52sm23405307b3.34.2026.09.02.11.28.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 11:28:46 -0700 (PDT)
+Date: Wed, 2 Sep 2026 14:28:45 -0400
+From: Justin Suess <utilityemal77@gmail.com>
+To: Casey Schaufler <casey@schaufler-ca.com>
+Cc: ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
+	kpsingh@kernel.org, paul@paul-moore.com, mic@digikod.net, viro@zeniv.linux.org.uk, 
+	brauner@kernel.org, kees@kernel.org, gnoack@google.com, jack@suse.cz, 
+	song@kernel.org, yonghong.song@linux.dev, martin.lau@linux.dev, m@maowtm.org, 
+	bpf@vger.kernel.org, linux-security-module@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] smb: client: pin DFS superblock in iterator callback
-Date: Wed,  2 Sep 2026 20:28:14 +0200
-Message-Id: <20260902182814.25700-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Subject: Re: [PATCH v2 01/15] lsm: Add the LSM policy object lifetime hooks
+Message-ID: <aphlyRhOALyp4tSK@suesslenovo>
+References: <20260831145858.3869191-1-utilityemal77@gmail.com>
+ <20260831145858.3869191-2-utilityemal77@gmail.com>
+ <apgX1HKQ7b973YV-@zenbox>
+ <298197df-1f92-40b8-8baf-8f52a3dcec20@schaufler-ca.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <298197df-1f92-40b8-8baf-8f52a3dcec20@schaufler-ca.com>
 
-tcon_super_cb() stores a raw superblock pointer, but __cifs_get_super()
-takes its active reference only after iterate_supers_type() has dropped
-s_umount and its passive reference. Concurrent DFS automount expiry can
-therefore free the superblock before cifs_sb_active() uses it.
+On Wed, Sep 02, 2026 at 10:51:37AM -0700, Casey Schaufler wrote:
+> On 9/2/2026 6:05 AM, Justin Suess wrote:
+> > On Mon, Aug 31, 2026 at 10:58:43AM -0400, Justin Suess wrote:
+> >> Add struct lsm_policy_object, the identity an LSM embeds in a policy
+> >> object it shares with BPF programs, and the three hooks managing such
+> >> an object's lifetime:
+> >>
+> >>   policy_object_from_fd(fd, &object)
+> >>   policy_object_get(object)
+> >>   policy_object_put(object)
+> >>
+> >> The object records the owning LSM's LSM_ID_* value.  The BPF kfuncs
+> >> built on these hooks dispatch each call on an object to the one LSM
+> >> matching its lsmid, which resolves the containing object with
+> >> container_of(); the framework never interprets an object beyond its
+> >> lsmid.  The type field discriminates between the owning LSM's own
+> >> policy object kinds and is private to it, with 0 reserved as "unset"
+> >> so a zeroed, untagged object fails every type check.
+> >>
+> >> from_fd has no object to route by: the fd refers to a file set up
+> >> through the owning LSM's own userspace interface, so the fd itself
+> >> identifies its LSM.  The framework offers the fd to every
+> >> implementation in turn; an LSM declines a fd that is not one of its
+> >> policy objects with -EOPNOTSUPP, and any other error is a definitive
+> >> translation failure.
+> >>
+> >> The hooks back referenced BPF kptrs, which imposes the same lifetime
+> >> contract on every implementation: from_fd returns a reference on a
+> >> live object, get acquires with inc-not-zero semantics and fails with
+> >> -ENOENT once the count dropped to zero, put may be called from
+> >> contexts that cannot sleep (BPF drives it from map destructors), and
+> >> the containing object is freed only after an RCU grace period, as
+> >> programs load policy object kptrs from maps under RCU and may examine
+> >> an object concurrently with its last put.
+> >>
+> >> The hooks are excluded from the "bpf" LSM's attachment points.  The
+> >> object-routed hooks are unreachable there, as LSM_ID_BPF policy
+> >> objects cannot exist; for from_fd, whose walk visits every
+> >> implementation, a BPF program cannot fill the object out parameter,
+> >> so an attachment returning 0 would hand the caller an uninitialized
+> >> pointer.
+> >>
+> >> Cc: Paul Moore <paul@paul-moore.com>
+> >> Cc: Casey Schaufler <casey@schaufler-ca.com>
+> >> Signed-off-by: Justin Suess <utilityemal77@gmail.com>
+> >> ---
+> >>  include/linux/lsm_hook_defs.h |  4 ++++
+> >>  include/linux/security.h      | 11 +++++++++++
+> >>  kernel/bpf/bpf_lsm.c          |  3 +++
+> >>  3 files changed, 18 insertions(+)
+> >>
+> >> diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
+> >> index 65c9609ec207..d7684407737a 100644
+> >> --- a/include/linux/lsm_hook_defs.h
+> >> +++ b/include/linux/lsm_hook_defs.h
+> >> @@ -452,6 +452,10 @@ LSM_HOOK(int, 0, bpf_token_create, struct bpf_token *token, union bpf_attr *attr
+> >>  LSM_HOOK(void, LSM_RET_VOID, bpf_token_free, struct bpf_token *token)
+> >>  LSM_HOOK(int, 0, bpf_token_cmd, const struct bpf_token *token, enum bpf_cmd cmd)
+> >>  LSM_HOOK(int, 0, bpf_token_capable, const struct bpf_token *token, int cap)
+> >> +LSM_HOOK(int, -EOPNOTSUPP, policy_object_from_fd, int fd,
+> >> +	 struct lsm_policy_object **object)
+> >> +LSM_HOOK(int, -EOPNOTSUPP, policy_object_get, struct lsm_policy_object *object)
+> >> +LSM_HOOK(void, LSM_RET_VOID, policy_object_put, struct lsm_policy_object *object)
+> >>  #endif /* CONFIG_BPF_SYSCALL */
+> >>  
+> >>  LSM_HOOK(int, 0, locked_down, enum lockdown_reason what)
+> >> diff --git a/include/linux/security.h b/include/linux/security.h
+> >> index 153e9043058f..5e423bea080e 100644
+> >> --- a/include/linux/security.h
+> >> +++ b/include/linux/security.h
+> >> @@ -168,6 +168,17 @@ struct lsm_prop {
+> >>  	struct lsm_prop_bpf bpf;
+> >>  };
+> >>  
+> >> +/*
+> >> + * Identity of a policy object an LSM shares with BPF programs,
+> >> + * embedded in the LSM's own object.  @lsmid identifies the owning
+> >> + * LSM; @type discriminates that LSM's policy object types, with 0
+> >> + * reserved as "unset".
+> >> + */
+> >> +struct lsm_policy_object {
+> >> +	u64 lsmid;
+> >> +	u32 type;
+> >> +};
+> > For some clarity:
+> >
+> > lsm_policy_object is just a handle to a refcounted lsm-private struct.
+> >
+> > It can't be forged / created manually because it's a trusted kernel
+> > pointer, so the only way to get it is through policy_object_from_fd.
+> > And you cannot mutate any part of it from BPF.
+> >
+> > But it's what enables the generic model. Calling it a "policy object"
+> > may be short sighted though, that term is heavily overloaded in the LSM
+> > space. I don't want to prescribe any restrictions on what an LSM can use
+> > it for, after all some LSM have no notion of "policy" at all or have a
+> > different meaning for it.
+> >
+> > For SELinux, this "lsm_policy_object" could be an sid, for AppArmor an aa_label,
+> > for Smack a label, etc. The intention was to allow writing programs that
+> > don't care about any details of a particular LSM.
+> 
+> Why aren't you using an lsm_prop pointer? What if the operation you're
+So lsm_prop from my understanding allows multiple LSMs to store their
+data for one *shared* kernel object in a structured way.
+(i.e one object; multiple lsms using it)
 
-A deterministic KASAN test reproduces the race as:
+lsm_policy_object is sort of the opposite case:
 
-  BUG: KASAN: slab-use-after-free in cifs_sb_active+0x77/0x80
+In this case, the object is *owned* by a particular LSM. Think a
+Landlock ruleset, smack label, or aa_label etc, that could never
+foreeably have a semantic meaning to other LSM. 
 
-The same test passes with this change applied.
+> planning to perform is relevant to multiple active LSMs? Today you can't
+> use SELinux and AppArmor together on an upstream Linus kernel, but that
+> should be changing sometime this decade.
+>
+The object is not relevant to other LSMs by construction. The
+lsm_policy_object is an lsm internal object, specific to the LSM.
 
-Take the active reference in the callback while iterate_supers_type()
-still holds s_umount shared. cifs_put_tcp_super() remains the matching
-release.
+You'd never make an lsm_policy_object for an inode, dentry, socket, etc.
 
-Fixes: bacd704a95ad ("cifs: handle prefix paths in reconnect")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Testing: x86_64 QEMU KASAN A/B with deterministic KUnit synchronization
-around the lifetime gap and real VFS superblock allocation/teardown.
-Baseline reports a slab-use-after-free in cifs_sb_active(); fixed passes.
+So if you wanted to use LSM A and LSM B with this API, you'd need to
+acquire each of their policy objects in turn. But you apply them both
+with the same API, without having to care about LSM details.
 
- fs/smb/client/misc.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
-
-diff --git a/fs/smb/client/misc.c b/fs/smb/client/misc.c
-index 46e1382e8e04b..d4db3f91a91fa 100644
---- a/fs/smb/client/misc.c
-+++ b/fs/smb/client/misc.c
-@@ -891,8 +891,14 @@ static void tcon_super_cb(struct super_block *sb, void *arg)
- 	     t1->ses->dfs_root_ses == t2->ses->dfs_root_ses) &&
- 	    t1->ses->server == t2->ses->server &&
- 	    t2->origin_fullpath &&
--	    dfs_src_pathname_equal(t2->origin_fullpath, t1->origin_fullpath))
-+	    dfs_src_pathname_equal(t2->origin_fullpath, t1->origin_fullpath)) {
-+		/*
-+		 * Take the active reference while iterate_supers_type() still
-+		 * holds s_umount shared.
-+		 */
-+		cifs_sb_active(sb);
- 		sd->sb = sb;
-+	}
- 	spin_unlock(&t2->tc_lock);
- }
- 
-@@ -909,15 +915,8 @@ static struct super_block *__cifs_get_super(void (*f)(struct super_block *, void
- 
- 	for (; *fs_type; fs_type++) {
- 		iterate_supers_type(*fs_type, f, &sd);
--		if (sd.sb) {
--			/*
--			 * Grab an active reference in order to prevent automounts (DFS links)
--			 * of expiring and then freeing up our cifs superblock pointer while
--			 * we're doing failover.
--			 */
--			cifs_sb_active(sd.sb);
-+		if (sd.sb)
- 			return sd.sb;
--		}
- 	}
- 	pr_warn_once("%s: could not find dfs superblock\n", __func__);
- 	return ERR_PTR(-EINVAL);
--- 
-2.53.0
+Justin
