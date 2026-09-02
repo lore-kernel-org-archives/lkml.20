@@ -1,167 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BC4383C8D;
-	Wed,  2 Sep 2026 18:00:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9AC38734D
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:00:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788372057; cv=none; b=Zyso6Jq9ynyL5KpGe3F8rcJuO6Tjf3rMRvJaH+/ob4ql37133b6mpbzGRgh6YSLKvcfkzzodHLN/tGZctvhIbitE0JQ/z6WjQnJFAN76lFi7HvwbxWdISW0OhoQIIPjJdKMOsoG4k+w+582kIqc++KgCcnviYek6yFA5CDynLdI=
+	t=1788372058; cv=none; b=NPcMMPmjCYhViG+69jZ+4My/ZvjS06qqHdKDDZjF1uRM5XmreVoiu+GgEeVhqmnhz/gvoqGb73XX/PE/CZCCmSBv634O1l34OG4B8LDhv0j0lOQ3sIJ+bgUYZj2w5m4wuYMIt07Nh50h0e6BqiACgLaRZnGAEfptSnPPtmLwPm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788372057; c=relaxed/simple;
-	bh=8RUVAZRLPzU4llnS3oLrE03c3Dx8Fmtq1pWNn43ElvA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZnPc/s+ojawkxaXGhVPBIRclcaL6kHhWiOR+Rl3+R5a5bonCqR8Lj9oXZiJChKCJr0ScEZLLDsJCbAJRjE0xuB/Q2VEWLt7gwz1eBnva/w1Pc60Gn9ZvtDj6ECcVCxhuVVo4VtBnlLK7YdjkvBuYu69pGiJ/w61dLOkezgm7U2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=doxzFlR+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788372058; c=relaxed/simple;
+	bh=RFGuLr+hSZX4q95E8FmOb9I0Oj/VY5jMv/JY+fIYb70=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ciUfsMOY5FNtvqateYUwcxgLazv5S4rcfeU0Wde5Sv33Tx48JRp9c9BIdETvezUiU9LRQe8drMRjqCin8y3Uu8dDF1RtefgROLSojaNlTfMy81c6UxusTyNZy9PfNAoUYVinabKHu2I/kgMQY2HUrem7XgGMSXCyQWVrJiXh/hA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=kM8qFYh5; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="doxzFlR+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618101F000E9;
-	Wed,  2 Sep 2026 18:00:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788372056;
-	bh=jalqcGbTgpiwMOKCsH/rxa3bYllTMGaMYpLwBNB765E=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=doxzFlR+siE8INCIvg2cvuz6MHpVNZMF68w2lxnCxkffbz1ZHhmabPy8brvZyPiaB
-	 QnZToLPbA8CMmcfXQZeQkjbEtUfFMArC1EX06mMDwjMMCckjtZk5t1nxZ8/ZHv0ZAe
-	 1bcr1zeQFzHK+bmBpqwtxYp9gQRp4RiFVGfahnqXT5zTP8gIvKBUNvGrIqJ6QYmbXb
-	 GKSkmcJ6lxk7qWSFTH2WfCLTnWRC8noM0Vp8qi8kmAsw0MzXy+DqlaGD7nqJBmTdmN
-	 0cn4w4vj63IRafwXlO9E2GjPAgLcsvqdUKtIomG+HD/Cm3WYilI4HzJgHj36RUbwSQ
-	 34eVzChAWze1g==
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Wed, 02 Sep 2026 19:00:19 +0100
-Subject: [PATCH 2/6] mm: implement file_is_dev_zero() to uniquely identify
- /dev/zero
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="kM8qFYh5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1788372054;
+	bh=RFGuLr+hSZX4q95E8FmOb9I0Oj/VY5jMv/JY+fIYb70=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=kM8qFYh5ALIzTeH3UbstMxl+7wLpe4Bu2oDWFRouwXe8W1lQ2GcXh+oO+gqLoidmZ
+	 HQMSqjKsWcNXbvTSuuxlb1faCUJMb8G8Q2KjH+S5nlOxiyhKfua21QDEf3ybTPMDn/
+	 3kJolpG+4VJaUhI1Prg5LGUz+oDvMBVHfkRpy3tPaE4Oc2xDfbl3QO4+RJPRPqQXJx
+	 E+FrN7SHhoB92fRWYYh9euh+0JLQRU4+nvzQNDFtaktWHWuZv56boO33PhpQou+Bnp
+	 oJwFxRsjPWxC2hXEzrUrOBvYHt84IFXkSAraUfM8Nohm2jmh7IyExwzXcC9rsQspUj
+	 tbeVQmjFUg3PA==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: cristicc)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id C7E3417E0260;
+	Wed, 02 Sep 2026 20:00:53 +0200 (CEST)
+Message-ID: <c40863d0-663c-4a29-9298-d9647393b4c1@collabora.com>
+Date: Wed, 2 Sep 2026 21:00:53 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v11 00/74] Add HDMI 2.0 support to DW HDMI QP TX
+To: Igor Paunovic <royalnet026@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Andrzej Hajda
+ <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Samuel Holland <samuel@sholland.org>, mcanal@igalia.com,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Raphael Gallais-Pou <rgallaispou@gmail.com>, Sandy Huang
+ <hjc@rock-chips.com>, Heiko Stuebner <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Algea Cao <algea.cao@rock-chips.com>,
+ Daniel Stone <daniels@collabora.com>, Liu Ying <victor.liu@nxp.com>,
+ Phong LE <ple@baylibre.com>, Helge Deller <deller@gmx.de>,
+ kernel@collabora.com, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Diederik de Haas <diederik@cknow-tech.com>,
+ Maud Spierings <maud_spierings@hotmail.com>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org
+References: <20260901-dw-hdmi-qp-scramb-v11-0-bc12954a0688@collabora.com>
+ <20260902152838.5771-1-royalnet026@gmail.com>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <20260902152838.5771-1-royalnet026@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-map-private-dev-zero-v1-2-a578c730cec7@kernel.org>
-References: <20260902-map-private-dev-zero-v1-0-a578c730cec7@kernel.org>
-In-Reply-To: <20260902-map-private-dev-zero-v1-0-a578c730cec7@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- David Hildenbrand <david@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Hugh Dickins <hughd@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
- linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2934; i=ljs@kernel.org;
- h=from:subject:message-id; bh=8RUVAZRLPzU4llnS3oLrE03c3Dx8Fmtq1pWNn43ElvA=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJmpHiVax5h8JvsqLRXeYlzx+f1kz1m7N39TEJCWcg8e
- VmK26cXHaUsDGJcDLJiiizPv4jvDxIJm9d5wd8NZg4rE8gQBi5OAZhIXwTDf5esEO3qK6I3JjL+
- EF/356EG67sPB9dVcgX1COy/8+d57VSGX8wzGk9dfDZ5g87s/3Mapy92fMJc+C1KQNFpZ1yPUfW
- MeDYA
-X-Developer-Key: i=ljs@kernel.org; a=openpgp;
- fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 
-To lay the foundation for a future change that converts
-MAP_PRIVATE-/dev/zero mappings to be truly anonymous, add the ability to
-uniquely identify these mappings.
+Hi Igor,
 
-With the memory character device now part of mm/ this is trivially
-achievable through a file_is_dev_zero() predicate that simply tests that
-the file operation hooks are zero_fops.
+On 9/2/26 6:28 PM, Igor Paunovic wrote:
+> Hi Cristian,
+> 
+>> This has been tested on the following boards:
+> 
+> One more, with a sink pair your boards cannot cover:
+> 
+> Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588 Orange Pi 5 Plus, dual HDMI
+> 
+> Setup: whole v11 on its stated base (drm-misc-next 47b823940e38),
+> both SoC HDMI ports driven at once: a Samsung with HF-VSDB (max
+> TMDS character rate 600 MHz, SCDC present) and a Sony limited to
+> 300 MHz TMDS.
+> 
+> 1) HDMI 2.0 path: the Samsung now offers and runs 3840x2160@60 RGB
+>    with a 594 MHz pixel clock (modetest-confirmed). Without the
+>    series the same port tops out at 4K@30. A stable picture at
+>    594 MHz is only possible with scrambling and the 1/40 TMDS ratio
+>    active; it stayed stable across boot, mode changes and hotplug.
+> 
+> 2) Non-2.0 fallback: the Sony keeps its 297 MHz 4K@30 modes.
+>    No regression.
+> 
+> 3) The result I care most about: this Sony in standby keeps EDID/5V
+>    up but drops the link, and on my 7.2 stack that generates a
+>    storm of detect/modeset cycles - measured 119-194 per hour,
+>    enough to make the desktop stutter. On v11, twenty minutes of
+>    standby produced ZERO events, and wake restored both sinks by
+>    itself. Whatever share of that the cached-status detect and the
+>    SCDC-loss handling each take - thank you.
+> 
+> 4) Hotplug on both ports: clean detach and reattach, no storms.
+> 
+> 5) Audio on a dead link: this morning my 7.2 stack took an SError
+>    panic (regmap read in dw_hdmi_qp_bridge_clear_audio_infoframe
+>    when a PCM was closed on a link whose SCDC never came up - full
+>    UART trace available if useful). On v11 I could not reproduce
+>    the class: six open/close cycles against the standby sink plus
+>    one natural prepare-failure-then-close during replug all
+>    survived cleanly. Caveat: different base kernels, so this is
+>    not a clean A/B on the series alone.
 
-Also update userland VMA tests to expose file_is_dev_zero() and provide
-a stub zero_fops for testing.
+Thanks for the detailed testing report!
 
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
----
- mm/char-mem.c                   | 13 +++++++++++++
- mm/internal.h                   |  3 +++
- tools/testing/vma/include/dup.h |  7 +++++++
- tools/testing/vma/shared.c      |  9 +++++++++
- 4 files changed, 32 insertions(+)
+> Scope: RGB output only (the YUV420 output series is separate), no
+> USB-C DP on this base, VC4 side not exercised.
 
-diff --git a/mm/char-mem.c b/mm/char-mem.c
-index d2e575545044..e53e89e6ddd8 100644
---- a/mm/char-mem.c
-+++ b/mm/char-mem.c
-@@ -31,6 +31,8 @@
- #include <linux/uaccess.h>
- #include <linux/security.h>
- 
-+#include "internal.h"
-+
- #define DEVMEM_MINOR	1
- #define DEVPORT_MINOR	4
- 
-@@ -707,6 +709,17 @@ static const struct memdev {
- #endif
- };
- 
-+/**
-+ * file_is_dev_zero() - is the specified @file associated with the /dev/zero
-+ * driver?
-+ * @file: File to test.
-+ * Returns: true if it is, false otherwise.
-+ */
-+bool file_is_dev_zero(const struct file *file)
-+{
-+	return file && file->f_op == &zero_fops;
-+}
-+
- static int memory_open(struct inode *inode, struct file *filp)
- {
- 	int minor;
-diff --git a/mm/internal.h b/mm/internal.h
-index e16f1250b25c..5d474e5f7709 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1638,4 +1638,7 @@ static inline bool can_spin_trylock(void)
- 	return true;
- }
- 
-+/* char-mem.c */
-+bool file_is_dev_zero(const struct file *file);
-+
- #endif	/* __MM_INTERNAL_H */
-diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index 57046d8ac81d..0d1a2ac88922 100644
---- a/tools/testing/vma/include/dup.h
-+++ b/tools/testing/vma/include/dup.h
-@@ -1641,3 +1641,10 @@ static inline pgoff_t linear_anon_page_index(const struct vm_area_struct *vma,
- 
- 	return pgoff;
- }
-+
-+extern const struct file_operations zero_fops;
-+
-+static inline bool file_is_dev_zero(const struct file *file)
-+{
-+	return file && file->f_op == &zero_fops;
-+}
-diff --git a/tools/testing/vma/shared.c b/tools/testing/vma/shared.c
-index 4a39c9d50489..8c4826499f40 100644
---- a/tools/testing/vma/shared.c
-+++ b/tools/testing/vma/shared.c
-@@ -12,6 +12,15 @@ const struct vm_operations_struct vma_dummy_vm_ops;
- struct anon_vma dummy_anon_vma;
- struct task_struct __current;
- 
-+static int mmap_zero_prepare(struct vm_area_desc *desc)
-+{
-+	return 0;
-+}
-+
-+const struct file_operations zero_fops = {
-+	.mmap_prepare = mmap_zero_prepare,
-+};
-+
- struct vm_area_struct *alloc_vma(struct mm_struct *mm,
- 		unsigned long start, unsigned long end,
- 		pgoff_t pgoff, vma_flags_t vma_flags)
+I will manually apply your T-b on the relevant patches before submitting a new
+revision.
 
--- 
-2.55.0
-
+Cristian
