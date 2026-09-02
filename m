@@ -1,105 +1,78 @@
-Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E3E74AA598
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:31:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F904AC144;
+	Wed,  2 Sep 2026 16:32:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366721; cv=none; b=BkhNKmOJcbx9tgL6DJ1EL/ix2sJyz0pumIhbHp9C8OUMY2nMfq8UgTrchWLVdvtUYg21gZlMmi8B/9m1XF2EXRBj0OXgHvY3xAXEKAS1OndHnAa/0qCMtKH064IVrm34M7nrZVpBMebOQtRCQT0dWbbY5xwI6Zt17MzJL+XxqJo=
+	t=1788366751; cv=none; b=InYQDvp0eRn36xuee3tBduWK85yytvgTi8BEPz8WZU9cYWmw8bBzoG/e2R4QvRVgu3xUq4QLFkbWnCiq9oXf/Iij5zXksSle4VylqUXrzSg/mucefpXt/Vvind369ZhWJdzBslWaNbOCO1FVJa0M+OCuHMFQUKZNsfz47DBAbrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366721; c=relaxed/simple;
-	bh=pm0hHpSLRiLOOilhtmRyk5FRVGDXUbxpzbAY6SMoY+w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=clHjiT1RdSgzeBorvK2q6tmyGfyyMNLdqc948vo4+YO4jFTfrI1UFF1r1Usdbt59y2jKO1myOc3fdBUjK4JjLk8cQmcrirI+iQh+z2JRdgyxB3o3ZyTPWPVxJ7vSf2kcRLlxj2Tx7BmxwFo2iCiWmJhQe74zP0N1FBwTkcS/ia0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=QW9hNUzb; arc=none smtp.client-ip=199.89.1.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	s=arc-20240116; t=1788366751; c=relaxed/simple;
+	bh=8Y+hdw5J+4jeHCQ3ZjAa9jZKgYtJZB39NX76XH6Tjpw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=vFJgi6tB84t6FdptrDFrkTpMIwku3KbYdzKSTIxlQdT56VYpa/ZiY6/gINyUn8GijjpeS+JyweKNwBpcvZIOV+B9mrdz45JMKvHQ9RhEs0sfgtU5bIrJg4vsMCkntiATFODBPIvPttwGz0EJ+4LrkVpo6GqSraqj0ekEGOfAKvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=3FQ79PsV; arc=none smtp.client-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="QW9hNUzb"
-Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4hZpCf3GWtz1XM0nt;
-	Wed,  2 Sep 2026 16:31:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1788366713; x=1790958714; bh=EWHrrhDldvl70GeKdEGikvuu
-	p6F4viFm+NuKzwv0x3U=; b=QW9hNUzbHLil4rjGnxpIslcguYc+ZpfgWtKXh0B4
-	09XouDGXQc+mbqxSEH39+MM4M9VQkcBW5/jJWq77KSnVOsO43t1k3y+csNxmzPN5
-	XT6l7hD4TynInCrii35UqLz1ZUlK20+yvqQDUrqr+b3JSWvFWhzqWdO8+d/XJcvo
-	6F9qR9sPY4WXUKi/CaYUa0lEtUx4H2H7DAgHsnCZF44eUHV2f3rvNfspL33DWTID
-	Pew5Pg71UwRZ9icSAiKkPQZCmwf4seEna80aE2li/yeXfJGbTBZXY4CtjOtZUp60
-	b6+Vzm+sOIKZu6YHEHsLnnr1/h8q3/jXheNSQI3kqRVxnw==
-X-Virus-Scanned: by MailRoute
-Received: from 011.lax.mailroute.net ([127.0.0.1])
- by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id fp2SKTp4TTLF; Wed,  2 Sep 2026 16:31:53 +0000 (UTC)
-Received: from [IPV6:2607:fb91:7cb:47d2:e7e2:7eb7:db31:4f7b] (unknown [172.59.225.61])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4hZpCS2c7dz1XM30w;
-	Wed,  2 Sep 2026 16:31:47 +0000 (UTC)
-Message-ID: <a5aea1c4-3e29-4bba-8cd2-d4ccbeda008c@acm.org>
-Date: Wed, 2 Sep 2026 09:31:41 -0700
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="3FQ79PsV"
+Received: from omf16.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay09.hostedemail.com (Postfix) with ESMTP id C35DD80270;
+	Wed,  2 Sep 2026 16:32:26 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf16.hostedemail.com (Postfix) with ESMTPA id 70FD82000F;
+	Wed,  2 Sep 2026 16:32:24 +0000 (UTC)
+Date: Wed, 2 Sep 2026 12:33:25 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Lee Jones <lee@kernel.org>
+Cc: Greg KH <gregkh@linuxfoundation.org>, Vincent Donnefort
+ <vdonnefort@google.com>, stable@vger.kernel.org, mhiramat@kernel.org,
+ linux-trace-kernel@vger.kernel.org, mathieu.desnoyers@efficios.com,
+ kernel-team@android.com, linux-kernel@vger.kernel.org
+Subject: Re: STABLE REQ: [PATCH v5 06/10] tracing: Fix subbuf resize races
+ with trace_pipe_raw readers
+Message-ID: <20260902123325.615e3934@gandalf.local.home>
+In-Reply-To: <20260902162246.GC2133376@google.com>
+References: <20260813131152.3589632-7-vdonnefort@google.com>
+	<20260901123444.GA1350131@google.com>
+	<20260901094656.487b278f@gandalf.local.home>
+	<20260902082717.GM2943942@google.com>
+	<2026090230-entryway-acquaint-d12e@gregkh>
+	<20260902095744.GN2943942@google.com>
+	<2026090221-riverbank-overlay-704c@gregkh>
+	<20260902115944.GS2943942@google.com>
+	<20260902082141.00583dfc@gandalf.local.home>
+	<20260902082550.4644fe91@gandalf.local.home>
+	<20260902162246.GC2133376@google.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] tracing: Make is_signed_type() compatible with sparse
-To: Steven Rostedt <rostedt@goodmis.org>,
- David Laight <david.laight.linux@gmail.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
- linux-kernel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Luc Van Oostenryck <luc.vanoostenryck@gmail.com>,
- Chris Li <sparse@chrisli.org>
-References: <bde573c1a758505339239f08be28788a34dfcb73.1786121949.git.bvanassche@acm.org>
- <20260831214437.15d6ad34@pumpkin>
- <a771af57-40ee-433a-be84-9b7c3e6965c5@acm.org>
- <20260901092043.7feaf5d7@pumpkin>
- <dca931ff-5995-444c-9f89-6d6cca4e71f3@acm.org>
- <20260901222909.05d6239f@pumpkin>
- <1b86ccbf-4e41-4a26-9d22-8bd93bacb043@acm.org>
- <CAHk-=wi_3xdtBrDgUxw5xtq8a=CdyRJnceo7YJg59wqqdXwiMQ@mail.gmail.com>
- <20260901192523.0e989b10@robin> <20260902092437.00dfaa25@pumpkin>
- <20260902093644.5b0e8a64@gandalf.local.home>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20260902093644.5b0e8a64@gandalf.local.home>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 70FD82000F
+X-Stat-Signature: xhzek8shc583kxmcjy49afkbfujfjdmy
+X-Rspamd-Server: rspamout07
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX18qlQ8r9dHTnG33sEUhMNFcPScyL1vxPhU=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=NVLGBeoo3q3+NKK7CjyMqmZGCKYxRL9YGTQcOgb5dbg=; b=3FQ79PsVpvxtZs4NmpStBrQvzyIQQsIRR9z+ALqX62CsNboybg8OSXTLUmMh/i+PfR/lh74d12zxtgfzqHUERzzWgqzXvMywmxozNZuCqnGtS117XO5uIh1u1dvrU3qlYa7J0Q1UB3sQg5H4h/hVziO9dRgfS5AhfOYzsppYNkQ=
+X-HE-Tag: 1788366744-878283
+X-HE-Meta: U2FsdGVkX1+RRY+tcnEQXT2PKxgptvNOw1hb4PlsGEudPa9vnpzAqfhjlWF30rUxYB+T18dYI+h+G7vfhThsUGLLCAW+oYrEKFzr9LK3kQ2Aev1nWf40y0tquH/pqQz9PCyHVDsqX10kQ3khX2C5TveUKnIbqQ5B9S7hN+gP6DKzOGqLml72y1zNOQuUF5MWnFRk7CHBiiaZbf+JagEyav715jPKk8sAG3s7h1c1LqYxs4hgUgBVq2uq0d3y29szU/PmtcV9v3cUsswpAZaRHjel6sPKPy1gK3Kl2beCk73U/p57HUjVN1VhjWW9ZFqD9I5Uq5aU8x0GR6z/gvoBGYySBjxgqWbZ
 
-On 9/2/26 6:36 AM, Steven Rostedt wrote:
-> On Wed, 2 Sep 2026 09:24:37 +0100
-> David Laight <david.laight.linux@gmail.com> wrote:
+On Wed, 2 Sep 2026 17:22:46 +0100
+Lee Jones <lee@kernel.org> wrote:
+
+> So what happens when you receive the FAILED message?
 > 
->>> Yeah, it was originally used for the tracing format files so that
->>> tooling can know how to display the raw values it parses. Also it is
->>> used for the filtering logic to know how to compare to the raw values.
->>
->> And, in this case, the value is __bitwise so the 'tooling' doesn't know
->> how to display/compare them and you get a compile error.
->> Doesn't seem wrong :-)
+> And why are you interested to know how far back a fix can be backported?
 > 
-> Where is __bitwise used for a trace event field? Or is this an issue for
-> one of the other users of is_signed_type()?
+> Personally, I'm _very_ interested in a _small_ number of patches, but
+> none of which usually emanate from subsystems I maintain.
 
-An example is any code that traces blk_opf_t or enum req_op values 
-(there are probably more examples):
+I'm interested because they only get backported to kernels that are
+maintained for some reason. And since these are in my subsystem, I do like
+to know that my code works for all supported kernel releases. ;-)
 
-$  git grep -nHE '__field.*(blk_opf_t|enum req_op)' include/trace
-include/trace/events/f2fs.h:1185:		__field(enum req_op, op)
-include/trace/events/f2fs.h:1186:		__field(blk_opf_t, op_flags)
-include/trace/events/f2fs.h:1241:		__field(enum req_op,	op)
-include/trace/events/f2fs.h:1242:		__field(blk_opf_t,	op_flags)
-include/trace/events/jbd2.h:364:		__field(    blk_opf_t,  write_flags		)
-include/trace/events/nilfs2.h:207:		    __field_struct(enum req_op, mode)
-
-Thanks,
-
-Bart.
+-- Steve
