@@ -1,87 +1,32 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B55EE41F5D4
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:30:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB26141F5D4
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:30:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788341429; cv=none; b=K+7KPhfc/PJQrlJhZnjzV3pbWbUCTVPUgnah2mKMOI/N7e+SeeV/weActm1PHI1N5DEBQGxSMUu793hRZrDZlWjg4E8aBjazvh34wL+TovuBQsVhxHEOxDMeIz8rZwlBLGuwjNh7MSwAuny7B/qXkCDpBuQ5Q8B7hid71b4GR0U=
+	t=1788341435; cv=none; b=Xk1TNyDMnbPaj/2/MtgnVp0T6wDDByMVrgvURwStxfb/2Q0prweZb90sOymurrSxVHAy0/Fhxgygt41UDqGYDEsal1WL1rVMvzBG1UG16N3oxqbNTWvzjZyY2gg9xwjjt2/N8Ei0g7n09EABH0QDjFvNxY2c43mo1m7r48LOiwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788341429; c=relaxed/simple;
-	bh=wrfDSZuEnMkG3ElTnY9/G9FsHzmlV/3isH+AzfcsoTc=;
+	s=arc-20240116; t=1788341435; c=relaxed/simple;
+	bh=TryyREP/DNhIqNgA5ZbRbS4WBzUJzOVeFw/eWr2+1TU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aRsv9sDzkJ7YpQmtsGTQKosIudXxev2Kq9DO5358CDZMWUpFo6d9kGZ6C3cxre5K1jFxCCKJ+wyg1Q7r+J67U4HGIMxHceRkNjEwC+QG8pOCC+kanSa/qHeBtcbW/7sCbHSvmH1zHdwUDR6Q33fbnfNAih5zV6B6Vu3HjYsciLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fePZ47wV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Kbz5weN1; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=VecIfCj4sh6gu1HxlIwGLorGBTH5+ZygaSmZdPsPbUpXOAvYELaTreSa7a2IC62AndScSKd2TN9Xg7pswQ0tUiC1WDT7s6RveN2DXbms1AgJdODwAZ6kfQBcyYN+33Kz5lucxwDYqw4Nu2JEz2vDBTNL/m56RLkA2ZJXfWFgZ3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=oDWQ3Ww7; arc=none smtp.client-ip=115.124.30.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fePZ47wV";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Kbz5weN1"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6829N3sw590151
-	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 09:30:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	pOa/6zMXyO9Lka4Syf1HMi+BSQSReukrFRWWaxvn+tw=; b=fePZ47wVqWsGP7fL
-	K2mPl150B/q2xhc8KQgQZpaYbTsEDr7H2Idvi+8QsioujoJnWafAwIxChboEp+nG
-	3k+qop8Leh/W6VCXt+Ei53rCwjFJY+vy5bX17HiCu/+d69hNj8qKh6ZB147qo8XB
-	nyBDDKc6b09+l2Oc3Cc23dV9uUhg6AcxkcypUkAFkuD4cS/lNgVBTLi4OnF+t7Bq
-	X5TPbaS4E4GbCdXDH5SzZB6k7Fm4UkWIL9MyOUDSRVsiTerZ5S91mYWmAyHzVdyg
-	ueAbXzvN6VQ3TCyoi4YwvFQWIerkZ1GEwF6Vk234J0KbCQxpLonOXW585jUit0b7
-	BhKbMw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ge1wpbpub-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:30:27 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-930bd2bfc45so27145285a.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 02:30:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788341426; x=1788946226; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pOa/6zMXyO9Lka4Syf1HMi+BSQSReukrFRWWaxvn+tw=;
-        b=Kbz5weN1onZf2+CA9jEkYFSUEVn42VAav7t3dU6tEBrD6MvsL6/E4gjbL+SXyezuRI
-         Vyiyubg979UFWbY9WOoSuFfMXn00B3l1xK6F8UJeHg1nTERpxl6GWToNzPxckOWRs01n
-         eVFYB/1NTiz3Ew8GS/No7kXITCSezTOmlDGutszvJuHTdDj6Dr1Fuf8hVuBTJgcDiYDV
-         SXXOWUh+h/XuQui7LjwefXhKSf4mGKiLRPolU0LhxXggDrZ+D/0JLYEFXFcHNi+3r30Z
-         O8sG3GYtJFmZv+Oj5E6a7nXIs33eJrwoiVK70Tiq5AHZ5us9HHCxNwfi/vHMBmcEYNy9
-         Qsjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788341426; x=1788946226;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pOa/6zMXyO9Lka4Syf1HMi+BSQSReukrFRWWaxvn+tw=;
-        b=p/Fm7+rZZzcJWKoJBAfjoHCM6KzWCzg5Kr36Vm9jRKWv+T7aLtdrSb+5BjM8WNTLdf
-         LBS2HmZ7zr5wwWvGxeiEaMxuow59Ve4Pfd8nzLc5ii+Q67Sx2RPWDJBL+jVnO/XOtgR1
-         3XsFEQfjqrVHJ7DBaIjkBAQePWtTTojgjWHI3VoNgYQbQl8QEz7qzIOd79iZ1na786+C
-         MnnjoX7Wx7gja9OppDzj+CjGnKx6q2Jfu2tgkBVGqROTeRgE7ekI9n92obItGVzhL7Ln
-         hZRQ+KF8v+fVqSqoJF2+dyjs2vys3+neOU690gFAxh2M/tO8pZutAWkPI0N2177y+SVJ
-         eGrQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqpGDedxz+a5B9BrpBzORv2ga1R4V91sHcNv7JQW9ah0QT/fs10+k33i38YIGVipTcb+yAYMmXTXAIEbWs=@vger.kernel.org
-X-Gm-Message-State: AFuF++nhpwXWLxT4uKrNvpqN2rIQUR2W2JAlfoC+BACD3wqXZnNM4jEo
-	Z8rpanGFXVPaqJPIu30uaXigsZlRg4qqxnYsMQzcjMzFOyIvUOqVkvkDqjORoffG4DGYVnPXN+C
-	xiBGjdJ5MjgZNawKuc7a98lWgKpYjyA3ezmPNt6x8Qhbjxj229kPXU6hwazD4xPklJNo=
-X-Gm-Gg: AR+sD13H5qW73cSQc/D3onnk9RxNUULwDEeX6WJcnig4p9FfLTeSmNIsGu4ZCzsAMhA
-	zOI6C09GH2cL74LGZh9ROyO6TWCU26+W2u1ws1EkAnICA7Umc9u4nMehOcwT70vHfIpt6jxkk4s
-	/p6cJI+IfToHyAUwxwFYTeQt+feWTo169eaxNT3TCAuKQfV4mkw7/YJZSjux0ZwjoZNLvi/FzbO
-	mVSYZ1nJ4H0OMXNjZMLDnjRvowQllekceDxqtPO6DDDrAubkajVK/K0dO5sG74pIoA5taTZsc9y
-	U0rgxv7+rJmq0ebhlafzwkcBViVC0euUQvzq8aO5I6YsePGS5EqpFyTp/5Ab8Is9ycczxTBp/eG
-	BaMGyL7lGw1zXmK1K1mvSXA==
-X-Received: by 2002:a05:620a:40d5:b0:930:a08c:cf9c with SMTP id af79cd13be357-93960e262d0mr236217985a.2.1788341425583;
-        Wed, 02 Sep 2026 02:30:25 -0700 (PDT)
-X-Received: by 2002:a05:620a:40d5:b0:930:a08c:cf9c with SMTP id af79cd13be357-93960e262d0mr236212985a.2.1788341424949;
-        Wed, 02 Sep 2026 02:30:24 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25d9236caasm58370966b.27.2026.09.02.02.30.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 02:30:23 -0700 (PDT)
-Message-ID: <46625820-4890-41e9-8355-997fac0c43e2@oss.qualcomm.com>
-Date: Wed, 2 Sep 2026 11:30:21 +0200
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="oDWQ3Ww7"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788341430; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=IdGkbmMSz5JoiHdwdzHjmW+Wa0JMP2J2z+g9mX4Y2Gg=;
+	b=oDWQ3Ww7oQAvirXOQ7tXgN14vdtUQ7C2A8UXvZQN1Pwg1HYosyROnVI7wK3yubQ3Ued7/GI3NHNZ4zxV3ZXTaIAIc9rWN4LVtQWMgNYwJTkT090++guPx1cNDm9aSItdWyLnWZaybO8UM/+k6lf9c9UBT5jR9p7GqfjA0jPblVE=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=qinyuntan@linux.alibaba.com;NM=1;PH=DS;RN=9;SR=0;TI=SMTPD_---0XACEO3k_1788341425;
+Received: from 30.178.84.37(mailfrom:qinyuntan@linux.alibaba.com fp:SMTPD_---0XACEO3k_1788341425 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Wed, 02 Sep 2026 17:30:29 +0800
+Message-ID: <1adc7e15-c878-46a7-89e5-79469d796024@linux.alibaba.com>
+Date: Wed, 2 Sep 2026 17:30:24 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -89,84 +34,134 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: (subset) [PATCH v8 0/5] PCI: dwc: Add ECAM support with iATU
- configuration
-To: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        cros-qcom-dts-watchers@chromium.org,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>, Jingoo Han <jingoohan1@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
-        quic_vbadigan@quicinc.com, quic_mrana@quicinc.com,
-        quic_vpernami@quicinc.com, mmareddy@quicinc.com
-References: <20250828-ecam_v4-v8-0-92a30e0fa02d@oss.qualcomm.com>
- <176160465177.73268.9869510926279916233.b4-ty@kernel.org>
- <e9306983-e2df-4235-a58b-e0b451380b52@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <e9306983-e2df-4235-a58b-e0b451380b52@oss.qualcomm.com>
+Subject: Re: [PATCH] mm/list_lru: disable memcg awareness under
+ cgroup_disable=memory
+To: Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Dave Chinner <david@fromorbit.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Muchun Song <muchun.song@linux.dev>, Xunlei Pang <xlpang@linux.alibaba.com>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+References: <20260902032840.30250-1-qinyuntan@linux.alibaba.com>
+ <ef76e85b-dc8e-40b7-9a7f-a071d54ca7fe@linux.alibaba.com>
+From: Qinyun Tan <qinyuntan@linux.alibaba.com>
+In-Reply-To: <ef76e85b-dc8e-40b7-9a7f-a071d54ca7fe@linux.alibaba.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=F8JnsKhN c=1 sm=1 tr=0 ts=6a97ecb3 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=UULHRhTqb_eqUsvF39wA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-GUID: J1YhlasZGEnNuA2Ockq4kz3aD8772eKX
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA4MiBTYWx0ZWRfXxzFYW7a09/E7
- UqH2obmsrgRL7FEoFuKkyTYctLI8Qdz/0Xlo5BswTXpv13l5qSnmNa8+exnQdirfEHKiBgB2rA2
- 3juvlLvaTBtmjEb83ZWU1o17chohoek=
-X-Proofpoint-ORIG-GUID: J1YhlasZGEnNuA2Ockq4kz3aD8772eKX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA4MiBTYWx0ZWRfX+y9RyBf/ml3j
- sC5g1/sclf3ClinoJX4eqmfJc5OIi71fSgMlNc0aHWYmFjA2IzTmjNU0ahJYKk0IaXlQWZ5HmHA
- UabMfSnebujXu1GOU/lfqE59HBioSHHmmwpZvq5gKpSuzavTMuhh+vYPCXRiV1xzB3rxFQ8DyqR
- X+Cy6p/Hr1zTPoT6NNe+rbw6SycmU0Bbjx0alHJB8ekBylHyfFXhwhlgldLDrFqHmQVGc7K01q6
- U+c3SdMkkME32pgJgL5leHKobMHXGyZ6M8ehWHgDtNNVTmJYgfuY774D8YwYSlPciUQVW5v4Qae
- 2c8xkpwNStqRIIR62ZPAjg7NdIRUq6cvD0B7RXF9ju12JLxHYjcdDydK2YAlnNOXDu2JaVJneg0
- FE9/FB6N9MsVbJnZHhXKxWUSaeTJLbLeZDDQ5mbdv2PgWhTGcRKI/Gq3WVyfTghWEF7DhZvs7Dd
- 7Ra1vtCiHh9Cae6ZUtQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_02,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0 impostorscore=0
- adultscore=0 malwarescore=0 suspectscore=0 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020082
 
-On 10/28/25 6:42 PM, Krishna Chaitanya Chundru wrote:
+Hi,
+
+On 9/2/26 5:16 PM, Baolin Wang wrote:
 > 
-> On 10/28/2025 4:07 AM, Bjorn Andersson wrote:
->> On Thu, 28 Aug 2025 13:04:21 +0530, Krishna Chaitanya Chundru wrote:
->>> The current implementation requires iATU for every configuration
->>> space access which increases latency & cpu utilization.
->>>
->>> Designware databook 5.20a, section 3.10.10.3 says about CFG Shift Feature,
->>> which shifts/maps the BDF (bits [31:16] of the third header DWORD, which
->>> would be matched against the Base and Limit addresses) of the incoming
->>> CfgRd0/CfgWr0 down to bits[27:12]of the translated address.
->>>
->>> [...]
->> Applied, thanks!
+> 
+> On 9/2/26 11:28 AM, Qinyun Tan wrote:
+>> __list_lru_init() only collapses a memcg-aware list_lru into plain
+>> per-node lists when kmem accounting is disabled
+>> (cgroup.memory=nokmem).  When the memory controller is disabled
+>> entirely (cgroup_disable=memory), mem_cgroup_kmem_disabled() is
+>> false, so the lru stays memcg aware even though no object will ever
+>> be charged to a memcg.
 >>
->> [1/5] arm64: dts: qcom: sc7280: Increase config size to 256MB for ECAM feature
->>        commit: 03e928442d469f7d8dafc549638730647202d9ce
+>> This is more than a semantic inconsistency.
+>> folio_memcg_list_lru_alloc() trusts list_lru_memcg_aware() and
+>> dereferences the folio's memcg, which is always NULL with the
+>> controller disabled.  The only mainline caller,
+>> folio_memcg_alloc_deferred(), papers over this with an explicit
+>> mem_cgroup_disabled() check.  The shmem unused-huge shrinker
+>> conversion ("mm: shmem: make unused huge shrinker memcg aware") adds
+>> a second caller without such a guard, so booting with
+>> cgroup_disable=memory and writing to a huge=always tmpfs oopses:
+>>
+>>    BUG: unable to handle page fault for address: 0000000000000488
+>>    RIP: 0010:folio_memcg_list_lru_alloc+0x41/0xf0
+>>    Call Trace:
+>>     <TASK>
+>>     shmem_get_folio_gfp+0x1cd/0x7c0
+>>     shmem_write_begin+0x5d/0x100
+>>     generic_perform_write+0x89/0x2a0
+>>     shmem_file_write_iter+0x82/0x90
+>>     vfs_write+0x256/0x410
+>>     ksys_write+0x61/0xe0
+>>     do_syscall_64+0x8d/0x460
+>>     entry_SYSCALL_64_after_hwframe+0x76/0x7e
+>>
+>> The faulting address is the offset of mem_cgroup->kmemcg_id,
+>> dereferenced on a NULL memcg in memcg_list_lru_allocated():
+>>
+>>    folio_memcg_list_lru_alloc()
+>>      list_lru_memcg_aware()               <- true, only nokmem checked
+>>      memcg = folio_memcg(folio)           <- NULL
+>>      memcg_list_lru_allocated(memcg, lru)
+>>        memcg->kmemcg_id                   <- NULL pointer dereference
+>>
+>> Check mem_cgroup_disabled() in __list_lru_init() so that all
+>> list_lrus fall back to plain per-node lists when the controller is
+>> disabled, matching what the shrinker side already does
+>> (shrinker_memcg_alloc() bails out on mem_cgroup_disabled()).  This
+>> makes the mem_cgroup_disabled() check in callers unnecessary rather
+>> than mandatory.
+>>
+>> Signed-off-by: Qinyun Tan <qinyuntan@linux.alibaba.com>
+>> ---
+>> Applies on top of mm-new.  No Fixes: tag since the commit that makes
+>> the crash reachable ("mm: shmem: make unused huge shrinker memcg
+>> aware") is only in mm-new; no stable backport is needed either.
+>>
+>> Reproducer, on mm-new booted with cgroup_disable=memory
+>> (CONFIG_MEMCG=y, CONFIG_TRANSPARENT_HUGEPAGE=y):
+>>
+>>    # mount -t tmpfs -o huge=always tmpfs /mnt
+>>    # echo x > /mnt/f
+>>
+>> Without this patch the write oopses immediately as shown above: the
+>> freshly allocated huge folio extends beyond i_size, so
+>> shmem_get_folio_gfp() queues the inode via shmem_unused_huge_add()
+>> -> folio_memcg_list_lru_alloc(), which dereferences the NULL
+>> folio_memcg().
+>>
+>> With this patch the same steps run cleanly: the lru falls back to
+>> plain per-node lists and folio_memcg_list_lru_alloc() returns early.
+>>  From code inspection the rest of the shmem path handles the NULL
+>> objcg fine (obj_cgroup_memcg() and obj_cgroup_put() are NULL-safe,
+>> and list_lru_add() with a NULL memcg lands on the per-node list),
+>> but I have not exercised the shrinker reclaim itself under
+>> cgroup_disable=memory.
+>>
+>> Discussion: https://lore.kernel.org/linux-mm/20260901115104.2944996-1-qinyuntan@linux.alibaba.com/
+>>
+>>   mm/list_lru.c | 7 ++++++-
+>>   1 file changed, 6 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/mm/list_lru.c b/mm/list_lru.c
+>> index 36662d02ff963..f8be119351cca 100644
+>> --- a/mm/list_lru.c
+>> +++ b/mm/list_lru.c
+>> @@ -671,7 +671,12 @@ int __list_lru_init(struct list_lru *lru, bool memcg_aware, struct shrinker *shr
+>>       else
+>>           lru->shrinker_id = -1;
+>>   -    if (mem_cgroup_kmem_disabled())
+>> +    /*
+>> +     * With the memory controller disabled entirely, no object is ever
+>> +     * charged to a memcg, so collapse to plain per-node lists just
+>> +     * like under nokmem.
+>> +     */
 > 
-> Hi Bjorn,
+> These comments seem useless, as the code already explains itself.
 > 
-> Can you revert this change, this is regression due to this series due to that we have change the logic,
-> we need to update the dtsi accordingly, I will send a separate for all controllers to enable this ECAM feature.
 
-I was doing some unrelated work and came across this. The driver
-support has been merged a year ago now - let's plumb the missing
-pieces.
+Agreed, the condition is self-explanatory. Will drop the comment.
 
-Konrad
+>> +    if (mem_cgroup_disabled() || mem_cgroup_kmem_disabled())
+>>           memcg_aware = false;
+>>   #endif
+>>   
+> 
+> Since __list_lru_init() is also exported, I think this looks reasonable to me. With comments removed,
+> 
+> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+
+Thanks for the review. I will send v2 shortly with the comment
+removed and your Reviewed-by collected.
+
+Thanks,
+Qinyun Tan
