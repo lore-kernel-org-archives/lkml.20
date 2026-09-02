@@ -1,63 +1,64 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD4FB37882B
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:05:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B54B23E3DB1
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:05:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788336327; cv=none; b=tJ8Oi0Azkf7Zcf8iyzs2BKzNMilJdmjnpM4dN6RGJJfLsS5dX/SXDMdhcD8W5XRnlvwQKRuUOLrBquJHYkVpjzae3N2z3YzefauutHShF00aEHW8F/bGIw6388jZiwF1Sx4gTIBhn4fDmgJ1MalMVxeMtsR/n7bBzLzOGzn5CqM=
+	t=1788336329; cv=none; b=hI0f9Xj18uv/Zwg8twZMw3iNRe/+ZDip2/uE3ydQ0Q7TUxnjaC4DUM+bgRLTE0y7D99bxhTlYTSK+z8UWXvgeayVYpbUZed8HGa9aGvvXXfIjpZuo4SYIUz2MVScu/ciF7ZuytmwTVqwR0LMRuZxwTFXLuAKA9JKtmjuSJ2bSbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788336327; c=relaxed/simple;
-	bh=Plh657AhjTtUUbMJ/5T/QAFeBNvoXLLEg1/3G7jrrqU=;
+	s=arc-20240116; t=1788336329; c=relaxed/simple;
+	bh=NsouuWMnY+pVMsdrIFxuVF7Di+LKkieEiK7zTUjJdqs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M8+qFyM69ZBmsMVduvIEbRf7Y33TDdTEnUWYeHiYZcUwx8p/1ljJiwkBNuWb6Kn/DV4QNXb7PEYuSFX1essGoKTfc8rgJvh9TZrBJN9dga8gmH80Er4JwMHYv9sER2U67BhUZMe4lWyQQhlQ/BejL32SMG3HSzDLO2ueHHq17K0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=cn0hKy/q; arc=none smtp.client-ip=209.85.128.42
+	 MIME-Version; b=YLsgzt72XjX5Cp5mVsPWeZa95sqX+eUvjqx4mn3E93/0tKCAtCanKmRmV2SqyhdooaPILG9N7W0d46mZFD1tl+wQUHAxOZHWK7H9baSC4ptpLIqVAyippI8VQaiHi70JqmiTK+gkFuSVbWKXzTuBjYvIHFhnimvHxmb7y1Ojuyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=ccsmm+8U; arc=none smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="cn0hKy/q"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so6806695e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 01:05:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="ccsmm+8U"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48431648f33so1436177f8f.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 01:05:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1788336324; x=1788941124; darn=vger.kernel.org;
+        d=lex.la; s=google; t=1788336326; x=1788941126; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=PCu/YU+1fYdbICpm8C465sZb+CGw/CHGy5Mn4qOYcAY=;
-        b=cn0hKy/qJQR/A9kPeE86iQXZ3SJL0UwaUMTJJOjgGWolliLndwBMFwZLmATpLDk2r7
-         7sdLLEWr0qGlJ/AmK4xT/VZ+Hyw2c4jznlDpzImGqY9X2QUedB1mCLpxg8FO3h2XDkAK
-         3feQSo+uxKdD5yYY5gaRlmWZZMi2p7YYzDYQMr/dU/SmjrIHeQEY/YHJmzk7HOJzGW50
-         IPst6XHLkFJuktioXq//jKOxj1lY6CRXFk1hfCFD92yNVJ5ngWfBwr8aQ9jLz0ZuEasd
-         PX1ufKBM9SzI4JZdyca78MRLD7Ur2L+Y9dU++89PW4ygoq4UtG/OCp+6OjU2SXGj0PT9
-         u+8w==
+        bh=ZWL1kkTYSShipF3wkJ7JupP0b7TLAg9zfV2HGt6qDKw=;
+        b=ccsmm+8UJqb/Yf8ueRmVThISG2Ugn8zhF7BDJsg9ZgfdbAILNivl8Q4Vmcg14y75SB
+         rDJap5gjlffzanFcwJs+lLCCosuVxOD+oIJ1Y/xigiMdlVGd/G9lmUwvSHtLoB7emIZj
+         jxzAiOvvGikhBY2YQxZxE5Og319Zqi+Ap8f1X5b3TO3X9Hvx4zn/ddmSIR7aV3z3tx6j
+         NdgiwoSHe/Z2iOAQGBrCXTPB0xTVuXOq5mljLshqkqYueHZqzdTGtRbmEmJksSwI0sjf
+         Xx/0nw3S7TPxYYb+owuL7MUCW2xX8s7UWzdjdxPLXcmHuDQ5VmK7BgNucdfTHOq/rMhV
+         EIkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788336324; x=1788941124;
+        d=1e100.net; s=20251104; t=1788336326; x=1788941126;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PCu/YU+1fYdbICpm8C465sZb+CGw/CHGy5Mn4qOYcAY=;
-        b=k0UJvuZ80Un4xUkVHa+sqef9ZgQeBvp0JhUpG2dhNKNaeseiSAG/8cY/Q1ITiaH8LH
-         7cYdmAQAZ0MYwr/z8oh7WY205/pELWR6xPm9Aut8jal3PgzTkvfNMhx0DHY07pUpJb8B
-         n6dMYpjgyjvAVk6kJm/e1aJ6y97GBMFyOc4VESGr9ZCJAt5kiEIsUQBYzJPX3r8QL/pF
-         Ktq0aHVUPSyfUnW9VjUT9MDLzoENw0rM2TZG5sGN1LyCL3/Co6DEcx01m9BDvz/7uCPV
-         de9roTbBrHvu55yePR3K4trYvotyRnxuLBNi2PhrHVxDncHrIUcW0HWGFC8kCLP/MtQn
-         WExQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rqq+JkBQqL3wCGf2vWNKmOQSGnmbOF9tx7AiqWZP7QCM2w35kvr2lbivHYUMTc7Ul+X/Erkcnr2ddn9qg0=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/j+dWEjmJq8sB9k0PjY6ozDQbwBmY7H+J7B2unpAZuImmv6yC
-	lwkijjIlemCls6+Tu/39QCAfU9xXGaU8knjmrOqWoGRNheW+7UsM9GSoJg4Rj8Y7nGg=
-X-Gm-Gg: AR+sD11Dap2AqnJ2nt40N4GlL8GuCRGI12IhE7aCGSwt01pKkd7+55y6eRuRvU7B0XM
-	LSYhEYhDcxMoczeoXV554zSblJJfEQJTpvYeEysScdUlzdGfz/PYnuYQTviekEHy+qey9gduHoG
-	GpZHu/LxC+t2J7hjrbhBxuMynq6L/IwfrnjQMhTcd/eQ7+BwFC4bwStBgmD7wk9rv2kjvXBvNxP
-	bmM7A0UMbhT+5XcBnxP6gq9YTXHl/UDkslrwC6V4mePACbto/+6PUD6aIjEQRftxkGXVd4dxgA0
-	5ak0zgYXLQY4l7qiqSzd6ZVo7gLkhpA04ca5+ALbZlncuV+IXWfg4L0h+lTmojaOJcs32z9CxYq
-	erAnH6le9V0bY9fkyuq9PIpPEgPWdTapoT0ndi8cMQUtpRQtJBZVW3plo9wg1rEUpo8JO+xeZ1d
-	GQ0EUnTKDPHNniFnuLYsQPkfbSDPzW1NoZVdrn3CQ=
-X-Received: by 2002:a05:600c:63c6:b0:49c:eb16:9fd with SMTP id 5b1f17b1804b1-49ceb160bb1mr1759475e9.3.1788336323878;
-        Wed, 02 Sep 2026 01:05:23 -0700 (PDT)
+        bh=ZWL1kkTYSShipF3wkJ7JupP0b7TLAg9zfV2HGt6qDKw=;
+        b=bLhpmjNS/h7QNZjorLPP+MoDqVjjIG3kiWr3dn1wPlvQmdJt3MI9rLIi8ogs3Dtv0k
+         8a7yhRkRuwBPRnABohJL30b5dq3K/shtWE9EeiH1Tp7OsBHMAHNKnN8BHZpGJOQjqE1s
+         WJLjeOrwUp5ZhA3RWKEgeicsoUSTjXYiPd4u1G7CMgypMdgR0OE4HCOZvaScf/5F45lQ
+         kv0NJbbPs37aKRzW/4ehWRXvtwVI2jyZhAIWwG6OqlDG2vKANiZDCuwUBEn3hIwKiGcm
+         Xjv5ynecIM/CLJHH3FYyvkKQIa/0COdi67EbPinACxH56zAhm+BMX1ZBDuA40tnEiGhr
+         BXbA==
+X-Forwarded-Encrypted: i=1; AHgh+RorGmkYefLQ7braM1Cy+4qlqbMRDn+ZW721oym4qAowfNF5PL+NAhGwqIbc1OTkpDko2CbX6Wrjk+ISodE=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/FYPB0j+aNmz60iq60yIkAm2CUppkJIip/qGJL7Rk0gF3xBMd
+	/mYLI4zYq7wqxuc3iiEKHSCyVRAZ5wD/vdtaUpU3r6rYjo4A+VbM7cqcl1brBKykeXdmUXr7rM6
+	H9gQNjsZzGA==
+X-Gm-Gg: AR+sD111DNs5qGbNaEyUMx7+iMj00JyhnbQ+QA9n/1JvKbxyhVzB9z7XzfN7WQIzADo
+	iRwzqk3qutSmDKJDYz6H6WvPCOWniQvHe4E6pldMN0KQDfST1UNT3SqLxEwbuTsasjaqRnvJbuc
+	Sb8Y9tTiM6xTr6Ek4kH7iMMhxTzNJoPVOo4w8vZu6xz3Imr5uJlsSb/H8yRGtBFLh9stvClpiyx
+	gJ1RB+CljLM3EyGg0YqPh4G0/KaE93iizgJdZI9k65KRwoMHZSp5KeerS82Kr8urGap6AlbcaAn
+	ARKaqxdvWps9VqVQ7m/eC76abBV2vdIQBS4DSKqsPjJa6oo8acVFgY135+NN0WLCabAR1asgKv3
+	WmVyGk2qlUnFTz6kA2tLOZPmQHZX0xrSvd29mjIAGDaEOb6Ks3kAelZrA17V2xbAyl8q9U+D19X
+	J5olM4o188nL7tDISBZUEFhBk+UE8kohhMKDOw7LY=
+X-Received: by 2002:a05:600c:3485:b0:49b:4eb6:6ffd with SMTP id 5b1f17b1804b1-49ce7c26ecemr20592395e9.5.1788336325567;
+        Wed, 02 Sep 2026 01:05:25 -0700 (PDT)
 Received: from remote-01 ([84.17.55.226])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce309e418sm72781715e9.13.2026.09.02.01.05.22
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce309e418sm72781715e9.13.2026.09.02.01.05.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 01:05:23 -0700 (PDT)
+        Wed, 02 Sep 2026 01:05:25 -0700 (PDT)
 From: Aleksei Sviridkin <f@lex.la>
 To: chester.a.unal@arinc9.com,
 	daniel@makrotopia.org,
@@ -77,9 +78,9 @@ Cc: linux@armlinux.org.uk,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
-Subject: [PATCH net v4 1/2] net: dsa: mt7530: populate lpi_interfaces to fix EEE support
-Date: Wed,  2 Sep 2026 08:05:18 +0000
-Message-ID: <20260902080519.2211373-2-f@lex.la>
+Subject: [PATCH net v4 2/2] net: ethernet: mtk_eth_soc: populate lpi_interfaces to fix EEE support
+Date: Wed,  2 Sep 2026 08:05:19 +0000
+Message-ID: <20260902080519.2211373-3-f@lex.la>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260902080519.2211373-1-f@lex.la>
 References: <20260902080519.2211373-1-f@lex.la>
@@ -93,108 +94,137 @@ Content-Transfer-Encoding: 8bit
 
 phylink_create() decides once and for all that a MAC supports managed
 EEE, and it requires the tx_lpi ops plus non-empty lpi_capabilities and
-lpi_interfaces. mt753x_phylink_get_caps() leaves lpi_interfaces empty.
+lpi_interfaces. mtk_add_mac() leaves lpi_interfaces empty.
 
-So ever since the conversion to phylink managed EEE, ethtool has
-answered "Not supported" on every mt753x port, and phy_disable_eee()
-has locked userspace out of turning EEE on. That undoes what
-commit 06dfcd4098cf ("net: dsa: mt7530: fix enabling EEE on MT7531
-switch on all boards") arranged: EEE off by default, but reachable
-with ethtool.
+So ever since EEE support was added, ethtool has answered "Not
+supported" on every MAC that uses mtk_phylink_ops, and
+phy_disable_eee() has locked userspace out of turning EEE on. MT7628
+is unaffected, as rt5350_phylink_ops has no tx_lpi methods.
 
-Leave the speeds above 1 Gbps out of both bitmaps. PMCR folds
-SPEED_2500 and SPEED_10000 onto PMCR_FORCE_SPEED_1000, so
-PMCR_FORCE_EEE1G would govern LPI on such a link, and that is
-unvalidated rather than known unsupported: MediaTek's SDK driver sets
-the EEE force bits for 100 Mbps and 1 Gbps only, and the unit of the
-wakeup timers is undocumented with the port clock at 2.5 times the
-rate.
+Leave 2.5 Gbps out of both bitmaps. MAC_MCR folds SPEED_2500 onto
+MAC_MCR_SPEED_1000, so MAC_MCR_EEE1G would govern LPI on such a link,
+and that is unvalidated rather than known unsupported: MediaTek's SDK
+driver sets the EEE force bits for 100 Mbps and 1 Gbps only, and the
+unit of the wakeup timers is undocumented with the port clock at
+2.5 times the rate.
+
+mtk_mac_enable_tx_lpi() programs wake-up times taken from MT7531's
+reset values, and the SoC's own field has no reset value to fall
+back on. Only MT7981 has been seen to exit LPI cleanly with them, so
+the LPI interfaces sit behind a new MTK_GMAC_EEE capability that only
+MT7981 sets; every other SoC keeps the current behaviour until it has
+been confirmed.
 
 LPI stays off until userspace enables it, but the EEE advertisement of
 a PHY that advertises it out of reset comes back, since phylink stops
 force-clearing it.
 
-Fixes: 9cf21773f535 ("net: dsa: mt7530: convert to phylink managed EEE")
+Fixes: 952d7325362f ("net: ethernet: mediatek: add EEE support")
 Signed-off-by: Aleksei Sviridkin <f@lex.la>
 ---
-Ports that support neither 100 Mbps nor 1 Gbps are skipped because on
-MT7988, EN7581 and AN7583 port 6 is 10 Gbps only and shares
-PHY_INTERFACE_MODE_INTERNAL with the user ports, so the interface mask
-alone cannot tell them apart. MT7531's internal PHYs keep the
-advertisement mt7531_setup() zeroed and EN7528 keeps both bitmaps
-empty, so EEE stays fully off there.
+On the netsys v3 switch MAC the xGMII filter would empty lpi_interfaces
+outright, as PHY_INTERFACE_MODE_INTERNAL is the only interface it
+supports. MT7988 does not carry MTK_GMAC_EEE, so this is moot for now.
 
-Two pre-existing things this patch makes live, neither addressed here:
+mtk_mac_enable_tx_lpi() programs MT7531's reset wakeup times (17 for
+1 Gbps, 36 for 100 Mbps) whenever it runs, as its own comment says. The
+capability gate exists because of that: MT7981 has been measured with
+them (see the cover), the other SoCs have not, so they keep EEE
+unreachable from userspace as before.
 
-- The unit of LPI_THRESH is still unspecified, as the comment above
-  lpi_timer_default says. Before the phylink conversion
-  mt753x_set_mac_eee() wrote tx_lpi_timer into the field directly, so
-  the raw unit has always been what ethtool showed on these ports.
+v2, with the full argument for leaving 2.5 Gbps out:
+https://lore.kernel.org/netdev/20260824024117.46154-3-f@lex.la/
 
-- mt753x_phylink_mac_enable_tx_lpi() sets the PMCR force-EEE bits
-  without checking the resolved speed or interface, relying entirely on
-  phylink never calling it above 1 Gbps. A check there would make the
-  driver robust independently of lpi_interfaces being right.
+v4: the MTK_GMAC_EEE gate (Paolo Abeni).
 
-v2, with the full argument for leaving the higher speeds out:
-https://lore.kernel.org/netdev/20260824024117.46154-2-f@lex.la/
+ drivers/net/ethernet/mediatek/mtk_eth_soc.c | 30 ++++++++++++++++++---
+ drivers/net/ethernet/mediatek/mtk_eth_soc.h |  4 ++-
+ 2 files changed, 30 insertions(+), 4 deletions(-)
 
-v4: lpi_capabilities is mac_capabilities masked to the two speeds
-instead of both asserted. Every port that reaches the guard today has
-both speeds, so nothing changes; it only stops the bitmap from claiming
-a speed a port cannot link at.
-
- drivers/net/dsa/mt7530.c | 25 ++++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
-index 2b7be091c056..a188a391b650 100644
---- a/drivers/net/dsa/mt7530.c
-+++ b/drivers/net/dsa/mt7530.c
-@@ -3172,23 +3172,38 @@ static void mt753x_phylink_get_caps(struct dsa_switch *ds, int port,
+diff --git a/drivers/net/ethernet/mediatek/mtk_eth_soc.c b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+index be3bd025c41a..09f53875d100 100644
+--- a/drivers/net/ethernet/mediatek/mtk_eth_soc.c
++++ b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+@@ -4828,7 +4828,7 @@ static int mtk_add_mac(struct mtk_eth *eth, struct device_node *np)
+ 	phy_interface_t phy_mode;
+ 	struct phylink *phylink;
+ 	struct mtk_mac *mac;
+-	int id, err;
++	int id, err, i;
+ 	int txqs = 1;
+ 	u32 val;
  
- 	config->mac_capabilities = MAC_ASYM_PAUSE | MAC_SYM_PAUSE;
+@@ -4907,8 +4907,11 @@ static int mtk_add_mac(struct mtk_eth *eth, struct device_node *np)
+ 	mac->phylink_config.type = PHYLINK_NETDEV;
+ 	mac->phylink_config.mac_capabilities = MAC_ASYM_PAUSE | MAC_SYM_PAUSE |
+ 		MAC_10 | MAC_100 | MAC_1000 | MAC_2500FD;
+-	mac->phylink_config.lpi_capabilities = MAC_100FD | MAC_1000FD |
+-		MAC_2500FD;
++	/* MAC_MCR folds SPEED_2500 onto MAC_MCR_SPEED_1000, so LPI above
++	 * 1 Gbps would be governed by MAC_MCR_EEE1G and is unvalidated
++	 * rather than unsupported.
++	 */
++	mac->phylink_config.lpi_capabilities = MAC_100FD | MAC_1000FD;
+ 	mac->phylink_config.lpi_timer_default = 1000;
  
-+	priv->info->mac_port_get_caps(ds, port, config);
+ 	/* MT7623 gmac0 is now missing its speed-specific PLL configuration
+@@ -4966,6 +4969,27 @@ static int mtk_add_mac(struct mtk_eth *eth, struct device_node *np)
+ 		__set_bit(PHY_INTERFACE_MODE_INTERNAL,
+ 			  mac->phylink_config.supported_interfaces);
+ 
++	/* mtk_mac_enable_tx_lpi() programs wake-up times borrowed from
++	 * MT7531; only SoCs where those have been seen to exit LPI cleanly
++	 * get LPI interfaces.
++	 */
++	if (MTK_HAS_CAPS(eth->soc->caps, MTK_GMAC_EEE)) {
++		phy_interface_copy(mac->phylink_config.lpi_interfaces,
++				   mac->phylink_config.supported_interfaces);
 +
- 	/* The EN7528 GPHYs report EEE capability, but negotiating EEE with
- 	 * common link partners (e.g. Realtek GbE NICs) results in an unstable
- 	 * link with dropped frames. Leave the LPI capabilities empty so that
- 	 * phylink disables EEE on these PHYs and refuses to enable it from
--	 * userspace.
-+	 * userspace. Ports that run at neither 100 Mbps nor 1 Gbps are left
-+	 * empty too, since LPI above 1 Gbps is unvalidated.
- 	 */
--	if (priv->id != ID_EN7528) {
-+	if (priv->id != ID_EN7528 &&
-+	    config->mac_capabilities & (MAC_100FD | MAC_1000FD)) {
- 		u32 eeecr = mt7530_read(priv, MT753X_PMEEECR_P(port));
- 
--		config->lpi_capabilities = MAC_100FD | MAC_1000FD | MAC_2500FD;
-+		/* PMCR folds SPEED_2500 and SPEED_10000 onto
-+		 * PMCR_FORCE_SPEED_1000, so LPI above 1 Gbps would be
-+		 * governed by PMCR_FORCE_EEE1G and is unvalidated rather than
-+		 * unsupported. Leave it out of both bitmaps: lpi_capabilities
-+		 * gates on the media speed a rate matching PHY reports, not
-+		 * on the speed the MAC runs at.
++		/* The MAC side of 2500BASE-X is never below 2.5 Gbps, not
++		 * even when a rate matching PHY drops the media to 1 Gbps,
++		 * and mtk_mac_enable_tx_lpi() refuses the xGMII modes
++		 * outright.
 +		 */
-+		config->lpi_capabilities = config->mac_capabilities &
-+					   (MAC_100FD | MAC_1000FD);
-+		phy_interface_copy(config->lpi_interfaces,
-+				   config->supported_interfaces);
 +		__clear_bit(PHY_INTERFACE_MODE_2500BASEX,
-+			    config->lpi_interfaces);
++			    mac->phylink_config.lpi_interfaces);
++		for (i = 0; i < PHY_INTERFACE_MODE_MAX; i++)
++			if (mtk_interface_mode_is_xgmii(eth, i))
++				__clear_bit(i,
++					    mac->phylink_config.lpi_interfaces);
++	}
 +
- 		/* tx_lpi_timer should be in microseconds. The time units for
- 		 * LPI threshold are unspecified.
- 		 */
- 		config->lpi_timer_default = FIELD_GET(LPI_THRESH_MASK, eeecr);
- 	}
--
--	priv->info->mac_port_get_caps(ds, port, config);
- }
+ 	phylink = phylink_create(&mac->phylink_config,
+ 				 of_fwnode_handle(mac->of_node),
+ 				 phy_mode, mac_ops);
+diff --git a/drivers/net/ethernet/mediatek/mtk_eth_soc.h b/drivers/net/ethernet/mediatek/mtk_eth_soc.h
+index 0168e2fbc619..88a9b3b23bea 100644
+--- a/drivers/net/ethernet/mediatek/mtk_eth_soc.h
++++ b/drivers/net/ethernet/mediatek/mtk_eth_soc.h
+@@ -994,6 +994,7 @@ enum mkt_eth_capabilities {
+ 	MTK_U3_COPHY_V2_BIT,
+ 	MTK_SRAM_BIT,
+ 	MTK_36BIT_DMA_BIT,
++	MTK_GMAC_EEE_BIT,
  
- static int mt753x_pcs_validate(struct phylink_pcs *pcs,
+ 	/* MUX BITS*/
+ 	MTK_ETH_MUX_GDM1_TO_GMAC1_ESW_BIT,
+@@ -1034,6 +1035,7 @@ enum mkt_eth_capabilities {
+ #define MTK_U3_COPHY_V2		BIT_ULL(MTK_U3_COPHY_V2_BIT)
+ #define MTK_SRAM		BIT_ULL(MTK_SRAM_BIT)
+ #define MTK_36BIT_DMA	BIT_ULL(MTK_36BIT_DMA_BIT)
++#define MTK_GMAC_EEE		BIT_ULL(MTK_GMAC_EEE_BIT)
+ 
+ #define MTK_ETH_MUX_GDM1_TO_GMAC1_ESW		\
+ 	BIT_ULL(MTK_ETH_MUX_GDM1_TO_GMAC1_ESW_BIT)
+@@ -1117,7 +1119,7 @@ enum mkt_eth_capabilities {
+ #define MT7981_CAPS  (MTK_GMAC1_SGMII | MTK_GMAC2_SGMII | MTK_GMAC2_GEPHY | \
+ 		      MTK_MUX_GMAC12_TO_GEPHY_SGMII | MTK_QDMA | \
+ 		      MTK_MUX_U3_GMAC2_TO_QPHY | MTK_U3_COPHY_V2 | \
+-		      MTK_RSTCTRL_PPE1 | MTK_SRAM)
++		      MTK_RSTCTRL_PPE1 | MTK_SRAM | MTK_GMAC_EEE)
+ 
+ #define MT7986_CAPS  (MTK_GMAC1_SGMII | MTK_GMAC2_SGMII | \
+ 		      MTK_MUX_GMAC12_TO_GEPHY_SGMII | MTK_QDMA | \
 -- 
 2.53.0
 
