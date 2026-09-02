@@ -1,136 +1,210 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822DC49B216;
-	Wed,  2 Sep 2026 13:06:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 19D9D49505F
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:07:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788354382; cv=none; b=lxZQbJ5fkWKw+evJzLaqIbU13oi/xBRBz4OjuFNTLg/XxZ6N/lVTlAOR+NVMY5GNPY1Hn0jY0tbZpFy3Y+ekYJ8kf3wBokbLpiFF3jhFdbixuuZm0Umxw1/lPdEJdsIod0YjjoIQcHtlabrOoUmHMym5NZC/+B2dlJnxuci7k/0=
+	t=1788354444; cv=none; b=Mr7d2BKozDGjK5e5LJ0rkbvrrCLdZnjUhsQAcuZS21RMyZrGukHWayJkkQ2/RrmrXZPdLpdROLcQlp2cWqMNV4rRDK0/99WFC2oFE+Pbs3oC+eh7uIUi/9k+6dP1LXPRMJ4Cwh8tcbjdE4o6+5zU/McuhbUhZXBH1Q/IaI7JgtM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788354382; c=relaxed/simple;
-	bh=+bxePfsNVSHSfzlBF3Gm2+qPdi9o4VeP/MfRydTR3BY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tisYFnmXqov97C6M0UrPqKoy5tHoPcQCG18V+k7w31Z5yPSfws61w6KbNBL4BcetzcxARgpY6G5AMGhcrAuKoi0J5sHpcJyfAOix0FbwFAQq/PXqHlRsvQK87x3VftZPmICP9qdinf+b5xWy0jqruEgkAsFjfPkU+2TkgA4Vamg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gjcZz021; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788354444; c=relaxed/simple;
+	bh=+t9sN4LSyRGw93rnNyg1v4R/ipYdpl7x/UgrrcH7gJ8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RzNbEmZX1pPcPgUpmQxK6uOZYi5nnmQhJ82vPswAbblBAjkReHJZyMROig9CpjO1nfc9w/V0a9Xh60xZ0keBc5/PsJwPWzsKtzAVhZjNHA8a7AyAgDOedzr5AGbAyX+gqUQMRX2dL5mVn2eYVWP3ieQRPwRFAd99RhusWICCUos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=pUh63RT4; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gjcZz021"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788354380; x=1819890380;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=+bxePfsNVSHSfzlBF3Gm2+qPdi9o4VeP/MfRydTR3BY=;
-  b=gjcZz02129cvi1Y8dqqiCSzbsr95oOci9FWLqCinj6SzzGKVeM8DfZJ3
-   LUrY0gDMd+gn4oV3oLSy5mCQv+MOSZA/vWl0DBNMwzR2WNugYYEt7UbOw
-   lWjtVmHqqq8YfKYPaENUv2Hb230HbxTWcIDDVHtwpZQYzG+iRA1s9bSIk
-   Yr6+hsjmqkYKpSMilU+LWWiQgcMO6o7SMN3iAxjcUiHG7bH41NZAeiIm8
-   /hnShgm78jBzApp6DPY9hqKLM/VnhwlIJSimO2er0vCQiLac7tJxlgCZS
-   taQLjQ956onKvllHfJB+2XwJiRiBMS5aEYWTQTnggZujbq9lxXxi77qI6
-   Q==;
-X-CSE-ConnectionGUID: DU7yH6xWTY6oO3PSoB97PA==
-X-CSE-MsgGUID: yo1RMJeKRX6enF9tr/qKqQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="88687357"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="88687357"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 06:06:20 -0700
-X-CSE-ConnectionGUID: lVYCjvFGRDWgAblnbTd9OQ==
-X-CSE-MsgGUID: sQ20yggwS6qFjAbH976YjQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="268098503"
-Received: from lkp-server01.sh.intel.com (HELO bfac249b2189) ([10.239.97.150])
-  by orviesa010.jf.intel.com with ESMTP; 02 Sep 2026 06:06:17 -0700
-Received: from kbuild by bfac249b2189 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x1kfO-000000002jG-30ZC;
-	Wed, 02 Sep 2026 13:06:14 +0000
-Date: Wed, 2 Sep 2026 21:06:09 +0800
-From: kernel test robot <lkp@intel.com>
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Elad Nachman <enachman@marvell.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] net: prestera: avoid overreading a short firmware tail
-Message-ID: <202609022030.0pnwZKgS-lkp@intel.com>
-References: <20260830142404.37663-1-pengpeng@iscas.ac.cn>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="pUh63RT4"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 81ADE165C;
+	Wed,  2 Sep 2026 06:07:17 -0700 (PDT)
+Received: from [10.1.34.165] (e121487-lin.cambridge.arm.com [10.1.34.165])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9F4B63F85F;
+	Wed,  2 Sep 2026 06:07:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788354441; bh=+t9sN4LSyRGw93rnNyg1v4R/ipYdpl7x/UgrrcH7gJ8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=pUh63RT4V/KPBB2O88F3YMOGtx1JdWvSj/QqmaJhB2Dh1R0LEM2yxJgti11F4tlKD
+	 VjyoK1EM1DGgjvYFEW2m4OcN165RFcHiXm/tdxOC3doeLbPfpm9+hdC9RHqRnXJ03e
+	 dVsghQvw8nk6GylnkSTuazEKzneEDBg0Swpideho=
+Message-ID: <5058854b-6e68-44b2-b4f7-6e2f666c4caf@arm.com>
+Date: Wed, 2 Sep 2026 14:07:17 +0100
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260830142404.37663-1-pengpeng@iscas.ac.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: hibernate: pass HVC_SET_VECTORS args to the resume
+ hvc
+To: Will Deacon <will@kernel.org>
+Cc: Bradley Morgan <include@grrlz.net>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ maz@kernel.org, james.morse@arm.com
+References: <20260809213615.11646-1-include@grrlz.net>
+ <anr28wUlKjci8JPn@willie-the-truck>
+ <463DA5C2-C933-45EC-A200-21AAF6258418@grrlz.net>
+ <anszjQ7jBeYDqesp@willie-the-truck>
+ <7ca33f92-2ded-4749-ab67-2fb564919b99@arm.com>
+ <aoxl1ri43eEAsxlR@willie-the-truck>
+Content-Language: en-GB
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+In-Reply-To: <aoxl1ri43eEAsxlR@willie-the-truck>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Pengpeng,
+Hi Will,
 
-kernel test robot noticed the following build errors:
+On 8/24/26 16:40, Will Deacon wrote:
+> Hi Vladimir,
+> 
+> On Mon, Aug 17, 2026 at 02:06:20PM +0100, Vladimir Murzin wrote:
+>> On 8/11/26 15:37, Will Deacon wrote:
+>>> I think I probably need to spend some time understanding how all this is
+>>> supposed to work. I can't currently tell how we end up with the stub
+>>> vectors installed to start with nor why we can't do all this from C code.
+> I finally got back to this...
+> 
+>> Here is my understanding of how things work. Assuming nVHE mode, we
+>> restore the previously saved image X from the currently running kernel Y.
+>> I’ll use the suffixes _X and _Y for addresses belonging to the respective
+>> images.
+> Nice, thanks for the walkthrough!
+> 
+>> On the resume path, KVM teardown sets VBAR_EL2 to __hyp_stub_vectors_Y.
+>>
+>> swsusp_arch_resume() then temporarily (re)sets VBAR_EL2 to trans_pgd_stub_vectors
+>> while transitioning to image X:
+>>
+>> |        if (el2_reset_needed())
+>> |                __hyp_set_vectors(el2_vectors);
+>>
+>>
+>> Currently, swsusp_arch_suspend_exit() attempts to restore VBAR_EL2 to
+>> __hyp_stub_vectors_X:
+>>
+>>
+>> |       cbz     x24, 3f         /* Do we need to re-initialise EL2? */
+>> |       hvc     #0
+>>
+>> where x24 is resume_hdr.__hyp_stub_vectors (in other words snapshot of
+>> __hyp_stub_vectors from image X)
+>>
+>> However, that request is ignored, so VBAR_EL2 remains pointing to
+>> trans_pgd_stub_vectors
+>>
+>> We re-enter the kernel X.
+>>
+>> During KVM initialisation, we call __hyp_reset_vectors(). This is
+>> handled by trans_pgd_stub_vectors, but ignored since HVC_RESET_VECTORS
+>> is not recognised. We then call __hyp_set_vectors(), which is also
+>> handled by trans_pgd_stub_vectors, but this time VBAR_EL2 get set to
+>> __kvm_hyp_init_X.
+>>
+>> From that point on, __kvm_hyp_init_X handles subsequent HVC calls,
+>> including the later call that redirects VBAR_EL2 to
+>> __kvm_hyp_host_vector_X during KVM setup.
+>>
+>> The memory containing trans_pgd_stub_vectors is freed later by
+>> swsusp_free(). That perhaps explains why we do not see any crash.
+> I was trying to figure out if we end up initialising VBAR_EL2 before we
+> "return" from swsusp_arch_suspend() and free the reserved pages.
+> However, it looks like we run _cpu_resume() instead of cpu_resume() so
+> I still can't tell why this hasn't exploded. AFAICT, the active hyp
+> vectors will have been freed (and possibly poisoned) long before KVM
+> initialises.
+> 
 
-[auto build test ERROR on 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72]
+My apologies. I managed to confuse myself (but hopefully not you) with the
+order of operations. Indeed, swsups_free() happens *before* KVM initialisation
+which eventually happens later via syscore_resume().
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Pengpeng-Hou/net-prestera-avoid-overreading-a-short-firmware-tail/20260830-222403
-base:   08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
-patch link:    https://lore.kernel.org/r/20260830142404.37663-1-pengpeng%40iscas.ac.cn
-patch subject: [PATCH] net: prestera: avoid overreading a short firmware tail
-config: x86_64-allyesconfig (https://download.01.org/0day-ci/archive/20260902/202609022030.0pnwZKgS-lkp@intel.com/config)
-compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260902/202609022030.0pnwZKgS-lkp@intel.com/reproduce)
+I can now reproduce the problem with CONFIG_PAGE_POISONING=y and page_poison=on
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609022030.0pnwZKgS-lkp@intel.com/
+# swapon /dev/vdb
+[   55.330849] Adding 2097148k swap on /dev/vdb.  Priority:-1 extents:1 across:2097148k 
+# echo test_resume > /sys/power/disk
+# echo disk > /sys/power/state
+[   62.534444] PM: hibernation: hibernation entry
+[   62.578411] Filesystems sync: 0.021 seconds
+[   62.579550] Freezing user space processes
+[   62.585909] Freezing user space processes completed (elapsed 0.005 seconds)
+[   62.586835] OOM killer disabled.
+[   62.588332] Freezing remaining freezable tasks
+[   62.591318] Freezing remaining freezable tasks completed (elapsed 0.002 seconds)
+[   62.593983] PM: hibernation: Preallocating image memory
+[   62.972326] PM: hibernation: Allocated 25745 pages for snapshot
+[   62.973119] PM: hibernation: Allocated 102980 kbytes in 0.37 seconds (278.32 MB/s)
+[   63.011607] Disabling non-boot CPUs ...
+[   63.021633] virtio_blk virtio0: 1/0/0 default/read/poll queues
+[   63.025486] virtio_blk virtio3: 1/0/0 default/read/poll queues
+[   63.035080] hibernate: Hibernating on CPU 0 [mpidr:0x0]
+[   63.039859] PM: Using 1 thread(s) for lzo compression
+[   63.040459] PM: Compressing and saving image data (23314 pages)...
+[   63.041558] PM: Image saving progress:   0%
+[   63.247947] PM: Image saving progress:  10%
+[   63.455279] PM: Image saving progress:  20%
+[   63.619264] PM: Image saving progress:  30%
+[   63.785097] PM: Image saving progress:  40%
+[   63.924669] PM: Image saving progress:  50%
+[   64.018580] PM: Image saving progress:  60%
+[   64.116893] PM: Image saving progress:  70%
+[   64.286410] PM: Image saving progress:  80%
+[   64.490785] PM: Image saving progress:  90%
+[   64.618506] PM: Image saving progress: 100%
+[   64.621388] PM: hibernation: Wrote 93256 kbytes in 1.58 seconds (59.02 MB/s)
+[   64.622108] PM: Image size after compression: 32298 kbytes
+[   64.622702] PM: Image saving done
+[   64.624592] PM: S|
+[   64.777608] PM: Using 1 thread(s) for lzo decompression
+[   64.778448] PM: Loading and decompressing image data (23314 pages)...
+[   64.779237] hibernate: Hibernated on CPU 0 [mpidr:0x0]
+[   64.877435] PM: Image loading progress:   0%
+[   65.172066] PM: Image loading progress:  10%
+[   65.273214] PM: Image loading progress:  20%
+[   65.345142] PM: Image loading progress:  30%
+[   65.454007] PM: Image loading progress:  40%
+[   65.521889] PM: Image loading progress:  50%
+[   65.595804] PM: Image loading progress:  60%
+[   65.659942] PM: Image loading progress:  70%
+[   65.720256] PM: Image loading progress:  80%
+[   65.788729] PM: Image loading progress:  90%
+[   65.851162] PM: Image loading progress: 100%
+[   65.852057] PM: Image loading done
+[   65.853050] PM: hibernation: Read 93256 kbytes in 1.07 seconds (87.15 MB/s)
+[   65.900987] Disabling non-boot CPUs ...
+[   63.012805] hibernate: Restored 0 MTE pages
+[   63.012805] PM: hibernation: free pages cleared after restore
 
-All errors (new ones prefixed by >>):
+... hang here ...
 
->> drivers/net/ethernet/marvell/prestera/prestera_pci.c:603:18: error: call to undeclared function 'get_unaligned'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     603 |                 writel_relaxed(get_unaligned((u32 *)(buf + i)),
-         |                                ^
-   1 error generated.
+GDB shows that we are executing code that looks like it came from the poisoned page.
+
+Program received signal SIGINT, Interrupt.
+0x000000004d158000 in ?? ()
+1: x/i $pc
+=> 0x4d158000:  orn     x10, x21, x10, asr #42
+
+With the patch applied I do not see hang anymore so you can add
+
+Tested-by: Vladimir Murzin <vladimir.murzin@arm.com>
 
 
-vim +/get_unaligned +603 drivers/net/ethernet/marvell/prestera/prestera_pci.c
+> Speaking off-list to Mark R, he pointed me at some old rework he had for
+> all of this:
+> 
+> https://git.kernel.org/pub/scm/linux/kernel/git/mark/linux.git/log/?h=arm64/suspend/cleanup
+> 
+> one of the patches there is very similar (identical?) to this one, but
+> his series gets us to a point where we _do_ resume at cpu_resume() and,
+> tbh, the whole thing ends up making a lot more sense.
+> 
+> If somebody could dust off that two-year old (!) stack, that would be
+> great.
+> 
+> Will
+> 
 
-   589	
-   590	static int prestera_ldr_send(struct prestera_fw *fw, const u8 *buf, size_t len)
-   591	{
-   592		size_t write_len = ALIGN(len, sizeof(u32));
-   593		size_t i;
-   594		int err;
-   595	
-   596		err = prestera_ldr_wait_buf(fw, write_len);
-   597		if (err) {
-   598			dev_err(fw->dev.dev, "failed wait for sending firmware\n");
-   599			return err;
-   600		}
-   601	
-   602		for (i = 0; i + sizeof(u32) <= len; i += sizeof(u32)) {
- > 603			writel_relaxed(get_unaligned((u32 *)(buf + i)),
-   604				       prestera_ldr_wr_ptr(fw));
-   605			prestera_ldr_wr_idx_move(fw, 4);
-   606		}
-   607		if (i < len) {
-   608			u32 last = 0;
-   609	
-   610			memcpy(&last, buf + i, len - i);
-   611			writel_relaxed(last, prestera_ldr_wr_ptr(fw));
-   612			prestera_ldr_wr_idx_move(fw, 4);
-   613		}
-   614	
-   615		prestera_ldr_wr_idx_commit(fw);
-   616		return 0;
-   617	}
-   618	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
