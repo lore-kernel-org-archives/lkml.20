@@ -1,202 +1,118 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender-pp-o93.zoho.in (sender-pp-o93.zoho.in [103.117.158.93])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322844A3F26
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:05:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788361525; cv=none; b=OJS8xtTaUEebUiZq3Uzhax9ubuyTu4EXD/xTELhpCddxtcSL+7zWqFXV/fBrmrIzl8kF8T5WkCfEsJlRCPerGC+2sbeF/Obs351SPLPccMY/qm4eC/Lt+DJJItv2QipV/BOjLylUkAxO2U+Y8PD6QPgtUrJDPmPkYlG8yF1OUdE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788361525; c=relaxed/simple;
-	bh=2/YfSi5N9pOc6yZaIdsRfSoS1HN0gJB2ci1jIQiGiqM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eDY/8fr/P7RwOZdvKWwui/eDMTSo2rnCg3Fq7TCmLIWk9qL1SBI785A15AP/T/GIHKpGBHZvmFkEPcRcl49C8Mk5kf0/CozonkZO7DXvkEtyadRlvZx5vy9CCJq0wSZzE71fZ4jt+ee0qcgH9ChGNhtIAxpxAot1Zho++J1YUdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rLwJ1rJH; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A4846D2B9
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:05:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=103.117.158.93
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788361550; cv=pass; b=IeYoix48WoCnAyjpJIlJCLRCyQn2jYuJeaGsGntwMqgjCEKhlGePpjeQ0UpF5GMjoMpUSnIeIGyTOxarJUI8Gkk8//M2azUjwIbygstV9MdhlSTGissIFq/49SYGEszg4xk2Ls9ebK2/h5V1UBjLuv/x8F/4paGT9iP+yJtKI2Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788361550; c=relaxed/simple;
+	bh=9vfrAX9QdLP02MpXYNzlfMqiNAX3CvZqO//ZbrSGtIM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uVLJItzzhEiO/t+DYHg5m/UawHACWLDHG9pFRtb536iMyP/nSbo+DC0Nw5GVZ1+EKElAHvI28/j3mujoM9Qa2/uGHLHu9IDV953YkCoVd3Csa+xpwdfMu4kDJwjVIelcJXYls/InwOZFqMf6xzvDZM3YbYjvrTKzFROtkmST6DU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.in; spf=pass smtp.mailfrom=zohomail.in; dkim=pass (1024-bit key) header.d=zohomail.in header.i=adi.sharma@zohomail.in header.b=lFWMtWrv; arc=pass smtp.client-ip=103.117.158.93
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=zohomail.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zohomail.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rLwJ1rJH"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4953e04ef16so10765825e9.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 08:05:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788361521; x=1788966321; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=x+YGRuTP0DFkwY53W+VAP0dMbCx4iIs4U3Fk1KxNIFU=;
-        b=rLwJ1rJHc2k9EcrGlfscxbk6ArXPohokpMCWkc2EaQQAfQfXUYSwyWTlvEj5ti8+NT
-         Tn1119A59T3VUwSiZaPQhWLC9aaKh32BG8tDuiR5gD0E4T+mma6mSe60y0jpxQt4+Nq6
-         126yA7I7Mw8iWd50Jb3WUGk9LPhizilGKw5Gg7aAC25hM70inNuNWWbcaz9SKiB78D4D
-         tOrmAXSTtzBwq0qTZjPm/seyFUrlU3h6vzvK7Y9rZQdQ3CzAY84EX2bqHcEYut7mcAQz
-         Kbt7pma4zzsiyzWoYaGKUyvP2QaCYsZv238+9fKMP+35cQXD7aSfFzHZ3HMvnG4cl0Sx
-         JIAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788361521; x=1788966321;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x+YGRuTP0DFkwY53W+VAP0dMbCx4iIs4U3Fk1KxNIFU=;
-        b=YYxXY7zFEjG+HxL8eBhXrFmf1oFxKqI7SkAJNx08yBXpheow020UTu+qtg45WgFHFR
-         QVeqwmlSCtWjCfMbn5I7RnQAoBtoTcWu1KKUEp/e5fHCRKXut49gHj58DtiiiRLO1Jos
-         /n9LGQQiGmadpEEMoctMzejjDssy8iRSp4uvdthEYaP8oGM6S6lfQZjhzqXVrC8KzND8
-         iLl9cqhVPwHFlu/sTEvSJ88KgFGbrxuaNlK8hPkpwG2CAaqrTT2htwuuENXRcXCur2kr
-         kWp6L6VY8TOho8+NZ0drrFYH48OrEITQ4ocue+Mqwrblgy6ltvTsG/AfMXra29BPGIgA
-         6tEw==
-X-Forwarded-Encrypted: i=1; AHgh+RoRahCEB4OSrzkIGGjczOZSXEzoWi7TMyVnIDM20gZgTRl9Al0vNnRaIjsanrJdiiyDGR6fEH1AFY6P2Q4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lC5pyn8iXvsglSToCPEWYshThxskGN3VZYUOaWtmdt0/A5gCZ2
-	3a+Ioaj1x42A7hHYaV5IoaOJKdQCNcc0NI3HsbVbxZbCFxr5yoEDkV8tgrF+PhbgnA==
-X-Gm-Gg: AR+sD10SQ3X2soAgT7uXUjpSp11cXCvonVKtRGmQwWFinISZZvRSiuMXXzyd7xgm7qQ
-	UIWrC6jS8jjAEO0IE0ZiOLGBbyc5dbZLc2GOlWCmy/yQ25tEHiwgOE5fr/BpD8uar/GkAv8F1FD
-	VkapofZw24S64l15KYLLAkWQIY2ivNs2R6kgmwluO/eCEQF3vM1Bn6NYTi7GNGUoa3irnpoTFcn
-	3JkcSFyAibloRBnXvz/6cqn4OnJRu2XF4VMS+IfJThGzBDoP1S3jn3hNmpVkhAb3Zm/UxgI0iX2
-	78jdakIomaL6YdSR8TABOU/yAgBhSIl4khpVreFDLNnVXxYgK7v4rqsO3FEhT9mq6tMF3gotOAC
-	Bw3gSJ0eohgx7mRe/RwqmsVICz++4I6R5sesG8r9BtQ9AQSVBzVMO6n3oquLaiBaHeO0vLvLbnh
-	wl7Yi1/++hbCxwsmyuXqBLMylDuOcjiSw18/tjUKoXGQ51sHuBM8BeDnCpL/ejSQ==
-X-Received: by 2002:a05:600c:a086:b0:495:48d7:f178 with SMTP id 5b1f17b1804b1-49ce5815dddmr111164645e9.11.1788361518474;
-        Wed, 02 Sep 2026 08:05:18 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce551bf7asm40161205e9.2.2026.09.02.08.05.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 08:05:16 -0700 (PDT)
-Date: Wed, 2 Sep 2026 16:05:12 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Fuad Tabba <fuad.tabba@linux.dev>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	dkim=pass (1024-bit key) header.d=zohomail.in header.i=adi.sharma@zohomail.in header.b="lFWMtWrv"
+ARC-Seal: i=1; a=rsa-sha256; t=1788361491; cv=none; 
+	d=zohomail.in; s=zohoarc; 
+	b=Q+SEHYTnfXW9s9C26rAwpgKyHSAsjp3U3W1ws026kfr3NxCutcmWvTm/mHBd5sHomb8v+3s8F6R1FsMDx+lZW0J6proHFcI4jN6K6umvavu1yQeuwjym9b3++bUBHa99wfqlrnm6+osaX1SXLKqKnoBLndNboV+GSJl5oCbASyQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.in; s=zohoarc; 
+	t=1788361491; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=PZzMPScsXWSlSAae9UgIPeUp1UVPBl3vjq+5BFJ+UeY=; 
+	b=VEF4KyEO3vwen7mRn96+tFXmnIC2HA5kbVIQj/kY1AwOWtWNqAsdqUtXyKig+M3r19Kf2UFfTZQND1UPdEPE3enG4Avvo/Qfuzr9x3jo1VnHcZVdy9mbSArMT3+RjYvU25kPgDJfqJf+A4FHN6ilN2MK920d54HV4UiP7oGHqbo=
+ARC-Authentication-Results: i=1; mx.zohomail.in;
+	dkim=pass  header.i=zohomail.in;
+	spf=pass  smtp.mailfrom=adi.sharma@zohomail.in;
+	dmarc=pass header.from=<adi.sharma@zohomail.in>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788361491;
+	s=zoho; d=zohomail.in; i=adi.sharma@zohomail.in;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Transfer-Encoding:Reply-To;
+	bh=PZzMPScsXWSlSAae9UgIPeUp1UVPBl3vjq+5BFJ+UeY=;
+	b=lFWMtWrvbTMxoZu1pqDhq3xuHNpdEI1Tf/JKy58TPx/aXILu96qhTVrNSW759/TR
+	6iv2IEDni1ksKMZsFRGWO0DNkpi59A+znmlAZF+W3KA9ZVLwxa9bwp2XJKUvAP7gVSx
+	bGnAq8V1bfNhdD+F+W3x29b5/9EJ220z2DzRBfu0=
+Received: by mx.zoho.in with SMTPS id 1788361489769715.4053413254559;
+	Wed, 2 Sep 2026 20:34:49 +0530 (IST)
+From: Aditya Sharma <adi.sharma@zohomail.in>
+To: bpf@vger.kernel.org
+Cc: ast@kernel.org,
+	daniel@iogearbox.net,
+	andrii@kernel.org,
+	martin.lau@linux.dev,
+	yonghong.song@linux.dev,
+	eddyz87@gmail.com,
+	song@kernel.org,
+	jolsa@kernel.org,
+	kpsingh@kernel.org,
+	shuah@kernel.org,
+	puranjay@kernel.org,
 	linux-kernel@vger.kernel.org,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Quentin Perret <qperret@google.com>, Fuad Tabba <tabba@google.com>
-Subject: Re: [PATCH 05/17] KVM: arm64: Skip fixed-feature state flush for
- protected vCPUs
-Message-ID: <apg7KNpamnpYi-kl@google.com>
-References: <20260831163421.272420-1-fuad.tabba@linux.dev>
- <20260831163421.272420-6-fuad.tabba@linux.dev>
+	linux-kselftest@vger.kernel.org,
+	Aditya Sharma <adi.sharma@zohomail.in>
+Subject: [PATCH bpf-next 1/2] bpf: Only check nmi_uaccess_okay() when signalling current
+Date: Wed,  2 Sep 2026 20:34:38 +0530
+Message-Id: <20260902150439.692725-1-adi.sharma@zohomail.in>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831163421.272420-6-fuad.tabba@linux.dev>
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-On Mon, Aug 31, 2026 at 05:34:09PM +0100, Fuad Tabba wrote:
-> flush_hyp_vcpu() copies the host's mdcr_el2, TWI/TWE and debug state
-> into the hyp vCPU on every entry, so for a protected vCPU the host's
-> trap configuration overrides the one pkvm_vcpu_init_traps() computed
-> at EL2. Move those copies into the non-protected branch, and sync the
-> debug state back for non-protected vCPUs only: a protected guest's
-> debug registers are hypervisor-owned, and it takes the host's TWI/TWE
-> at vCPU load. MDCR_EL2.TDA traps only the guest's own accesses; it
-> does not stop the world switch from loading host-supplied breakpoints
-> and MDSCR_EL1.
-> 
-> EL2's mdcr_el2 starts from 0, and HPMN == 0 is reserved without
-> FEAT_HPMN0. Set HPMN to the CPU's event counter count at vCPU load,
-> the value the host's copy carried; a protected guest's PMU accesses
-> trap regardless.
-> 
-> Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
-> ---
->  arch/arm64/kvm/hyp/nvhe/hyp-main.c | 31 +++++++++++++++++++-----------
->  arch/arm64/kvm/hyp/nvhe/pkvm.c     |  2 +-
->  2 files changed, 21 insertions(+), 12 deletions(-)
-> 
-> diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> index ca7122b0bccdd..14e847b122abf 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> @@ -231,7 +231,6 @@ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
->  	u8 esr_ec;
->  
->  	fpsimd_sve_flush();
-> -	flush_debug_state(hyp_vcpu);
->  
->  	/*
->  	 * If we deal with a non-protected guest and the state is potentially
-> @@ -241,7 +240,14 @@ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
->  	if (!pkvm_hyp_vcpu_is_protected(hyp_vcpu)) {
->  		if (vcpu_get_flag(host_vcpu, PKVM_HOST_STATE_DIRTY))
->  			flush_hyp_vcpu_state(hyp_vcpu);
-> +
-> +		hyp_vcpu->vcpu.arch.hcr_el2 &= ~(HCR_TWI | HCR_TWE);
-> +		hyp_vcpu->vcpu.arch.hcr_el2 |= READ_ONCE(host_vcpu->arch.hcr_el2) &
-> +							 (HCR_TWI | HCR_TWE);
-> +
-> +		hyp_vcpu->vcpu.arch.mdcr_el2 = host_vcpu->arch.mdcr_el2;
->  		hyp_vcpu->vcpu.arch.iflags = host_vcpu->arch.iflags;
-> +		flush_debug_state(hyp_vcpu);
->  	} else {
->  		hyp_vcpu->vcpu.arch.ctxt = host_vcpu->arch.ctxt;
->  	}
-> @@ -249,17 +255,13 @@ static void flush_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
->  	/* __hyp_running_vcpu must be NULL in a guest context. */
->  	hyp_vcpu->vcpu.arch.ctxt.__hyp_running_vcpu = NULL;
->  
-> -	hyp_vcpu->vcpu.arch.mdcr_el2	= host_vcpu->arch.mdcr_el2;
->  	/*
-> -	 * HCR_EL2.VSE is host-owned (a pending virtual SError to inject), not a
-> -	 * trap-control bit, so it must flow to the hyp vCPU alongside TWI/TWE
-> -	 * for the vSError to be delivered. sync_hyp_vcpu() reflects it back.
-> +	 * A host-injected vSError is masked by the guest's own PSTATE.A, so it
-> +	 * applies to protected guests too.
->  	 */
-> -	hyp_vcpu->vcpu.arch.hcr_el2 &= ~(HCR_TWI | HCR_TWE | HCR_VSE);
-> -	hyp_vcpu->vcpu.arch.hcr_el2 |= READ_ONCE(host_vcpu->arch.hcr_el2) &
-> -						 (HCR_TWI | HCR_TWE | HCR_VSE);
-> -
-> -	hyp_vcpu->vcpu.arch.vsesr_el2	= host_vcpu->arch.vsesr_el2;
-> +	hyp_vcpu->vcpu.arch.hcr_el2 &= ~HCR_VSE;
-> +	hyp_vcpu->vcpu.arch.hcr_el2 |= READ_ONCE(host_vcpu->arch.hcr_el2) & HCR_VSE;
-> +	hyp_vcpu->vcpu.arch.vsesr_el2 = host_vcpu->arch.vsesr_el2;
->  
->  	flush_hyp_vgic_state(hyp_vcpu);
->  
-> @@ -288,7 +290,8 @@ static void sync_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu, u32 exit_reason)
->  	struct kvm_vcpu *host_vcpu = hyp_vcpu->host_vcpu;
->  
->  	fpsimd_sve_sync(&hyp_vcpu->vcpu);
-> -	sync_debug_state(hyp_vcpu);
-> +	if (!pkvm_hyp_vcpu_is_protected(hyp_vcpu))
-> +		sync_debug_state(hyp_vcpu);
+nmi_uaccess_okay() takes no task argument and is a statement about
+current. When commit 6280cf718db0 ("bpf: Implement bpf_send_signal_task()
+kfunc") made the PF_KTHREAD/PF_EXITING and is_global_init() test the
+supplied task, nmi_uaccess_okay() was left testing current.
 
-nit: We can't use the else arm below?
+As a result bpf_send_signal_task() returns -EPERM whenever the
+calling context happens to be a kernel thread, regardless of which task
+the signal is aimed at. The same call with the same target succeeds or
+fails depending only on what the CPU was running:
 
->  
->  	if (pkvm_hyp_vcpu_is_protected(hyp_vcpu)) {
->  		host_vcpu->arch.ctxt = hyp_vcpu->vcpu.arch.ctxt;
-> @@ -329,6 +332,12 @@ static void handle___pkvm_vcpu_load(struct kvm_cpu_context *host_ctxt)
->  		/* Propagate WFx trapping flags */
->  		hyp_vcpu->vcpu.arch.hcr_el2 &= ~(HCR_TWE | HCR_TWI);
->  		hyp_vcpu->vcpu.arch.hcr_el2 |= hcr_el2 & (HCR_TWE | HCR_TWI);
-> +
-> +		/* HPMN == 0 is reserved without FEAT_HPMN0. */
-> +		if (system_supports_pmuv3())
-> +			u64p_replace_bits(&hyp_vcpu->vcpu.arch.mdcr_el2,
-> +					  FIELD_GET(ARMV8_PMU_PMCR_N, read_sysreg(pmcr_el0)),
-> +					  MDCR_EL2_HPMN);
->  	} else {
->  		memcpy(&hyp_vcpu->vcpu.arch.fgt, hyp_vcpu->host_vcpu->arch.fgt,
->  		       sizeof(hyp_vcpu->vcpu.arch.fgt));
-> diff --git a/arch/arm64/kvm/hyp/nvhe/pkvm.c b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-> index 459bd9eb7e4bc..e85f13233da08 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/pkvm.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/pkvm.c
-> @@ -102,7 +102,7 @@ static void pvm_init_traps_mdcr(struct kvm_vcpu *vcpu)
->  
->  	if (!kvm_has_feat(kvm, ID_AA64DFR0_EL1, PMUVer, IMP)) {
->  		val |= MDCR_EL2_TPM | MDCR_EL2_TPMCR;
-> -		val &= ~(MDCR_EL2_HPME | MDCR_EL2_MTPME | MDCR_EL2_HPMN_MASK);
-> +		val &= ~(MDCR_EL2_HPME | MDCR_EL2_MTPME);
->  	}
->  
->  	if (!kvm_has_feat(kvm, ID_AA64DFR0_EL1, DebugVer, IMP))
-> -- 
-> 2.39.5
-> 
+  bpf_send_signal_task() from tp_btf/workqueue_execute_start : -EPERM
+  bpf_send_signal_task() from tp_btf/sys_enter               : 0
+
+This was originally hit from a bpf_timer callback, where the failure
+is intermittent because a softirq runs on whichever task it
+interrupted. The rejection is x86-only, as nmi_uaccess_okay() is
+defined as true in include/asm-generic/tlb.h elsewhere.
+
+Only apply the check when the signal is sent to current, where the
+predicate is meaningful. bpf_send_signal() and bpf_send_signal_thread()
+assign task = current, so their behaviour is unchanged.
+
+Fixes: 6280cf718db0 ("bpf: Implement bpf_send_signal_task() kfunc")
+Suggested-by: Yonghong Song <yonghong.song@linux.dev>
+Link: https://lore.kernel.org/bpf/20260819124324.43162-1-adi.sharma@zohomail.in/T/#u
+
+Signed-off-by: Aditya Sharma <adi.sharma@zohomail.in>
+---
+ kernel/trace/bpf_trace.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
+index 29260951aa87..f7a41f222599 100644
+--- a/kernel/trace/bpf_trace.c
++++ b/kernel/trace/bpf_trace.c
+@@ -871,7 +871,10 @@ static int bpf_send_signal_common(u32 sig, enum pid_type type, struct task_struc
+ 	 */
+ 	if (unlikely(task->flags & (PF_KTHREAD | PF_EXITING)))
+ 		return -EPERM;
+-	if (unlikely(!nmi_uaccess_okay()))
++	/* Since nmi_uaccess_okay() is only for the current
++	 * task, check if task is current.
++	 */
++	if (task == current && unlikely(!nmi_uaccess_okay()))
+ 		return -EPERM;
+ 	/* Task should not be pid=1 to avoid kernel panic. */
+ 	if (unlikely(is_global_init(task)))
+
+base-commit: d761934c9483ecde93fe99d8705282f716dfee50
+-- 
+2.34.1
+
