@@ -1,83 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C573E44ED;
-	Wed,  2 Sep 2026 07:48:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36BF434CFAB;
+	Wed,  2 Sep 2026 07:49:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788335302; cv=none; b=WgWEJrxa8xD2wvQQ8ZSsJLWbXcgCUTopbTWgmYHMZVCr2nWO62WsiFvaK42HpAX7olvX7hxst64erxBRX2BUiVMSTNGmqyPLBwUm0Cd2aYycEUzYLHbEf60YWnbFqnqlN01DG8HzrNUJne94fjOwjQSqzJWymt3dSiZR5Dvlh44=
+	t=1788335358; cv=none; b=asGY4N5lr0sAsk7mThzf4Us5QVL5yGAYN1FOQPlnvcduKhJGFUyk994chfDv9yqOO37sAMRJuanJPRPt0zYYEkqQVlPGIutS8lM/cL0WP2iFZrVakeg5HYIGdgX0vAUOTygG6F3ITrQ4BT2XVDKI4nhVpXO6A0Ibn/0bJxCth4w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788335302; c=relaxed/simple;
-	bh=19FQYqSJVhG0lf1+jj01kv0U9gP4mk9Zbsg88tIcD+c=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=AxaRlPhZoMkqVJkP8lfJY3yNBjCRhG2J6N/aYnpb0xyoIhsGkFMeOtxOy8ZNsWUQfxw3Nt6AndxjnpUcwbUtTGrQvrW75X1/Zc77xoDJwrr1ejWjpuDK/2JdQNwRm+R4okRWdJVpEfjbYsP+SARY+7tO7sgda0vZHvk3f8mYq1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=izYq5VJk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788335358; c=relaxed/simple;
+	bh=03qe3iU0xHajNwJ/JkU7x9IQhvLwEB8ffAtvkb7VM7E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Iexy9RdsnFL5I/bdfQ52U/wsQ9L83ahMlI+mLFgd5X0gXYMuk5IlctrAlJITg5I6I2hYx9q3axUNsGNUlxYvQWMR/n/sXSt4UhXtZKf69YusmRiktKX8uU1jWzydHZmJw8SYFYZx5oqp51XcwareEMPmX70hewK8FBXGnM+7jIA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MSPWSuLF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="izYq5VJk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 068E01F000E9;
-	Wed,  2 Sep 2026 07:48:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MSPWSuLF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77D951F000E9;
+	Wed,  2 Sep 2026 07:49:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788335301;
-	bh=OeADUFwIew+k818uFxxMlUv0AMDwYY19D1ydeF7tVUI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=izYq5VJk2wZVFpoRFQlmdL1wKt3D9KB5P6sF4EX0cOHPdGByj4Rd9mxXLJ7FUSTHq
-	 ey3Ui/L0pSBVuFc8OMCI4bqP/XNLyzPsnpESX3ZCtNav2xApANu8BWjS1eQPUB6zoG
-	 JYCmTzO1WiHQZtodhqFB/kvvmFwyg5GQymdOBFMonlMQurPAwAjAc3Z2uMQ9qNwcEG
-	 PlzK+VFTzM2iijqQUNtWaS/rUpMKvzHaM7yNRoZMGKhjVCRoQAEwCuwieOLNNNx8LD
-	 WRe7gGAMK2Ae4WGzd4HobxKWfAApolDjJlBHwJu8NoRdeCJRG75QHoDz76Jb2D3SfB
-	 eesE4iLZSIpMQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=lobster-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x1fhj-00000003loj-181o;
-	Wed, 02 Sep 2026 07:48:19 +0000
-Date: Wed, 02 Sep 2026 08:50:52 +0100
-Message-ID: <87jyp4m6qr.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Khushit Shah <khushit.shah@nutanix.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Shameer Kolothum <skolothumtho@nvidia.com>,
-	Oliver Upton <oupton@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v1] arm64: errata: pass REVIDR when matching target implementation CPUs
-In-Reply-To: <20260831105444.4065831-1-khushit.shah@nutanix.com>
-References: <20260831105444.4065831-1-khushit.shah@nutanix.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	s=k20260515; t=1788335357;
+	bh=s8Eo7ol2MpLclIW3Ma0lRro98Gdwdec1Kmfw5HO+SmE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MSPWSuLF0lYksTPJltML1tzWwBvAzoU3G0OLlXcxLHJudeMCYu0pz7AAKTRNFo8P4
+	 dYTbe3ZKOIskvQ/bUCgRa1IvxwEylNKBnDC1CHAINh14B2tNsSYgl1mwtC7XpEP5kR
+	 kfhZg9aG+5KRSN3dPxx0s0S82VRhqqelwRqLujr0sRF9mdh3OxaeacsG24S+GJ7m19
+	 8cCovTzAJz27XGWm8V1YeHiQDdyxLfUn4sk5al0nuXxjpBKg09KQPCZMvqG174J4BI
+	 T5t5Tm3PKlo3OfVlKo4fV38yoPzN/zwAdVfK41k6pZTbcmFGAriexNvfoYlP2bPW81
+	 yoNTW7O4KWm1g==
+Date: Wed, 2 Sep 2026 13:18:51 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Saurabh Anand <saurabh.anand@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Clark <robin.clark@oss.qualcomm.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
+	Ritesh Kumar <quic_riteshk@quicinc.com>, Vishnuvardhan Prodduturi <quic_vproddut@quicinc.com>, 
+	Mani Chandana Kuntumalla <quic_mkuntuma@quicinc.com>, Mahadevan P <mahadevan.p@oss.qualcomm.com>
+Subject: Re: [PATCH 1/4] phy: qcom: qmp-combo: delay Type-C mux switch while
+ DP PHY is initializing
+Message-ID: <37cs3ejjaldogjlh3oyhzxgedl2w2s6qk7sercwem5j23vdtb4@2dzhapohcgda>
+References: <20260824-qcom-dp-typec-reconnect-fixes-v1-0-2825e5bf8a96@oss.qualcomm.com>
+ <20260824-qcom-dp-typec-reconnect-fixes-v1-1-2825e5bf8a96@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: khushit.shah@nutanix.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, skolothumtho@nvidia.com, oupton@kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260824-qcom-dp-typec-reconnect-fixes-v1-1-2825e5bf8a96@oss.qualcomm.com>
 
-On Mon, 31 Aug 2026 11:54:44 +0100,
-Khushit Shah <khushit.shah@nutanix.com> wrote:
+On Mon, Aug 24, 2026 at 04:58:04PM +0530, Saurabh Anand wrote:
+> The Type-C mux switch guard only checked dp_powered_on, which is set in
+> qmp_combo_dp_power_on(). However there is a race window between
+> qmp_combo_dp_init() and qmp_combo_dp_power_on() during which dp_init_count
+> is non-zero but dp_powered_on is still false. A Type-C orientation change
+> arriving in this window would proceed with the mux switch while the DP PHY
+> is mid-initialization, corrupting the PHY state.
 > 
-> When target implementation CPUs are provided, is_affected_midr_range()
-> accidentally passed the MIDR as both arguments to __is_affected_midr_range(),
-> so the REVIDR mask check operated on the wrong register.
+> Extend the guard to also block the mux switch when dp_init_count is
+> non-zero, covering the full period from dp_init through dp_power_on.
 > 
-> Pass REVIDR as intended.
-> 
-> Fixes: 86edf6bdcf05 ("smccc/kvm_guest: Enable errata based on implementation CPUs")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Khushit Shah <khushit.shah@nutanix.com>
+> Signed-off-by: Saurabh Anand <saurabh.anand@oss.qualcomm.com>
 
-Acked-by: Marc Zyngier <maz@kernel.org>
+If this patch fixes a race condition, it should have a Fixes tag.
 
-	M.
-
--- 
-Jazz isn't dead. It just smells funny.
+- Mani
