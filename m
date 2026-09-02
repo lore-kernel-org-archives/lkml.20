@@ -1,68 +1,41 @@
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A67045DF70
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 23:01:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8251346C84B
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 23:01:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788390100; cv=none; b=qY/FJYRWRl+D2XqTEjFafU+hCh5mIupaiSWrDO4n03XahkUpULoc7DFg3QUlQaKt6ILzQS9Ju3P1AJhpj6R3fR6hUhb1W3WSHP5zQrRffGMBgILT7ymAOD7bsLwVLuVpKKJgr2h3+Ecs8nxWJBzdexJRswDz0uYArDff8XpQ+oo=
+	t=1788390123; cv=none; b=WYrK97lLuLtV0cQ48Oc/eWue7prNHedtaf+Hj6Ry1gLbN0kdBsib5BDHGBWZef+fydLItO/Ld4KwGuBLGIplhF5q1IPNktL7IyN2Gk3n2SpG5Lztu2jux7WL+sxdmJcVklthug5YPYDzhLuEeRfzLBXoXm8E5B25NNUbVGaZl5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788390100; c=relaxed/simple;
-	bh=RhRgkBeiEM5o/v9NM7SkiXJQPTZzpf6pbVeIeWURYxM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cHTbhXSF57LjSYHMd9GSCSSs6BeCFR8UY9AQvlYajOMkNbt338OOqWKiePLBBKkwOpranzeIfq26rPJ7WF3XkPjBH+fimCAFNbNvmkMt9ZlwCRIoI8OAwtqJ49pVK2FVPOtYrQDI3bQNQMd3Vgzgn0OyagrD/s7VmWJaehJJd8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n/MmwmGS; arc=none smtp.client-ip=209.85.210.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788390123; c=relaxed/simple;
+	bh=eGU1Sx8sx7LPQOSeAAtEo3Aex12V9NUvftfh5qbsyys=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=pB5jWTWirrdLpMiADyCNibz6a/AJVXP3X8MW2sHE+xkIu9kAqtYJkuhQfPRgMpraCF2s1KS57oOXuXZcBG4VtZNoMHGUjcWdws77Q4i71v9Dv/51DJI0yHYf7knnfAAkK7D2cOa093/XzFVU/MEkycMZQPSDONMeTVOd20KVra8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=fXInh2qI; arc=none smtp.client-ip=185.67.36.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n/MmwmGS"
-Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7f6617c7536so816368a34.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 16:01:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788390087; x=1788994887; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fOl+dZ+q7hvvo0J5mVJmcvzg0LjyI9SaWnMmTPJSwo4=;
-        b=n/MmwmGSJKa0/eLNMSW8+P9xuYcXVC1vu/me2G4ZWJLsJP2qktKjEMCJf3RlywS8me
-         FmNMsquODb/to33CpvfM9J/KOx4jQWs0Mp3fiAaDaOcUPyjwUv61RPJLnoWPv3WfKPkz
-         9BgKbrJz0ETAMNtBk/6LJWDhpMYDv/VV88L2LpldX0lPcE2DJEEK57t7nk6qyZ7/vW0o
-         wDdhDl4cyBA/Aa+vB6wgQXExDBLWYeNX4akuIGs9sCp4dqWzbKjcNgP6+qpLUrm7SRqu
-         inl+xC/ekuC4kB2iCAnpIIu8He4hksR8/v5HS3TZ7fl65DEALZvCWxccvAufjsQKhzg/
-         f07w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788390087; x=1788994887;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fOl+dZ+q7hvvo0J5mVJmcvzg0LjyI9SaWnMmTPJSwo4=;
-        b=M1XHh+Vn3eSPl+8s0j0vPTSHHQ2agNqDUXVdc4jfVLhvHYOq0rf+FoQQMvRA8KlKfz
-         K1y0EbzpMkXv8+na1waxduuXOIvJjGAioWDpy+FZ3DPVaSiwVw17H1tRXfyns0KNOv0f
-         9gkWiQfISPR+LTb5YziBzA1NUHxk3i+a0jSJ3GUmM2iGB2YrnZwpeBTybknYbU3jVyow
-         RPd9NccylXb0nuyF4q189YKFmInodrueL04AtOj8wH0wvv9oR9+qycy4uoCVtWj7Okd/
-         tXLskBCr4ID6Gi92YWbi4LIoAUNhZB1pIoQ4TzQYPEnZPFbjDMz/luDq++jH8UxpbZgb
-         PRpA==
-X-Forwarded-Encrypted: i=1; AKwUvBwodIeJOwOG0IwJjVKUoZ1HeLxyloPpEEo44QZhaqMUbIfddrhPRK1E3DvPdOx4i8LN0FLH30icL6N9s/U=@vger.kernel.org
-X-Gm-Message-State: AFuF++mTzLm6Hk/B1zSUojzrgUjyImmmwq9c4vwcJcyBnGjF/+HAmeJk
-	5pS0hPuTZ5NmVC+FHYjv0NYh6Suind/qKmWLtSQXHo1z2OC+h8u5muxa
-X-Gm-Gg: AYBFou08oEX/tIKNu1M4Scs0KyFWvXQoXIrdI7VvSKvdOAAlzmwFV9ZbH8W8+XLkjfz
-	gRinmTT7hIeGh1btLuaabO7CRYt2vPFhkygyEP3Qyi3iL2KVM7RpuAjN6HrJ/twcyyw7OXVik/c
-	p+9awiQxNY7tyAsZ9yBNA31zI4L/TOgCZ3L2YDn0/zjMGTy+gTDp7Ukru+S+mK2qrk1c14ddCEH
-	fsAvMKdyAZZxmZxowcgWHZ/P7gGj0zll4Y/b/WwhbkHXfVOXlSfjqmBDhWUIyOer2e0535Q0Z+Q
-	STQo3drmBNHhI2YA3QB5RuZSZMOs5CORThgdsoR86Q5jexaeEUwLrRf7OCqddU4bh/JKRl3Nh6+
-	dEJc734ODmLhzzsdncOzjVSYSL6mdQtMwAklSb8zicA0VVICp/MsX90XM9XPnETAKovOw8rZADL
-	5/pPsblhfXq/7P3uKp0bnyfkkgECCxT/Qf/s9ziznza6crx+i+eB4CQqXx0kSdlvG54uI=
-X-Received: by 2002:a05:6830:828e:b0:7f3:fb71:a4cc with SMTP id 46e09a7af769-7f7819a0e9emr7714131a34.14.1788390087207;
-        Wed, 02 Sep 2026 16:01:27 -0700 (PDT)
-Received: from localhost ([2a03:2880:ff:53::])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f74f8f7fbcsm3519995a34.23.2026.09.02.16.01.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 16:01:25 -0700 (PDT)
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-Date: Wed, 02 Sep 2026 16:00:51 -0700
-Subject: [PATCH net-next 5/6] selftests/vsock: test the guest vsock device
- network namespace
+	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="fXInh2qI"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout01.posteo.de (Postfix) with ESMTPS id 769FA240029
+	for <linux-kernel@vger.kernel.org>; Thu,  3 Sep 2026 01:01:45 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
+	s=1984.8680eb; t=1788390105;
+	bh=DE04rSuL58azRuTU1GdigMOinFDs2Qhvn53eu/9IlM0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:To:Cc:Autocrypt:OpenPGP:From;
+	b=fXInh2qIesqdOBBAd4XN0SUSg0xxXoPYNdb+kpEB63GIKpG9Axz4bQ/WJs1mLX44o
+	 OmQQvi8pSw7wgomKZTD1bwdm5IDn7iz0TCuPHGU8pPiBXClBxPwBnvx6lBA5khMuX1
+	 Tx86uVKBIYI7wdjCQFGY8/JrBdvkufcjEo0yffyVhw4cPzV1aKOYhUf19U57V5CuKy
+	 ts+pGry6X5GSXllUFMbIUZ21zBZmyevrKH+98VBEBjpDRskWwzHD2AbMvajw+9bgtF
+	 NYrpSYF4nG7MJeLYelhDr8tPeHbVCPqT9fy6zHh3nMI3suvabzR/38kZ59bDPD94Cg
+	 aN4E83f4xWlxg==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4hZysK49xpz6txy;
+	Thu,  3 Sep 2026 01:01:41 +0200 (CEST)
+From: Markus Probst <markus.probst@posteo.de>
+Subject: [PATCH v24 0/4] rust: leds: add led classdev abstractions
+Date: Wed, 02 Sep 2026 23:01:44 +0000
+Message-Id: <20260903-rust_leds-v24-0-8d9e4c04db69@posteo.de>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -70,525 +43,257 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-vsock-guest-ns-v1-5-9995383e9a8b@meta.com>
-References: <20260902-vsock-guest-ns-v1-0-9995383e9a8b@meta.com>
-In-Reply-To: <20260902-vsock-guest-ns-v1-0-9995383e9a8b@meta.com>
-To: Stefano Garzarella <sgarzare@redhat.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Stefan Hajnoczi <stefanha@redhat.com>, 
- "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>, 
- Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
- =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>, 
- Shuah Khan <shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>
-Cc: virtualization@lists.linux.dev, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
- kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, sargun@sargun.me, 
- jlinbox@meta.com, Bobby Eshleman <bobbyeshleman@meta.com>
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XUy2rdMBAG4Fc5eF0HzVijS1Z9j1KKLqPG0MSJ7
+ ZiWkHfv+IRwpIpuDBL6Rvbol9+GjdeZt+H+8jasfMzbvDzJAPWXy5AewtNPHucsEwMqJADQ4/q
+ 67T9+cd7G4MkXm7DY4gdZ/7xymX9fi337LuOHeduX9c+19uHO2c8qVFU53KjG7IOGMhHR5L4+L
+ 9vOy13m4axy+Fr6WnqRziSgHMArM/0rQX1So0CZmoISyyoAGe2cLr6zcLPyaCyIJUcZkouMKnU
+ Wa2sbi2JLjgROg42WOjvd7ITN58IkFiGQ94kiZuisvlmN7b5arC46gmXKBKazVNt2XxLrLXsb0
+ XKM/TubmyUFjTWnLfIlJXNOue+zreykGmvFJmW8S3oyjrGzrrbtvtdUKQsKYyCwqrP+ZqXTjT1
+ zhUGsnDEH7nKFVa5M2ys8c1W0n0KUV4q6dBb+b+F6RqqAJ+tz32escmWhySSeuVJEUWnyQdmuz
+ zjVtrkLeOaKPRSKRrlITTbePy72yi+v8nPYP273EMPGY1oeH+f9/nLYO+lfAln8/hc01lzTUQQ
+ AAA==
+X-Change-ID: 20251114-rust_leds-a959f7c2f7f9
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
+ Miguel Ojeda <ojeda@kernel.org>, Alex Gaynor <alex.gaynor@gmail.com>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Ira Weiny <iweiny@kernel.org>, Boqun Feng <boqun@kernel.org>
+Cc: rust-for-linux@vger.kernel.org, linux-leds@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org, 
+ Markus Probst <markus.probst@posteo.de>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5579;
+ i=markus.probst@posteo.de; h=from:subject:message-id;
+ bh=eGU1Sx8sx7LPQOSeAAtEo3Aex12V9NUvftfh5qbsyys=;
+ b=kA0DAAgBNHYf+OetQ9IByyZiAGqYqtSggYU8eV1YRcrGPTKEhz/SGSyN7O+s6iw9Xzdkwza9N
+ YkCTwQAAQgAORYhBIJ0GMT0rFjncjDEczR2H/jnrUPSBQJqmKrUGxSAAAAAAAQADm1hbnUyLDIu
+ NSsxLjEyLDIsMgAKCRA0dh/4561D0l9nEACb1sWz2jNHk6eLWFpUNxIzVQqgTZINqCvkQuXwPAL
+ VdV4lOADIaUCabQ1jamD+je7H9wfZIeWUHjFT7TaL/5EPHzj/hkyY/4iBSlnWZ53sCpC6/A4fTa
+ XKSYI8b08OpDJha8Wr7OAN+pfY2WKwBMmO87QKMuJ/b9UobfsXQ4Hzy05Dp8Me+rNChjvdahjmL
+ Dq/4lSCCe52VrjpgXHOSO7M39VkuuUABs5nuuVtg8YXbgLdstIgcRm3Rr2wZMzBKHDuVk8/hl4a
+ IWP+URhoQ/FHgM2AFL7D5UW75+I47JtKs/VS26j1SWV3upIcCphGBOz2RustMSOg+VqwYKR03SN
+ uIOPvukhIknkbqStHSUYx2j/usn1n7pzeux7rvyTigaBmRLY37pIKBrpLGworGrGjWqmTqaN2hr
+ Ew47qB+eJT8/7AS+gVLygYhJK5w62yf32o7EDN0aDh+wyx+J5QFgY2/GMMLX7IEmkW7dZYKCO6F
+ syGuRkONSQBPoMAo5wQ/0IgQBP7O1UXWAZINOslK1TpLjzXlZ6upaAgCy8WQlSctlfpompAzoIU
+ pbF2flhsGPqbAdPk0S2xFfMkla4mGpUUjyEjCtACj0ttWjlCnX4ZORFFO1FeJnK13cxUSEZbqTq
+ 9oHPofxbh7dI2/g5zTbKV3ib/srQfKa2ppZzS4Jq6Gg==
+X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
+ fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
+Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
+  keydata=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
+  aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
+OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
-From: Bobby Eshleman <bobbyeshleman@meta.com>
+The following changes were made:
+* add basic led classdev abstractions to register and unregister leds
 
-Add six tests covering basic cases and hopefully most edge cases: normal
-transfer in both directions, namespaces being deleted, device movement
-between namespaces mid-socket-lifetime.
+* add basic led classdev abstractions to register and unregister
+  multicolor leds
 
-The namespaces are created with "unshare -n" and held open by a sleeping
-process rather than by ip netns because bind-mounting namespaces via ip
-netns is incompatible with the guest 9p rootfs.
+Changes since v23:
+* add separate patch for MAINTAINERS file update
 
-Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
+Changes since v22:
+* readded CStrExt import, because it is imported with `as _` in prelude.
+  A `# CONFIG_RUST is not set` sneaked into my .config while
+  development, so the compile error was unnoticed.
+
+Changes since v21:
+* use 'init for lifetime that is only alive during initialization
+* remove unnecessary CStrExt import
+
+Changes since v20:
+* resolve Sashiko regressions:
+  * fix typo
+  * fix fwnode refcount decremented too early
+
+Changes since v19:
+* rebase on v7.2-rc1:
+  * Add `max_intensity` to `MultiColorSubLed`
+* use safer `KBox::pin_slice` instead of `KVec`
+  (len might not equal capacity)
+* explicitly call `FwNode::dec_ref` instead of dropping a reconstructed
+  `ARef<FwNode>`.
+* remove direct access to `intensity` and `brightness` fields,
+  which may get mutated concurrently by the C side
+* fix safety comments pointing to functions from previous revisions
+
+Changes since v18:
+* add inlines
+* fix invalid documentation
+* improve led color duplicate checking
+
+Changes since v17:
+* use lifetimes instead of Devres
+
+Changes since v16:
+* use for loops for duplicate checking
+
+Changes since v15:
+* fix issues reported by Sashiko bot:
+  * fix returning error not possible on `brightness_get` callback
+
+Changes since v14:
+* fix issues reported by Sashiko bot:
+  * add missing inlines
+  * add missing Sync trait bound
+  * fix vertical import layout for public export of private types
+  * fix potential memory leak, if a multicolor led device with over
+    `u32::MAX` subleds is registered
+* remove default_trigger option
+* fix missing CAST doc
+
+Changes since v13:
+* rebased onto v7.1-rc1
+
+Changes since v12:
+* add `led::DeviceBuilder::name()` and `DeviceBuilderState'
+* add `led::Color::as_c_str`
+
+Changes since v11:
+* use `led::DeviceBuilder` instead of `led::InitData`
+* use static_assert instead of const { assert!(...) }
+* restructured patches to avoid moving `led::Device` from
+  rust/kernel/led.rs to rust/kernel/led/normal.rs in the 2. patch
+
+Changes since v10:
+* allow in-place initialization of `LedOps`
+* run rustfmt for code inside `try_pin_init!`
+
+Changes since v9:
+* add missing periods in documentation
+* duplicate `led::Device` and `led::Adapter` instead of using a complex
+  trait
+* fix imports not using prelude
+* adapt to CStr change
+* documented `led::Color::Multi` and `led::Color::Rgb`
+
+Changes since v8:
+* accept `Option<ARef<Fwnode>>` in `led::InitData::fwnode()`
+* make functions in `MultiColorSubLed` const
+* drop the "rust: Add trait to convert a device reference to a bus
+  device reference" patch, as it has been picked into driver-core
+
+Changes since v7:
+* adjusted import style
+* added classdev parameter to callback functions in `LedOps`
+* implement `led::Color`
+* extend `led::InitData` with
+  - initial_brightness
+  - default_trigger
+  - default_color
+* split generic and normal led classdev abstractions up (see patch 3/4)
+* add multicolor led class device abstractions (see patch 4/4)
+* added MAINTAINERS entry
+
+Changes since v6:
+* fixed typos
+* improved documentation
+
+Changes since v5:
+* rename `IntoBusDevice` trait into `AsBusDevice`
+* fix documentation about `LedOps::BLOCKING`
+* removed dependency on i2c bindings
+* added `AsBusDevice` implementation for `platform::Device`
+* removed `device::Device` fallback implementation
+* document that `AsBusDevice` must not be used by drivers and is
+  intended for bus and class device abstractions only.
+
+Changes since v4:
+* add abstraction to convert a device reference to a bus device
+  reference
+* require the bus device as parent device and provide it in class device
+  callbacks
+* remove Pin<Vec<_>> abstraction (as not relevant for the led
+  abstractions)
+* fixed formatting in `led::Device::new`
+* fixed `LedOps::BLOCKING` did the inverse effect
+
+Changes since v3:
+* fixed kunit tests failing because of example in documentation
+
+Changes since v2:
+* return `Devres` on `led::Device` creation
+* replace KBox<T> with T in struct definition
+* increment and decrement reference-count of fwnode
+* make a device parent mandatory for led classdev creation
+* rename `led::Handler` to `led::LedOps`
+* add optional `brightness_get` function to `led::LedOps`
+* use `#[vtable]` instead of `const BLINK: bool`
+* use `Opaque::cast_from` instead of casting a pointer
+* improve documentation
+* improve support for older rust versions
+* use `&Device<Bound>` for parent
+
+Changes since v1:
+* fixed typos noticed by Onur Özkan
+
+Signed-off-by: Markus Probst <markus.probst@posteo.de>
 ---
- tools/testing/selftests/vsock/vmtest.sh | 404 +++++++++++++++++++++++++++++++-
- 1 file changed, 394 insertions(+), 10 deletions(-)
+Markus Probst (4):
+      rust: leds: add basic led classdev abstractions
+      rust: leds: add Mode trait
+      rust: leds: add multicolor classdev abstractions
+      MAINTAINERS: rust: leds: Add rust abstraction entry
 
-diff --git a/tools/testing/selftests/vsock/vmtest.sh b/tools/testing/selftests/vsock/vmtest.sh
-index 310dfc2a39ad..53591fa07f1a 100755
---- a/tools/testing/selftests/vsock/vmtest.sh
-+++ b/tools/testing/selftests/vsock/vmtest.sh
-@@ -17,6 +17,7 @@ readonly KERNEL_CHECKOUT=$(realpath "${SCRIPT_DIR}"/../../../../)
- source "${SCRIPT_DIR}"/../kselftest/ktap_helpers.sh
- 
- readonly VSOCK_TEST="${SCRIPT_DIR}"/vsock_test
-+readonly VSOCK_ASSIGN_G2H_NETNS="${SCRIPT_DIR}"/vsock_assign_g2h_netns
- readonly TEST_GUEST_PORT=51000
- readonly TEST_HOST_PORT=50000
- readonly TEST_HOST_PORT_LISTENER=50001
-@@ -73,6 +74,12 @@ readonly TEST_NAMES=(
- 	ns_delete_vm_ok
- 	ns_delete_host_ok
- 	ns_delete_both_ok
-+	ns_guest_local_connect_to_host_fails
-+	ns_guest_assign_g2h_netns_connect_to_host_ok
-+	ns_guest_assign_g2h_netns_init_ns_connect_fails
-+	ns_guest_assign_g2h_netns_host_connect_ok
-+	ns_guest_assign_g2h_netns_reset_on_ns_delete_ok
-+	ns_guest_assign_g2h_netns_old_conn_send_fails
- )
- readonly TEST_DESCS=(
- 	# vm_server_host_client
-@@ -149,12 +156,36 @@ readonly TEST_DESCS=(
- 
- 	# ns_delete_both_ok
- 	"Check that deleting the VM and host's namespaces does not break the socket connection"
-+
-+	# ns_guest_local_connect_to_host_fails
-+	"Check a guest process in a local ns cannot reach the host without the assign ioctl."
-+
-+	# ns_guest_assign_g2h_netns_connect_to_host_ok
-+	"Check a guest process in a local ns reaches the host once the vsock device is assigned to it."
-+
-+	# ns_guest_assign_g2h_netns_init_ns_connect_fails
-+	"Check the guest's initial ns loses vsock once the device is assigned to another ns."
-+
-+	# ns_guest_assign_g2h_netns_host_connect_ok
-+	"Check the host reaches a guest listener in the ns the vsock device is assigned to."
-+
-+	# ns_guest_assign_g2h_netns_reset_on_ns_delete_ok
-+	"Check the guest's vsock device returns to the initial ns when its ns is deleted."
-+
-+	# ns_guest_assign_g2h_netns_old_conn_send_fails
-+	"Check connections made before the assign stop sending once they lose the device."
- )
- 
- readonly USE_SHARED_VM=(
- 	vm_server_host_client
- 	vm_client_host_server
- 	vm_loopback
-+	ns_guest_local_connect_to_host_fails
-+	ns_guest_assign_g2h_netns_connect_to_host_ok
-+	ns_guest_assign_g2h_netns_init_ns_connect_fails
-+	ns_guest_assign_g2h_netns_host_connect_ok
-+	ns_guest_assign_g2h_netns_reset_on_ns_delete_ok
-+	ns_guest_assign_g2h_netns_old_conn_send_fails
- )
- readonly NS_MODES=("local" "global")
- 
-@@ -302,18 +333,20 @@ check_args() {
- }
- 
- check_deps() {
--	for dep in vng ${QEMU} busybox pkill ssh ss socat nsenter; do
-+	for dep in vng ${QEMU} busybox pkill ssh ss socat nsenter unshare; do
- 		if [[ ! -x $(command -v "${dep}") ]]; then
- 			echo -e "skip:    dependency ${dep} not found!\n"
- 			exit "${KSFT_SKIP}"
- 		fi
- 	done
- 
--	if [[ ! -x $(command -v "${VSOCK_TEST}") ]]; then
--		printf "skip:    %s not found!" "${VSOCK_TEST}"
--		printf " Please build the kselftest vsock target.\n"
--		exit "${KSFT_SKIP}"
--	fi
-+	for prog in "${VSOCK_TEST}" "${VSOCK_ASSIGN_G2H_NETNS}"; do
-+		if [[ ! -x $(command -v "${prog}") ]]; then
-+			printf "skip:    %s not found!" "${prog}"
-+			printf " Please build the kselftest vsock target.\n"
-+			exit "${KSFT_SKIP}"
-+		fi
-+	done
- }
- 
- check_netns() {
-@@ -401,6 +434,7 @@ setup_home() {
- 	mkdir -p "$(dirname "${SSH_KEY_PATH}")"
- 	ssh-keygen -t ed25519 -f "${SSH_KEY_PATH}" -N "" -q
- 	cp "${VSOCK_TEST}" "${TEST_HOME}"/vsock_test
-+	cp "${VSOCK_ASSIGN_G2H_NETNS}" "${TEST_HOME}"/vsock_assign_g2h_netns
- }
- 
- create_pidfile() {
-@@ -528,6 +562,58 @@ vm_wait_for_ssh() {
- 	done
- }
- 
-+# Create a local mode namespace in the VM and echo the pid holding it open.
-+vm_ns_start() {
-+	local ns=$1
-+
-+	vm_ssh "${ns}" -- \
-+		"echo local > /proc/sys/net/vsock/child_ns_mode" &>/dev/null
-+
-+	vm_ssh "${ns}" -- "unshare -n sleep infinity" \
-+		'>/dev/null 2>&1 & echo $!'
-+}
-+
-+# Returns once the holder is gone, so that the namespace is unreferenced and
-+# the kernel can start tearing it down.
-+vm_ns_stop() {
-+	local ns=$1
-+	local nspid=$2
-+
-+	vm_ssh "${ns}" <<-EOF &>/dev/null
-+		kill ${nspid}
-+		for ((i = 0; i < ${WAIT_PERIOD_MAX}; i++)); do
-+			kill -0 ${nspid} 2>/dev/null || break
-+			sleep 1
-+		done
-+	EOF
-+}
-+
-+# Runs in the guest's initial namespace when <nspid> is empty. The command must
-+# not contain single quotes.
-+vm_ns_exec() {
-+	local ns=$1
-+	local nspid=$2
-+	local cmd=$3
-+
-+	if [[ -z "${nspid}" ]]; then
-+		vm_ssh "${ns}" -- "${cmd}"
-+		return
-+	fi
-+
-+	vm_ssh "${ns}" -- nsenter -t "${nspid}" -n sh -c "'${cmd}'"
-+}
-+
-+vm_ns_assign_g2h() {
-+	local ns=$1
-+	local nspid=$2
-+
-+	vm_ns_exec "${ns}" "${nspid}" ./vsock_assign_g2h_netns
-+}
-+
-+vm_reset_g2h() {
-+	vm_ns_assign_g2h "init_ns" "" &>/dev/null
-+}
-+
- # derived from selftests/net/net_helper.sh
- wait_for_listener()
- {
-@@ -564,17 +650,31 @@ wait_for_listener()
- 	done
- }
- 
--vm_wait_for_listener() {
-+# Runs in the guest's initial namespace when <nspid> is empty.
-+vm_ns_wait_for_listener() {
- 	local ns=$1
--	local port=$2
--	local protocol=$3
-+	local nspid=$2
-+	local port=$3
-+	local protocol=$4
-+	local nsenter=
-+
-+	[[ -n "${nspid}" ]] && nsenter="nsenter -t ${nspid} -n"
- 
- 	vm_ssh "${ns}" <<EOF
- $(declare -f wait_for_listener)
--wait_for_listener ${port} ${WAIT_PERIOD} ${WAIT_PERIOD_MAX} ${protocol}
-+export -f wait_for_listener
-+${nsenter} bash -c "wait_for_listener ${port} ${WAIT_PERIOD} ${WAIT_PERIOD_MAX} ${protocol}"
- EOF
- }
- 
-+vm_wait_for_listener() {
-+	local ns=$1
-+	local port=$2
-+	local protocol=$3
-+
-+	vm_ns_wait_for_listener "${ns}" "" "${port}" "${protocol}"
-+}
-+
- host_wait_for_listener() {
- 	local ns=$1
- 	local port=$2
-@@ -1421,6 +1521,290 @@ test_ns_delete_both_ok() {
- 	check_ns_delete_doesnt_break_connection "both"
- }
- 
-+# Send a string from the guest to a host listener and leave what the host
-+# received in <outfile>.
-+guest_send_to_host() {
-+	local ns=$1
-+	local nspid=$2
-+	local port=$3
-+	local outfile=$4
-+	local cmd="echo TEST | socat -u STDIN VSOCK-CONNECT:2:${port}"
-+	local pid
-+
-+	socat -u VSOCK-LISTEN:"${port}" STDOUT > "${outfile}" 2>/dev/null &
-+	pid=$!
-+	host_wait_for_listener "${ns}" "${port}" "vsock"
-+
-+	vm_ns_exec "${ns}" "${nspid}" "${cmd}" 2>/dev/null
-+
-+	timeout "${WAIT_PERIOD}" \
-+		bash -c 'while [[ ! -s '"${outfile}"' ]]; do sleep 1; done'
-+
-+	terminate_pids "${pid}"
-+}
-+
-+# Send a string from the host to a listener in the guest and leave what the
-+# guest received in <outfile>.
-+host_send_to_guest() {
-+	local ns=$1
-+	local nspid=$2
-+	local port=$3
-+	local outfile=$4
-+	local cmd="socat -u VSOCK-LISTEN:${port} STDOUT"
-+	local dst="VSOCK-CONNECT:${VSOCK_CID}:${port}"
-+	local pid
-+
-+	vm_ns_exec "${ns}" "${nspid}" "${cmd}" > "${outfile}" 2>/dev/null &
-+	pid=$!
-+	vm_ns_wait_for_listener "${ns}" "${nspid}" "${port}" "vsock"
-+
-+	echo TEST | socat -u STDIN "${dst}" 2>/dev/null
-+
-+	timeout "${WAIT_PERIOD}" \
-+		bash -c 'while [[ ! -s '"${outfile}"' ]]; do sleep 1; done'
-+
-+	terminate_pids "${pid}"
-+}
-+
-+test_ns_guest_assign_g2h_netns_old_conn_send_fails() {
-+	local gap=$(( WAIT_PERIOD * 3 ))
-+	local port=12346
-+	local outfile
-+	local result
-+	local nspid
-+	local pid
-+
-+	nspid=$(vm_ns_start "init_ns")
-+	if [[ -z "${nspid}" ]]; then
-+		log_host "failed to create a namespace inside the guest"
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	outfile=$(mktemp)
-+	socat -u VSOCK-LISTEN:"${port}" STDOUT > "${outfile}" 2>/dev/null &
-+	pid=$!
-+	host_wait_for_listener "init_ns" "${port}" "vsock"
-+
-+	# Send a message, wait, then send another. While waiting, assign the
-+	# device to a namespace. Confirm the second message does not arrive.
-+	vm_ssh "init_ns" -- \
-+		"(echo FIRST; sleep ${gap}; echo SECOND) |" \
-+		"socat -u STDIN VSOCK-CONNECT:2:${port}" &>/dev/null &
-+
-+	sleep "${WAIT_PERIOD}"
-+
-+	if ! vm_ns_assign_g2h "init_ns" "${nspid}"; then
-+		log_host "failed to assign the vsock device to the guest ns"
-+		terminate_pids "${pid}"
-+		rm -f "${outfile}"
-+		vm_ns_stop "init_ns" "${nspid}"
-+		vm_reset_g2h
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	# Let the second write happen and land, if it is going to.
-+	sleep $(( gap + WAIT_PERIOD ))
-+
-+	terminate_pids "${pid}"
-+	result=$(cat "${outfile}")
-+	rm -f "${outfile}"
-+
-+	vm_ns_stop "init_ns" "${nspid}"
-+	vm_reset_g2h
-+
-+	if [[ "${result}" != *FIRST* ]]; then
-+		log_host "connection did not work before the assign: [${result}]"
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	if [[ "${result}" == *SECOND* ]]; then
-+		log_host "old connection still delivered after the assign"
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	return "${KSFT_PASS}"
-+}
-+
-+test_ns_guest_local_connect_to_host_fails() {
-+	local port=12345
-+	local outfile
-+	local result
-+	local nspid
-+
-+	nspid=$(vm_ns_start "init_ns")
-+	if [[ -z "${nspid}" ]]; then
-+		log_host "failed to create a namespace inside the guest"
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	outfile=$(mktemp)
-+	guest_send_to_host "init_ns" "${nspid}" "${port}" "${outfile}"
-+
-+	vm_ns_stop "init_ns" "${nspid}"
-+	vm_reset_g2h
-+
-+	result=$(cat "${outfile}")
-+	rm -f "${outfile}"
-+
-+	if [[ "${result}" == TEST ]]; then
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	return "${KSFT_PASS}"
-+}
-+
-+test_ns_guest_assign_g2h_netns_connect_to_host_ok() {
-+	local port=12345
-+	local outfile
-+	local result
-+	local nspid
-+
-+	nspid=$(vm_ns_start "init_ns")
-+	if [[ -z "${nspid}" ]]; then
-+		log_host "failed to create a namespace inside the guest"
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	if ! vm_ns_assign_g2h "init_ns" "${nspid}"; then
-+		log_host "failed to assign the vsock device to the guest ns"
-+		vm_ns_stop "init_ns" "${nspid}"
-+		vm_reset_g2h
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	outfile=$(mktemp)
-+	guest_send_to_host "init_ns" "${nspid}" "${port}" "${outfile}"
-+
-+	vm_ns_stop "init_ns" "${nspid}"
-+	vm_reset_g2h
-+
-+	result=$(cat "${outfile}")
-+	rm -f "${outfile}"
-+
-+	if [[ "${result}" != TEST ]]; then
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	return "${KSFT_PASS}"
-+}
-+
-+test_ns_guest_assign_g2h_netns_init_ns_connect_fails() {
-+	local port=12345
-+	local outfile
-+	local result
-+	local nspid
-+
-+	nspid=$(vm_ns_start "init_ns")
-+	if [[ -z "${nspid}" ]]; then
-+		log_host "failed to create a namespace inside the guest"
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	if ! vm_ns_assign_g2h "init_ns" "${nspid}"; then
-+		log_host "failed to assign the vsock device to the guest ns"
-+		vm_ns_stop "init_ns" "${nspid}"
-+		vm_reset_g2h
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	# The device now belongs to a local-mode namespace, so the guest's
-+	# initial namespace must no longer reach the host.
-+	outfile=$(mktemp)
-+	guest_send_to_host "init_ns" "" "${port}" "${outfile}"
-+
-+	vm_ns_stop "init_ns" "${nspid}"
-+	vm_reset_g2h
-+
-+	result=$(cat "${outfile}")
-+	rm -f "${outfile}"
-+
-+	if [[ "${result}" == TEST ]]; then
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	return "${KSFT_PASS}"
-+}
-+
-+test_ns_guest_assign_g2h_netns_host_connect_ok() {
-+	local port=12345
-+	local outfile
-+	local result
-+	local nspid
-+
-+	nspid=$(vm_ns_start "init_ns")
-+	if [[ -z "${nspid}" ]]; then
-+		log_host "failed to create a namespace inside the guest"
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	if ! vm_ns_assign_g2h "init_ns" "${nspid}"; then
-+		log_host "failed to assign the vsock device to the guest ns"
-+		vm_ns_stop "init_ns" "${nspid}"
-+		vm_reset_g2h
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	outfile=$(mktemp)
-+	host_send_to_guest "init_ns" "${nspid}" "${port}" "${outfile}"
-+
-+	vm_ns_stop "init_ns" "${nspid}"
-+	vm_reset_g2h
-+
-+	result=$(cat "${outfile}")
-+	rm -f "${outfile}"
-+
-+	if [[ "${result}" != TEST ]]; then
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	return "${KSFT_PASS}"
-+}
-+
-+test_ns_guest_assign_g2h_netns_reset_on_ns_delete_ok() {
-+	local port=12345
-+	local outfile
-+	local result
-+	local nspid
-+	local i
-+
-+	nspid=$(vm_ns_start "init_ns")
-+	if [[ -z "${nspid}" ]]; then
-+		log_host "failed to create a namespace inside the guest"
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	if ! vm_ns_assign_g2h "init_ns" "${nspid}"; then
-+		log_host "failed to assign the vsock device to the guest ns"
-+		vm_ns_stop "init_ns" "${nspid}"
-+		vm_reset_g2h
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	vm_ns_stop "init_ns" "${nspid}"
-+
-+	# The holder is gone, but the namespace itself is dismantled from a
-+	# workqueue, so the device does not come back the same instant. Retry
-+	# until it does, rather than expecting the first send to succeed.
-+	outfile=$(mktemp)
-+	for ((i = 0; i < 5; i++)); do
-+		sleep "${WAIT_PERIOD}"
-+		guest_send_to_host "init_ns" "" "$(( port + i ))" "${outfile}"
-+		result=$(cat "${outfile}")
-+		if [[ "${result}" == TEST ]]; then
-+			break
-+		fi
-+	done
-+
-+	rm -f "${outfile}"
-+	vm_reset_g2h
-+
-+	if [[ "${result}" != TEST ]]; then
-+		return "${KSFT_FAIL}"
-+	fi
-+
-+	return "${KSFT_PASS}"
-+}
-+
- shared_vm_test() {
- 	local tname
- 
-
--- 
-2.53.0-Meta
+ MAINTAINERS                     |   8 +
+ rust/bindings/bindings_helper.h |   1 +
+ rust/kernel/led.rs              | 339 +++++++++++++++++++++++++++++
+ rust/kernel/led/multicolor.rs   | 460 ++++++++++++++++++++++++++++++++++++++++
+ rust/kernel/led/normal.rs       | 238 +++++++++++++++++++++
+ rust/kernel/lib.rs              |   1 +
+ 6 files changed, 1047 insertions(+)
+---
+base-commit: e5e04726cdd043e309677071ab1b65a4b18f422b
+change-id: 20251114-rust_leds-a959f7c2f7f9
 
