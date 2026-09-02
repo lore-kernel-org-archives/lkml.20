@@ -1,765 +1,287 @@
-Received: from va-2-19.ptr.blmpb.com (va-2-19.ptr.blmpb.com [209.127.231.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51CCB36494F
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:12:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.231.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A89B4534A9
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:12:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788361949; cv=none; b=EZjZ+0Msb4hbb0AxJc6bPq02EIWCBB5AhSXUX/5Ndmtu/Ksxm9LOen+50KgQ3vMQD7tHGxmhFHLmZQjd0Gi5v0lyc74DXdCKZnN4ByAlJbKY7DU9QG3/vyNS4nXNdqpOe0/q9IHsUrKJCzo5MXT74ns4sHIpuTh6Ne+NDF4GnVE=
+	t=1788361980; cv=none; b=VThShl/wW2Ob4ovwHSSpUDCf6hT555js3K1fCDFcz06zLY0jdF//8Jv6HfFjgTtf/ndT48ulswU+CAegUSvdaxhkmKXc2xG42Z/W/+8hiKvoOQA4pCxdyMD2rSbYG4MCn8NKE6WqRAOjrjWkUF0almjdz8uc0R/drgsMQm5xH00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788361949; c=relaxed/simple;
-	bh=y2l5k4OLBtLYINM8HfcAfCWSpRHmV/B+rmJStpiCyRo=;
-	h=Mime-Version:To:Message-Id:Content-Disposition:From:Subject:
-	 Content-Type:In-Reply-To:Cc:Date:References; b=suE6zKseWytuBFMt5THTYpTZhJ6OHAe3zBAFN+ZS6hNaX+BYFJUYBloc5L9O8TLSiOPv21GMOaaDc5+M0B+CFoiFr1BlBtYScdrWN9oYBiwD8PziimgEVM71mH7CNH4Ytl6tWDPRSy/rDph6BUZtiJO5QVNd0wUyeRGpU/EuH24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io; spf=pass smtp.mailfrom=fygo.io; dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b=CpvNhn3I; arc=none smtp.client-ip=209.127.231.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fygo.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fygo.io
+	s=arc-20240116; t=1788361980; c=relaxed/simple;
+	bh=pB9Ev5fsAztB3k2u8zei7hDY5Lg9Sc/waWfjvO1ogxA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=U+jwp6vS/9CmOQGkYHPdflLcDnxBNqFc8m74XoAJZLQ5mqmO34blUkA4bx+sHpzEHOzCKv6Xh+oswi9Ure0Jlhqf6PATDsH4GLGh5q1PFJZFE27zIWLtseR/YQ6sEipfaHu551mYe7Mh8aTFFaSVSXWaKcIPAIQjv0Zg1qFTmWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MJSrUhKe; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fygo-io.20200929.dkim.larksuite.com header.i=@fygo-io.20200929.dkim.larksuite.com header.b="CpvNhn3I"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=s1; d=fygo-io.20200929.dkim.larksuite.com; t=1788361931;
-  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=Wp1Chb2f/mLGYRHBndgrgvQotBcpEyotmtLygNUpcpE=;
- b=CpvNhn3I+5Mn4SuBVHCP6MZsTGkmUbvlkGRUdH6Cue4AOcBlgU3A705fjDj3u9icjzjMFy
- 1SQTpdm+SCdWqt4H3/WIfe8aBTMv2Ext5Wor80MOfpKtV4dp6f5ftacSyUlYsKZKDHc+R/
- 3aSqo/exfQb5OqKWqoGOGXGGs7xbHgQ9ijOGr42ja0jYHijORxyOs3pYBdiNsKzp3PA74Z
- zOzBo6qveB35q9pnZ8K2U59o1qlrqPknyB5kTuDngyMNLiKImk1x76Q9GKhrYGkAWUxhpx
- s8ZiQA689gLTUoRu+7/9SIsCWoGgU2+T9Zhkk5ac23rR3JXxsszkm19D4dPFtQ==
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MJSrUhKe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788361976;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hW0UXPiaj5HBVsIwr+z0dRI3kHamagF/s5VaYIAmBvo=;
+	b=MJSrUhKe1fRjBqZf8HwgFpTEkd65rJtWykMehEKigQY/sIsKbw86am31a0xv88rJO9XDOs
+	cCBX4/HJODPP66InN4sHCuhKHwIpQSUpLvjsI+vKlUYdimusoDGVElCTdCd6G3xJRGPtag
+	hQvMxEWCVAHTZ+uUxTmxWZFrmmKbjKM=
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-454-l0SJmi_nNaaEv0mLYKpWYA-1; Wed, 02 Sep 2026 11:12:55 -0400
+X-MC-Unique: l0SJmi_nNaaEv0mLYKpWYA-1
+X-Mimecast-MFC-AGG-ID: l0SJmi_nNaaEv0mLYKpWYA_1788361974
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-52d33c89a29so30199181cf.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 08:12:54 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788361974; x=1788966774;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hW0UXPiaj5HBVsIwr+z0dRI3kHamagF/s5VaYIAmBvo=;
+        b=eQwX404t5rJ4WUK8HUOH6vGQydwY6gPq7/winW4GECkxkOPHag7rcruCW06S7IbFDi
+         ldPNeJqOWf3MKptIIabmdY65OeAg4HTjUJIGY3PyxNr7SqQ7FvtjzH4JTC/tcHF0L5gm
+         nnzGwfeVynqOsihzc1EJiLWdOuzMgSrWdYcLCXeY88WKbkiOY2lVufvPhYMEs14JBhEw
+         TReYtiHeXRsjgBWQQ3u3lGZd9sUIJoiqXounoe/ZMOOve132y+7oMXkRNt55eN3tTnmT
+         Idq5NBPNISZX6Bg9cFAnjfwAApKqkr1DB3mIb+s8Ep6zk1Z/mhbmRNPiwWcq3KTV5XST
+         VyzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxDYh2Ims7ZWmJvg2LBYAptHcPXFhd8cD1Cma68rxbg0OyT/PpfoSFfPceALJP+ApPmQJLXmTs3sMGDnZU=@vger.kernel.org
+X-Gm-Message-State: AFuF++m+7/hIF0wl8G3OGC5Mu08UOmielnqOurLy6ClblbO4rQLTbkI6
+	IXxTiBQZqgmNz/HLCe8ziV7BSUw/QM0h3rqtt6CSjVabBrud5FT+CAQ+xJozLNVfFaoWu6Hiijb
+	4IfCT6zv26OdefG3QkRQvAQspeK/XKzcFIqe8gpiJseMTNlksCfbAlFWMc++A2XQwQg==
+X-Gm-Gg: AYBFou1l9GO8HtpCdVzXI+3//NqGpmZBja7QxRNe+Kk2X1n3wBT4QBqb0POoQ1VQW55
+	lQlRh9nHtJ6jy1cBlV9l/fm75z8wBi0SRn2YB67rLctDXTyZwYRcpCKVKXNJQtg6PwB31jSGe/5
+	Qneca493Q1byO5aLLvR4xvJCj/JZa0XhTjqk1+/gr3gkT4xBG1k1VeWzrgDq9mXP97fMLtD/cFl
+	w3/thwtH0yEjkKjSZacwh6WxesF1exTZvtWvxO2Kkm8RaCnpsZnqmqZrfA/AKRCaukLwkRDpi0k
+	GES8/T86LY1obCLI1aUWxqmODO9d3yq/LigcciwBiHQM4PD1dnaozcr40O5kORapkeIr+oTzqlJ
+	uKw==
+X-Received: by 2002:a05:6214:434a:b0:8cc:d29:9f73 with SMTP id 6a1803df08f44-90ebab8fb94mr89149096d6.21.1788361973755;
+        Wed, 02 Sep 2026 08:12:53 -0700 (PDT)
+X-Received: by 2002:a05:6214:434a:b0:8cc:d29:9f73 with SMTP id 6a1803df08f44-90ebab8fb94mr89146766d6.21.1788361973014;
+        Wed, 02 Sep 2026 08:12:53 -0700 (PDT)
+Received: from [192.168.2.110] ([76.65.104.212])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9eef4f2fsm19747746d6.40.2026.09.02.08.12.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 08:12:52 -0700 (PDT)
+Message-ID: <2802ba90-fee8-455b-9858-a6bcd0212c46@redhat.com>
+Date: Wed, 2 Sep 2026 11:12:40 -0400
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Original-From: Coly Li <colyli@fygo.io>
-To: "Ankit Kapoor" <ankitkap@google.com>
-Message-Id: <apgJusGeeXrEkt-f@studio.local>
-Content-Disposition: inline
-X-Lms-Return-Path: <lba+26a983cca+169fb9+vger.kernel.org+colyli@fygo.io>
-From: "Coly Li" <colyli@fygo.io>
-Subject: Re: [PATCH v3 1/2] bcache: track active bypass writes to fix read miss race
-Content-Type: text/plain; charset=UTF-8
-In-Reply-To: <20260808040549.2778125-2-ankitkap@google.com>
-Received: from studio.local ([120.245.64.136]) by smtp.larksuite.com with ESMTPS; Wed, 02 Sep 2026 15:12:09 +0000
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 10/14] mips: move has_transparent_hugepage() out of THP
+ guard
+To: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Cc: Lance Yang <lance.yang@linux.dev>, corbet@lwn.net, ziy@nvidia.com,
+ baolin.wang@linux.alibaba.com, maddy@linux.ibm.com, mpe@ellerman.id.au,
+ agordeev@linux.ibm.com, gerald.schaefer@linux.ibm.com, david@kernel.org,
+ hca@linux.ibm.com, gor@linux.ibm.com, x86@kernel.org, tglx@kernel.org,
+ mingo@redhat.com, bp@alien8.de, hughd@google.com,
+ linux-kernel@vger.kernel.org, dave.hansen@linux.intel.com, djbw@kernel.org,
+ vishal.l.verma@intel.com, dave.jiang@intel.com, akpm@linux-foundation.org,
+ yintirui@huawei.com, dev.jain@arm.com, usama.arif@linux.dev,
+ linux-mm@kvack.org
+References: <cover.1788232334.git.luizcap@redhat.com>
+ <371e2d3a7bcac265ac748ad3c67b74abfa238422.1788232334.git.luizcap@redhat.com>
+ <f4c568ad-a17a-4982-b8d2-d5852a789a4d@linux.dev>
+ <00eb76eb-c330-4662-9ca9-1e89fbc1e4ce@redhat.com>
+ <apdQ2FJrLhkdjh_n@alpha.franken.de>
+Content-Language: en-US, en-CA
+From: Luiz Capitulino <luizcap@redhat.com>
+In-Reply-To: <apdQ2FJrLhkdjh_n@alpha.franken.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Cc: <linux-bcache@vger.kernel.org>, 
-	"Kent Overstreet" <kent.overstreet@linux.dev>, 
-	<linux-kernel@vger.kernel.org>
-Date: Wed, 2 Sep 2026 23:12:07 +0800
-References: <20260808040549.2778125-1-ankitkap@google.com> <20260808040549.2778125-2-ankitkap@google.com>
 
-On Sat, Aug 08, 2026 at 04:05:48AM +0800, Ankit Kapoor wrote:
-> A race condition exists between a read cache miss and a bypass write
-> due to either congestion or sequential bypass, which causes stale data
-> to be cached when the read cache miss runs concurrently with a bypass
-> write targeting the same sectors. If the read cache miss fetches data
-> from the backing device before the write to the backing device finishes,
-> stale data populates the cache.
+On 2026-09-01 18:25, Thomas Bogendoerfer wrote:
+> On Tue, Sep 01, 2026 at 03:53:18PM -0400, Luiz Capitulino wrote:
+>> On 2026-09-01 07:42, Lance Yang wrote:
+>>>
+>>>
+>>> On 2026/9/1 11:12, Luiz Capitulino wrote:
+>>>> A future commit will introduce a kernel API to allow for checking if the
+>>>> CPU supports PMD-sized pages. This API will be based on the
+>>>> has_transparent_hugepage() implementation but will be orthogonal to THP
+>>>> and therefore must work when CONFIG_TRANSPARENT_HUGEPAGE=n.
+>>>>
+>>>> Move its definition out of the THP guard.
+>>>>
+>>>> Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
+>>>> ---
+>>>>    arch/mips/include/asm/pgtable.h | 6 +++---
+>>>>    arch/mips/mm/tlb-r4k.c          | 4 ----
+>>>>    2 files changed, 3 insertions(+), 7 deletions(-)
+>>>>
+>>>> diff --git a/arch/mips/include/asm/pgtable.h b/arch/mips/include/asm/pgtable.h
+>>>> index fa7b935f947c..b038da872ec6 100644
+>>>> --- a/arch/mips/include/asm/pgtable.h
+>>>> +++ b/arch/mips/include/asm/pgtable.h
+>>>> @@ -615,9 +615,6 @@ unsigned long io_remap_pfn_range_pfn(unsigned long pfn, unsigned long size);
+>>>>    /* We don't have hardware dirty/accessed bits, generic_pmdp_establish is fine.*/
+>>>>    #define pmdp_establish generic_pmdp_establish
+>>>> -#define has_transparent_hugepage has_transparent_hugepage
+>>>> -extern int has_transparent_hugepage(void);
+>>>
+>>> Assume a decstation_defconfig build. CPU_R3000 selects CPU_R3K_TLB, so the
+>>> Makefile builds tlb-r3k.o but not tlb-r4k.o IIUC ...
+>>>
+>>> The only MIPS definition is in tlb-r4k.c, so R3000 would fail to link with
+>>> an undefined reference ... no?
+>>
+>> Yes, you're right. I can reproduce this. Would the solution below be
+>> acceptable?
+>>
+>> diff --git a/arch/mips/include/asm/pgtable.h b/arch/mips/include/asm/pgtable.h
+>> index fa7b935f947c..b038da872ec6 100644
+>> --- a/arch/mips/include/asm/pgtable.h
+>> +++ b/arch/mips/include/asm/pgtable.h
+>> @@ -615,9 +615,6 @@ unsigned long io_remap_pfn_range_pfn(unsigned long pfn, unsigned long size);
+>>   /* We don't have hardware dirty/accessed bits, generic_pmdp_establish is fine.*/
+>>   #define pmdp_establish generic_pmdp_establish
+>> -#define has_transparent_hugepage has_transparent_hugepage
+>> -extern int has_transparent_hugepage(void);
+>> -
+>>   static inline int pmd_trans_huge(pmd_t pmd)
+>>   {
+>>   	return !!(pmd_val(pmd) & _PAGE_HUGE);
+>> @@ -743,6 +740,9 @@ static inline pmd_t pmdp_huge_get_and_clear(struct mm_struct *mm,
+>>   #endif /* CONFIG_TRANSPARENT_HUGEPAGE */
+>> +#define has_transparent_hugepage has_transparent_hugepage
+>> +extern int has_transparent_hugepage(void);
+>> +
+>>   #ifdef _PAGE_HUGE
+>>   #define pmd_leaf(pmd)	((pmd_val(pmd) & _PAGE_HUGE) != 0)
+>>   #define pud_leaf(pud)	((pud_val(pud) & _PAGE_HUGE) != 0)
+>> diff --git a/arch/mips/mm/pgtable.c b/arch/mips/mm/pgtable.c
+>> index 10835414819f..3a5b411493d9 100644
+>> --- a/arch/mips/mm/pgtable.c
+>> +++ b/arch/mips/mm/pgtable.c
+>> @@ -23,3 +23,30 @@ pgd_t *pgd_alloc(struct mm_struct *mm)
+>>   	return ret;
+>>   }
+>>   EXPORT_SYMBOL_GPL(pgd_alloc);
+>> +
+>> +#if defined(CONFIG_CPU_R4K_CACHE_TLB) || \
+>> +    defined(CONFIG_CPU_SB1) || \
+>> +    defined(CONFIG_CPU_CAVIUM_OCTEON)
 > 
-> The root cause is that bcache currently executes btree key
-> invalidation in parallel with (or prior to) writing the actual data
-> payload to the backing device. Under this sequence, a concurrent read
-> path can register a cache miss and insert a placeholder key. If the
-> write's btree key invalidation completes before the read finishes
-> fetching old data from the backing device, the read's subsequent key
-> replacement will not detect a collision, allowing stale data to
-> persist in the cache.
-> 
-> Fix this by tracking active bypass writes and serializing cache
-> invalidation.
-> 
-> First, divide the backing device space into 32MB chunks and track
-> concurrent bypass writes using refcounts. The tracking counters are
-> stored in dynamically allocated pages backed by a dedicated mempool
-> to prevent allocation failures under memory pressure, minimizing overall
-> footprint (a single 4KB page supports 32GB of disk space using u32
-> counters).
-> 
-> On a cache miss read, bcache checks if there are any active bypass
-> writes overlapping the target sectors. If an active bypass write is
-> detected, the read is forced to bypass the cache to ensure data
-> consistency.
-> 
-> Second, serialize the btree key invalidation (bch_data_insert) for
-> bypass writes so that it executes in cached_dev_write_complete(), after
-> the payload has been written to the backing device. This prevents early
-> invalidation from opening a window where a concurrent read miss could
-> fetch and re-cache stale data before the bypass write reaches the disk.
-> 
-> Suggested-by: Coly Li <colyli@fygo.io>
-> Signed-off-by: Ankit Kapoor <ankitkap@google.com>
-
-Hi Ankit,
-
-I have seen the patch 2/2 with the RCU usage. The implementation is not
-ideal as I expected. Your code help me to realize maybe choosing RCU isn't
-the best method. 
-
-I try to compose a kind of lock-less refcount check method without RCU,
-and it looks fine, but I don't test it yet. 
-
-Here I replay the idea inline with your code.
-
-> ---
->  drivers/md/bcache/bcache.h  |  35 ++++++++++
->  drivers/md/bcache/request.c | 131 +++++++++++++++++++++++++++++++++++-
->  drivers/md/bcache/super.c   |  39 +++++++++++
->  3 files changed, 202 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/md/bcache/bcache.h b/drivers/md/bcache/bcache.h
-> index ec9ff9715081..2e50526a52fc 100644
-> --- a/drivers/md/bcache/bcache.h
-> +++ b/drivers/md/bcache/bcache.h
-> @@ -299,6 +299,12 @@ enum stop_on_failure {
->  	BCH_CACHED_DEV_STOP_MODE_MAX,
->  };
->  
-> +struct bch_bypass_page {
-> +	u32		*counts;
-> +	unsigned int	active;
-> +	spinlock_t	lock;
-> +};
-> +
->  struct cached_dev {
->  	struct list_head	list;
->  	struct bcache_device	disk;
-> @@ -407,8 +413,37 @@ struct cached_dev {
->  	 */
->  #define BCH_WBRATE_UPDATE_MAX_SKIPS	15
->  	unsigned int		rate_update_retry;
-> +
-> +	/* For tracking active bypass writes */
-> +#define BCH_BYPASS_CHUNK_SHIFT		16  /* 2^16 sectors = 32MB */
-> +#define BCH_BYPASS_PAGE_COUNTERS	(PAGE_SIZE / sizeof(u32))
-> +#define BCH_BYPASS_PAGE_SHIFT		(PAGE_SHIFT - 2)
-> +#define BCH_BYPASS_PAGE_MASK		((1UL << BCH_BYPASS_PAGE_SHIFT) - 1)
-> +	struct bch_bypass_page	*bypass_pages;
-> +	unsigned long		bypass_num_pages;
-> +	mempool_t		bypass_mempool;
->  };
->  
-> +static inline unsigned long sector_to_bypass_chunk(sector_t sector)
-> +{
-> +	return sector >> BCH_BYPASS_CHUNK_SHIFT;
-> +}
-> +
-> +static inline unsigned long bypass_chunk_to_page(unsigned long chunk)
-> +{
-> +	return chunk >> BCH_BYPASS_PAGE_SHIFT;
-> +}
-> +
-> +static inline unsigned long bypass_chunk_to_offset(unsigned long chunk)
-> +{
-> +	return chunk & BCH_BYPASS_PAGE_MASK;
-> +}
-> +
-> +static inline sector_t bypass_chunk_to_sector(unsigned long chunk)
-> +{
-> +	return (sector_t)chunk << BCH_BYPASS_CHUNK_SHIFT;
-> +}
-> +
-
-The above code is good.
-
-
-
->  enum alloc_reserve {
->  	RESERVE_BTREE,
->  	RESERVE_PRIO,
-> diff --git a/drivers/md/bcache/request.c b/drivers/md/bcache/request.c
-> index 3fa3b13a410f..bfd28b68f499 100644
-> --- a/drivers/md/bcache/request.c
-> +++ b/drivers/md/bcache/request.c
-> @@ -492,6 +492,9 @@ struct search {
->  	struct block_device	*orig_bdev;
->  	unsigned long		start_time;
->  
-> +	sector_t		bypass_sector;
-> +	unsigned int		bypass_sectors;
-> +
->  	struct btree_op		op;
->  	struct data_insert_op	iop;
->  };
-
-Make sense.
-
-
-> @@ -763,11 +766,16 @@ static inline struct search *search_alloc(struct bio *bio,
->  
->  /* Cached devices */
->  
-> +static void bch_bypass_write_end(struct cached_dev *dc, sector_t sector, unsigned int sectors);
-> +
->  static CLOSURE_CALLBACK(cached_dev_bio_complete)
->  {
->  	closure_type(s, struct search, cl);
->  	struct cached_dev *dc = container_of(s->d, struct cached_dev, disk);
->  
-> +	if (s->iop.bypass && op_is_write(bio_op(s->orig_bio)))
-> +		bch_bypass_write_end(dc, s->bypass_sector, s->bypass_sectors);
-> +
-
-Looks good.
-
-
->  	cached_dev_put(dc);
->  	search_free(&cl->work);
->  }
-> @@ -830,6 +838,110 @@ static CLOSURE_CALLBACK(cached_dev_cache_miss_done)
->  	closure_put(&d->cl);
->  }
->  
-> +static void bch_bypass_write_start(struct cached_dev *dc, sector_t sector, unsigned int sectors)
-> +{
-> +	unsigned long start_chunk = sector_to_bypass_chunk(sector);
-> +	unsigned long end_chunk = sector_to_bypass_chunk(sector + sectors - 1);
-> +	unsigned long end_pg_idx = bypass_chunk_to_page(end_chunk);
-> +	unsigned long chunk;
-> +
-> +	if (WARN_ON_ONCE(end_pg_idx >= dc->bypass_num_pages))
-> +		return;
-> +
-> +	for (chunk = start_chunk; chunk <= end_chunk; chunk++) {
-> +		unsigned long pg_idx = bypass_chunk_to_page(chunk);
-> +		unsigned long pg_off = bypass_chunk_to_offset(chunk);
-> +		struct bch_bypass_page *pg = &dc->bypass_pages[pg_idx];
-> +		u32 *new_counts;
-> +		u32 *dup_counts = NULL;
-> +		unsigned long flags;
-> +
-> +		spin_lock_irqsave(&pg->lock, flags);
-> +		if (!pg->counts) {
-> +			spin_unlock_irqrestore(&pg->lock, flags);
-> +			new_counts = mempool_alloc(&dc->bypass_mempool, GFP_NOIO);
-> +			memset(new_counts, 0, PAGE_SIZE);
-> +			spin_lock_irqsave(&pg->lock, flags);
-> +			if (pg->counts)
-> +				dup_counts = new_counts;
-> +			else
-> +				pg->counts = new_counts;
-> +		}
-> +		pg->counts[pg_off]++;
-> +		pg->active++;
-> +		spin_unlock_irqrestore(&pg->lock, flags);
-> +
-> +		if (dup_counts)
-> +			mempool_free(dup_counts, &dc->bypass_mempool);
-> +	}
-> +}
-> +
-> +static void bch_bypass_write_end(struct cached_dev *dc, sector_t sector, unsigned int sectors)
-> +{
-> +	unsigned long start_chunk = sector_to_bypass_chunk(sector);
-> +	unsigned long end_chunk = sector_to_bypass_chunk(sector + sectors - 1);
-> +	unsigned long end_pg_idx = bypass_chunk_to_page(end_chunk);
-> +	unsigned long chunk;
-> +
-> +	if (WARN_ON_ONCE(end_pg_idx >= dc->bypass_num_pages))
-> +		return;
-> +
-> +	for (chunk = start_chunk; chunk <= end_chunk; chunk++) {
-> +		unsigned long pg_idx = bypass_chunk_to_page(chunk);
-> +		unsigned long pg_off = bypass_chunk_to_offset(chunk);
-> +		struct bch_bypass_page *pg = &dc->bypass_pages[pg_idx];
-> +		u32 *counts = NULL;
-> +		unsigned long flags;
-> +
-> +		spin_lock_irqsave(&pg->lock, flags);
-> +		if (WARN_ON_ONCE(!pg->counts || !pg->counts[pg_off])) {
-> +			spin_unlock_irqrestore(&pg->lock, flags);
-> +			continue;
-> +		}
-> +
-> +		pg->counts[pg_off]--;
-> +		pg->active--;
-> +		if (!pg->active) {
-> +			counts = pg->counts;
-> +			pg->counts = NULL;
-> +		}
-> +		spin_unlock_irqrestore(&pg->lock, flags);
-> +
-> +		if (counts)
-> +			mempool_free(counts, &dc->bypass_mempool);
-> +	}
-> +}
-> +
-
-I like the code to increase/decrease refcounts from small to large LBA.
-I don't like spin_lock_irqsave()/spin_unlock_irqsave() here,
-1. irqsave/restore might be unncessary, see my comments in following
-   cached_dev_write_complete().
-2, comparing to cmpxchg, using spin lock has an extra store operation,
-   also also has more memory barrier operation on non-x86_64 archs.
-
-I try to compose bch_bypass_write_start() and bch_bypass_write_end()
-for your reference. I try to show what I thought based on your perfect
-code base.
-
-
-static void bch_bypass_page_put(struct cached_dev *dc,
-                               struct bch_bypass_page *pg)
-{
-       unsigned long flags;
-
-       if (refcount_dec_and_lock_irqsave(&pg->ref, &pg->lock,
-					 &flags)) {
-               atomic_t *counts = pg->counts;
-
-               pg->counts = NULL;
-               spin_unlock_irqrestore(&pg->lock, flags);
-               mempool_free(counts, &dc->bypass_mempool);
-       }
-}
-
-static void bch_bypass_write_start(struct cached_dev *dc,
-				   sector_t sector,
-				   unsigned int sectors)
-{
-       unsigned long start_chunk = sector_to_bypass_chunk(sector);
-       unsigned long end_chunk = sector_to_bypass_chunk(sector + sectors - 1);
-       unsigned long end_pg_idx = bypass_chunk_to_page(end_chunk);
-       unsigned long chunk;
-
-       if (WARN_ON_ONCE(end_pg_idx >= dc->bypass_num_pages))
-               return;
-
-       for (chunk = start_chunk; chunk <= end_chunk; chunk++) {
-               unsigned long pg_idx = bypass_chunk_to_page(chunk);
-               unsigned long pg_off = bypass_chunk_to_offset(chunk);
-               struct bch_bypass_page *pg = &dc->bypass_pages[pg_idx];
-               atomic_t *counts;
-               unsigned long flags;
-
-retry:
-               counts = READ_ONCE(pg->counts);
-               if (!counts) {
-                       atomic_t *new_counts;
-
-                       new_counts = mempool_alloc(&dc->bypass_mempool,
-                                                  GFP_NOIO);
-                       memset(new_counts, 0, PAGE_SIZE);
-
-                       spin_lock_irqsave(&pg->lock, flags);
-                       if (pg->counts) {
-                               refcount_inc(&pg->ref);
-                               counts = pg->counts;
-                               spin_unlock_irqrestore(&pg->lock, flags);
-                               mempool_free(new_counts,
-					    &dc->bypass_mempool);
-                       } else {
-                               pg->counts = new_counts;
-                               refcount_set(&pg->ref, 1);
-                               counts = new_counts;
-                               spin_unlock_irqrestore(&pg->lock, flags);
-                       }
-               } else {
-                       if (!refcount_inc_not_zero(&pg->ref))
-                               goto retry;
-
-                       if (unlikely(READ_ONCE(pg->counts) != counts)) {
-                               bch_bypass_page_put(dc, pg);
-                               goto retry;
-                       }
-               }
-
-               atomic_inc(&counts[pg_off]);
-       }
-}
-
-static void bch_bypass_write_end(struct cached_dev *dc,
-				 sector_t sector,
-				 unsigned int sectors)
-{
-       unsigned long start_chunk = sector_to_bypass_chunk(sector);
-       unsigned long end_chunk = sector_to_bypass_chunk(sector + sectors - 1);
-       unsigned long end_pg_idx = bypass_chunk_to_page(end_chunk);
-       unsigned long chunk;
-
-       if (WARN_ON_ONCE(end_pg_idx >= dc->bypass_num_pages))
-               return;
-
-       for (chunk = start_chunk; chunk <= end_chunk; chunk++) {
-               unsigned long pg_idx = bypass_chunk_to_page(chunk);
-               unsigned long pg_off = bypass_chunk_to_offset(chunk);
-               struct bch_bypass_page *pg = &dc->bypass_pages[pg_idx];
-               atomic_t *counts;
-
-               counts = READ_ONCE(pg->counts);
-
-               if (!WARN_ON_ONCE(!counts || !atomic_read(&counts[pg_off])))
-                       atomic_dec(&counts[pg_off]);
-
-               bch_bypass_page_put(dc, pg);
-       }
-}
-
-In the above code, pg->ref is used to make sure during accessing the refcount at
-counts[pg_off], the counters page are refrenced and won't be freed. It is similar
-to pg->active in your patch.
-
-
-> +static bool bch_has_active_bypass_writes(struct cached_dev *dc, sector_t sector,
-> +					 unsigned int sectors)
-> +{
-> +	unsigned long start_chunk = sector_to_bypass_chunk(sector);
-> +	unsigned long end_chunk = sector_to_bypass_chunk(sector + sectors - 1);
-> +	unsigned long end_pg_idx = bypass_chunk_to_page(end_chunk);
-> +	unsigned long chunk;
-> +	bool has_active = false;
-> +
-> +	if (WARN_ON_ONCE(end_pg_idx >= dc->bypass_num_pages))
-> +		return false;
-> +
-> +	for (chunk = start_chunk; chunk <= end_chunk; chunk++) {
-> +		unsigned long pg_idx = bypass_chunk_to_page(chunk);
-> +		unsigned long pg_off = bypass_chunk_to_offset(chunk);
-> +		struct bch_bypass_page *pg = &dc->bypass_pages[pg_idx];
-> +		unsigned long flags;
-> +
-> +		spin_lock_irqsave(&pg->lock, flags);
-> +		if (pg->counts && pg->counts[pg_off] > 0) {
-> +			has_active = true;
-> +			spin_unlock_irqrestore(&pg->lock, flags);
-> +			break;
-> +		}
-> +		spin_unlock_irqrestore(&pg->lock, flags);
-> +	}
-> +
-> +	return has_active;
-> +}
-> +
-
-From the above code, firstly spin_lock_irqsave() is unnecessary. And I try
-my best to avoid to use spin_lock/unlock routines. Although indeed the
-location to call bch_has_active_bypass_writes() is not very hot, make it
-less cost is always better.
-
-static bool bch_has_active_bypass_writes(struct cached_dev *dc,
-					 sector_t sector,
-					 unsigned int sectors)
-{
-       unsigned long start_chunk = sector_to_bypass_chunk(sector);
-       unsigned long end_chunk = sector_to_bypass_chunk(sector + sectors - 1);
-       unsigned long end_pg_idx = bypass_chunk_to_page(end_chunk);
-       unsigned long chunk;
-       bool has_active = false;
-
-       if (WARN_ON_ONCE(end_pg_idx >= dc->bypass_num_pages))
-               return false;
-
-       for (chunk = start_chunk; chunk <= end_chunk; chunk++) {
-               unsigned long pg_idx = bypass_chunk_to_page(chunk);
-               unsigned long pg_off = bypass_chunk_to_offset(chunk);
-               struct bch_bypass_page *pg = &dc->bypass_pages[pg_idx];
-               atomic_t *counts;
-               int val = 0;
-
-retry:
-               counts = READ_ONCE(pg->counts);
-               if (!counts)
-                       continue;
-
-               if (!refcount_inc_not_zero(&pg->ref))
-                       goto retry;
-
-               if (unlikely(READ_ONCE(pg->counts) != counts)) {
-                       bch_bypass_page_put(dc, pg);
-                       goto retry;
-               }
-
-               val = atomic_read(&counts[pg_off]);
-               bch_bypass_page_put(dc, pg);
-
-               if (val > 0) {
-                       has_active = true;
-                       break;
-               }
-       }
-
-       return has_active;
-}
-
-
->  static CLOSURE_CALLBACK(cached_dev_read_done)
->  {
->  	closure_type(s, struct search, cl);
-> @@ -864,7 +976,9 @@ static CLOSURE_CALLBACK(cached_dev_read_done)
->  	bio_complete(s);
->  
->  	if (s->iop.bio &&
-> -	    !test_bit(CACHE_SET_STOPPING, &s->iop.c->flags)) {
-> +	    !test_bit(CACHE_SET_STOPPING, &s->iop.c->flags) &&
-> +	    !bch_has_active_bypass_writes(dc, s->iop.bio->bi_iter.bi_sector,
-> +					  bio_sectors(s->iop.bio))) {
->  		BUG_ON(!s->iop.replace);
->  		closure_call(&s->iop.cl, bch_data_insert, NULL, cl);
->  	}
-
-Yes, this is key change. If there is bypass write flying after
-the check key inserted, don't insert the replacement key back into btree.
-
-
-
-> @@ -975,7 +1089,13 @@ static CLOSURE_CALLBACK(cached_dev_write_complete)
->  	struct cached_dev *dc = container_of(s->d, struct cached_dev, disk);
->  
->  	up_read_non_owner(&dc->writeback_lock);
-> -	cached_dev_bio_complete(&cl->work);
-> +
-> +	if (s->iop.bypass) {
-> +		closure_call(&s->iop.cl, bch_data_insert, NULL, cl);
-> +		continue_at(cl, cached_dev_bio_complete, NULL);
-
-The ordering this correct, but the usage of continue_at() here is wrong.
-cached_dev_write_complete() might be called in irq context, call continue_at
-without a workqueue will run cached_dev_bio_complete() directly in irq context.
-There are potential blocking operations inside cached_dev_bio_complete(),
-so this is not wanted.
-
-You should use a workqueue, e.g. s->iop.wq, or directly bcache_wq,
-	continue_at(cl, cached_dev_bio_complete, s->iop.wq);
-
-
-> +	} else {
-> +		cached_dev_bio_complete(&cl->work);
-> +	}
->  }
->  
->  static void cached_dev_write(struct cached_dev *dc, struct search *s)
-> @@ -1018,6 +1138,10 @@ static void cached_dev_write(struct cached_dev *dc, struct search *s)
->  		s->iop.bio = s->orig_bio;
->  		bio_get(s->iop.bio);
->  
-> +		s->bypass_sector = bio->bi_iter.bi_sector;
-> +		s->bypass_sectors = bio_sectors(bio);
-> +		bch_bypass_write_start(dc, s->bypass_sector, s->bypass_sectors);
-> +
->  		if (bio_op(bio) == REQ_OP_DISCARD &&
->  		    !bdev_max_discard_sectors(dc->bdev))
->  			goto insert_data;
-> @@ -1058,7 +1182,8 @@ static void cached_dev_write(struct cached_dev *dc, struct search *s)
->  	}
->  
->  insert_data:
-> -	closure_call(&s->iop.cl, bch_data_insert, NULL, cl);
-> +	if (!s->iop.bypass)
-> +		closure_call(&s->iop.cl, bch_data_insert, NULL, cl);
->  	continue_at(cl, cached_dev_write_complete, NULL);
->  }
-> 
-
-The above changes look good to me.
-
-
- 
-> diff --git a/drivers/md/bcache/super.c b/drivers/md/bcache/super.c
-> index 97d9adb0bf96..b994483511de 100644
-> --- a/drivers/md/bcache/super.c
-> +++ b/drivers/md/bcache/super.c
-> @@ -1346,6 +1346,16 @@ void bch_cached_dev_release(struct kobject *kobj)
->  {
->  	struct cached_dev *dc = container_of(kobj, struct cached_dev,
->  					     disk.kobj);
-> +	if (dc->bypass_pages) {
-> +		unsigned long i;
-> +
-> +		for (i = 0; i < dc->bypass_num_pages; i++) {
-> +			if (dc->bypass_pages[i].counts)
-> +				mempool_free(dc->bypass_pages[i].counts, &dc->bypass_mempool);
-> +		}
-> +		kvfree(dc->bypass_pages);
-> +		mempool_exit(&dc->bypass_mempool);
-> +	}
->  	kfree(dc);
->  	module_put(THIS_MODULE);
->  }
-
-free bypass_pages should not be executed here. See my last comments in this
-email after cached_dev_init().
-
-
-> @@ -1407,6 +1417,31 @@ static CLOSURE_CALLBACK(cached_dev_flush)
->  	continue_at(cl, cached_dev_free, system_percpu_wq);
->  }
->  
-> +static int bch_cached_dev_bypass_init(struct cached_dev *dc, sector_t sectors)
-> +{
-> +	unsigned long chunks =
-> +		sector_to_bypass_chunk(sectors + (1UL << BCH_BYPASS_CHUNK_SHIFT) - 1);
-> +	unsigned long i;
-> +
-> +	dc->bypass_num_pages = DIV_ROUND_UP(chunks, BCH_BYPASS_PAGE_COUNTERS);
-> +	dc->bypass_pages = kvcalloc(dc->bypass_num_pages,
-> +				   sizeof(struct bch_bypass_page),
-> +				   GFP_KERNEL);
-> +	if (!dc->bypass_pages)
-> +		return -ENOMEM;
-> +
-> +	for (i = 0; i < dc->bypass_num_pages; i++)
-> +		spin_lock_init(&dc->bypass_pages[i].lock);
-> +
-> +	if (mempool_init_kmalloc_pool(&dc->bypass_mempool, 16, PAGE_SIZE)) {
-> +		kvfree(dc->bypass_pages);
-> +		dc->bypass_pages = NULL;
-> +		return -ENOMEM;
-> +	}
-> +
-> +	return 0;
-> +}
-
-In general the above code is fine, but I suggest to change the order of
-some lines, and the result code looks in the following shape.
-
-static int bch_cached_dev_bypass_init(struct cached_dev *dc, sector_t sectors)
-{
-       unsigned long chunks;
-       unsigned long i;
-
-       if (dc->bypass_pages)
-               return 0;
-
-       chunks = DIV_ROUND_UP(sectors, 1UL << BCH_BYPASS_CHUNK_SHIFT);
-       dc->bypass_num_pages = DIV_ROUND_UP(chunks, BCH_BYPASS_PAGE_COUNTERS);
-       dc->bypass_pages = kvcalloc(dc->bypass_num_pages,
-                                   sizeof(struct bch_bypass_page),
-                                   GFP_KERNEL);
-       if (!dc->bypass_pages)
-               return -ENOMEM;
-
-       for (i = 0; i < dc->bypass_num_pages; i++)
-               spin_lock_init(&dc->bypass_pages[i].lock);
-
-       if (mempool_init_kmalloc_pool(&dc->bypass_mempool, 16, PAGE_SIZE)) {
-               kvfree(dc->bypass_pages);
-               dc->bypass_pages = NULL;
-               return -ENOMEM;
-       }
-
-       return 0;
-}
-
-> +
->  static int cached_dev_init(struct cached_dev *dc, unsigned int block_size)
->  {
->  	int ret;
-> @@ -1447,6 +1482,10 @@ static int cached_dev_init(struct cached_dev *dc, unsigned int block_size)
->  	/* default to auto */
->  	dc->stop_when_cache_set_failed = BCH_CACHED_DEV_STOP_AUTO;
->  
-> +	ret = bch_cached_dev_bypass_init(dc, bdev_nr_sectors(dc->bdev));
-> +	if (ret)
-> +		return ret;
-> +
->  	bch_cached_dev_request_init(dc);
->  	bch_cached_dev_writeback_init(dc);
->  	return 0;
-
-The init and exit code should be called in bcache device attach/detach time.
-Allocating the mempool of slab cache for bcache device not attached to a cache
-set is a waste of memory.
-
-Maybe the code can be look in the following shape.
-
-1, Add a helper to free counter pages and the bypass_mempool.
-
-static void bch_cached_dev_bypass_exit(struct cached_dev *dc)
-{
-       unsigned long i;
-
-       if (!dc->bypass_pages)
-               return;
-
-       for (i = 0; i < dc->bypass_num_pages; i++) {
-               if (dc->bypass_pages[i].counts)
-                       mempool_free(dc->bypass_pages[i].counts,
-                                    &dc->bypass_mempool);
-       }
-       kvfree(dc->bypass_pages);
-       dc->bypass_pages = NULL;
-       dc->bypass_num_pages = 0;
-       mempool_exit(&dc->bypass_mempool);
-}
-
-
-2, Call bch_cached_dev_bypass_exit() when detach or stop the bcache
-   device. If the bcache device is stopping, bch_cached_dev_bypass_exit()
-   might be called twice, therefore if (!dc->bypass_pages) is neccessary.
-
- static void cached_dev_detach_finish(struct work_struct *w)
- {
-        struct cached_dev *dc = container_of(w, struct cached_dev, detach);
-        struct cache_set *c = dc->disk.c;
-
-        BUG_ON(!test_bit(BCACHE_DEV_DETACHING, &dc->disk.flags));
-        BUG_ON(refcount_read(&dc->count));
-
-+       bch_cached_dev_bypass_exit(dc);
-
-        if (test_and_clear_bit(BCACHE_DEV_WB_RUNNING, &dc->disk.flags))
-                cancel_writeback_rate_update_dwork(dc);
-
-        if (!IS_ERR_OR_NULL(dc->writeback_thread)) {
-
-
-
-int bch_cached_dev_attach(struct cached_dev *dc, struct cache_set *c,
- /* when dc->disk.kobj released */
- void bch_cached_dev_release(struct kobject *kobj)
- {
-        struct cached_dev *dc = container_of(kobj, struct cached_dev,
-                                             disk.kobj);
-
-+       bch_cached_dev_bypass_exit(dc);
-        kfree(dc);
-        module_put(THIS_MODULE);
- }
-
-
-3, Initialize the mempool at attachtime, not in cached_dev_init(),
-int bch_cached_dev_attach(struct cached_dev *dc, struct cache_set *c,
-        } else {
-                u->last_reg = rtime;
-                bch_uuid_write(c);
-        }
-
-+       ret = bch_cached_dev_bypass_init(dc, bdev_nr_sectors(dc->bdev));
-+       if (ret)
-+               return ret;
+> I guess using CONFIG_CPU_SUPPORTS_HUGEPAGES is a better approach
+
+Makes sense. Updated patch below.
+
+Subject: [PATCH 10/14] mips: move has_transparent_hugepage() out of THP guard
+
+A future commit will introduce a kernel API to allow for checking if the
+CPU supports PMD-sized pages. This API will be based on the
+has_transparent_hugepage() implementation but will be orthogonal to THP
+and therefore must work when CONFIG_TRANSPARENT_HUGEPAGE=n.
+
+This commit moves has_transparent_hugepage() definition to
+arch/mips/mm/pgtable.c under CONFIG_CPU_SUPPORTS_HUGEPAGES guard in
+order to ensure that it's only used in CPUs that support the register
+operations performed.
+
+Signed-off-by: Luiz Capitulino <luizcap@redhat.com>
+---
+  arch/mips/include/asm/pgtable.h |  6 +++---
+  arch/mips/mm/pgtable.c          | 25 +++++++++++++++++++++++++
+  arch/mips/mm/tlb-r4k.c          | 22 ----------------------
+  3 files changed, 28 insertions(+), 25 deletions(-)
+
+diff --git a/arch/mips/include/asm/pgtable.h b/arch/mips/include/asm/pgtable.h
+index fa7b935f947c..b038da872ec6 100644
+--- a/arch/mips/include/asm/pgtable.h
++++ b/arch/mips/include/asm/pgtable.h
+@@ -615,9 +615,6 @@ unsigned long io_remap_pfn_range_pfn(unsigned long pfn, unsigned long size);
+  /* We don't have hardware dirty/accessed bits, generic_pmdp_establish is fine.*/
+  #define pmdp_establish generic_pmdp_establish
+  
+-#define has_transparent_hugepage has_transparent_hugepage
+-extern int has_transparent_hugepage(void);
+-
+  static inline int pmd_trans_huge(pmd_t pmd)
+  {
+  	return !!(pmd_val(pmd) & _PAGE_HUGE);
+@@ -743,6 +740,9 @@ static inline pmd_t pmdp_huge_get_and_clear(struct mm_struct *mm,
+  
+  #endif /* CONFIG_TRANSPARENT_HUGEPAGE */
+  
++#define has_transparent_hugepage has_transparent_hugepage
++extern int has_transparent_hugepage(void);
 +
-        bcache_device_attach(&dc->disk, c, u - c->uuids);
-        list_move(&dc->list, &c->cached_devs);
-        calc_cached_dev_sectors(c);
+  #ifdef _PAGE_HUGE
+  #define pmd_leaf(pmd)	((pmd_val(pmd) & _PAGE_HUGE) != 0)
+  #define pud_leaf(pud)	((pud_val(pud) & _PAGE_HUGE) != 0)
+diff --git a/arch/mips/mm/pgtable.c b/arch/mips/mm/pgtable.c
+index 10835414819f..4515fa42f0b3 100644
+--- a/arch/mips/mm/pgtable.c
++++ b/arch/mips/mm/pgtable.c
+@@ -23,3 +23,28 @@ pgd_t *pgd_alloc(struct mm_struct *mm)
+  	return ret;
+  }
+  EXPORT_SYMBOL_GPL(pgd_alloc);
++
++#ifdef CONFIG_CPU_SUPPORTS_HUGEPAGES
++int has_transparent_hugepage(void)
++{
++	static unsigned int mask = -1;
++
++	if (mask == -1) {	/* first call comes during __init */
++		unsigned long flags;
++
++		local_irq_save(flags);
++		write_c0_pagemask(PM_HUGE_MASK);
++		back_to_back_c0_hazard();
++		mask = read_c0_pagemask();
++		write_c0_pagemask(PM_DEFAULT_MASK);
++		local_irq_restore(flags);
++	}
++	return mask == PM_HUGE_MASK;
++}
++#else
++int has_transparent_hugepage(void)
++{
++	return 0;
++}
++#endif
++EXPORT_SYMBOL(has_transparent_hugepage);
+diff --git a/arch/mips/mm/tlb-r4k.c b/arch/mips/mm/tlb-r4k.c
+index 24fe85fa169d..625f1c0dd71e 100644
+--- a/arch/mips/mm/tlb-r4k.c
++++ b/arch/mips/mm/tlb-r4k.c
+@@ -432,28 +432,6 @@ void add_wired_entry(unsigned long entrylo0, unsigned long entrylo1,
+  #endif
+  }
+  
+-#ifdef CONFIG_TRANSPARENT_HUGEPAGE
+-
+-int has_transparent_hugepage(void)
+-{
+-	static unsigned int mask = -1;
+-
+-	if (mask == -1) {	/* first call comes during __init */
+-		unsigned long flags;
+-
+-		local_irq_save(flags);
+-		write_c0_pagemask(PM_HUGE_MASK);
+-		back_to_back_c0_hazard();
+-		mask = read_c0_pagemask();
+-		write_c0_pagemask(PM_DEFAULT_MASK);
+-		local_irq_restore(flags);
+-	}
+-	return mask == PM_HUGE_MASK;
+-}
+-EXPORT_SYMBOL(has_transparent_hugepage);
+-
+-#endif /* CONFIG_TRANSPARENT_HUGEPAGE  */
+-
+  /*
+   * Used for loading TLB entries before trap_init() has started, when we
+   * don't actually want to add a wired entry which remains throughout the
+-- 
+2.55.0
 
-        /*
-
-
-By all the above changes, the second patch with RCU can be dropped, and
-only this patch should work for the fix.
-
-But the stale clean data race between bypass write and cache miss read
-is still not 100% solved. The last issue is,
-1, If the data of bypass write hits hard driver platter firstly.
-2, There is an overlapped clean key in btree, and not invlidated yet.
-3, Power failure happens.
-Then the stale clean key is still in btree and new data is on hard drive.
-
-To fix the above very very rare condition need to update the bcache
-super block to mark an unclear stop. Then after boot up if this mark
-detected then all clean keys will be invalidated. This fix will change
-on-disk format, I will compose a patch latter.
-
-Current patch will solve most of the situation of the addressed stale
-clean key race. Because no on-disk format change, it should be much
-easier to do backport for down stream kernel maintainers.
-
-I feel for the fix it self, after you update all the suggested stuffs
-in my comments, it should be good. If you want to add another patch for
-the sysfs interface files, please post them in next version.
-
-NOTE: all code in my comments are just to show my thought, they don't
-pass compiling, and not test at all. You need to make them work.
-
-Thanks.
-
-Coly Li
