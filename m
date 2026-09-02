@@ -1,158 +1,107 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD62B442B2E
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:24:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D02446067;
+	Wed,  2 Sep 2026 10:24:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788344669; cv=none; b=LddL1IUfDjSlhZgqVk7mUM48xt56hHDv2GytqRk85rPvneoIok/2BDHCnBqRUGwv2qtL67jhsBbD2J/0G/83YmBvietRJRwQNrSWEBtvsx/Giai/86US+7Egu5n2XekvBt04kfe0ab5Pm5w+EMZ/iuY0MP9JkBNc3IOdmHYc+bU=
+	t=1788344680; cv=none; b=X17070JMRu/7QSzi/fMaqGynoIbkk6em7DgngI3nV2qybJ+dNV+ca+IyZT6m3oNBjfaWXZ6m0DZe2TA3j9Eu584E4qsvpvlUy+KMk0CsOjtwEMspXbqxZL8qiAUwyPWg0rVCaVugdBttwkwr8jA6EgYHFTPqn/B97Wi5oTzrBE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788344669; c=relaxed/simple;
-	bh=iCb8yX7RPhl+yn5F/5/P8HVWlsw7cIAmXa/n6DkPaD8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hdeLD8WMFCz0VdzJx44cnx6uNzOK36cmwbc9we/+MbnFQjujAqrrc1JhcYiyzri+xR9YFbhaMv9O99iYko/uFj/lYcpvDQNLivV2J2UOe75v9b49W6zi4KhIALYbYYYbc05RKnKR94ZlpnIqLGUx7y7HsRCAC6oMhyLWtnG29G8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EDnQO6IP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SEUuAyG+; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788344680; c=relaxed/simple;
+	bh=ukCDj4ExguipADchZk8z+Q1F95A+k2+0eBsKIkxHsMU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lpq94j9jxkAS1PS9XF0xLPkpP/BhpYjtO4SBRpwKIBjdyZ168DIWN7kZI2T8co4SKhC9SilO/15IxlfzqdvCKSh7GoN43faIs2eZMsc9+YrO0ocWhTrwgc+4z1ljmy8my4Gl3bcJtcYx51pKmW6WQvhpvyBWMi3AV+lLsSrtFzk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EOvew3l8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EDnQO6IP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SEUuAyG+"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6829Mu5M1589996
-	for <linux-kernel@vger.kernel.org>; Wed, 2 Sep 2026 10:24:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	EXTLbvkaIocNmvnJYqZPtiPMWVNU4SP5kdw8z+YoAD0=; b=EDnQO6IP+tQp0z5Q
-	zGMt5ErvlK2OPTNxWQUUox9ndmqg1TC+JrCBHxfla8b2h+CzcOmlpN7RuV2KneL7
-	sCbV1L4w4W9TSQgSdHgqXUEiuzNXhxrqbwxzaovDZwe3e/zm+d+jwWHExJLEPX+1
-	eqyIhKpVrcEMDarlbZaFPNRn0YAUbPwdz7MUb5FJV60WnPoVEARYX0h6XdE0lZYP
-	5gEiuffia1E8E679nTgTKxiLMVxhdAPHPiV1ln0is8DV5PTQXjn6wMb886cXSs6r
-	xzupbu2LX3c1LBXjRkmI9BrYy/I528B8GOfZz4pn/r3uKkwpzFcOvW//U4ak7GvF
-	fWoLKA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4geguy0acs-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:24:24 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93909014c85so176573785a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 03:24:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788344664; x=1788949464; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EXTLbvkaIocNmvnJYqZPtiPMWVNU4SP5kdw8z+YoAD0=;
-        b=SEUuAyG+FCP4HcoUqqX6SC1QviUTn4b0+nzhHkphugL+HY4706iy7jQkHizXAtzlr3
-         vJnWt20bESRBwaORBhM3qKIvUGwuJGia1O2rmygDvw1xEaRucynTVw5q8k3OMt9Oa3yX
-         1n5r0ewdHGduAbVFLMt/79Di7Exh2E6ugv9wyqv2LZCsc6igakpBG7NcqEsHtnGHN/yj
-         fvZSu7DUD0e0H1bbPWDVX+hkSyGSFVqvG7C2VzrI0QZlkRUKDmG0w+TfvwaPN6PijGrG
-         2Q+bKBtJoZ+/s/HKj3Ab/oSskYaDLNEqsb0yoC8gvEtHOk4HtDLqJxDvgcCMq81LyZin
-         LG4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788344664; x=1788949464;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EXTLbvkaIocNmvnJYqZPtiPMWVNU4SP5kdw8z+YoAD0=;
-        b=GpVqmu8Y5pySlo8aaF7P4tORRtnM2f4DhCW/VBsOjHX1kZE24BT/rhwqw0ZP8UI/fM
-         Re2oLgckns7llvzFmvbt7dBRTJfZTfI1V9vNIyojN8ukH3mUBraOUj7yw1fgw8ERp+32
-         Iy+GwHS4KbDq5/LLh/ivaqWsMqVNfleZQ5iCNyk7lPLrhc0ZaaRfnGx2BfpjFZeGGSQM
-         jayIOdYWQHQwEXEovPPCOdsv2/9hm/0coDehJpZRW7gFkQ9fVok5BPeycAYgTz/ACd7p
-         lTJ4NzZTz63wnKkLVXtNawSgkv/jNHWq7qpUPKMoVlel5jzZReXKisKu5cfZlQ5C4YN4
-         HVig==
-X-Forwarded-Encrypted: i=1; AHgh+RrEBOfI587an6egQfjWgJd/J+7DT7e9/cuKbb7d7QF3Nx5qQMOcbEIn3E9m1CyJer0IamwZkCeDOI+dmOo=@vger.kernel.org
-X-Gm-Message-State: AFuF++l4Y4DMyOXRHdPK59TJ927nQPzlo7j5VdD2HrxK1EYeOIX0uH9T
-	90v6mZ18O9RoAfz0A++vVx478vEJU4hDvOeW6ksllyZ3yM8v/2xhpaMerRSpVKmUuQe2EkjgFuy
-	UM3GptHqD9aDxp6aRg0zlwwctClbr8gLKyLn51PBrjaJ2+DyxB4T5ilN05n0aKFM9CFM=
-X-Gm-Gg: AR+sD13AAuYwzPP7QZFDsXRSp8aLCfdnWZtZnegyDdRlOTpDB9dONh0wRA20T8dpknq
-	frDsUhQOAuWT9ugV+E6FEIzQnlOUpF3nTJ7xQG3+cMZPR//xGIT8p/NuZ5lf2fhejyWklDkpaKv
-	8iobCdm5mvWXBbCCocw6/Ey5iFlk6dUlQXYj0Mdt6ZYMhT12iDL0Ke63zRINrytipZ6fGu3JPaD
-	tB7mIIeIR+vGWVW0nORokBysDVyFSKGwoB3kThtSknlyew+cyIXM6+rYjx7NxpTB1ziIqQ/2382
-	DEq0bFbYBDiixM+XOFVWf4yx6hJJ69vvNvS+JfuRakynnAtqAlKCdkE3AHz51uaHESP97eWJv/B
-	7kCQXEOgmjaVdRuMI3eqG8Ku7jLw=
-X-Received: by 2002:a05:620a:a0cd:20b0:934:aa56:45df with SMTP id af79cd13be357-93960df450fmr373923285a.11.1788344663633;
-        Wed, 02 Sep 2026 03:24:23 -0700 (PDT)
-X-Received: by 2002:a05:620a:a0cd:20b0:934:aa56:45df with SMTP id af79cd13be357-93960df450fmr373916685a.11.1788344663027;
-        Wed, 02 Sep 2026 03:24:23 -0700 (PDT)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:b759:bed7:f8b6:ccad])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce3e04csm132554105e9.10.2026.09.02.03.24.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 03:24:21 -0700 (PDT)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] pinctrl: qcom: Add PMAU0102 GPIO support
-Date: Wed,  2 Sep 2026 12:24:20 +0200
-Message-ID: <178834465640.12889.17588552466171610581.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260830042939.144376-1-shengchao.guo@oss.qualcomm.com>
-References: <20260830042939.144376-1-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EOvew3l8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90A9E1F000E9;
+	Wed,  2 Sep 2026 10:24:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788344675;
+	bh=NaQwdMaMWyBaW+1JHeOi/GljyUWwMv+cdyTRLLUox2E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EOvew3l83e06p6RB76xlMujpso/lVLUdS2hThNW4uCyyf6i7UFiit3bgubPkygPHv
+	 KPqzA3EDTjtV4rtdbGEcjnfYsMm5DAQYgJpXI1EYEoD3C6NWuhbZTs6WgVA/QABcTp
+	 wTPijWfibcwm3MTbrLwzFiJKEqg4Hm11nH5lxr1ZKt4JBafdB0BEshVxv0CKtlfKSo
+	 BJe8xZQH7aO7RZahvxSTk/ozNCsbNVMT34Ih1adzBGId7GzH0HLYj9372wV8tbfcDD
+	 Sf7DFcw0BJhB6VkjNsh7clAoTm9Gp5buJhpP7Cj3Y5svOrMPVQSL2BqvecbEOAi4hI
+	 pjhLLko5zWpng==
+Date: Wed, 2 Sep 2026 11:24:32 +0100
+From: Harry Yoo <harry@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+	Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Alexei Starovoitov <ast@kernel.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+	syzbot+acf142088e0182172e58@syzkaller.appspotmail.com, ThangNN99 <ngocthang2710.1999@gmail.com>, puranjay@kernel.org
+Subject: Re: [PATCH] mm/slab: disallow kfree_rcu_sheaf() on PREEMPT_RT again
+Message-ID: <apfwshahN_C6jBSn@nixos>
+References: <20260831-b4-kfree_rcu_hotfix-v1-1-4f0fb882638b@kernel.org>
+ <20260901073339.uyKHXWCX@linutronix.de>
+ <47aa459f-27d5-4b2f-9eb9-36ebca63d890@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=UZthjqSN c=1 sm=1 tr=0 ts=6a97f958 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=WFjrMyYTNELkhRd79CkA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: NiMzrljZryZ18UatGfeEG-VikmBZbHKY
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA5MSBTYWx0ZWRfX3GO0DT7cjzId
- cqpcR7VaznZJf+A4EkWKh3W6orf8gYAoAtRO2YnNOhyjRYZ3mwWV6a21LaSfyGc8aKZ2rmmAqNo
- SLEWVwKrRfhr5pJZ2/HV/JrS3Nsirao=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA5MSBTYWx0ZWRfXwMMiQB7zNaxY
- iB7E9g6Yo2Y4WcixcK5kJlfw0JrZc9tW0YTWca2Ogn/nTemjkIbAAyn001tbYFraX5USPOdibk/
- brMBZIa7kT/iqZnW1Og0iVAgmG6JpLpORQex+DToxLSnh5tKajfuwNbk+YVl6IPzFcIkeZDywva
- HahES6wb1SW6OTSIHabMK/Lj4bIl7sUqWNqBgU/0bdLFFN1dUndJvjtiLIqyGxXimgQv5vAdtG1
- vUWlH1mBKIxB1SNfdKcrgKZ/JlLj9y3Ub4ACq42Is/F9ToMjjY+XGT+P6nWe+QNWpm93IWNShJq
- qz06arhrUR+hucaQOqBbEwZuoyaCdfRKdRMPESCBjXH0qQqYLMuZF7BeeJCZ6yT/Wg4MV+w91P4
- LLlUuVGnq+D+Dil08yLEUBWOsu5fe5wJbdNEm1vkpWT5IfF1Osdu6101evY7SgWFGmgErwTVZ1L
- TpYAoJ7gPfQMpF9gazw==
-X-Proofpoint-ORIG-GUID: NiMzrljZryZ18UatGfeEG-VikmBZbHKY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_02,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 impostorscore=0 adultscore=0 malwarescore=0
- lowpriorityscore=0 spamscore=0 clxscore=1015 phishscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020091
+In-Reply-To: <47aa459f-27d5-4b2f-9eb9-36ebca63d890@kernel.org>
 
+On Tue, Sep 01, 2026 at 03:59:09PM +0200, Vlastimil Babka (SUSE) wrote:
+> On 9/1/26 09:33, Sebastian Andrzej Siewior wrote:
+> > On 2026-08-31 18:02:38 [+0200], Vlastimil Babka (SUSE) wrote:
+> >> This partially reverts commit 2a8bb29ec9b2 ("mm/slab: allow
+> >> kfree_rcu_sheaf() on PREEMPT_RT"). It was based on an assumption that
+> >> local_trylock() is safe on PREEMPT_RT from any context.
+> > …
+> >> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> > Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+> > 
+> >> ---
+> >> Incidentally I have posted a RFC [1] that leads to replacing that
+> >> kfree_rcu() from set_cpus_allowed_force() but now after back from
+> >> vacation I need to check the feedback and based on this bug report I can
+> >> already see it makes the same bad assumption that trylock is fine.
+> > 
+> > free_to_pcs() has still this trylock.
+> > 
+> > What I am not so sure how good is that kfree_rcu_nolock() may allocate
+> > memory for the sheaf if there is none around.
 
-On Sun, 30 Aug 2026 12:29:37 +0800, Shawn Guo wrote:
-> PMAU0102 is a new PMIC used on the Qualcomm Nord platform. It exposes
-> a 12-GPIO block that is compatible with the existing SPMI PMIC GPIO
-> programming model, so support amounts to documenting and registering
-> a new compatible string.
+At least it doesn't wake up kswapd... oh wait, but it does use trylock.
+But that's not just kfree_rcu_nolock()'s problem?
+
+_nolock() helpers can be called at any context, even under pi_lock
+(at least in theory). re: we should fix can_spin_trylock() and use it
+IMHO?
+
+> Per sashiko review it's actually bad too under the pi_lock, because
+> GFP_NOWAIT means __GFP_KSWAPD_RECLAIM which can mean wakeup_kswapd() and
+> thus also need scheduler locks. And it's not a PREEMPT_RT-only issue...
+
+Right. That's a pre-existing issue that has been around for a while...
+I tried to reproduce it locally a while ago but it was quite tough.
+
+> > It could have a pool of X
+> > and if it runs out, it runs out and waits until the clean up process
+> > feeds the used sheafs back. There is fallback and the run out is not the
+> > usual case.
 > 
-> Dhruvin Rajpura (2):
->   dt-bindings: pinctrl: qcom,pmic-gpio: Document PMAU0102 GPIO support
->   pinctrl: qcom: spmi-gpio: Add PMAU0102 GPIO support
-> 
-> [...]
+> I'd rather not invent new pools, since there's fallback and the sheaf+barn
+> is already a pool.
 
-Applied, thanks!
+Agreed.
 
-[1/2] dt-bindings: pinctrl: qcom,pmic-gpio: Document PMAU0102 GPIO support
-      https://git.kernel.org/brgl/c/25f42a33ecf914e6d8da6eed2cdf7ad86c9a904b
-[2/2] pinctrl: qcom: spmi-gpio: Add PMAU0102 GPIO support
-      https://git.kernel.org/brgl/c/1cc8b87bd9719f5c496d27a1b4d2892947ba70d5
+> Could be enough to make sure the allocation attempt is
+> safe, i.e. use only __GFP_NOWARN.
 
-Best regards,
+in __kfree_rcu_sheaf(), yeah.
+
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cheers,
+Harry / Hyeonggon
