@@ -1,163 +1,140 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A17424A5EA7
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:08:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E44372EDB;
+	Wed,  2 Sep 2026 15:09:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788361734; cv=none; b=EfXFn5kSaENfePkMnhUu1RhJ40CTM9mwz2cDA1s/yOVja6nuNGYl0wrIeakEAUA3/wzggWFk+RbtmbFHslXGcANPspYaB0LaqvQrMp+3UyZ6+fMcn31IqkPX7oueT5R5/Jurwv1l0WYz/hxKq7gEi4ti/1vlVi+eIfDRnrGqbYM=
+	t=1788361765; cv=none; b=VCj4l5RH6LjNePik6007g6hYsOl9O2F3rUWkbtvzYSQAwmfqdQPOvIR5HMRrL/L/smMc9TyGqaub3nm0bKL7Sd+I0iPdGokhlTC5CJ02V7xIZZj9a0olzjPdulwU5tVEt/DXXE/0fHukmtQS0PBp2ma/rO4zdkpFfrPAOkanLkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788361734; c=relaxed/simple;
-	bh=I3mYKVGTKqP/H3LNKqz4oW31/g3MR2FuJzgjMuRu5I0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=crzTkyxwSHqeVYhDipiCwgnIKQI0WLjhWnzqQeHNc8MhZnuAf4u2mPhHBVK1i4Ueyw9kqmKK7MlHN51kuhs4ce4gDgTbqGVZfJzSQep2YKlqRdaUxI5EQ+PGbRnQ91e415BLiexwM/uWgbr7CDoeDHBI9bsJgfi2C1fbCERo8sU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dd2O+JSr; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788361765; c=relaxed/simple;
+	bh=H3j5nF4TmlSYPKfTyb8977B5+QpR60ZF5BUApcbj1sM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CD3xR3433IQXIMFJp3iKAYSbKG3pcSDIUzk4qlyLNgpEbLhmWPWnCzhZrzzqmquEUY7AGSx3h2sognjVOmr5CfZw77QYhLzD4w3mUWnQeTse94icXqL7cXClDsw+SJ8B2Cl+OIsfrmR4x3T0bdhQxpqxjq7qQCX8dBLzB92w4oo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EyUJ31hh; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dd2O+JSr"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d01663d816so10314785ad.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 08:08:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788361732; x=1788966532; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EIdbnMs2RBr+E/C3ONkDjLCzcgL/LziyquabNv/nyLY=;
-        b=dd2O+JSrI+Pwg6yAIH2N8NSywBvs7n/y9wwtKMKhyxoIkY3QT5s+5QtFzyPbp7ncyK
-         YB3TqyrybZmLD14twJFpiNJRvU+9yNnmHmYH/fBjED3t/M5upLKjySQ+Kcf/GI5zVsT3
-         vQldSzvT0aNazu5XqNyc2puRltZo6OpddXpPvtJ0gQUDCyYyvtOJcHn8s0XxQR2v4dK+
-         Z8kkwxlkIu3mK7qWt8U7xDFVSHQ6l0sWGbUt4huao/KsNfX03a0IjENr/OFn/XGTN7va
-         atkfScCOEN2YdlYEVoOostxumqSNpc3UvY/FwJeyJw/Ixa6xG2scrC+WzBPVtaZm0RFM
-         j5AQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788361732; x=1788966532;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EIdbnMs2RBr+E/C3ONkDjLCzcgL/LziyquabNv/nyLY=;
-        b=ocbi6tGyY8xvwlKRAFXh77MKzz/flKiELeqNlQnqoKNobLQd4fkwKz2xzPl6Zj7trA
-         j+HrOIxsBVOcVKZXOOTNd6qm40kEmvXkFb7CpupSp8ICh3BuKeT+vmvzBKxpAf38wSdp
-         DxubPqcMvv1K4PYYMLa+fLxm1YXQkfFAFeszZISs7i0Zie0hO2Dxr5yAWDVm2Z/3mPqO
-         bcqoQwni4h5j1p+xZfsbHvncta1VLS4HW7LOEvZtsfE4OdAiwzedSVPaK3V4GAxKLM7Y
-         ql9syL0uRfadJyqPJxt+IqNcVUAtkvOSppx2nxxus9ZBj4OfuEUCR5ZaaJ+cOGLTL52K
-         nAdQ==
-X-Forwarded-Encrypted: i=1; AKwUvByW/voWm6XmweYB79WdLyzaUjdEox+d4RzBI+kPqlPa5Aj21Jup0D+rcJ6I6FchR8DsEb8/6mzx9Ryfu+w=@vger.kernel.org
-X-Gm-Message-State: AFuF++kao5GhZA6VxrMv3lYrR2vT+WErgZ5ajSazuCCtS3UV3Yo6iyBG
-	8vjJCuoGubdQygX/oyuZgTuENMESjvyXS1nF9oBU8GN9BHY1vfeg4AYn
-X-Gm-Gg: AYBFou2yCmMotB1+UuQ8ytrMdzstm883CH3Fdc7D98QiQxJtpUUj2+gTYDqNtpwW6zR
-	aJhZFi8I/RrzzbrMD1oclZYNg7tKXSgEuG12yaCVtifTqeHzMo7bj/Flt33bToAEZsvmztzGSpt
-	kPuyU+KwdaM1c48GJXQOnrdaov1qdKJt2msMWKxNTb73UVSYP7kuIksFnkJIQgWa4I8XT/WAYcs
-	Ff9lDc2LEJAGwdHVInElQnD7dYB0nkEeDQfnB89y3WvUiNn9OLeqOoU5j0AP5y6BtBRsA+KCQ7U
-	fDjm0PZzWJDBQr83/y7tqLJiSF+F6PAN+WfjHzKr8YvHpc8etVoK+EfLNdGOypMyE3lfmBpN4/q
-	DdJRghJP5/g4YhOhXWxrYAMaGUoEgFA8abWh9mOurZzOyGxFV8Omq/wT5JIOyWjF1nVyrqeMln+
-	nSnrF4UxMFPK7O7MrDT71+qquZuzjmn6reuncD1ot0tMkXqBrKJIeBkCvmcQfu
-X-Received: by 2002:a17:903:19ec:b0:2d6:e4ff:9cad with SMTP id d9443c01a7336-2daec5ab9c5mr86317615ad.3.1788361731078;
-        Wed, 02 Sep 2026 08:08:51 -0700 (PDT)
-Received: from gmail.com ([185.220.238.35])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dadd488d18sm15030855ad.45.2026.09.02.08.08.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 08:08:50 -0700 (PDT)
-From: Kunwu Chan <kunwu.chan@gmail.com>
-X-Google-Original-From: Kunwu Chan <kunwu.chan@linux.dev>
-To: SJ Park <sj@kernel.org>
-Cc: Kunwu Chan <kunwu.chan@linux.dev>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <davidgow@davidgow.net>,
-	damon@lists.linux.dev,
-	kunit-dev@googlegroups.com,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [PATCH 09/12] mm/damon/tests/core-kunit: test damon_nr_samples_per_aggr()
-Date: Wed,  2 Sep 2026 23:08:41 +0800
-Message-ID: <20260902150842.4033320-1-kunwu.chan@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260902054747.99370-10-sj@kernel.org>
-References: 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EyUJ31hh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788361762; x=1819897762;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=H3j5nF4TmlSYPKfTyb8977B5+QpR60ZF5BUApcbj1sM=;
+  b=EyUJ31hh4TTD1hzT8fqgzHt9U0RWF3duT52m72Ul/CXRuLU3qbInZ9RT
+   PkrjI75kQvssG05mESeqMy6XroGCYDdh35QlEzxiul2Ef146uAlnJd7DY
+   EdcL/QQJ0QNfiSzW7RSGDjMEayR2EPmlWaU2V52iWgpiR8MY2JR1SKs4Y
+   l4lodLC4YQd1j0MqnDOWRi+uFqyD/hM1KKles82gXJ4rNBAmLaVH+fLyJ
+   rsUsPykvI5PcTKmKDLkJdHUgq2/6gb9HyIXQ6ANFisl3N93LXdKC+Bqk2
+   WMN28Z2FgkEBMAOonlD0C1gRk1faR0N248F5Dw+TEXQ0tVhkVFPTSRkHo
+   w==;
+X-CSE-ConnectionGUID: Cfo6eOtRQFqIlvY6tFZSxA==
+X-CSE-MsgGUID: 708ce3DeTruDD8oiVLgsqw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="92643064"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="92643064"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 08:09:18 -0700
+X-CSE-ConnectionGUID: 1CdeLdG3TSurM6JZ1pKiag==
+X-CSE-MsgGUID: 648WL4ejRxe8j5LURuOVUA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="266839021"
+Received: from xiaoyaol-hp-g830.ccr.corp.intel.com (HELO [10.124.240.119]) ([10.124.240.119])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 08:09:12 -0700
+Message-ID: <6b565572-b316-4e86-906d-f150c896fe21@intel.com>
+Date: Wed, 2 Sep 2026 23:09:09 +0800
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/4] KVM: TDX: Track configurable CPUID bits allowed by
+ KVM
+To: Binbin Wu <binbin.wu@linux.intel.com>, linux-kernel@vger.kernel.org,
+ kvm@vger.kernel.org
+Cc: seanjc@google.com, pbonzini@redhat.com, dave.hansen@linux.intel.com,
+ andrew.cooper3@citrix.com, nik.borisov@suse.com, kas@kernel.org,
+ rick.p.edgecombe@intel.com, chao.gao@intel.com
+References: <20260827031837.2863609-1-binbin.wu@linux.intel.com>
+ <20260827031837.2863609-2-binbin.wu@linux.intel.com>
+ <55488b92-66a8-45e5-ad0f-8fed63ce1187@intel.com>
+ <a30741f8-b99b-4f36-80a5-4688c2578d99@linux.intel.com>
+Content-Language: en-US
+From: Xiaoyao Li <xiaoyao.li@intel.com>
+In-Reply-To: <a30741f8-b99b-4f36-80a5-4688c2578d99@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Tue,  1 Sep 2026 22:47:42 -0700 SJ Park <sj@kernel.org> wrote:
+On 9/2/2026 8:33 AM, Binbin Wu wrote:
+>>> +static void __init tdx_initialize_cpu_cfg_caps(void)
+>>> +{
+>>> +    tdx_cpu_cfg_cap_init(CPUID_1_ECX,
+>>> +        TDX_CFG_EXTRA_F(MWAIT),
+>>> +        TDX_CFG_F(TSC_DEADLINE_TIMER),
+>>> +        TDX_CFG_F(AVX),
+>>> +        TDX_CFG_F(F16C),
+>>> +    );
+>> TDX 1.5.24 on SPR report configurable bits of CPUID_1_ECX as
+>> 0x31044988, which have
+>>
+>> - bit 3        MWAIT
+>> - bit 7        EST
+>> - bit 8        TM2
+>> - bit 11    SDBG
+>> - bit 14    XTPR
+>> - bit 18    DCA
+>> - bit 24    TSC_DEADLINE_TIMER
+>> - bit 28    AVX
+>> - bit 29    F16C
+>>
+>> but EST/TM2/SDBG/XTPR/DCA are not list here. I guess the reason is kvm_cpu_cap[] doesn't support it. If so, it seems to guard twice:
+>> 1. mentally/manually check if it a feature is supported in kvm_cpu_caps[]
+>>
+>> 2. kvm_cpu_caps guarding in tdx_cpu_cfg_cap_init().
+>>
+>> I think 1) is not necessary, we can rely on 2)
+> In general, if a feature is not supported by the common KVM CPU caps, 
 
-> damon_max_nr_accesses(), which is a previous version of
-> damon_nr_samples_per_aggr() before the renaming, was wrongly returning
-> zero or random overflowed values for extreme intervals setup.  Commit
-> 35d4a3cf70a8 ("mm/damon/ops-common: handle extreme intervals in
-> damon_hot_score()") updated the function to return correct or more valid
-> values.  Add a kunit test to ensure it is working as expected.
+For kvm-intel.ko, kvm_cpu_caps[] just means the supported CPUID features
+for VMX VMs. Treat it as the common KVM CPU caps is a bit arguable.
+
+> I prefer not
+> to add it to the list to save a few lines of code, which probably is dead code,
+
+I don't think it's dead code. It shows that these features are
+virtualizable to TDs from the POV. of TDX.
+
+In the end, they might be disallowed to be configured to TDs because KVM
+doesn't allow them for VMX VMs. This is also the point I want to discuss.
+Do we really want to make such restriction that KVM cannot enable/allow a
+feature for TDs unless KVM first enables/allows it for VMX VMs? What's
+reason behind it?
+
+> unless people find it too confusing.
+> I can add a comment to clarify this.
 > 
-> Signed-off-by: SJ Park <sj@kernel.org>
-> ---
->  mm/damon/tests/core-kunit.h | 22 ++++++++++++++++++++++
->  1 file changed, 22 insertions(+)
-> 
-> diff --git a/mm/damon/tests/core-kunit.h b/mm/damon/tests/core-kunit.h
-> index a4164ac489a61..d0bed01a5b7fe 100644
-> --- a/mm/damon/tests/core-kunit.h
-> +++ b/mm/damon/tests/core-kunit.h
-> @@ -625,6 +625,27 @@ static void damon_test_set_regions(struct kunit *test)
->  			(struct damon_addr_range[]){}, 0, -EINVAL);
->  }
->  
-> +static void damon_test_nr_samples_per_aggr(struct kunit *test)
-> +{
-> +	struct damon_attrs attrs = {
-> +		.sample_interval = 0,
-> +		.aggr_interval = 0,
-> +	};
-> +
+>> BTW, this seems also breaks the current userspace after this series.
+>> - Before, EST/TM2/SDBG/XTPR/DCA are allowed to be exposed to TD
+>> - After, they are not.
+> This does change the values returned by KVM_TDX_CAPABILITIES. However, my
+> understanding is that userspace is generally expected to only configure
+> features supported by both KVM and TDX, i.e. except for the features initialized
+> via TDX_CFG_EXTRA_F(), userspace is not expected to configure features not advertised
+> by kvm_cpu_caps[].
+> I can call this out in the changelog, and maybe also the doc for KVM_TDX_CAPABILITIES.
 
-Hi SJ,
+yeah. This changes KVM's behavior and we definitely need to call it out,
+and provide justification.
 
-A small question about the first test case.
+>> If we cares CORE_CAPABILITIES in patch 2, why EST/TM2/SDBG/XTPR/DCA don't matter?
+> Because CORE_CAPABILITIES was previously defined as fixed-1 in some old spec and
+> the QEMU marks it as fixed1. EST/TM2/SDBG/XTPR/DCA are not the case.
 
-Both `sample_interval` and `aggr_interval` are zero here.  Since
-`sample_interval` is the denominator in `damon_nr_samples_per_aggr()`,
-would it be better to keep `aggr_interval` non-zero when testing the
-zero `sample_interval` case?
-
-This would make the test explicitly cover the divide-by-zero protection.
-If the `aggr_interval == 0` behavior is also worth covering, perhaps it
-could be tested separately.
-
-Thanks,
-Kunwu
-
-
-> +	/* Zero aggregation interval doesn't cause division by zero */
-> +	KUNIT_EXPECT_EQ(test, damon_nr_samples_per_aggr(&attrs), 1);
-> +
-> +	/*
-> +	 * Too large aggregation interval on 64 bit system doesn't cause
-> +	 * overflow
-> +	 */
-> +	if (ULONG_MAX > UINT_MAX) {
-> +		attrs.aggr_interval = (unsigned long)UINT_MAX + 1;
-> +		KUNIT_EXPECT_EQ(test, damon_nr_samples_per_aggr(&attrs),
-> +				UINT_MAX);
-> +	}
-> +}
-> +
->  static void damon_test_update_monitoring_result(struct kunit *test)
->  {
->  	struct damon_attrs old_attrs = {
-> @@ -1736,6 +1757,7 @@ static struct kunit_case damon_test_cases[] = {
->  	KUNIT_CASE(damon_test_split_above_half_progresses),
->  	KUNIT_CASE(damon_test_ops_registration),
->  	KUNIT_CASE(damon_test_set_regions),
-> +	KUNIT_CASE(damon_test_nr_samples_per_aggr),
->  	KUNIT_CASE(damon_test_update_monitoring_result),
->  	KUNIT_CASE(damon_test_set_attrs),
->  	KUNIT_CASE(damon_test_mvsum),
-> -- 
-> 2.47.3
-> 
-
-Sent using hkml (https://github.com/sjp38/hackermail)
+I see. You added patch 2 because without it QEMU breaks. While for
+EST/TM2/SDBG/XTPR/DCA, QEMU doesn't break after they are turned to
+non-configurable. QEMU cannot represent all the userspace VMM. It still has
+the potential to breaks other userspace VMMs.
