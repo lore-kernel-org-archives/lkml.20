@@ -1,162 +1,86 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.hostedemail.com (smtprelay0011.hostedemail.com [216.40.44.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E4B4A9D52;
-	Wed,  2 Sep 2026 16:52:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AFE34AA1FA
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:53:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.40.44.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788367976; cv=none; b=c8jBS/AnqPSq0UsktO9wGRFiDZ3OBd08yvUN9bQFBfXNcNmwwp0d4J94og8+pKIix/SmO7UT0txMCUywTK+UJXXUv0AvDALVJOmAQ34FonPMCcWshGqGqkky0aeXVELH6g4eSaf/3C3vtzdlfAvBN2iWOFCw7FH4QG38T8QmXPY=
+	t=1788367993; cv=none; b=Woh6n7rx3cLjCsVyRgRw1pjNN8WW4Qn8sG7cf/PJp8mOUjgl30y7oswALL4U+LNFTkYvzrQJWtDh7BnXSpTyGEY4JVxLb9iFul2hf+tsonWlpOrmtLhym9LVpY5T9cPiD5x4zoYdfxVqcG8ImMY7Lie5tV0tMQ4yBVaqwcEB5mA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788367976; c=relaxed/simple;
-	bh=hMqA+QKEAF2IPsqscl/4sBxHSdPWplzyy+88SxdviIg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OlE4GFf7fHdWJ6J1zaHKTFcIenhKWzj4MubyzY8JNUjdj96AQSe46zAba7OQdV1feGPNpvBoWrhck7Ttp91QbksFxv10nDRm3i5b2UDYxjEhIKh7w09GXHjUxR3ifxpdRX4vTRPQwFAcIRyDp9/nEb++B/F1DycLB3SB7oZ9mG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=b/N9o7t6; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=1zpBRhiT; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=pqmmJmVX; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Ej5lSh39; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	s=arc-20240116; t=1788367993; c=relaxed/simple;
+	bh=Dta55ycp6/iuaLsenIO115Q4EHNsSYuX4QE9eKtU1MM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=JvKQ0FDocDHbzsMlVYCrV9EFzV5JDRiP50m1qfyBfMKau6JVW9FNRPwkoSZFrNILMyGP4XzZ1WFilzu9jFmAvl/sfZS3+3sjQcVIKcblPg7Lf2/n26Gfo4YRB/joofCV8+MTVgUqb3nraLeh+HA1AIav+Of5SvsosMRMqdZlxOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org; spf=pass smtp.mailfrom=goodmis.org; dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b=xqvfbox/; arc=none smtp.client-ip=216.40.44.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="b/N9o7t6";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="1zpBRhiT";
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="pqmmJmVX";
-	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Ej5lSh39"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id AF3641F7B8;
-	Wed,  2 Sep 2026 16:52:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788367968; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=49vtVYxMewauCFVkl0PMYOjcGypv0dv/1vobOacUSjI=;
-	b=b/N9o7t6+GGzDDmFr8DiTP2+t2Yd7az4Cg5nsZotbzV09ofHw9qi22CXg/OcZZ50r1Pqx3
-	I2FjWvQA9HQ82IoYQyA0bONADSUbuj6HrVoUoSdx535oTSyyGIZK+hcKDrZ04vhN+iUOr4
-	QRC5jvpvPUymNam9tt7rGM5oOFJ3cc8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788367968;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=49vtVYxMewauCFVkl0PMYOjcGypv0dv/1vobOacUSjI=;
-	b=1zpBRhiThJcVmVqg38iciunlkJvbwVf4Y0RakwXdLXud5xVS0bwaaBVYWVeTHUwVoTVV79
-	B3j+48+PC+BCk/DA==
-Authentication-Results: smtp-out2.suse.de;
-	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=pqmmJmVX;
-	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=Ej5lSh39
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1788367964; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=49vtVYxMewauCFVkl0PMYOjcGypv0dv/1vobOacUSjI=;
-	b=pqmmJmVXI+9UC2vtiOj24t9XQ8/uYhVmgpOXdyap8l7ywI0+E/ZJ4qRKzOriLZo/SWGTXs
-	ngl6JIbU/9bI6WC2iJgRj7SUfjCqxGqmZVAmrvpKqAnMfU7ALadrHx73cJ8v087ozsfUVD
-	zTCJpY6JIrme7LIyoHh+Cx3kMp/IgT8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1788367964;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=49vtVYxMewauCFVkl0PMYOjcGypv0dv/1vobOacUSjI=;
-	b=Ej5lSh39rVYk44Su5Tmj/gFfZtRc2LEn/SbnaRxDikwJVLvNEYP66nnbmWqGy8iAMYz1Zs
-	3rBBcoj9b1K4MIBw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 88542136E6;
-	Wed,  2 Sep 2026 16:52:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id AexHIVxUmGpTKQAAD6G6ig
-	(envelope-from <jack@suse.cz>); Wed, 02 Sep 2026 16:52:44 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
-	id 213F8A13B5; Wed, 02 Sep 2026 18:52:44 +0200 (CEST)
-Date: Wed, 2 Sep 2026 18:52:44 +0200
-From: Jan Kara <jack@suse.cz>
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Jan Kara <jack@suse.cz>, Daehyeon Ko <4ncienth@gmail.com>, 
-	Miklos Szeredi <mszeredi@redhat.com>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [BUG] fanotify: destroy/add race leaves a mark on a detached
- connector
-Message-ID: <3ds635aoslm67h5exattggmcmitru3owqrryexdq6ue5nubh4j@cmbhmsq6xdgr>
-References: <yjfqzckumtd32dgqidi5sndvth2t67mjwah4kt4jiahlx2a5uf@if55sinfv5o7>
- <20260828042421.964822-1-4ncienth@gmail.com>
- <ptco7s5x7tjzp42dzlsitibdigpwucl2whwrq37tknjpo7x2lc@b7q27ldlorak>
- <CAOQ4uxgB9anyJcWem04w65VCJdxbbb2cQDZ_u8qMusw3xpB9Gw@mail.gmail.com>
- <63aj7jbfaoamdmcurlge2c2kqpliaifgq4vbythrrxpfyr5vtm@z64myom426zd>
- <CAOQ4uxh-NZ76hEFoNNGjyhodr9U=dvZuGVmYHVPGZ_=jRxCAsA@mail.gmail.com>
- <67hq7zqnvp6onwwjp24axucgxbzsko2dphielupdfzmfyk6x57@bdeef7fjkqfa>
- <CAOQ4uxiQF4M_YSBMW3h8VCKR15GV6g_K5nf=2odtYetEwKHm9A@mail.gmail.com>
- <6n6r5zvcu5ojihyb52rhejlky7xrn2a2p4l2cgfut5lsscunek@bcnpy7bifjrs>
- <CAOQ4uxjbEY12XMmfCXTPTpASmECCXcGBQR+bS93k=4vgqzFDZA@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=goodmis.org header.i=@goodmis.org header.b="xqvfbox/"
+Received: from omf20.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay02.hostedemail.com (Postfix) with ESMTP id A509812014F;
+	Wed,  2 Sep 2026 16:53:09 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf20.hostedemail.com (Postfix) with ESMTPA id B58FC20025;
+	Wed,  2 Sep 2026 16:53:07 +0000 (UTC)
+Date: Wed, 2 Sep 2026 12:54:08 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Bart Van Assche <bvanassche@acm.org>
+Cc: David Laight <david.laight.linux@gmail.com>, Linus Torvalds
+ <torvalds@linux-foundation.org>, linux-kernel@vger.kernel.org, Christoph
+ Hellwig <hch@lst.de>, Rasmus Villemoes <linux@rasmusvillemoes.dk>, Luc Van
+ Oostenryck <luc.vanoostenryck@gmail.com>, Chris Li <sparse@chrisli.org>
+Subject: Re: [PATCH v2] tracing: Make is_signed_type() compatible with
+ sparse
+Message-ID: <20260902125408.1e86282a@gandalf.local.home>
+In-Reply-To: <e75964e2-6b46-4594-8bfb-ce0c0ed620a7@acm.org>
+References: <bde573c1a758505339239f08be28788a34dfcb73.1786121949.git.bvanassche@acm.org>
+ <20260831214437.15d6ad34@pumpkin>
+ <a771af57-40ee-433a-be84-9b7c3e6965c5@acm.org>
+ <20260901092043.7feaf5d7@pumpkin>
+ <dca931ff-5995-444c-9f89-6d6cca4e71f3@acm.org>
+ <20260901222909.05d6239f@pumpkin>
+ <1b86ccbf-4e41-4a26-9d22-8bd93bacb043@acm.org>
+ <CAHk-=wi_3xdtBrDgUxw5xtq8a=CdyRJnceo7YJg59wqqdXwiMQ@mail.gmail.com>
+ <20260901192523.0e989b10@robin>
+ <20260902092437.00dfaa25@pumpkin>
+ <20260902093644.5b0e8a64@gandalf.local.home>
+ <a5aea1c4-3e29-4bba-8cd2-d4ccbeda008c@acm.org>
+ <20260902123933.5c3c8fa3@gandalf.local.home>
+ <e75964e2-6b46-4594-8bfb-ce0c0ed620a7@acm.org>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAOQ4uxjbEY12XMmfCXTPTpASmECCXcGBQR+bS93k=4vgqzFDZA@mail.gmail.com>
-X-Spam-Score: -4.01
-X-Rspamd-Queue-Id: AF3641F7B8
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Spam-Level: 
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [-4.01 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_TO(0.00)[gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[suse.cz:+];
-	MISSING_XM_UA(0.00)[];
-	FREEMAIL_CC(0.00)[suse.cz,gmail.com,redhat.com,vger.kernel.org];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.com:email]
-X-Spam-Flag: NO
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: B58FC20025
+X-Stat-Signature: w9sstciwyeg9k3i9zciydmjjw3na9opa
+X-Rspamd-Server: rspamout07
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+4DphZfmeiOjKeVOVnqG20tvhEOBg0byw=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=VsG1uRdkPnRhYBH5YkonWkQOhN7AcJSlfmL/7A3v360=; b=xqvfbox/H+u1ZnHE7AwX8l9VbDosWAS8fcWNm440efUlDy82IopblXBjvpEL/ksbE9bUkPI/SVnIT5mOm07+W4OJkIo33SojkDcxDD5ajW0uVjBweBJP4+cBfSYCMe5sgCFwQTf/aXIzqiB12t13G78RaHT3tXZY5YAPQs2siUs=
+X-HE-Tag: 1788367987-104037
+X-HE-Meta: U2FsdGVkX19ZuOVIGXD+dV48MmpWkcsB8XQCOl8CHbKSR+nJUb0u/zfpd8p8OoGTfp/bJgr4pR5djR/qxc7Hmj+rw7xAq2U9cpzl/FWwAOpqR/wbSExaHNq8UsCQ5+4EnOVsI82zXr0JPdqbR0mQtZvWsmMxUsN4mlllcyjn1d2gQ32aDQxbEPDdicTxlRi7FkMnyJ3+HqjX9W0g8beUVLJPJDa0CjJ6gDxtka15/X5ctuRVzfKqUm4lPqccBKUME/nr6XzlrrHHyCITksVZKaPgWP8kX0UpfYQZMyFNOJd6vfr7hzktQih6+3BNC3X6/j9SGZqT/YapStcDXhKko2OArqXcaQZ5
 
-On Tue 01-09-26 23:53:48, Amir Goldstein wrote:
-> On Tue, Sep 1, 2026 at 6:57 PM Jan Kara <jack@suse.cz> wrote:
-> >
-> > > +       }
-> > >         res = __d_find_any_alias(inode); /* recheck under lock */
-> > >         if (likely(!res)) { /* still no alias, attach a disconnected dentry */
-> > >                 unsigned add_flags = d_flags_for_inode(inode);
-> >
-> > Thanks for looking into this!
-> >
+On Wed, 2 Sep 2026 09:44:49 -0700
+Bart Van Assche <bvanassche@acm.org> wrote:
+
+> > Perhaps these should be converted to normal types and assigned with
+> > __force. There's no reason to have the value in the ring buffer be of a
+> > __bitwise type.  
 > 
-> See attached patch (again helper named debatable).
+> Yikes. Typecasts in general and __force casts in particular should be 
+> avoided whenever possible, isn't it?
 
-Thanks for the patch! I have somewhat massaged the changelog and names and
-sent it for inclusion to Christian. Since this is messing with dcache code,
-it should better go through his tree (plus I want to give him a chance to
-stop this somewhat hacky workaround ;)).
+It's recording a value into a ring buffer to be read by user space tooling
+that is figuring out how to read it via the format files (the thing that
+uses is_signed_type()).
 
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+What use does using __bitwise have with that?
+
+If anything, using __bitwise in the field makes things much worse, as you
+are finding out now.
+
+-- Steve
