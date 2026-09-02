@@ -1,61 +1,31 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CC8369D76;
-	Wed,  2 Sep 2026 02:45:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+Received: from hqu.edu.cn (hqu.edu.cn [210.34.240.11])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2EB6B4CCDEF;
+	Wed,  2 Sep 2026 02:46:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.34.240.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788317115; cv=none; b=ubr6lZlvRh8/tnwVu/KBTJ7s7hOyLi57a1ao32OCw3Qwlx8jFg98j+VdOlG3PvUcLt7wmdtL5bdebGBybFePN74W46dpJFCxJfln4c3cgCL2NOgXJ956HJmzmH19k9CSRm/WaaMYrgjbD6q+t75Tkt+qjI98+n/MQhXqHw35fNU=
+	t=1788317198; cv=none; b=Yo4HDZTL/N5KyBjQ2JGaQuaEN6VK2iJjk5EC9BNZ2JrK5eGxXKisU6LwT5x3FjhBrSijdl3dSkqo6vt4LswLYuwe+fqC3Ia1tX3DQinzXydmFPnQ2sTU22eYdzbtpGYGIXg2ti65MlGyPafaB1fX11JSTbliXlhtqIahj+FnIiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788317115; c=relaxed/simple;
-	bh=RgIOiHn5rtUafHFzFya5enz5Im0nl42eiSAepzr3Qh8=;
+	s=arc-20240116; t=1788317198; c=relaxed/simple;
+	bh=vf3rGOCPnf8EqbL3gDKUJV6Z+XhAKY4Q5qICBD9eRc4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YIPIRfLE9udiAPb57gGq2Z7X9SWkWcQssZiXxAG+gj9KjWB8L9HGgM+BBOiO+8cDbo3Ttr5W/GkWxOoT0E+tVn4uoSJXkjGo/K4RGZ7mcUl78ob74OScyjtY2eY0pd3d7VfWt3+2tuq3k4jy68KJdZgGYC1rqwmjH+4RleVJ2yM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y/0uMIfm; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y/0uMIfm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788317113; x=1819853113;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=RgIOiHn5rtUafHFzFya5enz5Im0nl42eiSAepzr3Qh8=;
-  b=Y/0uMIfmHpN5AtloyXQt2fgiOAkhPsxzx2Z+5un8LcnI1MldPZwn2TQ5
-   lDjftpK9cZG9C067qNwB2RijrRiOGgkJoc50chhkC7z1IaD8E2iU5Y7G7
-   nnidxJ9M5o+Ppi2+l9ZtJfUXa8FiwlVhioYIYcQ2CtwikvZJJGyodZfAC
-   s385ZdIckykK53OOEUUQ07DoP2EwifXuhH1bApq/fu53+A/pb9NvxZtfo
-   X+wItupU+n+MldUjXSbDffgCQFURAjWrNg3w7JFbGIDmDOv1PJsqvXpXC
-   37luXnxQE/ljjKOAbCssvOoiYgsDNE5kXpiag1+SDzmKc6quCLdi5A4yW
-   Q==;
-X-CSE-ConnectionGUID: S8mE26l6TySdWZbhmhqgNw==
-X-CSE-MsgGUID: E6VyhUiISfSgo6l13I6gfA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="106283002"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="106283002"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 19:45:05 -0700
-X-CSE-ConnectionGUID: chHfiL2ZRZme2bBx3djGGQ==
-X-CSE-MsgGUID: OslUVZo1QGew++rYi14IRQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="272775586"
-Received: from chang-linux-3.sc.intel.com (HELO chang-linux-3) ([172.25.66.174])
-  by orviesa003.jf.intel.com with ESMTP; 01 Sep 2026 19:45:05 -0700
-From: "Chang S. Bae" <chang.seok.bae@intel.com>
-To: pbonzini@redhat.com,
-	seanjc@google.com
-Cc: kvm@vger.kernel.org,
-	x86@kernel.org,
+	 MIME-Version; b=pDAFAdwSlTcmYdaEh2TH8Z4dE19cytvLVlHPMO1w0aA5Q900n/J3fZh1ZvVts4pkaWY1c77mO0eTwuTY/3NibHXy4jv25N6WLYW73+QWhXJp+s2Qj4/wS1xs/2sBDVZoXwJff+YaCSIo2t6HMpP8/rmFT7aW03fidYJMACgfIis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.hqu.edu.cn; spf=pass smtp.mailfrom=stu.hqu.edu.cn; arc=none smtp.client-ip=210.34.240.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.hqu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.hqu.edu.cn
+Received: from raspberry-nas (unknown [27.42.228.181])
+	by cmweb (Coremail) with SMTP id C_Ai0gCH6tkBjpdqiSAFAA--.10504S2;
+	Wed, 02 Sep 2026 10:46:25 +0800 (CST)
+From: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
+To: linux-wireless@vger.kernel.org
+Cc: pkshih@realtek.com,
 	linux-kernel@vger.kernel.org,
-	chang.seok.bae@intel.com
-Subject: [PATCH v7 19/20] KVM: x86: selftests: Add APX state and ABI test
-Date: Wed,  2 Sep 2026 02:18:03 +0000
-Message-ID: <20260902021804.718676-20-chang.seok.bae@intel.com>
+	YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
+Subject: [PATCH v2] wifi: rtw88: use firmware MAC address as fallback
+Date: Wed,  2 Sep 2026 10:46:22 +0800
+Message-ID: <20260902024622.4149279-1-raspberrykan@stu.hqu.edu.cn>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260902021804.718676-1-chang.seok.bae@intel.com>
-References: <20260902021804.718676-1-chang.seok.bae@intel.com>
+In-Reply-To: <20260901124551.3921506-1-raspberrykan@stu.hqu.edu.cn>
+References: <20260901124551.3921506-1-raspberrykan@stu.hqu.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -63,377 +33,57 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:C_Ai0gCH6tkBjpdqiSAFAA--.10504S2
+X-Coremail-Antispam: 1UD129KBjvJXoWruw1DZrW8ZFW8tF4fGFyfWFg_yoW8JF1Dpa
+	yDGa1a9FnxJrsrua1fWa1ruF1rGan3J34jyr9Yy3s09rn8XryfZFyUGF9FvF1jqFW0yF4U
+	tr15trZrGF9YvrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUyv14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r1j
+	6r4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCF04k20xvY0x0EwIxG
+	rwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
+	vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IY
+	x2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26c
+	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAF
+	wI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUbrMaUUUUUU==
+X-CM-SenderInfo: ysvskiyqsqlko6vw3hxktxhvlgxou0/1tbiAQAQBGqVmGMDTgAGsa
 
-Test APX-specific behavior and ABI interactions as these are unique
-comparing to other state components:
+Some devices provide the Wi-Fi MAC address through firmware instead of
+storing a valid address in the chip efuse.
 
-  * EGPR state is saved on VM entry assembly (unlike other components).
-  * The saved state is retained even if the guest disables APX.
-  * EGPR state is exposed via the XSAVE ABI while not stored in the
-    kernel XSAVE buffer.
+Try to read the MAC address from firmware before falling back to a
+randomly generated address.
 
-Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
+Signed-off-by: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
 ---
- tools/testing/selftests/kvm/Makefile.kvm      |   1 +
- .../selftests/kvm/include/x86/processor.h     | 120 +++++++++++
- tools/testing/selftests/kvm/x86/apx_test.c    | 191 ++++++++++++++++++
- 3 files changed, 312 insertions(+)
- create mode 100644 tools/testing/selftests/kvm/x86/apx_test.c
+Changes in v2:
+- Fix the undeclared mac_ret issue by checking
+  device_get_mac_address() directly.
 
-diff --git a/tools/testing/selftests/kvm/Makefile.kvm b/tools/testing/selftests/kvm/Makefile.kvm
-index 96bab7002d39..2bd5c77047a8 100644
---- a/tools/testing/selftests/kvm/Makefile.kvm
-+++ b/tools/testing/selftests/kvm/Makefile.kvm
-@@ -166,6 +166,7 @@ TEST_GEN_PROGS_x86 += rseq_test
- TEST_GEN_PROGS_x86 += steal_time
- TEST_GEN_PROGS_x86 += system_counter_offset_test
- TEST_GEN_PROGS_x86 += pre_fault_memory_test
-+TEST_GEN_PROGS_x86 += x86/apx_test
+ drivers/net/wireless/realtek/rtw88/main.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/wireless/realtek/rtw88/main.c b/drivers/net/wireless/realtek/rtw88/main.c
+index cd9254370fcc..0f23498b5c96 100644
+--- a/drivers/net/wireless/realtek/rtw88/main.c
++++ b/drivers/net/wireless/realtek/rtw88/main.c
+@@ -2060,8 +2060,11 @@ static int rtw_chip_efuse_info_setup(struct rtw_dev *rtwdev)
+ 	efuse->ext_lna_5g = efuse->lna_type_5g & BIT(3) ? 1 : 0;
  
- # Compiled outputs used by test targets
- TEST_GEN_PROGS_EXTENDED_x86 += x86/nx_huge_pages_test
-diff --git a/tools/testing/selftests/kvm/include/x86/processor.h b/tools/testing/selftests/kvm/include/x86/processor.h
-index 6e6f70035508..6e3e7d96c571 100644
---- a/tools/testing/selftests/kvm/include/x86/processor.h
-+++ b/tools/testing/selftests/kvm/include/x86/processor.h
-@@ -108,6 +108,7 @@ struct xstate {
- #define XFEATURE_MASK_LBR		BIT_ULL(15)
- #define XFEATURE_MASK_XTILE_CFG		BIT_ULL(17)
- #define XFEATURE_MASK_XTILE_DATA	BIT_ULL(18)
-+#define XFEATURE_MASK_APX		BIT_ULL(19)
- 
- #define XFEATURE_MASK_AVX512		(XFEATURE_MASK_OPMASK | \
- 					 XFEATURE_MASK_ZMM_Hi256 | \
-@@ -195,6 +196,7 @@ struct kvm_x86_cpu_feature {
- #define	X86_FEATURE_SPEC_CTRL		KVM_X86_CPU_FEATURE(0x7, 0, EDX, 26)
- #define	X86_FEATURE_ARCH_CAPABILITIES	KVM_X86_CPU_FEATURE(0x7, 0, EDX, 29)
- #define	X86_FEATURE_PKS			KVM_X86_CPU_FEATURE(0x7, 0, ECX, 31)
-+#define	X86_FEATURE_APX			KVM_X86_CPU_FEATURE(0x7, 1, EDX, 21)
- #define	X86_FEATURE_XTILECFG		KVM_X86_CPU_FEATURE(0xD, 0, EAX, 17)
- #define	X86_FEATURE_XTILEDATA		KVM_X86_CPU_FEATURE(0xD, 0, EAX, 18)
- #define	X86_FEATURE_XSAVES		KVM_X86_CPU_FEATURE(0xD, 1, EAX, 3)
-@@ -917,6 +919,124 @@ static inline void write_sse_reg(int reg, const sse128_t *data)
+ 	if (!is_valid_ether_addr(efuse->addr)) {
+-		eth_random_addr(efuse->addr);
+-		dev_warn(rtwdev->dev, "efuse MAC invalid, using random\n");
++		if (device_get_mac_address(rtwdev->dev, efuse->addr)) {
++			eth_random_addr(efuse->addr);
++			dev_warn(rtwdev->dev,
++				 "failed to get valid MAC address, using random\n");
++		}
  	}
- }
  
-+static inline unsigned long read_egpr(int reg)
-+{
-+	unsigned long data = 0;
-+
-+	/* mov %r16..%r31, %rax */
-+	switch (reg) {
-+	case 16:
-+		asm(".byte 0xd5, 0x48, 0x89, 0xc0" : "=a"(data));
-+		break;
-+	case 17:
-+		asm(".byte 0xd5, 0x48, 0x89, 0xc8" : "=a"(data));
-+		break;
-+	case 18:
-+		asm(".byte 0xd5, 0x48, 0x89, 0xd0" : "=a"(data));
-+		break;
-+	case 19:
-+		asm(".byte 0xd5, 0x48, 0x89, 0xd8" : "=a"(data));
-+		break;
-+	case 20:
-+		asm(".byte 0xd5, 0x48, 0x89, 0xe0" : "=a"(data));
-+		break;
-+	case 21:
-+		asm(".byte 0xd5, 0x48, 0x89, 0xe8" : "=a"(data));
-+		break;
-+	case 22:
-+		asm(".byte 0xd5, 0x48, 0x89, 0xf0" : "=a"(data));
-+		break;
-+	case 23:
-+		asm(".byte 0xd5, 0x48, 0x89, 0xf8" : "=a"(data));
-+		break;
-+	case 24:
-+		asm(".byte 0xd5, 0x4c, 0x89, 0xc0" : "=a"(data));
-+		break;
-+	case 25:
-+		asm(".byte 0xd5, 0x4c, 0x89, 0xc8" : "=a"(data));
-+		break;
-+	case 26:
-+		asm(".byte 0xd5, 0x4c, 0x89, 0xd0" : "=a"(data));
-+		break;
-+	case 27:
-+		asm(".byte 0xd5, 0x4c, 0x89, 0xd8" : "=a"(data));
-+		break;
-+	case 28:
-+		asm(".byte 0xd5, 0x4c, 0x89, 0xe0" : "=a"(data));
-+		break;
-+	case 29:
-+		asm(".byte 0xd5, 0x4c, 0x89, 0xe8" : "=a"(data));
-+		break;
-+	case 30:
-+		asm(".byte 0xd5, 0x4c, 0x89, 0xf0" : "=a"(data));
-+		break;
-+	case 31:
-+		asm(".byte 0xd5, 0x4c, 0x89, 0xf8" : "=a"(data));
-+		break;
-+	default:
-+		BUG();
-+	}
-+
-+	return data;
-+}
-+
-+static inline void write_egpr(int reg, unsigned long data)
-+{
-+	/* mov %%rax, %r16...%r31*/
-+	switch (reg) {
-+	case 16:
-+		asm(".byte 0xd5, 0x18, 0x89, 0xc0" : : "a"(data));
-+		break;
-+	case 17:
-+		asm(".byte 0xd5, 0x18, 0x89, 0xc1" : : "a"(data));
-+		break;
-+	case 18:
-+		asm(".byte 0xd5, 0x18, 0x89, 0xc2" : : "a"(data));
-+		break;
-+	case 19:
-+		asm(".byte 0xd5, 0x18, 0x89, 0xc3" : : "a"(data));
-+		break;
-+	case 20:
-+		asm(".byte 0xd5, 0x18, 0x89, 0xc4" : : "a"(data));
-+		break;
-+	case 21:
-+		asm(".byte 0xd5, 0x18, 0x89, 0xc5" : : "a"(data));
-+		break;
-+	case 22:
-+		asm(".byte 0xd5, 0x18, 0x89, 0xc6" : : "a"(data));
-+		break;
-+	case 23:
-+		asm(".byte 0xd5, 0x18, 0x89, 0xc7" : : "a"(data));
-+		break;
-+	case 24:
-+		asm(".byte 0xd5, 0x19, 0x89, 0xc0" : : "a"(data));
-+		break;
-+	case 25:
-+		asm(".byte 0xd5, 0x19, 0x89, 0xc1" : : "a"(data));
-+		break;
-+	case 26:
-+		asm(".byte 0xd5, 0x19, 0x89, 0xc2" : : "a"(data));
-+		break;
-+	case 27:
-+		asm(".byte 0xd5, 0x19, 0x89, 0xc3" : : "a"(data));
-+		break;
-+	case 28:
-+		asm(".byte 0xd5, 0x19, 0x89, 0xc4" : : "a"(data));
-+		break;
-+	case 29:
-+		asm(".byte 0xd5, 0x19, 0x89, 0xc5" : : "a"(data));
-+		break;
-+	case 30:
-+		asm(".byte 0xd5, 0x19, 0x89, 0xc6" : : "a"(data));
-+		break;
-+	case 31:
-+		asm(".byte 0xd5, 0x19, 0x89, 0xc7" : : "a"(data));
-+		break;
-+	default:
-+		BUG();
-+	}
-+}
-+
- static inline void invlpg(u64 addr)
- {
- 	__asm__ __volatile__("invlpg (%0)" : : "r"(addr) : "memory");
-diff --git a/tools/testing/selftests/kvm/x86/apx_test.c b/tools/testing/selftests/kvm/x86/apx_test.c
-new file mode 100644
-index 000000000000..4825003d0616
---- /dev/null
-+++ b/tools/testing/selftests/kvm/x86/apx_test.c
-@@ -0,0 +1,191 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include "processor.h"
-+
-+enum stages {
-+	GUEST_UPDATE,
-+	USERSPACE_UPDATE,
-+	GUEST_APXOFF,
-+};
-+
-+enum egpr_ops {
-+	EGPRS_WRITE,
-+	EGPRS_CHECK,
-+};
-+
-+#define for_each_egpr(reg)	for (reg = 16; reg <= 31; reg++)
-+
-+/*
-+ * Deterministic per-stage test values for EGPRs so that guest and
-+ * userspace can validate state transitions.
-+ */
-+static inline unsigned long egpr_data(enum stages stage, int reg)
-+{
-+	switch (stage) {
-+	case GUEST_UPDATE:
-+		return 0xabcd + reg;
-+	case USERSPACE_UPDATE:
-+		return 0xbcde + reg;
-+	case GUEST_APXOFF:
-+		return 0xcdef + reg;
-+	default:
-+		return 0;
-+	}
-+}
-+
-+/*
-+ * Read/write or validate EGPR values either directly via registers
-+ * (guest context) or via a provided buffer (userspace XSAVE).
-+ */
-+static bool handle_egprs(enum egpr_ops ops, unsigned long *egprs, enum stages stage)
-+{
-+	unsigned long data;
-+	int reg;
-+
-+	for_each_egpr(reg) {
-+		data = egpr_data(stage, reg);
-+
-+		if (ops == EGPRS_WRITE) {
-+			if (egprs)
-+				egprs[reg - 16] = data;
-+			else
-+				write_egpr(reg, data);
-+			continue;
-+		}
-+
-+		if (ops != EGPRS_CHECK)
-+			return false;
-+
-+		if (egprs) {
-+			if (egprs[reg - 16] != data)
-+				return false;
-+			continue;
-+		}
-+
-+		if (read_egpr(reg) != data)
-+			return false;
-+	}
-+
-+	return true;
-+}
-+
-+static void write_egprs(enum stages stage)
-+{
-+	handle_egprs(EGPRS_WRITE, NULL, stage);
-+}
-+
-+static bool validate_egprs(enum stages stage)
-+{
-+	return handle_egprs(EGPRS_CHECK, NULL, stage);
-+}
-+
-+static void test_guest_update(void)
-+{
-+	write_egprs(GUEST_UPDATE);
-+	GUEST_SYNC(GUEST_UPDATE);
-+	GUEST_ASSERT(validate_egprs(GUEST_UPDATE));
-+}
-+
-+static void test_userspace_update(void)
-+{
-+	/* Userspace updates EGPR state via the KVM XSAVE ABI */
-+	GUEST_SYNC(USERSPACE_UPDATE);
-+	GUEST_ASSERT(validate_egprs(USERSPACE_UPDATE));
-+}
-+
-+static void test_guest_apxoff(void)
-+{
-+	write_egprs(GUEST_APXOFF);
-+	/* Disable APX to verify state is preserved */
-+	GUEST_ASSERT(!xsetbv_safe(0, this_cpu_supported_xcr0() & ~XFEATURE_MASK_APX));
-+	GUEST_SYNC(GUEST_APXOFF);
-+	GUEST_ASSERT(!xsetbv_safe(0, this_cpu_supported_xcr0()));
-+	GUEST_ASSERT(validate_egprs(GUEST_APXOFF));
-+}
-+
-+static void guest_code(void)
-+{
-+	set_cr4(get_cr4() | X86_CR4_OSXSAVE);
-+	GUEST_ASSERT(!xsetbv_safe(0, this_cpu_supported_xcr0()));
-+
-+	test_guest_update();
-+	test_userspace_update();
-+	test_guest_apxoff();
-+
-+	GUEST_DONE();
-+}
-+
-+#define X86_PROPERTY_XSTATE_APX_OFFSET	KVM_X86_CPU_PROPERTY(0xd, 19, EBX, 0, 31)
-+#define XSAVE_HDR_OFFSET		512
-+
-+static inline unsigned long *xsave_egprs(void *xsave)
-+{
-+	return xsave + kvm_cpu_property(X86_PROPERTY_XSTATE_APX_OFFSET);
-+}
-+
-+static inline void xstatebv_set(void *xsave, uint64_t mask)
-+{
-+	*(uint64_t *)(xsave + XSAVE_HDR_OFFSET) |= mask;
-+}
-+
-+static void write_xsave_egprs(void *xsave, enum stages stage)
-+{
-+	handle_egprs(EGPRS_WRITE, xsave_egprs(xsave), stage);
-+	xstatebv_set(xsave, XFEATURE_MASK_APX);
-+}
-+
-+static bool validate_xsave_egprs(void *xsave, enum stages stage)
-+{
-+	return handle_egprs(EGPRS_CHECK, xsave_egprs(xsave), stage);
-+}
-+
-+int main(int argc, char *argv[])
-+{
-+	struct kvm_xsave *xsave;
-+	struct kvm_vcpu *vcpu;
-+	struct kvm_vm *vm;
-+	enum stages stage;
-+	struct ucall uc;
-+	int xsave_size;
-+
-+	TEST_REQUIRE(kvm_cpu_has(X86_FEATURE_XSAVE));
-+	TEST_REQUIRE(kvm_cpu_has(X86_FEATURE_APX));
-+
-+	vm = vm_create_with_one_vcpu(&vcpu, guest_code);
-+	xsave_size = vm_check_cap(vcpu->vm, KVM_CAP_XSAVE2);
-+	TEST_ASSERT(xsave_size, "KVM_CAP_XSAVE2 not supported");
-+	xsave = malloc(xsave_size);
-+	TEST_ASSERT(xsave, "Failed to allocate XSAVE buffer");
-+
-+	while (1) {
-+		vcpu_run(vcpu);
-+		TEST_ASSERT_KVM_EXIT_REASON(vcpu, KVM_EXIT_IO);
-+
-+		switch (get_ucall(vcpu, &uc)) {
-+		case UCALL_ABORT:
-+			REPORT_GUEST_ASSERT(uc);
-+			break;
-+		case UCALL_SYNC: {
-+			stage = uc.args[1];
-+			vcpu_xsave2_get(vcpu, xsave);
-+			if (stage == USERSPACE_UPDATE) {
-+				write_xsave_egprs(xsave, stage);
-+			} else {
-+				TEST_ASSERT(validate_xsave_egprs(xsave, stage),
-+					    "EGPR state mismatch in userspace XSAVE buffer");
-+			}
-+			vcpu_xsave_set(vcpu, xsave);
-+			break;
-+		}
-+		case UCALL_DONE:
-+			goto done;
-+		default:
-+			TEST_FAIL("Unknown ucall %lu", uc.cmd);
-+		}
-+	}
-+
-+done:
-+	free(xsave);
-+	kvm_vm_free(vm);
-+	return 0;
-+}
+ out_disable:
 -- 
 2.53.0
 
