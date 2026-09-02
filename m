@@ -1,43 +1,43 @@
 Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ECB8433E75;
-	Wed,  2 Sep 2026 12:23:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DEB547D921;
+	Wed,  2 Sep 2026 12:23:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788351784; cv=none; b=k+o2MYEHjqMBLipkOTaAFqcjaExiHF0Lane4JxpvBua6nuUhKbhAjBV6tIEEtYeS+or4hRheCzsdNk9DfeezsL+8t+tFOvUwcPBjzFNHaPkPnJWoWk72F+wYxVY4Sq/So6x08hLU3i6npQJVaiFs7vXA/XOcQnyIiGdhD6x+0WQ=
+	t=1788351785; cv=none; b=QM4DQwyTTZUhvJTvhLLCFb1btJe7uO2W/VvJol4nKk+c6Wh44J+bq9t81pFFV2AWWr50wWjB9Ssdn3hev08YbF76OrIMyCZnkBTLhicVswVoCbtZc9OlIYaWclg98agHtFx4E2dbtMaWXSkweISYJyDen1N0rlYV3x/U76Ub9uk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788351784; c=relaxed/simple;
-	bh=AESHr0IkfGVe/nYHKOQP0CK1IQsbtql8FlBvNdGujUE=;
+	s=arc-20240116; t=1788351785; c=relaxed/simple;
+	bh=zpp8Ug8gf+c1U+7lEVkN08JvuRPPeGMJZs3ojPpU2j8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=nhYJKcMy5RKzgnzEoJ/jO4HFX1R3lu8NT0Bt2zstkAaawm1yFJ4o6bHewj1qDMi3c45joDy0wkhBqeKGCdEAO1lSkdnNaQA3VQyAHMVv4V8QFKTrahg3eZOMmKRQZ8ryj+J3ioXVKk6IR+qXKT2hTg1BB3Ikjkrv03lLkrwsbM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=KdQUdWzQ; arc=none smtp.client-ip=188.40.3.216
+	 MIME-Version:Content-Type; b=pYqmXODjOUYUmO5MlytmCGoBDzQ819+3eKx2vZGstGHJKZMkLFZG29qev3NMSTfBYEMoyfx9X+d31dobF9ULwiRALIRCMrvdhe9zNl9GJb/+mQB4qICZoWWS9YVDlCWBxjASNguiZz2KZVUmvdkAh0PTV7M0HPsyanjbP9VTOsk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=f18bYAAW; arc=none smtp.client-ip=188.40.3.216
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="KdQUdWzQ"
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="f18bYAAW"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
 	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:Content-Type:
 	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
 	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
 	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=YZOJZMYVElt8qJZC0gYvS3Szs6oti4jhDQBoAAgKW94=; b=KdQUdWzQNGU9wbFij+iXKNCoQz
-	yf/EXf8J8Gp/O8oeVLqHyT8HUgsHjE1BHKIUGMMgl7CM5febu1qHx4yaghL4JV57H3uXv/1gha2dx
-	zduDuxsAoEqK52WoPpxptlkbo80+Qtwc6JOjCghg7n+iucYD3UyOKRFont0IOWmI/l0Gw8KyXdra+
-	YmLMVZtJMmHbZgjT7fk2GASVeRaoHlWlWOMO1Rd8FyRAqIJF53SNhcsd69RKa71aOJ7KlTv8DgNkg
-	p9Ig3XelHRQNwcpEUrO3vKnHeMgz4cFFcgoUVmSiX8F/7e9DJvjJG09tToUivkbPQU7H6f4GGmrqZ
-	/hESG9Ig==;
+	bh=uiC1nScvl3iA6vnumFZUV7nhckCMS+GwWSo5Su2PsMU=; b=f18bYAAW3vuj8SIEPnIPnL7wqK
+	3ow7ZMGTlDe31vG3DUZDfvc1Lo6OpwOrUYR0SLSfgWqx55KV4I3nM8qwEXWHG124QZc84gkcQDYO1
+	ynuSDQBAjVq68eQiQSN2Pb2nhqwU3ZcDB3dI4Kri/B7+ehjEJ5kpFXo1jOjDjEcdr20s2LwCZb0yZ
+	COy+p6rB0wBUYtvhOmT2PFUqk0aVatIc2AuI3uGrtG0EXZKNm2xEd7iwjwD0XksUarX3sVeOWUfQQ
+	9Oa7kkSS9slZJjm9+I0+XHnKLfRK7ZJ7x4JsI04XL7otnLdDC/taD45sB2w57P4HTbZSX3kGpuUlJ
+	OjFcUeSA==;
 Received: from sslproxy01.your-server.de ([78.46.139.224])
 	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(Exim 4.96.2)
 	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1x1jzY-0006yB-1B;
-	Wed, 02 Sep 2026 14:23:00 +0200
+	id 1x1jzX-0006xS-2B;
+	Wed, 02 Sep 2026 14:22:59 +0200
 Received: from localhost ([127.0.0.1])
 	by sslproxy01.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1x1jzX-0004kO-2r;
+	id 1x1jzX-0004kO-0e;
 	Wed, 02 Sep 2026 14:22:59 +0200
 From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
 To: Lee Jones <lee@kernel.org>,
@@ -51,9 +51,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Nora Schiffer <nora.schiffer@ew.tq-group.com>
-Subject: [PATCH 4/7] leds: pca995x: make output gain configurable
-Date: Wed,  2 Sep 2026 14:22:12 +0200
-Message-ID: <0c7e5cd44bb73d8680d30e1ae912b1cfcdab332f.1788350618.git.nora.schiffer@ew.tq-group.com>
+Subject: [PATCH 2/7] dt-bindings: leds: pca995x: describe output-gain property
+Date: Wed,  2 Sep 2026 14:22:10 +0200
+Message-ID: <7f61e7e8781292450f920c49ef8853b802d76ecc.1788350618.git.nora.schiffer@ew.tq-group.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <6d3600f99c77c31166f0b6a5ccfb7f518b53c4c9.1788350618.git.nora.schiffer@ew.tq-group.com>
 References: <6d3600f99c77c31166f0b6a5ccfb7f518b53c4c9.1788350618.git.nora.schiffer@ew.tq-group.com>
@@ -67,50 +67,33 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Virus-Scanned: Clear (ClamAV 1.4.3/28111/Wed Sep  2 08:24:01 2026)
 
-The output gain linearly configures the LED current in 255 levels; the
-absolute current depends on both the gain value and the R_ext resistor
-connected to the LED driver. Make the gain configurable in the Device
-Tree instead of hardcoding it to 128, allowing to adjust the current
-for different hardware designs.
+Allow configuring the output current to adjust for different hardware
+designs.
 
 Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
 ---
- drivers/leds/leds-pca995x.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/leds/nxp,pca995x.yaml | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/leds/leds-pca995x.c b/drivers/leds/leds-pca995x.c
-index 8eb9847b9709f..b069b93d39a54 100644
---- a/drivers/leds/leds-pca995x.c
-+++ b/drivers/leds/leds-pca995x.c
-@@ -126,6 +126,7 @@ static int pca995x_probe(struct i2c_client *client)
- 	struct pca995x_chip *chip;
- 	struct pca995x_led *led;
- 	int i, j, reg, ret;
-+	u32 iref;
+diff --git a/Documentation/devicetree/bindings/leds/nxp,pca995x.yaml b/Documentation/devicetree/bindings/leds/nxp,pca995x.yaml
+index 201f32f1b8139..7569e1b8a38fa 100644
+--- a/Documentation/devicetree/bindings/leds/nxp,pca995x.yaml
++++ b/Documentation/devicetree/bindings/leds/nxp,pca995x.yaml
+@@ -36,6 +36,14 @@ properties:
+   "#size-cells":
+     const: 0
  
- 	chipdef = device_get_match_data(&client->dev);
- 
-@@ -153,6 +154,11 @@ static int pca995x_probe(struct i2c_client *client)
- 
- 	i2c_set_clientdata(client, chip);
- 
-+	if (device_property_read_u32(dev, "output-gain", &iref))
-+		iref = PCA995X_IREFALL_HALF_CFG;
-+	else if (iref > PCA995X_IREFALL_FULL_CFG)
-+		return dev_err_probe(dev, -EINVAL, "invalid output-gain\n");
++  output-gain:
++    description:
++      Set the output gain controlling the LED current as described in the
++      PCA995x datasheets.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    default: 128
++    maximum: 255
 +
- 	device_for_each_child_node_scoped(dev, child) {
- 		ret = fwnode_property_read_u32(child, "reg", &reg);
- 		if (ret)
-@@ -195,7 +201,7 @@ static int pca995x_probe(struct i2c_client *client)
- 		return ret;
+   reset-gpios:
+     maxItems: 1
  
- 	/* IREF Output current value for all LEDn outputs */
--	return regmap_write(chip->regmap, chipdef->irefall, PCA995X_IREFALL_HALF_CFG);
-+	return regmap_write(chip->regmap, chipdef->irefall, iref);
- }
- 
- static const struct i2c_device_id pca995x_id[] = {
 -- 
 TQ-Systems GmbH | Mühlstraße 2, Gut Delling | 82229 Seefeld, Germany
 Amtsgericht München, HRB 105018
