@@ -1,82 +1,104 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D2A14A8A00
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:24:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55AC74A8FD7
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:25:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366293; cv=none; b=T8bn5AUbimA+nWzKo46XBVW49bwyGF8O0kryN5S2Grbn3GHa2DJUva0/x/aYUmTp8fdJDvpUOVBluzIN4tjJCW0QCXTUMFXaFgW9aWjFxEYerGXiP29gCYxLrx0jWQHjWojKuvO/Z2BxrAtpq/l674AaAR/qatQ32aZvJEpWERg=
+	t=1788366312; cv=none; b=ZabEABCtO+eFsPb+RcELVJ347iXxY7b+byfd3zu19Dt6lo85bNmHqjv+xp2N2Wvyyg4XKuXgAlfjTrBF8TRCwyboOhuujjifcb/WKgGxB4ng16zzaGZBAvwYN9i9PL0bn13hEuT/F5UVVKSx5rwLQ+bvsfuRhwZwpkK4RWwfc9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366293; c=relaxed/simple;
-	bh=vfT0gBCdvaFkM+WEDg2/FJFe0widSEDRA4F4WA0OKyA=;
-	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=O3lwKzwFiitQXgw2WSzlc1y7xONgJuz9kcPqxVj8fo9yL2MZ+utoXfiajsfgRNWIabpruCFcMaX0TxzB7l5JdTjpC/CFxxWdP+d56PipUrAWanzDZrMpaOxjkYNUI5Mxfbw8is89YqZw+a58kQZvy3H4CMRhddxZihnTMAAoDcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=qEQPobQs; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="qEQPobQs"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 7C0354E414D2;
-	Wed,  2 Sep 2026 16:24:48 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4CD896053C;
-	Wed,  2 Sep 2026 16:24:48 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 65A2D11C798E5;
-	Wed,  2 Sep 2026 18:24:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788366283; h=from:subject:date:message-id:to:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=hLJ/CpxXuD6ymjaCOfhQB55zWbz7W46bUrSUDWQxz98=;
-	b=qEQPobQsuSS1W3WnE+pn3kyGDUNRCKh/tfOnc09s0U2gLCWggput97YZW93UfrWS7UEqdx
-	uhFblnOfLCVLJjzi8jxI6wHcN82dlQdoSJpOVloHidOKekKqmf3XDlO19kNLzub27a1I0p
-	rxPKeLNZxAt88Q0fYuSVlmqxZQYeyKmfM4uwq9S5BdJCk683Tauiwd4fB0RpMMA2+yJ8n7
-	eKl4RfzqYl79lcqrUlhhMDsq2AnPec2pFUVqEBC5BfpxEPTizB5B58hidT0rW9oiIFgphN
-	VnExDr3vLLTsXzz/o0F3hgfoCXeWUJOUXXz4p3WwaU8gKdgo414iJaSRxuZ1Iw==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Ondrej Jirman <megi@xff.cz>, Javier Martinez Canillas <javierm@redhat.com>, 
- Michael Trimarchi <michael@amarulasolutions.com>, 
- Michael Walle <mwalle@kernel.org>, 
- Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Osama Abdelkader <osama.abdelkader@gmail.com>
-In-Reply-To: <20260812151000.74799-1-osama.abdelkader@gmail.com>
-References: <20260812151000.74799-1-osama.abdelkader@gmail.com>
-Subject: Re: [PATCH v4 4/6] drm/panel: Use managed helpers in Himax and
- Ilitek panels
-Message-Id: <178836627813.834353.158292906822547823.b4-ty@b4>
-Date: Wed, 02 Sep 2026 18:24:38 +0200
+	s=arc-20240116; t=1788366312; c=relaxed/simple;
+	bh=4UNriAhWDuhDAQW/1mZEubEniEm8ODyjqLC9FNbc4cI=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=R+wZr2tgeiariLBDAtr8vXSPIddZJYMHx8iY6Af38LvaVowp8AtChn0PCGlEU4LKEuBNbkSLGSzP0cPp0a8mP9csEPB4qkawVzGxoeJiYqhxIkwJZ9sxi1If25isGixDbsbZtUXVa+GhgBVO/i36m6kNKZWwWALQmvmFpeHAtRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4ad778bacbeso1654670b6e.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:25:10 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788366310; x=1788971110;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=U87nkd347QSLGeItHXGLweuZJ+vsbb3H25a7voypVNU=;
+        b=LR8vJM2T+ZYcEEwVG4W8V+VfxrJQNvVcW76LQQ3YAfTp4GrOXTKYZe09kYXuUitwv1
+         L42uwrNK1eC9jrVya3qeUK9POeFq3t7i/OwDA1oLEpA7NhW0XJPa1H9ejzshigdpxClx
+         085W20DjnFAfE4LQstUsGBaGhqdHO4ZM+TNZocY2cj5zy1FuLxVGUU5rVfunI4SZI7S/
+         FiHdd+AYuQWFCXjZhedMx9NIdiUDkq+K0XmAgeIKsoaR/Q2JIhA+EYf7fIHOFNxMLVNe
+         uZGD3VU4MrJgSr+H9mRTSq06Bux4EajGTKJ4oVTLoC27qg10CLr9YJKLm9LGx6H2KXTw
+         480g==
+X-Gm-Message-State: AFuF++nr1cPzVl/xUpjmTgR0TRMh4rgueIHbmvQQaVksDFTTzlI4skJ6
+	ijcNdz0+kRGgtq8pVZb2+tY2e6yOHWFctYLjEcrB0iQuOJpq+NULte+DIJZ5G7erZmmw6IKfYUo
+	LXniETP/4j4KpyNumMjuR/ua+rv5bCrZVGwRQkL69zo0r93uMKapgMkVItlk=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+X-Received: by 2002:a05:6820:988:b0:6b1:b68e:5109 with SMTP id
+ 006d021491bc7-6b47f204dedmr4515002eaf.33.1788366310163; Wed, 02 Sep 2026
+ 09:25:10 -0700 (PDT)
+Date: Wed, 02 Sep 2026 09:25:10 -0700
+In-Reply-To: <6a908733.1d9ded08.62e62.00d8.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a984de6.27a413cd.1e878c.0009.GAE@google.com>
+Subject: Forwarded: [PATCH] greybus: operation: fix out-of-bounds write in
+ message allocation
+From: syzbot <syzbot+2fd6aefc361af86911d5@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-On Wed, 12 Aug 2026 17:09:59 +0200, Osama Abdelkader wrote:
-> Use the managed MIPI DSI attach and panel add helpers in Himax and Ilitek
-> panel drivers and drop the corresponding manual detach and panel remove
-> calls from remove paths.
+***
 
-Applied, thanks!
+Subject: [PATCH] greybus: operation: fix out-of-bounds write in message allocation
+Author: adrianox@gmail.com
 
-[4/6] drm/panel: Use managed helpers in Himax and Ilitek panels
-      commit: 44b944ab41afd9e490fc99014afa21ad0af479c6
+#syz test
 
-Best regards,
+The incoming message size from the device header (header.size) is
+trusted without checking that it is at least the size of the message
+header itself, but a value smaller than sizeof(struct gb_operation_msg_hdr)
+underflows request_size in gb_operation_create_incoming(), wraps around
+in gb_operation_message_alloc(), and results in a tiny buffer that is
+then written past its end in gb_operation_message_init().
+
+Reject undersized messages before parsing the message header.
+
+Fixes: 87d208feb74f ("greybus: embed message buffer into message structure")
+Reported-by: syzbot+2fd6aefc361af86911d5@syzkaller.appspotmail.com
+Link: https://syzkaller.appspot.com/bug?extid=2fd6aefc361af86911d5
+Cc: stable@vger.kernel.org
+Assisted-by: opencode:deepseek v4 pro
+Signed-off-by: Adriano Cordova <adrianox@gmail.com>
+---
+ drivers/greybus/operation.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/greybus/operation.c b/drivers/greybus/operation.c
+index 7e12ffb2dd..df6daee4fb 100644
+--- a/drivers/greybus/operation.c
++++ b/drivers/greybus/operation.c
+@@ -1047,6 +1047,14 @@ void gb_connection_recv(struct gb_connection *connection,
+ 	/* Use memcpy as data may be unaligned */
+ 	memcpy(&header, data, sizeof(header));
+ 	msg_size = le16_to_cpu(header.size);
++	if (msg_size < sizeof(header)) {
++		dev_err_ratelimited(dev,
++				    "%s: malformed message 0x%04x of type 0x%02x received (%zu < %zu)\n",
++				    connection->name,
++				    le16_to_cpu(header.operation_id),
++				    header.type, msg_size, sizeof(header));
++		return;
++	}
+ 	if (size < msg_size) {
+ 		dev_err_ratelimited(dev,
+ 				    "%s: incomplete message 0x%04x of type 0x%02x received (%zu < %zu)\n",
 -- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+2.51.0
 
