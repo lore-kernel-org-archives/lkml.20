@@ -1,104 +1,119 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D6B32824B
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:59:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A15949B1F4
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:00:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788353972; cv=none; b=pqK27IAQEuspYbPSVKPagcT8UrCYoBcjjpVmmL1kFodWQp2KYzIZGaT69Ts32JTl83b/+t/9+G/X78CzWrzlGCKSDmQbPqv474JQrXdIR6xXFT3oMCXLvWO2u35DbpQsEMBlnhFB3Ho9k0pVl2rGAO12zJUxQnMhygCrUJLIG0I=
+	t=1788354051; cv=none; b=m/1RWIlKs9AxTmQMQM4qHu308/pZm4DrPDHMbDOuw05DxrYpivD0UsLbenZDfIdv+90/wbY3aCeELxxj/yaFJup4j3ZEPlkiziPqc2CKiz/c4JuM07prCMULKpwVkqpWNweN8EdFI7cbfwU9T1qc46hJJscEYoApCN1ngRdRd2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788353972; c=relaxed/simple;
-	bh=dmJe+J/F+vYCqGcuQ3jcywh4Jc/H3IZgC2ypGBQHfp0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ry8jGsJ6CtrgPTeP8+Hqr0OggfBqIth+03WWaSi3XPVUBWEaLbT+c6iut6xCw2pijRkiBiOQ+pA1/kIH01yadgEBNnAo9qyn0UyG0Fo/200/mVHutDS2TSWLxysIw6sbrhM1vtVPyTyz56V27F5RRybCb89w7QnVtU1cRtUc/BI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pPkUxD/T; arc=none smtp.client-ip=209.85.214.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788354051; c=relaxed/simple;
+	bh=vMETqGmsLv+O1ZisrqmhUsbiFFXLQKrBrDQkabWILoU=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=tmi7wyCGMDnD3VRGtDRtOWrD7wcAwja76Ih2FD677B/VNJihZA3nMY//WsckR5V++x7yDovp9b+0Z8BFLdPxkhL0viA/ieCoz/8ZGCAP4giA8l0wG11UJCkqK0EG59Jf0l/vi8jwOQaqZs3R9rsEUAZHgudbnO7V8g8tsjn1BmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=n3QVmVyP; arc=none smtp.client-ip=209.85.215.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pPkUxD/T"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2d9201076b3so12052075ad.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:59:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="n3QVmVyP"
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1ca15334cso1601024a12.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 06:00:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788353970; x=1788958770; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:sender:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20251104; t=1788354050; x=1788958850; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SqORnjd6nGMwkHINTVnkwjIgRmlTLFd4wtw4MP5cLxE=;
-        b=pPkUxD/Twrwtl8FSBb3jjo50HqDKJ5Gemks/7vWj7UFSxp15IkP+79KXBQa+Rf/0ff
-         K71gAHKDZiYsH1qwaLX8f2Sxmov+dieOamzQcATPeEyA93+m+CAOSgp49F+c1BmTLQxC
-         4w4UC6HQA8e7NBjdvKcRWNowO/PIazlUvQy+W5TlaPkLeBO+4uf6L62gX+UsMkE5x17v
-         zdCSvV/YvowcVkbMamIPnNYs1zqlsIAm0YSzFh9yN0OJhUyd59LA+VW8I9pOMakRsdmt
-         +MEVrpIRHQ/TJR7mbMILaRjeKdmRVTuppNyo1qd1iDx8vW1uBwRmnh6WcFmQ0gW/KLN8
-         jOVA==
+        bh=VNGwYj2t4glIGNOen6FjZQq8vvtMMzT1HX41CF0kxhE=;
+        b=n3QVmVyPqaNvPfltqGhv/gYU7NG9CkGCh5RimxzCuq2KgnDmrZBfBmCU7RYV5UxNSb
+         9PVWZF3LrqcCNili++kIyaNVXs88WpDIvBYdoK4zWS3P91/yOnCHsTFiwe7DcKo5N5MG
+         WCA3ZsTwHol8spgomiHR98OgJuSmE7J+dCU3pLEqmSHCIK5lTX6eZIX+xeXg/aInlttM
+         ERgAz9Ci160R6SefgWqrnA2TWnqx5XWE8i9P0XlFCDqbeXT9SHBmXyBRGq8qoFqBJbgn
+         tDvToSj7Uee4UpUAcPS+YYCHUCjRZnTLXDWynbuajy7uPrqAAgKKzxyArSuVu0FFnB0A
+         VO1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788353970; x=1788958770;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788354050; x=1788958850;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=SqORnjd6nGMwkHINTVnkwjIgRmlTLFd4wtw4MP5cLxE=;
-        b=W1u8gNfYorljkyWO8oO4t4GH4QyGjiyRfLbd7yIkYsivCd6iuvz0LlI/3SORCJTY6f
-         Vg3dKrfXWj2j6UAlmDf6oQKXwiCiaaE7hCnWWgFvgBR9xCIooNq54f/VTgMIdoCgpfih
-         eD4IkDw07mqMDVDeeTxE8lRYu03cd5yTO6CBPa+xRa8q9RbQAv/wmpMQgNB+ipp9wbbR
-         LiBZB5rfkrrJ/wDGSG/Mgw6S5u9wN8vKXOxWPYRR56rYaIrSJNYuRMJyzRpf2BCbhAmT
-         uS+sKQzXte57wyC1ds75+3f0JDd4wPVz3odXS+eM6bjmm0gkGsFhSW4ohmSmA8HKAQbt
-         +5JA==
-X-Forwarded-Encrypted: i=1; AHgh+RqjwHWiXwd+NfkSS12WjZA0AMgdIUurLRHu65J+/pzC/i1rDH/y+53WAkG6t53aNijZrDEuaxIQ5bIWs2c=@vger.kernel.org
-X-Gm-Message-State: AFuF++l178ovM6xLACuFBEEC/I9qrZvZHdMZxeop37H2JkHngBOi3DIg
-	X1WzFW9roKfQD0TAnO7dfWKy597tpMJa2cSczVa654jqCVrgVe3vVRaXRx4vPw==
-X-Gm-Gg: AYBFou0ssCUy9f7VtHpnpNo8oFuTxWRvYgUKE7weraEKPA2U4/Vo56skX3VyXPSWv9S
-	dkDOZPcSfERx7UEGgqa2d17/8WlWFFRvGgTMiZ6AAGAT8KgQ4ahv6vjovEVk+Y7lNUMpLwHwQWv
-	rnyz5AJmoFXSpbrdigQpxe5nhZAdEaNVuVf3nX2Iws+qyupCUXEvPD82NPNXdcHx96P10mwWGx6
-	eRJX95aNB08GbFwtwLTdZgcyzfUmO9fcsoM92CXufLT7py2Nqsi5Isoz+Qd1lcfJUn7GHGkI3Ii
-	G4XuErLTprHOaTLL1plmzCjReVUpKxcJG2oDjx5mAVpe574JqDnrzGKe1hvyS966gcOfxvm4t6x
-	2MtKaAY/JHDkdE+WrIVMz3kEIIOMPM98bRbn4cq2kklwqNEYQmpW88hqWyxdkImkHkD6bEr1avk
-	kL4HxMe/WXogAyYNb/Q9IkcQ3+c8w5eymo6VOFwyjF1vvQ3szBzZJkwceAUlMM2wxfXMDfhdpYp
-	w==
-X-Received: by 2002:a17:903:22ca:b0:2d6:3c2f:6a5 with SMTP id d9443c01a7336-2daec71f2f5mr60870245ad.14.1788353970437;
-        Wed, 02 Sep 2026 05:59:30 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dadd4a688dsm12228205ad.58.2026.09.02.05.59.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 05:59:29 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 2 Sep 2026 05:59:27 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: =?iso-8859-1?Q?Sebasti=E1n?= Peyrott <speyrott@gmail.com>
-Cc: linux-hwmon@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] hwmon: Add Minisforum UM780 XTX EC monitoring and fan
- control
-Message-ID: <7709521d-745d-4d1c-b68f-95337918fa43@roeck-us.net>
-References: <20260902000509.191115-1-speyrott@gmail.com>
+        bh=VNGwYj2t4glIGNOen6FjZQq8vvtMMzT1HX41CF0kxhE=;
+        b=WD0yseApdvV+Jsm9tHnSa7z8w71F1D181otib4ctMCQKceG/gLyQu3tCZ6mCYxbm/6
+         5ivxefz+v8u5CyD7Nh2tBYrMql/s/Yj7Ul8lOe2RgdJ73VYuyAjHUhmsdIO6QTAzL+XE
+         bhJme1ivW44J8vxA8NNsJKUD7wDMvAv3Acd26HNrvw4OJ+B9mj3WZpffHvaZkyyloa3+
+         3wdsSaQ8JcUlhD6dWT9A40fTYi15noo2LUAuNDvCDAa3Mom2SxFQzM6cwKeez3CsNduh
+         4Q3851bi6XZYqSpZSvUiP44QDqix+t7y4n2bpNeE6sWCxkjDfS/X3qkd3yrJSuQI7pC8
+         vZSA==
+X-Forwarded-Encrypted: i=1; AHgh+RolSh06p9htjrLQSOX3JpLM3o6gjGfytSMTVnOeFDQc7Q3mxA1WoXPgcOodJHZbk+1TMWmYPbnWwv5AhGI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lxXhgcli/QHrNZBOCMJMDttnH0kh3duaeTzTYeLtZCokuwGnhK
+	7rgbH73JX+LAApze2BivhesiOEsD5hN/YlsbZoU4bb0eoLnEnjotpOFPLbITsf4NEIX76qSj5Yv
+	CCkPs0Q==
+X-Received: from pgdo11-n1.prod.google.com ([2002:a05:6a02:620b:10b0:cc1:5155:bdd1])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:9151:b0:3d3:b02a:7252
+ with SMTP id adf61e73a8af0-3d9b0f39b5emr5405095637.28.1788354049347; Wed, 02
+ Sep 2026 06:00:49 -0700 (PDT)
+Date: Wed, 2 Sep 2026 06:00:48 -0700
+In-Reply-To: <20260902091351.438647-B-seiden@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260902000509.191115-1-speyrott@gmail.com>
+Mime-Version: 1.0
+References: <20260831144802.834315-1-seiden@linux.ibm.com> <20260831144802.834315-4-seiden@linux.ibm.com>
+ <apdwHcdy2iYRTrww@google.com> <87ik4om4x2.wl-maz@kernel.org> <20260902091351.438647-B-seiden@linux.ibm.com>
+Message-ID: <apgeAJKF--dZvKvF@google.com>
+Subject: Re: [PATCH v7 03/23] KVM: Allow KVM implementations to switch off
+ MMIO independent of Kconfig
+From: Sean Christopherson <seanjc@google.com>
+To: Steffen Eiden <seiden@linux.ibm.com>
+Cc: Marc Zyngier <maz@kernel.org>, kvm@vger.kernel.org, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>, 
+	Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Christian Borntraeger <borntraeger@linux.ibm.com>, 
+	Claudio Imbrenda <imbrenda@linux.ibm.com>, David Hildenbrand <david@kernel.org>, 
+	Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>, 
+	Gautam Gala <ggala@linux.ibm.com>, Hariharan Mari <hari55@linux.ibm.com>, 
+	Heiko Carstens <hca@linux.ibm.com>, Hendrik Brueckner <brueckner@linux.ibm.com>, 
+	Ilya Leoshkevich <iii@linux.ibm.com>, Janosch Frank <frankja@linux.ibm.com>, 
+	Joey Gouly <joey.gouly@arm.com>, Nico Boehr <nrb@linux.ibm.com>, 
+	Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>, Oliver Upton <oupton@kernel.org>, 
+	Paolo Bonzini <pbonzini@redhat.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Sven Schnelle <svens@linux.ibm.com>, Ulrich Weigand <Ulrich.Weigand@de.ibm.com>, 
+	Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>, Zenghui Yu <yuzenghui@huawei.com>
+Content-Type: text/plain; charset="us-ascii"
 
-On Tue, Sep 01, 2026 at 09:05:09PM -0300, Sebastián Peyrott wrote:
-> Add a DMI-gated hwmon driver for the embedded controller used by the
-> Minisforum UM780 XTX with board revision 1.1 and BIOS 1.06.
-> 
-> Expose the CPU and system fan control temperatures and tachometers. The
-> tachometer protocol returns one byte per OEM command, so serialize
-> transactions and use high-low-high sampling to reject torn values.
-> 
-> Allow selecting either complete OEM CPU fan profile through pwm1_enable and
-> changing the two validated system fan transition temperatures through
-> standard automatic-curve attributes. Cache coherent settings and restore
-> them after the firmware reloads defaults following resume.
-> 
-> Signed-off-by: Sebastián Peyrott <speyrott@gmail.com>
+On Wed, Sep 02, 2026, Steffen Eiden wrote:
+> On Wed, Sep 02, 2026 at 09:30:17AM +0100, Marc Zyngier wrote:
+> > On Wed, 02 Sep 2026 01:38:53 +0100,
+> > Sean Christopherson <seanjc@google.com> wrote:
+> > > 
+> > > On Mon, Aug 31, 2026, Steffen Eiden wrote:
+> > > > Only defining KVM_MMIO is not flexible enough for multi-KVM systems
+> > > > where one KVM implements MMIO but others do not. Solve this by
+> > > > additionally testing for the non-existence of KVM_NO_MMIO before
+> > > > including MMIO code to KVM.
+> > > 
+> > > Ewwwww.  IIUC, s390 ends up with two KVM modules, i.e. there really are two different
+> > > KVMs being built.  Rather than have a KVM_MMIO and NO_KVM_MMIO, I vote very
+> > > strongly to drop CONFIG_KVM_MMIO entirely and replace it with __KVM_HAVE_ARCH_MMIO,
+> > > a la __KVM_HAVE_ARCH_VM_FREE and others.  Tracking two separate macros is going
+> > > to be annoying to maintain, and will definitely be confusing for non-s390 people.
+> > > 
+> > > It'll mean linking in an emtpy coalesced_mmio.o on s390 when building without arm64
+> > > support, but I'm guessing that won't be at all common for s390 builds.
+> > > 
+> > 
+> > I ended-up doing something very similar locally, because I couldn't
+> > really make head or tail of the logic while being in holiday mode
+> > (which doesn't help). However, I kept the negative logic, so that we
+> > don't need to add anything to any architecture but S390 (they are the
+> > odd one out here).
+> negative makes sense. 
 
-Applied.
+Ya, an opt-out for s390 works for me.
 
-Thanks,
-Guenter
+> IIRC KVM/power does select KVM_MMIO most of the times but not always.
+> I'll check that.
+
+Huh, indeed.  KVM_BOOK3S_64_HV=y && KVM_BOOK3S_64_PR=n ends up with KVM_MMIO=n.
+Though I'm not surprised given the multitude of variants PPC has.
