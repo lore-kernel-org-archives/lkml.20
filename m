@@ -1,120 +1,85 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8AE371885;
-	Wed,  2 Sep 2026 17:48:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EA0C3DDB1D;
+	Wed,  2 Sep 2026 17:48:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788371287; cv=none; b=rj6uB8YMlbElNETIH2zV/cTOe3rgyI+eB5A9nf+TJz+opP038ATFVt3HWGPxiGCzN5TuIxn8koo1VUSc5ck3FO2ekA/28kGDim2gr4FVDWK77HboqxlObOQxemyZKTQXu1eq7Me/yyJRmA8bTKBzDL7n+7peSkRckW2GkgURYEY=
+	t=1788371289; cv=none; b=WG4mZocWwQUstqf3e7+2Tsk0Cw6cykUf/SwR1z480c7I49Nwggvntp1OpnswwDa/AG1VDf/2RNp3DZjUIojVGw0TWMRboTv4Q5psOsTI5vWocNoDI0HvLpsQ0ES1j4uYiHF8nWMW6aGOOD8M9BpVmkU6JFXCYcabWwG3aehGVno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788371287; c=relaxed/simple;
-	bh=HGtwWmnQ6QwDDO+DyewXu4HaqP7hG4EurP/lr9Sz1eU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XixhsLQbcWRimGX6lLVK6C+F/CdTXmY6Om2CAp6NbZ+5XSeF/kMf653otY6MKWgjDC5jxcdqli2wCwuwsO8s41sKAU9+V3Jgq+ARfJPxW1+aXh87QS1Pqrplld/0fSpQOpSqsxRWYAq4uFd1uFfRuTGJJSx18qnr10U9YwDKtuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=pXJ51bzM; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788371289; c=relaxed/simple;
+	bh=96bnf5Ay0NWyRYE3n5heQ5d+s0k6AzcgMD0wv30tl8s=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 MIME-Version:Content-Type; b=HbnLgYhxem5rgxzwzz1ml29t59MlA9xjPXnVRpwXsDWDaBkg3qug63nGrND2J7no/2eF5kg6zGFmoWbSL6R5jLGakFxUZ/4kNyugo+cSTHLALIfFufJ3iuxBgByrns3Yp6TdWkeHKZzGXCLJkKTAgS42UlXdGgncMZJX4g626SM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=m7G7k1iq; arc=none smtp.client-ip=143.255.12.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="pXJ51bzM"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682HVaOG661164;
-	Wed, 2 Sep 2026 17:47:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=HGtwWmnQ6QwDDO+DyewXu4HaqP7hG4
-	EurP/lr9Sz1eU=; b=pXJ51bzM+v6WL88TWOeaJMkj1nSVlEa101MtzmBfaTneIB
-	B8Ry3a6/fLkuV4E44I15E99NZ7Pa9tYuPex+ARWyywvZOqrWeSatuJck2sLldGDL
-	FLLdjhW/AuHBe0Ve2ovPjbT8LMAFqTWO4Le0cLKhTxShmhYzdqSqYtmt4pux+eFO
-	c9w4YtdIqP5+FQfeWr7Ajw8Zf+lvioZBKEyx9S1AOdCdn/hbL0UvdFyi+VFbQCjl
-	S5i7b/vmqjq1v/2/Nl7nA9W8gI2PxivpgFZabXZs5M0NRZjz2k2w7ONefhNdd1pe
-	6iRKd/ARLvVl4+eg8FLJpTOEzDZEktygdnW35Fxg==
-Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx5rd98-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 17:47:35 +0000 (GMT)
-Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 682HQpjI023346;
-	Wed, 2 Sep 2026 17:47:34 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gc9rqkj7y-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 17:47:34 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 682HlV6S44368140
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 2 Sep 2026 17:47:31 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 07A752004E;
-	Wed,  2 Sep 2026 17:47:31 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 90FEC2004F;
-	Wed,  2 Sep 2026 17:47:23 +0000 (GMT)
-Received: from Gautams-MacBook-Pro.local (unknown [9.124.221.176])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Wed,  2 Sep 2026 17:47:23 +0000 (GMT)
-Date: Wed, 2 Sep 2026 23:17:20 +0530
-From: Gautam Menghani <gautam@linux.ibm.com>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-        Paolo Bonzini <pbonzini@redhat.com>,
-        Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>,
-        Huacai Chen <chenhuacai@kernel.org>, Anup Patel <anup@brainfault.org>,
-        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-        Albert Ou <aou@eecs.berkeley.edu>,
-        Christian Borntraeger <borntraeger@linux.ibm.com>,
-        Janosch Frank <frankja@linux.ibm.com>,
-        Claudio Imbrenda <imbrenda@linux.ibm.com>,
-        Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
-        Steffen Eiden <seiden@linux.ibm.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Zenghui Yu <yuzenghui@huawei.com>, Atish Patra <atish.patra@linux.dev>,
-        Alexandre Ghiti <alex@ghiti.fr>, David Hildenbrand <david@kernel.org>,
-        linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-        kvm@vger.kernel.org, loongarch@lists.linux.dev,
-        kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
-        linux-kernel@vger.kernel.org, Nicholas Piggin <npiggin@gmail.com>,
-        Ritesh Harjani <ritesh.list@gmail.com>, linuxppc-dev@lists.ozlabs.org
-Subject: Re: [PATCH 00/20] KVM: selftests: PPC pre-enabling
-Message-ID: <aphhKDm7Vx7G5ivr@Gautams-MacBook-Pro.local>
-References: <20260826230511.972824-1-seanjc@google.com>
+	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="m7G7k1iq"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
+	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=+zGqViqajbDVzzs6i/KKRDonBemKHDWDXGoETv6wS5U=; b=m7G7k1iqcuCOa+ZtzTSgIObzpE
+	51iK6QjHhb6VRLRp6JQFueRhdV35DR/Uld/NWWufep/yzJeXWejecCqx4h0EtHfa1J/2pkW8m8atx
+	uP4/SDOTfgZUMYzWB+RATX/10+8m0mBeXcrDF9hroFKOto9Yb0ujZYIChTqd8QDMaQ2JWMTR8bFF2
+	RZ77+1Nz9u1U/ejl0aDoHwrzt5icaRYVeAbm3y8KQMlAZXLKjQyNVPV6Lkj0EQWiEWynoz3YWgNEJ
+	o833gmiUc0MxTsnmao+dGmz812wUm3fqGfwWXrkI32wktQfp5KsgccWqXQKBmUbGW3FKld+2Xt+Bm
+	Q1UyBDNA==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
+	id 1x1p49-00000000X4Z-0cV6;
+	Wed, 02 Sep 2026 14:48:05 -0300
+Message-ID: <7f87f15e7136147297a33a540f0880f3@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: Fredric Cover <fredric.cover.lkernel@gmail.com>, Namjae Jeon
+ <linkinjeon@kernel.org>
+Cc: ChenXiaoSong <chenxiaosong@chenxiaosong.com>, Tom Talpey
+ <tom@talpey.com>, Ronnie Sahlberg <ronniesahlberg@gmail.com>, Shyam Prasad
+ N <sprasad@microsoft.com>, Bharath SM <bharathsm@microsoft.com>,
+ linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, Fredric Cover
+ <fredric.cover.lkernel@gmail.com>
+Subject: Re: [PATCH 2/2] smb: client: prevent out-of-bounds dfs_info3_param
+ access in copy_ref_data()
+In-Reply-To: <notmuch-sha1-3e5d257ab3acfa72da7284e13dd0c817fac4b88c>
+References: <20260826191033.162320-1-fredric.cover.lkernel@gmail.com>
+ <20260826191033.162320-3-fredric.cover.lkernel@gmail.com>
+Date: Wed, 02 Sep 2026 14:48:04 -0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826230511.972824-1-seanjc@google.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a986138 cx=c_pps
- a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=6YN9JvpFNRzmbg3FydkA:9
- a=CjuIK1q_8ugA:10
-X-Proofpoint-GUID: tRZqKKrGtBjHG2Pu3xQZzuOyhRhv077A
-X-Proofpoint-ORIG-GUID: pdLNL2iG2soKTiUHunO9uJiDJ8oxj9S6
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE1NCBTYWx0ZWRfX/3BQiO/4M77n
- AvjpUycO+mKHAdP0qa39OrRauYjGL+ZXs6GMp+BhV9vuxqhuESJqGvGyxDS/TncOIoaaNebyj2M
- Mh+XT8fPklmzmBP5n5N6hvz8btd17e0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE1NCBTYWx0ZWRfX7sO1s5aw3bu7
- yGm8yQcHZ7WA2zwsrkIYdeZcloHnCw+pL5crxFHgEqUiWM+wUus/GNOQ/ZAwb6FjQLOncOp8A86
- 94yCxLIuXJcEs1s8fHFlHIfo76aNyFoh4QlGJ0Mg/HjdkoTDg99uz3Cx41t/tSng59sXrFCxcMX
- 9aSG+t+97OyBvbo2meC9X4F15bk3na1rQooBz40mnKd4Trt5E+kWB6Y4mk1lOazlBi5WcQ9xJda
- SX3oEaIKkegrcRVjJg9T55qxEXJTwuO+3co5WfoC4YNCD6rzXlwpMc5j+JSeRlWHRDM9Un/5kf9
- KZHm3YyKi0t11rguHeyczHDVWwZ1ehOeBVXz31LmkDWnFTcj2X+/2d5BWmQcgwNwjEJ/LAMcP6T
- 1ZoI/atPvxfIYGWLuyusfsc18eNXNBHm5c/bJuaj5WtHgPMuR3aqb47eggYeMiaOlkvEFr8Yd4H
- SzqNL31hLQRftxAg6jg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_04,2026-09-02_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
- spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609020154
+Content-Type: text/plain
 
+Paulo Alcantara <pc@manguebit.org> writes:
 
-+ linuxppc-dev
+> Fredric Cover <fredric.cover.lkernel@gmail.com> writes:
+>
+>> Currently, copy_ref_data() assumes that numrefs > 0, and unconditinally
+>> accesses refs[0]. If copy_ref_data() somehow is passed an empty list,
+>> this would cause major out-of-bounds write and read problems.
+>>
+>> Enforce numrefs > 0.
+>>
+>> Signed-off-by: Fredric Cover <fredric.cover.lkernel@gmail.com>
+>> ---
+>>  fs/smb/client/dfs_cache.c | 3 +++
+>>  1 file changed, 3 insertions(+)
+>>
+>> diff --git a/fs/smb/client/dfs_cache.c b/fs/smb/client/dfs_cache.c
+>> index b0388c460499..b51c8355d73d 100644
+>> --- a/fs/smb/client/dfs_cache.c
+>> +++ b/fs/smb/client/dfs_cache.c
+>> @@ -389,6 +389,9 @@ static int copy_ref_data(const struct dfs_info3_param *refs, int numrefs,
+>>  	struct cache_dfs_tgt *target;
+>>  	int i;
+>>  
+>> +	if (WARN_ON_ONCE(numrefs <= 0))
+>> +		return -EINVAL;
+>
+> I don't understand why this check is necessary.  All target referrals
+> come from get_dfs_referral(), and in case @numrefs < 0,
+                                            ^ @numrefs <= 0                                        
+
+Sorry for the typo.
