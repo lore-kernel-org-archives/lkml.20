@@ -1,213 +1,141 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F5CB40A934
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:11:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788340292; cv=none; b=XKXni4zm5aJbt8bcjJHYQbLVSSIP5iyJoeaJcaEhEpsX/8W2NtuyuoolY86MZPuR58aoYYbq403Yvk3418i6fjRnq+qnla/vnPtBqPQdNuqmWl8EtJKgA3mq8Wwo4ZlxO0WMfnwUBDSDDgxbjUboJ5WnwrXmomWRu2p5n3MpNaA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788340292; c=relaxed/simple;
-	bh=TwD3ciNN2onW/ClKrqvIv5DgpyaXo+eUizIpw5s4WEU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fT8c/IREWfRMnub0WYPjNvuBseSl0ORZjfRQxSIFpWLaYiNPt68KN3NAQMTQ5rocP0poM/p7gTEuaIuvraaz6UAfWXFUm4FbSIc0a1aZQW1zxDQ1nexLSaJOkMrzd0pq/fuIp+Wa77gRSeT+IxGP33mhCilwvs6FW2utqlqzZIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aLYaSJsV; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E484323E25B
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:12:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788340324; cv=pass; b=FysWwLAIkKzX0meMfaoou0+iN6GZ8WqsDBS2E3Mu2My7R3qMTqq4V+imswAOCnJlX48TPXFxcgWsUVTS+xYpWjblcb06tX4Pjny6WHYCsN7fhqb6fnZHFeAaw4CVT68A+Av9W2BtD3RIJR1vXE8a+rhRkMAfFGBbD1MhUEBzwa0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788340324; c=relaxed/simple;
+	bh=zPIeU2nyncnp4qwag62RzVvPwiBDgS0DFxIK2uUgu98=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=OjMVjp9xvbrCGeeWlUF5D/4ju6LPrUA2Bbs1yuHAN36IF3Z54EzEGEEivhLxVfueW33hw591ov221TMUx9A2gIOBe9f+5hu/4X1M/Ut/tO1u1A27BdIgCH78sPTfWfspOy5rGhmoj6NJkvYe8G0apG6LBBip8/jvxRi65b8hf9s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KE/lWrTh; arc=pass smtp.client-ip=209.85.208.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aLYaSJsV"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d6fe26ef1cso8483995ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 02:11:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KE/lWrTh"
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a6868f18aeso706080a12.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 02:12:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788340321; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sdIPV/BmqmvtlLNdLxgY6kqfNbrqaN1CXpcfeG2nRHykb4LGs2Gsck0CnU5ocWVp1G
+         InDUYj9V+tmWCaHjvu5sqGUvARaWSqVVtpwhmNCS/EVK0ipvSBD+hdp8lMbHCC9pNeYp
+         LddHpE9QlWiG0MmbdAk3ohBiI0lGwpaGkk2TQ0HGIDTzIJj5CTvLABxC6gLkanl1BcwZ
+         1k7Dd9Q/+uXpMrcbzXKF9GNDQT7Ysnqhp6MpXSlks8fq542PJ6WMEzQTanvq7yMHkj0A
+         y7bUbWC7NIW3H1ac7yuGSAmX4lyfGBs9yGlOujTmgt0NIbUJ6Uu+PQCRs4jv7mjkRo4p
+         OqcA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=w6ZzURnfoAOg1rVh3HCbKIn42FKY1C5XP5qqd+lFbxk=;
+        fh=1Fw7dFIwPgisyqB1FNFsvJbRdmsJTxT6lxHOzRAMPN4=;
+        b=D0gZRJavuRRcrEUl7e1mNlMSDPZSnR8UPrR+4vIqOS3mhgmUsCp/qqJa+Ee0LUEdfm
+         0W3CTFsOBgXOT311kl8IZBQioIvNOwc60rWt71Si12PiTNH5kTzqzErRUSXXSoqcTusS
+         Dyl5I4Mw3qkRvMbOh9PSOzCY863JRBYdoY4ro0o9sdExlfO2nU3aMEVxDGK54ZAUljGD
+         LZZRvu+fKYNXRxC3V0Ntr4DNiEK+Ukd8ilabFD3kXncFj2vI3eDub7fyeD212cztl/Oz
+         +WwFwKp1aAael5VnrhJM0x5GWmHKNBJb3B0BvmxGVenionfH8yXFRV5V6T6exRotrT9O
+         O6oA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788340290; x=1788945090; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LVMmah0vPgs6s4ge0RwtzmeRFF+Q41S+y1Nz1FY1ID0=;
-        b=aLYaSJsVwoYAiPg8enckTHbr7YgG+F/GFYXGD6Y8oOYj6yLGIsgLRM414FyFCRNtd8
-         vKmQAoY5ljVk6Ao0cuJrEVj8wWT6Ki3bT8O4TlZ/nsDXx3i6ponV8H6DTzGO6S5Q/5Ca
-         71rR1NOfYgZOF8xFcV/Tih/1C42yaUjPeb9yKld0ypwQboHaapzBuz5JqHFtd94w6P4e
-         7PrPL5IBcBHC8DbRGhDdtX7ieM6pzsqtF89z6wAm9XkxawAo0At0/O/yw7mFfb9me+1I
-         WE/NSHabgav+D8VWbKnliNoXfUpBOcUba1/tN/YTIVaJY0IHMcj9cdBMelRjeci7v3Ej
-         fPEA==
+        d=gmail.com; s=20251104; t=1788340321; x=1788945121; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=w6ZzURnfoAOg1rVh3HCbKIn42FKY1C5XP5qqd+lFbxk=;
+        b=KE/lWrThBxJyVm4GN2jHMT81bex6vHo4GDXQnYEtBkeJrtnwvydRcItsnXnWoblue+
+         rpKH43hSbly4WZT+MjqghRwu4tzjoEbvW0FVmmrd6Waxd/A/0JR/f5HbjYVmlUUspWsr
+         RKaKKHJIG0EiSP1j4VtolYUf0tyNPvxCmB60H+rlgWkhCL1fmKNOounegBlMeUTL7O67
+         ldnfRDgbzu5+NihF5FxFDDo/lBPFqpE5/nCPl/Fqfen0jbqs73P6X+qCRDHnVChx2EzT
+         +f7K+U9ZYis2e5xPUiiONchedxEK2KPiHj29m/4HiFukUhKmUXPyjgHIpCpG+yeR1SM9
+         8H4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788340290; x=1788945090;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LVMmah0vPgs6s4ge0RwtzmeRFF+Q41S+y1Nz1FY1ID0=;
-        b=ofYONaJEv8UZ7HrQsU5wgKmby4XCPjqUMjPpEzjUxiAR3+VdNqie+0cGHQY87NlHv6
-         RmWvzoxF8wzKUV+Xp6AisUQ23wyyL3YES+PAkrzFBTKoLP4owOG1KynIScIVI75GxBFv
-         tjpwmFwM1Rif99IAD6V3jY4MlZuQvdSIW3xYhLaBP+I5D+IcyfdhVnO+jOqfiE9EwPjY
-         vv5e571yHKrLbgyzf+QAC8plAG6U2CoKbQndCyZL3yG/AqicPMXyFGVgsr9mOfdo30JK
-         7r7QmgWZwk0NpWMbjdd3+uMBOjJsoHOpSv8ihqw52SawM1ay2OkNHj/9Ue0vvcK1hGQe
-         tK+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy8TlNis6Htjz+D1jjy63hKrFM4TI6CoXtGTQ96lrrU4/c1esRuLgH7HluKOfNJYwWgmlNnVhXxBML/R/8=@vger.kernel.org
-X-Gm-Message-State: AFuF++n3rqo7k6RKQDDJrDDWGiQhnfoa6ahtfSe5kv3KCW+s8C8H4NAC
-	RWYFhiiSQv5Wsmu8Iy17fTXgiGwoIafZQMH1tIaU9ln9E3Lgv9uabNw0
-X-Gm-Gg: AYBFou3iSsmA5rTjZG2b2Gb+rQl+LX9riNBCIzTagOiraWBmbLlOELEE2+mQY2BYz+i
-	+KntaTZ8a10eN5erMXK7/eFv4cL1gRaEmSMJv4PeRVYqXgvpq+Q29la0WPuGViOTA4kgd/JMCme
-	zqxT8k232DUdXkytjTUjFEid4oSwehmtqO8R9gqnUtrvbbZVVkqUAdyXXrLmobgJxf03/nLlRYO
-	BvZ0pag3kETN9k0pWpM4rTaVMw92jJUFVTgwmEzxlye0xrW04ArdGeDimkHXGkM1Fke9isNVK0n
-	OWoZTrBXTFjqR8mFm+SrWCvmn0BtGbUcjjqyLQsIQBbCPGq4Fb5y9Nrnk+uIpUuMiBKOY0Op8cz
-	VOAgHLsnGvNhUrT+KBT6AdiewyGEUfBDtZycRM1ZNorn6zXQ8mY4bqpOJJ2XBoYI3AZ6rpeibEG
-	ABbXGKkYezu7rIfBtAolDKwIEEFo3mE3ynUM5rXn0J/bi6vRfbOdXqMkaPFAeB/c9Hqd9v6+50B
-	aTSE00IyZboorqrRojHsa5hQZEnovNr0MB1mtIa8Dn55R0ZzQg=
-X-Received: by 2002:a17:90b:3842:b0:398:e46e:ade3 with SMTP id 98e67ed59e1d1-39aee22248fmr4568173a91.23.1788340289374;
-        Wed, 02 Sep 2026 02:11:29 -0700 (PDT)
-Received: from localhost.localdomain ([187.14.92.234])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae380d7casm4449444a91.10.2026.09.02.02.11.27
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 02 Sep 2026 02:11:28 -0700 (PDT)
-From: Mark Amirkan <markdamirkan@gmail.com>
-To: bpf@vger.kernel.org
-Cc: andrii@kernel.org,
-	eddyz87@gmail.com,
-	ihor.solodrai@linux.dev,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	shuah@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Mark Amirkan <markdamirkan@gmail.com>
-Subject: [PATCH bpf-next] libbpf: Reject oversized unknown BTF type records
-Date: Wed,  2 Sep 2026 02:11:26 -0700
-Message-Id: <20260902091126.59281-1-markdamirkan@gmail.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+        d=1e100.net; s=20251104; t=1788340321; x=1788945121;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w6ZzURnfoAOg1rVh3HCbKIn42FKY1C5XP5qqd+lFbxk=;
+        b=qwIKqrKtyhfy1FFSTE1VfMwfDgmCN23o8JzMnu+aHptMqTCnARjXhyCv9rhnu34rpB
+         xemVvhN8RaE8lDRgcol55tn4f+UR/CgKrzyc+NO5LxUqH3OA+FZJRltqnIm4s9So6HYb
+         NUmAGcmb14jwWRvXom7SdSpoxLRERH1IfOWLK0rCrWGjKOwKdIXsI6guOEoDyZMlNbhb
+         kdPiz2cHyLQxeKgZxjBj3Q74LcGCBOAZTCRv2l6WXrS8aZEROEJs+QBC66nP5cizjj/O
+         7zD+8dUE/ZxZFnCQYlKCzoqzJhJdipNZKvezv78o1Xou2iS4ZdmLuC0nDCzUu07/3hvw
+         SDyw==
+X-Forwarded-Encrypted: i=1; AKwUvBzrHyhmsYyreISYVPLGEnL7/APs4fT1AaQVL7r3EtxB50mCyDzO9gJI1nmf4hDI00QPykTAMWdhaykYMiM=@vger.kernel.org
+X-Gm-Message-State: AFuF++klFT0HD6kTwjcmqwNonDq148u8SEMn7lb8uXuOP6hCEZA/K97i
+	XIGVwlhHo/lkso6v1gHheiEfMA9+XffyIpFXWK2xX6h9Z5p/ZhcEmsgfCPn9BdbuNa8fMQiJpdE
+	Iv6NUq8vAudClomkBI9vzVuqbCZRLpHSYG1qh
+X-Gm-Gg: AYBFou09n6N1k/5QdorzUbcxu9ZUsJNQ3lZrRvEOfAk4uKWUDbE/qOVYhB05GxZnt1Q
+	AMg55r0UvbRgLUvIbhxKw4cx8K0MfcudzQYLT3xy0PWKjFBm8kpF1hTzrNisVoGWHq7RhchzrHH
+	fKAdlhRUCreKJBoqTQKT+FIJirGvlxK02wUNQsA5M19TL6qq+8hcO1TByqCSox8Osvt1o+/ODHb
+	f4y/sI4DCJ9tUQJCSg19j3uQOBnTlW1Lu2O0N0TJ+4ypLcnwYFZJ1bAM/6xMovzdg7CQuTfR6pL
+	XqgvGFLm48UcFY17wdcYfAaRgSqW4pd4G61xL3MHgdDKYaTqZ2V0gPOmDph7Fp9bgY+3pCNI4kg
+	pSysAIIFaOfTON5JcJM1yGDd3p/GSwx8=
+X-Received: by 2002:a05:6402:21d4:b0:6a3:f63a:4997 with SMTP id
+ 4fb4d7f45d1cf-6a682567131mr2177249a12.3.1788340320712; Wed, 02 Sep 2026
+ 02:12:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1788277742.git.mattst88@gmail.com> <dc9ec3ff88fd895cc4daf846bdebe9ed2a58d507.1788277742.git.mattst88@gmail.com>
+In-Reply-To: <dc9ec3ff88fd895cc4daf846bdebe9ed2a58d507.1788277742.git.mattst88@gmail.com>
+From: Magnus Lindholm <linmag7@gmail.com>
+Date: Wed, 2 Sep 2026 11:11:49 +0200
+X-Gm-Features: AcwNN1W-bysK_UU6D1gNJGL4hkeLn89fMcgmtQ7gQeFBsPWL2yf6N6O3MoMWeZ8
+Message-ID: <CA+=Fv5S=N849_UN2AS-Q1aY-34wvVaY56gWY1ULG8hpNV1kuVg@mail.gmail.com>
+Subject: Re: [PATCH 10/24] alpha: select HAVE_ARCH_COMPILER_H
+To: Matt Turner <mattst88@gmail.com>
+Cc: linux-alpha@vger.kernel.org, richard.henderson@linaro.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-btf_type_size_unknown() returns an int, but calculates the type record
-size using unsigned operands.  With a 24-bit vlen, an unknown kind whose
-vlen is 0xffffff and whose info and element sizes are both 252 has a
-record size of 0xfc00000c.  Converting this value to int produces
--67108852.
+Hi Matt,
 
-btf_parse_type_sec() returns the negative value, and btf_new() encodes it
-with ERR_PTR().  Since the value is outside the error-pointer range,
-libbpf_ptr() does not recognize it as an error.  On a 64-bit system, a
-129-byte raw BTF input makes btf__new() return 0xfffffffffc00000c while
-libbpf_get_error() returns zero and errno remains zero.  Calling
-btf__type_cnt() or btf__free() on the result crashes.  The same input
-makes bpftool's "btf dump file" command terminate with SIGSEGV.
+On Tue, Sep 1, 2026 at 5:51=E2=80=AFPM Matt Turner <mattst88@gmail.com> wro=
+te:
+>
+> Alpha already provides asm/compiler.h (wrapping uapi/asm/compiler.h)
+> which defines architecture-specific compiler intrinsics like
+> __kernel_cmpbge, __kernel_cttz, __kernel_ctlz, and __kernel_ctpop.
+>
+> Selecting HAVE_ARCH_COMPILER_H causes linux/compiler_types.h to include
+> asm/compiler.h, making these definitions available consistently.
 
-Calculate the record size as size_t and reject values above INT_MAX
-before converting it to int.  Add a regression test for the maximum-vlen
-unknown kind.
 
-Fixes: cacd6729c092 ("libbpf: Adjust btf_vlen() to return a __u32")
-Assisted-by: Symbolic
-Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
----
-Testing:
-- normal builds of libbpf and bpftool, plus an ASan/UBSan libbpf build;
-- the reproducer through btf__new() and bpftool;
-- the added btf_kind test and the existing encoding/decoding subtests;
-- identical bpftool output before and after the fix for all 60 BTF blobs
-  under /sys/kernel/btf on the test system.
+I tested this on an AlphaServer ES40. The kernel built and booted
+successfully with CONFIG_HAVE_ARCH_COMPILER_H=3Dy, and the in-tree
+test_bitops module completed without errors.
 
-The complete BPF selftest suite was not run locally because clang was not
-available.
+While testing this patch, the FFS KUnit suite exposed a separate,
+pre-existing issue in the EV67 Alpha fls64() implementation. The
+zero-input tests failed with the contradictory diagnostic:
 
-This fixes code present in Linux v7.2; please consider it for stable.
+  Expected fls64(input) =3D=3D 0, but
+      fls64(input) =3D=3D 0 (0x0)
 
- tools/lib/bpf/btf.c                           | 11 +++++-
- .../selftests/bpf/prog_tests/btf_kind.c       | 39 +++++++++++++++++++
- 2 files changed, 49 insertions(+), 1 deletion(-)
+The EV67 implementation passes zero to __kernel_ctlz(), which GCC maps
+to __builtin_clzl(). The result of __builtin_clzl(0) is undefined, so
+the compiler can optimize the comparison inconsistently with the value
+returned by the Alpha ctlz instruction.
 
-diff --git a/tools/lib/bpf/btf.c b/tools/lib/bpf/btf.c
-index c783359977b46e521965c1af223515cfd8701b12..83a7f199f37dfdc2384107a45a8be5b98c4cd8f1 100644
---- a/tools/lib/bpf/btf.c
-+++ b/tools/lib/bpf/btf.c
-@@ -421,6 +421,7 @@ static int btf_type_size_unknown(const struct btf *btf, const struct btf_type *t
- {
- 	__u32 l_cnt = btf->hdr.layout_len / sizeof(struct btf_layout);
- 	struct btf_layout *l = btf->layout;
-+	size_t type_size;
- 	__u32 vlen = btf_vlen(t);
- 	__u32 kind = btf_kind(t);
- 
-@@ -448,7 +449,15 @@ static int btf_type_size_unknown(const struct btf *btf, const struct btf_type *t
- 		return -EINVAL;
- 	}
- 
--	return sizeof(struct btf_type) + l[kind].info_sz + vlen * l[kind].elem_sz;
-+	type_size = sizeof(struct btf_type) + l[kind].info_sz +
-+		    (size_t)vlen * l[kind].elem_sz;
-+	if (type_size > INT_MAX) {
-+		pr_debug("BTF type size %zu for kind %u is too large\n",
-+			 type_size, kind);
-+		return -E2BIG;
-+	}
-+
-+	return type_size;
- }
- 
- static int btf_type_size(const struct btf *btf, const struct btf_type *t)
-diff --git a/tools/testing/selftests/bpf/prog_tests/btf_kind.c b/tools/testing/selftests/bpf/prog_tests/btf_kind.c
-index f61afe6a79a51f86f22f62bd86c685b7db8b39d1..fc6a4db9993764536885a5c5f13980a4c3a6bd26 100644
---- a/tools/testing/selftests/bpf/prog_tests/btf_kind.c
-+++ b/tools/testing/selftests/bpf/prog_tests/btf_kind.c
-@@ -217,10 +217,49 @@ void test_btf_kind_decoding(void)
- 	btf__free(btf);
- }
- 
-+static void test_btf_kind_size_overflow(void)
-+{
-+	/* Max vlen and aligned u8 layout sizes produce type size 0xfc00000c. */
-+	struct {
-+		struct btf_header hdr;
-+		struct btf_type type;
-+		struct btf_layout layouts[NR_BTF_KINDS + 1];
-+		char strs[1];
-+	} __packed raw_btf = {
-+		.hdr = {
-+			.magic = BTF_MAGIC,
-+			.version = BTF_VERSION,
-+			.hdr_len = sizeof(struct btf_header),
-+			.type_len = sizeof(struct btf_type),
-+			.layout_off = sizeof(struct btf_type),
-+			.layout_len = sizeof(struct btf_layout) * (NR_BTF_KINDS + 1),
-+			.str_off = sizeof(struct btf_type) +
-+				   sizeof(struct btf_layout) * (NR_BTF_KINDS + 1),
-+			.str_len = 1,
-+		},
-+		.type.info = (NR_BTF_KINDS << 24) | BTF_MAX_VLEN,
-+		.layouts[NR_BTF_KINDS] = {
-+			.info_sz = 252,
-+			.elem_sz = 252,
-+		},
-+	};
-+	struct btf *btf;
-+	int err;
-+
-+	errno = 0;
-+	btf = btf__new(&raw_btf, sizeof(raw_btf));
-+	err = libbpf_get_error(btf);
-+	if (!ASSERT_EQ(err, -E2BIG, "size_overflow_err"))
-+		return;
-+	ASSERT_NULL(btf, "size_overflow_btf");
-+}
-+
- void test_btf_kind(void)
- {
- 	if (test__start_subtest("btf_kind_encoding"))
- 		test_btf_kind_encoding();
- 	if (test__start_subtest("btf_kind_decoding"))
- 		test_btf_kind_decoding();
-+	if (test__start_subtest("btf_kind_size_overflow"))
-+		test_btf_kind_size_overflow();
- }
+I verified the diagnosis by changing fls64() to handle zero explicitly:
 
-base-commit: d761934c9483ecde93fe99d8705282f716dfee50
--- 
-2.39.3 (Apple Git-146)
+  return word ? 64 - __kernel_ctlz(word) : 0;
+
+With that change, the FFS KUnit result improved from 8/9 to 9/9 tests
+passing.
+
+This appears unrelated to this patch, since asm/bitops.h already
+included asm/compiler.h directly before HAVE_ARCH_COMPILER_H was
+selected. I am mentioning it here since this patch led to the issue
+being discovered.
+
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
