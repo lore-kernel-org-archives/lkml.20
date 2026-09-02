@@ -1,162 +1,136 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 009C3391835
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 19:23:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F19391832;
+	Wed,  2 Sep 2026 19:23:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788377019; cv=none; b=pMLNcA1udYIBgKugJ2QUCEnRZxpU/WFuthVG3nkxD+qqDWKj8PhvD0rnDmknrju/xX8pwZVHaUcGgU/ho4z++f6q3f/Wb6If1ZYsENIHLQOSbOZn/5Yu98SmandNBqbbSbbUF8Mx6XxG8NzZFyHLb9kvYzOuAlLQr504j4yA3zE=
+	t=1788377028; cv=none; b=THKU+PqlU1ZVKX6YJHVDVogWEMHb0zFMdZiA9cDFKwWZUngvDYuamDmCdq6Yz/XPHoCwwfAtSft4tGAusdTqZeVRFIfhduONnrCzF8jCYyk/DlXZAjJD2gMuK/jWcJHoaQXuUX6RuCd/4GAu1AsXoO3FCI4N2W8xCvUKP/r74yE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788377019; c=relaxed/simple;
-	bh=5qoCMFgqJIimoOiblFan0T6yv4nncnJHvwPk+L207Qo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ENNVAoMMeG2bhQ4UxNOYEdxr0IFS8ZSxtdxQsDIbNGXEFmj64KcheWBEcEcIIUWdeyPSRB/C1UN/24b8KMKI/WuK10z+JKgpdNHM0FG1O2METcibIjTIpLzKxtWxPueKYoVkHaQrzU/Ydln9gypZlJsBP0Kptj+mVqkt0jghyGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cb9/Ws4/; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788377028; c=relaxed/simple;
+	bh=qw+K+BJ1RrD7zmM2m2dAEw0XiEShg477ZN2YlQC79z4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=afgzbX7t8bgO2vXygxWkTWUQy3iqzud7QMPsKAcRZUjh1B8aDcVfQFWQIsUhgptSucRDDkcFlYmskbo721MR2pCPT5212PLZgTneiWYxttl0VnjaOj7v1nxG85O7luDY9T66+wGpuFGWv+5BkZYBMvjzKSxlwpJybiuyHhOVLQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GNvTglrv; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cb9/Ws4/"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49b8687630fso12198095e9.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 12:23:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788377015; x=1788981815; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vFqszwfsC0pQvqlUC15Sh1caHswlSgRw+4WeB2DlbwA=;
-        b=Cb9/Ws4/FjLRjA7re0l3ibiwwxr5PsY5ZxgCFXYb0S33OQIxmCTtNhC+prGh1n21Ik
-         UK/62OqJuIYzqGBV+2WlxJuCxXkECPAmuuQeNAwJPSNSXIZnXxYlloM9DnuvX9XDvMh8
-         ud2Y0wGTncsmRa1s9CbpE9mytHOt2ZeyMF2RgxCL8Zyh6dD5p7YJFb4hm16d8BoSOHPJ
-         1WFR/spPf88xwFEU97tTtQ1IAz2BiCUSBxzFPT93wZugEwELxNvTsYanfh+Rero09iJg
-         wqeMSMJhKULSL2Or+nzoXThgMQ0oFvJBzujrl0hIvetrsLaXx/nrDaqbCBlGgWics8JL
-         bAhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788377015; x=1788981815;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vFqszwfsC0pQvqlUC15Sh1caHswlSgRw+4WeB2DlbwA=;
-        b=AzAC2h1I8TrMPKDhrdwzCOFsBkPfl0He+Q2ux/8yfcZvy1HULOqF4HwsUG9dchVCV6
-         cFcBH/a1zL9tUN6VnnHPzywd42mCIwmDhQ/Qrl1DAyUrHk3GiK97RVWvcD7v0ky/wCEo
-         HAgWRAr2+k5NpGsVoVIwa7xnae+cvutaIqcTU+ArSWgoTC++Ki88UE8HvrYO2aC3xQM3
-         7VRH8wvr7Ogwpevluh1xiP8ZsfnZwepbPTjptRAV4CMP18QwtnhtGy8jEFiqYrRuHSM0
-         rlfryiEUOlqvLz1CXXJdlioC+ruui6zr65leYKVKaa18ViaOV1L2h8FrGlMhU+ZB5zxM
-         2waw==
-X-Forwarded-Encrypted: i=1; AKwUvBwt9aunmpd/le7CWQdXd6QciIoftfJNDFw7ha+LnG5DUI2su9GqXcueSo1nE2R2NbMzlq1L7nuR8QDXodQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lIyucHc/ca8236yudO8H5oJZG8DNQ5xDwhm6W+JSX5e5hxU8TZ
-	6fZ+4EXtj+EuyBzuUd/SxUFYqRTR1ACQVB+Xiw/55ZkQjBqyNC/ZDvWJ
-X-Gm-Gg: AYBFou1SI9ZECzUUj3iLF0+9AZCpWrEg+mRzOC2/QV63uBrRsXiPHuslSXgDBkqtbHO
-	F9C54tKPWqg48dPBk0NInhWc8iWPZcaV5FxsDueBgC+Wryfn9OTc1BG2HrEzDnl50Dx316gr3/K
-	38L7Pnnd84To9riDOC9GFpevq19GTax6mcqS7iufcdnElPe+2L+wr6An5P8Ct+x8adHioWDFN+M
-	NYeKUgZ9vdC9P5P/c8ikMzp7tX4A+2UH2ln6yaTts51s663OlPhWpMVR2K53kho0LrJyEpjDAtX
-	7bc9484JkunrghCC0iusnlLtgwMgGuDAMdfOMNCBANl3ib3uzQq+STsA1a5Ium5SAyhVXz69zrB
-	o/49kNpcvwjNaHXen/eHCxS8lSLiaqe/jChAhe5z0R+yRdYjK0e5ozdq4+GgMbMyB9aEOpHOmZo
-	2LP5QQa6RajkwnmhrFelSljrlYLBNiFGE8Jj24Q8021/A/earzOE+EwjhIQgXFbUA+XrTYNH9FC
-	iQvcRN0/yaUAmXXntYY05obevabM9R5JuAZZpFrLnu6sg1+H/Kk1gc+97gygR6pUEvVlu1/fdI/
-	w6iNZ/Pm7wqA5Q+SMSGabvfKR4tpDBT7MdrIYbqr1uze3RZH6NWyK3f/Kd5j8cFoKA==
-X-Received: by 2002:a05:600c:8b05:b0:499:b65d:124f with SMTP id 5b1f17b1804b1-49ce5823d9dmr158504505e9.11.1788377014385;
-        Wed, 02 Sep 2026 12:23:34 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a1c2-c401-11b2-c123-0d12-6c0f.310.pool.telefonica.de. [2a02:3100:a1c2:c401:11b2:c123:d12:6c0f])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5f912esm12861865e9.4.2026.09.02.12.23.33
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 02 Sep 2026 12:23:34 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Thorsten Blum <thorsten.blum@linux.dev>,
-	Nicolas Ferre <nicolas.ferre@microchip.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	linux-crypto@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] crypto: atmel-tdes - sync output bounce buffer before DMA
-Date: Wed,  2 Sep 2026 21:23:23 +0200
-Message-Id: <20260902192323.29337-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GNvTglrv"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788377026; x=1819913026;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=qw+K+BJ1RrD7zmM2m2dAEw0XiEShg477ZN2YlQC79z4=;
+  b=GNvTglrvDHGkWPxyhxk4WtglzUOZ+lAw5LvslHQZVxRouoeKx6x2AbMw
+   gCmajMTZ2632Kc/BF/w1tv1W7GrdHmu2y/x+1AnUWOXkLNxHhWz0W/pnh
+   mSYW6C9Z0jF1shEQMwX3f4l+1BRJUxyz3dq1m2BRWmEWNfbOWuXAtTebC
+   FWRuBtbgv/smuIPVBfQuCfW9dejmvDROw3G0tsmk4Gg5fPI/fZr4uWb0a
+   Hltr0CKYynMqHquHmz2QCyQZImAjqVf7+8Iu1eZi1bSW9tOKKAd3iLKzd
+   HX3GRZQbuDYPF4AYLS8I0hvUJ5V44YOfwo8TAzPLYoRcHkVkSCbf3t8+0
+   A==;
+X-CSE-ConnectionGUID: EsOKtsboSnCvaS82lDG+7g==
+X-CSE-MsgGUID: 5v7emZfmQ1qDAoI9QNAdIQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="88772187"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="88772187"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 12:23:44 -0700
+X-CSE-ConnectionGUID: hMo5Lun2Rn6VxvOsPgLP3Q==
+X-CSE-MsgGUID: uV1YVyv7TzWYC09NEDOPKQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="265798023"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.8])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 12:23:42 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id C72AD11F7F5;
+	Wed, 02 Sep 2026 22:23:38 +0300 (EEST)
+Date: Wed, 2 Sep 2026 22:23:38 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Sergey Zagursky <gvozdoder@gmail.com>
+Cc: Miguel Vadillo <miguel.vadillo@intel.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: ipu-bridge: do not use the CVS device lookup for
+ IVSC
+Message-ID: <aph3uoSgTLECfBIQ@kekkonen.localdomain>
+References: <20260901194526.6369-1-gvozdoder@gmail.com>
+ <20260901195036.7648-1-gvozdoder@gmail.com>
+ <apfI7m2oD-k5GOYN@kekkonen.localdomain>
+ <20260902145830.1796405-1-gvozdoder@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902145830.1796405-1-gvozdoder@gmail.com>
 
-The slow path maps its output bounce buffer once at probe time with
-dma_map_single() and DMA_FROM_DEVICE, then reuses the mapping for every
-request.  After the CPU copies a result from the buffer,
-dma_sync_single_for_device() must hand the buffer back to the device before
-the next DMA transfer.  The driver omits this call, so cache lines from the
-previous result can remain valid while the device writes the next one.
+Hi Sergey,
 
-This bug was masked by the completion paths calling
-dma_sync_single_for_device() immediately before the CPU copied the output,
-where dma_sync_single_for_cpu() was required.  For DMA_FROM_DEVICE on
-ARM926, dma_sync_single_for_device() invokes arm926_dma_map_area(), which
-invalidates the cache lines.  The misplaced call therefore discarded the
-stale lines before every copy-out.
+On Wed, Sep 02, 2026 at 03:57:25PM +0100, Sergey Zagursky wrote:
+> Sakari Ailus wrote:
+> > I can confirm there's indeed an issue here. But considering the list
+> > contains the CVS device HIDs, doesn't it mean you're returning NULL here
+> > for CVS, i.e. not for IVSC?
+> 
+> acpi_match_device_ids() returns 0 on a match, not a boolean:
+> 
+>   int acpi_match_device_ids(struct acpi_device *device,
+>                             const struct acpi_device_id *ids)
+>   {
+>         return __acpi_match_device(device, ids, NULL, NULL, NULL) ?
+>                0 : -ENOENT;
+>   }
 
-Commit c8a9a647532f ("crypto: atmel-tdes - fix DMA sync direction")
-correctly changed the completion paths to call dma_sync_single_for_cpu().
-On ARM926, that function invokes arm926_dma_unmap_area(), which is a no-op.
-The missing pre-DMA dma_sync_single_for_device() was therefore exposed on
-ARM926-based SAM9X60 and SAM9X7 SoCs.
+Ah, I missed you used acpi_match_device_ids(), not
+acpi_match_acpi_device(). v1 is still better than v2 though.
 
-With CONFIG_CRYPTO_SELFTESTS=y all four DES/TDES algorithms fail on
-SAM9X75:
+Can you match IVSC IDs instead? They're more stable as I don't expect new
+ones are created anymore, which isn't the case for CVS.
 
-  alg: skcipher: atmel-ecb-tdes encryption test failed (wrong result) on
-  test vector 2, cfg="unaligned buffer, offset=1"
+This is ok as a fix that is easily backported, but I think parsing CVS /
+IVSC should be separated so we wouldn't need a CVS fallback case at all.
+That's not necessarily part of the same set though.
 
-Call dma_sync_single_for_device() for the output buffer before starting DMA
-in both atmel_tdes_crypt_pdc() and atmel_tdes_crypt_dma().
+> 
+> so the bare "if (acpi_match_device_ids(adev, cvs_acpi_ids))" is true when
+> adev is *not* in the list, which is the IVSC case. Both spellings are in
+> tree, e.g. drivers/acpi/scan.c:1800 uses the negated form for "matched"
+> and drivers/acpi/x86/utils.c:206 the bare one for "did not match".
+> 
+> On this machine adev is INTC10CF, which is not in cvs_acpi_ids[], so the
+> early return is taken, the IPU6 probe fails with -ENODEV and is retried
+> once the IVSC device exists. With the polarity you read, IVSC would fall
+> through to the lookup that returns the driverless INTC10CF:00 platform
+> device and the camera would stay dead. It does come up, so the code
+> behaves as the changelog describes.
+> 
+> That said, you had to stop and ask, which says enough about how it reads.
+> v2 wraps the match in a named helper so the polarity is visible at the
+> call site:
+> 
+>   static bool ipu_bridge_is_cvs_dev(struct acpi_device *adev)
+>   {
+>           return !acpi_match_device_ids(adev, cvs_acpi_ids);
+>   }
+> 
+>   if (!ipu_bridge_is_cvs_dev(adev))
+>           return NULL;
+> 
+> No functional change, so I rebuilt it but did not boot it again; the
+> functional test in v1 stands:
+> 
+>   https://lore.kernel.org/linux-media/20260902145440.1786297-1-gvozdoder@gmail.com/
+> 
+> Thanks for the quick review.
 
-Fixes: c8a9a647532f ("crypto: atmel-tdes - fix DMA sync direction")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
-Changes in v2:
-- Reword the changelog and use full function names. No code changes.
-  (Thorsten)
-
-Link to v1:
-  https://lore.kernel.org/r/20260829045316.92931-1-kmehltretter@gmail.com/
-
-Tested on top of:
-
-  crypto: atmel-tdes - zero-initialize device state
-  https://lore.kernel.org/r/20260829035821.67220-1-kmehltretter@gmail.com/
-
-Without that fix, on the tested SAM9X75 the DES/TDES self-tests hang on
-their first requests before reaching this test vector, so the failure
-fixed here is not observable on an otherwise unpatched tree.
-
-The two patches are independent and apply in either order.
-
- drivers/crypto/atmel-tdes.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/crypto/atmel-tdes.c b/drivers/crypto/atmel-tdes.c
-index 2756dab3f4c7..ed80423b4209 100644
---- a/drivers/crypto/atmel-tdes.c
-+++ b/drivers/crypto/atmel-tdes.c
-@@ -370,6 +370,8 @@ static int atmel_tdes_crypt_pdc(struct atmel_tdes_dev *dd,
- 	if (!(dd->flags & TDES_FLAGS_FAST)) {
- 		dma_sync_single_for_device(dd->dev, dma_addr_in, length,
- 					   DMA_TO_DEVICE);
-+		dma_sync_single_for_device(dd->dev, dma_addr_out, length,
-+					   DMA_FROM_DEVICE);
- 	}
- 
- 	len32 = DIV_ROUND_UP(length, sizeof(u32));
-@@ -402,6 +404,8 @@ static int atmel_tdes_crypt_dma(struct atmel_tdes_dev *dd,
- 	if (!(dd->flags & TDES_FLAGS_FAST)) {
- 		dma_sync_single_for_device(dd->dev, dma_addr_in, length,
- 					   DMA_TO_DEVICE);
-+		dma_sync_single_for_device(dd->dev, dma_addr_out, length,
-+					   DMA_FROM_DEVICE);
- 	}
- 
- 	addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
 -- 
-2.39.5 (Apple Git-154)
+Kidn regards,
+
+Sakari Ailus
