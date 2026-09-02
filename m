@@ -1,243 +1,133 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F8D335A952
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:22:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788358972; cv=pass; b=bipsUlOkBK+pArznTxWFUW2t4FaoRRVkBTu7CukzNl8euATaBITUWxYCATM0D2VvlMBYBTKtpYBCImgQRHh+SxncJ7H5jcffdM37wRjzOtcpC0tnTTxRJhkGe9K+7xZ3fm24ZcUc8HRKVHmRDmpPVvWQzGyjwCUAPom3lXKnOgU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788358972; c=relaxed/simple;
-	bh=qv+NYacrxXvij2l0huaaxrWBSocWWAEVrhhm9aQX2RE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cLv0uBDuSfk/snPkPB4PGAicNYVzp9V3XhnSGX54N4sMAqcxcOM5D6j4GX1+20hrXgWafAiGWT6ywkyuv7yyo2UNdscCi2JhS26m2fhtO++uT0+YrAaXKh/LBb/I0EwGzTEFHYbBie6YLmunD2mLf4fqIqbPuI0OCc+aJb9Cm/s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HBcbM0Pz; arc=pass smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3932D3B2FC7
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:23:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788359013; cv=none; b=EinK6H4o62Y18LsDjEbMYnVvRpL/8RSHg9qWRR3oVm20CoN5bXvj/7Up8dylBVikLdUXyVV4c/Nv4eUmyLsbQSbeMkXJjcs2vPj/VwqnlGLA825+Jrvo8QdYAlsDOaE6VkWhoGhxO8vR/4iRzSF28w0pO8AqCgCotgFdgIpYgGM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788359013; c=relaxed/simple;
+	bh=yYbrh0LkYCzZQbIB+z+hE7XmjjsIj0CsvdF5/X7SNNs=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=bEvPOAlfblugIyk3NAHhkHebFFT5ZcHjhTQPfKqoxKCi0UelLEi5SOMmAZFEs4hUQy3JWXQtpLHwARqozxHx55y6Hjl7sEvRR5y1QeMEL2Q35pULFmLN54OY2s/nlYkTW7/ZtSB/z0+08rb88od/XxqSDN+aSn7HqAiVM6Xakv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MrZojRaJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HBcbM0Pz"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso11524665e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 07:22:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788358968; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lZuI/JHLvFuR7P4BN8KRv+zUWjQqJlvxq5ZgGTYpmTn6HwZ0jLW7i/CIvd46Z6YMvV
-         X1/MJQgO7KKECqwS0SUMHyauHPjuFsvJtC71EOK1RRjgRbco44qFzRsCezm0AsEU0Ngn
-         aeJmqaFaNbh++/v3MMnV30Qr1fu81FCaito3SMncbxiLmsWCTBx/0JGQ7xc1hvxvhRHF
-         feKLA2l7FiPYSzHLcV692VMOBJ+mYSNU7JvzXpKt+ZOY6h9fnldY8D4Ig75EMSw74xmX
-         08Tn4Xj7qK7yzynv6SntzHLYQ3lFvkQojXCFqIbJPg8TLjuCHTR5MDTTvEvhU1bDzzFI
-         csSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6kJ6c1h0K+r9+chFszj0JIJxELOe0sAVph3Dxv71sUo=;
-        fh=ObVofo7u1FGNALrmzMKVX6dD9j6gqW5OKJG9p6lHmUg=;
-        b=NRiWyiC3z8lr4UGx7HYHCGT1HM23Qj8dGGwIlXwIvfxsRNBl+RBQUQmVS1OBhn6VX2
-         SW8tJFq3jW/MKoCSA9ejmvywWCIvmnJZ9uvgkJDGmpFeUe7uXFnPdlrbLXO4emigicTT
-         WU3ZThPFAusXAPpR3APIg2TUKZZDA70EcdodoA43HKYU2dfwgG1KfmwsBF6AzY90y43Q
-         ADZnaSKzcXbWfok9Vlt2Ul0g1ZzfSzpmGBYW9SVtKKcY/W/+a01Y3ws4fBysXGxuQdXY
-         vPrdgCABXi95mnz7jpjKJv8GnTI2QSTRLN10BajtlXZxFWv6XEpguw7oHRENe0NVhbwL
-         XzKA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788358968; x=1788963768; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6kJ6c1h0K+r9+chFszj0JIJxELOe0sAVph3Dxv71sUo=;
-        b=HBcbM0PzZvzRVyq8F7FZp64Gb2gATH83tc5RmhHUgoLOQENoWA5O/19VotLf4958ew
-         8+T8JRJm7lS3GfTgHMQ/kdawA7YGO4kFzPxODVy/O3x9qp08nb8lIqIve8JzRBdJoSKX
-         tspVD3SbaZ0+sLdFStuWck1g8O+WEo8eSqnm82FWFgCsSAXIvlnf8HusoxF07XeHpnVB
-         H3itXAczff4uow2wJxgbvhO4kZ41+tNpkeGpRW/Ii7Hx6aZSZKiWm2l5Tkjax0FziRI6
-         w5YpGQINeQtcFOajBisw+WUxj7dfF7EDhN8PRr2h6SjNq8zv+adlGG9BmfSPGOrlOtYK
-         Zm9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788358968; x=1788963768;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6kJ6c1h0K+r9+chFszj0JIJxELOe0sAVph3Dxv71sUo=;
-        b=Gu3NhxvorpwYlmntYWkK9uVvIRdzgb4sXlhhOCjUbqt5CWw8YRt3B4attjI08Tj66Q
-         7EWXZIwWSbcHA41NIGBS577xMXn64OtBJNRPPszHnSmajxqIzfa2NbL2AwySkyqIN853
-         YsfyL9G0qzMv8L7VSa7C/kJYugdufVRRgAwcerH4T8gxaceeKkvlLBJu9sbUg5FrvCV8
-         zpnFvZoLnwFO3RgJ4lKuos8RAO1rGfnMn7Yj2ax83nnpzTAVnp8C6hE6Ss2WNO8Urkoq
-         S20fh0vf3Qh11XdweWRgIyX+dSg0WDMAaU4o/7Hgg6pLd8yHc8zifTzALCvc5kpknGLt
-         /t0w==
-X-Forwarded-Encrypted: i=1; AHgh+RpO+jlM/sQfLS0Y0i6JFtSEcgGW3431muzGrQel4NCv8b2EsHE4poF/ByhRELiPlCOF4UaFwU81UngTY0w=@vger.kernel.org
-X-Gm-Message-State: AFuF++mL6V9+gTwWSs6Y0rkwtLQchDLuGzydNr3dAmc9ySi5o52aOBJU
-	A0YTpjuQjiSRHMDU0yjBwmXZCfR6IkAfbVmhw7ufmWNDR5M2Uz6XlINpjZBm+6BBHatfv3RjLoy
-	zluBaOPaW0IHMocqf60v+MEvVJJitaBM=
-X-Gm-Gg: AR+sD10PFJbvsx/KuFp+MvuOewwpiOXXmz1MkJvUrAgxAf6rHjPUt5SVEoX1iHB67mp
-	AILoyTsZHtpKxIKGVHJ/yHfsnutYpYRHW5obJsS8CH6/BWKDVEe52QIpNUKXxpvca1/YFSzaxU6
-	gDrgvw3Q0KO2Zcf6ItcT24tCVSrbAfpTLQDb6iE1R4tIHUdS4tMxmCb6zI1yWPpT6IwilIexH5+
-	DRuF9XK0zsE83KsV8yOVkbqYBJb5tIil0uk8Lhsr9KIzRWN93j4eMuRWpR+opz2yj0mFHUwRNoM
-	JRKNnxQ9gDY8CaApRJwTz9c2Ux7vfyvfByQibxW959yUrG2V6p3YS+8aXLzwGwspKugVDdsrI0/
-	K6Q==
-X-Received: by 2002:a05:600c:1da1:b0:499:9eb8:a1d7 with SMTP id
- 5b1f17b1804b1-49ce5842935mr111961815e9.9.1788358968186; Wed, 02 Sep 2026
- 07:22:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MrZojRaJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FD2D1F00A3A;
+	Wed,  2 Sep 2026 14:23:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788359011;
+	bh=DRVgEittoC4ylMrMgS4zaFItUazj+vF/Wu+G04N2r1o=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=MrZojRaJFdXG6BnwP7b9wdHWlWIxtfC1zs9Q3jEocEpy6Y0rwJL7dXRtoKXP8t1ju
+	 WOpXDJUecAbgCu2KcmOt+wux65xz1vHllusBVwoXN1H7wwLIRRYNlIwtvGaQfSFBVL
+	 j/xDgzjPidaLZodgjCh2R/Xb6hnHqEXZ5rPxDrpi8BxVK2eQcD7dxoswCl40A+yT+m
+	 sObykwcIN/EIHuuYDlEuOxf/WWL557wXBpjPUAmLqXz6QC44ne0qUiH0NON472YoKn
+	 Bs1XEykgQA+Lnrph0v+v0Cx1hoYEm7rgymfW7KmQMeR8g7ojyqea6C6SmxZYz8Iahu
+	 9y6Fgs8UDiJ0A==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id CBBD2F40066;
+	Wed,  2 Sep 2026 10:23:30 -0400 (EDT)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Wed, 02 Sep 2026 10:23:30 -0400
+X-ME-Sender: <xms:YjGYasv_CGu0hhzYb8mbaiHvn8TWvuwnCgA7E1g9lsuC8H9116J5uw>
+    <xme:YjGYakQfWF34Aa9ARhTBt9Cs4NN09Yui1Aw9z_7Z0MQAm-gk5u0_vsjJ7X9uV1w6G
+    MGfn17hGGMvwCO3RA2ymyMgYuPJJ1kaCG0ZQYYD5HnN-9Ka1BRoyQ4>
+X-ME-Proxy-Cause: dmFkZTF0GOeHTz3LwEeZntTR3YfbvlV8WslcX8A47MJFRbvGdtal1J2IFzKMp4S9ibLowU
+    P7WfBxvHMgVKZbM5QM6XoqGoUQ/zHO0mp6mV4N6SW/5WRJnjALoOeiMf/0wOHRaE5kMCHl
+    Zq9YRk0Vji3b7EpedbhfCzRvUwu2dx8oLTxdrrM77bhdKRqH2f5i8hvRxpWKLIGnjKkPWN
+    tENlImCsE5kX+aCEXemOpS5LV9wsAAjIMxuQ1lObS+e5AnmbTomNhooqZS6i2y8ORAtZDm
+    z/IBMNNwR1c67ZDs0vO1f8KwJcsi8kcpSMSZQOtkNf4ELu97PExunebwlJtJ+ji+f957Ak
+    2UEbXiubpCXKc0AR7D//T74FBq5vGG/p5m2KdDx9u36J8i3gQR7oGt0Pa47Ug3n4Qlxsh+
+    Cpi0DSkK0DziX1Md++nGkFHdDVqotb4NMyVSPmoykU0yM7i+IYRLPTQPqEirkhcGQAIH2N
+    GHuAnpPoHRYvR6PQgNc/aCivN8KjVcf7FVYrUjdx3H8elZh4EFDSnmttbuPGRd1IK1eRcG
+    B30oIKWKTU0b/wnN5OF606MSq1UHBVA1SAZCyer/VNTs/JvR71tKMmPBaJp9/FAnd1wukf
+    uw5ZbAqSJRKBdAAFlXfyYzRD5fS8ZfUQl5aoXLhd5CUDfMdNjjzYoLK3TsHg
+X-ME-Proxy: <xmx:YjGYasPoF9kFzhA3rAtO6__-2nR5zaDqG528KxbjaZcX2EUAfMVFqA>
+    <xmx:YjGYajm99PjTRh5ltVBykDht_iEkwt_Kc6TlyEfohQck2E66us_XXw>
+    <xmx:YjGYauaWUxcg8N2Z4YUrj7FyUhtz3ven7fn6kqP_sFlYcwVNLOZ6Iw>
+    <xmx:YjGYapTu3LL41emCh0p-F1Kki7Oj9Cz2zP_ykT_tqaa_4AsjTd6wOA>
+    <xmx:YjGYaoXsjaIHIxxNnvmheMxpcfIYwZztU5JDlAHMn916UwDzjZNhjnu2>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id A3A3E7811F3; Wed,  2 Sep 2026 10:23:30 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260813104857.3450386-1-hebaoquan@kylinos.cn>
-In-Reply-To: <20260813104857.3450386-1-hebaoquan@kylinos.cn>
-From: Nhat Pham <nphamcs@gmail.com>
-Date: Wed, 2 Sep 2026 10:22:36 -0400
-X-Gm-Features: AcwNN1XHngzaHLhUNCqIXTdftrG_CiGVj__UOOGYwakB35FZUOuqBaGiqnEl-Sw
-Message-ID: <CAKEwX=OW6M5n8u3L_oigD3Ffn_BcB2L7p=ROfmJCxMKQFH7tXg@mail.gmail.com>
-Subject: Re: [RFC v3 00/15] xswap: extendable (virtual) swap device backed by zswap
-To: Baoquan He <hebaoquan@kylinos.cn>
-Cc: linux-mm@kvack.org, chrisl@kernel.org, kasong@tencent.com, 
-	baohua@kernel.org, youngjun.park@lge.com, hannes@cmpxchg.org, 
-	yosry@kernel.org, shikemeng@huaweicloud.com, chengming.zhou@linux.dev, 
-	baoquan.he@linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ThreadId: AOE3O8CiGXDo
+Date: Wed, 02 Sep 2026 10:23:14 -0400
+From: "Chuck Lever" <cel@kernel.org>
+To: "Christoph Hellwig" <hch@lst.de>, "Dave Chinner" <dgc@kernel.org>
+Cc: "Ran Hongyun" <ranhongyun1@huawei.com>, catherine.hoang@oracle.com,
+ chandan.babu@oracle.com, "Darrick J. Wong" <djwong@kernel.org>,
+ linux-xfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+ "Zhihao Cheng" <chengzhihao1@huawei.com>, yangerkun <yangerkun@huawei.com>,
+ yi.zhang@huawei.com, "Wangyang Guo" <wangyang.guo@intel.com>,
+ "Tim Chen" <tim.c.chen@linux.intel.com>,
+ "Lai Jiangshan" <jiangshanlai@gmail.com>, "Tejun Heo" <tj@kernel.org>
+Message-Id: <21557715-124e-40dc-a470-82904374fc44@app.fastmail.com>
+In-Reply-To: <20260902073556.GA27223@lst.de>
+References: <20260827033654.1172495-1-ranhongyun1@huawei.com>
+ <apSnC9p0X04cKxDj@dread> <20260902073556.GA27223@lst.de>
+Subject: Re: [QUESTION] xfs: Can we remove flush_workqueue from xlog_cil_push_now?
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 13, 2026 at 6:49=E2=80=AFAM Baoquan He <hebaoquan@kylinos.cn> w=
-rote:
->
-> xswap is an extendable swap device with no backing storage.
-> Swapped-out pages live only in zswap, so the device wastes no disk space
-> and its size is independent of any physical device.
->
-> xswap decouples PTE swap entries from physical backing storage.  The
-> cluster_info array is backed by a sparse vmalloc (VM_SPARSE) area that is
-> grown and shrunk on demand:
->
-> - Grow: when cluster allocation runs out of free clusters and the device
->   is below its ceiling, more physical pages are mapped into the VM_SPARSE
->   area and their clusters are added to the free list.
->
-> - Shrink: when contiguous free clusters accumulate at the tail of the
->   mapped range (tracked in O(1) via nr_free_tail), they are unmapped and
->   the backing pages freed.  Shrink is deferred to a workqueue to avoid
->   lock recursion.
->
-> A per-device ceiling (nr_clusters) bounds growth and is adjustable at
-> runtime via debugfs.
->
-> Interface:
->
->   /sys/kernel/mm/xswap/create           write a percent of RAM (0 for
->                                         the default) to create a device
->   /sys/kernel/mm/xswap/destroy          write a swap type to tear down
->                                         a device
->   /sys/kernel/debug/xswap/type<N>_cluster_limit
->                                         read/write the per-device
->                                         cluster ceiling
->
-> Since xswap has no backing, swapped-out pages are stored compressed in
-> zswap: physical writeout is skipped, and zswap writeback is disabled when
-> every swapfile in the system is an xswap device.  xswap requires zswap, s=
-o
-> device creation is refused when zswap is unavailable.
->
-> Naming:
-> =3D=3D=3D=3D=3D=3D
-> I'm going with "xswap" (the "x" for extendable/extension) rather than "vs=
-wap".
-> Chris suggested this name, and this aligns with the "VFS-like swap layers=
-"
-> direction Chris Li described in the first swap abstraction LPC talk
-> (co-hosted with Yosry) =E2=80=94 the swap ops and the xswap extension int=
-erfaces in
-> this series are moving toward exactly that. I don't have a strong prefere=
-nce
-> between xswap and vswap, so if reviewers object to the name, please comme=
-nt.
->
-> Note:
-> =3D=3D=3D=3D=3D
-> Most of the added lines come from the switch to a sysfs-based create/dest=
-roy
-> interface. v2 created an xswap device by handing swapon() a "header-only"
-> swap file (mkswap followed by dd of just the first  4K), and teardown reu=
-sed
-> the normal swapoff path. v3 makes xswap truly file-less:
-> /sys/kernel/mm/xswap/{create,destroy} replace that file dance.
->
-> This patchset only build the base. On top of this, I believe Nhat's core =
-code
-> of xswap writeback, rmap etc can be implemented simpler. E.g, we only nee=
-d add
-> one field in struct swap_cluster_info to let xs_table point to physical s=
-wap
-> entry, or zswap entry etc. No need to introduce struct swap_cluster_info_=
-dynamic.
 
-It's functionally equivalent. I think it looks cleaner to separate
-vswap-only bits into a vswap-only struct (technically saving 1 word
-for the cluster that doesnt need it too).
-
-How would writeback, rmap be simpler? The complexity comes from the
-operations around it, not the actual vtable/xs_table operations
-itself.
-
+On Wed, Sep 02, 2026 at 09:35:56AM +0200, Christoph Hellwig wrote:
+> On Mon, Aug 31, 2026 at 07:56:27AM +1000, Dave Chinner wrote:
+> > However, behavioural changes like this seem like an infrastructure
+> > regression, and trying to modify callers to hide that regression is
+> > a bandaid. This affects all UNBOUND workqueues, not just this one,
+> > and we do not need per-cpu scheduling for workqueues with such low
+> > work and concurrency counts - there can only be 4 pushs scheduled
+> > and running concurrently at any time on this work queue. Hence we
+> > don't even need NUMA queuing - a single global queue would work just
+> > fine...
 >
-> --- a/mm/swap.h
-> +++ b/mm/swap.h
-> @@ -57,6 +57,9 @@ struct swap_cluster_info {
->         u8 order;
->         atomic_long_t __rcu *table;     /* Swap table entries, see mm/swa=
-p_table.h */
->         unsigned int *extend_table;     /* For large swap count, protecte=
-d by ci->lock */
-> +#ifdef CONFIG_XSWAP
-> +       unsigned long *xs_table;
-> +#endif
->
->
-> Testing:
-> =3D=3D=3D=3D=3D=3D=3D=3D
-> 1. enable zswap
-> # echo 1 > /sys/module/zswap/parameters/enabled
->
-> 2. create xswap device
-> ~# echo 0 > /sys/kernel/mm/xswap/create
-> ~# swapon
-> NAME   TYPE  SIZE USED PRIO
-> xswap0 xswap 1.2G   0B   -1
-> ~# echo 80 > /sys/kernel/mm/xswap/create
-> ~# swapon
-> NAME   TYPE  SIZE USED PRIO
-> xswap0 xswap 1.2G   0B   -1
-> xswap1 xswap 3.1G   0B   -1
->
-> 3. tune the zswap size
-> ~# cat /sys/kernel/debug/xswap/type0_cluster_limit
-> 1179
-> ~# cat /sys/kernel/debug/xswap/type1_cluster_limit
-> 3145
-> ~# echo 2048 > /sys/kernel/debug/xswap/type0_cluster_limit
-> ~# echo 2048 > /sys/kernel/debug/xswap/type1_cluster_limit
-> ~# swapon
-> NAME   TYPE  SIZE   USED PRIO
-> xswap0 xswap   2G 377.9M   -1
-> xswap1 xswap   2G 376.2M   -1
->
-> 4. add memory pressure
-> stress-ng --vm 1 --vm-bytes 4G --vm-keep --timeout 120s &
->
-> create/destroy and grow/shrink xswap device casually, all passed.
+> Yeah, a lot of the recent workqueue changes had a lot of adverse effects.
+> We really need to come up with a way to queue work to task context (or a
+> different task context) that doesn't require reverse engineering "smart"
+> behavior in the backend.  This has become a never ending whack-a-mole
+> unfortunately.
 
-Sigh.
+Agreed.
 
-We have something that has performance benchmarks, including on a
-real, production workload:
+So, I've been chasing the other end of this trade-off. On the NFS client,
+rpciod, nfsiod, and xprtiod see sustained completion traffic from many
+CPUs, and with the default WQ_AFFN_CACHE_SHARD scope they lose a large
+fraction of their cycles to the pool lock on enqueue and dequeue. The
+fix there is a finer affinity scope (WQ_AFFN_SMT), so more pools and
+fewer CPUs per lock:
 
-https://lore.kernel.org/all/20260825153238.2695446-1-nphamcs@gmail.com/
+  https://lore.kernel.org/linux-nfs/20260831-performance-v1-0-8d9fd9b67f96@kernel.org/
 
-And somehow, we decide to implement a different data structures,
-without concrete numbers to show that it is more efficient than xarray
-(only intuitions)?
+That is the converse of Ran's problem. flush_workqueue_prep_pwqs()
+walks every pwq and takes the pool lock once per pool change along the
+way, so a finer scope makes each flush take more locks, and a coarser
+scope makes the producers contend more. The pwq walk itself is
+per-CPU at every scope, which is the part no scope setting removes.
 
-At the risk of sounding like a broken record - I have to ask: why
-don't we land use case first, optimize later? Especially since, we
-have data showing that performance is fairly close, AND users who do
-not want to risk it still have the old code and can do A/B testing
-before they decide to switch?
+For Ran's immediate purpose, patch 5/8 of that series may be useful:
+
+  https://lore.kernel.org/linux-nfs/20260831-performance-v1-5-8d9fd9b67f96@kernel.org/
+
+It exports alloc_workqueue_attrs(), apply_workqueue_attrs(), and
+free_workqueue_attrs(), so a module can set affn_scope on its own
+workqueue after alloc_workqueue().
+
+With that, xfs_cil could set WQ_AFFN_SYSTEM on xc_push_wq and get the
+single global pool Dave describes, without touching the boot-time
+default or relying on WQ_SYSFS, which XFS_WQFLAGS() adds only in
+DEBUG builds. That would let Ran measure the flush cost against a
+one-pool walk directly rather than through the per-NUMA proxy in the
+table.
+
+
+-- 
+Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
