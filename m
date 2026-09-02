@@ -1,219 +1,117 @@
-Received: from flow-a8-smtp.messagingengine.com (flow-a8-smtp.messagingengine.com [103.168.172.143])
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58163383987;
-	Wed,  2 Sep 2026 20:19:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.143
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 506AB3AF65A;
+	Wed,  2 Sep 2026 20:23:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.195.75.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788380362; cv=none; b=T2HPVX3St+2/ypHlDGB99qsTO5BtALUcS6E/DIVa95/3jDc8zn6Bb1NH7T1C2NBhCncBFUt1cMdJwq22JxktzbcwklJxtAwEkgL6VQf37TAtIVY9tbsra7Z6CbgpAaFFjMAMp0Bsq4ltmHqte5gE4PO6eMhsKKALpgVfzpTBDV0=
+	t=1788380586; cv=none; b=cai0+QvGdltPALrkldHjLcaY+rSeTq/xChrhW6iqbaVn/yCSUQ5cURjGZYG6J3zwxw+QfmQUNJJY1jdabzunHimpvkK6h4p+xz/oB41PPYIm/4W6GQvmRGfA6wZSIP7y/1LqDzxwsDgmHNWR153Z7nwW3YDd6EUnVWMTxMEzNvE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788380362; c=relaxed/simple;
-	bh=vXyA8eKvyWRBp/K6V0k9Rd35E94JwkahGZdlw+yf8dQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Rl6pp/INgyiBVOTSi71R8vrS0xbXVD1ugjSkZTCk+2oLPHXDRMZB3Xcu6sG+S/IOMyS5yk7YFrJDB4reAkCAAruUTlP0fqVu4qW2x0erETFlJK9vyTslYy4yEohI9PU6+GLoQ4NklNHD+grb5OCuXNi+D1y+ZDcd44ZgvoFTUC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=ZZ/oL0fF; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=YOQKMyi3; arc=none smtp.client-ip=103.168.172.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
+	s=arc-20240116; t=1788380586; c=relaxed/simple;
+	bh=El+lfXOiISwUcWK6Vj2fB3vvXaxwx2zumh7ylVVqsjQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YUVfJWD748eCCv5i1vQ5OKvkJcECGXAcNbGcmHa1eFhFQC2lLHFvuO2FjVyasfkQaa4DXfFZdCZSeruiOf65/cgI4zXDsqAbmUsgq6/A/8YDktlmei1ei4tjtxdwU8NLx0DgXiPHl1Vy0+n+SgD0PNj2fQd0JcjDnJcFsmgbgU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=debian.org; dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b=akHMTUt+; arc=none smtp.client-ip=82.195.75.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="ZZ/oL0fF";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="YOQKMyi3"
-Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
-	by mailflow.phl.internal (Postfix) with ESMTP id 38C7A13802B7;
-	Wed,  2 Sep 2026 16:19:18 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-12.internal (MEProxy); Wed, 02 Sep 2026 16:19:18 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1788380358;
-	 x=1788387558; bh=Vz9quh9nvRJcQM3CzvMjGEPr3bSdixOFEm0bNlRkrO0=; b=
-	ZZ/oL0fFJfM06bLBWKqfF51tay77Ozbj7KUCYvnDD4aesbtfsdJtamNItiA5OUGa
-	UFyReTB76y4MCbK4iHVlSTFiw5MQNnxmlYIHapPZ6q9WXF6kFNvj/YLbrHJqK0+0
-	dhNmUYO4wzskV1G9rLf9az60taKzXf/nTTxlssOL7sMPBCLvBKXu0VMThkTrhMoa
-	o5IaATe7jEEU4Hk9LYuDBKfJMU21F5L6xtGSoatpeibfGF9U4wrT64V64erwseJx
-	3gP+gPwbp9fY5WlyawY2k+F7H83ZOCOXRGpRCAk1O+M6esgN32DrXYtRzLZ3DKTZ
-	SHTymqJTAblPS+XTUGZNQA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788380358; x=
-	1788387558; bh=Vz9quh9nvRJcQM3CzvMjGEPr3bSdixOFEm0bNlRkrO0=; b=Y
-	OQKMyi311nAd/mqiNJV6ioXgS/xGjTVNeyqQsE4VmGMopFRWAHngL/AOkxB9Itzf
-	6mwnzWMquSoAsDnWJ4OTlPt2pVTFb5Ktd7k0zvhdDwuFW/V6AJ2jjnNosD9OdILE
-	7lnoXF3znzUqXW6UPmZWBXn9iICK432x1ceiTbqje09tR/jzVAP6TAgkfIJcl+nS
-	i1fmxgWPK6XRPv/Ta8iRjUhbBjdEh9DbsXw33NGPQPmKPGuE0gFX41MPWS8dgbeu
-	ZEPe9bF0mvNyixzMh9Vm8nmoN9OxypgC/orN4F7hEH/G7Y1cvGfHXUjMABd+x40+
-	B6tN9G0KkB4lUQt8Ak9jg==
-X-ME-Sender: <xms:xYSYasVMGSFZUbc_xKp1d80iKJUf8oOAnOEOedjXKkCp52QiP-V2zg>
-    <xme:xYSYak16gkAaPFj_Lo0-ZDnPg5y7qYZCftlSltamu6EPPddeRsk3bC1VdFyZp9SF3
-    S3zb2k0vh2x5MtUK5N0pWca-wJpsG2ITaqSieDy2bqrHlZmG99kt9U>
-X-ME-Received: <xmr:xYSYatX4UkC3b5W2nBs5WM5QEbktFpS05n1MTj86HXSGEOgiYuo1TCljn6ifnw>
-X-ME-Proxy-Cause: dmFkZTFDPnGKjj96XPPfptgd57/UcEhtbx2v3FA1uJyozmap57p8WrmU6i68nMmSieeH6C
-    2QfQhdON/c0RpQshQ9lDgC4CqOne/nSPw5my63jFMyB92Lhrwhb/mBbVRgQQfY3wpx0oaf
-    T4bGrvxjMYkHDvjmA9MCbxPninh1qk4D92ZSL3HcI+USIIdNQO0in5ZhgMvm3tNNoAZujN
-    MTv88bmpvyrFbeHcleUhdPLwslNEI1ELKI+99Hw5XXj6CjQLLZTOFcBalFQMi4T6w2A0hU
-    U85ttGNB4nOYeH2GbGypnletvvGxPMxzoeijCMzhJ+lr6tDwvHd8g0BCJT0e9mP03uWdeo
-    Q3MJZah/5/AAE3fgKFhhd/+NP8EmKKAJtH8mv02acvChwOdMue4ysS6GPHrmQtCNawMXGB
-    kdc+eFiMciyhhKI5z6SyXJRIj8F/cFJ9FHWAAs4I8P+I4Tcu3LpeOZs5pLg22OJRDz2Mvt
-    Rg5fFIdA1rrbwlkw+xn85h2Lj+Bxu9Wv90qTD1qXCsfvtMnz4UPbfYI4YOxkjSe38zutpA
-    bICCrDiT+omIUXz8Px9EBW65T8wDt26i7FzX5uVdjQB1Wldo5cuQ3j1a4Up8cQ51Cg87Kz
-    OIJGrygxD6OryfiOWU/mURjE0iumH8cqH0o5EVzIHXn+SKHjHLy2iL3a9SOg
-X-ME-Proxy: <xmx:xYSYaqDRzuyHC1aCzKRyrUdEW_rKlHeQ3r9XAHizO0sptxPUtE7Kgw>
-    <xmx:xYSYagpMw66uCsmInbiPbyfC3PPZTwydQJYNI-h_WbqwdFZT6GFTjw>
-    <xmx:xYSYam14BWIxLjQy6Y8Q7DlY_qMUDaqbfx1KiJ1Qt5SCOOVS1LIsHQ>
-    <xmx:xYSYan2Z5YTqhysqaK0h18Cz6CD01-aEEcDpoYpOFb31SSyRIqhXVA>
-    <xmx:xoSYavBGO8yOzmhhBz-FRvWc6LYzXx4mufSs4DYR60NXNYTtO90oZwks>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 2 Sep 2026 16:19:15 -0400 (EDT)
-Date: Wed, 2 Sep 2026 14:19:14 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Steffen Eiden <seiden@linux.ibm.com>
-Cc: Sean Christopherson <seanjc@google.com>,
- Paolo Bonzini <pbonzini@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Tony Krowiak <akrowiak@linux.ibm.com>,
- Halil Pasic <pasic@linux.ibm.com>, Jason Herne <jjherne@linux.ibm.com>,
- Harald Freudenberger <freude@linux.ibm.com>,
- Holger Dengler <dengler@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Matthew Rosato <mjrosato@linux.ibm.com>,
- Farhan Ali <alifm@linux.ibm.com>, Eric Farman <farman@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, kvm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-s390@vger.kernel.org,
- Jason Gunthorpe <jgg@ziepe.ca>, alex@shazbot.org
-Subject: Re: [PATCH] vfio: Use file-based reference counting for KVM
-Message-ID: <20260902141914.15a30449@shazbot.org>
-In-Reply-To: <20260812-vfio-v1-1-5cfe0b1fa4e7@linux.ibm.com>
-References: <20260812-vfio-v1-1-5cfe0b1fa4e7@linux.ibm.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=debian.org header.i=@debian.org header.b="akHMTUt+"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=yFko6/9Mo2Syy55GgxaAO11RjRRG5Bdo144bz4kvt04=; b=akHMTUt+nGmF8lyTkh0nEW4L7t
+	Peqr8fg/8LJSjZUyEZrCDgycYhkEE2VwrYIIBuB1PpRDNA1u535mt3bqw1GIB+94InVNQ8a8kQL/v
+	Ft2c9jSu5LXGm64dkD7x/l+Oixp9sVN92TfW1AHHGNbKkk1mXHrRGgtPvEd4gH4Eh1/hzrt/Jt+9n
+	VPa53kQO1NuUYJlQne5duC5b9rA/OmRUG2dXMzA6efGytwYjlj6DVIeLLdUvyf6CPrA+l5Gh9E+Ia
+	F2pUx1JQitgGZz1qeB25ASfhAQbhVwYX3ylzIERmFK04PtXZXxTfYkxjD6fVsDL+PB9Rq3We7p0VY
+	3ttBL2TQ==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <carnil@debian.org>)
+	id 1x1rTq-0002ar-1P;
+	Wed, 02 Sep 2026 20:22:46 +0000
+Received: by eldamar.lan (Postfix, from userid 1000)
+	id 96074BE2DE0; Wed, 02 Sep 2026 22:22:45 +0200 (CEST)
+Date: Wed, 2 Sep 2026 22:22:45 +0200
+From: Salvatore Bonaccorso <carnil@debian.org>
+To: Andrew Wilson <wizlonex@gmail.com>, 1145026-done@bugs.debian.org
+Cc: Sean Christopherson <seanjc@google.com>, ashish.kalra@amd.com,
+	aik@amd.com, herbert@gondor.apana.org.au, stable@vger.kernel.org,
+	regressions@lists.linux.dev, thomas.lendacky@amd.com,
+	john.allen@amd.com, davem@davemloft.net,
+	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: Bug#1145026: [REGRESSION] [6.12.y] crypto: ccp - Move SEV/SNP
+ Platform initialization to KVM breaks SEV-ES VM launch
+Message-ID: <apiFlWsTBSsdU0jx@eldamar.lan>
+References: <CALAyJWrn7OQyQMd5OPoifn_3qe6iWNf1+xSSg_six-+po9kpvQ@mail.gmail.com>
+ <aphXfTJicnEde3R4@google.com>
+ <178732258045.5504.12626873976870242251.reportbug@solo>
+ <CALAyJWqXT=LFr2wAi4egPPQX57=NRK5tXJh_t4nOKqrJbfga3A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CALAyJWqXT=LFr2wAi4egPPQX57=NRK5tXJh_t4nOKqrJbfga3A@mail.gmail.com>
+X-Debian-User: carnil
 
-On Wed, 12 Aug 2026 20:55:30 +0200
-Steffen Eiden <seiden@linux.ibm.com> wrote:
+Source: linux
+Source-Version: 6.12.105-1
 
-> Replace manual module reference counting with file-based reference
-> counting for KVM integration. Previously, VFIO used symbol_get() to
-> obtain function pointers for kvm_get_kvm_safe() and kvm_put_kvm(),
-> then manually tracked module references through these symbols. This
-> approach required storing the put_kvm function pointer in each device
-> and carefully managing symbol references. Remove the put_kvm field in
-> struct vfio_device as is it no longer used.
+Hi,
+
+On Wed, Sep 02, 2026 at 03:14:48PM -0400, Andrew Wilson wrote:
+> Hi Sean, Salvatore,
 > 
-> Pass struct file pointers instead of struct kvm pointers throughout the
-> VFIO-KVM interface. This leverages the kernel's existing file reference
-> counting mechanism via get_file()/get_file_active() and fput(),
-> eliminating the need for manual module reference tracking. The
-> file->private_data field provides access to the underlying struct kvm
-> when needed.
+> Tested-by: Andrew Wilson <your.email@address.com>
 > 
-> group->kvm and df->kvm hold a reference of their own, taken when the
-> pointer is stored and dropped when it is overwritten or cleared. They
-> have to: the kvm-vfio device fd holds a VM reference of its own, so the
-> VM file can be closed and released while the kvm-vfio device is still
-> alive and still pointing at it. filp_cachep is SLAB_TYPESAFE_BY_RCU, so
-> a stale pointer left in those slots could be made to reference a
-> recycled, unrelated file.
+> (With strong assistance from Gemini guiding me through builds, module
+> DKMS rebuilds, and interpreting logs!)
 > 
-> kvm->file itself carries no reference, so that it does not pin the VM.
-> It is only ever read with get_file_active(), which is safe because
-> kvm_vm_release() clears it, i.e. before the struct file is freed.
+> I can confirm that commit 6b748c39d18e completely resolves the issue,
+> and SEV, SEV-ES, AND SEV-SNP are fully functional on official Debian
+> packages (tested on EPYC Rome and EPYC Milan servers).
 > 
-> This simplifies the code and removes all remaining externally exported
-> symbols for KVM, paving the path for a second concurrent KVM module.
+> Here are the test results from bare-metal hardware:
 > 
-> Suggested-by: Jason Gunthorpe <jgg@nvidia.com>
-> Co-developed-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Steffen Eiden <seiden@linux.ibm.com>
-> ---
-> This is a spin-off for the arm-on-s390 series for fast-lane merging
-> requested by sean[0]. It is based on patch 1 [1] of the v6 of the
-> arm-on-s390 series but with some fixes for some issues pointed out by
-> sashiko. The useless rcu protection of kvm->file is removed and
-> the getting-the-file-handle process is streamlined.
+> 1. Upstream v6.12.104 (Source build) on AMD EPYC (Rome):
+>    * Tested SEV-ES: Functional, VMs launch cleanly.
+> 
+> 2. Debian 6.12.107-1 (linux-image-6.12.107+deb13-amd64) on AMD EPYC (Rome):
+>    * Tested SEV & SEV-ES: Functional.
+>    [    3.676036] kvm_amd: SEV enabled (ASIDs 16 - 253)
+>    [    3.690542] kvm_amd: SEV-ES enabled (ASIDs 1 - 15)
+>    [    3.735896] ccp 0000:26:00.1: SEV API:0.24 build:22
+> 
+> 3. Debian 6.12.107-1 (linux-image-6.12.107+deb13-amd64) on AMD EPYC (Milan):
+>    * Tested SEV-SNP: Fully functional!
+>    * Host log:
+>      [    4.678767] kvm_amd: SEV enabled (ASIDs 256 - 509)
+>      [    4.684694] kvm_amd: SEV-ES enabled (ASIDs 1 - 255)
+>      [    4.690563] kvm_amd: SEV-SNP enabled (ASIDs 1 - 255)
+>      [    6.212275] ccp 0000:47:00.1: SEV-SNP API:1.58 build:2
+>    * Guest dmesg:
+>      [    0.908804] Memory Encryption Features active: AMD SEV SEV-ES SEV-SNP
+>      [    0.908820] SEV: Status: SEV SEV-ES SEV-SNP
+>      [    2.109524] SEV: SNP running at VMPL0.
+>      [    3.439649] sev-guest sev-guest: Initialized SEV guest driver
+> (using VMPCK0 communication key)
+> 
+> Because Debian builds KVM as a module (CONFIG_KVM_AMD=m), we avoid the
+> built-in CONFIG_KVM_AMD=y SNP race on 6.12.y, so both SEV-ES and
+> SEV-SNP are completely working out-of-the-box on 6.12.107-1.
+> 
+> Salvatore: Debian bug #1145026 can be marked fully resolved by
+> linux-image-6.12.107-1.
 
-We'll need a shared branch to merge this across two subsystems and the
-vfio-ap driver.  Based on $Subject and LoC I can volunteer to provide
-that once we're settled.  A couple minor issues below...
+Thanks for the confirmation, thanks Sean for checking the report!
 
-> diff --git a/drivers/vfio/pci/vfio_pci_zdev.c b/drivers/vfio/pci/vfio_pci_zdev.c
-> index 0990fdb146b7..d3a110101353 100644
-> --- a/drivers/vfio/pci/vfio_pci_zdev.c
-> +++ b/drivers/vfio/pci/vfio_pci_zdev.c
-> @@ -144,6 +144,7 @@ int vfio_pci_info_zdev_add_caps(struct vfio_pci_core_device *vdev,
->  int vfio_pci_zdev_open_device(struct vfio_pci_core_device *vdev)
->  {
->  	struct zpci_dev *zdev = to_zpci(vdev->pdev);
-> +	struct kvm *kvm;
->  
->  	if (!zdev)
->  		return -ENODEV;
-> @@ -151,8 +152,12 @@ int vfio_pci_zdev_open_device(struct vfio_pci_core_device *vdev)
->  	if (!vdev->vdev.kvm)
->  		return 0;
->  
-> +	kvm = vdev->vdev.kvm->private_data;
-> +	if (!kvm)
-> +		return -ENOENT;
-> +
->  	if (zpci_kvm_hook.kvm_register)
-> -		return zpci_kvm_hook.kvm_register(zdev, vdev->vdev.kvm);
-> +		return zpci_kvm_hook.kvm_register(zdev, kvm);
+On Debian's side I'm thus closing the bugreport.
 
-There are conflicts here with Farhan's 9f240376d034 ("s390/pci: Store
-PCI error information for passthrough devices"), we need to maintain
-the error exit funnel through stop mediation.
-  
->  	return -ENOENT;
->  }
-> diff --git a/drivers/vfio/vfio.h b/drivers/vfio/vfio.h
-> index 7728bc99b63d..f76504d707e1 100644
-> --- a/drivers/vfio/vfio.h
-> +++ b/drivers/vfio/vfio.h
-> @@ -23,7 +23,7 @@ struct vfio_device_file {
->  	u8 access_granted;
->  	u32 devid; /* only valid when iommufd is valid */
->  	spinlock_t kvm_ref_lock; /* protect kvm field */
-> -	struct kvm *kvm;
-> +	struct file *kvm;
->  	struct iommufd_ctx *iommufd; /* protected by struct vfio_device_set::lock */
->  };
->  
-> @@ -88,7 +88,7 @@ struct vfio_group {
->  #endif
->  	enum vfio_group_type		type;
->  	struct mutex			group_lock;
-> -	struct kvm			*kvm;
-> +	struct file			*kvm;
->  	struct file			*opened_file;
->  	struct iommufd_ctx		*iommufd;
->  	spinlock_t			kvm_ref_lock;
-> @@ -107,7 +107,7 @@ void vfio_device_group_unuse_iommu(struct vfio_device *device);
->  void vfio_df_group_close(struct vfio_device_file *df);
->  struct vfio_group *vfio_group_from_file(struct file *file);
->  bool vfio_group_enforced_coherent(struct vfio_group *group);
-> -void vfio_group_set_kvm(struct vfio_group *group, struct kvm *kvm);
-> +void vfio_group_set_kvm(struct vfio_group *group, struct file *kvm);
->  bool vfio_device_has_container(struct vfio_device *device);
->  int __init vfio_group_init(void);
->  void vfio_group_cleanup(void);
-
-There's a stub in the !CONFIG_VFIO_GROUP set of declarations below this
-that isn't updated to the new prototype, build breaks.  Thanks,
-
-Alex
+Regards,
+Salvatore
