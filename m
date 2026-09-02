@@ -1,170 +1,155 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 226CC424D6E
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:50:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40E3642B33D;
+	Wed,  2 Sep 2026 09:50:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788342642; cv=none; b=JzSW50tDSpHM39jdc/2xMsotsMHXnFsRYliEfWY9CmEQi4sQnldRxxtWRNbIUpsq7CaSGIpBHNHD/WwM43b2nyhzrIcmREI9tmATHg7zot/lxKcLYcdZ1yuMYRL5WQtqKporAqe3aKmEr4+DhUYxhNo+l+SujF0INCt0Y65Jlpo=
+	t=1788342660; cv=none; b=ZkHMa84BOVgS5z8pNbUCxQogy7lZ8jXdeC5GNjDs3SS4w8gjPDqo+JlW1RLt+4fe0JufDEJcxmmujF2msAQMwsp6zE2egYKW334CiZxbq6fkAo7Eo5aVzG6svgMFhy2ko8Et+AIRhRSjfShblhR21IzS4wf47TyhZaIXXr3fiGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788342642; c=relaxed/simple;
-	bh=KlSPdG0axhMwXwHO3+Qv2C+0G7of9gj9TLRZCgi06OU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Rnp8rOWVLzG5CGI4398LG832Mzh8xbqICjRfIWbm9vdfwOL5+LCnO32d//aaZKgWeQu8IdgORX2kqrx7hQiDYkOLyNqiVkksAXclhjmM6lE8G8hOBqBYdfzsekS0Cu6v4rYnaZQLeY6RBRhuf1TLU0JA36KEbRZ7TWBhiPS3YcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=cWzAYMLp; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788342660; c=relaxed/simple;
+	bh=Og93/Iy3MDmWRZktAaxvbO0Wk7cI2PaKifHhoHZu0iw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZeO9+clIBZdfItOQ1PksEajLHFBM6q45ZoiBlVlN+fwjp8y0VoK0v2mnE+gkiCDEQkSgqWxCZOInmIh6z29x5Xjy0HpAyL/kRWGii7wM7VG2chxEFWV3NC9lMkkl+kaFVl9StKykKGj3oowJYub/mwMLgMt4SpCm3csS+9A9moE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DXd/CcMz; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="cWzAYMLp"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 6BB644E414CF;
-	Wed,  2 Sep 2026 09:50:36 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 363296053C;
-	Wed,  2 Sep 2026 09:50:36 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E071911C792F3;
-	Wed,  2 Sep 2026 11:50:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788342635; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=SlG586REaqGCwTe3f44TG7HZev5qlllhYufaSDUddpM=;
-	b=cWzAYMLpmucLaUQi6Pjy0yGWfJDQ4mBMCRPCtX9c1WEwiDpfiPIwT5Z2w89NRDl8J79nu7
-	hP0SAeyQuLwwlr6She1sm7n45TnlMKbIOjb8bFbBA7MXJ3lBYBtuj/lLS87XyHdppwhg8E
-	nYVtfOB3L3dMzPUi+NxH9whEJ+oeiKB7yoLn3ATYQi1ytxTfEQVjgWe5AjgF4cdUC8bX5q
-	VFchLkozwdVKdohVQ2kSFF62nqaE/rE3Uu4wuPBbchiZtzGJVhOpUK69AxIhct+FJWaYwI
-	Nk5MlJk6zdowhZaAvDP0CIAYT6LA0CMAtNdwHZL/MXMWcein0vElgZ55dBQ++g==
-Message-ID: <3450830c-1766-4bd5-a777-4bfbfc4c25c7@bootlin.com>
-Date: Wed, 2 Sep 2026 11:50:25 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DXd/CcMz"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B5900C2BCC7;
+	Wed,  2 Sep 2026 09:50:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788342659;
+	bh=Og93/Iy3MDmWRZktAaxvbO0Wk7cI2PaKifHhoHZu0iw=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=DXd/CcMzhhpON1qvPbFKCgzs2wHdJC+87rkD1Qvy8UsxEasYI7DRtz9vLZCCaybBL
+	 32zmGKieKXtZ6OBKZwvS08Ld+uZQGgPd4TUiS3ZEJENu5InE9eB+j+Uvf8qAujfqhD
+	 1DKiaeyoau/xxMBO0okJzEg4cqmayo2txj495KSHKiIT1Z8UJ0Bsu6tYOQ9R/dfWPc
+	 iE9iRktJwt6A4mYDSB4HMVjUkbaWuzb05wWw5kBt5jQWIRGCwNOhYnIZMFde0OoGdI
+	 yYBJQ6+NGo7ETErxiib0KLcvSTMwtf0XGqP4WAkL4SUrHKNG40ttO5s3xDS6SNj9mU
+	 Ya3pN7Mw82tHg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A0D96C61DD6;
+	Wed,  2 Sep 2026 09:50:59 +0000 (UTC)
+From: Kairui Song via B4 Relay <devnull+kasong.tencent.com@kernel.org>
+Subject: [PATCH v5 0/6] mm/mglru: clean up folio counters and flag usage
+Date: Wed, 02 Sep 2026 17:50:53 +0800
+Message-Id: <20260902-mglru-flags-cleanup-v5-0-9db761d779ef@tencent.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v4 1/2] net: dsa: mt7530: populate lpi_interfaces to
- fix EEE support
-To: Aleksei Sviridkin <f@lex.la>, chester.a.unal@arinc9.com,
- daniel@makrotopia.org, andrew@lunn.ch, olteanv@gmail.com, nbd@nbd.name,
- lorenzo@kernel.org, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org
-Cc: linux@armlinux.org.uk, dqfext@gmail.com, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-References: <20260902080519.2211373-1-f@lex.la>
- <20260902080519.2211373-2-f@lex.la>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260902080519.2211373-2-f@lex.la>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33PwW6DMAwG4Fepcl6mOCSU9rT3mHYItkMz0VAlg
+ DZVvPtCd0Er2vGX7O+37yJzCpzF+XAXieeQwxBLsC8HgRcXO5aBShZa6Vo10Mhr16dJ+t51WWL
+ PLk43iWhO6B3V1nhRNm+Jffh6qO8fvzlP7SfjuFLrxCXkcUjfj9oZ1rn/G2aQSjbUtuRQkW7wb
+ eSIHMdXHK5i7Zj1RtFmX9FFUaAMVBrAOH5Wqq1S7ytVUejkAY/WlsebZ8VslAr2FVMUTWCJWNG
+ R/9yyLMsPyrGtapwBAAA=
+X-Change-ID: 20260818-mglru-flags-cleanup-cc49cfad654f
+To: linux-mm@kvack.org
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Baoquan He <baoquan.he@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Roman Gushchin <roman.gushchin@linux.dev>, 
+ Muchun Song <muchun.song@linux.dev>, Chris Li <chrisl@kernel.org>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Ridong Chen <ridong.chen@linux.dev>, Lian Wang <lianux.mm@gmail.com>, 
+ Yu Zhao <yuzhao@google.com>, Zi Yan <ziy@nvidia.com>, 
+ Qi Zheng <qi.zheng@linux.dev>, cgroups@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Kairui Song <ryncsn@gmail.com>, 
+ Kairui Song <kasong@tencent.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788342657; l=3388;
+ i=kasong@tencent.com; s=kasong-sign-tencent; h=from:subject:message-id;
+ bh=Og93/Iy3MDmWRZktAaxvbO0Wk7cI2PaKifHhoHZu0iw=;
+ b=9Ic0Xmc+ROewYfhXwzx380eiPLauaLVXfEAvcMEqhvcWjsHkHCJ6mulshuiQBnxWEwrfXhX8J
+ TSoiwsaFUrXDxWkdFCM8O8NhzIW0JmIAqJGWqAfjACWz+qHjE5dblyw
+X-Developer-Key: i=kasong@tencent.com; a=ed25519;
+ pk=kCdoBuwrYph+KrkJnrr7Sm1pwwhGDdZKcKrqiK8Y1mI=
+X-Endpoint-Received: by B4 Relay for kasong@tencent.com/kasong-sign-tencent
+ with auth_id=562
+X-Original-From: Kairui Song <kasong@tencent.com>
+Reply-To: kasong@tencent.com
 
-Hi Aleksei,
+This is a cleanup series separated out from the MGLRU-FG series [1]. As
+that series is getting too long in following updates, seperate out the
+clean up part for easier review and merge.
 
-On 9/2/26 10:05, Aleksei Sviridkin wrote:
-> phylink_create() decides once and for all that a MAC supports managed
-> EEE, and it requires the tx_lpi ops plus non-empty lpi_capabilities and
-> lpi_interfaces. mt753x_phylink_get_caps() leaves lpi_interfaces empty.
-> 
-> So ever since the conversion to phylink managed EEE, ethtool has
-> answered "Not supported" on every mt753x port, and phy_disable_eee()
-> has locked userspace out of turning EEE on. That undoes what
-> commit 06dfcd4098cf ("net: dsa: mt7530: fix enabling EEE on MT7531
-> switch on all boards") arranged: EEE off by default, but reachable
-> with ethtool.
-> 
-> Leave the speeds above 1 Gbps out of both bitmaps. PMCR folds
-> SPEED_2500 and SPEED_10000 onto PMCR_FORCE_SPEED_1000, so
-> PMCR_FORCE_EEE1G would govern LPI on such a link, and that is
-> unvalidated rather than known unsupported: MediaTek's SDK driver sets
-> the EEE force bits for 100 Mbps and 1 Gbps only, and the unit of the
-> wakeup timers is undocumented with the port clock at 2.5 times the
-> rate.
-> 
-> LPI stays off until userspace enables it, but the EEE advertisement of
-> a PHY that advertises it out of reset comes back, since phylink stops
-> force-clearing it.
-> 
-> Fixes: 9cf21773f535 ("net: dsa: mt7530: convert to phylink managed EEE")
-> Signed-off-by: Aleksei Sviridkin <f@lex.la>
-> ---
-> Ports that support neither 100 Mbps nor 1 Gbps are skipped because on
-> MT7988, EN7581 and AN7583 port 6 is 10 Gbps only and shares
-> PHY_INTERFACE_MODE_INTERNAL with the user ports, so the interface mask
-> alone cannot tell them apart. MT7531's internal PHYs keep the
-> advertisement mt7531_setup() zeroed and EN7528 keeps both bitmaps
-> empty, so EEE stays fully off there.
-> 
-> Two pre-existing things this patch makes live, neither addressed here:
-> 
-> - The unit of LPI_THRESH is still unspecified, as the comment above
->   lpi_timer_default says. Before the phylink conversion
->   mt753x_set_mac_eee() wrote tx_lpi_timer into the field directly, so
->   the raw unit has always been what ethtool showed on these ports.
-> 
-> - mt753x_phylink_mac_enable_tx_lpi() sets the PMCR force-EEE bits
->   without checking the resolved speed or interface, relying entirely on
->   phylink never calling it above 1 Gbps. A check there would make the
->   driver robust independently of lpi_interfaces being right.
-> 
-> v2, with the full argument for leaving the higher speeds out:
-> https://lore.kernel.org/netdev/20260824024117.46154-2-f@lex.la/
-> 
-> v4: lpi_capabilities is mac_capabilities masked to the two speeds
-> instead of both asserted. Every port that reaches the guard today has
-> both speeds, so nothing changes; it only stops the bitmap from claiming
-> a speed a port cannot link at.
-> 
->  drivers/net/dsa/mt7530.c | 25 ++++++++++++++++++++-----
->  1 file changed, 20 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
-> index 2b7be091c056..a188a391b650 100644
-> --- a/drivers/net/dsa/mt7530.c
-> +++ b/drivers/net/dsa/mt7530.c
-> @@ -3172,23 +3172,38 @@ static void mt753x_phylink_get_caps(struct dsa_switch *ds, int port,
->  
->  	config->mac_capabilities = MAC_ASYM_PAUSE | MAC_SYM_PAUSE;
->  
-> +	priv->info->mac_port_get_caps(ds, port, config);
-> +
->  	/* The EN7528 GPHYs report EEE capability, but negotiating EEE with
->  	 * common link partners (e.g. Realtek GbE NICs) results in an unstable
->  	 * link with dropped frames. Leave the LPI capabilities empty so that
->  	 * phylink disables EEE on these PHYs and refuses to enable it from
-> -	 * userspace.
-> +	 * userspace. Ports that run at neither 100 Mbps nor 1 Gbps are left
-> +	 * empty too, since LPI above 1 Gbps is unvalidated.
->  	 */
-> -	if (priv->id != ID_EN7528) {
-> +	if (priv->id != ID_EN7528 &&
-> +	    config->mac_capabilities & (MAC_100FD | MAC_1000FD)) {
->  		u32 eeecr = mt7530_read(priv, MT753X_PMEEECR_P(port));
->  
-> -		config->lpi_capabilities = MAC_100FD | MAC_1000FD | MAC_2500FD;
-> +		/* PMCR folds SPEED_2500 and SPEED_10000 onto
-> +		 * PMCR_FORCE_SPEED_1000, so LPI above 1 Gbps would be
-> +		 * governed by PMCR_FORCE_EEE1G and is unvalidated rather than
-> +		 * unsupported. Leave it out of both bitmaps: lpi_capabilities
-> +		 * gates on the media speed a rate matching PHY reports, not
-> +		 * on the speed the MAC runs at.
-> +		 */
+No feature change is intended, except one bugfix. It mostly replaces
+the open-coded bit operations scattered throughout the MGLRU code with
+new helpers, with proper kdocs, sanity debug checks, and hardens a few
+MGLRU functions.
 
-This is still too verbose IMO... 2500Mbps LPI isn't uspported, that's all we
-need to know :)
+A subtle generation counter leak is also found during the refactoring
+and the fix is included.
 
-It's very common that 2500 uses the same settings as 1000 with just a random
-register somewhere switching the speed to 2.5x, and also very common that lots
-of features break when using 2500, so no need for the verbosity here. Same
-goes for the next patch as well.
+Also collected review feedbacks on the cleanup part from the posted
+series.
 
-Sorry for nitpicking on this, but comment verbosity overall has been rising-up lately,
-LLMs may have something to do with it, and it doesn't necessarily make things more
-readable :(
+Link: https://lore.kernel.org/linux-mm/20260804-mglru-fg-v1-0-4d8dad39dad6@tencent.com/ [1]
+Signed-off-by: Kairui Song <kasong@tencent.com>
+---
+Changes in v5:
+- Change atomic long to plain long in patch 1, and adjust commit message.
+- Rename is_file to type, and avoid touching folio_is_file_lru in patch 7/7.
+- Link to v4: https://patch.msgid.link/20260831-mglru-flags-cleanup-v4-0-2d15dde0d7ee@tencent.com
 
-The code itself looks fine though,
+Changes in v4:
+- Rename lru_gen_set_flags/lru_gen_from_flags to
+  lru_set_gen_flags/lru_get_gen_flags, similiar with lru refs helpers,
+  as suggested by [ Barry Song ].
+- Added some comments to cover concerned raised by [ Barry Song ] and [
+  Baolin Wang ].
+- A little code shuffling and better sanity check for concerns raised by 
+  [ Ridong Chen ].
+- Collect tags.
+- Link to v3: https://patch.msgid.link/20260826-mglru-flags-cleanup-v3-0-d9f1c75549c8@tencent.com
 
-Maxime
+Changes in v3:
+- Set PG_workingset before setting LRU refs bit to avoid any potential
+  under report of folio tier.
+- Migrate folio's referenced status before PG_update so lockless readers
+  won't set stale referenced status.
+- Link to v2: https://patch.msgid.link/20260824-mglru-flags-cleanup-v2-0-0104132114ae@tencent.com
+
+Changes in v2:
+- Dropped the redundant LRU_GEN_MAX macro.
+- Renamed folio_migrate_refs() to folio_migrate_lru_refs() and reworded
+  its commit message to describe the referenced state being transferred.
+- Rewrote patch 6's commit message with a detailed analysis of the
+  anon/file accounting race.
+- Dropped patch 7, it doesn't really fix anything, and might be in
+  conflict with other updating series.
+- Collected Reviewed-by tags.
+- Link to v1: https://patch.msgid.link/20260818-mglru-flags-cleanup-v1-0-8dbbdac0d28c@tencent.com
+
+---
+Kairui Song (6):
+      mm/memcontrol: move the lru_zone_size sanity check to the reader side
+      mm/mglru: introduce helpers for manipulating gen and refs flags
+      mm/migrate: copy all referenced state via folio_migrate_lru_refs
+      mm/mglru: move max_seq read into walk_update_folio
+      mm/mglru: use explicit tier range in read_ctrl_pos()
+      mm/mglru: fix potential generation folio number leak
+
+ include/linux/memcontrol.h |   9 +++-
+ include/linux/mm_inline.h  | 115 +++++++++++++++++++++++++++++++++++++++-----
+ include/linux/mmzone.h     |   3 ++
+ mm/folio.c                 |  19 ++++----
+ mm/memcontrol.c            |  18 +------
+ mm/migrate.c               |   6 +--
+ mm/vmscan.c                | 117 +++++++++++++++++++++++----------------------
+ 7 files changed, 188 insertions(+), 99 deletions(-)
+---
+base-commit: 893f78beb0477671991ccaae87df75acc484162f
+change-id: 20260818-mglru-flags-cleanup-cc49cfad654f
+
+Best regards,
+--  
+Kairui Song <kasong@tencent.com>
 
 
