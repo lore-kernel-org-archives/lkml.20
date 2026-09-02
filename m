@@ -1,132 +1,87 @@
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from d2-2-bhs5.logotherapy.ca (d2-2-bhs5.logotherapy.ca [15.235.45.126])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A65937AA77
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 20:49:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B157C378839;
+	Wed,  2 Sep 2026 20:49:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=15.235.45.126
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788382168; cv=none; b=T6dBCLYmEjtzZbLks6zno9B5s8/NF2nN3RHmhXZJ5zM5tVU2gudHfuETIhLaAfADJ41NHuKKDbMnpbxwSafFCcaWZVt9SQsUymwDpmllDv1WIh1zKRdUj7Tvzfcu8rzoc0jRjuCuJBrJ3+zE/2vWC8v5Oiv8uymHenXvzBi7M+c=
+	t=1788382174; cv=none; b=Lna6pdneVPWj2FsrZlQ0dZ+vsVyN2ds+J5mRuRVxnDEF8wUEdb+etJADMPHVTrKGLLWhp+mSXh7YS9lrlTsJu0xKYegDdP6ZajrMf8nu/b+V1a82P5BsWhDYoBwjJHoG0xH1RZQmLqbuUQuWmauvapDkk/rHbp+095tzfgSFbFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788382168; c=relaxed/simple;
-	bh=d3eFT79e+sYwxEQtn0wpMt7MmXkuJULAfjVLUFhy2Jw=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Iu00TuRWF4hRGEDVAadG7iZdvF2szOFcKFxelMIK4RnFwQIsE/92yYku2gN9P5LBW58iEEwSO8NZ1CVRsyl3hexTY12zv3Cdztk76rhA2jbe+AMkSBa7MfL4/XPYk0VAu2FSyWVrsKu4HivsoUNLoPBMa+hRrowVlYtuHbqnHQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=ocSnmRuv; arc=none smtp.client-ip=209.85.214.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1788382174; c=relaxed/simple;
+	bh=l3faHyrs+3FI9khlUj47eBiqzUPIJOre83jcCbDW3pY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=QE9/nqV89hgyP1r+jM32WY7/T7xC5VGGNpwAMTsn/UAvZ2jRGRgvjDOgDvh6EbHS7+cZDrg661gi4MsPmgAI/mKLOWZYkJZpV0Zs2+x2pTdGUllYPR7GZ+DNyjB0PFIW6N8AqO0lo7FXGahnu6F+y9RbM/AAB6Xdm8dm4y4SJZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=petermarshall.ca; spf=pass smtp.mailfrom=logotherapy.ca; dkim=pass (2048-bit key) header.d=petermarshall.ca header.i=@petermarshall.ca header.b=HlRHNgbG; arc=none smtp.client-ip=15.235.45.126
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=petermarshall.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=logotherapy.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="ocSnmRuv"
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d94a158dc8so23918145ad.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 13:49:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788382166; x=1788986966; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w5M2n78XakxQe9dAtPYQIzOqOSJtPDxO02ooAB0+0oI=;
-        b=ocSnmRuvMO7GC25eenktLo8mRjF8c7OmXTwTpsl+d6HUOd/9wlRbkdwwXkol+e7HPh
-         SAQCb+g6LZhbWrV/bioXdfNClNuXPV9UZsqznovjyP1jRTVRHUfVZ4t2/5cauuRzqeWn
-         O2ZgCtgsiObJxjTFPj5p0s0QOAZTlZgIE+IGQdGx7YaXZfyWQAQhOGT7uqTfPD4HVS2j
-         kYH+/Z8r9/IpU7jt5TuBy/sUTZGKgHWe1IfhYKjRRKnZIxJFllGP41UKGueBSdL2IqtA
-         QJWTYfG5EBB4tsepl87u4QDkikDMdUPoULkmKCJnDbBi6MbpVYIa5dA3fCzgU9QuiPNz
-         J78g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788382166; x=1788986966;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=w5M2n78XakxQe9dAtPYQIzOqOSJtPDxO02ooAB0+0oI=;
-        b=h5aQFF3PbI7+IwKNvR7F6umyh18tivtJXfn36XomnnwFBWptsRnH5FjSn/3+j9gqeb
-         uijJXp2QY+ctuq4Byql2TwQLf5uY/Gg7HLceTKKlyfElR8x/BhFrh5WEAesQ0f4MDAdS
-         v9CZWqe4wm/lQ+nbvHacJcDLZotzDovhSJLH2c0lJ5Wx9u07QHXXO2RzbEHoX07xJ8kE
-         Roilyfkbcg5i4AbNnD7P3cCZ5gfX6MkTwAgtgxeXf9lg3zzx8A7qdNeDQ7fRp7HnUpqQ
-         7F1kcRO3Kc5dBS8T5mmSEtgs7Gi7zC/zfVTHbg85P6O4G50E4VbxTmdIM9Kp0ZKX2pna
-         rAwA==
-X-Forwarded-Encrypted: i=1; AKwUvBy/tvRE8c4dU9/u0GgXTal+0jqHngiLtHW/UcEhaCh7qyLf/ZDHfOv0hgMwAmEZTHYakkSRwjNs9K7A98c=@vger.kernel.org
-X-Gm-Message-State: AFuF++kESQ5beAxobVuJItOFf5tSrPYrnvZD4Zi6NQ/YMcgC4GygrIbn
-	9AYmgFW7/mk3J2cBOert+IJDRiXfSsakptAaoU8uJHNEOlUVF18vQ9niHp2KsDmvlirr0hzY/Ee
-	RDMdVYg==
-X-Received: from pluo3.prod.google.com ([2002:a17:903:4b03:b0:2d9:1a52:2094])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:1a30:b0:2d9:2688:8be6
- with SMTP id d9443c01a7336-2daec71ddddmr102163065ad.19.1788382166025; Wed, 02
- Sep 2026 13:49:26 -0700 (PDT)
-Date: Wed, 2 Sep 2026 13:49:25 -0700
-In-Reply-To: <649c7d7a-f042-4fe2-a3e8-eb15e4d76a46@intel.com>
+	dkim=pass (2048-bit key) header.d=petermarshall.ca header.i=@petermarshall.ca header.b="HlRHNgbG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=petermarshall.ca;
+	s=mail; t=1788381994;
+	bh=l3faHyrs+3FI9khlUj47eBiqzUPIJOre83jcCbDW3pY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=HlRHNgbGmIqJcdCxrtFmxwuNoc3Jft+E6aK14qGtDVzDB/fBu3at2HTwVdTwTlKJ/
+	 W6GnEu5flPwEdIvRJOh0Vg6Ww6qN5Qym/K5aUuYghqEEpeNCE1o1rN3Lrsg7fr39Nm
+	 4uLyjp/KVYd42F/jOswYrdDbbYy1y8Ve4rCBRRrS6n7lIXGuMe0+LzgcH+MHri7WOr
+	 eCNfXE0w4BESyn6sq9XZxb235EjNn5I2hj82puXjmztcFL+SPjXbDeiwmMY50T3e5a
+	 9Oe/KmtPe423200NM4LbEXD4bu/BdA4amoMyBVFy2y15VCr/jJYeVXZ9xnwvdUvEt5
+	 O+vmRv4S9RmrA==
+Received: by d2-2-bhs5.logotherapy.ca (Postfix) id B258E223F1;
+	Wed, 02 Sep 2026 20:46:33 +0000 (UTC)
+From: Peter Marshall <pm@petermarshall.ca>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	Peter Marshall <pm@petermarshall.ca>
+Subject: [PATCH 7/7] MAINTAINERS: Update ST VD55G camera driver entry
+Date: Wed,  2 Sep 2026 16:45:46 -0400
+Message-ID: <20260902204549.657228-8-pm@petermarshall.ca>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260902204549.657228-1-pm@petermarshall.ca>
+References: <20260902204549.657228-1-pm@petermarshall.ca>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20251026201911.505204-19-xin@zytor.com> <20260902142336.9955-1-ehemily@amazon.de>
- <649c7d7a-f042-4fe2-a3e8-eb15e4d76a46@intel.com>
-Message-ID: <apiL1WmN3j4ceDHI@google.com>
-Subject: Re: [PATCH v9 19/26] KVM: nVMX: Enable support for secondary VM exit controls
-From: Sean Christopherson <seanjc@google.com>
-To: Sohil Mehta <sohil.mehta@intel.com>
-Cc: Emily Ehlert <ehemily@amazon.de>, xin@zytor.com, andrew.cooper3@citrix.com, 
-	bp@alien8.de, chao.gao@intel.com, corbet@lwn.net, dave.hansen@linux.intel.com, 
-	hch@infradead.org, hpa@zytor.com, kvm@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, luto@kernel.org, 
-	mingo@redhat.com, pbonzini@redhat.com, peterz@infradead.org, 
-	tglx@linutronix.de, x86@kernel.org, nh-open-source@amazon.com
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 02, 2026, Sohil Mehta wrote:
-> > The write side already validates against
-> > 
-> > vmcs_config.nested.secondary_exit_ctls; the read side should likewise gate
-> > 
-> > on the control being advertised:
-> > 
-> > 
-> 
-> You are right, the read can be gated on the control being advertised.
-> Looking at the rest of the read function, it doesn't seem to have any
-> other equivalent check. I think there might be others that have similar
-> behavior.
+Point to the updated vd55g sources and documentation, and add myself as
+a maintainer.
 
-Yes.  Secondary controls, tertiary controls, VMFUNC, EPT/VPID, etc.
+Signed-off-by: Peter Marshall <pm@petermarshall.ca>
+---
+ MAINTAINERS | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-> But, I don't see any harm in adding the below check to match the bare
-> metal behavior for the new code. I'll add it to v10 unless someone objects.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 5114e6db7..b090e6318 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -25649,13 +25649,14 @@ F:	Documentation/devicetree/bindings/hwmon/st,tsc1641.yaml
+ F:	Documentation/hwmon/tsc1641.rst
+ F:	drivers/hwmon/tsc1641.c
+ 
+-ST VD55G1 DRIVER
++ST VD55G DRIVER
+ M:	Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+ M:	Sylvain Petinot <sylvain.petinot@foss.st.com>
++M:	Peter Marshall <pm@petermarshall.ca>
+ L:	linux-media@vger.kernel.org
+ S:	Maintained
+-F:	Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml
+-F:	drivers/media/i2c/vd55g1.c
++F:	Documentation/devicetree/bindings/media/i2c/st,vd55g.yaml
++F:	drivers/media/i2c/vd55g.c
+ 
+ ST VD56G3 IMAGE SENSOR DRIVER
+ M:	Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+-- 
+2.55.0
 
-Normally I want MSR accesses to have the same fault semantics for userspace and
-guest accesses, but for the VMX MSRs, I think we should let userspace read at all
-times since they're feature MSRs.  E.g. I don't want to end up in a state where
-userspace can't read an MSR because it restored/set MSRs in the "wrong" order.
-
-We could plumb in @host_initiated to vmx_get_vmx_msr(), but I think I would rather
-add the check in vmx_get_msr().  E.g. shoot for something like:
-
-diff --git arch/x86/kvm/vmx/vmx.c arch/x86/kvm/vmx/vmx.c
-index 504630f0eb40..a99cebfe50e0 100644
---- arch/x86/kvm/vmx/vmx.c
-+++ arch/x86/kvm/vmx/vmx.c
-@@ -2200,6 +2200,10 @@ int vmx_get_msr(struct kvm_vcpu *vcpu, struct msr_data *msr_info)
-        case KVM_FIRST_EMULATED_VMX_MSR ... KVM_LAST_EMULATED_VMX_MSR:
-                if (!guest_cpu_cap_has(vcpu, X86_FEATURE_VMX))
-                        return 1;
-+               if (!msr_info->host_initiated &&
-+                   !guest_cpu_has_vmx_msr(msr_info->index))
-+                       return 1;
-+
-                if (vmx_get_vmx_msr(&vmx->nested.msrs, msr_info->index,
-                                    &msr_info->data))
-                        return 1;
-
-
-That'll require yet another switch(), but reading these MSRs should never be a
-hot path.
-
-> > 	case MSR_IA32_VMX_EXIT_CTLS2:
-> > 
-> > +		if (!(msrs->exit_ctls_high & VM_EXIT_ACTIVATE_SECONDARY_CONTROLS))
-> > 
-> > +			return 1;
-> > 
-> > 		*pdata = msrs->secondary_exit_ctls;
-> > 
-> > 		break;
-> > 
-> 
