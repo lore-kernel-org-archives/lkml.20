@@ -1,77 +1,77 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A4EF3438B9
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 02:11:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB95535E94E
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 02:11:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788315065; cv=pass; b=bCs5MmLxT7J11wM4KmjJsKJ1TypLfeZnIU6S1JZljf49i0Asb7Uajn76UfgGQrlGUKICdPWiOi/8uhxgI+ny5OMvL5ssAEpT9y+rhzY2BmtLugG4MJSBngwgv87+v50idkUnLrXTK6w5UbxQLxNrLYJhoNd+YvUNE5wACyvhlm8=
+	t=1788315124; cv=pass; b=YSXyy7ISfvhF5vGrFg9zYQOkOrWzPBoIyGVpk8BCDi0RIKB56YdZvnX/AFDmkw7yYEOMzyTG7ajHFCNfbQ9Gt8AYPdPBon0k5Gj/s3ALH91plWftEanofwdAnrKb4YRPtEr/JoFkPi1AlnJF59owWlMQstkZmiw8f655gzF/+ko=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788315065; c=relaxed/simple;
-	bh=Wqi9+7wd5NnLZOWTg5e1HxhEYKd1pgkTsh1j+yGEUio=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=IrkReUyoEv4jjrQsTRh9z8Qo8G0EF3x9gNcx4itowfPB57O2KnRgqhnZcSExdbXNjTXS4f3D5GoU6akhFOVt1Wl4P/jDAYeQHkMOKsZciGmKdF1SgHm1Pz7zGwgYzufwACup+ZAnsbBGiaRWxPYmrPETLltge8V3BqDDPzZlGjc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nEKtSy+6; arc=pass smtp.client-ip=209.85.128.47
+	s=arc-20240116; t=1788315124; c=relaxed/simple;
+	bh=m8dMhdjgbxNUNzyBg0Mvg7t7wUGshuRTgqDq2yP8CA8=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=df538B3mCDTd2vXKzFV3FTdOeTfyDl6A/jnAAZk5kDjlvmjM48g4ovKTd3E4rLlTa4CqNF36KG+x20PmhHsBM5N2vyFg2i/RjWPPZ0tfElJz9+HEjjNbqeZ5tGa3uwTxXl6oT9qbNd/D8Yl7RhXPfb4Eq1crW6W8BR94rLBjC0k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IEeJ/F/v; arc=pass smtp.client-ip=209.85.208.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nEKtSy+6"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49b0d8bc2aaso4130175e9.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 19:11:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788315057; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IEeJ/F/v"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a6868f18aeso160949a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 19:11:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788315117; cv=none;
         d=google.com; s=arc-20260327;
-        b=ian9jVguU8EgrE4bDSIPT7zFMxhHdQMBKDespRPrwWGgsvmChU/XmW96DI6rbELoJ1
-         0kqoAjNBGbISZuZ29jtf1izUdH/BdOrkiCJbNaC1c2XMeT7fkIvFpuu3hqxnaBxnKxFo
-         S9l5Fl/RO308Bxul042ZWKAHOmL8Jm0U7x5p/LeNx8bKEygcq7vicwtMjIBhTQmqzFfl
-         GpNFwQbQj5nIllQiT7NDYh0GqBJk89/SHfmWJT0a5Crsj5m5iCQL2lFWGqd4eiKpJ1hw
-         OS+l+XZmABxawUxTs1JhnOvDbv36OXZF+INcLqbS/RJwq7ykrtvFU0ckbo0XRVy4BPA9
-         paEg==
+        b=S8QfvVBVCBBjJ6D3N3TQep02trsQ8mntBcHqhgyK9sQoIeKTl8jNmwXxtVoIuboUyT
+         5EnAJEso9lR1E3zoRoeky9DyCYdLh8mO74oTuUCwgnE2eBdgpET/Cv8VGm5f94DGIef1
+         fyHGgvaBOhfzF5zsjJbYi4CiY56RFjD7INa14JmMvz0lj3u5o2tCD1hh2XQrDWcaUt9F
+         EAPt7BZdZnlCUYULQcbz+qPnM9pPLyACudXcJPf5VpzpWnHynUFiO6P0L0ULXFN4c1Pb
+         f85bsIoT99dyw8F05ieQOcNRUL4FOc7bXtkEEuESmDoGOlvDVZ+D9H/OHFKHoGHmHjVx
+         Ayig==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=miRWNlrgJnkfFijXetq532ldKdfjhWdGeVzZOadUgfM=;
-        fh=NKW+jPmJAZMq6y7OQ+LTEa/zRaTU4u4JIQFfzuInnZI=;
-        b=h31lMGrUaIDYTkQfVlESzPNZDsENmsHBe0erwS+k8NFAf1Nr/8PqdGTUS0uG3kC/fE
-         1AFBrWMFdw9yZaUCGkDNsWMIKEstZdK/3xVZ1GiyVnY364mrqWTJyKfsoLL6yzT3McMT
-         UmZ/taV4at5m14zha35UV4arFPHNxDhWmYaLmQJrasSRofYk89uBfCdNJhfWZ0oEDiSl
-         95P7hb+nAj9wRifOl+vovLPePtWun+G/yYu/0muYeQEuVulstaBJzkP5lbIUugXFoFGQ
-         8b9P5WfLlaF5bLesfhQO09QIpC+nNQEGIG8wjEPGKDSNfUs3ZL1xRoMtBqFv2Ub27qjX
-         Esiw==;
+        bh=eDcze+EPoOau0aTnfHPEFG0SVyi8+C2I2+TXMMX9vLY=;
+        fh=Uo0o09fHl00uTSdPas85Ba/ebx9orSSuCnkIKzYD7X4=;
+        b=g0D0I+N81YZ9BGh8+dgSMROLCsnM1xO97yoLTDvE1CKmd6c2Zdg5dSs1d7xB6Q3HKK
+         GG0iWM5AFt5IBqF+pMLvmgkA/VDFVfpOMTaSvhbUHaLeTuf01w6Em0o05bXpm1v08ypH
+         eMNBRaGDCeJFlLGkb7BztSBw9vJD7xzP7Y9v5iNcW6wAqEZlkE7JwKBmmED2hpDmdLYs
+         iI9tJkCiElz9tM20LK60yLPcLBOSEOI4+ygP85f53NP+hB3s9keO5xc1ADgCYwwwMIgY
+         fthSo8qevlUDUK8ebvp69cC1cOfhO1aiWAokw9p7xuCsFhubglh0T1V6MGQk3BUfnois
+         QrnQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788315057; x=1788919857; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788315117; x=1788919917; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:mime-version:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=miRWNlrgJnkfFijXetq532ldKdfjhWdGeVzZOadUgfM=;
-        b=nEKtSy+6LpmCdTyNs3tkNaHCU95DoaR5d1RLIDhBanxfRE6hdxNMrX5wkA3Q9satGe
-         uZ1VmNgab/vKswXnM79zFI3lvaayb5Z+gfUfhBk0y5RXwSkOQo6AY3Ysw6Nm949F+CS4
-         WTmulsdsOrRlE8TSUNrh7pZg2eyPTUqVuf3GY7fiTT6RwSKbL9AiaDI75mAQsslCnNmA
-         OiaVAwQ39SaFwnmTP7DGPNGvgFqOWlVQ29rogh/MId6wla5SFotctQQdixwO7RGQP/e8
-         J8qh46nCD4tG6I6fOqc+TmZ0fvOqc1/jX7vqFCDcAfYjRSxK3LPGoA+cvOB8fB76WK4g
-         uroQ==
+        bh=eDcze+EPoOau0aTnfHPEFG0SVyi8+C2I2+TXMMX9vLY=;
+        b=IEeJ/F/vF5GMCyCTxHIzZbmt3tHnTeJE8jPTJ4seKUkuAlc4tv9wHr/U5Hkxijv2TM
+         xO6dVs0273lmffBHsesd0ieeXU4NXRnO3Y5HT60pJwxxIbmzNNYRSfk04cCKrdWylinj
+         QDKe3qaMlV5oV4LSb7Y0y+ZDmc7qKeVubeDYgjPkEQTCmK1wYxWyLDlRflK9hkOzTLlA
+         TOqL4NvrHGmlhFWY0Vknv/75DvQDQE0M8aFPVSNMJ4sNmI1IdM4NFkyJhmKExmuwfnVW
+         SlqeQ8h6DT9HS0jHuD5AQ1Ha1gSX7or/sp+BdeCisBtVJzc6mZ/u+G2ekMHoXO/iUNWN
+         FQyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788315057; x=1788919857;
+        d=1e100.net; s=20251104; t=1788315117; x=1788919917;
         h=content-type:cc:to:subject:message-id:date:from:mime-version
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=miRWNlrgJnkfFijXetq532ldKdfjhWdGeVzZOadUgfM=;
-        b=RPMl5WwBtzy43VuhDv3tbMEI+HwsDxr3tJoQrdslTXd3JBDZY0qmhrl3UE3xAmw/o+
-         EGXoLjt0g931mPdabT3gejfr5MWIEc7+nMvISBPPxL93P3eZFfd30OrY4L6Uv1M7frLs
-         YcoIBP3xbeJegDoivjpJqmNgFWl3G09N2uSlhs0GohLZNwVzjT8QxcN5AsHfeBD5Uc2r
-         /fHAUf3ppDRYfb1h+iUUiC8sV++wWt8P0p/FkPsR7PFpuzvcLombJwUNWELjXgkN/7L8
-         tpviSGKVN5stFNcnnu66/AyaZALTy/Oq5MS86taSRGAPl5tvpEcaDvW1Ip4sEpP7iwkC
-         RQpw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr3CWPcE71OjHs/MiskdquPt08hsW9gb+7ZoTWMY47TE+293/86khspp1BNEN23sGMt85ELp+dH6vjDJAc=@vger.kernel.org
-X-Gm-Message-State: AFuF++m7Q5abcG8dL3LaNeBVIxqG99p++KRIW35nf8q+SbE+DslLBL3h
-	Ir6qLJ63X71sNGlYV70IGmoVe4lAdeDGm1j23aUkH+CvVNzzuUQXlEQn7Hx2t+8ybLiDGV5CKlg
-	eNUK/KiW5/eHHc4bNhg7PH7T5O4/V3oA=
-X-Gm-Gg: AR+sD10rbTp7d7IiRZ8VcSK0ekCtMdCOuVpeZqtTYsmSPa2aBuiB2gQrjHHUc8Gqe5M
-	FNNzSUuZ3uFQjH5MPIIrwTqgYTWBthzCQYFfCVHaZS1K7jDGjJI6jK7fIZqG0oEkQl5G9nFmPxO
-	9JoZEvVDYo1qNlUjxiw3dCPt+FDhK6eqCnI/p1Cd186D28MigupscwQcU4Jb/QWX3k02oxBut/X
-	4EIlcO/oTvAsGG5L8DRU0yWCmuN+RjIA2v/6NS/tNvR6Ys4SC9+lk7YxtWe9SxMx4qo1OL7rJlc
-	mWyJgvUsXEm4fw4/KmSYSki2QKZiOWez0wSt4/SDpKQ=
-X-Received: by 2002:a05:600c:354b:b0:499:51f0:a9b2 with SMTP id
- 5b1f17b1804b1-49ce55f051dmr21559675e9.1.1788315057139; Tue, 01 Sep 2026
- 19:10:57 -0700 (PDT)
+        bh=eDcze+EPoOau0aTnfHPEFG0SVyi8+C2I2+TXMMX9vLY=;
+        b=hd97rD7ZN8ZHhtllX5q+1gXl27c78cz2nVcw1LM3r+7WyPSiRrZ6iSo6K5D45bBHMn
+         rh9M8W4vCRmAWAz3Z3NY/yTQ3IssXKA1MuLggdQLWnZF0aynV1I03SrdPUlVWKtRoJmm
+         4HHWznfHA6L5XdNhnw3EiRwU7kiHrF7BLq+P1cZlkb3LQbwo+uuOAOhXsRzAu8wO4PQI
+         x6JR54xNNOkoO+1WqyfsrWM+Ddf3+Lx3EMtNR8h0irLgAY+PE0ARdpG4eLQ54xY3/Sej
+         fl4zxomF+dx6Uta90kTjK1D7LM84R+Hna/77Hnzc0PBfLQybKI4pEXiOYxmIM86zZqYD
+         KN0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwqr62oqu4v9kPJLZ7yAjQBhVpuIwnBBsCwgMQ/3mH4LPKOt5nvyrxcBawcJwJgd+t3vAx+2bxsjQAHy+k=@vger.kernel.org
+X-Gm-Message-State: AFuF++mVcvWF9+N7y/h1JWr3MsPjrVKoUeExTmmpbmdWnv+nGIy4ku1s
+	MmkhG2nUG31blFROd2DLmK2nyj7N5fJ1mPmScsJJOZ+jlosEif3wnHG+THi0v2di1KdCLMSP4vv
+	j0sdIcv39/m7JZgXEPIWVx5roXSI8y2E=
+X-Gm-Gg: AYBFou2bhWWXXOhhVfKlfBKk7mUzJ63YU5RoQjVpH3o+2jCEpzOI/XIN52I09AJvRvs
+	ltf7Y0SaeS89EFHH7ElGDca3oDsQ3stqy64/tn0aiPtqJapE/SoX+uzE44QB9Jgx8hQgPm77uz+
+	vXnxD9X3igcEF5zANarRGZUKzEu4aFcLHA97dHTeekT33sbfNmpJXwCv69eCAyhd59UKNmyS4BC
+	spJP+Cc/FBjF6vE9pan/TiK4QQcHmWAZ9dXFtuCkNGKro+JihCCVN9yhvX+eeG4g2T+UtElkYm4
+	NTk2orBdqoI3iy2mXTLeFyPdFx6/QRdSZF06icO8h1E=
+X-Received: by 2002:a05:6402:4284:b0:6a6:32f5:ff40 with SMTP id
+ 4fb4d7f45d1cf-6a682af8134mr1043284a12.20.1788315116598; Tue, 01 Sep 2026
+ 19:11:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -79,84 +79,119 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 From: Qingyu Zhang <usupergate@gmail.com>
-Date: Wed, 2 Sep 2026 10:10:45 +0800
-X-Gm-Features: AcwNN1VZJvtFR2-aP1IaZVpF82vVv6SRFFNrJZSVY7OUOlEnX_AFIkDT1G5csAM
-Message-ID: <CAPBHdanvQs_e29KUYjBn41fA-WBqLxDxUDb4Tv9Efh5pTm=8cw@mail.gmail.com>
-Subject: [BUG] Bluetooth: ISO: listener sock leaked when iso_sock_alloc() fails
-To: Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>
-Cc: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 2 Sep 2026 10:11:44 +0800
+X-Gm-Features: AcwNN1WS-AgXw-xjU-Unr85m45__hVj5DZxPESU09yVatno4Yzj-jTHKyb7kYhs
+Message-ID: <CAPBHdam702gA05btopOc=0mDpmzR5g4fkxOwXbxXkW6CPRaqmw@mail.gmail.com>
+Subject: [BUG] gpio: sloppy-logic-analyzer: trigger buffer leak and capture
+ OOB race
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
 Hello,
 
-iso_conn_ready() leaks a reference on the ISO listening socket when
-child allocation fails. A patch is attached.
+gpio-sloppy-logic-analyzer's debugfs "trigger" file has two defects in
+trigger_write(): it leaks the previous trigger buffer on every overwrite,
+and it races with fops_capture_set() so a shorter rewrite can cause a
+slab out-of-bounds read. One patch fixes both.
 
-Type: memory leak (sock reference)
+Type: memory leak + out-of-bounds read (same function, same lock)
 
-* Summary
+* Summary (leak)
 
-iso_get_sock() does sock_hold(parent). iso_conn_ready() then:
+trigger_write() does:
 
-       lock_sock(parent);
-       sk = iso_sock_alloc(..., GFP_ATOMIC, 0);
-       if (!sk) {
-               release_sock(parent);
-               return;          /* missing sock_put(parent) */
+       buf = memdup_user(ubuf, count);
+       priv->trig_data = buf;   /* previous buffer leaked */
+       priv->trig_len = count;
+
+There is no kfree of the old trig_data. capture later kfree's it only
+if capture actually runs.
+
+* Summary (OOB race)
+
+Capture waits for trigger pairs with IRQs off:
+
+       for (i = 0; i < priv->trig_len; i += 2) {
+               do {
+                       ...
+               } while ((state & priv->trig_data[i]) != priv->trig_data[i + 1]);
        }
 
-The success path and the "listener closed concurrently" path (after
-560bef609fa5) both sock_put(parent). This failure path does not.
+trigger_write() assigns a new trig_data / trig_len with no lock.
+A 2048-byte trigger (1023 instant-match pairs + one never-match)
+then a 2-byte rewrite while capture sits at i=2046 reads past the
+new 2-byte object.
+
+blob_lock is already held for the whole capture, including that wait.
+trigger_write() just never takes it.
 
 * Affected
 
-Introduced with BTPROTO_ISO (ccf74f2390d6). Still present on
-08dbfad3f504. Needs CONFIG_BT=m, CONFIG_BT_ISO, HCI_VHCI, kmemleak
-and (for a reliable trigger) CONFIG_FAILSLAB.
+Introduced in 7828b7bbbf20. Still present after 44f3468a0aef (unbind
+UAF) and 7a7baebd9f23 (probe leak). Reproduced on 08dbfad3f504.
+Needs CONFIG_GPIO_SLOPPY_LOGIC_ANALYZER, CONFIG_DEBUG_FS, kmemleak
+(leak) and KASAN (OOB). No real analyzer hardware: a dummy gpiochip
+binder is enough (see poc/).
 
-* Reproduction
+* Reproduction (leak)
 
-1. Boot with kmemleak=on and failslab.
-2. Bring up a virtual controller (hci_vhci).
-3. ISO socket: bind + BT_DEFER_SETUP + listen.
-4. Inject HCI LE Enhanced Connection Complete, then LE CIS Request
-  (subevent 0x1a) while failslab is armed for GFP_ATOMIC
-  (ignore-gfp-wait=Y, probability=100, times=-1) so iso_sock_alloc()
-  returns NULL.
-5. close() the listen fd, then:
+1. insmod gpio-sloppy-logic-analyzer.ko and a dummy gpiochip binder.
+2. echo clear > /sys/kernel/debug/kmemleak
+3. Write to debugfs trigger twice without starting capture:
 
-       echo scan > /sys/kernel/debug/kmemleak
+       printf 'AB' > $DIR/trigger
+       printf 'CD' > $DIR/trigger
 
-kmemleak shows the listen sock (size 2048, iso_sock_create ->
-iso_sock_alloc). rmmod bluetooth then fails with EBUSY.
+4. echo scan > /sys/kernel/debug/kmemleak
 
-PoC: poc/vhci_iso.c (the "#47 failslab GFP_ATOMIC window around
-CIS_REQ" section). Full QEMU recipe is in poc/run.sh.
+kmemleak shows unreferenced objects from memdup_user in trigger_write.
+
+* Reproduction (OOB)
+
+       dd if=/dev/zero bs=2046 count=1 of=/tmp/trig
+       printf '\x01\x01' >> /tmp/trig
+       cat /tmp/trig > $DIR/trigger
+       echo 1 > $DIR/capture &
+       sleep 1
+       printf '\x01\x01' > $DIR/trigger
+
+KASAN: slab-out-of-bounds in fops_capture_set.
+
+PoC: poc/run.sh (both halves). poc/bind.c provides the dummy gpiochip.
 
 * Expected
 
-iso_sock_alloc() failure drops the iso_get_sock() reference, same as
-the other return paths in iso_conn_ready().
+trigger_write() frees the old buffer and takes blob_lock around the
+swap, same as capture.
 
 * Actual
 
-sk_refcnt stays elevated. The listen sock is never freed.
+Leaked trig_data buffers; KASAN slab-out-of-bounds on concurrent
+shorter trigger write.
 
-Please consider the suggested patch.
+Please apply the suggested patch.
 
 Thanks.
 
 Suggested patch:
 ```
-diff --git a/net/bluetooth/iso.c b/net/bluetooth/iso.c
-index 75bfd5938b2e..4de332b8901f 100644
---- a/net/bluetooth/iso.c
-+++ b/net/bluetooth/iso.c
-@@ -2289,6 +2289,7 @@ static void iso_conn_ready(struct iso_conn *conn)
-                    BTPROTO_ISO, GFP_ATOMIC, 0);
-        if (!sk) {
-            release_sock(parent);
-+            sock_put(parent);
-            return;
-        }
+diff --git a/drivers/gpio/gpio-sloppy-logic-analyzer.c
+b/drivers/gpio/gpio-sloppy-logic-analyzer.c
+index 044d81e7cafb..a0fa0755368a 100644
+--- a/drivers/gpio/gpio-sloppy-logic-analyzer.c
++++ b/drivers/gpio/gpio-sloppy-logic-analyzer.c
+@@ -213,8 +213,11 @@ static ssize_t trigger_write(struct file *file,
+const char __user *ubuf,
+    if (IS_ERR(buf))
+        return PTR_ERR(buf);
+
++    mutex_lock(&priv->blob_lock);
++    kfree(priv->trig_data);
+    priv->trig_data = buf;
+    priv->trig_len = count;
++    mutex_unlock(&priv->blob_lock);
+
+    return count;
+}
 ```
