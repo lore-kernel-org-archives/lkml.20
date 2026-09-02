@@ -1,170 +1,164 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010027.outbound.protection.outlook.com [52.101.56.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3DFB3876A4
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 05:39:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788327569; cv=none; b=pqL3ZN2ElUncE9XHRAe2cXPg1hyfki24XDZcmrlMVoDPIUTYu7ax/e4S/lqN1yvoSH/aiFpSBJd/efdmD2d+C6QrJeLs4EHJeY+TAcC27P7OgDHQm5yueeI2SncePzyAg1VWbrEmH6YzzLFhlKYn1uWmZUdqjC28q8E5jJz5MOQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788327569; c=relaxed/simple;
-	bh=D2qpkwtyTf3w93woN4RfdqDyYYM4IpV1kr43tBMElaA=;
-	h=In-Reply-To:References:From:Date:Subject:To:Cc:Message-ID; b=k9oChvSaG4XrLCtLkseDoMn+Q9dNGyPvRKXKYABZ3EL4BUwEfoVpyqykD43Posy8BblDs/6bkuMwVA2ImgXCuFYnzKg66LzHdCPdTJvur+NwH7v+Zl04LN8poiZQ05mko9MIpXmTVjafsbsCRU/JgKUR8aWE/VC6QrllqiKNzAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YIDi+tXW; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 302A8388E64;
+	Wed,  2 Sep 2026 05:39:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788327574; cv=fail; b=YFdhUN3xT6oeRkp41hUEvZ/HYV/AgYgzBsG+bA4doDgxFB4xNSCVw0wdFELEMi/4duENAW2iWB1AFvHoiuzQ/Eu0puG3IY7ERJ2yFsdTcP/OID65VEwnr0r1xD9WPF4KtXknFgt2HnVRIhVzxD2KeeDtrTeG8nlkZLVmZn+4PCs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788327574; c=relaxed/simple;
+	bh=gVHhm+K9bqr0BfKSZielCZ6EYtR5pN5HgRYY1utyWCA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=JcdU1K/sjjlrjBOLUJibpYpyMap96uLXAOCf9dnIQ/Koubjxy/HoaIIpPzeB84JiWlXAt86qtcyaT9OwmOetLSn5OplEkhoHmeaRsjw/p0G++d8aQtnp60Ld1dvINHNkzEpjufqfwEbUCgVk1hGfNg1CKfhYV6TCwHBrxrDHYao=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=b08K4CSZ; arc=fail smtp.client-ip=52.101.56.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YIDi+tXW"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-396affa9420so76709a91.3
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 22:39:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788327567; x=1788932367; darn=vger.kernel.org;
-        h=message-id:cc:to:subject:date:from:references:in-reply-to:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=H3Gzfs+DJpEpqKw65mjqsmh8Qaprer5Io+JTzhX9dEA=;
-        b=YIDi+tXWCmGM7DzM58ZNt9EVTpiKVquzQfLrL3PVJ9WEkowF0OTCZUP6mCalDTJBxO
-         UxeLw6KsOvnuRRJf2kIZ7pZToLPTUF+TZRo1+qT0CUBjdtu1OHzLE8RKW3eWDCCMw4gM
-         bXkDeSBR2zPMPtZxZti/BlnhOYmLO6WzZ30isEHWDMKgo4YK8rNTxtUvF40r11TpWPPN
-         +I2V+ZTScPN8gQhzSjp7cmx7XIlfSx0owFxUzRk11ug+SdPSRUr5zOZ82ZH1uOXrICkD
-         Ileue6r9XSS064TBJKDM2+bpbH61LwjFQCguSGkMZ7Z7WWRYfocZRX9Uf+itbKBLYyR+
-         lghw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788327567; x=1788932367;
-        h=message-id:cc:to:subject:date:from:references:in-reply-to:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H3Gzfs+DJpEpqKw65mjqsmh8Qaprer5Io+JTzhX9dEA=;
-        b=L2dq9BLGM9VC1qunH5WH0YdkXYzQXw1mPOLxYVhJhVK/ovbRtDW7c9ICUQH3lyfHoo
-         YWCnSLlQpduVcWSvi/EDoCYihuahSXsg92VWkFzh8SSd8p3O8/GpDdj4rtJjMDwr4rJy
-         3jcWqT1wDDnVhZfm01WTOzt49o4lAIjf13Iltrfa07LkyR0NJwDKe6697pyXiRj1SqAD
-         shSgJKyc0d84yG9hQNfcEO86Liz7b48IwDexHDM0JTVyVf97o+WonuzW83gTS7qGnGpR
-         qbi0kv90kapftmFAbkZLxAJVeQiii2+/XHCIOuHVmOrEIfaQ+HmMezWOmbRjBTja+MB3
-         L76g==
-X-Forwarded-Encrypted: i=1; AKwUvBy78/9BrUeR6lQAsQAcZOZ7wuXAtdj+ux3bDAheaWeNCkN26ox0wFk/L/N/Wrihz/siF7p/uBoitI3hZkY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mqvctUsCiUFziIXYo1qNRqCEn3QjWbGvVHcCGTuiscTRaAkDCj
-	U3Z9YyyDmkMpjn88lw4JXEinNEQssOKYT+wgT8BH0ThAgaDIRWifz/5x
-X-Gm-Gg: AYBFou2RoImbzS+fWph8sxOa0K3txV6fAgeYxBtRHn6ytNh3kKiSLFMewpX0QjFfJxn
-	O0ygXizYpqM/L1bKeDih7YWYhnmxH48COPgb1nxJeXS5MaK7lN6Mo5S0tVQagWty71ZGj4p4dIK
-	EXVQKoiZG4GTXHMriFHho3BHoIvYVmlL8svl/N4m5Izvj+YSBm7lvPfJJrIbFeWbT2EoCCzs6Hk
-	YcvdOEKInlVk/LBx0xSvBne6ThFDJcPrR2XP75Bn0O5bzkHdOntzZSflkZYDNAYx7iwjuhiStey
-	SJ8gA93O7ynrI782nvcadZfYzz2RyvV6CNBOa3lYwNAWXKTqL+vC9ZRcZvkci4ka/pvmQfl7WOJ
-	+OaHSWIude5bozu0bLIyeZMyY/0SOoyy920fE2pL4ZGM5MfbY3rVcSrE3bs72IQbGOO71R7vjfK
-	zK+Wb6fA8w3BEng7iK9TXWAv2RNF4HQyXTL1KlgZZbHlhKbevdjHOwnjgfkCGduv/0c7k5v8e18
-	Junerec3i+ZSCltO2QTTlfen1vxvulnSVgU3Os+tC7EFUJTL1qrqMHEBIqckAqvPcxTi30Egys+
-	jxgX2GEucHC+/epxzwvh7R4XGoRsNC4ZgBP8YOW1n2s7ps9Y87MQOpfdvGr5171mmRpOD44Qpie
-	Mxe15QTn87TUTWmwpMvs=
-X-Received: by 2002:a17:90b:4408:b0:396:63a8:699b with SMTP id 98e67ed59e1d1-39aedebbbacmr2123907a91.1.1788327566984;
-        Tue, 01 Sep 2026 22:39:26 -0700 (PDT)
-Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa (c-98-47-46-163.hsd1.ca.comcast.net. [98.47.46.163])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1430e9eb4dasm5213580c88.2.2026.09.01.22.39.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 22:39:26 -0700 (PDT)
-In-Reply-To: <20260902052631.75c6068b.michal.pecio@gmail.com>
-References: <20260902052631.75c6068b.michal.pecio@gmail.com>
-From: Rishabh Jain <rishabh.jain1198@gmail.com>
-Date: Tue, 01 Sep 2026 22:39:18 -0700
-Subject: [PATCH v5] usb: pci-quirks: always assert xHCI OS ownership
-To: Mathias Nyman <mathias.nyman@intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-    Mario Limonciello <superm1@kernel.org>,
-    Michal Pecio <michal.pecio@gmail.com>,
-    linux-usb@vger.kernel.org,
-    linux-kernel@vger.kernel.org,
-    stable@vger.kernel.org,
-    Rishabh Jain <rishabh.jain1198@gmail.com>
-Message-ID: <178832755831.50581.1058201741431375556@gmail.com>
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="b08K4CSZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PCte8PWlvskC5qoeRH8IH6933rliFUk7v/Mhw+YJMVwtzjsZBq0HP59quOy6+xtz+WGX3O5vGW7woYElAQp8eo3SnZLc1JbelwCEn1h5wdXBZ5ABi/Z4ck/1zU92p5ZTGLrPkO4zCA2AHNcndQ9p8zfmLsZy8vy27I6va3m1shRLqKZpyAQ5aCuGMDTXZkoAhZqC0I9qzyzVwvxtdcFA/o8pAVSdA2Y9UescrnMNnptcTqULBRFuB1DhDE3IbmdxwrFvwd8tRCvavlzzyApvmTk6uosQCWakDJDIo+tkZvsA93VdwdBif8JQnRMwKyus45OJgABRwyjg+sPB1WXdHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gbyqPxrkXCIq55a+ykr/enupMWGNut1KsIfSmLHBcDI=;
+ b=WyaQxbZ8zthY5yoF1cawtsfXYfp8ZReGQXNOSB8hl9o2dcJ7Vb6VeVULWNPqhhih8hdeBWMy8YXRsniwdi0KgMfMPRRzST9x02muK15Qkp8BaYpd/Vxs1jzXdEVpqj1GDnQwjHNzaUTvd8xnfFbqxVej64H7tErABmlKaeOv7hEkQrH/wcdKYo555dkCTYjdtQs7GK16ygyOovcuhcM3ELMRciuVKebSuK2MHFI6ML9tNAuEGGZAH5v+lDmFFLXozkOjA0KXZw3TlyKRNhetbCq4jSj19jgpBUNHmECHhvL+BNVcI4q6S9eJewv+Bd39bkHQh87QPj3yOeEFNAz2Ew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gbyqPxrkXCIq55a+ykr/enupMWGNut1KsIfSmLHBcDI=;
+ b=b08K4CSZePMxC+bbNFqbTTcnVrexj6Oh4OxTNv17O0kex36VUBZcu5mZYTev3EOS/MbstmK8PxcCl9qC68FSQU6H1cKYbFyAiXk6h2Zcht3zDVS8JnZaerKzhtcYwbS2wVM4PcRs9/VWDwXo5vsRQSgO5H1DLsfHEzPzAvC7ZF/q4bl/wU6XV2sUL1/C8N6jmxpO1KrwYqTt9kBE59WLHjUrVU1yZfedvTDeGC82K1D52avFh2TeZi76z0i7UkLN1ZLgox06e3p/rLMG8hGK25YiC8fsV2CW3sNpwvqDbORqLbdtpIOzE2Pn7+mun2bBE5DxJfUJIhEjSH7hT35jtg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2370.namprd12.prod.outlook.com (2603:10b6:207:47::27)
+ by CH3PR12MB8712.namprd12.prod.outlook.com (2603:10b6:610:171::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Wed, 2 Sep
+ 2026 05:39:28 +0000
+Received: from BL0PR12MB2370.namprd12.prod.outlook.com
+ ([fe80::86cf:c3ec:2cf5:74c8]) by BL0PR12MB2370.namprd12.prod.outlook.com
+ ([fe80::86cf:c3ec:2cf5:74c8%7]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
+ 05:39:27 +0000
+From: Richard Cheng <icheng@nvidia.com>
+To: dave@stgolabs.net,
+	jic23@kernel.org,
+	dave.jiang@intel.com,
+	alison.schofield@intel.com,
+	vishal.l.verma@intel.com
+Cc: iweiny@kernel.org,
+	ming.li@zohomail.com,
+	gourry@gourry.net,
+	rrichter@amd.com,
+	linux-cxl@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kees@kernel.org,
+	newtonl@nvidia.com,
+	kristinc@nvidia.com,
+	kaihengf@nvidia.com,
+	kobak@nvidia.com,
+	Richard Cheng <icheng@nvidia.com>
+Subject: [PATCH v7 5/7] cxl/memdev: Don't overwrite the error from an earlier partition poison query
+Date: Wed,  2 Sep 2026 13:38:37 +0800
+Message-ID: <20260902053839.25595-6-icheng@nvidia.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260902053839.25595-1-icheng@nvidia.com>
+References: <20260902053839.25595-1-icheng@nvidia.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI1PR02CA0023.apcprd02.prod.outlook.com
+ (2603:1096:4:1f4::19) To BL0PR12MB2370.namprd12.prod.outlook.com
+ (2603:10b6:207:47::27)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2370:EE_|CH3PR12MB8712:EE_
+X-MS-Office365-Filtering-Correlation-Id: 55ecf3e4-5806-49f6-9efd-08df08b48d21
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|376014|1800799024|366016|56012099006|11063799006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	T2mH04CoHBanjZDi5/OQXaymK34uyIpOPm6VsHxtSv+YusqINLWUYAJijQXD9iCXfiTTD3ppgC1kgpWuIq9ow5rXm7VJ74pO3BREdKnBTJUYMOnr9wS2mTdIpJdQcerzfZnaSP6EcXGZur8u9ZD5+IpPkO0ODckW0QtSn0YC7jKnlpgiotd3Vs0ugZJpZNGCM4jt9h0I0c0B0WVouRfUciM6/Chx3jmm7VciBAPaeJqWnlLGgMB5d5Rx5a9q8esifjkzbe2EbYcvYjMKzZ+9rrBHTSQ3LJSMhZwZWl0FVxr/Ihv/YS9iTl5IJ09/D+i03YR0mIIdRNQqlaBklxvKzmzgIrriukUfgDK1ZHYHMIa57wxf/deWAv9jpcCOmNIw84AicnDsKwarvmeg+195WsnsZn98ldnNjeYHPX8lV9xTEAfdtTMh2YUSAeTGxSuGeX6P+MKWU3gzWWnDr9Odu5ciE2lq9fnHl8Jkc2JnV+wromXWlw4d0LIyBB2sn6ooZM+FaJvNBnRY/AxnU0ngq4DDvMmJp3VKvxtku0LGyIhHeY1q+gwhBfgCKRhZqoXMYwEh3dK1B/nIcsF6+9eTkpy9Q6WCQiJjGWVPcgdIUsjoczdbNw1I5Ul03X5O955EZZcPBe/3f+yr31IDZ9sxgtxq25ZS2Qih35ZCp3g0cac=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BL0PR12MB2370.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(1800799024)(366016)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?FDJLj9K0LqX/RPF72fI7H7dCHPiYn3WFMtHlbN+Ric1kWzc/B1AFMTFZaPvc?=
+ =?us-ascii?Q?ZVCLa5J6AxBb4wJ/uElcV17EW4EaGoloqv8XARdbpfv/lD/efG6wY95RpZJz?=
+ =?us-ascii?Q?bfEc4ATodOFr6QqLcWYxdyDo/c483iSSlz3cs8o2oK5WbvZ7jvuidbVCp2GO?=
+ =?us-ascii?Q?zuzmECMbO5YvhGL5xORt7f2z4UNjzLBBvWyiOM8AW9sR1xRWsdeAtdBba3Ra?=
+ =?us-ascii?Q?UmLG5IhCab7cfEl7uCLpBUWGPaj6nEWfeyUXyrFL01lbMLu7B1wX9F8SSBEq?=
+ =?us-ascii?Q?9aaKKJVzoK0diEXABUlauL6fR3SMgR6c226SV4SgIBzKJwM54KIoZpatNJna?=
+ =?us-ascii?Q?K5Hn6+MfEpAQXQ32AOEfCPEd+ktRTyeN2pl7jwMpPICleGB/x3CGdKk8MFZ6?=
+ =?us-ascii?Q?+9hK6zxlDSGkItuJdtmVr+GZzeyxxm1GX9UIxRV+W7iKwaYjGBw5ExN/n0YV?=
+ =?us-ascii?Q?8gJRPGz1I5YxZ17KXnEgWk5ALzTD2h4WKz9i+oncn5pmmBYdq+NOO/a3nmGV?=
+ =?us-ascii?Q?2Y8xLb0mnboIeV47S+vTPh9289I7Em3O2IDJC/6hwZBjFd5MF7y6kthD67t5?=
+ =?us-ascii?Q?m/WZk1puG1Yg3JNpSUnupKkVb//xItGlj90/qj7u0nsfJV2uIKFz36nww4vS?=
+ =?us-ascii?Q?OakP1KGY+2Tdqwqg9dMEZ59t5vCnHlDnBOkqi1maymgatgJxOYjae4HmGgct?=
+ =?us-ascii?Q?9cfu3+RdrF7RkqO2Io6qdjPfW0Jtx0SEc2NoJTo8zSnDnz8jvhsJsPaP+zmK?=
+ =?us-ascii?Q?ob+1333DKh8dq1OfCEpHsFQdnlx3GLLBswgo8+JIXrQJGAOfVTDqwm/gPBvj?=
+ =?us-ascii?Q?eJp7QlcIjlwactvRZVPlbK3wsTHnc3GmRDccuLbz+rKVXFjO/NUvhKBz2vXm?=
+ =?us-ascii?Q?yye6g7J0IEBGDhgH7vbnGuPh8iDaCk8Qt2YwVEuENSDjBQ3Q6qAfa+tFQ0K9?=
+ =?us-ascii?Q?2lQRQcm/RNP0ET6mCBmVyO8bWpq31gojJR1ThdjmbBL+9RdIpRBPCCUOVF2C?=
+ =?us-ascii?Q?7qsbV++uyZU/HtyKIxExnv9f+i4b4sZ72LwiA/OADlTtMt59HGwS0w1YLX7v?=
+ =?us-ascii?Q?Aqk6d2ODO5VHCTQTTFO3k8ByMT5frKm1KSrH3AeUM5edD2j7QkeJwW6SmaWl?=
+ =?us-ascii?Q?xDDZ4qwg6LBCyFnspac6ridTygjcy7rlJUNG3epruc/o8fZCAQ731vjIho5T?=
+ =?us-ascii?Q?0D3jIPniyj3q6lCONluP4xgGoObkaB0AgZTsLRIG1i1lvT8bP7W4BG0D7T2c?=
+ =?us-ascii?Q?YjJvIDkmdtYlg77t7eGLrIBCgashH0gTI+Ty4Bj9gxC9MHFsYM+TjTkVrnqD?=
+ =?us-ascii?Q?fy+LleZWaloPBffikN0WtVCrsAStBlUeRhMOtgUaM93wDRhO8ocDiFWvyxJn?=
+ =?us-ascii?Q?5VPChvXzm6HhdfI7YIgP0MT67b40IPhH3oHxNFxgMeqW9LWkRopg7enDGemO?=
+ =?us-ascii?Q?yZ+DVa77+gJzpr/coXoYpm+rVynh4IwkW9LZYFpDTmSwnp1ZzWJxgKG95Uyw?=
+ =?us-ascii?Q?1nxWbzCYVUkuTHkiMeCSx28eADg+nNdEiwTaXtWxn5bPy9palbG5dWhO9JCu?=
+ =?us-ascii?Q?wCgE47GeX6et3Z97v+IKmhF/5ACa0lneXdM/pejeYaSNTAIC9gxBnVFvYZ4a?=
+ =?us-ascii?Q?lB2oGY67UwDpXIMJ60+oW3wlEFYJqbE1QxH9AO08Nx4tfg+s0xnB105n2QX0?=
+ =?us-ascii?Q?PMJkNxJDk8lAT2LWGlM7xPqVRZEO9jIxcSru7Hs8bBmXiCaN?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 55ecf3e4-5806-49f6-9efd-08df08b48d21
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2370.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 05:39:26.9679
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /x0YTbxa6zSujfB3ooR5PD/YBtu8/UIelD69oE1Bdxrq5EQBK5DaSY9FmeXcd/czcAT/WesD7xf/sh76/ZVxYg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8712
 
-The xHCI ownership protocol requires the OS driver to assert the HC OS
-Owned semaphore before using the host controller, then wait for HC BIOS
-Owned to clear if firmware owns it.
+cxl_get_poison_by_memdev() queries Get Poison List per partition but
+never checks the result inside the loop, so a later partition's success
+overwrites an earlier partition's failure and the whole scan reports
+success while that partition's poison went unlisted. Before the loop
+conversion the PMEM query returned early on error. Stop the loop on any
+error not already tolerated as a RAM -EFAULT.
 
-quirk_usb_handoff_xhci() currently asserts OS Owned only when BIOS Owned
-is already set. If firmware leaves BIOS Owned clear, Linux uses the xHC
-while both ownership semaphores remain clear.
-
-The timeout fallback also clears BIOS Owned using the original register
-value, which can clear OS Owned at the same time.
-
-On an AMD PROM21 xHCI controller (1022:43fc), this caused every S3
-resume to terminate Controller Restore State with USBSTS 0x401. Linux
-then reset the host controller, both root hubs and the USB Bluetooth
-adapter.
-
-The controller entered resume ready and halted with USBSTS 0x1.
-Endpoint state, 100 ms save/restore delays, scratchpads, the DCBAA,
-device contexts and command, event and transfer rings were verified not
-to cause the restore error.
-
-Across four S3 cycles, asserting only HC OS Owned changed USBLEGSUP from
-0x00000801 to 0x01000801 and eliminated the restore failure. Testing
-included the unmodified 7.1.8-ogc1.1.fc44.x86_64 distribution kernel
-using a test module that set the HC OS Owned semaphore. The same test
-was repeated after review with the same result. Clearing USBLEGCTLSTS
-was independently verified to be unnecessary.
-
-Always assert OS Owned for controllers using the standard xHCI handoff,
-and leave the existing TI/Renesas forced handoff unchanged. Keep OS
-Owned asserted after the standard handoff, including when forcing BIOS
-Owned clear after a timeout, to prevent firmware from reclaiming the
-controller during subsequent suspends.
-
-Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Rishabh Jain <rishabh.jain1198@gmail.com>
+Fixes: be5cbd084027 ("cxl: Kill enum cxl_decoder_mode")
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+Closes: https://sashiko.dev/#/patchset/20260708074228.43654-1-icheng@nvidia.com?part=5
+Signed-off-by: Richard Cheng <icheng@nvidia.com>
 ---
-I kept val unchanged for the error log, restored the original handshake
-formatting, and explicitly preserve OS Owned when forcing BIOS Owned
-clear after a timeout. Documented timeout issue in commit message.
+ drivers/cxl/core/memdev.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-I repeated the same S3 test on the unmodified
-7.1.8-ogc1.1.fc44.x86_64 distribution kernel using the test module, with
-the same successful result.
-
-Changes in v5:
-- Preserve the original ownership value for error logging.
-- Restore the original handshake formatting.
-- Explicitly retain OS Owned in the timeout fallback.
-
- drivers/usb/host/pci-quirks.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
-index 0404489c2f6a..2b12a35e6f10 100644
---- a/drivers/usb/host/pci-quirks.c
-+++ b/drivers/usb/host/pci-quirks.c
-@@ -1193,10 +1193,11 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
- 			 && pdev->device == 0x0014)) {
- 		val = (val | XHCI_HC_OS_OWNED) & ~XHCI_HC_BIOS_OWNED;
- 		writel(val, base + ext_cap_offset);
--	}
--
--	/* If the BIOS owns the HC, signal that the OS wants it, and wait */
--	if (val & XHCI_HC_BIOS_OWNED) {
-+	} else {
-+		/*
-+		 * Perform the standard handoff and leave OS ownership set to
-+		 * keep the BIOS at bay during subsequent suspends.
-+		 */
- 		writel(val | XHCI_HC_OS_OWNED, base + ext_cap_offset);
- 
- 		/* Wait for 1 second with 10 microsecond polling interval */
-@@ -1208,7 +1209,9 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
- 			dev_warn(&pdev->dev,
- 				 "xHCI BIOS handoff failed (BIOS bug ?) %08x\n",
- 				 val);
--			writel(val & ~XHCI_HC_BIOS_OWNED, base + ext_cap_offset);
-+			writel((val | XHCI_HC_OS_OWNED) &
-+			       ~XHCI_HC_BIOS_OWNED,
-+			       base + ext_cap_offset);
- 		}
+diff --git a/drivers/cxl/core/memdev.c b/drivers/cxl/core/memdev.c
+index b3419df586b9..e39b3d13fd56 100644
+--- a/drivers/cxl/core/memdev.c
++++ b/drivers/cxl/core/memdev.c
+@@ -231,6 +231,8 @@ static int cxl_get_poison_by_memdev(struct cxl_memdev *cxlmd)
+ 		 */
+ 		if (rc == -EFAULT && cxlds->part[i].mode == CXL_PARTMODE_RAM)
+ 			rc = 0;
++		if (rc)
++			break;
  	}
- 
+ 	return rc;
+ }
 -- 
-2.50.1 (Apple Git-155)
+2.53.0
 
