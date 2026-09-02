@@ -1,230 +1,59 @@
-Received: from mta0.migadu.com (out-121.mta0.migadu.com [91.218.175.121])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A92E7418A4F
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:27:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.121
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D1C1403AED;
+	Wed,  2 Sep 2026 09:27:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788341228; cv=none; b=s/6DFWfuHxQiB2txAT7Ya5nEYfvAJucqe/kWDChIHavMpEWx6xmtM00+xXliYvcpdhHmeXLxL3h/DH3XCLHVJgQjPKjwVMFvcwNFWX1aB6gzq/ONKgxQMczWIU6P8eF8xdEx6jpwKqr2Dtu8RxHV1SRtqYZXPa8BF+eOnopZGxQ=
+	t=1788341230; cv=none; b=leYvcuCkidbOd77S8ReFwaEy/zO4+Mca2oMcR+ht68OkoZR5BSih1+iljMe6rMhYoMkgjwa81YCN63x1X8b/HQ8LT3Qv5tZzF2l9ISBscwiG6q1HkFKJCQOto5G0fkpDcH4F3AYmUCswjxA8EgtiZiMSSK0JY+6KoOUZecOJhOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788341228; c=relaxed/simple;
-	bh=FrnRx/lksd+m1WnHb7nL4LYhqD1uQNCEMSy08kbSkPA=;
-	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=CoXNPfas2SS8pGnFSZ61FgNJO0oJghU6DLNVNN0AOKcVUFbiSOp43v3unfTjkxNFLC9v2oNa+5NYmhh1f1IzzLdHSpBrME07Qi4xR65iLoybSKw3aBH76RZJpTb3Dmk/wQsy8R79PqBxsTPIbAYs5cjVniOw5y6Ut7OBa/KcDxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sCu6k1HR; arc=none smtp.client-ip=91.218.175.121
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788341230; c=relaxed/simple;
+	bh=hAk8AXdrUX705SGAHF4ZcodOwsWhy6DQOrITwq6tj4M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cL42ddfXO9c4WDTVv7HxcPSBzyEFffKbKvOn/RmLa9U1OLSuygJrOdPUwdmSsZ4qZYOhzqI9IsB+6TI/9RnVLQRLI0W4kdkYb46esbnQPE0jXIVDcIvVeEv2IHmixE/YxtjAT8u030visfg2hcosKYM1MeFpEgFvCjsgESh4SYw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=oLLwQo0e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sCu6k1HR"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=FrnRx/lksd+m1WnHb7nL4LYhqD1uQNCEMSy08kbSkPA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788341219; v=1; x=1788946019;
- b=sCu6k1HRbGdoUdFOJK3/wL7wWhLztFO97qZnGX17iL5R8LA4uN/+Oq+jrReCbb8gqL8PqyZY
- AWGkaGVJeqDedxDmFcY+jzYEaVSGluBVX5zlJFZTEBxZwHBEYSpHDa1s5vMmFSg+CSLJNueLCf4
- sTZVR0PJ3VugE6YDlhgwwc9M=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1d33ce7253b1fe9e;
-	Wed, 02 Sep 2026 09:26:59 +0000
-X-Mizu-Trace-ID: 1d33ce7253b1fe9e
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <46f7e025-1ca5-41cd-846f-8554cd7fb313@linux.dev>
-Date: Wed, 2 Sep 2026 17:26:52 +0800
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="oLLwQo0e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CC151F000E9;
+	Wed,  2 Sep 2026 09:27:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788341228;
+	bh=6MAiAELbFFa1ARWRXJ+CGjunCoIg2Wpoq0ZQlvomzbg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oLLwQo0eGM01bcIA4jtU0XwizcCvV3KKt9oQRj3ZR6YePKEx5OqeXdrtnXwaBpYBX
+	 4pk7oRdDSNYl7ZjdslBYzwdxJKTdfio+C5bGjZlOdzCpvmu+D+HSYiECi5SgE5tbeN
+	 6EefbyTxRtxbOCLy5aPvvCbk624YcUCLYEr5d2LY=
+Date: Wed, 2 Sep 2026 11:25:24 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Huang Wei <huangwei@kylinos.cn>
+Cc: Minas Harutyunyan <hminas@synopsys.com>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] usb: dwc2: debugfs: fix memory leak of hsotg->regset
+Message-ID: <2026090200-mothproof-snowplow-f443@gregkh>
+References: <20260807100400.3179625-1-huangwei@kylinos.cn>
+ <20260902090541.2134430-1-huangwei@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: cui.tao@linux.dev, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, Tao Cui <cuitao@kylinos.cn>
-Subject: Re: [PATCH v2] loop: defer the queue limits clear to a workqueue
-To: Bart Van Assche <bvanassche@acm.org>, axboe@kernel.dk, hch@lst.de,
- Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-References: <20260902063420.882203-1-cui.tao@linux.dev>
- <73b3b4d6-888a-4621-8a7c-7914fa2c5fc6@linux.dev>
-From: Tao Cui <cui.tao@linux.dev>
-In-Reply-To: <73b3b4d6-888a-4621-8a7c-7914fa2c5fc6@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902090541.2134430-1-huangwei@kylinos.cn>
 
-
-
-在 2026/9/2 14:36, Tao Cui 写道:
-> Hi. Bart, 
+On Wed, Sep 02, 2026 at 05:05:41PM +0800, Huang Wei wrote:
+> Hi,
 > 
-> 在 2026/9/2 14:34, Tao Cui 写道:
->> From: Tao Cui <cuitao@kylinos.cn>
->>
->> loop_clear_limits() calls queue_limits_commit_update() directly from
->> the loop workqueue that processes the request.  That does a
->> non-atomic struct assignment to q->limits without freezing the queue,
->> which races with lockless readers of q->limits on other CPUs - bio
->> splitting reads max_hw_sectors, the discard path reads
->> max_hw_discard_sectors - and can let them observe torn values.  The
->> trigger is a discard or write-zeroes request on a loop device whose
->> backing file does not support the corresponding fallocate operation.
->>
->> The code already has an XXX comment saying this should move to a
->> workqueue.  Do that: schedule a work item on the system workqueue,
->> where it is safe to freeze the queue and update the limits using
->> queue_limits_commit_update_frozen().  Accumulate pending modes in
->> lo->clear_limits_mode so that failures between scheduling and
->> execution of the work item are not lost, reset the accumulated
->> modes when a new backing file is assigned, and cancel the work
->> item before the device is freed.
->>
->> Signed-off-by: Tao Cui <cuitao@kylinos.cn>
->>
->> ---
->> Changes since v1:
->>
->> - Make clear_limits_mode atomic_t: loop workers can hit the |=
->>   concurrently.
->>
->> - Reset clear_limits_mode when assigning a new backing file, so
->>   stale modes do not clear limits of the new file.
->>
->> - Cancel the work item from loop_remove() before del_gendisk():
->>   the queue can already be in RCU-delayed freeing when
->>   lo_free_disk() cancels it.
->>
->> Tested on x86-64 (qemu, vfat-backed loop device): 30s discard and
->> reconfigure loop exercises the clear 577 times, no torn sysfs reads,
->> no difference against the unpatched kernel.
->>
-> 
-> thanks for the Reviewed-by on v1.
-> 
-> v2 makes clear_limits_mode atomic, resets it on rebind, and
-> cancels the work item from loop_remove().  The code changed, so
-> could you take another look when you have time?
-> 
+> Gentle ping on this one. It's a small debugfs memory leak fix that
+> mirrors the equivalent dwc3 fix (commit e6bdf8195b4a ("usb: dwc3: fix
+> memory leak of dwc->regset")). Happy to address any feedback or resend
+> if needed.
 
-I went through the latest sashiko report on v2; its four inline
-comments are two issues.
+I have 700+ USB patches still to process, it's in the queue...
 
-The cancellation issue (marked on loop_remove() and
-lo_free_disk()) is not reachable: loop_control_remove() only
-accepts a device that is Lo_unbound with zero openers (loop.c,
--EBUSY otherwise), and a bound device also holds a module
-reference from loop_configure(), so loop_remove() never sees
-in-flight I/O that could reschedule the work item during
-del_gendisk().  The cancel in lo_free_disk() therefore never
-waits on a running instance.
+To help out, please help review other patches!
 
-The mode-capture issue (marked on the atomic_xchg() and the
-reset) is real.  It is the window the v1 commit message already
-described: the work item takes the modes with atomic_xchg()
-before it enters the freeze inside
-queue_limits_commit_update_frozen(), so a LOOP_CHANGE_FD that
-completes in between gets the old modes applied to the new
-backing file, and discard stays off until the next reconfigure.
-v2 only fixed the persistent half of it.  Cancelling from
-loop_assign_backing_file() is not an option, as the work item may
-be blocked on the very freeze that loop_change_fd() holds, and
-cancel_work_sync() would deadlock.
+thanks,
 
-The fix is a rebind generation counter: capture it when
-scheduling, skip the clear in the work item when it changed.  I'll
-send a v3 with that.
-
----
-Tao
-
-> Thanks,
-> Tao
-> 
->> Link: https://lore.kernel.org/r/20260828072004.273519-1-cui.tao@linux.dev/
->> ---
->>  drivers/block/loop.c | 29 ++++++++++++++++++++---------
->>  1 file changed, 20 insertions(+), 9 deletions(-)
->>
->> diff --git a/drivers/block/loop.c b/drivers/block/loop.c
->> index 6f12976035b0..368ea857895c 100644
->> --- a/drivers/block/loop.c
->> +++ b/drivers/block/loop.c
->> @@ -67,6 +67,8 @@ struct loop_device {
->>  	struct list_head        rootcg_cmd_list;
->>  	struct list_head        idle_worker_list;
->>  	struct rb_root          worker_tree;
->> +	struct work_struct      clear_limits_work;
->> +	atomic_t		clear_limits_mode;
->>  	struct timer_list       timer;
->>  	bool			sysfs_inited;
->>  
->> @@ -222,9 +224,12 @@ static void loop_set_size(struct loop_device *lo, loff_t size)
->>  		kobject_uevent(&disk_to_dev(lo->lo_disk)->kobj, KOBJ_CHANGE);
->>  }
->>  
->> -static void loop_clear_limits(struct loop_device *lo, int mode)
->> +static void loop_clear_limits_workfn(struct work_struct *work)
->>  {
->> +	struct loop_device *lo =
->> +		container_of(work, struct loop_device, clear_limits_work);
->>  	struct queue_limits lim = queue_limits_start_update(lo->lo_queue);
->> +	int mode = atomic_xchg(&lo->clear_limits_mode, 0);
->>  
->>  	if (mode & FALLOC_FL_ZERO_RANGE)
->>  		lim.max_write_zeroes_sectors = 0;
->> @@ -234,14 +239,13 @@ static void loop_clear_limits(struct loop_device *lo, int mode)
->>  		lim.discard_granularity = 0;
->>  	}
->>  
->> -	/*
->> -	 * XXX: this updates the queue limits without freezing the queue, which
->> -	 * is against the locking protocol and dangerous.  But we can't just
->> -	 * freeze the queue as we're inside the ->queue_rq method here.  So this
->> -	 * should move out into a workqueue unless we get the file operations to
->> -	 * advertise if they support specific fallocate operations.
->> -	 */
->> -	queue_limits_commit_update(lo->lo_queue, &lim);
->> +	queue_limits_commit_update_frozen(lo->lo_queue, &lim);
->> +}
->> +
->> +static void loop_clear_limits(struct loop_device *lo, int mode)
->> +{
->> +	atomic_or(mode, &lo->clear_limits_mode);
->> +	schedule_work(&lo->clear_limits_work);
->>  }
->>  
->>  static int lo_fallocate(struct loop_device *lo, struct request *rq, loff_t pos,
->> @@ -516,6 +520,7 @@ static int loop_validate_file(struct file *file, struct block_device *bdev)
->>  static void loop_assign_backing_file(struct loop_device *lo, struct file *file)
->>  {
->>  	lo->lo_backing_file = file;
->> +	atomic_set(&lo->clear_limits_mode, 0);
->>  	lo->old_gfp_mask = mapping_gfp_mask(file->f_mapping);
->>  	mapping_set_gfp_mask(file->f_mapping,
->>  			lo->old_gfp_mask & ~(__GFP_IO | __GFP_FS));
->> @@ -1781,6 +1786,7 @@ static void lo_free_disk(struct gendisk *disk)
->>  		destroy_workqueue(lo->workqueue);
->>  	loop_free_idle_workers(lo, true);
->>  	timer_shutdown_sync(&lo->timer);
->> +	cancel_work_sync(&lo->clear_limits_work);
->>  	mutex_destroy(&lo->lo_mutex);
->>  	kfree(lo);
->>  }
->> @@ -2100,6 +2106,7 @@ static int loop_add(int i)
->>  	spin_lock_init(&lo->lo_lock);
->>  	spin_lock_init(&lo->lo_work_lock);
->>  	INIT_WORK(&lo->rootcg_work, loop_rootcg_workfn);
->> +	INIT_WORK(&lo->clear_limits_work, loop_clear_limits_workfn);
->>  	INIT_LIST_HEAD(&lo->rootcg_cmd_list);
->>  	disk->major		= LOOP_MAJOR;
->>  	disk->first_minor	= i << part_shift;
->> @@ -2138,6 +2145,10 @@ static int loop_add(int i)
->>  
->>  static void loop_remove(struct loop_device *lo)
->>  {
->> +	/* Cancel early: the queue may be in RCU-delayed freeing
->> +	 * by the time lo_free_disk() runs. */
->> +	cancel_work_sync(&lo->clear_limits_work);
->> +
->>  	/* Make this loop device unreachable from pathname. */
->>  	del_gendisk(lo->lo_disk);
->>  	blk_mq_free_tag_set(&lo->tag_set);
-> 
-
+greg k-h
