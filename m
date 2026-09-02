@@ -1,297 +1,268 @@
-Received: from LO2P265CU024.outbound.protection.outlook.com (mail-uksouthazon11021138.outbound.protection.outlook.com [52.101.95.138])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FB623CEBA6;
-	Wed,  2 Sep 2026 22:00:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.95.138
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788386441; cv=fail; b=twd3BUlz1EkeuKDVEv6YCnBbbHu6gmxKXcm0W6imIdG1va63lFp996pKbMbF/YTzTYqulRwPgww0VQ4wY7auhNa6j4+XifCe3Fr+ZP60vVp2DxQ3EFqREOJgyrYfD8F/L6gfA74DTjuAd+LS2MJ7l28SV0WYx0SdpmNjbXpHTmc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788386441; c=relaxed/simple;
-	bh=uAZWyJ4TqhHSbqxR098SNMt+LnK5fZaIrY9HwZF5H1c=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=AjMEwbzPDOZxL6UaFnjb3l0t5wzWt28ItW55qISgT4ylAjKNAJIMn3Jf/FNSr9DKwUbBZ8amUcLuHZE+3YKJ1HvCZRsCMJLW+q7J8Ejgx+sQGy/jObyPlNs7ejxkO0pPizZlw3bd1Has76tNoU2rxBGyN6ptXpQTNZp/WAxmzcU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=HUqhjzQd; arc=fail smtp.client-ip=52.101.95.138
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70F014189DD;
+	Wed,  2 Sep 2026 22:01:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788386492; cv=none; b=rcm1kvO7/dkuXBp+BTI96J7jKARmRhkgLv54ycnD9LL0mXs7d2MaO7C4o9szyaMoHA4TJD/YgfRFanjhtf0jAgM8rX8EimEovrmjzMr6U3rjriaZbjWPSwy9ePqQQP2DDOsBoVdmWDzGOndI6qgwq991lzCDg4i7HXg7I1/YmhA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788386492; c=relaxed/simple;
+	bh=5J5fSteDQjEQ5z/zeTC5hDo0VCa0ZX4AvVtGw7KoPBM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=E3FEZFA22JtXS5QoomzJ1mPesT/QUzos1APd+tsoDbg6HI0r8k5GlbLc0VLpr6R3ZPCqzeERU4+kc/3m/to1fO7qqOTt1ChyWAYOHte6hmhDOx3ZQAeZJpzDaSFBgBrXhbOmz84XTB/mdFtkpg1jJjMBqu6Ie7qknyPFF6gctpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=casper.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=iS1YvRPm; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=casper.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="HUqhjzQd"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lBYxYwcLqG/GHMVT6vM1epZtvsGwgJBKf3egMYWSM/OxSWL1NZ8vhAm/HMP2VXKW6A52dM7+k2KSHs9tQYnDKAfcHREeI0wsKzEEVjH8bYSs7fG0zsV7whh7o2+NvFbfrBmDhPn+bUYXw+6fk2lJR9dIr0OI31hMxZleCrC3K4ON5lVIE1yT9mQ37/KRsatFEM+4+UQDhKpPBGF/K7CQ8bcQ6okSPI8Bb1ALnkjUbUaVuN3b4Zz0euYmL4QYeoXs0jzIbFEXiX2H5YzEs7V+A/aLmDbxoSpmxTG4OWcuIeror935Hjld2v5rxXZfiifEoksFXJB+d0qoCko43vstkg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Kzx5qFIUykHljOmd7LUmPjZhL9FahW+74V3kofS+1WY=;
- b=m+rd33A1d/k/awKdbJu431TEoQsnkFA6D3m1MrQeUYE+VW33xjqTvBycw7pHLy5qf3FE3xJig1WKuPirIrLZlItoheaYqvmPPyJXdvGpZm7tSR5Vd1c6lTxJUJf0Ac30fDhSNaNJUSZ6gYsSqUNjImER4YE4BvghRZ2DiODHMyLxTtVGyGZK+zA9veQpIv6uJNrLTqZ6xh3SUZhaWBdMc052VarApINeGgS8kkOVp0NNLdgU5LXqcPnkrK7BFNutRyGQUNFZtWingMZ/Rhzhe3IFP6Py8J2eL+IvM53b9lL3s+nujNLWV9+jqSS6FQkP3frI7LJEoN+0KTa27QsGqg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kzx5qFIUykHljOmd7LUmPjZhL9FahW+74V3kofS+1WY=;
- b=HUqhjzQd59Z/TCHpM6zo6UXSOlV4UgWpHQACDfrRJo1YqNtcpR0SxHMCv4E4Ff5RowmPg+Aq7goo5eQ8gzZXlfZhWBakzRoCpzYfvN1q1IxSX51ZofXy2Kb4ngmWZxrRPA9hGnkCPAvGTWehKmgb7Nk11DmA6RpP3JCdnKkfw9I=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by CWXP265MB2773.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:aa::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 22:00:11 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 22:00:11 +0000
-From: Gary Guo <gary@garyguo.net>
-Date: Wed, 02 Sep 2026 23:00:01 +0100
-Subject: [PATCH v2 3/3] rust: doctest: generate Rust kunit test suites
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-kunit-v2-3-eda3ed6c00c5@garyguo.net>
-References: <20260902-kunit-v2-0-eda3ed6c00c5@garyguo.net>
-In-Reply-To: <20260902-kunit-v2-0-eda3ed6c00c5@garyguo.net>
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
- Rae Moar <raemoar63@gmail.com>
-Cc: rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
- Gary Guo <gary@garyguo.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788386408; l=4725;
- i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=uAZWyJ4TqhHSbqxR098SNMt+LnK5fZaIrY9HwZF5H1c=;
- b=1F1eW5kH7YQffszbSnrfGChOjCKHL1feEnGr9XNWL/keIm+q1V2LB14/NedpRuqCJPymYK3dh
- qilgkLLSmhYD7kzY45P4WjUwu9ZRBBdShOfXLhGYFStMmGRQhsRiexL
-X-Developer-Key: i=gary@garyguo.net; a=ed25519;
- pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
-X-ClientProxiedBy: CWLP265CA0322.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:401:57::22) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="iS1YvRPm"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=MIME-Version:Content-Type:References:
+	In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=R24Z9PaxCMn8d3EYnepPMpwYEZcgPsiXfgS/mw3tbWM=; b=iS1YvRPmGbmK34JtmpCo3yKg3z
+	NxPFqlvUA9N1FMHKekGpmYtn98NNfXMo+unSeBUEltp9RA1TNSe0JTnAVI+bwabHCPD7fJBZOiHna
+	Yi/3c9hLwPpfP0uylmMmdaM5LvY/auLxVHOzRTPXZ15kHPk18QU3YAJYtrFpynK19o3cexNh7OlyS
+	PIb7WnlvKvpgiT1qcA8+QFO0W+JmsiBGo/0V9b/S7isj+c+RPQkqjwObRWBaLBAIvLwfCtEIZEYs9
+	7zphrjve0UWWm3QAWHcXXZTGBapP/KyqZcVr9wWbj2JIONz2hoGz0lxpZ3MHx0Z7f/zpMvRUzFs2R
+	4WlJ4e0g==;
+Received: from [2001:8b0:10b:5:a7b1:57c5:dd61:87e3] (helo=u09cd745991455d.ant.amazon.com)
+	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x1t0h-000000085YG-0OyQ;
+	Wed, 02 Sep 2026 22:00:47 +0000
+Message-ID: <2cad39ededd2e8e975f6c21cb63df94f65638746.camel@infradead.org>
+Subject: Re: [PATCH v3 01/13] KVM: x86/xen: Rename 'longmode' to 'is_64bit'
+ in hypercall handling
+From: David Woodhouse <dwmw2@infradead.org>
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paul Durrant <xadimgnik@gmail.com>, pbonzini@redhat.com, 
+	joao.m.martins@oracle.com, boris.ostrovsky@oracle.com,
+ ankur.a.arora@oracle.com, 	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, 	hpa@zytor.com, x86@kernel.org, 
+	syzbot+208f7f3e5f59c11aeb90@syzkaller.appspotmail.com, 
+	syzkaller-bugs@googlegroups.com, suryasaimadhu369@gmail.com, lkp@intel.com,
+ 	nicoyip.dev@gmail.com, frn1furkan10@gmail.com, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, imv4bel@gmail.com
+Date: Wed, 02 Sep 2026 23:00:25 +0100
+In-Reply-To: <aphxoidZsbyoNEN0@google.com>
+References: <20260831213632.81023-1-dwmw2@infradead.org>
+	 <20260831213632.81023-2-dwmw2@infradead.org>
+	 <3590c47d-302a-4a24-9953-828eb9b38c38@xen.org>
+	 <586448da19d357ac6914fe100e5f09f22c5c9de8.camel@infradead.org>
+	 <aphxoidZsbyoNEN0@google.com>
+Content-Type: multipart/signed; micalg="sha-256"; protocol="application/pkcs7-signature";
+	boundary="=-79G2UkhPWzkUcRIJtE5e"
+User-Agent: Evolution 3.60.3-0ubuntu1~ppa9~24.04 
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|CWXP265MB2773:EE_
-X-MS-Office365-Filtering-Correlation-Id: 995f0cbd-9f9f-4d83-677d-08df093d8f58
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|23010399003|7416014|10070799003|366016|56012099006|921020|6133799003|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	gfbjM4FrHGjXbZr+HJ+ifwAi2R4RCsSJdi3CAD2W+EDE4dbO5l/Yw69FzhbDC7HEPlkR7H3Lts+e+GE5vzzHNdSUY/ysXS00t0UTJTjBz5lASvxqQFh0JWNpaDlLCRxWTdqOPazZdPeAFvFZ+WxkF+0iMTQ0LOcGaZTy5j6p5b9dkac70INoOzmh1EYalCSrb1QETxJcmq5lCXAAO15M4ZAVg+o8PuUGEVM78LlQskgkUDPcIPji4fVDE+rFZqULIBXWVQy2ayHWg0zgH5RgjdMFYjAuUnvt4WuIbkZBgIt0rrHdXYfzMNgIiHc3CPOwdW4TfZdMuNUicITtCwgTZpvLG4L/8j0qjM7akKdOBNMcj0YBFRoYknBID8yzcewaMgpGK3JBM2JJ0EZ+N6Oh9g/pLA2YJp63qjYzXeoQ4rddgzk3pcejoyndbJg2ThbjAA/eaZiwNTJTznLFeQ0z86DT0OYkSHpCw3a/nB8LJ6A3YrsOLeqb6Krc5eA03H827V3N6NMS/JUb5huM8Vak30vCO1/knr+ARKeUgQUdJOrGF6QRjdBetQX3nUYuaijrYFQryJOXzdJEMyA8wwMJY7oKgdkhEZSnPXh3NvrftACT5URBUgWQJhWbKgkrXxL77Prk4H6CI3INIQUxf64hnALVgfbimaPasv0PUoX/e8GZuxl0EA2+12GJmdpbUgrYZrfsOJjNQXsEHLEjyBLhxQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(23010399003)(7416014)(10070799003)(366016)(56012099006)(921020)(6133799003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZUxaK0ducnZmMHIvREtNazdUWkQ2dC9xczBsRXdZU09hckJJalkzRUt4eUxP?=
- =?utf-8?B?RHMrYXMvM3pyTFVodVJMZ3lhelg1QlByVDQyQmNrVGxUSFZJaERiUVF5dDlh?=
- =?utf-8?B?RHREMExzeHFnS1pxZkZmd1IrQVZaRE1OeWg4OWMxV0JMcSt1NStCQnovYlV2?=
- =?utf-8?B?c3RnTmgvOUhUcW5mSDNKOFpGcGRSVGkzOExxRnVUblh6eURMTHI5ZUNmT0lN?=
- =?utf-8?B?RzNSb2o2bmhQUmRIZzIzQk9ZY2NGVjJHV2xzSFZSYXh0TDZrMlFUYTVMZ1Vw?=
- =?utf-8?B?WTFkaDdkZzIwc3RRYWt3d0RxM0xvOGowSkhTZzJHelhoM0hQYkFacGo3K2J4?=
- =?utf-8?B?UzRWdllwM2wxck5rb1czTGlDTjZHL3NaamxnRjNsNE9acUh4N2VZNFB2TzQr?=
- =?utf-8?B?M2pUR1krRytudnhDS2lMNmxLZGg4N05EajllOXhsek1vd1BZaWxkbmI1RVd0?=
- =?utf-8?B?cVVhQ2x3Q3lNYU50UzQ1ajB2MDFmazZDd3JnRWdyOW1uUXB2Z1I1OGZmNDBQ?=
- =?utf-8?B?bm5UU3I1cDg4YkwvL0lJRDYxRWM5YjQvZkw2TkNRSXF5WU55SW84WXZSZnJ6?=
- =?utf-8?B?dGl6NVFDZzJUQ0FOTzdRdVE3S0dFZWN0Vjl2b1A3bW4zVW9Kd3ZXcjlMQnkr?=
- =?utf-8?B?RkNleW8ybkxOZ2ViTzRsR0FMZm8zRWE3cktFS24zS0RjMitQWVBoRWZWM2R3?=
- =?utf-8?B?YUVKZm84ZnBIUXRPMWhtaDJmQjQ1bTBCNHpMUk9LclZtVmJMeDdJRjBkSy9L?=
- =?utf-8?B?QXlLOHpzSDJmbnR6R2V1a2R4eS9FQXVBUGJENnRwWlU4ZWlVTTNSN05pZXNv?=
- =?utf-8?B?czZ2UzF6TFBuem0ydUJzK0oxQUxIVWMxK05mRTYrNlZJSmdJU3Y2blZMSTNv?=
- =?utf-8?B?Q2hRdDFqL3oyaVZCK08rSkRkS0tkbnZCamx3eExvd3FrTkNJWURqYnd0RldJ?=
- =?utf-8?B?NjMrRXE3bGVPRG1lWlZ4WmZSK2EvSjdTcFdLYTJzQmczZ2t6NGZ2aVltMGV5?=
- =?utf-8?B?dzJ2aURZRGNnSW5BejJpZFJncDhKTlExampaekdvWHZiTkRJeks3SWRwdlJr?=
- =?utf-8?B?MFBybEQ2N1ZJQy96YkZKZ0cvTGE3ZE1JdzRyZkdpRk1SL3JvNWxrL2tsd2hR?=
- =?utf-8?B?S1lwbkdJTnN5clg2WmtPOWdvWTU5eERSdFVjV2NOY2huUnYzRG9xS0NvVlIy?=
- =?utf-8?B?QnpNWFR0R2FDN0VnekVkS1NScms4TkMra1hiZ25XU1NrVDJlZ3NmdCt0ZXNm?=
- =?utf-8?B?NXZVMjAwdVZGNm03eDhpQkFwQVg4OEllY1d4dlh3V1lyc3ZxbzdnLy8vSkh5?=
- =?utf-8?B?SHhjVVRXVWE2VlpQR2dNL0JVVTNWQVg1ZzYzR3NjWVUzRHV5YVhEVXpjbklw?=
- =?utf-8?B?SE9hS1A4RnkwSHZPbFdMUitNRFdIdTRwbTlEQlRITnF4NHI4SGNZMHZhNi9Z?=
- =?utf-8?B?VEpiL2NOZ2RNZVZZeWxCTDI4c1J4SVRxYTRkRWI2UUREMHJyRTBvWjNKdERR?=
- =?utf-8?B?R2thYVNQMzNZU3h5RGcrcjdPOUJNakNGM1IwajFvUDFjZlBBTnZJWVh0cm1u?=
- =?utf-8?B?eXZtNGpiZkphN1FtbkJ5Q2Y5RW5Icko0M0NUNVp6eSs5dHFwZ1NTZ3RGSjh3?=
- =?utf-8?B?S3pEdE5SOFlKVFRLVDkwaTYyOVdkckR0SHF3bVRxUlRQWWxacUpCczEreVA1?=
- =?utf-8?B?d0ZoVnFRZlNseEFMT2Y0K01kZ3R2VlRyUC93WlFVZnMvc3RXdzVNSzhvME5j?=
- =?utf-8?B?VXpqNjBHRlowRGtJbzE1NWYwWVkxN2xkUXl5ZVROKzVaUXphUFBrVVh5Y29Y?=
- =?utf-8?B?OHZsdHFUY0Izamk5bDZaanJjSkM2N0MzZW1Zc2ViejZKRjRDcnlFOVorSXRQ?=
- =?utf-8?B?d1B4VU1uWFpIZUY3TEEyQStOYlo4VUlITlR0OFZwaUh0QlMxcXZsR253ZHJJ?=
- =?utf-8?B?UDBiS2MwN1ZOekZyNDNycit4RGdQWUJtNFJvcHc1bFZQdW52VUM0WUc5Tkpz?=
- =?utf-8?B?L0VPRW5KTGRUVVlXZWJoVExmNExNc3ZqQXUvQVRzRFVUdUZ5NW9rZG9CK2hy?=
- =?utf-8?B?NnVtbGcyTUp4c01DdG9rcmR3ODNKTEEvbnlsLzhid0RvVndxNi94ODhyNkx4?=
- =?utf-8?B?KytqZGNobVkybnhXM2xXMzdWeGJJRXhENUdBcHBjSzF6cENOSUJUclZCOVlE?=
- =?utf-8?B?VldrWVZBSi9VbVF0UWNrekorbHI4WE5ESm52UGJrQzMyejQxQ3lWOXFDdi9H?=
- =?utf-8?B?Tkl5UEhHN0k0azcrRElwQXdHY0d5R0RVLzlFOE91RmRSejFPRmgvUnJaNE44?=
- =?utf-8?B?RGNiU3d3M0hVWVNJQWV2QU1ZM3JmYnZTR29SY3BlWlNGWW9vVGptUT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 995f0cbd-9f9f-4d83-677d-08df093d8f58
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 22:00:11.3003
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gUHW41BC78/70cSuPv6jTBHbgaHvaFi6Su3RLSakM+Th3BEC+1R4AuNc+UEeOEZXlitS7FVpqHPi2bjvkwaMYA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB2773
+X-SRS-Rewrite: SMTP reverse-path rewritten from <dwmw2@infradead.org> by casper.infradead.org. See http://www.infradead.org/rpr.html
 
-For doctest, instead of generating C FFI functions, generate a Rust test
-suite with `#[kunit_tests]` and `#[test]` attributes. This makes the C glue
-no longer needed.
 
-Reviewed-by: David Gow <david@davidgow.net>
-Signed-off-by: Gary Guo <gary@garyguo.net>
----
- rust/Makefile               |  4 +--
- scripts/rustdoc_test_gen.rs | 69 ++++++---------------------------------------
- 2 files changed, 10 insertions(+), 63 deletions(-)
+--=-79G2UkhPWzkUcRIJtE5e
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/rust/Makefile b/rust/Makefile
-index da1a7409d984..ec8c08ee3263 100644
---- a/rust/Makefile
-+++ b/rust/Makefile
-@@ -39,10 +39,8 @@ obj-$(CONFIG_RUST) += exports.o
- always-$(CONFIG_RUST) += host/libproc_macro2.rlib host/libquote.rlib host/libsyn.rlib
- 
- always-$(CONFIG_RUST_KERNEL_DOCTESTS) += doctests_kernel_generated.rs
--always-$(CONFIG_RUST_KERNEL_DOCTESTS) += doctests_kernel_generated_kunit.c
- 
- obj-$(CONFIG_RUST_KERNEL_DOCTESTS) += doctests_kernel_generated.o
--obj-$(CONFIG_RUST_KERNEL_DOCTESTS) += doctests_kernel_generated_kunit.o
- 
- always-$(subst y,$(CONFIG_RUST),$(CONFIG_JUMP_LABEL)) += kernel/generated_arch_static_branch_asm.rs
- ifndef CONFIG_UML
-@@ -400,7 +398,7 @@ quiet_cmd_rustdoc_test_kernel = RUSTDOC TK $<
- 		$< $(rustdoc_test_kernel_quiet); \
- 	$(objtree)/scripts/rustdoc_test_gen
- 
--%/doctests_kernel_generated.rs %/doctests_kernel_generated_kunit.c: \
-+%/doctests_kernel_generated.rs: \
-     $(src)/kernel/lib.rs $(obj)/kernel.o \
-     $(objtree)/scripts/rustdoc_test_builder \
-     $(objtree)/scripts/rustdoc_test_gen FORCE
-diff --git a/scripts/rustdoc_test_gen.rs b/scripts/rustdoc_test_gen.rs
-index bb870f83dde2..068ecdb0845d 100644
---- a/scripts/rustdoc_test_gen.rs
-+++ b/scripts/rustdoc_test_gen.rs
-@@ -125,9 +125,7 @@ fn main() {
-     // Sort paths.
-     paths.sort();
- 
--    let mut rust_tests = String::new();
--    let mut c_test_declarations = String::new();
--    let mut c_test_cases = String::new();
-+    let mut tests = String::new();
-     let mut body = String::new();
-     let mut last_file = String::new();
-     let mut number = 0;
-@@ -172,10 +170,10 @@ fn main() {
- 
-         use std::fmt::Write;
-         write!(
--            rust_tests,
-+            tests,
-             r#"/// Generated `{name}` KUnit test case from a Rust documentation test.
--#[no_mangle]
--pub extern "C" fn {kunit_name}(__kunit_test: *mut ::kernel::bindings::kunit) {{
-+#[test]
-+fn {kunit_name}() {{
-     // Overrides the usual [`file!`] macro with one that expands to the real path.
-     #[allow(unused)]
-     macro_rules! file {{
-@@ -190,26 +188,6 @@ macro_rules! line {{
-         () => {{ const {{ ::core::line!() - __DOCTEST_ANCHOR + {line} }} }}
-     }}
- 
--    /// Overrides the usual [`assert!`] macro with one that calls KUnit instead.
--    #[allow(unused)]
--    macro_rules! assert {{
--        ($cond:expr $(,)?) => {{{{
--            ::kernel::kunit_assert!(
--                "{kunit_name}", $cond
--            );
--        }}}}
--    }}
--
--    /// Overrides the usual [`assert_eq!`] macro with one that calls KUnit instead.
--    #[allow(unused)]
--    macro_rules! assert_eq {{
--        ($left:expr, $right:expr $(,)?) => {{{{
--            ::kernel::kunit_assert_eq!(
--                "{kunit_name}", $left, $right
--            );
--        }}}}
--    }}
--
-     // Many tests need the prelude, so provide it by default.
-     #[allow(unused)]
-     use ::kernel::prelude::*;
-@@ -238,14 +216,9 @@ macro_rules! assert_eq {{
- "#
-         )
-         .unwrap();
--
--        write!(c_test_declarations, "void {kunit_name}(struct kunit *);\n").unwrap();
--        write!(c_test_cases, "    KUNIT_CASE({kunit_name}),\n").unwrap();
-     }
- 
--    let rust_tests = rust_tests.trim();
--    let c_test_declarations = c_test_declarations.trim();
--    let c_test_cases = c_test_cases.trim();
-+    let tests = tests.trim();
- 
-     write!(
-         BufWriter::new(File::create("rust/doctests_kernel_generated.rs").unwrap()),
-@@ -271,34 +244,10 @@ impl ModuleMetadata for LocalModule {{
-     }};
- }}
- 
--{rust_tests}
--"#
--    )
--    .unwrap();
--
--    write!(
--        BufWriter::new(File::create("rust/doctests_kernel_generated_kunit.c").unwrap()),
--        r#"/*
-- * `kernel` crate documentation tests.
-- */
--
--#include <kunit/test.h>
--
--{c_test_declarations}
--
--static struct kunit_case test_cases[] = {{
--    {c_test_cases}
--    {{ }}
--}};
--
--static struct kunit_suite test_suite = {{
--    .name = "rust_doctests_kernel",
--    .test_cases = test_cases,
--}};
--
--kunit_test_suite(test_suite);
--
--MODULE_LICENSE("GPL");
-+#[kernel::macros::kunit_tests(rust_doctests_kernel)]
-+mod tests {{
-+{tests}
-+}}
- "#
-     )
-     .unwrap();
+On Wed, 2026-09-02 at 11:57 -0700, Sean Christopherson wrote:
+> On Wed, Sep 02, 2026, David Woodhouse wrote:
+> > On Wed, 2026-09-02 at 13:18 +0100, Paul Durrant wrote:
+> > > On 31/08/2026 22:26, David Woodhouse wrote:
+> > > > From: David Woodhouse <dwmw@amazon.co.uk>
+> > > >=20
+> > > > Rename the local 'longmode' variable and function parameter to
+> > > > 'is_64bit' throughout the Xen hypercall handling code. This
+> > > > distinguishes it from the VM-wide kvm->arch.xen.long_mode which
+> > > > represents the Xen shared_info layout mode.
+> > > >=20
+> > > > The 'is_64bit' parameter indicates whether the vCPU was in 64-bit
+> > > > mode when it made the hypercall, which determines how to parse the
+> > > > hypercall arguments. The UAPI field name (vcpu->run->xen.u.hcall.lo=
+ngmode)
+> > > > is unchanged.
+> > > >=20
+> > >=20
+> > > Given that 'longmode' is the term used in the UAPI I'm not sure I rea=
+lly=20
+> > > see the point in this change (particularly since there is not even a=
+=20
+> > > name clash with 'long_mode').
+> >=20
+> > The difference between 'longmode' and 'long_mode' is subtle, and *has*
+> > caused confusion which IIRC is what led to part of this series.
+> >=20
+> > Having to keep 'longmode' in the UAPI for KVM_EXIT_XEN_HCALL is sad,
+> > but at least the context is very clear there (xen.u.hcall.longmode).
+>=20
+> We can actually "fix" that, if we want.=C2=A0 And given that the only "lo=
+ngmode"
+> reference left in KVM is one in kvm_hv_hypercall_set_result() that can an=
+d should
+> be nuked, I think it make sense to purge longmode from KVM's source.
+>=20
+> We already did something very similar in e65733b5c59a ("KVM: x86: Redefin=
+e 'longmode'
+> as a flag for KVM_EXIT_HYPERCALL").=C2=A0 And if we expose both names to =
+userspace, we can
+> even purge the misleading name from selftests without forcing existing VM=
+Ms to
+> rebuild.
+>=20
+> E.g. (completely untested)
+>=20
+> diff --git a/arch/x86/kvm/xen.c b/arch/x86/kvm/xen.c
+> index 718396340d3c..043a61e2409d 100644
+> --- a/arch/x86/kvm/xen.c
+> +++ b/arch/x86/kvm/xen.c
+> @@ -1804,7 +1804,7 @@ int kvm_xen_hypercall(struct kvm_vcpu *vcpu)
+> =C2=A0handle_in_userspace:
+> =C2=A0	vcpu->run->exit_reason =3D KVM_EXIT_XEN;
+> =C2=A0	vcpu->run->xen.type =3D KVM_EXIT_XEN_HCALL;
+> -	vcpu->run->xen.u.hcall.longmode =3D is_64bit;
+> +	vcpu->run->xen.u.hcall.is_64bit =3D is_64bit;
+> =C2=A0	vcpu->run->xen.u.hcall.cpl =3D cpl;
+> =C2=A0	vcpu->run->xen.u.hcall.input =3D input;
+> =C2=A0	vcpu->run->xen.u.hcall.params[0] =3D params[0];
+> diff --git a/include/uapi/linux/kvm.h b/include/uapi/linux/kvm.h
+> index 9fc8dfdfd65f..5a74765732e3 100644
+> --- a/include/uapi/linux/kvm.h
+> +++ b/include/uapi/linux/kvm.h
+> @@ -131,7 +131,12 @@ struct kvm_xen_exit {
+> =C2=A0	__u32 type;
+> =C2=A0	union {
+> =C2=A0		struct {
+> -			__u32 longmode;
+> +			union {
+> +#ifndef __KERNEL__
+> +				__u32 longmode;
+> +#endif
+> +				__u32 is_64bit;
+> +			};
+> =C2=A0			__u32 cpl;
+> =C2=A0			__u64 input;
+> =C2=A0			__u64 result;
 
--- 
-2.54.0
+I worry that this kind of thing would leave me grepping the kernel for
+"what even *sets* longmode?" after seeing userspace consuming that
+field. In the context of a structure that is explicitly about the
+hypercall, I think the existing name is fine.
 
+--=-79G2UkhPWzkUcRIJtE5e
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCE8Ew
+ggWvMIIEl6ADAgECAhANkOKMSmGXhF5eMl0rsRhvMA0GCSqGSIb3DQEBDAUAMGUxCzAJBgNVBAYT
+AlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xJDAi
+BgNVBAMTG0RpZ2lDZXJ0IEFzc3VyZWQgSUQgUm9vdCBHMjAeFw0yNDAzMTMwMDAwMDBaFw0zNDAz
+MTIyMzU5NTlaMGIxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UE
+AxMxRGlnaUNlcnQgQXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTCCAiIw
+DQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAOfSIeC0vv1xPQ+dgSxbIIrkaru6skAWJYaGFzmv
+q4Kq+2wU2jxhcWlJg/JeP5jEkq/LM3pn5aaLao79j+XRmS7J1ZpJKUODJVoM4s9MQJhTMvo4qS5Z
+S64g6QR7Obkz3I1Lr3aWeSBmDDEyzue+NKtuWZ1Cxy3RdXo/w5HgRc3l2AercOM3Gt1XonTzEtTb
+Z/Hwc0Sn9Gz8RmGRK6Ka4hVDl8q/2l110KaV233Kh5etP0csXS8MIMdVRfRu3sc5hp13DG7lCKzK
+72a2GEpI8Wpl26G6I1/LMzz/98T+FqjTqxsdquk7Cj7m2vKGLW1BorpQH7WFGPdJQXJe1hfbfiZA
+CcVdCtl4nAacFacmsiArZBfX7AQGL7isvHUwwYFEtcApyGW4p2Lt+t8nvU0CANA6BHOpOz1xOP8W
+mAESbUriIjyuTUf3fJ9oDNCurVqhASMJCDaWI3lYX/QAoiAzt6akqbbZxo2ujW7mGGqc0KxqE2cs
+h2T79v7pC8aUtHBfwNrTR19GnZVxE0eQ7ViIQhR6mpSaUQFA9sG+cmD2G8TnCgYsLa0q8De6F61a
+CBevQGHNzrbZ3JAMneveYg/Jy1XxQHDRcvrMfWKe0jjcWbdKYlaGVPm5V1ILwYz7Yv5ewo3NUrxI
+GJiywe9qPhuJSDZs7VehTuI0FxGIsgKzVjgbAgMBAAGjggFcMIIBWDASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBT3m6JO05fF9DQPQw6Bhc6RkzKv+TAfBgNVHSMEGDAWgBTOw0q5mVXyuNtg
+v6l+vVa1lzan1jAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUHAwQGCCsGAQUFBwMC
+MHkGCCsGAQUFBwEBBG0wazAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEMG
+CCsGAQUFBzAChjdodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkSURS
+b290RzIuY3J0MEUGA1UdHwQ+MDwwOqA4oDaGNGh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdp
+Q2VydEFzc3VyZWRJRFJvb3RHMi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUA
+A4IBAQA+b8Uw53sDspdZgukU+qzLyyHkcjlxGGhHlP+zrmDLKm1wEFvCRS2pili3Hy67i8N4N5NU
+vw5Rg6kv3lxb9S9Rktxk43k+tvm68pl7OxQE55ZjVY87P0lUPGwEqOOwLLyH02ZQcsfq5p5LrOH9
+0JvmvZ1yy73HS+VpDAqOlytE0NSvTIRqFFkKQGQwfjvtql9YflujuNNvJztjBaHKYZsnNSg+J38o
+jYq4TP3pSg3UdVH0PncVjPQyqxC9xef5Xae92Kbkzol3x7Nel3A1bwAkalrDMspvTHvey6LfiBks
+FIqviTnoy7fgjaRAJgHS+RXx/cmuRd3rUAclSVVrYu8RMIIHAzCCBOugAwIBAgIQAzUotrsybJHx
+HTjKOIVdIDANBgkqhkiG9w0BAQsFADBiMQswCQYDVQQGEwJVUzEXMBUGA1UEChMORGlnaUNlcnQs
+IEluYy4xOjA4BgNVBAMTMURpZ2lDZXJ0IEFzc3VyZWQgRzIgU01JTUUgUlNBNDA5NiBTSEEzODQg
+MjAyNCBDQTEwHhcNMjYwNzE4MDAwMDAwWhcNMjgwMTA0MjM1OTU5WjAeMRwwGgYDVQQDDBNkd213
+MkBpbmZyYWRlYWQub3JnMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA2pYux73kdbYX
+sWF8f1u6DJP91qcqaZetsyfPkZk0B+MmXmAEv0kVes5n15V2mbDThOnpoPFly0UugQO9JYqLfrtD
+tKD5yL58fgrDB9Dw+LQikgrHafl6YSCds5AvUu/8hw2J6noKrcOLJpKlKn9Fl/4IB9Q3JIdLx5aa
+EtTqMalIPqHFOlgrJ7s+aua8xbB8YQ9ahqYBXWRJNv3P/2b1DYtdrz1oqZPE3CcB8Pc6Gf2a1Tcm
+6TAgtEx7Cf1BFcrsrMz7TWHmGQITieNb2r9UYWSc2Gp+GtYFNJCgT0JJXKUBIauPMKBLteYrL8Fo
+ff/uY44dC/mDWjdCP/5x0qelPQjlBvWdHL5zvBTOj06rJ0m3HNI/hnIcDh0Qu2j9reb9rLVcdym6
+bWmBM4uDEB8Zv9Ph0KTBFSy1IosyakuD1j1Os30EzjGfbi0EUXIvnOcYbTBAbM5UAzrxEHMhBvoX
+Pvnx+OyvjJmc9tWxTX6AcSz+m40esbT17URBeZS18afgieiikm5TynlUYP1LciR3hSgGVzvGXnKO
+02VDFR5itGWdRKZ2W5wIShNfWfhSa0D0K5UdIDt5Qc7sjzwK1Yb1sY5Tu0uA5mhIS82q1ov83uxB
+sFkriNnhGv/M1NCDVLBiOMsHu73qUM+yKmgKLwF9Hfn9WI25glbAMI4S5r3hYzcCAwEAAaOCAfcw
+ggHzMB8GA1UdIwQYMBaAFPebok7Tl8X0NA9DDoGFzpGTMq/5MB0GA1UdDgQWBBRcYhqbcGzn1jrT
+JOZaB8O7qllDpzAwBgNVHREEKTAngRNkd213MkBpbmZyYWRlYWQub3JngRBkYXZpZEB3b29kaG91
+LnNlMBQGA1UdIAQNMAswCQYHZ4EMAQUBAjAOBgNVHQ8BAf8EBAMCBeAwHQYDVR0lBBYwFAYIKwYB
+BQUHAwIGCCsGAQUFBwMEMIGpBgNVHR8EgaEwgZ4wTaBLoEmGR2h0dHA6Ly9jcmwzLmRpZ2ljZXJ0
+LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsME2gS6BJ
+hkdodHRwOi8vY3JsNC5kaWdpY2VydC5jb20vRGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZT
+SEEzODQyMDI0Q0ExLmNybDCBjQYIKwYBBQUHAQEEgYAwfjAkBggrBgEFBQcwAYYYaHR0cDovL29j
+c3AuZGlnaWNlcnQuY29tMFYGCCsGAQUFBzAChkpodHRwOi8vY2FjZXJ0cy5kaWdpY2VydC5jb20v
+RGlnaUNlcnRBc3N1cmVkRzJTTUlNRVJTQTQwOTZTSEEzODQyMDI0Q0ExLmNydDANBgkqhkiG9w0B
+AQsFAAOCAgEAocabrh1cPd5s3vY5rnlBVQSTc7zs2ZWs67dAIltR+05WELrYClVzzUhMs/LOJPlr
+EUo45UDDomXq38DxFepaPd9+iNLjXfn33EX/IG44j04lU/oF/Rg9VeQILkYLbCZ/x9wOjNHZc4SN
+ydY7Dhvf/sT5aBz88u7D5+azZJ7Qf1U57wYseCH1Mt0nDrtr5y19IJ8D9xJJ33RFL6vfpHZBBAQ8
++3RqkKNxLoV2aFvQhxdhjNLDqTv3LjUIdicwPraN7JkxEu7CV2Lka7eRqJgkWL7SK0YmBjGpRafs
++icP/ON5RCCKTTb6VlX8eTG2sJJfsFhvJNCCt6xexbWzWtIrfP7NvPBvwBB737AyEGBZkS5aNizT
+McURJGTv9UKvBh1LF/+tNhYtLvPCN7oecGzhCHht9jcwSkygTo3Y6YlK3QgOu+ncmiBbfeuwlLZ1
+LxbYvG6hgNqXv7u6YyADbYajAQJXJ2OQen39pm3Q/AQSyLYG+B8lDglWsM8tYXPlEdrYJcksGK6F
+nqIX6Bumn43rBooLJdiZp4WmfWdL2pxe+LxRDjprmqu1WprixDxULSTOKJZoqTlugs6y3Bc+if+s
+gHnBBtz9WQ6MtPHkh7zONDAFIKcBmv8OqPQCx0F3Wv3OEybwMpXx0OsKgK8wLldaX1pXcMuyDgTL
+Sqs0AV0OHUgwggcDMIIE66ADAgECAhADNSi2uzJskfEdOMo4hV0gMA0GCSqGSIb3DQEBCwUAMGIx
+CzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjE6MDgGA1UEAxMxRGlnaUNlcnQg
+QXNzdXJlZCBHMiBTTUlNRSBSU0E0MDk2IFNIQTM4NCAyMDI0IENBMTAeFw0yNjA3MTgwMDAwMDBa
+Fw0yODAxMDQyMzU5NTlaMB4xHDAaBgNVBAMME2R3bXcyQGluZnJhZGVhZC5vcmcwggIiMA0GCSqG
+SIb3DQEBAQUAA4ICDwAwggIKAoICAQDali7HveR1thexYXx/W7oMk/3Wpyppl62zJ8+RmTQH4yZe
+YAS/SRV6zmfXlXaZsNOE6emg8WXLRS6BA70liot+u0O0oPnIvnx+CsMH0PD4tCKSCsdp+XphIJ2z
+kC9S7/yHDYnqegqtw4smkqUqf0WX/ggH1Dckh0vHlpoS1OoxqUg+ocU6WCsnuz5q5rzFsHxhD1qG
+pgFdZEk2/c//ZvUNi12vPWipk8TcJwHw9zoZ/ZrVNybpMCC0THsJ/UEVyuyszPtNYeYZAhOJ41va
+v1RhZJzYan4a1gU0kKBPQklcpQEhq48woEu15isvwWh9/+5jjh0L+YNaN0I//nHSp6U9COUG9Z0c
+vnO8FM6PTqsnSbcc0j+GchwOHRC7aP2t5v2stVx3KbptaYEzi4MQHxm/0+HQpMEVLLUiizJqS4PW
+PU6zfQTOMZ9uLQRRci+c5xhtMEBszlQDOvEQcyEG+hc++fH47K+MmZz21bFNfoBxLP6bjR6xtPXt
+REF5lLXxp+CJ6KKSblPKeVRg/UtyJHeFKAZXO8Zeco7TZUMVHmK0ZZ1EpnZbnAhKE19Z+FJrQPQr
+lR0gO3lBzuyPPArVhvWxjlO7S4DmaEhLzarWi/ze7EGwWSuI2eEa/8zU0INUsGI4ywe7vepQz7Iq
+aAovAX0d+f1YjbmCVsAwjhLmveFjNwIDAQABo4IB9zCCAfMwHwYDVR0jBBgwFoAU95uiTtOXxfQ0
+D0MOgYXOkZMyr/kwHQYDVR0OBBYEFFxiGptwbOfWOtMk5loHw7uqWUOnMDAGA1UdEQQpMCeBE2R3
+bXcyQGluZnJhZGVhZC5vcmeBEGRhdmlkQHdvb2Rob3Uuc2UwFAYDVR0gBA0wCzAJBgdngQwBBQEC
+MA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcDAgYIKwYBBQUHAwQwgakGA1UdHwSB
+oTCBnjBNoEugSYZHaHR0cDovL2NybDMuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0QXNzdXJlZEcyU01J
+TUVSU0E0MDk2U0hBMzg0MjAyNENBMS5jcmwwTaBLoEmGR2h0dHA6Ly9jcmw0LmRpZ2ljZXJ0LmNv
+bS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNBNDA5NlNIQTM4NDIwMjRDQTEuY3JsMIGNBggrBgEF
+BQcBAQSBgDB+MCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5jb20wVgYIKwYBBQUH
+MAKGSmh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEFzc3VyZWRHMlNNSU1FUlNB
+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
+Vm5O5DNuVCsyAqBMsClpKMUAAAAAAAA=
+
+
+--=-79G2UkhPWzkUcRIJtE5e--
