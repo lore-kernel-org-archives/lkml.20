@@ -1,21 +1,21 @@
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7AA63469FA;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7B2E349AE0;
 	Wed,  2 Sep 2026 01:33:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788312792; cv=none; b=b5cu9fs7uXVd24SZM3sFHToChJQSBaDSFnhFli3fl0+P6JL1apjtEjngI6Vt7KCLDeloTqWDh31T/ChIp6PKXjKbFfejlUzHAmiGiZGYhox0U6Vumn4kJzhTOmZAfSoRthZvM1Ko2uTvul8iJLbiya38Dzry5zJV/cCsU2+XK4M=
+	t=1788312792; cv=none; b=VJod+jU+6g/gEW6QWm4b/wc/jPzrnWc35n2XN6HT40nQb0pDEbZzSNJPUTenV6WUj4GlAXzEVuzlSD9RTKBGYFkcfqFNrm4OTE6I/SPO9v7i6uHEhDcaYqcFXE+etmWJX0eAU6iEQLuY8uHLaI61tWOFoXlqemU5v/TsZFKj6jE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788312792; c=relaxed/simple;
-	bh=MgVUGumX39kvc1+ALm3Vk0Oj2HZD8nyMEE3zS1MKUsc=;
+	bh=kvPZNuOpv631M+fPSTvWLj4WTUWSXKE6LvwJmRMUeWE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bjK12l+Ev/FkXXhXP78gr0+FhfIUZkJ9mkzlMJnGIcmqZ0fiFAdkK11PYnKL/koko4/gJgal8rYL1iwwq/0p/mUMK5beZqIE08D3Sv6/u4Q3kTE5QGlRoO2y2SrRQnO4v67bIftFevRX/G8Lz8qKYro+Mx6U/47+wsL59l1kJ9s=
+	 MIME-Version; b=Ggp3dgXhr+qr+HevDVh1pFYMqEdPP6G3HKGVcGLD4oE05Mxi72ja4zO1MbLEuoj/NSgt3N+iz0NHrIVfuWjmAsqWDsQvDh5I4CJrhZ238uPx6imaFnY6OnsFepw5dXmDms7UjpwDhxhG9tAWZGKI8dloywjgfId2jaetWzvF04Y=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-01 (Coremail) with SMTP id qwCowADnvvLKfJdq8VoHBw--.39350S4;
+	by APP-01 (Coremail) with SMTP id qwCowADnvvLKfJdq8VoHBw--.39350S5;
 	Wed, 02 Sep 2026 09:33:01 +0800 (CST)
 From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 To: Liam Girdwood <lgirdwood@gmail.com>,
@@ -23,12 +23,12 @@ To: Liam Girdwood <lgirdwood@gmail.com>,
 Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
 	Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.com>,
-	Kuninori Morimoto <morimoto.kuninori@renesas.com>,
+	Zhu Ning <zhuning0077@gmail.com>,
 	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 02/14] ASoC: ak4642: return cache sync errors from resume
-Date: Wed,  2 Sep 2026 09:32:38 +0800
-Message-ID: <20260902013256.93072-3-pengpeng@iscas.ac.cn>
+Subject: [PATCH 03/14] ASoC: es8316: return cache sync errors from resume
+Date: Wed,  2 Sep 2026 09:32:39 +0800
+Message-ID: <20260902013256.93072-4-pengpeng@iscas.ac.cn>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260902013256.93072-1-pengpeng@iscas.ac.cn>
 References: <20260902013256.93072-1-pengpeng@iscas.ac.cn>
@@ -39,27 +39,27 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowADnvvLKfJdq8VoHBw--.39350S4
-X-Coremail-Antispam: 1UD129KBjvJXoW7CFWUtF45GrWrAry3Ary7Wrg_yoW8GF17pF
-	s3KFZ5Kry2vw1UArZ0yr40q3Z5Cr93AFW3A34Yk34kuFn8Gry09r1FyFyYvF4DXFW8CFn3
-	ZF4Ut3yUAa1rCaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBK14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
+X-CM-TRANSID:qwCowADnvvLKfJdq8VoHBw--.39350S5
+X-Coremail-Antispam: 1UD129KBjvJXoW7KFy3tF4UCFyrtFWUGF1kGrg_yoW8Gw1DpF
+	sakFZ5Jr4Iva1Iva90yF40q3WrCFWSyF43J34UK3s2kr15Wry8uF1rtryjvFs5Wr1xuwnx
+	ZF42v3yUZF15JaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBE14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JrWl82xGYIkIc2
 	x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
-	Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84
-	ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr0_Cr1U
-	M2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjx
-	v20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1l
-	F7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r126r
-	1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
-	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x
-	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
-	JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
-	AIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbsNVDUUUUU=
+	Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UM2
+	8EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4U
+	JwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
+	IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4U
+	M4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWUAV
+	WUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v2
+	6r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2
+	Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_
+	Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMI
+	IF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JU9J5rUUUUU
 	=
 X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-ak4642_resume() restores cached registers during component resume but
+es8316_resume() restores cached registers during component resume but
 discards the regcache_sync() result and returns success. A failed replay
 can therefore leave the hardware register state stale without reaching
 the component error reporting path.
@@ -73,27 +73,28 @@ The successful resume path is unchanged.
 
 The issue was found by a tool we developed.
 
-Fixes: a3a83d9a7cb0 ("ASoC: Add ak4642/ak4643 codec support")
+Fixes: 4bac47a7b2f9 ("ASoC: codecs: add suspend and resume for ES8316")
 Assisted-by: gpt 5
 Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
- sound/soc/codecs/ak4642.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/codecs/es8316.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/sound/soc/codecs/ak4642.c b/sound/soc/codecs/ak4642.c
-index 4f86728cbe0a..40f1b1f53e84 100644
---- a/sound/soc/codecs/ak4642.c
-+++ b/sound/soc/codecs/ak4642.c
-@@ -533,8 +533,7 @@ static int ak4642_resume(struct snd_soc_component *component)
- 	struct regmap *regmap = dev_get_regmap(component->dev, NULL);
+diff --git a/sound/soc/codecs/es8316.c b/sound/soc/codecs/es8316.c
+index 24ec8b211cdb..4c33a243c1e1 100644
+--- a/sound/soc/codecs/es8316.c
++++ b/sound/soc/codecs/es8316.c
+@@ -810,9 +810,7 @@ static int es8316_resume(struct snd_soc_component *component)
+ 	struct es8316_priv *es8316 = snd_soc_component_get_drvdata(component);
  
- 	regcache_cache_only(regmap, false);
--	regcache_sync(regmap);
+ 	regcache_cache_only(es8316->regmap, false);
+-	regcache_sync(es8316->regmap);
+-
 -	return 0;
-+	return regcache_sync(regmap);
++	return regcache_sync(es8316->regmap);
  }
- static int ak4642_probe(struct snd_soc_component *component)
- {
+ 
+ static int es8316_suspend(struct snd_soc_component *component)
 -- 
 2.50.1 (Apple Git-155)
 
