@@ -1,137 +1,193 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC073374A05;
-	Wed,  2 Sep 2026 08:25:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB3039EF0B
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:25:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788337511; cv=none; b=kOc1stqjo+lu+AtvqyoS3NELQpoaqsGCeyjNI3ToE0DIN7M6Q/DxAzYeIb7S3xC9SsC3ThOF1juRgbnRjZBbmqJTqkWT92MbPyJ7fdAHHkaLEt2jrgLzDTF9EXsft2QOkVXMcaDcQ5J4iyzYHEhmKSPaXIfq9G58PfaS9m5G6qk=
+	t=1788337512; cv=none; b=CJ2BF9UWFBvTFYhdjC3XakVvvo3aJoYehG8jPw9f44Z827frNXA6EIF4DcpBA9GG7FSP9ZwynB+QsGtfNzc43g68Whe/XlmqVmW/k+m8NBMGF5iijY7+r4f5D3LJpNcX0cyY200bkfG4Wz7k+9vnLbCXOZu0s3jAv3+2VdyQb94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788337511; c=relaxed/simple;
-	bh=UdyrN3/U8VdGp4XXCzCeYZ4Uz4lJJNwfz48AuzS9i+E=;
-	h=MIME-Version:Date:From:To:Cc:Subject:Message-ID:Content-Type; b=DBSkkXZabLqT2mQXISWeFEM8Ww+BADZSyAZFxUfkC2sKo/MEuMZKQ2Vf2osEgOemnhrENso6yp+3PHB1gbR9yvcPAlWgt6nDA7050iGOjcxuEgt5ub31rjcmV6IBuiOmKWG1oQXgdc3G6K2O9si+WIRD8n8OHm2OkUgRWPx0Drc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=dAs9rlFs; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788337512; c=relaxed/simple;
+	bh=Jd2a9RXvsQf33KLbdgSdyS4W1Br953Py70GyxhjHwfE=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=qVrVpa5tP8mvv669q0U+uNRfgJZ1PoEBxdbGhjK/4AedNDHKprWYHM5SSp/1o2KBwlYaqBKIa3u8Qy5e0C2QqPzW6xFWZuOrgpZO5q2BO9f0t/zby2z9rjAxUPWU8agSzjyH4LuU8CW4kfNrfo0EEE5F0sN6AQolK4gJ2qX4wAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZNm6FkRW; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="dAs9rlFs"
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6826VZNm3443019;
-	Wed, 2 Sep 2026 08:25:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pp1; bh=DCJq27sFTDzJkMBr8Lu1Ideau/rT
-	iYJ3E2ClQz6IU8Q=; b=dAs9rlFslmpKYyo2aTYnwuRngGQb2I+SaiR3G0a3eAcl
-	CrlR7hiCSaXmI1GIYqq/fgQmO1Gb94mD8d+ee1ZKqp+Fkx8EoR7kdtQJkRV1MoL9
-	RCpvDMSJdaFM1zVQQzoxKQkKmgFwgKmWXSryDhdTBWYa4kCvFsbOLLQOcSeqniFY
-	cKsNRc3rvT+vppoNqD4AP2upNqe+6p+3FnoRf8+/Bk84Y/rHbKcz0utNMt34743f
-	4EHbgNAtZj5g2m70H1Yci8tlEOiVy9ozMziDPWUIZzfaux0Z7JLwdvMD0BEUkgNC
-	QJkLIjcGfv3OisPH5gZ3EnRH9jl522KbjaPbtT3rHQ==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbpx5n82y-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 08:25:06 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6828BGTH013076;
-	Wed, 2 Sep 2026 08:25:05 GMT
-Received: from smtprelay03.wdc07v.mail.ibm.com ([172.16.1.70])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcark8kkk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 08:25:05 +0000 (GMT)
-Received: from smtpav02.dal12v.mail.ibm.com (smtpav02.dal12v.mail.ibm.com [10.241.53.101])
-	by smtprelay03.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6828OMSh25690828
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 2 Sep 2026 08:24:23 GMT
-Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A348B5805F;
-	Wed,  2 Sep 2026 08:25:03 +0000 (GMT)
-Received: from smtpav02.dal12v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4514058051;
-	Wed,  2 Sep 2026 08:25:03 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.5.196.140])
-	by smtpav02.dal12v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  2 Sep 2026 08:25:03 +0000 (GMT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZNm6FkRW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788337510;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=HVqFm8D0vBG1ow64zGx55zGZW/KvA/uA3IdWSxf3nxk=;
+	b=ZNm6FkRWEQ7mkDYcQVL35+pk/SoUDo2g7olRPjDUf8iF7UYHT2nFk8TDa0eF/UNaUvqKXP
+	vYA7ka8jFoDACZAbQnOrfRhixiNnkGV9cB9LzPnLmBO7GrRq/WYSd26BmU4EIOO5MR755w
+	Fj17+JKd1uqC7etmiDGONMLKaUlZp+4=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-213-I6_MlpAWMQm05DSr4ZAqXA-1; Wed,
+ 02 Sept 2026 04:25:06 -0400
+X-MC-Unique: I6_MlpAWMQm05DSr4ZAqXA-1
+X-Mimecast-MFC-AGG-ID: I6_MlpAWMQm05DSr4ZAqXA_1788337505
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9998C1955F16;
+	Wed,  2 Sep 2026 08:25:05 +0000 (UTC)
+Received: from ws (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 4AAD4426;
+	Wed,  2 Sep 2026 08:25:03 +0000 (UTC)
+Date: Wed, 2 Sep 2026 10:25:00 +0200
+From: Karel Zak <kzak@redhat.com>
+To: linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	util-linux@vger.kernel.org
+Subject: [ANNOUNCE] util-linux v2.42.3
+Message-ID: <pymhqp55bzgzuuhvjhmo5msoor4xp6ekvtc5xcqhmcyvwf3dbd@5dp2dim4ttzs>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 02 Sep 2026 13:55:02 +0530
-From: pavrampu <pavrampu@linux.ibm.com>
-To: tyreld@linux.ibm.com
-Cc: linux-scsi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-        brking@linux.ibm.com, linux-kernel@vger.kernel.org,
-        davemarq@linux.ibm.com, venkat88@linux.ibm.com
-Subject: scsi: ibmvfc: Add Kconfig dependency on NVME_FC to prevent link
- failure
-Message-ID: <327877a29337aa526cc50ac88fbddb86@linux.ibm.com>
-X-Sender: pavrampu@linux.ibm.com
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Authority-Analysis: v=2.4 cv=PPc/P/qC c=1 sm=1 tr=0 ts=6a97dd62 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VnNF1IyMAAAA:8
- a=KV0qnSzFbSyW-vh9ucgA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-GUID: tVV4hL0Nx_aFmcknFOSdAeFQJgeMtYoD
-X-Proofpoint-ORIG-GUID: tVV4hL0Nx_aFmcknFOSdAeFQJgeMtYoD
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA3MCBTYWx0ZWRfX2osMd95r+Px3
- KQd9t2Yp8Z0EOrYpLweiWzK1YEKrmqmWcMUmGmZdE009NVY6IeQZSeb/uReOJU4BGc+idEQXtO5
- oyJOuyUdRKdXz2dYC09T/m3lGgNDP88=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA3MCBTYWx0ZWRfX/ai1d3oEoLd5
- Z1rLe+QbZeYvlqNcQvsUlduuRWPenEIetc/oZpZ56CxI/NSDbjQLZG3wfqcU0ka6TpCZ3f1u4gj
- 0CnNrKl0wUDG8AVKtH/uxtuQEZBGhVX5N480Sm+qEGBfhNBOH1Je5jK3PYRP6FnPSojago9i84K
- Cusm8b7hiVCtUeal4wI2gwYqrJb87kd4x5k8sUtqW6HHt2viqNPVTcCAb2vOa1vkoVR7TwNRGrC
- B6c4s0A+KkvqzTJ3hfr+8tKD7vh6wQzLLSr1PLVJCq6RJyoPYrSuhx0P3FblZEWtQvad4plrJCQ
- RvZWRrME8WwHm19fY52unMdkJ8kgiJaB96CSzNZBfucaRFGGQw0e4rR74TUKnCyBX4QlDDxh5XT
- ooBighHECuF1uEOr6LImi4ZUgfVMYOsT1nB1LTMYvimXKPBCY0xQeVw6vZiluxAk+/Tej0hlrpP
- UM0VM5XkjSrLMXQpgSg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_01,2026-09-01_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 phishscore=0 adultscore=0 suspectscore=0 bulkscore=0
- spamscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609020070
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-Hi,
 
-I am seeing below build failure with latest linux-next repo.
+The util-linux release v2.42.3 is now available at
 
-Description:
+  http://www.kernel.org/pub/linux/utils/util-linux/v2.42
 
-Building the kernel with CONFIG_SCSI_IBMVFC=y and CONFIG_NVME_FC=m 
-results in a link failure when building vmlinux:
+Feedback and bug reports, as always, are welcomed.
 
-Build failure logs:
+  Karel
 
-ld: drivers/scsi/ibmvscsi/ibmvfc-nvme.o: in function 
-`ibmvfc_nvme_register_remoteport':
-ibmvfc-nvme.c:488: undefined reference to `nvme_fc_register_remoteport'
-ld: drivers/scsi/ibmvscsi/ibmvfc-nvme.o: in function 
-`ibmvfc_nvme_unregister_remoteport':
-ibmvfc-nvme.c:515: undefined reference to 
-`nvme_fc_unregister_remoteport'
-ld: drivers/scsi/ibmvscsi/ibmvfc-nvme.o: in function 
-`ibmvfc_nvme_register':
-ibmvfc-nvme.c:536: undefined reference to `nvme_fc_register_localport'
-ld: drivers/scsi/ibmvscsi/ibmvfc-nvme.o: in function 
-`ibmvfc_nvme_unregister':
-ibmvfc-nvme.c:565: undefined reference to `nvme_fc_unregister_localport'
-ld: drivers/scsi/ibmvscsi/ibmvfc-nvme.o: in function 
-`ibmvfc_nvme_unregister':
-ibmvfc-nvme.c:565: undefined reference to `nvme_fc_unregister_localport'
-ld: drivers/scsi/ibmvscsi/ibmvfc-core.c:6798: undefined reference to 
-`nvme_fc_rescan_remoteport'
 
-If you happen to fix this, please add below tag.
 
-Reported-by: Pavithra <pavrampu@linux.ibm.com>
+util-linux 2.42.3 Release Notes
+===============================
 
-Thanks,
-Pavithra
+Security fixes:
+
+ CVE-2026-76642 - mount(8) post-mount hooks execute after helper failure.
+   When an external mount.<type> helper exits nonzero, post-mount hooks
+   (X-mount.idmap, X-mount.owner/group/mode) still execute as if the
+   mount had succeeded, allowing privileged operations on the
+   pre-existing target filesystem.
+
+ CVE-2026-78410 - mount(8) TOCTOU race on source path.
+   In restricted (SUID, non-root) mode, the source path is
+   canonicalized with realpath() as euid=0, following symlinks through
+   user-writable directories.  Additionally, open_tree() follows
+   symlinks in intermediate path components.  A local attacker can
+   redirect a privileged mount or post-mount ownership change to an
+   arbitrary path.
+
+ CVE-2026-78409 - mount(8) X-mount.subdir symlink escape.
+   The open_tree() call used to open a subdirectory on a detached mount
+   follows symlinks in intermediate path components, allowing escape
+   from the detached tree.
+
+ CVE-2026-78408 - nsenter(1), unshare(1) file descriptor leak.
+   File descriptors in nsenter and unshare were not created with
+   O_CLOEXEC, potentially leaking them across exec.  Added O_CLOEXEC
+   as defense in depth.
+
+ wall(1), write(1) - hostname escape sequence injection.
+   The CVE-2024-28085 fix sanitized only message bodies; the banner
+   headers still interpolated the system hostname without sanitization.
+   An unprivileged user can inject terminal escape sequences via a user
+   namespace hostname.
+   Additional fix for CVE-2024-28085.
+   Reported-by: Skyler Ferrante
+
+Changes between v2.42.2 and v2.42.3:
+
+agetty:
+    - fix spurious issue file reprinting on reload (by Karel Zak)
+
+bitops:
+    - avoid macro redefinition on macOS (by Karel Zak)
+
+build-sys:
+    - require lastlog.h for liblastlog2 (by WanBingjiang)
+
+col:
+    - guard c_width sign before size_t cast in BS branch (by Aizal Khan)
+    - fix cur_col underflow on backspace over a wide char (by Aizal Khan)
+
+disk-utils:
+    - fix memory leak in execute function (by Tigran Sogomonian)
+
+hexdump:
+    - stop after stdout write errors (by WanBingjiang)
+
+libblkid:
+    - befs fix possible load of misaligned address (by Milan Broz)
+    - befs fix possible too large shift (by Milan Broz)
+    - dos fix 32-bit overflow in partition start/size [coverity CID 503517, 503518] (by Karel Zak)
+    - (iso9660) fix out-of-bounds read of root dir record (by Aizal Khan)
+
+libfdisk:
+    - fix OOM on GPT with huge partition entries array (by Karel Zak)
+
+lib/fileutils:
+    - add ul_openat_resolve() openat2 wrapper (by Karel Zak)
+
+libmount:
+    - skip post-mount hooks after failed mount helper [CVE-2026-76642] (by Karel Zak)
+    - pin source path with openat2() for restricted users [CVE-2026-78410] (by Karel Zak)
+    - restrict source path canonicalization for non-root users [CVE-2026-78410] (by Karel Zak)
+    - fix X-mount.subdir symlink following on detached tree [CVE-2026-78409] (by Karel Zak)
+    - add mnt_open_tree() helper for safe tree opening (by Karel Zak)
+    - fix DBG() macro use (by Karel Zak)
+    - reuse existing act fd in mnt_update_start on ro retry (by wangrong)
+    - properly end act file in mnt_free_update (by wangrong)
+    - don't ignore "/" target in mount --all when target prefix is set (by Karel Zak)
+
+lscpu:
+    - remove mmu reference not available in stable/v2.42 (by Karel Zak)
+    - add NULL guards for RISC-V ISA functions [coverity CID 503785] (by Karel Zak)
+
+mbsalign:
+    - check remaining buffer space before writing hex escapes (by aizu-m)
+
+meson:
+    - move header checks before component dependency resolution (by Karel Zak)
+    - gate liblastlog2 on lastlog.h (by Thomas Weißschuh)
+
+more:
+    - fix out-of-bounds write in get_line() on invalid multibyte input (by logical-misha)
+
+nsenter, unshare:
+    - add O_CLOEXEC to all open() calls [CVE-2026-78408] (by Karel Zak)
+
+pg:
+    - fix out-of-bounds access past wbuf on a trailing tab (by logical-misha)
+
+po:
+    - merge changes (by Karel Zak)
+    - update zh_CN.po (from translationproject.org) (by Boyuan Yang)
+    - update tr.po (from translationproject.org) (by Emir SARI)
+    - update es.po (from translationproject.org) (by Antonio Ceballos Roa)
+
+po-man:
+    - merge changes (by Karel Zak)
+    - update pl.po (from translationproject.org) (by Michał Kułach)
+
+tests:
+    - (partx) settle udev before checking partition count (by Karel Zak)
+    - kill/decode also strip RT0 from signal mask output (by Karel Zak)
+    - test_scols_termreduce needs libsmartcols (by Adam Sampson)
+
+unshare:
+    - Fix --map-auto regression (by Chris Webb)
+
+wall, write:
+    - sanitize hostname in banner header (by Karel Zak)
+
