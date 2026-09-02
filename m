@@ -1,109 +1,85 @@
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B0D649F139
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 18:59:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B15B372661;
+	Wed,  2 Sep 2026 18:59:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788375567; cv=none; b=GgxwXaiRspMyKwxmDx4aJmIhqum9afN4ljAKg1iK4HSh7vMSR7qJRm7ZJ2dFgZGRhZFiWKXXWFD2hcbMWwuiP4w/lMmcyYTfb84GVYguygg7oUEvboyRFoUWB6AdMVgPb6m2fwG1oesSd2/2e+Hgz18GMXqwZJfG+VFatZjnXaY=
+	t=1788375581; cv=none; b=mjtrlBTUTi/0iG7eYvtxCKU7h+pF62sKOAnBcsYHEPoR4OTR/J5mnS4dNFQMiCXVJbMZxFwWllMmIethdGwdDvDomEx1h343tTxtKG9JdHSfPKHHMeTyZqqCpatak9+ZU49Ml0+FnW8sbs9XkRz9w5t1kiR3ROiiSRv3HnKp0Ho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788375567; c=relaxed/simple;
-	bh=7PXo5Wpu6Af+4MmXNKs6cxvjpFBlp65k3SMKWJ0KLLo=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=WMzkhLKOmcoQhKqlpFj7fq+mLZm8RQv8IT4OP0EEIzVuqHdgngr68Q3nr+fowhPepjr49RVNFPAWZRs1ZPsaLN57tskEO7O5kuqHyraFVdOioOVxx3bu4wqOUbcvMyCMpbTucLMyWX51bi1eVptTTVRWn1Lpd3lQPZYpU649eMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=T6cFBFB3; arc=none smtp.client-ip=209.85.215.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+	s=arc-20240116; t=1788375581; c=relaxed/simple;
+	bh=ahMvYNRMR+81ZB+9Smlwfo84jiKsizICoHjmawUddFs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Q1eOIufka4gqS9t8ghnCb+opaQXwf4qIAOCQkBVzychNW4At1ld6pHwemrWsOZZO+e4uzCJllReMcKjosGQI39p/T5UgdS9RHkOPAmsYAzox1cLq/oQaWbBRjHsCRUmXp4oHokvlJvlCsODhe5TqpsAIlMQCgpM/muVjmoR43Ho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mBXSmTCc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="T6cFBFB3"
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1c18c775eso223881a12.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 11:59:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788375565; x=1788980365; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=7PXo5Wpu6Af+4MmXNKs6cxvjpFBlp65k3SMKWJ0KLLo=;
-        b=T6cFBFB3iY0ruAJnVHREVT9QrOdXBiEc+0N3VIWcZm3zON0x6L2cRlzXBmg+LfzXtx
-         pMoNGVHyTOJFWaxgJiiUbM8eLLVv3DbZYteqDymknDrtz5Er8aJUA0jqnhtQifHIrhSz
-         xv/Bu9/YpWATZVsXppo/+KwwfuQeHOmRr+7QGM7RmByhzQK3XQqiVDxJx5X9ZtaE5VZA
-         LAkrBy+pwZDzqYurqy2nJ6T6xEjeYwuZX4YkMqvr1fgfMCtqfdvRx6E96jben3/rgl0X
-         sJTCzZDuXOF975KCUkg070C9qO5WBHI4tLNgJltieNFtenkfpkwEpak4i71UffGPOe7J
-         RF3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788375565; x=1788980365;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7PXo5Wpu6Af+4MmXNKs6cxvjpFBlp65k3SMKWJ0KLLo=;
-        b=o+5Hl47gdz4SBWk9qgL9P82SagunbiD8kCX7EhkpWnBtB1POV6y9ebUHEr9q157Ins
-         zIwlqH7gnkrFa4+vmv4F8zL9fRIKePw2kxkrk9qgWzr3W4aqLHCXpdhLyzcwp6Th8JvU
-         bdrg3XwktcGxB+dMs64nHyptMWCDOJdoiTVcuDt7VKkxMCM3LEsiFhq+hXEvPzOru7JV
-         PvN23xqTEowSyv3+ffbg9qPuLay7Vp+VAue5on/0e+nKlq3AJ23TM7gklLkjwu4T/+kt
-         paYrB+6kL1TquFD3TcfHGTUfqSRsH7Dd+uSAc61woYqRzxKWCMKHpa8TrQvOn0NywHma
-         Z3FA==
-X-Forwarded-Encrypted: i=1; AKwUvBwhYiUvX8qfLi5jvJ9GxuxdXZrFRnT76eJS/ivMhv6xMjD6Iru0AYha1mBQIfz3yu+IpY5puQBiXT/qaqI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lYrgRASSpr04r4N/zibyqeT7Rm+kxAAlqfxTK6rUU35KHMfAgE
-	PHapuMMuYx8Ags0/NxC5q70FubV21faP9gYQMrNHS2OrEm1j2JBsMO3ZKCl5uopYoQKbWzvBOOc
-	DJ/GfRA==
-X-Received: from plje8.prod.google.com ([2002:a17:902:ed88:b0:2d9:a2:2c28])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:987:b0:2cf:b9f9:18bb
- with SMTP id d9443c01a7336-2dafaf44dd9mr11183595ad.4.1788375565114; Wed, 02
- Sep 2026 11:59:25 -0700 (PDT)
-Date: Wed, 2 Sep 2026 11:59:24 -0700
-In-Reply-To: <92ddaa4e6e791773160d58348436739d6a0f23ba.camel@infradead.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mBXSmTCc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FD211F000E9;
+	Wed,  2 Sep 2026 18:59:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788375580;
+	bh=7MVxmAb+8/292y9Afv7Rly1SIVSBIQzWkxZPHvi4uus=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mBXSmTCc90dfNq2DolrYZwSts+5YG+tf7H0DrypJ/XuUO//lxUMl7R01AxmlL89Im
+	 W2aCg3k2q+xzegZOShPet2A1fT0n54NsOQJ6d4RnCyVfGVtLo7n7NGD3vCPwYK5j8O
+	 P1JNcxyQfb+sHw26tZg19PPEgaDAbDdYQPIK+EM/Z06UZfBbkrssWCTmAYcaumr8UF
+	 a+kYvL3e2UX+6+7QwV2Ol4r57VopmAsEMbd0/Hd82x3YQh4kFCqicpdmRbM7GjH31W
+	 bM/+eXJFjkPMx6EYQlvcXa76w3DJAGUDaYWr7BiJ0Vqv4GELYFnphw6RD4W/DmagnB
+	 dBy21AMRueuIQ==
+Date: Wed, 2 Sep 2026 08:59:39 -1000
+From: Tejun Heo <tj@kernel.org>
+To: Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>
+Cc: cgroups@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Dan Schatzberg <dschatzberg@meta.com>,
+	Peter Zijlstra <peterz@infradead.org>, stable@vger.kernel.org,
+	Noah Elias Feldt <N.Feldt@mittwald.de>,
+	Salvatore Bonaccorso <carnil@debian.org>,
+	Johannes Weiner <hannes@cmpxchg.org>
+Subject: Re: [PATCH] cgroup: Avoid iteration of dying tasks with zero refcount
+Message-ID: <aphyG4kapy2MBcnH@slm.duckdns.org>
+References: <20260902161653.1051794-1-mkoutny@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260831213632.81023-1-dwmw2@infradead.org> <20260831213632.81023-10-dwmw2@infradead.org>
- <37f8d783-3305-44de-8ba0-ab0d2134a83e@xen.org> <92ddaa4e6e791773160d58348436739d6a0f23ba.camel@infradead.org>
-Message-ID: <aphyDNxosUIOCwbE@google.com>
-Subject: Re: [PATCH v3 09/13] KVM: x86/xen: Use atomic*() APIs instead of open
- coded equivalents
-From: Sean Christopherson <seanjc@google.com>
-To: David Woodhouse <dwmw2@infradead.org>
-Cc: Paul Durrant <xadimgnik@gmail.com>, pbonzini@redhat.com, joao.m.martins@oracle.com, 
-	boris.ostrovsky@oracle.com, ankur.a.arora@oracle.com, tglx@kernel.org, 
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com, 
-	x86@kernel.org, syzbot+208f7f3e5f59c11aeb90@syzkaller.appspotmail.com, 
-	syzkaller-bugs@googlegroups.com, suryasaimadhu369@gmail.com, lkp@intel.com, 
-	nicoyip.dev@gmail.com, frn1furkan10@gmail.com, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, imv4bel@gmail.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902161653.1051794-1-mkoutny@suse.com>
 
-On Wed, Sep 02, 2026, David Woodhouse wrote:
-> On Wed, 2026-09-02 at 13:41 +0100, Paul Durrant wrote:
-> > On 31/08/2026 22:26, David Woodhouse wrote:
-> > > From: Sean Christopherson <seanjc@google.com>
-> > >=20
-> > > Replace the open coded atomic asm blobs in the Xen event injection co=
-de
-> > > with equivalent atomic{,64}_xxx() operations.=C2=A0 Casting the event=
- channel
-> > > to atomic types is ugly, but not as ugly as asm blobs.
-> > >=20
-> > > No functional change intended.
-> > >=20
-> > > Signed-off-by: Sean Christopherson <seanjc@google.com>
-> > > Signed-off-by: David Woodhouse <dwmw@amazon.co.uk>
-> > > ---
-> > > =C2=A0=C2=A0 arch/x86/kvm/xen.c | 35 ++++++++++++--------------------=
----
-> > > =C2=A0=C2=A0 1 file changed, 12 insertions(+), 23 deletions(-)
-> > >=20
-> > Not entirely clear why going to the trouble of replacing the asm blobs=
-=20
-> > in patch 8 was necessary only to remove them here but, if that's=20
-> > preferable to squashing this into patch 8...
->=20
-> I think Sean's logic in doing it that way is that *this* patch can be
-> marked 'No functional change intended' as it's merely changing *how*
-> the atomic access is done, while the previous patch actually changes
-> the pattern of *which* atomic accesses are done.
+How about something like the following? It's more in line with other skips
+and the resulting behavior should remain the same as before:
 
-Yep, exactly.
+--- a/kernel/cgroup/cgroup.c
++++ b/kernel/cgroup/cgroup.c
+@@ -5215,6 +5215,7 @@
+  */
+ struct task_struct *css_task_iter_next(struct css_task_iter *it)
+ {
++	struct task_struct *task;
+ 	unsigned long irqflags;
+ 
+ 	if (it->cur_task) {
+@@ -5228,6 +5229,21 @@
+ 	if (it->flags & CSS_TASK_ITER_SKIPPED)
+ 		css_task_iter_advance(it);
+ 
++	/*
++	 * @it->task_pos was picked on an earlier call. A dying leader stays on
++	 * dying_tasks until cgroup_task_free(), past its last usage ref drop,
++	 * so it may have been reaped since and get_task_struct() on it would
++	 * resurrect a task about to be freed. That last ref is dropped by an
++	 * RCU callback queued from release_task(), after signal->live hit zero,
++	 * so a leader still showing live threads in this irq-disabled section
++	 * can't lose its ref before the section ends.
++	 */
++	if (it->task_pos && it->cur_tasks_head == &it->cur_cset->dying_tasks) {
++		task = list_entry(it->task_pos, struct task_struct, cg_list);
++		if (!atomic_read(&task->signal->live))
++			css_task_iter_advance(it);
++	}
++
+ 	if (it->task_pos) {
+ 		it->cur_task = list_entry(it->task_pos, struct task_struct,
+ 					  cg_list);
