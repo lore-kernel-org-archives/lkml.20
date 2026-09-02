@@ -1,191 +1,217 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013051.outbound.protection.outlook.com [40.107.162.51])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EB533438A9;
-	Wed,  2 Sep 2026 15:48:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788364087; cv=fail; b=Zx4BHQuCJWOCMeCYcYymDB/bTFJ/HweZElPJfp2DrucMBw7F4x0Om2LKNaBFfd5p8xuZ/Rn/FZE8vYPrA7Qi4fcpnzVdcwJCAVZ0X/pKLPFyuMKeOhwc84nyPTrmpCcnEgZeuWjzv/AE18FwZQ+eJELRjHkyD7lQcsa66XrLFVU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788364087; c=relaxed/simple;
-	bh=F9XFVOHVX5xNj1CX1J5/1tbeP8LTJ4NVKIz6UO2EYgA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=eNBM1+rBOBInZBXbD0ugplbLhKum/RLnx3VKiV9O+oLsvNADuQCesZzLVxt+Cqtue1SlOG211cM5xFK3N33MLLO6oRxfXp15JqeOM2t5kqMSgN4irYS+Oxg0jWD59b0aHgac2+w9kEchNMLT/Et9TA2mQf8EQZ1/I0ylEjCSMzs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=lTTJ2wJf; arc=fail smtp.client-ip=40.107.162.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B747DA66
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:48:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788364104; cv=none; b=SR5AEGTTvDmOD2vRIzCah2K1W0wNV/+jtLXF99qFo89rfEflpGhLcD2FFF4qbHcUic3AgNJMq/0hMIjgiZqj53QRhVpef8iVGP/nyw72nWrI9YBHz8p6Vy9WW3j5rfQJ/SJq9Kia5D7sAVspSdOI1UGm8C5BlDnYRebw3Chq1Cc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788364104; c=relaxed/simple;
+	bh=dd9Bc4n94EKXDL0ADU2/wZrlcVly5/OAqlHH4Cf65Xo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HndXbkbC2WDt5raWxUS3x/k2IltVeRk5TKdDKFFt4Xwvwb6Z+JZTe5dA2HdUsLnNjmHM9O9uswIS7Z5BzNlMLoEsE/wTerZOndUKvwxrFC1iEUzDaaAI45zwIYYe/zL62ALfnVaEW6uS3j2IKQ52zmBFBCa3g8WywLG7dTG/NkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JODVhp6S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="lTTJ2wJf"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yZAckbMK+/xecMdnoVZymAba8Ci0fBIBvDMry2j7NQjAok9a9vGRQICJ9gJPux6vEjRNoAtCYqbzcZYyXZxPPimrF4B6mtwoWjjmq2C5eVMYHEfw+VP+QFTb7MeoXXz3oqFiWvuzxHidwlSSDEshV0mqHukWgjoOAYB1JcxvzW8Ngc/bHfU5X50zPZJyqh0S464yaKeJ4FmGdWtbfi/l1rtJxzv+ZJBI7u8hWNhBxgFJBKFLkUZDhVdp7YVEbx64GozYiYgQg1+ecOjauF6lmSXgPi7lAmXRFA3DfN1D22QTaiSpOP19+S3F/p1OYyxqQi4lsxXfFI7F5DSQT+RYTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VpVxjIgh1sJ8siH4MabXOeI7ltH2TIrh04kKBHSBaFM=;
- b=I7mmHJGUdF4QC1BERfEo55bL3+q1PdZvUBfSJNTXzK6zGG/itQ/DpJDCDI3GrZwskVOBR+wIXyUKZGLKXgu91etxUsgN6G7XstOu/N3KeQ0DkuvmCLLq8RkAt/cBaOw6TKL5BqDSOXTEZU8z3qUaMenLX+viwRKk/QYh4DQmO3a2eQ9ne8nuKzDJfRjjsnh5MzRQSnpoMArOXt/NxAyb1nGgYiq+kL1gW5U8SbImebYxbnItuv9FvqaEI/mW/PwQTYfDy725tj+fYCQs6M4p/IS04EeeauVBgwYxIr278jvVV21WwrrXCYf4NqqSgynhCHDCcun+o3bTESdaVDTZyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VpVxjIgh1sJ8siH4MabXOeI7ltH2TIrh04kKBHSBaFM=;
- b=lTTJ2wJf/zD6XwEPZ5DB4eYnOcFaOZFNOnuBJhMTYZDlKvLFhrv1y5VIyljpDMgzrix/fW3c9kC9yjiZBFxHu4t55dl6c3BqsaHf2ayexdywoq0BuJ566s/WD5AIMCHx7j/7jr70sKk/gwD/5hX3oumrUE2uNlyLzLj0fekbZIozfZnuoTgs0yogptxNIPbcej+yF9qO/v+qQ5Yqw4hj0/Gjdwb0D/J3czJiJrr5WnozIksrViv/OV4kxagnEUuyRQJS60dS2q3raLdiNRcKcOXewwuac2ZW4xYRjX4DbmbY3ZsKGTyXXe5W4hFi13f2OwmuGbAmZkC9+oUgDAT7kg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM0PR04MB7124.eurprd04.prod.outlook.com (2603:10a6:208:1a0::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 15:48:01 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Wed, 2 Sep 2026
- 15:48:00 +0000
-Date: Wed, 2 Sep 2026 11:47:52 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Allen Pais <allen.lkml@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Arnd Bergmann <arnd@arndb.de>, Kees Cook <kees@kernel.org>,
-	Sinan Kaya <okaya@kernel.org>, linux-arm-kernel@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v3 32/34] dmaengine: hidma: defer callbacks via channel BH
-Message-ID: <aphFKIkJXWCO5ixx@lizhi-Precision-Tower-5810>
-References: <cover.1785183549.git.allen.lkml@gmail.com>
- <cover.1786384168.git.allen.lkml@gmail.com>
- <702687c28f440bf017c6e57f630bb65d22d3b217.1786384169.git.allen.lkml@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <702687c28f440bf017c6e57f630bb65d22d3b217.1786384169.git.allen.lkml@gmail.com>
-X-ClientProxiedBy: PH7P221CA0018.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:510:32a::17) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JODVhp6S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F0871F00ADE
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:48:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788364102;
+	bh=WvDDggsJCp8fWjpjbH2MZ34V8WTIMSRAsuek7J69Z2o=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=JODVhp6SRX1XR4znAyCaW2UPD+FDbnGSvfHbCC+k45gxVC7aNVrYuQEvG890ao/6r
+	 6T1UZ2F7mLSwWB+TUV/7NN9d3vu1GCq0l+OWkFlu5Xv64bnK5LK0APUSatecOnjw4d
+	 c0YWgi0PYEbR2VgrQxMwy199ToKiNGNgnvyu6cA/tDDZp6tbRl8aB18WFlXFdYK1hu
+	 jwYXTu5tGh7kUyFH35JaQgsz3nwHF4k5MhMYgCkhfXvCBKG5vHp5ahyY8Zs5zyM9Oj
+	 37tEwFOwaJKlb+Ra0Qa31B6bwa4555RH8tnTOmmh944q50cZMD/41esy98FvKphmGk
+	 jL2rvYpI7YRZw==
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c250c6a6a9aso185910166b.1
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 08:48:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwXRojsprNsMmvirgeNkL/euMPEOlyC+TT3fqlfUyHRQhEPJ8KwzVQECie1V4U2Jxnyk39Yt3rEirXYdtM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lharE4i3gWTBDaiJtbOe83Jn6z5XhWPeksRS+G2X9gVJrajFAz
+	x/G8fHRow0waOhC0OtA7cFAg+eGSo3zZ3VvKh+BsBNcYLNIIO4tl8LL4WdCplM/k5RehgL0kR25
+	2aQq52P3LYMLLrb8WoO4n+sqtokR0NA==
+X-Received: by 2002:a17:907:6090:b0:c25:c979:e76a with SMTP id
+ a640c23a62f3a-c25d54fe9f3mr276782466b.22.1788364100947; Wed, 02 Sep 2026
+ 08:48:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM0PR04MB7124:EE_
-X-MS-Office365-Filtering-Correlation-Id: f6863f44-7c82-4d24-1c97-08df0909911e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|1800799024|23010399003|7416014|376014|10067099003|11063799006|4143699003|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	Q6t7kWsbqVTTy5e9bxhdJNjKoUUnt/59zuPwOhTgGCKHCFqadYdotf3ERQ19E4liEBPaTOzByYvRiAuGibF8ganV35petjK76uefz1ySQKwgd9KSutvsGSzepD4ts+WRf1BonBtm5bTh0FqJzDzrgoqAgyRuWDyIAt9WH7ysxSQmcgLoFmJYGCE8w3A2Z4oFfjCMZWUr0XqnZMxmCpIhmM5B9ScVrNaGlueYmOST0XlJU9WB8WhsAlbNJRdD4TCGrcecSFQfhDq/Ki7g3RlnRa/4n04a32VoZtb/V7cOC1860ZYBfhyg+zwgxOfEOZz/CCPYWR7dHia6vRJqatbq+ea/0X5Ps0XdhtP8xZMQAyGVrLHmrNDQN7C4cHJqOdu31NdU9uq5emJQJvpwEeUNEz+LZ3c2HJ7s9wVzR4IXBs9+K9AnrosVldC8OV/QP20lBM/IGTOYik2AA6d6uyHsOovoaKOq4ltXJ6vtPbkPYYEgfAcmr1L5vJgUtc3MBRepN7/aYCpQkv+FCJbwE07CPscD6Pp/mAgT/sGpfq774PYvzRgWUsPXivf8mHoErK8GXVRore6pQc7ZXtEHO07grdexxxCMRXSSwWKD757Q5ukIjT/5csvsihQzRWsrdKMzRN4dlQzCfX63CdJuojdcfOGtnxuz+5k4BsSIui5Rz78=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(23010399003)(7416014)(376014)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?KGkYBUHztWZiF1RYl6AMK/EfJs58AbSO7gyz55aeAYaVw3bYlEX28xYQCA6U?=
- =?us-ascii?Q?wr4B6MeUNbCCWo1eU4hs6HkBa/fymH1hRqlfVuvP21TvEO10kngu9qtt/79/?=
- =?us-ascii?Q?SVm+DJy+/EVRnrlXVd5QvvYEBEFIK8Ezhl6tTtwpgy/MVFfo2qqN8RhjMl0a?=
- =?us-ascii?Q?ZeibivXnW8fz0zzFkogXpybc/dPEkdGfGVPh2OCXQXQWukxMRR6iYW2iZupE?=
- =?us-ascii?Q?lQ9KezfOdqwhOrZVGsyzhEHVNHE0OB2EMb9T39DibC9b8MJK0PyCNcdyuwNR?=
- =?us-ascii?Q?v+EDUph7Xn1l+N9uMWEoGvD8WhurvRZ26EdW4R8Bu4E/f6HE+5sxsYovV2Tv?=
- =?us-ascii?Q?+yrz4SiDRe5CDGiKLf5fZBP9XuHAhHkmZRsuoQiw+knSPBVzDHbwy5p0wO2g?=
- =?us-ascii?Q?4c3MpK0vdd+OI5+hKHyZjn747bqezYiPqUfON3e0yzcXULoKqsydBAyxX0zk?=
- =?us-ascii?Q?aWVKJBXMFOqXEMjJDTJlXr1Fj4ZFwKVzC/dU4UbXsNRjcPdzb0LmLtSD5bYU?=
- =?us-ascii?Q?vIowlILalFerFJ1myU0Swr5C6NQyN6YRBXldnuhLYGGzqg4PLDYz/mTmSvBe?=
- =?us-ascii?Q?kgqrNrC0Won49lEzlUvc3iFw/QWkUm3UBa+6AuXs76GJUSVtiV9TATMF2lZg?=
- =?us-ascii?Q?TWbYR3IFkHDTFjcyMMWp6DEDI5urw44LfqkDtxEgNpfUvt36m0U7tq31LShs?=
- =?us-ascii?Q?Q5PM5nQr9BlWUdvKOKvNPAKgwuVlWosdTeA+ICYHn4yVs63FowM4XZ0TTthu?=
- =?us-ascii?Q?M+Tu0J0DNHjsJmIicx0CYH0jsmlLThvxUGWLrcqoA0VbgusleKxzlHlX4Euc?=
- =?us-ascii?Q?Njt00TNsdwoqW+dJ+Z4f4cOCO1o3SZCrQAqcM2z61bRelmw98kKTCD8Cn1n5?=
- =?us-ascii?Q?xMW7Q5q2NMDkuHCMRJU9sM2WqfE82p9HNT+8yAC8clrHbz99PidtCGZ27gvC?=
- =?us-ascii?Q?+S+um9Pq8xLPUaDLEcjKexQJC3l3MTPwrx1AcucwySPYN6CStQZ8j5YwSEg9?=
- =?us-ascii?Q?HwsGaiTYXfMrYdn06krrJeQwYEnTJefpMHTIe97KPp8PzhEDDLo7U6DapSym?=
- =?us-ascii?Q?vUjP+GK6hv6yFAhJROKHn5VT0SCp2bkQUMYTeuUqHXSx+/B2QjZ3/L+KuxKZ?=
- =?us-ascii?Q?/GWhhGrER1e1OFHKvRq/eaNA9TiqwLmasZ7ewStlfKNPH3I5RqqkcQS7M/mY?=
- =?us-ascii?Q?YBwNYIhx6niNXJLPqlyKW2TUiYGB/dqHODiTfoMszB1v+XtXCKzkB2s5ffv3?=
- =?us-ascii?Q?vBTqArYNdumsUcChagp+vzb2DGt1EDmrWJGMveZW9DSvVtD8um4qJgsYTnje?=
- =?us-ascii?Q?6aHQq3FSr7QhSgjUXzUhQbX87A+0v6uyg6j2DB0JsaD4eyWGb8zFaRD+GxwA?=
- =?us-ascii?Q?gwlWnZihaLtYO3A6RPQr0FNchHkLMA4TI5gsJCpjgcI0UCmXHHDP/2khgGW7?=
- =?us-ascii?Q?b4+KieNn8ow8SWkk6tlquD8YwZQANfwX1Ym06leQ0VxipFg25jQutPRnsL2a?=
- =?us-ascii?Q?XNWWoI4/en5cPbma4ssI8SgH5sygfA/4bJD1DDxNhpa92ShpM1r1nr7ZUIQi?=
- =?us-ascii?Q?Jhg6bjJnAynMl7PnPPsc1I3YcxoL5zwyawOlO9bQ2x19gCSEcaRGpImcvgXP?=
- =?us-ascii?Q?3w8Ei1Kt6AqhXMgZX+q9S5/7LuuqfCkWqJY5uZP7xd2hU/EHj2mwaTf4HgYF?=
- =?us-ascii?Q?HY/Js4kbsYKl+jO2hZcNOTJMP1/fMBVe4wHXH+2jDre52S1vtyLAvJWt8di7?=
- =?us-ascii?Q?l4soPU0ARDFC9ecWHs5Rv43RZaFnN67AWWB+O5lITlBjHo4IfGtD?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6863f44-7c82-4d24-1c97-08df0909911e
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 15:48:00.6906
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gKw1RkPMiysfahI8UEqtwa3fZCx+0Rbu+d4A1vBHqbsOOQJIKsc7Ms40uqRj52WSqQVapSFrMfHp0R+aHo4HpH7juIpfrXJHR5iIeugZUD07pGd+61tCrti6EVV/4Dd5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB7124
+References: <20260819155502.3934837-1-maciej.andrzejewski@m-works.net> <e7995f64-3210-455d-bc97-9f3b51099162@kernel.org>
+In-Reply-To: <e7995f64-3210-455d-bc97-9f3b51099162@kernel.org>
+From: Rob Herring <robh@kernel.org>
+Date: Wed, 2 Sep 2026 10:48:09 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqJ2zHrEf6-4Gohaqj+jq_dTeVoR=xyH=yZDTpjBEDoLBw@mail.gmail.com>
+X-Gm-Features: AcwNN1Vp-60QgsJjsf8yFslx_Y0cjbf_CPILfdaB6rH4W7MLE--uqVMj_JD2DH8
+Message-ID: <CAL_JsqJ2zHrEf6-4Gohaqj+jq_dTeVoR=xyH=yZDTpjBEDoLBw@mail.gmail.com>
+Subject: Re: [PATCH v2] gpiolib: of: Only apply the SPI CS quirk to SPI buses
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.net>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org, broonie@kernel.org, 
+	linux-spi@vger.kernel.org, miquel.raynal@bootlin.com, richard@nod.at, 
+	vigneshr@ti.com, linux-mtd@lists.infradead.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 10, 2026 at 11:09:33AM -0700, Allen Pais wrote:
-> Move descriptor callback processing out of the low-level completion
-> path and schedule it through per-channel BH work. Drain that work while
-> freeing channels so callbacks cannot outlive channel storage.
+On Wed, Sep 2, 2026 at 4:28=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.org=
+> wrote:
 >
-> Signed-off-by: Allen Pais <allen.lkml@gmail.com>
-> ---
->  drivers/dma/qcom/hidma.c | 18 ++++++++++++++++--
->  1 file changed, 16 insertions(+), 2 deletions(-)
+> On 19/08/2026 17:55, Maciej Andrzejewski ICEYE wrote:
+> > The legacy SPI chip-select polarity quirk in of_gpio_flags_quirks() is
+> > keyed on nothing but the property name "cs-gpios". That name is not
+> > exclusive to SPI: nand-controller.yaml documents the very same property
+> > for NAND controllers, and rawnand_dt_parse_gpio_cs() requests those
+> > lines with gpiod_count(dev, "cs"), which gpiolib expands to "cs-gpios".
+> > A NAND controller therefore has SPI chip-select semantics forced onto
+> > its chip selects, and any chip node whose first reg cell matches a GPIO
+> > index is silently flipped to active low. The NAND core requests the
+> > descriptors GPIOD_OUT_HIGH and drivers assert with a logical 0, so the
+> > inversion leaves the die permanently deselected.
+> >
+> > The example in nand-controller.yaml is itself affected: it pairs a
+> > native chip select with a GPIO one and gives the second chip a reg of 1=
+,
+> > which trips the quirk whenever CONFIG_SPI_MASTER is enabled. In-tree th=
+e
+> > collision is real but latent. 36 board trees, all Atmel/Microchip at91,
+> > give their nand@3 controller a cs-gpios line, and they escape only
+> > because the sole child of those nodes is a partitions container with no
+> > reg for the quirk to match against.
+> >
+> > Device tree carries no bus type marker, so identify the bus from two
+> > hints. Properties of an SPI peripheral are namespaced with "spi-"
+> > (spi-max-frequency, spi-cpol, spi-cs-high and the rest of
+> > spi-peripheral-props.yaml), whereas a NAND chip node carries only reg,
+> > nand-* and its partition table. That is a convention rather than a
+> > guarantee, since compatible and reg are the only properties
+> > spi-controller.yaml makes mandatory for a peripheral, so let the
+> > controller settle the remaining cases: spi-controller.yaml constrains
+> > the controller nodename to ^spi(@.*|-[0-9]+)?$, which makes the name th=
+e
+> > one bus marker every conforming controller has to carry. A peripheral
+> > that carries nothing but compatible and reg therefore keeps its active
+> > low default through its parent. Skip the quirk only when neither test
+> > matches.
+> >
+> > Both tests were scored over every board device tree in the kernel,
+> > expanded with the same cpp and scripts/dtc pipeline the build uses, at
+> > v7.2-rc7. All 3620 trees under arch/*/boot/dts expand; 503 of them hold
+> > at least one GPIO chip select that can reach the quirk, 765 such chip
+> > selects in total. 761 are matched by both tests, and none are matched b=
+y
+> > neither, so no in-tree board changes behaviour.
+> >
+> > One needs the property scan on its own: psc@11400 on ac14xx, a
+> > fsl,mpc5121-psc-spi named after the hardware block rather than the bus,
+> > whose m25p128@0 child carries spi-max-frequency.
+> >
+> > Three need the nodename on its own, all peripherals with no "spi-"
+> > property of any kind:
+> >
+> >   - panel@0 under the spi-gpio controller on rk3566-anbernic-rg503
+> >   - can@0, an mcp251xfd, under ecspi3 on imx8mn-vhip4-evalboard-v1
+> >   - spi@1 under ecspi1 on imx53-ppd
+> >
+> > The two tests are complementary, so both are needed to keep every
+> > in-tree board working. A tree that names its controller after the
+> > hardware block and gives it a peripheral with no "spi-" property would
+> > still lose the quirk. No in-tree board does, and such a controller is
+> > already outside the nodename pattern spi-controller.yaml requires.
+> >
+> > of_gpio_spi_cs_get_count() in this file identifies SPI controllers with
+> > of_device_is_compatible() instead, but it only has to name three legacy
+> > controllers whose bindings are closed. An allow-list here would have to
+> > name every SPI controller binding in the tree, 71 distinct compatible
+> > strings among the candidates alone, and grow with every new one.
+> >
+> > Signed-off-by: Maciej Andrzejewski ICEYE <maciej.andrzejewski@m-works.n=
+et>
+> > ---
+> > Changes in v2:
+> > - Squashed the two patches into one. The property scan and the nodename
+> >   test are complementary, so patch 1 alone stopped applying the quirk t=
+o
+> >   the three peripherals that carry no "spi-" property, which would have
+> >   broken those boards for anyone bisecting through the series. Reported
+> >   by an automated review of v1.
+> > - Folded the two helpers into a single of_gpio_is_spi_chipselect().
+> > - Said outright that a peripheral with nothing but compatible and reg
+> >   keeps its active low default through the controller nodename.
+> > - Rebased; drivers/gpio/gpiolib-of.c is unchanged since v7.2-rc7, so th=
+e
+> >   diff itself is the v1 pair verbatim.
+> >
+> > v1: https://lore.kernel.org/r/20260810141629.81650-1-maciej.andrzejewsk=
+i@m-works.net
+> >
+> >  drivers/gpio/gpiolib-of.c | 31 +++++++++++++++++++++++++++++--
+> >  1 file changed, 29 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/gpio/gpiolib-of.c b/drivers/gpio/gpiolib-of.c
+> > index 940b566946ce..d73114166f6b 100644
+> > --- a/drivers/gpio/gpiolib-of.c
+> > +++ b/drivers/gpio/gpiolib-of.c
+> > @@ -340,6 +340,28 @@ static void of_gpio_set_polarity_by_property(const=
+ struct device_node *np,
+> >       }
+> >  }
+> >
+> > +/*
+> > + * The legacy SPI chip select binding below is keyed on a property nam=
+e that
+> > + * other subsystems reuse for the same purpose, notably NAND controlle=
+rs (see
+> > + * Documentation/devicetree/bindings/mtd/nand-controller.yaml), whose =
+chip
+> > + * selects carry no SPI polarity semantics. Device tree has no bus typ=
+e
+> > + * marker, so take two hints. Properties of an SPI peripheral are name=
+spaced
+> > + * with "spi-", and a peripheral that declares none is covered by the
+> > + * controller, whose nodename spi-controller.yaml constrains to
+> > + * ^spi(@.*|-[0-9]+)?$.
+> > + */
+> > +static bool of_gpio_is_spi_chipselect(const struct device_node *np,
+> > +                                   const struct device_node *child)
+> > +{
+> > +     struct property *pp;
+> > +
+> > +     for_each_property_of_node(child, pp)
+> > +             if (str_has_prefix(pp->name, "spi-"))
 >
-> diff --git a/drivers/dma/qcom/hidma.c b/drivers/dma/qcom/hidma.c
-> index c939635be21d..486a2c61a9fb 100644
-> --- a/drivers/dma/qcom/hidma.c
-> +++ b/drivers/dma/qcom/hidma.c
-> @@ -90,7 +90,13 @@ static inline struct hidma_chan *to_hidma_chan(struct dma_chan *dmach)
+> You should not rely on prefixes of properties. Node can have no such
+> properties at all.
 >
->  static void hidma_free(struct hidma_dev *dmadev)
->  {
-> -	INIT_LIST_HEAD(&dmadev->ddev.channels);
-> +	struct hidma_chan *mchan, *next;
-> +
-> +	list_for_each_entry_safe(mchan, next, &dmadev->ddev.channels,
-> +				 chan.device_node) {
-> +		dmaengine_kill_bh(&mchan->chan);
-> +		list_del(&mchan->chan.device_node);
+>
+> > +                     return true;
+> > +
+> > +     return of_node_name_prefix(np, "spi");
+>
+> And neither this. You just added node name based ABI.
+>
+> Nope.
+>
+> Each peripheral exactly knows that it is a SPI device - it 100% specific
+> knowledge based on the bus, thus nothing of above is needed.
 
-origial code have not list_del(), is it fix other problem?
+Do you have an actual suggestion on how to fix it instead? It is
+needed for every SPI controller that uses cs-gpios which is
+potentially all of them. There's 522 cases of cs-gpios and only a few
+are NAND. Even if it is 10 boards per SoC, that's still 52 cases which
+would be more than I want to list in the kernel.
 
-Frank
-> +	}
->  }
->
->  static unsigned int nr_desc_prm;
-> @@ -155,6 +161,13 @@ static void hidma_process_completed(struct hidma_chan *mchan)
->  	}
->  }
->
-> +static void hidma_chan_bh(struct dma_chan *chan)
-> +{
-> +	struct hidma_chan *mchan = to_hidma_chan(chan);
-> +
-> +	hidma_process_completed(mchan);
-> +}
-> +
->  /*
->   * Called once for each submitted descriptor.
->   * PM is locked once for each descriptor that is currently
-> @@ -181,7 +194,7 @@ static void hidma_callback(void *data)
->  	}
->  	spin_unlock_irqrestore(&mchan->lock, irqflags);
->
-> -	hidma_process_completed(mchan);
-> +	dmaengine_schedule_bh(&mchan->chan);
->
->  	if (queued) {
->  		pm_runtime_mark_last_busy(dmadev->ddev.dev);
-> @@ -203,6 +216,7 @@ static int hidma_chan_init(struct hidma_dev *dmadev, u32 dma_sig)
->  	mchan->dmadev = dmadev;
->  	mchan->chan.device = ddev;
->  	dma_cookie_init(&mchan->chan);
-> +	dmaengine_init_bh(&mchan->chan, hidma_chan_bh);
->
->  	INIT_LIST_HEAD(&mchan->free);
->  	INIT_LIST_HEAD(&mchan->prepared);
-> --
-> 2.43.0
->
+Perhaps the SPI core when requesting "cs-gpios" could state "apply the
+polarity quirk to to this GPIO" rather than the GPIO core having any
+specific knowledge about "cs-gpios".
+
+However, IMO, for bus nodes, the node names are ABI. That's the only
+way we can identify what type of bus for some buses. The DT core looks
+for "isa", "pci" or "pcie" node names for ISA and PCI buses for
+example. So I don't have much issue with the current approach.
+
+Rob
