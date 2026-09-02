@@ -1,92 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93D9C42AF86
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:58:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788353914; cv=none; b=EMR0DWy/V4Uox/SVQUhusKpZag2HOPxyn0OymAcQMiMgHpFpJ6aYPstXlMLr2Kd6h5g1KAt2n+Yhsl3K2m1XUgsSdWAfNcUw2YeJT8og5vC4cAEoX4vZIrXPtG4Zd7QLm2E+D5KLYp1KEmxmTK6asJPC6jLi0Z+1w2gIJg3GgCU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788353914; c=relaxed/simple;
-	bh=umVqKIohmkT4iOGNo/tKDzgfluTd945fREkvHl4zJnM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=enDv8yQccL+KX9i+UKxc3l7gmv58tspUaPoTpfijo6Y6WMbpnrJM8iM9zH89zSKqhp0btAJv3t2bTW378yHE5Oopcq8DCGx7XlqHmgj3El4h+L10lCfA0MECtiG83T1EL/YQL5Ct0viarSSoruZTYb1mMSV5xDeVCNzTnd9VS48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mAvxDkqU; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A0F729DB9A;
+	Wed,  2 Sep 2026 12:58:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788353934; cv=pass; b=FbLZ2C+jQvx6UJfQq6+q4wKiXplfpggCr3sBWF0S/kczArKZ+B/E/vStrPONRHlU4s+xpN8s8H+hhKPd26YAy5qWrG+4B2XGv7iIa93CMWwnSnht3yRszjZw5CgvEOLChsUDPZMnptBrc2wfRdrEdwaopRLJDx23HXYSMDJEhgg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788353934; c=relaxed/simple;
+	bh=lz6/PxVc/1FMF/PQqCe1NTgcAYGmSZOTrnYo/dNhmSw=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=qtCsSR33q6iCl0hrRjwyKHBfzfuPmW06KxBu42ucO3gocUaI7bmrI/QwaClUNlUvkCtxJDwxR8V7zeiLmWchmW0yJomkw3SoCzLKnI5qxe9BYjkydt+zXD2qd+7vVixmsZpNvPep+sb+1iFQEDr31be6yGoRkCazmY57mmjTNiQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b=d48l6CX7; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mAvxDkqU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D8AD1F00ADE
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 12:58:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788353911;
-	bh=Wlml6ZbJTx2/0zF5rhvA3HzrKGIPZmpTno210GiX85k=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=mAvxDkqUROIthEftdJ9QkLt2PDX9PYliG+1ivbgsDCRZTgzVdE2hOuwvRfmttzifv
-	 NKCMXQ8blBXMBz+VXKnM8wS36rQ6qbHBt/wuSGGtdegpl5680Cs8Eu3vbHw5QEJLOV
-	 tIQFQOU1qp1t+/IyMMqivfUg6SautXeJ+fvK++Y6+iCVq7WU1yOKakNgwd3IMGdRUX
-	 knWKEtMRMsfJ6geWCfjHOZRWeSdjed54k2rXEbNfLsThcGzfmGbZY49qoAZpD98ZAO
-	 +tpAyIgqjNYVTVNKIbuIATlF5vm3OulJr2SJDY4a9oYBZ6N589WT541yva9lArLdQo
-	 MUjn0xgbOwa9A==
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5b28c91fba5so1313960e87.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 05:58:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxULOiOW2zaQO4uIAvc26goJIrR/CWvn6qR9yeQ+xTUkFKzRt1MaeDPWXfAlS2vkU06RFQCI9kLJJbzjbQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++ko+jakzof96dLx3uOHr2XBlEo2wETZqsWFFU+/yRVLNuee1G66
-	+x+svExsnk0BCuPvhjO3JFRUfnlmVSMSN/rnFIAzoRymIP1mNI1ugag6g6/nHvU/X1YrLGrU3ZK
-	oUFjsRGTFbQJQtTtEZOwCDIy59v5qXuw=
-X-Received: by 2002:a05:6512:ac6:b0:5b2:c068:3530 with SMTP id
- 2adb3069b0e04-5b60c30a181mr881695e87.13.1788353910042; Wed, 02 Sep 2026
- 05:58:30 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="d48l6CX7"
+ARC-Seal: i=1; a=rsa-sha256; t=1788353881; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=TNfp49qO7PvOKNrTb6rndr+1NMxKl8IzE8OWTqpiduwHmBiqwHZu77OMJzQLoyz3PJB+m2ETbNBw+pv4/t52VKTZ0vTMn9yCEa1ExY8rnSeNfuSrJ+UNRKZDtkuvLBCBC4VbSeNJz0l4Ae0Oyx9RP5J3KREsjxDm4gMfEQcu7nA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788353881; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=yOJpG0Rfo6IlzDSpX446zUyUkwOc+K8U7rIyIPg3QS0=; 
+	b=AV+jSc3gRzrEMCHUncWW7+ysFtx3SZmYHcLgRXlbdQmssLzIGTAM1nOHPONIFrLm2w2AvJCp3E+tyBHllmY2P5jnLyUvPk4mxIUrvrQ3WUjQF7YeBPqG1heA5odwGnaY7ihzN+kjgk78goh4rF+3reBje8BnfbPmwtW11pIhy4k=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+	dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788353881;
+	s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+	h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+	bh=yOJpG0Rfo6IlzDSpX446zUyUkwOc+K8U7rIyIPg3QS0=;
+	b=d48l6CX7/B2l24rgs+6vOh9aeKM9cm/DHx9PAp2TYn2ySkldkxFkjjMPlTUfzJEK
+	ru01TAWEMCPhB6NaP9PLQW3uQMimZNTRjiReYBEomoI92TcwQXjvvbAXtfg5wcl7ySz
+	UIAIe2cHFjzuSw79RLntBIQ/S0o4fhYWJI18WYvY=
+Received: by mx.zohomail.com with SMTPS id 1788353879250420.3222580292204;
+	Wed, 2 Sep 2026 05:57:59 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260902-rzg2-sr-boards-v4-0-4a456a422fee@solid-run.com> <20260902-rzg2-sr-boards-v4-2-4a456a422fee@solid-run.com>
-In-Reply-To: <20260902-rzg2-sr-boards-v4-2-4a456a422fee@solid-run.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 2 Sep 2026 14:58:15 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=fGonMHd0jitwAE8+w=JYPX_6YFW6CzS9kRZLbx3045Q@mail.gmail.com>
-X-Gm-Features: AcwNN1UCFhm1aHVlm-BJzhSf8J2NeZK15MsuFS_3j_uqyeamxc-SEKtsEnY_q0U
-Message-ID: <CAD++jL=fGonMHd0jitwAE8+w=JYPX_6YFW6CzS9kRZLbx3045Q@mail.gmail.com>
-Subject: Re: [PATCH v4 2/7] dt-bindings: pinctrl: renesas,rzg2l-pinctrl: Allow
- input-enable pinconf
-To: Josua Mayer <josua@solid-run.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Benjamin Bara <benjamin.bara@skidata.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, Jon Nettleton <jon@solid-run.com>, 
-	Mikhail Anikin <mikhail.anikin@solid-run.com>, Yazan Shhady <yazan.shhady@solid-run.com>, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH 1/9] rust: sizes: add SZ_4G constant
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260902-tyr-ioctls-v1-1-e0fdbf8bd108@kylinos.cn>
+Date: Wed, 2 Sep 2026 09:57:40 -0300
+Cc: rust-for-linux@vger.kernel.org,
+ Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Lyude Paul <lyude@redhat.com>,
+ David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org,
+ dri-devel@lists.freedesktop.org,
+ Alvin Sun <alvin.sun@linux.dev>
 Content-Transfer-Encoding: quoted-printable
+Message-Id: <39DEB659-59A2-43D6-9B62-805DB3715F49@collabora.com>
+References: <20260902-tyr-ioctls-v1-0-e0fdbf8bd108@kylinos.cn>
+ <20260902-tyr-ioctls-v1-1-e0fdbf8bd108@kylinos.cn>
+To: sunke@kylinos.cn
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 
-Hi Joshua,
 
-thanks for your patch!
 
-On Wed, Sep 2, 2026 at 1:50=E2=80=AFPM Josua Mayer <josua@solid-run.com> wr=
-ote:
+> On 1 Sep 2026, at 13:09, Ke Sun via B4 Relay =
+<devnull+sunke.kylinos.cn@kernel.org> wrote:
+>=20
+> From: Alvin Sun <alvin.sun@linux.dev>
+>=20
+> SZ_4G is used by the Tyr driver when splitting the GPU VA range into
+> user and kernel regions.
+>=20
+> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+> ---
+> rust/bindings/bindings_helper.h |  1 +
+> rust/kernel/sizes.rs            | 12 ++++++++++++
+> 2 files changed, 13 insertions(+)
+>=20
+> diff --git a/rust/bindings/bindings_helper.h =
+b/rust/bindings/bindings_helper.h
+> index 1124785e210b3..3c37993991b1e 100644
+> --- a/rust/bindings/bindings_helper.h
+> +++ b/rust/bindings/bindings_helper.h
+> @@ -110,6 +110,7 @@
+> const size_t RUST_CONST_HELPER_ARCH_SLAB_MINALIGN =3D =
+ARCH_SLAB_MINALIGN;
+> const size_t RUST_CONST_HELPER_ARCH_KMALLOC_MINALIGN =3D =
+ARCH_KMALLOC_MINALIGN;
+> const size_t RUST_CONST_HELPER_PAGE_SIZE =3D PAGE_SIZE;
+> +const unsigned long long RUST_CONST_HELPER_SZ_4G =3D SZ_4G;
+> const gfp_t RUST_CONST_HELPER_GFP_ATOMIC =3D GFP_ATOMIC;
+> const gfp_t RUST_CONST_HELPER_GFP_KERNEL =3D GFP_KERNEL;
+> const gfp_t RUST_CONST_HELPER_GFP_KERNEL_ACCOUNT =3D =
+GFP_KERNEL_ACCOUNT;
+> diff --git a/rust/kernel/sizes.rs b/rust/kernel/sizes.rs
+> index 521b2b38bfe77..b236573f0792e 100644
+> --- a/rust/kernel/sizes.rs
+> +++ b/rust/kernel/sizes.rs
+> @@ -132,3 +132,15 @@ impl SizeConstants for $first {
+> }
+>=20
+> define_sizes!(u32, u64, usize);
+> +
+> +/// Large size constants (=E2=89=A5 4 GiB).
+> +///
+> +/// Only implemented for `u64`.
+> +pub trait LargeSizeConstants {
+> +    /// `0x1_0000_0000`.
+> +    const SZ_4G: Self;
+> +}
+> +
+> +impl LargeSizeConstants for u64 {
+> +    const SZ_4G: Self =3D bindings::SZ_4G;
+> +}
+>=20
+> --=20
+> 2.43.0
+>=20
+>=20
 
-> The list of allowed pinconf properties already includes input-enable,
-> but has omitted input-disable.
->
-> Both refer to the same hardware property, setting and clearing input-enab=
-le.
->
-> Add input-disable to the list.
->
-> Signed-off-by: Josua Mayer <josua@solid-run.com>
-(...)
-> +        input-disable: true
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
 
-The Subject of this patch is  "Allow input-enable pinconf".
-
-But what you are doing is allowing input-disable.
-
-With the subject fixed:
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-
-Yours,
-Linus Walleij
