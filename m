@@ -1,88 +1,174 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 702BB4315A;
-	Wed,  2 Sep 2026 01:23:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCB072F5A0E
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 01:24:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788312235; cv=none; b=XAdQgJkQRmscT6qts/zEn2/zq+cciOFvuxhpF0jLUYiuBLFm4y6hiZ2OV1EMvHNKVnPsH0QI4JelD2c6fWzwX6fgWSpZ1qMAvXMeaftGDW+e8qLBYJWQt0u/GSXVVt0VAz2N63f4AgvFePtz4kniCrn52XKmHv8quL6/U04m7+Y=
+	t=1788312259; cv=none; b=NMDF8gso67RXTS5sNaFJEByZCTAd3q6b4y1zXu9WKY2t8D05YbBYSKUfxBTAdE08ZZOoZjkoLfwpzZ5Jgu2AeLMQaZIb8plbS2AUS7sqHyBrasENqDc4sq0DyPSORI7hMnZsYg1mtP9we/HRQhz0Y8FA6I2D1jFBcc1S6KY51ig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788312235; c=relaxed/simple;
-	bh=KWOXKNuOAxjJEunoUnMYIvsSO+KEoVVNjdyFAg+Ssi0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cD0ApStxANE24hR7LMC14PudmImMxAOk9WjHjFoZ3G9MmhZ7AMrNDJcTpI8iKOpWuuQX2MLllqD/Y2kNAWPkP2g/DjCK1aOEjgKQqlVnjg9GPvJnlfy5hcik4Pmp2pqX8RqyH+et5+p685Vp4yXngEgsm/xXFEenGbo7Tf5q69E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=iGjFPCAF; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1788312259; c=relaxed/simple;
+	bh=OE6zUP8LM9A08GqXAFXgldNPvFoJM+cZir5oxvqX3BY=;
+	h=In-Reply-To:References:From:Date:Subject:To:Cc:Message-ID; b=fb8DMAoIQ0geheXr93q5/OOGDKmKfIPPXhJvHQ8sv4U6p8nAfskZtwJRvM0HJLydiM11MtohOr0+cnP4G3muJasUrWiuUURP+hGMzror5JASCuTnwuvu8t3aM3MaZGKSCKvBEGtxsw9h5hMrSYAI1UAS9SuB9b49tmMLvHl5KVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DsgzYn/w; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="iGjFPCAF"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 4B3B340E02C2;
-	Wed,  2 Sep 2026 01:23:51 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id f-AG5n7Z_ETx; Wed,  2 Sep 2026 01:23:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1788312221; bh=DvjfH0WJCA0AHVu8mE0AWync93ugHMTiexrTJdxyEtw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iGjFPCAF1Wf0YkQF7ORxCxUJAtUjCktkCMVeNmVkwWkOzzjvnCopskwm380HGt5K8
-	 1eEY9yHN+bUNT2AS9mZutyStaHoF8+/8O0VJLC6HVoN1kr9eIT4i9ArjIxVwqDO8So
-	 dK6Jwv5FO+XNlk9RMwD9MPfowcD4uTZoPZD5UP+aRMdBMl9KKjS6NVdxE3StG7VFff
-	 raB37HxMQouCUAGPykNTeOk7Af0OBhUm7Elo4KL0njJoz7svlGmvYXEYpU8bSNGxvP
-	 TE1kbdqZLfvtEZsEzEcH6RGC4CdUlLUm0QmzhDck2eFhKOqfElq+wBbbTd4gCEqytf
-	 S/30U40tzYus3csnhlRJATSbkRqbJJpAig1p3JtZWVNmuCwV21915hYxrLihuAMQhq
-	 lPaV4jxzuveFIvX13tt0LUJN5KtRrA9pHTlX8CXauklOQLwg7ObbujktjHZ62rQXPw
-	 CfVgl7lMQblI5FY+8hQrEU9zc40ULn4tGXVGeR9FkIAjfPGj65q08Z4yWhvX3u5I/r
-	 ng2kCWqmRIaSxfz6GOmHlsD8R6stw3EkW0M5OVqzJ6LxYv5EfYa1BZqSDsKM7yRVV3
-	 5ldHW0hTJyzSQhhiDwOBNR0nwXbHFnLR167qiVYInbqDSnyd4OhLBPlW/skNiKrGL2
-	 +ysl/1Lwi5clCr6y2Y+h1YF0=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::e])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 9B12F40E024B;
-	Wed,  2 Sep 2026 01:23:34 +0000 (UTC)
-Date: Tue, 1 Sep 2026 18:23:31 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: hanzhijian <hanzhijian1991@gmail.com>
-Cc: Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
-	Tony Luck <tony.luck@intel.com>, linux-edac@vger.kernel.org,
-	linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] EDAC/octeon: fix kernel-doc comment for
- co_cache_error_event
-Message-ID: <20260902012331.GEapd6k7g1DZxILLVW@fat_crate.local>
-References: <20260821233751.2331272-1-hanzhijian1991@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DsgzYn/w"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cbe4c537ad6so56354a12.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 18:24:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788312257; x=1788917057; darn=vger.kernel.org;
+        h=message-id:cc:to:subject:date:from:references:in-reply-to:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=bM1Ama1SqfILo+ToLsEHyErile10Oj26qImjJshC1qs=;
+        b=DsgzYn/wuefapijPc71p3n7AHTBmxfKBzVRr22kfXP1DoWuk69WPTMyZ4a8BUDo7S2
+         X1Diuo5K1+Hrljreyn1iJJy1x0qARfG1eULyPxsflt0Li24+mkR9/0gLwHQElqJmHF+I
+         ArW9X6o2nvM3RT0TT1dpCgg6JgTxACdmkC+O++72ryxzw7yVa2GJ8b/fvKXznjUFNJln
+         IoyaozYUsBbeUV6jRyw6mWfZnqsfIhjHvxNaVFx3AS8oRiSTtpQ4iUIGQFKfrgBw6vkz
+         5TJ2arB0y0kVrq9ZVEU7jXkcXlXR244XbrueApe+2BMqaUYkMr18tn0NynTD/CLR3zxi
+         wEuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788312257; x=1788917057;
+        h=message-id:cc:to:subject:date:from:references:in-reply-to:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bM1Ama1SqfILo+ToLsEHyErile10Oj26qImjJshC1qs=;
+        b=NOljozrU69Ngpj2ANa5QUqAQvOUnH5TNIkyXcfssV3BJ8E3tuG6O7Eg1wAAVPH+FBc
+         3/QQckE5RZm5VJwEekyLf8fNpk59lXDc9ES27L8+VMHOtG1Zy+ZsXCS4EbQA9RLMXP8/
+         LKeGT2Fnf0SDCyJe23Snb2FBmKZaAJITfRZOxP5arzM0nbgM89Pcun8v4w9JwMHnO7GD
+         4RutNSBVxzJ+PuFvESTspHgGaWU8cLGEmy5mwbgqi9DTv4tPVhjXaZCTFi3EfJr+hIMY
+         DXVR9fY9bYaOFjME2VWesr8l0W35IrwlpM9UqosupDB6160/op/WH4a+NuwZ6PXdHXxv
+         knEw==
+X-Forwarded-Encrypted: i=1; AKwUvBxiwJI3pg5ilHT3xjNGteaHGWzbZZLMEAplgqVv0nVxPpZ+yw+0iSrlbgqXpRbxcSf2XBhMeewQIL/5bk0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kFrfh/Asq1b0iCvjndv6NmN4mtY3jYZAp5WF+WFMjOlUPIzSeW
+	cyb0BG82zmRCOPjCZ8zbDSkr7eLSM/I9bpj82vj76ZYRTM+jPsFua1Lb
+X-Gm-Gg: AYBFou1z+3XudkU9mTrQjw30JjWZuvkUTDJzS6sixEgKErmxjlBrSbtFpKzgDhKb+G1
+	NM2VwvUcoMA5HQ3+/Q1d3MpyNE1oK3r/XVUfWX5LBsdRaz+PAAicNUm8JU5lNwnnb6naHwa5FwQ
+	M27UKFjb4c08bMNPeLRkutopx+wEt+IUV6Hi8c+tlOAJ9SqGAkVOr5SNM5cf7BNAM9LYDNye7al
+	loS33LG1QA+cASOfCfvvhOCq1SYvfIFJGvrpZuQZkQqCTyt5lTT6Biw5p3542IEX12hXDt9KRME
+	CiDd7xR/VOzjuPmnHTs+H+TiOaKt0LcZ9qphUN3TyrZVp6vab2FVwcqopBg/E6EU08uHTgvMIbQ
+	Wg1VXBA/dehhn6PIhKO7AdzahLmvxNT7jS030EI+p4E2DCN1iNrHA4VOUC2LYuwN7WhpgFaezzK
+	CWHIlsdDdhO9sfE5TBA64Bpa0yqYbO3MTtfhGbEmTFtS3Q+BBFsWF0sqaP6ZHPc2yobe2zAPV9D
+	OpSFWAJCUlkPLffx67TvRyzlBNduy/rT7M5CH5w5mbbxht6orMl7viCP/OyOKDt8kXcpA6tL2lH
+	+XPR3Vb9oe3uGD6YYztfiJXYHxKjRpHEVO1/KZWmD41EFOxBfWJG0ehBvSozngCSx2E6mE3bQF3
+	WkEhPNCJa
+X-Received: by 2002:a17:90b:5828:b0:390:af7c:fe5e with SMTP id 98e67ed59e1d1-39aedf2714amr1010525a91.2.1788312256977;
+        Tue, 01 Sep 2026 18:24:16 -0700 (PDT)
+Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa (c-98-47-46-163.hsd1.ca.comcast.net. [98.47.46.163])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f07b79898sm2053080eec.15.2026.09.01.18.24.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 18:24:16 -0700 (PDT)
+In-Reply-To: <20260831211126.23745-1-rishabh.jain1198@gmail.com>
+References: <20260831211126.23745-1-rishabh.jain1198@gmail.com>
+From: Rishabh Jain <rishabh.jain1198@gmail.com>
+Date: Tue, 01 Sep 2026 18:24:07 -0700
+Subject: [PATCH v4] usb: pci-quirks: always assert xHCI OS ownership
+To: Mathias Nyman <mathias.nyman@intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+    Mario Limonciello <superm1@kernel.org>,
+    Michal Pecio <michal.pecio@gmail.com>,
+    linux-usb@vger.kernel.org,
+    linux-kernel@vger.kernel.org,
+    stable@vger.kernel.org,
+    Rishabh Jain <rishabh.jain1198@gmail.com>
+Message-ID: <178831224746.44206.8934470315568179153@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260821233751.2331272-1-hanzhijian1991@gmail.com>
 
-On Sat, Aug 22, 2026 at 07:37:51AM +0800, hanzhijian wrote:
-> The comment for co_cache_error_event() starts with "/**" but lacks the
-> function name line, so scripts/kernel-doc reports "isn't a kernel-doc
-> comment" and it is silently dropped from the generated documentation.
-> 
-> Add the missing name line and document the parameters.
-> 
-> Signed-off-by: hanzhijian <hanzhijian1991@gmail.com>
+The xHCI ownership protocol requires the OS driver to assert the HC OS
+Owned semaphore before using the host controller, then wait for HC BIOS
+Owned to clear if firmware owns it.
 
-I'm presuming your legal name is "Zhijian Han"?
+quirk_usb_handoff_xhci() currently asserts OS Owned only when BIOS Owned
+is already set. If firmware leaves BIOS Owned clear, Linux uses the xHC
+while both ownership semaphores remain clear.
 
-Because you should use your proper legal name when you sign off on patches.
-You don't have to send a new version - I can fix it up when applying.
+On an AMD PROM21 xHCI controller (1022:43fc), this caused every S3
+resume to terminate Controller Restore State with USBSTS 0x401. Linux
+then reset the host controller, both root hubs and the USB Bluetooth
+adapter.
 
-Thx.
+The controller entered resume ready and halted with USBSTS 0x1.
+Endpoint state, 100 ms save/restore delays, scratchpads, the DCBAA,
+device contexts and command, event and transfer rings were verified not
+to cause the restore error.
 
+Across four S3 cycles, asserting only HC OS Owned changed USBLEGSUP from
+0x00000801 to 0x01000801 and eliminated the restore failure. Testing
+included the unmodified 7.1.8-ogc1.1.fc44.x86_64 distribution kernel
+using a test module that set the HC OS Owned semaphore. Clearing
+USBLEGCTLSTS was independently verified to be unnecessary.
+
+Always assert OS Owned for controllers using the standard xHCI handoff,
+and leave the existing TI/Renesas forced handoff unchanged. Keep OS
+Owned asserted after the standard handoff to prevent firmware from
+reclaiming the controller during subsequent suspends.
+
+Fixes: 66d4eadd8d06 ("USB: xhci: BIOS handoff and HW initialization.")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Rishabh Jain <rishabh.jain1198@gmail.com>
+---
+Thanks for the review.
+
+By "stock-kernel test", I meant that the register change was tested on
+the unmodified 7.1.8-ogc1.1.fc44.x86_64 distribution kernel using a test
+module that set the HC OS Owned semaphore.
+
+Sorry, I missed the AI assistant guidelines. Fixed now.
+
+The TI/Renesas forced-handoff path is restored unchanged. This revision
+only changes the standard handoff path. I left the byte-access change
+out of this patch.
+
+Changes in v4:
+- Preserve the existing TI/Renesas forced-handoff path.
+- Limit the ownership change to the standard handoff path.
+
+ drivers/usb/host/pci-quirks.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
+index 0404489c2f6a..fa9b5db4d115 100644
+--- a/drivers/usb/host/pci-quirks.c
++++ b/drivers/usb/host/pci-quirks.c
+@@ -1193,22 +1193,25 @@ static void quirk_usb_handoff_xhci(struct pci_dev *pdev)
+ 			 && pdev->device == 0x0014)) {
+ 		val = (val | XHCI_HC_OS_OWNED) & ~XHCI_HC_BIOS_OWNED;
+ 		writel(val, base + ext_cap_offset);
+-	}
+-
+-	/* If the BIOS owns the HC, signal that the OS wants it, and wait */
+-	if (val & XHCI_HC_BIOS_OWNED) {
+-		writel(val | XHCI_HC_OS_OWNED, base + ext_cap_offset);
++	} else {
++		/*
++		 * Perform the standard handoff and leave OS ownership set to
++		 * keep the BIOS at bay during subsequent suspends.
++		 */
++		val |= XHCI_HC_OS_OWNED;
++		writel(val, base + ext_cap_offset);
+ 
+ 		/* Wait for 1 second with 10 microsecond polling interval */
+ 		timeout = handshake(base + ext_cap_offset, XHCI_HC_BIOS_OWNED,
+-				0, 1000000, 10);
++				    0, 1000000, 10);
+ 
+ 		/* Assume a buggy BIOS and take HC ownership anyway */
+ 		if (timeout) {
+ 			dev_warn(&pdev->dev,
+ 				 "xHCI BIOS handoff failed (BIOS bug ?) %08x\n",
+ 				 val);
+-			writel(val & ~XHCI_HC_BIOS_OWNED, base + ext_cap_offset);
++			writel(val & ~XHCI_HC_BIOS_OWNED,
++			       base + ext_cap_offset);
+ 		}
+ 	}
+ 
 -- 
-Regards/Gruss,
-    Boris.
+2.50.1 (Apple Git-155)
 
-https://people.kernel.org/tglx/notes-about-netiquette
