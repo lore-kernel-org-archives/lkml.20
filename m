@@ -1,207 +1,182 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-234.mta0.migadu.com [91.218.175.234])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA90C30E85B;
-	Wed,  2 Sep 2026 06:34:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B63A25782D
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 06:34:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788330847; cv=none; b=MNwqFvFaxucUOVNgzgp84qtB8W0MkxnC7Mm+BB8RtTqiy5prVMD1v6/LkScHpy3JHKwEw6vMYxCQLDHAihHG+PcXlRjHQyWRjl6/iQfkCHvr2VCLfaGOCaa9n88ciI9T20j/e+HH4fEHaNCWYMqLcSjyLcbUcc4CoUu84D39s8A=
+	t=1788330876; cv=none; b=X/a7uCSUiy/MgvyDL8BycPnyVi/b19xnDG7fvD5Zsu7vByjxFwF8uTPFMdQVvac8WPAeZU8xh0XDVpiEVAVBm4g/VBZ3QoR+ewMZtgZTYlbVDXfthuwaH1AxzcqwnLiItJ86jR8VtGu3bmgykh+CWa4o6xNnxTaKqT6g1A5DsqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788330847; c=relaxed/simple;
-	bh=AKLq68YAj8lKqvSaaTGme4OcVxvD+fATv3F5YN3d92o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=quIOkfG7cEqJ0mIZnhq0BMtBuBVBPsWtMJyh4A+uHJf5F5ElSvUBsPS1ZHaKMhjPJvJ+DYWqzdnrDqUu4DFIVEmu0s/6bFwRvsrpLH7nkt/INa1gaR+33bea4gSaXBNHgfiQSDeCAzFaVKFFc0aQp+/Qf5VEnvQeVDv1B8B/BMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UOgFBul3; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788330876; c=relaxed/simple;
+	bh=y0/Akl8uG8eaa9O02WZ8JyUXr0VKAh4Ji2V1kDVCKxs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MZjE+SIfWtgp0i5Q6VWkItWGCskSSHmSp0PjNNGA2kzN4nEhX3OcXnh4LMOk2E/2XiryaeXt0sRj+f5YCCaQUoZe/tR8mEoAM9aRnorJ5neijVKewRZYV8G3TyDoNrE6spoHDEgul5blBYobx8mwNb8PFqKaXf2M8F8Vm3Yd4CE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=sOVdYpnW; arc=none smtp.client-ip=91.218.175.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UOgFBul3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788330846; x=1819866846;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=AKLq68YAj8lKqvSaaTGme4OcVxvD+fATv3F5YN3d92o=;
-  b=UOgFBul3B75phUCS69/mMD/coSOBGyH9p2N0ANCUVM9QeDq0l77onPsM
-   jCmn+D/BwWi3Jo6iQFBljSPBuDVVOCKA0wurIUMCLPf7pbvqbohKExCRa
-   NJAVRKRa8UsMOgJXkxZVsG9pxWuSpqYlb1UBquILbeHj8tIx6KtOvz/2p
-   SBjtvJpezc93bJ4Ei1CR4m7XVNCRomqvHWOqLSmqfBAHhNZpHX6ER998Z
-   O57ZWQoSvg/fi03LVI2EqyTV5JvMxMiefi/jflLaA+fs4ihWtuMPTtquj
-   XYXhaAnaPAGTu10pqLDXm4ohwHpfsLnBLu0BzXUuK1VW2FFxE8RzvPlnC
-   w==;
-X-CSE-ConnectionGUID: MiKqaV5ySl6CTiXtFQrxQw==
-X-CSE-MsgGUID: rvZNpiICTyy6YNAtmmJxfQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="88655996"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="88655996"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 23:34:05 -0700
-X-CSE-ConnectionGUID: nIBMMWc5SGOUJl2GYpmYsQ==
-X-CSE-MsgGUID: BJj39WtvQEWlHEqqY1GOtQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="271283985"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.129])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 23:34:03 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id B9B3F1218BD;
-	Wed, 02 Sep 2026 09:33:59 +0300 (EEST)
-Date: Wed, 2 Sep 2026 09:33:59 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Fernando Rimoli <fernandorimoli11@gmail.com>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>,
-	linux-media@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Arsalan Naeem <naeemarsalan@gmail.com>,
-	Jakob Berg Jespersen <dev@berg.pm>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 4/6] media: ipu-bridge: Assign endpoint property
- indices dynamically
-Message-ID: <apfDVz8nQ43yEl6i@kekkonen.localdomain>
-References: <20260720163819.104130-1-fernandorimoli11@gmail.com>
- <20260831181858.325109-1-fernandorimoli11@gmail.com>
- <20260831181858.325109-5-fernandorimoli11@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="sOVdYpnW"
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=y0/Akl8uG8eaa9O02WZ8JyUXr0VKAh4Ji2V1kDVCKxs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788330872; v=1; x=1788935672;
+ b=sOVdYpnWQXw6k2l5WvKf2LweCAVvuxZuG4yza70EcMuWQr12sY4ZcIBVVtecXeJCaNKR4mig
+ zni3Tft2tXnOF7Bop3bs6OtiWWUqZbcP8lIzzrvqS9DvlZXnZ3NuBCCO5gSBN7nDPm3kqDY6Fge
+ HsCon+WyR5sLtcGy45GSrWOY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d4ebb0c9fefb1d85;
+	Wed, 02 Sep 2026 06:34:32 +0000
+X-Mizu-Trace-ID: d4ebb0c9fefb1d85
+X-Migadu-Flow: FLOW_OUT
+From: Tao Cui <cui.tao@linux.dev>
+To: Bart Van Assche <bvanassche@acm.org>,
+	axboe@kernel.dk,
+	hch@lst.de,
+	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Cc: cui.tao@linux.dev,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tao Cui <cuitao@kylinos.cn>
+Subject: [PATCH v2] loop: defer the queue limits clear to a workqueue
+Date: Wed,  2 Sep 2026 14:34:20 +0800
+Message-ID: <20260902063420.882203-1-cui.tao@linux.dev>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831181858.325109-5-fernandorimoli11@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 08:18:56PM +0200, Fernando Rimoli wrote:
-> The endpoint property array is populated with hardcoded indices, so a
-> property that is only set conditionally has to be placed at a fixed slot.
-> As the array is NULL-terminated, such a property is silently dropped when
-> an earlier optional slot is left empty: "link-frequencies" is skipped for
-> configs with nr_link_freqs == 0, which would truncate the array before
-> anything following it.
-> 
-> Name the endpoint property slots in an enum, size the array accordingly
-> and assign the indices through a bounds-checked running index, as done
-> for the MIPI DisCo for Imaging properties in mipi-disco-img.c. No
-> functional change intended: the same properties are set in the same
-> order.
+From: Tao Cui <cuitao@kylinos.cn>
 
-There's a lot of unneeded information here. For simple patches like this
-there's no need to go deep in details that can be easily seen from the
-code. How about:
+loop_clear_limits() calls queue_limits_commit_update() directly from
+the loop workqueue that processes the request.  That does a
+non-atomic struct assignment to q->limits without freezing the queue,
+which races with lockless readers of q->limits on other CPUs - bio
+splitting reads max_hw_sectors, the discard path reads
+max_hw_discard_sectors - and can let them observe torn values.  The
+trigger is a discard or write-zeroes request on a loop device whose
+backing file does not support the corresponding fallocate operation.
 
-Index the ep_properties array dynamically instead of plain numerical values
-as is done in mipi-disco-img.c.
+The code already has an XXX comment saying this should move to a
+workqueue.  Do that: schedule a work item on the system workqueue,
+where it is safe to freeze the queue and update the limits using
+queue_limits_commit_update_frozen().  Accumulate pending modes in
+lo->clear_limits_mode so that failures between scheduling and
+execution of the work item are not lost, reset the accumulated
+modes when a new backing file is assigned, and cancel the work
+item before the device is freed.
 
-> 
-> Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
-> ---
->  drivers/media/pci/intel/ipu-bridge.c | 27 ++++++++++++++-------------
->  include/media/ipu-bridge.h           | 19 ++++++++++++++++++-
->  2 files changed, 32 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-> index 131c70844..cd3c36d44 100644
-> --- a/drivers/media/pci/intel/ipu-bridge.c
-> +++ b/drivers/media/pci/intel/ipu-bridge.c
-> @@ -449,6 +449,7 @@ static void ipu_bridge_create_fwnode_properties(
->  	struct ipu_bridge *bridge,
->  	const struct ipu_sensor_config *cfg)
->  {
-> +	unsigned int i = IPU_SENSOR_EP_BUS_TYPE;
+Signed-off-by: Tao Cui <cuitao@kylinos.cn>
 
-You can just initialise this to 0.
+---
+Changes since v1:
 
->  	struct ipu_property_names *names = &sensor->prop_names;
->  	struct software_node *nodes = sensor->swnodes;
->  
-> @@ -508,21 +509,21 @@ static void ipu_bridge_create_fwnode_properties(
->  			PROPERTY_ENTRY_REF_ARRAY("lens-focus", sensor->vcm_ref);
->  	}
->  
-> -	sensor->ep_properties[0] = PROPERTY_ENTRY_U32(
-> -					sensor->prop_names.bus_type,
-> -					V4L2_FWNODE_BUS_TYPE_CSI2_DPHY);
-> -	sensor->ep_properties[1] = PROPERTY_ENTRY_U32_ARRAY_LEN(
-> -					sensor->prop_names.data_lanes,
-> -					bridge->data_lanes, sensor->lanes);
-> -	sensor->ep_properties[2] = PROPERTY_ENTRY_REF_ARRAY(
-> -					sensor->prop_names.remote_endpoint,
-> -					sensor->local_ref);
-> +	sensor->ep_properties[IPU_NEXT_EP_PROPERTY(i, NUM_OF)] =
+- Make clear_limits_mode atomic_t: loop workers can hit the |=
+  concurrently.
 
-You should use the maximum value of the property index here. Same below.
-Right now it's fairly simple, but in more complicated cases it helps
-keeping track of the properties.
+- Reset clear_limits_mode when assigning a new backing file, so
+  stale modes do not clear limits of the new file.
 
-> +		PROPERTY_ENTRY_U32(names->bus_type,
-> +				   V4L2_FWNODE_BUS_TYPE_CSI2_DPHY);
-> +	sensor->ep_properties[IPU_NEXT_EP_PROPERTY(i, NUM_OF)] =
-> +		PROPERTY_ENTRY_U32_ARRAY_LEN(names->data_lanes,
-> +					     bridge->data_lanes, sensor->lanes);
-> +	sensor->ep_properties[IPU_NEXT_EP_PROPERTY(i, NUM_OF)] =
-> +		PROPERTY_ENTRY_REF_ARRAY(names->remote_endpoint,
-> +					 sensor->local_ref);
->  
->  	if (cfg->nr_link_freqs > 0)
-> -		sensor->ep_properties[3] = PROPERTY_ENTRY_U64_ARRAY_LEN(
-> -			sensor->prop_names.link_frequencies,
-> -			cfg->link_freqs,
-> -			cfg->nr_link_freqs);
-> +		sensor->ep_properties[IPU_NEXT_EP_PROPERTY(i, NUM_OF)] =
-> +			PROPERTY_ENTRY_U64_ARRAY_LEN(names->link_frequencies,
-> +						     cfg->link_freqs,
-> +						     cfg->nr_link_freqs);
->  
->  	sensor->ipu_properties[0] = PROPERTY_ENTRY_U32_ARRAY_LEN(
->  					sensor->prop_names.data_lanes,
-> diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
-> index 16fac7654..61e10cef1 100644
-> --- a/include/media/ipu-bridge.h
-> +++ b/include/media/ipu-bridge.h
-> @@ -64,6 +64,23 @@ enum ipu_sensor_swnodes {
->  	SWNODE_COUNT
->  };
->  
-> +enum ipu_sensor_ep_props {
-> +	IPU_SENSOR_EP_BUS_TYPE,
-> +	IPU_SENSOR_EP_DATA_LANES,
-> +	IPU_SENSOR_EP_REMOTE_EP,
-> +	IPU_SENSOR_EP_LINK_FREQUENCIES,
-> +	IPU_SENSOR_EP_NUM_OF,
-> +	IPU_SENSOR_EP_NUM_ENTRIES
-> +};
-> +
-> +/*
-> + * Get the index of the next endpoint property in the property array, with a
-> + * given maximum value.
-> + */
-> +#define IPU_NEXT_EP_PROPERTY(index, max)		\
+- Cancel the work item from loop_remove() before del_gendisk():
+  the queue can already be in RCU-delayed freeing when
+  lo_free_disk() cancels it.
 
-The macro isn't limited to endpoint properties, how about calling it
-e.g. IPU_BRIDGE_NEXT_PROPERTY?
+Tested on x86-64 (qemu, vfat-backed loop device): 30s discard and
+reconfigure loop exercises the clear 577 times, no torn sysfs reads,
+no difference against the unpatched kernel.
 
-> +	(WARN_ON((index) > IPU_SENSOR_EP_##max) ?	\
+Link: https://lore.kernel.org/r/20260828072004.273519-1-cui.tao@linux.dev/
+---
+ drivers/block/loop.c | 29 ++++++++++++++++++++---------
+ 1 file changed, 20 insertions(+), 9 deletions(-)
 
-How about:
-
-s/SENSOR_EP/BRIDGE/
-
-> +	 IPU_SENSOR_EP_##max : (index)++)
-> +
->  /* Data representation as it is in ACPI SSDB buffer */
->  struct ipu_sensor_ssdb {
->  	u8 version;
-> @@ -141,7 +158,7 @@ struct ipu_sensor {
->  	const char *vcm_type;
->  
->  	struct ipu_property_names prop_names;
-> -	struct property_entry ep_properties[5];
-> +	struct property_entry ep_properties[IPU_SENSOR_EP_NUM_ENTRIES];
->  	struct property_entry dev_properties[5];
->  	struct property_entry ipu_properties[3];
->  	struct property_entry ivsc_properties[1];
-
+diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+index 6f12976035b0..368ea857895c 100644
+--- a/drivers/block/loop.c
++++ b/drivers/block/loop.c
+@@ -67,6 +67,8 @@ struct loop_device {
+ 	struct list_head        rootcg_cmd_list;
+ 	struct list_head        idle_worker_list;
+ 	struct rb_root          worker_tree;
++	struct work_struct      clear_limits_work;
++	atomic_t		clear_limits_mode;
+ 	struct timer_list       timer;
+ 	bool			sysfs_inited;
+ 
+@@ -222,9 +224,12 @@ static void loop_set_size(struct loop_device *lo, loff_t size)
+ 		kobject_uevent(&disk_to_dev(lo->lo_disk)->kobj, KOBJ_CHANGE);
+ }
+ 
+-static void loop_clear_limits(struct loop_device *lo, int mode)
++static void loop_clear_limits_workfn(struct work_struct *work)
+ {
++	struct loop_device *lo =
++		container_of(work, struct loop_device, clear_limits_work);
+ 	struct queue_limits lim = queue_limits_start_update(lo->lo_queue);
++	int mode = atomic_xchg(&lo->clear_limits_mode, 0);
+ 
+ 	if (mode & FALLOC_FL_ZERO_RANGE)
+ 		lim.max_write_zeroes_sectors = 0;
+@@ -234,14 +239,13 @@ static void loop_clear_limits(struct loop_device *lo, int mode)
+ 		lim.discard_granularity = 0;
+ 	}
+ 
+-	/*
+-	 * XXX: this updates the queue limits without freezing the queue, which
+-	 * is against the locking protocol and dangerous.  But we can't just
+-	 * freeze the queue as we're inside the ->queue_rq method here.  So this
+-	 * should move out into a workqueue unless we get the file operations to
+-	 * advertise if they support specific fallocate operations.
+-	 */
+-	queue_limits_commit_update(lo->lo_queue, &lim);
++	queue_limits_commit_update_frozen(lo->lo_queue, &lim);
++}
++
++static void loop_clear_limits(struct loop_device *lo, int mode)
++{
++	atomic_or(mode, &lo->clear_limits_mode);
++	schedule_work(&lo->clear_limits_work);
+ }
+ 
+ static int lo_fallocate(struct loop_device *lo, struct request *rq, loff_t pos,
+@@ -516,6 +520,7 @@ static int loop_validate_file(struct file *file, struct block_device *bdev)
+ static void loop_assign_backing_file(struct loop_device *lo, struct file *file)
+ {
+ 	lo->lo_backing_file = file;
++	atomic_set(&lo->clear_limits_mode, 0);
+ 	lo->old_gfp_mask = mapping_gfp_mask(file->f_mapping);
+ 	mapping_set_gfp_mask(file->f_mapping,
+ 			lo->old_gfp_mask & ~(__GFP_IO | __GFP_FS));
+@@ -1781,6 +1786,7 @@ static void lo_free_disk(struct gendisk *disk)
+ 		destroy_workqueue(lo->workqueue);
+ 	loop_free_idle_workers(lo, true);
+ 	timer_shutdown_sync(&lo->timer);
++	cancel_work_sync(&lo->clear_limits_work);
+ 	mutex_destroy(&lo->lo_mutex);
+ 	kfree(lo);
+ }
+@@ -2100,6 +2106,7 @@ static int loop_add(int i)
+ 	spin_lock_init(&lo->lo_lock);
+ 	spin_lock_init(&lo->lo_work_lock);
+ 	INIT_WORK(&lo->rootcg_work, loop_rootcg_workfn);
++	INIT_WORK(&lo->clear_limits_work, loop_clear_limits_workfn);
+ 	INIT_LIST_HEAD(&lo->rootcg_cmd_list);
+ 	disk->major		= LOOP_MAJOR;
+ 	disk->first_minor	= i << part_shift;
+@@ -2138,6 +2145,10 @@ static int loop_add(int i)
+ 
+ static void loop_remove(struct loop_device *lo)
+ {
++	/* Cancel early: the queue may be in RCU-delayed freeing
++	 * by the time lo_free_disk() runs. */
++	cancel_work_sync(&lo->clear_limits_work);
++
+ 	/* Make this loop device unreachable from pathname. */
+ 	del_gendisk(lo->lo_disk);
+ 	blk_mq_free_tag_set(&lo->tag_set);
 -- 
-Regards,
+2.43.0
 
-Sakari Ailus
