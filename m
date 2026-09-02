@@ -1,137 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx3.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D94143F0B0;
-	Wed,  2 Sep 2026 22:58:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 588DA442FDA;
+	Wed,  2 Sep 2026 22:59:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=141.14.17.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788389926; cv=none; b=rX7MqKm5fmAl+DIpMve6QDK48Rh2B8kDnsYpnplTwgfVm4UezE7fY+sQXNT/EfIRlzs+7hXU+p+q4H25oc2q5Vxsy0Xw3oKPV/i/SefYtB1YjUhSD7nPCBhRkkH6exT3NlXCL+RYAMgncY9FtNkXpYMtcuBKHDyxLAkSlpFT3HM=
+	t=1788389976; cv=none; b=N4kdLhYUZ49SqfYnj5tkEzvl+9cL2UoMP/SMR+OtvDiidtOUm/F6eodu5ziZlLHtK562ta9UvbbssCEqXPZLt3BUjQYJp8BIex9UyJJOnSN3afUncgC5TINJG6sJ62qaFo4h1+YJ8qXxUSDVjDLgfxcNCDw68n/ZDn/xv2xdLGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788389926; c=relaxed/simple;
-	bh=NGROKAGJRcPSkbTlZMu6Ec3q9VqyOJY69b9PTEkaVgo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iercNTvZS7Uwnjw8Qk7Hr8Fwt+gkFd6ghcnKibwym+yn1jvULFBp70GzbBXKu1jB/cZM3b5hG02vWVpmaFRbROk0ByACqL/0GZV9VsSbdAa0uFlAsy5rsNukNBniKPv/VkzvRRjw5v8p8et72ib8UmglD3rnCLWYYJ68jECj/dc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ot0qqSw/; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ot0qqSw/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DAB21F00A3A;
-	Wed,  2 Sep 2026 22:58:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788389917;
-	bh=aHfkXpE6IZqb/J2m9EKFTMgu8Bwmhk+NyTMlMZHfuZA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ot0qqSw/9dHcLGTsrnMh0VD1VOJwhuy6KRdhSb4GZojS5Ky+r6X9feMjk2OT/JVns
-	 yoeGuvp0ooqgdqkO4kxcrArRhNi5NV8Z2qN3NA2neoOWex5T3/Q1o/TFVEgO6a6AAW
-	 zFt79XbqOLKpSRs/4LlH7k+QqxVhD7oPvxYyd2cAt+q0ONoKD62sxcbzUISnwSmQ/7
-	 t+k2y2qdZ1cB0qJy3WZBPczHb3n+cwF8NvTC2vWIID0c1U0vADE1dhV2Zyl1oqheFk
-	 kdDxMs5R4+UJGEbk6JEkb3z4d6RQr5seHMqBtwlEFJDV247OTQfESuqd3/yM4cUWit
-	 JWpF4km0oF5ig==
-Date: Wed, 2 Sep 2026 15:58:35 -0700
-From: Wei Liu <wei.liu@kernel.org>
-To: Thara Gopinath <tgopinath@linux.microsoft.com>
-Cc: Wei Liu <wei.liu@kernel.org>, kys@microsoft.com, haiyangz@microsoft.com,
-	decui@microsoft.com, tglx@kernel.org, mingo@redhat.com,
-	bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com,
-	ardb@kernel.org, ilias.apalodimas@linaro.org,
-	James.Bottomley@hansenpartnership.com, javierm@redhat.com,
-	lszubowi@redhat.com, francescopompo2@gmail.com,
-	tgopinath@microsoft.com, x86@kernel.org,
-	linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-efi@vger.kernel.org,
-	Stanislav Kinsburskii <skinsburskii@linux.microsoft.com>
-Subject: Re: [RFC PATCH 07/12] drivers: hv: hv_vsm_boot: load secure kernel
- image from firmware
-Message-ID: <20260902225835.GA2896046@liuwe-devbox-debian-v2.local>
-References: <20260901165647.3160413-1-tgopinath@linux.microsoft.com>
- <20260901165647.3160413-8-tgopinath@linux.microsoft.com>
- <20260902043732.GF2583463@liuwe-devbox-debian-v2.local>
- <4d876bd8-3885-4d65-a272-d846ae0d7d3d@linux.microsoft.com>
+	s=arc-20240116; t=1788389976; c=relaxed/simple;
+	bh=zq4LwRn8mJ8lUvn3GMAuVXxvTafQZH2ut49yUSLd9qE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=L+/93BbcXyduJUmSsE5temKE1Hin70N9IPGLxxzQYF9mUUpj1GZM+neJ69BMzBWxAjMWErB2+h0ShYqXCVPg7KCVyOBvt6aoMgVW/7v/UqfxXHkBH2iMHGPRqlqVww3v48uwj2506mBRXooO4xL6Cv5k2c9n2CyoJxwHtu/R/1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de; spf=pass smtp.mailfrom=molgen.mpg.de; arc=none smtp.client-ip=141.14.17.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=molgen.mpg.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=molgen.mpg.de
+Received: from abreu (ip5f5af1f9.dynamic.kabel-deutschland.de [95.90.241.249])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: pmenzel)
+	by mx.molgen.mpg.de (Postfix) with ESMTPSA id D61F04C2C37D69;
+	Thu, 03 Sep 2026 00:58:43 +0200 (CEST)
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>
+Cc: Paul Menzel <pmenzel@molgen.mpg.de>,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] bpf: say why a module BTF mismatch keeps the module from loading
+Date: Thu,  3 Sep 2026 00:58:26 +0200
+Message-ID: <20260902225829.131674-1-pmenzel@molgen.mpg.de>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4d876bd8-3885-4d65-a272-d846ae0d7d3d@linux.microsoft.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 02, 2026 at 12:22:37PM -0400, Thara Gopinath wrote:
-> 
-> 
-> On 9/2/2026 12:37 AM, Wei Liu wrote:
-> > On Tue, Sep 01, 2026 at 09:55:21AM -0700, Thara Gopinath wrote:
-> >> LVBS bring-up requires loading a secure kernel image into VTL1 before
-> >> starting it. Add the VTL0-side loader that stages the image in the
-> >> memory region reserved by hv_vsm_securekernel, in preparation for the
-> >> VTL1 bring-up.
-> >>
-> >> The image is a 64-bit ELF fetched via request_firmware("vsm_sk"). It
-> >> is expected to ship inside the signed UKI/initramfs so it is
-> >> authenticated end-to-end via Secure Boot before the loader consumes
-> >> it; sourcing it from an unauthenticated location would break the LVBS
-> >> trust model.
-> >>
-> >> The loader validates the ELF header, stages the PT_LOAD segments into
-> >> the reserved region and records the entry point as a physical address
-> >> for use at VTL1 start time.
-> >>
-> >> If VSM support has been advertised to the hypervisor but no secure
-> >> kernel region was reserved on the command line, panic: LVBS bring-up
-> >> is committed at this point and there is no safe way to continue.
-> > 
-> > This conflicts with the memory reservation patch, in which there is an
-> > automatic allocation when no kernel command line is specified.
-> 
-> Ah no.. So securekernel= has to be specified in the command line for
-> __setup() to be invoked . It can be left blank without parameters like
-> securekernel= or with parameters like securekernel=256M@0x80000000. The
-> reservation logic will take care of reserving the correct memory if there
-> are no parameters but if there is no command line specified __setup will
-> not be  called. The other way of solving this and invoking the reservations
-> unconditionally will be to call it from setup_arch like how reserve_crashkernel
-> is invoked. I am not sure if we want to do that now ?? What do you think ?
-> 
+With CONFIG_MODULE_ALLOW_BTF_MISMATCH=n – the default, and what Debian
+ships – btf_module_notify() turns a split BTF mismatch into a fatal
+-EINVAL at MODULE_STATE_COMING, so the module does not load at all.
+All the user is told is:
 
-I see. No need to do that now. Let's see if others have opinions.
+    typec_displayport: module verification failed: signature and/or required key missing - tainting kernel
+    BPF: [124962] TYPEDEF
+    BPF: type_id=124988
+    BPF:
+    BPF: Invalid name
+    BPF:
+    failed to validate module [typec_displayport] BTF: -22
+    BPF: [124944] ENUM (anon)
+    BPF: size=4 vlen=32
+    BPF:
+    BPF: Invalid name
+    BPF:
+    failed to validate module [usb_storage] BTF: -22
+    BPF: [125157] TYPEDEF
+    BPF: type_id=125185
+    BPF:
+    BPF: Invalid name
+    BPF:
+    failed to validate module [usbhid] BTF: -22
 
-Wei
+That message names neither the consequence nor the cause. The report this
+comes from is a Dell XPS 13 9370 on Debian experimental where an apt run
+replaced /lib/modules/7.2-amd64/ underneath the running 7.2~rc7 kernel;
+experimental carries no ABI number, so the new build overwrites the tree
+of the running one. usbhid then refused to load and the keyboard and
+mouse behind a USB-C hub stayed dead, which reads as a USB regression
+rather than as stale modules. mii failing takes r8152 with it, and
+usb_storage takes USB mass storage, widening the confusion.
 
-> But I will reword this and state that the panic happens if there is no
-> securekernel memory allocated (either because securekernel= was not
-> specified or because memory reservation itself failed)
-> 
-> > 
-> >>
-> >> Signed-off-by: Stanislav Kinsburskii <skinsburskii@linux.microsoft.com>
-> >> Signed-off-by: Thara Gopinath <tgopinath@linux.microsoft.com>
-> >> ---
-> >>  drivers/hv/hv_vsm.h      |  17 ++++
-> >>  drivers/hv/hv_vsm_boot.c | 201 ++++++++++++++++++++++++++++++++++++++-
-> >>  include/hyperv/vsm.h     |  21 ++++
-> >>  3 files changed, 238 insertions(+), 1 deletion(-)
-> >>  create mode 100644 drivers/hv/hv_vsm.h
-> >>  create mode 100644 include/hyperv/vsm.h
-> > [...]
-> >> +
-> >> +static void __init hv_vsm_get_sk_mem(void)
-> >> +{
-> >> +	/*
-> >> +	 * The reserved secure kernel region is mandatory once VSM support has
-> >> +	 * been advertised. Without it we cannot load the secure kernel and
-> >> +	 * bringing up VTL1 is impossible, so fail hard rather than continuing
-> >> +	 * in an unusable state.
-> >> +	 */
-> >> +	if (!sk_res.start)
-> >> +		panic("No memory reserved in cmdline for secure kernel");
-> >> +
-> > 
-> > This log line is wrong.
-> 
-> I will fix this 
-> 
-> Warm Regards
-> Thara
-> > 
-> > Wei
-> 
+Note, the debug info is all that is stale here: nothing about the module
+code is wrong, and dropping the BTF would have let the machine carry on.
+Say so, and point at the escape hatch.
+
+State the consequence on the per-module line, and add a once-only
+explanation naming the likely cause and CONFIG_MODULE_ALLOW_BTF_MISMATCH.
+Restrict the explanation to -EINVAL so that an -ENOMEM from
+btf_parse_module() is not blamed on stale modules. Keep it a
+pr_warn_once() because a single hotplug event produced 28 of these lines.
+
+Assisted-by: claude-opus-5 (Claude Code)
+Signed-off-by: Paul Menzel <pmenzel@molgen.mpg.de>
+---
+ kernel/bpf/btf.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
+index da36d4b9d31ab..720c56e8ae498 100644
+--- a/kernel/bpf/btf.c
++++ b/kernel/bpf/btf.c
+@@ -8525,9 +8525,11 @@ static int btf_module_notify(struct notifier_block *nb, unsigned long op,
+ 		if (IS_ERR(btf)) {
+ 			kfree(btf_mod);
+ 			if (!IS_ENABLED(CONFIG_MODULE_ALLOW_BTF_MISMATCH)) {
+-				pr_warn("failed to validate module [%s] BTF: %ld\n",
+-					mod->name, PTR_ERR(btf));
+ 				err = PTR_ERR(btf);
++				pr_warn("failed to validate module [%s] BTF: %d; refusing to load it\n",
++					mod->name, err);
++				if (err == -EINVAL)
++					pr_warn_once("module BTF does not match this kernel build; the modules on disk are most likely from a different build than the running kernel (kernel package upgraded without rebooting?). Build with CONFIG_MODULE_ALLOW_BTF_MISMATCH=y to load such modules without their BTF.\n");
+ 			} else {
+ 				pr_warn_once("Kernel module BTF mismatch detected, BTF debug info may be unavailable for some modules\n");
+ 			}
+-- 
+2.54.0
+
