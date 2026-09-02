@@ -1,64 +1,144 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9147B390239;
-	Wed,  2 Sep 2026 14:10:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA3C1FCFFC
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:10:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788358209; cv=none; b=L4imQ5OskI/8SFTGVGE8Om2SBBGJ/VjNs5HKMkHPSvDBNmhmlm5qhWCGoG3RXrJSLe5jaaOp+wSHeIvS6zNyOxYzOfFGGe7p1dCXDPn/GPcg/hh3EOI5dYiZQxypNAIR9Mtwy9EY+Xhv2na5dRHJwJq1wDA/S2SQcgiGABRBeh4=
+	t=1788358210; cv=none; b=fvAfgtxgZ4suN0VOvjDQNbMTcumqp7Uk7WCrwBYJ88X1JuwU2B+uMeFrK9M/yZWdEtCIYYOwzDnO7g0tie7tgRXqI4KRvbUpGwcsCN66In1hBElEYZivTvmzk+JaLdqQIM2VWTnOHAAXXI41pO7n1p5IiaSctPPYRiBOnMnlNoU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788358209; c=relaxed/simple;
-	bh=YwGokD0r74aDWLGOYZ2BYv68juXgI7r0hr4IEVBmjsc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mhGNiFVG45PS3FK7Y7blfc+sGVj4VuLFiv611EKnYiXcPFHeWuWwVsOra2DjUakWN2+d1O495XdbekzWhoCiWGA35nPVORLK70wNTiBHS3+8XQraV24jzIP7jrlHajwXPEK+RBvuI9d9/pp98CzvZxEzHOaoKdUvT948/xgoXK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LAhB4egW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788358210; c=relaxed/simple;
+	bh=1Wk9qyONT2hvuTO4hblwOkOZfWftxzXibcKXHRJCCQ8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Wrt4dUQ48MEJomG3rLnDYkZlKPYFdrxQA4U/bpaI0QVowJ437R0Zo6eG/JISdqTL5+SaPd2pUTZawabDfJL40alWhH1YroHeuzcw2w07AM4GNfokYGwYB9cNIIIHCrFg9RdFdj2DCxxqgxMb9d1bPcXGpxn7ywiJA6hU0/LWZho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AbNyyGXp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LAhB4egW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42B551F000E9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AbNyyGXp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CF741F00A3A;
 	Wed,  2 Sep 2026 14:10:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788358208;
-	bh=oihjsCCaHvHV7Ff/eBY5FAk8c0jiEhpNBZtjuRbpKTc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LAhB4egWDVKTZbo/WjNpEn1Ptf02oJWczukKKktsE1y2dTGpRlXs4Np28vHY1QNHI
-	 K+S1q2j2GIlwhDnAUWDXKjFmrUYPPAh6o0YFjC+AzGuJfuOu4GS8oQibhtbpI6jLt6
-	 ZIdMAkFVc8n8B9DeyY1F7iWv51s1kYW1bK8XERhVA3xLT8mKHeCz5pUP4qd8dPHN4p
-	 YHIJG5tykKEbSVIdhLiEEHuEHgwROeUnDx31ozmjtbOdH4Mta57efgCv36ezivH5KX
-	 p9pPj8kNZvyVDSwFrUkvSEAesHaRzBKqM6s8NoICC3VJaFxXypTOwM+6aAB6DIROZw
-	 fYWRdlCPXI9Og==
-From: SJ Park <sj@kernel.org>
-To: Liew Rui Yan <aethernet65535@gmail.com>
-Cc: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2.1] mm/damon/core: fix false positive in damos_quota_is_full() when esz is zero
-Date: Wed,  2 Sep 2026 07:10:00 -0700
-Message-ID: <20260902141001.86733-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260902084445.27170-1-aethernet65535@gmail.com>
-References: 
+	s=k20260515; t=1788358209;
+	bh=IHxs6/U1x5uyJuxikO9wDzp20/n5ZVu9EDJq4swYRnU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AbNyyGXpcABIOs2uywp5o1EtFTHBPsBRoHMEpULWuEPQQckJDbzgiQZUgS3CvSS4E
+	 N7UNObgsmPmWx7LCFyv5Uu4zuVclly0xFeOgqLJ3WSjdiZSYa9D26hpjvY/3P2rpLP
+	 sgxDg2C30MlQ/4G5qSca3IAKUPXtV8HLcRJ46J5E2Ov2uu5xZ/4rffhcnfxeZ/QCJD
+	 ZOsPG45dNH1j9x/2bik58QPbK2iscdqwAGW0n4b9I+AEH6YMtJlZSHj8qhwOvPQHji
+	 44gNPE0tBODCDs6j1dTgP9O9QnGyIqkVDNvFq5JrPU/cS/vlESgV6gO4DW8B+aSBcH
+	 3I9ICikaHD04A==
+Date: Wed, 2 Sep 2026 16:10:06 +0200
+From: Frederic Weisbecker <frederic@kernel.org>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: Peter Zijlstra <peterz@infradead.org>,
+	Bradley Morgan <include@grrlz.net>, Tejun Heo <tj@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] kthread: remove worker->task self-assignment
+Message-ID: <apguPoeERI92N4yD@localhost.localdomain>
+References: <20260829161150.16301-1-include@grrlz.net>
+ <20260829161848.20635-1-include@grrlz.net>
+ <apbI91PzT2BaRazM@localhost.localdomain>
+ <20260901124900.GB687043@noisy.programming.kicks-ass.net>
+ <CE1F7435-D872-4A3F-BC7A-50443BBE2904@mainlining.org>
+ <apbb--idnSZMNLPU@localhost.localdomain>
+ <87CE893D-07E6-4EA4-8156-2CE6946D12BD@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <87CE893D-07E6-4EA4-8156-2CE6946D12BD@mainlining.org>
 
-On Wed,  2 Sep 2026 16:44:45 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+Le Tue, Sep 01, 2026 at 07:28:19PM +0100, Bradley Morgan a écrit :
+> On 1 September 2026 15:06:51 BST, Frederic Weisbecker <frederic@kernel.org>
+> wrote:
+> >Le Tue, Sep 01, 2026 at 02:57:38PM +0100, Bradley Morgan a écrit :
+> >> On 1 September 2026 13:49:00 BST, Peter Zijlstra <peterz@infradead.org>
+> >> wrote:
+> >> >On Tue, Sep 01, 2026 at 02:45:43PM +0200, Frederic Weisbecker wrote:
+> >> >> Hi,
+> >> >> 
+> >> >> Le Sat, Aug 29, 2026 at 04:18:48PM +0000, Bradley Morgan a écrit :
+> >> >> > From: Bradley Morgan <brads@mainlining.org>
+> >> >> > 
+> >> >> > All kthread worker users now create their workers with
+> >> >> > kthread_create_worker*(), which sets worker->task before the worker
+> >> >> > starts. The self-assignment in kthread_worker_fn() is dead code
+> >now.
+> >> >> 
+> >> >> How could it be created before?
+> >> >> 
+> >> >> > 
+> >> >> > Remove it.
+> >> >> > 
+> >> >> > Signed-off-by: Bradley Morgan <brads@mainlining.org>
+> >> >> > ---
+> >> >> >  kernel/kthread.c | 7 -------
+> >> >> >  1 file changed, 7 deletions(-)
+> >> >> > 
+> >> >> > diff --git a/kernel/kthread.c b/kernel/kthread.c
+> >> >> > index 63beb59b7a3d..18bc702e8d2d 100644
+> >> >> > --- a/kernel/kthread.c
+> >> >> > +++ b/kernel/kthread.c
+> >> >> > @@ -987,13 +987,6 @@ int kthread_worker_fn(void *worker_ptr)
+> >> >> >  	struct kthread_worker *worker = worker_ptr;
+> >> >> >  	struct kthread_work *work;
+> >> >> >  
+> >> >> > -	/*
+> >> >> > -	 * FIXME: Update the check and remove the assignment when all kthread
+> >> >> > -	 * worker users are created using kthread_create_worker*() functions.
+> >> >> > -	 */
+> >> >> > -	WARN_ON(worker->task && worker->task != current);
+> >> >> 
+> >> >> Should we keep a WARN_ON(worker->task != current) here?
+> >> >
+> >> >I vote yes! Paranoia is good :-)
+> >> >
+> >> 
+> >> 
+> >> Yeah, but it *should* be useless.
+> >
+> >Famous last words :-)
+> >
+> >> Do you really want me to readd the warn
+> >> statement? Maybe add some text, like
+> >> 
+> >> "worker->task is deprecated"?
+> >
+> >Is it deprecated? We still need that field for wakeup on queue at least.
+> >Don't bother with a message, it's only a sanity check.
+> >
+> >Thanks.
+> 
+> Hi, I hopped on the computer, 
+> 
+> Right, so the whole warn on things is good, but I converted all the
+> callers, so it'll never fire.
+> 
+> For OOT users, maybe this'll be beneficial (but yk what their like, theyll
+> remove the warn on)
+> 
+> Guys, what do you think?
 
-> When setting goal_tuner to 'temporal', if the goal is achieved,
-> quota->esz_bp will be set to zero.  In this case, damos_quota_is_full()
-> will always return true, even if no regions have been tried to apply at
-> all.  This causes qt_exceeds to increase unexpectedly.
+The warning is mostly to prevent from future changes to break.
 
-To me, this looks logically correct.  Could this cause any user issue?
+Thanks.
 
+> 
+> >
+> >> 
+> >> --- Thanks!
+> >>
+> >https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+> >
+> >
+> 
+> --- Thanks!
+> https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
 
-Thanks,
-SJ
-
-[...]
+-- 
+Frederic Weisbecker
+SUSE Labs
