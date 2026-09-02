@@ -1,95 +1,225 @@
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7472A218EBA
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 08:16:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9881C330B09;
+	Wed,  2 Sep 2026 08:17:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788337001; cv=none; b=L2Y00d7Kpbel0CbSdUe7ESP2OfRwXXQer/1V5EOcJc7XZiEtYc2YeWdaGfrQdMp6t0Av1ecOqRRUNbZQSKw1X7S2sCAyFZqFtv9hUK/R1aGao3y5dtCn3WMf5G467NbnXBkxYtCH/lwJG9Kbzwb+QM9fDOYO+UYIheu8+HM5lio=
+	t=1788337037; cv=none; b=rIlmullz79msjmsyOPxfBIkCXqA0u+Oaxt30GcxYJQPQdtlDPrZtIRLDpsrFG513G0S4guYOSjlY4aKpzkqbXG0OIAIzD0Q4TXVidQ7hAt79IKyJO7ti9RCtrcHX4BHiVybv1oK4jL4SssIOadk/JfK06qarzgRoyTee33EE6wI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788337001; c=relaxed/simple;
-	bh=9ugly3DA88PHzTcF6g5Lltp+fotX04uzRCQV3bTwQjE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nSJP03AbDpRum/gf4WLb6QKDqYZ9KhTpfvtSPqvcw+y9TLmsDXo1jzcMIDExcKIKSFZ0hxJHJ2WmRjjkraCc6PXj2usDAd5Tg/lz5I+yjmPPKcoi4VsJjtiRjuPWAe02DMiNuB4goM17HDPklyb7sFdu2jM94RW3VxOtT/YTgFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rAMMZ4aT; arc=none smtp.client-ip=209.85.216.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788337037; c=relaxed/simple;
+	bh=Ovo5Mcq/jYwM8ezUqUEBJTNujsmMpJ978tHQdMnoGg8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MskHkhAOB/T633gfp++EaAj3vR3Iz+QcXaFPlQ7s2LAbEh8Ql6qHWnN69FnmfNLhanP+a272OjVmrEFdkzngXnNLzGqzZHyExTtC7/N2OqWQPaWRh/Nth5OCNeV9oNzeHR1dQgGHXuA1Snacj7jvhQPS/zgWkt/ZKve3B4j8Pm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M+gx8d/w; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rAMMZ4aT"
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38511175ad3so817841a91.2
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 01:16:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788337000; x=1788941800; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9ugly3DA88PHzTcF6g5Lltp+fotX04uzRCQV3bTwQjE=;
-        b=rAMMZ4aTRwUmhFaecrfC9IW+4NnKs45D3g+f+GyYtnAxjdAvLPbfgKaSg2W5rmhsfr
-         Uhj/GK+xlIIcZeoMeteMFGogaVwcUhpKtHPcz365fs/Nle4FiBFHZBMOYqU0Bdt1cuDQ
-         KSaDdi2Q2supYSvyqH5GZyyl25lls+LWAV725PQw6u3N2CVC9Ur3UCWz9Z5F9Usd+ZJZ
-         LjD5gIGtSPk8A5oZcgHkmzUhbB1KJGf4cBMns1UU25M0mSFU79FywLb3oduZ9o+JS90l
-         PDlZNuH8t0gfsN8mnQJ0Q5bZpEVhihdfyj5EYynjBkr4XAEXBBGESrxJDuANLQix0NMp
-         6b1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788337000; x=1788941800;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9ugly3DA88PHzTcF6g5Lltp+fotX04uzRCQV3bTwQjE=;
-        b=P9iJryOVkz2SI5K4L1pCPMEBJTkk3sIU37xFMRWk7X6Z/Af/VW/XumBXOfUTz+pUyA
-         9NfjCra4VlfTqraiFF/Y80C+a16MTfERLCK1qRxgWYfH0ixxdLE74oQLwT0Cmpz70oq/
-         FhZXCGh/uNdG8hTGyq83JblbhhzwqwrjH11m9I50XgPFQdUHWhMoswLAXrnguvqjUjcB
-         cc4LBwnxtH4UPUb0qa1Qxo/JNoFA5Lu078IzEYMcNqg0UBJwvO7iqWba8AsQCsU8OysR
-         4OmjhsCMBz9vhdI7jDVSY/1Sxt0nkhpBDOf/SHsYdA6qpOXZBVAs00nx+JlCLXCZZ15C
-         /t0A==
-X-Forwarded-Encrypted: i=1; AKwUvBxsDO5KK7fpBr2j8er+7xjGJ5gIBjRtmvOvKiKAV83dNQsr4RcUkPbsFEC8nE5xBcc6xSDRJvhuhcYbswk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nOY8tmF6YrcQ9F1JKNILFdwUiZssEoIlxh7GF/o95FVqUZyfaP
-	2lt3/cipi0dqf2nYx90sA9pE+eDqJzWycnjIVavjp3zP5fJyZkpV9HD4
-X-Gm-Gg: AYBFou2gwvrS7+ZdKm9NT5UVdryFvhR3ae36eZLX3+ewTrrXC0sqmZ9wCbwVlAtV2cl
-	N3u9usg1CkFW3sDhYF3QVQOP8yJ0XLdeAEP5A1WjRgJsgfNeKfZyT9CFgccx/3MYvcgb1+bfjwn
-	kK0HTBD1ojVNlkgWdR695JBXMFANK4oTr7OXKTEE08HLN9sqKwLbVk6MNdEx7zA3Hf3rKwrP/dJ
-	GIQQu6Q6/uCt+1nPmZ7WfHSJb6doxHjKbflN73LqvJutXMkIoFfa/+Dnp1bWJXnTCLil294DrLY
-	FDWHSdtPUR3f6IoJnEJYnwuDUoVJ1jy8LAIcstZvBUrq14KiJ5ylhta2fjwLgmEEcdshYwR51A4
-	5az1UjKvGVE9EHdweyJU7ariTVSJcuMGTq2uYNzIMlPdClHuP7cC0JaLT/RUEILel0SKntMAcWA
-	yM03K3gfA9/eHm4XTtZ6jyILIlHusrlvOLC5ePaRqlynJm8eZUZwqPKyOZBumh3hmAyb/zdi+Vr
-	ZvUfCEZlgQcjDG0YrEIhjxpCw==
-X-Received: by 2002:a17:90b:5281:b0:396:635a:9b10 with SMTP id 98e67ed59e1d1-39aee030d9bmr4725312a91.11.1788336999723;
-        Wed, 02 Sep 2026 01:16:39 -0700 (PDT)
-Received: from qiwenjie-ThinkCentre-M760t.mioffice.cn ([43.224.245.241])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d463798sm10105680a91.6.2026.09.02.01.16.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 01:16:39 -0700 (PDT)
-From: Wenjie Qi <qwjhust@gmail.com>
-X-Google-Original-From: Wenjie Qi <qiwenjie@xiaomi.com>
-To: chao@kernel.org
-Cc: daeho43@gmail.com,
-	jaegeuk@kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	qiwenjie@xiaomi.com,
-	qwjhust@gmail.com
-Subject: Re: [f2fs-dev] [PATCH v2] f2fs: wait for inode record work before clearing ino bitmaps
-Date: Wed,  2 Sep 2026 16:16:33 +0800
-Message-ID: <20260902081633.520538-1-qiwenjie@xiaomi.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <afbed6d5-0c11-4041-ab8a-68f0264dceda@kernel.org>
-References: <20260901140849.3405971-1-qiwenjie@xiaomi.com> <afbed6d5-0c11-4041-ab8a-68f0264dceda@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M+gx8d/w"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF79E1F000E9;
+	Wed,  2 Sep 2026 08:17:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788337036;
+	bh=pVE2qTsB0mK6s2rRiXMfL8ZarYqiiXhFuJg8Bj9f++c=;
+	h=From:Date:Subject:To:Cc;
+	b=M+gx8d/w06R2s4CJEPm2iclJUby+/xjc+h7L6rm79z17Za2E6fgQuAPOfjwadeTYV
+	 jeDiyVFEB0+enpjCaG6YC3M21ckM4Deco+8SNcjXGkSnown/Ovm6r0xrPhrQOBnweR
+	 MhOMeuZ3vxImdPMFg77smOZYVd5shz4RRFZCp+Rgg2Fwq//VP61dWdaImhhK7B1ayV
+	 oXlZv4GykMhqQaHfs2P0QSqNjv+5sj1+0O8qenXY4wWeQ53EVqtvl0isXEjSReHBHa
+	 Xh2gcqoBufHR6FUc18wuojm5Q8mIw3I+MmOASaCsJorq5t6mcRkR2ugadDtwC8+n6U
+	 aiPhbTJdKul4w==
+From: Maxime Ripard <mripard@kernel.org>
+Date: Wed, 02 Sep 2026 10:17:09 +0200
+Subject: [PATCH] drm/ci: Add CI pipeline for drm-misc branches
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-drm-drm-misc-ci-v1-1-49d05e228eab@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSwMj3ZSiXDDOzSxO1k3O1E1NNks2szQ1MANKKwF1FRSlpmVWgE2Mjq2
+ tBQAg1iAAYQAAAA==
+X-Change-ID: 20260902-drm-drm-misc-ci-ec6c69506609
+To: Helen Koike <helen.fornazier@gmail.com>, 
+ Vignesh Raman <vignesh.raman@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Nathan Chancellor <nathan@kernel.org>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ llvm@lists.linux.dev, Maxime Ripard <mripard@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5559; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=Ovo5Mcq/jYwM8ezUqUEBJTNujsmMpJ978tHQdMnoGg8=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFnTb3f8NH+t5vz4Bb9yItuO7+aSV6dmVHBv0F3YM+d0X
+ 62GZWdTx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjIRxPGhq+renbp3zz9b1Nt
+ Ut1JCffXf79/mv1DIGO5nMpuO4s9e8ydxJjCXOsO8Ys/n6x8b9mUnYwNuz4z7WPSMF5g4SHTVe2
+ 8r/f7EdVTaie2Ty3mDbsZ/2b+nG+mQve+HQopDt7G217iENgKAA==
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 
-Hi Chao,
+The DRM CI infrastructure [1] builds upon Mesa's CI to run IGT tests
+on hardware. Its focus is on functional testing on a selected number
+of targets.
 
-It does not miss UPDATE_INO. The mode argument only selects whether to
-wait: both APPEND_INO and UPDATE_INO call
-flush_workqueue(sbi->evict_wq), and both updates are queued on the same
-eviction workqueue. Therefore, one call with APPEND_INO also drains
-pending UPDATE_INO work. A second call with UPDATE_INO would flush the
-same queue again.
+The concern for drm-misc is different: it merges a large number of
+patches across many platforms, and build or unit test breakages happen
+on a regular basis. Adding build and unit testing for drm-misc has
+been on the back of our minds, and a first attempt was made last year.
+The feedback was to rely more on the existing infrastructure.
 
-Thanks,
-Wenjie
+Introduce a CI entry point for merge requests targeting drm-misc-next,
+drm-misc-fixes, and drm-misc-next-fixes. It reuses kunit.yml and the
+freedesktop ci-templates, while defining build templates inline to
+avoid pulling in the Mesa pipeline.
+
+A single Debian container with LLVM handles cross-compilation to all
+three architectures. The pipeline compiles the kernel using defconfigs
+from the drm/tip rerere-cache branch and runs the DRM KUnit tests.
+
+Link: https://lore.kernel.org/all/20250319-greedy-sturgeon-from-avalon-ac758f@houat/
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+ drivers/gpu/drm/ci/drm-misc-ci.yml | 123 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 123 insertions(+)
+
+diff --git a/drivers/gpu/drm/ci/drm-misc-ci.yml b/drivers/gpu/drm/ci/drm-misc-ci.yml
+new file mode 100644
+index 000000000000..40c6d7ba1afb
+--- /dev/null
++++ b/drivers/gpu/drm/ci/drm-misc-ci.yml
+@@ -0,0 +1,123 @@
++# CI pipeline for drm-misc-next, drm-misc-fixes, and drm-misc-next-fixes.
++#
++# Runs on merge requests only. Compiles the kernel for arm, arm64, and
++# x86_64, and executes the DRM KUnit tests on each architecture.
++#
++# A single container image is built using freedesktop ci-templates with
++# the packages needed for kernel compilation and LLVM for
++# cross-compilation. QEMU is installed at runtime by the KUnit jobs.
++#
++# build.yml and the Mesa container/build pipelines are not included
++# here: they pull in hundreds of Mesa-specific jobs and templates that
++# would each need to be individually stubbed or disabled. The few
++# templates we need (.build:arm32, .build:arm64, .build:x86_64) are
++# simple enough to define inline.
++
++variables:
++  CI_TEMPLATES_COMMIT: &ci-templates-commit aec7a6ce7bb38902c70641526f6611e27141784a
++  # Project whose container registry stores the built images
++  FDO_UPSTREAM_REPO: mripard/kernel
++  KERNEL_BUILD_CONTAINER_TAG: "2026-09-02-01"
++  LLVM_VERSION: "19"
++
++default:
++  before_script: []
++
++include:
++  - project: 'freedesktop/ci-templates'
++    ref: *ci-templates-commit
++    file:
++      - '/templates/debian.yml'
++  - local: drivers/gpu/drm/ci/kunit.yml
++
++stages:
++  - container
++  - build
++  - kunit
++
++# --- Pipeline rules ---
++workflow:
++  rules:
++    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /^drm-misc-(next|fixes|next-fixes)$/
++      when: always
++
++# kunit.yml's jobs inherit .build-rules through the .build:* chain.
++# Pass everything through since the pipeline is already gated by
++# workflow:rules.
++.build-rules:
++  rules:
++    - when: on_success
++
++# --- Container build job ---
++# Single container with all build tools. LLVM handles cross-compilation
++# to arm and arm64, so no architecture-specific containers are needed.
++debian/kernel-build:
++  extends: .fdo.container-build@debian
++  stage: container
++  variables:
++    FDO_DISTRIBUTION_VERSION: trixie
++    FDO_DISTRIBUTION_TAG: "${KERNEL_BUILD_CONTAINER_TAG}"
++    FDO_DISTRIBUTION_PACKAGES: >-
++      bc bison ca-certificates cpio curl
++      clang-${LLVM_VERSION} flex gzip
++      lld-${LLVM_VERSION} llvm-${LLVM_VERSION}
++      libelf-dev libssl-dev
++      make perl pkg-config python3
++      xz-utils
++
++# --- Build templates ---
++.build-base:
++  image: "${CI_REGISTRY}/${FDO_UPSTREAM_REPO}/debian/trixie:${KERNEL_BUILD_CONTAINER_TAG}"
++  needs: ["debian/kernel-build"]
++
++.build:arm32:
++  extends: .build-base
++  variables:
++    KERNEL_ARCH: "arm"
++    DEFCONFIG_ARCH: "arm"
++
++.build:arm64:
++  extends: .build-base
++  variables:
++    KERNEL_ARCH: "arm64"
++    DEFCONFIG_ARCH: "arm64"
++
++.build:x86_64:
++  extends: .build-base
++  variables:
++    KERNEL_ARCH: "x86_64"
++    DEFCONFIG_ARCH: "x86"
++
++# --- Kernel-wide build jobs (LLVM) ---
++.kernel-build:
++  stage: build
++  timeout: 45m
++  variables:
++    GIT_DEPTH: 1
++    DEFCONFIG_URL: https://gitlab.freedesktop.org/drm/tip/-/raw/rerere-cache/drm-misc-${DEFCONFIG_ARCH}_defconfig
++  artifacts: {}
++  before_script:
++    - drivers/gpu/drm/ci/setup-llvm-links.sh
++    - curl -L --retry 4 -f --retry-all-errors --retry-delay 60 -o .config "${DEFCONFIG_URL}"
++
++kernel-build:arm32:
++  extends: [.build:arm32, .kernel-build]
++  script:
++    - make ARCH=arm LLVM=1 olddefconfig
++    - make ARCH=arm LLVM=1 -j$(nproc)
++
++kernel-build:arm64:
++  extends: [.build:arm64, .kernel-build]
++  script:
++    - make ARCH=arm64 LLVM=1 olddefconfig
++    - make ARCH=arm64 LLVM=1 -j$(nproc)
++
++kernel-build:x86_64:
++  extends: [.build:x86_64, .kernel-build]
++  script:
++    - make ARCH=x86 LLVM=1 olddefconfig
++    - make ARCH=x86 LLVM=1 -j$(nproc)
++
++# --- KUnit jobs ---
++# kunit:arm32, kunit:arm64, and kunit:x86_64 are defined in kunit.yml
++# and implicitly enabled here through the .build:* templates above.
+
+---
+base-commit: 0116f19db5931348c937eafa1f76a9a19bf82c81
+change-id: 20260902-drm-drm-misc-ci-ec6c69506609
+
+Best regards,
+-- 
+Maxime Ripard <mripard@kernel.org>
+
