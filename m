@@ -1,201 +1,2588 @@
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8D443EA979
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 22:06:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788386790; cv=pass; b=Fw0Z4f/GHbdYPQLWr0jmKHnsO00FMntTc6oDnx4OCuSzufT0r8xMANbnaGif8RR234M7IpKfafsXCA+I94zgsJs5pljQN2UlLx2//lT4BiFQzO0EfJs3Dz3nQam9GI8zT7bvg2Sld4R8kzz4m9L5jBmrjN+J3+7dRhvfo8k8k4Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788386790; c=relaxed/simple;
-	bh=+NgXSrxVyEIpCGdMguA9GDbqbBHK/Rdp7VKcczzfwCE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WPYag/Kat63bmEzesI2pODUQJuZ0BKwA3CjOxQI1TvcVnQYa+n6+prZrQfYiVHhx1kkUF7arpUHvkSfqY4Ek57PD3yys/1TnJ+xJcP+38kqEuiLK25Dc5tDtPvm1DFacBZpsR8t9PRVZ7we7wmHdBMk82e8d3v9TYH6ZSuLjAoc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eU+NjXwz; arc=pass smtp.client-ip=209.85.216.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61A8A426438;
+	Wed,  2 Sep 2026 22:06:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788386828; cv=none; b=EoqN4bIjWVf9bVZjPsDs+3TdJiSPG96cp7ZTWLFdYI7CbwOuupXfAQcPRjaVSJDguesugL1WLNa9TwPcOxo0GwiG7dLHBXjDaL3MSHhYKK8uYMuqng2wyqS4MiGr5jzu+okXhu7a62vWgHbZL7b/SwuAeiGmrg6zzy5DDuYtcuM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788386828; c=relaxed/simple;
+	bh=NPHQC2Nz16oNnzIj22V3Jper5dwKgTk0S9qGcsUr3x8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=j+Lx48Cqg1+1OruTyMf7nff40QhWDE7ZxDcQqKKcMMBTnN0Z3GWiWMb+p3AhdLi/YSFyTUwxEFqASiWzQOSOGBn29afyul17YR+CKsaZdTe+ocHI+aRBC4TLar2E53lI1Gq9nEzfATlehCZ/k1jYkwVrgtP0cJyBFs15Q3OrMDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=L2qkzdD5; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eU+NjXwz"
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-398d2b28acfso1315791a91.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 15:06:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788386782; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Sb/IBRwLOhjVNpxfpxh8ZjkWcE2x/PAmgrI937k1vEHVAZQT1td+1xRUKAdNpgQ8j9
-         EXywhP0FfSJAbOUJkofJ4OzqRc1oqcnHNfPxOy/7TnbacgsVa06V2BQz+VKPktmtSct4
-         yofGUu4Gst7RX1eZHNMY4qlrwEvtdIsI2mUlrhrc4MnfzGKBi8ckQiYcGgdlSPJYzyvS
-         /u2NsVW1n4ZQsxq0FcpIIhOSyjC1fX2bBKQiYZKvpDvE6yShJU0qxsV7Olt1I1yApb8N
-         XQQScsUzUHPf5/0sR9LEtoqrgeU6VMQ97CAb51k6H2YiytlcvM7PcxZfiVjAylphAInY
-         98ww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+NgXSrxVyEIpCGdMguA9GDbqbBHK/Rdp7VKcczzfwCE=;
-        fh=CA+gsKVZWRDKb/MbpiJqfpAVxI34WKnd1ihHc62kvt4=;
-        b=gdy6P2+YqaHihaL5qOTL2c+gZKanI31zov8L3LQCBKQvfxb+rIjD0Et1SChfvFMHEY
-         nqcO5r1HcQ24d2DthDdCRzGHXg0LR3D+5k6tpL03EfY8nrJtqJP1E77pMZY1JGjnKPo8
-         EbnscEKDuPEJq6RUd2oeIYq0JANE6z1hYKAbh7RnOImD+/LF6GqyKuhzp8/9DbDzoypt
-         pSibANK5Sqxhm5pCYRhqeSjB5pasZFo9QnL/ja+RmxcHhkDsB25PFid6gkrKXj8OKFFv
-         o8H+VkvRYw9eG26jlglcba4yFwtYe01hEBxciMB8k01orW+b1KroxL5/M5X3UZCmQNF5
-         x0Cg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788386782; x=1788991582; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+NgXSrxVyEIpCGdMguA9GDbqbBHK/Rdp7VKcczzfwCE=;
-        b=eU+NjXwzHVzv2hPklRXUlhVndF83Nfy632PLd3tJpzTznYg6T0lmmccxnLfQYaIz2N
-         ooxVe7H/x8a9RKYPPOXmtKTa5NUFOcxfBRWwDC7bV/MJsoZKDqN1P/PU4jMwrJcnGKHn
-         ZreqALpwqdx/8lzagP2jYWr+dnCpknfZ9CnefuS+ASl4wzvWhoN8mCUu56cXgks9LnAN
-         gFnUYTvCGfWKIkr2mkCpN4Fd4ZSQOY84AvQvqofK+g1o2qRi7mz2JKEPeZSvreWPWLxU
-         OSE+Byynmc+u7PzE7qFrzJaxEJX1gQ6sx1InXj4rSd6VGXR/TSr3jkvnw+2HFrs7VecY
-         FkrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788386782; x=1788991582;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+NgXSrxVyEIpCGdMguA9GDbqbBHK/Rdp7VKcczzfwCE=;
-        b=K9mq28kc2RbAUuJZyPTGSd5afQf0nic7TxYErxcgHVvWLz/cOGkNEBoM5Jn7cdl/JY
-         7LKBM9Y/H4g+XJBaVp3fLwAVVZKOj0zz9n4jmPxY//IGqoeV3k6xUF3wjuUcLYepwuOF
-         gUdUMAUqEc+3PKQqvvfdpb62ExeeXjlBf9WCzdKM4wvxdMu7n+XEZYsTAg+mAuBzNetD
-         hRWO7WlPMvDVSdiSrveY9wDl80nnvPVES8QxnVbjCi2IQSp41mODym9L2Z/oXOIjJGW7
-         fPoEhL+5C/mwkpPXkbuA2DgpXfzbwCKcQ4Lvk1zyHMMRtrvLRawFWn/NbbU/Ip0DcG7C
-         F9MQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwXB1u7urEX5KtR6PYR93MtNvTTc424ggBTj5eV17giKxcvGs/EK5lSywN1BV7DxEjvP0Q+4FL9hvthkek=@vger.kernel.org
-X-Gm-Message-State: AFuF++mwOx42wrw0MFKda5EG5SB5UqtVpAYS71ZpAjNQM9ubu0vjSvGQ
-	lPQPetP9oCqG8nszCYOW7aK3A0tEvlt/XSkWzIyEbk0PjWGzN/03v/dr4RRG02BWE+kx+H3+y1Q
-	FmwvvozNsFvSv4iqy7hAywqXdnf4v7dg=
-X-Gm-Gg: AYBFou0bxA/Fkizf9yG/ZBcgUtXoXvVNsaFPNiwKguj/ELoGiNoRIeZj44sVguWqiPi
-	8QI3QuNZQMaFOpUuqM5JBpdaqgKjvKoMpsqSxvfM4y6e9lHePU8ouLyodhUZqSiJq9RmHICWrYZ
-	PsnhPbjOC3jd/D4R4no6jzmGdEJVlvdk14YGEFVs1LQ3+gNslaK3UBmbaniISbebosBE1gRz6mC
-	bBMFSJ6CnWq5MFUZFe/dVqvjnDAZx8gbqy6vvtsJy6BHs5WPQ0L+H8NR7KK6RHoQYWB3rKlm413
-	UpqtNpwdHgvTbeAJAMNVSVxtO1k+KF7n7C1GwevbhiRREae92QH9G49O291YbAmeYo5E9PNC2aZ
-	erIaB6rT09EEjJnxh4nsoGwz4OuJf
-X-Received: by 2002:a17:90b:35d0:b0:398:b46d:48c0 with SMTP id
- 98e67ed59e1d1-39aee10890cmr12235245a91.18.1788386777209; Wed, 02 Sep 2026
- 15:06:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="L2qkzdD5"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id EC4454E41408;
+	Wed,  2 Sep 2026 22:06:54 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A17FD5FF79;
+	Wed,  2 Sep 2026 22:06:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3C3EE11C79331;
+	Thu,  3 Sep 2026 00:06:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788386809; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=Knnngs6GoLJlOQ4u9rbrVtdTNi73e/9R/YVuig07xaM=;
+	b=L2qkzdD5a5QbUVMG0zylLcQX2XMm6SOvuSA9PC8ObYZpWkoAgIWpz235Mi9m2cXmqf0MHJ
+	v2SHquMRS8ruSSYVHmkdeXFHh5vz85Uy1fhBMBDBg7gJPEV2pGpp9aKpHH9oLsolLouQbl
+	TG0nJEQkS0DctfY24b09QTyQ0PRSFn9xnd8nQk1MeDMeA2kSMruK81jaWDxveEDYHrE4cT
+	szunLX1gkQvsvZWz34gD47jKcAQtp1zI3w7RWbZ0Ju+yQBAPk2rAyLwI6IdQRMTm4a6Gvr
+	gE3Tb8yoa64PnkISkqj3d0G92m+wAS+Zr8t5JM3jV3Er6eHWiWPIerY3PBZa/w==
+From: Diogo Ivo <diogo.ivo@bootlin.com>
+Date: Thu, 03 Sep 2026 00:05:56 +0200
+Subject: [PATCH] arm64: tegra: Move Tegra210 AHUB audio ports/endpoints to
+ SoC DTSI
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260819122252.1782790-1-florent.revest@linux.dev>
- <DL27QZ6SEZKT.1CV2HAX4A3WI4@gmail.com> <CAADnVQLxi-R1KDUXJJjpq69SpV8UcNJVqBi7uicO=V0WhAvyQA@mail.gmail.com>
- <DL2S878KSOI5.1SZMLIAWMCNUJ@gmail.com> <DL3FIBQNP6AU.1HO08FMI292UX@linux.dev>
- <CAADnVQLMm43qJxuiHUuuh51wAL4kH0+fRoaM7YfbZEXT7LHn0A@mail.gmail.com> <DL4R2YXF9J8G.203VBANYFFSET@linux.dev>
-In-Reply-To: <DL4R2YXF9J8G.203VBANYFFSET@linux.dev>
-From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
-Date: Wed, 2 Sep 2026 15:06:05 -0700
-X-Gm-Features: AcwNN1WeWzPoWWLVPmmE7d-k8VTitECGoYp4jtQLUEttyXIwHXv3qEmj5Sw6KYU
-Message-ID: <CAADnVQJ+OJKmgaDM9B58g30M_-pkZgGmbDuvEWmrg8U_ZkxbSg@mail.gmail.com>
-Subject: Re: [PATCH bpf] bpf: Keep progs alive until the trampoline image
- calling them is freed
-To: Florent Revest <florent.revest@linux.dev>
-Cc: Kumar Kartikeya Dwivedi <memxor@gmail.com>, bpf <bpf@vger.kernel.org>, 
-	Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
-	Andrii Nakryiko <andrii@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, 
-	Eduard Zingerman <eddyz87@gmail.com>, Song Liu <song@kernel.org>, 
-	Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
-	KP Singh <kpsingh@kernel.org>, Emil Tsalapatis <emil@etsalapatis.com>, 
-	John Fastabend <john.fastabend@gmail.com>, "Paul E. McKenney" <paulmck@kernel.org>, 
-	Jose Fernandez <jose.fernandez@linux.dev>, LKML <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-smaug-audio_ports-v1-1-d4605332d8d4@bootlin.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrA2kUWvrVURKjBM7hSaSMVIIu
+ Xtju3yL/xMwBkKGoUoQ8CAm7woudQXmqd2KgpZiUFJd5V02gt86rkLHhfxj82Fn0WPX9tZqeTM
+ GSrcFtPT5Pcfpb47zC81+jiDnLxy/EJR1AAAA
+X-Change-ID: 20260903-smaug-audio_ports-7e547ffa08cc
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Diogo Ivo <diogo.ivo@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=48700;
+ i=diogo.ivo@bootlin.com; h=from:subject:message-id;
+ bh=NPHQC2Nz16oNnzIj22V3Jper5dwKgTk0S9qGcsUr3x8=;
+ b=owEBbQKS/ZANAwAKAQa+fFtWXslFAcsmYgBqmJ34h6Vk12PKWhx1vNBVf6+7gGDkQgLBIJZ+e
+ f4KzK+U5SKJAjMEAAEKAB0WIQTma35o1i1081e8B2UGvnxbVl7JRQUCapid+AAKCRAGvnxbVl7J
+ RQQkD/4lAD36fg8EgKZPPmXi3vEFr2ibktszsvIOdt5rhUe+11ZS9l4D4SNQA7NGkx9C6wXNtHo
+ 9qw6eeSVazt4csRxiZkTpf2JJBJVuhqXR9ZqdCpmU6mTqYik3Ud6CaHJc1V8OUf4XuMBFx47v95
+ wzKCWHvRF7IQJXDWZyqoVlCjY1i/v6u18UXRgZLRjEUX311w48LJYTvmkyN0vNecU0ZTEruuzke
+ ybli2028rYQ51MFLns4MIGw5C1QMCem+x0YNRYvtP2BqOO1Q+JTGgEbkRMqwQ1snIaGvZFq8dIO
+ 48YOtdEkYerr16fBNk/QzVHtknV9zQrEnwgb0mkdrZyGJc+SX2h5LQuZI3jpGP99rJoi1TRKH8x
+ 9VLGRFhxRZ7tTQCzJ0i/ZSZJyu+vLx21aflfMogjRxv8BKouOCrzm/pIczQnCjpu+1kkiWiESTG
+ woyOxf16j5MBFsNBte43mB5eTl6bpUHUC7yrk+Rix4n4ZhdpsiBuJj86bAm9gZtu1CBcnLEY7FU
+ /S2BPA2CZZ4MQJz+0BI86+3E4Rcb6sryIJrc1Ki1Ynhn3bmZyZxpvfNjkX6Tdo0lpiGnOn9/Ca0
+ T3uJA2KGMciL3Yu3/k07T6THBg3NWQDSVhV79sk0DNQfBZxoFiC3NYyRUHnWC9P7JNxkTRWkb39
+ ZX9JRrc3QBA8JHQ==
+X-Developer-Key: i=diogo.ivo@bootlin.com; a=openpgp;
+ fpr=E66B7E68D62D74F357BC076506BE7C5B565EC945
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Wed, Sep 2, 2026 at 3:15=E2=80=AFAM Florent Revest <florent.revest@linux=
-.dev> wrote:
->
-> On Wed Sep 2, 2026 at 5:57 AM UTC, Alexei Starovoitov wrote:
-> > On Mon, Aug 31, 2026 at 1:58=E2=80=AFPM Florent Revest <florent.revest@=
-linux.dev> wrote:
-> > >
-> > > On Mon Aug 31, 2026 at 2:43 AM UTC, Kumar Kartikeya Dwivedi wrote:
-> > > > On Sun Aug 30, 2026 at 3:21 PM CEST, Alexei Starovoitov wrote:
-> > > > > On Sun, Aug 30, 2026 at 3:41=E2=80=AFAM Kumar Kartikeya Dwivedi
-> > > > > <memxor@gmail.com> wrote:
-> > > > >>
-> > > > >> Overall, looks good to me. Thanks for the fix!
-> > > > >>
-> > > > >> Acked-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-> > > > >>
-> > > > >> Note for whoever applies this: please add Reported-by: tag for S=
-echang as well.
-> > > > >> Optionally, wordsmith the commit log with the suggestion above.
-> > > > >
-> > > > > Hold on. I don't think we can proceed with this fix.
-> > > > > It defeats the point of fexit jmp patching and keeps progs
-> > > > > pinned until a sleepable kernel function that were attached to
-> > > > > will return. Which means that the tracing prog attached to "unluc=
-ky" kernel
-> > > > > function that sleeps for an hour will stay pinned for an hour.
-> > > > > Let's think of a different way of fixing the race.
-> > > >
-> > > > I don't have background on the original commit being fixed, but is =
-that really
-> > > > realistic? Or worrisome even if it happens in practice, since worst=
- case the
-> > > > program refcounts remains raised for that duration?
-> > > >
-> > > > We have similar worst case for programs too (e.g. using bpf_copy_fr=
-om_user on
-> > > > user controlled buffer in, say, LSM progs). At least here we won't =
-be extending
-> > > > any RCU flavored GP.
-> > > >
-> > > > That said I will think about alternative fixes in the meantime, if =
-we accept the
-> > > > premise that we don't want to pin program references in the image a=
-nd keep their
-> > > > lifetimes decoupled.
-> > >
-> > > How about having old trampolines skip freed programs instead of keepi=
-ng
-> > > them alive ?
-> >
-> > Isn't it doing it now?
-> > That was the whole point of patching nop to jmp in a trampoline.
->
-> Just to be sure we're talking about the same thing, you're referring to t=
-he
-> "ip_after_call" patching done in bpf_tramp_image_put, right ?
->
-> My understanding is that this only helps in the case where a task is in t=
-he
-> traced function while a prog is detached. It'd make it skip all fexit pro=
-gs.
+The AHUB internal audio ports and endpoints (crossbar connections
+between I2S, DMIC, SFC, MVC, AMX, ADX, MIXER, OPE, and the AHUB)
+describe the SoC's internal audio routing fabric, not board-specific
+wiring. Move them from tegra210-p2371-2180.dts into tegra210.dtsi so
+they can be shared by all Tegra210-based boards.
 
-Right. That's the one I meant.
+No functional changes intended.
 
-> But if a task is sleeping in a fexit.s prog for example, it is already pa=
-st
-> ip_after_call, so this patching would not prevent it from calling a secon=
-d,
-> freed, fexit prog lined up after it in the trampoline, no ? The same situ=
-ation
-> should happen with a sleeping fentry.s prog followed by a fentry prog.
+Signed-off-by: Diogo Ivo <diogo.ivo@bootlin.com>
+---
+ arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts | 1120 --------------------
+ arch/arm64/boot/dts/nvidia/tegra210.dtsi           | 1120 +++++++++++++++++++-
+ 2 files changed, 1119 insertions(+), 1121 deletions(-)
 
-Hmm. You mean like fexit prog A called a sleepable kfunc and
-another prog B is attached to the same trampoline.
+diff --git a/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts b/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts
+index 627abf51a5a4..9610781e4417 100644
+--- a/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts
++++ b/arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts
+@@ -129,1206 +129,86 @@ admaif@702d0000 {
+ 
+ 			i2s@702d1000 {
+ 				status = "okay";
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0>;
+-
+-						i2s1_cif_ep: endpoint {
+-							remote-endpoint = <&xbar_i2s1_ep>;
+-						};
+-					};
+-
+-					i2s1_port: port@1 {
+-						reg = <1>;
+-
+-						i2s1_dap_ep: endpoint {
+-							dai-format = "i2s";
+-							/* Placeholder for external Codec */
+-						};
+-					};
+-				};
+ 			};
+ 
+ 			i2s@702d1100 {
+ 				status = "okay";
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0>;
+-
+-						i2s2_cif_ep: endpoint {
+-							remote-endpoint = <&xbar_i2s2_ep>;
+-						};
+-					};
+-
+-					i2s2_port: port@1 {
+-						reg = <1>;
+-
+-						i2s2_dap_ep: endpoint {
+-							dai-format = "i2s";
+-							/* Placeholder for external Codec */
+-						};
+-					};
+-				};
+ 			};
+ 
+ 			i2s@702d1200 {
+ 				status = "okay";
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0>;
+-
+-						i2s3_cif_ep: endpoint {
+-							remote-endpoint = <&xbar_i2s3_ep>;
+-						};
+-					};
+-
+-					i2s3_port: port@1 {
+-						reg = <1>;
+-
+-						i2s3_dap_ep: endpoint {
+-							dai-format = "i2s";
+-							/* Placeholder for external Codec */
+-						};
+-					};
+-				};
+ 			};
+ 
+ 			i2s@702d1300 {
+ 				status = "okay";
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0>;
+-
+-						i2s4_cif_ep: endpoint {
+-							remote-endpoint = <&xbar_i2s4_ep>;
+-						};
+-					};
+-
+-					i2s4_port: port@1 {
+-						reg = <1>;
+-
+-						i2s4_dap_ep: endpoint {
+-							dai-format = "i2s";
+-							/* Placeholder for external Codec */
+-						};
+-					};
+-				};
+ 			};
+ 
+ 			i2s@702d1400 {
+ 				status = "okay";
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0>;
+-
+-						i2s5_cif_ep: endpoint {
+-							remote-endpoint = <&xbar_i2s5_ep>;
+-						};
+-					};
+-
+-					i2s5_port: port@1 {
+-						reg = <1>;
+-
+-						i2s5_dap_ep: endpoint {
+-							dai-format = "i2s";
+-							/* Placeholder for external Codec */
+-						};
+-					};
+-				};
+ 			};
+ 
+ 			sfc@702d2000 {
+ 				status = "okay";
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0>;
+-
+-						sfc1_cif_in_ep: endpoint {
+-							remote-endpoint = <&xbar_sfc1_in_ep>;
+-						};
+-					};
+-
+-					sfc1_out_port: port@1 {
+-						reg = <1>;
+-
+-						sfc1_cif_out_ep: endpoint {
+-							remote-endpoint = <&xbar_sfc1_out_ep>;
+-						};
+-					};
+-				};
+ 			};
+ 
+ 			sfc@702d2200 {
+ 				status = "okay";
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0>;
+-
+-						sfc2_cif_in_ep: endpoint {
+-							remote-endpoint = <&xbar_sfc2_in_ep>;
+-						};
+-					};
+-
+-					sfc2_out_port: port@1 {
+-						reg = <1>;
+-
+-						sfc2_cif_out_ep: endpoint {
+-							remote-endpoint = <&xbar_sfc2_out_ep>;
+-						};
+-					};
+-				};
+ 			};
+ 
+ 			sfc@702d2400 {
+ 				status = "okay";
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0>;
+-
+-						sfc3_cif_in_ep: endpoint {
+-							remote-endpoint = <&xbar_sfc3_in_ep>;
+-						};
+-					};
+-
+-					sfc3_out_port: port@1 {
+-						reg = <1>;
+-
+-						sfc3_cif_out_ep: endpoint {
+-							remote-endpoint = <&xbar_sfc3_out_ep>;
+-						};
+-					};
+-				};
+ 			};
+ 
+ 			sfc@702d2600 {
+ 				status = "okay";
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0>;
+-
+-						sfc4_cif_in_ep: endpoint {
+-							remote-endpoint = <&xbar_sfc4_in_ep>;
+-						};
+-					};
+-
+-					sfc4_out_port: port@1 {
+-						reg = <1>;
+-
+-						sfc4_cif_out_ep: endpoint {
+-							remote-endpoint = <&xbar_sfc4_out_ep>;
+-						};
+-					};
+-				};
+ 			};
+ 
+ 			amx@702d3000 {
+ 				status = "okay";
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0>;
+-
+-						amx1_in1_ep: endpoint {
+-							remote-endpoint = <&xbar_amx1_in1_ep>;
+-						};
+-					};
+-
+-					port@1 {
+-						reg = <1>;
+-
+-						amx1_in2_ep: endpoint {
+-							remote-endpoint = <&xbar_amx1_in2_ep>;
+-						};
+-					};
+-
+-					port@2 {
+-						reg = <2>;
+-
+-						amx1_in3_ep: endpoint {
+-							remote-endpoint = <&xbar_amx1_in3_ep>;
+-						};
+-					};
+-
+-					port@3 {
+-						reg = <3>;
+-
+-						amx1_in4_ep: endpoint {
+-							remote-endpoint = <&xbar_amx1_in4_ep>;
+-						};
+-					};
+-
+-					amx1_out_port: port@4 {
+-						reg = <4>;
+-
+-						amx1_out_ep: endpoint {
+-							remote-endpoint = <&xbar_amx1_out_ep>;
+-						};
+-					};
+-				};
+ 			};
+ 
+ 			amx@702d3100 {
+ 				status = "okay";
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0>;
+-
+-						amx2_in1_ep: endpoint {
+-							remote-endpoint = <&xbar_amx2_in1_ep>;
+-						};
+-					};
+-
+-					port@1 {
+-						reg = <1>;
+-
+-						amx2_in2_ep: endpoint {
+-							remote-endpoint = <&xbar_amx2_in2_ep>;
+-						};
+-					};
+-
+-					amx2_in3_port: port@2 {
+-						reg = <2>;
+-
+-						amx2_in3_ep: endpoint {
+-							remote-endpoint = <&xbar_amx2_in3_ep>;
+-						};
+-					};
+-
+-					amx2_in4_port: port@3 {
+-						reg = <3>;
+-
+-						amx2_in4_ep: endpoint {
+-							remote-endpoint = <&xbar_amx2_in4_ep>;
+-						};
+-					};
+-
+-					amx2_out_port: port@4 {
+-						reg = <4>;
+-
+-						amx2_out_ep: endpoint {
+-							remote-endpoint = <&xbar_amx2_out_ep>;
+-						};
+-					};
+-				};
+ 			};
+ 
+ 			adx@702d3800 {
+ 				status = "okay";
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0>;
+-
+-						adx1_in_ep: endpoint {
+-							remote-endpoint = <&xbar_adx1_in_ep>;
+-						};
+-					};
+-
+-					adx1_out1_port: port@1 {
+-						reg = <1>;
+-
+-						adx1_out1_ep: endpoint {
+-							remote-endpoint = <&xbar_adx1_out1_ep>;
+-						};
+-					};
+-
+-					adx1_out2_port: port@2 {
+-						reg = <2>;
+-
+-						adx1_out2_ep: endpoint {
+-							remote-endpoint = <&xbar_adx1_out2_ep>;
+-						};
+-					};
+-
+-					adx1_out3_port: port@3 {
+-						reg = <3>;
+-
+-						adx1_out3_ep: endpoint {
+-							remote-endpoint = <&xbar_adx1_out3_ep>;
+-						};
+-					};
+-
+-					adx1_out4_port: port@4 {
+-						reg = <4>;
+-
+-						adx1_out4_ep: endpoint {
+-							remote-endpoint = <&xbar_adx1_out4_ep>;
+-						};
+-					};
+-				};
+ 			};
+ 
+ 			adx@702d3900 {
+ 				status = "okay";
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0>;
+-
+-						adx2_in_ep: endpoint {
+-							remote-endpoint = <&xbar_adx2_in_ep>;
+-						};
+-					};
+-
+-					adx2_out1_port: port@1 {
+-						reg = <1>;
+-
+-						adx2_out1_ep: endpoint {
+-							remote-endpoint = <&xbar_adx2_out1_ep>;
+-						};
+-					};
+-
+-					adx2_out2_port: port@2 {
+-						reg = <2>;
+-
+-						adx2_out2_ep: endpoint {
+-							remote-endpoint = <&xbar_adx2_out2_ep>;
+-						};
+-					};
+-
+-					adx2_out3_port: port@3 {
+-						reg = <3>;
+-
+-						adx2_out3_ep: endpoint {
+-							remote-endpoint = <&xbar_adx2_out3_ep>;
+-						};
+-					};
+-
+-					adx2_out4_port: port@4 {
+-						reg = <4>;
+-
+-						adx2_out4_ep: endpoint {
+-							remote-endpoint = <&xbar_adx2_out4_ep>;
+-						};
+-					};
+-				};
+ 			};
+ 
+ 			dmic@702d4000 {
+ 				status = "okay";
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0>;
+-
+-						dmic1_cif_ep: endpoint {
+-							remote-endpoint = <&xbar_dmic1_ep>;
+-						};
+-					};
+-
+-					dmic1_port: port@1 {
+-						reg = <1>;
+-
+-						dmic1_dap_ep: endpoint {
+-							/* Placeholder for external Codec */
+-						};
+-					};
+-				};
+ 			};
+ 
+ 			dmic@702d4100 {
+ 				status = "okay";
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0>;
+-
+-						dmic2_cif_ep: endpoint {
+-							remote-endpoint = <&xbar_dmic2_ep>;
+-						};
+-					};
+-
+-					dmic2_port: port@1 {
+-						reg = <1>;
+-
+-						dmic2_dap_ep: endpoint {
+-							/* Placeholder for external Codec */
+-						};
+-					};
+-				};
+ 			};
+ 
+ 			dmic@702d4200 {
+ 				status = "okay";
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0>;
+-
+-						dmic3_cif_ep: endpoint {
+-							remote-endpoint = <&xbar_dmic3_ep>;
+-						};
+-					};
+-
+-					dmic3_port: port@1 {
+-						reg = <1>;
+-
+-						dmic3_dap_ep: endpoint {
+-							/* Placeholder for external Codec */
+-						};
+-					};
+-				};
+ 			};
+ 
+ 			processing-engine@702d8000 {
+ 				status = "okay";
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0x0>;
+-
+-						ope1_cif_in_ep: endpoint {
+-							remote-endpoint = <&xbar_ope1_in_ep>;
+-						};
+-					};
+-
+-					ope1_out_port: port@1 {
+-						reg = <0x1>;
+-
+-						ope1_cif_out_ep: endpoint {
+-							remote-endpoint = <&xbar_ope1_out_ep>;
+-						};
+-					};
+-				};
+ 			};
+ 
+ 			processing-engine@702d8400 {
+ 				status = "okay";
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0x0>;
+-
+-						ope2_cif_in_ep: endpoint {
+-							remote-endpoint = <&xbar_ope2_in_ep>;
+-						};
+-					};
+-
+-					ope2_out_port: port@1 {
+-						reg = <0x1>;
+-
+-						ope2_cif_out_ep: endpoint {
+-							remote-endpoint = <&xbar_ope2_out_ep>;
+-						};
+-					};
+-				};
+ 			};
+ 
+ 			mvc@702da000 {
+ 				status = "okay";
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0>;
+-
+-						mvc1_cif_in_ep: endpoint {
+-							remote-endpoint = <&xbar_mvc1_in_ep>;
+-						};
+-					};
+-
+-					mvc1_out_port: port@1 {
+-						reg = <1>;
+-
+-						mvc1_cif_out_ep: endpoint {
+-							remote-endpoint = <&xbar_mvc1_out_ep>;
+-						};
+-					};
+-				};
+ 			};
+ 
+ 			mvc@702da200 {
+ 				status = "okay";
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0>;
+-
+-						mvc2_cif_in_ep: endpoint {
+-							remote-endpoint = <&xbar_mvc2_in_ep>;
+-						};
+-					};
+-
+-					mvc2_out_port: port@1 {
+-						reg = <1>;
+-
+-						mvc2_cif_out_ep: endpoint {
+-							remote-endpoint = <&xbar_mvc2_out_ep>;
+-						};
+-					};
+-				};
+ 			};
+ 
+ 			amixer@702dbb00 {
+ 				status = "okay";
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0x0>;
+-
+-						mixer_in1_ep: endpoint {
+-							remote-endpoint = <&xbar_mixer_in1_ep>;
+-						};
+-					};
+-
+-					port@1 {
+-						reg = <0x1>;
+-
+-						mixer_in2_ep: endpoint {
+-							remote-endpoint = <&xbar_mixer_in2_ep>;
+-						};
+-					};
+-
+-					port@2 {
+-						reg = <0x2>;
+-
+-						mixer_in3_ep: endpoint {
+-							remote-endpoint = <&xbar_mixer_in3_ep>;
+-						};
+-					};
+-
+-					port@3 {
+-						reg = <0x3>;
+-
+-						mixer_in4_ep: endpoint {
+-							remote-endpoint = <&xbar_mixer_in4_ep>;
+-						};
+-					};
+-
+-					port@4 {
+-						reg = <0x4>;
+-
+-						mixer_in5_ep: endpoint {
+-							remote-endpoint = <&xbar_mixer_in5_ep>;
+-						};
+-					};
+-
+-					port@5 {
+-						reg = <0x5>;
+-
+-						mixer_in6_ep: endpoint {
+-							remote-endpoint = <&xbar_mixer_in6_ep>;
+-						};
+-					};
+-
+-					port@6 {
+-						reg = <0x6>;
+-
+-						mixer_in7_ep: endpoint {
+-							remote-endpoint = <&xbar_mixer_in7_ep>;
+-						};
+-					};
+-
+-					port@7 {
+-						reg = <0x7>;
+-
+-						mixer_in8_ep: endpoint {
+-							remote-endpoint = <&xbar_mixer_in8_ep>;
+-						};
+-					};
+-
+-					port@8 {
+-						reg = <0x8>;
+-
+-						mixer_in9_ep: endpoint {
+-							remote-endpoint = <&xbar_mixer_in9_ep>;
+-						};
+-					};
+-
+-					port@9 {
+-						reg = <0x9>;
+-
+-						mixer_in10_ep: endpoint {
+-							remote-endpoint = <&xbar_mixer_in10_ep>;
+-						};
+-					};
+-
+-					mixer_out1_port: port@a {
+-						reg = <0xa>;
+-
+-						mixer_out1_ep: endpoint {
+-							remote-endpoint = <&xbar_mixer_out1_ep>;
+-						};
+-					};
+-
+-					mixer_out2_port: port@b {
+-						reg = <0xb>;
+-
+-						mixer_out2_ep: endpoint {
+-							remote-endpoint = <&xbar_mixer_out2_ep>;
+-						};
+-					};
+-
+-					mixer_out3_port: port@c {
+-						reg = <0xc>;
+-
+-						mixer_out3_ep: endpoint {
+-							remote-endpoint = <&xbar_mixer_out3_ep>;
+-						};
+-					};
+-
+-					mixer_out4_port: port@d {
+-						reg = <0xd>;
+-
+-						mixer_out4_ep: endpoint {
+-							remote-endpoint = <&xbar_mixer_out4_ep>;
+-						};
+-					};
+-
+-					mixer_out5_port: port@e {
+-						reg = <0xe>;
+-
+-						mixer_out5_ep: endpoint {
+-							remote-endpoint = <&xbar_mixer_out5_ep>;
+-						};
+-					};
+-				};
+-			};
+-
+-			ports {
+-				xbar_i2s1_port: port@a {
+-					reg = <0xa>;
+-
+-					xbar_i2s1_ep: endpoint {
+-						remote-endpoint = <&i2s1_cif_ep>;
+-					};
+-				};
+-
+-				xbar_i2s2_port: port@b {
+-					reg = <0xb>;
+-
+-					xbar_i2s2_ep: endpoint {
+-						remote-endpoint = <&i2s2_cif_ep>;
+-					};
+-				};
+-
+-				xbar_i2s3_port: port@c {
+-					reg = <0xc>;
+-
+-					xbar_i2s3_ep: endpoint {
+-						remote-endpoint = <&i2s3_cif_ep>;
+-					};
+-				};
+-
+-				xbar_i2s4_port: port@d {
+-					reg = <0xd>;
+-
+-					xbar_i2s4_ep: endpoint {
+-						remote-endpoint = <&i2s4_cif_ep>;
+-					};
+-				};
+-
+-				xbar_i2s5_port: port@e {
+-					reg = <0xe>;
+-
+-					xbar_i2s5_ep: endpoint {
+-						remote-endpoint = <&i2s5_cif_ep>;
+-					};
+-				};
+-
+-				xbar_dmic1_port: port@f {
+-					reg = <0xf>;
+-
+-					xbar_dmic1_ep: endpoint {
+-						remote-endpoint = <&dmic1_cif_ep>;
+-					};
+-				};
+-
+-				xbar_dmic2_port: port@10 {
+-					reg = <0x10>;
+-
+-					xbar_dmic2_ep: endpoint {
+-						remote-endpoint = <&dmic2_cif_ep>;
+-					};
+-				};
+-
+-				xbar_dmic3_port: port@11 {
+-					reg = <0x11>;
+-
+-					xbar_dmic3_ep: endpoint {
+-						remote-endpoint = <&dmic3_cif_ep>;
+-					};
+-				};
+-
+-				xbar_sfc1_in_port: port@12 {
+-					reg = <0x12>;
+-
+-					xbar_sfc1_in_ep: endpoint {
+-						remote-endpoint = <&sfc1_cif_in_ep>;
+-					};
+-				};
+-
+-				port@13 {
+-					reg = <0x13>;
+-
+-					xbar_sfc1_out_ep: endpoint {
+-						remote-endpoint = <&sfc1_cif_out_ep>;
+-					};
+-				};
+-
+-				xbar_sfc2_in_port: port@14 {
+-					reg = <0x14>;
+-
+-					xbar_sfc2_in_ep: endpoint {
+-						remote-endpoint = <&sfc2_cif_in_ep>;
+-					};
+-				};
+-
+-				port@15 {
+-					reg = <0x15>;
+-
+-					xbar_sfc2_out_ep: endpoint {
+-						remote-endpoint = <&sfc2_cif_out_ep>;
+-					};
+-				};
+-
+-				xbar_sfc3_in_port: port@16 {
+-					reg = <0x16>;
+-
+-					xbar_sfc3_in_ep: endpoint {
+-						remote-endpoint = <&sfc3_cif_in_ep>;
+-					};
+-				};
+-
+-				port@17 {
+-					reg = <0x17>;
+-
+-					xbar_sfc3_out_ep: endpoint {
+-						remote-endpoint = <&sfc3_cif_out_ep>;
+-					};
+-				};
+-
+-				xbar_sfc4_in_port: port@18 {
+-					reg = <0x18>;
+-
+-					xbar_sfc4_in_ep: endpoint {
+-						remote-endpoint = <&sfc4_cif_in_ep>;
+-					};
+-				};
+-
+-				port@19 {
+-					reg = <0x19>;
+-
+-					xbar_sfc4_out_ep: endpoint {
+-						remote-endpoint = <&sfc4_cif_out_ep>;
+-					};
+-				};
+-
+-				xbar_mvc1_in_port: port@1a {
+-					reg = <0x1a>;
+-
+-					xbar_mvc1_in_ep: endpoint {
+-						remote-endpoint = <&mvc1_cif_in_ep>;
+-					};
+-				};
+-
+-				port@1b {
+-					reg = <0x1b>;
+-
+-					xbar_mvc1_out_ep: endpoint {
+-						remote-endpoint = <&mvc1_cif_out_ep>;
+-					};
+-				};
+-
+-				xbar_mvc2_in_port: port@1c {
+-					reg = <0x1c>;
+-
+-					xbar_mvc2_in_ep: endpoint {
+-						remote-endpoint = <&mvc2_cif_in_ep>;
+-					};
+-				};
+-
+-				port@1d {
+-					reg = <0x1d>;
+-
+-					xbar_mvc2_out_ep: endpoint {
+-						remote-endpoint = <&mvc2_cif_out_ep>;
+-					};
+-				};
+-
+-				xbar_amx1_in1_port: port@1e {
+-					reg = <0x1e>;
+-
+-					xbar_amx1_in1_ep: endpoint {
+-						remote-endpoint = <&amx1_in1_ep>;
+-					};
+-				};
+-
+-				xbar_amx1_in2_port: port@1f {
+-					reg = <0x1f>;
+-
+-					xbar_amx1_in2_ep: endpoint {
+-						remote-endpoint = <&amx1_in2_ep>;
+-					};
+-				};
+-
+-				xbar_amx1_in3_port: port@20 {
+-					reg = <0x20>;
+-
+-					xbar_amx1_in3_ep: endpoint {
+-						remote-endpoint = <&amx1_in3_ep>;
+-					};
+-				};
+-
+-				xbar_amx1_in4_port: port@21 {
+-					reg = <0x21>;
+-
+-					xbar_amx1_in4_ep: endpoint {
+-						remote-endpoint = <&amx1_in4_ep>;
+-					};
+-				};
+-
+-				port@22 {
+-					reg = <0x22>;
+-
+-					xbar_amx1_out_ep: endpoint {
+-						remote-endpoint = <&amx1_out_ep>;
+-					};
+-				};
+-
+-				xbar_amx2_in1_port: port@23 {
+-					reg = <0x23>;
+-
+-					xbar_amx2_in1_ep: endpoint {
+-						remote-endpoint = <&amx2_in1_ep>;
+-					};
+-				};
+-
+-				xbar_amx2_in2_port: port@24 {
+-					reg = <0x24>;
+-
+-					xbar_amx2_in2_ep: endpoint {
+-						remote-endpoint = <&amx2_in2_ep>;
+-					};
+-				};
+-
+-				xbar_amx2_in3_port: port@25 {
+-					reg = <0x25>;
+-
+-					xbar_amx2_in3_ep: endpoint {
+-						remote-endpoint = <&amx2_in3_ep>;
+-					};
+-				};
+-
+-				xbar_amx2_in4_port: port@26 {
+-					reg = <0x26>;
+-
+-					xbar_amx2_in4_ep: endpoint {
+-						remote-endpoint = <&amx2_in4_ep>;
+-					};
+-				};
+-
+-				port@27 {
+-					reg = <0x27>;
+-
+-					xbar_amx2_out_ep: endpoint {
+-						remote-endpoint = <&amx2_out_ep>;
+-					};
+-				};
+-
+-				xbar_adx1_in_port: port@28 {
+-					reg = <0x28>;
+-
+-					xbar_adx1_in_ep: endpoint {
+-						remote-endpoint = <&adx1_in_ep>;
+-					};
+-				};
+-
+-				port@29 {
+-					reg = <0x29>;
+-
+-					xbar_adx1_out1_ep: endpoint {
+-						remote-endpoint = <&adx1_out1_ep>;
+-					};
+-				};
+-
+-				port@2a {
+-					reg = <0x2a>;
+-
+-					xbar_adx1_out2_ep: endpoint {
+-						remote-endpoint = <&adx1_out2_ep>;
+-					};
+-				};
+-
+-				port@2b {
+-					reg = <0x2b>;
+-
+-					xbar_adx1_out3_ep: endpoint {
+-						remote-endpoint = <&adx1_out3_ep>;
+-					};
+-				};
+-
+-				port@2c {
+-					reg = <0x2c>;
+-
+-					xbar_adx1_out4_ep: endpoint {
+-						remote-endpoint = <&adx1_out4_ep>;
+-					};
+-				};
+-
+-				xbar_adx2_in_port: port@2d {
+-					reg = <0x2d>;
+-
+-					xbar_adx2_in_ep: endpoint {
+-						remote-endpoint = <&adx2_in_ep>;
+-					};
+-				};
+-
+-				port@2e {
+-					reg = <0x2e>;
+-
+-					xbar_adx2_out1_ep: endpoint {
+-						remote-endpoint = <&adx2_out1_ep>;
+-					};
+-				};
+-
+-				port@2f {
+-					reg = <0x2f>;
+-
+-					xbar_adx2_out2_ep: endpoint {
+-						remote-endpoint = <&adx2_out2_ep>;
+-					};
+-				};
+-
+-				port@30 {
+-					reg = <0x30>;
+-
+-					xbar_adx2_out3_ep: endpoint {
+-						remote-endpoint = <&adx2_out3_ep>;
+-					};
+-				};
+-
+-				port@31 {
+-					reg = <0x31>;
+-
+-					xbar_adx2_out4_ep: endpoint {
+-						remote-endpoint = <&adx2_out4_ep>;
+-					};
+-				};
+-
+-				xbar_mixer_in1_port: port@32 {
+-					reg = <0x32>;
+-
+-					xbar_mixer_in1_ep: endpoint {
+-						remote-endpoint = <&mixer_in1_ep>;
+-					};
+-				};
+-
+-				xbar_mixer_in2_port: port@33 {
+-					reg = <0x33>;
+-
+-					xbar_mixer_in2_ep: endpoint {
+-						remote-endpoint = <&mixer_in2_ep>;
+-					};
+-				};
+-
+-				xbar_mixer_in3_port: port@34 {
+-					reg = <0x34>;
+-
+-					xbar_mixer_in3_ep: endpoint {
+-						remote-endpoint = <&mixer_in3_ep>;
+-					};
+-				};
+-
+-				xbar_mixer_in4_port: port@35 {
+-					reg = <0x35>;
+-
+-					xbar_mixer_in4_ep: endpoint {
+-						remote-endpoint = <&mixer_in4_ep>;
+-					};
+-				};
+-
+-				xbar_mixer_in5_port: port@36 {
+-					reg = <0x36>;
+-
+-					xbar_mixer_in5_ep: endpoint {
+-						remote-endpoint = <&mixer_in5_ep>;
+-					};
+-				};
+-
+-				xbar_mixer_in6_port: port@37 {
+-					reg = <0x37>;
+-
+-					xbar_mixer_in6_ep: endpoint {
+-						remote-endpoint = <&mixer_in6_ep>;
+-					};
+-				};
+-
+-				xbar_mixer_in7_port: port@38 {
+-					reg = <0x38>;
+-
+-					xbar_mixer_in7_ep: endpoint {
+-						remote-endpoint = <&mixer_in7_ep>;
+-					};
+-				};
+-
+-				xbar_mixer_in8_port: port@39 {
+-					reg = <0x39>;
+-
+-					xbar_mixer_in8_ep: endpoint {
+-						remote-endpoint = <&mixer_in8_ep>;
+-					};
+-				};
+-
+-				xbar_mixer_in9_port: port@3a {
+-					reg = <0x3a>;
+-
+-					xbar_mixer_in9_ep: endpoint {
+-						remote-endpoint = <&mixer_in9_ep>;
+-					};
+-				};
+-
+-				xbar_mixer_in10_port: port@3b {
+-					reg = <0x3b>;
+-
+-					xbar_mixer_in10_ep: endpoint {
+-						remote-endpoint = <&mixer_in10_ep>;
+-					};
+-				};
+-
+-				port@3c {
+-					reg = <0x3c>;
+-
+-					xbar_mixer_out1_ep: endpoint {
+-						remote-endpoint = <&mixer_out1_ep>;
+-					};
+-				};
+-
+-				port@3d {
+-					reg = <0x3d>;
+-
+-					xbar_mixer_out2_ep: endpoint {
+-						remote-endpoint = <&mixer_out2_ep>;
+-					};
+-				};
+-
+-				port@3e {
+-					reg = <0x3e>;
+-
+-					xbar_mixer_out3_ep: endpoint {
+-						remote-endpoint = <&mixer_out3_ep>;
+-					};
+-				};
+-
+-				port@3f {
+-					reg = <0x3f>;
+-
+-					xbar_mixer_out4_ep: endpoint {
+-						remote-endpoint = <&mixer_out4_ep>;
+-					};
+-				};
+-
+-				port@40 {
+-					reg = <0x40>;
+-
+-					xbar_mixer_out5_ep: endpoint {
+-						remote-endpoint = <&mixer_out5_ep>;
+-					};
+-				};
+-
+-				xbar_ope1_in_port: port@41 {
+-					reg = <0x41>;
+-
+-					xbar_ope1_in_ep: endpoint {
+-						remote-endpoint = <&ope1_cif_in_ep>;
+-					};
+-				};
+-
+-				port@42 {
+-					reg = <0x42>;
+-
+-					xbar_ope1_out_ep: endpoint {
+-						remote-endpoint = <&ope1_cif_out_ep>;
+-					};
+-				};
+-
+-				xbar_ope2_in_port: port@43 {
+-					reg = <0x43>;
+-
+-					xbar_ope2_in_ep: endpoint {
+-						remote-endpoint = <&ope2_cif_in_ep>;
+-					};
+-				};
+-
+-				port@44 {
+-					reg = <0x44>;
+-
+-					xbar_ope2_out_ep: endpoint {
+-						remote-endpoint = <&ope2_cif_out_ep>;
+-					};
+-				};
+ 			};
+ 		};
+ 
+diff --git a/arch/arm64/boot/dts/nvidia/tegra210.dtsi b/arch/arm64/boot/dts/nvidia/tegra210.dtsi
+index 5f5e5370d709..4702a279b6f1 100644
+--- a/arch/arm64/boot/dts/nvidia/tegra210.dtsi
++++ b/arch/arm64/boot/dts/nvidia/tegra210.dtsi
+@@ -1586,6 +1586,28 @@ tegra_i2s1: i2s@702d1000 {
+ 				assigned-clock-rates = <1536000>;
+ 				sound-name-prefix = "I2S1";
+ 				status = "disabled";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						i2s1_cif_ep: endpoint {
++							remote-endpoint = <&xbar_i2s1_ep>;
++						};
++					};
++
++					i2s1_port: port@1 {
++						reg = <1>;
++
++						i2s1_dap_ep: endpoint {
++							dai-format = "i2s";
++							/* Placeholder for external Codec */
++						};
++					};
++				};
+ 			};
+ 
+ 			tegra_i2s2: i2s@702d1100 {
+@@ -1599,6 +1621,28 @@ tegra_i2s2: i2s@702d1100 {
+ 				assigned-clock-rates = <1536000>;
+ 				sound-name-prefix = "I2S2";
+ 				status = "disabled";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						i2s2_cif_ep: endpoint {
++							remote-endpoint = <&xbar_i2s2_ep>;
++						};
++					};
++
++					i2s2_port: port@1 {
++						reg = <1>;
++
++						i2s2_dap_ep: endpoint {
++							dai-format = "i2s";
++							/* Placeholder for external Codec */
++						};
++					};
++				};
+ 			};
+ 
+ 			tegra_i2s3: i2s@702d1200 {
+@@ -1612,6 +1656,28 @@ tegra_i2s3: i2s@702d1200 {
+ 				assigned-clock-rates = <1536000>;
+ 				sound-name-prefix = "I2S3";
+ 				status = "disabled";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						i2s3_cif_ep: endpoint {
++							remote-endpoint = <&xbar_i2s3_ep>;
++						};
++					};
++
++					i2s3_port: port@1 {
++						reg = <1>;
++
++						i2s3_dap_ep: endpoint {
++							dai-format = "i2s";
++							/* Placeholder for external Codec */
++						};
++					};
++				};
+ 			};
+ 
+ 			tegra_i2s4: i2s@702d1300 {
+@@ -1625,6 +1691,28 @@ tegra_i2s4: i2s@702d1300 {
+ 				assigned-clock-rates = <1536000>;
+ 				sound-name-prefix = "I2S4";
+ 				status = "disabled";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						i2s4_cif_ep: endpoint {
++							remote-endpoint = <&xbar_i2s4_ep>;
++						};
++					};
++
++					i2s4_port: port@1 {
++						reg = <1>;
++
++						i2s4_dap_ep: endpoint {
++							dai-format = "i2s";
++							/* Placeholder for external Codec */
++						};
++					};
++				};
+ 			};
+ 
+ 			tegra_i2s5: i2s@702d1400 {
+@@ -1638,6 +1726,28 @@ tegra_i2s5: i2s@702d1400 {
+ 				assigned-clock-rates = <1536000>;
+ 				sound-name-prefix = "I2S5";
+ 				status = "disabled";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						i2s5_cif_ep: endpoint {
++							remote-endpoint = <&xbar_i2s5_ep>;
++						};
++					};
++
++					i2s5_port: port@1 {
++						reg = <1>;
++
++						i2s5_dap_ep: endpoint {
++							dai-format = "i2s";
++							/* Placeholder for external Codec */
++						};
++					};
++				};
+ 			};
+ 
+ 			tegra_sfc1: sfc@702d2000 {
+@@ -1645,6 +1755,27 @@ tegra_sfc1: sfc@702d2000 {
+ 				reg = <0x702d2000 0x200>;
+ 				sound-name-prefix = "SFC1";
+ 				status = "disabled";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						sfc1_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_sfc1_in_ep>;
++						};
++					};
++
++					sfc1_out_port: port@1 {
++						reg = <1>;
++
++						sfc1_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_sfc1_out_ep>;
++						};
++					};
++				};
+ 			};
+ 
+ 			tegra_sfc2: sfc@702d2200 {
+@@ -1652,6 +1783,27 @@ tegra_sfc2: sfc@702d2200 {
+ 				reg = <0x702d2200 0x200>;
+ 				sound-name-prefix = "SFC2";
+ 				status = "disabled";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						sfc2_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_sfc2_in_ep>;
++						};
++					};
++
++					sfc2_out_port: port@1 {
++						reg = <1>;
++
++						sfc2_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_sfc2_out_ep>;
++						};
++					};
++				};
+ 			};
+ 
+ 			tegra_sfc3: sfc@702d2400 {
+@@ -1659,6 +1811,27 @@ tegra_sfc3: sfc@702d2400 {
+ 				reg = <0x702d2400 0x200>;
+ 				sound-name-prefix = "SFC3";
+ 				status = "disabled";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						sfc3_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_sfc3_in_ep>;
++						};
++					};
++
++					sfc3_out_port: port@1 {
++						reg = <1>;
++
++						sfc3_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_sfc3_out_ep>;
++						};
++					};
++				};
+ 			};
+ 
+ 			tegra_sfc4: sfc@702d2600 {
+@@ -1666,6 +1839,27 @@ tegra_sfc4: sfc@702d2600 {
+ 				reg = <0x702d2600 0x200>;
+ 				sound-name-prefix = "SFC4";
+ 				status = "disabled";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						sfc4_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_sfc4_in_ep>;
++						};
++					};
++
++					sfc4_out_port: port@1 {
++						reg = <1>;
++
++						sfc4_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_sfc4_out_ep>;
++						};
++					};
++				};
+ 			};
+ 
+ 			tegra_amx1: amx@702d3000 {
+@@ -1673,6 +1867,51 @@ tegra_amx1: amx@702d3000 {
+ 				reg = <0x702d3000 0x100>;
+ 				sound-name-prefix = "AMX1";
+ 				status = "disabled";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						amx1_in1_ep: endpoint {
++							remote-endpoint = <&xbar_amx1_in1_ep>;
++						};
++					};
++
++					port@1 {
++						reg = <1>;
++
++						amx1_in2_ep: endpoint {
++							remote-endpoint = <&xbar_amx1_in2_ep>;
++						};
++					};
++
++					port@2 {
++						reg = <2>;
++
++						amx1_in3_ep: endpoint {
++							remote-endpoint = <&xbar_amx1_in3_ep>;
++						};
++					};
++
++					port@3 {
++						reg = <3>;
++
++						amx1_in4_ep: endpoint {
++							remote-endpoint = <&xbar_amx1_in4_ep>;
++						};
++					};
++
++					amx1_out_port: port@4 {
++						reg = <4>;
++
++						amx1_out_ep: endpoint {
++							remote-endpoint = <&xbar_amx1_out_ep>;
++						};
++					};
++				};
+ 			};
+ 
+ 			tegra_amx2: amx@702d3100 {
+@@ -1680,6 +1919,51 @@ tegra_amx2: amx@702d3100 {
+ 				reg = <0x702d3100 0x100>;
+ 				sound-name-prefix = "AMX2";
+ 				status = "disabled";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						amx2_in1_ep: endpoint {
++							remote-endpoint = <&xbar_amx2_in1_ep>;
++						};
++					};
++
++					port@1 {
++						reg = <1>;
++
++						amx2_in2_ep: endpoint {
++							remote-endpoint = <&xbar_amx2_in2_ep>;
++						};
++					};
++
++					amx2_in3_port: port@2 {
++						reg = <2>;
++
++						amx2_in3_ep: endpoint {
++							remote-endpoint = <&xbar_amx2_in3_ep>;
++						};
++					};
++
++					amx2_in4_port: port@3 {
++						reg = <3>;
++
++						amx2_in4_ep: endpoint {
++							remote-endpoint = <&xbar_amx2_in4_ep>;
++						};
++					};
++
++					amx2_out_port: port@4 {
++						reg = <4>;
++
++						amx2_out_ep: endpoint {
++							remote-endpoint = <&xbar_amx2_out_ep>;
++						};
++					};
++				};
+ 			};
+ 
+ 			tegra_adx1: adx@702d3800 {
+@@ -1687,6 +1971,51 @@ tegra_adx1: adx@702d3800 {
+ 				reg = <0x702d3800 0x100>;
+ 				sound-name-prefix = "ADX1";
+ 				status = "disabled";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						adx1_in_ep: endpoint {
++							remote-endpoint = <&xbar_adx1_in_ep>;
++						};
++					};
++
++					adx1_out1_port: port@1 {
++						reg = <1>;
++
++						adx1_out1_ep: endpoint {
++							remote-endpoint = <&xbar_adx1_out1_ep>;
++						};
++					};
++
++					adx1_out2_port: port@2 {
++						reg = <2>;
++
++						adx1_out2_ep: endpoint {
++							remote-endpoint = <&xbar_adx1_out2_ep>;
++						};
++					};
++
++					adx1_out3_port: port@3 {
++						reg = <3>;
++
++						adx1_out3_ep: endpoint {
++							remote-endpoint = <&xbar_adx1_out3_ep>;
++						};
++					};
++
++					adx1_out4_port: port@4 {
++						reg = <4>;
++
++						adx1_out4_ep: endpoint {
++							remote-endpoint = <&xbar_adx1_out4_ep>;
++						};
++					};
++				};
+ 			};
+ 
+ 			tegra_adx2: adx@702d3900 {
+@@ -1694,6 +2023,51 @@ tegra_adx2: adx@702d3900 {
+ 				reg = <0x702d3900 0x100>;
+ 				sound-name-prefix = "ADX2";
+ 				status = "disabled";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						adx2_in_ep: endpoint {
++							remote-endpoint = <&xbar_adx2_in_ep>;
++						};
++					};
++
++					adx2_out1_port: port@1 {
++						reg = <1>;
++
++						adx2_out1_ep: endpoint {
++							remote-endpoint = <&xbar_adx2_out1_ep>;
++						};
++					};
++
++					adx2_out2_port: port@2 {
++						reg = <2>;
++
++						adx2_out2_ep: endpoint {
++							remote-endpoint = <&xbar_adx2_out2_ep>;
++						};
++					};
++
++					adx2_out3_port: port@3 {
++						reg = <3>;
++
++						adx2_out3_ep: endpoint {
++							remote-endpoint = <&xbar_adx2_out3_ep>;
++						};
++					};
++
++					adx2_out4_port: port@4 {
++						reg = <4>;
++
++						adx2_out4_ep: endpoint {
++							remote-endpoint = <&xbar_adx2_out4_ep>;
++						};
++					};
++				};
+ 			};
+ 
+ 			tegra_dmic1: dmic@702d4000 {
+@@ -1706,7 +2080,28 @@ tegra_dmic1: dmic@702d4000 {
+ 				assigned-clock-rates = <3072000>;
+ 				sound-name-prefix = "DMIC1";
+ 				status = "disabled";
+-			};
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						dmic1_cif_ep: endpoint {
++							remote-endpoint = <&xbar_dmic1_ep>;
++						};
++					};
++
++					dmic1_port: port@1 {
++						reg = <1>;
++
++						dmic1_dap_ep: endpoint {
++							/* Placeholder for external Codec */
++						};
++					};
++				};
++			};
+ 
+ 			tegra_dmic2: dmic@702d4100 {
+ 				compatible = "nvidia,tegra210-dmic";
+@@ -1718,6 +2113,27 @@ tegra_dmic2: dmic@702d4100 {
+ 				assigned-clock-rates = <3072000>;
+ 				sound-name-prefix = "DMIC2";
+ 				status = "disabled";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						dmic2_cif_ep: endpoint {
++							remote-endpoint = <&xbar_dmic2_ep>;
++						};
++					};
++
++					dmic2_port: port@1 {
++						reg = <1>;
++
++						dmic2_dap_ep: endpoint {
++							/* Placeholder for external Codec */
++						};
++					};
++				};
+ 			};
+ 
+ 			tegra_dmic3: dmic@702d4200 {
+@@ -1730,6 +2146,27 @@ tegra_dmic3: dmic@702d4200 {
+ 				assigned-clock-rates = <3072000>;
+ 				sound-name-prefix = "DMIC3";
+ 				status = "disabled";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						dmic3_cif_ep: endpoint {
++							remote-endpoint = <&xbar_dmic3_ep>;
++						};
++					};
++
++					dmic3_port: port@1 {
++						reg = <1>;
++
++						dmic3_dap_ep: endpoint {
++							/* Placeholder for external Codec */
++						};
++					};
++				};
+ 			};
+ 
+ 			tegra_ope1: processing-engine@702d8000 {
+@@ -1750,6 +2187,27 @@ dynamic-range-compressor@702d8200 {
+ 					compatible = "nvidia,tegra210-mbdrc";
+ 					reg = <0x702d8200 0x200>;
+ 				};
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0x0>;
++
++						ope1_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_ope1_in_ep>;
++						};
++					};
++
++					ope1_out_port: port@1 {
++						reg = <0x1>;
++
++						ope1_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_ope1_out_ep>;
++						};
++					};
++				};
+ 			};
+ 
+ 			tegra_ope2: processing-engine@702d8400 {
+@@ -1770,6 +2228,27 @@ dynamic-range-compressor@702d8600 {
+ 					compatible = "nvidia,tegra210-mbdrc";
+ 					reg = <0x702d8600 0x200>;
+ 				};
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0x0>;
++
++						ope2_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_ope2_in_ep>;
++						};
++					};
++
++					ope2_out_port: port@1 {
++						reg = <0x1>;
++
++						ope2_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_ope2_out_ep>;
++						};
++					};
++				};
+ 			};
+ 
+ 			tegra_mvc1: mvc@702da000 {
+@@ -1777,6 +2256,27 @@ tegra_mvc1: mvc@702da000 {
+ 				reg = <0x702da000 0x200>;
+ 				sound-name-prefix = "MVC1";
+ 				status = "disabled";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						mvc1_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_mvc1_in_ep>;
++						};
++					};
++
++					mvc1_out_port: port@1 {
++						reg = <1>;
++
++						mvc1_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_mvc1_out_ep>;
++						};
++					};
++				};
+ 			};
+ 
+ 			tegra_mvc2: mvc@702da200 {
+@@ -1784,6 +2284,27 @@ tegra_mvc2: mvc@702da200 {
+ 				reg = <0x702da200 0x200>;
+ 				sound-name-prefix = "MVC2";
+ 				status = "disabled";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0>;
++
++						mvc2_cif_in_ep: endpoint {
++							remote-endpoint = <&xbar_mvc2_in_ep>;
++						};
++					};
++
++					mvc2_out_port: port@1 {
++						reg = <1>;
++
++						mvc2_cif_out_ep: endpoint {
++							remote-endpoint = <&xbar_mvc2_out_ep>;
++						};
++					};
++				};
+ 			};
+ 
+ 			tegra_amixer: amixer@702dbb00 {
+@@ -1791,6 +2312,131 @@ tegra_amixer: amixer@702dbb00 {
+ 				reg = <0x702dbb00 0x800>;
+ 				sound-name-prefix = "MIXER1";
+ 				status = "disabled";
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					port@0 {
++						reg = <0x0>;
++
++						mixer_in1_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in1_ep>;
++						};
++					};
++
++					port@1 {
++						reg = <0x1>;
++
++						mixer_in2_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in2_ep>;
++						};
++					};
++
++					port@2 {
++						reg = <0x2>;
++
++						mixer_in3_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in3_ep>;
++						};
++					};
++
++					port@3 {
++						reg = <0x3>;
++
++						mixer_in4_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in4_ep>;
++						};
++					};
++
++					port@4 {
++						reg = <0x4>;
++
++						mixer_in5_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in5_ep>;
++						};
++					};
++
++					port@5 {
++						reg = <0x5>;
++
++						mixer_in6_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in6_ep>;
++						};
++					};
++
++					port@6 {
++						reg = <0x6>;
++
++						mixer_in7_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in7_ep>;
++						};
++					};
++
++					port@7 {
++						reg = <0x7>;
++
++						mixer_in8_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in8_ep>;
++						};
++					};
++
++					port@8 {
++						reg = <0x8>;
++
++						mixer_in9_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in9_ep>;
++						};
++					};
++
++					port@9 {
++						reg = <0x9>;
++
++						mixer_in10_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_in10_ep>;
++						};
++					};
++
++					mixer_out1_port: port@a {
++						reg = <0xa>;
++
++						mixer_out1_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_out1_ep>;
++						};
++					};
++
++					mixer_out2_port: port@b {
++						reg = <0xb>;
++
++						mixer_out2_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_out2_ep>;
++						};
++					};
++
++					mixer_out3_port: port@c {
++						reg = <0xc>;
++
++						mixer_out3_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_out3_ep>;
++						};
++					};
++
++					mixer_out4_port: port@d {
++						reg = <0xd>;
++
++						mixer_out4_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_out4_ep>;
++						};
++					};
++
++					mixer_out5_port: port@e {
++						reg = <0xe>;
++
++						mixer_out5_ep: endpoint {
++							remote-endpoint = <&xbar_mixer_out5_ep>;
++						};
++					};
++				};
+ 			};
+ 
+ 			ports {
+@@ -1874,6 +2520,478 @@ xbar_admaif10_ep: endpoint {
+ 						remote-endpoint = <&admaif10_ep>;
+ 					};
+ 				};
++
++				xbar_i2s1_port: port@a {
++					reg = <0xa>;
++
++					xbar_i2s1_ep: endpoint {
++						remote-endpoint = <&i2s1_cif_ep>;
++					};
++				};
++
++				xbar_i2s2_port: port@b {
++					reg = <0xb>;
++
++					xbar_i2s2_ep: endpoint {
++						remote-endpoint = <&i2s2_cif_ep>;
++					};
++				};
++
++				xbar_i2s3_port: port@c {
++					reg = <0xc>;
++
++					xbar_i2s3_ep: endpoint {
++						remote-endpoint = <&i2s3_cif_ep>;
++					};
++				};
++
++				xbar_i2s4_port: port@d {
++					reg = <0xd>;
++
++					xbar_i2s4_ep: endpoint {
++						remote-endpoint = <&i2s4_cif_ep>;
++					};
++				};
++
++				xbar_i2s5_port: port@e {
++					reg = <0xe>;
++
++					xbar_i2s5_ep: endpoint {
++						remote-endpoint = <&i2s5_cif_ep>;
++					};
++				};
++
++				xbar_dmic1_port: port@f {
++					reg = <0xf>;
++
++					xbar_dmic1_ep: endpoint {
++						remote-endpoint = <&dmic1_cif_ep>;
++					};
++				};
++
++				xbar_dmic2_port: port@10 {
++					reg = <0x10>;
++
++					xbar_dmic2_ep: endpoint {
++						remote-endpoint = <&dmic2_cif_ep>;
++					};
++				};
++
++				xbar_dmic3_port: port@11 {
++					reg = <0x11>;
++
++					xbar_dmic3_ep: endpoint {
++						remote-endpoint = <&dmic3_cif_ep>;
++					};
++				};
++
++				xbar_sfc1_in_port: port@12 {
++					reg = <0x12>;
++
++					xbar_sfc1_in_ep: endpoint {
++						remote-endpoint = <&sfc1_cif_in_ep>;
++					};
++				};
++
++				port@13 {
++					reg = <0x13>;
++
++					xbar_sfc1_out_ep: endpoint {
++						remote-endpoint = <&sfc1_cif_out_ep>;
++					};
++				};
++
++				xbar_sfc2_in_port: port@14 {
++					reg = <0x14>;
++
++					xbar_sfc2_in_ep: endpoint {
++						remote-endpoint = <&sfc2_cif_in_ep>;
++					};
++				};
++
++				port@15 {
++					reg = <0x15>;
++
++					xbar_sfc2_out_ep: endpoint {
++						remote-endpoint = <&sfc2_cif_out_ep>;
++					};
++				};
++
++				xbar_sfc3_in_port: port@16 {
++					reg = <0x16>;
++
++					xbar_sfc3_in_ep: endpoint {
++						remote-endpoint = <&sfc3_cif_in_ep>;
++					};
++				};
++
++				port@17 {
++					reg = <0x17>;
++
++					xbar_sfc3_out_ep: endpoint {
++						remote-endpoint = <&sfc3_cif_out_ep>;
++					};
++				};
++
++				xbar_sfc4_in_port: port@18 {
++					reg = <0x18>;
++
++					xbar_sfc4_in_ep: endpoint {
++						remote-endpoint = <&sfc4_cif_in_ep>;
++					};
++				};
++
++				port@19 {
++					reg = <0x19>;
++
++					xbar_sfc4_out_ep: endpoint {
++						remote-endpoint = <&sfc4_cif_out_ep>;
++					};
++				};
++
++				xbar_mvc1_in_port: port@1a {
++					reg = <0x1a>;
++
++					xbar_mvc1_in_ep: endpoint {
++						remote-endpoint = <&mvc1_cif_in_ep>;
++					};
++				};
++
++				port@1b {
++					reg = <0x1b>;
++
++					xbar_mvc1_out_ep: endpoint {
++						remote-endpoint = <&mvc1_cif_out_ep>;
++					};
++				};
++
++				xbar_mvc2_in_port: port@1c {
++					reg = <0x1c>;
++
++					xbar_mvc2_in_ep: endpoint {
++						remote-endpoint = <&mvc2_cif_in_ep>;
++					};
++				};
++
++				port@1d {
++					reg = <0x1d>;
++
++					xbar_mvc2_out_ep: endpoint {
++						remote-endpoint = <&mvc2_cif_out_ep>;
++					};
++				};
++
++				xbar_amx1_in1_port: port@1e {
++					reg = <0x1e>;
++
++					xbar_amx1_in1_ep: endpoint {
++						remote-endpoint = <&amx1_in1_ep>;
++					};
++				};
++
++				xbar_amx1_in2_port: port@1f {
++					reg = <0x1f>;
++
++					xbar_amx1_in2_ep: endpoint {
++						remote-endpoint = <&amx1_in2_ep>;
++					};
++				};
++
++				xbar_amx1_in3_port: port@20 {
++					reg = <0x20>;
++
++					xbar_amx1_in3_ep: endpoint {
++						remote-endpoint = <&amx1_in3_ep>;
++					};
++				};
++
++				xbar_amx1_in4_port: port@21 {
++					reg = <0x21>;
++
++					xbar_amx1_in4_ep: endpoint {
++						remote-endpoint = <&amx1_in4_ep>;
++					};
++				};
++
++				port@22 {
++					reg = <0x22>;
++
++					xbar_amx1_out_ep: endpoint {
++						remote-endpoint = <&amx1_out_ep>;
++					};
++				};
++
++				xbar_amx2_in1_port: port@23 {
++					reg = <0x23>;
++
++					xbar_amx2_in1_ep: endpoint {
++						remote-endpoint = <&amx2_in1_ep>;
++					};
++				};
++
++				xbar_amx2_in2_port: port@24 {
++					reg = <0x24>;
++
++					xbar_amx2_in2_ep: endpoint {
++						remote-endpoint = <&amx2_in2_ep>;
++					};
++				};
++
++				xbar_amx2_in3_port: port@25 {
++					reg = <0x25>;
++
++					xbar_amx2_in3_ep: endpoint {
++						remote-endpoint = <&amx2_in3_ep>;
++					};
++				};
++
++				xbar_amx2_in4_port: port@26 {
++					reg = <0x26>;
++
++					xbar_amx2_in4_ep: endpoint {
++						remote-endpoint = <&amx2_in4_ep>;
++					};
++				};
++
++				port@27 {
++					reg = <0x27>;
++
++					xbar_amx2_out_ep: endpoint {
++						remote-endpoint = <&amx2_out_ep>;
++					};
++				};
++
++				xbar_adx1_in_port: port@28 {
++					reg = <0x28>;
++
++					xbar_adx1_in_ep: endpoint {
++						remote-endpoint = <&adx1_in_ep>;
++					};
++				};
++
++				port@29 {
++					reg = <0x29>;
++
++					xbar_adx1_out1_ep: endpoint {
++						remote-endpoint = <&adx1_out1_ep>;
++					};
++				};
++
++				port@2a {
++					reg = <0x2a>;
++
++					xbar_adx1_out2_ep: endpoint {
++						remote-endpoint = <&adx1_out2_ep>;
++					};
++				};
++
++				port@2b {
++					reg = <0x2b>;
++
++					xbar_adx1_out3_ep: endpoint {
++						remote-endpoint = <&adx1_out3_ep>;
++					};
++				};
++
++				port@2c {
++					reg = <0x2c>;
++
++					xbar_adx1_out4_ep: endpoint {
++						remote-endpoint = <&adx1_out4_ep>;
++					};
++				};
++
++				xbar_adx2_in_port: port@2d {
++					reg = <0x2d>;
++
++					xbar_adx2_in_ep: endpoint {
++						remote-endpoint = <&adx2_in_ep>;
++					};
++				};
++
++				port@2e {
++					reg = <0x2e>;
++
++					xbar_adx2_out1_ep: endpoint {
++						remote-endpoint = <&adx2_out1_ep>;
++					};
++				};
++
++				port@2f {
++					reg = <0x2f>;
++
++					xbar_adx2_out2_ep: endpoint {
++						remote-endpoint = <&adx2_out2_ep>;
++					};
++				};
++
++				port@30 {
++					reg = <0x30>;
++
++					xbar_adx2_out3_ep: endpoint {
++						remote-endpoint = <&adx2_out3_ep>;
++					};
++				};
++
++				port@31 {
++					reg = <0x31>;
++
++					xbar_adx2_out4_ep: endpoint {
++						remote-endpoint = <&adx2_out4_ep>;
++					};
++				};
++
++				xbar_mixer_in1_port: port@32 {
++					reg = <0x32>;
++
++					xbar_mixer_in1_ep: endpoint {
++						remote-endpoint = <&mixer_in1_ep>;
++					};
++				};
++
++				xbar_mixer_in2_port: port@33 {
++					reg = <0x33>;
++
++					xbar_mixer_in2_ep: endpoint {
++						remote-endpoint = <&mixer_in2_ep>;
++					};
++				};
++
++				xbar_mixer_in3_port: port@34 {
++					reg = <0x34>;
++
++					xbar_mixer_in3_ep: endpoint {
++						remote-endpoint = <&mixer_in3_ep>;
++					};
++				};
++
++				xbar_mixer_in4_port: port@35 {
++					reg = <0x35>;
++
++					xbar_mixer_in4_ep: endpoint {
++						remote-endpoint = <&mixer_in4_ep>;
++					};
++				};
++
++				xbar_mixer_in5_port: port@36 {
++					reg = <0x36>;
++
++					xbar_mixer_in5_ep: endpoint {
++						remote-endpoint = <&mixer_in5_ep>;
++					};
++				};
++
++				xbar_mixer_in6_port: port@37 {
++					reg = <0x37>;
++
++					xbar_mixer_in6_ep: endpoint {
++						remote-endpoint = <&mixer_in6_ep>;
++					};
++				};
++
++				xbar_mixer_in7_port: port@38 {
++					reg = <0x38>;
++
++					xbar_mixer_in7_ep: endpoint {
++						remote-endpoint = <&mixer_in7_ep>;
++					};
++				};
++
++				xbar_mixer_in8_port: port@39 {
++					reg = <0x39>;
++
++					xbar_mixer_in8_ep: endpoint {
++						remote-endpoint = <&mixer_in8_ep>;
++					};
++				};
++
++				xbar_mixer_in9_port: port@3a {
++					reg = <0x3a>;
++
++					xbar_mixer_in9_ep: endpoint {
++						remote-endpoint = <&mixer_in9_ep>;
++					};
++				};
++
++				xbar_mixer_in10_port: port@3b {
++					reg = <0x3b>;
++
++					xbar_mixer_in10_ep: endpoint {
++						remote-endpoint = <&mixer_in10_ep>;
++					};
++				};
++
++				port@3c {
++					reg = <0x3c>;
++
++					xbar_mixer_out1_ep: endpoint {
++						remote-endpoint = <&mixer_out1_ep>;
++					};
++				};
++
++				port@3d {
++					reg = <0x3d>;
++
++					xbar_mixer_out2_ep: endpoint {
++						remote-endpoint = <&mixer_out2_ep>;
++					};
++				};
++
++				port@3e {
++					reg = <0x3e>;
++
++					xbar_mixer_out3_ep: endpoint {
++						remote-endpoint = <&mixer_out3_ep>;
++					};
++				};
++
++				port@3f {
++					reg = <0x3f>;
++
++					xbar_mixer_out4_ep: endpoint {
++						remote-endpoint = <&mixer_out4_ep>;
++					};
++				};
++
++				port@40 {
++					reg = <0x40>;
++
++					xbar_mixer_out5_ep: endpoint {
++						remote-endpoint = <&mixer_out5_ep>;
++					};
++				};
++
++				xbar_ope1_in_port: port@41 {
++					reg = <0x41>;
++
++					xbar_ope1_in_ep: endpoint {
++						remote-endpoint = <&ope1_cif_in_ep>;
++					};
++				};
++
++				port@42 {
++					reg = <0x42>;
++
++					xbar_ope1_out_ep: endpoint {
++						remote-endpoint = <&ope1_cif_out_ep>;
++					};
++				};
++
++				xbar_ope2_in_port: port@43 {
++					reg = <0x43>;
++
++					xbar_ope2_in_ep: endpoint {
++						remote-endpoint = <&ope2_cif_in_ep>;
++					};
++				};
++
++				port@44 {
++					reg = <0x44>;
++
++					xbar_ope2_out_ep: endpoint {
++						remote-endpoint = <&ope2_cif_out_ep>;
++					};
++				};
+ 			};
+ 		};
+ 
 
-Then the trampoline needs to be freed. ip_after_call patches jmp in,
-and trampoline proceeds to free progs A and B.
-B is freed right away.
-Eventually A's kfunc returns from sleep
-and jmps back into a trampoline
-which is not freed yet, since percpu_ref keeps it,
-but prog B is gone, so it attempts to execute a freed prog B ?
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260903-smaug-audio_ports-7e547ffa08cc
 
+Best regards,
+--  
+Diogo Ivo <diogo.ivo@bootlin.com>
 
-> I have a reproducer for those scenarios that crashes bpf-next. I will mak=
-e it a
-> selftest in v2 like Jiri suggested.
-
-Please narrow down the reproducer (sounds like it's a random stress test
-at this point) to specific steps.
-
-If my guess above is correct the reproducer will be short
-and deterministic.
