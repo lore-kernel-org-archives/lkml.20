@@ -1,124 +1,161 @@
-Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A07F32264A3
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 10:09:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.153
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E0B3A48D9;
+	Wed,  2 Sep 2026 10:10:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788343746; cv=none; b=DuI5nG8Qp1obPyK5xdJDWTq3ptDd76myd4vNXDVk20KfnlAIQWP2bAY+9h5/k2YWcninFOVEwp3V4uYxdLLjHSoSKWYr8ncGfbtCMNnAZpT/CEM9f36QRlOMo57TJiB3uaZByJFrM7SLgDta/5+xK5iAtZvJkgiTN2Ww7CqRTUY=
+	t=1788343844; cv=none; b=UGaGB2L5qk5U1OPtrMVWM4qHxML6i2oZ+QNmYY3fLA8x9HSXFfcwBFJOVxIWGztr/30eUTObAX/TFTfMMYPN4NS7EAvaI3iZTakBbejTra5+AWmmKZBgcwvVt8JPtZTanBJzja+y52dWWPDYyiohruW8cl5V9y8TmCfmlF4HONI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788343746; c=relaxed/simple;
-	bh=EwnPd3MrHhksOyO6NW9kMCNJxkHaajehypePPFb8Ee0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FYa+28nXqgnAUFsSt/+co/47NOGVvHDZSIwyDkb0Yv4jO3yjcbnAwaRzsZbEp5EXOMQ7orQ6R+k40Q3FinP2bB9CAogtTqH/UQtkJRpCKQWy9y1G06fd7nTmY3Iohn5dHScbqr88IahRGV8k2yehA2ZTMoiK4jruug+ebPFwawI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name; spf=pass smtp.mailfrom=shutemov.name; dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b=D7k5zw+f; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=AloGDmX+; arc=none smtp.client-ip=202.12.124.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shutemov.name
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=shutemov.name header.i=@shutemov.name header.b="D7k5zw+f";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="AloGDmX+"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id E27927A00A4;
-	Wed,  2 Sep 2026 06:09:02 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Wed, 02 Sep 2026 06:09:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shutemov.name;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1788343742; x=
-	1788430142; bh=4eyoVhARyY8c3ayX2oU65ovPrzRBc+wnZNVAdNtoY/k=; b=D
-	7k5zw+fM+2d7gTzK+knYjEyKFgO+t4i3nbQB1NkKrqhA3ShTf9d0JTvbbcKgDPp0
-	EqGjR1TD16LYwOXjpzwu3LWzZXSV+FwDXEMD9w6xnjXUVSdASkTivh0v8aowNKgx
-	M2oo0XwGPwMDsfKXl8N2XPpQCMENc9xBr5MGX1PNV4FSF/UybxhFTvsy1dtDp6R2
-	w3xdc9Gs4C/2/RKhreXpLMm23E6ckKGf/u6vWsMnV4th1CWUTqhegQ03QtWge9p9
-	H2n58GQVCbIc+bc6ludWIr/elkD77NXHSmkwuRb6tWjhkXtYFhfWUbtzuNL9snYL
-	HeKSEnl7MKUR6PFNGRAaw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1788343742; x=1788430142; bh=4eyoVhARyY8c3ayX2oU65ovPrzRBc+wnZNV
-	AdNtoY/k=; b=AloGDmX+5scehhG/OaJSz9eOQV6ApCNfPYb2xbKPoi7qCeebhh7
-	ploKYWcPRMZK6H+jDvOGltUwL0nE7xpbMxn21xQOXDJeKUB2T654v0hPGNIxtaqt
-	aIx9ERdgZBFD9BRu1WRYICsMTcr1UzFlO0V/HY/CGUR7FlYHASvzajEJdD7ryAFz
-	ZEjal+y0BcOcGA7mnR4FpmJ/FGovSANdiTmpbZbUC6n3/n2mtZC0OPhxuEIh43LF
-	VuJNgRoaAtylzwrcFpoTlqsGQ/rL5dihRYkNmfEWhqMFO+HzfF9Pl6ivHgSxQbHt
-	ubEK/F4+276TUN7/dlcCPAdPfZXpc45jylw==
-X-ME-Sender: <xms:vfWXavnvofDXd6N3zNSIndXutDcTMaf074qX6qMT5u1Epf-z9z5q3Q>
-    <xme:vfWXaqnWnsmlJS2gnif68Qc9V-8k4G09T7ysF8Kd374DODY9fauT6Kp41p1DRtFCA
-    uch6mnff0KLYxWqZIb-ABkeL13MSFHYnEX8XiJOLUcLAfuiwR-TLBw>
-X-ME-Received: <xmr:vfWXakNiu-LorlGAwXak0MeyDfK1i6EtPq75uSmqZHMd5gw3_I33XMUTjtU>
-X-ME-Proxy-Cause: dmFkZTGiBOszArCTT2ozfuuyGlET3SfJvgjhWow2cvI0CQD7KlUc0CYYimZ+3biXlQ4u+o
-    KkvVrtlzvvlmfVoFFsV65PGXjIqzFf5nke9m9kK3RXhiZtYJtCz0PCNVQfnvyPFa4Qer5D
-    YtOVw8gzpti7+qerlsizop8o3vQXpE5UNY/3VRMnBUu8CSJdFqzDYjU+YNTfCavzDXYJmN
-    2kFQi3rPCwyuxUv9fsTbXOcTsjKWuvfL2j9q5TEzRYefKOwHSZtijnINSdJB6vzZShbVcP
-    5LwryAPF+g8abOVvLOba5+BQCt/u88dABujx1bIRJu519slcLGDrH3N8+P62ffTsPbTIQK
-    LH2SO/+8pDrkXdVNo022U8jR7SkEIiSOaP0mmJXkI+18LxRAVFjGncD4hz8porf+ug4bgg
-    1+24bEBdG/q3ggOtHO8Gze0FsouKTN0t7nwwF1gMuvv1YwOcjewYMYhuRzI4CkEICzEnBv
-    6CYybZDUQr2MjRbnSOBWcXnCyJl3MyK5Hg+gLOd5sWvV6m4PQiEv3SLIs53PSLyQWzBdZo
-    AKm6kktafDiFyG2aFFBuJrQDd46UAWzAOE1whPy+lvxwzB1dAV3KZCwmM9DHxZ3R2HEpdY
-    F4bNAwQ2EAKlf1vhC3de9bpF5uHcA56ejrsMbeK5M5fEMO9ULcamcRJIHf2Q
-X-ME-Proxy: <xmx:vfWXah4KaI0LNBlT92aNSPwDyRf2sJI3YMizd-k586F8yamPlUsSSw>
-    <xmx:vfWXahvuy5FWv7vcHXuIiYQP1XR_RpTaQYSX8NxidJPeURV2E0idDw>
-    <xmx:vfWXarOsF3j5jEs0pXyUvPeYn0SFMacE2B_hlsaTBr1BHhz42raYog>
-    <xmx:vfWXatqJBgS9Yc0-jhe1XH_BgEOSI3C-MtDDDoAbYVb5NOBV5aM2eg>
-    <xmx:vvWXaqGerQgwiEPUXIcctFF336lajwgi2xTi0kelKEa1HcADuPppzQoO>
-Feedback-ID: ie3994620:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 2 Sep 2026 06:09:00 -0400 (EDT)
-Date: Wed, 2 Sep 2026 11:08:59 +0100
-From: Kiryl Shutsemau <kirill@shutemov.name>
-To: Pedro Demarchi Gomes <pedrodemargomes@gmail.com>
-Cc: Lance Yang <lance.yang@linux.dev>, david@kernel.org, 
-	baolin.wang@linux.alibaba.com, akpm@linux-foundation.org, ljs@kernel.org, ziy@nvidia.com, 
-	liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
-	baohua@kernel.org, usama.arif@linux.dev, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH mm-stable] mm/khugepaged: avoid unnecessary checking for
- swap entries when collapsing a mTHP
-Message-ID: <apf1iWLgwMUxnHp5@thinkstation>
-References: <d02405a5-1d0d-49d5-9056-1a34ccdeef10@kernel.org>
- <20260827121151.7837-1-lance.yang@linux.dev>
- <apBB01VBbmV28gWP@thinkstation>
- <apXHC7uYXE99ZgPp@fedora>
+	s=arc-20240116; t=1788343844; c=relaxed/simple;
+	bh=S2Fgo2+0uDUQRVnyX93VSUZe+ONxffN7rdt7J6o3miY=;
+	h=Date:From:To:CC:Subject:In-Reply-To:Message-ID:MIME-Version:
+	 Content-Type; b=Wzon0ieGKLVhOYh5PA6KPA1NjP5dmTY28XODY7prdcYyW90IFWpdq4T9DxRVkrSXM2140blzrTrJlQkOuJcH25pZFTcdo1x8dqwShkkPOXbsb+Pii0pg88G+ks2dG26ecdA4pJUlsZQgTevuqKMKjvXzUh4vq0vSfQsA42JjseE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.helo=mail.mainlining.org; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.helo=mail.mainlining.org
+Date: Wed, 02 Sep 2026 11:09:15 +0100
+From: Bradley Morgan <brads@mainlining.org>
+To: ruanjinjie@huawei.com
+CC: adilger.kernel@dilger.ca, akpm@linux-foundation.org,
+ andriy.shevchenko@linux.intel.com, bcrl@kvack.org, brauner@kernel.org,
+ jack@suse.cz, kees@kernel.org, libaokun@linux.alibaba.com,
+ linux-aio@kvack.org, linux-ext4@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux@rasmusvillemoes.dk, ojaswin@linux.ibm.com, pmladek@suse.com,
+ ritesh.list@gmail.com, rostedt@goodmis.org, senozhatsky@chromium.org,
+ sforshee@kernel.org, tglx@kernel.org, tytso@mit.edu, viro@zeniv.linux.org.uk,
+ yi.zhang@huawei.com
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v3_1/8=5D_user=5Fnamespace=3A_Use_acq?=
+ =?US-ASCII?Q?uire/release_for_nr=5Fextents_synchronization?=
+In-Reply-To: <20260902074805.398540-2-ruanjinjie@huawei.com>
+Message-ID: <0303FE1D-8F56-4C18-87DA-9C3BBF2D43AE@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apXHC7uYXE99ZgPp@fedora>
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 03:53:34PM -0300, Pedro Demarchi Gomes wrote:
-> On Thu, Aug 27, 2026 at 03:07:10PM +0100, Kiryl Shutsemau wrote:
-> > On Thu, Aug 27, 2026 at 08:11:51PM +0800, Lance Yang wrote:
-> > > For the candidate above, the loop only reads its PTEs and returns
-> > > SCAN_SUCCEED. Pedro's bitmap lets mthp_collapse() determine that upfront
-> > > and skip the walk.
-> > > 
-> > > Emm ... as I asked before[1], any numbers showing how much the extra scan
-> > > costs?
-> > 
-> > With the win being only some scan cost, I don't think it is going to be
-> > measurable.
-> > 
-> > It can open a path to future work. For example, we could find fully
-> > populated mTHP windows in a PMD that is not eligible for collapse
-> > because unmapped > max_ptes_swap. Right now we just give up on the whole
-> > PMD in such cases.
-> > 
-> > But there are more wins to gain there. Just saying :P
+On 2 September 2026 08:47:58 BST, Jinjie Ruan <ruanjinjie@huawei.com>
+wrote:
+>Replace smp_wmb()/smp_rmb() with smp_store_release()/smp_load_acquire()
+>when publishing and consuming `nr_extents`. This expresses the
+>publish/subscribe pattern more clearly and allows architectures with
+>native acquire/release instructions (e.g. arm64's STLR/LDAR) to avoid
+>the cost of full one-way barriers (DMB ISHST/ISHLD).
+>
+>No functional change intended.
+>
+>Cc: Alexander Viro <viro@zeniv.linux.org.uk>
+>Cc: Christian Brauner <brauner@kernel.org>
+>Cc: Jan Kara <jack@suse.cz>
+>Cc: Seth Forshee <sforshee@kernel.org>
+>Cc: Kees Cook <kees@kernel.org>
+>Cc: Aleksa Sarai <cyphar@cyphar.com>
+>Assisted-by: DeepSeek:DeepSeek-V3
+
+LGTM, thanks
+
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+
+
+>Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>---
+>v2:
+>- Add missing load replace in copy_mnt_idmap()
+>---
+> fs/mnt_idmapping.c      |  5 ++---
+> kernel/user_namespace.c | 24 +++++++++++++-----------
+> 2 files changed, 15 insertions(+), 14 deletions(-)
+>
+>diff --git a/fs/mnt_idmapping.c b/fs/mnt_idmapping.c
+>index cb61fbdb52e9..612b266ab3da 100644
+>--- a/fs/mnt_idmapping.c
+>+++ b/fs/mnt_idmapping.c
+>@@ -219,10 +219,9 @@ EXPORT_SYMBOL_GPL(vfsgid_in_group_p);
+> static int copy_mnt_idmap(struct uid_gid_map *map_from,
+> 			  struct uid_gid_map *map_to)
+> {
+>+	/* Pairs with smp_store_release() in map_write(). */
+>+	u32 nr_extents = smp_load_acquire(&map_from->nr_extents);
+> 	struct uid_gid_extent *forward, *reverse;
+>-	u32 nr_extents = READ_ONCE(map_from->nr_extents);
+>-	/* Pairs with smp_wmb() when writing the idmapping. */
+>-	smp_rmb();
 > 
-> Hi Kiryl,
+> 	/*
+> 	 * Don't blindly copy @map_to into @map_from if nr_extents is
+>diff --git a/kernel/user_namespace.c b/kernel/user_namespace.c
+>index 0bed462e9b2a..576b667a8813 100644
+>--- a/kernel/user_namespace.c
+>+++ b/kernel/user_namespace.c
+>@@ -317,9 +317,9 @@ map_id_range_down_base(unsigned extents, struct uid_gid_map *map, u32 id, u32 co
 > 
-> I devised a patch based on your proposed future work idea. If you think it
-> makes sense, I can send it to the mailing list with a Suggested-by: tag.
+> static u32 map_id_range_down(struct uid_gid_map *map, u32 id, u32 count)
+> {
+>+	/* Pairs with smp_store_release() in map_write(). */
+>+	unsigned int extents = smp_load_acquire(&map->nr_extents);
+> 	struct uid_gid_extent *extent;
+>-	unsigned extents = map->nr_extents;
+>-	smp_rmb();
+> 
+> 	if (extents <= UID_GID_MAP_MAX_BASE_EXTENTS)
+> 		extent = map_id_range_down_base(extents, map, id, count);
+>@@ -383,9 +383,9 @@ map_id_range_up_max(unsigned extents, struct uid_gid_map *map, u32 id, u32 count
+> 
+> u32 map_id_range_up(struct uid_gid_map *map, u32 id, u32 count)
+> {
+>+	/* Pairs with smp_store_release() in map_write(). */
+>+	unsigned int extents = smp_load_acquire(&map->nr_extents);
+> 	struct uid_gid_extent *extent;
+>-	unsigned extents = map->nr_extents;
+>-	smp_rmb();
+> 
+> 	if (extents <= UID_GID_MAP_MAX_BASE_EXTENTS)
+> 		extent = map_id_range_up_base(extents, map, id, count);
+>@@ -676,9 +676,9 @@ static int projid_m_show(struct seq_file *seq, void *v)
+> static void *m_start(struct seq_file *seq, loff_t *ppos,
+> 		     struct uid_gid_map *map)
+> {
+>+	/* Pairs with smp_store_release() in map_write(). */
+>+	unsigned int extents = smp_load_acquire(&map->nr_extents);
+> 	loff_t pos = *ppos;
+>-	unsigned extents = map->nr_extents;
+>-	smp_rmb();
+> 
+> 	if (pos >= extents)
+> 		return NULL;
+>@@ -967,9 +967,11 @@ static ssize_t map_write(struct file *file, const char __user *buf,
+> 	 * desired behavior is to see the values of the extents that
+> 	 * were written before the count of the extents.
+> 	 *
+>-	 * To achieve this smp_wmb() is used on guarantee the write
+>-	 * order and smp_rmb() is guaranteed that we don't have crazy
+>-	 * architectures returning stale data.
+>+	 * The nr_extents field is the publish point for the extent
+>+	 * data.  Writers use smp_store_release() to ensure all extent
+>+	 * data is visible before nr_extents is updated.  Readers use
+>+	 * smp_load_acquire() to ensure they see a consistent view of
+>+	 * the extent data when reading nr_extents.
+> 	 */
+> 	mutex_lock(&userns_state_mutex);
+> 
+>@@ -1098,8 +1100,8 @@ static ssize_t map_write(struct file *file, const char __user *buf,
+> 		map->forward = new_map.forward;
+> 		map->reverse = new_map.reverse;
+> 	}
+>-	smp_wmb();
+>-	map->nr_extents = new_map.nr_extents;
+>+	/* Pairs with smp_load_acquire() in map_id_range_{up,down}() and m_start(). */
+>+	smp_store_release(&map->nr_extents, new_map.nr_extents);
+> 
+> 	*ppos = count;
+> 	ret = count;
+>
 
-I am not sure it is worth as the moment. There's lower handing fruits in
-khugepaged that has to be addressed.
-
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+--- Thanks!
+https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
