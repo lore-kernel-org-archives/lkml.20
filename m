@@ -1,118 +1,105 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF5C339FCAE;
-	Wed,  2 Sep 2026 08:32:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4E13E5ED0;
+	Wed,  2 Sep 2026 08:32:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788337953; cv=none; b=TKxltc8NUgtenp/mzQciGEV9wDPXcmWoln3pV5fXxfz9vW8kqTzWXbmUmxCdGQuAKvwPsETzPmUX9NNcoAlvh+LxIe/0Tt69ADcetHiwRojlw4rkKG9HJsc+Gl7Yx8CCF7VeUcb87xG0Ub1Tkzfw6x7rjTqzPxVLVEfNPB5M+9w=
+	t=1788337958; cv=none; b=Z+z3TEUVVV6H7ajT0KdEHwU4hMSZCvuJzkLcfR6V4i9peQDQhoKNRU7NQ1Shvzn8IvrF1mF6al19ZnU0gmSTIZX6Q3U1EAFn2Ym9zhIRJCCHVNnrbfDmHf6tZPjP4uKDpNoymanObJbT9KRQeKrWftCEi3O0hYFI6I/X9sb/SF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788337953; c=relaxed/simple;
-	bh=ezKgrojVYa7NV8qx2djOQ2aLoukbAOVSGt/2qj1wvWM=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=CyHy+rQU+ZxAU2ReWdhp676t+S7FEHHDMei8Zh3KIQI0kE5SWMR55u4tQnTFxrRvhOrvMXbKJ9+F3Tu+lCmLqyhaLGT6CGuyEZ2r9TfPuYwJRsaSgsGj1raVF1hvANBY+trNkppo+jpXTVy6iqeJQMQmzQmVbspMa87Rs+NA0oI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QMXVjgy9; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788337958; c=relaxed/simple;
+	bh=v8SX+7Xz1Vg96SIXVTeAC580QaT32ORmc9kJCxv3UHA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R22IobqFSk+P43NrLMorRE1WiqOatWsHfy5EPfnHDiPIn3PxViNPhAxmU/vs3GXsnReQMyDzKseoFP1HpEcPOHNJrDSvWBeuVFCGSIGq6/Iiw0o4d4E0d7rvvsTmal0fyz3cRfsdl1wiWzUbqa888OaNQli3wICrofr+m+wwnyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gKBt61I5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QMXVjgy9"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 0AD551A193E;
-	Wed,  2 Sep 2026 08:32:30 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CFAD36053C;
-	Wed,  2 Sep 2026 08:32:29 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2E16511C79305;
-	Wed,  2 Sep 2026 10:32:21 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788337945; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=9siiNjXPf+3lQwXCdsGCE+5hGvyR9DC4S4y1EZ+6xDI=;
-	b=QMXVjgy9052pA0iZPQdbYZd832rIZiuj/Hc7u/d1HxLRxw57fF2JEm13cxeRl8xkXPt4cO
-	vK4TKVvaGLDQAE02rKg6EBCeCwdlKivwA63JwvDZoyESgW5VU2tfmhJl2ln0RXNNLPd+wy
-	cKYWTEiTrdrpnfX9SvNeeF9HHaYpQtPGpjAQ28XkWS4FMU28N8owIsInvit1UkkbIJU09z
-	gHZNLgQgjo09Edk5aKI+OBx5ixPfZuKL/FJssPshjDRM7Z9qG333AfOdZlH39U/fAQWHC7
-	lsQHrRFGCbPX+qm8VygwzJVvDIHStGWQRVPapAEh6ZhN5EwAMLeQtCNoNhqyEQ==
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gKBt61I5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 709E51F000E9;
+	Wed,  2 Sep 2026 08:32:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788337957;
+	bh=vWDDEcxiq+pbUWv2xdfE/x6aKmTVnkF0HDOEaUnPgXI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gKBt61I5bi9P27zyhPIIrWp6N0m7CFr036R594pa7RGBi7ZlNGSVOr3n9nOZ5mUwN
+	 akqqrf6CXbyO5WpiAu9yvzpKy53aSwBOO2RulejrbqfKcn3P299pw4leeH7CpGU7BG
+	 5ugV99icLeYn/feBQSZrnmZmPK5DnwxJ9HGDsitlk5fgmrw7Hc6mNLdzzLFn8wmsE1
+	 oeVteVH4FyMx3g5Bz7JAeTH9n0IrbVr6wHuPgJp3HvkLa75xEW6/qi0Z0FpzNJDh5o
+	 tfur7kbFX6bf67gFD8J6VllKCpEPZh0a0MArFsaVCRah3lxU/CnBplGwVhekvJra82
+	 LsHPul6ggtTog==
+Date: Wed, 2 Sep 2026 11:32:32 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org, alex@shazbot.org,
+	ankita@nvidia.com, chriscli@google.com,
+	david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
+	iommu@lists.linux.dev, jgg@ziepe.ca, jmoroni@google.com,
+	kevin.tian@intel.com, kpberry@google.com,
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
+	sashiko-bot@kernel.org, stable@vger.kernel.org,
+	viursachi@google.com, xuehaohu@google.com
+Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
+Message-ID: <20260902083232.GT24140@unreal>
+References: <20260901170849.4052816-1-dhu@x6u.co>
+ <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
+ <20260902073936.GR24140@unreal>
+ <aed39f83-6340-4fe9-890c-6d5f340c97d6@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 02 Sep 2026 10:32:21 +0200
-Message-Id: <DL4OW4OXWPGJ.201FKXDFSTRI4@bootlin.com>
-Subject: Re: [PATCH net 1/2] net: macb: zero the link settings taprio reads
- back
-Cc: "Conor Dooley" <conor.dooley@microchip.com>, "Andrew Lunn"
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo
- Abeni" <pabeni@redhat.com>, "Russell King" <linux@armlinux.org.uk>,
- "Vineeth Karumanchi" <vineeth.karumanchi@amd.com>,
- <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-To: "Aleksei Sviridkin" <f@lex.la>
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260902080528.2211468-1-f@lex.la>
- <20260902080528.2211468-2-f@lex.la>
-In-Reply-To: <20260902080528.2211468-2-f@lex.la>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aed39f83-6340-4fe9-890c-6d5f340c97d6@amd.com>
 
-Hello Aleksei,
+On Wed, Sep 02, 2026 at 09:56:06AM +0200, Christian König wrote:
+> On 9/2/26 09:39, Leon Romanovsky wrote:
+> > On Wed, Sep 02, 2026 at 09:00:46AM +0200, Christian König wrote:
+> >> On 9/1/26 19:08, David Hu wrote:
+> >>> From: David Hu <xuehaohu@google.com>
+> >>>
+> >>> This series address two related issues in scatter-gather mapping,
+> >>> specifically for the MMIO based dma-buf mapping. The fixes ensure
+> >>> sgt mapping is correct, and proper for large MMIO regions.
+> >>>
+> >>> Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
+> >>> (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
+> >>> phys vec to sgt)
+> >>> https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
+> >>>
+> >>> Patch 2 Splits sgl by largest page aligned chunk
+> >>> (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
+> >>> https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
+> >>
+> >> *sigh* such issues are exactly the reason why I didn't wanted the dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
+> > 
+> > And this is why so many in the kernel community want to get rid of SG
+> > lists. It would be great if DMA-BUF could also eliminate the need to
+> > convert to an SGL, like Jason proposed.
+> > 
+> > The DMA layer no longer needs SGL. These bugs belong to the DMA-BUF layer,
+> > which is the one that depends on it.
+> 
+> I'm all fine using an array/xarray of dma_addr_t in DMA-buf, just phys_vec is a clear no-go.
 
-On Wed Sep 2, 2026 at 10:05 AM CEST, Aleksei Sviridkin wrote:
-> phylink_ethtool_ksettings_get() fills only what the current link mode
-> provides. With no PHY attached it writes port and supported; on a fixed
-> or in-band link it also writes speed and duplex, but only if
-> base.rate_matching already reads RATE_MATCH_NONE, a field it never
-> writes itself and so takes from the caller. The ethtool core zeroes the
-> structure on every path into the op, so its callers never notice; the
-> taprio path passes a stack variable and reads a speed nobody wrote.
->
-> Fixes: 89934dbf169e ("net: macb: Add TAPRIO traffic scheduling support")
-> Assisted-by: LLM
-> Signed-off-by: Aleksei Sviridkin <f@lex.la>
+You are proposing the same thing as an SGL, just in a different format.
+It does not address the issue that dma_addr_t is expected to hold a DMA
+address, while that is not always the case. For example, in the P2P case,
+the addresses are not DMA addresses.
 
-Agreed on the fix.
+Jason's proposal:
+https://lore.kernel.org/all/0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com/
 
-Could we improve the commit message? Point how straightforwardly the
-case where uninitialised memory might be used, which is the main thing
-we care about. See how the following is easier to parse out (for humans):
+Thanks
 
-   phylink_ethtool_ksettings_get(bp->phylink, &kset) gets called with
-   uninitialised kset but kset is not only an out-param. In some cases
-   kset->base.rate_matching might be read.
-
-   ... explain the cases in question ...
-
-> ---
->  drivers/net/ethernet/cadence/macb_main.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ether=
-net/cadence/macb_main.c
-> index 76ee4f506033..a43855db1e45 100644
-> --- a/drivers/net/ethernet/cadence/macb_main.c
-> +++ b/drivers/net/ethernet/cadence/macb_main.c
-> @@ -4297,7 +4297,7 @@ static int macb_taprio_setup_replace(struct net_dev=
-ice *netdev,
->  	struct macb_queue_enst_config *enst_queue;
->  	struct tc_taprio_sched_entry *entry;
->  	struct macb *bp =3D netdev_priv(netdev);
-> -	struct ethtool_link_ksettings kset;
-> +	struct ethtool_link_ksettings kset =3D {};
->  	struct macb_queue *queue;
->  	u32 queue_mask;
->  	u8 queue_id;
-
-Let's try to respect reverse xmas tree as we grow a variable.
-I know it wasn't perfect before.
-
-Thanks,
-
---
-Th=C3=A9o Lebrun, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+> 
+> Regards,
+> Christian.
+> 
+> > 
+> > Thanks
+> 
+> 
