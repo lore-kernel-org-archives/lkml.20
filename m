@@ -1,219 +1,161 @@
-Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f4.google.com (mail-oo2-f4.google.com [74.125.231.132])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25E171FCFFC;
-	Wed,  2 Sep 2026 01:10:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2196C33C502
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 01:13:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788311433; cv=none; b=M2dKCLcsg2nfnjXAnW5UAsLk7RNffiVY/oUf5dsDhzzrFekVZPy85seVjCBs9nc+kaoazq52PN+bM0ID3LiOQ3qxaCukHormlYnvTVoJEqyIbozjTePwQ93mPvYc0Wjp9QDA/NwwjNXC1LI1366O5R6NO94XdRlwrEhkcupFhGk=
+	t=1788311615; cv=none; b=H6RL+PwS2ZYwIdyaB0UKxuJvkj8tC8XuPMsQkk1jf6nQCa0bkN7e4XEbG37ycKSUO2/M/ZObEo0hyvTHcUYE58kqCuunonk4i8sd3oLlck754wTEKgJmTLSrtcokRhtwXOz+2vDBaWodfzQky7AKvyeg0X7dQT6F6UHGxUMOFXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788311433; c=relaxed/simple;
-	bh=rGnOd2CLpQUM4UdgDqDB3NAj6bVtEagO4ScTl/EOyZE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=gSUM9XAmYa6Xi2MvAuK+9GwrRfnk8CJkp6P9MRNeQyyg+4/JAr4a8DUXmPW3opBVwnbsyDxz6GX6vaQ3UAhCZBtciAluWwqK4DqS6Y0SCkGn/aUHCCmKwmlYKmHOQ5hO/nAYGywYko6zr7zrdzc3KusQJXiyAQ1nR6KTHXjevOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=gxQtifHk; arc=none smtp.client-ip=113.46.200.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1788311615; c=relaxed/simple;
+	bh=mthsAuvC5kxwl9HoC2silixWp9Aei1Pp/kO4Vu2EIZk=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=hvW/gOM11SvfXdnydyuQPnSzXL4kpv06aWDPjQVgnrhHQhZdn+1IaS3SiXKNPH6VQdR4my9BD0M/eS0zrhRPZDvC52OrnsMR+p+Bk5w0QNA85o2QgbsBcVr+U1TL08/RPMmYgUA6dWHKq3+60x7qM/wo4WFI+7Q6+w9mYr3OLSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FHvh+gyz; arc=none smtp.client-ip=74.125.231.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="gxQtifHk"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=ueZfUdbICpbFc4QJdF1KNCrnQsrHgevLIv0afVFUmZM=;
-	b=gxQtifHkaLPw22BF6n0KMEk10IuxeqmsMYYop/hUPqKEf8knsZeKMkjksoN1EG/Q1sd/O9Di/
-	MWC9d9+IV55CGBmQmL79IAHmaox4lGW98FrA6ZXZh/7XOquukuCJCl9vL3nrYSwO4ytzpow/EiG
-	bZELp1KK04KMfSbcfFS8Feg=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4hZPWl0vM1z1K96m;
-	Wed,  2 Sep 2026 08:59:31 +0800 (CST)
-Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id 13A854048B;
-	Wed,  2 Sep 2026 09:10:21 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Wed, 2 Sep 2026 09:10:18 +0800
-Message-ID: <bf0e158e-4bd0-4495-a9e2-983556e4041b@huawei.com>
-Date: Wed, 2 Sep 2026 09:10:16 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FHvh+gyz"
+Received: by mail-oo2-f4.google.com with SMTP id 46e09a7af769-7f4e9ec63a7so85493a34.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 18:13:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788311609; x=1788916409; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=mqO5MLc175YVYlL4+Bawb4s5pN8s4dKpvKfmlQW7U1I=;
+        b=FHvh+gyzwbb4MZVbfK/4AUjtIi3Az9Sp9fYyuWAJN0exymtGB8Y7OabApqI8WHpjdA
+         SnTR3GlH4z96oxHr6b1T1qyEL2jzflqehvWnIzF7bMH8VTxVOyVDX8U4KqOu6m3lt4Mr
+         Erfva5aWYlbrPw8hufbde4SwSSvQwTMV2+yGnrAsw0C21Nqt3RPDHaioQ7ubQUWlITS/
+         wA4O7dX1g9ntSP2sFkLCYc1hbNn/C13LyZjdP8MPlDMX2/Mo7DuFGSRS8nFWwOqir8x7
+         7XbtL/emtjWHluNGVSAHLcjuh0E+iE00OcXyvV54q6DIxVEuboFvhmIZWwNzde6V8NFT
+         tAkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788311609; x=1788916409;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mqO5MLc175YVYlL4+Bawb4s5pN8s4dKpvKfmlQW7U1I=;
+        b=oaEy48Y1iWMlSY4OVuB+m+117f3qZFY7k0jTsJscZRnq2yoAE++JlKypezmNNVSJ1C
+         nlPpvnLxhrA/zuLfb9z7ZccyUPoV5ouWtDElcA4dTdbCWi6wvg9nDKXvmyLPPPeK957C
+         MpKeeuutjfQbUo5Ta4a3gFdLWsb9yLoXJLGWpgWfnc2E+0/Xs7W9k3jspvmnSFh2fKQQ
+         QCLJBpwytkISthaZM566FqxSJYITLcWnkjH9hDl+ltucVyZjTEKXK934PNrlFP1RfI5B
+         aBORlwe1X+BNu1tWkk+nYFnO4iKR947FSa223PqSYL5ft3vH/3+xWfAsCq9J23CggS8H
+         QsJg==
+X-Forwarded-Encrypted: i=1; AHgh+RoN4qjvRVGTnJacX+5Psq8OHvT/+g5Fknc5JKKcrHcn9ToNGSrA2U307I0L7ZqqS+pEgWbYKjxk1i9RwtU=@vger.kernel.org
+X-Gm-Message-State: AFuF++leV2y1vghQcVENgDM3WSdBmTtsJ17xE/qrIzqKaeDF1YqwBc/R
+	itDyZwLu6XL2/uagKq5EYIQmjeJFfekH3C4PBdCb9Ezi3ZIct04lskLe
+X-Gm-Gg: AR+sD12fUaX+lgR0xd0GMRmrpFSSOgC1sRWEjCWmPCzlJKQ2rUcUBDsWdO/R1mRKFDm
+	MuLaOin35gtz61d7texIDr2DAH/i4H1MsidsZKVuRStweWn8+9XteSNxSd0165apwduhXvZRCZK
+	lobBeZ6PZus2a4Ih3YlOAyUVfmkqL9/GmQJGp3pm0SZEJbvcLflvCNr1Ogh9sWzFdKJuJ0NyvKg
+	KSo+ntc6mELDn7zpV61kM2daPpnu/zBNKgpNhnsU1s9psrIks9J7g3pfdlK7Uu9twhaXmm2g0JD
+	5qar1Me19TqksDJuslht9+EItQzlRlA2iTRK97ePj6TTtV7uKtPgAmI/lvoaqXFhrG1cdWJxLax
+	nMOSBruzfCihzrKW1L4kLPZwr82F4a0cMGztbGb7IRcxcXG2JQIC847derwI4H9QYUyHRxIZJsA
+	rNSXJ3sFD/COnugkdcbNsFxCZwWUKwDvXQ6eOm2xUP7hKz4uhAxBet/WEt3OJIB8NBtw2s6DhUJ
+	hb3kPVkqxvBWNC2GFmG8204CeAhHfvESGcCti2003ugoFLSqUGCSc53vZwCRW1QwttOfktXWiRJ
+	sdWSJCg=
+X-Received: by 2002:a4a:ec46:0:b0:6b1:4e37:41c0 with SMTP id 006d021491bc7-6b48103a707mr855739eaf.19.1788311608778;
+        Tue, 01 Sep 2026 18:13:28 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:40::])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f74f9ec644sm1036500a34.24.2026.09.01.18.13.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 18:13:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 01/17] kexec: Record allocated CMA pages to fix release
- size mismatch
-To: Mike Rapoport <rppt@kernel.org>
-CC: <catalin.marinas@arm.com>, <will@kernel.org>, <mark.rutland@arm.com>,
-	<chenhuacai@kernel.org>, <kernel@xen0n.name>, <maddy@linux.ibm.com>,
-	<mpe@ellerman.id.au>, <npiggin@gmail.com>, <chleroy@kernel.org>,
-	<tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <akpm@linux-foundation.org>,
-	<baoquan.he@linux.dev>, <pasha.tatashin@soleen.com>, <pratyush@kernel.org>,
-	<ruirui.yang@linux.dev>, <kees@kernel.org>, <thuth@redhat.com>,
-	<gshan@redhat.com>, <jic23@kernel.org>, <james.morse@arm.com>,
-	<ardb@kernel.org>, <leitao@debian.org>, <yeoreum.yun@arm.com>,
-	<sourabhjain@linux.ibm.com>, <coxu@redhat.com>, <tangyouling@kylinos.cn>,
-	<hbathini@linux.ibm.com>, <adityag@linux.ibm.com>,
-	<ionut.nechita@windriver.com>, <liaoyuanhong@vivo.com>, <seanjc@google.com>,
-	<fuqiang.wang@easystack.cn>, <makb@juniper.net>, <piliu@redhat.com>,
-	<ebiggers@kernel.org>, <jbouron@amazon.com>, <mclapinski@google.com>,
-	<me@linux.beauty>, <graf@amazon.com>, <bgwin@google.com>, <robh@kernel.org>,
-	<takahiro.akashi@linaro.org>, <palmer@rivosinc.com>, <x86@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
-	<kexec@lists.infradead.org>, <linux-fsdevel@vger.kernel.org>,
-	<linux-mm@kvack.org>
-References: <20260826092541.3905933-1-ruanjinjie@huawei.com>
- <20260826092541.3905933-2-ruanjinjie@huawei.com>
- <178829364020.3691424.12323275610442178748.b4-review@b4>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <178829364020.3691424.12323275610442178748.b4-review@b4>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
- dggpemf500011.china.huawei.com (7.185.36.131)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 02 Sep 2026 03:13:26 +0200
+Message-Id: <DL4FK2P8LMEQ.216J5ZMX9B7VC@gmail.com>
+Cc: <loongarch@lists.linux.dev>, <bpf@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH bpf v1 RESEND] bpf: Fix timer_lockup deadlock using
+ atomic_fetch_inc()
+From: "Kumar Kartikeya Dwivedi" <memxor@gmail.com>
+To: "Tiezhu Yang" <yangtiezhu@loongson.cn>, "Alexei Starovoitov"
+ <ast@kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii
+ Nakryiko" <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>,
+ "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>,
+ "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>,
+ "Emil Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
+ <ihor.solodrai@linux.dev>
+X-Mailer: aerc 0.22.0
+References: <20260902005106.22187-1-yangtiezhu@loongson.cn>
+In-Reply-To: <20260902005106.22187-1-yangtiezhu@loongson.cn>
 
+On Wed Sep 2, 2026 at 2:51 AM CEST, Tiezhu Yang wrote:
+> When testing the BPF selftest "sudo ./test_progs -t timer_lockup", there
+> is a kernel lockup and panic on LoongArch:
+>
+>   watchdog: BUG: soft lockup - CPU#1 stuck for 8s! [test_progs:39601]
+>   Kernel panic - not syncing: softlockup: hung tasks
+>   ...
+>   Call Trace:
+>   ...
+>   [<9000000000c40e98>] panic+0x44/0x48
+>   [<9000000000e8b000>] watchdog_timer_fn+0x500/0x520
+>   [<9000000000dfd9a4>] __hrtimer_run_queues+0xc4/0x530
+>   [<9000000000dffe90>] hrtimer_interrupt+0x140/0x320
+>   ...
+>   [<9000000002ad9e4c>] _raw_spin_unlock_irqrestore+0x8c/0xc0
+>   [<9000000000dfe9e0>] hrtimer_try_to_cancel.part.0+0x70/0x350
+>   [<9000000000dfed58>] hrtimer_cancel+0x38/0x80
+>   [<9000000000f6d944>] bpf_timer_cancel+0x94/0x1e0
+>   [<ffff80000200fad0>] bpf_prog_108ab87b32f22e44_timer_cb1+0xb0/0xfc
+>   [<9000000000f6b838>] bpf_timer_cb+0x98/0x170
+>   [<9000000000dfdaac>] __hrtimer_run_queues+0x1cc/0x530
+>   [<9000000000dfde94>] hrtimer_run_softirq+0x84/0xd0
+>   ...
+>   [<900000000271d9e0>] bpf_test_run+0x1c0/0x5c0
+>   [<900000000271f548>] bpf_prog_test_run_skb+0x6e8/0xe20
+>   [<9000000000f39940>] __sys_bpf+0x1690/0x2c50
+>   [<9000000000f3af28>] sys_bpf+0x28/0x40
+>   [<9000000002ac2d68>] do_syscall+0x108/0x5e0
+>   [<9000000000c6a850>] handle_syscall+0xd0/0x170
+>
+> In bpf_timer_cancel() of kernel/bpf/helpers.c, it explicitly notes that
+> "Need full barrier after relaxed atomic_inc" to ensure global visibility
+> of the cancelling state before performing the lockless dependency checks.
+>
+> However, on weakly-ordered architectures such as LoongArch, the current
+> combination of a relaxed atomic_inc() followed by smp_mb__after_atomic()
+> fails to guarantee the physical store-load ordering because the latter
+> currently expands to an empty compiler barrier rather than a hardware
+> data barrier on LoongArch.
+>
+> This allows a subsequent read to bypass the prior write due to store-load
+> reordering, enabling concurrent CPUs to simultaneously bypass the softwar=
+e
+> deadlock detection, enter hrtimer_cancel(), and then trigger a severe ABB=
+A
+> deadlock in the hrtimer core.
+>
+> Instead of relying on arch-specific macro implementations which may vary
+> in strictness, fix this issue directly in the BPF core helper by replacin=
+g
+> atomic_inc() and smp_mb__after_atomic() with a single atomic_fetch_inc()
+> to provide full ordering natively.
 
+This paragraph is completely bogus. LoongArch's smp_mb__after_atomic() had =
+a
+bug. The specification in LKMM for smp_mb__after_atomic() is that it should=
+ be a
+full barrier, which can be relaxed if the prior atomic operation already
+provides the necessary ordering.
 
-在 2026/9/2 4:14, Mike Rapoport 写道:
-> Hi,
-> 
->> The CMA pages allocated for a kexec segment are released using the
->> segment's memsz to calculate the number of pages. However, some
->> architecture loaders modify the segment's memsz after allocation
->> (e.g. arm64 subtracts text_offset), causing the release function to
->> free fewer pages than were originally allocated, leaking the remaining
->> CMA pages.
->>
->> Add a per-segment `segment_cma_pages` array to store the number of
->> pages actually allocated from CMA. Populate it during
->> kexec_add_buffer() using the aligned memsz, and use it in
->> kimage_free_cma() to accurately release all allocated pages.
->>
->> This avoids relying on the potentially modified segment->memsz and
->> prevents silent CMA memory leaks.
->>
->> Cc: Andrew Morton <akpm@linux-foundation.org>
->> Cc: Baoquan He <baoquan.he@linux.dev>
->> Cc: Mike Rapoport <rppt@kernel.org>
->> Cc: Pasha Tatashin <pasha.tatashin@soleen.com>
->> Cc: Pratyush Yadav <pratyush@kernel.org>
->> Cc: Brian Mak <makb@juniper.net>
->> Cc: Pingfan Liu <piliu@redhat.com>
->> Cc: Sourabh Jain <sourabhjain@linux.ibm.com>
->> Cc: Justinien Bouron <jbouron@amazon.com>
->> Cc: Li Chen <me@linux.beauty>
->> Cc: stable@vger.kernel.org
->> Link: https://sashiko.dev/#/patchset/20260729031235.2840255-1-ruanjinjie%40huawei.com
->> Fixes: 07d24902977e ("kexec: enable CMA based contiguous allocation")
->> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->>
->> diff --git a/include/linux/kexec.h b/include/linux/kexec.h
->> index 0af8ae4fdd087..83c296c0eb6cc 100644
->> --- a/include/linux/kexec.h
->> +++ b/include/linux/kexec.h
->> @@ -349,6 +349,7 @@ struct kimage {
->>  	unsigned long nr_segments;
->>  	struct kexec_segment segment[KEXEC_SEGMENT_MAX];
->>  	struct page *segment_cma[KEXEC_SEGMENT_MAX];
->> +	unsigned int segment_cma_pages[KEXEC_SEGMENT_MAX];
-> 
-> Can we universally use unsigned long for number of pages?
+As I already said, there is no point in changing or "optimizing" this atomi=
+c
+inc. Just let it be. You will see no measurable difference for this functio=
+n.
 
-Hi Mike,
+Just accept that it was a bug, and fix the lowering for your arch. Plenty o=
+f
+other logic in the kernel uses this primitive, so I think you folks were ju=
+st
+lucky this wasn't hit before by something else.
 
-unsigned int is used here because the second parameter of
-arch_kexec_pre_free_pages is unsigned int.
-
-static inline void arch_kexec_pre_free_pages(void *vaddr, unsigned int
-pages) { }
-
-> 
->>  
->>  	struct list_head control_pages;
->>  	struct list_head dest_pages;
->> diff --git a/kernel/kexec_core.c b/kernel/kexec_core.c
->> index dc770b9a6d053..611b15bb1369e 100644
->> --- a/kernel/kexec_core.c
->> +++ b/kernel/kexec_core.c
->> @@ -560,7 +560,7 @@ static void kimage_free_cma(struct kimage *image)
->>  
->>  	for (i = 0; i < image->nr_segments; i++) {
->>  		struct page *cma = image->segment_cma[i];
->> -		u32 nr_pages = image->segment[i].memsz >> PAGE_SHIFT;
->> +		unsigned int nr_pages = image->segment_cma_pages[i];
->>  
->>  		if (!cma)
->>  			continue;
->> @@ -568,6 +568,7 @@ static void kimage_free_cma(struct kimage *image)
->>  		arch_kexec_pre_free_pages(page_address(cma), nr_pages);
->>  		dma_release_from_contiguous(NULL, cma, nr_pages);
->>  		image->segment_cma[i] = NULL;
->> +		image->segment_cma_pages[i] = 0;
->>  	}
->>  
->>  }
->> diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
->> index 59fb9d71e9d86..bfae3fee7f2f9 100644
->> --- a/kernel/kexec_file.c
->> +++ b/kernel/kexec_file.c
->> @@ -670,7 +670,7 @@ static int kexec_walk_resources(struct kexec_buf *kbuf,
->>  
->>  static int kexec_alloc_contig(struct kexec_buf *kbuf)
->>  {
->> -	size_t nr_pages = kbuf->memsz >> PAGE_SHIFT;
->> +	size_t nr_pages = PFN_DOWN(kbuf->memsz);
->>  	unsigned long mem;
->>  	struct page *p;
->>  
->> @@ -756,6 +756,8 @@ int kexec_locate_mem_hole(struct kexec_buf *kbuf)
->>   */
->>  int kexec_add_buffer(struct kexec_buf *kbuf)
->>  {
->> +	unsigned long nr_segments = kbuf->image->nr_segments;
->> +	size_t nr_pages;
->>  	struct kexec_segment *ksegment;
->>  	int ret;
->>  
->> @@ -763,7 +765,7 @@ int kexec_add_buffer(struct kexec_buf *kbuf)
->>  	if (!kbuf->image->file_mode)
->>  		return -EINVAL;
->>  
->> -	if (kbuf->image->nr_segments >= KEXEC_SEGMENT_MAX)
->> +	if (nr_segments >= KEXEC_SEGMENT_MAX)
->>  		return -EINVAL;
->>  
->>  	/*
->> @@ -789,12 +791,18 @@ int kexec_add_buffer(struct kexec_buf *kbuf)
->>  		return ret;
->>  
->>  	/* Found a suitable memory range */
->> -	ksegment = &kbuf->image->segment[kbuf->image->nr_segments];
->> +	ksegment = &kbuf->image->segment[nr_segments];
->>  	ksegment->kbuf = kbuf->buffer;
->>  	ksegment->bufsz = kbuf->bufsz;
->>  	ksegment->mem = kbuf->mem;
->>  	ksegment->memsz = kbuf->memsz;
->> -	kbuf->image->segment_cma[kbuf->image->nr_segments] = kbuf->cma;
->> +	kbuf->image->segment_cma[nr_segments] = kbuf->cma;
->> +	if (kbuf->cma) {
->> +		nr_pages = (unsigned int)(PFN_DOWN(kbuf->memsz));
->> +		kbuf->image->segment_cma_pages[nr_segments] = nr_pages;
-> 		kbuf->image->segment_cma_pages[nr_segments] = nr_pages;
->> +	} else {
->> +		kbuf->image->segment_cma_pages[nr_segments] = 0;
->> +	}
-> 
-> I suggest to rename nr_pages to nr_cma_pages, initialize it to 0 at
-> declaration time and make this
-
-I agree with this.
-
-> 
-> 	if (kbuf->cma)
-> 		nr_cma_pages = PFN_DOWN(kbuf->memsz);
-> 	kbuf->image->segment_cma_pages[nr_segments] = nr_cma_pages;
-> 
-
+> [...]
