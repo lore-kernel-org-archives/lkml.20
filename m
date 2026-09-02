@@ -1,285 +1,199 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Received: from out02.mta.xmission.com (out02.mta.xmission.com [166.70.13.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA6DB311968
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:39:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788363562; cv=pass; b=o4ZJDi/LwM+QpFjZR7IRZ6knD3xoOQRJKYdba9zYT0BisOyNeKsy6VG6LAuUqU/bKvvgHyBFm6qJPTan7D6M9SGlcE4YjeSqUyAjCFNquCMF9D1muJqfMnCKWjhX7CjFwil873naJHsVuaaQPQpVNSVLJDDGMdOL1+xRYAb+vMQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788363562; c=relaxed/simple;
-	bh=L5CGrTP4xWN+4spuOQqD+Ge9doQGaZ9eHSdvpY4YCkI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cv+3nLwQe53D3Ld9v3ggQfYb6QZYBOeIriwIwk2SMNXCK6Da5wgtiemNbyP+oUKQiA11cpbus58f418n9beKaC32XMUy/tzMbMpGKIP/kubBScGbynI4/T9GYfMq4zpBCmhhiGRFhi/36gSgukyn7HiwlhedFQEj+iN09HWMIY4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=I9ueizmN; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B745C4A92F6
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:39:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=166.70.13.232
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788363572; cv=none; b=O+8DvHOxJotn9CsDULYDXkJCY6+DTfXCzvN3kVkVigbI7vnx2Y8vaLvxqe5/ew0DhWc1YhYHZ0RXYOB4fEagXtu1dJxnaET/h0B2hizL9/2JQpJlqU94NQs/F/bB6zZ40jM2FSmz44+ZK6zs/7QtWdewABD8bLvL6P55dAWWI5Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788363572; c=relaxed/simple;
+	bh=d5HCoFyNtqPgC1bFkjLirzG3piI3fORjjAxN04xzDvA=;
+	h=From:To:Cc:In-Reply-To:References:Date:Message-ID:MIME-Version:
+	 Content-Type:Subject; b=W99z+f60k7RlZOM8M7ViqcZZ0+Ie3/biVheQ1UOt/Sxc8XRor1pAuNOCQiZBQqPa85yxRsizXQj1PO/25k34gqQyyqcE0mr5C5duEw5KDV6VxaTFMxZyOGQZZvMTkad4djwz+G26Mtkl8IVu9iGfz8zqRFI8ua+INYX9nMoBI/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com; spf=pass smtp.mailfrom=xmission.com; dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b=WvWbtQaT; arc=none smtp.client-ip=166.70.13.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xmission.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xmission.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="I9ueizmN"
-ARC-Seal: i=1; a=rsa-sha256; t=1788363513; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=FDECfZcHqChbNWONRZUuvX17kXnV/ISbiwnPVczXZai+/NeOWh8f9ERvWJFxFwpx0wjM3lR7R2nillDSLrAjkG6phSqmOQdYJJUVY+YGkf5vy1c4qnEDDpdeOi2scM3OEwvxxzLuTfxwVRu4CTzlNUZjRLA20OdhIoSiE+hNyQk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1788363513; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=b7/tuXGv+XifNfRR85GU3v12h5Bk9fWAXOC4mGSb/VE=; 
-	b=Nu7maI9DBb31bx7jbPdlPVIE/iXDzPQ4zGcW+voFJHkiqeeFDQBn4jpQOm+TTs+/9lCxQ3MpM4RZL9YLjgCASBS9stKQyJA1hf/lBMmpvWDSsHas6ws4QSvbIMWqxXJ9YwBm/GwdwKu4KGhxtMGd686TBhPokKThjvYYD/gOqgY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788363513;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
-	bh=b7/tuXGv+XifNfRR85GU3v12h5Bk9fWAXOC4mGSb/VE=;
-	b=I9ueizmNJTEjRq39nYWoS3qVjdEawBtGLopoHtieZ3oAAKeMPrmUC5DCssnk9IUC
-	Wemv5jcNsXflGfxzlc65Y7EvqsFgwTJmDrlrB5fAqsMKNvXwMjQEsbUc/LkUZ+pYZvw
-	pWq5vS1h/2YEWhAAgCi1JD4HIEHGEk8wWqsnrI3k=
-Received: by mx.zohomail.com with SMTPS id 1788363511003811.5139964342504;
-	Wed, 2 Sep 2026 08:38:31 -0700 (PDT)
-Date: Wed, 2 Sep 2026 16:38:25 +0100
-From: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Faith Ekstrand <faith.ekstrand@collabora.com>, 
-	"Marty E. Plummer" <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, 
-	Eric Anholt <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>, 
-	Robin Murphy <robin.murphy@arm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	Collabora Kernel Team <kernel@collabora.com>, Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v7 02/17] drm/panfrost: Move all DRM device
- initialisation into device_init()
-Message-ID: <aphC0QRm5MricnRp@sobremesa>
-References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
- <20260828-claude-fixes-v7-2-72a13b2c125d@collabora.com>
- <20260901134951.1e1d7fda@fedora-21.home>
+	dkim=pass (1024-bit key) header.d=xmission.com header.i=@xmission.com header.b="WvWbtQaT"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=simple/simple; d=xmission.com;
+	 s=xmission; h=Subject:Content-Type:MIME-Version:Message-ID:Date:References:
+	In-Reply-To:Cc:To:From:Sender:Reply-To:Content-Transfer-Encoding:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=d5HCoFyNtqPgC1bFkjLirzG3piI3fORjjAxN04xzDvA=; b=WvWbtQaTEUJBlo8/dAvTqooM98
+	2uOzV1w2ArOI95LGFVH4TlbFTNUnESoujflrW7mqKOucS17+lVCc6UJLufqUZvHI+V84zqe0C2gCS
+	uaINj2llytBGLJx51veBriI/B3TeNPL2P1VB69ezL+xQ507mvqnqKICHqfBXK+5UQlQc=;
+Received: from in02.mta.xmission.com ([166.70.13.52]:42662)
+	by out02.mta.xmission.com with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.93)
+	(envelope-from <ebiederm@xmission.com>)
+	id 1x1n3a-006EGx-RR; Wed, 02 Sep 2026 09:39:22 -0600
+Received: from ip72-198-198-28.om.om.cox.net ([72.198.198.28]:39318 helo=email.froward.int.ebiederm.org.xmission.com)
+	by in02.mta.xmission.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.93)
+	(envelope-from <ebiederm@xmission.com>)
+	id 1x1n3Z-00GOrH-P3; Wed, 02 Sep 2026 09:39:22 -0600
+From: "Eric W. Biederman" <ebiederm@xmission.com>
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: Thomas Gleixner <tglx@kernel.org>,  Frederic Weisbecker
+ <frederic@kernel.org>,  Hyunwoo Kim <imv4bel@gmail.com>,
+  brauner@kernel.org,  peterz@infradead.org,  anna-maria@linutronix.de,
+  linux-kernel@vger.kernel.org
+In-Reply-To: <apgwWTwG_oq3ij8n@redhat.com> (Oleg Nesterov's message of "Wed, 2
+	Sep 2026 16:19:05 +0200")
+References: <87mru7h09e.fsf@email.froward.int.ebiederm.org>
+	<87tsofdvf2.ffs@fw13> <871pbfeaiv.ffs@fw13>
+	<87zey3fep2.fsf@email.froward.int.ebiederm.org> <87pkyyd39l.ffs@fw13>
+	<87h5kad0mx.ffs@fw13> <87bjaie2gc.fsf@email.froward.int.ebiederm.org>
+	<87wlt5aybr.ffs@fw13> <87qzjcdh06.fsf@email.froward.int.ebiederm.org>
+	<87ecfcbyt1.ffs@fw13> <apgwWTwG_oq3ij8n@redhat.com>
+Date: Wed, 02 Sep 2026 10:39:16 -0500
+Message-ID: <87ecfbd5nf.fsf@email.froward.int.ebiederm.org>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260901134951.1e1d7fda@fedora-21.home>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/288.352.18
+Content-Type: text/plain
+X-XM-SPF: eid=1x1n3Z-00GOrH-P3;;;mid=<87ecfbd5nf.fsf@email.froward.int.ebiederm.org>;;;hst=in02.mta.xmission.com;;;ip=72.198.198.28;;;frm=ebiederm@xmission.com;;;sPfnum=0;;;sPf=pass
+X-XM-AID: U2FsdGVkX1/hfbkPOpwwB2Fz6QuNgXOydy1ABWZft/M=
+X-Spam-Level: 
+X-Spam-Report: 
+	* -1.0 ALL_TRUSTED Passed through trusted hosts only via SMTP
+	*  0.1 BAYES_50 BODY: Bayes spam probability is 40 to 60%
+	*      [score: 0.5009]
+	*  0.0 T_TM2_M_HEADER_IN_MSG BODY: No description available.
+	* -0.0 DCC_CHECK_NEGATIVE Not listed in DCC
+	*      [sa07 1397; Body=1 Fuz1=1 Fuz2=1]
+	*  0.0 T_TooManySym_01 4+ unique symbols in subject
+X-Spam-DCC: XMission; sa07 1397; Body=1 Fuz1=1 Fuz2=1 
+X-Spam-Combo: ;Oleg Nesterov <oleg@redhat.com>
+X-Spam-Relay-Country: 
+X-Spam-Timing: total 607 ms - load_scoreonly_sql: 0.05 (0.0%),
+	signal_user_changed: 11 (1.9%), b_tie_ro: 10 (1.6%), parse: 0.91
+	(0.2%), extract_message_metadata: 3.5 (0.6%), get_uri_detail_list:
+	1.55 (0.3%), tests_pri_-2000: 3.3 (0.5%), tests_pri_-1000: 2.3 (0.4%),
+	tests_pri_-950: 1.18 (0.2%), tests_pri_-900: 0.82 (0.1%),
+	tests_pri_-90: 207 (34.2%), check_bayes: 205 (33.8%), b_tokenize: 8
+	(1.2%), b_tok_get_all: 7 (1.2%), b_comp_prob: 2.2 (0.4%),
+	b_tok_touch_all: 183 (30.2%), b_finish: 1.32 (0.2%), tests_pri_0: 357
+	(58.9%), check_dkim_signature: 0.67 (0.1%), check_dkim_adsp: 5.0
+	(0.8%), poll_dns_idle: 1.70 (0.3%), tests_pri_10: 2.0 (0.3%),
+	tests_pri_500: 9 (1.5%), rewrite_mail: 0.00 (0.0%)
+Subject: Re: [PATCH V2] signal: Prevent exec() race
+X-SA-Exim-Connect-IP: 166.70.13.52
+X-SA-Exim-Rcpt-To: linux-kernel@vger.kernel.org, anna-maria@linutronix.de, peterz@infradead.org, brauner@kernel.org, imv4bel@gmail.com, frederic@kernel.org, tglx@kernel.org, oleg@redhat.com
+X-SA-Exim-Mail-From: ebiederm@xmission.com
+X-SA-Exim-Scanned: No (on out02.mta.xmission.com); SAEximRunCond expanded to false
 
-On 01.09.2026 13:49, Boris Brezillon wrote:
-> On Fri, 28 Aug 2026 21:56:42 +0100
-> Adrián Larumbe <adrian.larumbe@collabora.com> wrote:
-> 
-> > Ideally the probe() function will do as little as possible, and all device
-> > initialisation and registration should happen inside the panfrost device
-> > subsystem, just like it's done in Panthor. This also simplifies resource
-> > unwinding in the error path.
-> > 
-> > Do the same thing for DRM driver remove, as in, sweep most of the action
-> > into panfrost_device_fini(), just like we did for device probe.
-> > 
-> > Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-> > ---
-> >  drivers/gpu/drm/panfrost/panfrost_device.c | 33 ++++++++++++++++++++++
-> >  drivers/gpu/drm/panfrost/panfrost_drv.c    | 44 +-----------------------------
-> >  2 files changed, 34 insertions(+), 43 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-> > index 05c40d5a20b5..d2d2830f11a7 100644
-> > --- a/drivers/gpu/drm/panfrost/panfrost_device.c
-> > +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-> > @@ -8,6 +8,7 @@
-> >  #include <linux/pm_domain.h>
-> >  #include <linux/pm_runtime.h>
-> >  #include <linux/regulator/consumer.h>
-> > +#include <drm/drm_drv.h>
-> >  
-> >  #include "panfrost_device.h"
-> >  #include "panfrost_devfreq.h"
-> > @@ -216,6 +217,15 @@ int panfrost_device_init(struct panfrost_device *pfdev)
-> >  {
-> >  	int err;
-> >  
-> > +	pfdev->comp = of_device_get_match_data(pfdev->base.dev);
-> > +	if (!pfdev->comp)
-> > +		return -ENODEV;
-> > +
-> > +	pfdev->coherent = device_get_dma_attr(pfdev->base.dev) == DEV_DMA_COHERENT;
-> > +
-> > +	mutex_init(&pfdev->shrinker_lock);
-> > +	INIT_LIST_HEAD(&pfdev->shrinker_list);
-> > +
-> >  	mutex_init(&pfdev->sched_lock);
-> >  	INIT_LIST_HEAD(&pfdev->as_lru_list);
-> >  
-> > @@ -284,8 +294,25 @@ int panfrost_device_init(struct panfrost_device *pfdev)
-> >  	if (err)
-> >  		goto out_perfcnt;
-> >  
-> > +	pm_runtime_set_active(pfdev->base.dev);
-> > +	pm_runtime_mark_last_busy(pfdev->base.dev);
-> > +	pm_runtime_enable(pfdev->base.dev);
-> > +	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
-> > +	pm_runtime_use_autosuspend(pfdev->base.dev);
-> > +
-> > +	/*
-> > +	 * Register the DRM device with the core and the connectors with
-> > +	 * sysfs
-> > +	 */
-> > +	err = drm_dev_register(&pfdev->base, 0);
-> > +	if (err < 0)
-> > +		goto out_devreg;
-> > +
-> >  	return 0;
-> >  
-> > +out_devreg:
-> 
-> Not a huge fan of labels that describe where this is jumped from instead
-> of what is done under the label (that gets particularly confusing when
-> you start multiple locations jumping to the same label). So I'd suggest
-> renaming that one err_disable_rpm.
+Oleg Nesterov <oleg@redhat.com> writes:
 
-Will rename in the next revision.
+> as for the change on exit_signal,
+>
+> On 09/01, Thomas Gleixner wrote:
+>>
+>> @@ -3120,6 +3137,7 @@ static void retarget_shared_pending(stru
+>>
+>>  void exit_signals(struct task_struct *tsk)
+>>  {
+>> +	LIST_HEAD(sigq_list);
+>>  	int group_stop = 0;
+>>  	sigset_t unblocked;
+>>
+>> @@ -3130,8 +3148,12 @@ void exit_signals(struct task_struct *ts
+>>  	cgroup_threadgroup_change_begin(tsk);
+>>
+>>  	if (thread_group_empty(tsk) || (tsk->signal->flags & SIGNAL_GROUP_EXIT)) {
+>> -		tsk->flags |= PF_EXITING;
+>> +		scoped_guard(spinlock_irq, &tsk->sighand->siglock) {
+>> +			tsk->flags |= PF_EXITING;
+>> +			sigqueue_dequeue_pending(&tsk->pending, &sigq_list);
+>> +		}
+>>  		cgroup_threadgroup_change_end(tsk);
+>> +		flush_sigqueue_list(&sigq_list);
+>>  		return;
+>>  	}
+>>
+>> @@ -3141,6 +3163,7 @@ void exit_signals(struct task_struct *ts
+>>  	 * see wants_signal(), do_signal_stop().
+>>  	 */
+>>  	tsk->flags |= PF_EXITING;
+>> +	sigqueue_dequeue_pending(&tsk->pending, &sigq_list);
+>>
+>>  	cgroup_threadgroup_change_end(tsk);
+>>
+>> @@ -3157,6 +3180,8 @@ void exit_signals(struct task_struct *ts
+>>  out:
+>>  	spin_unlock_irq(&tsk->sighand->siglock);
+>>
+>> +	flush_sigqueue_list(&sigq_list);
+>> +
+>>  	/*
+>>  	 * If group stop has completed, deliver the notification.  This
+>>  	 * should always go to the real parent of the group leader.
+>
+> This is subjective and mostly cosmetic, but what do you think
+> about the alternative change below?
+>
+> I won't insist, but to me both the patch and resulting code look
+> a bit simpler this way.
 
-> > +	pm_runtime_disable(pfdev->base.dev);
-> 
-> I think you need a pm_runtime_dont_use_autosuspend() call before
-> pm_runtime_disable().
-> 
-> > +	panfrost_gem_fini(pfdev);
-> >  out_perfcnt:
-> >  	panfrost_perfcnt_fini(pfdev);
-> >  out_job:
-> > @@ -304,11 +331,15 @@ int panfrost_device_init(struct panfrost_device *pfdev)
-> >  	panfrost_reset_fini(pfdev);
-> >  out_pm_domain:
-> >  	panfrost_pm_domain_fini(pfdev);
-> > +	pm_runtime_set_suspended(pfdev->base.dev);
-> 
-> Do we have a good reason for not flagging the device suspended just
-> after the pm_runtime_disable() call in the error path? I mean, sure
-> it's not truly suspended until the clks/regulators have been turned
-> off, but it also wasn't suspended the before the initial
-> pm_runtime_set_active() call, and I like the idea of undoing things in
-> reverse init order.
+I agree that simply removing the special case that could skip grabbing
+siglock is more maintainable.  Just one last thing to think about.
 
-That was my thought when I put it at the end, although since we manually
-manage device power down here rather than going through the RPM runtime
-suspend callback, I guess it makes no difference.
+Oleg it appears you were the one who added the special case to skip
+taking siglock.  So if you aren't worried about us removing it then
+I am happy to see it go.
 
-> but it also wasn't suspended the before the initial pm_runtime_set_active() call
+Eric
 
-I think devices begin their lifetime with power.runtime_status set to RPM_SUSPENDED:
-drivers/base/power/runtime.c::pm_runtime_init
 
-> >  	return err;
-> >  }
-> >  
-> >  void panfrost_device_fini(struct panfrost_device *pfdev)
-> >  {
-> > +	pm_runtime_get_sync(pfdev->base.dev);
-> 
-> 	pm_runtime_dont_use_autosuspend();
-> 
-> I see it fixed in patch 9, just like a few other issues that are made
-> more apparent by this code motion change. I guess it's fine but it
-> confused me, so it might be worth mentioning in the commit message.
-> 
-> 
-> > +	pm_runtime_disable(pfdev->base.dev);
-> > +
-> >  	panfrost_gem_fini(pfdev);
-> >  	panfrost_perfcnt_fini(pfdev);
-> >  	panfrost_jm_fini(pfdev);
-> > @@ -319,6 +350,8 @@ void panfrost_device_fini(struct panfrost_device *pfdev)
-> >  	panfrost_clk_fini(pfdev);
-> >  	panfrost_reset_fini(pfdev);
-> >  	panfrost_pm_domain_fini(pfdev);
-> > +
-> > +	pm_runtime_set_suspended(pfdev->base.dev);
-> 
-> Fixed in patch 9, but the RPM ref you acquire at the beginning of the
-> function is never returned, so you end up with an unbalanced get/put.
-> This is a pre-existing issue, I know, this catches the eye of the
-> reviewer so we better mention that existing issues around PM are
-> preserved and will be fixed later.
-
-Maybe I should apply those fixes first and then rebase this patch in top of them?
-
-> >  }
-> >  
-> >  #define PANFROST_EXCEPTION(id) \
-> > diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> > index 9882a3ede75f..80996e311a9d 100644
-> > --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> > +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> > @@ -964,7 +964,6 @@ MODULE_PARM_DESC(transparent_hugepage, "Use a dedicated tmpfs mount point with T
-> >  static int panfrost_probe(struct platform_device *pdev)
-> >  {
-> >  	struct panfrost_device *pfdev;
-> > -	int err;
-> >  
-> >  	pfdev = devm_drm_dev_alloc(&pdev->dev, &panfrost_drm_driver,
-> >  				   struct panfrost_device, base);
-> > @@ -973,45 +972,7 @@ static int panfrost_probe(struct platform_device *pdev)
-> >  
-> >  	platform_set_drvdata(pdev, pfdev);
-> >  
-> > -	pfdev->comp = of_device_get_match_data(&pdev->dev);
-> > -	if (!pfdev->comp)
-> > -		return -ENODEV;
-> > -
-> > -	pfdev->coherent = device_get_dma_attr(&pdev->dev) == DEV_DMA_COHERENT;
-> > -
-> > -	mutex_init(&pfdev->shrinker_lock);
-> > -	INIT_LIST_HEAD(&pfdev->shrinker_list);
-> > -
-> > -	err = panfrost_device_init(pfdev);
-> > -	if (err) {
-> > -		if (err != -EPROBE_DEFER)
-> > -			dev_err(&pdev->dev, "Fatal error during GPU init\n");
-> > -		goto err_out0;
-> > -	}
-> > -
-> > -	pm_runtime_set_active(pfdev->base.dev);
-> > -	pm_runtime_mark_last_busy(pfdev->base.dev);
-> > -	pm_runtime_enable(pfdev->base.dev);
-> > -	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
-> > -	pm_runtime_use_autosuspend(pfdev->base.dev);
-> > -
-> > -	/*
-> > -	 * Register the DRM device with the core and the connectors with
-> > -	 * sysfs
-> > -	 */
-> > -	err = drm_dev_register(&pfdev->base, 0);
-> > -	if (err < 0)
-> > -		goto err_out1;
-> > -
-> > -
-> > -	return 0;
-> > -
-> > -err_out1:
-> > -	pm_runtime_disable(pfdev->base.dev);
-> > -	panfrost_device_fini(pfdev);
-> > -	pm_runtime_set_suspended(pfdev->base.dev);
-> > -err_out0:
-> > -	return err;
-> > +	return panfrost_device_init(pfdev);
-> >  }
-> >  
-> >  static void panfrost_remove(struct platform_device *pdev)
-> > @@ -1020,10 +981,7 @@ static void panfrost_remove(struct platform_device *pdev)
-> >  
-> >  	drm_dev_unregister(&pfdev->base);
-> >  
-> > -	pm_runtime_get_sync(pfdev->base.dev);
-> > -	pm_runtime_disable(pfdev->base.dev);
-> >  	panfrost_device_fini(pfdev);
-> > -	pm_runtime_set_suspended(pfdev->base.dev);
-> >  }
-> >  
-> >  static ssize_t profiling_show(struct device *dev,
-> > 
-
-Adrian Larumbe
+> Oleg.
+> ---
+>
+> --- a/kernel/signal.c
+> +++ b/kernel/signal.c
+> @@ -3120,6 +3120,7 @@ static void retarget_shared_pending(struct task_struct *tsk, sigset_t *which)
+>  
+>  void exit_signals(struct task_struct *tsk)
+>  {
+> +	LIST_HEAD(sigq_list);
+>  	int group_stop = 0;
+>  	sigset_t unblocked;
+>  
+> @@ -3129,21 +3130,18 @@ void exit_signals(struct task_struct *tsk)
+>  	 */
+>  	cgroup_threadgroup_change_begin(tsk);
+>  
+> -	if (thread_group_empty(tsk) || (tsk->signal->flags & SIGNAL_GROUP_EXIT)) {
+> -		tsk->flags |= PF_EXITING;
+> -		cgroup_threadgroup_change_end(tsk);
+> -		return;
+> -	}
+> -
+>  	spin_lock_irq(&tsk->sighand->siglock);
+>  	/*
+>  	 * From now this task is not visible for group-wide signals,
+>  	 * see wants_signal(), do_signal_stop().
+>  	 */
+>  	tsk->flags |= PF_EXITING;
+> +	sigqueue_dequeue_pending(&tsk->pending, &sigq_list);
+>  
+>  	cgroup_threadgroup_change_end(tsk);
+>  
+> +	if (thread_group_empty(tsk) || (tsk->signal->flags & SIGNAL_GROUP_EXIT))
+> +		goto out;
+>  	if (!task_sigpending(tsk))
+>  		goto out;
+> @@ -3157,6 +3155,7 @@ void exit_signals(struct task_struct *tsk)
+>  out:
+>  	spin_unlock_irq(&tsk->sighand->siglock);
+>  
+> +	flush_sigqueue_list(&sigq_list);
+>  	/*
+>  	 * If group stop has completed, deliver the notification.  This
+>  	 * should always go to the real parent of the group leader.
