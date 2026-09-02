@@ -1,268 +1,187 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 629663B8BD7
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 19:45:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE283AFD1E
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 19:45:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788378323; cv=none; b=MtqhVA2B2XWIkb/8MeaRstwM3FcvrKJzgEBC8Ceg3aRItEqYqkColIqD7UW9t5DI/U2PPBEEk14G2BMOGcBaHhFPAuaAkpcfgjXHKge1b3ZirvoGBlU5KWqVf5qF9l9H0aSf/+0d3kQ3E8eguxDxtkTwcCpvE/Oi8c5Ab7eqUhA=
+	t=1788378336; cv=none; b=T3qXRp1BX2Y6lvcgor/OOq+YjEr2b7uhIactz6l6DiSjC/KH4MyGwaLe6+RR0iCvBa75c6nkdpe4LQZVs1L5TAnDAOb4GwQzrQAOgsidWbsQ1TfsbkqAAnrMORXN8SSLXnZCazm8YVcp/WGBi6rYZJ18naKz2Fn6NdGiZ0xhXMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788378323; c=relaxed/simple;
-	bh=R1hE8R5e4CL8+wcFx0zW6+Lgx49VuZcDnS0bo/KFZJM=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ZYmQc3OBnWKdCkQ3NiLOkEFn3FEPE9N40awp+wxMh/DMqjnacAYP0277l2/ybqDMz36ikIKOwuuosisPoN9stvMbDW3PEGNjzGE4QlBlnXofjQgO8bH6Przb9dLTbA+YVCAsDGbVVjLC6g43J3xhV36WeLlodbTse3kYENP+J0I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=RyQWeGCu; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1788378336; c=relaxed/simple;
+	bh=PjcBpfhFVcXBPs8lEnyLBI90MdqrLbOVRiz3lk594Q4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YqZ7hAGcOUsSzadH3iPU/PIzGFZ+s9/dD9cGgVK7MddAgPO7v0FdgoxAl5odOu/58KLsJ4uOcIVxqJEIC7FAVhP/CQJtPgzO6oHcet2UbJrCt+Rt9Bl8ntgDPgj3egPQWaFgXMzA6TSnD9JekgTAImp9rw6TDhlIeK+5XFJAH0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jZaLPNQ/; arc=none smtp.client-ip=209.85.210.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="RyQWeGCu"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 682I1ZiQ723223;
-	Wed, 2 Sep 2026 19:45:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=bFIZvI
-	Z6TByI4I0TMOgohhJsLheCJMeTeiL2xkc+g2k=; b=RyQWeGCucxkxuW+WWeATKJ
-	qkXvQgMKxiar78E7pT74IGU0yFXgPqfvyM0vsx7YyCUyFUwAPYZRr8PKi/ViCfvh
-	hGarEm+BNrT+8qnrPvk6rHBvHcFGsrSsr4A7Gc2WAdT+t7X+aR3RWZCSV3wEd+jW
-	kc17wOSKFifDY1FPLjQYwl4HsNp+h3qyFYBECwOoJ6pI4K1zZ6DHLaEIaQ8XRPb+
-	y7ztgEcfzB6FWSymTYBX1xQXiLAicqJ7RVWxKFNq8VAyP/PyfdVBJgoU1UOMp4u6
-	4nU/6GaNAKBBqe0pxU4FjUFZJ+mLYrgfJGIxPclZPS6iWznGzhkTMDMKpD2vkOSQ
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbq551415-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 19:45:06 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 682JfJKK004219;
-	Wed, 2 Sep 2026 19:45:05 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gcarkc0jm-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 02 Sep 2026 19:45:05 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 682Jj0Bk40370590
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 2 Sep 2026 19:45:00 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 193DC20040;
-	Wed,  2 Sep 2026 19:45:00 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9BD612004D;
-	Wed,  2 Sep 2026 19:44:57 +0000 (GMT)
-Received: from aboo.ibm.com (unknown [9.36.18.93])
-	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed,  2 Sep 2026 19:44:57 +0000 (GMT)
-Message-ID: <742182de86c038f6b8a01a6c418469e7f8255595.camel@linux.ibm.com>
-Subject: Re: [PATCH] powerpc/entry: Fix double accounting of user time on
- interrupt entry
-From: Aboorva Devarajan <aboorvad@linux.ibm.com>
-To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        Mukesh Kumar
- Chaurasiya <mchauras@linux.ibm.com>
-Cc: Shrikanth Hegde <sshegde@linux.ibm.com>, linux-kernel@vger.kernel.org,
-        Ritesh Harjani <ritesh.list@gmail.com>, aboorvad@linux.ibm.com,
-        Madhavan
- Srinivasan <maddy@linux.ibm.com>,
-        linuxppc-dev@lists.ozlabs.org
-Date: Thu, 03 Sep 2026 01:14:56 +0530
-In-Reply-To: <cd25ffa5-5efc-42f1-b145-0c1c6539b4c4@kernel.org>
-References: <20260902050628.2553909-1-aboorvad@linux.ibm.com>
-	 <cd25ffa5-5efc-42f1-b145-0c1c6539b4c4@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (3.60.1-1.fc44) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jZaLPNQ/"
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7f4f3683fbcso300546a34.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 12:45:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788378322; x=1788983122; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tGCfm32JlUmtMotIy6qoQBTUO4f6h2sqplyq+pgz4JI=;
+        b=jZaLPNQ/IT83DvuK2GgDhtnOKpBKBSUJTBIU1PDg+UCQcXOiX2N1Q5H+0WnC5c145m
+         H3Tx3qAOmfceAvr2uyND2QpTwe0THqpOly95jVsgpbgzemWc3Zss65FbFuzVfyuw9klH
+         +A0mrWdrRS5PlNY1ipa4B+Ghr2Sk71jdlWgv4qxUaKKzPi4Aj87aYZQibb6jl4mTJRe+
+         vPZtB/K5+LcsMgP2r2kliFIlOwRnQuU7DAg7DK6Jv+Z4OqMn5reNRJnjLuxykRH3/tYz
+         LVzFvl+BfYHpe62U6LMstLwA+5l++r0nFWu+E5KlGas7ntFL6JOezy6DXTcVV6WaIXS3
+         ULvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788378322; x=1788983122;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tGCfm32JlUmtMotIy6qoQBTUO4f6h2sqplyq+pgz4JI=;
+        b=V3ZaVLNaOemDWGaMts5PkSFoac0xzmxZ2s49SSeGV1DxL3blB2wIUPwVWnBsu4mJvf
+         LaGPXh89mBaU9GENLYKXK78je0t7Gk7tEDHJfT52uRb0OR3GSBFEf8jfrlbAU6pWInjH
+         I5Gcw2e2p7+vLtA+SbPZcTo/Oq9WfXO92/siNGtgH206aw2QsDGvON9Ply7U7XIgUYkh
+         RhKWCD7UpcVTjdNQply0nceTQdj/BqcWpxGssrujjt7NWDPIc89fOU7TprNRcX7nChGB
+         Ru/lczRXlALQCcpBpuEcpvJXk3yu6SNbxvoV0TuBBk6tVgan++lzGTzwwAEBZHHD5WZd
+         mM1g==
+X-Forwarded-Encrypted: i=1; AHgh+RoRNB8uMk2s5n9iXhhYd3fICAz2PhELAKsHikDnWdhXdKJgmXqqFioE3bEt9BivFY9TsFtaPX5KcXxOmkU=@vger.kernel.org
+X-Gm-Message-State: AFuF++luUM8FCBCmHuP5VxyuV2u5ziHydtjQgFJqb/21WdEkDrGKII/b
+	qJ01Rj8kWBiJ/C4pamRD+zAT60yHJWHWNSwa+Y1AVK9dsMTHR2gXdky8
+X-Gm-Gg: AR+sD10DvfLa+2TfPdCaOHnmvHp/ll80m2UI0onaRjnwTkPwpAd0v2L/Lu5wbTaSbdj
+	TY1KrisFw2StdRZsCTizJATeek0wS6NVWOz8TJ8acOnmuxZoFB9Clmg6sqNErUKJCoSDgIPL1xd
+	LCyCwtGHoCmNFsoSNas8teH9nFrcZYlEs4CCmhE1WpiNAwL/Zbt8kPdSyukXvSIpnJ+Pz+9bAWq
+	mVBq/NZtPoCGdKmGTMcbkkP2omEZNjICTQNOCUAv+1IQXBK0Y8yLmqSmL7fIjsVbog+IPLlIavF
+	BBzox34NT0n7VuouR7woxhFCAAmuZ2W7vBV8kCJK/0IMmxu9JGYKAPrwcJncp6Nau0qaYaQQpVF
+	MNXWFg2veEej/DRiTH6Z1BqiGSjyinDP/JbjMFaCSIgYasqSTUmHRL3hruaQq0HGG7UIUmlx/wK
+	6sYrP9k7j6lhQ77vhKYE8DHZxRZ6AVRXPvlpWXiTH7rgakp2ZIGnEgjLbhOTebnztMPdtb3yS5Z
+	Hj6UNxLsywL8/EU1ks=
+X-Received: by 2002:a05:6830:488f:b0:7f4:3902:3a26 with SMTP id 46e09a7af769-7f899b8d376mr1482293a34.1.1788378322092;
+        Wed, 02 Sep 2026 12:45:22 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:17::])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f74f9ec644sm2999492a34.24.2026.09.02.12.45.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 12:45:21 -0700 (PDT)
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+To: Nhat Pham <nphamcs@gmail.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Yosry Ahmed <yosry@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+	Krush Chavan <krushchavan@outlook.com>,
+	"Chengming Zhou" <chengming.zhou@linux.dev>,
+	"Tejun Heo" <tj@kernel.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	"Shuah Khan" <shuah@kernel.org>,
+	linux-mm@kvack.org,
+	cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com
+Subject: [PATCH v2] selftests/cgroup: account for zswap shrinker writeback
+Date: Wed,  2 Sep 2026 12:45:20 -0700
+Message-ID: <20260902194521.3652178-1-joshua.hahnjy@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDE3MyBTYWx0ZWRfX5YmZHTuxqJAe
- l8LxbmTnvHdCoUhtYIY7EMWHIRkrLdQz8butTZL/nNavzd7ONUF0jpNMJt61lUSsgK2AoGvabfW
- H176Up5G9zwYryD4GY4w+EVRhxex2JuWT7jJHIZqDTfO68dKXBv5gLMblgegPResfDS/GbRwDwi
- PtKkrPKdrLkkBppytJt31Cr9yX0LtLGJgHJR69m9SpQjEPzRH5aBEZDCZcNqQxgkFvrTdqr9B62
- EScpMZpSkYKOv17sQydXjpuFv2+AOgmGwYNI8eI2tDK8MuysddrHYavLurFmuCnPpEfDiBMRhsa
- JtJlyY41iAw3Gr12dhPTZiNOtybgnjjzhFV3+5vJ92bVQ48txjDZgA2vVHukumZfpArJoe5rFqP
- D+7eWK6vPnaJT35IuliECJl2o7hI+/dXWamnHvEBjd/2ZMA1AROlBcDUsKstk2iAkW2oCRVIB/Q
- obG1iXdPIIhMiQU8e5w==
-X-Proofpoint-ORIG-GUID: TyMcjxi0QfSYfPCKUUw7FQ8Lr5HiNTMp
-X-Authority-Analysis: v=2.4 cv=CNgamxrD c=1 sm=1 tr=0 ts=6a987cc2 cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=HjTMWmxqODYMH3nO9VIA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: GM494aMV_57jIkM_938BwgLxRjfrP1mV
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDE3MyBTYWx0ZWRfX+XSVcpjXO3bg
- 2csljucqRrGHbknljI0N+V8v0ii+fOsFeRaF6ghWKMp4vZZoMdLpgtUO3VYqzD9F8qew8ZhsGyy
- EyCitYKGD/VlANLX0Sp+2VNWjaHDTdU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-02_04,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
- priorityscore=1501 clxscore=1015 impostorscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020173
+Content-Transfer-Encoding: 8bit
 
-On Wed, 2026-09-02 at 07:36 +0200, Christophe Leroy (CS GROUP) wrote:
->=20
->=20
+The test_no_invasive_cgroup_shrink selftest checks that when a cgroup
+has zswapped out more memory than memory.zswap.max, it does not
+trigger writeback for other cgroups. To do this, it compares the
+writeback count in a control cgroup and makes sure that it is 0,
+and then checks the writeback count in an aggressor cgroup who does
+expect to see writeback.
 
-Hi Christophe,
+However, when the zswap shrinker is enabled, the victim cgroup can see
+legitimate writebacks not triggered by the aggressor. In some Meta CI
+tests, we have seen this failure mode happen.
 
-Thanks for reviewing the patch.
+Instead of checking that the victim cgroup has 0 writeback, compare the
+writeback values before and after the aggressor runs and check that
+the victim cgroup did not perform any additional writeback. Note that
+this can still lead to probabilistic failures if writebacks take longer
+than 5 seconds, but this should fix the systematic failure case.
 
-> Le 02/09/2026 =C3=A0 07:06, Aboorva Devarajan a =C3=A9crit=C2=A0:
-> > Since the switch to generic entry, an interrupt taken from user mode
-> > accounts user time twice: once in arch_interrupt_enter_prepare() and
-> > again in arch_enter_from_user_mode(), which irqentry_enter() invokes
-> > for the same interrupt:
-> >=20
-> > =C2=A0=C2=A0 arch_interrupt_enter_prepare()
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 account_cpu_user_entry()
-> > =C2=A0=C2=A0 irqentry_enter()
-> > =C2=A0=C2=A0=C2=A0=C2=A0 arch_enter_from_user_mode()
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 account_cpu_user_entry()
-> >=20
-> > account_cpu_user_entry() accumulates the time spent in user mode
-> > since the last return to user space, so the second call charges the
-> > same interval again.
->=20
-> One of them was added by commit 09a9d3a8499d ("powerpc: introduce=20
-> arch_enter_from_user_mode"), the other one by commit 893082ac769b=20
-> ("powerpc: Prepare for IRQ entry exit").=C2=A0
->=20
-> Would be good to mention it and explain how it went wrong.
->=20
+Fixes: b5ba474f3f51 ("zswap: shrink zswap pool based on memory pressure")
+Reported-by: Krush Chavan <krushchavan@outlook.com>
+Suggested-by: Nhat Pham <nphamcs@gmail.com>
+Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+---
+v1 --> v2:
+- Instead of skipping the test when the zswap shrinker is enabled,
+  compare the victim's writeback counts before and after the aggressor
+  runs, as Nhat suggested.
 
-Sure, I'll explain this in the commit message.
+ tools/testing/selftests/cgroup/test_zswap.c | 28 +++++++++++++++++++--
+ 1 file changed, 26 insertions(+), 2 deletions(-)
 
->=20
-> >=20
-> > With CONFIG_VIRT_CPU_ACCOUNTING_NATIVE=3Dy this roughly doubles the
-> > reported user time of any workload that takes interrupts. On a
-> > pseries LPAR, ps/top show ~200% CPU for a single-threaded CPU-bound
-> > loop, and time(1) reports user time about twice the elapsed time.
-> >=20
-> > Remove the accounting from arch_interrupt_enter_prepare() and rely on
-> > arch_enter_from_user_mode(), which runs for both syscalls and
-> > interrupts. The duplicate account_stolen_time() call is removed the
-> > same way.
-> >=20
-> > Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
->=20
-> Not sure it is the correct commit. Should probably be one of the ones
-> that introduced the wrong call.
+diff --git a/tools/testing/selftests/cgroup/test_zswap.c b/tools/testing/selftests/cgroup/test_zswap.c
+index 9c5bd503c3f73..1ac7790727757 100644
+--- a/tools/testing/selftests/cgroup/test_zswap.c
++++ b/tools/testing/selftests/cgroup/test_zswap.c
+@@ -20,6 +20,7 @@ static int page_size;
+ 
+ #define PATH_ZSWAP "/sys/module/zswap"
+ #define PATH_ZSWAP_ENABLED "/sys/module/zswap/parameters/enabled"
++#define PATH_ZSWAP_SHRINKER_ENABLED "/sys/module/zswap/parameters/shrinker_enabled"
+ #define PATH_ZSWAP_STORED_PAGES "/sys/kernel/debug/zswap/stored_pages"
+ 
+ static int read_int(const char *path, size_t *value)
+@@ -446,6 +447,16 @@ static int test_zswap_writeback_disabled(const char *root)
+ 	return test_zswap_writeback(root, false);
+ }
+ 
++static bool zswap_shrinker_enabled(void)
++{
++	char value[2];
++
++	if (read_text(PATH_ZSWAP_SHRINKER_ENABLED, value, sizeof(value)) <= 0)
++		return 0;
++
++	return value[0] == 'Y';
++}
++
+ /*
+  * When trying to store a memcg page in zswap, if the memcg hits its memory
+  * limit in zswap, writeback should affect only the zswapped pages of that
+@@ -455,6 +466,7 @@ static int test_no_invasive_cgroup_shrink(const char *root)
+ {
+ 	int ret = KSFT_FAIL;
+ 	unsigned int off;
++	long zswpwb_before, zswpwb_after, zswpwb_target;
+ 	size_t allocation_size = page_size * 1024;
+ 	unsigned int nr_pages = allocation_size / page_size;
+ 	char zswap_max_buf[32], mem_max_buf[32];
+@@ -490,6 +502,14 @@ static int test_no_invasive_cgroup_shrink(const char *root)
+ 	if (cg_read_key_long(zw_group, "memory.stat", "zswapped") < 1)
+ 		goto out;
+ 
++	/* If the shrinker is enabled, try to let the writebacks finish first */
++	if (zswap_shrinker_enabled())
++		sleep(5);
++
++	zswpwb_before = get_cg_wb_count(zw_group);
++	if (zswpwb_before < 0)
++		goto out;
++
+ 	/* Push wb_group memory into zswap with hard-to-compress data to trigger wb */
+ 	if (cg_enter_current(wb_group))
+ 		goto out;
+@@ -502,9 +522,13 @@ static int test_no_invasive_cgroup_shrink(const char *root)
+ 		getrandom(&wb_allocation[off], page_size/4, 0);
+ 	}
+ 
+-	/* Verify that only zswapped memory from gwb_group has been written back */
+-	if (wait_for_writeback(wb_group, 5000) > 0 && get_cg_wb_count(zw_group) == 0)
++	/* Verify that only zswapped memory from wb_group has been written back */
++	zswpwb_target = wait_for_writeback(wb_group, 5000);
++	zswpwb_after = get_cg_wb_count(zw_group);
++
++	if (zswpwb_target > 0 && zswpwb_before == zswpwb_after)
+ 		ret = KSFT_PASS;
++
+ out:
+ 	cg_enter_current(root);
+ 	if (zw_group) {
+-- 
+2.53.0-Meta
 
-The history is as follows:
-
-Commit 09a9d3a8499d ("powerpc: introduce arch_enter_from_user_mode")
-introduced the arch_enter_from_user_mode() function with the accounting,
-but the function was not called at that point. Commit 893082ac769b
-("powerpc: Prepare for IRQ entry exit") introduced arch_interrupt_enter_pre=
-pare()
-and copied the accounting from interrupt_enter_prepare() into it, but the
-new helper was not used either. Both changes were preparatory and did not
-change the accounting behavior.
-
-Commit bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature") made both pat=
-hs
-active. The syscall path removed its open-coded account_cpu_user_entry() an=
-d
-started accounting through arch_enter_from_user_mode(). But the interrupt p=
-ath
-started using arch_interrupt_enter_prepare() followed by irqentry_enter(),
-which also invokes arch_enter_from_user_mode(), while the accounting in
-arch_interrupt_enter_prepare() remained. This resulted in the same user-tim=
-e
-interval being accounted twice for interrupts taken from user mode.
-
-I used bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature") as the Fixes
-tag because 893082ac769b only introduced the accounting call while
-arch_interrupt_enter_prepare() was unused. bee25f97ad24 is where the duplic=
-ate
-accounting actually became functional.
-
-Would it be ok to keep bee25f97ad24 as the Fixes tag? Please let me know if
-you think 893082ac769b would be more appropriate.
-
->=20
-> > Signed-off-by: Aboorva Devarajan <aboorvad@linux.ibm.com>
-> > ---
-> > Verified on a pseries LPAR (CONFIG_VIRT_CPU_ACCOUNTING_NATIVE=3Dy),
-> > 7.3.0-rc1, single-threaded CPU-bound loop:
-> >=20
-> > Before:
-> >=20
-> > =C2=A0=C2=A0 $ python3 -c 'while True: pass' &
-> > =C2=A0=C2=A0 $ sleep 3; ps -p $! -o pid,etime,time,pcpu
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PID=C2=A0=C2=A0=C2=A0=C2=A0 ELAPSE=
-D=C2=A0=C2=A0=C2=A0=C2=A0 TIME %CPU
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 4980=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- 00:03 00:00:06=C2=A0 210
-> >=20
-> > After:
-> >=20
-> > =C2=A0=C2=A0 $ python3 -c 'while True: pass' &
-> > =C2=A0=C2=A0 $ sleep 3; ps -p $! -o pid,etime,time,pcpu
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 PID=C2=A0=C2=A0=C2=A0=C2=A0 ELAPSE=
-D=C2=A0=C2=A0=C2=A0=C2=A0 TIME %CPU
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 4951=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- 00:03 00:00:03=C2=A0 105
-> >=20
-> > =C2=A0 arch/powerpc/include/asm/entry-common.h | 6 ++++--
-> > =C2=A0 1 file changed, 4 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/arch/powerpc/include/asm/entry-common.h b/arch/powerpc/inc=
-lude/asm/entry-common.h
-> > index c5adb5006361..984294e62568 100644
-> > --- a/arch/powerpc/include/asm/entry-common.h
-> > +++ b/arch/powerpc/include/asm/entry-common.h
-> > @@ -222,8 +222,6 @@ static inline void arch_interrupt_enter_prepare(str=
-uct pt_regs *regs)
-> > =C2=A0=20
-> > =C2=A0=C2=A0	if (user_mode(regs)) {
-> > =C2=A0=C2=A0		kuap_lock();
-> > -		account_cpu_user_entry();
-> > -		account_stolen_time();
-> > =C2=A0=C2=A0	} else {
-> > =C2=A0=C2=A0		kuap_save_and_lock(regs);
-> > =C2=A0=C2=A0		/*
-> > @@ -426,6 +424,10 @@ static __always_inline void arch_enter_from_user_m=
-ode(struct pt_regs *regs)
-> > =C2=A0 #endif
-> > =C2=A0=C2=A0	kuap_assert_locked();
-> > =C2=A0=C2=A0	booke_restore_dbcr0();
-> > +	/*
-> > +	 * User and stolen time is accounted here for every entry from
-> > +	 * user mode. The interrupt prepare hooks must not account again.
-> > +	 */
->=20
-> Don't polute the code with such a comment. This is to be explained in
-> the commit message. First a comment shall tell what code does, not what=
-=20
-> it doesn't do. And the comment has no added value, when you see=20
-> account_cpu_user_entry() is called you already know that.
->=20
-> Here you feel the need to add such comment, but if you had implemented=
-=20
-> this function yourself and done it right at the first time, would you
-> have felt the need for this comment ?
->=20
-> Have a look at https://docs.kernel.org/process/coding-style.html#commenti=
-ng
-
-Agreed, thanks for pointing this out. I'll drop the comment in v2.
-
-
-> > =C2=A0=C2=A0	account_cpu_user_entry();
-> > =C2=A0=C2=A0	account_stolen_time();
-> > =C2=A0=20
-> >=20
-> > base-commit: fb442a6673ff1046bf67754957d95880fdb394b5
-
-Regards,
-Aboorva
