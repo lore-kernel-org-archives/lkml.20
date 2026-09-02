@@ -1,78 +1,44 @@
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F2B3EFFC3
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:02:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.169
+Received: from mailgw1.hygon.cn (unknown [101.204.27.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D185240800D;
+	Wed,  2 Sep 2026 09:01:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.204.27.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788339731; cv=none; b=WTzMbihul72T+xdb59mpaA1UqzxtUi+vvWMqcME39waEXEZBff8UX6phwescVRmGUV7N7vWxKisVyxFD8v0VnSbUrlxbC3VGrNfBJR8KAV2wNm3LFTxiHVqUW9EJOx/EIHrOGHmYM7lJMJc6rEaIqyk6h0VHsOppTBy4yBM1EbY=
+	t=1788339732; cv=none; b=AxMiMHf4nzCXQXPf+guif/F5rvtfhsfQpqUGyax3Trr4yD0uP8ddhY28rv+4+6vBzOVzLVlU1vBtTQu6iuKCzq2NNIVYLvrhopp9i+0TcA9wnkdKk7m1g7S3UnYAY0KivVWUF+p/hlh/t+jigg+EV/5xbnvYn8SwfO0tc19vDlc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788339731; c=relaxed/simple;
-	bh=LE1FGay9sT7mvcDPSk+q0IW+U2idHpKGbrIWVgYjQao=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e9SQgikUOTQBMjMDVwW555F3pqZHDg2tf8gYn4HkReGl9VaAjAM7k42VBdwrwTeM6XqPKGUgoNVu/sATI54Nz8aDqJrrHBhfk7DKyOyKeVAl19b9ufRmooQA14xCqjat+WzztTXD1uMotPvI82/XdXdzwtJV22zCDap9iziqKcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jkJyrxRa; arc=none smtp.client-ip=209.85.210.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jkJyrxRa"
-Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-853c947bfefso765781b3a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 02:02:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788339729; x=1788944529; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fy8D77TbbTZZuJ5DhR2JoC+KqjSKdSPnzBcIAoctkic=;
-        b=jkJyrxRa+3fXokTj3tIcKafUOb1XAbk0nHOEmSiJwF4zw6TEXteEs6O+sm22jRGZv3
-         NK2yRRSwY7peKCarFp6GRs1Tv9qCFZtY1s4ShfL3dhVXctL42UPGq0/oNX6Z86vaaI9o
-         /OxzRTcQTuMyPonZwLogHOA7/gpojovVjUB83NrBP2axB0OXIu4EyNIAcYZ11MOQNDN/
-         pFfXHuFV0MUP1U8Sb83cwKDu+lxhX6jCzftZNxsjzam1cGfk66jpPMCZSzzV+BRu06hq
-         bYWEW2WMfBe4mMt/idcieM8LPS+GFCd0uOhtJmb2zNjov3wr/QzslcjP6hdg31p8Nq9K
-         EakQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788339729; x=1788944529;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fy8D77TbbTZZuJ5DhR2JoC+KqjSKdSPnzBcIAoctkic=;
-        b=rqtr68QCds91O0f74A2c+i2j8apgU1E6l18JVd3XeK9+m5GgUrYp1oeN7d0p7zVJuK
-         lBQqQGjeQVDMLZYkqDx4LuNzk0vZAmSsgGqBUuLth10voaetB2snPgrUhaH1PJ2p6G3W
-         g71L22/zpnUet/g1GTibkksj4pBhg1ZYvGSbIqYiEfQlWC7obYsu/qrHYD7VpL9MGpxL
-         kHGLLcxuDBSeDragYag+m5yHjfLN7rvFyZjYL9RebuKTXEjAyunPHu6GgA0mvvzNLMYM
-         rzm16L7UQSADMMUYPhpJa3vyAWLp+1cWhPBuNeA5DANku4mVNMWROawNVUdwY59Mqpmj
-         K/2w==
-X-Forwarded-Encrypted: i=1; AKwUvBx7bOTnLThIlMVf3yKtz6dQ6YFW9v0ckx1Blkymvr2e+aPeFMJhZXKwAw4RkhVzMJr0rbqnfy8hkxGQX54=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8DCtW690l4Gabu6fdRKQ535VIlm8MxMBbU1Cig27sdefI04w1
-	CL9hwZh1Kzb9PgsP+LEm768hVsJjZUcdOWc18/pCPK0DlnlYxjvFjiXs
-X-Gm-Gg: AYBFou2hCo8Ctsp/25KwgDT1JVbgLgOpWFGchz+d9iL4++Be1A2HVlB0ik99J+TDHI9
-	DrEfcWV5eCcSSewgsZoacE5lh7w3g2JbgrQjkINq+4y59ZT9mMu90c/SbplJwveW9IjwiiyF5bG
-	SyQGVm+cA5YWR29XLpWgqIVhS9VAmVkVMJRqzZSmve7wr9dIxOo12Iwaey/EeRDtp7yFhoinhWs
-	MyfeIpuS/LudhW2WO607zgITMoqAAl7qNEBQb58Rsy88gta/aQ460QGIOwSDqeUZj+MTeGaHpB1
-	SKg/9gWG0tyLBxpMS6jQuy4vwoty7zEkjQJkkYvi693f0/EB8RSTDkcepqj4UomlROG6svVDZF/
-	+1b9SCEBgueHyrTL1K0eQkJqHKk7MRaJyf4mL9y8g8LwLzK+fJ2gsI2zNdtH6TTL/lVMXzcRUvD
-	zpXSgyT0w4gzVFCUIwb19KRJRv/SLRdrQJkq3O6LjLswy3mM6RjLQeqNbr5ahGJxM6IU+CWEXDo
-	tJQdtE4ejlPpKDzAQ==
-X-Received: by 2002:a05:6a00:7099:b0:848:48d0:934 with SMTP id d2e1a72fcca58-85f448cdd36mr1124512b3a.18.1788339728703;
-        Wed, 02 Sep 2026 02:02:08 -0700 (PDT)
-Received: from celestia.taila51cc2.ts.net ([2402:1980:9c5:2de5:8b4e:3f3c:b637:4ca5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db23f7b8bsm1038728b3a.2.2026.09.02.02.02.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 02:02:08 -0700 (PDT)
-From: Liew Rui Yan <aethernet65535@gmail.com>
-To: aethernet65535@gmail.com
-Cc: akpm@linux-foundation.org,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	sj@kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] mm/damon/core: fix false positive in
-Date: Wed,  2 Sep 2026 17:02:17 +0800
-Message-ID: <20260902090217.29968-1-aethernet65535@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260902081825.18931-1-aethernet65535@gmail.com>
-References: <20260902081825.18931-1-aethernet65535@gmail.com>
+	s=arc-20240116; t=1788339732; c=relaxed/simple;
+	bh=F7BZ1gjC4mh1rjgXGXgMRFeDDSFg9LYA6sw6/4Zrrko=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Ewv+0DMoraBJjCW3Dh1tZ36AIPWlIdy0u95bNr3w1REZZcW/1hI8SDKH5cdOnxOWHbqVEUb+3fPMnl1+OKnYcYhX8l+x8AZz6Jca5w0stTuwXj2oB3s1FQ6RBxa/qbJ0V/joluDxIontN0aFxgghlq31gpsO6AkfM0AYBNMf/hE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn; spf=pass smtp.mailfrom=hygon.cn; arc=none smtp.client-ip=101.204.27.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
+Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hZcDF06ymz207nS;
+	Wed,  2 Sep 2026 17:01:49 +0800 (CST)
+Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
+	by mailgw1.hygon.cn (Postfix) with ESMTP id 4hZcDD3HTWz207nS;
+	Wed,  2 Sep 2026 17:01:48 +0800 (CST)
+Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
+	by maildlp1.hygon.cn (Postfix) with ESMTPS id B56C17889;
+	Wed,  2 Sep 2026 17:01:42 +0800 (CST)
+Received: from hsj-2U-Workstation.hygon.cn (172.19.24.226) by
+ cncheex04.Hygon.cn (172.23.18.114) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.36; Wed, 2 Sep 2026 17:01:46 +0800
+From: Huang Shijie <huangsj@hygon.cn>
+To: <peterz@infradead.org>, <mingo@redhat.com>, <acme@kernel.org>,
+	<namhyung@kernel.org>
+CC: <zhongyuan@hygon.cn>, <fangbaoshun@hygon.cn>, <yingzhiwei@hygon.cn>,
+	<mark.rutland@arm.com>, <alexander.shishkin@linux.intel.com>,
+	<jolsa@kernel.org>, <irogers@google.com>, <adrian.hunter@intel.com>,
+	<james.clark@linaro.org>, <tglx@kernel.org>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
+	<linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<liuqi@hygon.cn>, <lijing@hygon.cn>, <wangfengyu@hygon.cn>,
+	<wujiangyong@hygon.cn>, <shijie8@gmail.com>, Huang Shijie <huangsj@hygon.cn>
+Subject: [PATCH] perf/amd/ibs: add phy_addr_only software filter for ibs_op
+Date: Wed, 2 Sep 2026 16:52:51 +0800
+Message-ID: <20260902085251.4046240-1-huangsj@hygon.cn>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -80,71 +46,99 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: cncheex05.Hygon.cn (172.23.18.115) To cncheex04.Hygon.cn
+ (172.23.18.114)
 
-On Wed, 02 Sep 2026 16:18:25 +0800 Liew Rui Yan <aethernet65535@gmail.com> wrote:
+We use the following command to track a process's memory footprint:
+  #perf record -e ibs_fetch// -e ibs_op// -p xxx --phys-addr -- sleep 10
 
-> When setting goal_tuner to 'temporal', if the goal is achieved,
-> quota->esz_bp will be set to zero.  In this case, damos_quota_is_full()
-> will always return true, even if no regions have been tried to apply at
-> all.  This causes qt_exceeds to increase unexpectedly.
-> 
-> Fix it by:
-> 
-> - Returning false in damos_quota_is_full() when quota->charged_sz is
->   zero.
-> - Adding an early exit in damon_do_apply_schemes() for schemes with zero
->   esz.
-> 
-> Fixes: c7ec7d5f6b3d ("mm/damon/core: handle <min_region_sz remaining quota as empty")
-> Cc: <stable@vger.kernel.org> # v7.2.x
-> Signed-off-by: Liew Rui Yan <aethernet65535@gmail.com>
-> ---
-> 
-> Changes from v1:
-> - v1: https://lore.kernel.org/damon/20260901105925.106186-1-aethernet65535@gmail.com
-> - Changed the check in damos_quota_is_full() from '!quota->esz' to
->   '!quota->charged_sz', because the former is an upper bound, while the
->   latter represents the actual quota usage.
-> - Added an early exit in damon_do_apply_schemes() to prevent a scheme
->   with zero esz from being evaluated by damos_quota_is_full().
-> - Changed patch title, original title: always return false when esz is
->   zero
-> 
-> ---
->  mm/damon/core.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/mm/damon/core.c b/mm/damon/core.c
-> index 8e3ded1a2cf6..de78ad56c8b3 100644
-> --- a/mm/damon/core.c
-> +++ b/mm/damon/core.c
-> @@ -2560,6 +2560,8 @@ static bool damos_quota_is_full(struct damos_quota *quota,
->  {
->  	if (!damos_quota_is_set(quota))
->  		return false;
-> +	if (!quota->charged_sz)
-> +		return false;
->  	if (quota->charged_sz >= quota->esz)
->  		return true;
->  	/*
-> @@ -2666,6 +2668,9 @@ static void damon_do_apply_schemes(struct damon_ctx *c,
->  		if (!s->wmarks.activated)
->  			continue;
->  
-> +		if (!quota->esz)
-> +			continue;
-> +
->  		/* Check the quota */
->  		if (damos_quota_is_full(quota, c->min_region_sz))
->  			continue;
-> -- 
-> 2.55.0
-> 
-> 
+In the mysql tests, I catched over 1,804,973 records for ibs_op event.
+I found that over 53% records(970,554) are like this:
+        ibs_op//:  ffffffffb6017739               0
 
-Please ignore this patch.  The title was truncated, so I've reposted it.
-If Sashiko provides a report in this thread that differs from the
-reposted version, I'll forward it as well.
+The physical address is 0 for these records. These records are not needed
+by us, and they wasted the CPU cycles.
 
-Best regards,
-Rui Yan
+This patch adds an ibs_op/phy_addr_only term that discards samples
+without a valid physical address (dc_phy_addr_valid == 0) in the interrupt
+handler. And it avoids the phys_addr=0 noise when used with --phys-data.
+
+Signed-off-by: Huang Shijie <huangsj@hygon.cn>
+---
+ arch/x86/events/amd/ibs.c | 23 ++++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
+
+diff --git a/arch/x86/events/amd/ibs.c b/arch/x86/events/amd/ibs.c
+index e5376ad5b2ec..f258375c09bc 100644
+--- a/arch/x86/events/amd/ibs.c
++++ b/arch/x86/events/amd/ibs.c
+@@ -32,6 +32,7 @@ static u32 ibs_caps;
+ 
+ /* attr.config2 */
+ #define IBS_SW_FILTER_MASK	1
++#define IBS_PHY_ADDR_ONLY_MASK	2
+ 
+ /* attr.config1 */
+ #define IBS_OP_CONFIG1_LDLAT_MASK		(0xFFFULL <<  0)
+@@ -303,6 +304,13 @@ static bool perf_ibs_strmst_event(struct perf_ibs *perf_ibs,
+ 	       (event->attr.config1 & IBS_OP_CONFIG1_STRMST_MASK);
+ }
+ 
++static bool perf_ibs_phy_addr_only_event(struct perf_ibs *perf_ibs,
++				      struct perf_event *event)
++{
++	return perf_ibs == &perf_ibs_op &&
++	       (event->attr.config2 & IBS_PHY_ADDR_ONLY_MASK);
++}
++
+ static int perf_ibs_init(struct perf_event *event)
+ {
+ 	struct hw_perf_event *hwc = &event->hw;
+@@ -721,6 +729,7 @@ static struct attribute_group empty_caps_group = {
+ PMU_FORMAT_ATTR(rand_en,	"config:57");
+ PMU_FORMAT_ATTR(cnt_ctl,	"config:19");
+ PMU_FORMAT_ATTR(swfilt,		"config2:0");
++PMU_FORMAT_ATTR(phy_addr_only,	"config2:1");
+ PMU_EVENT_ATTR_STRING(l3missonly, fetch_l3missonly, "config:59");
+ PMU_EVENT_ATTR_STRING(l3missonly, op_l3missonly, "config:16");
+ PMU_EVENT_ATTR_STRING(ldlat, ibs_op_ldlat_format, "config1:0-11");
+@@ -890,6 +899,7 @@ cnt_ctl_is_visible(struct kobject *kobj, struct attribute *attr, int i)
+ 
+ static struct attribute *op_attrs[] = {
+ 	&format_attr_swfilt.attr,
++	&format_attr_phy_addr_only.attr,
+ 	NULL,
+ };
+ 
+@@ -1357,7 +1367,8 @@ static int perf_ibs_get_offset_max(struct perf_ibs *perf_ibs,
+ 	if (event->attr.sample_type & PERF_SAMPLE_RAW ||
+ 	    perf_ibs_is_mem_sample_type(perf_ibs, event) ||
+ 	    perf_ibs_ldlat_event(perf_ibs, event) ||
+-	    perf_ibs_fetch_lat_event(perf_ibs, event))
++	    perf_ibs_fetch_lat_event(perf_ibs, event) ||
++	    perf_ibs_phy_addr_only_event(perf_ibs, event))
+ 		return perf_ibs->offset_max;
+ 	else if (check_rip)
+ 		return 3;
+@@ -1499,6 +1510,16 @@ static int perf_ibs_handle_irq(struct perf_ibs *perf_ibs, struct pt_regs *iregs)
+ 		}
+ 	}
+ 
++	if (perf_ibs_phy_addr_only_event(perf_ibs, event)) {
++		union ibs_op_data3 op_data3;
++
++		op_data3.val = ibs_data.regs[ibs_op_msr_idx(MSR_AMD64_IBSOPDATA3)];
++		if (!op_data3.dc_phy_addr_valid) {
++			throttle = perf_event_account_interrupt(event);
++			goto out;
++		}
++	}
++
+ 	if (perf_ibs_fetch_lat_event(perf_ibs, event)) {
+ 		union ibs_fetch_ctl fetch_ctl;
+ 
+-- 
+2.53.0
+
+
