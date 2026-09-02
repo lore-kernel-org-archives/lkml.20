@@ -1,131 +1,76 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4A9E14AE13B;
-	Wed,  2 Sep 2026 16:30:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE50D4AA401
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:31:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366648; cv=none; b=aiJZTOU+cwTJi6o7kfBzjB0TJWcAZAhbjwFBbcx4VIoEEvoyF12gHuWzHcqro2K2vL2wTuCUcWNBcOHFUhGD8dvLCcnA8Mj3GhYySoXUvDewX4JnrwGaIm4KpDPiXF05eyRbs65MVWVWViY+bItk5vHihCAdNTGAFdjRAfOKgXQ=
+	t=1788366669; cv=none; b=ohj0rj+ZmpHpryQNDUqOorgGV6ntgnz5SOjRG2pKIsxZlbgAEmHb12ywhhjb8ehYTSEDcrOhCEWW/c1WNdpwgcwzr7g/Vi9J2BUHm0FtZ1ddO854opHoEp5IMONMOjH7zIo337JwRpYqU/1G38OHfVXgAIlzsU05mXa7VhwKm/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366648; c=relaxed/simple;
-	bh=RMlvZ3YXuMVOhDDXeCBDqAOcnoat3xP4LQ6OtgGDeVU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Disposition; b=GamYW9rxvs21d1rdmIMkWevTg+ansh7Wj5ToakWt3d6tTFczUWzT7qNfywAKOJ2hdVoUopUPQX6b+U88gAKfFKF03Ne30MJhgpkhO6wvjvpS+EUvzeMq2a+o1XqFqp7xGVx7Y7EJ1oLkMq5Xf6qJ9I5F1eLGytl8q6XPhU5lqnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=B3dcRLnP; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1788366669; c=relaxed/simple;
+	bh=fbmtpU9efpASwtyuYlqk/ytKEW7KWNwMcly42NNl4UU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=ntwtT6fFOimgvSuPOFApMkB3yLN9ZA7UgvXb4YXgImQg9Bt8gJhrnTIDXrRvpV+NCXaZNmbANJeL8f0KdA8FNbzdTD3w8KoOhuJdZ0M394XScqtWuumawlgrWp+PYN76jWzq5qxqai6NpFaHlFhZLhHEXAuX/Q4gm+6FPmuFImg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BDoqWYKv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="B3dcRLnP"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DF5AA165C;
-	Wed,  2 Sep 2026 09:30:41 -0700 (PDT)
-Received: from LeoBrasDK.cambridge.arm.com (LeoBrasDK.cambridge.arm.com [10.2.212.21])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6869C3F882;
-	Wed,  2 Sep 2026 09:30:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1788366645; bh=RMlvZ3YXuMVOhDDXeCBDqAOcnoat3xP4LQ6OtgGDeVU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=B3dcRLnP9L3Xl5v7fW2zVaoKGzwYrvoHWWhLFlBC/dhW0ySfGu5cfAV2cbd5CTvqT
-	 ul/ErXJPrAOvS2Io7nT7Bzc44tjNjRjpyKaaJtL5I0svvKQD8irUx9UC6wTIboyRKT
-	 T67/R/0ZABmzV/q+RjI7heGlyWPForXik3k3Cil4=
-From: Leonardo Bras <leo.bras@arm.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Leonardo Bras <leo.bras@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Marc Zyngier <maz@kernel.org>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Peter Maydell <peter.maydell@linaro.org>,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Yao Yuan <yaoyuan@linux.alibaba.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-doc@vger.kernel.org,
-	kvmarm@lists.linux.dev,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v20 04/14] KVM: arm64: Ensure GCS memory effects are visible
-Date: Wed,  2 Sep 2026 17:30:20 +0100
-Message-ID: <aphPHJsdV4HWFjpg@LeoBrasDK>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260901-arm64-gcs-v20-4-f31750bdfadb@kernel.org>
-References: <20260901-arm64-gcs-v20-0-f31750bdfadb@kernel.org> <20260901-arm64-gcs-v20-4-f31750bdfadb@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BDoqWYKv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 376C31F000E9;
+	Wed,  2 Sep 2026 16:31:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788366668;
+	bh=ivmAGu6KDbxR5SQnssIb2xoPeX1yE5C+n0PO2F69Di4=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=BDoqWYKvI7vFQCoFyCrF46JeuGinjpstz33ttPAPuXUY9JFIe9aFNv9O4uUqRqr59
+	 QfT4suoSs7X4PPZj52RyDyRmwQgZFuiN0SZ7nfBVKChQKBmRke8sJX5iMGm2Fxcd/1
+	 ax0vvy763EMF/LyC7AwpfukA+dW+GKIqqn6QzXZypnfZNXDNE2lK6Q24d7+FOmiqkY
+	 SzXaJz44LJzj/Wr6aFyxYj9FjxK/b6B9VYY8+8Ienr3Sqj81IphbUQKOb6btHN1KkI
+	 j9ij1VSH5SGe8OtjP68yUeKlm5SuRACCrQwQ5RC+Dz3JprTaVnBaTjOBA50c1KgmYf
+	 yihpS5EqeAKvw==
+Message-ID: <ee89861d-b0f6-46bf-a7cc-310da1f1acda@kernel.org>
+Date: Wed, 2 Sep 2026 11:31:07 -0500
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] firmware: stratix10-svc: fix kaddr dangling pointers
+ and populate kaddr1
+Content-Language: en-US
+To: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
+ linux-kernel@vger.kernel.org
+References: <cover.1779780223.git.adrian.ho.yin.ng@altera.com>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <cover.1779780223.git.adrian.ho.yin.ng@altera.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 01, 2026 at 10:47:02PM +0100, Mark Brown wrote:
-> In order to allow efficient implementation of GCS implementations are
-> permitted to do GCS specific caching, with barriers implicit in stack
-> switch operations and GCSB DSYNC as an explicit barrier.  Since we do
-> not use GCS in the hypervisor or host kernel the hypervisor cannot rely
-> on any barriers being present in vCPU context switches other than those
-> it explicitly inserts.  Add explicit barriers when loading and saving
-> vCPU state.
+
+
+On 5/26/26 15:35, Adrian Ng Ho Yin wrote:
+> kaddr1/2/3 in the stratix10 service layer are set to addresses of local
+> arm_smccc_res fields that go out of scope when the setting function returns,
+> leaving dangling pointers in the callback data.
 > 
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> Reviewed-by: Yuan Yao <yaoyuan@linux.alibaba.com>
-> ---
->  arch/arm64/kvm/arm.c               | 7 +++++++
->  arch/arm64/kvm/hyp/nvhe/hyp-main.c | 7 +++++++
->  2 files changed, 14 insertions(+)
+> Patch 1 fixes this by adding a1/a2/a3 scratch fields to struct
+> stratix10_svc_cb_data, which lives for the SVC thread lifetime, and
+> pointing kaddrN to those fields instead of the stack.
 > 
-> diff --git a/arch/arm64/kvm/arm.c b/arch/arm64/kvm/arm.c
-> index 8b080804bc90..52f53f682e6a 100644
-> --- a/arch/arm64/kvm/arm.c
-> +++ b/arch/arm64/kvm/arm.c
-> @@ -755,6 +755,13 @@ void kvm_arch_vcpu_put(struct kvm_vcpu *vcpu)
->  			vcpu_set_flag(vcpu, PKVM_HOST_STATE_DIRTY);
->  	}
->  
-> +	/*
-> +	 * Ensure any GCS memory effects from the outgoing vCPU are
-> +	 * visible elsewhere.
-> +	 */
-> +	if (kvm_has_gcs(vcpu->kvm))
-> +		gcsb_dsync();
-> +
-
-Makes sense as previously discussed:
-Only gcsb when leaving the guest, if it's possible the vcpu will be 
-migrated somewhere else.
-
->  	kvm_vcpu_put_debug(vcpu);
->  	kvm_arch_vcpu_put_fp(vcpu);
->  	if (has_vhe())
-> diff --git a/arch/arm64/kvm/hyp/nvhe/hyp-main.c b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> index 9a3b92e626ad..534db037c5f6 100644
-> --- a/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> +++ b/arch/arm64/kvm/hyp/nvhe/hyp-main.c
-> @@ -261,6 +261,13 @@ static void sync_hyp_vcpu(struct pkvm_hyp_vcpu *hyp_vcpu)
->  	fpsimd_sve_sync(&hyp_vcpu->vcpu);
->  	sync_debug_state(hyp_vcpu);
->  
-> +	/*
-> +	 * Ensure any GCS memory effects from the outgoing vCPU are
-> +	 * visible elsewhere even if the host skips syncing.
-> +	 */
-> +	if (kvm_has_gcs(hyp_vcpu->vcpu.kvm))
-> +		gcsb_dsync();
-> +
->  	if (pkvm_hyp_vcpu_is_protected(hyp_vcpu)) {
->  		host_vcpu->arch.ctxt = hyp_vcpu->vcpu.arch.ctxt;
->  	} else {
+> Patch 2 uses the same mechanism to populate the previously unset kaddr1 in
+> svc_thread_cmd_config_status(), exposing firmware status details to callers.
+> 
+> Adrian Ng Ho Yin (2):
+>    firmware: stratix10-svc: fix dangling kaddr pointers in callback data
+>    firmware: stratix10-svc: populate kaddr1 from config status response
+> 
+>   drivers/firmware/stratix10-svc.c              | 45 ++++++++++++-------
+>   .../firmware/intel/stratix10-svc-client.h     | 17 +++++++
+>   2 files changed, 47 insertions(+), 15 deletions(-)
 > 
 
-sync_hyp_vcpu() gets called only in handle___kvm_vcpu_run(), just after 
-__kvm_vcpu_run(), and outside of the main loop. So it makes sense to gcsb 
-here.
+Do these patches need to get backport into a stable release? If so, 
+please add the appropriated Fixes tag.
 
-FWIW:
-Reviewed-by: Leonardo Bras <leo.bras@arm.com>
-
-Thanks!
-Leo
+Thanks,
+Dinh
