@@ -1,106 +1,68 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B2194A3874;
-	Wed,  2 Sep 2026 14:38:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578414A2E3F;
+	Wed,  2 Sep 2026 14:39:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788359927; cv=none; b=iGB/mWc/07OvhNPB/767UUGF/UE02V5dUI3bUHy/sfm0Ljj+WZTIghSM/3I5rWuwyf0zsQXhbyvgMu4q904kC4Nk7g+LVkls+S57pFNePFNBGa/z3SCX9OaBI0ZydVCraZc/wyrrcPEP0qo97QQ3sKLDSKf60VltqcAcjMqlfsc=
+	t=1788359961; cv=none; b=qtH3LXxr0rROLsmO7Ia7oNmabHobcwIj807HGwu92nIW7mC5+GI9nx/8YkouMSgQ/J8MROPXYKpl9T2jQCRF5DFnvAVwbGJowp+ezuJzPDuMlhNMm2hQ++22vJnXHbO2QxIWFh8PlwKofcp2O31E0MAWNLu73rJMFaSHq3/qNss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788359927; c=relaxed/simple;
-	bh=RK3yTsVbpTpGmjQxbDsPfYC9S9e7jNkCY8VTXlXXv54=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aYOtais5w2MwuGL+GlHl9bpoamS2y5YkXxtWjvvz4pZAxqXRuUqUgc2cZwgceskjZwFep4EjMMFSTkOT43tSS8HKIh8h1TRhtz+/OtPtWRRKGKjw0hOE5tBwuzKk9Kd2HL9SMqEjOOhqdUSTvoajS8GAEwqrV/IVHr+nuPp5mKc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=mk9CTKDn; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=AkB+P3p9; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788359961; c=relaxed/simple;
+	bh=+x2YgdlKss25LU4ZayxSBtc1tUQj5vYBgzAiEMRk6nA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZW3wgtaMzqBPRxVJ6mkgaFy2K+EIuS6jsuGmPHbkXbWLoQF59FFwFxiw0C1SpMqjwJrKFp4XVygEdfTx1p0h8E2iMZnUPIKFIyTIVb4QlS3KBFuwsn6UdHuTMyMjODakJhAg2OHGOz/rGLfjFv6N0H5PG4MRcHj5ZZNG5c79veU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=Ap/PrcgP; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="mk9CTKDn";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="AkB+P3p9"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hZlhz1lQ9zMlKv;
-	Wed, 02 Sep 2026 16:38:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788359923;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=w4peotbQEwHadIewQox10dHHSEQxCl7rvHTB9JDglaI=;
-	b=mk9CTKDnh5zbpM6+lZO/nrhdlpcMICtSYaeTVOsrfl7JMqKVZu4ePTyj0aTA3XmiBB/ULv
-	De9KXrVh8azBiGuxH7qi43Wc0uWjHkrORFMOuDgloVT2ec3WyK7o3RzGi+77FBR7RmyMzj
-	KFl7Sdjv07ZVv8MYKKdDtkTswjaw7pRvNwLMzZVldsC6+pzCO9NJIpEeSt25Md1YQmh8Rd
-	uDgzMfsIN9GnePZfGnkHnXgvkqDLu1Ho3S5Zr05z8XcSvpiSp4e6xXulysBzCHxlukG5Ia
-	lGVUY3A8rKE4b+pMRxe4Ot3rdvdV3FNiAujAq2nikq+MGcJQ6SG1KJ815e1E6w==
-From: Manuel Ebner <manuelebnerli@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788359921;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=w4peotbQEwHadIewQox10dHHSEQxCl7rvHTB9JDglaI=;
-	b=AkB+P3p9CfXuaO2IJdg0yD+/YY1dwvIxkxSkEzXP10jE+b8KONoYwoB4bW02KSiPHFPSBE
-	XLrS+MKv5Ot7n4SdFsHNS4NxE3ix8r7SvI8Qlf96kN+5nHXjml17O83h2AGXP5mifdzmV7
-	iVOaOmonLiXmRJKRpity8R+WgpR66PevRgwTAYsIcdOzIxFyRAY0dYpklYVcw0J7v2ht8w
-	3d6uWdQMfzrXUFxewg3zUTRSOxprjTE9L6cQpV9MwKlnl58QO2aS4YCJSSqdqTRz3UuqEV
-	+d7SBxD+lJfrX0XOvrSju2dk+n5EnfNz2oJ+UhmEe4B8zQ16Pf5pOJMGz6G/IQ==
-To: Miklos Szeredi <miklos@szeredi.hu>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Cc: Manuel Ebner <manuelebnerli@mailbox.org>,
-	fuse-devel@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] Documentation: fuse: harmonize numeration
-Date: Wed,  2 Sep 2026 16:35:41 +0200
-Message-ID: <20260902143541.703277-2-manuelebnerli@mailbox.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="Ap/PrcgP"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=1CrawKwaMvFkbEVCpph0GK0gbB8SZ73x0coQbMzkNok=; b=Ap/PrcgPf/+8wFVMWF6cWd3UPJ
+	/8Y+9ZpKEOmNOm++PN1X1UTxdAGLVsMwggIWP74L7KXEmhqE+WQ7MTvFFYLUJNB3XXGX4kQvbZo8e
+	zdmnpOhGdqIoOZUkkAlIKSNHLKQ8Q8M/MOvxzI3ATv5nTyQENXu8HBGqrioH26/UbNFU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x1m72-002XDd-J8; Wed, 02 Sep 2026 16:38:52 +0200
+Date: Wed, 2 Sep 2026 16:38:52 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: javen <javen_xu@realsil.com.cn>
+Cc: hkallweit1@gmail.com, nic_swsd@realtek.com, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, maxime.chevallier@bootlin.com, horms@kernel.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	daniel@makrotopia.org, linux@armlinux.org.uk,
+	enelsonmoore@gmail.com, daniel@thingy.jp
+Subject: Re: [PATCH net-next v9 4/7] r8169: add support for RTL8116af
+Message-ID: <c67acbc0-6686-4cb7-a7d2-cec49938c70a@lunn.ch>
+References: <20260831053745.1197-1-javen_xu@realsil.com.cn>
+ <20260831053745.1197-5-javen_xu@realsil.com.cn>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 4a6961093df6044dc61
-X-MBO-RS-META: 16hek974oy1js1twkfb3juqcryekx94y
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831053745.1197-5-javen_xu@realsil.com.cn>
 
-Replace with '1.', '2.' with '1)', '2)' to harmonize file.
+On Mon, Aug 31, 2026 at 01:37:42PM +0800, javen wrote:
+> From: Javen Xu <javen_xu@realsil.com.cn>
+> 
+> RTL8116af is sfp mode. Phylink uses pcs to get the link status from its
+> serdes reg, instead of standard phy reg. Speed and duplex are hardcoded
+> to 1000Mbps Full-Duplex. Also, RTL8116af doesn't have internal phy, so
+> we add some checks to ensure that tp->phydev is not empty when we need it.
+> In rtl_hw_start_8117(), the MAC calibration for register 0xd412 relies
+> on reading the internal PHY register 0x0c42. Since RTL8116af does not
+> have an internal PHY, this calibration step is intentionally bypassed.
+> 
+> Signed-off-by: Javen Xu <javen_xu@realsil.com.cn>
 
-Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
----
- Documentation/filesystems/fuse/fuse.rst | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-diff --git a/Documentation/filesystems/fuse/fuse.rst b/Documentation/filesystems/fuse/fuse.rst
-index 0fbd5a03f..063d99959 100644
---- a/Documentation/filesystems/fuse/fuse.rst
-+++ b/Documentation/filesystems/fuse/fuse.rst
-@@ -173,10 +173,10 @@ the error set to EINTR.
- It is also possible that there's a race between processing the
- original request and its INTERRUPT request.  There are two possibilities:
- 
--  1. The INTERRUPT request is processed before the original request is
-+  1) The INTERRUPT request is processed before the original request is
-      processed
- 
--  2. The INTERRUPT request is processed after the original request has
-+  2) The INTERRUPT request is processed after the original request has
-      been answered
- 
- If the filesystem cannot find the original request, it should wait for
-@@ -239,9 +239,9 @@ How are requirements fulfilled?
- 
-  A) The mount owner could gain elevated privileges by either:
- 
--    1. creating a filesystem containing a device file, then opening this device
-+    1) creating a filesystem containing a device file, then opening this device
- 
--    2. creating a filesystem containing a suid or sgid application, then executing this application
-+    2) creating a filesystem containing a suid or sgid application, then executing this application
- 
-     The solution is not to allow opening device files and ignore
-     setuid and setgid bits when executing programs.  To ensure this
--- 
-2.54.0
-
+    Andrew
