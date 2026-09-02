@@ -1,115 +1,121 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B27B3E92A9
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 09:57:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7226E3FE37C;
+	Wed,  2 Sep 2026 09:57:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788343066; cv=none; b=RmuTL/qxPFZY+LtUZOB2/7Lyk6eMy+EelQ2P2NykEZrAeMnfo/ooasKRfL2cXoKt4Qh2u7P7PNWGgTysPrZrA/ChYvN3Ak6gmueQKT6D7msgJZnbWF+SeUafHTYvZBj8N2MhwhvaQ6XVE+hmauMWOAHsXmf1+4Ixy5KjPW9TYew=
+	t=1788343066; cv=none; b=ujip/q72brAmjPKdEplWDvMiio+1WJkaXexzAAtkf4q1NAQbEoEuyhRDQ8la8OznFCgN5zf1Nb0pJHyX3ti9qOQENNfbyHxjhNp61K87mU8m8soxqrQbRok6MZJwH7H8rRYzkwTFkbo0Z6O9D6HNh+unAbdINMA+KYafyxt8/LA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788343066; c=relaxed/simple;
-	bh=L09e8O4bJ2vjdcyt8bSaxZ5+yflALwEDgHh35FHwGVk=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rLtSKNz/DUhcuVJK3svOkASJdIyUyeOeMWkItG9aZuYUzQZwhzCVVG2Eu+hvTbw5CzSC6cwT3X9cykN+Y6hXTnYtKlfBo4kMgDLxSitaELrPG2KZqls9uEEulC4LyKg9/xXywAf1/J93kCpo0jWPBsJ45cyTBsNCLU0nWfzuFcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=vu4Ep/76; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	bh=9j2Ki5GPWGYkmeARIMt8ZvDgPX6hctJeBXHPtQmb6e8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RCfku/C7hzdCC5nyGAUCsxjJCyKb/Rnd9Gm86HY8hqueaYU83Hr0ZAkEYYrJassqiWdM3WAXACB/DBCJ80oOIFVevIxPYIkRoNSGnaLKIf2QyEYlUWEcXSMlUXB3iQQGUaqWnnUIcSUHU/5hc37nPPbtNabLJ41Tq/4S4oNnc/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vj+5c9vx; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="vu4Ep/76"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 85F051A1948;
-	Wed,  2 Sep 2026 09:57:41 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 579CC6053C;
-	Wed,  2 Sep 2026 09:57:41 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 63EED11C7930A;
-	Wed,  2 Sep 2026 11:57:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788343060; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=RTajQvpZKAY1ewUOktwAygv2WKLHyU04qkbLMJ18phE=;
-	b=vu4Ep/76JZt0FXxKCCX6PvKX1EsD70NKN0/kxiSdgr5/pQUsFiDu+Rslk4GMaLjKFpuCBk
-	S0VLboBO+Ka2S/W28vm1zK+PhjeCAlT928NOvlLXDBfN6VdxfP/AcG60U/3aHCH4f7w2h2
-	FY+5srUk5ArGUXMTYkxoZ5YZ3D5D/oaAGagacPnhuyYFG8CCAFSALiCysCZWULLM/eBLCu
-	ynQkzohakbXZKpOE4iysj3EokbHzGpuc0wRokawqVAPfLgTdvcBN09WhnAW0StFp+wvwrK
-	i+YJM9MlcM4V+b6+3IA3tQxnXgUgo95Ah+E+TOvi8lljwj0gVKpz32yF58x7QA==
-From: "Bastien Curutchet (Schneider Electric)" <bastien.curutchet@bootlin.com>
-Subject: [PATCH net-next v2 00/10] net: dsa: microchip: add periodic output
- support for the KSZ8463
-Date: Wed, 02 Sep 2026 11:57:30 +0200
-Message-Id: <20260902-ksz-perout-v2-0-6f277fcc9e68@bootlin.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vj+5c9vx"
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D21071F8;
+	Wed,  2 Sep 2026 11:56:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788342971;
+	bh=9j2Ki5GPWGYkmeARIMt8ZvDgPX6hctJeBXHPtQmb6e8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=vj+5c9vxvm1NYRM8prIdCcKaN5O+Jh8/21rrP7zR0b2x2JlyX9TxlROE5P8tlgiE6
+	 AmRETcC90lo0IC+tdBHSLnOOGiJTZNWiSqYbekvLDi2O0ZA4N+J7xHfS8yE8/6X9mw
+	 WRIsZ65ar2K9BlASHgFy9v3Va3XSfOkFNtRHoAmY=
+Message-ID: <91be6238-0379-4c3e-b617-f0e1c4ed5cf7@ideasonboard.com>
+Date: Wed, 2 Sep 2026 12:57:37 +0300
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/02NQQ6CMBBFr0Jm7RimFURX3sOwoDDIRG1JWwlKu
- LsNbly+vPz3FwjshQOcswU8TxLE2QRql0E7NPbGKF1iULkq80oVeA8fHNm7V8SmP1WkmRQVFaT
- B6LmXeYtdwXJEy3OEOplBQnT+vb1MtPlfUNN/cCLMkQ5JdeZYaqMvxrn4ELtv3RPqdV2/fP0Mw
- rAAAAA=
-X-Change-ID: 20260825-ksz-perout-af9813e12158
-To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
- Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Richard Cochran <richardcochran@gmail.com>
-Cc: Pascal Eberhard <pascal.eberhard@se.com>, 
- =?utf-8?q?Miqu=C3=A8l_Raynal?= <miquel.raynal@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- "Bastien Curutchet (Schneider Electric)" <bastien.curutchet@bootlin.com>
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v16 00/22] media: i2c: add Maxim GMSL2/3 serializer and
+ deserializer drivers
+To: =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+Cc: Ceclan Dumitru <mitrutzceclan@gmail.com>, dumitru.ceclan@analog.com,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-gpio@vger.kernel.org, Martin Hecht <Martin.Hecht@avnet.eu>,
+ Andrian Suciu <Adrian.Suciu@analog.com>,
+ Cosmin Tanislav <demonsingur@gmail.com>,
+ Vivekananda Dayananda <vivekana@amd.com>, Cory Keitz <ckeitz@amazon.com>
+References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
+ <20260831170303.GB1116206@ragnatech.se>
+ <65b703e7-e4a0-4046-9d35-7d0ff1057f96@gmail.com>
+ <16626ec7-d1ec-4a54-ad1b-a59790cd33e8@ideasonboard.com>
+ <20260902083750.GC1116206@ragnatech.se>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <20260902083750.GC1116206@ragnatech.se>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-This series aims to add periodic output support for the KSZ8463. The
-way the KSZ8463 handles periodic output differs from that of the other
-KSZ switches. It therefore needs its own set of perout callbacks
-(configure, start, reset, enable, restart).
+Hi,
 
-Patches 1 to 3 prepare the driver to accept different kinds of periodic
-output settings.
+On 02/09/2026 11:37, Niklas Söderlund wrote:
+> On 2026-09-01 10:43:44 +0300, Tomi Valkeinen wrote:
+>> Hi,
+>>
+>> On 01/09/2026 10:39, Ceclan Dumitru wrote:
+>>>
+>>>
+>>> On 8/31/26 8:03 PM, Niklas Söderlund wrote:
+>>>> Hello,
+>>>>
+>>>> Thanks for  your continued effort pushing this work forward!
+>>>>
+>>>> On 2026-08-31 16:21:19 +0300, Dumitru Ceclan via B4 Relay wrote:
+>>>>> This series adds new drivers for multiple Maxim GMSL2 and GMSL3 devices,
+>>>>> replacing the few GMSL2 drivers already in upstream, and introducing a
+>>>>> common framework that can be used to implement such GMSL chips, which
+>>>>> avoids code duplication while also adding support for previously
+>>>>> unsupported features.
+>>>>>
+>>>>> While the normally acceptable and polite way would be to extend the
+>>>>> current mainline drivers, the choice was made here to add a totally new
+>>>>> set of drivers. The current drivers support only a small subset of the
+>>>>> possible features, and only a few devices, so the end result after
+>>>>> extending them would in any case be essentially fully rewritten, new
+>>>>> drivers.
+>>>>>
+>>>>> This series depends on support for internal pads, for which a patch has
+>>>>> been added.
+>>>>
+>>>> It also depends on enabling the streams API right? At least I need to do
+>>>> so to be able to use the TPG. Out of curiosity do you know the plan to
+>>>> enable it by default upstream?
+>>>>
+>>>
+>>> I do not know when default enable is planned, but series could make it
+>>> so VIDEO_MAXIM_SERDES selection causes v4l2_subdev_enable_streams_api=1.
+>>>     I am not sure that such a hack would be acceptable by Sakari or
+>>> upstream in general.
+>> I haven't tested with this driver, but in theory these kind of drivers
+>> should work with the Streams API still disabled. The Streams API is a uAPI,
+>> so the driver itself works without it. If the default routing for the
+>> drivers provides a sensible single route, one can use the drivers with a
+>> single camera. This is what the FPD-Link drivers do (although it's been a
+>> long time since I verified it with Streams API disabled).
+> 
+> Indeed, but to enable the TPG I need to non-default routing ;-) Nothing
+> big I'm just impatient for the streams API to be enabled by default in
+> general.
+Yes, that is true. And annoying, if TPG is your main use case ;).
 
-Patches 4 to 9 extract a set of functions from the existing periodic
-output support that can be reused by the KSZ8463, avoiding code
-duplication as much as possible.
+The FPD-Link drivers don't have TPG in upstream. I have patches in my 
+local branch, waiting for internal pads.
 
-Patch 10 adds periodic output support for the KSZ8463.
-
-Signed-off-by: Bastien Curutchet (Schneider Electric) <bastien.curutchet@bootlin.com>
----
-Changes in v2:
-- PATCH 1: Init n_pins for all PTP capable switches
-- PATCH 2: Init n_per_out for all PTP capable switches
-- Link to v1: https://lore.kernel.org/r/20260831-ksz-perout-v1-0-14202db763b3@bootlin.com
-
----
-Bastien Curutchet (Schneider Electric) (10):
-      net: dsa: microchip: add the number of pins to chip infos
-      net: dsa: microchip: add the number of periodic signals to chip infos
-      net: dsa: microchip: use dynamic mask to check pulse width validity
-      net: dsa: microchip: extract PTP callbacks configuration from PTP registration
-      net: dsa: microchip: extract ptp_get_pin
-      net: dsa: microchip: extract compute_width
-      net: dsa: microchip: extract prepare reset
-      net: dsa: microchip: extract time update
-      net: dsa: microchip: extract time adjustment
-      net: dsa: microchip: add periodic output support for the KSZ8463
-
- drivers/net/dsa/microchip/ksz8.c         |   2 +
- drivers/net/dsa/microchip/ksz9477.c      |   1 +
- drivers/net/dsa/microchip/ksz_common.c   |  22 ++
- drivers/net/dsa/microchip/ksz_common.h   |   2 +
- drivers/net/dsa/microchip/ksz_ptp.c      | 473 ++++++++++++++++++++++++++-----
- drivers/net/dsa/microchip/ksz_ptp.h      |   5 +-
- drivers/net/dsa/microchip/ksz_ptp_reg.h  |  16 ++
- drivers/net/dsa/microchip/lan937x_main.c |   1 +
- 8 files changed, 451 insertions(+), 71 deletions(-)
----
-base-commit: f7f619ecda5761bd48578764ef5ff9e8fd97b916
-change-id: 20260825-ksz-perout-af9813e12158
-
-Best regards,
--- 
-Bastien Curutchet (Schneider Electric) <bastien.curutchet@bootlin.com>
+  Tomi
 
