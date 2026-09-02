@@ -1,96 +1,88 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7FF4A6CF7;
-	Wed,  2 Sep 2026 15:37:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D338A4A8FD3
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 15:38:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788363462; cv=none; b=SlSRI0vJduamo6oonFETt6mKrxMIiWthH3IR5Jdrp2oYuaspd79oj0e4KM29Bvnki0+RvKt1T9xo3IJJl3qwXvMrG7v2k1vxcvtioMdWkEQpDuHx5NAtfTNlvmJxoSTaCrmGtLKUP7nvcXTG9AmBZyl92wtWjkFZhmBcVokwss0=
+	t=1788363500; cv=none; b=qaVDmTr0GlyCPRleqI9UQemO3baDHEnBjtyWNknFREhxzuFBlrRYa+XRnbxu5SpsYG/R/tZBcDvgzqRBjWWXFyP6jG5zyC2JnPsgWM2lnhqSwMCTwjDlA68dhe5pl7Tl2wahkap2zeR6/R2mI+1bOJeBTKcO+JpirYnx4v2Aqx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788363462; c=relaxed/simple;
-	bh=+HmhVsA9O4QqWJ4nFtIsTdMAlBYBl/2H21MqPcG/NZM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=A3iBPK8e0TajW2zTCEorfWoHmv2UGLu/TlIa13BFLsEpBEQ67sW+XKfgWWTjJoE/UYEqa25eIdbSW40KUJqw26YPSN17JqXEFadFRty72RqtQgzjcyT6OhJhEstNAx+NgD2WItPfCFMgFF9iVbCQfYhtU3xf9IzrA4126Mb/T2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lPXC/Zk1; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788363500; c=relaxed/simple;
+	bh=r1wzdqk9Yha3rQ5T79xwCaVI2aNLk84ups4ygu/u1r0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ayGJj8CxwRLsJ6a3nZ/5IkJmhUNgFBPEqJYTE6SSbvVgHoQtztIMuRSv+fzppaVq5VSRBMlCFNwIboUJMcPFG5NwPqfNjBr+0pTbQ4woMKtyZnvDeXZVmlUjgNil9eoqKk47GdBXvkS5jnx6mr2Jcujzr9OKrQc1RKaV+rwKmzo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=bNGYzvR4; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lPXC/Zk1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788363453; x=1819899453;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=+HmhVsA9O4QqWJ4nFtIsTdMAlBYBl/2H21MqPcG/NZM=;
-  b=lPXC/Zk1sOHxmRcAEKr6IgjDZ5z1ZHNxNWNkIiG8vkvTVbgsxoBoCfRC
-   81jJ8GXNbslBMF3X/8omhSXfb1Q/yw4M/QZRCRHphjy7x1Vqib++Xdi74
-   SKWqWQc99AkXw0BgXprpEqULV56GbT80NR8ZziXveMAegw2LdXRpdQLY1
-   wk5DDYAXudaYhPM2FQq1m4YqVO6mcHLFvgXs4UiQfw3OY6IDkB6M2YfQq
-   insDyS+xj0feAO6dBH//UW7AP7ZtQ0hpsLAx+/zHbPEuypfL31enOIHJJ
-   Kem6yLdEY3dbYDro6lMz4ReksUzGaQW3LT0uBQ/XMhCg6hIthUBdUEZiJ
-   A==;
-X-CSE-ConnectionGUID: X3Iz5hrkQXuhbTFRkGM04w==
-X-CSE-MsgGUID: e6O2CKCqT2m13Z4MSJ6YRg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="99425806"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="99425806"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 08:37:28 -0700
-X-CSE-ConnectionGUID: PF+FBMmrTb2+dJxcLQSHMQ==
-X-CSE-MsgGUID: FzkFJL0XRte1K2ZpFfyHRQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="274718906"
-Received: from sxiong-mobl3.amr.corp.intel.com (HELO [10.125.110.132]) ([10.125.110.132])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 08:37:27 -0700
-Message-ID: <2b60d222-d5a2-4d9e-bd85-8b1ba0f0367a@intel.com>
-Date: Wed, 2 Sep 2026 08:37:25 -0700
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="bNGYzvR4"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 38BCD40E0301;
+	Wed,  2 Sep 2026 15:37:57 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id yg0LVubOiLGE; Wed,  2 Sep 2026 15:37:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1788363466; bh=Ah7WnQxzUmJ3hIyqhAnwMuzxRP0BoOkEj3I/2iiDfQE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=bNGYzvR40cNH/z+9IcrdxAiCut8BW57E9/Cha0QQaX84nbMqTkiCKsu9qN3ux4kPF
+	 pfI0KxnTEWdJHjJ4v3K+pZnJFlPrd1LyvTlbheZsxjD0zxI3knZrMpF4THLKeIRnR4
+	 0XvWbKk7HmIrsWD7kI2201ry3XdqxgvQIjUuSnJkO43Ys/E2Rjk0TZtmvjI6O9TKoU
+	 ULAolOnBjEPOnM8OO3rzVJVy8JW5oPuGuV2mNzEOGiLsfp7yBQsi/U/OkD370etzOm
+	 HG/PgTbDVPfqpBNpdlwUTYgq9UslmcFM4t2x2xhSh6EUyY4I4L66jferfVEYT8HmD4
+	 oFPIfGDOV4M5uJBflGQA2mPLYZ31z9D9djgxkbNHEqVxoUyMWvD4LAf0HyJNyiULAi
+	 CLRwPv/Gt6tmwDSVSCe8UWvUSIDKb2kNps5XEZjCleJhg5Z9GRJSa7ZEdgpiDBK5Ay
+	 wcvxFYXjX1UEE32stHVu+6d1+WY8hXO4lBe2s2YN/RcKUVWPzLj8pAiCJPDB8GxlCZ
+	 kQMmp/zvCZUuxZtD39pqZwi+q6tqrc/t5vFqFx9oOisA2EMXnyRZIZPFCpLUImt23X
+	 EeH/buxVjoSiZNcsTdKXC1I2dAbQFg+Q7lyrNRju/55q+UtwtqVhx5y4OHh+9jAaLk
+	 A6LkPqanJY+KFdGf3IsKjhg8=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 4557640E02C2;
+	Wed,  2 Sep 2026 15:37:39 +0000 (UTC)
+Date: Wed, 2 Sep 2026 08:37:35 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Thorsten Blum <blum@kernel.org>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] x86/coco: Replace cc_attr_flags with a bool
+Message-ID: <20260902153735.GBaphCv4DFj75B2nP7@fat_crate.local>
+References: <20260902000634.118808-2-blum@kernel.org>
+ <20260902005703.GDapd0X8PevmcPPxBm@fat_crate.local>
+ <apfyN_VpuREcX5A1@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 00/12] PCI/CXL: Add CXL reset support for Type 2
- devices
-To: Srirangan Madhavan <smadhavan@nvidia.com>,
- Alison Schofield <alison.schofield@intel.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Davidlohr Bueso <dave@stgolabs.net>,
- Ira Weiny <ira.weiny@intel.com>, Jonathan Cameron <jic23@kernel.org>,
- Vishal Verma <vishal.l.verma@intel.com>, linux-cxl@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Alex Williamson <alex.williamson@redhat.com>, vsethi@nvidia.com,
- alwilliamson@nvidia.com,
- Sai Yashwanth Reddy Kancherla <skancherla@nvidia.com>,
- Vishal Aslot <vaslot@nvidia.com>, Manish Honap <mhonap@nvidia.com>,
- Jiandi An <jan@nvidia.com>, Richard Cheng <icheng@nvidia.com>,
- linux-tegra@vger.kernel.org
-References: <20260804192958.1823952-1-smadhavan@nvidia.com>
- <8eedb254-c942-4ee8-ab96-eb7c1ae577ad@intel.com>
- <093e50be-5a43-40c1-817f-bbcaadb3af76@nvidia.com>
-From: Dave Jiang <dave.jiang@intel.com>
-Content-Language: en-US
-In-Reply-To: <093e50be-5a43-40c1-817f-bbcaadb3af76@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <apfyN_VpuREcX5A1@kernel.org>
 
+On Wed, Sep 02, 2026 at 11:53:59AM +0200, Thorsten Blum wrote:
+> I did check before sending. My motivation for the cleanup was that in
+> the ~2.5 years since bc6f707fc0fe ("x86/cc: Add cc_platform_set/_clear()
+> helpers"), host_sev_snp has remained the only member of cc_flags.
 
+And?
 
-On 9/1/26 10:11 PM, Srirangan Madhavan wrote:
-> On 8/25/26 2:13 PM, Dave Jiang wrote:
->>> Userspace can select "cxl_reset" in reset_method and then trigger reset
->>> through the existing reset attribute.
->> Srirangan,
->> Do we need to consider concurrent mailbox commands while reset is ongoing? Although rather than blocking them, maybe we just need to harden the mailbox path in CXL core so that when ~0s are read we return error and give up? and maybe a reset_prepare() to quiesce things. Just some random thoughts.
->>
->> DJ
-> 
-> I agree that the PCI device lock does not serialize against the mailbox mutex, so a mailbox command could still be in progress during reset.
-> 
-> Since cxl_reset also needs to work without cxl_pci bound, reset_prepare() and reset_done() seem like a good place to add this.
-> 
-> I would prefer to do this as a follow-up along with hardening for ~0s read, if that is okay. I can send out a follow up RFC to discuss the specifics.
-> 
+That is bothering you so much so that you would send a patch for it?
 
-That is fine with me. 
+If you really wanna help, you'd be immensely more helpful if you tested
+kernels and did some code review to help out maintainers. Because we're
+drowning in patches but not drowning in reviewers...
+
+Thx.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
