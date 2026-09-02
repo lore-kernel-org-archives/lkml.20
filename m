@@ -1,63 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E172543231D;
-	Wed,  2 Sep 2026 13:23:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D4049EC60
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:24:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788355389; cv=none; b=CDi6PGzcoU8UEGnrYGpjWprJnSkIS18JpOurvHjZPv1JyIyw1hV/L4+wndhtqBWGksfpb8iGfqisi90fTCKv/VTgnaVLIYzTwsCKkhqIZIZEVK36aOkuykYiCvTZPN9sI+akoxrs1KxJtsDtbSP/Zx7qgStEUKbUk/5kYKOC3Ps=
+	t=1788355492; cv=none; b=sX+uGdf8Vm6ysJ0ViIL2JWpLrdFYsNj12ajJYYkRJnP94I6xFC9oM2bvc0WewjcJdyt6K/Ecy/m9iS1KfZeTbaZhf70VWT9TF87dAxAs4Y7DtpcUGP7JzCBjYOLQEGQLxOUhqSC1OCOYN9s428/nVSqlxPV+BlatKHv0eSdTXa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788355389; c=relaxed/simple;
-	bh=2CM/KH+tavjtIAroEulUiItNXRiGDNC8/zDwFxHlwu0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=pPk2IfjQFJeFGGaE/RGmM/a+b2hRfupz9nuc5pseug0XDxbzGkAxThNIhF5wBr2mPa+85RjQLe0LG6vxmy0NKeVNtg/KWdDd4NOkg3gLXaAvXF96Xb9IG6sKOKEvMjACFN8+i2QOPXj0+NUUYwFVNnArZ+W9xJaAqkzxRxCokAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b+16GVEI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788355492; c=relaxed/simple;
+	bh=p4cqvaDK+7g1t1n8Daz9GFsd0RQrOw2NEQEp4FqFxQU=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=W24D+/AMOh+hPkhm0qQcE859dNdnIHgHTgevYst1VlkvbK5hUYtUpVnUWwpojxF9Bq6CNxi56ci6kI0shcqPXfwU3S/G6ocD0BL/IqgWJWqxCsZKeFYo7rC8gn0rxjvI8UwRWn8Jacw6TpULUUKZsoVVqa/jWA5vxsJr13g9Otk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nmgjSWMA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b+16GVEI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C22A81F000E9;
-	Wed,  2 Sep 2026 13:23:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nmgjSWMA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 819BB1F00ADE
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:24:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788355386;
-	bh=bxUlkYfK8xT+1kwgb0O2d01WK749SdTYmGt4vPC5cCk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=b+16GVEI4iWJSYMNC8o4DyU41M+k3ugG6Firq0VcAh6k+XrcoFolFRkZJsUbUAQfU
-	 RD0oITT5J3vevvyNtcB+038B9+Co5hpGf56aVcUWDE2Xohe+PehRMHgx5BhRt9rLsc
-	 PJ8l/OEdAyjv4c8wxnzG+kzkfpI9x+8yF49RSEVVfX1iIA8Wbf7uLRYt+xL+GbMf5g
-	 1C7NXztYmE5w4CKi3o8RY17s03F7xfiBaKZpuxZSu1ik9/7KiAJYfpk+l5b9Lq4Ab3
-	 n261X6XDCRvbSa+Nx49TLxs6wVyGWrj5Y3zEU3o2/AW4+pXjUMd+8lnz0T8EvAZpg5
-	 Qn5SMEl4ZOSuA==
-From: Leon Romanovsky <leon@kernel.org>
-To: Selvin Xavier <selvin.xavier@broadcom.com>, 
- Kalesh AP <kalesh-anakkur.purayil@broadcom.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Linkai Gong <gonglinkai@kylinos.cn>
-Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260821090908.1310605-1-gonglinkai@kylinos.cn>
-References: <20260821090908.1310605-1-gonglinkai@kylinos.cn>
-Subject: Re: [PATCH] RDMA/bnxt_re: check create_singlethread_workqueue() in
- DCB setup
-Message-Id: <178835538351.2486487.3724592189174179663.b4-ty@kernel.org>
-Date: Wed, 02 Sep 2026 09:23:03 -0400
+	s=k20260515; t=1788355489;
+	bh=p4cqvaDK+7g1t1n8Daz9GFsd0RQrOw2NEQEp4FqFxQU=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=nmgjSWMAIlKtQp9EfRwaUJqKsnuj3KrITOVqz0dEvr0RNOzXj1rZdWaX6oMXZruAY
+	 NS8+U5ENG+rbq38HnCpOvaX9YYDLcqpogNuK4ZQgab9fgCB86IaqxBQcgVQbHaSKEc
+	 V1wRLVYNnHNDM17nmKtgIiJ1Qj+CFMHUtvq0ZThgO3wc3Q2tUajvj8nXKmEH5Gj+0G
+	 4XMqkgexyRYUrB5EghLx9yGHfMtagn09buJEn3Z3FwkxK8pmBOWwMuPDWs3Un3v2Yd
+	 TmS4Q44ukoEeNjs0rm7oCi+tNVp0JRJBftXkQEFm13VKF+haXrFppBdKbBacpDjmlm
+	 Dbz7cJmaMfJKQ==
+Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3a309f92daaso9468731fa.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 06:24:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxLe25M9GofFPt4yyksoNfztc2O0mZZ/13kHSh2xS7+SvvH2rez4PSC9HnoU8dAVecJOyan/JtuUayK4Jw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mWWJC/u335q2Z/g0kWqMZv1q8yQQcOC+DU5jX+rP6VFIdfbAJY
+	o9CgRwGw6ISQ0fPsN6Xm9B2xdL7axMkUk/tK41ngHx/Ug3sU3qbFHi7SCDnqx1DDZyz5E+fBEXG
+	F3uYy+D1KA0m8ne911JdaVG5wp8ldOJRygAkQX5yt3w==
+X-Received: by 2002:a05:651c:a211:20b0:3a3:2a41:c0c4 with SMTP id
+ 38308e7fff4ca-3a34ffdf928mr8237171fa.14.1788355486730; Wed, 02 Sep 2026
+ 06:24:46 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 2 Sep 2026 06:24:45 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Wed, 2 Sep 2026 06:24:45 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <d48b55173c74410389ca5c863220370e38e4fc49.1788346553.git.mazziesaccount@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15-dev-18f8f
+References: <cover.1788346553.git.mazziesaccount@gmail.com> <d48b55173c74410389ca5c863220370e38e4fc49.1788346553.git.mazziesaccount@gmail.com>
+Date: Wed, 2 Sep 2026 06:24:45 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MfBxYGZK1NRefb8MDhgouxkn1G5Qp18OjbWnKvaspTNFA@mail.gmail.com>
+X-Gm-Features: AcwNN1W18o5pkYxzSwFuL_cj4YP-roXYm9ppEat9QNbwOir598GlWvNoB-rXZmY
+Message-ID: <CAMRc=MfBxYGZK1NRefb8MDhgouxkn1G5Qp18OjbWnKvaspTNFA@mail.gmail.com>
+Subject: Re: [PATCH v3 05/10] mfd: Support for ROHM BD73800 PMIC core
+To: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-rtc@vger.kernel.org, 
+	Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>
+Content-Type: text/plain; charset="UTF-8"
 
+On Wed, 2 Sep 2026 13:04:55 +0200, Matti Vaittinen
+<matti.vaittinen@linux.dev> said:
+> From: Matti Vaittinen <mazziesaccount@gmail.com>
+>
+> The BD73800 integrates regulators, ADC (intended for accumulating current /
+> voltage / power values), a real-time clock (RTC), clock gate and GPIOs.
+>
+> Add core support for ROHM BD73800 Power Management IC.
+>
+> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
+> Acked-by: Lee Jones <lee@kernel.org>
+>
 
-On Fri, 21 Aug 2026 17:09:08 +0800, Linkai Gong wrote:
-> bnxt_re_init_dcb_wq() ignores a failed allocation. The async DCB
-> handler later calls queue_work() on the NULL pointer.
-
-Applied, thanks!
-
-[1/1] RDMA/bnxt_re: check create_singlethread_workqueue() in DCB setup
-      https://git.kernel.org/rdma/rdma/c/6c368f7baaea63
-
-Best regards,
--- 
-Leon Romanovsky <leon@kernel.org>
-
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
