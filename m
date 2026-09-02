@@ -1,171 +1,83 @@
-Received: from mail-wm2-f11.google.com (mail-wm2-f11.google.com [74.125.225.139])
+Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C324A4A3D45
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 20:32:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DC283B71BB
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 20:33:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788381127; cv=none; b=DhHEzEIC9dxqiNZBPkcqXUkcFlpe3uAOGlI/BtXo+V4Q7Q/E3cROsZ5oJV+QbruhhUh2kgPbjCUpIzPl9x2n2vAJrudhzzVAUZU8Gd1qe2V9XeJDQ5wSNdW1/oVQ1nU36aGt5vwAoUFqBoeAEr4+sz0qND0I5I4RbJ6QtJAyggM=
+	t=1788381213; cv=none; b=hasYfA2akTttOad5tcFV3XeE8m+Cy3ETxrI6pMXejx/MspsWjC3eZq5jf94XV9nVxCvKEDOe3qBJhvkNvBk69LwSUo/hhcw1PaRN/I+la2mpYLf6g2U9Iq8eUzrV9eGc2CHSj3bMFglhiBqbwPjTpzcG7jyAy5+5aYp7hINZzOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788381127; c=relaxed/simple;
-	bh=DZRGi0YkwMmKkDFY82SN6nJfXXcbmLtf6J+0y60/HUA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M5ERLfVceJ53iF0Pag1Z+IfPlCd5XROTuHiTzCNFxhsGoSy1o/VU62inRBoiTr2hkT+zo7pcWtH6kw/ClqBpllw9Yvp18FlY0Ns9j4ilpqIaIU0jECxC2Hb8vz15anTRgrNoZb4hAgbCzWXFU+a2S0PphH1Kl1Q9QBkwvadr43Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ovn.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm2-f11.google.com with SMTP id 5b1f17b1804b1-49ccea58fe3so6156095e9.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 13:32:05 -0700 (PDT)
+	s=arc-20240116; t=1788381213; c=relaxed/simple;
+	bh=TKQE0Yy3foDPlcmNS1BnEh/QhnxXKzqDxPCqTlGXzls=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Hhrjmr65yq6Fh2T++c4tYwR97IpdBiTvRHyBFW8Xv8AjUekwUcBff+tOadE82BWWlStfEzVptREsoIq9ZPMR6kEIWePPPcfFbSntJyXatqj+1kJkhdUe24iPRE3wTE/gUWfRuIcavuQyHaN3ADdlULunkF3N+P4NCX2QAQZ3xro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b1478e3546so1034631eaf.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 13:33:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788381124; x=1788985924;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=X4qp6/3DQjm1uYF71HjtKIkBpSfIBgTn2nEvAonfrWQ=;
-        b=GojjlZXvOydCN3hngDOBTf9Wo7z5eWvo6hSce0nRfnDsqjamrJwZ3GL/7lFJmRDkRK
-         8RXcCrpfIz9M1Zo5TrS1FxPfwElaVNVH5+zpoMwLGM8JFBuKfrN5hlhbFNUB5xA+aRab
-         BB14P2u6K5PpItKoIo9VZdSCsVnkRxiuiTiHpV4SDWIxZfubVKlgnGWRRYvk0Ly+Xlnj
-         6SyJUR3bd3ggh6fTgEyZmnx3xvPCK4qZCkzEJVvIHfG5y+p4yKsjOQsZnXSYquC0EbCD
-         QcvLgT93qeAjAGmhhn0qc39aAXAMiwMFxPuHX493xa3DTOHs5vv5vrZoo6/HGWkLSC1E
-         0IVw==
-X-Forwarded-Encrypted: i=1; AKwUvBw+RH/1rGnE4Vbg+DhiMXEz/zBFA5qPGwaHA+ppIatxJO1vzz5EKuNukfNBEN2CLwH+LwCLGrWrGFM98F0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mmYa0eSquQeij3m885CHRzrmUnvQ81Cajfac4sfNc5yb+4yju3
-	axm7FRbP3kQZJBUdY1tMvSAF+ykQmvfoLJ4iknqQWaL2/emwa6P5fIj3
-X-Gm-Gg: AYBFou0AxQ6xsK0bJ6jOi9Q7WLOpCPiz/pkT1GionC4qVbQRO0rAp9wZuhFyEHq5m+S
-	x9j/JZxUtOy114OsDaUiIhjqhjXTJqVIQFwZaD5aWwaGYHBVmBKxjxMpnSyeRFzybqrPkjVJWNs
-	syrnpUx2Ft0EeV6pbiJs6A6c1Xy5PU/21WyhI9V6Ou38/iuWYNr3ihw/RkbQzr/zKZwDdRkgwpY
-	z4b0EBxy/Iovtr5WH+ZsCb6PyRxeDzsaygjzBU91BIRiWqv+q+cqi75LEYwPunE6zcGv40Fv7LB
-	bM9D+g2x2x+f3yJrsTZbPtN8fHdoleLe5oS1ewlnzUJ3EaIrLsjfWd4XjUxrYya3WlzDAdop2z7
-	TQTWSqGdQRaBDH97yANbFPX36Eii8E8SFozkIvLlCre+E/XSO2fCcx0ZEtrLqEjkzP9lrw5wHvU
-	9AJIx1RhDwTyB/U8mwXk2vUpcqxfekUMk7KW1QR0l6ucHSa2a0h9tcn7YQzViR8DypX63JUIYFY
-	QlHa0Icr3I55qqy2pc=
-X-Received: by 2002:a05:600c:4ed0:b0:499:726a:a017 with SMTP id 5b1f17b1804b1-49ce57ec163mr141464905e9.1.1788381123692;
-        Wed, 02 Sep 2026 13:32:03 -0700 (PDT)
-Received: from im-t490s.redhat.corp (37-48-53-4.nat.epc.tmcz.cz. [37.48.53.4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce47b9817sm69220065e9.1.2026.09.02.13.32.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 13:32:03 -0700 (PDT)
-From: Ilya Maximets <i.maximets@ovn.org>
-To: netdev@vger.kernel.org
-Cc: Aaron Conole <aconole@redhat.com>,
-	Eelco Chaudron <echaudro@redhat.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	dev@openvswitch.org,
-	linux-kernel@vger.kernel.org,
-	Ilya Maximets <i.maximets@ovn.org>
-Subject: [PATCH net-next] net: openvswitch: don't schedule rebalancing if there are no datapaths
-Date: Wed,  2 Sep 2026 22:30:41 +0200
-Message-ID: <20260902203200.1416026-1-i.maximets@ovn.org>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1788381211; x=1788986011;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=y9poOxTJtGZ13dtkoCYfv5SN403qG7VA+AweL/ra9Xg=;
+        b=kJVJwuAUaTc2fY5yAMrn3r5L5t9l5Qjq2S2R4V/uLvXDbZMVJ90ZPl6b58phPrsnKL
+         6GABakx5iGWdXour/TOQOV1JFDO9RxurOQPpi4M7N3MRcLqyUBdqTZJj2u8MdbSMjlK6
+         cuI8TQIk45qggf4LOkk8sDKJbmB/+o66j9/zG0mFalxHWx1EMoo7CzTnzFzK608K1kLw
+         p86czaA7hikCGCq4KltGeAbWT6uUk4zle9lfQclq2Bh6tsxI0j23mfWf3+kPwMyngDLW
+         a1SFoGe6AkAWYjgXSbig7KPOtJG84BCjd1uZTk3EFhhveXpbJ9xzir6cRC83AdSYDn3g
+         Upmg==
+X-Gm-Message-State: AFuF++nMKPgZRtMZ2IikQ9thhCtK/FWoZLRY/cMhQK/kx7N7zXxA1dQ4
+	tQod8ODPYmz+p1T6Ve+uLhJbXI34FQd3/rWVbyuu/aDxfnZTusLVBUMKyRbdBJ/EIufk6RYKKAo
+	Mgt5u84ur8aWMkmVxo4FZBiwkHRDcYarkPy7w10X3wBGxvvEI1Eml7W4o92s=
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6820:2d0b:b0:6b1:4e36:fb80 with SMTP id
+ 006d021491bc7-6b47fd3531bmr6466900eaf.15.1788381211511; Wed, 02 Sep 2026
+ 13:33:31 -0700 (PDT)
+Date: Wed, 02 Sep 2026 13:33:31 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a98881b.9266084e.bf0d7.000f.GAE@google.com>
+Subject: [syzbot] Monthly mmc report (Sep 2026)
+From: syzbot <syzbot+listf1b540672df393834e95@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com, ulf.hansson@linaro.org
+Content-Type: text/plain; charset="UTF-8"
 
-During namespace initialization the masks rebalancing work is
-scheduled and automatically re-scheduled every 4 seconds afterwards.
-This is happening in every namespace.  On a large kubernetes node with
-500 pods, i.e., 500+ namespaces, this creates a decent amount of
-unnecessary churn scheduling 500 jobs every 4 seconds that take the
-mutex, check that there are no datapaths in their namespace, release
-the mutex, re-schedule themselves and exit.  These 500 unnecessary
-mutex locks may hold off operations in a single namespace that
-actually has a datapath configured and has real user requests to
-handle under this lock.  They can also add delay to removal of other
-namespaces as ovs_exit_net() needs to take that lock as well and
-synchronously waits for the work to be cancelled.
+Hello mmc maintainers/developers,
 
-Let's only fire the job when the first datapath is actually created
-and not re-arm it if there are no more datapaths configured in the
-namespace.
+This is a 31-day syzbot report for the mmc subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/mmc
 
-Another approach would be to make ovs_mutex per-namespace, but it's
-a much larger change that should be handled separately, and the
-unnecessary work scheduling feels like a waste regardless.
+During the period, 4 new issues were detected and 0 were fixed.
+In total, 4 issues are still open.
+There is also 1 low-priority issue.
 
-It's safe to check and re-arm outside of the mutex as DP_CMD_NEW
-handler will re-arm if the new datapath appears.  The scheduling
-attempt also doesn't change the work or delay if it is already queued,
-so it's also safe to call multiple times.
+Some of the still happening issues:
 
-Skipping the re-arming is more elegant than canceling on removal of
-the last datapath as it allows us to not think about potential race
-conditions at a negligible cost of potentially one extra re-scheduling.
+Ref Crashes Repro Title
+<1> 2725    Yes   BUG: sleeping function called from invalid context in mmc_free_host
+                  https://syzkaller.appspot.com/bug?extid=0e06aa1bdc6495bac24b
+<2> 113     No    WARNING: suspicious RCU usage in cancel_delayed_work_sync
+                  https://syzkaller.appspot.com/bug?extid=9c1988bc953fca2086a3
+<3> 12      No    WARNING in mmc_free_host
+                  https://syzkaller.appspot.com/bug?extid=82a0a7de6d84867d030e
 
-msecs_to_jiffies() moved to the macro to save on line length.
-
-Signed-off-by: Ilya Maximets <i.maximets@ovn.org>
 ---
- net/openvswitch/datapath.c | 14 ++++++++++----
- net/openvswitch/datapath.h |  2 +-
- 2 files changed, 11 insertions(+), 5 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/net/openvswitch/datapath.c b/net/openvswitch/datapath.c
-index 631a03136fa14..2187034143255 100644
---- a/net/openvswitch/datapath.c
-+++ b/net/openvswitch/datapath.c
-@@ -1921,6 +1921,10 @@ static int ovs_dp_cmd_new(struct sk_buff *skb, struct genl_info *info)
- 
- 	ovs_unlock();
- 
-+	/* Start periodic mask rebalancing if it wasn't already. */
-+	schedule_delayed_work(&ovs_net->masks_rebalance,
-+			      DP_MASKS_REBALANCE_INTERVAL);
-+
- 	ovs_notify(&dp_datapath_genl_family, reply, info);
- 	return 0;
- 
-@@ -2598,16 +2602,20 @@ static void ovs_dp_masks_rebalance(struct work_struct *work)
- 	struct ovs_net *ovs_net = container_of(work, struct ovs_net,
- 					       masks_rebalance.work);
- 	struct datapath *dp;
-+	bool rearm;
- 
- 	ovs_lock();
- 
- 	list_for_each_entry(dp, &ovs_net->dps, list_node)
- 		ovs_flow_masks_rebalance(&dp->table);
- 
-+	rearm = !list_empty(&ovs_net->dps);
-+
- 	ovs_unlock();
- 
--	schedule_delayed_work(&ovs_net->masks_rebalance,
--			      msecs_to_jiffies(DP_MASKS_REBALANCE_INTERVAL));
-+	if (rearm)
-+		schedule_delayed_work(&ovs_net->masks_rebalance,
-+				      DP_MASKS_REBALANCE_INTERVAL);
- }
- 
- static const struct nla_policy vport_policy[OVS_VPORT_ATTR_MAX + 1] = {
-@@ -2713,8 +2721,6 @@ static int __net_init ovs_init_net(struct net *net)
- 	if (err)
- 		return err;
- 
--	schedule_delayed_work(&ovs_net->masks_rebalance,
--			      msecs_to_jiffies(DP_MASKS_REBALANCE_INTERVAL));
- 	return 0;
- }
- 
-diff --git a/net/openvswitch/datapath.h b/net/openvswitch/datapath.h
-index b2c2b8da12d40..7a7afaeceee5e 100644
---- a/net/openvswitch/datapath.h
-+++ b/net/openvswitch/datapath.h
-@@ -23,7 +23,7 @@
- 
- #define DP_MAX_PORTS                USHRT_MAX
- #define DP_VPORT_HASH_BUCKETS       1024
--#define DP_MASKS_REBALANCE_INTERVAL 4000
-+#define DP_MASKS_REBALANCE_INTERVAL msecs_to_jiffies(4000)
- 
- /**
-  * struct dp_stats_percpu - per-cpu packet processing statistics for a given
--- 
-2.55.0
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
 
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
