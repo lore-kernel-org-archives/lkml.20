@@ -1,47 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B5F14AD4A3
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 21:44:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 676DE38553F
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 21:44:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788385461; cv=none; b=Mje6tODtwg0h5eFIBel/nE3CIuV6EYOy8bnT+Rzox/xcIYIpQf/LThM375Sd8j8SDyhQaKVtyRvjWHtMWMPwxSV3b+CaKq9J0/P4zBsUierrPboO5AYlfwzO9mg8YT6bFKjmi/ScIgi87cJeyLjszIxOvMW6tKfylarfwhMGh44=
+	t=1788385472; cv=none; b=O3uFBnOQhUOZmfgB6dL15S3ZGqqeTcmV533puTzJwuOYzQR9iqj3g8U8YZl+S3HYqLehdHm7CZpk9y9f9n2SXDgdBrsMlCUGD4+dsrNcVHLHNmeL3nK2Ih2yqgDjadwN58RSwZo7PVi/z2ZqJGv1RBCB8IFQjR9QBQB557f9qlo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788385461; c=relaxed/simple;
-	bh=D1ZVCoLCHbfakll2oeEtpkPIBc4ICoHzc/DRrdV7d+w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=K9ulrJ9bB37+ioSmLDl3c+Jkt6lPLC031neIfn18tdZjbsY34J5cx5TuHl+NWicc8OEL1HKlcrB8GJ4d+LfpOlFatXXpw4qsiYJAWPHHarzZc+OCD+wvbvpD+b4Z87uE/inCLc2YHt1zS2PUNJvRagbSqMoN0+CTQJL7+SJhzD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bvxoef/5; arc=none smtp.client-ip=192.198.163.18
+	s=arc-20240116; t=1788385472; c=relaxed/simple;
+	bh=Wqny6CjZTsdaVrnuEzf0jnl+Z0+B17vt/EwoBnJqTR4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MmS4Nvsi3W7SRGeXEqJ2AmiwiZx2WltMT/dGa2v/JDDYrK6PIDTC+TBVp0hnPHggjSP4MwE5JJH/OhxFzBvLfNnIkZ0cQWm8w8aMejCRcK5a0wpS0bU3e9jy6eTKJCDEZiSTvEEv1cbvLYgsTKSMYGhae+u9z/1+mBLILAeHcxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lH5rT1rC; arc=none smtp.client-ip=192.198.163.18
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bvxoef/5"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lH5rT1rC"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788385456; x=1819921456;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=D1ZVCoLCHbfakll2oeEtpkPIBc4ICoHzc/DRrdV7d+w=;
-  b=bvxoef/5+HN0dAcLHBul+v/SBbhaDPn3f2M2AZhVbp5kbCJhj1R2EJdx
-   hbCTkFfsZMh+BoPnSn9R4KSvm50tEatvJnahLmuD8lTnElnfbnE6Bxp/I
-   HOrzNITGMNDP5WuqOIlhpDsaijeztKjKm/dQiym1CoIE3E49rSLLnii88
-   tSLqHw9V0XzkGgqwmIHcTc/9CfBO8Y6FcwOwBJuVeMFWlJwhrgqQEPstG
-   tGhYFrmztumDHD0cBA5HebXlHx9pIzHwxgxJKQ3BH6eFzvlgu3hDwm/YF
-   nlEeiorsd8+K6qUQCy9qLbWYlVCcoy4NxW3WgRH/zBLDV/fkE2emenRvr
-   Q==;
-X-CSE-ConnectionGUID: OwRJlNvFQfKOOveC9RefpA==
-X-CSE-MsgGUID: Ke951sMnS0C/LITApKFztg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="87997769"
+  t=1788385463; x=1819921463;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=Wqny6CjZTsdaVrnuEzf0jnl+Z0+B17vt/EwoBnJqTR4=;
+  b=lH5rT1rCRyjFEUz1zipyfP+l5bcShBaMi7j/SvB5ZCVxfeaesuo/81/E
+   skJvQV92BndCGrueAa+YWbncIWUAiRoLHoxtqHVL2qSsUbxy5uXTKXyzh
+   gY1s688HE/oUE/hUlmKFH2Bt+9UIVrK47DCPJYd7KFWVh+q5rELQLlYcf
+   tKSATedhKvRqnkThbci+ZDAS/2QrLDei0D1Cxed+5EKoix3/ofIEVLgyU
+   /CR/oUxlOd8IZ3b6Mudr4Qtik+PQpIANzTONasAbyZc20yItZXSj6b4Gj
+   6SK3BdoLsu/JssMpQE4FRz3fdJOqmORAuU02Lp6O1FQdAZ0RJUbDHG1h5
+   w==;
+X-CSE-ConnectionGUID: KXIxA7+ZQi2SIJ6wD+fFKg==
+X-CSE-MsgGUID: o3sQSd+ASmuHzSnZoBoEkA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="87997788"
 X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="87997769"
+   d="scan'208";a="87997788"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 14:44:05 -0700
-X-CSE-ConnectionGUID: FxczQ9hjQFStbMwqQwn3yQ==
-X-CSE-MsgGUID: z7aqw4TxRmi7XoVYg1mfnw==
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 14:44:11 -0700
+X-CSE-ConnectionGUID: oFwGUgfGRZSlTRS8vDG33A==
+X-CSE-MsgGUID: vTTYqlIBRMqzan19QOzzbw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="266929172"
+   d="scan'208";a="266929212"
 Received: from osgc-sh-dragon.sh.intel.com ([10.239.81.44])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 14:44:01 -0700
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 14:44:08 -0700
 From: Jonathan Cavitt <jonathan.cavitt@intel.com>
 To: dri-devel@lists.freedesktop.org
 Cc: alex.zuo@intel.com,
@@ -56,10 +57,12 @@ Cc: alex.zuo@intel.com,
 	maarten.lankhorst@linux.intel.com,
 	thomas.hellstrom@linux.intel.com,
 	tzimmermann@suse.de
-Subject: [PATCH v7 0/2] drm/xe/pagefault: Add SRCID to pagefault reporting
-Date: Thu,  3 Sep 2026 05:43:56 +0800
-Message-ID: <20260902214358.348399-1-jonathan.cavitt@intel.com>
+Subject: [PATCH v7 2/2] drm/xe/vm: Add srcid to xe_vm_get_property_ioctl fault report
+Date: Thu,  3 Sep 2026 05:43:58 +0800
+Message-ID: <20260902214358.348399-3-jonathan.cavitt@intel.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260902214358.348399-1-jonathan.cavitt@intel.com>
+References: <20260902214358.348399-1-jonathan.cavitt@intel.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -69,42 +72,100 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Add SRCID to the xe_pagefault struct, which reports the ID of the
-faulting hardware unit.  This will be passed on to the
-xe_vm_get_property_ioctl for reading per-vm faults and will assist in
-diagnosing pagefaults.
+Add the SRCID of the faulting hardware unit to the return of the
+xe_vm_get_property_ioctl fault report.
 
 v2:
 - Readd pad check, as the pad in the ioctl struct was not changed
   (jcavitt)
 
 v3:
-- Rebase
-
-v4:
 - Squash SRCID with ASID to keep the struct compact (Matthew)
 
-v5:
-- Use BUILD_BUG_ON and move ASID definition in one function (Matthew)
+Signed-off-by: Jonathan Cavitt <jonathan.cavitt@intel.com>
+Reviewed-by: Matthew Brost <matthew.brost@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+---
+ drivers/gpu/drm/xe/xe_vm.c       | 8 ++++++++
+ drivers/gpu/drm/xe/xe_vm_types.h | 2 ++
+ include/uapi/drm/xe_drm.h        | 4 ++--
+ 3 files changed, 12 insertions(+), 2 deletions(-)
 
-v6:
-- Rebase
-
-v7:
-- Various formatting fixes
-
-Jonathan Cavitt (2):
-  drm/xe/pagefault: Add SRCID to pagefault struct
-  drm/xe/vm: Add srcid to xe_vm_get_property_ioctl fault report
-
- drivers/gpu/drm/xe/xe_guc_pagefault.c   |  8 +++++++-
- drivers/gpu/drm/xe/xe_pagefault.c       | 24 +++++++++++++++---------
- drivers/gpu/drm/xe/xe_pagefault_types.h |  9 +++++++--
- drivers/gpu/drm/xe/xe_vm.c              |  8 ++++++++
- drivers/gpu/drm/xe/xe_vm_types.h        |  2 ++
- include/uapi/drm/xe_drm.h               |  4 ++--
- 6 files changed, 41 insertions(+), 14 deletions(-)
-
+diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+index 19b3d0be79282..753a5fc55baa0 100644
+--- a/drivers/gpu/drm/xe/xe_vm.c
++++ b/drivers/gpu/drm/xe/xe_vm.c
+@@ -655,6 +655,7 @@ void xe_vm_add_fault_entry_pf(struct xe_vm *vm, struct xe_pagefault *pf)
+ 				  pf->consumer.fault_type_level);
+ 	e->fault_level = FIELD_GET(XE_PAGEFAULT_LEVEL_MASK,
+ 				   pf->consumer.fault_type_level);
++	e->srcid = FIELD_GET(XE_PAGEFAULT_SRCID_MASK, pf->consumer.id);
+ 
+ 	list_add_tail(&e->list, &vm->faults.list);
+ 	vm->faults.len++;
+@@ -4277,6 +4278,11 @@ static u8 xe_to_user_fault_level(u8 fault_level)
+ 	return fault_level;
+ }
+ 
++static u8 xe_to_user_srcid(u8 srcid)
++{
++	return srcid;
++}
++
+ static int fill_faults(struct xe_vm *vm,
+ 		       struct drm_xe_vm_get_property *args)
+ {
+@@ -4304,6 +4310,8 @@ static int fill_faults(struct xe_vm *vm,
+ 		fault_entry.fault_type = xe_to_user_fault_type(entry->fault_type);
+ 		fault_entry.fault_level = xe_to_user_fault_level(entry->fault_level);
+ 
++		fault_entry.srcid = xe_to_user_srcid(entry->srcid);
++
+ 		memcpy(&fault_list[i], &fault_entry, entry_size);
+ 
+ 		i++;
+diff --git a/drivers/gpu/drm/xe/xe_vm_types.h b/drivers/gpu/drm/xe/xe_vm_types.h
+index 68588b6242121..648031e641451 100644
+--- a/drivers/gpu/drm/xe/xe_vm_types.h
++++ b/drivers/gpu/drm/xe/xe_vm_types.h
+@@ -202,6 +202,7 @@ struct xe_device;
+  * @access_type: type of address access that resulted in fault
+  * @fault_type: type of fault reported
+  * @fault_level: fault level of the fault
++ * @srcid: ID of the faulting hardware unit
+  */
+ struct xe_vm_fault_entry {
+ 	struct list_head list;
+@@ -210,6 +211,7 @@ struct xe_vm_fault_entry {
+ 	u8 access_type;
+ 	u8 fault_type;
+ 	u8 fault_level;
++	u8 srcid;
+ };
+ 
+ struct xe_vm {
+diff --git a/include/uapi/drm/xe_drm.h b/include/uapi/drm/xe_drm.h
+index 509202a7b13eb..8c852abcacf0d 100644
+--- a/include/uapi/drm/xe_drm.h
++++ b/include/uapi/drm/xe_drm.h
+@@ -1294,8 +1294,8 @@ struct xe_vm_fault {
+ #define FAULT_LEVEL_PML4	3
+ #define FAULT_LEVEL_PML5	4
+ 	__u8 fault_level;
+-	/** @pad: MBZ */
+-	__u8 pad;
++	/** @srcid: ID of the faulting hardware unit */
++	__u8 srcid;
+ 	/** @reserved: MBZ */
+ 	__u64 reserved[4];
+ };
 -- 
 2.53.0
 
