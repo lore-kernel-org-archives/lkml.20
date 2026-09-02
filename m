@@ -1,64 +1,64 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B102F9DA1
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:53:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9606F328267
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:53:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788321220; cv=none; b=FrPP3N+Dn2yV7TcxmADevKm2dXiauc52MSbB6ui/NXI5cBwaRxfEXdbdTeJk/JlbI88hhQgfLKwU2H82fBqKkYc0/ZFT2rQpkOWEnC4RR0sz+URgyUrLN0gLLORLAUzAp/VQ26M6JZyL6T11yOLapE2tB6a2w7aDuGaCLmAPJR4=
+	t=1788321236; cv=none; b=akPdV395SPDoh0Ja1wpdWzSI/LE7m10GXp8B0t/UhJVuevuKjMAxVOgznL+1GPBxjkDl4YsIIwQ3DB0PDOR1CeAzKqXXqxz67XY8sOelIUKSgeraq/epIl8UcEuG2gfypkRrBCMpAxitHQjqQcrGZ6YDNJHRwskEAXqUkRgycTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788321220; c=relaxed/simple;
-	bh=JY8TWNetLtaCfnOffM627gWa8XUCz+EjVUleDxIGQn8=;
+	s=arc-20240116; t=1788321236; c=relaxed/simple;
+	bh=8OHaoavkJfqqCCpDDJNEQIHd13lV+tTEPVC+AXbCG3w=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=LCtKydf66l3qnojamssh54xCcSQ/dwUXRJRlGxfIKb7xtHzS3UjBljWg6saKEZ3+v5++NyM4aSPWuKElCXEWpIKAzld64LaC+ONxCl3qyEFRCzaMNxcWzlGdNzsOVxEIOMg8PE3wGjrQzMAkxqycuxSap9CdDH7RCbkVCHTGZaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fBLh9oqi; arc=none smtp.client-ip=209.85.214.182
+	 MIME-Version; b=AsRtRxoWjIc1FTpcvKPCqBMg5B6n7lUhoyZoFMrmSwJ77Rj4JKGTC9WDl5ACBbwlaBM9bdfp9Boa+k4HaRubJqYB1re7hcBUFF4iKFcBl9xonLOQw2gHPS3BPwabv3DT5HrcP+cnZeo7ssdFvl99f7hSY1zjbJF3KcJc0NnyWW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X0ogsTNW; arc=none smtp.client-ip=209.85.216.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fBLh9oqi"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d8f265cbe6so5204205ad.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 20:53:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X0ogsTNW"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-398b1e63c49so1786192a91.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 20:53:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788321217; x=1788926017; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788321235; x=1788926035; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=rU1Mo2mZlynI3rZpSuzLl2Dc5eq4kfyxRQofUmB2lfE=;
-        b=fBLh9oqi1w+VFMlPAvejYqxAo89Ws+wt/kkliV+rW2Hzn1yaWQ+1aUdolMtqgFFNqI
-         iArd3EuX7lwURRygNpNYTT7JNGmnQxquewkoKPchSkzPCEowikoUmS3SobST8Y+i04oc
-         +8CNo+NQWYamf63P+7NIUTZPFG6I6DT7YFE6dsFavS6jZdcueEXj4EV3ctYFORySz3je
-         v9umQbRrziJPkwr1RKtg/t8idiptNhav0ro/l41hlYrDVI/dhHh/oVvQVo3sYg7KNZ2Y
-         +vZhFlHZxUbkpojODDFUZeUZWUmqfIaDZacfsX9v62Q94UVWRXq+7flvlTGO9wBYGg+N
-         3D6w==
+        bh=5zCkQQ3XwE7D3s7Qt8JOH3Nc/gZ6WzlcMVINAa0yLzs=;
+        b=X0ogsTNWiN1CoFxDldQUhFPdLlwWvhV24MVCG7rc4sP7CbTHj+RJbG6dMRm+8vUld7
+         W73m4BtyvhNX+8fBr+KGlnT6vdCTqKhfEjCFmRFKwxl8xt5Id20wOvcfUUPcyt2SBGKu
+         NRD97JGVxddg5K4w+SKtwWeQp+DBQRvg43WdHOLUyDyFMxXhh7SD8Vjt2AcsoKnBqWkt
+         ZoQVYjyupLtF0XWH+8/MNAWOYwT3+mYaZgtjLPHy83DEsm6Ylh1/TyMuSvnvJywGgdvJ
+         yacLoTSbGpgnQOws+wrW+RnZ6g/AJycnAidwceXE3Q969kKGUarJsISgeqWlkTgaza27
+         1JxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788321217; x=1788926017;
+        d=1e100.net; s=20251104; t=1788321235; x=1788926035;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rU1Mo2mZlynI3rZpSuzLl2Dc5eq4kfyxRQofUmB2lfE=;
-        b=FQQ4S2KFwLtovavRYU0pzFd0W6XoKOaqBHjkruKRCviik5CibIPuqItgzV0WG8fYA5
-         AQqi/rASNkeuzp7ITl2SAuNkvgqo1aS3DG1Sk2frUUKq1OY3nn0e1EMCN7caEhgJBt1n
-         /TdrtFMu6qA1F4SgmJeOg7WT+pmV/oNhQWT+dEhN/0FU+1pdlHUQt+cfgqzOtY3P79fv
-         6yJAc6sdoZtXmNxGO2gh+JH5xTequIx4YSts8dH1uzFs+XiBWnAu5RRDxx5FdqRXy2AE
-         z/blS/Z/lrd8M8/fTt8cBFbIQzGw7DRrtCy94CoRgobT0QqcSgnH60jizRmgCo2IXn/V
-         5dqw==
-X-Forwarded-Encrypted: i=1; AKwUvBy6Phgvmqeg+XiGG9kOJbwEwv9QIlniY+6O5bJe3Q3fiiQO69PkCgWADKs7ArHeaqY2LNGBhYYOShmk3sM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mlDe8UiPFEWhCbpMK+MMjMkZoJzH7nqXmvKL4WNobeaTIy4jpm
-	ytrZWxd3KYff39KjIfwQ6rNrAb6XoSdAXP5B3D3IS43kdZGe8XB0A4/b
-X-Gm-Gg: AR+sD12xxz7MeKeFMgtnbfLlH83mYr39iD7nMPOXPW7Q1CcgNlIkIY6gc4MC6YzR71T
-	XBwZGb0kOGUKqEm1UBpAcykTCJO8Q959IyzpOSO4v6+R8dsc+kSw2XbKcErYAAC5NE9snvXcNJv
-	b7qYGfl3yllSozJqoNZIFm8/Lo/q5PrVwt2oSY2HXj4Roue6io0N+GPnyA00ZoDruyR8vYEw9jK
-	FeZsE2r767Xky6BT5auJOJcWcMJCOH0QwU1xGADPhTtDcccmay+DPYSmZriUZ2K2URGOFtDhMqU
-	1SErM05WJ48y49uDCOlwe/JSZiLh9YQb8ClWO2Cm+TpDHxYCztKvsJ5u87abkF3q9XJ/srA2Db6
-	/5ovPrKhLk6enXxm7haSS2tf31AdxMTiljOhyYZRu6lPVrQJFrRxwWXxWnUKPDsioJbkyhKj8gi
-	qV2x+eajc4utK0X5x3T17r8UBayXL+wVNNghLsOg2iJwEx1qoR8k/ew0TcSWeyndy/Jk6470Ijv
-	8uYkzjnTF5LLK55uggoyb/qana35QMwE+eYdz2lUfA+OVQ1vD9ysn+0+QCes3Fg
-X-Received: by 2002:a17:903:234d:b0:2ca:660:b1d with SMTP id d9443c01a7336-2daec6d77c2mr26779885ad.11.1788321217430;
-        Tue, 01 Sep 2026 20:53:37 -0700 (PDT)
+        bh=5zCkQQ3XwE7D3s7Qt8JOH3Nc/gZ6WzlcMVINAa0yLzs=;
+        b=GMY1WKjltvKnWBnWbRKvhnWLT3iD4cpZtlcsQdK3qwdZMKV3aYaxD57IJEeT5VdKfS
+         F1+xzetra9xVvx/kJe5myOCriNLJFq7Usx2DGAbAPSa1p7q7xohLCHlXi9H1eDdj6HAQ
+         HScT4/I3s0Az6aTse0img6R7/vEbmMU6ilnMdraCUKLubcEq/V2Zxi4ZzdDi6rJqX8gx
+         Z8x6VCMpWevGv8HyuklVM7J8JjPGF0NmDHasirSdp+2wlYEikPrbfx6pwhOcCvqe+Kvy
+         +8m1ypYrypqSERr8shh35bHWI3e3W7viWMWfZs3Vh0EZ4keg1iEo/SMkxEf8Twqadl4p
+         Rqqw==
+X-Forwarded-Encrypted: i=1; AKwUvBysVki0n5R+ztSprGt44bnBbn5nj84k+USFE7wD9wb2qzkVt493Zx3+ckL+B033V8+09m9kgyMJ6ltpfm4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mtIK8N42yZazFqa2QgjEw3vxwv1oW2VUofZ0kPExclDi94xiDp
+	f8Ol8OZ+9BB4MlRAaHPKKfQZ12EdQwN1zhiWfE89+PpYpbuoldGnF6EA
+X-Gm-Gg: AYBFou28H1atwgQN16Zw/a7jLcZXkg69x2A8SLXwEL5qYD5iutSquyEHAPGpdYzOXL8
+	BZX8XhptrqUK6JRYyoiXnXtkZPX9A75hVUFJptSj7b+HVnKi3b94/p+4EgFf+wGdD8++Cl3cTUF
+	8SgPBnzozl86tEBb5/CJPo3y0JHqN6604grMFovEPjd4aqrUlbmNjK+gFzaXBdEYS1FQ6bqMkWo
+	MG3vJQtUX3qTKlGpZ/VFoo40O+kGrmTnWgeEIL+0+rKlXYfZgI642Sat+cxNAoydNnUSVfJzNkD
+	+sNRRjGI27JbzdVaO4MbeKOWsgqTU3wJ7N9qVu1mBv8BXrpBXGJa2y27o3sU9jkLd072ALEIKo1
+	5rORxSR9mPlJfZd3JSUej8ddQRcWZZMsASW8aSGtxJn9ohHyuSbwqadjZswF41spYZOV57sqHcw
+	BrazOE2Bl6sPEwOUQM3Y6gETP/2p/aV6ousYSbBEXMT43UkPdwUFDo+BYOrK+CeFrc3SwJ8HW6v
+	JZRFvQTaLOMRbIoAWcphHx0e8OGBeX8CEIeUlEVBJxTit5aw5hJrjSNaTw58a7Y
+X-Received: by 2002:a17:90b:2891:b0:394:ed5c:ff9f with SMTP id 98e67ed59e1d1-39af6480827mr314795a91.17.1788321234802;
+        Tue, 01 Sep 2026 20:53:54 -0700 (PDT)
 Received: from Inspiron-14-5420.. ([2402:e280:21c6:671:5fdf:d463:f07:1882])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f07b7987csm2502377eec.16.2026.09.01.20.53.32
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f07b7987csm2502377eec.16.2026.09.01.20.53.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 20:53:37 -0700 (PDT)
+        Tue, 01 Sep 2026 20:53:54 -0700 (PDT)
 From: "Hemendra M. Naik" <hemendranaik@gmail.com>
 To: netdev@vger.kernel.org
 Cc: davem@davemloft.net,
@@ -74,9 +74,9 @@ Cc: davem@davemloft.net,
 	vishy0777@gmail.com,
 	tahiliani@nitk.edu.in,
 	"Hemendra M. Naik" <hemendranaik@gmail.com>
-Subject: [PATCH net-next v5 2/3] selftests: tc-testing: add fq_pie per-flow class stats test
-Date: Wed,  2 Sep 2026 09:22:30 +0530
-Message-Id: <20260902035231.81866-3-hemendranaik@gmail.com>
+Subject: [PATCH net-next v5 3/3] net/sched: pie: correct tc_pie_xstats field documentation
+Date: Wed,  2 Sep 2026 09:22:31 +0530
+Message-Id: <20260902035231.81866-4-hemendranaik@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260902035231.81866-1-hemendranaik@gmail.com>
 References: <20260902035231.81866-1-hemendranaik@gmail.com>
@@ -88,80 +88,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add tc-testing case 83c0: create TBF + fq_pie on $DUMMY, inject traffic
-with ping, then verify 'tc -s class show' prints per-flow fq_pie stats
-(prob, delay, deficit) with matchCount 1. The test fails on a kernel
-without fq_pie class ops.
+The comments describing struct tc_pie_xstats do not match the values
+exported by the kernel.
 
-Update case 83be to expect failure for 'flows 65536' after patch 1/3
-caps the flows parameter at 65535.
+Update the delay field comment to microseconds (PSCHED_TICKS2NS() /
+NSEC_PER_USEC). Update avg_dq_rate to bytes/second (avg_dq_rate *
+PSCHED_TICKS_PER_SEC >> PIE_SCALE).
+
+Documentation-only; no UAPI layout or runtime change. Touch
+include/uapi/linux/pkt_sched.h only
 
 Signed-off-by: Hemendra M. Naik <hemendranaik@gmail.com>
 Signed-off-by: Vishal Kamath <vishy0777@gmail.com>
 Signed-off-by: Mohit P. Tahiliani <tahiliani@nitk.edu.in>
 ---
- .../tc-testing/tc-tests/qdiscs/fq_pie.json    | 33 +++++++++++++++++--
- 1 file changed, 30 insertions(+), 3 deletions(-)
+ include/uapi/linux/pkt_sched.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/fq_pie.json b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/fq_pie.json
-index 229fe1bf4a90..d4081fcb0933 100644
---- a/tools/testing/selftests/tc-testing/tc-tests/qdiscs/fq_pie.json
-+++ b/tools/testing/selftests/tc-testing/tc-tests/qdiscs/fq_pie.json
-@@ -1,7 +1,7 @@
- [
-     {
-         "id": "83be",
--        "name": "Create FQ-PIE with invalid number of flows",
-+        "name": "FQ-PIE rejects flows above 65535",
-         "category": [
-             "qdisc",
-             "fq_pie"
-@@ -12,10 +12,10 @@
-         "setup": [
-         ],
-         "cmdUnderTest": "$TC qdisc add dev $DUMMY handle 1: root fq_pie flows 65536",
--        "expExitCode": "0",
-+        "expExitCode": "2",
-         "verifyCmd": "$TC qdisc show dev $DUMMY",
-         "matchPattern": "qdisc fq_pie 1: root refcnt 2 limit 10240p flows 65536",
--        "matchCount": "1",
-+        "matchCount": "0",
-         "teardown": [
-         ]
-     },
-@@ -40,5 +40,32 @@
-         "matchPattern": "qdisc fq_pie 1: root refcnt [0-9]+ limit 1p",
-         "matchCount": "1",
-         "teardown": ["$TC qdisc del dev $DEV1 handle 1: root"]
-+    },
-+    {
-+        "id": "83c0",
-+        "name": "FQ-PIE class stats accessible via tc class show",
-+        "category": [
-+            "qdisc",
-+            "fq_pie"
-+        ],
-+        "plugins": {
-+            "requires": "nsPlugin"
-+        },
-+        "setup": [
-+            "$IP link set dev $DUMMY up || true",
-+            "$IP addr add 10.10.11.10/24 dev $DUMMY || true",
-+            "$TC qdisc add dev $DUMMY root handle 1: tbf rate 8bit burst 100b latency 100ms",
-+            "$TC qdisc add dev $DUMMY parent 1:1 handle 2: fq_pie limit 100 flows 1",
-+            "ping -c 50 -i 0.001 -s 500 10.10.11.11 -I $DUMMY > /dev/null 2>&1 || true"
-+        ],
-+        "cmdUnderTest": "$TC -s class show dev $DUMMY",
-+        "expExitCode": "0",
-+        "verifyCmd": "$TC -s class show dev $DUMMY",
-+        "matchPattern": "class fq_pie 2:[0-9]+ .*prob .*delay .*deficit",
-+        "matchCount": "1",
-+        "teardown": [
-+            "$TC qdisc del dev $DUMMY handle 1: root",
-+            "$IP addr del 10.10.11.10/24 dev $DUMMY || true"
-+        ]
-     }
- ]
+diff --git a/include/uapi/linux/pkt_sched.h b/include/uapi/linux/pkt_sched.h
+index c6373f410d11..e3f643627c05 100644
+--- a/include/uapi/linux/pkt_sched.h
++++ b/include/uapi/linux/pkt_sched.h
+@@ -920,9 +920,9 @@ enum {
+ 
+ struct tc_pie_xstats {
+ 	__u64 prob;			/* current probability */
+-	__u32 delay;			/* current delay in ms */
++	__u32 delay;			/* current delay in microseconds */
+ 	__u32 avg_dq_rate;		/* current average dq_rate in
+-					 * bits/pie_time
++					 * bytes/second
+ 					 */
+ 	__u32 dq_rate_estimating;	/* is avg_dq_rate being calculated? */
+ 	__u32 packets_in;		/* total number of packets enqueued */
 -- 
 2.34.1
 
