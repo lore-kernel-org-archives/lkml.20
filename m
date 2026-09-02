@@ -1,629 +1,2612 @@
-Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011017.outbound.protection.outlook.com [52.101.62.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F52495051;
-	Wed,  2 Sep 2026 13:41:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2184933AD9B
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 13:41:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788356522; cv=fail; b=klobn1TnAPupp8W7oiTvELh0F2nwbQ3+6tltw8KN6fHdjHt0eA+KyVanjHCTtZP93c4C+A1edrxoUFB648nfiLPQqwwKOEXbIDOK+1/fkQIhCNlcVtbNSYXC1K7EGgK/kiRy4qZsh+C+wEsE5S36jREqhaAbq7/clY2XVQPsHkU=
+	t=1788356512; cv=pass; b=SDuLG4orOOvG9nC9LoJCueyOeZmrta8tYiDaJ+/+jenDBbHSsW61U73DYGgzE6rgsw9WaGQiwaW4mfO0o0R1RCDGPSSOKflG4U8cVvI9RdEMTWEl9cagqAF6sJirORg86ghpnEdky5AZuR72fQQEsOu/1j7k3ZYmheM3tFpz9V8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788356522; c=relaxed/simple;
-	bh=Xc0go6bp3IW65nIwgZbiqkID3Ed/pSq5+unqrmHjG2U=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QogSAqHfOe1erjmkevaoDDzX7fkPSOB8/nV9mck5Khq135M0ciO36CJxCTyUsYL5hf/qoRBoyeMW4YOxE7wvRRa9lOSdy0On60S2cCPMkBoUyBIdrQaJjeTdcJ3cv7TSERh8mZJeMGbX8LyGdE6y5nOI31+EBf22lSOVBWn7qvg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=kLUMl8eP; arc=fail smtp.client-ip=52.101.62.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1788356512; c=relaxed/simple;
+	bh=W3Tjkgc7pOWzPkgHdtt/19N2u3QtDd5zuedlMH/ERjI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ByZziRXLmPq8ugiz5nw3tIer/sP49qepeVR+nxM/se+oIGcyl0ffEtuTTWC6lD3cHVSsqEbeAOV0oSY7bAVAhKpgBEnnn5J+y7D85o9bstQPtupWTp8QxVkkQqLdm/xd897rveTha3nRyKeDtJoYYKpjrZQ21+PQluPYoMleUoU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J5L9l6sC; arc=pass smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="kLUMl8eP"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HH1KAL31ZiTSe7DiM+DhL1J2SQaFxim7eoJbDKlPG9fK5SkfhL3wN5mZNkiIG9EN1B8aKugZR9hCQeffqTfheJM3/rTb3PxFHr9XGr/FsWp6MQv5OWqpVhEzQGqM1hPOomdy//CAEflxoJ0p8KgiqmNsS2pd2/9qGHQCKcHn4ewcmpDoCtfhrtqpJu6E9DswdUh5qwKMQveNBC5vGd3TGnkQcv15sza6ravk+RRA+mVxNst0VUzu8d8jG8GAOqg87BI9SDSs69KbCpnLaj44MZFvCKPmXrPYz6lUtbWjZvyRoPKjTB5UmgucbU893ALnfJV+Hr8cKZF2NgZ6tUsrhQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7gGV35TzI2IX8yyudghxEcHPGGRW+9KX9XzCTfjVV7Q=;
- b=eFoKuNFPPEV3um6nrDL0LDunpMEMIoTpOL/N5b0M4vGhlGtj/02njuiaTMi3l+IsTNpfxHkGHzjvxsZ8Zf+vyn54ULsziZ3PxzeSbtNeEqkWmMQp3Bt4cmRp2EyVsgbeamWZ9r31NzddTZpTqmhoLReWDUgkhaN7WOCB7wJHUS7BddNg/sZ2q/W83j2SpMkTyCdMVJjbDeVX2IGp9SLTN6IAVOxrBe7AzivdIpaClDhlQrXOcomU4UA+/kgQaz2vJqCAtIFIQyqW98zcZR3uSdRRUU1orIaBuG8JeR2GsfsdCSgjUAyxNvF5w9odmzvDSdih9tXQidsY/zEF2n2Ceg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7gGV35TzI2IX8yyudghxEcHPGGRW+9KX9XzCTfjVV7Q=;
- b=kLUMl8ePXO+X/9XphMQA6UbWPWoBzARadt3WMOtmv4wJefUtHXc3SPqMzMojqad/9JW7Os5Oh5yJ+WPgZY2WcgZWY/KA/gEohb5Auo3Yj/6QxRH++8etrTBofTwbwImOrrD85CU8o7ChqYtBbNOsZEpPtL479brTZvEz/pG8MRc=
-Received: from SJ0PR03CA0271.namprd03.prod.outlook.com (2603:10b6:a03:39e::6)
- by IA1PR12MB8309.namprd12.prod.outlook.com (2603:10b6:208:3fe::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 13:41:55 +0000
-Received: from SJ5PEPF000001C9.namprd05.prod.outlook.com
- (2603:10b6:a03:39e:cafe::80) by SJ0PR03CA0271.outlook.office365.com
- (2603:10b6:a03:39e::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
- Sep 2026 13:41:53 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001C9.mail.protection.outlook.com (10.167.242.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 13:41:53 +0000
-Received: from ethanolx7ea3host.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
- 2026 08:41:26 -0500
-From: Terry Bowman <terry.bowman@amd.com>
-To: Jonathan Cameron <jic23@kernel.org>, Dave Jiang <dave.jiang@intel.com>,
-	Alison Schofield <alison.schofield@intel.com>, Vishal Verma
-	<vishal.l.verma@intel.com>, Davidlohr Bueso <dave@stgolabs.net>, "Bjorn
- Helgaas" <bhelgaas@google.com>, Dan Williams <djbw@kernel.org>, "Rafael J .
- Wysocki" <rafael@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	<linux-cxl@vger.kernel.org>
-CC: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, "Hanjun
- Guo" <guohanjun@huawei.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	"Shuai Xue" <xueshuai@linux.alibaba.com>, Len Brown <lenb@kernel.org>, Ira
- Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>, Shuah Khan
-	<skhan@linuxfoundation.org>, Ben Cheatham <Benjamin.Cheatham@amd.com>,
-	Richard Cheng <icheng@nvidia.com>, Robert Richter <rrichter@amd.com>, "Lukas
- Wunner" <lukas@wunner.de>, <linux-pci@vger.kernel.org>,
-	<linux-acpi@vger.kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v20 9/9] Documentation: cxl: Document CXL protocol error handling
-Date: Wed, 2 Sep 2026 08:39:33 -0500
-Message-ID: <20260902133933.2992457-10-terry.bowman@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260902133933.2992457-1-terry.bowman@amd.com>
-References: <20260902133933.2992457-1-terry.bowman@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J5L9l6sC"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c255acff671so152435866b.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 06:41:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788356502; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Sp2NJ/dP+G1leCOwMbuO6c+wjiSpx9jYttr272SYbEuiHfOY2S8w6gaRFZXQoCHX1e
+         iBvO6DWDDLiSrIT1WEHE727gOEA3XSIsOr4E18/OJnfv/1/z7AjjTrb47PElRwpqyhbq
+         kPhcT51Of9gmCea34nbHEduKdOUyecfJRm2aFIRMKgGoctBxz+Qgq/ZLc0nqyhTKhxRq
+         wX04LkoLE/32P/fv1otrd0DJtnnY9do+nCt1J+kie21iQb9WThG2vZ3oARes2iTdGaK2
+         7/eXCzAIPja9vzpa38B4knie3wFkDPjcT1OocJy+0qzJSFhKYfv/dQTk9DYXTIb3BX4i
+         DMVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=ITaAPE7RngKpuq8cSecn5NqLbg1DMHuVU8sm+MbAo7Q=;
+        fh=dAKLLkq/yQnMuH2Ws5/gdjCHt1kYJ/W5qBSc8zHNhWQ=;
+        b=knq7LeoB9Rz6qcSqnzD1Z8tKwxOCXBB5d9gqxJtiV+d+QHNJeR2Rek3ojb89naUbfJ
+         TZFO80iKyernb1cvfwHqbYBvu+XxA2o9ENTbn0H6hTG8GSr508UFj8tSrJgPnlFxV6JA
+         ud6gINAOQbqjc61UEuSCm5kLWzwt105d4XE42fRs3We68KqnZMER2eesYordoP4KemVy
+         bmDLBnAz0IO6jJrTFRNboJgLTCZ8wuc/wvFRJfeBUXf2eM1YDEfiIa6ivLHfJhugtcnR
+         kPF/mLtt9kk9lBvPI/ka1C3NQ3Akx9uhNQ6O8wv5h/U7rC5FLi5WgrHWUYd3es01UDso
+         2/pw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788356502; x=1788961302; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ITaAPE7RngKpuq8cSecn5NqLbg1DMHuVU8sm+MbAo7Q=;
+        b=J5L9l6sCKq+XAJGICnDqsK+INuRh6hXgv+RGKuNLc+vx6UhEfVHIiseZaTilhnvIzH
+         2OU+OmHkuS+cauF5PPvRlOZ8Dq7+GAReo0Bazxel0BGZoYrhkb7LL9mopJhphTt0PEJf
+         Ee/w9Mj+Be2gc4pIZ8LspebG+fxuCRw0ny4euF8jU/RuuMaB1y2+evETAkxXWVaG514P
+         W6unPkOEE1x3Cqj6gd6BkzJwGg3uRuLq3zq2s/my9Fh1sSI28dlzkc/gxTjEOfDiGhe1
+         G/NK3HIjVOrkBaLgUHLHlQaE8iqoCdp+KTY3C3EVg9NWODKxRrYrNczkliGYKyWitLio
+         ddzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788356502; x=1788961302;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ITaAPE7RngKpuq8cSecn5NqLbg1DMHuVU8sm+MbAo7Q=;
+        b=U3+TZ9skvt8R7nvJOSCuqWy7Vgh4hWrU+HOnBnnUZGN4TY17wGJlHHfJDnNtD1i2I2
+         VG8THx2Y3Fqc2S4k8zN19mFBlgsMmhmmflEVhGyKQ/wQuIr6XRf3ENxONPA6/1fRB6yu
+         w+os5tUZqw8SSwle4c/3euqcjS0L+rOTwVuLU1Yyfn3MvBfjaKrVQ9xuqSeuVGIbi+7D
+         Z1CwlNQYzBFkkmcj+Rta27IAcir3TQ3ht/024LY1rMnyUVl7FiNREEqQ7P9Jh2IhfTMv
+         H74f+YzR5LkT5FuH4tbFZ1G6cYs23K05yCniAa3uwERH7Us4A2hc0nTsE7udHpg4BrnY
+         Fwvw==
+X-Forwarded-Encrypted: i=1; AKwUvBxEYGavak21hrsnq8nppRsb4MRRTdNMQhkMhjpsj6vPe8OX7S9OMsAyfwgugqLtESxNtIBg0bxJ5Jifuyw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mAElH2afJEbZXjyTUoL13l2sr3KlZ6frKjHfwXzkwmvyryp8a5
+	dC58p+3Syu50idzNDkefAPCZ1B6kfzAQcNdCEGSt/9p97RYtbnW3qOg4L5+q3o8uo2Phi4enuyU
+	NBD/1tQnxPt0Q3O66kMEescmbBvODNAw=
+X-Gm-Gg: AYBFou1fBxVp4ImduSINZomUGtkTl9XyoF6XgVqI5/rHGKhMeSViP4GRC6y7hTGd9HV
+	ZHD5XzcAZfCh/2NGi7brqcxMiogldfa2wQq47XFt5g4dPKOPIzf4Kr+zp5d5eTqTrl5e1somMZU
+	JUu/lPy1oQqSXytihaq6CZpl0loMCN8lylJ/S5cQasrni1MRXSTndKFjvKEmVWXHLV71K+eOgBd
+	wWuicE/kE3xb2ecdSvToATbCy95QYf0wlqbIs+rhFRgCurRTiX7+YCM0qvGa+qNA9Uoz3g9C3km
+	haSoaaT+Plui6NPPQlscdOD4KQtWXegPvyck9lnmnu2qPGKdoHm2hpBk4G0LVMS2HVI1NW8To/E
+	kK8Pio1gryMl1mg/aPQifx1Np169iZoBsz34=
+X-Received: by 2002:a17:907:3e91:b0:c25:192:99ee with SMTP id
+ a640c23a62f3a-c25d5509226mr342135066b.19.1788356501481; Wed, 02 Sep 2026
+ 06:41:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001C9:EE_|IA1PR12MB8309:EE_
-X-MS-Office365-Filtering-Correlation-Id: a12354dc-2a31-43b9-04d6-08df08f7f32d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|7416014|18002099003|22082099003|56012099006|3023799007|10067099003|6133799003|921020|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	zxFHku2pX6yfe57MAK2c60NbUWdm6TTzbY0CcKbYzAb5LAB/VrxMmmp97gE86Tr+8Rxxn6FJLP8CgfutTCI0Tuut2vfofbjXg0E/fadE+7SWYBQ41nT8UrtTJiKvMWm7W8CRmtnxEHjnPPbjQbOhaahVai/zEe3WugnlUrnttk+VBinzGhUolzqyQUz0Bit/m4L0oIW6a0Ee5+3GcOVoj2zhK1OSbEDoASU6OVJf2BtpTGwI2bQuB/VgKxk+pfHQ5LQm98f8hIQSLOkmpAGgRWeTDdhjGeF4OH3F564HhilNS4GBtA/0oDBIurnswsKv9U74zDDPNiBK8IIN4UtH4D50ZGimtbZTQKO4/NiS0emhCAaZsq4EJqVSnMrPKm85luWH7QoL+lJSrwQ89uRttQsfWenB/Njmiau1xPWFfp+nMe48/r1r0ewbPcbyj8vV0URKMjQlNqsBWqcWnq41NpA8wRkBAZyU2OVhqZuWVXPrMbDTxM/B6DyIqeW1cGwl1jlRxFBo9ScW+E01hR70v9zesbUBkikFFFLe78lB660Zg+2Adi1YARhqRjSD9CoQjQxrI+A289S1Z4+4OGGsQmSb1ZCV6yhfJZ090njH9jL/TX3Bjc/qE7i51fkbgsc3XlGTJyuFUXOCJI+r7ArY+wuVPYmwicNBXzHP1j3QIT4ADycekCmFDl+npIqR93dlr6tnEENcv6xv9weVAIPFiV0LLh7dpSRnRN6v1Oq9+rseObtW069coIoCpVIWRowo
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(7416014)(18002099003)(22082099003)(56012099006)(3023799007)(10067099003)(6133799003)(921020)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	0VYbiFQGkAbgu8I6vbw/3AuOAaNTbl1NwzBFVog38vpfmeOZh1LC1LtZHvqIsmVzdVQldRc166ip6OMkdNwuzKs1AHq+cbE5xXGEmhxuBToOgxKiqvB5NZxpQvYTii7zsHEBWcVfiuaMOoC3zNRnKmBqpoN05Koz/2p+fmtswwSB/lipo3cbf+Ht7hRv21XKiA2YMABqvQSMIfYhVWFk019HOXfFHyG5feUAtXHJwX69jwcmZixAWYPJ/NMIFhnsfrEYumI+cDOeR/n2J6lzE3fykwMngfJxX/ze8xpQ+mycreqsTfPGSVKXCDHcUxyP1INyTSPkLux39J3b18N34+LmzuBsrR07UJAMHYP9g8xa62tuLkajK2MKiUx50LBVLZ+WCAORoaCmtuTinRWVk5/oLwim1Lhci2sS4OQeOoe3mBTT/lQfcFKeuAEVycT7
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 13:41:53.8415
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a12354dc-2a31-43b9-04d6-08df08f7f32d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF000001C9.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8309
+References: <20260901092447.3028-1-sreeshankar0910@gmail.com>
+ <20260901092447.3028-5-sreeshankar0910@gmail.com> <1ea96c7d-102a-4261-a70e-ca0813490a02@oss.qualcomm.com>
+In-Reply-To: <1ea96c7d-102a-4261-a70e-ca0813490a02@oss.qualcomm.com>
+From: Sreeshankar K <sreeshankar0910@gmail.com>
+Date: Wed, 2 Sep 2026 19:11:30 +0530
+X-Gm-Features: AcwNN1V0jtdxdEB05p3obuy8jjf-_zSpdWQfPKMqBdthPUTLggxe5c5k2R9Nhp8
+Message-ID: <CAA-+ukLZVX40z0vLntdfSkBM7mQSHYxyoAhLn8GsbOhRM8f0aw@mail.gmail.com>
+Subject: Re: [PATCH v9 04/12] clk: qcom: Add Global Clock Controller (GCC)
+ driver for SM7250
+To: Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: andersson@kernel.org, sboyd@kernel.org, bmasney+clk@redhat.com, 
+	jbrunet+clk@baylibre.com, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, rafael@kernel.org, viresh.kumar@linaro.org, 
+	konradybcio@kernel.org, tglx@kernel.org, ulfh@kernel.org, radu@rendec.net, 
+	abel.vesa@oss.qualcomm.com, danila@mainlining.org, davidwronek@gmail.com, 
+	mani@kernel.org, robimarko@gmail.com, linux@gurudas.dev, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Add Documentation/driver-api/cxl/linux/protocol-error-handling.rst
-describing the end-to-end CXL protocol error path: AER ingress, the
-AER-CXL kfifo handoff, the cxl_core consumer worker, RCD/RCH special
-cases, severity policy, trace events, and a source code map.
+On Wed, 2 Sept 2026 at 15:00, Taniya Das <taniya.das@oss.qualcomm.com> wrote:
+>
+>
+>
+> On 9/1/2026 2:54 PM, Sreeshankar K wrote:
+> > Add support for the global clock controller found on SM7250
+> > based devices.
+> >
+> > Signed-off-by: Sreeshankar K <sreeshankar0910@gmail.com>
+> > ---
+> >  drivers/clk/qcom/Kconfig      |    9 +
+> >  drivers/clk/qcom/Makefile     |    1 +
+> >  drivers/clk/qcom/gcc-sm7250.c | 2275 +++++++++++++++++++++++++++++++++
+> >  3 files changed, 2285 insertions(+)
+> >  create mode 100644 drivers/clk/qcom/gcc-sm7250.c
+> >
+> > diff --git a/drivers/clk/qcom/Kconfig b/drivers/clk/qcom/Kconfig
+> > index d1fc9bf87..b1710aabe 100644
+> > --- a/drivers/clk/qcom/Kconfig
+> > +++ b/drivers/clk/qcom/Kconfig
+> > @@ -1650,6 +1650,15 @@ config SM_GCC_7150
+> >         Say Y if you want to use peripheral devices such as UART,
+> >         SPI, I2C, USB, SD/UFS, PCIe etc.
+> >
+> > +config SM_GCC_7250
+> > +     tristate "SM7250 Global Clock Controller"
+> > +     depends on ARM64 || COMPILE_TEST
+> > +     select QCOM_GDSC
+> > +     help
+> > +       Support for the global clock controller on SM7250 devices.
+> > +       Say Y if you want to use peripheral devices such as UART,
+> > +       SPI, I2C, USB, SD/UFS etc.
+> > +
+> >  config SM_GCC_MILOS
+> >       tristate "Milos Global Clock Controller"
+> >       depends on ARM64 || COMPILE_TEST
+> > diff --git a/drivers/clk/qcom/Makefile b/drivers/clk/qcom/Makefile
+> > index daf25d583..bde1de0cd 100644
+> > --- a/drivers/clk/qcom/Makefile
+> > +++ b/drivers/clk/qcom/Makefile
+> > @@ -183,6 +183,7 @@ obj-$(CONFIG_SM_GCC_6125) += gcc-sm6125.o
+> >  obj-$(CONFIG_SM_GCC_6350) += gcc-sm6350.o
+> >  obj-$(CONFIG_SM_GCC_6375) += gcc-sm6375.o
+> >  obj-$(CONFIG_SM_GCC_7150) += gcc-sm7150.o
+> > +obj-$(CONFIG_SM_GCC_7250) += gcc-sm7250.o
+> >  obj-$(CONFIG_SM_GCC_8150) += gcc-sm8150.o
+> >  obj-$(CONFIG_SM_GCC_8250) += gcc-sm8250.o
+> >  obj-$(CONFIG_SM_GCC_8350) += gcc-sm8350.o
+> > diff --git a/drivers/clk/qcom/gcc-sm7250.c b/drivers/clk/qcom/gcc-sm7250.c
+> > new file mode 100644
+> > index 000000000..37a429e31
+> > --- /dev/null
+> > +++ b/drivers/clk/qcom/gcc-sm7250.c
+> > @@ -0,0 +1,2275 @@
+> > +// SPDX-License-Identifier: GPL-2.0-only
+> > +/*
+> > + * Copyright (c) 2018-2019, The Linux Foundation. All rights reserved.
+> > + * Copyright (c) 2026, Sreeshankar K <sreeshankar0910@gmail.com>
+> > + */
+> > +
+> > +#include <linux/clk-provider.h>
+> > +#include <linux/err.h>
+> > +#include <linux/kernel.h>
+> > +#include <linux/module.h>
+> > +#include <linux/of.h>
+> > +#include <linux/platform_device.h>
+> > +#include <linux/regmap.h>
+> > +
+> > +#include <dt-bindings/clock/qcom,sm7250-gcc.h>
+> > +
+> > +#include "clk-alpha-pll.h"
+> > +#include "clk-branch.h"
+> > +#include "clk-rcg.h"
+> > +#include "clk-regmap.h"
+> > +#include "common.h"
+> > +#include "gdsc.h"
+> > +#include "reset.h"
+> > +
+> > +enum {
+> > +     DT_BI_TCXO,
+> > +     DT_BI_TCXO_AO,
+> > +     DT_SLEEP_CLK,
+> > +};
+> > +
+> > +enum {
+> > +     P_BI_TCXO,
+> > +     P_GPLL0_OUT_EVEN,
+> > +     P_GPLL0_OUT_MAIN,
+> > +     P_GPLL6_OUT_MAIN,
+> > +     P_GPLL9_OUT_MAIN,
+> > +     P_SLEEP_CLK,
+> > +};
+> > +
+> > +static struct clk_alpha_pll gpll0 = {
+> > +     .offset = 0x0,
+> > +     .regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_LUCID],
+> > +     .clkr = {
+> > +             .enable_reg = 0x52010,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gpll0",
+> > +                     .parent_data = &(const struct clk_parent_data){
+> > +                             .index = DT_BI_TCXO,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .ops = &clk_alpha_pll_fixed_lucid_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static const struct clk_div_table post_div_table_gpll0_out_even[] = {
+> > +     { 0x1, 2 },
+> > +     { }
+> > +};
+> > +
+> > +static struct clk_alpha_pll_postdiv gpll0_out_even = {
+> > +     .offset = 0x0,
+> > +     .post_div_shift = 8,
+> > +     .post_div_table = post_div_table_gpll0_out_even,
+> > +     .num_post_div = ARRAY_SIZE(post_div_table_gpll0_out_even),
+> > +     .width = 4,
+> > +     .regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_LUCID],
+> > +     .clkr.hw.init = &(const struct clk_init_data){
+> > +             .name = "gpll0_out_even",
+> > +             .parent_hws = (const struct clk_hw*[]){
+> > +                     &gpll0.clkr.hw,
+> > +             },
+> > +             .num_parents = 1,
+> > +             .ops = &clk_alpha_pll_postdiv_lucid_ops,
+> > +     },
+> > +};
+> > +
+> > +static struct clk_alpha_pll gpll6 = {
+> > +     .offset = 0x13000,
+> > +     .regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_LUCID],
+> > +     .clkr = {
+> > +             .enable_reg = 0x52010,
+> > +             .enable_mask = BIT(6),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gpll6",
+> > +                     .parent_data = &(const struct clk_parent_data){
+> > +                             .index = DT_BI_TCXO,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .ops = &clk_alpha_pll_fixed_lucid_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_alpha_pll gpll9 = {
+> > +     .offset = 0x1c000,
+> > +     .regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_LUCID],
+> > +     .clkr = {
+> > +             .enable_reg = 0x52010,
+> > +             .enable_mask = BIT(9),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gpll9",
+> > +                     .parent_data = &(const struct clk_parent_data){
+> > +                             .index = DT_BI_TCXO,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .ops = &clk_alpha_pll_fixed_lucid_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static const struct parent_map gcc_parent_map_0[] = {
+> > +     { P_BI_TCXO, 0 },
+> > +     { P_GPLL0_OUT_MAIN, 1 },
+> > +     { P_GPLL0_OUT_EVEN, 6 },
+> > +};
+> > +
+> > +static const struct clk_parent_data gcc_parent_data_0[] = {
+> > +     { .index = DT_BI_TCXO },
+> > +     { .hw = &gpll0.clkr.hw },
+> > +     { .hw = &gpll0_out_even.clkr.hw },
+> > +};
+> > +
+> > +static const struct clk_parent_data gcc_parent_data_0_ao[] = {
+> > +     { .index = DT_BI_TCXO_AO },
+> > +     { .hw = &gpll0.clkr.hw },
+> > +     { .hw = &gpll0_out_even.clkr.hw },
+>
+> please remove gpll0 instances as we do not support any other frequencies
+> for cpu_ahb_clock.
+>
 
-This documents the architecture introduced by the preceding patches in
-this series.
+Okay!
 
-Assisted-by: Claude:claude-opus-4.8
-Signed-off-by: Terry Bowman <terry.bowman@amd.com>
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Reviewed-by: Alison Schofield <alison.schofield@intel.com>
+> > +};
+> > +
+> > +static const struct parent_map gcc_parent_map_1[] = {
+> > +     { P_BI_TCXO, 0 },
+> > +     { P_GPLL0_OUT_MAIN, 1 },
+> > +     { P_SLEEP_CLK, 5 },
+> > +     { P_GPLL0_OUT_EVEN, 6 },
+> > +};
+> > +
+> > +static const struct clk_parent_data gcc_parent_data_1[] = {
+> > +     { .index = DT_BI_TCXO },
+> > +     { .hw = &gpll0.clkr.hw },
+> > +     { .index = DT_SLEEP_CLK },
+> > +     { .hw = &gpll0_out_even.clkr.hw },
+> > +};
+> > +
+> > +static const struct parent_map gcc_parent_map_2[] = {
+> > +     { P_BI_TCXO, 0 },
+> > +};
+> > +
+> > +static const struct clk_parent_data gcc_parent_data_2[] = {
+> > +     { .index = DT_BI_TCXO },
+> > +};
+> > +
+> > +static const struct parent_map gcc_parent_map_3[] = {
+> > +     { P_BI_TCXO, 0 },
+> > +     { P_GPLL0_OUT_MAIN, 1 },
+> > +     { P_GPLL6_OUT_MAIN, 2 },
+> > +     { P_GPLL0_OUT_EVEN, 6 },
+> > +};
+> > +
+> > +static const struct clk_parent_data gcc_parent_data_3[] = {
+> > +     { .index = DT_BI_TCXO },
+> > +     { .hw = &gpll0.clkr.hw },
+> > +     { .hw = &gpll6.clkr.hw },
+> > +     { .hw = &gpll0_out_even.clkr.hw },
+> > +};
+> > +
+> > +static const struct parent_map gcc_parent_map_4[] = {
+> > +     { P_BI_TCXO, 0 },
+> > +     { P_GPLL0_OUT_MAIN, 1 },
+> > +     { P_GPLL9_OUT_MAIN, 2 },
+> > +     { P_GPLL0_OUT_EVEN, 6 },
+> > +};
+> > +
+> > +static const struct clk_parent_data gcc_parent_data_4[] = {
+> > +     { .index = DT_BI_TCXO },
+> > +     { .hw = &gpll0.clkr.hw },
+> > +     { .hw = &gpll9.clkr.hw },
+> > +     { .hw = &gpll0_out_even.clkr.hw },
+> > +};
+> > +
+> > +static const struct parent_map gcc_parent_map_5[] = {
+> > +     { P_BI_TCXO, 0 },
+> > +     { P_SLEEP_CLK, 5 },
+> > +};
+> > +
+> > +static const struct clk_parent_data gcc_parent_data_5[] = {
+> > +     { .index = DT_BI_TCXO },
+> > +     { .index = DT_SLEEP_CLK },
+> > +};
+> > +
+> > +static const struct freq_tbl ftbl_gcc_cpuss_ahb_clk_src[] = {
+> > +     F(19200000, P_BI_TCXO, 1, 0, 0),
+>
+> use DT_BI_TCXO_AO
+>
 
----
+Okay!
 
-Changes in v19 -> v20:
-- Document the kfifo-overflow panic policy
-- Name the CXL Host Bridge device lock (port->uport_dev) in RCH case
-- Reword the cxl_do_recovery() no-UE-bits path
-- Fix CPER path description: firmware-first is trace-only, no panic
-- Diagram: EP RAS read is channel-state independent, not "unconditional"
-- Fix cxl_handle_ras() argument count in the fatal-UCE diagram
-- Clarify .error_detected skips RAS read without panic when unmapped
+> > +     { }
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_cpuss_ahb_clk_src = {
+> > +     .cmd_rcgr = 0x48010,
+> > +     .mnd_width = 0,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_0,
+> > +     .freq_tbl = ftbl_gcc_cpuss_ahb_clk_src,
+> > +     .clkr.hw.init = &(const struct clk_init_data){
+> > +             .name = "gcc_cpuss_ahb_clk_src",
+> > +             .parent_data = gcc_parent_data_0_ao,
+> > +             .num_parents = ARRAY_SIZE(gcc_parent_data_0_ao),
+> > +             .flags = CLK_SET_RATE_PARENT,
+> > +             .ops = &clk_rcg2_ops,
+> > +     },
+> > +};
+> > +
+> > +static const struct freq_tbl ftbl_gcc_gp1_clk_src[] = {
+> > +     F(19200000, P_BI_TCXO, 1, 0, 0),
+> > +     F(25000000, P_GPLL0_OUT_EVEN, 12, 0, 0),
+> > +     F(50000000, P_GPLL0_OUT_EVEN, 6, 0, 0),
+> > +     F(100000000, P_GPLL0_OUT_MAIN, 6, 0, 0),
+> > +     F(200000000, P_GPLL0_OUT_MAIN, 3, 0, 0),
+> > +     { }
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_gp1_clk_src = {
+> > +     .cmd_rcgr = 0x64004,
+> > +     .mnd_width = 8,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_1,
+> > +     .freq_tbl = ftbl_gcc_gp1_clk_src,
+> > +     .clkr.hw.init = &(const struct clk_init_data){
+> > +             .name = "gcc_gp1_clk_src",
+> > +             .parent_data = gcc_parent_data_1,
+> > +             .num_parents = ARRAY_SIZE(gcc_parent_data_1),
+> > +             .ops = &clk_rcg2_ops,
+> > +     },
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_gp2_clk_src = {
+> > +     .cmd_rcgr = 0x65004,
+> > +     .mnd_width = 8,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_1,
+> > +     .freq_tbl = ftbl_gcc_gp1_clk_src,
+> > +     .clkr.hw.init = &(const struct clk_init_data){
+> > +             .name = "gcc_gp2_clk_src",
+> > +             .parent_data = gcc_parent_data_1,
+> > +             .num_parents = ARRAY_SIZE(gcc_parent_data_1),
+> > +             .ops = &clk_rcg2_ops,
+> > +     },
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_gp3_clk_src = {
+> > +     .cmd_rcgr = 0x66004,
+> > +     .mnd_width = 8,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_1,
+> > +     .freq_tbl = ftbl_gcc_gp1_clk_src,
+> > +     .clkr.hw.init = &(const struct clk_init_data){
+> > +             .name = "gcc_gp3_clk_src",
+> > +             .parent_data = gcc_parent_data_1,
+> > +             .num_parents = ARRAY_SIZE(gcc_parent_data_1),
+> > +             .ops = &clk_rcg2_ops,
+> > +     },
+> > +};
+> > +
+> > +static const struct freq_tbl ftbl_gcc_pdm2_clk_src[] = {
+> > +     F(9600000, P_BI_TCXO, 2, 0, 0),
+> > +     F(19200000, P_BI_TCXO, 1, 0, 0),
+> > +     F(60000000, P_GPLL0_OUT_MAIN, 10, 0, 0),
+> > +     { }
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_pdm2_clk_src = {
+> > +     .cmd_rcgr = 0x33010,
+> > +     .mnd_width = 0,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_0,
+> > +     .freq_tbl = ftbl_gcc_pdm2_clk_src,
+> > +     .clkr.hw.init = &(const struct clk_init_data){
+> > +             .name = "gcc_pdm2_clk_src",
+> > +             .parent_data = gcc_parent_data_0,
+> > +             .num_parents = ARRAY_SIZE(gcc_parent_data_0),
+> > +             .ops = &clk_rcg2_ops,
+> > +     },
+> > +};
+> > +
+> > +static const struct freq_tbl ftbl_gcc_qupv3_wrap0_s0_clk_src[] = {
+> > +     F(7372800, P_GPLL0_OUT_EVEN, 1, 384, 15625),
+> > +     F(14745600, P_GPLL0_OUT_EVEN, 1, 768, 15625),
+> > +     F(19200000, P_BI_TCXO, 1, 0, 0),
+> > +     F(29491200, P_GPLL0_OUT_EVEN, 1, 1536, 15625),
+> > +     F(32000000, P_GPLL0_OUT_EVEN, 1, 8, 75),
+> > +     F(48000000, P_GPLL0_OUT_EVEN, 1, 4, 25),
+> > +     F(50000000, P_GPLL0_OUT_EVEN, 6, 0, 0),
+> > +     F(64000000, P_GPLL0_OUT_EVEN, 1, 16, 75),
+> > +     F(75000000, P_GPLL0_OUT_EVEN, 4, 0, 0),
+> > +     F(80000000, P_GPLL0_OUT_EVEN, 1, 4, 15),
+> > +     F(96000000, P_GPLL0_OUT_EVEN, 1, 8, 25),
+> > +     F(100000000, P_GPLL0_OUT_MAIN, 6, 0, 0),
+> > +     F(102400000, P_GPLL0_OUT_EVEN, 1, 128, 375),
+> > +     F(112000000, P_GPLL0_OUT_EVEN, 1, 28, 75),
+> > +     F(117964800, P_GPLL0_OUT_EVEN, 1, 6144, 15625),
+> > +     F(120000000, P_GPLL0_OUT_EVEN, 2.5, 0, 0),
+> > +     F(128000000, P_GPLL0_OUT_MAIN, 1, 16, 75),
+> > +     { }
+> > +};
+> > +
+> > +static struct clk_init_data gcc_qupv3_wrap0_s0_clk_src_init = {
+> > +     .name = "gcc_qupv3_wrap0_s0_clk_src",
+> > +     .parent_data = gcc_parent_data_0,
+> > +     .num_parents = ARRAY_SIZE(gcc_parent_data_0),
+> > +     .ops = &clk_rcg2_ops,
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_qupv3_wrap0_s0_clk_src = {
+> > +     .cmd_rcgr = 0x17010,
+> > +     .mnd_width = 16,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_0,
+> > +     .freq_tbl = ftbl_gcc_qupv3_wrap0_s0_clk_src,
+> > +     .clkr.hw.init = &gcc_qupv3_wrap0_s0_clk_src_init,
+> > +};
+> > +
+> > +static struct clk_init_data gcc_qupv3_wrap0_s1_clk_src_init = {
+> > +     .name = "gcc_qupv3_wrap0_s1_clk_src",
+> > +     .parent_data = gcc_parent_data_0,
+> > +     .num_parents = ARRAY_SIZE(gcc_parent_data_0),
+> > +     .ops = &clk_rcg2_ops,
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_qupv3_wrap0_s1_clk_src = {
+> > +     .cmd_rcgr = 0x17140,
+> > +     .mnd_width = 16,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_0,
+> > +     .freq_tbl = ftbl_gcc_qupv3_wrap0_s0_clk_src,
+> > +     .clkr.hw.init = &gcc_qupv3_wrap0_s1_clk_src_init,
+> > +};
+> > +
+> > +static struct clk_init_data gcc_qupv3_wrap0_s2_clk_src_init = {
+> > +     .name = "gcc_qupv3_wrap0_s2_clk_src",
+> > +     .parent_data = gcc_parent_data_0,
+> > +     .num_parents = ARRAY_SIZE(gcc_parent_data_0),
+> > +     .ops = &clk_rcg2_ops,
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_qupv3_wrap0_s2_clk_src = {
+> > +     .cmd_rcgr = 0x17270,
+> > +     .mnd_width = 16,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_0,
+> > +     .freq_tbl = ftbl_gcc_qupv3_wrap0_s0_clk_src,
+> > +     .clkr.hw.init = &gcc_qupv3_wrap0_s2_clk_src_init,
+> > +};
+> > +
+> > +static struct clk_init_data gcc_qupv3_wrap0_s3_clk_src_init = {
+> > +     .name = "gcc_qupv3_wrap0_s3_clk_src",
+> > +     .parent_data = gcc_parent_data_0,
+> > +     .num_parents = ARRAY_SIZE(gcc_parent_data_0),
+> > +     .ops = &clk_rcg2_ops,
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_qupv3_wrap0_s3_clk_src = {
+> > +     .cmd_rcgr = 0x173a0,
+> > +     .mnd_width = 16,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_0,
+> > +     .freq_tbl = ftbl_gcc_qupv3_wrap0_s0_clk_src,
+> > +     .clkr.hw.init = &gcc_qupv3_wrap0_s3_clk_src_init,
+> > +};
+> > +
+> > +static struct clk_init_data gcc_qupv3_wrap0_s4_clk_src_init = {
+> > +     .name = "gcc_qupv3_wrap0_s4_clk_src",
+> > +     .parent_data = gcc_parent_data_0,
+> > +     .num_parents = ARRAY_SIZE(gcc_parent_data_0),
+> > +     .ops = &clk_rcg2_ops,
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_qupv3_wrap0_s4_clk_src = {
+> > +     .cmd_rcgr = 0x174d0,
+> > +     .mnd_width = 16,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_0,
+> > +     .freq_tbl = ftbl_gcc_qupv3_wrap0_s0_clk_src,
+> > +     .clkr.hw.init = &gcc_qupv3_wrap0_s4_clk_src_init,
+> > +};
+> > +
+> > +static struct clk_init_data gcc_qupv3_wrap0_s5_clk_src_init = {
+> > +     .name = "gcc_qupv3_wrap0_s5_clk_src",
+> > +     .parent_data = gcc_parent_data_0,
+> > +     .num_parents = ARRAY_SIZE(gcc_parent_data_0),
+> > +     .ops = &clk_rcg2_ops,
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_qupv3_wrap0_s5_clk_src = {
+> > +     .cmd_rcgr = 0x17600,
+> > +     .mnd_width = 16,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_0,
+> > +     .freq_tbl = ftbl_gcc_qupv3_wrap0_s0_clk_src,
+> > +     .clkr.hw.init = &gcc_qupv3_wrap0_s5_clk_src_init,
+> > +};
+> > +
+> > +static struct clk_init_data gcc_qupv3_wrap1_s0_clk_src_init = {
+> > +     .name = "gcc_qupv3_wrap1_s0_clk_src",
+> > +     .parent_data = gcc_parent_data_0,
+> > +     .num_parents = ARRAY_SIZE(gcc_parent_data_0),
+> > +     .ops = &clk_rcg2_ops,
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_qupv3_wrap1_s0_clk_src = {
+> > +     .cmd_rcgr = 0x18010,
+> > +     .mnd_width = 16,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_0,
+> > +     .freq_tbl = ftbl_gcc_qupv3_wrap0_s0_clk_src,
+> > +     .clkr.hw.init = &gcc_qupv3_wrap1_s0_clk_src_init,
+> > +};
+> > +
+> > +static struct clk_init_data gcc_qupv3_wrap1_s1_clk_src_init = {
+> > +     .name = "gcc_qupv3_wrap1_s1_clk_src",
+> > +     .parent_data = gcc_parent_data_0,
+> > +     .num_parents = ARRAY_SIZE(gcc_parent_data_0),
+> > +     .ops = &clk_rcg2_ops,
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_qupv3_wrap1_s1_clk_src = {
+> > +     .cmd_rcgr = 0x18140,
+> > +     .mnd_width = 16,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_0,
+> > +     .freq_tbl = ftbl_gcc_qupv3_wrap0_s0_clk_src,
+> > +     .clkr.hw.init = &gcc_qupv3_wrap1_s1_clk_src_init,
+> > +};
+> > +
+> > +static struct clk_init_data gcc_qupv3_wrap1_s2_clk_src_init = {
+> > +     .name = "gcc_qupv3_wrap1_s2_clk_src",
+> > +     .parent_data = gcc_parent_data_0,
+> > +     .num_parents = ARRAY_SIZE(gcc_parent_data_0),
+> > +     .ops = &clk_rcg2_ops,
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_qupv3_wrap1_s2_clk_src = {
+> > +     .cmd_rcgr = 0x18270,
+> > +     .mnd_width = 16,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_0,
+> > +     .freq_tbl = ftbl_gcc_qupv3_wrap0_s0_clk_src,
+> > +     .clkr.hw.init = &gcc_qupv3_wrap1_s2_clk_src_init,
+> > +};
+> > +
+> > +static struct clk_init_data gcc_qupv3_wrap1_s3_clk_src_init = {
+> > +     .name = "gcc_qupv3_wrap1_s3_clk_src",
+> > +     .parent_data = gcc_parent_data_0,
+> > +     .num_parents = ARRAY_SIZE(gcc_parent_data_0),
+> > +     .ops = &clk_rcg2_ops,
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_qupv3_wrap1_s3_clk_src = {
+> > +     .cmd_rcgr = 0x183a0,
+> > +     .mnd_width = 16,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_0,
+> > +     .freq_tbl = ftbl_gcc_qupv3_wrap0_s0_clk_src,
+> > +     .clkr.hw.init = &gcc_qupv3_wrap1_s3_clk_src_init,
+> > +};
+> > +
+> > +static struct clk_init_data gcc_qupv3_wrap1_s4_clk_src_init = {
+> > +     .name = "gcc_qupv3_wrap1_s4_clk_src",
+> > +     .parent_data = gcc_parent_data_0,
+> > +     .num_parents = ARRAY_SIZE(gcc_parent_data_0),
+> > +     .ops = &clk_rcg2_ops,
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_qupv3_wrap1_s4_clk_src = {
+> > +     .cmd_rcgr = 0x184d0,
+> > +     .mnd_width = 16,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_0,
+> > +     .freq_tbl = ftbl_gcc_qupv3_wrap0_s0_clk_src,
+> > +     .clkr.hw.init = &gcc_qupv3_wrap1_s4_clk_src_init,
+> > +};
+> > +
+> > +static struct clk_init_data gcc_qupv3_wrap1_s5_clk_src_init = {
+> > +     .name = "gcc_qupv3_wrap1_s5_clk_src",
+> > +     .parent_data = gcc_parent_data_0,
+> > +     .num_parents = ARRAY_SIZE(gcc_parent_data_0),
+> > +     .ops = &clk_rcg2_ops,
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_qupv3_wrap1_s5_clk_src = {
+> > +     .cmd_rcgr = 0x18600,
+> > +     .mnd_width = 16,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_0,
+> > +     .freq_tbl = ftbl_gcc_qupv3_wrap0_s0_clk_src,
+> > +     .clkr.hw.init = &gcc_qupv3_wrap1_s5_clk_src_init,
+> > +};
+> > +
+> > +static const struct freq_tbl ftbl_gcc_sdcc1_apps_clk_src[] = {
+> > +     F(144000, P_BI_TCXO, 16, 3, 25),
+> > +     F(400000, P_BI_TCXO, 12, 1, 4),
+> > +     F(20000000, P_GPLL0_OUT_EVEN, 5, 1, 3),
+> > +     F(25000000, P_GPLL0_OUT_EVEN, 6, 1, 2),
+> > +     F(50000000, P_GPLL0_OUT_EVEN, 6, 0, 0),
+> > +     F(100000000, P_GPLL0_OUT_EVEN, 3, 0, 0),
+> > +     F(192000000, P_GPLL6_OUT_MAIN, 2, 0, 0),
+> > +     F(384000000, P_GPLL6_OUT_MAIN, 1, 0, 0),
+> > +     { }
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_sdcc1_apps_clk_src = {
+> > +     .cmd_rcgr = 0x26024,
+> > +     .mnd_width = 8,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_3,
+> > +     .freq_tbl = ftbl_gcc_sdcc1_apps_clk_src,
+> > +     .clkr.hw.init = &(const struct clk_init_data){
+> > +             .name = "gcc_sdcc1_apps_clk_src",
+> > +             .parent_data = gcc_parent_data_3,
+> > +             .num_parents = ARRAY_SIZE(gcc_parent_data_3),
+> > +             .flags = CLK_OPS_PARENT_ENABLE,
+> > +             .ops = &clk_rcg2_floor_ops,
+> > +     },
+> > +};
+> > +
+> > +
+> > +static const struct freq_tbl ftbl_gcc_sdcc1_ice_core_clk_src[] = {
+> > +     F(100000000, P_GPLL0_OUT_EVEN, 3, 0, 0),
+> > +     F(150000000, P_GPLL0_OUT_MAIN, 4, 0, 0),
+> > +     F(300000000, P_GPLL0_OUT_MAIN, 2, 0, 0),
+> > +     { }
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_sdcc1_ice_core_clk_src = {
+> > +     .cmd_rcgr = 0x2600c,
+> > +     .mnd_width = 0,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_0,
+> > +     .freq_tbl = ftbl_gcc_sdcc1_ice_core_clk_src,
+> > +     .clkr.hw.init = &(const struct clk_init_data){
+> > +             .name = "gcc_sdcc1_ice_core_clk_src",
+> > +             .parent_data = gcc_parent_data_0,
+> > +             .num_parents = ARRAY_SIZE(gcc_parent_data_0),
+> > +             .flags = CLK_OPS_PARENT_ENABLE,
+>
+> Why did you add this?
+>
 
-Changes in v18->v19:
-- Alignment fixes
-- Add RC_END/RCiEP to diagram
-- Wrap past 80 columns.
-- Update cxl_forward_error() return-value behavior
-- Add review-by for Jonathan Cameron
-- Document the CPER/firmware-first flow (GHES + ext-log producers,
-  CPER-CXL kfifo, trace-only consumer)
-- Document the fatal EP/RCD UCE flow via the .error_detected
-  (cxl_pci_error_detected) RAS path, including channel-state handling
-- Add an "AER handlers vs RAS handlers" section clarifying the two
-  handler layers and their relationship
+Added by mistake, will remove.
 
-Changes in v17->v18:
-- Simplify document for readability (Jonathan)
-- Drop historical context that goes stale (Jonathan)
-- Shorten ASCII flow diagram (Jonathan)
-- Drop manual backtick markup, use automarkup (Jonathan)
-- Clarify USP/DSP as single switch component (Dave)
-- Fix line wrapping to 80 chars (Jonathan)
----
- Documentation/driver-api/cxl/index.rst        |   1 +
- .../cxl/linux/protocol-error-handling.rst     | 441 ++++++++++++++++++
- 2 files changed, 442 insertions(+)
- create mode 100644 Documentation/driver-api/cxl/linux/protocol-error-handling.rst
+> > +             .ops = &clk_rcg2_floor_ops,
+> > +     },
+> > +};
+> > +
+> > +static const struct freq_tbl ftbl_gcc_sdcc2_apps_clk_src[] = {
+> > +     F(400000, P_BI_TCXO, 12, 1, 4),
+> > +     F(19200000, P_BI_TCXO, 1, 0, 0),
+> > +     F(25000000, P_GPLL0_OUT_EVEN, 6, 1, 2),
+> > +     F(50000000, P_GPLL0_OUT_EVEN, 6, 0, 0),
+> > +     F(100000000, P_GPLL0_OUT_EVEN, 3, 0, 0),
+> > +     F(202000000, P_GPLL9_OUT_MAIN, 4, 0, 0),
+> > +     { }
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_sdcc2_apps_clk_src = {
+> > +     .cmd_rcgr = 0x1400c,
+> > +     .mnd_width = 8,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_4,
+> > +     .freq_tbl = ftbl_gcc_sdcc2_apps_clk_src,
+> > +     .clkr.hw.init = &(const struct clk_init_data){
+> > +             .name = "gcc_sdcc2_apps_clk_src",
+> > +             .parent_data = gcc_parent_data_4,
+> > +             .num_parents = ARRAY_SIZE(gcc_parent_data_4),
+> > +             .flags = CLK_OPS_PARENT_ENABLE,
+>
+> same here?
+>
 
-diff --git a/Documentation/driver-api/cxl/index.rst b/Documentation/driver-api/cxl/index.rst
-index 3dfae1d310ca5..6861b2e5726a3 100644
---- a/Documentation/driver-api/cxl/index.rst
-+++ b/Documentation/driver-api/cxl/index.rst
-@@ -42,6 +42,7 @@ that have impacts on each other.  The docs here break up configurations steps.
-    linux/dax-driver
-    linux/memory-hotplug
-    linux/access-coordinates
-+   linux/protocol-error-handling
- 
- .. toctree::
-    :maxdepth: 2
-diff --git a/Documentation/driver-api/cxl/linux/protocol-error-handling.rst b/Documentation/driver-api/cxl/linux/protocol-error-handling.rst
-new file mode 100644
-index 0000000000000..1da71d0409a05
---- /dev/null
-+++ b/Documentation/driver-api/cxl/linux/protocol-error-handling.rst
-@@ -0,0 +1,441 @@
-+.. SPDX-License-Identifier: GPL-2.0
-+
-+==============================
-+CXL Protocol Error Handling
-+==============================
-+
-+CXL devices report protocol-layer failures (CXL.cachemem RAS) as PCIe AER
-+Internal Errors: PCI_ERR_COR_INTERNAL for correctable events and
-+PCI_ERR_UNC_INTN for uncorrectable events. The actual fault information
-+lives in CXL RAS capability registers, not in the PCIe AER status registers.
-+
-+The kernel routes every CXL Internal Error through a producer/consumer
-+pipeline shared by all CXL device types: Root Ports, Upstream/Downstream
-+Switch Ports, Endpoints, and Restricted CXL Devices (RCDs).
-+
-+Errors are delivered by one of two mechanisms. On native-AER platforms the
-+kernel takes the AER interrupt and reads the CXL RAS registers itself. On
-+firmware-first (CPER/GHES) platforms, platform firmware handles the error
-+and hands the kernel a CPER record; that path is trace-only. Both converge
-+on the same cxl_core RAS handlers.
-+
-+
-+Architecture
-+============
-+
-+Two error planes run side by side:
-+
-+* The **PCIe AER plane** handles native PCIe errors (receiver overflows,
-+  malformed TLPs, completion timeouts, etc.). This includes CXL.io, which
-+  is functionally PCIe and reports through native AER status registers.
-+* The **CXL protocol error plane** handles CXL.cachemem (CXL.cache and
-+  CXL.mem) protocol errors. These have no native AER status; they are
-+  signaled as AER Internal Errors, with the fault detail held in the CXL
-+  RAS capability registers. The AER core forwards them to cxl_core via a
-+  dedicated kfifo; cxl_core reads the CXL RAS registers, emits trace
-+  events, and applies recovery/panic policy.
-+
-+The boundary between the two planes is enforced by is_cxl_error() in
-+aer_cxl_vh.c. It checks info->is_cxl, the PCIe device type (Endpoint,
-+Root Port, Upstream, or Downstream), and whether the AER status word
-+indicates an internal error. RC_END devices are excluded from
-+is_cxl_error() because they reach the kfifo via the separate
-+cxl_rch_handle_error() path instead.
-+
-+The pipeline:
-+
-+1. **Producer** (aer_cxl_vh.c, aer_cxl_rch.c) - AER threaded handler
-+   context. Classifies and enqueues a struct cxl_proto_err_work_data
-+   into the kfifo.
-+2. **Queue** - the AER-CXL kfifo plus a backing work_struct.
-+3. **Consumer** (cxl_core/ras.c) - workqueue context. Resolves the CXL
-+   port topology and dispatches to CE/UE handlers.
-+
-+
-+AER handlers vs RAS handlers
-+============================
-+
-+Two distinct handler layers cooperate; keeping them separate is central to
-+the design:
-+
-+* **AER handlers** run in PCIe AER context (aer.c, aer_cxl_vh.c,
-+  aer_cxl_rch.c). They own the PCIe side: they observe the Internal Error,
-+  classify it with is_cxl_error(), and act only as the *producer* - they
-+  enqueue a work item into the AER-CXL kfifo. AER handlers never touch the
-+  CXL RAS capability registers and, in the normal path, make no
-+  recovery/panic decision. The one exception is kfifo overflow: if the
-+  AER-CXL kfifo is full, cxl_forward_error() drops a correctable error but
-+  panics on a non-correctable one, since a dropped uncorrectable protocol
-+  error can no longer be confirmed via CXL RAS (see "Severity policy").
-+
-+* **RAS handlers** run in cxl_core (cxl_core/ras.c, cxl_core/ras_rch.c).
-+  They are the *consumers*: they read the CXL RAS capability registers,
-+  emit the CXL trace events, and apply the CE/UCE severity policy (clear
-+  correctable status, or panic on an uncorrectable error). A RAS handler
-+  is where the actual CXL fault information is decoded, because that
-+  information lives in the RAS registers, not in the PCIe AER status word.
-+
-+The AER handler and the RAS handler are decoupled by the kfifo: the AER
-+handler cannot acquire the sleeping port device lock, and the RAS handler
-+runs in workqueue context where it can safely take port locks. The
-+same RAS decode is reached through three different entry paths:
-+
-+* the AER-CXL kfifo consumer (native AER, VH and RCH),
-+* the pci_error_handlers .error_detected callback (fatal EP/RCD UCE, where
-+  no AER status is available), and
-+* the CPER-CXL kfifo consumer (firmware-first CPER/GHES, trace-only).
-+
-+The first two paths share the same decode and severity policy (read the
-+RAS registers, clear correctable status, panic on an uncorrectable error).
-+They differ only when the RAS registers are unmapped: the AER kfifo path
-+reaches cxl_do_recovery() only after a CXL internal error is confirmed and
-+so panics on an unmapped RAS block, while the .error_detected path has no
-+such prior confirmation and instead skips the read without panicking.
-+The CPER path differs: it is firmware-first and trace-only - it emits the
-+CXL trace events but does not call cxl_do_recovery() and never panics (see
-+the "CPER / firmware-first flow" and "Severity policy" sections below).
-+
-+
-+Topologies
-+==========
-+
-+Virtual Hierarchy (VH)
-+----------------------
-+
-+Standard PCIe topology: Root Port, optional switch (Upstream Port with one
-+or more Downstream Ports), and Endpoints. Each component raises Internal
-+Errors directly via the Root Port's AER interrupt.
-+
-+Producer: cxl_forward_error() in aer_cxl_vh.c.
-+
-+Restricted CXL Host (RCH)
-+--------------------------
-+
-+A Root Complex Event Collector (RCEC) aggregates errors from RCDs attached
-+as Root Complex Integrated Endpoints. The AER driver iterates RCDs beneath
-+the RCEC via pcie_walk_rcec() and forwards each qualifying device through
-+cxl_forward_error() into the same kfifo.
-+
-+Producer: cxl_forward_error() in aer_cxl_vh.c, called from
-+cxl_rch_handle_error_iter() via pcie_walk_rcec().
-+
-+
-+Error flow
-+==========
-+
-+.. code-block:: text
-+
-+   CXL device raises AER Internal Error
-+   (PCI_ERR_COR_INTERNAL or PCI_ERR_UNC_INTN)
-+                   |
-+                   v
-+   +--------------------------------------+
-+   | AER core (aer.c)                     |
-+   |  aer_irq() -> aer_isr()              |
-+   |  -> find_source_device()             |
-+   |  -> handle_error_source(dev, info)   |
-+   +--------------------------------------+
-+                   |
-+                   v
-+   +--------------------------------------+
-+   | handle_error_source() dispatch       |
-+   |                                      |
-+   |  1. cxl_rch_handle_error()           |
-+   |     [always; filters internally.     |
-+   |      RC_END enters the kfifo here    |
-+   |      via pcie_walk_rcec(), NOT via   |
-+   |      is_cxl_error() below]           |
-+   |                                      |
-+   |  2. if is_cxl_error():               |
-+   |       cxl_forward_error()            |
-+   |       [enqueue to kfifo; EP/RP/USP/  |
-+   |        DSP only, RC_END excluded]    |
-+   |                                      |
-+   |  3. if cxl_pending && non-CE:        |
-+   |       cxl_proto_err_wait_for_empty() |
-+   |       [sync drain before recovery]   |
-+   |                                      |
-+   |  4. pci_aer_handle_error() [always]  |
-+   +--------------------------------------+
-+                   |
-+          (kfifo -> workqueue)
-+                   |
-+                   v
-+   +--------------------------------------+
-+   | __cxl_proto_err_work_fn() consumer   |
-+   |                                      |
-+   |  if is_cxl_restricted(pdev):         |
-+   |    cxl_handle_rdport_errors()        |
-+   |    [RCH dport RAS first]             |
-+   |                                      |
-+   |  cxl_handle_proto_error()            |
-+   +--------------------------------------+
-+            |                |
-+            v                v
-+   +-----------------+  +--------------------+
-+   | CE              |  | UCE                |
-+   | cxl_handle_     |  | cxl_do_recovery()  |
-+   |   cor_ras()     |  |  read RAS status   |
-+   | trace + clear   |  |  trace + panic     |
-+   +-----------------+  +--------------------+
-+
-+cxl_do_recovery() first checks whether the CXL RAS register block is
-+mapped. If it is not (to_ras_base() returns NULL), the kernel panics
-+immediately without reading any register or emitting a trace event,
-+because a signaled UCE cannot be confirmed or cleared. Otherwise it
-+reads the CXL RAS uncorrectable status register. If UE bits are set, it
-+emits the trace event and panics. If no bits are set (e.g. RAS mapped but
-+error already cleared), it logs a debug diagnostic and returns without
-+action, allowing the caller to proceed with normal AER recovery.
-+
-+The consumer reaches cxl_handle_proto_error() only after the topology
-+lookups succeed: it returns early (dropping the event) if the parent port
-+is not found, if the port host device is unbound, or if the dport is not
-+found for a Root Port or Downstream Port. A UCE enqueued to the kfifo can
-+therefore be discarded without a panic if the topology is torn down or not
-+yet registered between enqueue and consumer execution.
-+
-+
-+Fatal UCE flow for Endpoints and RCDs
-+=====================================
-+
-+For a fatal (AER_FATAL) uncorrectable error, aer_get_device_error_info()
-+reads the AER uncorrectable status register only for Root Ports, RC Event
-+Collectors, and Downstream Ports; it skips the read for Endpoints and
-+Upstream Ports because their link is presumed down. With info->status left
-+zero, is_cxl_error() cannot classify the event as a CXL protocol error, so
-+it never enters the AER-CXL kfifo. This is a severity/device-type property,
-+not an RCH-specific one: it affects every Endpoint (VH Endpoint and RCD
-+alike) and every Upstream Port.
-+
-+Endpoints instead reach the RAS handler through the pci_error_handlers
-+.error_detected callback (cxl_pci_error_detected()), which is registered by
-+the CXL memdev driver and fires for both VH Endpoints and RCDs. The only
-+RCD-specific step is the leading cxl_handle_rdport_errors() call, which
-+processes the RCH Downstream Port's RAS registers first; the Endpoint RAS
-+read and panic policy that follow are identical for VH and RCH:
-+
-+.. code-block:: text
-+
-+   Fatal UCE on Endpoint (VH Endpoint or RCD; link down, no AER status)
-+                   |
-+                   v
-+   +--------------------------------------+
-+   | PCIe core error recovery             |
-+   |  pcie_do_recovery()                  |
-+   |  -> report_error_detected()          |
-+   |  -> cxl_pci_error_detected()         |
-+   |     [pci_error_handlers callback in  |
-+   |      cxl_core/ras.c; the RAS handler,|
-+   |      NOT the AER kfifo path]         |
-+   +--------------------------------------+
-+                   |
-+                   v
-+   +--------------------------------------+
-+   | cxl_pci_error_detected()             |
-+   |                                      |
-+   |  if is_cxl_restricted(pdev):         |
-+   |    cxl_handle_rdport_errors()        |
-+   |    [RCD-only: RCH Dport RAS first]   |
-+   |                                      |
-+   |  if port->dev.driver == NULL:        |
-+   |    return DISCONNECT [port unbound]  |
-+   |                                      |
-+   |  cxl_handle_ras(port, NULL,          |
-+   |                 to_ras_base(...),    |
-+   |                 pdev->dsn)           |
-+   |    [EP RAS read, independent of      |
-+   |     channel state (not skipped for   |
-+   |     io_normal); dead link            |
-+   |     readl()==0xFFFFFFFF sets all UE  |
-+   |     bits -> panic]                   |
-+   |                                      |
-+   |  if ue: panic("CXL cachemem error")  |
-+   |                                      |
-+   |  else switch (channel state):        |
-+   |    io_normal      -> CAN_RECOVER     |
-+   |    io_frozen      -> release driver, |
-+   |                      NEED_RESET      |
-+   |    perm_failure   -> DISCONNECT      |
-+   +--------------------------------------+
-+
-+This path handles both severities: a non-fatal EP UCE arrives as
-+pci_channel_io_normal and a fatal EP UCE as pci_channel_io_frozen. Either
-+way the CXL RAS read runs first, so a real CXL.mem UCE always panics; only
-+when no CXL UE bit is set (or RAS is unmapped) does the channel state drive
-+ordinary AER recovery. Endpoint unbind therefore does not depend on the
-+AER-status-to-RAS coupling that the kfifo path relies on.
-+
-+Upstream Ports bound to portdrv have no such .error_detected callback and
-+fall back to standard AER recovery - this is a known limitation.
-+
-+
-+CPER / firmware-first flow
-+==========================
-+
-+On firmware-first platforms, CXL protocol errors are delivered by platform
-+firmware as an ACPI CPER record (CPER_SEC_CXL_PROT_ERR) instead of a native
-+AER interrupt. These records already contain a snapshot of the CXL RAS
-+capability registers, so the RAS handler does not read hardware; it only
-+emits trace events. Firmware-first is therefore trace-only and never
-+panics or drives recovery - the platform owns the recovery decision.
-+
-+CPER protocol-error records are delivered by the GHES/APEI firmware-first
-+path:
-+
-+* **GHES/APEI** (ghes.c) - the common firmware-first path. Its producer,
-+  cxl_cper_post_prot_err(), enqueues a struct cxl_cper_prot_err_work_data
-+  into a dedicated CPER-CXL kfifo (cxl_cper_prot_err_fifo, depth 8) and
-+  schedules the cxl_core consumer work item.
-+
-+.. code-block:: text
-+
-+   Platform firmware CPER record (CPER_SEC_CXL_PROT_ERR)
-+            |
-+            v
-+   +----------------------+
-+   | GHES/APEI (ghes.c)   |
-+   |  ghes_do_proc()      |
-+   |  cxl_cper_post_      |
-+   |    prot_err()        |
-+   |  kfifo_put(CPER-CXL) |
-+   |  schedule_work()     |
-+   +----------------------+
-+            |
-+            v
-+   +----------------------+
-+   | CPER-CXL kfifo       |
-+   | + work_struct        |
-+   +----------------------+
-+            |
-+            v
-+   +----------------------+
-+   | cxl_cper_prot_err_   |
-+   |   work_fn() consumer |
-+   | (cxl_core/ras.c)     |
-+   |  drain kfifo ->      |
-+   +----------------------+
-+            |
-+            v
-+   +--------------------------------+
-+   | cxl_cper_handle_prot_err()     |
-+   |  pci_get_domain_bus_and_slot() |
-+   |  find_cxl_port_by_dev()        |
-+   |  cxl_find_dport_by_dev()       |
-+   |                                |
-+   |  if CE: trace correctable      |
-+   |  else:  trace uncorrectable    |
-+   |  [trace-only; no panic,        |
-+   |   no cxl_do_recovery()]        |
-+   +--------------------------------+
-+
-+The consumer work item is registered with GHES via
-+cxl_cper_register_prot_err_work() when cxl_core loads and torn down with
-+cxl_cper_unregister_prot_err_work(), which cancels any pending work and
-+resets the kfifo so stale records are not replayed on the next module load.
-+
-+
-+Severity policy
-+===============
-+
-+**CE** - cxl_handle_cor_ras() reads the CXL RAS correctable status register,
-+clears set bits, and emits a cxl_aer_correctable_error trace event. No
-+recovery action.
-+
-+**UCE (non-fatal, and fatal on Root Port/Downstream Port)** -
-+cxl_do_recovery() reads the CXL RAS uncorrectable status register. If UE
-+bits are set, the kernel panics. If the CXL RAS register block is not
-+mapped (to_ras_base() returns NULL), cxl_do_recovery() panics before any
-+register read and emits no trace event, since the UCE cannot be confirmed.
-+CXL.cachemem traffic cannot be safely recovered once an uncorrectable error
-+is signaled; continuing risks silent data corruption. This panic policy
-+applies to the native AER path. On firmware-first (CPER/GHES) platforms the
-+CPER handler emits trace events only and does not call cxl_do_recovery().
-+
-+**kfifo overflow** - if the AER-CXL kfifo is full when the producer
-+(cxl_forward_error()) tries to enqueue, a correctable error is dropped with
-+a ratelimited log message, but a non-correctable error triggers an
-+immediate panic() from the AER handler itself. A dropped uncorrectable
-+protocol error can no longer be confirmed or recovered via CXL RAS and may
-+signal lost cache coherency over HDM memory in active use, so it is
-+collapsed to the same conservative outcome as a confirmed UCE. This is the
-+only case where an AER handler, rather than a RAS handler, makes the panic
-+decision.
-+
-+**Fatal UCE on EP/USP** - A fatal event brings the link down, so the AER
-+core reads no AER status and is_cxl_error() cannot enqueue the event to the
-+kfifo. Endpoints and RCDs are instead handled through the
-+pci_error_handlers .error_detected callback (cxl_pci_error_detected()),
-+which reads the CXL RAS registers when they are mapped and panics on any UE
-+bit. If the RAS registers are unmapped the read is skipped without a panic,
-+because this path has no prior confirmation that the error is CXL internal.
-+Upstream Ports bound to portdrv fall back to standard AER recovery - a known
-+limitation. See "Fatal UCE flow for Endpoints and RCDs" above for the full
-+path and channel-state handling.
-+
-+
-+RCH special case
-+================
-+
-+When the consumer sees is_cxl_restricted(pdev), it calls
-+cxl_handle_rdport_errors() first to process the RCH Downstream Port's RAS
-+registers (accessed via RCRB, not standard config space). It then
-+continues to process the RCD Endpoint's own RAS registers via the common
-+path. Both register blocks are checked because errors can appear in either
-+independently.
-+
-+cxl_handle_rdport_errors() acquires the device lock on port->uport_dev (the
-+CXL Host Bridge) internally. Callers must not hold it.
-+
-+
-+Trace events
-+============
-+
-+Two trace events cover all device types and both the native AER and
-+CPER/GHES firmware-first paths:
-+
-+* cxl_aer_correctable_error
-+* cxl_aer_uncorrectable_error
-+
-+Fields:
-+
-+* ``memdev`` - memdev name for Endpoints; empty for non-Endpoints.
-+* ``port`` - CXL port device name.
-+* ``dport`` - Downstream Port device name; empty when not applicable.
-+* ``host`` - parent host bridge or uport device name.
-+* ``serial`` - PCI Device Serial Number from pdev->dsn (cached at
-+  enumeration; no config-space read in the error path).
-+
-+
-+Interrupt masking
-+=================
-+
-+CXL Internal Error bits (PCI_ERR_UNC_INTN and PCI_ERR_COR_INTERNAL) are
-+unmasked in the AER capability only after the CXL RAS register block is
-+successfully mapped. A devm teardown action restores the mask when the
-+port or dport is removed, ensuring clean state after driver removal.
-+
-+
-+Source files
-+============
-+
-+.. list-table::
-+   :header-rows: 1
-+
-+   * - File
-+     - Role
-+   * - drivers/pci/pcie/aer.c
-+     - AER core; IRQ, dispatch
-+   * - drivers/pci/pcie/aer_cxl_vh.c
-+     - VH AER producer; AER-CXL kfifo
-+   * - drivers/pci/pcie/aer_cxl_rch.c
-+     - RCH AER dispatch; RCEC walk
-+   * - drivers/cxl/core/ras.c
-+     - RAS handlers; AER-CXL and CPER-CXL kfifo consumers;
-+       .error_detected callback (cxl_pci_error_detected)
-+   * - drivers/cxl/core/ras_rch.c
-+     - RCH Downstream Port RAS handling
-+   * - drivers/acpi/apei/ghes.c
-+     - CPER/GHES producer; CPER-CXL kfifo
-+   * - drivers/acpi/apei/ghes_helpers.c
-+     - CPER record validation and work-data setup helpers
--- 
-2.34.1
+Added by mistake, will remove.
 
+> > +             .ops = &clk_rcg2_floor_ops,
+> > +     },
+> > +};
+> > +
+> > +static const struct freq_tbl ftbl_gcc_sdcc4_apps_clk_src[] = {
+> > +     F(400000, P_BI_TCXO, 12, 1, 4),
+> > +     F(19200000, P_BI_TCXO, 1, 0, 0),
+> > +     F(25000000, P_GPLL0_OUT_EVEN, 6, 1, 2),
+> > +     F(50000000, P_GPLL0_OUT_EVEN, 6, 0, 0),
+> > +     F(100000000, P_GPLL0_OUT_EVEN, 3, 0, 0),
+> > +     { }
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_sdcc4_apps_clk_src = {
+> > +     .cmd_rcgr = 0x1600c,
+> > +     .mnd_width = 8,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_0,
+> > +     .freq_tbl = ftbl_gcc_sdcc4_apps_clk_src,
+> > +     .clkr.hw.init = &(const struct clk_init_data){
+> > +             .name = "gcc_sdcc4_apps_clk_src",
+> > +             .parent_data = gcc_parent_data_0,
+> > +             .num_parents = ARRAY_SIZE(gcc_parent_data_0),
+> > +             .ops = &clk_rcg2_floor_ops,
+> > +     },
+> > +};
+> > +
+> > +static const struct freq_tbl ftbl_gcc_ufs_phy_axi_clk_src[] = {
+> > +     F(25000000, P_GPLL0_OUT_EVEN, 12, 0, 0),
+> > +     F(50000000, P_GPLL0_OUT_EVEN, 6, 0, 0),
+> > +     F(100000000, P_GPLL0_OUT_MAIN, 6, 0, 0),
+> > +     F(200000000, P_GPLL0_OUT_MAIN, 3, 0, 0),
+> > +     F(240000000, P_GPLL0_OUT_MAIN, 2.5, 0, 0),
+> > +     { }
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_ufs_phy_axi_clk_src = {
+> > +     .cmd_rcgr = 0x77024,
+> > +     .mnd_width = 8,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_0,
+> > +     .freq_tbl = ftbl_gcc_ufs_phy_axi_clk_src,
+> > +     .clkr.hw.init = &(const struct clk_init_data){
+> > +             .name = "gcc_ufs_phy_axi_clk_src",
+> > +             .parent_data = gcc_parent_data_0,
+> > +             .num_parents = ARRAY_SIZE(gcc_parent_data_0),
+> > +             .ops = &clk_rcg2_ops,
+>
+> Please use clk_rcg2_shared_ops...
+>
+
+Downstream driver is using clk_rcg2_ops.
+Link: https://git.codelinaro.org/clo/la/kernel/msm-4.19/-/blob/f8d0e5a7cc9ffed5d489a519f48d1c6587fbd99b/drivers/clk/qcom/gcc-lito.c#L775
+I will update to clk_rcg2_shared_ops.
+
+> > +     },
+> > +};
+> > +
+> > +static const struct freq_tbl ftbl_gcc_ufs_phy_ice_core_clk_src[] = {
+> > +     F(37500000, P_GPLL0_OUT_EVEN, 8, 0, 0),
+> > +     F(75000000, P_GPLL0_OUT_EVEN, 4, 0, 0),
+> > +     F(150000000, P_GPLL0_OUT_MAIN, 4, 0, 0),
+> > +     F(300000000, P_GPLL0_OUT_MAIN, 2, 0, 0),
+> > +     { }
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_ufs_phy_ice_core_clk_src = {
+> > +     .cmd_rcgr = 0x7706c,
+> > +     .mnd_width = 0,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_0,
+> > +     .freq_tbl = ftbl_gcc_ufs_phy_ice_core_clk_src,
+> > +     .clkr.hw.init = &(const struct clk_init_data){
+> > +             .name = "gcc_ufs_phy_ice_core_clk_src",
+> > +             .parent_data = gcc_parent_data_0,
+> > +             .num_parents = ARRAY_SIZE(gcc_parent_data_0),
+> > +             .ops = &clk_rcg2_ops,
+>
+> clk_rcg2_shared_ops
+>
+
+Same reason as above.
+I will update to clk_rcg2_shared_ops.
+
+> > +     },
+> > +};
+> > +
+> > +static const struct freq_tbl ftbl_gcc_ufs_phy_phy_aux_clk_src[] = {
+> > +     F(19200000, P_BI_TCXO, 1, 0, 0),
+> > +     { }
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_ufs_phy_phy_aux_clk_src = {
+> > +     .cmd_rcgr = 0x770a0,
+> > +     .mnd_width = 0,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_2,
+> > +     .freq_tbl = ftbl_gcc_ufs_phy_phy_aux_clk_src,
+> > +     .clkr.hw.init = &(const struct clk_init_data){
+> > +             .name = "gcc_ufs_phy_phy_aux_clk_src",
+> > +             .parent_data = gcc_parent_data_2,
+> > +             .num_parents = ARRAY_SIZE(gcc_parent_data_2),
+> > +             .ops = &clk_rcg2_ops,
+>
+> clk_rcg2_shared_ops
+>
+
+Same reason as above.
+I will update to clk_rcg2_shared_ops.
+
+> > +     },
+> > +};
+> > +
+> > +static const struct freq_tbl ftbl_gcc_ufs_phy_unipro_core_clk_src[] = {
+> > +     F(37500000, P_GPLL0_OUT_EVEN, 8, 0, 0),
+> > +     F(75000000, P_GPLL0_OUT_MAIN, 8, 0, 0),
+> > +     F(150000000, P_GPLL0_OUT_MAIN, 4, 0, 0),
+> > +     { }
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_ufs_phy_unipro_core_clk_src = {
+> > +     .cmd_rcgr = 0x77084,
+> > +     .mnd_width = 0,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_0,
+> > +     .freq_tbl = ftbl_gcc_ufs_phy_unipro_core_clk_src,
+> > +     .clkr.hw.init = &(const struct clk_init_data){
+> > +             .name = "gcc_ufs_phy_unipro_core_clk_src",
+> > +             .parent_data = gcc_parent_data_0,
+> > +             .num_parents = ARRAY_SIZE(gcc_parent_data_0),
+> > +             .ops = &clk_rcg2_ops,
+> > +     },
+> > +};
+> > +
+> > +static const struct freq_tbl ftbl_gcc_usb30_prim_master_clk_src[] = {
+> > +     F(66666667, P_GPLL0_OUT_EVEN, 4.5, 0, 0),
+> > +     F(133333333, P_GPLL0_OUT_MAIN, 4.5, 0, 0),
+> > +     F(200000000, P_GPLL0_OUT_MAIN, 3, 0, 0),
+> > +     F(240000000, P_GPLL0_OUT_MAIN, 2.5, 0, 0),
+> > +     { }
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_usb30_prim_master_clk_src = {
+> > +     .cmd_rcgr = 0xf020,
+> > +     .mnd_width = 8,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_0,
+> > +     .freq_tbl = ftbl_gcc_usb30_prim_master_clk_src,
+> > +     .clkr.hw.init = &(const struct clk_init_data){
+> > +             .name = "gcc_usb30_prim_master_clk_src",
+> > +             .parent_data = gcc_parent_data_0,
+> > +             .num_parents = ARRAY_SIZE(gcc_parent_data_0),
+> > +             .ops = &clk_rcg2_ops,
+>
+> clk_rcg2_shared_ops
+>
+
+Same reason as above.
+I will update to clk_rcg2_shared_ops.
+
+> > +     },
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_usb30_prim_mock_utmi_clk_src = {
+> > +     .cmd_rcgr = 0xf038,
+> > +     .mnd_width = 0,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_0,
+> > +     .freq_tbl = ftbl_gcc_ufs_phy_phy_aux_clk_src,
+> > +     .clkr.hw.init = &(const struct clk_init_data){
+> > +             .name = "gcc_usb30_prim_mock_utmi_clk_src",
+> > +             .parent_data = gcc_parent_data_0,
+> > +             .num_parents = ARRAY_SIZE(gcc_parent_data_0),
+> > +             .ops = &clk_rcg2_ops,
+>
+> clk_rcg2_shared_ops
+>
+
+Same reason as above.
+I will update to clk_rcg2_shared_ops.
+
+> > +     },
+> > +};
+> > +
+> > +static struct clk_rcg2 gcc_usb3_prim_phy_aux_clk_src = {
+> > +     .cmd_rcgr = 0xf064,
+> > +     .mnd_width = 0,
+> > +     .hid_width = 5,
+> > +     .parent_map = gcc_parent_map_5,
+> > +     .freq_tbl = ftbl_gcc_ufs_phy_phy_aux_clk_src,
+> > +     .clkr.hw.init = &(const struct clk_init_data){
+> > +             .name = "gcc_usb3_prim_phy_aux_clk_src",
+> > +             .parent_data = gcc_parent_data_5,
+> > +             .num_parents = ARRAY_SIZE(gcc_parent_data_5),
+> > +             .ops = &clk_rcg2_ops,
+>
+> clk_rcg2_shared_ops
+>
+
+Same reason as above.
+I will update to clk_rcg2_shared_ops.
+
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_aggre_ufs_phy_axi_clk = {
+> > +     .halt_reg = 0x770cc,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+>
+> Reason to use HALT_VOTED?
+>
+
+I referred to gcc-kona.c from the downstream kernel and
+gcc-sm8250.c from the mainline kernel before porting for SM7250.
+I found that some of the clock branch uses HALT_VOTED in mainline kernel
+and HALT in the downstream kernel. So, I thought this change is needed for
+mainline kernel driver porting.
+
+gcc-kona.c: Link:
+https://git.codelinaro.org/clo/la/kernel/msm-4.19/-/blob/f8d0e5a7cc9ffed5d489a519f48d1c6587fbd99b/drivers/clk/qcom/gcc-kona.c#L1622
+gcc-sm8250.c: Link:
+https://github.com/torvalds/linux/blob/master/drivers/clk/qcom/gcc-sm8250.c#L1093
+
+The gcc-lito.c in the downstream kernel uses the HALT.
+
+gcc-lito.c: Link:
+https://git.codelinaro.org/clo/la/kernel/msm-4.19/-/blob/f8d0e5a7cc9ffed5d489a519f48d1c6587fbd99b/drivers/clk/qcom/gcc-lito.c#L934
+
+I will update if I can match the same halt_checks from the downstream kernel.
+
+> > +     .hwcg_reg = 0x770cc,
+> > +     .hwcg_bit = 1,
+> > +     .clkr = {
+> > +             .enable_reg = 0x770cc,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_aggre_ufs_phy_axi_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_ufs_phy_axi_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_aggre_usb3_prim_axi_clk = {
+> > +     .halt_reg = 0xf080,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+>
+> Any reason to use HALT_VOTED?
+>
+
+Same reason as above.
+
+> > +     .clkr = {
+> > +             .enable_reg = 0xf080,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_aggre_usb3_prim_axi_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_usb30_prim_master_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_boot_rom_ahb_clk = {
+> > +     .halt_reg = 0x38004,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .hwcg_reg = 0x38004,
+> > +     .hwcg_bit = 1,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52000,
+> > +             .enable_mask = BIT(10),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_boot_rom_ahb_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_camera_hf_axi_clk = {
+> > +     .halt_reg = 0xb028,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+>
+> If you use HALT_VOTED, it is a problem as this clock should be actually
+> enabled for the further camera to be operational.
+>
+
+Oh understood. But, same reason as above.
+
+> > +     .clkr = {
+> > +             .enable_reg = 0xb028,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_camera_hf_axi_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_camera_sf_axi_clk = {
+> > +     .halt_reg = 0xb02c,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+>
+> Same here. The camera SW driver needs to vote on BW and then this clock
+> needs to be turned ON.
+>
+
+Oh understood. But, same reason as above.
+
+> > +     .clkr = {
+> > +             .enable_reg = 0xb02c,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_camera_sf_axi_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_cfg_noc_usb3_prim_axi_clk = {
+> > +     .halt_reg = 0xf07c,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+>
+> Please do not use VOTED.
+>
+
+Oh understood. But, same reason as above.
+
+> > +     .clkr = {
+> > +             .enable_reg = 0xf07c,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_cfg_noc_usb3_prim_axi_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_usb30_prim_master_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_cpuss_gnoc_clk = {
+> > +     .halt_reg = 0x48064,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52000,
+> > +             .enable_mask = BIT(29),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_cpuss_gnoc_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_cpuss_rbcpr_clk = {
+> > +     .halt_reg = 0x48004,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .clkr = {
+> > +             .enable_reg = 0x48004,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_cpuss_rbcpr_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_ddrss_gpu_axi_clk = {
+> > +     .halt_reg = 0x71154,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+>
+> BRANCH_VOTED (we do not check the HALT bit any time).
+>
+
+Oh understood. But, same reason as above.
+
+> > +     .clkr = {
+> > +             .enable_reg = 0x71154,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_ddrss_gpu_axi_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_disp_gpll0_clk_src = {
+> > +     .halt_check = BRANCH_HALT_DELAY,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52000,
+> > +             .enable_mask = BIT(20),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_disp_gpll0_clk_src",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gpll0.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_disp_hf_axi_clk = {
+> > +     .halt_reg = 0xb030,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+>
+> BRANCH_HALT
+>
+
+Same reason as above.
+
+> > +     .clkr = {
+> > +             .enable_reg = 0xb030,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_disp_hf_axi_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_disp_sf_axi_clk = {
+> > +     .halt_reg = 0xb034,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+>
+> BRANCH_HALT
+>
+
+Same reason as above.
+
+> > +     .clkr = {
+> > +             .enable_reg = 0xb034,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_disp_sf_axi_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_gp1_clk = {
+> > +     .halt_reg = 0x64000,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .clkr = {
+> > +             .enable_reg = 0x64000,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_gp1_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_gp1_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_gp2_clk = {
+> > +     .halt_reg = 0x65000,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .clkr = {
+> > +             .enable_reg = 0x65000,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_gp2_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_gp2_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_gp3_clk = {
+> > +     .halt_reg = 0x66000,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .clkr = {
+> > +             .enable_reg = 0x66000,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_gp3_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_gp3_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_gpu_gpll0_clk_src = {
+> > +     .halt_check = BRANCH_HALT_DELAY,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52000,
+> > +             .enable_mask = BIT(15),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_gpu_gpll0_clk_src",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gpll0.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_gpu_gpll0_div_clk_src = {
+> > +     .halt_check = BRANCH_HALT_DELAY,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52000,
+> > +             .enable_mask = BIT(16),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_gpu_gpll0_div_clk_src",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gpll0_out_even.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_gpu_iref_clk = {
+> > +     .halt_reg = 0x8c014,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .clkr = {
+> > +             .enable_reg = 0x8c014,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_gpu_iref_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_gpu_memnoc_gfx_clk = {
+> > +     .halt_reg = 0x7100c,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+>
+> BRANCH_VOTED
+>
+
+I referred to gcc-kona.c from the downstream kernel and
+gcc-sm8250.c from the mainline kernel before porting for SM7250.
+I found that some of the clock branch uses HALT_VOTED in mainline kernel
+and VOTED in the downstream kernel. So, I thought this change is needed for
+mainline kernel porting.
+
+gcc-kona.c: Link:
+https://git.codelinaro.org/clo/la/kernel/msm-4.19/-/blob/f8d0e5a7cc9ffed5d489a519f48d1c6587fbd99b/drivers/clk/qcom/gcc-kona.c#L2049
+gcc-sm8250.c: Link:
+https://github.com/torvalds/linux/blob/master/drivers/clk/qcom/gcc-sm8250.c#L1434
+
+The gcc-lito.c in the downstream kernel uses the VOTED.
+
+gcc-lito.c: Link:
+https://git.codelinaro.org/clo/la/kernel/msm-4.19/-/blob/f8d0e5a7cc9ffed5d489a519f48d1c6587fbd99b/drivers/clk/qcom/gcc-lito.c#L1330
+
+I will update if I can match the same halt_checks from the downstream kernel.
+
+> > +     .clkr = {
+> > +             .enable_reg = 0x7100c,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_gpu_memnoc_gfx_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_gpu_snoc_dvm_gfx_clk = {
+> > +     .halt_reg = 0x71018,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .clkr = {
+> > +             .enable_reg = 0x71018,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_gpu_snoc_dvm_gfx_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_npu_axi_clk = {
+> > +     .halt_reg = 0x4d008,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+>
+> Can you help me understand why we moved all the halt_checks from what is
+> there in the downstream driver?
+>
+
+I referred to gcc-kona.c from the downstream kernel and
+gcc-sm8250.c from the mainline kernel before porting for SM7250.
+I found that some of the clock branch uses HALT_VOTED in mainline kernel
+instead of HALT/VOTED from the downstream kernel. So, I thought this
+change is needed for
+mainline kernel porting.
+
+Can you please explain why this difference in case of gcc-kona.c, gcc-sm8250.c.
+
+> > +     .clkr = {
+> > +             .enable_reg = 0x4d008,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_npu_axi_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_npu_bwmon2_axi_clk = {
+> > +     .halt_reg = 0x7000c,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x7000c,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_npu_bwmon2_axi_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_npu_bwmon_axi_clk = {
+> > +     .halt_reg = 0x70008,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x70008,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_npu_bwmon_axi_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_npu_dma_clk = {
+> > +     .halt_reg = 0x4d00c,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x4d00c,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_npu_dma_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_npu_gpll0_clk_src = {
+> > +     .halt_check = BRANCH_HALT_DELAY,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52000,
+> > +             .enable_mask = BIT(18),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_npu_gpll0_clk_src",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gpll0.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_npu_gpll0_div_clk_src = {
+> > +     .halt_check = BRANCH_HALT_DELAY,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52000,
+> > +             .enable_mask = BIT(19),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_npu_gpll0_div_clk_src",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gpll0_out_even.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_pdm2_clk = {
+> > +     .halt_reg = 0x3300c,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .clkr = {
+> > +             .enable_reg = 0x3300c,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_pdm2_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_pdm2_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_pdm_ahb_clk = {
+> > +     .halt_reg = 0x33004,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .hwcg_reg = 0x33004,
+> > +     .hwcg_bit = 1,
+> > +     .clkr = {
+> > +             .enable_reg = 0x33004,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_pdm_ahb_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_pdm_xo4_clk = {
+> > +     .halt_reg = 0x33008,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .clkr = {
+> > +             .enable_reg = 0x33008,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_pdm_xo4_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_prng_ahb_clk = {
+> > +     .halt_reg = 0x34004,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52000,
+> > +             .enable_mask = BIT(13),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_prng_ahb_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qmip_camera_nrt_ahb_clk = {
+> > +     .halt_reg = 0xb018,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .hwcg_reg = 0xb018,
+> > +     .hwcg_bit = 1,
+> > +     .clkr = {
+> > +             .enable_reg = 0xb018,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qmip_camera_nrt_ahb_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qmip_camera_rt_ahb_clk = {
+> > +     .halt_reg = 0xb01c,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .hwcg_reg = 0xb01c,
+> > +     .hwcg_bit = 1,
+> > +     .clkr = {
+> > +             .enable_reg = 0xb01c,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qmip_camera_rt_ahb_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qmip_disp_ahb_clk = {
+> > +     .halt_reg = 0xb020,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .hwcg_reg = 0xb020,
+> > +     .hwcg_bit = 1,
+> > +     .clkr = {
+> > +             .enable_reg = 0xb020,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qmip_disp_ahb_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qmip_rt_disp_ahb_clk = {
+> > +     .halt_reg = 0xb07c,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .hwcg_reg = 0xb07c,
+> > +     .hwcg_bit = 1,
+> > +     .clkr = {
+> > +             .enable_reg = 0xb07c,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qmip_rt_disp_ahb_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qmip_video_cvp_ahb_clk = {
+> > +     .halt_reg = 0xb010,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .hwcg_reg = 0xb010,
+> > +     .hwcg_bit = 1,
+> > +     .clkr = {
+> > +             .enable_reg = 0xb010,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qmip_video_cvp_ahb_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qmip_video_vcodec_ahb_clk = {
+> > +     .halt_reg = 0xb014,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .hwcg_reg = 0xb014,
+> > +     .hwcg_bit = 1,
+> > +     .clkr = {
+> > +             .enable_reg = 0xb014,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qmip_video_vcodec_ahb_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qupv3_wrap0_core_2x_clk = {
+> > +     .halt_reg = 0x23008,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52008,
+> > +             .enable_mask = BIT(9),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qupv3_wrap0_core_2x_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qupv3_wrap0_core_clk = {
+> > +     .halt_reg = 0x23000,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52008,
+> > +             .enable_mask = BIT(8),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qupv3_wrap0_core_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qupv3_wrap0_s0_clk = {
+> > +     .halt_reg = 0x1700c,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52008,
+> > +             .enable_mask = BIT(10),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qupv3_wrap0_s0_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_qupv3_wrap0_s0_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qupv3_wrap0_s1_clk = {
+> > +     .halt_reg = 0x1713c,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52008,
+> > +             .enable_mask = BIT(11),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qupv3_wrap0_s1_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_qupv3_wrap0_s1_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qupv3_wrap0_s2_clk = {
+> > +     .halt_reg = 0x1726c,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52008,
+> > +             .enable_mask = BIT(12),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qupv3_wrap0_s2_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_qupv3_wrap0_s2_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qupv3_wrap0_s3_clk = {
+> > +     .halt_reg = 0x1739c,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52008,
+> > +             .enable_mask = BIT(13),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qupv3_wrap0_s3_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_qupv3_wrap0_s3_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qupv3_wrap0_s4_clk = {
+> > +     .halt_reg = 0x174cc,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52008,
+> > +             .enable_mask = BIT(14),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qupv3_wrap0_s4_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_qupv3_wrap0_s4_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qupv3_wrap0_s5_clk = {
+> > +     .halt_reg = 0x175fc,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52008,
+> > +             .enable_mask = BIT(15),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qupv3_wrap0_s5_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_qupv3_wrap0_s5_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qupv3_wrap1_core_2x_clk = {
+> > +     .halt_reg = 0x23140,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52008,
+> > +             .enable_mask = BIT(18),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qupv3_wrap1_core_2x_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qupv3_wrap1_core_clk = {
+> > +     .halt_reg = 0x23138,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52008,
+> > +             .enable_mask = BIT(19),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qupv3_wrap1_core_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qupv3_wrap1_s0_clk = {
+> > +     .halt_reg = 0x1800c,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52008,
+> > +             .enable_mask = BIT(22),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qupv3_wrap1_s0_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_qupv3_wrap1_s0_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qupv3_wrap1_s1_clk = {
+> > +     .halt_reg = 0x1813c,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52008,
+> > +             .enable_mask = BIT(23),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qupv3_wrap1_s1_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_qupv3_wrap1_s1_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qupv3_wrap1_s2_clk = {
+> > +     .halt_reg = 0x1826c,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52008,
+> > +             .enable_mask = BIT(24),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qupv3_wrap1_s2_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_qupv3_wrap1_s2_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qupv3_wrap1_s3_clk = {
+> > +     .halt_reg = 0x1839c,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52008,
+> > +             .enable_mask = BIT(25),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qupv3_wrap1_s3_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_qupv3_wrap1_s3_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qupv3_wrap1_s4_clk = {
+> > +     .halt_reg = 0x184cc,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52008,
+> > +             .enable_mask = BIT(26),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qupv3_wrap1_s4_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_qupv3_wrap1_s4_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qupv3_wrap1_s5_clk = {
+> > +     .halt_reg = 0x185fc,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52008,
+> > +             .enable_mask = BIT(27),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qupv3_wrap1_s5_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_qupv3_wrap1_s5_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qupv3_wrap_0_m_ahb_clk = {
+> > +     .halt_reg = 0x17004,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52008,
+> > +             .enable_mask = BIT(6),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qupv3_wrap_0_m_ahb_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qupv3_wrap_0_s_ahb_clk = {
+> > +     .halt_reg = 0x17008,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .hwcg_reg = 0x17008,
+> > +     .hwcg_bit = 1,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52008,
+> > +             .enable_mask = BIT(7),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qupv3_wrap_0_s_ahb_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qupv3_wrap_1_m_ahb_clk = {
+> > +     .halt_reg = 0x18004,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52008,
+> > +             .enable_mask = BIT(20),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qupv3_wrap_1_m_ahb_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_qupv3_wrap_1_s_ahb_clk = {
+> > +     .halt_reg = 0x18008,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .hwcg_reg = 0x18008,
+> > +     .hwcg_bit = 1,
+> > +     .clkr = {
+> > +             .enable_reg = 0x52008,
+> > +             .enable_mask = BIT(21),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_qupv3_wrap_1_s_ahb_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_sdcc1_ahb_clk = {
+> > +     .halt_reg = 0x26004,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .hwcg_reg = 0x26004,
+> > +     .hwcg_bit = 1,
+> > +     .clkr = {
+> > +             .enable_reg = 0x26004,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_sdcc1_ahb_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_sdcc1_apps_clk = {
+> > +     .halt_reg = 0x26008,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .clkr = {
+> > +             .enable_reg = 0x26008,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_sdcc1_apps_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_sdcc1_apps_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_sdcc1_ice_core_clk = {
+> > +     .halt_reg = 0x2603c,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .clkr = {
+> > +             .enable_reg = 0x2603c,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_sdcc1_ice_core_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_sdcc1_ice_core_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_sdcc2_ahb_clk = {
+> > +     .halt_reg = 0x14008,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .clkr = {
+> > +             .enable_reg = 0x14008,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_sdcc2_ahb_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_sdcc2_apps_clk = {
+> > +     .halt_reg = 0x14004,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .clkr = {
+> > +             .enable_reg = 0x14004,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_sdcc2_apps_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_sdcc2_apps_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_sdcc4_ahb_clk = {
+> > +     .halt_reg = 0x16008,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .clkr = {
+> > +             .enable_reg = 0x16008,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_sdcc4_ahb_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_sdcc4_apps_clk = {
+> > +     .halt_reg = 0x16004,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .clkr = {
+> > +             .enable_reg = 0x16004,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_sdcc4_apps_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_sdcc4_apps_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_ufs_1x_clkref_clk = {
+> > +     .halt_reg = 0x8c000,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .clkr = {
+> > +             .enable_reg = 0x8c000,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_ufs_1x_clkref_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_ufs_phy_ahb_clk = {
+> > +     .halt_reg = 0x77018,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .hwcg_reg = 0x77018,
+> > +     .hwcg_bit = 1,
+> > +     .clkr = {
+> > +             .enable_reg = 0x77018,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_ufs_phy_ahb_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_ufs_phy_axi_clk = {
+> > +     .halt_reg = 0x77010,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .hwcg_reg = 0x77010,
+> > +     .hwcg_bit = 1,
+> > +     .clkr = {
+> > +             .enable_reg = 0x77010,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_ufs_phy_axi_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_ufs_phy_axi_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_ufs_phy_ice_core_clk = {
+> > +     .halt_reg = 0x77064,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .hwcg_reg = 0x77064,
+> > +     .hwcg_bit = 1,
+> > +     .clkr = {
+> > +             .enable_reg = 0x77064,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_ufs_phy_ice_core_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_ufs_phy_ice_core_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_ufs_phy_phy_aux_clk = {
+> > +     .halt_reg = 0x7709c,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .hwcg_reg = 0x7709c,
+> > +     .hwcg_bit = 1,
+> > +     .clkr = {
+> > +             .enable_reg = 0x7709c,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_ufs_phy_phy_aux_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_ufs_phy_phy_aux_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_ufs_phy_rx_symbol_0_clk = {
+> > +     .halt_reg = 0x77020,
+> > +     .halt_check = BRANCH_HALT_SKIP,
+> > +     .clkr = {
+> > +             .enable_reg = 0x77020,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_ufs_phy_rx_symbol_0_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_ufs_phy_rx_symbol_1_clk = {
+> > +     .halt_reg = 0x770b8,
+> > +     .halt_check = BRANCH_HALT_SKIP,
+> > +     .clkr = {
+> > +             .enable_reg = 0x770b8,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_ufs_phy_rx_symbol_1_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_ufs_phy_tx_symbol_0_clk = {
+> > +     .halt_reg = 0x7701c,
+> > +     .halt_check = BRANCH_HALT_SKIP,
+> > +     .clkr = {
+> > +             .enable_reg = 0x7701c,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_ufs_phy_tx_symbol_0_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_ufs_phy_unipro_core_clk = {
+> > +     .halt_reg = 0x7705c,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .hwcg_reg = 0x7705c,
+> > +     .hwcg_bit = 1,
+> > +     .clkr = {
+> > +             .enable_reg = 0x7705c,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_ufs_phy_unipro_core_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_ufs_phy_unipro_core_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_usb30_prim_master_clk = {
+> > +     .halt_reg = 0xf010,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0xf010,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_usb30_prim_master_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_usb30_prim_master_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_usb30_prim_mock_utmi_clk = {
+> > +     .halt_reg = 0xf01c,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .clkr = {
+> > +             .enable_reg = 0xf01c,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_usb30_prim_mock_utmi_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]) {
+> > +                             &gcc_usb30_prim_mock_utmi_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_usb30_prim_sleep_clk = {
+> > +     .halt_reg = 0xf018,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .clkr = {
+> > +             .enable_reg = 0xf018,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_usb30_prim_sleep_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_usb3_prim_clkref_clk = {
+> > +     .halt_reg = 0x8c010,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .clkr = {
+> > +             .enable_reg = 0x8c010,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_usb3_prim_clkref_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_usb3_prim_phy_aux_clk = {
+> > +     .halt_reg = 0xf054,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .clkr = {
+> > +             .enable_reg = 0xf054,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_usb3_prim_phy_aux_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_usb3_prim_phy_aux_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_usb3_prim_phy_com_aux_clk = {
+> > +     .halt_reg = 0xf058,
+> > +     .halt_check = BRANCH_HALT,
+> > +     .clkr = {
+> > +             .enable_reg = 0xf058,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_usb3_prim_phy_com_aux_clk",
+> > +                     .parent_hws = (const struct clk_hw*[]){
+> > +                             &gcc_usb3_prim_phy_aux_clk_src.clkr.hw,
+> > +                     },
+> > +                     .num_parents = 1,
+> > +                     .flags = CLK_SET_RATE_PARENT,
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_usb3_prim_phy_pipe_clk = {
+> > +     .halt_reg = 0xf05c,
+> > +     .halt_check = BRANCH_HALT_SKIP,
+> > +     .clkr = {
+> > +             .enable_reg = 0xf05c,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_usb3_prim_phy_pipe_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct clk_branch gcc_video_axi_clk = {
+> > +     .halt_reg = 0xb080,
+> > +     .halt_check = BRANCH_HALT_VOTED,
+> > +     .clkr = {
+> > +             .enable_reg = 0xb080,
+> > +             .enable_mask = BIT(0),
+> > +             .hw.init = &(const struct clk_init_data){
+> > +                     .name = "gcc_video_axi_clk",
+> > +                     .ops = &clk_branch2_ops,
+> > +             },
+> > +     },
+> > +};
+> > +
+> > +static struct gdsc ufs_phy_gdsc = {
+> > +     .gdscr = 0x77004,
+> > +     .pd = {
+> > +             .name = "ufs_phy_gdsc",
+> > +     },
+> > +     .pwrsts = PWRSTS_OFF_ON,
+> > +};
+> > +
+> > +static struct gdsc usb30_prim_gdsc = {
+> > +     .gdscr = 0xf004,
+> > +     .pd = {
+> > +             .name = "usb30_prim_gdsc",
+> > +     },
+> > +     .pwrsts = PWRSTS_RET_ON,
+> > +};
+> > +
+> > +static struct gdsc hlos1_vote_mmnoc_mmu_tbu_hf0_gdsc = {
+> > +     .gdscr = 0x7d050,
+> > +     .pd = {
+> > +             .name = "hlos1_vote_mmnoc_mmu_tbu_hf0_gdsc",
+> > +     },
+> > +     .pwrsts = PWRSTS_OFF_ON,
+> > +     .flags = VOTABLE,
+> > +};
+> > +
+> > +static struct gdsc hlos1_vote_mmnoc_mmu_tbu_hf1_gdsc = {
+> > +     .gdscr = 0x7d058,
+> > +     .pd = {
+> > +             .name = "hlos1_vote_mmnoc_mmu_tbu_hf1_gdsc",
+> > +     },
+> > +     .pwrsts = PWRSTS_OFF_ON,
+> > +     .flags = VOTABLE,
+> > +};
+> > +
+> > +static struct gdsc hlos1_vote_mmnoc_mmu_tbu_sf0_gdsc = {
+> > +     .gdscr = 0x7d054,
+> > +     .pd = {
+> > +             .name = "hlos1_vote_mmnoc_mmu_tbu_sf0_gdsc",
+> > +     },
+> > +     .pwrsts = PWRSTS_OFF_ON,
+> > +     .flags = VOTABLE,
+> > +};
+> > +
+> > +static struct clk_regmap *gcc_sm7250_clocks[] = {
+> > +     [GCC_AGGRE_UFS_PHY_AXI_CLK] = &gcc_aggre_ufs_phy_axi_clk.clkr,
+> > +     [GCC_AGGRE_USB3_PRIM_AXI_CLK] = &gcc_aggre_usb3_prim_axi_clk.clkr,
+> > +     [GCC_BOOT_ROM_AHB_CLK] = &gcc_boot_rom_ahb_clk.clkr,
+> > +     [GCC_CAMERA_HF_AXI_CLK] = &gcc_camera_hf_axi_clk.clkr,
+> > +     [GCC_CAMERA_SF_AXI_CLK] = &gcc_camera_sf_axi_clk.clkr,
+> > +     [GCC_CFG_NOC_USB3_PRIM_AXI_CLK] = &gcc_cfg_noc_usb3_prim_axi_clk.clkr,
+> > +     [GCC_CPUSS_AHB_CLK_SRC] = &gcc_cpuss_ahb_clk_src.clkr,
+> > +     [GCC_CPUSS_GNOC_CLK] = &gcc_cpuss_gnoc_clk.clkr,
+> > +     [GCC_CPUSS_RBCPR_CLK] = &gcc_cpuss_rbcpr_clk.clkr,
+> > +     [GCC_DDRSS_GPU_AXI_CLK] = &gcc_ddrss_gpu_axi_clk.clkr,
+> > +     [GCC_DISP_GPLL0_CLK_SRC] = &gcc_disp_gpll0_clk_src.clkr,
+> > +     [GCC_DISP_HF_AXI_CLK] = &gcc_disp_hf_axi_clk.clkr,
+> > +     [GCC_DISP_SF_AXI_CLK] = &gcc_disp_sf_axi_clk.clkr,
+> > +     [GCC_GP1_CLK] = &gcc_gp1_clk.clkr,
+> > +     [GCC_GP1_CLK_SRC] = &gcc_gp1_clk_src.clkr,
+> > +     [GCC_GP2_CLK] = &gcc_gp2_clk.clkr,
+> > +     [GCC_GP2_CLK_SRC] = &gcc_gp2_clk_src.clkr,
+> > +     [GCC_GP3_CLK] = &gcc_gp3_clk.clkr,
+> > +     [GCC_GP3_CLK_SRC] = &gcc_gp3_clk_src.clkr,
+> > +     [GCC_GPU_GPLL0_CLK_SRC] = &gcc_gpu_gpll0_clk_src.clkr,
+> > +     [GCC_GPU_GPLL0_DIV_CLK_SRC] = &gcc_gpu_gpll0_div_clk_src.clkr,
+> > +     [GCC_GPU_IREF_CLK] = &gcc_gpu_iref_clk.clkr,
+> > +     [GCC_GPU_MEMNOC_GFX_CLK] = &gcc_gpu_memnoc_gfx_clk.clkr,
+> > +     [GCC_GPU_SNOC_DVM_GFX_CLK] = &gcc_gpu_snoc_dvm_gfx_clk.clkr,
+> > +     [GCC_NPU_AXI_CLK] = &gcc_npu_axi_clk.clkr,
+> > +     [GCC_NPU_BWMON2_AXI_CLK] = &gcc_npu_bwmon2_axi_clk.clkr,
+> > +     [GCC_NPU_BWMON_AXI_CLK] = &gcc_npu_bwmon_axi_clk.clkr,
+> > +     [GCC_NPU_DMA_CLK] = &gcc_npu_dma_clk.clkr,
+> > +     [GCC_NPU_GPLL0_CLK_SRC] = &gcc_npu_gpll0_clk_src.clkr,
+> > +     [GCC_NPU_GPLL0_DIV_CLK_SRC] = &gcc_npu_gpll0_div_clk_src.clkr,
+> > +     [GCC_PDM2_CLK] = &gcc_pdm2_clk.clkr,
+> > +     [GCC_PDM2_CLK_SRC] = &gcc_pdm2_clk_src.clkr,
+> > +     [GCC_PDM_AHB_CLK] = &gcc_pdm_ahb_clk.clkr,
+> > +     [GCC_PDM_XO4_CLK] = &gcc_pdm_xo4_clk.clkr,
+> > +     [GCC_PRNG_AHB_CLK] = &gcc_prng_ahb_clk.clkr,
+> > +     [GCC_QMIP_CAMERA_NRT_AHB_CLK] = &gcc_qmip_camera_nrt_ahb_clk.clkr,
+> > +     [GCC_QMIP_CAMERA_RT_AHB_CLK] = &gcc_qmip_camera_rt_ahb_clk.clkr,
+> > +     [GCC_QMIP_DISP_AHB_CLK] = &gcc_qmip_disp_ahb_clk.clkr,
+> > +     [GCC_QMIP_RT_DISP_AHB_CLK] = &gcc_qmip_rt_disp_ahb_clk.clkr,
+> > +     [GCC_QMIP_VIDEO_CVP_AHB_CLK] = &gcc_qmip_video_cvp_ahb_clk.clkr,
+> > +     [GCC_QMIP_VIDEO_VCODEC_AHB_CLK] = &gcc_qmip_video_vcodec_ahb_clk.clkr,
+> > +     [GCC_QUPV3_WRAP0_CORE_2X_CLK] = &gcc_qupv3_wrap0_core_2x_clk.clkr,
+> > +     [GCC_QUPV3_WRAP0_CORE_CLK] = &gcc_qupv3_wrap0_core_clk.clkr,
+> > +     [GCC_QUPV3_WRAP0_S0_CLK] = &gcc_qupv3_wrap0_s0_clk.clkr,
+> > +     [GCC_QUPV3_WRAP0_S0_CLK_SRC] = &gcc_qupv3_wrap0_s0_clk_src.clkr,
+> > +     [GCC_QUPV3_WRAP0_S1_CLK] = &gcc_qupv3_wrap0_s1_clk.clkr,
+> > +     [GCC_QUPV3_WRAP0_S1_CLK_SRC] = &gcc_qupv3_wrap0_s1_clk_src.clkr,
+> > +     [GCC_QUPV3_WRAP0_S2_CLK] = &gcc_qupv3_wrap0_s2_clk.clkr,
+> > +     [GCC_QUPV3_WRAP0_S2_CLK_SRC] = &gcc_qupv3_wrap0_s2_clk_src.clkr,
+> > +     [GCC_QUPV3_WRAP0_S3_CLK] = &gcc_qupv3_wrap0_s3_clk.clkr,
+> > +     [GCC_QUPV3_WRAP0_S3_CLK_SRC] = &gcc_qupv3_wrap0_s3_clk_src.clkr,
+> > +     [GCC_QUPV3_WRAP0_S4_CLK] = &gcc_qupv3_wrap0_s4_clk.clkr,
+> > +     [GCC_QUPV3_WRAP0_S4_CLK_SRC] = &gcc_qupv3_wrap0_s4_clk_src.clkr,
+> > +     [GCC_QUPV3_WRAP0_S5_CLK] = &gcc_qupv3_wrap0_s5_clk.clkr,
+> > +     [GCC_QUPV3_WRAP0_S5_CLK_SRC] = &gcc_qupv3_wrap0_s5_clk_src.clkr,
+> > +     [GCC_QUPV3_WRAP1_CORE_2X_CLK] = &gcc_qupv3_wrap1_core_2x_clk.clkr,
+> > +     [GCC_QUPV3_WRAP1_CORE_CLK] = &gcc_qupv3_wrap1_core_clk.clkr,
+> > +     [GCC_QUPV3_WRAP1_S0_CLK] = &gcc_qupv3_wrap1_s0_clk.clkr,
+> > +     [GCC_QUPV3_WRAP1_S0_CLK_SRC] = &gcc_qupv3_wrap1_s0_clk_src.clkr,
+> > +     [GCC_QUPV3_WRAP1_S1_CLK] = &gcc_qupv3_wrap1_s1_clk.clkr,
+> > +     [GCC_QUPV3_WRAP1_S1_CLK_SRC] = &gcc_qupv3_wrap1_s1_clk_src.clkr,
+> > +     [GCC_QUPV3_WRAP1_S2_CLK] = &gcc_qupv3_wrap1_s2_clk.clkr,
+> > +     [GCC_QUPV3_WRAP1_S2_CLK_SRC] = &gcc_qupv3_wrap1_s2_clk_src.clkr,
+> > +     [GCC_QUPV3_WRAP1_S3_CLK] = &gcc_qupv3_wrap1_s3_clk.clkr,
+> > +     [GCC_QUPV3_WRAP1_S3_CLK_SRC] = &gcc_qupv3_wrap1_s3_clk_src.clkr,
+> > +     [GCC_QUPV3_WRAP1_S4_CLK] = &gcc_qupv3_wrap1_s4_clk.clkr,
+> > +     [GCC_QUPV3_WRAP1_S4_CLK_SRC] = &gcc_qupv3_wrap1_s4_clk_src.clkr,
+> > +     [GCC_QUPV3_WRAP1_S5_CLK] = &gcc_qupv3_wrap1_s5_clk.clkr,
+> > +     [GCC_QUPV3_WRAP1_S5_CLK_SRC] = &gcc_qupv3_wrap1_s5_clk_src.clkr,
+> > +     [GCC_QUPV3_WRAP_0_M_AHB_CLK] = &gcc_qupv3_wrap_0_m_ahb_clk.clkr,
+> > +     [GCC_QUPV3_WRAP_0_S_AHB_CLK] = &gcc_qupv3_wrap_0_s_ahb_clk.clkr,
+> > +     [GCC_QUPV3_WRAP_1_M_AHB_CLK] = &gcc_qupv3_wrap_1_m_ahb_clk.clkr,
+> > +     [GCC_QUPV3_WRAP_1_S_AHB_CLK] = &gcc_qupv3_wrap_1_s_ahb_clk.clkr,
+> > +     [GCC_SDCC1_AHB_CLK] = &gcc_sdcc1_ahb_clk.clkr,
+> > +     [GCC_SDCC1_APPS_CLK] = &gcc_sdcc1_apps_clk.clkr,
+> > +     [GCC_SDCC1_APPS_CLK_SRC] = &gcc_sdcc1_apps_clk_src.clkr,
+> > +     [GCC_SDCC1_ICE_CORE_CLK] = &gcc_sdcc1_ice_core_clk.clkr,
+> > +     [GCC_SDCC1_ICE_CORE_CLK_SRC] = &gcc_sdcc1_ice_core_clk_src.clkr,
+> > +     [GCC_SDCC2_AHB_CLK] = &gcc_sdcc2_ahb_clk.clkr,
+> > +     [GCC_SDCC2_APPS_CLK] = &gcc_sdcc2_apps_clk.clkr,
+> > +     [GCC_SDCC2_APPS_CLK_SRC] = &gcc_sdcc2_apps_clk_src.clkr,
+> > +     [GCC_SDCC4_AHB_CLK] = &gcc_sdcc4_ahb_clk.clkr,
+> > +     [GCC_SDCC4_APPS_CLK] = &gcc_sdcc4_apps_clk.clkr,
+> > +     [GCC_SDCC4_APPS_CLK_SRC] = &gcc_sdcc4_apps_clk_src.clkr,
+> > +     [GCC_UFS_1X_CLKREF_CLK] = &gcc_ufs_1x_clkref_clk.clkr,
+> > +     [GCC_UFS_PHY_AHB_CLK] = &gcc_ufs_phy_ahb_clk.clkr,
+> > +     [GCC_UFS_PHY_AXI_CLK] = &gcc_ufs_phy_axi_clk.clkr,
+> > +     [GCC_UFS_PHY_AXI_CLK_SRC] = &gcc_ufs_phy_axi_clk_src.clkr,
+> > +     [GCC_UFS_PHY_ICE_CORE_CLK] = &gcc_ufs_phy_ice_core_clk.clkr,
+> > +     [GCC_UFS_PHY_ICE_CORE_CLK_SRC] = &gcc_ufs_phy_ice_core_clk_src.clkr,
+> > +     [GCC_UFS_PHY_PHY_AUX_CLK] = &gcc_ufs_phy_phy_aux_clk.clkr,
+> > +     [GCC_UFS_PHY_PHY_AUX_CLK_SRC] = &gcc_ufs_phy_phy_aux_clk_src.clkr,
+> > +     [GCC_UFS_PHY_RX_SYMBOL_0_CLK] = &gcc_ufs_phy_rx_symbol_0_clk.clkr,
+> > +     [GCC_UFS_PHY_RX_SYMBOL_1_CLK] = &gcc_ufs_phy_rx_symbol_1_clk.clkr,
+> > +     [GCC_UFS_PHY_TX_SYMBOL_0_CLK] = &gcc_ufs_phy_tx_symbol_0_clk.clkr,
+> > +     [GCC_UFS_PHY_UNIPRO_CORE_CLK] = &gcc_ufs_phy_unipro_core_clk.clkr,
+> > +     [GCC_UFS_PHY_UNIPRO_CORE_CLK_SRC] =
+> > +             &gcc_ufs_phy_unipro_core_clk_src.clkr,
+> > +     [GCC_USB30_PRIM_MASTER_CLK] = &gcc_usb30_prim_master_clk.clkr,
+> > +     [GCC_USB30_PRIM_MASTER_CLK_SRC] = &gcc_usb30_prim_master_clk_src.clkr,
+> > +     [GCC_USB30_PRIM_MOCK_UTMI_CLK] = &gcc_usb30_prim_mock_utmi_clk.clkr,
+> > +     [GCC_USB30_PRIM_MOCK_UTMI_CLK_SRC] =
+> > +             &gcc_usb30_prim_mock_utmi_clk_src.clkr,
+> > +     [GCC_USB30_PRIM_SLEEP_CLK] = &gcc_usb30_prim_sleep_clk.clkr,
+> > +     [GCC_USB3_PRIM_CLKREF_CLK] = &gcc_usb3_prim_clkref_clk.clkr,
+> > +     [GCC_USB3_PRIM_PHY_AUX_CLK] = &gcc_usb3_prim_phy_aux_clk.clkr,
+> > +     [GCC_USB3_PRIM_PHY_AUX_CLK_SRC] = &gcc_usb3_prim_phy_aux_clk_src.clkr,
+> > +     [GCC_USB3_PRIM_PHY_COM_AUX_CLK] = &gcc_usb3_prim_phy_com_aux_clk.clkr,
+> > +     [GCC_USB3_PRIM_PHY_PIPE_CLK] = &gcc_usb3_prim_phy_pipe_clk.clkr,
+> > +     [GCC_VIDEO_AXI_CLK] = &gcc_video_axi_clk.clkr,
+> > +     [GPLL0] = &gpll0.clkr,
+> > +     [GPLL0_OUT_EVEN] = &gpll0_out_even.clkr,
+> > +     [GPLL6] = &gpll6.clkr,
+> > +     [GPLL9] = &gpll9.clkr,
+> > +};
+> > +
+> > +static struct gdsc *gcc_sm7250_gdscs[] = {
+> > +     [UFS_PHY_GDSC] = &ufs_phy_gdsc,
+> > +     [USB30_PRIM_GDSC] = &usb30_prim_gdsc,
+> > +     [HLOS1_VOTE_MMNOC_MMU_TBU_HF0_GDSC] =
+> > +                                     &hlos1_vote_mmnoc_mmu_tbu_hf0_gdsc,
+> > +     [HLOS1_VOTE_MMNOC_MMU_TBU_HF1_GDSC] =
+> > +                                     &hlos1_vote_mmnoc_mmu_tbu_hf1_gdsc,
+> > +     [HLOS1_VOTE_MMNOC_MMU_TBU_SF0_GDSC] =
+> > +                                     &hlos1_vote_mmnoc_mmu_tbu_sf0_gdsc,
+> > +};
+> > +
+> > +static const struct qcom_reset_map gcc_sm7250_resets[] = {
+> > +     [GCC_DPM_BCR] = { 0x46000 },
+> > +     [GCC_GPU_BCR] = { 0x71000 },
+> > +     [GCC_MMSS_BCR] = { 0xb000 },
+> > +     [GCC_NPU_BWMON_BCR] = { 0x70000 },
+> > +     [GCC_NPU_BCR] = { 0x4d000 },
+> > +     [GCC_PDM_BCR] = { 0x33000 },
+> > +     [GCC_PRNG_BCR] = { 0x34000 },
+> > +     [GCC_QUPV3_WRAPPER_0_BCR] = { 0x17000 },
+> > +     [GCC_QUPV3_WRAPPER_1_BCR] = { 0x18000 },
+> > +     [GCC_QUSB2PHY_PRIM_BCR] = { 0x12000 },
+> > +     [GCC_SDCC1_BCR] = { 0x26000 },
+> > +     [GCC_SDCC2_BCR] = { 0x14000 },
+> > +     [GCC_SDCC4_BCR] = { 0x16000 },
+> > +     [GCC_UFS_PHY_BCR] = { 0x77000 },
+> > +     [GCC_USB30_PRIM_BCR] = { 0xf000 },
+> > +     [GCC_USB3_DP_PHY_PRIM_BCR] = { 0x50008 },
+> > +     [GCC_USB3_PHY_PRIM_BCR] = { 0x50000 },
+> > +     [GCC_USB3PHY_PHY_PRIM_BCR] = { 0x50004 },
+> > +     [GCC_USB_PHY_CFG_AHB2PHY_BCR] = { 0x6a000 },
+> > +};
+> > +
+> > +static const u32 gcc_sm7250_critical_cbcrs[] = {
+> > +     0x0b004, /* GCC_VIDEO_AHB_CLK */
+> > +     0x0b008, /* GCC_CAMERA_AHB_CLK */
+> > +     0x0b00c, /* GCC_DISP_AHB_CLK */
+> > +     0x0b038, /* GCC_VIDEO_XO_CLK */
+> > +     0x0b03c, /* GCC_CAMERA_XO_CLK */
+> > +     0x0b040, /* GCC_DISP_XO_CLK */
+> > +     0x4d004, /* GCC_NPU_CFG_AHB_CLK */
+> > +     0x52000, /* GCC_SYS_NOC_CPUSS_AHB_CLK */
+> > +     0x70004, /* GCC_NPU_BWMON_CFG_AHB_CLK */
+> > +     0x71004, /* GCC_GPU_CFG_AHB_CLK */
+> > +};
+> > +
+> > +static const struct clk_rcg_dfs_data gcc_sm7250_dfs_clocks[] = {
+> > +     DEFINE_RCG_DFS(gcc_qupv3_wrap0_s0_clk_src),
+> > +     DEFINE_RCG_DFS(gcc_qupv3_wrap0_s1_clk_src),
+> > +     DEFINE_RCG_DFS(gcc_qupv3_wrap0_s2_clk_src),
+> > +     DEFINE_RCG_DFS(gcc_qupv3_wrap0_s3_clk_src),
+> > +     DEFINE_RCG_DFS(gcc_qupv3_wrap0_s4_clk_src),
+> > +     DEFINE_RCG_DFS(gcc_qupv3_wrap0_s5_clk_src),
+> > +     DEFINE_RCG_DFS(gcc_qupv3_wrap1_s0_clk_src),
+> > +     DEFINE_RCG_DFS(gcc_qupv3_wrap1_s1_clk_src),
+> > +     DEFINE_RCG_DFS(gcc_qupv3_wrap1_s2_clk_src),
+> > +     DEFINE_RCG_DFS(gcc_qupv3_wrap1_s3_clk_src),
+> > +     DEFINE_RCG_DFS(gcc_qupv3_wrap1_s4_clk_src),
+> > +     DEFINE_RCG_DFS(gcc_qupv3_wrap1_s5_clk_src),
+> > +};
+> > +
+> > +static const struct regmap_config gcc_sm7250_regmap_config = {
+> > +     .reg_bits = 32,
+> > +     .reg_stride = 4,
+> > +     .val_bits = 32,
+> > +     .max_register = 0x9c100,
+> > +     .fast_io = true,
+> > +};
+> > +
+> > +static void gcc_sm7250_clk_regs_configure(struct device *dev, struct regmap *regmap)
+> > +{
+> > +     /*
+> > +      * Disable the GPLL0 active input to NPU and GPU
+> > +      * via MISC registers.
+> > +      */
+> > +     regmap_update_bits(regmap, 0x4d110, 0x3, 0x3);
+> > +     regmap_update_bits(regmap, 0x71028, 0x3, 0x3);
+> > +
+> > +     /*
+> > +      * Critical clocks that has same register with
+> > +      * different mask
+> > +      */
+> > +     regmap_update_bits(regmap, 0x52000, BIT(21), BIT(21)); /* GCC_CPUSS_AHB_CLK */
+> > +}
+> > +
+> > +static const struct qcom_cc_driver_data gcc_sm7250_driver_data = {
+> > +     .clk_cbcrs = gcc_sm7250_critical_cbcrs,
+> > +     .num_clk_cbcrs = ARRAY_SIZE(gcc_sm7250_critical_cbcrs),
+> > +     .dfs_rcgs = gcc_sm7250_dfs_clocks,
+> > +     .num_dfs_rcgs = ARRAY_SIZE(gcc_sm7250_dfs_clocks),
+> > +     .clk_regs_configure = gcc_sm7250_clk_regs_configure,
+> > +};
+> > +
+> > +static const struct qcom_cc_desc gcc_sm7250_desc = {
+> > +     .config = &gcc_sm7250_regmap_config,
+> > +     .clks = gcc_sm7250_clocks,
+> > +     .num_clks = ARRAY_SIZE(gcc_sm7250_clocks),
+> > +     .resets = gcc_sm7250_resets,
+> > +     .num_resets = ARRAY_SIZE(gcc_sm7250_resets),
+> > +     .gdscs = gcc_sm7250_gdscs,
+> > +     .num_gdscs = ARRAY_SIZE(gcc_sm7250_gdscs),
+> > +     .use_rpm = true,
+> > +     .driver_data = &gcc_sm7250_driver_data,
+> > +};
+> > +
+> > +static const struct of_device_id gcc_sm7250_match_table[] = {
+> > +     { .compatible = "qcom,sm7250-gcc" },
+> > +     { }
+> > +};
+> > +MODULE_DEVICE_TABLE(of, gcc_sm7250_match_table);
+> > +
+> > +static int gcc_sm7250_probe(struct platform_device *pdev)
+> > +{
+> > +     return qcom_cc_probe(pdev, &gcc_sm7250_desc);
+> > +}
+> > +
+> > +static struct platform_driver gcc_sm7250_driver = {
+> > +     .probe = gcc_sm7250_probe,
+> > +     .driver = {
+> > +             .name = "gcc-sm7250",
+> > +             .of_match_table = gcc_sm7250_match_table,
+> > +     },
+> > +};
+> > +
+> > +static int __init gcc_sm7250_init(void)
+> > +{
+> > +     return platform_driver_register(&gcc_sm7250_driver);
+> > +}
+> > +subsys_initcall(gcc_sm7250_init);
+> > +
+> > +static void __exit gcc_sm7250_exit(void)
+> > +{
+> > +     platform_driver_unregister(&gcc_sm7250_driver);
+> > +}
+> > +module_exit(gcc_sm7250_exit);
+> > +
+> > +MODULE_DESCRIPTION("QTI GCC SM7250 Driver");
+> > +MODULE_LICENSE("GPL");
+>
+> --
+> Thanks,
+> Taniya Das
+>
+
+Thanks,
+Sreeshankar K
