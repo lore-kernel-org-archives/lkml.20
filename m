@@ -1,57 +1,57 @@
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CFF84AC164
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:41:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C03F4AC16C
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:41:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788367292; cv=none; b=R/yczeyL3Sd236V9cT7Ubahhb/gulAcoAhysg6nkil4yNvsBAQZBo6rfB8LJXbl384qglKUWnRIMQBZc1ziejzm8Fqp1zRcp/jTGUIoxJseoLv8ojcLl5uMbkYiGlr1+HfHvJmo3U2L73ZSsdx9ZT+EVSmlUTbrMj+eqai0dfJs=
+	t=1788367292; cv=none; b=rZgkC7nhaSv8jLYVhy3rztmKaaf/rYiSaDfqE87KprEnec6kW/6Cg9xo8O/XsN6ArpeA3q9OyuMnPoO370AB27j61daooyY+PlqB1bhTcvFA/fGAe3gUWcpDQ8EQhsuZ7bPxBmEVPoNjN/DUsP5hEal/OLUbV516LQ7FAoUPIrI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788367292; c=relaxed/simple;
-	bh=6OUAEUlWmcz77q9dlKCMKeUAOSbdrXQdyWwvAi7CqFQ=;
+	bh=PqikAw/eC5X3KNqAbORwNmmWfNDuPm6CNtLB+01JjLA=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=n7cBLmr7W+qJYK4PeIk46sUYlyOZw15heZp12nXnDLb0EJr/MMzXHEnlSpGNbvhGukc8dYbo6WPRHSWZlQj9vUKxuV8PY9Prpb1ZP7sfHgGuYLUcQgjivJYlHpCA7UyGGjyNo6QlJAXLA0tIkMXY0g26UNGrXJbjJyKq+kCYQfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=GPskbJUM; arc=none smtp.client-ip=209.85.210.198
+	 To:Cc:Content-Type; b=usDLqFTCOIJFvkOfUVQgoqDR8iALJhbbMU8JN7GWGsndRPEczsH54Nq1qrWJSHj6cpiAOxgnjcto0PdAFc3/yzpIXrRmvNtNhJr5cxBSBWZpNqZ7OBOHnvmfUi8BUym0tK2KZHON01mOJmtI1vzqCU/8qr1+eYxt0VYgyGQ0WIs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rNlJHfS5; arc=none smtp.client-ip=209.85.215.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="GPskbJUM"
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-84865f326efso631392b3a.0
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:41:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rNlJHfS5"
+Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc132709c76so2102605a12.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:41:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788367287; x=1788972087; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788367288; x=1788972088; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=d/SeKhrpZbiLYnD0BJegQFxELS2UQb8EJmQMNb/zwWY=;
-        b=GPskbJUM5sGvTsI3OgDFvp4eFPx4StNGgvweuBfXEeLf87gvsj6IckkBt3FGYzmCjG
-         4eDhkueUwfwERLN0kktf2cPH71+o4biJxszXS0GrOOophwWvnssQLiK8E4yV4h3Il8C/
-         RITcOyxAZtLFvBNbSRNR0KqTF1hFfUaSp8hPZbJbdodj/cPEYoeWbsmJFiiklS/PiU/a
-         BQCuFDTIRPpPoj2pAbv8rGcygFDVNTi6wtqAjwhsESrciKCm8FmYfByD2Jj+JxlUV1S0
-         fTIFdkZIQb0NxeLmdSPFlA6FB570DuoToLXwaF778d/eVrpB7sJRCISy3fIL2Ewj1kq0
-         F0CA==
+        bh=0zhVxUyRpRhnHXbQLMxjoc4Ys+BN3Anj09sDDnw94v8=;
+        b=rNlJHfS5GCdRMQyc4MGrPkI5zixFEmgMHNZH9VCGuzekhMv1wTmnfCUfwou23xfemO
+         MYDDxw4RWNeft27/ZEMROjAogUQnJCQGwrzxI1AoUOX69yF9rYV6oaA2ywp2uwqDhgOP
+         yvwp7gcig9wTX+ZFwXYSzMm/LVUToovPgj64iqf16pGrqrnJKsQxtqEI9iVBml6jr7n6
+         iorcqJfOVbpcILVQbtt731kjlXrn5l1aEYExX87NDIL+qZZB6PS8wmDESwlOlFXjs48V
+         d+pepxEsa5cGlGGYKU/mIIaUZNaxGYeXpTLfyzfA5zMo+b43SQBeHBF6C7+u67OlGSO4
+         l77Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788367287; x=1788972087;
+        d=1e100.net; s=20251104; t=1788367288; x=1788972088;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:reply-to:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=d/SeKhrpZbiLYnD0BJegQFxELS2UQb8EJmQMNb/zwWY=;
-        b=k70yEaVMa9fiFczSD5IcUmixaBs+fruQ40/6nViUIc16y+vfCMzvRzYUJl/F0rxVli
-         /Y71LWew43m169iKW/uYFkyqBOffNVdeyT5pzFxqz7g0yrnpYCEJxOsn3p4btebM6yZ+
-         mVI6SjgLoQps5+DCUU5/W6kn/HJ7u0wxRJFCrc7mTPDpjMhU6UEUJPXVdMoQa0PVmDQe
-         gCQnDTGgYIsMsaPRpD5ycOp/2comuDpGN+m/mhBOlEw8V9JdU1sUO1A/jLDv49ywClKx
-         P5CO5dio8gEfnYOSP3MVnbD2aeopBrNKGtJh7YIUro8/kclJbJlUunyaVda0FosSF8js
-         EJ2A==
-X-Forwarded-Encrypted: i=1; AKwUvBw9Ma4BXaghvbaWJNsxD3UcCNt9Q0PhhuAziECJrRDgkGLj5X+ZmgZJlWR8Y8HF2BUEvyjHH4vncmjqxHA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mIH+f482R/s+sximUibwWYf+lVaCCCn/BffcqF0msW1hH2KXNa
-	o0+vdJMDDI/rpSoFW7b5UVYr8GyfuUvtmprhsOCsORBLWllQUS6/S60TXASu7kCF+pj/ocRMS0q
-	Gx2aOzA==
-X-Received: from pffj5-n2.prod.google.com ([2002:a05:6a00:c2c5:20b0:853:9828:ce3b])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:ad0d:b0:82f:38df:681c
- with SMTP id d2e1a72fcca58-85ed7744a8emr9789737b3a.6.1788367286625; Wed, 02
- Sep 2026 09:41:26 -0700 (PDT)
+        bh=0zhVxUyRpRhnHXbQLMxjoc4Ys+BN3Anj09sDDnw94v8=;
+        b=EbV58YOBnWCIhRxuuoI8KTMIu7Fr9F1nl87gYT8KayswMn5No+CZHHbjQZwr/iHchH
+         QpqkyK4G2582XAq5Ih7PG+tLupodAstLJQmPav2It+60KpwXrSJ3qmTOyMfdY2l+GHnx
+         7aw99uDQsRPsboSUaCfOWpIfQOKtta90Qb1ciATSGxyBfb8X5qShEPJ/6svXKLfJWLXA
+         dGvjm4PVvIWQ9mpBJvRybuAethBSdpUOVxpLjxBK0snAOpSVrYF5R6h5NjL2hpM3+VEQ
+         OSmBEPwzLwacIicjs59r7CmuTdZAzcKj9EN8YqmmdYNXo9SBQ2xW5F0L7KvQ7H9Dm962
+         fdXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwlkJHgM6HVeV8JYVGyLYbuTpWQR5bjeQox1jeNtx2zhq+O6qfcrxadkdWN1JAT0Dpt99SGG84hCZRc5OU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mCgTzW2sgizR5N71zyUvQC1PP0aXolIC6AxjK3p/b9X7OtKz7+
+	oEcodS13dPQQBt61UaL8yfS6aAY5qFvQURJXBsA9FJg2y9Yt12BLgpi/1ce5LXc2QI0o6w9mck3
+	13OpoGQ==
+X-Received: from pgbd10-n1.prod.google.com ([2002:a05:6a02:64ca:10b0:cc4:2728:8938])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a20:7f82:b0:3cc:2552:ddd7
+ with SMTP id adf61e73a8af0-3d9adaba731mr8793167637.5.1788367287815; Wed, 02
+ Sep 2026 09:41:27 -0700 (PDT)
 Reply-To: Sean Christopherson <seanjc@google.com>
-Date: Wed,  2 Sep 2026 09:41:05 -0700
+Date: Wed,  2 Sep 2026 09:41:06 -0700
 In-Reply-To: <20260902164123.2546762-1-seanjc@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -61,9 +61,9 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
 References: <20260902164123.2546762-1-seanjc@google.com>
 X-Mailer: git-send-email 2.55.0.966.g6673acef38-goog
-Message-ID: <20260902164123.2546762-3-seanjc@google.com>
-Subject: [PATCH v2 02/20] KVM: selftests: Use the common minimum GPA for page
- tables on LoongArch
+Message-ID: <20260902164123.2546762-4-seanjc@google.com>
+Subject: [PATCH v2 03/20] KVM: selftests: Use vm_alloc_page_table() to
+ allocate LoongArch page tables
 From: Sean Christopherson <seanjc@google.com>
 To: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, 
 	Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, 
@@ -82,40 +82,37 @@ Cc: Fuad Tabba <fuad.tabba@linux.dev>, Joey Gouly <joey.gouly@arm.com>,
 	Nicholas Piggin <npiggin@gmail.com>, Ritesh Harjani <ritesh.list@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Use the common minimum GPA for page tables (0x180000) on LoongArch instead
-of LoongArch's custom minimum of 0x200000, so that LoongArch can use
-vm_alloc_page_table() instead of open coding a rough equivalent.  There are
-no known reasons why LoongArch can't use a lower, less-aligned minimum.
-The more-aligned value was originally selected to support huge pages for
-the guest, but that only requires the address of the final allocation to be
-aligned, the addresses of page table pages is irrelevant on that front.
+Now that LoongArch uses KVM_GUEST_PAGE_TABLE_MIN_PADDR for its page table
+page allocations, use the common vm_alloc_page_table() instead of open
+coding the same.
 
+Opportunistically drop the assert that the allocation succeeded, as the
+allocator itself guarantees success.
+
+No functional change intended.
+
+Reviewed-by: Bibo Mao <maobibo@loongson.cn>
+Tested-by: Itaru Kitayama <itaru.kitayama@fujitsu.com>
 Signed-off-by: Sean Christopherson <seanjc@google.com>
 ---
- tools/testing/selftests/kvm/lib/loongarch/processor.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ tools/testing/selftests/kvm/lib/loongarch/processor.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/tools/testing/selftests/kvm/lib/loongarch/processor.c b/tools/testing/selftests/kvm/lib/loongarch/processor.c
-index 47bbde3e205a..057a77713542 100644
+index 057a77713542..fcd41bc6fbda 100644
 --- a/tools/testing/selftests/kvm/lib/loongarch/processor.c
 +++ b/tools/testing/selftests/kvm/lib/loongarch/processor.c
-@@ -9,7 +9,6 @@
- #include "processor.h"
- #include "ucall_common.h"
- 
--#define LOONGARCH_PAGE_TABLE_PHYS_MIN		0x200000
- #define LOONGARCH_GUEST_STACK_VADDR_MIN		0x200000
- 
- static gpa_t invalid_pgtable[4];
-@@ -57,7 +56,7 @@ void virt_arch_pgd_alloc(struct kvm_vm *vm)
+@@ -56,9 +56,7 @@ void virt_arch_pgd_alloc(struct kvm_vm *vm)
  	child = table = 0;
  	for (i = 0; i < vm->mmu.pgtable_levels; i++) {
  		invalid_pgtable[i] = child;
--		table = vm_phy_page_alloc(vm, LOONGARCH_PAGE_TABLE_PHYS_MIN,
-+		table = vm_phy_page_alloc(vm, KVM_GUEST_PAGE_TABLE_MIN_PADDR,
- 				vm->memslots[MEM_REGION_PT]);
- 		TEST_ASSERT(table, "Fail to allocate page tale at level %d\n", i);
+-		table = vm_phy_page_alloc(vm, KVM_GUEST_PAGE_TABLE_MIN_PADDR,
+-				vm->memslots[MEM_REGION_PT]);
+-		TEST_ASSERT(table, "Fail to allocate page tale at level %d\n", i);
++		table = vm_alloc_page_table(vm);
  		virt_set_pgtable(vm, table, child);
+ 		child = table;
+ 	}
 -- 
 2.55.0.966.g6673acef38-goog
 
