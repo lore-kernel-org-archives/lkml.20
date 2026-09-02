@@ -1,160 +1,163 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B97C3DA7D6
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:17:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D1AF377A95
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 17:18:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788369453; cv=none; b=MY64Bynh5kZ3p5r5+J95GNyM3N4ZVqSTKAMdrFRNaFwAnfhajQ6ryX/m7GFl98lsjZ54H8SMX64yDzQpIqegejNmnuu/UqiYmn1Xk2ScrV3WRg9UEet7IYcpX6DAbFZujJctMdKeXKNkCNeEvyTDkRmBOGaMzN/XoFwRPcIYFaQ=
+	t=1788369492; cv=none; b=FoPKoI+gfW4No91XYvb/AryWGpS4kqQrsbRGHW1wWZDBJ3sppTUJRvEmAZHYP4LTojIIrfsZFF2WvtZZTrjlVrO8JTDRSJMGDMY/OXE0JpmVTDKNbLt5dIoiJ5XVrGtA3WtTnugPwaIiVsUjPJ5iZJcYjkvJhRCg7LYcZdEx+zc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788369453; c=relaxed/simple;
-	bh=uUY40fzXDsOjxmveQ5LycP1AAWERj75mXf8gm2w3bQI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IHsReanhEqAGfCtQJCVDfxy3K5bDDl6jiDQC77SV/+mSkt2Fy40/tBgP4ErTwzCUtfE/ggAl91L1OgmcYeo21szTLNpLJnUINqxHr6GljcGQrqgRnf+dgJ/xPYIjK3Ddn9l9RbxJK4pPC/VQeHkC47JuqkRt0Ii1vDJoUe2kj+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=fK/Ih8DO; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788369492; c=relaxed/simple;
+	bh=6Tn0OaGLRreTIGbEtttcTbq5pI0t6SsPxE+m00j3r9I=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hhJ8e4MRxzb++INdD/ZhCGw6c/GKZLC3cAphsWWhbTGfn0sLr3nJ8LpCPAwN5TRnFsxV06M8NUQlkecbm+fF/pqzTMHXE5HHpkG7M8V/u1qQV6tRQzzkG71WM10Vhksgv4Mo2TUJmKK40KT0JRwA7wffYXaSWxQO/Upf2g0tZaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sQiC2YgF; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="fK/Ih8DO"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48433e9562bso256584f8f.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:17:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sQiC2YgF"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so13793415e9.3
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 10:18:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788369450; x=1788974250; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=L+uQOUfDo+TK+k3hTP6A5HxoVxFH7C/0s0ldwdZGHuc=;
-        b=fK/Ih8DO2jUglgD6CiRq2zGCDf+V3W174qRnsiF98mvkLu7ess1uuox1wq4CxPT7/N
-         6T48Ebe33/Xz1KYQekFsGcyQ9YAsMhLZoYC5YSoM6spK+QdY0EOiVBbCKGcgCKLzp12N
-         9Z7apRRYPat8yE1WLF4GpreHxRCz86QCN3bgMezIpJedNjH+KVO5EiwZSR3HfkE3lFqW
-         Tg7srOnwX+jzNCiBkNwXa127kPtWmZS9tDWybGxVd2Y2XtCDGpPQJISdtF1jGbm489y6
-         sTysP/gBXKxDyB41sqCyBmvAj47PvGKFGryNtMfsmEyQW4Gu9wF0nc2h0CtlowID8vym
-         /9AA==
+        d=gmail.com; s=20251104; t=1788369489; x=1788974289; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6u2dskLwsFp3RaJUgt1/pKQoZpVju/VbValCvllVzDM=;
+        b=sQiC2YgFgEaWhWqjDJnEZw5JlPXTqPt3V2KVYB6+fXZ3J2DuDP2Fv1ryk5YfiSY2Mk
+         P+u8zSeH+Yc46/fa8RriSUR5ROSKY0cpZW0XTNmNVuDxQu6MdcHsWov2jqFLoLBPm2cX
+         HUx5xi5zkMGLPShVJfjUWDCMYIohFBcFuLPujWcxh3+GocjgL2ooOJJwcuz19gr6uDgs
+         A91cllbVqj6Fvkx0vNOU2X7gYFtNE99F9zGxXz9cAmqIooFaEb1rNAfTeiG0OS01CgsK
+         OzvCdiKJrXyQJmw0IoPFb1J+w0YNQQmbvu1iIwJ4jeWzdNWw4m2uaEG0//urxuBsh+cU
+         1zQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788369450; x=1788974250;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=L+uQOUfDo+TK+k3hTP6A5HxoVxFH7C/0s0ldwdZGHuc=;
-        b=UNL9Q2G5Omq0K9kVi2PiSUE/svPdomsWEpdj6brqLxOaPWOoElh7DHGl9sHF99kwGx
-         Y6GKq3aPTS/GucSJ1np2VhUdH/ABwQO+QrvTK0Ddo4XbBQdq6Gv1T2Npi01IGCm6R4Iu
-         DypNAXpnSUd7wimlAZeUlvy+J2+z4hmkkoGMJvxgNc5qe4d1L1r85zgKnILirrh83yIM
-         XL/W2sX27vKNLDtS11YM/zoXFOLLBCpzAqJ6XitqnqkUyUW41XqnilmSnqaIM3x3ETeE
-         4GGopB7UaJg/P14+3eN1OOgFsdKexoN1dkK+IDOuWMRrkqzkIYpaLHhsQRI2bXZ7VSDI
-         rFDw==
-X-Forwarded-Encrypted: i=1; AKwUvBz+d1/z+HzdHsrJBaeUiGd82yd3X9m89XpFShnvpmIoaolgsfDh4K37sSg1Oxzg2mF83RJirc9UY//UcEo=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJCjVY7dJ3hxM3SI4gWdT7/iqX1cHYQkkqTxuWE5XexWv1ziqG
-	xet/FifrxbsBO1Ikd0S+nj60lNQgMEI3pqfhZZXprEPj65biqm+K5MZ8G7L1PyAEPsw=
-X-Gm-Gg: AYBFou3pW3/AcamOzLNevR+liZBgONpvNtFdg2bAL/jBMIZh5+bV3kyPqzi8YGf2gcM
-	ev7V+kyPdSxKWJ9dh8SUcWjCBfTuqE99FfvCvpDwN27dFsklIe+x4qeyx4L+EbsIsQ33O1/kpd8
-	kIsP3V9urg5Ua32SZsy7hgAZPk0PGN+2MxR5d06VuDNRqLZSg69C3q35Xnr0MSQs5Y2gbVXuuT+
-	Saet0+GjJ4w0hFFnMJmob4E6hPXv2YQIpTpW7qR6lQpI49hUnmZJxnOfhOWWYvCNhR5f53+FaNB
-	GFmBNkTLRSvNfdy7+NEzcFhDnpHgJPkqIy5Dn/pTFWtw3WyJeMPNHVovQ7vs9XrbCG0q+EUzyvY
-	Zb1bduhV1f7OGzWdDXu0iFjk9DchPlEFbeuYf56Wo65ihNH34DVzEjyzyVZk/1XQItGimifTONs
-	Qr0i5vEF3xCvn6pdZnxJk8SKBq7fZeBRVvmeYmPoY6JkOdXQvQ/hvUmfk8EvKngvY=
-X-Received: by 2002:a05:6000:208a:b0:484:3310:f394 with SMTP id ffacd0b85a97d-48488f20c54mr10977496f8f.23.1788369449677;
-        Wed, 02 Sep 2026 10:17:29 -0700 (PDT)
-Received: from localhost.localdomain ([2001:af0:8000:1409:193:86:92:181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448eea5b4sm7848460f8f.27.2026.09.02.10.17.28
+        d=1e100.net; s=20251104; t=1788369489; x=1788974289;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6u2dskLwsFp3RaJUgt1/pKQoZpVju/VbValCvllVzDM=;
+        b=HUiZh3hY06D0o2ucMV8H34mp6oR8NDUzMt069rJM0UGkoUD1vgwd4A3cOvncRPDxhX
+         lDMJ1L6grNpjy4F5qwxPRuuUW28kBsdVlr6s7o/hH7qtJXjvCQDijOC0s/cuxDKlqmW/
+         aDZbMuGxM9vxvks/hmug2i4KzciOIH24vHFlflvVj6M4wUuhVheSjxj+AirPuRukdZI/
+         zDuISG+wBRD3KXkggeul7ENaFUjr7BbCuGjN2RL/qsB9tCKSCT3FnrSgaId3ya2U8zEZ
+         Hla0K9DrkXIZ6DuXkgch3Tbs17vJMJ5gm1K6RKuicZigxLInw436K1TjB/IWCI4u54DR
+         KxHg==
+X-Forwarded-Encrypted: i=1; AHgh+RoY38XJ5BhwUkdVWc4csRNvor55DY6C2xJ4oAoqks6NtP/2zbgUHfQ8Sp18sodKpUcdqVzFiPpHVqU8Sro=@vger.kernel.org
+X-Gm-Message-State: AFuF++m1f9HLPMCGYRaEmey2B4q+PV2WWoEnwqIa43vxj8xuXKvMSO3r
+	QDfKJ4zCMmmo8xWtQMsmAnz7ccN0Es8PqeZlkLC7ITGJVWLXMDN4HVIy
+X-Gm-Gg: AR+sD13J9sU5Ni7tyk0B9v7dTW4vwYUBhlNZsw4moRzZkTrcuixqz+OGaIxleAGzHXn
+	hP98VaPz/BSw6de7u4L9wtFxwrhGx5KbC90HBTnb3r97CeGFQz3v/gvxUOOEDDoXqN8tNY904vp
+	lIc6Z5zHwJZKx/M02tJ8KusynNbkOBUhSIdEu9SXaUIGPrweU7F6yLXlc/6q1IFIofAx/QztHQO
+	v5kNez/Jmp+UExvFopuywJlmEek48N2AkV9eTtNQ4UjPHXsdTA8IEM4JOapNFdhg3oQzyvn5kr/
+	o4rMg/dKqoQhrMZGYiJZBpBRcyd/nIQc/6pDEGumxQPYzeJm++Q2ce9BXAQhlL8YN4znraWkzgn
+	zgxA7FrB0FPe8Jq5Of8K2dnH4phwDspzsBix1awyaCxh6tenvSaysqZQVmXpp4TQrnqldyMgUcd
+	0WVWTZu7nlZzm5bocR2A1vatK/UxSVXo99sw1lqELNzQXoQ1yjd9pgdaqMtez6KIsi51NC0Ofz0
+	aga
+X-Received: by 2002:a05:600c:4f88:b0:499:d366:f572 with SMTP id 5b1f17b1804b1-49ce58388demr95277025e9.10.1788369488491;
+        Wed, 02 Sep 2026 10:18:08 -0700 (PDT)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e80020sm8076593f8f.10.2026.09.02.10.18.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 10:17:29 -0700 (PDT)
-Date: Wed, 2 Sep 2026 19:17:27 +0200
-From: Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>
-To: Qinyun Tan <qinyuntan@linux.alibaba.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	Lance Yang <lance.yang@linux.dev>, Qi Zheng <qi.zheng@linux.dev>, 
-	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
-	Dave Chinner <david@fromorbit.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	David Hildenbrand <david@kernel.org>, Xunlei Pang <xlpang@linux.alibaba.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/list_lru: don't copy stale shrinker id from
- non-memcg-aware shrinkers
-Message-ID: <aphXPCn8isUVV87k@localhost.localdomain>
-References: <20260901115104.2944996-1-qinyuntan@linux.alibaba.com>
+        Wed, 02 Sep 2026 10:18:07 -0700 (PDT)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>
+Cc: Dong Aisheng <aisheng.dong@nxp.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Jacky Bai <ping.bai@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	imx@lists.linux.dev,
+	linux-gpio@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Mehmet Fide <mehmet.fide@screeningeagle.com>,
+	sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/2] pinctrl: imx: answer OUTPUT_ENABLE/INPUT_ENABLE queries from the pad register
+Date: Wed,  2 Sep 2026 19:18:06 +0200
+Message-ID: <20260902171806.4141524-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260902155931.38FCC1F000E9@smtp.kernel.org>
+References: <20260902154525.4090276-2-mehmet.fide@gmail.com> <20260902155931.38FCC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dutiu445lzpgkhp4"
-Content-Disposition: inline
-In-Reply-To: <20260901115104.2944996-1-qinyuntan@linux.alibaba.com>
+Content-Transfer-Encoding: 8bit
 
+From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
---dutiu445lzpgkhp4
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] mm/list_lru: don't copy stale shrinker id from
- non-memcg-aware shrinkers
-MIME-Version: 1.0
+> [Severity: High]
+> This isn't a bug introduced by this patch, but since you are adding bounds
+> checking here, does imx_pinconf_set() also need this verification?
+>
+> Without validation, a malformed gpio-ranges property in the device tree could
+> translate to an invalid pin_id. Since imx_pinconf_set() lacks the
+> if (pin_id >= info->npins) check, this unvalidated pin_id could cause an
+> out-of-bounds array access in imx_pinconf_set_mmio():
+>
+> 	const struct imx_pin_reg *pin_reg = &ipctl->pin_regs[pin_id];
+>
+> Could the same missing bounds check also cause out-of-bounds array accesses to
+> ipctl->pin_regs in the GPIO direction callbacks like imx_pmx_gpio_set_direction()
+> and vf610_pmx_gpio_set_direction()?
 
-Hello Qinyun.
+No. Everything that reaches the driver through a gpio range goes through
+pinctrl_gpio_request() first, and pin_request() looks the pin up with
+pin_desc_get(), which fails for a pin the controller does not have. A bad
+gpio-ranges entry therefore fails the GPIO request, and the direction and
+config callbacks never see that index.
 
-On Tue, Sep 01, 2026 at 07:51:04PM +0800, Qinyun Tan <qinyuntan@linux.aliba=
-ba.com> wrote:
-> With cgroup.memory=3Dnokmem, shrinker_memcg_alloc() fails with -ENOSYS
-> for shrinkers without SHRINKER_NONSLAB, and shrinker_alloc() falls
-> back to a non-memcg-aware shrinker.  On this fallback path,
-> shrinker->id is never assigned and keeps 0 from kzalloc(), which is a
-> valid id belonging to whichever memcg-aware shrinker registers first.
->=20
-> __list_lru_init() copies shrinker->id unconditionally, so every
-> list_lru backed by such a fallback shrinker (thp-deferred_split,
-> zswap-shrinker, workingset shadow nodes, superblock lrus, ...) ends
-> up with lru->shrinker_id =3D=3D 0 instead of -1.
+Which also means the npins check I added in this version is redundant
+and its commit message overstates the problem. I can drop it in a v4 or
+keep it as a cheap guard, whichever Bartosz and Linus prefer.
 
-<del>thp-deferred_split shrinek has SHRINKER_NONSLAB so, the id should be
-assigned (at least I see it in thp_shrinker_init()).</del> I was looking
-at 6.12 kernel.
+> [Severity: High]
+> This is another pre-existing issue, but does imx_pinctrl_parse_pin_mmio() also
+> lack bounds checking for *pin_id during device tree parsing?
+>
+> The pin_id is derived algebraically from raw device tree properties:
+>
+> 	*pin_id = (mux_reg != -1) ? mux_reg / 4 : conf_reg / 4;
+> 	pin_reg = &ipctl->pin_regs[*pin_id];
+> 	pin->pin = *pin_id;
+> 	pin_reg->mux_reg = mux_reg;
+> 	pin_reg->conf_reg = conf_reg;
+>
+> If the parsed *pin_id exceeds info->npins, this uses the unverified index
+> directly on the ipctl->pin_regs array, leading to an immediate out-of-bounds
+> memory write.
+>
+> Does imx_pinctrl_parse_pin_scu() have a similar vulnerability when indexing the
+> info->pins array with an unverified pin->pin?
 
-> Under nokmem the list_lru collapses to the shared per-node lists, but
-> __list_lru_add() still calls set_shrinker_bit() against the memcg of
-> the added object.  Most list_lru users are unaffected because their
-> objects resolve to a NULL memcg without kmem accounting, but the THP
-> deferred split queue holds user folios, which are charged regardless
-> of nokmem.  Since no memcg-aware shrinker can register under nokmem,
+Yes, that is the one real hole, and it is where the fsl,pins value is
+turned into an index. As said on v2, I will send a separate bounds check
+for the parsers after this series.
 
-Not sure I understand here, the SHRINKER_NONSLAB are excluded and should
-still register for per-memcg info.
+> [Severity: High]
+> This is a pre-existing issue, but can concurrent driver probes cause
+> hardware state corruption of the shared input_reg in imx_pmx_set_one_pin_mmio()?
+>
+> There is an unprotected read-modify-write on shared general-purpose IOMUXC
+> registers:
+>
+> 	val = readl(ipctl->base + pin_mmio->input_reg);
+> 	val &= ~mask;
+> 	val |= select << shift;
+> 	writel(val, ipctl->base + pin_mmio->input_reg);
+>
+> If two drivers concurrently request pinctrl states that share the same
+> general-purpose register, and the pinctrl core calls pinmux_enable_setting()
+> locklessly, will these RMW operations race and overwrite each other's
+> configurations?
 
-> shrinker_nr_max stays 0 and every memcg's shrinker_info has
-> map_nr_max =3D=3D 0, so the first folio added by khugepaged triggers on
-> every boot:
->=20
->   WARNING: mm/shrinker.c:212 at set_shrinker_bit+0x99/0xa0
->=20
-> On systems where a SHRINKER_NONSLAB shrinker (btrfs, xfs) did register
-> and expand the maps, there is no warning; instead bit 0 is set
-> spuriously for an unrelated shrinker.
+The core does call set_mux without a lock and the driver has none around
+that read-modify-write, so in principle yes. This series does not touch
+the mux path and I have not seen it on Vybrid, so I leave that one to
+the i.MX maintainers.
 
-Could it be that you see this issue because of a shrinker which isn't
-marked as SHRINKER_NONSLAB?
-
-I'd even go as far as pointing at
-fafaeceb89a5e ("mm: switch deferred split shrinker to list_lru")
-which removed the flag from the the thp-deferred_split shrinker.
-
-IOW, the proper fix should be addition of SHRINKER_NONSLAB so that
-per-memcg maps are properly allocated.
-
-Thanks,
-Michal
-
---dutiu445lzpgkhp4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJEEABYKADkWIQRCE24Fn/AcRjnLivR+PQLnlNv4CAUCaphaIhsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIACgkQfj0C55Tb+AjwxQD/f1S0abo/AyOAeW4+/VMQ
-3+TWP2Ib8ZUBGnI7zXfsbJUA/jJ726jOpW+PD/iuyLKMLOLJKQniOor6aBrBChcp
-74cL
-=fIDH
------END PGP SIGNATURE-----
-
---dutiu445lzpgkhp4--
+Mehmet
