@@ -1,159 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA4C26D4C3;
-	Wed,  2 Sep 2026 07:50:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E403126D6;
+	Wed,  2 Sep 2026 07:51:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788335448; cv=none; b=qJGW2gsde5g/wi5OzDBt1f99f2LAEgq8OBh2rtcVTkF90K2vaUBfpynE5nAfUx9o/zxJHWwgj2Gf7JuuspoLoR6MIN6kPGLGD70OyWHE0xaS5mP61dxVs8LFGCv7pnx2YCokllawn+VScWw/aBbGm67Ba+36vgSaWP/9EtOo++A=
+	t=1788335464; cv=none; b=se63qf6Xj7A8RBYJ1TBRt4x8Y2xR8cJuR/5JLuHeefoVBq7htHaQmp3J+svn6vlVmH+vXxunT49TMLQ/7XAYhNZIbXzmANnUTWUB/n0hMokct1RX2fGOxin+xnGq8zodLoUPHpYZL35GRY8IV7YzxJpl7x7XAz3GcUkfBm2Mu6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788335448; c=relaxed/simple;
-	bh=ZGSvZBUM8lYkI+KW5XRg5aaz1bZaxRqVwiUWm2jql1A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h5ZRcRZHxQSn8ozEmo5sRUyNQIaLaO1u1rjD46D43PQbmT/Jw8sBcn1P06o9z76cmoTUkjCGo/GNBROas5FYNvKjZFzBnJ9bK8f72UsnGQP94prCj7bTeBv9BLaBy8KAC7EPh52tmSCLLymAfAH+NLB/iHAgjeUxbQ5LWL4DN3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ytq25x9Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788335464; c=relaxed/simple;
+	bh=W6hRqxZBEOgpv20ek4NphfTQsMX9rBqDsGLYOSIwzSU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZGm3ApwGzxnuinapccEOow4XykWlXU1BtUGL7MUjEvshWFOguab7ZdSH/LIQSWZfEOnUAwm33X0QVzT/+lVF1W6Vcwp0wZiBzPa+PMJ8CcfjKUJUY8hYNK+m8ZU2uaWyc+o9wa0anbhJm3wmINYzfuiBVarPFfMee1Pfed+hzoo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=cxVuV2uv; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ytq25x9Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BA171F000E9;
-	Wed,  2 Sep 2026 07:50:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788335446;
-	bh=HQKQi6BjlLM/tFqlWQgDt+Hy+RAahli1Ac/ry6Tye0s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Ytq25x9ZypLI7pvIaWHby9YN/2xI3l2sCJNs7/09WI9M8Ijbrbm45iedYNdUZdYwJ
-	 YztvJIkDFUF1FiiaArXjCDsuESH6MV+5J6IIL5xBG8TvYOr3lw4MRTy8RexGYD3lzk
-	 ln7QNhswSQEXCWNIDEIeM/JMOGUVQ0/q2P4Ejmak4GMDG5NhoII6UUeBEOBfyHcbe2
-	 NLurCHI6pSVyhUALB5kApFa1C13Ypo0/vMZm6cV5lND6j2RuKWh0dXlzkRlUlzfOGB
-	 vukMqtASOWsB19/gDNEMKMBN+2kVygD42YfageoaNr2sjyvPzdVxNdL6VsMwzRiK3U
-	 3NijN9UwqG6vA==
-Message-ID: <f0b194b4-6f41-455f-b807-de7c24fa8184@kernel.org>
-Date: Wed, 2 Sep 2026 09:50:42 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="cxVuV2uv"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6826VoWJ2306841;
+	Wed, 2 Sep 2026 07:50:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=9ejSeD4KjKKws421Wn1Lo2KRjTk+Zu
+	TAlSMpzMTTn2w=; b=cxVuV2uvzkgvcs5EuoRdkgcUKRWAr5Xjwo1jC1fhMJKbAj
+	Be6LQnHyTobrmD0E8UrkCTLJf8OGTU+R54sENjr1innuQgZxieP0rxW86GNzw1hS
+	+dP9P/t65Ka5SytaXAXHEcLcHlEl17fNJGrw3qExpWhKK14HRgSjXuAZN+OSENrF
+	0ixZuJHHgBcEblO6aB63DTukueTSLI9hUZ5OSoTVkRjaO7D7Af/zK9DaUPsvZBdl
+	GS/uoaGz+TZPRP3CyKlD+ftiQdrHXJRTklWrkQll58YzmlktsM/rQqRYynQ0AhWW
+	ikkrJX57JOTPRF5YGjEmBmVLzuAEH0lTN5ebipgw==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gbnudvtex-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 07:50:35 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6827fNxk006691;
+	Wed, 2 Sep 2026 07:50:34 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gcbygg9gx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 07:50:34 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6827oUxL37814712
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 2 Sep 2026 07:50:30 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 632CF20040;
+	Wed,  2 Sep 2026 07:50:30 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id F30C02004E;
+	Wed,  2 Sep 2026 07:50:29 +0000 (GMT)
+Received: from osiris (unknown [9.224.76.185])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Wed,  2 Sep 2026 07:50:29 +0000 (GMT)
+Date: Wed, 2 Sep 2026 09:50:28 +0200
+From: Steffen Eiden <seiden@linux.ibm.com>
+To: Sean Christopherson <seanjc@google.com>
+Cc: kvm@vger.kernel.org, kvmarm@lists.linux.dev,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>,
+        Andreas Grapentin <gra@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
+        Catalin Marinas <catalin.marinas@arm.com>,
+        Christian Borntraeger <borntraeger@linux.ibm.com>,
+        Claudio Imbrenda <imbrenda@linux.ibm.com>,
+        David Hildenbrand <david@kernel.org>,
+        Friedrich Welter <fritz@linux.ibm.com>, Fuad Tabba <tabba@google.com>,
+        Gautam Gala <ggala@linux.ibm.com>,
+        Hariharan Mari <hari55@linux.ibm.com>,
+        Heiko Carstens <hca@linux.ibm.com>,
+        Hendrik Brueckner <brueckner@linux.ibm.com>,
+        Ilya Leoshkevich <iii@linux.ibm.com>,
+        Janosch Frank <frankja@linux.ibm.com>, Joey Gouly <joey.gouly@arm.com>,
+        Marc Zyngier <maz@kernel.org>, Nico Boehr <nrb@linux.ibm.com>,
+        Nina Schoetterl-Glausch <oss@nina.schoetterlglausch.eu>,
+        Oliver Upton <oupton@kernel.org>, Paolo Bonzini <pbonzini@redhat.com>,
+        Suzuki K Poulose <suzuki.poulose@arm.com>,
+        Sven Schnelle <svens@linux.ibm.com>,
+        Ulrich Weigand <Ulrich.Weigand@de.ibm.com>,
+        Vasily Gorbik <gor@linux.ibm.com>, Will Deacon <will@kernel.org>,
+        Zenghui Yu <yuzenghui@huawei.com>
+Subject: Re: [PATCH v7 02/23] KVM: Make device name configurable
+Message-ID: <20260902075028.231001-D-seiden@linux.ibm.com>
+References: <20260831144802.834315-1-seiden@linux.ibm.com>
+ <20260831144802.834315-3-seiden@linux.ibm.com>
+ <apdweRfqt4dTxcU9@google.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] docs/core-api: memory-allocation: add
- k[mz]alloc_obj() and clarify kmalloc
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Michal Hocko <mhocko@suse.com>, Randy Dunlap <rdunlap@infradead.org>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Suren Baghdasaryan <surenb@google.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <20260831-docs-memalloc-guide-v1-0-547718c274c1@kernel.org>
- <20260831-docs-memalloc-guide-v1-1-547718c274c1@kernel.org>
- <23db34a1-ba1b-495d-91ea-18419e0dc8df@kernel.org>
- <apb47Rsnz1H36SOy@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <apb47Rsnz1H36SOy@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apdweRfqt4dTxcU9@google.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: QF-vG4BX5O9Aa6yStpepOuZKOE1eMyna
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA2NiBTYWx0ZWRfX1WgqhhycMSVK
+ s9TTuZZWkFfejSZv8rcgEHtbfySdP1FbI2p6sJ8lf5UVjmD8xtSeQqaeDIqhpm9AVi+eqreLCNK
+ 4NketVL6IBOqKHZVZK7uoJ/i/fUxsq9WruPKIFlD9cV5ZERHZlK8U9zG+koiOWfJThl/IhB+nbT
+ /Rc0IBpB4uNoE84/ri3yNtDGCRrFRohts+Pg1taTifUVd3caqvrjDY2YmpHY7bkC3h63yqWIUb/
+ HkzhLaJ2/cHPbe2q8fwvqi3DEGaLvPCNfOOxj486T6+LjcmcAorE11Azhw4V/UpSbbGjSEcgC3M
+ TRN/62A6OrgQFJO03bzM9GTPBwVh44lYo7lv3Hq8a3AktmUl5JK798ONiVDo5kGzyaPDGmaI22Q
+ q81Lcz+GoV6EfyB/m554pLNSJRJ7W7ya8LvwPZSUejGoMdeJMiQvPt4+5MfiKHst15fPHlIrrZy
+ YK+63sLTYofdlCVPePw==
+X-Proofpoint-ORIG-GUID: fANCLW2A9Trn8myBhZjBZVyvyTFzAB3n
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA2NiBTYWx0ZWRfX33hdZLrCOFfK
+ OQQ8toNI0ozMn9YS4Mm21FSWxILdLLBVkjZ4MI6+sOMJ0hLlup1Gs4BYycC/uA3Vpv8med2wOms
+ WjXkSL8iPba98ZH72g14RM4AVVTRDBk=
+X-Authority-Analysis: v=2.4 cv=B92JFutM c=1 sm=1 tr=0 ts=6a97d54c cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=_EcWKeZr55_4eD5WYHIA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_01,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 clxscore=1015 suspectscore=0 phishscore=0
+ lowpriorityscore=0 bulkscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609020066
 
-On 9/1/26 18:10, Mike Rapoport wrote:
-> On Tue, Sep 01, 2026 at 12:17:02PM +0200, Vlastimil Babka (SUSE) wrote:
->> On 8/31/26 17:13, Mike Rapoport (Microsoft) wrote:
->> > Since v7.0 the most used memory allocation function is kzalloc_obj().
->> > 
->> > Update hte memory-allocation guide to describe k[mz]alloc_obj() family
->> > and make kzalloc_obj() the first answer to "How should I allocate
->> > memory?" question.
->> > 
->> > While on it, clarify description of kmalloc() size limitations.
->> > 
->> > Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
->> 
->> Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+On Tue, Sep 01, 2026 at 05:40:25PM -0700, Sean Christopherson wrote:
+> On Mon, Aug 31, 2026, Steffen Eiden wrote:
+> > Allow KVM implementations to choose alternative device names. This is
+> > especially useful for architectures providing multiple KVM
+> > implementations simultaneously. Architectures providing multiple KVM
+> > implementations must compile the KVM common code once per
+> > implementation and mange symbols.
 > 
-> Thanks!
->  
->> Suggestion below:
->> 
->> > ---
->> >  Documentation/core-api/memory-allocation.rst | 30 +++++++++++++++++++++-------
->> >  1 file changed, 23 insertions(+), 7 deletions(-)
->> > 
->> > -For large allocations you can use vmalloc() and vzalloc(), or directly
->> > -request pages from the page allocator. The memory allocated by `vmalloc`
->> > -and related functions is not physically contiguous.
->> > +`kmalloc` always allocates physically contiguous memory and the maximal size of
->> > +a chunk that can be allocated with `kmalloc` is limited by `MAX_ORDER`, the
->> > +same limit also applies to the page allocator.
->> 
->> Would it be better to say the maximal size is KMALLOC_MAX_SIZE which is
->> derived from page allocator's MAX_PAGE_ORDER? 
-> 
-> My point was that whenever you allocate with kmalloc() the limit is
-> MAX_PAGE_ORDER, not necessarily for actual slab allocations.
+> What about tracepoints?  Or do those show up as "kvm" and "kvm-arm64"?
 
-The actual slab allocations limit is KMALLOC_MAX_CACHE_SIZE and that's
-indeed not the point and hence I wouldn't mention it here. KMALLOC_MAX_SIZE
-is literally a conversion of MAX_PAGE_ORDER to bytes, and since kmalloc()
-takes bytes and not order as an argument, it seems more natural to me, e.g.:
+Yes, I want them to show up as kvm and  kvm-arm64.
 
-`kmalloc` always allocates physically contiguous memory and the maximal size
-of a chunk that can be allocated with `kmalloc` is limited by
-`KMALLOC_MAX_SIZE`, which matches the page allocator's MAX_PAGE_ORDER limit.
+Thanks for pointing that out - I just noticed that I forgot to switch
+the trace system to kvm-arm64 for the common tracepoints in
+trace/events/kvm.h
+I only did it for the arch-local traces in PATCH 21.
 
->> (Also `MAX_ORDER` doesn't exist anymore)
-> 
-> Will fix.
->  
->> > +Internally, slab allocator differentiates allocations of different orders and
->> > +delegates larger allocations to the page allocator, but for the users of
->> > +`kmalloc` family it is entirely transparent.
->> > +
->> > +For large allocations that do not require physically contiguous memory you can
->> > +use vmalloc() and vzalloc() family.
->> >  
->> >  If you are not sure whether the allocation size is too large for
->> >  `kmalloc`, it is possible to use kvmalloc() and its derivatives. It will
->> > 
->> 
-> 
+I would just do the following:
+
+diff --git a/include/trace/events/kvm.h b/include/trace/events/kvm.h
+index b282e3a86769..5d4f8a0693a3 100644
+--- a/include/trace/events/kvm.h
++++ b/include/trace/events/kvm.h
+@@ -5,7 +5,11 @@
+ #include <linux/tracepoint.h>
+
+ #undef TRACE_SYSTEM
++#ifdef KVM_S390_ARM64
++#define TRACE_SYSTEM kvm-arm64
++#else
+ #define TRACE_SYSTEM kvm
++#endif /* KVM_S390_ARM64 */
+
+ #define ERSN(x) { KVM_EXIT_##x, "KVM_EXIT_" #x }
+
+
+This would leak a bit of arm on s390 into common KVM but I do not see
+another way.
+
+KVM_S390_ARM64 is defined for all arm-on-s390 compile units.
+
+I think I'll add this in PATCH 14? of this series or create a separate
+PATCH.
+
+Does this make sense?
+
+	Steffen
 
