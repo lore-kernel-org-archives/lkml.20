@@ -1,144 +1,139 @@
-Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out30-130.freemail.mail.aliyun.com (out30-130.freemail.mail.aliyun.com [115.124.30.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FDFC4AA1E7
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:34:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366896; cv=pass; b=PXDsoMithEaoXUUdyANeC1RFThIGgLov82l2uyqujVHoKlwOxcr2IcA3cWwI8FU1noDrms/q6Wrh/4dVBTz+LhpZkN0rmqOAfULD39ceRyg5usnJhGDkKECtXJWndTS0p/SsRx7jM6U1dwZkYpjGecc0Qod9GFkv4bzDf671qiI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366896; c=relaxed/simple;
-	bh=BfEmlkBKcWe2ccNduTBti/ySDv9Dy75blbe5/+Ct4XU=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=qJbMRAJVASvU47BwcBGSDUBRhYIggqeu2o/TGPldVwgfGUPzRMh33iroxucVL38YsgW/yIiUY/CHDjMg/kkJ86B6MjLTQtWWSEqdRj9ia1hspyEgF7bJmii6/IQ3UEYWFLCB2wXde/9gu0EYUGUuHQCcMp2vrC+rQOlP4OMbHlI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cy8rpqnI; arc=pass smtp.client-ip=209.85.161.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B3E472082
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:35:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.130
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788366914; cv=none; b=KoWwiX7irHNp7S2zpAjUnMuSCSd5w9TOykTRfddmmih+0jlQSNRgs8sQr5MUSagQnMr6uQ+JQRgVH1FpxOL1n3OxQeg+yPjqL2OfPTo95zIieCddjJRW1sgKlDO+p9Ywf+fVTYWrS51tijLnsOeoEDYCIjptR7vE85MDd13zboY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788366914; c=relaxed/simple;
+	bh=pn5sy/ZoOK38AtEtuMJVX9rDpF23LMv2oDUU+1FxHGE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TqE1oMN+aDidZxK1yv4CgHKrR3efapybjx430hzbzYK+esM4Vkk2vMtc5p73TtxbZvj5uJXjobuJq2o/mKCiO0oTJbZWJXHuTqfkKZ5NrrZh5Q+s0RVGlJ3qOweH2y/KINH5/eXGPOaLhhw2M+m4adxlMc4h84bNoE6kIJAtKkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=aB9LLQng; arc=none smtp.client-ip=115.124.30.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cy8rpqnI"
-Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6acc74fef22so555712eaf.3
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:34:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788366893; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VhMdVUy7p+mnxx5XONO0YNxjOvrb7vpEKmnT3OCdM4sHx2wMvbT8p5UZdHM00ft0VW
-         3DeRPHoBsXYN89zkmln+x0WYzpmhqNqA1h3EddZIB4m0GF4aaiMWjes4X8+J0OQr7Y2a
-         rgW/7hhsuA085wMH4FZ4BWN9j7tFSabRW5xW+Jzx3RnefL/2x+YIKEHGBQYytQhOmr5V
-         OLyZy3dSFB5+ZYkbvIZ+yB9tPTPzu03hs1HW/2B4CjMbRmBkAMu8srIWVz2mczXAbh0p
-         q9MEkU1KJzAnjYrR+vz0csqwTl+U5vDoufjHe7RpaqJZ2jjlqKQc3XNhMhVdgXLQwj91
-         ZAKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=US9Ylb+9AiTeXprRTRZTmUqpRaQkuKyTcR67E8oUP7U=;
-        fh=AqgbQSnCmhf8R22cK2MIqe9Kn97ANXvzM10SOqHnvWE=;
-        b=oubfLY7kl173B+29ogJ/UmT5lVKAvjohXAyzBdTN9hHDbFNQKcIUf5OurweVKsPxnc
-         pTfp12Q3nlgrbBqKPW53urgNBiW5oi92LiCacnF4he5GHNlUIp+m9YwHrKdIawCLMAAY
-         cTDXMAZadSPExQmNRZfiiun2/FyVZM8AUYYVGFidJ6MijGZx0Yx5cdONkxv9Orhbv87m
-         XyDP5yEn0qJmm59ZXG6bI/tf3s7ObD8TQB5NPRDcTTcYeveBivTIyqCBz3YTiz4BUhr4
-         GkpIfBrnvMXnsbmtaIymd24AOGUIhGnUB7jM7V/dzOUQdMYGLH5YrDjoPrvMOW9sEd36
-         NSsg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788366893; x=1788971693; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=US9Ylb+9AiTeXprRTRZTmUqpRaQkuKyTcR67E8oUP7U=;
-        b=cy8rpqnIQ+2VJ4lINHfL74L8S9OhYhckBddCBaqsdhpu/+kTlXr66den4h5ZiYrqRK
-         O3XzW5PpGUVUyWFyfZsMM/RJSCfGY9lQYqGfmPK/DSlWng1bvgd/BHYokxfippxaP1Xs
-         KL7HwhjyX/MXM06hhaP8AZ+355XS/jiwX3O2/T/ZzENfb/wIfsxUqD8IB4ysOhfXkipM
-         8sIXG415I79dE5eeoR05szl6VbYlm/cmHyribtNuQIQqh8ZoDWDzn6RSr/6554v3qkuV
-         J2mi6c3jSFIJtrV2qf6HI9Q8Pe/2qNl14r4Pu70ISL3ZVjIKLe0z0uO7Fbx6YTQxy1W5
-         iQaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788366893; x=1788971693;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=US9Ylb+9AiTeXprRTRZTmUqpRaQkuKyTcR67E8oUP7U=;
-        b=f+oFnTGCILvNRmF0saVXIGgAmq5m7Ur8dkFj9Smtmti07yoeicoM0mEijYENB8/3gt
-         WlQ4LnaBZRzA8G2wb3r5B/V27NnjQ/FVqEQe3OnBfYVj9wJetC3qdyPhMB9cXKg/rgdn
-         yXwd5muO1A7qD8eP/LksLo/oF1IJhtbc6KMaoulJYqPMIA1jcSdDOvitgpbw89+noP5A
-         eXnZlJ2QIJmlkqoD9CDrKuOKFGbcfL5ME2uJnPwh2H8fFYSITwInmfKXsQt08kZJ/026
-         RRKnWg8iIPUNzkNmwVveSiGMeJ1t4izjaL+EfY+A+Y34/ORmI+S4CRNyJdHJI/MDqh0p
-         TPJg==
-X-Forwarded-Encrypted: i=1; AHgh+RpX1BRaTBFDPjPV66LxYZsSLXPERdZBw/OA5BgbqJuqsIMdCrN+d46CsL5fd5L+dOfUTIKWI/pX0EFiYUk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbr1QJBtjtconvlS9k8HzTHOhCf/y/X+gUmc0K4bqEHP1DvTX3
-	m3AXK+i8XJbPsVPfMDPVe0MqtBfr8OZV6PEYnSqa+nMlONvSeu1iDyMnwey/2nWkvlap0OEhKaS
-	GiibFVOi335xLtJfYK+Fi2eZjJ/hBdFA=
-X-Gm-Gg: AR+sD12OVmGgHEnILvaEgSZ38IPYlaci11tefIGc8LpmlmP0XAQAjzsHsilr1hhkUqY
-	czqvTK4I3c8v0SLaVNXuU5CQHwEhdxIWbo7LKHirblFtKrlneBnTafJLOEnoz53nMXmxyxLybRM
-	aXQJ4LDoxQuQfVGbNG6mh8X/qECNRj74pvei37kqK5a1YLwWhbKncjHxON8+GkGW5MbneHKxSh7
-	SaKs7m8IAYGS4JnHwZZ749Kf3UDKFDx9xpGJ7+8WcW8hXYrdlKTvto3KG0RpJYxP1antGPOeDAq
-	/HPQMORFlU1vzNT2d1r54GGt7cSmCy9CEtZUJxKH9Zej/x4DMZH9jwPKgEBMOkCIUGwlgRp58BT
-	RmXER/QbzZDFFHOlq99quPH8NPpZbCIi2v51ybL+11/CzTxnlrCeZAD0o5HIVe2lVhcn6BMrKOV
-	NZFe0nlGy+nSEhbi2N3t0t4HvK9dFC7WMgqxOEtcfP
-X-Received: by 2002:a05:6820:16a9:b0:6b1:445d:aaf9 with SMTP id
- 006d021491bc7-6b47d4cd775mr4034068eaf.8.1788366893040; Wed, 02 Sep 2026
- 09:34:53 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="aB9LLQng"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1788366902; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=t3xTtfp8+sFuOL15lrfY9099X11nqv/eMWaYFw/sH5k=;
+	b=aB9LLQngBloirh6poWjvkxUoDSQ8SNYrW+yD+KhNOr/cO8S9oCrI6824jdUUjEvy0YuonS4gZ7yR2ZyP6n5xkr58Q94kRGPoM72UBWjLCQxrqpkoUhj4SH3Bw28H2Ta0mB49ykSAyf9beyns3fzUWrW/XkoQWVLBS6+bvw06ywo=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R121e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=wanghan@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XADH..Q_1788366900;
+Received: from wanghan-Workstation..(mailfrom:wanghan@linux.alibaba.com fp:SMTPD_---0XADH..Q_1788366900 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Thu, 03 Sep 2026 00:35:01 +0800
+From: Wang Han <wanghan@linux.alibaba.com>
+To: weilin.chang@arm.com
+Cc: linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	maz@kernel.org,
+	oupton@kernel.org,
+	tabba@google.com,
+	joey.gouly@arm.com,
+	seiden@linux.ibm.com,
+	suzuki.poulose@arm.com,
+	catalin.marinas@arm.com,
+	will@kernel.org,
+	ljs@kernel.org,
+	itaru.kitayama@fujitsu.com
+Subject: Re: [PATCH v5 0/6] KVM: arm64: nv: Implement nested stage-2 reverse map (new data structure)
+Date: Thu,  3 Sep 2026 00:35:00 +0800
+Message-ID: <20260902163500.1841671-1-wanghan@linux.alibaba.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260810205038.118843-1-weilin.chang@arm.com>
+References: <20260810205038.118843-1-weilin.chang@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Andrew Wilson <wizlonex@gmail.com>
-Date: Wed, 2 Sep 2026 12:34:41 -0400
-X-Gm-Features: AcwNN1WhXm-Lt1F0X-OQuMqxjgk1a3bMvVoyZLhgjbgALurTS0LPjsCCof-Lok4
-Message-ID: <CALAyJWrn7OQyQMd5OPoifn_3qe6iWNf1+xSSg_six-+po9kpvQ@mail.gmail.com>
-Subject: [REGRESSION] [6.12.y] crypto: ccp - Move SEV/SNP Platform
- initialization to KVM breaks SEV-ES VM launch
-To: ashish.kalra@amd.com, seanjc@google.com, aik@amd.com, 
-	herbert@gondor.apana.org.au
-Cc: stable@vger.kernel.org, regressions@lists.linux.dev, 
-	thomas.lendacky@amd.com, john.allen@amd.com, davem@davemloft.net, 
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	1145026@bugs.debian.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-#regzbot introduced: 3f8f0133a5fc9b32d0c308530320c3f2430ba5ab
+Hi Wei-Lin,
 
-Hi all,
+I tested this series on a Yitian 710 system with an ARM Neoverse-N2 CPU
+(128 CPUs, 2 NUMA nodes).
 
-I am writing to report a regression affecting AMD SEV-ES VM launches
-on the 6.12 stable branch (first noticed in 6.12.97+ / 6.12.101).
+Test environment
+----------------
 
-I completed a git bisect between working and failing kernels, which pointed to:
+  L0 kernel: Linux v7.2-rc6
+  L1 guest: Ubuntu 26.04 LTS, kernel 7.0.0-27-generic (aarch64)
+  QEMU: 10.2.3
 
-Commit: bb1c84647025 ("crypto: ccp - Move SEV/SNP Platform
-initialization to KVM")
-Upstream commit: 3f8f0133a5fc9b32d0c308530320c3f2430ba5ab
+L0 NUMA balancing was enabled (`/proc/sys/kernel/numa_balancing=1`).
+The host was booted with `kvm_arm.mode=nested`.
 
-### Bisect & Verification Details:
-* Last Known Working: 8a599f4f74d4
-* First Broken Commit: bb1c84647025
-* Tested on 6.12.101: Cleanly reverting bb1c84647025 immediately
-resolves the issue and allows SEV-ES guests to boot normally.
+This series fixes a functional hang that is exposed when NUMA balancing is
+enabled.  The previous nested stage-2 unmap path is too slow for this
+workload, making the performance problem user-visible: NUMA balancing can
+leave the L1 guest unable to make progress and eventually hang during boot.
 
-### Failure Description:
-With commit bb1c84647025 applied, `sev_platform_init(&args)` is
-removed from `sev_pci_init()`, assuming KVM handles on-demand
-initialization.
+The L1 was started with 8 vCPUs and 32 GiB of RAM using:
 
-On bare metal, the PSP firmware appears to remain uninitialized (does
-not reach SEV_STATE_INIT at probe time). When QEMU initializes KVM and
-queries host SEV-ES capabilities, the ioctl fails with -EPERM:
+  qemu-system-aarch64 -smp 8 -m 32G \
+    -machine virt,accel=kvm,gic-version=3,virtualization=on \
+    -cpu host -nographic -enable-kvm \
+    -drive if=pflash,format=raw,readonly=on,file=pflash0_bak.img \
+    -drive if=pflash,format=raw,file=pflash1_bak.img \
+    -drive file=./ubuntu-vm.qcow2,format=qcow2,if=virtio,cache=none,aio=native \
+    -nic user,model=virtio-net-pci,hostfwd=tcp::11234-:22 \
+    -serial mon:stdio
 
-  qemu-system-x86_64: -accel kvm: sev_common_kvm_init: guest policy
-requires SEV-ES, but host SEV-ES support unavailable
-  qemu-system-x86_64: -accel kvm: failed to initialize kvm: Operation
-not permitted
+With upstream v7.2-rc6 (075b74841bd0065a3bda3440873c747938e69b68),
+L0 NUMA balancing enabled, and the same QEMU configuration, the L1 guest
+hung during boot.  The original L1 console reported:
 
-### Hardware & Environment:
-* Tested on: AMD EPYC (Rome / Milan) Supermicro platforms
-* Kernel: Linux 6.12.101
-* Hypervisor: QEMU / KVM
+  [   76.595764] watchdog: BUG: soft lockup - CPU#1 stuck for 45s! [k8s-dqlite:3068]
+  [   76.595973] watchdog: BUG: soft lockup - CPU#0 stuck for 38s! [rs:main Q:Reg:1602]
+  [   76.596181] watchdog: BUG: soft lockup - CPU#7 stuck for 45s! [kubelite:2672]
+  [   76.596334] watchdog: BUG: soft lockup - CPU#5 stuck for 38s! [containerd:2375]
 
-I have access to Naples, Rome, and Milan test hardware and am happy to
-test any patches, provide dmesg traces, or assist with debugging.  I
-am not a tech-expert of any kind, but I have time to do some testing
-if it helps.  THANK YOU for the great work.
+The corresponding L0 hung-task report was:
 
-Original Debian bug reference:
-https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1145026
+  [Wed Sep  2 22:49:08 2026] INFO: task qemu-system-aar:14681 blocked in I/O wait for more than 120 seconds.
+  [Wed Sep  2 22:49:08 2026]       Tainted: G            E    N  7.2.0-rc6-poluted_opt-7-2-numa #10.al8
+  [Wed Sep  2 22:49:08 2026] "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+  [Wed Sep  2 22:49:08 2026] task:qemu-system-aar state:D stack:0     pid:14681 tgid:14681 ppid:14680  task_flags:0x8400080 flags:0x00800000
+  [Wed Sep  2 22:49:08 2026] Call trace:
+  [Wed Sep  2 22:49:08 2026]  __switch_to+0x128/0x168 (T)
+  [Wed Sep  2 22:49:08 2026]  __schedule+0x278/0x910
+  [Wed Sep  2 22:49:08 2026]  schedule+0x3c/0xe8
+  [Wed Sep  2 22:49:08 2026]  io_schedule+0x44/0x68
+  [Wed Sep  2 22:49:08 2026]  softleaf_entry_wait_on_locked+0x280/0x2d0
+  [Wed Sep  2 22:49:08 2026]  migration_entry_wait+0xdc/0x140
+  [Wed Sep  2 22:49:08 2026]  do_swap_page+0x834/0xd80
+  [Wed Sep  2 22:49:08 2026]  handle_pte_fault+0x208/0x2b8
+  [Wed Sep  2 22:49:08 2026]  __handle_mm_fault+0x228/0x528
+  [Wed Sep  2 22:49:08 2026]  handle_mm_fault+0xdc/0x2d8
+  [Wed Sep  2 22:49:08 2026]  do_page_fault+0x388/0x790
+  [Wed Sep  2 22:49:08 2026]  do_translation_fault+0x4c/0x88
+  [Wed Sep  2 22:49:08 2026]  do_mem_abort+0x4c/0xa0
+  [Wed Sep  2 22:49:08 2026]  el0_da+0x54/0x178
+  [Wed Sep  2 22:49:08 2026]  el0t_64_sync_handler+0xd0/0xe8
+  [Wed Sep  2 22:49:08 2026]  el0t_64_sync+0x1ac/0x1b0
+
+The same wait and stack were observed repeatedly; the hung-task report
+recurred after 241 and 362 seconds.
+
+I applied the v5 series to the same v7.2-rc6 baseline.  With L0 NUMA
+balancing still enabled and the same QEMU command line, the L1 guest
+booted normally and could be operated through the serial console.  QEMU
+no longer hung.  No new soft-lockup, hung-task, blocked-I/O,
+migration-entry-wait, or softleaf-entry-wait message was observed in the
+patched boot log.
+
+As a control, the unmodified v7.2-rc6 kernel with
+/proc/sys/kernel/numa_balancing=0 also booted the L1 with the same QEMU
+configuration.  This confirms that the patch removes the NUMA-balancing
+failure mode in this setup rather than merely changing the guest setup.
+
+Tested-by: Wang Han <wanghan@linux.alibaba.com>
 
 Thanks,
-Andrew Wilson
+Wang Han
