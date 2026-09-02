@@ -1,120 +1,90 @@
-Received: from mta0.migadu.com (out-166.mta0.migadu.com [91.218.175.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FA77370ACC
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 07:45:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6E04370ACC;
+	Wed,  2 Sep 2026 07:46:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788335126; cv=none; b=OAzV8C2fsylU9hJ7qrsh1NDvMxKyTrqv2K2J5k8N8duEDLPj0MI3v4jPKnCrxZuh+3lppmVH7qETJfgBhW0lbIA0aYuf1Vz6vlhxwdEGCPj2OMvj08T/oqWVmBNkIX/+y69YsKXlPCVMHuDAWrgWTZf4S7lpIQexxwB0yh+G7Ic=
+	t=1788335182; cv=none; b=EIyqLIx1QIZsTQRmZU9Im/Exnm+bOf7oykek3dnUcRkDl7NkgvmMASd5oLq2j2caTTRVZDLLb8OhMkYdYV5v1zWKM8HBeJMGkFHVgiKAjvw1VUYrFOy7H7YzB1zSOLAB+RVjATUClRjg078EiV+BhBEDHZ+AtJMFKcdonUnUTKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788335126; c=relaxed/simple;
-	bh=nPuJvPlfKs5KwJge9K/UOWlSC005FaprIiv5iWHet/M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=b3oMfVV8X5PoBeYgGXni4Q61O9H/7G52EQybE/0vN6IIuJJf3jKBGZqxeI/DRJg2KuEW9UoG3R1ZmxiiNpKr+pQgCkN+BI9gMQK9x+hByf4Ob3IcVfGBb6Qfta1LGTc2kRcytTSJGXHVpgDd/MeERnzf3arfzMvnOTY9eFR+YgE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=YSqHGnxB; arc=none smtp.client-ip=91.218.175.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788335182; c=relaxed/simple;
+	bh=29czV3fjjxBVQbNXJgxEZMzYgZW1biCPklSbU1r9VFU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=EMrJ3SSibZwJEy69wtA2y4mdf3h0ccWbOTI21/csZoDRXPQDSkp333ixZeSTXPZjFNFasmcvKGHl8ai1rnKDTZnz6K8XXQQ4qDfbS21eSc2Sg/A10KN1DvUchTW+/PATe3/2nz3qP3V1RiZw7AYBcErW1uCwJmoMi+LkJrvSO/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Do35rUN1; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=a7XGseWt; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="YSqHGnxB"
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nPuJvPlfKs5KwJge9K/UOWlSC005FaprIiv5iWHet/M=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788335122; v=1; x=1788939922;
- b=YSqHGnxBEeDCdizlOg3HcijPEp5i/4nrZduysiH4hMPUtrmvKbXeZsnHcblCV1mHtkkRdXQR
- bSYJzld/uV07HO/5NxXuYmcbEPmG8x19fwjW2j3DD38iYzOCJmlOPjV1Gsy9SeZrxXGkK28yW5W
- R7bSdCv1+R7SzDrmde+ZqGLc=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 6b728d2c01da53b0;
-	Wed, 02 Sep 2026 07:45:20 +0000
-X-Mizu-Trace-ID: 6b728d2c01da53b0
-X-Migadu-Flow: FLOW_OUT
-From: Tao Cui <cui.tao@linux.dev>
-To: linux-fsdevel@vger.kernel.org,
-	jlayton@kernel.org,
-	cel@kernel.org
-Cc: alex.aring@gmail.com,
-	viro@zeniv.linux.org.uk,
-	brauner@kernel.org,
-	linux-kernel@vger.kernel.org,
-	avagin@openvz.org,
-	khorenko@virtuozzo.com,
-	bcodding@redhat.com,
-	cui.tao@linux.dev,
-	Tao Cui <cuitao@kylinos.cn>
-Subject: [PATCH] fs/locks: filter OFD locks from /proc/locks for foreign pid namespaces
-Date: Wed,  2 Sep 2026 15:45:12 +0800
-Message-ID: <20260902074512.885475-1-cui.tao@linux.dev>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Do35rUN1";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="a7XGseWt"
+From: Nam Cao <namcao@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788335178;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=29czV3fjjxBVQbNXJgxEZMzYgZW1biCPklSbU1r9VFU=;
+	b=Do35rUN1QqwaRhpAx6tTLLF9UE2JChbAdvhVfGYDAMbMcKcY6hcoZ3n08k2h5PqH6cbSTE
+	iOYaz1TQEF016iyZag5zi8yBnZzdz/fDFNVTWe+cD15T0SVXrRT8EGvvR0/LLWDwsk9YGN
+	Ag/V+ftFNkdsAxR72nv+zqFk8g2qAHgPxhEdu6FoSyVCSAt2NEhTlKnKVBdMsoqwurvJph
+	NvQGbIoWfOe55EgGxbUYbEAakDm7OAaCkzMXdh/k6+KoFFP5j2yhgFgZyX4ZNmy+SJpdRP
+	XGa8kLAPH6kIGD9UfXUV0cTUi5FDxJOQpOiz5FVH7Gh57U19czXmyfRTNirBgg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788335178;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=29czV3fjjxBVQbNXJgxEZMzYgZW1biCPklSbU1r9VFU=;
+	b=a7XGseWtGRSYJDkNDkn2iqJSSLEAeTU7RbPPZ84zWJsrP5ylW7MHFCI8zUwh6Ym886g1ys
+	AZX52ao/WlUmHlCw==
+To: Gabriele Monaco <gmonaco@redhat.com>, linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org
+Cc: Steven Rostedt <rostedt@goodmis.org>, Wen Yang <wen.yang@linux.dev>,
+ Tobias Schaffner <tobias.schaffner@siemens.com>, Viktor Malik
+ <vmalik@redhat.com>
+Subject: Re: [RFC PATCH 00/20] rv: Add support for BPF monitors
+In-Reply-To: <df6e9168cb06c35e21db7f9d17cfbca6bd87005b.camel@redhat.com>
+References: <20260831090524.106845-1-gmonaco@redhat.com>
+ <87se3sakgi.fsf@yellow.woof>
+ <df6e9168cb06c35e21db7f9d17cfbca6bd87005b.camel@redhat.com>
+Date: Wed, 02 Sep 2026 09:46:17 +0200
+Message-ID: <8733vsw0xi.fsf@yellow.woof>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-From: Tao Cui <cuitao@kylinos.cn>
+Gabriele Monaco <gmonaco@redhat.com> writes:
+> I should definitely have included it in the cover letter.. I'm writing it
+> everywhere (will present at LPC) but forgot it here.
+>
+> Essentially BPF monitors can be pluggable, folks writing their own monitors
+> won't need to submit a patch or maintain a separate tree, which is useful for
+> domain-specific models.
+> By being pluggable you also don't need to reboot to use a new/updated monitor.
+>
+> Think of being able to distribute a more granular set of rules for RTapp, I
+> remember we had conversation along those lines, not all rules apply to all
+> contexts and what you send upstream has to be general, what you keep for
+> yourself doesn't.
+>
+> Having monitors in BPF brings also other perks over kernel modules: a whole
+> bunch of readily available probe types (uprobes, fprobes, all unexported
+> tracepoints that are cumbersome for modules), the map infrastructure for
+> allocation is arguably easier and the code is verified when loaded against
+> common issues (NULL pointer access, unbound loops, etc.).
+>
+> That said, I try to mimic as much as possible the in-kernel functionality, but
+> some things are not the same (event/error tracepoints).
+>
+> These support DA only because BPF loading needs a userspace component and the RV
+> tool doesn't support LTL and HA yet, there shouldn't be any technical reason not
+> to extend to those in the future.
 
-Since Linux 4.9, /proc/locks only shows locks whose owning process is
-visible in the reader's pid namespace.  The check cannot see the
-owner of an OFD lock, though: locks_translate_pid() always returns
--1 for FL_OFDLCK, so an OFD lock held outside of that namespace
-bypasses the filter and is shown with its device/inode numbers and
-byte range, e.g.
+Cool. I also wanted to do something like this, for these exact same
+reasons. Let me look at your patches..
 
-    4: OFDLCK ADVISORY  WRITE -1 fd:00:70536961 0 EOF
-
-This was observed on a Kubernetes node: a pod reading /proc/locks
-listed the OFD write lock of an unrelated host process, while the
-POSIX locks of the very same process were correctly hidden.  The
-device/inode pair identifies which host file is locked, the byte
-range discloses where it is actively written, and the
-appearance/disappearance of entries reflects host task activity,
-contrary to the documented per-pidns visibility of /proc/locks
-(proc_locks(5)).
-
-OFD locks record the owner tgid in flc_pid, so use it for the
-visibility decision in locks_show().  The pid column is still
-reported as -1 for OFD locks; only the filter decision changes.
-
-Verified with an OFD and a POSIX write lock held in the initial pid
-namespace while a process in a fresh pid namespace reads /proc/locks:
-the OFD entry is visible without this patch and hidden with it, the
-POSIX entry is hidden in both cases.
-
-Signed-off-by: Tao Cui <cuitao@kylinos.cn>
----
- fs/locks.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
-
-diff --git a/fs/locks.c b/fs/locks.c
-index 6e4ff7fcec05..db17879d9319 100644
---- a/fs/locks.c
-+++ b/fs/locks.c
-@@ -3022,6 +3022,23 @@ static int locks_show(struct seq_file *f, void *v)
- 
- 	cur = hlist_entry(v, struct file_lock_core, flc_link);
- 
-+	/*
-+	 * OFD locks are reported with pid -1, so the filter below cannot see
-+	 * their owner; flc_pid holds the owner tgid, so filter on it.
-+	 */
-+	if ((cur->flc_flags & FL_OFDLCK) && proc_pidns != &init_pid_ns) {
-+		struct pid *pid;
-+		bool visible = false;
-+
-+		rcu_read_lock();
-+		pid = find_pid_ns(cur->flc_pid, &init_pid_ns);
-+		if (pid)
-+			visible = pid_nr_ns(pid, proc_pidns) != 0;
-+		rcu_read_unlock();
-+		if (!visible)
-+			return 0;
-+	}
-+
- 	if (locks_translate_pid(cur, proc_pidns) == 0)
- 		return 0;
- 
--- 
-2.43.0
-
+Nam
