@@ -1,144 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA3C1FCFFC
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 14:10:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFE4E48AE00;
+	Wed,  2 Sep 2026 14:10:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788358210; cv=none; b=fvAfgtxgZ4suN0VOvjDQNbMTcumqp7Uk7WCrwBYJ88X1JuwU2B+uMeFrK9M/yZWdEtCIYYOwzDnO7g0tie7tgRXqI4KRvbUpGwcsCN66In1hBElEYZivTvmzk+JaLdqQIM2VWTnOHAAXXI41pO7n1p5IiaSctPPYRiBOnMnlNoU=
+	t=1788358218; cv=none; b=cpIA/0WCMNuhm67TVlWnqwRyYEzhH+ceMAOUPqkNzg0lDk+znhnPjo0PUqhSi4HTDVFDZrsmt3A55LzgWYNkJOGFG6CT3kk6othFfncznWdyN9n2OEEfCXjQzbGeD1/F78X70CmPuHhIQqdPAcqlasy/+TFRDc+OV/OBMOgWOCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788358210; c=relaxed/simple;
-	bh=1Wk9qyONT2hvuTO4hblwOkOZfWftxzXibcKXHRJCCQ8=;
+	s=arc-20240116; t=1788358218; c=relaxed/simple;
+	bh=0n6J8d2tbFL7ga6GssFj7mwqgAlKt9GThZ0gjGLW2vw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Wrt4dUQ48MEJomG3rLnDYkZlKPYFdrxQA4U/bpaI0QVowJ437R0Zo6eG/JISdqTL5+SaPd2pUTZawabDfJL40alWhH1YroHeuzcw2w07AM4GNfokYGwYB9cNIIIHCrFg9RdFdj2DCxxqgxMb9d1bPcXGpxn7ywiJA6hU0/LWZho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AbNyyGXp; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ronBQh2zMKseP2AmHRNpk6mgzJTGMc8QqcKXulrR44g8uTeBRu1kufm6JIUG1Z56olahTd3zDmlNbpVP7vLzcKrAHf/ehCqJS9ed49HZfhpJt8iiYv8JgzsTHx99NNgNAmUfnUDxWVb15yusV05h/+ThCQTBNBgOBdA6FeeX8i8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=02cBZjr3; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=Tb3/fEYe; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=2kgGy09B; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=jVRKKD0G; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AbNyyGXp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CF741F00A3A;
-	Wed,  2 Sep 2026 14:10:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788358209;
-	bh=IHxs6/U1x5uyJuxikO9wDzp20/n5ZVu9EDJq4swYRnU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AbNyyGXpcABIOs2uywp5o1EtFTHBPsBRoHMEpULWuEPQQckJDbzgiQZUgS3CvSS4E
-	 N7UNObgsmPmWx7LCFyv5Uu4zuVclly0xFeOgqLJ3WSjdiZSYa9D26hpjvY/3P2rpLP
-	 sgxDg2C30MlQ/4G5qSca3IAKUPXtV8HLcRJ46J5E2Ov2uu5xZ/4rffhcnfxeZ/QCJD
-	 ZOsPG45dNH1j9x/2bik58QPbK2iscdqwAGW0n4b9I+AEH6YMtJlZSHj8qhwOvPQHji
-	 44gNPE0tBODCDs6j1dTgP9O9QnGyIqkVDNvFq5JrPU/cS/vlESgV6gO4DW8B+aSBcH
-	 3I9ICikaHD04A==
-Date: Wed, 2 Sep 2026 16:10:06 +0200
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: Peter Zijlstra <peterz@infradead.org>,
-	Bradley Morgan <include@grrlz.net>, Tejun Heo <tj@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] kthread: remove worker->task self-assignment
-Message-ID: <apguPoeERI92N4yD@localhost.localdomain>
-References: <20260829161150.16301-1-include@grrlz.net>
- <20260829161848.20635-1-include@grrlz.net>
- <apbI91PzT2BaRazM@localhost.localdomain>
- <20260901124900.GB687043@noisy.programming.kicks-ass.net>
- <CE1F7435-D872-4A3F-BC7A-50443BBE2904@mainlining.org>
- <apbb--idnSZMNLPU@localhost.localdomain>
- <87CE893D-07E6-4EA4-8156-2CE6946D12BD@mainlining.org>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="02cBZjr3";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="Tb3/fEYe";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="2kgGy09B";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="jVRKKD0G"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id A153821D1E;
+	Wed,  2 Sep 2026 14:10:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788358210;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KQOX8mC9KXS6/HAfC7JEqeQ+pfODV61QEAOmpHiR59o=;
+	b=02cBZjr30hPVIC8Mo3orx3wuApnivWCmrNRH3+4RUeViLigjljaHgZ8tAPnGA45KSHNYb0
+	Tq1+uT8/0S3m2fKWMwVCO/4+/uJ58mXtmrd3/2yWeaaXUdcNBF+lC9DrjywhTgIaSChdRK
+	WWVQAvncTw8hmWk9fK1i00DcL89pNyg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788358210;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KQOX8mC9KXS6/HAfC7JEqeQ+pfODV61QEAOmpHiR59o=;
+	b=Tb3/fEYeEbRs0W07j8g6Tuj5KECDlsy6msrHTMb2txer6bGQ/noQrrp70H7uSKjaOWyy7t
+	GfzU0TbuRYGa9cAA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1788358206;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KQOX8mC9KXS6/HAfC7JEqeQ+pfODV61QEAOmpHiR59o=;
+	b=2kgGy09ByLHKEIZ6l/3elsPx4p8e0tWc8A0FDz5OQ8WcJV1bm7D57xFPItDo+nil3y7fX2
+	8Nnpom8ZwAZixOvXYDunKVX56mF2VFmiSzbSMy6HMYgL5LQGRUXukEchBwj4AIAlm79MZv
+	x1vurtqn+MOxFPYPhYwgw/i2ZbVMOOY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1788358206;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KQOX8mC9KXS6/HAfC7JEqeQ+pfODV61QEAOmpHiR59o=;
+	b=jVRKKD0GdV8TMbN37WOzXFXg6Ud7FzIcLLznCyj7n5lns/qmMbe5V0CfSBKrEufqhanZZM
+	DmWAmPNMMgAIa8Cw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 7975E136E6;
+	Wed,  2 Sep 2026 14:10:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id jlhyHT4umGozAwAAD6G6ig
+	(envelope-from <dsterba@suse.cz>); Wed, 02 Sep 2026 14:10:06 +0000
+Date: Wed, 2 Sep 2026 16:10:01 +0200
+From: David Sterba <dsterba@suse.cz>
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org
+Subject: Re: Fixes tags need work in the btrfs-fixes tree
+Message-ID: <20260902141000.GJ9053@suse.cz>
+Reply-To: dsterba@suse.cz
+References: <apf36908zqybr8_0@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <87CE893D-07E6-4EA4-8156-2CE6946D12BD@mainlining.org>
+In-Reply-To: <apf36908zqybr8_0@sirena.org.uk>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
+X-Spam-Score: -4.00
+X-Spam-Level: 
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	HAS_REPLYTO(0.30)[dsterba@suse.cz];
+	NEURAL_HAM_SHORT(-0.20)[-0.996];
+	MIME_GOOD(-0.10)[text/plain];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_TLS_ALL(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_THREE(0.00)[3];
+	REPLYTO_ADDR_EQ_FROM(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.cz:replyto,suse.cz:mid,imap1.dmz-prg2.suse.org:helo];
+	RCVD_COUNT_TWO(0.00)[2];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[]
+X-Spam-Flag: NO
 
-Le Tue, Sep 01, 2026 at 07:28:19PM +0100, Bradley Morgan a écrit :
-> On 1 September 2026 15:06:51 BST, Frederic Weisbecker <frederic@kernel.org>
-> wrote:
-> >Le Tue, Sep 01, 2026 at 02:57:38PM +0100, Bradley Morgan a écrit :
-> >> On 1 September 2026 13:49:00 BST, Peter Zijlstra <peterz@infradead.org>
-> >> wrote:
-> >> >On Tue, Sep 01, 2026 at 02:45:43PM +0200, Frederic Weisbecker wrote:
-> >> >> Hi,
-> >> >> 
-> >> >> Le Sat, Aug 29, 2026 at 04:18:48PM +0000, Bradley Morgan a écrit :
-> >> >> > From: Bradley Morgan <brads@mainlining.org>
-> >> >> > 
-> >> >> > All kthread worker users now create their workers with
-> >> >> > kthread_create_worker*(), which sets worker->task before the worker
-> >> >> > starts. The self-assignment in kthread_worker_fn() is dead code
-> >now.
-> >> >> 
-> >> >> How could it be created before?
-> >> >> 
-> >> >> > 
-> >> >> > Remove it.
-> >> >> > 
-> >> >> > Signed-off-by: Bradley Morgan <brads@mainlining.org>
-> >> >> > ---
-> >> >> >  kernel/kthread.c | 7 -------
-> >> >> >  1 file changed, 7 deletions(-)
-> >> >> > 
-> >> >> > diff --git a/kernel/kthread.c b/kernel/kthread.c
-> >> >> > index 63beb59b7a3d..18bc702e8d2d 100644
-> >> >> > --- a/kernel/kthread.c
-> >> >> > +++ b/kernel/kthread.c
-> >> >> > @@ -987,13 +987,6 @@ int kthread_worker_fn(void *worker_ptr)
-> >> >> >  	struct kthread_worker *worker = worker_ptr;
-> >> >> >  	struct kthread_work *work;
-> >> >> >  
-> >> >> > -	/*
-> >> >> > -	 * FIXME: Update the check and remove the assignment when all kthread
-> >> >> > -	 * worker users are created using kthread_create_worker*() functions.
-> >> >> > -	 */
-> >> >> > -	WARN_ON(worker->task && worker->task != current);
-> >> >> 
-> >> >> Should we keep a WARN_ON(worker->task != current) here?
-> >> >
-> >> >I vote yes! Paranoia is good :-)
-> >> >
-> >> 
-> >> 
-> >> Yeah, but it *should* be useless.
-> >
-> >Famous last words :-)
-> >
-> >> Do you really want me to readd the warn
-> >> statement? Maybe add some text, like
-> >> 
-> >> "worker->task is deprecated"?
-> >
-> >Is it deprecated? We still need that field for wakeup on queue at least.
-> >Don't bother with a message, it's only a sanity check.
-> >
-> >Thanks.
+On Wed, Sep 02, 2026 at 11:18:19AM +0100, Mark Brown wrote:
+> In commit
 > 
-> Hi, I hopped on the computer, 
+>   590b991274881 ("btrfs: scrub: report the failing sector's address, not the stripe base")
 > 
-> Right, so the whole warn on things is good, but I converted all the
-> callers, so it'll never fire.
+> Fixes tag
 > 
-> For OOT users, maybe this'll be beneficial (but yk what their like, theyll
-> remove the warn on)
+>   Fixes: 0096580713ff ("btrfs: scrub: introduce error reporting  functionality for scrub_stripe")
 > 
-> Guys, what do you think?
+> has these problem(s):
+> 
+>   - Subject does not match target commit subject
+>     Just use
+> 	git log -1 --format='Fixes: %h ("%s")'
 
-The warning is mostly to prevent from future changes to break.
+It may be hard to spot, there are two spaces between "... reporting  functionality ..."
 
-Thanks.
-
-> 
-> >
-> >> 
-> >> --- Thanks!
-> >>
-> >https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
-> >
-> >
-> 
-> --- Thanks!
-> https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
-
--- 
-Frederic Weisbecker
-SUSE Labs
+Will be fixed in the next update, thanks.
