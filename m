@@ -1,353 +1,232 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04CE7451992;
-	Wed,  2 Sep 2026 23:30:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CED0455635
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 23:35:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788391852; cv=none; b=J67NccHwmGEC4UcRZCmPUmpbMDwnwoOHcatWNvDoo4pqlDIhA7P/OV3pEiLWacmKCDyHdbIlYMMcH7W/+YPgpj7EDZn6AvPn0tmBA9wz+7FP4R6LmFrqwUH+NpcOOSI/PLn6j5XRTBL++HxRumLskVbmv+Bn5RDvj3TG+iDIudk=
+	t=1788392126; cv=none; b=Q5Qp7qw6+J/asRKJxv3CB4ngIkHJcTaliO8skUpCHmA86/MyizzpNIgoh1iIKQFPA5VGFnlIUgHueR7V3fZLZPbqxM8gTIw2YMdU6T2byGBXgEuWvBIydMTgqW3BYQGZ/JZIma3fScZa9M6wqYVtczIMNuSz4sYHtzasSCpEKGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788391852; c=relaxed/simple;
-	bh=YmTzLGCwOa83Q9censUxVmhxihQS3PGlGIxxvn+2hMQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Q1D9zzKjwicpWQuTdZo9vXj24BWpwGNHuHRIjlyOA8nQue2F1wCqztCibPt1rfimiESInV3uEZ5UJ8q03tnMJEmnuWwxNAeoxd6wz0zTx3SVfjNLEUl9ZYOHcff85hqqV3+SqJmjp7qM+EKBaknW4HuJ+Lgbp65gW0esK8cvn0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uObNl2d2; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788392126; c=relaxed/simple;
+	bh=U71T/iH4wTJhru5jPquFocWPqj8LcYNokk6NJovo93Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JF6sDU8p95KXXjaQn3U1zsgu0JpArvjONXvOa2tDmTM+2CVqm6UqgKK6TB/2t1ro9zd+DxWnSmeyLph5JRYIbmKtv6ttcQthBYz+COyxW3d69kTKnnW9E1tQ+/BhgfgGUW95pwbras3sniKcv6C2TziNRwyg5xj3mAmnmAPA1rc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i1+CgPYJ; arc=none smtp.client-ip=74.125.227.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uObNl2d2"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B93B9C2BCF7;
-	Wed,  2 Sep 2026 23:30:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788391851;
-	bh=YmTzLGCwOa83Q9censUxVmhxihQS3PGlGIxxvn+2hMQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=uObNl2d2SiGKfQAUiAKEIjUwP4GukueS8gXoj+ArYQ38XEevH3eLly3Yphu1FT3T/
-	 5nzebHCZQVwupekJ36MQ8eU/G1tRblvuo/jGwU8BYo8qpVi+JuKUAlEGKQID//BSzO
-	 eskVlgX63KW95dhD70m5c0IMBeVKo1/WEmDuyg67jySelzPmg4Qy5L8UzAuTT85I+7
-	 bOnOQr5FWPkM3htSMAxeD1SmwP+xkT51skIQC3OUrNAKhaSFlahnu/9hMhNovGoOPn
-	 GpgAS+yE+bVRJJjUlee1Hst6v0DJKrhIPvl+74Dwu/OvBnqJ0OFw04lH/WXIUxGER8
-	 0qf+Fp9fS4xlg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 96094C61DD6;
-	Wed,  2 Sep 2026 23:30:51 +0000 (UTC)
-From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
-Date: Wed, 02 Sep 2026 16:30:47 -0700
-Subject: [PATCH 1/3] mm: hugetlb: Track used_hpages when getting/putting
- pages from subpool
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i1+CgPYJ"
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-38de693676dso1017475a91.0
+        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 16:35:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788392123; x=1788996923; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AhxmtI32HeN59PYea0qLMDve3O4zMl3qKBe7Lg9m4z0=;
+        b=i1+CgPYJ9MTaoANCKUiyMGxPX9KWLNytH1An1H3wj4hmZjVoe+habo5ZzuDjav7HTU
+         iJgnyJJNG3+gG9QAwe+H/2Cio6fW7ouznxPsMV1ih3wpUc5G3MF2tncyp/vul/CEVuhZ
+         wXAEUB9344eHQayYDQyh5o7TZRqqW4lX9SNKT3Ea+4dYbsHN0rXcDmBs2UWe9t2wI6DB
+         l+nimdoEz8CkBHJWyJxkdFqepcA6qhLEdFJcAq4EKG8JPk0GqpzpFpiA8TSQ28Z0F3C9
+         wIYYngwVfz7kcsQYaOt+SP+nuurqrO45LvDIqoq/wAS6q5tL2aDWhUd0oguGAxCUw7HM
+         12Jw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788392123; x=1788996923;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AhxmtI32HeN59PYea0qLMDve3O4zMl3qKBe7Lg9m4z0=;
+        b=SV65wOCkeA5qNwbt8NpB+iUMG0aSwWb9l5ZbG/PGVQdczZ71S6fvtyrdyJxxM8/9kC
+         /5WNa4BJgI/s6C5TtOTsdAh7qvpkNpg2f4HqDE1fm6iaRUur5bSQV/7bQsd4tkbfkFEx
+         ppFc4s+8B7A2kXjGYauGCU66mnQyhiFq3fp9nE9zaSIpodUbDG3ZUzepweQB1tf6HrRu
+         z9hnYBFoSPsgp+e0Z36gHfyZfdXkyeRR52ABySc7H5RGEgyKwC4hr3B5f1ulrcLWC/zk
+         70EsZBwroIon+hBWQsVXnU0n9Hf4QLSBgiSWy2rwFwNJYQ4BshD30asxsxSt2Ec0n65i
+         SVsg==
+X-Forwarded-Encrypted: i=1; AKwUvBwt5cxitjvtZOnOpUs0Y4TK7Ws2h8e4XD58SEPg3zSzMu/BeVhgyHB2o8tw5qXAU4nc2D2b93wjgZ3gi3c=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+to/guFPH39mUzEFDWG+/1kQR0rZ90fQ67V+I4uiZlfCNrA+x
+	KSnKkJH28XNMXMgWoO9uy/sJICvrhU/BhSytUhxOVcpgHLygWGks/dTb
+X-Gm-Gg: AYBFou1N1gLnh9i2rpPHgw4vKUoJiUUcm/6ROvo8cjr59Onl9o4YwYSx3fZDa4Wvx/i
+	8LzPtunUWIUjX5uAYmzghq2cBWzHlAig+Uyx1XkjybW4LNRUlgFOqdDXrZvOn5ftWK5f0ROAxkS
+	8x2NGGQQaOCPHVIfguPRoNoy71tqDNabrqfUcXBh/w3mDu/L8xxRBZWchZOnpGf/0/2Zq/R9E/O
+	TIkpqpYHYsTqJ5nlwIyCkl7tZQ6fjkTcdTqnFrlmBpCCktd+DNghOcZB9fIU8h+vwBnhPGt/fTZ
+	3JUV2TXyHV4Xz94XcM+pjxFNS9oFaNpL4zu33UtUu3vilLRcM4V7tIgKN3ppNoF6SVuUDxf22+X
+	ZopTh7lx88RDc9W9NO+9cX8AN5wQTolEtms0NaMktZH7ET0QqFv9HLHoMDeJS5KW0NwyiLRyeBY
+	Ao2WhaoPUbL1meucebcvs0im6KLjNFX/apV8jSSHd+f1vQK6O/m4aihAePzrOB4PRzvkzplWsWL
+	7PJY/jREHp/6WaPCuSmn1aM9sbES38iVWhsbzfDlwbwosFgHEI4JUwdPfo5PnJ1uYQrz36r
+X-Received: by 2002:a17:90b:4a8e:b0:38e:4114:d8c7 with SMTP id 98e67ed59e1d1-39aedcfc81bmr12171133a91.0.1788392123330;
+        Wed, 02 Sep 2026 16:35:23 -0700 (PDT)
+Received: from samlap.tailb86931.ts.net (c-24-5-101-44.hsd1.ca.comcast.net. [24.5.101.44])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1431994fdd7sm1209199c88.10.2026.09.02.16.35.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 16:35:22 -0700 (PDT)
+From: Sudheendra Sampath <giveback4fun@gmail.com>
+To: alexandre.belloni@bootlin.com
+Cc: devicetree@vger.kernel.org,
+	skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	jkoolstra@xs4all.nl,
+	linux-kernel@vger.kernel.org,
+	linux-rtc@vger.kernel.org,
+	Sudheendra Sampath <giveback4fun@gmail.com>
+Subject: [PATCH] dt-bindings: maxim-ds1302: Convert to dt schema
+Date: Wed,  2 Sep 2026 16:35:49 -0700
+Message-ID: <20260902233550.947218-1-giveback4fun@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260902-hugetlb-subpool-always-track-used-v1-1-de1cd14bd713@google.com>
-References: <20260902-hugetlb-subpool-always-track-used-v1-0-de1cd14bd713@google.com>
-In-Reply-To: <20260902-hugetlb-subpool-always-track-used-v1-0-de1cd14bd713@google.com>
-To: Alex Shi <alexs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Dongliang Mu <dzm91@hust.edu.cn>, 
- Hongxiang Lou <louhongxiang@huawei.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Nhat Pham <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Peter Xu <peterx@redhat.com>, Randy Dunlap <rdunlap@infradead.org>, 
- Roman Gushchin <roman.gushchin@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Suren Baghdasaryan <surenb@google.com>, Usama Arif <usama.arif@linux.dev>, 
- Vlastimil Babka <vbabka@kernel.org>, Wupeng Ma <mawupeng1@huawei.com>, 
- Yanteng Si <si.yanteng@linux.dev>, fvdl@google.com, jthoughton@google.com, 
- rientjes@google.com, vannapurve@google.com
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-mm@kvack.org, Ackerley Tng <ackerleytng@google.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788391851; l=12003;
- i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
- bh=wbqSyhMI6dzMpDAelK9o12CP0bEKd0RZWUUuGXS5JZ8=;
- b=jEAb4yMSLDuGWrdYD9ZdQCoj7Wf/mmcrXgpyyl46iEvLdMe2w9MxyjEo1IvxRfUKZclWo6uOu
- 50YDMznEm8PBqq9IW+bKTWguaUCJm1bLZBWCwiXrDmPLjtL7arHO/73
-X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
- pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
-X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
- auth_id=649
-X-Original-From: Ackerley Tng <ackerleytng@google.com>
-Reply-To: ackerleytng@google.com
 
-From: Ackerley Tng <ackerleytng@google.com>
+Convert Maxim DS1302 real-time clock binding to DT schema.
 
-HugeTLB subpools currently only track used_hpages when the user
-configures a size limit.
-
-This is buggy since when there are existing allocations from the
-subpool that would have satisfied the minimum reservations,
-hugepage_subpool_put_pages() will still restore a reservation to the
-subpool. See below for an example of a false reservation.
-
-In addition, the subpool is considered free prematurely, is freed, and
-this ends up causing a use-after-free.
-
-The fix is to always track used_hpages within subpools, which is also
-beneficial in general because with that information, reservation
-tracking is also fully managed within hugepage_subpool_put_pages().
-
-The subpool always knows how many pages were allocated through it. Every
-page allocated through the subpool increments used_hpages, regardless of
-whether a reservation was taken from it.
-
-Conceptually, now, every allocation involving a subpool uses a page from
-the subpool, which must be returned to the subpool. Every page taken from
-the subpool tries to use a subpool reservation. Restoring a page to the
-subpool reservations only if the page was taken from subpool
-reservations. (If used_hpages >= min_hpages, the page must have not have
-been taken from the reservations.)
-
-Always tracking used_hpages provides the subpool with information of both
-used and reserved counts to make the correct decision for both max_size and
-min_size correctly.
-
-With used_hpages always tracked, subpool_is_free() can be simplified, such
-that the subpool can be declared free if there are no more pages in use.
-
-Also update the
-
-+ Documentation for used_hpages in the subpool struct, since it no longer
-  matters whether the used pages count against the maximum.
-+ Docstring for hugepage_subpool_{get,put}_pages
-+ Documentation to use active voice, and remove some details in favor of
-  having details documented in the docstring
-
-Also update statfs reporting. Previously, if max_hpages is negative,
-used_hpages is static at 0, so returning max_hpages - used_hpages returns
--1 and is always correct. Now, if the subpool doesn't have a maximum
-requested size, indicate no limit for free pages (-1). If it does have a
-maximum size, report the difference between the requested size and the
-number of used pages. This difference is always positive, because if the
-mount does have a maximum size, hugepage_subpool_get_pages() ensures that
-the subpool usage never exceeds the maximum.
-
-Fixes: 1c5ecae3a93fa ("hugetlbfs: add minimum size accounting to subpools")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ackerley Tng <ackerleytng@google.com>
+Signed-off-by: Sudheendra Sampath <giveback4fun@gmail.com>
 ---
- Documentation/mm/hugetlbfs_reserv.rst              | 17 +----
- .../translations/zh_CN/mm/hugetlbfs_reserv.rst     | 11 +---
- fs/hugetlbfs/inode.c                               |  8 ++-
- include/linux/hugetlb.h                            |  4 +-
- mm/hugetlb.c                                       | 73 +++++++++++++---------
- 5 files changed, 55 insertions(+), 58 deletions(-)
+ .../devicetree/bindings/rtc/maxim-ds1302.txt  | 46 -----------
+ .../devicetree/bindings/rtc/maxim-ds1302.yaml | 81 +++++++++++++++++++
+ 2 files changed, 81 insertions(+), 46 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/rtc/maxim-ds1302.txt
+ create mode 100644 Documentation/devicetree/bindings/rtc/maxim-ds1302.yaml
 
-diff --git a/Documentation/mm/hugetlbfs_reserv.rst b/Documentation/mm/hugetlbfs_reserv.rst
-index a49115db18c76..d244583fdcbc3 100644
---- a/Documentation/mm/hugetlbfs_reserv.rst
-+++ b/Documentation/mm/hugetlbfs_reserv.rst
-@@ -314,21 +314,8 @@ huge pages.  If they can not be reserved, the mount fails.
- The routines hugepage_subpool_get/put_pages() are called when pages are
- obtained from or released back to a subpool.  They perform all subpool
- accounting, and track any reservations associated with the subpool.
--hugepage_subpool_get/put_pages are passed the number of huge pages by which
--to adjust the subpool 'used page' count (down for get, up for put).  Normally,
--they return the same value that was passed or an error if not enough pages
--exist in the subpool.
+diff --git a/Documentation/devicetree/bindings/rtc/maxim-ds1302.txt b/Documentation/devicetree/bindings/rtc/maxim-ds1302.txt
+deleted file mode 100644
+index ba470c56cdec..000000000000
+--- a/Documentation/devicetree/bindings/rtc/maxim-ds1302.txt
++++ /dev/null
+@@ -1,46 +0,0 @@
+-* Maxim/Dallas Semiconductor DS-1302 RTC
 -
--However, if reserves are associated with the subpool a return value less
--than the passed value may be returned.  This return value indicates the
--number of additional global pool adjustments which must be made.  For example,
--suppose a subpool contains 3 reserved huge pages and someone asks for 5.
--The 3 reserved pages associated with the subpool can be used to satisfy part
--of the request.  But, 2 pages must be obtained from the global pools.  To
--relay this information to the caller, the value 2 is returned.  The caller
--is then responsible for attempting to obtain the additional two pages from
--the global pools.
+-Simple device which could be used to store date/time between reboots.
 -
-+hugepage_subpool_get/put_pages() use the number of huge pages passed to adjust
-+the subpool 'used page' count.
- 
- COW and Reservations
- ====================
-diff --git a/Documentation/translations/zh_CN/mm/hugetlbfs_reserv.rst b/Documentation/translations/zh_CN/mm/hugetlbfs_reserv.rst
-index 20947f8bd0654..ae1f1f31477fc 100644
---- a/Documentation/translations/zh_CN/mm/hugetlbfs_reserv.rst
-+++ b/Documentation/translations/zh_CN/mm/hugetlbfs_reserv.rst
-@@ -246,15 +246,8 @@ hugepage_subpool的min_hpages字段中被跟踪。在挂载时，hugetlb_acct_me
- 被调用以预留指定数量的巨页。如果它们不能被预留，挂载就会失败。
- 
- 当从子池中获取或释放页面时，会调用hugepage_subpool_get/put_pages()函数。
--hugepage_subpool_get/put_pages被传递给巨页数量，以此来调整子池的 “已用页面” 计数
--（get为下降，put为上升）。通常情况下，如果子池中没有足够的页面，它们会返回与传递的相同的值或
--一个错误。
+-The device uses the standard MicroWire half-duplex transfer timing.
+-Master output is set on low clock and sensed by the RTC on the rising
+-edge. Master input is set by the RTC on the trailing edge and is sensed
+-by the master on low clock.
 -
--然而，如果预留与子池相关联，可能会返回一个小于传递值的返回值。这个返回值表示必须进行的额外全局
--池调整的数量。例如，假设一个子池包含3个预留的巨页，有人要求5个。与子池相关的3个预留页可以用来
--满足部分请求。但是，必须从全局池中获得2个页面。为了向调用者转达这一信息，将返回值2。然后，调用
--者要负责从全局池中获取另外两个页面。
+-Required properties:
 -
-+它们负责所有子池的统计核算，并跟踪与子池相关联的预留。
-+hugepage_subpool_get/put_pages()函数使用传入的巨页数量来调整子池的“已用页面”计数。
- 
- COW和预留
- ==========
-diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
-index 7611a8470ea26..5113f743f6fc7 100644
---- a/fs/hugetlbfs/inode.c
-+++ b/fs/hugetlbfs/inode.c
-@@ -1109,8 +1109,12 @@ static int hugetlbfs_statfs(struct dentry *dentry, struct kstatfs *buf)
- 
- 			spin_lock_irq(&sbinfo->spool->lock);
- 			buf->f_blocks = sbinfo->spool->max_hpages;
--			free_pages = sbinfo->spool->max_hpages
--				- sbinfo->spool->used_hpages;
-+			if (sbinfo->spool->max_hpages == -1) {
-+				free_pages = -1;
-+			} else {
-+				free_pages = sbinfo->spool->max_hpages -
-+					     sbinfo->spool->used_hpages;
-+			}
- 			buf->f_bavail = buf->f_bfree = free_pages;
- 			spin_unlock_irq(&sbinfo->spool->lock);
- 			buf->f_files = sbinfo->max_inodes;
-diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
-index 16c4c4caa126c..4551ff3023640 100644
---- a/include/linux/hugetlb.h
-+++ b/include/linux/hugetlb.h
-@@ -39,8 +39,8 @@ struct hugepage_subpool {
- 	spinlock_t lock;
- 	long count;
- 	long max_hpages;	/* Maximum huge pages or -1 if no maximum. */
--	long used_hpages;	/* Used count against maximum, includes */
--				/* both allocated and reserved pages. */
-+	long used_hpages;	/* Used page count, includes both */
-+				/* allocated and reserved pages. */
- 	struct hstate *hstate;
- 	long min_hpages;	/* Minimum huge pages or -1 if no minimum. */
- 	long rsv_hpages;	/* Pages reserved against global pool to */
-diff --git a/mm/hugetlb.c b/mm/hugetlb.c
-index 7857728457952..66b6601abb069 100644
---- a/mm/hugetlb.c
-+++ b/mm/hugetlb.c
-@@ -130,12 +130,8 @@ static inline bool subpool_is_free(struct hugepage_subpool *spool)
- {
- 	if (spool->count)
- 		return false;
--	if (spool->max_hpages != -1)
--		return spool->used_hpages == 0;
--	if (spool->min_hpages != -1)
--		return spool->rsv_hpages == spool->min_hpages;
- 
--	return true;
-+	return spool->used_hpages == 0;
- }
- 
- static inline void unlock_or_release_subpool(struct hugepage_subpool *spool,
-@@ -193,13 +189,18 @@ void hugepage_put_subpool(struct hugepage_subpool *spool)
- 	unlock_or_release_subpool(spool, flags);
- }
- 
--/*
-- * Subpool accounting for allocating and reserving pages.
-- * Return -ENOMEM if there are not enough resources to satisfy the
-- * request.  Otherwise, return the number of pages by which the
-- * global pools must be adjusted (upward).  The returned value may
-- * only be different than the passed value (delta) in the case where
-- * a subpool minimum size must be maintained.
-+/**
-+ * hugepage_subpool_get_pages - Get pages from a subpool
-+ * @spool: pointer to subpool structure (may be NULL)
-+ * @delta: number of pages to allocate or reserve
-+ *
-+ * Check and update subpool page usage counts when allocating or
-+ * reserving @delta hugepages.
-+ *
-+ * Context: Takes spool->lock using spin_lock_irq().
-+ * Return: Non-negative number of reservations that cannot be
-+ *         satisfied by the subpool, or -ENOMEM if the subpool maximum
-+ *         limit would be exceeded.
-  */
- static long hugepage_subpool_get_pages(struct hugepage_subpool *spool,
- 				      long delta)
-@@ -211,15 +212,14 @@ static long hugepage_subpool_get_pages(struct hugepage_subpool *spool,
- 
- 	spin_lock_irq(&spool->lock);
- 
--	if (spool->max_hpages != -1) {		/* maximum size accounting */
--		if ((spool->used_hpages + delta) <= spool->max_hpages)
--			spool->used_hpages += delta;
--		else {
--			ret = -ENOMEM;
--			goto unlock_ret;
--		}
-+	if (spool->max_hpages != -1 &&
-+	    spool->used_hpages + delta > spool->max_hpages) {
-+		ret = -ENOMEM;
-+		goto unlock_ret;
- 	}
- 
-+	spool->used_hpages += delta;
+-- compatible : Should be "maxim,ds1302"
+-
+-Required SPI properties:
+-
+-- reg : Should be address of the device chip select within
+-  the controller.
+-
+-- spi-max-frequency : DS-1302 has 500 kHz if powered at 2.2V,
+-  and 2MHz if powered at 5V.
+-
+-- spi-3wire : The device has a shared signal IN/OUT line.
+-
+-- spi-lsb-first : DS-1302 requires least significant bit first
+-  transfers.
+-
+-- spi-cs-high: DS-1302 has active high chip select line. This is
+-  required unless inverted in hardware.
+-
+-Example:
+-
+-spi@901c {
+-	#address-cells = <1>;
+-	#size-cells = <0>;
+-	compatible = "icpdas,lp8841-spi-rtc";
+-	reg = <0x901c 0x1>;
+-
+-	rtc@0 {
+-		compatible = "maxim,ds1302";
+-		reg = <0>;
+-		spi-max-frequency = <500000>;
+-		spi-3wire;
+-		spi-lsb-first;
+-		spi-cs-high;
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/rtc/maxim-ds1302.yaml b/Documentation/devicetree/bindings/rtc/maxim-ds1302.yaml
+new file mode 100644
+index 000000000000..3e6264464e10
+--- /dev/null
++++ b/Documentation/devicetree/bindings/rtc/maxim-ds1302.yaml
+@@ -0,0 +1,81 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/rtc/maxim-ds1302.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- 	/* minimum size accounting */
- 	if (spool->min_hpages != -1 && spool->rsv_hpages) {
- 		if (delta > spool->rsv_hpages) {
-@@ -240,11 +240,19 @@ static long hugepage_subpool_get_pages(struct hugepage_subpool *spool,
- 	return ret;
- }
- 
--/*
-- * Subpool accounting for freeing and unreserving pages.
-- * Return the number of global page reservations that must be dropped.
-- * The return value may only be different than the passed value (delta)
-- * in the case where a subpool minimum size must be maintained.
-+/**
-+ * hugepage_subpool_put_pages - Release pages back to a subpool
-+ * @spool: pointer to subpool structure (may be NULL)
-+ * @delta: number of pages to free or unreserve
-+ *
-+ * Check and update subpool page usage counts when freeing or
-+ * unreserving @delta hugepages.
-+ *
-+ * Context: Takes spool->lock using spin_lock_irqsave(). May release
-+ *          and free @spool if its usage count and references reach
-+ *          zero.
-+ * Return: Non-negative number of reservations that the subpool cannot
-+ *         absorb.
-  */
- static long hugepage_subpool_put_pages(struct hugepage_subpool *spool,
- 				       long delta)
-@@ -257,19 +265,24 @@ static long hugepage_subpool_put_pages(struct hugepage_subpool *spool,
- 
- 	spin_lock_irqsave(&spool->lock, flags);
- 
--	if (spool->max_hpages != -1)		/* maximum size accounting */
--		spool->used_hpages -= delta;
-+	spool->used_hpages -= delta;
- 
- 	 /* minimum size accounting */
- 	if (spool->min_hpages != -1 && spool->used_hpages < spool->min_hpages) {
--		if (spool->rsv_hpages + delta <= spool->min_hpages)
-+		/*
-+		 * limit is the maximum number of reservations that
-+		 * can be restored to this subpool.
-+		 */
-+		long limit = spool->min_hpages - spool->used_hpages;
++title: Maxim/Dallas Semiconductor DS-1302 RTC
 +
-+		if (spool->rsv_hpages + delta <= limit)
- 			ret = 0;
- 		else
--			ret = spool->rsv_hpages + delta - spool->min_hpages;
-+			ret = spool->rsv_hpages + delta - limit;
- 
- 		spool->rsv_hpages += delta;
--		if (spool->rsv_hpages > spool->min_hpages)
--			spool->rsv_hpages = spool->min_hpages;
-+		if (spool->rsv_hpages > limit)
-+			spool->rsv_hpages = limit;
- 	}
- 
- 	/*
-
++maintainers:
++  - Alexandre Belloni <alexandre.belloni@bootlin.com>
++
++description: |
++  Simple device which could be used to store date/time between reboots.
++
++  The device uses the standard MicroWire half-duplex transfer timing.
++  Master output is set on low clock and sensed by the RTC on the rising
++  edge. Master input is set by the RTC on the trailing edge and is sensed
++  by the master on low clock.
++
++properties:
++  compatible:
++    items:
++      # Maxim DS1302 Real-time Clock
++      - const: maxim,ds1302
++
++  reg:
++    maxItems: 1
++
++  spi-max-frequency:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: Maximum SPI clocking speed in Hz.
++    enum:
++      - 500000
++      - 2000000
++
++  spi-3wire: true
++
++  spi-lsb-first: true
++
++  spi-cs-high: true
++
++required:
++  - compatible
++  - reg
++  - spi-max-frequency
++  - spi-3wire
++  - spi-lsb-first
++  - spi-cs-high
++
++additionalProperties: false
++
++examples:
++  - |
++    spi1 {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        rtc@0 {
++            compatible = "maxim,ds1302";
++            reg = <0>;
++            spi-max-frequency = <500000>;
++            spi-3wire;
++            spi-lsb-first;
++            spi-cs-high;
++        };
++    };
++
++  - |
++    spi2 {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        rtc@2000 {
++            compatible = "maxim,ds1302";
++            reg = <0x2000>;
++            spi-max-frequency = <2000000>;
++            spi-3wire;
++            spi-lsb-first;
++            spi-cs-high;
++        };
++    };
 -- 
-2.55.0.970.g62bdec98f9-goog
-
+2.47.3
 
