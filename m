@@ -1,66 +1,67 @@
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 116CC27727
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 00:19:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.200
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5800726982C
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 00:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788308353; cv=none; b=ahV6Lx1hpXPTW0jUAJMnfBXwEqTehAuL0CUAdqlU0gOoQrNjA9PvUunI5MVLoc8fBKbmHtjxlUykIr0NK93RIAf+Z5CjfgxY2QEw6pCeEdGyb4GjycoHMEh7/Ul4RCj+jChY9SObkXnpdKh12AVjmUFR7lXg5y613JaKDdyY6x0=
+	t=1788308409; cv=none; b=bb6C8QiI1N1zGZ0Jj8RXdsyg3TygSqwSGQ7K54l48izaN1UkxNcAG3BP5OfIjaF3vcNpqPEB/ald8cUZTZEvaLBH62iH4xr/3RAu8rKfPD57SxT8qc4YR5KOP8z3rLXxkdz6EaG2Y62FRtzNs/q/UmF1KOtvcGVtcjjJpvAzSlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788308353; c=relaxed/simple;
-	bh=ZVMCpHFjCC/1cFP2Dsvos5quhskBkFcAciEaJfo13tE=;
+	s=arc-20240116; t=1788308409; c=relaxed/simple;
+	bh=BXRcOixdMzXQLW85aUU4Wf/qtNPkoLSWJYkLfRBdgIw=;
 	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=GajjM6/I/Cm453UBuLA+8SQeKMA8OqD5YpLHhcHUiJuDBKnkL8QTJkFiPmM0AV8t7id5QmKJGZm2ytt5Y1cGZqJDfvCDquC0pPKokKcYmyR3N4v81OZXETi5FVtT23fZYZ4fFTIAWmfLgTxPSZ6TFmqaAkhWZUuyN+dyeZ5D+Ho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VWaYfswv; arc=none smtp.client-ip=209.85.210.200
+	 To:Cc:Content-Type; b=O4bu3aGwKTvQP3ORqqmmnY0Fh5F3c2sPRtI9PQHncevQ+41RzLplR+6HM2RangY9xTN/Zc/MKtNTHqKfxLPbSzUIAncewBXvgdne/wfp+126UsnIB0cKEfS6Bs9Ug6UrPHoucs/zPyp/EFKQKA6QTiMKjd13PrUOk1U3U+WPzmo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EGyIGDlg; arc=none smtp.client-ip=209.85.214.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VWaYfswv"
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-84e375d9736so370081b3a.2
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 17:19:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EGyIGDlg"
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d70d8839f0so4660705ad.0
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 17:20:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788308351; x=1788913151; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788308407; x=1788913207; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ww1VJhw7gyphCHZq2wYpc50Hd6JBKjSP79u0OfvtMeM=;
-        b=VWaYfswvhPIbPzGaqgho3BljY8HaChzcpktLqArJS1K9FqsrH3kD5I7eN3JfWkOi+L
-         yQMdjt0kjK0gjG70Su7og5AENuDaQ4ZpMLNqzHkyRFU2Az1+ClaAEfU03isM7vnzjhLx
-         yS7cofarFZtzosokYR2PqyC4k9vg3+Onr+xrrIGxL5u7GESBdbmOnNJmYcM1VOpKAw0g
-         SvU9aPxuZ5xGMnWfsKfIy0fRs/yfbGXNvcly6QEftp7bjJ2fwCrkoY004Zj/T73fCEVW
-         lhSIm9KK4TsLafZcig5hBx+8CK08ye0bRSlMjKmh6TpQ33QzjqrmK17wOpE6NhCFb7aC
-         o4Ng==
+        bh=BSeD0zkw5d62oYTgpl5Wd4yc4wNF2jb8Exvm2SVVImE=;
+        b=EGyIGDlgDWZrrSLSvNuT/1WXenJlnWO5SjMinOZ8UbwqKh01OpqSgOrgeJ5Tlqt/Jo
+         t/gTxRsVi6C4GGTDumBLIg+LC7MSbRYijzaYmB6sYehrhASarUYnQHVvhMf2k1Z96+zY
+         jH3zGfhrwB34nraqZszxU5Zw6lchIL+WturKcKbzioZdWI7qU8eF4AQI3X83aGOb60jC
+         2XbhzHfnuSUpV4OcjH67MTaubQ4jXl119tB05S6lHicEjLfTQCmlrCHdGowuxaDDKWnl
+         x0L9hMhhTkqanqO4gWlwnRwxfw0wbgNE3bSRRdyxXIZMIThivqJ/LP0K5pLaE5Y7q6u9
+         PvVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788308351; x=1788913151;
+        d=1e100.net; s=20251104; t=1788308407; x=1788913207;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ww1VJhw7gyphCHZq2wYpc50Hd6JBKjSP79u0OfvtMeM=;
-        b=fuxcKvpJrydxEsk6i5n77RlQ7nvelWRirwJSqeAgkZL1GyZu5RaQtpnDaHWNAUt/y2
-         7/hCwcQryUyzkqkenaRvlXHVhFz8a3fGSwJUPn2bgp20IKPoKOjqAet+8JGZXJvVy4qP
-         EMcITXEwYNTH5g7ehzh64Fg0XU+1Tsbpsnpj1uDma4VhOHbNTZfwgOEijL4CsphZieZZ
-         mPNyMq2flcsettGikzHvOTDN8iIggPjCTrX6/m6qMxfnxWG4hbhtPNjuVM4B+xEL72JX
-         3PSXz115phkCKrD3n+FLHs3IppfpyDby7HCOtjeF7AGyOAub09I0Y49Pmoea0tgNBDVR
-         1MGA==
-X-Forwarded-Encrypted: i=1; AHgh+RpoVYYjNDtzKDjixIzVxLH2nQQZIu4vYiEbbN+GkaAAgxCAjK/p5EI+43cJwLAvH1XJ53MhOBdyyaTJue4=@vger.kernel.org
-X-Gm-Message-State: AFuF++kyPhaNPf9zq/ydiv6FG5EU8urzX3WE8Z4gtNGaPA/pTVIaSnf2
-	I1k6EvI2R82jQPJ64zVvwrY3LnKT9ypfzqShvHNpuHrHZM4OATJtRiyAjN+2Vj4GNw8V1gKkdx3
-	tVNewqQ==
-X-Received: from pgct15.prod.google.com ([2002:a05:6a02:528f:b0:cc1:c07e:b53c])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a21:6004:b0:3d3:adbf:777f
- with SMTP id adf61e73a8af0-3d9afafc376mr1486082637.20.1788308351228; Tue, 01
- Sep 2026 17:19:11 -0700 (PDT)
-Date: Tue, 1 Sep 2026 17:19:10 -0700
-In-Reply-To: <20260730110524.2539316-2-ewanhai-oc@zhaoxin.com>
+        bh=BSeD0zkw5d62oYTgpl5Wd4yc4wNF2jb8Exvm2SVVImE=;
+        b=XlcUbO+KMzMbTxH7/80lNZHwM+lT9SXPfnfosirt8+JAV0WMDMN+xdfzNjNQfKhr8L
+         aKyYcFkiE82CcItYvRa3sFN3a2osRfQk7ZVDF4c4zq7btFsnXMDxMl8oMeO8qPTEQBjR
+         sQ+OCob0QvzO1RAedHhur9Vkdq12JXvmIQG85KS/pRqV05+u9IQzURYfBJwWjVFaoaSA
+         76PUv5ePQpn9GcvNs7nDZiU9rlMZQHCwvQSwY+J4OV8B9tCARUAEPSn1Ry3sVo0nDNt0
+         J5lUkLeRrwhDauqezlxCtyWllgd4+KY0fR+i3a8JcrZHZmO1TMfJK+IeeClNDHP+1fAi
+         duLg==
+X-Forwarded-Encrypted: i=1; AKwUvBw2htIyt5Z3DuFkeGelEJU9jKoGcHo9KbzhY+vLI2+yS4wCkYPwctARZAoTCDUwfFPOoeWrzggb/iK99Yc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mnP/OAcVPI68gUNoAmTLlfk5mhCyGhuseeUjB/5/VH+vXDW3p+
+	R1rTyXoLUI7XqusGspysZIafKeegAc9nz0n6ZVVgcrpzhezm2jnDcm3xDKImCPvq5UAUrCNYpT1
+	3nJUe5A==
+X-Received: from pgco28.prod.google.com ([2002:a63:731c:0:b0:cbe:dc75:c58e])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e787:b0:2d9:4358:73ab
+ with SMTP id d9443c01a7336-2daec775fd0mr16568335ad.19.1788308407429; Tue, 01
+ Sep 2026 17:20:07 -0700 (PDT)
+Date: Tue, 1 Sep 2026 17:20:06 -0700
+In-Reply-To: <20260730110524.2539316-8-ewanhai-oc@zhaoxin.com>
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 Mime-Version: 1.0
-References: <20260730110524.2539316-1-ewanhai-oc@zhaoxin.com> <20260730110524.2539316-2-ewanhai-oc@zhaoxin.com>
-Message-ID: <apdrfkO8ALRz59yl@google.com>
-Subject: Re: [PATCH 1/8] KVM: selftests: Add Zhaoxin (ZX) CPU detection support
+References: <20260730110524.2539316-1-ewanhai-oc@zhaoxin.com> <20260730110524.2539316-8-ewanhai-oc@zhaoxin.com>
+Message-ID: <apdrtnMGJN7K0wRa@google.com>
+Subject: Re: [PATCH 7/8] KVM: selftests: nested_exceptions_test: Add Zhaoxin
+ CPU support
 From: Sean Christopherson <seanjc@google.com>
 To: Ewan Hai-oc <ewanhai-oc@zhaoxin.com>
 Cc: Paolo Bonzini <pbonzini@redhat.com>, Shuah Khan <shuah@kernel.org>, 
@@ -71,31 +72,42 @@ Content-Type: text/plain; charset="us-ascii"
 On Thu, Jul 30, 2026, Ewan Hai-oc wrote:
 > From: Frank Zhu <frankzhu@zhaoxin.com>
 > 
-> Add infrastructure to detect Zhaoxin CPUs in KVM selftests. Zhaoxin
-> CPUs use vendor strings "CentaurHauls" or "  Shanghai  " and implement
-> VMX-compatible virtualization technology.
+> In the test, the ERROR_CODE_EXT_FLAG bit should not be set in the #GP
+> error code on Zhaoxin CPUs.
+
+Why not?
+
+> Add GP_ERROR_CODE_ZX and use it when > running on Zhaoxin hardware.
 > 
 > Signed-off-by: Frank Zhu <frankzhu@zhaoxin.com>
 > Signed-off-by: Ewan Hai <ewanhai-oc@zhaoxin.com>
 > ---
->  tools/testing/selftests/kvm/include/x86/processor.h | 7 +++++++
->  tools/testing/selftests/kvm/lib/x86/processor.c     | 3 +++
->  2 files changed, 10 insertions(+)
+>  tools/testing/selftests/kvm/x86/nested_exceptions_test.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> diff --git a/tools/testing/selftests/kvm/include/x86/processor.h b/tools/testing/selftests/kvm/include/x86/processor.h
-> index b161174ece45..9840b583877c 100644
-> --- a/tools/testing/selftests/kvm/include/x86/processor.h
-> +++ b/tools/testing/selftests/kvm/include/x86/processor.h
-> @@ -23,6 +23,7 @@ extern bool host_cpu_is_intel;
->  extern bool host_cpu_is_amd;
->  extern bool host_cpu_is_hygon;
->  extern bool host_cpu_is_amd_compatible;
-> +extern bool host_cpu_is_zx;
-
-Please spell out "zhaoxin", "zx" isn't intuitive for most of us (I keep thinking
-it's a compression feature).
-
-And do the same thing we did in commit 53b2869231d3 ("KVM: selftests: Add a flag
-to identify AMD compatible test cases"), and add host_cpu_is_intel_compatible.
-That should cut down on the number of checks on is_zhaoxin, and should help avoid
-issues like the ones Sashiko pointed out.
+> diff --git a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c b/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
+> index aeec3121c8e8..bacbbdc5dc69 100644
+> --- a/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
+> +++ b/tools/testing/selftests/kvm/x86/nested_exceptions_test.c
+> @@ -38,6 +38,7 @@
+>   */
+>  #define GP_ERROR_CODE_AMD ((SS_VECTOR * 8) | ERROR_CODE_IDT_FLAG)
+>  #define GP_ERROR_CODE_INTEL ((SS_VECTOR * 8) | ERROR_CODE_IDT_FLAG | ERROR_CODE_EXT_FLAG)
+> +#define GP_ERROR_CODE_ZX ((SS_VECTOR * 8) | ERROR_CODE_IDT_FLAG)
+>  
+>  /*
+>   * Intel and AMD both shove '0' into the error code on #DF, regardless of what
+> @@ -139,7 +140,8 @@ static void l1_vmx_code(struct vmx_pages *vmx)
+>  	 */
+>  	GUEST_ASSERT_EQ(vmwrite(EXCEPTION_BITMAP, INTERCEPT_SS_GP_DF), 0);
+>  	vmx_run_l2(l2_ss_pending_test, SS_VECTOR, (u16)SS_ERROR_CODE);
+> -	vmx_run_l2(l2_ss_injected_gp_test, GP_VECTOR, GP_ERROR_CODE_INTEL);
+> +	vmx_run_l2(l2_ss_injected_gp_test, GP_VECTOR,
+> +		   host_cpu_is_zx ? GP_ERROR_CODE_ZX : GP_ERROR_CODE_INTEL);
+>  
+>  	GUEST_ASSERT_EQ(vmwrite(EXCEPTION_BITMAP, INTERCEPT_SS_DF), 0);
+>  	vmx_run_l2(l2_ss_injected_df_test, DF_VECTOR, DF_ERROR_CODE);
+> -- 
+> 2.34.1
+> 
+> 
