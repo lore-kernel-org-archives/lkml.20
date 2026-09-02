@@ -1,63 +1,63 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11A8E3290C8
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:29:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23E63403F5
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 03:29:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788319783; cv=none; b=PylHyttHUIUHHubcz6Zhd9JCk24OAxFGXAq5TTYuf3exycuB5dhYjgNSeGTgyqzH4r7O4PbkYu907Td0Rg5dymWbGcYq0JUNJ4KvZ8w9ecizoph2ZHUISu6E0vi0o0bm1k/ycUYAzcYwInhuVFSjobDxGwWIJsZaekecIjKzotI=
+	t=1788319793; cv=none; b=uBHdZX/rfWL2HvUYKQLNA9STxcGTyCe5T7/64mvNAyKpIla6ytR7p+WfgyLmtnF4cu6fnBlbdyZR4ZQN4mU984PAwPHCldZF7WhCqcDL2XaAlzYt7YQosYDFEy6Tyeyfcc3NwegQnC2Ndxh6DQWavDPonY+3mxVfkm9bXdD9msU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788319783; c=relaxed/simple;
-	bh=/1OZA9qEsYS5HsyLx/+pnRV1ACZsZhwQDFIpOl0PXqc=;
+	s=arc-20240116; t=1788319793; c=relaxed/simple;
+	bh=Lht9vEQqB/Fmoa+XWhe3Q4RkS7MTEfMin0qo5+ocxBE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ud/dCF2U5MajCegF/hoxlpZLmO8MJpQkv4XeajhE+5gFmaAPCMNqvi1DlljX/FvPvC6QI3XpbEy6DyPhr5fl+EYvVIp30BHwwfVfsPgOUGI3M4A2ensA8O3SpDlsaagD+ddBvXPM6UXiwoxH8jNpPawIWFtjIhEpg0vKDMiDggY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FQ05jFBk; arc=none smtp.client-ip=209.85.216.49
+	 MIME-Version; b=sOa9rPRZ7U+q0Q46I0BtP72qlheLG+22oDLAalDfsDW1UoS5HBlhn/5eyG9GDPtVSIE2/bKkhLv/4zyK6sHera0L8Lpmtm20lDEf7g6F1i7OH3I8Op69MZeBWsAYNUref1KiChcjJ8zuRc08T6UC5dhm2pFnlG9LijSfG83GfEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qyk0b5J+; arc=none smtp.client-ip=209.85.214.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FQ05jFBk"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38e041ea211so560183a91.0
-        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 20:29:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qyk0b5J+"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d71ae3455aso8491155ad.1
+        for <linux-kernel@vger.kernel.org>; Tue, 01 Sep 2026 20:29:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788319781; x=1788924581; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788319788; x=1788924588; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gZ0kKM6EGOh/iG6MobiDle5RWpCCg6ryEvbje4v46XU=;
-        b=FQ05jFBkohpHj2zKC+POaPKx5dUiQRkIUvy9XUpXSBa+o6jqOynHojFaQqelPOYGIJ
-         lEEeDh13zGA7orB80XMk/h6eM8s4uwf9ldT47mO75rnB6l96k/ebmlYYcgGKTE8bgEGO
-         LL7bflhZueo39UK9zPAehGordcGi2H5W7TuR5XjQOq+sjGOyS/Gc13h61N3DaJiZ/RVX
-         3i8g8mZxr9l/wXaKZfi/Wo+4ouqABVEiq7ARC3gIbdpGwXK+U8NQp0FQxJFCezll8SCa
-         tL5LvWVoL18WbBhHVkbb/Lj1pBolS/K4mGYYTeeQxRx1883fjgOe5ATxYClWdw6tMWGx
-         Xn8Q==
+        bh=U1ZdTa+YPG5R8JD3WrAQzRV0ImB3xHixQQQtd7zdN10=;
+        b=Qyk0b5J+UwYync67VZuSuN1+YqLigQvCOUYPsfG7iDZcSG/E7u819tmxdQ/3gCvjEY
+         Uv4EXRXlMNa/A92q7MT1BjOaqqyq2DvN3oV6m+vuwPEQDM1xSEv6k+a0FTH0iITemnu4
+         i/tKLc/xcKEjLzqiOW9gzqhXQDI0di5jeOzeqdUeaV3MOQspd/XC9QiRdJgfNDL3KKSY
+         YF7HIyeUMxWxq5U5jGQ5ITPkpYSpywHguXqCyvdnetG6Uf84BJR+VF4hY1p49MrTH5GV
+         4QmVC7dxNYz0K2s9OUHeZr4fmKkYmW+7J8ExAPP9JSG0GTVbU01K6+vmeRq++cz0me4x
+         mnPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788319781; x=1788924581;
+        d=1e100.net; s=20251104; t=1788319788; x=1788924588;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gZ0kKM6EGOh/iG6MobiDle5RWpCCg6ryEvbje4v46XU=;
-        b=erSOy+bE0BDj+VIJnUWe7q0jYCmxb+mjBO05XjDDL8yKhMUHoV028r90sZCj8wAKJZ
-         M2IECVAimC/llsDQ7ceADsa0guTC/e9vf8QypuofsZL4QdLeb6L6Izkp+lqU1oHnfCaF
-         ielgEHPgHcj5M1tpYb669IhkV6QvXNVSsEcrUVRPjbEKxcr6ho9Wh4DgTlDr8cdYhPSQ
-         9kVk+1kF49bLH+zniTeoKw/0xeSPgRwgV6A9HAAffBDjQvLVA3HPjirZsrUSQbqRGEoT
-         3NNtXzmzrjXRGPuLKb5i1lJ87NeVaxaPRlGSTxRYJWKbPeRnLhkulyj14rIA/YV8f77s
-         5vKA==
-X-Forwarded-Encrypted: i=1; AKwUvBzM0d13mJOuVvzuQyBokLNWEJtWkw+3T6UZJs8Oy6Gutstxliq1JRU62TNjcPwc88oP14C8SuhmY6dZKRU=@vger.kernel.org
-X-Gm-Message-State: AFuF++m5JcEBCF3cBXaqza/tN9LPMRSwCFMqgDDP2tUTJ71ygellkmd5
-	7Q2f4SP3Ki7CUNheV3LMKUpM7oPBoku2J0ij+CljP4d4a9iztq4thxhc
-X-Gm-Gg: AYBFou3OUULajYKGTfpZAfvMw7cdFN+LKdI5J91S1qOAh1IY1OBWcMTH8mWxRqBB88o
-	IG5mYDGiaCNmgAfz6o+BeSe1U8naKhvNeftC0PkzCJ5ZmzR3w2lsRWiBji0GQAqU2f0tdH1+eyZ
-	+0r7sL+C97Ri9D+1mDPL6d9/N4W0lV4vYfrK91ZdLC2CmN496AExPCvSBj181VAXlvNlxUMMMvq
-	5CtPFQCWuqKvIEehZO+2b8AE9SNgR/B2zeNRCzZ4hRNjJQ0TIzFp2sTnhILobmb6mcwsws5WJwl
-	uOElOlnSOKXUO02UvMJaTMdHE0dazwQ7NTZOYOY2WOpzq6YBpb231ekPjOsOLgPPBZxSi+j6y43
-	ndW/pLAgZHfoih/uFVqYi0YRQNquH2a5mWPQOo1QuELqk/8+v9PL9NM4zIkD2nmY0j9NN3bisi9
-	arClGSD+YTAXc+5y5gPAnEATwuY6fMArviHv16chU3xpGUl0rKFpQ=
-X-Received: by 2002:a17:90b:5606:b0:398:9be6:f996 with SMTP id 98e67ed59e1d1-39aee1115e0mr2822094a91.21.1788319781337;
-        Tue, 01 Sep 2026 20:29:41 -0700 (PDT)
+        bh=U1ZdTa+YPG5R8JD3WrAQzRV0ImB3xHixQQQtd7zdN10=;
+        b=pdjwdIzQqlGy+GC7qp2poG3xy/n0BQFZxc0Onu5Wc01CxNov0+Hv1Tu1GgMwhhilXb
+         SuJhJD2h/yc2JxNgw6f450QMjELUnpINpxh5z3UZQNr+yw2/1VZesGokFS1B+HzsX8i5
+         2HRcRwWcB5yM2V9yIQr120Beob0EZEhWFsqbl4+FhDjjspvyBkaym+JXzSM+cP91G/Ix
+         9Slf7mcwnZSX5RpAHncVrisdO4q0CnjQZ8lIawbsjCNOwFBxdosNB9uwjzod4L3Rf3uB
+         rZFxdnH1VQPTvleeA2qlQFYj4SA3y1BOzwX7EhJdFYArYfBI54+dut/OIspnMZCJ9H7j
+         e11Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rq1fJbpINaALyy7Y9lpPYeOgZzhUDzVCEyz747g2Z8eSNxMChimI1lSBaPoVSucyQNEbXIvR4RYbR8jTCc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lz0Ao50g00I3XG8jkz/U3wkYRVX28Lijllv7yAszyqPhUMiIvF
+	MADfG6fPcDgzmvfmlAzWxOGz4y4Lr22+PmbbkVZehRbY/zJS4Fn2c237
+X-Gm-Gg: AYBFou0QUbTTgHzAfV8/DewUCpvIUtho/WG6z+ioh5piK8T93STWuRhyN3sIsz4zzYV
+	cMOQT1luoLBTC8zvgrC8mtXLOX/58n1Dra2tsCZ2Gfb1IWJX71TEOSrxKRqPsHk2uZew1+YzqdT
+	iMnoZW9hfprgnrnhY4FYg8IVd6AqbAT22zgJoY9zvNI8rHkBF8EEjJa6pSh5zkd79CkrPHq/I83
+	HhwT5o9bbbjNrlg4GcQh4XdnFmHABHFfn5s0rtDyhrQjGkOybtrs8vPl550RuFoylt2wAmeOas9
+	LVqW8Yu8xZ/a9FO18PMn/dJJhDqa3T2tHK86igBPUYRe1p7q+MBdb4NxRIDi3Cl/Rvg/GzZCzF4
+	CAG4Jdu487pFIvMs7rCWqDfNfs/16jZu6n5QtwwLSkkLwCT1KUM4PK/iApdDAcpl9wKt2lZ7ww8
+	KYsR8aJhJhhx8NNUsKXba7xzqHIm2UYJbS4aJpDcj5
+X-Received: by 2002:a17:902:d482:b0:2d9:1dee:43db with SMTP id d9443c01a7336-2daec7368famr25186725ad.15.1788319788333;
+        Tue, 01 Sep 2026 20:29:48 -0700 (PDT)
 Received: from devobuntu.lan ([2600:6c5c:6b00:316::23])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f07baa594sm3099307eec.22.2026.09.01.20.29.39
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-32f07baa594sm3099307eec.22.2026.09.01.20.29.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 20:29:40 -0700 (PDT)
+        Tue, 01 Sep 2026 20:29:47 -0700 (PDT)
 From: Matt Vollrath <tactii@gmail.com>
 To: intel-wired-lan@lists.osuosl.org
 Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
@@ -71,9 +71,9 @@ Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
 	linux-kernel@vger.kernel.org,
 	Matt Vollrath <tactii@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH iwl-net 1/3] e1000e: fix Rx skb DMA map error sentinel
-Date: Tue,  1 Sep 2026 23:29:11 -0400
-Message-ID: <20260902032913.661570-2-tactii@gmail.com>
+Subject: [PATCH iwl-net 2/3] e1000e: fix ps_pages DMA map error sentinel
+Date: Tue,  1 Sep 2026 23:29:12 -0400
+Message-ID: <20260902032913.661570-3-tactii@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260902032913.661570-1-tactii@gmail.com>
 References: <20260902032913.661570-1-tactii@gmail.com>
@@ -85,59 +85,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Upon encountering a DMA_MAPPING_ERROR during skb allocation and mapping,
-the driver would leave DMA_MAPPING_ERROR in the buffer_info->dma field.
-This would lead several buffer_info->dma == 0 conditions down unwanted
-paths:
+While allocating packet-split buffer pages, a failed DMA mapping would
+leave DMA_MAPPING_ERROR in the ps_page->dma field.
 
-* In e1000_alloc_jumbo_rx_buffers(), it would not re-attempt the failed
-  mapping and instead write DMA_MAPPING_ERROR to the h/w descriptor on
-  the next allocation call. On cleaning or teardown it would attempt to
-  dma_unmap_page() DMA_MAPPING_ERROR. This case would only be
-  reachable at MTU > 1518 and page size > 16K.
-* In e1000_clean_rx_ring(), it would attempt to dma_unmap_page/single()
-  DMA_MAPPING_ERROR (unless cleaned by the jumbo path first). This case
-  would be reachable at any combination of MTU and page size.
+This would have two consequences:
+* The next attempt to allocate that buffer would write DMA_MAPPING_ERROR
+  to h/w if all pages are allocated. If the h/w uses that buffer and is
+  handling a frame large enough to touch the affected page, it would
+  cause a DMA fault and be dropped. The driver would then call
+  dma_unmap_page() on DMA_MAPPING_ERROR and unknowingly send the
+  uninitialized page up the stack as part of the frame payload.
+* On ring teardown, dma_unmap_page() would be called on
+  DMA_MAPPING_ERROR.
 
-Use buffer_info->dma = 0 as the sentinel for "DMA is not mapped." Set it
-immediately upon detecting the failure.
+This condition is only reachable when MTU > 1500 and PAGE_SIZE <= 16K.
+
+Fix this by setting ps_page->dma = 0 upon mapping failure and separately
+testing ->page and ->dma during allocation and teardown.
+
+The rewrite of the ps_pages section of e1000_clean_rx_ring was necessary
+to recognize the case of a mapped page without a valid DMA mapping. It
+also fixes a separate bug which would potentially leak pages on ring
+teardown. The cleaner stops cleaning pages when h/w reported that it did
+not write to a page in the sequence, leaving the following pages
+allocated and mapped. The teardown would then break early and leak the
+unused mapped pages. If the ring is re-allocated with similar
+configuration, it would reclaim those lost pages. This would only affect
+configurations with rx_ps_pages >= 2 (MTU > PAGE_SIZE) and the same
+condition of MTU > 1500 and PAGE_SIZE <= 16K.
 
 Signed-off-by: Matt Vollrath <tactii@gmail.com>
-Suggested-by: Jakub Kicinski <kuba@kernel.org>
+Assisted-by: Claude:claude-5-fable
 Fixes: bc7f75fa9788 ("[E1000E]: New pci-express e1000 driver (currently for ICH9 devices only)")
 Cc: stable@vger.kernel.org
 ---
- drivers/net/ethernet/intel/e1000e/netdev.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/net/ethernet/intel/e1000e/netdev.c | 19 ++++++++++++-------
+ 1 file changed, 12 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ethernet/intel/e1000e/netdev.c
-index 844f31ab37ad..26f45ee8c7e7 100644
+index 26f45ee8c7e7..063fc8cd2673 100644
 --- a/drivers/net/ethernet/intel/e1000e/netdev.c
 +++ b/drivers/net/ethernet/intel/e1000e/netdev.c
-@@ -691,6 +691,7 @@ static void e1000_alloc_rx_buffers(struct e1000_ring *rx_ring,
- 						  adapter->rx_buffer_len,
- 						  DMA_FROM_DEVICE);
- 		if (dma_mapping_error(&pdev->dev, buffer_info->dma)) {
-+			buffer_info->dma = 0;
- 			dev_err(&pdev->dev, "Rx DMA map failed\n");
- 			adapter->rx_dma_failed++;
- 			break;
-@@ -791,6 +792,7 @@ static void e1000_alloc_rx_buffers_ps(struct e1000_ring *rx_ring,
- 						  adapter->rx_ps_bsize0,
- 						  DMA_FROM_DEVICE);
- 		if (dma_mapping_error(&pdev->dev, buffer_info->dma)) {
-+			buffer_info->dma = 0;
- 			dev_err(&pdev->dev, "Rx DMA map failed\n");
- 			adapter->rx_dma_failed++;
- 			/* cleanup skb */
-@@ -877,6 +879,7 @@ static void e1000_alloc_jumbo_rx_buffers(struct e1000_ring *rx_ring,
- 							PAGE_SIZE,
- 							DMA_FROM_DEVICE);
- 			if (dma_mapping_error(&pdev->dev, buffer_info->dma)) {
-+				buffer_info->dma = 0;
- 				adapter->alloc_rx_buff_failed++;
- 				break;
- 			}
+@@ -759,12 +759,15 @@ static void e1000_alloc_rx_buffers_ps(struct e1000_ring *rx_ring,
+ 					adapter->alloc_rx_buff_failed++;
+ 					goto no_buffers;
+ 				}
++			}
++			if (!ps_page->dma) {
+ 				ps_page->dma = dma_map_page(&pdev->dev,
+ 							    ps_page->page,
+ 							    0, PAGE_SIZE,
+ 							    DMA_FROM_DEVICE);
+ 				if (dma_mapping_error(&pdev->dev,
+ 						      ps_page->dma)) {
++					ps_page->dma = 0;
+ 					dev_err(&adapter->pdev->dev,
+ 						"Rx DMA page map failed\n");
+ 					adapter->rx_dma_failed++;
+@@ -1722,13 +1725,15 @@ static void e1000_clean_rx_ring(struct e1000_ring *rx_ring)
+ 
+ 		for (j = 0; j < PS_PAGE_BUFFERS; j++) {
+ 			ps_page = &buffer_info->ps_pages[j];
+-			if (!ps_page->page)
+-				break;
+-			dma_unmap_page(&pdev->dev, ps_page->dma, PAGE_SIZE,
+-				       DMA_FROM_DEVICE);
+-			ps_page->dma = 0;
+-			put_page(ps_page->page);
+-			ps_page->page = NULL;
++			if (ps_page->dma) {
++				dma_unmap_page(&pdev->dev, ps_page->dma,
++					       PAGE_SIZE, DMA_FROM_DEVICE);
++				ps_page->dma = 0;
++			}
++			if (ps_page->page) {
++				put_page(ps_page->page);
++				ps_page->page = NULL;
++			}
+ 		}
+ 	}
+ 
 -- 
 2.43.0
 
