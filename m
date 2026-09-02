@@ -1,126 +1,104 @@
-Received: from mail-oa2-f1.google.com (mail-oa2-f1.google.com [74.125.231.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FBBD472092
-	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:33:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4520B4AA3E7
+	for <linux-kernel@vger.kernel.org>; Wed,  2 Sep 2026 16:33:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788366813; cv=none; b=pA4TLy8nZ5Bn+Ti4ArrNA04k2LM2ufFO4BQ+OCV1vQOd5FNNm6k2NB/4CfQK611QHPdzU95niIwGjeC0m7r10r+/qDCZd9QIEAsSizsYX1Mfnzfef88Wrv2aa7PydyPpwXgNagoBIk1zu+0+JxAylGZ2yucsOAVHRB92Q7nYTEs=
+	t=1788366835; cv=none; b=tcUppvYolgp44c/JftoaIs3Mo5yi9iQG/xmgKHc+2POL75zOQblMB1kP+hYIyV3mjh5QYaiON3FKOoX27up+JcKZ6RK7hkhfTspK3uUS7/1UpD2HtQDLrLx5WIIHr8L8xL6A6TdK5W56Bxf0/S5BrCK20H+H158tMeGn/gH8h0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788366813; c=relaxed/simple;
-	bh=MkkTiAfIa+S9u79RbxCV3aOQkSt/YQ+M7pZsqqSd4b4=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=q8tkbG9Dm3e8+8h3ag0+g2FywKyUhhtZx201T0ixP1Sbh0NLFG5LMr9AHvMM/qNGGjswL4vwt7y7o69zDrLKBug0qtAoEgc5vPEJNwuUgATPozs+Gnb+YIAXUKIgadZP0PLofKmsiNdUeMC9gOboU5QmmWOBmDKBkELNPat42XI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa2-f1.google.com with SMTP id 586e51a60fabf-448a12ddfb4so538182fac.1
-        for <linux-kernel@vger.kernel.org>; Wed, 02 Sep 2026 09:33:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788366811; x=1788971611;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YUicN5rnINFHNGdnOsZGp7jfpCrpIV80y457DhVxQPM=;
-        b=BipRztcksOUC7UiKxz30j2aJSt7AZiOx+Y2CMdrn1Yb9uKZz7qk5DnuOCta/Zc/opA
-         tHjZtaGYAxMZGNIz/NzgAqdevf4MUOLzM4uOjALWaZk/pqHxRzedhA4U20dpOh8Yf+Ce
-         ho3S/GKkr+cOlaXTAAXV6ltjNPs+cCUaEm6r2e3KNBKbQZ7ek30GRU8NmsrKdEbpW7ti
-         4PIJl4DF44AmZieay17EucarJBe9HU2+2HHm0KS44A/X7omPrFIjKS2Ob/GjTVQY0UvQ
-         avKE3zMc9XN+zlO2fDVRmytuwjGZaOkMd1bisfcn4BaChLshzsukr+4IR1iGxCzp/OCi
-         6e6g==
-X-Forwarded-Encrypted: i=1; AHgh+RoR0UIb1Aqb7TEC+fi6XsfTOAG0t1KLgi428nwAs8tXu9wCjti3L4kP3hUt8YHYMwlQbIeN1VlbteRxp/k=@vger.kernel.org
-X-Gm-Message-State: AFuF++k27IGMxbrheWxsTYJ96MENrf/O4fatS/cgesSPpcq1xUHxprq8
-	Z96pdIT+Q8BM+MpobUOaz7dlwIIQTib5dZpJc/yn5i/+6wGw4sFNJLPyNyWn/2AnmrCd0hcBtWw
-	RIvhvGx0a4PzoVYXtJRSU+lMT3l+yTKvOSA1xfbeEpibDUFZA6xF+z+7TyGk=
+	s=arc-20240116; t=1788366835; c=relaxed/simple;
+	bh=n7WO5euM0MHGsYjXwZLuKg1Z/x+R6tW7YWBJLiYCRZU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sgEFF+50MYguXslDE9ukibs7pEMl/lNDNbmEHX/VNJ74bCjsSfntya/oa36occj2tXmt00KjKxeiLCHkdeHfjYBayHWn+kuV/hzhaTHJgS+46xaaLs/89gdfht/ADc7TXnVzZWhEmd4Mpjgpt6q0TTN/Xb1DWfdU+23JbDAL+wI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=pXt20nI0; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="pXt20nI0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1788366832;
+	bh=n7WO5euM0MHGsYjXwZLuKg1Z/x+R6tW7YWBJLiYCRZU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=pXt20nI0+057QVJuBKAP2I7WvsX1vADcch3E6/oUOPuO0gBvFKZKbfOeqQYA7rl5c
+	 wJgouLiwBf6++lA+6mnBl3oVbNW5yh1Na1dx7SZ2Pdrn95zATKkLxAv5Guv79aK2XB
+	 GytFq8vjnfrnphnCda1+Lh+HrlIM+AAvS7+VMctGgAmlbw0qULPQ+xxtFoA9yAQ4Xd
+	 2QCnQ+0h7Bh9q9Cv7qH7NbpFoJJWLfnRj5mregIwkEl+Kh84HiixQoYBx6oQeNykYn
+	 naB3uzEfPyfcWaBUBBOVLgXirDfH56r/t/Ir38nUOaX1TARScp1jxAErqk25FakGHL
+	 VBTEegqSWtarw==
+Received: from fedora-21.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id BA1B817E0DD8;
+	Wed, 02 Sep 2026 18:33:51 +0200 (CEST)
+Date: Wed, 2 Sep 2026 18:33:46 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: =?UTF-8?B?QWRyacOhbg==?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Faith Ekstrand
+ <faith.ekstrand@collabora.com>, "Marty E. Plummer"
+ <hanetzer@startmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>, Eric Anholt
+ <eric@anholt.net>, Alyssa Rosenzweig <alyssa.rosenzweig@collabora.com>,
+ Robin Murphy <robin.murphy@arm.com>, Philipp Zabel
+ <p.zabel@pengutronix.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Collabora Kernel Team <kernel@collabora.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v7 14/17] drm/panfrost: Avoid cache flush after perfcnt
+ sample in fully coherent systems
+Message-ID: <20260902183346.208eb43d@fedora-21.home>
+In-Reply-To: <aphEMSV5NGlldxBQ@sobremesa>
+References: <20260828-claude-fixes-v7-0-72a13b2c125d@collabora.com>
+	<20260828-claude-fixes-v7-14-72a13b2c125d@collabora.com>
+	<20260901153732.7c4def61@fedora-21.home>
+	<aphEMSV5NGlldxBQ@sobremesa>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1c9d:b0:6b1:7ee2:da31 with SMTP id
- 006d021491bc7-6b47f51cb13mr3937048eaf.11.1788366810974; Wed, 02 Sep 2026
- 09:33:30 -0700 (PDT)
-Date: Wed, 02 Sep 2026 09:33:30 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a984fda.27a413cd.1e878c.000a.GAE@google.com>
-Subject: [syzbot] [autofs?] memory leak in autofs_new_ino
-From: syzbot <syzbot+df1db6e034b3953e19f5@syzkaller.appspotmail.com>
-To: autofs@vger.kernel.org, linux-kernel@vger.kernel.org, raven@themaw.net, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Hello,
+On Wed, 2 Sep 2026 16:44:24 +0100
+Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
 
-syzbot found the following issue on:
+> On 01.09.2026 15:37, Boris Brezillon wrote:
+> > On Fri, 28 Aug 2026 21:56:54 +0100
+> > Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com> wrote:
+> >  =20
+> > > If the GPU and CPU are fully coherent, then there's no need to flush =
+the
+> > > GPU caches after a perfcnt sample is made available.
+> > >=20
+> > > Signed-off-by: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+> > > ---
+> > >  drivers/gpu/drm/panfrost/panfrost_perfcnt.c | 5 ++++-
+> > >  1 file changed, 4 insertions(+), 1 deletion(-)
+> > >=20
+> > > diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gp=
+u/drm/panfrost/panfrost_perfcnt.c
+> > > index ffc77121070e..b3f71d7fd82a 100644
+> > > --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> > > +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
+> > > @@ -52,7 +52,10 @@ void panfrost_perfcnt_clean_cache_done(struct panf=
+rost_device *pfdev)
+> > > =20
+> > >  void panfrost_perfcnt_sample_done(struct panfrost_device *pfdev)
+> > >  {
+> > > -	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
+> > > +	if (pfdev->features.selected_coherency !=3D COHERENCY_ACE) =20
+> >=20
+> > I think ACE_LITE would allow us to skip the flush to, so =20
+>=20
+> I thought ACE_LITE means the GPU can snoop CPU caches but not the other w=
+ay round, so at the end of a
+> sample, we still have to flush GPU caches for the CPU to see counter data.
 
-HEAD commit:    8d3ae59288f1 Linux 7.2
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1784b6c6580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=11ad91fcc8fa7933
-dashboard link: https://syzkaller.appspot.com/bug?extid=df1db6e034b3953e19f5
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11dc9a25580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1670b949580000
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/735a458674ac/disk-8d3ae592.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/fbf50adb0745/vmlinux-8d3ae592.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/6effa5f7f690/bzImage-8d3ae592.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+df1db6e034b3953e19f5@syzkaller.appspotmail.com
-
-BUG: memory leak
-unreferenced object 0xffff8881146ebc00 (size 192):
-  comm "syz.0.20", pid 5969, jiffies 4294943196
-  hex dump (first 32 bytes):
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-  backtrace (crc 55e8e63e):
-    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
-    slab_post_alloc_hook mm/slub.c:4597 [inline]
-    slab_alloc_node mm/slub.c:4917 [inline]
-    __kmalloc_cache_noprof+0x356/0x440 mm/slub.c:5485
-    _kmalloc_noprof include/linux/slab.h:988 [inline]
-    _kzalloc_noprof include/linux/slab.h:1309 [inline]
-    autofs_new_ino+0x24/0x80 fs/autofs/inode.c:16
-    autofs_fill_super+0x66/0x1d0 fs/autofs/inode.c:321
-    vfs_get_super fs/super.c:1273 [inline]
-    get_tree_nodev+0x91/0xf0 fs/super.c:1292
-    autofs_get_tree+0xbc/0x120 fs/autofs/inode.c:378
-    vfs_get_tree+0x30/0x120 fs/super.c:1700
-    vfs_cmd_create+0x7d/0x120 fs/fsopen.c:231
-    vfs_fsconfig_locked fs/fsopen.c:295 [inline]
-    __do_sys_fsconfig+0x492/0x9e0 fs/fsopen.c:463
-    do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-    do_syscall_64+0xf8/0x610 arch/x86/entry/syscall_64.c:94
-    entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+You're absolutely right, sorry for the brainfart.
